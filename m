@@ -1,89 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.244
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624560;
-	b=gdxIv3xQ3DTMN3h0aEQ8WhKFQxVb+a35UGqIpas2aHgboSjoK+Luqqx8N2bHw0RFA9S5
-	 4Nu+NwlzKn+4MgNIq/VWqSfE1UueSbP92lL6bMtoi5JcCsl/ltv8qR+TLQfh6ZJbn9URQ
-	 rkG1DKiHsJEYKY7KjkX8GNMDU5vAL75Hfu69uiPMyj9maYPrYVSvDnnaERsZb9AIL7GsC
-	 WkBdiG8G6zCQAMM/X1+r8OOPuJFjeRqKQtHoyV73rKrziqaMfWFWKiFbjfs4B8YtlRyEX
-	 SqFoWLBeVDOSuR1CfE3XjBY1jUDy7KUYR2oqzdvxRTsxAJjj7rzbCJPfZtTY09Y+X3w==
+	t=1793624573;
+	b=ro89oiDt03rHvweq5zi4WBlmKvX4rBTqlxYOoHlXkeIQvuy2pORVVMMATbcA5VqPBYNT
+	 +m/IPrHQLIey95Wr+yqGvIM9HvgMVfrfG7LdGnqKA9L1CEV+luD8MYdIslTMKQQdBvBpE
+	 ZY8WO334Fm2XTr3CATViNRhzzPz1pGRwqcPgBr1Z8+pguSIhl9tvV3ifs/kXCObrpoym/
+	 vttiAxQd/hwcWCi3bod4KIEqpcJ/tj1XLlWB1BRnKz80s1rGXiPug6YmMxcOIbSfBilpw
+	 +xGjz9WpYRzSrVsuq9M6eqnDyqJbKeACDiJRzlqDIW9j2tDwQyyN8xYaOGc+rV7DckQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624560;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pIqMIl5P68FoJDPXapJtVaGLG35bqCOVpQoFQ2sppUs=;
-	b=2Qt0lfZihGr5h7wPLNZIuxCNOHNDVzcQKwNeqWLtuVyZ8ISB0JM1Xf9KVYwB9DgTl4XP
-	 281Y1LnvIrV9l4Gbj9aF4uSvcDFWDAJ5DqYU649fRvrAzJLEDk1YHl46RsDFjV3ZK3VHw
-	 KWP6rnQK4uM1w+4WAqTMwRG/LbDMmcFJsy53KNPF9bx7bri7WsoAGgyDa2VMCx28TA2/V
-	 Hz0y1cX+s1h7CLIZphRG60No4QN6C4enXNfWJV9cSgCgcaRqfJh+xqeQJtHxuma4C97u7
-	 CItoYEc031PMF1ox8fdH7UwBsRQJrZTD618f26lQp07I46wxLhOBzidGCtwPbm7NJuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624573;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dRgm/usAbuijlDtnj0U5S9Y8ViLLfvYyBZ31aRg8NZA=;
+	b=KvKu1s6jbxK6HUBmLNrTKkEAT5/bFQYNWyJktDo1fTzJSxFXs65qQ04ihirJc/+j6UwB
+	 f9kI+9jra/ImNnKIcbSwkR5Qhvjl1dxZl588HQ9mRwyDg1XAY4rnWJf4flU3pwVpHMv5L
+	 c6mT/i7K3ZljmDrDneVuK4ibV/A2Tw7mVmdFKPo8d5Jtu1ka5tv58Y4GE1/EidA9nGEty
+	 /PX6GX/7lJwc0xvWpwdydi0RBwa4dUxjic1kYr2ICukhdL9+fIS60Tep64gZUsIZlutUI
+	 QIw9mI2Ipd6UvajwbdQp6Eb05ZjXxwXtVFg5N5ais6f6fPubxkt4c4mR3RB1SiwsSdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=R9EeorDj;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PmxwgcVF;
+	arc=none smtp.remote-ip=95.215.58.244
+Received: from mta1.migadu.com (out-244.mta1.migadu.com [95.215.58.244])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE6B60A261C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:02:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE6B60A261C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4999606A33B
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:02:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4999606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=R9EeorDj
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so19285345e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:02:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793624558; x=1794229358; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pIqMIl5P68FoJDPXapJtVaGLG35bqCOVpQoFQ2sppUs=;
-        b=R9EeorDjSUfPexblZkGbjY2exPkz3UWLJ4oubhTKrLACQRtM1xW4pl32RdKHmIn4E+
-         Gn6474T4Z1hrGO1p3YXobxOp5Xrb2Br8cZSCVzPLTgfaLAxHBnAbDyP8ZQ+66ZZ/MWKh
-         Kj9leph9jeC11zaiQSF1hPq/DM98pqpy+7d7/XmE2bnDhyRHXlCqYSRwTjp3z33tDKmd
-         JInw59LEObN4XendDa6v8tXlDsJhFEMMkkP0PGhZNko8aREsnxw4+7RdTzy0PDLZ1gOd
-         1oU8oSMU4hT9gNYWgVtnkV424sXZQGPwCGglbDvaL63I7Me+4JiuJiY/WyQnxIY49cgy
-         GAQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793624558; x=1794229358;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pIqMIl5P68FoJDPXapJtVaGLG35bqCOVpQoFQ2sppUs=;
-        b=wpOz1a7suJnkR1Sg4E/UKJ27oUDzpNFNHwdM6Ifcte7XAnUF3v/K0DCeHlz8whG2mi
-         512Z+OKDPFbBLatm8VCp7l1ac6H2amB8oWkFC8qxCBQgHDeMOHCkoJ+s5rrWGg63JwYn
-         MHlCZ3wgRy6KgjLeiCmKv21hksU8zdGuCB94O7zy5iLWeMqKObKGeqcqtVkJa9m5Df2R
-         mASZ3be3TuWPA6sxRHBCTOXxWgzN9hjJfZn8Vmby4PVNcZGJtfXjCQz17KG9X9+uZQWr
-         rggHpcxncs2nuSi03oDDIyIssrnjtdLBY5GEuOox75HeRd9YjDoxbQaamUF4c51j33uw
-         Bl2w==
-X-Forwarded-Encrypted: i=1; AKwUvBzmR3WecmoVXC6lcfGVl613Gv3t5+afXDlvCpMiDllrvHB/Ua6usedwTWUneL1J8mXMBJkI6P5yZNhZjeI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAhxsiV+5Jny1cizDw7YXtqPoKqt9vtVW23d8Bhcy7Zk9+vnng
-	kxHa6KbejBf7dSh4H6G28qghHV26kWoV44rHrlQVjbpYvgHuW5zeJPzJB0HlmmYZFZQ=
-X-Gm-Gg: AYBFou1uaOlr+up3l/+NG//7H+K55gGnm79laNNJOubcqgJ8eu0P8ZhxooWWqPB1BbB
-	CoYWwWL0wILJsGdLaZfsY0cUCE25dy03NMiu4Wn2fVomtT5oF5fbINSXA3T2STXHLbzAuu4LYMm
-	PM9wQgyyltujgDIrcqzNdc6A9uTDUxkSUoqjB9Dv7I1IOwRGLU5VhmZ80tw0i/+x1MMxmp4HwxS
-	2X6C5lVTRWdqjyXY3oATYxeTYeHgOZpfff2JLNjYqeMgsS0b4PgW8wbGo4YV8OEvgaJFFVyZAP6
-	3J84mIpu9bnRkHX3ngJ+Dko5U3BnLjU9JwBCivOOV4hwuJ1BXdHUT3ju2YplkLHe+yjJzJSQDJ8
-	togRXJBq/yx7wUfkuHsfWRd4ZLwD5ef6fA++zxtW2djsUGhctqbe+ebF2z9tJVKNeopwZhZk3U/
-	UUcHjQyrJVuim9XrTRmi/qmraKVzPYwHoN0RbHndpuoUNX6RMmqQiCcSXeatsHW0i7vgtFoNJAZ
-	p+Ltr+KKJxygWGweODVoTZjKWs6AD7YOo/0WJtqNsCHyuc1ECXVSPOaI3LR6PAbb3rG3499srbo
-	YlbvGfUQB7gcJz4rr+RhV46fSYloxbx9A4G6aLbNMcCjLlXaeDCjz/b+V+481Gf4nPtsYozuG4s
-	SCLii
-X-Received: by 2002:a05:600c:608d:b0:4a2:1197:1de0 with SMTP id 5b1f17b1804b1-4ac18b7dcdbmr233597745e9.19.1793624557914;
-        Mon, 02 Nov 2026 05:02:37 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf7146621sm275614585e9.13.2026.11.02.05.02.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 05:02:37 -0800 (PST)
-Message-ID: <7ba2f6b7-a9b8-4558-b62e-84261f1c3e9b@linaro.org>
-Date: Mon, 2 Nov 2026 14:02:36 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PmxwgcVF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Dh2qX6B4YlnltdNGhP+48x/uPJ+F0SjZMijH0FtOc/w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793624570; v=1; x=1794229370;
+ b=PmxwgcVFhnZauSvTCnJ/YSMffoTFLBbP7RXJlsjIPEFCYvjRyow740mpAEvK2Oogr2FqQqpn
+ rr18fAXuwyAiGEXXsgHBIXhNRxX+AueouvEVVW/scI9Cwb4Y8Wit6TyBePXooYZvOe2qUc6Xb6+
+ R6yJoHia6EvbP46zb1jVsXQg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3bfd9e10390866bf;
+	Mon, 02 Nov 2026 13:02:49 +0000
+X-Mizu-Trace-ID: 3bfd9e10390866bf
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Sascha Bischoff <Sascha.Bischoff@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sebastian Ene <sebastianene@google.com>,
+	=?UTF-8?q?Bart=C5=82omiej=20Grzesik?= <bgrzesik@google.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Zenghui Yu <zenghui.yu@linux.dev>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Radu Rendec <radu@rendec.net>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 10/13] KVM: arm64: Take the ITS tables and restrict GITS_BASER<n>
+Date: Mon,  2 Nov 2026 13:01:30 +0000
+Message-ID: <20261102130133.3684226-11-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102130133.3684226-1-fuad.tabba@linux.dev>
+References: <20261102130133.3684226-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,365 +86,487 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 4/5] drm/panel: raydium-rm68200: Use mipi_dsi_*_multi()
- functions
-To: Hsieh Hung-En <hungen3108@gmail.com>, dianders@chromium.org,
- jesszhan0024@gmail.com
-Cc: jagan@amarulasolutions.com, osama.abdelkader@gmail.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-References: <20261102043215.990351-1-hungen3108@gmail.com>
- <20261102043215.990351-5-hungen3108@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261102043215.990351-5-hungen3108@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/2/26 05:32, Hsieh Hung-En wrote:
-> Replace the deprecated MIPI DSI DCS helpers and custom DCS write
-> wrappers with their multi-context equivalents.
-> 
-> Preserve individual DCS transactions for registers that do not support
-> auto-increment. Share the multi-context with rm68200_init_sequence()
-> so that initialization failures stop subsequent DCS transfers and
-> cause prepare() to fail instead of only being logged. Errors are
-> handled by the cleanup path in prepare().
-> 
-> Use mipi_dsi_msleep() to skip delays after a failed command. In
-> unprepare(), clear accum_err between commands so that ENTER_SLEEP_MODE
-> is still attempted if SET_DISPLAY_OFF fails.
-> 
-> The new helpers log failures at error level. Initialization write
-> errors are no longer rate-limited.
-> 
-> Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
-> ---
-> 
-> Notes:
->      Changes in v2:
->      - Merge v1 patches 2/3 and 3/3, as suggested by Doug.
->      - Route initialization and DCS command failures through the prepare()
->        error cleanup path introduced earlier in this series.
->      - Drop Doug's Reviewed-by tag from v1 3/3 because the patches were
->        merged and the error handling was reworked.
->      
->      Validation:
->      - Mechanically compared all 58 initialization calls against v1.
->        Command addresses, payloads, and ordering are unchanged.
->      - Verified the expansion of dcs_write_cmd_seq() in v1 using
->        preprocessed output, confirming that each register address is
->        written in a separate DCS transaction. The macro is unchanged
->        from v1.
->      
->      The uppercase hexadecimal literals are retained in this patch.
->      Their formatting will be addressed separately in the next patch.
-> 
->   drivers/gpu/drm/panel/panel-raydium-rm68200.c | 208 ++++++++----------
->   1 file changed, 91 insertions(+), 117 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-> index 3a59eb00274d..8ce89f09540c 100644
-> --- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-> +++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-> @@ -98,149 +98,123 @@ static inline struct rm68200 *panel_to_rm68200(struct drm_panel *panel)
->   	return container_of(panel, struct rm68200, panel);
->   }
->   
-> -static void rm68200_dcs_write_buf(struct rm68200 *ctx, const void *data,
-> -				  size_t len)
-> -{
-> -	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
-> -	int err;
-> -
-> -	err = mipi_dsi_dcs_write_buffer(dsi, data, len);
-> -	if (err < 0)
-> -		dev_err_ratelimited(ctx->dev, "MIPI DSI DCS write buffer failed: %d\n", err);
-> -}
-> -
-> -static void rm68200_dcs_write_cmd(struct rm68200 *ctx, u8 cmd, u8 value)
-> -{
-> -	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
-> -	int err;
-> -
-> -	err = mipi_dsi_dcs_write(dsi, cmd, &value, 1);
-> -	if (err < 0)
-> -		dev_err_ratelimited(ctx->dev, "MIPI DSI DCS write failed: %d\n", err);
-> -}
-> -
-> -#define dcs_write_seq(ctx, seq...)				\
-> -({								\
-> -	static const u8 d[] = { seq };				\
-> -								\
-> -	rm68200_dcs_write_buf(ctx, d, ARRAY_SIZE(d));		\
-> -})
-> -
->   /*
->    * This panel is not able to auto-increment all cmd addresses so for some of
->    * them, we need to send them one by one...
-> + *
-> + * Use arr instead of d to avoid shadowing the local d[] declared by
-> + * mipi_dsi_dcs_write_var_seq_multi().
->    */
-> -#define dcs_write_cmd_seq(ctx, cmd, seq...)			\
-> -({								\
-> -	static const u8 d[] = { seq };				\
-> -	unsigned int i;						\
-> -								\
-> -	for (i = 0; i < ARRAY_SIZE(d) ; i++)			\
-> -		rm68200_dcs_write_cmd(ctx, cmd + i, d[i]);	\
-> -})
-> -
-> -static void rm68200_init_sequence(struct rm68200 *ctx)
-> +#define dcs_write_cmd_seq(dsi_ctx, cmd, seq...)			\
-> +	do {								\
-> +		static const u8 arr[] = { seq };			\
-> +		unsigned int i;						\
-> +									\
-> +		for (i = 0; i < ARRAY_SIZE(arr); i++)		\
-> +			mipi_dsi_dcs_write_var_seq_multi(dsi_ctx,	\
-> +							(cmd) + i, arr[i]); \
-> +	} while (0)
-> +
-> +static void rm68200_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
->   {
->   	/* Enter CMD2 with page 0 */
-> -	dcs_write_seq(ctx, MCS_CMD_MODE_SW, MCS_CMD2_P0);
-> -	dcs_write_cmd_seq(ctx, MCS_EXT_PWR_IC, 0xC0, 0x53, 0x00);
-> -	dcs_write_seq(ctx, MCS_BT2CTR, 0xE5);
-> -	dcs_write_seq(ctx, MCS_SETAVDD, 0x0A);
-> -	dcs_write_seq(ctx, MCS_SETAVEE, 0x0A);
-> -	dcs_write_seq(ctx, MCS_SGOPCTR, 0x52);
-> -	dcs_write_seq(ctx, MCS_BT3CTR, 0x53);
-> -	dcs_write_seq(ctx, MCS_BT4CTR, 0x5A);
-> -	dcs_write_seq(ctx, MCS_INVCTR, 0x00);
-> -	dcs_write_seq(ctx, MCS_STBCTR, 0x0A);
-> -	dcs_write_seq(ctx, MCS_SDCTR, 0x06);
-> -	dcs_write_seq(ctx, MCS_VCMCTR, 0x56);
-> -	dcs_write_seq(ctx, MCS_SETVGN, 0xA0, 0x00);
-> -	dcs_write_seq(ctx, MCS_SETVGP, 0xA0, 0x00);
-> -	dcs_write_seq(ctx, MCS_SW_CTRL, 0x11); /* 2 data lanes, see doc */
-> -
-> -	dcs_write_seq(ctx, MCS_CMD_MODE_SW, MCS_CMD2_P2);
-> -	dcs_write_seq(ctx, GOA_VSTV1, 0x05);
-> -	dcs_write_seq(ctx, 0x02, 0x0B);
-> -	dcs_write_seq(ctx, 0x03, 0x0F);
-> -	dcs_write_seq(ctx, 0x04, 0x7D, 0x00, 0x50);
-> -	dcs_write_cmd_seq(ctx, GOA_VSTV2, 0x05, 0x16, 0x0D, 0x11, 0x7D, 0x00,
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, MCS_CMD2_P0);
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_EXT_PWR_IC, 0xC0, 0x53, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_BT2CTR, 0xE5);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETAVDD, 0x0A);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETAVEE, 0x0A);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SGOPCTR, 0x52);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_BT3CTR, 0x53);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_BT4CTR, 0x5A);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_INVCTR, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_STBCTR, 0x0A);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SDCTR, 0x06);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_VCMCTR, 0x56);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETVGN, 0xA0, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETVGP, 0xA0, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SW_CTRL, 0x11); /* 2 data lanes, see doc */
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, MCS_CMD2_P2);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_VSTV1, 0x05);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x02, 0x0B);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x03, 0x0F);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x04, 0x7D, 0x00, 0x50);
-> +	dcs_write_cmd_seq(dsi_ctx, GOA_VSTV2, 0x05, 0x16, 0x0D, 0x11, 0x7D, 0x00,
->   			  0x50);
-> -	dcs_write_cmd_seq(ctx, GOA_VCLK1, 0x07, 0x08, 0x01, 0x02, 0x00, 0x7D,
-> +	dcs_write_cmd_seq(dsi_ctx, GOA_VCLK1, 0x07, 0x08, 0x01, 0x02, 0x00, 0x7D,
->   			  0x00, 0x85, 0x08);
-> -	dcs_write_cmd_seq(ctx, GOA_VCLK2, 0x03, 0x04, 0x05, 0x06, 0x00, 0x7D,
-> +	dcs_write_cmd_seq(dsi_ctx, GOA_VCLK2, 0x03, 0x04, 0x05, 0x06, 0x00, 0x7D,
->   			  0x00, 0x85, 0x08);
-> -	dcs_write_seq(ctx, GOA_VCLK_OPT1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> -		      0x00, 0x00, 0x00, 0x00);
-> -	dcs_write_cmd_seq(ctx, GOA_BICLK1, 0x07, 0x08);
-> -	dcs_write_seq(ctx, 0x2D, 0x01);
-> -	dcs_write_seq(ctx, 0x2F, 0x02, 0x00, 0x40, 0x05, 0x08, 0x54, 0x7D,
-> -		      0x00);
-> -	dcs_write_cmd_seq(ctx, GOA_BICLK2, 0x03, 0x04, 0x05, 0x06, 0x00);
-> -	dcs_write_seq(ctx, 0x3D, 0x40);
-> -	dcs_write_seq(ctx, 0x3F, 0x05, 0x08, 0x54, 0x7D, 0x00);
-> -	dcs_write_seq(ctx, GOA_BICLK3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> -		      0x00, 0x00, 0x00, 0x00, 0x00);
-> -	dcs_write_seq(ctx, GOA_BICLK4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> -		      0x00, 0x00);
-> -	dcs_write_seq(ctx, 0x58, 0x00, 0x00, 0x00);
-> -	dcs_write_seq(ctx, GOA_BICLK_OPT1, 0x00, 0x00, 0x00, 0x00, 0x00);
-> -	dcs_write_seq(ctx, GOA_BICLK_OPT2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> -		      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-> -	dcs_write_seq(ctx, MCS_GOA_GPO1, 0x00, 0x00, 0x00, 0x00);
-> -	dcs_write_seq(ctx, MCS_GOA_GPO2, 0x00, 0x20, 0x00);
-> -	dcs_write_seq(ctx, MCS_GOA_EQ, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
-> -		      0x00, 0x00);
-> -	dcs_write_seq(ctx, MCS_GOA_CLK_GALLON, 0x00, 0x00);
-> -	dcs_write_cmd_seq(ctx, MCS_GOA_FS_SEL0, 0xBF, 0x02, 0x06, 0x14, 0x10,
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_VCLK_OPT1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00, 0x00, 0x00);
-> +	dcs_write_cmd_seq(dsi_ctx, GOA_BICLK1, 0x07, 0x08);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2D, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2F, 0x02, 0x00, 0x40, 0x05, 0x08, 0x54, 0x7D,
-> +				     0x00);
-> +	dcs_write_cmd_seq(dsi_ctx, GOA_BICLK2, 0x03, 0x04, 0x05, 0x06, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3D, 0x40);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3F, 0x05, 0x08, 0x54, 0x7D, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_BICLK3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_BICLK4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x58, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_BICLK_OPT1, 0x00, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_BICLK_OPT2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_GOA_GPO1, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_GOA_GPO2, 0x00, 0x20, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_GOA_EQ, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
-> +				     0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_GOA_CLK_GALLON, 0x00, 0x00);
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL0, 0xBF, 0x02, 0x06, 0x14, 0x10,
->   			  0x16, 0x12, 0x08, 0x3F);
-> -	dcs_write_cmd_seq(ctx, MCS_GOA_FS_SEL1, 0x3F, 0x3F, 0x3F, 0x3F, 0x0C,
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL1, 0x3F, 0x3F, 0x3F, 0x3F, 0x0C,
->   			  0x0A, 0x0E, 0x3F, 0x3F, 0x00);
-> -	dcs_write_cmd_seq(ctx, MCS_GOA_FS_SEL2, 0x04, 0x3F, 0x3F, 0x3F, 0x3F,
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL2, 0x04, 0x3F, 0x3F, 0x3F, 0x3F,
->   			  0x05, 0x01, 0x3F, 0x3F, 0x0F);
-> -	dcs_write_cmd_seq(ctx, MCS_GOA_FS_SEL3, 0x0B, 0x0D, 0x3F, 0x3F, 0x3F,
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL3, 0x0B, 0x0D, 0x3F, 0x3F, 0x3F,
->   			  0x3F);
-> -	dcs_write_cmd_seq(ctx, 0xA2, 0x3F, 0x09, 0x13, 0x17, 0x11, 0x15);
-> -	dcs_write_cmd_seq(ctx, 0xA9, 0x07, 0x03, 0x3F);
-> -	dcs_write_cmd_seq(ctx, MCS_GOA_BS_SEL0, 0x3F, 0x05, 0x01, 0x17, 0x13,
-> +	dcs_write_cmd_seq(dsi_ctx, 0xA2, 0x3F, 0x09, 0x13, 0x17, 0x11, 0x15);
-> +	dcs_write_cmd_seq(dsi_ctx, 0xA9, 0x07, 0x03, 0x3F);
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL0, 0x3F, 0x05, 0x01, 0x17, 0x13,
->   			  0x15, 0x11, 0x0F, 0x3F);
-> -	dcs_write_cmd_seq(ctx, MCS_GOA_BS_SEL1, 0x3F, 0x3F, 0x3F, 0x3F, 0x0B,
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL1, 0x3F, 0x3F, 0x3F, 0x3F, 0x0B,
->   			  0x0D, 0x09, 0x3F, 0x3F, 0x07);
-> -	dcs_write_cmd_seq(ctx, MCS_GOA_BS_SEL2, 0x03, 0x3F, 0x3F, 0x3F, 0x3F,
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL2, 0x03, 0x3F, 0x3F, 0x3F, 0x3F,
->   			  0x02, 0x06, 0x3F, 0x3F, 0x08);
-> -	dcs_write_cmd_seq(ctx, MCS_GOA_BS_SEL3, 0x0C, 0x0A, 0x3F, 0x3F, 0x3F,
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL3, 0x0C, 0x0A, 0x3F, 0x3F, 0x3F,
->   			  0x3F, 0x3F, 0x0E, 0x10, 0x14);
-> -	dcs_write_cmd_seq(ctx, MCS_GOA_BS_SEL4, 0x12, 0x16, 0x00, 0x04, 0x3F);
-> -	dcs_write_seq(ctx, 0xDC, 0x02);
-> -	dcs_write_seq(ctx, 0xDE, 0x12);
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL4, 0x12, 0x16, 0x00, 0x04, 0x3F);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xDC, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xDE, 0x12);
->   
-> -	dcs_write_seq(ctx, MCS_CMD_MODE_SW, 0x0E); /* No documentation */
-> -	dcs_write_seq(ctx, 0x01, 0x75);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, 0x0E); /* No documentation */
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x01, 0x75);
->   
-> -	dcs_write_seq(ctx, MCS_CMD_MODE_SW, MCS_CMD2_P3);
-> -	dcs_write_cmd_seq(ctx, MCS_GAMMA_VP, 0x00, 0x0C, 0x12, 0x0E, 0x06,
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, MCS_CMD2_P3);
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GAMMA_VP, 0x00, 0x0C, 0x12, 0x0E, 0x06,
->   			  0x12, 0x0E, 0x0B, 0x15, 0x0B, 0x10, 0x07, 0x0F,
->   			  0x12, 0x0C, 0x00);
-> -	dcs_write_cmd_seq(ctx, MCS_GAMMA_VN, 0x00, 0x0C, 0x12, 0x0E, 0x06,
-> +	dcs_write_cmd_seq(dsi_ctx, MCS_GAMMA_VN, 0x00, 0x0C, 0x12, 0x0E, 0x06,
->   			  0x12, 0x0E, 0x0B, 0x15, 0x0B, 0x10, 0x07, 0x0F,
->   			  0x12, 0x0C, 0x00);
->   
->   	/* Exit CMD2 */
-> -	dcs_write_seq(ctx, MCS_CMD_MODE_SW, MCS_CMD1_UCS);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, MCS_CMD1_UCS);
->   }
->   
->   static int rm68200_unprepare(struct drm_panel *panel)
->   {
->   	struct rm68200 *ctx = panel_to_rm68200(panel);
->   	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
-> -	int ret;
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
->   
-> -	ret = mipi_dsi_dcs_set_display_off(dsi);
-> -	if (ret)
-> -		dev_warn(panel->dev, "failed to set display off: %d\n", ret);
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
->   
-> -	ret = mipi_dsi_dcs_enter_sleep_mode(dsi);
-> -	if (ret)
-> -		dev_warn(panel->dev, "failed to enter sleep mode: %d\n", ret);
-> +	/* Attempt to enter sleep mode even if display off failed. */
-> +	dsi_ctx.accum_err = 0;
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
->   
->   	msleep(120);
->   
-> @@ -258,6 +232,7 @@ static int rm68200_prepare(struct drm_panel *panel)
->   {
->   	struct rm68200 *ctx = panel_to_rm68200(panel);
->   	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
->   	int ret;
->   
->   	ret = regulator_enable(ctx->supply);
-> @@ -273,19 +248,18 @@ static int rm68200_prepare(struct drm_panel *panel)
->   		msleep(100);
->   	}
->   
-> -	rm68200_init_sequence(ctx);
-> +	rm68200_init_sequence(&dsi_ctx);
->   
-> -	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
-> -	if (ret)
-> -		goto assert_reset;
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
->   
-> -	msleep(125);
-> +	mipi_dsi_msleep(&dsi_ctx, 125);
->   
-> -	ret = mipi_dsi_dcs_set_display_on(dsi);
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	ret = dsi_ctx.accum_err;
->   	if (ret)
->   		goto assert_reset;
->   
-> -	msleep(20);
-> +	mipi_dsi_msleep(&dsi_ctx, 20);
->   
->   	return 0;
->   
+The ITS writes device and collection entries into the tables
+GITS_BASER<n> points to. At setup the hypervisor takes every such table
+and every level-2 page an indirect device table already points to. That
+includes the vPE table, which the driver allocates whenever the ITS has
+one. With GICv4 off for the host, only the device table gains level-2
+pages after setup.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+From the takeover on, the driver writes new level-1 entries into a copy
+of the device table, which the hypervisor pins. On the first MAPD that
+needs a new entry, the hypervisor publishes the copy's entry if it holds
+only Valid and the address of an aligned level-2 page, and takes and
+zeroes that page. A valid hardware entry never changes, and a MAPD whose
+entry stays invalid is rejected, as the ITS would discard its write. So
+is a MAPD past the end of a flat device table.
 
-Thanks,
-Neil
+GITS_BASER<n> writes now go through only to a register that pointed to
+a table at setup, with the ITS disabled and quiescent. The hypervisor
+then writes back the value it read at setup, and an enable aborts unless
+every such register still holds it.
+
+Co-developed-by: Sebastian Ene <sebastianene@google.com>
+Signed-off-by: Sebastian Ene <sebastianene@google.com>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+
+Notes:
+    Changes since v2 (v2 patches 07 and 12, and the level-1 half of 08):
+    - The tables come from GITS_BASER<n> as the hypervisor reads them,
+      not from a host-supplied address, value, order and page size
+      (sashiko)
+    - A level-1 entry is write-once: only Valid 0 -> 1 is published (was
+      any Valid flip, the page given back on 1 -> 0)
+    - A published entry is read once and must name an aligned level-2
+      page, which is zeroed, and cleaned for a non-shareable table
+      (sashiko)
+    - Level-2 pages are taken as DIV_ROUND_UP(psz, PAGE_SIZE) kernel
+      pages, where v2's psz >> PAGE_SHIFT was 0 below PAGE_SIZE
+      (sashiko)
+    - Level-1 entries are read and written as __le64 (sashiko)
+    - Page_Size, Size, Entry_Size and the 64K address encoding are
+      decoded per the architecture (v2 didn't fold PA[51:48])
+    - Only the device table has a level-1 copy (was a copy of every
+      table)
+    - A vPE table that GICv4.1 ITSes share is taken once (was a second
+      donation, which fails)
+    - A MAPD whose level-1 entry stays invalid is rejected
+    - A GITS_BASER<n> write stores the value read at setup, whole,
+      rather than the host's value under a mask (sashiko)
+    - A GITS_BASER<n> write to a register that named no table, or while
+      the ITS is enabled or not quiescent, aborts (was a silent drop)
+    - An enable also aborts unless every GITS_BASER<n> that named a
+      table still holds its value
+
+ arch/arm64/kvm/hyp/nvhe/its_emulate.c | 252 +++++++++++++++++++++++++-
+ drivers/irqchip/irq-gic-v3-its.c      |  28 ++-
+ include/linux/irqchip/arm-gic-v3.h    |   3 +-
+ 3 files changed, 275 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm64/kvm/hyp/nvhe/its_emulate.c b/arch/arm64/kvm/hyp/nvhe/its_emulate.c
+index b0181cb3fe9ba..5dd959451f989 100644
+--- a/arch/arm64/kvm/hyp/nvhe/its_emulate.c
++++ b/arch/arm64/kvm/hyp/nvhe/its_emulate.c
+@@ -21,12 +21,27 @@
+ #define GITS_CWRITER_RETRY	BIT_ULL(0)
+ #define GITS_CREADR_OFFSET	GENMASK_ULL(19, 5)
+ #define GITS_CBASER_SIZE	GENMASK_ULL(7, 0)
++#define GITS_LVL1_ADDRESS	GENMASK_ULL(51, 12)
++
++/* A GITS_BASER<n> table, as the register described it at setup. */
++struct its_table {
++	/* hw is hyp-owned; l1_copy is the host's level-1 copy, pinned. */
++	void			*hw;
++	void			*l1_copy;
++	u64			baser;
++	size_t			size;
++	u32			psz;
++	u8			esz;
++	bool			indirect;
++};
+ 
+ /* Per-ITS state, in the pages the host donated at setup. */
+ struct its_priv {
+ 	hyp_spinlock_t		lock;
+ 	void __iomem		*base;
+ 	u64			cbaser;
++	struct its_table	tables[GITS_BASER_NR_REGS];
++	struct its_table	*dev_table;
+ 
+ 	/* cmdq_hw is hyp-owned; cmdq_copy is the host's copy, pinned. */
+ 	void			*cmdq_hw;
+@@ -55,10 +70,75 @@ static int its_pin_host_pages(phys_addr_t pa, u64 nr_pages)
+ 	return hyp_pin_shared_mem(va, va + (nr_pages << PAGE_SHIFT));
+ }
+ 
++static size_t its_l2_size(struct its_table *t)
++{
++	return DIV_ROUND_UP(t->psz, PAGE_SIZE) << PAGE_SHIFT;
++}
++
++/*
++ * The ITS discards a device table write through an invalid level-1 entry, so
++ * make the entry for device_id valid from the host's copy. A hardware entry
++ * only ever goes from invalid to valid.
++ */
++static bool its_publish_l1(struct its_priv *its, u32 device_id)
++{
++	struct its_table *t = its->dev_table;
++	size_t l2_size;
++	u64 idx, entry;
++	phys_addr_t pa;
++	__le64 *hw;
++
++	/* No device table in memory, so no level-1 entry to publish. */
++	if (!t)
++		return true;
++
++	if (!t->indirect)
++		return device_id < t->size / t->esz;
++
++	idx = device_id / (t->psz / t->esz);
++	if (idx >= t->size / GITS_LVL1_ENTRY_SIZE)
++		return false;
++
++	hw = t->hw;
++	if (le64_to_cpu(hw[idx]) & GITS_BASER_VALID)
++		return true;
++
++	/* The host can change its copy: read the entry once. */
++	entry = le64_to_cpu(READ_ONCE(((__le64 *)t->l1_copy)[idx]));
++
++	l2_size = its_l2_size(t);
++	pa = entry & GITS_LVL1_ADDRESS;
++	if (entry != (pa | GITS_BASER_VALID) || !IS_ALIGNED(pa, l2_size))
++		return false;
++	if (__pkvm_host_donate_hyp(PHYS_PFN(pa), l2_size >> PAGE_SHIFT))
++		return false;
++
++	/* Using a new level-2 table that isn't all zeros is UNPREDICTABLE (IHI 0069H.b 5.2.1). */
++	memset(hyp_phys_to_virt(pa), 0, l2_size);
++	if (!(t->baser & GITS_BASER_SHAREABILITY_MASK))
++		gic_flush_dcache_to_poc(hyp_phys_to_virt(pa), l2_size);
++	/* Zero the page before the entry is valid: the ITS can walk it at any time. */
++	dma_wmb();
++	hw[idx] = cpu_to_le64(entry);
++	if (!(t->baser & GITS_BASER_SHAREABILITY_MASK))
++		gic_flush_dcache_to_poc(&hw[idx], sizeof(*hw));
++	/* Visible to the ITS before the command that relies on it is queued. */
++	dsb(sy);
++	return true;
++}
++
++static bool its_mapd(struct its_priv *its, struct its_cmd_block *cmd)
++{
++	u32 device_id = its_cmd_get_deviceid(cmd->raw_cmd);
++
++	return its_publish_l1(its, device_id);
++}
++
+ static bool its_process_cmd(struct its_priv *its, struct its_cmd_block *cmd)
+ {
+ 	switch (its_cmd_get_command(cmd->raw_cmd)) {
+ 	case GITS_CMD_MAPD:
++		return its_mapd(its, cmd);
+ 	case GITS_CMD_MAPC:
+ 	case GITS_CMD_MAPTI:
+ 	case GITS_CMD_MAPI:
+@@ -137,10 +217,26 @@ static bool its_cwriter_write(struct its_priv *its, u64 val)
+ 	return !rejected;
+ }
+ 
+-/* A reset clears GITS_CBASER.Valid, and an enable with it clear is UNPREDICTABLE. */
++/*
++ * A reset clears the Valid bits of GITS_CBASER and GITS_BASER<n>, and an enable
++ * with GITS_CBASER's or the device table's clear is UNPREDICTABLE.
++ */
+ static bool its_bases_intact(struct its_priv *its)
+ {
+-	return readq_relaxed(its->base + GITS_CBASER) == its->cbaser;
++	unsigned int n;
++
++	if (readq_relaxed(its->base + GITS_CBASER) != its->cbaser)
++		return false;
++
++	for (n = 0; n < GITS_BASER_NR_REGS; n++) {
++		u64 baser = its->tables[n].baser;
++
++		if ((baser & GITS_BASER_VALID) &&
++		    readq_relaxed(its->base + GITS_BASER + n * sizeof(u64)) != baser)
++			return false;
++	}
++
++	return true;
+ }
+ 
+ static bool its_ctlr_write(struct its_priv *its, u64 val)
+@@ -184,6 +280,21 @@ static bool its_cbaser_write(struct its_priv *its)
+ 	return true;
+ }
+ 
++static bool its_baser_write(struct its_priv *its, unsigned int index)
++{
++	u64 baser = its->tables[index].baser;
++
++	if (!its_disabled_quiescent(its))
++		return false;
++
++	/* Refuse a table the hypervisor didn't take: the driver never restores one. */
++	if (!(baser & GITS_BASER_VALID))
++		return false;
++
++	writeq_relaxed(baser, its->base + GITS_BASER + index * sizeof(u64));
++	return true;
++}
++
+ static bool its_emulate(struct its_priv *its, u64 offset, bool write, u64 *val, u8 size)
+ {
+ 	if (write) {
+@@ -196,10 +307,8 @@ static bool its_emulate(struct its_priv *its, u64 offset, bool write, u64 *val,
+ 			/* The driver writes the low word; the high word is RES0. */
+ 			return its_cwriter_write(its, *val);
+ 		case GITS_BASER ... GITS_BASER + (GITS_BASER_NR_REGS - 1) * sizeof(u64):
+-			if (size != sizeof(u64))
+-				return false;
+-			writeq_relaxed(*val, its->base + offset);
+-			return true;
++			return size == sizeof(u64) &&
++			       its_baser_write(its, (offset - GITS_BASER) / sizeof(u64));
+ 		default:
+ 			return false;
+ 		}
+@@ -263,6 +372,133 @@ static int its_take_cmdq(struct its_priv *its, phys_addr_t copy_pa)
+ 	return 0;
+ }
+ 
++static u32 its_baser_psz(u64 baser)
++{
++	switch (FIELD_GET(GITS_BASER_PAGE_SIZE_MASK, baser)) {
++	case GIC_PAGE_SIZE_4K:
++		return SZ_4K;
++	case GIC_PAGE_SIZE_16K:
++		return SZ_16K;
++	default:
++		/* 0b11 is reserved and treated as 64K. */
++		return SZ_64K;
++	}
++}
++
++static phys_addr_t its_baser_pa(u64 baser, u32 psz)
++{
++	/* With 64K pages, bits [15:12] of the register hold PA[51:48]. */
++	if (psz == SZ_64K)
++		return GITS_BASER_ADDR_48_to_52(baser);
++
++	return baser & GENMASK_ULL(47, 12);
++}
++
++static int its_take_level2(struct its_table *t, u64 nr_entries)
++{
++	u64 l2_pages = its_l2_size(t) >> PAGE_SHIFT;
++	__le64 *table = t->hw;
++	u64 i, entry;
++	int ret;
++
++	for (i = 0; i < nr_entries; i++) {
++		entry = le64_to_cpu(table[i]);
++		if (!(entry & GITS_BASER_VALID))
++			continue;
++
++		ret = __pkvm_host_donate_hyp(PHYS_PFN(entry & GITS_LVL1_ADDRESS), l2_pages);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++static int its_take_table(struct its_table *t, phys_addr_t copy_pa)
++{
++	u64 baser = t->baser, nr_pages;
++	phys_addr_t pa;
++	int ret;
++
++	t->psz = its_baser_psz(baser);
++	t->esz = GITS_BASER_ENTRY_SIZE(baser);
++	t->size = GITS_BASER_NR_PAGES(baser) * t->psz;
++	t->indirect = baser & GITS_BASER_INDIRECT;
++	pa = its_baser_pa(baser, t->psz);
++	nr_pages = DIV_ROUND_UP(t->size, PAGE_SIZE);
++
++	ret = __pkvm_host_donate_hyp(PHYS_PFN(pa), nr_pages);
++	if (ret)
++		return ret;
++	t->hw = hyp_phys_to_virt(pa);
++
++	if (!t->indirect)
++		return 0;
++
++	if (copy_pa) {
++		ret = its_pin_host_pages(copy_pa, nr_pages);
++		if (ret)
++			return ret;
++		t->l1_copy = hyp_phys_to_virt(copy_pa);
++	}
++
++	return its_take_level2(t, t->size / GITS_LVL1_ENTRY_SIZE);
++}
++
++/* GICv4.1 ITSes with a common affinity share one vPE table (GITS_TYPER.SVPET). */
++static bool its_vpe_table_taken(u64 baser)
++{
++	unsigned int i, n;
++
++	for (i = 0; i < num_protected_reg; i++) {
++		struct its_priv *its = pkvm_protected_regs[i].priv;
++
++		if (!its)
++			continue;
++
++		for (n = 0; n < GITS_BASER_NR_REGS; n++) {
++			if (its->tables[n].hw && its->tables[n].baser == baser)
++				return true;
++		}
++	}
++
++	return false;
++}
++
++static int its_take_tables(struct its_priv *its, struct its_pkvm_desc *desc)
++{
++	unsigned int n;
++	int ret;
++
++	for (n = 0; n < GITS_BASER_NR_REGS; n++) {
++		struct its_table *t = &its->tables[n];
++		phys_addr_t copy_pa = 0;
++
++		t->baser = readq_relaxed(its->base + GITS_BASER + n * sizeof(u64));
++		if (!(t->baser & GITS_BASER_VALID))
++			continue;
++
++		switch (GITS_BASER_TYPE(t->baser)) {
++		case GITS_BASER_TYPE_DEVICE:
++			/* The driver publishes level-1 entries through its copy. */
++			copy_pa = desc->dev_l1_copy_pa;
++			its->dev_table = t;
++			break;
++		case GITS_BASER_TYPE_VCPU:
++			/* Taken: writing it while the ITS is enabled is UNPREDICTABLE (5.2.1). */
++			if (its_vpe_table_taken(t->baser))
++				continue;
++			break;
++		}
++
++		ret = its_take_table(t, copy_pa);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ int pkvm_its_emulate_setup(phys_addr_t its_base, phys_addr_t desc_pa,
+ 			   size_t desc_size)
+ {
+@@ -304,6 +540,10 @@ int pkvm_its_emulate_setup(phys_addr_t its_base, phys_addr_t desc_pa,
+ 	if (ret)
+ 		return ret;
+ 
++	ret = its_take_tables(its, desc);
++	if (ret)
++		return ret;
++
+ 	WARN_ON(__pkvm_hyp_donate_host(PHYS_PFN(desc_pa), desc_pages));
+ 	/* Published by stop_machine()'s exit: no host CPU traps until then. */
+ 	region->priv = its;
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index 298e4ca1b0759..cc89691f43cb4 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -5247,11 +5247,14 @@ static int __init its_compute_its_list_map(struct its_node *its)
+ 
+ /*
+  * Protected KVM: from the takeover on, the driver writes commands into a copy
+- * of the command queue, and the hypervisor checks each before the ITS sees it.
++ * of the command queue and level-1 entries into a copy of the device table,
++ * and the hypervisor checks each before the ITS sees it.
+  */
+ struct its_pkvm_state {
+ 	void			*priv;
+ 	void			*cmdq;
++	struct its_baser	*dev_baser;
++	void			*dev_l1;
+ 	struct its_pkvm_desc	*desc;
+ 	size_t			desc_size;
+ };
+@@ -5265,6 +5268,7 @@ static DEFINE_MUTEX(its_pkvm_lock);
+ static int __init its_pkvm_alloc_copies(struct its_node *its,
+ 					struct its_pkvm_state *st)
+ {
++	struct its_baser *baser = its_get_baser(its, GITS_BASER_TYPE_DEVICE);
+ 	struct page *page;
+ 
+ 	page = its_alloc_pages_node(its->numa_node, GFP_KERNEL, ITS_PKVM_PRIV_ORDER);
+@@ -5278,6 +5282,15 @@ static int __init its_pkvm_alloc_copies(struct its_node *its,
+ 		return -ENOMEM;
+ 	st->cmdq = page_address(page);
+ 
++	if (!baser || !(baser->val & GITS_BASER_INDIRECT))
++		return 0;
++
++	page = its_alloc_pages_node(its->numa_node, GFP_KERNEL | __GFP_ZERO, baser->order);
++	if (!page)
++		return -ENOMEM;
++	st->dev_baser = baser;
++	st->dev_l1 = page_address(page);
++
+ 	return 0;
+ }
+ 
+@@ -5315,6 +5328,8 @@ static int __init its_pkvm_prepare_one(struct its_node *its)
+ 	desc->priv_pa = virt_to_phys(st->priv);
+ 	desc->priv_pages = 1 << ITS_PKVM_PRIV_ORDER;
+ 	desc->cmdq_copy_pa = virt_to_phys(st->cmdq);
++	if (st->dev_l1)
++		desc->dev_l1_copy_pa = virt_to_phys(st->dev_l1);
+ 
+ 	i = 0;
+ 	list_for_each_entry(dev, &its->its_device_list, entry) {
+@@ -5333,6 +5348,9 @@ static int __init its_pkvm_hand_over(struct its_node *its,
+ {
+ 	struct its_pkvm_state *st = its->pkvm;
+ 
++	if (st->dev_l1)
++		memcpy(st->dev_l1, st->dev_baser->base, PAGE_ORDER_TO_SIZE(st->dev_baser->order));
++
+ 	return setup(its->phys_base, st->desc, st->desc_size);
+ }
+ 
+@@ -5344,6 +5362,12 @@ static void __init its_pkvm_switch(struct its_node *its)
+ 	its->cmd_base = st->cmdq;
+ 	st->cmdq = NULL;
+ 	st->priv = NULL;
++
++	/* val keeps naming the hardware table, which the hypervisor now owns. */
++	if (st->dev_l1) {
++		st->dev_baser->base = st->dev_l1;
++		st->dev_l1 = NULL;
++	}
+ }
+ 
+ static void __init its_pkvm_finish_one(struct its_node *its)
+@@ -5354,6 +5378,8 @@ static void __init its_pkvm_finish_one(struct its_node *its)
+ 		its_free_pages(st->priv, ITS_PKVM_PRIV_ORDER);
+ 	if (st->cmdq)
+ 		its_free_pages(st->cmdq, get_order(ITS_CMD_QUEUE_SZ));
++	if (st->dev_l1)
++		its_free_pages(st->dev_l1, st->dev_baser->order);
+ 
+ 	if (st->desc)
+ 		its_free_pages(st->desc, get_order(st->desc_size));
+diff --git a/include/linux/irqchip/arm-gic-v3.h b/include/linux/irqchip/arm-gic-v3.h
+index a708e188898ef..64c594c23bd46 100644
+--- a/include/linux/irqchip/arm-gic-v3.h
++++ b/include/linux/irqchip/arm-gic-v3.h
+@@ -689,12 +689,13 @@ struct its_pkvm_device {
+ /*
+  * What the host hands the hypervisor at setup: pages for its per-ITS state,
+  * and the memory it cannot discover from the ITS itself. Physical addresses,
+- * page-aligned.
++ * page-aligned; dev_l1_copy_pa is set when the device table is indirect.
+  */
+ struct its_pkvm_desc {
+ 	u64			priv_pa;
+ 	u64			priv_pages;
+ 	u64			cmdq_copy_pa;
++	u64			dev_l1_copy_pa;
+ 	u32			nr_devices;
+ 	struct its_pkvm_device	devices[];
+ };
+-- 
+2.47.3
+
