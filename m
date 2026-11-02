@@ -1,47 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605679;
-	b=KoYAAo8YbCLIwHvZgVL9BYc+Zx0fpYhR3qRH08pOfaxnuxeatHosANodJlPtaQY6sluq
-	 h7vZcok8OqkTjxscj/rFJqiyR5G+6w8+vZ3uaFFCBn9U5aJYJqw0G47p+2BkADk64RJ6R
-	 LACqKKbDNfoxOiog9RvaSVj80uzaHstuPD4eINVjR7l4HhzDbgfLKBlkKXzj5x3Oye4eB
-	 nxXUyaK/COTfyme9Bk55vBJkcFiRPIRoeViBC4jgalN3FCor2WRzZOkWgQbKKlydLt+bf
-	 l2rwo8hAfhMXU1dUqkF/YJDCGF6dqOFt/7wzc/2lZL7tkaDGP81JKFwI4vqLAAJvK4g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605679;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/5I86CZ+slqkRJTosNHUxkAL8uURBN5dDpgqbLr07wU=;
-	b=X9x8U4l8UtI2eNh/qaIR57+w0SqZ7OyIh1myN85YFBMj+YxCa66Pw7PBDDqGZU3EbjgO
-	 U9FmKhpInuqnAolplukFq4D6wn1uDXW5TATzyfTT9WaSQVENKvZ2m4wUcSYCZF5Yei/cV
-	 TRWbZ3OmROTYPhCQoPc+hCqfK9NM25ImDOaDR6hxWSaE7VRY3GFvxLygNc0Cs9H5pLC+Y
-	 3SsWuekdtFMGVl1UWipAeB5nyTSPdBRaQ1aVUd4yVnRVOnP4jHZBghVnEEmvbzom0A7Ia
-	 N9c4O3e2exujaR/6bmVEMQGYAzgmEaNyrtHwKXJQzYLnHNar0wM128M5xPc0svZKs8g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yt/7r3JE";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793605694;
+	b=RtfSaECFt+5hdQLVGqVuQFC9N/o+plCqkCZfypfR1RirmP06w3lm2Udsb594ZXa745Yw
+	 BDJJr+Vu9sRZVKWdo8UY0d6GhEftEGF/0WYz0u7BsHZHNwoEP8qSVFTaLxlSlAH2IvlVc
+	 xJ+6AB0JArAH1Zc2yfwOG/YaCiEsmHdPBumzLWLNqBcVJjTu/o94EBY2+BXJbasSSRwJt
+	 G4yOzVvAvC4sOEvyPcGQmqRd47aunzsFW2GuhEWFtSozDgQuURO0zh6wB2dCH3d7NraVr
+	 5NuZN92oAaVkP0MG75iXCO1UhfA12/e8h90MrQYDj0PprI1WUSYQtlevEw1ff/BK8LQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605694;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=C38BuGd0bfYisxrxsIaUK6a3tH1ZGJCB/km1kK1SgKU=;
+	b=Dkpe0VV+L+EXXkudAs7KRHGhqo0MVt4Zw3L/LsjvbHzugvqNlxF7x0OMJ9ru2mnesRRy
+	 CtAk4Y3IciBZlKrZM6kxMZdUch5uI1qEIUYIj8VxozwgxGPiBIzUXCNnSCkubThfL20aL
+	 HIFfmDSm+bx79oFGdGO+HHu+6SM6fta71MgqI5AWGx8YvL0rP4YmGTYwmHBlTz7CH8h8C
+	 rWiNgGyY8PMfid4D7/C8yoPylLR/wrRx6LjRytiekyGGlpWbNrpCVgimiQNR18kiMQTTz
+	 HswoceXLCpbtqsxopNgs+CXpIYdy1y3BXHLZhKwxZGKy6y2XwFSBWXSXYv94BLQ7w4g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqyqxqea;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7924D60A260E;
-	Mon,  2 Nov 2026 07:47:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C85606A32F;
+	Mon,  2 Nov 2026 07:48:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yt/7r3JE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20DB91F00919;
-	Mon,  2 Nov 2026 07:47:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqyqxqea
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793605693;
+	b=dkHaFGadM+u2VKAqC5nmhpCRPlkk0oH2HAgdpzGT/Qz4dM83peUdCCzL1YTHypAvlNhX
+	 ciC5ayp0bufhu3OA4GwO2JDfgVI0dgWZIrNH2Moy8L9ubxrr4geu/aQzy4ysjhDMlSegF
+	 F3eviX4UTBEMF9xxPLDR/FftMtd2i4r5kp2YNi0tIR77iwGm/pDdU70C5eTiWZ3JDY+6d
+	 UjRc4ucuFe3pIKR8cu1/Zt8gLoa0aVpeAgKksE0lqtQuSTD3YiXcpY2Kk1EbPIgWF6P2w
+	 VMoCEcZ+XSLZifn7YGIlewwjrg+EDgzHrMKheQ+KCANtoOhJ1thonmQ2kj9fewwD/1w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793605693;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=C38BuGd0bfYisxrxsIaUK6a3tH1ZGJCB/km1kK1SgKU=;
+	b=xkLSqG2by6xjg19fWSvfU2QbcNCW/utnUBWVx7DLqG6AVGSCcoGDaBRjC2h5dboxh5vv
+	 bosWOUTK8Zw0J7KM/wh05gMPJ8T+NbWF84AjOx6My5OYtCHoOKrniKLD+X+C3QQIwmUuB
+	 BiSGJm//ijeAxJhhrDqJYhqS6efm+dLmucYJCt/98AiB+KjpUjhq26eZyfGbHkP3P0nmv
+	 cf0y1NjRFswiAmhsk2kGclwEZD7aMIUG9k/Lwq1bsDQEWtKoCvM9zAKHL33EhryNCMigX
+	 TostTfIGhCIVRn6p7QRawyuFgCDT+Su6/VM/ZZfHSLpTwX9LAnZLWLQW/xWOKpQ2H8w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7CD911F00A16;
+	Mon,  2 Nov 2026 07:48:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793605676;
-	bh=/5I86CZ+slqkRJTosNHUxkAL8uURBN5dDpgqbLr07wU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Yt/7r3JEtzHG6GYJFiSgbdV4xZv1CP1WOEwveRYgMAoVmlr1ssFwCP3cji8JybOvP
-	 5pFdBlfjfYYpmPkLhRoaFM716IP8ckfK7/mpd6AbncfvqPt67Mlag7w25Tcel3PH+y
-	 fAzcYndBtlAVHCwlgyj4LYIpuny562C1vEhC4hqUFZ2UOKTd6kMjC7SnyVm+6765Hp
-	 snsim7fvwgSqAtSmB4ATTR51c9pbLaNiJA7T/pXaXBQ8ZaKOvHYUJ4GVSN2cZH3EwQ
-	 E4wu2/tajaDVYQruUjC5aZOWIHVkNWq0ituIE0wMlu4lpRoG7zL/7AAdMjHYmQmN93
-	 Rvd7Gyh1FFS4g==
-Message-ID: <f63bf987-aaf7-45d5-89da-24c16b1a848b@kernel.org>
-Date: Mon, 2 Nov 2026 08:47:47 +0100
+	s=k20260515; t=1793605693;
+	bh=C38BuGd0bfYisxrxsIaUK6a3tH1ZGJCB/km1kK1SgKU=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=lqyqxqeatC2Gy9pLsSPNQXYiGlKuNG4aRQqnNYy5KEGOOKTPsy8c6LYyamc+ea9Vx
+	 lyaUjCyAyFlazVV35MQnXO6UwitDs9+2zfvriYqrfPoIO9dafxUfYbf1EirlsokNoo
+	 h/F8FjLzsDb8MqqhnbvNI0IDB4XVqkDRuYSwxIE8CX2ov374ztEzhZiCCgIlRjobtv
+	 oCuEkMpIFn+vW+cm68pqafTl2RBgB1WVn0mIYrCCF8qK1KUXTBmUNgyd2ha1wae9kJ
+	 fSJehkbqNJ4PWdv2bXvMwaSsMZFou2atRzZnbfsghah3eyb2jy+PxUxxb+VdQk0Gbe
+	 Tcwz1HeFFbTAQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CC5F2463F4;
+	Mon,  2 Nov 2026 07:48:11 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Subject: [PATCH v4 0/2] i2c: Add driver support Amlogic A9 I2C
+Date: Mon, 02 Nov 2026 07:48:04 +0000
+Message-Id: <20261102-a9-i2c-v4-0-5a169215b8e9@amlogic.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,85 +83,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: mfd: mediatek: mt6397: describe the
- RTC's 32 kHz output
-To: Ryan Brue <ryanbrue.dev@gmail.com>, Sen Chu <sen.chu@mediatek.com>,
- Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>,
- Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Eddie Huang <eddie.huang@mediatek.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-rtc@vger.kernel.org
-References: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-0-9758f38d7053@gmail.com>
- <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADRA6GoC/2WNzQ7CIBAGX6XhLAoL/fPkexgPsG4tiW0NNE2N6
+ bsLRhuNx2+ZYR4skHcU2D57ME+TC27o49CbjGFr+gtxd46bgYBC1FJyU3MHyEHrsiIAKirFImx
+ NIG696bFNeER2CetpHtPzzVPj5lfneIq7dWEc/P2VnWS6vgugP4VJcsFtZc611UWjTXUw3XW4O
+ Nzi0LH0yQSrKAXAKkIUdU4KqZFlbpt/UX2L9SqqKJZWCUQUIlfqV1yW5QkIAJg9LwEAAA==
+X-Change-ID: 20260911-a9-i2c-24478e22e683
+To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Xianwei Zhao <xianwei.zhaol@amlogic.com>
+Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793605689; l=1910;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=9OQOd2rrl9WlOLjkuFw/sxdkDaySWYrLQRhEJmJuB6s=;
+ b=J0LHiuTQFweKm5XAIdH5d58CBCOophPTriobO2pHaW+S2/jX9DKMXBcO3uotTgSOZHrrGM+KC
+ f2yTpYhjnkRCXXUXuYQy0NOgCImKNM/Py62w3WGsMQuZMp3V2Vwexdp
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-On 02/11/2026 06:33, Ryan Brue wrote:
-> The MT6397 RTC drives its 32 kHz clock out of the PMIC, where boards
-> use it as the sleep clock of a Wi-Fi/Bluetooth combo chip. The output
-> is off unless something turns it on.
-> 
-> Let the RTC node provide it as a clock.
-> 
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
-> ---
->  Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
+Add a Device Tree binding and driver for the I2C controller found on the
+Amlogic A9 SoC.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+Changes in v4:
+- Repocess xfer len equal 0 use I2C_AQ_NO_ZERO_LEN, and Optimized the function.
+- Disable A9_RX_THRESH_READ/A9_TX_THRESH_WRITE enables of irq when xfer timeout.
+- Use guard(spinlock_irqsave) instead for direct call spinlock in xfer timeout process.
+- Link to v3: https://lore.kernel.org/r/20261029-a9-i2c-v3-0-7b30ccc00533@amlogic.com
+
+Changes in v3:
+- Based on the questions raised by the robot, the data flow was reorganized.
+- Some processing was optimized according to Andi's and Markus's suggestions.
+- Link to v2: https://lore.kernel.org/r/20261022-a9-i2c-v2-0-45e3cef175bf@amlogic.com
+
+Changes in v2:
+- dtbinding: make some minor modifications, suggestted by Conor and robot.
+- driver: Make some adjustments, including macro definitions, format adjustments,
+          adding quirks, process optimization, and so on. According to Andi and robot's suggestion
+- Give up MAINTAINERS file the separate submission, make it together with the driver.
+- Link to v1: https://lore.kernel.org/r/20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com
+
+---
+Junyi Zhao (1):
+      i2c: amlogic: Add Amlogic A9 I2C controller driver
+
+Xianwei Zhao (1):
+      dt-bindings: i2c: add Amlogic A9 I2C controller
+
+ .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    |  56 +++
+ MAINTAINERS                                        |   9 +
+ drivers/i2c/busses/Kconfig                         |   8 +
+ drivers/i2c/busses/Makefile                        |   1 +
+ drivers/i2c/busses/i2c-amlogic-a9.c                | 431 +++++++++++++++++++++
+ 5 files changed, 505 insertions(+)
+---
+base-commit: 4ec2365c08de306f52650d8736aef5862baedb8d
+change-id: 20260911-a9-i2c-24478e22e683
 
 Best regards,
-Krzysztof
+-- 
+Xianwei Zhao <xianwei.zhao@amlogic.com>
+
+
