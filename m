@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657268;
-	b=Py0N5hL8VFMME4RQjmKG4Qn+TS63JA253zsmFDrhUY2mzG8ZxPgN8OlFCw712GkBmG7K
-	 V9iGzViccbTg8vgfeiIQet0YxCrFjNWK437SKH2OmjX6oL8pWah5E7VH1RLagF2nFWxT7
-	 tFeiGMuznGqcusLW9sjesUBl2a6dT84m79UdNdgsZxO7pbRCMJHTgLUYGOANO+ftOwx2k
-	 fH8uBtmK2T8e3g+0FM8389UuY/BtBH2jiNDH4VhAeDDWlsxVKKnx9bQPVDlQ0JYYNCncE
-	 1HjoS61Fuc1iokAfin0Nva7QxciGbxmb5u2I/ZFUFd0F+apDfdNof9P4xzLKveUM2Ig==
+	t=1793657284;
+	b=j3mHGzwzRRAs6iWAp07S+ImIDWDrnVpolCvw8sgQDEmIACJmptrVEkWMVEc0D/qASiFv
+	 xItlU5hROI+FOvO3WHBV1+VeM3Hvo9ELOfqJfx2K5z1E5tlt+vPce3Mc7N7UmPqcLK7VR
+	 a47WIqzXu9w+VNDZDoANLx4LEpIo1UzbbBtYo2OcR6+jDxWrYS67TI0sEyfHNGyuCoPSw
+	 a9Lxn1zNc68y06xcJw7kAs5sezcltbC00VWPgaYVYTY2FRqxJzkK2AjBu3wASXcCOqUF4
+	 a7FCecJLJxGbUoqIJ+qCh+hpMvuH4Pm5fHY9px+nqDSdAZ0FhMCyWxJjqFNR1GwZVIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657268;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657284;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=WSPVKTAbk+SR/VAwnNkr5dYCl/mMwEQQEo11sg6MJE8=;
-	b=SECdNeNMu7XrTW53PskTNASPM1dGACFVWEDhNBye8wJ3bT20Gbr7kRF+hUJCiZp+Wd04
-	 7TqxB6EEsRrRaUg48aOWK6MbJmIe2HmEJPoaOwNrui2MVTP//dZJYqrR+cE9NSyqpfTe/
-	 dEzfugQpEuU3ZUcx2TNEaod/BuJnAWHyH+JvtQeqN0b0Q/dTtpfCuhp07V1JGy8q9dRR5
-	 tDCAyjSzLJPLIeleXLfhZc0PWSvUcZCNTBGQVGnlxcVQbN2sBd/MvgWR/hCLUa1AwRwHX
-	 B8LV5LJuG1yYjGSdHgps+SOnjuNlc4jhmHV8vQ20/SNVuw48Uhwkjp/Vbf5+0Lhzeow==
+	bh=ah4gzw5OiHfYj57lOarZOXCU6RfDPS1zY+caCBQQGnA=;
+	b=uERBi4Oo8xvLV/Tk6ZC/OFAee/LGWFrf3NYWYk5e+wOF16I+wZmopqw3cI9vwR66zDmy
+	 ffg7j1Wm8UNibFjOAWjelf7inoVUFUW5ZcU8oSY8Q22aWyaLtq4BhdMdRIsN5xn3vUOcD
+	 Waqe9aULsN/Euygm4IT+cVMkyVhEywPNhtPcbadMTzt+uILzdPn+xqQDUs2ynXoYUnWtW
+	 B8sOYXy7R27vTn+Wb26wE9ft1tr1Mj5kFmkwzzEllko1zjAALLtetd4yU1R49yqMjwwDY
+	 SztpZCkjQJS293PxW75F7Pv46jEy0aTJIkcUnsZjwS5sMKuwjoMFDSrAUF8TlyxJ1HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rY6mchjp;
-	arc=none smtp.remote-ip=91.218.175.170
-Received: from mta0.migadu.com (out-170.mta0.migadu.com [91.218.175.170])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A3tYDD1D;
+	arc=none smtp.remote-ip=91.218.175.192
+Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CE6606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64CE6606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F4F606D80D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40F4F606D80D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rY6mchjp
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A3tYDD1D
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oCKqNYshv+mvVDoSWeudI8uV7hNBmVaIdXc8GtKyjVQ=;
+DKIM-Signature: a=rsa-sha256; bh=psa7zx1Xe6yGIkcQOpjXlYI3zz/TQ9U0VkcLjx2WVoI=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793657265; v=1; x=1794262065;
- b=rY6mchjp9m1I8vluO+CSYVm/MBAhplCQtsqNkkDiPDM/IVfLU7Fn+9J5Lz9P0aN8mEzP+a5K
- S3VDcSWM69VD3WaPDtkZu+RCRq9lAe0zxXNKhlqTgwMC3geHRgSn6F53t/T8o5XA6EFBSgQ0bfh
- d2RIVYaobfpVKTHv4/+3S/5E=
+ t=1793657282; v=1; x=1794262082;
+ b=A3tYDD1DflT3s0dCvm47iBk0PCX43x36PKtYPlE23Ki11YOgwTR2y75uq7FGDL0Ce8hsVzC5
+ 2xFUXOWfBVHt1sP+tYTTBTEQ773HnUSgHt5XP5pGpBB/Mr8fxml8+OTR6LYnlwmGqPgo2icWPzI
+ XH/54PlDiDcro2s6eVnygULo=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 314a656f70197fe5;
-	Mon, 02 Nov 2026 22:07:45 +0000
-X-Mizu-Trace-ID: 314a656f70197fe5
+Received: by smtp.migadu.com with ESMTPS id 1d55dd1c4331ae09;
+	Mon, 02 Nov 2026 22:08:02 +0000
+X-Mizu-Trace-ID: 1d55dd1c4331ae09
 X-Migadu-Flow: FLOW_OUT
 From: Vineet Gupta <vineet.gupta@linux.dev>
 To: bpf@vger.kernel.org
@@ -67,9 +67,9 @@ Cc: ast@kernel.org,
 	jose.marchesi@oracle.com,
 	david.faust@oss.qualcomm.com,
 	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v3 2/8] selftests/bpf: don't pass clang-only warning flags to GCC
-Date: Mon,  2 Nov 2026 14:07:11 -0800
-Message-ID: <20261102220717.4079739-3-vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v3 6/8] selftests/bpf: cast explicitly in the arena subprog and callback faults
+Date: Mon,  2 Nov 2026 14:07:15 -0800
+Message-ID: <20261102220717.4079739-7-vineet.gupta@linux.dev>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102220717.4079739-1-vineet.gupta@linux.dev>
 References: <20261102220717.4079739-1-vineet.gupta@linux.dev>
@@ -84,89 +84,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The clang only togges are passed to every BPF object build, including
-for BPF_GCC build.
+Four stream tests fail with BPF_GCC:
 
-GCC accepts an unknown -Wno-foo silently until some other diagnostic fires,
-and then appends a note to it, so every warning in a bpf_gcc build comes with
-two lines of noise:
+  test_stream_arena_fault_address:FAIL:stream__open_and_load unexpected error: -13
+  #479 stream_oversize:FAIL
+  #480 stream_partial_read:FAIL
+  #482 stream_syscall:FAIL
 
-  cc1: note: unrecognized command-line option '-Wno-initializer-overrides' may have been intended to silence earlier diagnostics
-  cc1: note: unrecognized command-line option '-Wno-microsoft-anon-tag' may have been intended to silence earlier diagnostics
+They call stream__open_and_load(), which loads every program in the object,
+and two of those do not verify:
 
-Collect them in CLANG_BPF_CFLAGS and hand them only to the clang
-flavors, through the per-flavor BPF_CC_FLAGS that Makefile.skel appends
-after BPF_CFLAGS.
+  #481/11 stream_success/stream_arena_subprog_fault:FAIL
+  #481/12 stream_success/stream_arena_callback_fault:FAIL
 
-Only these two are clang-only; -Wno-compare-distinct-pointer-types and
--fms-extensions are understood by GCC 14 and later and stay in
-BPF_CFLAGS.
+Both dereference an arena pointer and leave the cast to the compiler:
+
+  int __arena *addr = (int __arena *)0xdeadbeef;
+  *addr = 1;
+
+Without arena support __arena is only btf_type_tag("arena"), so no
+addr_space_cast is emitted and the store is to a scalar, which the
+verifier rejects.  GCC splits it into byte stores, 0xdeadbeef not
+being aligned:
+
+  r2=3735928559 ll
+  *(u8*)(r2+0)=1            <- plain store, no cast
+
+Their siblings in the same file do not rely on the compiler; they use
+bpf_addr_space_cast(), which emits the instruction byte by byte and
+works anywhere.  Do the same here.
+
+The address space has to come off the local as well.  Left on, a
+compiler that supports arenas casts a second time for the
+dereference, on a pointer the explicit cast has already converted:
+
+  r2 = addr_space_cast(r2, 0, 1)
+  r3 = addr_space_cast(r2, 0, 1)
+  *(u32*)(r3+0)=1
+
+With it off, GCC with and without arena support and clang all emit the
+same thing, which is what the test wants:
+
+  r2 = addr_space_cast(r2, 0, 1)
+  *(u32*)(r2+0)=1
+
+What these two assert is the fault report, not how the pointer was
+produced, so nothing they were testing is lost.
+
+Measured on bpf-next with a stock bpf-gcc, test_progs before and after.
+Fifteen results go FAIL -> OK -- every test that loads this object, not
+just the arena ones:
+
+  stream_arena_fault_address             stream_oversize
+  stream_fd        stream_fd/blocking    stream_partial_read
+  stream_fd/edge   stream_fd/empty       stream_success
+  stream_fd/hup    stream_fd/nmi_epoll   stream_success/stream_arena_callback_fault
+  stream_fd/open   stream_fd/nonblock    stream_success/stream_arena_subprog_fault
+                                         stream_syscall
+
+and the five stream_arena_fault_address subtests become visible for the
+first time (read, write, xchg, cmpxchg and load_acquire faults).
 
 Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
- tools/testing/selftests/bpf/Makefile           | 8 ++++----
- tools/testing/selftests/bpf/Makefile.buildvars | 6 ++++--
- 2 files changed, 8 insertions(+), 6 deletions(-)
+ tools/testing/selftests/bpf/progs/stream.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/Makefile b/tools/testing/selftests/bpf/Makefile
-index c99e0f623e10..77682bf28c6e 100644
---- a/tools/testing/selftests/bpf/Makefile
-+++ b/tools/testing/selftests/bpf/Makefile
-@@ -376,7 +376,7 @@ CLANG_TARGET_ARCH = --target=$(notdir $(CROSS_COMPILE:%-=%))
- endif
+diff --git a/tools/testing/selftests/bpf/progs/stream.c b/tools/testing/selftests/bpf/progs/stream.c
+index 1ae015c4e6b4..dc56779cac06 100644
+--- a/tools/testing/selftests/bpf/progs/stream.c
++++ b/tools/testing/selftests/bpf/progs/stream.c
+@@ -5,7 +5,6 @@
+ #include <bpf/bpf_helpers.h>
+ #include "bpf_misc.h"
+ #include "bpf_experimental.h"
+-#include <bpf_arena_common.h>
  
- CLANG_SYS_INCLUDES = $(call get_sys_includes,$(CLANG),$(CLANG_TARGET_ARCH))
--CLANG_CFLAGS = $(CLANG_SYS_INCLUDES)
-+CLANG_CFLAGS = $(CLANG_SYS_INCLUDES) $(CLANG_BPF_CFLAGS)
+ struct arr_elem {
+ 	struct bpf_res_spin_lock lock;
+@@ -381,9 +380,10 @@ int stream_arena_cmpxchg_fault(void *ctx)
  
- # genkey writes both outputs. Pattern rules group them even on make
- # versions before 4.3, preventing concurrent genkey invocations.
-@@ -511,7 +511,7 @@ BINARY := test_progs
- BPF_CC := $(CLANG)
- BPF_CC_MSG := CLNG-BPF
- BPF_SYS_INCLUDES := $(CLANG_SYS_INCLUDES)
--BPF_CC_FLAGS := -O2 $(BPF_TARGET_ENDIAN) -mcpu=v3
-+BPF_CC_FLAGS := -O2 $(BPF_TARGET_ENDIAN) -mcpu=v3 $(CLANG_BPF_CFLAGS)
- BPF_DEFINES := -DENABLE_ATOMICS_TESTS
- include Makefile.skel
+ static __noinline void subprog(void)
+ {
+-	int __arena *addr = (int __arena *)0xdeadbeef;
++	int *addr = (int *)0xdeadbeef;
  
-@@ -527,12 +527,12 @@ $(OUTPUT)/test_progs: $(RUNNER_PREREQS) $(BPF_OBJS) $(ALL_SKELS) FORCE
+ 	arena_ptr = &arena;
++	bpf_addr_space_cast(addr, 0, 1);
+ 	*addr = 1;
+ }
  
- $(OUTPUT)/test_progs-no_alu32: $(RUNNER_PREREQS) FORCE
- 	+$(Q)$(RUNNER_MAKE) RUNNER=test_progs FLAVOR=no_alu32 TESTS_DIR=prog_tests \
--		$(CLANG_RUNNER_ARGS) BPF_CC_FLAGS='-O2 $(BPF_TARGET_ENDIAN) -mcpu=v2'
-+		$(CLANG_RUNNER_ARGS) BPF_CC_FLAGS='-O2 $(BPF_TARGET_ENDIAN) -mcpu=v2 $(CLANG_BPF_CFLAGS)'
+@@ -404,9 +404,10 @@ int stream_arena_subprog_fault(void *ctx)
  
- ifneq ($(CLANG_CPUV4),)
- $(OUTPUT)/test_progs-cpuv4: $(RUNNER_PREREQS) FORCE
- 	+$(Q)$(RUNNER_MAKE) RUNNER=test_progs FLAVOR=cpuv4 TESTS_DIR=prog_tests \
--		$(CLANG_RUNNER_ARGS) BPF_CC_FLAGS='-O2 $(BPF_TARGET_ENDIAN) -mcpu=v4' \
-+		$(CLANG_RUNNER_ARGS) BPF_CC_FLAGS='-O2 $(BPF_TARGET_ENDIAN) -mcpu=v4 $(CLANG_BPF_CFLAGS)' \
- 		BPF_DEFINES=-DENABLE_ATOMICS_TESTS
- endif
+ static __noinline int timer_cb(void *map, int *key, struct bpf_timer *timer)
+ {
+-	int __arena *addr = (int __arena *)0xdeadbeef;
++	int *addr = (int *)0xdeadbeef;
  
-diff --git a/tools/testing/selftests/bpf/Makefile.buildvars b/tools/testing/selftests/bpf/Makefile.buildvars
-index d2a0c0031b87..4d25a736376c 100644
---- a/tools/testing/selftests/bpf/Makefile.buildvars
-+++ b/tools/testing/selftests/bpf/Makefile.buildvars
-@@ -132,13 +132,15 @@ BPF_CFLAGS = -g -Wall -Werror -D__TARGET_ARCH_$(SRCARCH) $(MENDIAN)	\
- 	     -I$(abspath $(OUTPUT)/../usr/include)			\
- 	     -std=gnu11		 					\
- 	     -fno-strict-aliasing 					\
--	     -Wno-microsoft-anon-tag					\
- 	     -fms-extensions						\
- 	     -Wno-compare-distinct-pointer-types			\
--	     -Wno-initializer-overrides					\
- 	     #
- # TODO: enable me -Wsign-compare
- 
-+# Warning flags that only clang has.  GCC accepts an unknown -Wno-foo
-+# silently and then notes it on the next diagnostic it emits.
-+CLANG_BPF_CFLAGS := -Wno-microsoft-anon-tag -Wno-initializer-overrides
-+
- VERIFY_SIG_SETUP := $(CURDIR)/verify_sig_setup.sh
- VERIFICATION_CERT   := $(BUILD_DIR)/signing_key.der
- PRIVATE_KEY := $(BUILD_DIR)/signing_key.pem
+ 	arena_ptr = &arena;
++	bpf_addr_space_cast(addr, 0, 1);
+ 	*addr = 1;
+ 	return 0;
+ }
 -- 
 2.53.0-Meta
 
