@@ -1,83 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623675;
-	b=t2hTAcIbwdr2dMKYZCvk4w67W6IXjErPmvVrrdmWG+0E0yayPYuLGoWvF1yO1D0Zb9aE
-	 Mtq6PM9YSWfuwYvqGvGf6xaSqWIDj8M4NzksDdWgPrsh0snF3jfmRmXB6hqRYvuTKyqFl
-	 Ij8H3iS7uT3p7ntadlNw6vECWM7GLQfZ0vXTSj5oi2sR3VgBo0VI5DHPi2942hYxVVLoz
-	 sC0f3P3IPVOfPuSN+QxrzYCt8XBMpAbWJW2nH3qZFjJXne5Q1K36BdTwycxPTaosAIkEM
-	 Op/RByl3n4YiMjuCyktLx+qjbBeiBYKBWaZXTYlnib4Tj6Cy3+brTEoxrleiFveKOoQ==
+	t=1793623678;
+	b=0lTzYW37zu66nh4pbiPf6JPvLS5rTPf2TOvwGDMkcbB6lvtsvgtBWE53ZssB3LtLqMFQ
+	 Q2XSvLseBIJ6AgMyxLFrYHPkOJoVc7HEhDD0e3W+15HzQ8vX3UnmI0M8fBzHjmdZGDa84
+	 TzhKhrJPhj6o5L/wA4VOoKDsJ9bYNDRscCC8VtGR/1jfLJRvnh8/6kdWrv9sNXYdRqM/k
+	 c6nZUlpZ3xF0aDCemjWWrIxtGzTGa33EDJLT6C6F9nld1QzVoUD1ZnMnbyYR8Ffm/2U4v
+	 AhzZzdMHj7PQ2YiZG5tMA9p37/OtQK4oULf0sYmba1ZDNeMMz/+Z/9wgdrhRmggxyAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623675;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=RJ8/+4zRbRQOCmyB92scD/xfl0eq4A7aEUo/NcgGRfw=;
-	b=rmbqYLPxthl1SAcxFDrUkv4XBg1m97AfXkD0S3+Rk8Jm+mHH9QWlxG1cGk+naLpTCNn8
-	 oeEVlgHaQqEwGGclW9WGj4hTvgcYRRDZIGRX++7BlAcm71O3lv85513tY2FAaJYe3JfyT
-	 5rD4dnpk2XtEi0hMDAhvAOXJo+t5yMKK51Wp9XvLmSzMeQPj7d8FzS8J7ekbce58mS+5s
-	 TenCJYy5jIEKSP5HcrKlSt1ALldgt18EVKmKq/d/RP8hhp2D5+Pmk1AuPjy/8+FdCzZBR
-	 DPcoRwzWW6Lc1j1xn3fvI8wF3pzQQdqnq6FCUKevtbftd8V/x6fDUV/v1a1RatUbSUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623678;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zqoWqaP8cnZQxZpPL5UVASrgtfs6Kly9E6CJOTM41tU=;
+	b=NZVV8N10MMyWYKl5FOGqkCHqwHHIEZsHhpfeH8q2F7uIOPunO75DERE4vPmnW0nuHO1z
+	 7OKtAb4GTv2QXIDhFDwJ50zobU0FHSc5NQh5P5mWBpaVbAB20+plP8DWRDLQsu0wH2y4o
+	 hBu9jQoeG8G8TInt1IJZwos/f/ovGA9ohvUDJiq8j0BKwKakyh2L8X7/idpX0nJ1jJFqt
+	 mfZl7v0eLE02u7Hp3LFzkIDFMncWT9GC82U0fZ+pT9SLW4urPtsOzVAUJnh/bMRBxNbgZ
+	 GW0wveNP+eqHzwHtCLSvcOQYofPvnuNd+wWxzl0MhPOgp66Z2y7jTKpkrmGsMNfmodQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=oVB1x2HZ;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rw0n5fK4;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B599B606A326;
-	Mon,  2 Nov 2026 12:47:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B599B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 759B6606A339
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:47:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 759B6606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=oVB1x2HZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793623670;
-	bh=lYeFDHWwV3TAhUAPVjToHsZAn0kkozNC4IY2PXrzNZw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=oVB1x2HZnk2Ro5mWfppnJd5Z/I/7Payc+9HpNKhSN2shq9aXCsXlvolK2sIf4twya
-	 skB9mfC7Vp+cgGMog/jadmWH4g/dvaL67Kw3ycKjzoOKvFNUen0e3qyvj3deulhH9H
-	 asO8Kmmb6moWFiflisgPbhyQ0BJnpbti210B+sLWS5XRNPOJsgz9io2iQhMS1SFF7N
-	 1iFxJtnkWOtZ7ahC9NPHdidUgusZ6RN/yuEBDX0aXaNGgn8IL/cYYCh30arAkX35YH
-	 axvHDQXczT6tSNLiGCkDOjd2q8jLKqeVDdSuvgMRF+tz3T+1dHRDntcOrtM+AF5ah8
-	 ilizCRC0t8ELw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 4B29C255AA;
-	Mon,  2 Nov 2026 15:47:50 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon,  2 Nov 2026 15:47:46 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.31.164])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jJBLn4gNSz1r4m;
-	Mon, 02 Nov 2026 15:47:45 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Xiang Mei <xmei5@asu.edu>,
-	Takashi Iwai <tiwai@suse.de>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Torsten Schenk <torsten.schenk@zoho.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	co+855929c2df672879@bugs.sh
-Subject: [PATCH 5.10/5.15] ALSA: 6fire: fix OOB write from device-reported iso length
-Date: Mon,  2 Nov 2026 15:45:44 +0300
-Message-ID: <20261102124546.757-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rw0n5fK4
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc758830601so1781646a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:47:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793623678; x=1794228478; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zqoWqaP8cnZQxZpPL5UVASrgtfs6Kly9E6CJOTM41tU=;
+        b=rw0n5fK4MnaD3IQJIzm+vgfsJelHJJy6+EQ1mLdsTyeE7nAx35qWOOW/mWoj6tYKjs
+         +8yF4uneyKymfwNOiZDic3km4qFPavWLlhB9ZyBa+Y2qjQ4fttIyZPm6nW6mOIVQjd1g
+         KyvI3W220e2TeBv9Jt0ZKs9KW8psJhnbvUhlbsbIt8dyCiYfUZMxlHsoVvBNxV8Z2Ihk
+         YXms1PI6KfpFETKzXDT3JONi4ocbKLoZLl59qNggXiCn4NO6Qax6NWQuoteytEqRSI77
+         X4kD5MVZ+mK9jHTkczscbYPnvxfck5NX9BbdmyHR0KnYFnkZkuVx2IHPK4voN0KGy6Jw
+         n6Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793623678; x=1794228478;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zqoWqaP8cnZQxZpPL5UVASrgtfs6Kly9E6CJOTM41tU=;
+        b=j7P5vppDhV/Nil9t28Jj0dLMvQWXbsy2pczNVIPHxP9Mzq23D8RZwKcdpSAO+43sUr
+         /EgbU8/t85nj9g8LdyDX9fuWQOZCsotkOVwoevmGMuV+5sgC+aHWuE2Tzf+1fy/4684l
+         /T6uNBoDU1PMq/Vc09oURnY2Dv86Km18qZ2bqwuPOXj+R4StUjaKXbxbn+Ewh7UPDa9o
+         xQ6A8Dt3fWkvb52IKH0dDeXF/ELAryc+qWl70TDfqwsHjvkIhvyvkcume+6IMoLky9JJ
+         fPD7ricMTWjW4z7osV4uPW9eqIqmxr5HdxWohEWmPrnZQECvHu6D4PAZSS4W6BqLso6j
+         d62A==
+X-Forwarded-Encrypted: i=1; AKwUvBw8y3SwKqUzFhWb3bEs/YW54g731e7dHNcgrwTw+6Vs9Z+bcVnuPIq+NxcnCkc1cCCVdCIFjABuEMxm0t0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ59TJ4aMnSKu6iOTswlI6CC5SuVSDE+z6bqfNMmuaOaC1CSSgX
+	Cw3qgDOTgSVVRPX4RLGYasNausSyHI5ZkIkkZvD7xH+iejCNvHUbqFY5
+X-Gm-Gg: AYBFou0QEMu8RpgUaDKTR4WXKfbtYr74rMpR1LvwSPWOMDcyxcAs0JI9Fu5WEBcoIV6
+	gqmAduJx8EPdwn7HkqmgK3lMoeMW1yncyQRyeWP9h3P7nvsiK4pJLO4a6/dknATLYywiMpM3CDe
+	ScGT+LZbl8j6vgi+caRf/fReN4WtvbweWzmOlcF4J0bRToY5HUh1tPdVTtfjqAUz2CeOjHhqyhy
+	30U8Z1N0baHpEpxzl8JvwyPT12teov2l4gErgbZ7Ef9me4WaSOqf7pMDnQZc8IJOX1wOsDW8CkR
+	o53henF2qiZjXjTSaHNELBA/gSvrgxmhBSH+oGr47Oksk7OG5JSZoGy3s0360Ou22GIcTzYuuFU
+	Fgx3Z5iB0EQNk9DGzYOHQABVgjcBZG+N6hrED2FfYyvTW75HXgsKnOQVg8jvEkjHF5ItcNv1jlO
+	rlIJyEo/XPLgZ6ZJvK+37ohXP2YoFK9oPPh+hD4mee2gcm0K42ycsB1fhRN+ZPfGQGlggcF19Fq
+	18uo751J3jn0e8sBCYryp3K7NoiBFy1TrNkmWpSvBjplrEIwt2vwrO5xtqyBAp3XJkiOqTmpy+M
+	yW8GeEQa78y9WSgA13b4Kb5TtHpQjbYXgbjF1/76nt0ctMHWhY76K2QUD9OE//w1cGq5
+X-Received: by 2002:a05:6a20:a126:b0:3e1:c1a4:91f6 with SMTP id adf61e73a8af0-3e928c5c937mr9229349637.13.1793623677157;
+        Mon, 02 Nov 2026 04:47:57 -0800 (PST)
+Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad77fda1asm1908357b3a.6.2026.11.02.04.47.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 02 Nov 2026 04:47:56 -0800 (PST)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Johan Hedberg <johan.hedberg@intel.com>,
+	security@kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Bluetooth: L2CAP: Match LE responses to outstanding requests
+Date: Mon,  2 Nov 2026 20:47:33 +0800
+Message-ID: <20261102124735.23199-1-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,116 +98,62 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/02 11:22:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;lore.kernel.org:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207177 [Nov 02 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/02 11:53:00 #28780498
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/02 09:49:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-From: Xiang Mei <xmei5@asu.edu>
+An LE peer that can reach a local L2CAP listener can use unsolicited
+responses or Command Rejects to bypass deferred setup, remove an
+established channel, or leak an unaccepted socket and channel.
+Authentication requirements depend on the listener's security setting;
+whether a default configuration exposes such a listener has not been
+checked.
 
-commit 1589afe2d099d3e817873bc474676968d7080410 upstream.
+Patch 1 requires an outstanding request of the matching kind before a
+response or reject can change a channel. It also completes socket
+cleanup when a reconfigure failure or reject arrives after local close.
+Patch 2 clears incoming identifiers once their responses have been
+sent, so a later ECRED request that reuses one no longer matches the old
+channel. Patch 1 is the security fix; patch 2 is separable.
 
-usb6fire_pcm_in_urb_handler() sizes each outgoing isochronous packet as
-(actual_length - 4) / (in_n_analog << 2) * (out_n_analog << 2) + 4, where
-actual_length is the unsigned length the device reported for the matching
-IN packet.  A packet completed with status 0 and actual_length < 4 wraps
-the subtraction to 0x7fffffec; a zero-length isochronous packet is legal
-on the bus, and the preceding loop rejects only non-zero status.  The sum
-reaches memset() on out_urb->buffer, a 4832-byte object from
-kcalloc(PCM_MAX_PACKET_SIZE, PCM_N_PACKETS_PER_URB).
+Patch 1 extends the BR/EDR lookup from commit a518b9a9ef6e ("Bluetooth:
+L2CAP: Only accept connection responses to outstanding requests"). Its
+stable tags request 5.7 and newer with that prerequisite or an equivalent
+backport. Older LE-only trees need an adapted backport without the ECRED
+hunks.
 
-Even without the wrap the result is out of bounds: at 88.2/96 kHz the
-4-in/6-out scaling turns a full 420-byte IN packet into 628, so eight
-packets span 5024 bytes of that buffer.  usb_submit_urb() rejects an
-over-long descriptor only after the memset() and the
-usb6fire_pcm_playback() copy of user PCM data have run.
+AI assistance was used.
 
-Guard the subtraction as the sibling usb6fire_pcm_capture() already does,
-and limit the frame count to what fits in rt->out_packet_size, the OUT
-endpoint's wMaxPacketSize.  This bounds total_length by the buffer size
-while keeping each packet length aligned to a whole output frame.
+GCC 12.2 and Clang 19.1.7 builds passed at W=1, including full x86_64
+module linking after each patch. GCC also compiled the Bluetooth code
+built-in on x86_64 and as modules on i386. Sparse reported no diagnostic;
+Smatch retained its one pre-existing diagnostic. Coccinelle 1.3's
+use_after_iter rule found nothing in the changed functions; five
+unchanged parser gaps also occur in the base.
 
-  BUG: KASAN: out-of-bounds in usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
-  Write of size 18446744073709551456 at addr ffff88802a3d0000 by task vhci_rx/5018
-  Call Trace:
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
-   __asan_memset (mm/kasan/shadow.c:84)
-   usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
-   __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
-   usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
-   vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107 drivers/usb/usbip/vhci_rx.c:242)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+QEMU/vhci testing with patch 1 alone kept all 445 established channels
+alive. In 40-pair close-before runs, failed reconfigure responses and
+Command Rejects each destroyed about 40 sockets with the fix and only
+boot-noise sockets on the base. The success path destroyed the same
+number on both. A 1200-pair base run retained gross Slab memory after
+listener close while the fixed arms released it.
 
-  Allocated by task 10:
-   __kmalloc_cache_noprof (mm/slub.c:5563)
-   usb6fire_pcm_init (sound/usb/6fire/pcm.c:560 sound/usb/6fire/pcm.c:595)
-   usb6fire_chip_probe (sound/usb/6fire/chip.c:133)
-   usb_probe_interface (drivers/usb/core/driver.c:399)
+With patch 2, new ECRED requests that reused the identifier of a
+closing LE channel completed instead of being refused; partially
+accepted groups were not tested. A KCSAN kernel with both patches
+reported no data races in the close-before runs.
 
-  The buggy address belongs to the object at ffff88802a3d0000
-   which belongs to the cache kmalloc-8k of size 8192
-  The buggy address is located 0 bytes inside of
-   4832-byte region [ffff88802a3d0000, ffff88802a3d12e0)
-  Kernel panic - not syncing: Fatal exception in interrupt
+Hardware validation has not been run. Patch 1 does not apply to stable
+branches as is; adapted backports of both patches compiled at W=1 and
+linked as modules on the seven supported lines, and were not tested.
 
-Fixes: c6d43ba816d1 ("ALSA: usb/6fire - Driver for TerraTec DMX 6Fire USB")
-Reported-by: co+855929c2df672879@bugs.sh
-Closes: https://lore.kernel.org/all/gisnub8aWGLbyZLcDCSc7zWsHonMWGcyRgt5%40bugs.sh/
-Assisted-by: LLM
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Link: https://patch.msgid.link/20260914074324.3590843-1-xmei5@asu.edu
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ mdmitrichenko: Use pcm_urb.packets[] instead of urb.iso_frame_desc[];
-  5.10 and 5.15 predate 9fe49dbc023e ("ALSA: usb: 6fire: Avoid embedded
-  URBs"). ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-98312
+Zhao Li (2):
+  Bluetooth: L2CAP: Only accept LE responses to outstanding requests
+  Bluetooth: L2CAP: Clear request identifiers on incoming LE connections
 
- sound/usb/6fire/pcm.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ include/net/bluetooth/l2cap.h |  1 +
+ net/bluetooth/l2cap_core.c    | 87 ++++++++++++++++++-----------------
+ 2 files changed, 45 insertions(+), 43 deletions(-)
 
-diff --git a/sound/usb/6fire/pcm.c b/sound/usb/6fire/pcm.c
-index 7168f1c6a37a..d209009108ab 100644
---- a/sound/usb/6fire/pcm.c
-+++ b/sound/usb/6fire/pcm.c
-@@ -327,10 +327,17 @@ static void usb6fire_pcm_in_urb_handler(struct urb *usb_urb)
- 
- 	/* setup out urb structure */
- 	for (i = 0; i < PCM_N_PACKETS_PER_URB; i++) {
-+		unsigned int frames = 0;
-+
-+		if (in_urb->packets[i].actual_length > 4)
-+			frames = (in_urb->packets[i].actual_length - 4)
-+					/ (rt->in_n_analog << 2);
-+		frames = min_t(unsigned int, frames,
-+			       (rt->out_packet_size - 4)
-+			       / (rt->out_n_analog << 2));
-+
- 		out_urb->packets[i].offset = total_length;
--		out_urb->packets[i].length = (in_urb->packets[i].actual_length
--				- 4) / (rt->in_n_analog << 2)
--				* (rt->out_n_analog << 2) + 4;
-+		out_urb->packets[i].length = frames * (rt->out_n_analog << 2) + 4;
- 		out_urb->packets[i].status = 0;
- 		total_length += out_urb->packets[i].length;
- 	}
+
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
 -- 
-2.43.0
+2.56.0
 
