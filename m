@@ -1,86 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706024;
-	b=BUp7pWv62sOXZ9328UJLjLsnzcFyiZbwOZIkrBDABtYTRopQqpzAiJho+2gecPszpqcc
-	 ELVlzd2LizSmHvQbeRu4ano7oq0Vra/Sdmmb3s524aXEs1gJeWqdm+32SejvhM/0MlVx0
-	 9dtIZVujtizvGH6VvnqRHDrQGkHB5naq5kf3qqXzv4tKe3DOPnIk7T2f+bVdNUeuvkL17
-	 TLljaunouHr2TbZHBtdsEmAlJg7gEIFpWzDILsu0XCRrmzB/43uyqGJ60d4wNaYTmN/dx
-	 77PJ1HpoXGgY0WlFKyytejJvFcR5uGINTSBA5fzo95WWXTGK77eTdkFV+xQqZWJ07+g==
+	t=1793706020;
+	b=ya9xY33d9NIPbx3OtDOAewChG9BC5ahBJED0f+/VPbtAoZgpOQJyubEnihurtGWt6MsS
+	 Vgrbn5LcuNq3UfXLErmwL1nXN7NKTxiIxU6/rH0InIuxUD3FXHirs9Or86p/hIIvXf4mp
+	 v43dgzPeJJzksTLcA5R12nL0BypU2f/8v8WT29dJilvLTWKl2zrT5pnua7bxaCX05GyhY
+	 kPP+tiBGHbe4Su3zfCAKB5CNK8upwf2q4cgLxVVah8bsy3H394JIB6tkFUpif/eVBcMl/
+	 5XJpIGqLQduk+uXWIAOAYIiSXL4Y9cs1LsKKved/NxNqYK08WpZVdnfDViYq8FhqV2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706024;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=utxuIcSFdiIIVfsjndjc/ld0Uu9VZGyZLJcerN1xmmI=;
-	b=Ho35WJej3L11b2BLWf5A/8U2FD4M+3Pj5bOUsGCIojxD2Zt/Ek3ednwsgIFi2Fy/38K3
-	 0YMKKn1Da6DgFtr1ey6u4iCY0q8GosI0ZUrtJxn8jNtAr/y6DXNfKcn7XUvBTfUHNgMKH
-	 /5ZWLgV3Nulz0isNkhWZBZKKRATmWUjJgXfKWxLvKk/rBcM7EZ2pwBCuvKuEtNWQ+xH9g
-	 5N6ytES7P5MdDutSkoZYucSyt1SNdvFLZpqMqhUQvTkOmdstTtP2MP2KKTLNOln7tzbUy
-	 RBUFl+yBDN4wDotWkCRBScs1uC8Kgn/0N1rOdRdC1+u0w/c6lJ691eEzUyN8RUJLryw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706020;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tesqzDpZOT8hQ4pu7vbpIQkvzWqWZw964o2URMNByzY=;
+	b=ebZU1yQWRz1JCbpXmeldJWnIJNQ6Y41GxtSy/AlbPwT78ywqNEip//MFw/WlA+jmeyNc
+	 Xfu6dpN1Dv7EorvboSmLAfg1KPSH10/gzO5hSNX+VUosImRZIBxJldv9TbgLv00moLLQJ
+	 Bl3oFEVdjb6UPZxtH9cjErzgZoz5CCNsRrrSaN1iEA8UB61Kr0EO8LGmP+BTqybD4CyvE
+	 Tbixz2kjDNNUO+7zM5ddkUy1kfgUspy9XK6VJPopCQbVwFb3ykoRSz//H+KaIJIbJKKOO
+	 Ssvb2PEjJrVE5C6BG8mC1d1ZTwuOhWQZ2/fapT7sXczc8KpXXlYr7nwnp5shHQ8jQfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=slToOVfu;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F35TgBCw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30566082BDC
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:40:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F30566082BDC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5DF606D82C;
+	Tue,  3 Nov 2026 11:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=slToOVfu
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4be28b82so4261780f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:40:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793706022; x=1794310822; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=utxuIcSFdiIIVfsjndjc/ld0Uu9VZGyZLJcerN1xmmI=;
-        b=slToOVfu9AxLwUIK47MdPwcsIF6ozJhIssMgKxOBM1lyCOrnJILGKc9mrrxBS1FSRW
-         T18gn6F0KKrnPfV7klfJjz8EN8hK1pujWhYYrA8HWkXSjFRVK6EHn6mAlaHD3+v2joe2
-         nDric/+6hPAQI0A0cc/3eukWVo9OYRKPd3T8X4mtIXRKfVsz8kUe9yaC88HJO/0VcldE
-         jBFqMGEgknAen3Q+juUST5eC/meWkYfh0x/cgc3W3N5aTYQ9GL9Pu+HR8PY5Ba52yfYL
-         /iAbxfPegp6ijg1tZjJSN19bmCk/4B+1BIEjJIfr/XUOWuW8cQl2RcOS0KKqpl7/mOKW
-         T1MA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793706022; x=1794310822;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=utxuIcSFdiIIVfsjndjc/ld0Uu9VZGyZLJcerN1xmmI=;
-        b=NC+/GWBw0YdUd1PLDYF0tYdG6TvexXmYA4OuilTGse/vZ5aDGDMV9lZ2/2k1cW800o
-         wuh+7a1HLwaVVL6jQNPco9siZd3TjbKdSKNSxliSeQPdZKOwN+QTzfRKbvTT4J3NGCuK
-         WlKxeyhGJ0gu7iSzgoJfEEXa1hzUA/j4KPs5IqURG8w7ty1xk1yuolKHRSlfOU0QpH05
-         GCquhzODunh7sda67OEySS9kgzcuGJR2ypPt4YOUsPQHY8WISkNkQTs4EC7kMarghzu2
-         Ef9oS9Yv9SL0dPHsCCnV9FcX7vXbTmAOmkti8Vjc3e2c7iZkNi1vfOW9b0TmIisvOfSN
-         DTig==
-X-Gm-Message-State: APuU4Z8/yh3ktaFpjAlayyeFU++UAP3TrxCRTuXa16KYfiuv8iAOcyZP
-	mpCm6U6ofgLoAdrohEvr7S6rDkvhvDriIG20FqGN9YQ1nB1ygxDdkECq
-X-Gm-Gg: AYBFou0my5Gb2PrRcxEaJi/XM2wPjd6bHDUp18xBMdv70U+Qeo7aiI1ZLfntB1tbVm1
-	lxYExPsBaynX9CcsE0qjjPAOVNstFI6t3ArpC75ElMlr88qvH18KQDDGKEtBrdQuGLmpEkbDkZC
-	a2ggdQkFXocAJL7OfU52ErVCUsCLm5MoI1pfzoecCDhC9nhwzheDtv3tNO2Qk9fdqZiv0eSt3GB
-	M7xj9gPFLc4/zNrOsKXrPki+aDS0kZtBgTld3RUNLsgUbmyODA4oxTeP9O1c7PW9qSYtmT/HpW4
-	6ECA516KQ9YwRRcPHgZcCt8NViZoTpMvUsD9qgXPsGG6oRiH3fPBDOgp7wbso0o2guaNJO/la8V
-	fRXX8M19e4pq49iWXvQCOu2AxoDhqs2T1u6ZI+GWDUcxYr1rzS4Gm8dajt7Yt+MwD6wNCP3JrWW
-	Gax/zIkn2TC7zcQ/dQhxVZkLId0Z3xRt2qsGmBKSe8pNOkm733goxf5/Wr6TEuFhI4R6pQ34Lr4
-	UBjAkVPnVauAg0IkA68M+KwVlOOwIjDp1gbPWC+jaf0SSaglhIbtHg+DnDqM68gNo8AB7Z3GgcY
-	AqU4DjWutwEQoUrcXhF/riI=
-X-Received: by 2002:a5d:5c84:0:b0:48f:bcbf:26f2 with SMTP id ffacd0b85a97d-48fbcbf2becmr528573f8f.55.1793706022163;
-        Tue, 03 Nov 2026 03:40:22 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bab1a8sm24248670f8f.57.2026.11.03.03.40.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 03:40:21 -0800 (PST)
-Message-ID: <897b0ea8-d2f4-42e9-ad22-e331c5b085c7@gmail.com>
-Date: Tue, 3 Nov 2026 12:40:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F35TgBCw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2C11F000C1;
+	Tue,  3 Nov 2026 11:40:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793706019;
+	bh=tesqzDpZOT8hQ4pu7vbpIQkvzWqWZw964o2URMNByzY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=F35TgBCwcIZ2ocjoz+iQMrMq4ChhfMxzKE/57f99vO3TDyY13rUkCnYz6YrS0SFEu
+	 dKYScWHVneYwi2AqlIDiiG8OtvvQOsE6tsCTycYC78MGlCd5ZK+fLaGH27MeYnvfXj
+	 ssow3g8xepxK/eqliobgc32K1SEMLXSr987e7LKZsZhXAvck6Dxy3YsVZTTMxWrN/8
+	 rTfUAtOPa+YPFwVPnIN7atZpu3UGC5ZUY9Hcbqn7mHd44CLonEu/mYoGTXgQUntczn
+	 svLPTJBg9RyBmeaLH6ktp4LKvid+5sBwAumrQYcGI3mmx4OinDpVRodmouiG8IQ7gn
+	 Dlx++AuvoIgbA==
+Message-ID: <46e9506d-1eae-48d4-803d-d731d85fd376@kernel.org>
+Date: Tue, 3 Nov 2026 11:40:14 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,65 +52,245 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] x86: hugetlb: disable default CMA reservations on
- 32-bit kernel
-To: Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev, osalvador@suse.de,
- david@kernel.org, akpm@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org, x86@kernel.org
-References: <cover.1793692578.git.zhengqi.arch@bytedance.com>
- <61eee83da19a87337e68a7747fc0b89ee5d0393b.1793692578.git.zhengqi.arch@bytedance.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <61eee83da19a87337e68a7747fc0b89ee5d0393b.1793692578.git.zhengqi.arch@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 3/3] media: iris: Fix use-after-free on unbind with open
+ sessions
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Hungyu Lin <dennylin0707@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ stable@vger.kernel.org
+References: <20261017-iris-handle-unbind-v1-0-7809148eb90f@oss.qualcomm.com>
+ <2rWHCgRwgvQ8e4bhpYnYDjIzh1pjQNSNjdBFELmGe_h6iZzVLuoQDpUPAD64feN0mYHgyoDf3AYwIu-5ilkZdA==@protonmail.internalid>
+ <20261017-iris-handle-unbind-v1-3-7809148eb90f@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261017-iris-handle-unbind-v1-3-7809148eb90f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/3/26 9:01 AM, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
+On 17/10/2026 04:16, Vishnu Reddy wrote:
+> The driver unbind can be triggered through sysfs while a client has a
+> video session running. The devm resources will be freed when the unbind
+> completes. That leads to use after free for the running sessions.
 > 
-> A 32-bit x86 kernel can run on a 64-bit-capable CPU advertising GBPAGES.
+> Keep the memory of the core and its device allocated until the last
+> file descriptor is closed. Stop new sessions as soon as the removal
+> starts. Make sure the interrupt thread cannot run on the core after it
+> is freed.
 
-weird. anyway, LGTM:
+There's too much going on in this patch in one place. The commit log is 
+indicative of that too. At a minimum the IRQ stuff should be separated 
+because IMO its not really a use-after-free its a race condition that 
+already exists, its just more obvious when you free in this fashion.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-
-> arch_hugetlb_cma_order() checks only this feature and returns a nonzero
-> order, although gigantic HugeTLB support on x86 requires CONFIG_X86_64.
-> Specifying hugetlb_cma= can therefore reserve a CMA area that cannot
-> serve the intended gigantic HugeTLB allocations.
 > 
-> On non-PAE kernels, the folded PUD_SHIFT yields a 4 MiB order, which is
-> equal to MAX_PAGE_ORDER. With CONFIG_DEBUG_VM enabled, this triggers the
-> VM_WARN_ON(order <= MAX_PAGE_ORDER) check in hugetlb_cma_reserve(),
-> warning that hugetlb_cma is attempting to reserve a non-gigantic order.
-> 
-> Require CONFIG_X86_64 as well as GBPAGES when selecting the default CMA
-> order to avoid these ineffective reservations.
-> 
-> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+> Fixes: 38506cb7e8d2 ("media: iris: add platform driver for iris video device")
 > Cc: stable@vger.kernel.org
-> Cc: x86@kernel.org
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 > ---
->  arch/x86/mm/hugetlbpage.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/media/platform/qcom/iris/iris_probe.c | 56 +++++++++++++++++++--------
+>   1 file changed, 40 insertions(+), 16 deletions(-)
 > 
-> diff --git a/arch/x86/mm/hugetlbpage.c b/arch/x86/mm/hugetlbpage.c
-> index 3b26621c91286..70726a99ede7b 100644
-> --- a/arch/x86/mm/hugetlbpage.c
-> +++ b/arch/x86/mm/hugetlbpage.c
-> @@ -45,7 +45,7 @@ arch_initcall(gigantic_pages_init);
->  
->  unsigned int __init arch_hugetlb_cma_order(void)
->  {
-> -	if (boot_cpu_has(X86_FEATURE_GBPAGES))
-> +	if (IS_ENABLED(CONFIG_X86_64) && boot_cpu_has(X86_FEATURE_GBPAGES))
->  		return PUD_SHIFT - PAGE_SHIFT;
->  
->  	return 0;
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+> index 4cb678bd56f0..25876957381b 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -243,6 +243,15 @@ static int iris_register_video_device(struct iris_core *core, enum domain_type t
+>   	return ret;
+>   }
+> 
+> +static void iris_core_release(struct v4l2_device *v4l2_dev)
+> +{
+> +	struct iris_core *core = container_of(v4l2_dev, struct iris_core, v4l2_dev);
+> +
+> +	mutex_destroy(&core->lock);
+> +	put_device(core->dev);
+> +	kfree(core);
+> +}
+> +
+
+What you would have here is an admixture of devm allocated stuff and 
+hand-allocated, refcounted with custom v4l2_release() which might all 
+work but, it's not obvious to me does work i.e. core is hand allocated 
+while reg_base, response_packet etc are devm() managed.
+
+A much simpler solution to your problem is :
+
+static struct platform_driver iris_driver = {
+	.driver = {
+		.suppress_bind_attrs = true,
+		...
+	},
+};
+
+>   static void iris_remove(struct platform_device *pdev)
+>   {
+>   	struct iris_core *core;
+> @@ -251,18 +260,20 @@ static void iris_remove(struct platform_device *pdev)
+>   	if (!core)
+>   		return;
+> 
+> +	video_unregister_device(core->vdev_dec);
+> +	video_unregister_device(core->vdev_enc);
+> +
+>   	disable_delayed_work_sync(&core->sys_error_handler);
+> 
+>   	iris_core_deinit(core);
+> 
+> -	video_unregister_device(core->vdev_dec);
+> -	video_unregister_device(core->vdev_enc);
+> +	devm_free_irq(core->dev, core->irq, core);
 
 
--- 
-cheers,
-jose a. p-a
+
+> 
+>   	v4l2_device_unregister(&core->v4l2_dev);
+> 
+>   	iris_unreserve_iova_region(core->dev, core->iova_state);
+> 
+> -	mutex_destroy(&core->lock);
+> +	v4l2_device_put(&core->v4l2_dev);
+>   }
+> 
+>   static void iris_sys_error_handler(struct work_struct *work)
+> @@ -281,53 +292,64 @@ static int iris_probe(struct platform_device *pdev)
+>   	u64 dma_mask;
+>   	int ret;
+> 
+> -	core = devm_kzalloc(&pdev->dev, sizeof(*core), GFP_KERNEL);
+> +	core = kzalloc_obj(*core);
+>   	if (!core)
+>   		return -ENOMEM;
+> -	core->dev = dev;
+> +	core->dev = get_device(dev);
+> +
+> +	core->v4l2_dev.release = iris_core_release;
+> +	kref_init(&core->v4l2_dev.ref);
+> 
+>   	core->state = IRIS_CORE_DEINIT;
+>   	mutex_init(&core->lock);
+>   	init_completion(&core->core_init_done);
+> 
+>   	core->response_packet = devm_kzalloc(core->dev, IFACEQ_CORE_PKT_SIZE, GFP_KERNEL);
+> -	if (!core->response_packet)
+> -		return -ENOMEM;
+> +	if (!core->response_packet) {
+> +		ret = -ENOMEM;
+> +		goto err_put_core;
+> +	}
+> 
+>   	INIT_LIST_HEAD(&core->instances);
+>   	INIT_DELAYED_WORK(&core->sys_error_handler, iris_sys_error_handler);
+> 
+>   	core->reg_base = devm_platform_ioremap_resource(pdev, 0);
+> -	if (IS_ERR(core->reg_base))
+> -		return PTR_ERR(core->reg_base);
+> +	if (IS_ERR(core->reg_base)) {
+> +		ret = PTR_ERR(core->reg_base);
+> +		goto err_put_core;
+> +	}
+> 
+>   	core->irq = platform_get_irq(pdev, 0);
+> -	if (core->irq < 0)
+> -		return core->irq;
+> +	if (core->irq < 0) {
+> +		ret = core->irq;
+> +		goto err_put_core;
+> +	}
+> 
+>   	core->iris_platform_data = of_device_get_match_data(core->dev);
+> 
+>   	core->ubwc_cfg = qcom_ubwc_config_get_data();
+> -	if (IS_ERR(core->ubwc_cfg))
+> -		return PTR_ERR(core->ubwc_cfg);
+> +	if (IS_ERR(core->ubwc_cfg)) {
+> +		ret = PTR_ERR(core->ubwc_cfg);
+> +		goto err_put_core;
+> +	}
+> 
+>   	ret = devm_request_threaded_irq(core->dev, core->irq, iris_hfi_isr,
+>   					iris_hfi_isr_handler,
+>   					IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN,
+>   					"iris", core);
+>   	if (ret)
+> -		return ret;
+> +		goto err_put_core;
+> 
+>   	iris_init_ops(core);
+> 
+>   	ret = iris_init_resources(core);
+>   	if (ret)
+> -		return ret;
+> +		goto err_put_core;
+> 
+>   	ret = iris_reserve_iova_region(dev, &core->iova_state, IRIS_NP_RESERVE_IOVA_START,
+>   				       IRIS_NP_RESERVE_IOVA_SIZE);
+>   	if (ret)
+> -		return ret;
+> +		goto err_put_core;
+> 
+>   	ret = v4l2_device_register(dev, &core->v4l2_dev);
+>   	if (ret)
+> @@ -368,6 +390,8 @@ static int iris_probe(struct platform_device *pdev)
+>   	v4l2_device_unregister(&core->v4l2_dev);
+>   err_unresv_iova_region:
+>   	iris_unreserve_iova_region(dev, core->iova_state);
+> +err_put_core:
+> +	v4l2_device_put(&core->v4l2_dev);
+> 
+>   	return ret;
+>   }
+> 
+> --
+> 2.34.1
+
