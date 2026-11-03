@@ -1,86 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709646;
-	b=wYEflbGec47hfz4qTLtp/ayrSjqpqjsyMJwYniXyYSTcOqKtdaENEwvv/m5kbfhTHF0W
-	 EHpgvqGKWapYcDyb//TeWGB2pdoXbHeh4i9R2ja1tDBN/TyQZL3gPmOZ2rHmy1Y5YRKLV
-	 15A31xE/zE87fGn5vqtj7iSdFnA7vfCQeCzfDnxOvsvERZMM/gpg9mAOdnU8zXmB5/cxj
-	 KuQ9qBWSsaHGFlZgkXfaJlqltmSKcXG1JimqJ7Mpj2AXb3I+2swgMAB9LJTD1f8UNivOc
-	 PMhtGCfvAws6LhVRKzEzDH4q9nztl3jF/tYHLNoql3FSSLTLD9oa6m8FuALo4MYXm8g==
+	t=1793709659;
+	b=pcAIVRckNHhFRgnUbuyi3ltQw6ge2UnxiWUKtqhwaxGF8vtGgyCEBubyDt3FAn1VYET7
+	 Kaxa5GWPWKjF3o3womOii9US5taaLo7/gzqV3JnOyMKuXohfHSghik7ujfl8qiZAhg88h
+	 rn66FH+do+1YX2JKR0Uw8eENNEAuHIzS1zM2atqEZLz0hvybntoDEJCLkzkDa8sDcv7jJ
+	 LY/Ne0boLk/zxWwPw000kNP2VjPZUEj/LPco/PXmMqu1cVXwTK8OnvZ4auvxbMpQ+l3HE
+	 VKp2gEXlLKIzhYdk+aGegqMf29kmR5IgghBhKd3N3STgkU2DstLfBqldPhJSMtOlS/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709646;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=C66MeL5Q72nkzcx+0R2uKtwGLPP0+lTOxNnY0g90WzQ=;
-	b=LQdGfPl2PZTn7/l/TZrwlm+FzoF50xgxbhnlrYezaEnu0ie5Yt2HHEsKMEXZbMzzNgLD
-	 9o805AL992xalrU/oYGox+zWcNEqsZu5pLrXrUYIu4pP+ipjMW8miAzVhuXQtW8HfsqH0
-	 AIj0UQNqiTPpBH5VQOSLGZs5gB62ZXCrYqNJuk/HSAGn8zRxoE1QmtYfm2kzD0dPZ4Lbh
-	 K+FjkF7O7tEQwpx2FwzVd87xUK1cTupHptlDKtv/4lNi7gF1qKB3J4sbv/tEDcVbL2QrF
-	 owZIjBtC9ImEWe3zYbQdLmMIklgQglr2vpnG6VjimxnPlHSKOhyzIn67toK101MIN+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709659;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=NYVAHLrztlkXJBkmM5zy+74Kzl65MS3LN/LLEypDeDA=;
+	b=G0SMqAHo+SC0gZyNYox77GlNSbam2bSqn2vverOy2tYtYQScs91N8rolImz+DSPGl1kL
+	 cfxoJellLJJYrhdJbzutysibznAlTeYVLb2+lz4jn4wxsL+s7G6Q/wFrb1Ot8X8NeAv8M
+	 A3CNDnVP6UsoKKKVA9iGKWqUzRpj2YOmpNgSx265EP0D0rRJPFnHV8x+W62yw4dqvIF1f
+	 BAG3nncKscFqdRmVL5zR/iXVzDbVj+9g0F6ByttBQlYjErjtMKAL8VNgkWZmphVGassrj
+	 LCX3+1qDnBmh8+vzIoC+JW8TvjgZhLkxPetK26cPn0oPd45AX3agFzMdFnF0Y/2T6qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=OlkHrWYX;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C41606A324;
-	Tue,  3 Nov 2026 12:40:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5C41606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="J/0owWe2";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4997606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:40:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4997606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=OlkHrWYX
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A3Ce2q053039991, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793709602; bh=C66MeL5Q72nkzcx+0R2uKtwGLPP0+lTOxNnY0g90WzQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=OlkHrWYXoNUxtvEqclrNdjw3nDnH5u1ajBuadRUSsGWCrZ0czt+C+bpTzGY41MV2A
-	 ndBY4jdcNBb/ADzjH85QmCk3LJCOKk/ndJsiD/ki10jNfdRAyHCewZWyqKn6HHD7tj
-	 31HAP4lUBlROFwwEPPamqQjRls+i5/HOc0DLgEzZ/R3/doHJXozzo813ysRm0CdNYY
-	 +movWpN9VliMeZr1D5S+VpQ+VfFVURd6wVct/FLEdv2Xf8pIMoL7rhtLwEAgv2hL9g
-	 wpd28dNsTAuR3YZg34AoWTF9s85PDSsgYbBiouyRYRgf2ytTcmIKj9if2uzpJShKfF
-	 HPBrh0KGkewsQ==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A3Ce2q053039991
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 20:40:02 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 20:40:03 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 20:40:02 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Tue, 3 Nov 2026 20:40:02 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>, Linus Walleij <linusw@kernel.org>
-CC: =?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
-	=?utf-8?B?QW5kcmVhcyBGw6RyYmVy?= <afaerber@suse.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] pinctrl: realtek: Write the encoded slew rate value
-Thread-Topic: [PATCH] pinctrl: realtek: Write the encoded slew rate value
-Thread-Index: AQHdaRBfL8CcACdIrkWn/iKOgGQaurccSaPA
-Date: Tue, 3 Nov 2026 12:40:02 +0000
-Message-ID: <727f8462393544b1bb2a816069f16b4e@realtek.com>
-References: <20261031081804.218566-1-pocj8ur4in@gmail.com>
-In-Reply-To: <20261031081804.218566-1-pocj8ur4in@gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=J/0owWe2
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE9A41595;
+	Tue,  3 Nov 2026 04:40:54 -0800 (PST)
+Received: from [10.57.79.188] (unknown [10.57.79.188])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7218B3F628;
+	Tue,  3 Nov 2026 04:40:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793709658; bh=gogTsLKDlsXz4VUWeBOml0TBarLR76MOybfBRSYzeTQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=J/0owWe2uTrWOpANjWFObM0r81Mf0Lv4BddrvhW1PS55vLuMa4HJYXriLAQYpomVc
+	 qJBiTiKIJrlUJjnoVBsf1fbebD5xnlKVAZkb/3j+76ejCGycRnTCBsymFXluj2Bwys
+	 VEo8vZQGOBjEI7kWQHN3FJwxtP+64Srpygo+d/A8=
+Message-ID: <42f8e9e9-858a-4a0a-bbf7-daaeba368736@arm.com>
+Date: Tue, 3 Nov 2026 12:40:54 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,40 +53,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/panthor: Add more reviewers
+To: Akash Goel <akash.goel@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Karunika Choo <karunika.choo@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>,
+ Florent Tomasin <florent.tomasin@arm.com>,
+ Daniel Stone <daniels@collabora.com>
+References: <20261030144305.666845-1-liviu.dudau@arm.com>
+ <20261030144805.667158-1-liviu.dudau@arm.com>
+ <6ce83db8-f696-4507-88e1-0e113b8da8a3@arm.com>
+Content-Language: en-US
+From: Chris Diamand <chris.diamand@arm.com>
+In-Reply-To: <6ce83db8-f696-4507-88e1-0e113b8da8a3@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-PiBydGRfcGNvbmZfcGFyc2VfY29uZigpIG1hcHMgc2xldy1yYXRlIGFyZ3VtZW50cyAxLCAxMCwg
-MjAgYW5kIDMwIHRvIHRoZQ0KPiB0d28tYml0IGZpZWxkIHZhbHVlcyAwLCAxLCAyIGFuZCAzLiBI
-b3dldmVyLCBpdCBzaGlmdHMgdGhlIG9yaWdpbmFsIGFyZ3VtZW50IGludG8NCj4gdGhlIHJlZ2lz
-dGVyIHZhbHVlIGluc3RlYWQgb2YgdXNpbmcgdGhlIGNvbXB1dGVkIGVuY29kaW5nLg0KPiBBZnRl
-ciBtYXNraW5nLCB0aGVzZSBhcmd1bWVudHMgd3JpdGUgMSwgMiwgMCBhbmQgMiByZXNwZWN0aXZl
-bHkuIEluIHBhcnRpY3VsYXIsDQo+IHRoZSBkaXN0aW5jdCAxMCBhbmQgMzAgc2V0dGluZ3Mgd3Jp
-dGUgdGhlIHNhbWUgZmllbGQgdmFsdWUuDQo+IA0KPiBVc2Ugc2V0X3ZhbCB3aGVuIGNvbnN0cnVj
-dGluZyB0aGUgcmVnaXN0ZXIgdmFsdWUgc28gdGhhdCBib3RoIGluZGl2aWR1YWwgcGluDQo+IGFu
-ZCBncm91cCBjb25maWd1cmF0aW9uIGFwcGx5IHRoZSBleGlzdGluZyBjb252ZXJzaW9uLiBMZWF2
-ZSBhcmd1bWVudA0KPiB2YWxpZGF0aW9uLCBmaWVsZCBvZmZzZXRzLCBtYXNrcyBhbmQgcmVnbWFw
-IGVycm9yIGhhbmRsaW5nIHVuY2hhbmdlZC4NCj4gDQo+IEZpeGVzOiBkY2M5MzM0NDM1YjAgKCJw
-aW5jdHJsOiByZWFsdGVrOiBhZGQgc3VwcG9ydCBmb3Igc2xldyByYXRlLCBpbnB1dCB2b2x0YWdl
-DQo+IGFuZCBoaWdoIFZJTCIpDQo+IFNpZ25lZC1vZmYtYnk6IEJhZWsgS3l1LCBLaW0gPHBvY2o4
-dXI0aW5AZ21haWwuY29tPg0KDQpSZXZpZXdlZC1ieTogWXUtQ2h1biBMaW4gPGVsZWFub3IubGlu
-QHJlYWx0ZWsuY29tPg0KVGVzdGVkLWJ5OiBZdS1DaHVuIExpbiA8ZWxlYW5vci5saW5AcmVhbHRl
-ay5jb20+DQoNClRoYW5rcyENCll1LUNodW4NCg0KPiAtLS0NCj4gQW4gYXJtNjQgUUVNVSBrZXJu
-ZWwgZXhlcmNpc2VkIHRoZSBSVEQxNjI1IE1BSU4yIHBpbiBhbmQgZ3JvdXANCj4gc3RhdGUtc2Vs
-ZWN0aW9uIHBhdGhzIHVzaW5nIHRoZSByZWFsIHBpbmN0cmwgY2FsbGJhY2tzIGFuZCBhIHN5bnRo
-ZXRpYyByZWdtYXANCj4gYmFja2VuZC4gQSBzbGV3LXJhdGUgcmVxdWVzdCBvZiAxMCB3cm90ZSBm
-aWVsZCB2YWx1ZSAyIGJlZm9yZSB0aGUgY2hhbmdlIGFuZCAxDQo+IGFmdGVyIGl0LCB3aGlsZSBh
-ZGphY2VudCBiaXRzIHdlcmUgcHJlc2VydmVkLiBObyBib2FyZCBkZXZpY2UgdHJlZSwgcGh5c2lj
-YWwNCj4gTU1JTyBvciBzaWduYWwgdGltaW5nIHdhcyB0ZXN0ZWQuDQo+IA0KPiAgZHJpdmVycy9w
-aW5jdHJsL3JlYWx0ZWsvcGluY3RybC1ydGQuYyB8IDIgKy0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAx
-IGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-cGluY3RybC9yZWFsdGVrL3BpbmN0cmwtcnRkLmMNCj4gYi9kcml2ZXJzL3BpbmN0cmwvcmVhbHRl
-ay9waW5jdHJsLXJ0ZC5jDQo+IGluZGV4IDYwMjIyMzM5NzI2YjQuLjY1NmMyODFjNTU3YWMgMTAw
-NjQ0DQo+IC0tLSBhL2RyaXZlcnMvcGluY3RybC9yZWFsdGVrL3BpbmN0cmwtcnRkLmMNCj4gKysr
-IGIvZHJpdmVycy9waW5jdHJsL3JlYWx0ZWsvcGluY3RybC1ydGQuYw0KPiBAQCAtNDM4LDcgKzQz
-OCw3IEBAIHN0YXRpYyBpbnQgcnRkX3Bjb25mX3BhcnNlX2NvbmYoc3RydWN0IHJ0ZF9waW5jdHJs
-DQo+ICpkYXRhLA0KPiAgICAgICAgICAgICAgICAgc3Jfb2ZmID0gY29uZmlnX2Rlc2MtPmJhc2Vf
-Yml0ICsNCj4gY29uZmlnX2Rlc2MtPnNsZXdfcmF0ZV9vZmZzZXQ7DQo+ICAgICAgICAgICAgICAg
-ICByZWdfb2ZmID0gY29uZmlnX2Rlc2MtPnJlZ19vZmZzZXQ7DQo+ICAgICAgICAgICAgICAgICBt
-YXNrID0gMHgzIDw8IHNyX29mZjsNCj4gLSAgICAgICAgICAgICAgIHZhbCA9IGFyZyA8PCBzcl9v
-ZmY7DQo+ICsgICAgICAgICAgICAgICB2YWwgPSBzZXRfdmFsIDw8IHNyX29mZjsNCj4gICAgICAg
-ICAgICAgICAgIGJyZWFrOw0KPiANCj4gICAgICAgICBjYXNlIFBJTl9DT05GSUdfSU5QVVRfVk9M
-VEFHRV9VVjoNCj4gLS0NCj4gMi41NS4wDQoNCg==
+On 03/11/2026 10:58, Akash Goel wrote:
+> 
+> On 10/30/26 14:48, Liviu Dudau wrote:
+>> We now have more people that can do reviews and contribute patches
+>> to Panthor, so add their names to the list.
+>>
+>> Signed-off-by: Liviu Dudau<liviu.dudau@arm.com>
+>>
+>> ---
+>> v2: Forgot to add Chris Diamand to the list, fixed.
+>> ---
+>>   MAINTAINERS | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 89ea35a35c680..ef92c462a8381 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -2321,6 +2321,10 @@ ARM MALI PANTHOR DRM DRIVER
+>>   M:    Boris Brezillon<boris.brezillon@collabora.com>
+>>   M:    Steven Price<steven.price@arm.com>
+>>   M:    Liviu Dudau<liviu.dudau@arm.com>
+>> +R:    Akash Goel<akash.goel@arm.com>
+>> +R:    Karunika Choo<karunika.choo@arm.com>
+>> +R:    Lukas Zapolskas<lukas.zapolskas@arm.com>
+>> +R:    Chris Diamand<chris.diamand@arm.com>
+>>   L:    dri-devel@lists.freedesktop.org
+>>   S:    Supported
+>>   T:    githttps://gitlab.freedesktop.org/drm/misc/kernel.git
+> 
+> Acked-by: Akash Goel<akash.goel@arm.com>
+> 
+> Best regards,
+> Akash
+>
+
+Acked-by: Chris Diamand <chris.diamand@arm.com>
+
+Thanks Liviu!
+Chris
