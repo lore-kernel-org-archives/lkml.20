@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703405;
-	b=ScLmvDUIL1c9hu1hFrWxF7EJprlTt1S6wv43hggVehaUU/3Gc18Xm3e0DgA9rDDn63Si
-	 WdVbwSTMuVm0KxBv6w9vqAnw4mbmNk1nBpGzCX3IdK8/d3Bqs4x6kk8vzS6vD/YHK0uTc
-	 B3xt07ADZ7qMe+H7nHBtcQFigei+cHRWsq0m6ZTFrurVzZrqDiKeU5yl10buPgluoyRCi
-	 b8Z2eys/sxyDGeKmnTELKkT0wZw0GwMOGiO0S5UpW+wj2OrD6CqP9HMgeA+SAknWsRl+g
-	 aYcLPMmhwfOtSRhvkb+UuO9Gre3Z/jPGXWoUxBwGjaXx548eORIwtfG7J81Q7j+5JzQ==
+	t=1793703428;
+	b=VfEp+Zq4iUDkgSlNAk0yx4CpeLcxHbDLWqXwhiBkNpUM4HTcf//APyuKrJsj5azcAP3U
+	 tzFCLNYP7Q9sGRlDh8CtnMlfNo9+WtaoyFS3EZUIW45NEfjvMaUpyTeeIfD7ta0J/Ynce
+	 NClViC23mMdZk73tRs2O058e6VKSEfhmy/LcutJVLduoYlTNScGF4rLJx8TdfeY2LfM+l
+	 ORTMQvWRDSudqfYtrgEZ5Z/e0Jc5b9255JfDV3D3ZZnXiVfYxVY5cr66nl1vPNi0R64vD
+	 KxOXG2NhtEwGDLDQ+wN7Ze9MNGFqbLCYIsS3/jJMcYCjXVL8KdYk4kpEIfYr7ZhkmJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703405;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=gwvypKjsF1fhDblmkT/fwH2BxnhVOTpgZ0KAoZnMfsc=;
-	b=HtTjUfdA4re1RDGxaX2kJ3IrwgTBHiiWPEHEy3w80aj6i6q8e5Q/DTX/YU6iEKuK1xVz
-	 Fnmxc0IENxRj/eBoEqBl+7tKpXAwUPMaGui0qD9Q2MVZqpU89I/oe6NFdDIY3hqrsxgIJ
-	 jHzCv/5eBxTviOtuhIEZ0VAC9HVofnnryGi7k3ByNwkKTU4J/WxPqSEweevjYy0MkL4Fp
-	 S1oAVcDYpOytKnoLCyM3EMYr1Z9YpeFp6wUEPbFyBT7JkNuf6nT1EbqK023IBFmISicDy
-	 bYddt2erbPThZhUjOaZZY+RLJSSF2NCIspP4d4/M+S/c0tiUhTSvhSHPKkiE7NS60YA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703428;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=cFdQ6prKPN0fVpDGNOM9j75u/A7Rwlpi6Mh1u9hdWiA=;
+	b=SUT1d13JL+/sBeJpMUFBKjSsk+wUmnSx0bH5mgQ5y/QfwHKepB9XO3KLIpUht1W0HpPU
+	 g1vP64x8CRZV0gU9DXrwWgh1+0J8VjgiUoweWscKz8yCz8W9jMgE03W8Ud5E15yEdTL3F
+	 kte80dN477y49Zvz1cZQovaCFjEzMyu7Yh5KpAMv4djA+Q2CfsN8s4uJ6mNcLxo6Fp9SR
+	 1ma4axe9cNetjzndHGpAuzbm71QJgZ+OC7ghtbjfC+zloFQ59IFBrpB4vtdKMluJftUDB
+	 7tbwxgFyf2tMcdPso/L4obS8Xg1KApGEu3umzUKvt33X/w56UcNUs1uYOtFVXmbLRFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BoULIsqr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ajY4zP2U;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D893A606BF94;
-	Tue,  3 Nov 2026 10:56:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E40EA606F7DA
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:57:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E40EA606F7DA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BoULIsqr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488FB1F00A02;
-	Tue,  3 Nov 2026 10:56:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793703404;
-	bh=gwvypKjsF1fhDblmkT/fwH2BxnhVOTpgZ0KAoZnMfsc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BoULIsqrLoy1ZGaBehqp1SGkKKMeT2FyyOdvaFyLz4sbwignpGAR2XngvsHTnnL2S
-	 6DQBWTzoe/XgpWIcrj9LGXXICc1/4/PY6pYFMuSu5OiN0RRPbnijQqtydAA2MjxrF9
-	 lzMQMexXyErpcul849TdZckJE141QGMfyJ/lndwQZz4iXAOKoLuYdyJH/o7p+ywfER
-	 j/lXJT6qUy55aFDyTK78UKtOt+/bOvwFriVLjv1zy9I64OSJyRAMOnJ18JyK7uMr4e
-	 UxlOEIzecozbl/svRSa+1LYEoIHD7ySDtF5Ojn/v5aX2K1/W8VFMJa6YRIgVV9oNMO
-	 nNWmXHN1oiMhw==
-Subject:
- Re: [PATCH net] net: dsa: motorcomm: Clear the MIB buffer on chip reset
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 10:56:43 +0000
-Message-ID: <179370340383.488856.629848665261682901@kernel.org>
-In-Reply-To: <20261102101125.3523835-1-mmyangfl@gmail.com>
-References: <20261102101125.3523835-1-mmyangfl@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ajY4zP2U
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261103105659euoutp02877cb7ddfa13e0054f4f1528ff34fc00~kg8HF7E821283512835euoutp02M
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:56:59 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261103105659euoutp02877cb7ddfa13e0054f4f1528ff34fc00~kg8HF7E821283512835euoutp02M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793703419;
+	bh=cFdQ6prKPN0fVpDGNOM9j75u/A7Rwlpi6Mh1u9hdWiA=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=ajY4zP2UxM2JFV5HrXBDx4ECGZq/ZnrC5yg91GsYcRX7X3ar4Uq64UWNQ9hPgXslM
+	 Wy3f6oMrSAY2E34y/m7WQ7x/+qNnqxLJlIN0aEl5u33i7deRWVPQo48N8+HEZV5Vo2
+	 E7tzlf7AAqyGCxrj8qUPWb7KFvewb69tzSxoFlO4=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261103105659eucas1p13666e7692d2b66477f7226dbb9ff0714~kg8G8z4GM0743307433eucas1p10;
+	Tue,  3 Nov 2026 10:56:59 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261103105659eusmtip2db0935c8ac86b48bb9ade39923c4d8e0~kg8Gm_qSB2162521625eusmtip27;
+	Tue,  3 Nov 2026 10:56:59 +0000 (GMT)
+Message-ID: <eaa6bd75-d81e-4432-a950-e38cf98e1d06@samsung.com>
+Date: Tue, 3 Nov 2026 11:56:58 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,165 +64,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma/pool: eliminate CMA alloc warning in
+ atomic_pool_expand
+To: Maximilian Heyne <mheyne@amazon.de>, stable@vger.kernel.org
+Cc: Robin Murphy <robin.murphy@arm.com>, Nicolas Saenz Julienne
+	<nsaenz@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261030-ghent-tubes-5abba7d2@mheyne-amazon>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261103105659eucas1p13666e7692d2b66477f7226dbb9ff0714
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261030100043eucas1p195785d2a92ca9ff72ce7dab2fc397f20
+X-EPHeader: CA
+X-CMS-RootMailID: 20261030100043eucas1p195785d2a92ca9ff72ce7dab2fc397f20
+References: <CGME20261030100043eucas1p195785d2a92ca9ff72ce7dab2fc397f20@eucas1p1.samsung.com>
+	<20261030-ghent-tubes-5abba7d2@mheyne-amazon>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 30.10.2026 11:00, Maximilian Heyne wrote:
+> atomic_pool_expand() allocates with decreasing page order first from the
+> CMA and if that fails via alloc_pages(). If the cma allocation fails a
+> warning, such as the following, is printed:
+>
+>   cma: __cma_alloc_frozen: reserved: alloc failed, req-size: 4096 pages, ret: -16
+>   cma: number of available pages:
+>   cma: range 0: 1024@0
+>   cma:
+>   => 1024 free of 1024 total pages
+>   DMA: preallocated 262144 KiB GFP_KERNEL pool for atomic allocations
+>
+> In this case the allocation succeeded via alloc_pages and therefore,
+> printing the warning is not necessary. Therefore, similar to commit
+> 463d439becb8 ("dma/pool: eliminate alloc_pages warning in
+> atomic_pool_expand") silence the warning also for the CMA attempt.
+>
+> Fixes: d7e673ec2c8e ("dma-pool: Only allocate from CMA when in same memory zone")
+> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1
+Applied to dma-mapping-for-next. Thanks!
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message says "The published stats need no handling;
-  every entry is republished from the buffer".
-- [Low] net: dsa: motorcomm: port variable shadowing in
-  yt921x_dsa_setup()
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it blocks the
-  re-setup path the patch is meant to fix.
-
---
-
-net: dsa: motorcomm: Clear the MIB buffer on chip reset
-
-This patch clears the per-port software MIB buffer (pm->data) in
-yt921x_dsa_setup() after the chip reset. Without it, a re-setup of the
-DSA tree leaves the buffer holding old values, and the next
-yt921x_mib_read() reads the reset counters as a 32-bit wrap.
-
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 33e5fc127244d..ff17233848a80 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
-> @@ -2458,6 +2458,16 @@ static int yt921x_dsa_setup(struct dsa_switch *ds)
->  		return -ENODEV;
->  	}
->  
-
-[Severity: High]
-This is a pre-existing issue, but can yt921x_dsa_setup() reach the new
-loop on the re-setup path from the commit message? The question applies
-when the switch node has an "mdio" child, as in the motorcomm,yt921x.yaml
-example.
-
-Earlier in yt921x_dsa_setup(), every .setup() call does this:
-
-	child = of_get_child_by_name(np, "mdio");
-	if (child) {
-		res = yt921x_mbus_int_init(priv, child);
-		...
-
-yt921x_mbus_int_init() registers a devm managed bus with the same id
-each time:
-
-	snprintf(mbus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
-	...
-	mbus->parent = dev;
-	...
-	res = devm_of_mdiobus_register(dev, mbus, mnp);
-
-devm only releases the bus when the yt921x device unbinds.
-yt921x_dsa_teardown() only calls yt921x_leds_remove(). So the first bus
-is still registered when the tree is set up again, for example after
-another member switch is removed and re-probed.
-
-The second registration would then hit this in __mdiobus_register(),
-with a duplicate name under the same parent:
-
-	dev_set_name(&bus->dev, "%s", bus->id);
-	...
-	err = device_register(&bus->dev);
-	if (err) {
-		pr_err("mii_bus %s failed to register\n", bus->id);
-		return -EINVAL;
-	}
-
-In that case yt921x_dsa_setup() returns before the MIB clear and before
-yt921x_chip_setup(). dsa_switch_setup() then fails, and the whole tree
-is torn down.
-
-Would the tree then stay down until the yt921x driver is unbound, so
-that this fix never runs? Should the internal MDIO bus be registered
-outside .setup(), or unregistered in .teardown()?
-
-> +	for (int port = 0; port < YT921X_PORT_NUM; port++) {
-> +		struct yt921x_port *pp = &priv->ports[port];
-> +		struct yt921x_mib *pm = pp->mib;
-> +
-> +		if (!pm)
-> +			continue;
-> +
-> +		memset(&pm->data, 0, sizeof(pm->data));
-> +	}
-
-[Severity: Low]
-This loop declares its own int port, but yt921x_dsa_setup() already
-has an int port at function scope. The serdes_mask for_each_set_bit()
-loop just below uses that outer variable.
-
-The inner declaration shadows the outer one. A W=2 build, which
-enables -Wshadow, warns about this. With W=e or CONFIG_WERROR=y the
-warning becomes a build failure in chip.c.
-
-There is no runtime problem, because for_each_set_bit() assigns the
-outer port before reading it. Could the new loop reuse the existing
-variable instead of declaring a new one, as in:
-
-	for (port = 0; port < YT921X_PORT_NUM; port++) {
-
-That would also match how the rest of yt921x_dsa_setup() walks the
-ports.
-
-[Severity: Medium]
-This loop only clears pm->data. What happens to the published copies in
-the same MIB block (pm->stats, pm->rx_frames and pm->tx_frames)?
-
-The commit message says:
-
-  The published stats need no handling; every entry is republished from
-  the buffer.
-
-That seems true only after yt921x_mib_read() runs again. On re-setup,
-yt921x_dsa_port_setup() keeps the existing pm and only does this, which
-does not queue the poll:
-
-	if (pm)
-		enable_delayed_work(&pm->work);
-
-The only place that queues the poll is yt921x_phylink_mac_link_up():
-
-	pm = priv->ports[port].mib;
-	if (pm)
-		schedule_delayed_work(&pm->work, 0);
-
-Meanwhile, yt921x_dsa_get_stats64() in mib.c reads the published copies
-under syncp and never calls yt921x_mib_read():
-
-		stats->rx_packets = u64_stats_read(&pm->rx_frames);
-		stats->tx_packets = u64_stats_read(&pm->tx_frames);
-		stats->rx_bytes = u64_stats_read(&mib->rx_good_bytes) -
-				  ETH_FCS_LEN * stats->rx_packets;
-
-Take a port whose link stays down after the tree is set up again. Would
-its new user netdev keep reporting the old packet, byte and error
-counters in ip -s link and /proc/net/dev indefinitely?
-
-The next mib_read could come from the link-up poll or from an ethtool
--S, eth-mac, eth-ctrl, rmon or pause query. At that point every counter
-would drop to the small post-reset value, so the counters would go
-backwards.
-
-Could this loop also clear or republish the syncp-protected copies,
-inside u64_stats_update_begin_irqsave() and
-u64_stats_update_end_irqrestore()?
-
->  	mask = priv->info->serdes_mask;
->  	for_each_set_bit(port, &mask, YT921X_PORT_NUM) {
->  		struct yt921x_port *pp = &priv->ports[port];
-
+Best regards
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102101125.3523835-1-mmyangfl%40gmail.com
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
