@@ -1,98 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793677814;
-	b=epjAiDbsJPnoZXtdxUH3vjFN6cCdZ7vARV52t94aCryEYUjwse48eXWjMfixgyyqXM66
-	 h3duvXXAuQOoppo5ab1EQ8eWzm1nyQ9og8aBLsbRt/7hYzbgLdlz4kk1mykEW5X6m5RLf
-	 WxE64TuvjUc17QEf4kCEaPtmBpNl4aSJ5kI3xBAfvWDjdlpLwu/x3GaxwxHjjLQNU22at
-	 W6J/7b3HW08d7B5sxDygq5fUbb6pqCA+GmzM61YIuIDqKkXxAOptbN2CMz17xVMilsa26
-	 jw9g2PBkjj91/yvgBounPRm5e9hz7/HTqPnHwXe+Ii0QGIHvBrvpMGMxjSoVjbqULfA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793677814;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1+blZSQgxNEahjdVa8AiR3LXNuVUk/+DfoiG+PYMEIc=;
-	b=mOx8J2CkQ+vZCQuontXUGCFSeliKYW9VcRbVEQ3aSO51Svm2O0kVPiaR88xPU8T78vhR
-	 mqOZr+bZqVFESA+B4ciuE4WBpfKUrLfK5YF6huWm2VyVhZdz3/jpYDDkJ+hMBD6t25EaU
-	 ehy/vzZcRev1TaPMDInNq8XKxcgXN7are7gFbFzVD7dSGxFKb3pABAZopOjWT3crvaT72
-	 lhqkfYx7CnQgRTYvo/eDvrbOIeerCACRNC8x/8WfqEL0ziqOd+S2MXra5kg95FZl8OMey
-	 hOr3Tyyf3MEWUC6/ywXCsVPkEGRI9OuPM6aMpUdqxzs4cKVIv62yfVrfFQuL8bDLPLg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=OxwDrfGQ;
-	arc=none smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.60
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793677817;
+	b=nrNi0ZGovet7ta2Kiwh1lZevKbPndQr7Iyf3daQOVK3+t2BKKMK6cqsHhvmfuqMAvM9U
+	 ykOALKdvGXy+Ps+ChDm+LdCugJmrF4Ra42gN8JtH2TlkKxBR5QSVMB6xYHnyhNdHrdd1e
+	 j8fGfSax0W4NPP8mKkalzfIq9Peu1mcA6cLyFkxD+gxKZ9V7CqOH1ZU7O1jsZvsdvuNyd
+	 6biIRJxP0FGSViIjmsRWvdm+onDnI+edfCDWdfRfjLHt5YOUmRbd/A54LWFxYtSaZmVzq
+	 we2a0XoY0toYZWcQ2XcsTXQXy9i3CjyECE3frJh3gZCCKENoGGn5dtofyecGZblZbsg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793677817;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TbsdfhqjFLljt1j9XKpzR14n5eX7CPQSs2eqVapLe3s=;
+	b=vOmdyIZrdHPD2LU65han2NzjwlwMEmGu0w5Jk2uN1dXhfpbPNQ14Czx2OI0GvYbw0EHC
+	 hIWZiQDvFdWSVWmpPbNSojOw2lMCPumzCrmVQKCUB7dLCxOWplxwUr7hz6lyDf3LmZvnl
+	 XAm5i6lNxyRdz6/CJ3uOJvAzQ0rcHSTzisAKOhRcVUZqt7nlI2+sC/sQeTX8bf/rxQ9xR
+	 rnLzOdsC8PHMp+XRLNU0JyobUoQtvlw4irzIgHXyr18za863aNzin7IOkeOeTOsyHoxUG
+	 QCUyOq/qzp9az5wBxQjcwTLYx5R1A3PlIZ1C8a0iof7Ww+OlJIjY5aZ1IAcHb9T0rKw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="c7t/Tdov";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.60
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011060.outbound.protection.outlook.com [40.107.208.60])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED98606A336
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ED98606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F32E606A334
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:50:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F32E606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=OxwDrfGQ
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-53381e53b80so41783831cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:50:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1793677813; x=1794282613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1+blZSQgxNEahjdVa8AiR3LXNuVUk/+DfoiG+PYMEIc=;
-        b=OxwDrfGQN31bGh6PS3DPbNc/mCVz5T+pPRw7AhOgLYipAC1uyglOFwIWTT2VxvTuth
-         5Xm1KdTFIMYfOG5CFSY96Grs2I8YsPNJatY5gInNoOb1ZGkgqrHmehVS1FLgd32Pjz6h
-         S2mW3NiwQtMWQeYM2EXMhzRUSr07GbSd+pDnUIi8WuE2jXkiz1lAMauLvoOsRY5UQ9lw
-         dycZjA8WOh9YMNcLmy7igtwMmYtmnUQOhRIZccvOCw0e6J7UgS6IjevRTfAkdkVjFNNV
-         +H/e4yweFcGDN70SZsoJ2x5y6AHWwYV7p7tXnRc8RJqb5mU7EdxgWWJI6ckPcDcbxl/d
-         qhnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793677813; x=1794282613;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1+blZSQgxNEahjdVa8AiR3LXNuVUk/+DfoiG+PYMEIc=;
-        b=omtewgZRWP6SGNAG5skxoabo6ZVnAsbCLEQ14WSScgv/pPlsRSS8UjV6LBJzdQReT5
-         dGPpVg6X7N4Qdr275vfoWYTo9ZGgNXpiPgoAcBmUoBLsjdjyH8tpIg3XzrTMCmGuptm2
-         HdpLL5HSM6pLRuBbGnhY3Oj4c1KWDDgDtE7aWs47ECtaa2WjGakmZU33nGHUdo046A03
-         cN0HzbgSW1agG4KCpshQvxlTnFbuueYhoyFpRs7+8KJC6XV47DcsZ2275mt+ShdJoh90
-         Mg8g5Nm7RDz6cod1QbR/Z15uhA1ot6/cUQiF7IGmOXga3azcTwJTvyoZs35C8wrDZHi6
-         l7rA==
-X-Forwarded-Encrypted: i=1; AKwUvBzw9rJ0Em/RpsgM0AY72AQac91Gnn97ShKiZNba6gMqDh3/NvAslZjE+wvJ/Kn4U7oWndYRex1ht2EUftk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXw3nmtdVNQMI8OKW8XzziTHKToQWWm4+Wc3jvd+3L5tnCTlRB
-	zjZ87E9F3zJ9LrxFdWNMBhN707nIHJ+1QOfjkTCTgCnKWRViDkDZVrFBm/tJ/WmpKw==
-X-Gm-Gg: AYBFou3uUu/cO4Msz1YJBKFFrTwsR5Fbw61adyZTVegdr7IE80BGFmD5BHkIcny5jH7
-	BAn2UAMYb8KICQuLDN7LoRS5cIodqTV9y7uPZtSF7AhlDn5lzb9HQx51RySvlPiStiGUrB43MvH
-	DmHhLG99UHwZJjCtH1yJYejOsWnWGwqTlde5v+wBIyRyVEsVrfCcoorCxqMcI4a6LtCjH4a6ox5
-	OP8FOazu/FlYBfr3vWrDUVrJfqN3LIu1aS8Hi4ggdSjeMhLziyefkntCErbG+S39VMzcrjWHtCH
-	xINNOPjJ2naEVr9hBx8CDZuEae/CUXJqItVAiajmTs/neNdZiPMdEpkARnnZ3ybk2TAV2iIAqq8
-	lzdPjfzwodtE52gNaD57g50RgdsFqslZTQlyuc5Kav6XMt/fiRdvWRx29PeiVSuQYL5UQL2+/IV
-	A9CDA9TpqK0U26i4+T1Fhldx5H5eaem/0U7Ji6tBmxzCu0Q+0Hr08XsAtrgaHdysUcB2D4U2KNB
-	1EqNZ2SujfJnoP3b5FfNWYgxvnnV6ooqRtFaCe1/6vWsfRyiUN16iYgYKXZ8kpgezabua993E3i
-	ygw0k/ePv9pIL8qEhlLhyC512v0TAkCdP2Gq
-X-Received: by 2002:a05:622a:2610:b0:536:725f:588 with SMTP id d75a77b69052e-542b85e3f8cmr200524281cf.76.1793677812711;
-        Mon, 02 Nov 2026 19:50:12 -0800 (PST)
-Received: from localhost.localdomain ([206.206.222.26])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7e2342asm105461276d6.5.2026.11.02.19.50.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 19:50:12 -0800 (PST)
-From: Siddharth Mishra <smish149@asu.edu>
-To: David Sterba <dsterba@suse.com>
-Cc: Qu Wenruo <wqu@suse.com>,
-	Boris Burkov <boris@bur.io>,
-	Chris Mason <mason@kernel.org>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Siddharth Mishra <smish149@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] btrfs: tree-checker: reject extent owner ref without simple quota
-Date: Mon,  2 Nov 2026 20:49:32 -0700
-Message-ID: <20261103034932.1790235-3-smish149@asu.edu>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261103034932.1790235-1-smish149@asu.edu>
-References: <20261103034932.1790235-1-smish149@asu.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=c7t/Tdov
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HmqnbhCow2zsC8o7gfozfsDsqJoi/o9wnRB1zp3lX2M7t1GswmElyawjiUDGIEEMzLKzO2DC5RefTy4q/0SbODgU4UeUFlcyA87wIwADlsEpuAcMvf8FyBsRYwqmUtFBR1ryZ1e5C+MqqiilKggLH12EOcg2cJujQoEP4rCrna7NqN3qgHWbPSVdpYKVIzBCFIMsoDpt8orY/7W99ApbLXZ/yNswTV24fV/eQECR0AntVagYUEQQ2pP3+2K0B0yVCS2o2isAI7DotFS88XU8WLR+N5OffwCvnCkC8AVKHViqcx42WI64xlf5Db3Tf9ybRgFggx2PpOi2bRX2UDNabQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TbsdfhqjFLljt1j9XKpzR14n5eX7CPQSs2eqVapLe3s=;
+ b=wXtl/fCykZyg73GAykI/tR/Mb5m0YB6kTpYZHoJFvvR1rGVD6BSQTglwTgLekJAYQlDNldkZYwYAAPOq40kgbB9iO3MjvmZPs/g6R9kIsHtnjhUiBysF4SYLkapxihzJWqY32lwlgj5GRhewPG27WIFUFWBTkvmarUdwZe1vWC1mtGIFv7We9711C+Ss382f5KUDr+qW+AxFB9wRx02MComkPNMED3vckutLEhl5sxox8/Ep6TmG4fYKZt5bcgEuzjSsihgtzJQjY7HOT//YpzdHbxXPIMFmIDZMThX4dxU6nYXtVjinSCpOx17exes9ZXSsXHUmx4ESUjMHXkISrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TbsdfhqjFLljt1j9XKpzR14n5eX7CPQSs2eqVapLe3s=;
+ b=c7t/Tdov4G7pkPlmolnY2G+eJpp3LaHGJu8176ytfIWA0SlF6A159+SD94ZMoREMUIxVpKkrQUIQiU++PT6pR1zvUnAbH5ZUi+d5Gyd5IUSW1d102G/jSZMaEe4ee87TUpIl/fiPPxCnO5f6jFuXcpZfZmfSid0AJrQJM/8+QihlO6EDIKSOmeoz/unCpXr3UGeGGKw/a3mHtwZ6W9IcgTDUxXmzcgyzNO9r3TrzID4RGmivdAdfneigPAd+F5Ni52XJAUHJl4Sc7HfajHe1zIVd7F+BrtAPyaxh01UeH51gT8VrNiML9o07D+n0izc4EuaPl7l1FBs92tnfbO5sxg==
+Received: from BN0PR04CA0100.namprd04.prod.outlook.com (2603:10b6:408:ec::15)
+ by MN6PR12MB8567.namprd12.prod.outlook.com (2603:10b6:208:478::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 03:50:13 +0000
+Received: from BN2PEPF000055DA.namprd21.prod.outlook.com
+ (2603:10b6:408:ec:cafe::87) by BN0PR04CA0100.outlook.office365.com
+ (2603:10b6:408:ec::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Tue, 3
+ Nov 2026 03:50:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN2PEPF000055DA.mail.protection.outlook.com (10.167.245.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.0 via Frontend Transport; Tue, 3 Nov 2026 03:50:13 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
+ 2026 19:49:58 -0800
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
+ 2026 19:49:58 -0800
+Received: from Asurada-Nvidia.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Mon, 2 Nov 2026 19:49:57 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>, <joro@8bytes.org>, Will Deacon
+	<will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, <rafael@kernel.org>, Danilo Krummrich
+	<dakr@kernel.org>, Johan Hovold <johan@kernel.org>, Marek Szyprowski
+	<m.szyprowski@samsung.com>
+CC: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Pranjal Shrivastava <praan@google.com>,
+	"Mostafa Saleh" <smostafa@google.com>, <linux-kernel@vger.kernel.org>,
+	<iommu@lists.linux.dev>, <driver-core@lists.linux.dev>, Sonang Patel
+	<sonangp@nvidia.com>, Ankit Agrawal <ankita@nvidia.com>,
+	<shameerali.kolothum.thodi@huawei.com>
+Subject: [PATCH v2 1/7] firmware: arm_rmm: Add VSMMU commands and fields
+Date: Mon, 2 Nov 2026 19:49:44 -0800
+Message-ID: <efc402ba59961b271c2d7ce26f3b91d717f7392d.1793676742.git.nicolinc@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1793676742.git.nicolinc@nvidia.com>
+References: <cover.1793676742.git.nicolinc@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,97 +123,121 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DA:EE_|MN6PR12MB8567:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9129096a-a5a3-48ed-c955-08df395d90ea
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|7416014|1800799024|376014|10067099003|22082099003|18002099003|261102123227099003|3023799007|56012099006|11063799006|261022113327099003|261009223027099003|261021121427099003|260925021311599003|260925022911599003|260925021911599003|261021135927099003;
+X-Microsoft-Antispam-Message-Info:
+	+4Vpo6cIAwkQc4arcpQi4pme84rGhdC35uQ10LTcORQJFjwRsM2Ky8NfkfAxT8RvHkghdovntyqjDNtOfBPznFWSLZPUDyJgaCyTqSjibuo1qcW2RzTSBVKMToyazJ9qdH1mlnx7YX1ZFbmvjZ+j0gjsysQiO5goapRIcQ+HpNQwmqgfuVOMDZqtOMImKGfacsgPefKO1jdVd38XbgKTgvecjChuI1bUZ6J7bmPmtDY0qX47FMbn9Zku8I2D2c+7PKT9EsnRYwjd9v5FZMG1kV+LXSSPNGgUW3tETMwdhgQpuA4yExtZdnQ3DIczNSebbSDhlq/ggZ8Y7/GN7C1Jhiusgvp64mahH2jytI6lh0by9Lpx3+1dp5AwobOoQJUrhTCe/3pRydf+xzMz450OmhSWKgJzm/qbnnqauhbHgym5jnJNQuf84dS5LHJWW5IuiyXY1blNYLJkbDAHz+aGDdJCgwZe4jHgPoUgulKt/BSGUgfZxPNEp/CxlJPlmgIYmdQeHa6Xff4okXSb50iXfzY3ErDzL+Iw4DSPWZ6j7UNTgMrpGNu6LvM5eiO5wdCW3RgpLROoA7yeItrBznYgIMpEUKIu3Vv9beQ14xKHyXOKp6oiBCAPON4iOzWRup8XtdUJ4NAovfzuvzC/AfHGh1J9r4UpVl6LuMW/qpWEAsxZyK6FSlA+RBvGVuLe6JsaekWRJhXcHoo9mmRYHcXx2g==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(1800799024)(376014)(10067099003)(22082099003)(18002099003)(261102123227099003)(3023799007)(56012099006)(11063799006)(261022113327099003)(261009223027099003)(261021121427099003)(260925021311599003)(260925022911599003)(260925021911599003)(261021135927099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	24dXDSpXCqNG7nCaXBw7QzqWL6H/nz68oyfxkgcME2Lt9t4mjsN270bRK8P2PfKzAKOptPLHyBCto//preHu2yI/PM/k2Cy0xBe57fv+/h2CvHHKTsyq1iTdn58ayfoJl9lFnd4ajWbpb5EZsQLpyu66N+iCkV7G4vjRhURBBFXM8oZ3eanuGWENmcXAGMr4ND7AroHiqB8c+D6AqE93mdHhR8x8ziw49LiSB0icwQ0h/h8e5sD5ZcKvtamxpYp6HHHH+pmNbpNDwop8GOn2wCLwnEN2iDbYv25+XEdDxFXTPqA0k47N8VfR5rqbCqCn5rXBkGdC1FwZfTRwpefPmyLOY6nQNBeTXNX1jWBV/aEm1OnJvYRywEfKFZQRX0Usa34t1qvZEzrT5vTEUve0kduN4aVuuzoP3c9ApuraDtR2ke6iUQ6xJN0GAfBrV8m9
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 03:50:13.4312
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9129096a-a5a3-48ed-c955-08df395d90ea
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055DA.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8567
 
-[BUG]
-An extent item can contain an owner ref.  The owner ref is correct only
-when the super block has the SIMPLE_QUOTA bit.  If the bit is not set,
-check_extent_item() gives a WARN_ON() and then accepts the leaf :
+DEN0137 2.0-bet3 adds the RSI_VSMMU_GET_INFO command and replaces the old
+RSI_VSMMU_ACTIVATE command with RSI_ARCH_DEV_ACTIVATE.
 
-	case BTRFS_EXTENT_OWNER_REF_KEY:
-		WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
-		break;
+Add the command IDs, return codes, SMMUv3 device type, and helpers for both
+commands.
 
-For all other incorrect inline refs, check_extent_item() returns
--EUCLEAN.  After the tree-checker accepts the leaf, a free of the extent
-calls btrfs_get_extent_inline_ref_type().  This function ASSERT()s the
-SIMPLE_QUOTA bit.
-
-I made a crafted image : an owner ref, no SIMPLE_QUOTA bit, and no quota
-tree.  On a kernel with CONFIG_BTRFS_ASSERT=y, I removed the file of the
-extent.  At the next commit, btrfs frees the extent and gives :
-
-  WARNING: fs/btrfs/tree-checker.c:1782 at __btrfs_check_leaf
-  assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
-  in fs/btrfs/extent-tree.c:354
-  kernel BUG at fs/btrfs/extent-tree.c:354!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:btrfs_get_extent_inline_ref_type.cold
-  (fs/btrfs/extent-tree.c:354)
-  Call Trace:
-   lookup_inline_extent_backref (fs/btrfs/extent-tree.c:919)
-   lookup_extent_backref (fs/btrfs/extent-tree.c:1100)
-   __btrfs_free_extent.isra.0 (fs/btrfs/extent-tree.c:3319)
-   __btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2134)
-   btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2246)
-   btrfs_commit_transaction (fs/btrfs/transaction.c:2278)
-   ksys_sync (fs/sync.c:104)
-
-Without CONFIG_BTRFS_ASSERT, the kernel gives only the WARN_ON().  Then
-btrfs continues to use the owner ref.
-
-[CAUSE]
-For an owner ref without the SIMPLE_QUOTA bit, the tree-checker gives a
-WARN_ON() and keeps the leaf.  For all other inline ref types, it
-rejects the leaf.  Two sources can put owner refs without the
-SIMPLE_QUOTA bit on a disk : a damaged or crafted image, and a kernel
-without commit f2363e6fcc79 ("btrfs: fix transaction atomicity bug when
-enabling simple quotas").
-
-[FIX]
-Reject the leaf with -EUCLEAN, as for all other incorrect inline refs.
-Then btrfs finds the problem when it reads the leaf, and the ASSERT() is
-not reached.
-
-syzbot reported the WARN_ON() and the ASSERT() in 2024 without a
-reproducer.  Both reports were closed for inactivity.  At that time, the
-WARN_ON() was noted as something that "should be handled in a better
-way".  I found the cause during the analysis of a fuzzing report.  An AI
-tool helped.  I tested with a crafted image on btrfs for-next
-(d6f76ca0a70d).  Without the patch, the kernel gives the WARN_ON(), and
-the BUG above with CONFIG_BTRFS_ASSERT=y.  With the patch, the
-tree-checker rejects the leaf ("extent owner ref without simple quota")
-and the mount fails with -EIO.  There is no WARN_ON() and no BUG.  A
-clean simple quota filesystem still writes data, frees extents and
-mounts again without errors.  The fstests group qgroup has no new
-failure (34 passed, 3 not run here).  The crafted image and the commands
-are available on request.
-
-Link: https://syzkaller.appspot.com/bug?extid=d7d1fc7e21835ca19219
-Link: https://syzkaller.appspot.com/bug?extid=4983e68a6d77180bfe33
-Fixes: d9a620f77e33 ("btrfs: new inline ref storing owning subvol of data extents")
-Cc: stable@vger.kernel.org # 6.7+
-Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 ---
- fs/btrfs/tree-checker.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ include/linux/arm-rsi-cmds.h  | 29 +++++++++++++++++++++++++++++
+ include/linux/arm-smccc-rsi.h | 20 ++++++++++++++++++++
+ 2 files changed, 49 insertions(+)
 
-diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-index 0d75cb537..5c44bed99 100644
---- a/fs/btrfs/tree-checker.c
-+++ b/fs/btrfs/tree-checker.c
-@@ -1779,7 +1779,11 @@ static int check_extent_item(struct extent_buffer *leaf,
- 			inline_refs += btrfs_shared_data_ref_count(leaf, sref);
- 			break;
- 		case BTRFS_EXTENT_OWNER_REF_KEY:
--			WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
-+			if (unlikely(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA))) {
-+				extent_err(leaf, slot,
-+					   "extent owner ref without simple quota");
-+				return -EUCLEAN;
-+			}
- 			break;
- 		default:
- 			extent_err(leaf, slot, "unknown inline ref type: %u",
+diff --git a/include/linux/arm-rsi-cmds.h b/include/linux/arm-rsi-cmds.h
+index 3f7a6a833993b..a1836b19c1556 100644
+--- a/include/linux/arm-rsi-cmds.h
++++ b/include/linux/arm-rsi-cmds.h
+@@ -236,4 +236,33 @@ static inline unsigned long rsi_attestation_token_continue(phys_addr_t granule,
+ 	return res.a0;
+ }
+ 
++static inline unsigned long rsi_vsmmu_get_info(phys_addr_t addr,
++					       phys_addr_t *top)
++{
++	struct arm_smccc_1_2_regs regs = {
++		.a0 = SMC_RSI_VSMMU_GET_INFO,
++		.a1 = addr,
++	};
++
++	arm_smccc_1_2_smc(&regs, &regs);
++	if (regs.a0 == RSI_SUCCESS && top)
++		*top = regs.a1;
++
++	return regs.a0;
++}
++
++static inline unsigned long rsi_arch_dev_activate(phys_addr_t base,
++						  unsigned long dev_type)
++{
++	struct arm_smccc_1_2_regs regs = {
++		.a0 = SMC_RSI_ARCH_DEV_ACTIVATE,
++		.a1 = base,
++		.a2 = dev_type,
++	};
++
++	arm_smccc_1_2_smc(&regs, &regs);
++
++	return regs.a0;
++}
++
+ #endif /* __LINUX_ARM_RSI_CMDS_H_ */
+diff --git a/include/linux/arm-smccc-rsi.h b/include/linux/arm-smccc-rsi.h
+index cca881ddfdbab..fff0073622153 100644
+--- a/include/linux/arm-smccc-rsi.h
++++ b/include/linux/arm-smccc-rsi.h
+@@ -37,6 +37,7 @@
+ #define RSI_ERROR_STATE		UL(2)
+ #define RSI_INCOMPLETE		UL(3)
+ #define RSI_ERROR_UNKNOWN	UL(4)
++#define RSI_ERROR_DEVICE	UL(5)
+ 
+ #define SMC_RSI_FID(n)		ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,      \
+ 						   ARM_SMCCC_SMC_64,         \
+@@ -190,4 +191,23 @@ struct realm_config {
+  */
+ #define SMC_RSI_HOST_CALL			SMC_RSI_FID(0x199)
+ 
++/*
++ * Get information about a VSMMU.
++ *
++ * arg1 == Base IPA of the VSMMU
++ * ret0 == Status / error
++ * ret1 == Top IPA of the VSMMU
++ */
++#define SMC_RSI_VSMMU_GET_INFO			SMC_RSI_FID(0x19A)
++
++#define RSI_ARCH_DEV_SMMUV3			UL(0)
++
++/*
++ * Activate an architectural device.
++ *
++ * arg1 == Base IPA of the architectural device
++ * arg2 == Architectural device type
++ * ret0 == Status / error
++ */
++#define SMC_RSI_ARCH_DEV_ACTIVATE		SMC_RSI_FID(0x19B)
+ #endif /* __LINUX_ARM_SMCCC_RSI_H_ */
 -- 
-2.54.0
+2.43.0
 
