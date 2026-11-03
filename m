@@ -1,96 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694746;
-	b=3CjmpyXNzTRBJCI9BgQnyUdjctKfubrEE+tR4Fzq2UT2aoi0pzQVlbG1Cq5uWr5QRtL0
-	 mvTKdgINluDUWygSYfTuq2FGBlyYKfHji2FZWUow5Dd/9uKdqLa70jZtaQ1lYWUkuZFwy
-	 9ztJHi30qa+GS4wJU5M+f/3re4V6kxmSkU2NKSYlgt9KBpu/CSHCQaRVhHY1Yjr6JGqBA
-	 RC67WoaDm0TGXGxDx/MU5Mj5mgR5uNS4B1fi3DeCklE9y7eLvljImx9WdL35uTHitjb/5
-	 oMvY5vJv9SZTZCB/07LPMHKof6PcYd8c8ENwLzHg4fy2untKkiUdX+rwY3qm0evv2Sw==
+	t=1793694762;
+	b=0gKYdnKGydoBe8VJYKwgFSO2ln/emU2IRjkSvTky33QKGc6lAaQGPrCd+Axe09RAdV7/
+	 T/vTZoP1+4xHctg2lHGkor9MSEuB9XCmMuU0L7Oj5GAWqfR8U6ZCyd1ZBznMxn1Gk+J8O
+	 9OYOlwIzl2KmzCgExRPeFFqqKIT7INIu1NJvD+m5bjEwN4BGRO68QsHtC/IdoyFxX5e5d
+	 xCPmu2VDRhhytkst4rQvqHufJZ+MmvDZkTceAvwwq6Fg8CvB1XNBW+VfgdKRUJvNAUT2y
+	 +YST70rRqs0sZOxg0iTGgfGIONXCc84jY0IXLHkm7dGzFpIOXo69cOOHj/NiYTchVPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694746;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694762;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=z/lQc+uwRuDiVntqSHAzYirnLKbYOYkb92/IgHqdzPM=;
-	b=v21dKVj0fpxPgiLup35fFqgOUDarWzAibpadye+0d6T8pHK5PgLzZ3OMAVEXbf1BzW2/
-	 4+sgtlWFQTbal95GKVPJTj+zxvfxF9vSuVwM5H3xurVDsaPF/Te/wqOiNt5yRKNks0RkD
-	 1jLWG2bwh+56fSpDDQD2W58eHlUcWPB0zlr8bwMxL7qwgb2W84IYplkK0CfuGHIz0t6ld
-	 gD3IhPKhd+tntzJWDK9rHTxNH7SaCYVa7PnSFY7aGBvGahvkHf9AEwWPdPOQpvUJqwsbR
-	 y91/fJ9d57lStG8QumF7ydayEIiT8cz5rcnYBlpOxa1NyPcjjbviIilZoJxerQKiN8Q==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=juHaABmsqQoLeAA/rLT1aKfzFmL4zz9z1UEoFz1K2V8=;
+	b=Dw5PcGxaGQ84rlXRiUAS9YGKXX0PfEwRB+nd291uFtdNThHn35QvzAWpwsS6RIhxjAbn
+	 d8+lDIVEidTDj1vr4C9+Nyc0mQTq5kmjtgEnmNQ0vsFY3Yh38vAI0nbfNmf2yf3sO/kWQ
+	 9zpAiAA94tGh12Ht/X5CYPLWoZNGN5BT0Nwdu/dTknlqU6hAdxfko0Iem0pc17JOGnF0D
+	 oU8tUd2FCArcC/Vl2S1n/+2NhVQfWb+ZOY4HOCJoOfWq0tofX9gmZnARQ1ftJBV3Rm3o+
+	 NMVgJP8iQFq9d2CoAlYpxAiEGFb9VBTNWRNTPTRPBQtjRLXl6Pn1/QwJari04hOiXUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N5fohdBx;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eicz9JMp;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124B7606A330
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 124B7606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2541606A330
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:32:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2541606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N5fohdBx
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso1891657a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:32:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eicz9JMp
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso25484775e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:32:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793694745; x=1794299545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z/lQc+uwRuDiVntqSHAzYirnLKbYOYkb92/IgHqdzPM=;
-        b=N5fohdBx1NFB9AacLoSHrX8kbHCWs0MOFlRa7iGrfcHrdu9N2ICrvSNW+jtvWA/at0
-         0iQUKX8LtCxGZmPCnF7TakoIIzG2QtQom9Y8mi5FybXTwj+yrGJXGzs3R4WU565xPvqY
-         6kTFfWOGhnFahW92OPvWAuDPs/0ByNgGPmx7cjEX6Yn2ZPZ51UAxbhv2ExJM3lSrdbvl
-         Aav+HOMNmVy3U9ELqSoyECWxI/U/gIdxDgbnUdc+DC1NhC/ahaLM8YV051OMEDk5whKE
-         dVYmHjFaaptVC9InyjtJ6HWO+aL8rbE0u9GSswzao2FfSnqDJ513az1Guv9iat4lzrxS
-         WT6g==
+        d=gmail.com; s=20260707; t=1793694760; x=1794299560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=juHaABmsqQoLeAA/rLT1aKfzFmL4zz9z1UEoFz1K2V8=;
+        b=Eicz9JMpGYkp48+od1f2riYo7DPn3BBHQx4PtS3ZrM4k+SuKgHBr/RuSwxBuL5GLgm
+         hlg8nmHApezVHw5ptwT0M+3vQtMVwhXmM5p/GYj8x+djDjLJw2hZoR0Ux7uqWCeylBKM
+         cU1v6E2IbUkRXzdjFr74u91COXZz4CSDszbdtR566O3YCIKPPIQFugxKc1WeNK3zNwiL
+         v7yk2tV9jX+KqWTJWBJPX/FHvXUktdJnecR6y/ctoJQTiy2wKRbUOztX6KfQr427rOIV
+         +aQNJITwsGOME/2ct6R2NnNMqVlPMLZwTTM2p4fB+g3MdoAaNmfZz22cAN/wgUFqV3+h
+         9zZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793694745; x=1794299545;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z/lQc+uwRuDiVntqSHAzYirnLKbYOYkb92/IgHqdzPM=;
-        b=mSUMVCDyjr6dRjStYIiea1VBk9Y7tAqk5ePIqsG3qo7nWavqNVWtuW1KnP74nwmwCZ
-         oLP+EfPVVyOT2KdD4yvUk8P+QBx/zrFuKeII7y8pWsDkIl0BGqkWYJ0TWqxAeXtxSk0F
-         xSpPNonk0xMauzGKzPLlUzy9rM431PI1XQ9vT8SiI/Aja2DSZAp7Ar0WtAoZpN9DuRKD
-         MOizoJw8rhAZdbfkExSKV9RD3OGvBWVSj7qbPFIf5A/JYlj/N0FNLDVeZVwIbsbrlEbz
-         znUOLss6/V4idOk7W4ZSCPI4wFgtvTMM3WxQCaaoAT6zPW1+S0fS5q2PQorBSNy09JnA
-         QVHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyMe3JlcSbTfYvWLf1d1KbY9GT4b9LtADeWM+jYQk/fRhhIdrnY62vpM/GpU6icO6c3003+ieqySHsIjo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cSQfAjrZDjAUkbbAuk8+qNmzonJjVsybLFPLvUroSXbYbrVMf
-	hqA207qyybfvt9bOGCZwbdjqZwdVZS2R5VHaAx9vu1Ljuayo236p8INR
-X-Gm-Gg: AYBFou0aYyGtABOvAPW5TKi+WLUgPJ+1kiTt/RO7PZJxbnWAZjbYTIu7XqfqfA5bfK8
-	54EimS6n3iW8msZUXDUqz09+tPtLhlKgjAS3d41WTJBcVx6eyOCqUzL9zZIIPJPfWU1ggdRqR/I
-	uGdCzZ8XKIU/7qeM98tdJdm30LXgh8N1v6h01Y4lbYP/Vf45jTl/7Ez+3bWUrlpn9ge8ZFUfuQd
-	kqyzBbkeKYEcW+PXrlr05xZ5v4j0a+QmVLUI0+zcBxqYoyUi+IDXyxbQkb16/ZRFhaQBGzN6+LR
-	Cl72vCgQEZO9OUi/G3FVM76tfNvk+WdDyWohXcWSuVD8tuBb6XY+S8QvbNrSvDxFTzGnRi68zmy
-	MXmIkMpxELyXkGHdaNZ6joeL3XZoFLNLLAtIPd/xUySaKr1DtNWJeM07Na/ef45fUy/3FXtTPBR
-	49Vwk9/rEEzENfkmw9t1LwvdVcr01TJhkRTdKALIFhbUgafTV35Mljg4NMGBdSJ9iFTfrKXXbZJ
-	ph4bIxZAUsHix1p1/8Bnby0w2BwqCPCPJaD73AXOH+8NpqQD/H1wgwv4sm7iYPGoru2hi9ebtjh
-	vGWcfpr5q8hkL6dT5VoLQi36eDfsHK4pQTx2KKIL11Th1ub8
-X-Received: by 2002:a17:90b:584c:b0:3ac:fe93:a731 with SMTP id 98e67ed59e1d1-3ae8981e640mr9133105a91.56.1793694745256;
-        Tue, 03 Nov 2026 00:32:25 -0800 (PST)
-Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c5d7f82sm3232140a91.5.2026.11.03.00.32.22
+        d=1e100.net; s=20260707; t=1793694760; x=1794299560;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=juHaABmsqQoLeAA/rLT1aKfzFmL4zz9z1UEoFz1K2V8=;
+        b=r0f8shRFa8AzAgDtSnmReakMRdFgvZq7+WePq1lLT7aKol6M/ovS/ONErXWXkCXE2H
+         2oiBVmq2yps86WBipXuSxgKLozDRya5lUg1vrhMw9Mdys6i0d0y+J+ohAIDYQBDetSK4
+         dpSo/UA830ToWyjOXOqeOk50J8631wV9Lz0Vf/8cdnfQyerJBsJMKJvKXdJqMffvMpqm
+         FWjY/PI/WathOGqy2B1z+HvgeuHSzAKa7XpdSaXcJ9FSVMkfftTtxe1OPF2vCIUBmsrj
+         QNKWbx9u7G7S3N5BoWLsqAOk8N8kWmUFrMB4YYt6NrzjrcfVXdIItaTUp1EmQA3aPDVJ
+         OHmA==
+X-Forwarded-Encrypted: i=1; AKwUvBxxbwYxMGQFD7gD+LO3keSJU+yk/BUQjmovCJSYEsq7xSlVPshXBS9gnn3N1F4JpLukhl4Khq1Fpj+Y+ug=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fjASgTQB+ckDEoEKGaJKHYKalFUawh/GX0DkR+Zb7qufD9gsh
+	o8SzK6ad4rA3ksWjW8AIQeD9PsUTrJuUB1UU0Ba60QWTYzgbzR1JqGwv
+X-Gm-Gg: AYBFou1H/RiEAODdHNL/nfGXHZ7bh0sVk0cJexTOT7Y/IoKW26zcKW37CwbwLE2PAA6
+	PbAuTZAJX/yA6ZUIUsqnK6nKijrUnjhdFbi5cSdlYjVC3JNLI4gOiEoTCt5MEWMrPRfPQsoEJRc
+	yXEX12DkwKzlNwMGNJWowSazbYgFoLYwdyCRwE2a3YnzzrIRRrnoN0PzlSXaG8QIajGEnQLEXh2
+	BxYC/c2PKfgHgmlVXqS+GdZ1QeEpuRRLGBlIunTelEN+d4ESjsPs7bqaoszlY057RZyc22vrFfL
+	wxZquWEhXWpuVZKO9TzYZnvEw7XaRpx8w40t32byqy4C9iSwG3JAItcAXV6GtX1bRwKG6WOqTlT
+	vlxu9FjVZe5hpf1JP86x2nd5e2h5BY09GNQiP9rnJHK1F38zR0GdO8x7gcLigMOaPU7KwzPKKWU
+	oG+49h7nkUtWwd20+JBSFDOT2Obx6AdRuFHMvWRNXh8EtdyFfW9Fqku0DguCri99xK0u5Rsm4Hf
+	4ahr+EKbSQ9SbvfZf5IDAxapOBpzDPzNofo/4nuvoqyr4cnXXHrPqD7qQUe1iuIYlpiE/amFu2h
+	nrHIYP0TNtvQyTzDSo4hYOThEDZyKAZ2SmRalPUxHkPPCfk+SJglghYhrTu2SfTR
+X-Received: by 2002:a05:600c:871a:b0:4a7:d9b1:b684 with SMTP id 5b1f17b1804b1-4ac14ec7947mr285296425e9.2.1793694760039;
+        Tue, 03 Nov 2026 00:32:40 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a96fc87fsm38346675e9.12.2026.11.03.00.32.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:32:25 -0800 (PST)
-From: Li Ximo <lixicaicai@gmail.com>
-To: Sinan Kaya <okaya@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Wang Haoran <haoranwangsec@gmail.com>,
-	Li Ximo <lixicaicai@gmail.com>
-Subject: [PATCH v2] dmaengine: qcom: hidma: fix memory corruption when active list is empty
-Date: Tue,  3 Nov 2026 16:32:14 +0800
-Message-Id: <20261103083214.1682930-1-lixicaicai@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        Tue, 03 Nov 2026 00:32:39 -0800 (PST)
+Date: Tue, 3 Nov 2026 08:32:38 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Kiryl Shutsemau
+ <kas@kernel.org>, bp@alien8.de, dave.hansen@linux.intel.com,
+ dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org,
+ hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+ kernel-team@meta.com
+Subject: Re: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+ without FSRM
+Message-ID: <20261103083238.672cdfa5@pumpkin>
+In-Reply-To: <5f6fa235-55bc-45c6-90a8-20f75152e9f2@linux.dev>
+References: <atCpTMcAALymqADw@thinkstation>
+	<20261017192727.2760919-1-usama.arif@linux.dev>
+	<atiKeB-76nOj-ztU@thinkstation>
+	<CAHk-=wh+dyDPs2kp=KoUiCYdk2MBBqzTKYbrkAyOMV9Z1XNu0w@mail.gmail.com>
+	<20261022094958.13aeb5c0@pumpkin>
+	<5f6fa235-55bc-45c6-90a8-20f75152e9f2@linux.dev>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,57 +108,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Wang Haoran <haoranwangsec@gmail.com>
+On Mon, 2 Nov 2026 23:03:39 +0000
+Usama Arif <usama.arif@linux.dev> wrote:
 
-list_first_entry() does not check if the list is empty. When mchan->active
-is empty it returns a bogus pointer, which causes memory corruption.
+> On 22/10/2026 10:49, David Laight wrote:
+> > On Wed, 21 Oct 2026 08:18:25 -1000
+> > Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> >   
+> >> On Tue, 20 Oct 2026 at 23:55, Kiryl Shutsemau <kas@kernel.org> wrote:  
+> >>>
+> >>> Moving MOVQ inside ALTERNATIVE_2 is ugly...    
+> >>
+> >> Yeah, maybe it would make sense to make that function be
+> >>
+> >>         movq %rdi, %rax
+> >>         movq %rdx, %rcx
+> >>         ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
+> >>         RET
+> >>
+> >> instead? No nop instructions at all, and both alternatives are two bytes.
+> >>
+> >> Then do any ERMS logic at the top of memcpy_orig, which now has the
+> >> registers ready for string instructions anyway.  
+> > 
+> > Is it possibly to just patch "rep movsb; RET" over whatever gets generated
+> > for memcpy_orig (after the two register moves) ?
+> > Then there are neither nops nor a jmp.
+> > 
+> > David
+> >   
+> Hi,
+> 
+> Sorry for the late reply. I had taken time off for the past couple of weeks
+> and didnt have access to my work station.
+> 
+> I implemented Davids suggestion and I think it looks good. The scalar body is
+> now part of __memcpy(), and FSRM replaces the existing 32-byte check with
+> "rep movsb; RET". Non-FSRM calls fall straight into scalar code, and FSRM
+> returns before any padding.
+> 
+> I have retained the 2048-byte ERMS cutoff, since selecting REP from 32 bytes
+> regressed short copies in the Cooper Lake tests.
+> 
+> I asked LLM to review it and it indicated a problem with ITS: returns are
+> patched before alternatives are copied, so the return decision uses the
+> replacement's source address. I align replacement storage outside the
+> copied range so ITS retains the return thunk and relocation preserves its
+> target. This adds no executed padding.
+> 
+> Any thoughts on below? I will send it as a proper patch for review
+> if it looks acceptable.
+> 
+> 
+> From 9baffefb71c7223702c7bcd96d43b9a2828f3939 Mon Sep 17 00:00:00 2001
+> From: Usama Arif <usama.arif@linux.dev>
+> Date: Thu, 1 Oct 2026 14:15:12 -0700
+> Subject: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+>  without FSRM
+> 
+> Commit 68674f94ffc9 ("x86: don't use REP_GOOD or ERMS for small
+> memory copies") left ERMS CPUs without FSRM, including Cooper Lake and
+> Skylake, using scalar code for all out-of-line copies. Btrfs/zstd input
+> staging and output flushing accounted for about 34% of memcpy_orig()'s
+> sampled weight in Meta's x86 fleet profile.
+> 
+> Use REP MOVSB from 2048 bytes on ERMS CPUs without FSRM, keeping scalar
+> copies below that threshold. FSRM continues to use REP for all sizes.
+> 
+> Merge scalar code into __memcpy() and overlay its existing 32-byte check
+> with REP MOVSB and RET on FSRM, removing the non-FSRM entry jump. Copies
+> below 32 bytes bypass the ERMS gate. SHR11/JNZ fits one ten-byte NOP
+> without ERMS; the REP arm reloads the original count from RDX.
+> 
+> With ITS configured, align replacement storage before its start label so
+> the raw FSRM return retains its thunk before relocation. The alignment
+> padding is outside the copied range.
+> 
+> On Cooper Lake (boost disabled, capped at 1.401 GHz), plain-RET userspace
+> replicas with aligned warmed buffers and entry offset zero modulo 64
+> measured 4 KiB copies at 371.7 ns originally and 123.4 ns with this patch:
+> a 66.8% paired reduction across five process runs. A separate sweep using
+> REP from 32 bytes increased 32/64/128/256-byte times by
+> 114.9%/54.4%/66.1%/23.2%, respectively.
+> 
+> Small-copy costs remain: a warmed aligned zero-byte copy at entry offset
+> 48 modulo 64 took a paired 0.75 ns more (+7.9%) than the original, in all
+> five runs. These microbenchmarks do not establish a kernel workload gain
+> or the best threshold across CPUs.
+> 
+> Direct copy checks and memcpy KUnit passed with all four ERMS/FSRM
+> combinations and with ITS forced on; the copied return target was verified.
+> 
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
+>  arch/x86/lib/memcpy_64.S | 42 ++++++++++++++++++++++++++--------------
+>  1 file changed, 27 insertions(+), 15 deletions(-)
+> 
+> diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
+> index 12a23fa7c44c5..407b226d4de2f 100644
+> --- a/arch/x86/lib/memcpy_64.S
+> +++ b/arch/x86/lib/memcpy_64.S
+> @@ -31,24 +31,27 @@
+>   * which the compiler could/should do much better anyway.
+>   */
+>  SYM_TYPED_FUNC_START(__memcpy)
+> -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
+> -
+>  	movq %rdi, %rax
+>  	movq %rdx, %rcx
+> -	rep movsb
+> -	RET
+> -SYM_FUNC_END(__memcpy)
+> -EXPORT_SYMBOL(__memcpy)
+> -
+> -SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
+> -SYM_PIC_ALIAS(memcpy)
+> -EXPORT_SYMBOL(memcpy)
+>  
+> -SYM_FUNC_START_LOCAL(memcpy_orig)
+> -	movq %rdi, %rax
+> +#ifdef CONFIG_MITIGATION_ITS
+> +	/*
+> +	 * Returns are patched before alternatives. Keep the replacement
+> +	 * return in the first half of a cache line so ITS retains its thunk
+> +	 * when the instruction is copied to its final address.
 
-Use list_first_entry_or_null() instead.
+I'm not 100% sure what that is about, but does it mean that the cache line
+alignment of the code here also matters?
 
-This issue was found by static analysis.
+> +	 */
+> +	.pushsection .altinstr_replacement, "ax"
+> +	.balign 64
+> +	.popsection
+> +#endif
+> +	ALTERNATIVE __stringify(cmpq $0x20, %rdx; jb .Lhandle_tail), \
+> +		    __stringify(rep movsb; RET), X86_FEATURE_FSRM
+>  
+> -	cmpq $0x20, %rdx
+> -	jb .Lhandle_tail
+> +	/*
+> +	 * Prepared RCX is scratch for checking length >= 2048.
+> +	 * The 10-byte alternative fits a NOP without ERMS.
+> +	 */
+> +	ALTERNATIVE "", __stringify(shrq $11, %rcx; jnz .Lerms), X86_FEATURE_ERMS
 
-Reported-by: Wang Haoran <haoranwangsec@gmail.com>
-Reported-by: Li Ximo <lixicaicai@gmail.com>
-Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
----
-v1: https://lore.kernel.org/r/20261023073154.744365-1-lixicaicai@gmail.com
-v2: rewrite the commit message in simpler words as suggested by Frank
-Li; no code change.
+Can you use %rdx here, preserving %rcx for the 'rep movsb'?
+You might need to swap cx<=>dx in the rest of the function.
+(I'm sure we could use #defines to give names to registers....)
 
- drivers/dma/qcom/hidma.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+David
 
-diff --git a/drivers/dma/qcom/hidma.c b/drivers/dma/qcom/hidma.c
-index c939635be..925c912e0 100644
---- a/drivers/dma/qcom/hidma.c
-+++ b/drivers/dma/qcom/hidma.c
-@@ -176,8 +176,9 @@ static void hidma_callback(void *data)
- 		queued = true;
- 
- 		/* calculate the next running descriptor */
--		mchan->running = list_first_entry(&mchan->active,
--						  struct hidma_desc, node);
-+		mchan->running = list_first_entry_or_null(&mchan->active,
-+							  struct hidma_desc,
-+							  node);
- 	}
- 	spin_unlock_irqrestore(&mchan->lock, irqflags);
- 
-@@ -238,9 +239,10 @@ static void hidma_issue_pending(struct dma_chan *dmach)
- 	}
- 
- 	if (!mchan->running) {
--		struct hidma_desc *desc = list_first_entry(&mchan->active,
--							   struct hidma_desc,
--							   node);
-+		struct hidma_desc *desc;
-+
-+		desc = list_first_entry_or_null(&mchan->active,
-+						struct hidma_desc, node);
- 		mchan->running = desc;
- 	}
- 	spin_unlock_irqrestore(&mchan->lock, flags);
--- 
-2.30.2
+>  	/*
+>  	 * We check whether memory false dependence could occur,
+> @@ -169,5 +172,14 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
+>  
+>  .Lend:
+>  	RET
+> -SYM_FUNC_END(memcpy_orig)
+>  
+> +.Lerms:
+> +	movq %rdx, %rcx
+> +	rep movsb
+> +	RET
+> +SYM_FUNC_END(__memcpy)
+> +EXPORT_SYMBOL(__memcpy)
+> +
+> +SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
+> +SYM_PIC_ALIAS(memcpy)
+> +EXPORT_SYMBOL(memcpy)
+
