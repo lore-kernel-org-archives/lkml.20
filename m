@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695308;
-	b=LjjTx6QdT16f/pax255VcnLyZMBcx44fVWUwdWYlUCZ3fC5S86jpM177dRUCVEUiR0bR
-	 lAOmB+oEtqcrxci07uMXFQv6naqG2F82MGhuoQfRyL4L7Kf0tyPw3H0SQMCZh+jkKRgu6
-	 /RG6Czl8ooYEwo+21FJzqpCJceSA7dLsgd1Wk24XYDa7o8TneqhlwaWLIE4J8TNFnkFfq
-	 K0m4oQqOhky1lGBLt9RJ+BolP4Ou70YUCmoeP5AWqedhjKkB3xstqMcweYX0bvsKFJNfc
-	 Y8rGlEQdYL6pipsXlXv3SaZXcQNpQhe8Va6TWkM8bgCs1RVewvN4y4pYVZlu1ZUELNg==
+	t=1793695321;
+	b=EmmNovrKSPELEYs2Eoo5n3ueCk5XAvW7kKIZ+xPNbfl0YNuGYnk/G0Ao8Yn0GMAMWwtp
+	 nG/g4F0ZSP48s9cjt4LaJZGRhoRrouHzhjE3yHpFgYxrLl2/OoR9z6v/6VfT+YWZ0zgky
+	 q4KM64RMWgrWJe86e+7c2G2MwBISnJnPDQ6ynsg5t6Qvsc2XChJjfIwpF8EymuCtoaPM0
+	 AhzhhUvkNK8rsbNiSsHMK2Yz9bdQGFdBN5s8qHHHKIaHaxruyHLLkqo+khpAUPXWgHNJR
+	 O7pG6JZjwPQnHJtOeY+xPLAkLN7q7diViGyZPGP0f1jOq8/te3vOhH7SeN0Rnsj3adA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695321;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=GpC/kN1NBBm4imp5gYshw5jTke0NsIykdXIGbZBqn+k=;
-	b=U+a3xpc3BrVClW2JPt5fu6MGY2cu38lf+3wBCIBgrtr99DN2Ffe6rEoYyZo2W/VJsJSn
-	 7gpN/JeoHVAXOkBn7JMxNaKuaQ1Bnp06mCbmlN8ehTAx1Yxh239+pvGCvIFNLYYAq1vnb
-	 f/KNgJ4rr/p+pS7BRlOHG3yvxSNM3haz/B3zGYZPnYYWNQYUB3SKntyhQVdK9PUNN5a4S
-	 t0guGAVEL0HPKcnKYrZsSBLGnwA8suybnhFcRSyxOzBymtWtR2hSW0F7l9QeUiMGsZWf5
-	 3gMXsAR31goUutqF1a/0cFyp26i/SqadgtpCRpERdSUiXxxnmEeS1eAfCbJYFsFv7mg==
+	bh=eCqW7Q3ZNY5z9Vfz8jumrGbHLoTH4qAh2fcB1dgiNvk=;
+	b=LCdyWGF7ve7Km+9dJo5EiDACsnKRdJe8CQbkBb+9lL38yNPrzMmZa4sGhDOiTZwOxsoe
+	 DzNCxguVXzYfg8NuIqzk+yfq4x0lGfEZR7VlgRDqt442tqr7XtckVIuAjA6sox8M0V7yp
+	 8XmFcAJTq+aEh6YP9KcHjS85GElxlcWZ5ppprqNjINiIaDpzX5E5x+ZOAO6WTy4XVOsa+
+	 6qrSdGHZWrulJye6GUCiamgs+mbLhI91fujvpEflZKEMfNpZeDve/A7l1NxxsWNEMU7Gc
+	 McUMvUjbBsfbXM6gpd/3/+fzAYyRcOEnhmKlg4gntAk9fBeh88DNGpCtdiZagTFWBKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b="iKvyD38/";
-	arc=none smtp.remote-ip=115.124.28.123
-Received: from out28-123.mail.aliyun.com (out28-123.mail.aliyun.com [115.124.28.123])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=hvqs12+j;
+	arc=none smtp.remote-ip=115.124.28.196
+Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85C8606A33F;
-	Tue,  3 Nov 2026 08:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B85C8606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F5F606A326;
+	Tue,  3 Nov 2026 08:42:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F5F606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=iKvyD38/
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=hvqs12+j
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793695297; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=GpC/kN1NBBm4imp5gYshw5jTke0NsIykdXIGbZBqn+k=;
-	b=iKvyD38/A7wSZtR/zecIfrkiv025+wqN+Tz0DGWdZKi7XEkw/3u26lLLWO7/HzSXYaxdPGfdmRVlSiH9efu/6WqZAtSjHHAKNw++U4d+izIX1bfa0KPFEuuhtQYHDA6HyWyAuQ3y0hYEWZg2L1HHaB0C09nUtpjf8IIYB4i5OlU=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.4832416|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00521408-0.000768213-0.994018;FP=10174869151215584561|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jvUy9D2_1793695296;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jvUy9D2_1793695296 cluster:ay29)
+	t=1793695318; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=eCqW7Q3ZNY5z9Vfz8jumrGbHLoTH4qAh2fcB1dgiNvk=;
+	b=hvqs12+jO7DD22b0hS9Yc/jZWUQ9X8nb6IbC1pDxRJyel6nYSmS3Ob+eM3Rb/X+WDGPf6K5aUtcOfCpHVlqpYJoOiBPcXJ0ONbX+IIUJpvxWulDPwtbzle4EJXuHh/onPInnrU1bzprliTlMD6z9gjpZvLsWv24WlI1majOa2rY=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07659294|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00649487-0.00207021-0.991435;FP=13138527801659950782|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jvVDfhS_1793695317;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jvVDfhS_1793695317 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 16:41:36 +0800
+          Tue, 03 Nov 2026 16:41:58 +0800
 From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
+To: luzmaximilian@gmail.com,
+	andersson@kernel.org
+Cc: konradybcio@kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	liuc63@xiaopeng.com,
 	stable@vger.kernel.org
-Subject: [PATCH] Input: adi - bound the two-stream packet merge
-Date: Tue,  3 Nov 2026 16:41:30 +0800
-Message-ID: <20261103084135.426629-3-zhugl3@xiaopeng.com>
+Subject: [PATCH] firmware: qcom: uefisecapp: Fix overflow in GetVariable response check
+Date: Tue,  3 Nov 2026 16:41:57 +0800
+Message-ID: <20261103084157.426838-1-zhugl3@xiaopeng.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103084135.426629-1-zhugl3@xiaopeng.com>
-References: <20261103084135.426629-1-zhugl3@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,46 +65,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a second device shares the wire, adi_move_bits() appends the
-second packet to the first one at an offset taken from the
-10-bit length field of the ID packet:
+qsee_uefi_get_variable() validates the response written by the UEFI
+secure application before copying the variable data out of it:
 
-	for (i = 1; i <= adi[1].ret; i++)
-		adi[0].data[((length - 1) >> 1) + i + 1] = adi[1].data[i];
+	if (rsp_data->data_offset + rsp_data->data_size > rsp_data->length)
+		return EFI_DEVICE_ERROR;
 
-	adi[0].ret += adi[1].ret;
+All three fields are u32 and come straight from the response buffer, so
+the addition is performed modulo 2^32.  A response with
+data_offset = 0xFFFFFFF0 and data_size = 0x20 wraps around to 0x10 and
+passes the check as long as length is at least that.  The check on the
+caller buffer size further down only compares data_size against
+buffer_size, so a small data_size satisfies it too, and the memcpy then
+reads data_size bytes from rsp_data + data_offset.
 
-Nothing compares the merged packet against the size of the buffer:
-adi[0].data is the last member of struct adi, and struct adi_port
-holds two of them back to back, so an oversized length field makes
-the loop write over the second struct adi - its device pointer, its
-length and its packet - and the inflated ret later walks the reads
-past the buffer as well. The connect path also calls
-adi_move_bits() before the length has been validated at all.
+Since wrapping around requires data_offset itself to be huge, the source
+pointer ends up far outside the response buffer, typically in unmapped
+memory, and the fault takes the kernel down.  If the address happens to
+be mapped, kernel memory is copied into the caller's buffer instead.
 
-Reject a merge that does not fit in the buffer.
+Reorder the check so that no addition is performed: reject data_offset
+larger than length first, which also makes the subtraction below safe,
+then compare data_size against the remaining room.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 759e7a2b62eb ("firmware: Add support for Qualcomm UEFI Secure Application")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 ---
- drivers/input/joystick/adi.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/firmware/qcom/qcom_qseecom_uefisecapp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/input/joystick/adi.c b/drivers/input/joystick/adi.c
-index e07b71978509..03535e58d6a6 100644
---- a/drivers/input/joystick/adi.c
-+++ b/drivers/input/joystick/adi.c
-@@ -168,6 +168,9 @@ static void adi_move_bits(struct adi_port *port, int length)
+diff --git a/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c b/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
+index befa68d1dcaf..0dda09ad156a 100644
+--- a/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
++++ b/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
+@@ -387,7 +387,8 @@ static efi_status_t qsee_uefi_get_variable(struct qcuefi_client *qcuefi, const e
+ 	if (rsp_data->length > rsp_size)
+ 		return EFI_DEVICE_ERROR;
  
- 	if (adi[0].ret <= 0 || adi[1].ret <= 0) return;
- 	if (adi[0].data[0] & 0x20 || ~adi[1].data[0] & 0x20) return;
-+	if (adi[0].ret + adi[1].ret > ADI_MAX_LENGTH ||
-+	    ((length - 1) >> 1) + adi[1].ret + 1 >= ADI_MAX_LENGTH)
-+		return;
+-	if (rsp_data->data_offset + rsp_data->data_size > rsp_data->length)
++	if (rsp_data->data_offset > rsp_data->length ||
++	    rsp_data->data_size > rsp_data->length - rsp_data->data_offset)
+ 		return EFI_DEVICE_ERROR;
  
- 	for (i = 1; i <= adi[1].ret; i++)
- 		adi[0].data[((length - 1) >> 1) + i + 1] = adi[1].data[i];
+ 	/*
 -- 
 2.50.1
 
