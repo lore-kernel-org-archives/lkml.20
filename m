@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740814;
-	b=g/gKctKQhnCP29tds4WENmHbE5hFnbpRxk/ggae/vCHknNqICdGH2Qm3qZ1uA4gac6o0
-	 zF+Nqr57zEBgvcfylpv/8JuxxLi2oLCpnHF6rtn4FRc/OImB7aF7s4dV6QxA7po7EDqEq
-	 jv+icfHf98GfkROVd329r5gk9rK7lu+zZEW3csEGNlp4Wf5OdqQSSOFtxELSfXvlJVrES
-	 rJn7YiLSzlfK4U++BEH6fEtxIEWsMJn3KET8lcvbFDQypkdI0Ny7p81v21anFTSZIJPQ/
-	 nUij1kjJK0zec7BghBsbwSCbMDFO3QhynlbKlavQcGmU+nt5v2RxqNyq4CSbGErPFTg==
+	t=1793740809;
+	b=ic8VvliphqCXeQXFlXKAWVDzgXTgXZsbL3YDG2ZiD9DSO4BF4lqhNenPbnFNGvGUM/Uc
+	 pnCzpfhfQcZJzPM6ZkukoT/9WWebp2PqSHqNj46U3mpSUtewqAgBF2B9l54rtpWEzszEF
+	 JUJK6fQ48FCGKEp+ImrrIhd+6rES1yKyrpqfJvw4nu6CgGL+aqx0Y/w+0tYA8EPBFB+OX
+	 DDVSGi0SptQ10cKqeg6U92XbrHTONQkhvMPr9DVTatwGXFMgrnqoAVni0XgfIDNIm61Qw
+	 xwvyPV5W56zbLQEyM5StdNc24k5h13XHUi11GUw3pg/iqg+ZfdTCuf7jZIYEZg7e9fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740814;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740809;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=Cc2iVEQpQJW4KLsTKA8podEQySXEWAU58+noOxhAGL0=;
-	b=TE8SNs2QEvqtG6wsb0c0Wz2F/fCl6zXJhLzY79p4wpj0vOmIfiAZPq34PnV4tJSK5T8w
-	 fdRj6Wv78+oKQhBfQ8CWZkHI3U7d2bh4rdwIMaygNQVWRUVK5SiCmiK3mw5w1AuCTw5tD
-	 ycdiC+0YHNXiL1Sl0BywaUbvMxz402KE3KibOJo8dkALU/Ve7NaBqt9dD0xO0jgB060XT
-	 0P5g97yEmIz6XHo4NQby3K3+anSB+GIdTrDlZWD9Xi0Gt0lPztkanAu6byIb3tcDsGz46
-	 Q1btH+GmTqX8ub7GoO2xKpZgHGZPmJrkqdtjl3mwBfl0JIQGZRUb9+HAcauSFMjXsGA==
+	bh=C/5YYMN2ZgdbpmSIHlvzQMkG6vvXS4pBNreZkDhVc6o=;
+	b=gu+EUSZFFBdwtb94D0a1xoaze1h0YRDDifLu+pVFZpz6hcLSXNlVss7KN9MUWVhTuiY3
+	 Ig5Oe5fGrFBRf6BGoDZmMek+gDazNVvIcOtEniTyvUjtSVCa79s+i7ZfOlUyRIpWozYTf
+	 SY0NgHOxnq1znCE1zkAZrGsa+QqytpCE6pP9RAjr0X9n4a3MaRSnoqEuPsUBEk+ku5/Dj
+	 w4mC/Acsl+LqAzJailEPJ5BHTRP1jmOumkuiF/tS12Ty5m5e7njI02PKfWpEY0CnSHY8y
+	 WJrxB5S9gU8SRAOOUofi5DJGF/K5OFMCMg9YE94KVuVGrM9thzt9vdvfLjvpM5OdIiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7YEvj15;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=in3LaZXP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C4B606A31B;
-	Tue,  3 Nov 2026 21:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080E1606A324;
+	Tue,  3 Nov 2026 21:20:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7YEvj15
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88D181F000C1;
-	Tue,  3 Nov 2026 21:20:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=in3LaZXP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCBCA1F000C1;
+	Tue,  3 Nov 2026 21:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793740813;
-	bh=Cc2iVEQpQJW4KLsTKA8podEQySXEWAU58+noOxhAGL0=;
+	s=k20260515; t=1793740808;
+	bh=C/5YYMN2ZgdbpmSIHlvzQMkG6vvXS4pBNreZkDhVc6o=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=T7YEvj152cyitGbQQzBDunWm0wQoXuf7hoRcqpIF0rboWwUMIzwctHdk7XAoDTG7u
-	 zfhIgolpJlqFRoaNBxjy5RyjjfTaGG0v1oISmH5ZYiIdzKe2v/NxNWudpYz0Fmgmsp
-	 8kTkd2E7pJaZftWzb+2B1Po+EPHJjNFEBo7S3WZNYGA0UAcmV4e+32tNlr1ejR7j/p
-	 0IbqhFPOmvuO/nXfP4nn89YogLmg21VeE1BpiI6eH9YLbaYSxNjSgxZTgYGXRBbTyu
-	 2IqT3oxrvSI026DNzxz/T+fKh7c3pN4F3yDt51cJXjf3iJnFfqYAELLK+swBemLL0W
-	 KA05ACvfBGoyA==
+	b=in3LaZXPDcQqZ7E7vWB0kFun9YW4/Dm30Sv4NjHnClWpuTdygkSgxUaffyzZNduO4
+	 LSSiTsFb8CJkhJ7wwupKGeuPEHK21LiSZUT6XbRkf5bPA+oTCpS9mQXDxGztrPSz61
+	 dBFbvQ5Zpyu0bV7yYntt+iFwMwVa+wJ/I1Lx2YxSjTHa1s12/12kEbB5w/Mj6Vz+gO
+	 XdZfL7lhfMTGOwLkAIPBAMq3oGEb8SF59Q2SBgi9qlvHclxBpCEINtX2mw5JrR4r77
+	 J36zyjrVURv8pEn4LMPr0Z/Lshi199wTQyyC3NYCw7UWWXMNhfzxtroPSuxMmMOmdT
+	 AFZYyKR8fuFbA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D20D391B0A1;
-	Tue,  3 Nov 2026 21:20:13 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA2DF391B0A1;
+	Tue,  3 Nov 2026 21:20:08 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,40 +54,56 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] ipv6: fix device binding after failed datagram
- connect
+Subject: Re: [PATCH bpf-next v4 0/8] selftests/bpf: let the arena tests build
+ with
+ GCC
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179374081204.1885738.206457161503439442.git-patchwork-notify@kernel.org>
-Date: Tue, 03 Nov 2026 21:20:12 +0000
-References: <20261029135822.448299-1-yanxia@cmss.chinamobile.com>
-In-Reply-To: <20261029135822.448299-1-yanxia@cmss.chinamobile.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, tpluszz77@gmail.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, yana06070@163.com
+ <179374080755.1885738.6613699311027745325.git-patchwork-notify@kernel.org>
+Date: Tue, 03 Nov 2026 21:20:07 +0000
+References: <20261103181816.254686-1-vineet.gupta@linux.dev>
+In-Reply-To: <20261103181816.254686-1-vineet.gupta@linux.dev>
+To: Vineet Gupta <vineet.gupta@linux.dev>
+Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev,
+ song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
+ emil@etsalapatis.com, ihor.solodrai@linux.dev, john.fastabend@gmail.com,
+ shuah@kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, jose.marchesi@oracle.com,
+ david.faust@oss.qualcomm.com
 
 Hello:
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+This series was applied to bpf/bpf-next.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-On Thu, 29 Oct 2026 21:58:22 +0800 you wrote:
-> __ip6_datagram_connect() can change sk_bound_dev_if when connecting to
-> an address that needs a scope ID. If ip6_datagram_dst_update() fails,
-> the old peer address and port are restored, but the new device binding
-> is left behind.
-> 
-> A UDP socket can then keep reporting its original peer while sends and
-> attempts to reconnect to that peer fail with ENETUNREACH. Replies to the
-> socket are also dropped by the device match. The same problem occurs
-> when a scoped multicast destination picks up np->mcast_oif.
+On Tue,  3 Nov 2026 10:18:08 -0800 you wrote:
+> The arena selftests cannot be built by GCC today. Three separate
+> build failures stand in the way, and they are all hidden rather than
+> avoided by the __BPF_FEATURE_ADDR_SPACE_CAST guards wrapped around
+> those tests -- the moment a GCC defines that macro, which is what the
+> in-progress arena support does, the guards stop hiding them and the
+> build breaks.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] ipv6: fix device binding after failed datagram connect
-    https://git.kernel.org/netdev/net/c/bc53aab4881a
+  - [bpf-next,v4,1/8] selftests/bpf: Build callx tests with GCC that defines __BPF_FEATURE_CALLX
+    https://git.kernel.org/bpf/bpf-next/c/5b127a2d9d44
+  - [bpf-next,v4,2/8] selftests/bpf: don't pass clang-only warning flags to GCC
+    https://git.kernel.org/bpf/bpf-next/c/a74a26a8f284
+  - [bpf-next,v4,3/8] selftests/bpf: make arena_base() opaque to GCC's -Warray-bounds
+    https://git.kernel.org/bpf/bpf-next/c/2775ec48ecaa
+  - [bpf-next,v4,4/8] selftests/bpf: spell the addr_space_cast address spaces in decimal
+    https://git.kernel.org/bpf/bpf-next/c/0a2eb9a7fa34
+  - [bpf-next,v4,5/8] selftests/bpf: write the mixed arena/scalar ALU tests in asm
+    https://git.kernel.org/bpf/bpf-next/c/db06ab42ec4b
+  - [bpf-next,v4,6/8] selftests/bpf: drop the arena guards and tag the tests that need arena
+    https://git.kernel.org/bpf/bpf-next/c/84459cc976cd
+  - [bpf-next,v4,7/8] selftests/bpf: cast explicitly in the struct_ops arena triggers
+    https://git.kernel.org/bpf/bpf-next/c/7eead323843a
+  - [bpf-next,v4,8/8] selftests/bpf: cast explicitly in the arena subprog and callback faults
+    https://git.kernel.org/bpf/bpf-next/c/b64845f6280f
 
 You are awesome, thank you!
 -- 
