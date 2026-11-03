@@ -1,71 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.247.232.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793677172;
-	b=HlNui6HSpap4zB+nF74El/yIYhdpQSwEnN5aGTJ9LmId6l2mR/KD/enHYV5WsKifrhxR
-	 tQT3h4JL8AvItQbps2hjscvmWwmN8/yELXAxlGwfDzX6KsYJoSooHAxjB5v3AZCAQrES6
-	 /l5ggfXmvKFbEAh0Cb7SBAIuAR9dfiw2Z9zTQ6HInir+1Y6mMFjlLMpZ1bkhdbZzW0zYm
-	 EZ5BcEI64NYm0KDQNOyXPLJ6Fe5Hw9Z6+uFmPdKD50FSTzFudcAYqZoCQzPn6cp6RAWtg
-	 9V6yqw4pqx4B6jMC0+WNdV49ZzSDrpOByR3+lY46NmT428kB5GFfJ3eJGJQvRPVBgmA==
+	t=1793677261;
+	b=vlIc8sVeRvCksnhilnudyXI3tTcI2f5BJMHpcLWkoPDaRioOVblhhc9N+isbzlEbf9HK
+	 eILYD6ytdttstNlirNTTpsC3zFC7ICwwOl6j++W8KQYv15jtcvCKLL1rmgkrBgmBsIM7p
+	 +sERUQPhnQC9lTKtTdRYBBMdP7W1mooz6D9eJUcv2MNcjTpxh9UlwBypC8hoJGcGtyQBs
+	 YGYtAPK1fgMQLf7goSVSANC1AscdBe8gROR2nJ66jv6cAMRbzVZk3JUH3i37dS/9bznGG
+	 SF4Y8ULjd8PE7PkG/dPvxKMANtWxw7ubqEcI+HmffFPI3M8t0pFCT52GLy//t0TsQ1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793677172;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=YZVBEEsPFieX2jeMu5OYk4pMc5AV5iGB8JphOC7c3So=;
-	b=x2wqhVpLxj9gM8vBiWs810JvY+/JXXLSrbcwZQZoZo7GJ59VU0ja2VlqPRWNSafbLiHm
-	 iNWXSXxYHjaoGzBY7Yi8Lpmhoo38jB/2oLbfyb4NePo1RBy40B2Mba4tUHMdmdrAVzl8H
-	 tiwukxZZ8beba7at5s7VU1j36beNgWp8VxCiwryqvMUZzkZLePoKyjIQOwACqqkWA0lWH
-	 9iwu8FFWUYLUJPBSTqweSQ3YLJ+QCea4koSKRhvjtE70saxX6YdRwzY6L7aVhbjY85KdL
-	 yIk8aDUHthRyEE+gga8mvL2kYsl6zMZB9UEW2msrcYbQL1gOWQ386fy4uOfR8WjpZxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793677261;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=VSTrktgGZ8s9uEUboO9uuASria0PEjkILQvjOya3gqE=;
+	b=5YB/mijk9AqgoynXkdsOGNAuSC/xGzZ5Nxm5SUjBKQ+0mCWsVBIy3ScPNQLU/4G4Q1hV
+	 CD4JgXpFW1QDi//sS1UDpGLQo0AwK6tfWr4MF9EavQAJK8FJAgxgmmFT3oPgSSzAfljyb
+	 7akOlz/Sfvf+n/gY/TkUQTZ4go4/N4B1RQGR2QmRUY/w0CEXxkGDfFOS8Vro/uFYj0ZAV
+	 wBm4a+TW9DvJ5Jcz0Vb8t8AjGLiiVy2vHbCs0L1kY8/7MQ9qwgIXgsAek7vfeQ3Tqot6w
+	 VXnbkSt3KDoqk85O51wl6HLTYUI/S0uYGJvLAD3YTld/tAFwNtwPSADGNhxGRaBpRUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86DF606A324;
-	Tue,  3 Nov 2026 03:39:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B86DF606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 281454dad73811f19a56ed5b684f684d-20261103
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:ecb3a3c8-eaf8-4617-af50-d71875fdc371,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:880c317100a5532b2ae2cfee77cd42c4,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-
-	100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 281454dad73811f19a56ed5b684f684d-20261103
-X-User: renpanpan@kylinos.cn
-Received: from pan-u.. [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <renpanpan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 19653449; Tue, 03 Nov 2026 11:39:21 +0800
-From: Panpan Ren <renpanpan@kylinos.cn>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dmarc=none header.from=linx-info.com;
+	spf=pass smtp.mailfrom=linx-info.com;
+	arc=none smtp.remote-ip=114.247.232.78
+Received: from mail.linx-info.com (mail.linx-info.com [114.247.232.78])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC4F0606A326;
+	Tue,  3 Nov 2026 03:40:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC4F0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linx-info.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linx-info.com
+Received: from localhost (localhost [127.0.0.1])
+	by mail.linx-info.com (Postfix) with ESMTP id 761E53211C5;
+	Tue,  3 Nov 2026 11:40:51 +0800 (CST)
+Received: from mail.linx-info.com ([127.0.0.1])
+	by localhost (mail.linx-info.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 0X34993ex3hU; Tue,  3 Nov 2026 11:40:51 +0800 (CST)
+Received: from localhost.localdomain (unknown [172.22.21.200])
+	by mail.linx-info.com (Postfix) with ESMTPSA id 5DBB232119D;
+	Tue,  3 Nov 2026 11:40:51 +0800 (CST)
+From: Wang Guangke <gkwang@linx-info.com>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	tzimmermann@suse.de,
-	timur.kristof@gmail.com,
-	lijo.lazar@amd.com,
-	renpanpan <renpanpan@kylinos.cn>
-Subject: [PATCH v2] drm/amdgpu: Only enable HDMI audio if display supports it
-Date: Tue,  3 Nov 2026 11:39:14 +0800
-Message-ID: <20261103033914.21660-1-renpanpan@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	Wang Guangke <gkwang@linx-info.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] mm/damon/stat: avoid overflow in estimated_memory_bandwidth calculation
+Date: Tue,  3 Nov 2026 11:40:34 +0800
+Message-ID: <20261103034034.7978-1-gkwang@linx-info.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,87 +58,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: renpanpan <renpanpan@kylinos.cn>
+estimated_memory_bandwidth is calculated by access_bytes *
+USEC_PER_MSEC * MSEC_PER_SEC (= USEC_PER_SEC) / aggr_interval,
+and users read it via
+/sys/module/damon_stat/parameters/estimated_memory_bandwidth.
 
-The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
-audio_enable(pin, true) at the end of afmt_setmode(), regardless of
-whether the connected display advertises audio support in its EDID.
+On 32-bit systems, access_bytes * USEC_PER_SEC overflows unsigned
+long once access_bytes exceeds about 4294 (U32_MAX / USEC_PER_SEC),
+so users get a wrong value.
 
-This causes a phantom HDMI audio output to appear for displays that
-have no audio capability (no basic audio bit, no Audio Data Block in
-EDID), because the GPU sets the AUDIO_ENABLED register bit, which
-drives the HDA codec's ELDV pin sense, making the codec report the
-jack as audio-available.
+Fix it by doing the calculation in 64-bit and splitting the division
+into quotient and remainder.
 
-The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
-the display's audio capability. Apply the same check to amdgpu's DCE
-afmt_setmode functions, while still respecting the AMDGPU_AUDIO_ENABLE
-override for users who explicitly force audio on.
+The issue was reproduced on a 32-bit system (qemu-system-i386): the
+parameter estimated_memory_bandwidth reported 362 instead of the
+expected 1926150; with the fix, the value matches the expectation.
 
-Fixes: e2cdf640cbb5 ("drm/amdgpu: add display controller implementation for si v10")
-Cc: stable@vger.kernel.org
-Signed-off-by: renpanpan <renpanpan@kylinos.cn>
+Fixes: fabdd1e911da ("mm/damon/stat: calculate and expose estimated memory bandwidth")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Wang Guangke <gkwang@linx-info.com>
 ---
 Changes in v2:
-- Respect AMDGPU_AUDIO_ENABLE override for users who force audio on
-- Add Fixes tag and Cc: stable@vger.kernel.org for stable backport
+- v1: https://lore.kernel.org/all/20261101180001.167198-1-gkwang@linx-info.com
+- Clarify the issue and its impact on users.
+- Add Cc: stable@.
+- Rename variable bytes_per_interval to bytes_per_us.
+- Use USEC_PER_SEC instead of 'USEC_PER_MSEC * MSEC_PER_SEC'.
+---
+ mm/damon/stat.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 6 ++++--
- 3 files changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index f2977fe6d824..69d0c6041d75 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -1705,8 +1705,10 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
- 	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
- 	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
+diff --git a/mm/damon/stat.c b/mm/damon/stat.c
+index b05b68f73e10..e44f5bf3645c 100644
+--- a/mm/damon/stat.c
++++ b/mm/damon/stat.c
+@@ -32,8 +32,8 @@ static bool enabled __read_mostly = IS_ENABLED(
+ module_param_cb(enabled, &enabled_param_ops, NULL, 0600);
+ MODULE_PARM_DESC(enabled, "Enable of disable DAMON_STAT");
  
--	/* enable audio after to setting up hw */
--	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it or is forced on */
-+	if (connector->display_info.has_audio ||
-+	    to_amdgpu_connector(connector)->audio == AMDGPU_AUDIO_ENABLE)
-+		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
- }
+-static unsigned long estimated_memory_bandwidth __read_mostly;
+-module_param(estimated_memory_bandwidth, ulong, 0400);
++static u64 estimated_memory_bandwidth __read_mostly;
++module_param(estimated_memory_bandwidth, ullong, 0400);
+ MODULE_PARM_DESC(estimated_memory_bandwidth,
+ 		"Estimated memory bandwidth usage in bytes per second");
  
- static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index c68de0fe1d7d..226cfce321ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -1748,8 +1748,10 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
- 		dce_v6_0_audio_dp_enable(encoder, 1);
+@@ -55,15 +55,18 @@ static void damon_stat_set_estimated_memory_bandwidth(struct damon_ctx *c)
+ {
+ 	struct damon_target *t;
+ 	struct damon_region *r;
+-	unsigned long access_bytes = 0;
++	u64 access_bytes = 0;
++	u64 remainder, bytes_per_us;
+ 
+ 	damon_for_each_target(t, c) {
+ 		damon_for_each_region(r, t)
+-			access_bytes += (r->ar.end - r->ar.start) *
++			access_bytes += (u64)(r->ar.end - r->ar.start) *
+ 				r->nr_accesses;
  	}
- 
--	/* enable audio after setting up hw */
--	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it or is forced on */
-+	if (connector->display_info.has_audio ||
-+	    amdgpu_connector->audio == AMDGPU_AUDIO_ENABLE)
-+		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+-	estimated_memory_bandwidth = access_bytes * USEC_PER_MSEC *
+-		MSEC_PER_SEC / c->attrs.aggr_interval;
++	bytes_per_us = div64_u64_rem(access_bytes,
++			c->attrs.aggr_interval, &remainder);
++	estimated_memory_bandwidth = bytes_per_us * USEC_PER_SEC +
++		div64_u64(remainder * USEC_PER_SEC, c->attrs.aggr_interval);
  }
  
- static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index c3906270f25e..99f0c5759d75 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -1653,8 +1653,10 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
- 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
- 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
- 
--	/* enable audio after setting up hw */
--	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it or is forced on */
-+	if (connector->display_info.has_audio ||
-+	    to_amdgpu_connector(connector)->audio == AMDGPU_AUDIO_ENABLE)
-+		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
- }
- 
- static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+ static int damon_stat_idletime(const struct damon_region *r)
 -- 
-2.43.0
+2.47.3
 
