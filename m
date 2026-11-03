@@ -1,70 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793746285;
-	b=kjlX8GDi8ZsoK/xbuUvzJzz/Gpn+U049MpkZBywRRDLDhQrja5VFPuxqdXJW27Z3K0Cs
-	 w/3DwRBHakiyi9RpxaeHEmp0hZaredeFu62hzPVZ0rj+2CLoiZhost3KSpT/cL4BbCABE
-	 AY+D45m9yZttXc1OJb0DnKMZYdKj5bne06cBTO9vqD83+LmO4EA8gIekcHcgAJmVQ+NJy
-	 Whm1dVYCGgHCo/4v4obZ65UnMb9WwoPLrxoDBWsKdf07wlt83J+hPu1dMMsQdBaf0NnSO
-	 Qk3r/K1Ev5b3nlG/mXoA3kzivkjAjSgOkKwrEBmeAOkJzzJXoZ9e//sjIAG4sxzo1Tw==
+	t=1793746347;
+	b=h4W3pJIGV6p9rI6WsRLjbzafwPrcYnNtKvEK1upjGRuHJApDXMPtSe61wxoinrppbody
+	 YO8FPsAw7ZeBFvQzw8rOwqAoQzY22Dzssnd48TifcbPRPIjpQMzRDGSK40dltaFrknRi6
+	 FAYOS0grBEOpFsVxhasFVq/0b6/EuA93YaE9ZK1hjJhGLDXJt2ErIORfhkTUoL/W4TkAZ
+	 yEYknL10wrDKs/brqW3pByVtm/i3JaS3MVEqjiQs/qpykxg8gCHSGwlbw3QclACn9Xzau
+	 SMiN2XAVtfUAt0rY/pq/uzxCTwGbN2Xq2KY+2Y9Dh5G0P8QIwVv7vprAl32HFAU2Cgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793746285;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=o7HXQPomhFEfrYFjVcsrdsok+Tx5KNS+/so3Un5/lrc=;
-	b=JZjrtkpFm5V+pbUXUH3djJFuHH0JcPvKm9f6qDXhKXQ9T14auPBr3iLUhXMXweDdfALP
-	 pwhIg39x+iRmufmhF3rPKrfTGLmcNu7NAo3PGo0wQDl9LX0uDSuin2bkdav+njDhgWMP3
-	 KecRGcDOj0cttJqnTp5u+Uvd2cw+nhqjwyh1VXsuHDvJ5REa3zJgn/jCN6W/X9evUTdGM
-	 NAwGww4rngxxLkWx0DYjgQExnFFaldAX+5O26O7/g/8yPmnUGQJb9VpXgVdUpEkP/zKeD
-	 MosaEHcPHBqLCKWimxwYKXx9doEehXX4wRynXsC7MVbv3HElTv9viMYcHmayYK2Z0wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793746347;
+	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Received:DKIM-Signature;
+	bh=nA+o7aI2kHzI0LDKF2Nij4UJ5KGoZ4T1BNF4tUWoql4=;
+	b=3HTZ9bDEYyUVEiTf2532F4Yxpa0laqnONguTaBx8uHfl9J60hM2sh53EJQkcS7muhlMC
+	 J2UOFaw3YPkzuvbukUiEyyQHG0dzjuN22iPQUp6lE62vUMb4X/bq2WAiKYJ3et1MQpVse
+	 wmlCYItPoNQf1wluHpUbzivzBQUGzlLV9MlUdodSMNcEBRKxCppX4BaJC5WyzcINxqT0f
+	 ObkWzlJtv7M7gpGPIyYGDi9WHiKlw3n35A5PRDPdu42VvG4wJDI6AnKO/8ZsEFsWoFjJT
+	 Uebdt0t/BXs0DU3SZqN6gOutOqDxKrA84Xm+2Wv+TXZw7TIhv1eEbKk/7loOpwvoPgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=e8agXrda;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dmarc=pass header.from=rimpianto.com;
+	spf=pass smtp.mailfrom=rimpianto.com;
+	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=NP+hRU0k;
+	arc=none smtp.remote-ip=46.14.198.178
+Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4257A606A31B;
-	Tue,  3 Nov 2026 22:51:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4257A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117CE606A31B;
+	Tue,  3 Nov 2026 22:52:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 117CE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=e8agXrda
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=o7HXQPomhFEfrYFjVcsrdsok+Tx5KNS+/so3Un5/lrc=; b=e8agXrdauKRx9EGxkmib/g9VuU
-	mDkazXkDbRhtV8JTfmGehKVWbki2agxMfivjwj3H4Z7DrWaQ87OgZlnjv96V405f70UM8mEHiCoEK
-	TLd4STOnPAShQ8B5UpqgNF77zT0/kgRPw/bgf1mBJTSHL5/ItZgiw07vjqZMz8ri84ErO7Sqn5uY8
-	BjeUx54xkn3O/6fjaNdEbOCVTI2mJDProM+XKVHiSN1FuQdZXYUhw8KhN0mtqJkPCyJOTIMjnsun+
-	Ct9vIUE/vopzPCY8Sep1G/z0WMU8T4JLlqhKjt5CTs/Lcr32soSSG4RSYht1Z/bG5OHaAT0LNrfFx
-	R/xopxBA==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
- zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
- jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject:
- Re: [PATCH v15 03/15] accel/rocket: wait for a running IRQ handler before
- resetting a core
-Date: Tue, 03 Nov 2026 23:50:58 +0100
-Message-ID: <3311623.TQGk6oTFT5@diego>
-In-Reply-To: <20261101082307.151957-4-gahing@gahingwoo.com>
-References:
- <20261101082307.151957-1-gahing@gahingwoo.com>
- <20261101082307.151957-4-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=NP+hRU0k
+Authentication-Results: mail.rimpianto.com;
+	auth=pass (plain)
+From: Federico Musto <federico@rimpianto.com>
+To: Chris Snook <chris.snook@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	federico@rimpianto.com,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] net: atl1c: free the RX buffer when the descriptor reports an error
+Date: Tue,  3 Nov 2026 23:52:18 +0100
+Message-ID: <20261103225218.19206-1-federico@rimpianto.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,74 +58,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Received: from localhost (Unknown [127.0.0.1])
+	by mail.rimpianto.com (Haraka) with ESMTPSA id C4D89676-CAA1-4582-A49B-E37E648CD050.1
+	envelope-from <federico@rimpianto.com>
+	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
+	Tue, 03 Nov 2026 23:52:18 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From; q=dns/txt; s=s20260314391; t=1793746338;
+ bh=nA+o7aI2kHzI0LDKF2Nij4UJ5KGoZ4T1BNF4tUWoql4=;
+ b=NP+hRU0kHPktbP1Nv3b+nJPpZo2+/u1t7VPaKxFi3xUXHTBxS9SOgm7d0GRp/ghin7oY3SCUw
+ em+sr0EOP1mX9SHbmd2r4TFGUUfadrsfWd9MyEGcKhF110IAEPhVxeHXd1FS9zS7Y/PUYgzXn12
+ 2KQx9SHKyleYgKV0t0PDLynzvDqLNyZhpsxRTdin7N71d6ZgihWmhqvi3n5aW4NvLYN/t+3CHpD
+ OnicR1MvrYfkqkrsNxhRzSi0y19jSKSU5RGKOe/yFvLXyc8P61yyehOofU+xLmiNlno2fiOjFsa
+ zajJmW0MoxcgrZ8Eo4+9AlxXuA0dZg1p5DQDCdGtDF8w==
 
-Am Sonntag, 1. November 2026, 09:22:55 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Jiaxing Hu:
-> drm_sched_stop() does not wait for a threaded handler that is already
-> running. Call synchronize_irq() after it, outside job_lock, which the
-> handler takes.
->=20
-> Before the sync, mask the block's interrupt and clear its raw status, so
-> that an active core cannot signal a completion after it. Do that under
-> job_lock, since rocket_job_hw_submit() arms the same mask under that lock,
-> and only when pm_runtime_get_if_active() returns a positive count: the
-> reset holds no runtime PM reference, and with the domain down a register
-> access takes an async SError.
->=20
-> Igor Paunovic's induced-reset runs on RK3588, including a two-task job th=
-at
-> puts hw_submit() on the IRQ thread, found no fault; as he put it, "this
-> does not show the race is closed".
->=20
-> Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail=
-=2Ecom/
-> Link: https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaX=
-Q8HoMtHD5U1g@mail.gmail.com/
-> Link: https://lore.kernel.org/all/20260912113717.6819-1-royalnet026@gmail=
-=2Ecom/
-> Link: https://lore.kernel.org/all/20260916132824.13527-1-royalnet026@gmai=
-l.com/
-> Link: https://lore.kernel.org/all/20260919103422.148834-1-royalnet026@gma=
-il.com/
-> Suggested-by: Igor Paunovic <royalnet026@gmail.com>
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
-nduced reset, JOB_TIMEOUT_MS=3D2
-> ---
->  drivers/accel/rocket/rocket_job.c | 71 +++++++++++++++++++++++++++++--
->  1 file changed, 68 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 03e5f094f60b..5b2abf40b618 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -401,9 +401,74 @@ rocket_reset(struct rocket_core *core, struct drm_sc=
-hed_job *bad)
->  	drm_sched_stop(&core->sched, bad);
-> =20
->  	/*
-> -	 * Remaining interrupts have been handled, but we might still have
-> -	 * stuck jobs. Let's make sure the PM counters stay balanced by
-> -	 * manually calling pm_runtime_put_noidle().
+atl1c_clean_rx() drops a frame whose return descriptor carries
+RRS_RX_ERR_SUM or RRS_802_3_LEN_ERR by calling atl1c_clean_rfd(), which
+only marks the RFD free and clears the skb pointer. Nothing unmaps the DMA
+mapping and nothing frees the skb, so every errored frame - CRC, alignment,
+truncation, runt - leaks one skb and one DMA mapping. The driver uses a
+32-bit DMA mask, so on a host without an IOMMU each of those mappings also
+pins a swiotlb slot.
 
-Also, why are you changing the original comment here?
-The new wording below, does say essentially the same and you're changing
-it again the next patch.
+Unmap and free every RFD slot referenced by an errored RRD before the slots
+are recycled. Decode word0 once in CPU byte order and use it for both the
+RFD count and index, so the unmap and the subsequent RFD cleanup always
+select the same slots. Share the unmap helper with the good receive path.
 
-[...]
+Count errored descriptors as completed work so the RX refill also runs when
+a poll contains no good frames. Clear the RRD ring on reset, preventing a
+stale error descriptor from causing a freshly reposted RX buffer to be
+unmapped and freed while the device still owns it.
 
-> +	/*
-> +	 * No handler is running now, but we might still have stuck jobs. Let's
-> +	 * make sure the PM counters stay balanced by manually calling
-> +	 * pm_runtime_put_noidle().
->  	 */
->  	scoped_guard(mutex, &core->job_lock) {
->  		if (core->in_flight_job)
->=20
+The hardware already counts these frames in its own error counters, which
+atl1c_get_stats() reports, so no software counter is added here.
 
+Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Federico Musto <federico@rimpianto.com>
+---
+v2 -> v3, after the Sashiko AI review:
+ - decode rrs->word0 once in CPU byte order and pass the same value to the
+   unmap and RFD cleanup paths;
+ - unmap and free all RFDs of an errored multi-RFD frame, with ring wrap;
+ - count errored descriptors as work so the RX refill cannot starve;
+ - clear RRD descriptors on reset so stale error reports cannot free newly
+   reposted buffers.
 
+v2: https://lore.kernel.org/netdev/20261102215253.68185-1-federico@rimpianto.com/
+v1: https://lore.kernel.org/netdev/20261027115156.17128-1-federico@rimpianto.com/
 
+The issues were found by code inspection; no hardware test has been
+performed. The pre-existing memory-ordering and link-reset/NAPI races are
+left to separate patches rather than expanding this fix.
+---
+ .../net/ethernet/atheros/atl1c/atl1c_main.c   | 52 ++++++++++++++-----
+ 1 file changed, 38 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+index eddd840..0d7d842 100644
+--- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
++++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+@@ -912,8 +912,9 @@ static void atl1c_clean_rx_ring(struct atl1c_adapter *adapter, u32 queue)
+ 		buffer_info = &rfd_ring->buffer_info[j];
+ 		atl1c_clean_buffer(pdev, buffer_info, 0);
+ 	}
+-	/* zero out the descriptor ring */
++	/* zero out the descriptor rings */
+ 	memset(rfd_ring->desc, 0, rfd_ring->size);
++	memset(rrd_ring->desc, 0, rrd_ring->size);
+ 	rfd_ring->next_to_clean = 0;
+ 	rfd_ring->next_to_use = 0;
+ 	rrd_ring->next_to_use = 0;
+@@ -1846,14 +1847,11 @@ static void atl1c_clean_rrd(struct atl1c_rrd_ring *rrd_ring,
+ }
+ 
+ static void atl1c_clean_rfd(struct atl1c_rfd_ring *rfd_ring,
+-	struct atl1c_recv_ret_status *rrs, u16 num)
++	u16 rfd_index, u16 num)
+ {
+ 	u16 i;
+-	u16 rfd_index;
+ 	struct atl1c_buffer *buffer_info = rfd_ring->buffer_info;
+ 
+-	rfd_index = (rrs->word0 >> RRS_RX_RFD_INDEX_SHIFT) &
+-			RRS_RX_RFD_INDEX_MASK;
+ 	for (i = 0; i < num; i++) {
+ 		buffer_info[rfd_index].skb = NULL;
+ 		ATL1C_SET_BUFFER_STATE(&buffer_info[rfd_index],
+@@ -1864,6 +1862,20 @@ static void atl1c_clean_rfd(struct atl1c_rfd_ring *rfd_ring,
+ 	rfd_ring->next_to_clean = rfd_index;
+ }
+ 
++static struct atl1c_buffer *
++atl1c_unmap_rx_buffer(struct pci_dev *pdev, struct atl1c_rfd_ring *rfd_ring,
++		      u16 rfd_index)
++{
++	struct atl1c_buffer *buffer_info;
++
++	buffer_info = &rfd_ring->buffer_info[rfd_index];
++	if (buffer_info->skb)
++		dma_unmap_single(&pdev->dev, buffer_info->dma,
++				 buffer_info->length, DMA_FROM_DEVICE);
++
++	return buffer_info;
++}
++
+ /**
+  * atl1c_clean_rx - NAPI Rx polling callback
+  * @napi: napi info
+@@ -1874,7 +1886,8 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
+ 	struct atl1c_rrd_ring *rrd_ring =
+ 		container_of(napi, struct atl1c_rrd_ring, napi);
+ 	struct atl1c_adapter *adapter = rrd_ring->adapter;
+-	u16 rfd_num, rfd_index;
++	u16 rfd_num, rfd_index, i;
++	u32 rrs_word0;
+ 	u16 length;
+ 	struct pci_dev *pdev = adapter->pdev;
+ 	struct net_device *netdev  = adapter->netdev;
+@@ -1894,8 +1907,11 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
+ 			break;
+ 		rrs = ATL1C_RRD_DESC(rrd_ring, rrd_ring->next_to_clean);
+ 		if (likely(RRS_RXD_IS_VALID(rrs->word3))) {
+-			rfd_num = (rrs->word0 >> RRS_RX_RFD_CNT_SHIFT) &
++			rrs_word0 = le32_to_cpu(rrs->word0);
++			rfd_num = (rrs_word0 >> RRS_RX_RFD_CNT_SHIFT) &
+ 				RRS_RX_RFD_CNT_MASK;
++			rfd_index = (rrs_word0 >> RRS_RX_RFD_INDEX_SHIFT) &
++				RRS_RX_RFD_INDEX_MASK;
+ 			if (unlikely(rfd_num != 1))
+ 				/* TODO support mul rfd*/
+ 				if (netif_msg_rx_err(adapter))
+@@ -1908,11 +1924,22 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
+ rrs_checked:
+ 		atl1c_clean_rrd(rrd_ring, rrs, rfd_num);
+ 		if (rrs->word3 & (RRS_RX_ERR_SUM | RRS_802_3_LEN_ERR)) {
+-			atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
++			/* atl1c_clean_rfd() drops the only pointer to each skb. */
++			for (i = 0; i < rfd_num; i++) {
++				buffer_info = atl1c_unmap_rx_buffer(pdev, rfd_ring,
++								    rfd_index);
++				if (buffer_info->skb)
++					kfree_skb_reason(buffer_info->skb,
++							 SKB_DROP_REASON_NOT_SPECIFIED);
++				atl1c_clean_rfd(rfd_ring, rfd_index, 1);
++				if (++rfd_index == rfd_ring->count)
++					rfd_index = 0;
++			}
+ 			if (netif_msg_rx_err(adapter))
+ 				dev_warn(&pdev->dev,
+ 					 "wrong packet! rrs word3 is %x\n",
+ 					 rrs->word3);
++			work_done++;
+ 			continue;
+ 		}
+ 
+@@ -1920,11 +1947,8 @@ rrs_checked:
+ 				RRS_PKT_SIZE_MASK);
+ 		/* Good Receive */
+ 		if (likely(rfd_num == 1)) {
+-			rfd_index = (rrs->word0 >> RRS_RX_RFD_INDEX_SHIFT) &
+-					RRS_RX_RFD_INDEX_MASK;
+-			buffer_info = &rfd_ring->buffer_info[rfd_index];
+-			dma_unmap_single(&pdev->dev, buffer_info->dma,
+-					 buffer_info->length, DMA_FROM_DEVICE);
++			buffer_info = atl1c_unmap_rx_buffer(pdev, rfd_ring,
++							    rfd_index);
+ 			skb = buffer_info->skb;
+ 		} else {
+ 			/* TODO */
+@@ -1933,7 +1957,7 @@ rrs_checked:
+ 					"Multi rfd not support yet!\n");
+ 			break;
+ 		}
+-		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
++		atl1c_clean_rfd(rfd_ring, rfd_index, rfd_num);
+ 
+ 		/* A link partner whose l2mtu is larger than ours can hand us a
+ 		 * frame that does not fit the buffer the hardware was given:
+-- 
+2.54.0 (Apple Git-157)
 
