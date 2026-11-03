@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793700196;
-	b=I4jvL1iDfRv6fLIE7kloAIgOxjZA5POgGdlghm+GD+32pcfmQ3q0yVC6Ak4Z2KhrMr80
-	 COdukhgFhLUO3lTHLhEvft+INEKILqajBfQf6ZnkNDi8OMTWhasEzk1mDiJ1zx5CDCE7h
-	 4dGC1XF+SaGJTYZRoTCAwPe29P6eSLCRcOb/qfvWQLr/oMj+xy6jJwrD5m/MoUxc/IALD
-	 5H8D/AxSwxQmHUW9YgqyvV+oDv19oiSKIFiusCiqvMpjvpje/BdYF24dA8RaAXBuLUDtm
-	 OLg0KNHH//ZIbShsheS0G6XHbV22WQH7KfHHTy+t/zTw8NZpdOyZrZhvtJ24w8H7MBA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700196;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=LEg0SrmO/VhGhY9o8Sggz15O+9RUdwZIrLUomDbcYAw=;
-	b=Z5QsFp7GqNJflGfLQsONJpjQA6BOXBZF8efYHwYAEWAvZboP1R50bsVzldGaFDrvgBRM
-	 6EzOKSRLJ/9eH6SRALgt2AG/nYSXtZ/rhmB2ZCRl44Cb8WHZTRHMqRyK5z4nmNAr1c3NM
-	 Nh/e3rknBaMjMgP0z20WQOmCCzH8PWKlf4r5t12quJMCzOaad1unNjjwYOAQJDpcUOSZa
-	 WpqfguiUR/kjPtRK/k5ECiAb3seX6IRWmQNlRjBv0Bgkqgqgzu4ye2oYn2S9juILOlcbw
-	 UV4mdED3vhwwTLSioNTuH7elSN9aClhH1NMUcRVtcixMdBuPK67iSTt94OH5xpYdiMQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flashbots.net;
-	spf=pass smtp.mailfrom=flashbots.net;
-	dkim=pass header.d=flashbots.net header.i=@flashbots.net header.a=rsa-sha256 header.s=google header.b="Wc/5StHW";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.46
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793700319;
+	b=5fb8bQH1g4WkYtsVaZCu/YWi1G0xTsuxe657NI41H28jzrgDcfFJLtnJ/supNS3+evLJ
+	 CYlJBJjHeoexmkeoFjG09w0pgiFOmIrYeX2aw+TN2a95O1RulSeGvRn0FhRhvsEsJ0bbc
+	 aNOQWilkwAtiVj5NQ/l7CENnHLxA4MHSMsPcMI33DW3NFJCUgjhpETtIeheKwzBUhBQ8G
+	 /8E+MwDnsLUDbmzvjlpnR5Umg9m0hO97f5kVm0AOhwhVDsN3jJeMH+h3zuPdSpkRbdP4z
+	 dLXCnlMYm2xgpiCbJujIH18/m9eR0xVdnpz8qLKfiW424JGCXCH0iPMlKp/4Ld95mdw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700319;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=ZYeZZrG9ZKN5BZOL0KcRfGjiqSQEn+PAKI/JApuA7Lo=;
+	b=nUJ0uxTAqljwmcFT8XYQ/SO88Ljv5e1sKqIEWGVBIvGwjNi9eGe/gVMDwsHAcq/BU1lg
+	 dI+jH33blpMT2rm2IpUtWHinEjI19KEjvEEh1KTMmPHYSXt+8wgpZA4dtzB9nQ/N6Hx6C
+	 2gDEbsfP0AhwZfRKBmFR87AysOJPwnyV7Pw/X93IvOTdrSKJ204IshvL8NG7OkcAH7zve
+	 WR0FrjO5unbn8LoPSlO7/Nk0edIe1DUOZCRsdQj1dSRPzSkcb6PhIAYZNxiLbRB2krXjq
+	 0OVetdeCfn+TIjSZ9fbHw2OO3LRPFH0MzLJLVypjGfJD0lgEwTF0kT5SQHbUL+MSMcg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC58606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:03:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EC58606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flashbots.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flashbots.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flashbots.net header.i=@flashbots.net header.a=rsa-sha256 header.s=google header.b=Wc/5StHW
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6b1afdf5196so1313922eaf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:03:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793700195; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HJONY64mQzRgEhmbfJmmu2dpftHredMYhEB77Fwj14FInGJaL/bX7ELOChezUz9pFB
-         D8X18e0ZVmvZ7BSD/eTCYImlazjaxkT/Wyqj2f6V7RxrifnvgwgKfETTNAw3ODaeIR1k
-         3l72pJ9+j63jSXM7L9IClgvlseJyJnoMtgbWAZfitTEcX32uVvJ3o/87ptWcgOpCcHxD
-         LaNbKnI3nyLa5CtUBJ4367ZqBbq5XKrQe0v/gI+2g+ko9H8uEEAacIdNhGFpk8clLOXh
-         2w1M2tOIolV2WQMf/J/b7zML4GFttzkRRnYFuMfEj/McFUh/yTKGTZTA00mSqM/2xPSx
-         XFGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=LEg0SrmO/VhGhY9o8Sggz15O+9RUdwZIrLUomDbcYAw=;
-        fh=XAr+yEHIhHhw/bnBiYHVQwT9TbvdIDF7vcAd4btKoEk=;
-        b=IJsfGXyyJ5UXNo47pK5Rvp7szmDtf1NYi088Vf72rJY3uWxF2aHUG246iCOMKuoqtl
-         bFCpFrmSY05JxUmCak4uTBXlZpc3oi5ZPO/SYskMOQUQu9vycQyN/fziTMrub/OfWT6B
-         oezRFVcN3NYtkTbZvaJD2LdX6FzsNu5MXZb2cUyAvNjO8j7JF6LYVOKcjjyVV9OHLvIQ
-         hF9lG8jl3yQiBqC0F1eaEQIJFgPSeQZDyA6RZmlB22xmbbRUhNUPEGBgklpCfKscANTL
-         8YvWpdsLHPk08FvMFdeUALRbCLQmuMyjjCNs83nSabjR8g7EKzLS+JNk4oiwzDflGpLj
-         fz9g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flashbots.net; s=google; t=1793700195; x=1794304995; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LEg0SrmO/VhGhY9o8Sggz15O+9RUdwZIrLUomDbcYAw=;
-        b=Wc/5StHWz/UU9XkyUuuCGSsONbSwRWNH+t8cv7xyqKudZUFa4tlQC+w3SGxyO/Nq9T
-         4do6QEKfbIeEypOeEAtv/sYQ0cGZqFy4OMkume/DWkFe2WHy9eB9biunFqQ/lnfQ40oc
-         EhlFRme0I5PWYZFF2OegWlVsn9UVWa0WGI4FEaxPU23s/ko4XPGoo922QLfCpNXvig9F
-         Yh/VIj0WNpSzd7YPRIjA+83AwUXndI8net6S3CpzRpyCfNC5rN+XHWpyjYfcxEEBJuR5
-         h8ZcDCll2NtULcexdSKQLqYGuh89uRFZdLVAG3l6PIwUyHEX42vEqhORQeQitL73La3E
-         +KFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793700195; x=1794304995;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LEg0SrmO/VhGhY9o8Sggz15O+9RUdwZIrLUomDbcYAw=;
-        b=Qm7xVpZfWyl+DrGbiYw4ZIQ9SiBsAvRBJDp2d47aQfNENYfTHKxynkQo77xmLZ+RhL
-         4diCAF5dn40HZfB9tfEmmYgWSUsD1YYCZkDna2yB+LrypV7K3bUN+r0/6Xat2j3sMyDE
-         le7gQCy8nnAFVjkhZLXGWhaLcIPpzNf32urb6HqCnGCdO6a2xzhcNPpKbqOFsltr+HPS
-         h1zjIPtti+MoBZF961oXF+aE/YbUUM5t9vcZQdJBZbmeXHdx2C+bzhOSNyHtqJLIG7Kc
-         zFk5jRfwUZPMhLtjvdzgiCLXqrdb1woPwojVvVXI6d6+FNEbUzH931iGTqMRSYsBo0Eg
-         yIeA==
-X-Forwarded-Encrypted: i=1; AKwUvBzeyP+GMmipbJM3YHSRo0nHq8id91Y0nBeXcvr+SvJYEIWIjfKc1UJ9ojkZ26uHTScvSU1pY8G6HX2jppU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/M2ffH0N52sOCV3n99wMSOJAG3Sq/O6eHynlEw3Kii8VGGG0qj
-	hOd2YhiznbTPiFfUutVxV/ZL9ewxxISr8FlL05cRiGoQF7M8BL23+/pyKdBjM/5HseS3Dz5PUfA
-	fz+SdGVLZjIHqEFhCo7PF6ed5tfrfHVG/Qy0wPoROLA==
-X-Gm-Gg: AYBFou1uut5d5AiNZuAUXJIQKr+shdxIIvXSb3CFId8MGasO97AuhTUEeMSUf2R2Crg
-	+KOd43LPdvj/ft3VH6Q3/QY1V52GyRMqSCMa9mj1LBW2EEOZRYFNslm2vhOp2Go5kC/1aSNiWNe
-	j1YfdHhY4/hfCOzug9ru4oCQvSn8+tnCpPExvNvgUxlB/WrjGVVjd5LP0vJt+e2yaQCo2/IbDJs
-	J2ZyzoMuaDc5zEuQ/3E5Shz17dJi+LfLgAttJeabZdHG/Pn8es+6kT3Wc6oYEp3JkMw6qvSNT+x
-	FMZGs5fvgc94pDAFAdEIqCtyA7bFgpl46TzvD0sngJd9Ur2KV+Y/blNMLxFRESv1EV9eUBQZi+W
-	2ZzxRqaP+8EWIva3u0xNXmB6HktFgxy5z/AURtrLK0nTj3wVg55Z9Txk9mBQpxYLM9po3UhQiiM
-	5aHvzKbpGf/x1L1KW+BUJ9dRnZBJztv0Y3rxLZ1onh3GbP8XI10+WkFFb1FQ==
-X-Received: by 2002:a05:6820:340e:20b0:703:10f3:89f1 with SMTP id
- 006d021491bc7-714f2965e33mr4202725eaf.40.1793700195111; Tue, 03 Nov 2026
- 02:03:15 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5843606A327;
+	Tue,  3 Nov 2026 10:05:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5843606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADH0JHXselqA3s7AA--.6276S2;
+	Tue, 03 Nov 2026 18:05:11 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: linux-can@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] can: sun4i_can: Use devm_clk_get() for the CAN clock
+Date: Tue,  3 Nov 2026 10:05:20 +0000
+Message-Id: <20261103100520.1309743-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,36 +58,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-tdx-guest-quote-poll-v3-0-6a83bb767314@flashbots.net>
- <20261024-tdx-guest-quote-poll-v3-2-6a83bb767314@flashbots.net> <7a832e5c-eaff-426f-adff-7935be265bbd@intel.com>
-In-Reply-To: <7a832e5c-eaff-426f-adff-7935be265bbd@intel.com>
-From: Moe Mahhouk <moe@flashbots.net>
-Date: Tue, 3 Nov 2026 10:03:03 +0000
-X-Gm-Features: AclHuK8r2SlXD9z5feGLL3zqeEwt_maaNYZRrrX02gKnp7mXSTM9MjCJhTQJcWI
-Message-ID: <CAKV3HMNEi6aU8GhLuszn8Tmn4aOZBb9i0Ueq_-xre6KUBYssGA@mail.gmail.com>
-Subject: =?UTF-8?Q?Re=3A_=5B=F0=9F=9A=A8ext=5D_Re=3A_=5BPATCH_v3_2=2F2=5D_virt=3A_tdx=2Dguest=3A_Po?=
-	=?UTF-8?Q?ll_Quote_status_with_exponential_backoff?=
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Erdem Aktas <erdemaktas@google.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Dan Williams <djbw@kernel.org>, 
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, Jun Miao <jun.miao@intel.com>, 
-	x86@kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADH0JHXselqA3s7AA--.6276S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4UGw18KF4Duw47Zr1UKFg_yoW8Gr48pF
+	sYgFWrCrZrGF4Ygw4UJF4kZF1Yvw4Ika4xKr9Yka1Sv3Z3Ar18GFy5tFWUZFW8ZFWkGa1U
+	ur4UtF18tFs8Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VU8nNVPUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgAAA2rpnIRixAAAs4
 
-On 10/27/2026 10:08 PM, Xiaoyao Li wrote:
-> I think it's possible that the host VMM completes the GetQuote request
-> before the first check in wait_for_quote_completion()
+sun4ican_probe() obtains the CAN clock with of_clk_get(), but neither
+the probe error paths nor sun4ican_remove() ever call clk_put(), so the
+clock reference is leaked both when probing fails and when the driver is
+unbound.
 
-Right, the loop checks the status before it first sleeps. I'll reword
-the first paragraph in v4 to:
-"...checks the status of a GetQuote request and, while it is still in
-flight, sleeps a full second before checking again. Unless the VMM
-completes the request before the first check, every Quote request
-therefore takes at least one second, however quickly the host answers."
+Use devm_clk_get() so that the reference is released with the device.
 
-I'll send v4 once the discussion with Rick on the cover letter settles
-how patch 2 should go forward.
+Fixes: 0738eff14d81 ("can: Allwinner A10/A20 CAN Controller support - Kernel module")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/can/sun4i_can.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Thanks for the review.
+diff --git a/drivers/net/can/sun4i_can.c b/drivers/net/can/sun4i_can.c
+index af52285d5a4e..9f5d31063b13 100644
+--- a/drivers/net/can/sun4i_can.c
++++ b/drivers/net/can/sun4i_can.c
+@@ -819,7 +819,6 @@ static void sun4ican_remove(struct platform_device *pdev)
+ 
+ static int sun4ican_probe(struct platform_device *pdev)
+ {
+-	struct device_node *np = pdev->dev.of_node;
+ 	struct clk *clk;
+ 	struct reset_control *reset = NULL;
+ 	void __iomem *addr;
+@@ -844,7 +843,7 @@ static int sun4ican_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
+-	clk = of_clk_get(np, 0);
++	clk = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(clk)) {
+ 		dev_err(&pdev->dev, "unable to request clock\n");
+ 		err = -ENODEV;
+-- 
+2.34.1
+
