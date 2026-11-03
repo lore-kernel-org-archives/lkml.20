@@ -1,55 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709052;
-	b=2o1y53+Z8NoTRTfKHPq8cfFwWua4twzHV+7dgMFdtxgvtvMoKZIaBLtJPmrFWP9buRTe
-	 zEjIED4ZfnoYaqeAOtGMb/wyrBeWQiULpIKICqr67Qc7fkHm3fLDgkeHuINr/tP2HOf+R
-	 R67/RzFU1R5dvG9xDD6LC+42Ck9aAtFEit73YIbX+nKzC3u8nYoErrMVepXOt5tmScNwv
-	 Xn3MFCS4v8FVjw2T8pCKNrLAEAzmJ4dMs12Da9mhyJbQG2ZD600ZJ1fbriFpKAcbGZkDp
-	 JRfqeONmWBAq26EvvA44i0DwHQq1063PMQrfhRvs/Wp8YhAu5CYFw/M5KbmKtVtqK2g==
+	t=1793709067;
+	b=VwxofwBi1rvS+mX2A++vya/oNNPpkX6u6/pShmfV95SDtW/hDSdOEyPZjFgT0Ev9sl3I
+	 3Ld5twnWnyV8CM39wClT0Dm2SbqtBG84xFegXQIpz8mLm2tguMcSBTUN1EasldmxnOO2Q
+	 cWr0C+4zTq24tuJidvy6k5XshXea1+PAyBvY5q1hF+v48c9+GbdziY8nHRvNGKNIvpU98
+	 L++mrUqYv56MHWlbnGFnkrKyHyEwXJ8WnH+UCE18eSNFlRhVS9WFmDyhYX9kY8c27NzMA
+	 XnaraJKGnZTHntnFM5Emeaw5YrnsTQu+Tw2miUNA0OXSHHBpowvj0DQd+T5AEAz4zOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709052;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709067;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KB2g/xhwGWDv2zbPWHyRIQfvXK4UTK0C8NZGFOTUQZs=;
-	b=WY1bC2//hCa//NUtI9GrrwAI/IBCgdNNykzz5wq34Ox4hq2EtozhWLHQLbAqkdEP2qCA
-	 sibNeOPeNWSzBIkta87VCxEbAkSqTbxakdtn7fybIopzH9J+DjQMA8qRMYhx2ZBNhJuOW
-	 u58PrVRwPd3z61SmbbyA9x8jqJc7f4+wDP3R4pQt3e+W+hPpAAVTHMO3Hug7OxFBMxwJa
-	 mVXUiAxJSLvGn0yl/CGN2vnt8vCNUcKN0lyAdi0W+6Niz1R85G6nqLL+ko+l2Q0/1SXoC
-	 HmUHpRA/mO5FEd7aTlMLFgvk0/l5WDucT2lr7+2JfdA4rHep5EzcGn8i/1wLeCfA3Jw==
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=QBcqKmclROYeCOX7A4e5v1bv867bbF3DOoJrAggdBz4=;
+	b=SPBwFRv+R60TJ4hgElYwymJUkb4i2BoNnxUpw7rB328Q0gFl5m7SttrYPDB5zKkk4O6l
+	 PgWBwQhtE0hCiffTHMBcM0hSJ2/W8qkaZF6zVx2RwPOm8/z/iNSctYT0QGhN0e29x7hSl
+	 LQE20M6Iij09DSwahwUFq15GJzaamSbT+LRoYgLSzHjtJMSWF2RfqD8lmC35vA09HPQyt
+	 2EtmtDEXZQcI0zn5aXSFgcbKOlM1yp1MuHdpA7kRwW9hIRYl5Ak+pJ/IvDT0O/BEGhUad
+	 5pUiTh7USW2dbKw5RN6B2tQhbWouWQMLbp7AmzXMLHkfIXRfe70YlJqBVhvqGxugouQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJ0WNbZv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiYjQKPy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BE865606D801;
-	Tue,  3 Nov 2026 12:30:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AEE606EE83;
+	Tue,  3 Nov 2026 12:31:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJ0WNbZv
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 786751F000C1;
-	Tue,  3 Nov 2026 12:30:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiYjQKPy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C7301F000C1;
+	Tue,  3 Nov 2026 12:31:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793709051;
-	bh=KB2g/xhwGWDv2zbPWHyRIQfvXK4UTK0C8NZGFOTUQZs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FJ0WNbZvadjMoIc+cFB8C1gjRazjqMY/G0DqLMbgTXTR78kZ63fWV3d/bfRYeh+7h
-	 SOMibd4zXU1bbsscRCSGnYK2eWceBrwMZFTVoxXMmFmRlMDkfZgNlLfxdisryL1xF1
-	 5wZvBBLbHtVDEXZ3hiZDsGlWpxfkwFaiVOjd2ZX1FDcVths4e+xB0fvla1mcEkngpm
-	 wIizZPRI/wVyIAyQ2XT5DHgdwaIDChhjH172TG5b0OscEhmMsB1HWLSUH0F9U4y6kF
-	 ivAgRYAok23Q77PQVRxGNLb1Xy1ClQ0yK9LlA44eP9DeggLrYdzUcR4x+0C/Dhdd4/
-	 Bs3/asfT87xGw==
-Date: Tue, 3 Nov 2026 13:30:48 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
-	Sen Wang <sen@ti.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, 
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: codec: pcm1681: Acquire sck when bound to a card
-Message-ID: <jxowmyizeityjiokldbu4wbnodnhhaleedmnsiytp4n5hex27t@tj4l7jtdg2l6>
-References: <20261021031228.2074402-1-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1793709066;
+	bh=QBcqKmclROYeCOX7A4e5v1bv867bbF3DOoJrAggdBz4=;
+	h=Date:From:To:Cc:Subject;
+	b=RiYjQKPytzzgIQOoHpEYAvO942+U0C4Jdzg3IHUflSLtY6IczTP7W2ekp/NoIWuzN
+	 HLzG2WiBGiJUZpceDXY6c35SvU9gYa6t4+m/BlkAe0zgUT4V/Cy0KIDpiVZHT4XlvQ
+	 1ehUHgGs3HUyegxQK0/dYObx/A59hwDv4vWdchfLqLJT4BYEbG0BzAfyW12OhFvltr
+	 3fnICJSQ6QpiUSI7obNQ3xXY9pu4S97nySTacyLBRMBd4+g2vDaDR4iM2CXp7SHyWe
+	 uVQRcmtkzZ9RBFDSORcVU8ZpohtcOtljSVoWKXXnr3emaPmPVkrpfcnRT6zVpCcK/N
+	 DxJMEvPXf2BoQ==
+Date: Tue, 3 Nov 2026 12:31:02 +0000
+From: Mark Brown <broonie@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Missing signoff in the vhost tree
+Message-ID: <aunUBu8EQC-pEUGr@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,39 +54,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="62tK8vmu5O3YEvs6"
+Content-Disposition: inline
+
+
+--62tK8vmu5O3YEvs6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021031228.2074402-1-shengchao.guo@oss.qualcomm.com>
 
-On Wed, Oct 21, 2026 at 11:12:28AM +0800, Shawn Guo wrote:
-> The sck clock is taken once at i2c probe and held for the lifetime of
-> the device. On Qualcomm boards it is an LPASS clock exported by the
-> q6prm clock controller, which lives on the DSP and is unregistered and
-> registered anew whenever the ADSP is stopped and restarted. fw_devlink
-> cannot tie pcm1681 to that provider, since the provider node only gets
-> a device once the DSP is up, so it falls back to the remoteproc device,
-> which stays bound across a DSP restart. pcm1681 is therefore never
-> unbound and keeps a clk handle to the dead provider.
-> 
-> After an ADSP restart the first runtime resume fails with:
-> 
->   pcm1681 0-004c: Failed to enable sck: -6
-> 
-> and there is no playback through the DAC. Even with a fresh handle the
-> DAC stays silent: the new provider registers its clocks at their
-> default rate (19.2 MHz), while assigned-clock-rates (12.288 MHz) was
-> only applied by the i2c core at probe time.
-> 
-> The sound card, however, is torn down and re-created on a DSP restart.
-> Move sck handling into the component probe/remove callbacks: get the
-> clock, re-apply the assigned clock rates and enable it each time the
-> component is bound, and release it on removal. The i2c probe now only
-> sets up supplies and the regmap, keeping the cache in cache-only mode
-> until the clock is running, and the cache is synced once sck is up.
-> Runtime PM is enabled and disabled together with the clock.
-> 
-> Fixes: 8987e9a24f45 ("ASoC: codec: pcm1681: Add optional SCK clock and runtime PM support")
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
- 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Commit
+
+  9494608239a5f ("vhost-scsi: validate event queue descriptor direction")
+
+is missing a Signed-off-by from its committer
+
+--62tK8vmu5O3YEvs6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrp0/8ACgkQJNaLcl1U
+h9DUUgf/WdPMGZ5g7Om5HMtsmLKSePAr01UEBzkPJuOeWd1cu/zU5rfpENADFtrc
+zJvteKoDLJoRnTdPLzOir1bF3b7PG8Z9Pohu9UXThl3ocY/6FWeKOrczIXp0AXhY
+f4HT1wCYupdDm7TEpXveL1c+NF/HivpFiChKYEJJmoSLCdiNH5aE9IG0MntxLJgi
+RtfGVz5ynPYkStzjEs9ibtME/ERt8tPyhv7jMqPaTccl5JDqu7521Li+BU7Tmnha
+ujzhHOsHdVjtRAWfT2nkoGRXeRThU95mlYa/BPg/dBzpcu3nqpC/Mnmafygd/JSb
+hCpkn4yP//qPOuEGKZof7v1HbofyWA==
+=k+3u
+-----END PGP SIGNATURE-----
+
+--62tK8vmu5O3YEvs6--
