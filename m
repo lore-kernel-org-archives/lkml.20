@@ -1,71 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.248
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793685278;
-	b=lxRzPgW/WDAOnt18kWXP5G/uMaqIQERManzUEViG8nFgig4UJsNO7/6x2mNpjTWGEabt
-	 JzwGjGVncePpTjQYDKYX1ok/ND/nEbNB3bLRCqcKahNcQKPAVF5FXgS5J8r8bir47t861
-	 qpzir9gs+rlV2dQ9MdI93SmlgwpVWbhLXQCRjA4M+0iCdeWR0OKMtQ8TgdgmkXPQm/LUs
-	 pL7X+J7tbhgHyJwPJ6mqtRUJAA1jG5DFw+5r9P4jyllf9Dro6OpWwCiL6EO3WsPrH+Mpt
-	 gbUga0fl4K/1QUreuHIDCTktVz+DDneihrHz1US6Zrki07xTD050c3toUptWDvKrC6g==
+	t=1793685387;
+	b=buplcnBkN/UmPM7Tiav52sNrGSkV/NAqEad18IZII+r54xnLsBobyYt6w/qlT+Q/Bsut
+	 86cST+zAca1t12re4qzV9dwih2Pacd/fsw/9f4K4WRGNISkJYdFAZ0BRF/2es0ErICkc3
+	 qS2+LEPcblt2Cp7DEoobAgbe63lsh+qavBULif67oSoL86jqyI1OOSgzFc2W0degbLVTW
+	 A3PRxXedQ1Pmpk0UDhj1l41L07McKrjr+cuDoMEVdNzThI3kFnocoRtH3nZPhtPa3tu9z
+	 3JzQRPy65q2r8fkqMMOYluJ3dct6BjKjfWz1lQf2N4iv6B/XI9v98vfXb3VIuMw3Brg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793685278;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	bh=FsxV6gx2jOppxne1N+ffOsujBoqL3LoQjEaNp1iXLQM=;
-	b=iXbkzsTGeWItjyahSjcHan+jeG8jaSg7MFiugkK4EbyRq3mKDEc/J8eyIbHr1DviGtHF
-	 i9WME0HJ4AJpgmuuUILS115kFp7ns4kcIe0JA7fBH9btO/gz+8Y5GtmhRLmxYUhFYaMqX
-	 f0WoTPwXKBREa3deIm433eAdDSOlM2przgoDHYRnCC1xymgx95yxy8/ztU/DXjLckWRwU
-	 f/SpWqDLdQbmzzBlY1PrNbDv4I2N2tyb3E4kaITa3Ht+RqxQkmiRWu0GYtJ7o+tbq0Zyx
-	 I7LXn0Q7Bmwll5MsEOG0NMxO/WM3HTQcoWIHFkiZ1Pz5IZjlnm9jZQd367tQcWduRjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793685387;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=uj8pOywJFjRcmYO9PyvNrZWyQc2zM0zh4AslEzqA01I=;
+	b=wXWEjThnAaqU3M41o6mgfGZpeHsUZkQC9QLHl3wUiX0v3CEUD5DYzpg3rXyUM1akwV3M
+	 MTcnlFD78YDR+thK5I0B5yjA7MDRVaD4rVrdk9aGffUtWE1ZnbsnA2r7O9EuzDqebFofF
+	 LYkDlz27YL56eNvHohwBBr5a4Fk8fPbEU00n77+Vnt3MbsubR2iMhkxG3YrRdFvf8XnH9
+	 VxovK3bCA246iTA/LrgwrHzfbsCKnrr5G/2zZ+dWmvOAhtx2jFDeinTTp2Gl4voWtKgC2
+	 HW79+/f6+aRXdMDvQRAys5+jO4J/YsYk8TL3Hui9ESA+YlHKUFxzmXGiWs00x9Dq4Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=tNZkUjGa;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rp2lXthv;
+	arc=none smtp.remote-ip=95.215.58.248
+Received: from mta1.migadu.com (out-248.mta1.migadu.com [95.215.58.248])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1F8606A324;
-	Tue,  3 Nov 2026 05:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C1F8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9566A606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 05:56:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9566A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=tNZkUjGa
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A35sSyD52775820, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793685268; bh=FsxV6gx2jOppxne1N+ffOsujBoqL3LoQjEaNp1iXLQM=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=tNZkUjGaePzDeFkBO7HuxUL+ohsfJofNVGPb66RlVXNFyOkcwSHpFeTModU2OMfLq
-	 Aa/2AbAsZpGADl4k3bOA4N4Vs8OuyaJRAhnhh0aIp78zcLuRsFTz32fW55Amd6gbaB
-	 eI60pkqRMoIWCmpZIOhOi2Wr3ku5nty7YD2lzaSb7EN2vHc3by44V7okbn72i1T20R
-	 UgJScIX6lCLLWYu1HlkSNni3vljsZXHhsQyO9qsUslol7BoILjeiwhlW9ktdS7yd3e
-	 Ix4qr2u+AjGU+T+Y8rQRUw/F+HXz7YkSJWc8SlMSH27z81SHxXY/4BczEX5bk8RwpD
-	 aHP2m9iChP7XQ==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A35sSyD52775820
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 13:54:28 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 13:54:26 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS03.realtek.com.tw
- (10.21.1.53) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 3 Nov 2026 13:54:21 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Kalpesh Solanki <skalpesh942@gmail.com>, <pkshih@realtek.com>,
-	<kvalo@kernel.org>
-CC: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Kalpesh
- Solanki <skalpesh942@gmail.com>
-Subject: Re: [PATCH v2 1/2] wifi: rtw88: pci: Add DMI quirk for HP Laptop 15s-fr5xxx
-In-Reply-To: <20261103031434.14449-1-skalpesh942@gmail.com>
-References: <20261103031434.14449-1-skalpesh942@gmail.com>
-Message-ID: <d428a558-1c47-4942-a522-8509a346eda1@RTKEXHMBS03.realtek.com.tw>
-Date: Tue, 3 Nov 2026 13:54:21 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rp2lXthv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KBgkos9IdQOCkZD7eKRUQVpH11hWoUdqtEfGbGKCSrg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793685384; v=1; x=1794290184;
+ b=rp2lXthv/i3qaUJ/9kEYA74HZjabdrFGwoW5URcvVHcjkjc3Xq+wCQC4P/PuX4My5A/3LMLj
+ xQXPJW9POkAWCMcXofYb3FXzgSjphOLK0vi6bYLDk1t8+a6l56Fjs0W49yf5VYEHE0LvKELlNa1
+ MtTrOMUlx8pz47yXBIrrRQO0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7180cf75f3a7a3b1;
+	Tue, 03 Nov 2026 05:56:24 +0000
+X-Mizu-Trace-ID: 7180cf75f3a7a3b1
+X-Migadu-Flow: FLOW_OUT
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: James Chapman <jchapman@katalix.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Linkui Xiao <xiaolinkui@126.com>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Sashiko <netdev-bot+sashiko@kernel.org>
+Subject: [PATCH net-next v2 1/2] l2tp: ppp: remove unused backlog callback
+Date: Tue,  3 Nov 2026 13:56:11 +0800
+Message-ID: <20261103055614.3729-1-qingfang.deng@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,26 +71,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Kalpesh Solanki <skalpesh942@gmail.com> wrote:
+PPPoL2TP sessions receive packets through pppol2tp_recv(), which passes
+packets directly to PPP or queues them on sk_receive_queue. No receive
+path queues packets on the session socket backlog or calls
+sk_receive_skb() with that socket, so pppol2tp_backlog_recv() is unused.
 
-> On the HP Laptop 15s-fr5xxx with RTL8822CE, PCIe ASPM L1/L1.2 and deep LPS
-> cause the card's firmware to fail to resume from low-power states,
-> resulting in repeated 'firmware failed to leave lps state' and
-> 'failed to send h2c command' errors and stalled network traffic.
-> 
-> Add a DMI quirk entry for 'HP Laptop 15s-fr5xxx' to disable PCIe ASPM
-> and deep LPS, ensuring reliable Wi-Fi operation.
-> 
-> Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Remove the unused callback. L2TP/IP control sockets retain their
+separate backlog callbacks.
 
-2 patch(es) applied to rtw-next branch of rtw.git, thanks.
-
-04c998418722 wifi: rtw88: pci: Add DMI quirk for HP Laptop 15s-fr5xxx
-dc16902cad9c wifi: rtw88: ps: Trigger firmware recovery when failing to leave LPS state
-
+Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
+Closes: https://lore.kernel.org/netdev/179340002340.3131.5823454250644987437@kernel.org/
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
 ---
-https://github.com/pkshih/rtw.git
+v2: repost after net-next is open, and add Sashiko's report
+
+v1: https://lore.kernel.org/netdev/20261030070003.2590-1-qingfang.deng@linux.dev/
+---
+ net/l2tp/l2tp_ppp.c | 12 ------------
+ 1 file changed, 12 deletions(-)
+
+diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
+index 4f311d473a64..15e02864bfd5 100644
+--- a/net/l2tp/l2tp_ppp.c
++++ b/net/l2tp/l2tp_ppp.c
+@@ -454,17 +454,6 @@ static struct proto pppol2tp_sk_proto = {
+ 	.obj_size = sizeof(struct pppox_sock),
+ };
+ 
+-static int pppol2tp_backlog_recv(struct sock *sk, struct sk_buff *skb)
+-{
+-	int rc;
+-
+-	rc = l2tp_udp_encap_recv(sk, skb);
+-	if (rc)
+-		kfree_skb(skb);
+-
+-	return NET_RX_SUCCESS;
+-}
+-
+ /* socket() handler. Initialize a new struct sock.
+  */
+ static int pppol2tp_create(struct net *net, struct socket *sock, int kern)
+@@ -482,7 +471,6 @@ static int pppol2tp_create(struct net *net, struct socket *sock, int kern)
+ 	sock->state  = SS_UNCONNECTED;
+ 	sock->ops    = &pppol2tp_ops;
+ 
+-	sk->sk_backlog_rcv = pppol2tp_backlog_recv;
+ 	sk->sk_protocol	   = PX_PROTO_OL2TP;
+ 	sk->sk_family	   = PF_PPPOX;
+ 	sk->sk_state	   = PPPOX_NONE;
+-- 
+2.43.0
 
