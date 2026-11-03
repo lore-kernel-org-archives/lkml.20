@@ -1,112 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793723123;
-	b=5YsTb86+JHo8zeFqiXzK1CnF5qkynoWM/lWMqh80Cek8GZnXJhQHsQeypmY13m9WXCXt
-	 l30N3jEP7l8bb9kI9tD5ytzC+RA0h0lNl0dAjhsH9uv+wgMakViv2T+PnBm5cuIqY51Wx
-	 iXYC6G/3XWWP+EzvFxaiFs43KsQvNEDK9leZo75DeZx+msh21/JO+P9j/1hv135ZhYWaM
-	 QdbqlDtM1d40KJ7nxDQdyfKRuJSnMqNaAQaErT3zgMVy7yrKa/oPH3mepM8ZdpSuzU9jM
-	 2BAvStq2VavuCinDneUQ9r+O7i6zmJCrZGr/YJwUYdw3wIvDRJvKCpXGAOzIyhYMhig==
+	t=1793723149;
+	b=EDRoU0iOOTb+YOtf7JkSn2i4DP0337ZZxWGYxw717V45ZEKboyFPU1BhbK9BRR3zRQjX
+	 5TsLYo9TIcdelQuPXk2AlyDdNvrVExCE01uO5B+wH83oZmgeEmI5OHNU120VeXJWzSYDY
+	 RIXt2Xrq0YRHFh8XbkElImOiG37KidtDys3VkGUl+oOCKCiM6FzLiMLT1pl1N6OoOrNot
+	 OWmIj9vnbztHEIiz8oLLzgfKrYrHjIIyA3tTqDk9ZtEk6W0CAl56+cq3gqtlNfE3RbF/F
+	 46VxNmGFykGw3YOQnvCJwRDYXTIeQOLolCjls9ARSYmzGZTha5TQ07x5GW/U5wzp/LQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723123;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6zyMxWVaLRlrzyt0tmMAewN95mt1HurEOoa5PZ+1XiM=;
-	b=FMdSxFxpiyJv8c2rCY5uOJNq/1pYpk2GCvGa7BNIrP07f85tvyQNuNRr4B+0ss6e/Wz2
-	 A07Ksf93G1v6eB0ByhyyEbTY6ZnYgjt4ORijIdaxoz+ob0ZZlyekpSXLJCsKqoqsej/8p
-	 NSq8nkF2MZAJUKeyYmZgZTTKJKhyRkHUKQrpuRI1Fs3XM3hZkpCmzSYgkKDqQ2CAZdf2w
-	 OwIt0Q31hMzeTW9q/RouwjX+fBJ/tNLvztdrXGVciBRP37GETatdGAlp0b1m6FmDI94b0
-	 egmbmsb9PWR2uTS2pU046jReIeE8qZCR86ngSetxWukKgO4+6dED4RKytysVcfKuUbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723149;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=iWEAyU+bxDF0UfL07Lt+/IXCJ1rL/BoLdkIrtSn8JJw=;
+	b=h638Xiat/vYzXyoxEbH8ODCjOadPCTzg2lvGObPuHmFPIQ9dIG4mLuz820r9tLdJKUiD
+	 I/nFp0rAtcQZhqBd5ZuDfYiI2xEBZChL1kK1eEICfqZQee9fE5nbyyUpqqfe4p6rav6q8
+	 Tcl1tKaT9lynS1HIx8qxQqScFONQe+I/B7oBn6VydqmzoMq2NqvLqcPvCehqKl6GfFVE9
+	 H+ac7CfZgCMX+B+5GF3k/M1wT85FbATTgo61gHgNLcHIvgtr0e+s9r/bw2gl0ENryg6fQ
+	 FgEed2xpmIPZT8WMcgDNWo/oBAW7Rx+uJpMQxBKYIfRWFeDygT4quWKsA7eZvGsxt6g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fa9GrIOj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.45
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011045.outbound.protection.outlook.com [52.101.62.45])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEOUANCp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D76C606A335;
-	Tue,  3 Nov 2026 16:25:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D76C606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A4A606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:25:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fa9GrIOj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xypmjGs1kSXMUZDFXKDayybtsseuc3iUrikOJx3ZN8G09pp9nk7Jpv1uQIpiN75Q6TRtfKbg5yQvhhQupWq1fKIG8lfJFPRrhKc3HVKQvVEAS1Urh7RMkIv6GqM/tQ9q/6LBszwaHsVlYk2x0fuxVFXRCPIs08E8qFN5FZibGweXq5qc/4BTYXiXrbqaMSdrG+Af0RUwLggUYK8EN3woULYIwN02CryxYe2DwWoXWMpEq8Sye+xHnxa8JcqpAVAFhdC7i8XTBFzJIIUJJ2twBj4bpHMIB84TAsblg/DmOVvFmM0a7znYB2LaVl92YgJpxTQaYVIR3RI8HGpNyGsinw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6zyMxWVaLRlrzyt0tmMAewN95mt1HurEOoa5PZ+1XiM=;
- b=QKDBFM6iVo4YjOmvcaRfS5jM4HvPUNDOD0KOmImCxJJUqCS/fX2idbBdy1GeN2UdyswhhpFbdEGNTCgH7ws2cgGubmxvGVLhA5aEEc9xA3pKdQ4iatSXPQLW0mwBcEnPou7MhjazIAbE4lDVc05CJp/d538B6fKFC0/v7tfk7q+DE3h5YdyGuzHP+7zEnJhjoZm6RT0YAzNeneoOJUnR6z1LXr/DuFYav5oiBtdoqI3GMBUW5+6wFDSVo7/cIsjl32yqQYtklk3cHbihfUW6i6LT036talb7IdSdSyk63s+4kHXAVKFGIZn/cazWshbEFQs8LVQ5yOAgeflQyMIo4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6zyMxWVaLRlrzyt0tmMAewN95mt1HurEOoa5PZ+1XiM=;
- b=fa9GrIOjfxkvoyllV35c+8hEPOpOJcfs3i8E9F3yWTdAd8V0+VmiTDB5yTxWe31zbjH2lVg+0LPzEPuC0uOFWkCYJDwx1Ky7mXDz454HAOTWS7hpzSoYTIh5WcejgadPxDfT8GLEbQCWWR+aCLoQEFRl3pP5Ttf+KC/ItJk/fRY=
-Received: from CH0P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::6) by
- SA6PR12MB999201.namprd12.prod.outlook.com (2603:10b6:806:450::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 16:24:49 +0000
-Received: from CH1PEPF0005BD5E.namprd02.prod.outlook.com
- (2603:10b6:610:ef:cafe::95) by CH0P220CA0008.outlook.office365.com
- (2603:10b6:610:ef::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 16:24:48 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0005BD5E.mail.protection.outlook.com (10.167.244.247) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 16:24:48 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 10:24:46 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 10:24:46 -0600
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 10:24:41 -0600
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <robh@kernel.org>, <saravanak@kernel.org>, <akpm@linux-foundation.org>,
-	<david@kernel.org>, <ljs@kernel.org>, <liam@infradead.org>,
-	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>,
-	<mhocko@suse.com>, <m.szyprowski@samsung.com>, <robin.murphy@arm.com>,
-	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <iommu@lists.linux.dev>, <kexec@lists.infradead.org>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Subject: [PATCH 0/4] kexec,mm/cma: do not run the next kernel from a fixed-base CMA area
-Date: Tue, 3 Nov 2026 21:54:25 +0530
-Message-ID: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.44.4
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEOUANCp
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793723148;
+	b=A47VhKvPv+92i15ss+obebZiPzC/U4XmLvxo+odb2CSeDT7OMr2k+jpvLliIFd79xLEd
+	 IraeISKmfHQoVqF2bTnDszMwM0CIJy6fCjV8VcCrTdI6uiSPcA5vmW5m6w7Vcl8jyeyb5
+	 xMlJDp6Cim/GUwzaAbgyK7R5NAdMnvwBMtSxl7ldYn02SaqdhBrJN1B9rTjY29qAXqw/u
+	 0zebBC+gqimTAx1FNc8hJezD0fn/ALGr3jAVrI8NoVTTjrQscIySsQ4RTl/EXd7zIn6jz
+	 DtFdyNxwr31hIB89E+XJicpJtMSZjv0X0DVB+H5v4V7pv9A05x6kjXDVPrAMaZwzstQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793723148;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=iWEAyU+bxDF0UfL07Lt+/IXCJ1rL/BoLdkIrtSn8JJw=;
+	b=LWsgMKmW4Bw/npQDTYPO/Jy2ByfDngkW9NCwUyMpgBG+Mi57MBapYHQeTW6HSTrRo8ui
+	 IdYThiK1UV1+sfpv+B0CDNS66GTJoKrnF8dbNBwVk8ur8GoO9Hum+CWsJId78jrAnTqc4
+	 KKQ6Gsuy9+qvSox4T7DIBUaDGZjEWgSY64LAe8vE6QBK9rk6YG66HQ3t/gMlo8tUOPsI4
+	 zAN/FIKtuiPkYrZlOSLL9I90GNnNqh2ZRi68INTz1CJNUEoIRHynLk5D6xhtJdWfb78BV
+	 RCe5yOrY28mzSfXCkcwoomL0O6ZbayT4CQ+Sv2ZuhhBr4+cV+NXP62Om4wZ9Z91YkSg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C72761F0093A;
+	Tue,  3 Nov 2026 16:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793723148;
+	bh=iWEAyU+bxDF0UfL07Lt+/IXCJ1rL/BoLdkIrtSn8JJw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=dEOUANCp10CongROoPeFCT2A2PINRg5ELoefZ6e5//bCriUnDXwIhW/I780jlRe5R
+	 flXI5z9GTZSqgmGSlD1eWHWq9grZvMEQ5JexBsOk6f0fTA4fksGEW6TUnE9FcQPYUY
+	 yWq25wIn0FJQmWULwPwPokdjyAfcSJy4QkrXOobr8c/SDU7exS8AzHR08rlOZeR/7G
+	 0OAf+DCIZbTEgI/91KsHiGnxyYxP363YkXxogWCv07ERPGpO7JkNb7ggoeIfny/6Bj
+	 mw7EhNO6LBgHHUi14G7ZZgD5HmWWuwetNBvFtPD1uAdKwKhEidCig9sJ6Vjf2b8Tzc
+	 iu5WjIFqAbetA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4327546A26;
+	Tue,  3 Nov 2026 16:25:47 +0000 (UTC)
+From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
+Date: Wed, 04 Nov 2026 00:25:46 +0800
+Subject: [PATCH v4 2/3] mm, swap: give hibernation swap slots their own
+ swap table entry type
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,79 +83,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0005BD5E:EE_|SA6PR12MB999201:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2b4ae8e-8581-444c-18c2-08df39c6fb08
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|7416014|376014|23010399003|36860700016|56012099006|10067099003|18002099003|261009223027099003|261022075727099003|921020|261102123227099003|261021123027099003|261021121427099003|261022115727099003|11063799006|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	LuLvjFVnDBrU91Q4OP1QehB+udeusNPB+vvs0j90Avj7BssmtFwsSk44ipPx0vuEzIbSoFEfJzKt0p6DIFQXKuiyIho98OXIX1fwhWzoDRcheUHmaHxwrBWX6R+lNY+zt2YzPCExmbviL5znD4p+PLmTvpI+H2AS7duxJOmHTBs9IXmXmz0BJw+AdsJD+AmRnOTnfI3UYXH/N2Fv5NW3bujojxwdpyuQmrlxxXQshFSudNzIE8Wo6lMR7KV43nusWgNVgEN3+fKflrJP/CXSCyHwykMT/vyB5oBSS+XaGLO1wfzy+PdsNMmrCJAkOuDH77PuK26BNDuAUrErSHAxlL9nG/MVAT/4uiV5RyWNlx2lAFYdQ0aMnLxG1H0U90F/GXsl7p0mLQTPdq8KeDmyaEveHcoAd/v+aP1vMk0XQ9kwlCoXjDrlAleBQsRj2h2yomkGrbpBDTSaMQ/jQwz/FtteeXxNWH7JZgvn/ImhK9ScFGTgHlPK+6UgruXAPWFqa2/dweNkWDTBuIYbK62/3hsuah9A6XNyIkuIeVPQMWRfV/rSmlGnHVlWjVruRZWiLhtrESn4okvFp+0hdYVXn9Kwaqjsdt4PoIMu+9UcJwvW5aUTT7FFd+MHx9yQZzUWYdWR5xzhVWlphCgfGTrkdRbM6Nw4CdsabJl8UrBVYm/9tYvFT0+Jv4c4PtXwYvkQ
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(23010399003)(36860700016)(56012099006)(10067099003)(18002099003)(261009223027099003)(261022075727099003)(921020)(261102123227099003)(261021123027099003)(261021121427099003)(261022115727099003)(11063799006)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dNjv3IiiTvWJOExdT+n/aXaOt24uPeJgwW9EHjE7jKsEpmeVAQMMigmVO3akbgxqlZOB9FcA7UyxuzFLLdbpaV8G/qkqMN7IFVop+2uHY8g4467tfR/jKDHJzWwTVo+zdZEUAUYBwJ6HF4c24K6B5B/g8z3o3c8C2rL7fQ8Z5UkoYgj2QPNVcEXemXid2STOIMYcAQz1CluVSYC+Naz8Mn/COk1fPHz0VV/YY3N9jv6ihcPficU8XGbb/IdxQxYUa13gRp8w+d5MqLpmerGZI5tF5pcgu1lPIel2LSaKgGxRWA8yjGv+wVg+H6t0c8rlO/pfQ4yWnH3KPIxCuVU9jbLpRYZwkZazssrLRkcxIzprd4jpv6B+ClVf7RLAej2Z022rPMX1kgU+gFD6fhf6hrtBafhL9xmCnuFTqrHQzsKKvC/G9h3/TmrYo/ei237y
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:24:48.7263
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2b4ae8e-8581-444c-18c2-08df39c6fb08
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0005BD5E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR12MB999201
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-swap-hibernation-slots-v4-2-0ba9393609e1@tencent.com>
+References: <20261104-swap-hibernation-slots-v4-0-0ba9393609e1@tencent.com>
+In-Reply-To: <20261104-swap-hibernation-slots-v4-0-0ba9393609e1@tencent.com>
+To: linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Jianyue Wu <wujianyue000@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Kairui Song <ryncsn@gmail.com>, linux-kernel@vger.kernel.org, 
+ Kairui Song <kasong@tencent.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793723146; l=5422;
+ i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
+ bh=D1R/jLGgi6pquHPzj147tbH7cVtRgUWaR7W1/WKarbM=;
+ b=t2IliMLVx2WrDHtLnP1+KhYaf7Fd2wx52llfctOfsBYngOFhThc7P/EgeSo3isI+f2oXQaJz0
+ EexZhSYQCudAbyicaWr5OnefJxKjhDF/Cu3MJRLk6Thlcjafimnf4Jg
+X-Developer-Key: i=kasong@tencent.com; a=ed25519;
+ pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
+X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
+ with auth_id=562
+X-Original-From: Kairui Song <kasong@tencent.com>
+Reply-To: kasong@tencent.com
 
-Since commit 07d24902977e ("kexec: enable CMA based contiguous
-allocation"), kexec_locate_mem_hole() places the next kernel in the
-default CMA area and it runs from there in place. If that area has a
-fixed base the loaded kernel declares the range it is executing from
-as a shared-dma-pool, and cma_activate_area() frees its own image to
-the page allocator. On a VEK385 that corrupts kernel text within
-~300ms of /sbin/init starting.
+From: Youngjun Park <youngjun.park@lge.com>
 
-Patch 1 is the fix and stands on its own. Patches 2 and 3 close the
-same hole for a device tree placing a shared-dma-pool over the kernel
-image with no kexec involved; patch 4 is an unrelated cleanup.
+swap_alloc_hibernation_slot() stores a fake shadow in the slot it hands
+out.  An anon slot swapped out with no workingset shadow looks exactly the
+same, so nothing in mm can tell the two apart.
 
-Changes since RFC:
-- Patch 1 records CMA_DYNAMIC_BASE rather than CMA_FIXED_BASE.
-- New patch 2 answers the RFC's open question (Pratyush): -EBUSY from
-  node_init keeps the reservation, so refusing an overlapping pool no
-  longer frees [_text, _end) along with it.
-- Patch 3 reordered after it, returns -EBUSY, rejects a wrapping
-  base+size; both Reviewed-by tags dropped for the rework.
-- New patch 4 drops the duplicate alignment check (Mike).
+Give hibernation slots their own type.  Bit 4 and every bit above it are
+set, except the count field, which stays 0.  Bits 0 to 3 are taken by the
+shadow, PFN, pointer and bad marks, so bit 4 is the first free one.  The
+type holds no data, so the value alone says what it is.
 
-Tested on VEK385: with patch 1 kexec declines all three device-tree
-pools; without it the booted kernel refuses the overlapping pool.
+The entry has no swap count.  Hibernation only allocates and frees a slot,
+so a count would never change.  swap_free_hibernation_slot() frees the slot
+directly, there is no count to put first.
 
+The slot is no longer a shadow, so the previous patch keeps it out of the
+swap cache.  The count field stays 0 as well, so code that reads the count
+without checking the type sees an unused slot instead of one at
+SWP_TB_COUNT_MAX, and a wrong put is caught by the existing underflow
+check.
 
-Link to RFC: https://lore.kernel.org/all/20261014145731.3431527-1-radhey.shyam.pandey@amd.com
+Suggested-by: Kairui Song <kasong@tencent.com>
+Link: https://lore.kernel.org/linux-mm/abp7aDgYLrxF3Me8@KASONG-MC4/
+Signed-off-by: Youngjun Park <youngjun.park@lge.com>
+Acked-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Kairui Song <kasong@tencent.com>
+[kasong@tencent.com: renamed the layout entry to HIB and reworded its doc]
+---
+ mm/swap_table.h | 14 ++++++++++++++
+ mm/swapfile.c   | 13 +++++++------
+ 2 files changed, 21 insertions(+), 6 deletions(-)
 
-Radhey Shyam Pandey (4):
-  kexec: do not place the next kernel in a fixed-address CMA area
-  of: reserved_mem: keep the reservation when node_init returns -EBUSY
-  mm/cma: reject CMA areas that overlap the kernel image
-  mm/cma: drop the duplicate alignment check in rmem_cma_setup()
+diff --git a/mm/swap_table.h b/mm/swap_table.h
+index e6613e62f8d0..072625d60d54 100644
+--- a/mm/swap_table.h
++++ b/mm/swap_table.h
+@@ -30,6 +30,7 @@ struct swap_memcg_table {
+  * PFN:      |SWAP_COUNT|Z|------ PFN -------|10| - Cached slot
+  * Pointer:  |----------- Pointer ----------|100| - (Unused)
+  * Bad:      |------------- 1 -------------|1000| - Bad slot
++ * HIB:      |    0     |------- 1 -------|10000| - Hibernation slot
+  *
+  * COUNT is `SWP_TB_COUNT_BITS` long, Z is the `SWP_TB_ZERO_FLAG` bit,
+  * and together they form the `SWP_TB_FLAGS_BITS` wide flags field.
+@@ -54,6 +55,11 @@ struct swap_memcg_table {
+  *   aligned pointers.
+  *
+  * - Bad: Swap slot is reserved, protects swap header or holes on swap devices.
++ *
++ * - HIB: Swap slot is reserved by hibernation for the suspend image. It is a
++ *   special pin, like the swap cache pin: the allocator treats the non-NULL
++ *   entry as in use, but the slot is never duplicated and never enters the
++ *   swap cache. The count stays 0, so a stray put trips the underflow check.
+  */
+ 
+ /* NULL Entry, all 0 */
+@@ -81,6 +87,9 @@ struct swap_memcg_table {
+ /* Bad slot: ends with 0b1000 and rests of bits are all 1 */
+ #define SWP_TB_BAD		((~0UL) << 3)
+ 
++/* Hibernation slot: ends with 0b10000, no count, rests of bits are all 1 */
++#define SWP_TB_HIB		(((~0UL) << 4) & ~SWP_TB_COUNT_MASK)
++
+ /* Macro for shadow offset calculation */
+ #define SWAP_COUNT_SHIFT	SWP_TB_FLAGS_BITS
+ 
+@@ -166,6 +175,11 @@ static inline bool swp_tb_is_bad(unsigned long swp_tb)
+ 	return swp_tb == SWP_TB_BAD;
+ }
+ 
++static inline bool swp_tb_is_hibernation(unsigned long swp_tb)
++{
++	return swp_tb == SWP_TB_HIB;
++}
++
+ static inline bool swp_tb_is_countable(unsigned long swp_tb)
+ {
+ 	return (swp_tb_is_shadow(swp_tb) || swp_tb_is_folio(swp_tb) ||
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 189f04d8838f..c26243140bf2 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -941,7 +941,7 @@ static bool __swap_cluster_alloc_entries(struct swap_info_struct *si,
+ 	 * upon folio unmap.
+ 	 *
+ 	 * Else, it's a exclusive order 0 allocation for hibernation.
+-	 * The slot starts with count == 1 and never increases.
++	 * The slot carries no swap count and is freed by offset.
+ 	 */
+ 	if (likely(folio)) {
+ 		order = folio_order(folio);
+@@ -953,8 +953,8 @@ static bool __swap_cluster_alloc_entries(struct swap_info_struct *si,
+ 		order = 0;
+ 		nr_pages = 1;
+ 		swap_cluster_assert_empty(ci, ci_off, 1, false);
+-		/* Fake shadow placeholder with no flag, hibernation does not use the zeromap */
+-		__swap_table_set(ci, ci_off, __swp_tb_mk_count(shadow_to_swp_tb(NULL, 0), 1));
++		/* Exclusively owned by hibernation, must never enter the swap cache */
++		__swap_table_set(ci, ci_off, SWP_TB_HIB);
+ 	} else {
+ 		/* Allocation without folio is only possible with hibernation */
+ 		WARN_ON_ONCE(1);
+@@ -1953,9 +1953,11 @@ void __swap_cluster_free_entries(struct swap_info_struct *si,
+ 		old_tb = __swap_table_get(ci, ci_off);
+ 		/*
+ 		 * Freeing is done after release of the last swap count
+-		 * ref, or after swap cache is dropped
++		 * ref, or after swap cache is dropped. A hibernation slot
++		 * has no count and is freed directly by its owner.
+ 		 */
+-		VM_WARN_ON(!swp_tb_is_shadow(old_tb) || __swp_tb_get_count(old_tb) > 1);
++		VM_WARN_ON(!swp_tb_is_hibernation(old_tb) &&
++			   (!swp_tb_is_shadow(old_tb) || __swp_tb_get_count(old_tb) > 1));
+ 
+ 		/* Resetting the slot to NULL also clears the inline flags. */
+ 		__swap_table_set(ci, ci_off, null_to_swp_tb());
+@@ -2225,7 +2227,6 @@ void swap_free_hibernation_slot(swp_entry_t entry)
+ 	pgoff_t offset = swp_offset(entry);
+ 
+ 	ci = swap_cluster_lock(si, offset);
+-	__swap_cluster_put_entry(ci, offset % SWAPFILE_CLUSTER);
+ 	/*
+ 	 * A slot with a folio in the swap cache is freed when the folio
+ 	 * leaves the cache, the same rule swap_put_entries_cluster() follows.
 
- drivers/of/of_reserved_mem.c    | 14 +++++++++++
- include/linux/cma.h             | 10 ++++++++
- include/linux/of_reserved_mem.h |  5 ++++
- kernel/dma/contiguous.c         |  5 ----
- kernel/kexec_file.c             | 12 +++++++++
- mm/cma.c                        | 43 ++++++++++++++++++++++++++++++++-
- mm/cma.h                        |  2 ++
- 7 files changed, 85 insertions(+), 6 deletions(-)
-
-
-base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
 -- 
-2.44.4
+2.56.0
+
 
