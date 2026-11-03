@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740264;
-	b=P/GBc1mt9wZKie2pHcq5/8RE9Vil4OT/aS86VK1G60i7NfYlacI1mLhV6XthAm5ATAOh
-	 yOlja9E23BQDAN3nIfgzHwSOl0z+oXTrn3he+wb3jC2TLHmqioOH2svyd3BU2YOqd6nH/
-	 s8O7ZNNjt1zepfD2fSyPBdLedpmJiM0zhj4+Y/UUO3U59YE6zeimW7eMb7pSe6dz3J8cU
-	 8JUOq7CPX0m67NDyOjSPHEQ13v0YyOO6oOf8h2W/z3ZrBAOLDSIYAw7tMex4cQ69uvkNu
-	 a6kGwgr9+zgquvIIBg+eumELvBUlj9u+lxEt0cFwSITgTcFhj3HWcDvGGVl+0/u0KAQ==
+	t=1793740259;
+	b=GxYs6Gg2rxm+j24y5D+k0s5pGUg0I3u0lqHarzQgaiGQVEd27ESkkJfIVSTzVMJpVLca
+	 pPgwWaSeu/nkduXtRrK/myDq3uQ9fYAtxWxIHlFAh8/l19NqoCEiBU/g73BAwoMwFxXdi
+	 01O4nzvnkRawC+ITp3I8aUWI1iIMfZcpxsetO7TenIHRQLkvLe21udcVtd7eNsc5lz9Ci
+	 52NlDlQVllQuviBE4Cd2vRwVIX7y09Ro6y/EvkXMAoBeaUpJJih6W+94YJqAPhUNPowD2
+	 OjrTUpz/uQp7t8WpNHWwi56av7q2qS2WzG4SLUZc9SBbBiA79Sc04gKIfnRmicr9udQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740264;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=xnV12IxUz4dJInZWrg+o/jN+e4dyX6PmEVOQ4HDpnIA=;
-	b=mL0Rwq8cmuH/UPSm++NG6RiNOXJ9sBKxbfvt9j/gn1SufEO7qQlrIGCAbXZM67UonLcZ
-	 ja2ysdpTJTDCh85U2nq7exr+wjLu/7sLE2/RLLFBBGUDw3uWv1bMMLBvlTnw6wwRGL7pG
-	 xb+aS/a/qAdG8wXnKG7w+kPQxDgcj9TTLNWd30gAq40JvEmkGk3YUxq7Cw6PQS6Z56G0q
-	 fJYajIqd7ZrwmVz7IV9dLmWpNnNzdd+slUAO1TjUPwke8zJMUJwZ1QtFxVhNsi4HXF89I
-	 +aMJzxetVRJ5Jq261I8yjoYk1emCutIhR5ZZA7bw3/iaQUQH0TcVzTu1lj1ZTQypGUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740259;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=gtERkWDzO0PHtfDx9Zf4SS6nQpyodBmcFFuGoGQG+xo=;
+	b=k+9+Id2wyz6nX9zlCIXCEDui6yWv7t6pvZgh8WUEjloQQycMKb52rhqZxF7WYIAnr/i7
+	 8zltl1CHFT8eAL6VFIEihuOVjqP8X3VltyMnMeNrElO9+bF8j7q0Wom0Q/TnPieEXYDT2
+	 WFkExiKeuwahV1FoYgexsMuCisfpjGjQmjnOT3RB5F58XhmOirXwfddpSWBPBTAaZfMqw
+	 kndNTqTdyR9W6+/+7MRSh3xvvOLeIrT9fqzq75RnXVgCz59Nl1nBtqwvi1RgFjNSOD03D
+	 +jGadgqFqTDiSTrCANgSyMKJOx0gSYjqdboODqqjc+gRMoadtRzbUnmSlAaH/IFi5yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=q8E0kEXQ;
+	arc=none smtp.remote-ip=185.70.43.22
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45109606D81B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45109606D81B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-547ae874949so55717b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:11:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793740263; x=1794345063;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xnV12IxUz4dJInZWrg+o/jN+e4dyX6PmEVOQ4HDpnIA=;
-        b=NcMjS1r0/R6a9REv2KJvxLOCVZ9TcGBTmvutexYIiOGyuc8FxUKYJCaAXfTu3lZMCf
-         gphEAm8u20GuEtKpElNXi0hQZQaZ+Ec3dh5ykWvg9SgyEPjbKd6sanAJQoR182QznSfj
-         0P8VVqKp6SupyKrIIBd5ThqlvZ5GPutUP6gjiaCoV3V7t8ez4bSRJK8OMtw/Pw5ypkB2
-         tCr3D133ztviOvhG+bVmjT5l54qigxwcKWqivUKBp996e9b8ia+2FCKGtzuZfBLbdQwU
-         OOLl0ROxqaUXW3rQoMcRKJSonhZn0l1k5eamL4QJG1OjBRIGQyb1nuPHqyBDQnVneGcM
-         CPqg==
-X-Forwarded-Encrypted: i=1; AKwUvByvNcVERu9QSxmFQoJXJJHkfYmuUixmDcPvRzow1wGb3Unn7CTMsvZXvTtEw6yKTPjpsjmyVUEo6HWwK6E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KjUQu0WXF3MVOIXs4KxLUDH0+jEiKyOIV3URA55kNv4boW+fB
-	7Bv6lerIJszlbVgn4FtxvdYkvZFU7iq1esuPMu2Vx6I4u6A/s5SFZmI5nUiH39wO7g6tiJvhu7m
-	+5ftUlzL5apjci8MvxKvORkaa9u/1GxQkO8CZXcayN/eKnGv4iXcIa+n7WdA=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702AF606D805;
+	Tue,  3 Nov 2026 21:10:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 702AF606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=q8E0kEXQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793740256; x=1793999456;
+	bh=gtERkWDzO0PHtfDx9Zf4SS6nQpyodBmcFFuGoGQG+xo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=q8E0kEXQfqwUuOP6sOF5uWHvsF7zuvrEI/QiseZJFtAQt/rsNWGK7WSgGlH3JID35
+	 S6TeOIjkS1YVxaQRjgEovOntNNUTw5bXzsPLfsH1OMxMk4jdiSOpbrEkhdL7RfgYMB
+	 MNIBqgzNqMV3DDaDu2pdaekJSTwIM/N/hbt3cjcKysFe7QUq/cQNtahp+fBZPQFXRf
+	 XwS4jWXiD64zXBvcilk4iSO4ZGozqcsix+8MsxhsIoydBOAsJeL+hHpNHKZeCsgIuO
+	 ptnwEoCrHWgQ/XByRnjzAw+GoYlFATwgysvyK6mJ1FfwDdS9jrtSQHOL0hbIlbWf9N
+	 4eGhNVT8/cuXw==
+Date: Tue, 03 Nov 2026 21:10:51 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Valerii Sokolov <valerii.sokolov@pm.me>
+Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>, stable@vger.kernel.org
+Subject: [PATCH v2 04/11] media: intel/ipu6: clamp crop top offset in ipu6_isys_csi2_set_sel()
+Message-ID: <20261103211031.1573726-5-valerii.sokolov@pm.me>
+In-Reply-To: <20261103211031.1573726-1-valerii.sokolov@pm.me>
+References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
+Feedback-ID: 17117034:user:proton
+X-Pm-Message-ID: 412fd22f511f99bc2bba9a29875b8db8f924bf3f
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,36 +64,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2218:b0:53c:2a2e:8650 with SMTP id
- 5614622812f47-5640df72f37mr9644450b6e.34.1793740263256; Tue, 03 Nov 2026
- 13:11:03 -0800 (PST)
-Date: Tue, 03 Nov 2026 13:11:03 -0800
-In-Reply-To: <20261103091833.26594-1-diasyzhang@tencent.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aea4de7.35baff64.2c72b9.0009.GAE@google.com>
-Subject: Re: [syzbot] [iommu?] memory leak in iommu_fwspec_init
-From: syzbot <syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com>
-To: diasyzhang@tencent.com, diasyzhangqing@gmail.com, 
-	linux-kernel@vger.kernel.org, robin.murphy@arm.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+In ipu6_isys_csi2_set_sel(), sel->r.height is clamped with:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+    clamp(sel->r.height & ~1, IPU6_ISYS_MIN_HEIGHT,
+          sink_ffmt->height - sel->r.top);
 
-Reported-by: syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com
-Tested-by: syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com
+However, user space supplies sel->r.top (__s32) without bounds checking,
+while sink_ffmt->height is __u32. If sel->r.top is negative or greater
+than sink_ffmt->height - IPU6_ISYS_MIN_HEIGHT, the unsigned upper bound
+sink_ffmt->height - sel->r.top either becomes 0 (smaller than the lower
+bound IPU6_ISYS_MIN_HEIGHT, violating clamp()'s lo <=3D hi invariant) or
+wraps around in u32 to a value larger than sink_ffmt->height (allowing
+sel->r.height to exceed sink_ffmt->height and storing an out-of-bounds
+crop->top offset).
 
-Tested on:
+Clamp sel->r.top to [0, sink_ffmt->height - IPU6_ISYS_MIN_HEIGHT] before
+aligning it and calculating the allowed crop height range.
 
-commit:         6628e7d4 Linux 7.4-rc1
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16f8be69580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=441b6cc593d83cc4
-dashboard link: https://syzkaller.appspot.com/bug?extid=fe84fc6a684e0beb86e2
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=17cc3c8d580000
+Fixes: a11a5570a09d ("media: intel/ipu6: add IPU6 CSI2 receiver v4l2 sub-de=
+vice")
+Cc: stable@vger.kernel.org
+Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
+---
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Note: testing is done by a robot and is best-effort only.
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/=
+pci/intel/ipu6/ipu6-isys-csi2.c
+index 1525454279..a2491729d3 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+@@ -821,6 +821,8 @@ static int ipu6_isys_csi2_set_sel(struct v4l2_subdev *s=
+d,
+ =09/* Only vertical cropping is supported */
+ =09sel->r.left =3D 0;
+ =09sel->r.width =3D sink_ffmt->width;
++=09sel->r.top =3D clamp_t(s32, sel->r.top, 0,
++=09=09=09     sink_ffmt->height - IPU6_ISYS_MIN_HEIGHT);
+ =09/* Non-bayer formats can't be single line cropped */
+ =09if (!ipu6_isys_is_bayer_format(sink_ffmt->code))
+ =09=09sel->r.top &=3D ~1;
+--=20
+2.56.0
+
+
