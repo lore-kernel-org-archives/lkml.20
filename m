@@ -1,70 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722536;
-	b=zYJVWvMv3sVId9VxXy+heEpKoAdcIaWWO71Bm0p+YdEAI62j7dXWw5Fu6kkv8JbPl05p
-	 zMxNy03652+Qr04fwboHrhnwInDfxDzrInEWqEknhJsPeahjWFIXnlCOPpoGNCuoWeo3g
-	 e2+1pdHqSvYXX/j4J2nwAC0Xayl/lWovb2xZicktVRjcDb3hT6fV/Gubu+9/jk5m0vDMz
-	 v2OGYIdtMna4HuMIwn0k6dZkBU3YvNUygPfC4QJl+5PvUkZECG05Gkwhri75nlQc3Q+H2
-	 BMYoWWRJpQXzkzEVUrnXiKpgMd9aOn2kb+qcKVNhnDfZuh4syrbAE6CRLFYPDIP//dw==
+	t=1793722549;
+	b=zrKtPbKAYfUII201dT9NVo1g11BTLT5LZYKHdrOlEwFZI5XyRmQD07HmZ3pd/Bh0IBQc
+	 JWLVbPsOVMCiUkUWFDYp9rKEBGmdRuJkAEuKQcJ8OUSyN3Y2vXLjOLrWaDHkgtCbgBPiT
+	 zftDjT+UwC90FF325BGV02TwycfAJeV5NoixJJRWMkmSTjru2cyN4DZ8oIfNlNVaW2L+H
+	 JnhfKUOWsAxDf8XWRu8gaMBklVS5KO+4/i9KFQ43YITjKs9577B52o5XJKckNdjatvwgT
+	 6KV7Tg8yP3BEwaSgaczGwPA1ayLcX0h8+JoC30KLPLPffd2iw+dDgtmzIGIn2rghw/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722536;
-	h=DMARC-Filter:Date:X-Lima-ML-UUID:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8kozB6iibvd6vhek2BioORT7yyB4oaGs99orgd/IW4M=;
-	b=kEmM+77BmzDwG//LYsySZ7e32ilTOoM4nZwb0SlDazA5TQgq7xo9CXvKCi/eeZFoFpHv
-	 cD66sZsCnD1TO8kSJzOHyYJ0HYnLru9OOHhBEhYVjuUAr2Uo8w9Kc6ojVRlVm2bOri5qH
-	 JRjMiBkzt0yAD8Y7QVkgiakh9pYHuHYVh6jwrW4n9+Y3Kmbc3nFPMU4OjfRK3CHTky7Nh
-	 XmSZl9/d9n9VB1M+Ddp1j60yVSaHTUBIb2/n83CwWk9K8OSLUOWYW9rh5nageaJVo5AUy
-	 e5g5++e7lvnnvtZ9t6fKd/qb4/bKa0LvyzN5VKAJ+ZPM1VljUiGBDAi6syms/ZXcw7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722549;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=ctm+OvOOdF3/eRDZQ9mCZGJ4OrDu4+sLjWj8shOpss4=;
+	b=yGI5az1IV/J+ni5LOJFR1XWg+ee00OZwJFdQ8M/gb8JqbtQJ1VD7+IkpgkwVxYpSevAX
+	 AQkdcMQpw+kcLNHp89YydHAEYIREN1nJA9fwZUC0s0yx16dUj0b/dYFFR1Ygv1VJzkQAX
+	 2qDPEzvOb3eoxaMylLDMp6CVrC8Aw+9ewzCuZX3XZMVcXdK9KMh253uRn9UtCmxEJZ0YP
+	 PApfT0RB5FzLhWPbWygS/to/dQNyq1fwk3hZ0sIoR5bTTlHkA7K+mzt9iWkWANbg2bjiY
+	 ongTgPU9U1f3qqVdpUkyShmmPftH1aeEqwQdU2b3nr/1cIRantcZHOBKA5z8P7Q9+4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=e6tKkOS0;
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Y0LSliA4;
+	arc=none smtp.remote-ip=95.215.58.24
+Received: from mta1.migadu.com (out-24.mta1.migadu.com [95.215.58.24])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA64F606D835
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:15:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA64F606D835
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4AC606D83F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:15:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F4AC606D83F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=e6tKkOS0
-Date: Tue, 3 Nov 2026 17:15:28 +0100
-X-Lima-ML-UUID: 679b76d9-915f-4cd3-99df-b2e53f6cf96b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793722532;
-	bh=KQtvUYqOwLZd5uCo5462X/CnoM3Ap3jbUDTXdiBqhgM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=e6tKkOS0wrr9oqh1VYZAHOoOy3jLOA1E6c0ZRrQQPnacpg7INLttwDBXV6uus2bvA
-	 91wel74rCzaZSin6RHp45gXgDpNO9zOl38kmM08d4Md6dJj+SJdfXZhfCPTK5BezW4
-	 puH8QXyUookVOwFduNdENebIxpQV/Q3XdHiD4vGfynlXh5cDx4GRS6T6AXvpLwX5i3
-	 /cb0Yk5moE8Y26tdqeacZaO217t4bgIFFsxAwThkSiGEXaMGMNMYXLqHg5c86lrG+v
-	 HgD8W+xW71IV43SRxhVMTv4oT8HJok3rto8xLK1veFaFeNtuM2ujrFhSVz8ShP5KqP
-	 w6FIXnLzwbQOA==
-From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, Kenneth
- Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, Christian
- =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi
- GPUs
-Message-ID: <20261103171528.6c6a0edf@kait2en-mbp15-1>
-In-Reply-To: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
-References: <20260916144014.879355-1-ed@aicharmers.com>
-	<CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
-	<20261030123000.5573e70f@kait2en-mbp15-1>
-	<CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
-	<20261103162512.2ec834ac@kait2en-mbp15-1>
-	<CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
-Organization: KaiT2en
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Y0LSliA4
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=K8R3zoPWS9GjOtmgfFeCE0/yDhy3x8tsootf9dJemic=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793722546; v=1; x=1794327346;
+ b=Y0LSliA4mZEhLLYOtJd6RLW45ykAB1wMAQCOESHJOMDQX/K40Q9OJdH27HYKP6rf/6Dw1hun
+ 68IEyz58Gu0KQnewRBoReTyeOKy/5DqYsRwXj8+h9kKD0W1TsVR4jl9RVzb/b5lvu1ZG/4SLNER
+ u1W8CLzEEbd0J/pVROydWHkQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5704e67b2e9b7fbc;
+	Tue, 03 Nov 2026 16:15:46 +0000
+X-Mizu-Trace-ID: 5704e67b2e9b7fbc
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so8566e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:15:41 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwUhGv5HfK3jW9e3pXC6CI7MiyC+w7bMlrkueFvjw2tEldoia60le/5M5b+Kp7Js3W1yzLO0P7o+Z55B0I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fQqwdKAGa0QZoW5Hc9vh1JyJnin5iermXgFlxqRiFedL9VJfg
+	rYILW85AWvWZrjkt15A03jXfjXlfoLeyNl/+FYEmE/BtI3E/Twp6XkELdvbO/SiuI+93pwzSfEQ
+	nWBa0J5/dhMTSRzXEL2dbJ5DD1JtdPcr+g8g6O1Ui
+X-Received: by 2002:a05:6512:1247:b0:5bf:f0b8:f896 with SMTP id
+ 2adb3069b0e04-5bff0b8fd75mr147439e87.0.1793722540055; Tue, 03 Nov 2026
+ 08:15:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,19 +66,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
+ <20261103084742.1302597-2-fuad.tabba@linux.dev> <aun1NJNtnOeSL4oc@google.com>
+In-Reply-To: <aun1NJNtnOeSL4oc@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 3 Nov 2026 16:15:03 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTwCPHp_odMPJAJ8pfPtymtU5ia_RrH30DavFeiZqvhVAQ@mail.gmail.com>
+X-Gm-Features: AclHuK9jF3GIRHTl9ZfS7oE87Qhpm2sxTx6SMNL-HGm4GrBCk1nlKw1LtRNf6Po
+Message-ID: <CA+EHjTwCPHp_odMPJAJ8pfPtymtU5ia_RrH30DavFeiZqvhVAQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] KVM: arm64: Don't walk the whole IPA space when
+ destroying a pKVM stage-2
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Raghavendra Rao Ananta <rananta@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 3 Nov 2026 10:53:56 -0500
-Alex Deucher <alexdeucher@gmail.com> wrote:
+Hi Vincent,
 
-> I forgot to remove the pptable check.  Can you try a simplified
-> version of the patch?  I think all you need to do is delay the UCLK
-> DPM enablement until late_init.  Something like the attached patch.
-Alex, as I told you earlier.  I don't own a 16,1. I developed the patch
-I submitted. It took me months to figure out while debugging via ssh.
-Currently a community of nearly 6000 people are happily using it.
-I dont understand your fixation towards a patch that fixes nothing. I
-dont understand why you write patches based on obvious slop without even
-being able to test. And I dont see why I should help you with it. There
-is simply no point in it. 
+On Tue, 03 Nov 2026 14:52:36 +0000, Vincent Donnefort
+<vdonnefort@google.com> wrote:
+[...]
+> > Walk the mapping tree once instead, and reschedule after passing each
+> > mapping to the reclaim or unshare helper. The unshare helper can't
+> > reschedule itself, as the map and unmap paths call it under the
+> > mmu_lock. A failed unshare now leaves only its own mapping behind, not
+> > the rest of its chunk.
+>
+> Not a problem now, but don't we make the device assignment story harder?
+
+I don't think so. In Android, the host doesn't track the MMIO of a
+device assigned to a protected guest. The hypervisor maps it into the
+guest, and gives it back to the host in __pkvm_start_teardown_vm(),
+before the host reclaims anything. So the walk this patch changes
+shouldn't reach it.
+
+>
+> >
+> > Fixes: 4ddfab5436b69 ("KVM: arm64: Reschedule as needed when destroying the stage-2 page-tables")
+>
+> Isn't it an optimisation?
+
+No, it fixes a regression: 4ddfab5436b6 replaced a single walk of the
+mapping tree with the 2^27 lookups, as described in the commit
+message.
+
+[...]
+> > diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
+[...]
+> > @@ -513,10 +514,18 @@ void pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
+[...]
+> > +        for_each_mapping_in_range_safe(pgt, addr, addr + size, mapping) {
+> > +                u64 start = __pkvm_mapping_start(mapping);
+> > +                u64 end = __pkvm_mapping_end(mapping) + 1;
+>
+> __pkvm_mapping_* are rb-tree internals. I think it is better to use explicitly:
+>
+>   start = gfn_to_gpa(mapping->gfn);
+>   end = start + (mapping->nr_pages * PAGE_SIZE)
+
+Ack.
+
+>
+> Also, I wonder if we'd better WARN if the mapping isn't aligned with the
+> destroyed range?
+
+No need. The function's only caller passes the whole IPA space, so
+every mapping is inside the range.
+
+Cheers,
+/fuad
