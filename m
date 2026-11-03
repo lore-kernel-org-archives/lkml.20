@@ -1,82 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709834;
-	b=gk8tzZBkxGUcC/vUHP9G8w7qWHg/NbSbc9LEHJk0DUd+l45V2UZf/WV9PLjsCj5aZuBm
-	 RL3kQ0Ic9c//zAxnhs1J4bWkce85KKd/P1iqhqIGnPLH7J/JA+cudzZ8oyX9Rtp7qh97l
-	 04S7sfoHYMx3GrLwCvRfb8AcxHPnNh1HXUuA8icxj/L1fvVaYpjIncW6MWWlTbPVXBW22
-	 NKAj8je6sQNX/NBUTzBFG5LRhprymWe9bmpwjrhOhfiLaFOMmiApjNrtxuwqu0oday38w
-	 dNEta3CYdRZF3hWwhT4XnfHpeJOeY+3NMQ7bE5DBFHo7gwEez2iVmMmA0qgNe1n+iYQ==
+	t=1793709846;
+	b=yUGtKr/e5cx2gazOpXsWFHn/AqL8IJqvcTSXMxmR6EduNcFmrGkQg2Oxw5XSWNa0JxSR
+	 kGwDGAOo62PcNXzxyxqMaFTRbX2YJuJzJAggIONcXVHLIGvLZdcWmtq6rJmskzhZ+7GAs
+	 f0LUWNEsR9fNnLEMYRQKWeeU8PhYTqZNRMqHSnCpcBG/kkzUAsuQ4gxGOJCcX6wEgh6OB
+	 MOUNlbONUTmRkQMDVswXpW2wKvUCBHGWQFgDhCvOP/JNHMWrkV2+qPk5h6KiHIrXWactt
+	 RKuUSlLIQXmqHTae5MAc09dJ4kOuVN3wce/VdTgVjQBNLjtFEgwHSo7G2tsSnSBWuZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709834;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=lF3DSo/4fy6KkY2UCSKo/Dlv8UhhXzL8vWK+pvB7Tnk=;
-	b=29uizE86i97gJ71xRVIejvadfEqCdo/ApNQqETLAMxyMtTvvmnyOZIJGr1skzzOQ9K44
-	 HUD2KVx7bDz2YNZ5wvtBzh+yRMguEKYtd2xTQHens0ZPeRs2fS1NTx4rrZVb3MrXJB0Xr
-	 oR4+kp9jaaZb2OqTQta7w+HQnrz1fum0F35SFVADtoqBQ5Z7M0/3PIb6yqfQoDs7oWCBL
-	 ofbMQvVX4WS4KQqVNGotVGS+iCKmIxDnw89R2mjDEhgWBuqaoQvDX3dc83JqLGTY4zNqV
-	 UUr6HuM7vAG1iVWWBNP5zptFp7ETW6vHKf16dKU/43NPJGmfCEDUNEG0TpM9O5GvhPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709846;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=lpn/R1aA8HbvXNstFgjD6czhaiXvrQxTqDM1qfiPs2A=;
+	b=MdTYpIxsonTcQ5UCsKSZDyZP7o41D0uzsOGKn9iQEUGyq7F72Qxcjiok8Ruq2oa5gByf
+	 YVuJ/aDUArvSQEbbCn7I5HF/e5xQBkeNuJFMwJL6nM66yafADLyXpH4EQyNKBM38j2qsj
+	 XMCA31SG2X+WCUf63Y1IWTqRtp0Kdm8YcpWZXUdd93DpZl6/JDAN4rJo5eh+7sJdsQffe
+	 Cufm+oDi7zYtlZoZd/Aw6fDZkZEOUjJFmUJsmSxD6OzK4UTJyhE4kBnM9HOmkGkpEsk6j
+	 xCvEqXuMoNTTwmjxiOk3lFfimMNM7GyFF0PZxD9OwEwPpbTHuTJkYdrfPM43D1+bQog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vs1HNlQv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4891F606EE8F;
-	Tue,  3 Nov 2026 12:43:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4891F606EE8F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 33ef6f50d78411f19a56ed5b684f684d-20261103
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, SA_UNTRUSTED, SA_UNFAMILIAR, SN_UNTRUSTED, SN_UNFAMILIAR
-	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD
-	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:c7644543-1081-4385-9023-cdd880bf9e8f,IP:10,
-	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-15
-X-CID-INFO: VERSION:1.3.19,REQID:c7644543-1081-4385-9023-cdd880bf9e8f,IP:10,UR
-	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-15
-X-CID-META: VersionHash:7db8b62,CLOUDID:0ecc2ece72e8b7878efae09c6d1c8a84,BulkI
-	D:261103204346NSG9AIRS,BulkQuantity:0,SF:19|66|72|78|81|82|102|127|153|850
-	|865|898,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk
-	:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,
-	BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 33ef6f50d78411f19a56ed5b684f684d-20261103
-X-User: daiyanlong@kylinos.cn
-Received: from localhost.localdomain [(114.244.3.119)] by mailgw.kylinos.cn
-	(envelope-from <daiyanlong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1792045824; Tue, 03 Nov 2026 20:43:43 +0800
-From: YanLong Dai <daiyanlong@kylinos.cn>
-To: rafael@kernel.org
-Cc: YanLong Dai <daiyanlong@kylinos.cn>,
-	daniel.lezcano@kernel.org,
-	rui.zhang@intel.com,
-	lukasz.luba@arm.com,
-	linux-pm@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6893606D827;
+	Tue,  3 Nov 2026 12:44:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vs1HNlQv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833C01F00A1F;
+	Tue,  3 Nov 2026 12:44:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793709845;
+	bh=lpn/R1aA8HbvXNstFgjD6czhaiXvrQxTqDM1qfiPs2A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vs1HNlQv6Lvx4JAage7a7MTsuDjgmPpu/IRARR9pWT086+jouhGDlqWB+rUFjtCBf
+	 0QxnO1rn6Z5DLQvQv7wUJ+xc6xpJ2JguJMGSvixdayN5NFT6vNtZ5CgMkPr1+k/ti3
+	 nXpswpwt5WBYPGkUOuQXS/Dkmp3/DsVP3/plpA1A96BuKCkHecy100rAIJyJyhzAgD
+	 IJLQ4UjqdZowQpzf+1xAztAbAB+Hl+H+PFsaWx2XhYRkzWIHc+CGEMYabs3HQ2AOSG
+	 ZHKWC2XhaRAb9ol1FLy2GX8oPXXNt8GaEGiE5ExkO+FdU8PLMCFlMxU7T+fitDEb7W
+	 tWTvcXKPKVvIw==
+Date: Tue, 3 Nov 2026 12:44:00 +0000
+From: Simon Horman <horms@kernel.org>
+To: Julius Bairaktaris <julius@bairaktaris.de>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, steffen.klassert@secunet.com, willemb@google.com,
+	jiayuan.chen@linux.dev, mfleming@cloudflare.com,
+	almasrymina@google.com, bigeasy@linutronix.de,
+	richardbgobert@gmail.com, ecree.xilinx@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] tools/thermal/thermometer: Fix missing NULL check after realloc()
-Date: Tue,  3 Nov 2026 20:43:36 +0800
-Message-Id: <20261103124336.174919-2-daiyanlong@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261103124336.174919-1-daiyanlong@kylinos.cn>
-References: <20261103124336.174919-1-daiyanlong@kylinos.cn>
+Subject: Re: [PATCH net v4 2/4] net: gso: count the inner UDP header of
+ encapsulated UDP GSO packets
+Message-ID: <20261103124400.GK865646@horms.kernel.org>
+References: <cover.1792838740.git.julius@bairaktaris.de>
+ <7b6a12fbe0853f7faf2987610e25957d2017bd54.1792838740.git.julius@bairaktaris.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,50 +63,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7b6a12fbe0853f7faf2987610e25957d2017bd54.1792838740.git.julius@bairaktaris.de>
 
-In configuration_init(), the return value of realloc() is assigned
-directly to config->tz_regex without checking for NULL. If realloc()
-fails, the original pointer is lost (memory leak) and subsequent
-dereference causes a NULL pointer crash.
+On Sun, Nov 01, 2026 at 05:42:30PM +0100, Julius Bairaktaris wrote:
+> skb_gso_transport_seglen() adds the inner TCP header length for an
+> encapsulated GSO packet, but not the inner UDP header for
+> SKB_GSO_UDP_L4, whose gso_size covers the payload only. Every segment
+> of a UDP GSO packet in a UDP tunnel, built by UDP GRO behind a tunnel
+> socket or sent with UDP_SEGMENT over VXLAN, is counted 8 bytes short.
+> ip_forward() and ip_finish_output_gso() then let DF segments that
+> exceed the MTU by up to 8 bytes leave unfragmented.
+> 
+> Add the inner UDP header as the unencapsulated branch does.
+> 
+> Fixes: ee80d1ebe5ba ("udp: add udp gso")
+> Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
-Fix by using a temporary variable to receive the realloc() result and
-checking for NULL before assigning to config->tz_regex.
-
-Fixes: 110acbc6a451 ("tools/thermal: Add a temperature capture tool")
-Signed-off-by: YanLong Dai <daiyanlong@kylinos.cn>
----
- tools/thermal/thermometer/thermometer.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/tools/thermal/thermometer/thermometer.c b/tools/thermal/thermometer/thermometer.c
-index b4f26d49e4c7..cc84540f467a 100644
---- a/tools/thermal/thermometer/thermometer.c
-+++ b/tools/thermal/thermometer/thermometer.c
-@@ -142,6 +142,7 @@ static int configuration_init(const char *path, struct configuration *config)
- 	INFO("Found %d thermal zone(s) regular expression\n", length);
- 
- 	for (i = 0; i < length; i++) {
-+		struct tz_regex *tmp;
- 
- 		config_setting_t *node;
- 		const char *name;
-@@ -163,8 +164,13 @@ static int configuration_init(const char *path, struct configuration *config)
- 			return -1;
- 		}
- 
--		config->tz_regex = realloc(config->tz_regex, sizeof(*config->tz_regex) *
--					(config->nr_tz_regex + 1));
-+		tmp = realloc(config->tz_regex, sizeof(*config->tz_regex) *
-+			      (config->nr_tz_regex + 1));
-+		if (!tmp) {
-+			ERROR("Failed to allocate memory for thermal zone regex\n");
-+			return -1;
-+		}
-+		config->tz_regex = tmp;
- 
- 		if (regcomp(&config->tz_regex[config->nr_tz_regex].regex, name,
- 			    REG_NOSUB | REG_EXTENDED)) {
--- 
-2.25.1
+Reviewed-by: Simon Horman <horms@kernel.org>
 
