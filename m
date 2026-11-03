@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697369;
-	b=HhQGqnEMxupHzp3w15t2epK8vN7kZ4Vp8jAhZJhUTPHJA3NE/nSLrqkdMMUDq3Fl9lDN
-	 8znEOy4lw5tFF8R1Y9rkacuqIvsNzeUzDJprMZXQvQjo+kHFc92vmY+LJseuRAzalxf1e
-	 RCbsW1CmHkrkDaS4Of/gTfRgBYwCuIDqANQYewkNIiOfquoARpKYavNx7V4rcZxJF9Wbx
-	 wdqoNNe4TLJQZD4Cs4mdHi+2A1271ADURU7YM0V4mDTAKqFUg4o6hV1fJm6rIyMr7ywdk
-	 hSXiq7iz67dBF3uhd1eX27DfR8spHhWf4CYDfS8/6HxnKgBhZKLEGSEPk03Snj9N6Kg==
+	t=1793697390;
+	b=RXi1OA0wWNvimAlqX2r1q58ZFY03vHp/gigrKCjqiFnF+w0PCvKmIjbXhj10YYQkCS/v
+	 yMwZzZRF/+UZja0uNFyyyIhMzocbAKJWby932JW0sYLb/cwAT9acRENOvq0W7/hDCRtl3
+	 GgxSKh+KsaBHF5o+LuFQk97miQ1IWgsbCGUFbrtyyFTD8PyDaanoRj5FVxfaJTYNOZ1fF
+	 /cdrHcxiaJ3Z1OeovX11pMrP+CGaTKWcqf0R709m9tj6V8eV9dsgLl7z2StlRkXPmBhRq
+	 rtamjEoU8KTLjzQlndVXtgO9ENFSV17zQ/GX0zK4n6U9jkU7w7AePkOvXTjfV10dWUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697369;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pl3ngFE4BZhkAYH7ootOT4rmNGgs3H/HLtfaAhRIIhs=;
-	b=nc9cNliK19KzjCOD1mbFbKaH5WFs9H6FncvFPvYOaiRO4K0fYYCrLMvX1uQvGOXNNLZ0
-	 4GbX1zAvEByOZAAvyeR2YEOeR+oPgZszormT8fA9eRb6IcaySAZlNcXlmhbNjBoInW+Pc
-	 tJIBh35u2r7PsbI+bFiwTlX4NSBUeud1OoTUEYytGSYFsegtOt7lcCUJJF8f5+3PAYn28
-	 1ZYF8V0gPNqxW/hTnV/Uule+AkWv9Git8L9RtydVT/kQbu670NLxxfz2S1xRYhwLRWZ86
-	 v803qAMVYkjRFl3+r52XYA5gQ2d9jWgl6llcYiWNywTNhGW1Bg9k+Dmd2Yb0QWHVa/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697390;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=c/0hZKufvkH/OYW00aRP0EoGvS2iUIY4dlDmgt6M/Mw=;
+	b=GH1dNUoERxh7NNqyQYPkYp5mjxJxwmj+c/xtf5o6FBRl2iFdysvt9IpYHx21mLvptCh5
+	 1Uf1EyZqh6h8dF/E5xgeF2HTGvOf2S9opFNTGy4b7X5MyuOhTBX3HyXBMDTipWlzfEzFq
+	 fXctWWZJl/NnfmjHCn88MWpwA2NBdVVhPc/OW+g+eVqMWmafXqgWj2V61FAb5MmCSc6Kv
+	 F4gR5BWUE/me5ta3AwE5BfQ7stG0STwzCikUGBH8Cv3Rv2bos97CPYfWD/JOuRRRhVZ1w
+	 DmPSzaLwM9FQaOtjQ0jby33u5CyXxistY1Qmls+evqgYxgVV4Hm4Qdq9SBMV11qGZXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MZShlwe5;
-	arc=none smtp.remote-ip=115.124.30.113
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=4DXGQ09b;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDF3606A32C;
-	Tue,  3 Nov 2026 09:16:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FDF3606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E80F606A334
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E80F606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MZShlwe5
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793697359; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=pl3ngFE4BZhkAYH7ootOT4rmNGgs3H/HLtfaAhRIIhs=;
-	b=MZShlwe5fSv41JrmirE6gmOKU4OgZngx1CBB/TqX0oepf8SJJRNwN0zQQPykm39Ntbx6ocVVTVRQCpsaLf0BFmlJwPCS6ngYEGXs8geG8sn5o716jQj4J5FPjnQUWYrX+ozup010JKzWj9jj4ANlFRJjuu35zZQRhZbFuHn7kzw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XE2F58U_1793697358;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE2F58U_1793697358 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 17:15:59 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Cc: linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] smb: client: hold server ref while queueing reconnect work
-Date: Tue,  3 Nov 2026 17:15:57 +0800
-Message-Id: <20261103091558.2342761-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=4DXGQ09b
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=c/0hZKufvkH/OYW00aRP0EoGvS2iUIY4dlDmgt6M/Mw=;
+	b=4DXGQ09bqE2PEAJtjiuGEIxPkyR4WjwiC7ksDXHrbemdIxEQDHk6VaPRbtJElOvQBITMnTqnY
+	srWuVrJKqwgvc1zcbqHERnrW2EJ6xbZjtycFl6KEG6RooII6hHAUnHUHO9DbyxyTM0ByJl5fvpa
+	OfjJ7hHwPYGxreXazxTjPfg=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jJjbp6kLMzcZxn;
+	Tue,  3 Nov 2026 17:15:50 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id CBADA40579;
+	Tue,  3 Nov 2026 17:16:15 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 3 Nov
+ 2026 17:16:13 +0800
+Message-ID: <9ef43c59-72b8-4ef8-96cd-0dfd133cde0f@huawei.com>
+Date: Tue, 3 Nov 2026 17:16:13 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,73 +62,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 05/15] LoongArch: kexec_file: Fix CMA page leaks in
+ segment placement retry loops
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <thuth@redhat.com>, <leitao@debian.org>,
+	<yeoreum.yun@arm.com>, <robh@kernel.org>, <sourabhjain@linux.ibm.com>,
+	<kees@kernel.org>, <coiby.xu@gmail.com>, <Yeking@Red54.com>,
+	<tangyouling@kylinos.cn>, <maqianga@uniontech.com>,
+	<zhangtianyang@loongson.cn>, <guodongtai@kylinos.cn>, <blum@kernel.org>,
+	<adityag@linux.ibm.com>, <hui.wang@canonical.com>, <sohammetha01@gmail.com>,
+	<guoren@kernel.org>, <gaohan@iscas.ac.cn>, <kai.huang@intel.com>,
+	<kas@kernel.org>, <vishal.l.verma@intel.com>, <piliu@redhat.com>,
+	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
+	<graf@amazon.com>, <bgwin@google.com>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
+References: <20261026075201.699550-1-ruanjinjie@huawei.com>
+ <20261026075201.699550-6-ruanjinjie@huawei.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261026075201.699550-6-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-When query_server_interfaces() returns -EOPNOTSUPP on a secondary
-channel, smb2_reconnect() calls smb3_update_ses_channels() which for a
-channel runs cifs_chan_skip_or_disable().  That clears the channel's
-slot in the session and calls cifs_put_tcp_session(), which can drop
-the last reference of the channel and tear it down.
+Will fix sashiko review issue in v8.
 
-smb2_reconnect() then falls through to skip_add_channels and queues
-reconnect work on that server, using a server that may already be
-freed.  The send path obtained the channel from cifs_pick_channel(),
-which does not take a reference, so the session's channel reference is
-the only one.
+在 2026/10/26 15:51, Jinjie Ruan 写道:
+> The retry loop drops nr_segments, leaking the CMA pages of the failed
+> segments.  Release them first, and disable CMA for the retry: it
+> ignores buf_min and would hand out the same region forever.
+> 
+> Cc: Huacai Chen <chenhuacai@kernel.org>
+> Cc: WANG Xuerui <kernel@xen0n.name>
+> Cc: Youling Tang <tangyouling@kylinos.cn>
+> Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Cc: Kees Cook <kees@kernel.org>
+> Cc: stable@vger.kernel.org
+> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
+> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  arch/loongarch/kernel/kexec_efi.c          | 8 ++++++++
+>  arch/loongarch/kernel/machine_kexec_file.c | 6 +++++-
+>  2 files changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/loongarch/kernel/kexec_efi.c b/arch/loongarch/kernel/kexec_efi.c
+> index 5ee78ebb1546..d42711b895a2 100644
+> --- a/arch/loongarch/kernel/kexec_efi.c
+> +++ b/arch/loongarch/kernel/kexec_efi.c
+> @@ -86,6 +86,14 @@ static void *efi_kexec_load(struct kimage *image,
+>  		 * We couldn't find space for the other segments; erase the
+>  		 * kernel segment and try the next available hole.
+>  		 */
+> +		/*
+> +		 * kexec_alloc_contig() ignores buf_min, so disable CMA to
+> +		 * let the retry make progress.
+> +		 */
+> +		if (image->segment_cma[kernel_segment_number])
+> +			image->no_cma = true;
+> +
+> +		kexec_free_segment_cma(image, kernel_segment_number);
+>  		image->nr_segments -= 1;
+>  		kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
+>  		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
+> index 5412aa9f3568..62a5be102065 100644
+> --- a/arch/loongarch/kernel/machine_kexec_file.c
+> +++ b/arch/loongarch/kernel/machine_kexec_file.c
+> @@ -217,7 +217,11 @@ int load_other_segments(struct kimage *image,
+>  	return 0;
+>  
+>  out_err:
+> -	image->nr_segments = orig_segments;
+> +	while (image->nr_segments > orig_segments) {
+> +		kexec_free_segment_cma(image, image->nr_segments - 1);
+> +		image->nr_segments--;
+> +	}
+> +
+>  	kfree(modified_cmdline);
+>  	return ret;
+>  }
 
-Take our own reference on the channel before calling
-smb3_update_ses_channels() and drop it after the reconnect work has
-been queued, so the channel cannot be freed while it is still used.
-
-Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/smb/client/smb2pdu.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index f85595136ef8a..8e53e9e02df6c 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -253,6 +253,7 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
- 	struct cifs_ses *ses;
- 	int xid;
- 	int rc = 0;
-+	bool hold_server_ref = false;
- 
- 	/*
- 	 * SMB2s NegProt, SessSetup, Logoff do not have tcon yet so
-@@ -470,6 +471,20 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
- 			 * treat this as server not supporting multichannel
- 			 */
- 
-+			/*
-+			 * If server is a secondary channel,
-+			 * cifs_chan_skip_or_disable() called below may
-+			 * drop its last reference, so hold our own
-+			 * reference until the reconnect work below has
-+			 * been queued.
-+			 */
-+			spin_lock(&cifs_tcp_ses_lock);
-+			if (server->srv_count) {
-+				server->srv_count++;
-+				hold_server_ref = true;
-+			}
-+			spin_unlock(&cifs_tcp_ses_lock);
-+
- 			rc = smb3_update_ses_channels(ses, server,
- 						       from_reconnect,
- 						       true /* disable_mchan */);
-@@ -498,6 +513,8 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
- 
- 	if (smb2_command != SMB2_INTERNAL_CMD)
- 		cifs_queue_server_reconn(server);
-+	if (hold_server_ref)
-+		cifs_put_tcp_session(server, from_reconnect);
- 
- 	atomic_inc(&tconInfoReconnectCount);
- out:
 -- 
-2.39.3
+Best regards,
+Jinjie
 
