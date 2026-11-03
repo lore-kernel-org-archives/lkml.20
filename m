@@ -1,113 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701102;
-	b=0aqXqjjsbd/LZ2EL07HfGAsGinW7Wth+4o6QIOP7suD5oNBLGrVT57KhV4/2XJzEiv9L
-	 aW9pdJJwLEGEaOto09wVWvcHk6h8PeSe4X9jcTqZWP1qPOLU9tEnZ4rakqSHaTtp+DVwb
-	 8UveuEMGZ3QBJq0ULUxRktdVkfR76vFG1+DFwhM5BXI4WTqfJtiUmVtGlHk1Y+ASCOA+t
-	 2MWnr6dN8yo+T9l1bveIJatxFXwbYUytXYxt1AwAF0YL8wAAPBG2XITR8Gc0jtYFOKV1d
-	 w9KgQ6JR8uh9nt+YzKG2FvRJFHm0D4/r9hWjj9wB5W8GzqC89ZUiVnpH5DaqyD6byMw==
+	t=1793701107;
+	b=q7rcjRa4oKJjcY+2ucj0sOnlLkERiINGEhI98k12Etuv0WCZxucVG+/WrBrbt25vR1Gd
+	 fv5+VoPPbS7aPn0XW27zMvEEWhtZYy4ELznoov7px1ri3RADkkSCwU1ZE7rX7ewD+mvOM
+	 X/YanWzAUcRodMsaDIJIRc2VVplv2lI/02WBmuV3MirvoWL+fK3ZzhVYFZPUVp6KmLgjT
+	 znl2sD5R9QqqEPsjWd58W26ylqs+GP++kEo7rIw3PX38RZ2+xbM8a9A2CR+aFLJHg99rB
+	 RaYACE2pA5jADyw44L9uLgQ5plJXNnqcHZwIVb1rldZvREBtOe75QDa2OR/CfMRBr+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701102;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2UxkzZOuXMzEW1DRxwfP1Y2akfSOt2A5NGCydHJqRyY=;
-	b=vyHbfrJeK2UiIRGKNFzETu+dz2OwK0C0/iGQAr1qvzBJArZLHygCmnf6bLgKjlHZ+XGI
-	 XiI9zutAVnulf6lKHDjHJgxoqOIJi8Hv1lLDCmKG1OblGJJDON5sLWyZlTKcugWY9LMb0
-	 uW8KR4PxmpgHma3DjPSCAXb9rtOo1vp8tFjB0pdwmeM0fb4ea0SzctZCQ0f2m+wkQ5aw7
-	 0fDjRZuYYEcX3WS+1wYlzVW6Pzsi9FLarQF/nbz539uLVDeNoP4XYR+GNaIV7UzfEcCEi
-	 RgUfhC2CtQczdY2xxMywseDyfZ9oVtIlhQPtrb9EQnLw4Z48CN39BQ28ALql9VVV0DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701107;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=q+qf7PzOxjIGrYfKn/FHezKWAiuMsA1N8qY4avTZ+sg=;
+	b=SgVAH6QSAdNNy5DE49hmSqOP/FCzfK1U1OU0eyQatfEjqJyJ4a2NUmPIt2+dyUM20kJp
+	 JrOCREaKlVlsaegB7kL/WOXdVMUHpHsgMHs/YhjG1T0zz4axolKG2f5ygJisctgSiW9uW
+	 FveLpIK2sRbftKcz9dMeXNHhqMz4gbqFgCTi+eIF+wzdlwVvsdzv3GLEF7HXOtgDDqfJv
+	 1DDTHJ5ytaeTbt+L2CExlhqT1CvFVmqIemZ5ZCKLEqxqAubfOAMXq9nAcEhi7Hi6hUx/+
+	 /nrdeSgfIpmQgS0Sd6NpHRhduXfFlsNW2RVjcvCszrgbB2oHQjb4xejKHB/urrwbKqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OTCljPyA;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Js/t+wic";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796DE606A834
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:18:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 796DE606A834
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F20606EE8D;
+	Tue,  3 Nov 2026 10:18:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OTCljPyA
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1adbf62dd31so4337456c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:18:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793701101; x=1794305901; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2UxkzZOuXMzEW1DRxwfP1Y2akfSOt2A5NGCydHJqRyY=;
-        b=OTCljPyAWpB2PW9aACuxPMT/jnmCOsYsrUEf+xS9SiYEoFLzahvBKr4TvPa2rnkCIJ
-         Fe3z6R3RPAu1wP2WRBjdYvA//qnueF9vwSjMiv/0A9Fq3jQ6qZKb6FWlw5QzGL3aYvWp
-         rF6mKQkFuE0eGub/CB05GKMJoDzikwRJ6CFajhtCMF0uzJxKqZQG3je/boqaunQ32bCM
-         zKqQXtcdoXPRK2pijiDSPfaissjLduQ8wf/vRBMkcdJ8v4GjWp4857XasZAYM+SdCkv5
-         fRi+F5DO86r8LnHueYyhAVCdO3c/G3spXkGxF6VVDZbYpvJ4KKfr4r6shzAMEn9i6xN7
-         Xoxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793701101; x=1794305901;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2UxkzZOuXMzEW1DRxwfP1Y2akfSOt2A5NGCydHJqRyY=;
-        b=puhiQggHjIQcULC2B/ddw6+vJ46D4TEY4w840pSrIMbGsTVPdXx1V/hdAQylaoZD0S
-         hg9bU1nlxiuoPrVmMEH+ECdql3tM+EXZrmxzoKzwEdr2Iz/ovkNqv43seN08uwNXMJT+
-         y0a4c4R4pxfOy0J/QESpR0u219SNaqae1EDk8Y1VuIxnWYObCxxisNMb556UqnPJDhuX
-         ukVQeqo/1STtWbwYs+pCM1IhSwTPFrlkxHWVRewiHeqWssN4bacUWigNXuNfCFkpfhsw
-         +GtOiyaFEArr89SsznN+J5hNGfO5LClZHlUec1RHyqw4px86V2lZUnATyn3dMgu0CLWz
-         ZJ3w==
-X-Forwarded-Encrypted: i=1; AKwUvBz0u+1hE48wxEPyOJ56AKPxLtcNLPEQKhaBDkC6bCCrFHOz/gyKFaGKOqfc5KFFg5UUhUSXPVsmCIBnUl8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DWEAxA3q1OBAWBf/g7WsWo8lBOZNhxTuQCziTDPum5JrCzxKE
-	ral1TVZTrMTjy8opkRU3RF1UPcPjee4VUdrSIYj0LjvH6ISAqWzzJoJM
-X-Gm-Gg: AYBFou0EnwjtfctF2fezOl0/XPWSAwvkpd1eauIUjIOv3Y6PWl28IKdK+hVSjXSrqj+
-	LzS5DU3J2jFei/BqdLMBkx+INXF+HnJ4X7wmBNk8lOMIIGxB+eme9jSCpbdxOVHNgLsJ3pQr2Ee
-	TepueKSWdnOflb1zBToTn4n/2G7lafOqQgHpL7iZSjZTAnOhjAmS9JZKyi3zKeAtzUAMHDm3xMO
-	pb3OItYWA7qg3BPIfAQhO1jz/15L5CUJTI7mSbEZuzp4Vbf7jTd+e9OYvEE3JyV+fOU8BZk53o9
-	3mGPJmponxQKJns7fU519YSIOXY2zITsr+gAxyIaL94klt8ccutx0VDcELN57LfdjyU5gMh7k+a
-	sSHO4KL7BwxqvsfrhL7XMez2/OHEVWJpsrMDEghJXF2gn/d9cwjHYvWve2S6ztuxwqogM7PMs9v
-	rFmZEyzEmA5FCAlgcHLcmbaon68L904IXjth3d6WmRq9o3irq3I9wQpreHSy1VvFmxK5QmRZjlh
-	nmOEtkYXJqVaNenc7Wo2s0H+wkF8q2M3bj5IwHngiHpU7dgI627goywfQgKZTGZbXC6o5Hka2xe
-	QObpFaiNvc8LnvdjLxddOBdxmW/s9A==
-X-Received: by 2002:a05:7300:c019:20b0:36b:f09f:924a with SMTP id 5a478bee46e88-36bf09fa41emr1926474eec.14.1793701101482;
-        Tue, 03 Nov 2026 02:18:21 -0800 (PST)
-Received: from 027.. ([2409:8a20:4a5:7150:84fc:ce3c:7b09:dbca])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4291e38fsm53145387eec.15.2026.11.03.02.18.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 02:18:20 -0800 (PST)
-From: Wen Jiang <jiangwenxiaomi@gmail.com>
-To: akpm@linux-foundation.org,
-	catalin.marinas@arm.com,
-	linux-mm@kvack.org,
-	urezki@gmail.com,
-	will@kernel.org
-Cc: Xueyuan.chen21@gmail.com,
-	ajd@linux.ibm.com,
-	anshuman.khandual@arm.com,
-	baohua@kernel.org,
-	chleroy@kernel.org,
-	david@kernel.org,
-	dev.jain@arm.com,
-	jiangwen6@xiaomi.com,
-	leo.yan@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	rppt@kernel.org,
-	ryan.roberts@arm.com,
-	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Subject: [PATCH v11 10/10] mm/vmalloc: align vm_area so vmap() can batch mappings
-Date: Tue,  3 Nov 2026 18:16:58 +0800
-Message-Id: <20261103101658.766905-11-jiangwenxiaomi@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261103101658.766905-1-jiangwenxiaomi@gmail.com>
-References: <20261103101658.766905-1-jiangwenxiaomi@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Js/t+wic
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF7C1F00A02;
+	Tue,  3 Nov 2026 10:18:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793701107;
+	bh=q+qf7PzOxjIGrYfKn/FHezKWAiuMsA1N8qY4avTZ+sg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Js/t+wic0TSn5fTLXxZlAewrwiJJ9OtCg/7OOz8p6rErFOEu9Jg+aEmclGkaNai5D
+	 OrElr9bCrj5mXtAv/UjhtyfGYiRMyLldLI1AzzKYC+UnlLspBU7P6YFNjPssJtVKji
+	 +tmGSLDTg9Vrh+uYF7FAznbRESP53FRE2mTWJFd/8/0VmI1ATdC4SUD4ACxRkpVZKL
+	 KnmOoAb14UWgaNg4lghmItZpo8V8jOsWLQJVpfM3OkxUA3ondDmBrbepJTmTrJZ2j0
+	 8ncLU+/at2PB21FjJnl5hr0YKSm7hE7TgWO8+TSphHIZEcPLBF1+UH2XxowjEJJ/Yd
+	 UmiqJ7Dxo/3ZA==
+Subject: Re: [PATCH v3 net 1/4] net: hns3: fix vector resource leak in
+ hns3_nic_alloc_vector_data
+From: netdev-bot+sashiko@kernel.org
+To: shaojijie@huawei.com
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, shenjian15@huawei.com,
+ liuyonglong@huawei.com, chenhao418@huawei.com, yangshuaisong@h-partners.com,
+ ningwei15@huawei.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 03 Nov 2026 10:18:25 +0000
+Message-ID: <179370110586.488856.5999411563039166781@kernel.org>
+In-Reply-To: <20261030095633.377289-2-shaojijie@huawei.com>
+References: <20261030095633.377289-2-shaojijie@huawei.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,107 +64,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Try to align the vmap virtual address to PMD_SHIFT or a
-larger PTE mapping size hinted by the architecture, so
-contiguous pages can be batch-mapped when setting PMD or
-PTE entries. We do not expect any significant overhead for
-this.
+Low priority / nit picks for your consideration:
 
-Add __get_vm_area_node_aligned_caller() as a wrapper over
-__get_vm_area_node() to simplify repeated calls with fixed
-arguments.
+- [Low] The commit message does not give the real reason for one line of
+  the fix.
 
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Tested-by: Leo Yan <leo.yan@arm.com>
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
----
+--
 
-Sashiko review: raised two concerns:
+net: hns3: fix vector resource leak in hns3_nic_alloc_vector_data
 
-- Hardcoding GFP_KERNEL in __get_vm_area_node_aligned_caller() strips the
-  caller's ability to prevent blocking, reclaim, or warnings.
+This patch fixes the error path in hns3_nic_alloc_vector_data() for when
+devm_kcalloc() of priv->tqp_vector fails. The new path calls put_vector()
+for every vector that get_vector() acquired, and resets priv->vector_num
+to 0 before returning.
 
-- The speculative PMD-aligned allocation, on failure, could trigger
-  spurious vmalloc purges (reclaim_and_purge_vmap_areas(), synchronous
-  TLB flushes, shrinker storms), a possible DoS for vmap() >= PMD_SIZE.
+> Call put_vector() for every acquired vector before returning the
+> error, and reset priv->vector_num to 0 to avoid a NULL deref in the
+> subsequent hns3_nic_dealloc_vector_data(), which iterates
+> priv->tqp_vector (still NULL after the kcalloc failure) using
+> priv->vector_num.
 
-Both follow existing behavior: GFP_KERNEL matches the adjacent
-get_vm_area_caller(), which hardcodes it the same way. The purge concern
-is not new -- __vmalloc_node_range() already attempts PMD-aligned
-allocation in __get_vm_area_node() with the same fallback through
-alloc_vmap_area() overflow/purge, so vmap_get_aligned_vm_area() adds no
-new purge behavior.
+[Severity: Low]
+Is this the right reason for the priv->vector_num reset? As far as I can
+tell, no path calls hns3_nic_dealloc_vector_data() after
+hns3_nic_alloc_vector_data() fails.
 
- mm/vmalloc.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
+In hns3_client_init(), the failure jumps to a label that comes after the
+dealloc call:
 
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 42b3addd20f9..e15bcef804fc 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -3361,6 +3361,14 @@ struct vm_struct *get_vm_area_caller(unsigned long size, unsigned long flags,
- 				  NUMA_NO_NODE, GFP_KERNEL, caller);
- }
- 
-+static struct vm_struct *__get_vm_area_node_aligned_caller(unsigned long size,
-+		unsigned long align, unsigned long flags, const void *caller)
-+{
-+	return __get_vm_area_node(size, align, PAGE_SHIFT, flags,
-+				  VMALLOC_START, VMALLOC_END,
-+				  NUMA_NO_NODE, GFP_KERNEL, caller);
-+}
-+
- /**
-  * find_vm_area - find a continuous kernel virtual area
-  * @addr:	  base address
-@@ -3692,6 +3700,30 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
- 	return err;
- }
- 
-+static struct vm_struct *vmap_get_aligned_vm_area(unsigned long size,
-+		unsigned long flags, pgprot_t prot, const void *caller)
-+{
-+	struct vm_struct *vm_area;
-+	unsigned int shift;
-+
-+	if (arch_vmap_pmd_supported(prot) && size >= PMD_SIZE) {
-+		vm_area = __get_vm_area_node_aligned_caller(size, PMD_SIZE,
-+				flags, caller);
-+		if (vm_area)
-+			return vm_area;
-+	}
-+
-+	shift = arch_vmap_pte_supported_shift(size);
-+	if (shift > PAGE_SHIFT) {
-+		vm_area = __get_vm_area_node_aligned_caller(size, 1UL << shift,
-+				flags, caller);
-+		if (vm_area)
-+			return vm_area;
-+	}
-+
-+	return __get_vm_area_node_aligned_caller(size, PAGE_SIZE, flags, caller);
-+}
-+
- /**
-  * vmap - map an array of pages into virtually contiguous space
-  * @pages: array of page pointers
-@@ -3730,7 +3762,8 @@ void *vmap(struct page **pages, unsigned int count,
- 		return NULL;
- 
- 	size = (unsigned long)count << PAGE_SHIFT;
--	area = get_vm_area_caller(size, flags, __builtin_return_address(0));
-+	area = vmap_get_aligned_vm_area(size, flags, prot,
-+				__builtin_return_address(0));
- 	if (!area)
- 		return NULL;
- 
+drivers/net/ethernet/hisilicon/hns3/hns3_enet.c:hns3_client_init() {
+    ...
+	ret = hns3_nic_alloc_vector_data(priv);
+	if (ret) {
+		ret = -ENOMEM;
+		goto out_alloc_vector_data;
+	}
+    ...
+out_init_vector_data:
+	hns3_nic_dealloc_vector_data(priv);
+out_alloc_vector_data:
+    ...
+}
+
+hns3_reset_notify_init_enet() works the same way:
+
+drivers/net/ethernet/hisilicon/hns3/hns3_enet.c:hns3_reset_notify_init_enet() {
+    ...
+	ret = hns3_nic_alloc_vector_data(priv);
+	if (ret)
+		goto err_put_ring;
+    ...
+err_dealloc_vector:
+	hns3_nic_dealloc_vector_data(priv);
+err_put_ring:
+    ...
+}
+
+hns3_client_uninit() and hns3_reset_notify_uninit_enet() both start with
+test_and_clear_bit(HNS3_NIC_STATE_INITED, &priv->state). They bail out
+before calling hns3_nic_dealloc_vector_data() if the bit is clear.
+
+HNS3_NIC_STATE_INITED is only set once init succeeds, so it is still
+clear after this failure. That means the NULL deref described above
+cannot happen, with or without this patch.
+
+The reset may still be useful for other code that indexes
+priv->tqp_vector by priv->vector_num while the netdev stays alive after
+a failed reset re-init. One example is hns3_dump_coal_info() in
+hns3_debugfs.c:
+
+	for (i = 0; i < priv->vector_num; i++) {
+		tqp_vector = &priv->tqp_vector[i];
+
+Should the commit message name the code that actually depends on
+priv->vector_num being 0, rather than hns3_nic_dealloc_vector_data()?
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030095633.377289-1-shaojijie%40huawei.com
