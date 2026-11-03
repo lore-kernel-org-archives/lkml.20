@@ -1,69 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687900;
-	b=xwICliqwOgFwpQu3uvMSpjWX8vQw1Uya9h5KjuP2IhiHJE8JXPwc5vfXPOONp04Wbk2v
-	 MlBpeFsJle87bmUCmJKNAjN0hjdlvqtNNnsf14QudOm7hPZL6XaKduZ4llUVzM56BnmCt
-	 USQFgsRFZemDlbjjyDm4yTqWQ43JRTMzgeIXTMno7/Tqs9O/zQlPqrsX/MbQhcRJl6ZTn
-	 8NWbGqaCl7FlYcLN1sRYz2AdsxpWuTjCVOiYLze2KiNSdlOwfX9vMehV9OoLOm7cUMbpd
-	 xDB7poWXqifUNlTRDZ+Wg0TFhW2JNiPRyOvvQIJz5A1q7ndFGlniUzwMPW0PwNXaTwQ==
+	t=1793687928;
+	b=InG9aZqHu8oB4zAnEerIKXfS8dznw6JAFZgIAvPdcv1+mFjt7rmroesdckZ56cC8+I69
+	 qeCxcYqwkfqCBDPtnA0drO6lvLkEt/IS3Q5p85qM8o2+8zx5afQUd5ZWuKnf1yz1JaVDQ
+	 wE7nC1i1rwvse1m+Tp1preUX5sh6KdS9oPdx+sK77Q0Wwv8IkcAwQWQ42R3KNCtzqUIuM
+	 PBE6xNVY/rQgKaBvMfWGC0ul8lfK/kvZCVrllRrC96L+d1r0Lm3uQrqNvUzptW9OjrAQ3
+	 KqoJGqJEw89XT6j+GjewcJU3lEIEMbO7kJtnhtwpovDEEF4ZMUymOc6vCod0FK+ic3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687900;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Af907kGMXLFsFxk49Dhwa32CRpesJy8p/4dLo7RJWpI=;
-	b=0g0fWHPUxhFhWMI9A1MXu9xg3ROGbpaq9rKkmR16jQh2+s+TFUwAYgPLhmXwU9S6XgZE
-	 NShAv1GQfllE2tRSQBlVKhwPqbmjgrHGIF7mPtg9LlbnEQRxizjARkcGFAPnQsouCggoH
-	 3MD72C5TjTSkzi6wKVT4akj5C3iWvUpLB+yUXrmYcYShExXIQ6fuhiuIELg6RExY7hMc6
-	 9TG3tjdUwMAg3eVLfeCc4EasU3JVm3lQYHo+Jz3t1KkVBSkSUaDBQjymXDdv8/fjeltl6
-	 dMi1Ya9rhE21dZoSws+INCRuBsnuM9p6nijqZesns/jGhL2sGu6XvljwiTkyuyFbZsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687928;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=sTSdkkz2vrjceniKIFMADF9L4UGSrsp9KNEr/A42Nmc=;
+	b=4a3C5uhvPy6faFfL/siJytWaiE2PtTtsAR6OWRWTdOnypMVsqDRJg4hpp+BiN++hQyl9
+	 ZkeUwgDVKblerfBlEbYvZeGhjGkD66eY53oRzrMMEZHtvpsW+F3ddMbBWzYYpto3Imz+p
+	 dWKi9iHWDWxdt473TUM8rcJ4jqNlhXh/lEdiM17Wrz8tpY9EbH1pXmKC1yIz2oAEZOWjO
+	 I5SFeuPc7A+FEEYLLrvdX5eQ8ceb/jMjoKbI7QOtDQ7V+B7En4bpgv6At52snVKe8d+l7
+	 bZ90hCpzss7bbwanX9ZAKo84kpc8wvGLspTO3exuYE/NSfPOZRbi9FRJNaf39KUZmOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93AB6606A324;
-	Tue,  3 Nov 2026 06:38:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93AB6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 2372d6ccd75111f19a56ed5b684f684d-20261103
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:de7df89a-d679-49cb-9804-d3fac707eade,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:fe711bcb5612b75cf5d7ed2560b72067,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2372d6ccd75111f19a56ed5b684f684d-20261103
-X-User: heminhong@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <heminhong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1924700789; Tue, 03 Nov 2026 14:38:11 +0800
-From: Minhong He <heminhong@kylinos.cn>
-To: andrea.mayer@uniroma2.it,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org
-Cc: horms@kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30ED606A324;
+	Tue,  3 Nov 2026 06:38:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C30ED606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAHGJlxgelqZHE5AA--.148S2;
+	Tue, 03 Nov 2026 14:38:41 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: ayush.sawal@chelsio.com,
+	herbert@gondor.apana.org.au
+Cc: davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Minhong He <heminhong@kylinos.cn>
-Subject: [PATCH net-next 0/3] seg6_local: add USP and USD flavors support (RFC 8986)
-Date: Tue,  3 Nov 2026 14:38:03 +0800
-Message-Id: <20261103063806.132152-1-heminhong@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: chcr - Free fallback transforms when device assignment fails
+Date: Tue,  3 Nov 2026 06:38:50 +0000
+Message-Id: <20261103063850.1033008-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,47 +55,110 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAHGJlxgelqZHE5AA--.148S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJw48WrW7Jr18KFWkJFy3twb_yoW5tr4DpF
+	4Yk3yvyrWrJFn7KayxJrs5G3s8Ga9ayay7KrWFkw1FkwnIvrWkWF9rX3yjvF15tFW8JFW5
+	Zr4vyas8Wr1DJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbkhL5
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQAA2rpWtl+-AAAsC
 
-RFC 8986 defines the PSP, USP and USD flavors for the SRv6 End
-behaviors. Currently, the Linux SRv6 implementation (seg6_local)
-only supports the PSP flavor (combined with the NEXT-C-SID
-flavor).
+The skcipher, RFC3686 and AEAD initialization callbacks allocate their
+fallback transforms before calling chcr_device_init(). If no active
+device can be assigned, chcr_device_init() returns -ENXIO and the
+fallback is leaked. The crypto core does not invoke the algorithm's
+exit callback after its initialization callback fails.
 
-This patch series adds support for the USP (Ultimate Segment Pop
-of the SRH) flavor to the End, End.X and End.T behaviors, and for
-the USD (Ultimate Segment Decapsulation) flavor to the SRv6 End
-behaviors that perform the decapsulation of the packet (i.e.,
-End.DX4, End.DX6, End.DT4, End.DT6, End.DT46).
+Free the fallback transform before returning the device assignment
+error in each of these initialization callbacks.
 
-Patch overview:
+Fixes: b8fd1f4170e7 ("crypto: chcr - Add ctr mode and process large sg entries for cipher")
+Fixes: 0e93708dabc0 ("crypto: chcr - Add fallback for AEAD algos")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/crypto/chelsio/chcr_algo.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-- Patch 1 implements the USP flavor for the End behavior by
-  extending the RFC 8986 flavor action table with the entries
-  required to process the combinations of packet info and the USP
-  flavor (either alone or combined with the PSP flavor);
-
-- Patch 2 adds the USD flavor support to the decap behaviors.
-  Since these behaviors already remove the outer IPv6 header (and,
-  as a consequence, the SRH too) as part of the decapsulation
-  process, the USD flavor is only supported at the control plane
-  level, to ease the interoperability with control planes (e.g.,
-  IS-IS, BGP-LS) which can advertise SIDs with the USD flavor;
-
-- Patch 3 extends the USP flavor support to the End.X and End.T
-  behaviors, which can now take advantage of the flavor action
-  table mechanism introduced in patch 1.
-
-The series has been applied and tested on top of linux-next
-(next-20261102).
-
-Minhong He (3):
-  seg6_local: implement USP flavor for the End behavior
-  seg6_local: support USD flavor for decap behaviors
-  seg6_local: add USP flavor support to End.X and End.T
-
- net/ipv6/seg6_local.c | 163 ++++++++++++++++++++++++++++++++++++------
- 1 file changed, 143 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
+index e2f2b2a6200e..fd4720fa50a9 100644
+--- a/drivers/crypto/chelsio/chcr_algo.c
++++ b/drivers/crypto/chelsio/chcr_algo.c
+@@ -1439,6 +1439,7 @@ static int chcr_init_tfm(struct crypto_skcipher *tfm)
+ 	struct skcipher_alg *alg = crypto_skcipher_alg(tfm);
+ 	struct chcr_context *ctx = crypto_skcipher_ctx(tfm);
+ 	struct ablk_ctx *ablkctx = ABLK_CTX(ctx);
++	int ret;
+ 
+ 	ablkctx->sw_cipher = crypto_alloc_skcipher(alg->base.cra_name, 0,
+ 				CRYPTO_ALG_NEED_FALLBACK);
+@@ -1450,7 +1451,11 @@ static int chcr_init_tfm(struct crypto_skcipher *tfm)
+ 	crypto_skcipher_set_reqsize(tfm, sizeof(struct chcr_skcipher_req_ctx) +
+ 					 crypto_skcipher_reqsize(ablkctx->sw_cipher));
+ 
+-	return chcr_device_init(ctx);
++	ret = chcr_device_init(ctx);
++	if (ret)
++		crypto_free_skcipher(ablkctx->sw_cipher);
++
++	return ret;
+ }
+ 
+ static int chcr_rfc3686_init(struct crypto_skcipher *tfm)
+@@ -1458,6 +1463,7 @@ static int chcr_rfc3686_init(struct crypto_skcipher *tfm)
+ 	struct skcipher_alg *alg = crypto_skcipher_alg(tfm);
+ 	struct chcr_context *ctx = crypto_skcipher_ctx(tfm);
+ 	struct ablk_ctx *ablkctx = ABLK_CTX(ctx);
++	int ret;
+ 
+ 	/*RFC3686 initialises IV counter value to 1, rfc3686(ctr(aes))
+ 	 * cannot be used as fallback in chcr_handle_cipher_response
+@@ -1470,7 +1476,11 @@ static int chcr_rfc3686_init(struct crypto_skcipher *tfm)
+ 	}
+ 	crypto_skcipher_set_reqsize(tfm, sizeof(struct chcr_skcipher_req_ctx) +
+ 				    crypto_skcipher_reqsize(ablkctx->sw_cipher));
+-	return chcr_device_init(ctx);
++	ret = chcr_device_init(ctx);
++	if (ret)
++		crypto_free_skcipher(ablkctx->sw_cipher);
++
++	return ret;
+ }
+ 
+ 
+@@ -3164,6 +3174,7 @@ static int chcr_aead_cra_init(struct crypto_aead *tfm)
+ {
+ 	struct chcr_aead_ctx *aeadctx = AEAD_CTX(a_ctx(tfm));
+ 	struct aead_alg *alg = crypto_aead_alg(tfm);
++	int ret;
+ 
+ 	aeadctx->sw_cipher = crypto_alloc_aead(alg->base.cra_name, 0,
+ 					       CRYPTO_ALG_NEED_FALLBACK |
+@@ -3174,7 +3185,11 @@ static int chcr_aead_cra_init(struct crypto_aead *tfm)
+ 		tfm, max(sizeof(struct chcr_aead_reqctx),
+ 			 sizeof(struct aead_request) +
+ 			 crypto_aead_reqsize(aeadctx->sw_cipher)));
+-	return chcr_device_init(a_ctx(tfm));
++	ret = chcr_device_init(a_ctx(tfm));
++	if (ret)
++		crypto_free_aead(aeadctx->sw_cipher);
++
++	return ret;
+ }
+ 
+ static void chcr_aead_cra_exit(struct crypto_aead *tfm)
 -- 
-2.25.1
+2.34.1
 
