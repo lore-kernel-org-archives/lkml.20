@@ -1,68 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717769;
-	b=yda4VqgaBkghk1NrY6O/obdK1AxcdEp8xfbrvvcSKarpjjaTAHGg+Sne3Bi4/RpevvvQ
-	 DMr7Ys+VLgKEq+DGqbt13iIeYxeLwxhecE0dOdIBdIXOZsT2QczueFittFRM6P3OxVD0X
-	 Fj50KNk14zzOyDSirghsW+nLVWaIy5iJH8QbDJP9Yx6QbGnyJEh3TIUZJo27+bt3gOrLF
-	 oDGoJACZABmp28ZMVFFkazU9cTeDMMA1t6MjJks/US8S/3xodbLa1a/MZaX0mwhG6p0ST
-	 rBeT+6E1/r+G2j70Py4Tc81BFRPSgFCHKbQ4Nw6pAb3psiFrq3YbWe19IO7mTvJ49vA==
+	t=1793717780;
+	b=LQFiFBLQ3b00N6FjamBnOV10eAc4EnE2IJSqbD+GGwk29qUInh3kuwcWft9jDE54OL84
+	 mgqbMvPRorY849Mbx53YP8JVem71RXVky5/kWQ51vSs/MpF7EUVDhfNZJVqqNg1j63yXJ
+	 Pgszwwy3QvrxUDy2XRoLydltHpJgtGh6Al9aCudBByid6LZK6fwTAb3PHDGrZ0V+LLXu1
+	 WOOeW8rFpbBQfb/7mcfi/m3ZFtdN7Kvta1xBaC3u84hVtM556GkBbAHab98pGGAXHarDb
+	 xKGsGZYpobXGP4nezv1vi91AQWyJqiHAcRiazIid4oRY+SPZyFTEe8UePKoYBy925pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717769;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=vebAuFRic18JYj0ceFy67NLDnQtwOl1/tHyfOqhU5xg=;
-	b=T0Xc5gycyU1YJ13kSyUwVOVHl91GMi+346kjtDo30rDK9Xae3J4rgavBwrWhBtsSW3Al
-	 waJAiA7xxy5N9ygrOhuK/8W9a6s05OBSwJE93SKAbMMungwpnvbREtacI7LP1veNG5hrQ
-	 h2eKrJZe0kzOie53q8uN8CBPIjZxTbNMnPgL5Rtil7Y6bdmKeuHK7m4wd/5MRqh9ccNYF
-	 FweKI0tlx+wtVgEs9LhqCrG4I7RRC34myppdzV0W6JMWvvkbOQWau5k0CViekRcjtgHMe
-	 wkhXbOrZ2URLZ6GzxVJRTdKAp1tGbjxLf5b4toaY74TVSx233Kug6tbaOim7nQ7If3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717780;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=LikyN3ozrT/DE7xxvLKNqwx4AoYBeMfpRQuMhrwC9OI=;
+	b=lFAKwyqiK23TN+5M9w3sonTb/bGZEDz4YuXfa8E2916tmRzFKQGHdP9xR0Hnt7LFu17j
+	 jVVBQyQleyRQpSIjp45zPzA4aJPGR88LrVV79L1EjNHsnDz1TztaJPuErykLKSzlgUtlT
+	 o9wOZQIt8dbFwzMxSIMQAz/NrbMauDCPPleMyad+4fn/fynW6gtiYXkPy6T7DpP5CRx5h
+	 zb0cfcYhXOEBdQE9JEGqF0LN9rgToRgysAhqb19aYKns4yn3PJoHKBAyvz8KbDPYeBZ04
+	 dHwqCLyiu1JP7L1oJn/yC0huNcsVh7NG3k++SEfclO/lVF4ODnjPICwNkB/4PEQbj0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=El05i11B;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PlDwjO28;
+	arc=none smtp.remote-ip=209.85.167.51
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DC4606A32F;
-	Tue,  3 Nov 2026 14:56:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22DC4606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C379606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:56:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C379606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=El05i11B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793717769; x=1825253769;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ZpeTG0rBnmzRLYcZp0cYQM8/3s5qDdobT3m1WWFTXNM=;
-  b=El05i11BRc51IK454Di3Iwt7T7KlSWbea4PtVXy1yXsM/NSAi0q6jUqZ
-   752Cpu2XL9zK23kKi6qkhSjAApOxYcg6ud5oCkM+8UwIeQLbgBY80YQok
-   xHZf1Vyu7trS/qcVtUo5A6GHsePMdnpai01ulhCQlSXerGTtF+uBtkKBf
-   2vm79tAa7OAgeUS9q+S+seznslZDXlr7GybIM2LODisXE9Bg3+oxA/yxw
-   CYGmcl0xc8Re9086JIvMqnazxrtKp2Yf0pfLe5Z4deYpS5fHp3v8q2M50
-   NrhCAkP8gNV0QPPC2kpTO3Y/iCTei2ioRobiPBgPN4shmIgKWOzMxClhW
-   A==;
-X-CSE-ConnectionGUID: M9eWUd2rS1WiHZM70QWB3Q==
-X-CSE-MsgGUID: eHqUMTd1RAiEvUh4pw8VtQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2323537"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2323537"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:56:08 -0800
-X-CSE-ConnectionGUID: y2qZUdDxTi+LPkiTnKGi6Q==
-X-CSE-MsgGUID: PiB7GEVYTJ+Csp0vNOpFcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6814335"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.245.138]) ([10.245.245.138])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:56:06 -0800
-Message-ID: <3ca5cced-f429-42d9-9bbb-f5111acd9665@linux.intel.com>
-Date: Tue, 3 Nov 2026 16:56:02 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PlDwjO28
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bfbc25a76aso943302e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:56:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793717777; x=1794322577; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LikyN3ozrT/DE7xxvLKNqwx4AoYBeMfpRQuMhrwC9OI=;
+        b=PlDwjO286Dh/w0brTAx7LFOQt1F3ospHclP4ow2NMiuVJNTCZ/vBihxXiuGAB5kUh1
+         VnCJtMqYN3ta4E5m14/tXrt3NG3mJI9OxJ98Xxh5Qf7nW+7fDunUx37/4MCTINBK1m/2
+         tHHyK71PIKuC8yj1DmK2Ky2Ls7gD42laQ4Plk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793717777; x=1794322577;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LikyN3ozrT/DE7xxvLKNqwx4AoYBeMfpRQuMhrwC9OI=;
+        b=uM4gDsQA2GTB5vgeZyufpe/9HJZ4/PFp/EZXqHZvifnRNGhrdLIoYtMJFXRW/X52il
+         oNXg2kBYymuGZb5H3rBvQIFNQ3bspT4Ma8QfcswT1HZtldoyCl5eUxqig8qmeHDsFmRW
+         IYw7VLw01OyxoDtjwdac1WYFd535FD+TgoPRXplBofgfc29FOLd9oWmSLSGze4nvSm6f
+         2v7tjWyvUz4uR3IA/9jGIxY47xh/akYMFZDQTKJgtbpUZppin4lrKxlqQsJkR77mWcnw
+         a2G6DSrVvIFRvsyuILCrstc4Ke5no8jGH/LYvHc/8xOE7ErnraWIyF5QGUHOoD+b3jCF
+         7xkw==
+X-Forwarded-Encrypted: i=1; AKwUvBx/oJGC5/P0sBhyAEYqv7EbV8t4SjJ0ZXCu56OQSxF1w/Ec+BUeZn8367WgMyJ1sxBD4EMDfWrelwbBVWQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hNUtm0EDj0h+gRjZvyQWQopbIuntwkYe371bsR2iJ3CQjJYZ8
+	rgxSPsQBMeZBli0HvQOak77HlmAhu3oIVn4pfwui63q02H2J+7+4tn1JE1/TgM7jATPN6gyDgGH
+	OEUnkoPl7
+X-Gm-Gg: AYBFou2GG8ohzQCggB8bbm62vZH13ZKpFY4FAY4cLKKUMFdzMtyRbGwwE+WvYkbrxLa
+	LiNTH7Aysf1oECEAOdLy+f7f8eZHsINu0lY4feuch0ZBjzyxtRFWYKG7QROjCT0eVg/mWgFta9S
+	1EP0IJY2LGu4ktB9tAYm0/KtcsKHaehkTdVejFxSQg6q9e35YkA7VkvpxhbQ9SVI+Rji+GAjr5s
+	bk5GprMmWYSI0QHnUfNwbc0H2qc8L98PRpDkQGRBb/yY+Er2/1zISamqc6d32WQ+YOx/ylGYlYy
+	qXRacaRZjQ9x+YHsuALg11FHAGPmVJACgvsjS2ZQvRmew4MY6LKPQBuXNYnH37pfEex5O+eqUXS
+	ZHCO14+v1iQNisRImtB8w+4+enbwJT+nBLgw6QH1Ck/6Bu4tGHO3pda2TNhkzGy/DOiVnZoOhLw
+	GrCOelKxE6ql5ljN1CiHEtGwiSg03wtP8wwH3EKcbGOwG0XG9iJ3PadeFGBZ+rXgELM+PWSCjol
+	pO37E14b8J4jDuCuFqlz3PP2bT1qM9p+WT1BazEz+j8ssAHoDD2J10muJP1v2ht+oWyQ1P5bBka
+	iBJKkO9O1khOQg3axLRg4hVsQK7Sml3lpzpCnDujAP5FO3VHKerWflfYjmguJg3YlVPwTjzIpIF
+	X1iRv8+QJtw==
+X-Received: by 2002:a05:6512:3d06:b0:5bf:a12f:e10a with SMTP id 2adb3069b0e04-5bfd951d34emr3802682e87.3.1793717777523;
+        Tue, 03 Nov 2026 06:56:17 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe1b1ddb3sm2037346e87.27.2026.11.03.06.56.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 06:56:16 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v5 0/2] media: uvcvideo: Automatically handle invalid
+ uvc_versions
+Date: Tue, 03 Nov 2026 14:56:02 +0000
+Message-Id: <20261103-uvc-version-v5-0-f23b6d103c51@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,173 +91,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] usb: xhci: Fix use-after-free race in
- xhci_stop_device()
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
- Cheng Wen <wencheng@xidian.edu.cn>
-References: <20261026123628.7493-1-25031212351@stu.xidian.edu.cn>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20261026123628.7493-1-25031212351@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAL26WoC/33MQQ6CMBCF4auQrq2ZtgMWV97DuMB2Cl0oppVGY
+ 7i7hRUY4vJN5vs/LFLwFNmx+LBAyUff3/ModwUzXXNviXubN5MgK6jhwIdkeKIw/fGGLDmDSqM
+ hlsUjkPOvuXa+5N35+OzDe44nMV23O0lwwRUSltYRoKWT6UJ/88Nt34eWTakkF1yINZccuKpLJ
+ w9XQESzwdUfrjKvAJXUVjdg7QbHBZd6zTFz2wDVWjlzrcsfPo7jF6nKJ9xmAQAA
+X-Change-ID: 20260907-uvc-version-aedefc4384ce
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>, 
+ Hans de Goede <johannes.goede@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
 
-Hi
+This series changes the way we handle invalid uvc_versions. Instead of
+just failing it will try to continue probing.
 
+Thanks!
 
-On 10/26/26 14:36, YuanZhe Liu wrote:
-> A KASAN slab-use-after-free read was observed in xhci_stop_device():
-> 
->    BUG: KASAN: slab-use-after-free in xhci_stop_device.constprop.0.isra.0+0x395/0x430
->    drivers/usb/host/xhci-hub.c:479
->    Read of size 8 at addr ffff88804e85d2f0
-> 
->    Freed by task 585700:
->     kfree+0xf8/0x390 mm/slub.c:6566
->     xhci_free_virt_device+0x3f/0x50 drivers/usb/host/xhci-mem.c:881
->     xhci_free_dev+0x286/0x350 drivers/usb/host/xhci.c:4131
->     usb_disconnect+0x6b6/0x910 drivers/usb/core/hub.c:2391
->     ...
->     usbdev_ioctl+0x6f05/0x86d0 drivers/usb/core/devio.c:2826
-> 
->    Allocated by task 572283:
->     xhci_alloc_virt_device+0x171/0xb70 drivers/usb/host/xhci-mem.c:986
->     xhci_alloc_dev+0x475/0x840 drivers/usb/host/xhci.c:4271
->     usb_alloc_dev+0xe8/0xdc0 drivers/usb/core/usb.c:661
->     hub_event+0x1c82/0x4050 drivers/usb/core/hub.c:5953
-> 
-> xhci_stop_device() reads xhci->devs[slot_id] without xhci->lock and
-> keeps using the pointer across xhci_alloc_command(GFP_NOIO), which may
-> sleep.  All callers (the port suspend and bus suspend paths in
-> xhci_hub_control() and xhci_bus_suspend()) drop xhci->lock before
-> calling it, so a concurrent usb_disconnect() -> xhci_free_dev() can
-> clear xhci->devs[slot_id] and free virt_dev under xhci->lock in that
-> window.  The endpoint loop then dereferences the freed virt_dev.
-> 
-> commit 88716a93766b ("usb: xhci: Fix panic if disconnect") added a
-> NULL check for this case, but that only helps when the device was
-> already freed before the check; it does not close the window.
-> 
-> Re-check xhci->devs[slot_id] against the pointer fetched earlier after
-> taking xhci->lock and bail out if it no longer matches, or if the
-> device is already being torn down.  The tracepoint reloads
-> virt_dev->udev, so it moves under the lock and only runs while the
-> device is still attached.
-> 
-> xhci_free_dev() clears virt_dev->udev without xhci->lock, and only
-> later detaches the device from xhci->devs[] in xhci_free_virt_device(),
-> also under the lock.  Take xhci->lock when clearing ->udev so that
-> xhci_stop_device() can rely on it while holding the same lock.
-> xhci_free_virt_device() frees the device under xhci->lock, so a
-> matching pointer while holding the lock keeps virt_dev alive until
-> xhci_stop_device() drops the lock, after which virt_dev is not used
-> anymore.
-> 
-> Fixes: be88fe4f4dda93e3 ("USB: xHCI: port power management implementation")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Changes in v5:
+- Rebase on media-committers/next (drop patches 1, 2, and 5, already applied)
+- Reorder patches so bmVideoStandards removal comes first
+- Blame missing bmVideoStandards
+- Link to v4: https://lore.kernel.org/r/20260928-uvc-version-v4-0-da0e983fcb95@chromium.org
 
-Thanks for the patch, good catch.
+Changes in v4:
+- Handle invalid dwMaxVideoFrameSize.
+- ctrl_size -> video_ctrl_size
+- CTRL_SIZE->VERSION
+- Link to v3: https://lore.kernel.org/r/20260911-uvc-version-v3-0-604328d8a0dd@chromium.org
 
-I have some small minor adjustments that would make final code a bit cleaner
+Changes in v3:
+- Move uvc_video_ctrl_size to uvc_video_init()
+- Fixes for uvc_warn_once
+- Remove bmVideoStandardParsing parsing
+- Link to v2: https://lore.kernel.org/r/20260911-uvc-version-v2-0-395f27b0444c@chromium.org
 
-> ---
-> Changes since v1:
->   - xhci_free_dev(): clear virt_dev->udev under xhci->lock, so that
->     checking it under the same lock actually synchronizes with the
->     store.
->   - xhci_stop_device(): bail out with -ENODEV once ->udev has been
->     cleared, instead of queueing stop-endpoint commands for a slot
->     that is already being disabled.
-> 
->   drivers/usb/host/xhci-hub.c | 19 +++++++++++++++++--
->   drivers/usb/host/xhci.c     |  3 +++
->   2 files changed, 20 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
-> index b0264bd8577a..f4401f2fcea0 100644
-> --- a/drivers/usb/host/xhci-hub.c
-> +++ b/drivers/usb/host/xhci-hub.c
-> @@ -467,13 +467,28 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
->   	if (!virt_dev)
->   		return -ENODEV;
->   
-> -	trace_xhci_stop_device(virt_dev);
-> -
->   	cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
->   	if (!cmd)
->   		return -ENOMEM;
->   
->   	spin_lock_irqsave(&xhci->lock, flags);
-> +
-> +	/*
-> +	 * Callers drop xhci->lock before calling us and allocating cmd
-> +	 * above can sleep, so xhci_free_dev() may have detached and freed
-> +	 * the device in the meantime.  It removes the device from
-> +	 * xhci->devs[slot_id] and clears ->udev under xhci->lock, so while
-> +	 * the lock is held a matching, still-attached device stays alive
-> +	 * and keeps its udev.
-> +	 */
+Changes in v2:
+- Add quirk for Avermedia
+- Change the way the compliance error message is printed and cache
+  ctrl_size
+- Link to v1: https://lore.kernel.org/r/20260907-uvc-version-v1-1-34e45dfe04de@chromium.org
 
-Comment above is not needed, can be removed
+---
+Ricardo Ribalda (2):
+      media: uvcvideo: Do not parse bmVideoStandards
+      media: uvcvideo: Automatically handle cameras with invalid uvc_version
 
-> +	if (xhci->devs[slot_id] != virt_dev || !virt_dev->udev) {
-> +		spin_unlock_irqrestore(&xhci->lock, flags);
-> +		xhci_free_command(xhci, cmd);
-> +		return -ENODEV;
-> +	}
+ drivers/media/usb/uvc/uvc_driver.c | 10 +++----
+ drivers/media/usb/uvc/uvc_video.c  | 54 ++++++++++++++++++++++++--------------
+ drivers/media/usb/uvc/uvcvideo.h   |  3 ++-
+ 3 files changed, 42 insertions(+), 25 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260907-uvc-version-aedefc4384ce
 
-No point in keeping the 'virt_dev = xhci->devs[slot_id]' before taking the lock.
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
-Just move that part inside the lock as well:
-
-virt_dev = xhci->devs[slot_id];
-if (!virt_dev || !virt_dev->udev) {
-	unlock
-	free command
-	return -ENODEV
-}
-
-> +
-> +	trace_xhci_stop_device(virt_dev);
-> +
->   	for (i = LAST_EP_INDEX; i > 0; i--) {
->   		if (virt_dev->eps[i].ring && virt_dev->eps[i].ring->dequeue) {
->   			struct xhci_ep_ctx *ep_ctx;
-> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-> index 5c759ad28199..9e375eb48f38 100644
-> --- a/drivers/usb/host/xhci.c
-> +++ b/drivers/usb/host/xhci.c
-> @@ -4128,9 +4128,12 @@ static void xhci_free_dev(struct usb_hcd *hcd, struct usb_device *udev)
->   	trace_xhci_free_dev(slot_ctx);
->   
->   	/* Stop any wayward timer functions (which may grab the lock) */
-> +	spin_lock_irqsave(&xhci->lock, flags);
->   	for (i = 0; i < 31; i++)
->   		virt_dev->eps[i].ep_state &= ~EP_STOP_CMD_PENDING;
->   	virt_dev->udev = NULL;
-> +	spin_unlock_irqrestore(&xhci->lock, flags);
-> +
-
-Should work, we are now using virt_dev->udev as a flag to tell xhci_stop_device() to
-not queue any stop endpoint commands as we know a 'disable slot' command will be
-queued shortly.
-
-Another option would be to add an actual 'disable_slot_pending' flag to struct
-xhci_virt_device, and set it in xhci_disable_slot() when we really are queuing the
-disable slot command with lock held.
-
-While looking at this I realize that xhci_disable_and_free_slot() might also race
-with xhci_stop_device(), but that change doesn't need to be part of this patch.
-
-Thanks
-Mathias
