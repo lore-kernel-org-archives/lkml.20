@@ -1,57 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672711;
-	b=fXG+ks1h/rTpg5WFFDrlrvqHGPLiQz4/A3MAluDcnScjIFygUCxsgY54x/8WcYEELLsK
-	 xZvczCDqaXwQ0k0lC4QpoRTuLHYI0BeUuZR/uil3w+v+lEnir2dSFVL7MXPE9Haz8kb45
-	 gqZFsZpLz7IkdXgQwzrygR6MgqP+Lk7HeWCmx8qz+PGx6KJsJB+f9rNJ2jE2hj/HcAykW
-	 +MRjyyvaX50aVP1t+Zj7Opoqc+C4qFc4CAHvv0suBvjYHf5uUISpCO/F0xuPQAdmcEti6
-	 71FbIIdKdrp5nAiqBxFsiQ8LBqCzIqVtR1h0DPtsJBjIyAgy/eJLOXbOZlCL1Qw4n7w==
+	t=1793672864;
+	b=q61xQpTV+WZdLP3GfcBkbOvQi6By5KjS8zyT2WzIfx4B7j+a1ju/g0YYrvikiSFoi8yl
+	 v594HcDaDelRXv/xmfj1nLNUpbY2vTeSjUmApXCgk0oxc4Kx1wpyQ3WikC0yA+wwAAEEm
+	 yklaAEczBbfTX8eXwydxlIKN1Hh1CpB9KX4/OhScvHfgPDbzhtYWFBNoYrl1nqA489Gkd
+	 jk7UDCgOjujDJ5kMfbhCL2x/VIYART4W84yn4emaWJf3bGPfm0CE/kOGbvRaxOi5nJ+2l
+	 UqDR76ufhkSn4IaKuEeYvdXf5wtCpEvZL81g6ztwrJ72CmBXQYAeAOJlz3HoLnAUuhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672711;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=CWwu4nFmuifwtyi15MIPpVhu29b6mqsKR5ygqP1PcsE=;
-	b=joJcEJsINq2qQOQF5zCQdLRv4eE3I8R6srOZ9buA7kcW+47ozyI37pk+TEn8RJgKI9fB
-	 /bGjnpFtgAKgZa4dlJ7hUvcAEAncvH9GOn1EPRGQSxgfwVV7IhJzl6skx5sWEZvJQbZt+
-	 GRV9KPeqU98JJsOMakDIyjAqg39xqrD6MzBbRAo9/nnvyEpl0Dn+TQgvAlZoCIXjgPM+G
-	 KRc6f/YCkeGrFaznOVHxe21OB87zHlTpPBmhAqgVTSWk+zE9UR2r212VfJ2Aujx4h4Osb
-	 iFjOGP0IfUl2fbeiLPVODwo8ZR1WPP55kIxQF/9APy9UCZYOrhgEjBlz67KV98XMRhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672864;
+	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
+	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=jwmw9ePHObCEAc7+hakbNtWfd2LgIPfpKlFzZDtHoSw=;
+	b=ImfdgzYb0bo0+fRgNcZSAsUnMUDKlvjCy6V7zNeNtoDQx+JaGG8HJFDAp61+Xx1QgWiS
+	 Lljxh7c595bgKUUOQhO5AvSeIV8QxOulseGVm9VOlymaysSHg0FukOIWpElyurhajesmD
+	 ZsKLWupwUiW5rM0/KIkLcKpZwA9QuerP4dGuy8lNhSwZvX+U4bKz4C+mpZGyEILWGXTDg
+	 v3ZODtwuB1BfEOFyWQuco226/jF3yy6+zt2y/E/soE9/dR5WFa2v1EDvMwn7zGASDnjR9
+	 dmVsy8Ak+pRz1eFn3yTBqmfQJglgNxPjRacElvAkctx7hnDvzTQZr/7nPpx7EHOxi5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=T3WeYxLR;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAF3606A324;
-	Tue,  3 Nov 2026 02:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDAF3606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=T3WeYxLR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=CW
-	wu4nFmuifwtyi15MIPpVhu29b6mqsKR5ygqP1PcsE=; b=T3WeYxLRfHANdLoLbz
-	Er6loyW5qQ0nyJA9nSRtN2BzhlTYqi1WKGaK7XTXayvllUsqR/HdYbj03mr+QdM9
-	pgtoOnuQS1FvIzGJeGJgdPhOPMzi+mk6xlnsFiqvVkY/fEf0hZLGGa1weeLaFOge
-	42I/cgUQ3DN/BGQ9YQyoRaum4=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wCHTc32RelqB+r1EQ--.18526S2;
-	Tue, 03 Nov 2026 10:24:55 +0800 (CST)
-From: Wenmei Wang <wangwenmei0618@163.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wenmei Wang <wangwenmei0618@163.com>
-Subject: [PATCH] KVM: coalesced_mmio: Sanity check the size of writes
-Date: Tue,  3 Nov 2026 10:26:21 +0800
-Message-Id: <20261103022621.39109-1-wangwenmei0618@163.com>
-X-Mailer: git-send-email 2.25.1
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C6736606A324;
+	Tue,  3 Nov 2026 02:27:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6736606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8DxpvCcRulqes8bAA--.15231S3;
+	Tue, 03 Nov 2026 10:27:40 +0800 (CST)
+Received: from [127.0.0.1] (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJAxX8+bRulqcQsyAA--.37690S2;
+	Tue, 03 Nov 2026 10:27:40 +0800 (CST)
+Subject: Re: [PATCH v1 2/2] LoongArch: BPF: Use beqz and bnez instructions for
+ trampoline
+To: bot+bpf-ci@kernel.org, chenhuacai@kernel.org, hengqi.chen@gmail.com
+Cc: loongarch@lists.linux.dev, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ast@kernel.org, andrii@kernel.org,
+ daniel@iogearbox.net, martin.lau@kernel.org, eddyz87@gmail.com,
+ yonghong.song@linux.dev, mason@kernel.org, ihor.solodrai@linux.dev
+References: <20261102072808.23080-3-yangtiezhu@loongson.cn>
+ <c3b8e6ae47164ab1a643a1730f0600993de03c8a30e35122a9812ac73d807697@mail.kernel.org>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <1276eb14-b851-aee7-36ad-d61e2ddd9ba4@loongson.cn>
+Date: Tue, 3 Nov 2026 10:27:39 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,41 +57,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+In-Reply-To: <c3b8e6ae47164ab1a643a1730f0600993de03c8a30e35122a9812ac73d807697@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCHTc32RelqB+r1EQ--.18526S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKr17Gw4xJw48Kw45tw4Utwb_yoWfKwb_ur
-	sYywn7AFyxGr1DtwsrA3yfXFykGw1Dua18WrsxJrZ7Ar1kZan5Xw1DJr95A3srWrsrGrsr
-	trZ5Za4rKw17CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjPC7UUUUUU==
-X-CM-SenderInfo: 5zdqw45hqpvxaqwrmqqrwthudrp/xtbC5hejS2rpRfeoLAAA3s
+X-CM-TRANSID:qMiowJAxX8+bRulqcQsyAA--.37690S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9xXoWruFyxtFW7GF1UXFWUCw15trc_yoWxtwb_Gw
+	1UXFn7A3yUJF93KFs2gFs3Zrs7tF43Zr4rAryxZrWjqry7GrWkWF98JFyYva15WF93Ars8
+	Zws8uw4furnxZosvyTuYvTs0mTUanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbDAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8
+	JVW8Jr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2
+	x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5
+	McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7
+	I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF
+	x2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r
+	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij
+	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr
+	0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF
+	0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jz-eOUUUUU=
 
-Each ring entry has a fixed 8-byte data buffer, but the write path only
-checks that the access falls within the zone, not that it fits in the
-buffer.  All in-tree users of the MMIO bus cap accesses at 8 bytes, so
-this cannot be triggered today.  Reject oversized writes anyway instead
-of trusting every caller to uphold that limit.
+On 2026/11/2 下午3:53, bot+bpf-ci@kernel.org wrote:
+>> LoongArch: BPF: Use beqz and bnez instructions for trampoline
+> 
+> TL;DR: Commit message only: the claimed branch-overflow risk looks impossible,
+> since trampolines fit in one page and the old code behaved identically, so the
+> Fixes: and Cc: stable tags may not be justified.
 
-Found by reading the code.
+...
 
-Signed-off-by: Wenmei Wang <wangwenmei0618@163.com>
----
- virt/kvm/coalesced_mmio.c | 3 +++
- 1 file changed, 3 insertions(+)
+> Could the changelog drop the overflow-risk wording, or describe the change
+> as a cleanup, and could the Fixes: and Cc: stable tags be reconsidered given
+> that stable-kernel-rules requires a fix for a real bug?
 
-diff --git a/virt/kvm/coalesced_mmio.c b/virt/kvm/coalesced_mmio.c
-index 3b5430036cae..fce38f1c8054 100644
---- a/virt/kvm/coalesced_mmio.c
-+++ b/virt/kvm/coalesced_mmio.c
-@@ -53,6 +53,9 @@ static int coalesced_mmio_write(struct kvm_vcpu *vcpu,
- 	if (!coalesced_mmio_in_range(dev, addr, len))
- 		return -EOPNOTSUPP;
- 
-+	if (len > sizeof_field(struct kvm_coalesced_mmio, data))
-+		return -EOPNOTSUPP;
-+
- 	spin_lock(&dev->kvm->ring_lock);
- 
- 	/*
--- 
-2.25.1
+Will update the commit message and remove the 'Fixes' and 'Cc: stable'
+tags. If no more comments, I will send out v2 next week.
+
+Thanks,
+Tiezhu
 
