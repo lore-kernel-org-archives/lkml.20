@@ -1,85 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705844;
-	b=m4DvDB8S1RF9pMoMFS9AvxDpbtaq3V5Z4uc4PTyhh6vjuwxansTPQ9WWxU25O14DrPG9
-	 fsN6aTsFrAP9/ekhsmkaSmjKIqzRXAN7I1VCqBj39omBOqQxScL+a6eWCK0uHeucfx2j8
-	 /AAgHMiWFVeHs+/O3o0x9IAJu91BsA313ba3NTrWU56LwUlvx8k0hxpKh1cinLP/nErys
-	 VzkiOdZ1lIsGRrB1ky8LInQFCmkl1MslfRwwVPrCwthaYG+LZoJaiFGEuOaUZfKhmYORe
-	 edbaLf2rAnbIPX/S4i6fHpi9eR4KPJ3Ml6CnEvtxOSw7xShPmsimADr+MtuW3wahlOw==
+	t=1793705852;
+	b=xUm+bGYQvbh+aYyuZyv/uUQvOP3ocGhQ1Il7fZj+Ueun6g240oorhuyUWatehQNZXshJ
+	 6IUJbbJmm5MqukScLLenUHgkbuFRU4ggqCp0HYbbNKuIPPbjsaNQoB64WUALO4n5HmSaL
+	 xoUmTvk183bR1VaDaEbGMEZCOwxN5xAR5FxmU4PehKzsLqL/NzLc87M700FR4lRL+lPMU
+	 BaQLw31DtntvNWHPuP0/bW+oNaZJFWbGVsJKz6oboIC+yxRK58a8ghqorU2KQ2PgwgCLL
+	 18rb4FUn/CQK76o1ziVetV7lfZCIhX7udmwMcFQPRoxa+NpsFudqkGdi2a8h4XXpZlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705852;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=0bwrQXRz1nV2S/H83UR+VWVa5zJUqJhABatAjcFjujw=;
-	b=VInqrkm991C9S5VocB1n3zFrxDRkRLUGMyRnTgu0scxRsaWzAWgSBGdLYLWHbnKjONhB
-	 /yifWCtjA3C9PKj5T5/UY1PKYSu//OBKYla8aPAwQuF1PbCIBK8pLiOqZk10eYfL+lIj/
-	 6MLPGcvInRAwt1Rd23ZXa3/NUVZo7ADiRrRld8/jcOhlhI1aVgXWpexsJnh//A9lYC357
-	 TlX/xtFl8f4AVfiKKcggfwvM8jQrXN7LYH5uXbqi7hhks2+g8WQfsf1xT+pMPu2h09KiI
-	 Jj3XdOBbhrQiIokF42arjaTwiMWKsaPTGRIwaQ57INEob2vYFPsS5gA79YGRBIlqr2Q==
+	bh=IsKP26C+4uK+emKCr1xcjNZltVUV41qm/vZF8BC5G1Y=;
+	b=lQn7IMhzWvijRuXmNpNIdFz0wYMv0wTe7kpNYZRHPFksSgwbhOVDVLjHkIEcXM9+az/p
+	 QmvxTAO27fHTzOHu9oILGJ4RxUe2nSYpkLN1roiCbxZVT0xR2H5gviCSDqI0Kk7edhad/
+	 uk0UWtbESy36Ry6p/pZQg6zTra88BJC2+VUNqZQ8UO6iHExYvL7FYey7LoTADpTGyIpcV
+	 tiNjVgIp/H3YmUjVVhynlCU0eGrh9hJeuFPosEj2ZMcN0ZAH3yovgNRg3kgaMsvO8drtk
+	 /Egrj3dtGvy94G76vMyRZfQqBsUyQs2ObpzJaS23U0C67ubKGjEVkMAs67xe0fhoGIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ionos.com;
 	spf=pass smtp.mailfrom=ionos.com;
-	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=Op1fG3nb;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=OqnZvdGr;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB0F6082BC0
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:37:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFB0F6082BC0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821F360A2614
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:37:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 821F360A2614
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=Op1fG3nb
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso45470935e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:37:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=OqnZvdGr
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso2484000f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:37:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1793705842; x=1794310642; darn=vger.kernel.org;
+        d=ionos.com; s=google; t=1793705850; x=1794310650; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0bwrQXRz1nV2S/H83UR+VWVa5zJUqJhABatAjcFjujw=;
-        b=Op1fG3nbG/RdYrz9q5mhMvv1lShzStkFtX9ySl30ncpCUWzvrwAc2vodSKoukMeDX0
-         rBH0VPll5+OIEbLOkYAupsayDFJ0cNZRURefAPC3UdkqVsY4RaUqRhnfbz6S8WhyKqeO
-         Q+YQM4SONCXqQruwrARZ094Dot/WVIe4bxgzFJI2OmRJSDbRg34N+512RnMYiwELgjpj
-         Ki/t1yy0CSlMnHvF3mSXImL3SYXzxOLq4V76yG52EtEy15tHfGu6AUJIe84jB4NUQlgm
-         8f6iTzSHXAhLzW7Z2F1sugQe2UJIfY/SX7bqqp/SLk6NSpuhWXiw0+Gln5IS++mWv0Uz
-         ZPzg==
+        bh=IsKP26C+4uK+emKCr1xcjNZltVUV41qm/vZF8BC5G1Y=;
+        b=OqnZvdGr7oKaBQXj79USnk3s8lZBQrS/KMUdL6ZQzFzA1UyHvDX8eY4wNAXYnlpsEh
+         0S+U0Mqg+ENxsPh8s4nJZW80ztlQwl1zH79w49YP79ha1Gxe9QW8mLl0E1ZiUoKUuhgq
+         NwptN/Ui3HcG3VTOjxYP7fdkw9NHTSJRpWtGPWNPTrRfDvEST/zI7+PYPYRubt/Y83lh
+         /o7o4bp8VYv8jcEI5NUgO6DTMiLRcVUHS7bTX9pVIB33MHrXMEIEK76IeYERYstR86z/
+         jRrmSqyhimPa5cPENpWuv/TtqB5upXBVtmtNZYb2CqVa/g+5dhgomvt6jK6MbroCPTL7
+         Y/7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793705842; x=1794310642;
+        d=1e100.net; s=20260707; t=1793705850; x=1794310650;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0bwrQXRz1nV2S/H83UR+VWVa5zJUqJhABatAjcFjujw=;
-        b=G+ue/c33B3lR09LeFA1g4XFk+xdnWOUQ/hePk6F8LEovTQ30l69BPZF8EoyXvKC1t8
-         oldHqeF4cBcwxtHl+X71pXl1o3AAnipf3yJu9v1rGdICe5SW7YsxxnNGB/YVS49rR6SS
-         vih+D5ACW1V8TVhywNTDLcn9EwYtuSTMWg9qcMjZx25oJnAiuruXKtbW8lUlHQlVF/ba
-         6VHUTXGW82El4JLcGX33Xr2FV+YXHwT/Svr+2GFIS2RZVazSYfdlvT+De1nRl9ptg3lu
-         8FgrIhQ9XF1H/yYmYaSXzxagLye9UotNyAsW9n2u5yczd+Uuqa4c83U57b11suEalXAa
-         pjjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjjuqU8I28xndX6WXuthFVmimVEpaJHqZT5wVVYd4MQrBU0+9o/KSCTXpDvWpyAwWJ5icBWlw31KWNvHk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1P8HXT5WWdygDFr+8ZUH5EtULGFeytyizporzffvLmqkm+Nza
-	a18Z5Qu7KmPRLQ2HGRsyDf5bevIHlVH0x6D7Mq7y7f+ac4nNwyjK683ESlvKbbS/Kn//cn1t7N1
-	Ngoc0M3I=
-X-Gm-Gg: AYBFou1d6fJSbQQG9bOOlpRNPevbk+Pqa7tHYkGA3rC1iplbwZO7esDWWygNuk95j/P
-	uNZZN16QGYPickXc5jxBQzVWrFtdt2BwrT/HDKIr2RY70FPlX4sUzw361y69ohA5OVzZwjNQPLM
-	HFbv/UnhI6AcAftq5HWlovuYNkLq49BFZtZg6IdIi+hjymUsIh7lkYRR3ghJbl3zDPJgNgNgtUF
-	vlVcfF8vQHASiAUU6OB/gGuqwTDrf88ZWCROFSRp06xji+b3kbwPlIUYWV97iu2MwKkvP3k2JUh
-	1cgpe+X/okkUZxkY/LNIHBJ0iq0nXpD/5UVltFEnsIPXIbwP0xQlibpm3sDdiq3CKLC7qWYwo9H
-	Olohp7ur/K67xTELroPtBQ7Dj+O2bgdklX/yjn8DWCllOo0BoKWOsc8zCICLlaMruyqIYd/da1/
-	hP4LNLKz44posxYaIojP3XQz9vVuCBFQG2xh8mTF0wWZcjEEc1cn9u2ETBdJ+WxBqvi/7PMcf4e
-	AotW4BllznSbKAGWUd1R31/tYGeaam7zPkiXlvTrhwrJw/v2L5MEoM9R+uc7L+eKxbjXiyJo7XS
-	x1PkuZSRXI6EOpgRsI+Q0KuR+91cPc6gtCxlz7Mii4rkJBzEh2igsOl9HesIPR6WkRcQhmRkerE
-	jxxTKFRCS+g8P6b4MsMRojQIsEcZ9QA==
-X-Received: by 2002:a05:600c:a00d:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4ac185bc336mr278107635e9.18.1793705842252;
-        Tue, 03 Nov 2026 03:37:22 -0800 (PST)
+        bh=IsKP26C+4uK+emKCr1xcjNZltVUV41qm/vZF8BC5G1Y=;
+        b=eehcs9Sxfa+kBjwjRvL1CPooRsq8B3KQP/RzS48AgPAJ4ySBgs09wxctFLt7JzqgdK
+         zVOk5DuJO33vzKrL7WfyQyaIIbbxgBdm5iAqchLtdob1MkhjO/SwAZmGvB0YKDCBA4eR
+         VDkVEsY6bLuKCmZtJ++RwNHQjl0010QqgOwxYNqgbRlc05yWzvi77oHAimlPnDJ7m8lj
+         XR0VbdZlE1q2Tx2CSn4XEHAL4YPXQWSod8QS066ZJuyYdvOZ6qhom8g31pjj3uxM50cy
+         oE13a5kWFJPup+O8N2HrtW5+ClSWQQKTGnXchHazimpreWNL1MNJGOzx213tcLBpxaIO
+         SiNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwMm30aK6B5tIf3QRX7iJczNtd3LSwpmQePe7ZcUkdk22/9ou7AwMxe3/Xu+AbvAueZP0XJVnbYqGLbKf0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wd8T8wvfE5CJCBoxUjmMd8PZK7n2LLgtHXIz5ECwknNC9a29v
+	zrbADcmh6gzK3wr+4tOgfdeha0oug2P7Vt/X0TIAVdhcSnOzuiV7eRExTiDLAkTWOQg=
+X-Gm-Gg: AYBFou2efR26gcui8zPFG+hbgKENruIANQ9S+kL6Yerrq7GIlL6AJZXYvYyuFc3mlmu
+	cTZYSd1hGg0wAiWFb6mlYawsjuSiLPZQTcUQ8WE4VxyKxCLizB0wdvGt0uRAJ96kkHZghNDORn2
+	A4rUTlj7GW0e38vdabJgU0gwn1RvrmawIo3qpANUqT4bDdHOrKug9FO9mB3RhMgYQ4i49+LCeel
+	1WwoA89IOPkFNJwCAb+wjYbj0y+o4E8cqwcOyqHameVhH/14WAGcrAIZCisLcpceCEIKAO3HiIE
+	Dm1QcRuSAqGsoy3Mr1rpFY1eYwDyfHLTJuITUfwgNhspT/+nRUMaNs5ZZwJDtVvp9B65a6c0Ykv
+	d71Pru/MPY3qubAC/XYvwa/E7kXfkHlb8tq1dC1fI1UPO+GIaJ4Gf7vggrMGMXaPg+J9EV7LFXr
+	DWVf9p9DzBMhlRgNNGoALOYkNsdaNcaRTzJSV2ZkTT1P+V17o2N8Op1peeN1V5srisezsi6pqdq
+	R19XJWWlV3dKlJadKFPc4LcC1hHSdkGUtft8XJ85OxzOUQfvAuegpWtcmfiNZfeMIy6HZlj/V/r
+	GkKt5Gw9vExhpjKadr8U1ZTLI9zVtUS3M+ZNlCPN8jlWCjs16N1SYpp1/iazRs3hrqgqoa1v7F0
+	D0F8RCLVsTtaN9xg4CDAgVQ0fOr7dhw==
+X-Received: by 2002:a05:6000:240e:b0:48e:76ab:78f7 with SMTP id ffacd0b85a97d-48e76ab7f2bmr21607663f8f.20.1793705849795;
+        Tue, 03 Nov 2026 03:37:29 -0800 (PST)
 Received: from raven.intern.cm-ag (p200300dc6f04b700023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f04:b700:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78f95sm23000997f8f.28.2026.11.03.03.37.20
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78f95sm23000997f8f.28.2026.11.03.03.37.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 03:37:21 -0800 (PST)
+        Tue, 03 Nov 2026 03:37:28 -0800 (PST)
 From: Max Kellermann <max.kellermann@ionos.com>
 To: akpm@linux-foundation.org,
 	kasong@tencent.com,
@@ -103,9 +102,9 @@ To: akpm@linux-foundation.org,
 	linux-kernel@vger.kernel.org,
 	rcu@vger.kernel.org
 Cc: Max Kellermann <max.kellermann@ionos.com>
-Subject: [PATCH v2 1/5] include/linux/rculist_nulls: add hlist_nulls_add_behind_rcu()
-Date: Tue,  3 Nov 2026 12:37:06 +0100
-Message-ID: <20261103113711.1832834-2-max.kellermann@ionos.com>
+Subject: [PATCH v2 5/5] mm/mglru: reschedule between memcg reclaim attempts
+Date: Tue,  3 Nov 2026 12:37:10 +0100
+Message-ID: <20261103113711.1832834-6-max.kellermann@ionos.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103113711.1832834-1-max.kellermann@ionos.com>
 References: <20261103113711.1832834-1-max.kellermann@ionos.com>
@@ -120,70 +119,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move some code from hlist_nulls_add_tail_rcu() to the new function
-hlist_nulls_add_behind_rcu() for callers that already know the last
-node of an `hlist_nulls` list, to allow constant-time appends.
+shrink_one() can return immediately for empty or protected memcgs, and
+try_to_shrink_lruvec() can break out before reaching its
+cond_resched().  A scan through many memcgs can repeatedly rotate
+entries without giving other runnable tasks a scheduling opportunity.
+
+Call cond_resched_tasks_rcu_qs() (as the existing shrink_lruvec() loop
+does) after shrink_one(), while the memcg reference still pins the
+cursor and before reacquiring the RCU read lock.  Also call it between
+bins and nulls-marker retries, covering scans that skip every entry.
 
 Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
- include/linux/rculist_nulls.h | 36 +++++++++++++++++++++++++++++------
- 1 file changed, 30 insertions(+), 6 deletions(-)
+ mm/vmscan.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/include/linux/rculist_nulls.h b/include/linux/rculist_nulls.h
-index a97c3bcb1656..054e477dd093 100644
---- a/include/linux/rculist_nulls.h
-+++ b/include/linux/rculist_nulls.h
-@@ -115,6 +115,33 @@ static inline void hlist_nulls_add_head_rcu(struct hlist_nulls_node *n,
- 		WRITE_ONCE(first->pprev, &n->next);
- }
- 
-+/**
-+ * hlist_nulls_add_behind_rcu - append after the last list entry
-+ * @n: the new element to add to the hash list.
-+ * @last: the last element in the list.
-+ *
-+ * Adds the specified element after @last while permitting racing RCU
-+ * traversals.  @last must be the last list entry, with its next
-+ * pointer holding the terminating nulls marker.
-+ *
-+ * The caller must take whatever precautions are necessary
-+ * (such as holding appropriate locks) to avoid racing
-+ * with another list-mutation primitive, such as hlist_nulls_add_head_rcu()
-+ * or hlist_nulls_del_rcu(), running on this same list.
-+ * However, it is perfectly legal to run concurrently with
-+ * the _rcu list-traversal primitives, such as
-+ * hlist_nulls_for_each_entry_rcu(), used to prevent memory-consistency
-+ * problems on Alpha CPUs.  Regardless of the type of CPU, the
-+ * list-traversal primitive must be guarded by rcu_read_lock().
-+ */
-+static inline void hlist_nulls_add_behind_rcu(struct hlist_nulls_node *n,
-+					      struct hlist_nulls_node *last)
-+{
-+	WRITE_ONCE(n->next, last->next);
-+	WRITE_ONCE(n->pprev, &last->next);
-+	rcu_assign_pointer(hlist_nulls_next_rcu(last), n);
-+}
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 899f756bd15b..5dc5e698e243 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5395,6 +5395,9 @@ static void shrink_many(struct pglist_data *pgdat, struct scan_control *sc)
+ 	gen = get_memcg_gen(READ_ONCE(pgdat->memcg_lru.seq));
+ 	bin = first_bin = get_random_u32_below(MEMCG_NR_BINS);
+ restart:
++	/* Yield between bins/retries that contain only skipped entries. */
++	cond_resched_tasks_rcu_qs();
 +
- /**
-  * hlist_nulls_add_tail_rcu
-  * @n: the element to add to the hash list.
-@@ -143,13 +170,10 @@ static inline void hlist_nulls_add_tail_rcu(struct hlist_nulls_node *n,
- 	for (i = h->first; !is_a_nulls(i); i = i->next)
- 		last = i;
+ 	op = 0;
+ 	memcg = NULL;
  
--	if (last) {
--		WRITE_ONCE(n->next, last->next);
--		WRITE_ONCE(n->pprev, &last->next);
--		rcu_assign_pointer(hlist_nulls_next_rcu(last), n);
--	} else {
-+	if (last)
-+		hlist_nulls_add_behind_rcu(n, last);
-+	else
- 		hlist_nulls_add_head_rcu(n, h);
--	}
- }
+@@ -5425,6 +5428,14 @@ static void shrink_many(struct pglist_data *pgdat, struct scan_control *sc)
  
- /* after that hlist_nulls_del will work */
+ 		op = shrink_one(lruvec, sc);
+ 
++		/*
++		 * Empty or protected memcgs can bypass the
++		 * rescheduling points in page reclaim.  The memcg
++		 * reference pins our cursor while we yield outside
++		 * the RCU read-side critical section.
++		 */
++		cond_resched_tasks_rcu_qs();
++
+ 		rcu_read_lock();
+ 
+ 		if (should_abort_scan(lruvec, sc))
 -- 
 2.53.0
 
