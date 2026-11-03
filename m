@@ -1,65 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740995;
-	b=UPfFDTNRWWhAW/3kt5TuKHhcs94ajpwl0Q/GHdXSWoEujLYIVqTQvodb7ooY73aZPga8
-	 JpZ63pIvZCzoEb1EJCIrAVg2H5v9BLnia6UytKJNfG4jcDPkQ4ByNAf7r1qwBvE5EZJNs
-	 e5YMXmR2wQ2qH8BP+Z1iWceou+FJ6X1IrZlY7HIhDsxa9iXCccas6fYQxFpLe3UKBwdGs
-	 bfL64vMWPf++AlxaRNu9ob4vdpZ49foXGYs8T4SfiA9xX4I5pzjBvkaXu16Le7YQTat9i
-	 gTPwfS8+/DJRAWZUMSMISvM93gUMu9MgrQ3FZP2XCyiVDJqDKYkYfXG3wdV2euzM3zQ==
+	t=1793741000;
+	b=ZrSLIb/cXXqjgzgkMKsv4XORp4wwRP2iUlkakFKOHGqD6HF7UnlaCZZkuDnGlHzeoims
+	 J07dTuibUhBivtup7EJGqPxTxauSJMvB4HVTaWnlnFjypORi1Z/gtY0A2qY/7PYlWO2ti
+	 jwa4UKk4Anqk2EofTDdIzS8Ig2U785BBRyFA5bsZNwpDnE0Ixd4JQV+PO55AdNpXQEcc8
+	 SOr2Mc0mntx6HeWD6zvVv2JqZ5QgaNb34EbrmLs0p3uNUT9snah69u3SrElIO968pwngP
+	 AtGvSJQoKT9tX9ApecwQqzTgKQwFMBuZAtUvbbXy+1r9lTqNUr00AzJ45XGyse4rM3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793741000;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=qYRiGQ3KNp0bEqyQAn08IyMyimUsWPwAs+MRr512r9s=;
-	b=QMTRnWU926JCmoc3ibLmvlMw0nGf5brM1rwnqD0WjPjeFWOXZg4jCUAvLZ1sBD4NU4gq
-	 oSw+vn0oWpKjx5niWKQzZr7GGKBxAopzYez/gmccXz8wD1eDUY+RfGkA6ozduhDEOL0Hy
-	 YLaNDWSnid4swWYbcspOeyjZWKg/j+I7bYIyYNpal51NcK9KaDgi8MFOIYOJ/dm/dIiwJ
-	 upfOMCOTXLLUychXofhFElZjpj+j7c3mxH4TTW6PWVqmDP+42yAmocky0pTGtfobk1YOX
-	 9Mk+Uqbhc+JT1tGTIkQHPdhI0LTryfic73GJC0VjyTi13Yt1PBnAANo/Pj9AAAVikSg==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=B50Jt/cYyCUsUbYxbYjKwAXm6ulIX4rJxYjs5Njyqgg=;
+	b=2AVqC4Ir8OAQGfv0DGVZI1yRFF22wwQHjou0TEDDDzTfYklvpfBK29+EiYtbNJ0y2srT
+	 PbTibppsyFSLvnwgp5TS350Eb9YL+0NZO9CN0Df6uHJnTdR1dOidplsmTMsEXeCaoXkSO
+	 tQ0/2OIXOAbpD1tZ0tXb2f1Enfxas539ivqOrSY5V0rISpRpoM2+A6M0r9qGKWD5l4gxT
+	 G13Rr9AMmfaMaD4qOdvekBcq/EZ35wt4/lMgpCX3p6QGc557xUKglGB8rOvEeVIfFMjxS
+	 HkVd8mmhog7K8wB4EiCj2MdQOLeUSe1WCLhP+1LXM/EPg3dxOSnGvaRjJleTs0TlnJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="CIAzSO/j";
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="B8/Gf1hW";
 	arc=none smtp.remote-ip=192.198.163.11
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A155606A32E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:23:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A155606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18295606A33D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:23:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18295606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CIAzSO/j
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B8/Gf1hW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793740993; x=1825276993;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=8kDrjnLmp6W3GIQokEeixHyPlF6zEwaEEjSFy9Pt0VY=;
-  b=CIAzSO/jXw/HjBiznVOxdDAjk2uhmhaiAM1nTqJFr+QwcM3ZKLB/cF1j
-   FPNdnJkYjrCWvt0GUO9tWV5/aWc8hhKEkOT5MsiCIIpNTI9xKBick/L84
-   MWJje0wvgWrrKbfejT/hoTC0CRlUTM6B//PZbaMkpKD0jCAw7sVj7oybe
-   TzvmW0nsJwLVn77ijxwHtUTG3ENlfArMNX1uCzc61MooBMqFfpUon+smy
-   G1zMskSYQv50U9esEIYexU4r2bg/DxvDGG104D/I+EHt3vtL5S271TKRQ
-   zQAi8lXvjEnYF4Wrw4g8ecPA7bTlF9B0u4h9+IId9Th2G/YVxnEdCRjXg
-   w==;
-X-CSE-ConnectionGUID: C8hUN1/FQJWU8WgwkZLIdw==
-X-CSE-MsgGUID: 9SxALP5tSkKPLVbslOFjAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2393478"
+  t=1793741001; x=1825277001;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=cqXd4OJlpWZioZ2BGrFu3nNs3QMLDFpa1lSgaTSP2YA=;
+  b=B8/Gf1hWvVHNvb0gdz03l5OWck4kTtJLS1deApWcV1whnsw5dsj3oAWg
+   jCDT/UJcrXSaXH6dDtpF23BPvmg3pwyvgMKDHM7uGe6mlrlOx5Q1nvYR7
+   2nHriLL0LX1RlK0k9iujzRvQPh+lcARuK3Tan9EjGRIOswN2oQG/+0TLi
+   YnjlF+9rBdN/aw6SOuvjQzhqonP6sT6R/b5u6SGt+tVHLENR1Ux4gezhA
+   fI8Kczo6qgBlztyt8BwW6nF79CYaFReIv030x405F9lv/gzq14FxJVrOS
+   EvU1rNKcAjjofdvixR85flK8KFkQ0aJqPvwwWms8MFuIktH1cbLw2tKeF
+   g==;
+X-CSE-ConnectionGUID: 2rl1MmX8RsGnNcOJzIyuuw==
+X-CSE-MsgGUID: vr4RJHI9TK6WZ2R2uKN4bA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2393504"
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2393478"
+   d="scan'208";a="2393504"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:23:10 -0800
-X-CSE-ConnectionGUID: vhMMWsasSUC2qDInYo2Ecw==
-X-CSE-MsgGUID: AQD9sFJFTge4eiQB92AAeQ==
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:23:11 -0800
+X-CSE-ConnectionGUID: qJjEI5YhR66nUCseUqgaRA==
+X-CSE-MsgGUID: 2OS6y/brR+mVshcnd6MpHw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6624545"
+   d="scan'208";a="6624579"
 Received: from rosenzwe-mobl1.amr.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.124])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:23:06 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:23:09 -0800
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -74,10 +75,12 @@ Cc: x86@kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [RFC PATCH v2 00/11] x86/resctrl: Support asymmetric L2 CAT on hybrid CPUs
-Date: Tue,  3 Nov 2026 13:22:43 -0800
-Message-ID: <20261103212254.18314-1-tony.luck@intel.com>
+Subject: [RFC PATCH v2 06/11] x86/resctrl: Pass the CPUID leaf to rdt_get_cache_alloc_cfg()
+Date: Tue,  3 Nov 2026 13:22:49 -0800
+Message-ID: <20261103212254.18314-7-tony.luck@intel.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103212254.18314-1-tony.luck@intel.com>
+References: <20261103212254.18314-1-tony.luck@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,80 +92,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Stil RFC as it builds on Reinette's multiple control patches[0].
+Symmetric and asymmetric cache allocation parameters use the same CPUID
+subleaf format but different leaves.
 
-Some hybrid CPUs (e.g. Panther Lake) have L2 caches whose cache
-allocation capabilities differ between P-core and E-core domains.
-Today these show up as symmetric L2 CAT, on just the P-core. New CPUID
-leaves enumerate asymmetric allocation separately, including per-domain
-capacity bitmask (CBM) lengths.
+Pass the leaf number to rdt_get_cache_alloc_cfg() so callers can select the
+enumeration leaf. This prepares the helper for asymmetric allocation without
+changing current behavior.
 
-This series teaches resctrl to use that enumeration:
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+---
+ arch/x86/kernel/cpu/resctrl/core.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- - Define the four Intel RDT CPUID leaves, and add the asymmetric
-   L2 CAT/CDP feature bits, CPUID dependencies and rdt= boot options
-   (l2cat_asym, l2cdp_asym).
- - Disable symmetric L2 CAT on Panther Lake, where it is misreported.
- - Clean up rdt_get_cache_alloc_cfg() (failure handling, leaf argument)
-   and the RDT allocation feature checks to prepare for a second leaf.
- - Move the CBM length from the shared control to each control domain
-   (touches fs/resctrl, x86 and MPAM) since lengths can now differ.
- - Enumerate asymmetric L2 CAT/CDP from CPUID leaf 0x28 when no
-   shareable bits are reported (resctrl cannot represent them per
-   domain). info/L2/cbm_mask reports the minimum CBM across domains.
- - Change the "max" file to show per-domain values, matching the
-   schemata format, so the UI needs no change for asymmetric controls.
- - Document the new options and the cbm_mask semantics.
-
-Changes since first RFC[1]:
-
-*) No new/renamed resource or control. Just keep this as "L2" for both.
-
-*) Keep the info/L2/cbm_mask but make it display the minimum mask across
-   all domains. Naive legacy s/w may use this and waste some cache.
-
-*) Chen Yu pointed out that I don't need to search the resource for the
-   control to update the domain. Drop the helper and just update the
-   bitmask length in domain_add_cpu_ctrl()
-
-*) Find per-domain cbm_len for L3 as well as L2 cache (though still only
-   look for asymmetric L2
-
-*) Intel L2 caches don't have any shareable bits. Check that the
-   shareable mask is zero (as this series doesn't update file system
-   code to handle asymmetric shareable bits).
-
-[0] Link: git://git.kernel.org/pub/scm/linux/kernel/git/reinette/linux.git resctrl/controls_rfc_v2.4
-[1] Link: https://lore.kernel.org/all/auDiLEujZ5BGCACj@agluck-desk3/
-
-Tony Luck (11):
-  fs/resctrl: Change UI of "max" file (merge back into earlier patches)
-  x86/resctrl: Disable symmetric L2 CAT on Panther Lake
-  x86/cpuid: Define Intel RDT enumeration leaves
-  x86/resctrl: Add asymmetric L2 CAT feature bits and boot options
-  x86/resctrl: Handle cache allocation setup failures
-  x86/resctrl: Pass the CPUID leaf to rdt_get_cache_alloc_cfg()
-  arm,x86,fs/resctrl: Store cache bitmask length per control domain
-  x86/resctrl: Use cpu_feature_enabled() for RDT allocation
-  x86/resctrl: Accept asymmetric RDT allocation features
-  x86/resctrl: Enable asymmetric CAT from CPUID leaf 0x28
-  fs/resctrl: Document asymmetric L2 allocation options
-
- .../admin-guide/kernel-parameters.txt         |   3 +-
- Documentation/filesystems/resctrl.rst         |   8 +-
- include/linux/resctrl.h                       |  12 +-
- arch/x86/include/asm/cpufeatures.h            |   3 +
- arch/x86/include/asm/cpuid/types.h            |   4 +
- arch/x86/kernel/cpu/cpuid-deps.c              |   2 +
- arch/x86/kernel/cpu/resctrl/core.c            | 138 +++++++++++++-----
- arch/x86/kernel/cpu/resctrl/rdtgroup.c        |   2 +-
- arch/x86/kernel/cpu/scattered.c               |   3 +
- drivers/resctrl/mpam_resctrl.c                |  14 +-
- fs/resctrl/ctrlmondata.c                      |   9 +-
- fs/resctrl/pseudo_lock.c                      |   2 +-
- fs/resctrl/rdtgroup.c                         |  56 ++++---
- 13 files changed, 184 insertions(+), 72 deletions(-)
-
+diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+index 6df8e3c03289..7981ddbde8c9 100644
+--- a/arch/x86/kernel/cpu/resctrl/core.c
++++ b/arch/x86/kernel/cpu/resctrl/core.c
+@@ -348,7 +348,7 @@ static __init bool __rdt_get_mem_config_amd(struct rdt_resource *r)
+ 	return true;
+ }
+ 
+-static struct resctrl_ctrl *rdt_get_cache_alloc_cfg(int idx, struct rdt_resource *r)
++static struct resctrl_ctrl *rdt_get_cache_alloc_cfg(int leaf, int idx, struct rdt_resource *r)
+ {
+ 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
+ 	struct resctrl_hw_ctrl *hw_ctrl;
+@@ -357,7 +357,7 @@ static struct resctrl_ctrl *rdt_get_cache_alloc_cfg(int idx, struct rdt_resource
+ 	union cpuid_0x10_x_edx edx;
+ 	u32 ebx, default_ctrl;
+ 
+-	cpuid_count(CPUID_LEAF_RDT_A, idx, &eax.full, &ebx, &ecx.full, &edx.full);
++	cpuid_count(leaf, idx, &eax.full, &ebx, &ecx.full, &edx.full);
+ 	hw_res->num_closid = edx.split.cos_max + 1;
+ 	hw_ctrl = kzalloc_obj(*hw_ctrl);
+ 	if (!hw_ctrl)
+@@ -1065,7 +1065,7 @@ static __init bool get_rdt_alloc_resources(void)
+ 
+ 	if (rdt_cpu_has(X86_FEATURE_CAT_L3)) {
+ 		r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
+-		ctrl = rdt_get_cache_alloc_cfg(1, r);
++		ctrl = rdt_get_cache_alloc_cfg(CPUID_LEAF_RDT_A, 1, r);
+ 		if (ctrl) {
+ 			if (rdt_cpu_has(X86_FEATURE_CDP_L3))
+ 				rdt_get_cdp_l3_config();
+@@ -1079,7 +1079,7 @@ static __init bool get_rdt_alloc_resources(void)
+ 	if (rdt_cpu_has(X86_FEATURE_CAT_L2)) {
+ 		/* CPUID 0x10.2 fields are same format as 0x10.1 */
+ 		r = &rdt_resources_all[RDT_RESOURCE_L2].r_resctrl;
+-		ctrl = rdt_get_cache_alloc_cfg(2, r);
++		ctrl = rdt_get_cache_alloc_cfg(CPUID_LEAF_RDT_A, 2, r);
+ 		if (ctrl) {
+ 			if (rdt_cpu_has(X86_FEATURE_CDP_L2))
+ 				rdt_get_cdp_l2_config();
 -- 
 2.56.0
 
