@@ -1,77 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710490;
-	b=ldZEHTwzWmhQ9kp9mBSVXP2PdqUMMR7pILFULk4F3E7rjxHGAVVpEpRa9U8Mq3s6HSVK
-	 SKd1YPTlQ/3VoVFA/ypA+W3zgOcpXgkH5FrN+gGrryXYvBvpQzg6phhHKByCepI9kLYOE
-	 cA1O0vTbTrfMqvLTz2F0Yba9Dc5yMF/IU6OKtkzz/m13OUJOUg1CvlHJ21R5YgjcnAwvH
-	 fjBAIg0/E82nKeZY+7xRG5CSyjUoKXU6Qf3QsYa+Ggz3C/ndPJrZ9m4tpmB7gnTpAATxR
-	 NBTogkjeil/qpxGA8emS/SQKlT/FayrbibuceRJOK++2jEsKjYq3XqFd5l8Roqm0I1Q==
+	t=1793710496;
+	b=I4zSo/F6cVSJF/T33deM3UX1hWVjfyAf07b+0sSowbg5lXMs+m26b6JlQgTjrivZugaY
+	 b9vq14btXjRqLhEQsQMbQ2KtKfa51ok3UgEsWvM+i3vigBQkHzqQVtRFzX7ezbqPNFba2
+	 S2IPM5qgus/FIYZfcxuy2s8YiW3+Y5ENxUYQjW03KaKbJ76mIKVSjQ3jO8DYkJHYRZTCS
+	 ZypUD6haDDMqB2qA59pR7fPNxTEyMOYzKJNvNPE2u3acbuq6nNWSrVLp8lN3+uIbPa/bd
+	 Lr6h640fHgADAO3Yp4NoNrfiIiqlXvSpvTf4WwSti87U+o/dugV0A4dODY0+TgibwyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710490;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=SdD3JViuLyebMZNfF0ybXy7U5RuZHTvrIy6Iv8uugos=;
-	b=jrhdnVHjYP0+0Qdbz2qgXxrrAq5TvxqrylfZdkPu5sPFIqmFje4uUTp9xHFW2eUxPuh1
-	 X0Gz2T6kRZwb/pGNQJDNiFlHiYYYa2Z9rl+w7jrdaQJQVhm0m96AynQM60CdvJS3xpj6O
-	 jfl8FuyID9HLDi9LYVMUmMpmUjQe0JIaUZkGl7Pzvt3MdlH2Rnvxx3lZXc3GQbMImt3L8
-	 DsbVXKnTyasvoDP7hVkX5SzaI9KMipLuosNVjLibU50Au1cGUr5C0E8Xt/IM4lxEOHWSj
-	 HoMuK0EQOafsMIVjfByYzZkdIEV2hsoMSqWnvbMHvVWUMOU2PwIzEcQ7NkI8A7c7EMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710496;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=JO/KbpqRGmahZ9r2KBudokt8MXoGc3DC4uUWxLJ/2zM=;
+	b=X+A3vWHibTE2TmDxtRzELUuSXni7KSD9FJvvPUaywEQlFyrUSDslZcXSC7z0u5gI+vXB
+	 Pg9zVg+vhfhoJbYEXQoaW3cZCx0dV0Wi2OENZ4T2cz99e7ApQ6xO7bBpDP3/+dQm2cxKc
+	 R3iV72FpXf+qxvUI6frvM4Bmuz62KGGpUW07lGG0KIWSpOYvhzWgNz891DOUxI4rgXd7x
+	 u7PDP5Uo9XKOcFlm+qxIuswCXZIGgsKHnF6JvLygUQnm8nIZxbwA1qT4A+5Sidok/Fnq/
+	 l4jBZ2jba+TOB8f/OfSlqE9BH1Pwcx53UYNPY7b9zogGmZw6lOLo4oJN6lKO1/uq2gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=x2TJVwRr;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=uWGWFsPA;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F67606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:54:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52F67606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72386606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:54:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72386606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=x2TJVwRr
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 154C9C8F460;
-	Tue,  3 Nov 2026 12:55:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 608486046C;
-	Tue,  3 Nov 2026 12:54:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F2F571032919A;
-	Tue,  3 Nov 2026 13:54:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793710480; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=SdD3JViuLyebMZNfF0ybXy7U5RuZHTvrIy6Iv8uugos=;
-	b=x2TJVwRrLqBUh/xG8SzQmquVkjJvSBFEpYMJWEwUzpeWWGYBRZw8RWw7QJopMbnQsXYn6/
-	1RV2VulSbNAbqLGTcaOshiHYcwaK6mJytKsVg0bOVQ/EIUawWtA78vfnzkBIX3h035VRix
-	nWgMx0bY8fLUXbJwnFIrMEwn8UessDClXNwkF+JL64woNbJSjgfkqnEJW64LudWEFpul2I
-	h9+8YIHBvcrNa3PJicQnIqx/L3EzlpJjvvz+DclHnsv84PgpcUMJPn9p+PtR/C/Cp/5/Te
-	chdNPagkXPkqd9tzv2GZLrdlh5FSKvWJDLH7wksEru6JxaZHm4/RAtdTXcGKgw==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Magnus Leatti <magnusleatti@kernelriot.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	thomas.petazzoni@bootlin.com,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH net v2] net: stmmac: Clear DMA errors for multi-channel interrupts
-Date: Tue,  3 Nov 2026 13:54:28 +0100
-Message-ID: <20261103125430.962715-1-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=uWGWFsPA
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=JO/KbpqRGmahZ9r2KBudokt8MXoGc3DC4uUWxLJ/2zM=; b=uWGWFsPAztpUlV+NjrdR9yjsO4
+	NdkUV/5lRK1erzvmAng8nRXeJdP8IZgYJ6oUpvTw9mb9DcEgOp8anertilf3iAj040777atowP28+
+	M1cNSTvJHS6a9D/p986EMs5VHzyeCXMaRXD+N40S8v7a7eEfEEwKdFNAAVOFm8K60NTP7HjT+NUY+
+	m1hvUiFwkUz83InXgvp4EWoGI8cuxTYRms78Ipuk+zWmehsrQ59accUxjEHXif7TFCaOjdK8R+y6B
+	WWCJX+yFCpkaoJUeshapHi59l1Tx+sMYi7W1XZHeWvyBwpAyvqUIt5L0rnQbJ8fmgb3RWKR8N30aw
+	RyRkQ2/Q==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOE2M-0000000CoCb-1n9I;
+	Tue, 03 Nov 2026 12:54:50 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 1EA39301185; Tue, 03 Nov 2026 13:54:49 +0100 (CET)
+Date: Tue, 3 Nov 2026 13:54:49 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Aleksei Fedorov <ring.zero.sh@gmail.com>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC] sched/eevdf: fall back to the leftmost entity when nobody
+ is eligible
+Message-ID: <20261103125449.GY1779021@noisy.programming.kicks-ass.net>
+References: <20261103124242.102319-1-ring.zero.sh@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,132 +69,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103124242.102319-1-ring.zero.sh@gmail.com>
 
-The Multi-MSI interrupt handler doesn't clear the DMA error interrupts,
-and this leads to interrupt storms when one of these interrupts starts
-firing :
+On Tue, Nov 03, 2026 at 12:42:42PM +0000, Aleksei Fedorov wrote:
+> pick_eevdf() returns NULL when more than one entity is runnable and
+> entity_eligible() is false for every one of them, including curr. The
+> caller then dereferences that pointer.
+> 
+> On Ubuntu linux-aws 6.8.0-1066.69 and 6.8.0-1063.66 the fault is
+> pick_next_task_fair+0x91, mov r14,[rax+0xa0], RAX = 0, CR2 = 0xa0.
+> Five oopses on one Xen HVM guest, from 2026-10-24 through 2026-10-28.
+> commit 1560d1f6eb6b ("sched/eevdf: Prevent vlag from going out
+> of bounds in reweight_eevdf()") is present in both kernels and does
+> not stop the NULL return.
+> 
+> Take the leftmost entity so schedule() can finish. WARN_ON_ONCE records
+> the substitution. It does not repair the eligibility state that rejected
+> every entity.
+> 
+> On a guest booted with this change the warning fired once, on
+> 2026-10-31 16:08:42 UTC, at pick_eevdf+0x22d in kernel/sched/fair.c:967.
+> The guest was still running on 2026-11-03, with no further oops.
+> 
+> Signed-off-by: Aleksei Fedorov <ring.zero.sh@gmail.com>
+> ---
+>  kernel/sched/fair.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 0feec172f..1b940ced9 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1196,6 +1196,18 @@ static struct sched_entity *pick_eevdf(struct cfs_rq *cfs_rq, bool protect)
+>  	if (!best || (curr && entity_before(curr, best)))
+>  		best = curr;
+>  
+> +	/*
+> +	 * More than one entity is runnable, but none was eligible and curr
+> +	 * was cleared. Returning NULL makes the caller dereference the
+> +	 * result. Take the leftmost entity so schedule() can finish.
+> +	 * WARN_ON_ONCE records that substitution. It does not repair the
+> +	 * eligibility state that rejected every entity.
+> +	 */
+> +	if (unlikely(!best)) {
+> +		best = __pick_first_entity(cfs_rq);
+> +		WARN_ON_ONCE(best);
+> +	}
+> +
+>  	return best;
+>  }
 
- - The RBU (rx buff unav) which triggers under high traffic load
+That WARN will likely kill you as hard as a NULL deref.
 
-   This triggers easily with iperf3 and small udp packets, and shows
-   when running the netpoll kselftest
+Also, as I've said a million times before; getting into this situation
+is bad -- something is messed up, find the root cause, fix that.
 
- - The RPS (rx process stop) which triggers when we stop the DMA RX.
-
-   This one shows when restarting the RX logic without doing a down/up
-   cycle, like when attaching an XDP program. The XSK kselftests
-   triggers it.
-
-Let's make sure we clear these interrupts for multi-MSI cases, and call
-stmmac_global_err() upon tx_hard_error to avoid possible races with
-other interrupts/napi.
-
-For that introduce an "ERR" DMA dir, as we don't want to touch the
-RI/TI bits when handling these interrupts.
-
-Both of the above storms have been found on dwmac-motorcomm (YT6801),
-and are triggered by the xdp.py, xsk_reconfig.py, xdp_features.py,
-ring_reconfig.py and netpoll_basic kernel selftests.
-
-This seems to only affect dwmac4, there's no multi-msi mode on
-dwmac1000, and on dwxgmac these interrupts are masked as of today.
-
-Fixes: 6ccf12ae111e ("net: stmmac: use interrupt mode INTM=1 for multi-MSI")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
-V2:
- - Dropped reviews/tested tags as the implementation has substantially
-   changed, sorry :(
- - Discarded the helper, call directly stmmac_dma_interrupt_status on
-   all chans and use stmmac_global_err() for TX hard errors, following
-   sashiko's review.
-
- drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
- .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |  5 +++++
- .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  2 ++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 +++++++++++++++++++
- 4 files changed, 27 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index c74bc7c9750e..a972bee66504 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -382,6 +382,7 @@ enum dma_irq_dir {
- 	DMA_DIR_RX = 0x1,
- 	DMA_DIR_TX = 0x2,
- 	DMA_DIR_RXTX = 0x3,
-+	DMA_DIR_ERR = 0x4,
- };
- 
- enum request_irq_err {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-index 43b036d4e95b..a7caac3c98e6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-@@ -173,6 +173,11 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
- 					 DMA_CHAN_STATUS_TI | \
- 					 DMA_CHAN_STATUS_MSK_COMMON)
- 
-+#define DMA_CHAN_STATUS_MSK_ERR		(DMA_CHAN_STATUS_AIS | \
-+					 DMA_CHAN_STATUS_FBE | \
-+					 DMA_CHAN_STATUS_RPS | \
-+					 DMA_CHAN_STATUS_RBU)
-+
- int dwmac4_dma_reset(void __iomem *ioaddr);
- void dwmac4_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
- 			   u32 chan, bool rx, bool tx);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-index a0249715fafa..02aa1a3dd1e2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-@@ -150,6 +150,8 @@ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
- 		intr_status &= DMA_CHAN_STATUS_MSK_RX;
- 	else if (dir == DMA_DIR_TX)
- 		intr_status &= DMA_CHAN_STATUS_MSK_TX;
-+	else if (dir == DMA_DIR_ERR)
-+		intr_status &= DMA_CHAN_STATUS_MSK_ERR;
- 
- 	/* ABNORMAL interrupts */
- 	if (unlikely(intr_status & DMA_CHAN_STATUS_AIS)) {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 7ffed295eb14..6360605ef5ea 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3145,6 +3145,22 @@ static int stmmac_napi_check(struct stmmac_priv *priv, u32 chan, u32 dir)
- 	return status;
- }
- 
-+static void stmmac_dma_err_interrupt(struct stmmac_priv *priv)
-+{
-+	u8 channels_to_check = max(priv->plat->rx_queues_to_use,
-+				   priv->plat->tx_queues_to_use);
-+	int status;
-+	u8 chan;
-+
-+	for (chan = 0; chan < channels_to_check; chan++) {
-+		status = stmmac_dma_interrupt_status(priv, priv->ioaddr,
-+						     &priv->xstats, chan,
-+						     DMA_DIR_ERR);
-+		if (unlikely(status & tx_hard_error))
-+			stmmac_global_err(priv);
-+	}
-+}
-+
- /**
-  * stmmac_dma_interrupt - DMA ISR
-  * @priv: driver private structure
-@@ -6494,6 +6510,9 @@ static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id)
- 	/* To handle Common interrupts */
- 	stmmac_common_interrupt(priv);
- 
-+	if (priv->plat->core_type == DWMAC_CORE_GMAC4)
-+		stmmac_dma_err_interrupt(priv);
-+
- 	return IRQ_HANDLED;
- }
- 
--- 
-2.56.0
-
+First step though, try something recent, there have been a *LOT* of
+changes since 6.8
