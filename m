@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708031;
-	b=nbKDBm/1pXUmBjUbeMw8Jyp3DPbWgdZ2piH/LQeaG9Lx2MFnRL0WPP2KbYj/gv85pxKS
-	 BWcVstjDjBOr4v7BeyXL1Cn7lZWOC7+jI3jW9IRM4JK48hVIwpXaxaS5mzXMqqVngblh5
-	 9rcD8V+xfKxSA7petBn+pn25dt3X333Em+g0ShqlhUJnXIg4E9bCBtgOlND2Rr1JgAKS/
-	 WAwDiCMB/d8kNIAwOlaq4p4H3VpmI6rq+8072TgX/J+loF5Kagjy11h106NmOFRs6kfj6
-	 AMRZDEfCjMCPNraK1ue1vn4wITWgAZg0OKEx7nFHAvEqX1DJ4tWY9Ht7nJYdvzI/0FQ==
+	t=1793708065;
+	b=HuNIwd1YZkPE+Fz/z0+FdLkPQcohitk2BoIbpqzKiVWy2mQX6MdVomwrHP2N9z+yuBIr
+	 L7EvIBqoft0ntnZtz0UgOfPr3KapiukX77w03a8D7Nl0v8zarhpepg3aqmLsdqHg02E0N
+	 U69SjLGGv/gDTnnEoNiLtldOU9fpW6hm69Lq+btOMFmre6shwH37YA7YlYvyi61ga+4e3
+	 Q0doh3OKlKGJTlPzeUHpfRDWNOispWFzgU1bBEDl4uJLGLBXz0fBGfDg6gmLvk43OcROq
+	 wt32pQ7a76ioO31F2wmDoCln7WJLM6B4S/xrsiUtuWXjw+ETM67Nub07M7wyfiGBVLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708031;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=n/UFdXyrAd5gl0Qey0z6/JDNLQSoV4VYRc31LKxfmJI=;
-	b=cZ9JjyRanUplk98fIPNvl1HwSEWDEUMUhcgJUD9rhvtfDVLvSExPwdCdLZgWJlQZ3KUn
-	 XALPaRYBAHp1t6/GIJYWGjp5OX4ne797UfMVEo0rnLZnvomyRYMurLGjPp99tg3OQ8uav
-	 ePSqLtZCr5nhfmfiXA2MAMC7geBARjxtg0rCFySJtLPIOhZhfEy3E7BbgGTWpV0ZPNqbL
-	 UUSeNxHpR1G/UVwOTsCPgc7pBlq8BZHFmMtxsoBAFRPvhW95Ww9aXMld/O7JFlIb1+k/b
-	 j4IzZnLAdBfYUdlN2/JVJR8arLdcWgLmUO+pKVptHbFYVsJghaUvT2jITl25lRl0zqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708065;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 List-Id;
+	bh=2VuRkx1ifV+1qy8E2tw7ebAsUaRcxKdh18yyLgfwynU=;
+	b=XM8iuFcIR0ka19VBA7dhVFtLugJFsZvXP+XyQQ/RkJdq6sH2zu7QSBLOTyTc5YV0EnNM
+	 T2UMciwdiU5K73Gj6kCiMLB2xomvQzdIXNM1IfFiA9EWYZkNh9c7qYL6IAvZSjT18ypLT
+	 EMNeyvcnLMir+YYpCxdkDakJBEUUjZ+64WSJY0piXdJ+TrydO7onPrxpdv3LMB1DTISj9
+	 Y5od0wgC6eWm4tSShQBAnyWEKomqEQyfa4My79EIHVZmssRyB2/sqeIKdFGkFcuvzNTZI
+	 XtJV9ogppI+doQ/yzrmWRlAZWWu0iaZKZ50WmseWQwXj12oFIVuBMKP1kBK5NPzD/IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=pzM0ga06;
-	arc=none smtp.remote-ip=109.224.244.121
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	dmarc=pass header.from=codewreck.org;
+	spf=pass smtp.mailfrom=codewreck.org;
+	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=kCUPi9ZX;
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF198606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:13:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF198606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8486D606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:14:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8486D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=pzM0ga06
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793708028; x=1793967228;
-	bh=n/UFdXyrAd5gl0Qey0z6/JDNLQSoV4VYRc31LKxfmJI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=pzM0ga06AYTCAwJWKDaysdEveVmzUFBxb3BpYxFhCjIRG+ADe+YrIjkxypiOBI67h
-	 q8XP+itWyT7thYOOr+fNusL6sdeXMKzSuOBPfUS/ETMVJtpdD5DWs0qX6ECIdnovat
-	 0SVzO8n8JdwKBCbciLqNIyUYVpIa5tc+Q3KFzM6TsAuCvF4mOVkZrpwxIJSIacHi4L
-	 ta5BPVA90KGECgiXl30SsBbS65VJa3+PQlDZR8P69IvYny3ITVjUdSz6y7LHUw+Pe2
-	 iMkhFkPz7Dgs7fqwx4Ar7euxS0HINkWNU3HdZLwHq6iVrr7ncvgnmszIz7UgSTdZv8
-	 zyxOOx4fVYEmA==
-Date: Tue, 03 Nov 2026 12:13:42 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Message-ID: <20261103121333.39898-1-lsa.uz@pm.me>
-In-Reply-To: <20261103103235.94397-3-lsa.uz@pm.me>
-References: <20261103103235.94397-1-lsa.uz@pm.me> <20261103103235.94397-3-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 45bb7be137328bb37ef3a7c1f693d445054ed23e
+	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=kCUPi9ZX
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id CB2AB14C2D6;
+	Tue,  3 Nov 2026 13:14:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1793708050;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 list-id; bh=2VuRkx1ifV+1qy8E2tw7ebAsUaRcxKdh18yyLgfwynU=;
+	b=kCUPi9ZXiw4H+Y0/iTwMHLMHvkSKqnZK+dhM0GkxEOJM5Q2wxrXl8404938h+olRG8nz/1
+	JLJ/ojeqWijKidbS1AunJAAyOkO+S6b7NGzNyLut5i4/js8SWtgXpqwJXuT9d5BWDDIWm7
+	HZ2pd5rPbhJBRKtxGqZm69QQQuDnTP7/sObFlWssusp9VUKNtaxWfXrWH7OfOu4fC7mrOQ
+	MYnGi7UyB727p7eHV1AvjX+1udF54jHEtpL1Q9kiNwsgTHq5uOXVgfTzzUWLIvmWgjnGkq
+	F/7DQdTz7L295Bh2NxMlLaX+eE/q0bTGdux/RV2QIut/AlsRXJ7EBxPqmESxqQ==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id baf2ab49;
+	Tue, 3 Nov 2026 12:14:07 +0000 (UTC)
+Date: Tue, 3 Nov 2026 21:13:52 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Schoenebeck <linux_oss@crudebyte.com>,
+	Eric Van Hensbergen <ericvh@kernel.org>, v9fs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] 9p fixes for 7.4-rc2
+Message-ID: <aunQAEOa6mn2E5wm@codewreck.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,37 +67,150 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-Sashiko's review of this patch [1] went to devicetree, not linux-media.
-All three points are right; v3 will fix them. Tested on the Surface Pro
-11 with v2 and with the fix:
+Hi Linus,
 
-1. Auto exposure. Once a stream stops, the exposure and gains read back,
-   and carry into manual mode, the values set before switching to auto,
-   not the last applied ones. No runtime suspend is needed for this:
-   pm_runtime_get_if_in_use() fails as soon as the stream's reference
-   is dropped. Here the stream applied 1796/24/2048; after the stop the
-   controls read 123/7/333, the manual values set before, and a manual
-   stream then applied 123/7/333. v3 returns what the last stream
-   applied, which the driver already keeps for the next cold start; the
-   controls then read 1796/24/2048 and the manual stream applies that.
-   So the v2 cover letter's "carry over to manual mode" held only while
-   streaming.
+Sorry for being late to the merge window, I still don't have much time
+for this and the flu hit at a bad time.
+At least the LLM fixes sort of slowed down recently? Or maybe it's just
+the time of the cycle and/or I got used to it, time will tell...
 
-2. Probe. The sensor was runtime suspended 22 ms after bind returned,
-   not after the 1 s autosuspend delay. v3 takes a reference before
-   pm_runtime_enable() and sets up autosuspend before registering, as
-   vd55g1 does, and drops the reference once registered; the sensor
-   then suspends 1.2 s after bind. The error path was not exercised.
 
-3. RUNTIME_PM_OPS() and pm_ptr(): in v3. With CONFIG_PM=3Dn,
-   vd55g0_pm_ops is then no longer in the object.
+The following changes since commit c60ae98c5aa64021751b38ab1313b19d620bf640:
 
-With the fix, v4l2-compliance passes 46 of 46, with no KASAN or lockdep
-report.
+  9p: Fix v9fs_issue_write() to update i_size and remote_i_size (2026-09-12 07:49:22 +0000)
 
-[1] https://lore.kernel.org/all/sashiko-outbox-195119@kernel.org/
+are available in the Git repository at:
 
-Sergey
+  https://github.com/martinetd/linux tags/9p-for-7.4-rc2
 
+for you to fetch changes up to 35ecd40c0d7e4f772d00dfec9f7077315ba5ca82:
+
+  9p: optimize p9_fcall struct (2026-10-29 06:05:56 +0000)
+
+----------------------------------------------------------------
+This is mostly a huge wave of LLM-driven fixes
+
+A few exceptions:
+- a new vsock transport was added, since it's a variant of the existing
+fd/tcp transport there is little harm in taking it in
+- there's an incomplete fix for when file actual size doesn't match
+the size attribute (e.g. exports of sysfs), the fix addresses when
+st_size > actual size with cache=none but just about everything else
+is still broken (st_size=0 with actual data regardless of cache, or
+with data cache st_size > actual is still wrong and so are symlinks
+with 0 size)... Maybe at some point I'll find time to understand how
+netfs works and address these :|
+- some fixes for the usbg transport by its author, thank you!
+
+----------------------------------------------------------------
+Ankit Thakur (4):
+      9p: fix header guard comment in acl.h
+      9p: fix typos and wrong parameter docs in vfs_inode.c
+      9p: remove duplicated assignment in v9fs_fill_super()
+      9p: fix typo in file header comments
+
+Barret Rhoden (1):
+      9p: treat read return values of 0 as EOF
+
+Chengfeng Ye (1):
+      net/9p/usbg: clear stale request context after abort
+
+Deepanshu Kartikey (1):
+      9p: don't WARN_ONCE on racy symlink fid lookup failure
+
+Dmitry Antipov (1):
+      9p: simplify v9fs_cache_session_get_cookie()
+
+Dominique Martinet (1):
+      9p: optimize p9_fcall struct
+
+Haobin Wu (3):
+      9p: skip intermediate directory entry name copy in p9dirent_read()
+      9p: skip directory entries with names longer than NAME_MAX
+      9p: skip over-long directory entry names for legacy 9p2000 too
+
+Hemanth Selam (1):
+      net/9p: fix typos in comments
+
+Hui Peng (1):
+      9p: reject RERROR/RLERROR with zero errcode
+
+Hyungjung Joo (1):
+      net/9p/usbg: clear stale client pointer on close
+
+Kees Cook (1):
+      9p: Add const and unsigned to wnames allocation type
+
+Matus Skvarla (1):
+      net/9p: add vsock transport
+
+Michael Bommarito (1):
+      9p/trans_virtio: reject mount tags longer than NAME_MAX at probe
+
+Michael Grzeschik (6):
+      net/9p/usbg: also disable endpoints on p9_usbg_close
+      net/9p/usbg: set client to Disconnected on usb9pfs_disable
+      net/9p/usbg: always reset completion when disconnecting
+      net/9p/usbg: call disable_usb9pfs() from usb9pfs_disable()
+      net/9p/usbg: fix out_req buffer leak in disable_usb9pfs
+      net/9p/usbg: remove bogus context initialization in alloc_requests
+
+Omokefe Emmanuel Onanaroghene (1):
+      9p: fix kernel-doc warning for enum p9_session_flags
+
+Rosen Penev (1):
+      9p/xen: Use array for data rings
+
+Stefano Garzarella (1):
+      9p: fix privport option setting wrong RDMA field
+
+Yehyeong Lee (1):
+      9p/xen: validate the response size from the backend
+
+Yifei Gao (1):
+      9p/xen: fix refcount leak in p9_xen_response() on wrong tag
+
+Yizhou Zhao (6):
+      9p: use fc->net_ns for network namespace in RDMA and socket transports
+      net/9p/usbg: fix descriptor cleanup use-after-free
+      net/9p/usbg: fix prefix matching in device lookup
+      net/9p/usbg: Fix use-after-free on usb9pfs_clear_tx
+      9p/xen: drain response work after unbinding IRQ
+      net/9p/usbg: Fix use-after-free in disable_usb9pfs()
+
+Yuanfu Xie (3):
+      9p: don't decrement a server-owned zero nlink
+      9p: fall back to the normal open path for non-regular files
+      9p: do not store the create fid on special files
+
+Zhao Zhang (1):
+      9p: fix caches_show() out-of-bounds write
+
+ Documentation/filesystems/9p.rst |  12 ++++++++-
+ fs/9p/acl.h                      |   2 +-
+ fs/9p/cache.c                    |   7 ++----
+ fs/9p/fid.c                      |   2 +-
+ fs/9p/v9fs.c                     |  18 +++++--------
+ fs/9p/v9fs.h                     |  26 +++++++++++++------
+ fs/9p/vfs_addr.c                 |  10 ++++++--
+ fs/9p/vfs_dentry.c               |   2 +-
+ fs/9p/vfs_dir.c                  |  32 +++++++++++++++++------
+ fs/9p/vfs_file.c                 |   2 +-
+ fs/9p/vfs_inode.c                |  26 ++++++++++++++++---
+ fs/9p/vfs_inode_dotl.c           |  36 ++++++++++++++++++++------
+ fs/9p/vfs_super.c                |   2 +-
+ include/net/9p/9p.h              |   4 +--
+ include/net/9p/client.h          |  14 +++++++----
+ net/9p/Kconfig                   |  10 ++++++++
+ net/9p/client.c                  |   3 +++
+ net/9p/protocol.c                |  12 ++-------
+ net/9p/trans_fd.c                | 109 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------
+ net/9p/trans_rdma.c              |   2 +-
+ net/9p/trans_usbg.c              | 101 ++++++++++++++++++++++++++++++++++++++++++++++++++++---------------------
+ net/9p/trans_virtio.c            |   5 ++++
+ net/9p/trans_xen.c               |  79 +++++++++++++++++++++++++++++----------------------------
+ 23 files changed, 372 insertions(+), 144 deletions(-)
+-- 
+Dominique Martinet | Asmadeus
