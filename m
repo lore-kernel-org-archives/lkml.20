@@ -1,78 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717950;
-	b=vKIUKUu8f6EKJ6cqpDqlqStOQld6hOzzIoFA8LNOH1hTgJedP/TNY5E54F9JgWU0G/B+
-	 x7mqyRXeXr9xq330TDSlcWBv9yPb2I1g2vOdO6fyClvXWGHf67Dsq6MAA7ag8G678VAY2
-	 n7mb6hbOkkko6PF2RtVqSBM2zs7nNV/lNpnsmLGkYtfyxSnVPpOY+b1Na+gPT4xvs/1xn
-	 SziDpceHT0QA1i6wMvxL7UMivA1UkWBJwRGEVAvMpjGXyL3AlII43elqUay3COZ9nh3bN
-	 KybKMvv+lVIkJtdV9ylZJ1YrZIkobCP2aEgXQkxkS4Jy9jZjY6ja0ROrHQrbzx30fmg==
+	t=1793717951;
+	b=shTAY5Fer8d5aRaNR5r9Q/rl5e3pgBktcXN6npdnTkwQRprPYeB35hNPstxX5jlzi7UY
+	 lSJvmIE2JpwrKx1lV5BwrgVLRKPEAPOhlsgmLPyh/ukzjIYpPabURnJKjs1bOhmZlPBxD
+	 xqXwl/zNBe04RRkDW3MtmaDGrGHneFBrZ0ZdioepaVxUurktpdHVdxhaG/eD9YX5eIMGq
+	 mqnaZjaEFFHIQqClpFCQgGTurlHp96oSe2s2s1Ba08HSfNHLqCzCR6OGsg5fmU1m1pTiv
+	 SQVSA6Fj5q5AyCdlBRjbx/dkZJ+tKOGxrZua9nJ5Hctsx1KhJwh84d37Hhr/MtlZT8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717950;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717951;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xTaO+IpTNWTE3CNFVHX0P2a4foAlotO2i/j+8kuODPc=;
-	b=rLL/qgZmIVYsPHrmXKs3ZFino5/x7JVsJ5gYYVmjVah6l97HdLPWbpgD49/5Z+KeljPj
-	 K0ZYHYiYNNifnCUxmJaZLTaAnMWUHK81OuYUns8yt/yFbjUwo4/vVIvXzAcnOKlUyi62r
-	 IpUwoZQeCuZ/VO9+1dSy9ag6CnW/GSR0H5FCeHgdOSrT1dhrZi2PodPYvgxOt82xrdihT
-	 OrU6S0KJW8cCk6+YFkscJBDz3CO8bQcGr+tu5NxEAaKlWTCIfKjlOw8LU404wYtGg9SES
-	 71O4v8m+YF9UsD9qx+w54tS3Covm03XsqVRXM8x+qW7RhS2DToXNViqDMKHzWF2HJYw==
+	bh=SfHKgTJOIchjt97/Xu1pcULxY2i1puSQDcRhp56IYTg=;
+	b=fwrFtMUKNCL4qVIvBRh4gj/e+Zn0/MueVfkwEZtmwrCrX4YAZaETkO3E95AdUM8cTXjA
+	 toPQ6F4Hv49XqpoE5M5zSwRLdohCNtd2N5SYKP3x0WuEyllNW3dKI0aN5mWwcnWSxiTXh
+	 N3v1202nbh6nr9D+ltKc1FQZa3rPOUISJ9SG0TpSSrMPYxD9e6+DYFIDEjVJvFDzY9FIh
+	 oNeNCW1Gk/WlJv+Bw3a75LqlehuZsNxQy1Y4xWhvagm9Y+FIRViJRG+AS9FGyIx1he3kX
+	 9bSQEZvLZbpFT3i2zBfl76ASJQOjXbQb3DC2hC+k2RwIOYBKo4bf237oAfrCPIwUkXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEbqHgIE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOn3XXgq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45046606C867;
-	Tue,  3 Nov 2026 14:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98E86070A94;
+	Tue,  3 Nov 2026 14:59:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEbqHgIE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA0B1F00919;
-	Tue,  3 Nov 2026 14:59:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOn3XXgq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B857D1F0093A;
+	Tue,  3 Nov 2026 14:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717949;
-	bh=xTaO+IpTNWTE3CNFVHX0P2a4foAlotO2i/j+8kuODPc=;
+	s=k20260515; t=1793717950;
+	bh=SfHKgTJOIchjt97/Xu1pcULxY2i1puSQDcRhp56IYTg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oEbqHgIE+lY1Hs45AftM4rckAxM0DUPGsSUAtVRRHsLlCWFfg/veggpDHx7lSfgRv
-	 ibzBHmChGFeeUx2SP8E1zUBkySc9PwAFVUIn62YQlpimDIta3QR35XHjkbcYNhi2BP
-	 wa5a1j1zb+NN9BiCdbdo4lSvj/oJnzVDxiLtUzOZoXLffAYC3emYdylnhzQAsFQTHB
-	 MIsduntKoVn+y2w6wh8viyDeUGIUXaVSs+MsCwmDnde1ZryBcvS0rGAjKFJa4nyqG4
-	 eOwC9caU3Ww1Mvk8kYxmni0poKc1wvsFuKHnE3Rp1RRiZjxtRv2zHsYytALtoux6LT
-	 2A8C9VrUM5m9Q==
-Date: Tue, 3 Nov 2026 04:59:09 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Matthew Ruffell <matthew.ruffell@canonical.com>
-Cc: Waiman Long <longman@redhat.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Caron Wills <caron.wills@pulsar.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org, linux-mm@kvack.org,
-	Jay Vosburgh <jay.vosburgh@canonical.com>
-Subject: Re: [PATCH 5/6] cgroup/cpuset: Don't wait for memory migration when
- cpuset.mems is written with O_NONBLOCK
-Message-ID: <aun2vUjloJjH3Hpb@slm.duckdns.org>
-References: <20261103075940.110308-1-matthew.ruffell@canonical.com>
- <20261103075940.110308-6-matthew.ruffell@canonical.com>
+	b=hOn3XXgqNhEw7G/eEEQ1u82epDBE0Bq2OxxScCHiy/xNOIzR7j7Q6aEl4QdUERqAd
+	 NZgK04EENSO/I5/iFveizGAPwGdtCtC1SyMAuf8ZwUjSguCBVEorC0wdt07dOiHxgI
+	 i9ADTV0Ol4GH5B9JENQ6qBtEtF3iNsniubWtaVlsdaDG2f6+744H/vL2p2XtwqqXuk
+	 twesbQ7cIt9ObgJCRJLYbjzk45I44/DIfDl0ae+2x7nCdbutUI0BA1ECYarZCT7qrj
+	 ahwvrw606xfMaWDPnFJwd1L7F+JPlDj4bNWdCLJh/uMFy0mIkTfs7qewzCg6M+ypCw
+	 G23SLyrZxkkLA==
+Date: Tue, 3 Nov 2026 15:59:05 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Sascha Bischoff <sascha.bischoff@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Timothy Hayes <timothy.hayes@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 00/10] irqchip/gic-v5: Fix misc IRS and ITS host driver
+ issues
+Message-ID: <aun2udtwaIo2RiRC@red-moon>
+References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,46 +65,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103075940.110308-6-matthew.ruffell@canonical.com>
+In-Reply-To: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
 
-On Tue, Nov 03, 2026 at 08:59:39PM +1300, Matthew Ruffell wrote:
-> From: Caron Wills <caron.wills@pulsar.com>
+On Mon, Nov 02, 2026 at 01:32:53PM +0000, Sascha Bischoff wrote:
+> This series fixes issues in the GICv5 host IRS and ITS drivers.
 > 
-> Writing cpuset.mems migrates the memory of every task in the cpuset on
-> the ordered cpuset_migrate_mm_wq, and since commit 3514309e0322
-> ("cpuset: Defer flushing of the cpuset_migrate_mm_wq to task_work") the
-> writer flushes that workqueue from task_work before returning to
-> userspace, so that the write appears synchronous (the design of commit
-> e93ad19d0564 ("cpuset: make mm migration asynchronous")). The writer
-> therefore sleeps in TASK_UNINTERRUPTIBLE for as long as all queued
-> migrations take. On a system with isolated CPUs running SCHED_FIFO tasks
-> that was measured at 2 to 10 minutes (LP: #2165410), and it is unbounded
-> in principle: a migration blocked behind a starved kworker or a slow
-> expedited grace period holds up every migration queued after it.
+> The ITS invalidation serialisation fix addresses Sashiko's report of a
+> race between event and device invalidation commands [1]. The other
+> patches correct IRS allocation and routing behaviour, serialise IRS
+> synchronisation, and fix ITS L1/L2 table selection, cache maintenance,
+> ACPI coherency handling, and resource cleanup.
 > 
-> The writer is usually systemd. It applies AllowedMemoryNodes= from PID 1
-> itself, and since v259 it opens every cgroup v2 attribute file with
-> O_NONBLOCK precisely to opt into asynchronous semantics wherever the
-> kernel offers them (src/basic/cgroup-util.c, cg_set_attribute(), citing
-> the memory.max/memory.high behaviour of commit c8e6002bd611 ("memcg:
-> introduce non-blocking limit setting option")). While PID 1 is stuck in
-> the flush, logind cannot create sessions and SSH logins fail.
+> The IRS changes:
+> * Reject allocation of an SPI without an IRS, preventing a null-pointer
+>   dereference, and warn about low-quality firmware.
+> * Only program IRS_PE_CR0.DPS when 1-of-N routing is supported as this field
+>   is RES0, otherwise.
+> * Serialise IRS synchronisation requests, as the IRS ignores a request while
+>   an earlier one is still active.
 > 
-> Honour O_NONBLOCK the same way memcg does: skip the task_work flush when
-> the file was opened non-blocking and let the migration complete in the
-> background. Blocking writers keep the synchronous behaviour and the
-> cgroup.procs attach path is unchanged.
+> The ITS changes:
+> * Serialise event and device cache invalidations because both use the ITS's
+>   shared DIDR register, so concurrent writes are a bad idea!
+> * Select linear device and interrupt translation tables when one L2
+>   table covers the full ID space. Currently, this selects the wrong
+>   path, then the L1 table code rejects the attempt to create the
+>   table.
+> * Check the ACPI noncoherent flag with ACPI, rather than checking the
+>   DT's property.
+> * Correct cache-maintenance sizing after limiting the DeviceID width.
+> * Invalidate the device cache before freeing an ITT.
+> * Use firmware-node names in initialisation warnings.
+> * Release the reserved MMIO region if DT-based ITS initialisation fails.
 > 
-> This does not make the migration any faster; it only stops the writer,
-> in practice init, from being held hostage by it.
+> I've CC'd stable for the IRS/ITS locking fixes, the ITS table alloc
+> issue, and the ACPI coherency fix, as these are the most important
+> changes to backport.
 > 
-> Link: https://bugs.launchpad.net/bugs/2165410
-> Signed-off-by: Caron Wills <caron.wills@pulsar.com>
-> Signed-off-by: Matthew Ruffell <matthew.ruffell@canonical.com>
+> The series is based on v7.4-rc1. Thanks for taking a look!
 
-This makes sense to me. Waiman?
+Thank you for fixing these bugs Sascha.
 
-Thanks.
+Lorenzo
 
--- 
-tejun
+> 
+> Sascha
+> 
+> [1] https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
+> 
+> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+> ---
+> Sascha Bischoff (10):
+>       irqchip/gic-v5: Reject SPIs not backed by an IRS
+>       irqchip/gic-v5: Only set IRS DPS when 1ofN routing is supported
+>       irqchip/gic-v5: Serialise IRS synchronisation requests
+>       irqchip/gic-v5: Serialise ITS invalidation commands
+>       irqchip/gic-v5: Use linear DT and ITT when L2 covers all IDs
+>       irqchip/gic-v5: Honour ACPI ITS noncoherent flag
+>       irqchip/gic-v5: Use firmware node name in ITS warning
+>       irqchip/gic-v5: Invalidate ITS device cache before freeing ITT
+>       irqchip/gic-v5: Clean the allocated linear device table size
+>       irqchip/gic-v5: Release ITS MMIO region on DT probe failure
+> 
+>  drivers/irqchip/irq-gic-v5-irs.c   | 22 +++++++++++++++-------
+>  drivers/irqchip/irq-gic-v5-its.c   | 29 ++++++++++++++++++++++++-----
+>  drivers/irqchip/irq-gic-v5.c       |  9 +++++++++
+>  include/linux/irqchip/arm-gic-v5.h |  1 +
+>  4 files changed, 49 insertions(+), 12 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261102-host_gicv5_fixes-1eeea29d2ea4
+> 
+> Best regards,
+> --  
+> Sascha Bischoff <sascha.bischoff@arm.com>
+> 
