@@ -1,119 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793669603;
-	b=AJ9GvF7qoTT7wfFi2xyNdC6jh38eMo5NtEaHWyVuVNpOvpGvIZD5LCYrMO3sDHYk8m7E
-	 X21x1ispaWHgTSKmPGSkw9euitt5SNRhR8otLwZkFHKuHUgEOd6qmDiZORUHP9ra0NFwZ
-	 Sbqez2UJjDzSjBYP3FOvRPEjL4Bgc/Ly2zPh8GWgirkOK7rgvmgBKGUmk3HExXJyzbwB5
-	 6Anaodt3WgpvcO2PZQ6q+XzTaSrywI5ol82yfAIlSHzoA5IWbYk2p/WIs/yhN4aHId6Ew
-	 A8/MzmpEv72oEq6wvXNJyTyaQQySE21bExyNbeSn/ACUhu5UvRTzwcLhvZWy/Pvpc/A==
+	t=1793669709;
+	b=r1cKkOOirhbc+rZze427mv7PusaG+033bC6QhevYvNpmFxgq+ixyOePw0S67IIbEH844
+	 U5KYgVr+Zu8jZ9ZA6saA2IMxLv0rmPhgxXN26L76591HABOgXFtDfE1JDnBgDDfkCAR2G
+	 pBU4nKHfY8ingBTzUPvrJZOIdlI9QMOKTMzcVD/9iYwuIIWLBSa2I3AaEo+PqnirZQusJ
+	 WP1eikxFxdYMZ2dJPqYJFq+HQ0/IZcvrlEq7x4Dg7PGK1y9iyZ8fYO09orAwYe3GrDe48
+	 3pbTIOxzHMSonUwYX7sRCZ3frgG2WDuy8msFYPHmmnf+goDqEu1lPGwQRWphsHF8Llg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793669603;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793669709;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5tRIaiK1TzgUV/taZKqe0e877QKWP8p0z+ea1Mbb1W0=;
-	b=H5b+oBRK88+/Z7pUoHAWk2VH2DEoPWmxaMHTWbhiq1ydENxPexGMD2RAN7J5hr3psWyK
-	 5Dsvi1yREDusDUeEKIQakoPg3+dOWhIstWRjKu6ba5l/Prg3XRHgPiwQXOacaMy5KKHyf
-	 E8iwPNL6xN0ByovekJNDP6vZcUEVKbNkEdN2w+rGDFTPU4zrqKuPOmqSwOiFPch52quIb
-	 ptz2RhsPuNORMgLwUt/rSf1JYpkIF1q2XTYkDQ96ZKNq2w4B2400ptpdij7Ri4wW2hNHs
-	 76GYXPhtD8JJmxBlq41XF6zlMjSh4u5Y05smC95o7YTwwv5C/4vnU9YrPpsbsAnubtw==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=cmE3tFhLbp9XIfbD4gcsOZim0cWMbcIHyG8WKJckdko=;
+	b=kK9IpTJhA8iYrhxf41V8MkB+kuE3LT6FirhLQWrqQe4oafqM+dCjnGwcY9sSRkzpOst7
+	 av1iofFSXOIFa0MnObHnrLWAPQBjZmsWq2Y+TpCIr+t1cM6gxliWSVY2K9wAP7/KcfCT3
+	 dj71363N1/lSmSSRKxJMoOAjiTXWjKMrIErGBTxhrWftl5SvknQRpwa8PLaVuPsNUE1Cf
+	 mFs0eCaAeDjHvPJ/ZKdWl0WD3ei3DA+ok803QF/HylWWtlqxUaQ/Ip9e3bkR43Q/OJvZz
+	 QEdluDkUwHYVx1xgLzD7GOZQqGWqeP1o/kko/WBUw1/z8iYCHZ/o1/tiPcSEExkvW0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lgQNLUCB;
-	arc=none smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	dmarc=none header.from=layalina.io;
+	spf=pass smtp.mailfrom=layalina.io;
+	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NuoCxkJL;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679E8606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:33:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 679E8606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C690C606A331
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:35:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C690C606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lgQNLUCB
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-536c8f958d7so27547051cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:33:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NuoCxkJL
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so40558725e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:35:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793669602; x=1794274402; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5tRIaiK1TzgUV/taZKqe0e877QKWP8p0z+ea1Mbb1W0=;
-        b=lgQNLUCBm2WQLGp42iXbCrYUYAs+Oi1wVQBec5h/3veTVceezeaAU3WIEwWPr+U02d
-         2Jqta9KhYiNZ5r+wA66ORykt7/O7EX6mrYjoZugMnQI7BBKjwaiVlvqOwNxSpFc1mjgP
-         Ki2FVx8XpKUdDwqV0xTB8ZONiEDPLqzP1RXHyn/vks/Ch4IOszlHvCLUvN2xnAjHDWk7
-         P8XZW/UPtjNtT0I0GsalpPdLtMTO5gXSvZJw063l7KglxNmgIGM8vHdEEwyE0YPMMzQU
-         Jp2r+69MahJzUyJv/Oe7B5Qpy0VAEJN+nXt9nO0rwgNMDj8fkMFV/odObkF+WgrigCIf
-         smsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793669602; x=1794274402;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793669707; x=1794274507; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5tRIaiK1TzgUV/taZKqe0e877QKWP8p0z+ea1Mbb1W0=;
-        b=on3EQV9WbXx0aOhxQ3dl/ZWlRCKzPd7ws6mRFCOa5NQaw0P4PmI+dfRg3/VZS2eAaS
-         83CNmTVfXOftSP9Hs3pTNhNfIfKK/KvE0VN0qlmAwH1pw0ZoRShJZX35Y72WIP48nxyD
-         IrAH1NqyaecWakkFo3ISPWSJZq74REbOZBxSpDbA/Nsx4VRQYjPOfUDA18Wgqufq2HQj
-         QlcG3VT/aGqh1eXSqiFC+tttZVtSD04ZhFhIfJO9pUeH4ncUjLK5cXbEzsjnnYu0b8jT
-         ulIMAp3kYoCyoRwjK2Km7ywTPdStWx+BYiiaPJQCsySSed3PYuVb0+C2m0/KktwFvOwF
-         70fA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8HHJnoN62T9/V+1EtcEyVwk5VZJx6yNwFx7Rqt6sMrIby1udbAGySI8os1hRwSHKfmRN1audEPBDZ8ME=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgihncjg68Cu43uzroKuDYUj3TPH6bBMW4Cj0CiUuW4SjndJBE
-	ZljEA7Bd3qSBBOH/E55CBbs/2IIhQgYCf1efEHXFx0cgZ7RTdLtFpB3n
-X-Gm-Gg: AYBFou3DgXPdZm8tP4YnYs9Hx/LUM4weaG2z4qx9oS1YZ2vov/TCm2QNy6c3poRE4tc
-	vwN7sesfO1PJ4fMMRw+Abc+ILs3Ho9ZUJ9NXh0wZE5pLt/0+toXI44ZYBAamNgJ93kavjINWOJD
-	khD2z9EF252OooV08NMFW1ViSaOI17catEUb48Aqg3EBGMG3liS/P2To1fcHIEGEWBxu+4KN8mE
-	5iAMrsuWowU/kUVhQcvuNKPqsWEeuYeK00a9fbYuXiiksgA44Crk/kKrruMAfXblh5I3PZt/zOk
-	dphEGcHHY00UdEq1o/v0FXvZGakKU7KwbsCPvDTkk6T/eQfwNlEieBFyKLmqnmsnmCTe7zCeiwX
-	XUgTbjLJi62woWR+KDKbY8un413pTm4+PkuwvnZTDft+Qcu8Hit5LkaCy+L6N7s0vSq2LT4+bAL
-	MEm8QnL4octOuOvOef/Iuq4yMxhBJCQeGft4Jp7nptvOsMfRjmY8f58DP209VTniRSUIAOig7nV
-	4mgJ+uOotOhadz7yEKAR7GtKx4h4wP6iiGJuA+p/Zdywei5ZmoKqAbft2xnhB5uC3NJ8ivlMVaR
-	c+I5HKgTdPjnuqsT2cVnqJXPq1FTJZBlBGZbxJXm9ZfCsaH9jj8Q08Jsdi9YBWwDc0pfA6lVzEK
-	WM64+vPwLKeaHi8xov1b4WB//9w==
-X-Received: by 2002:a05:622a:3c7:b0:535:5fa:ca6e with SMTP id d75a77b69052e-542b75236b4mr201626151cf.51.1793669602205;
-        Mon, 02 Nov 2026 17:33:22 -0800 (PST)
-Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5498cb5b520sm12746021cf.26.2026.11.02.17.33.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 17:33:21 -0800 (PST)
-From: Enzo Adriano <enzo.adriano.code@gmail.com>
-To: junhui.liu@pigmoral.tech
-Cc: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	netdev@vger.kernel.org,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Norman Herms <dockseed@proton.me>,
-	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Subject: Re: [PATCH v6 3/8] clk: sunxi-ng: a733: Add PRCM CCU
-Date: Mon,  2 Nov 2026 20:33:19 -0500
-Message-ID: <20261103-a733-ccu-v6-fw-clocks@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009-a733-clk-v6-3-ae8178fce7e8@pigmoral.tech>
-References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech> <20261009-a733-clk-v6-3-ae8178fce7e8@pigmoral.tech>
+        bh=cmE3tFhLbp9XIfbD4gcsOZim0cWMbcIHyG8WKJckdko=;
+        b=NuoCxkJL96FXhxPfYM7AekE0pKHxaSSwTmhFn0RRgwt7DFojYvybKoFTLpR9aXuB6P
+         Q66YtUbHI+b9aY/4WBtybV7IUkusslLVseefxk9ztImh/wKXWL0TrlE6s478zKJXvKgU
+         Mkxm2054QyrjRTUBZbP9EzXmWhDffbenpwPiWnhhIVqn8u8skUtrc6wcFsTbxukcTGl/
+         n+E+lrlfqllhnkoCudsi7ycFovRivm8YCpcewg1edHJbGmq/vUYBB2CkHHzH/cijFA40
+         cOptCT11fQeylbkHozg+4iRTih8Y9VPQU6ORB6ZeriWM1tmJCrlk9rzHPNerNjwpBvhG
+         sa3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793669707; x=1794274507;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cmE3tFhLbp9XIfbD4gcsOZim0cWMbcIHyG8WKJckdko=;
+        b=dgnTQToxD6p5DXifD+F1zVHVXcM7Pbq6IRqGfOGlCZU9xQHL3tCYboAbCxZcUKuIiS
+         UY3aXL2haZzq2ES8gNpxIesJbrTIQR65Pv80Y91y6zfxwJ85NeWMsPnw2nFuxyCqrV3K
+         NjGCBDec1HotUxQ7XFdBz/D9Wux4u/zGLBzvg6M2WTru20VLUbwo9n5PAmizASlGTuB9
+         Diib1riahk5H331PnLya/+AT/vdlAj687edzZ3kqs5TN9F/2gFyCZs9XHPrOkmXj9fX6
+         sRjZTSmEI8W6HMQM8jiabnXi7PGyU82Pa2o2uQ49XRB0TQvxNmvHiJR85UJDDUNCPGkl
+         /aTA==
+X-Forwarded-Encrypted: i=1; AKwUvBxGj4rGPj81UPA5SLDlJa4voUi+0iTfw3+ypCQtAagfHn9lNIDM8bhsLR06b4T8mzMmIbNHNYROm6aP7l8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXdUfBJT6IaM6sWXCJahurUEKJ7ltLqctyc4qcEMvMq0g+ahnt
+	qX8H0iB0vMZ+utqYocqKFZfRi4kZmHiJ03cifaLriwwO9iFDS0OvFZ5dhL3LRPnKk9A=
+X-Gm-Gg: AYBFou2GYxOxSNecHE5/ED2tIvuoqegfCTATX65TEwb1FkUNdJuo6uV39uv1k32bJ1b
+	X37TMI0C7RJgb3sqBtCxd17OHfcqZ4t49aTFTsElKC65cnRSt5jqYQjRaWVV1S4iY+KKdV6r7KR
+	RjVurlWC0T2kUZcqkNvneUEufC09cc+2lnIBslvcqmuYApWnUlKBksSAbs3mYCclhig6dx1h1GO
+	vynJmVFpm+NHS1/a8VEYBq3gkAxdksDIpoA4U9rlGvfkA+n6epOwqLKPQHK1JrY0NDhbGMd5LVo
+	5cjFfoXhmoBSBhrk+OOZxcFUBEl9fKI3262V/nViQGk2306sr4fYxazJIKQbbEx/Va6LIfoHRD0
+	RIXRhFx8v88md2XikIpgJ1nWdM7nLSzQ/DDiRdRXJ7OOWu/rOSLWvgw1TQCX5FIY2II5biumo5l
+	8vhBratJB8jkqVAmpGQIYZAaIUDNzgQXhz+blYc7g+SIctMwKLY2ALIxnyi1/gQ7sjAc1eVHhD0
+	3QSFG6ZHTguFJZ3XRM+BU1NA8980htYF6U2DeX013mCFrr00mHIiLA/Bu9p4Wf3bAxOYxsuCd2m
+	eVe+pfn12TekxeHxLV0QC2lCcxQiuOzp7/d2zNIzgvz7eO/fyn8FYfXsYK1XBYtf88Za70KdwLT
+	cedpuIY4pmBeU
+X-Received: by 2002:a05:600c:4715:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ac150b28bamr270781525e9.4.1793669707217;
+        Mon, 02 Nov 2026 17:35:07 -0800 (PST)
+Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a5372d8bsm25705915e9.0.2026.11.02.17.35.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 17:35:05 -0800 (PST)
+Message-ID: <37a6df6f-7f25-4acf-a253-d00a40bc796a@layalina.io>
+Date: Tue, 3 Nov 2026 01:35:05 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,36 +93,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/4] sched/uclamp: Move uclamp_rq_{inc, dec}() from
+ core.c
+To: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Christian Loehle <christian.loehle@arm.com>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
+ linux-kernel@vger.kernel.org
+References: <20261103005953.56271-1-qyousef@layalina.io>
+ <20261103005953.56271-5-qyousef@layalina.io>
+Content-Language: en-US
+From: Qais Yousef <qyousef@layalina.io>
+In-Reply-To: <20261103005953.56271-5-qyousef@layalina.io>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Junhui,
+On 11/3/26 00:59, Qais Yousef wrote:
 
-On Fri, Oct 09, 2026 at 11:52:08PM +0800, Junhui Liu wrote:
-> +static SUNXI_CCU_P_DATA_WITH_MUX_GATE(r_cpu_timer0, "r-timer0", r_apb_parents, 0x100,
-> +				      1, 3,	/* P */
-> +				      4, 3,	/* mux */
-> +				      BIT(0),	/* gate */
-> +				      0);
-
-On a Cubie A7S with vendor boot firmware, v6 reaches a Linux shell but
-stalls at warm reboot. The system-controller firmware uses the R-domain
-timer and mailboxes without Linux clock consumers, so disabling these
-clocks as unused can leave its services unavailable.
-
-Could you consider marking r-timer0, bus-r-timer, bus-r-riscv and
-bus-r-msgbox here, and bus-msgbox0 in 7/8, CLK_IS_CRITICAL in the next
-revision? My standalone patch has the diff, firmware references and
-board results:
-https://lore.kernel.org/r/20261031020640-263f7b05-a7s-clock@gmail.com
-
-With those five flags, two RAM boots of my A7S integration completed
-warm reboots without clk_ignore_unused, and all five clocks reported
-enabled. That is one board on vendor firmware. Vinicius reported native
-PSCI reboot working on an A7Z without local critical flags on
-bus-r-riscv and bus-r-msgbox, with TF-A and U-Boot built from source, so
-the boot chain may matter. I haven't tested suspend, or shown that each
-of the five flags is needed on its own.
-
-Thanks,
-Enzo
+> @@ -2188,11 +2173,10 @@ void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
+>  		update_rq_clock(rq);
+>  
+>  	/*
+> -	 * Can be before ->enqueue_task() because uclamp considers the
+> -	 * ENQUEUE_DELAYED task before its ->sched_delayed gets cleared
+> -	 * in ->enqueue_task().
+> +	 * Need to be careful what operations are done here, some classes like
+> +	 * fair and RT can enqueue tasks without going through core due to some
+> +	 * features like throttling.
+>  	 */
+> -	uclamp_rq_inc(rq, p, flags);
+>  
+>  	p->sched_class->enqueue_task(rq, p, flags);
+>  
+> @@ -2222,10 +2206,11 @@ inline bool dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+>  	psi_dequeue(p, flags);
+>  
+>  	/*
+> -	 * Must be before ->dequeue_task() because ->dequeue_task() can 'fail'
+> -	 * and mark the task ->sched_delayed.
+> +	 * Need to be careful what operations are done here, some classes like
+> +	 * fair and RT can dequeue tasks without going through core due to some
+> +	 * features like throttling.
+>  	 */
+> -	uclamp_rq_dec(rq, p);
+> +
+>  	return p->sched_class->dequeue_task(rq, p, flags);
+>  }
+psi_enqueue/dequeue() are done at core, not sure how much an impact this has on
+it due to throttling dequeueing/enqueueing without going via core and missing
+these updates.
