@@ -1,72 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706362;
-	b=1G51jn6z59S4YBf7GaFA1DpdI1K0ynczfpGq0rE9RtpmNYj0zXPZ3LTxjinUcqr9EXFP
-	 f1dxqFybyy+IckMYxs1NvmHrCT1x7sZlkWMPIIq+uHQxnP3ygZAFD6MLfR/lmNwaM/NCd
-	 izsGM4FtqtWSb9yCgkY8swBnRZ5ml0KoIH+aoNOQzBEz+id4+nmm+qtHPls/yBylx4PqX
-	 rBoltnrSJKAp5ravwDjR2DOvKm9t6F5AkP1J/+r1QDV/d4Ir+75kPMPAWefkglB/2CwHo
-	 wcVoO7E0JNgPs4NIv3nE1iYBYijmMUVV3P7YQC2hxl0uOq0ehx0BYkB4dWZ0ZhqesBw==
+	t=1793706371;
+	b=Kf4Ev7a7iaCbWmFX+376oILUiw32so32TMxSfS9hWHSMu+/4wXZbRpyKDLakRZ6OYZWA
+	 gFJv/i+C3B0N9Uh6Z7LXH2VxPhQJOLHtbRaQEgk+WHQgi8gzPQS3a4HTfxeuwlknQ2inw
+	 qqmbYYdMgSmWJg2eiM/kx7Ag0yTxpzpyDAp1W5IdtzFkrg+vGbBjrG+92dA4RUwzvQCU7
+	 PSxidXabGWVjhWIOmrg6fTH0yIObxVPJSTSzASn2qgKCTXBCWi/iLb9Qg6e+/6xlZnvAa
+	 eGyUpVceHVAITqcZZvSqJZ3zGGeML9xTMuQYX7PIJVLnnTGHYkEAi08NgPUKPgRd8Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706362;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706371;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6Php9xYRH0bLSQYT24cIPUkIfS8LnUGsuhhaNu4rJ7Y=;
-	b=YHHS5VveeOphKUAElj4Lo3WNDRS/+eO14W5Mv1Qap8v0ye2FOZqFBk0SFOl6gyDbXFTd
-	 HhaZU/6kJus1sXCMFcRahLPaHJJvYkb+oLd545uGn9x3VBfiHpdfLFcklERQdwrDTMmIl
-	 53/kH9psuD60HjIE2FpoY5FQo6+ip+dyPICuh36S++poOyvyJmhGz6THawYkmXzJJEjeK
-	 730UNNNeV+DGE0ZqjqFP2EjMxXi4tB0fejnJhfnGwJH3dKN55x4n3yO3lJdIiO0bG38tU
-	 ZK9q1638Vo3rm4O4Ru4835wI/25qfOEw2Ty/9KL65jnX1kYLosyDQ7S+rcOT5YZtUZA==
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=zRXqrOpqPdyVMxadAbJbOQp1pF8T1j8qh7t5p4OQo+c=;
+	b=Jjhc/A+W2jDZmjm1+5xWY3tefdPMQVdSHrFSDyal2ApQByGC7Eqoq1pTqpWbZlVZGa30
+	 VEpuN7Spr3zw7zCdbGTH5/6Lx170jnV8I9mOdapvUyL4Oc/pyE4cLy5mbp5zXF2+2q975
+	 JDhnJyIDg4L4axGgkuL4lEnfcqs1F2dW4wlnoxhnV6bhtKGN5m/PvHyfM5DyiYpwFGvWt
+	 Xw55cfuhtCBD6+BLwk9uqxoXuznYnvRVrpxBSiTsaEKf3MsUWENXSarftxOANgpxXWouv
+	 qUMAvnhMBSWvVi4kjV25LFuWrYdxpaxe1minpqe4kHbdGxnB6NhJI4xYiC6/2x/+JkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=up9tCnOL;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AhfGHXuB;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B264606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:46:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B264606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1921606A33B;
+	Tue,  3 Nov 2026 11:46:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1921606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=up9tCnOL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6Php9xYRH0bLSQYT24cIPUkIfS8LnUGsuhhaNu4rJ7Y=; b=up9tCnOLcabOx3/lyD7FRQBCiN
-	9t1c0GJHAnD+iOxt02wtAycFmneSuwS8l9LR6L8xBKeZXVb69p8fpbWYi1ByU26v0r90RRblP1Mx+
-	FcfxQ5LPy5t29QOt4yGRPZnTnf585eWodwVBQD9TN15ZnDsbDFTCN613mTss0w8Vf0tgqJzlq6s/e
-	aFsDJYw4pXLN4bUxFjoUm27VCEgw0tY+f4FMQ/R9ADirwLXe5OVGydeGkbv6+oFv1jVRd7OUrBVyn
-	VYsvpTSzh58/wFhlp0jg7EKdWDYlPuFEqzYmisqJH71fjjB9/zwpHvNh/SiDEgqkasGUvbEzpVH/6
-	qAZm6Vgw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOCxi-0000000BnDI-25Ux;
-	Tue, 03 Nov 2026 11:45:58 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 387B53012AB; Tue, 03 Nov 2026 12:45:57 +0100 (CET)
-Date: Tue, 3 Nov 2026 12:45:57 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Tejun Heo <tj@kernel.org>
-Cc: Daehyeon Ko <4ncienth@gmail.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/autogroup: Fix task_group UAF during thread
- creation
-Message-ID: <20261103114557.GJ1813469@noisy.programming.kicks-ass.net>
-References: <20261023013631.881730-1-4ncienth@gmail.com>
- <20261026115707.GF2668200@noisy.programming.kicks-ass.net>
- <20261030034540.2074077-1-4ncienth@gmail.com>
- <20261030154940.GW2668564@noisy.programming.kicks-ass.net>
- <36ce43428e53d1d6e47dddb43697ccf2@kernel.org>
- <20261102101759.GF1813469@noisy.programming.kicks-ass.net>
- <705081716ac8615650a0cc4b668689ba@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AhfGHXuB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793706371; x=1825242371;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=k34J5bk1+MbWLLiN/cBv7+iaC1FJgNw6KnASGpx22VU=;
+  b=AhfGHXuBASUCsFOab01Sha8XssuHLx//1MzS+LmdGqZmfYdyN/VuXqNf
+   2mBzDT7SQnS0LVyiVUh4NYmAGuGUFWpvbJbvooY5h9G/x9ZMJcWmq6Mxf
+   jtY8ilphIKpa4N7/mbXvp9LZmjeV7ZTD/bqn0jvx6vaSzD5FQTCkvCI3o
+   8WY4AIe1nqVrJzuBnGpeRgqy3/Ktngem29IyHrmooNGqDYJ4NVVK8b00G
+   HJ7AizWIoC9o2hdlPvZlDzfMWK2y5HyrIfhaEVYonOwqbevC7L7fqsILo
+   eKM5Fw1qLJ2GkT6ZjWNvRyYp9Oeb4gSvI1nRlX4Ahc85MA0mDkh1ZMePC
+   A==;
+X-CSE-ConnectionGUID: YcHudSiDTI6GUMIO5/D/Aw==
+X-CSE-MsgGUID: j9e2YDKsRIaqA8/+Al69NQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2306705"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2306705"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:46:10 -0800
+X-CSE-ConnectionGUID: +50rtPemS3qs1F87pbe9vA==
+X-CSE-MsgGUID: 5a1QMZAXRhCgk3MDdtV4fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6494861"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:46:07 -0800
+Date: Tue, 3 Nov 2026 13:46:04 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v6 2/8] serial: 8250: share the RX trigger conversion
+ helper
+Message-ID: <aunJfAPQMuiiH2N1@ashevche-desk.local>
+References: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
+ <20261102-submit-h616-uart-fifo-v1-v6-2-25afcb346b0c@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,157 +89,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <705081716ac8615650a0cc4b668689ba@kernel.org>
+In-Reply-To: <20261102-submit-h616-uart-fifo-v1-v6-2-25afcb346b0c@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 02, 2026 at 09:21:14AM -1000, Tejun Heo wrote:
-
-> I see your point. Moving the autogroup handling into the cpu controller
-> keeps it better contained though. sched_cgroup_fork() places the new task by
-> its cgroup only, and the cpu controller applies the autogroup once the task
-> is on the thread list. This isn't a hill I'm going to die on, but it looks
-> like the better direction to me. Can you please take a look at the patch
-> below?
+On Mon, Nov 02, 2026 at 12:55:17PM -0700, James Hilliard wrote:
+> Drivers can supply receive-trigger thresholds through the RX trigger
+> callbacks without adding a legacy port type to uart_config[]. Extract the
+> threshold search into serial8250_bytes_to_fcr() so those drivers can use
+> the same conversion as the generic 8250 implementation.
 > 
-> diff --git a/kernel/sched/autogroup.h b/kernel/sched/autogroup.h
-> --- a/kernel/sched/autogroup.h
-> +++ b/kernel/sched/autogroup.h
-> @@ -27,12 +27,12 @@ static inline bool task_group_is_autogroup(struct task_group *tg)
->  	return !!tg->autogroup;
->  }
->  
-> +extern unsigned int sysctl_sched_autogroup_enabled;
->  extern bool task_wants_autogroup(struct task_struct *p, struct task_group *tg);
->  
->  static inline struct task_group *
->  autogroup_task_group(struct task_struct *p, struct task_group *tg)
+> Keep the implementation in 8250_port.c and export it in the SERIAL_8250
+> namespace. Include the unsupported-table check and preserve the existing
+> nearest-lower selection and highest-encoding fallback.
+
+...
+
+> -static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char bytes)
+> +int serial8250_bytes_to_fcr(const unsigned char *rxtrig_bytes, unsigned char bytes)
 >  {
-> -	extern unsigned int sysctl_sched_autogroup_enabled;
->  	int enabled = READ_ONCE(sysctl_sched_autogroup_enabled);
+> -	const struct serial8250_config *conf_type = &uart_config[up->port.type];
+> -	int i;
+> -
+> -	if (!conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
+> +	if (!rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
+>  		return -EOPNOTSUPP;
 >  
->  	if (enabled && task_wants_autogroup(p, tg))
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -4958,7 +4958,6 @@ int sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs)
->  		struct task_group *tg;
->  		tg = container_of(kargs->cset->subsys[cpu_cgrp_id],
->  				  struct task_group, css);
-> -		tg = autogroup_task_group(p, tg);
->  		p->sched_task_group = tg;
+> -	for (i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
+> -		if (bytes < conf_type->rxtrig_bytes[i])
+> +	for (unsigned int i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
+> +		if (bytes < rxtrig_bytes[i])
+>  			/* Use the nearest lower value */
+> -			return (--i) << UART_FCR_R_TRIG_SHIFT;
+> +			return (i - 1) << UART_FCR_R_TRIG_SHIFT;
 >  	}
->  #endif
-> @@ -9598,6 +9597,15 @@ static void cpu_cgroup_cancel_attach(struct cgroup_taskset *tset)
->  	scx_cgroup_cancel_attach(tset);
+
+Strictly speaking cosmetics should go into a separate patch (for-loop iterator
+locality, (--i) morph).
+
+>  	return UART_FCR_R_TRIG_11;
 >  }
->  
-> +#ifdef CONFIG_SCHED_AUTOGROUP
-> +static void cpu_cgroup_fork(struct task_struct *p)
-> +{
-> +	if (READ_ONCE(p->sched_task_group) == &root_task_group &&
-> +	    READ_ONCE(sysctl_sched_autogroup_enabled))
-> +		sched_move_task(p, true);
-> +}
-> +#endif
-> +
->  #ifdef CONFIG_UCLAMP_TASK_GROUP
->  static void cpu_util_update_eff(struct cgroup_subsys_state *css)
->  {
-> @@ -10562,6 +10570,9 @@ struct cgroup_subsys cpu_cgrp_subsys = {
->  	.can_attach	= cpu_cgroup_can_attach,
->  	.attach		= cpu_cgroup_attach,
->  	.cancel_attach	= cpu_cgroup_cancel_attach,
-> +#ifdef CONFIG_SCHED_AUTOGROUP
-> +	.fork		= cpu_cgroup_fork,
-> +#endif
->  	.legacy_cftypes	= cpu_legacy_files,
->  	.dfl_cftypes	= cpu_files,
->  	.early_init	= true,
-> 
 
-Right; so by not doing the autogroup assignment in sched_cgroup_fork()
-(which is before publishing the task) but moving it to
-cgroup_post_fork() (which is post publishing), we solve the race where
-setsid() misses the new task, since the task will update post publish.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Now, using cgroup_post_fork() seems weird (also, I'm not sure if this
-calls cgroup_subsys::fork for *all* controllers, or only the enabled
-ones).
 
-But we can easily move this into sched_post_fork(); all we really need
-to ensure is this happens before scx_post_fork(), right?
-
-Something like so?
-
----
-diff --git a/kernel/sched/autogroup.h b/kernel/sched/autogroup.h
-index 06c82b2bdfb5..14cf3fde9767 100644
---- a/kernel/sched/autogroup.h
-+++ b/kernel/sched/autogroup.h
-@@ -19,6 +19,7 @@ struct autogroup {
- 	int			nice;
- };
- 
-+extern unsigned int sysctl_sched_autogroup_enabled;
- extern void autogroup_init(struct task_struct *init_task);
- extern void autogroup_free(struct task_group *tg);
- 
-@@ -32,7 +33,6 @@ extern bool task_wants_autogroup(struct task_struct *p, struct task_group *tg);
- static inline struct task_group *
- autogroup_task_group(struct task_struct *p, struct task_group *tg)
- {
--	extern unsigned int sysctl_sched_autogroup_enabled;
- 	int enabled = READ_ONCE(sysctl_sched_autogroup_enabled);
- 
- 	if (enabled && task_wants_autogroup(p, tg))
-@@ -41,6 +41,16 @@ autogroup_task_group(struct task_struct *p, struct task_group *tg)
- 	return tg;
- }
- 
-+static inline void autogroup_post_fork(struct task_struct *p)
-+{
-+	/*
-+	 * If setsid() missed this new task; move it to the new autogroup now.
-+	 */
-+	if (READ_ONCE(sysctl_sched_autogroup_enabled) &&
-+	    task_wants_autogroup(p, p->sched_task_group))
-+		sched_move_task(p, true);
-+}
-+
- extern int autogroup_path(struct task_group *tg, char *buf, int buflen);
- 
- #else /* !CONFIG_SCHED_AUTOGROUP: */
-@@ -58,6 +68,8 @@ autogroup_task_group(struct task_struct *p, struct task_group *tg)
- 	return tg;
- }
- 
-+static inline void autogroup_post_fork(struct task_struct *p) { }
-+
- static inline int autogroup_path(struct task_group *tg, char *buf, int buflen)
- {
- 	return 0;
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 04b62c16fa8c..3e05f7c959e6 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -4958,7 +4958,13 @@ int sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs)
- 		struct task_group *tg;
- 		tg = container_of(kargs->cset->subsys[cpu_cgrp_id],
- 				  struct task_group, css);
-+		/*
-+		 * No autogroup here because this is unsafe vs setsid()
-+		 * which will not see this thread yet. Fixed up in
-+		 * sched_post_fork().
-+		 *
- 		tg = autogroup_task_group(p, tg);
-+		 */
- 		p->sched_task_group = tg;
- 	}
- #endif
-@@ -4983,6 +4989,7 @@ static void sched_mm_cid_fork(struct task_struct *t);
- 
- void sched_post_fork(struct task_struct *p)
- {
-+	autogroup_post_fork(p);
- 	sched_mm_cid_fork(p);
- 	uclamp_post_fork(p);
- 	scx_post_fork(p);
