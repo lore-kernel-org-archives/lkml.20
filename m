@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793748360;
-	b=fVTiW0F2aHfle+QITlDmcfzA+XfIsJiNx4kDj6bbWZP/xe0/EhMlGx1Wk2xO4FrWz256
-	 CwCp5+BFP6BSXMLmoy/oTGtV9htZbTf6H7hcsr0lb25lpYtN8/Y/mq2DZroHkOP2OedjE
-	 s5o9Xc61DuSVqz27DPtwkPsZTfqn/1/mpdF5WtjME6HPa/O0gV8wGzQG8BPW4c81tcZxE
-	 0nlu+VR8fJ0sZcVwPQm69/RBsy6sP/TnkoA+HmS3NA8RVC6EfT4xjjcOjL5zk0+vyKl3D
-	 W5URydB+uc3ViZdiRXegLgGRRyrHnRPAUU838a3iPyOgAC1Ne2WM5qdsc+FrJXqnl5A==
+	t=1793748352;
+	b=CnG/Hicro9+yOoRlX3gVQEI8sSJDrcf8AcvkKKm9eiY3Hwx7wC2Yxj8XXCPpeg8zsyHk
+	 YqScslSCJaOhshUF6oVp4Q/X7U6pA6SqUXqIZSfsamO85PEakVm3lxYPBiLCVhEq7l/B1
+	 nEFO7wkroPKAgDWGSIYmarAuHIRXL+qbjGRF1flc87QQ9SvjqD3GoUG3XDDqrwZhuLfGB
+	 3j28PjgeHuhk+XIDhA5WYCcAswjK0GQ2bK7NrGwS8kSHgRKnjv2O+d/jqjFbg1L6v7w6d
+	 NK+EmPl1AD30t/f51iAbXOAaOEuBLu07XMEbfow9LvuIWbEoXEB13UoumsGLjjKnNEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793748360;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DU22UVInmllYQO19jWeBnbRddk6N+7Wv5McitbmYGC4=;
-	b=ISPJ7hh9jN9F3D0F6BFUGPyIDAwShn2FIhjy8UsrhsBHZFnxauUlr1lfqj3oDT3UaGeu
-	 C7ZTS+oY7QkVObJiPbpWUw+AbWyuuLkAbtGbp6gCsMu9pYMftxqXbxkUuJUpt4vgluxR+
-	 OdS+HEuwUIsxKHCFwKeRIVRKE2nFh+zX0Moz6enx10wz0B6gd/iSHTbSJIh4UVkRmIN+z
-	 KeVy7rhy1DHa9w1TXSJNVTOncHRmblFZMVsWFOLVwGuLAgguiIreHIAQc7HryjusX5g7i
-	 znGg44m36qJI/VLfZWXp1SQOm+L4yj54+32wLPxoH9ZohIpFuUljfbAQkCJjM2r1Lug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793748352;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 X-Mailer:Content-Type:MIME-Version:Content-Transfer-Encoding;
+	bh=Gbwbh+7fh/5IsalAqYpM9X5Anu43yQLS58BbZrVnUQc=;
+	b=CnayfjwNGe170tYjyMfcy48o6qQk4irQGZ0HHOcK02cUKQrEAM6KHHvNbd8mgRndzUVC
+	 otkpA/9NiXb9ucFsfPsqQpSJw6FAu+qXeHR2LOGC4MqGciWEMSzhNCShLa8GGl23Bjt/5
+	 L5hJK0btMpfPrScapit1/YwWxf+E7lC9fM0dwhaOgfRHy2GooYTX6+SAGHTS4yxSF6I0Z
+	 KQmY02sQvTFh0CBBjlgoaxen80ulRNrA/gGxgtjzLRbtszSmB86NCj8laKn0657AKEF5o
+	 8V0qGKRjjSPhV4u3gBVxm4k1GoFpP2oHflQ7QKdrWUFD4dMsd7ROqGrG+tnf8mM1GyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NwN6fxVd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2F7606A32C;
-	Tue,  3 Nov 2026 23:25:59 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=glR6GbqE;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EEF81606A31B;
+	Tue,  3 Nov 2026 23:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEF81606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NwN6fxVd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9653B1F000C1;
-	Tue,  3 Nov 2026 23:25:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793748359;
-	bh=DU22UVInmllYQO19jWeBnbRddk6N+7Wv5McitbmYGC4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NwN6fxVdiib4ZM3O5burnvGN3VGytNd1miDpVtRkM6nbe+VL+JRAtzGodTdG4ZiVW
-	 +1xH/s+MXwFBcgwKfo6SDoW8dKyhcVOC9qPEJ16vgdZVLbbbkqHvZl1vlUmOZA5Hh3
-	 PgVXF+rEqPacp2oYECzmHLLU0OjoZiXj7J7fqrQcH2nHbCjpoGGxMEJmtgDLe2M8c1
-	 YVA/qKtkisqtH2UVvez10sE81FwlgxNn3BIE2nWu/ReRtLRr2lXflPtEP+/rOOEjjR
-	 ftCLWfBX9X21hAA6CASHZkZuM1E2EhpNenh2J9wl+1cy/WLh6kaw0Ngzms/Gkn3ijd
-	 bMM+rAYzVPpdA==
-Date: Tue, 3 Nov 2026 23:25:52 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Tristan Madani <tristmd@gmail.com>, Marius Cristea
- <marius.cristea@microchip.com>, David Lechner <dlechner@baylibre.com>, Nuno
- Sa <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- tristan@talencesecurity.com
-Subject: Re: [PATCH v7] iio: adc: pac1934: validate ACPI _DSM return type
- and bounds
-Message-ID: <20261103232552.77b63ea7@jic23-hlaptop>
-In-Reply-To: <aupL8Yb61IPDu_hH@ashevche-desk.local>
-References: <20261103185026.3139023-1-tristmd@gmail.com>
-	<aupL8Yb61IPDu_hH@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=glR6GbqE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=glR6GbqEl6NIXWEKuBXQROmXtXYSErCAfO3/1LghctZfJdvd+zGgqj1SUMRyrHkQa0VxOOpMdvBMa
+	 suqzrU06NrfkoENx9u0Wt6ToV3ph9+6uHQcV8Juk3TsPnzH/KMcFz2jX6rpqWZCukYXWGTsD93ajjT
+	 zcg7lLt0bkUD6Lvs=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36aea6d7a57d-628bf;
+	Wed, 04 Nov 2026 07:25:46 +0800 (CST)
+X-RM-TRANSID:2ee36aea6d7a57d-628bf
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[112.23.104.16])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16aea6d773cf-09782;
+	Wed, 04 Nov 2026 07:25:46 +0800 (CST)
+X-RM-TRANSID:2ee16aea6d773cf-09782
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org,
+	edumazet@kernel.org,
+	ncardwell@google.com,
+	kuniyu@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	torvalds@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	jiayuan.chen@linux.dev
+Subject: Re: [PATCH net v2] tcp: fix device binding after failed IPv6 connect
+Date: Wed,  4 Nov 2026 07:25:32 +0800
+Message-ID: <20261103232510.257708-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179371663219.488856.3400501885593862638@kernel.org>
+References: <20261102143352.135769-1-yanxia@cmss.chinamobile.com>
+ <179371663219.488856.3400501885593862638@kernel.org>
+X-Mailer: git-send-email 2.43.0
+Content-Type: text/plain; charset="utf8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,43 +83,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Tue, 3 Nov 2026 23:02:41 +0200
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+Hi,
 
-> On Tue, Nov 03, 2026 at 06:50:26PM +0000, Tristan Madani wrote:
-> > 
-> > pac1934_acpi_parse_channel_config() calls acpi_evaluate_dsm() four
-> > times to read channel configuration but does not validate the returned
-> > object type or array bounds:
-> > 
-> >   1. No check that the returned object is ACPI_TYPE_PACKAGE.  If
-> >      firmware returns a different type, accessing rez->package.count
-> >      and rez->package.elements on a non-package object produces
-> >      unpredictable values.
-> > 
-> >   2. The loop bounds use rez->package.count directly without capping
-> >      to PAC1934_MAX_NUM_CHANNELS (4).  A package with more elements
-> >      than expected causes writes past the fixed-size labels[],
-> >      shunts[], and active_channels[] arrays.
-> > 
-> >   3. The bipolar and sample rate DSM calls access elements[0] without
-> >      verifying package.count >= 1.
-> > 
-> > Use acpi_evaluate_dsm_typed() with ACPI_TYPE_PACKAGE to validate the
-> > return type at evaluation time.  Cap loop iterations to
-> > PAC1934_MAX_NUM_CHANNELS, and verify package count >= 1 before
-> > accessing elements[0].  
-> 
-> LGTM now,
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> 
+Thanks for the review. I agree that the deferred Fast Open send failure
+is not covered. In that case, tcp_v6_connect() returns 0 and connect()
+has already returned before tcp_sendmsg_fastopen() encounters the error.
 
-Applied to the testing branch of iio.git.
+v2 restores the binding on synchronous errors returned by
+tcp_v6_connect(), as stated in the commit message. The later send failure
+is a pre-existing issue. Covering it would mean keeping the original
+binding beyond tcp_v6_connect() and handling any subsequent binding
+changes. I'd prefer to handle that separately from this fix.
+
+The datagram binding rollback has now been merged into net/main:
+https://git.kernel.org/netdev/net/c/bc53aab4881adc134f495092034e9e7c0791d84c
+
+Agreed on WRITE_ONCE() for the scope assignment. I'll include that if
+another revision is needed.
 
 Thanks,
+Xia Yan
 
-Jonathan
 
