@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724572;
-	b=dWhZfKsfONyldhktl/sDhteLz/KQVBLzhJOEMbLrzw8oYP09AzB1+uEKMIrdifQK/kg/
-	 fawoNfYJIhQ5EhDh1ggZaoZkbHjV0wDX9YeqQLoBXEk3hE2xJygaZrM603zBOfFBwcki0
-	 UqV0NDwghZ/aQNkKAEw1Hm2oDyrE8+LeZPNIIwaWbiauKLwK1Cs1og7nmiVlLhURn0NKK
-	 //zPwo0YYEBcLcaFQvgSPQdGiVWP2Pc+vb/D7VHqL5RdgPanm8qcLfXsNQ2xaaNkLwnnj
-	 uzM9vcx5Jfg1n6clXb9SIZyS2XOuLGBFEphswQgrqcIHY4CbZCMahIbShGQPjU2aVdA==
+	t=1793724573;
+	b=W4ikDVv3Z1JxRR2rJWf8sfKigER0wza+au+T9dsqWSNehHmUSQs8sYQDszOoD4zot5uH
+	 e4zHmojsCH3Z/SDuaOmBFsZLZrV3LFw6PQxpj3f39Wa+5o6ow4vb/zgZwezNQovfsHYhQ
+	 o5MwtEx2l7eIvmNOFmAEwcHNedEBHBsJCD5nTR5kmPv3tWiHHL3QG2UJCTCmMJrpg7/35
+	 wGS8NMbzzs2dwRyYH/l8nzgj/cNzQf24TxamUtZXZWckLDNbfVSgcDYCtfKQuUse406sB
+	 Ucwc5Y1Nrp4EjmfI4F/QIVQLsk6qrW1uIroz6uiGSeNf8cicRdAP8PvGgujtziwzfTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724572;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724573;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=ENJkHkCfpFwdQvw3umeRws6G85S/Qq8yf5a8h/OQL8U=;
-	b=qGLPDzJ+hXIqLDLXjcDX5kH0oscadcfchsurYpFfYySsxL+aRkXpPnYfw57xjn8Ci3ia
-	 brAJWL7q1jSpXM9IKCklwi3fsVv2XjLaBadq3XG6U9gkCHGTfAog2fLXoAT6842MMvHIF
-	 QbKnGtG58TXB+fZYXCUCU/o+FTwyaSngXzMMuGpZJTXmX9TbtKkdoUIO8RTRj5QUy4/dh
-	 ikZp/SLyCwGHF2BEFjXM+c8v4sI1eNpr0JQ5OPe75EngUAC6nIqKLY2SClPlvJ8vF+2yM
-	 cpd0de42q43PEBm8wrqVmsPP4nKZ7e2jCTNEY+/jWk+V4d13pKeBJAUSAqu/k3qdWMw==
+	bh=ocCyZzcJxZjGS6tyJsGEy72scc8t6Fmko28IUolWCcI=;
+	b=tzDlycZDTEIIBUNpJwDjFxd/zPLdupW4D2uZAJM4hLpwWY4IZYnGlcTSDdIadGp5DiZj
+	 f/NzcCnvI1nkmREG2UoCbyUHl4sfzx/nosifjpSPjaC2itcr42xzJbMYkM+YmZVY5LX9X
+	 vIFobOyoldh4kxALO1Ph5sojpzaJnp36rrQj4B3M/WNhAJsGIEr2LvpPQnVGPFRppsN4r
+	 32TYvWMcGEiogiuBWj/pnwnV+N/pcHjVQbT9Nmu7eX1xn2Hm2PZT6xQCc5nAMzwlNOtE+
+	 97tE4IC5fTozvYNxWSROcF4VDuBd7Kp2qPs1FOzimg+wRC/zECO1vriX5EOnqRyiYpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NcSfNv4c;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="XrgK/pK/";
 	arc=none smtp.remote-ip=185.171.202.116
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DC5606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:49:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79DC5606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893A7606D81E;
+	Tue,  3 Nov 2026 16:49:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 893A7606D81E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NcSfNv4c
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XrgK/pK/
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id C3AD8C49F4B;
-	Tue,  3 Nov 2026 16:50:33 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C959FC8F463;
+	Tue,  3 Nov 2026 16:50:35 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 340506046C;
-	Tue,  3 Nov 2026 16:49:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6FF1010329123;
-	Tue,  3 Nov 2026 17:49:27 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 275766046C;
+	Tue,  3 Nov 2026 16:49:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8D4B4103291EA;
+	Tue,  3 Nov 2026 17:49:29 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793724568; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1793724570; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=ENJkHkCfpFwdQvw3umeRws6G85S/Qq8yf5a8h/OQL8U=;
-	b=NcSfNv4cNiP0umd6rQiY6FaHSP0DxqMF7EEpB9VLEmr6kTGBIrSZ9AoedIN8oqrV27VcTi
-	CMAt4qLCh3FcXjDT6UP+JwWIj82J5+2KA1IeZ3b88GUsVguJE+JPDFGDOmS/ePqq69Ck7Q
-	91LB1BdHYRKc/4CsA8Ut42N3Kor4v1HK0PMG6CC+dJa+/5Ob8unqMZ4/ymgmxQjYaocTaB
-	a2LhIbcgOTL8ICw+ZCk+RRobpYcHAgDJsKJkVUCg+9PfE4HFnFzRRWVFB+eOimfEdAu0ey
-	5eEdcjpETgiSeFy6vzc/3uLKXfr1PLI7b5KNDrOSvZNtvWeFLf3gpgRb8LYuVg==
+	bh=ocCyZzcJxZjGS6tyJsGEy72scc8t6Fmko28IUolWCcI=;
+	b=XrgK/pK/jCAdrRVBiH4Ib+u/DMKUkTkma1OYsHQlkv6egMUR7lRohVG5p5xTcOFbZoY6cB
+	8Ug/0pbkaqwxZR4JHtxn6U2ICB+mX0O33XXU5Vr11FPNK5rvBGqRL2k86a45evRky/tY0J
+	RM1BO+zHDA5BMZH7ROqIRXJWx+u964c+E4kHArz89eSDsOe5GktBjvKnSj/MfVBjNg12+7
+	J30qNmq7SAfnPtHZGiCVzFA5FRVSGqagI9bs2pLuJKomIm1Yt6b0cu5Lm59Ni0vpg0+dPP
+	appoEBS10nbbuEOw0V1mRTZ5CZqhCZbpJlNVKThuK95Yud12cgzUlnWBmLpLyA==
 From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Date: Tue, 03 Nov 2026 17:49:09 +0100
-Subject: [PATCH v5 1/9] mfd: cgbc: Fix use of negative error code as valid
- session handle
+Date: Tue, 03 Nov 2026 17:49:11 +0100
+Subject: [PATCH v5 3/9] mfd: cgbc: Add I2C platform data
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,50 +65,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-cgbc-i2c-storage-devices-support-v5-1-ac11f23fae51@bootlin.com>
+Message-Id: <20261103-cgbc-i2c-storage-devices-support-v5-3-ac11f23fae51@bootlin.com>
 References: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
 In-Reply-To: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
 To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
 Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
  linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+ "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-The cgbc_session_command() return value was directly cast to u8 and used
-as session handle without error checking. Casting a negative error to u8
-produces a valid-looking session handle. So check if return value is
-positive before to cast and use it.
+Define I2C platform data for each I2C bus in the cgbc MFD driver. Platform
+data passes per-bus parameters to the I2C driver, rather than being defined
+inside the i2c-cgbc driver itself. This makes the i2c-cgbc driver more
+generic.
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260713-cgbc-core-fix-cgbc-remove-v1-1-79274ad62b3a%40bootlin.com?part=1
-Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
 Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
 ---
- drivers/mfd/cgbc-core.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/mfd/cgbc-core.c  | 38 +++++++++++++++++++++++++++++---------
+ include/linux/mfd/cgbc.h | 10 ++++++++++
+ 2 files changed, 39 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
-index 3460c50047ea..02a8c0078287 100644
+index 02a8c0078287..777930d1169e 100644
 --- a/drivers/mfd/cgbc-core.c
 +++ b/drivers/mfd/cgbc-core.c
-@@ -103,7 +103,12 @@ static int cgbc_session_request(struct cgbc_device_data *cgbc)
- 	if (ret)
- 		return dev_err_probe(cgbc->dev, ret, "device not found or not ready\n");
+@@ -55,6 +55,35 @@
  
--	cgbc->session = cgbc_session_command(cgbc, CGBC_SESSION_CMD_REQUEST);
-+	ret = cgbc_session_command(cgbc, CGBC_SESSION_CMD_REQUEST);
-+	if (ret < 0)
-+		return dev_err_probe(cgbc->dev, ret,
-+				     "failed to start a session with the Board Controller\n");
+ static struct platform_device *cgbc_pdev;
+ 
++static const struct cgbc_i2c_platform_data cgbc_i2c_i2c0_pdata = {
++	.name = "cgbc-i2c0",
++	.cgbc_bus_id = 0,
++};
 +
-+	cgbc->session = ret;
++static const struct cgbc_i2c_platform_data cgbc_i2c_ddc0_pdata = {
++	.name  = "cgbc-ddc0",
++	.cgbc_bus_id = 4,
++};
++
++static const struct mfd_cell cgbc_devs[] = {
++	MFD_CELL_NAME("cgbc-backlight"),
++	MFD_CELL_NAME("cgbc-gpio"),
++	MFD_CELL_NAME("cgbc-hwmon"),
++	{
++		.name = "cgbc-i2c",
++		.id = 1,
++		.platform_data = &cgbc_i2c_i2c0_pdata,
++		.pdata_size = sizeof(cgbc_i2c_i2c0_pdata),
++	},
++	{
++		.name = "cgbc-i2c",
++		.id = 2,
++		.platform_data = &cgbc_i2c_ddc0_pdata,
++		.pdata_size = sizeof(cgbc_i2c_ddc0_pdata),
++	},
++	MFD_CELL_NAME("cgbc-wdt"),
++};
++
+ /* Wait the Board Controller is ready to receive some session commands */
+ static int cgbc_wait_device(struct cgbc_device_data *cgbc)
+ {
+@@ -236,15 +265,6 @@ int cgbc_command(struct cgbc_device_data *cgbc, void *cmd, unsigned int cmd_size
+ }
+ EXPORT_SYMBOL_GPL(cgbc_command);
  
- 	/* The Board Controller sent us a wrong session handle, we cannot communicate with it */
- 	if (cgbc->session < CGBC_SESSION_VALID_MIN || cgbc->session > CGBC_SESSION_VALID_MAX)
+-static const struct mfd_cell cgbc_devs[] = {
+-	{ .name = "cgbc-wdt"	},
+-	{ .name = "cgbc-gpio"	},
+-	{ .name = "cgbc-i2c", .id = 1 },
+-	{ .name = "cgbc-i2c", .id = 2 },
+-	{ .name = "cgbc-hwmon"	},
+-	{ .name = "cgbc-backlight" },
+-};
+-
+ static int cgbc_map(struct cgbc_device_data *cgbc)
+ {
+ 	struct device *dev = cgbc->dev;
+diff --git a/include/linux/mfd/cgbc.h b/include/linux/mfd/cgbc.h
+index 91f501e76c8f..4b6e41b9ca4a 100644
+--- a/include/linux/mfd/cgbc.h
++++ b/include/linux/mfd/cgbc.h
+@@ -41,4 +41,14 @@ struct cgbc_device_data {
+ int cgbc_command(struct cgbc_device_data *cgbc, void *cmd, unsigned int cmd_size,
+ 		 void *data, unsigned int data_size, u8 *status);
+ 
++/**
++ * struct cgbc_i2c_platform_data - Platform data of the CGBC I2C driver
++ * @name:		I2C adapter name
++ * @cgbc_bus_id:	I2C bus ID (from Board Controller point of view)
++ */
++struct cgbc_i2c_platform_data {
++	const char *name;
++	int cgbc_bus_id;
++};
++
+ #endif /*_LINUX_MFD_CGBC_H_*/
 
 -- 
 2.53.0
