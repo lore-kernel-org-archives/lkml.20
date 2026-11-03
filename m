@@ -1,47 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697629;
-	b=e5N7nMsPQfI5TWX3c09XSPgfw0uww1uEbAMEyaFR5YQrchR8cu8yRXEk2P/20VBCYzx1
-	 J9SPpPm3bN4Mabse5TRG6LJFR9fSleq+02Poil0VWd6RfO04cTFFwbA56FRFBAGELcd37
-	 j3FnaNnaosy3enyHSpD/ibfF2uJ0OEv5aGCMg9OF9HCcEQW9Hmh4TW9hJqQKs7daT4d8J
-	 wEMO2V5JW1+4TKjaJ5FeYMRijKDo/XMy+w2k0qFQwLnn8ytRt9TDrfpX7Na8BqYOvCZx7
-	 y0rDZkU/VhwcFzuhRSuycG1pJjM1CAMcl4avndBS0GDT3C7SsqEX53VRZtkn1z5BRqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697629;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1tqvaqHenFdcgDHRxJta7jeIL0w1Mmy5PiJM9ERLW0I=;
-	b=FnXzxSOS6NOqMNA85xb0BePEHnJ0QgCMiMzOnia/vgtOalYq+Wm29DbkXEEnmKNnuUXa
-	 n3dQZgznLSAf9S9LfA+ytIYbpBwuICZAW6FvXl0U/9wnITsmnVYrmIb80p/TxhLS9j1Oz
-	 +NRnNWP2vjwOg+cwDZmZWfYL0H8eWJx81xkFAwM4Wtjo4BSCEUq00ev4Eyuy1yTW17R21
-	 jQThjqOD5IqeWEK422a0Y1QSYlqqLmGYshFxBNL/l1Yqr4hEYahzbMTaAImdRrBxDH8U8
-	 mYKLyLWcr3GTc+DexC3NKBO8to6pblvQudbU7cJilQ7XwdAjQ0su/hc1XQt3l+9fVxQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxBVUFdV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793697654;
+	b=DjmERUDC455XO8mKCfmB7cqC9yPg6xPsZRPYVxEtPR63SkcYs6RnETRCaRgsXFpHCIdm
+	 7Pd96XsgPTc1RAidvNoUJLb7g1Q0PHWkUAH1xXRyDDxyna6ldv7bkmlqoDjH4NPH0K8zH
+	 7vkdTXgw4rxktjav4vdCpUcRQe/ULY52Cnrvx+CyhK6pCrhwTz729Z92QLyeOEMdLh/b0
+	 Je3/DZCBH1Vp2LkzjSlSGecClsBqTeAWfZLtR4+SK6cTL4VUfklbnj/3oMJT6K0QS+QS6
+	 bhYwsrUmvIcv1k/YQZQBim8PsyIY5u1K9LV90B1fcMry1par7HWev9EU07xLN5lN3Mw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697654;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=KUBbiIfZu+24bweR1re7NXjlbwlpg2p+g1Gnk+3cVK0=;
+	b=AAvpuCVlvmArvroSkpo6RvxQBy+35F58sMjbgX7GUsyCICRL7Wxj7Al8Qm0YyPireeJu
+	 2WBCih+gHsb50caq4svvPZ93UGFLJN1R/NXnrPi22MCX7b7FbH2XnYrBpnhuYO+O8CG3I
+	 gLyStfExzX3ociYWps5ggKghDEHsAfq4jVGRITOqpST5xzEs6A5vpAYBSzrO8zTWv6F2u
+	 vxN6sKoYPJmzawwshQapmQUBCTDnWjnZdGs6F6vtkx1DWVKw7f/KhLle1tNV6TE2s6KF6
+	 AiYFiUE8Gk2I75Ok87EhFdb93UJU8Xva5kOSJKpupWATG8cWeBUlczpaD4Pes3WagiQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jR4khUt7;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Tg9IKvD/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A202606A32C;
-	Tue,  3 Nov 2026 09:20:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E34606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:20:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44E34606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxBVUFdV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6733F1F00919;
-	Tue,  3 Nov 2026 09:20:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697629;
-	bh=1tqvaqHenFdcgDHRxJta7jeIL0w1Mmy5PiJM9ERLW0I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CxBVUFdVcowZGC9ZiGvZBE9MKPekYGLPYU7+UYY56LTIwl8w2MMGwXuG6lcTFavrx
-	 Z8jYG37uGiRnjwNbE05XAMkL6K6uHlrrKmk9uWiUVaxsG2rfHMQWib11pB0VcPN64D
-	 T4HjAEbKRF9QBg+5md77PIFRSbbwq6HCbAUWBNGB4XdyxfjoavltWxi3fNmkV6eES5
-	 fTE0ViT49sjYIOaDYsxggzLCS5OhMvTEdTXcXko2ys6oOauvA4zYpjiDk/1qqu0mR0
-	 p3VDaNmJfTHAh2SJH8KwrvpMOFv76fkKgETDzQApC/Omgb+M5q96ORQN71tM2cWLoL
-	 f1LshRWM0Q6yA==
-Message-ID: <aa876a31-0790-41af-a3fe-d552a39ff022@kernel.org>
-Date: Tue, 3 Nov 2026 10:20:26 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jR4khUt7;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Tg9IKvD/
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A37ntoC2403198
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 09:20:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KUBbiIfZu+24bweR1re7NXjlbwlpg2p+g1Gnk+3cVK0=; b=jR4khUt7auVF2cTs
+	+zE1das89MxlX4ly8zfcOrManLqiiQhL486a7PFc00bj1PPUpwccm31TQKNOoyHI
+	AVAUs/O4hZ11F31TXS6ZRbJE8KN8pFS51HYtVDbtdJfaqI3Kx08A/17DodSlik5w
+	vDpRIYy8JZNVfd++OdET2A0fnw7JxO9zAqlcntMsTT5N0ME5LkwebEcl4BmebNdg
+	QDKiWkfzy5XMLuzZaz99k5Aqngvrm1nQBnwiVZsHHpx26CMr77kFgGp0Sz5PAQF3
+	8g+YTwsflDwMKT79yPcRN6H9JEdVhcKtZCfPvRQ3BLu4A0Yq8TiuMIELtxMSL6Hs
+	WFm76Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq3uy24gw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:20:53 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f568dee56so331980985a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:20:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793697652; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OsC6BMhARCGeuIzVE6VAAfEdFCh7AaH5St19ZC7CN/lz79Ud8qN2NdctJoM371xUSE
+         5Zyw2vPt7n8T9woFrbDnagSsnHPk0NL525Cx59iRj1E1z9bFo3CWjaa5aJb9eZ10vwwl
+         PdLEtvx4shvSu41dyxOE36QkPfniQyDCIn25zHqRb2zWMivnyxSFbwBqC0y98GPPYgBx
+         o4zwobBkHet3bfq6+l4FdvNuCDqM6vgVVlB81ZKB61wRC24OI8SkGdDKuM0gq1tVUL00
+         Knw5WnZbwvF2A8jl0fLYrIakMx29ICB1dpDWVXXpGI2VdPcwxGcK3gDid+nzV90BSkJj
+         6ayg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KUBbiIfZu+24bweR1re7NXjlbwlpg2p+g1Gnk+3cVK0=;
+        fh=wEJ0zPIXsflh3Me2jWEJK48xhpOy3bCqLoAxic7q+4M=;
+        b=M9rCk0inCc3g7SHydupn9NUh0MUGycsftPIVnPeJzkuRgnZpkgtviNgnxnWkBPHmS9
+         K15RcmlzwY6l0OMkPszDiTOk+Yq44F2gc44DnHQjB9pWmz+Augmje4dhm01ZbUkbOojv
+         KJz5ATLbrjivR+i+I/LqNULHOAqqHpaJ08H8kZ4eP/5gbUVJx5YbKLSvulk021j3vpxR
+         ChWnA95Z+3PQF/yE50UiOvxPvscVFRDAmLVOjRUDBq2xBs8X6bNM4HLA3A5wTxo70Flm
+         7iEeGLf2Awf2nc13fyPJOmCh8ueKENkxw1Eortg5yzGQj5n+2j7RhoQluZJ2u8w5Y8YR
+         0i6g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793697652; x=1794302452; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KUBbiIfZu+24bweR1re7NXjlbwlpg2p+g1Gnk+3cVK0=;
+        b=Tg9IKvD/Hy/byn9eQO4Xf7uRMQ08K2y+9cn+A1H/SYfAyUPpnWpQfU2mCAtiM9GIRE
+         KJxpLQnqSXGWt5C0vXZcVzA52ZuPyVVtN4bOqqXkDaVIEnUo1/CkgJtCz+EccggT5bHG
+         9CwIu3G7cCdLEXhoOn7VQIM1RDRRU3XR5VTSljyUKPFrOJuWF+PDHw1pmpOonj6IK4x+
+         xpqVBcw8n+SGOHHGRfS+0+o4U9Js93gm/5ZTIgx2fDVqGVD+xbjaeYGovkOP/LBrpMIB
+         oa9w8ny4CIHw7E652l6bmIjzq2EM8ByYPMLgKpTYSQ5cXzfStcbxHOq/dg04V+w4sNl9
+         swpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793697652; x=1794302452;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KUBbiIfZu+24bweR1re7NXjlbwlpg2p+g1Gnk+3cVK0=;
+        b=IhJTholC793ldhFncopw+jNSr1uetbVEDu68qLUdmCkPApjJGBDEji8veXanehSakB
+         WdTDVduWwYIOjv8Rw79Zabi/neLVLKbP74m8gCl6Tq4ksYNis3zWwqTAyNYcSE689iM9
+         78NK8iMe9lhwrwG/JiSQFrMwnks88nE+yeEYIs49vcbHIGwRn4uCHcWGq3aIMPzu3wzl
+         GA+iDdLpDjAncDt7ZBRfcfud2lwD36GUz2QT9T2+MFdKC4rK6KptY1t0X3yLQ7opqSK+
+         q6N7IWuaZ7Gx0Z09bPCZzDSpQltroGkMdnl0q6nK0cqUClBBZnDArVUPCCNbMmadmN4z
+         17+g==
+X-Forwarded-Encrypted: i=1; AKwUvByurj7AHdKJfTOFiJcV6zxcI8kPsvM7HFGkWVLWz8Z/f5B50Kazs7XlbPe0RBjmufktL2t0nq9ZqKlfSAE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Rv/DgeYnJl2IH0DRdUQneB3Ok/2u+92v8SizHOJt9mTVzM4CJ
+	Pq8ruzgRgIpkw9NO/XGJ3jA/IHrcp9E11VfeyEvEjD5Uag2BdjzAj4l3OThiSAzusV7pTqh10cM
+	VT+yBGManmXD6wmh4jS90too7pVizJUmAwOSaaKvge/DoGWc1MTKlq8DdT/vt5duUGG5BJIzePR
+	ELh9kAmtX/cu3tmdRBPKiZUppBbYXEGv7UEWXkHM1u1g==
+X-Gm-Gg: AYBFou0jTMeSESXwQ18rMdQX5vLOlVPcdvaT6DurgCXzLoNBBNovFs4Ou2I1J6rPtiK
+	bViX6m8RmsnmRzoD3ndJUHWszLP1+hp+52ePmQwMd8UX0aITb/6z52p6yhjZgwD6iNqW651O6fi
+	0G4AzSWHLwkU/yWfvk72BDOSuczjbRLGD0RP9QK1QiA42lslaM1Q+BSTiCSAuR+zM6eYFDNkyIB
+	A2M0EiItNbeO0XJYOTaZgZcxWTg152m2acs9oUeMODaOc98RWcqSI3UqhhhfluUhbpwbowcj3A=
+X-Received: by 2002:a05:620a:2b44:b0:93e:bcbf:4ad with SMTP id af79cd13be357-944216855c9mr2096034885a.33.1793697652216;
+        Tue, 03 Nov 2026 01:20:52 -0800 (PST)
+X-Received: by 2002:a05:620a:2b44:b0:93e:bcbf:4ad with SMTP id
+ af79cd13be357-944216855c9mr2096030885a.33.1793697651561; Tue, 03 Nov 2026
+ 01:20:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,84 +128,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: saa7146: hexium_orion: Unwind failed attachment
-To: Wentao Liang <vulab@iscas.ac.cn>, hverkuil@kernel.org, mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261103083738.1180466-1-vulab@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261103083738.1180466-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261016-ath10k-series-v1-send-v1-0-c847697b3558@nagashi.ma>
+ <20261016-ath10k-series-v1-send-v1-1-c847697b3558@nagashi.ma>
+ <CAFEp6-2xY_gM=FRUp3R30TZ-NgT=-eYnyz_BPE0vxEenv+202w@mail.gmail.com>
+ <CACB3TCKq--tdL6j+uGR_dxGdy-gHxQhY8p0h6xxqi_4Fd3VEOQ@mail.gmail.com> <c45bdcae-63da-4552-9e35-59ec6a71621a@gmail.com>
+In-Reply-To: <c45bdcae-63da-4552-9e35-59ec6a71621a@gmail.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 10:20:40 +0100
+X-Gm-Features: AclHuK9oFUU-GohF-bJ9l6vtg0lo68CrWTs2ZXBEs1Vyyp-LhH1J9qLG4HKSIt8
+Message-ID: <CAFEp6-36Fc15uDWSR=v+xCMhERbkhggZOBoEFTF7pAcRLz_vFw@mail.gmail.com>
+Subject: Re: [PATCH ath-next 1/3] wifi: ath10k: set the PMF peer flag on WCN3990
+To: "Conn O'Griofa" <connogriofa@gmail.com>
+Cc: "Nagashima, Shunsuke" <shunsuke@nagashi.ma>,
+        Jeff Johnson <jjohnson@kernel.org>, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        David Heidelberg <david@ixit.cz>,
+        Fabricio Akio <fabricioakio@gmail.com>,
+        Aleksei Kharlamov <aleksei.kharlamov@gmx.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: W2wEhBUJ-K8bSrIIguNT9ga5wj88gTJg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzNyBTYWx0ZWRfX1Bxmj03TCbRM
+ glu4Rji63aloxKNUt9naxIGSPkQ00ctMLN0AawofDTBFdquZSfSj/MZ9NoIzNovJR4tsy477PrK
+ QaGSUHFKjv5DPDmDmk2rq4yh6/YOTZnueXOEot3KKbuVfT09LPie3ySTpUQ/qODHnkfLS52EkPR
+ VjfiCwgDxBdd6gbRxFnlCNEmkqdDNzezPuXiaJopWfTZaUDFsLgjcF2vu6VVOgm4VDXJNCM3pCx
+ aOx3qsdNE+GEpg53QudOY98FxcTspaJsADVF31IHn+bJ8w2H67SDdFuCjVAwC7gyroGt8H4d1+P
+ j83yyo0NrMYmcbRVmhCBDDB00aPuv4DAlqjbmWCzjoNWgtHUiF5mxVRBqZcLh/KjWLyAiftfDsa
+ DR3rC99ou/fOp34zY6hsSvIoAym6vHHxMCzXvvNMkQEKaylSAGOlxeg8iXX6LM2og20R8uYy34D
+ uLRJG7YxIVvOZaLaAcQ==
+X-Authority-Analysis: v=2.4 cv=VoG2kO2n c=1 sm=1 tr=0 ts=6ae9a775 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=3iNpH_K7wzUH7o6TWwkA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: W2wEhBUJ-K8bSrIIguNT9ga5wj88gTJg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzNyBTYWx0ZWRfXyONcq9na0nbm
+ 574cQNFw7nehmh9l5AtXkYIVkAGIZ/5lguAYHQyzL9aTLhvDMEP+/at1/ZE7oPj+G9zTA5KQYLy
+ c1OilEmgs1dgKWv41zsGMaujpZyhzOY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 spamscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030037
 
-On 03/11/2026 09:37, Wentao Liang wrote:
-> hexium_probe() registers an I2C adapter and stores the allocated private
-> data in dev->ext_priv. If hexium_attach() then fails to initialize the VV
-> layer or register the video device, the core frees its own resources
-> without calling the extension's detach callback.
-> 
-> Release the I2C adapter and private data on both attachment failures, and
-> release the VV layer when video registration fails after successful VV
-> initialization. Clear the private pointer and return the actual video
-> registration error. This follows the cleanup already used for video
-> registration failure by the sibling Hexium Gemini driver.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Hi Conn, Shunsuke,
 
-So I sent you bunch of messages in between your spamming spree and you
-just ignore them.
+On Tue, Nov 3, 2026 at 12:57=E2=80=AFAM Conn O'Griofa <connogriofa@gmail.co=
+m> wrote:
+>
+> On 02/11/2026 22:51, Nagashima, Shunsuke wrote:
+>
+> > Aleksei, Conn: a firmware file update only helps devices that load that
+> > file. If you have time, could you make the same change to the
+> > firmware-N.bin your device loads, test it, and send it to
+> > linux-firmware?
+>
+>
+> I can confirm that the unmodified driver with a patched firmware fixes
+> the issue on QCA9377 as well. I appended the mfp-support flag to the
+> existing flags for both firmware variants that are relevant to my device:
+>
+> ./ath10k-fwencoder --modify --features=3Dignore-otp-result,mfp-support
+> firmware-5.bin
+> ./ath10k-fwencoder --modify
+> --features=3Dwowlan,ignore-otp-result,mfp-support firmware-6.bin
+>
+> Testing each firmware individually confirms the flag is now present, and
+> both firmware versions can now reach 300Mbps.
+>
+> ath10k_pci 0000:02:00.0: firmware ver WLAN.TF.1.0-00002-QCATFSWPZ-5 api
+> 5 features ignore-otp,mfpcrc32 18db2397
+> ath10k_pci 0000:02:00.0: firmware ver WLAN.TF.2.1-00021-QCARMSWP-1 api 6
+> features wowlan,ignore-otp,mfpcrc32 02bceae2
+>
+> I would be happy to submit the modified firmware, but I am skeptical
+> that it would be accepted? I'm not sure if I've ever observed
+> unofficial/modified wifi firmware to ever have been accepted into
+> linux-firmware (which seems completely understandable, given the risks).
 
-That's just bot spamming us.
+I think having this defined directly in firmware-5.bin makes more
+sense, as the feature is primarily tied to a specific firmware
+implementation rather than the driver itself. If PMF support was
+introduced at some point in the WCN3990 firmware distributed through
+linux-firmware, then advertising that capability through the
+corresponding firmware-5.bin entry seems like the right place to do
+it.
 
-NAK
+Compared to enabling it unconditionally in the driver, this also
+prevents older firmware packages that may not implement the feature
+from being incorrectly treated as PMF-capable. In other words, the PMF
+capability should follow the firmware version, not the driver. As a
+result, hardware using the same firmware image would naturally expose
+the same PMF capability, while older firmware revisions would continue
+to behave correctly without requiring any special handling in the
+driver.
 
+For change request I think the best for this is probably to follow
+board like change:
+https://wireless.docs.kernel.org/en/latest/en/users/drivers/ath10k/boardfil=
+es.html
 
-Best regards,
-Krzysztof
+Please, keep me in CC.
+
+Regards,
+Loic
