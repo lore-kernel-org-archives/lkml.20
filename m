@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793707394;
-	b=vE2Xe6+X7PWKaHObJxSqH+Wh3g/vBEyhi4jK1oNi7WglVwKhdhqsuSprdD3Z2cxMnX8H
-	 dZX7IOvebn3OIUhJIbN/DfounQKy7qHQ9C89awmIZO2Mf60ZInA79rku0u+AxLBd0GBLe
-	 v/nPDkgBih1e23+8ubzf6ABexIrFd6dR1RiAiKc7mcM7B8pIk4GFXXsau6QAsNY8Nw84o
-	 CSLgQmTrxfPhsqvPDsG2m26Xyec66gudtBncDrYDaiy/yjPm6wLeXvP5UmkD5FlSuxGhx
-	 llWpnhmcAzrtbFd7ovxysgm8B001/yxMWeRH3YontxOk7EXajN5hlWvwmPDA6J1Xo3w==
+	b=kqkByJf6sX9m2evghUNFGxXtMn8dvAD9r1OvBmykZWGGBo3xcgg8R999Gngz+0iJCgoh
+	 Gj+zQtscqG48aPOsp1jrIkWA2Mj8t4NZgdBeHoGOfHrEVg2DJ5OA9F2L8nlhhOd3uI85l
+	 Li3CxI4u9C26YyXQsaA5Rly7FgfnUavaujyKUkPCdjmHSEhKMvVvwk33QIxCxk5zGW1mk
+	 kGyQxFv6xKDArnd5YMPCn+j7zSzsKqtZVJBpYpZeqK3B3Ca3+ZBas2wjQaWQejW3wosFn
+	 a8CqRwemSdZ4CcoaFnP4Sn83q2EWj4o8PIJvbYY/RIgDxCFFfUPhGnAL6K29RRN9TYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793707394;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=tiF0P53eRDhc9+gRM0YwC2NUyQoyfTC6Ind3K9IUPbM=;
-	b=gtCevkpvPxEPL7OyFE+6aB0bPMRrCiRVGRZ1iuUelsu6MDrXxDOW52+Qymk0PDjCkGS9
-	 wErbXXJSOhzL+dcHWaIxf2HTpxP5Wx0y0PfPQoc88kS4xDqhn1XifufmvdMXc+Z8HAdCk
-	 hIQdMB4irgjts7FGMQnaGoqIiL2jX011QTi4k5zlYNEmRgwmjIbO0fHgQC1ew6FAb8nH2
-	 pyKC+YeJ/Ole05ukkHMYSKOGl5Ap0Q4FeXuW41MYqd+bBg7to40hj7fD2J+uPPcxCNz8C
-	 91oldjRwOSXGZF+zIRMFF4f2+ZWILkraPnndu3gXJvOTUcPLFcq/zFqJFfHZSspD2zQ==
+	bh=xlF7/hGIswlwuTf/3O82iPGkmbuNXFeLHRTd6Q4CK+Q=;
+	b=konHYezHqJXlY/TfvsB6TU7p/JKgaNaaYiPW+bEwJJmEl72Gur3uM0E0xS2Xuxgtp0va
+	 CbabsDUV7lzerNtg2cCr3GoK7UqCrdGc46VgerMtvg+QrqaAcOQYVi9MHAA12GasjBJRT
+	 aJOc44/83SSvnffuQAHqbi5D30PQOVZPwEBhO3bgS1Jit9W9FMrTGWKIbe3hdYMLFPEho
+	 uVfB1ZXm9da+h3/p3KZr6ZqYgYcYUVlC9ImFvcoPvX8bz55iJz9238L3DUVl9yubGbkYL
+	 I+beRCjpHIeN2RDSZL2UIJxz+uSlreyiR5RfyuVSw1TXtE1AhdaCjeZZMtLT2WHz6Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yFwOXUXp;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fIBq5fQi;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5376F606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:03:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5376F606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D18606D80A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:03:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57D18606D80A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yFwOXUXp
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fIBq5fQi
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1793707390; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=tiF0P53eRDhc9+gRM0YwC2NUyQoyfTC6Ind3K9IUPbM=;
-	b=yFwOXUXprJttMsR6wRF9slrVniMSpOdfbZYE85CSbc/4fEh1kDELvBrPreA27JEpolUlDuwB6Erul1deIsYwTM08PCmm6oCEhzcKBbnhRzlBQLpH2tWKvUbpMo2sAiaisr8eSs96mYXjKOlw8Zl073KpAqQbCUGB1egauE97me0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=29;SR=0;TI=SMTPD_---0XE2qGze_1793707385;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XE2qGze_1793707385 cluster:ay36)
+	t=1793707383; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=xlF7/hGIswlwuTf/3O82iPGkmbuNXFeLHRTd6Q4CK+Q=;
+	b=fIBq5fQiZ694HmPvJhSytUPR43+fn38KaMNpTow1+J2hYtjAM8Fu8kshA4oWoiT6VD8gQKOo1FlnFgWPcVPsD1qiVPf56pIU/JNgvmOvbJ/gVy4N8QSD5JSDYLyU+E46fd1gPQuO13j9SbwxT3iK/s7+Ocr51paX7q8F3nID7VI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=30;SR=0;TI=SMTPD_---0XE2qGxt_1793707379;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XE2qGxt_1793707379 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 20:03:07 +0800
+          Tue, 03 Nov 2026 20:03:00 +0800
 From: fangyu.yu@linux.alibaba.com
 To: tomasz.jeznach@linux.dev,
 	joro@8bytes.org,
@@ -71,10 +71,11 @@ Cc: fangyu.yu@linux.alibaba.com,
 	linux-kernel@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
 	kvm-riscv@lists.infradead.org,
+	Andrew Jones <andrew.jones@oss.qualcomm.com>,
 	Nutty Liu <nutty.liu@hotmail.com>
-Subject: [PATCH v7 04/10] iommu/riscv: use data structure instead of individual values
-Date: Tue,  3 Nov 2026 20:02:30 +0800
-Message-Id: <20261103120236.53474-5-fangyu.yu@linux.alibaba.com>
+Subject: [PATCH v7 01/10] iommu/generic_pt: Fix the RISC-V supported feature mask
+Date: Tue,  3 Nov 2026 20:02:27 +0800
+Message-Id: <20261103120236.53474-2-fangyu.yu@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20261103120236.53474-1-fangyu.yu@linux.alibaba.com>
 References: <20261103120236.53474-1-fangyu.yu@linux.alibaba.com>
@@ -89,102 +90,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zong Li <zong.li@sifive.com>
+From: Andrew Jones <andrew.jones@oss.qualcomm.com>
 
-The parameter will be increased when we need to set up more
-bit fields in the device context. Use a data structure to
-wrap them up.
+The RISC-V format advertises Svpbmt to its users, but omits the feature
+from PT_SUPPORTED_FEATURES. Add it there so configurations which enable
+Svpbmt pass generic page-table feature validation.
 
-Signed-off-by: Zong Li <zong.li@sifive.com>
-Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Fixes: f196a8668797 ("iommu/riscv: Advertise Svpbmt support to generic page table")
+Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 ---
- drivers/iommu/riscv/iommu.c | 27 +++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+ drivers/iommu/generic_pt/fmt/iommu_riscv64.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-index fbdca69c436e..918fce4aa8c4 100644
---- a/drivers/iommu/riscv/iommu.c
-+++ b/drivers/iommu/riscv/iommu.c
-@@ -1188,7 +1188,7 @@ static void riscv_iommu_iodir_iotinval(struct riscv_iommu_device *iommu,
-  * interim translation faults.
-  */
- static void riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
--				     struct device *dev, u64 fsc, u64 ta)
-+				     struct device *dev, struct riscv_iommu_dc *new_dc)
- {
- 	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
- 	struct riscv_iommu_dc *dc;
-@@ -1227,10 +1227,10 @@ static void riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
- 	for (i = 0; i < fwspec->num_ids; i++) {
- 		dc = riscv_iommu_get_dc(iommu, fwspec->ids[i]);
- 		tc = READ_ONCE(dc->tc);
--		tc |= ta & RISCV_IOMMU_DC_TC_V;
-+		tc |= new_dc->ta & RISCV_IOMMU_DC_TC_V;
+diff --git a/drivers/iommu/generic_pt/fmt/iommu_riscv64.c b/drivers/iommu/generic_pt/fmt/iommu_riscv64.c
+index b18fc4d109f5..1bb74114fb02 100644
+--- a/drivers/iommu/generic_pt/fmt/iommu_riscv64.c
++++ b/drivers/iommu/generic_pt/fmt/iommu_riscv64.c
+@@ -7,7 +7,8 @@
+ #define PT_SUPPORTED_FEATURES                                  \
+ 	(BIT(PT_FEAT_SIGN_EXTEND) | BIT(PT_FEAT_FLUSH_RANGE) | \
+ 	 BIT(PT_FEAT_RISCV_SVNAPOT_64K) |                      \
+-	 BIT(PT_FEAT_DETAILED_GATHER))
++	 BIT(PT_FEAT_DETAILED_GATHER) |                        \
++	 BIT(PT_FEAT_RISCV_SVPBMT))
+ #define PT_FORCE_ENABLED_FEATURES BIT(PT_FEAT_DETAILED_GATHER)
  
--		WRITE_ONCE(dc->fsc, fsc);
--		WRITE_ONCE(dc->ta, ta & RISCV_IOMMU_PC_TA_PSCID);
-+		WRITE_ONCE(dc->fsc, new_dc->fsc);
-+		WRITE_ONCE(dc->ta, new_dc->ta & RISCV_IOMMU_PC_TA_PSCID);
- 		/* Update device context, write TC.V as the last step. */
- 		dma_wmb();
- 		WRITE_ONCE(dc->tc, tc);
-@@ -1311,22 +1311,22 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
- 	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
- 	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
- 	struct pt_iommu_riscv_64_hw_info pt_info;
--	u64 fsc, ta;
-+	struct riscv_iommu_dc dc = {0};
- 
- 	pt_iommu_riscv_64_hw_info(&domain->riscvpt, &pt_info);
- 
- 	if (!riscv_iommu_pt_supported(iommu, pt_info.fsc_iosatp_mode))
- 		return -ENODEV;
- 
--	fsc = FIELD_PREP(RISCV_IOMMU_PC_FSC_MODE, pt_info.fsc_iosatp_mode) |
-+	dc.fsc = FIELD_PREP(RISCV_IOMMU_PC_FSC_MODE, pt_info.fsc_iosatp_mode) |
- 	      FIELD_PREP(RISCV_IOMMU_PC_FSC_PPN, pt_info.ppn);
--	ta = FIELD_PREP(RISCV_IOMMU_PC_TA_PSCID, domain->pscid) |
-+	dc.ta = FIELD_PREP(RISCV_IOMMU_PC_TA_PSCID, domain->pscid) |
- 	     RISCV_IOMMU_PC_TA_V;
- 
- 	if (riscv_iommu_bond_link(domain, dev))
- 		return -ENOMEM;
- 
--	riscv_iommu_iodir_update(iommu, dev, fsc, ta);
-+	riscv_iommu_iodir_update(iommu, dev, &dc);
- 	riscv_iommu_bond_unlink(info->domain, dev);
- 	info->domain = domain;
- 
-@@ -1401,9 +1401,12 @@ static int riscv_iommu_attach_blocking_domain(struct iommu_domain *iommu_domain,
- {
- 	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
- 	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
-+	struct riscv_iommu_dc dc = {0};
-+
-+	dc.fsc = RISCV_IOMMU_FSC_BARE;
- 
- 	/* Make device context invalid, translation requests will fault w/ #258 */
--	riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE, 0);
-+	riscv_iommu_iodir_update(iommu, dev, &dc);
- 	riscv_iommu_bond_unlink(info->domain, dev);
- 	info->domain = NULL;
- 
-@@ -1423,8 +1426,12 @@ static int riscv_iommu_attach_identity_domain(struct iommu_domain *iommu_domain,
- {
- 	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
- 	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
-+	struct riscv_iommu_dc dc = {0};
-+
-+	dc.fsc = RISCV_IOMMU_FSC_BARE;
-+	dc.ta = RISCV_IOMMU_PC_TA_V;
- 
--	riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE, RISCV_IOMMU_PC_TA_V);
-+	riscv_iommu_iodir_update(iommu, dev, &dc);
- 	riscv_iommu_bond_unlink(info->domain, dev);
- 	info->domain = NULL;
- 
+ #include "iommu_template.h"
 -- 
 2.50.1
 
