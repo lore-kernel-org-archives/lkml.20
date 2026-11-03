@@ -1,44 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696502;
-	b=2v8X5KS8ub1xclYDJNf2y4yMoLpjlxtateTSzZFSItnAXYI46W9N93yG9Fwyeb76D/8s
-	 2bfQ8hzwHpgkZNCqnabJGHXIwXKv8TWUIzWtG/JLST3oySVVzC7Tk6eUNnnYZhCkxrZrc
-	 E9XmgaFLfv04lwG6sSEwNPxbDBaxwTYkrvgaolLKAVbRcBKIJV/oHRn/0tfTdLARibj7n
-	 GZ+W65S4xh8ypYB+3OXjSGvr9jL27nfB+L1Iq/BLUJgAdGfVxrlC8WYDWpPMuUy1ZUZL7
-	 Lb8Ox9KQs2RkuGSaqSJ7BN8VnaFmu8EQlbo7n3s3rHvDtKDJlBf8BoH1svdKQWT3DSw==
+	t=1793696501;
+	b=THhLGNfEjtF+ChTOw/haN5PAj03C5puJtC3e/cvyg/0AAm/0T6mhsqfMX+ed6E6laqpY
+	 q36o2jscJL89Onm1RtoLzo6ZzGsLnlPPOE6R4fi7sLSyMwCrI6rkklzJEzqICERp3Up9e
+	 VsuVjxWEqNSKz+AY55C7QT4U5qIYU3utPIMjtClUICLodMTy3Ly66+luQgW46klx1qdSd
+	 cTwJYO++OCxUq9QR+4N5nImRxK2pbcxaKmU/FBmiB0N0mok7Dwd47NLC+2N7rHGKCL7qg
+	 cn9eyogC55GDccC7MauoXcGSX0mUpWOvh0L0Vo/s0xWIvNB86Ib0QV3Qy0qSD34a5Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696502;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Content-Language:To:From:Subject:Cc:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=AAvT4oaR+HyN+G7lEV1yPMDfRG3OafQ1aTdZbcSjPog=;
-	b=HyPnlXAy3k4i97qk+ZoIEpDgurBtD0q07SeloN3KknsvDEAlTXwuCBjwNNG7kgI2aHNj
-	 kv/3x/PDyROQ6YvZFw0Nqs0DcF9/NfFTxJ++mPg/w7kpoGNmULQiZ5lIzQyNiOKRt2JPl
-	 DP64zffljlKB8TixdDOhshYnYvmPc//jPqBi3i+7lbL10XkfUgoCGgIQn28jdhE3VkUCl
-	 s7Q0SfdiIYkQKJ+ATa7agQJO9Sn88EMuU7jf9yOS7vmFIQyIbxDMeU64peHsyz8O1NlnL
-	 NdnBAk/GRMTAe47vpGg6+gQYQ4lkSwb6GYRHpUylQsZESoAIazqzJEZv1gijjhaYOCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696501;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
+	bh=8UxN5G4CszVASc0eJ51bWhZrmzSLYZSfVvLKokYxmLc=;
+	b=XiwA+qcbPS4Uo9tMHmQS3yLKKCiqN/52WJwsvCaSIzVXPJtg59yinuNp2cI5iuJGdiJQ
+	 JBup3E5vgT0dQveiEXkxDSQIRNmnnnMZBMfe0JDUv6dKxSUD4EzgRr/fVnMz414Tl5T0J
+	 2i3sZgmCjyZ6KZAYBFKtj2yor0yZ469VAkQSGxTXhQfsGEp4Sxyl7pvz6VrTjk5JKDsh7
+	 FnEEQYNPUiGb3Kt/HLY72bHN4gcxrltSkDUy5YaQmKQj7gyIrTreVNEHhEqWbWm61yDcf
+	 xrxQyhrgQ7yqt9CGPlpyZRw9hANIkLcvXGrMhDaCe526IZQkotxbaoSWiGR5V6FkP2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hdu.edu.cn;
-	spf=pass smtp.mailfrom=hdu.edu.cn;
-	dkim=pass header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=KT1j+fa1;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=lgkTXmZQ;
+	arc=none smtp.remote-ip=91.207.212.86
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCA7606D805
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:01:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BCA7606D805
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A49606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:01:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13A49606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=KT1j+fa1
-Received: from [10.25.10.139] (adaptive-ssl-xc-proxy3-entmail-virt125.gy.ntes [39.170.111.5])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5350805c8;
-	Tue, 3 Nov 2026 17:01:26 +0800 (GMT+08:00)
-Message-ID: <064da7ba-58ca-4027-88a9-12fb41e8b7d4@hdu.edu.cn>
-Date: Tue, 3 Nov 2026 17:01:41 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=lgkTXmZQ
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A34D6uC3126677;
+	Tue, 3 Nov 2026 09:00:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=8
+	UxN5G4CszVASc0eJ51bWhZrmzSLYZSfVvLKokYxmLc=; b=lgkTXmZQIqmGXVOco
+	LY7LDJ2/J7CNEKPT6/pgmqMPhGR/UUk1wV3/uSRLDe87W9GnqqXEntwyBFEaaEUj
+	xR89SI7N2i1SGtp51tBIvxqN7PZnD1ZwnHc8jaDY7zqGuVHoqLIXQnibP4ge/cpU
+	TfKwWxP+pOuleOk8clDmczRqmI2xu0pMyOK2JHM0f4BvSDjkyRgCU7RbGq2xsB1h
+	JvdVyr6R2hFUMTiqEQ9kWvwX61JXQ8TY54eCPX3O//ORbu0DiqOs/Gr5Tkp27PKN
+	b0lTMuCCx5zLas3o58nWEYO+nsI9Rt2bFDluvTlusAM1rex7sn84DMEhGCaPLNtS
+	MGFjA==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hn7ft23tw-5
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 09:00:57 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.5.26) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
+ 2026 09:00:55 +0000
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Tue, 3 Nov 2026 11:00:42 +0200
+Subject: [PATCH v4 3/5] drm/imagination: Make the RISC-V firmware header
+ arch-independent
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,112 +70,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: ack.rusin@broadcom.com
-From: =?UTF-8?B?5r2Y54Wc5p2t?= <242270054@hdu.edu.cn>
-Subject: [PATCH v2] drm/vmwgfx: unpin BOs without revalidating placement
-Cc: Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1a0a4549e03a2kunm95a19b8011cb1a
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSU9DVhlDSB0fSBoeTB9JS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlIQlVKTEtVSkpKVU5ZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=KT1j+fa1v4x30RLRI9lyHgJnG6ysskUGLpJLz7rJk0ItRg8pijnJZxdijNFTFibbDPodQahxvlt+vaFktlYTsJKUQaurS2bsN1wzITC+dXKMC31QE9vq7hOm56dZGqumLhiFIMDNY/JO0wtnyj0cVbmorSl7YKyH4zvRrk4lxJI=; s=default; c=relaxed/relaxed; d=hdu.edu.cn; v=1;
-	bh=AAvT4oaR+HyN+G7lEV1yPMDfRG3OafQ1aTdZbcSjPog=;
-	h=date:mime-version:subject:message-id:from;
+Message-ID: <20261103-prep-meta-fw-arch-independent-v4-3-513d1c51f458@imgtec.com>
+References: <20261103-prep-meta-fw-arch-independent-v4-0-513d1c51f458@imgtec.com>
+In-Reply-To: <20261103-prep-meta-fw-arch-independent-v4-0-513d1c51f458@imgtec.com>
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Paul Walmsley <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        "Alexandru
+ Dadu" <alexandru.dadu@imgtec.com>,
+        Matt Coster <opensource@mtcoster.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793696450; l=5651;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=N00B/HKIov+RzgHbL1f3a705Bh43/lCp6PTCWxTp7oE=;
+ b=qoxoQIyBIxYbxeVbXcHQazY3xuEiUzNbbamk0JvDqfm1yzjbI/nmxlFrq2WaeDjfltjHPROx3
+ BQWWQkhAItPDSKaTe1nemiqAoUg6gG16EO/bQo1+D1v0TY02iyMC2AW
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-ORIG-GUID: YGNGvhxVgp7TrJb3Wf0Xgbj2uXW2qpuf
+X-Proofpoint-GUID: YGNGvhxVgp7TrJb3Wf0Xgbj2uXW2qpuf
+X-Authority-Analysis: v=2.4 cv=HaSB3SE8 c=1 sm=1 tr=0 ts=6ae9a2ca cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=h_3jC4m0AyQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=SqUUmSXaI7-uYlY8_LkA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzNSBTYWx0ZWRfX7Ao0If+7Z2+G
+ TQSx+mWs+T2QRTq272X9j0Qjo7/nNS4S+vcZns1mu/MS2I7qIwswCR4vyffdkueo3f5mhIVIZHY
+ 9+k04JfGbrpnT0voYO2AC65xmcI3ezE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzNSBTYWx0ZWRfX0bkhqC3C0PLJ
+ RFbRr8SDPLdd9wrGGzrGSi0xOiezBw/JXYot8McqVDLDvlFhI++JSqfzPS0sL1mUZobtfY3WAWr
+ NcIErZ1pi0WKA5RNi2HsoEBhqPU1Is3MW7n8rh2AWO4TJLqyzMmSuPolH6OW8rgzA0p6wTn0sKU
+ pxDND3SHmwStTvsawLv2nckf3rEkcMGN3XIcDdHdnmulxESADMqT1EaVlDDpzBwKs2P870WuIVS
+ lv964SAbogxE78RPGr3BlvyEuBB9ji2vEM8RVGneNkBuJoYf2Y/2l63UMxi0Tx1GpgNpk2z4AZL
+ 5ihhrj+lJnsaAvXSPeft1vZhe3u39RJDdGwpOzil2K6nmiLaYqepBSUKbFq/clpsYmeaZ/rW/D3
+ 4KrFh+gC2htupVOKlfnO3o3SFa7pVmasHp6FKZNlgPpvPNT5T8xPSgxXgT9fWCrPPnoQDERZq6x
+ PQuxWm5xAi/FzJPYjSg==
 
-Hello,
+From: Alessio Belle <alessio.belle@imgtec.com>
 
-I apologize for the repeated mistakes in my previous messages and patch
-submissions. Thank you for your patience. This version includes the corrected
-Fixes tag and an unwrapped patch diff.
+This header file contains definitions common to all PowerVR
+architectures starting from Rogue, so rename both the file and its
+contents to reflect this.
 
-Unpinning a buffer object does not change its placement. Avoid calling
-ttm_bo_validate() on the unpin path, where a placement validation failure
-currently triggers BUG_ON() and crashes the kernel during PRIME cleanup.
-
-Keep validation on the pin path, where it is needed to establish the
-requested placement before pinning.
-
-During PRIME/GEM cleanup, vmw_gem_object_unpin() calls
-vmw_bo_pin_reserved(vbo, false). The latter currently calls
-ttm_bo_validate() for both pin and unpin operations. In the observed Linux
-7.3 QEMU run, ttm_bo_validate() returned -EINVAL on the unpin path; the
-following BUG_ON() caused a kernel BUG during process teardown.
-
-The path is:
-
-  exit_group()
-    -> GEM/PRIME object cleanup
-    -> vmw_gem_object_unpin()
-    -> vmw_bo_pin_reserved(vbo, false)
-    -> ttm_bo_validate() returns -EINVAL
-    -> BUG_ON(ret != 0 || bo->resource->mem_type != old_mem_type)
-
-Observed report excerpt:
-
-  [BO_PIN_TRACE] before-validate pin=0 old_mem_type=0 target_mem_type=0 flags=0x10
-  [BO_PIN_TRACE] after-validate ret=-22 old_mem_type=0 new_mem_type=0 ...
-  kernel BUG at drivers/gpu/drm/vmwgfx/vmwgfx_bo.c:342!
-  RIP: vmw_bo_pin_reserved+0x36d/0x380
-
-The change skips placement validation when unpinning and retains it on the
-pin path.
-
-Fixes: fbe86ca56791 ("drm/vmwgfx: switch over to the new pin interface v2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuhang Pan <242270054@hdu.edu.cn>
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c         | 14 +++----
+ .../gpu/drm/imagination/pvr_fw_riscv_internal.h    | 43 ++++++++++++++++++++++
+ .../gpu/drm/imagination/pvr_rogue_riscv_internal.h | 43 ----------------------
+ 3 files changed, 50 insertions(+), 50 deletions(-)
 
-Sorry, the previous submission was damaged by Thunderbird's line wrapping.
-This v2 keeps the diff header on one physical line. I verified patch
-applicability to the clean Linux 7.3 index after normalizing email CRLF line
-endings; runtime verification of this exact patch is still pending.
-
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 9c7a73c..14d28e2 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -308,6 +308,11 @@ void vmw_bo_pin_reserved(struct vmw_bo *vbo, bool pin)
- 	if (pin == !!bo->pin_count)
- 		return;
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+index 0d4dd45520a9..2b24c40bc20f 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+@@ -6,10 +6,10 @@
+ #include "pvr_fw_info.h"
+ #include "pvr_fw_mips.h"
+ #include "pvr_gem.h"
++#define PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
++#include "pvr_fw_riscv_internal.h"
++#undef PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+ #include "pvr_rogue_cr_defs.h"
+-#define PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+-#include "pvr_rogue_riscv_internal.h"
+-#undef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+ #include "pvr_vm.h"
  
-+	if (!pin) {
-+		ttm_bo_unpin(bo);
-+		return;
-+	}
-+
- 	pl.fpfn = 0;
- 	pl.lpfn = 0;
- 	pl.mem_type = bo->resource->mem_type;
-@@ -321,10 +326,7 @@ void vmw_bo_pin_reserved(struct vmw_bo *vbo, bool pin)
+ #include <linux/compiler.h>
+@@ -43,13 +43,13 @@ pvr_riscv_wrapper_init(struct pvr_device *pvr_dev)
  
- 	BUG_ON(ret != 0 || bo->resource->mem_type != old_mem_type);
+ 	pvr_cr_write64(pvr_dev,
+ 		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
+-				       ROGUE_RISCV_REGION_BOOTLDR_CODE),
++				       PVR_RISCV_REGION_BOOTLDR_CODE),
+ 		       code_addr | common_opts |
+ 		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_FETCH_EN_EN);
  
--	if (pin)
--		ttm_bo_pin(bo);
--	else
--		ttm_bo_unpin(bo);
-+	ttm_bo_pin(bo);
+ 	pvr_cr_write64(pvr_dev,
+ 		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
+-				       ROGUE_RISCV_REGION_BOOTLDR_DATA),
++				       PVR_RISCV_REGION_BOOTLDR_DATA),
+ 		       data_addr | common_opts |
+ 		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_LOAD_STORE_EN_EN);
+ 
+@@ -132,9 +132,9 @@ pvr_riscv_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
+ 
+ 	/* RISC-V cacheability is determined by address. */
+ 	if (fw_obj->gem->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED)
+-		fw_addr |= ROGUE_RISCVFW_REGION_BASE(SHARED_UNCACHED_DATA);
++		fw_addr |= PVR_RISCVFW_REGION_BASE(SHARED_UNCACHED_DATA);
+ 	else
+-		fw_addr |= ROGUE_RISCVFW_REGION_BASE(SHARED_CACHED_DATA);
++		fw_addr |= PVR_RISCVFW_REGION_BASE(SHARED_CACHED_DATA);
+ 
+ 	return fw_addr;
  }
- 
- /**
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h b/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
+new file mode 100644
+index 000000000000..abcbb4ef06fe
+--- /dev/null
++++ b/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
+@@ -0,0 +1,43 @@
++/* SPDX-License-Identifier: GPL-2.0 OR MIT */
++/* Copyright (c) 2024 Imagination Technologies Ltd. */
++
++#ifndef PVR_FW_RISCV_INTERNAL_H
++#define PVR_FW_RISCV_INTERNAL_H
++
++#ifndef PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
++#error This file may only be included if explicitly defined
++#endif
++
++#include "pvr_rogue_cr_defs.h"
++
++#include <linux/bitops.h>
++#include <linux/sizes.h>
++#include <linux/types.h>
++
++#define PVR_RISCVFW_REGION_SIZE SZ_256M
++#define PVR_RISCVFW_REGION_SHIFT __ffs(PVR_RISCVFW_REGION_SIZE)
++
++enum pvr_riscvfw_region {
++	PVR_RISCV_REGION__RESERVED_0 = 0,
++	PVR_RISCV_REGION__RESERVED_1,
++	PVR_RISCV_REGION_SOCIF,
++	PVR_RISCV_REGION__RESERVED_3,
++	PVR_RISCV_REGION__RESERVED_4,
++	PVR_RISCV_REGION_BOOTLDR_DATA,
++	PVR_RISCV_REGION_SHARED_CACHED_DATA,
++	PVR_RISCV_REGION__RESERVED_7,
++	PVR_RISCV_REGION_COREMEM,
++	PVR_RISCV_REGION__RESERVED_9,
++	PVR_RISCV_REGION__RESERVED_A,
++	PVR_RISCV_REGION__RESERVED_B,
++	PVR_RISCV_REGION_BOOTLDR_CODE,
++	PVR_RISCV_REGION_SHARED_UNCACHED_DATA,
++	PVR_RISCV_REGION__RESERVED_E,
++	PVR_RISCV_REGION__RESERVED_F,
++
++	PVR_RISCV_REGION__COUNT,
++};
++
++#define PVR_RISCVFW_REGION_BASE(r) ((u32)(PVR_RISCV_REGION_##r) << PVR_RISCVFW_REGION_SHIFT)
++
++#endif /* PVR_FW_RISCV_INTERNAL_H */
+diff --git a/drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h b/drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h
+deleted file mode 100644
+index ba18c2a82205..000000000000
+--- a/drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h
++++ /dev/null
+@@ -1,43 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 OR MIT */
+-/* Copyright (c) 2024 Imagination Technologies Ltd. */
+-
+-#ifndef PVR_ROGUE_RISCV_INTERNAL_H
+-#define PVR_ROGUE_RISCV_INTERNAL_H
+-
+-#ifndef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+-#error This file may only be included if explicitly defined
+-#endif
+-
+-#include "pvr_rogue_cr_defs.h"
+-
+-#include <linux/bitops.h>
+-#include <linux/sizes.h>
+-#include <linux/types.h>
+-
+-#define ROGUE_RISCVFW_REGION_SIZE SZ_256M
+-#define ROGUE_RISCVFW_REGION_SHIFT __ffs(ROGUE_RISCVFW_REGION_SIZE)
+-
+-enum rogue_riscvfw_region {
+-	ROGUE_RISCV_REGION__RESERVED_0 = 0,
+-	ROGUE_RISCV_REGION__RESERVED_1,
+-	ROGUE_RISCV_REGION_SOCIF,
+-	ROGUE_RISCV_REGION__RESERVED_3,
+-	ROGUE_RISCV_REGION__RESERVED_4,
+-	ROGUE_RISCV_REGION_BOOTLDR_DATA,
+-	ROGUE_RISCV_REGION_SHARED_CACHED_DATA,
+-	ROGUE_RISCV_REGION__RESERVED_7,
+-	ROGUE_RISCV_REGION_COREMEM,
+-	ROGUE_RISCV_REGION__RESERVED_9,
+-	ROGUE_RISCV_REGION__RESERVED_A,
+-	ROGUE_RISCV_REGION__RESERVED_B,
+-	ROGUE_RISCV_REGION_BOOTLDR_CODE,
+-	ROGUE_RISCV_REGION_SHARED_UNCACHED_DATA,
+-	ROGUE_RISCV_REGION__RESERVED_E,
+-	ROGUE_RISCV_REGION__RESERVED_F,
+-
+-	ROGUE_RISCV_REGION__COUNT,
+-};
+-
+-#define ROGUE_RISCVFW_REGION_BASE(r) ((u32)(ROGUE_RISCV_REGION_##r) << ROGUE_RISCVFW_REGION_SHIFT)
+-
+-#endif /* PVR_ROGUE_RISCV_INTERNAL_H */
+
 -- 
 2.43.0
-
-Regards,
-Yuhang Pan
-242270054@hdu.edu.cn
 
