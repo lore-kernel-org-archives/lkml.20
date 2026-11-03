@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725265;
-	b=vECWTyaWqXSEtPZXb8KSzg6Drw0h+GcYTItOoNqcOIt5tLDECdoAi/9HG/ds5g9j60Ve
-	 FjOrcTTEZp3WtuwbogWl1NW9TViEOqO9Fysr+FhMzTuWJI9oNju7a7XovvG9yL+PVW2d1
-	 VFIdT6I1OKRE5DAW6tFrgd0zQ9KFRedPR/oJwDDBNzlrsUXNl2OBWgIySzjgT85pm9jLU
-	 X1/pQQI3uj+/oRl+12VfRin63jQWVuciaa4aIeYURSaRm0cgJj8qk4jotKDq5D+eafoaf
-	 qK9h1DWxqVaUMsOJoRu53SbCLXBRSoJMvKyCf7DDPrNoEmCNsSkB/wG5YJTHcKx2KiQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725265;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=wqUvTXfukWXNzOCriNVHhFLZ147TTmxYwIoKaQEo0dQ=;
-	b=ukZ7a+mhYdWTq9YdEIgTrIXReMEAw3ATMWai4StfIVz26pYOsgsFHFeGl8oNOqeSfX/X
-	 mJjEtUWVsKIIHmOaOIAvGS26JQMJ2EJyKDN8FbZohMR2fY8rvLTnUJ9VV+aJyYdLLvAQK
-	 BcLzpR7pymRIgSowBF4XbU8mmtiSv9NDKg+7/Tvfq6R9lC7wdWXofSjstnuRGbVceLwrM
-	 0WWhVGek4b/eq2D14TbnhOSbss8dTTE3PmvVPTXLQTC3mOBzhJ1Ywp2W98bI3Yh8ehq1/
-	 xeOTrtasgr6Pjnl+4p32je0czhrPS/o9acdYob7VH0lxFsYi3A+wiQ7dFvMo8XKzCIw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IuGtwCYS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793725275;
+	b=Vj+siAxa4Cvk3sS4/NGuDqWONSfrrAAuz+J3XyH5mRH8Om9T9PfHQfCWECOa6LyK2QOq
+	 hIpgWteEwtehMmoDr9R8sn7bWwstBbnvhlYoyUKgjdgcpZ1wGbYk8iJLO/BaAXCZlgqyf
+	 I7Hb/hbiGfohupN7gfTQckkFu7rQFIPBpb8mtEvwDkwhk4uyhYBtI3aN859jkoZhEqMEp
+	 uJqZmsI2uW4xV3/itwVKpucv1vkHd6Lo+oVdqPxuyGyQgyyCdxb8Fgh7gVU1qTsIp2HWr
+	 vYh7fKt+aSfFrW1hRNGQh7r79vjDNiftxxUrpuoYCv7bKEi+jsSKxEZAFfdT/5DlvFA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725275;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fX8haYnt3Sq7RT6GXwVlSImbTCnf8Fz5QKUxu0Wl+ak=;
+	b=Uocd12IpG/TQUyL1eDaTL/qKOYInE3jUeOYtwLw79U2ADv3P/dBqh1oF3/5QDt5Y7xsP
+	 qo2MjBvGK3wWOkMcNH4ADm2DmL3tVYPE482tSM9OpzdNRBUvPZMtAbZJaPTjinwz9GPTc
+	 Zkr8iTP6Ih7LYb/7nr3ybCDvKPNJgYoOxf+UsK3YivKR/397HDR5pbBsFJQ24Uq/9D8AF
+	 xWtcfozoizoqWZ0htGT7XNq3RtbXGhuAvQSGahMPYI4/5ZUGbv5XQ89Q+mA/M4xgGw9r3
+	 Z0PEyCZXsoFaPEBYWc/Qt0xVMaSY4bUUXriLdNct/+9UXPeJB0Q5KoLgAD1edrjjHnw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=SiNdDEnX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.33
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011033.outbound.protection.outlook.com [52.101.65.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C054C606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:01:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12662606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:01:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12662606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IuGtwCYS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1A41F000C1;
-	Tue,  3 Nov 2026 17:00:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793725264;
-	bh=wqUvTXfukWXNzOCriNVHhFLZ147TTmxYwIoKaQEo0dQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IuGtwCYS8X5aygLJmD5gCSCrg4nEfgzGqpox6wW6mjjUVvWzLybK67dvHxyGOqdEH
-	 yeU5ZpJeMqVbVO03qEMAxxIOlobDgpA/jxoT4cpv1JkQPeioCLBIM43pC+Tls5I9wp
-	 v2y73whOt5ZWNRVIMFC4rbNrEfZu50SkCCKFHANhUXGWHKlLSn4/EQj4VaDavZFiPs
-	 oB8HOPcNvHfi0JokBTShLxYv8Li3O6kkPi94E2duvwn6AvmFq63TYtR0Xwap9PGWIC
-	 3Jtpp5fHN0DXSL8l1VjX+sYw43NzlHlINi2M1zH8czg55i8ahvmATgu78aZPkcZ1e7
-	 2mWeWLfA4ahuw==
-Message-ID: <0f7a599b-0b22-442b-bfb3-435a85abd550@kernel.org>
-Date: Tue, 3 Nov 2026 18:00:56 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=SiNdDEnX
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KKsAnmufZwHuSHnk4zTp5guIyQ2VClfNWymErmjEWRNC3BQO/mgkFd4kfQktllIy/xmnq05y8zNkTAaT4Rrmnq1aXu1Mpzv8uYuY4yUmGKnKVvYoAa5eX6UvyJ6j/0nQu6AZfCJqO6JGQpey5Hz07DcHVAhXPmTMefURhqFV3LVF30Q9YSVav5JrjX/yub/Lrmtn4VtKw5wJxQlyCsrKTTRvYJ9iZY+nktjWQe+Cp88e3yvIkPcytrl2drBwfuCT1No6+IOrDoXDGuJ6MgH7W15QtQqVLP2E2eMiQAj3X02pXPXuNWeBw7dwYd5p85A8NqWKeOxapD4DcgPfk96uRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fX8haYnt3Sq7RT6GXwVlSImbTCnf8Fz5QKUxu0Wl+ak=;
+ b=NNEYmcA+fLge2M22AMKxbBZulkW87Duc0fSPmLdWs5PTjmFBfl987cAo2BS7E0T2CztL6rSzbsJ8AABnC7RROzMH3u/mYnsxx0U+Rjs18LuqT3CihHTavtygeFSb3AHKFjHiLV5+aQPfaBDm16oftVvzZVGi5A2DRmmB8jZBcDgOHXFJfr8q1DsCRwTUvVNbSHYh2Z62sevgv/5o5JtrZDkcNhEiJknufhf2JCmBfpJ2yqByEzuiskNh1DrQ8BFoaMVElY+IfvBZ2ZwVRg4O0xgbiyXl2EiT72kPBvYou5b7Iqzc2s2wGqDwZoj5IO1al/lboG1ZMwS25JtiIyYltQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fX8haYnt3Sq7RT6GXwVlSImbTCnf8Fz5QKUxu0Wl+ak=;
+ b=SiNdDEnXmpjuYw/6mK7SH8zRJQXvNDhkGU2UGUL73OvD//FH/TNkzJj3reINL6WMbCFyjJRLpl99w9O9lc/BUg8PmZr9RD81UtzmSvuzgklul0rFEA1gzqFeboxZITa/UZao0uIbdAdWx8ZT7OGfryOQbDizu1uT5uWSBIIW/QC7axb35rFhVl8NXd7RQhWe/9MyHFQskhOzdccS7tzokt2ugCdWMV4ReYfSipFpXwmDiPmLy4wWWVNvjxO8dmEdpI9w+Z9v3UcL9xvFA2qrNgO/LaNN+OTcb6vSQ+JAobejpgsp64esrmTrw4b/0qeLRpAurTComcgGllNBou2Xtw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::13) by MMZPR04MB886210.eurprd04.prod.outlook.com
+ (2603:10a6:190:4e::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 17:01:11 +0000
+Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
+ ([fe80::80e9:ab1c:dbc4:6930]) by PA3PR04MB11203.eurprd04.prod.outlook.com
+ ([fe80::80e9:ab1c:dbc4:6930%3]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 17:01:06 +0000
+From: marouene.boubakri@oss.nxp.com
+To: jenswi@kernel.org
+Cc: sumit.garg@kernel.org,
+	arnd@arndb.de,
+	op-tee@lists.trustedfirmware.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	amirreza.zarrabi@oss.qualcomm.com,
+	peter.lin@sifive.com,
+	Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+Subject: [PATCH v5] tee: optee: build the Arm-specific code only on Arm
+Date: Tue,  3 Nov 2026 18:15:04 +0100
+Message-Id: <20261103171504.910646-1-marouene.boubakri@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AM8P189CA0017.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:218::22) To PA3PR04MB11203.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,248 +101,325 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] mm: gup: batch PTE-mapped large folios in
- gup_fast_pte_range()
-To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- Rik van Riel <riel@surriel.com>, Yuan-Hao Hsu <aa9736195201@gmail.com>
-References: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
- <20261102-refactor_gup_fast-v2-4-bc1ac018c834@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261102-refactor_gup_fast-v2-4-bc1ac018c834@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA3PR04MB11203:EE_|MMZPR04MB886210:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79329601-3fab-405a-f407-08df39cc0d2e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|23010399003|366016|1800799024|6133799003|10067099003|18002099003|3023799007|56012099006|11063799006|261022105027099003|5023799004|261022113327099003|261009223027099003|261022075727099003|261021123027099003|261102123227099003|261028144727099003|261009221227099003|261021135927099003|261026140227099003|261026121527099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	hfDe/qZEP9OkvNj74c/zEjRVEbTkTkLrYKMAW31RyGM4Wi0ISoALfdoF2Og/Dk79Zhgou+cMs62AsBggj/Qgw7YJZ1l24fu00A0UfDQWLFxAPHL0vN+rMunAsiBs3HdyeFO2V8EcruSpQhn0vbJcslH7N7RE4lRECIGlZJx379YFA6kXoIsP/A8iQUS+gNQYRRcRU8Eb5qUNBkd0TYbXtN+Joa768A78UvDBTUI6AOQeHG7J2ZkkxeXoIWiOoI1ubo2NR3ITULsh8HPSYvwJ7djgfFVso7uDNGYrgbbURy8rtOQZW/fQscQxGMYcEWV2QOr2iRxIDU5Sm9KJAB+jM9CQHBV9c1Q3HjdXaszzz+P0Fv42NElWxNNiE6haDtUcKniBuChUU7ybAKYUlX+AFDxSCf4yyno6AuFvV1CuvghUN4JxzoUBND1ccf4EAHBNDtSxHtt/7VjfM8MIvr9hcycepfe+BaBtmvb0c3OCAttch47TMUqa+d9Rbv7/AHIC6YZQxmMPmjjTBUtvjrV4Pgp3WdQs2B4Jb5/wNUvby8hOrjVZoGRXczSEwXS3o8TxgRAfSTABWgte1HogVl0N01+5KGa+TqegOuAbI/p3I5m0QsOqksutVoTXxiRwvUql
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(18002099003)(3023799007)(56012099006)(11063799006)(261022105027099003)(5023799004)(261022113327099003)(261009223027099003)(261022075727099003)(261021123027099003)(261102123227099003)(261028144727099003)(261009221227099003)(261021135927099003)(261026140227099003)(261026121527099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?36HF6m0w0C3eOM17kTgS5YHekAWEg6z1+TAIS8vrhg0gf8e1Z3suk8Mk/Tym?=
+ =?us-ascii?Q?Cx1K38z6tUUTryR0sfuRhPNEV1f/uJl9+CAeAckwEfJ81PhATUHlsLXQ3W/I?=
+ =?us-ascii?Q?6NgAhajFcbFTZw63tsEMeFIDeIzO4LyxBKawc/WD5lraxW//jsUle+6xbZqQ?=
+ =?us-ascii?Q?cxaRCHB5LsSXtXAdM58ZQBM06OCQ7pkrZqIuI1ViRP7YdrcLBWhU0mXLCdvk?=
+ =?us-ascii?Q?Qs1sYyULomJ6h5vlPq1HGxGJBMAQf1/YpCujgL8wlOR2qSEWBW8NPUNClQGn?=
+ =?us-ascii?Q?ZUIfqHLTMqKYfPAlUFuTgFlLVQLBYKIsODaVAyaBIHFinUQ/iY2QApctJKLB?=
+ =?us-ascii?Q?Oj4mquRBWi+X4zUvAY+uouA/AsYgobXpMlQ+NPfgKY8qN3rO+bv8/HdIg8OQ?=
+ =?us-ascii?Q?WkfVGynM+Tg06dpZniXwD6sGMwqWh4M9i7kUZwGU5IjAk0dij1G6mbRACfPu?=
+ =?us-ascii?Q?UaWA7dfKlwd4sRoXVCNoY44gymoNb4QrLgVib9KHwHPcID+x09eqi5OJmln1?=
+ =?us-ascii?Q?urDRzRzPKgfV6h+DtyhQPRiqYVbt1SiPypL0lRghrYdBMH2Vi7sqDvz6jh5g?=
+ =?us-ascii?Q?G8iY5qDrH3ez9DaIStj2jqFc/OXS/gWFipCyIyBxa0Ium770Oo8ABzPZylok?=
+ =?us-ascii?Q?j4El3fv0cQlnS1WsUiQjgrU1Q15DGISxj0aL7d61IVqKtrTrVSSUm+E0ssd3?=
+ =?us-ascii?Q?05gWsnzHIm3o2gsT2JL/6nXr7/t3BRJCxZ9ymffnagaLlCXZzvEp4dmcQF+h?=
+ =?us-ascii?Q?R/YNpy0UURHPToLfAv/wNiBee0VtAAtStEjGe8Iywv8OQwSD96AuzylSnSjJ?=
+ =?us-ascii?Q?mkyTjxtOX7W4Wg4oYAkYenyCUGj/x9bbdQI34AbHvaNtb5n93eY4SEUQ4U74?=
+ =?us-ascii?Q?4PmygovtZz7Yyhwx/pua5+0clK1V1Yx9t0xEXlkHXcQq5GBNuyizON8MPtv6?=
+ =?us-ascii?Q?mCaFhuEW1DcnrwwVA05c/WSD7bUD6vsdcDD12ksWgjKV/ZMyvnrXzxuYuEJE?=
+ =?us-ascii?Q?Te2kdEoHRNeNLlgYqqYZD4Fufl4owOPjCFHuMOOOt1dziG4sc3Ga2R2BfalH?=
+ =?us-ascii?Q?3Dq8+txvcLoSgxCC5McoLDdxw/CXaev50z7MgiQbPrc0k61vx6cPziYvSgUA?=
+ =?us-ascii?Q?lGc0aTwEb5Zf+22C/RNlM/0qPrKLjEuLVlLhZh9eWfZj7UO+YhC94Quvm4B4?=
+ =?us-ascii?Q?4HhPUHFF1hkHLgMqL4+UL6gwE8f30pyFg2s6pfr3Pdw4cj+B1gKdEfao8YAj?=
+ =?us-ascii?Q?5HNozWbLsGMdvZi1gC7R+4uL/TjcHEWGbCkrfx/ymXaUo0HGqy2IPMpcVoLX?=
+ =?us-ascii?Q?huOWmDfF4KYbn29VT7IWQMrGd4Dy0sqSM9g46bQsCBLDalc2fOx0x5Wzg68a?=
+ =?us-ascii?Q?nmuKYWV8iTMMl+xQ21hYFj0owiv8/RCxYZnoEtg7LhCmLfrTiSELo5eSJ7VR?=
+ =?us-ascii?Q?+E10EbHufYiDoiw9CaXh2xOuWj7GxrxVjB2V01XaD54wx2bHC0s4PXaJMOuM?=
+ =?us-ascii?Q?WzLdq525UFRtnJ5zqpLz3+kHX/1nWOfLSMBsY09I3oxqbEWrJ1TR9ieJgC2U?=
+ =?us-ascii?Q?3Zo9vdXaGSXO5lf2kmCkKLa+CLaOZ1Uv5BNgZYIrfACunkl98VPV1S3nzoFr?=
+ =?us-ascii?Q?1hMVoquMhHoqXd56CpgqmEfHExvVNcNci/IxjjeDgQfae40x0c3foeYUi30B?=
+ =?us-ascii?Q?bxRmFNSrRg2fM8IooFhqI+vpDe2hht2QXvlmE61olKKB02gXKEalozmayiqC?=
+ =?us-ascii?Q?Y4p3yaSsoYGwqg1CDlRKbLwnrc4Q3eVHS2wkKvepFcWJltCHUDlNI/KSwMn1?=
+X-MS-Exchange-AntiSpam-MessageData-1: UsHDzmUqKnml4g==
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79329601-3fab-405a-f407-08df39cc0d2e
+X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11203.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 17:01:06.9009
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dXA0Bx53bv6DDdhRCxavN1xQPXBTR5MFNpjZgK0o0edX5Lqj2zAUd47QFO9DMAT1Nr3qStkEZ04+hUKeTv7khV+i2StpTwcBkpMwMvhiRuSgJVM+NTcIaUrf34BNkKpJGot3JMJxHdSNjQfApE6hYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB886210
 
-On 11/2/26 12:30, Yeoreum Yun wrote:
-> GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
-> costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
-> atomic, a full barrier and a node stat update for FOLL_PIN), a
-> gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
-> pays sixteen of each and a PTE-mapped 2 MB THP pays 512.
-> 
-> The users are the hot ones: iov_iter_extract_user_pages() pins every
-> O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
-> buffers through it, and so does RDMA memory registration.
-> With mTHP those buffers are PTE-mapped large folios.
-> 
-> After the head page has been grabbed and verified as before, extend the
-> run to the following PTEs that map the next pages of the same folio
-> with the same protection bits, take the remaining references for the
-> run with try_grab_folio(), and fill pages[] from the run.
-> The PTEs of the run are read while the reference on the folio is held,
-> so the folio can neither be collapsed, freed nor split underneath the scan.
-> A read-only run of an anonymous folio stops at the first page
-> that gup_must_unshare() rejects, so the per-page exclusivity guarantee for
-> FOLL_PIN is kept.
-> 
-> folio_pte_batch_flags() does the scan.  It reads the entries with
-> ptep_get(), which is not safe without the page table lock on
-> CONFIG_GUP_GET_PXX_LOW_HIGH (x86 PAE, mips32, sh) or with arm64 contpte,
-> and GUP-fast reads every PTE with ptep_get_lockless() for that reason.
-> Add FPB_LOCKLESS to make the helper do the same; it is inlined per call
-> site, so the other callers do not change.
-> 
-> The order-0 path keeps its instruction sequence.  The folio flags are
-> tested before folio_set_referenced() on purpose: a load of the flags
-> right after that locked instruction cost about 25% on order-0 pages in
-> the gup_test benchmark below, and reading them first brings that path
-> back to the baseline.
-> 
-> gup_test ioctl over a 256 MB anonymous region, FOLL_WRITE, 65536 pages
-> per call, median of 15 runs, two baseline boots / one patched boot, on
-> an x86-64 VM:
-> 
->                        get_user_pages_fast()   pin_user_pages_fast()
->                        before       after      before       after
->   4 kB pages           849/789 us   783 us     1174/1138 us 1094 us
->   64 kB mTHP           812/811 us   126 us     1215/1113 us  188 us
->   1 MB mTHP            799/774 us    59 us     1185/1077 us   64 us
->   2 MB THP, PTE-mapped 803/786 us    57 us     1159/1120 us   58 us
->   2 MB THP, PMD-mapped  42/40 us     40 us       46/41 us     42 us
-> 
-> fio O_DIRECT randread of a null_blk device (CPU bound) with the I/O
-> buffer in 64 kB mTHP, median of 15 five-second runs:
-> 
->   bs=1M psync                 126.2/125.6 GB/s  ->  220.6 GB/s
->   bs=1M io_uring, iodepth 16   71.2/71.6 GB/s   ->  112.1 GB/s
->   bs=64k io_uring, iodepth 16  50.2/50.7 GB/s   ->   60.1 GB/s
-> 
-> IORING_REGISTER_BUFFERS of 1 GB, median of 15:
-> 
->   64 kB mTHP           6179/5998 us  ->  1599 us
->   1 MB mTHP            5790/5801 us  ->   893 us
->   4 kB pages           7173/6741 us  ->  6763 us
-> 
-> Signed-off-by: Yuan-Hao Hsu <aa9736195201@gmail.com>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
->  mm/gup.c | 46 +++++++++++++++++++++++++++++-----------------
->  1 file changed, 29 insertions(+), 17 deletions(-)
-> 
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 49681f63950ec..94a9dc45e5953 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -2901,7 +2901,8 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
->  		unsigned long addr, unsigned long end,
->  		unsigned int flags, struct page **pages)
->  {
-> -	unsigned long nr_pages = 0;
-> +	unsigned long nr_pages = 0, nr_batch;
-> +	struct folio *folio = NULL;
->  	pte_t *ptep, *ptem;
->  
->  	ptem = ptep = pte_offset_map(&pmd, addr);
-> @@ -2910,7 +2911,9 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
->  	do {
->  		pte_t pte = ptep_get_lockless(ptep);
->  		struct page *page;
-> -		struct folio *folio;
-> +		unsigned long i;
-> +
-> +		nr_batch = 1;
->  
->  		/*
->  		 * Always fallback to ordinary GUP on PROT_NONE-mapped pages:
-> @@ -2937,19 +2940,21 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
->  			goto pte_unmap;
->  
->  		if (unlikely(pmd_val(pmd) != pmd_val(pmdp_get_lockless(pmdp))) ||
-> -		    unlikely(pte_val(pte) != pte_val(ptep_get_lockless(ptep)))) {
-> -			gup_put_folio(folio, 1, flags);
-> +		    unlikely(pte_val(pte) != pte_val(ptep_get_lockless(ptep))))
->  			goto pte_unmap;
-> -		}
+From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 
-As discussed, we should really add some more details why each of these
-comparisons is required. Let's do that in a separate patch.
+The OP-TEE driver reaches OP-TEE through the SMC ABI or the FF-A ABI,
+both specific to Arm, yet builds both unconditionally together with the
+SMC Calling Convention definitions they rely on: ffa_abi.c is always
+compiled and only its registration is conditioned on
+IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT), and optee_private.h includes
+<linux/arm-smccc.h> and defines the SMC and FF-A specific types for
+every file of the driver. This is fine as long as the driver depends on
+HAVE_ARM_SMCCC, but it keeps the driver from being built for an
+architecture without SMCCC, such as RISC-V.
 
-(I recall the pte check is required for concurrent PTE changes like
-unmap/protection etc and the pmd check is for THP collapse on architectures
-without IPI during TLB flushes)
+Build smc_abi.c only when HAVE_ARM_SMCCC is set and ffa_abi.c only when
+the FF-A transport is enabled, and provide stubs for their registration
+otherwise, so that it fails with -EOPNOTSUPP as the FF-A ABI already
+does when the FF-A transport is not reachable. Keep the SMCCC header,
+the SMC invoke function type, the SMC and FF-A specific structures and
+the SMC RPC register parameters in optee_private.h under the same
+conditions, and drop the unused <linux/arm-smccc.h> include from
+notif.c.
 
->  
-> -		if (!gup_fast_folio_allowed(folio, flags)) {
-> -			gup_put_folio(folio, 1, flags);
-> +		if (!gup_fast_folio_allowed(folio, flags))
->  			goto pte_unmap;
-> -		}
->  
-> -		if (!pte_write(pte) && gup_must_unshare(NULL, flags, folio, page)) {
-> -			gup_put_folio(folio, 1, flags);
-> -			goto pte_unmap;
-> +		if (folio_test_large(folio))
-> +			nr_batch = folio_pte_batch_flags(folio, NULL, ptep, &pte,
-> +							 (end - addr) >> PAGE_SHIFT,
-> +							 FPB_LOCKLESS | FPB_RESPECT_WRITE);
+Make OPTEE depend on ARM_FFA_TRANSPORT || !ARM_FFA_TRANSPORT, as it
+already does for RPMB, so that the driver is limited to a module when
+the FF-A transport is one, rather than built in without FF-A support.
+ffa_abi.c is thus built exactly when the FF-A transport is enabled,
+and the FF-A transport is then always reachable from the driver: key
+the FF-A parts of optee_private.h on IS_ENABLED(), so that the layout
+of struct optee does not depend on whether the including code is built
+in or modular, and drop the now always true IS_REACHABLE() checks in
+optee_ffa_abi_register() and optee_ffa_abi_unregister().
 
-Batching after the checks above, when we already stabilized the folio by
-grabbing a reference should indeed be correct.
+OPTEE still depends on HAVE_ARM_SMCCC, so smc_abi.c is still always
+built. The only visible change is that OPTEE=y can no longer be
+combined with ARM_FFA_TRANSPORT=m: such a configuration now resolves to
+OPTEE=m, with the FF-A ABI available.
 
-Concurrent collapse should already see the raised reference and back off.
+Signed-off-by: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+---
+Changes in v5:
+- Replace IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT) with
+  IS_ENABLED(CONFIG_ARM_FFA_TRANSPORT) in optee_private.h: with OPTEE
+  depending on ARM_FFA_TRANSPORT || !ARM_FFA_TRANSPORT the FF-A
+  transport is always reachable when enabled, and IS_REACHABLE() made
+  the presence of the 'ffa' member of struct optee depend on whether
+  the includer is built in or modular (Arnd, Jens).
+- Update the commit message accordingly.
+v4: https://lore.kernel.org/all/20260924105145.532787-1-marouene.boubakri@oss.nxp.com/
 
-> +
-> +		if (!pte_write(pte)) {
-> +			nr_batch = gup_unshared_pages(NULL, flags, folio, page, nr_batch);
-> +			if (nr_batch == 0)
+Changes in v4:
+- Make OPTEE depend on ARM_FFA_TRANSPORT || !ARM_FFA_TRANSPORT so that
+  the driver is limited to =m when the FF-A transport is =m (Jens).
+- Update the commit message accordingly.
+v3: https://lore.kernel.org/all/20260922131735.524635-1-marouene.boubakri@oss.nxp.com/
 
-!nr_batch
+Changes in v3:
+- Dropped the RPMI ABI placeholder and the RISC-V enablement patches,
+  this is now a single patch (Jens).
+- Key the FF-A parts of optee_private.h on IS_REACHABLE() instead of
+  IS_ENABLED(): with OPTEE=y and ARM_FFA_TRANSPORT=m kbuild drops
+  ffa_abi.o from the built-in optee.o while optee_ffa_abi_register()
+  was still declared, which does not link.
+- Drop the now always true IS_REACHABLE() checks in
+  optee_ffa_abi_register() and optee_ffa_abi_unregister().
+- Describe the current FF-A conditional compilation accurately in the
+  commit message.
+- Posted as a new thread with a proper subject prefix.
+v2: https://lore.kernel.org/op-tee/20260915020235.507302-2-marouene.boubakri@oss.nxp.com/
 
-> +				goto pte_unmap;
->  		}
->  
->  		/*
-> @@ -2958,16 +2963,23 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
->  		 * see Documentation/core-api/pin_user_pages.rst for
->  		 * details.
->  		 */
-> -		if ((flags & FOLL_PIN) && arch_make_folio_accessible(folio)) {
-> -			gup_put_folio(folio, 1, flags);
-> +		if ((flags & FOLL_PIN) && arch_make_folio_accessible(folio))
->  			goto pte_unmap;
+Changes in v2:
+- No code change, the testing section of the cover letter was completed.
+v1: https://lore.kernel.org/op-tee/20260914175435.118303-2-marouene.boubakri@oss.nxp.com/
+ drivers/tee/optee/Kconfig         |  1 +
+ drivers/tee/optee/Makefile        |  4 ++--
+ drivers/tee/optee/ffa_abi.c       |  8 ++-----
+ drivers/tee/optee/notif.c         |  1 -
+ drivers/tee/optee/optee_private.h | 39 ++++++++++++++++++++++++++++++-
+ 5 files changed, 43 insertions(+), 10 deletions(-)
 
-The label is now slightly misnamed.
+diff --git a/drivers/tee/optee/Kconfig b/drivers/tee/optee/Kconfig
+index 50d2051..891dac6 100644
+--- a/drivers/tee/optee/Kconfig
++++ b/drivers/tee/optee/Kconfig
+@@ -5,6 +5,7 @@ config OPTEE
+ 	depends on HAVE_ARM_SMCCC
+ 	depends on MMU
+ 	depends on RPMB || !RPMB
++	depends on ARM_FFA_TRANSPORT || !ARM_FFA_TRANSPORT
+ 	help
+ 	  This implements the OP-TEE Trusted Execution Environment (TEE)
+ 	  driver.
+diff --git a/drivers/tee/optee/Makefile b/drivers/tee/optee/Makefile
+index ad7049c..183cdde 100644
+--- a/drivers/tee/optee/Makefile
++++ b/drivers/tee/optee/Makefile
+@@ -7,8 +7,8 @@ optee-objs += rpc.o
+ optee-objs += protmem.o
+ optee-objs += supp.o
+ optee-objs += device.o
+-optee-objs += smc_abi.o
+-optee-objs += ffa_abi.o
++optee-$(CONFIG_HAVE_ARM_SMCCC) += smc_abi.o
++optee-$(CONFIG_ARM_FFA_TRANSPORT) += ffa_abi.o
+ 
+ # for tracing framework to find optee_trace.h
+ CFLAGS_smc_abi.o := -I$(src)
+diff --git a/drivers/tee/optee/ffa_abi.c b/drivers/tee/optee/ffa_abi.c
+index 633715b..08236d8 100644
+--- a/drivers/tee/optee/ffa_abi.c
++++ b/drivers/tee/optee/ffa_abi.c
+@@ -1212,14 +1212,10 @@ static struct ffa_driver optee_ffa_driver = {
+ 
+ int optee_ffa_abi_register(void)
+ {
+-	if (IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT))
+-		return ffa_register(&optee_ffa_driver);
+-	else
+-		return -EOPNOTSUPP;
++	return ffa_register(&optee_ffa_driver);
+ }
+ 
+ void optee_ffa_abi_unregister(void)
+ {
+-	if (IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT))
+-		ffa_unregister(&optee_ffa_driver);
++	ffa_unregister(&optee_ffa_driver);
+ }
+diff --git a/drivers/tee/optee/notif.c b/drivers/tee/optee/notif.c
+index 6e85f2f..6801422 100644
+--- a/drivers/tee/optee/notif.c
++++ b/drivers/tee/optee/notif.c
+@@ -5,7 +5,6 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+-#include <linux/arm-smccc.h>
+ #include <linux/errno.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
+index aefe1e6..02d6f79 100644
+--- a/drivers/tee/optee/optee_private.h
++++ b/drivers/tee/optee/optee_private.h
+@@ -6,7 +6,6 @@
+ #ifndef OPTEE_PRIVATE_H
+ #define OPTEE_PRIVATE_H
+ 
+-#include <linux/arm-smccc.h>
+ #include <linux/notifier.h>
+ #include <linux/rhashtable.h>
+ #include <linux/rpmb.h>
+@@ -15,6 +14,10 @@
+ #include <linux/types.h>
+ #include "optee_msg.h"
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
++#include <linux/arm-smccc.h>
++#endif
++
+ #define DRIVER_NAME "optee"
+ 
+ #define OPTEE_MAX_ARG_SIZE	1024
+@@ -42,10 +45,12 @@
+  */
+ #define OPTEE_DEFAULT_MAX_NOTIF_VALUE	255
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ typedef void (optee_invoke_fn)(unsigned long, unsigned long, unsigned long,
+ 				unsigned long, unsigned long, unsigned long,
+ 				unsigned long, unsigned long,
+ 				struct arm_smccc_res *);
++#endif
+ 
+ /**
+  * struct optee_call_waiter - TEE entry may need to wait for a free TEE thread
+@@ -119,6 +124,7 @@ struct optee_supp {
+ 	struct completion reqs_c;
+ };
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ /**
+  * struct optee_pcpu - per cpu notif private struct passed to work functions
+  * @optee:	optee device reference
+@@ -149,7 +155,9 @@ struct optee_smc {
+ 	struct work_struct notif_pcpu_work;
+ 	unsigned int notif_cpuhp_state;
+ };
++#endif
+ 
++#if IS_ENABLED(CONFIG_ARM_FFA_TRANSPORT)
+ /**
+  * struct optee_ffa -  FFA communication struct
+  * @ffa_dev:		FFA device, contains the destination id, the id of
+@@ -170,6 +178,7 @@ struct optee_ffa {
+ 	struct workqueue_struct *notif_wq;
+ 	struct work_struct notif_work;
+ };
++#endif
+ 
+ struct optee;
+ 
+@@ -257,8 +266,12 @@ struct optee {
+ 	const struct optee_ops *ops;
+ 	struct tee_context *ctx;
+ 	union {
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ 		struct optee_smc smc;
++#endif
++#if IS_ENABLED(CONFIG_ARM_FFA_TRANSPORT)
+ 		struct optee_ffa ffa;
++#endif
+ 	};
+ 	struct optee_shm_arg_cache shm_arg_cache;
+ 	struct optee_call_queue call_queue;
+@@ -290,6 +303,7 @@ struct optee_context_data {
+ 	struct list_head sess_list;
+ };
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ struct optee_rpc_param {
+ 	u32	a0;
+ 	u32	a1;
+@@ -300,6 +314,7 @@ struct optee_rpc_param {
+ 	u32	a6;
+ 	u32	a7;
+ };
++#endif
+ 
+ /* Holds context that is preserved during one STD call */
+ struct optee_call_ctx {
+@@ -422,9 +437,31 @@ static inline void reg_pair_from_64(u32 *reg0, u32 *reg1, u64 val)
+ }
+ 
+ /* Registration of the ABIs */
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ int optee_smc_abi_register(void);
+ void optee_smc_abi_unregister(void);
++#else
++static inline int optee_smc_abi_register(void)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline void optee_smc_abi_unregister(void)
++{
++}
++#endif
++#if IS_ENABLED(CONFIG_ARM_FFA_TRANSPORT)
+ int optee_ffa_abi_register(void);
+ void optee_ffa_abi_unregister(void);
++#else
++static inline int optee_ffa_abi_register(void)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline void optee_ffa_abi_unregister(void)
++{
++}
++#endif
+ 
+ #endif /*OPTEE_PRIVATE_H*/
 
-> -		}
-> +
-> +		if (nr_batch > 1 && try_grab_folio(folio, nr_batch - 1, flags))
-> +			nr_batch = 1;
-> +
->  		folio_set_referenced(folio);
-> -		pages[nr_pages] = page;
-> -		nr_pages++;
-> -	} while (ptep++, addr += PAGE_SIZE, addr != end);
-> +		for (i = 0; i < nr_batch; i++) {
-> +			pages[nr_pages + i] = page + i;
-> +		}
-
-No need for {}. Rik will replace that with a proper helper later.
-
-> +		nr_pages += nr_batch;
-> +		folio = NULL;
-> +	} while (ptep += nr_batch, addr += nr_batch * PAGE_SIZE, addr != end);
->  
->  pte_unmap:
-> +	if (folio)
-> +		gup_put_folio(folio, 1, flags);
->  	pte_unmap(ptem);
->  	return nr_pages;
->  }
-> 
-
-
+base-commit: 827751b699b79a6e569983359c02dce67f81b94c
 -- 
-Cheers,
+2.43.0
 
-David
