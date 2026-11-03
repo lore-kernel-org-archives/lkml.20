@@ -1,112 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710793;
-	b=CXoXOm9hJPGFX+VvFHKD9d2XXpZXCAx9gs3UHANyh6IQXdVMLM701sD88ERrf8ux9HX8
-	 w9w+i82dFF1mLFQm6/WrRi/9htDjm+2+H28asjxp2fnxMFCwcXFJLC7ghknvZ5oBEH4Xx
-	 lYa88MN9pRYPHGwvXwPUrnm4SK6bbUvRufODGmuWO+WSeN0kb+PDKUSxnGhxOfmwHuN0e
-	 T8ZcFHQ07Ly9owwATm5gS2wpJzOSgAdT9IHi9ZfERvpYNra+3YnMNPbRdzVXkY9p6HEmF
-	 /IULdO5xU45ZeoJxF2uCA/3dJCcKBPCyyLP989wGfic8qa7U4+5l8YdftrrHYOlUlNw==
+	t=1793710822;
+	b=zvOiGSVnI0DCN0AXvLYvH77wBN2uwWOvsp0aOPj3o9bwfcn9wVlMDJGjEeJHt1arDcCw
+	 iY2mAQI5D7YDG7R69+ONFVh4NZj8BcUW7cNausDyM+xt5khGaXHNS2ddPmpyRi5pT68mX
+	 nmtJT+ZfJ8VcdLkjJXvDY4qDblqBFLVnnjFpgCpN/f/i1jT5fYXqZYIWInRnBwtKG8dRk
+	 NwApbapy63hZ6GRa7KUwjr3C/FMZqcDarIrUZB68crcHNK4vSuy10W1mci0L7QXkFjSDI
+	 52BhGdQICtxKoa/erKROoK+0iDa/vTVLKE6l0tUUS2nu8hs3TvWI7kVuRcXyJD0cljA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710793;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=uzDjr58ySN7ynEFuax05LT2YdSXHMlQCQifLPO++jM4=;
-	b=Qg5Yiza9Bd2t14Chbsf9o9BG1J6ryHSBDuw8ZRmuqPArU2oI41QlloXIzhYZDEKlhqhi
-	 83S41M8+XA7BjBEHos4qj9IqpxSAeElPIOSxhiuTQkeaSK6iOT5Zmb+oAiN70YdMvvUvJ
-	 pmBKcFHzXazcR8Oyswz0kWyvmUGjGHY9bxOJtEFXUrqEbp4cR+0gP/cv2eBSZ5eWWKTsC
-	 cpySsawECjrEnmJ5ptF0a+GYFFQeOqaW2wePDJj2drIbffNKN2T/bjmAEGkFDH/Nt4fNc
-	 XqOZrBcfZjeykmGcGoB2F6RzRQzluz2cqjPkGsrQgcSesg0G8eXpA8lwogEiJwJszWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710822;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BbsthUcH6RMTf08/pwvouxwtu/eP2PPkhDBbmB5Ln7s=;
+	b=DuqC24gA0WmH3m8J36LL7dU8MPdY3N3byYK/A5hz9Yvv7WUBIddUqLeDROKDcyvlBoFi
+	 S38joUha3kQ3DUmFOfHQwHfPYlI+JZUYrFTVdUutiuu0MhXPM4ek1XW1GCqJ27NN+6f07
+	 UGhSBmm022gSMxMRHgGP2UAn10VcvM/mcEuPzGdzcSXeQ0KcELI9mfPYhXzpA4yDZ2HNY
+	 zsWAhYJbOMiPoYVbkf3/xLMi4ldJCCH4zjUSmQApRWzFedSeU3N7B58XxiN1Fpf1gtRNK
+	 Hs/rWL9ruEHEqeCqOEPJwuADt7glPacj2/jGkJ8FOwB1rnqnJ2vSLNEGZkh17dJsgMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cifd2DW9;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="hd//VtE4";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=oAjH1ZKn;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00AA606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E00AA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65420606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:00:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65420606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cifd2DW9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hd//VtE4
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3ClQ3c2547078
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 12:59:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uzDjr58ySN7ynEFuax05LT2YdSXHMlQCQifLPO++jM4=; b=Cifd2DW9St/UFgNQ
-	f7Ka0TUklCWbXbcaM6XCRFMpgwe3Xt24TUE9+UkUYZ3zKGkOlGaqPV0L+WmT6Bxb
-	XgmE01LgcNVFO/N8a7avOTgT1Jp7Jd/4RzCiJTPvlpAidzrbCtulvVu3hRC4Cqhd
-	lFmb88NawrH23WzW4Te3IEILGPlLu7r91449nJDJylO50yNeKpdfRXbBc7L3mLZ+
-	Z21nM1Y7fNLHR7W2DWC1MGtCKIFUokZoNhLuQHrzJAj2A1GLR7B72Ih15EvOy5GZ
-	+psPFHqxhV4HqX1KivXtqz3Zsq4A2yKrmFGr2EUSZ/URVY/IAoF83Rq+BZiUXMmi
-	JWt2Sw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq07r3thd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:59:51 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2eb362d1f5eso43422335ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:59:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=oAjH1ZKn
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36c9a93a1abso356107eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:00:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793710791; x=1794315591; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uzDjr58ySN7ynEFuax05LT2YdSXHMlQCQifLPO++jM4=;
-        b=hd//VtE4JdsLOUqQvm8vBXQwGO14B7/9FoEO7DiZ8snqHtEGG4rmVrFioQ3CxhL3WG
-         phzquTkv3otLfCJ13TxXIWXn1IHeWngkvsS1YfdWW6goBK5K0MD9R0Y8wOFqAeQKF5KG
-         rxtEo1T824UZzEATVm3ZkTFkboz1tGIcH7HxUyK7JO5DcdOx+Wyw7hejF8G6er2wht/i
-         UddAl2dIc87tvfg7oOoX53neyJAShKVDq6MK/+U7hcCVKp5v4jAkWQ8cWsiWku8gdir4
-         PMwrDKkf7cKUkTYkVdcmIPoPXVYQvY2RovqWUuYhvFIt6B0g3nVvCjryuCrvh15jqF63
-         1O9w==
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793710820; x=1794315620; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BbsthUcH6RMTf08/pwvouxwtu/eP2PPkhDBbmB5Ln7s=;
+        b=oAjH1ZKn6wTySY2nbMWWWqQPMptHJelubTqNlspvs8725hkLJV3O8Cj0wo3A9M1u3Y
+         /pAcm9c820eFfGOFsdFEvm4a67mTdH4tTeq17q5lUEvB0ExMldRJKgcxy6bzi8+MHq15
+         qXkpsFZXbSXGE0JIk+996NFig/CuS+aXCcnx9tPtvEncsMl4CJ93jdGrO1Ldrbb+akup
+         VN626w7rVpm9vtJotTqFB1/QOQed8bnSk4c2UhNlHj/Cbp9Mv8UGEVgFIJ+fg4o/9kjb
+         GCfbWyFHRGm9LXxSXsM9w6pWBzb2TNUOQQPFcCaiHAvU6M9NLvVYVCuJC56vvzh97Tk+
+         GhdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793710791; x=1794315591;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793710820; x=1794315620;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uzDjr58ySN7ynEFuax05LT2YdSXHMlQCQifLPO++jM4=;
-        b=Uhf9p+KvjaXK0+SIu8pEHlKJSLnMlJsFZLA4Zd2ypYC+U9S5KgDCIAnf99pYBGik9i
-         IQUrlVrH/oE1JasOGQd7oNipE3PdYwuwxzedB5zrxuwVuS9a8B7dW0y7FnIad5CJNS1R
-         fU4y2/F3hfsMNAb7GvhIb/CRXLjeMUQH+Tqa86mhtgkT5H/pLuISixHL88YIq4nn+TwV
-         7rbwhs70Lw7kOpq7cRte3TEgoNslwhUMIk1u+v2yL91uKlM8CA2HAwf8S0KiXB3HxLAO
-         Yahy7B8VJmitIjjwoQUQwl9wtWhJ0h4ROaRlJoMBatEl1Rnf6QzHQRjPVIDmpjKwyHD4
-         V9CQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxi3Ezun7Uii2PBMCEEEWcXZOWT5VlTjWvvct5ssGgNeAAwpJDRjGB/6tQ/N9PlSGgMwwar3cHAaypk4+0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VTV611ecbkSggUvQ4Fc9Ug85iELyRjopjzd1wuxZ29/Fx9X3s
-	I0XE1uITgZxXdY8DP0DxyXBPAdPcjM4CQ8sLk8CeCYXUALLcCBOeH/Ler78raPuZAlBDcbBc766
-	F1UeNvkRSeyzmGe06R3nBdw1/WmVoJJa24qpf6tp5EYdqHGgRI8ShLPBMtsAacZ6CxLs=
-X-Gm-Gg: AYBFou1BK+1J2UiCoargnUKXrNsMQfBRLR5oTjCp2oYoUoUMK/sOpl2D/2uDuP8Mn3i
-	WhEOkA+bv3liEIOrryxbRxFSegLuvrQyEUM581GSII7hs36YEea7NVJOHnUIJHUw59dxOQovYSB
-	x//rru+BwBXnToK7I66xtkwC39FOq1r3LE+z9EVnx31pZcLSgL5LdvzisdlPrwfGFNPEOlfenpC
-	D7JFe7T6A0HvgeWXpxxnvLKiAdh4Tp1efTv7wTGsf80+J5YB8sC+G2/dk4t0zi6VmQQYgBVAoiS
-	Veuhf9wwNbUG7SnRSih3zIgT5pSfmEqBJPFfFjI4uiBGi4EemxPsiYTmKj0kW85tdvHlkxCnnys
-	5ahJaSb5XUl8gI17aUUV/RmFFywPKG0QXLd6AMK9bp45jzr1ZyAomYuDao0bSZbFFcGrNFsknki
-	Grs+dX/uW7D3wBrOw0gWBpbLeI66xREAj1ALVmuJy0dWT5d+D28dc5o7N155LDOQ==
-X-Received: by 2002:a17:903:13d0:b0:2e9:9b5b:e179 with SMTP id d9443c01a7336-2eb36504ec5mr131117555ad.50.1793710790635;
-        Tue, 03 Nov 2026 04:59:50 -0800 (PST)
-X-Received: by 2002:a17:903:13d0:b0:2e9:9b5b:e179 with SMTP id d9443c01a7336-2eb36504ec5mr131117335ad.50.1793710790114;
-        Tue, 03 Nov 2026 04:59:50 -0800 (PST)
-Received: from [10.50.44.6] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3928f933sm40414795ad.58.2026.11.03.04.59.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 04:59:49 -0800 (PST)
-Message-ID: <72d9d2db-5cee-457f-ab03-0d166a84a49c@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 18:29:45 +0530
+        bh=BbsthUcH6RMTf08/pwvouxwtu/eP2PPkhDBbmB5Ln7s=;
+        b=cTOoQ6mjzvuO0VgQXTze4sMI8M/QyfFazCbc7f2VgJbS9WFe5VPsEalb9phf85oGCJ
+         YS8Cd6bJN8nLQEftyXozvAUmfjAbwtZlbnslbQCMvx+CCc4c3V5Ad0H6jBl2lvjuwCWv
+         VNQt/v8/G5CtMxcf954Kp6TWdP9yuU5NhbWIZVWtBJlv3/XXP4PH7kx1UPnafaME7xeq
+         FYiQ33NSNs3qTBL6WEH3YB2Qr2/OdG2Puw9lH9yoqzwhJaTpOAfQXrWc/KcBUHgeeT63
+         yXT/B4rOjJBme3goIGgT8AmraImWCKOfLmWii1g7zorL/C9rWIvkdxyhp6itwiqdfUpZ
+         /KFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZGQI6ceJ6bUIcOha5jUc7u2ycgwdRpHUHtsW4rTiRu0cbdWkOC8g2OdojFeTZ0fJzaGPGZxHbifZM+TI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GojuGz7Kj7vhs20E/60/hOvllDS0CPruBKGGPzfRtbxUl7vKW
+	KXeYAow0NhwnDs+8tafXnHN6RnSQ5/ogBnlIoucTrB6CTeQ7iYYF2QznEmtTyGt8ncOpw2bR9AV
+	CK3y+12k=
+X-Gm-Gg: AYBFou0NjMyu98LDGsjmXfbQzkqkPeinHgHJhQD9WHgAeptPCiJeO4igKOdU8nVNgho
+	HUFK58pp+Of+r3dld5sVnyT36PSd51/iMg3xtLgRF5s/9BjO5qeeG1+BKBz4h1VrfpNLj8ATYbq
+	nmZqTvZShoV1P6DXtyZ33jEqx6zhP15jsXiZxV2UnH1q9SK6VQBsCn0wUkpPRw36k/29x2sWytd
+	MmG0PNXDx0qGHVi6NQMNXSEIQ83Yok1u0f8B15nx5wvxTjhmW0lWLC5tw+aBe8z43nMfyT0yyQl
+	FyRIJqF0o/F3QTMaF+xxybuvrF9KyEwCPx9NmkZg5FO40dDKuia0ayhyJZwx1AGp4egBN1FQYCg
+	+wAmwHgFfigjb/CSabKCnpcD/PozC3t6wb/EsRQwP8XNP8GApFR8A5moEsV2AU0oActOaWnGV7M
+	Fb4p0GZhfA7MzriBZIK0r2yfjw4miOSL+WicvTgd2LSPfO1eRelNF3a8Rgyi9ALL3CMPKzPTEmM
+	rDr0vQqi7LMdIT6qwhRXIihOZrZrlAgBoLo8El40ZGaCEImkMLVv49yrRof78+kdFxcqCqxpz/F
+	4rdJHXePgJf7xuQGgNqefm0zmqSliCCAyg6+C/Ojq+rghdekFCDOkj+RGV8NL4Y6UNNWfQpJMIw
+	umqECSyFmVpxq0asVJNhiJAXNbvbZqihbelCBag==
+X-Received: by 2002:a05:693c:4088:b0:36a:2f6c:490e with SMTP id 5a478bee46e88-36a30009ecemr25851381eec.6.1793710819910;
+        Tue, 03 Nov 2026 05:00:19 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:2da3:4696:4c5e:89c1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42669128sm50806107eec.3.2026.11.03.05.00.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:00:19 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Sagi Grimberg <sagi@grimberg.me>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v5 0/5] IB/isert: fix the device removal use-after-free
+Date: Tue,  3 Nov 2026 21:59:50 +0900
+Message-ID: <20261103125955.1530355-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,96 +103,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: avoid hour-long timeout on invalid ACPI table
- entry
-To: Andre Przywara <andre.przywara@arm.com>,
-        James Morse
- <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
-        Fenghua Yu <fenghuay@nvidia.com>, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-References: <20261102112748.3458012-1-andre.przywara@arm.com>
-Content-Language: en-US
-From: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
-In-Reply-To: <20261102112748.3458012-1-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: tcCz7E3HHYqTu_5FrHorV33HVvI7Qygh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1MSBTYWx0ZWRfXwoRis48Nn8C9
- oNrQQd0G8vYZS6ik/fOJiGKmveyuPMlRg+8Fyn4t2vn7OYj5qyxPjtuk+/mUKcNkB0wWS009u7l
- 00AUV/klKhQUCBdUKvBFFLt9ZXru+Av8i/z9O6f22cMzxuxd4w6+IIQFqE5xSMWd7d83YzrQnBX
- s1+SNGK9xHNW2s5wRDdBuRL0DGfazTdamxmjTMR1YOvlHJoQK22Ud/BpZ0WU8r9Lt/GaYDnF/AN
- hPfafBdQG8gwx+TQh7abMyWPD7gM7HSSQ8IhHzRvmrNIbITXD5gLH+u/K1LHbrRQv3bCS9GXqws
- M01tOoFa1oh+5X7OA7L1iB0KdFbq/WniM6DIp2teqMW8oTXz+MH5RcdiyJtVfSOzWX4Rf2kGL1/
- zTsrq23+mcGJ1RiSmfnjR/4jkuVR3id9WQItmUKjgtbkDI2eeybzkUop/R4uRW1+4nvCn2ShOd1
- 7k62sfRrPmu5/2kNJAw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1MSBTYWx0ZWRfXz831o7JA8V6U
- qaADzRLv0eZ70CuajqYpY+EQtE6l5nCO8MoLp175TTAYP3Q5ZmiiS/Al4t7f40oz7L4wQ0t0pe2
- yH4AIRzK0Upv8yuD5L4NzUdgFyHt8UY=
-X-Proofpoint-GUID: tcCz7E3HHYqTu_5FrHorV33HVvI7Qygh
-X-Authority-Analysis: v=2.4 cv=NZlzRGD4 c=1 sm=1 tr=0 ts=6ae9dac7 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=xQjQ7c2AriHHlxExpPEA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_02,2026-11-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030051
+Content-Transfer-Encoding: 8bit
 
-Hi Andre,
+The RDMA_CM_EVENT_DEVICE_REMOVAL callback in ib_isert waits for the
+connection it was handed to reach ISER_CONN_DOWN and then frees it, a
+use-after-free against isert_connect_release(), and the wait deadlocks
+against the handler_mutex rdma_destroy_id() needs.  3/5 moves the teardown
+into an ib_client callback, as nvmet-rdma did in f1d4ef7d8883, and gives
+every connection one owner.  1/5 and 2/5 are older problems; 4/5 and 5/5
+close two holes the walk makes visible.
 
-On 11/2/2026 4:57 PM, Andre Przywara wrote:
-> The ACPI PCCT table contains a "nominal latency" field for the expected
-> maximum time it takes to handle a command in the PCC mailbox.
-> The generic ACPI code reads this value, but leaves the handling to the
-> protocol users.
-> 
-> For MPAM-Fb based MSC signalling, we use a value derived from that number
-> as the mailbox timeout. However if the ACPI table leaves this entry at 0,
-> the mailbox timeout code interprets this as "forever", and waits for one
-> hour.
-> 
-> Avoid that lengthy timeout and just add one microsecond to the read value,
-> to come up with a non-zero result in any case.
-> 
-> Found by Sashiko.
-> 
-> Fixes: cb351e3f304b ("arm_mpam: detect and enable MPAM-Fb PCC support")
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> ---
->   drivers/resctrl/mpam_devices.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index c067b6d57d71e..fb596ed19a648 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -102,9 +102,9 @@ static struct mpam_pcc_chan *mpam_pcc_chan_get(struct device *dev,
->   	/*
->   	 * Timeout based on the "nominal latency" in us, from the
->   	 * PCC ACPI table. tx_tout is in ms.
-> -	 * Add some margin here to be on the safe side.
-> +	 * Add some margin here to be on the safe side, and avoid using 0.
->   	 */
-> -	cur->pcc_cl.tx_tout = DIV_ROUND_UP(cur->pcc_chan->latency * 5, 1000);
-> +	cur->pcc_cl.tx_tout = DIV_ROUND_UP((cur->pcc_chan->latency + 1) * 5, 1000);
+v4 -> v5
 
-Would an explicit floor, e.g max(DIV_ROUND_UP(latency * 5, 1000), 
-MPAM_PCC_MIN_TIMEOUT_MS), with a comment, be better than "+ 1"? It also 
-avoids the side effect on non-zero. Just a suggestion.>
->   	mutex_init(&cur->pcc_chan_lock);
->   
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+v4: https://lore.kernel.org/r/20261103032924.1073138-1-yhlee@isslab.korea.ac.kr
 
-Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+The critical point on 1/3 was the skipped drain.  v4 checked ownership
+first and returned without draining, so a posted login receive could
+complete after kfree().  1/5 drains before it takes the connection, the
+order mainline already uses.  I did not reproduce the failure: with
+isert_free_np() parked inside its take window and a reject arriving on the
+connection it held, two runs of v4 and two of v5 both reported nothing.
 
-Best Regards,
-Srivathsa
+The high point on 2/3 was isert_accept_np() taking the connection while the
+drain ran outside isert_conn->mutex.  2/5 empties isert_conn->node under
+isert_np->mutex before it terminates, so only that owner drains; if
+accept_np got there first the node is already empty, and the handler
+rereads the state under the same lock and hands the connection to iscsi.
+That is the same race as the teardown against accept_np below, and I did
+not reproduce it either.  The low point, the kdoc, is a Return: line on
+isert_conn_terminate() now.
+
+The critical point on 3/3 was ib_destroy_qp() after accept, and iWARP.  v5
+has no post-accept error path left to destroy a QP on.  iWARP I could not
+measure: a siw portal cannot listen here, because enabling iser adds a
+child np at the parent portal's address and siw binds a TCP socket to it.
+
+A high point on 3/3 was the walk against isert_connect_error(), with the
+leaked promotion reference.  isert_conn->cm_id was written with no lock, so
+the walk could call rdma_disconnect(NULL), and a promoted connection that
+errored out leaked a reference.  The owner clears cm_id under
+isert_conn->mutex now and 4/5 drops that reference.  A REJ after the RTU is
+the cell for both; the INIT-only half I could not open alone, because the
+device whose removal opens it must carry the reject.
+
+A high point on 3/3 was the teardown against isert_accept_np().  isert_np
+is reference counted now and the teardown runs on a reference taken under
+isert_conn_mutex.  Nothing faulted in over forty window entries a run, so
+that one is not reproduced.
+
+The last high point on 3/3 was the late isert_device.  5/5 refuses
+isert_device_get() for a device being removed and keeps a marker until
+isert_exit(), measured with a CONNECT_REQUEST parked before the lookup.
+
+Measured on soft-RoCE, three runs a side unless noted.  The nine cells v4
+already passed report no KASAN, no lockdep splat and no refcount warning on
+either side, login and I/O eighteen runs a side.  A REJ delivered to eight
+promoted connections faulted the v4 removal walk every run and returned no
+isert_device reference, where v5 finished it in fifteen seconds.  Over nine
+runs a side the late-device window opened four times on v4, each of those
+building one and taking ten or eleven core warnings, and twice on v5, which
+built none.  1/5 alone took twenty-two use-after-frees to none, 2/5 alone
+ten hung tasks to none, and PROVE_LOCKING gave no splat in twenty single
+runs.
+
+Yehyeong Lee (5):
+  IB/isert: do not publish connections being released on a second list
+  IB/isert: drain the QP without holding isert_conn->mutex
+  IB/isert: tear connections down from an ib_client on device removal
+  IB/isert: drop the promotion reference when a connection errors out
+  IB/isert: do not build a new isert_device for a device being removed
+
+ drivers/infiniband/ulp/isert/ib_isert.c | 420 ++++++++++++++++++------
+ drivers/infiniband/ulp/isert/ib_isert.h |   9 +-
+ 2 files changed, 319 insertions(+), 110 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
+
