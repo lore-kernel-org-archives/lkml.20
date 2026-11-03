@@ -1,47 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694884;
-	b=hVwTQJ+ht1Hu0t4d+L6PPJ79TZZVDImVVIQuUMDz/lV5cvhNU7PNFyxooKef++6AU0wf
-	 TltFAde/owImSgPpjXxEBM5pZrm+zI1KYvBIvn7c8YxuslRODHSCOut0/sFWXuqSHsSmM
-	 tI06uZSvN9OT0JD8SMJ2/VZTboyJZOttpRNH7f1YzBkmWgXm+97VKCl2dj/u/6bbA02Wj
-	 YE5UjSGFzz8FqmEDkvGBs3Hsc3X5FtC3DD2E5rizvleLQiCzoPMB8El+xI9Qp/1MV1AYJ
-	 +zIW7iIB2q4A/42GnQk8ORQ8nyjvF7ixkJHkKAM4RrJ8ZqccCEeqmvdECD7SReY/dbA==
+	t=1793694900;
+	b=1YJlzEuF2Tzh3opUEwfBGculIH852v5qeIWllELc5I6QOvSNy0wq/ppqMcdsiBuupbTu
+	 gg1/b6A09xuZYqmMWCJQaAbPCjtdR0EMbQ0Do7+nSWeCDRFG7UVbSvu9BP7sSCwpdCbQR
+	 6w5oWOH2/G7wjxhA6TweifxsSWTa/N87MB9JNzr5GlUztwh6EOfRmbd1nZRA9sc/5E3Qw
+	 L7iDr7ItSuElkFwYVW98/kvO7yoU9qUYgiROkBuxdnczkqqJwDDf5b3yNudet1kHRzuS5
+	 DxWSAJkBJQH7mXttefsRUk/16d/OPBQKs0CP1qEFcg/yYh1y9C9dLDwmmksMp3fbWBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694884;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=iXihXJUZiRcyhz06nhVB/zy3BWmg+wdNRE4618SH1bE=;
-	b=mFSZAWyrHiqA87w/xcY1DRLZAidDPfvE+plordBof8uzniSppLF3pvUMj+FFBrFK99Od
-	 OA0al8zq6T4ZuI3umXHtCqFDqbgN5YOL4ZCjRwTH7QYvTLQyxzFyJ662e1OF+rc7xXQRy
-	 8GBPyArCPPvh2XYnoYQQmaxcmFk1llwRyo54HZ5QgZQ/ZewqIdC/0JvwDxX3v5v++klxg
-	 wa+EEZImX5DcQYfWMSYOWrB6lmIb7Wef1WxCsv/NP+CvyWrNOS4Nz8neEBb1BUl/Hf3v/
-	 n7tFdb5rmu5tKtGOSlInOWHnlYY012mQZmbF7n0+zIztIK1V7CfldEVg5F/XXTa6z/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694900;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MbkXDHo1xuZzdIbJLfCFRMeI3qreXHQVaX0Y035ar6E=;
+	b=Mh6vAQm7fC12h1vEh+7rJNS+l9sT+DEp3O48RPbGr5MboXWwqONLNmo+W4K7H5lT4ycb
+	 gi/1pM2+wUQkp4UNWAJ4KanOdXnZs7FXv7FRImHqUptS8kq6YLll5KtyogqPw/YAl3vb2
+	 kaP/Z6Y3aDWVylRgTa+rUWVO7Toa2mcewi0/cfGwe2RYETN0/8XVhtMHJcgJr2DHXrd8/
+	 mCFLAlkQQfdtwWgGnkrwuK1iry+2vhIfeLpDweaKSYcArbhpYrVJgvWyVEfoG6+nIALwQ
+	 HQ+NLwhbi26d+luHxmoTbyRyvE/YYIAJcXzTKXFURiHsd9CqSyjUDac4OqyuOgQldRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ULPGn0tr;
-	arc=none smtp.remote-ip=220.197.31.8
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P/GKaWaZ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE9B606A33D;
-	Tue,  3 Nov 2026 08:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FE9B606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C495606A33D;
+	Tue,  3 Nov 2026 08:34:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ULPGn0tr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=iXihXJUZiRcyhz06nhVB/zy3BWmg+wdNRE4618SH1bE=;
-	b=ULPGn0trtEIuH1ItAI7Al8o1iBVxxYZzSH443PnwE1q6MvYpni6ltJNWr5vIlS
-	QclktdtFucemnvzVKMX+B0v3bxl12PIjvF93iSlaT1+K2lRZbrNdE2gROIZJrNiM
-	Ex16D8oszTa2SFOsEnzJZy8I3+dWrOWUsYqlcqcYBLcPc=
-Message-ID: <d02b00db-d916-412b-ad6c-21959c63c43a@126.com>
-Date: Tue, 3 Nov 2026 16:33:57 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P/GKaWaZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97B01F000C1;
+	Tue,  3 Nov 2026 08:34:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793694899;
+	bh=MbkXDHo1xuZzdIbJLfCFRMeI3qreXHQVaX0Y035ar6E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P/GKaWaZ2XZPjdPtX0xj3DV82aPecbQdBJ09rmkt8WdtG6oEJWZfgDu4oU0v7TGQR
+	 DZ4+KCjo3a58PVlZecgdBRRUdjFxTh9NC3jnzhYKSezGnP4oaR5AT6EBUaVhiq/GHn
+	 DywN9Ru1M17Pcsw7VPrEkExKy8MY7Nya3VidCc5XAv4dgJje0bJPIvbAgVfEKPKQZO
+	 zKNaKOaUvNpkBGXEWrY4VlCBSpAzYfvCIGsfaPWFblJa1imMI0UWvm/UHPmSZ7ziE0
+	 sW4G1aSC6kh7MF9rTlMqwf0zxON36NECN9ONOcBW3Xf4XGLAEngsUVqN5dcP2EDQzN
+	 NFCacvWwboiRw==
+Date: Tue, 3 Nov 2026 08:34:51 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/8] mm: remove attach_page_private() and
+ detach_page_private()
+Message-ID: <aumcoUqORACOXqFP@gremlin>
+References: <20261102-page-wrappers-v1-0-e7280bdb31f6@columbia.edu>
+ <20261102-page-wrappers-v1-4-e7280bdb31f6@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,80 +67,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] l2tp: fix use-after-free in l2tp_udp_encap_recv()
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, gnault@redhat.com, kuniyu@google.com,
- michael.bommarito@gmail.com, alice.kernel@fastmail.im,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, xiaolinkui@kylinos.cn,
- stable@vger.kernel.org
-References: <20261027063657.1359170-1-xiaolinkui@126.com>
- <179340002340.3131.5823454250644987437@kernel.org>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <179340002340.3131.5823454250644987437@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3n7Z1nOlqrY+CCg--.63128S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZrWUGryrWFWrJrW8GF17KFg_yoW5GrW3pF
-	yxWF4DJr1vqrs7Zw4qy3WUXr1fGa1SkayrJa48CFy3Zws0g3ZaqrW2ya1Yvay3ur1vk3yj
-	ya10g3y8Jr4vkFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UajgsUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqBdZMGrpnHfAngAA3g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-page-wrappers-v1-4-e7280bdb31f6@columbia.edu>
 
+On Mon, Nov 02, 2026 at 05:54:09PM -0500, Tal Zussman wrote:
+> There are no callers left of either wrapper. Remove them.
+>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
+LGTM!
 
-On 2026/10/31 06:40, netdev-bot+sashiko@kernel.org wrote:
- > - [Medium] The commit message describes a use-after-free that no code
- >   path in the current tree can trigger.
- >
- > Can the backlog path described here actually be reached?
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Agreed -- it cannot.  pppol2tp_backlog_recv() is the only
-sk_backlog_rcv callback that calls l2tp_udp_encap_recv(), and nothing
-ever queues skbs on a PPPoL2TP socket's backlog: sk_add_backlog() is
-only reached from __sk_receive_skb(), tcp, sctp, tipc and x25, and the
-__sk_receive_skb() callers (pppoe, pptp, l2tp_ip, l2tp_ip6, phonet and
-vmci) all target their own socket families, never a PF_PPPOX /
-PX_PROTO_OL2TP socket.  pppol2tp_recv() delivers payload with
-sock_queue_rcv_skb(), which does not use the backlog either.
+> ---
+>  include/linux/pagemap.h | 10 ----------
+>  1 file changed, 10 deletions(-)
+>
+> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+> index 9adfeae2153c..37b7786350c5 100644
+> --- a/include/linux/pagemap.h
+> +++ b/include/linux/pagemap.h
+> @@ -635,16 +635,6 @@ static inline void *folio_detach_private(struct folio *folio)
+>  	return data;
+>  }
+>
+> -static inline void attach_page_private(struct page *page, void *data)
+> -{
+> -	folio_attach_private(page_folio(page), data);
+> -}
+> -
+> -static inline void *detach_page_private(struct page *page)
+> -{
+> -	return folio_detach_private(page_folio(page));
+> -}
+> -
+>  #ifdef CONFIG_NUMA
+>  struct folio *filemap_alloc_folio_noprof(gfp_t gfp, unsigned int order,
+>  		struct mempolicy *policy);
+>
+> --
+> 2.39.5
+>
 
- > The live entry point is the UDP encap hook set up in
- > l2tp_tunnel_register():
- >
- > 	.encap_rcv = l2tp_udp_encap_recv,
-
-Right.  That hook is only called from udp_queue_rcv_one_skb() and
-udpv6_queue_rcv_one_skb(), under the rcu_read_lock() taken in
-ip_local_deliver_finish() and ip6_input(), so the receive path always
-holds an RCU read-side reference.  Combined with the kfree_rcu() in
-l2tp_tunnel_free(), the tunnel memory cannot go away while it is being
-dereferenced, and a strict grace period still cannot end inside a
-read-side section, so CONFIG_RCU_STRICT_GRACE_PERIOD cannot expose it
-either.  The description of __release_sock() in my commit message was
-accurate in itself, but the path is unreachable, so presenting this as
-a reachable use-after-free was wrong.
-
- > The reordering itself looks correct as hardening. Would it be more
- > accurate to describe it that way, and to drop or justify the
- > Cc: stable tag, rather than present it as a reachable use-after-free?
-
-Agreed.  I will respin with the reorder described as hardening: it
-removes the dependency on every caller of l2tp_udp_encap_recv()
-holding an RCU read-side reference, which holds today but is fragile.
-The subject changes accordingly and I drop the backport tags, since
-there is no reachable bug to backport.
-
- > Also, pppol2tp_backlog_recv() appears to be unreachable, and it passes a
- > PPPoX sk to a function that expects a UDP tunnel socket. Could it be
- > removed as part of a respin?
-
-Agreed that it is dead code.  Since it is a cleanup rather than a fix,
-I would rather not mix it into this series.  Its removal is already
-covered by Qingfang Deng's in-flight net-next series ("l2tp: ppp:
-remove unused backlog callback"), so I will leave it to that thread
-instead of posting a duplicate.
-
-pw-bot: cr
-
+--
+Cheers, Lorenzo
