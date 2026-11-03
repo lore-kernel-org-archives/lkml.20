@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703997;
-	b=i6QvbYI2Dxo322DKIWbhvwKZnpwyW2s3c68WoHKlT3QamGioP11tjAh3rcjLznvPVqXw
-	 Mq0J+Yc52zH8PYVa5NB3dogj3AFMCNiMA00L3PR+BTFex3Emun6OrjGRy9gB/grdg6dQN
-	 Od0PytQN6g7/ThRpDF33WsaAi7Po83EhtZy/q9Qir1tlCWK2NAd1x06OHBYwkMWq6UJSg
-	 BEQ14dQtY0SfS0iUyh+t7A0E5SdxuKYJgmNg/41811ofH3naOPD2tP34+5cfpLhxALV4Q
-	 E4qf3N1XhIj33hs5J5jHUWXQcV33xcKKzxCEtIkrWZRDI6NtYXtI/0HwUiEqefrOLPg==
+	t=1793704007;
+	b=FRQnIln8jOWk1nxHFoe8qr5Hw7W6OUIjp2PWRE6JmQV9DVoEn7Ac1DrnLG/nqc7wtHX5
+	 jkM0bwnydq8Al/aT9VQM+Ro6V7IjrojMwyUoasZPwYNMmyofH4St/A+l76SrWkz6LpJd+
+	 ylr9A1+ryAOSlBy2g5uZklgmI+kqDQSw9uU+SvRxihi88agjQushAolZwMMP75KNIlEeu
+	 5hWqpuTPZ3i+id7gOBT7aZxjdarAtkAqk92TeRiY/n1YxrdicnIiErHmjSMlAI95LFBHq
+	 V9E5WyKVVcQ+2vgzik6fX1TjBVIpi6khi/J4DAbKJ+Yr+M+A64dixfxlDpkEPZhx6XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703997;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=Y3S+q5h/f6UyMdTf7wDo+uWvNu5dofd5PPkdJcvBO8s=;
-	b=FfHaLbbJLSDj+h6gAQI2KK6BX5lQfbC2Ej/afOXHSQc53INwhwcCFcfdSzQpkv6D1gAv
-	 jd5Plk7+C9SiIgYcY7zD+0atWFhdFmtF/njCGiGvMCQR07zoT+0tBQg3Q9Wjz+cv0XfL4
-	 25kFdVQbSiuWkWyqQc8gwAzNkuIT3HyNLkTj5+w7bouTyX8W48Jz5oG0o+VhyhVMpcZjF
-	 HZse7V9/QgBLazgpzaNRM/gZvGJUdIT5WL4jkTCW9bmIT4wAswBd/+jLW3jIa4Je+0qHj
-	 wh3aBPjG8iwZ8e5sVxplzvInds4CVt2UpMsCW25+o4ZeG0z+M/hIrHyVtN2JiT62xCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704007;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=mZPBVMh0wm4VVrgnscvN4jhfaDsZC9TnytJpUKysC/g=;
+	b=C68mhan34BUGGLIPKZbFsPDedUkj3zPWAeFkjWJGrHm62GeugLeEg2WPZmqjblffuK4i
+	 Rz+TFLWwsS4EsKAL/dbFzSK9bUQuazJfm9AwgmlgZ4405uzOh+j3LGFivxI4vXHqksiQV
+	 KrMLU63y6A+YBxGzWqY80CQQLyVfwREWCOOY5nLlc1A5uEIR7SMiqmX1BSmILMWM6zoRS
+	 Vm0dWl2jkvQ4F5mE2+1VrS3ROk1TmVOiEeFdmJL8vpwMIJPp3iGgzV2nmRTByNPq5diMg
+	 s5nvb7UbjStAafZEQ9SvC/LGQzBLp2gFOukid8TjefZAFHoIRlUYRdJekbh/V6jf8jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=F5dktL+u;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EpfRtPw9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F86606C5B3;
-	Tue,  3 Nov 2026 11:06:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98F86606C5B3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F6B606F7F8;
+	Tue,  3 Nov 2026 11:06:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=F5dktL+u
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=Y3S+q5h/f6UyMdTf7wDo+uWvNu5dofd5PPkdJcvBO8s=; b=F5dktL+ueoLV9TKgr8yKZRn60D
-	y3y0d2ZtPyb9CpsaXNVRsmXrwtbWm4jBAC19skpljqwfnPotDvxiWUfEBa3z7lBBeizNJUeGzTvoJ
-	fZCV6hdLKhYrrJtQLfoacrlD1+eprXJ4H9PY0VmwD1+7Ub/jeAxm3OPpc5f3f7DhFNlivaYuWa4a5
-	th92bmRPixdU3JrKT165Ziiic+vyNF0qu9dfRzpjJvNcCK7suzbhfV9BFaj0V5Xo5bqfCU5+hboV4
-	eI5/I1Sei+Ny35KwvAiwh0qXIyiY8qRkP6nGevQMH1dF0NIm6VyXNGMaKJaqwwWY1h1nK9u+SqLWK
-	jfF160+w==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xOCLV-006tCO-07;
-	Tue, 03 Nov 2026 11:06:30 +0000
-From: Breno Leitao <leitao@debian.org>
-Subject: [PATCH net-next v4 0/7] ipv4,ipv6: convert the getsockopt switches
- to sockopt_t
-Date: Tue, 03 Nov 2026 03:00:59 -0800
-Message-Id: <20261103-sockopt_expand_out_v2-v4-0-2d36da923578@debian.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EpfRtPw9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 454781F000C1;
+	Tue,  3 Nov 2026 11:06:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793704007;
+	bh=mZPBVMh0wm4VVrgnscvN4jhfaDsZC9TnytJpUKysC/g=;
+	h=From:To:Cc:Subject:Date;
+	b=EpfRtPw961KFpmK/YEegv/LCr7KNh1N/EZJeiq3XuTQ12/NmdXOWGHJSssT/K4ecn
+	 FLpQPY9sC+zFnd5dCFevAH537FaQOMB6PGVrKeM6GPM8Cql4KEkmAZRfg/xVwxTbEy
+	 BGMABj9rZKghBajBj62aKv5FEtddETv9wXHVLhTRJdT7n+uZ+5Oh1MW8aM4FMgzLRP
+	 NMx3LDMraOqhzZr85EsahU5+GjilRtjN7jgFHTq3fG3ogPsxwW1rqVj8vI2B6TRlKp
+	 RFykGLItbqDtVWPMoFiD71MuIinbeUaXjU8BVIglHwLih3p+RtOg1RG+QnYRjjCE1/
+	 DyYA+WAmzHOGg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Jiri Benc <jbenc@suse.cz>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	"John W. Linville" <linville@tuxdriver.com>,
+	Jouni Malinen <j@w1.fi>,
+	Luca Coelho <luciano.coelho@intel.com>,
+	Michael Wu <flamingice@sourmilk.net>,
+	Rajkumar Manoharan <rmanohar@qca.qualcomm.com>,
+	linux-wireless@vger.kernel.org
+Subject: [PATCH v2 0/2] wifi: mac80211: Power-save state and TIM handling fixes
+Date: Tue,  3 Nov 2026 11:06:31 +0000
+Message-ID: <20261103110642.260244-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,197 +64,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPG+6WoC/3XO3WqEMBCG4VsJc+yUMcZd9WjvoxTJz7gbCokka
- bAs3ntBSmkpHn/wfO8TMifPGSbxhMTVZx8DTEI1AuxDhzujdzAJkCQvNEqFOdr3uJaZt1UHN8e
- PMleJzMrYq9HKsoZGwJp48dvhvkLggoG3Am+NgIfPJabP47C2x/5t9yd2bZHQdrxI7ozpLd0cG
- 6/DS0z3g6zyh2mJxjNGIuGgLQ1WXUa25h/T/WLa05oOCa+Oel6kW5Qa/jD7vn8BwNKUqVMBAAA
- =
-X-Change-ID: 20260924-sockopt_expand_out_v2-ee4bc7ba4cea
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>, 
- Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- david.laight.linux@gmail.com, Breno Leitao <leitao@debian.org>, 
- kernel-team@meta.com
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6549; i=leitao@debian.org;
- h=from:subject:message-id; bh=yJkNL0GeXccgua2LpQLtTpKSITy2Snw/sc0yaHCnwzY=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6cAuPGeCx8RrwJa27WGh6h1vvNFnVyQU8IXCy
- d092vBpnhOJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaunALgAKCRA1o5Of/Hh3
- bU8tD/4wsd7YgOJiTUzZhIikOSSaWwe19OOymEsEF0wWXcnHPp7w71TLu60+OzPPIGewYNwZqsn
- tBjCrYu6Qhd6ZVW1RKHXpP86hinz7E6KPngbtmuK2ChLrKkZNSkYD5EixwMI8DPgHAG0bWsMBIL
- ZG4je86eOt98ElGFeoO7O/WI3YdSv3ypvB8zIZmt4f+gdPnL8HZLw+1OViTeA19X+AX0yNfCK5H
- +1DnSVhcUY5+/qlWO9uWRT6dWBx/VUJNb5aYclBAmkwN30CpdMfpqCfIJpK+QKUrVgHFdSNlKj7
- Qht68ekMdks0IxFIKEO2ihaXm/iLfisAmWchfCzz3NrM+CsT2yjPQy/B6V0KUNgBML+M3tUt6Lp
- qnVPeaJadmPhajFREd6Sml3xamzA70T1wM4MhFey4dPotR07lmZ+DGQClnIoGe+7EIjZocSq9ZW
- 68fcEEA0iaK1VXGHkwuFamxJy2UOGda23SxMllWEA/yBivrFq1CnByoUZevm1LSt6Hckd65mmSZ
- 5b3A62Lfl6NAovSdRYfckRP/lC0E2M1uHkavUc+N+LSIJh/9MnUDDpkwNBwC9tzJOFq3dpEA2Hs
- SEMpGpFtIm5QQCLkEhNpIbJB2cO5jdTdPjHyycD2sD0sypSGcsx2PVRMkC2jv7V0IiNTHSeLuXY
- SYngxqtL/INBMCA==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This series continues the migration to sockopt_t, as described in [1].
-do_ip_getsockopt() and do_ipv6_getsockopt() still take a sockptr_t pair,
-and everything they forward to now takes a sockopt_t, so convert them
-both.
+Following up on the v1 discussion [0], this two-patch series:
 
-Patch 1 settles what a negative optlen means on SOL_IPV6 before the
-conversion makes it matter. do_ip_getsockopt() rejects it, but
-do_ipv6_getsockopt() never has, and the int options answer it as 4.
-Treat it as 4, as David Laight suggested, instead of failing callers
-that rely on it.
+ 1. Makes AP-side Power Management (PM) bit handling in
+    ieee80211_rx_h_sta_process() symmetric across both wake-to-doze and
+    doze-to-wake transitions, ignoring the reserved PM bit in
+    non-bufferable management frames while still waking sleeping
+    stations on Authentication and (Re)Association Request frames per
+    commit 9fef65443388 ("mac80211: always update the PM state of a peer
+    on MGMT / DATA frames").
 
-Patch 2 fixes a latent bug in sockopt_expand_out() [2] itself: it caps
-the expansion at INT_MAX, but iov_iter_revert() refuses to unroll past
-the smaller MAX_RW_COUNT.
+ 2. Ensures an awake client station sends a wake nullfunc frame in
+    ieee80211_rx_mgmt_beacon() when the Beacon TIM element indicates
+    buffered unicast traffic for its AID, even when dynamic power-save
+    is disabled (dynamic_ps_timeout == 0) and IEEE80211_CONF_PS is not
+    set.
 
-MCAST_MSFILTER has to move before the switches above it. It is the last
-option with the quirk sockopt_expand_out() was added for [2]: optlen only
-covers the fixed part, and the real reply size comes from the gf_numsrc
-field inside it. Patches 3 and 4 convert it on both families, and store
-the reply length only after the final copy succeeds, so a copy failure
-can't report a changed optlen.
+v1 => v2:
+ - Make non-bufferable MMPDU PM-bit handling symmetric in both
+   directions and expand the commit description.
+ - Add client-side wake nullfunc transmission in
+   ieee80211_rx_mgmt_beacon() when the TIM bit is set while awake.
 
-Patches 5 and 6 convert the switches themselves. Each wrapper keeps its
-__user prototype and builds the sockopt_t, so the proto layer is
-untouched. ipv6_getsockopt() cannot use sockopt_init_user(), which
-rejects a negative optlen, so patch 6 moves the clamp of patch 1 up
-there and builds the sockopt_t after it.
+[0] https://lore.kernel.org/r/20260928100508.3487525-1-lee@kernel.org
 
-Patch 7 grows the selftest with an ip and an ipv6 fixture, pinning the
-returned length, errno and reply bytes.
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Cc: Jiri Benc <jbenc@suse.cz>
+Cc: Johannes Berg <johannes@sipsolutions.net>
+Cc: "John W. Linville" <linville@tuxdriver.com>
+Cc: Jouni Malinen <j@w1.fi>
+Cc: Luca Coelho <luciano.coelho@intel.com>
+Cc: Michael Wu <flamingice@sourmilk.net>
+Cc: Rajkumar Manoharan <rmanohar@qca.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org
 
-The temporary sockptr_t-to-sockopt_t glue can go away once the higher
-level callers take sockopt_t too. For now, the series keeps the proto
-callbacks unchanged and converts only the leaf helpers.
+Lee Jones (2):
+  wifi: mac80211: ignore PM bit in non-bufferable MMPDUs
+  wifi: mac80211: send wake nullfunc when TIM bit is set while awake
 
-Link: https://lore.kernel.org/all/20260401-getsockopt-v2-0-611df6771aff@debian.org/ [1]
-Link: https://lore.kernel.org/all/20260914-getsockopt_phase6-v2-0-e48befc9602e@debian.org/ [2]
+ net/mac80211/mlme.c |  3 ++-
+ net/mac80211/rx.c   | 22 ++++++++++++++++------
+ 2 files changed, 18 insertions(+), 7 deletions(-)
 
-To: David Ahern <dsahern@kernel.org>
-To: Ido Schimmel <idosch@nvidia.com>
-To: David S. Miller <davem@davemloft.net>
-To: Eric Dumazet <edumazet@google.com>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Simon Horman <horms@kernel.org>
-To: Alexei Starovoitov <ast@kernel.org>
-To: Daniel Borkmann <daniel@iogearbox.net>
-To: Andrii Nakryiko <andrii@kernel.org>
-To: Eduard Zingerman <eddyz87@gmail.com>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-To: Martin KaFai Lau <martin.lau@linux.dev>
-To: Song Liu <song@kernel.org>
-To: Yonghong Song <yonghong.song@linux.dev>
-To: Jiri Olsa <jolsa@kernel.org>
-To: Emil Tsalapatis <emil@etsalapatis.com>
-To: Ihor Solodrai <ihor.solodrai@linux.dev>
-To: John Fastabend <john.fastabend@gmail.com>
-To: Stanislav Fomichev <sdf@fomichev.me>
-To: Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Cc: netdev@vger.kernel.org
-Cc: bpf@vger.kernel.org
-Cc: linux-kselftest@vger.kernel.org
-To: Stanislav Fomichev <sdf@fomichev.me>
-Cc: david.laight.linux@gmail.com
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
-Changes in v4:
-- Selftest: add CONFIG_IP_MULTICAST=y, which CONFIG_IP_MROUTE depends on,
-  per Paolo Abeni
-- Collect Acked-by from Ido Schimmel
-- Link to v3: https://patch.msgid.link/20261015-sockopt_expand_out_v2-v3-0-7d05ef2df448@debian.org
-
-Changes in v3:
-- Fix sashiko findings:
-  - MRT6_* keeps rejecting a negative optlen instead of answering 4
-  - Selftest: add CONFIG_IP_MROUTE=y and an IPV6_PATHMTU negative optlen
-    test
-  - Fixing random commit message issues reported by sashiko. Trying to
-    get sashiko happy.
-- Link to v2: https://patch.msgid.link/20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org
-
-Changes in v2:
-- Treat a negative optlen as 4 instead of rejecting it with
-  -EINVAL as v1 did, per David Laight and Stanislav Fomichev. 
-- Fix sashiko findings
-- Link to v1: https://patch.msgid.link/20260925-sockopt_expand_out_v2-v1-0-c3ef2e3bb5c0@debian.org
-
-To: David Ahern <dsahern@kernel.org>
-To: Ido Schimmel <idosch@nvidia.com>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Simon Horman <horms@kernel.org>
-To: Daniel Borkmann <daniel@iogearbox.net>
-To: John Fastabend <john.fastabend@gmail.com>
-To: Stanislav Fomichev <sdf@fomichev.me>
-To: Martin KaFai Lau <martin.lau@linux.dev>
-To: Alexei Starovoitov <ast@kernel.org>
-To: Andrii Nakryiko <andrii@kernel.org>
-To: Eduard Zingerman <eddyz87@gmail.com>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-To: Song Liu <song@kernel.org>
-To: Yonghong Song <yonghong.song@linux.dev>
-To: Jiri Olsa <jolsa@kernel.org>
-To: Emil Tsalapatis <emil@etsalapatis.com>
-To: Ihor Solodrai <ihor.solodrai@linux.dev>
-To: Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: bpf@vger.kernel.org
-Cc: linux-kselftest@vger.kernel.org
-
----
-Breno Leitao (7):
-      ipv6: treat a negative optlen as 4 in do_ipv6_getsockopt()
-      net: cap sockopt_expand_out() at MAX_RW_COUNT
-      ipv6: mcast: convert ip6_mc_msfget() to sockopt_t
-      ipv4: igmp: convert ip_mc_gsfget() to sockopt_t
-      ipv4: convert do_ip_getsockopt() to sockopt_t
-      ipv6: convert do_ipv6_getsockopt() to sockopt_t
-      selftests: net: getsockopt_iter: cover ip and ipv6
-
- include/linux/igmp.h                          |   2 +-
- include/linux/mroute.h                        |   4 +-
- include/linux/mroute6.h                       |   5 +-
- include/linux/net.h                           |  30 ++-
- include/net/ip.h                              |   3 +-
- include/net/ipv6.h                            |   4 +-
- net/core/filter.c                             |  36 ++-
- net/ipv4/igmp.c                               |  23 +-
- net/ipv4/ip_sockglue.c                        | 118 ++++----
- net/ipv4/ipmr.c                               |  11 +-
- net/ipv6/ip6mr.c                              |  13 +-
- net/ipv6/ipv6_sockglue.c                      | 120 +++++----
- net/ipv6/mcast.c                              |  19 +-
- tools/testing/selftests/net/config            |   2 +
- tools/testing/selftests/net/getsockopt_iter.c | 372 ++++++++++++++++++++++++++
- 15 files changed, 597 insertions(+), 165 deletions(-)
----
-base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20260924-sockopt_expand_out_v2-ee4bc7ba4cea
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-- 
+2.56.0.313.g2479322e68-goog
 
