@@ -1,113 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735951;
-	b=qcI1/TmDOayUVjomGVwo1rDadczqTAFkBmuP4w48m2N52GqYdc60dKbBQdkerYS6QPJ/
-	 TPDqng6muF1AcBq5gCf//tT3rtT5KdEAq26ehYG54Dgbd4GBlu0A0Lst9EsdMAZbgNR9R
-	 s0eaqFU6/Knd9uSl/A/ZjV8DPYdlHcwQSKnmZoqi9YDzT9dcN6ZQiwlflqElLo7SLihKR
-	 Hv6CO+vjnQF8HiQKGKzhXEifcAQQfW9xyprJ7/SFImGnn4800yAHsTq57aAoKjjQ8DQGt
-	 09gJXSyxkXaj6Fg8jwI+OgZXG1GKkCc/1tZdCdsG5KDgwzuaSh2/EfwBqkjwsBaOsEA==
+	t=1793735997;
+	b=UcZG7/dy4Un0grEKe7gXwDluR9ZJXxDS4S/AvhCYgHdJiyqrVQJj5G4B7yUwQROunUSx
+	 DvDFWsfIGZ/HEf1Vo064Uhw1PCcS7ZETkHMCTjUrQVvkJC4Td19PfY7APpdDp5k3z5aDN
+	 xsJzY1qCfLiVUXnJdaBcoP8Q9Dg+o07pF0WD2mL3fQLlG/pFuA3stxZkZrbSr96PdjWL5
+	 F7txFwv+72yXySL7KewOt4ca3Wlz59k0nNOcUhCOOYYw6Ya0G82Z+nvBnUe7KQktC01HO
+	 Y/b+4bCA9OBmj7XH3zIIGyZZejo7hJhWYSnVihVcwdJJKO5S1TqCPMKmEakXc3McD2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735951;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735997;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=xpOJgsJz0sB9K9v/xEpka5H4yAVwg4X0Reyl3yXA6Do=;
-	b=xco8frW9zWEe5jwc62zHL76MMuwDrREeIpzakj+UEh3fzFOtFftBkPBEg+s0TrJYpk9d
-	 qe0Gkz/nt5DjLgM+ThOUlmxEjgAoGtbQKFbKTbImcisas4HyFR6gHrdOXUH0iVtuwbXrw
-	 TTuyHArQc05V3gIZcdzKHGcrK+YYRCB6Ig11yQNbg0BTiCA5vjsLRK58Ub1vFSYN6L0N7
-	 3qCItIewX3aHb8tzOvNrlHv9iRo5i7jjFE/PYBATVcPBcXO551+2j3bWMtWsnCThU6yt7
-	 f0S7bo1NluGpxas2uwgds4QrTCDU1h3cKXio6GUu3X3sMaUNsSpOJjl80Fnq2i5ozeQ==
+	 Content-Transfer-Encoding;
+	bh=R+3LXC/kAAN0pkfEywpZQiY0T08sQdAAVwXMi0BkDg0=;
+	b=vNLUJhYwwLyHvXGVak8NZdTgjEsZb9rWwREjIdeE0lRqM170UKQ/CQ6/0Uz6N2XvQgzc
+	 p8s0bv05rtOqBe6aBPgSLyw/w7hn76j1VJTkZNJkdjl6Hj/2vw+L3klrtGvNuqq2AK0uQ
+	 geQfps98YqDbljn7wIDzgOpZdU+zuEEXwu5ApHUInQJojfMIGeZoYfBc5QIucNwgNq/aO
+	 a8Eow42QiUzCVVGQn0NiI/c+VQDXg4UzdcBtw4e+V8Y6JXw1/Uiii344alHCiKR9kv01D
+	 cRWXzmZkKTGITd44q0VoqJ8aUztedw06a2vWDkkzbiwLKkcorLDpDm9ciFoIrhTT5MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=temperror header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=FXwGhxDE;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=GaQODNnC;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Jx5kpYvN;
+	arc=none smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911B7606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:59:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 911B7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AC1606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:59:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66AC1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=FXwGhxDE;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=GaQODNnC
-Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3HZ0IG1665729
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 14:59:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=xpOJ
-	gsJz0sB9K9v/xEpka5H4yAVwg4X0Reyl3yXA6Do=; b=FXwGhxDEyiYhfsw+MEKc
-	iO0eBRAzcshzu7iioSTg0l4c/nSPG+/zQx8xhKoqHzoxaS/xYHaWqQyNCBePASkp
-	cJlVaVT7G9ZeiWlELtAN6O245MoqLDujnT4Jcz8wscpAP9RqI783TDLEhRf4Jyj4
-	gbOQPQmMARPk7y6ytdo9OoIhnD0kTrjSAYs/uio5hAxfXmehy/LbjJFA1teyeQSw
-	88mjVAEfgt/vw905KGKiSzeLnQYg3s0X9LpfJiYDGaSBtqzY/iHCcFMePyi3VEmk
-	azNZEYGsHqT8NXwYiuZEHSrMwnTAczP3IO5Z9MY5nqKvsVVUBYfMfDhurMMbpK2B
-	gA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hqbjwch4h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:59:04 -0500 (EST)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93e49a1d3b1so824485a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:59:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Jx5kpYvN
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-48e9476e26aso15143fac.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:59:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793735944; x=1794340744; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793735995; x=1794340795; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xpOJgsJz0sB9K9v/xEpka5H4yAVwg4X0Reyl3yXA6Do=;
-        b=GaQODNnCTY0xX476g3KSgDPSnWSn6yB06/CS7MdbnsVgaGgZ3uGMseiDqwU4nIWj+P
-         LWEOGKTO6VVhHqmKRCtpf0EHh8DU0hqtxFC+ZOApIsAzwkSE3jkfllsPOL6BZ1sKfGRh
-         x9vIYvM2MD/oS8Tc5IwdsGHExElcWBCPqeojOtrIBkk3YrPj6dH0wmbi1tsygjeI8Zep
-         L3ooHLjUgTbzq7l7ALg7V/lv2LRbqRaUSUhM0v3zCQXCN0VYcuG3F6S5+WOQBqt0qe11
-         NGtBkaFUmaZuwHjdV+uP849NMhabki+EzDsGoMJTqWyI1CHmcHcR+bHCcPcLEyKiMWfe
-         ZJUQ==
+        bh=R+3LXC/kAAN0pkfEywpZQiY0T08sQdAAVwXMi0BkDg0=;
+        b=Jx5kpYvNQcMkzpsz080KE306rMjkAMpxZ7+h2eMjsqtiAW/E3i7azcvs8Hlm8W9ya+
+         Fppc/e+1jKb89uhDEkdegLVOqUmzbvZi/8g0ZMswzjC60Vne9T9Bh1FfoFftZ5J3FLol
+         vzFdFx55C1YadoMwcGZz28sSXBxty4irnTQszyRqvDSHiLMTCi+yWPdPwLmlpNJHTraU
+         2H2AwRtMlwoSNYE8XEpM6+AWiPgjcgZ+ymfjskMymIQELzCowJl2Y0ppnKH92UXWrNx4
+         pOEbzdxHqI5IgQR22L1jCtAOCKVpZGN8XfJ3JEDT5mLwytyHECWQCROqtl4aPe8r/H03
+         nqUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793735944; x=1794340744;
+        d=1e100.net; s=20260707; t=1793735995; x=1794340795;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xpOJgsJz0sB9K9v/xEpka5H4yAVwg4X0Reyl3yXA6Do=;
-        b=TBhbpp1UCzFGVNkQ9nBTDLSBakxEAXQJRB8pio4vKZcecNVa57CQVLVSwrPbS8tas/
-         uBs+G9cZT7TzZQ7W7PAfK4hXAzuIHmtk5YUbc4xeV9MzJDGcSEtNSaLuDEimQCS8FhAW
-         YtZzmvq61B/HKemqQDrJhHeM545TnPqv5icd8WcV6aMi+VGr2RqxllgRs61TKwHOlU6c
-         +Ya7ODpte3I1as1TowyBE8vVYvkuHFmY04hDkh7N1j208qMtPMlTGFMQennLYN5z47N9
-         AdegihoMU2sdj4fFevjV8bJIFkTi4LQVNzFOOG8zDzqWRPndBrsjp6EAc5T68FXvDZwS
-         SnFg==
-X-Forwarded-Encrypted: i=1; AKwUvByLCBBbDMuretsh7B/tMnkA9cbTbmt0PPCjYCcIEx1l0wMzKcqRX+Y0M2GS+UKmxD7pA2ljLpd/jV2KMrg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FMG0vQMfszVqoz7VfYTDDUt9yHZyrTsfomL2rY1cAG+PWIqnv
-	5xLlhVLvLLFpC9VKKt4xORKfUbG99cf9gdIHxDjuiGctLHdbp7gjkS/WOIqiY6PvIRxcLPQ3LxM
-	6dhz/duaUumTiiaRoWRHP2OePjdQwrjtvd+7KJBv02RMdjnob+QLAaPbUjdpTsQ==
-X-Gm-Gg: AYBFou118jLjegIVFHmkm8jlkLRfNEK9OxqOl8k1NorXz55hgswGrfTdyrPvv55Oupy
-	iMc/GPPU0mhJvspKgQutPgkDFxwxFMYYOHumaWbYyxtb3mbv3zqW/MTQtzEAhrEN05VRIDL7yHA
-	GZy0+Gu/iCZG3e+cyWXvg6AqlBvUhEw4a0K5i2VT4SDzTAt8kjzb+BOJdW1r+aIw7VB1jFoajVV
-	+66ndfoOWoAYxfM0c3NUjF607n3hP2NXVaVANIfUByjgf1EQi2u7eZGpNDSGWhKjOtvN1N9Jqd1
-	ZAhka+23OQbgjVvL3QfTGGAzSLqatbTkoHtSDbjSSauuSaMuyMcWC0+SxrM3tIeWa3IK0GZKC2e
-	MVRjMyAS67eJIDXQPbdrYtaG0IuxjvyWF4EopmfOPLUm71okk5L9tfxGDcIHQrhEzuu3h4IfWeo
-	ZWo7Gj/e1HGdf0iznpkrEQNs6PDNCfB4jN+EY9tqCNcpAhZDwoppMqbrIeUW4jjXG26GFSKYH4t
-	62LBZz/YQKEE64A+93VZplQzt0aOZU4buz0aFV+pF4jbZ4Ybo95+ihWutxx5qbI
-X-Received: by 2002:a05:620a:2909:b0:93f:61a6:b89 with SMTP id af79cd13be357-94421588cd4mr2307140985a.7.1793735943857;
-        Tue, 03 Nov 2026 11:59:03 -0800 (PST)
-X-Received: by 2002:a05:620a:2909:b0:93f:61a6:b89 with SMTP id af79cd13be357-94421588cd4mr2307138385a.7.1793735943552;
-        Tue, 03 Nov 2026 11:59:03 -0800 (PST)
-Received: from [10.206.225.113] ([129.236.228.41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4799adcsm15298185a.13.2026.11.03.11.59.02
+        bh=R+3LXC/kAAN0pkfEywpZQiY0T08sQdAAVwXMi0BkDg0=;
+        b=usLndaEC6z19yH/qxvrZCBDqtAvEEqKMsDayGYkUitBcr47ptpZZLMfPdr+hh2Jl2c
+         8J3iJhur+DhbNa7YDZFLIzRpOOgNnUEe9dcL8U+nvJT7gxAhUc0ATWsk3B7SWmaxyIId
+         +jfCR2hqas+wMTYbIrTXCqumHYA2w9pbFkjr/dPyt/TgpRO/RkPTv1K3x9SGerk7ey2J
+         iqrCsKYZj+ftSbZCQA2z5GXjYEDPwaOJ5voT3rjIzzUJgef49GT9h8HEfK59P/IribSQ
+         qskGPqFg7qJvQ67/yM91MSJfePzwNjvq7zMbJ2DiUrzCnsckQF5EJtFXaQZ/rXzRzbko
+         pzgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw/Lg7hI3Ip58Yc8i4s0Bg2sywenqnwc2Gr2siKX/F08EImSac5faLKd90ZlOUaZ1x0kijL8mHwCnI2Ars=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yq5C6987zyxF7lN2o5OJ6kaFGeNB+AAvwXG38rlm4Ezc1UJ4Z
+	9KqLYfjGylaLyw3/bw46qpdkr2tyjXl7x0X/ifHY/vyStUDOCdaAC3hLy8KXUsjSSvY=
+X-Gm-Gg: AYBFou0EjwAomCQSov6CbL4GRaFCp2CwHXHWtZSaUYgWnABojy9Xu2uD8HQ7Ep6Pp3n
+	cGjTrisMMltst+MpeikkAx8JHoobkK2nqD0KWBTBf5ExMuB8H2hmokrxJV3I13A3a92kerHRG/f
+	JQz6weZZG3Anb3jdIxrggG4BIL3R80Y+Qz98btw2wA5RCgwHDTu83MhCvHbxn1+8m7csiqHPYgM
+	MUZsQzKzJ5lsFTHFgHEYJgmxVofyh4rdk2IyeAlyx6cBVDP2sNwvgok0GTWkt4AUqunQXPDCfKt
+	5q2vRXC/JgxY1C2n/UDR0uu4dAzjYJid7f9DaYfjhKCVb8eUnqkw1yuViS6j9LAzAFrEu5x21BB
+	PvZFlL6uVzyRdBN6XMevQ2PM3r3F2K+mTf5z6D8U2+5Xt+v7uqk1Ov1qCylxCaO4CuSPvwWCz9z
+	BU1wCLjJmicpNyR/4m7ebp1bxIrTohDoI04va8AGc99i9bK3gZidvkxhJ0VYcdad2eCZff65K1h
+	hHGzQ8HFCmJxHsWWE4j4yJV3ER6kNNumcQJX6LTZC4win6YotxP48vM3cE1Y2VXtYIC48CcoExV
+	AT6pZHecnqj15u3VFaiSysru4c9QG+zSFXzovCQkk0G4jh3tfClPs/A5DTYUXngvhAcWfHJoPSo
+	Jt5wWcQJi
+X-Received: by 2002:a05:6870:d208:b0:475:a112:126e with SMTP id 586e51a60fabf-4a90767d20emr9273826fac.27.1793735995301;
+        Tue, 03 Nov 2026 11:59:55 -0800 (PST)
+Received: from [192.168.2.38] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a95d970b9bsm5262679fac.8.2026.11.03.11.59.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 11:59:03 -0800 (PST)
-Message-ID: <a002901b-715a-4adc-bdcb-7a6fcda67711@columbia.edu>
-Date: Tue, 3 Nov 2026 14:59:02 -0500
+        Tue, 03 Nov 2026 11:59:53 -0800 (PST)
+Message-ID: <09701274-ad31-456a-9f62-9d0a3889957a@kernel.dk>
+Date: Tue, 3 Nov 2026 12:59:50 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,76 +94,79 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/memory_hotplug: don't offline a hwpoisoned page still
- in the page cache
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
-        Oscar Salvador <osalvador@suse.de>,
-        Andrew Morton <akpm@linux-foundation.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>,
-        Naoya Horiguchi <nao.horiguchi@gmail.com>,
-        Vlastimil Babka <vbabka@kernel.org>, Gregory Price <gourry@gourry.net>,
-        linux-mm@kvack.org, linux-cxl@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-        stable@vger.kernel.org
-References: <20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu>
- <1b6a6d13-8a01-414b-9bbe-cd194af1f539@kernel.org>
+Subject: Re: [PATCH] nvme: reject completions for requests that are not in
+ flight
+To: Mauricio Faria de Oliveira <mfo@igalia.com>,
+ Keith Busch <kbusch@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ Chao Shi <coshi036@gmail.com>, kernel-dev@igalia.com,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261103-nvme-double-cmpl-uaf-blk-mq-v1-1-b10fea474423@igalia.com>
+ <auo5a1kRTSWsAYtF@kbusch-mbp> <352cfcec6865cbf636a22442511f16b1@igalia.com>
 Content-Language: en-US
-From: Mani Tofigh <mt4022@columbia.edu>
-In-Reply-To: <1b6a6d13-8a01-414b-9bbe-cd194af1f539@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <352cfcec6865cbf636a22442511f16b1@igalia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA3OSBTYWx0ZWRfXzB8jOW5S5AIc
- M4/N/P568sxrIvnLgo3aKJzMy3UxYN5auWrQDdPMTT035ue0oHIKx27Cvb2HhZGqvpFQFhoeL/+
- HvPJI4iDl6VgTgeGvGi4zq6HwbPVec4jM4PxDZMjIHh343lSHWw6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA3OSBTYWx0ZWRfX98NEBn7u3bse
- /1Hul5bPdG8LMhwLrQAioeJnPZAETwy8HxxfqaMw4gljRyQLfJplS26mf5n17vYr7DaNuHPYkEV
- 1i3a8NUEKh8xR5kGJtJrJt4qJr9xe4ZZmTHSmcJStJU4vZGY8NNOzlYtaJpRzFL9NnDUfXqpPrp
- PtTox7CeMaYs/v1EiIGQzGYB9Yy3ASc3ZCajUPrOLABujiXaF2PQ9stE1HvV9Arw2ugKgosD8b9
- xpR832C976L0ar5xkNfMdkmHJMKApZg6lcSb/oF2N0nKXSXRzs3IYfaVIkyOeNxRzQizp8S0Dmr
- WraNbAqjIHaxhiDa3FwUqjQlMiAt8PegVjGmDSIH5CMa1x1xMgzO+V1BynhJFPIoGnV/Thg+Ne9
- st9XhCLLBzvEVzG7+akSLgcUX283zeaTUCUH0qXmlp6T0Zd5NNvE68LgMNbfJJI2Aek8epcpe+H
- 2rdWXDnu9WYW3rUElNQ==
-X-Proofpoint-ORIG-GUID: hB4iHXz8UEKKr_iNftkNulxfLEvPmhjD
-X-Proofpoint-GUID: hB4iHXz8UEKKr_iNftkNulxfLEvPmhjD
-X-Authority-Analysis: v=2.4 cv=Y5ttIReN c=1 sm=1 tr=0 ts=6aea3d08 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=hEunIlkDQR9riCPXO4CBGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
- a=qOjK20r3ws_Z4Kvo5k4A:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11955
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- spamscore=0 bulkscore=10 suspectscore=0 lowpriorityscore=10 impostorscore=10
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030079
 
-On 11/2/26 1:56 AM, David Hildenbrand (Arm) wrote:
+On 11/3/26 12:54 PM, Mauricio Faria de Oliveira wrote:
+> On 2026-11-03 16:43, Keith Busch wrote:
+>> On Tue, Nov 03, 2026 at 04:18:25PM -0300, Mauricio Faria de Oliveira wrote:
+>>> diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+>>> index 2d8f681079e85601a92624d196e77f1ba3ace34a..3ba0666da7be6a3de2e5f0fd50155af115b4e1f6 100644
+>>> --- a/drivers/nvme/host/nvme.h
+>>> +++ b/drivers/nvme/host/nvme.h
+>>> @@ -708,6 +708,11 @@ static inline struct request *nvme_find_rq(struct blk_mq_tags *tags,
+>>>  			tag, genctr, nvme_genctr_mask(nvme_req(rq)->genctr));
+>>>  		return NULL;
+>>>  	}
+>>> +	if (unlikely(blk_mq_rq_state(rq) != MQ_RQ_IN_FLIGHT)) {
+>>> +		dev_err(nvme_req(rq)->ctrl->device,
+>>> +			"completion for request %#x not in flight\n", tag);
+>>> +		return NULL;
+>>> +	}
+>>>  	return rq;
+>>>  }
+>>
+>> Is there something special about the NVMe protocol that makes this
+>> problem unique to it? If not, why doesn't this check go into the generic
+>> block layer instead?
 > 
-> What if we still have the page pinned somehow? (vmscplice etc).
+> Thanks for taking a look.
 > 
-> Wouldn't it be better to make sure that poisoning code holds exactly one
-> reference (whoever set hwpoison) and check here that the refcount is 1 ?
+> I noticed you asked the latter question in the previous
+> submission/review (Link: trailers), and addressed it in the commit
+> message; pasting it here for reference:
 > 
-> Pagecache references would turn it > 1.
+> In Chao Shi's patch, there's been feedback/question of whether this
+> should
+> be done in blk-mq, as this is not specific to nvme. I'd say no, at
+> first:
+> - Some blk-mq calls for completion have no return value (e.g.,
+> completion
+>   on other CPUs), which suggests maybe an API change and updates to many
+>   callers, all for an edge case.
+> - An alternative available currently might be blk_mq_ops.complete(), but
+>   that is handled in the driver anyway, with risk of hitting an error in
+>   blk-mq (like this) as the code changes, and seems semantically wrong,
+>   i.e., completing a request that should not have been completed.
+> - Keeping in mind a small fix for stable, for now, should this be
+> merged.
+> - But happy to take suggestions if blk-mq is indeed the way to go.
+> 
+> For the former question, I'd imagine other block drivers might be
+> subject to a similar issue, under incorrect completions, and can take a
+> look at this later. I'd appreciate feedback on the points above before
+> trying to address it generically in the block layer, if at all possible.
 
+This is either a protocol problem, in which case the driver should
+handle it. Or it's not a problem at all in the first place, and
+this is some kind of misguided defensive programming. In which case
+the patch should go away.
 
-Yes right, a pin isn't covered (neither before nor with this patch).
+If this is possible because of a poor API in the kernel, then we
+fix the poor API. We don't add silly work-arounds.
 
-I don't think refcount == 1 can replace the mapping check though. In the
-race from the changelog memory_failure() has set PG_hwpoison but is 
-still waiting in get_hwpoison_page(), so it doesn't hold its reference 
-yet, and a clean page-cache folio then has just the one reference from 
-the page cache. memory_failure() also doesn't take a reference on the 
-kernel pages it ignores, and a poisoned page that gets freed later sits 
-at 0.
+-- 
+Jens Axboe
 
-So I'd keep the mapping check and add "refcount <= 1" on top as a
-follow-up, since that also needs do_migrate_range() to drop the 
-reference it takes when it takes a poisoned folio off the LRU. Does that 
-sound good?
-
-I'll send a v2 soon with a small do_migrate_range() change from the 
-bot's review.
-
-Mani
