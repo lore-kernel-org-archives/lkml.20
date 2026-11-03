@@ -1,83 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699736;
-	b=rmIArrVUjSlmjbWutXiA+Glktn5l4r4X9D6diyoPD/WKojjBihd6D+JDBMqjA5z+tSis
-	 remZQEIeMFQ3qplZpfO8EnjexjVvGSwAL0qAn+vKMxb3FfO6axXDFzUqM8xdzzuYQk0mp
-	 OSDIfJZCOl7XcbarAMtoDBQ9sB6eF9hs6Qvqo/TBqlgF0j1vo/qykL/aGsIqzAUQ/0TQI
-	 k0MObvw2Kpy9mGFSUGTNM9YBkDuo/CRfIeQ3yuMPGvQIkt7ULeDU7QocX08i9q8PNEeXr
-	 L7v/CbwZ4OZxUlmjg4Ap4cexPAc8wNO8nLKBkVdi9ZBMlplWZIiCVikNMiIPXluAb/w==
+	t=1793699737;
+	b=2FNZDtnQ+acIaMtpvFy9Xg/FyU809kBs4BciEpiIGvD/pP9K9DQnlt0kFfJBOMXQaYQg
+	 8dhM0lCX3gNk/nKHn8GkyGLA3rNOhRkmbeiBUz8ok/z6pWOziaBF8FX5ImDAV+2spdBl+
+	 jk6fBce/6mZxMak9Hq6jAPErjtRngpoc4RDhaDRcs3CslfdcEaGBDqxu8j0kPLQ4F3tzF
+	 zvPsYzSv9tkMmuhu2uIFsSlAQseaPFWH/sznt3+VcxYpKv+pShG0QgokXO1eTAunv+xw7
+	 3XbnP3boN2BhETJknJUFx6nFWWILuZE9L3yt0XBm6GUbIfnhUKZ4zv2ZLFWBwMwh6Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699736;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=BeQGUCOl1k+ajaLkli3SGFUKxG/MbdebyYfebJs1qjY=;
-	b=32cG/VyanLqV0WiCdGR2STENJo/LqmR+wq5bmVBdO9K9bhKLDF0owUQdM2xfIVTn+9C7
-	 w45JV83hiejtMkr5WydX8I+fUod3k/+mDViS+aLPXHy4G3U7+PBzL4SyYB+W52e159AzW
-	 pM+j5VXfcs9g24cLAlryMj01iqZc+UcO2M3lVz/wZ0H88Eyb/Gc/u7YfUVO78kTpopGPn
-	 7/m/wbqu8Cy5IY3uwJ81palSc1VyDBK4QGvo1ki5NjpbX7PbGc27fCSG9A+xPmJJHlueA
-	 M4wg4vCgfj1SEhF3g+buO/xT0JqWYbK45/O3xrjDH3R0A13PUIO/qN0Z+Ad85Ws84/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699737;
+	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=7FBJBX+TSMIjchepkURm3wvyuFcqE4x4JF/M3QAuFCo=;
+	b=TpTpet01mBoxRw034cRI/t1USblAEMq1cmxlVZ0qz1JlRucbb21HXY6cTlgztZOzSJRG
+	 arNLiDE3xHCEcHsm0q7fd76TSZdeDOab8dDQ+6fjDB4wCKMGuYI26jt6Q/yambQnTveyl
+	 zw/U7O0vkkr+761MTp6i+7puhx84R0/ljpIDkFUsqT6jHji2RRKdrXmNTpFiBLcgEODLP
+	 ilAgyZcxf+OplgmHv1VIEAOl4chLR+nRiZIDSQY7j8tlfQxF/cciclazRGZ3zPBCtrltE
+	 e3dudOw4ZPTV0cURIAK3pXDLetc6cFAfIK0+bzM1XriVleFm+RNHg7+XddbpRMFUcCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="lB/78FF9";
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ivmq69BZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80CD60A6F6C;
-	Tue,  3 Nov 2026 09:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E80CD60A6F6C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C5560A6F6F;
+	Tue,  3 Nov 2026 09:55:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lB/78FF9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793699735; x=1825235735;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0UZauren3FKcX2qFQSrZTnrqyYVdkjbCTu/nrHaJWM4=;
-  b=lB/78FF9SfGF3XuUMS4v3Taq1uW+GjkRtqt+rIEzLAMw6p/G49Oy9HgK
-   MN6EDznTCZwhdlXRuqF1d2jcWLPiSTa9aw50Cd2GeoB4jJSdCm7bMHi/d
-   AJ3WEqHBSks+wy7ICd9l1btwGbYAVH7W+4izl9orK1DOwc/u7TognEFiQ
-   cZXDwx1tNxi+bv5uc/afwOzQyc9yi+nBxF3WZVpG2+d4MWj3U5BDtcgC8
-   6/4UHH8ocIaCPBwAddPQFu8pTIAYjRa8qQ5zLYeEVzHOQcNKVW2+1uXWO
-   Qu2JC8/2+3VzyCZlzguaZkZmPvkv7+AQfwe7E9COwPrGqqOnzlzJyXMmi
-   Q==;
-X-CSE-ConnectionGUID: nGplRYa2RfSa4ZSX8AU5DA==
-X-CSE-MsgGUID: p//tAmR7RuaM9mEX+bPZeQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2306693"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2306693"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 01:55:35 -0800
-X-CSE-ConnectionGUID: c9SjTP9tRECL/nhQYcKZXw==
-X-CSE-MsgGUID: U4AhdxKWR/+2AadWm0Giyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="8223937"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 01:55:32 -0800
-Date: Tue, 3 Nov 2026 11:55:29 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joshua Crofts <crofts@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ivmq69BZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A851F00A15;
+	Tue,  3 Nov 2026 09:55:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793699737;
+	bh=7FBJBX+TSMIjchepkURm3wvyuFcqE4x4JF/M3QAuFCo=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=ivmq69BZHe8IaHA6fzWc1vimf4kwoldppY/Zdt/ucDygkx8fd178b9JcmXxyjr6WF
+	 COXtP5jO1dDorH7dcs0cXfqHEgggJt62jdohOKFAiWMDX7vIYvGjV7i7GlwvFJNg30
+	 wAOLuxg4kOUL94JKOUdEyIor9Rd1jBIubuQBhI+/0iYf8TpQ4UlnCko94dTxApbn3x
+	 bCT3mpb7g1p6cWRu8XEvrFhG7sc3Ah1smxGI8Vmbw0YHu2gJ4rzc4SuGSBxRq1808x
+	 e0woGyxR5J8sQ2Moa8r2xU4XiMWXpyCIp+W9WHMLt4MFkYTQpuxS8KafVGU0szegm6
+	 WqGIjApjN/rfg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] staging: iio: addac: adt7316: replace kernel.h
- with explicit headers
-Message-ID: <aumvkSfdGIoJHtmn@ashevche-desk.local>
-References: <20261102094236.57757-1-abdelnasserhussein11@gmail.com>
- <20261102094236.57757-3-abdelnasserhussein11@gmail.com>
+Subject: [PATCH v2 07/10] soundwire: qcom: Disable runtime PM and avoid clock underflow in qcom_swrm_remove()
+Date: Tue,  3 Nov 2026 09:53:51 +0000
+Message-ID: <20261103095445.81414-8-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+In-Reply-To: <20261103095445.81414-1-lee@kernel.org>
+References: <20261103095445.81414-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,42 +63,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102094236.57757-3-abdelnasserhussein11@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 11:42:36AM +0200, Abdelnasser Hussein wrote:
-> Drop the proxy header <linux/kernel.h> and replace it with direct
-> inclusions per the Include What You Use (IWYU) principle. Also remove
-> unused headers and keep the list alphabetically sorted.
+When the controller is runtime-suspended, swrm_runtime_suspend() has
+already disabled ctrl->hclk.  If the device is unbound in that state,
+qcom_swrm_remove() omits pm_runtime_disable() and unconditionally calls
+clk_disable_unprepare(), triggering a clock enable count underflow and
+leaving runtime PM enabled.
 
-> Explicitly add:
-> - <linux/bits.h> for BIT()
-> - <linux/err.h> for IS_ERR() and PTR_ERR()
-> - <linux/errno.h> for error codes (-EIO, -EPERM, -EINVAL, -ENOMEM,
->   -ENODEV)
-> - <linux/kstrtox.h> for kstrtou8(), kstrtou16(), and kstrtoint()
-> - <linux/pm.h> for EXPORT_GPL_SIMPLE_DEV_PM_OPS()
-> - <linux/string.h> for memcmp()
-> - <linux/types.h> for fixed-width and standard types (u8, u16, bool, s64)
-> 
-> Drop unused headers:
-> - <linux/i2c.h> (no I2C symbols used in core driver)
-> - <linux/kernel.h> (proxy header)
-> - <linux/list.h> (no linked list symbols used)
-> - <linux/rtc.h> (no RTC symbols used)
-> - <linux/slab.h> (no kmalloc/kfree symbols used)
-> - <linux/workqueue.h> (no workqueue symbols used)
+Resume the device before removing the bus master, disable runtime PM,
+and only disable ctrl->hclk if the device is not runtime-suspended.
 
-This is too much for this type of change. Please, move it to the changelog and
-comment block (after '---' line).
+Closes: https://sashiko.dev/#/bug/linux-e26e04cd-3dec-4a3d-94e6-f45403c4bb57
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
 
-> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+v1 => v2: Drop Fixes and Stable tags
 
+ drivers/soundwire/qcom.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 29130745c809..a50efdfc3a6b 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -1788,8 +1788,13 @@ static void qcom_swrm_remove(struct platform_device *pdev)
+ {
+ 	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(&pdev->dev);
+ 
++	pm_runtime_get_sync(&pdev->dev);
+ 	sdw_bus_master_delete(&ctrl->bus);
+-	clk_disable_unprepare(ctrl->hclk);
++	pm_runtime_disable(&pdev->dev);
++	pm_runtime_put_noidle(&pdev->dev);
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		clk_disable_unprepare(ctrl->hclk);
++	pm_runtime_set_suspended(&pdev->dev);
+ }
+ 
+ static int __maybe_unused swrm_runtime_resume(struct device *dev)
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0.385.gac671c819a-goog
 
