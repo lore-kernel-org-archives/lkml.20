@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704234;
-	b=SbC/Stc7dmOcdbhdC8PQgM+232aKXbxsVa+7GIdW6ax6a4knbMSp62H8oYoA2DEKSMCx
-	 4CUSFY/qb3ICz7jBQvPBJ6WVq9MyVeReE8JyqGGDKNvmc6cY1DF2yqtAxf94f5w30cx9F
-	 1xlMt/8DuzwxX80ltKYvo8xrbzCi4WonLmr1yZWZtRuqS9OF3qK3xtXkpkYBE1qhT5c1c
-	 ydnSnnEJa3NA7X35W3HqxHDfm0zJf/ZGdTcJBXJTHi00YykUByTcd+ptQUb32aCo6Y+Ab
-	 NdSU+au4ZAL+SXH+UMdB4YpBhGZJEoSSA6Vie31ldybcgT2Ynf/2D7HhQP1zXPe0faQ==
+	t=1793704248;
+	b=zEBK7AO0vyxZo1s7Wsl92lOja9WFr7AuScEc9DLmTKyMINcAJfV1ibvvN1R/rAOC4tPK
+	 CM8gq5DiHQfrVii2rEa7dxQkb1U2I/9mpWvnEdkS13qsH80VfV3hRfJHo6ZXJUQ0XBKye
+	 ShCmoZ/2FidK2YI02k7yWm3zGH5HlddrFA6yKOdfeHcHX8yZOwUo1H6WGS+sG3v5OK1Bf
+	 oe1sANUIaZfX+35PIKAzSgrRsRHZxJf5vV42OEVL5cljc55Uts7yXWNw7cj8AJmpk5iuG
+	 LWNrqTw3CpCf2lmtJzdOnhAu7cxPGky5TJc5OK9IkcmBis+jegXds+nDnE5XjT9VFqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704248;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BC5ZWCqYDUyejAF6NFkt8ipXNaHStAN0cMKCsLvoZ0A=;
-	b=aZBWNCHORt2l1bVF1PvgbqNzAbzBLolm8AUtWAtp4boVMaN72L24bD+c8vcLhY9/509X
-	 Lm/uSIaUWXX3ImSS2pbFKBbZMc0NCJzEjiicAoMbf5fC2UvBrsVdseLX5+dumL0zQCkYB
-	 ICTJjrS6zddm00WAIenKiJ8i/3En9yAbGitSer/+9JqXYz+CfouDi0FOOnoq7N5a5Nq/s
-	 39LrQa8vsd7FzdkAUipiP0fZ5oEwAtK6TAVZEeop3NLnfBa2vOzT1uPEvRQItZO1mHLrW
-	 4zFnOoWBfhXqCno2ewhlkvvdep7j7vKB1d3aBSnfbVqndy54X7anBDPB6lNdcng/Hzw==
+	bh=U3a4vIXiEGtL1/PeSnTPB5g6R0EJNMxhi9bu6NnV8rE=;
+	b=jGWlxDkzFrB3GEF8ici3U9YsTrixOSU8IGt7JupE4Dwa3ze/HnCqebiBuHqQpB/d3Zxa
+	 LJdtpo2wYthcESLCkz33DcydH5KJTNrSQwC7BBwej1uEaXkty+VUytOqm6gGcrigktmEv
+	 C6r/mAnGKz8pe9hkuAJZVQbhqwrdZuduwqKUSIMCUajR7MR7eoJpZSu3fe9NblWILkRbe
+	 od2Dd5KCk6acMeZKM6WlnWrS4nrM9ativNYlQzBfiUDcNRLBQS50jnCHT8gHnnWSbYB7f
+	 sctz8+1avCgmyvxgXrgkbrT7IxrO+Au8MjPmg2PXpZdiA3ut42HMkkPB8mLrPTOTfqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=krvoYdNR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLc0Xf4g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB836606D827;
-	Tue,  3 Nov 2026 11:10:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A4C60850A3;
+	Tue,  3 Nov 2026 11:10:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=krvoYdNR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0B61F0093A;
-	Tue,  3 Nov 2026 11:10:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLc0Xf4g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67611F000C1;
+	Tue,  3 Nov 2026 11:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704233;
-	bh=BC5ZWCqYDUyejAF6NFkt8ipXNaHStAN0cMKCsLvoZ0A=;
+	s=k20260515; t=1793704248;
+	bh=U3a4vIXiEGtL1/PeSnTPB5g6R0EJNMxhi9bu6NnV8rE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=krvoYdNRBDovEc4Qq0WzdzlwDT4b+cTFRhhU1fl89qM2313trWOslupTh0ffparZY
-	 MHvkF9zFCRu1X6acvIpestjh+C09BjYbQvU2OO0CcxJV6NDyLn3Eh83lNT2Y+8083D
-	 Z9XT3UdBQUMAirc7TNLscnnFaqiBMcK/nZF6+kgduZpG6JujRmyZiA/eTERJyp1LgU
-	 dhn7d61NREojMHnEdJmTZayvFfnXTUSy+uDStt1OkyQ5Rs1C7MCvEtteuDL4aT+zv0
-	 0koJSZXlGDQdZ0rBC7prC8pjAkDxeuy75ngPQXF/Wom83MXrG9FBQtuYMdTFJ4hAFT
-	 MWxlC7YaKmT9w==
-Date: Tue, 3 Nov 2026 12:10:31 +0100
+	b=eLc0Xf4gELp9GPTXowoGCu175no2Mh1097F+4J0/CdZghDIzoUUbyP2Cw8Yt8uLOz
+	 xWFp9vo6l/GqUWFY+8dSawSD6ycyL/8c529cqSEHDhxDhU5rWMiUkLZImTICoJx41c
+	 Rm8tZfOC0mbOjQzhDxtRqx6xhBww2TE3C/oEf9XWS8unxFOFkl32G6Z7inzfacjbs7
+	 aE3E5Nf0XFcyNAOfT0Pu8ZI9UkG2hhnZiH6MGaSgyzjc4XwUliXcAx3WdbRzp/2iW4
+	 sp7xmxMRVvbPuVd6BuWT52mRRl4NDlESKgzZzNHrW6lIqyd25NSyB6jV6+G0fVcK1L
+	 7tbpzSBRbQLdQ==
+Date: Tue, 3 Nov 2026 12:10:45 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-wireless@vger.kernel.org, stable@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
-	Mark Greer <mgreer@animalcreek.com>, David Heidelberg <david@ixit.cz>
-Subject: Re: [PATCH] nfc: trf7970a: release runtime PM reference on RF-on
- errors
-Message-ID: <20261103-opalescent-sarcastic-impala-3a41da@quoll>
-References: <20261103104240.1373772-1-vulab@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	stable@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] of: unittest: fix node leak in
+ of_dma_get_max_cpu_address test
+Message-ID: <20261103-premium-brainy-chachalaca-a3b6ac@quoll>
+References: <20261103104234.1373570-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,28 +60,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104240.1373772-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104234.1373570-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:40 +0000, Wentao Liang wrote:
-> trf7970a_switch_rf_on() bumps the runtime PM usage counter before
-> validating the state and before initialising the chip.  Neither the
-> incorrect-state path nor the trf7970a_init() failure path drops that
-> reference, and none of the three callers balance it either, so the
-> usage counter stays elevated.
+On Tue, 03 Nov 2026 10:42:34 +0000, Wentao Liang wrote:
+> of_find_node_by_path() returns a device_node with its reference count
+> incremented. of_unittest_dma_get_max_cpu_address() passes the node to
+> of_dma_get_max_cpu_address(), which does not consume the reference, and
+> then returns without dropping it.
 > 
-> Use pm_runtime_resume_and_get() so that a failed resume does not leave
-> the counter incremented, and release the reference with the same
-> mark-last-busy/put-autosuspend pair that trf7970a_switch_rf_off() uses
-> when either of the subsequent steps fails.
+> Release the reference after the check.
 > 
-> Fixes: e6403b7c756f ("NFC: trf7970a: Add pm_runtime support")
+> Fixes: 07d13a1d6120 ("of: unittest: Add test for of_dma_get_max_cpu_address()")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/nfc/trf7970a.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
+>  drivers/of/unittest.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 Multiple things here:
