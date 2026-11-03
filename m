@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793667589;
-	b=LVVXFKVK1cUvRwOcskBix7XWuUIK2ik2ZKMLnKQClL7LTFh+WC05Hcp5JoMmq4OUGy9O
-	 vBJoeo7n2nlZuWRBumGwLGWDrWYtH7XieNKYM1Hh66wr5bIbEgDRHINXKGjhm+LYIDO7q
-	 EqyoChSNunaUrbgWR7UCvZNt5aaZvlN8q9tSMeRZzf8NtjXjFNqsPTCxOlJ2phAJOECzM
-	 RZl1IIxF7Gd8dTC3aM4zXSns4q0S972jtKAKywwdjfuH4+hPC5YKxbRrHso4Dfz4kg17K
-	 kK0XZ5mJL103aqAfRHJBWI1oQlCQfczlq2Fxi+ZisDanYlGVd9P90o6lOT8p3+B/YqQ==
+	t=1793667591;
+	b=X19SkDLz01eZnreL6J//qx0gjRSeusYjXv4x3eFjPfsXDnj8LlhJbEoHmbJkbdD9VZrK
+	 FapcB2ieZTG0pMAiR4o0qTzr87+Fs+/EQLvlWH7qJhhYpITQRw1ihsmVIXDiA5XFL6EIz
+	 vmjLPQAr4898CJSEb8NtoQRkU1kcnRBJIhSRPKrA/gZ76BBmqa79LB2AFHAdHiAH0jQBe
+	 cRSErH1oQKkUESqz6XXCkLZ+Ti7e3lkGj5pb2cVcGMeYl3hT6j7vCPAXAoBBkxxHSvbDR
+	 hcPSrIFNeACnu5bQ8QFlCsXRADRrXJTtuRDHBs1WXFZGRdhlH22COH2RYgpYMVLc+qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667591;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wUuIwuuN/5vKEs76XMgA3aQriOe7/CMf19j7+VM0x1U=;
-	b=YEaxm/E2piLVRoZOw4hB0JjvUjrYrXdLAhKM+Wj6M6I6lTzK74oXmj1YDAZeluK2XSGo
-	 aKiAIo/t4mDc8Ef1haw+a5qNqV6hOaXZSSRf9jfh2yu35uxrAtn3JlKQL9dgtkBFGOgSp
-	 wMdZE14Gm5Qj7YfC35zDFn0MR4P0IMR8r4rm7h5HYSwtWViHke1aHpsH4XNYTzdFQqbhS
-	 KcSdF5HvvUmpelg2d+REhexeC6WhmXRR2Gp/Y41+9+8voAuO8pwec0EP0KKHt9ePDs6+W
-	 yFWVk0jv30asbnCELB8k03S3gklwz8inR4otkHzZFEM0SmrZhzI12Xjj9v6Ivl/qCgg==
+	bh=6iRmnLuflCl7MrpW9F1BaNAFdZpZANiW6H3XK0CDxEM=;
+	b=As1a9wY920F+//4MWdouh3dhYymYKGfuCu0yGq7q+tbU8y08rlolx3rM7LHURfMe9jPl
+	 WUinQGSgRY5wmqe+coZRlVuEuSz8vq96vs+T06WHSppNSwbqm6DuG5LcutHyynsk666TL
+	 yq455qxf5MirC3j4JNgKKL5sh12XJUP/S7fLNcKmwf4Z8bUsgAigsGyzIAFr1ze4Cficg
+	 oAOxl0vLPHv9hzAKSyJVZwcSdM8B54Wgcp+eTPHjzx4tismw438bamI6jXDKL0sZMmw6H
+	 +0/XU1zsiLuXEtltvpcM+93kQRo1v6foVSD4UqIhzaxdeVDismSUFVu1twB0ag6lBPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfCTXNo0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuKmAoxP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2024606A332;
-	Tue,  3 Nov 2026 00:59:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B49606D812;
+	Tue,  3 Nov 2026 00:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfCTXNo0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755CD1F00A02;
-	Tue,  3 Nov 2026 00:59:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuKmAoxP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E701F00A17;
+	Tue,  3 Nov 2026 00:59:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793667588;
-	bh=wUuIwuuN/5vKEs76XMgA3aQriOe7/CMf19j7+VM0x1U=;
+	s=k20260515; t=1793667591;
+	bh=6iRmnLuflCl7MrpW9F1BaNAFdZpZANiW6H3XK0CDxEM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cfCTXNo0ZPM8K1LgRTrhE8S73NmxzqxhLzmYmP8qsqMgJvPkgdU5m34zUIO+MDX3l
-	 pU7qiEvi5XreJoN2NZ+Z6WsvmGOr6pXq60z40hak9Ctmg4QnsgeqqVMczgr/R72pdt
-	 ORxeshkRbhxX7mzpYY76p1JSMXo8btnuPMW4mbC9w8EWSLQXiXaQubBQ4kamwbZRBf
-	 VnidLDjj23i7+/eW5MQjhG+f/PVV+D7K5GpVZhSWin4nMBTmMO0ODuFasksiTLYjPA
-	 YlbdomK4pfJCvhMxfVqcQFi4zMY7WZRc2LAbkRNzTiZyxMTganEklLkbFTmYjcTMrb
-	 7NNsd6ntD6izw==
+	b=EuKmAoxPUZd1e7NVeSBwZx2Whlycgt1C3G4NUbXqptUWAcrd6tI393dYDWQ5NQPbv
+	 HCbaS/JDXyVh6fE+bZREr2FwtnXUCh09Gk0HJXKoCGbkbAy5mwAaGONKY7VscihMzh
+	 iJJ4UfOovxiwJ1k8g+HmWt5EunQy0yjhx1oaYYotm3ozcOQtVQqTHOUAqMNHmS36Oa
+	 /dSHq86YJ2xk9xwuGXD/+w/bo8SRDanqnZ5s4D3GhVVytqd1AvX73HAhlGNi+0jNWb
+	 aq+LkQui7L8doXVYbxcCQ/6dpkmVIFBN3c1WMetDaA02IqrTsZg74ToWpLl1HdSkhC
+	 lvAx7YSg9NUWQ==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Aveline Noir <jm5905938@gmail.com>,
 	Jonathan Corbet <corbet@lwn.net>,
+	Manuel Ebner <manuelebnerli@mailbox.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	SJ Park <sj@kernel.org>,
 	Shuah Khan <skhan@linuxfoundation.org>,
 	damon@lists.linux.dev,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Manuel Ebner <manuelebnerli@mailbox.org>
-Subject: [PATCH v2 1/8] Docs/admin-guide/mm/damon/start: fix grammar
-Date: Mon,  2 Nov 2026 16:59:31 -0800
-Message-ID: <20261103005940.91432-2-sj@kernel.org>
+	linux-mm@kvack.org
+Subject: [PATCH v2 6/8] Docs/mm/damon/api: fix verb form
+Date: Mon,  2 Nov 2026 16:59:36 -0800
+Message-ID: <20261103005940.91432-7-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261103005940.91432-1-sj@kernel.org>
 References: <20261103005940.91432-1-sj@kernel.org>
@@ -70,77 +70,31 @@ Content-Transfer-Encoding: 8bit
 
 From: Aveline Noir <jm5905938@gmail.com>
 
-Fix a few grammar slips in the getting-started guide, like "make DAMON
-monitors" and a region "that has not accessed".
-
-"The line of the commands" used to be "The first two lines".  With only
-one masim line left, I make it "The first line".
+It should be "All you need to do is include", not "including".
 
 Cc: Jonathan Corbet <corbet@lwn.net>
 Cc: Shuah Khan <skhan@linuxfoundation.org>
 Cc: Randy Dunlap <rdunlap@infradead.org>
-Suggested-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>
 Signed-off-by: Aveline Noir <jm5905938@gmail.com>
-Reviewed-by: Manuel Ebner <manuelebnerli@mailbox.org>
 Reviewed-by: SJ Park <sj@kernel.org>
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- Documentation/admin-guide/mm/damon/start.rst | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ Documentation/mm/damon/api.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/admin-guide/mm/damon/start.rst b/Documentation/admin-guide/mm/damon/start.rst
-index d98b0eb8e7713..e9c77dcddf7d0 100644
---- a/Documentation/admin-guide/mm/damon/start.rst
-+++ b/Documentation/admin-guide/mm/damon/start.rst
-@@ -63,7 +63,7 @@ the execution. ::
+diff --git a/Documentation/mm/damon/api.rst b/Documentation/mm/damon/api.rst
+index 08f34df45523a..1f330429b486c 100644
+--- a/Documentation/mm/damon/api.rst
++++ b/Documentation/mm/damon/api.rst
+@@ -5,7 +5,7 @@ API Reference
+ =============
  
- The first command of the above example downloads and builds an artificial
- memory access generator program called ``masim``.  The second command asks DAMO
--to start the program via the given command and make DAMON monitors the newly
-+to start the program via the given command and make DAMON monitor the newly
- started process.  The third command retrieves the current snapshot of the
- monitored access pattern of the process from DAMON and shows the pattern in a
- human readable format.
-@@ -71,16 +71,16 @@ human readable format.
- The first line of the output shows the relative access temperature (hotness) of
- the regions in a single row heatmap format.  Each column on the heatmap
- represents regions of same size on the monitored virtual address space.  The
--position of the column on the row and the number on the column represents the
-+position of the column on the row and the number on the column represent the
- relative location and access temperature of the region.  ``[...]`` means
- unmapped huge regions on the virtual address spaces.  The second line shows
- additional information for better understanding the heatmap.
+ Kernel space programs can use every feature of DAMON using below APIs.  All you
+-need to do is including ``damon.h``, which is located in ``include/linux/`` of
++need to do is include ``damon.h``, which is located in ``include/linux/`` of
+ the source tree.
  
- Each line of the output from the third line shows which virtual address range
- (``addr XX size XX``) of the process is how frequently (``access XX %``)
--accessed for how long time (``age XX``).  For example, the eleventh region of
--~9.5 MiB size is being most frequently accessed for last 3.7 seconds.  Finally,
--the fourth command stops DAMON.
-+accessed for how long (``age XX``).  For example, the eleventh region of
-+~9.5 MiB size is being most frequently accessed for the last 3.7 seconds.
-+Finally, the fourth command stops DAMON.
- 
- Note that DAMON can monitor not only virtual address spaces but multiple types
- of address spaces including the physical address space.
-@@ -95,7 +95,7 @@ monitoring results to a file. ::
-     $ ./masim ./configs/zigzag.cfg &
-     $ sudo damo record -o damon.data $(pidof masim)
- 
--The line of the commands run the artificial memory access
-+The first line of the commands runs the artificial memory access
- generator program again.  The generator will repeatedly
- access two 100 MiB sized memory regions one by one.  You can substitute this
- with your real workload.  The last line asks ``damo`` to record the access
-@@ -170,8 +170,8 @@ set size has chronologically changed.::
- Data Access Pattern Aware Memory Management
- ===========================================
- 
--Below command makes every memory region of size >=4K that has not accessed for
-->=60 seconds in your workload to be swapped out. ::
-+Below command makes every memory region of size >=4K that has not been accessed
-+for >=60 seconds in your workload to be swapped out. ::
- 
-     $ sudo damo start --damos_access_rate 0 0 --damos_sz_region 4K max \
-                       --damos_age 60s max --damos_action pageout \
+ Structures
 -- 
 2.47.3
