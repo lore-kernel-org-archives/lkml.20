@@ -1,55 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700524;
-	b=nTjsvRM7KJh7qCHYQ9XZ025XxWvG021INqKfdc4Yqdsp911Ap1Cb5L9ClJhnvLEjx0Ob
-	 zeS7ucDi6S/7H0KyjKSMeG3yXyIblCD0izVN7xRsbBOrB7o8mcQNuvey1HFWjxM5zVlhv
-	 0oDUR2XUslCx2gnLV+fIso0hZH9B9iHuq0a1JkcGWvhe2ulK1gLKDIMfmfVSgb10aEb/6
-	 BqJxOnh+kiufb6sjWMz6aTrz/JvOieU0uCEdXXtvjF8OA+ldYiVBKJ22rXxU8oHANM+0V
-	 8RJ/NugIk7zSVxdK2W9Xs0GY1oaIcjlmalw9jlBHaYgDUlmwXrRD22oq5lxC48KCSxQ==
+	t=1793700533;
+	b=GrFOdSvBYLBLKZfzdhSCwecys3RQdt2eIxMSgYMDdzODIiQMnG8OnRobCS/3urCz+pOq
+	 MTR6QbTFPAkefZagQuBQCoHDlgXKOyL5HXEerzCynYNJLNd8FSUNOQMj3RIYu/Rz9qME+
+	 zcyavDE3jYoUsIR66xdC8fQtD7TfgfYrFDxJ8fxs8+tHRtnQCEjD/8gFZbvP8ezjehx3C
+	 vHUvwuvEf21cFpcZryb31T26lCakhVhPP/CvEOXb33qsdo6gCIzqeiW43v64ZXPw8GzKL
+	 EuAcQy/Xn7T+HqDkGYSwJbeFBRuqUF2yywLldrRZMU/vvCfEke2rzk70S9IFd1z2yYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700524;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=swdTypR9uUvAnD2bDnj7k3fz81yQtU6FPJ1wUHvFkwI=;
-	b=Aahujy/Xa8r+bfgaEwfN+iz18gUrYpc0DoMFaI0zd1WfZX0bMMdLj81JbU8CKfxkEWYQ
-	 ZhQytRWNN//ZNmnZFxgZyY765ZgNdE05qcWHGZyeA1LfZnvv04Es/yvU6C0n5zlkSVSJh
-	 Fe2p2zZg8JyvnEVoGnqUWTAA97zNAvLRR2BPB9Iwkz83mdi/7W4uq5UY6QHwAqUdDV8cc
-	 Z805Z2l1Id+1NmHxkTMAjNTO1uRl7mc5SounjdbCqchgbkue9mSKc7lqzwm9Bj2XBWGh7
-	 9ld8mrLvZJh72CYrILwtoCu4v+35uJ62AFyuf46FZ/nejwJ4UhH4NI75OQ0b6H9+fmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700533;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=8KzZPmQWKpFfwedrWal3j0q/tss3h22tq9Xd8BFMIiM=;
+	b=efoesbHx1W0CdZhVkG0f7a3eqCQQyLoEPInRcyyT6K9Howp6nQQVZ2s3Y1RFsrYxLGaY
+	 VxaKsSrEkscgHH7dWPxuMWjwzRSrJVqxtT3bITWU+tPmfIloZnxKTeUmPCEDW627R4a9y
+	 o8cZ8awk8jn9MrcHKEYSnAMBUFbZ60Bi1DWXN+M5pxyRCKEiej4GgoknKlp9b6fdzj4sQ
+	 PPP+s2+ZiEH0b8SPMYDpU6nIvWE1NBUfTlC8vU51p9BomNCKIJQ3CbjTBGgn+4ToQrS8x
+	 SclWPbd1hhon72Xd+QXHLZm5seAOsYAZUOyDqvGJHVZteoxW2hipPtsLcAKKUUjnMkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osGSGPlv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPJUJHpc;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6B0606A817;
-	Tue,  3 Nov 2026 10:08:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65702606A817;
+	Tue,  3 Nov 2026 10:08:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65702606A817
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osGSGPlv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D4AF1F000C1;
-	Tue,  3 Nov 2026 10:08:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793700523;
-	bh=swdTypR9uUvAnD2bDnj7k3fz81yQtU6FPJ1wUHvFkwI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=osGSGPlvNq1u3P3HRQCuQxVQKk7aBFb2Zu86APBhfj9PFRB+EIoC5cYrDls1aY5NI
-	 iBZMWBUNFp0IbJH4XK58xD/pCM/4Ijpgiiw6zEsr6eoaooFyHvhjfM4PDY2vimLxRL
-	 AVURGVxOpQpqFbqLW3/NCWE/CN8DLEHp3ZxiDkWqBVH3oMBEWf1QZtU44pCNHyBEK4
-	 xaYJ51H/346ii7rjw+QS5z4NUOp8ZBX4bWKMtjA5PGk0Yvac3examoxAhT7kSUjI65
-	 73UeQDkJGqg5kzFQOnu0xqyXIKt1jmDIlFJonkCwqGtRh35zAjAq8umEQKiXzthg0x
-	 XOTzVBHsJxTiA==
-From: Leon Romanovsky <leon@kernel.org>
-To: jgg@ziepe.ca, Abhijit Gangurde <abhijit.gangurde@amd.com>
-Cc: allen.hubbe@amd.com, a.k@amd.com, nikhil.agarwal@amd.com, 
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261027092353.1961552-1-abhijit.gangurde@amd.com>
-References: <20261027092353.1961552-1-abhijit.gangurde@amd.com>
-Subject: Re: [for-next 1/3] RDMA/ionic: size the MR PTE reservation to
- max_sg
-Message-Id: <179370052089.1715411.8295798950749355699.b4-ty@kernel.org>
-Date: Tue, 03 Nov 2026 05:08:40 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPJUJHpc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793700532; x=1825236532;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kWj2t1Xhllg559lUzgTByeT5Aew6Be5zNCiU7VYPYLI=;
+  b=OPJUJHpcIOY1zVhZgKvBAOrUFmNK7H2iAcY0XoyTLNqRLecdHesWg2aQ
+   sHhflJGcQ6QOFrMvNgIVkaQGWXA4gaiCZOBvspiO0ipFXCBxEjE2t2YD8
+   +ICixfcyOZi6Z5g3xbnPKh9v7itxvi8tOfHYOgQKmWNjC7XUC52BNGS17
+   ZkL/uJ1IMP7gTTcWb3jiwmLOHXv/0LGVbrWl7JkD5n9uvh+UFnrT77Le3
+   j6tRKkPpE0AMfvgnW5v7f3bG9vvsvU4B0Jc0/ojPlnXVqVrtxyrzW9BSn
+   3akIjEQztithiocy/63KhwRP0zYPTtzVxrvXfxxRU4w7ny5VonQRpI9EN
+   A==;
+X-CSE-ConnectionGUID: 38Z3G1d7QjuUNtH6lxE9BQ==
+X-CSE-MsgGUID: +pl1lDYJS9qz1XgAFXUrCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2309018"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2309018"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:08:51 -0800
+X-CSE-ConnectionGUID: X8d6gXcVSNu49kSHU0duXQ==
+X-CSE-MsgGUID: h1JahsWBQu6jcpYKNxKbtQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6243167"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:08:48 -0800
+Date: Tue, 3 Nov 2026 12:08:45 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, amitrkcian2002@gmail.com
+Subject: Re: [PATCH 2/6] iio: adc: versal-sysmon: validate temperature
+ hysteresis
+Message-ID: <aumyreagvU6zewKI@ashevche-desk.local>
+References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
+ <20261102122112.1723130-3-amit.kumar-mahapatra@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,31 +88,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102122112.1723130-3-amit.kumar-mahapatra@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-On Tue, 27 Oct 2026 14:53:51 +0530, Abhijit Gangurde wrote:
-> CREATE_MR with map_count zero makes firmware reserve its default number
-> of PTEs. A fast-registration memory region (MR) whose max_sg is larger
-> than that default fails at REG_MR.
+On Mon, Nov 02, 2026 at 05:51:08PM +0530, Amit Kumar Mahapatra wrote:
+> The hysteresis written through sysfs is only checked for being negative.
+> A large value makes upper_mc - hysteresis in sysmon_update_temp_lower()
+> overflow before it is clamped. Reject values above the full Q8.7 span of
+> 511992 millicelsius, and name the Q8.7 temperature limits so that the
+> span and the existing range checks share one definition.
 > 
-> Pass max_sg as map_count. The virtual address (VA) and length stay zero
-> because no buffer is mapped yet.
-> 
-> [...]
+> The cached hysteresis is seeded at probe from the threshold registers
+> without checking that the lower threshold is not above the upper one.
+> Treat that case as zero hysteresis, as negative values are rejected on
+> the write path.
 
-Applied, thanks!
+...
 
-[1/3] RDMA/ionic: size the MR PTE reservation to max_sg
-      https://git.kernel.org/rdma/rdma/c/bfef8b13241cdb
-[2/3] RDMA/ionic: set the SQ WQE color bit
-      https://git.kernel.org/rdma/rdma/c/d1b8977f3a009e
-[3/3] RDMA/ionic: key recv completions by producer index
-      https://git.kernel.org/rdma/rdma/c/9ca2239d2fd274
+>  	sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
+>  	sysmon_q8p7_to_millicelsius(lower_reg, &lower_mc);
+> -	*hysteresis = upper_mc - lower_mc;
+> +	*hysteresis = max(upper_mc - lower_mc, 0);
 
-Best regards,
+But you can use abs_diff() and let it make the problem of the supplier.
+
 -- 
-Leon Romanovsky <leon@kernel.org>
+With Best Regards,
+Andy Shevchenko
+
 
