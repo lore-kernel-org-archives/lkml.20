@@ -1,99 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737851;
-	b=m8AMyX1FRHCaCoTNH6EwfIHzXOjZjjuIL0uVWz0lxF43BMTNYnoMFX+Tk9W5H0THMyJK
-	 frXUbU85l9N8HLOVBgsDmyd+8FP42cwd3qbytfr1Pwj7jVozCjyo7pw6EOOr3oJjoOUrZ
-	 QCxzR7K90Y9sWeF0oY+zFThApT7PTSrE2aiRsazoywN8NVb7sWdvryUMTHiWEipG0bvJl
-	 Enuwj78pk/hGyauPHG3bh1MSLed7UZjrSVa3ybH3jZu91aRhU2Y+GL+IKGc9YQcjTbIo9
-	 z7EuehauFe39zkiHU1SHgp4nZ1TF7/pTDTYIerPIeaGmd2H/5drvSPuIKNUHEZycjHg==
+	t=1793737898;
+	b=b57oqV5g/yWdbTgdRgSl7/dojrlirwVOlhSodSyjHyqQJjlJudZp6cr9OnPILotBh4ud
+	 o9oGvMtUQFuDWd9Ev1zaR5CVWoQBksyMBD2SkTjsKOZnaxmR+ITlrLWgUf37e82+BwwPb
+	 j1GDNTDb3pdVvMxndX6sOgu4D6nsPYFUCWH5cLMyMJGi9Ff8XGz1Aez2STs3JeWH3aFyD
+	 cGIAGXkNsFRCXBtDg382PWTMkCgyD7AzgCqt4r0l5CS1c7U6eBerovHUFCqJlfHbBR5xj
+	 lj/1afn5AECVIomjBLJ57mqWrJx/DwByuLxZvQg/nmIlCe1M4m2RTqarrYH0CP36DvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737851;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737898;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FZfYo8SuzajjbwV4kqNY7tywvSI0LOY4vzOInvykOJI=;
-	b=XNKVLvqujXheY/Dn8oYJZBLgWJI1yqvZ0twgOSsKBc0bkm2fUBskaNOnmyfmC4B4fXLf
-	 u3GXY8pfP1pfGWwgBUlHGPHxUB1bqfFNc30gFhwGArsJUsmycw6Ia3SCZKw2s2V5Wvr4p
-	 diWSJxXmr/dRpy5jUsgmfxtPCZFj7t7/yP3Q/tP9tSDuHa1tyNSdTnAGuEpOpZ+MN+Oq3
-	 Rcd6hMZXYmCrQxYXMfke9wk9K1AKfIoTPv+wm5vMtnIu4Sj0ucl3kBbrOZ5mnJyhz0mT8
-	 5o0DLPIRfJER0xW6eiFqSzvZFaP2AkS9je5XCPzhToHj6thHRl8Bq34u02hKY2iRt1g==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=yH/XRG7heWWZ+jvry39cY9jHOPmxtv5uOcm4fDn0jL8=;
+	b=O3uuHofmULOT8aiLuxONG0Y5X32Ubn3JkeebSLAI4VNhhXWGwXzxaghdJrtCua9syi53
+	 XEjqAs87/CGdOn3FrnGT3ytc2x2LPbvNFGQyaMLOXUlVs7UZojaXRn8wRUBd13uSs4Q1d
+	 gB2bFwLLqVyiVI5p3iai67CyriRo+Wm0KQp2SYJFm5S5V22abjU2TrBQYsrbbMMRYSd7M
+	 zDJxHlJpXBJNv0i4WkB2AeK8b+yZGZdaO08zRF7WNC9VsVvjDUQuiWmVy9BZhEQCBu2b8
+	 zHpeQZBx61Uu4NrbPbfYs5tVmdTIhahrS96OBvL+8zFsqHCejwaYzm19FDf5i84zxfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z+G0hPgv;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFz8Yp7u;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4645606A333
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:30:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4645606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894E6606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:31:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 894E6606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z+G0hPgv
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so7194455e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:30:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFz8Yp7u
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so29699875e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:31:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793737849; x=1794342649; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FZfYo8SuzajjbwV4kqNY7tywvSI0LOY4vzOInvykOJI=;
-        b=z+G0hPgvJEtClVcAOQwvDYL/LaCrrOLaj99bug0eOtu1t7nKLZINdnWZnMAluamX4q
-         P2s8eAbfKmM4bIxlCMCEQDiLRH00FzQifTcN51bXR6ku9SNYB6Cj7n0tsN5G6hIbfgxx
-         pOH7TEr9CXKtG3y2cNqZdWtB9Li7RiaKLObp0wTTkwSNWnUHqSUNtVcmdwFpr43whHES
-         xC80EoChV922tufQ1Qqgb7LIQEmh/XYFjuZgMPXgB0kmMMivnSHaR6JwePP9+5bFZRRo
-         sqBxaSn3JFakp9nWtuX15vQPr6F+ge6ibino2pjDFXaAUD431J6y42lvDBhDAUGiu6Uo
-         vkvQ==
+        d=gmail.com; s=20260707; t=1793737896; x=1794342696; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yH/XRG7heWWZ+jvry39cY9jHOPmxtv5uOcm4fDn0jL8=;
+        b=RFz8Yp7uY0eJxd+1QzwiZ7WVFvlDvKXPH/KU7OnSu4C4lVInrMJDIUgw+t6NS3QwWN
+         51a1+V0XGOm2kfNpKTsIFbU7XtCaiaeVNmEhgFeFb1/CrgAAdjx6RnrCKSI/GQcbxXIj
+         zk4oXe/ZcmhoB/9RZoXaMLelwk9hUZc0kCiiJoa4eh/Mo95xbaQlqYkyTUWpyU5DunS8
+         /Rk43e8dBuiwCxXMo+YKIA/4tuqPntQC4r09s1wi8SZN3fTyOhCC4XzaoNcMkwT97oky
+         TyvMinMrf3bhPU4GoPScWDTt5Yyl27cvFCNI9OWgSMUN/ce15ceTsoEM8yVAia/L78Wh
+         u65w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793737849; x=1794342649;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=FZfYo8SuzajjbwV4kqNY7tywvSI0LOY4vzOInvykOJI=;
-        b=10hshOyUb9+8MQTNU7X83ZG43eS/POyhskhPbWGmMePnsAPwtDk0x6r/452mDzRWn6
-         nGvu9YDuXeu8Xfie79iwaTXGHoBetAMFZUEMpGC368CY0H/Q+TtedzPmFIKIzm2EkFzT
-         cvNXQO5yHtoxGJfK1BAVQru84WgbBcglZFIyDobXsVpB6y3KSNdkVnDBB3/36oBaqJ1T
-         K0IX0wkvfUeTmaE/qgpaFDFpn/t0j4W8nvypwNR63BPa/Ik8OOpCSjdBVBgyJZyCcH5u
-         5L69d8Yty4FJ5Mg9kvP5L22yqc0zrzJkyPj0xiYPUvPuUt9oEDiu/rz1JfT1WQGpnE+b
-         /IXA==
-X-Forwarded-Encrypted: i=1; AKwUvBy4aO3SxsrCodbGql2xfPJeJnmMCe78eJHiD1PuaQShTamBSPsyJOAMcJhhVMUzlreBM1FYfTJ7yqRsNkA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+r0CVyoGXup+fpTb3WCB4YQwjUQekGSr0DuDpJcDrKrPXibih7
-	2/joYGJWuTggROS6c0hn4JGeLdOBQna7EAtQLu4RZClpVR2B7Wy7J+T+
-X-Gm-Gg: AYBFou2cc3EklKqte2YWyAvZxoA1cVcNZ23D868yMmwOR7kDOMWzc9LBvH8Qagfm8a/
-	nZ8BSiqgeSxDV4sbrlEzid8+8fbb3xVUAqdTkwEJCj/aJPPQTG7+hCriy0BKvMh4WnsXDeWu7+Z
-	7To1/d0hsPtgghSQtvQCIk6Wv/N1gGX0lLRhUh9tN/ds7Qtz2TIYNd9hdfSYXEgU3nQk6ypuXTJ
-	UfNSPLC9GEOqbQc8F46IZpMRe3ENignQ9OeMXc1oqOncn95HDbAM8BrypX17HvMic8iWXtyTvi/
-	GXBc+q0Ak821l5lcZUE5vYQ80efzI6iRhR2XkXkuBspzMD6of/ZMlnVjwaOIotbz3um0W3am/1R
-	CpWRuwSYhMCfSqAeaQ5L1R9w/POVP3gpEUSL+ZfVJvy9p8aBJhaFRGMQEFO/ACuT7p6MMo2IwAs
-	GHNgbkSmm9OTjLBQgayFK65AT2d0IBpJvanrS0P4rV5w1hAE7yiBfHbtmyAT3ewsUax7Zg0InK+
-	I9x644dsEFjrwxdK/GHi2IduOLhTgVejlUF+/p9MLZtQCo/i6mzuyGltGcZAs8kJL4bTw04mYkU
-	9NXAjLX0h/vZQQwGitt8jrmxvY08qHYOvOyK2bYU2WqBbBsNZeXHNRZcsyOSLezWGmrCbWTHtm/
-	yBq1EtfPlt7f6dYhh6whwcTaGDcW1M2SCXQ==
-X-Received: by 2002:a05:600c:1d11:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4ac174712admr336521505e9.10.1793737849367;
-        Tue, 03 Nov 2026 12:30:49 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4b2a879fb29sm75110245e9.4.2026.11.03.12.30.48
+        d=1e100.net; s=20260707; t=1793737896; x=1794342696;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yH/XRG7heWWZ+jvry39cY9jHOPmxtv5uOcm4fDn0jL8=;
+        b=xyS898JTduFiimiwszPhllzxsBa8tzkaVAcR81yddSG4tKcMEJIij69Th1+RKPL29I
+         FZ4i0t+8BkdrMpr5eKMdwWEL7UltFjCt+wMtV46weaKVW19sZrhyhiP2P+AU4boqrFgd
+         hwxtxzXHmmNCZw0++824USI/FMTjOkQMrgGW8UWJrux61yLX19H78hiSylyuRHABRk6N
+         JJdkKUe/5FDALcDaIUjwzphfh+Q3wM2PbcIvLStqjdkKOBZ6KyIVSjXX/R2Zrvc7bdsq
+         v0Z9f/JBOgYw65vZ1RqQQLkpivO3w1RL2s/vDCcJJlH7LVZJ//ksJKrAuPlAwnXKU2dr
+         6xaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzT5ekn4c3BnrLbByE0JGm6QyqsH4tJe+j+7+L4vWTW1Ip35nw5h2gSV/smVT/ji6X131B1DcAT9O6K+FQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mZ1y3fiYWydbpxWrvkP08uavrSJNUUoIRXBfHWEQR5NPyLlBv
+	0X+T1vlK3hQsLdVf5mhK479+QUq6Wiemc6Qe4KNaZg5KnQHNSkakyEf8
+X-Gm-Gg: AYBFou1GV9XIQEu2T4kfrDYM3TfATU6OE9EbUo2H1jqGQj8lXnXIVjS7K4qMdPjj4rF
+	zsxBn85EPHMe9KUxsO6L8DAH0paSmJrVxOMB+fX7B+FVQCsjiQocggqQCH1GaeSVycXxCCoC8L8
+	R6jDhtd+Tu1UZn2JkjQsBroj1lrqOQ6BGHLTDpgrmk2uRdb3IgOP/9SKnrcm2wnYivUOJLiu4MG
+	4ktpyxqK4Vkj48swaWN4jJDj7QZSzpDSEbJ4VskInTyFD5N41IDBZ2wy3sb381cgUIQhBtswqC8
+	vfqW1kL5nbmKzQqPxYaxr0vQhJSvMVjuXa/ZcUmsfvcZnOoPd8e/mfZKa9pWBhSRdkBrGbzwyHT
+	GS1FdDyuBN0zgscqINhicR2L0XX4ISu2dDmXsZrTjWWfVlUYvTLFDTeJkj2bPlT/lY5DysBQ8VC
+	iUiiWVpznzQ4b+dV8oHxNxMV7+k+VbuCzFVHwyyjGS9aoTpLyqsK6c8dItxVQtYYZuXD3UgLGN+
+	tiJcqq/0A3oapK5wzex6O8CIvdMGAIFCJREXekOwjiQN5JjH62Ln+b/YANWN1ryYvFpmQOguevB
+	FHEYdPdGvXynpNIY9DLtsi8mr6ijU/0IUZZ8fwK2u/Q/i0VxWkx/WZFXSV3HpeWvn5rMpgo0hQ=
+	=
+X-Received: by 2002:a05:600c:1c17:b0:4a0:1efa:c74a with SMTP id 5b1f17b1804b1-4ac18b7ddcdmr302817215e9.20.1793737895986;
+        Tue, 03 Nov 2026 12:31:35 -0800 (PST)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b411de95b4sm4931815e9.0.2026.11.03.12.31.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:30:48 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: mfd: Document support for Airoha AN8855 Switch SoC
-Date: Tue,  3 Nov 2026 21:30:31 +0100
-Message-ID: <20261103203034.12869-2-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261103203034.12869-1-ansuelsmth@gmail.com>
-References: <20261103203034.12869-1-ansuelsmth@gmail.com>
+        Tue, 03 Nov 2026 12:31:35 -0800 (PST)
+Date: Tue, 3 Nov 2026 21:31:33 +0100
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-security-module@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/landlock: fix the regex_escape() error check
+Message-ID: <20261103.06edcd6fc9f1@gnoack.org>
+References: <20261103163917.641130-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,175 +101,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261103163917.641130-1-sashal@kernel.org>
 
-Document support for Airoha AN8855 Switch SoC. This SoC expose various
-peripherals like an Ethernet Switch, a NVMEM provider and Ethernet PHYs.
+Hello Sasha!
 
-It does also support i2c and timers but those are not currently
-supported/used.
+On Tue, Nov 03, 2026 at 11:39:17AM -0500, Sasha Levin wrote:
+> regex_escape() returns (char *)-ENOMEM when the buffer is too small, but
+> matches_log_fs_extra() checks the returned pointer with "< 0", which is
+> never true, and goes on with a bogus cursor. On 32-bit architectures gcc
+> also warns about the cast of the pointer in the error return:
+> 
+>   fs_test.c:7474:24: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+> 
+> Compare against (char *)-ENOMEM instead.
+> 
+> The size left after the escaped path also subtracts the prefix a second
+> time, which can make a long path fail with -E2BIG. Compute it from the
+> cursor instead.
+> 
+> Fixes: 316d06b01130 ("selftests/landlock: Add audit tests for filesystem")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+> Found with 32-bit builds of the selftests (gcc 16 and clang 21 with
+> -m32, with and without -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64);
+> KernelCI's 32-bit arm builds show the same warnings. The changed files
+> build without them now, and the x86_64 builds don't change.
+> 
+>  tools/testing/selftests/landlock/fs_test.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+> index f725882fa4a78..27a78434d1c21 100644
+> --- a/tools/testing/selftests/landlock/fs_test.c
+> +++ b/tools/testing/selftests/landlock/fs_test.c
+> @@ -7470,10 +7470,10 @@ static int matches_log_fs_extra(struct __test_metadata *const _metadata,
+>  	log_match_cursor = regex_escape(absolute_path, log_match_cursor,
+>  					log_match_remaining);
+>  	free(absolute_path);
+> -	if (log_match_cursor < 0)
+> -		return (long long)log_match_cursor;
+> +	if (log_match_cursor == (char *)-ENOMEM)
+> +		return -ENOMEM;
+>  
+> -	log_match_remaining -= log_match_cursor - log_match;
+> +	log_match_remaining = sizeof(log_match) - (log_match_cursor - log_match);
+>  	chunk_len = snprintf(log_match_cursor, log_match_remaining,
+>  			     "\" dev=\"[^\"]\\+\" ino=[0-9]\\+%s$",
+>  			     extra ?: "");
+> -- 
+> 2.53.0
+> 
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
+Thanks for the contribution!  I also stumbled across this one when I
+did a wider cleanup, and at the time I came to the conclusion that it
+would be wiser to fix the weird way in which regex_escape() reports
+errors.
 
-This was already approved by Rob but I dropped since
-I dropped the DSA switch section and reference (since
-it will be handled by the other series)
+https://lore.kernel.org/all/20261008142604.39107-20-gnoack3000@gmail.com/
 
-I have a question about this... Can I send a follow-up
-patch to this schema to add the ethernet-switch
-and make it required by this or will be an ABI violation?
+Does that seem reasonable to you?
 
-It's not clear how to handle this detail. Would really
-love some guidance on this.
+If you are looking into Landlock selftests, you might want to have a
+look at that patch set, it already fixes a wide range of issues.
 
-(or maybe the DSA schema should be pushed with this
-series?)
+–Günther
 
- .../bindings/mfd/airoha,an8855.yaml           | 134 ++++++++++++++++++
- 1 file changed, 134 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
-
-diff --git a/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
-new file mode 100644
-index 000000000000..ee7241154851
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
-@@ -0,0 +1,134 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/airoha,an8855.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Airoha AN8855 Switch SoC
-+
-+maintainers:
-+  - Christian Marangi <ansuelsmth@gmail.com>
-+
-+description: >
-+  Airoha AN8855 Switch is a SoC that expose various peripherals like an
-+  Ethernet Switch, a NVMEM provider and Ethernet PHYs.
-+
-+  It does also support i2c and timers but those are not currently
-+  supported/used.
-+
-+properties:
-+  compatible:
-+    const: airoha,an8855
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  efuse:
-+    type: object
-+    $ref: /schemas/nvmem/airoha,an8855-efuse.yaml
-+    description: EFUSE exposed by the Airoha AN8855 SoC
-+
-+  mdio:
-+    type: object
-+    $ref: /schemas/net/mdio.yaml#
-+    description: MDIO exposed by the Airoha AN8855 SoC
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - mdio
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        soc@1 {
-+            compatible = "airoha,an8855";
-+            reg = <1>;
-+
-+            reset-gpios = <&pio 39 GPIO_ACTIVE_HIGH>;
-+
-+            efuse {
-+                compatible = "airoha,an8855-efuse";
-+
-+                #nvmem-cell-cells = <0>;
-+
-+                nvmem-layout {
-+                    compatible = "fixed-layout";
-+                    #address-cells = <1>;
-+                    #size-cells = <1>;
-+
-+                    shift_sel_port0_tx_a: shift-sel-port0-tx-a@c {
-+                       reg = <0xc 0x4>;
-+                    };
-+
-+                    shift_sel_port0_tx_b: shift-sel-port0-tx-b@10 {
-+                        reg = <0x10 0x4>;
-+                    };
-+
-+                    shift_sel_port0_tx_c: shift-sel-port0-tx-c@14 {
-+                        reg = <0x14 0x4>;
-+                    };
-+
-+                    shift_sel_port0_tx_d: shift-sel-port0-tx-d@18 {
-+                       reg = <0x18 0x4>;
-+                    };
-+
-+                    shift_sel_port1_tx_a: shift-sel-port1-tx-a@1c {
-+                        reg = <0x1c 0x4>;
-+                    };
-+
-+                    shift_sel_port1_tx_b: shift-sel-port1-tx-b@20 {
-+                        reg = <0x20 0x4>;
-+                    };
-+
-+                    shift_sel_port1_tx_c: shift-sel-port1-tx-c@24 {
-+                       reg = <0x24 0x4>;
-+                    };
-+
-+                    shift_sel_port1_tx_d: shift-sel-port1-tx-d@28 {
-+                        reg = <0x28 0x4>;
-+                    };
-+                };
-+            };
-+
-+            mdio {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                internal_phy1: ethernet-phy@1 {
-+                  compatible = "ethernet-phy-idc0ff.0410",
-+                               "ethernet-phy-ieee802.3-c22";
-+                  reg = <1>;
-+
-+                  nvmem-cells = <&shift_sel_port0_tx_a>,
-+                      <&shift_sel_port0_tx_b>,
-+                      <&shift_sel_port0_tx_c>,
-+                      <&shift_sel_port0_tx_d>;
-+                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
-+                };
-+
-+                internal_phy2: ethernet-phy@2 {
-+                  compatible = "ethernet-phy-idc0ff.0410",
-+                               "ethernet-phy-ieee802.3-c22";
-+                  reg = <2>;
-+
-+                  nvmem-cells = <&shift_sel_port1_tx_a>,
-+                      <&shift_sel_port1_tx_b>,
-+                      <&shift_sel_port1_tx_c>,
-+                      <&shift_sel_port1_tx_d>;
-+                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
-+                };
-+            };
-+        };
-+    };
--- 
-2.55.0
-
+P.S.: Mickaël, gentle nudge!  I would still appreciate a review on the
+      selftest cleanup patch set, even though I know that I need to
+      start rebasing it soon to make it apply cleanly.
