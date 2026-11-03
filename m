@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793676860;
-	b=tOgD2sjEZrpVMQQYEe9420/AfoS1cjlSb2LbSmBIcoS4fsbgelOXTEQ3BQfSj03W5glp
-	 Na0t3TxMWkIB6X9whNZjldJqkZNSg0AbynhxrRD+Xr6R4P6q+4Wb8E/LA1pEqoQmq10YO
-	 diSJ5WWzCbl9L7OuVx8ZBDfVM/iUk/AZfpYp+8EGiMiXjiCZoy1y5g7OxqwWHn4lftmtP
-	 1Nmf51wq0yGshnxtPXG2zGvtlXO3X+A6rGSvNcbbUgW1yp3fJxY8LILkHiFMjTvhsra2D
-	 +RL/msa+lkLF8Jaj4YSpEEmBZ59vGPaiisIUOjkfd7IOtClt280dnKeTDqyWHTU4jQg==
+	t=1793676865;
+	b=ccuhOSAyIcghOSg3m2OhFvLcMOcesNeYUZ1X07s5CSC51qBuSXHrKY1buAU1FvRKLiUH
+	 TdlYYdiXX2x8EaxbZbIIpRxE0vTpeeEFgdacHzlkUXRtbiA7dhpK6WzOVhWlBfJOnKnMB
+	 JbzmoKPI6r0TU0FsDSvtkqm61WNBMjdwVL6lF6Pm8d6dvLlXHnVCwdnmL7Ee3WJJwnLhH
+	 BVSbCb/4uLVj12rSQMM0KRU+yLUSL9exMNskPYkTjSrNncRbuVdRyZ4lkcp7ad0PSC4LD
+	 XOtt4lwoyk35BVfoTV313b8RdCDXsn6yZZ6fwY2DAo5fBTlMGhz7wqjQVZTe5Wi5Ikw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793676860;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793676865;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=b1Rw55oWDrh7Qrrp6JFBlhT1fM/bU2NaiuzfyjKKcU8=;
-	b=M7J2HzUZIC/C4iXOD/IzV8inS0jaOysKweQNXg1juQoMC/OKeH/crf6TI69cJzfbf/xX
-	 1TCDCQoT4dPrwvWQ5M4VR8q84t0xSOLIqesQV6xoekSaaFwNx5vx2nhUuMwtJFhjGuNyc
-	 rO0rJdrvgyIaGM9+r+pknasUSi/7zcLiucgzyq4o2PmZc6NAUj2YOm/wrFNQueWo8y3f4
-	 oOqXFAgCDJMSaI5gQtZZYzqhUA5Z2faFgJexE8srTLHxbqDCNkcC1DanoZtbtUTyKggCq
-	 K2Wvk9979rf7ybXUdfeWo3gb0lSONHjYE4jCM2ojAUnbZY+FVIPDuVbgPvQANoK6evg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mwU+A6308ip2iXwKodsHaokt6SloRiTa7TXQScnGfWM=;
+	b=zvC9P9T/Olm44mBTTfEMu9sNeImFfTGifXgMST6jm28cyGgpQd/PKCk1UGO0sS8JlJla
+	 CHqB4dzaywcxvwFDt5Ic+3AsIW7Wk5hXJRfRhXkbmJmeXChq5UwKV+tEBlMQ6y57RLpuQ
+	 NyOjRXYKu5v4DUvxNTAIN9ZisCqKtnxH9rZzcTvhD3JpA2CpBoZk/H+cePCLr4fiUX8xr
+	 W2GrshIQ30JRd4A3CtnNFNfryQ7AjRjC9iIuMF1kfCrkYz8r4zNs95FCfJhdd4n0eYxN/
+	 F1a89aBOj+kP8kLSOiXoh+I2SwrrQaS9IaOC5ICOnN9wdkyXxdsIgXgn9b7EW4HHUYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=jclark.com;
 	spf=pass smtp.mailfrom=jclark.com;
-	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AgiwMN+W;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kFs3+pAc;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C66606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C66606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00179606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:34:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00179606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AgiwMN+W
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso1517123a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:34:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kFs3+pAc
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso1517132a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:34:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793676859; x=1794281659; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b1Rw55oWDrh7Qrrp6JFBlhT1fM/bU2NaiuzfyjKKcU8=;
-        b=AgiwMN+WCDb0CzMHKck1ZwBsxIOmlFDhABJrFx0RhXHXhMEgdpcjCQkcKPD4i6PCpd
-         tEwCWnQT5COSNU9Kn67nvGjSDZv81kzF3ZnJPRRczxT9628t7vDQF9fGF8hHW938fkta
-         UwWxhrKF6jVlZZ8P+LGMzklD9K3D95NJS1MCXZ3SshiMAgYFtOaG97TujFyhlejTBWVj
-         LhjWOZ3aVkTJduAlo82JvxBkn8eKoTcDa/w2rzhd1ysfkhrQcksTnSEvQiyayqY3NIHt
-         5qWYfAntph4Sj2ZG5nh+jr6+/XCxRiQBA4naC59UJvxwhllk4l8L6iYI9GYF3L6/uCUI
-         ZhhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793676859; x=1794281659;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793676863; x=1794281663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=b1Rw55oWDrh7Qrrp6JFBlhT1fM/bU2NaiuzfyjKKcU8=;
-        b=d/dyKFmWXjetIHX9fGXEVM5+uFh+BkynDbddXvJ2EU65vPtSWJguj9IcHdSpOMuTKh
-         CXGZ7F1EoJLV9GMQhxx0AJ2+4NeBcV4906lj359jwuIfneWOyeYhYVxdRNe78OiKHUj6
-         vKpgmkRzCpgTGiTDnyBFRA7Sf0UufvdKsGUGH/7M3bXH/qpN1jsKjZ3nOq8Cr30FFmjD
-         2WRKFLos6CYga2mv4rsMWIxjDgJCC+rDgepjjYsgbPkPfrbdoetcbmXFg5Yk6R0DbMLt
-         gtVEasxExR0o5s7+O30KfMMPci2cvFL52hD7/E40+SinHLxZxkaUZJU/Yia4TxFhP/5r
-         +f0w==
-X-Forwarded-Encrypted: i=1; AKwUvBzri/SFpP9ywni5gSYUtbm/KH+ZO1N5dKuBcdBYCEUbCpqqxKhjcq5pJRoBNT3chfS+8nyBMqbST51+7PY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91kPPXaKBUWK6VZI7olt/JUXqs67bCP5nWaFsd05/53d7BoN6P
-	HcaS9drtj/4XITvB8A9Hgr51at/KgwQfqpZKALumWR6s0q5tmt8D2g+sMC3rSLzb0Q==
-X-Gm-Gg: AYBFou1szMKRDdUsVBsMCR59Imrew/r9k/DNQYxKOWvF42JIyljokkYEBm1Q8Fa1by7
-	btb5wAoS/GucLAMcZAiLYbE8ni08cCBi0x8YowKBMDdu7IOnhrX+V5uXVRcfMvHz0ZQlpC8ffwQ
-	z8j9z7z97RuTAmAfgvkoIWdcCCYNzhk/UEoEKP/hb63QLguVhp44tKhDnqSkiI8fGBTo7yW8/ZV
-	C5V/sWwQnv591pr9zr6F5VVmkglAGoCWoesZJ6CuIXec24Y5VMPByXldaPGI0UdTrlQUmWftVp7
-	a0qKlWMtWQ1YXD3JpoixxzMbCFwJoHHNKdoW+1yr2FOfQAud3oOwuOYhON8tDPkYmfpSyXbYTQq
-	RPtSYCeUdIGFU+FYjYV/GwwthqrcPA5QGKFJv+LNjOErM5IdD/HIe4MYm+W/8+JCmPyCRBl7rKO
-	fttrdb+dvyUYy6GOqJ8nHhUHjafrMI7D9mY0PYFOkIl4u+GZi0dV1r+hKV4xgSSkTyJwiP00Ivd
-	7+VJlkar5KLYqp4a+/s1L4rw3n8lJwl5xH96hX59Tx8XbA6DIi0gRMrT0rT/t/O8qjBE8l5pmjv
-	hKLTkcVafUVH+co0I82BM/DHhhhOINb4hah04XxwOR/mQ7G590hAjEXE3xlyI8EzLej4mQMsZ68
-	wcmdjiBVETo9A/iS8tg==
-X-Received: by 2002:a17:90b:2d0c:b0:3ad:d29c:5e64 with SMTP id 98e67ed59e1d1-3ae897e30c8mr9894127a91.65.1793676858713;
-        Mon, 02 Nov 2026 19:34:18 -0800 (PST)
+        bh=mwU+A6308ip2iXwKodsHaokt6SloRiTa7TXQScnGfWM=;
+        b=kFs3+pAcB2asJWia3nXl4sSrY/b/Ui7HgpSzZneznbPnWtV6Mq9e5Nv6abO3BjNH80
+         A0w5Ur4yLCOq9nLaDLNxez3qjItS5VkTubjlUfhhA2mxe8LUvFkIYJZH9Q+FHvedA0a8
+         ZTEQx9yRXePLVOJ8X1rO1e7nCQUI3QqPJfgwI2sjD1JmiKeTB7YyVweGL2QUM+Qj+LBu
+         oqmBTywQZo6ayf1POIANGkd6CslqT5/YZVc1LZE3NMPnsUdt57j5pf2Dlg30PUFZyA8G
+         PTu/nNLm8iYQHzF38Qc9xo4mMWSwtMfQ+gYTikU2HQrx2wieSsI2NkdOPUJSLtokYy90
+         PX2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793676863; x=1794281663;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mwU+A6308ip2iXwKodsHaokt6SloRiTa7TXQScnGfWM=;
+        b=p5JUKYkkIhf4HwtkaBlU+pIrFtiaBHXuXXI3wnVwjWA/JgCe2qkKce8823f5Mnpv3i
+         +EE2KOmGEpjCEtVKFRzhTsG8nPDdJDNKFSoE3RJZzc8gWzYVK6Z+EpGVR7Pj4e5YNyxn
+         c8hkhKEs7iYY4w0IMdmUIeKczhmOlHz3z4+ghGNzhQfveXlH9AAWHHXdh0UAQB/kVNAm
+         G1Z9kxu0QbOsPz4IESo+LreiY+q1Ryydt2nj3gsVRRM4hikCpCCYc0PAWAt+sklMHz7U
+         lW4SyilXjs/U8I2DX9ajIZGgy9LglnX9vBO9zkUzpom/EIJNbMTo+eGfEiGG+nvEHEp3
+         2k0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwtYUWkjCndkn7D6gpF8Pr/aeVGQ07shqomq7qQNAFfSb9QiqmgXl5kzO5/X0UgxKRsUFFjGCspuLkm1jk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xj+Xofo3+S5ScnyNr8lqCSojt0lcZuAbsiU0rMCwU3N4Y1G3X
+	PLIckXONIyptOlsoL4K8VZS4v2Nwm3ksLsyaSaxkjZrUtxa2VbsjnBvw1rP1Xpafow==
+X-Gm-Gg: AYBFou2HwZgOUj71yroSZCViDdudj7iW513OMIBmND69Eyy2iFCWBoQtBwd45ESuHhR
+	itx25MVIwwPKumUXZqss5BdRmpvWf7fLMpvImDWdk/LuJKwRBW9VKRyk16BehOvzMjIeJgJQ8vp
+	oZsigOb83k6ipp5PD8MHMr2BX2Tc+dzs38V2XYbND+eTeXC4a6QSK8HJ+0/PaXdcOLd91Px6NE3
+	tW3a5feVW5M/oJNqcGd8odgwPqBqw5wrT4hkz3pm68Bfx7OpIxX7Wz9NGFrO3q7kx250bi+V/rJ
+	GfQpdV2Hk6ei/AXc284TiTz3+kG57yYLIzgalSFMZcKYKJu/h9XOQ6KLX7Eu154HmZa1Dz4IAyv
+	kebs+FP0JC8TCw04t9e+wcB9XX6rbuTo+w04RR1dwbK8PiuEtxF70251+RsHk+K/IV5OuMW/6AQ
+	nQPbiQwDZRn2svnCGUfUJyOf4JPzTCymWLJy3uy9D3fsxdNcJ9nUuOBfREuROEkivPsTtI5klRm
+	rgh20QV7AYycmb3U8FyLjLS6o6FAOKvaeqjxXgcUrlSrCqvxSKWwB6fNG864hE1kRvYeTm2BtjL
+	kPkdgAZJn45wam/VSPCmcTxIOhlzyonLSOfF3IJnweFWSa/PMJxHRp2qtAnlLMmSJS/Ek0I9ziv
+	xRz9tdb7kKTHtUgN+zQ==
+X-Received: by 2002:a17:90b:518c:b0:3ae:2961:14d5 with SMTP id 98e67ed59e1d1-3ae8979807emr9012242a91.42.1793676863114;
+        Mon, 02 Nov 2026 19:34:23 -0800 (PST)
 Received: from cantal.lan ([58.136.77.237])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c29e619sm1965566a91.0.2026.11.02.19.34.14
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c29e619sm1965566a91.0.2026.11.02.19.34.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 19:34:18 -0800 (PST)
+        Mon, 02 Nov 2026 19:34:22 -0800 (PST)
 From: James Clark <jjc@jclark.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Alan Stern <stern@rowland.harvard.edu>
@@ -92,10 +93,12 @@ Cc: Johan Hovold <johan@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-gpio@vger.kernel.org,
 	regressions@lists.linux.dev
-Subject: [PATCH v3 0/2] usb: core: fix failed device driver probes, add pre_probe
-Date: Tue,  3 Nov 2026 10:34:11 +0700
-Message-ID: <cover.1793669297.git.jjc@jclark.com>
+Subject: [PATCH v3 1/2] usb: core: clean up before handing a device to the generic driver
+Date: Tue,  3 Nov 2026 10:34:12 +0700
+Message-ID: <74b3f919f214a8ece24161a2c904d8a5744b703e.1793669297.git.jjc@jclark.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1793669297.git.jjc@jclark.com>
+References: <cover.1793669297.git.jjc@jclark.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,43 +110,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On a BeagleY-AI with BeagleBoard's device tree, kernels since commit
-f918e3804498 ("arm64: enable HAVE_SHARED_GPIOS for all ARM64 platforms")
-no longer boot to a usable system: the on-board USB hub is re-probed in
-a loop. Patch 2 fixes this as Johan Hovold suggested, with a pre_probe
-callback that lets onboard_usb_dev defer before the hub is configured.
+When a USB device driver's probe returns -ENODEV, usb_probe_device()
+hands the device to the generic driver. It does not first undo what it
+did before calling the probe. This causes two problems.
 
-Patch 1 fixes two pre-existing bugs found by a Sashiko review of v2.
+First, if the driver sets generic_subclass, the generic probe has
+already run. It configured the device and sent a USB_DEVICE_ADD
+notification. The generic driver then does both again. Notifier users
+such as the usbport LED trigger see two USB_DEVICE_ADDs with no
+USB_DEVICE_REMOVE in between.
 
-Tested on the BeagleY-AI on top of v7.4-rc1: the board boots normally.
-The -ENODEV fallback that patch 1 changes is not reached on this board.
+Second, if the driver does not set supports_autosuspend, a runtime PM
+reference was taken before the probe. Nothing drops it, so the device
+can never be runtime suspended.
 
-I found this by booting commit 85b4bc79dde7 (net/main during the 7.4
-merge window) on a BeagleY-AI with BeagleBoard's device tree. A coding
-agent identified the problem, explained it to me and proposed an initial
-fix, which was revised numerous times on the basis of comments on v1 and
-v2, my feedback and local Sashiko reviews. I verified that the series
-fixes the problem on top of v7.4-rc1.
+Clean up before handing the device over, in the same way as
+usb_unbind_device() does when a driver is unbound: first, for a driver
+that sets generic_subclass, call usb_generic_driver_disconnect();
+second, for a driver that does not set supports_autosuspend, drop the
+runtime PM reference with usb_autosuspend_device().
 
-v3:
-- Add a patch to fix existing problems, as requested by Alan Stern.
-- Patch 2: rebased on it, no other change.
-v2: https://lore.kernel.org/all/20261030151919.3511106-1-jjc@jclark.com/
-v1: https://lore.kernel.org/all/20261030114705.3159093-1-jjc@jclark.com/
+This leaves one limitation. Until the generic driver binds, the device
+has no driver. If it is runtime suspended in that time, it can't be
+resumed. This is transient: the generic driver resumes the device when
+it binds.
 
-#regzbot introduced: f918e3804498
+This change does not alter what happens when the probe fails with any
+other error. The device stays configured, so its interfaces keep
+working. It keeps the runtime PM reference, because a device without a
+driver can't be resumed. Its USB_DEVICE_ADD stays unpaired, because
+sending USB_DEVICE_REMOVE would mean unconfiguring the device.
 
-James Clark (2):
-  usb: core: clean up before handing a device to the generic driver
-  usb: core: add a pre_probe callback for device drivers that may defer
+Fixes: 88b7381a939d ("USB: Select better matching USB drivers when available")
+Signed-off-by: James Clark <jjc@jclark.com>
+---
+ drivers/usb/core/driver.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- drivers/usb/core/driver.c          | 42 ++++++++++++++++++++++++++----
- drivers/usb/misc/onboard_usb_dev.c | 15 ++++++-----
- include/linux/usb.h                | 14 ++++++++++
- 3 files changed, 59 insertions(+), 12 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+index d3a61ebc6afb..9b8cd0e4219e 100644
+--- a/drivers/usb/core/driver.c
++++ b/drivers/usb/core/driver.c
+@@ -295,6 +295,10 @@ static int usb_probe_device(struct device *dev)
+ 		error = -EINVAL;
+ 	if (error == -ENODEV && udriver != &usb_generic_driver &&
+ 	    (udriver->id_table || udriver->match)) {
++		if (udriver->generic_subclass)
++			usb_generic_driver_disconnect(udev);
++		if (!udriver->supports_autosuspend)
++			usb_autosuspend_device(udev);
+ 		udev->use_generic_driver = 1;
+ 		return -EPROBE_DEFER;
+ 	}
 -- 
 2.56.0
 
