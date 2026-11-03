@@ -1,58 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703718;
-	b=sQpdtud9aNDE82vp3j7QqUefWl/fIAdjg3x25GQn9Wbv/qjfx3RyPO8CHRaZ+2uFKiQD
-	 uVVIpg/vHudtzbIcXyhHlA4merVZJN90GH/ArlaLZIxlwqAZx8MyNPFekHhydj4ncYTYx
-	 //XTma9/qzz0+Mf+05VyGV7dGA2GxYTviUF4utanysoTKxnVb+98aDGx+zp5X4ScOTBqF
-	 sfmryjZNZ2RDX7JnN3xoSUZLMyVK6PUrUVWpvQwYWXreoSkE1BV1ADwzufYUGSpT/9E4l
-	 dic+SAlHxvLXTC2EpJqoeBFY/NaFxJNvYr33vZ2W427ZQwX/QH+R5fLS4jNDD74GBtw==
+	t=1793703816;
+	b=TyEbE9Hhezmi37oEKrnCxA7XWcpWQtMJOegYksreD43G6CQQnEwUjJ1e7RXGfVKF1bik
+	 ReJYTJNxr+oDeQL8d0VoVObaQPeenrCO9ngVF9EAC5tz+qu9Tj8SKIWBT7QCXzMG7hB7f
+	 SFZtr1uuo0aXYlk05u9PKCF6AdWR/SwJCHGUwTJSBL4bWxw73lT1Bh6OXAzElWOWoKKNy
+	 aTEWnYwCioy493VH4XgxrJS0x03p81XZz/YGZOAuY2PCGhOSkPbM/1hVhHxSRhl0CrIdW
+	 aQcyGuE0vLNFz8xxHdwzkt8wVxNDxQ75d/TqezmUa4tpdFdf/nJWxIGp9uVFjhaAAgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703718;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=i4BuV+xJDMpt+a6aM2LeHcLbdcGLw4EpHreAM8/xql8=;
-	b=XJOFhgcom3AOhkRmmMrLGxkYMFRtw4mwPvCzUN8XrxBiuO/ep1zulTlIw7N9mmL3YJib
-	 48NcwvwQeHa4pntQYDxlKu/wwE4aQPNkJQJmw4hXyryAHSdc+0mSpkvK0+CVKgKq6qjss
-	 UYdn+9fiXHQOLye/osTQ+CB1HFjatG4TUR0giBLVcHSSPGDk9gAQfwz98kt3ACUSB5ng/
-	 Abkr+1RFS6+sMJ0+eTdNS/dd1kgJj1iQBQ5vWOXdqV6IMJdG+bh/OKuTqPllMI7VRRjXi
-	 i4Rr+WHHVM2thzp0LfcpKSJ0A3uKIkhfesb2KxxOpEouzhRJmTNGkOFbjLa1Kk3gS4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703816;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/n6gV8AtpPSEkhX1MtVWQEBb23l1sFXc5N1c+sSjlD8=;
+	b=bl/kG/Xmhnf8/D6EMhuMiJlTF8qoXGDlMrerMgqiWf5uFfrD9VLIpxxdG1YxU0A83JIo
+	 JOC88XXUi6/sTuha6yQGy/YgjXVq9Zl/uWD0xPk3IRKhhh4Xqc4IJuzHwiJrRx15VI8A6
+	 OIRQ9Lm9Z7I7OfX/o18PtrRS7l77ziDogHF6gjzIN9qnr3SWZbJgc9AaMWWdAldcDNNa4
+	 P4uzTFzDfMDD8BmK50JJio/6hWY10EqlF8/lZ+TZW0CtBpjst9aaaBDjjSbw/KM/DG8mo
+	 cb7cKUK5nQkojyh1wjfhbKFS2i+Ppu+jiOB91GwfEzZ2H2xSj0CoAAp+klfXREfkLwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=ioYjiNwj;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PqZNru7p;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="B771Dbn/";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C0B606A33E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:01:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20C0B606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4496A606B12F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:03:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4496A606B12F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=ioYjiNwj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=i4BuV+xJDMpt+a6aM2LeHcLbdcGLw4EpHreAM8/xql8=; b=ioYjiNwjwOSAdJFv5Po50A1bYx
-	doVgFk1ctwHpdDQO+z+sNnAm7LWzJPDrauq6gPShnjatYu9jowV6PvokkkKn8AwyWrM7/HlVfdxrE
-	5wFOetJ7vF8wt0+Ljy1ffAGy3qXWthdXmjSGY1QzaTJq664DmLWeao7B3fKL+chHfaL2Mypalisx8
-	R13F8XIGJOzvtCTYPiuzvMM0bLRRTOssy1zuITm81LJA7EoocCOx2fGTKAU9XxU/oYMsGMR3iwQcS
-	OahRqcibjmlH9pdwIjU2OEHqPhRFxtWLlCJ07vP9OMEMMou0IyV/YrXsxGxbap/sl80Ij3RBbpL9r
-	pO9g7E0Q==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xOCGf-006t2e-2J;
-	Tue, 03 Nov 2026 11:01:29 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Tue, 03 Nov 2026 03:01:24 -0800
-Subject: [PATCH] stackdepot: don't WARN when the depot runs out of pools
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PqZNru7p;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B771Dbn/
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3AASaM1594056
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 11:03:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/n6gV8AtpPSEkhX1MtVWQEBb23l1sFXc5N1c+sSjlD8=; b=PqZNru7pEkfHhYmW
+	2svlI2nhvGeicSKRH0dLXDFheB7TUm+R7ppefKaCWHiPbn0hSWDTcW+AX14E3rTY
+	cUG1Px+6MqvIyhHtf6Zwnh7zAB/JR3TKnvlk7Hi4uxeqtYu3ruxBds4Poh5HIztt
+	ZcbuxZcOFo+wbKaALYGzWEnU94DlWqDlE6Fij5Q9IDFniILZEA/mQTYwj280tKAt
+	Vkl50wf93+axqGZ1Py2Kmmoz6je+4LpZRh3j9KxXBqADDbv1tAUarzrI/hOUP+uK
+	adRi379DMiUt9wfrOVC7x+oxgu9XMBr89BNkPLi9PbVqy2/NLSlVx9W4OBp8BUuT
+	aVyd+g==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq081ucyg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:03:34 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso5179702a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:03:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793703814; x=1794308614; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/n6gV8AtpPSEkhX1MtVWQEBb23l1sFXc5N1c+sSjlD8=;
+        b=B771Dbn/F8hQOVRM/K3LdPz5lvd6FZk2Iyx3LcFMFRFazXJ9FH0W/oK+krzqQ8PyQK
+         gwvenWdzj+aMLX3eQ9aMHZdOYtc5++P4AOA8qMWsy5T26WLspzQTM7fWJHrvwOeDniRQ
+         A8zfMIBAofGZ2jHCiWM9E1vwXBB2uXWLATVltcYWn0Z+fIxTOzQbNFtVOKfKAtHjEK5v
+         tz6ZehwTg0Uy/Hpi29D141JdDT6QlsYn7IGTQIcTQ+Db0MevQ7UlZfMAOK4wFKz/irdf
+         dCklMbsLoyc6eWYQZL3Mg52WesBTl3tk89Zv0tNca6j0rb4knpM9SePw/svVdfhA08ZN
+         Wauw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793703814; x=1794308614;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/n6gV8AtpPSEkhX1MtVWQEBb23l1sFXc5N1c+sSjlD8=;
+        b=Wh0pyrU5fcqomyGhjdwpMIteL1dozztMuCY7K9EXokoT8j3g2woMCW4K/hzcvdfBL2
+         mDRczu8zDQImk7KGDYWe0q4gBcQG6gf2Dw+9CSttOqpj6BdfcS83qjSbUK634PzHrZjE
+         PXsi4ZQJS3jqTKOpnNh0+3Nwj+VwF8KQ0mGl4K4CJj2aOKaRKmuoZIVDOKg5FQtTVkZd
+         EmBtbgUP4VPspRSr8TWTelK90Fae9laO5C20nZYYX5/7sO1mbKVjBNNS6s1/jDcKFiP2
+         TeDX0A7sILI9eCJ+bKOieGv+eQlKAjJEN+7mMGNJQmQatrfLcDaroGwfNsPJqILzIOYy
+         PJvw==
+X-Forwarded-Encrypted: i=1; AKwUvBzHL49GOKzUgEi9LikLcoxw8+y5MCf6IQFAckfenzzbSmPsNwD25r6xcUu0xf4A3M+tOcR3YP/P9iT/Yxg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Tev6/Cm+9qorftL6UyJhKMhmsfaoyNL9Ju+Ee1YQkoW3huejs
+	+LcB0HnrBxr2DXavxD0GNWhwk7KNmbrbn0YUVJFAw+eoySUDZbwxlwi65t+n1Plc76qs+C89nsK
+	NmQsOS0SM1KI0Fao03RpVFK6UgZZaSy0Lg9CitRaWW/Gw85tp5WrttmU2NaejB19Opbo=
+X-Gm-Gg: AYBFou3kahRgS54o3WkCfLQ9dfsOG+bfs9N8WZKCJwJoH7N3g2w48iE5WBkSXqe7wmY
+	yuPZY60BC9gKaKk9xu4TNNf8Td6a8+J28VjyWVb0P+CEi5m1g3xtmS+ggoNzpY3wYLnGhend+QF
+	vAyBx6jwRkKzjQSJR+wvUlw+CdAiQpvmwhZUN3OdUN9d4A93iGLy79Knz4GJYDni/kJAnhplnTb
+	Cf5JVV9hQrAWW2wWXP9acayF/WbrCpGw6olHIUJ2nPi9/lXfoJlNIIiQXAjFi66/Wq7rn1qT181
+	AOdrWj0i32F8sjiM5KULayHQ9JyRVV3G1CV2dLexr47wLt9Ij9LLSW/tMhcqH+y/742sPhhVG2r
+	DUaRwJkyAXTHxCYfzr7RJjhR5x8uJbtgIetuhoLUCSkdghW9hXwn++gFLs4qFI59Ki1KiFF7Sc0
+	7+iJFilba4e3vPgLz75mWLiQj7mxHg23eGCL0mdp/3AQ==
+X-Received: by 2002:a17:90b:448c:b0:3ac:a7ee:6766 with SMTP id 98e67ed59e1d1-3ae8980ed36mr10463305a91.36.1793703814264;
+        Tue, 03 Nov 2026 03:03:34 -0800 (PST)
+X-Received: by 2002:a17:90b:448c:b0:3ac:a7ee:6766 with SMTP id 98e67ed59e1d1-3ae8980ed36mr10463289a91.36.1793703813766;
+        Tue, 03 Nov 2026 03:03:33 -0800 (PST)
+Received: from [10.133.33.72] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b08759344dsm1781409a91.13.2026.11.03.03.03.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 03:03:33 -0800 (PST)
+Message-ID: <78af4d6d-7465-4980-9d8b-e832db76a08e@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 19:03:29 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,102 +116,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq: schedutil: Skip busy-CPU hold when NOHZ is
+ disabled
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, thnkslprpt@gmail.com
+Cc: rafael@kernel.org, viresh.kumar@linaro.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com,
+        zhongqiu.han@oss.qualcomm.com
+References: <20261103061557.1235129-1-thnkslprpt@gmail.com>
+ <20261103071729.1556217-1-zhanxusheng1024@gmail.com>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20261103071729.1556217-1-zhanxusheng1024@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-stackdepot-full-warn-v1-1-41f1fc651b64@debian.org>
-X-B4-Tracking: v=1; b=H4sIAAO/6WoC/yXMQQ6CMBBA0auQWTsJrdFYr2JcDO1UR0khnYImh
- LtTcfkW/y+gnIUVrs0CmWdRGVKFOTTgn5QejBKqwbb2bEx7RC3k34HHoWCc+h4/lBN21pELFxc
- NnaCmY+Yo3317u/+tU/diX34vWNcNn4LwQ3gAAAA=
-X-Change-ID: 20261103-stackdepot-full-warn-b29a9d89f1a5
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Alexander Potapenko <glider@google.com>, 
- Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Marco Elver <elver@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Dmitry Vyukov <dvyukov@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
- John Ogness <john.ogness@linutronix.de>, Petr Mladek <pmladek@suse.com>, 
- kasan-dev@googlegroups.com, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2785; i=leitao@debian.org;
- h=from:subject:message-id; bh=jwKDCBiNKXRhEaThEtOoJhCUew+ugIivFnvIfhhvW7Q=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6b8GPtCfeSXEGwKr/Xa7cW/D666cXD6f+3aqD
- 0wnhqL4Ge2JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaum/BgAKCRA1o5Of/Hh3
- bVVVEACRZ4nT5VoeolUZDwdLgwk6XlE5pHtEM/hoUYB0ZwuZRy+EGwFeozpNhqbQ5W3YMoV/wGx
- C6FNk75KD2U9qMefo006+JxeuLOteH2B1sLXVnGcBLZtgAUlZIE97m6T0n/mLRbDveh2Ml0agXm
- UkRSjPf414rufLQpCxGZm43KW5B47kyb/VxMxAohW5SBEhF9NVXR57Bq2igDC4TqheCXZN2tuDZ
- FQPQg4H/bl+wl8USDLA3OX9JMAhbsbs4wC2Vz274Ta1jPNcr0qu0CK261jC66mima6k8tNCTiFs
- ip5tAyx0KVDQYCe8/AoJWfq6xAE9GjKQxgb+bVsdO7TSuc6A2ikc1CE38NPxTtfrJBnhJOHh6oJ
- 5B71JiFyXhQoAOPvZU4nm2NrvtwiJQGbhTRiSCrs5PbNK7bxUXfO3xU/ECr55M7TMyadaRSabsi
- /C9Z6hLCCQkYrQbEZRfqkRQZbF5qbayw8itsdIZ3swqTM2IqydSafD57oo5Kn4vym4zJXw5Mby3
- 9DF9l/EMDoKA6lATVyxK5eypBM/57ObceO5+PjBvb8fVuMnS90zkYzAgxJXoHMhg/jINSlzr0PR
- OCkwJhBzdMAvqIPyCgp32/UgQ/4/Yrjf6YdByGJetfseoa8haMMJSyix6CTgqYLrBgNWOAnFPo3
- 3OploLkI7DYpHvQ==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA0MyBTYWx0ZWRfX2r6hp9dfAEfy
+ jXDqVCWBnVRJ4fXpNm/sO5mSyKUXYVMLyTgs7Y6B/lK/F5eeRuGkUTejoiShTipVYxhk71n6C2Q
+ jlOj3wfeaHqKKhhQ1+RoeUwims7etLQ=
+X-Proofpoint-ORIG-GUID: 6RRJUMGXnGre3ZXplyrw7nKUT8SoLVL9
+X-Authority-Analysis: v=2.4 cv=F73C5ahN c=1 sm=1 tr=0 ts=6ae9bf86 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=N_xNfM-kO2YFn_PJ3jEA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: 6RRJUMGXnGre3ZXplyrw7nKUT8SoLVL9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA0MyBTYWx0ZWRfX+JkKaKCN3E5O
+ w0JzSGFLEOW863WJkImaN6XfwSAoQgwOYGlDH7ScN1jJIwAwBmag0ZgZ33Z+6d/i42KupVrUP/W
+ nVD/Jy590aKlr3NpOn63CebbaPsh1MyDVF8G0JORDpw2st+EcgG9mHvqI4q86/mCAjr3OuSjOHW
+ kscyDtqyFmEXFirMUkIeR7Wfa5iZdIRyKjVT6R4TO6/0/R6q22rCdu9aQt6LNH3msgf41x1/D9h
+ MNRGoXizNjhRx/H6bTunlCINWjBa2UOJPxaTt/HSbKvOezXlswsSTD8XQhIQ4YspiYDz7KaDwZj
+ 1fENbQztzLvvcOR265hFs6c/dgEHV3Kl0umgRYs1b88YpjVk5GUJynI3HRJKhB5g8FAZWSzNpiA
+ BgX8I/B7Hv3kdxLqGYkm7HJSTJ0/vuHWz2vOdSU7J4ep+hs8nvfkBh6jO0B3rHbZ6IsNdR02z7B
+ XcYlgsbR+ytTPw1CAyA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_02,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030043
 
-depot_init_pool() emits WARN_ONCE() when the depot runs out of pools.
-It runs with the raw pool_lock held and IRQs disabled, and
-stack_depot_save_flags() wraps that section in printk_deferred_enter()
-so that it does not print to the consoles with the lock held.
+On 11/3/2026 3:17 PM, Zhan Xusheng wrote:
+> Hi Avi,
+> 
+> On Tue, Nov 03, 2026 at 08:15:57AM +0200, Avi Weiss wrote:
+>> +	if (!tick_nohz_enabled)
+>> +		return false;
+> 
+> idle_calls also never moves when nohz is enabled but was never
+> activated, because tick_check_oneshot_change() found no oneshot clock
+> event device or no clocksource valid for high resolution. TS_FLAG_NOHZ
+> then stays clear, as with nohz=off. tick_nohz_is_active() covers both:
+> 
+> 	if (!tick_nohz_is_active())
+> 		return false;
 
-That deferral only applies to legacy consoles. ON nbcon WARN() puts the
-CPU in emergency mode, and in emergency mode printk() flushes all
-pending records to the nbcon consoles from the calling context. With
-a slow serial console (pl011 is an nbcon console) and a backlog of
-messages, that flush can outlast the hard lockup threshold, all of it
-with pool_lock held and IRQs disabled, while every other CPU that needs
-to save a new stack trace spins on pool_lock.
+Agree with Xusheng, tick_nohz_is_active() is one more reasonable check,
+it also covers NOHZ never getting activated. Besides please Cc: stable,
+and Cc the scheduler maintainers (scripts/get_maintainer.pl).
 
-This was hit on an arm64 host running a KASAN and kmemleak enabled
-linux-next kernel under stress-ng:
+Note that this still leaves the nohz_full timekeeping CPU and idle=poll,
+where NOHZ is active but idle_calls never moves either. That's a deeper
+issue with using a tick-stop counter as an "idle recently" signal and
+it may be addressed separately.
 
-   Stack depot reached limit capacity
-   WARNING: lib/stackdepot.c:302 at stack_depot_save_flags+0x6b0/0x6b8, CPU#56: stress-ng-dev/3466160
-   smp: csd: Detected non-responsive CSD lock (#1) on CPU#66, waiting 5000000030 ns for CPU#19 do_nothing+0x0/0x18(0x0).
-   smp: csd: Detected non-responsive CSD lock (#2) on CPU#4, waiting 5000000030 ns for CPU#61 ipi_mb+0x0/0x18(0x0).
-   watchdog: CPU53: Watchdog detected hard LOCKUP on cpu 54
-   Kernel panic - not syncing: Hard LOCKUP
+> 
+> Thanks,
+> Zhan Xusheng
+> 
 
-The rest of the WARN splat never made it to the log: CPU 56 was still
-flushing the console backlog from the "WARNING:" line when the hard
-lockup detector fired.
 
-Running out of depot space is an expected condition under heavy debug
-load, not a kernel bug, so report it with pr_warn_once() instead.
-
-At normal priority the nbcon consoles are printed by the printer
-threads, and the legacy consoles honour printk_deferred.
-
-This also keeps a full depot from crashing machines running with
-panic_on_warn.
-
-Fixes: cd11016e5f52 ("mm, kasan: stackdepot implementation. Enable stackdepot for SLAB")
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- lib/stackdepot.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/lib/stackdepot.c b/lib/stackdepot.c
-index 90c52f2e0d3f42..dea6338f73c1cd 100644
---- a/lib/stackdepot.c
-+++ b/lib/stackdepot.c
-@@ -299,7 +299,7 @@ static bool depot_init_pool(void **prealloc)
- 		/* Bail out if we reached the pool limit. */
- 		WARN_ON_ONCE(pools_num > stack_max_pools); /* should never happen */
- 		WARN_ON_ONCE(!new_pool); /* to avoid unnecessary pre-allocation */
--		WARN_ONCE(1, "Stack depot reached limit capacity");
-+		pr_warn_once("Stack depot reached limit capacity\n");
- 		return false;
- 	}
- 
-
----
-base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
-change-id: 20261103-stackdepot-full-warn-b29a9d89f1a5
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+-- 
+Thx and BRs,
+Zhongqiu Han
