@@ -1,112 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703816;
-	b=TyEbE9Hhezmi37oEKrnCxA7XWcpWQtMJOegYksreD43G6CQQnEwUjJ1e7RXGfVKF1bik
-	 ReJYTJNxr+oDeQL8d0VoVObaQPeenrCO9ngVF9EAC5tz+qu9Tj8SKIWBT7QCXzMG7hB7f
-	 SFZtr1uuo0aXYlk05u9PKCF6AdWR/SwJCHGUwTJSBL4bWxw73lT1Bh6OXAzElWOWoKKNy
-	 aTEWnYwCioy493VH4XgxrJS0x03p81XZz/YGZOAuY2PCGhOSkPbM/1hVhHxSRhl0CrIdW
-	 aQcyGuE0vLNFz8xxHdwzkt8wVxNDxQ75d/TqezmUa4tpdFdf/nJWxIGp9uVFjhaAAgA==
+	t=1793703822;
+	b=P4F8+FxETGr69tuZWQxWPkYmD6eNB7EoDD9tVEVpdIrFzmS20/8AxDl1VPvn/gREou/b
+	 0IxMi5h4uM5k2LE6uIzwTOSXVySewnlHKUL+Qb/GJNly11pr4pqUKg43dPCGNim+s9QUt
+	 zu2sd0W5To5Ze1WwM0rIeZrpHQVfUFdj1T8QxHvN7SYM2Idmz/UmcnfuBqFAqq+Rv/76A
+	 Q5TYL/ZxVqhlEE/PYtRFQuZWjJiCbaAF2nq+GYQ0cABs7TwQwAkZTvf9Yo2Wr23F2KMOf
+	 zyuBXN5xBJI4VM0Ktt4rmENxphtvQ34FIHGOUyfp8k05BmgFR5+bRtt5BO00GwEGvpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703816;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=/n6gV8AtpPSEkhX1MtVWQEBb23l1sFXc5N1c+sSjlD8=;
-	b=bl/kG/Xmhnf8/D6EMhuMiJlTF8qoXGDlMrerMgqiWf5uFfrD9VLIpxxdG1YxU0A83JIo
-	 JOC88XXUi6/sTuha6yQGy/YgjXVq9Zl/uWD0xPk3IRKhhh4Xqc4IJuzHwiJrRx15VI8A6
-	 OIRQ9Lm9Z7I7OfX/o18PtrRS7l77ziDogHF6gjzIN9qnr3SWZbJgc9AaMWWdAldcDNNa4
-	 P4uzTFzDfMDD8BmK50JJio/6hWY10EqlF8/lZ+TZW0CtBpjst9aaaBDjjSbw/KM/DG8mo
-	 cb7cKUK5nQkojyh1wjfhbKFS2i+Ppu+jiOB91GwfEzZ2H2xSj0CoAAp+klfXREfkLwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703822;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=JyM24O+rf+svFmAkF/rQOfx0k+ek4EwDrMXxgQ5Nhow=;
+	b=ZB5PSVrAgPiTYT6f6kXiOOvKwAGY4As8pYHIcccCqhA/2VnMSyvjSZJ7TAG9tyE5m5LX
+	 Ld1zFPCy/CjL1PMenumdYXySMm92AME+f+ZvhDNPdSilSj1ynKfrEbZy/5+6/4KWrxq5j
+	 KxqWOra+ZofRDNzJNr6LAzRveoO7e0GkGqk1+eBiFWHqIOST3qxnFzPLJLy9187pn9t3c
+	 tMTXOiCUhZ2hYm4bbclD/m2kt6AinoCgTlVAf3eWh9is8k8qh5It7pGDChbqoLTKrX4B+
+	 11/C/RwOdg36t/A3GxGUvkKPaZRs2H7pkkTFi1I7cnM4HPklb4Gnie5UWSik+1GmWvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PqZNru7p;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="B771Dbn/";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxQ2tZEZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4496A606B12F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:03:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4496A606B12F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F76606B12F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:03:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PqZNru7p;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B771Dbn/
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3AASaM1594056
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 11:03:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/n6gV8AtpPSEkhX1MtVWQEBb23l1sFXc5N1c+sSjlD8=; b=PqZNru7pEkfHhYmW
-	2svlI2nhvGeicSKRH0dLXDFheB7TUm+R7ppefKaCWHiPbn0hSWDTcW+AX14E3rTY
-	cUG1Px+6MqvIyhHtf6Zwnh7zAB/JR3TKnvlk7Hi4uxeqtYu3ruxBds4Poh5HIztt
-	ZcbuxZcOFo+wbKaALYGzWEnU94DlWqDlE6Fij5Q9IDFniILZEA/mQTYwj280tKAt
-	Vkl50wf93+axqGZ1Py2Kmmoz6je+4LpZRh3j9KxXBqADDbv1tAUarzrI/hOUP+uK
-	adRi379DMiUt9wfrOVC7x+oxgu9XMBr89BNkPLi9PbVqy2/NLSlVx9W4OBp8BUuT
-	aVyd+g==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq081ucyg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:03:34 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso5179702a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:03:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793703814; x=1794308614; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/n6gV8AtpPSEkhX1MtVWQEBb23l1sFXc5N1c+sSjlD8=;
-        b=B771Dbn/F8hQOVRM/K3LdPz5lvd6FZk2Iyx3LcFMFRFazXJ9FH0W/oK+krzqQ8PyQK
-         gwvenWdzj+aMLX3eQ9aMHZdOYtc5++P4AOA8qMWsy5T26WLspzQTM7fWJHrvwOeDniRQ
-         A8zfMIBAofGZ2jHCiWM9E1vwXBB2uXWLATVltcYWn0Z+fIxTOzQbNFtVOKfKAtHjEK5v
-         tz6ZehwTg0Uy/Hpi29D141JdDT6QlsYn7IGTQIcTQ+Db0MevQ7UlZfMAOK4wFKz/irdf
-         dCklMbsLoyc6eWYQZL3Mg52WesBTl3tk89Zv0tNca6j0rb4knpM9SePw/svVdfhA08ZN
-         Wauw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793703814; x=1794308614;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/n6gV8AtpPSEkhX1MtVWQEBb23l1sFXc5N1c+sSjlD8=;
-        b=Wh0pyrU5fcqomyGhjdwpMIteL1dozztMuCY7K9EXokoT8j3g2woMCW4K/hzcvdfBL2
-         mDRczu8zDQImk7KGDYWe0q4gBcQG6gf2Dw+9CSttOqpj6BdfcS83qjSbUK634PzHrZjE
-         PXsi4ZQJS3jqTKOpnNh0+3Nwj+VwF8KQ0mGl4K4CJj2aOKaRKmuoZIVDOKg5FQtTVkZd
-         EmBtbgUP4VPspRSr8TWTelK90Fae9laO5C20nZYYX5/7sO1mbKVjBNNS6s1/jDcKFiP2
-         TeDX0A7sILI9eCJ+bKOieGv+eQlKAjJEN+7mMGNJQmQatrfLcDaroGwfNsPJqILzIOYy
-         PJvw==
-X-Forwarded-Encrypted: i=1; AKwUvBzHL49GOKzUgEi9LikLcoxw8+y5MCf6IQFAckfenzzbSmPsNwD25r6xcUu0xf4A3M+tOcR3YP/P9iT/Yxg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Tev6/Cm+9qorftL6UyJhKMhmsfaoyNL9Ju+Ee1YQkoW3huejs
-	+LcB0HnrBxr2DXavxD0GNWhwk7KNmbrbn0YUVJFAw+eoySUDZbwxlwi65t+n1Plc76qs+C89nsK
-	NmQsOS0SM1KI0Fao03RpVFK6UgZZaSy0Lg9CitRaWW/Gw85tp5WrttmU2NaejB19Opbo=
-X-Gm-Gg: AYBFou3kahRgS54o3WkCfLQ9dfsOG+bfs9N8WZKCJwJoH7N3g2w48iE5WBkSXqe7wmY
-	yuPZY60BC9gKaKk9xu4TNNf8Td6a8+J28VjyWVb0P+CEi5m1g3xtmS+ggoNzpY3wYLnGhend+QF
-	vAyBx6jwRkKzjQSJR+wvUlw+CdAiQpvmwhZUN3OdUN9d4A93iGLy79Knz4GJYDni/kJAnhplnTb
-	Cf5JVV9hQrAWW2wWXP9acayF/WbrCpGw6olHIUJ2nPi9/lXfoJlNIIiQXAjFi66/Wq7rn1qT181
-	AOdrWj0i32F8sjiM5KULayHQ9JyRVV3G1CV2dLexr47wLt9Ij9LLSW/tMhcqH+y/742sPhhVG2r
-	DUaRwJkyAXTHxCYfzr7RJjhR5x8uJbtgIetuhoLUCSkdghW9hXwn++gFLs4qFI59Ki1KiFF7Sc0
-	7+iJFilba4e3vPgLz75mWLiQj7mxHg23eGCL0mdp/3AQ==
-X-Received: by 2002:a17:90b:448c:b0:3ac:a7ee:6766 with SMTP id 98e67ed59e1d1-3ae8980ed36mr10463305a91.36.1793703814264;
-        Tue, 03 Nov 2026 03:03:34 -0800 (PST)
-X-Received: by 2002:a17:90b:448c:b0:3ac:a7ee:6766 with SMTP id 98e67ed59e1d1-3ae8980ed36mr10463289a91.36.1793703813766;
-        Tue, 03 Nov 2026 03:03:33 -0800 (PST)
-Received: from [10.133.33.72] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b08759344dsm1781409a91.13.2026.11.03.03.03.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 03:03:33 -0800 (PST)
-Message-ID: <78af4d6d-7465-4980-9d8b-e832db76a08e@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 19:03:29 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxQ2tZEZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0471F00A02
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:03:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793703821;
+	bh=JyM24O+rf+svFmAkF/rQOfx0k+ek4EwDrMXxgQ5Nhow=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fxQ2tZEZz+PbVM3Z4auQyCMbdO7aGrzjU5Xveb23ELRrVyCn6TcXGZuT7DR2SdngH
+	 8ddSwT5ZeGYqFze5MgT3jazyU+cDMSvKa4Dvl1/HmKhpyQnxI4cLauY2Exi+9i+RjH
+	 J+353L6LEjmTbU2juCF9fPVHOfd1XB0LpEVRyEFe/eDh8XGfepd7scv7hLoNIAaGtD
+	 bS3E349yU2nqW5OTQXPavCB3+5Qkk2JHyJvb9LEm/uvT2yLkSIw/kvf+HFaZhBix0i
+	 5PHEAZ0+sVv1uw4wM23R+KiuIeiQKpDGXL3AhQr/5IJlXw5JF8jl7HMO6ZLUjDP3yg
+	 VTMgS+B9KYHFw==
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-4a71d0c4233so2073934fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:03:41 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzk/l7r6+NiSyAZGzxsr0HzwhQzV+wMnOdt/gEQwsBxYuVGfQ/kvqkPpgqiwC4FmUh7DhNsZbU+2UhiS50=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9yHRgedvs/I2JgRWKaoqXth/D757ZmIfOtAodihbelgZzzBqB+
+	hfdZ5UVame1haE844ran9SLlfkihQSdpWC6G5OSiyde1E6lmWdp1t9Pc+3rU2k2GX+TwBCiHRU3
+	NEgMuQXH0UrNrEtmcPOmyRFIhGaP5tXw=
+X-Received: by 2002:a05:6870:d614:b0:494:117b:81d7 with SMTP id
+ 586e51a60fabf-4a9077981a6mr8442786fac.54.1793703820673; Tue, 03 Nov 2026
+ 03:03:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,77 +59,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq: schedutil: Skip busy-CPU hold when NOHZ is
- disabled
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, thnkslprpt@gmail.com
-Cc: rafael@kernel.org, viresh.kumar@linaro.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com,
-        zhongqiu.han@oss.qualcomm.com
-References: <20261103061557.1235129-1-thnkslprpt@gmail.com>
- <20261103071729.1556217-1-zhanxusheng1024@gmail.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261103071729.1556217-1-zhanxusheng1024@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA0MyBTYWx0ZWRfX2r6hp9dfAEfy
- jXDqVCWBnVRJ4fXpNm/sO5mSyKUXYVMLyTgs7Y6B/lK/F5eeRuGkUTejoiShTipVYxhk71n6C2Q
- jlOj3wfeaHqKKhhQ1+RoeUwims7etLQ=
-X-Proofpoint-ORIG-GUID: 6RRJUMGXnGre3ZXplyrw7nKUT8SoLVL9
-X-Authority-Analysis: v=2.4 cv=F73C5ahN c=1 sm=1 tr=0 ts=6ae9bf86 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=N_xNfM-kO2YFn_PJ3jEA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: 6RRJUMGXnGre3ZXplyrw7nKUT8SoLVL9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA0MyBTYWx0ZWRfX+JkKaKCN3E5O
- w0JzSGFLEOW863WJkImaN6XfwSAoQgwOYGlDH7ScN1jJIwAwBmag0ZgZ33Z+6d/i42KupVrUP/W
- nVD/Jy590aKlr3NpOn63CebbaPsh1MyDVF8G0JORDpw2st+EcgG9mHvqI4q86/mCAjr3OuSjOHW
- kscyDtqyFmEXFirMUkIeR7Wfa5iZdIRyKjVT6R4TO6/0/R6q22rCdu9aQt6LNH3msgf41x1/D9h
- MNRGoXizNjhRx/H6bTunlCINWjBa2UOJPxaTt/HSbKvOezXlswsSTD8XQhIQ4YspiYDz7KaDwZj
- 1fENbQztzLvvcOR265hFs6c/dgEHV3Kl0umgRYs1b88YpjVk5GUJynI3HRJKhB5g8FAZWSzNpiA
- BgX8I/B7Hv3kdxLqGYkm7HJSTJ0/vuHWz2vOdSU7J4ep+hs8nvfkBh6jO0B3rHbZ6IsNdR02z7B
- XcYlgsbR+ytTPw1CAyA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_02,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
- clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030043
+References: <20261103103633.2707416-1-zhiyuzhang999@gmail.com>
+In-Reply-To: <20261103103633.2707416-1-zhiyuzhang999@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 3 Nov 2026 12:03:29 +0100
+X-Gmail-Original-Message-ID: <CAL4Wiip0RPZkfrwHeuNp6ntVWarpkL=wJ-wW6sUvNzYWS68s3Q@mail.gmail.com>
+X-Gm-Features: AclHuK9W0Wv5Y05dpi8H0OgE8o30SKR3SptbPMVtNuc87b7hbFA_4UpDoxGktls
+Message-ID: <CAL4Wiip0RPZkfrwHeuNp6ntVWarpkL=wJ-wW6sUvNzYWS68s3Q@mail.gmail.com>
+Subject: Re: [PATCH net v3] tcp: prevent cross-family skb processing after disconnect
+To: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>, Neal Cardwell <ncardwell@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Matthieu Baerts <matttbe@kernel.org>, 
+	Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, netdev@vger.kernel.org, 
+	mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Tong Liu <lyutoon@gmail.com>, Qi Tang <tpluszz77@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/3/2026 3:17 PM, Zhan Xusheng wrote:
-> Hi Avi,
-> 
-> On Tue, Nov 03, 2026 at 08:15:57AM +0200, Avi Weiss wrote:
->> +	if (!tick_nohz_enabled)
->> +		return false;
-> 
-> idle_calls also never moves when nohz is enabled but was never
-> activated, because tick_check_oneshot_change() found no oneshot clock
-> event device or no clocksource valid for high resolution. TS_FLAG_NOHZ
-> then stays clear, as with nohz=off. tick_nohz_is_active() covers both:
-> 
-> 	if (!tick_nohz_is_active())
-> 		return false;
+Le mar. 3 nov. 2026 =C3=A0 11:40, Zhiyu Zhang <zhiyuzhang999@gmail.com> a =
+=C3=A9crit :
+>
+> From: Eric Dumazet <edumazet@kernel.org>
+>
+> A successful connect() of an IPv6 socket to a v4-mapped address switches
+> icsk_af_ops, sk_backlog_rcv and af_specific to their IPv4-mapped
+> variants. A later connect(AF_UNSPEC) calls tcp_disconnect(), which does
+> not restore them.
+>
+> The socket can then be reused for a native IPv6 connection while
+> tcp_v4_do_rcv() remains installed. IPv6 packets drained from its backlog
+> are consequently passed to the IPv4 receive path.
+>
+> There is also a race in the opposite direction. tcp_v6_rcv() can look up
+> the socket and initialize TCP_SKB_CB(skb)->header.h6 before taking the
+> socket lock. If the socket is disconnected and reconnected to a
+> v4-mapped peer in that window, release_sock() can drain the queued IPv6
+> skb through the newly installed tcp_v4_do_rcv().
+>
+> tcp_v4_send_reset() and tcp_v4_send_ack() then interpret header.h6 as
+> IPv4 options. __ip_options_echo() can consequently overflow its 40-byte
+> destination buffer.
+>
+> Commit 8cc3aef0cb19 ("tcp: Do not allow buggy transitions between ehash
+> and lhash2.") prevents listen() after connect(AF_UNSPEC), but a native
+> IPv6 connect is still allowed.
+>
+> Add tcp_v6_disconnect() to restore the IPv6 handlers after disconnecting
+> a v4-mapped socket, and use the same helper in the connect error path.
+> Reject non-IPv4 skbs in tcp_v4_do_rcv() before accessing IPv4
+> control-block data. In the reverse race, the skb belongs to the
+> disconnected connection, so drop it instead of redirecting it to the
+> IPv6 receive path.
+>
+> MPTCP subflows override sk_prot, while two teardown paths call
+> tcp_disconnect() directly. Route them through the protocol-specific
+> disconnect operation so IPv6 MPTCP subflows receive the same
+> restoration.
+>
+> Tested with TCP and MPTCP by reconnecting an AF_INET6 socket in both
+> directions after connect(AF_UNSPEC). A socket filter was used to widen
+> the native-to-mapped race window and verify that the stale IPv6 skb did
+> not reach tcp_v4_send_reset().
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: Tong Liu <lyutoon@gmail.com>
+> Reported-by: Qi Tang <tpluszz77@gmail.com>
+> Closes: https://lore.kernel.org/netdev/CALf2hKvp0NPVLwr=3Da3+jUHtPohxbra8=
+gox+aYAfWathJnn-J+Q@mail.gmail.com/
+> Link: https://lore.kernel.org/netdev/CAL4WiiqFJpmcV4=3DTWRpukCq6q=3D-7296=
+58FwGvieNcPXe97kLvQ@mail.gmail.com/
+> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+> Co-developed-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+> Signed-off-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+> ---
+> Changes in v3:
+> - Reject non-IPv4 skbs in tcp_v4_do_rcv() to cover packets queued
+>   across a native IPv6 to v4-mapped reconnect.
+> - Drop Kuniyuki's Reviewed-by tag due to the code change.
+>
+> v2: https://lore.kernel.org/netdev/20261101182736.430733-1-zhiyuzhang999@=
+gmail.com/
+> v1: https://lore.kernel.org/netdev/20261030032314.1978575-1-zhiyuzhang999=
+@gmail.com/
+>
+>  net/ipv4/tcp_ipv4.c  |  5 +++++
+>  net/ipv6/tcp_ipv6.c  | 37 ++++++++++++++++++++++++++++---------
+>  net/mptcp/protocol.c |  4 ++--
+>  3 files changed, 35 insertions(+), 11 deletions(-)
+>
+> diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+> index a7f9242f1e42..8fa6564d2b60 100644
+> --- a/net/ipv4/tcp_ipv4.c
+> +++ b/net/ipv4/tcp_ipv4.c
+> @@ -1836,6 +1836,11 @@ int tcp_v4_do_rcv(struct sock *sk, struct sk_buff =
+*skb)
+>  {
+>         enum skb_drop_reason reason;
+>
+> +       if (unlikely(skb->protocol !=3D htons(ETH_P_IP))) {
+> +               reason =3D SKB_DROP_REASON_INVALID_PROTO;
+> +               goto err_discard;
+> +       }
+> +
 
-Agree with Xusheng, tick_nohz_is_active() is one more reasonable check,
-it also covers NOHZ never getting activated. Besides please Cc: stable,
-and Cc the scheduler maintainers (scripts/get_maintainer.pl).
+We do not want to add yet another check in TCP IPv4 fast path,
+for a problem that only exists for IPv6 sockets.
 
-Note that this still leaves the nohz_full timekeeping CPU and idle=poll,
-where NOHZ is active but idle_calls never moves either. That's a deeper
-issue with using a tick-stop counter as an "idle recently" signal and
-it may be addressed separately.
+tcp_v6_do_rcv() already dispatches IPv4 skbs to tcp_v4_do_rcv().
 
-> 
-> Thanks,
-> Zhan Xusheng
-> 
+Simply stop changing sk->sk_backlog_rcv for v4-mapped sockets
+(tcp_v6_connect() and tcp_v6_mapped_child_init()),
+so that skbs found in the backlog are always handled by the correct path.
 
+tcp_v6_disconnect() can then test
+inet_csk(sk)->icsk_af_ops->net_header_len =3D=3D sizeof(struct iphdr)
+(this also covers subflow_v6m_specific).
 
--- 
-Thx and BRs,
-Zhongqiu Han
+Thanks.
+
+Untested patch:
+
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index e006a30360eae1b43a4d53173b46b931ae668825..74358bed6ba210074f0534dff61=
+247de34a56727
+100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -130,6 +130,18 @@ static int tcp_v6_pre_connect(struct sock *sk,
+struct sockaddr_unsized *uaddr,
+        return BPF_CGROUP_RUN_PROG_INET6_CONNECT(sk, uaddr, &addr_len);
+ }
+
++/* Undo the v4-mapped setup done by tcp_v6_connect(). */
++static void tcp_v6_restore_af_ops(struct sock *sk)
++{
++       /* Paired with READ_ONCE() in tcp_(get|set)sockopt() */
++       WRITE_ONCE(inet_csk(sk)->icsk_af_ops, &ipv6_specific);
++       if (sk_is_mptcp(sk))
++               mptcpv6_handle_mapped(sk, false);
++#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
++       tcp_sk(sk)->af_specific =3D &tcp_sock_ipv6_specific;
++#endif
++}
++
+ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+                          int addr_len)
+ {
+@@ -234,7 +246,6 @@ static int tcp_v6_connect(struct sock *sk, struct
+sockaddr_unsized *uaddr,
+                WRITE_ONCE(icsk->icsk_af_ops, &ipv6_mapped);
+                if (sk_is_mptcp(sk))
+                        mptcpv6_handle_mapped(sk, true);
+-               sk->sk_backlog_rcv =3D tcp_v4_do_rcv;
+ #if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
+                tp->af_specific =3D &tcp_sock_ipv6_mapped_specific;
+ #endif
+@@ -243,14 +254,7 @@ static int tcp_v6_connect(struct sock *sk, struct
+sockaddr_unsized *uaddr,
+
+                if (err) {
+                        icsk->icsk_ext_hdr_len =3D exthdrlen;
+-                       /* Paired with READ_ONCE() in tcp_(get|set)sockopt(=
+) */
+-                       WRITE_ONCE(icsk->icsk_af_ops, &ipv6_specific);
+-                       if (sk_is_mptcp(sk))
+-                               mptcpv6_handle_mapped(sk, false);
+-                       sk->sk_backlog_rcv =3D tcp_v6_do_rcv;
+-#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
+-                       tp->af_specific =3D &tcp_sock_ipv6_specific;
+-#endif
++                       tcp_v6_restore_af_ops(sk);
+                        goto failure;
+                }
+                np->saddr =3D sk->sk_v6_rcv_saddr;
+@@ -1363,7 +1367,6 @@ static void tcp_v6_mapped_child_init(struct sock
+*newsk, const struct sock *sk)
+        inet_csk(newsk)->icsk_af_ops =3D &ipv6_mapped;
+        if (sk_is_mptcp(newsk))
+                mptcpv6_handle_mapped(newsk, true);
+-       newsk->sk_backlog_rcv =3D tcp_v4_do_rcv;
+ #if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
+        tcp_sk(newsk)->af_specific =3D &tcp_sock_ipv6_mapped_specific;
+ #endif
+@@ -2093,6 +2096,21 @@ static int tcp_v6_init_sock(struct sock *sk)
+        return 0;
+ }
+
++static int tcp_v6_disconnect(struct sock *sk, int flags)
++{
++       int ret =3D tcp_disconnect(sk, flags);
++
++       /* A socket used for a v4-mapped connection must not keep IPv4
++        * handlers when it is reused for listen() or a native IPv6 connect=
+().
++        * Note that ipv6_mapped and subflow_v6m_specific both use an IPv4
++        * network header.
++        */
++       if (inet_csk(sk)->icsk_af_ops->net_header_len =3D=3D sizeof(struct =
+iphdr))
++               tcp_v6_restore_af_ops(sk);
++
++       return ret;
++}
++
+ #ifdef CONFIG_PROC_FS
+ /* Proc filesystem TCPv6 sock list dumping. */
+ static void get_openreq6(struct seq_file *seq,
+@@ -2283,7 +2301,7 @@ struct proto tcpv6_prot =3D {
+        .close                  =3D tcp_close,
+        .pre_connect            =3D tcp_v6_pre_connect,
+        .connect                =3D tcp_v6_connect,
+-       .disconnect             =3D tcp_disconnect,
++       .disconnect             =3D tcp_v6_disconnect,
+        .accept                 =3D inet_csk_accept,
+        .ioctl                  =3D tcp_ioctl,
+        .init                   =3D tcp_v6_init_sock,
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 7a22e9388e0e9a8b1bd6fe27d04245a1db6950b1..fdfbc7de2ec03612bc49d0a337a=
+80fe1089a7d81
+100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -2608,7 +2608,7 @@ static void __mptcp_subflow_disconnect(struct sock *s=
+sk,
+                /* The MPTCP code never wait on the subflow sockets, TCP-le=
+vel
+                 * disconnect should never fail
+                 */
+-               WARN_ON_ONCE(tcp_disconnect(ssk, 0));
++               WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, 0));
+                mptcp_subflow_ctx_reset(subflow);
+        } else {
+                tcp_shutdown(ssk, SEND_SHUTDOWN);
+@@ -3287,7 +3287,7 @@ void mptcp_subflow_shutdown(struct sock *sk,
+struct sock *ssk, int how)
+                        break;
+                fallthrough;
+        case TCP_SYN_SENT:
+-               WARN_ON_ONCE(tcp_disconnect(ssk, O_NONBLOCK));
++               WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, O_NONBLOCK));
+                break;
+        default:
+                if (__mptcp_check_fallback(mptcp_sk(sk))) {
