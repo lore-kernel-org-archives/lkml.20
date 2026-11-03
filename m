@@ -1,53 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709212;
-	b=NOwSCYUjGGNdiPkvSJJKopuLJV8vg7xj0Go/aoEavrnTuvsCo+tSPG2TmgWyXkjGEyqe
-	 vsvkkPQCYTm4bKzEfSGX6/cWSqlHD7R/UIBmW8l2Re0tVRUhV4SS0yfT0+WwRVuSOa/NS
-	 JAr+A7FGnlhY5hfPeHdrrRQcRWdJViOOBFbuuIRLk/4rC39i+Qj6MmJTpMhHd+EQCD2ac
-	 xTDdlV+LCoKfkHdkVNoGPlxN2M3OGeLmxMcC75QicgqUUGbWqZaHrJLwjKP/Yu3cQDDwO
-	 KMzJZ+VaHSSZdsC144SXJaD6tdMqjhNcHKnoVghIMRvblohrRP8egZAXBZb0Sq4juPw==
+	t=1793709223;
+	b=RjCtQPN0QmPmQKrVy6+QX3WyDjeAhX2cIxJb7z0+jzZetTUn7Tk/RFD6eGeeQVteOtMQ
+	 dyV7J78qWJwPJV51pqkvsnmQuJ7RIAiWJoLsycA/YQ0dC2vRo2QD1R65C6vbdWPiLss3L
+	 Bl8XwzF/oUBFfPZU2jxZAzsluZL4FEKx+y0/hNmE8hlumBzNZi7iQHlIgmZrCdEN7fcvl
+	 oT77IkyxO07yNhlhoqfAz0ykZK5u5wngklT28N6rAWWK2QhHLTMifmmoljHxcR7eKiMOR
+	 YVZzozBJfSNgwbr6LYZJD4b6vIGAhZe18iJBuXq7vg8Yb3GCzaAf4pN1eliBm4DYq1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709212;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=oXMJpEB1SAlRxcq+SoC4OVx2mtps+6gke2HzvVwNibI=;
-	b=aE/F31gZdSAnvX/nhcyzBSc90KfpY6G/h2KqPSp9Yz2bLiKOad3a/jflJDOoZ5ivN+QT
-	 fg51XjyyzZkxV9qYCopb2u+N+TVP0OS0yxCopJ0U1LEEnSX2E6UVkd0f1NnzWJK+HHVJh
-	 7YbrVajgVnJNTxkntn1ibn4aTaL7b4ofK7gEqxQr2ZN+0sRw7FgHCYGuFmw22KzQWqBkt
-	 wtkFO+z8vn+HJRCS6+gcae1YdKAAywn8R/o2Z/SWbMcihXgSJKePnaFAz75uTRTvhlNP5
-	 i0mTFpSd82hz5U67OsPrgdQymiU0oS4iH7M2znGYnrwne77kDMlDkn1E7StN2jgtjYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709223;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HUat9nsOmLCyAsqZk4Bi3Mhnvn0vqy2uZqBBdAs07do=;
+	b=M6LTDthQLr3gvMEaQonL+KmdYos5MTnjjXj4bTKW1NX46MetN/7HhYeNrHbB6tMYcp3O
+	 CiROeNESASsG4UEqYyNFZtER1sIR6e5NwB+eokqdQTX2OP86U7c7mdgTr7OZ+i/7pI1E9
+	 ZERXqxJmh/C+36SgMII+2T4KXochmy02B/DI3mfrtWEIbmkFSEr3xQ8Rrl7mcqyIlv0fN
+	 Z3YtG1elYcHGSdh49BoNRNoAGOzXNPoiW2p3oupHnQoaQo+vfoyeRkgicItGSsQthLdn7
+	 wTESXd3nSSasxFU9vSvckB2cyBDPsiToQZFXtVQLvdSiUT1fG3Y2OSy3GvVxpkvTdIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	arc=none smtp.remote-ip=79.135.106.121
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C624606A32E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:33:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C624606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b26d8d2498so5527776b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:33:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793709210; x=1794314010;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oXMJpEB1SAlRxcq+SoC4OVx2mtps+6gke2HzvVwNibI=;
-        b=ryz/DHoT9kgneatdxp8LABWYs1c1L1+HlLtatzhtrqroTQDBpSHU5rEYsumLBFec5c
-         59e9l7wOUHT+cNgpeWGRhaeAvExqhE2zKY6B0TprKg3zipYf2iOV/5j0/HKW9Rbs6oiP
-         5P7lY4yHX2PJfAWC24Li6cW00D8fDo5f1dsoCMJaqq0P6uapngcixdYitRxnTB5oJa7H
-         NNMM34Dfg4TuDHaKiljz6iLnMR5iXxy5O0aWAtDCJizOsUmhfwBf52u9pwVYjzzP5FRf
-         /5tFYm5/+UPG6na310bwFxaIPPgbWtZTIJS1G5MN008FlXgTd1zbH3AZJpRES23vr6UM
-         WQ6A==
-X-Gm-Message-State: APuU4Z84brWVjgbDuGGz234rqQaQJ+HrrxuOP5e6zq4VFt1I9bt4EsYc
-	eHj8urfbRa1Qv2yYLeEsWTCfATS4UhlXP80X98/GfcHMp2u3GfLFIqFMQUAgGk5bboJa0ck4z6Q
-	/iIjb49lvssmGpHet+gRLBJ/Q8Mq/9PJujwE6t5CZ4/JLZ/P7LYUuk7/00Yo=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1987606D82C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:33:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1987606D82C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1793709219; x=1793968419;
+	bh=HUat9nsOmLCyAsqZk4Bi3Mhnvn0vqy2uZqBBdAs07do=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=d2PdlbqfW+pSqZri23MJnTYsM+Pf0m8yVVNyaLn5SLB0C1p5/jka6+LP3nv484RkW
+	 +WGp8evzLMV2N8+592thWrhtF4WcHcWXeXM+fpEBHE1jNmv7IDOPKhLmhi/+5eh6p1
+	 5uRcF5cb2dOKH+uB1Hh8ErhSowQwTWKR4ewwhTNC4o8HDqHfG5V2OUa8AyI5IC28gs
+	 zwiDYHRncApeUTbzzJksO/8b79SXx7xycjgA9dTabARMrrXf1c+oAwjtq/Hf3f8s0v
+	 B9h6uy3SQvixGJu4rpD+Yp4vG5/FKn5K2pg+WbqOp/pYDidEyVvlm8XnDzRRgFL/Ji
+	 VI8kqC7nMHEMg==
+Date: Tue, 03 Nov 2026 12:33:34 +0000
+To: Johannes Berg <johannes@sipsolutions.net>
+From: Paolo Bertinetti <paolobertinetti200f4@proton.me>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, syzbot+56f5119a6b206041a6b7@syzkaller.appspotmail.com, syzkaller-bugs@googlegroups.com
+Subject: [PATCH wireless] wifi: cfg80211: check name length before rfkill copies it
+Message-ID: <20261103123332.707584-1-paolobertinetti200f4@proton.me>
+Feedback-ID: 117280896:user:proton
+X-Pm-Message-ID: e589bd1a2c632ba1c3ccdf9684c7105d7ddb54d7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,48 +58,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1b2a:b0:4b3:7549:d3c0 with SMTP id
- 5614622812f47-5640ddb5e3emr8203490b6e.18.1793709210654; Tue, 03 Nov 2026
- 04:33:30 -0800 (PST)
-Date: Tue, 03 Nov 2026 04:33:30 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae9d49a.26d36f6c.15fe18.0009.GAE@google.com>
-Subject: [syzbot] Monthly raid report (Nov 2026)
-From: syzbot <syzbot+listb80138072a82b574f50f@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, song@kernel.org, 
-	syzkaller-bugs@googlegroups.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello raid maintainers/developers,
+syzbot reports a WARN when mac80211_hwsim creates a radio with a
+very long name:
 
-This is a 31-day syzbot report for the raid subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/raid
+  add_uevent_var: buffer size too small
+  WARNING: lib/kobject_uevent.c:688 at add_uevent_var+0x2db/0x460
+  Call Trace:
+   rfkill_dev_uevent+0x2f/0x1f0
+   rfkill_register+0x170/0x9b0
+   wiphy_register+0x2a5f/0x3290
+   ieee80211_register_hw+0x3d72/0x4b30
+   mac80211_hwsim_new_radio+0x32f1/0x5990
 
-During the period, 0 new issues were detected and 1 were fixed.
-In total, 3 issues are still open and 11 have already been fixed.
-There are also 4 low-priority issues.
+Since commit b6c27cf5fe5d ("wifi: cfg80211: check wiphy name in
+wiphy_register()"), the name is only checked there, but wiphy_new_nm()
+already passes it to rfkill_alloc(), which copies it. A name longer
+than NL80211_WIPHY_NAME_MAXLEN thus ends up in the rfkill uevent,
+which is what the limit was added to prevent.
 
-Some of the still happening issues:
+The length check depends only on the name and cannot race, so do it
+in wiphy_new_nm() before rfkill_alloc().
 
-Ref Crashes Repro Title
-<1> 43      Yes   BUG: unable to handle kernel paging request in free_conf
-                  https://syzkaller.appspot.com/bug?extid=270624bb31d478afe62e
-<2> 29      Yes   general protection fault in md_handle_request
-                  https://syzkaller.appspot.com/bug?extid=89a9ab2a134d092fffae
-<3> 21      Yes   UBSAN: array-index-out-of-bounds in super_90_sync
-                  https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
-
+Fixes: b6c27cf5fe5d ("wifi: cfg80211: check wiphy name in wiphy_register()"=
+)
+Reported-by: syzbot+56f5119a6b206041a6b7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3D56f5119a6b206041a6b7
+Assisted-by: LLM
+Signed-off-by: Paolo Bertinetti <paolobertinetti200f4@proton.me>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+Notes:
+    Tested in QEMU on v7.4-rc1: a 6000 byte hwsim name no longer WARNs
+    and the rfkill gets the phy%d name of the wiphy. cfg80211/mac80211
+    KUnit tests pass.
+   =20
+    Duplicate or phy<N> names still reach rfkill unchanged. That is
+    cosmetic, and fixing it needs rfkill allocated later or renamed.
+   =20
+    Based on v7.4-rc1, wireless.git doesn't have b6c27cf5fe5d yet.
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
+ net/wireless/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-You may send multiple commands in a single email message.
+diff --git a/net/wireless/core.c b/net/wireless/core.c
+index f4153c249599..d2868e57a030 100644
+--- a/net/wireless/core.c
++++ b/net/wireless/core.c
+@@ -662,6 +662,7 @@ struct wiphy *wiphy_new_nm(const struct cfg80211_ops *o=
+ps, int sizeof_priv,
+=20
+ =09/* remember the name, used/checked during registration */
+ =09if (!requested_name || !requested_name[0] ||
++=09    strlen(requested_name) > NL80211_WIPHY_NAME_MAXLEN ||
+ =09    dev_set_name(&rdev->wiphy.dev, "%s", requested_name)) {
+ =09=09int rv;
+=20
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.53.0
+
+
