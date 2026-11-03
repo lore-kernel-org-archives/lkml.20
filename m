@@ -1,65 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.88
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710016;
-	b=nKy/Y5HQqp7mso9zE6UW/QHJNgu/3x5NCfduJOVaB6++bDcm2YDLe+0VnUxiyp4fzTiG
-	 eVYDbkx0BSxoZozPKW6TCAXDnxkR8NYm41rADJI/SCTmz0DCmJlsD1OQI6ple7yT53jmM
-	 q+rjdu/VHpSpZhOGqqgqkWcadj2HXvddsTbtMsvGsyjMmrI9c0w8ilcW1fBQ/vE3GjQja
-	 hUBmpEoFRAIyGWgQhYuB4QAbIMJaCmJavmle22HzUAZbBUxLhPDoMOxpyG1RlIiM+lRGQ
-	 Reynyi+bNwTZz/ozT+yz40r/GssbOGZnOUXnYos62XIHk4Qs0nrOb15V0RMI8m3ZJ8g==
+	t=1793710072;
+	b=Dz1advSgxgs25zF95ngGtcMMLQODPlv0mNocJPIyjqQ3o4Ljyc9OJ6Aa7Tgs4yh57gLm
+	 x4ob1Q4re32sF0hGmnyZlMfwXKkVvOw9anHBUPtZocB0mwcj+8mjXrcUhYNJMhDmE8YME
+	 LpcKfzIzKbHsIcSJGNhn783dxCZoSt2fk8XUd3AyGGNa5pc3Nb09aCpeE9RekK7Sf0kZu
+	 VgW7e2Y1g07gpjmEXdofMPQ1p/ITKvGO06zdgirJ+9304ATdADq46yNOjFVV3so6BDpPV
+	 jYD+OUAbWfDn1Vk3Ai+zen5AuSJm8kd/E9L20hNNsQR5LOli7ds/lDczDMdsmVwPXZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710016;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DASIdY7ozb8QRWdAKjgC8Qe8mgAnSZ4YQR5TtXOmDG8=;
-	b=E4v+qzEx+tA9pqBs9gFgi0ZZoRQ+rgb1uaw0SD6AyTNEKn48lSYVd0LfYlDko4U4KeIT
-	 ChS5li/O7+ZMdkGGbQ7AiTHAq4VH13RtC0Prbwmn042puujMKZ0M4tEnqWjX8UDBMqHCi
-	 FeqyaqZqsyH5VpahP03UwwJUSaFK7wvY7Elg3ZpTaOF/VjluBZQ8J+8Ju8jqShZ6ZI0+Q
-	 vxCJFL3iF7H5UTscF3/VB81/0q7pX9g1AGtndQ69Zwvxn3OjjzQOMLbSJfIICyg1n1TKJ
-	 EMVcs8FW5Z0Ia/B0JML3hKo8qLnRllkJJU9sm2rq9eXJ0FLtRqyOmhpBKRb2aT+D/nQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710072;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=Emo6dutnPoXO5HzXksO9O88pxMM2MYBZc0g3SIXyBsM=;
+	b=EdXRPoZbGvOINU66milTE4jMxQOCbfWGlGniG6juEDPMo7NzkJCKqlQAZWEZzrnF/zWT
+	 4Xe/iXu32nzb1veMiFLDnGery1RLG4yOzwE0mYlxq2rmwA/BMxWGdbeSlatlaefjWVT+2
+	 Kb33Hbam5T7Rls92Tnz9Uw6R9RfL6dIuS4q2BHqOX8j6H+/mb8ldcPjgMQqqN4NZ8i3IJ
+	 L6wm7JhKTBBJH3UsJcGwzD1d8I6H+2TRw3pSsKBN409V7YjjTbhF9hMiZK9LNp09F0Cvm
+	 WqA8cKccu0xPQYaF20R8hWDpgMVpFHP6c/CycVdn10grrPAOxH8e8iAvJJP+Bo/DwfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VVkgiP4x;
-	arc=none smtp.remote-ip=91.218.175.88
-Received: from mta0.migadu.com (out-88.mta0.migadu.com [91.218.175.88])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C10E606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:46:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C10E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VVkgiP4x
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1XWvcrbaywo/oaZGKtDEjEZr71lw+5bb33eZFqUboxI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793710013; v=1; x=1794314813;
- b=VVkgiP4xzRv9UgvySsIN6NNxQKs56Z51mdPRm6ffqkW/h++z6vTPj/11Q0HLqZxbxNnBGOC1
- L2OJ4kiSVEbTG6Z5l2P05qx5tmgAaQi9Z/CcZunI8n3YrP1mA6h6I2NM8sMx73xb2oFhIScUkYd
- DmNaW7ZLoyn5d1u7m/I/XvW0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 458b8aa09961ad92;
-	Tue, 03 Nov 2026 12:46:53 +0000
-X-Mizu-Trace-ID: 458b8aa09961ad92
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 3 Nov 2026 12:46:41 +0000
-From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
-To: Daejun Park <daejun7.park@samsung.com>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
-	Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
-	Dave Chinner <dgc@kernel.org>, Pankaj Raghav <p.raghav@samsung.com>, 
-	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
-	Sergey Bashirov <sergeybashirov@gmail.com>, Andrey Albershteyn <aalbersh@kernel.org>, 
-	linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5 5/9] xfs: cap the block count of
- xfs_iomap_write_direct() at one extent
-Message-ID: <ap5wwux6rmzcq4uf4tj4nnsv7h3sdriolux5h4rqo4evy4tpdm@qj6gfmix4fu7>
-References: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com>
- <20261029-xfs-pnfs-batch-v5-5-ef8d2eafb7fa@samsung.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F83606A327;
+	Tue,  3 Nov 2026 12:47:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02F83606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 1176668BEB; Tue,  3 Nov 2026 13:47:47 +0100 (CET)
+Date: Tue, 3 Nov 2026 13:47:46 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	NeilBrown <neil@brown.name>, Christoph Hellwig <hch@lst.de>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] statx: don't leak STATX_ATTR_CHANGE_MONOTONIC in
+ stx_attributes_mask
+Message-ID: <20261103124746.GA10039@lst.de>
+References: <20261103-statx-v2-1-8b09aa8118ab@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,30 +52,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029-xfs-pnfs-batch-v5-5-ef8d2eafb7fa@samsung.com>
+In-Reply-To: <20261103-statx-v2-1-8b09aa8118ab@kernel.org>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Thu, Oct 29, 2026 at 11:23:02AM +0900, Daejun Park wrote:
-> xfs_iomap_write_direct() reserves blocks for the whole count in an
-> unsigned int. For a pNFS layout the client chooses that count, and an
-> RW LAYOUTGET for 16 TiB wraps the reservation and shuts XFS down.
+On Tue, Nov 03, 2026 at 07:04:00AM -0500, Jeff Layton wrote:
+> STATX_ATTR_CHANGE_MONOTONIC is kernel-internal. cp_statx() strips it
+> from stx_attributes but copies attributes_mask verbatim, so it leaks to
+> userland on filesystems that advertise it (nfs, ceph), e.g.
+> stx_attributes_mask = 0x8000000000303000 on NFS.
 > 
-> xfs_bmapi_write() maps at most XFS_MAX_BMBT_EXTLEN blocks here, so cap
-> the count at that. nfsd asks again for the rest. The other callers get
-> the same mapping as before.
-> 
-> Suggested-by: Darrick J. Wong <djwong@kernel.org>
-> Link: https://lore.kernel.org/r/20261008154017.GO2705364@frogsfrogsfrogs
-> Suggested-by: Christoph Hellwig <hch@lst.de>
-> Link: https://lore.kernel.org/r/20261015060932.GD14035@lst.de
-> Suggested-by: Pankaj Raghav <p.raghav@samsung.com>
-> Link: https://lore.kernel.org/r/atoImJxtg70XcIjS@quentin
-> Fixes: 527851124d10 ("xfs: implement pNFS export operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-> ---
+> Add a new mask constant and apply it to both fields.
 
-I know Carlos already merged it but:
-Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
+Looks good:
 
--- 
-Pankaj
+Reviewed-by: Christoph Hellwig <hch@lst.de>
