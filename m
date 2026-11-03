@@ -1,80 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.187.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793748492;
-	b=dEVNFUFYAVBrsGVXji6JTYCK8ZuzgkyDNun70cGGsmNquLuhrLUfg2yKFoOuDaaOQDVE
-	 gz2/ogD54+Z2WYQHU2xq/ZntD3EH0kI5MNzkSL7E/XD4Dn6fWzEzYM9WciKtGaWZT3ZNJ
-	 sjBBpup5kPuCmSRu6NbM2P49SC1aK54t35Os3WoNugV87r2+GC9Qlz4z6EZ0vf3yOeDey
-	 uzvkuqyMR7lQ4NyTdFtNmwRH63Oyz3i99WMPFgNlDFRRb+JmVt02tRVNo12DSed/DFuuG
-	 IgCetYm+NjSFErXHopWPif3Eu4GmJPYPeT5jvDKRsYzG79ZIfGuULMfvHyq7Wr3Tk2g==
+	t=1793748529;
+	b=ihR0BR3MnIpHefJrOYfIoJg9BzQfi9sEGnvAkyBl5TynWlhFZZilLh4ucwSTxqhPHo5X
+	 Pd1rZQffgBMECyVH9n18KQ5cGxqMXDDURfQd8rTSVIaRAMJb0Mk2e6xws0KcwFzAhsts1
+	 s1SakIGa0w0PFmsUApeNnlrFLzrIHR6c78nQPR7Ey/6aSQI4TiI/nRFzvAKUeGE2GYsur
+	 +pH4vmxP+9eCUb0N3J0q7cIKtxeKEvRSJM20lPGCD/HJIO7ibotM4Q9uvnF8Mce0XYO73
+	 X1al0l7XP9iByKDE7QgNHmm+368XcCzw12f1dnHbBlswAl5vKNMj0e3RXtSNTVnJjwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793748492;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=HO43C3iEXRa6J85xNlHDELJDyLp/RMlGT8/nfr+lOp0=;
-	b=jl0m0Rw/cZRZJV2TIhcQd9cQnkcnylw+0ShAzO1uPGvcRF1nigKyShx1/TGKDMR9erPe
-	 kfx1krV8SC9SkdjNAvF/q+dXJPtWJ4VneJ2SHoWXx8sJdqXtk/ZWFm9lJolNygzjFplcg
-	 c8Hox8EdyO1iEZ/EkEjrkAJy7qBKenbpKQOTY5RseC2IDHIgNrJxkOuy3d+MhqOHdhVtN
-	 WnDTjwPlYunG80gHE/J365oD9ahnK7SRwG9BdlaDIQIlMQtcLwi3HO0EaY4ryEpuus+8N
-	 Uqqhh2tYu8IBBIU49WGLeUz3BKL437MQ+s/xMTT5L/UlMIzsOQurrhoqa8MrgP9dJEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793748529;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=j7CvH1cUmFqtnjFVJZ7kRAIpHWIOhvJ6lWGtaOF4Z7I=;
+	b=viX3BElJWWIrksBaLfWHBWdQ4HYt7GLVlCbUdOMDi68H02nnHvo5R/SGi+gB4kPRYz26
+	 ACoMcUSUNxGyFWj38tDFOmq4D1sqRvC248yvwdQVDcrfa5dbx3btxpnufrxLsHtgEb0PQ
+	 y/JO/gJIxJ8CtdC6ziozqN3D/+s2LgyJ+AECgGHpxBBA5r2Wqju2/Kg4HqLFkjR2Drtds
+	 7lP4iGddOOWNMReCkfgGpe7ScsZnBXnp4Y5PbXHMHN9cVTsseiGyqVGqVUsPzzRk/9e3d
+	 NDgyeBil2b2e6yxD0sM7Pvtr+xBBoroVhF1NkgkfTFXUV21TOHxva5fGYImsh3g7XRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="EKl/5Aph";
-	arc=none smtp.remote-ip=66.163.187.33
-Received: from sonic308-10.consmr.mail.ne1.yahoo.com (sonic308-10.consmr.mail.ne1.yahoo.com [66.163.187.33])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IF4tZLvN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F927606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:28:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F927606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560C7606A31B;
+	Tue,  3 Nov 2026 23:28:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=EKl/5Aph
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793748490; bh=HO43C3iEXRa6J85xNlHDELJDyLp/RMlGT8/nfr+lOp0=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=EKl/5AphJgUoStZD7NjZTqfmysDLzuRmfVioKhD5VKLc9yytYqoiy/eEBuyrn109jfLwAADcZWKkmYon/X9q4voHBrC1RoHv4iZnN7oWp4LnzFWiru8XnDTF2mDi2gztdzMRpnxgvtZ1ArFWzPgHPOHcMbDUkxfVBxXUs5+MNpKsd8QXLIINnRNromBDrGHg6SgHGyyNO1o7eqkpIZKNLR03obKoacFefQZvOSlcsxUSjDyTBPR7VDxl8V2/EFW/4bAtTpuWYAEksASB4gz4ZNs1Q3pK6RoGeIWc8AjvVA5sXxMzHgYEkL3w552ITT7LOCZHMnA4bgYRLou66ZHFDQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793748490; bh=+qy4s2w6hUnZXywkd8MbvsDy05RP0C8PJSYWGrxizK5=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=ASvvOTH9acdxyeYJC2LqTwMTAEtmHHxpm8T7Kt24skHpU85voCneKAglqzT3LY4L1fLY7UcZyEVxkBHgBdVO+72gLjyyYBpv7W2ddTdxTiEcUFLGfFWdd5oNrghMX8Spoz4T8iMcmCZCUXYMsLoKfMWFyfrIBDP8BgWGyOP8kGHsg/cKQuJ24qz93WrqqlwbHvY6CocVMTISq4ZeeWonAEY95eT1pwRzQ3C6WFPSJrfCkSZsgf2+RoDxeDGrpPyJnmDtZnvWTeZQf8b6l7xhdWBoRUaOKTgr7YWsrtd3vcyPSgEg9dh2aiOgTQgY4BOY+1snWA8p/Bsx+/bJZ33Mrg==
-X-YMail-OSG: lKJZupoVM1lsywQP.c_sGI9ZgJ1WuxgQPsiCf2NaR4uMeYScBBM.qJHPDrwDHLO
- v.zSqEuKIvVJNF7NxRlNrv3JGm8zgCIUcqTire0i6z1.Kso_.Z0zcsmzE2RHqVcyOuNYjE6xPBgL
- UU7kRhFkZWDeYHU8Su6LLuNIvNiq_yTEiiLzj8kdUvsj0xF.xhJJhOwK7ly16qVX7NQqY2Pv4MIn
- JGcr3mRf3lsS8NQu2.FF2FITPZPz6Vnl00jikS13ksaev7t4M2299WvNWg4d1ZcPMCMqFYzY28hH
- 2lyuTFPnJtKJ9X8iYy6em7XmSK8fjZAdlcAm9f3z4uKXGSNKyxkjulK6qx9ExNRpOhPxyRGlU0vc
- 4U0H1L4AkoX2Axg2NVxKv6D7darZQjQbfcBiiUQK69FmTuDi2Iymk4cqaKjP1R6_wRiiPnsdYxfE
- w8.2YBuFDH5fYOkAvrwETR_cZ1cUvSyAkhefil_3laSSmXVCDDu_4UfOBC34QAs_.Zjc2ZVvEbqf
- WomH.u2gLOSHpDAiijPPC8i4uHTNA.C1zsbKsn4nUS9__9Ngbc8g8S8y6VKa9aQnkrEEwBxBmzMB
- BLYdAWf_lpGqrDm7wKRNVi0z6iFZGE4K2mA8yJrL8OxQu7tGEWxZoLDedi3wSy74V0bjgBTGOhOr
- NSXSTs1JqusA3cvaQQTM81RkIA90H2uQJmNpsQApxmY.0G7hXlxokYcS9g30wWdTDVDlQZlqtmwb
- pWT9VI7sUKFnoY_2tzMURGMCHXSW355ddY.pVy8ScDaV0QxTg4XL5YGsjWfjETpIn2LKoKq31Q1f
- 1u.oHtpfqm_Av1eCjT2ZTqVetDWFcxWQiYdhnl.BZq345M9VBsh5dW0CoDEQEqbyC6ydsM_nq9I3
- X3wViRzj8.s5q0H7Tz.WnlzF_aNV8qM_g44.89dbx30T8LcqBjYTJZPgw_Fj4pAJ7wTw0soxws2K
- dNAvb__pFYV_3RK3dJ9XMSmCrfpGmhsdgDOn6whXcYN5p.2KoTEmEYha8lWsTgc1.H.0mQydS9ik
- Re8lr4rf6VgrzKbhJDKkXWS7d7t28qtWDuFc.taZVLH3fWIMZuVP6eg4w7AMF8sN3zLK3Etwm.uk
- QA2iCMqR6Q04FjIjftVsrXOIINeNXvUX41dyf_AhnStByIHqe1xTWQ4BK9sxII5zbrRcSm239YBg
- dPFWul.YmTrWIcmVwo0zBnpKfSfsevTxHma2dGiPgwg8qlUscnXY0zzwGSiMe3lnrv.CJhvUYiVP
- _YZCiZKMV.Whh1goPaUCWz7Z2cqKZSxlrZRQILqK5n.08JDv4SM2T9k2sOAkdpgbnkqvJkHBbKCQ
- Ot90_U9uZyokR_9rpspEHAdp8_Hodwvm9KbAE_xAT303ICoNICChqDJvV0M0FHXGA4G3UZe.k_nl
- sIDshg.154V1FwUOUek18hMxedCMk_LoceS5Gx70rpDxJnMxNxf7C.qRvTjaR4QTr.mSoi2qcV1F
- vubnezJaIKSW9UtobW7_3OKgfQ.ymPB5N3EvdLJ_fY3XasbsHXhcCOhLfNm4j_4vApXHl.Z2S5LE
- RiLaZIFw8CHAuWck3XWaswZXHMSiP5AqAs_.f9oXReHyDyyTuRntmOMTIVuBSAW55Y7i53NzuC6Y
- kyyVgRecUee1UVbLk7eYGjGpi1dmUOKEzMW5iX0fjftWAB9VktvYncDjGLTBREIUU8ysLh_7ncHV
- y8q494lxAJU37Osm.T38hmpn3uF8pW1h_3.qHSPGFTeTFCl101TQBYM8cq4Z_bYzamm0.v_uZRkX
- Hy9GdpVWW_UwOihJFz7ZiCY6eU5kv9tBDFpIDDV0Sd94fXOLrUDtQ3iHLShyxOyfdeRuFGFC5Khs
- MjQtUtAaguR.LDHCuk69N9m1epWTh2KrjcSSBYkIoE2OqF1Wzc9bKjQ.1wzWt_l2dgYlI539wAlk
- 3mgu8iL6gzHIzfDVPTOiOa.psiGKzLrQ7XqQF_3K1.FiC9ZHji0DRAfv56qlk8vjDeIGRhH_vPcm
- mr_5Hj3FiydqVe4DaW3ZLa_CWdJMal9F.cnZR3xWtam04X6f7CvC5LZ3EE9KHU9rwQW9qgSnLnRU
- IvrvymEQjeJfywfZwyjnZh5rMMtZ8Iezf49pbf8t1k1yfWHaIcjUk4_uh3RMCpu_SB4tqTmy70IA
- 9m3.PwdOEx8WbbcLAy.3BQrdPCLQ0cBjVessK90ufra1W8Ildl0kYrxQ1JnRe7gN_LJoTdhTTa35
- KA8gCFGEvWH0WYyyE49T3DgWPi.B0qZxqLnQADtnwwYhCrVpuNjptEqynmovawP8Ui1qQ32EmQKa
- tQN6aMzKiFIGCWU7NEVG8ydmfuAnUKj3OPQNsq0xU
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 1f8a667e-5a75-4afb-a28c-53bc75856f07
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.ne1.yahoo.com with HTTP; Tue, 3 Nov 2026 23:28:10 +0000
-Received: by hermes--production-ir2-5dd9bf4598-2n7g4 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 36fbe348855afa899716e2c93e3eda3b;
-          Tue, 03 Nov 2026 23:28:05 +0000 (UTC)
-Message-ID: <c6c1e41c-6a27-4354-8454-37ad70b44dff@yahoo.com>
-Date: Wed, 4 Nov 2026 00:28:02 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IF4tZLvN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876C41F000C1;
+	Tue,  3 Nov 2026 23:28:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793748528;
+	bh=j7CvH1cUmFqtnjFVJZ7kRAIpHWIOhvJ6lWGtaOF4Z7I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IF4tZLvNYCyEmi6//YgxHFpHFBW1MnhqEtb4016oJ0ZdmOI6C+zJdN+bo+6/M1emN
+	 UMO5TadDhzWDWW/nrOzOzQIQ0HbXmHb2TVPSYk8X8l3x8DA70P+FeFU/ov3p1lIFPG
+	 16w4dUlMrL8GMIz2JpDoINE0Gc6GE83bwdIWhw6CyzpE3vHLUJcy5q2cZc/Jamv5/Q
+	 PxX/U99sTiKbrFvPJlV/8EyRT5eH612Wa2vD4m9wHgzCQTuYj0btWW/GeEMvWdkfNj
+	 6j02Jo0AD8k9l1cHjGr8mIO/D2evLR0rhTOSVUUeN1DXWGB6js7HlgXLUE8qPVWpH8
+	 FSqhf4RYuQ1Gg==
+Date: Tue, 3 Nov 2026 15:28:46 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Antonio Quartulli <antonio@mandelbit.com>
+Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] lib/crypto: tests: Add KUnit tests and benchmark for
+ ChaCha
+Message-ID: <20261103232846.GK2281@quark>
+References: <20261025234758.3219829-1-antonio@mandelbit.com>
+ <20261025234758.3219829-2-antonio@mandelbit.com>
+ <20261027015313.GD2395@quark>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,46 +60,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v8 01/11] dt-bindings: net: dsa: realtek: add
- RTL8367S-VB
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <08611959-c555-46d9-8e7e-20b85d0c4056@yahoo.com>
-Content-Language: pl
-In-Reply-To: <08611959-c555-46d9-8e7e-20b85d0c4056@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26871 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027015313.GD2395@quark>
 
-The RTL8367S-VB (chip ID 0x6642) is supported by the rtl8365mb driver
-with the changes that follow in this series. It is identified by its
-chip ID register, so it does not need a compatible string of its own.
-List it under realtek,rtl8365mb.
+On Mon, Oct 26, 2026 at 06:53:13PM -0700, Eric Biggers wrote:
+> On Mon, Oct 26, 2026 at 12:47:54AM +0100, Antonio Quartulli wrote:
+> > +	for (size_t i = 0; i < 10000000; i += max_len)
+> > +		chacha_crypt(&st, data, data, max_len, 20);
+> 
+> The calls to chacha_crypt() with constant 20 argument should be
+> chacha20_crypt().  Mainly so that if people copy-and-paste this outside
+> of test code, they use the right one.
+> 
+> Otherwise this test looks fine.  I'll apply it once the merge window
+> closes.
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
----
- Documentation/devicetree/bindings/net/dsa/realtek.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Applied to https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git/log/?h=libcrypto-next
 
-diff --git a/Documentation/devicetree/bindings/net/dsa/realtek.yaml b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-index 473facd..ca775f6 100644
---- a/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-+++ b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-@@ -43,7 +43,7 @@ properties:
-       realtek,rtl8365mb:
-         Use with models RTL8363NB, RTL8363NB-VB, RTL8363SC, RTL8363SC-VB,
-         RTL8364NB, RTL8364NB-VB, RTL8365MB, RTL8366SC, RTL8367RB-VB, RTL8367S,
--        RTL8367SB, RTL8370MB, RTL8310SR
-+        RTL8367S-VB, RTL8367SB, RTL8370MB, RTL8310SR
-       realtek,rtl8366rb:
-         Use with models RTL8366RB, RTL8366S
- 
--- 
-2.53.0
+I replaced the instances of chacha_crypt(..., 20) with chacha20_crypt().
 
+- Eric
