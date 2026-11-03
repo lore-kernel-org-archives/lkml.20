@@ -1,123 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714395;
-	b=xcSCX944AbmfI466qyB6oDlVtRHa27lZ0yNEBSWSQznh4sGJZ+VRYpsvgAQdcu+RBGVt
-	 jrtCTkJNz2mTjKVuGQgSEnmMpnbCCRD/ylPMNjcWz0V26/1XaFmu7OxgiO+J844MIHHPa
-	 fOLfl4Slfu+BRgeltTj/0LVpKRD5szd2Rswn+38+YbSTjEnpxb+dcHG1ik04zN8xtDq0T
-	 ZQ7wf3tZX6FPM2b71Q4FnzP+UUvnP5B2U00CXfk6+M7qDpd9Ac0sFLXuHsPNO4L3Vlu4O
-	 pvtzHPz0YkU2vbQT/WVAuwFUJOwoA06KnoKCfyqMpMclXZV5zluF8eH0YTAH5FA13gw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714395;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=FwIVVnYhvvjMTysTggNf76en9r3AUtCzAUuv63rWer0=;
-	b=NJ7q8uzVDadU7JBGYLpnThyyZAHXwQji30hvPGtY5tfZ4dO1FB6itET2s/LkKJ9YP76l
-	 X9KiZQxGgENUkdxMN7ycIrT/VBwEdq6Tb1Ii0R5fTRdCchXwE0SR5lefUGKYvPMR+EBXq
-	 LmUZX7oTMBcBgGVJI7VbfLgI24tUFsCwoqW46yamIlVF5rSStApQqrtAuNZKzec4clWBP
-	 KhNZFR/UumiS3PC+j59Z+2DIIMCayZo1veAmgIQ3V16Tt0yY7fr0dr5r7pG+aFHk5CfHs
-	 hhvjeVU80vMpAx3md2IMS5zaLR9bvKjMMOqTD0EJOJonutc5x+qTZNYQ9VuD+ogz6UA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="Ir+iDq/x";
-	arc=none smtp.remote-ip=209.85.216.100
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793714397;
+	b=C/o28rWs77Y0CRK/oZ50A9p16nj+hNcfywSgmWYulQum8NbwzBd+4AtnquNJ2pNzuXeK
+	 95g75AYD7cjUQWOjPD1WlT7b8dKt5bK29mCOooOgL8h4FbiTOpXN2gsNozfIk3VNvhLoK
+	 MLelNJLySunxLIoEm5YnZqhAoziTCnIrI6w6QYya3iateXZE5Id23HPa5yhkdcIYd0kYw
+	 9mploYLBEyElC077+ItJW9MJ6T1wUZoxrIVHzqitP4sWukma06PnLhZU48BY0HL7S8y+v
+	 bCJGyMIFYLcJT2Stfo9FRkXeLHL0wwk0HSCpvdC6rYo27a/8mv3Ynq11jkIFsBHN7Yg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714397;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=eAJAOTI6E0N7XqB8gY0HnnSavIbY3EivEPEaxZWww7Y=;
+	b=0aC4vwJG16zjLE141cJClpL8yxZGwWOFIDpXGuQoB3i6JaPyO7DehDcvXyWzqN4NT14P
+	 gbidikSWBDTzxjUpVcYZAQYbZW1Zupo6WmO4XwNA+7lFLZDSPj5a7jZUrGRoRoQ99C6g1
+	 2ILsES/o93lKMk2NAF4EDrV4NbmVnVQXl4ASJ53OK04b679kRI7kEAd7jjlDmxzzftjZ+
+	 kV2NN/nt4KJ72e/1lGX6TMDTFJxKOuaz3d1LCqf460SxSQ3FUBupu1yBRp6uERrvZSgdn
+	 OQaOLxvs1c85sEGLJG0wiw2hFVxLS9YGAFPH74X4ejHGA+ynMWH5sp3bXCRmEwg38cQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiFk7esk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D569608362B;
+	Tue,  3 Nov 2026 13:59:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiFk7esk
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793714397;
+	b=d4a5He7huzrrTt2LYz1/nxN0Bbk7ZCLUh+tukP5wWAG8XXl4txEx2NLeQDpqLZG4TyI4
+	 DfTXvHUmgquvk9A19yL98hWlD2+jcTJAsk9aei4rPcRVE389Pgezk9NCClpMdy3vagYwq
+	 m8qZvtwWMnrgMh1Dj9dPHQLoRokv69NT9aNfNl954TS2LY+jcszKPksaSsrvPf/cc7OsQ
+	 kLnxuJxBfyicZ2MvUXRGz52WvoGj1teFxFaBxX/OqUKlOBPxUGmMhWEEROhq3lhnhUWKK
+	 GL4Yof73ZgFZ/bkcJE5Sfnq5rdjqy7T+DCK08IixClf4hdxSh3iOuVniCa1LV5CdMOg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793714397;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=eAJAOTI6E0N7XqB8gY0HnnSavIbY3EivEPEaxZWww7Y=;
+	b=a5O01Q7LBeL6+QWbR43Sl0H267WJyEeKkYvQdVFqQkPDgH42eQD2RIZ2PnlyC8TejJ9i
+	 vTZ6ja8q0K2A0R8JmAzZh8y9Fenk1I8gWdPjWlV2SPVjzRocWEe5m0d9lSX4371ChXXHE
+	 hTkhi4AYl9B2j1ZpJ1X0odC9VlSMULHncmQxgc9elfZx11n9zi0NOi3abaEVKrIKDizEp
+	 VslVnrw7UvY0eR4XLCDBN6IK2nSrFeLZpUV9kTMuY79g9VmxdB53orB2SorPMAZYq7ZcZ
+	 3GKehp6n9QyJzEH6ahyEWwgAgn/xq096lVWRKneKwywXT1VKypYfo3a0zOwjCdUCFYA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAA5606D83E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:59:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BAA5606D83E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Ir+iDq/x
-Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso2088609a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:59:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793714394; x=1794319194;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FwIVVnYhvvjMTysTggNf76en9r3AUtCzAUuv63rWer0=;
-        b=p0BEEolH9iqJqUAsPfKK7WFITP85TiymK7237XdEVocFNRIf718gA9apVUSVxJcAI9
-         66d0jRtqcvYPsrXWVyab1Mj8jTzNE3g7iJrEbrCWc6jWZGI137whdCnPvidK+DFN+W2P
-         62zYhefXTLcTz39oNLPUH/KgruvrQ+NkN/gLBLgOPLQiNFAsAeKfCkspvkeYP+GWD+hP
-         /6k9TxHKAwpWJjRpP7WrxTLUooYYmDpittPXz3/g1OIYChS2jv0EejBJyq+w0+ch03P+
-         goRnY66xbQzPkghNRP8Bs41tIAz80IVthLT3ob5scv6/uCD12k/9G/T7LXXN4C9ahwDA
-         XvBA==
-X-Forwarded-Encrypted: i=1; AKwUvBxFvLMa4l/xB6/X8dxah4Wm6ob6Ma+s6naLUpsqLMm+kDrUizka1gOcYQM/elAJi0l+p+qU9DOuEoaYQsQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NXM1DZbG3bSnd6mFnA0rAe+yoOG69DNJIE9eNslC9ho4/7bDp
-	51AvgX4O9SJtIs7qoUd50HKNvS54qhxbDl8b913LzIJBXfbtyFW3IXkQrwu7qu7wWHWWME+wdpy
-	EyFgKKhvPIMXVCGFmZqaouuIXDETFr+0pYbB5e1o3Zkbvu4ZgYkzjiq6d+/HhyznBwIuC3M0Zj2
-	xdsunGC04oQnblL6Rat/YI71GIOA1a7hQEX/P1kpb0JBZ40Cf1vinUOAda2YRezSWeCrUM8ASph
-	dsRa0FRxO79Z5N+Uvk3OVIzXQ==
-X-Gm-Gg: AYBFou1fiBqALUr0i9E4URp6mMHth8f8SbGa4O6aGBWs0vKBhbJ76ID8UoK6fA3MeXe
-	vpjIeuXehlEkdCPG5jthWb49Art1zJaG0a1cIWNFS3ZKheWqhuhGodb0IureiChx1D7b/nxGD9g
-	iyR39tEgzgnk4LKL2TFB2yUarU/cCncQEjRUMYJO49s5pceGFuyWmGevVmRhe8FwxRt2cwX2klU
-	/V2SED67J3KHZJyEKXJg+emCjOMYS2o/T5y95J3lSL6Kiq7jKb7J53sSrbAZ4wszIOEPrLMlYf6
-	0R/ldS4JC4t6PCE+m8xf8DRNVGkKBcDBol+fnQyAmUeCPxoxUPagOlAWIcO0bJi2+RFHaca766m
-	uMPXCUY+PRZkXIsCtjHdeY71jkMN+7bzH6U7bNF7Adx8rSFI7h/U8gT1PzV3/zPELiyi633bCs/
-	97UlVp9kNAIKHj8Vbq/IwlBtGidlJrxhGeuEKNJU0=
-X-Received: by 2002:a17:90b:3882:b0:3ad:6090:a17b with SMTP id 98e67ed59e1d1-3ae89776869mr9443304a91.17.1793714394221;
-        Tue, 03 Nov 2026 05:59:54 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae87f36f06sm3383556a91.2.2026.11.03.05.59.53
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 03 Nov 2026 05:59:54 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30c0d568830so8108047eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:59:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793714392; x=1794319192; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FwIVVnYhvvjMTysTggNf76en9r3AUtCzAUuv63rWer0=;
-        b=Ir+iDq/xiO6xCn6mnXr/0NRhsA0/MegfrRxIQaWgLmnp6ae3A59/41UTHw8v4vcl+p
-         DwQiYn2r6u9ZTyjIjMrv3/GLN5k0iwkzYTKfAzNxYxSnPKB940fLE38+kX5NJxPv4wE7
-         KKHcG2DTbW/i84JFn1K3XMHBRYLtCZamQioZA=
-X-Forwarded-Encrypted: i=1; AKwUvByJWi7QNnf5p7+R9qKEgRz2Xzyz3yDaakyoaVpeBMRSZecKwoureU+K67iPu/kBfSbUb3PWblUG4LUmsMs=@vger.kernel.org
-X-Received: by 2002:a05:7023:a56:20b0:1b2:3742:828e with SMTP id a92af1059eb24-1b23742830emr5949728c88.3.1793714392093;
-        Tue, 03 Nov 2026 05:59:52 -0800 (PST)
-X-Received: by 2002:a05:7023:a56:20b0:1b2:3742:828e with SMTP id a92af1059eb24-1b23742830emr5949684c88.3.1793714391367;
-        Tue, 03 Nov 2026 05:59:51 -0800 (PST)
-Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm41658755c88.8.2026.11.03.05.59.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 05:59:50 -0800 (PST)
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Michael Reeves <michael.reeves077@gmail.com>
-Cc: Pieter-Paul Giesberts <pieterpg@broadcom.com>,
-	"Franky Lin (Zhenhui)" <frankyl@broadcom.com>,
-	Mathy Vanhoef <vanhoefm@gmail.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	asahi@lists.linux.dev,
-	Hector Martin <marcan@marcan.st>,
-	Daniel Berlin <dberlin@dberlin.org>,
-	Janne Grunau <j@jannau.net>,
-	linux-kernel@vger.kernel.org,
-	Hante Meuleman <meuleman@broadcom.com>,
-	linux-hardening@vger.kernel.org,
-	Arend van Spriel <arend.vanspriel@broadcom.com>
-Subject: Re: [PATCH 13/13] wifi: brcmfmac: Add BCM4388 support
-Date: Tue,  3 Nov 2026 14:58:54 +0100
-Message-ID: <20261103135856.3676311-11-arend.vanspriel@broadcom.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260925-brcm4388-submit-v1-13-b5cbc2cde2fb@gmail.com>
-References: <20260925-brcm4388-submit-v1-13-b5cbc2cde2fb@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id BA6EC1F00919;
+	Tue,  3 Nov 2026 13:59:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793714396;
+	bh=eAJAOTI6E0N7XqB8gY0HnnSavIbY3EivEPEaxZWww7Y=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=eiFk7eskI8sSCHI2aL6WZIhE1gHJFpEsDRQljYX6y1MmbMjXN+OvO3VGtZI1FfpJ8
+	 DCWxHAq6vXMud1oWYvLjWAR8G/qlV1zPXqRj6u4f5EXeY2bcw27+hjjGgfq3PHDkHU
+	 UWmfBcruJa6Gqjg8GRorJS3L3HHdu87AkD/lipNI8nJSFqd4uavaRhG426zEcqNAqa
+	 WrV3Q7F+m9Gr+mdqfiYcnc1kD1ghlRLEpiexOm4AJ20eQb2d7+LWPwIJZWEZkwPZbT
+	 NW2kpUgHe1M7ydwA4ARLiTCTCo+ANRuidHeVpWQ/EFCi4UYeBIVR8eLE99JivrUXh4
+	 Aw17CgXqi57EQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1D09646981;
+	Tue,  3 Nov 2026 13:59:54 +0000 (UTC)
+From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
+Subject: [PATCH bpf-next v5 0/3] bpftool: Make the LLVM disassembler an
+ optional runtime dependency
+Date: Tue, 03 Nov 2026 18:59:52 +0500
+Message-Id: <20261103-bpftool-plugin-v5-0-683e08a25df0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,33 +84,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NTWrDMBAF4KsErTtlpJF/Jqvco3QxkmVH4FjGd
+ k1K8N0rvGhDQrp8vPne3NQcphhmdTzc1BTWOMc05FC8HZQ/y9AFiE3OyqApsUQCN7ZLSj2M/Vc
+ XB/DM1nkKWFpSGY1TaON1H/xQ+RaGcF3UZ27OcV7S9L1/WvXevxpdNWgoa4/iWbeF0Km7SOzff
+ brsU6v55RoNP3EDCFps5QyxdugeOf3PKfO6krZibsSiPHL7x7N/4jbzQuqCAlfUOL7n27b9AHO
+ liWBzAQAA
+X-Change-ID: 20260603-bpftool-plugin-c994bc3e0643
+To: Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>
+Cc: linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
+ Mark Korenberg <socketpair@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793714393; l=4062;
+ i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
+ bh=FTpGNAMeoY1x3nm3HnFThoT7APvBIz/tLsd5anzdXyg=;
+ b=GOhRtZTKRCK2jOK3H5P/nT+F8yC+FXobdGQdayYJTcqsAXPp9Llk74PL5166ccg3PCn8XiwyK
+ OuZ+XsG4mMRCy1KF8Q6kdUwdrrnwlNKMuO+ew8No82kyrTLOKQKWz1Z
+X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
+ pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
+X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
+ auth_id=806
+X-Original-From: Mark Korenberg <socketpair@gmail.com>
+Reply-To: socketpair@gmail.com
 
-On Fri, 25 Sep 2026 23:43:48 +1000, Michael Reeves <michael.reeves077@gmail.com> wrote:
-> From: Hector Martin <marcan@marcan.st>
->
-> Add BCM4388 firmware mappings, RAM base and OTP handling, and increase
-> the RX posting and completion ring capacities to 2048 items.
->
-> On BCM4388, DMA_FROM_DEVICE mappings for posted receive buffers cause
-> DART read-permission faults followed by firmware DMA failure. Map these
-> buffers with DMA_BIDIRECTIONAL to allow device reads as well as writes.
-> Keep the existing mapping direction for other chips.
->
+libLLVM (~140 MiB on Fedora) is a hard dependency of bpftool, although it
+is only used by "bpftool prog dump jited". With this series, bpftool is
+no longer linked with libLLVM.so but loads it with dlopen() when it needs
+to disassemble JITed programs, so that distributions can make it optional.
+Patch 1 fixes a leak found on the way. Patch 2 makes "prog dump jited
+... file FILE" work without a disassembler.
 
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Changes in v5:
+- Use the soname of libLLVM for dlopen(), not the name of the file it
+  points to, which is not in the ld.so path on Ubuntu 24.04 (Sashiko,
+  Alexei)
+- New patch 2: call disasm_init() only when the image is disassembled,
+  so that "prog dump jited ... file FILE" works without libLLVM (Alexei)
+- Update common_options.rst, which still said that bpftool links with
+  LLVM (Alexei)
+- Rebase on bpf-next
+- Link to v4: https://lore.kernel.org/r/20261102-bpftool-plugin-v4-0-5a853e973db9@gmail.com
 
-Regards,
-Arend
+Changes in v4:
+- Drop the plugin, load libLLVM.so with dlopen() instead, as suggested by
+  Alexei. This also makes "prog dump jited" work with the bpftool built by
+  selftests.
+- Keep "llvm" in "bpftool version" a build time feature (Alexei)
+- Unlike the suggested diff, still link with LLVM built with
+  BUILD_SHARED_LIBS=ON, rather than failing to build
+- Link to v3: https://lore.kernel.org/r/20261029-bpftool-plugin-v3-0-87af799da40a@gmail.com
 
-> Signed-off-by: Hector Martin <marcan@marcan.st>
-> Co-developed-by: Michael Reeves <michael.reeves077@gmail.com>
-> Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
-> ---
->  drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c      |  1 +
->  drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c    |  8 +++++---
->  drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.h    |  4 ++--
->  drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c      | 12 +++++++++++-
->  .../net/wireless/broadcom/brcm80211/include/brcm_hw_ids.h    |  2 ++
->  5 files changed, 21 insertions(+), 6 deletions(-)
+Changes in v3:
+- Look for the plugin next to the bpftool binary before its install
+  directory, so that bpftool run from its build directory does not pick
+  an older installed plugin (Sashiko)
+- Link to v2: https://lore.kernel.org/r/20261029-bpftool-plugin-v2-0-1a47b2391b0b@gmail.com
+
+Changes in v2:
+- Move the LLVMDisasmDispose() fix to a separate patch (Quentin)
+- Look for the plugin next to the bpftool binary when it is not installed,
+  so that bpftool works from its build directory (Quentin, Sashiko). Not in
+  the current directory: bpftool usually runs as root.
+- Export a single versioned structure of callbacks from the plugin (Quentin)
+- Only report "llvm" in "bpftool version" if the plugin loads (Quentin)
+- Handle dlerror() returning NULL (Quentin)
+- Rebuild jit_disasm.o if libdir changes between "make" and
+  "make install" (Quentin)
+- uninstall: use QUIET_UNINST, remove $(libdir)/bpftool (Quentin)
+- With a static libLLVM, which a static bpftool requires, link the
+  disassembler into bpftool as before (Sashiko). This drops
+  LLVM_LINK_STATIC: static LLVM archives are never linked into a shared
+  object.
+- Commit log and comment fixes (Quentin, Sashiko)
+- Rebase on bpf-next
+- Link to v1: https://lore.kernel.org/r/20260603-bpftool-plugin-v1-1-68c0ac91f5a3@gmail.com
+
+Tested on Fedora 44 x86_64, LLVM 22: builds with shared, static and
+per-component LLVM, and with SKIP_LLVM; "prog dump jited" (plain, JSON
+and to a file) on live programs; bpftool, also when installed as
+selftests do, loads libLLVM.so only for "prog dump jited" and reports an
+error if it is missing; "prog dump jited ... file" works without a
+disassembler. Also tested with Ubuntu 24.04 (LLVM 18) userspace, where
+bpftool now loads libLLVM.so.18.1 (v4 tried libLLVM.so.1).
+
+The changes since v1 were written with the help of an AI assistant
+(Claude), from the review comments; I reviewed and tested them.
+
+---
+Mark Korenberg (3):
+      bpftool: Fix disposal of the LLVM disassembler context
+      bpftool: Don't require a disassembler to dump a JITed program to a file
+      bpftool: Make the LLVM disassembler an optional runtime dependency
+
+ tools/bpf/bpftool/Documentation/common_options.rst | 10 ++-
+ tools/bpf/bpftool/Makefile                         | 16 +++-
+ tools/bpf/bpftool/jit_disasm.c                     | 88 +++++++++++++++++++++-
+ tools/bpf/bpftool/prog.c                           |  4 +-
+ 4 files changed, 110 insertions(+), 8 deletions(-)
+---
+base-commit: cd5bc55288d4fd999595c8f2af6a5408cbe92a52
+change-id: 20260603-bpftool-plugin-c994bc3e0643
+
+Best regards,
+-- 
+Mark Korenberg <socketpair@gmail.com>
+
+
