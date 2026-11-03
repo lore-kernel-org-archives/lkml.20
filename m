@@ -1,60 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700652;
-	b=Cgei7lPN5+t2dVxhMVZ5/ObK4NMby72cLsVQslL3akBkPsU7EsBXaHP+Ay4w99iaJbmT
-	 izLtGx7t1zqsYf+x5byTkcmL5P2v4M1vK3ROcdGTORsfZ0nz/88vetkhPUg+jnryyobFO
-	 90FN2WiHXD1rosnAlNjWhw5StlXqLgXCtMJ0XOiIuZLlOCJ8RFq1jej1hL31I4v5b6AwF
-	 U1TbVAxh+ZjA2MTVcmazOw6fTeIop1zTjJLSzKzStS8Q3C922SBBWZ/M6K4h8ZlhgRfml
-	 3ZIAVISEWRwtsFAWkcF8AQ7zqJBk6X4F+OoZkFPyJMgvPk+LNhnnEZ8895KRevlivUg==
+	t=1793700649;
+	b=3IRAmOw+o8hVHwYQg2D5s4Y0IzUS8pJCOfOuABuZXtuM18Vg+AfRjsjy/MASYq5g3xzE
+	 by4WrD5SYzEIfTP+ydfJKAPkcUMIjl52pHSJuDoCMBSg0HNVsm/bZ4O0FvB5MDxi8vyaS
+	 +rhBvf41wfARrQw60mA3EUB/KZVjFqegwxs/IcjamuRh6lzMPe5nlM3TUSQdodYKc9eQI
+	 Ou8HohVZiAzmF87RRGBOqIk7ONefqUWPU5aDagHn1JabB+tkBhg3sbOCSl9lNL1CXkZY5
+	 1niB3MkSCEPQw4jk30yBGAwgayCY4aRX+BRFTJK4HU/geymiaO/DnYaXzT3w4Nd16yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700652;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=2miWXckXEf9/8fJq2kLZ6HHXh4pF31ZiQShBy3CvvJQ=;
-	b=0vqA1xsCQdWEOsrE+Y0Ka/3zeI2dCha3WDaMg3XDDIsy253uGufajHOE+VI6fb8Hj7FN
-	 j1w9kzQuUkotmQSnleutq+Yl/qJ4ICUoKN9BxLqg7ykYPCO8QRHiDYLcthrG0TpHigsge
-	 Yn7vCF4WOD3PgDjev3LAJM2kPqDeEduqTdUdsv923rvm+4M9uILxfOmzOzTcD99KujPGI
-	 wHxRrJD6gKlMzZO6j8eK+aBNITbFyegfPCH+RA4mOTb4vkTo+DgAFo985EFZ+yDwXBSSk
-	 jkiEo/+wa7VuCuJlu5S/MdnE4IqT2lD3du9MmCnnAG9Z+pZKFCLhbo3EOcV+BKQFJhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700649;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=KKjRcMgA2od1JAUQ3NDEJd+3pJ6utv9HJwQINe7Cudo=;
+	b=n95Nj7933JKjVcytJxJiz1GD0sIh6fkWVVJ1fhShDu7PEGCTstd5VlcrIridrmj7ryPR
+	 2JVRjmL83klwpDEVuJORKVCF2FJTp5K70BGa5auN7/fal0X1A//D7kWJeG8XVhouImcwc
+	 fRd/jBs12tFeWMFgBUhmfFfrWa7qXo1K/jQwBgdDT8sXH0dlIDCT2VMbY8YQbmjE6nY07
+	 VaYXijopzXEXR5ZvVrFuYKwUyov4i2mZuuSHlpqfSasGD4CZA4Nif8u5kkwQIeMJWjwtT
+	 DKUOgBM816nrE/IatXxOeQpdiLVkY6DrRVZ8M51/UUB+LeFtEFy0kycs6tJEuy+ypTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=P6D9rRFE;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nK64mHTD;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFBB606BF80
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:10:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CFBB606BF80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524D76082BD2;
+	Tue,  3 Nov 2026 10:10:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 524D76082BD2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=P6D9rRFE
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261103101049euoutp010c615962723e107c0e0d8e6b0ccf6326~kgTy7DldV2803328033euoutp01v
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:10:49 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261103101049euoutp010c615962723e107c0e0d8e6b0ccf6326~kgTy7DldV2803328033euoutp01v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793700649;
-	bh=2miWXckXEf9/8fJq2kLZ6HHXh4pF31ZiQShBy3CvvJQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=P6D9rRFELTCereOoTaTTR2BoDm2AQJAUCJ6qJ5pqGgWyKUfcU21VeGmGdIZI3rjfq
-	 7/2xZdKsbuncpMyFJOdceQBRXZMEY2rZ+aLKUN/oK24x2foISLnuqxqgtwun76h4ML
-	 +6ju2atQwwopT1FHXFTchGy8kFEZOXsKRZPom06Y=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261103101048eucas1p2192952d7ccdf6cee02830269510aca7e~kgTyPtkgV1245512455eucas1p2H;
-	Tue,  3 Nov 2026 10:10:48 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261103101047eusmtip2f99b012249277f80088899badb6f04af~kgTwxvNxT3115731157eusmtip2h;
-	Tue,  3 Nov 2026 10:10:46 +0000 (GMT)
-Message-ID: <b1058c89-2e87-4035-b7be-76e93fe3ac07@samsung.com>
-Date: Tue, 3 Nov 2026 11:10:46 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nK64mHTD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793700648; x=1825236648;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qLeNMV9ESxS4vfP26Q6ujH3mVp4IAYKlMBiwJ2rztyc=;
+  b=nK64mHTDuRqNfCDxuCrjiRkMWyv0Hy70+2pKQeXqd8MDkYJHPH713aB2
+   Kg+WT9rxP5X6QkzQDfsxwM040eByk7GlkG9a+t+OGZHPu5FeAh/Tr2pHX
+   ELNB2G8TMSeG57r9EoZEpaSJNpl50aVnt52MyKJjgUe/zSIUtr/YOhl9l
+   ltdaLyt/IXjN8CX+3GzYLkfUy05MjB9sTxJXWjwtaLFO7ollfK/imFcdP
+   eBGB2hHM8djbEQcR0nYEu9nrc1bGDVURSS641WGy6FvyU4pYUQAgfOzqM
+   t91VQpRI866ZRnQU81SMa7o8CIrMi4f6B3f+Pu9ccXqp23M0NmYQbW0FN
+   Q==;
+X-CSE-ConnectionGUID: /PD3c7YoSwOFAb74OzsHvg==
+X-CSE-MsgGUID: ktY+/j/CQvuz67T4vyuX8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2415067"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2415067"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:10:47 -0800
+X-CSE-ConnectionGUID: cVqWb3x6TMefkE/gQOoIFQ==
+X-CSE-MsgGUID: kl2DLb2fTzeQYxqtxFEZLA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6400206"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:10:43 -0800
+Date: Tue, 3 Nov 2026 12:10:41 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, amitrkcian2002@gmail.com
+Subject: Re: [PATCH 3/6] iio: adc: versal-sysmon: disable interrupts on
+ shutdown
+Message-ID: <aumzIdkwp_jVcTTs@ashevche-desk.local>
+References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
+ <20261102122112.1723130-4-amit.kumar-mahapatra@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,185 +88,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 3/7] dma-mapping: Keep DMA memory private for capable
- devices
-To: Nicolin Chen <nicolinc@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>,
-	joro@8bytes.org, Will Deacon <will@kernel.org>, Robin Murphy
-	<robin.murphy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>,
-	rafael@kernel.org, Danilo Krummrich <dakr@kernel.org>, Johan Hovold
-	<johan@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Pranjal Shrivastava <praan@google.com>,
-	Mostafa Saleh <smostafa@google.com>, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, driver-core@lists.linux.dev, Sonang Patel
-	<sonangp@nvidia.com>, Ankit Agrawal <ankita@nvidia.com>,
-	shameerali.kolothum.thodi@huawei.com
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <a2a5fe1a1c4d8c99d96874a166f77996d51f3cb7.1793676742.git.nicolinc@nvidia.com>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261103101048eucas1p2192952d7ccdf6cee02830269510aca7e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261103035025eucas1p2e556ed6dee063a472de0102b87fda0e3
-X-EPHeader: CA
-X-CMS-RootMailID: 20261103035025eucas1p2e556ed6dee063a472de0102b87fda0e3
-References: <cover.1793676742.git.nicolinc@nvidia.com>
-	<CGME20261103035025eucas1p2e556ed6dee063a472de0102b87fda0e3@eucas1p2.samsung.com>
-	<a2a5fe1a1c4d8c99d96874a166f77996d51f3cb7.1793676742.git.nicolinc@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102122112.1723130-4-amit.kumar-mahapatra@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 03.11.2026 04:49, Nicolin Chen wrote:
-> Architecture code can require devices to use unencrypted memory. This makes
-> the DMA API use shared memory for coherent allocations and bounce streaming
-> mappings through SWIOTLB.
->
-> A device marked with DEV_FLAG_DMA_CC_PRIVATE can reach private memory
-> directly. Add dma_require_decrypted() to combine force_dma_unencrypted()
-> with the new device flag, and use it throughout the generic DMA code.
->
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
-The change look good, but I'm not really happy to see the mix of unencrypted
-and decrypted terms. Wasn't there a consensus which one will be used?
+On Mon, Nov 02, 2026 at 05:51:09PM +0530, Amit Kumar Mahapatra wrote:
+> Interrupt teardown is registered with devm_add_action_or_reset(), so
+> sysmon_disable_interrupts() runs when the driver is unbound but not when
+> the system shuts down: device_shutdown() invokes only the driver's
+> .shutdown callback, which this driver does not implement.
+> 
+> The device is therefore left with its alarm interrupts enabled in
+> hardware once Linux has stopped servicing them.
+> 
+> Add a .shutdown callback performing the same teardown, so the device is
+> quiesced before control is handed on. The helper lives in the core
+> module, so it is exported for the platform front-end. It skips a
+> device described without an interrupt, which never set up interrupt
+> handling.
+> 
+> Disabling the interrupts at shutdown is safe to have and not a must have
+> requirement for shutdown.
 
+...
 
-> ---
->  include/linux/dma-direct.h |  7 ++++++-
->  kernel/dma/direct.c        | 16 ++++++++--------
->  kernel/dma/mapping.c       |  2 +-
->  kernel/dma/swiotlb.c       |  2 +-
->  4 files changed, 16 insertions(+), 11 deletions(-)
->
-> diff --git a/include/linux/dma-direct.h b/include/linux/dma-direct.h
-> index daa31a1adf7b0..fb35ca27941cc 100644
-> --- a/include/linux/dma-direct.h
-> +++ b/include/linux/dma-direct.h
-> @@ -134,6 +134,11 @@ static inline bool force_dma_unencrypted(struct device *dev)
->  }
->  #endif /* CONFIG_ARCH_HAS_FORCE_DMA_UNENCRYPTED */
->  
-> +static inline bool dma_require_decrypted(struct device *dev)
-> +{
-> +	return !dev_dma_cc_private(dev) && force_dma_unencrypted(dev);
-> +}
-> +
->  static inline bool dma_capable(struct device *dev, dma_addr_t addr, size_t size,
->  		bool is_ram, unsigned long attrs)
->  {
-> @@ -146,7 +151,7 @@ static inline bool dma_capable(struct device *dev, dma_addr_t addr, size_t size,
->  	 * requires unencrypted DMA addresses. Treat it as not DMA-capable
->  	 * so the caller can fall back to a suitable SWIOTLB pool.
->  	 */
-> -	if (!(attrs & DMA_ATTR_CC_SHARED) && force_dma_unencrypted(dev))
-> +	if (!(attrs & DMA_ATTR_CC_SHARED) && dma_require_decrypted(dev))
->  		return false;
->  
->  	if (is_ram && !IS_ENABLED(CONFIG_ARCH_DMA_ADDR_T_64BIT) &&
-> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> index 25e9a86835fd3..b3b9ff090c590 100644
-> --- a/kernel/dma/direct.c
-> +++ b/kernel/dma/direct.c
-> @@ -41,7 +41,7 @@ static inline struct page *dma_direct_to_page(struct device *dev,
->  
->  u64 dma_direct_get_required_mask(struct device *dev)
->  {
-> -	bool require_decrypted = force_dma_unencrypted(dev);
-> +	bool require_decrypted = dma_require_decrypted(dev);
->  	phys_addr_t phys = ((phys_addr_t)max_pfn << PAGE_SHIFT) - 1;
->  	u64 max_dma = phys_to_dma_direct(dev, phys, require_decrypted);
->  
-> @@ -72,7 +72,7 @@ static gfp_t dma_direct_optimal_gfp_mask(struct device *dev, u64 *phys_limit)
->  
->  bool dma_coherent_ok(struct device *dev, phys_addr_t phys, size_t size)
->  {
-> -	bool require_decrypted = force_dma_unencrypted(dev);
-> +	bool require_decrypted = dma_require_decrypted(dev);
->  	dma_addr_t dma_addr = phys_to_dma_direct(dev, phys, require_decrypted);
->  
->  	if (dma_addr == DMA_MAPPING_ERROR)
-> @@ -226,7 +226,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
->  	struct page *page;
->  	void *cpu_addr;
->  
-> -	if (force_dma_unencrypted(dev))
-> +	if (dma_require_decrypted(dev))
->  		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
->  
->  	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED) {
-> @@ -385,7 +385,7 @@ void dma_direct_free(struct device *dev, size_t size,
->  	 * If the allocation used decrypted/shared backing pages, restore
->  	 * the encryption state on free.
->  	 */
-> -	if (force_dma_unencrypted(dev))
-> +	if (dma_require_decrypted(dev))
->  		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
->  
->  	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
-> @@ -452,7 +452,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
->  	struct page *page;
->  	void *cpu_addr;
->  
-> -	if (force_dma_unencrypted(dev))
-> +	if (dma_require_decrypted(dev))
->  		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
->  
->  	if ((attrs & __DMA_ATTR_ALLOC_CC_SHARED) && dma_direct_use_pool(dev, gfp))
-> @@ -496,7 +496,7 @@ void dma_direct_free_pages(struct device *dev, size_t size,
->  	 * if the device had requested for an unencrypted buffer,
->  	 * convert it to encrypted on free
->  	 */
-> -	bool mark_mem_encrypted = force_dma_unencrypted(dev);
-> +	bool mark_mem_encrypted = dma_require_decrypted(dev);
->  
->  	/* If page is not from an atomic pool, dma_free_from_pool_page() fails */
->  	if (IS_ENABLED(CONFIG_DMA_COHERENT_POOL) &&
-> @@ -665,7 +665,7 @@ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
->  	const pgoff_t pgoff_end = vma_end_pgoff(vma);
->  	int ret = -ENXIO;
->  
-> -	if (force_dma_unencrypted(dev))
-> +	if (dma_require_decrypted(dev))
->  		attrs |= DMA_ATTR_CC_SHARED;
->  
->  	vma->vm_page_prot = dma_pgprot(dev, vma->vm_page_prot, attrs);
-> @@ -814,7 +814,7 @@ size_t dma_direct_max_mapping_size(struct device *dev)
->  	/* If SWIOTLB is active, use its maximum mapping size */
->  	if (is_swiotlb_active(dev) &&
->  	    (dma_addressing_limited(dev) || is_swiotlb_force_bounce(dev) ||
-> -	     force_dma_unencrypted(dev)))
-> +	     dma_require_decrypted(dev)))
->  		return swiotlb_max_mapping_size(dev);
->  
->  	return SIZE_MAX;
-> diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
-> index ded585b39fb92..0252473edd0b5 100644
-> --- a/kernel/dma/mapping.c
-> +++ b/kernel/dma/mapping.c
-> @@ -673,7 +673,7 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
->  		return NULL;
->  	}
->  
-> -	if (force_dma_unencrypted(dev))
-> +	if (dma_require_decrypted(dev))
->  		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
->  
->  	if (dma_alloc_from_dev_coherent(dev, size, dma_handle, &cpu_addr)) {
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index 2c57b49ac7c06..ddfc4533934a2 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -1550,7 +1550,7 @@ phys_addr_t swiotlb_tbl_map_single(struct device *dev, phys_addr_t orig_addr,
->  	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT)) {
->  
->  		/* swiotlb pool is incorrect for this device */
-> -		if (unlikely(mem->cc_shared != force_dma_unencrypted(dev)))
-> +		if (unlikely(mem->cc_shared != dma_require_decrypted(dev)))
->  			return (phys_addr_t)DMA_MAPPING_ERROR;
->  
->  	} else if (cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT)) {
+> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> +	struct sysmon *sysmon = iio_priv(indio_dev);
 
-Best regards
+Side Q to Jonathan: How do you see having a helper that unites these two?
+Something like void *iio_priv_from_drvdata(struct device *dev)
+
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+With Best Regards,
+Andy Shevchenko
+
 
