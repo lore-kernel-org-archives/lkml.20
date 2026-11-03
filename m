@@ -1,106 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722429;
-	b=vIypzsnFytL2gJXxwBNIdRu66dGC0AR6uXuiquzVe5I267VTKC3TDV++LmNafr7xHq7j
-	 RQ+yK3kjTnDq1D2Od0u+Tu3M3E1dJCGroLTHZnJYpyazD9JTyUjgfwHhfOo9kOey/6hLh
-	 iwDTe6Rb4RG6pCO+VncPmKALGXC4NPJVI4r9rj1+b0yiGmCrrrl/PR4LG/Lp/VI8fSgoB
-	 FpoXovwPASDptDbNccPqiG1S6eMG6piEa39DWBtcau8xVi/1ijxyIhL9lBjZ2+EFcgfTv
-	 0mvCeFT5wCztJ+hlU5qKiah+I+wlCR8WVjFF8i76Y8z06mjOJpxe5t6IbDT+5vOzAcA==
+	t=1793722430;
+	b=Kj2ytMgRoJLs+o1altBFuaJUgU18Vkt2NjBLXeoXi6tsqpd+QofYtx4fi2QrZzpw4LeP
+	 mYQGCPmVdJ/PtUia3i7kyuFapGysd4TOzf5KLL68BUOckicBtwTUIEX5aY8wDVVKcWUpW
+	 e6wsjYM1+J7xSH4jA+95b1Bd36d+FYQjNMCm1dbbwKB98CG5N9F/5rapOwmF92hWqmuFS
+	 wPrFiylSKssj+3s9QCa+RIOY2Ix0Yc6GDb8mKD+8WCma6jwQy8Z7MqQ92m5lTBUZmGwMP
+	 dBi/zl19NdOEtFkvCqwb1iMtwdZ/BhP3y8kSwYlpgQuMXf+pXankxhy6wsFq+2KaNJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722430;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Transfer-Encoding:MIME-Version:Content-Type;
-	bh=AJyyri76gw2tPYp+4QxyP3AtyJ37KOovjfoziur4IoA=;
-	b=QpCuFysbXAbSv4YnAwdQY/5RsJ4k6anjKWUVuQmI2kOJM/wSgmoaGa+DfbtQfY11ByEm
-	 o8+9OrOV+p4q7tCk5w3jjiZEjx79yjnQljh3iP6WYOjgkMYwu0C+RLMRtHEZG3KoTPVgT
-	 JzHB/54gLXULN4VKfYdQt0sqzuhFx96nTdZHN+erSx1DdJkGwc4Y6VTx/aM/xrGmdLY2p
-	 9X6ZGEips04viYDH+cC+TWAcYiiaq58L0nlN1QaPWNmbxeyC0ebiQNNtEi9HURqyREDxw
-	 DeYdkemNYWRuxn1e9uQT/MS6ZFA1M4GfyLHyDVjz2RxieAaYGuRWy8vwjg6qZ6Zgw/Q==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=8TgKeJIVrgmoBWpLM7/N2L+4iRLrEXSCOV8xYhwdq8Q=;
+	b=XTwwMZsb0AZSmyHFRSSNv1VWcaDY71B0rAHJY7CBZ4kYZdQx3kA7jqYNXANnujmRzOx9
+	 DM8d5XTEcf5y4b8G1W/CNEOUbO9lAIZNffyu5CireLW/Ik09zUF1ZUcnoRNa25tRVGZIu
+	 nC/WUFAMiFyy3dx3q0rm3+kPJLjM6z7ZTKSRGa6mSc/t7q+ARdmYsM7aMRSZwWMyLu02u
+	 Y9QIjm9HAJYmBtYr7VwVmn4VoBBvUjT/mKka8etUvKfSTsWZxZqnn6/athvdD35pMH3SW
+	 ZE1la1uCFKpHqQ8dOazxdrHhbw+fumOqhab5JQJopVT0lzsFltclyA9hYaqtIRtzozA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9d4b7Ef;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dmarc=pass header.from=beagleboard.org;
+	spf=fail smtp.mailfrom=beagleboard.org;
+	dkim=pass header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=UWGxLFmj;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A76F606EE97
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:13:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A76F606EE97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADAD6082BC5
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:13:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ADAD6082BC5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9d4b7Ef
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so3423317f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:13:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=UWGxLFmj
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35c76e9614aso5968696eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:13:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793722428; x=1794327228; darn=vger.kernel.org;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+        d=beagleboard.org; s=google; t=1793722429; x=1794327229; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AJyyri76gw2tPYp+4QxyP3AtyJ37KOovjfoziur4IoA=;
-        b=F9d4b7EfncJF5ES2462x+Zjbhb4TYd33M/P+3Y0mSFXz0xngNNtM0a9BCDpY6aPyFn
-         EccfZpdj51j50gsAn5T7iZGoF2czsnhL/CgXIRFFxaUQJ8AIy8hcQrohqa7xZ4IiyqZS
-         4NOjesdM1xKIaKZRE1G5Cns2zp+BR0b0zP6LwIF7DN0YiH5hclwDOhZw1f7cUwtj1DvR
-         d7GpzilbGp54raXH9QSRZdvcbKUMIbHdXFLMJKGuUnVlJj4pW78JqPgHT7fWZtj6D4e2
-         +qENEHrrgxujIH3GBfoqRlRVbsXxPpJBnVFJ9CMZRaPj6XSd+FYZJhscJXOpj2oYJg8x
-         0GwA==
+        bh=8TgKeJIVrgmoBWpLM7/N2L+4iRLrEXSCOV8xYhwdq8Q=;
+        b=UWGxLFmjEJH25YV8WULZmSGR3aTaPZPjZ8drG0V9+g+OqlPcFXxB8Le7r+0h4TlXeU
+         R+u/boeh/9CNcC2DIycb+dNBr8+UJVWj52TInRYZKwUwblvPIqImXofUzWNiyVWxAZtd
+         Q6ShUvbXvFBsYScxp3416AF2I53A/Ds/Y9sxXnmqIEziV0ucbTHOY2zT0ruLks4OAj5p
+         08TiOoKXloOYgjh6zZIi5MaU3AjVoRLzhPXrcjCMQwbao28jQSboelPYNfvf2byiZUH4
+         RofyXcGb7/cB8GcVqpssw2cFrJpVeD9VBuwnOMFCJ97UVZlzag+4dpRAj9qvvTe85ygI
+         DEWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793722428; x=1794327228;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793722429; x=1794327229;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AJyyri76gw2tPYp+4QxyP3AtyJ37KOovjfoziur4IoA=;
-        b=F0qMRPxyPBC2/+XK9fWumjwT3XPo6eJRNaMB9NydQcbJE7uBDRmP0wCqR2n2q5InV8
-         6WMU8oTgYR9YWySUm3xm+u8PZoYtwdgeB0EYF7zqaMG7gCZ9DB84m6iJS8svjd0aPUn2
-         vkkmP0BNgj6COBSrNZB/Ec6e0DJyFqHwY3EJ7WLw0hlhTRhjyQyQxozIruv1yKr6u25l
-         HIJAc/xP7EtUK68fxp1StcfosTjIsiaZwnjvJtoQLZ2Jdr3lyxg8NpeappSCy9r5Ae8R
-         GIPrYW5CIi/kQtIs3ptVs/ZR5zf7lCBSxIClkBE65RHP5dfLL5W9D20ThTPV2hilIRh4
-         LkrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzgtGr0GrBCu3p5ucF2qEKTniIsqKmZU8+GF94fHcTxgP/xyzciv/6AdwhsL8vyi1WzGpKkN+z2pQg7zoM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/F+iN1wOIoH7eYAwG+TWkpkMb/a6WeNmkppj2TrrYhBmwL9y5C
-	bhUjkVWnKvBZffcs3+yEuDnosE4Ne0jtZIaQmmOuD/RekdeJog2SMGXO
-X-Gm-Gg: AYBFou2J50wAcJPlpqoQ9YMaqu+gg7ahqjAyqe4OwrcfNT53Psxgp96X23PgKtXekUa
-	taMibeA6X8dR88tAkDEvgonUtdxY4NWaPUcHjjrwjr+2+XyhwgbHqKzEORFomogkGiIRmdw2BIf
-	lh32E07B/sFR2nfgYhmD8C7nB2nOHx2gNajHOW+uXfEHFnsVPLmpNNKsPTzTpm+aAlJEyYeqnAt
-	y7g93hKnlGV/Ctoz1W4EEXsbTepcpfJZkuNTWgK6j3/gVteHrprcg02bAzEYIXN4aG2bBA6nLw/
-	oUIvLENW9mJd3qlB1LbRdEBTlMqLI+bISThRZECRqaLogCqvMhsjp+EEQpXg3z6Xe8paSYZOrz6
-	giEeFgymG9kVhjfFebj4dG4myFVvQui9K+8OkSwf6m1RXkZs+Xq0NZQZJ3V0Tpe2fsxEzAGuT4X
-	97puc1VWAkiHcIAmnjOdXr8d1xP3rdNOJYNyT9eo+4qXM+3tUKEllJKFJyFyTpwsBmJGFDVcDV2
-	DmM/I8s6CFuZIL5BsjZBBKZhEVpUiAHFBp3xqV20q2F7fKMvjExo7kpPmenWBD+OAJpcIQ99G8o
-	YQhJO9w5OTDLrrjSL4EQhXh2NkGFof/k69WnQQkZl0vZRs3Pt2FCE/n03x20N0HxJDofmwTmSjs
-	1KJHZjASQSmlXPg==
-X-Received: by 2002:a05:600c:19c9:b0:4a1:7c7d:8881 with SMTP id 5b1f17b1804b1-4ac182dcb6fmr306531505e9.13.1793722427449;
-        Tue, 03 Nov 2026 08:13:47 -0800 (PST)
-Received: from [127.0.1.1] (ppp91-78-241-225.pppoe.mtu-net.ru. [91.78.241.225])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723bfsm24419506f8f.15.2026.11.03.08.13.40
+        bh=8TgKeJIVrgmoBWpLM7/N2L+4iRLrEXSCOV8xYhwdq8Q=;
+        b=vXwbNnTPB84rkNuo3C9KbsXEaUZ1vAeA/K3R3gEsGW1b4zo0Fa6SrAVb51XWFMh0Ul
+         zV5JVL4ap5O/yJDRXIEVd4GDS0vIis94JTHFZTrA5yHAMv/U8sYIs/tTCx/L+d+JJDo/
+         4g9lv4XIH9+xSR9znzxYKFLCcDXE+HmwAWMOQhXVVNY7csO10eApAi6RPYn3gB25gf+h
+         AWvk3GmHo4Ie/w5n7SaK96CF9UrAyc5FYRBXs1MsvKtovzZVPoNKDdH9ml4NGQBJG4Ia
+         bbse4wgEEQc2eCZI6rVWuZF5X/EegS8Af3K/vvL6LG05cgMG7qrN1xnfynsVIl6C/zlH
+         wHZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2T6Godey+TNyzandT3hk2NiN9Ywa8d0TvzInBLwhuK+dfXaNebeWVfIrkmUPalYXT6EA7kttAGYsca/c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WZwKInJLqf4SlaYRVQvicAE5vX4QSYNC22PQutECdobLQnR1X
+	Kc5G+mp9hBVKW83iQkJqD2b2cIh3/qJZVUqDppc9fyePwm01KWT1K2ZXTTTLazKbfQ==
+X-Gm-Gg: AYBFou1+gqZP1fnFAYmVlCwCmblO8gkc82IV2/T2VZ+/cNjIykXaSkP+D9uXAbXefdS
+	FAqaT4r4pvdV5kqNdMDNlmXoBoz2NQiiLEY/7LvxnwRCe8N5p1DZk6XxbFsRyharwFdoZZ16TFA
+	f+do6mvZRlRt+ousKUEOzn18fTGRcnjOxmo8ja+yyuDaPMxQTfpFyLk48aJRVMl7e4TdnvdCJ9i
+	IAg/o5w4JyeGG1KPjnc0fA861I1zglUDJTaj9tZ40srVQVPjO/bVDFwfsHXPoJS/4zTI5tTMjSi
+	5zDD2D08WS9kzaYlmL/pXs9gNrsAH8IhddePbjt6U0yA8Tsas2EFr62p3ZdCHxC6/eIZgmgXfsk
+	kXSJ1buXYoCqQbrNGy1MUmHZ9IMcvlFCfxe27TY3sX64e7TITSk6Akc7Mj7gBJ1bP90V2du/Ms0
+	sXNwum0+tm9r/Fw/Qxz3vPoqB/YkktcqcfLuFHnnzM0fYwSCU/TDBlalx8QKWXFQhqx7z4f4YbC
+	cKYQjk4uLLSaj+k3QcPDOhPQtdMBKM4YEJSlizF2jyvdp9JigxMHX/NvIr46TgLdhH30CdTfII1
+	hRElMtK7/sPF3V2NrQmLV57AW0IOSOEleBnEkPpH
+X-Received: by 2002:a05:7300:b098:b0:369:3e30:c665 with SMTP id 5a478bee46e88-36a423fb4a1mr19744790eec.33.1793722429179;
+        Tue, 03 Nov 2026 08:13:49 -0800 (PST)
+Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm47214021eec.6.2026.11.03.08.13.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 08:13:46 -0800 (PST)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-watchdog@vger.kernel.org
-Subject:
- Re: [PATCH v3 07/11] watchdog: Add ARM TWD (MPCore private) watchdog driver
-In-Reply-To: <004d4007-d049-4257-97e7-bf7f197ae3a8@roeck-us.net>
-References: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
- <20261013-b4-cs75xx-s2-v3-7-181bb0d23f4c@gmail.com>
- <004d4007-d049-4257-97e7-bf7f197ae3a8@roeck-us.net>
-Date: Wed, 04 Nov 2026 02:13:37 +1000
-Message-ID: <179372241749.1222507.6207957568716226558@gmail.com>
-Content-Transfer-Encoding: 8bit
+        Tue, 03 Nov 2026 08:13:48 -0800 (PST)
+From: Ayush Singh <ayush@beagleboard.org>
+Date: Tue, 03 Nov 2026 21:41:55 +0530
+Subject: [PATCH v5 8/9] dt-bindings: beagle: Add BeagleConnect Freedom
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,42 +92,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-gb-uart-transport-v5-8-f8e326d6561f@beagleboard.org>
+References: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
+In-Reply-To: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
+To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
+ Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, 
+ Markus Probst <markus.probst@posteo.de>
+Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2828; i=ayush@beagleboard.org;
+ h=from:subject:message-id; bh=ctwlQBerNS3g/Yt080ihEXWMF7uGR3U1I4sIyvz57mc=;
+ b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBq6gfgvOphjMnPHOsN01/GZeO+0IVHUDn8iPetU
+ U+y0np3kUiJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCauoH4AAKCRAFzvXHieVa
+ dN90D/4u7mZpwH6BYAMaIb0yMzePkyJ//eNyoIO9lrY8b2dabHrgbP6Jvdc4cr3/H8VIJrl8SZ/
+ Gj6D+gl9+qPTuKrrtCHTq3YBeR6N2+BBRwA2M2ue0e7CGvTqpAGfWxw0uST3dmehrcA6IEAA7vN
+ Eo3vXY1m2TGWP0oO1QmozMFRdC+ggAheGscK/RD1KLVdoVxDUi2XK/Ew7O9tHKj8l0b11ngx3BQ
+ PvbWFld6WztEydvahSNqiSPdXME+Q4avkXgQnRuuoGwAYyCYUp7YutVShqfG19468R1cXHP1NCO
+ TUtYXa84nSdS7X4oyUHW6ztoY8kkDOcTTcev/elaIdF5ovkB2uv69STS7Y+WqUHEvGF2zMIjPrE
+ 8id+k6MqJHGaYUiblndwpLiOwEEUOclEAaOCripoHzVAFsqqfRhjXH9bUhg4nWcRVfGrDlnt7le
+ 2KQpzXOyrszIJN8iSR0cHlC4Mex/1V8AGWbhWRk3gFulZv8s4NXF9pooHdXljNrtAXtg3DFQiGM
+ h0l3r2e1ZmOYbqEtOasgNOZeEbdmtsR3XCuCtq8m5tOAnQsHQ+Bbhks+cJelEGJgs8Eg+iz8/r8
+ Nd0OqybG6e1nx24JZ3Zn5wuFxUwX0/BW4RIhF6Z1zX24Ntw1CQIyOvG48lvOyYElei40wmo5Elh
+ YZdwWTyVZ46OIxQ==
+X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
+ fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 
-Hi Guenter,
+Add devicetree bindings for the BeagleBoard.org BeagleConnect Freedom,
+a wireless-enabled board based on the TI CC1352P7. The board exposes an
+MCU that can be attached to a host over USB, UART, SPI or I2C, and is
+described as a child node of the corresponding bus.
 
-On Mon, Oct 19, 2026 at 06:46:41PM -0700, Guenter Roeck wrote:
-> The issues raised by Sashiko will need to be addressed, or you'll need
-> to explain why they are non-issues.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Ayush Singh <ayush@beagleboard.org>
+---
+ .../beagle/beagle,beagleconnect-freedom.yaml       | 62 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 +++
+ 2 files changed, 68 insertions(+)
 
-Thanks for having a look. All three are real and are fixed in the next
-version:
+diff --git a/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
+new file mode 100644
+index 000000000000..81dfdace33e2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/beagle/beagle,beagleconnect-freedom.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: BeagleBoard.org BeagleConnect Freedom
++
++description:
++  The BeagleBoard.org BeagleConnect Freedom board connected over USB, UART, SPI or I2C.
++
++maintainers:
++  - Ayush Singh <ayush@beagleboard.org>
++
++properties:
++  compatible:
++    const: beagle,beagleconnect-freedom
++
++  reg:
++    maxItems: 1
++
++  vbat-supply: true
++
++required:
++  - compatible
++
++allOf:
++  - if:
++      required:
++        - reg
++    then:
++      $ref: /schemas/spi/spi-peripheral-props.yaml#
++    else:
++      $ref: /schemas/serial/serial-peripheral-props.yaml#
++
++      properties:
++        current-speed:
++          default: 115200
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    serial {
++      mcu {
++        compatible = "beagle,beagleconnect-freedom";
++        vbat-supply = <&vbat>;
++      };
++    };
++
++  - |
++    spi {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      mcu@0 {
++        compatible = "beagle,beagleconnect-freedom";
++        reg = <0>;
++        spi-max-frequency = <1000000>;
++        vbat-supply = <&vbat>;
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c9126dc205db..521bc6c67979 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11522,6 +11522,12 @@ L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
+ S:	Maintained
+ F:	drivers/greybus/gb_softsvc.rs
+ 
++GREYBUS UART NODE DRIVERS
++M:	Ayush Singh <ayush@beagleboard.org>
++L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
++
+ GREYBUS SUBSYSTEM
+ M:	Johan Hovold <johan@kernel.org>
+ M:	Alex Elder <elder@kernel.org>
 
-1. cpus_read_lock() in the clock notifier (lock inversion with CPU
-   hotplug through cpufreq): the driver no longer takes cpus_read_lock()
-   anywhere. The armed state and the rate are published with
-   WRITE_ONCE() and applied with on_each_cpu(); a CPU coming online
-   meanwhile either sees the new values in its hotplug callback or is
-   reached by on_each_cpu().
-
-2. armed set after on_each_cpu() in start, racing with a rate change:
-   the flag is now set first, and the start path and the clock notifier
-   each have a full barrier between their store and their load, so
-   either the watchdog is started with the new rate or the notifier sees
-   it armed and reloads it.
-
-3. Watchdog state lost in a deep idle state: a CPU PM notifier sets the
-   watchdog of the CPU up again on CPU_PM_EXIT/CPU_PM_ENTER_FAILED when
-   the device is active and the watchdog mode bit is gone. It does not
-   reload a watchdog that kept running, so idle exits do not count as
-   pings.
-
-The earlier Sashiko points (prescaler of a watchdog left running by the
-boot loader, rate changes, resume) were handled in v2 and v3.
-
-As the driver is not specific to the Cortina SoC, the next version will
-be a standalone patch to you and Wim instead of part of the CS75xx
-series. It will be sent after v7.4-rc1.
-
-Fil
+-- 
+2.56.0
 
