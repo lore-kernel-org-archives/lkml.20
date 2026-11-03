@@ -1,103 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.36
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793686854;
-	b=QflDusasKhs6kOOX2G1CuBx7RpWcayfkZKhuc47BYUAsNj9K4rJx79NwOoZ0DzLPJisz
-	 Ml5Mgm2Iwon6LQEytWoCw5NWVPN4VTmmASuEzvfpt7SnU8Y1wibhkBHc1jzZqufhiFdM4
-	 i7GsVGZBkCEKUuya+1ulq7+NTMNLIE5BwSNpOzkG0vp2a5NzAZ333MYWL65uCeLdkREVh
-	 kWG7+JTqd+oT1P8lz016ZzCKCeCzS0h5P3059EJSN9t4tD85k21RuPR1bIkjw4OWCQFfM
-	 jQiNYL7syQNT4kbU5ZVOVYUyTlYxoXwxlN3qJrM3bXJueRP9eNMAWyXhGTeY3ZxQ7Uw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793686854;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Ko7FdkAMOQQHdb7qpDIPbQCiXsNJVxZaZbF5vtJYVcY=;
-	b=K6w/PKxTLP2GNUw9F8X97PrdZit2YMcBHGgkbNYtWLQsDHRkImUJQRc7SNcu2ALk+zgm
-	 ajnt4Bc9MxPtqDdrYOI0Eu+o3wDdEQfxkT8oDjtdK7NqVqx2lpsfsU9yG8T+oDhP1Z/8O
-	 1BsmIzhghPN1hmPihYb2rXqSzjBUwGen/YeyhruMd4GADhTvM/lCM8Q6cXKTuUSYCwmec
-	 onbXhqrZX181vNX87yV0meVvdD7FXYlt/xYjlFJK6Uu8idnv2MHwbKrx5TYfLWC3KnSla
-	 nwozDNUx7izPHDW5jL8Wb171qNh+/CpfdouwTdx+N6DGBKBe/pdctbRvDieKOPi4rtA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=MyUKH3NQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.36
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013036.outbound.protection.outlook.com [40.107.162.36])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D07606D812;
-	Tue,  3 Nov 2026 06:20:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65D07606D812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793686867;
+	b=Y3lAj23mT3vK+34KMT+p9BShzlVWEgA4mi5njYPWfWSaWobo4qHqouceCnCqb0r3Wojf
+	 VM/o7o6alrmtokwbPo069y1tAMkJZTlvVcFKDaWZJCik8RB23Sz9hsUFUnce57VQfcFQc
+	 jNFC1NccqJKIl6VYqE59E06M1jydbM0/XsGzeXjfPLp/bolrg1eAySSqiiGL2nJoP4m7o
+	 4La82swOE6agG+zOn/XGJmh6cXW420XVqX3waoIpYhhg7qRBHluurYhfWIrCwpBeigMuU
+	 gyszgmfdnTLMsOLYRuID20vfQyEnix738SQsPKWHXc2fxBumsqKGaSZdkFEKShoCe8Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793686867;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=/wXeMJQP9j32DFN1qUwOOrQZZAiVvhUjuCGos3DlqT8=;
+	b=c/HbGDmCWFoRfkJNEPMGCRl6HzkxQ28loYS3S47b3pzC17m+hmLopCom/l1oHLi29ZBt
+	 6MHGAlFSsFjOhqiJjRc5R7BCFRhiiUXtW+Va6WRG8huMHSeIxLtYbwuti1AySkQMHeQDk
+	 qHHGEi7l09AbyxeQl4dgfVaGVYShTNS5gVHOPBpsFKK7Y2scO7OWLGEnLMWJfR+vLSb8C
+	 defWF1rnq/3BvL/z/Lm7ML+U3+HsGnyrEeK5Ia3ZIYiXlmY6LbBeu1a6RSETZnObbZFDD
+	 ebyf3NOC1PyjflSCVO6S6Yh52IGozO6gMO96xp/R3ewYwpZZ2+kx+z1M67pEPTVOxgw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=DklaSXtw;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE00B606D806
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:21:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE00B606D806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=MyUKH3NQ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MqUIPFodO7AlfkO13yAG/eR/NoY1sa7jQaEaKlbFl0LCbN36hBc3zBKrpAiHFMyd9ZB9f9hA6w/alvRM2ZmaxIpjhtWXOz61zZ1LTt3U4MlrMsx3dofGPV/CcPSws6OaDOC/wTv60T9UGHzWqbWae4hheG7vaeX9+cyr9SUIMXmwmwuEtWiNwwbHGsG8Kf4pYkJr5iTzsPnbfXJigq6nVTi8ZF19kSTCYH7JglIWX4H+gwU9vtRwpEFFxu1i764g0Vx6aqrwJVm1uiYKEX6vegwr/Q2MaH5HrUSiH+CUbfJgLQncixdvFW1AbjM3qmxnqPnVk2iD+eKfriAAyzXYmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ko7FdkAMOQQHdb7qpDIPbQCiXsNJVxZaZbF5vtJYVcY=;
- b=yzXiyJS+Ybm8+etFSU88m6vSCHfFe4OYZ2od9I/jz+ZG3mukC1d61HcY8PchNpoAzYVRa0SXOazQ3xAP24lZEGx4UvzWjKObOgGltENJtDuhdf3xzUhPh4FwwaNuudVX+IrmMe4Tr8lwkytuAj1QTdJEU6CPhpssbr55xMG5g8NHpWKOK+r9Rh1pn7GJtL22e1Ko3HfTF474iXUoFEJEQBV5GlXmGhKaV46t7Z9b+cxPde17OMxMuXrkx20ElYeKc9L2cfv0p7kGWumgfZhMPLO1XFswQ19VvFd5OVmWLJ9tRnNydSlMi1RqQDyIvEbcUROlrFtbMpVGNJoGbM4WuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ko7FdkAMOQQHdb7qpDIPbQCiXsNJVxZaZbF5vtJYVcY=;
- b=MyUKH3NQKDocu2BOC2h7zlAqLxAty7w3UqX9YXZy9IzLMOZBsAgrbjbMD8SUup2umwzp1RlIqRcU5oztw4L8FqE92vXepY+JMBX53b6Z1ysjBb7RL6oZMjoL2D7SdTb020tGNZX+fV/Jr9CTgNckNZRpPG/1ytrlfR2Qd876tY8DuK70ODZYrtAJCNRWULawsEL7HzkK18+xJAy6e/VoOH+spPgZ0UWm+qzQer4lddL9m0RVE3h7uKnkaAbuXZoluIrjpsnX47mIJXbYdB9xjDz+pnFX944FCk8Cnixj7gLL2U01UFhh8gAp8eCyQ6WU4WVO/y1WOiDO1SyJGTRX+g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by BR0PR04MB346493.eurprd04.prod.outlook.com (2603:10a6:2c8:2d::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 06:20:50 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 06:20:50 +0000
-From: Liu Ying <victor.liu@nxp.com>
-Date: Tue, 03 Nov 2026 14:22:00 +0800
-Subject: [PATCH v9 04/16] drm/imx: dc-kms: Use driver specific
- .atomic_commit_tail callback
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-imx8-dc-prefetch-v9-4-3b985e7636e2@nxp.com>
-References: <20261103-imx8-dc-prefetch-v9-0-3b985e7636e2@nxp.com>
-In-Reply-To: <20261103-imx8-dc-prefetch-v9-0-3b985e7636e2@nxp.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Liu Ying <victor.liu@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: MA5P287CA0312.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:21a::14) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=DklaSXtw
+Received: from linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net (linux.microsoft.com [13.77.154.182])
+	by linux.microsoft.com (Postfix) with ESMTPSA id C2AC020B7166;
+	Mon,  2 Nov 2026 22:20:51 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C2AC020B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793686851;
+	bh=/wXeMJQP9j32DFN1qUwOOrQZZAiVvhUjuCGos3DlqT8=;
+	h=From:To:Subject:Date:From;
+	b=DklaSXtw7SHAIALYclRuAVd5YoKcE9QbQAqIZlYNsCoeeclQbjdu0n6nqa79rHr+o
+	 +yOHeOv3PIbQOZRyB6UxjRh8UOE04l8Qm1jwe2R1jv/Hdd47YvlUPbFgaedM4jsMjP
+	 Uzh52V0b/2FUrLCLmCsqT6pIOwRVezeCpj0+5bjw=
+From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+To: ptsm@linux.microsoft.com,
+	jassisinghbrar@gmail.com,
+	michal.simek@amd.com,
+	tanmay.shah@amd.com,
+	saeed.nowshadi@amd.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	ssengar@linux.microsoft.com,
+	tgopinath@linux.microsoft.com,
+	srivatsa@csail.mit.edu
+Subject: [PATCH 1/2] mailbox: zynqmp-ipi: Fix CPU hotplug state cleanup
+Date: Mon,  2 Nov 2026 22:20:51 -0800
+Message-ID: <20261103062051.676519-1-ptsm@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,143 +65,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|BR0PR04MB346493:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7716527-1e5c-4c13-9603-08df39729b75
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|7416014|376014|1800799024|366016|10067099003|18002099003|22082099003|921020|56012099006|11063799006|261022105027099003|261022075727099003|261021121427099003|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261009223027099003|261009220027099003|261009223327099003|261009221227099003|261009221727099003;
-X-Microsoft-Antispam-Message-Info:
-	Kg3UqwhrlHI7ZUEmmEv7L0Y9KaEZfmkpIAss9c6i9mjcx5euAJKu8isIuwXbWScD3X9hEZFt014KeP2f7beN6GS6oZh2mwRpMnEJXq6nLPkWF1/Aw1r3ulGzTQnRaoXyvjvZmkjs52WnAL8h63C9ree9T6AGzrF922R3wWksNCMyLicmPlq7vRkDWHjNOkYYA0BVoDcA/sLrEPxYwsDK/f6E8uNo3fEXYZg9RYTI2ob1XexKGWWqiyozCuyF2/xNEAvTmXhjoGjBZtPZOlhIWhznd5tAfLGgEYYKMnJZjWUXxIZf6cb5XMWLEycQrBiOfr2kiY8FmCKi/sQSrCs4wbhWnNNdI+WoF4cotAfEaRgqbQDbWm72lyp6YHQfPrzyghjMl1La3ofo5i4eeHltea0rxGEpftNhyMILKNnbNms3Mc1i6Wtvx6pLGM+UKY8sf3X2itgoVcaRV7AU2j5ZNXbWf1oRWfquXiRcWKepJjmwh+Mcf5nwNWjuazjhOYlZrq9daH3D08pupwU2G+JOAAbIIfmqfKtBqJ5rF/Kty2v4uW7kG0L9h55EHNxB5am0El/5RrZDYS4zg4sCGt1BSIhH6V2N78ofqEpCViUodGdCDMCh6qPW18SnO59WBwYEwXiQgIz+BV6eabNPD3zodyM17sSw+S2+OTQWwIo97MGmGQ3sNJ4ilWUWmDlxZEfCwlTO7CFAyu5V9IGzqJfFLw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(18002099003)(22082099003)(921020)(56012099006)(11063799006)(261022105027099003)(261022075727099003)(261021121427099003)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261009223027099003)(261009220027099003)(261009223327099003)(261009221227099003)(261009221727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?andhTURWMU8zYzdtVW9rUHc3SDBLQUZjT3dhL2VqYnlId3FZeHRoWVRqOGRy?=
- =?utf-8?B?eWFoaDFNdUwwUDJINmFOYWxYalI5eks0QVcxd3JqeUR3MDVQeFR5UXg0VmZS?=
- =?utf-8?B?ZWxDbE5lSWlsdTExWW5qdjdUdnFKZC9pcStKOHltWEQ5MTFUeSs4cVVEYWxT?=
- =?utf-8?B?V05qUVRNQzZXT0RsL0JCY2pDVTJWMTFKTUtUbjVocEJJa3VQOWFLRHY5MCsv?=
- =?utf-8?B?V0RjNTd2elZrNEg4UFpqdFV2Tit3T05ZRkVJZ0V0RGhkOEdPdkc1OTRqcTU4?=
- =?utf-8?B?RFNTbmd0a3poMGJZT1dWRjJXenluYjM2NS9YSWlwdUpvNy84eFNzVXRzeGRu?=
- =?utf-8?B?NGJrM3ViNUkxdE9oRnNXRk9BdmFMS1dpS2NrMmhncmZqTHhGdE9vVDdoZ0ow?=
- =?utf-8?B?VXo3RWVCanRuNTJPYWRabmUzRmZhbXJiT1FiOGQ3dENxSGNkV0JvOHZjaGZx?=
- =?utf-8?B?Z3J5VVdva2RMVTU1ekFQOTVwTVpzb2lRNnpxNFkzS08xUEgzbnhkTFV2aXgw?=
- =?utf-8?B?ZXNNWkgxRlJNZk5ZVVM4a2pHWkZkeGJPOVI3aEYzWlp2SGRaQUloeVp1QVFV?=
- =?utf-8?B?VWRxWWE4OHNIVkM4TVJGajJLVklRVWg3QU1pK1ZwWEh1SlhJRXZuL0NNc3hq?=
- =?utf-8?B?akFORWJKTW4xZ2IzNk5vLzFBTmRRTGhpSzA2T3lKNG4wbXUrR3N0M2RLdHNZ?=
- =?utf-8?B?UWNWVFQ5L0I2LzdWaDh4Y0tKRjhxL25ZYldrcXZNWXF3SWxkQkQwVVJFeEFW?=
- =?utf-8?B?WUxBdzBobTBaY1NGNTQ4eTJNZExFci95cXltR040VWc4d1lGTmJ3RGQ4UnFU?=
- =?utf-8?B?bkl3cTdaQk1jbDU1TXRMa2JESWV0RU1OdjZ4TFNPSVJLdG5uRlk2T1lHRkFW?=
- =?utf-8?B?WFNJMnJYYlNZd3Q0SE9DeEZKaFE0RFdnTjdFeUZMRlo5TjlBbE5tT1pyNjQ0?=
- =?utf-8?B?YUtkeXk3SXJWaFRHTVpXYlFKOHdhVkk5OGg1UUxldzZzR0J4QkplNUI1YUVO?=
- =?utf-8?B?Vk9jTXlIckR2ZmNOSkN3Wm1jNTNLdlNTTUsvWkt3d1V3b3lER1FFbUI1R20w?=
- =?utf-8?B?d0hTV0RLY3B0Z1YzdERTMXRlNHlNWStWemdKK1RrNVd6WjIrMVd1S2hWU01W?=
- =?utf-8?B?ZHlhQk41cFBCWGVzV0h5UzRBWlhRU3NtNy90ZTRwSGpVLy9VWnVyREhTTjVK?=
- =?utf-8?B?cDB5QnpUS2k2SlkzY0NLc3JpZjhZdXdvakJxWEwwKzlsYkRVdmpzdVUxdE1q?=
- =?utf-8?B?SUFpRlcxbVBlRGkyZHFOSEpzdUtrVVRhbWhjSDlMSmp0a3E4ODVDemxadEhG?=
- =?utf-8?B?WDdWeW5Sb3JuNE5wb1RlR2tocENIWE1LeGlCQ0trSzVpSWs3NXp4cExINTFH?=
- =?utf-8?B?VVZTNFdFM05TWHI2Q0NqTHdaaTYvYzhFdXkwRjJXaEhTSStVcGlmL2EyZW1n?=
- =?utf-8?B?WXJ3VmMvcXRvUzk5OGZ4VWF2anlCYUlLRU1TTkZUb2xWYW0xaEovdUQ3K3hl?=
- =?utf-8?B?UUpxcExEclhhS2JoZmc5WEN5ZWliZFZnU0wzU0NFSlpUelJyaTRGTDNjRklv?=
- =?utf-8?B?RDB4ZjdsZlpKRXJraUMvQXFHNlhOL0tVVEZRMENXQVpRWGhiYktFVDJvS2Yw?=
- =?utf-8?B?dStmQ2psTTJiZWpWT1NlK3NPYSt3TjZYaWU1UytGUUhsSXhKMWdjQXJoWHk0?=
- =?utf-8?B?WXNKNGw5WTJ1ZEZtakVRYzI4ZWdqRW5vQVI4L1Zwdm5ZaUJpekhaNHlldWFP?=
- =?utf-8?B?Mk54NTBUelVXZExJRnM2ZTBNeVNZbDdjcWxNVHViZ0l5OWgyOVlOR2NqV0JF?=
- =?utf-8?B?aVFPTVZUNEJDYWVVV0RwRVNvWnMyYmJMYlliaCtDOWlaV1pVZEx5blR1bkdp?=
- =?utf-8?B?aEpCT2thdVd0SktUR2tYblo2dWtwMS9DYnBCWm1VNjhaR2tEcmpsOGFlb2dx?=
- =?utf-8?B?VkFqcWFCWERhR3FrZGphTUNUY0JVMDRUSDF6TDNlWlhxNy95Zm8yd3FRZ08z?=
- =?utf-8?B?T0ZnSlcyRnRJbXNGY2o4RzlxVmF2VlR5ZE5SYzA4d2taOXFsMTg0WWZOWkpL?=
- =?utf-8?B?NTFxcjA3dHJoWE9tZ2NpZ21VTjlqaER0RWk2QUdmQ0Z2Wkd4Q3BTWXU0N3VI?=
- =?utf-8?B?alMrNGhBaW5nNnB5OHU1bmRYZ1J5NEJ1bUlLL3ZBYTh5RlVVYW5aSWVUbUM4?=
- =?utf-8?B?d1ZTRXBQWDNEaTlQdkNEbUxoK3EzOG4wRTVmMmtycURKNXc5bHBWWFlIalE4?=
- =?utf-8?B?cXY1SDdxQzFua2RvOUtNcHZXZnF1WjRDeTBJclJJcjc0TEx3VGFoTGU3eXZl?=
- =?utf-8?B?ZHQvODMzcjBuWDJTVURTd1RRUUZvY0VlbCtjOHB3SkNZQWYyaTh4QT09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7716527-1e5c-4c13-9603-08df39729b75
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:20:50.8844
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nXlpi5tBE7/i4Vn6ik8sYnJ3s2Hf8ykCYdmSyVNSq/mja5v9lndgnnu6AHWJopCWZzJwKjk+vWNvhsbJgLDngw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB346493
+Content-Transfer-Encoding: 8bit
 
-Currently, a CRTC can be disabled by a commit without considering
-it's relevant plane's status(either enabled or disabled).  A problem
-is that dc_crtc_atomic_disable() puts Pixel Engine and Display Engine's
-runtime PMs, so dc_plane_atomic_update() or dc_plane_atomic_disable()
-may access registers with AXI clock and CFG clock disabled.  To fix
-this, specify .atomic_commit_tail callback(based on
-drm_atomic_helper_commit_tail() without the unneeded
-drm_atomic_helper_fake_vblank() function call) to add
-DRM_PLANE_COMMIT_ACTIVE_ONLY and DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MODESET
-flags to drm_atomic_helper_commit_planes() function call's flags
-argument so that .atomic_update and .atomic_disable callbacks in
-dc_plane.c are skipped when necessary.
+On driver removal, the CPUHP_AP_ONLINE_DYN CPU hotplug state is removed
+instead of the its actual state. This can leave the mailbox driver
+callbacks dangling. Use the actual CPU hotplug state during driver
+removal.
 
-Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
+Hotplug registration failures are also ignored, allowing probe to
+succeed without the callbacks needed to enable interrupts on CPUs
+brought online later.
+
+Fixes: 6ffb1635341be ("mailbox: zynqmp: handle SGI for shared IPI")
+Signed-off-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
 ---
-v9:
-- Newly introduced.  (Sashiko AI bot)
----
- drivers/gpu/drm/imx/dc/dc-kms.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ drivers/mailbox/zynqmp-ipi-mailbox.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/dc/dc-kms.c b/drivers/gpu/drm/imx/dc/dc-kms.c
-index 0e2ce6a42548..9ffa15ac43a2 100644
---- a/drivers/gpu/drm/imx/dc/dc-kms.c
-+++ b/drivers/gpu/drm/imx/dc/dc-kms.c
-@@ -15,6 +15,7 @@
- #include <drm/drm_encoder.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_mode_config.h>
-+#include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -30,6 +31,29 @@ static const struct drm_mode_config_funcs dc_drm_mode_config_funcs = {
- 	.atomic_commit = drm_atomic_helper_commit,
+diff --git a/drivers/mailbox/zynqmp-ipi-mailbox.c b/drivers/mailbox/zynqmp-ipi-mailbox.c
+index 42d2583e44ca..b0643ee75db0 100644
+--- a/drivers/mailbox/zynqmp-ipi-mailbox.c
++++ b/drivers/mailbox/zynqmp-ipi-mailbox.c
+@@ -136,6 +136,7 @@ struct zynqmp_ipi_pdata {
+ 	unsigned int method;
+ 	u32 local_id;
+ 	int virq_sgi;
++	enum cpuhp_state hp_state;
+ 	int num_mboxes;
+ 	struct zynqmp_ipi_mbox ipi_mboxes[] __counted_by(num_mboxes);
  };
+@@ -863,15 +864,22 @@ static int xlnx_mbox_init_sgi(struct platform_device *pdev,
+ 	irq_set_status_flags(pdata->virq_sgi, IRQ_PER_CPU);
  
-+static void dc_drm_atomic_commit_tail(struct drm_atomic_commit *state)
-+{
-+	struct drm_device *dev = state->dev;
-+
-+	drm_atomic_helper_commit_modeset_disables(dev, state);
-+
-+	drm_atomic_helper_commit_planes(dev, state,
-+					DRM_PLANE_COMMIT_ACTIVE_ONLY |
-+					DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MODESET);
-+
-+	drm_atomic_helper_commit_modeset_enables(dev, state);
-+
-+	drm_atomic_helper_commit_hw_done(state);
-+
-+	drm_atomic_helper_wait_for_vblanks(dev, state);
-+
-+	drm_atomic_helper_cleanup_planes(dev, state);
-+}
-+
-+static const struct drm_mode_config_helper_funcs dc_drm_mode_config_helpers = {
-+	.atomic_commit_tail = dc_drm_atomic_commit_tail,
-+};
-+
- static const struct drm_encoder_funcs dc_kms_encoder_funcs = {
- 	.destroy = drm_encoder_cleanup,
- };
-@@ -103,6 +127,7 @@ int dc_kms_init(struct dc_drm_device *dc_drm)
- 	drm->mode_config.max_width = 8192;
- 	drm->mode_config.max_height = 8192;
- 	drm->mode_config.funcs = &dc_drm_mode_config_funcs;
-+	drm->mode_config.helper_private = &dc_drm_mode_config_helpers;
+ 	/* Setup function for the CPU hot-plug cases */
+-	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "mailbox/sgi:starting",
+-			  xlnx_mbox_cpuhp_start, xlnx_mbox_cpuhp_down);
++	pdata->hp_state = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
++			  "mailbox/sgi:starting", xlnx_mbox_cpuhp_start,
++			  xlnx_mbox_cpuhp_down);
++	if (pdata->hp_state < 0) {
++		irq_clear_status_flags(pdata->virq_sgi, IRQ_PER_CPU);
++		free_percpu_irq(pdata->virq_sgi, &per_cpu_pdata);
++		irq_dispose_mapping(pdata->virq_sgi);
++		return pdata->hp_state;
++	}
  
- 	drm->vblank_disable_immediate = true;
- 	drm->max_vblank_count = DC_FRAMEGEN_MAX_FRAME_INDEX;
-
+ 	return ret;
+ }
+ 
+ static void xlnx_mbox_cleanup_sgi(struct zynqmp_ipi_pdata *pdata)
+ {
+-	cpuhp_remove_state(CPUHP_AP_ONLINE_DYN);
++	cpuhp_remove_state(pdata->hp_state);
+ 
+ 	on_each_cpu(xlnx_disable_percpu_irq, NULL, 1);
+ 
 -- 
-2.43.0
+2.49.0
 
