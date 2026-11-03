@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701635;
-	b=PRSj52V/4ZU18hqNaZ1JjYm7JA9GXKnmsP5+ix25pJ4wmzWWyLqFboOJpAOF1VhXLLgs
-	 2RKymoteH9Dr7ZhmLCgtg/j7ADW3QpneuI72y+h1g9M7nvGgS77cTo6LIJqb2uoUk9oBH
-	 oeLckrD+IDcl9lSrmmJl7P9nyEvr/4Rl2Byp/qnSC+QjpZRrfvds0YeY3W4vuBR9V3JLZ
-	 n7q9br5peexF+WtgN2cxF5NjiDoY6pxWuuzTf4jzHtbmLH0B3pn3DfYHieXxOvbrTWhi4
-	 hrJHenDpWCoXd18qGwizv7LObKClTf+oEBhTA7vA6EyWaN/EI3lXOcDaNSLymvR8JoQ==
+	t=1793701632;
+	b=Ss6+IxbJmfiJIjbXhSz46JNa2dNfU/ncT+49Xi5evM+a07sAKXzC1eQ/+ryq0mglEc8E
+	 ymp43QhUDieEOmVMjjw8JpUciV77Kx3TPY/wZupaOMNytlxn+tzEiVenukTZYG24+Bn5V
+	 F/zkty2uuXNOSzEJY49ZSC4+awHckIyZ7S7m4jmt5oqjfNOY7EfeENsD7qc7Zx4tfoLQL
+	 wT9AdkaWCNAvjyZiZHxfHRuAVpVGNaSj1K7QuS4jfUPIMq5rWAQNUeEnVOhI1GF/ky+Kr
+	 UdLX95QTHFcdnO8UEfnTPZYoie6+zG/FXmaDvonzYi4LAPKJ4m9iBLnnaUSO6AeU4vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701632;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dbBqPt54DB+uHD8qf9foSNr730yTB0g2zDUcRBZu+nA=;
-	b=jJzzeyGNxgy3Ij8XeVD7zKXhOSYSbhW60Mcv+1gxL+DKyhDk0Gb4noPl5VGydVcOL1vx
-	 vof3fYB1Rs50XvaiPUnjMZalDYqJAXHtOKOayiGlNDLlyYsb0ICBFeSH4dtL+zPsxh71S
-	 FdiAMOOHR3MkU+uj5gUbByGOzCsUIqre0UXI8M6SquDoHo1p8OdTDIyeG3x4ziINoFeTt
-	 OiK4kUcoE0xQ8HwENNee4y92f4ljr7deUTRQYiG/psJDPtmXD4atbgfk9aqelh/S0bPjg
-	 ruc6qFvYb2D9gvp/ktXcZ567We6svaiP1bM7rNcEsE5eLWumwz20hLc/YoYdmPJAvQA==
+	bh=IhgesoIix9StZ4qDPjO+BPgeSgYAhuw3j0/JxuasPEI=;
+	b=ynPUoToFeXBtRKrtaHfTOEBceCTOKw20zGpOfpliOrggIWNU02jl12s0KxnUih/FwYS4
+	 GG1Er3P69zMK0+scygTiBEH3cAmzntVJjYGE0LPemfdR3BhNhGa8ndGQdUSwG5s63hfs4
+	 ox7ZV3RWFWs4RJzWAUP3c/FgQaDYVXoPd4lxNb9G9jowv97F3TjthvH1bduexdOMYxo3p
+	 K1feL4iv8KRAZxKdPxSpnKKoLVWy3tmvbC/uNJkrBCV3LQOZha6UvLHFa8yuivr439dw1
+	 b5r90++WiC1gBkcUxKu/YdAk5bFSaoMEQ6JOiPQX3bSY2Cs/I6xT0pcRmXQdm4OUkKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mss+YYjW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Sk/650Fs";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9646606BF9A;
-	Tue,  3 Nov 2026 10:27:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD3A60736D2;
+	Tue,  3 Nov 2026 10:27:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mss+YYjW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6881F000C1;
-	Tue,  3 Nov 2026 10:27:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sk/650Fs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33D631F00A17;
+	Tue,  3 Nov 2026 10:27:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701634;
-	bh=dbBqPt54DB+uHD8qf9foSNr730yTB0g2zDUcRBZu+nA=;
+	s=k20260515; t=1793701631;
+	bh=IhgesoIix9StZ4qDPjO+BPgeSgYAhuw3j0/JxuasPEI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mss+YYjWny72SIbBtkXm9foHyh0guibPm4/sQJ7QhliljnEPweWGI2OHXWqoL+DI2
-	 VIvS0i3NmPHhHCTBW2PvhBszbdsBQkD/6EPx4KBT0hmZ9Mddbg7ua64ThjkluuNmKZ
-	 K4oPhf7H8uiFSSnf/RGN2aObhNpLBYpgMVYmZTktFwx80gr6Y56ag82jMKVSMpbJw+
-	 fB+pwdG3PS+vVdDVfXNtwxzoZnR/K6m1+BX45SgTSGp6PBSUQbI/J/0aaJSG+Bwsr6
-	 Qqsized+zutyoWs+M85R+aadMWKC8o7gBvWpPW/dF5hxIeKQZpr5plHUo5H0nXQzm1
-	 thDKFBZxUIyXQ==
-Date: Tue, 3 Nov 2026 11:27:12 +0100
+	b=Sk/650Fse74yDh9z5CrHo7uJr/wIWlB1rrBHQLkVSLZ6j6T/rnUsGvJG0DQmVFybO
+	 uxTaBZ0tqaVnnK0XGuqp5z3/O0IwzNRWvG6J2CON1e79KYbEK6ewVlTyLVhwuWISL0
+	 7G0E5772CcRkY6FJYy39W1rYagft78YGkmkyY0/a/PcYHDiUZWblT8tw+1n/kRGNAw
+	 qgRjFx0bt62aQrWf3dVwUe0rznNovF/ldIe53gMHrM/Ia3AxuRSu++MuuMwGv41x7W
+	 CuiEvL5fMA2on/RzXX7Nq1kt9aeS0UpEPFTgb7BhxP4Qey5HRis05hduAEsgFCer+t
+	 nvPR+wsTuf0gA==
+Date: Tue, 3 Nov 2026 11:27:09 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-media@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org, Akihiro Tsukada <tskd08@gmail.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: pt1: Detach the frontend when registration fails
-Message-ID: <20261103-innocent-kangaroo-of-foundation-906005@quoll>
-References: <20261103094615.1289328-1-vulab@iscas.ac.cn>
+Cc: linux-samsung-soc@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, stable@vger.kernel.org, 
+	Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-kernel@vger.kernel.org, 
+	Alim Akhtar <alim.akhtar@samsung.com>
+Subject: Re: [PATCH] media: exynos4-is: Free the control handler if
+ fimc_ctrls_create() fails
+Message-ID: <20261103-resilient-steady-boa-90aed1@quoll>
+References: <20261103094612.1289226-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,27 +62,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103094615.1289328-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094612.1289226-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 09:46:15 +0000, Wentao Liang wrote:
-> dvb_register_frontend() allocates the frontend private data and sets up
-> two references: one is released by dvb_unregister_frontend() and the
-> other by dvb_frontend_detach().  If registration fails,
-> pt1_init_frontend() returns without calling dvb_frontend_detach(), and
-> the error path in pt1_init_frontends() only releases the tuner and demod
-> modules.  The frontend private data allocated by dvb_register_frontend()
-> is never freed.
+On Tue, 03 Nov 2026 09:46:12 +0000, Wentao Liang wrote:
+> v4l2_ctrl_handler_init() allocates the handler's bucket array, and each
+> subsequent v4l2_ctrl_new_std() call allocates a control.  When one of
+> those calls fails it only records the error in handler->error.
+> fimc_ctrls_create() returns that error with ctrls->ready left false, so
+> neither caller calls fimc_ctrls_delete(), and that function would not
+> free the handler in that state anyway.  The bucket array and the
+> controls created so far are leaked.
 > 
-> Call dvb_frontend_detach() before returning the registration error.
+> Free the handler before returning the error.
 > 
-> Fixes: 4d1f413e820c ("V4L/DVB: pt1: Support Earthsoft PT2")
+> Fixes: 9448ab7dec30 ("[media] s5p-fimc: Add color effect control")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/pci/pt1/pt1.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/media/platform/samsung/exynos4-is/fimc-core.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
 
