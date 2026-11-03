@@ -1,94 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793744305;
-	b=DkDS1FqTw78wpLivAndyXMGUrccN+5cPJ39JYeuMkCa0AB+ySOR0CGnUcelG9nXbY7f7
-	 yUnhN1YvA9QTHiVbFSbQKi8jV8yRAfsS32X9eFMulf4sOjffOzzst3wvuS9dKEDRc2b3w
-	 QUA7igcgpQw46Zgng3DFyblReMUKyTQQyMAQwjtTQSHZwt2skKA3oMguK/qjjfTFnCAau
-	 NrnXju0emRoFCSGKJxD7PFadu3CKesAsOEVTm7KP701mLsAu/DNfBGvbhn44WqI9D0orv
-	 sRZfqv9QSVH1xK7IAdg+o7pVpXFWkvACv0oO0iRTSceCW/01iI9zFkHVLcU1Y63Je4Q==
+	t=1793744445;
+	b=ddD5SK59MMPRW/gQ3RVXdinc4mVILAbHYANaYaoUoslj/A5GRsVG9/luOHS3zDzAzHcj
+	 gLrm6GsXEaxaWtt6cTBNObv3g3su04hzcBooQve1T7Lg9A+oN15YQCaLXwDQzwOqV0Mak
+	 NQtNdRILa4q6/U1BHRYN+tAhe/o1C/tk4ojglutpsq+NjZdqV3JaosODdo7xSVPxvod9o
+	 j12Chucs1wr2IqVVt78tF5cl5bfDpPE3jyOFljFtt528OMGKJA2ccAmuETvJwrAHZJUoo
+	 b7F8Inm0zsfEORfzY/sottKA1fZJ64/9PR64L4GOlJpY3+EJM782F/eHmCVgpxMAiuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793744305;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793744445;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=I8As4E/KdAw7NAVfm6INK2XK3D5NC24RXlj/wbGRuO4=;
-	b=MHGWZ2ZcPuuEELGfFwjChXXUdi2YASoI0qCNIwHA1V4GdsNvWxrlpO7sPaqMCU26f0pK
-	 wxRRlD6NSo7wHiPhK7IToB6Mg8HNu5cXAsjKqvuTkjSsxIeYdcGBps1wLSnO/lfaHGbKo
-	 pSxynAdEP8sNnPD36EKQcu0+QcSX93RW4YljPsHA2lTQOePtvLBdOqjEsPQtYdgWpijGK
-	 2D2qMfdA4HJpmpaaZ/M6TiN9mYeq0/KFxy/y9G+1og/mIuRfzQc5PAddgUys9R7uCltWi
-	 dHnAI3DeG9qysuw22tn3qkZD8/HjbKe4w9LhPCBJn8BtPpK6WJ6gHI3hVFmuHdlT4KQ==
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=OqOh2QjnH5nqEhUIXpQWCnON/bvvbA6ymt53jFtBxJ4=;
+	b=rvdlU9Gii0Tl1h2ey6VOjdX0iiYcm9QEOCkXA5HEgx12msIFH3FKnIEji9xzsEbqPMKn
+	 Mvyn+Q0QXylWOL+SfOpYdZvliwoEPctN8R/PJ2azHnyy7LrUdbj79AowMqQb2loEHUvqZ
+	 hzeCK58eKOnCSgi6Tncn9BqcPHj/0tgrfC+LQtyPzfoAPR9PPWJGKNSAS2Xow1BULQWiZ
+	 5PJS15pqQXSnBnzGzwDH0nHmkW2MqRITi1UAs/FwZEt2g9U0U1taEpc8WD1AsFBxTJfmK
+	 cnzikaYadfx0wY7v3yu6OBl1SGuSOMFEa6iHQNeAbsugFvY49PnLKj6/WTqc3UqGUbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Q1I26F2i;
-	arc=none smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=F2SXbRM7;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6E8606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:18:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E6E8606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF11606A328
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF11606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Q1I26F2i
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f22a8515eso10923885a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:18:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=F2SXbRM7
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f22a8515eso11083485a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:20:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793744303; x=1794349103; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793744444; x=1794349244; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=I8As4E/KdAw7NAVfm6INK2XK3D5NC24RXlj/wbGRuO4=;
-        b=Q1I26F2i7qTnQcDnp/V5gFkScUwzu9WDLkuUmT90rA1siQ07PmAy0n36nD8KQf95fr
-         +tKyPWKhlOBBOda01+skyIJqpuuyPp3DDHSk/+U8hTD9jaIA7incIpQF3oHDAeQLGJpr
-         +/EhoMfzHAc1hCbSLR5RTn0fOaCUXSz9sYEBauecZAKlJkreZXJ8NY7EPXYljr4Ywwgu
-         jl+eovTps7y5WA2rITD+mO8s8owkgFMXwVS4dbSZ1V2+W5I2hBC7cQNezjeLWYI8xpjd
-         NyCT8nrnH1kWYHF6iDbzzHQt4NH4+ML26MuJFOEhDbjPMihDs7qZPa47hp67ChOXPPCK
-         YHcA==
+        bh=OqOh2QjnH5nqEhUIXpQWCnON/bvvbA6ymt53jFtBxJ4=;
+        b=F2SXbRM7Mn8fUJuu2AkM5jd8JLrEDXWGhjEit4QqcWFCQkn/3FMFa85CVF7eUeUbgu
+         1M5mEXzE3dMfNVckZhosJjpsOJgMkneVzRLye65k6Pu3HQrUQ+b2j/mwozL4J04BFnMO
+         g12rc224skqk4QJsNsVfxYqr4zHfkSGrXkvwbHl/lOfL+4MzokBrpEJ+32LMkbmLKRY5
+         CnZwy3LMQ4Kg3wnPnp6zLDHkdn0dnbs3eVarh8n0BGXg65Oof36nNHTakJBLMiYJqHN/
+         UFO8Be8fsvdaGhUDJd8KCO9+vk//EtXtnLaQBhn9L0omAjqxO/IiGuWizLkUN1S0OeCF
+         jsYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793744303; x=1794349103;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793744444; x=1794349244;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=I8As4E/KdAw7NAVfm6INK2XK3D5NC24RXlj/wbGRuO4=;
-        b=WXXnnKjN0ze/Eab1wOMXGF7bGd4YyC1Ye0AnjxcHJZCMb0Itm0B1Jkv2ZdnaBsFdPX
-         CaHDeqK5uyN/VA3VGDMAU+hOaRtFuZTrZosSmTBi3W5jDKUWHToXjCXJl3PId5ZM6vM3
-         MCkZE+iXZKYz9Y86pODDTC6XHFOBlzk5OxykZ01ZRrjblstEXFPaQ/EFfhYstroOQh4v
-         pIWncJ/7ADzPFdx344WMS5v98pTbA2h8kFBHqwKHzN3viy4NMi0yPR5T2VCAJxvQe+CQ
-         SZj5QJoJPx909+ieulfSduyZv91TVC37rCQPvToaEU6uMGSTl6EgiXLIrCxr+c3jh1Yb
-         iJpw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoa9xXnvQntJgsXsAumhZcg7NPTtWKy70w01o57jA5QtDZSQJri5Q1BXOnFQg4iejPIunmSy6EJvKNoEU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/B/nEETPL0xAtFogH/TWtM3c4DxcO5/L8OXM7Voz/sGl+4KL0J
-	5PtX78O7eBNia1SRxWd2gi31TA+nFNs+FhUS3mFXVgY98aLPQkMvGtcwgI+NMVgQpg==
-X-Gm-Gg: AYBFou3HtTV6J7iedSLgOGeA31cnZjW/qsVwiYX3QScLSw2HNoChCLC5i8fWtAWy/jG
-	p2TeWbOFxvLuZkQN/t4HGHmheQnKbeOKc4m+cuxZUlgNCneZ0u5M1vDbZemszEKy8m3UzDIe+E3
-	t5qy1XHhzGWLbd2hTdrVybXBnpEmUp7qHorYAutdmXGoYoOXzW62Pn7jVhF8WtSUfO37b+iSDBg
-	HUzZ6IxaTiYg1IZyez5wyoa0PQoZ/0y0wEqiy5gtQRtR6Mlvcsw1Ailj6fOOcmmbphgrldVdFQM
-	wHGeS9UPOPuuhQtuCeP6zeuqYnQDL/cGaWpIQIppf8H36vbVjTnMAAfBLTkaUmIzRlazErqLaJf
-	bh74sn90sG9xQgRvSRGnEJtXZrylfLATp4GifaXYCr+mB1nKJ8wrHzcCfA/VfMsi8YjToODQNFJ
-	KskFSsC+IJfMfSkT3IZYDwfsY9n0lL/sVgnBPsPHu2pTEP29K917VX+ObCoUjM7q5ws9YbMomL+
-	smTzWXk3Kz8HnbtZHFOLkK8hUMb2ai9Q4ZsQGA1KbItms0WPkluvg6P/u/5ody6OWzwoIk6hDrP
-	2BUMSM3Qcee4CeSVbEyp5JC82nJB
-X-Received: by 2002:a05:620a:3183:b0:93e:f4f4:346 with SMTP id af79cd13be357-94421796ea3mr2392800885a.39.1793744303281;
-        Tue, 03 Nov 2026 14:18:23 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d47e72fbsm40889685a.18.2026.11.03.14.18.22
+        bh=OqOh2QjnH5nqEhUIXpQWCnON/bvvbA6ymt53jFtBxJ4=;
+        b=2R4yUORkFSpzOp8w73QKoGKwXhfG89POhJ/o2DjE7/5LUYHBBRCu4GdZZZBz4US8St
+         0KoSuGUWLb1zt6cAyDeLR2Q9LeOtjNJGvnegyjNWxvlaV9ezhoH7FelHxhsGEnBNAjMd
+         1mzgwgqYuAbSZsysrs+R3KlHGHV43QZHnR3ByHzS0f/0myxySJWI4BJq1D4KEeN2Tyn9
+         LxHXWMQIsw6Ju9krrhRgsNCSJKDU6zuNM1Qx8qPMsNM6bUwhSrvDpzGGZjzOHRlq5BCl
+         8d7am5nCqLfFTUh8/yCuhtLD2nnADQPZbLJtZmfAj859zkOCw/u2qGZN2Z9fztHqAqh1
+         2jRA==
+X-Forwarded-Encrypted: i=1; AKwUvBzV5IqbHvlFs6C7xdZhqvMTQFATuODH4NKlk/TJdFCZ9i3lzlB9f5+IwDqv4WZlDeZ3sjSr5nUclvIQiDA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9D3BYnVdyPbvE4UoAGjY82lsLsELol3FbZKcQ6ogK0HGowGJMP
+	yzs5jRuAV9PwgLSFJ5fZNjawOe7HmDobUzoCvCd7YP8KN5dTap7dca7soJ3ChKdblLw=
+X-Gm-Gg: AYBFou2gM1vFzOEUsuFC8VCGn8+vVR6+XlausJ2yfmFoJTJ9SmIlifjQAFgKZkOgrQd
+	wK9MS5RZGoVOnwB36hJsl3ZpPM4WeJ8x5fFzDYugcvc8YJcPUeyXG7OKSVfyTjoY1WjftDLjHWB
+	8OANCvDqlBWMAL7Ti5YI9qPJsEb2wo0+Sky+GvYfR8rNUC/EiJObWeMAzqiRz2qE5I4xTXTnNua
+	DDOit3lidV1IoF5rQpAKnOzWt5TodwSHI/HmuIWMs+bgelBArn+ojaa3pRukPA6znu8XA5Je3qu
+	rOjUG24CNKV5IXo1iLWy0SKjtyz7HkHwnX9e0+099rxdTtcNlS1yuZJigNS6IAan1GxNsXvpWcJ
+	Sq/ppQimmjsarRCbPSasNX9L/SWNv2FdF+kZBz0laqCm3O03BBrAsS0gFbbss4pUwfpErmvrJ6K
+	OYX4iz3dgwSB8Wy4LguYPpxRxfODE9pXBa+LdWraUotqnV/bSOtpjiITmpj+m9A7n0Bo0L4BLwz
+	QVwLCBBtrWZo1LQ5/xUedoQm5RzVpwtrA01YC2dpbX0wt1zKTxDyBEahsm392lOynqzSiNHKeXi
+	a6eqaI3J+N8Z4J0ajEQBhZn666vKmXx0ukOwwY2Rb1gPA1BeePQSrlo=
+X-Received: by 2002:a05:620a:2987:b0:93e:a8c5:132f with SMTP id af79cd13be357-94421744f15mr2434867585a.29.1793744443800;
+        Tue, 03 Nov 2026 14:20:43 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:bf53::5ac? ([2606:6d00:11:bf53::5ac])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d488d41csm39923185a.38.2026.11.03.14.20.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:18:22 -0800 (PST)
-Date: Tue, 3 Nov 2026 17:18:19 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: gregkh@linuxfoundation.org, michal.simek@amd.com, robh@kernel.org,
-	saravanak@kernel.org, linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] usb: host: ehci-xilinx-of: remove the driver
-Message-ID: <3c385fb1-551a-4717-a1e8-77b123cec0e7@rowland.harvard.edu>
-References: <20261103181722.2174208-1-radhey.shyam.pandey@amd.com>
+        Tue, 03 Nov 2026 14:20:43 -0800 (PST)
+Message-ID: <456a7ad925afe7caf52d39ff300089c8ec79e4e8.camel@ndufresne.ca>
+Subject: Re: [PATCH 2/5] media: iris: allow larger capture buffer pools on
+ HFI gen2
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Xilin Wu <sophon@radxa.com>, Vikash Garodia	
+ <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
+ <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,  Bryan O'Donoghue	 <bod@kernel.org>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	 <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bryan O'Donoghue
+ <bryan.odonoghue@linaro.org>, 	dragon@radxa.com, Chris Obbard
+ <chris.obbard@oss.qualcomm.com>, Deepak Sikri	 <sikrid@qti.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,  Loic Minier
+ <loic.minier@oss.qualcomm.com>, Jason Pettit <jason.pettit@oss.qualcomm.com>
+Date: Tue, 03 Nov 2026 17:20:41 -0500
+In-Reply-To: <20261029-iris-va-fixes-v1-2-44a2783f782b@radxa.com>
+References: <20261029-iris-va-fixes-v1-0-44a2783f782b@radxa.com>
+	 <20261029-iris-va-fixes-v1-2-44a2783f782b@radxa.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-0KaBDc6xtZ7L+h2NjFYv"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,32 +123,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103181722.2174208-1-radhey.shyam.pandey@amd.com>
 
-On Tue, Nov 03, 2026 at 11:47:21PM +0530, Radhey Shyam Pandey wrote:
-> The Xilinx XPS USB host controller is legacy soft IP for PPC405 and
-> MicroBlaze FPGA designs.
-> 
-> This IP core relies on Xilinx Platform Studio (XPS) and the ISE Design
-> Suite, both of which were discontinued by Xilinx years ago. Furthermore,
-> modern AMD toolchains (Vivado Design Suite and Vitis) provide no support
-> for the legacy PLB (Processor Local Bus) architecture used by this core.
-> As a result, no new hardware designs can be built using this IP.
-> 
-> Nothing in the upstream tree carries its "xlnx,xps-usb-host-1.00.a"
-> compatible string, no defconfig enables CONFIG_XPS_USB_HCD_XILINX, and
-> the compatible was never documented as a binding.
-> 
-> It is also one of the few remaining users of the deprecated glue model
-> where the .c file is #included into ehci-hcd.c rather than built as its
-> own object.
-> 
-> Given the complete obsolescence of the supporting hardware development
-> tools and the lack of upstream users, remove the dead driver.
-> 
-> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+
+--=-0KaBDc6xtZ7L+h2NjFYv
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le jeudi 29 octobre 2026 =C3=A0 11:58 +0800, Xilin Wu a =C3=A9crit=C2=A0:
+> VLC with VA-API frame threading can require more than the default vb2
+> limit of 32 CAPTURE buffers.
+>=20
+> Raise the HFI gen2 decoder CAPTURE queue limit to 64 buffers.
+>=20
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
 > ---
+>  drivers/media/platform/qcom/iris/iris_vidc.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media=
+/platform/qcom/iris/iris_vidc.c
+> index 05aab6e3005d..8c96b007b391 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+> @@ -140,6 +140,9 @@ iris_m2m_queue_init(void *priv, struct vb2_queue *src=
+_vq, struct vb2_queue *dst_
+>  	dst_vq->drv_priv =3D inst;
+>  	dst_vq->buf_struct_size =3D sizeof(struct iris_buffer);
+>  	dst_vq->min_reqbufs_allocation =3D MIN_BUFFERS;
+> +	if (inst->domain =3D=3D DECODER &&
+> +	    inst->core->iris_firmware_data =3D=3D &iris_hfi_gen2_data)
+> +		dst_vq->max_num_buffers =3D DEFAULT_MAX_HOST_BUF_COUNT;
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Why is this limited to decoders? Also, why not move the max into the firmwa=
+re
+data, so this code path can stay idiomatic.
+
+Nicolas
+
+>  	dst_vq->dev =3D inst->core->dev;
+>  	dst_vq->lock =3D &inst->ctx_q_lock;
+> =20
+
+--=-0KaBDc6xtZ7L+h2NjFYv
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaupeOgAKCRDZQZRRKWBy
+9NGUAP0fC+HgIUz6Yzta6e9e0/oLBqp87VokMecAXd3ZQ7RlbAD+MZPNNWQ9iSpb
+4T9b1oJD4rvhHyJ7DFX/pGRV+UAomAE=
+=kY4J
+-----END PGP SIGNATURE-----
+
+--=-0KaBDc6xtZ7L+h2NjFYv--
