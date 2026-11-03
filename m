@@ -1,85 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706731;
-	b=DwaO05+4p8SLWDOUkJUk38zJrD+bTVa5Kj+iBA14MM5s1B98B5oqUPnDjEHVn+fM1zr/
-	 FwcmIGLm80BAOAxa9gVqEavwnz/ggxgKcJc87wREyzfZgJXu/YYPS3RNb3UYZkfIC89fE
-	 V7Nyt7FcaQqte+klaq8iyevLIB6BApO7DjA7wqf3k/f7F/Y2b9zPtq2/nMinrs7tCuAym
-	 sakXoGHO1p5cnw+nragMLx34lY+oLfSVg2F3HNaS1bv3etlhXCO7ADNpJPLC59RiPsjsm
-	 TovRUeZFRREGQcNd6h6roB+OXD60+Y2t3KkHFC9OQA0w9Foapwvix1CnjgcY1lB7Iyw==
+	t=1793706750;
+	b=voHgNVZNaIwG+wkHKOVm6Meei4q5PL8apCGY0zbVBXVXp49CHtRzAu9jrk4GRlaliHVs
+	 Wbf2JbjgI9cgG8RuANmWdo/HveGVc6O+rErK++jfuANo7AKUoPcfE6+jImI2t75EPr71q
+	 rVqW6sJCMcuNgAcN6Ncyf1wBsECQFtvCmV0LV9rj2ksRL/wexgzjXvWRna4TGoO2SK9AD
+	 X/qRLv5rKEUbpH+b2/c14ii/8kQKEArWgi6dCGeAo9dY9nhspTKqRCXZyRft2NVxdLxgE
+	 HYT1NEbwsubQH+yGQUNzeUb87pyN7hQ7bPxtTJY54pTGYZc2oRWCFFus3jqDcUZzS0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706731;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=eI4CVv+ydIY1wa3rrW/Odp3qY0sHcQj8Jj1GQUapMZo=;
-	b=e0E0YuKVwn+gHtx5DHbDRs0VweYuVzaN/1IPvPM8bQP8IH8NdLSK/T9Dqpvd8vfrWwv7
-	 90AcVAKJ/6Gqw4SwgN+vSbBf076vte5OkxRWnR1FVNWC7gqS66zuvDFj5tHZ9HLNm94tp
-	 3V33uzTh7ONhUXj0QVgjdEqn3nD8LMBo+HPP1eEc9n062R9RNAnqsFRB6/hXl5WyOpY39
-	 Gzangpf53tVeQUpTUjonCUC8V65D3GluJcy57KIj2QTXDOypLJUZOxijlS3RHjWLCaKRb
-	 RmVX1aE0hcUL/ICXRJ65G98nShCH+mGZU9Wey0A2GPR3ycsM7ipMXXl1Zoet/8zPmng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706750;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iWyW+bGyGveMgmXtKW3uGBlbS+JH67BydEPcZUH8PVc=;
+	b=IkAEp3QfMB7BaJ6MGsCX8q3HbvRJ8oxa+eUAkl4mqhLJDaNfZbDHwgBE2JfzLXOFAQtb
+	 xXVxvP1YQ1kJBGMESQTLjqI2Uwhhxh18OlZ0YPS6QE4J7lwIJJ1ulAzP0ZEaGaEKh6FtX
+	 KpH+M/uyF34YhliQeq5gfMCjjZPEMgVAkfnbij+FZ9bftSvi8r5vMsT8f4jK09u1qPA4D
+	 YUY377JOtkCCVFT7GYgboyJrh7NSrgMKW8cAKACbd7vmdlEthSemUwc+DCl6yVkpkw2wq
+	 WGO1GLEnNoRBVMJYSpu3lQ062XsgLlAxwxLvjDTSHBAySDuX0/TXnQjLYDWtfGTwVRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=r26bKKjz;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WKoyMglv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44210606A329;
-	Tue,  3 Nov 2026 11:52:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44210606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28E1606A329;
+	Tue,  3 Nov 2026 11:52:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=r26bKKjz
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=eI4CVv+ydIY1wa3rrW/Odp3qY0sHcQj8Jj1GQUapMZo=; b=r26bKKjz1RxbYOpykqB9PYTHT2
-	RrsgjuOIdrXMvpVMWJNvYLrdz8gy2PEpCUs5b9Sjl3NcHHlWNfLz9Rf5D6lZjf4krWvMajTSihUOQ
-	lMLqmSzi59qhLI17XqMtmPOSU4mcVOjOrcnBv63pa4FK6J6wZnivAUcW7DqYQ/gGMsZbBRw+Q0HTe
-	/yswu39KjLyquVmUnrjlrA8kYQ0V/sGP5q4tFiIjAR5ghbIQG3ZGAoCJoJ5P5p8Xh6sX1lhCVAjRF
-	zXUWRWolS0rMreglj+beiVoiC26YySEdsW3joRAtJmwnWN1Fdn/rcH/Lh0rVEOf9Beb5+WDLHqyOr
-	Lj+2z3kQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOD3Y-0000000Bt6e-2ENh;
-	Tue, 03 Nov 2026 11:52:00 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C62F9300322; Tue, 03 Nov 2026 12:51:59 +0100 (CET)
-Date: Tue, 3 Nov 2026 12:51:59 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH 3/5] locking/rwsem: add down_read[_killable]_nosteal()
-Message-ID: <20261103115159.GK1813469@noisy.programming.kicks-ass.net>
-References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
- <20261103-khugepaged-latency-fix-v1-3-a07ab16ac860@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WKoyMglv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D621F000C1;
+	Tue,  3 Nov 2026 11:52:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793706749;
+	bh=iWyW+bGyGveMgmXtKW3uGBlbS+JH67BydEPcZUH8PVc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WKoyMglvOchDD2D5K5t6zuBBSTJeqjwBhmAjJHtuQuQrIMQn4TyLXg7poNkpL3+ur
+	 ANeQ6Oy1q5X7Z9Hax5cjkJLaLfVpFFW0seUViNrnZaNMjX+4SdA1y+aM0NpktUIJVD
+	 mdMxecqUxS3yjrc0yPHtRX2wlQV1cWukiFNUFHuKlPCXDKdj9TamuRJRpNAq0AcRjd
+	 89/+N2XmDgCzG6Vay9XiZ5vM5yI4hftxzxHh0I5h9obnt8hFx1cEo17X3xdgt5WGjZ
+	 7un3053U62ewJJuIWhJjsN1Or2XFE525Spv39c3D2y9uDWvxOmFvzl/AMlNW+67b8L
+	 j4JURwckfmKTA==
+Date: Tue, 3 Nov 2026 11:52:24 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Liam R. Howlett (Google)" <liam@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org, Chris Mason <mason@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] maple_tree: Update internal warning and bug_on
+ code
+Message-ID: <aunI9hG6Qw8IQ1Uk@gremlin>
+References: <20261103020724.2614498-1-liam@infradead.org>
+ <20261103020724.2614498-4-liam@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,34 +62,241 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103-khugepaged-latency-fix-v1-3-a07ab16ac860@kernel.org>
+In-Reply-To: <20261103020724.2614498-4-liam@infradead.org>
 
-On Tue, Nov 03, 2026 at 08:27:44AM +0000, Lorenzo Stoakes (ARM) wrote:
-> Since commit 1a728dff855a ("locking/rwsem: Enable reader optimistic lock
-> stealing") a sleeping, queued writer whose handoff timeout hasn't expired
-> can have its lock stolen by a read lock issued before a woken queued writer
-> was able to acquire a lock.
-> 
-> To avoid write lock starvation, this is only permitted if no other read
-> locks are held.
-> 
-> However, this behaviour defeats the purpose of a reader periodically
-> dropping the lock to allow writers in, as doing so only works if the write
-> lock is acquired first, another read lock is held, or a queued writer's
-> handoff timeout has expired.
-> 
-> Provide a means of indicating this intent via down_read_nosteal() and
-> down_read_killable_nosteal().
-> 
-> Implement it by exposing a steal parameter to rwsem_down_read_slowpath(),
-> update the starvation logic to modify this parameter and modify the steal
-> branch to check it first.
-> 
-> Also drop the duplicated RWSEM_WRITER_LOCKED check and remove the
-> goto as the steal condition makes this redundant.
-> 
-> Exposing this function is safe as it only makes the lock more pessimistic,
-> so does not impact lock contention.
+On Mon, Nov 02, 2026 at 09:07:24PM -0500, Liam R. Howlett (Google) wrote:
+> When CONFIG_DEBUG_MAPLE_TREE is set, call WARN_ON() once per site after
+> the custom information is dumped about the tree.  Without using the
+> kernel's WARN_ON calls, syzbot will not catch issues detected by this
+> code.  The BUG_ON variants now stop instead of dumping and continuing.
+>
+> Update the non-debug code to call WARN_ON_ONCE() as well.
+>
+> The userspace tests asserted on dump_stack() but only print on
+> WARN_ON(), so make WARN() fatal in maple-shared.h and have the maple
+> test exit with the result of maple_tree_seed().
+>
+> Cc: <stable@vger.kernel.org>
+> Reported-by: Lorenzo Stoakes <ljs@kernel.org>
+> Fixes: f0a1f866aba1 ("maple_tree: add debug BUG_ON and WARN_ON variants")
+> Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
 
-Not generally a fan of this -- can't we tweak the steal thing to never
-steal if there are pending writers?
+Thanks for doing this! This covers off my concerns with the userland testing
+changes so all LGTM and:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  include/linux/maple_tree.h          | 48 ++++++++++++++---------------
+>  tools/testing/radix-tree/maple.c    | 13 +++++---
+>  tools/testing/shared/maple-shared.h | 33 ++++++++++++++++++++
+>  3 files changed, 66 insertions(+), 28 deletions(-)
+>
+> diff --git a/include/linux/maple_tree.h b/include/linux/maple_tree.h
+> index e30e57f5f3df9..3a9751c6689fc 100644
+> --- a/include/linux/maple_tree.h
+> +++ b/include/linux/maple_tree.h
+> @@ -680,7 +680,7 @@ void mt_cache_shrink(void);
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> +		BUG_ON(1);						\
+>  	} else {							\
+>  		atomic_inc(&maple_tree_tests_passed);			\
+>  	}								\
+> @@ -696,7 +696,7 @@ void mt_cache_shrink(void);
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> +		BUG_ON(1);						\
+>  	} else {							\
+>  		atomic_inc(&maple_tree_tests_passed);			\
+>  	}								\
+> @@ -713,7 +713,7 @@ void mt_cache_shrink(void);
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> +		BUG_ON(1);						\
+>  	} else {							\
+>  		atomic_inc(&maple_tree_tests_passed);			\
+>  	}								\
+> @@ -722,16 +722,16 @@ void mt_cache_shrink(void);
+>  #define MT_WARN_ON(__tree, __x)  ({					\
+>  	int ret = !!(__x);						\
+>  	atomic_inc(&maple_tree_tests_run);				\
+> -	if (ret) {							\
+> -		pr_info("WARN at %s:%d (%u)\n",				\
+> -		__func__, __LINE__, __x);				\
+> +	if (!ret) {							\
+> +		atomic_inc(&maple_tree_tests_passed);			\
+> +	} else if (__ONCE_LITE_IF(ret)) {				\
+> +		pr_info("WARN at %s:%d\n",				\
+> +		__func__, __LINE__);					\
+>  		mt_dump(__tree, mt_dump_hex);				\
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> -	} else {							\
+> -		atomic_inc(&maple_tree_tests_passed);			\
+> +		WARN_ON(1);						\
+>  	}								\
+>  	unlikely(ret);							\
+>  })
+> @@ -739,17 +739,17 @@ void mt_cache_shrink(void);
+>  #define MAS_WARN_ON(__mas, __x) ({					\
+>  	int ret = !!(__x);						\
+>  	atomic_inc(&maple_tree_tests_run);				\
+> -	if (ret) {							\
+> -		pr_info("WARN at %s:%d (%u)\n",				\
+> -		__func__, __LINE__, __x);				\
+> +	if (!ret) {							\
+> +		atomic_inc(&maple_tree_tests_passed);			\
+> +	} else if (__ONCE_LITE_IF(ret)) {				\
+> +		pr_info("WARN at %s:%d\n",				\
+> +		__func__, __LINE__);					\
+>  		mas_dump(__mas);					\
+>  		mt_dump((__mas)->tree, mt_dump_hex);			\
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> -	} else {							\
+> -		atomic_inc(&maple_tree_tests_passed);			\
+> +		WARN_ON(1);						\
+>  	}								\
+>  	unlikely(ret);							\
+>  })
+> @@ -757,18 +757,18 @@ void mt_cache_shrink(void);
+>  #define MAS_WR_WARN_ON(__wrmas, __x) ({					\
+>  	int ret = !!(__x);						\
+>  	atomic_inc(&maple_tree_tests_run);				\
+> -	if (ret) {							\
+> -		pr_info("WARN at %s:%d (%u)\n",				\
+> -		__func__, __LINE__, __x);				\
+> +	if (!ret) {							\
+> +		atomic_inc(&maple_tree_tests_passed);			\
+> +	} else if (__ONCE_LITE_IF(ret)) {				\
+> +		pr_info("WARN at %s:%d\n",				\
+> +		__func__, __LINE__);					\
+>  		mas_wr_dump(__wrmas);					\
+>  		mas_dump((__wrmas)->mas);				\
+>  		mt_dump((__wrmas)->mas->tree, mt_dump_hex);		\
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> -	} else {							\
+> -		atomic_inc(&maple_tree_tests_passed);			\
+> +		WARN_ON(1);						\
+>  	}								\
+>  	unlikely(ret);							\
+>  })
+> @@ -776,9 +776,9 @@ void mt_cache_shrink(void);
+>  #define MT_BUG_ON(__tree, __x)		BUG_ON(__x)
+>  #define MAS_BUG_ON(__mas, __x)		BUG_ON(__x)
+>  #define MAS_WR_BUG_ON(__mas, __x)	BUG_ON(__x)
+> -#define MT_WARN_ON(__tree, __x)		WARN_ON(__x)
+> -#define MAS_WARN_ON(__mas, __x)		WARN_ON(__x)
+> -#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON(__x)
+> +#define MT_WARN_ON(__tree, __x)		WARN_ON_ONCE(__x)
+> +#define MAS_WARN_ON(__mas, __x)		WARN_ON_ONCE(__x)
+> +#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON_ONCE(__x)
+>  #endif /* CONFIG_DEBUG_MAPLE_TREE */
+>
+>  /**
+> diff --git a/tools/testing/radix-tree/maple.c b/tools/testing/radix-tree/maple.c
+> index bfe4b8626c429..846c67e20e82a 100644
+> --- a/tools/testing/radix-tree/maple.c
+> +++ b/tools/testing/radix-tree/maple.c
+> @@ -36502,22 +36502,27 @@ static void regression_tests(void)
+>  	test_spanning_store_regression();
+>  }
+>
+> -void maple_tree_tests(void)
+> +int maple_tree_tests(void)
+>  {
+> +	int ret;
+> +
+>  #if !defined(BENCH)
+>  	regression_tests();
+>  	farmer_tests();
+>  #endif
+> -	maple_tree_seed();
+> +	ret = maple_tree_seed();
+>  	maple_tree_harvest();
+> +	return ret;
+>  }
+>
+>  int __weak main(void)
+>  {
+> +	int ret;
+> +
+>  	maple_tree_init();
+> -	maple_tree_tests();
+> +	ret = maple_tree_tests();
+>  	rcu_barrier();
+>  	if (nr_allocated)
+>  		printf("nr_allocated = %d\n", nr_allocated);
+> -	return 0;
+> +	return ret ? EXIT_FAILURE : EXIT_SUCCESS;
+>  }
+> diff --git a/tools/testing/shared/maple-shared.h b/tools/testing/shared/maple-shared.h
+> index 2a1e9a8594a28..5f827709773a0 100644
+> --- a/tools/testing/shared/maple-shared.h
+> +++ b/tools/testing/shared/maple-shared.h
+> @@ -8,6 +8,7 @@
+>  #include "shared.h"
+>  #include <stdlib.h>
+>  #include <time.h>
+> +#include <assert.h>
+>  #include "linux/init.h"
+>
+>  void maple_rcu_cb(struct rcu_head *head);
+> @@ -20,5 +21,37 @@ do {                                            \
+>      call_rcu(&((_p_struct)->_memb), rcu_cb);    \
+>  } while(0);
+>
+> +/* Make WARN() fatal */
+> +#undef WARN
+> +#undef WARN_ON
+> +#undef WARN_ONCE
+> +#undef WARN_ON_ONCE
+> +#define WARN(condition, format...) ({				\
+> +	int __ret_warn_on = !!(condition);			\
+> +	if (unlikely(__ret_warn_on)) {				\
+> +		__WARN_printf(format);				\
+> +		assert(0);					\
+> +	}							\
+> +	unlikely(__ret_warn_on);				\
+> +})
+> +#define WARN_ON(condition)					\
+> +	WARN(condition, "assertion failed at %s:%d\n", __FILE__, __LINE__)
+> +#define WARN_ONCE(condition, format...)	WARN(condition, format)
+> +#define WARN_ON_ONCE(condition)		WARN_ON(condition)
+> +
+> +/* Once state for the debug macros */
+> +#ifndef __ONCE_LITE_IF
+> +#define __ONCE_LITE_IF(condition)				\
+> +	({							\
+> +		static bool __already_done;			\
+> +		bool __ret_once = false;			\
+> +								\
+> +		if ((condition) && !__already_done) {		\
+> +			__already_done = true;			\
+> +			__ret_once = true;			\
+> +		}						\
+> +		__ret_once;					\
+> +	})
+> +#endif
+>
+>  #endif /* __MAPLE_SHARED_H__ */
+> --
+> 2.47.3
+>
+
+--
+Cheers, Lorenzo
