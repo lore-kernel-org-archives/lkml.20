@@ -1,57 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694480;
-	b=zk6TiJuG2+6yI2yQosCBIxABEI0CidvKtX20RrX7GP5iuOUAzpjsO04+VklmIbOp6IvT
-	 lqfu2upmMORHWnUipPemm48xOdAPYzHMJOVSjzHcKtjZGDvEYTVkVFLHKv3vktBeN8Q2V
-	 naHy5/0Up6VmY7TWakciJ4x9NoYHsB2g44g7Qu1VABRz0VHhUL9IfA5/G9rxxQ/xChjIA
-	 dx9Ax4AdpDqYHR7OvT+2B0v8+Lr2b0ophuX3uoBYKOB/HUVxifUT1Xyc797zxhunDjjHv
-	 SI0tHrKHE7kZA9ovQJ/Sk2otHPeufz+v0pPeSSfW7U6n8XbEjmwXU4n8hLXKbJ5j2+w==
+	t=1793694484;
+	b=uB+ZmMrtb1hMcYFy82lG+gfM7V6qmLmr0jBA6jVfqHTAL8oG1XS8///++AIIOqrsW+Ns
+	 aH36SdNJeOIrPA2oOzjdFWsAWNSRwFC5FvfQstQupqoACONPSXh99uqdbIJ+fpfn5QztP
+	 qMVefOoYMZzqGuZjCaRLQoc8g9y2kmDHozIvvogfsSQFb1Ac/2U7DSq4s2xcHGOY3piGL
+	 lybPhG6wGWyKf/tjNGKXtqVEfULWvUrskre6jjJ5fPvwolhaDlJGPx9KSIhHZ5rEdVuCX
+	 fEi/OdQE/K3UlF8Usqj3DTgUiGFDkZMpl5zDx86xmZQ3QYEv2eHl4qwGL0wsgYtPjdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694480;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zxlaWc7wQDwJ9tuEiGJ3OcHic1J0dXJBxZTg2iHgry8=;
-	b=WE8ABYFOoVPuwXT/OUidjj/hoR1c+fGELN0qASsdOv+yn6/oVEU5Bm+BHPhbQAe69o63
-	 qILBHVR2UBMq/QsdVklL6L3tc9N0xILwvrUf9Db07QPiRC4+HFXtMUveIiqgYTm/UcuTS
-	 1DvE64sUCJHbyOv+Qs9GXpV7G52mwfSlar7Wv61XylrXxic7M7hhD4N8I09pC+5RRDC0N
-	 M1OMCRuZqYAvPm8H7+iDLQJkG1qRgm0FV9q5EHK1waPv/zuXH7UEH6DmnWZGWx0RUOFHh
-	 hjwgIMZRqV5ij1BtIB1mq+wMhOh0N8ilE3tMEl2vQ6SrrO9u7yk3Dj7rwYghi0kA3hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694484;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Fsirq8b1tOF7xGnt9JKmVFznOcgYPeH7MNBVIQjnYAw=;
+	b=s/VN+Nyk838q4Kq+bgapyI+huSx66CR+IIWezV+WR1eMzjuqGsQ8qsq90n4t5fz+PNdT
+	 7RP8TbRCJ9ol+J96udkktyEdXuDxIlJQBh29DANKGnvFzm4QtNNCfr/deTVLqh3mxTiOq
+	 +/zwyyguVZralX59RLXjCBq8JzUEC23F6doBPI2wOsigYwG1t9dk5ULkMZMP/C1kA6EHl
+	 3viTI7nHzx7CQVbWHijtjyPGDT8vhXIA88xnYrC6jFcmLSi+QbwuKav/A+dag/tuIEeqb
+	 UlVVYkOhdji1qxKx/K6ORAdJhsEPOmVq48P/fQu7k6gOs2OcV2LiniLBJ4N2/WuoypQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=faetalize.dev;
-	spf=pass smtp.mailfrom=faetalize.dev;
-	dkim=pass header.d=faetalize.dev header.i=@faetalize.dev header.a=rsa-sha256 header.s=protonmail3 header.b=TjLngSmN;
-	arc=none smtp.remote-ip=185.70.43.23
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LZ9GBgE+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD628606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:27:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD628606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=faetalize.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=faetalize.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CA5606A327;
+	Tue,  3 Nov 2026 08:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=faetalize.dev header.i=@faetalize.dev header.a=rsa-sha256 header.s=protonmail3 header.b=TjLngSmN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=faetalize.dev;
-	s=protonmail3; t=1793694477; x=1793953677;
-	bh=zxlaWc7wQDwJ9tuEiGJ3OcHic1J0dXJBxZTg2iHgry8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=TjLngSmNz/W0LGUPjbtQgRDWL6Nj1SLZRC+51Q+cZUdFT+Q3SBkd+pBavcoJvp9o8
-	 GU5D7XRxYwJa4gzetjHh2Z2voBB1p01birFJqc0jqc/8/FbYvBbvPwyyzaMUoeXCQK
-	 Dlq2iPzCSgvwjSqN7iIImQfdg+SgDFIn9Mf28XttGZ3t+T/VeHoLEF74tp5HGq4xuT
-	 NeZhEuwzAewEezmxOBZ1wYo1uu+GWM1TKNwznCzrttg4W+BGKDIIjiTtcSa43LPIdR
-	 MX8lqs9PURIvrbOEXjbFCqzKmeh22Fz8DppVRTS60lUd0Wmy7wNqLhNJXKRp9BMxiy
-	 gmXOYk5q0Z1gQ==
-Date: Tue, 03 Nov 2026 08:27:51 +0000
-To: "akpm@linux-foundation.org" <akpm@linux-foundation.org>
-From: =?utf-8?Q?f=C3=A6_OSS?= <oss@faetalize.dev>
-Cc: Takashi Iwai <tiwai@suse.de>, "faetalize@proton.me" <faetalize@proton.me>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] mailmap: Add entry for Valentine Altair
-Message-ID: <Df1D8q4zSMqSYWxhXJ06Yx8T6iDutvSRCAaBTq5S5EpfGghkxGxFMK7ZOvoYLpsediiuR0luoDYo3tDh22ZuC2bjRkE67nTPL-U4NfVmSfk=@faetalize.dev>
-Feedback-ID: 231676493:user:proton
-X-Pm-Message-ID: 955f42546ddf297b63b19011645fb9f6443ef068
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LZ9GBgE+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 555311F0093A;
+	Tue,  3 Nov 2026 08:27:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793694484;
+	bh=Fsirq8b1tOF7xGnt9JKmVFznOcgYPeH7MNBVIQjnYAw=;
+	h=From:Subject:Date:To:Cc;
+	b=LZ9GBgE+6z1dxJNlGmIEYbLWgU8h2E5PEdgyN9NKIA0VaGVcncEmxMrB5iadlM0Nn
+	 lsxYS0s1MojLzCDJY9sOIFOIJt/X+v8MKTTZWds8jgIGWH8h2Ju5yHVQidwK1mFeMR
+	 rXY/zje18Dsq4xDwAicEhbhn3NgIwuQ6pkbID6UUZ4WhIsiuRJbihFd3AFGx/rTi1N
+	 OcrV0rXbke+zBcKyezsU2LFhsgS70ul3cwXf90UCjYrNFT9bs8x4SCBx8Ntwz74mVD
+	 nW00LouKPe+96bRnfEQYDH4NAdlTxzOweBU2JDDAv47nmuKo0RdRIbdUXefB4m1wFt
+	 2NEGdQbb6sFIQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH 0/5] mm/khugepaged: bound mmap_lock hold time when walking
+ an mm's VMAs
+Date: Tue, 03 Nov 2026 08:27:41 +0000
+Message-Id: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,29 +54,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M0QqEIBQFfyXucxdMSmh/JXoQPdmlxUIriujfV
+ /ZxBmYeykiCTJ/qoYRTsqyxQFNX5GYbA1h8YdJKm0bpnpf5CNhsgOev3RHdzZNc3Kq277wxsJ2
+ iEm8JRf/Hw/i+P04JZmRoAAAA
+X-Change-ID: 20261029-khugepaged-latency-fix-40495d66ea50
+To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Waiman Long <longman@redhat.com>, Suren Baghdasaryan <surenb@google.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Yonghong Song <yonghong.song@linux.dev>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2978; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=XXzzroOk3JzB70Kjl+zLo7wwLJmwdmiu+XnhF/h0hi0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJezub07jtZPs3hZ101N694fbdfzVdvDfXOirsP7zjdK
+ Ty/fTdXRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACay4SfDH45qsUkXUpPyPOuV
+ hQ8qTPq0ym/p2gu71rXsvLd35p77DlWMDKcOPHCefaTv0bWucqn0xLC23xmPc37VS0ztSUpYUio
+ wkxEA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Map my old address to the one I now use for open source work.
+This series introduces a couple small changes to khugepaged to improve its
+behaviour both in the face of mm->mmap_lock contention and to reduce that
+lock contention when possible.
 
-Signed-off-by: faetalize <oss@faetalize.dev>
+It also updates other places which release the mmap read lock to allow mmap
+contended mmap write locks a chance to make progress (BPF iterators and
+/proc/$pid/maps + friends).
+
+Looking at the first change - if the mmap lock is contended, an attempted
+mmap trylock in collapse_scan_mm_slot() will result in the scan being
+aborted wherever it happens to be, and when next the mm is processed it
+starts from the beginning again.
+
+If an mm has a lot of ineligible VMAs and is undergoing significant
+mmap_lock contention, collapsing the eligible VMAs there can take a very
+long time.
+
+Patch 2 of the series fixes this (patch 1 is a prerequisite) by keeping
+track of where khugepaged was in the mm before aborting the scan.
+
+This issue was noticed during some work in which an mm was instantiated
+with a large number of small VMAs under significant mmap_lock contention,
+during which collapse was observed to take 10.8s. With this patch applied
+it took 3.6s to collapse the same mm.
+
+Patch 3 introduces new rwsem primitives - down_read_nosteal() and
+down_read_killable_nosteal() - to allow for read locks to be taken without
+stealing them from a queued write lock.
+
+Patch 4 adds mmap lock wrappers for this - mmap_read_lock_nosteal() and
+mmap_read_lock_killable_nosteal() and updates callers which release the mmap
+read lock on contention - BPF iterators + /proc/$pid/maps et al.
+
+Finally, patch 5 uses this to have khugepaged release + reacquire the mmap
+read lock in the face of a large number of ineligible VMAs.
+
+This was also observed as part of the previously mentioned work in the form
+of mmap lock stalls, which patch 5 resolves.
+
+Importantly, none of the changes introduces any regressions for khugepaged
+anywhere. It is all upside, and implemented conservatively.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- .mailmap | 1 +
- 1 file changed, 1 insertion(+)
+Lorenzo Stoakes (ARM) (5):
+      Revert "mm/khugepaged: remove definition of struct khugepaged_mm_slot"
+      mm/khugepaged: scan mm's more efficiently under mmap_lock contention
+      locking/rwsem: add down_read[_killable]_nosteal()
+      mm: add and use mmap_read_lock[_killable]_nosteal() on contention
+      mm/khugepaged: drop/reacquire mmap read lock if skipped enough VMAs
 
-diff --git a/.mailmap b/.mailmap
-index 0d05be949ef..6cf852eb482 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -305,6 +305,7 @@ Eugen Hristev <ehristev@kernel.org> <eugen.hristev@lina=
-ro.org>
- Eugen Hristev <ehristev@kernel.org> <eugen.hristev@collabora.com>
- Evgeniy Polyakov <johnpol@2ka.mipt.ru>
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar> <ezequiel@collabora.com>
-+faetalize <oss@faetalize.dev> <faetalize@proton.me>
- Faith Ekstrand <faith.ekstrand@collabora.com> <jason@jlekstrand.net>
- Faith Ekstrand <faith.ekstrand@collabora.com> <jason.ekstrand@intel.com>
- Faith Ekstrand <faith.ekstrand@collabora.com> <jason.ekstrand@collabora.co=
-m>
---
-2.56.0
+ include/linux/mmap_lock.h |  44 +++++++++++++++++++
+ include/linux/rwsem.h     |   2 +
+ kernel/bpf/task_iter.c    |   2 +-
+ kernel/locking/rwsem.c    |  71 ++++++++++++++++++++++++------
+ mm/khugepaged.c           | 108 ++++++++++++++++++++++++++++++----------------
+ mm/mmap_lock.c            |   2 +-
+ 6 files changed, 178 insertions(+), 51 deletions(-)
+---
+base-commit: 34f88a114888c9dba49e45f2b0c2a3e83c4c871c
+change-id: 20261029-khugepaged-latency-fix-40495d66ea50
+
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
