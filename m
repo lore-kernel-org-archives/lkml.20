@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698501;
-	b=qwhCHzkSM1FyxjOjq9dueYUkoY2uIDmXVuA3dKKEm1REttkAUPVgPNzGOUOB2PYZw/zP
-	 LCtsk0pRrXMz+uREsb4PvR4Ma+XtPA3BNJmCDlu/FzDi/PZD6y6HCI7zpEcKJkdEF5BNc
-	 m/apNlX2qQZaOELMJk4jvHEspA3opOcb+Laa62pe4uUxNuCD/ydvA69r21VCIR8C7WhhB
-	 33bOUc1icsm4RDjJ52IKNSLZMLjp6YnHxxe7+d39mk18vi39Ul/E9ogcmI+RN0q3+w7Zs
-	 cwQqZoIuUZgCxDDrg9ZZdZlxRX7bVRWJPndguh6nlo2geEyVGNHCTewzIirxZOfTDwA==
+	t=1793698521;
+	b=WPamL7x+RaUoBzGlskFRDIqLq4RcmoiKbD/3zpoAVovFvP7KR0FboBCpB7aF9IgtEahS
+	 sLvi7ycXEPP7lvF7A3jrfPq0piCnEQ9kg7QTMtEU+sV2rueEgMgmZRxSR7n+DJEtk9dBr
+	 kVwvDjJt7+ojA7DUcn/1pfPjECXmZElEbZk9ykPLv1AuZWghM2u6g+B/vL9yjo7AviRM6
+	 A/eQ2bH/Ogy1BqXz2jIjMrr+h1lvnd/YdW99hnKet5wUmjeOqzHxCJca9Qd6C4Mcld8s8
+	 u3jg9k+Mdk7KFH7B6MP13Pc2fJOFCFAr40ySS7Web7R2cXrXr9u+afMLBYzyW3x4O8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698501;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=duchPy3gA7qrB3uLfSZGqw9HsG8qAFPps9294n5glZI=;
-	b=v6iOrGLgyRkguk5KbY+G2Zfr4ewSUwKp9hXSDod8OYsqO0sWbCxhNQvwDcRvD5/VDnDS
-	 bukQFyowGnDYQ96xIE0SrNXZdndJaf0ow8lS+Oj4fszQveYdrcjMikpJLOleY7cQtlc6N
-	 QLrDJ3t7F9gZ6t9sPcvaHpYYwWMUGbF3klud7oxPc2l95stu66yLyFqf7SqEatAhqQSrk
-	 5sQ782SU1HM5Uv8QgZ1VipAQlQbbX9kdx6hnutxrNbOVftAA7B09nC6xed45y3JAdtUaw
-	 qi2WieUzg3Fj1isyYez+8xBr8VEh8FJzH/pmmLqeTpAQaiGQqVoMCUG7+ua08qIGSOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698521;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=6o537cHF3ZsBsyeLBKkxyQxJxv6nVsc5mI6mjoRRjxc=;
+	b=3qnydjF6QF8/T8Divok0MIq7PyzgiDcfzfegPCVVKJHdPGwDPs66NebT+ZLRU0Kp8g0I
+	 JyvoT9/5Stphq7WWRjpAP0HHBY3lpObzcs5bsaaXLSGhyVQamilg9oviLeBxvqyM7HMkk
+	 jag0JqAcrHBGC9uwmj74I3Fhb7DO9flNilYwbbXsXz6V+GXlZ5XHokbNY9RO/7kESWhkB
+	 Z+fTrPrcE3C9sLYWcihF0YJq4q3inj2pDRRZ/t5y8u7cs6TZVqk4W4d8mo8MrEsfh3Gke
+	 kR3wKc984Tu85qOQRIgxkcuNNfBHl9hDTdB52EFx1o0hGxrvpZaTRARom1aai9oOdAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=dKvnBZaL;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nNuECPAC;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59872606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:35:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59872606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BBC606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:35:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36BBC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=dKvnBZaL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=duchPy3gA7qrB3uLfSZGqw9HsG8qAFPps9294n5glZI=; b=dKvnBZaLPaI/I/A5GwmkqIKC+d
-	Y4JksYIStSOUkxIv5bKdzRJtpTD+iFZYz5OnpSEnuebf3/F8PxIMQxVyNY95Z8eq9DN2y2NUkDjI8
-	OdFGtSmT2EPTvjbvh36L+ZS5vNmQ+b1WMznPIkhvcLIeFbQ98Y/fIzkaztzlNN3fSzBD3G27LBm5+
-	zhEX/T66At8Hg+Z2EZPaU35BPD7w951BqYcOZPd3C81MzG3YYflDNX4sfM2X0eUDU3qvnyyXVtnNT
-	NkDI5y7oxsgpZ5h8zLUQ2HXCCu/YE2+izlXqmNGmQN72HVz4lX64TdZZyz/dGZusBRrxftXAII4CE
-	1K8Wb6Bg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xOAug-006pz5-1E;
-	Tue, 03 Nov 2026 09:34:42 +0000
-Date: Tue, 3 Nov 2026 01:34:36 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
-	Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, linux-kernel@vger.kernel.org, 
-	catalin.marinas@arm.com, kernel-team@meta.com
-Subject: Re: [PATCH] x86/sev: Fix kmemleak false positive for the RMP segment
- descriptors
-Message-ID: <aumqYDB-9R4njxEj@gmail.com>
-References: <20261102-sev-rmp-kmemleak-v1-1-e6fb2eb96e79@debian.org>
- <036145d8-46b2-4389-afd7-26c897d09ce7@intel.com>
- <aukO-_uELcL15JnH@gmail.com>
- <b004e572-8d52-447a-b5b2-10bed36896b2@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nNuECPAC
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 891884E413CA
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:35:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4F93A6046C;
+	Tue,  3 Nov 2026 09:35:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0DEDB10328C5E;
+	Tue,  3 Nov 2026 10:35:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793698517; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=6o537cHF3ZsBsyeLBKkxyQxJxv6nVsc5mI6mjoRRjxc=;
+	b=nNuECPACV+cGKmPfxJhqKNk7MK/aKdFSJwRREPIFUAYzyMsUAVdqXl14Ey7ijgjRfjWTdm
+	wDvJePyaAGHPefamMXBytyWpCXIoosdDVl4CiC0FPuaNoFT9tcWlDJ6p86vKbCAlFm/jFo
+	s8LEalw8+fL2QhA+O+f59W4KZnwffpqkfd0lU7KlMDMJmUQtyX3yxr9ahn9CcjbHSlVx4J
+	KsXeA6/3ll4T1oAQye1WI0Yw18RCunwC7jZEP25PeC4MyctaB5j+p/PXqlynBxfr/m86yh
+	P+RksDFY5JrxEImLKO8IdcqSWOjRwWXANhrUYr8pXSov2Shrxe+qJrD+iztRow==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH] mmc: sdhci-cadence: enable probing from ACPI
+Date: Tue,  3 Nov 2026 10:35:00 +0100
+Message-ID: <20261103093501.218232-1-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,24 +70,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b004e572-8d52-447a-b5b2-10bed36896b2@intel.com>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Nov 02, 2026 at 02:54:06PM -0800, Dave Hansen wrote:
-> >> Why don't we just kmalloc() the thing?
-> >
-> > That would do the work as well, if this is an option.
-> 
-> I don't see a reason it needs to be allocated directly by the page
-> allocator. My friendly LLM agrees with me. kmalloc(PAGE_SIZE) aligns to
-> page boundaries and has for years.
-> 
-> BTW, there's almost no reason to use the page allocator directly these days.
+Use the device property API instead of the OF-specific property API.
+This way, the driver will also probe from ACPI.
 
-Ack. Let me respin and use kmalloc, and use kmalloc(), simplifying the
-fix.
+Note the change in the core's probe function for SD6HC. We can't have
+named clocks in ACPI.
 
-Thanks for the review and suggestion,
---breno
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
+---
+ drivers/mmc/host/sdhci-cadence-core.c   | 22 ++++++++++++----------
+ drivers/mmc/host/sdhci-cadence-phy-v6.c | 10 +++++-----
+ 2 files changed, 17 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/mmc/host/sdhci-cadence-core.c b/drivers/mmc/host/sdhci-cadence-core.c
+index 745455743b01..c5a4fa8e2fc6 100644
+--- a/drivers/mmc/host/sdhci-cadence-core.c
++++ b/drivers/mmc/host/sdhci-cadence-core.c
+@@ -5,6 +5,7 @@
+  * Copyright (C) 2026 Altera Corporation
+  */
+ 
++#include <linux/acpi.h>
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
+ #include <linux/dma-mapping.h>
+@@ -145,26 +146,26 @@ static int sdhci_cdns4_write_phy_reg(struct sdhci_cdns_priv *priv, u8 addr, u8 d
+ 	return ret;
+ }
+ 
+-static unsigned int sdhci_cdns4_phy_param_count(struct device_node *np)
++static unsigned int sdhci_cdns4_phy_param_count(struct device *dev)
+ {
+ 	unsigned int count = 0;
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(sdhci_cdns4_phy_cfgs); i++)
+-		if (of_property_present(np, sdhci_cdns4_phy_cfgs[i].property))
++		if (device_property_present(dev, sdhci_cdns4_phy_cfgs[i].property))
+ 			count++;
+ 
+ 	return count;
+ }
+ 
+-static void sdhci_cdns4_phy_param_parse(struct device_node *np, struct sdhci_cdns4_phy *phy)
++static void sdhci_cdns4_phy_param_parse(struct device *dev, struct sdhci_cdns4_phy *phy)
+ {
+ 	struct sdhci_cdns4_phy_param *p = phy->phy_params;
+ 	u32 val;
+ 	int ret, i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(sdhci_cdns4_phy_cfgs); i++) {
+-		ret = of_property_read_u32(np, sdhci_cdns4_phy_cfgs[i].property, &val);
++		ret = device_property_read_u32(dev, sdhci_cdns4_phy_cfgs[i].property, &val);
+ 		if (ret)
+ 			continue;
+ 
+@@ -204,7 +205,7 @@ static int sdhci_cdns_set_dma_mask(struct sdhci_host *host)
+ 	struct device *dev = mmc_dev(host->mmc);
+ 	int ret;
+ 
+-	data = of_device_get_match_data(dev);
++	data = device_get_match_data(dev);
+ 	if (!data || !data->dma_mask)
+ 		return 0;
+ 
+@@ -649,13 +650,13 @@ static int sdhci_cdns4_phy_probe(struct platform_device *pdev, struct sdhci_cdns
+ 	struct sdhci_cdns4_phy *phy;
+ 	unsigned int nr_phy_params;
+ 
+-	nr_phy_params = sdhci_cdns4_phy_param_count(dev->of_node);
++	nr_phy_params = sdhci_cdns4_phy_param_count(dev);
+ 	phy = devm_kzalloc(dev, struct_size(phy, phy_params, nr_phy_params), GFP_KERNEL);
+ 	if (!phy)
+ 		return -ENOMEM;
+ 
+ 	phy->nr_phy_params = nr_phy_params;
+-	sdhci_cdns4_phy_param_parse(dev->of_node, phy);
++	sdhci_cdns4_phy_param_parse(dev, phy);
+ 	priv->phy = phy;
+ 
+ 	return sdhci_cdns4_phy_init(priv);
+@@ -673,7 +674,8 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	static const u16 version = SDHCI_SPEC_400 << SDHCI_SPEC_VER_SHIFT;
+ 
+-	if (of_device_is_compatible(dev->of_node, "cdns,sd6hc")) {
++	/* Note: ACPI only provides one unnamed clock */
++	if (!has_acpi_companion(dev) && device_is_compatible(dev, "cdns,sd6hc")) {
+ 		clk = devm_clk_get_enabled(dev, "ciu");
+ 		if (IS_ERR(clk))
+ 			return dev_err_probe(dev, PTR_ERR(clk), "failed to enable ciu clock\n");
+@@ -687,7 +689,7 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
+ 			return PTR_ERR(clk);
+ 	}
+ 
+-	data = of_device_get_match_data(dev);
++	data = device_get_match_data(dev);
+ 	if (!data)
+ 		return dev_err_probe(dev, -EINVAL, "missing platform driver data\n");
+ 
+@@ -723,7 +725,7 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
+ 	 * For SD6HC, sdhci_add_host() will automatically read capabilities
+ 	 * and version from the host controller registers.
+ 	 */
+-	if (of_device_is_compatible(dev->of_node, "cdns,sd4hc")) {
++	if (device_is_compatible(dev, "cdns,sd4hc")) {
+ 		__sdhci_read_caps(host, &version, NULL, NULL);
+ 		ret = sdhci_cdns4_phy_probe(pdev, priv);
+ 		if (ret)
+diff --git a/drivers/mmc/host/sdhci-cadence-phy-v6.c b/drivers/mmc/host/sdhci-cadence-phy-v6.c
+index 22d56bb46d75..551a0e3b58ad 100644
+--- a/drivers/mmc/host/sdhci-cadence-phy-v6.c
++++ b/drivers/mmc/host/sdhci-cadence-phy-v6.c
+@@ -880,17 +880,17 @@ int sdhci_cdns6_phy_probe(struct platform_device *pdev, struct sdhci_cdns_priv *
+ 	 * Cadence-recommended defaults (2500 ps IO-cell delays, 24 ps DLL
+ 	 * delay element) that are valid for typical SoC packaging.
+ 	 */
+-	ret = of_property_read_u32(dev->of_node, "cdns,iocell-input-delay-ps",
+-				   &phy->iocell_input_delay);
++	ret = device_property_read_u32(dev, "cdns,iocell-input-delay-ps",
++				       &phy->iocell_input_delay);
+ 	if (ret)
+ 		phy->iocell_input_delay = SDHCI_CDNS6_PHY_DEFAULT_IOCELL_DELAY;
+ 
+-	ret = of_property_read_u32(dev->of_node, "cdns,iocell-output-delay-ps",
+-				   &phy->iocell_output_delay);
++	ret = device_property_read_u32(dev, "cdns,iocell-output-delay-ps",
++				       &phy->iocell_output_delay);
+ 	if (ret)
+ 		phy->iocell_output_delay = SDHCI_CDNS6_PHY_DEFAULT_IOCELL_DELAY;
+ 
+-	ret = of_property_read_u32(dev->of_node, "cdns,delay-element-ps", &phy->delay_element);
++	ret = device_property_read_u32(dev, "cdns,delay-element-ps", &phy->delay_element);
+ 	if (ret) {
+ 		phy->delay_element = SDHCI_CDNS6_PHY_DEFAULT_DELAY_ELEMENT;
+ 	} else if (!phy->delay_element) {
+-- 
+2.47.3
+
