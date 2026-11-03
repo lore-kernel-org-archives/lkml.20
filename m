@@ -1,96 +1,188 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793736934;
-	b=znNnJgmvzDQHS6kVf1RjWnYylJz3+ishKFLr0o8AQn2RKtaGRHpCD98qhv1RMGzkv/FI
-	 7jikmWn7glTtXPNGI55GwB9xxYskpAc99uWu95T1yzcyTasUc1gmOAejycpEFbaGBfAtk
-	 mpF4bJ+HMdCEmFogVeOioJTWs8bTPFbUrdWnoR/FOim8L0rpDVMobrKi76g6Pbue46hEh
-	 J2V/ajxpiE6oyu+VsLMRKXHAnNvb56WQd5hNvNulFvhjnUCEr0DNGUs6nINV1v50E2r4Q
-	 ujX1olbORE2txjHl2mkZyzqTK1SHt1PKtPJkC9f1WRo8Qr2S6wrsQzOZuhDYFIB37/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793736934;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Originating-IP:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version;
-	bh=eghRhgi4bPuKMGkoryBJ+KE/HiW3Dfnjrc6aD6yazkE=;
-	b=VbPb5n57+2uYk1rNDCi1HdPcS8lfrPwQTt95cSEJIp3Zac4Woc10EbtjNpBn8Oy2uyHN
-	 7LtBVD/o6B38pII+S+LX6X64FYmjqPEVJgH7ZputXJ8O4GFjmEeVIS8Jz4XgDOH+2Fx5O
-	 P6fy/WlOR0uDTnlCV6bXgp9BdOUC4qdPqjCQXSc01Ys2P8NRQCF2bSLBC4AXI3JOAFGxA
-	 TsgFZ/0ixawrdsURecBVj0zYgWfxHMxk7Q+i1ZQLVBCA86yr5OYba8TZqRU54ehkP578f
-	 EdpBsCLwUpuK4JMQN3uWKKxIyVgbJeKbYeXprH16JxhyJZ/sN1V0i8K7+U5QubszzQA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ZyENK9RA;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=91.207.212.86
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793736949;
+	b=Aqrl1/EFG9Dhvm5WX1zMdwJu2wwSJT7KftvmmdVDX/kxlLvA66I9dlPoVPpNYbdUdNrZ
+	 VY0PzRBVr9zVphD/4fOIIgDywim3PjdOLEIF2IsJwM2p8zfZ7iOt/PXpdjCWZZLlGRgzX
+	 cgM9EXj31vxD+9E6VF00HIuIJAT3iZJkpUhGouCNTLKjsxwCXF+rOZpGCKPKLSg1F8O7f
+	 fLRj6xC3rnJ/4NpG0LnI4NoATyW4/+QBwMpIVHa29f1MEQQwkcno3/rhZbns2bvU6fzKH
+	 VJd9KUauXxfdKu5ZSS+2E3gWD0tgtzyXafKi/dMcMXFV7cmtvKGokjoq0DGRNPYB68w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736949;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
+	bh=MWojQI2laDuoXi+7hCB4omtgurHFIrtAA7vRTgb0Jeg=;
+	b=GNUN0YtqLjUgsyfwYpYIqYOCp0ueMbS5LIWCAKMZTbxOpVw5mSnxzIyGIWOkO/O4aBIH
+	 UX37agTbdYjaxxWcgMnQwMgMz42s9w4QNlIh4nziEqWl/uTePGfsorEVwCKYwKTGdkhfb
+	 ZrJlgdkBQUfckvHLAp0rfTzJmkUmWUmzOEyTL5mbCa0TAqlKNGeq2Kj3aa687B+Lr0CqE
+	 5e16LRNAwK33YWiWpv6yBaEuywNH3VEYtwaj8sj7jd/U/Ldn0kvYENwAv0h+9SGiF28NJ
+	 zJjeJP4RRk6BdWcJ2+0llXuyEX+kilYVMaGwrmUBGoBzAxrwSlDU41iwT4lQhsnZDWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=Pso5taZz;
+	dkim=pass header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-IMGTecCRM-onmicrosoft-com header.b=eiWnYxMR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=91.207.212.86
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DAD606A329;
-	Tue,  3 Nov 2026 20:15:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1DAD606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CE4606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:15:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37CE4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ZyENK9RA
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3JlSKg3135601;
-	Tue, 3 Nov 2026 12:15:19 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps82601-s2048-2026-q3; bh=eghRhgi4bPu
-	KMGkoryBJ+KE/HiW3Dfnjrc6aD6yazkE=; b=ZyENK9RAiwRGQ4p5HoO4M5u3Btq
-	qzQDZbUmFIZwIMmA17kT20JWAVIu4/DWA8McHN8us3aWAHqPZzeDd+zTWPwCOD7W
-	IR4Xq9usNzrmY7I3wEHLRlHsENtiZG0b/o2tXkfHC8LyuCgv9zJzvKoEISDcHZ01
-	0cK6rEgtAr2MBTWQZ6WxwWATT5ZOE9gtdCQC4eLXqA9vYwGkXAjXDkCW6H77CwSI
-	/RP67hxP17l8leDAH09KqZfvMntPN3MPPW+D5U6C9C+wIYy4n0tzQOZLOgufOnNx
-	wV1vilxODbk4Wul101SB14ofguhAAkYSagrlVJt+9idhAOChHzjXSwrHhxQ==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hqbb1na9u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Tue, 03 Nov 2026 12:15:19 -0800 (PST)
-Received: from localhost (2620:10d:c0a8:1b::2d) by mail.thefacebook.com
- (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 3 Nov
- 2026 20:15:09 +0000
-Date: Tue, 3 Nov 2026 12:15:08 -0800
-From: Bobby Eshleman <bobbyeshleman@meta.com>
-To: Sergio Lopez <slp@redhat.com>
-CC: Stefano Garzarella <sgarzare@redhat.com>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>,
-        Bryan Tan <bryan-bt.tan@broadcom.com>,
-        Vishnu Dasa
-	<vishnu.dasa@broadcom.com>,
-        Broadcom internal kernel review list
-	<bcm-kernel-feedback-list@broadcom.com>,
-        Stefan Hajnoczi
-	<stefanha@redhat.com>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang
-	<jasowangio@gmail.com>,
-        Eugenio =?iso-8859-1?Q?P=E9rez?=
-	<eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Haiyang Zhang
-	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
-        Dexuan Cui
-	<decui@microsoft.com>, <virtualization@lists.linux.dev>,
-        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <kvm@vger.kernel.org>, <bpf@vger.kernel.org>,
-        <linux-hyperv@vger.kernel.org>
-Subject: Re: [PATCH RFC 3/8] vsock/virtio: implement the datagram data path
-Message-ID: <aupAzEcsi35RCasR@devvm29614.prn0.facebook.com>
-References: <20261028-vsock-dgram-support-v1-0-e457cf7cee78@sinrega.org>
- <20261028-vsock-dgram-support-v1-3-e457cf7cee78@sinrega.org>
- <auo+nf3+0Mdm8vpi@devvm29614.prn0.facebook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=Pso5taZz;
+	dkim=pass (1024-bit key, unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-IMGTecCRM-onmicrosoft-com header.b=eiWnYxMR
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3JiI8U611541;
+	Tue, 3 Nov 2026 20:15:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-id:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	dk201812; bh=MWojQI2laDuoXi+7hCB4omtgurHFIrtAA7vRTgb0Jeg=; b=Pso
+	5taZzoC5To/ajWyBymYJ9BMWT9jZx3tdPCtEOXR2dPRvE9SiSCLmi6yGX+Gwiree
+	tLLl8Tuoi+aB8HuJqqP+aOZg3LR80uZJoEamDCAbTZAR6xh1oRHnJ7OAc2NmCyLh
+	1qSLAC6mHi9SDAcMJWUdt/q8Kvg/AB3v3bhbBJdJHCFbJO4O85P+kPmQe5QioEFO
+	WKgT84w6+bRObblD8Y9Xbya3Zd7RrNRHWZNISFKHfhRCEdfF/7Ufc6kfPi/cUgvv
+	oG3Fv/ZvYHBdNrwfb3ggOOlehOmCyf5OArtgI+3kLm6p3jgsg+Ikj8mm8tZpuWsF
+	NEtDW1JoAGTSW3rtb/A==
+Received: from cwxp265cu008.outbound.protection.outlook.com (mail-ukwestazon11020102.outbound.protection.outlook.com [52.101.195.102])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hn7ft2hsu-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 20:15:21 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jiUiKpfSxOjHplJcMx4TNeDLOGMF/VSai/72yEFIxMueCqqMAzTClb4uvBFe3hbvojl6dS3JKEho7qXrq0SXYSyDrUKN6IVbFWOJLFVskGV1/L9PfZ1Yb/Gj/UHXBxgjdB+Q3O4sdawFFyngl/b4a1Kn/4RvFb+BiEn0awAY0y6fw5iBlL3LxwvMDlEoXLhA67LEXa662izb8QuVhMst6bBv3HMZhJiGVmgksjZ33oCm1yI1KnTuK3rigJVEiHHuQJkIxKOywcWE0jZE21IVnHWoRRrM3XyTD+tGLO8gW823lXaIKTsSGXKGnIVY2U/p868pp3S7gPraee9EbcmZ1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MWojQI2laDuoXi+7hCB4omtgurHFIrtAA7vRTgb0Jeg=;
+ b=MhMMnT4aX5POqAhvH1JeOXD0gQy/JygGMDyATFWDrlgd0mD46+P9reQEKlLomQMz+S8ZEysQDjM+2wrKyJFb8iYnhDAaFauSTzYSVxEiAB2Qzcfy95SJWFG7bOnBHVLgErKbiPHyPSLn5byJZd3t6b+8uK2VOr2j8YexxsSTpm9G/WbTTkkZjVvUqI8mSirtdj3xWRWjO1Iq9oP+759Lh2KYZ3BCQ3BUcyctABukTx1it6WGGJcB4SVp2xdQtijux3BrCwShYbwOfahkGr+2WlCEdv/wKUpK94PB3CRpoFXuBgUBmIwBU/EQNGpcaM8p679c/bfNwFWf65EUURu8Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
+ dkim=pass header.d=imgtec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MWojQI2laDuoXi+7hCB4omtgurHFIrtAA7vRTgb0Jeg=;
+ b=eiWnYxMRIcFF9a1kFx9fGN/6MJziouxchHKBo1lWhxqOTbRoiehgUr0tUSGK5QznpEc2etlVAW2m1me3eFj85c53bormHFicC2DzNhWX9M3q04Aerm9MLIogMCLmV9Z9JzMjlLek2Xy9P/bAA4WqcTmIk5SEM64cx8tMyC+aRZM=
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ee::7)
+ by LO2P265MB5759.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:26c::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 20:15:18 +0000
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237]) by LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 20:15:18 +0000
+From: Alessio Belle <Alessio.Belle@imgtec.com>
+To: Alexandru Dadu <Alexandru.Dadu@imgtec.com>
+CC: Luigi Santivetti <Luigi.Santivetti@imgtec.com>,
+        "tzimmermann@suse.de"
+	<tzimmermann@suse.de>,
+        "imagination@lists.freedesktop.org"
+	<imagination@lists.freedesktop.org>,
+        "simona@ffwll.ch" <simona@ffwll.ch>,
+        "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+        "airlied@gmail.com" <airlied@gmail.com>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "maarten.lankhorst@linux.intel.com"
+	<maarten.lankhorst@linux.intel.com>,
+        "mripard@kernel.org"
+	<mripard@kernel.org>
+Subject: Re: [PATCH v2 0/2] drm/imagination: MMU defines updates and
+ improvements
+Thread-Topic: [PATCH v2 0/2] drm/imagination: MMU defines updates and
+ improvements
+Thread-Index: AQHdWjNnysrelLP+x0C2c4lG+OnOVrcc666A
+Date: Tue, 3 Nov 2026 20:15:17 +0000
+Message-ID: <61bdf5689057fa6bdb3329e01cd38b1a9c55923c.camel@imgtec.com>
+References:
+ <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com>
+In-Reply-To:
+ <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=imgtec.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LO0P265MB7076:EE_|LO2P265MB5759:EE_
+x-ms-office365-filtering-correlation-id: f939f9d9-73f5-4d58-2832-08df39e72ddb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|261102123227099003|56012099006|10067099003|261009223027099003|261022115727099003|261022105027099003|261021121427099003|261021123027099003|261022075727099003|38070700021|261028144727099003|261026121527099003|261026140227099003;
+x-microsoft-antispam-message-info:
+ NfRi+Cz4D8VZ2LHdGLOD0Q1UzqdlLp4RYIpzbKGu5WHkeY735YsN59bways4sNZ5stF7CUP6yLYiOcicyYBK2IxWTWoho3g9lYGZ/XMMxgCDgujDJIHZ5BT5jq/T0XtIp6M2jSpQUne0oNDYnQkJkQLSZlb8RHzqKXaaXuPn1B3KQqi+bboMedeJnozrEYBu+RJ4p3s+Yty6AyRYCEul6uxWUsiV3cuhqojS2Hjqtn9sEPh5GB92B4Jjqn2kdyRoIptcW0kH2qJTc1Pur3OM8c2XNgizQy1ZovK4I46rH7ugmta44j4MXz7u1RcytdXYAB9WpDtsc0DEbbv9l6K5iBM2W6OBsDPMyxuG2FHIjEkmeRHkcpX3GTfKd2JQdnZNLZOxccX1mpEdxO8hjtyKtAtA8+VbREf0JG6jMeFUQSYqGMwchHGHb/16hNbdhBDW9Y4m857qAO0cVrJO3J+EMLz9tdn/uGFH93MOgEzuuf2NJR41JsPgke/Ssu8t/wCsiDMVxnj0llRPv0DV3bMKJTGnTtGFIxY41RCnC6tORG+EzPcpd3h1+nFvMpNebrpBd4AuE6J8rw1CWTGBDM1vNRGEtwQaxbVVaNNvgGcL0lzMERkb4zUSFYvGtUB1fs5+xlQyHnUzJoKIDEkvi6bXC1sgB36rA8kfSGQ4mby/qnk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(261102123227099003)(56012099006)(10067099003)(261009223027099003)(261022115727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(38070700021)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?TVU0cWxvZlJCQWFPVlNzcVJyWXN1M1orc2dQMnhoeHhhdW00LzJSdUsrcStZ?=
+ =?utf-8?B?RS9Da2YrZlQ2bElXM1BTcUd6Ny9raC9wSDFTZ29GTHJBeGRJWmNjN2c5Lzg2?=
+ =?utf-8?B?ejZMK3hDWW9LVnBUcUNRVzZnOGI2c1FSTkdSWWY4UmZxU3YwbXZ5ekJ3RDl5?=
+ =?utf-8?B?Y1FYdWo3SnRWdmhGd2VwSFM4bDlaZXltTlMvOVpaMi82K2Zra0c5RTFkbDZw?=
+ =?utf-8?B?eGw0UGN1NGh2Zyt1RmZ6bjh0SVZaR1BtTmtacnBNYUp5cC9kZWgxcEk2V3pl?=
+ =?utf-8?B?RTRyanMxSDVkc05Ea2tUOG9HQ2xVMHlYWXFiTmlxcUFtUGxqamVBWW5qSzVw?=
+ =?utf-8?B?Q3BDYXc4Q01RZzNNTk9vNVB5L2U3NmJYMkYrR1VuWW1ONEFyV3cySzhMa1Ew?=
+ =?utf-8?B?eUxVZmtIRVFTcENESjlLRUxVU3NONlpqdlVKbVhCYUdPMm5Zbm1ML2cwMHlI?=
+ =?utf-8?B?djZReFlwRGtXcXp0SEZ6ZytGeHh4Nndwd0Q4SHVnb2Nab3A5azlTT3dNclg2?=
+ =?utf-8?B?U0J5QThUT0RBN21Ba1MwTlVUanZtNkZxS3lPNVZBZDhWM3RBNDRPL2h0dnB0?=
+ =?utf-8?B?NCtTc3NGMlk2SzBHL2FSTGtCckJjWWhmTVhja2VEYUR5b3d0YmhQUC9FMWZ6?=
+ =?utf-8?B?b3FtdStaLzE5dnB1YTBZcmVNdTkrT09CRGFGMENXNEc4VFdtU1pESWNSQW9C?=
+ =?utf-8?B?SFpwZUVMUHoxQ1JIS3dQaGhjQXJJYnJMZ2lZN2JONzVJSjU5TmRBTVZTOTJu?=
+ =?utf-8?B?eHB6d3VtQVV0ZnYyRnVPWFh4UWhCdm1uNnN5bmZ1VHdkYjZyeHlvd3UybkRi?=
+ =?utf-8?B?M214K1FGK05VYnowdWs1aC9wVWYvVzhHeUhlc1ZxcG1peitMcnZ4M0RRcVJL?=
+ =?utf-8?B?QXR4akNDUSsyUmV4amFDVmtrRFJoa3E4cGo5SHZpcFRCa3Y4bU1GNUdjMkEy?=
+ =?utf-8?B?S0E2c2I5dmgyMkZmckdUbXg0Yy9aK2pEb0N6LzlJKzkzMmpHVjhzZFIrVDQ1?=
+ =?utf-8?B?OWVjNmZuTW5ORlljeE9XUXNLdU1uWnErYUZJSmF5UzFpeTM0Vk9wVTFoVFhW?=
+ =?utf-8?B?RDJiRHFPaGY1dW00NW9SUjJ2WGlMTzVPbk5xeUxxS1FjdXYvNUg4MS9ZQ05q?=
+ =?utf-8?B?NXRlTUh0ZVRybjl1NGo3UjNhR2NDRVhoVlBtcmErM3dvcmo2ak9YdFdNbVNW?=
+ =?utf-8?B?RDdDUlhwVWtQUE1qaVk5RXdHRmNnZFJocHZZaS9FODJzYlNDdTU5UXNNMlVh?=
+ =?utf-8?B?dEswOHBRNmZzWFRZNG1mcjZNNzNIQ2o3ZkRRVXpkZjBSZ2JSZkZabTBpU1h3?=
+ =?utf-8?B?V2JGYUloY1NrSWt4VmdnVkRXdVJ4anc5RzFRM1hQVlZrbFVwLzdDR0h0MjJO?=
+ =?utf-8?B?YTNHNzB2LzJobDhoc0JVckkxNGtFQ2l6YmM1Y2NSbDk1bHhqL1JOU1JuNU0w?=
+ =?utf-8?B?RjlWd0dQd25aRDN5bG5LNEJIdFZzMklvWWpyS0pWTGdWNS9Vd3ZLRUYrdWx2?=
+ =?utf-8?B?UlpIeUNmMkE2ZmdycEZ4SGJVY243Q0VMVERjYzdDUnBWQkNMSkhJLzBLRVp6?=
+ =?utf-8?B?WWFyU3ZGRkd2RG9aSzFqejd5K2luZTI1MGdGT3ZuVmliTnhNZ0dXOHF6Z1lI?=
+ =?utf-8?B?WGxGK0J0SGxDZDdHeFo2QmVDQU9saU1ZNFVMeVlHS08wQ3F5MUdhL2VNKzlR?=
+ =?utf-8?B?Mnd5VEgwM3JmQ3RwNDBnNjFhZXMvRjZrZUMxQnhFWlFZV2EwM1pKalNRUFpH?=
+ =?utf-8?B?aEM2Wkg2NEhaNDVJbjlicFJjdEMrMkcrVXJHa2xhU1FFRGRXeVprRlZEOFNM?=
+ =?utf-8?B?MFdkL0ZTODllWXcwYkdHaG1aM2NJMWlkQ1poSmZxTSt5czh2VU1CdFBBVDFF?=
+ =?utf-8?B?TTE5b2dVQnJpQ0EwZjNGYlJYc1hUNjc0STRLOS9yWlpLYVpzZ0UrT0ZtdlRi?=
+ =?utf-8?B?MjVBWmZ3NFdUUHNNZ05TQThJME5yRi91MnUwSlNGNmF4UWhNUUhZOFVkb0p2?=
+ =?utf-8?B?bWR1cDVJT09lcWFDRW9XWHVhY1NUaFYvbGtzQ1FEV09DNlVHMUdKSW1UcEU2?=
+ =?utf-8?B?elJOSTF6WURtM1c1RVJvaFRWS0JPWGZGaTN1L2pFUHNYNWhVT0FPdkNGb05I?=
+ =?utf-8?B?Y3g0cy9FR0pDY0t5UWplNE9oWjlvY1lpVEdEaEpxVmVzRnVPUnlhUm1CZjJK?=
+ =?utf-8?B?NnhPenVqYm9QYkgvVUQ1RDFjSm8xOXZrZDdpL3BPd2diZy9vc1RVZHRJaUhY?=
+ =?utf-8?B?OWxtN0VUZzRTanRNVDVhY2dsenNOd1NHL2ZuSlZqODdlcStGU21EY09uODdT?=
+ =?utf-8?B?dlNOUzYwQ1JnZEc1UGVPekpkSzZ4cFRLZkg4L1V4S3FJL3dBVmV0aEdOUDBh?=
+ =?utf-8?Q?WHNWkdEkld5vr8u8=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <CEABFB0770BB9A45BFC4BA3DF10EE1F9@GBRP265.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,388 +192,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <auo+nf3+0Mdm8vpi@devvm29614.prn0.facebook.com>
-X-Proofpoint-GUID: W6AiV-pcr9Xrgipzqm2Wy4CacCTy2FZz
-X-Authority-Analysis: v=2.4 cv=LsIHWXdc c=1 sm=1 tr=0 ts=6aea40d7 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=03ozwUkBphtHgyqjj1sw:22 a=20KFwNOVAAAA:8
- a=nZWooqS4hBZVCPw9Ht8A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfXxbaKkvPr0ZVw
- OQ3+MkSEgI8Uio828XRon02AztNCkFgnMjufpoEnG2mB/0BMqzYhmJxlYJD+9vf9g+cptugXuT0
- McDkEvEa9Rh8xq83bvXKDuvvGY1ToT23bIdfz2DsAjPhDd7ZEwQUmE08DnzliY7orOYEa3Nw0V+
- Ka2gvgK8HfCZe3i3pMB+zNjpK0rVUEpMwtUmhvZf1fiKRcTrcDrJB7lWpFzxuKoBPnHr8xILN4e
- LCD1FPxRjSP3biXoM7Vb6dZuCyH1E1kLD83BjYLP5asqxVEI3XyfBKms0FUKKmdVnlT0t66gYrX
- Nz7AAPnllE3g8d1mVY2bCGfqWkP9xCAOjr9IwNkIhFCCFqltBoUtIIngD1Eb1vbQ26v+JY0M4az
- wMFq7JeeT9493X5XR4RTecFG1BEiOvYiQmrmmzMP73lOpbpjQCs/XCKvu2dTqFw+6l/A9bAJYdJ
- igiWI0xvm3SlGqbpmAQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfXwul97ZCEahbK
- 23uk3sjG6YPIXIzTlEf5eLQihyXmyBsbG+dXHqCeNi1NDZWmE8RSBumAFFHniGRKXXgKG5PKQ8t
- AVR65Y5TBe66jJbJuCSD0D5Bhf7sOyE=
-X-Proofpoint-ORIG-GUID: W6AiV-pcr9Xrgipzqm2Wy4CacCTy2FZz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_04,2026-11-03_04,2025-10-01_01
+X-Exchange-RoutingPolicyChecked:
+	4/HmRpXx6a4FqtV3p820YkfykPKBCnhBgV58MWO1F79xdDRb+DB55KoyV3O0/BLJSf+Hb8TZNyZ/zEEaJrRXt0hQBc57aiy0D+3PlXSE4p9t/Hs5wIL4WnSpZgq5oEZHFe8HIgTCZ/s3JJAzdli9ZTaZ1nLLt6feysTC+ZCIBdM3US6PuyMRpKlmKGhBgqoA6hZU6T6QxZpseYtqDKA+ETNiJe+H6ZSVVo/p9dxVXa2IXQeYbqdcCSzo7hihKIwBWlkNqbPJNVZPPUJxeWIlko7a8bQttAeOCsUWlgdHXB49KFTnDzzYipZegSqp1ytT6Uoq2Bx3E2XqmAwHYYzUEw==
+X-OriginatorOrg: imgtec.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: f939f9d9-73f5-4d58-2832-08df39e72ddb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 20:15:17.9191
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7/kQAA+N/R5UpDBD5PqDEsuBdK8dp9fxltQPZzFBHUUkAzJdQKKj7h2ZgAH5Tpb/VCrZom6MHx+uM5f6L+nABQu/kT+ZP+qm2D+6JN2Cz6c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB5759
+X-Proofpoint-ORIG-GUID: 2kaDlkp4DibZI8NdCbOUfZ5U42L4Ti3Z
+X-Proofpoint-GUID: 2kaDlkp4DibZI8NdCbOUfZ5U42L4Ti3Z
+X-Authority-Analysis: v=2.4 cv=HaSB3SE8 c=1 sm=1 tr=0 ts=6aea40d9 cx=c_pps
+ a=cKUkX1iUh92DVrayS81nfA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22 a=bC-a23v3AAAA:8
+ a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=e5mUnYsNAAAA:8 a=g-DLbdlCvdM8k0VslvEA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfXzvktQlRIjUzE
+ XEQXRFNxLtNquWVkWmRLzcVC2kJHF6nVKBZ+sl785tdhE1NyI8dU3nEM3girWI9GIIguVGV2hiJ
+ YtP8NIhqRRkd+Yt3qNTAw8KPlNdl7jQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfX1A04RRvrOEhJ
+ wWlaVbFzl8ECBz0Hje9N5jBwf0G5zc8bk69C9KEfOR5QGLty3OMiuRXaMYnwtT+FKS8iRO26AiW
+ jsBCdsdLWMUbbbWHWKNUXqA5kiEm4gQE/sbYYiyqoLdnSnCIwQzkOMd0sYIWEObQQzx/kgOHR9P
+ RftnDxU0gzwZt6ZcQW2Li9tOSW1Daa1pPSnu3Pou37MoyjM/VMx7t+A/I9cK3LmD58Tr/yEkWpm
+ LZz6g+aldBGGGWeGJc5o9zHKs1v6kMnKIQTkYVZgsZzBBFgiyPRoqMQ7ml4mIxcklNZmzZU7ZpZ
+ TVmF4aVvuqajCi8MLxn8zYnY1dEJiTFDkuRmvhsq98bkC8O8aOGSmlrVbXsFo7v4n6n2VGWx0uy
+ 664zl94uZF/TcpHTnNIznwXLA25NyR2MJ12lk48Wq1XXy6+Tt4UqX9zAEDlx69eORHJznZRDMf8
+ +FNR0SGcOlUjlokaoOA==
 
-On Tue, Nov 03, 2026 at 12:05:49PM -0800, Bobby Eshleman wrote:
-> On Wed, Oct 28, 2026 at 05:04:32PM +0100, Sergio Lopez wrote:
-> > Add the datagram feature bit and packet type, and implement the common
-> > virtio transport operations needed to bind, send, and receive
-> > datagrams.
-> > 
-> > Send each message as an OP_RW packet with a maximum 64 KiB payload,
-> > including support for empty messages. Bound pending sends by the
-> > socket send buffer instead of connection-oriented peer credits. Charge
-> > pending payload bytes before handing the skb to the backend and
-> > release that charge exactly once on completion, rejection, or queued
-> > drops.
-> > 
-> > Deliver incoming datagrams through the bound table without entering
-> > the connection state machine. Validate the transport and connected
-> > peer under the socket lock, including after shutdown, and silently
-> > discard undeliverable messages. Use the socket datagram queue for
-> > recvmsg(), including source addresses, peeking, and truncation
-> > reporting based on the payload length after socket filtering.  Reject
-> > MSG_OOB and MSG_ERRQUEUE before accessing the receive queue.  Reject
-> > datagram sockmap admission until its receive callbacks support it.
-> > 
-> > Signed-off-by: Sergio Lopez <slp@redhat.com>
-> > ---
-> >  include/linux/virtio_vsock.h            |   2 +
-> >  include/uapi/linux/virtio_vsock.h       |   2 +
-> >  net/vmw_vsock/virtio_transport_common.c | 150 +++++++++++++++++++++++++++++---
-> >  net/vmw_vsock/vsock_bpf.c               |   3 +-
-> >  4 files changed, 142 insertions(+), 15 deletions(-)
-> > 
-> > diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
-> > index f91704731057..0bccae661221 100644
-> > --- a/include/linux/virtio_vsock.h
-> > +++ b/include/linux/virtio_vsock.h
-> > @@ -12,6 +12,8 @@
-> >  struct virtio_vsock_skb_cb {
-> >  	bool reply;
-> >  	bool tap_delivered;
-> > +	/* Datagram payload is still charged to bytes_unsent. */
-> > +	bool tx_accounted;
-> >  	u32 offset;
-> >  };
-> >  
-> > diff --git a/include/uapi/linux/virtio_vsock.h b/include/uapi/linux/virtio_vsock.h
-> > index 64738838bee5..27b4b2b8bf13 100644
-> > --- a/include/uapi/linux/virtio_vsock.h
-> > +++ b/include/uapi/linux/virtio_vsock.h
-> > @@ -40,6 +40,7 @@
-> >  
-> >  /* The feature bitmap for virtio vsock */
-> >  #define VIRTIO_VSOCK_F_SEQPACKET	1	/* SOCK_SEQPACKET supported */
-> > +#define VIRTIO_VSOCK_F_DGRAM		3	/* SOCK_DGRAM supported */
-> >  
-> >  struct virtio_vsock_config {
-> >  	__le64 guest_cid;
-> > @@ -69,6 +70,7 @@ struct virtio_vsock_hdr {
-> >  enum virtio_vsock_type {
-> >  	VIRTIO_VSOCK_TYPE_STREAM = 1,
-> >  	VIRTIO_VSOCK_TYPE_SEQPACKET = 2,
-> > +	VIRTIO_VSOCK_TYPE_DGRAM = 3,
-> >  };
-> >  
-> >  enum virtio_vsock_op {
-> > diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-> > index 1e762a480df4..ae33630d99e7 100644
-> > --- a/net/vmw_vsock/virtio_transport_common.c
-> > +++ b/net/vmw_vsock/virtio_transport_common.c
-> > @@ -204,10 +204,18 @@ static u16 virtio_transport_get_type(struct sock *sk)
-> >  {
-> >  	if (sk->sk_type == SOCK_STREAM)
-> >  		return VIRTIO_VSOCK_TYPE_STREAM;
-> > +	else if (sk->sk_type == SOCK_DGRAM)
-> > +		return VIRTIO_VSOCK_TYPE_DGRAM;
-> >  	else
-> >  		return VIRTIO_VSOCK_TYPE_SEQPACKET;
-> >  }
-> >  
-> > +static void virtio_transport_dgram_skb_destructor(struct sk_buff *skb)
-> > +{
-> > +	virtio_transport_consume_skb_sent(skb, false);
-> > +	sock_wfree(skb);
-> > +}
-> > +
-> >  /* Returns new sk_buff on success, otherwise returns NULL. */
-> >  static struct sk_buff *virtio_transport_alloc_skb(struct virtio_vsock_pkt_info *info,
-> >  						  size_t payload_len,
-> > @@ -303,6 +311,7 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
-> >  	u32 src_cid, src_port, dst_cid, dst_port;
-> >  	const struct virtio_transport *t_ops;
-> >  	struct iov_iter_state msg_iter_state;
-> > +	struct sock *sk = sk_vsock(vsk);
-> >  	struct virtio_vsock_sock *vvs;
-> >  	struct ubuf_info *uarg = NULL;
-> >  	u32 pkt_len = info->pkt_len;
-> > @@ -329,12 +338,24 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
-> >  
-> >  	vvs = vsk->trans;
-> >  
-> > -	/* virtio_transport_get_credit might return less than pkt_len credit */
-> > -	pkt_len = virtio_transport_get_credit(vvs, pkt_len);
-> > +	if (info->type == VIRTIO_VSOCK_TYPE_DGRAM) {
-> > +		if (pkt_len > VIRTIO_VSOCK_MAX_PKT_BUF_SIZE)
-> > +			return -EMSGSIZE;
-> >  
-> > -	/* Do not send zero length OP_RW pkt */
-> > -	if (pkt_len == 0 && info->op == VIRTIO_VSOCK_OP_RW)
-> > -		return pkt_len;
-> > +		/* Datagram sends are serialized by the socket lock. */
-> > +		if (sk_wmem_alloc_get(sk) >= READ_ONCE(sk->sk_sndbuf)) {
-> > +			sk_set_bit(SOCKWQ_ASYNC_NOSPACE, sk);
-> > +			set_bit(SOCK_NOSPACE, &sk->sk_socket->flags);
-> > +			return -EAGAIN;
-> > +		}
-> > +	} else {
-> > +		/* virtio_transport_get_credit might return less than pkt_len credit */
-> > +		pkt_len = virtio_transport_get_credit(vvs, pkt_len);
-> > +
-> > +		/* Do not send zero length OP_RW pkt */
-> > +		if (pkt_len == 0 && info->op == VIRTIO_VSOCK_OP_RW)
-> > +			return pkt_len;
-> > +	}
-> >  
-> >  	if (info->msg && (info->msg->msg_flags & MSG_ZEROCOPY)) {
-> >  		/* If 'info->msg' is not NULL, this is only VIRTIO_VSOCK_OP_RW.
-> > @@ -348,7 +369,8 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
-> >  			uarg = msg_zerocopy_realloc(sk_vsock(vsk), pkt_len,
-> >  						    NULL, false);
-> >  			if (!uarg) {
-> > -				virtio_transport_put_credit(vvs, pkt_len);
-> > +				if (info->type != VIRTIO_VSOCK_TYPE_DGRAM)
-> > +					virtio_transport_put_credit(vvs, pkt_len);
-> >  				return -ENOMEM;
-> >  			}
-> >  
-> > @@ -393,7 +415,15 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
-> >  			break;
-> >  		}
-> >  
-> > -		virtio_transport_inc_tx_pkt(vvs, skb);
-> > +		if (info->type == VIRTIO_VSOCK_TYPE_DGRAM) {
-> > +			spin_lock_bh(&vvs->tx_lock);
-> > +			vvs->bytes_unsent += skb_len;
-> > +			spin_unlock_bh(&vvs->tx_lock);
-> > +			VIRTIO_VSOCK_SKB_CB(skb)->tx_accounted = true;
-> > +			skb->destructor = virtio_transport_dgram_skb_destructor;
-> > +		} else {
-> > +			virtio_transport_inc_tx_pkt(vvs, skb);
-> > +		}
-> >  
-> >  		ret = t_ops->send_pkt(skb, info->net);
-> >  		if (ret < 0)
-> > @@ -416,7 +446,8 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
-> >  	if (info->msg && ret < 0)
-> >  		iov_iter_restore(&info->msg->msg_iter, &msg_iter_state);
-> >  
-> > -	virtio_transport_put_credit(vvs, rest_len);
-> > +	if (info->type != VIRTIO_VSOCK_TYPE_DGRAM)
-> > +		virtio_transport_put_credit(vvs, rest_len);
-> >  
-> >  	/* msg_zerocopy_realloc() initializes the ubuf_info refcnt to 1.
-> >  	 * skb_zcopy_set() increases it for each skb, so we can drop that
-> > @@ -620,7 +651,9 @@ void virtio_transport_consume_skb_sent(struct sk_buff *skb, bool consume)
-> >  {
-> >  	struct sock *s = skb->sk;
-> >  
-> > -	if (s && skb->len) {
-> > +	if (s && skb->len &&
-> > +	    (s->sk_type != SOCK_DGRAM ||
-> > +	     VIRTIO_VSOCK_SKB_CB(skb)->tx_accounted)) {
-> >  		struct vsock_sock *vs = vsock_sk(s);
-> >  		struct virtio_vsock_sock *vvs;
-> >  
-> > @@ -631,6 +664,9 @@ void virtio_transport_consume_skb_sent(struct sk_buff *skb, bool consume)
-> >  		spin_unlock_bh(&vvs->tx_lock);
-> >  	}
-> >  
-> > +	if (s && s->sk_type == SOCK_DGRAM)
-> > +		VIRTIO_VSOCK_SKB_CB(skb)->tx_accounted = false;
-> > +
-> >  	if (consume)
-> >  		consume_skb(skb);
-> >  }
-> > @@ -999,7 +1035,47 @@ virtio_transport_dgram_dequeue(struct vsock_sock *vsk,
-> >  			       struct msghdr *msg,
-> >  			       size_t len, int flags)
-> >  {
-> > -	return -EOPNOTSUPP;
-> > +	struct sock *sk = sk_vsock(vsk);
-> > +	struct virtio_vsock_hdr *hdr;
-> > +	struct sk_buff *skb;
-> > +	size_t payload_len;
-> > +	int err;
-> > +
-> > +	if (flags & (MSG_OOB | MSG_ERRQUEUE))
-> > +		return -EOPNOTSUPP;
-> > +
-> > +	skb = skb_recv_datagram(sk, flags, &err);
-> > +	if (!skb)
-> > +		return err;
-> > +
-> > +	hdr = virtio_vsock_hdr(skb);
-> > +	payload_len = skb->len;
-> > +
-> > +	if (payload_len > len) {
-> > +		payload_len = len;
-> > +		msg->msg_flags |= MSG_TRUNC;
-> > +	}
-> > +
-> > +	err = skb_copy_datagram_iter(skb, 0, &msg->msg_iter, payload_len);
-> > +	if (err)
-> > +		goto out;
-> > +
-> > +	if (msg->msg_name) {
-> > +		DECLARE_SOCKADDR(struct sockaddr_vm *, vm_addr, msg->msg_name);
-> > +
-> > +		vsock_addr_init(vm_addr, le64_to_cpu(hdr->src_cid),
-> > +				le32_to_cpu(hdr->src_port));
-> > +		msg->msg_namelen = sizeof(*vm_addr);
-> > +	}
-> > +
-> > +	if (flags & MSG_TRUNC)
-> > +		err = skb->len;
-> > +	else
-> > +		err = payload_len;
-> > +
-> > +out:
-> > +	skb_free_datagram(sk, skb);
-> > +	return err;
-> >  }
-> >  EXPORT_SYMBOL_GPL(virtio_transport_dgram_dequeue);
-> >  
-> > @@ -1202,13 +1278,13 @@ EXPORT_SYMBOL_GPL(virtio_transport_stream_is_active);
-> >  int virtio_transport_dgram_bind(struct vsock_sock *vsk,
-> >  				struct sockaddr_vm *addr)
-> >  {
-> > -	return -EOPNOTSUPP;
-> > +	return vsock_bind_common(vsk, addr);
-> >  }
-> >  EXPORT_SYMBOL_GPL(virtio_transport_dgram_bind);
-> >  
-> >  bool virtio_transport_dgram_allow(struct vsock_sock *vsk, u32 cid, u32 port)
-> >  {
-> > -	return false;
-> > +	return true;
-> >  }
-> >  EXPORT_SYMBOL_GPL(virtio_transport_dgram_allow);
-> >  
-> > @@ -1246,7 +1322,17 @@ virtio_transport_dgram_enqueue(struct vsock_sock *vsk,
-> >  			       struct msghdr *msg,
-> >  			       size_t dgram_len)
-> >  {
-> > -	return -EOPNOTSUPP;
-> > +	struct virtio_vsock_pkt_info info = {
-> > +		.op = VIRTIO_VSOCK_OP_RW,
-> > +		.msg = msg,
-> > +		.pkt_len = dgram_len,
-> > +		.vsk = vsk,
-> > +		.remote_cid = remote_addr->svm_cid,
-> > +		.remote_port = remote_addr->svm_port,
-> > +		.net = sock_net(sk_vsock(vsk)),
-> > +	};
-> > +
-> > +	return virtio_transport_send_pkt_info(vsk, &info);
-> >  }
-> >  EXPORT_SYMBOL_GPL(virtio_transport_dgram_enqueue);
-> >  
-> > @@ -1771,7 +1857,8 @@ virtio_transport_recv_listen(struct sock *sk, struct sk_buff *skb,
-> >  static bool virtio_transport_valid_type(u16 type)
-> >  {
-> >  	return (type == VIRTIO_VSOCK_TYPE_STREAM) ||
-> > -	       (type == VIRTIO_VSOCK_TYPE_SEQPACKET);
-> > +	       (type == VIRTIO_VSOCK_TYPE_SEQPACKET) ||
-> > +	       (type == VIRTIO_VSOCK_TYPE_DGRAM);
-> >  }
-> >  
-> >  /* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
-> > @@ -1805,6 +1892,41 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
-> >  		goto free_pkt;
-> >  	}
-> >  
-> > +	/* Dgram packets are delivered directly to bound sockets without
-> > +	 * going through the connection state machine. Undeliverable
-> > +	 * datagrams are silently dropped (no RST).
-> > +	 */
-> > +	if (le16_to_cpu(hdr->type) == VIRTIO_VSOCK_TYPE_DGRAM) {
-> > +		if (le16_to_cpu(hdr->op) != VIRTIO_VSOCK_OP_RW)
-> > +			goto free_pkt;
-> > +
-> > +		sk = vsock_find_bound_socket_net(&dst, net);
-> > +
-> > +		if (!sk || sk->sk_type != SOCK_DGRAM) {
-> > +			if (sk)
-> > +				sock_put(sk);
-> > +			goto free_pkt;
-> > +		}
-> > +
-> > +		vsk = vsock_sk(sk);
-> > +		lock_sock(sk);
-> > +		if (sock_flag(sk, SOCK_DEAD) ||
-> > +		    vsk->transport != &t->transport ||
-> > +		    (sk->sk_socket->state != SS_UNCONNECTED &&
-> > +		     !vsock_check_source(vsk, &t->transport, &src))) {
-> > +			release_sock(sk);
-> > +			sock_put(sk);
-> > +			goto free_pkt;
-> > +		}
-> > +
-> > +		if (sock_queue_rcv_skb(sk, skb))
-> > +			kfree_skb(skb);
-> 
-> I'd love to see the receive path be free of lock_sock the way that UDP
-> does.
-> 
-> My understanding from udp is that we can avoid the race with
-> close/SOCK_DEAD by using SOCK_RCU_FREE and putting this receive in an
-> rcu read-side section. I think this makes sk->sk_socket->state safe
-> inside the RCU read side section too.
-> 
-> I think vsock_check_source() in a later patch goes away with
-> virtio_transport_dgram_source_allow(), so I think maybe that patch
-> should come before this?
-> 
-> Best,
-> Bobby
-
-On second thought, the lock sock does not matter here since this isn't
-the recvmsg path and there are not multiple rx workers vying for this
-lock (if there were multiple, they'd already be vying for the
-vsock->rx_lock anyway).
-
-Feel free to ignore my noise about that.
-
-> 
-> > +
-> > +		release_sock(sk);
-> > +		sock_put(sk);
-> > +		return;
-> > +	}
-> > +
-> >  	/* The socket must be in connected or bound table
-> >  	 * otherwise send reset back
-> >  	 */
-> > diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-> > index 9049d2648646..296e1fa7970b 100644
-> > --- a/net/vmw_vsock/vsock_bpf.c
-> > +++ b/net/vmw_vsock/vsock_bpf.c
-> > @@ -161,7 +161,8 @@ int vsock_bpf_update_proto(struct sock *sk, struct sk_psock *psock, bool restore
-> >  	if (!vsk->transport)
-> >  		return -ENODEV;
-> >  
-> > -	if (!vsk->transport->read_skb)
-> > +	/* Datagram receive is not implemented by the sockmap callbacks. */
-> > +	if (sk->sk_type == SOCK_DGRAM || !vsk->transport->read_skb)
-> >  		return -EOPNOTSUPP;
-> >  
-> >  	vsock_bpf_check_needs_rebuild(psock->sk_proto);
-> > 
-> > -- 
-> > 2.56.0
-> > 
+SGkgQWxleGFuZHJ1LA0KDQpPbiBNb24sIDIwMjYtMTAtMTIgYXQgMTM6MjAgKzAzMDAsIEFsZXhh
+bmRydSBEYWR1IHdyb3RlOg0KPiAtIFJlc3RyaWN0IHRoZSBpbmNsdXNpb24gb2YgTU1VIGRlZmlu
+ZXMgdG8gTU1VIGNvZGUuDQo+IC0gUmVmYWN0b3IgTU1VIGRlZmluZXMgdG8gdXNlIGtlcm5lbCBz
+dHlsZSBhbmQgYWNjZXNzLg0KDQpDb3VsZCB5b3UgcmViYXNlIHRoZXNlIHBhdGNoZXMgb24gdG9w
+IG9mIGxhdGVzdCBkcm0tbWlzYy1uZXh0LCB0aGF0IG5vdyBpbmNsdWRlcw0KYWxsIHRoZSByZWNl
+bnQgTU1VIGZpeGVzPw0KDQpDb21taXQgNzg5ZjI5MGIyZTgxICgiZHJtL2ltYWdpbmF0aW9uOiBT
+aXplIHBhZ2UgdGFibGUgcHJlYWxsb2NhdGlvbiBieSBkZXZpY2UNCmFkZHJlc3MiKSBpbiBwYXJ0
+aWN1bGFyIGFkZGVkIG1vcmUgdXNhZ2VzIG9mIHNvbWUgU0hJRlQgZGVmaW5lcyB0aGF0IGhhdmUN
+CmJlZW4gcmVtb3ZlZCBieSB0aGlzIHNlcmllcy4gSXQgbWlnaHQgYmUgc2ltcGxlc3QgdG8gcmVh
+ZGQgYWxsIHRocmVlIHRvDQpwdnJfcm9ndWVfbW11X2RlZnMuaCBhcw0KDQojZGVmaW5lIFJPR1VF
+X01NVUNUUkxfVkFERFJfW1BDfFBEfFBUXV9JTkRFWF9TSElGVCBfX2JmX3NoZihST0dVRV9NTVVD
+VFJMX1ZBRERSX1tQQ3xQRHxQVF1fSU5ERVhfTUFTSykNCg0KZm9sbG93aW5nIHRoZSBNQVNLIGRl
+ZmluZXMsIHBsdXMgbGludXgvYml0ZmllbGQuaCBhdCB0aGUgdG9wIG9mIHRoZSBmaWxlLg0KDQpB
+bHNvLCBib3RoIEd5ZXlvdW5nJ3MgKHYxKSBhbmQgQnJhamVzaCdzICh2MikgUmV2aWV3ZWQtYnkg
+dGFncyBzaG91bGQgYmUNCmFwcGxpZWQuDQoNClRoYW5rcywNCkFsZXNzaW8NCg0KPiANCj4gU2ln
+bmVkLW9mZi1ieTogQWxleGFuZHJ1IERhZHUgPGFsZXhhbmRydS5kYWR1QGltZ3RlYy5jb20+DQo+
+IC0tLQ0KPiBDaGFuZ2VzIGluIHYyOg0KPiAtIFVwZGF0ZSB0aGUgcHZyX3BhZ2VfdGFibGVfbDJf
+ZW50cnlfcmF3X3NldCgpIGRlc2NyaXB0aW9uIHRvIGJldHRlciByZWZsZWN0IHRoZSBnZW5lcmFs
+IGNoYW5nZXMuDQo+IC0gTGluayB0byB2MTogaHR0cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIwMjYw
+OTMwLWI0LWluY2x1ZGUtbW11LWRlZmluZXMtb25seS1pbi1tbXUtY29kZS12MS0wLTI5MWVhZGZk
+ZTIzYkBpbWd0ZWMuY29tDQo+IA0KPiBUbzogQWxlc3NpbyBCZWxsZSA8YWxlc3Npby5iZWxsZUBp
+bWd0ZWMuY29tPg0KPiBUbzogTHVpZ2kgU2FudGl2ZXR0aSA8bHVpZ2kuc2FudGl2ZXR0aUBpbWd0
+ZWMuY29tPg0KPiBUbzogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4
+LmludGVsLmNvbT4NCj4gVG86IE1heGltZSBSaXBhcmQgPG1yaXBhcmRAa2VybmVsLm9yZz4NCj4g
+VG86IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPiBUbzogRGF2aWQg
+QWlybGllIDxhaXJsaWVkQGdtYWlsLmNvbT4NCj4gVG86IFNpbW9uYSBWZXR0ZXIgPHNpbW9uYUBm
+ZndsbC5jaD4NCj4gQ2M6IGltYWdpbmF0aW9uQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzog
+ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogbGludXgta2VybmVsQHZnZXIu
+a2VybmVsLm9yZw0KPiANCj4gLS0tDQo+IEFsZXNzaW8gQmVsbGUgKDIpOg0KPiAgICAgICBkcm0v
+aW1hZ2luYXRpb246IFN3aXRjaCB0byBrZXJuZWwtc3R5bGUgTU1VIGRlZmluZXMgYW5kIGFjY2Vz
+cw0KPiAgICAgICBkcm0vaW1hZ2luYXRpb246IERvbid0IGluY2x1ZGUgTU1VIGRlZmluZXMgb3V0
+c2lkZSBvZiBNTVUgY29kZQ0KPiANCj4gIGRyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlvbi9wdnJf
+bW11LmMgICAgICAgICAgICB8ICA5MSArKysrLS0tLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pbWFn
+aW5hdGlvbi9wdnJfcm9ndWVfbW11X2RlZnMuaCB8IDIzOSArKysrKysrKysrKy0tLS0tLS0tLS0t
+LQ0KPiAgZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl92bS5oICAgICAgICAgICAgIHwg
+ICAyIC0NCj4gIDMgZmlsZXMgY2hhbmdlZCwgMTUxIGluc2VydGlvbnMoKyksIDE4MSBkZWxldGlv
+bnMoLSkNCj4gLS0tDQo+IGJhc2UtY29tbWl0OiA2ZTM3NWRlOTlkMGM0MjAxNjk0ODFmY2QzNjA2
+NDE3N2FiNTViMDlkDQo+IGNoYW5nZS1pZDogMjAyNjA5MzAtYjQtaW5jbHVkZS1tbXUtZGVmaW5l
+cy1vbmx5LWluLW1tdS1jb2RlLWExMzk4ODBmN2ZjZQ0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiAt
+LSAgDQo+IEFsZXhhbmRydSBEYWR1IDxhbGV4YW5kcnUuZGFkdUBpbWd0ZWMuY29tPg0KPiANCg0K
