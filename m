@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715351;
-	b=CIMbWwnUXAWgKZ7njm7jwD5eJ9dYC9birW9lbOt8cPSV4QTm81+flxlqkVgiiDof7G5i
-	 QtHEW1GMX7qt5YIfSm8utdViSjY8Y8PVhWRjL3tXGaJTy3TrtemzzvJ3MLYCiVy/lVHsR
-	 SVqTBxVyznYx06dAW++dC0zXJSPf6sE3HKGWRDS/lrDYBTQcuL2o0/v83l0NAnpeFne3F
-	 Q9iNpihGe6Kftu0qSVgpQozi8akNzffY+1rpUQtwUl2D2tncwZcsb7pcBHVpJ6hG5oMcP
-	 WdAq06bZpxLYbGLll+ky4IomRiWsAP3ZTyAS1/ygdJwKdJ6zgdjpOhTV7STs2SUcnlQ==
+	t=1793715390;
+	b=ZY1hCiBnQJoMYYD2bgADv5+4AmseWa2uncOiO6KeVRUKw8/w/A+wKQf9/I6Y0MZ4fXMx
+	 WEZlzWElQcMyhBD+WJeeXgxiR5wEWMBvyFOn7rDjwvp+cptHvzr34b8SYZSyHboXmnKGn
+	 QqOzZlbEtDA07z6IqP2edyHTozqbIlvPYZQUrRzjakaeebraVfj/KzxabK0v2qRc2CQ2C
+	 9U80iVMgOBCTKY8AjvMlRatpqjAWLcf+iqGmagzh0ta6RzcwXKjeWUvDIATeal9Bpt0gG
+	 xnT2NqOz3FsvdQANWw6q9OmPDvTNzz8P0S8JyMIVTNcQW7a/LpgXsOH5LUVxF7uV93g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715351;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xEksWo7GlN0d12eDs55ivgjRN/CX83ariJNLMru8Xao=;
-	b=wRyC/mptsvCHt1ws3/6cRj0L+zc6ZGedQZQPqb/Y/yRl5cyjIDKz9fH1RGG3AQOqttS4
-	 1zqxbqLlpnhOP3E2TwM6NtmpAf6W0pr0Qr0r4B1+QhCT6znLTo9NWVHiZHpGRrFC0nzP8
-	 0RWGP/PKsTQ8orS4FXhg+qgHaXDAT3E1nKpawJiKrQ9SK4CunpYbjLSNkm+La49tzqBAp
-	 wScnNWeE3s6kv3ki4/tmq39Lzhwo2T/ttCtZiqcRxjgkIzG6hcr5VPUs875kHcbzoLHpp
-	 7Esg45L+Ss9z4tzEpcmrTxAZYHyjCTwuvISVUE4TSTWCZnlTiPahyD2wDpitwK5kuTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715390;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=85ZcI5ScG+6Wnelu03wiw1vV8OKX/Auzop2dtnH+X7E=;
+	b=3j2rZc/G7RS3jo0ieRfoXPu3RpRvbUuIR0B4qFQ4kl0Uu1SzdsjbHgwoqHrBVK5v3+Tb
+	 OI04PWa25YW4C3LtKmQJk6WlcEm2zGDVf5+vFs8/EbC4yTE57X+N1QQbw3bxulYN1IBK9
+	 /RYEPsrJO2g6hrWsOrQEgkwiNwBZZ6+RDORBG9Dpl/0OoB2H7wuIIZKwQLxH+F12OkGpO
+	 sh26glwv67gJgRlHiRl4RxboPMHsG1dXk6lbWpMvcCNj08vI5dL2PfgCB82n22tUQwgUd
+	 roCN//qut/Cre80usL8Ls5yYVdy31JgLEC35LWBiL1aJUI5xtUdzrXiYGPQlTtF+uJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7yYtvK7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XXk6ATFM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2F9606A329;
-	Tue,  3 Nov 2026 14:15:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA9E606A324;
+	Tue,  3 Nov 2026 14:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7yYtvK7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73541F000C1;
-	Tue,  3 Nov 2026 14:15:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XXk6ATFM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BB471F000C1;
+	Tue,  3 Nov 2026 14:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715351;
-	bh=xEksWo7GlN0d12eDs55ivgjRN/CX83ariJNLMru8Xao=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H7yYtvK7aiFHZiEDq2B8+XBZxTL5hcX2J5E3lKDaz+oUGpAZ8w2BTdCkjxlubDD8w
-	 FQaOfbZgLqYNhAJrkNBn2y04FSKLxN6L7aZwz8sLNnnvowKwBP29B2+1PS0y4vMwru
-	 UEThurXYzWSMZL56avKMLMW9UMlLe3iTAoBOOhFCL/NcgHDg0HM1y0p+vCKyxKyhw3
-	 Tcwa1MbEWcg8oZ0a2zVIAPnxiMFL9ugNlbyQ/k7Su8tdwmFjiYKVx0fSJf/zBETIQ2
-	 1z0rTqmP00tHQ8QynWCbg9ivUr/o5kd5C/78Enu7fc6+QVhiFyoNntfTPaaoEvUu3K
-	 DVNRuTMD09Mqg==
-Date: Tue, 3 Nov 2026 14:15:46 +0000
-From: Daniel Thompson <danielt@kernel.org>
-To: rva333@protonmail.com
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 2/2] backlight: add ktd3137 support
-Message-ID: <aunskqwg_CbpBL49@aspen.lan>
-References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
- <20261102-6768-ktd3137-v1-2-b5b4f903c56e@protonmail.com>
+	s=k20260515; t=1793715389;
+	bh=85ZcI5ScG+6Wnelu03wiw1vV8OKX/Auzop2dtnH+X7E=;
+	h=From:To:Cc:Subject:Date;
+	b=XXk6ATFMZuDxS3YysJMlPkekIuUKFVm9SeWN2STzdwQZSb1l9qb+dyVlQuQJ3Cdn3
+	 +jU7/M5OR4je69UkuFeAENWyFSU1Kh/h5h/fKdQ+ukh1iegGs42YPyuY2Eo98Lxdmq
+	 4N/OYO29+3MIU6E0CpF+zM4kCZAcJaj8gtDC/wxS7eP145M2jSTa6x7UWHHQaRgl/a
+	 9GjAxGi6W12Jk+XcOZZ9C5UOEr/FaZfLwRcJXSpzXeMama1CW+vKH7GE2PiuqDxX28
+	 2oOjiXT3oVXOq+8BYn+392mrISYEngHVa8ie+y2hz7o5/fx9CKanQU7R4Yw3W5EglT
+	 YQVmCIpR2fVgQ==
+From: Sasha Levin <sashal@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests/configfs: fix the build on 32-bit architectures
+Date: Tue,  3 Nov 2026 09:16:27 -0500
+Message-ID: <20261103141627.30838-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,194 +58,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-6768-ktd3137-v1-2-b5b4f903c56e@protonmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 09:58:49PM +0200, Roman Vivchar via B4 Relay wrote:
-> From: Roman Vivchar <rva333@protonmail.com>
->
-> Add support for the KTD3137 display backlight IC. It's used in various
-> Xiaomi phones, such as Xiaomi Redmi Note 9.
->
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> ---
->  MAINTAINERS                       |   1 +
->  drivers/video/backlight/Kconfig   |  11 ++
->  drivers/video/backlight/Makefile  |   1 +
->  drivers/video/backlight/ktd3137.c | 262 ++++++++++++++++++++++++++++++++++++++
->  4 files changed, 275 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 24dd5b43f167..23114fd09445 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -14622,6 +14622,7 @@ KTD3137 BACKLIGHT DRIVER
->  M:	Roman Vivchar <rva333@protonmail.com>
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-> +F:	drivers/video/backlight/ktd3137.c
->
->  KTEST
->  M:	Steven Rostedt <rostedt@goodmis.org>
-> diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-> index 7c66b8840d88..0196b8597367 100644
-> --- a/drivers/video/backlight/Kconfig
-> +++ b/drivers/video/backlight/Kconfig
-> @@ -199,6 +199,17 @@ config BACKLIGHT_KTD2801
->  	  Say Y to enable the backlight driver for the Kinetic KTD2801 1-wire
->  	  GPIO-controlled backlight found in Samsung Galaxy Core Prime VE LTE.
->
-> +config BACKLIGHT_KTD3137
-> +	tristate "Backlight Driver for Kinetic KTD3137"
-> +	depends on I2C
-> +	select REGMAP_I2C
-> +	help
-> +	  Say Y to enable the backlight driver for the Kinetic KTD3137
-> +	  found in various Xiaomi smartphones.
-> +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called ktd3137.
-> +
->  config BACKLIGHT_KTZ8866
->  	tristate "Backlight Driver for Kinetic KTZ8866"
->  	depends on I2C
-> diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-> index 34469711c6cd..b2d3b69e9e32 100644
-> --- a/drivers/video/backlight/Makefile
-> +++ b/drivers/video/backlight/Makefile
-> @@ -38,6 +38,7 @@ obj-$(CONFIG_BACKLIGHT_HP700)		+= jornada720_bl.o
->  obj-$(CONFIG_BACKLIGHT_IPAQ_MICRO)	+= ipaq_micro_bl.o
->  obj-$(CONFIG_BACKLIGHT_KTD253)		+= ktd253-backlight.o
->  obj-$(CONFIG_BACKLIGHT_KTD2801)		+= ktd2801-backlight.o
-> +obj-$(CONFIG_BACKLIGHT_KTD3137)		+= ktd3137.o
->  obj-$(CONFIG_BACKLIGHT_KTZ8866)		+= ktz8866.o
->  obj-$(CONFIG_BACKLIGHT_LM3509)		+= lm3509_bl.o
->  obj-$(CONFIG_BACKLIGHT_LM3533)		+= lm3533_bl.o
-> diff --git a/drivers/video/backlight/ktd3137.c b/drivers/video/backlight/ktd3137.c
-> new file mode 100644
-> index 000000000000..a3ff334b8d46
-> --- /dev/null
-> +++ b/drivers/video/backlight/ktd3137.c
-> @@ -0,0 +1,262 @@
-> <snip>
-> +static int ktd3137_init(struct ktd3137 *ktd)
-> +{
-> +	u32 val = KTD3137_CONTROL_DEFAULT | KTD3137_CONTROL_LINEAR;
-> +	int ret;
-> +
-> +	ret = regmap_write(ktd->regmap, KTD3137_REG_CONTROL, val);
+The fixture setup checks the result of mkdtemp() with ASSERT_NE(), which
+hands the pointer to the harness. The harness casts both operands to
+intmax_t to print them, and on 32-bit architectures gcc warns about the
+cast from a pointer to an integer of a different size. The configfs
+test builds with -Werror, so it fails to build there:
 
-Nitpicking but val seems a bit pointless here.
+  kselftest_harness.h:797:49: error: cast from pointer to integer of different size [-Werror=pointer-to-int-cast]
 
+Compare the result against NULL inside ASSERT_TRUE(), so that the
+harness only sees an int.
 
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(ktd->regmap, KTD3137_REG_PWM, KTD3137_PWM_DEFAULT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(ktd->regmap, KTD3137_REG_RAMP_ON, KTD3137_RAMP_DEFAULT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(ktd->regmap, KTD3137_REG_TRANS_RAMP, 0x00);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
-> +				  KTD3137_MODE_CURRENT_MASK, ktd->led_current);
-> +}
-> <snip>
-> +static int ktd3137_probe(struct i2c_client *client)
-> +{
-> +	struct backlight_device *backlight_dev;
-> +	struct backlight_properties props = { };
-> +	struct ktd3137 *ktd;
-> +	u32 val;
-> +	int ret;
-> +
-> +	ktd = devm_kzalloc(&client->dev, sizeof(*ktd), GFP_KERNEL);
-> +	if (!ktd)
-> +		return -ENOMEM;
-> +
-> +	ktd->dev = &client->dev;
-> +
-> +	ret = devm_regulator_get_enable(ktd->dev, "vin");
-> +	if (ret)
-> +		return dev_err_probe(ktd->dev, ret, "failed to power up\n");
-> +
-> +	ktd->enable_gpio = devm_gpiod_get_optional(ktd->dev, "enable",
-> +						   GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ktd->enable_gpio))
-> +		return dev_err_probe(ktd->dev, PTR_ERR(ktd->enable_gpio),
-> +				     "failed to get enable gpio\n");
-> +
-> +	/* HWEN should stay HIGH for at least 150us before I2C can be used */
-> +	fsleep(150);
-> +
-> +	ktd->regmap = devm_regmap_init_i2c(client, &ktd3137_regmap_config);
-> +	if (IS_ERR(ktd->regmap))
-> +		return dev_err_probe(ktd->dev, PTR_ERR(ktd->regmap),
-> +				     "failed to init regmap\n");
-> +
-> +	ret = regmap_read(ktd->regmap, KTD3137_REG_DEV_ID, &val);
-> +	if (ret)
-> +		return dev_err_probe(ktd->dev, ret, "failed to read chip id\n");
-> +
-> +	if (val != KTD3137_DEV_ID_A && val != KTD3137_DEV_ID_B)
-> +		return dev_err_probe(ktd->dev, -ENODEV,
-> +				     "unsupported chip id: 0x%02x\n", val);
-> +
-> +	ret = ktd3137_parse_dt(ktd);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ktd3137_init(ktd);
-> +	if (ret)
-> +		return dev_err_probe(ktd->dev, ret, "failed to init chip\n");
-> +
-> +	props.type = BACKLIGHT_RAW;
-> +	props.max_brightness = KTD3137_MAX_BRIGHTNESS;
-> +	props.brightness = KTD3137_DEFAULT_BRIGHTNESS;
+Fixes: a7fdcb2edd0f ("selftests/configfs: add tests for the userspace interface")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+KernelCI's 32-bit arm kselftest builds fail on this. Built
+configfs_test.c with gcc 16 -m32, with and without _TIME_BITS=64 (fails
+before, builds after), clang 21 -m32, and both compilers for x86_64.
 
-No need for KTD3137_DEFAULT_BRIGHTNESS. Just use KTD3137_MAX_BRIGHTNESS.
+The harness cast warns for every pointer comparison on 32-bit, a few
+thousand warnings in one KernelCI arm build, and configfs only breaks
+because of its -Werror. Making the harness print pointers through
+uintptr_t would be a separate change.
 
+ tools/testing/selftests/filesystems/configfs/configfs_test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +	props.scale = BACKLIGHT_SCALE_LINEAR;
-> +	device_property_read_u32(ktd->dev, "default-brightness", &props.brightness);
-> +
-> +	backlight_dev = devm_backlight_device_register(ktd->dev,
-> +						       "ktd3137-backlight",
-> +						       ktd->dev, ktd,
-> +						       &ktd3137_backlight_ops,
-> +						       &props);
-> +	if (IS_ERR(backlight_dev))
-> +		return dev_err_probe(ktd->dev, PTR_ERR(backlight_dev),
-> +				     "failed to register backlight device\n");
+diff --git a/tools/testing/selftests/filesystems/configfs/configfs_test.c b/tools/testing/selftests/filesystems/configfs/configfs_test.c
+index c6a1049e5852e..94ae8f7103092 100644
+--- a/tools/testing/selftests/filesystems/configfs/configfs_test.c
++++ b/tools/testing/selftests/filesystems/configfs/configfs_test.c
+@@ -122,7 +122,7 @@ FIXTURE_SETUP(configfs)
+ 	ASSERT_EQ(unshare(CLONE_NEWNS), 0);
+ 	ASSERT_EQ(mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL), 0);
+ 
+-	ASSERT_NE(mkdtemp(tmpl), NULL);
++	ASSERT_TRUE(mkdtemp(tmpl) != NULL);
+ 	strcpy(self->mnt, tmpl);
+ 
+ 	ASSERT_EQ(mount("configfs", self->mnt, "configfs", 0, NULL), 0);
+-- 
+2.53.0
 
-dev_err_cast_probe()
-
-
-> +
-> +	i2c_set_clientdata(client, backlight_dev);
-> +	return backlight_update_status(backlight_dev);
-> +}
-> +
-> +static void ktd3137_remove(struct i2c_client *client)
-> +{
-> +	struct backlight_device *backlight_dev = i2c_get_clientdata(client);
-> +	struct ktd3137 *ktd = bl_get_data(backlight_dev);
-> +
-> +	backlight_dev->props.brightness = 0;
-> +	backlight_update_status(backlight_dev);
-> +
-> +	gpiod_set_value_cansleep(ktd->enable_gpio, 0);
-
-Is this needed?
-
-> +}
-
-
-Daniel.
