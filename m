@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793710411;
-	b=GcbmVf9zBZSF2nOfObu8JAlB5ml4Gte95LYWyMfPDCpOvn40tuHo9FySLp/HN2mpmcOe
-	 D8zumuwqnyqNUtLUufj2zNpWphFEy7E4Uhjf/fftnkdqlV+bSkRoPaLbY4fL3ydv3HyF8
-	 8EleP1cqQ3a85Fk9zdHs7On20oFWTH5/gB1BOaTyMQWlF5TSvznwWRzEXIUregjZTJf0f
-	 81zr7wfaNspKGWf59haqriUrStgQvGF27OQRvBO1P4c4pRNEJUX9+7795nn1zcelXsVDm
-	 ETm1uJecR/SU8KnCVu7ROYaIn4fTdH1/Gi2VhxvkHFWnAZze+hCeBYL9ft5GwR0+qGw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=dXh4zH2e2avxS0FZG7llR2vFUehelyaGuBXSziM4AhM/0TcvIaNl4bUQosfDh4DkMIu7
+	 +i9zGk05sd4lbWStzWgMggQAwqA0wDhNdd497DpymDm1lstaOjqRAMx0cqMi9z6hqNosP
+	 FC6Mix9mBE4cigjTcFfwFp7kzChN3qG02Gb+1nacAJqqtf5TF0J+LqRmCvNXAmW4L8jNx
+	 A9fThx5f5wd0OiMUsR6Jtgh2gDuO9QD3K5ioTjCEYtrCOhsQhP9+2eenRiksO5wfwdnP9
+	 ToWZ1WpROe0kYeZTAX3W956abNuhVOmrXfurEmuZPSYZq9mtZ8zxs5sh+f8qPLJrujQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793710411;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2S9p5aXlHLJbTEBexyM/MLcY9eb5i/Msz79aoiD2w+k=;
-	b=s27rHFOopdR0G/jUP16YKgTPvOUAGyLL42ne1dZkbxDjLECLz7ECJ/ilQuYPGDEtAjCR
-	 qADTD8hc6VNztoA8TfwRvy81sC/PZWi1QDVo8fxRqOTzgze9MbFFUv9yTiy0JRhNSi5N4
-	 zReMMTSX3HXHO5SL0e/4/sdsJii2Oxn4dfHY+PLqHZ96gKXjMLopVh8LVIvmVjsE8UZql
-	 G0LpfaXfrQGmfekAVlsVuaJkPt8/lHh15MvvnZaNe0h6InCDL6iUwAVkMqQDz+j2r6foZ
-	 T2GDSRAaT2wXjwkvukIqRWzDSU+8uJxSX4LW3fiefY9ZpEYDILcHbQwUBBMcCmBjHqA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZiceSfc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=2m9BC37D0cC6JLjtnkbhTgqeydVTbhSp75xNBmi+5Og=;
+	b=V2NwFidoi3MW5tvEiVaLNNQfw/n8npWCi/f6M7S1I6HgTfoNRg5oCVyayNTq16xflF6a
+	 QUuccJOujA7rL/ik39nQM8dkBNRLhUdJJff7Rf7SN6m8PHvgBeGxwoHcnI0vlhRXQell5
+	 /srpQFGmAN/IUUA01gfHUX8ImeSM55OxMwUfestM9un08sOu869Cu2QdbBVJQosaUkvc0
+	 nN2dsP3iNT7QU5TV05uAz1eZZvX3AxBqNrx4n0bFc19EWDAVyFMGIRmWneOmFAtDg0GWc
+	 xnj+G1QzEz135E8BcmLGJkw7YIskS91n2XbHTuZwjx1I/V7Lg7NqXU1jeZ6rkVQxBmg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZQ+BFoKI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.32
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011032.outbound.protection.outlook.com [52.101.70.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E8230606A324;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D0A606A328;
 	Tue,  3 Nov 2026 12:53:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23D0A606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZiceSfc
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D3D761F000C1;
-	Tue,  3 Nov 2026 12:53:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793710410;
-	bh=2S9p5aXlHLJbTEBexyM/MLcY9eb5i/Msz79aoiD2w+k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TZiceSfcAhePpCCKzOQeUoonLbX9iyIJYY9aN1IcwKxQ4fTHOukJ1d0tDWtQXqaHr
-	 +eq2s+JExfXpl2mQKFqKGZnQKLU0shJshWsr/Fb8rfcAP+f5szXdcRqejgbo+mKKqc
-	 xse+Po4s+nc7Ad3EZHZuuyl59u/MYayfudvrGLoL84aUs1FVehcEt0magOHJYqMIOa
-	 fxHbttATmQ7Or0VETvpzaPkpBlfyvdpIIMF4aBzQsrqtyBf/1QM3Rl9x08Gkj8rwTm
-	 d1Gpe6hZPtBb22BTyP5gDab5nxd27B+yLqksfZ7tTdkIqvbd8S9tfiZmoUOczmgX4E
-	 5/wHeHMZqOyuA==
-Date: Tue, 3 Nov 2026 13:53:26 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Michael Zaidman <michael.zaidman@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>, Germain Hebert <germain.hebert@ca.abb.com>, 
-	Christina Quast <contact@christina-quast.de>, Rio Liu <rio@r26.me>, Bruno Giacomazzi <brunoceg1@gmail.com>, 
-	linux-input@vger.kernel.org, linux-serial@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 03/15] HID: ft260: add GPIO support
-Message-ID: <7a3kc2tj2mh62aklablkma5teiinm6b6z2rlvrfwk76xcnd2rb@xwsgziioxz6u>
-References: <20261030223637.86907-1-michael.zaidman@gmail.com>
- <20261030223637.86907-4-michael.zaidman@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZQ+BFoKI
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xDE6hou5wOnPMhVze/mXlDQFZJlD6q397E2bqaw6HfKtaPWKCL6RbLXOk7AO6ITazHv+Y8Dvh4fm3phTXv0rOIZDw2QDZJP71Ly/dupIzusYFCftFbkqL6CurC6mUOm4xd824REaT6E6ldPElHg2hu7i/BlFIdoUBKZffriapEPy1C50UaQRNi5k2LZa05mz8p3J0sW0DgxgWXhvuFA3uUEP00zgyjGxxxuutgFmvxnNrPXnexkU0HMprX+kZUVel0mO+a6HXNuULk1EmhiUIRhT8ZQxkD9owCvM5nLLt8nEQ+zG4qz7rpAFbbjGjCMrsJmywl2aALttQRA1hznRpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2m9BC37D0cC6JLjtnkbhTgqeydVTbhSp75xNBmi+5Og=;
+ b=UszuqVgie5ZZYjdPggk3K9wnl+qVQOKwBYqJXg4magocGKvAnO+G1IHMadedkrDIiHdP6Uf/hadaHPylxUQEXMSSyEpJSdlbyYm6UPaAzWxolcPj3sY99bpcfVvhy7ySKvu7Q49yx66rebQtrr/udLmnYeJZtmrmlGPHalY9nugyOjnVlS2FW//QHEWwGyqaMfNBXBoZ0FJGikPm6fcr9rj3ZperSaedKxN855+HoK3LBg8da1L5dAXWdc+WfjvJo53iDqmn3crsnzz/n+d+nWGBoWv3AFd9G7Y07/6ioEuXfSMpIUMA/9rKAQovw/x4jreMs3YxMTjbInwh9NCitQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2m9BC37D0cC6JLjtnkbhTgqeydVTbhSp75xNBmi+5Og=;
+ b=ZQ+BFoKI7kyggYD7FZNZQrpbHOdRTA4gjh1DXJgBrtgI4JHz2S9d4RPwsU111YcDkfX0KKyRenXpQvUoO/XEfCWmhIh8u+S8kyLecpyKBW64ExIOF2nHfK6aZIfcxpSOSYHLnDNccHQdxswOzGKbeGrF6fn36W1HbE1eLsorfI0mG9PEpg+0ztjmgWdrBwslyganAu21/2kPx9IxCf1mEh+z+EiMUgypAyPmEkji2fdHwHafKOdDAmBrHoqAW+mc5xaffQSyUiWW8Na4NhkMpoiayB+hrzPfY9oODLtLjQQAgZiSwEESnIE39ZCSk6V/gSYl4Sfc6Rqx2epaj0wc5A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by MRWPR04MB12355.eurprd04.prod.outlook.com
+ (2603:10a6:501:82::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 12:53:28 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 12:53:27 +0000
+Date: Tue, 3 Nov 2026 14:53:23 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Francesco Dolcini <francesco.dolcini@toradex.com>, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] arm64: dts: freescale: imx95-aquila-dev: Keep
+ DP_PWR always enabled
+Message-ID: <aunZMTjvTnvX9HIH@vm>
+References: <20261103105323.2394012-1-francesco@dolcini.it>
+ <20261103105323.2394012-2-francesco@dolcini.it>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103105323.2394012-2-francesco@dolcini.it>
+X-ClientProxiedBy: AS4P190CA0016.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d0::10) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,166 +103,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030223637.86907-4-michael.zaidman@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|MRWPR04MB12355:EE_
+X-MS-Office365-Filtering-Correlation-Id: bcb99a66-324b-4e2c-5ce8-08df39a9748f
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|366016|7416014|376014|1800799024|261022105027099003|11063799006|261026140227099003|261026121527099003|261028144727099003|4143699003|22082099003|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	cLRop2/XvsdMRZFj+OVMej+y9b0MsHFgCnPRyrkrUgefKNvbohZDlcZzNfbPWw6poAK923G6wECCv/qPloBGcC/gmbJBTapzfi/dqhU/hIeLB0HZ2ooAqB3tqv4YswiSGX6crp7uVR85CNPML6mmea0Af4dbMkJXqUt9Xq1BeWcD5P0tQlB64jX5GgeUejvCTA7H6vNwEbR6t3RzwfpUABx4eGKJK4Uo/cNkuVifDEFCEqK4kda83VAmqHxoiMd75CxbBqF2vNkXsK6h9z9moTVoycfHT4mjsOtHz3G3y6kx+FP/NCOGZbVEHcweTODc06LzM7OPUsmktmRQOQT6VDVVdeTinSUVhVaeOmxWo7zSnDMyFr2DTRJzaFhejW6jiz8zTUYqNvKrhS3oaFvQ9S1XLU/oCfAksY3jZUJmJWOoo8Eh5/aNM0K9T6rUER5PnQy0Nn1q3uHHbBE7r9c/Vbb/GxFXc4c/c/K9UhW18wSlcnZ6a1HZb6Jrj4btyYgrov5/VYHPNyyMSnfEr+lvKdPl9nKsbTL3r1qfkeFjNIgEDYkugxap2vuBqo66JwM+McqrnbU3wpe4QlxXaKi+E0zb2xEYfLlAR8gB+sxVrvlSaSnuWudet4D2s1pSQf/jG/9DqnFrJahWf7CGPB7TH5vOkllmFkn0iAcmPBOLYTc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(7416014)(376014)(1800799024)(261022105027099003)(11063799006)(261026140227099003)(261026121527099003)(261028144727099003)(4143699003)(22082099003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?iRWfPx5vf8pckXUE6OcBdgqV42uxSacbNyzJ3sMcMv9cI5Rl8xhDER1AnSCY?=
+ =?us-ascii?Q?g+H4rWBmCaPdNVnXB/2S45M519hxcMDazlj5C5vDuMDjA+d0noW23C3gM5CU?=
+ =?us-ascii?Q?KJ8bP4a3LBevvbAj947dEnBWZm0HJI0CjPr/id3g3y1soQoHTSxxkXxGGyCu?=
+ =?us-ascii?Q?fDXNyGMm6olQFRyf1BvDQ46DwP1BuWYTuWjxX3f/FkrLd5Pi3t2DENZTXU/H?=
+ =?us-ascii?Q?D0mOAZvz28xRmARYhk6dctgwbiQJsM4xanUrk0uMtOoJ+RHXbMh/Ii25z1g8?=
+ =?us-ascii?Q?BgkvMVv0UvsajbzO7zhYTjkk4P/oPXgV4r8dWeMR8mVc5lz14u4mWSFV1NDz?=
+ =?us-ascii?Q?b/L18Z3RWKPJb4ZIV0nA8EDrPPYt5WzVU7ZELpX5UlssP8mkHdKq3yANS4FK?=
+ =?us-ascii?Q?TqCDRMaj9Hm5G5PKQk+R70isTGBrch6I4R4TfaIWk+D93uGXwRRz6H014Elj?=
+ =?us-ascii?Q?Nlo7jEqwOkjNDIJo44TAM2NBZs7XOGM2jOsZyV8t89sPhbbt/EL2U5qQK7RP?=
+ =?us-ascii?Q?+r9LhbPV6eZt2p6lNYCQyieupi44KmAfL7IICIZnFWE7pK7V2/P2pivXQTBh?=
+ =?us-ascii?Q?M6uNVVqT1rKoAEPwcFqmOUSqK7UqWGFQ3nEAcFq8ps6P9skCm73a+C8kaXvt?=
+ =?us-ascii?Q?dBmu4XRh+Pb9CbXMidKKW1/zlcNVKsB2Rz6oDA2oNG4Xm9rXQ7fD/qaWi7TQ?=
+ =?us-ascii?Q?hS/MRv9VGHTiae7lHia0603YqtlwI/y9s17LQ4/mEt9ht4k9RNBgWks0hIGS?=
+ =?us-ascii?Q?V6k4yhtREzPRj6jL9b1bcsGnH0sT7NXq+M4s1mgWoCfdo31MZfUsdA1hqebW?=
+ =?us-ascii?Q?Va0BtBGM9nOp5EWaVAnsCTUNGGEaI9XIY15sl4lHq1D3cGxeue/ui42LVmim?=
+ =?us-ascii?Q?LRNC2C1tGZzLoiqH5dJe1t60O5RNznnPsSJiEArH/ckQK82LUznI88FWAU2l?=
+ =?us-ascii?Q?DUEn2QNHpFP4Lhk1rnerzRO0naBJoPrxZLfsUbvJGW4RZ2vXieJbFzwngrIE?=
+ =?us-ascii?Q?g2gI5b4FCoPPgw7rg3i3vEekFETdR/UIOIuCyjie1uLfT1efzHCD8QuIrk55?=
+ =?us-ascii?Q?B4KiLHnc1CBZ89mOcdzwXB8bxImEZfeCStyVrSeEsHnZfva+xEVTPSilJkV+?=
+ =?us-ascii?Q?8frgcXbTlv+JTyknfseMJLxRB4GXWGGnE7ZpwGnNnLlIN/3vgWb6gFCuWOvR?=
+ =?us-ascii?Q?4TyNSez0beDw7eohGFP6giru3zkroQ28BdMgnn7mZY4TjDIg9T+XKbOdK2vY?=
+ =?us-ascii?Q?B1B6IBpxGU4ycx+tdCsUaUW09vWBstLm2JokIuUPVtA7PfDfbFqqQIv/WAIe?=
+ =?us-ascii?Q?sjUrHjQJviQUNyLH7BWGjQySbmkrziI/8FRLNtVwmuztd/cXHQqLJg8jVHY3?=
+ =?us-ascii?Q?1OoVdeWDtOkOdrgBaMkb9kI4lV+PBJy15hxCGAzlrcxEjWAK/akg6h/OcPRU?=
+ =?us-ascii?Q?Yq6sRlN352RUfPZXwl6X2quoZM5hKgeha987fTgG1IKYIGVxT1FxsSaec3+g?=
+ =?us-ascii?Q?77waprboU3+PFQgNmxlcQV+/kiMoe+WFawF2e2028PGrUuR6fPDEcUe8r56U?=
+ =?us-ascii?Q?6/AlbjBLZrVAnhRemLGGcCq0/HF9jV2u52etF18GhvXxfHUWbMTwKTwrnx5F?=
+ =?us-ascii?Q?LVi4SwwfVwhumCTu59qE0Hfww6/qF1G4zRd1s7SxokvPdttlnpoPTrHpIyXc?=
+ =?us-ascii?Q?PiQBu5HKuhhgZ9TEVDRL0vYiuBp8mzBIUmqNu7BLkhYHDuybmaeN1Nmzl+pG?=
+ =?us-ascii?Q?2mG0HWrHc0+ktp0F6iiRVkJzrUffNw0=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcb99a66-324b-4e2c-5ce8-08df39a9748f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 12:53:27.8987
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IWCv8RlPFwQSESu32uKQqGfG6y5mPT8w/EBJ87KOLPwziaTuM5Q3CxiILg7Oodn0hvFH0vu9Wn38MybdurfnUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB12355
 
-On Sat, Oct 31, 2026 at 12:36:25AM +0200, Michael Zaidman wrote:
-> Add gpiochip support for the FT260 multifunctional pins, including
-> GPIO2/GPIOA/GPIOG function selection via sysfs, and enable the
-> available GPIOs according to the active UART mode.
+On Tue, Nov 03, 2026 at 11:53:15AM +0100, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
 > 
-> This supersedes the earlier pre-UART GPIO series:
-> https://lore.kernel.org/lkml/20230211115752.26276-2-michael.zaidman@gmail.com/
+> DP_PWR on the DisplayPort connector powers active DP cables and
+> adapters, which do not work without it. Keep it always enabled, and mark
+> it boot-on so that the firmware, e.g. U-Boot, enables it at boot,
+> whether or not a display driver is available.
 > 
-> The gpio_chip.set callback returns int to match the current gpiolib
-> API, based on the adaptation originally contributed by Rio Liu
-> <rio@r26.me>.
-> 
-> Read the current GPIO state before writing so a set does not clobber
-> other pins with a zero shadow. Apply direction and value in one
-> feature report, and return a failed value write to gpiolib. UART mode
-> OFF clears only UART-owned bits. Reject an out-of-range uart_mode
-> index (reported by Sashiko).
-> 
-> Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
-> 
-> ---
+> Fixes: d5c082ba23db ("arm64: dts: freescale: add Aquila iMX95 support")
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-There's a lot of sashiko comments to address but a few additional nits
-below.
+Acked-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 
-...
-
-> +
-> +static int ft260_gpio_set(struct gpio_chip *gc, u32 offset, int value)
-> +{
-> +	int ret = 0;
-> +	struct ft260_gpio_read_request_report buf;
-> +	struct ft260_gpio_write_request_report rep;
-> +	struct ft260_device *dev = gpiochip_get_data(gc);
-> +	struct hid_device *hdev = dev->hdev;
-> +
-> +	if (offset >= FT260_GPIO_TOTAL) {
-> +		hid_err(hdev, "%s: invalid offset %d\n", __func__, offset);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ft260_dbg("offset %d val %d\n", offset, value);
-> +
-> +	mutex_lock(&dev->lock);
-
-Use lock guards from linux/cleanup.h.
-
-> +
-> +	if (!(dev->gpio_en & BIT(offset))) {
-> +		hid_err(hdev, "%s: wrong pin function %d\n", __func__, offset);
-> +		ret = -EINVAL;
-> +		goto exit;
-> +	}
-> +
-> +	ret = ft260_hid_feature_report_get(hdev, FT260_GPIO, (u8 *)&buf,
-> +					   sizeof(buf));
-> +	if (unlikely(ret < 0)) {
-> +		hid_err(hdev, "%s: cannot get GPIO: %d\n", __func__, ret);
-> +		goto exit;
-> +	}
-> +
-> +	rep.report = FT260_GPIO;
-> +	rep.gpio = buf.gpio;
-> +
-> +	if (offset < FT260_GPIO_0_5_COUNT) {
-> +		if (value)
-> +			rep.gpio.vals |= !!value << offset;
-> +		else
-> +			rep.gpio.vals &= ~BIT(offset);
-> +	} else {
-> +		offset = offset - FT260_GPIO_0_5_COUNT;
-> +		if (value)
-> +			rep.gpio.ex_vals |= !!value << offset;
-> +		else
-> +			rep.gpio.ex_vals &= ~BIT(offset);
-> +	}
-> +
-> +	ft260_dbg("dirs %#02x vals %#02x ex_dir %#02x ex_vals %#02x\n",
-> +		  rep.gpio.dirs, rep.gpio.vals,
-> +		  rep.gpio.ex_dirs, rep.gpio.ex_vals);
-> +
-> +	ret = ft260_hid_feature_report_set(hdev, (u8 *)&rep, sizeof(rep));
-> +	if (unlikely(ret < 0)) {
-> +		hid_err(hdev, "%s: cannot set GPIO: %d\n", __func__, ret);
-> +		goto exit;
-> +	}
-> +
-> +	dev->gpio = rep.gpio;
-> +	ret = 0;
-> +exit:
-> +	mutex_unlock(&dev->lock);
-
-That way you'll avoid this label. Same elsewhere.
-
-> +	return ret;
-> +}
-> +
-> +
-> +	hid_info(hdev, "enabled GPIOs: %04x\n", dev->gpio_en);
-> +
-> +	dev->gc = devm_kzalloc(&hdev->dev, sizeof(*dev->gc), GFP_KERNEL);
-> +	if (!dev->gc)
-> +		return -ENOMEM;
-
-Why is this dynamically allocated? Make it part of ft260_device.
-
-> +
-> +	label_sz = strlen(dev_name(&hdev->dev)) + strlen(prefix) + 1;
-> +	label = devm_kzalloc(&hdev->dev, label_sz, GFP_KERNEL);
-> +	if (!label) {
-> +		ret = -ENOMEM;
-> +		goto exit;
-
-Just return here? Why the label?
-
-> +	}
-> +	snprintf(label, label_sz, "%s%s", prefix, dev_name(&hdev->dev));
-
-devm_kasprintf()?
-
-> +	hid_info(hdev, "initialize gpio chip on %s\n", label);
-
-Drop logs like this, they add nothing except useless noise. Same
-elsewhere.
-
-> +
-> +	dev->gc->label			= label;
-> +	dev->gc->direction_input	= ft260_gpio_direction_input;
-> +	dev->gc->direction_output	= ft260_gpio_direction_output;
-> +	dev->gc->get_direction		= ft260_gpio_get_direction;
-> +	dev->gc->set			= ft260_gpio_set;
-> +	dev->gc->get			= ft260_gpio_get;
-> +	dev->gc->base			= -1;
-> +	dev->gc->ngpio			= FT260_GPIO_TOTAL;
-> +	dev->gc->can_sleep		= true;
-> +	dev->gc->parent			= &hdev->dev;
-> +
-> +	/* Wakeup chip */
-> +	(void)ft260_hid_feature_report_get(dev->hdev, FT260_CHIP_VERSION,
-> +					(u8 *)&ver, sizeof(ver));
-> +
-> +	ret = ft260_hid_feature_report_get(hdev, FT260_GPIO, (u8 *)&gbuf,
-> +					   sizeof(gbuf));
-> +	if (ret < 0)
-> +		hid_warn(hdev, "cannot read GPIO state: %d\n", ret);
-> +	else
-> +		dev->gpio = gbuf.gpio;
-> +
-> +	ret = devm_gpiochip_add_data(&hdev->dev, dev->gc, dev);
-> +	if (ret < 0)
-> +		hid_err(hdev, "cannot add GPIO chip %d\n", ret);
-> +exit:
-> +	return ret;
-> +}
-> +
->  static int ft260_get_system_config(struct hid_device *hdev,
->  				   struct ft260_get_system_status_report *cfg)
- 
-Bart
+-- 
+Thanks,
+Laurentiu
