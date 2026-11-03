@@ -1,104 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680535;
-	b=SIxsgvWhdpjvtTzj6LM5i0gTZK9EBHrfJ1aUOVALFwE1U1F7M+TWOF5eW4O/hGyKotV4
-	 nC8HpSuqxeF/D3kBrzqtfrWJ2ZleiEcNN91xqrqNr5WLmNxBTkb2CzDnIXQ/frFKKy0Dr
-	 kbgCGzgbrkR8HTyKHEjX0pwdXmem3wd6Sc0XrfgfB7yyITlzQ4cqMoo/eWrWRztUzPdWp
-	 u5NnFeCCKrCg8w8bgZBuySvENVQp8Aa3jshUic6zxwV3/PdAg6uSb8IpIiT1xQV7UJFKG
-	 tNTygZbEEtrbNGIfrr4l2k2YlYwf+sFnloDNz6BzXF/Dlne1R5BR4ImjbObQwhlA5YQ==
+	t=1793680621;
+	b=ZRsnS58NT5716TL5hSQmlzy0Iq0WwsIADsM9R/A39xdidosIxYZXmJChSo4NHKL+Jkk0
+	 8VMvx9LYAXvHYj8f8HXiRKjpoSPpGNzyjixYZ5ku/lCvn3zMokeIc8v7TNTZ7+bhtj1tb
+	 y0MzHa4cgZPuCkne8UUH9CKbifHmhZYRxFVGcf+Vbn6CL/cA8oTgIFafVvMsYcY5ahVbT
+	 J/GDtvvTcfZXN0JWrj8Zp3/Q0haWyjOf9TtFaz8KIpWgu43yQTLE8MbomdD9YTcxrsqxH
+	 P2WtHlOtmma5tcmlhdiF1vP6be/542EmY3neM7OKIFA66fZA5lZTuw6lt4sQV5e70eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793680621;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:Date:
-	 Message-Id:Cc:Subject:From:To:In-Reply-To:References:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=+haBGwyiWfU5fK0i8XKvoQcOJxAPZRgUZLulxjt6MCY=;
-	b=AtLQsg9l/b/4tXdkhnJvk8WRtdfKSvKmQ8UcFDplDODlHp2ArAcoHTrrPkFJAxT5CG1+
-	 kgus0aqoAUwkPAXCL0i6w0w4FJVujHW6aJQEVzyrvsX9T0nTjjXxgpb6VaygIr/4psbOS
-	 IUuZ99c5QhfdCQrFU9fnkpbG5oWGXz26ZuUWnVMEHNrpo1rVK1n84dPWH28j/vKb8SICz
-	 J0cKlx0+VH51dwZYS4loeoeh4n7CpeQ7oWbxgX0phDdcvSOoTKivWCWOHK80g9+26qoPG
-	 oERVL7Od+IhYGqFAhheW4l/6EZII19z/fmT3llfw/mzHOtsE8vyDavFTXB/zg+mCFpA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/pEzeyppoE46W1mZEvMY+WnIf+I5XRxOy5A4cmAgaOI=;
+	b=uS8JhzYxjLLSK1bWP9qBeXeJeRoXQO61q/3SNx0DLJ5JfVXTSwyy1MvafQvJJU0jj/wj
+	 SHqbnqJoOPudue139Rd/LXzV5q0Hzj3OkM85zDqxvSySZk1DDOaThCg5MN4adLps4UjJQ
+	 RS4DdnS+57SiKaUE1305d6s2T624d/Pu893RRt/xwaj58chhH/4LZmZveLsY/adPMlFTr
+	 cIiZOkwD7ejeOwSSXkT4vFQ+6Ca19msgzd76Y646j51AtUaxxZvQbITN+WxMqtkDzHgDs
+	 DVVl0beKGkxw61LYbN2cz12zd3hzuFyygIQ+360xwcoe2Hrz4R6kx/WFLJkYqIZoEYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EUYCg2Xx;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Xy1IQxTl;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BC7606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:35:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49BC7606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A162606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:37:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A162606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EUYCg2Xx
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso1992876a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:35:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Xy1IQxTl
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49d05d51553so23495825e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:37:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793680533; x=1794285333; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+haBGwyiWfU5fK0i8XKvoQcOJxAPZRgUZLulxjt6MCY=;
-        b=EUYCg2Xxy1ACTZiwCq3hVMXK3t3no7wXjeF5y600TxKzaCOeyHe6TFA5VKnm1dGTv2
-         RE09ZssXDv+aqW8biwBm1hwinP4uyCGsLICDt1Efl2hfEtiwEii8MmclL+9IpyOImz5b
-         AwsxivXu5eWr3qyWNguj0S/WDcxvchQjfL/5nbHeIwn0ANAI957Ix7HyaRhauy1e+nlt
-         JZH1L9XFVf9cRYx/gktVcXG8Yq1l/GDsUgyTUrH/Icd63ncCCO1oSNbNwVtDd9f91PnM
-         MH3IuDh7PRkflveanVTkY2w+S8d4zVeML2V/yT4mJJegWfn0NkQlAb9eSAICdfuZtP6q
-         iBeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793680533; x=1794285333;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=suse.com; s=google; t=1793680619; x=1794285419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+haBGwyiWfU5fK0i8XKvoQcOJxAPZRgUZLulxjt6MCY=;
-        b=Kp/d49GEfD80XUsise9KcZEu4HUcvyMaitEsOyYEr2OxSApRB5sHt1C8QFBgGv/zUn
-         ew/dElCM6+v/Ua5ubUpxnqnYMZVrkwmRxpoCw1MM+CLQcyGwB0CIddc6cuvDRWYL//ts
-         Z0RXl6T6EO0OJf0UZbGLzP0KkYM/OW9F3RswTx4AYvkvDt8a3fgbcugRSg73jp9H5hFS
-         nRlN+IuIsN3cEhXu/JoBjMeLxkyXzGPX6qH3C2JONpAG8gqRgSVpfo/asT+0/Pas3z3O
-         py8OiQenY4sVppa9mmslxbYZNM5rS3bI6spKdfRgthBrXlhoQtdkhpBPUJBGzuoc5wwh
-         dvEg==
-X-Gm-Message-State: APuU4Z/Q8WkFuTEDr+H9nnmEzn60dkKlaQK4hFZlI8vKWBYihM+D+Rjk
-	2W6w2FXHnrIwawIVNvPx24x2DPlJLTlA40gj5+wiuis2B+Rwj7y9yjw0
-X-Gm-Gg: AYBFou1rLN1P5Go1wAYXIZbAHydezmsMEHJPILIZrX2RefCWSfP1MwU+FMDp1ERYWRB
-	ot2ZHozy/Yh7g3h8ggNtFS58USPK2tBmDnlCP7+Kc0VJGwW98nyb6cP8HaFqsXco19i+YiCDr+N
-	oSRXG9qRQNfV06v7ansxbLtRh4vHtfcYHxjULQX5+Y4ay7wbvTFG0cFUjMqIfOBE0m9Ure+JXN/
-	ZiBDL5Fv7GhbHV9FZRkFjADq/g0szwfwrz1zM2vrYF7iTOuZ3q4ADXNSjYEuUj7FoI5nrn26NHx
-	dNuOCQFGKx4b6s9K4yIIegr36cQwxBOy/wOtC+ZIRPAqCmQ2JsA6qcanOXKIRXduDRTn6VZxTHW
-	oO0eC1Ky8PHlGsFUGl/oEoaIOSduIgDa3LDcI5PJCWEu5T+yvprl75SfOliEINVbOhwtwzCidQN
-	Wn/IiG1HnEMKZu0Spix1c6EwszU5bX6Ze2BTq+LXVXcpYD4NFDjFv5mkwDXNVtwZnSOGkgcdJv9
-	U6yM8Vo3KUnUknPHWBueZ3PKx7H5/NEYcNBBjVyQZrDQcP16BVsqheTa/wwth3F5j6TfnugaNsN
-	eLBW96TYH9mXpJOE9XsDPGdAVT/FDjS9L4fKiyg18fOsFFdWyRvqEw2gxaGIkcJxoTd1nXzrGLw
-	Jf0ZU1yQDp9DGALwks8d4vK+n9AOjejx2QlY=
-X-Received: by 2002:a17:90b:4f87:b0:3ac:af8d:c839 with SMTP id 98e67ed59e1d1-3ae897f6e6dmr9433576a91.35.1793680533365;
-        Mon, 02 Nov 2026 20:35:33 -0800 (PST)
-Received: from localhost ([153.61.198.248])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85cb91e5sm9616698a91.0.2026.11.02.20.35.32
+        bh=/pEzeyppoE46W1mZEvMY+WnIf+I5XRxOy5A4cmAgaOI=;
+        b=Xy1IQxTl6ZVTrl3Vui9Z5bCFjO9qFMooyElAgm9BfRbdTDTdcxtdLdAQG834/dw2dZ
+         Vc/Z3NtC8rNxLHXAFy7tqJkaEqeiQx0AbKpsStajWYZJg/0R1VcFlIoWcgQgH80LGB8b
+         xi5k2PPo5Av0AyMwLad3HQgtGaIWslFnZg+V3ygcpybGO0Hye35nJvoVQdXGIfcVxSCy
+         9n5FBeYuUEexs0SjxxDLOfKbqG856sdTPUyYMvMHBepNzRfs3XUVy86UMrdFBKL8F7uU
+         ZubUxm5AF55Wws16Bk0F4S8CS9wc6PtmEeIW9jC4IZZGi+tr1LeNYDL214Q845xmb7oc
+         Nxog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793680619; x=1794285419;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/pEzeyppoE46W1mZEvMY+WnIf+I5XRxOy5A4cmAgaOI=;
+        b=n/kSHrK/udfj9pjPhM3LDgA2knUleqBYeBA9dpxPOqA2IdEryVtU9hqMIcP5K6Ne/z
+         I9JCauWieMIeby/Ig9aINFB/lJG4RqBYBpNSqgWB+NWHSLJk1xtoMTy4VomfAcj+Rp8h
+         9wCVRfWPRfdGqkfWjqb24JBKg2IgznCY4x2FB+ZbZU1bnxOxWx611ydomaEZUfqs91Dz
+         b6SbhvVmd15u5dsc/2XUtYVUrWI5dVh2I8SFNtU9DczbHJ/W0zdUoicn3fbBVlQbL+SC
+         ogStIJxDuS4CfHF4iU2hPaoVrQZZfcfhAFcAr/69HTPKVp5IAXnD1hWay69gUSzzcv08
+         BKlA==
+X-Forwarded-Encrypted: i=1; AKwUvBwu7hHyltXC6HZPWXXdcbzkKuekfU6xR9SkWeoTT5yzTH6A84852+vS5TMfqv/P9eXqmNRFvYLXLczV/jo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0HZBX8esFxz8h4RxejP+iPUjbWTQatYxf0AEWCMD6FxiC+u8b
+	vkJPphGZNhs3CCUD1c6ezDYFmC3RsMABnpjV1nC6vC3+v9tcIw6TUXanJ5m6cqtaKOs=
+X-Gm-Gg: AYBFou0k/45HpdtkGXB8MvTHra8/yH1+YuDvHzk08bnhwE8FdDbf8eq2zivOZSIeJK8
+	VDQ/4XK183Ngcv3U1VKqYzjJUAgpm03l+aA/kqth/uXq2jbtuYtu87iM03ItoR4rFfdZTn49PXT
+	aXhiSau80QJTPQ4k3IzN6RRqwyNmgnlR/WGCNf1YPFbu+JFAQPbhadeDAhGbofJ67nbynGT5HmR
+	bjwg89FP60Faqve3mXsebRxSC+rVQp+g8FB5QQLxpHqwXhY46fM8+4oj2DbXO1BV1a1B8rP0hFt
+	TgLxj/601X1Ifm3m1HgdHbpu+8HcQ+HgS/JgrMohhveE5s2mMqfGudnpnrtZywgeluGKiNvqxUW
+	Xc3EGRJAFHTjbxWSCVKjTvDO0PIMi0+gNiWe+KAILtNX3UVv+c3GyWp3ISaYBIJvdKXk6ngTYyj
+	BuKo/3lkrUoh/PmrMS02beaG3YzpWD4G2PbUgQ25xuUDbW7UyArk+tFGMiLf4dMcbkkYnU+y+Hv
+	UfHvAuimEhIUG5HCE8PisE15WoTjjlrU2csNIvjNHEr+gsnxQrIZ3L05Q4Zwp3rtGpQZfbhEC42
+	YQGWh08hU9A2k9BoY4SoykKxm6koQ2i/BGMeC23XDQ==
+X-Received: by 2002:a05:600c:4e14:b0:4a5:a5ca:de1d with SMTP id 5b1f17b1804b1-4ac187a80bfmr275505455e9.30.1793680618644;
+        Mon, 02 Nov 2026 20:36:58 -0800 (PST)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36b13bd87b2sm2675989eec.28.2026.11.02.20.36.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 20:35:32 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 03 Nov 2026 04:35:32 +0000
-Message-Id: <DMLAOL0238CH.43SXF0SFHONW@gmail.com>
-Cc: <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
- <llvm@lists.linux.dev>
-Subject: Re: [PATCH bpf-next v4 2/2] bpftool: Make the LLVM disassembler an
- optional runtime dependency
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: <socketpair@gmail.com>, "Quentin Monnet" <qmo@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Song
- Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri
- Olsa" <jolsa@kernel.org>, "Nathan Chancellor" <nathan@kernel.org>, "Bill
- Wendling" <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>,
- "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "Nick Desaulniers" <ndesaulniers@google.com>
-In-Reply-To: <20261102-bpftool-plugin-v4-2-5a853e973db9@gmail.com>
-References: <20261102-bpftool-plugin-v4-0-5a853e973db9@gmail.com> <20261102-bpftool-plugin-v4-2-5a853e973db9@gmail.com>
-Content-Transfer-Encoding: 8bit
+        Mon, 02 Nov 2026 20:36:57 -0800 (PST)
+Message-ID: <0e59bdd6-1d30-4337-8933-59c9d2082b6b@suse.com>
+Date: Tue, 3 Nov 2026 15:06:50 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,40 +92,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] btrfs: tree-checker: validate qgroup status item
+To: Siddharth Mishra <smish149@asu.edu>, David Sterba <dsterba@suse.com>
+Cc: Boris Burkov <boris@bur.io>, Chris Mason <mason@kernel.org>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103034932.1790235-1-smish149@asu.edu>
+ <20261103034932.1790235-2-smish149@asu.edu>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261103034932.1790235-2-smish149@asu.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 04:44 AM Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org> wrote:
-> +  else ifeq ($(words $(LIBLLVM_SO)),1)
-> +    # Don't link with libLLVM.so. "prog dump jited" loads it with dlopen().
-> +    CFLAGS += -DLIBLLVM_SO='"$(notdir $(realpath $(LIBLLVM_SO)))"'
 
-sashiko is right. realpath was my suggestion, sorry.
-Today DT_NEEDED of bpftool has the soname of libLLVM.so.
-Every distro makes that name visible to ld.so.
-The name of the file behind it is up to the distro.
-The two are the same on Fedora 44, where you tested.
-Where they differ dlopen() fails and "prog dump jited" doesn't work at all.
-Pls use the soname. Something like this (not tested):
 
-    LIBLLVM_SONAME := $(shell $(READELF) -d $(LIBLLVM_SO) | \
-                        sed -n 's/.*(SONAME).*\[\(.*\)\].*/\1/p')
-    CFLAGS += -DLIBLLVM_SO='"$(LIBLLVM_SONAME)"'
+在 2026/11/3 14:19, Siddharth Mishra 写道:
+> [BUG]
+> An image can have a status item with SIMPLE_MODE and a super block
+> without the SIMPLE_QUOTA bit.  On a kernel with CONFIG_BTRFS_ASSERT=y,
+> the mount of this image causes a BUG :
+> 
+>    assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
+>    in fs/btrfs/qgroup.c:411
+>    kernel BUG at fs/btrfs/qgroup.c:411!
+>    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>    RIP: 0010:btrfs_read_qgroup_config.cold (fs/btrfs/qgroup.c:411)
+>    Call Trace:
+>     open_ctree (fs/btrfs/disk-io.c:3789)
+>     btrfs_get_tree.cold (fs/btrfs/super.c:2133)
+>     vfs_get_tree (fs/super.c:1943)
+>     fc_mount (fs/namespace.c:1282)
+>     path_mount (fs/namespace.c:4337)
+>     __x64_sys_mount (fs/namespace.c:4542)
+> 
+> Without CONFIG_BTRFS_ASSERT, the mount is successful in simple quota
+> mode.  The first data write then adds an owner ref.  The write-time
+> tree-checker sees the owner ref without the SIMPLE_QUOTA bit and gives
+> a WARN_ON() (tree-checker.c:1782).
+> 
+> [CAUSE]
+> The tree-checker does not examine the status item.
+> btrfs_read_qgroup_config() reads the flags of the status item.  For
+> SIMPLE_MODE, it calls qgroup_read_enable_gen().  This function ASSERT()s
+> that the SIMPLE_QUOTA bit is set and that the item contains enable_gen.
+> Since commit f2363e6fcc79, the kernel does not write SIMPLE_MODE without
+> the SIMPLE_QUOTA bit.  Thus only a damaged or crafted image has this
+> state.
 
-[...]
+The easiest way to show the cause is to provide a tree dump of the 
+offending leaf, and highlight the offending tree blocks.
 
-> +	lib = dlopen(LIBLLVM_SO, RTLD_NOW);
-> +	if (!lib) {
-> +		p_err("failed to load %s: %s", LIBLLVM_SO,
-> +		      dlerror() ?: "unknown error");
-> +		return -1;
+> 
+> [FIX]
+> Add a tree-checker rule for the status item :
+> - The item must contain the four members of all versions : version,
+>    generation, flags and rescan.
+> - With SIMPLE_MODE, the super block must have the SIMPLE_QUOTA bit, and
+>    the item must also contain enable_gen.
+> If a rule fails, the tree-checker rejects the leaf with -EUCLEAN.  Then
+> btrfs_read_roots() cannot read the quota root.  It ignores the error, as
+> before, and btrfs mounts the filesystem without quotas.
+> 
+> Fuzzing found this bug. An AI tool helped to analyse the cause and to
+> write the fix. I tested on btrfs for-next (d6f76ca0a70d), with and
+> without KASAN and CONFIG_BTRFS_ASSERT=y. Without the patch, the kernel
+> gives the BUG above, or the WARN_ON() at the first write. With the
+> patch, the tree-checker rejects the leaf ("qgroup status item has
+> SIMPLE_MODE but SIMPLE_QUOTA incompat bit unset"). The mount is
+> successful without quotas. There is no BUG and no WARN_ON(). A clean
+> simple quota filesystem still mounts, writes data, frees extents and
+> mounts again. Its status item passes the check at each commit. The
+> fstests group qgroup has no new failure (34 passed, 3 not run here). A
+> crafted image and a C reproducer are available on request.
+
+Drop the whole paragraph starting with "Fuzzing found".
+
+It makes no sense. And tell your agent to write this rule into its 
+memory file.
+
+This looks very chatgpt, and so far I have no good experience with 
+patches generated by that.
+
+> 
+> Fixes: 182940f4f4db ("btrfs: qgroup: add new quota mode for simple quotas")
+
+I don't think this should count as a fix.
+
+> Cc: stable@vger.kernel.org # 6.7+
+> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+> ---
+>   fs/btrfs/tree-checker.c | 35 +++++++++++++++++++++++++++++++++++
+>   1 file changed, 35 insertions(+)
+> 
+> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+> index 61ea8f42c..0d75cb537 100644
+> --- a/fs/btrfs/tree-checker.c
+> +++ b/fs/btrfs/tree-checker.c
+> @@ -2083,6 +2083,38 @@ static int check_raid_stripe_extent(const struct extent_buffer *leaf,
+>   	return 0;
+>   }
+>   
+> +static int check_qgroup_status_item(const struct extent_buffer *leaf, int slot)
+> +{
+> +	const u32 item_size = btrfs_item_size(leaf, slot);
+> +	const u32 min_size = offsetof(struct btrfs_qgroup_status_item, enable_gen);
+> +	struct btrfs_qgroup_status_item *ptr;
+> +
+> +	/* version, generation, flags and rescan are always present. */
+
+I don't think the comment adds much value.
+
+Tell your agent to keep comments at minimal.
+
+> +	if (unlikely(item_size < min_size)) {
+> +		generic_err(leaf, slot,
+> +		"invalid qgroup status item size, have %u expect at least %u",
+> +			    item_size, min_size);
+> +		return -EUCLEAN;
 > +	}
+> +	ptr = btrfs_item_ptr(leaf, slot, struct btrfs_qgroup_status_item);
+> +	if (!(btrfs_qgroup_status_flags(leaf, ptr) & BTRFS_QGROUP_STATUS_FLAG_SIMPLE_MODE))
+> +		return 0;
+> +
+> +	/* Simple quotas need the incompat bit and the enable_gen member. */
+> +	if (unlikely(!btrfs_fs_incompat(leaf->fs_info, SIMPLE_QUOTA))) {
+> +		generic_err(leaf, slot,
+> +	"qgroup status item has SIMPLE_MODE but SIMPLE_QUOTA incompat bit unset");
+> +		return -EUCLEAN;
+> +	}
+> +	if (unlikely(item_size < sizeof(*ptr))) {
+> +		generic_err(leaf, slot,
+> +	"invalid qgroup status item size for simple quota, have %u expect at least %zu",
+> +			    item_size, sizeof(*ptr));
+> +		return -EUCLEAN;
+> +	}
+> +	return 0;
+> +}
+> +
+>   static int check_remap_key(const struct extent_buffer *leaf,
+>   			   const struct btrfs_key *key, int slot)
+>   {
+> @@ -2475,6 +2507,9 @@ static enum btrfs_tree_block_status check_leaf_item(struct extent_buffer *leaf,
+>   	case BTRFS_FREE_SPACE_BITMAP_KEY:
+>   		ret = check_free_space_bitmap(leaf, key, slot, prev_key);
+>   		break;
+> +	case BTRFS_QGROUP_STATUS_KEY:
+> +		ret = check_qgroup_status_item(leaf, slot);
+> +		break;
+>   	case BTRFS_IDENTITY_REMAP_KEY:
+>   	case BTRFS_REMAP_KEY:
+>   	case BTRFS_REMAP_BACKREF_KEY:
 
-"bpftool prog dump jited id N file F" fails here too when libLLVM.so is
-not installed. It doesn't need a disassembler.
-prog_dump() only writes the image to F.
-But do_dump() calls disasm_init() before it parses "file".
-Call disasm_init() after the arguments are parsed, and only without "file" ?
-It can be a separate patch.
-
-Also common_options.rst still says "linking against LLVM".
-
-pw-bot: cr
