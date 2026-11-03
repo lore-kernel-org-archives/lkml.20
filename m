@@ -1,98 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735512;
-	b=aO8bEKKLfyTeyBHKW6ONuHES+uztTCF9nuqtNMEcuO4cKJrVpxvp1KfHQ7+CVlj8Fxzu
-	 YzV5TDQPK5NlYEQdD1l+2wfGjM3BvH+4GzC5DIc04QSCDf7MbSxNToKdps/BGdDvzT7PZ
-	 60hK+KheRIA8W9ZBsMztak1BZHEvJf3hcqqulVMKnAIEuosaXnMBXEKYori/8oWX4LgFV
-	 Wb8Rcg5IJI7yaqQgi1uue94EcY6Gc1oHQlO5bv4+QHPOXcFekG+Fh5KIuv+ONoae0oAL+
-	 CZDaxg6CLEc9StB1EgRH7LanlVMQIgpaKBkWFN/x097ezGCAfrycf5PkQ7wTyIPbFTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735512;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=WxrrLBpL+5w882waq3Llcz01wK2qP4mY4UJBFpkoOwI=;
-	b=On/gVdVodLjvYbnpOgb1kqHwEsfy6FcAeNhny8SBahf1ni1q99qg1xTW3wGU8BzpOFp1
-	 09Fp646WXQAoOiwrnC27Lk6qqEB7Qzxs2zU8xse4tzX1fPIp6N+0EJmWs52DVB8Jh80YA
-	 K6vtl61I2eNvTy9Z7aXYr3MFscCR6+g0Ihqc5EeKK98kNc6IU8BOKP0ywSjdyu01mqjAx
-	 GgcIcjEoWOYUzqWnxrcVhSiYFbxyW9p8H+/URyitN78y2Ymof+uOAvRJhv2nY/MsQ4tNZ
-	 h58liemk8WZRM8gKWIvP4DRRfloxoDOpfB0bLgJn/wBczn4vQ2U/BAs6bxlKjzAELHw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=WwSYwHPi;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793735566;
+	b=dbzXAquEp/E4RoTGC7gmx6zb4uo3liGvKbRnCpiPM/Z/wPX5eLWAKTr+vyGqHXd5LMgJ
+	 5N6sI4cTC0x0Ze77AMyNGdxb8FoXdRf9o6kxg9x+FWkxU75wkuNsPSNWUdKB5XzfYXPoA
+	 TqEaxMjq6UE1hiAI59fG5Mb3QrA8QWnOfDYWARJpX465b1c5hIKOQgxCnQtpWLE0ccORt
+	 LmKU9ZKXFICi9dJVSlaTUs7ZlnHnV7bIgFPo15RaI6T0xrRNwUqEpipqrDK7/rewDI7EZ
+	 uyDjH7Gxd0+vC2wgb58quZccbIwczpxdrQEZl/jQ696foEkOYVcAclI+aNYz97j/Uiw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735566;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=s6k1vbUHwOh2rlcqgTHQppfaCBfvavH0tfMZPy2A+nc=;
+	b=2SOft23kp7ajjfqO7ixe1hbDpHYBJzSZ/T2Kz8TY9fCuXMY3LDgY7NVABGDVG3B/R3ci
+	 f0648Y52DURWwqhAXGykXXonsA4CfWBaUpy1Z9ITr1blTXZUDkNrGICA9CuMKbIIAOVjs
+	 5hVf38S/XCWH+G7L8smO2MfJi/oqromkLVE9W2d85KK1fr7JOh4YJfP6wTcOG28iprVZ1
+	 JKIkpoKNSI0P5LmYbw8dv4gxRqR0hmMNIkHqrCnXLOm7D6YQVjn8atDcfZkw1/owU7sAE
+	 jFFW8m1tTIuBK2yaQXipkpxAI4QifGx2Md5E+RwPfo6GGN2ODgips+DHCRkTx1dTyRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LMxLkK9F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.3
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010003.outbound.protection.outlook.com [52.101.69.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1171D606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:51:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1171D606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D427606A326;
+	Tue,  3 Nov 2026 19:52:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D427606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=WwSYwHPi
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso5649041eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:51:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793735510; x=1794340310; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WxrrLBpL+5w882waq3Llcz01wK2qP4mY4UJBFpkoOwI=;
-        b=WwSYwHPitFHEdjhsZkjJSH7aWMdpA2YA//1JDRcF1RwEGXr/nMaefmAdOd6dOQ/eiX
-         Bi7QfWeOW3DsCYxr2DGzEpqrrcTsjf6leFK3LNZ1J0NbB4jAi0qwokTKx0sXCZ6TC+BK
-         iUO9xNgvq21yma8wfdqVogCOc82bHMBBblWnwsgvOOvJWC9OGGQNHiIEo0/VSpCjdyV8
-         o+FXQ5kUCmjbZ9kqx5DzijIRPUndCy54O0gm8w6yGHaGaKNUjmWXiKmaN0No6IRLw1ZB
-         MUxkEvLyfuySLLaaQfvEFblT+krcv31ckRI+DkWYKsLD4IsQ4eey+jvUC1fiEoh9j7s2
-         bLAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793735510; x=1794340310;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WxrrLBpL+5w882waq3Llcz01wK2qP4mY4UJBFpkoOwI=;
-        b=LvjlWqDq7koVITji0dkcXGktxnYcbpwVry8TMpR+FNvVAZ6FKEldy87TsVfW3g+eh4
-         UhOwNPDjLmvjJ9hKnL10CQ5olWTAcuAK04OzPjsJ3jC35cckcL9eYtS7/AfsYaYgFbIX
-         WBBQQ4WNWv8qwLM2kmLstvz6xeRPsLlOxeL3R54g9dlKFowtOXCVQUR4UfWpNjEouLfL
-         gNKpKkjIIe0jx/DNNzu9T8k9RDKNVyP6AvrjFoLTTriLsRjm5x1qdZq6Sz90FV2AYsY2
-         Udnrn0ROT1GfEFck8ZabQLtgVU04+0siyV+qgYNwOEQn/jw7NLMGRNWU7dG4dnQwXd0o
-         MPFw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbAyNMP9g6dMVZFUscaef+j0f1xXEOZoi2e86f5Bw2DwIfj/uMRkuKXtJpQBObe8oh2s18QpDmE0KHevM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KUpF9iA7ZEn+yCLpWqSQFPkfMW2cTY/P9dqvEHiqdwttAwkAW
-	5aCZJOePZloNCXowAOaI4oO7iOHnh3giEOYt9V80mdBDp1jJdQ5X6z8/IQGVSZCxWrw=
-X-Gm-Gg: AYBFou1tGj+i7Ibr3l7bV5bISrgTZmC1VjRiwGlXGuW8bP7pLk1LyND6o57lbeQtdS1
-	m/IUV8W9Y6j7YDdcMu9d/mhXIZISSGNNV5z9lBYcQ6PvWbv0h539UkttgAnCjyvs5aLlFFWts0A
-	anEXygvkeuK3MEkXN45Qa3hLmUT2sHfzRKiwv/zptv+m5V2vcTuJ/22sQNPRnRRqSXLCAdqU/4Y
-	JJpcVDk2Cin15t9EESleZQ/JPqzWl7i9kh1T46alXuUscCR2ywrKgTMAw/XMzX/wHm+5BQ5lKAz
-	gRz0AL3SxqdAbj8sXLrxaFvUjX1/XU3Xq5C86tURkYooms+bB1MX96BIIs6zbxBFyCyQIPh83Us
-	vDiYTxbnR5Cj+LXb73qMgKciCoXbEX9j4b843sy3zNvhg+9nxPPt25idQFb9FUsbZQd6zyXPUeR
-	zBZHwoOaDB1gkFiWGC1PZPxBSgAXsRxKDWpRc0D/MbaJ7xSQRhAIda3DfBPZIGl9XbEL3VhIGho
-	CzV3CRWZ6VA9aNBhP2FZvyINd1vmH7XfWMC4OxEe8XA5NMlWeF9bkf9PmQIG854j2cfo3jlIXmR
-	DszZY8YRzv8PJtsuIseEdJAePkWZIZXsboHiWG4OKTdrzPvh
-X-Received: by 2002:a05:7301:438e:b0:36a:3767:ede0 with SMTP id 5a478bee46e88-36a4240176emr20856013eec.26.1793735509795;
-        Tue, 03 Nov 2026 11:51:49 -0800 (PST)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm361141eec.12.2026.11.03.11.51.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 11:51:49 -0800 (PST)
-Date: Tue, 3 Nov 2026 11:51:48 -0800
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: mt4022@columbia.edu
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
-	Ming Lei <tom.leiming@gmail.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Christoph Hellwig <hch@lst.de>, Nilay Shroff <nilay@linux.ibm.com>,
-	Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] blk-mq: take quiesce_lock when removing a queue from the
- tag set
-Message-ID: <20261103195148.GB5019-mkhalfella@purestorage.com>
-References: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LMxLkK9F
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vPLU5IzQGhMBtpPQ0rj3ex9l7GBIlPLvv+GvA0fVTrW4u41reAFKHBS+YtBkewYgdyQ3UlFf3pbJG49lj6O7FtNDMZAlgcFCm71tvTHES6IfW4eI7oepERKExn5+8ke9MdajYGJMU3oMjK8pS6AX8hnh6TRMKadw4/IL3JfPdOOwFhzl9KLQQHTxW3PUhyIBVfWfnoIQIM+ja6SkCZ/b5yYgKvXZaGb0Wj35FfFyTsq4OjPSLA2pqHn+M4yGMrTP/vC6MRYS0AdxCno6m2LcHAHbpsiwqzy3mLJ7H4We/dCeZyyM8USQle20XnxUcGlWQGaya+8TvwDp77M8SOcvIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s6k1vbUHwOh2rlcqgTHQppfaCBfvavH0tfMZPy2A+nc=;
+ b=IeEZTn3MBIAHfq4so9XJ9lqfK66pX0qtpAtMowxAyvr8I645IuHi4Q3K8AKv3aWS+yFWA8ul7thSWT71rTNAMkNDwwRcSnhXjTMTWVYQxDDGSZ2cNIxzBuudWnbwvCir+nWrlWCFoL0+hoFDP8oiaz/qO9hPSU97ExI7QdVbeR8MiFqq3Pl22nJzTmgVs+z8qORppE8rwSOFvJxn+IZG1Odc6XIxrearMJgy+h4JLeBaFMC3n/pKwOoNGqeGZUKMYL72fWvPbJi3Rau6QAcVHzIBEDdWoLv4435wNKWy+9YeH5E26vQ0f49ImmHnPoJNX3XAVEXIn3qR4j+0wCCwOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s6k1vbUHwOh2rlcqgTHQppfaCBfvavH0tfMZPy2A+nc=;
+ b=LMxLkK9FLjPx8fP6/cTZRmHRSZRdoAxOWvOAGeBBWARzIWiDr5IA/0SR1YAClnYaqOB9hVN5Bzw1Gjba63vkhdn9ND5ZQ+xU8BwH/4XAqrovXHjbgpwFvX4iJKNhDdQVDMix7LANS/zCPAXMS3iyvvUeH4knB6VK0wXPtHH7D1Ajp/yrlBqO/xU8ZDR8lF8XJ2PKyQJ+cBEkMhIWSnNCukg+9id8/oqdob9vahh4BMqGEx0uttcg6SQbkIrpR+kaQcxOUCkyEtVlFSNxi7qJXSvyYR/eJ1I5jJobfZT47vypKQObCYvdivRStuujNL3MHjm78JjxnQQGoxmWTXa2Yg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AMBPR04MB299223.eurprd04.prod.outlook.com (2603:10a6:20b:7d8::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 19:52:42 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 19:52:42 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH v2 0/7] async_tx: use DMA Engine APIs
+Date: Tue, 03 Nov 2026 14:52:31 -0500
+Message-Id: <20261103-async_tx_dma-v2-0-3afc7c59362c@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAH876moC/3WNQQ6CMBBFr0Jmbc1MRRBX3sMQAmUqNaElbSUQw
+ t0FXLt8yfvvLxDYGw5wTxbwPJpgnN1AnhJQXW1fLEy7MUiUGSGlog6zVVWcqravRaqzotE3pDz
+ TsE0Gz9pMR+5Z/jh8mjeruDd2ozMhOj8ffyPt3p/0SALF5ZoX2CIxFfiw03BWrodyXdcvSRxbI
+ rgAAAA=
+X-Change-ID: 20261014-async_tx_dma-4f69bf80176f
+To: Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dmaengine@vger.kernel.org, imx@lists.linux.dev, vkoul@kernel.org, 
+ Frank Li <Frank.Li@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+ Dave Jiang <dave.jiang@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793735557; l=1835;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=0JKMw4qa8j5hgx61tqv2BFjNLNvrf1Q7eP4ttYZEM0U=;
+ b=zmYqj/jWdDiDvgxwtMfahaL47TNQnTYkeFr2hgttr1FOV8QPeHiEMIO/1SEMmhdPvHPX0hv26
+ 2UB5MJZYS48DPRn/PiGRw5HxaV68a8QbWYU1n90eFzWILwDCoqZYmGc
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: PH7PR17CA0008.namprd17.prod.outlook.com
+ (2603:10b6:510:324::8) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,84 +110,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AMBPR04MB299223:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0befb746-6006-407a-ac22-08df39e40604
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|260925022911599003|261021133027099003|260925021311599003|260925021911599003|11063799006|261022075727099003|261021121427099003|56012099006|261021123027099003|261022105027099003|261009223027099003|261021135927099003|261102123227099003|261022115727099003|261021130227099003|261022113327099003|261026140227099003|261026130827099003|261026121527099003|261028144727099003|261026135527099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	RKRVLGz59qhUpsk6FcRNijgf0U4uE3cKezZmlB6dyQXxvbyhHHxanDGOHxmTqZtRSmIZibyqeQ0c0MU3pxnSAyKo7ZDtgoTvRZxJG3gQHpP1KkjlpPxn56mp7TuhIAWOp5FpM4yI07eFIpC1nlK8zhf+RWaW+iQ5YaZorVSvcTJWnbNZ+hNlhhJuYcuYFeYYyy1cs53FleKZ1hF6uIxLKAyu7BaeLgndTG5TE/R2rXjrJNgbiwsv8jwx8crOVM4utSCd7l4pp9+ujZJuPm5me6OneFmESrsXPk+s0IVO/TqMwYiembgtvhUYAgTDNkJuT+PycRANv6mjTBXaIQw/3FcQ5+PmM+3ZWLZzTWkG//AcfcbSSaAhG3R1+ZNUFe+YGYXuIKVi8XxilYCmq4CrZIl3W/e0h1gY23c4J9CpsMZplc764R/DPK2SKuU3bbtsGCLkaSY/1Hg1t/w6c7SbU8QktJVCHCcp87sqRovD5OzPm+bRE0LewIe6JXsFTsRUF79lS+brQWCkbheFo0Orrgd3yqLKsVBr9HbnBGsHOEGdrUqix3dLXkjKHg3ASkSVZxOz6xbARcBJ7++C7DDar5w6UoXiGiN6HcFWBQqwkpcVcPHVarNed78f4ZIjrniY
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(260925022911599003)(261021133027099003)(260925021311599003)(260925021911599003)(11063799006)(261022075727099003)(261021121427099003)(56012099006)(261021123027099003)(261022105027099003)(261009223027099003)(261021135927099003)(261102123227099003)(261022115727099003)(261021130227099003)(261022113327099003)(261026140227099003)(261026130827099003)(261026121527099003)(261028144727099003)(261026135527099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SzdTSDlGUEpzc2tPZmkrck5qRmVsenhSZStsUlp3ZVR0TEFuZU80TlZDRzIz?=
+ =?utf-8?B?b0toV0F2U2RSaitXMk9mekV3cXBkN3Qyc1M0aUZNRm1JZFMrSHRHOC9IWVl2?=
+ =?utf-8?B?Z2k0Kyt4a3doTTI1b1N1OUdLNGN1NXEwc25JbTdsR25CKzhNNlczZFlPQ1VU?=
+ =?utf-8?B?ZmdNSXcvNEJncko0ZWtGcVZOMHQzME9Hd2pXVGpCNmEvMUJlUTlhQ1NjOVJI?=
+ =?utf-8?B?TDFqZ3VsaUd3Zk5tOElIeW5ueGczazlnTy91NnpMUW1tUHR3bG9KREJpZVRq?=
+ =?utf-8?B?NERpV2ZFVkt2TUJqcnArM1NQTkpGZ2ZmN21RWEM2RHZyaXlvQVJXUi9uOGxk?=
+ =?utf-8?B?cC95TGFxMzl4MzBHWnpaZ3c5OXRnYk1JTmxuN0lMbndwTlk0S1FMZFVtb1NG?=
+ =?utf-8?B?eWVqL09MNzRyb2p5Q3ZnMkNVT3hqT1E5SWc3L2hOREZlZW14YjN3VjBRZkRh?=
+ =?utf-8?B?ZEpGWEYyS24xK25CRlRIRlRmWmorR3haUDVVL214S2Vpems3VkVFZ1BZUXU5?=
+ =?utf-8?B?VHEwUEpYa25JaGZWbzhyMFg3N05ra09FZElGbE8rWXQrZUMxMnRvOGRjUlpR?=
+ =?utf-8?B?QjIraVQrbjB1bTlBcnN2a0FNa1VUM293STRuRXZHbTN2NW5LVUwvOGlVVUtz?=
+ =?utf-8?B?QTZ2S0hLSEV6UlB2bVMwTEh3dk1Xc3QwNUdsU3FBdU5JYURuK2syVytnMnlz?=
+ =?utf-8?B?K3kxaHphMm1ISkkwRkRPb0NnTklUSlRMMkNhLzhIZ2wvUzBIVTUyVFhaNC9p?=
+ =?utf-8?B?VlBoMlJNUldwZHFtUDVsd1NMSHpZd2toRkVnN2hBUUJPQWEwSVFSSHl6Y24v?=
+ =?utf-8?B?dU9yc3lEVGRBM0V1L0R2Q1VtT2NtMlYxeVhvSmRzeGxFTmRXbU1BM2lPN3Zj?=
+ =?utf-8?B?MzhNdTZ6eG1SMVRYWk16TDJBY2VXVktXa2swb0J3bHZ6TjhBRHJGUm5tejNr?=
+ =?utf-8?B?aHNTenBsYVRxSDV4S3hVM0MxTUNraUxnV3N0MndXS0czL2xpayt3TVI1QUo1?=
+ =?utf-8?B?MldrNXZXNWpibFJsWHoyM25DK2tadFpqU0p3SmNFbjc1Q3F5M0srSXFxVVY0?=
+ =?utf-8?B?OVM0dlJIbGhTOEFWZXFFUkJlZDRDUE1iams1L2dhbElBY09PQnhZcUtDbXlq?=
+ =?utf-8?B?aDFXYlpRSUVQNzkwY3diZDR5QW5VNCszZmlQYXZRS3ptaUNsMmNDOFpTTmVP?=
+ =?utf-8?B?UVJZcytHSURtdlBNT2xLNWJKL1F5SDZXRHdBREpLRUNHamY2UEkxZ3hKeDFs?=
+ =?utf-8?B?TTBldXlKM3Z2QUpsaUFNK3k5SHUzQnBRQnpVZjR4SitFVDlud1ZNL0I2bVAw?=
+ =?utf-8?B?cmFTRVo3UUoxZGVGVXZqOUdzTlRlUVdBRERHWGZLNHFmYWhqeXU0em5wb0Rj?=
+ =?utf-8?B?WWZOa3NHNStJTmpRcGIxc0tpNklWSHc0TTVBQXpBemxGejhNYkwrRnlxYnpn?=
+ =?utf-8?B?TEJabk5OMkI0c0JWa04vN2pFaFIxeGJRbkwzS1gzQ0FDdXlqNTJlRDRQbW1V?=
+ =?utf-8?B?R3FnVUJyN0Fuakc3YmhzMlV2cVljNDhRVE03N0Jod0Z3ZER4TFNSOUhvQlVB?=
+ =?utf-8?B?emViQ1NaK0U5WHF6ZEpxeWQyRFoxRzBsZDUzbUE5SGhrMUQyMUJHWitDVFhj?=
+ =?utf-8?B?WG1uT0lEWmh4Q2lVV0QxeXh4V2FsOEVnczZNdmZUWXJDZ3p5bWNOSit2TjdU?=
+ =?utf-8?B?eTFOcGxvWmJQTytReGRVRkh6UEU4QnVYR24vbk84b3k5eUd1ZkdwWTgybXJy?=
+ =?utf-8?B?dTdpcjYvUTY2THpCWVFURmpkRkVtYk8rSmcyZ0dycm9OZGtEQlN4UFZsdkFX?=
+ =?utf-8?B?RHpnQlVoc2pXQ0x0UVoxek53TnVXMThtenA0MDVxT1I2eEtlTE1rbEU5cGpO?=
+ =?utf-8?B?ZlJ1NU1XOWRGcGFuckxZNFFLWFZ6QTZpVEZ0akxOa0djcW1mTmgvMTl2MDl5?=
+ =?utf-8?B?Vi9lYVRwblpRV2VMWTVhdmZWeUdZcHBXZnBMTmhpTWcvRDN6bHBnSE84SERh?=
+ =?utf-8?B?RlZKTDZjNmlGSFNHQUNLSHRHTVNNZ2MyODlWN2h0VzlaUVdGMFp5dE9MOXJK?=
+ =?utf-8?B?Zk1TZm1TVGVpeEFLdVFUS3Y5b3YwdWdwYlFzWlJ6VERVeUxiakVqV3RSamVv?=
+ =?utf-8?B?Z2V5YUlKWTlUN0x3NHRoL28xcUg1a29FamdnclJrOCtLVllKZHFEWDBXU29p?=
+ =?utf-8?B?aWgzQ2loTjBXZXhWdVRrSEVlR25CcUtRaUM2bzBYVUVNMlhGOExWQW5tWERo?=
+ =?utf-8?B?cE9tSTlyQXd5WU15eUtRWDNzYjNWWG1sbXVRd0taM2hNV2tPWXRkaHREV1l5?=
+ =?utf-8?B?ZmVleDVaMFNzR0IzczJ5STlJR29OQzVMVEI3REFMVFVVYWZQdk5QSWNjWnd4?=
+ =?utf-8?Q?KNI15CpetjNNdloRoFPZOp46yZ6M7bb8CB1rV?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0befb746-6006-407a-ac22-08df39e40604
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 19:52:42.7297
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0+qJLkkfGGwzdhBFv52OueKmDnrD6Y4RoF6ItTgZITMi+9K+wzwLsyGS1oB6PYiMIXheKWRcYJeelorUNfj+3GzL2sg1mb8H5YVUcnLGscdaiKTzUBZRuGoTM9VI69o1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB299223
 
-On Tue 2026-11-03 14:04:10 -0500, Mani Tofigh via B4 Relay wrote:
-> From: Mani Tofigh <mt4022@columbia.edu>
-> 
-> Unquiescing a tag set can run the hw queues of a queue whose hctxs were
-> already freed.  blk_mq_unquiesce_tagset() walks the tag set's queues
-> under quiesce_lock and rcu_read_lock().  Commit 71ec3c7d6db8 ("blk-mq:
-> quiesce a queue that joins a quiesced tag set") added quiesce_lock to
-> the walks and to adding a queue, but blk_mq_del_queue_tag_set() still
-> removes a queue without it.  The hctxs are then freed right away since
-> RCU only keeps the request_queue itself alive:
-> 
->   Task A (controller reset)            Task B (namespace removal)
->   blk_mq_unquiesce_tagset()
->     /* finds q */
->                                        blk_mq_del_queue_tag_set(q)
->                                        blk_mq_release(q)
->                                          /* frees the hctxs */
->     blk_mq_run_hw_queues(q)
->       /* reads freed hctxs */
-> 
-> The window is short.  On PREEMPT_RT quiesce_lock is a sleeping lock and
-> the walk can be preempted inside it, which is how it's hit here:
-> 
->   [  399.851277] BUG: KASAN: slab-use-after-free in blk_mq_run_hw_queues+0x4bd/0x550
->   [  399.851328] Read of size 8 at addr ff11000003014148 by task kworker/u9:2/116
->   [  399.851352] CPU: 1 UID: 0 PID: 116 Comm: kworker/u9:2 Not tainted 7.3.0-16299-g81cb9aa43246 #1 PREEMPT_RT
->   [  399.851425] Workqueue: nvme-reset-wq nvme_loop_reset_ctrl_work
->   [  399.851441] Call Trace:
->   [  399.851457]  <TASK>
->   [  399.851551]  blk_mq_run_hw_queues+0x4bd/0x550
->   [  399.851564]  blk_mq_unquiesce_tagset+0x128/0x210
->   [  399.851576]  nvme_loop_reset_ctrl_work+0x78/0x4c0
->   [  399.851600]  process_one_work+0x92b/0x16d0
->   [  399.851660]  worker_thread+0x4e6/0xd60
->   [  399.851707]  kthread+0x300/0x3e0
->   [  399.851727]  ret_from_fork+0x4f0/0x6f0
->   [  399.851776]  ret_from_fork_asm+0x1a/0x30
->   [  399.851793]  </TASK>
->   ...
->   [  399.851988] Freed by task 111:
->   [  399.852040]  kfree+0x1b3/0x4b0
->   [  399.852050]  blk_mq_release+0x400/0x550
->   [  399.852060]  blk_put_queue+0x94/0x120
->   [  399.852068]  disk_release+0x1bd/0x3f0
->   [  399.852102]  nvme_free_ns+0x39/0x270
->   [  399.852113]  nvme_remove_nsid_range+0x2d1/0x4a0
->   [  399.852123]  nvme_scan_ns_list+0x2cc/0x390
->   [  399.852134]  nvme_scan_work+0x421/0x9f0
->   ...
-> 
-> With BLK_CGROUP the disk's root blkg holds the queue until a grace
-> period later, which hides this for NVMe namespaces.  It's still open
-> without BLK_CGROUP, and from reading the code also for queues freed
-> without a disk (e.g., SCSI device queues on a UFS host).
-> 
-> Take quiesce_lock around the list_del_rcu() as well so that the walk
-> either finishes with a queue before it leaves the list or never sees
-> it.  With the fix, KASAN doesn't report the use-after-free anymore.
+Use DMA Engine APIs to prepare make dma_device private.
+Last patch mark async_tx as deprecated.
 
-Do we need to update the documentation of @quiesce_lock to mention that
-it is now taken when a queue is deleted also?
+Depend on below two patches
+https://lore.kernel.org/imx/20261014190337.1718622-1-Frank.Li@oss.nxp.com/T/#u
 
-> 
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it about once every 20 minutes on a PREEMPT_RT kernel.
-> 
-> Fixes: 59e25ef2b413 ("block: Use RCU in blk_mq_[un]quiesce_tagset() instead of set->tag_list_lock")
+base on https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git/
+branch: next
 
-Yep, my commit introduced the race by not taking set->tag_list_lock
-which provided the needed serialization previously. Thank you for fixing
-it.
+Remove whole async_tx RFC patch at
+  https://lore.kernel.org/linux-crypto/20261015-asycn_tx_remove-v1-0-056a7085e0a1@nxp.com/
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v2:
+- Add patch to call dmaengine_set_callback()
+- collect david and peng fan's review by tags
+- Link to v1: https://patch.msgid.link/20261014-async_tx_dma-v1-0-35790d01e190@nxp.com
 
-Reviewed-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+---
+Frank Li (7):
+      async_tx: use dmaengine_desc_set_callback()
+      async_tx: replace direct ->device_prep*() calls with standard DMA engine API
+      async_tx: use dmaengine_get_dma_device() instead of chan->device->dev
+      async_tx: use dmaengine_prep_dma_(pq|pq_val|interrupt|xor) instead of direct callback
+      async_tx: convert to dmaengine_is_*_aligned() helpers
+      async_tx: replace open-coded cap_mask accesses with dmaengine_has_cap()
+      async_tx: Mark as Deprecated in Kconfig
+
+ crypto/async_tx/Kconfig             |  2 +-
+ crypto/async_tx/async_memcpy.c      | 14 +++++------
+ crypto/async_tx/async_pq.c          | 44 ++++++++++++++++----------------
+ crypto/async_tx/async_raid6_recov.c | 14 +++++------
+ crypto/async_tx/async_tx.c          | 25 ++++++-------------
+ crypto/async_tx/async_xor.c         | 50 +++++++++++++++++--------------------
+ include/linux/async_tx.h            |  8 ++----
+ 7 files changed, 67 insertions(+), 90 deletions(-)
+---
+base-commit: a2313814224c3944419186b273c8a29e7c8c37db
+change-id: 20261014-async_tx_dma-4f69bf80176f
+
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
+
