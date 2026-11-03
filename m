@@ -1,54 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721291;
-	b=U5ivIo46mBacm/B7evRbzCHGzej8nasGkBgLOUkm5ksOJV1CbmGIopDSosKRG+jgwlgR
-	 Pd/bjxvi2vxW4LTanejXpXoZ7UkI9QDOeY+tuI3tRq+up6HWCMsmvsA8R5rC3V7HnzRSb
-	 uWPXiMNgDOApMKLQr42mkI8dv/l636UPQysHC23s9LqDK2ppqBmnz6BBqlvMKBNitCGqs
-	 qRnuSFBHJ+OOaCfVFaP7ydd6XXzSVzk84ATXCH5oMyWlVj9nH06IetHbqQ7hZXR6k+vL+
-	 rggcc93rB7rcSvFCWLoHaSKiNPZTMVxN3DrRY+2jUm7xJBE0v9OO/DrwKBBOIRBh6fw==
+	t=1793721301;
+	b=JokfaC6t8sWXCDVj7i+7aEwZbpGA8SaGDWtYMwcgdQeJDfusbstLrrerRWD77MJ97jT3
+	 qe54xUWLSLuLBhC1SJReYn/I6bzyVx95KLOH/fGyEVOqZL/PY8d5rS2wv7Qu90waxs6Kh
+	 UWhDobJTwWhefIkyFuenPwOAUyuK8HBD768Vc2oCzZ8HhrsQzqXaMtx8/6/GzOsHUwg9p
+	 rqE+N64NqVOS9PpZXCCMkJPhh4lFIxQlA2Q1sUMe5Vwx/GkQ2Yi2Gz4abBC8U1YYJtVSk
+	 REEorqItzydt7WMootiui9bUhuDzA5HlP8FcPBp83ySBAAlKcjyJ9W2PW1zWDmoBuDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721301;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=wQeTNNr0ny3k8/wWiQeXVoNElgXTiplTi+Aj/FTcEJg=;
-	b=LIWRBy9Sn3qVFe378VOo7xPqm1jtuyk0aFfKLu3TDUwOFP6Gum1wGspRvUt6cA8Y4MhC
-	 wClwPMDMSykehra0p7F4k152N/KGVGsCdopmKBXoqNSgYAhJMAuCDMBP9cT2mu71E+b/h
-	 AnpA587dSn8g6nS5hCNA90Wus2B8Gvaq4kJizvSHh074QdeaTJNE8UOQwVXoNEx6w/Rgp
-	 yKXR7qRMk2/oxhturK8ztYArvZ8gKRmpCYodZHeyiZQ2epVDBaIEsAti2Y/wZTZpjgv7f
-	 IP5TnI65tUarItGxsIFwVTIorpgXUEEJRUPQKt0wealwAd6JnlAc1p7HTS1+8puQ9hw==
+	bh=9oI+39KPSefDJAX6kpWWwyfL2A7o2EUE+Zm7n2vH2s8=;
+	b=jnEBdkwVPW4MoBePmxbmDqsS74e+S08FGhS+z5YvQ6hKY5khwsoHXWvzDJ4hqvKolpmH
+	 BXDQz+AxnOpDxvgX/9S5yLZqqKtnRr58/ZX3ez1NZFSeTRbPKcMSyWg+EBXixWNqRP7g2
+	 SiLYBN4ij2nAJ5LRJPbrA5ARD1D9lvnmsAIdGoQ/CQ/1VcXRATwO8lfanTUywRbtXVve5
+	 3MLD9nHMyu6rXrzLt3ez+Jydf99rxhqK71rhK9THlHHNsirL0wJDxHXchVZh1hvC/cCWu
+	 xY3EjNrSPEV08S9oP3kQSRO6EVaD32j9PXm+g2eGhLY7W9pwVLKOJTWsMU4i71e+oRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LQ/qLY6J";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxLKm0Xp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BEF606D812;
-	Tue,  3 Nov 2026 15:54:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9046E606D806;
+	Tue,  3 Nov 2026 15:55:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LQ/qLY6J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58D591F00A1F;
-	Tue,  3 Nov 2026 15:54:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxLKm0Xp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11FC61F00A02;
+	Tue,  3 Nov 2026 15:54:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793721291;
-	bh=wQeTNNr0ny3k8/wWiQeXVoNElgXTiplTi+Aj/FTcEJg=;
+	s=k20260515; t=1793721301;
+	bh=9oI+39KPSefDJAX6kpWWwyfL2A7o2EUE+Zm7n2vH2s8=;
 	h=From:To:Cc:Subject:Date;
-	b=LQ/qLY6JORtMWR2ZwTpVR8VsQCuQE8Ecro1TWg7HRojxtuQlZ0Boowb9JS3mdiOxY
-	 FhaOHk8RWlH2Lx/pXVjmhLEd0h8/izz8juVJJo/vGxMICmz2LeFW3X2nHZlVUJsDuO
-	 dCo84GfKeMyCeSS0hJ09o1wQ9gpB5VK79stNzSje3acAppRW/wY+Q3pPLIpQRMkklv
-	 6/BAtw2+Aums7+CubehXucFqudqtuajtNatkZyRJJZP0a7vN3lgAKlpsYVgKMu11Xy
-	 TJJiBg30LVDEj01eudkqwPrQbeVbNmx4wKyjEbzBNV/aeqmIxkUleD+I6Ys+NLlaxI
-	 QRDvC9xmluxVg==
+	b=VxLKm0XpRkMgxWDksOnroNDk3UvSJoO4QJ9r0n9YglpI+On+nE3urJ70ewW9eaLCh
+	 4cBtwp3vTI3xgbbDoq5DzvqVucTw39IFI48XI8lkzhLxMYzKMnvvaAt2Bwl4iVUqf9
+	 LZWkeNvG+Pu4mjqCgScZyTRkRYfzbzE2xe8jUKta0J6hYJO1tSBbkth46ERxmmTzh7
+	 hjcbQnhRywh6vCH06HBNVQ1/Z6QUZgl7YsXGIop7SNHYjEZtGO2sCxpdVkNkZgE6ge
+	 AzS1oNfh24dc4ohRkHhvCZtc+c8wF1sKIvtT2LDclwhvgRxCDIZJ68dGlW0ULmT4BX
+	 4zZJ+EJx0VqqA==
 From: Sasha Levin <sashal@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
+To: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
 	Shuah Khan <shuah@kernel.org>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/seccomp: print tv_sec as long long
-Date: Tue,  3 Nov 2026 10:54:49 -0500
-Message-ID: <20261103155449.534498-1-sashal@kernel.org>
+Subject: [PATCH] selftests: dmabuf-heaps: print size_t with %zu
+Date: Tue,  3 Nov 2026 10:54:59 -0500
+Message-ID: <20261103155459.534792-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,14 +66,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 32-bit architectures with a 64-bit time_t, such as armhf in Debian
-13, tv_sec is a long long, and printing it with %lu warns:
+On 32-bit architectures size_t is an unsigned int, and printing it with
+%ld warns:
 
-  seccomp_benchmark.c:43:27: warning: format '%lu' expects argument of type 'long unsigned int', but argument 2 has type '__time64_t' {aka 'long long int'} [-Wformat=]
+  dmabuf-heap.c:215:43: warning: format '%ld' expects argument of type 'long int', but argument 2 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
 
-Cast it to long long and print it with %lld. While at it, print tv_nsec,
-a long, with %ld instead of %lu, and cast it to long, as it is a long
-long on x32.
+Use %zu.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -79,26 +82,22 @@ build without format warnings there now, and the x86_64 builds don't
 change. The other selftests get the same kind of fix in separate
 patches.
 
- tools/testing/selftests/seccomp/seccomp_benchmark.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/seccomp/seccomp_benchmark.c b/tools/testing/selftests/seccomp/seccomp_benchmark.c
-index ea4068cdefd6e..5a5d7733c6f5f 100644
---- a/tools/testing/selftests/seccomp/seccomp_benchmark.c
-+++ b/tools/testing/selftests/seccomp/seccomp_benchmark.c
-@@ -40,9 +40,9 @@ unsigned long long timing(clockid_t clk_id, unsigned long long samples)
- 	i *= 1000000000ULL;
- 	i += finish.tv_nsec - start.tv_nsec;
+diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+index 1d49df6719198..c65efc088e88d 100644
+--- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
++++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+@@ -212,7 +212,7 @@ static void test_alloc_zeroed(char *heap_name, size_t size)
+ 	void *p = NULL;
+ 	char *c;
  
--	ksft_print_msg("%lu.%09lu - %lu.%09lu = %llu (%.1fs)\n",
--		       finish.tv_sec, finish.tv_nsec,
--		       start.tv_sec, start.tv_nsec,
-+	ksft_print_msg("%lld.%09ld - %lld.%09ld = %llu (%.1fs)\n",
-+		       (long long)finish.tv_sec, (long)finish.tv_nsec,
-+		       (long long)start.tv_sec, (long)start.tv_nsec,
- 		       i, (double)i / 1000000000.0);
+-	ksft_print_msg("Testing alloced %ldk buffers are zeroed:\n", size / 1024);
++	ksft_print_msg("Testing alloced %zuk buffers are zeroed:\n", size / 1024);
+ 	heap_fd = dmabuf_heap_open(heap_name);
  
- 	return i;
+ 	/* Allocate and fill a bunch of buffers */
 -- 
 2.53.0
 
