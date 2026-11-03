@@ -1,50 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692906;
-	b=bWTbgGSaCK8xmST4rYl2GdHlcrVyzhPL2flDe53FmTF8CUPks0FCu3ypip5c4Ao3v29m
-	 0K+kk6kNJ61QGIYzqds3naTaInwX2wpqsY2PMSqA4b1fAm74n66PUIRJmUsePtSxNywxf
-	 IDtClT7PgJvEw0moGkM7GBC8UAkm9sSiPtYG09BeX1OTZdqmfl3m8iNDwg1ztU/uZuLuH
-	 5KvbdA3M187Xca3WUqsR8F96BtgI33k9qGIbaIQZyl7mo72B98tBzEkfoDAmANH3AqUQJ
-	 H7NrO5VRhkGBwgTDzAGQL7fTxp1r0IRUeXJIQL8mClCd5LhVfbsJ0IsPf1PqOE2ZOjw==
+	t=1793692949;
+	b=PaChLbxX5WrBwRKoI2WZYuiU+MKEDOpTLayrI5mbXLwwwC1WcjbouAe67cwib+j5kTVH
+	 bY0a0in+BV2EsJ3jPi9h5om5TtxWzrGZeu7EPeY3uFb/wDaUD1h3g6zgtj40wOj2S+tsm
+	 TPDkD3p5mv5W5Y+XsUhQJX8OUfeEBQJFqNYB+WOy8C+305egv6N0IVUUV3c0itAUyDKBw
+	 MURMko9GuNSgSHnUtAjBvjR6KCnxSiglLNd4t/9Hthi0DkpDucat4KEA6fISTc1T0bCGo
+	 ra37yAXZxVDbrbt7rMB5f0p6nb7WmSVGvr/U2xz87xZze0mxCF+fb2Cue4MtQzvYAvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692906;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bh5yMwUWDnGdG3bsKzFrztnC6sY/UYimpMt5M5ZXR+Y=;
-	b=V0ona7extD+mn0lXGv9XfVTh2Oe+8hT0KB8+cMrwOvNOVbnlLjzFWozfM3nhXUMqqnjM
-	 O7tU28RP6A+swB0aDFtkPqdh3tjxBwTiMUn92vktfxLknke4f01P0C9RPh5qHm0qKu07q
-	 Zm4EVXO0wQmnP5I5vGbe1U9avpvmGscgPWgJJYU56wrA+umynVYGzu0y7gp9avljeXyzQ
-	 4HU+DIQlg95+ho5jCCieAGMrXWGjYDHX7AhgwyFuk9MZSdhha1xuAnj/OEMXEwEOdqc/p
-	 4k6Y3gl+qaMXPPKylsKbfIWG13QVLm1x/IwWli1o5In98xJ9AXFBN1yZUPbsMlegp0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692949;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=sfLMCaYmX3YFPpOD2Miw2+oapHdFlsXdhHabFRbBu7k=;
+	b=GVJxG5UZWlSWn7sQDpj5/gJG420xxM+sifoxyBMCiCmgS2egoB+FKdSToMpYHteIzka5
+	 Y5X8mpcwrE3qW0D531WQyFWBMQNFVjJXN4A2YV6G/tc01ZGvYVpaprChj2CuiB6LnkRer
+	 +mvoO/G1z5QsgHkjCEiF3pw+D+PnqQuDi5vClMiNfdDkNf0WaEnWc1CjZOvbQV4yhwqv1
+	 ABtoSAHphr8TCpeaj6fi07myxBLFHJtdfge7Rme/zdFaRTH0kXklJzvIPCoaChbp0IHlI
+	 FLcfteIoAnojS4D+3Aztfe7APLZh9XnVFlJHMklNapgTFdjJ67b29jJb3l68IrR5aWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=BUdINLj2;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE403606A336;
-	Tue,  3 Nov 2026 08:01:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE403606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=BUdINLj2
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7A6F6227;
-	Tue,  3 Nov 2026 08:59:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793692765;
-	bh=xVwspL7fT2CPxcmsQH28unTSm93hJ2OW9ltA6B5/iMg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=BUdINLj2z5kq+yM3cem9o6QkP+4IbabN8MIESXyc786eXW+i7L6cB3KEwCTA0lr0Z
-	 1sd6631mGTEii23FP1qyrykOpczbF8UEVk8Y+Uc1dMjecrjUc8dskB+fi0ulXbDmuT
-	 Q1KvN2bIQYR/k3Ul+WnDqim7VQWwSb+kZpqyrcXw=
-Message-ID: <8c9efa73-9dec-442c-9b3e-ed78a13bcfa3@ideasonboard.com>
-Date: Tue, 3 Nov 2026 10:01:38 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405A0606A329;
+	Tue,  3 Nov 2026 08:02:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 405A0606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 90D7068B05; Tue,  3 Nov 2026 09:02:23 +0100 (CET)
+Date: Tue, 3 Nov 2026 09:02:23 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: shao.mingyin@zte.com.cn
+Cc: hch@lst.de, mst@redhat.com, jasowangio@gmail.com,
+	virtualization@lists.linux.dev, pbonzini@redhat.com,
+	stefanha@redhat.com, eperezma@redhat.com, dlemoal@kernel.org,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] virtio-blk: Fix zone append sector reporting in
+ batched completion
+Message-ID: <20261103080223.GA3975@lst.de>
+References: <20261027150654.GA14436@lst.de> <2026102810270846959TfFOThssBqrSo1PlP9X@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,203 +50,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 11/14] drm/tidss: oldi: Add power domain support
-To: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
- <20261029-beagley-ai-display-v4-11-dc7f2b532478@ideasonboard.com>
- <4148e258-b406-4964-82b3-11ea624f974e@linux.dev>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <4148e258-b406-4964-82b3-11ea624f974e@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026102810270846959TfFOThssBqrSo1PlP9X@zte.com.cn>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-Hi,
+On Wed, Oct 28, 2026 at 10:27:08AM +0800, shao.mingyin@zte.com.cn wrote:
+> I looked into adding blktests coverage, and there is a structural
+> problem. blktests cannot issue REQ_OP_ZONE_APPEND from userspace: fio's
+> --zone_append goes through the io_uring_cmd NVMe passthrough path, so it
+> never reaches the driver's zone-append completion, and zbdioctl has no
+> append operation. blktests has no zone-append test today for the same
+> reason.
 
-On 02/11/2026 15:45, Aradhya Bhatia wrote:
-> Hi Tomi,
+Right.
+
+> That does not fit blktests, which is a block-layer test suite driven
+> from userspace. Two options as I see it:
 > 
-> On 29/10/26 10:18, Tomi Valkeinen wrote:
->> The OLDI TXes on AM62P and J722S have power domains of their own,
->> described in the DT, unlike the earlier SoCs. The OLDI TX nodes are not
->> real devices, so the driver core does not attach these power domains,
->> and nothing in the core turns them on.
->>
->> Add support to attach the PDs with dev_pm_domain_attach_by_node(), and
->> manage the power state of the returned virtual devices with runtime PM
->> functions.
->>
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->> ---
->>   drivers/gpu/drm/tidss/tidss_oldi.c | 88 ++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 88 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
->> index 5552c1c51074..df2326db3302 100644
->> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
->> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
->> @@ -10,6 +10,8 @@
->>   #include <linux/of_graph.h>
->>   #include <linux/mfd/syscon.h>
->>   #include <linux/media-bus-format.h>
->> +#include <linux/pm_domain.h>
->> +#include <linux/pm_runtime.h>
->>   #include <linux/regmap.h>
->>   
->>   #include <drm/drm_atomic_helper.h>
->> @@ -35,6 +37,12 @@ struct tidss_oldi {
->>   
->>   	struct clk *serial;
->>   	struct regmap *io_ctrl;
->> +
->> +	/*
->> +	 * The power domains of this OLDI TX and, in dual-link mode, of its
->> +	 * companion. NULL for an OLDI TX without a power domain of its own.
->> +	 */
->> +	struct device *pd_devs[2];
->>   };
->>   
->>   struct oldi_bus_format {
->> @@ -238,6 +246,22 @@ static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
->>   	return 0;
->>   }
->>   
->> +static void tidss_oldi_power_get(struct tidss_oldi *oldi)
->> +{
->> +	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
->> +		if (oldi->pd_devs[i])
->> +			WARN_ON(pm_runtime_get_sync(oldi->pd_devs[i]) < 0);
->> +	}
->> +}
->> +
->> +static void tidss_oldi_power_put(struct tidss_oldi *oldi)
->> +{
->> +	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
->> +		if (oldi->pd_devs[i])
->> +			pm_runtime_put(oldi->pd_devs[i]);
->> +	}
->> +}
->> +
->>   static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
->>   					 struct drm_atomic_commit *state)
->>   {
->> @@ -251,6 +275,8 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
->>   	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
->>   		return;
->>   
->> +	tidss_oldi_power_get(oldi);
->> +
->>   	connector = drm_atomic_get_new_connector_for_encoder(state,
->>   							     bridge->encoder);
->>   	if (WARN_ON(!connector))
->> @@ -296,6 +322,8 @@ static void tidss_oldi_atomic_post_disable(struct drm_bridge *bridge,
->>   
->>   	/* Clear OLDI Config */
->>   	tidss_disable_oldi(oldi->tidss, oldi->parent_vp);
->> +
->> +	tidss_oldi_power_put(oldi);
->>   }
->>   
->>   #define MAX_INPUT_SEL_FORMATS	1
->> @@ -468,6 +496,60 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
->>   	return -ENODEV;
->>   }
->>   
->> +static void tidss_oldi_detach_pd(void *data)
->> +{
->> +	struct device *pd_dev = data;
->> +
->> +	dev_pm_domain_detach(pd_dev, true);
->> +}
->> +
->> +static struct device *tidss_oldi_create_pd_dev(struct tidss_device *tidss,
->> +					       struct device_node *oldi_tx)
->> +{
->> +	struct device *dev;
->> +	int ret;
->> +
->> +	dev = dev_pm_domain_attach_by_node(tidss->dev, oldi_tx, 0);
->> +	if (IS_ERR_OR_NULL(dev))
->> +		return dev;
->> +
->> +	ret = devm_add_action_or_reset(tidss->dev, tidss_oldi_detach_pd, dev);
->> +	if (ret)
->> +		return ERR_PTR(ret);
->> +
->> +	return dev;
->> +}
->> +
->> +static int tidss_oldi_create_pd_devs(struct tidss_device *tidss,
->> +				     struct tidss_oldi *oldi,
->> +				     struct device_node *oldi_tx)
->> +{
->> +	struct device_node *companion;
->> +	struct device *pd_dev;
->> +
->> +	pd_dev = tidss_oldi_create_pd_dev(tidss, oldi_tx);
->> +	if (IS_ERR(pd_dev))
->> +		return PTR_ERR(pd_dev);
->> +
->> +	oldi->pd_devs[0] = pd_dev;
->> +
->> +	if (oldi->companion_instance < 0)
->> +		return 0;
->> +
->> +	companion = of_parse_phandle(oldi_tx, "ti,companion-oldi", 0);
->> +	if (!companion)
->> +		return -EINVAL;
->> +
->> +	pd_dev = tidss_oldi_create_pd_dev(tidss, companion);
->> +	of_node_put(companion);
->> +	if (IS_ERR(pd_dev))
->> +		return PTR_ERR(pd_dev);
->> +
->> +	oldi->pd_devs[1] = pd_dev;
->> +
->> +	return 0;
->> +}
->> +
->>   void tidss_oldi_deinit(struct tidss_device *tidss)
->>   {
->>   	for (int i = 0; i < tidss->num_oldis; i++) {
->> @@ -610,6 +692,12 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
->>   		}
->>   	}
->>   
->> +	ret = tidss_oldi_create_pd_devs(tidss, oldi, oldi_tx);
->> +	if (ret)
->> +		return dev_err_probe(tidss->dev, ret,
->> +				     "OLDI%u: Failed to set up the power domains.\n",
->> +				     oldi_instance);
->> +
+>   1. an XFS reproducer (e.g. xfstests) - the one that actually
+>      exercises the append completion path, or
+>   2. a blktests zbd test that covers a zoned virtio-blk with poll
+>      queues, which would not reach the append part itself.
 > 
-> I agree with the what this patch is trying to do, but the
-> tidss_oldi_create_pd_devs() should be within the if() block above.
-> 
-> It seems like you are giving the pd_dev of the secondary OLDI TX to the
-> primary, but this path would be executed for secondary OLDI TX in clone
-> mode as well, whenever it gets supported.
-> Which is not ideal, because the primary OLDI TX in clone mode would
-> already be taking care of the secondary's pd_dev.
-> 
-> The conditional block above with,
-> `if (link_type != OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)`, is exactly
-> for things that _can_ be setup per OLDI Tx, but shouldn't, like the
-> clock and the IO control.
+> I am happy to write either, or to leave it if you think the coverage
+> is not worth the churn. Which do you prefer?
 
-Yes, you're right, I'll move it.
-
-  Tomi
-
+We do have some blktests test that use a file system in the zbd
+category (zbd/009, zbd/010, zbd/014) so I think we could do this in
+blktests.  I.e. do a blktest that tests zoned polled I/O if we're
+on a zoned device that support polling.
 
