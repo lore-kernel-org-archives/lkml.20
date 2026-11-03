@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732448;
-	b=n1kg9hi/kHe0U6cIuN9Y2tq8o/hVkLz3vfcXG8OYI9HR13BDjenpODin0AYyWlnF1eO3
-	 H75HeaZTwX2F1xGDUDlflU78dIYoXygxcr7/visNACtzopgjogtSD9krFC1+GkBy/iBsA
-	 AqTNeA3WVXNKUvaFy/Ppx3AKc1E87U2/qclsaHfvVLRzGMlAHwwu6HT+WbbGKPO6usQrE
-	 UzwWe7Xq5rrZEAwjIivt1cci9brln/OvGM41xyo6RDnk/5TxaBibJxhhUpwnrn82BsFLY
-	 C4nqiVDMjboHJ2Y05lq91cuSV7HeEnhYQGaWurqpHNTsIVjmKcsGitslMQjLS3kXX7A==
+	t=1793732458;
+	b=EAVqMvtGSwm8U63Xd+DrNeYjKOanazQWNGIK61Ab2PvcC0uelN+2XX1F8ysO2BsSa4wu
+	 v5qve9UoPEsv3DmNZbdcm/nJgDU4fkr8Pa/NQyYiNPqrHJy+/xKzXMAkRwiDS2i+vkUA9
+	 fOjVz+LBP5UDoRDzw7bRN4f8WiVsAPtj615mSgHoHoA2oda0c/Vc/saBmk5GIkRu4hB5z
+	 HI7/CTXBqrlGwhlaVgWJ3ldy1iDg+gqrjBo+ZSukGZliZAsjmtVGduscEdrrIbb/dwlND
+	 bafBFXBJFte1sUJgwSllo3sZqTSXy6sdncyhZ9ta9m0aRlfUa7uHiDAkFSGm14epuhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732448;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=2oC3q4owt6QQjFjaIbeG0PucmyuouGz/Xr9PAnQ9+oA=;
-	b=XoiainHx1aldJSNONp5GEMyfha6G9gH6iaiASZLhhdE8r3hhA9GkFbNPJlquujviPCg8
-	 5vRuUeTaDAx4pLdt6vVrjaEmwqVSANhcOdAvA5XoxWkruTLbZqr1ZPvYmrPw7mNOjHpY3
-	 Sef5gvgMIVf6u4VE2Y6cLSFue/b2+l6NC7AZ7loo3nsXS+L6zqh+tC9bTKw/NPPLXp0vw
-	 PddtVYdSZla13EOMMGDk1LUJw68vtXG3BKZ30ko50Oa2GXXbljB9KrOBgSykKL16xshiJ
-	 e6MQ8TIk/I16Pzu0wFXB+ZRrE/BXEY1Oh4AAViD2bL0PXSXvPwR3WuP32AnO5isepHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732458;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nPbC9p/kXZfK/pAtwP8FvtmaMonTRXTCIHkYzc09zfM=;
+	b=h0qbbBPtbMtaQ/o12xATN8sJ28f2alMqqzjkoMgEK2S88f3WJMtUu1ufWMK2cST6viJp
+	 EpzMqxn3yb20yL/G71Z3eTqwsoHtn+yoQBH91TOV2XReEZrWiWwzmGI2psateAm2NgnTY
+	 MfM3WNK/icQ8y/xT1svOfUE7mYV9hZUEZ/iAPvUZgOgu8CIbsK1FAU9+OppsnD1y11jjN
+	 KGBkAGKcY5lPPYuhZdLtyZS7cymQzZK6vrUC0EFPyF1AOF5PloPwiJDfZMY9RZyVsbevt
+	 uFYrYyBMptueYJxlNDpSgbtrmFHPAj2K6jsfR0Ev8cmwG2S14gY7hBwUoKdVnPeMHMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=uCYMZqn4;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mA3KNvu9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BB2606A331
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:00:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68BB2606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B3E606A330;
+	Tue,  3 Nov 2026 19:00:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=uCYMZqn4
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id D19151A143C;
-	Tue,  3 Nov 2026 19:00:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 862E76046C;
-	Tue,  3 Nov 2026 19:00:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C052103290E8;
-	Tue,  3 Nov 2026 20:00:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793732423; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=2oC3q4owt6QQjFjaIbeG0PucmyuouGz/Xr9PAnQ9+oA=;
-	b=uCYMZqn4AL6vjtDHaUoftHDKcth+idJJPZlsDoExnI3doZT4swPYKAybPtEGvhLth1J2QP
-	X50mDvaTNWnKxaeqDNqHmV4/7WDpFdoHRMR4Va9rRqG4Zu2hmqz9YU1UFt+JCQIEHcVSmE
-	dI9cOv6W0A9+9DdL52/1vjiyu47nRnqK0LFWFAx0eJuKK6N6h9Zpdip2bZEsxKy9O7Sr4O
-	AL8V2YtpcTpU1DFY9KesTvyMXrNDqCsw/h2j6tJbasdvOh3n/mB57+XoTCWSPOBJTydSB4
-	vPYjWCnEZGE5ZtE8WMfkhZa0zVmZ5juOt/jLiIYU8JmBEgXK8iqqLdn5hFbX3A==
-Message-ID: <3ea92b81-1d08-4021-bd51-c96534e25b20@bootlin.com>
-Date: Tue, 3 Nov 2026 20:00:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mA3KNvu9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1951F00919;
+	Tue,  3 Nov 2026 19:00:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793732457;
+	bh=nPbC9p/kXZfK/pAtwP8FvtmaMonTRXTCIHkYzc09zfM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mA3KNvu9dg7XUyhJO0i0shuS6M7OCVvpPJ12H2WiorQDQRwexlDCrSlqzfrLNf6YT
+	 UVpjkw08WSqPHQzkqqf8i4mFVXpr3Wg7kM0/yBXGVrT7wVT2l0vZdxtfod18lCAPy2
+	 XJ2sCPSkDumY332hjBeQ346+g5Jqk+WpWRGxZx2P88xUjesfQkge49DYFQTc1QZCy9
+	 nFdw8SsvHpeeBP2IipbPgbbaGYfdvXGxdyQp3+D3sipL6je0FiYu2qmByUTcEz+7qf
+	 OzKxc7zzcEU5C7ndPp/zWJx6b2C2xtpQnC/dCD95fuehMxkayaYVecqWuZ4SwaxZN7
+	 s+LCjijx97KgQ==
+Date: Tue, 3 Nov 2026 12:00:52 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Rosalie Fang <rosaliefang@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Kuan-Wei Chiu <visitorckw@gmail.com>,
+	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
+	David Laight <david.laight.linux@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Greg Thelen <gthelen@google.com>, Yi Zhu <chuyee@google.com>,
+	llvm@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/base64: fix -Wconstant-conversion warning in INIT_1()
+Message-ID: <20261103190052.GA267580@ax162>
+References: <20261103163404.159582-1-rosaliefang@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,72 +62,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 2/5] net: mvneta: fix the removal of the mqprio
- offload
-To: Josef Schlehofer <pepe.schlehofer@gmail.com>, netdev@vger.kernel.org
-Cc: marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, w@1wt.eu,
- linux-kernel@vger.kernel.org
-References: <20261103125021.70845-1-pepe.schlehofer@gmail.com>
- <20261103125021.70845-3-pepe.schlehofer@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261103125021.70845-3-pepe.schlehofer@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103163404.159582-1-rosaliefang@google.com>
 
-Hi,
+Hi Rosalie,
 
-On 11/3/26 13:50, Josef Schlehofer wrote:
-> Deleting an offloaded mqprio qdisc leaves its traffic classes and
-> per-queue rate limits in place.
+On Tue, Nov 03, 2026 at 04:34:04PM +0000, Rosalie Fang wrote:
+> When expanding BASE64_REV_INIT() for v in 0x7c..0x7f (124..127), the
+> unselected ternary branch (v) - '0' + 52 evaluates to 128..131, which
+> exceeds SCHAR_MAX (127). Recent Clang versions diagnose implicit integer
+> constant conversions in unevaluated ternary arms when initializing the
+> s8 lookup tables:
 > 
-> mqprio_disable_offload() passes an all-zero configuration, so qopt.hw
-> is 0 and mvneta_setup_mqprio() returns before it reaches the teardown
-> code.
+>   lib/base64.c:58:18: error: implicit conversion from 'int' to 's8'
+>   (aka 'signed char') changes value from 131 to -125
+>   [-Werror,-Wconstant-conversion]
+>      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+>         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+>   lib/base64.c:34:42: note: expanded from macro 'INIT_1'
+>      34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
+>         |                                              ~~~~~~~~~~^~~~
 > 
-> Check qopt.hw only when traffic classes are set up.
+> Explicitly cast the digit-branch expression to s8 to silence the
+> warning.
 > 
-> A replacement qdisc is set up before the old one is torn down.
-> Replacing an offloaded mqprio qdisc with another mqprio under a new
-> handle therefore loses the new configuration, as with software mqprio.
-> 
-> Tested on a Turris Omnia (Armada 385) with 10 Mbit/s limits on a
-> 100 Mbit/s link. After the qdisc was deleted, only TX queues 0-3 were
-> used and the link carried 19 Mbit/s. With this patch and the previous
-> one, the queues above 3 are used again and the link reaches 94 Mbit/s.
-> 
-> Fixes: e7ca75fe6662 ("net: mvneta: Don't force-set the offloading flag")
-> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Maxime
-
+> Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
+> Assisted-by: LLM
+> Signed-off-by: Rosalie Fang <rosaliefang@google.com>
 > ---
->  drivers/net/ethernet/marvell/mvneta.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
+>  lib/base64.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
-> index 9b9efac2846e..79711a117c39 100644
-> --- a/drivers/net/ethernet/marvell/mvneta.c
-> +++ b/drivers/net/ethernet/marvell/mvneta.c
-> @@ -5251,11 +5251,12 @@ static int mvneta_setup_mqprio(struct net_device *dev,
->  	int rxq, txq, tc, ret;
->  	u8 num_tc;
+> diff --git a/lib/base64.c b/lib/base64.c
+> index 325c7332b049..1489c048b1fd 100644
+> --- a/lib/base64.c
+> +++ b/lib/base64.c
+> @@ -31,7 +31,7 @@ static const char base64_tables[][65] = {
+>  #define INIT_1(v, ch_62, ch_63) \
+>  	[v] = (v) >= 'A' && (v) <= 'Z' ? (v) - 'A' \
+>  		: (v) >= 'a' && (v) <= 'z' ? (v) - 'a' + 26 \
+> -		: (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
+> +		: (v) >= '0' && (v) <= '9' ? (s8)((v) - '0' + 52) \
+>  		: (v) == (ch_62) ? 62 : (v) == (ch_63) ? 63 : -1
 >  
-> -	if (mqprio->qopt.hw != TC_MQPRIO_HW_OFFLOAD_TCS)
-> -		return 0;
-> -
->  	num_tc = mqprio->qopt.num_tc;
->  
-> +	/* On removal the qdisc passes an all-zero qopt, with hw 0 */
-> +	if (num_tc && mqprio->qopt.hw != TC_MQPRIO_HW_OFFLOAD_TCS)
-> +		return 0;
-> +
->  	if (num_tc > rxq_number)
->  		return -EINVAL;
->  
+>  /*
+> -- 
+> 2.56.0.385.gac671c819a-goog
+> 
 
+Thanks for the change. I avoided this in a different way, which has
+recently been merged into a tree that should be merged into mainline
+relatively soon:
+
+  https://git.kernel.org/akpm/mm/c/3af83c11cf5990fda0bfe3959aa6391ff903ffdd
+
+For the record, I do hope that
+
+  https://github.com/llvm/llvm-project/pull/226775
+
+eventually gets merged so that these workarounds will be unnecessary but
+I am not sure how that will play out yet.
+
+-- 
+Cheers,
+Nathan
