@@ -1,62 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717545;
-	b=cY/B56GnpKRLuAr70vssiTcUBFdRWCF39m/M45sgVrkcps187PSryti1RsdKhxobpmID
-	 wnI1BeitSldaEigayG8CPUA9lGARCY4mM8XuPevT8flADeDAD3x/BBJw4O8LTa9qrl3pz
-	 5AnkTzomm/MexPZ9NXLUg5K75rGCEYw17Ndgf/d/OvKNDp4SPQo20Gsh+LiAGuGTChal1
-	 xS7CzxgYSLtcci1llF8cO4XUTsQYsftt0vmWXUtYeuMV7P36dST2EGmK+196kd1WkqIF8
-	 1wXJCw/fZXpEiTzz1jUshosz6wKGAx7G82QgOHjrBNnbzUKL4B84jxIA9hZsTQsCzNA==
+	t=1793717540;
+	b=Bj9Phn9gAl3joL4euYqPZSjL3412eujJcqi6PRJmrUeU/WA+zvjodg75LZeN22VmqWb4
+	 VWZdIo7xeJCbvgr1U6KElTP6eUZ4ONhMMvcfc5r1rcuPmyP5aElfhq+u0EcXp5olWwol9
+	 5YujprU045WbPON2jsUrS6nIq32/8vDif3Fo4OU4v7n9R2prlfJcElXVSbk4Le1JxACJ9
+	 gQ/aNR5rVdlG1wYZjGnzcT6/TBqdyxaezL1gDffLQGi1XnhWTf7qY6TG7OURTjfEkX6cr
+	 HcPzMFpcKJcaj46+NCP0vjyKGFCubyLLZ593I6zH8MOD7sJWvqsjvAfR7Ta7AlmR9Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717545;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717540;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=pZDUQoAPmpcJQ1MGXQerdQ+hsS67diNlOCyUT7orJbQ=;
-	b=Y4LrAKxUWnUhsYOYd2E4ArZWNAyW/eGbe3M30D6KInMvx98cGwTVV27U8qQTl1ix7n7O
-	 V4Tp7iG/TlSaAtiF+TvPuDkjO2Z5BNzjcRoWrdh4jU7Wj/ThlEXpz4b3H2KsQkiRon1bi
-	 TW8gKYWSmmJMkSBVGJJbWFA4s4dSwYu89EHzhh0uEv58BBH3CFb3fuBUodB+66585yfdT
-	 ZO3G9HEOpDA4D+gYObP8Lpyb624XqnDUvgtGtHUrxA4zm5QcQpcHifoxKQMw+Zc44hSMR
-	 hSK9ohlpBd43MLoj3lFP1r9PbrcHCusDRcgBwghoDJ74IsMM8hwGQd0Hjs2SHzd1lLg==
+	bh=SXrZFm5c7Y9YEJYXHf63c7OvltqSiN79R5Fh6JHirao=;
+	b=drXkNqBjg6eL+GamPdpqmwtxOXRRV6aB1sEyrX5KqFPCv5LO/evqyc7tBSLhwfXlAxnK
+	 EVFOYaZtYzVQDkBfMP42DNgUErsq/NOoBchCuFx/N8PppUPTDDRLoKYTSCvsfbc7ZpZMv
+	 5QWJj6Rtt2i/NM0Ywjx7Heu6fxU5sD6ujf98XNKogTAJv29+v4a+AQ++SpXVd/DDvq/v1
+	 PWV8NqPI1O1bjPbtWx0gTQGklnluLlom3VVc3MyGbqsnjcAMU3cx5ZdBF9610WErvkryL
+	 /h6i7Qc8lYYCmIVpiGVGOpdh7nt5QDIiZFUvCBAJA8b4YZK5hZ7h9w6tvOjUcsdysww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=octuHE56;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWYySZfx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB64860A261C;
-	Tue,  3 Nov 2026 14:52:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9A460A2611;
+	Tue,  3 Nov 2026 14:52:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=octuHE56
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6A11F000C1;
-	Tue,  3 Nov 2026 14:52:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWYySZfx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1121F00A16;
+	Tue,  3 Nov 2026 14:52:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717544;
-	bh=pZDUQoAPmpcJQ1MGXQerdQ+hsS67diNlOCyUT7orJbQ=;
+	s=k20260515; t=1793717539;
+	bh=SXrZFm5c7Y9YEJYXHf63c7OvltqSiN79R5Fh6JHirao=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=octuHE56uzGrBMrp7166rFZjq/wnXaFsTr7IIG3zl2GxEZwjKr17pIkusq4jp6mXN
-	 mLEaqJM7SSf41A6AgYFmIZSHLCOBfnRcPxwmUULylluZ/BtRPUVjiAhtcuLPKVSi8+
-	 te+2tpxv6FIBDHG1hYbsVtXZrzYfb998Izoxf1NvzoAEzIvFOpHEvyk3y3Xff+4FC/
-	 o/2WA1kg2cgbqHxaU14o+r5P5lHoCTKwHyVmQ6QfVLsEAZLp2hO32QtmcUI3/DsuhI
-	 KpfZU6WyBhlTVBcgfdQLleBesDDuY0BtMKsH1vepW6wDZUm0XmilXXv5giOikKqoJg
-	 4HoslEFTZnEhw==
+	b=RWYySZfx0rRUBHS+D6mQrv70dNgBDuLHIhEJF/nZaakyJBbj16IsQUC/oHhhp+GL9
+	 eDEiPZPHHZTInSBMx+M9V4sQyMUg5Aa1V1epiUXOfbz1vyR11VxHwAAtNvriqi8yM5
+	 Getoowq88Rw6kMDDSYuGHHKqRlAqdEJLPOEuZHQMK6GSgWz0kRqbp8kvTVsuE1y0vd
+	 mfyGRs/5LnLLdRw5S0lbZXvQturO85V2JjHTiIyqvcnDgz/HGODZIA53opgqDL3zSA
+	 pVFmYtWkMNWSZsMZyXAh7q6jf43oTEbYSupvgYA0FRV4kz1Bmt/dibNEIktSQDz8xR
+	 YPRAdrqElfHWw==
 From: Sasha Levin <sashal@kernel.org>
-To: lee@kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tom Zanussi <tzanussi@gmail.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	linux-kernel@vger.kernel.org
+To: tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com
 Cc: Sasha Levin <sashal@kernel.org>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Taeyang Lee <0wn@theori.io>
-Subject: Re: [STABLE v6.1-v5.10] tracing: Keep the predicate limit separate from program capacity
-Date: Tue,  3 Nov 2026 09:51:58 -0500
-Message-ID: <2026-11-03-1-daily-reply-0010-re-tracing-predicate-limit@kernel.org>
+	=?utf-8?b?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
+Subject: Re: cgroup: fork vs cgroup.procs write race in favordynmods mode -- v7.3 is affected; please make sure bf6fbf46b5ff reaches the stable trees (repro incl. uninstrumented natural hit)
+Date: Tue,  3 Nov 2026 09:51:55 -0500
+Message-ID: <2026-11-03-1-daily-reply-0007-re-cgroup-fork-procs-race@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102122714.656104-1-lee@kernel.org>
-References: <20261102122714.656104-1-lee@kernel.org>
+In-Reply-To: <3d753a39.1d66a.1a1a13d3452.Coremail.xuhx@hust.edu.cn>
+References: <3d753a39.1d66a.1a1a13d3452.Coremail.xuhx@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,13 +67,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> Fixes: 39f7c41c908b ("tracing/filters: Enable filtering a cpumask field by another cpumask")
+> This is fixed upstream by bf6fbf46b5ff ("cgroup: serialize migrations of newly
+> forked processes", merged 2026-10-20, already tagged Cc: stable #
+> 6.18+), which v7.3 predates.
 
-Not queueing this for 6.1, 5.15 or 5.10. The overflow needs 39f7c41c908b
-("tracing/filters: Enable filtering a cpumask field by another cpumask"), which
-landed in v6.6 and is absent from those trees. There calc_stack() and
-predicate_parse() agree on the predicate count, so there is nothing to
-overflow.
+Queued for 7.3 and 6.18, thanks.
 
 -- 
 Thanks,
