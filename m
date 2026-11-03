@@ -1,72 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793676676;
-	b=y8dyBrY6zzxLlRWR5CTwQsQT8FrcJsOyRE5T2/k5BdfK0Hz4nrnQTnzx4nQk8hn3XFg8
-	 d15tcPa56W8hBxCylk1ICvnDgYgycbjoN0EX8Dh/AMFI3O140LWVYZpyClYHQVp4OINn9
-	 JRkx3kOcS8okGdUTgoes3fACzoWRQ4MNjYVLviOqlHJ1FTbRvRDxbijJsfSS7MF3QSwvH
-	 z0DjUoelEr+is471FU0mb9ecnlRHKEF+aOpCJqsTkxWzpzfiq7Px0q5/naeokF6xa1Y9g
-	 YWiphSoPcERsyGRcGgsAOA5vwfYCxFNdmO6BO3sbg44vyTQhjObWBAZREk/tCjOsr0Q==
+	t=1793676814;
+	b=M7ZFQBpjPlw1bhewAqIiVHGLASPQURghQLnyMbySPgHGN+qtfIeygDYSGpT0z2nk6xft
+	 6ahU2tR84hsFbnmNQjXfop07ym5cZhaJW6nOMgCZ1AZ6nRx0ZlBOIorvjV0t4dAJQ9FPB
+	 6FI7znA9N4BbI4L9VOdIq+C1TCQ9aRS1mvuxSQezSjF6/lFOh56trWkoh9qWVv5cgbn0a
+	 qQIG0xq6UZS5LtqMSXdotXRBzarTC1eB8Q1pJ+dl9xrHgUc5dasmicBynVgOsi7s0x5KT
+	 2TN6SQu0dsDczGCa6GYi5pIZ02xh1C/6zRr1uolo6Dbm7KLYgL2lMVTZU5JlAIrYuFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793676676;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	bh=AMOS0B/JAnxwot5406OJH4FzxWsoAX0mWtHn/kmohNA=;
-	b=kGx0s4hnPI2EsHf02xyadMtpf8fyH0VA2WsfZzZP7Od5aOz19bX4vPqU/cmusqXZqm6c
-	 R9MYlQuPVbhLGWBsRYOO7AwaOKWziXEl3x0iHnOG21bfj/QqAyribIMWF9H7XDzez4JjS
-	 y5OO4b7V7MZ4IAEd0dFsyfqcV0mw/ZiLPseTQi5GhIiawPc8uQnK6DnWSbBOWfBND7iEZ
-	 g0fEiQBW1sXnsB1Jl/QcNvTMywHAlqOb91qiKRKTcUo3J3HIF8jKGWe2lvptslTELxeGU
-	 p869QpmB6V00NtFYCxo3gKrYrm7mbyaLpWqK4KkEW6ujesgGvtlc12glMKcfarf58GQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793676814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=err8rpn8kCZEtoYWKx0gv030I55sgvzaIj1RMzAqnaw=;
+	b=Awufs4h/Ws9Z3LXiuLwS3XTHAlBBCCoHTTk6doD1EqmmiLu/yJyKT2mgq8NATa7H1WE+
+	 UincQovIoHyNcqSy+guP4Xum/XzgorkaLQm3T54wJaw/htvAQgPLapPxYobbnljDkwF09
+	 wuCkypOuh9WFBb+gY+0lvsxD111cJ512bcVdasfE7qxfP3jAw8MFf0Vvlw0m29vbxqsZF
+	 QvyWKkBN4QZvCJY9OylEtKd+mXqZAdLyjPSScNGqrTF5gVRGzv17SWZT4ogncbkoMpcSi
+	 Pbb8MYY/9lQdrFJQelHoSUGjnvQFLvKlUlbGnbmDDdUonMQ7uSk9Z7NJ0cDC6bFODaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="DN/5d44T";
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yJ3Ix53j;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81EA7606A32D;
-	Tue,  3 Nov 2026 03:31:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81EA7606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117DB606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:33:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 117DB606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=DN/5d44T
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A33UumzE2700913, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793676656; bh=AMOS0B/JAnxwot5406OJH4FzxWsoAX0mWtHn/kmohNA=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=DN/5d44THYWN3WqXzEXhXzj/APwbrzJ0Ry/eAMn2oNsCa5eRkEBab23RMMy5NZm1e
-	 myIKnjgzYFpA1dCt0ypuvyZHOBz4MC+Yh2vspQYSjCjq3kHR6eToJ5iNwODKx0KsxL
-	 T+eEFuIoxUfPdOVreoEqCEpaCg0FO/FGoeQdXgTfV4VWoljSdzeoTR1Y7k1KZBjyn6
-	 LPNhl3YCk/NHN1sXKkddyXEVs5vtugcmf7J0KJFzjJePjVt5WxUWOVgzEe+DT6p4xD
-	 919rtK/v5O0X3fRK2yPlNO0OUdZZbGHD+Cn38g4b+1vbBDY2xWRZH5FJ/GDGlgekgA
-	 rwrdkp7Mte65w==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A33UumzE2700913
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 11:30:56 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 11:30:56 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS06.realtek.com.tw
- (10.21.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 3 Nov 2026 11:30:56 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>, Ping-Ke Shih
-	<pkshih@realtek.com>
-CC: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Bin Yu
-	<byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH v2] wifi: rtw88: usb: drop RX frames received before the device is started
-In-Reply-To: <20261019064000.5167-1-25031212351@stu.xidian.edu.cn>
-References: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn> <20261019064000.5167-1-25031212351@stu.xidian.edu.cn>
-Message-ID: <a52d266e-8060-4b10-8b3c-80cbc29259ec@RTKEXHMBS06.realtek.com.tw>
-Date: Tue, 3 Nov 2026 11:30:56 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yJ3Ix53j
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a2551d7b5so330040eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:33:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793676813; x=1794281613; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=err8rpn8kCZEtoYWKx0gv030I55sgvzaIj1RMzAqnaw=;
+        b=yJ3Ix53jDYmW1MK8ahpwHeM/d04cT81C9ZZ3x67qAHIAoewqQOAsX6yIY8QNptm/EG
+         WW268chWcQGTbuNrhXVI8p+LnTbRwrQ6Oa6fLzJx/E8e8PvDfrBktwmjgmT5WwO54YzY
+         QKtUf34UEMH9WmMCEzwZnhJPubQj66XHctHCuMyz+V+0PTZgJjsDYcdLi++lDnLRfxsD
+         ISRvqOlAUXX/OwUTpSCVu9lguTTTGimEWIuV+1cLdEFqFrU0zbsGIq8wdjC3Gu/pSXtR
+         46jEdTMUB2QUXE7e/kMOY/DRQ+Lvy3cK+EAVWlkNKgq/ZaipUSqNHH7vwcPovoKqC65I
+         +WDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793676813; x=1794281613;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=err8rpn8kCZEtoYWKx0gv030I55sgvzaIj1RMzAqnaw=;
+        b=NoW3STQMFzmP4Ql9WxFKwPwq+iaVkfmC4KeoOmhju32Rt5lfxOHZzK3mcXaU/WzYK1
+         4NiJW0IYyk7EKch+FvwliYDpFg4TUF9V5kC7mzVK6H1jTi8Z9UzPU90i3PEN1eU70Wl6
+         AZrxcOQyk1Re6z9LoZupcrFOePLlN4EiLbWKJAG3LV7tj1pixZd1swgViin2743j+6/Z
+         E0yEGFuNBRD6772JkUWemUgY3lZ5diF6UwYbViIQMyPegY8Zq+9pfE+CQQA00QUz+3ew
+         yKXA4Vi5XrzLnOUsccR436FuUNTrrmlyjH2GKF1kgo5fFympEnKwj7qBmEC+3ZC1Ip2j
+         9HHg==
+X-Forwarded-Encrypted: i=1; AKwUvBy47nKZKSL6eDKdvE8de/5VfHc2Q1Sm6sI+o77e+6kBQIs5p4+Pl64Tu+NlDDhymKMv67vG5mhafoNCfTU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdVn/p+2VXfiaLaHPy3ftN/J+qcVyrxxtwt36QhRQltMaEtm+f
+	pa0dbTC/XfJXTNBfeRvMXrC6+O6niNcJf5aQzoNd9u2J94FvV4EvY1rB
+X-Gm-Gg: AYBFou1GtfEUgfR0mDIeSjYyi0+pY1MV89D1NJ0IlZzt8Lg9bA75eTANrO5TBJhShSu
+	8CNu2S5a/7wtD/gRvMivNWXMJUC+JmlXcjUyS6HkVQ3MsZU2T4WU3/x69HRkKFpqiiviMdm1EsU
+	fOCgBL6aBkJYuzBKok8hnQWL+Rrm9574eC9IVYq5cAKzAxKQKcDwJXkHOR0JunyCYIxvikCwW3U
+	siRArN0EUv19s2SvGS4zGJKIDv9S+R9F1ysWnma11i7BFQKRXvQOcSY7SOX4Sj8iqzu4uXUJjiY
+	qYxrXCW+3TGJJiJLoy1aCoKef5BqJYQAlme315iAjFwDVyhWWTO/XNewvTwp3AXMNyyjq32P9L4
+	g+sDAQsCtG9wrzHltZRCbOOhRmbF5KgRQvCehBJtOgFPuaq6Z7wU6x7hCOaHstoqhmh2ga2ApfZ
+	tFpbxYTKmMRv6JNDQO9wKpgZBtCu03h6AvHrVgt+o8p+YkknZ/d8w3Vv4NIcnDowuniqoi/qzsM
+	WMYkHf5jKCofKLL5ajbHaPxVux0rlK+6HlhfgT0gjdY5Op7Fo2YYWhG3lwtdPX/rPLgYaowg4uK
+	GPfEEIhA6i+l+f/RUUf8gDS2TExS48ArmgB8gFGZ/4AH0v7MTwXGqxjdiX8TrIftQdxU
+X-Received: by 2002:a05:701b:271b:b0:148:ece:8cc3 with SMTP id a92af1059eb24-1a94adc93b7mr19034522c88.24.1793676812990;
+        Mon, 02 Nov 2026 19:33:32 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:98f:6bcd:858b:7a64])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854da78sm50195547c88.6.2026.11.02.19.33.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 19:33:32 -0800 (PST)
+Date: Mon, 2 Nov 2026 19:33:28 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Kornel =?utf-8?Q?Dul=C4=99ba?= <korneld@google.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] input: evdev: Always terminate SYN_DROPPED with
+ SYN_REPORT
+Message-ID: <aulT9-9OU5VE_PpL@google.com>
+References: <20261022-evdev_syndropped_fix-v1-0-b5400740e1f7@google.com>
+ <20261022-evdev_syndropped_fix-v1-1-b5400740e1f7@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,62 +98,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261022-evdev_syndropped_fix-v1-1-b5400740e1f7@google.com>
 
-YuanZhe Liu <25031212351@stu.xidian.edu.cn> wrote:
+Hi Kornel,
 
-> rtw_usb_probe() submits the bulk-in RX URBs at the end of probe, right
-> after rtw_register_hw(). A device can already have data queued on that
-> endpoint, so rtw_usb_read_port_complete() runs and queues the frame on
-> rtwusb->rx_queue before any interface has been brought up. Submitting
-> the URBs late does not close that window: the frame can arrive as soon
-> as they are submitted, which is still before the device is started.
+On Thu, Oct 22, 2026 at 01:39:12PM +0000, Kornel Dulęba wrote:
+> Per Documentation/input/event-codes.rst, on SYN_DROPPED:
+> "Client should ignore all events up to and including next SYN_REPORT
+> event and query the device (using EVIOCG* ioctls) to obtain its
+> current state."
 > 
-> rtw_usb_rx_handler() hands every non-C2H frame to mac80211 without
-> checking whether the device is running, so ieee80211_rx_irqsafe() runs
-> while local->started is still false. mac80211 treats that as a driver
-> bug and warns in ieee80211_rx_list():
+> Currently, __evdev_queue_syn_dropped() queues a standalone SYN_DROPPED
+> event without a terminating SYN_REPORT. This causes two issues:
 > 
->   WARNING: net/mac80211/rx.c:5601 at ieee80211_rx_list
->    Call Trace:
->     <IRQ>
->     ieee80211_rx_napi
->     ieee80211_rx
->     ieee80211_handle_queued_frames
->     <TASK>
->     rtw_usb_rx_resubmit
->     rtw_usb_setup_rx
->     rtw_usb_probe
+> 1. The queued SYN_DROPPED event remains unreadable until the next
+>    hardware event frame arrives and finishes with SYN_REPORT.
+> 2. When the next hardware event frame arrives, SYN_DROPPED is prepended
+>    to it in the same packet. Compliant userspace clients then discard
+>    the entire hardware event frame up to its SYN_REPORT.
 > 
-> The frame is dropped by mac80211 anyway, and because the URB is
-> resubmitted from its completion handler, every further frame repeats the
-> warning, which floods the log until an interface is actually started.
+> This was discovered on an Android system with a gpio-keys backed device:
+> 1. gpio_keys_open() reports the initial state on open().
+> 2. Android follows open() with EVIOCSCLOCKID.
+> 3. This creates an unterminated SYN_DROPPED, causing the subsequent
+>    event to be discarded by userspace.
 > 
-> rtw_ops_tx() already drops frames outside of start/stop by checking
-> RTW_FLAG_RUNNING, which mirrors local->started: it is set at the end of
-> rtw_core_start() and cleared at the beginning of rtw_core_stop(). Use
-> the same check in the RX path and free the frame while the device is not
-> running. This also covers the opposite ordering, where a frame that is
-> still queued in rtwusb->rx_queue is handed over after the device has
-> been stopped again.
-> 
-> C2H packets are left untouched: they go to the firmware event queue
-> handled by rtw_fw_c2h_cmd_rx_irqsafe() and are never passed to mac80211.
-> 
-> Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+> Fix this by appending SYN_REPORT after SYN_DROPPED in
+> __evdev_queue_syn_dropped() and updating client->packet_head
+> accordingly.
 
-1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+I do not think that injecting synthetic SYN_REPORT is a good idea: we do
+not know at what point the clock change will arrive, it may arrive in a
+middle of transmitting a packet, and if we discard only half of such
+packet it will result in incomplete state being presented as complete
+one.
 
-72fa55807619 wifi: rtw88: usb: drop RX frames received before the device is started
+Compliant userspace should not only discard events until the next
+SYN_REPORT, but also query state via EVIOCG* to reconstruct full
+picture. Is it not happening?
 
----
-https://github.com/pkshih/rtw.git
+Thanks.
 
+-- 
+Dmitry
