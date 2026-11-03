@@ -1,54 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793678840;
-	b=CL5qYzzrKUGfWME91k/PtMMqgcVTs5PcnD+5Ev1xb/+smg3O+dz99PaipqNrkAiPYAvd
-	 dfBQqNVFDaCp6EKuu76SAOAdPzYcF6iM0eI2IUDaBo9RlZ4f1fNlA5lqnJFS2ooOF4T5W
-	 pJ2ZK9AfUk4rVvh2xTewsvTLsOITMXgGNr0Yd41TmEphH8JY5j4FBw99JmEmi+bmEBleL
-	 GkLsXYL0gmKZYc4+1JU6Ohv9JdQ7djn7ax6AOMh1JI0F3iCQYs0sfd3UAyphuUCZOv9Wf
-	 P9Wg2FJM0Op7OX+8pcxpJkJC+Y11FtwCjqWQRqyrYR0lmQE30gBeGXRmtQAhKNw6+aw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793678840;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0yC0Wrf4nrD1HQnsTBLD2PZGSp8C8ysH6eIf+cD1dWw=;
-	b=zKFv5fmwGS5leEAfU4WAg4eB98R3MRw/XE8OQyKYtbE81rHK54Bg9QBQ1QAzA32aSTle
-	 WzYVNbcIXAdeMjcWYS1WkwUhngpa0jgL/3H8dSRl0knK5WyXhUyeb8GFbdsWi5wm+Fsiv
-	 RDV0YyL07V7EJfCWhMKatd/KkJH28FRDet8ToDg2Gjg9KR6/bE/7siZ3IEpjEDQeAy2yW
-	 T6S4+hCaWTd66WSgvb637iSmm+PHx2tzlxY+vTGvjcTt3o5V4JNki8Vz+HaioJsjIcGxa
-	 oLBN0d3TNhbpEFMB6+1GcFM9yJRLKp1KGWr5MOBW7xwJb0RcYBrmupoFSmx9Tw1QfMw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="Kh5YPZg/";
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793678976;
+	b=I1L6KQpjNl92msasOnZCWpX28RrJjxwbxXVZwp1lYplcM/MMfiMAJ3N0ap7AQL/+sKev
+	 n6R+WoANTrOgfEmbeoRXQFw13M4DQECUIz9MxfjvJ07a/plYVjqoSgNbs3/q7CCuLoYv1
+	 evCdNquPg6uFOcLEz7YOUxptA1CluyjKhfrJRdQRJmZYJ/jLY9c0ygDIsZJOm7b75OXwt
+	 1tzPXAC3OhwX7AcGGwrstN9jXWSrBm8usy4up8KUKLmPtoWNoJqJEtaR6oZbvtaHnGtdX
+	 9J8tNwMKRY807/WHpUaqEsi2iV4eGHZXoGP2rlhmB3T+OHICaCP6JpsoMFn/Dm9H2Pw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793678976;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=4iC8L9iLkA3pQkFSYs2y6EQR6cAV4OUXqfYAj5Wz1OA=;
+	b=VZwnZd/EbcrQiQJfFpkdvQwIDsNA13IG9qB1r3cD0lhfJUUOtzHqF6z0hacD3nIACqBb
+	 EIZkH1S3j+JgkbxVJDzp/4MwpbsmQtdolcz5mEQfx+H+Bemz059/NvnBq0PqH8uxcYSWI
+	 6ru9odgslCIyzCaPywI+g9E8Af1jUVgyPDtKMafSQvII6a4B6KEEqrCp/jgrvkKYeiCv3
+	 88mPy9SzmnV5DOhZGIln47UxDvHWrkS3qiBmuOlNlQueEt3VhaR3euWNtiisOv1QO62EZ
+	 IE89wm7MS2ux/1B7M04qDAhuZ2IUSbA5kS38k5bPiIt6l2+5ms65JOf1EMtJFnHdhMQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O9Oe40HC;
+	arc=fail smtp.remote-ip=209.85.208.176
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090BD606A324;
-	Tue,  3 Nov 2026 04:07:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 090BD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A79606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:09:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2A79606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Kh5YPZg/
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=0yC0Wrf4nrD1HQnsTBLD2PZGSp8C8ysH6eIf+cD1dWw=; b=Kh5YPZg/HP65n2u4ZNHPw/o3qH
-	LAivrfokQ0ZHtXUf0jmpuGO71HgJn4tOZfFRvQCGWEIOgUrSik2zKYGnmEyMgfK1qcaXmt6ONc6mu
-	kqT2NRDUlEPNX8m995blWpKWHyANKHnixzL2XHRfBnNxqGb1iEyjwTxTOgeHSFXszFiEnaJyn93q4
-	Mg1VBxzq6fQBx01JbCEurgEIR7PomS78SE9CsS2ZnUS2ISamV/JBRxzOMg8t/TSDiS6BTln8SZs/u
-	2BWziPbfXqsdafCTDqyMQKBfhXcTwf9vFQDINCs/em2gJ/mYeo7iq4JjJ9Et0ysbTV9shiZygaOQW
-	eZ9lTG1w==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xO5nq-00000000yvd-1SUy;
-	Tue, 03 Nov 2026 04:07:18 +0000
-Message-ID: <caa02760-9ba8-41f9-9089-3ceca2201c13@infradead.org>
-Date: Mon, 2 Nov 2026 20:07:17 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O9Oe40HC
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ac65e845a8so2945001fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:09:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793678974; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jviVhcWNHGh2+U0zMOyYd47ikvAGK/YL3koKcnQdVLTY0nYc9bTNbWI9TVUDOTMuQQ
+         zN4cMP5JHoQ58m+2f6ROiNbL5TECvDJBFAzRCoYy3HzoBDcpJu0faGlnJfrOQlRpkl1W
+         sy5YUPus3PFWn4Fkqg+SLEXxSZUHkZ1QLM2i9FVPyy2YnUf+jISCokhv3uvRa7kl6wgV
+         X3aubzzdm8wScDTgBq373HRr+Qo7UVCHZ5WzTpwexjOcBsMHuXqhJulPRiqN+jlepDdk
+         aO4YOHXfVSXMQR0RbAGd11xDKSa97tIG4b7npUuPg/rbPQE9/lOfd7hu/smhA4BLaGBA
+         ViIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4iC8L9iLkA3pQkFSYs2y6EQR6cAV4OUXqfYAj5Wz1OA=;
+        fh=6weIoxmnNWDza3GfHsqcbxpmKMhZrcPQNzkL0vJIYDs=;
+        b=S2qHQLkTcuC1EpsdsORUy1qiynEm0Ys5rzrnzvGOAE7rvk/x5Rt5nZC0B82b1GiTA6
+         x8QAQ7oX0MWM4JA+HH2YoUGKPVPhlfVEoGbTs96vZ4zgzi+r3LNmriPM8lvG/q9PcX7B
+         nd0z482C8yLmJTNOUSICzctyDOHD2TVpYZeEhlfTkAd8d/oVryueQ8jLLqIwj/mIE1Pp
+         syOLzCyJ9jGwA7UQ0z9mSeDoW1E83dHXP4WR+FaTbwGgZMtPcFpFqiKnz2q0MaeVCa1Z
+         YbiJZ14MR6OXVLVcDDb0J8u5E99cOB+dh+PEj2I36nmgk74jU182JUwa0oSQWh0y5iKn
+         Ptrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793678974; x=1794283774; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4iC8L9iLkA3pQkFSYs2y6EQR6cAV4OUXqfYAj5Wz1OA=;
+        b=O9Oe40HCGOmRZfS9ArojsTOkWRogCLAA8RxP7OvgGHe4QdWC8+f/a/UhQiCIqrzFSR
+         Zf9+JCBgW0u3La0oKPOF3Rm3Uo1kkRh986BsRwuHjs0+kuh89j5xdGlurOo3gPMyc4DT
+         eQdNNZj8ulP6qpC2nI68ljZ9XYYIret2oD+U6FvbOdoNw4JucvZaChg+qPE+GY08uTXo
+         8vZK1h0MpZlpqlwQFPeytDtE1nuBIwwFY62FfSeZ7gLvq4m72c3Q2bpGaL04KSlALTTo
+         j7SvmBVy23rklLq9v5dKeZwEDM7ar4hvp+hQ03ssTzFhdy5tOEZDivhWCTrB87kxpjK2
+         K5aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793678974; x=1794283774;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4iC8L9iLkA3pQkFSYs2y6EQR6cAV4OUXqfYAj5Wz1OA=;
+        b=X4N+FTplhJUdgA1+waNxnfCVXy2tXpbP+UoEzdqhsvYhsxBOFafK9wgP+vi9jGeOhi
+         wlL84b/rwOLIgIsZiTTjwYbBbJjLYa34Rmn39y+mRjOt9ocpGORcRk78cYmYUkWLdKVo
+         pC1kGTPhpNZAeB4ljgIXPpRi/g2S/4PmaLiGnXLIPUcxUA5IjMzAM5og/a/5fAvkGUkD
+         gZEaypNPmvPnPBdYX7Hks61BS8RxLCrp+jfKEXnf+F3teYuuC6cfL/03nngbCIDhy7GQ
+         OATtugpeWKHe/OePU5Ro7oJymtaMeVpXWqOIQiL7bjlcO93d8K7Wr7ceyf22h9busFw9
+         LLvg==
+X-Forwarded-Encrypted: i=1; AKwUvBzy7B/Sn2Qgg9QNNlutaiq3QMAVX3O49b8wLgLPTjfpzQry5MnSOvFfU7s2XENcNs/RQw4buwPgcJdo2YE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9BRhncdqZbvPkClaDFeVzBhghByMZ1tsCZFDin9Zu1a9W411jL
+	FH8i37xqnY0X5iaHDso1He7iO7z0mzv9oMFsf2/6/Nf3I+sX3a4p3Vg/F3AmOgO3ZSszLSuRZx2
+	cPEX1GZErwbTOz8BvULurLeMZrnRFeYM=
+X-Gm-Gg: AYBFou1bSBF9gH87mjhlcYUktLq9Z4NK9zyQVub8dwpew093eE1HfiFCWfJIf5IEA29
+	MQQeNxbdkiTtWFXWUo2Q/paWxvyymZvk3STi+AZ9vDd19Gsh5nKmPiSPaNQlkXB5qU6XmlHcotr
+	vWvkAf4jqQf+xxYCysJD0H9wkN4HHBGdUi+3UIOFUZ+hVmd5L9y0NxfulS/RCAsmns6s+1xj/Dj
+	r7xVuEnQ+BrgNMl9qU14mtuKsWNyYwrklj7fCQGAvdT9SclHS8obRCVGtd/i2A8LjzA9BLsDhpg
+	7ufOot0T4VHyvQ/YLwK52/F4e1KKToA8xhRJ8D7XPwdX2/tExfJl0db3c4Iqd7dqp+cqRRipT5v
+	3DmPoRfjDlxduYzJriY49h+rY4Idu/jnJYlsk
+X-Received: by 2002:a2e:a99e:0:b0:3ab:40b1:c4a4 with SMTP id
+ 38308e7fff4ca-3aca57eb24cmr35150011fa.14.1793678973932; Mon, 02 Nov 2026
+ 20:09:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,84 +103,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] USB: ohci: ohci_pdriver.h: fix missing kernel-doc
- comments
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20261103014710.2451967-1-rdunlap@infradead.org>
- <02148858-defa-4c15-92e5-0ce7029bc000@rowland.harvard.edu>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <02148858-defa-4c15-92e5-0ce7029bc000@rowland.harvard.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260926041943.1124650-1-oss.patchbox@gmail.com> <aujDcTjvpWbIJ8wm@p14s>
+In-Reply-To: <aujDcTjvpWbIJ8wm@p14s>
+From: Yuho Choi <oss.patchbox@gmail.com>
+Date: Mon, 2 Nov 2026 23:09:21 -0500
+X-Gm-Features: AclHuK_exdT8gjqeTXLCJXxzkdg7czt6b3ePUopm67pTCoxxb-Of6GIPUcH4Ph8
+Message-ID: <CAGG=RgBW9O7PfwaDPY_jYkE876EALQ5JsSnP4=7YubZg1XvwJw@mail.gmail.com>
+Subject: Re: [PATCH v2] remoteproc: virtio: Synchronize virtqueue teardown
+ with rproc_vq_interrupt()
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Mon, 2 Nov 2026 at 12:08, Mathieu Poirier <mathieu.poirier@linaro.org> wrote:
+> This patch doesn't apply on rproc-next - please rebase and resent.
 
+Thanks for checking, Mathieu. It no longer applies because the same
+race has already been fixed by commit ffe14d610cb0 ("remoteproc:
+implement synchronize_cbs() for virtio devices"), which is in v7.4-rc1.
+Therefore, this patch should be dropped.
 
-On 11/2/26 7:49 PM, Alan Stern wrote:
-> On Mon, Nov 02, 2026 at 05:47:10PM -0800, Randy Dunlap wrote:
->> Convert comments to kernel-doc format to avoid kernel-doc warnings:
->>
->> Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_on'
->>  not described in 'usb_ohci_pdata'
->> Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_off'
->>  not described in 'usb_ohci_pdata'
->> Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_suspend'
->>  not described in 'usb_ohci_pdata'
->>
->> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
->> ---
->> v2: move all kernel-doc comments to before the struct instead of
->>     having them inline insidet the struct. (Alan)
->>
->> Cc: Alan Stern <stern@rowland.harvard.edu>
->> Cc: linux-usb@vger.kernel.org
->> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->>
->>  include/linux/usb/ohci_pdriver.h |    8 ++++----
->>  1 file changed, 4 insertions(+), 4 deletions(-)
->>
->> --- linux-next-20261102.orig/include/linux/usb/ohci_pdriver.h
->> +++ linux-next-20261102/include/linux/usb/ohci_pdriver.h
->> @@ -13,6 +13,10 @@
->>   * @big_endian_mmio:	BE registers
->>   * @no_big_frame_no:	no big endian frame_no shift
->>   * @num_ports:		number of ports
->> + * @power_on: Turn on all power and clocks
->> + * @power_off: Turn off all power and clocks
->> + * @power_suspend: Turn on only VBUS suspend power and hotplug
->> + *                 detection, turn off everything else
-> 
-> It would be nice if the indentation for these new entries matched the 
-> indentation for the ones above (1 or 2 tabs instead of 1 space).  Aside 
-> from that:
-> 
-> Acked-by: Alan Stern <stern@rowland.harvard.edu>
-> 
-
-Agreed. I'll send a v3.
-Thanks.
-
-> 
->>   *
->>   * These are general configuration options for the OHCI controller. All of
->>   * these options are activating more or less workarounds for some hardware.
->> @@ -23,12 +27,8 @@ struct usb_ohci_pdata {
->>  	unsigned	no_big_frame_no:1;
->>  	unsigned int	num_ports;
->>  
->> -	/* Turn on all power and clocks */
->>  	int (*power_on)(struct platform_device *pdev);
->> -	/* Turn off all power and clocks */
->>  	void (*power_off)(struct platform_device *pdev);
->> -	/* Turn on only VBUS suspend power and hotplug detection,
->> -	 * turn off everything else */
->>  	void (*power_suspend)(struct platform_device *pdev);
->>  };
->>  
-
--- 
-~Randy
-
+Thanks,
+Yuho
