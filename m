@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721152;
-	b=RFdOrljG1Km1PYDQpJlFQde/zi3fsr0DZbUP0Q7sQ199h9IBLbdxWkt/f85FPfRZ0UW8
-	 jSBMMLdD8fGEPranAxPOnJsGbB09CmnUimObQjzSul3Ub/mOQKQ9GCUR4bGD95Qs7onxG
-	 dBOWnpd7rH0a2FNrjvT66059FOPyjh8zRlHa64RIB4Zn8wAnPGTUVAaWFttBW+T/Mxx0o
-	 ZiZxWmJ/RZHtlXRbzSeDbgWO2k2/IM7ysaSkBUr0DEv7z3H0+w1Kk6acyGDGSE7KUhCSY
-	 OsSOnB2QLKnv9MW8/aR/X0dJ3oZQJvJpEnh3Tb+KYt0QeYSbDNocqpDpofgVqElN4eQ==
+	t=1793721149;
+	b=Ya3DJshrgn0m6zMki++UG8VMFAUiTm1SQupNfq9ZA2jDBHDoOXbM1iluFZMeuEWPtzWP
+	 7R9MXV0pYhXAH57cK47+P3mPRP6SZxhC8aUjBEPEqwdFdDMeOFtk6zVXTFpdMWsv3UQZg
+	 QRkgpb0C1ez70ODMW25hFkLYNnhiPpySJBoreXawVwyyST/lpqihyBDWZl5MBu2kJApex
+	 fM2+KfvHzJpWVtuPHfzPNOVH55CkUz+1VJovJ+cL0Vj4Tc5SeQRtecqttAzNNjl6NuGHE
+	 /TWV/v/FsW+XHx9R1NHeInEgnPk36Q4G9MbDziXr4KE+1/mwD48PvWH5cjx8yApHcig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721152;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721149;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
 	 X-SA-Exim-Mail-From:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
 	 Subject:X-SA-Exim-Version:X-SA-Exim-Scanned;
-	bh=joBGjlOwEDm5Kzn5UKgcj2+sDwp9tAEOu9FrwGOhQZE=;
-	b=x1ICLpa3NzZO0RlhbQ9dSmcDQS1JmvEuBiPhP85wvvlJFN3up26tAtDZJg1dGmjSVtP1
-	 MG/G3n6120VrrA4ryvlQ+4oMxp75fWCztQDmwPI+LCkyA0hl5ASdzBEQLjr8tCyANTVdj
-	 tO6sUenJtVt7k/TEr5SPFeXSz5zAbVimMtej5QzLtdqokslOYrDLup8e4rr1CePwbAjJZ
-	 TIXfBDehUb1lggaIzF2JFzJslGgZIoPeAOXmdizg9XEb4obotcMUoQFrH6JZrUyTKuIx+
-	 wZzBbq5LAg3Kup9RTT5nyVjxsCJT5ximT7ZqUzZD+iPcN4GJmZAJVOSOIX4+St1mGIw==
+	bh=aic3tVYzbc1I/0g2BTqr6oVUCrnWTHeRD86DtgFdNnw=;
+	b=e7Bg7FiWrhsFOu6L5XTFNVw2oVyQA07f0ZMTiu2jXbmUw0bbB2nw0uFlNv+7ovAUev3/
+	 gOf3p8RuUm9BdbbkSeYdCF83G6Pf4uYkigVDd+VpUdoDUyQtGqPJ5FBgZLzwIco1AFm8R
+	 txktMedwcyoqqax9hZdXMOOud7ssUgw5c1yF+nXWG7tYTG4Zpee2/GHvRQi/BEX0ABJYl
+	 b3BezMrmdKTEy0bO3hAPbEkwI9SRWrqdkzK5EzHTnAN17gBBqpMTMxql/KphAtBVzY6U+
+	 bYA0DvuMjE/DYZ8V9eXTsYmpCTXpbb9I7DWfzUd0qBX9x1qvoK+gKchK5glkowSD6KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=deltatee.com;
 	spf=pass smtp.mailfrom=deltatee.com;
-	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=qIWA54vc;
+	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=BwmDPiEE;
 	arc=none smtp.remote-ip=204.191.154.188
 Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A816D606D81A;
-	Tue,  3 Nov 2026 15:52:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A816D606D81A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC38606A33C;
+	Tue,  3 Nov 2026 15:52:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC38606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=qIWA54vc
+	dkim=pass (2048-bit key, unprotected) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=BwmDPiEE
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=deltatee.com; s=20200525; h=Subject:MIME-Version:References:In-Reply-To:
 	Message-ID:Date:Cc:To:From:content-disposition;
-	bh=joBGjlOwEDm5Kzn5UKgcj2+sDwp9tAEOu9FrwGOhQZE=; b=qIWA54vc7sNxTfpUWZK1Tkw2tj
-	twPgBw9YnQFgl1xwFOR/nIN7l0IqIp1rVTeIwADzQ4z2Rdhz6186sV6oMNhIoifLCSNvoOYXLxZCp
-	pm80hNXOYudeEewesOZGFiBZ/JRYRT2o3EO//ORXGv2VoZjxwHaZ2cu/APQKJqgJmeDuwCoCxZKTJ
-	0Xx/xp/eyw4RkKtOn3OBevc11MJKimQBgfaLNFg6SGaNBFdNHpGa8SaasBME5L9Gda1Uc7k0TWIKa
-	DlysYrKtZfZbki6QDmhIHn/AU3fqLgmfSZ3iQNVCB8ONMRZUZCbtdKA2V0l9rY6zOQIlrFvldPhiv
-	wsCNb82w==;
+	bh=aic3tVYzbc1I/0g2BTqr6oVUCrnWTHeRD86DtgFdNnw=; b=BwmDPiEEhr/Rt6jVX+uImj5J8e
+	ee8FNpDYOHR/oNqeEriYh/pM5svaaP851Ru+Xrbm9c9+wEErR8dr+6OGivkO9v/wkSOnrRMcPoxyD
+	s03LIrsxDfK8ALk8ynMcyi1tVmCSJrrXNoIy0leSqCluLDawOCy9nuJPpShbMbmEhmMCclJzm6Tof
+	li1jw22Yksm4IIs4ZmusQc1cP/CUBcfY2XSuQvnH4yDF2vUiTZh4eG/wc4AmT53jlYlMj2BdICKdA
+	WX6j9XnFmiF1eVrR72X4faizeKdLlpE0P2Byk82q3OW+jnlE5orcehegT+rQGa+3YXoj9LO9d2CIk
+	pN4hCGTQ==;
 Received: from donard.priv.deltatee.com ([172.16.1.31])
 	by ale.deltatee.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <logang@deltatee.com>)
-	id 1xOGoH-000000091RW-2CG3;
-	Tue, 03 Nov 2026 09:52:30 -0600
+	id 1xOGoF-000000091R5-0aOj;
+	Tue, 03 Nov 2026 09:52:28 -0600
 Received: from logang by donard.priv.deltatee.com with local (Exim 4.98.2)
 	(envelope-from <logang@deltatee.com>)
-	id 1xOGns-00000001w7h-2jzy;
+	id 1xOGns-00000001w7d-1TK7;
 	Tue, 03 Nov 2026 09:52:04 -0600
 From: Logan Gunthorpe <logang@deltatee.com>
 To: dmaengine@vger.kernel.org,
@@ -61,8 +61,8 @@ To: dmaengine@vger.kernel.org,
 Cc: Frank Li <Frank.li@nxp.com>,
 	Logan Gunthorpe <logang@deltatee.com>,
 	Sashiko <sashiko-bot@kernel.org>
-Date: Tue,  3 Nov 2026 09:51:59 -0600
-Message-ID: <20261103155202.461725-5-logang@deltatee.com>
+Date: Tue,  3 Nov 2026 09:51:57 -0600
+Message-ID: <20261103155202.461725-3-logang@deltatee.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261103155202.461725-1-logang@deltatee.com>
 References: <20261103155202.461725-1-logang@deltatee.com>
@@ -80,38 +80,83 @@ X-SA-Exim-Connect-IP: 172.16.1.31
 X-SA-Exim-Rcpt-To: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, Frank.li@nxp.com, logang@deltatee.com, vkoul@kernel.org, sashiko-bot@kernel.org
 X-SA-Exim-Mail-From: logang@deltatee.com
 X-Spam-Level: 
-Subject: [PATCH 4/6] dmaengine: plx_dma: add dma_rmb() after observing write-back status
+Subject: [PATCH 2/6] dmaengine: plx_dma: fix descriptor ring leak in alloc_chan_resources()
 X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
 X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-Add a dma_rmb() after the write-back status check so reads of the
-transferred data can't be satisfied before the read that showed the
-transfer was complete.
+If the device is removed between plx_dma_alloc_desc() and the pdev
+check, the error path frees hw_ring but leaks desc_ring and every
+descriptor in it.
+
+Add plx_dma_free_desc() and use it here and in
+plx_dma_free_chan_resources().
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Link: https://lore.kernel.org/dmaengine/20260717223217.B6FBF1F000E9@smtp.kernel.org
 Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
 ---
- drivers/dma/plx_dma.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/dma/plx_dma.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/dma/plx_dma.c b/drivers/dma/plx_dma.c
-index 1c995f0c4463..e4243b66f933 100644
+index 0a7ad2473cb1..bfccbb0c70e8 100644
 --- a/drivers/dma/plx_dma.c
 +++ b/drivers/dma/plx_dma.c
-@@ -148,6 +148,12 @@ static void plx_dma_process_desc(struct plx_dma_dev *plxdev)
- 		if (flags & PLX_DESC_FLAG_VALID)
- 			break;
+@@ -404,6 +404,16 @@ static int plx_dma_alloc_desc(struct plx_dma_dev *plxdev)
+ 	return -ENOMEM;
+ }
  
-+		/*
-+		 * Ensure the write-back status is read before the
-+		 * completed transfer's payload.
-+		 */
-+		dma_rmb();
++static void plx_dma_free_desc(struct plx_dma_dev *plxdev)
++{
++	int i;
 +
- 		res.residue = desc->orig_size - (flags & PLX_DESC_SIZE_MASK);
++	for (i = 0; i < PLX_DMA_RING_COUNT; i++)
++		kfree(plxdev->desc_ring[i]);
++
++	kfree(plxdev->desc_ring);
++}
++
+ static int plx_dma_alloc_chan_resources(struct dma_chan *chan)
+ {
+ 	struct plx_dma_dev *plxdev = chan_to_plx_dma_dev(chan);
+@@ -424,7 +434,7 @@ static int plx_dma_alloc_chan_resources(struct dma_chan *chan)
+ 	if (!rcu_dereference(plxdev->pdev)) {
+ 		rcu_read_unlock();
+ 		rc = -ENODEV;
+-		goto out_free_hw_ring;
++		goto out_free_desc;
+ 	}
  
- 		if (flags & PLX_DESC_WB_SUCCESS)
+ 	writel(PLX_REG_CTRL_RESET_VAL, plxdev->bar + PLX_REG_CTRL);
+@@ -443,6 +453,8 @@ static int plx_dma_alloc_chan_resources(struct dma_chan *chan)
+ 
+ 	return PLX_DMA_RING_COUNT;
+ 
++out_free_desc:
++	plx_dma_free_desc(plxdev);
+ out_free_hw_ring:
+ 	dma_free_coherent(plxdev->dma_dev.dev, ring_sz, plxdev->hw_ring,
+ 			  plxdev->hw_ring_dma);
+@@ -454,7 +466,6 @@ static void plx_dma_free_chan_resources(struct dma_chan *chan)
+ 	struct plx_dma_dev *plxdev = chan_to_plx_dma_dev(chan);
+ 	size_t ring_sz = PLX_DMA_RING_COUNT * sizeof(*plxdev->hw_ring);
+ 	int irq = -1;
+-	int i;
+ 
+ 	spin_lock_bh(&plxdev->ring_lock);
+ 	plxdev->ring_active = false;
+@@ -474,10 +485,7 @@ static void plx_dma_free_chan_resources(struct dma_chan *chan)
+ 
+ 	plx_dma_abort_desc(plxdev);
+ 
+-	for (i = 0; i < PLX_DMA_RING_COUNT; i++)
+-		kfree(plxdev->desc_ring[i]);
+-
+-	kfree(plxdev->desc_ring);
++	plx_dma_free_desc(plxdev);
+ 	dma_free_coherent(plxdev->dma_dev.dev, ring_sz, plxdev->hw_ring,
+ 			  plxdev->hw_ring_dma);
+ 
 -- 
 2.47.3
 
