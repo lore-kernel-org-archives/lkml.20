@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715280;
-	b=06ZDXWq25pet2dOY1u1SUWnvN6moIoV1TqQdhVMbMjpAqaWms2gAhUeGDnljKwxIUjHP
-	 QvgYCc1nPXk49HgVVJMoYrzzjTDWmfobFYejgNEjOPuUgaq60o0M7j/NpVvgoLrJmVk60
-	 RGQ+exbUF8AZPxengA4ezt2rvWXz35IAkDnNn9hdsY8iBzEK/qRN50JYSWKCKNwJDQhvs
-	 gng47VlzbGQ1bl6yVrHEUN0hLEiIHviuV3Q1W/u8H9jTLfHYhVoPYzR/1cTIvnigiO74A
-	 xf/UYOjEApTOqMPJ1OBAu6jHXzEJnEiTKugoqyHtCyTr7/C1cKF5ULgvxoggrBzXCFg==
+	t=1793715299;
+	b=mhDW67D7FJHSfy8PKIqNRKYQCYoM6ybVv+3Yyb/DNv0udzNr5uaOdNjZpIfC1vcQxd+x
+	 4UAXO0kekPU45vAMmxNGo3lAH3oca2DwejIcMtwg8/rZyrIWMa/NbzdDYewfjbu5hy9pw
+	 HZbShxuyTmSRuxpo8c8K3z6lOLcqZvcSgWx6wO4hZ5sp9nCqqBcS3I1gXxXWkExzNh9VA
+	 qahKoNeBMZOR1S3d6sLdtPYPItEGdHKo9tcJCwyvBXDzXwC/NLvOJzrzIm69bfV3pT/UH
+	 FyzcWKvwWIiOG++9o1/oURw1YhFLAjNLT+pudvOtOSQwCrd+wTt7H1n3jWSguBXBQeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715280;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=2V/ndYvkVxA79d43Mf+7vdJDqWuLHWGgjyn9NcOP058=;
-	b=ZaxyMNIyKkzh14DHUNrpIKvbueyuGJoSiKJT7KhZahd8p+PwZq6ssD04WOdpVgummnmV
-	 Dy+MGkVosHX4v4IX0NmiM7UvzZhUDFK3RA3gkZ1lsMNittLnRCBFpOQIyzVbAtQLFxvF8
-	 egia4WTgw86ez6b80pIuUbwTblIns0dWOKekGrX5wBBVnxRuwOC7UvR9KhrwNES5Jofhd
-	 7/m/ADLSGoCxb9g6sTca2BrwcKAXQc6327OYnWzi9Yzve/qDnACrQeDWVbVBfS4ZSb5JZ
-	 W6tm5XQ0mK+h8R7nRHRzp/REjhLUmN3x6MS8yRZ1DbuXb6B4fJ47ilFhLjdG66EyZuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715299;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hb7W8ZfcpcGuyitw8MKKejiETPNUSLAqWJjSCjJfVkc=;
+	b=jhFdQDhySMiq1v2Zz16VVDreNekFj4/Dax9NL2jTiZlWKL7UpX8Mn7cV7lIoqEGfVt95
+	 YEQtkIpgpyJiUMt0bWoCWQKcllom+4N5raqMAvFoHWYJdfg1G9NauxY36uGI4Ml3XHZbt
+	 7nWi/zKf2xEOVBpxz34DntdrTvb/4p3Xh8kAwf5lri5esiAESyIHLKrt8xVELko8lqL/w
+	 4P+upHx5MZX250oA8KyZrXtLPl5uxWSkxASqngjjoC4NutzzP3PdSE60yQx7Tu3strd91
+	 GMSqJGhMZ5qzGNVjZT/A+zjpAD1ylv7ZrXbExohefJzlKDREWZeYrjITPTyOsnOqcqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aaxGzOap;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UcPZd5lS;
+	arc=none smtp.remote-ip=91.218.175.125
+Received: from mta0.migadu.com (out-125.mta0.migadu.com [91.218.175.125])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61562606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:14:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D66606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:14:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52D66606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aaxGzOap
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0AE71F000C1;
-	Tue,  3 Nov 2026 14:14:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715279;
-	bh=2V/ndYvkVxA79d43Mf+7vdJDqWuLHWGgjyn9NcOP058=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=aaxGzOapyHfFlHAjXCCWCjylt3vC/AQ1UNK9BFKFXitIBtPZrbR/XMTiI3H58/9B3
-	 rm4qwhVZkPr9afPfqC+SFSfDnkPN/4pEHVC1sK4quxxp1Rc5hVPXwC3DOw6tsidh9H
-	 MFXS5kQySyEbKY0PlI8frUlR0NraysItCxrW/vRVEkyB7L9oRSQz4l6B9ikb/ZLeqH
-	 e9UYc9Xglp9TUTDi2YQU+w++JAwJxwGWJQF6La9NcirxdMEI7eyWYBWmUXQ376ZAlr
-	 nkMeyLqyu6kO0wR8Sh0e85LlWSp4vP1DPz82PnnY3yl2gSyJfBzbsZEp02Z5x51mnz
-	 3UduQA6+/qHHw==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush Yadav
- <pratyush@kernel.org>,  Alexander Graf <graf@amazon.com>,  Andrew Morton
- <akpm@linux-foundation.org>,  Chen Pei <cp0613@linux.alibaba.com>,  George
- Guo <guodongtai@kylinos.cn>,  Kexin Liu <liukexin@kylinos.cn>,  Sourabh
- Jain <sourabhjain@linux.ibm.com>,  kexec@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  linux-mm@kvack.org
-Subject: Re: [PATCH 1/2] kho: skip zero-sized lowmem and global bootmem areas
-In-Reply-To: <20261103-kho-bootmem-sizing-v1-1-45aa74098f34@kernel.org> (Mike
-	Rapoport's message of "Tue, 03 Nov 2026 13:49:49 +0200")
-References: <20261103-kho-bootmem-sizing-v1-0-45aa74098f34@kernel.org>
-	<20261103-kho-bootmem-sizing-v1-1-45aa74098f34@kernel.org>
-Date: Tue, 03 Nov 2026 15:14:36 +0100
-Message-ID: <2vxza4nqm27n.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UcPZd5lS
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nvhKmcMNrimN7vYoc4Ma8HJX/CYBPd9scQz2RhWk4Mw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793715296; v=1; x=1794320096;
+ b=UcPZd5lSOH2HkMg9vQWvclxMn785uO1QN5M2dbzfTggqQwImEt/JXp6HONIkQWz+o22jyrJ0
+ gKteo8ExmzjHHH4RRHmSfxpjLjQuoJiV/DrugXZhvNy1/DK+q1sYCAVoKOOdLpdo8EkGgjsDsIO
+ wT3hMQMuzIOBWnOImfCf0ysA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ec54b8c6cd1a93a9;
+	Tue, 03 Nov 2026 14:14:55 +0000
+X-Mizu-Trace-ID: ec54b8c6cd1a93a9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <77b8befb-e3dc-4a3f-ab30-b6c85bb90f94@linux.dev>
+Date: Tue, 3 Nov 2026 14:14:50 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,158 +58,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+ without FSRM
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Kiryl Shutsemau <kas@kernel.org>, bp@alien8.de, dave.hansen@linux.intel.com,
+ dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org,
+ hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+ kernel-team@meta.com
+References: <atCpTMcAALymqADw@thinkstation>
+ <20261017192727.2760919-1-usama.arif@linux.dev>
+ <atiKeB-76nOj-ztU@thinkstation>
+ <CAHk-=wh+dyDPs2kp=KoUiCYdk2MBBqzTKYbrkAyOMV9Z1XNu0w@mail.gmail.com>
+ <20261022094958.13aeb5c0@pumpkin>
+ <5f6fa235-55bc-45c6-90a8-20f75152e9f2@linux.dev>
+ <20261103083238.672cdfa5@pumpkin>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20261103083238.672cdfa5@pumpkin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Mike,
 
-On Tue, Nov 03 2026, Mike Rapoport (Microsoft) wrote:
 
-> The lowmem and the global bootmem areas can have zero size, for example
-> when none or all of the memory is below ARCH_LOW_ADDRESS_LIMIT, or when
-> either of those areas is explicitly set to zero with kho_bootmem=.
->
-> For a zero-sized allocation memblock returns an address without reserving
-> anything, and that empty area is recorded in kho_bootmem. If there is no
-> memory below ARCH_LOW_ADDRESS_LIMIT, allocation of the empty lowmem area
-> fails and KHO gets disabled.
->
-> Extract a helper that checks for zero size and allocates memory from
-> memblock, and use it to skip empty areas the same way as empty per-node
-> areas are skipped.
->
-> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
-> Reported-by: Chen Pei <cp0613@linux.alibaba.com>
-> Closes: https://lore.kernel.org/all/20261026131851.9942-1-cp0613@linux.alibaba.com
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+On 03/11/2026 09:32, David Laight wrote:
+> On Mon, 2 Nov 2026 23:03:39 +0000
+> Usama Arif <usama.arif@linux.dev> wrote:
+> 
+>> On 22/10/2026 10:49, David Laight wrote:
+>>> On Wed, 21 Oct 2026 08:18:25 -1000
+>>> Linus Torvalds <torvalds@linux-foundation.org> wrote:
+>>>   
+>>>> On Tue, 20 Oct 2026 at 23:55, Kiryl Shutsemau <kas@kernel.org> wrote:  
+>>>>>
+>>>>> Moving MOVQ inside ALTERNATIVE_2 is ugly...    
+>>>>
+>>>> Yeah, maybe it would make sense to make that function be
+>>>>
+>>>>         movq %rdi, %rax
+>>>>         movq %rdx, %rcx
+>>>>         ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
+>>>>         RET
+>>>>
+>>>> instead? No nop instructions at all, and both alternatives are two bytes.
+>>>>
+>>>> Then do any ERMS logic at the top of memcpy_orig, which now has the
+>>>> registers ready for string instructions anyway.  
+>>>
+>>> Is it possibly to just patch "rep movsb; RET" over whatever gets generated
+>>> for memcpy_orig (after the two register moves) ?
+>>> Then there are neither nops nor a jmp.
+>>>
+>>> David
+>>>   
+>> Hi,
+>>
+>> Sorry for the late reply. I had taken time off for the past couple of weeks
+>> and didnt have access to my work station.
+>>
+>> I implemented Davids suggestion and I think it looks good. The scalar body is
+>> now part of __memcpy(), and FSRM replaces the existing 32-byte check with
+>> "rep movsb; RET". Non-FSRM calls fall straight into scalar code, and FSRM
+>> returns before any padding.
+>>
+>> I have retained the 2048-byte ERMS cutoff, since selecting REP from 32 bytes
+>> regressed short copies in the Cooper Lake tests.
+>>
+>> I asked LLM to review it and it indicated a problem with ITS: returns are
+>> patched before alternatives are copied, so the return decision uses the
+>> replacement's source address. I align replacement storage outside the
+>> copied range so ITS retains the return thunk and relocation preserves its
+>> target. This adds no executed padding.
+>>
+>> Any thoughts on below? I will send it as a proper patch for review
+>> if it looks acceptable.
+>>
+>>
+>> From 9baffefb71c7223702c7bcd96d43b9a2828f3939 Mon Sep 17 00:00:00 2001
+>> From: Usama Arif <usama.arif@linux.dev>
+>> Date: Thu, 1 Oct 2026 14:15:12 -0700
+>> Subject: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+>>  without FSRM
+>>
+>> Commit 68674f94ffc9 ("x86: don't use REP_GOOD or ERMS for small
+>> memory copies") left ERMS CPUs without FSRM, including Cooper Lake and
+>> Skylake, using scalar code for all out-of-line copies. Btrfs/zstd input
+>> staging and output flushing accounted for about 34% of memcpy_orig()'s
+>> sampled weight in Meta's x86 fleet profile.
+>>
+>> Use REP MOVSB from 2048 bytes on ERMS CPUs without FSRM, keeping scalar
+>> copies below that threshold. FSRM continues to use REP for all sizes.
+>>
+>> Merge scalar code into __memcpy() and overlay its existing 32-byte check
+>> with REP MOVSB and RET on FSRM, removing the non-FSRM entry jump. Copies
+>> below 32 bytes bypass the ERMS gate. SHR11/JNZ fits one ten-byte NOP
+>> without ERMS; the REP arm reloads the original count from RDX.
+>>
+>> With ITS configured, align replacement storage before its start label so
+>> the raw FSRM return retains its thunk before relocation. The alignment
+>> padding is outside the copied range.
+>>
+>> On Cooper Lake (boost disabled, capped at 1.401 GHz), plain-RET userspace
+>> replicas with aligned warmed buffers and entry offset zero modulo 64
+>> measured 4 KiB copies at 371.7 ns originally and 123.4 ns with this patch:
+>> a 66.8% paired reduction across five process runs. A separate sweep using
+>> REP from 32 bytes increased 32/64/128/256-byte times by
+>> 114.9%/54.4%/66.1%/23.2%, respectively.
+>>
+>> Small-copy costs remain: a warmed aligned zero-byte copy at entry offset
+>> 48 modulo 64 took a paired 0.75 ns more (+7.9%) than the original, in all
+>> five runs. These microbenchmarks do not establish a kernel workload gain
+>> or the best threshold across CPUs.
+>>
+>> Direct copy checks and memcpy KUnit passed with all four ERMS/FSRM
+>> combinations and with ITS forced on; the copied return target was verified.
+>>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> ---
+>>  arch/x86/lib/memcpy_64.S | 42 ++++++++++++++++++++++++++--------------
+>>  1 file changed, 27 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
+>> index 12a23fa7c44c5..407b226d4de2f 100644
+>> --- a/arch/x86/lib/memcpy_64.S
+>> +++ b/arch/x86/lib/memcpy_64.S
+>> @@ -31,24 +31,27 @@
+>>   * which the compiler could/should do much better anyway.
+>>   */
+>>  SYM_TYPED_FUNC_START(__memcpy)
+>> -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
+>> -
+>>  	movq %rdi, %rax
+>>  	movq %rdx, %rcx
+>> -	rep movsb
+>> -	RET
+>> -SYM_FUNC_END(__memcpy)
+>> -EXPORT_SYMBOL(__memcpy)
+>> -
+>> -SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
+>> -SYM_PIC_ALIAS(memcpy)
+>> -EXPORT_SYMBOL(memcpy)
+>>  
+>> -SYM_FUNC_START_LOCAL(memcpy_orig)
+>> -	movq %rdi, %rax
+>> +#ifdef CONFIG_MITIGATION_ITS
+>> +	/*
+>> +	 * Returns are patched before alternatives. Keep the replacement
+>> +	 * return in the first half of a cache line so ITS retains its thunk
+>> +	 * when the instruction is copied to its final address.
+> 
+> I'm not 100% sure what that is about, but does it mean that the cache line
+> alignment of the code here also matters?
 
-Thanks for the patch! LGTM for the most part, one minor nitpick below.
+Not the alignment of __memcpy() itself, only that of the replacement in
+.altinstr_replacement.
 
-> ---
->  kernel/liveupdate/kexec_handover.c | 61 ++++++++++++++++++--------------------
->  1 file changed, 29 insertions(+), 32 deletions(-)
->
-> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-> index 6f1f55fe31819..f268c57413a7e 100644
-> --- a/kernel/liveupdate/kexec_handover.c
-> +++ b/kernel/liveupdate/kexec_handover.c
-> @@ -820,6 +820,27 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
->  	return false;
->  }
->  
-> +static int __init kho_reserve_bootmem_area(int *idx, phys_addr_t size,
-> +					   phys_addr_t end, int nid)
-> +{
-> +	phys_addr_t addr;
-> +	int i = *idx;
-> +
-> +	if (!size)
-> +		return 0;
-> +
-> +	addr = memblock_alloc_range_nid(size, BOOTMEM_ALIGNMENT_BYTES, 0, end,
-> +					nid, true);
-> +	if (!addr)
-> +		return -ENOMEM;
-> +
-> +	kho_bootmem[i].addr = addr;
-> +	kho_bootmem[i].size = size;
-> +	*idx = i + 1;
-> +
-> +	return 0;
+On ITS affected CPUs, a RET in the lower 32 bytes of a 64-byte cache
+line needs mitigation, so apply_returns() leaves such sites as a jump to
+its_return_thunk, whose own RET is in the upper half, and turns the rest
+into a plain RET. It runs before apply_alternatives(), so for the RET in
+the FSRM replacement it decides from the replacement's address, not from
+where the code is copied to. A plain RET could then end up in the lower
+half of a line in __memcpy().
 
-I reckon it will be cleaner if you update kho_bootmem_cnt here directly.
-So you directly do:
 
-	kho_bootmem[kho_bootmem_cnt].addr = addr;
-	kho_bootmem[kho_bootmem_cnt].size = size;
-	kho_bootmem_cnt++;
+> 
+>> +	 */
+>> +	.pushsection .altinstr_replacement, "ax"
+>> +	.balign 64
+>> +	.popsection
+>> +#endif
+>> +	ALTERNATIVE __stringify(cmpq $0x20, %rdx; jb .Lhandle_tail), \
+>> +		    __stringify(rep movsb; RET), X86_FEATURE_FSRM
+>>  
+>> -	cmpq $0x20, %rdx
+>> -	jb .Lhandle_tail
+>> +	/*
+>> +	 * Prepared RCX is scratch for checking length >= 2048.
+>> +	 * The 10-byte alternative fits a NOP without ERMS.
+>> +	 */
+>> +	ALTERNATIVE "", __stringify(shrq $11, %rcx; jnz .Lerms), X86_FEATURE_ERMS
+> 
+> Can you use %rdx here, preserving %rcx for the 'rep movsb'?
+> You might need to swap cx<=>dx in the rest of the function.
+> (I'm sure we could use #defines to give names to registers....)
 
-You won't have to pass around *idx and you won't need the final
-kho_bootmem_cnt assignment.
 
-You might also want to have a kho_bootmem_max_cnt and do some bounds
-checking here.
+Yeah thats a good idea! It does make the code change a lot bigger, but its
+easy to review as its just swapping rdx to rcx. If there arent any major objections
+to this version, I will send it as an official patch tomorrow with the swap you
+suggested plus a bit more cleanup on the commit message and comments.
 
-What do you think?
 
-> +}
-> +
->  /**
->   * kho_reserve_bootmem - Reserve a contiguous chunk of memory for kexec
->   *
-> @@ -832,7 +853,7 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
->  static void __init kho_reserve_bootmem(void)
->  {
->  	int nid, i = 0, max_nr_bootmem;
-> -	phys_addr_t addr, size;
-> +	phys_addr_t size;
->  
->  	if (!kho_enable)
->  		return;
-> @@ -852,56 +873,32 @@ static void __init kho_reserve_bootmem(void)
->  	 * reserve bootmem area in low memory for lowmem allocations in the
->  	 * next kernel
->  	 */
-> -	size = bootmem_size_lowmem;
-> -	addr = memblock_phys_alloc_range(size, BOOTMEM_ALIGNMENT_BYTES, 0,
-> -					 ARCH_LOW_ADDRESS_LIMIT);
-> -	if (!addr) {
-> +	if (kho_reserve_bootmem_area(&i, bootmem_size_lowmem,
-> +				     ARCH_LOW_ADDRESS_LIMIT, NUMA_NO_NODE)) {
->  		pr_err("Failed to reserve lowmem bootmem\n");
->  		goto err_free_bootmem_desc;
->  	}
->  
-> -	kho_bootmem[i].addr = addr;
-> -	kho_bootmem[i].size = size;
-> -	i++;
-> -
->  	/* reserve large contiguous area for allocations without nid */
-> -	size = bootmem_size_global;
-> -	addr = memblock_phys_alloc(size, BOOTMEM_ALIGNMENT_BYTES);
-> -	if (!addr) {
-> +	if (kho_reserve_bootmem_area(&i, bootmem_size_global,
-> +				     MEMBLOCK_ALLOC_ACCESSIBLE, NUMA_NO_NODE)) {
->  		pr_err("Failed to reserve global bootmem\n");
->  		goto err_free_bootmem_areas;
->  	}
->  
-> -	kho_bootmem[i].addr = addr;
-> -	kho_bootmem[i].size = size;
-> -	i++;
-> -
->  	/*
->  	 * Loop over nodes that have both memory and are online. Skip
->  	 * memoryless nodes, as we can not allocate bootmem areas there.
->  	 */
->  	for_each_node_state(nid, N_MEMORY) {
-> -		size = bootmem_size_node(nid);
-> -		if (!size)
-> -			continue;
-> -
-> -		addr = memblock_alloc_range_nid(size, BOOTMEM_ALIGNMENT_BYTES,
-> -						0, MEMBLOCK_ALLOC_ACCESSIBLE,
-> -						nid, true);
-> -		if (!addr) {
-> +		if (kho_reserve_bootmem_area(&i, bootmem_size_node(nid),
-> +					     MEMBLOCK_ALLOC_ACCESSIBLE, nid)) {
->  			pr_err("Failed to reserve nid %d bootmem\n", nid);
->  			goto err_free_bootmem_areas;
->  		}
-> -
-> -		kho_bootmem[i].addr = addr;
-> -		kho_bootmem[i].size = size;
-> -		i++;
->  	}
->  
-> -	/*
-> -	 * Nodes that needed no bootmem were skipped, so fewer areas than
-> -	 * initially estimated may have been reserved.
-> -	 */
-> +	/* Areas with zero size were skipped */
->  	kho_bootmem_cnt = i;
->  
->  	return;
+Thanks for the review!
+Usama
 
--- 
-Regards,
-Pratyush Yadav
+> 
+> David
+> 
+>>  	/*
+>>  	 * We check whether memory false dependence could occur,
+>> @@ -169,5 +172,14 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
+>>  
+>>  .Lend:
+>>  	RET
+>> -SYM_FUNC_END(memcpy_orig)
+>>  
+>> +.Lerms:
+>> +	movq %rdx, %rcx
+>> +	rep movsb
+>> +	RET
+>> +SYM_FUNC_END(__memcpy)
+>> +EXPORT_SYMBOL(__memcpy)
+>> +
+>> +SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
+>> +SYM_PIC_ALIAS(memcpy)
+>> +EXPORT_SYMBOL(memcpy)
+> 
+
