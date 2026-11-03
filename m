@@ -1,83 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793668505;
-	b=KaZpDy2O2oMhzkQ2lHUiVxSkitfEUzhH9Zr4SvyxVHbdA/oxVPXNY4r5jg9qTV2QEVa5
-	 0XOBVagP/9faPcH5BEsHnBzg210BL9X51qd4iGlSgnaJ8c34n/1JU6DlUxAmKr2k5vc2M
-	 zfTBGZ/HMIET5QTeQXPeZtHOMLI9BKKXX2ka7mulZ7P2cuT76NuGRzTOr/aRP4kKYoqEH
-	 Jk9KhzmCyD8udAyK5ttr0n0wIuM0sjUDnRBKAe0soHQC9HWa9VfFSzpRN4/p55/yIzLTh
-	 cuWx80C9nh1QWFxXP77c0FVTUGFvH1v/llAbu9iWxIufwysaYbBXIhpWPACJ5oFU6rQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793668505;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=yGfxGis/8g0KaCRnCd2Ma8RfczzUtJnT7BRnU64wFQA=;
-	b=JEfe4kaH5h/BHriz0gBuzsys5ZCt3DUo3ZNW/UmZQJBaBCoMmDrl61RECEzgKA/JI8/f
-	 qKHgPN8z0RR9LuoGHYrOKnYqIqRlft+jywEZLPjLzB/3ceQMPgn56JTrauVFRJzJEaAap
-	 F3eV0k6UHaZtJCbvqootIJH4tetEpSVWjA7rFG0pPd4w7lVFjviDbCkNQrb+gpbycrCZs
-	 tHwVGcCNOiA0nLz0aFNfxLwITmbeneKmsSOEGPDRpWLHk4//kb8QkX+UUEye26IdPzkgY
-	 UFbO+bS6hTNB+4f4By4LSNZuQrYlP6LjBaG/RvOqPCIEdww1hHaCrwl0Qgx3I2O9e6g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793668544;
+	b=EOVTma2xFjJbfN2/m/FScHBEkB7Shdlj9FC/TdFv6xq8A93yfjCku8mBKRvvPsU1ylEx
+	 ZTDuuNdkx1VaFm/i27eYYrJqpa99rycwDk85rnb8TaCDBctXLEkejsv3HMC4jljP2qaQB
+	 zcD5JnpJ2qLa2zKitUaaGYrLK9Z2KCG5exMD8nmNrJROCrRy/99UkDHSY1thBlqfOtmNW
+	 guiSkFN9cl+puLUdccKI55sfR80fWhzHpIr8eLaoKiiGvy+g4CJb65VusCEDPdjLIlg+x
+	 Hrx7cPALDrjahoyZQvVDNT18vyi4AiIVU/fpjPmZXcveyKaDS1XgGhkWWx97jb9n7kA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793668544;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fHzLsnRXnKmHULq2RRvwpqvZ8jZq1dW14QSMcFkw/3Y=;
+	b=Fsr/9bW6b74pv8DAdgYFzPuXoTgKXuuzy6AiOt4kS95Zol1b8qUaumZ6q26Wru9wxuq/
+	 T6umVP/xCIZpmL4uyeJFkJNroA8j1+Va+vQjb0Fkjn/a/r49tGeIL4hjy4NNS+L30urBq
+	 bwKT7xUrYEaLjRadNc59MD4BaHDkRL4AhaWom1OQ4aYkghS3+JHnveGSKY2prMWjOGPjH
+	 AOvbSlqJFpCJsfhv55hvOBBkJe73aKvpBDzG70GRvRwIE1cTQQAmbM+kymio+8tponq7r
+	 sS+pH4c0VkAjcFfw8J0aeEU9i09QDhNnNXgSCsRcc3lUk8pzZ/9828WWc5lejdYuvjw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qd8PNpbh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.23
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011023.outbound.protection.outlook.com [52.101.52.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AF2606A332
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:15:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42AF2606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36a17a332ecso5628084eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:15:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793668504; x=1794273304;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yGfxGis/8g0KaCRnCd2Ma8RfczzUtJnT7BRnU64wFQA=;
-        b=KbEYUUOF3dyVJLRKom8ieCFcZ8YoQbw0tuOXYVzDw3QWrvwpURDU609Hz02ryBEFlI
-         zsl10tYEVMFA5/zcx3KIhWJVnD+rrP/KTdTvhjMzsbbYYv0DSG0hjGWqLWZV73Y22wyh
-         4BGOwZfcT11VMPEHHTJlyjj8mPUidQNQ33n5QYbwFJNsQHhKyIDdKKZ1jIPLm8+APkVl
-         IE5Prgrfn6Bi/N42FUD5+G7zawzYor88SjFYqHYqUD8o6OEA96mT/hxozNjl9iTo7qgI
-         JclI0IWF6/4a236ai7MV36sXyIE/2ORUM9z0xjc9E4VnHNbZAE9Xr6VUK7fT5VP4NTkQ
-         Ai+w==
-X-Forwarded-Encrypted: i=1; AKwUvBy++G02JkUckLQm6qzhkx7KYirZihrEXaB2xir0j5x0XSBjYvmbFVgOUglAnEMG/ie5PnAHPr5tqw9It30=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9d8gVrnO3Aajl/BFmc7a4/wT4pCbvhuxsTsAFzmicilKC+CzYt
-	0W2ITa9VR0F7knkODY33djgMXb96o4Sa4p/oOF74U9pNzafMf0+3bJ7I
-X-Gm-Gg: AYBFou1p3Pg5wn2/AiaEfzQ/9Kh+wSMhrnJoO1qbzTBT0yC6eD6NsYdPc09RC8q4icZ
-	UkYNCDzYh97DJW9af7NpGF7YXUBSqcfGlZNBL8nXymQm2E6U9N8ZouVTByP5G6FX8KCiN8OEMPG
-	tVh7MNtz4eT6n8AWv66USOQpxW9U80g29eaxtO8D9dP+gut0lHPKhVW2/Iep0aKW9gPW7gbgWUl
-	ZTUTAcWqQ+L6GfEfISAVDQQZ/i6Qy9XZs5WtOpHsi7GBSyykA0qTsdGvoN6IyYXgiZbr24Tplf2
-	aQT6sWH+bRAJGHFNlrlp6H7rqt5yJ5c8vteML0LDoJGQFORKY2F8dOrUc1+PUE3zYkqSX5lVAB4
-	O/QhI6+Jv2X+ylE6oop2Ni2fPmZjksgN97qiSEY5pk0Jjyy+CVfRgHCSwW6uYfUCA5rgveW30/N
-	RJRiVTYhjs1HwinFf/YbCI/alDKhUcYXefkXbRXD0fHqbfsTU8XIfJ/6KKI1qIu8yji2ytNDwiM
-	mbXUft25yANpcsc4tpNo9LvODhHYegdURfFALAbo98kMY3CUWWDDcD3Onsmdy4n9JDAySUVr+fK
-	QhelSVc6M0xJJdwE4SCML3xsT6FOGrSyJjkKQ9pe3Rg86KnTvHKDIJYaqNF7WNwGCL+x4vckQSM
-	ThWNLQlpVKD0Xhm0=
-X-Received: by 2002:a05:7300:7b81:b0:351:7ec1:a92c with SMTP id 5a478bee46e88-36a42431768mr26206992eec.28.1793668504130;
-        Mon, 02 Nov 2026 17:15:04 -0800 (PST)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2602:294:1:b9:a2b::1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a426681aesm51988583eec.1.2026.11.02.17.15.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 17:15:02 -0800 (PST)
-From: Hongyu Xie <xiehongyu1@kylinos.cn>
-To: samuel.thibault@ens-lyon.org, speakup@linux-speakup.org,
- linux-kernel@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, chris@the-brannons.com, kirk@reisers.ca,
- w.d.hubbs@gmail.com, stable@vger.kernel.org
-Subject:
- [PATCH v3 4/4] speakup: Serialize synth clearing against locked readers
-Date: Tue, 03 Nov 2026 09:14:59 +0800
-Message-ID: <179366849966.70545.13780230213235717518@kylinos.cn>
-In-Reply-To: <179366847311.70545.1738521378158835923@kylinos.cn>
-References: <179366847311.70545.1738521378158835923@kylinos.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7DE606A324;
+	Tue,  3 Nov 2026 01:15:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E7DE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qd8PNpbh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=g8QqMeGUolKoS94Ko/WtcLzO5BAHL1FRcSHO0PXDYePVKCx+sVfwH/ab5p+xAL/JHTWjIIghVVs8a4G8N/SvfVIF10UaStFFtDTJt6xPgu5todWoQYIi4UKfaJtLs6r2Ylacn1/5rlRnIypMupgRr5hK8sxRe6XNKnXxwugZLEIX9MmfAwnP3Z+Xsj0qHRwGNLO+jHeQLF45EqX7wd8TKgfeBZmePYQSLg6e6UmUpqAbtnFCiZPVnQdExwhr+pd6jJFBM/g51CKK3YciHV/t3jpPf85ZwPO/c8MJX+YIhmV0PMdvW1ioNyv7VB+bIKaPz3SYWBju5cLct5ZHB9GGSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fHzLsnRXnKmHULq2RRvwpqvZ8jZq1dW14QSMcFkw/3Y=;
+ b=oJosq6FqlrvyeLBZkNc3NjWqLUi4rJBbCJSC5uHWy3bXhvCEVznygq9vjQSAHTElecjvVKGoUPag2LzZzjQS4SeLXlHmsJSkg/TWHBx1BCpPydTMO1A43ln7ITc3CVGI6A4FGOKvQ4Bc6ImYry1MUEjl9N16GV/srgSmewi16y8zzllRAI+Q+c4i9x2XuVYa/cJJPUppoANX/mhh07RU1Lek0m9LM+hrVsdmGHpujMELZNBXjw7/k2oTawsnFDO0oRGtzg4StDO4PR7TesjJnI21Cc1oiX9P+0nZTV8j5WxvZCDIVxxUs73oCXZ5klStr0mV2GmMLo2e6poJiJdk9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fHzLsnRXnKmHULq2RRvwpqvZ8jZq1dW14QSMcFkw/3Y=;
+ b=qd8PNpbhbQacUbzkEM+Foi3NBxyEyrulmdOkotwW1SIaw+c4LnjWB7eE7tGxizUXazUbS0EcGZFBr8IBIca4Xa6QEmNB/TQvYMWWi+Z8LCwW5yHQKjGp98g0tDHaAd5oj6ltQHit1QQQ2MV1x3wvEjWs+IMjh4viseAP+EK5fL4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by CY8PR12MB8065.namprd12.prod.outlook.com (2603:10b6:930:73::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 01:15:38 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 01:15:38 +0000
+Message-ID: <13ea712d-116f-42bd-86b7-a1ac6cb40b7f@amd.com>
+Date: Mon, 2 Nov 2026 19:15:35 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/5] selftests/resctrl: Use bandwidth values for AMD
+ MBA schemata
+To: Reinette Chatre <reinette.chatre@intel.com>,
+ Swapnil Sapkal <swapnil.sapkal@amd.com>, tony.luck@intel.com,
+ babu.moger@amd.com, fenghua.yu@intel.com, shuah@kernel.org
+Cc: Dave.Martin@arm.com, james.morse@arm.com, peternewman@google.com,
+ eranian@google.com, tan.shaopeng@fujitsu.com, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, x86@kernel.org
+References: <20261022132517.46805-1-swapnil.sapkal@amd.com>
+ <20261022132517.46805-5-swapnil.sapkal@amd.com>
+ <b250f681-5726-403c-86af-cb4bc35b9d1d@intel.com>
+Content-Language: en-US
+From: "Moger, Babu" <bmoger@amd.com>
+In-Reply-To: <b250f681-5726-403c-86af-cb4bc35b9d1d@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7P220CA0073.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:259::7)
+ To BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,264 +101,229 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|CY8PR12MB8065:EE_
+X-MS-Office365-Filtering-Correlation-Id: b34f6264-5b3e-431e-88ec-08df3947f80d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|261021121427099003|11063799006|4143699003|56012099006|261028144727099003|261022075727099003|261026121527099003|261022105027099003|261026140227099003|261009223027099003|10067099003|18002099003|22082099003|261102123227099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	7Tji/f4dYF9WzgJcNY1rsP5mGv+wpKto2BC85yQSiysR3+Yk0RVWgzGg3eoZxaPqa9gtBxQJz5QhSpiK1pfeIJoFUfjzVE4GV7/gpnjapPnN1RSiHZ/Wecvh0Z7kpTiW2Yaa61OtBeUw7lyML0/OKf1sGy/CuwOaN0cnExg5BDeieTPxJVGmEgBYgkPxp/lsMjsyiCNIDypgqb8CNvjAdiy5uJlNnqBMwWHXMdKC8Cqe9Y76ZKmIe3d+2i6fJl9M6VQ3Xm9VMh9u51C+D33l+x2JwoFiP7v5/v5GUxyp8l3AiMske8f+cz/Pc9thCyfdTvaWaQeJdaDIEm1LnSHcO7y7j8zvoYwuqgslPKUNhblUaXeD7olDS3wTyAZ4ApPxnXsEd1b/XdmBLyBzNNV9dEpLnmwkb7RuS+KVHWTn35uXGe0ISSqtgha3z382aTDhRc2TtiwWNyimLg2Xs7BmThwjJowJr1llsr5kYF91R6MnhOFoVNz6wiwxc3B8013qViprU5NHyohPBHEbNgESGgH9oKiDPzljGBoDkxlf5oh/oO6uSRt9/mzsPoEQ07MF75LPE92zg+GF/QbQ58wAFikKT2GtMMnKuKZFXn2k0Xi4F1QVsy1HXpE6hQj+/LG3dpuWE+oHkUgBG+5ENENH/sRmIzC5UXmTnxQms1Li2v0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(261021121427099003)(11063799006)(4143699003)(56012099006)(261028144727099003)(261022075727099003)(261026121527099003)(261022105027099003)(261026140227099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(261102123227099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dzhQeGNQSUNDVzlNL0NsVlNvdllBTHhFeGxzNlZ6SHcrT0FsNkVMU1lPdGVl?=
+ =?utf-8?B?YnpWbHZCRGEwdldHc3dyU1FjSjdIeW9OZVIrWmdINCsrM29QbmZLMWZ1WStn?=
+ =?utf-8?B?ZGk2TDVRTkZWZDYwVm1DdlQzNHZNUCt5bnZwdWIyMXY3Qml3ZUZOYnFlVG10?=
+ =?utf-8?B?SDZ4eGNiWmNtNlQ5M0xvN0pVOE51aVFKcXNMM1ZLR2tBTmVpNm83L2p5L1k1?=
+ =?utf-8?B?YjZrSzUvaFM4WFBpM1VRZzVPUWZ2YldWYlJSWHAyL3JLRWkxVUdhbWxQbi9o?=
+ =?utf-8?B?Sk0zZ3N6Y0dPT3F3U0lUNDBydTcwK3FBb1hoaFFRRVJPR0xBOEsyM3FEZTlm?=
+ =?utf-8?B?NXdRUzZrQkNlc3Y2OGcvUGFvRkFabnhTOGFtaGszQ3VpYU12T0RZNnJ2d2k4?=
+ =?utf-8?B?ZGl1eW9sYnBTSTBDRTBkNVhMNGF3WHpWaFFVZy9vSTA1NnZvc1haai9uYkFC?=
+ =?utf-8?B?b200TWRMM1NHMEVKVUlXSXhJUEFURDVPSmZjZVQzb3puRWtKOVR1a1hwWU1C?=
+ =?utf-8?B?bnVWdlJCZi83WFhISGtJSDdpUkpIRkVGTXB3SXRaWXBYYWhMU055K1NtWmZ5?=
+ =?utf-8?B?VEMvMi9YQlJ3cVhKWDVrT1luazNlcmlPdmo1dUVSaTVNRlA2dk5tdlhHUEZT?=
+ =?utf-8?B?VHViR2lnblEzK2dacUh0eFFTaWdkeHlDU1YzcHdvc1IvVFFwWU1rUXVNWDlr?=
+ =?utf-8?B?dkVnODFKRWxKYW51QXdKTmRoM0hoUU5EUnlhOVdWNVFWV3pZQmxWb1JYSHBm?=
+ =?utf-8?B?T0FXRW1qRGc5T3U2eGl6ckZDK25JYlZ2Q0RWMXVxQncyNUkzUkFPWVlqdFFE?=
+ =?utf-8?B?d3lFOVFLaXhWWk0zajlxQWoxdkwwbmxsOFJ2bVhqODJGYXM2cmNCeHJRSFV3?=
+ =?utf-8?B?bzAxOW5yQTNTM3hsVlF1R3BocGtRTE9oY0plMUZoNkJkdTduUWUvdnJLbVZJ?=
+ =?utf-8?B?VjM2anAwOW9BNW84WjBDei9zdWVyM0lkSFRTWVVPUEovRHFGdy9qQkgzdEFn?=
+ =?utf-8?B?NTFCKyt3R3g2RW9NM0ZkdGF2dGZ2ZnJkQnlNREN0Z0Z2aEY4NXZsUGhpaE52?=
+ =?utf-8?B?SXFneFczLzZqRTVTTHVMK2FzQjlOVUtvcGg1U2VyUzZEcWFCcW8wcGdiUUFP?=
+ =?utf-8?B?Yk52djNkd2s4cS8zdnlKRDIxV3doUVdmcE9WZkhLRVhIL3Q1V25tanNyc3Zo?=
+ =?utf-8?B?KzRGelkvTTdTdC9HMnBSbjRZRjRLZXdJWExVSytjSHJRT0k2UndHVmJGZ1ZP?=
+ =?utf-8?B?T1Y0SjVoRkN4UWJDc1JodURzaldiZ0l0S29UWGNiNUdEWnhUNWM1bWFseWNV?=
+ =?utf-8?B?RGd6Y1A5U3hGNHV0ZlozemU1R0RUTWJTSVl6bmVtNTA1SUlXZVptYVFmY0Jv?=
+ =?utf-8?B?dUk0ODZrK2ExMFZYMDZlWmxPZGdoMVFLRWpTQS94THg2L3VUckxvUWZXOEVD?=
+ =?utf-8?B?dGhENDRRTllNZDV6d0pEdy9DaEg4RlhIbENOMm1xcEZUaVc5VEZ0RTVJMzR5?=
+ =?utf-8?B?elJKOE9BNFRZSEgvOEM5QmRacXRrUnIxNEdiS1FnVHFWdk9KY3dNTGFHcWFn?=
+ =?utf-8?B?aDQvcEYwWFQ5Rll5M0daT1pYM1lJanFqQmFIdE1mSG5PNVRvT3g0Y1FXQTQv?=
+ =?utf-8?B?T3lLS1RNT2p2ODZoNFE3MWpHS3k0MDB4dlZDcFJLTG5laThkdURvNWhhUGxl?=
+ =?utf-8?B?MFN3VnRLRXhhbDFXcStieDQvbStOdGJITWwva0tSMS9YNXhZK3k1RDRpU2Z1?=
+ =?utf-8?B?Q01pZ0NkQ0dab2pZK3c1WmVGOVBHUjVOK1hFendqUHZZUXpTTHpPS0FlY0Jt?=
+ =?utf-8?B?TTB6ZWhIYVdtbGNKSzI5RlRJYmtsOEIvNEQ2TDhvMURFdjNWUkxIZUhUNUlt?=
+ =?utf-8?B?dTZRdk1rMVZPY1BMdWJvUGRVTFlEUndLVVg5VmxiSmNuS1BscGxQaUpMQUsx?=
+ =?utf-8?B?RUZSQWJQWm43cjNrNm41akl4aFlpeEc2S3JZem44TmdRbnlrQkZBM2hTcHlP?=
+ =?utf-8?B?bWVsUkVSMTMzWmo2bXlpN21sQkN4M2ZibjVxY1J6ZHlhUTlLcDdMRTdoOHhO?=
+ =?utf-8?B?VTdLOHRzeUh0aFh2RDJlMmxIYlRJNmtzTjc5VnkzWW9IejgxVFc3YzBWQ0FF?=
+ =?utf-8?B?bldxUXB1YkdCK2hVR1VXWjdiWTVjNUdYQzVBazJtMm10YXlicGJPZ2NkdzFR?=
+ =?utf-8?B?QW9yN3VTMFV4THgyakRqdUplR01TRDRvWElHZ0NZYUN3OVZ2RGpEbTAvY1dQ?=
+ =?utf-8?B?NklocFJKQ0M1Q0VOTkw0K0N3NjNUVk1YOEhkcVVIZ0pHOU9GTUpYZ0VJTUxE?=
+ =?utf-8?Q?7HC6kS9JWYQL1/TNbQ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b34f6264-5b3e-431e-88ec-08df3947f80d
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 01:15:37.8258
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hHSdodL7oiI32DkOpC/+7EPEpCClK40LBCtu/d+t0PsWxpUomaHDKRMLDz5pArty
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8065
 
-speakup_key() checks the global synth before taking
-speakup_info.spinlock, but do_spkup() and its handlers dereference
-synth inside that lock: speech_kill() calls synth->is_alive(), and
-the flush path reaches synth_start() reading synth->alive.
-synth_release() clears synth under spk_mutex, which does not
-serialize against the key path, so a speakup key pressed while the
-synth is being removed can pass the unlocked check and oops on the
-stale pointer:
+Hi Reinette,
 
-    CPU0 (speakup key)             CPU1 (rmmod -> synth_release)
-    ------------------            ----------------------------
-    speakup_key():
-      if (!synth)                  mutex_lock(&spk_mutex)
-        return  /* passes */       synth_release():
-    spin_lock(&speakup_info.         ... drain in-flight catch_up() ...
-        spinlock)                   synth->release(synth)
-    do_spkup():
-      speech_kill():
-        synth->is_alive()
-        /* synth whose release() already tore down its I/O */
+On 10/28/2026 1:45 PM, Reinette Chatre wrote:
+> Hi Swapnil,
+> 
+> On 10/22/26 6:25 AM, Swapnil Sapkal wrote:
+> 
+>> diff --git a/tools/testing/selftests/resctrl/mba_test.c b/tools/testing/selftests/resctrl/mba_test.c
+>> index 17ae73d3476c..947735e26099 100644
+>> --- a/tools/testing/selftests/resctrl/mba_test.c
+>> +++ b/tools/testing/selftests/resctrl/mba_test.c
+>> @@ -13,10 +13,51 @@
+>>   #define RESULT_FILE_NAME	"result_mba"
+>>   #define NUM_OF_RUNS		5
+>>   #define MAX_DIFF_PERCENT	15
+>> +
+>> +/* Intel MBA is specified as a percentage: 10%, 20% ... 100%. */
+> 
+> The percentage based interface is the generic interface and not Intel specific.
+> You can drop "Intel" from references to this interface.
+> 
+>>   #define ALLOCATION_MAX		100
+>>   #define ALLOCATION_MIN		10
+>>   #define ALLOCATION_STEP		10
+>>   
+>> +/*
+>> + * AMD MBA is not a percentage but an absolute memory bandwidth value. The
+>> + * test sweeps the bandwidth from 4 GB/s to 40 GB/s in steps of 4 GB/s,
+>> + * which the hardware represents in units of 1/8 GB/s (i.e. 4 GB/s -> 32,
+>> + * 8 GB/s -> 64, ... 40 GB/s -> 320).
+>> + */
+>> +#define AMD_ALLOCATION_MAX	320
+> 
+> The AMD maximum is enumerated from hardware. How can it be ensured this is
+> the appropriate maximum for all AMD systems?
 
-Close the window on both sides: clear synth under
-speakup_info.spinlock in synth_release() and in the do_synth_init()
-probe-failure path, and recheck it after acquiring the lock in every
-reader that dereferences it there - do_spkup() at entry, the console
-notifier paths after their trylock, do_handle_shift(),
-do_handle_spec(), the speakup_key() special-handler dispatch,
-synth_direct_store(), and the /dev/synth and /dev/synthu write
-paths.  The unlocked checks that used to gate these paths only
-duplicated the in-lock recheck, with a window a clear could still
-slip through, and are dropped; the only behavior difference is that
-an empty write to /dev/synth or /dev/synthu with no synth loaded now
-returns 0 instead of -ENODEV, which is harmless.  The speakup thread
-keeps its existing fence: synth_release() drains the catch-up count
-before clearing.
+You are right.
 
-Two sites of this shape remain, preexisting.  The cursor_done()
-timer callback dereferences synth inside the lock with no synth
-check at all; closing it needs the cursor_timer lifetime handled
-against synth teardown, which is beyond this series.  The serial
-read buffer handler (synth_readbuf_handler()) has the same shape but
-cannot run in this tree: the only registration chain goes through
-spk_serial_synth_probe(), which has no callers, and any
-registration from outside the tree is still serialized by the
-free_irq() in the serial synth release path, which runs before the
-in-lock clear.
+The hardware reports a maximum bandwidth of 4096 (512 GB/s), but a 
+single-threaded workload may not be able to achieve it. So, we cannot 
+use the reported maximum bandwidth.
 
-Fixes: 2067fd92d75b6 ("staging/speakup: Move out of staging")
-Suggested-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-Cc: stable@vger.kernel.org
-Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
----
- drivers/accessibility/speakup/devsynth.c | 13 ++++++----
- drivers/accessibility/speakup/kobjects.c |  8 +++---
- drivers/accessibility/speakup/main.c     | 31 ++++++++++++++++++------
- drivers/accessibility/speakup/synth.c    |  4 +++
- 4 files changed, 41 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/accessibility/speakup/devsynth.c b/drivers/accessibility=
-/speakup/devsynth.c
-index e3d909bd0480..5a32d3bbf7b8 100644
---- a/drivers/accessibility/speakup/devsynth.c
-+++ b/drivers/accessibility/speakup/devsynth.c
-@@ -20,8 +20,6 @@ static ssize_t speakup_file_write(struct file *fp, const ch=
-ar __user *buffer,
- 	unsigned long flags;
- 	u_char buf[256];
-=20
--	if (!synth)
--		return -ENODEV;
- 	while (count > 0) {
- 		bytes =3D min(count, sizeof(buf));
- 		if (copy_from_user(buf, ptr, bytes))
-@@ -29,6 +27,10 @@ static ssize_t speakup_file_write(struct file *fp, const c=
-har __user *buffer,
- 		count -=3D bytes;
- 		ptr +=3D bytes;
- 		spin_lock_irqsave(&speakup_info.spinlock, flags);
-+		if (!synth) {
-+			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-+			return -ENODEV;
-+		}
- 		synth_write(buf, bytes);
- 		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
- 	}
-@@ -47,9 +49,6 @@ static ssize_t speakup_file_writeu(struct file *fp, const c=
-har __user *buffer,
- 	u16 ubuf[256];
- 	size_t in, out;
-=20
--	if (!synth)
--		return -ENODEV;
--
- 	want =3D 1;
- 	while (count >=3D want) {
- 		/* Copy some UTF-8 piece from userland */
-@@ -84,6 +83,10 @@ static ssize_t speakup_file_writeu(struct file *fp, const =
-char __user *buffer,
- 		/* And speak this up */
- 		if (out) {
- 			spin_lock_irqsave(&speakup_info.spinlock, flags);
-+			if (!synth) {
-+				spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-+				return -ENODEV;
-+			}
- 			for (in =3D 0; in < out; in++)
- 				synth_buffer_add(ubuf[in]);
- 			synth_start();
-diff --git a/drivers/accessibility/speakup/kobjects.c b/drivers/accessibility=
-/speakup/kobjects.c
-index e1860f8d9d42..45a8e9fbd8de 100644
---- a/drivers/accessibility/speakup/kobjects.c
-+++ b/drivers/accessibility/speakup/kobjects.c
-@@ -416,9 +416,6 @@ static ssize_t synth_direct_store(struct kobject *kobj,
- 	char *unescaped;
- 	unsigned long flags;
-=20
--	if (!synth)
--		return -EPERM;
--
- 	unescaped =3D kstrdup(buf, GFP_KERNEL);
- 	if (!unescaped)
- 		return -ENOMEM;
-@@ -426,6 +423,11 @@ static ssize_t synth_direct_store(struct kobject *kobj,
- 	string_unescape_any_inplace(unescaped);
-=20
- 	spin_lock_irqsave(&speakup_info.spinlock, flags);
-+	if (!synth) {
-+		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-+		kfree(unescaped);
-+		return -EPERM;
-+	}
- 	synth_write(unescaped, strlen(unescaped));
- 	spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-=20
-diff --git a/drivers/accessibility/speakup/main.c b/drivers/accessibility/spe=
-akup/main.c
-index e9b7c2761f6f..60be4d4df363 100644
---- a/drivers/accessibility/speakup/main.c
-+++ b/drivers/accessibility/speakup/main.c
-@@ -1166,9 +1166,13 @@ static void do_handle_shift(struct vc_data *vc, u_char=
- value, char up_flag)
- {
- 	unsigned long flags;
-=20
--	if (!synth || up_flag || spk_killed)
-+	if (up_flag || spk_killed)
- 		return;
- 	spin_lock_irqsave(&speakup_info.spinlock, flags);
-+	if (!synth) {
-+		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-+		return;
-+	}
- 	if (cursor_track =3D=3D read_all_mode) {
- 		switch (value) {
- 		case KVAL(K_SHIFT):
-@@ -1763,11 +1767,15 @@ static void speakup_con_write(struct vc_data *vc, u16=
- *str, int len)
- {
- 	unsigned long flags;
-=20
--	if ((vc->vc_num !=3D fg_console) || spk_shut_up || !synth)
-+	if ((vc->vc_num !=3D fg_console) || spk_shut_up)
- 		return;
- 	if (!spin_trylock_irqsave(&speakup_info.spinlock, flags))
- 		/* Speakup output, discard */
- 		return;
-+	if (!synth) {
-+		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-+		return;
-+	}
- 	if (spk_bell_pos && spk_keydown && (vc->state.x =3D=3D spk_bell_pos - 1))
- 		bleep(3);
- 	if ((is_cursor) || (cursor_track =3D=3D read_all_mode)) {
-@@ -1792,11 +1800,15 @@ static void speakup_con_update(struct vc_data *vc)
- {
- 	unsigned long flags;
-=20
--	if (!speakup_console[vc->vc_num] || spk_parked || !synth)
-+	if (!speakup_console[vc->vc_num] || spk_parked)
- 		return;
- 	if (!spin_trylock_irqsave(&speakup_info.spinlock, flags))
- 		/* Speakup output, discard */
- 		return;
-+	if (!synth) {
-+		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-+		return;
-+	}
- 	speakup_date(vc);
- 	if (vc->vc_mode =3D=3D KD_GRAPHICS && !spk_paused && spk_str_pause[0]) {
- 		synth_printf("%s", spk_str_pause);
-@@ -1811,9 +1823,13 @@ static void do_handle_spec(struct vc_data *vc, u_char =
-value, char up_flag)
- 	int on_off =3D 2;
- 	char *label;
-=20
--	if (!synth || up_flag || spk_killed)
-+	if (up_flag || spk_killed)
- 		return;
- 	spin_lock_irqsave(&speakup_info.spinlock, flags);
-+	if (!synth) {
-+		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-+		return;
-+	}
- 	spk_shut_up &=3D 0xfe;
- 	if (spk_no_intr)
- 		spk_do_flush();
-@@ -2087,6 +2103,8 @@ static spkup_hand spkup_handler[] =3D {
-=20
- static void do_spkup(struct vc_data *vc, u_char value)
- {
-+	if (!synth)
-+		return;
- 	if (spk_killed && value !=3D SPEECH_KILL)
- 		return;
- 	spk_keydown =3D 0;
-@@ -2115,10 +2133,9 @@ speakup_key(struct vc_data *vc, int shift_state, int k=
-eycode, u16 keysym,
- 	u_char shift_info, offset;
- 	int ret =3D 0;
-=20
--	if (!synth)
--		return 0;
--
- 	spin_lock_irqsave(&speakup_info.spinlock, flags);
-+	if (!synth)
-+		goto out;
- 	tty =3D vc->port.tty;
- 	if (type >=3D 0xf0)
- 		type -=3D 0xf0;
-diff --git a/drivers/accessibility/speakup/synth.c b/drivers/accessibility/sp=
-eakup/synth.c
-index 1af80eb116af..aef482f8b14e 100644
---- a/drivers/accessibility/speakup/synth.c
-+++ b/drivers/accessibility/speakup/synth.c
-@@ -519,7 +519,9 @@ static int do_synth_init(struct spk_synth *in_synth)
- 	pr_warn("synth probe\n");
- 	if (synth->probe(synth) < 0) {
- 		pr_warn("%s: device probe failed\n", in_synth->name);
-+		spin_lock_irqsave(&speakup_info.spinlock, flags);
- 		synth =3D NULL;
-+		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
- 		return -ENODEV;
- 	}
- 	synth_time_vars[0].u.n.value =3D
-@@ -585,7 +587,9 @@ void synth_release(void)
- 	for (var =3D synth->vars; var->var_id !=3D MAXVARS; var++)
- 		speakup_unregister_var(var->var_id);
- 	synth->release(synth);
-+	spin_lock_irqsave(&speakup_info.spinlock, flags);
- 	synth =3D NULL;
-+	spin_unlock_irqrestore(&speakup_info.spinlock, flags);
- }
-=20
- /* called by: all_driver_init() */
---=20
-2.32.0
+> 
+>> +#define AMD_ALLOCATION_MIN	32
+>> +#define AMD_ALLOCATION_STEP	32
+>> +
+>> +/* Number of MBA schemata allocations to sweep (same for both vendors). */
+>> +#define NUM_OF_ALLOCS		(ALLOCATION_MAX / ALLOCATION_STEP)
+>> +
+>> +/*
+>> + * The fixed-size result arrays in check_results() and the aggregation loop in
+>> + * show_mba_info() are sized and driven by NUM_OF_ALLOCS, so each vendor's sweep
+>> + * must produce exactly NUM_OF_ALLOCS allocations. Enforce this at build time so
+>> + * that changing a vendor's min/max/step can never overflow those arrays.
+>> + */
+>> +_Static_assert((ALLOCATION_MAX - ALLOCATION_MIN) / ALLOCATION_STEP + 1 == NUM_OF_ALLOCS,
+>> +	       "Intel MBA sweep must yield NUM_OF_ALLOCS allocations");
+> 
+> Considering how NUM_ALLOCS is defined, could this ever be encountered?
+> Could this instead be
+> 	#define NUM_ALLOCS 10
+> to ensure the sanity checks is accurate in both scenarios without deriving a
+> architecture neutral count from Intel counts?
+> 
+>> +_Static_assert((AMD_ALLOCATION_MAX - AMD_ALLOCATION_MIN) / AMD_ALLOCATION_STEP + 1 == NUM_OF_ALLOCS,
+>> +	       "AMD MBA sweep must yield NUM_OF_ALLOCS allocations");
+> 
+> Could _Static_assert be the more flexible static_assert() (and include assert.h)?
+> 
+>> +
+>> +static unsigned int mba_alloc_min(void)
+>> +{
+>> +	return get_vendor() == ARCH_AMD ? AMD_ALLOCATION_MIN : ALLOCATION_MIN;
+>> +}
+>> +
+>> +static unsigned int mba_alloc_max(void)
+>> +{
+>> +	return get_vendor() == ARCH_AMD ? AMD_ALLOCATION_MAX : ALLOCATION_MAX;
+>> +}
+>> +
+>> +static unsigned int mba_alloc_step(void)
+>> +{
+>> +	return get_vendor() == ARCH_AMD ? AMD_ALLOCATION_STEP : ALLOCATION_STEP;
+>> +}
+>> +
+>>   static int mba_init(const struct resctrl_test *test,
+>>   		    const struct user_params *uparams,
+>>   		    const struct resctrl_val_param *param, int domain_id)
+>> @@ -33,15 +74,17 @@ static int mba_init(const struct resctrl_test *test,
+>>   }
+>>   
+>>   /*
+>> - * Change schemata percentage from 100 to 10%. Write schemata to specified
+>> - * con_mon grp, mon_grp in resctrl FS.
+>> + * Sweep the MBA schemata from the minimum to the maximum allocation. On
+>> + * Intel the allocation is a percentage (10% .. 100%); on AMD it is an
+>> + * absolute memory bandwidth value (4 GB/s .. 40 GB/s). Write schemata to
+>> + * the specified con_mon grp, mon_grp in resctrl FS.
+>>    * For each allocation, run 5 times in order to get average values.
+>>    */
+>>   static int mba_setup(const struct resctrl_test *test,
+>>   		     const struct user_params *uparams,
+>>   		     struct resctrl_val_param *p)
+>>   {
+>> -	static unsigned int allocation = ALLOCATION_MIN;
+>> +	static unsigned int allocation;
+>>   	static int runs_per_allocation;
+>>   	char allocation_str[64];
+>>   	int ret;
+>> @@ -53,16 +96,20 @@ static int mba_setup(const struct resctrl_test *test,
+>>   	if (runs_per_allocation++ != 0)
+>>   		return 0;
+>>   
+>> -	if (allocation > ALLOCATION_MAX)
+>> +	/* Set the initial allocation once the vendor is known. */
+>> +	if (allocation == 0)
+>> +		allocation = mba_alloc_min();
+> 
+> This does not look right. "once the vendor is known" does not look to be the
+> real reason here since vendor is known at this point. This just seems to be
+> a workaround to assign a function return to a static? It seems risky though since
+> 0 is a valid minimum for AMD and that would cause problems if ever used with this
+> implementation.
+> 
+> show_mba_info() already treats the allocation as an index as opposed to an
+> accumulated value. Could this be simplified by using an index while also making
+> it consistent with show_mba_info()?
+> 
+> Consider, for example, something like:
+> 
+>    	static int runs_per_allocation;
+>    	static unsigned int alloc_idx;
+>    	char allocation_str[64];
+>    	unsigned int allocation;
+>    	int ret;
+>    ...
+>    	if (alloc_idx >= NUM_OF_ALLOCS)
+>    		return END_OF_TESTS;
+> 
+>    	allocation = mba_alloc_min() + mba_alloc_step() * alloc_idx;
+>    	alloc_idx++;
+> 
+>    	sprintf(allocation_str, "%u", allocation);
+> 
+> I think having everything bounded by NUM_ALLOCS instead of mba_setup()
+> bounded on accumulated allocation would make this overall easier to
+> understand.
+> 
+> This would make mba_alloc_max() unnecessary.
+
+This sounds good to me. We don't need to depend on mba_alloc_max().
+
+Start with a minimum bandwidth for AMD (say, 4 GB/s), then increase it 
+in 4 GB/s increments and repeat the test for NUM_OF_ALLOCS.
+
+I have not tested this, but it should work.
+
+Thanks,
+Babu
+
 
