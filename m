@@ -1,102 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793706079;
-	b=faBffDoZ2YpcAOYro9dhH4cJeNYCLAjaS6TYqTLungLG0AJdx/dhGREaIaniM2+LTDME
-	 uX1MNb9BMZoM/K+HY3WdkjdfedCuMj34upn1aTrjoWaVPgviXkJmJbVgVDE39BXD8FcKK
-	 nCprLUmQd9zwjJB6nuIDHZ+lhCUUKja73iqUcwMC+AA0CNgpRADPV1vGfV5qht8FNZbHd
-	 AYifAD//CfcmhbVJZ6P9DH2EOFr03f+0rqXppw25UQUuEzfGDPVeW/qw1s4Lo9E80VUAS
-	 f7Wf+9Av0t2ERyqX7cEoCDeNcUlN3b6hf9zPVr1WEf18WCCRYcf6Hdbg4Ttx3NwdQ6g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706079;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xF8KPXQW/l1F2OMDbW4b8SXIZxTagK8YBRwglirFNRM=;
-	b=DUWYQ5fqQR3draEJObhd35Y1WGdgmkENS4uuC1EPfCFB/Q/pH8RmBIHKo0hH62UC3jH1
-	 G/HqW/nNIlfbxVxwMg/UM4OcVzSdOSZJ4bfssm7QVEZTIUEPM/bo7Ss2reLQFibXrjFPr
-	 IH/5AXqRw2OhnTx+gqFnf6pBrRJN/Zrs5+WGamm8OPZtew/yDIKIiW4N5mXNBInkI15/0
-	 9DVvYWxVIqC9h9dwPRjuTz5xmCv+OquY0iGfYaeYgE6mVsA88N8DNezyqDqYaL6rgZTFV
-	 KMVWWolyIZqCxy3WA/2w0Eq1lGv7ZOTXEdL98cci9bvoaeIM8DisXydyJRez0fQG7Ow==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="IZ/h420J";
-	arc=fail smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793706105;
+	b=HXMWT/8zPgGxlHybE77jMk1PEb396dwOSVHASlv8JS6rTH4uf0yS11C4YeNha6N4qLXc
+	 4ZZHYWcQarp4oP1S6b7AqTvakNHE7M5dfEi8cQk4x2Zr3PUJTj0CyJwcfBDXfyNlBfoq2
+	 SazLlSGccxg22PC59aRuxU4oga7x+9MZKzfR4O0tinDQiwspmXwXhhySQHcKfPZm+lWe8
+	 Aa1qcRLlqugXgsJNyJM5NM1CjVkJj/xuB08SCjZt6yscdDayi6Tq6vmY3QL0tsDvdye+j
+	 55p9drmlm77Y5/8ya2xMx+TP94+ziAN3yNLA/qwVGJU14zHvqnLd7Q1XclbN1rOhKFQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706105;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=LcrJ+vMNoTjg4uRtGzESkteVkPhmfOtH+UHqc3pLZPc=;
+	b=KRNuE+EnwALh26hIfLFisIiEFrP6Ru89RWIaBOhFEYgEtUahRzlmfKiVaZuGpcvNDOZD
+	 +BwF0U9qQ2VZXC+e4nC19BhMLhUTz9yCVSElypdE4BTMIBE7vDHT9z4xDM4NIfKWxHjLv
+	 aFKr1m5CU+gtPNbk7cmCairJdPWFuKfCj7G9OQO7JaD1oM7k4w2uXH0OJZfPNBxwhR4CF
+	 7kv2AvsjA7k4xP1mshL2u3f4YMww6/sVbqLGO7pDsKJE2IpDn4D3HVpk3/oRnkzf/iCc5
+	 b0hFIlgsdBK+USoO6DEoaYHRxfla8GpT7TWQo7WkTeZHDsKexlHrgoaeMH0Rj6FYA8A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=smail.nju.edu.cn;
+	spf=pass smtp.mailfrom=smail.nju.edu.cn;
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=k98LtYpn;
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22001606D828
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:41:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22001606D828
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33072606D81C;
+	Tue,  3 Nov 2026 11:41:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33072606D81C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IZ/h420J
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36a0eecf73fso690113eec.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:41:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793706078; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pGeWolVpILp02HhmOanT0pVpYcm9JMfIGbDPOQmjNuC/0rF4fr+cMbpJQDd5vj6Ir4
-         dQ2GwWLjwH/8es6qd0950pZuqwK7+UNpHGWBlk6DxmJu+QtW9wxmi9EDM343nPeooabQ
-         J31iUzUEpnLbEPzaOKfMmVbJZFi/ZHHo7NKwJJqUPiDUoEmjnLcW4NrFR0ite69w1Agj
-         CfOzz/wX4KGwMSODMk0FVldDVOQyLLhHNbHNuFnpvMyHpKGbm2l8z2EVgcd9SR4YFVQl
-         6vGw69PEmtHVFCIujkNzWZt2qfO03ORqdoUdOqpFurB1K6h4AFGaaabKQRlX7R2sliBU
-         JgcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xF8KPXQW/l1F2OMDbW4b8SXIZxTagK8YBRwglirFNRM=;
-        fh=6TqjoL7p8iBTwiTGUdFkjaZBjNCooWI3D1AzBwS7E7I=;
-        b=ICq85us5z97db6qHOGERzSPJ5bJj5myeBkzFgP8/0JeaIVRw5HzzdLNhQetYGxDJcH
-         UaTQ+SUq899ro9xG7bmdpLLDe0vTS7MkrAjbMknjZFfuM9NMtG1GU7IGCBR8SGnDJg9T
-         ruUaPerBZI0W1qy11+6WrlXnSx46YAz46TdWwmkpwqlKx/v+yD3I2aStUujDy2AO1lkA
-         MHVpmj4TMjLN4A+Zs3Qi7ajjOUohrYCx+lqpxOW8NfvzRuB2fw1RIdG0mo6L7Y6fxQLI
-         2ri4KwRoulPBMxGPkljelT8x+qUBZyi+JW0l5FYl+f9owVjAGuSTj5QCPOapUo47Tchj
-         IAfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793706078; x=1794310878; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xF8KPXQW/l1F2OMDbW4b8SXIZxTagK8YBRwglirFNRM=;
-        b=IZ/h420JkfXL7GZvLOuJ6he1yVUFj2spADUzg8pZ4MFAuE6Jy46fr0YKtI5WjkjAva
-         hBpem4tQCott6vJJZm8zAZg22rxmZx+4PIvUL0Bprbu5lsvcP93xPXFFjr2HvR6yJ8PH
-         ENSaKTj/roidwhcjq/wS+IJXEKJV2ePGQwOKiM8b/60qyKkTEy+xXOWs6/fn6NcEz9JB
-         g7D7s+dC5V65dX/1iTZUtiCIQ6L0A3GP/q+8w1NJyqH5sixl75ghk3ex8esXgZQGOIMg
-         2mr3P6VjXSKAacWJtLl+67g3lb+SLIbU9hT2BN5/EX3ftLmCdUFyEqg5ncelVA3DCVq+
-         xCNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793706078; x=1794310878;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xF8KPXQW/l1F2OMDbW4b8SXIZxTagK8YBRwglirFNRM=;
-        b=YK4qn/vsZkCLEMKwhHal3cIo/z4ZlW6zagHIMH30MuLHMnWTxYXTSZniPNgO50Kmyn
-         0sUfbCxJPKjpv6na1FEPImmvlncH8/P9rDbXB2XBMhd84vMITWOq/auNy5PMq2MKlbOO
-         5UZR0e+RUN/cJFaTbjHbIP3wE5IzBVNVB6L2VFhVq1rSzXj73Gu6dgYudlMc6f87QLek
-         BsH858oXanfW1Sh3vzAonIHMZ+8SNO+6tvyqykP7WGOYT/QYQm6+E/ZqD0yLC5pb7mKW
-         Cy2xIM0TtLF3VhNgYY2P1D7QOajY7GMSUnbwTlGn8yGt01xrsDoOyTWkAy5/MmXXyqrb
-         xMPg==
-X-Forwarded-Encrypted: i=1; AKwUvBwBmOS51VJU6rj/ek75MCX0ySVe2yu3brVE0RnmufRivephyUXcgAZAWdqoNMeHxezGYLGecNovuyxJNJI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/OhGUIE8sFBjMj/k7P12aAFvBybdfB4k7nvcqYdGX5+JYLjrl
-	/TMWItOSVSfQRmMFo3HShWnHt5+0RgcZ9jj6pKMnGmRZ6aY/CUzOeHTzMwsx2bTvdaPUfC02Ioq
-	hHsds+ePkApxusf7xlZIq4QKZIzy+/B0=
-X-Gm-Gg: AYBFou3zt8FhCB2h90e+kvCwuks/RwUSZrHLbwE7EKQMHSctToH/aO/jKXplkQygTsp
-	Ll08Gfl8tbF72YxTgW6RlZq9L+ZbVaEKhOZ0V/9tqBDK0iSvQ+kia67guAQ40Ht+WS/xo9rY02C
-	J79NNNdZr0/WHb1TbWk5d5UOVIuO9elhZa9hc94h0QI+tA6alVmU9IZAr0X34zraJAcpBPNwWig
-	peu84KtRCezEKSLO98vrGmrRzi0FA2zwZBBdKpic9CndK71svKECSrvQL7kwvxy2YjQG7dWp6n3
-	cALOhSUP81IRorT5RQX98b6EwqBesOfdU+1v32m3PiQNA3daxBTNu00QlaG2r94+a5ihzv8J5wC
-	Zv/r/gHl1S/ILRHVNfzJ9k29EcuR/ZHWUDh5bSs5ow0mvGBm6ZiCEL/zU7Cu3hHdLz1E/sAtoyQ
-	23fvKZBtlecDdXs71T5THY7SvW5Z+IqoI8sjGilOCiSSNceOSwKKJUncz74H9f1hRrc8rjW9VJx
-	fSEYnjHbDUYrMK3w1YACL7E4+BmrpdQ0rZsq5RwFjN+7X6wQ/lLk6IAnF8=
-X-Received: by 2002:a05:7300:d082:b0:369:ffc5:6767 with SMTP id
- 5a478bee46e88-36a4236a643mr25334942eec.2.1793706078021; Tue, 03 Nov 2026
- 03:41:18 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=k98LtYpn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1793706084;
+	bh=LcrJ+vMNoTjg4uRtGzESkteVkPhmfOtH+UHqc3pLZPc=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=k98LtYpnWJbrX+oJoDZHmh6zFPGTnHvyARPy6KmTfYQQG31rhonvi6qiCJO/H6TsG
+	 VCqmoiWaY1JN15xSVjFI1JjYVjCaAl/GrZ99P9HgrrnoAlbkVTn5FGvYfabbR8FOrR
+	 b52exMIAMf2Bv9ODjbOgx+YX6d5p1COt9W8q3gzE=
+X-QQ-mid: zesmtpip4t1793706080t70eba3ef
+X-QQ-Originating-IP: +5hLSLUr4nMGZDSvY3IQk+ELRYhn41bK2RyuiEcRuGo=
+Received: from workstation-Precision-7920-Towe ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 03 Nov 2026 19:41:18 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14287579684144608040
+From: Kang Chen <k.chen@smail.nju.edu.cn>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>,
+	Aaron Lu <aaron.lu@intel.com>,
+	Danny Baumann <dannybaumann@web.de>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ACPI: video: reject out-of-range _BQC indexes
+Date: Tue,  3 Nov 2026 19:41:18 +0800
+Message-Id: <20261103114118.74782-1-k.chen@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,45 +68,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAKHwh-GzSuLn9dvjnWph_tr6MDa4nZnjc-JaMy4PeqnNXDnaMw@mail.gmail.com>
-In-Reply-To: <CAKHwh-GzSuLn9dvjnWph_tr6MDa4nZnjc-JaMy4PeqnNXDnaMw@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 3 Nov 2026 12:41:04 +0100
-X-Gm-Features: AclHuK_Jen2-hcfaHSJ1Yp_sQSHJT1zUbaplJF7JMWFIUAm-y5cC-e37DF5I9b0
-Message-ID: <CANiq72=T89-swC3BK0LxcdR2ZxAGtdPnpPWK6JFxjL6Fe2-jWg@mail.gmail.com>
-Subject: Re: [PATCH] rust: alloc: test retain ownership and mutable predicates
-To: Peder Bergan <peder.bergan@gmail.com>
-Cc: dakr@kernel.org, aliceryhl@google.com, ljs@kernel.org, vbabka@kernel.org, 
-	liam@infradead.org, urezki@gmail.com, ojeda@kernel.org, boqun@kernel.org, 
-	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org, 
-	a.hindborg@kernel.org, tmgross@umich.edu, daniel.almeida@collabora.com, 
-	tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: MIB/1UGyXKa7XkhcLSzvPSildxfvFUQIdw87cUYGHbQpBYQW2HqeEQjG
+	rh2JOlBPPQLaTS03vYUXCHh1qiUaM50m19WXDofBKGtUXVaoJTm9/Q06vsNyWkCktbTsL8F
+	kVxoygnIzwIdxNB6IoQNZlDCpad7mfV31zL/FZMQEp3pSgqZeeMyjHaPFWPUWqwenih1Jh0
+	ilOtDa4sJv7ohAhZp77+MzaHniw7ATwFoA+hnCFwO06o3QniiLCvFqBduuJbRBBeGt9T9NC
+	038vVJn5bpAuaAZ/NfHBaw+fb6DG/X31F0M/6v0YI3v92gJbarHj8PlJQ+8zdAaoE3vqTeT
+	fISBKnFkGafQ4dy0cd1pnMz2zuifPI1JuTwgEzyx/Zu0T1BT36x224Ld8yVdA6FMz6VrGF1
+	9eAwPTG0onsHEA5RzUBbmb+1tU9v9Q6k9I/4U2cOw29y43nuNVp2g4O6lDZlEaPbo2RbeZt
+	tytOSGFpFgdda6DBFSSlOOCPMMhhChkBmIUPy6i/ESpAWT1idGs3mXu/xNRjSuDYbofdF57
+	m/xlcOTkzvfAU6AxDlpNzaxum0+OU695HoEH6DRmGKcIrTr0pqyXLDswKw+jalRfStmsGIa
+	zCLZ0QJLerUCs/5q09l8WtC6ddcLVHdgXrIRilfnoXgXMy0hJP0WMVgzmkKcRBjpN/sFkm5
+	AG9cjSz64W/jb9PQ6vOgj/nXKJRL4baHxyrDbOOL/95yB4v47AdVERqydiYmkzfqKAM7uWc
+	Ei0jHejwkTLMqzU6mUn+E4xx91ITmjlv5uBKDllFS6MtXzrfxFFs6HGnJmgttijsPYoSo6Q
+	VvATp1Fgi9L9iaI7l1e0IT5ojMjtQJ0iNjRrWQ6sOBJhQMkBCKl8EaE4YU/7roSpKPYsweG
+	U4gDApcriW4kpHgjZqWSC39KnBqB5YEzx0p1HK5lMxBs9FppW7OWldivLEiLR6nuGOkOSgX
+	ngl6ZyALVNrGaZEBLusHCbBVlexMB+659GWvFA9C8cffU5P06UjqiD8bh464k+0E38f1q61
+	d5RjKU16Rtd2wUHi9fPqLMsfpo/xTY0Kt1I92DldGwq4hKEU9EaWrt5AyVKmA=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-On Tue, Nov 3, 2026 at 12:21=E2=80=AFPM Peder Bergan <peder.bergan@gmail.co=
-m> wrote:
->
-> rustfmtcheck and strict checkpatch with --no-signoff passed on this draft=
-.
-> The draft applies to alloc-next at
-> 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4. My validation used Rust 1.99.1,
+acpi_video_bqc_value_to_level() indexes brightness->levels[] with the
+value returned by _BQC once the index quirk has been armed, but does
+not verify that the value is inside the array.  A firmware that behaves
+consistently during the quirk detection and then returns a large value
+can make the driver read out of bounds; the reversed branch also
+underflows before indexing.
 
-This is not a draft anymore, it is an actual patch since it was sent
-(and doesn't have RFC in the title) -- I guess it was considered a
-draft for the LLM when it prepared the patch.
+Return an invalid level when the index is out of range, so that the
+existing callers disable _BQC.  Also guard against a brightness table
+with no usable levels, and tighten the range check in the quirk
+detection before its reversed subtraction.
 
-By the way, if you use `base-commit` (which is how it should be), then
-please don't repeat the hash here.
+Fixes: 994fa63c5b12 ("ACPI / video: Fix applying indexed initial brightness value.")
+Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+---
+ drivers/acpi/acpi_video.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-The other procedural comments apply similarly here.
+diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+index 2a2822516665..44af7ffb9a81 100644
+--- a/drivers/acpi/acpi_video.c
++++ b/drivers/acpi/acpi_video.c
+@@ -533,6 +533,13 @@ acpi_video_bqc_value_to_level(struct acpi_video_device *device,
+ 		 * items with special meaning (see enum acpi_video_level_idx),
+ 		 * so we need to compensate for that by offsetting ourselves
+ 		 */
++		if (device->brightness->count <= ACPI_VIDEO_FIRST_LEVEL)
++			return U64_MAX;
++
++		if (bqc_value >= device->brightness->count -
++				 ACPI_VIDEO_FIRST_LEVEL)
++			return U64_MAX;
++
+ 		if (device->brightness->flags._BCL_reversed)
+ 			bqc_value = device->brightness->count -
+ 				ACPI_VIDEO_FIRST_LEVEL - 1 - bqc_value;
+@@ -781,7 +788,7 @@ static int acpi_video_bqc_quirk(struct acpi_video_device *device,
+ 
+ 	if (level != test_level) {
+ 		/* buggy _BQC found, need to find out if it uses index */
+-		if (level < br->count) {
++		if (level < br->count - ACPI_VIDEO_FIRST_LEVEL) {
+ 			if (br->flags._BCL_reversed)
+ 				level = br->count - ACPI_VIDEO_FIRST_LEVEL - 1 - level;
+ 			if (br->levels[level + ACPI_VIDEO_FIRST_LEVEL] == test_level)
+-- 
+2.34.1
 
-In any case, please do not re-submit this one until the maintainers
-take a look, i.e. normally you want to wait a few days or a week
-before fixing nits etc.
-
-Thanks!
-
-Cheers,
-Miguel
