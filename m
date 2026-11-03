@@ -1,65 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706160;
-	b=IvZ/h6K9HmrkHSzrYfWzFagx+p6c3DiNF8zT7VeaXTdPCARVulDiSeMZXozCYDMZ8G3F
-	 d0vEer+RLEhf6gGIs42XKcsbrfnSfQY75kA3kejsOnxPutAavRTH3f1YaGzM4zoFjOzBK
-	 l+UJqgemEZwauCConKKgW++IVpsDYrZVEZG2R1pqGc1GYKHCoaYm3uJESqFbatp4vIPY8
-	 bH1fIP2Gb1p0cI6W4EtgWKnoiGfpAfzvE2qCurh20jQ0Z/mpTyaeoVEBmA+BgIsoGuoxN
-	 BcVI2XT+jj0GvY9E1m6Ogry6m5CJjGOw1pV/ygSC14T7937EcekWacYeCm1frJw/7AQ==
+	t=1793706183;
+	b=VUDgo608rsJAHxsDvpoS5g2pmNePoEA0/qAthtNHP5gD0AENUloErC70HiEzlpDumD89
+	 WSBMnPf7hXqoK+bD1pgm4k+ZORURtsRIlDO8f2qPXqmDnEniBSyYcei2j95UAPaEYdUK2
+	 rplpQ77NGgW3m2XGfs78/PmRkU/lWDI/dyQpH0HUDUde6QioaArl1Osq5wXTkHycSR2Dz
+	 u+ERXVTC4I0aAKzz8LfezKO6NDxnZp2Og5zwUbcq3Yrt1aIQbt2dRbVK7NVJTTQqg4uos
+	 rZiED6MREirkHKrXrZpYZHHPMOfCFGZB1a0l2E0LGOyiAqptsu4ig9kAcbgUgjUEZWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706160;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706183;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
 	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=t/lDhgKlQkx0pAXroCUHY/H/NSJkxUxrBgb5za1VTHM=;
-	b=CZzICiJRVeVIB6x+C0wbTEAr7EBkgAT2FF01pfJ7PA9UsvqGVCbV0k8x4/7oa4gKku+z
-	 mgZW56uBE8Rq9TaPaTZM0FR1JB8JZxg0ibPb5SGMWJSS8B33wmykoLpcOC6NztS/ZA8ek
-	 Jy6+/ypmGiQoKHvaZj5v7oQ0WdohwsOtwMQGYvDFfehfMFPPp2/ERU1RIg7ul3Rw4nEeL
-	 b0RaAc+xcnAjv5ZwQ6B5cvuieuSvlIKNfwiQ7HAXlJhsglSD6ffOw0/5bMRhloLdrR3YG
-	 v1/iKfu5zNITN0aChxT5xfBKrSGB6Czhn6UzOzs8J97B4I4Zsgu0vYBIYHAv8xOeSrA==
+	bh=+zHiE5XcWww7tLTpXyIARkWQlwlTAcUnLfouLWCJeB4=;
+	b=hQ0xL2JvTJhIIhfDrkSB/aCUFnoDtqKaKpZpVZMBQG9xIZCZeLvkkKufrlaSzTzkUbzl
+	 YsLxSbvgnv0PbSEkBYQlOce3kCKRPnF87Bp2sjLVvXNhhd2ff9UTXVe9B9bXQmjfAXFBl
+	 lfQdZypALKYiy0z1ZFOi8ncx9nq6QxxFW65rgs5A3s0Xd7xg70zjkZAcoaDYBLf6xrc61
+	 7gdjQqz7dTxt0+kVVC7qXEJnrldKGV7cJ5DhCPcnHQRLyiVvRb+s1tV+LRFEPuPWrPetz
+	 iuuO5qKeOMFz1cPAwyvhQbZojK6YzoH8Go/BANXF3XqeWoVqijK5HJtIN7ejQPbgmkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=smail.nju.edu.cn;
 	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=m8v278T0;
-	arc=none smtp.remote-ip=54.207.22.56
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=ymsNnxWy;
+	arc=none smtp.remote-ip=54.254.200.92
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABCB606D831;
-	Tue,  3 Nov 2026 11:42:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ABCB606D831
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7C1606EEB4
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:43:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A7C1606EEB4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=m8v278T0
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=ymsNnxWy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1793706105;
-	bh=t/lDhgKlQkx0pAXroCUHY/H/NSJkxUxrBgb5za1VTHM=;
+	s=iohv2404; t=1793706063;
+	bh=+zHiE5XcWww7tLTpXyIARkWQlwlTAcUnLfouLWCJeB4=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=m8v278T04p+PQs/LFbDTFLeRNHfnTRRjv3FOOLqyUNmiq6Qh5R/fUCRgjFK+4JhpT
-	 /dC+YZVZ/TVT/Ok0HP9m0PIdW9/OgDzO6pH197aFQ1TxvCsrkI4eafkWxSz5O0fPp+
-	 tmOc7DFfY10Wi7lyaRrpkIsn/57U6xiL9iHDVzlo=
-X-QQ-mid: zesmtpip2t1793706098tb4439a4b
-X-QQ-Originating-IP: M4QcscpcJDntKtUfDUJnG2TSnnfcVItDF3013iCA5gQ=
+	b=ymsNnxWymso6ZLYtqUZzZNziUid16kBPt/L15jDDk1Gxulb61qoAGbOJRl4iC0fiI
+	 AhCBT8LWjCELVItE6nASSaKkTZs6utJNR3rqVeMLcd58OfkuUYXzR2c4Eix+BQRZxQ
+	 zd3xYhG6gXyfrBm6sZ5UkUUGPs3hclfYmYy1V92Q=
+X-QQ-mid: zesmtpip4t1793706059t80501f17
+X-QQ-Originating-IP: 1MCHwRi6gNt0bcBzShi+yjMARG4lYNZkcQfQtp8Ebn4=
 Received: from workstation-Precision-7920-Towe ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 19:41:37 +0800 (CST)
+	id ; Tue, 03 Nov 2026 19:40:57 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5780474121569114850
+X-BIZMAIL-ID: 13736684038379576073
 From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Corentin Chary <corentin.chary@gmail.com>
-Cc: "Luke D. Jones" <luke@ljones.dev>,
-	Denis Benato <denis.benato@linux.dev>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Len Brown <len.brown@intel.com>,
-	platform-driver-x86@vger.kernel.org,
+To: Lyude Paul <lyude@redhat.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Rosen Penev <rosenp@gmail.com>,
+	Ben Skeggs <bskeggs@redhat.com>,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: asus-laptop: terminate the INIT model name
-Date: Tue,  3 Nov 2026 19:41:37 +0800
-Message-Id: <20261103114137.75497-1-k.chen@smail.nju.edu.cn>
+Subject: [PATCH] drm/nouveau/gsp: validate the ACPI backlight package
+Date: Tue,  3 Nov 2026 19:40:57 +0800
+Message-Id: <20261103114057.73915-1-k.chen@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,129 +79,207 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: ORMmCSiz9W+DUNY5IRjeTjK27/bAvytu/c0VhHkb4LMENHr8WwfcD9qp
-	pUXoTDak8Fu3rNwULKpwP2+ncROyan1SiFIFT51ywI51ZTD72TB+birTQ81v1z9wXrH1TgL
-	+vJ7JwgHRGmHj0oD89WVWdoqqC061bzE1NQkcrSQUtq3Gpqo5s8bBtWIX5HtAPoRX1xHRWX
-	ua64G7LOKCJ5JWfWHOIyOCEtbacihkLgp4B1we5wcAqX7kWRJR2fcfrHTBEDt+ZGXGEUZhd
-	QY7kXYn3Fw+/mJ2ohbmxL5AqbpCICiWxVrVYcIxMy3Wq7x58wFQs8vfjrtKSb2K23B6jEcW
-	k1lX75jkwYgTP6GnTd+BHxnyFrUw158wTMa/npge03AQ63Mj1UvB6SOsgfJpVmWbHF6GMr2
-	RT/+xBbmmZxVsEFoLF0K9OOcYo6xZUJ1OYsdar0FhUp8RLCxVyyzahDIwmFiC/no+5AmI3R
-	YQmHOLLbHzLqEgizM1ovPEw59TIlqBRteKcTXmn0Nd10x5qweeGu40V4/PiFRkHiPKCJzhq
-	QaLaNGQqFghIgqRzJAXp5rirAMq46z3KjXW61k62vG4eHxnlL8kRbONunISnIuUxD6jLU7F
-	Ii/czpd25hFXMoB3YHQBJgoTuMrmEifuO+8dUZXjyE80b5DXCKFTwXk6Vu0VWm7uLbcKI6M
-	glrLK74+5ccjlBflycSYNykeb58rWzvEs8s2RJMmoIWLlUViiEssRxwkjyJbqRmgbyN3d2h
-	s9CZul7QJZoOpyJXVPb11bBsbTqgOVs9Rma5ShLlojhtFci3WCYn57X3k2LIDyeymCB0Xqf
-	nZ++aLaiEiT+DpnQq5nqup4t0r2GmEvkNz3gzYKqUs8u4zCKdFHOTghsUFJKJXXCAQGcF/r
-	G3fHjG18VMMUISYZRYEB6rAc2vbeK3P7ZMAi2tpgabCe4ZQ/VE2GZjRkEabZSbWsMbbXY4v
-	O+ANht/LWy+/JtnUuqZt1zfOo1s/+c+8wMZKJFcIHI1xDGeWmLGUXYP1kmWleTBOgOjivG8
-	BlCRnzNOWPR+smP8aKyDFmr0fEZVmnTiI8kF5aEcq4rliDX8fF2OSU3Ym+rRDiUmFuuKLO7
-	A==
+X-QQ-XMAILINFO: OZZSS56D9fAjchVT4xJNCJSyJiNMtlL0KfIfG6a+e1vlo0Sy2yCiiaos
+	0D3a9cGkWoIMxsmxTHFtCV0mvNQDJpmT3hfdh562/amTayAeqtnrT+GzlkN/t0Gnn6G6Xp5
+	tbAIXQ2MNWBpMQEQfgRdHRncDIpg8JrJVsogu04Pi1u/B4T/rLr8L+TZe49GXfYHniwvMO/
+	7uzO5zTCbxwrpajE5wN3W1GgqX8ccBnr1LYFdr16+ZXu7TVWmmtJw6rt32GMrnEPgde6QkD
+	aN87KoaspempwIf9nMqCSPBvUZFO6BYMLB8XK/SfT8Wuq9aUn8IeerCAD/o/nRqRBX0DlKd
+	V1zmb7o/IBkHdVULzJSXJY8hLoq+oLErTrWrFp4myWjOvTjGKRKqboNvKIW5pfmlAlMyf1X
+	jJ+dAk3Sjb9Yjs6RzRjLeM+zAqPOnJsGdiDoKB7V3zsRmRgj+lvA33Tpd2y6tbjMbdzXL0C
+	fT2u5+nIl8vTgIqOdg2y+CBi/85jn1nnh3ztB7U4sJpVO0afEINUt6U+VfGkZhwms0gwrp2
+	k0T7rSkEWjpfIPASwm1dq3mtjoIgaczXBfBC6B3OrHz1X4xkkTReZmCAGaZZQc7U/z5Tfft
+	PZQSHKwjUbpO9y/CPTT1uz4A8N2FjHoIFjRanJEj/FkqaFSrdSlBP8cEw5QZ1jqpIJ2jhgY
+	OyEGdtvB+RjEtQn1xUyPfHYCdrM8SOHsuXPZX1fsQeXm2thvVJr2MaXwMbbUjjrARJ8rVVT
+	zCmpb1gY9sat6iZPhC6WRv59oZ0erzeMu0hsCcMsCllIblUJQ+p57Evgd2yrEEhbIpbU7P1
+	blh5ug3IFMP0JkfYLqFiAx5/Fa7yt2k5CXdTn6biI5ansT2+CwpZWGV9/W/GjQrvk9FRetY
+	K/9aGuV01fpcGwnTlUYU/tUIyzqF1mq4ku83Qgym6vYVfXewSpurmmljIT5X/xXirp3LgUB
+	rmVxmYGTZfGpH0w+IboYLTKQyNL+C5OzNIWYm+DFQeYAQreQLsWcZbHGkBqNLJl5cPEFXkM
+	QubRjERobCo4H4aShOtd20VJJ4hRRYikjuDnci48+5/YEXMPeu
 X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 
-asus_laptop_get_info() treats the buffer returned by INIT as a C string
-and passes it to kstrdup().  ACPICA zeroes the tail of the buffer data
-area only up to the native word boundary, so a buffer whose length is a
-multiple of the word size can be left without a NUL terminator.
-kstrdup() and the following pr_notice() then read past the allocation.
+The _DSM handler for the internal brightness state load command walks
+the returned package and copies every element into
+ctrl->backLightData without checking the object type, the element type,
+or the size of the destination.  A firmware-provided _DSM method can
+return a non-package object, non-integer elements, or more data than
+the 4 KiB backLightData array holds, causing out-of-bounds writes in
+the RM control buffer.
 
-Copy the string and buffer cases with kmemdup_nul() using the length
-reported by ACPICA, which guarantees a terminator.  Reject a missing
-INIT object explicitly before copying.  Also drop the DSDT table
-reference on the error paths and in remove.
+Move the _DSM handling into helpers that validate the package and every
+element, and that refuse to copy past the end of the destination.  The
+destination size is only updated after the whole package has been
+validated, and success is only reported to the RM control command in
+that case.  Use a zeroed buffer for the _DSM input and reject an
+invalid initial data size before subtracting it from the destination
+length.
 
-Fixes: 85091b718969b ("asus-laptop: add base driver")
+Fixes: 9e99444490238 ("drm/nouveau/disp/r535: initial support")
 Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 ---
- drivers/platform/x86/asus-laptop.c | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ .../nouveau/nvkm/subdev/gsp/rm/r535/disp.c    | 142 ++++++++++++------
+ 1 file changed, 92 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/x86/asus-laptop.c
-index e4f20ab5250a..eb6c182d862d 100644
---- a/drivers/platform/x86/asus-laptop.c
-+++ b/drivers/platform/x86/asus-laptop.c
-@@ -1667,6 +1667,14 @@ static struct platform_driver platform_driver = {
- 	},
- };
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+index f5f22173fc2c..730bd08da911 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+@@ -1467,6 +1467,94 @@ r535_disp_get_static_info(struct nvkm_disp *disp)
+ 	return 0;
+ }
  
-+static void asus_put_dsdt(struct asus_laptop *asus)
++#if defined(CONFIG_ACPI) && defined(CONFIG_X86)
++static int
++r535_gsp_backlight_pkg(union acpi_object *obj, u8 *data, u16 *data_size,
++		       size_t data_len)
 +{
-+	if (asus->dsdt_info) {
-+		acpi_put_table(asus->dsdt_info);
-+		asus->dsdt_info = NULL;
++	size_t offset = *data_size;
++	unsigned int i;
++
++	if (offset > data_len)
++		return -EINVAL;
++
++	if (obj->type != ACPI_TYPE_PACKAGE)
++		return -EINVAL;
++
++	for (i = 0; i < obj->package.count; i++) {
++		union acpi_object *elt = &obj->package.elements[i];
++		u32 size;
++
++		if (elt->type != ACPI_TYPE_INTEGER)
++			return -EINVAL;
++
++		if (elt->integer.value & ~0xffffffffULL)
++			size = 8;
++		else
++			size = 4;
++
++		if (size > data_len - offset)
++			return -EINVAL;
++
++		memcpy(&data[offset], &elt->integer.value, size);
++		offset += size;
 +	}
++
++	*data_size = offset;
++
++	return 0;
 +}
 +
- /*
-  * This function is used to initialize the context with right values. In this
-  * method, we can make all the detection we want, and modify the asus_laptop
-@@ -1678,6 +1686,7 @@ static int asus_laptop_get_info(struct asus_laptop *asus)
- 	union acpi_object *model = NULL;
- 	unsigned long long bsts_result;
- 	char *string = NULL;
-+	size_t string_len = 0;
- 	acpi_status status;
- 
- 	/*
-@@ -1694,6 +1703,7 @@ static int asus_laptop_get_info(struct asus_laptop *asus)
- 	/* We have to write 0 on init this far for all ASUS models */
- 	if (write_acpi_int_ret(asus->handle, "INIT", 0, &buffer)) {
- 		pr_err("Hotkey initialization failed\n");
-+		asus_put_dsdt(asus);
- 		return -ENODEV;
- 	}
- 
-@@ -1720,23 +1730,31 @@ static int asus_laptop_get_info(struct asus_laptop *asus)
- 		switch (model->type) {
- 		case ACPI_TYPE_STRING:
- 			string = model->string.pointer;
-+			string_len = model->string.length;
- 			break;
- 		case ACPI_TYPE_BUFFER:
- 			string = model->buffer.pointer;
-+			string_len = model->buffer.length;
- 			break;
- 		default:
- 			string = "";
- 			break;
- 		}
- 	}
--	asus->name = kstrdup(string, GFP_KERNEL);
-+	if (!string) {
-+		kfree(buffer.pointer);
-+		asus_put_dsdt(asus);
-+		return -ENODEV;
++static bool
++r535_gsp_backlight_dsm(struct nvkm_device *device, u8 *data, u16 *data_size,
++		       size_t data_len)
++{
++	const guid_t nbci_dsm_guid =
++		GUID_INIT(0xD4A50B75, 0x65C7, 0x46F7,
++			  0xBF, 0xB7, 0x41, 0x51, 0x4C, 0xEA, 0x02, 0x44);
++	const guid_t nvhg_dsm_guid =
++		GUID_INIT(0x9D95A0A0, 0x0060, 0x4D48,
++			  0xB3, 0x4D, 0x7E, 0x5F, 0xEA, 0x12, 0x9F, 0xD4);
++	acpi_handle handle = ACPI_HANDLE(device->dev);
++	union acpi_object argv4, *obj;
++	bool ret = false;
++	bool nbci, nvhg;
++
++	if (!handle || !acpi_has_method(handle, "_DSM"))
++		return false;
++
++	nbci = acpi_check_dsm(handle, &nbci_dsm_guid, 0x00000102,
++			      1ULL << 0x00000014);
++	nvhg = acpi_check_dsm(handle, &nvhg_dsm_guid, 0x00000102,
++			      1ULL << 0x00000014);
++	if (!nbci && !nvhg)
++		return false;
++
++	argv4.buffer.type = ACPI_TYPE_BUFFER;
++	argv4.buffer.length = data_len;
++	argv4.buffer.pointer = kzalloc(data_len, GFP_KERNEL);
++	if (!argv4.buffer.pointer)
++		return false;
++
++	obj = acpi_evaluate_dsm(handle, nbci ? &nbci_dsm_guid : &nvhg_dsm_guid,
++				0x00000102, 0x14, &argv4);
++	if (!obj) {
++		acpi_handle_info(handle, "failed to evaluate _DSM\n");
++		goto out_free;
 +	}
 +
-+	asus->name = kmemdup_nul(string, string_len, GFP_KERNEL);
- 	if (!asus->name) {
- 		kfree(buffer.pointer);
-+		asus_put_dsdt(asus);
- 		return -ENOMEM;
- 	}
++	if (r535_gsp_backlight_pkg(obj, data, data_size, data_len))
++		acpi_handle_info(handle, "invalid _DSM response\n");
++	else
++		ret = true;
++
++	ACPI_FREE(obj);
++out_free:
++	kfree(argv4.buffer.pointer);
++	return ret;
++}
++#endif
++
+ static int
+ r535_disp_oneinit(struct nvkm_disp *disp)
+ {
+@@ -1528,56 +1616,10 @@ r535_disp_oneinit(struct nvkm_disp *disp)
  
--	if (string)
--		pr_notice("  %s model detected\n", string);
-+	pr_notice("  %s model detected\n", asus->name);
+ 		ctrl->status = 0x56; /* NV_ERR_NOT_SUPPORTED */
  
- 	if (!acpi_check_handle(asus->handle, METHOD_WL_STATUS, NULL))
- 		asus->have_rsts = true;
-@@ -1903,6 +1921,7 @@ static int asus_acpi_probe(struct platform_device *pdev)
- fail_backlight:
- 	asus_platform_exit(asus);
- fail_platform:
-+	asus_put_dsdt(asus);
- 	kfree(asus);
+-		{
+-			const guid_t NBCI_DSM_GUID =
+-				GUID_INIT(0xD4A50B75, 0x65C7, 0x46F7,
+-					  0xBF, 0xB7, 0x41, 0x51, 0x4C, 0xEA, 0x02, 0x44);
+-			u64 NBCI_DSM_REV = 0x00000102;
+-			const guid_t NVHG_DSM_GUID =
+-				GUID_INIT(0x9D95A0A0, 0x0060, 0x4D48,
+-					  0xB3, 0x4D, 0x7E, 0x5F, 0xEA, 0x12, 0x9F, 0xD4);
+-			u64 NVHG_DSM_REV = 0x00000102;
+-			acpi_handle handle = ACPI_HANDLE(device->dev);
+-
+-			if (handle && acpi_has_method(handle, "_DSM")) {
+-				bool nbci = acpi_check_dsm(handle, &NBCI_DSM_GUID, NBCI_DSM_REV,
+-						           1ULL << 0x00000014);
+-				bool nvhg = acpi_check_dsm(handle, &NVHG_DSM_GUID, NVHG_DSM_REV,
+-						           1ULL << 0x00000014);
+-
+-				if (nbci || nvhg) {
+-					union acpi_object argv4 = {
+-						.buffer.type    = ACPI_TYPE_BUFFER,
+-						.buffer.length  = sizeof(ctrl->backLightData),
+-						.buffer.pointer = kmalloc(argv4.buffer.length, GFP_KERNEL),
+-					}, *obj;
+-
+-					obj = acpi_evaluate_dsm(handle, nbci ? &NBCI_DSM_GUID : &NVHG_DSM_GUID,
+-								0x00000102, 0x14, &argv4);
+-					if (!obj) {
+-						acpi_handle_info(handle, "failed to evaluate _DSM\n");
+-					} else {
+-						for (int i = 0; i < obj->package.count; i++) {
+-							union acpi_object *elt = &obj->package.elements[i];
+-							u32 size;
+-
+-							if (elt->integer.value & ~0xffffffffULL)
+-								size = 8;
+-							else
+-								size = 4;
+-
+-							memcpy(&ctrl->backLightData[ctrl->backLightDataSize], &elt->integer.value, size);
+-							ctrl->backLightDataSize += size;
+-						}
+-
+-						ctrl->status = 0;
+-						ACPI_FREE(obj);
+-					}
+-
+-					kfree(argv4.buffer.pointer);
+-				}
+-			}
+-		}
++		if (r535_gsp_backlight_dsm(device, ctrl->backLightData,
++					   &ctrl->backLightDataSize,
++					   sizeof(ctrl->backLightData)))
++			ctrl->status = 0;
  
- 	return result;
-@@ -1921,6 +1940,7 @@ static void asus_acpi_remove(struct platform_device *pdev)
- 	pega_accel_exit(asus);
- 	asus_platform_exit(asus);
- 
-+	asus_put_dsdt(asus);
- 	kfree(asus->name);
- 	kfree(asus);
- }
+ 		ret = nvkm_gsp_rm_ctrl_wr(subdevice, ctrl);
+ 		if (ret)
 -- 
 2.34.1
 
