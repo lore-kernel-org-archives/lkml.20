@@ -1,108 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745530;
-	b=X/GZSNej7cFitHPbPiX3CMzdN6gjo1Pa6iO5kKo+vu5ZGMs74fULsclSJWM9HQGKAlmS
-	 xRixAWqC1xdXkz1f4qkDxYns8lGZpTKpvg/i5NKP2aotr62Xwiihn31rkNvrkGGkRIzre
-	 cJLBFTLHtTPn6eRes3NMPk2slusQldKkH6GZuLfzVzEKrhfPIRp+9Ok4Lx6mq8NTUQd6d
-	 M6ibl16r3Y+RPXS+0AUzprdls8feS8JhxT3u59zORDLWihfuc6hUfWXPuk9DNbmNesRej
-	 qBlbjdR2jc/eUiSIihgzy5yyeNr65KtylV54u8OvA7VRgY1fAwJJ5UkcGYx4RLh6Csw==
+	t=1793745595;
+	b=zvqs81OxhvYHMoNkc0BBgpBNBWDZhNoHgz/2OlBTkILMoGAWPMGtJuAmbhhiHo7LZqOV
+	 lvi9sEIvQUpbokivuk25q9Q7/EO0QT5ZjPESreyPQp7mxdnZ3CSoGDM9sA1cuP9oXb40h
+	 FkN4yUQRivCNNqWJiufBPtKSvRTa92gaX3wWDX1M27ZV3g9GaCnq2niiyht37iGD46E6h
+	 sa/2aq8FNMeJwxARhAjsnFjYJGmzQgjrrfzvhMXIZ4cGXFBkoai377So6lPQY6jeGYxIJ
+	 2pIRMtc3eMTk63bbMRTusDGMQrOQ/0ZVT9reQ488+NOPaN3tu+zvqo4dSmJvQam5srA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745530;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745595;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7Y4hWEy3KCqBGcgLZyC88t/BtG1nVv31oLpGNCBZoVw=;
-	b=CxyDBux3oISrIC4QEh+y30S+LeuDkGVZwfBVghbiCC31HXvh67sONMAZjJ6gO4i1QvOd
-	 y9O3fKW3yQ3ja1Eu/1ZNL/pyfBt05HQvb1RRUl6Gvf6Zn2Fpc8ArU+e/cGcGlsXqo+mcB
-	 qt6em6KPq2akRnVrXuXPkuiiV1z4GcrylkXT+yOKtzMH9kwpiShuhYzCsd6IxjcAe0JRb
-	 YXj+RlYGR+wSltX1/k6YMyUgl6z6NvDnDs9GO9Bxjaiouylkgn4v8RQsLAWcvlKJf/3RG
-	 PilUf2/v2J9CSKW4txVFIEAUMEhguM7JaUArpTomSFL9ZsXPKaCofQCKg56DUVsA86w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hkasm7w43b+dUY5l9LtRYckjAHHkeZc9T5ParUJyZ88=;
+	b=e6eFZ+0WEPrgZ75ouQ59J+47m9vCE5TccYbRiXgB+1JCmOKLbf4rAKPW400wriKRB7SU
+	 xyM/GZXi9LsDAGe17UzbkD554PX3mRd4483KTAzBI+iTDfwv8cnEhHNQ4VqjSAkmtl41w
+	 caWNmHuw9QQLASy1xFwjT057JwJ3tZgWNQnfRSzeQbJVyRPv2l0ESbTsPvsN0E4SvdrcC
+	 wQPaEtZwXCEedfd3OpsmlCD8rHVZdd8pCgA+tx4Ocf8LA8aPEjw4fVKn+N/gvphcuYmGJ
+	 HIn1GlUGI1qNPzUt1m8YZrkAyfDgFfaMGq65a8RdGfqIFk9HJRd/F11EwPIH8OG0Ckw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q83QGk6Z;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=t9+0qfDC;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A276606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:38:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A276606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA0A606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:39:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCA0A606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q83QGk6Z
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so15198525e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:38:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=t9+0qfDC
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so105450a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:39:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793745529; x=1794350329; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7Y4hWEy3KCqBGcgLZyC88t/BtG1nVv31oLpGNCBZoVw=;
-        b=q83QGk6ZlvK41Xnj9VYjDJsaU/LVIlKY/O3UTOsd7cHawXlaokPl1p1agoBY/5nwQg
-         uPzkJbtm0E91Y8sCbX76cPRL3i6SSTUKoXzttrTc/gWurMr2GWS0k5ylOm8PFozwb36o
-         OS3bFPXf8wE9XoVm/Dw9eCQmeqCwK0ijKk3mbqWteVs9IzoU8g54pTAHJRaxm52hAkiu
-         7twTSt9UNnEzbw5wK5y4pN3/8W+5ruU9wDD555aCgwBySzZ9UMbSQ/4Vj2g+AHO5WIHz
-         uHru3TjxC9/+VhraivLgz3IWOjs2cfBPVSktUTxcdqSG/kW/hrbRL1LEOapw9UlMVR/o
-         lXTw==
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793745594; x=1794350394; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hkasm7w43b+dUY5l9LtRYckjAHHkeZc9T5ParUJyZ88=;
+        b=t9+0qfDCYwLylSmVAKRemuYBtlBZtSEc+OwR8egCGuHW44FrD9qGXupxIVP2sK5RcK
+         gmHttwu2rBCZKtFtMJrm9PyA6fBRymv4FsKNKVc1zw+XE1ZUKC1PcXjm3fKuNeKOoVTr
+         t8HiFndykiCtgEK/lMZajxktnukuNLVgoXXVfg4jQFKtczvWw+/pOYmokImYksBc/ITd
+         x0k/nEIdiKco/iaIxoJ0jb2mZ8ry7s/ssMr9cql7NhE7XIaIsRq0H5la4a8ii+DwXAcK
+         WaytQ+JGfu5tiiZ8chSCPiCUMyp8RHuwuHwEn1Ww7Jrz8LGwFQMtspL29OMRaeuMMglF
+         m5Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793745529; x=1794350329;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7Y4hWEy3KCqBGcgLZyC88t/BtG1nVv31oLpGNCBZoVw=;
-        b=efW9w/G2sh0myHtIeIgXpdPMA62n7i1zI9YzamyTENY7noMCWXKo8r9NHFo2oKGU3k
-         crMxeqyb93c0XHf9U8jaOdOUYNZamhhluhmAX3xfck6U7v2ycEuyY7LlvxHMmO1V8xVd
-         K4sHta9EiGmesrEaLGaBwWvRxAbi4J9W5rIMIcKSZqksHEVh44BVd2xRfqfmsOR+7K6l
-         lwSdshu+BNvQ6PQnJcFsROMlDsFJRgsq3vSmuguyvkmaL04V9Wl1ERJ3d5gmu8Sjd9/s
-         rqG3l3OeZ8ttdRfOLDetDHr/y8mXT550PyxyYJ+nZyDeuYndgbblonOrQH2lT7rdwykr
-         jrPw==
-X-Forwarded-Encrypted: i=1; AKwUvBznhBLzBs4jFk2jlzLpPViC4WW7689xKIkD9zQrPIVnv00DHu8FOQCnfZKb0y34tsuKCDyjNQKMyGveiXA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OnIHcOU27FYZfz2FNw3qdhL+C97vaMo5CoR/Fz9Roekv0T73o
-	28KZ+vU4A07+Wvv8erwQobEGGRu+uyMCZ8nb9o0ED4YZjFuOZMZgmxyd
-X-Gm-Gg: AYBFou1m9XY6YuvHOdihhBiCBgAmNnJaV90Q8EtpwIVxj4nREkZObFnKcbdhfKaJcn0
-	k7prDKzXNFPA54TOKHIJrutdZ2VBPQBykMuWOxkAAC4Q9EbW1AwW7OHfaBDBLY67S/v+k7oHyrx
-	L+JJbGqkKnyiW7hKz5wFzEdNfIoK6R8ictX52p86/9hyvLhaYaHqX3XBbRlswg7pIv4+52F8X3l
-	gSHXVqfej4r4nZJAlwHKKT1Mh12kXmqBnxCPe6z7jksGnO81+WTyYQdGOIxmrGzYoEfmw8Lv8EB
-	Xlwwn4LiLMcVTRmyhh7c207HW7dR1cQiDJ+Oyf8NghVBlh01Ekhg+oKiknilB2i3JOHYBgnAnGa
-	s8+lnVLLr5sLWZedcCzTpqGFrJIzamAKixQMlUKzWTD915pavEEwH/LOHYplPyafw4+gMZxQNev
-	kieMF8r9J2koeZMOvw8N9LW017WhUJ26ICR7VE8pUh3sgn4aQfkAKxohj6VEvyX9/lYyMt1Ai+g
-	TFLwevybq9vjqg1NFkcFsBJRmT/3cr83Sc80ZluOr0ritS2Snt0cwhStiAQTvZyHClmo9DrbIyV
-	uEYVzlJLHwZrU1CBkiU7JxvEDeBWepYTzkurJHcWbvJWmzvKYubbNy+RwQ159pShMadrLhRAn+0
-	UNzmaPVRneg==
-X-Received: by 2002:a05:600c:6555:b0:4a1:d45a:3ae9 with SMTP id 5b1f17b1804b1-4aa8b05fa4bmr341420665e9.15.1793745528451;
-        Tue, 03 Nov 2026 14:38:48 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea18104bsm467832f8f.6.2026.11.03.14.38.47
+        d=1e100.net; s=20260707; t=1793745594; x=1794350394;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hkasm7w43b+dUY5l9LtRYckjAHHkeZc9T5ParUJyZ88=;
+        b=iMEuPJIGy08I+8YUr7lHyA+RyRU47lLR2ZJXrf5knHay5ghztkjSkuQ4mRrKdXhvv/
+         xo8eOtm05swu11Q45iqObHHFHk3pEyEbaM2O7Mn2wyRtXebk6Vz24VnvLev6wUMrRXR8
+         nZLW38uqltP2CSLV/7qaUXdcfuFX+Pts4pGu2C12CFngWC2FsOnHvlUs2pCW/ChG+KLh
+         SiOUI4LQOhnCp5DMwUQ4YUhEZkqZRwYpgAlaxxLghzE+EZqCSXP+FG9J0ZUionNybbWO
+         5YDmQoaKRUthM0E9C+cLGHwBI8YFCkKt09joKCNl1cKSZZvJjtnnMTxoEiKdAB6djq4X
+         lPQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzuoONmnumgvCyU1naFWwyDocE9FZcaFBEo3X6+evrBNt/F41ikfRAEqPItmrv805oNW+KRIWZZsbebFh4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+M9Njqvev6p4xnA6qHiKl39/sIgJNngXjQvV+eCvI44axS6/Z5
+	+buMTJsZb+mUFdUxzWxgjl4xd0onJiFXfhxiKOu0F9OqZ0Xi18EHZs8K9yNtSsHRt/k=
+X-Gm-Gg: AYBFou1ZYSIoIqf2aV45EmifSC/WMUtyJCZgdOc+uahLTI++9kSGD+yUFOXmWdk8BuD
+	/2w8sDChnSEgvLOIJrpIgbcJ1guPGKFuuT8aFMPDHi03cyRdgSgy//f7tt8PQ9Qlx5r3Cq1pdw+
+	N0pbYuoL7ohJOB0bJHkRdEWYvFfp3DzIXTOZhKbu8ya8Toace6IMrngcht7QtCE4qRhMdDaIkY8
+	Q/OeefL2usxdbBXzL36VqQAFtgyykdpIxfvBFnkE5o5VZwjax0O9WOKD2F1PvGyqCVn++FZCJ8y
+	/nQtxQPHVDzX/t34yDVR2a207JmNRigPAK+v72hsF3QShL118aPBH88eSt5p5+aT9Pv/Xi/fzYp
+	ak5xsWYPMRqGAjYQGGvaqkifs8sX5BWw7TDvXfWvtLMRzf28DO86SdOPF7SKJs/kLzFtymbTAhi
+	whL1iz8ZChVu+Y0BobsPGC1DuKbmIEi1GpQ1TRvS+7B4SHhmpGqHHbRSFRs+beLWUrBX5Susj3A
+	QEuAm1O25FsuRdVt3S0X8leauTAcSLohtcEr3mKea0IM4BMdL2aVy6Yba81vaCr9MEAksqxCQGw
+	5CW+4a7BqZ1xrE2lQZoxWWKi/GItTPBPUlG14GlWzIKU+nTbWdgCPinGU+s+ZSDs9OMGnnte/Gd
+	0DU6JTphgnO8rG147bYbTeTevY94JrVztZHPe
+X-Received: by 2002:a17:90b:1844:b0:3ac:9c37:9429 with SMTP id 98e67ed59e1d1-3ae89838746mr11403550a91.52.1793745594421;
+        Tue, 03 Nov 2026 14:39:54 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:744:cf40:a7b2:e78f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944a0ff7sm886691a91.10.2026.11.03.14.39.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:38:48 -0800 (PST)
-Date: Tue, 3 Nov 2026 22:38:46 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Demian Shulhan <demyansh@gmail.com>
-Cc: saeed bishara <saeed.bishara.os@gmail.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Eric Biggers <ebiggers@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, Marco Elver <elver@google.com>, Ard Biesheuvel
- <ardb@kernel.org>, Robin Murphy <robin.murphy@arm.com>, David Gow
- <davidgow@google.com>, Brendan Higgins <brendan.higgins@linux.dev>, Nathan
- Chancellor <nathan@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, kunit-dev@googlegroups.com,
- netdev@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH 0/2] arm64: csum: Add fused copy and Internet checksum
-Message-ID: <20261103223846.5e6a1dfc@pumpkin>
-In-Reply-To: <CAOLeWCviRtGMhGJQx3HHFQOze439576PQqr4tmvjGkMMfYfcog@mail.gmail.com>
-References: <20260927131838.6774-1-demyansh@gmail.com>
-	<20260927184414.6c0c8867@pumpkin>
-	<CAOLeWCt+yFs29yWg6DrRH42HD9ConLgTEbW=wMKtEoTW5ROHvw@mail.gmail.com>
-	<CAHfVqdX4AmqXs_oD5OCjU8R5ts=98=RmgCmJ3D5gLyk=Xtrfkw@mail.gmail.com>
-	<CAOLeWCu4NiedyXmoLwwnTvJitRwgg6PQq9LApO=k36ktN3-XWA@mail.gmail.com>
-	<20261102161426.2403d308@pumpkin>
-	<CAOLeWCviRtGMhGJQx3HHFQOze439576PQqr4tmvjGkMMfYfcog@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Tue, 03 Nov 2026 14:39:53 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Sagi Grimberg <sagi@grimberg.me>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: Re: [PATCH v5 0/5] IB/isert: fix the device removal use-after-free
+Date: Wed,  4 Nov 2026 07:39:45 +0900
+Message-ID: <20261103223945.1697775-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261103125955.1530355-1-yhlee@isslab.korea.ac.kr>
+References: <20261103125955.1530355-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,119 +105,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 3 Nov 2026 16:47:29 +0100
-Demian Shulhan <demyansh@gmail.com> wrote:
+This series is superseded by v6:
 
-> > .L4:
-> >         ldr     x1, [x0, x4]
-> >         adds    x2, x2, x1
-> >         cinc    x3, x3, cs      # adc $0,%rxx on x86
-> >         adds    x4, x4, 8
-> >         bne     .L4 =20
-> Agreed, that is a nice loop for the sum-only case, one dependent op on
-> the sum chain and no builtin needed.
-> For the copy case I tried the same form on x86 (Zen 3, GCC 15, Clang
-> 19-22, -O2) with a store added, against csum-copy_64.S, as posted it ran
-> at 0.85x of the asm with GCC and 0.73-0.76x with Clang (which rewrites
-> it into setb/adc), and ~0.8x unrolled 2x/4x - a bit slower than the
-> posted 4-accumulator loop (0.88-0.95x).
-
-I just added *(u64 *)(dest + count) =3D val to one of my loops.
-gcc just replaces the 'add from memory' with mov/mov/add.
-
-I'm now confused though, I seem to be getting different output from earlier.
-With -Os (which I didn't think I was passing) clang is refusing to do the
-'offset from end of buffer' loop.
-With -O2 it bloats everything by unrolling 4 times and adding lots of
-extra instructions.
-(AFAICT the optimiser has a completely incorrect cpu model.)
-
-If the compiler doesn't generate the expected code it is all pointless.
-The xor parity code loop had to be in the asm block to stop the compiler
-changing it to a much slower form.
-
-For the checksum code I have managed to work out how many bytes/clock
-the code was generating and getting it to (reasonably) match the expected
-values.
-But you have to use relatively short buffers to avoid D-cache effects.
-
-David
-
->=20
-> =D0=BF=D0=BD, 2 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 17:=
-14 David Laight <david.laight.linux@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->=20
->=20
-> >
-> > On Mon, 2 Nov 2026 16:14:06 +0100
-> > Demian Shulhan <demyansh@gmail.com> wrote:
-> > =20
-> > > > The scalar path seems like generic C code and not restricted to arm=
-64,
-> > > > curious how that performs against existing (e.g. x86) assembly
-> > > > optimized implementation. =20
-> > > Depends. I think __builtin_addcll() is needed to get roughly the same
-> > > performance as the asm version. In my tests GCC on arm64 turns it
-> > > into adds + cset instead of adcs like on x86.
-> > > But I will look at it, thanks! =20
-> >
-> > The C version I posted earlier has the loop:
-> >     buf +=3D count;
-> >     count =3D -count;
-> >     sum =3D carry =3D 0;
-> >     do {
-> >         val =3D *(u64 *)(buf + count);
-> >         sum +=3D val;
-> >         carry +=3D sum < val;
-> >     } while ((count +=3D 8));
-> >
-> > for aarch64 you get:
-> > .L4:
-> >         ldr     x1, [x0, x4]
-> >         adds    x2, x2, x1
-> >         cinc    x3, x3, cs      # adc $0,%rxx on x86
-> >         adds    x4, x4, 8
-> >         bne     .L4
-> >
-> > I suspect that is close to optimal - especially for fast cpu with
-> > out of order execution.
-> >
-> > https://godbolt.org/z/eso79K7Wq
-> >
-> > David
-> > =20
-> > >
-> > > =D0=BF=D0=BD, 2 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE=
- 12:44 saeed bishara <saeed.bishara.os@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:=
- =20
-> > > >
-> > > > On Sun, Nov 1, 2026 at 3:34=E2=80=AFPM Demian Shulhan <demyansh@gma=
-il.com> wrote: =20
-> > > > >
-> > > > > I would prefer to keep only the scalar version of the fused copy+=
-csum.
-> > > > > It reads the data once instead of twice, and on real Armv9 hardwa=
-re it
-> > > > > cuts end-to-end cycles/byte for bulk TCP over WireGuard by 3-12%
-> > > > > depending on the core (+6-8% throughput). It uses only general-pu=
-rpose
-> > > > > registers, so there is no FPSIMD state to save and it is safe in =
-any
-> > > > > context.
-> > > > >
-> > > > > If you are OK with the scalar path, I can send v2 with NEON dropp=
-ed,
-> > > > > the scalar path only, and the KUnit fix for the x86 zero-length c=
-ase
-> > > > > Jakub reported.
-> > > > > =20
-> > > > The scalar path seems like generic C code and not restricted to arm=
-64,
-> > > > curious how that performs against existing (e.g. x86) assembly
-> > > > optimized implementation.
-> > > > saeed =20
-> > =20
-
+  https://lore.kernel.org/r/20261103223802.1697607-1-yhlee@isslab.korea.ac.kr
