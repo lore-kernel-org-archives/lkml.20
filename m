@@ -1,55 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697221;
-	b=bqtb7LlJjAM3oGv5ZMxjhZBWqBvT/sBX1GpxBrI5l/il7v+0YZgGQIjVFzIo+EuXaX8x
-	 276xqlTS/7TyC/vnA5L/zFBAiQhcVLmpa5GnJcVXNQCZqlqOYJjeQp3ZE1DuJfRF6VBlL
-	 jd1XyS4MR2fv/9sYBuiN73OpWMW74TO494x52SUK7Qc3GCm6QnqvVWQi0cqW/ClypQVZm
-	 Hwspf0LY16+KOhSI1uK5QX69OKIoCHF8B04qdSJpHxVpffymYWUAbT7A2gryBD2uOzunL
-	 WxZRGmV2fH/ZnO1QQlwvbZAi9QkL0dZng8aeqcUnkZ9QLrcdBbgXEul67kxiWT9jPWA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697221;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:
-	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=vtVAKn63hZjF/xRzAIkMWt9nMX0J7jxb6ymkgZ0SCsU=;
-	b=vSVpI6yKqQ8K9ycfWOM0ymj7xfg9p3/L6xuwJ/SeiMaBahzn0F+yk7zAq7Oz3HHt6pfP
-	 oahcJ9lKspKWHX6AnEI4lLWS5/RNL9+PHETYfCo5Rj/mXfBuWMkllLAuwVh4SNE6GzVMq
-	 LJBXTlp6RIcIY9EsgV0hZ1MSEohcR/XvRGt35wwMDpJhwOMu8V7IdtdPcHPSSLtEUD7JX
-	 kgQ/KJBAGvwEmSNR+UqZUP44p7/7MDPjuCe/dbvQr8U6ZpYjmyb0Qa9JyW3GIFCXdWdUQ
-	 It2vqz3d+EOzJyLO4KNOhbrcCKnJ/Rb4Ispw/8eNNN5y40HMTqVbqxUHz0QXbsW1haQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=cPq5+JP3;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793697261;
+	b=E+sBaKWJKm0XPvtSuxhN0F39NmbQAghu1n+lgWL8k+19/zBaBQwytxMiC9YBx5o4CS/q
+	 Sn00Gx15EVbcXObehxPNpL+rtKX2kE5E3bowgCZf9WYv8qcVxKpPJmVQVn44482ew+ghj
+	 j3DCqZEE8I2cy87U9IAKqJTZ17BP0DYKoiNzo7UuLpAy9A8HDbcU9PFMSXMUepFxUoKPa
+	 Mh4p44DcCHnlnKPkMFpZnW3KqkqSUYxUB+65R6EZk/FD3WdddZg4EySp46O6NTXFKtmM1
+	 x9ifW47b2sOXGNjttt1MqtZW8vkjasU6cGq0UJup+9yK1vngi7lH4whI9hIbB0iPLWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697261;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=xCKzQnE8sR8qGnyIMcveJ64Ln+A33qIBzCr/8Ncna5s=;
+	b=vEW3OyDTqdkJxDAMVs/AGBsZ+ZcEjrvA+di6RWih+AcWhEC2MTA4s7NNMLqYfmqAcwEw
+	 QV9FPEvtVgy2LNfRepoEaTHP6riKmLZczDwVR+bN9P0H81+NuoTE1RurpU2JEAd4mlTD9
+	 8m/Nz0UkajwnLLICi6I8W7BQ+q0KP2h72a4kuUYREkEWQokPdZLTtorUjqjKyhz/s4w17
+	 cN31zncz8rs5Dr9UwfE2UoNIAK1pYUqw7fRLPs5nt4SPtabgADAEnwPc5tAvvXc8IoQI8
+	 gAFK3yTUwUeK+Z4Oeur2LciZg9yjly0HMwku0c7+bg9hQruLffqZU64L/XY90lxwCJw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Az16B1NT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E803606A324;
-	Tue,  3 Nov 2026 09:13:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E803606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794B4606A324;
+	Tue,  3 Nov 2026 09:14:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 794B4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=cPq5+JP3
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C2A0D4E413DE;
-	Tue,  3 Nov 2026 09:13:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8E1316046C;
-	Tue,  3 Nov 2026 09:13:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DD7FA103291A7;
-	Tue,  3 Nov 2026 10:13:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793697210; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=vtVAKn63hZjF/xRzAIkMWt9nMX0J7jxb6ymkgZ0SCsU=;
-	b=cPq5+JP3kobZDqlYo39DZ+3Paj1cwtc/pvNC0LuBXLgLwwnSpM2mp6IUEDwhutPm1t8hqv
-	n44j+7fSOB6IObByAy0qi5dP1QLN/hrCpek0/uV9rUhpBb5SP1likytMenSrorpctG28PS
-	yoIwswHOY2tgefkrBvnwAElPtFDg3/CddFj5r4hL9DZphSne4tPmXX6qufxcGByRBoR4Kz
-	ZVn7HI5Fjy1nn17IwfcwPdrtHS8m7C5rnxJSKFLAWAMbNLik0GATdnVf0nGsQm+TiKlKc8
-	uVffO7L9pjgZM1IjeE5jfcryXlLKf9umc06Bh3mgGh+dj2k12v2Px/DfieIgKQ==
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Az16B1NT
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A9E7320103C;
+	Tue, 03 Nov 2026 10:14:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793697257;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xCKzQnE8sR8qGnyIMcveJ64Ln+A33qIBzCr/8Ncna5s=;
+	b=Az16B1NT/o8u9bVz4Vr+qtoUJMO3XnS5rLrEvivYNfOeg/KeYGFKJa8LvN/V523v7lH/79
+	dKjT1Dj0L2tkZoPLOQYbfdaLEiI4+49lt+e0MAxy8rJLme1LJMizWuHIj3IuJqhIdplKzl
+	bLdN24LfJoTlqzgYGPzLR7nqq8CoC8dBkvg2VKgJL1LKp2XvwAUqf3Q/cBzK8GgB83tSLq
+	iJQT7CebcWCXUevcw24RNeD62XHc1PVw01VapBpiNKtOAGGnKnBK9rgWhkCY3EnEB6J/J/
+	TZDqOnUvRwt7btSCyUqCt3QOIkm1cCXRPqacLNsX22HxcLv1l68DnXQC2AxoCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793697257;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xCKzQnE8sR8qGnyIMcveJ64Ln+A33qIBzCr/8Ncna5s=;
+	b=IeFNgT0IVHiRepot8IhD9+8MZxksgKp8QtZ0Q+NkRQKSzRW3F1st38bGCwY408Qds7atpb
+	ASrtbeQfpuAnNb5kkd7A+fbJ8ddafXqTtv0cWMMKVkgzhTPcwxdGEQURAVF1Bq9QZ0rgTg
+	9Vy3wLWnvjju/NCLna2Jd9dKEalVQTk8EXyJGFG8zWnPj2aNmEqFl0MlVN2ji7XxzsVrsT
+	WQO+2MIY9f1v0UNM0UDw6LyRIoKSSMVnq3fAMy5ZR/NKyOiIELMNjRr/xIJYmGGI4VnjHD
+	4JiOPXyDQ1eksy1+MAANficJxkHsVtWHcA8cTuH9WeEIu9XiQesit2LyMZgpcA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793697257; a=rsa-sha256;
+	cv=none;
+	b=MqelqDHcu32UrtpOsw3KKZGLgLnFSR66JSukkrD0iM4rky+LVtOW4DCdHiERKyp0wwyUUR
+	GpeDDOCAgBKM7K8U1C36Gv6NbS5q0c332HXHoL93qzyNgEhptnCF4Q7rWM42PJSwcutHq7
+	hj+C8jujlg6ifEOlQI652m1MHSw4+zhWckIyPos4F8hrlN7763yEA8xzS9Aogizms7TF/z
+	N9uxspC3AcdMXAscx5zzdN40nfJrBNAnohLxQCGiVeRKE+pr0x0NTROgrjV/fgvjOKINoW
+	XQbjuGVpvakYsEUAjDsft9Ml7OavlmNny2MoEjyxe4tOnmtQ082HCtQPFGF80g==
+Message-ID: <88963fd1fd87123496a55e2002bc8b0dc2466bd4.camel@pengutronix.de>
+Subject: Re: [PATCH 6/9] reset: google: Add CPM reset driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian
+ Masney <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,  Peter
+ Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org, Tudor
+ Ambarus <tudor.ambarus@linaro.org>,  =?ISO-8859-1?Q?Andr=E9?= Draszik	
+ <andre.draszik@linaro.org>, linux-samsung-soc@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, Radu Rendec	
+ <radu@rendec.net>, linux-arm-kernel@lists.infradead.org, Mariano Marciello	
+ <mmarciello@google.com>, Douglas Anderson <dianders@chromium.org>, 
+	linux-clk@vger.kernel.org, Jakub =?UTF-8?Q?G=C5=82owacki?=
+ <jglow@google.com>
+Date: Tue, 03 Nov 2026 10:14:17 +0100
+In-Reply-To: <aukyyYhDCBUdIH16@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+	 <20261026144346.6.I0b1ad34a718a9b5f667d2481041970ea45989dd3@changeid>
+	 <8d57f0a1dc8a07838bf1320f9b79588196264ff5.camel@pengutronix.de>
+	 <aukyyYhDCBUdIH16@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,118 +104,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 03 Nov 2026 10:13:25 +0100
-Message-Id: <DMLGLCFQW48J.334XR00MX6V0T@bootlin.com>
-Subject: Re: [PATCH bpf-next 0/2] selftests/bpf: port test_ftrace.sh into
- test_progs
-Cc: <ebpf@linuxfoundation.org>, "Bastien Curutchet"
- <bastien.curutchet@bootlin.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <linux-kernel@vger.kernel.org>,
- <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>,
- =?utf-8?b?QWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24p?=
- <alexis.lothore@bootlin.com>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Eduard Zingerman" <eddyz87@gmail.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "Daniel Borkmann" <daniel@iogearbox.net>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Shuah Khan" <shuah@kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261030-ftrace_in_test_progs-v1-0-aa50c5dd1ccc@bootlin.com>
- <DMJE6776F9F0.1O5A9ZMKWYEUP@gmail.com>
-In-Reply-To: <DMJE6776F9F0.1O5A9ZMKWYEUP@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
 
-Hi Alexei,
+On Mo, 2026-11-02 at 17:03 -0800, Brian Norris wrote:
+> Hi Philipp,
+>=20
+> On Wed, Oct 28, 2026 at 03:03:24PM +0100, Philipp Zabel wrote:
+> > On Mo, 2026-10-26 at 14:43 -0700, Brian Norris wrote:
+[...]
+> > > +DEFINE_DEBUGFS_ATTRIBUTE(goog_cpm_rst_assert_debugfs_fops, NULL,
+> > > +			 goog_cpm_rst_debugfs_assert_set, "%llu\n");
+> > > +
+> > > +DEFINE_DEBUGFS_ATTRIBUTE(goog_cpm_rst_deassert_debugfs_fops, NULL,
+> > > +			 goog_cpm_rst_debugfs_deassert_set, "%llu\n");
+> > > +
+> > > +static void goog_cpm_rst_add_debugfs(struct goog_cpm_rst_debugfs_ent=
+ry *entry,
+> > > +				     struct dentry *debugfs_root,
+> > > +				     const char *name)
+> > > +{
+> > > +	struct dentry *d =3D debugfs_create_dir(name, debugfs_root);
+> > > +
+> > > +	debugfs_create_file("assert", 0220, d, entry,
+> > > +			    &goog_cpm_rst_assert_debugfs_fops);
+> > > +	debugfs_create_file("deassert", 0220, d, entry,
+> > > +			    &goog_cpm_rst_deassert_debugfs_fops);
+> > > +}
+> >=20
+> > Please drop the debugfs functionality or explain what it is needed for.
+>=20
+> Ack. I think I'll probably go with "drop", but some notes:
+>=20
+> There's no real way to test and validate a "reset" driver without a
+> consumer. There is no direct (even for debug) interface into the reset
+> API, unlike in some other subsystems (e.g., GPIO). I believe the main
+> purpose here on Pixel drivers has been hardware+driver testing, so one
+> can test reset functionality before hooking it up to real client
+> drivers, and without adding fake drivers or extra debug code (a la
+> "printf debugging").
+>=20
+> (One might observe these results either via /dev/mem-like access to
+> registers, or even through external debug peripherals/consoles that can
+> monitor the status of the underlying component that is being reset.)
+>=20
+> This all would generally be in an early hardware bringup scenario, so
+> admittedly it probably doesn't have as much of a use case in the
+> upstream kernel  -- it's a long shot for this kind of hardware/product
+> development to *actually* work directly on an upstream kernel, with
+> upstream drivers.
+>=20
+> ...but if I were imagining a better way to do this without bypassing
+> reference counting: perhaps it could be useful to a have a
+> debug-oriented "reset client" driver, that could bind to arbitrary reset
+> devices, if they're not already owned, and expose a sysfs or debugfs
+> interface like this? That could fill similar use cases for this sort of
+> hardware testing/validation area.
+>=20
+> But anyway, I understand such a proposal should definitely come
+> separately from this driver submission.
 
-On Sat Oct 31, 2026 at 11:54 PM CET, Alexei Starovoitov wrote:
-> On Fri, Oct 30, 2026 at 11:50 AM Alexis Lothor=C3=A9 (eBPF Foundation) <a=
-lexis.lothore@bootlin.com> wrote:
->> - commit 1 brings a few new helpers to manipulate ftrace from test_progs
->> - commit 2 performs the actual porting
-> [...]
->>  5 files changed, 412 insertions(+), 46 deletions(-)
->
-> This is quite heavy for a port of a 44 line script.
->
-> Lets use a tracing instance. function_graph works in instances.
-> An instance has its own set_ftrace_filter, current_tracer and ring
-> buffer. rmdir undoes all of it.
+Thank you for explaining anyway. With that use case in mind, I think
+"drop" is the right choice for now. This functionality can be
+implemented in the core and use reset controls like any other consumer
+driver.
 
-I initially went with a ftrace instance, but I came back to global
-ftrace because graph function filters (set_graph_function,
-set_graph_notrace) are not handled at instance level, only at global
-level. But maybe setting only set_ftrace_filter and set_ftrace_notrace
-is enough for this test ? That would indeed simplify a lot the setup.
-
-> What goes away:
->
->   series                          tracing instance
->   ------------------------------  ------------------------------
->   global tracefs files            files of the instance
->   save and restore, patch 1       rmdir
->   serial_                         not needed
->   all functions are patched       only the filtered functions
-
-Are all functions really patched with the current series ? It is still
-applying filters.
-
->   new progs                       progs/modify_return.c as is
->
-> modify_return has fentry, fmod_ret and fexit on the same function
-> and checks the return values.
->
-> The removal of test_ftrace.sh stays.
->
-> Instead of patches 1 and 2:
->
-> diff --git a/tools/testing/selftests/bpf/prog_tests/modify_return.c b/too=
-ls/testing/selftests/bpf/prog_tests/modify_return.c
-> --- a/tools/testing/selftests/bpf/prog_tests/modify_return.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/modify_return.c
-> @@ -61,3 +61,28 @@ void test_modify_return(void)
->  		 0 /* want_side_effect */,
->  		 -EINVAL * 2 /* want_ret */);
->  }
-> +
-> +/*
-> + * The same test while function_graph traces the same functions.
-> + * A tracing instance has its own filter, tracer and ring buffer.
-> + * rmdir() undoes all of it.
-> + */
-> +void test_modify_return_fgraph(void)
-> +{
-> +	char dir[128];
-> +
-> +	snprintf(dir, sizeof(dir), "%s/instances/bpf-XXXXXX",
-> +		 access("/sys/kernel/tracing/trace", F_OK) ?
-> +		 "/sys/kernel/debug/tracing" : "/sys/kernel/tracing");
-> +	if (!ASSERT_OK_PTR(mkdtemp(dir), "mkdtemp"))
-> +		return;
-> +
-> +	SYS(out, "echo 'bpf_modify_return_test*' > %s/set_ftrace_filter", dir);
-> +	SYS(out, "echo function_graph > %s/current_tracer", dir);
-> +
-> +	test_modify_return();
-> +
-> +	SYS(out, "grep -q bpf_modify_return_test2 %s/trace", dir);
-> +out:
-> +	ASSERT_OK(rmdir(dir), "rmdir");
-> +}
->
-> pw-bot: cr
-
-
-
-
-
---=20
-Alexis Lothor=C3=A9, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+regards
+Philipp
