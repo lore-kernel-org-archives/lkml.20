@@ -1,86 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708521;
-	b=RZzkRXBL8ftF+rQtJBR5Zv6n9y9bsKoOP4eYFqzvZlNG/QHcgYH387j0njuill7R91BK
-	 3yduIpxeXeB65fDkvX2gmj47ZV50ko/IVDTMpHfbxCMBsVdw6mIDzNmJ4M0nqSZSKrUQh
-	 q4Md8dN6bkRwQgY8nHXOip5YlM/ucaQaLQj3xuYqgSmrouFsy3WtWNAxvkq+i0bAywaJJ
-	 TkDYKnnttoet2/+VYncF3Q0MeEQ1WuyYYjsnNCabVibXl2QBJZQ6TbymndYEx6DDpcDvI
-	 C3f6kDdksUp9WKLFGG5BHHVd9SOR+WDtMrmHeiZdVtMFeNduGwETLvnTqSYFiZicnng==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708521;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=DOzzqdK9OoTPF7w8+dGv8CzGaoXQjJup2f2zEoi38v8=;
-	b=UuREeNu6mFD6ABu5M/+WnXOuhWy3JPC5ObpK9x+lrANkz1klHiTNcoUH9xhQnCyrqEyC
-	 MWmWktged1lNubZzc3lGxdVDoRScFnQr4S7L1eltaCBYHJ5NqzO7OP8VHYobkhexildu1
-	 VSntc0TampNzNk0ifR6eWiA1cUc3ErjV8Fx+yxv36vbSywett4gtZlFkDEqsi/+aITkBu
-	 Jhn8LxDiRoNU6ZAbm9Rg0CgbMqg1d8rAcuebDj1P2TpjMtfrfivwi+QE56K+eq+rXvOR0
-	 bvJvmS5mpfSo+otgDV/CazM90k4ny2ir2YB9g4GYxQCxbVXjP11B/lbP+PerUNSkNSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yoBXuWlF;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.36
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793708522;
+	b=r6pfcsfKlbVCrvha4BbmGPNY8OIY7cs3cbE72w56P9PVfQafsGBm1dc8MefvypyX4iFP
+	 BOHEBHQnVB99kU8ymgZ36PspuDRnxPoST9kX75s5BrT6qgaYIswH1ouPG8Ss56iPxJtlZ
+	 I9Jtf0qudYsxZUQDKiZkJMrWg3qnoE7pIOfUAXVRU9YTKE8/RVVXb3sdFVQ6EvVros8uk
+	 MquvCSDhYU3Ye8FUvWwTFFpcjGt2p8s1q/ug8hXuDzWEXvj90+QQgwVMdo0eICCzDhFsS
+	 t+0CalXb6j8ZxJBG5jMqGR2v1pInbeoY6EOyQLGi83GRVT3eV0N6IxvkECpEoYvRpiA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708522;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=t2tofVoe8B8mUbr/wtrIQF+84z4ck8y3u5VEqeaIanQ=;
+	b=30O+mzdPNo+5PHbqO6aCvVySQw7wyTFvWwceLjOamJcuIFqpsfdAeIzARK4CCqDgrepe
+	 tbsE/Tbl4HgKlMr3yYBXR74AlBw3LZpuBE4Xgnt1wXkKFpt0O7DvsNq/NvTbLg6EcFZjw
+	 B3koCf42NPC9EEtzswrWTe41Ouvd5xcdmu5Pg/yuF1Qz2KqbFC8qB+5XREAvmkRpDF3Hn
+	 BAa/+Ma/cAMJvmJ1FvCYiWbZ9qwV0mL1bEOHwn3zCYqMEWOR+GnHn7yXCPaPBO6xIVYVc
+	 FVZTm7u7wApXBZjx2H25NeH+R9cTgGB13bE5GeUJmfsZ6QGzagsJ9d3uw2J1D6eAdWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pTbzzDb8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.36
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010036.outbound.protection.outlook.com [52.101.61.36])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C433606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:22:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C433606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780C2606A32C;
+	Tue,  3 Nov 2026 12:22:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 780C2606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yoBXuWlF
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48df8fe8513so3553310f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:22:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793708519; x=1794313319; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DOzzqdK9OoTPF7w8+dGv8CzGaoXQjJup2f2zEoi38v8=;
-        b=yoBXuWlFCJjc54rW/BciP9V4C/Iz9+IJzlIbbe7hZuSoBtjdLCqTfDCfi/N/nmyZLO
-         +jQIH2hUVF4vFqcbDJ805ALJEgr1eGd78KYVVxtElnBWg7G/1omKy3DgNw0M0e8m5Ss2
-         ySj0oQb3ve7zkTOf2CnlsnGm+esLH4/57XCCTvuMqlp93Tk+0BBlUQSKENmdK0W3OI0i
-         aytCAPA1roN5cUvh0Eo/no36dkAyKnqA0fIy1eSCPXcqfeDA00EIt4G8gvfqsNW6hwei
-         8/k//emnjOVESjfrRUgzwkUIdoB7IRM4jhVSI5FMv7b1IPPVPlR3q0v6KjqiZKljPrs5
-         p4JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793708519; x=1794313319;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DOzzqdK9OoTPF7w8+dGv8CzGaoXQjJup2f2zEoi38v8=;
-        b=CgZ0r1TRwgg1H5VfdYpDXeZFZdUgWxSikZ9e3QlR+8g50XbXDiZIF+yHVzabagg7eq
-         3r5jcEYNLCUCvTmYCsuy11L4incJ07cJb4fFrHF/FB43QMA+PcyB9w9n+w2lGx7JFD73
-         nKuORtDJ5+nixjpSN4qoZPmgrtJwweq6LCuiTaVXwJFuvKKoM4IPzHRw5Zioy/cSs20x
-         GWe9AgEPVp2spYvJRur+OkTgfx0LFffb6TEyBxgbL7TyWrxA52ayzqi60bqGdc6MdFGG
-         1o8DJpdHiP1gMXh0qvWgxvNr7bOfAAZhNJdyMH+yZeqSi5jam6414b4Qt4050VE8Xzdd
-         +sYA==
-X-Gm-Message-State: APuU4Z8bMv2Y9g94NY0I8qVBOV4UPX3GMPd0fqDEBk+NAvbVpX3CMjQk
-	DYEeI3JDRwE21zlrHh2aM5CSDZXVX/EujgnATtdVfFxgv9Xy/n04FADh
-X-Gm-Gg: AYBFou1wZrLA5B8ycodHvtMe2PVzICSLiTdu9TMW+kBmYK+9ulVS2Fk4FYxZi+3SEkD
-	KcSS3StNW8c+1/L8nkX2QuWwpkG9F9Dkk/JwlyPSTvmc9c+NKIg0puiiwE7Qk6f4x8ek2XwN1K2
-	BIRCO1AodwHKhwbnbHDGZ4bzQwai/0pYLNTUxUNEbYzsKpNAvonJR2B8ejZ3f4sGpb/tzHgNEvE
-	ae3I74HPL8v8rOzzDpwxJA6Fg2Bj4nnRIWcggY0BGoDsbBIdrvHxaQqp8eOHGztVtHV7zpmFD3H
-	tsQyzWcHcA4B6UcxILEdmQFHwpMVDL/iQ5qXJRq5QLKtbxi/IQZtu+Mg5DQ08vuc9aYoPQNp+Cu
-	Gn2gJ1PPpZPCxz/mPZVksT8iaNNUwppr1LirVvXiS9cv3halaVAkg7txAPm83ht44+Fhc8V+RpZ
-	MHklH7lo/aIYONlTd1tQlYn/OlBKaRJCtIf6VsaVW5tgDUo5yGjqUl/EJN4qCtNV9DjFAXEgP3O
-	7sMv56crrEGmIcGjAoIzOiS2VJtiRyCp4qPbxtaTcc2grFrP327gjuInjuI1DOQ5B44ndlmBOdu
-	BYkEMBEwl9icHeEpl5nDfVM=
-X-Received: by 2002:a05:6000:24c5:b0:48e:6264:c373 with SMTP id ffacd0b85a97d-48e6e4f5798mr31061860f8f.14.1793708519379;
-        Tue, 03 Nov 2026 04:21:59 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bae25dsm22412110f8f.59.2026.11.03.04.21.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 04:21:58 -0800 (PST)
-Message-ID: <b1c86bc9-24e8-4c87-b2a7-2eefbdd96c12@gmail.com>
-Date: Tue, 3 Nov 2026 13:21:57 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pTbzzDb8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qCHv8sWM0wDnxV7vKviYFoOqbCVftGbCcxeqjOIaTaSYvuRBa7Pn7Z/lSBEB2HjDZg1D6ho6eLUl02iR/+SbqCiL5FalCrApE0GNkfugl31wZ+6RqtBLfjrMfKFKVApjd1BwimUg1NNSGpLDplbeq+5jTiQmD0fSccVEXvtzOuL12sCHPWPvUOJvQ5LiShp5t4EoAh7efmcXoOO2XEhQCRU+a2XEwTT3Mrk2DEDHfkH4je6z6nP5SOYjVCr4hRTy8gUcFil5hgxEHvcBU10p8vrF6HECjO3eWGZvKUDmIV4L2OwbVptx5otkG3+oZ9YoUXrSyXbCYFivIuvwNWFCCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t2tofVoe8B8mUbr/wtrIQF+84z4ck8y3u5VEqeaIanQ=;
+ b=ca5wtCbUFLcyWxaIEMHBskuQLdu3FQPMafUyJ4hZtov47K8CelBY0Q/On7l1ENA+/8UFPAe+EkuH8uoXX2khAO2+3akT7E9WgMT2regy2ucD/16Uc7HlFgpgoikSlNuVSf7Drh0tvcqZFE743gZ+dFG97ICSrvyDF+AVldiNu92v23EDeUOltVZFHJlGVrh/A6wSp87zKnYC1HTG4CZKQ5BfdJYsfPJ3c3fgUPwFz9cO7Xa+wZWPQr+QJeCpq7U1fBNL+2nMZq+9n2Q1gKeZNBgQSia04OvjqbMAtIqtFsJPdMrmvxiGdgT0YtfPSQFudevSJ5hY536W+JF3rZVf4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t2tofVoe8B8mUbr/wtrIQF+84z4ck8y3u5VEqeaIanQ=;
+ b=pTbzzDb8FBY7qvThErENhhDWN71bsr6E60diYOTwl6XyW3SW/r0RmRs19jLZeUI0Y2yS5JCLKyUTv5qFBjhkVaJEe/NvpaORS5+BUzHA1i6pF4DmCjJD5qLXrFbJOInHuAKSsTwYvtduZd+YdY6Q8oNpbtQZSiY3uYAdHykyNftgrGJo7xTazxLcOhTzZWqN7E6GJ0QgQfLRinz1MgX3kOtakbaJqqr4qZhM2/pzVo868JpNC4lm0DkzOM2plibxj/KzwJ9GkaFFNEiFi6UPNRLZsUsRiMuqsgGSCPCVaGuH0EP34j5I161DTlhGbJZJvWhW/o9Smj9XVuC3Ua1buA==
+Received: from SJ0PR05CA0180.namprd05.prod.outlook.com (2603:10b6:a03:339::35)
+ by SA1PR12MB7248.namprd12.prod.outlook.com (2603:10b6:806:2be::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 12:19:48 +0000
+Received: from SJ1PEPF000026C6.namprd04.prod.outlook.com
+ (2603:10b6:a03:339:cafe::27) by SJ0PR05CA0180.outlook.office365.com
+ (2603:10b6:a03:339::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 12:19:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SJ1PEPF000026C6.mail.protection.outlook.com (10.167.244.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 12:19:48 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
+ 2026 04:19:33 -0800
+Received: from 8e48b22-lcelt.nvidia.com (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 04:19:29 -0800
+From: Kal Cutter Conley <kalcutterc@nvidia.com>
+To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown
+	<neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo
+	<Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Trond Myklebust
+	<trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>
+CC: Kal Cutter Conley <kalcutterc@nvidia.com>, <linux-nfs@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3] sunrpc: fix lost wakeups when stopping service threads
+Date: Tue, 3 Nov 2026 13:19:14 +0100
+Message-ID: <20261103121915.25298-1-kalcutterc@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261030130629.103716-1-kalcutterc@nvidia.com>
+References: <20261030130629.103716-1-kalcutterc@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,137 +117,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] mm: hugetlb: respect cpuset restrictions for surplus
- allocations
-To: Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev, osalvador@suse.de,
- david@kernel.org, akpm@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org,
- Lance Yang <lance.yang@linux.dev>
-References: <cover.1793692578.git.zhengqi.arch@bytedance.com>
- <d1e41a65970ced879715a73ce2607de7ad102fb2.1793692578.git.zhengqi.arch@bytedance.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <d1e41a65970ced879715a73ce2607de7ad102fb2.1793692578.git.zhengqi.arch@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C6:EE_|SA1PR12MB7248:EE_
+X-MS-Office365-Filtering-Correlation-Id: 376f1c83-5a7a-4790-a47c-08df39a4c12e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|7416014|376014|1800799024|10067099003|22082099003|18002099003|13003099007|921020|56012099006|11063799006|261022075727099003|261102123227099003|261102130727099003|261028144727099003|261026121527099003|261021121427099003|261026140227099003|261022105027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	D8yDjFv0ZK/ZPe3mfJ7jIqe2HBeLmi32c53v+G4H7x0HAQlJoJaQWc8ARjYUDzWS95saJCupHdITdKppsNi33ko4sV/JG8Syz7RSr4Zx8thb7mNq9fIxfTTBzqE4Z04038jUsuK6tgk1G/DzvRS1zApwbM4NoFFW3xekvoDeZzUd5UIsgcT4epcquutXq5e3YO2A5UIVAGKsMvLC7s/Te+NUq8qPzSQk+MX5bas3XkdDlur86AulXAcV9ecqX3LIr7v3plHJExjqWWOtQyV+7m898FEoPPywnhBLrgmTEcPQS0oIzBX++Ek7ZqEz11P9SEKWgZIYdfBubIJumBokTeokZrHsbL59v1LXjUSVfBcWAH7ayU3yAQp3h2iQqtEPicG5z6sTxB3E1YSM28LQFyYxytD8nI5p9Rw+3N5KXD0Sp+8Os9Ichrwj8pgLPkZLOgXWCwR0vBI+V86HTaM1odnfPXQrGdj2TvbFLRWqiwBkziNDULwffd6qig/dtXUYSgsTr8yhiq+uLfTjNH+ZgjAHVphBvswiroO9J2Qjl3dwaMrLBW6iSYsRj0Od9/+oJhZYVL0M4AlN/4/xyZdcWhSkKaFIzgWNte5YOnjPhj6PXkeXrPX9zCC4XDx1NtEWgGLiv9j+QyrN5+Z6NW+c6L/US66FaZAGZnplGXTWXv4hrfg5yZC92gz1lDoH4EQedF4mv0eBvoGEVl3yzq0J0Y7dHe+L9u+gCnZJnJ3OrBI2Ox40NPuEPVw8HFpyxVY/
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(376014)(1800799024)(10067099003)(22082099003)(18002099003)(13003099007)(921020)(56012099006)(11063799006)(261022075727099003)(261102123227099003)(261102130727099003)(261028144727099003)(261026121527099003)(261021121427099003)(261026140227099003)(261022105027099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bez5dUwHojQjtWKqRbUlyoP6L/m7NjE1dnaVPgBZYRjXQuKXXd/ZOC2kNFpC5K14eNvQz/5LY0bm16UkB4RS+W7xYIJNRn8U6+qfX9yahYHGKHGkAMYHHn1cxt47gbgD+8BRkVsqxFYqQo9FF8EzMn5cHOJMPHqEbdkBbiIN1loZrvNV4p6ok+JyJospIfjBCQjEprjaUD2umDFliUTF6OHgMRgbxV1kS2bY+Yj8use0EiF8me0GzZFNL2NQxkcif6iOJK8ZhzDE1IUaN7bFS80ygKNYL65dsaOJguDmbCCeIwtogQnf3M3CBHASarpkTHzGf+r4vqqyfWqArFjPG8r8M6wR2RC4CQewMa307WRriQa9ntQpAR+qxInd6mhObNclOvkvSSe1DneXD06CNaYCNFgkCWDcPWaAvPQzcus/J4kklGaxGLQiPo2XlEUL
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 12:19:48.7054
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 376f1c83-5a7a-4790-a47c-08df39a4c12e
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000026C6.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7248
 
-On 11/3/26 9:01 AM, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> Gigantic surplus allocations can escape the faulting task's cpuset.
-> CMA and the contiguous allocator trust the supplied nodemask without
-> checking the current cpuset.
-> 
-> For example, a shared HugeTLB VMA has MPOL_BIND={0,1}, and T is a
-> non-leader thread. With surplus allocation enabled and no eligible free
-> HugeTLB folio, the following sequence can occur:
-> 
->   CPU0 (cgroup v1 migration)       CPU1 (thread T)
->   -------------------------       ---------------
->   cpuset_attach_task(..., T)
->     T->mems_allowed = {0}
->     /* Non-leader: skip
->        mpol_rebind_mm(). */
->                                   /* Fault; VMA policy is still {0,1}. */
->                                   policy_nodemask()
->                                     /* {0,1} intersects {0}. */
->                                     nodemask = {0,1}
->                                   hugetlb_cma_alloc_frozen_folio()
->                                     /* node0 fails; node1 succeeds. */
-> 
-> The 1 GiB folio is allocated on node1 despite T being restricted to node0.
-> 
-> Intersect the interpreted policy with the current cpuset before surplus
-> allocation, preserving MPOL_BIND and MPOL_PREFERRED_MANY fallback rules.
-> Apply the restriction at the policy-aware entry point to preserve
-> per-node pool management semantics.
-> 
-> If the cpuset changes during allocation, rebuild the mask and revalidate
-> any allocated folio against the current constraints. Keep it if it is
-> still eligible: freeing an HVO-optimized folio can defer returning its
-> range to CMA, so discarding a usable folio can cause a needless allocation
-> failure. Only release the folio and allocate again if it is no longer
-> eligible.
-> 
-> Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages")
-> Cc: stable@vger.kernel.org
-> Reported-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> ---
->  mm/hugetlb.c | 38 +++++++++++++++++++++++++++++++-------
->  1 file changed, 31 insertions(+), 7 deletions(-)
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index ce9c8e57b8e5c..6fd6e58ace869 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -2181,22 +2181,46 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
->  		gfp_t gfp_mask, struct mempolicy_interpreted *mpoli)
->  {
->  	struct folio *folio = NULL;
-> -	nodemask_t *nodemask = mpoli->nodemask;
-> +	nodemask_t alloc_nodemask;
-> +	unsigned int cpuset_mems_cookie;
-> +
-> +retry:
-> +	cpuset_mems_cookie = read_mems_allowed_begin();
-> +	alloc_nodemask = cpuset_current_mems_allowed;
-> +	if (mpoli->mode == MPOL_BIND && mpoli->nodemask &&
-> +	    nodes_intersects(*mpoli->nodemask, alloc_nodemask))
-> +		nodes_and(alloc_nodemask, alloc_nodemask, *mpoli->nodemask);
-> +
-> +	if (folio) {
-> +		if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
-> +			goto retry;
-> +
-> +		if (node_isset(folio_nid(folio), alloc_nodemask))
-> +			return folio;
-> +
-> +		/* Balance free_huge_folio()'s decrement before caller accounting */
-> +		lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
-> +		free_huge_folio(folio);
-> +		folio = NULL;
-> +	}
+Stopping NFS can leave rpc.nfsd 0 in an uninterruptible wait with
+this stack:
 
-the page allocator only retries when the allocation fails, why does this
-need to drop a folio that raced with a cpuset change? retrying only on
-!folio would make this whole block go away, with the check at the end as:
+  svc_stop_kthreads [sunrpc]
+  svc_set_num_threads [sunrpc]
+  nfsd_svc [nfsd]
+  write_threads [nfsd]
+  nfsctl_transaction_write [nfsd]
 
-        if (!folio &&
-            unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
-                goto retry;
+SP_NEED_VICTIM and SP_VICTIM_REMAINS remain set while all remaining
+nfsd threads sleep in svc_recv() and none has RQ_VICTIM set.
 
->  
->  	if (mpoli->mode == MPOL_PREFERRED_MANY) {
->  		gfp_t gfp = gfp_mask & ~(__GFP_DIRECT_RECLAIM | __GFP_NOFAIL);
->  
-> +		nodes_and(alloc_nodemask, alloc_nodemask, *mpoli->nodemask);
->  		folio = alloc_surplus_hugetlb_folio(h, gfp, mpoli->nid,
-> -						    nodemask);
-> +						    &alloc_nodemask);
->  
-> -		/* Fallback to all nodes if page==NULL */
-> -		nodemask = NULL;
-> +		/* Fallback to all nodes allowed by the current cpuset */
-> +		alloc_nodemask = cpuset_current_mems_allowed;
->  	}
->  
-> -	if (!folio) {
-> +	if (!folio)
->  		folio = alloc_surplus_hugetlb_folio(h, gfp_mask, mpoli->nid,
-> -						    nodemask);
-> -	}
-> +						    &alloc_nodemask);
-> +
-> +	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
-> +		goto retry;
->  
->  	return folio;
->  }
+The stop request is published with unordered set_bit() operations.
+svc_pool_wake_idle_thread() checks the idle list and task state before
+calling wake_up_process(). If it sees an empty list or TASK_RUNNING,
+it skips the wakeup and its memory barrier. The requester can therefore
+miss a sleeping worker while that worker misses the stop request.
 
+Use smp_mb__after_atomic() after the flag updates in
+svc_stop_kthreads() and svc_wake_up() to order work publication before
+both lockless checks, even when no wakeup occurs. Pair with
+set_current_state() and llist_add() in svc_thread_wait_for_work(), so
+the worker observes the pending work or the requester observes the
+idle worker and wakes it.
 
+Fixes: 60749cbe3d8a ("sunrpc: change sp_nrthreads from atomic_t to unsigned int.")
+Signed-off-by: Kal Cutter Conley <kalcutterc@nvidia.com>
+---
+Changes in v3:
+- Drop the redundant <asm/barrier.h> include from svc.c.
+
+Changes in v2:
+- Move the barrier into svc_stop_kthreads() and svc_wake_up(), using
+  smp_mb__after_atomic(). This avoids adding a redundant barrier on the
+  transport enqueue path.
+
+v1: https://lore.kernel.org/r/20261030130629.103716-1-kalcutterc@nvidia.com
+
+ net/sunrpc/svc.c      | 5 +++++
+ net/sunrpc/svc_xprt.c | 5 +++++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+index af8d87c1de83..6100603e0a34 100644
+--- a/net/sunrpc/svc.c
++++ b/net/sunrpc/svc.c
+@@ -784,6 +784,11 @@ svc_stop_kthreads(struct svc_serv *serv, struct svc_pool *pool, int nrservs)
+ 	do {
+ 		set_bit(SP_VICTIM_REMAINS, &pool->sp_flags);
+ 		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
++		/*
++		 * Order flag updates before the idle list and task state checks.
++		 * Pairs with the barriers in svc_thread_wait_for_work().
++		 */
++		smp_mb__after_atomic();
+ 		svc_pool_wake_idle_thread(pool);
+ 		wait_on_bit(&pool->sp_flags, SP_VICTIM_REMAINS, TASK_IDLE);
+ 		nrservs++;
+diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
+index 076c624fe675..868e3da57b6c 100644
+--- a/net/sunrpc/svc_xprt.c
++++ b/net/sunrpc/svc_xprt.c
+@@ -632,6 +632,11 @@ void svc_wake_up(struct svc_serv *serv)
+ 	struct svc_pool *pool = &serv->sv_pools[0];
+ 
+ 	set_bit(SP_TASK_PENDING, &pool->sp_flags);
++	/*
++	 * Order flag updates before the idle list and task state checks.
++	 * Pairs with the barriers in svc_thread_wait_for_work().
++	 */
++	smp_mb__after_atomic();
+ 	svc_pool_wake_idle_thread(pool);
+ }
+ EXPORT_SYMBOL_GPL(svc_wake_up);
+
+base-commit: 2d3259f652bb0f1d137ccabecac6763da05064ec
 -- 
-cheers,
-jose a. p-a
+2.53.0
+
