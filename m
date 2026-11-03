@@ -1,100 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729888;
-	b=hDHyUWF/orVv4StCXg8hZslrtxOnGnaPRgjhi7JAdZO2fnrdVuvLm9JjgIV5jyZnUdw+
-	 vMC+beHGSprL95SsepOPysRriN6+xl8ied09bFiLd6DS1ut+wW0wCr3X6V+ksPjNq93AF
-	 uXQ0cHM7qqwRKwmNKBervfnk2OldHYV9+++jCuW6dtfxbCBAFJXUQOFZPShycEDipm5Kd
-	 Ficz6pPOELv9ZJWe6o5EgnLgyXa3gbi2tf7P0PEG59wcw035roPiVH5ueCi5fmfzvwgQa
-	 FVzjMD4kFlhZHVjGnW2WZkoGnTvo3NMf01rztZEbq/4oSo4TqcCygY+5CGtVGMDgXbQ==
+	t=1793729912;
+	b=qpMiJqEY1qvgSfEy0KrhM2hPBRLhyqItSyqm2LJzpKhvu7/+wSzCAFJJ60UMCiFiuxzv
+	 orsbWbKcyoXWZYmpv8ZVUilBBYU5WCFOYJ9roT4vXriRoLgyjV80zT+Tx+ckzD2IoFaww
+	 u9yLEGYB5t3oxe0M39KSabtNPcN2L3f9SCIGcQEX0c60qA2sODaDam2XAlNNRIMzonBnD
+	 RD22oSkpYhukhajykVBu849/EKxYhC+AKaehyRkblJvYTZdIY+tOFrHBJ2pg0BovMOv3U
+	 4skCnk5alP0QgY/JHJ6DB9QeKpxTBObGV2wr3jhLaOWjdEbe7A9UweVBKw2LKPCnn1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729888;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=UTXYGVplWAO8VvUr57iHtg64uySoLqOFfaNXV4F6AE0=;
-	b=txhynjVJYyvyEla9CTfguamWmQpz6S2Lq+y7PplVF48fqFSkkeD8rLMg2Dpo4mG9ayl4
-	 cJ7emut9KKUxjqj8gM9H3ClRxig6IDMs3lwcdi1twTca/Xz5ouWjsnc63TqQwUH2D9vv8
-	 d3jGrZXjowWNFTeu26ahHopFjU9No7wV0iPKLwaMksmcwriHslvLpjqmu++NjgKS3W46R
-	 40XY8btpGt0uCFMMVPEmODnc9nC/hwkLwdXDLuM8NNSX12h8b9/VazFRUEce4l473zJXR
-	 w8TTaIJJQAQdUfULCaEyO5Zws0lXMXCPkDEax2LA4eHkEdhe5YO++TFOekNGKpYocAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729912;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=JOdDlevIHNgLi2iwEh1cVPzFxmgUEr7GY2bhR9cio/A=;
+	b=o3QzAc+PiU+LL3eFZqyDd8S/H+h9hhutHM+hNfeA9XNxqIKOnAEUypPAZRmE/ql9eHLU
+	 7GXP0RQUU5dKOgd86D9gWD8oWUaQUKokoh/njBzxWkhDaL5upM14Rkh1YKnhemlSMAOzl
+	 agu4qOJ5V5AdHmfF2Y/YYjfDMt8hdvz9nSWIMPF8Nmc8JL0EPA2O6pbntS9fAiF9xR0pA
+	 ljIF4yvNE6xljf0KrkNRtovFa0dWdtdee2t+I7iqdp/h/mX2U2lWli4bldyoIiU67Fp9W
+	 vCCW1T8spzBq7KzKTncIBAki2Q1X3+qwFJyQ67ISnHsJxhyKVWkcukKNj47589BSpBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pouAy1+o;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Amh9Kqcq;
+	arc=none smtp.remote-ip=91.218.175.148
+Received: from mta0.migadu.com (out-148.mta0.migadu.com [91.218.175.148])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A76606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:18:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6A76606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F21D606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:18:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F21D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pouAy1+o
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso2118750a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:18:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793729882; x=1794334682; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UTXYGVplWAO8VvUr57iHtg64uySoLqOFfaNXV4F6AE0=;
-        b=pouAy1+ok7smtwkWcvXNMyZ+av0YOdP0F2CTGZJOdo1h+iagn9OJO5sfsRkmcddUsw
-         /Z/npUVUN5GPnT/E9FigiZbxl74IB5Nuz4RC0yOOKHHfGNW6zJA8m7jbSQTn9U4irWsj
-         XvNRItPUfHKulRKzdu7VGzij4llfxI7+zx9vvw2DKTps7MupL8YztsuLMMzNdSrZEzFr
-         /IUbp8dxpt71AtJmpe6ZsnL443v1SzH45RkK7sWebng/CrGRt8kY2q5neiOxe+MUZpIS
-         YYtsSyTn8Sz432BXUbsql1oJYhZP7lhawuqZnQYPO6fV/Da3R5YdqFW213nIgnI6zwsU
-         AfzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793729882; x=1794334682;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UTXYGVplWAO8VvUr57iHtg64uySoLqOFfaNXV4F6AE0=;
-        b=Z0gpF+XaOo5VqOMs6lLQ3HB3D6qubly0HSPeZNz4d2ENZuYm+dT+w21Mlu1mKn61/w
-         tHBgdi54O7c0Jy9x4PmoOjxuxEgptjakGHr8i7tg6Z1yjvcUTXvggRc3/GnhAvHFtXID
-         eme+Dxfpa38fFIsfYi6Eq7aZg5oZKGjQtSvcdFLgpydeGVeJcvBwrAqNkUUZBYZjHHB/
-         /9quS8HEnB7thm5GuQh3/DwBHq9SDTenQX3pV3Wz9Lk7L0BPJEZYBkiZzxaxl2SSIbgm
-         JhN6DfS9zyYUsnVtW7bTGsp8+G9PBTNlhoFTsJzlyahDAEGs55iHqlQeGsKLb7qbNZQU
-         Rtrw==
-X-Forwarded-Encrypted: i=1; AKwUvBwvMoiAZlLoexxP5Q1FM+ipwKK32XxS/p6eHiFyWuwR0CIfVvazq4YD2yTRvfzYrYxW2xe5x0+JWgpKAxo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Of4UFxyyhHTDJaVa49gZS2S2OEl+5bE13FoBrI1bL6eUTFL4m
-	weOzU+pDRTk5in6b/zb0HQzjd4y2MF2rHqYz8Uu3TJQyKYCC0ECytJ9u
-X-Gm-Gg: AYBFou2gEiEdROUrDtc0DckNNNYLIeLxx8eetQWz0tjwWBdavc9qf30BixV1EkipdqL
-	MXYmetgDiozEpD3jQBkmSBhOpQs6Mf/g6NRiEiPN3vA512jkt8FS3gv0cj1vwHzyBYqYr8msgb3
-	QhkNtEN/WWZomS2GaP5czrBOlaDTd7CXK7MBiwU2Dy8CNh7qyXcVt+F0XyMTVM8uJMMFaHNBwzt
-	9uWlxcHbBSdEhaHkKrHwW0LRc7ExG4WKwp5Kseypt09fDwE8Rp0nqWkNtz5GaKItDbe2UmHO5y8
-	ZOHtQfyhcBn6iiAxlRaq5l5iGsv8bVEfzH2MgGlfltGqntJY2vBBY7VRYRIia7TttMI+U62xHmC
-	RyZlOnSSDMMvLCS/p9Q9v9pxR58dnwp+bX2CgwEg3N00VsfdcaDrPmxtf6rF/acIrMAoGSII1wM
-	HAWWvQRp3yudZsdpiHsaEmvGI5RQn1DAKq40r6NRg0WS5YgOJnfKCKHpWtafjZtbypbYW5bU4kU
-	zLTy3XAQAAfmyoggx6ANvE/svNE23GfPRI5IaIL0IGzlkHJ7x5EnVjcMzZb1GuBzCCLghJPy70z
-	HDov87/qrNFPNDa6Pye0CFYLI3AtqN1fh+TQJTYEC8zmpvCshFBM1vG9CVgB4kG9dRpWmAFRdsl
-	mtlm9HNDDXv6NhwjosvgxEw9c8LaEZCyEUZoUBhx1eiG81R5uMHv+BEU=
-X-Received: by 2002:a17:90b:3d4e:b0:3ad:1841:6f8b with SMTP id 98e67ed59e1d1-3ae8981e41fmr10183965a91.37.1793729881831;
-        Tue, 03 Nov 2026 10:18:01 -0800 (PST)
-Received: from localhost ([153.61.198.255])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c7e087csm5445702a91.4.2026.11.03.10.18.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 10:18:01 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 03 Nov 2026 18:18:00 +0000
-Message-Id: <DMLS6BDLXMCV.1C0EN486O4XLV@gmail.com>
-Cc: "Jamal Hadi Salim" <jhs@mojatatu.com>, "Jiri Pirko" <jiri@resnulli.us>,
- "Martin KaFai Lau" <martin.lau@kernel.org>,
- =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
- <netdev@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] bpf: net_sched: reject bpf_throw() in qdisc teardown
- callbacks
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "shaos" <shawnq1@163.com>, "Amery Hung" <amery.hung@bytedance.com>
-In-Reply-To: <6AEA1AAD.2E7977.08739@m16.mail.163.com>
-References: <6AEA1AAD.2E7977.08739@m16.mail.163.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Amh9Kqcq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9H6pGX+rS5AHSpcrFCfzr8bnyddolLBtfUym3kTqrEw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793729908; v=1; x=1794334708;
+ b=Amh9Kqcq0wK3tEPwBgJF9ZqDdhzwCOdklWc2r/zczwHAbc0bFOMiEMfBGTXn/471i0kRLz+v
+ jkL7S3mPNvzsw0xKjwFsIT/zt83KnYKFtP959Nd9aznJgbQmZk5A9BNdg9VM+B7GKdLrAfoRzcb
+ wvTYp4htO/MHB5yAszIf/lKc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8b07ecaecb260597;
+	Tue, 03 Nov 2026 18:18:28 +0000
+X-Mizu-Trace-ID: 8b07ecaecb260597
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	jose.marchesi@oracle.com,
+	david.faust@oss.qualcomm.com,
+	Vineet Gupta <vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v4 0/8] selftests/bpf: let the arena tests build with GCC
+Date: Tue,  3 Nov 2026 10:18:08 -0800
+Message-ID: <20261103181816.254686-1-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,50 +79,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 09:32 AM shaos <shawnq1@163.com> wrote:
-> A BPF qdisc's generated reset/destroy epilogue cancels its watchdog
-> timer.  bpf_throw() unwinds directly to the exception callback and
-> skips that epilogue.
+The arena selftests cannot be built by GCC today. Three separate
+build failures stand in the way, and they are all hidden rather than
+avoided by the __BPF_FEATURE_ADDR_SPACE_CAST guards wrapped around
+those tests -- the moment a GCC defines that macro, which is what the
+in-progress arena support does, the guards stop hiding them and the
+build breaks.
 
-That's a bug in the verifier. bpf_qdisc.c is the wrong place to fix it.
-gen_epilogue() is a contract: the epilogue runs before the prog returns.
-bpf_convert_ctx_accesses() puts the epilogue in place of BPF_EXIT
-in the main prog only. The exception callback is a subprog.
-So bpf_throw() breaks the contract for every gen_epilogue() user,
-bpf_testmod included. Fix it there.
-Then bpf_qdisc.c doesn't need to know about bpf_throw: no BTF id,
-no QDISC_OPS_KF_TEARDOWN, no forward declaration.
+Behind the same guards the reporting is also not true. Tests inside a
+whole-file guard do not appear at all, so the report is silent about
+them. Tests with a guard inside the function keep an empty body that
+satisfies __success __retval(0) by doing nothing, and report OK.
 
-Like:
+So: fix the build failures, then drop the guards entirely and tag the
+few tests that genuinely need the feature, which removes the
+empty-body failure mode rather than reporting around it.
 
-diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
-index ead7871..5363e88 100644
---- a/kernel/bpf/fixups.c
-+++ b/kernel/bpf/fixups.c
-@@ -909,6 +909,11 @@ int bpf_convert_ctx_accesses(struct bpf_verifier_env *env)
- 			verifier_bug(env, "epilogue is too long");
- 			return -EFAULT;
- 		} else if (epilogue_cnt) {
-+			/* bpf_throw() leaves via the exception callback */
-+			if (env->seen_exception) {
-+				verbose(env, "bpf_throw would skip the epilogue of the program\n");
-+				return -EINVAL;
-+			}
- 			/* Save the ARG_PTR_TO_CTX for the epilogue to use */
- 			subprogs[0].stack_depth += 8;
- 			insn_buf[0] = BPF_STX_MEM(BPF_DW, BPF_REG_FP, BPF_REG_1,
+Numbers are test_progs on bpf-next with a stock bpf-gcc, before and
+after:
 
+ 1/8: Gate the callx tests on CAN_USE_CALLX, which also accepts a GCC
+      defining __BPF_FEATURE_CALLX.
+   -> 79 newly visible, 78 OK and one @unpriv SKIP.
 
-> Fixes: 7a2dafda950b ("bpf: net_sched: Add a qdisc watchdog timer")
+ 2/8: Keep clang-only warning flags out of GCC builds.
 
-With the fix in the verifier it's
-Fixes: 169c31761c8d ("bpf: Add gen_epilogue to bpf_verifier_ops")
+ 3/8: Make arena_base() opaque to GCC's -Warray-bounds, as stream.c
+      already did for its own copy, and fold that copy back in.
+   -> no verdict change.
 
-Pls add a selftest as patch 2. bpf_testmod_st_ops has gen_epilogue().
-A test_epilogue prog that calls bpf_throw(), with __failure and __msg(),
-is enough. See progs/epilogue_exit.c.
+ 4/8: Spell the addr_space_cast address spaces in decimal. gas only
+      took hex after 2.47, and the failure is in the assembler.
+   -> no functional change.
 
-Pls target bpf-next and cc ameryhung@gmail.com on respin.
+ 5/8: Write the mixed arena/scalar ALU tests in asm, rather than a
+      volatile register variable GCC may optimise away.
+   -> both now run under a stock bpf-gcc.
 
-pw-bot: cr
+ 6/8: Drop the arena guards and tag the tests that need the feature.
+   -> 27 newly visible, 22 running and passing; four need the tag.
+
+ 7/8: Cast explicitly in the four struct_ops arena triggers, which
+      test_loader does not drive so the tag cannot reach them.
+   -> 2 tests stop reporting a vacuous OK and run for real.
+
+ 8/8: Cast explicitly with bpf_addr_space_cast() in the arena subprog
+      and callback faults, as the sibling tests already do.
+   -> 15 FAIL -> OK, 5 newly visible.
+
+Totals for the series:
+
+  FAIL  472 -> 456        OK -> FAIL regressions:  0
+  OK   7061 -> 7167
+  SKIP  753 ->  772
+
+v3 -> v4:
+
+Alexei suggested simpler mechanisms for three patches. That exposed
+build failures that had to be fixed first, so the series is renumbered.
+
+ - v3 3/8: the #else dummies are gone. Rather than give each guard a
+   placeholder that reports SKIP, drop the guards and tag the tests
+   that need the feature (Alexei)
+ - v3 4/8: arena_base() folds barrier_var() (Alexei)
+ - v3 8/8: cast_kern() instead of the flag in .data. (Alexei)
+
+ - New 4/8: addr_space_cast address spaces in decimal. gas has bug
+   which is fixed but not released yet
+ - 5/8: the asm rewrite of the mixed ALU tests moves ahead of the
+   guard removal -- with the guards gone GCC sees the volatile
+   register variables and -Werror=volatile-register-var fires. Both
+   tests now run under a stock bpf-gcc.
+ - verifier_hmul_arena.c converted away from dummy skip for consistency.
+
+v2 -> v3:
+
+ - Rebased on bpf-next.
+ - 1/8: the bot asked about data_in_arena.c, whose use_ops() gated an
+   indirect call on __clang__ with no arch condition. That file has
+   since gone in 3c13b2e5a40e ("selftests/bpf: Remove tests for global
+   data in arena"), so nothing is left to convert. The missing word in
+   the commit message is fixed. (bot)
+ - 7/8: the comment on the r9 load said it was what makes libbpf record
+   the arena, which stopped being true with cd7a395838cb ("libbpf: Bind
+   the arena of an object to every program in it"). The load is now
+   only a fallback for a kernel without fd_array_cnt and for the light
+   skeleton; say that instead. (bot)
+
+v1 -> v2:
+
+ - 1/8: the __skip() reason named only x86/arm64 while CAN_USE_CALLX
+   also accepts riscv64. Say "arch JIT" instead of listing them, so
+   the string cannot go stale the next time an arch is added. (bot)
+ - 3/8: jit_insns_arena.c was missed. Both of its programs are inside
+   the guard, so without arena support the object has none at all and
+   RUN_TESTS(jit_insns_arena) ran zero subtests without saying so.
+   (bot)
+ - 5/8: commit message only. It cited arena_types to argue the kfunc
+   tests need no cast, but the address parameters carry the __ign
+   suffix, so get_kfunc_arg_type() returns ARG_IGNORE and
+   check_func_arg() returns before any register type check.
+   Conclusion unchanged, for a better reason. (bot)
+ - 5/8: arena_kfunc.c, verifier_arena_globals1.c and
+   verifier_arena_globals2.c had the same empty-body shape and were
+   missed; nine more guards go and seven more tags arrive.
+   arena_kfunc.c alone had eight subtests reporting a vacuous OK.
+ - 8/8: new patch, for the four struct_ops arena progs.
+
+   The three bot findings prompted a sweep of every prog with an
+   arena guard, which is where the last two came from.
+
+Link: https://lore.kernel.org/bpf/20261028000411.4010967-1-vineet.gupta@linux.dev/ [v1]
+Link: https://lore.kernel.org/bpf/20261028204158.1021284-1-vineet.gupta@linux.dev/ [v2]
+Link: https://lore.kernel.org/bpf/20261102220717.4079739-1-vineet.gupta@linux.dev/ [v3]
+
+Vineet Gupta (8):
+  selftests/bpf: Build callx tests with GCC that defines
+    __BPF_FEATURE_CALLX
+  selftests/bpf: don't pass clang-only warning flags to GCC
+  selftests/bpf: make arena_base() opaque to GCC's -Warray-bounds
+  selftests/bpf: spell the addr_space_cast address spaces in decimal
+  selftests/bpf: write the mixed arena/scalar ALU tests in asm
+  selftests/bpf: drop the arena guards and tag the tests that need arena
+  selftests/bpf: cast explicitly in the struct_ops arena triggers
+  selftests/bpf: cast explicitly in the arena subprog and callback
+    faults
+
+ tools/testing/selftests/bpf/Makefile          |   8 +-
+ .../testing/selftests/bpf/Makefile.buildvars  |   6 +-
+ .../bpf/libarena/include/bpf_arena_common.h   |  11 +-
+ .../bpf/prog_tests/callx_rodata_lskel.c       |   2 +-
+ .../selftests/bpf/progs/arena_atomics.c       |  32 ++--
+ .../testing/selftests/bpf/progs/arena_kfunc.c |  18 +--
+ .../selftests/bpf/progs/arena_kfunc_jit.c     |   5 +-
+ tools/testing/selftests/bpf/progs/bpf_misc.h  |  16 ++
+ .../selftests/bpf/progs/callx_rodata.c        |   4 +-
+ .../bpf/progs/compute_live_registers.c        |   2 -
+ .../selftests/bpf/progs/jit_insns_arena.c     |  10 +-
+ tools/testing/selftests/bpf/progs/stream.c    |  62 ++------
+ .../selftests/bpf/progs/struct_ops_arena.c    |   3 +-
+ .../bpf/progs/struct_ops_arena_autobind.c     |   3 +-
+ .../bpf/progs/struct_ops_arena_member.c       |   3 +-
+ .../progs/struct_ops_arena_member_render.c    |   3 +-
+ .../selftests/bpf/progs/verifier_arena.c      | 138 ++++++++----------
+ .../bpf/progs/verifier_arena_globals1.c       |   6 +-
+ .../bpf/progs/verifier_arena_globals2.c       |   3 +-
+ .../bpf/progs/verifier_arena_large.c          |  21 +--
+ .../selftests/bpf/progs/verifier_callx.c      |   5 +-
+ .../bpf/progs/verifier_callx_rodata.c         |   5 +-
+ .../selftests/bpf/progs/verifier_hmul_arena.c |  19 +--
+ .../selftests/bpf/progs/verifier_ldsx.c       |  14 +-
+ .../selftests/bpf/progs/verifier_zext.c       |   4 -
+ 25 files changed, 159 insertions(+), 244 deletions(-)
+
+-- 
+2.53.0-Meta
+
