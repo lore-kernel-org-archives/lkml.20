@@ -1,71 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701480;
-	b=g3xjeSgpyon/+zY4L5/+8JAsOVCeuhYjqggKq16Aikg0Q60j+GXwbyhDhJj5oXDWSpVG
-	 Uxq3wQy8bjUEqNH69oR5hC0CY2LjW9DIDyn0tSM+yxfy9ymrvHiqOxXybb2l5BTEBBj+q
-	 AwG+FHaL7cxg4Mm4+5XjFdOH7r7t+e0nnMnYG5rNUHjjFpgadzrFDF5kEdi72Qr2fVQk5
-	 kllX6k65XKi8iz7+iZ8oGokCXORH642OYb4b3xKw8bbyPyYiwiho0hLQ+XlAq1ba4ED2D
-	 KIVAaPsmM5qGur4J/QdP79Mpg70M1cZMCKYHvfZ+RgPmwMGEdPIwUbPu89ebhu1vDMw==
+	t=1793701526;
+	b=5EV8cqsU90EynvzKYZSz5Hj0YdGJrasTnjC5hKbR5JFDsReg0j2cxIcvLz05K6TsRBnI
+	 krzbubPC4rdQyeUMEkPh8ToFKp1EqAfmsXvf29IxwJiLvX9v5tBmYORhxKiSrowoYO1F0
+	 qQzbxEe7z5A+0OWU6rErMwYLKqpGZaJCm6nDpU33qC/O4s97K4zDwBZ+EoNhYi/BFZnac
+	 zJXc3Vm59HowUGDLU9BADMC9V+FAgJRsCZBxnxnhK5FA5WnPvhUEj8Aqh4nDd46OO8b4j
+	 2nx21rR+oQ8Hqg/lcUp75Fk8lO1Uut9RfWCDtOl0z/DY3aFvpM9gHkaz8KYxzWuW/lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701526;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=iqtjYzgu2I1Hylg8Qdsswr/+z0+QJovnigJsnMXHcB0=;
-	b=Oktuide5N+ZgKPeRL4qOa6Jagy2rHB2c874Ud63Tkk1kBSkW2Css9ammvcthUc3fMYmg
-	 czX4YiFrfOFluKn9tDKYtmCXDlvslWvghgyRdDjsGa/BZoSfBbs1LwOz9gLWr1aCeYcuX
-	 Un73PVvJ3qsqdG/mISvRlZ5/nT7uphhPpyKPMrE3LtbSnYxUyHl0pZwgR2ToMXHVF6OOw
-	 AyA9ASQ3DksSP6vv4ZwjLl9rz82qax7VTuxUHkxN3wLROQO/57URQKSEA3tZqZTaty6Kl
-	 D0wDGJZxT/lzTsPom1cf4iK+hHHVGjE5HSAkVP/GhvZnN9R+5PkVz5pZtlD2I6UXjpQ==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+J0rJ4vWuXzYWLgoaYEslPExHaXtpToRbQqZMZ4m7gc=;
+	b=joPmmMVAwxrIVX1jZmmiolupt46XlbuOthsE8Pkrd4yyMf81g2AMkEEzZPQxL7yRIQK1
+	 avWD2iF0kDpnvOFvvLo7RQRh9MVNG0gIMb1R9pf6GQ143FbzVQMKXYXF0v820xc20XMAo
+	 r71sNLwE8JERsB9TPIRSi9DmDSaEmujkN3y30Hq1/svQHl9jgEZ7jfTCJU0O6W1PKkv4p
+	 zAl26a2D7AR/WHreJrToNmoJQ7mksrK9FnJBTXNax/tu6Z0NW+3rWGyTCp0BE+w7QT9nO
+	 dM0/yKrG/U2JzN3uhCcgkdfT+Tu6QOZAv3A8rt4QtuNkdTLN+/IvUN/jRL0AcVIelzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C8wTTWMq;
-	arc=none smtp.remote-ip=91.218.175.218
-Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=luIMJgvt;
+	arc=none smtp.remote-ip=95.215.58.118
+Received: from mta1.migadu.com (out-118.mta1.migadu.com [95.215.58.118])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4463606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:24:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4463606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E986D606A82E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:25:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E986D606A82E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C8wTTWMq
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=luIMJgvt
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VkGYg50QptEgAf+1QC8qCKNvD4ydGpa/wOII2vh6grI=;
+DKIM-Signature: a=rsa-sha256; bh=gaHv0TLl0rmOaOhD7yTvVPALO1ybZo6FJXe/7G4QswA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793701477; v=1; x=1794306277;
- b=C8wTTWMqhQK3fXLRmjnTuBXUHcsLeAAWYNwujf9BzhO5XJbMOl/H5lB8Gqvx3tK+VW7aJUw6
- WueGjPcDi3FGZz/T3fHF6gl942L3J96tg/FrexwkgZdz3AS5fK8UPOzv6TZBUfuRT4zTQEeltRj
- qHgMH4B9/6opc0b01MXJF5ww=
+ t=1793701524; v=1; x=1794306324;
+ b=luIMJgvtGwFHDUGkSz6ynQWcQc4VtW2U8iEQeIlj1Qkf/px9/oipHJb14cK1gCUbrKgYtytv
+ xhw226d579b9r5L4fwKWlnTY56DPmZQMND/Qp0LllX7Ip4fwjKSzmvzxMFr3mkakZ6zwiySYYB9
+ tGK5GeehmvyZ8A2jQcN7QKdM=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eca278e05c33fc76;
-	Tue, 03 Nov 2026 10:24:37 +0000
-X-Mizu-Trace-ID: eca278e05c33fc76
+Received: by smtp.migadu.com with ESMTPS id 0487e6aa01e77fbc;
+	Tue, 03 Nov 2026 10:25:22 +0000
+X-Mizu-Trace-ID: 0487e6aa01e77fbc
 X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Christoffer Dall <christoffer.dall@arm.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH v2] KVM: arm64: nv: Size nested stage-2 MMUs by the NV PARange cap
-Date: Tue,  3 Nov 2026 10:24:36 +0000
-Message-ID: <20261103102436.1605347-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
+Message-ID: <950ad328-d16d-4cfc-b130-6a43530507ae@linux.dev>
+Date: Tue, 3 Nov 2026 18:25:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,111 +58,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH -v4 03/22] cpuset: generalize the validate_partition()
+ interface
+To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Koutn? <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Chen Ridong <chenridong@huawei.com>, Ridong Chen <chenridong@xiaomi.com>
+References: <20261101114206.2434398-1-ridong.chen@linux.dev>
+ <20261101114206.2434398-4-ridong.chen@linux.dev>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261101114206.2434398-4-ridong.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-KVM caps the PARange it exposes to an NV guest at 48 bits, but sizes
-the nested stage-2 MMUs with kvm_get_pa_bits(), which returns the host's
-IPA limit.
 
-On a 52-bit host, every TLBI ALLE1IS from the guest hypervisor then has
-KVM unmap each valid nested stage-2 across a range 16 times the one the
-guest can use. Under QEMU, the KVM init of an E2H0 guest hypervisor
-doesn't complete within 20 minutes.
 
-Make kvm_get_pa_bits() return the 48-bit cap for an NV VM, and bound the
-walks KVM does on the guest's behalf by it rather than by the host's IPA
-limit. Have kvm_handle_guest_abort() inject its address size fault above
-the cap too, so that an L2 access above 48 bits doesn't get an SEA from
-the smaller nested MMU. If userspace gave the NV VM an IPA size above 48
-bits, an L1 access above 48 bits then also gets the address size fault,
-instead of normal stage-2 handling.
+在 2026/11/1 19:41, Ridong Chen 写道:
+> From: Chen Ridong <chenridong@huawei.com>
+> 
+> Refactor validate_partition() to take the parent partition, the new
+> partition root state, the new effective exclusive CPUs and the CPUs to
+> be deleted, instead of a trial cpuset. A NULL parent stands for a
+> remote partition, whose CPUs come from top_cpuset. This makes the
+> interface flexible enough to handle both local and remote partition
+> validation.
+> 
+> The housekeeping conflict check is folded into validate_partition(). It
+> is skipped when the parent is not a valid partition root, as @cs can't
+> be a valid local partition in that case.
+> 
+> Use the new interface for local partition enablement in
+> update_parent_effective_cpumask() and in partition_cpus_change(),
+> replacing the open-coded checks there. The order of the checks is now
+> the same for both paths: empty CPUs, housekeeping conflict, then no CPU
+> left for tasks.
+> 
+> Signed-off-by: Chen Ridong <chenridong@huawei.com>
 
-Fixes: 4f128f8e1aaac ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
+nit: is this old tag still needed?
 
-Notes:
-    Changes since v1 [1]:
-    - Fold in the kvm_handle_guest_abort() change from my reply to
-      Sashiko, so that an L2 access above 48 bits gets an address size
-      fault rather than an SEA.
-    - Bound setup_s1_walk() and setup_s2_walk() by kvm_get_pa_bits()
-      rather than by the host's IPA limit (Wei-Lin).
-    
-    The 48 is written here and in limit_nv_id_reg(). I couldn't derive
-    it from the VM's ID_AA64MMFR0_EL1, since the nested MMUs are created
-    in kvm_setup_vcpu(), before kvm_reset_vcpu() initialises the VM's ID
-    registers. Userspace can also lower PARange afterwards.
-    
-    Based on v7.4-rc1.
-    
-    [1] https://lore.kernel.org/all/20261030105139.3543230-1-fuad.tabba@linux.dev/
+Thanks,
+Guopeng
 
- arch/arm64/kvm/at.c     | 2 +-
- arch/arm64/kvm/mmu.c    | 4 ++--
- arch/arm64/kvm/nested.c | 3 +--
- arch/arm64/kvm/reset.c  | 4 ++++
- 4 files changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
-index 30d8f062b2c29..69bc621226cc2 100644
---- a/arch/arm64/kvm/at.c
-+++ b/arch/arm64/kvm/at.c
-@@ -383,7 +383,7 @@ static int setup_s1_walk(struct kvm_vcpu *vcpu, struct s1_walk_info *wi,
- 	ps = (wi->regime == TR_EL2 ?
- 	      FIELD_GET(TCR_EL2_PS_MASK, tcr) : FIELD_GET(TCR_IPS_MASK, tcr));
- 
--	wi->max_oa_bits = min(get_kvm_ipa_limit(), ps_to_output_size(ps, wi->pa52bit));
-+	wi->max_oa_bits = min(kvm_get_pa_bits(vcpu->kvm), ps_to_output_size(ps, wi->pa52bit));
- 
- 	/* Compute minimal alignment */
- 	x = 3 + ia_bits - ((3 - wi->sl) * stride + wi->pgshift);
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 1db10d8d6db73..620fc6d1674bc 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -2440,8 +2440,8 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
- 	is_iabt = esr_trap_is_iabt(esr);
- 
- 	if (esr_fsc_is_translation_fault(esr)) {
--		/* Beyond sanitised PARange (which is the IPA limit) */
--		if (fault_ipa >= BIT_ULL(get_kvm_ipa_limit())) {
-+		/* Beyond the VM's PA limit */
-+		if (fault_ipa >= BIT_ULL(kvm_get_pa_bits(kvm))) {
- 			kvm_inject_size_fault(vcpu);
- 			return 1;
- 		}
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 4d83281a7a28b..a04ba4bf30a40 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -491,8 +491,7 @@ static void setup_s2_walk(struct kvm_vcpu *vcpu, struct s2_walk_info *wi)
- 	wi->t0sz = vtcr & VTCR_EL2_T0SZ_MASK;
- 	wi->pgshift = vtcr_to_tg0_pgshift(vcpu->kvm, vtcr);
- 	wi->sl = FIELD_GET(VTCR_EL2_SL0_MASK, vtcr);
--	/* Global limit for now, should eventually be per-VM */
--	wi->max_oa_bits = min(get_kvm_ipa_limit(),
-+	wi->max_oa_bits = min(kvm_get_pa_bits(vcpu->kvm),
- 			      ps_to_output_size(FIELD_GET(VTCR_EL2_PS_MASK, vtcr), false));
- 	wi->ha = vtcr & VTCR_EL2_HA;
- 	wi->be = vcpu_read_sys_reg(vcpu, SCTLR_EL2) & SCTLR_ELx_EE;
-diff --git a/arch/arm64/kvm/reset.c b/arch/arm64/kvm/reset.c
-index 10eb7249aa9e8..1918837757682 100644
---- a/arch/arm64/kvm/reset.c
-+++ b/arch/arm64/kvm/reset.c
-@@ -220,6 +220,10 @@ void kvm_reset_vcpu(struct kvm_vcpu *vcpu)
- 
- u32 kvm_get_pa_bits(struct kvm *kvm)
- {
-+	/* An NV guest's PARange is capped by limit_nv_id_reg() */
-+	if (test_bit(KVM_ARM_VCPU_HAS_EL2, kvm->arch.vcpu_features))
-+		return min(kvm_ipa_limit, 48U);
-+
- 	/* Fixed limit until we can configure ID_AA64MMFR0.PARange */
- 	return kvm_ipa_limit;
- }
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.47.3
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
+>  kernel/cgroup/cpuset.c | 112 +++++++++++++++++++----------------------
+>  1 file changed, 52 insertions(+), 60 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index df9fc126e391..df52f6e5e99f 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1438,6 +1438,41 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
+>  	return res;
+>  }
+>  
+> +/**
+> + * validate_partition - Validate a cpuset partition configuration
+> + * @cs: The cpuset to validate
+> + * @parent: Parent partition of @cs, NULL for remote partition
+> + * @new_prs: The proposed new partition root state
+> + * @new_excpus: The new effective exclusive CPUs mask to validate
+> + * @del: exclusive CPUs to be deleted from @cs, can be NULL
+> + *
+> + * The housekeeping check is skipped if @parent is not a valid partition
+> + * root as @cs can't be a valid local partition in that case.
+> + *
+> + * Return: PRS error code (0 if valid, non-zero error code if invalid)
+> + */
+> +static enum prs_errcode validate_partition(struct cpuset *cs,
+> +		struct cpuset *parent, int new_prs,
+> +		struct cpumask *new_excpus, struct cpumask *del)
+> +{
+> +	int parent_prs = parent ? parent->partition_root_state : PRS_ROOT;
+> +
+> +	if (new_prs == PRS_MEMBER)
+> +		return PERR_NONE;
+> +
+> +	if (cpumask_empty(new_excpus))
+> +		return PERR_INVCPUS;
+> +
+> +	if ((parent_prs > 0) &&
+> +	    prstate_housekeeping_conflict(new_prs, parent_prs, new_excpus, del))
+> +		return PERR_HKEEPING;
+> +
+> +	if (tasks_nocpu_error(parent_cs(cs), cs, new_excpus))
+> +		return PERR_NOCPUS;
+> +
+> +	return PERR_NONE;
+> +}
+> +
+>  /*
+>   * cpuset_update_sd_hk_unlock - Rebuild sched domains, update HK & unlock
+>   *
+> @@ -1955,18 +1990,10 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  	if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
+>  		new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
+>  
+> -		/*
+> -		 * Enabling partition root is not allowed if its
+> -		 * effective_xcpus is empty.
+> -		 */
+> -		if (cpumask_empty(tmp->delmask))
+> -			return PERR_INVCPUS;
+> -
+> -		if (prstate_housekeeping_conflict(new_prs, parent_prs, tmp->delmask, NULL))
+> -			return PERR_HKEEPING;
+> -
+> -		if (nocpu)
+> -			return PERR_NOCPUS;
+> +		part_error = validate_partition(cs, parent, new_prs,
+> +						tmp->delmask, NULL);
+> +		if (part_error)
+> +			return part_error;
+>  
+>  		/*
+>  		 * This function will only be called when all the preliminary
+> @@ -2432,32 +2459,6 @@ static int parse_cpuset_cpulist(const char *buf, struct cpumask *out_mask)
+>  	return 0;
+>  }
+>  
+> -/**
+> - * validate_partition - Validate a cpuset partition configuration
+> - * @cs: The cpuset to validate
+> - * @trialcs: The trial cpuset containing proposed configuration changes
+> - *
+> - * If any validation check fails, the appropriate error code is set in the
+> - * cpuset's prs_err field.
+> - *
+> - * Return: PRS error code (0 if valid, non-zero error code if invalid)
+> - */
+> -static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *trialcs)
+> -{
+> -	struct cpuset *parent = parent_cs(cs);
+> -
+> -	if (cs_is_member(trialcs))
+> -		return PERR_NONE;
+> -
+> -	if (cpumask_empty(trialcs->effective_xcpus))
+> -		return PERR_INVCPUS;
+> -
+> -	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
+> -		return PERR_NOCPUS;
+> -
+> -	return PERR_NONE;
+> -}
+> -
+>  /**
+>   * partition_cpus_change - Handle partition state changes due to CPU mask updates
+>   * @cs: The target cpuset being modified
+> @@ -2471,33 +2472,24 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
+>  				  struct tmpmasks *tmp)
+>  {
+>  	enum prs_errcode prs_err;
+> -	int parent_prs = is_remote_partition(cs)
+> -		       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
+> +	struct cpuset *parent = is_remote_partition(cs) ? NULL : parent_cs(cs);
+>  
+>  	if (cs_is_member(cs))
+>  		return;
+>  
+> -	prs_err = validate_partition(cs, trialcs);
+> -	if (!prs_err && (parent_prs > 0) &&
+> -	    !cpumask_empty(trialcs->effective_xcpus)) {
+> -		int prs = cs->partition_root_state;
+> -
+> -		/*
+> -		 * Check for housekeeping conflict by passing the whole
+> -		 * effective_xcpus as well as those CPUs that are to be
+> -		 * removed from cs as delmask.
+> -		 */
+> -		if (prs > 0)
+> -			cpumask_andnot(tmp->delmask, cs->effective_xcpus,
+> -				       trialcs->effective_xcpus);
+> -		else
+> -			cpumask_clear(tmp->delmask);
+> -
+> -		if (prstate_housekeeping_conflict(prs, parent_prs,
+> -						  trialcs->effective_xcpus, tmp->delmask))
+> -			prs_err = PERR_HKEEPING;
+> -	}
+> +	/*
+> +	 * Check for housekeeping conflict by passing the whole
+> +	 * effective_xcpus as well as those CPUs that are to be
+> +	 * removed from cs as delmask.
+> +	 */
+> +	if (is_partition_valid(cs))
+> +		cpumask_andnot(tmp->delmask, cs->effective_xcpus,
+> +			       trialcs->effective_xcpus);
+> +	else
+> +		cpumask_clear(tmp->delmask);
+>  
+> +	prs_err = validate_partition(cs, parent, trialcs->partition_root_state,
+> +				     trialcs->effective_xcpus, tmp->delmask);
+>  	if (prs_err) {
+>  		WRITE_ONCE(cs->prs_err, prs_err);
+>  		trialcs->prs_err = prs_err;
 
