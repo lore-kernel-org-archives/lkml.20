@@ -1,96 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716295;
-	b=vSeblJ/zc1hhqsdX1dqgbE0yEZjKydsHZcldpYyaEaP/A0FrTql2SuDav2sGZPSYHbyI
-	 xuU7rIK6oUopHGiafWtz+KRCeCUDqjpisRg4QYepYQOYmCn5xvKUrZkNWPa3LSCxb+qIq
-	 EyYekkXctokywkWPEPWuSNl5bxsGu7kDPwGddSoiI/4f5rENCUWMQtsAJAmZvtTEmFAhM
-	 lD68qokRHwY5ETR9xAHVd2DFDUk68qBgUARJZAOdfENiNxdh56itSDSiQLOXsZUAL3LFL
-	 +UD/2Tj6Pm9GrXKuzHj4XewKGAd9+OqxlsNJ+NDGn0Q8YZP8O+M2pnTgmr0LS7CJM9Q==
+	t=1793716290;
+	b=uZgH3eZeNaCj9ZK7IiVVZELoWterXEFHWf0Ke/CVFNPunGgc73RN7pWsGrBJAG+RrCLB
+	 hFTrPT1ENgeitPz42A/D7RQNwmM6mfP0G42IkpFr/ZS1IH9w+wvQASXu7Mm9fYP1srz+d
+	 2HBrnzRa6V3Zz8EXbRa+nDw23JA+SMllATsVqs5YwoPmdqfZ8TLxoOK+vJePiK8n8XC3G
+	 QQo9Hzim5vZb2N4SAnnuH7+lJJeh5mssz57TT8w6PSiQ5d7H8nAMB1kcGfSy+bjQLTDs4
+	 Aye6WTeM5NwLK46apKt/8Ee/pkd4nJxR8lcYvDMVwWwA6dvMfLUAycxU75FnQD/JCmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716290;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=KXzabl41ZeEnGrVAYqexhOU2oRggUUYi90hmQPge7Yw=;
-	b=Utzq/1XwftgwQQ7hJ4ee0xchXVWLyai0lGtkrFduNDrCVnBiAGDWrbFyRFMOXdACSmwl
-	 OOB7Tv/aMq48ywn6kUhjIgrz152w4VW3CJdXW6bztFu9apVGL+oGb1xNJLf8WllEIbAMA
-	 /uGNAoVdD5O5bd0H53QZmep6jvXqJtoEXxkQdnzBa/ncYLBNiC9qj+TyFuvVU0SHN0kkW
-	 JUc4x1IaJXtHkmTS9Bvq1x1pqdpEIu6DQZq0/6qXxHDw0NxHZJINBeAb+zB18TtgyTD8S
-	 QPs2lETX2nb2PHvOt4Y0wgqTXCUKWy/Ls4BAYltcrcLIlfDI1IsfpzC1/Es1CpUEffQ==
+	bh=lQP5UfoJGZ61K5R3SQuKiGS3++XV/5Fqa+MZBDFEMdI=;
+	b=C+XXCE02hbU55QOEP+4XqVH4hoQFG57VnMgs+ENU2lF+0xu67RzDFfsKFG6iTk1cBkoK
+	 mUBt+xkLwlltYm+znRWvo5GSucUydwx6dI5U/ROpF5X60+wJUyN5jtYtxYgop9K9GGI3J
+	 AFxLlq+T8tNiuzaCDDYZ17lBN4DcWfAnQgWJ+MYGxGKhew46NnMQUIpUdVm1YDzmq9hWx
+	 l1I9aU29VwasRKavoEHv8dfv1FBMcC0EgN0FeOO2N657yCWEW+NUMrJ/KBiySYvIxFgE0
+	 rQHpx30fAAe2dVOYjIHeZsUQw7H/ZgtmWyoQJg82RzF4HHsTIO9fTXKnECqAnCpWdrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gCUl3iG4;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="gKjJ/6Sv";
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A6F60850A9
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:31:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17A6F60850A9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4792E6083637
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:31:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4792E6083637
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gCUl3iG4
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1a8cc11ac42so4165690c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:31:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gKjJ/6Sv
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a3c08d6928so5345412c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:31:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793716294; x=1794321094; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793716289; x=1794321089; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KXzabl41ZeEnGrVAYqexhOU2oRggUUYi90hmQPge7Yw=;
-        b=gCUl3iG4R2jpywA1QQ9kJt+qOfE9h0zR8pM3mDaJcggKmtXx55bVra4P/CXDOGGj+/
-         imZ08kKIS3RRKi4i1kr6kpejvmVS50Y3yR7/XTpaS5JuhBBEOCyp9/9i1kYWs6MdYrQl
-         yLtTf3MHm9JQIo5zKXozqctrL9NL0pQ0pByG+gszIzL96BPuMiiHKfpG4l1yVo3qHknC
-         ivAQ90QDSnWP+Xtrq1eQL0PFOdlXaogQ4drK57lZtwum7/hFDE05T7pd4xyEf/U46DKW
-         LFl6oY2hd54Rfff9+G6Poc53Z5yB7GGzRMUmBl8axg/ufh8NqvuvLVva++p1tJA/A3o0
-         obPA==
+        bh=lQP5UfoJGZ61K5R3SQuKiGS3++XV/5Fqa+MZBDFEMdI=;
+        b=gKjJ/6SvSISn5g6EFsgPui5YEYC/MbDN05MclZGEWTEgK+qxGLT2Pqzke2uXQS6c9U
+         YfaHxiTLnY7Mm2g2eXYxsq+GmguraXytboIiKKpG2bDndyvwy/TGithPIDvxJSJG+G/g
+         qGR9nIuGQxyGmxV6pT5DM0z8EndE4zDPoxsPKNQHUevSm/NmDC5FAzBIxehXWW1MICJP
+         VkPwz9qSMV5dbjL6cWPjntuBAi8pRY0umW8vztqtlmNm6yxxkzOEyA05bn6l58XWzSmF
+         ZHEi49EDPDY2thdsvCrCtfCf+SQshoj90f+9nAGDyx1BidsELgEhui/ume8n37Ga9duU
+         H+vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793716294; x=1794321094;
+        d=1e100.net; s=20260707; t=1793716289; x=1794321089;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KXzabl41ZeEnGrVAYqexhOU2oRggUUYi90hmQPge7Yw=;
-        b=NEPnGSOQNtjEYT8Gfg1u3IkhWGMhBp4PbUdTyecerawne5kcC58M2wY30yWw/YFNVG
-         +I9sxGSU1nKi4L/7NWKzof+/rB4L3CRg9TcL6yRLkBLc0EKpU0ULDcrBYdN3lJ+eGyEv
-         vJlI+b+GCEyvL6Zz7LmflH3jlFS70zKdxCn1OcxLVkkA8wqp3bkMdLOszJ9gplUBvGqx
-         P7eJYwncoGIFnEZU78yCjiuiFN/vWKUhq25HKJI3yiijfgniy+TQXALKF4YaVBoEyoh/
-         KZoPtjGXQyxBjbSQYDvIPL4uTI/ntEp/n9n/0sxzzwsxrei5JKGTI4xatGop+VCZHAu3
-         LnVg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQadny/eb55PN5zWozisETLrPaxEEsH9321bdU1kPsXH/txhE7+A7c1hdcjd/TOjQBphQjClaltA7R0mQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gqO+ho2WYTfccfe7spIvvXge1an5B9ef5ce8Zg/4Q803cGaTz
-	uAzyyuUCwIxht6dgOV5szyj9G1HUCPkiuUG2wr/mKeXI1dHECRxtB1KlI7nF/c9C57s+p+QAuPa
-	IimRhiuw=
-X-Gm-Gg: AYBFou1dqTwqWYAvKBy5oa/fcxuEPi4lw055W6MskKTN5D387zeKNdYo1vPcIvVSohh
-	YkWdBKvLS3Mi5eJAH/5a4984TdgvzN5cJXd82U9+icv7xN5EIjFPbhVTFk9P6+MnAf/OmIaqWa0
-	OifI0FrAqSdZlJJPdv/nthEnU2i8a2yANpR84s75eWQiHEXUMC+L5EofDy5KxpMWH1fndCNK5O5
-	u5YEwJCMmkRQGYe4Qod5AbDvd/2DJzKjRNsWJPKS46C/DjpiHrxQOEzmNwmwUcJrU5C5KJ3co89
-	d83hHBBymB0uIuSAuV/9vrRk0oT17y4542cF6hY7veJSdBkmi5/XsSArjHp8fqrB8zrDcyjGj2k
-	Ksb4xPvb2qy430KecJ3ctXd0+9wLcMLvX6cZBwgxnHF+eLWjiLlyv1kZEeoFyN2ox03+4pURR51
-	2dHMB226NU2eRx7SK2zGuxXOSsfMj40x0kNYoUSejAAwKBR+6XW6NqQA/rX9iW3y6Xt8YikCiT0
-	t9pCjAChMF2MqsXb6qPcK7P5mMCZB5ua4HqDb7cGoY4qLYJ8Kq6n4AWok/tt/rqpgkiL1mfIU8/
-	21khFmNAgFmyPs838H2RD7XthrpHYci6Ba9RvPyUC0kK6hOW8P9yPKED/ZL3Imq29SY0rg3R88G
-	J6vf7qiAAHl6w
-X-Received: by 2002:a05:7022:eb44:10b0:186:5b49:90d8 with SMTP id a92af1059eb24-1ac5782fd31mr21082249c88.4.1793716294128;
-        Tue, 03 Nov 2026 06:31:34 -0800 (PST)
+        bh=lQP5UfoJGZ61K5R3SQuKiGS3++XV/5Fqa+MZBDFEMdI=;
+        b=E15GaoAEcMCdwYViMduxR9lbFZN5kT1O8GVOepY5KyujbQcgIbS6YTS8jN3GZ9tHLi
+         tqHrfFGliFfEkSID6N7xtHYISvOnAfhji/svom3B2VohywOB8IuD30n4PIUjbtVPZeKr
+         zX8aD/UVyrWxBdynQH9IRXXg3xbL/tfbj4RZj366o/4190a4028TVcMrSb8LUorxgZZG
+         0vmW5ZAXgdYw6h4OZxqAHc/RN5JYbzHTc3gYabXZ4MG5Glfc4HmGzW0nuvMK+JVO15N3
+         koAEOj8RoyEIQwvUPbcuHh1+FSdjsE3J7CwLVL39MpqwXDyZkwnu7Yc8e4W4RjM0ClFP
+         oMAg==
+X-Forwarded-Encrypted: i=1; AKwUvByPBor06IopEPmv7Q1BRuWoBjdMH3PF/nlnsTW5li3DI0JI8YST3YMEklri8OJsKacA77u6daAxSMuHdvg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99Pvq17JPBTwieEhWRUszVReRwzDsRFAOzDfoOayY8xT5OySXo
+	7nWEyiwKZfwSbIFt8kgAjTT9J6ba9BREWF0eM4HCfq6jO82CWOILNTgYloY07Ph2ozQ=
+X-Gm-Gg: AYBFou2h4IZhuaJdOgwZf6obn8XGVDKoxLO04ziGIGqublTASUd/lXhN/vuBWPErOcg
+	KzG4M6Jq3HNzGjU6qRZwwE7raekEVtzaStlBcHVeav809en0QNcQ6jwvfw+FGg2Y4eNPnP6p+oP
+	iYBuHPfdUrIQ97zPu6vCzsRU17ceArgYP+/EQFoHW67xOKk2Mz+2LJfVKC7IzXUKZYPDR/pPiA4
+	1UL6sJw3FIEo4JKrtUzvVkUxX2T7sCSg93+sp/47z6lv62HJY24fUkl9WJhOaOcFk2bnOhV8wF6
+	8EkFkfCTQzKHF5YJ3ygaw2VrXhxkHnCAPu0LG1/CJWKuYDr6UyC44iSxXByA+H1zDFeLOaTNJEw
+	C6XJ6+4NSO6qv2CZPmG1PeLgq1ADIkCcg+c0GZvT8X6DeNFjlkLKoww60EUFdXYIvVLBvXGZsAS
+	ESw/DQUw1uX4FdxADk5tFylYlDoOen6zOPEbY5/IiPQZcyM2N5tSDd1UVKAqytzkjw5x+iT58WT
+	7alu8ey71f8F1rL2SwhNSzfBukFELm61uKzteTQ7IVSd55o0GpnWxHDSjL+g3LN1zuHnpQNNMJK
+	szBkw0ucK1+27FN6Gc2yWBa93/ocPuPWfKmOnexMjOiBXj8CI4TfBw2SwLLOgEUCyS5jBgiUOdZ
+	rTZA1ZYYEgaER
+X-Received: by 2002:a05:7023:d0b:b0:144:e535:3ef6 with SMTP id a92af1059eb24-1ac5de53bbdmr21036321c88.41.1793716289438;
+        Tue, 03 Nov 2026 06:31:29 -0800 (PST)
 Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b23b847348sm9534779c88.4.2026.11.03.06.31.32
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b23b847348sm9534779c88.4.2026.11.03.06.31.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:31:33 -0800 (PST)
+        Tue, 03 Nov 2026 06:31:28 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
-To: tj@kernel.org, josef@toxicpanda.com, Zhe Liu <liuzhe1@kylinos.cn>
-Cc: cgroups@vger.kernel.org, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261102061802.408173-1-liuzhe1@kylinos.cn>
-References: <20261102061802.408173-1-liuzhe1@kylinos.cn>
-Subject: Re: [PATCH v2] blk-iocost: account flush sequence latency only
- once
-Message-Id: <179371629271.3691261.11171025306527479565.b4-ty@b4>
-Date: Tue, 03 Nov 2026 07:31:32 -0700
+To: linux-block@vger.kernel.org, 
+ Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>, 
+ Ming Lei <ming.lei@redhat.com>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+ syzbot@lists.linux.dev, 
+ syzbot+e90526cab23b9efcd03c@syzkaller.appspotmail.com
+In-Reply-To: <20261014170538.1089448-1-krystianmkaniewski@gmail.com>
+References: <20261014170538.1089448-1-krystianmkaniewski@gmail.com>
+Subject: Re: [PATCH v2] blk-mq: fix out-of-bounds read in blk_mq_free_rqs
+Message-Id: <179371628848.3691261.276757911523604089.b4-ty@b4>
+Date: Tue, 03 Nov 2026 07:31:28 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,20 +107,24 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
 
-On Mon, 02 Nov 2026 14:18:02 +0800, Zhe Liu wrote:
-> A flush sequence with a DATA phase can complete its original request
-> twice. Both completions invoke ioc_rqos_done(), causing the request to
-> contribute two latency samples and adding the same queue wait time
-> twice. This gives such requests disproportionate weight compared to
-> ordinary writes, distorting the device-wide latency and queue wait
-> feedback used to adjust iocost's virtual time rate.
+On Wed, 14 Oct 2026 19:05:36 +0200, Krystian Kaniewski wrote:
+> A KASAN slab-out-of-bounds read can occur in blk_mq_free_rqs() when there
+> is a mismatch between the number of hardware queues allocated for the IO
+> scheduler (et->nr_hw_queues) and the number of hardware queues in the block
+> tag set (set->nr_hw_queues).
+> 
+> This mismatch can happen if blk_mq_update_nr_hw_queues() fails halfway
+> through (e.g., due to memory pressure during
+> blk_mq_prealloc_tag_set_tags()). In this error path, the elevator is
+> restored with a larger number of hardware queues than the block tag set
+> actually has.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] blk-iocost: account flush sequence latency only once
-      commit: e9804489e27dd6e33aec5511fe3780ff3009f57f
+[1/1] blk-mq: fix out-of-bounds read in blk_mq_free_rqs
+      commit: 894e4e6084924cfd590968d45fad20908e02ddae
 
 Best regards,
 -- 
