@@ -1,66 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719463;
-	b=yGyVM4wLLMtahT1duLela8oGlA3qsyFvZQrYHQ0CKo9yFz9S9C7WMgmnmbg6S3RJCayG
-	 YBdKS3k5TOoM/9QUfOBAYCep9QBPSVPe8sZyA7dBDUig7+YL6EpnluA/3SKhYPR6VLreN
-	 RVH2TSWyJoRZePRHHv84NwAX8L0IveadJ+Wscv+O+eF0cp64to5GdoEs1FRhrjNJ+GCs9
-	 GdtdZ/tU6VSsLGsDnINr4Sebr9M8ctojR1OAozXExBHRz3NTzsg/1nsd1XOHVGR7S9wDp
-	 uiIjc9bEYFTfpC7+GFizuLhLQZYBu8zmm38KFU4eim3xiV0fH9l+juRnFhl6VRFGqKQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719463;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=l+02KwoSSXlWZVcs84FeV0oKegrze6AbX9iD/mlqVd4=;
-	b=TjXIgDP7dyQWW2p8sn8YM2RBMiJjuJPLLHqUI9xARj+3EPvr84yuth1b9YBguDQGggjB
-	 pxluVEXvSSp186qUic7gQPjzccCcLU/K6sMbKrT5Aw89SNr586mwUsjQU143IAgU7KvWI
-	 sOPao/IhUCRtbj/Zv3DLaULcwKssI+kE5vUj/nx8ZJ/eUX3RVTw8AURho6f/jfT5k7Z7A
-	 xxcDWoC0SS9fAv08LvqBpuqNIdOJTEXWNxCrlezbE27NEVNOZevVm12eCRO4IKW2RBDpH
-	 4L+WcDvGaZlfQLx8oiARrIaH5cBjXAMDmRBoRT7t7hEW2w13ocsaR53x1Wfp6e4HBkg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=o5LstHbq;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4196606A324;
-	Tue,  3 Nov 2026 15:24:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4196606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793719471;
+	b=22KxqR58r0eT7ASGDHSdRypJu8cI+cxpCE5RsydFwMJ/UmHNkvsaHJmJZF4q5Kkr2Hhi
+	 FZDmOumm9d6MVpbITkxnIdZaGklershtDSTHBEc6xHI2atZwDTWj/SDICciN34+P1qWxI
+	 LhhDR2/qT7ikSLz2b5EdnBJp1EPoQWIivdJ+9lVZ3q6d6ovyYsgHYQqMxpJAXhMSIHh5l
+	 LVkELBCjpZmE8VbbpLNSbAjhQFcdeTEJrwaGDbtBq4JQYFEWZVBuEJPn8BZB73aRw7LW/
+	 e7aUiVb0tKIo//XVrpvPoyGrAyOB4o+bOKTr9xJvI6nUxhAR5F5sRv1O+ytOceQ9PLA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719471;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=b1Jf7yIZNINFepAMcdlza48j9DjWumf2wWjQ6qFxRvs=;
+	b=F3KzNdkRiUzYpKVscE2XbOjrOA8VSdiEOkTKTedXsW2/RwFUZhy1cRYhZVxkBVOZaWxi
+	 PbLlCJqxpriBsG8rjCAmpKuAEnfe+ORD0mr0kjNpFM9Wu7uxJM+vCcLgfvDEXABQGrb0r
+	 fhZyosgX07mdv6O2pPJtou1hjZgelp7GS/cG3txnihX2LdhSXb6eMitcrgf4GDypQN8px
+	 UbxF5baXBNpiiEdhMw55nKUtOcRGy21t/hRxvbyZUeF2NS2DSmrS8f539EfCALg8rbmfD
+	 bdtS3oh8aeIFIdxBh5ZVJudHjULgQaQqt0llnAna6lfjO4N/SyYzR9YUeh0LkYst7zg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VPcooBTx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eF7xgDrO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A5CB606A338
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:24:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A5CB606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=o5LstHbq
-Received: from DESKTOP-TUU1E5L.localdomain (unknown [167.220.208.51])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6DE7B20B7166;
-	Tue,  3 Nov 2026 07:24:04 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6DE7B20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793719447;
-	bh=l+02KwoSSXlWZVcs84FeV0oKegrze6AbX9iD/mlqVd4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=o5LstHbq9g0Fbbs4Zu//WA+Sw0Jag8Fg0dmGOtyrdjfT9altZawohqrCho6qLITjJ
-	 jJ9dhptq4P0iGdYy2VzIqWR7+AwaPuKX9c3ehQ9Z9pa/6xTdbY9hww00w6ZexwrBxd
-	 sS3YHGHL1GAgZEMSxfWs2WGj3ruDdVZpQjn5gR28=
-From: Magnus Kulke <magnuskulke@linux.microsoft.com>
-To: linux-hyperv@vger.kernel.org
-Cc: Wei Liu <liuwe@microsoft.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Mukesh R <mrathor@linux.microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Magnus Kulke <magnuskulke@microsoft.com>,
-	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	linux-kernel@vger.kernel.org,
-	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-arch@vger.kernel.org
-Subject: [PATCH v5] mshv: remove deposited pages from direct map
-Date: Tue,  3 Nov 2026 16:24:16 +0100
-Message-Id: <20261103152416.404545-1-magnuskulke@linux.microsoft.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VPcooBTx;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eF7xgDrO
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3E9tOX4104156
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 15:24:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	b1Jf7yIZNINFepAMcdlza48j9DjWumf2wWjQ6qFxRvs=; b=VPcooBTxCDhHNlWu
+	u50nJOPgFwIwrNCdvcd9ELscXuEk47b/QKFclC9AloHhAEYldaAmoaXWT6Kyqveh
+	vGC9n12OmyTXa3djbLxV8++lQTAyIr38ZLJ1SG59H6B0BjNhrezHYTYPCB+FYmPC
+	DZCtDSVaWvx6zJvS+6ZbytXg5JO49rgRV77sqJqU4Vlwt5oYWap9kpKzSHKmocjE
+	dAAa8F8zcTRXwd9ERQfWQ27Wde3x087FFiqF+nyu8olZeaS8DXjGiRaVrvslehkD
+	Kqsng8SHDgUHmYKQPDMlzWwaRtrnZbf66KStYYnLbxzXoo0mfbR5ulNwCq5JGKp+
+	e5poUA==
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq76datna-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:24:29 +0000 (GMT)
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-6798c4b8894so5176721d50.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:24:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793719469; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HxPIokzNOKE2jx9XEigcTpt4uoyO3GELtx8MxviYff8B7CUVRoCzPGwqLWa6crjHMz
+         sO7gI9Zx6qm4yGUyxm5D30yUkDFu2tnsRsNxKmN1wj0+3n6CyR+ol54kIep037bDcgDD
+         qM1GMiKs3UFlAp9TjmMtUF4UHreANQjRl4ZVtQ2R5SgyYAOQoBfT710j6LrTcfQaXuld
+         hyIEVW5UrUSdKyaBLi44Y1ik8Imi3ZfnDnyi9gRN4svOd8zsp/xAH2anUqnNTyUV88v2
+         znVEo3QoESjagPwlXqB+t+7d9DeNseskckc3aow7+kcSWRB9sZ1WfczkGi4UK3NCCpck
+         aVtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=b1Jf7yIZNINFepAMcdlza48j9DjWumf2wWjQ6qFxRvs=;
+        fh=3eBFnAJygm+MAA8gmLXD0ete6UYscHtqi/BKZoxDJlI=;
+        b=RIPyymR/bLvxnfu0cb5bvaAd4nbRQ7i2JGsYeYFmqfZZFW2AbbqRBnFEfr5eO4A91I
+         KoR8p8h6H3pkd9tHEoVDcJMZWDkk681NskBN7CpEmEU6oLuSlF/s0kuMRYeRec38Xq/E
+         cIL3i9R28WTOlfluoCwVCPz9IIvJvM48Wg1g4cfL+NfMkgmq2Tc+cXxJhDU9ZMO4sReP
+         e7/KhCf2J0xm7/gQxjQlto1D/5bdvO2w8mUWBkcc0QKFqUyxtjJN5R50pAy+l4n/3GLz
+         km1zdJQyijsg0me1++WurxPYx0oaj3iGjvKwwlz5T1HBHCT82KkwAhgRkZ7LZ8b7Coih
+         nEzw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793719469; x=1794324269; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b1Jf7yIZNINFepAMcdlza48j9DjWumf2wWjQ6qFxRvs=;
+        b=eF7xgDrOs6CSHNCpinaRKXO4ZQIGp6LVMnHNvbaiZgOcWaXHgucnhWgfRRcAH7WGpY
+         mBKqhRXqnmuZg+kSJFQHtg2tKXeHrzcO+d7zacBlkKAgswcyXABRGskWBebrmmJlQ2tV
+         IAb8ck6nje992U/Q/twgHo1gzfaQKzlvWPYM/EmCAINegZFfPSPYkcY0eiaVaR4GSdSd
+         XV+CQLCIPTTvSkySqAaRfQxE6Ys2BADx6FDAN5khNvyBUsJMjWOvLFHo0zGTzBD8/T64
+         uwOOOmWMLUNVPmbPb1coGWipAcWVVUPL05cjoAGkeN/SPXAd8HKI0F2tjKB3VRCyTGjD
+         pziw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793719469; x=1794324269;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b1Jf7yIZNINFepAMcdlza48j9DjWumf2wWjQ6qFxRvs=;
+        b=Qnw2QixUgrzkvC9VwtF90T6yhYWTRvW0Ldfii+MY6p6O79QR/4VRJvYuNSGM6Y7YsD
+         +i2eF6WEiW+4Iv3kQY/0o8UkVSRqV9WQmbGLmZQOQf/76Er875ZlOBloOt3+F8WQqKut
+         ZGyjDoeXIgh9XjyIMVJu8cRj1+/N9SEwQ6edpgnhSNuu20mEnj9us5GkbXDx+5N7/2An
+         8QJskizrKYkTliEMY3TxCOI4rBjKDooSDMNxgA0pKst9dGL73OSJthhj1jUk/2fJvrM3
+         YL+GSLm3JJGRVkY3GDol/5SwSl+wNKcSveX2hFZOBioDJlO/6PyMYPm3HL0KKvCeigo7
+         uVNQ==
+X-Forwarded-Encrypted: i=1; AKwUvByKIrIDtdSfCxWEu/vYuVnu0/ywulZFzOChLJFa2O2H19/E7gngIVSD71/gLltJBBCpABdg2cFcbI49C5A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z866eIaV4BTMM+fak7CS1wuhYfBOqgjkcjWQCpsou5Fbqm9K34E
+	QlfdgciOxIMuPoTsx6z+eAaIUBilG2CKZGWQa/YSGkmqJh72TRO5TQo/ssc44w4BE4KHD0e+PCC
+	kAPkoT3Eox/17cJOMNCIuRvxgTaPg5q6NJ56gaKRih7CJe3TG5XxrG6GrrV2IF4zXAMddGIWlIc
+	FnqZC78gSQRFPFuH2LNNriLhV5eCvHBI8u4TcYHp0tiUS2NQO5K4hw
+X-Gm-Gg: AYBFou0SXWpmpmcWsZvLZ4bCpZSXcXOIRpbR8hN/4kib3d9E/7cG+aIRVHN/zfrlRsl
+	ab5NB+NbWJSbtE12jSz6W9Bl/1L+T6QhJDRGs/Hnk4KFbYrNO/d7xlzfDSxt9bRpUEq1bFGfsYR
+	bW4gwf7OHMl8I92CR/Xge6pnJEPm5mz76SsiHMm0njFB/hJP9E7YUjGsGoBUHhtAp7eM1ZAxVHR
+	HVWfE76CHFMYV5VBdlC8N+H52Gimcm0CXTgBFtw
+X-Received: by 2002:a05:690e:138e:b0:67b:abb9:3d15 with SMTP id 956f58d0204a3-67babb948e3mr8554277d50.24.1793719468603;
+        Tue, 03 Nov 2026 07:24:28 -0800 (PST)
+X-Received: by 2002:a05:690e:138e:b0:67b:abb9:3d15 with SMTP id
+ 956f58d0204a3-67babb948e3mr8554263d50.24.1793719468109; Tue, 03 Nov 2026
+ 07:24:28 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,288 +128,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261002145140.GA784348@rayden> <522a2d28-2ac9-4a56-8a61-477be3dfbbd9@app.fastmail.com>
+ <CAGgiveUDQvqpJKo4XuboP_46t7DPSBT1jdaTafROvobk2V5mwQ@mail.gmail.com>
+In-Reply-To: <CAGgiveUDQvqpJKo4XuboP_46t7DPSBT1jdaTafROvobk2V5mwQ@mail.gmail.com>
+From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 16:24:17 +0100
+X-Gm-Features: AclHuK_7QkcnsqO7rpddbyxmd5bsrxtK9QzYCDAUOQsSq6QU6rohTZ3Vg-dyLMA
+Message-ID: <CAGgiveWadMfHBMu=vSeqwgoz8rcXXg4E9OrAKnkWPPFn07pimw@mail.gmail.com>
+Subject: Re: [GIT PULL] OP-TEE update for v7.4
+To: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+Cc: arm <arm@kernel.org>, soc@kernel.org, linux-kernel@vger.kernel.org,
+        op-tee@lists.trustedfirmware.org, Arnd Bergmann <arnd@arndb.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=KJTPn1Fo c=1 sm=1 tr=0 ts=6ae9fcad cx=c_pps
+ a=VEzVgl358Dq0xwHDEbsOzA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=h2ZEknDc1N0j5eo6QzAA:9
+ a=QEXdDO2ut3YA:10 a=uujmmnXaIg8lM0-o0HFK:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA2MSBTYWx0ZWRfXwMSZ4V2T1CA+
+ qgN/kFcCCcfCSVKYdTh+w7m1L9AqKk2uWgTVkfwYICtJ0XD6Pp5pSjbakzEtXYzXCDPIF7yE4yf
+ SwrQrci5jykxN2uV9AB6eQdwFpqV3lE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA2MSBTYWx0ZWRfX8SC/z898F8OZ
+ yMSh4VDyR4JH/Kb8zmD7hoMGHcH+NDBIZqReh2eLWDYt2TxQj/Ivf9VPT2PHhE/XvkyjWwxqQ8G
+ 6CdsWISdMiazYcjOYY7gvmo5gbXJA1nTb7Ilhrgh9SpFXh4eQ6xBsyorD8aaoErq0u3mbpbWv10
+ l6TjVDGRIyyRZlqu1p2bgAIArKwH4U4HWir7DVAuxSQY3dB797zZla9dTExfZqhfuSfeSCY1UfW
+ B1PF/i21XYl/cioLNKjd3EH7/GZ+Hubu7/Bmv7U7cnRFsCffKf7sKShNUDr3tbj9aGzSpuPYDGo
+ g+vbk3Vzvx5Jv4NV4qo1iPNHZzvSJef/JegoNBIBm19kakzJr+lN47KwloXzZgALqlT292V3RnA
+ rQ6qW1ael+lWYG/UTJglezcCHjDbhcwf/hl8vBdwk01RpEKJzB0t+pLfKHVMjBqMcOmtxiXETP3
+ s1cyGdKdO8F3g1nxozw==
+X-Proofpoint-GUID: BPiXLLDnX2vTfGTTg67xGOOD1zV0LO9s
+X-Proofpoint-ORIG-GUID: BPiXLLDnX2vTfGTTg67xGOOD1zV0LO9s
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030061
 
-hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
-guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
-ownership of those pages and per contract revokes root partition
-access to them, raising a #GP on access from the L1VH root partition.
+Hi Marouene,
 
-However, the pages remain mapped in the kernel direct map, so kernel
-code may still access them even though the hypervisor has revoked
-access.
+Can you make a v5 of "[PATCH v4] tee: optee: build the Arm-specific
+code only on Arm" addressing Arnd's comments, please? That is,
+replacing IS_REACHABLE() with IS_ENABLED() in the patch. As Arnd
+points out, with  OPTEE depending on ARM_FFA_TRANSPORT ||
+!ARM_FFA_TRANSPORT, the code is always reachable if enabled.
 
-Helpers such as "load_unaligned_zeropad()" deliberately read past the
-end of a buffer and across page boundaries. A read into an unmapped
-page is tolerated and triggers a #PF, for which the kernel executes
-a fixup in the exception table.
+Thanks,
+Jens
 
-If such a call steps into a page that has been deposited, the access
-raises a #GP by the hypervisor from which the above handler cannot
-recover and the kernel panics:
-
-  Oops: general protection fault, maybe for address 0xff1100941a3dfffc
-  RIP: 0010:csum_partial+0xe5/0x110
-
-This condition will appear on L1VH system that have created L2
-partitions (and hence deposited pages) and exercise networking code
-paths such as csum_partial() can trigger this condition when a buffer
-ends close to a page boundary (e.g fffc in the above example).
-
-The fix is to remove the deposited pages from the direct map before
-they are passed to the hypervisor, and restore them when the hypervisor
-returns them again.
-
-We want to avoid flushing the TLB in the loop, so we use
-set_direct_map_invalid_noflush() when marking a deposited page invalid
-and flush the affected page ranges in one go ourselves. In the opposite
-direction this is not required:
-
-  > If a paging-structure entry is modified to change the P flag from
-  > 0 to 1, no invalidation is necessary. This is because no TLB entry
-  > or paging-structure cache entry is created with information from a
-  > paging-structure entry in which the P flag is 0.
-
-(Intel SDM Vol. 3, 4.10.4.3)
-
-Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
-
-Changes since v4:
-
-- Adjusted for set_direct_map_{default,invalid}_noflush() signature
-  changes
-- Stop direct-map removal at first failure, restore/free supplied
-  pages within the helper
-- Leak only pages that cannot be restored
-- Extract contiguous pfn-run detection into helper
-
-Changes since v3:
-
-- Batch contiguous pages in the restore path
-- Adjusted comment about failure modes
-
-Changes since v2:
-- Checkpatch format fix
-
-Changes since RFC:
-- Handle direct-map restoration failures without returning unmapped
-  pages to the allocator.
-- Move freeing of withdrawn pages into the restoration helper.
----
- drivers/hv/hv_proc.c           | 112 +++++++++++++++++++++++++++++++--
- drivers/hv/mshv_root_hv_call.c |   4 +-
- include/asm-generic/mshyperv.h |   4 ++
- 3 files changed, 112 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
-index f811bb5c42a1..b63f8da1ecc1 100644
---- a/drivers/hv/hv_proc.c
-+++ b/drivers/hv/hv_proc.c
-@@ -7,12 +7,65 @@
- #include <linux/cpuhotplug.h>
- #include <linux/minmax.h>
- #include <linux/export.h>
-+#include <linux/set_memory.h>
- #include <asm/mshyperv.h>
-+#include <asm/tlbflush.h>
- 
- #define HV_DEPOSIT_MAX 512
- #define HV_DEPOSIT_INP_MAX ((HV_HYP_PAGE_SIZE -  \
- 	offsetof(struct hv_deposit_memory, gpa_page_list)) / sizeof(u64))
- 
-+static inline int find_consecutive_pfns(const u64 *pfns, int count, int start)
-+{
-+	int end;
-+
-+	if (start >= count)
-+		return count;
-+
-+	for (end = start + 1; end < count; ++end) {
-+		if (pfns[end] != pfns[end - 1] + 1)
-+			break;
-+	}
-+
-+	return end;
-+}
-+
-+/*
-+ * Remove pages from the direct map before depositing them. On failure,
-+ * restore the mapping and free all supplied pages, leaking pages whose
-+ * mappings cannot be restored.
-+ */
-+static int hv_remove_deposit_mapping(const u64 *pfns, int count)
-+{
-+	int i, end, ret;
-+	unsigned long addr, size;
-+
-+	for (i = 0; i < count; i = end) {
-+		end = find_consecutive_pfns(pfns, count, i);
-+
-+		ret = set_direct_map_invalid_noflush(pfn_to_page(pfns[i]),
-+						   end - i);
-+		if (ret)
-+			goto restore;
-+	}
-+
-+	for (i = 0; i < count; i = end) {
-+		addr = (unsigned long)page_address(pfn_to_page(pfns[i]));
-+
-+		end = find_consecutive_pfns(pfns, count, i);
-+
-+		size = (unsigned long)(end - i) << PAGE_SHIFT;
-+		flush_tlb_kernel_range(addr, addr + size);
-+	}
-+
-+	return 0;
-+
-+restore:
-+	/* The failing run may have been partially modified too. */
-+	hv_restore_withdrawn_pages(pfns, count);
-+	return ret;
-+}
-+
- /*
-  * Allocate free pages for deposit to hypervisor. pfna[] must be large enough
-  * to hold HV_DEPOSIT_INP_MAX (511) pages. If num_pages is 512, return last
-@@ -84,7 +137,7 @@ static int hv_alloc_dep_pages(int node, u64 *pfna, u64 *lastpfnp, int num_pages,
- static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous)
- {
- 	struct hv_deposit_memory *hc_input;
--	int i, rc, num_pages;
-+	int i, rc, num_pages, completed;
- 	u64 status, *pfna, lastpfn = 0;
- 	bool trunc_extra = false;
- 
-@@ -125,6 +178,21 @@ static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous)
- 		num_pages = HV_MAX_CONTIGUOUS_ALLOCATION_PAGES;
- 	}
- 
-+	rc = hv_remove_deposit_mapping(pfna, num_pages);
-+	if (rc) {
-+		if (lastpfn)
-+			__free_page(pfn_to_page(lastpfn));
-+		goto out_free;
-+	}
-+
-+	if (lastpfn) {
-+		rc = hv_remove_deposit_mapping(&lastpfn, 1);
-+		if (rc) {
-+			hv_restore_withdrawn_pages(pfna, num_pages);
-+			goto out_free;
-+		}
-+	}
-+
- 	/* Not using hyperv_pcpu_input_arg, so no need to disable interrupts */
- 
- 	status = hv_do_rep_hypercall(HVCALL_DEPOSIT_MEMORY, num_pages, 0,
-@@ -139,7 +207,7 @@ static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous)
- 
- 		if (!hv_result_success(status) && hv_repcomp(status) == 0)
- 			/* We deposited lot earlier, so give it a go */
--			__free_page(pfn_to_page(lastpfn));
-+			hv_restore_withdrawn_pages(&lastpfn, 1);
- 	}
- 
- 	free_page((unsigned long)hc_input);
-@@ -148,17 +216,51 @@ static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous)
- err_free_dep_pages:
- 	hv_status_err(status, "\n");
- 	rc = hv_result_to_errno(status);
-+	completed = hv_repcomp(status);
- 
--	for (i = hv_repcomp(status); i < num_pages; i++)
--		__free_page(pfn_to_page(pfna[i]));
-+	hv_restore_withdrawn_pages(pfna + completed, num_pages - completed);
- 	if (lastpfn)
--		__free_page(pfn_to_page(lastpfn));
-+		hv_restore_withdrawn_pages(&lastpfn, 1);
- 
- out_free:
- 	free_page((unsigned long)hc_input);
- 	return rc;
- }
- 
-+/*
-+ * Put withdrawn pages back in the direct map and free them. Counterpart to
-+ * the direct map removal done by hv_call_deposit_pages(). Leak the pages
-+ * that failed to be restored.
-+ */
-+void hv_restore_withdrawn_pages(const u64 *pfns, int count)
-+{
-+	int i, j, end, n, ret;
-+	struct page *page;
-+
-+	for (i = 0; i < count; i = end) {
-+		page = pfn_to_page(pfns[i]);
-+
-+		end = find_consecutive_pfns(pfns, count, i);
-+
-+		n = end - i;
-+		ret = set_direct_map_default_noflush(page, n);
-+
-+		for (j = i; j < end; ++j) {
-+			page = pfn_to_page(pfns[j]);
-+			/*
-+			 * Retry individually on failed batch. We don't want
-+			 * to return pages to the allocator that we couldn't mark
-+			 * valid in the direct map.
-+			 */
-+			if (ret &&
-+			    WARN_ON_ONCE(set_direct_map_default_noflush(page, 1)))
-+				continue;
-+			__free_page(page);
-+		}
-+	}
-+}
-+EXPORT_SYMBOL_GPL(hv_restore_withdrawn_pages);
-+
- int hv_deposit_memory_node(int node, u64 pt_id, u64 hv_status)
- {
- 	int result = hv_result(hv_status);
-diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-index b8d199f95299..80256ddaa768 100644
---- a/drivers/hv/mshv_root_hv_call.c
-+++ b/drivers/hv/mshv_root_hv_call.c
-@@ -44,7 +44,6 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
- 	struct page *page;
- 	u16 completed;
- 	u64 status, withdrawn = 0;
--	int i;
- 	unsigned long flags;
- 
- 	page = alloc_page(GFP_KERNEL);
-@@ -67,8 +66,7 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
- 
- 		completed = hv_repcomp(status);
- 
--		for (i = 0; i < completed; i++)
--			__free_page(pfn_to_page(output_page->gpa_page_list[i]));
-+		hv_restore_withdrawn_pages(output_page->gpa_page_list, completed);
- 
- 		if (!hv_result_success(status)) {
- 			if (hv_result(status) == HV_STATUS_NO_RESOURCES)
-diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
-index 4c9f3353074a..b4dc9cbf0fa6 100644
---- a/include/asm-generic/mshyperv.h
-+++ b/include/asm-generic/mshyperv.h
-@@ -347,6 +347,7 @@ static inline bool hv_parent_partition(void)
- 
- bool hv_result_needs_memory(u64 status);
- int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
-+void hv_restore_withdrawn_pages(const u64 *pfns, int count);
- int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
- int hv_call_notify_all_processors_started(void);
- bool hv_lp_exists(u32 lp_index);
-@@ -361,6 +362,9 @@ static inline int hv_deposit_memory_node(int node, u64 partition_id, u64 status)
- {
- 	return -EOPNOTSUPP;
- }
-+
-+static inline void hv_restore_withdrawn_pages(const u64 *pfns, int count) { }
-+
- static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
- {
- 	return -EOPNOTSUPP;
--- 
-2.34.1
-
+On Wed, Oct 14, 2026 at 8:34=E2=80=AFAM Jens Wiklander
+<jens.wiklander@oss.qualcomm.com> wrote:
+>
+> Hi Arnd,
+>
+> On Tue, Oct 13, 2026 at 4:53=E2=80=AFPM Arnd Bergmann <arnd@arndb.de> wro=
+te:
+> >
+> > On Fri, Oct 2, 2026, at 16:51, Jens Wiklander wrote:
+> > > for you to fetch changes up to ccd4b23398acaf2139cf04f1ba0a66150cbf26=
+63:
+> > >
+> > >   tee: optee: build the Arm-specific code only on Arm (2026-10-02
+> > > 16:28:41 +0200)
+> > >
+> > > ----------------------------------------------------------------
+> > > Build the OP-TEE driver's SMC and FF-A code only where supported
+> > >
+> > > ----------------------------------------------------------------
+> > > Marouene Boubakri (1):
+> > >       tee: optee: build the Arm-specific code only on Arm
+> >
+> > I had a look at the contents and saw that it keeps the
+> > IS_REACHABLE() checks that are notoriously error-prone.
+> > E.g. this part just looks broken:
+> >
+> > @@ -257,8 +266,12 @@ struct optee {
+> >         const struct optee_ops *ops;
+> >         struct tee_context *ctx;
+> >         union {
+> > +#ifdef CONFIG_HAVE_ARM_SMCCC
+> >                 struct optee_smc smc;
+> > +#endif
+> > +#if IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT)
+> >                 struct optee_ffa ffa;
+> > +#endif
+> >         };
+> >         struct optee_shm_arg_cache shm_arg_cache;
+> >         struct optee_call_queue call_queue;
+> >
+> > The presence of the 'ffa' member in the union is conditional
+> > on whether the driver that includes the header is a loadable
+> > module or built-in, and this changes the entire structure
+> > layout if both types of users are present.
+> >
+> > The intention of the patch does make a lot of sense,
+> > but as far as I can tell, only the Kconfig change is
+> > actually required, while the added preprocessor checks
+> > only make it harder to read and it should have been
+> > sufficient to change the existing IS_REACHABLE() to
+> > IS_ENABLED() for consistency.
+> >
+> > Sorry I did not notice this one earlier as I was travelling,
+> > but I think I can't pull this version, please respin.
+>
+> Thanks for catching this. We'll repin.
+>
+> Cheers,
+> Jens
