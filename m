@@ -1,54 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709892;
-	b=GH9Hqvvd8ic5bZq2IhsSFPLB/zrEye+XS4MBCvVdZKNfmRor0Mc5rYDMjQa+LxWFT/Hf
-	 tU7xlFpW4VffU42nzssy8a2KbGiS/RlWN3me2+USM0bl+pp0W+lDDRUgsb/8zthtVWcbO
-	 kDdSXUk1NnPBNYua8wmBT+9biJbK/GYoZw/Ef1zxkThWni4wxbYqdIWu5bQEl9syIT5Q7
-	 ujGV942pVyjtuY3ihAACcW1GveMNQeNEO0KfTpSbiMFMZ3KkKM25SqlxjPxIKV7rAHuSY
-	 fXHC8GD+28UGarqHBbEYr06IGLC7IOitBvN0kGwzLvS+k4RwsghHNRG/qCLu4EmtMQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709892;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=uMxkatsy/czDTqYorXReGkN6RnEno+dYymzBkF085A8=;
-	b=Ft183K0CWZfhrZPzKTKxm1+RkhB0twAwrRAkRvTSoSeGO8+tHCjmICNQkDazXdchw59l
-	 NZaljyD5sv2AT56mZrynTZgsCJc3NxfZSziGfAZvn5HrZnOEmQmLNGhCq5/ax8hvNIKuN
-	 y96XhS2vX/z/edC512DqA7IcMvTpUt7bCOUbf0lxWm9QHmHWRmIXVXiwG26r28FwfCgLe
-	 n1apWah+uOTh9z+D4q9gMQRQzqPKCXYcPTBKKaLXscXARGZmHj5YEU9ZSiCTHNjBr7unE
-	 U6tjjuOi9DSnB1bp/C4jnRhqc8PzJSin9w9gwcTsk6Q0FShoyxJCse49BeFnWQpU+ag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=B15FyiFs;
-	arc=none smtp.remote-ip=95.215.58.199
-Received: from mta1.migadu.com (out-199.mta1.migadu.com [95.215.58.199])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793709902;
+	b=Q6RhpeNlKQsonmS3WhPrvvsxEQsQVWoP1W5sJUPES7xbe7+VfFV4lA+hT+uENQ7Q23gG
+	 BxbuW+pfpMwKDlJkJ4z+oxxFYH7JiKYUwsrnryzP2jrgUoo09Bmw1k7hBBsoDxEGPPPmI
+	 YWlvEfoEG0ATNNdPbnriEHavum8S4S1VIKFrz8Uj+9OV+ehXoTVy7DgYEAdMTVrcjRoCH
+	 QdXkiG8D79qR21hGizz4Dh5g6RL69l0xseg8GoaHxtNhN6kd2RwpMTcq9Xz7+Cn5B6yuf
+	 9mNpvjoxgzTcigp4wb4RR3s+NO8CzgFBSptO60w42HORb+3BAB1GBz2+keY1GqOaN3w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709902;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cJss4DTSAFF0TC2y24FFpMgu2U/hDyAjjGTYiZ+imqE=;
+	b=pRLPzQSqsfb3DXFYlqOTDJiO/62Wqt6cR5jhKS9h56rXWOLrRg0eraA5zzpEgyEe5Sc6
+	 1TOoUunEicBr6wtqeoA8fVHGS7gXeqV3VcesKXRXNYeOM4zwQlita00EwWusIwqvSbYsU
+	 2yneiGBBToSam3aRhcaoc89WC5A49R04JaWQ+sEclR8XJWl2LwzHTNzVx7JmOTtwfUY1i
+	 6azCKsF1H7yPG75Czfprw1ooaWV5DCZC5TvLu6M6lyMCNfwmiG225bfuaJmrq3NpZ5dm+
+	 SnDJ2hX8Sfh903qYrFW6PSRmxkRPH0KWJemsnt3N+Odl6F8oSiwAPWQeSpv/tLH3wpA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=X7YIwu+P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A495606A33B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A495606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB15606EE9A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:45:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FB15606EE9A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=B15FyiFs
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=P6NJig/U2qoMxYmMT3pXpewN3IICUxnb6l0LNzfrpD4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793709889; v=1; x=1794314689;
- b=B15FyiFszR9sIYIsNZtE67J+QX1fUCAdiXMvVHNhHIq9WIIvfDW6qqRAzoKwtNiyB7cycs1+
- x9jO66Sbj7Rg8Ge8YpMsxJ1hT5h+tC/cOfzcZplhzdyCDj4AFZJx1Pkri4SXh4cG67+I5LwW5TT
- uH+mD3CMB2+i9gNTJLVBooPM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 50e634d3f232c597;
-	Tue, 03 Nov 2026 12:44:49 +0000
-X-Mizu-Trace-ID: 50e634d3f232c597
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <55ffbca4-985f-4838-a668-9ac84e0a0c95@linux.dev>
-Date: Tue, 3 Nov 2026 20:44:34 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=X7YIwu+P
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-483a66818edso2110561fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:45:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793709901; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K1ZNRtZ/BqhioERDjsw7/TOnY+l0ky1FILjtlFIrKr9BWEAg0g/yJErIIPOMH9NI6w
+         zwLbdCSu7uXTGYUm8gTNVa4gXbFnppNGwrnKeyQ1Wwltfb3l3L4oXqeWV0nJS4W0F2B5
+         jU9okPirrMtIn4eq4CreQFuz/N9C180urV/Dy7CPbCGrTMQZYuUA2cbroHZpf3EKlQa0
+         s2dtAUOEgYNIAOR2/YAW5o84znVyBLJSofiDF90Iu2A0mMnRZLgVDIL7llKruU7pEnR+
+         90V7RmCaeS2fAXYqGZn0GXnwNEVmLePftwb8CoKfQ3Xz17Fy25BiwWEnow25KZUnAV3i
+         oCUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cJss4DTSAFF0TC2y24FFpMgu2U/hDyAjjGTYiZ+imqE=;
+        fh=kaO86XFgcOYocdn8+KWCSiDPHgC1UDfzpAa4wQPT6G0=;
+        b=YbcKiD7umDZ/ieTipxhdSBgJrSB6ukfiB2PMAliXBAfRvBhaieiDGEqckhJflS94np
+         64ggDhYvwBhrXKgCGc2mlHfPZVwDEj5CrIk05EE/GGAGpEkziOEdP9XixtRBO4z+aMNc
+         MRGzECjS+5sAckY8ZXJI7+gAUz7bC1S/0p0zJG0Ysnk9gJqAX2O7d1cHtYkf80ZYk9DM
+         ucLUzTa7eD/6sgHWxgfsE1MwI/bWTg9kjg60f5BaT/DkvgyAZ2VViczM1rS4Tdx6fVLj
+         WsRgQ6zEEiQ6qd0LnoyqenMUEfpJR7l9A513bspCR9gheXHpCaMrp3WIx5EMDnlqXmW/
+         BEXQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793709901; x=1794314701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cJss4DTSAFF0TC2y24FFpMgu2U/hDyAjjGTYiZ+imqE=;
+        b=X7YIwu+P57YbvarctNfqfO7T/pAsbLAUPr1ZHvH/QyvkiDBJARSLe/e5hzhvwmWD1m
+         FDB9O1eM0jLjHjBT7zIhZtEfxB9hxtt+GPeuaY5adipemtw5ydKNpOA0sR63qXoszWhS
+         87S1+WFmEQeF/jRnHieppIfgUe2st71Xy4FZmpakVMOZzWdeMduHI6JUsrvD/P86AWrf
+         Z7ARWoEr3qErGbGvkfpcLu5SYYuErQ1f4g8XJOZuHfQ02SjF5rMvGCqIViryEQwVKXpB
+         d+nxfcnLqnitYjnnRLlt9+xm2QRhKRcsb0HU82egfjN2OYCC5xcxMpwf7/RukhY6xzVx
+         /Rzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793709901; x=1794314701;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cJss4DTSAFF0TC2y24FFpMgu2U/hDyAjjGTYiZ+imqE=;
+        b=tzxF2A+qPezKnodu7TAyaVJc4Etccc4FNms3qH3W7bh4ijLF2I4UTixBXFhlkPcsc1
+         +eczbbT9YWDJ8u/OW5zXJbM06mJt6ROwb0UaD4mhVioGAe/+DYZLdeg3JRNOaWa4h+gk
+         JAS5SEmwOAl8N3/3DaEOsfNOO4QvHE8VgXHoIENTuZfLc3HpOdgcJlpHyEU8w5W0BYyu
+         p4TY8K2h/0VFbSqEHSOpBNZ+Y3EFk20uzWejJJkKjJVifdd5mo4AlJ1QVrnH9AB0yLqx
+         1ZKezYubdZZVscnzI7fQ2Qy76UE97owadSxIyeR2kg6rXPV2Vw4oxs1jg9sBWPJi9aYO
+         4mVw==
+X-Forwarded-Encrypted: i=1; AKwUvByXnMtAYvNnnyxJqIdRIM0zPoLaxwkpLgResUhMk/3nUydHTXgXrCVvsHGkE9Bafpvp7YNbSk+UQIm9cYI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+I8ApRsPX1gteM/5gvPh3OAimongFZSYgQrLO+h788YIQY1XWJ
+	MSluNNUDWzbzD83lPRIAtzYt1dZGCfTaXt4Tm6GlPtpQG9aw6BpaSrd9VwhDEPlu01oRUV99ykA
+	xdQUlnwq8XJ668IpDlWOwhw12QTiOa/XUia7T4KsM
+X-Gm-Gg: AYBFou0ofJ/xc243JRH835qMYNQx0hlXMxfLYyDgHKPxbrQnsq95GYg65xA6EKAUcO5
+	+/eEVAQv8PrUhHpbJdC2EMXJa/NYO0NhS0ZHoIGGwhAsS1SwVmbkVtx/mHC+u8NcDYttjZT6kes
+	huUn19dx/B+gan0CGi3Z9WgAfh4ckQFccaYSEPh+7/uzA1gNCXegq8OaGxr3/FZy+0RIqk4vJjl
+	1dUcpiYD4QUrHLEYVccgpO6aU7cQ/T3wZVtjJBPrl3vm5CTo/D/SRYBbnOxDeGzXmTM7zV3oCuQ
+	H77Ipbm4P1v9fNQhH7a2D+b4qnvLx2XgANe+fMchMUl6cPnNRJilpuVu4QL2ZinXmK6itELFEPb
+	oNyX2NK0rYnxgkGwJRGbE/Va/ODjM5vfF6YDUIfp17l8zHKwewjnczbhxK/cp5Z6aGFL/T0ZN3a
+	lpMEEEryM=
+X-Received: by 2002:a05:6871:c8cd:b0:494:76db:2aa8 with SMTP id
+ 586e51a60fabf-4a90730f375mr7994740fac.5.1793709900334; Tue, 03 Nov 2026
+ 04:45:00 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,143 +105,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH -v4 04/22] cpuset: introduce partition_enable()
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long
- <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Koutn? <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chen Ridong <chenridong@huawei.com>, Ridong Chen <chenridong@xiaomi.com>
-References: <20261101114206.2434398-1-ridong.chen@linux.dev>
- <20261101114206.2434398-5-ridong.chen@linux.dev>
- <b2caa92c-9e10-4e36-bd73-b71621d60108@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <b2caa92c-9e10-4e36-bd73-b71621d60108@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261030173254.2000665-1-dhu@x6u.co>
+In-Reply-To: <20261030173254.2000665-1-dhu@x6u.co>
+From: Jacob Moroni <jmoroni@google.com>
+Date: Tue, 3 Nov 2026 07:44:19 -0500
+X-Gm-Features: AclHuK8nDugVTssmfIb-0C2nE1vAsrv5to5v5OGV3nTs3pUaP90m0Vgw84uKISA
+Message-ID: <CAHYDg1QgFnyKEA_Dbx5dpdUV6Hfs3w+japBgBGeR3iD9UG72dg@mail.gmail.com>
+Subject: Re: [PATCH rdma-next] RDMA/irdma: Free cq with a safer cq num reference
+To: David Hu <dhu@x6u.co>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+	Tatyana Nikolova <tatyana.e.nikolova@intel.com>, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, David Hu <xuehaohu@google.com>, 
+	sashiko-bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Reviewed-by: Jacob Moroni <jmoroni@google.com>
 
-
-On 11/3/2026 6:26 PM, Guopeng Zhang wrote:
-> 
-> 在 2026/11/1 19:41, Ridong Chen 写道:
->> From: Chen Ridong<chenridong@huawei.com>
->>
->> Add partition_enable() to consolidate updates to key cpuset structures
->> during partition enablement, including:
->> 1. remote_partition
->> 2. effective_xcpus
->> 3. partition_root_state
->> 4. prs_err
->>
->> Key operations performed:
->> 1. Invokes partition_xcpus_add() to assign exclusive CPUs
->> 2. Maintains remote partition flag
->> 3. Syncs the effective_xcpus mask
->> 4. Updates partition_root_state and prs_err
->> 5. Triggers scheduler domain rebuilds
->> 6. Sends partition change notifications
->>
->> This helper also handles the transition between root and isolated
->> states of a valid partition. In that case the cpumasks are unchanged
->> and only isolated_cpus is updated.
->>
->> A partition_state_update() helper is added to set partition_root_state
->> and prs_err, and to reset the partition data when the new state is not
->> a valid partition.
->>
->> Signed-off-by: Chen Ridong<chenridong@huawei.com>
->> Signed-off-by: Ridong Chen<chenridong@xiaomi.com>
->> ---
->>   kernel/cgroup/cpuset.c | 51 ++++++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 51 insertions(+)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index df52f6e5e99f..052a131731dd 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -1716,6 +1716,57 @@ static void compute_effective_nodemask(nodemask_t *new_mems,
->>   		nodes_copy(*new_mems, parent->effective_mems);
->>   }
->>   
->> +static void partition_state_update(struct cpuset *cs, int new_prs,
->> +				   enum prs_errcode prs_err)
->> +{
->> +	lockdep_assert_held(&callback_lock);
->> +
->> +	cs->partition_root_state = new_prs;
->> +	WRITE_ONCE(cs->prs_err, prs_err);
->> +	if (!is_partition_valid(cs))
->> +		reset_partition_data(cs);
->> +}
->> +
->> +/**
->> + * partition_enable - Transitions a cpuset to a partition root
->> + * @cs: The cpuset to enable partition for
->> + * @parent: Parent cpuset of @cs, NULL for remote parent
->> + * @new_prs: New partition state to set
->> + * @new_excpus: New effective exclusive CPUs mask for the partition
->> + *
->> + * Transitions a cpuset to a partition root, only for v2.
->> + * It also supports the transition between root and isolated partition.
->> + */
->> +static void partition_enable(struct cpuset *cs, struct cpuset *parent,
->> +			     int new_prs, struct cpumask *new_excpus)
-> Should we consider the bisection case here? With CONFIG_WERROR=y this
-> patch fails to build on its own — partition_enable() is defined but not
-> used.
-> 
-
-Hi Guopeng,
-
-Thanks for catching this. You are right, each patch should build on
-its own, and with CONFIG_WERROR=y these helpers trigger
--Wunused-function until they are used in patches 7-9.
-
-The helpers are introduced in separate patches on purpose: Waiman
-suggested having them complete when introduced, and then converting
-remote and local partitions to them in later patches, to make the
-series easier to review [1]. To keep that and still build cleanly,
-I'll mark them __maybe_unused when they are introduced, and drop it
-in the patch that first uses each of them.
-
-[1] https://lore.kernel.org/all/e8018984-96ed-49fa-8571-79a0d39cb218@redhat.com/
-
-> 
->> +{
->> +	int old_prs = cs->partition_root_state;
->> +
->> +	lockdep_assert_cpuset_lock_held();
->> +	WARN_ON_ONCE(new_prs <= 0);
->> +	WARN_ON_ONCE(!cpuset_v2());
->> +
->> +	if (old_prs == new_prs)
->> +		return;
->> +
->> +	spin_lock_irq(&callback_lock);
->> +	if (old_prs > 0) {
->> +		/* Switch between root and isolated, cpumasks are unchanged */
->> +		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
->> +	} else {
->> +		/* enable partition should only add exclusive cpus */
->> +		partition_xcpus_add(new_prs, parent, new_excpus);
->> +		/* enable remote partition */
->> +		if (!parent)
->> +			cs->remote_partition = true;
->> +		cpumask_copy(cs->effective_xcpus, new_excpus);
->> +	}
->> +	partition_state_update(cs, new_prs, PERR_NONE);
->> +	spin_unlock_irq(&callback_lock);
->> +	cpuset_force_rebuild();
->> +	notify_partition_change(cs, old_prs);
->> +}
->> +
->>   /*
->>    * remote_partition_enable - Enable current cpuset as a remote partition root
->>    * @cs: the cpuset to update
-> 
-
--- 
-Best regards
-Ridong
-
+On Fri, Oct 30, 2026 at 1:33=E2=80=AFPM David Hu <dhu@x6u.co> wrote:
+>
+> From: David Hu <xuehaohu@google.com>
+>
+> Within a iwcq, `cq_num` is allocated first, and only
+> copied to an inner uk structure, `cq_uk.cq_id` at a
+> later stage. Freeing cq by `cq_uk.cq_id` before the
+> later stage leads to a cq id leak.
+>
+> Free `iwcq->cq_num` instead, which is allocated
+> right after initial rsrc allocation.
+>
+> Fixes: b48c24c2d710 ("RDMA/irdma: Implement device supported verb APIs")
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20261016202909.1289496-1-dhu@x6u.c=
+o?part=3D4
+> Signed-off-by: David Hu <xuehaohu@google.com>
+> ---
+>  drivers/infiniband/hw/irdma/verbs.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/=
+irdma/verbs.c
+> index c91c55917de9..1726a0ddeac8 100644
+> --- a/drivers/infiniband/hw/irdma/verbs.c
+> +++ b/drivers/infiniband/hw/irdma/verbs.c
+> @@ -1948,8 +1948,6 @@ static void irdma_srq_free_rsrc(struct irdma_pci_f =
+*rf, struct irdma_srq *iwsrq)
+>   */
+>  static void irdma_cq_free_rsrc(struct irdma_pci_f *rf, struct irdma_cq *=
+iwcq)
+>  {
+> -       struct irdma_sc_cq *cq =3D &iwcq->sc_cq;
+> -
+>         if (!iwcq->user_mode) {
+>                 dma_free_coherent(rf->sc_dev.hw->device, iwcq->kmem.size,
+>                                   iwcq->kmem.va, iwcq->kmem.pa);
+> @@ -1975,7 +1973,7 @@ static void irdma_cq_free_rsrc(struct irdma_pci_f *=
+rf, struct irdma_cq *iwcq)
+>                 }
+>         }
+>
+> -       irdma_free_rsrc(rf, rf->allocated_cqs, cq->cq_uk.cq_id);
+> +       irdma_free_rsrc(rf, rf->allocated_cqs, iwcq->cq_num);
+>  }
+>
+>  /**
+>
+> base-commit: c3e8e9451e6f1b69f685b75e0fbf14f3d0fb2539
+> --
+> 2.56.0.317.g454f8302e1-goog
+>
