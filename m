@@ -1,113 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703096;
-	b=K/8XaswAqf+8eSIaLt/SXKIKCeQu95uPMdHBprZkleI1zGzXhTZwI7h3IE2yq0F7xMfd
-	 glhJ1Gfhd3vkqHHIkVG/20eNH2QI69wd734M4DLHXLJpjWd82c2xoCXzWV1Z7lIN/OluN
-	 g3Sl1WY8SCenF5AbS6+QWodNHhCDrrMoQg41m3t2UV5u9AqFRD+tiKjW0fbym0+9No5+t
-	 cWjcFJMU3vqmH6nGtM98iWx0IgKoS84HQrWOQoNO2GF9uIFUs4Gr17raQ7aoWsH8vXQZ3
-	 PuEXmX+WPQMQKYg3hoOpaNPIHMj12vSYaKeVipSsEGgC4337N2Nhtc1qUl+KPatfGDQ==
+	t=1793703118;
+	b=sMWFXS+rWnuNl/kEpHKSPBcFNjFNmc3lQ5vV6xF+IiFqaIQVga6Bxe/wmf1VuL/J9qv6
+	 uYt/Shs2nN/Y1w9aAGpg4ATv1FQucG7jbnrbZLyF0Q9AWiIX23OoExykfPnY0kGwdg9W7
+	 tyyz5lc6ZIvJ7dGq6/g0fXJCz1ktJ9wkoBinrTSQ652fWN10Y/uY9Gf9EeW9dQRx7g5VC
+	 ytQl7meBo9nKANR1ysuc5HoVMKr0GroO7m35nTHoRNFBaqxcwXFg+Ul2ArrzhJMlEAovh
+	 EGaD7631d1EwHsZHszKiCtLtJ2TBwKGRUObmjQoik02Nu/iofQdYOH5PDZZF8v8b1UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703096;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=5D7xCUClOOfsmSvAcaEAFG25UX6miDGSw5YNpSrkX2w=;
-	b=qFHEhZ+zg4eLdZj0N8zLwmEqFEsMiWj7ZsBAJ4QHF1bSJEGHC5ppGHK0P0DcTHJloy6G
-	 vsPeyxJs/91bFjYTEY8GUP2EUtO3F7cjehcjfbm+xZuN4uTsbhsriBZuyVapz8XZbS1ef
-	 09o1gwC4I44MEHAkEYwzn5mT7wq2qGrD4KaPg9s3MRE1l2WysquV73WU4uf/iQUMNXqNT
-	 f1RU1mhQa+0xjAMuPiCUTfwlGfkz0uR2T7jeFGbVmTZjHjFA2i4hKFnez5VYR0m8G0D96
-	 QH34NZJSxbVc3/SAdGlRjykEVSE3I55Na0hdi/rqetap4P3JQhBHSQp1+TTm7mp/Ocw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703118;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=PnqVtJFbpVdgN32kQBhDM0J5gyS/rozEwm1HbKCbgZ4=;
+	b=R1sFaAjKreDQyi00T/PAmUcNDOpVL073LGu+m+G0I73Kk8HL0JpRB4QFA3Mp93OfNzrD
+	 y6VVueMGE9JIxzm1uM1Q+8Xx2qM+65utwoaZR0b2AmL+6SAL24VgC0XBuNVQcKEbXVVpl
+	 i2VzhdYhZFYo7JXsOtuXvTR5YX8OWg9hOLL1IpVHx0zOgBD/VA5tEEP3Uf3Uv0XEvtsF1
+	 px/RZ3YGcmy33wR6yoQPwhTj4wvM+1uhpx84EYWVNjsYsAU2+IRtuTYazzp7TPBfSnOVq
+	 ZrK/pGp4Db/XJwLlyndHHzBixKyex6RayN9Tud9ySoAgbn7hrFpy66ZiqRJTVdwFwxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KHOhduX9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0qaqPdiE;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KHOhduX9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0qaqPdiE;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=0zvSXBic;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14700606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:51:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14700606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A54606BFA6;
+	Tue,  3 Nov 2026 10:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7A54606BFA6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KHOhduX9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0qaqPdiE;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KHOhduX9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0qaqPdiE
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5B04B1FBF1;
-	Tue,  3 Nov 2026 10:51:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793703094; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5D7xCUClOOfsmSvAcaEAFG25UX6miDGSw5YNpSrkX2w=;
-	b=KHOhduX9mVmQzN3agJyd8Mbs2/ubzjM0FjPNmp6SF42zDc1Nmqo7x1sdssX2CAxGl0MkMp
-	dPy3LczGUFBIsb01+d+BHI23wSmJuF4ZpqZmG4A7gNzVTqjP9l9VPu1n4+rUzwNLBJ9HLS
-	DDxl6y3blimkFk4PWyrcphq2fm1T7U0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793703094;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5D7xCUClOOfsmSvAcaEAFG25UX6miDGSw5YNpSrkX2w=;
-	b=0qaqPdiElRcc7UN5iKxmCBVadcHxB+JOikV0LcKKuGLDg+pV404AsFLWDL9nrKNpJFAIls
-	hi8VmhyoZoVXQCCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793703094; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5D7xCUClOOfsmSvAcaEAFG25UX6miDGSw5YNpSrkX2w=;
-	b=KHOhduX9mVmQzN3agJyd8Mbs2/ubzjM0FjPNmp6SF42zDc1Nmqo7x1sdssX2CAxGl0MkMp
-	dPy3LczGUFBIsb01+d+BHI23wSmJuF4ZpqZmG4A7gNzVTqjP9l9VPu1n4+rUzwNLBJ9HLS
-	DDxl6y3blimkFk4PWyrcphq2fm1T7U0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793703094;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5D7xCUClOOfsmSvAcaEAFG25UX6miDGSw5YNpSrkX2w=;
-	b=0qaqPdiElRcc7UN5iKxmCBVadcHxB+JOikV0LcKKuGLDg+pV404AsFLWDL9nrKNpJFAIls
-	hi8VmhyoZoVXQCCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 03E231350A;
-	Tue,  3 Nov 2026 10:51:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id iBcdM7W86WopHQAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Tue, 03 Nov 2026 10:51:33 +0000
-Date: Tue, 3 Nov 2026 11:51:28 +0100
-From: Daniel Wagner <dwagner@suse.de>
-To: Mohamed Khalfella <mkhalfella@purestorage.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
-	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
-	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
-	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 15/18] nvme-fc: Hold inflight requests while in
- FENCING state
-Message-ID: <80b5302d-1bcb-45d3-b926-0874470ee183@flourine.local>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-16-mkhalfella@purestorage.com>
- <d9563967-9ddb-4cd7-9149-d1f37522e1fa@flourine.local>
- <20261021212357.GZ2931-mkhalfella@purestorage.com>
- <45d52d19-dbfc-49b9-a445-a8fb9e69abef@flourine.local>
- <20261103011851.GK122209-mkhalfella@purestorage.com>
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=0zvSXBic
+Received: from francesco-nb.corp.toradex.com (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id 17A091F9E7;
+	Tue,  3 Nov 2026 11:51:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1793703106;
+	bh=PnqVtJFbpVdgN32kQBhDM0J5gyS/rozEwm1HbKCbgZ4=; h=From:To:Subject;
+	b=0zvSXBicnV/xXIsl1GJLQh3SSvecf17cecdQ44SHpz1ff+NGnNtixCryFfCmZZnI3
+	 +JCl/509PQptfrsZF57nWDc1hzx5QaaYr58nSW9SvY/o9IvCAf1nv6WVU2Gxhfqy0F
+	 BcYEH0LzvBo/I9UN+tecfzAJ4Znp+bcGaTA9PHyeRDbyh83p9qaaSi3gIqfdjejqsw
+	 Z61dHUtYm1hVkWFDs12qH2TnKn74O7QarqFrGmrUuClosC7zsttwq4HLShk19Mw9ne
+	 8ycsXr6mJm9+tCWlq2X9+HCLA9TodPTCdp8f0EpCFyHenK8+xevf4EssEU5T8eCtoo
+	 hm/l91pivF6Zg==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2] arm64: dts: ti: k3-am69-aquila: Keep DP_PWR always enabled
+Date: Tue,  3 Nov 2026 11:51:34 +0100
+Message-ID: <20261103105137.2393416-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,94 +68,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103011851.GK122209-mkhalfella@purestorage.com>
-X-Spamd-Result: default: False [-13.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 05:18:51PM -0800, Mohamed Khalfella wrote:
-> -/* Complete the requests held in __nvme_fc_teardown_association() */
-> +static bool
-> +nvme_fc_cancel_held_request(struct request *req, void *data)
-> +{
-> +	struct nvme_fc_fcp_op *op = blk_mq_rq_to_pdu(req);
-> +	struct nvme_ctrl *ctrl = data;
-> +
-> +	/*
-> +	 * A single cmpxchg decides who completes this request. If the op is
-> +	 * HELD, nvme_fc_fcpio_done() is done with it and we cancel it. If it
-> +	 * is still COMPLETE, nvme_fc_fcpio_done() has not decided yet: move
-> +	 * it to IDLE so its own cmpxchg to HELD fails and it completes the
-> +	 * request itself (nvme_fc_complete_rq() sets IDLE anyway). Doing this
-> +	 * as read-then-cmpxchg would let the op become HELD in between and
-> +	 * leave it with no one to complete it.
-> +	 */
-> +	if (atomic_cmpxchg(&op->state, FCPOP_STATE_COMPLETE,
-> +			   FCPOP_STATE_IDLE) == FCPOP_STATE_HELD)
-> +		nvme_cancel_request(req, ctrl);
-> +
-> +	return true;
-> +}
-> +
->  static void
-> -nvme_fc_flush_held_requests(struct nvme_fc_ctrl *ctrl)
-> +nvme_fc_cancel_held_requests(struct nvme_ctrl *ctrl, struct blk_mq_tag_set *set)
->  {
-> -	nvme_cancel_tagset(&ctrl->ctrl);
-> -	nvme_cancel_admin_tagset(&ctrl->ctrl);
-> +	if (set) {
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Do we call flush when we don't have a set?
+DP_PWR on the DisplayPort connector powers active DP cables and
+adapters, which do not work without it. Keep it always enabled, and mark
+it boot-on so that the firmware, e.g. U-Boot, enables it at boot,
+whether or not a display driver is available.
 
-nitpick: use the early return pattern if needed.
+Francesco Dolcini (2):
+  arm64: dts: ti: k3-am69-aquila-dev: Keep DP_PWR always enabled
+  arm64: dts: ti: k3-am69-aquila-clover: Keep DP_PWR always enabled
 
-> +		blk_mq_tagset_busy_iter(set, nvme_fc_cancel_held_request, ctrl);
-> +		blk_mq_tagset_wait_completed_request(set);
-> +	}
-> +}
-> +
-> +/* Complete the requests nvme_fc_fcpio_done() held during the fence */
-> +static void
-> +nvme_fc_flush_held_requests(struct nvme_fc_ctrl *fc_ctrl)
-> +{
-> +	struct nvme_ctrl *ctrl = &fc_ctrl->ctrl;
-> +
-> +	nvme_fc_cancel_held_requests(ctrl, ctrl->tagset);
-> +	nvme_fc_cancel_held_requests(ctrl, ctrl->admin_tagset);
->  
->  	/* re-enable the admin_q so anything new can fast fail */
-> -	nvme_unquiesce_admin_queue(&ctrl->ctrl);
-> +	nvme_unquiesce_admin_queue(ctrl);
->  
->  	/* resume the io queues so that things will fast fail */
-> -	nvme_unquiesce_io_queues(&ctrl->ctrl);
-> +	nvme_unquiesce_io_queues(ctrl);
->  }
->  
->  /*
+ arch/arm64/boot/dts/ti/k3-am69-aquila-clover.dts | 2 ++
+ arch/arm64/boot/dts/ti/k3-am69-aquila-dev.dts    | 2 ++
+ 2 files changed, 4 insertions(+)
 
-Yes, I'd prefer this over the introduction of RCU in this code path.
+-- 
+2.47.3
 
