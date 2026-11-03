@@ -1,65 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793674518;
-	b=X2AeA5wAW4/5UOE/mRlNI6da8wpc6c7cttqP+qQEgFzqwYLdQujFL61YfMdpfxnlVgqK
-	 o1T7AEWktA6/rPnoexfEZLQdEGA8tto0gLc1H8DRU33aAnN71PwDrHxtevDAtgvzbYiUJ
-	 Ye32W7z4AiMnLcKJyU/BFJ1wrkHmHBj301PttSEM0zsu+pF3qGNcNrDEd1ZgSEu8Yh1kE
-	 cztIkSkfmsBbHibVFRBELw9TGOnPSmxUZLIJJO3UkNuBtIcbfdt7+EVx/+lk7Z5zdgycW
-	 QCpOji5cnlEsynBgsA05Pg8FIKAcMDq0+rjGvuTOQ+dRwSIe7uKbB6uFHMU5faP4duw==
+	t=1793674508;
+	b=owfGlQdbqqCjrffDVLvfGPPuQMuyBOR4Cp9lG7bI4We9ostGQI99F6yYkAB7Cm7Nc7mh
+	 9vBLU6gFbM1a8ZlCiG2FK3zqzEa5oTpkpx1TlDih75N+0LpRbPyn8LetDCSbtnYfzPkTz
+	 4sgGUGaGSeT/D9MFQwc6C63FEmnhZOf/U3d0CCvwVmuINiiOFU2WQXp6/MQJSktdxmY7q
+	 EQ0aietVn3v+0zxzrLZiEkOAccgxn+o4RDRQMbOEqwEWs5vPI/lUYBagy0SS+Non622Yx
+	 z8zZ/F5ePQs0bm2J3nBtOzNXWxaG2QFPZG79MGqP4o98dhfq/LbGf3iNSOR2EsGYbnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674518;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=M4IsPAVHTXvNhsayZrPE1EGmAc2003EPnpM+czZUcl4=;
-	b=UOgF38gopW2FIiruis7ahzwTmkJzo7TP2wI/jNvP3BScPUvlQQqDtfXVr8FIRq38HBCi
-	 1Bjoyb/pzfQYfWRlxR/iGgSwTzQNLCFL+e5yMSHg0CTetQqMqKW4qfktJ6uyCVZ4hO65B
-	 YH5VDOen27tma6PmZMgwQM5Bg4zqqaeMyM1VAekE3kaP5tAET9bXL0JVkwpS04fWVykK+
-	 hTeBUxNOoSgOY7gylIBkQx02mht/ciRARWsIFlH4DBHjhO/L6TEPKRTZ5lgV2ew0DAozY
-	 fbiWUzkVxk1lJtGplcsVD0RznpAoGtvGZiihB6u9MVBjUFCiIPZ+FTYeFR5M2+yNSnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674508;
+	h=DMARC-Filter:DKIM-Signature:Subject:Mime-Version:Received:
+	 Content-Type:Cc:In-Reply-To:X-Original-From:User-Agent:Reply-To:
+	 References:Content-Transfer-Encoding:To:From:Date:Message-Id:
+	 X-Lms-Return-Path;
+	bh=gHNVKexvi+2DC2GaCkkB9eH3+bs83qsGXoSScAr4A5A=;
+	b=uJyle9KwO87uK1moAwCKivma440lb43/PAdm7wmWAq99K1tO3kc/gnsP7NCI6MubI9ag
+	 5NDIf9yq8KGG+yanjrleCB42sEsrjVxuUWjbDTVpSYl0CMrhBCNew+RPhOpFoUX+OcSrX
+	 dVjWuiRJV2U9CB6KEW2P0Ii6yZwhstUpzVrB8T6xVduorDxM3RvbijEoj7UUCzkbFu5CX
+	 wVwt0hN184DPVkz/eP659+h9uvNwJO4QqTKU8wOO6CAMatLIlZOO6rvN8HmgsiUVidYWK
+	 SSK0/BKrF/6zUNAswbkowCaHPGD0I+ypBABRWaesPL8rChOgsQ6WMVBQH17zT1bk2zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=FYu2Qtdz;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b="a/omXujP";
+	arc=none smtp.remote-ip=209.127.231.20
+Received: from va-2-20.ptr.blmpb.com (va-2-20.ptr.blmpb.com [209.127.231.20])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F7C606A327;
-	Tue,  3 Nov 2026 02:55:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60F7C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8ED606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:55:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D8ED606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=FYu2Qtdz
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=M4IsPAVHTXvNhsayZrPE1EGmAc2003EPnpM+czZUcl4=; b=FYu2QtdzFEaA+ec/ojb84UyEp+
-	WS6yJQohOv0GfKGDl/6dDbX6yHLTk3aSt0BJAL6gfK0O9wg6uV4bTbPosNceYft1tzzDHPJIzGLcr
-	ZMjCKcYKDjBryxvFFUAR4AnxVZMHoHNXsdA3HoNKWHps+fdTqtPfffwWXqvJC+gVMkmM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xO4fp-00DwWH-71; Tue, 03 Nov 2026 03:54:57 +0100
-Date: Tue, 3 Nov 2026 03:54:57 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: pcs: xpcs-rk: limit advertised interfaces
-Message-ID: <48cb8a9d-622f-497c-a13e-bc679c764ce0@lunn.ch>
-References: <20261029094916.3127193-2-coiaprant@gmail.com>
- <c5fc86f9-3c43-4aee-8d88-92e8f88c6d5d@bootlin.com>
- <1B8D463D-1295-4BF0-972D-859C342E49F5@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=a/omXujP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793674498;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=gHNVKexvi+2DC2GaCkkB9eH3+bs83qsGXoSScAr4A5A=;
+ b=a/omXujP/+BmTnJgjSY4xYcMc7qjB3iDvCZ+xEpiTWbVAjg5OS2t39x6THE7VleHpcqpXK
+ ZA4kSQ6dJ0doSCF2V3vjHcBtLBWkkcZVI10EI30cQNsRdYRP99S5G6KnxMrji8np0sA/Ba
+ xeE0XluN5yZnjxHMxJdSKaAUxGhqvIAwfKABJOX47MYj/Y9kEst2ePKamP30jWXR2GtRdd
+ isYa6PWu1/0s4fRJ2Q5HcunbvZHikTgGnoAGSpyJypvH/qCmkQMnI8kwFnxT/NqLTa3E5+
+ b0pix8/jOvp3Axq9GN5czUuTL3AAUmgYmuu96KVJVr2UX52s0td7vbDGhwV7Bw==
+Subject: Re: [PATCH] md/raid1: Prevent excessively large memory allocations
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,31 +53,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1B8D463D-1295-4BF0-972D-859C342E49F5@gmail.com>
+Mime-Version: 1.0
+Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Tue, 03 Nov 2026 02:54:56 +0000
+Content-Type: text/plain; charset=UTF-8
+Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<syzbot+fc26c366038b54261e53@syzkaller.appspotmail.com>, 
+	<syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>, 
+	<stable@vger.kernel.org>, <syzkaller-bugs@googlegroups.com>
+In-Reply-To: <20261028152755.383821-1-gowtham398gs@gmail.com>
+X-Original-From: yu kuai <yukuai@fygo.io>
+User-Agent: Mozilla Thunderbird
+Reply-To: yukuai@fygo.io
+References: <20261028152755.383821-1-gowtham398gs@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+To: "Gowtham S Bhushan" <gowtham398gs@gmail.com>, <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+From: "yu kuai" <yukuai@fygo.io>
+Date: Tue, 3 Nov 2026 10:54:53 +0800
+Message-Id: <7135fce3-943f-4e3d-9413-2a4ba962021f@fygo.io>
+X-Lms-Return-Path: <lba+26ae94d01+d20be5+vger.kernel.org+yukuai@fygo.io>
 
-> Hi Maxime,
-> 
-> You're right that for modes the PCS does implement, the limit belongs
-> on the MAC side. The complication is that the compat table describes
-> the whole Synopsys IP set, while a given XPCS instance only implements
-> a subset of it. That is a historical design issue in pcs-xpcs: the
-> table mixes C73, C37, 2500BASE-X and 10GBASE-X entries, but different
-> integrations implement different subsets.
-> 
-> On RK3568 the XPCS instance is wired up for the C37 SGMII path only.
-> 1000BASE-X is part of the same C37 core, but I don't have a PHY to test
-> it against. QSGMII is not implemented in this core. 2500BASE-X and
-> 10GBASE-X are separate modes the shared table carries, and neither is
-> implemented on this SoC. C73 is not wired up either.
-> 
-> Trimming the mask is not limiting the PCS, it is cutting the shared
-> table down to what this instance actually implements. A
-> platform-specific glue is the right place to do that.
+Hi,
 
-Are there any registers which describe how the PCS was configured at
-syntheses time?
+=E5=9C=A8 2026/10/28 23:27, Gowtham S Bhushan =E5=86=99=E9=81=93:
+> Validate mddev->raid_disks before memory allocation to prevent integer
+> wrap-around or allocating an unreasonably large chunk of memory that
+> exceeds KMALLOC_MAX_SIZE boundaries.
+>
+> Reported-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D75f49ec552cc74d9d69b
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Tested-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
+> Cc: stable@vger.kernel.org
+> Cc: syzkaller-bugs@googlegroups.com
+>
+> Signed-off-by: Gowtham S Bhushan <gowtham398gs@gmail.com>
+> ---
+>   drivers/md/raid1.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+>
+> diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+> index f0646fb24371..88038d535727 100644
+> --- a/drivers/md/raid1.c
+> +++ b/drivers/md/raid1.c
+> @@ -3050,6 +3050,16 @@ static struct r1conf *setup_conf(struct mddev *mdd=
+ev)
+>   	struct md_rdev *rdev;
+>   	size_t r1bio_size;
+>   	int err =3D -ENOMEM;
+> +	size_t calculated_size;
+> +
+> +	/* prevent baseline integer wrap-around anomalies first*/
+> +	/* Safely calculate size; overflows automatically saturate to SIZE_MAX =
+*/
+> +
+> +	calculated_size =3D size_add(sizeof(struct r1conf),
+> +				   size_mul(mddev->raid_disks, sizeof(struct r1bio)));
 
-	Andrew
+This is not the only place, raid1_reshape() has the same memory allocation.
+
+> +
+> +	if (mddev->raid_disks <=3D 0 || calculated_size >=3D KMALLOC_MAX_SIZE)
+> +		return ERR_PTR(-EINVAL);
+>  =20
+>   	conf =3D kzalloc_obj(struct r1conf);
+>   	if (!conf)
+
+--=20
+Thanks,
+Kuai
