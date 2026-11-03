@@ -1,80 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.36.163.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742817;
-	b=Mvy3F09/ot5EY9ArYpPLNyo45l9j0yjwsmEbVYrEhhqH9D85hTN/07e0lfvxG6LNWDFn
-	 hFHxXqOdMjB+3pKjB7z3fTCq9wXVLWXgZJjhh8RJsAtYd6PQXBJ6JQJ2kGUpOdwFikQaS
-	 6RCO/gYutmNe6PLmm5aTLCfcmm28Q8mkk5hZ/ym9WgPCEktFaUHUnkR3xjwN0Uk41BOPl
-	 W7N9ZUmEYkA+YXatcDjOuZu5m4bkLniJdBlAzzfruNwF0Ajubz9Nc4e68N1t7KHSSIHvT
-	 DikA81ta9omz2EbA1UP3WmfBQQDJwx2AUqlyfMqdhLk86Qhl9CvQn7ldVJImDhvch3A==
+	t=1793742874;
+	b=wBWDODV/TMPxf7MbYosGiKQT9t3UZELRyDLw84teGWHfJDqqf6BGnoammtpJDIKZJM6c
+	 4305ph2UBYxQ/VrYDOnXrEzGi8NkDGctafn1tPh17tcpXWI/eq0M+jPlG/YzZz7u097Q6
+	 mcyfG8xN983WZqxsF0a6+Kv9Xqc8epj+JTqnrrDwtokzsUk5Dga3oTZz22ipmD7nK2Eke
+	 2iQeg08wkqoN34Es4OLH1iU2jczsKBNZswLjej9J4fQEXRsdn4M/h/WfmKZn6GWSjuaQM
+	 NfpJTNvb9A89foZc+IV2ydb2WxJ6J3Q2S5tzxMnvDkiLsWVIHs8zFbx3DxXSWbxL65Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742817;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-SEG-SpamProfiler-Analysis:
-	 X-SEG-SpamProfiler-Score:x-atlnz-ls;
-	bh=028xdkG7xPI0U67R1NCatjCGNqB+YqqdI0Ec0sbhbX8=;
-	b=Inrsdgh46m1AKX+K9dxKN4VYaZNZchpSGvC6Wti4OTDc9bjJWprAyw1LuqQPLG72KJr+
-	 H7R6BOrVc2RVeJ1bCu/HkZTu2m1evkGax+G3Qwp6VDXbsnE1I+I+6a8Spqj8tkoHH0EUD
-	 0KVxVAeU+tiJtjRhquWFaGSV9GbduWHhXQ83IaUurEc8W2AFt5rAl1My1eOqMY9xHUIFP
-	 /99qozSL2Fj4PyuFbFUJX6BIinRYJPyrAWRtBsCEvkn5l25t+rYe8OQTKRgkXmCI6XBSr
-	 GciSe6OnANYEFVNbHmnBb6AKz8euRlW78vguW5ZIPaTjKedsK08K/QeNeLQZAPAe9Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742874;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pNIYfgovfeYUTnUWQVAULaUQM12WfGegAeKvV0ijU6k=;
+	b=kin8U4JDoY+cJuUgukAzHfp6sQadJkxorZmcwuwTzrzqO2SvMQiM/mDuGzcM72A5ssFg
+	 L0qNw6qeCAE0IfwTuT4rgHP/gzuCBF8XppV77vt3rHgKsI7NKmllkKudal8vnRQ4n9ta0
+	 yexnetlXrNCfpay+kmZ7v5QxiNyN9WR0g+2ABkRN2JRVKnjo4lP0cxv13v+rscINl6+Xl
+	 IDnnG5mR5sCiGqbjAMHbHEFKmym88F8K9yDiulbE3f9RYRF4vbOIjdG3m5JgHx4nqNIPC
+	 scEZNTq/TwqsFRNMM+rKBxrPlI019fFN00nZ+hPpkBBs+oP9bu7FhpuyAnD3N0v6Mcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alliedtelesis.co.nz;
-	spf=pass smtp.mailfrom=alliedtelesis.co.nz;
-	dkim=pass header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=Ck+J+n7q;
-	arc=none smtp.remote-ip=202.36.163.20
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="jfGbh/HO";
+	arc=none smtp.remote-ip=91.218.175.218
+Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0D3606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:53:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A0D3606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035B6606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:54:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 035B6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=Ck+J+n7q
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 3EB602C0520;
-	Wed,  4 Nov 2026 10:53:22 +1300 (NZDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1793742802;
-	bh=028xdkG7xPI0U67R1NCatjCGNqB+YqqdI0Ec0sbhbX8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Ck+J+n7qi3Mu03GyemcDUYL+jhoVpwihQ16VVq+BGWOLvKCuxFY6naels+G1HGoG9
-	 JkGG8Tjchaa7iWIpQCkxZAhdbLDn2fmbWmvh9hTvuWT7WuwZNzVUXqu30baBWR1v+h
-	 gJ3DMLmRghP2r/eIGhKr2Rb+9dHNaB4OoIrbkw3x+XY8k9v5xTcl2cbqfUYTSnCowG
-	 vt/iOVIsRqI7bzr1VQuThBMm3Ym+ZQnHKfobfOMaOoJEEMF7KiEtdehjp/RBaAi0wG
-	 N+Jf86a7oW5Q2PawoHnc04b/0SoOem1lobDHoH9O+nViUrbzQV+lu9vOk0qVLGXcpl
-	 jQF2+3mnqlStQ==
-Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B6aea57d10001>; Wed, 04 Nov 2026 10:53:21 +1300
-Received: from joshuas-dl.ws.atlnz.lc (joshuas-dl.ws.atlnz.lc [10.33.25.18])
-	by pat.atlnz.lc (Postfix) with ESMTP id B2CC013EE5E;
-	Wed,  4 Nov 2026 10:53:21 +1300 (NZDT)
-Received: by joshuas-dl.ws.atlnz.lc (Postfix, from userid 1634)
-	id B2CE15AEED4; Wed,  4 Nov 2026 10:53:21 +1300 (NZDT)
-From: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-gpio@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Sander Vanheule <sander@svanheule.net>,
-	Bert Vermeulen <bert@biot.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jfGbh/HO
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lzvO4MZjJaBVQmlohMoJ2wbpUm50n891PebbguUdryA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793742870; v=1; x=1794347670;
+ b=jfGbh/HOsOxsUSry2IPwFxi6NWyrWkFH+e42+sVp/RFdXSh06V1SmbSthalzB3AIH8ca9D66
+ vF9TykAblu8zQ2IAx8XCnn3bFD/jvEMWy2QIL/pPdATwExO3oGsf314SYjMFfA4ha1s0Ml1Lo0L
+ srd6w/fYsWxBAeHqu3MyTPE4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 608ed53c19633f31;
+	Tue, 03 Nov 2026 21:54:30 +0000
+X-Mizu-Trace-ID: 608ed53c19633f31
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: "Zi Yan" <ziy@nvidia.com>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	"Andrew Morton" <akpm@linux-foundation.org>,
+	david@kernel.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	ljs@kernel.org,
+	linux-mm@kvack.org,
+	ying.huang@linux.alibaba.com,
+	"Baoquan He" <baoquan.he@linux.dev>,
+	willy@infradead.org,
+	youngjun.park@lge.com,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	kas@kernel.org,
+	baohua@kernel.org,
+	dev.jain@arm.com,
+	baolin.wang@linux.alibaba.com,
+	"Nico Pache" <nico.pache@linux.dev>,
+	"Liam R.Howlett" <liam@infradead.org>,
+	ryan.roberts@arm.com,
+	"Vlastimil Babka" <vbabka@kernel.org>,
+	lance.yang@linux.dev,
 	linux-kernel@vger.kernel.org,
-	Joshua Scott <joshua.scott@alliedtelesis.co.nz>
-Subject: [PATCH 1/2] dt-bindings: gpio: realtek-otto: Add RTL9311B
-Date: Wed,  4 Nov 2026 10:53:15 +1300
-Message-ID: <20261103215316.1544492-2-joshua.scott@alliedtelesis.co.nz>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103215316.1544492-1-joshua.scott@alliedtelesis.co.nz>
-References: <20261103215316.1544492-1-joshua.scott@alliedtelesis.co.nz>
+	nphamcs@gmail.com,
+	shikemeng@huaweicloud.com,
+	yosry@kernel.org,
+	qi.zheng@linux.dev,
+	luizcap@redhat.com,
+	kernel-team@meta.com,
+	"Thomas Gleixner" <tglx@kernel.org>,
+	"Ingo Molnar" <mingo@redhat.com>,
+	"Borislav Petkov" <bp@alien8.de>,
+	"Dave Hansen" <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Subject: Re: [PATCH v8 07/30] x86: mm: add PMD swap-exclusive helpers
+Date: Tue,  3 Nov 2026 13:54:22 -0800
+Message-ID: <20261103215423.104469-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <DLX6HZQ71WVN.1AIA7V63XWARY@nvidia.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,44 +100,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=H8t4wPYi c=1 sm=1 tr=0 ts=6aea57d1 a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=zJRp6_cAMcgA:10 a=LBYFwOYDQ0lbnge7NPYA:9 a=3ZKOabzyN94A:10
-X-SEG-SpamProfiler-Score: 0
-x-atlnz-ls: pat
+Content-Transfer-Encoding: 8bit
 
-The Arm-based RTL9311B switch SoC has the same GPIO controller as the
-Otto MIPS SoCs, with one bank of 20 GPIOs. Add a compatible for it.
+On Mon, 05 Oct 2026 16:14:52 -0400 "Zi Yan" <ziy@nvidia.com> wrote:
 
-Signed-off-by: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
----
- Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+> On Fri Oct 2, 2026 at 5:52 AM EDT, Usama Arif wrote:
+> > Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
+> > swap round-trip, which makes PG_anon_exclusive have to survive in a swap
+> > PMD and not just in a swap PTE.
+> >
+> > x86-64 encodes a swap PMD exactly like a swap PTE, so the new helpers reuse
+> > _PAGE_SWP_EXCLUSIVE, bit 3, which the swap-entry layout already reserves
+> > for PG_anon_exclusive. 32-bit x86 aliases that bit to _PAGE_PSE and does
+> > not select ARCH_HAS_PMD_SOFTLEAVES; assert that, because an exclusive swap
+> > PMD would otherwise be pmd_present().
+> >
+> > Cc: Thomas Gleixner <tglx@kernel.org>
+> > Cc: Ingo Molnar <mingo@redhat.com>
+> > Cc: Borislav Petkov <bp@alien8.de>
+> > Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> > Cc: x86@kernel.org
+> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+> > ---
+> >  arch/x86/include/asm/pgtable.h | 20 ++++++++++++++++++++
+> >  1 file changed, 20 insertions(+)
+> >
+> > diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
+> > index d551120a7c889..c35dfa6ceda05 100644
+> > --- a/arch/x86/include/asm/pgtable.h
+> > +++ b/arch/x86/include/asm/pgtable.h
+> > @@ -1525,6 +1525,26 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+> >  	return pte_clear_flags(pte, _PAGE_SWP_EXCLUSIVE);
+> >  }
+> >  
+> > +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+> > +/* 32-bit aliases this to _PAGE_PSE, making an exclusive swap PMD present. */
+> 
+> Is it better to say? Since the above comment sounds like 32-bit
+> specific, but the actual constraint is about not being _PAGE_PSE.
+> 
+> _PAGE_SWP_EXCLUSIVE cannot be _PAGE_PSE, otherwise making an exclusive
+> swap PMD present.
 
-diff --git a/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yam=
-l b/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml
-index 33c25df7b815..4d69722711c4 100644
---- a/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml
-+++ b/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml
-@@ -15,6 +15,7 @@ description: |
-   of two banks of 32 GPIOs. These GPIOs can generate edge-triggered inte=
-rrupts.
-   Each bank's interrupts are cascased into one interrupt line on the par=
-ent
-   interrupt controller, if provided.
-+  The Arm-based RTL9311B has the same controller, with one bank.
-   This binding allows defining a single bank in the devicetree. The inte=
-rrupt
-   controller is not supported on the fallback compatible name, which onl=
-y
-   allows for GPIO port use.
-@@ -30,6 +31,7 @@ properties:
-           - realtek,rtl8390-gpio
-           - realtek,rtl9300-gpio
-           - realtek,rtl9310-gpio
-+          - realtek,rtl9311b-gpio
-           - realtek,rtl9607-gpio
-       - const: realtek,otto-gpio
-=20
---=20
-2.53.0
+Updated the comment to:
 
+/*
+ * _PAGE_SWP_EXCLUSIVE must not alias _PAGE_PSE, which would make an
+ * exclusive swap PMD present.
+ */
+
+which I think is clearer.
+
+> 
+> > +static_assert(_PAGE_SWP_EXCLUSIVE != _PAGE_PSE);
+> > +
+> > +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+> > +{
+> > +	return pmd_set_flags(pmd, _PAGE_SWP_EXCLUSIVE);
+> > +}
+> > +
+> > +static inline bool pmd_swp_exclusive(pmd_t pmd)
+> > +{
+> > +	return pmd_flags(pmd) & _PAGE_SWP_EXCLUSIVE;
+> > +}
+> > +
+> > +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+> > +{
+> > +	return pmd_clear_flags(pmd, _PAGE_SWP_EXCLUSIVE);
+> > +}
+> > +#endif
+> > +
+> >  #ifdef CONFIG_HAVE_ARCH_SOFT_DIRTY
+> >  static inline pte_t pte_swp_mksoft_dirty(pte_t pte)
+> >  {
+> 
+> Otherwise, LGTM.
+> 
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+
+Thanks for the review! And apologies for the late reply, I was away.
+
+> 
+> 
+> -- 
+> Best Regards,
+> Yan, Zi
+> 
+> 
