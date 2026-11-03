@@ -1,78 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793700894;
-	b=CtTWjz9Uw2DH1okmmg4aLs7GQ126W2GD+hFAeZ2T+vR9dPMIWA/75Pi2qo8IxRxhWhbJ
-	 wW4wWfhqJZwmWOpyZzJrpaODAlRakYIfquW0J+JyFnDI2I9CqBvHzzQGsMAfyh7ZjtiRY
-	 lXj0I3syQnvJYQUDsB+Py8yRArExOIgrGA6OJKWytoD5OTwetkKIrfzffd6XPzhTwN3Y7
-	 9VPCqOqu9mG4BcwtyuyhErjddDrcX6IvfCpAxWIJJYDLyUTme9ZnipZ0oQjTULdTq01ya
-	 a/MW7TDKYWnA2gYb9c9c0MsCz7G7SlqZttrZCOR8a+skWxQON1TBjDidZfjVQU5Ij+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700894;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nWYjwJnesi109nR4qBmGS5QUAHWH0kyW1v6rv1/kzzQ=;
-	b=GceRvx5/6dllAK7xDjz8iy66bwkXB9YRqmOqnMWfno7vNwfGiz0HX5wf0MSS5UPn8b0Z
-	 zukgCYL/CCDtZTjnpWEp7HQZkkGN28BnGv9G4gvbR/+ZT5bQPmFxdKqXwQk5ioObt1+jl
-	 csqP6IjEkVh2g8TwGTpx7x+OmxQz5JVivu5VW9AC2CD4sMndJqHsdWuQRtrYXPSkAcSB1
-	 Nm8TTCaGRS8FcbiKzipKMYh50a9kY9dfBi4NqfTbzhBcquEoWvcD813vdcSyTqfPTf8Cr
-	 6k5WTSi7n17q+5hbqgQrwc3G4ekGQ8GG52DA2pc4rXv/mr5WVu8X6T7D+1QNeYO2Agw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQQQU0j+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C6E60A261C;
-	Tue,  3 Nov 2026 10:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQQQU0j+
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793700893;
-	b=2ZG1bob04Xw53YQSWBPg5q1lb1c4vTCWaplnJhL8yFlMOhFZIWoOeYP57UpfXgPTL0iM
-	 27TXFSPWo0SQTBAJ8PN6DT61Cj8tBX5pSQgN6HkSRj4jH5GEtPdOpNq4AGZBJxHRgdC0Q
-	 SPipYdHfD0r0VPMWjMoUdBpFS2oomIkc8ogxH27Vaqb12pmPoq4bmyHaF+DBsg0IzaNaz
-	 sE97lK/ky5wsiuRGkf98MjC+pCuWwCwbJ3xcWtTYjTehwWw6z+IaG7YyCfg4c9aDNtdJU
-	 8z4LBO6Oh1IdhnlvZgwDBsfpw07WxlQRQn89GBY7nhErkGN1GOFJCUXNziPxJaQ6yrw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793700893;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nWYjwJnesi109nR4qBmGS5QUAHWH0kyW1v6rv1/kzzQ=;
-	b=DQcRnnMtUiSf1AfpXNYI0yJhbNVs6jUGW+B94aKI7+feGz5mgb/ULtNtAZQac7xbBExU
-	 U190a8xDIM58HZkxADq9j6uko3dlourkTIAGQ822X6IizCd8+R8M4Tuvozzrlbfwr0v6z
-	 XsLZIRvAIbkLIo1yYdVNGm+v+mFG+Fc1+dYkAR4aPYhxV3Kpr2Y3TPOzwKumxrAP8jkrT
-	 XsUL0gger53ienFS0D5BGnzFYe8AMcXbLn8bP/5goUPuYEGXKzHZumJy+ZdmyUX7jMCUb
-	 w5kP1NOpPrF4TDMSkOHRIguezGxM9DZRu1U6jlMelCkPicenfFEtqWVCKg7WvAWKY8g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5B4091F00A21;
-	Tue,  3 Nov 2026 10:14:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793700893;
-	bh=nWYjwJnesi109nR4qBmGS5QUAHWH0kyW1v6rv1/kzzQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=dQQQU0j+ZgpPmDou54Zq0Aopsmg8gsQWqu6n5dPiaPcfw5exGxaKbOZS7Aa0je/rS
-	 fDpor0mdEVzye3/CLTx7Fjkho1XnwuNfM+itMBuQ3tHYqKeV5+ezjHfuHxvM8AlihF
-	 JUxOhBfNEyDS17Uh4nP7SrqWyucXZ/FEubfopD0CovlA/ChUDh1w+P5DCvt/LbqmSk
-	 xkZ8CCVxACE2WpcQ55NWCV2AGOUEgd/aGvP5rgF85K2R4cHPLtz4yuJiOPCFQHgSrN
-	 INFgwL9qG4p/vJWjBVnBaOEdLy4dmA2/m3uOJEyf+a/i7dgnkmKNJNU76L9cXJnJaB
-	 ImUNxWYl3ZsAw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 394C0468C5;
-	Tue,  3 Nov 2026 10:14:48 +0000 (UTC)
-From: Myria Sarvay via B4 Relay <devnull+myrialsarvay.gmail.com@kernel.org>
-Date: Tue, 03 Nov 2026 21:14:48 +1100
-Subject: [PATCH 13/13] arm64: dts: apple: t8140: Add PMU Device Nodes
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C83260A5BEB
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:14:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C83260A5BEB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HVuGw24O
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b4e814214aso1885571a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:14:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1793700898; x=1794305698; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tKdtG2s6IZ3j7IH/DuwyQ1OpXzzjxl5BXBKUm8dGf6U=;
+        b=HVuGw24OF5tV7lS/rJdR15vv8N8owU7Y6aySKXgwyKVOX0chnZXa1Em8+abbAgaekg
+         QRGVIf3yUhXI1k6qsWBCyUPwQvq0uVayHZQctHuBqxMcxaTgyfS7odtiM0wb1FrMaxjl
+         d29hktLGSKd+nCBvW8Ec60IlmX3fhev7eMo7F2Kkea1rquHKqmI374G7WX58q3xVO+A2
+         XZsrA6urKO6PZFd56Sdksv3Ma7JhQYqt/WvxLbVDVotWE5IMvZ1BITOlIcSh0AXfX7lN
+         khcexoOY4YghEzIuLoeevP+ARZxwpdanTTYqLgRtMua7EgfPxK8eQKJVJbEvqy1SYsHu
+         WkQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793700898; x=1794305698;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tKdtG2s6IZ3j7IH/DuwyQ1OpXzzjxl5BXBKUm8dGf6U=;
+        b=dZA+AQoxI56EbTvidPSM2XAohbO0hZcX9nn8HWcyqtNEL4sLH1/CvCpXhPNQ4Qf0Ms
+         K/h3bjDKJkfYmx/l+ceeLRib//MSMPN9KZQ1jzNpb38acIHbmCmJYrz/Iikqwdc5r3NQ
+         hqHn1hf1a4hJGU9S3tnuGSuKR2/2Hxawo11P74m6w+RE3Yn605pwAuyCbeiEISfF8a2m
+         25zKjgfrJHaPbEzHtloFxO9sYS4RyfoJPoJE9hOOGbn12TdQhGIz0xWGKKwLCu4YTfzH
+         pHXnh1oc98yO/ZnHcU1x8Urhlk4oUsxWyQYsLHaDSPXaIqIAZWuiqqP+VDEa84IGlub0
+         s16Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw3x/gaZFaduU7fgP0JRgMjyazv+fczskEnQ7sqQt/2SJR1wZfbFH8+ZMlUZjdNtrjZBpnaRUQmf43qBvk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/u/+wu6Lea3lcykw+BCP0JxnXXjJx9PjJh53vbglMs8GWRvasH
+	WbYIQrJJe3yc3TKLwXC70iQ8bNrMQ80BKYdaAbLag7sHE/KMSRPs2Ail10EXrFSi/TIe
+X-Gm-Gg: AYBFou3De6mgPDl2iywae2t20JjbzqlaCNKjhZLfYoPamWf9LzT5fJvUlx4BT8HtHoW
+	D8Eh45Gc22xcgWD5FdGJ5d6/kYsMf29UiAwgtmU+ME2poPxv42PeO7vHDcq8mCYf65EvP/xz+FV
+	8QimOiOsLHLEtZvYWeS7MCqLuJrhOVzfx1YdjACHQCMy2uqRo4DamE3JUBKOhwKSZt/9Yc6r0Mb
+	XU5RAUbcosioBk66ntaRMwbwV5ru6qDV1i3ZgyiXkmbMFJm0A4HlWc7R3F3UshyAv/q963Zy9Ea
+	pZulrZdSAR7yqQpuifNP2BBLEoLsD6PypAOn2lr68P0TjAlrJQjUksKmfYVj3F/bPvTMd60YUVR
+	rdXJcMMHQBZIYNilRpktm0mofJo90didDrV1bqlJP6Fpk6vFVZZjkiWBoHEG9VjARG+xjM3ES3S
+	GNQrN9JQ8bFVC3/aMPTn90Ks8epcZh/i5JQq0Uqhwy95yby2EfE5bBD+1vg9v5cDZxOkyAKEMez
+	RV0TiOh+FCTNDNodrOiklmGyzgIF9Em0CFasrw3zkRZMjwxAJBU66CtstDE8t73nW8UrczdhJkX
+	UaQkpOUzf3IANphX9+l/h1hvTrp98+d1yBfHeA8/5N6fPNfYs4GmGeLxXqXKv2ySdEtNMQw1onR
+	9hlgUkgkLpMj0Hsj+9hJe
+X-Received: by 2002:a17:907:3f88:b0:c48:1977:e1c3 with SMTP id a640c23a62f3a-c4ca7a4e638mr1198543066b.21.1793700898407;
+        Tue, 03 Nov 2026 02:14:58 -0800 (PST)
+Received: from alex-t14g7.localdomain (tmo-086-54.customers.d1-online.com. [80.187.86.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cec189195sm69976366b.86.2026.11.03.02.14.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 02:14:57 -0800 (PST)
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: ast@kernel.org
+Cc: brauner@kernel.org,
+	jlayton@kernel.org,
+	Alexander Mikhalitsyn <alex@amutable.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next] bpf: use FS_USERNS_DELEGATABLE for bpffs
+Date: Tue,  3 Nov 2026 11:14:05 +0100
+Message-ID: <20261103101405.70180-1-alex@amutable.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,69 +83,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-m3-plus-pmu-events-v1-13-a8eb6c1139fe@gmail.com>
-References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
-In-Reply-To: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
-To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>, 
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
- Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, Yuvan Shen <yuvanshen09@gmail.com>, 
- Myria Sarvay <myrialsarvay@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=855;
- i=myrialsarvay@gmail.com; h=from:subject:message-id;
- bh=HmrCqgh4Krnz4um2UxQsOgO7E1EqWRunv36sceKf0O0=;
- b=owJ4nJvAy8zAJRbk4iixYu2/l4yn1ZIYsl5uEbWbf2eZttg2Kf6Vk8J3tq1qkWi0nn1o/k21Q
- CNh37z1ogYdpSwMYlwMsmKKLPqmadqT2RoulS5z3QIzh5UJZAgDF6cATIRDi5Hh1ook83DWKZFu
- iSFitnueCYi8WsvRpXb/f8MOtg9R2urHGf5XTdTlZMkO8hN/u/eJ1e6CR7q9d5lFdkatONXxV+z
- Zz0kcAG5TRfI=
-X-Developer-Key: i=myrialsarvay@gmail.com; a=openpgp;
- fpr=2F35662B930680D275A645B452444118A8ADFEE9
-X-Endpoint-Received: by B4 Relay for myrialsarvay@gmail.com/default with
- auth_id=1027
-X-Original-From: Myria Sarvay <myrialsarvay@gmail.com>
-Reply-To: myrialsarvay@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Myria Sarvay <myrialsarvay@gmail.com>
+Instead of FS_USERNS_MOUNT we should use recently introduced [1]
+FS_USERNS_DELEGATABLE cause it better expresses what we
+really want to get there. Filesystem should not be allowed
+to be mounted by an unprivileged user, but at the same time
+we want to have sb->s_user_ns to point to the container's
+user namespace, at the same time superblock should be allowed
+be created only if capable(CAP_SYS_ADMIN) check is successful.
 
-Adds the PMU nodes to all t8140 devices.
+Tested and no regressions noticed.
 
-Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
+No functional change intended.
+
+Link: https://lore.kernel.org/all/20260129-twmount-v1-1-4874ed2a15c4@kernel.org/ [1]
+Signed-off-by: Alexander Mikhalitsyn <alex@amutable.com>
 ---
- arch/arm64/boot/dts/apple/t8140.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ kernel/bpf/inode.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/apple/t8140.dtsi b/arch/arm64/boot/dts/apple/t8140.dtsi
-index 150d91bdf6fc..6e6fd5754406 100644
---- a/arch/arm64/boot/dts/apple/t8140.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8140.dtsi
-@@ -136,6 +136,18 @@ l2_cache_1: l2-cache-1 {
- 		};
- 	};
+diff --git a/kernel/bpf/inode.c b/kernel/bpf/inode.c
+index c6f328e4752e..e8ec41f095fd 100644
+--- a/kernel/bpf/inode.c
++++ b/kernel/bpf/inode.c
+@@ -1188,10 +1188,6 @@ static int bpf_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	struct bpf_mount_opts *opts = sb->s_fs_info;
+ 	struct inode *inode;
  
-+	pmu-e {
-+		compatible = "apple,tahiti-e-pmu";
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_FIQ AIC_CPU_PMU_E IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+
-+	pmu-p {
-+		compatible = "apple,tahiti-p-pmu";
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_FIQ AIC_CPU_PMU_P IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+
- 	soc: soc {
- 		compatible = "simple-bus";
- 		ranges;
-
+-	/* Mounting an instance of BPF FS requires privileges */
+-	if (fc->user_ns != &init_user_ns && !capable(CAP_SYS_ADMIN))
+-		return -EPERM;
+-
+ 	sb->s_blocksize = PAGE_SIZE;
+ 	sb->s_blocksize_bits = PAGE_SHIFT;
+ 	sb->s_magic = BPF_FS_MAGIC;
+@@ -1280,7 +1276,7 @@ static struct file_system_type bpf_fs_type = {
+ 	.init_fs_context = bpf_init_fs_context,
+ 	.parameters	= bpf_fs_parameters,
+ 	.kill_sb	= bpf_kill_super,
+-	.fs_flags	= FS_USERNS_MOUNT,
++	.fs_flags	= FS_USERNS_DELEGATABLE,
+ };
+ 
+ static void bpf_fs_inode_init_once(void *foo)
 -- 
-2.56.0
-
+2.47.3
 
