@@ -1,66 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696489;
-	b=yTOFP+pjbR9kdCYMwNAAJee8eiDctser5+UpWBIdHlV7ypU2P/7zqNOSyvj2tf1QNSYz
-	 +BaFytoGfFWKLrx75LQKh7yfIjZtrX35M82tolNklFUVvQqJdSjWOQDVm8jkSxVkWIaWl
-	 CS/FSj1FKgsyITw3rmn3HK+wdyDbRpPpIS6LYbGqaanytwLicwrmzXHNgAfHMFoYPo0Zw
-	 hAZj/JUNpxNrjYxOwWN1A20ERdD1XNOsBLVwJsjoOUdWg+PRKC7G/0lLwoolyDxBGIBKC
-	 rpGGs+QwXYAz2S45GisGqTPP87dEx4uL9aoJuYxmu9xwdExr/91nIjgotpdTXSO6DXw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696489;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
-	bh=c9w2cVYOS/JtP/ygwOyGXTYQMzbvgLvIS7g/OWDgsqQ=;
-	b=0AI4iw91XP/ttUkVGCw94z7ypQ1DOI4ytmS+RE/5WtRZnCqKIb3DBMvxWhQxy1aukDbS
-	 WddjizT0gZdKb7yJEchxs+GxrzRNWZXc8DzQHrLJKoEUjuNT+1wPBPOGdY0HzKdSWI3nW
-	 UHaiNhVJN9gPKha8QnnTxNLnORMSqYN91u9sVoi/ihq5E4SY/RYK76/UW7EHTjjKF1CtH
-	 XxEaXMwYc7lbSy6VAbfb5hCjwFoXfejr4Fz+svRgMHqLABDsL3aURmOuNwIYYFnJKWqth
-	 qBmTmX38/EbX+8wZIybEsGavnv2iePVGcSk9dyQAFiQblsMXuWVOC0D5hVBJ4mI4s9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=imgtec.com;
-	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=w560sXMx;
-	arc=none smtp.remote-ip=91.207.212.86
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793696491;
+	b=jHS0R8PlZGci0IqZ18cianYd4mMRvOEy8Q69Cbe7vP78fO+KrPxhdPZ1UU2Hly1+LYiS
+	 qFRTnRTvyUFcZlyM30DsLS7++fChJOYP5nKan61dYARduyxQy5ULyXD/iAjQie62p5UXd
+	 7PPvAVHO5liolJxSWlMDnVbM6by2jut+yQH7of8zTBWQhrOXugz/HCrJqgmDyUADDnGhB
+	 FKwpE+RvYK8Mqci52VeVgc0dqtUHBwxfSi7yohqRxKNLPVDob1Oz1nndBqDRt4uo5pazS
+	 jqy+V7Nnog2oimjmlVBaGzTS2dShgq9btmDW1qIlSQuxO5OpYyULwartSyZt//CDIWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696491;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qYbRMmxVJ6Ai7MVgLLIiU+xvn6br7SPlP+s7GBabEOw=;
+	b=0kyYxMuOXrYbII012/HNyaVDgSPpF5iabDEdpISUaKrKF5wvI6autauFMpttwrVGZbKv
+	 e4sJrRLNbowcA8zyBUWPPYU0Z1h6HrWz+67TWjfjTaxW8FUIi+mFTj3s2COaRlGf6Gwj0
+	 gOP2mflvcbuFwics146zHXGRHmaEPAaNEq2CRrq4XIJQ9nveGXHjgjGrqoRpSn5HaE8bi
+	 egS796g3EnaAUKPhzQmAniJkR0nG7NQ58J/U3MAUEUrZi/dui9RGpI02+sLWlta8Jfo8p
+	 Ci8Wgd7nkEA9L9iD0b/NYAzknqaVSndMnZk2yWu4sw2aTgJUcgd0ECBxAEBhjtyvtOw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qrKmuSDD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.45
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92CA606A33C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D92CA606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BAC606D810
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7BAC606D810
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=w560sXMx
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A34D6u83126677;
-	Tue, 3 Nov 2026 09:00:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=c
-	9w2cVYOS/JtP/ygwOyGXTYQMzbvgLvIS7g/OWDgsqQ=; b=w560sXMxThzFDCB6G
-	YevGbDFQBFZwYvIZMtqjAiIx8mwPpRL7inVQYEqMFC8jUK+e8TAuyNi6vqK09xD5
-	MnFZaXoHc3YeQhp7SZx6igm7WVir3L0W9699orxAJKWbgxxpU1+QBjL3MUdbOMeR
-	mGlNQSKJAI0xSR6gZQNw/lQFq+WH//QiZZ2JWQgpoP7uBN93I/DsC3vIJtD/y8LX
-	RNMxUW5JE6fOH4An4aKilZ6XaFK+gkCdN7Yc311pnUHcUj6d9QZvCHAFge9oRzeN
-	N5Bqa+lE+IanyZf64y7tZ6ZV54J2IHCEyYh4e2ImOnaK5MhKO7oxQ0iHNHLE+M3N
-	rQPlw==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hn7ft23tw-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 09:00:54 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.5.26) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
- 2026 09:00:52 +0000
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 3 Nov 2026 11:00:40 +0200
-Subject: [PATCH v4 1/5] drm/imagination: Prepare heap config header for
- multi-arch support
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qrKmuSDD
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-714d57774d8so2558202eaf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:01:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793696490; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sobtEJEpu9rvc8bkZyg0f3RG1hPehx9txNZtNbLn81/4X2BpFGZorSZQ2MQwUBz5oB
+         OIRT1tyDxyfXJw7TR3HaAaPXSmW9zjIwow15vb3AGnuVLOvFuMGE94BhTZJoNstCwYaa
+         7a5xwe3XiJKb5x1dGwadH+KFBfMZY7TH8VkR4Qz8zuumWRLr3rhMQigDSMnzruxWzCiJ
+         u1GC99jhqpuG+/rIqUtf+pfWHR5+xQ+26GZKqqzd76V0zPuciFDJciNKqE7KJgDCScQv
+         w3bNusPIs9+me7TPaGU/9ZAoU4In9GBlro4oYu31fiKL/h+PzVistKm+9dUOPr5bxgA0
+         sAJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qYbRMmxVJ6Ai7MVgLLIiU+xvn6br7SPlP+s7GBabEOw=;
+        fh=CgGDwBWEdNGwdEbQEDTAyIoyU69nlkAx1wqpELmDeM0=;
+        b=IFJ+DJY7hND6ucms+Le6aMD0K/TYEF4B8UH4z+BCRrJaNw8qtqIUuKskGgtSr9KXEB
+         m2jvz9Zf3ysRRu5J5wk3794plyNOrP/+aVCP+NiHCUPJZ3M3aLpOEpAcE87JO51oUXju
+         S2/YDeI8pUWBaUpL6yvEdGE61zqEk2iPdM9kY9VoI6SIXCwHqsqsaFTQPt7aQ+tfodoB
+         9O1jI4N5AockKgNUSPd9UH9idpsc8xF1hcPkwx0bBG6sM/5zqBxBP5vLKFWgc5Tfqz2M
+         3i0OQeftTVJJWnEfEzRPkPAmpda04c9ZxPGjYA+ku1S3mHWqledHS4Sw9u80Ln9Ze94q
+         +LZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793696490; x=1794301290; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qYbRMmxVJ6Ai7MVgLLIiU+xvn6br7SPlP+s7GBabEOw=;
+        b=qrKmuSDDEXhLSRkpiLjzSmQyY8AtMfFBXIASCbwUzBbMQVqgm90htCgYp8eRTnxjHW
+         PjZGEIqVDI5BmgrsZHF8zdczDxH31f5HlOXtMGDw4JjPUv3QvC6CJF/vdiS23ozylhud
+         PkCNRFX8v1xQzQlatpmMDeaH8h/0fHVvCptNcWXtR9zYMh6oCN1jd0VcgTfHsiTHOrLX
+         ekHPJa7eo0FUeLtIHL0wmxRXUcPonJ07ShGepszMDXDD5G+jbe6eOaenXWI23yX1mxz2
+         G6mO762ni1Ins+w8/IrveK7EzOJL9G72YCb214gfRHFuaf+6fFNzW9lZVaxZdwwbvAta
+         Mp3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793696490; x=1794301290;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qYbRMmxVJ6Ai7MVgLLIiU+xvn6br7SPlP+s7GBabEOw=;
+        b=ftHQg+gkChPDeFu7wRw5dyjXu7XJDRvgZO5EXNFWg3JOGwc8w4Ab0woSCkiXABnwH9
+         6GsR42HNXlBcZWS31Fu8rIcyACfkBEGWoBlicZ11QKRIDk0BIvQv5GncV4SYoMef093j
+         0NYVUDwqTG/Oh9s7sq7BE4JgNki+IFqlXjTrHFawcDMHfHB4xdd1QwiCU3VT53Cr8hZb
+         6xdi4Ll/HPROHVp27rDK/wcD+m8OvDf6qSrZlCP5lhlCQ61IeOLDhXTRYmIWQRCLE9JQ
+         Xw3EQBPs7Y/c1kXa/UEm4SMRJol85sshsSfhPcnhzKNmfhZ9kpH0YbRh9OZ8CqrQa/Ze
+         qzSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxJZo5G9sV/gWkVwPMYEXhTdGmeabeszxzq0tZfpLLGK8DRTAx2ldIElj0EBCKjAnjXxoVS6LR8RgaljBk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9U2Fc3FkJ7m5TcnMT2X4E94rXwPuk2eRbTTKBbz7h11FQ8Thsi
+	AUUldfM+lJpxwHlgBzcmfPEQzC83ntsw0NGy5KG03jyTMyuHVlU8dCLkK2hOYd2jYov8qTQ4+pe
+	g52WIAJgRPI4RwnJwp448296aaJzAxW0=
+X-Gm-Gg: AYBFou15XNsA5/eUqnmgHOrpAU7+ao4wL82CwRf9ZrrB3t3FbTopToiAUaUxCUVAgWb
+	MK55traqRqP4LthX3ubAo7wVkPtogoyS5Yhz5mFMhVyptRvVx20zeMJj6kFKLZ6kGEYJ2XG+oxc
+	pOGTglkVhXxUp8iiA1Tg2fwvI+tYMgYWpuEZpqHQJ4+BoT+Zf7gBhRwe74yOKNJ/wwa7Oeh60dY
+	sPaLPa54WB4v+r2GLs+klRqjBJ37xLsTI6BBs1pNxpR35buqrocse8Pd3Y25bAE/UyCIvu5pO9M
+	Monc30eUAtye3s4Ct6Ze/Ln0WDAvBaqsx15wGHyru78Hxv11WmMY3UR8EPbi3xOzMt/2dNzTXjI
+	a3P0l6WFs2ZYkSd923bh4woztrATuKhT5zkmSqZIE6kRF4wuU4N+hq0WUrzO9swiUbL7j3XnwX6
+	hhxWI466QOgWcX0g==
+X-Received: by 2002:a05:6820:1c96:b0:70d:9be9:533e with SMTP id
+ 006d021491bc7-714f2549a1emr6856021eaf.73.1793696489635; Tue, 03 Nov 2026
+ 01:01:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,240 +105,276 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261103-prep-meta-fw-arch-independent-v4-1-513d1c51f458@imgtec.com>
-References: <20261103-prep-meta-fw-arch-independent-v4-0-513d1c51f458@imgtec.com>
-In-Reply-To: <20261103-prep-meta-fw-arch-independent-v4-0-513d1c51f458@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Paul Walmsley <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, "Alexandre
- Ghiti" <alex@ghiti.fr>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        "Alexandru
- Dadu" <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793696450; l=7080;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=9eDwkLGnx8tNwuQaBx3u4oUMlcw41201/Cad9UF2XXs=;
- b=F4TBoWj7J/sdQvRgXMhkCZM1/wWLq/dlUCsDJlsBcZsprJMJsuczxkLers+ou/3JbANgyRxZz
- tP6OcS/IZ5aDokloT7XEtbIDBZ+d1E/WDfyqQ9R9gR3/YY5v3SwT1LT
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-ORIG-GUID: j8eRxaGk6x6skMS_XYNDfUzcgCs6nQLs
-X-Proofpoint-GUID: j8eRxaGk6x6skMS_XYNDfUzcgCs6nQLs
-X-Authority-Analysis: v=2.4 cv=HaSB3SE8 c=1 sm=1 tr=0 ts=6ae9a2c6 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=h_3jC4m0AyQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=wwnLb05hCPqUNQMNHCwA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzNSBTYWx0ZWRfX7aCapeBOYh3X
- hYJPUry5vsNiJZAy/+HIaSca5IqnOuXrUDD9R9tVskZvvlYyFmbBH5d0o2Ox9uFmm2NgERXCYez
- ZE9RSCRbIgVh3tqmTPnT6xxVdC9YUVM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzNSBTYWx0ZWRfX9l6JnthbsGbT
- wWsx1zcTKhjHvAwC9nH+q+mz1EfJ9H506iLqd2FGUiFHZucf8chvpKHzXgra0nPPGVb1J4C+p9H
- yg1PVl6KrZJh9WeUCC/z+GCNL76t8cyjF0NogFKdvtQ8t7tiWvmjpCYN2GJJkLAccVPaWo9xfzP
- mRNvCfGTrLcwb68Lx+n22Jc8aC70V+KmUVT0vZmiJM3QkIa6Eomx4QxoL374Xdv66v3U2FFqxGK
- cQ9PTuB1/R8txxYux/qWlpHP9zT92gnAdRlK0fIRX/lhsyxhPgjOP1j0hwLAOVvI0QffHfARXyg
- gor2HbXXxltVdUPVk1ZA+REaV1PRsck7LCqSq5WHLnQxSR0PZ4j9yh9HWy8j0LG5qV7RAy9fQDC
- O5rNJL7sGdKwsgWzZjYEozaHbsRd8gcRIhtB1mfJzTNaPcPryx3v+ZeCG6WgWIiyFrmlpzXkcmC
- PqDKXu+hS3NPcxudK6Q==
+References: <20261102112613.18334-1-amaan.cheval@gmail.com> <CAEAWyHfCM_ZesnChP71AQvxjM4MASwukesgzuWCYECts7jiNhA@mail.gmail.com>
+In-Reply-To: <CAEAWyHfCM_ZesnChP71AQvxjM4MASwukesgzuWCYECts7jiNhA@mail.gmail.com>
+From: Amaan Cheval <amaan.cheval@gmail.com>
+Date: Tue, 3 Nov 2026 14:31:17 +0530
+X-Gm-Features: AclHuK92CNC8uT4BMNAZK0ESF7ESyhz_oozfRWBU3vLBGDFrwmZ_QoNugTRLtsQ
+Message-ID: <CAG+wEg3qLqauLEFJYrgPrgJOy+Uh86SKzL5FpevBcatNN-apkg@mail.gmail.com>
+Subject: Re: [PATCH net v2] gve: leave refcount headroom in the RX page bias
+To: Harshitha Ramamurthy <hramamurthy@google.com>
+Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	bcf@google.com, jordanrhee@google.com, przemyslaw.kitszel@intel.com, 
+	pkaligineedi@google.com, maolson@google.com, csully@google.com, 
+	willemb@google.com, yangchun@google.com, npl@google.com, 
+	awogbemila@google.com, shailend@google.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Update the name of pvr_rogue_heap_config.h to pvr_heap_config.h to
-prepare it for a more generic implementation that will have memory
-sections defined for multiple GPU architectures.
-Update the multi-arch common define names to a generic format.
+On Tue, Nov 3, 2026 at 5:38=E2=80=AFAM Harshitha Ramamurthy
+<hramamurthy@google.com> wrote:
+>
+> On Mon, Nov 2, 2026 at 3:29=E2=80=AFAM Amaan Cheval <amaan.cheval@gmail.c=
+om> wrote:
+> >
+> > gve's GQI and DQO-QPL RX paths set every RX page's refcount to INT_MAX =
+and
+> > hand references to the stack by decrementing page_info->pagecnt_bias, t=
+o
+> > avoid an atomic op per packet. This leaves the page no headroom: while =
+a
+> > fresh page's buffer sits in an skb its refcount is already INT_MAX, so =
+a
+> > single get_page() from the stack wraps it negative.
+> >
+> > splice() of received TCP data into a pipe takes such a reference, and t=
+he
+> > onward splice into a socket then fails: skb_splice_from_iter() sees
+> > page_count() < 1, sendpage_ok() fails and the send returns -EIO (since
+> > commit 2e910b95329c ("net: Add a function to splice pages into an
+> > skbuff for MSG_SPLICE_PAGES")). tee() of the pipe fails with -EFAULT vi=
+a
+> > try_get_page(). On GQI the reuse check gve_rx_can_recycle_buffer() also
+> > sees page_count() < pagecnt_bias, WARNs and calls gve_schedule_reset(),
+> > so a task that merely pins a fresh RX page (e.g. holds spliced data in
+> > an undrained tee() pipe) can reset the NIC.
+> >
+> > Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do: the bias
+> > only has to make the per-packet atomic rare, so a small value leaves
+> > page_count() ample headroom below INT_MAX for the stack's references.
+> > Refill by adding a fixed batch and setting the bias to it, which keeps
+> > the rule `references =3D page_count() - bias` intact.
+> >
+> > Refill when the bias drops to 1, not 0, so the driver always keeps one
+> > reference of its own. That matters when a consumer returns its
+> > reference before the driver has decremented the bias:
+> > DQO-QPL passes the QPL page itself to xdp_do_redirect() and only calls
+> > gve_dec_pagecnt_bias() afterwards, and an AF_XDP socket in copy mode
+> > returns the buffer synchronously via xdp_return_buff(). If the refill
+> > waits for bias 0, the last handoff of each batch happens at bias 1,
+> > when the reference being handed off is the page's only one, and that
+> > put_page() frees a page that is still DMA-mapped and registered with
+> > the device as part of the QPL. That is a use-after-free: the driver
+> > then takes new references on freed memory and re-posts the buffer, so
+> > the NIC keeps writing packets into a page that may already belong to
+> > someone else. INT_MAX hid this because one page had to be handed off
+> > 2^31 times to get there; a 16-bit bias gets there after 65535.
+> >
+> > Reproduced on gVNIC in GQI-QPL mode (GCE n2-standard-8, 6.12) and
+> > in DQO-RDA mode (GCE c3-standard-8, 6.12) with the help of
+> > relay.py -- a small splice(2) TCP proxy -- relaying a download while
+> > the RX ring is refilled with fresh pages:
+> >
+> >   ethtool -G eth0 rx 512 && ethtool -G eth0 rx 1024   # fresh RX pages
+> >   ./relay.py $HOST 8080 &                             # splice()s both =
+ways
+> >   for i in $(seq 200); do curl -so /dev/null \
+> >       --connect-to $HOST:80:127.0.0.1:8080 http://$HOST/file; done
+> >
+> > Most downloads failed with EIO before the fix (tee() with EFAULT) and
+> > all completed after it. relay.py is at the Link below.
+> >
+> > This bug was found and fixed with the help of an AI coding assistant
+> > (Claude Code) over an interactive session; it read the driver and
+> > splice/pipe code and ran the tests above.
+> >
+> > Link: https://github.com/amaanc/kernel-bias
+> > Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+> > Fixes: 58401b2a46e7 ("gve: Add rx buffer pagecnt bias")
+> > Fixes: 82fd151d38d9 ("gve: Reduce alloc and copy costs in the GQ rx pat=
+h")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
+> > ---
+> > v1: https://lore.kernel.org/netdev/20261031173449.2439047-1-amaan.cheva=
+l@gmail.com/
+> >
+> > v2:
+> >  - Refill when the bias reaches 1 instead of 0 so the driver keeps a
+> >    reference of its own across every handoff. At bias 0 a consumer that
+> >    returns its reference synchronously, such as an AF_XDP socket in cop=
+y
+> >    mode on an XDP_REDIRECT from DQO-QPL, freed a page still registered =
+in
+> >    the QPL.
+> >  - Commit message: explain the refill point, drop the build notes.
+> >
+> > Re-tested on 6.12.113 (c3-standard-8, DQO-RDA, which still uses the
+> > bias on 6.12), fixes EIO/EFAULT from splice/tee nor a NIC device reset
+> > after applying the patch.
+> > DQO-QPL is untested; I have no access to that hardware.
+> >
+> > Built allmodconfig W=3D1, no new warnings.
+> >
+> >  drivers/net/ethernet/google/gve/gve.h           |  2 +-
+> >  .../ethernet/google/gve/gve_buffer_mgmt_dqo.c   |  4 ++--
+> >  drivers/net/ethernet/google/gve/gve_rx.c        |  8 ++++----
+> >  drivers/net/ethernet/google/gve/gve_utils.c     | 17 ++++++++---------
+> >  drivers/net/ethernet/google/gve/gve_utils.h     |  8 +++++++-
+> >  5 files changed, 22 insertions(+), 17 deletions(-)
+> >
+> > diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethern=
+et/google/gve/gve.h
+> > index b7ce6e8632db..18d7edbf4b3b 100644
+> > --- a/drivers/net/ethernet/google/gve/gve.h
+> > +++ b/drivers/net/ethernet/google/gve/gve.h
+> > @@ -119,7 +119,7 @@ struct gve_rx_slot_page_info {
+> >         void *page_address;
+> >         u32 page_offset; /* offset to write to in page */
+> >         unsigned int buf_size;
+> > -       int pagecnt_bias; /* expected pagecnt if only the driver has a =
+ref */
+> > +       u16 pagecnt_bias; /* expected pagecnt if only the driver has a =
+ref */
+> >         u16 pad; /* adjustment for rx padding */
+> >         u8 can_flip; /* tracks if the networking stack is using the pag=
+e */
+> >  };
+> > diff --git a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c b/dr=
+ivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+> > index 6880d1531ba5..571f851d6dcd 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+> > @@ -149,8 +149,8 @@ int gve_alloc_qpl_page_dqo(struct gve_rx_ring *rx,
+> >         buf_state->last_single_ref_offset =3D 0;
+> >
+> >         /* The page already has 1 ref. */
+> > -       page_ref_add(buf_state->page_info.page, INT_MAX - 1);
+> > -       buf_state->page_info.pagecnt_bias =3D INT_MAX;
+> > +       page_ref_add(buf_state->page_info.page, GVE_PAGECNT_BIAS - 1);
+> > +       buf_state->page_info.pagecnt_bias =3D GVE_PAGECNT_BIAS;
+> >
+> >         return 0;
+> >  }
+> > diff --git a/drivers/net/ethernet/google/gve/gve_rx.c b/drivers/net/eth=
+ernet/google/gve/gve_rx.c
+> > index 81ea800e66e9..6533fff06155 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_rx.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_rx.c
+> > @@ -152,8 +152,8 @@ static void gve_setup_rx_buffer(struct gve_rx_ring =
+*rx,
+> >         page_info->buf_size =3D rx->packet_buffer_size;
+> >         *slot_addr =3D cpu_to_be64(addr);
+> >         /* The page already has 1 ref */
+> > -       page_ref_add(page, INT_MAX - 1);
+> > -       page_info->pagecnt_bias =3D INT_MAX;
+> > +       page_ref_add(page, GVE_PAGECNT_BIAS - 1);
+> > +       page_info->pagecnt_bias =3D GVE_PAGECNT_BIAS;
+> >  }
+> >
+> >  static int gve_rx_alloc_buffer(struct gve_priv *priv, struct device *d=
+ev,
+> > @@ -230,8 +230,8 @@ static int gve_rx_prefill_pages(struct gve_rx_ring =
+*rx,
+> >                         rx->qpl_copy_pool[j].buf_size =3D rx->packet_bu=
+ffer_size;
+> >
+> >                         /* The page already has 1 ref. */
+> > -                       page_ref_add(page, INT_MAX - 1);
+> > -                       rx->qpl_copy_pool[j].pagecnt_bias =3D INT_MAX;
+> > +                       page_ref_add(page, GVE_PAGECNT_BIAS - 1);
+> > +                       rx->qpl_copy_pool[j].pagecnt_bias =3D GVE_PAGEC=
+NT_BIAS;
+> >                 }
+> >         }
+> >
+> > diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/=
+ethernet/google/gve/gve_utils.c
+> > index caed38cd5f2b..adcdccd54684 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_utils.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_utils.c
+> > @@ -92,16 +92,15 @@ struct sk_buff *gve_rx_copy(struct net_device *dev,=
+ struct napi_struct *napi,
+> >  void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
+> >  {
+> >         page_info->pagecnt_bias--;
+> > -       if (page_info->pagecnt_bias =3D=3D 0) {
+> > -               int pagecount =3D page_count(page_info->page);
+> > -
+> > -               /* If we have run out of bias - set it back up to INT_M=
+AX
+> > -                * minus the existing refs.
+> > +       if (page_info->pagecnt_bias =3D=3D 1) {
+> > +               /* Refill at 1, not 0: the page's own reference is coun=
+ted
+> > +                * in the bias, and a consumer can put the reference we=
+ just
+> > +                * handed off before we get here (e.g. a synchronous
+> > +                * XDP_REDIRECT return). At bias 0 that put would free =
+a
+> > +                * page that is still mapped for the NIC.
+> >                  */
+>
+> DQ QPL mode is not supposed to support XDP at all. The bot correctly
+> caught that xdp_do_redirect() is inadvertently called in DQ QPL mode
+> but the more holistic fix is to explicitly block XDP in DQ QPL mode.
+> Since the driver is not supposed to support it(and doesn't)
+>
+> We will send up a patch to explicitly block XDP in DQ QPL mode, so v1
+> is the appropriate fix.
 
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_fw.c               |  7 +++---
- drivers/gpu/drm/imagination/pvr_gem.h              |  2 +-
- .../{pvr_rogue_heap_config.h => pvr_heap_config.h} | 26 +++++++++++-----------
- drivers/gpu/drm/imagination/pvr_vm.c               | 18 +++++++--------
- 4 files changed, 26 insertions(+), 27 deletions(-)
+Ah, that makes sense. Thank you for the context and confirmation.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index c6c77b152342..4d5df5272f46 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -9,9 +9,8 @@
- #include "pvr_fw_startstop.h"
- #include "pvr_fw_trace.h"
- #include "pvr_gem.h"
-+#include "pvr_heap_config.h"
- #include "pvr_power.h"
--#include "pvr_rogue_fwif_dev_info.h"
--#include "pvr_rogue_heap_config.h"
- #include "pvr_vm.h"
- 
- #include <drm/drm_drv.h>
-@@ -372,8 +371,8 @@ fw_sysinit_init(void *cpu_ptr, void *priv)
- 	WARN_ON(pvr_fw_object_get_dma_addr(fw_mem->fault_page_obj, 0, &fault_dma_addr));
- 	fwif_sysinit->fault_phys_addr = (u64)fault_dma_addr;
- 
--	fwif_sysinit->pds_exec_base = ROGUE_PDSCODEDATA_HEAP_BASE;
--	fwif_sysinit->usc_exec_base = ROGUE_USCCODE_HEAP_BASE;
-+	fwif_sysinit->pds_exec_base = PVR_PDSCODEDATA_HEAP_BASE;
-+	fwif_sysinit->usc_exec_base = PVR_USCCODE_HEAP_BASE;
- 
- 	pvr_fw_object_get_fw_addr(fw_mem->runtime_cfg_obj, &fwif_sysinit->runtime_cfg_fw_addr);
- 	pvr_fw_object_get_fw_addr(fw_dev->fw_trace.tracebuf_ctrl_obj,
-diff --git a/drivers/gpu/drm/imagination/pvr_gem.h b/drivers/gpu/drm/imagination/pvr_gem.h
-index 4286e047ae24..ae7af82b6f17 100644
---- a/drivers/gpu/drm/imagination/pvr_gem.h
-+++ b/drivers/gpu/drm/imagination/pvr_gem.h
-@@ -4,7 +4,7 @@
- #ifndef PVR_GEM_H
- #define PVR_GEM_H
- 
--#include "pvr_rogue_heap_config.h"
-+#include "pvr_heap_config.h"
- #include "pvr_rogue_meta.h"
- 
- #include <uapi/drm/pvr_drm.h>
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_heap_config.h b/drivers/gpu/drm/imagination/pvr_heap_config.h
-similarity index 85%
-rename from drivers/gpu/drm/imagination/pvr_rogue_heap_config.h
-rename to drivers/gpu/drm/imagination/pvr_heap_config.h
-index 5c33b342dda5..280bf1ed523b 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_heap_config.h
-+++ b/drivers/gpu/drm/imagination/pvr_heap_config.h
-@@ -1,8 +1,8 @@
- /* SPDX-License-Identifier: GPL-2.0-only OR MIT */
- /* Copyright (c) 2023 Imagination Technologies Ltd. */
- 
--#ifndef PVR_ROGUE_HEAP_CONFIG_H
--#define PVR_ROGUE_HEAP_CONFIG_H
-+#ifndef PVR_HEAP_CONFIG_H
-+#define PVR_HEAP_CONFIG_H
- 
- #include <linux/sizes.h>
- 
-@@ -14,7 +14,7 @@
-  * fits into this, but the firmware heap is only ever created in the
-  * kernel driver and never exposed to userspace.
-  *
-- * ROGUE_PDSCODEDATA_HEAP_BASE and ROGUE_USCCODE_HEAP_BASE will be programmed,
-+ * PVR_PDSCODEDATA_HEAP_BASE and PVR_USCCODE_HEAP_BASE will be programmed,
-  * on a global basis, into ROGUE_CR_PDS_EXEC_BASE and ROGUE_CR_USC_CODE_BASE_*
-  * respectively. Therefore if client drivers use multiple configs they must
-  * still be consistent with their definitions for these heaps.
-@@ -38,9 +38,9 @@
- /* 0x80_0000_0000 ************************************************************/
- 
- /* 0x80_0000_0000 - 0x9F_FFFF_FFFF **/
--/* 512 GiB to 640 GiB, size of 128 GiB : GENERAL_HEAP */
--#define ROGUE_GENERAL_HEAP_BASE 0x8000000000ull
--#define ROGUE_GENERAL_HEAP_SIZE SZ_128G
-+/* 512 GiB to 640 GiB, size of 128 GiB : GENERAL_HEAP **/
-+#define PVR_GENERAL_HEAP_BASE 0x8000000000ull
-+#define PVR_GENERAL_HEAP_SIZE SZ_128G
- 
- /* 0xA0_0000_0000 - 0xAF_FFFF_FFFF */
- /* 640 GiB to 704 GiB, size of 64 GiB : FREE */
-@@ -58,8 +58,8 @@
- 
- /* 0xDA_0000_0000 - 0xDA_FFFF_FFFF */
- /* 872 GiB to 876 GiB, size of 4 GiB : PDSCODEDATA_HEAP */
--#define ROGUE_PDSCODEDATA_HEAP_BASE 0xDA00000000ull
--#define ROGUE_PDSCODEDATA_HEAP_SIZE SZ_4G
-+#define PVR_PDSCODEDATA_HEAP_BASE 0xDA00000000ull
-+#define PVR_PDSCODEDATA_HEAP_SIZE SZ_4G
- 
- /* 0xDB_0000_0000 - 0xDB_FFFF_FFFF */
- /* 876 GiB to 880 GiB, size of 256 MiB (reserved 4GiB) : BRN */
-@@ -76,8 +76,8 @@
- 
- /* 0xE0_0000_0000 - 0xE0_FFFF_FFFF */
- /* 896 GiB to 900 GiB, size of 4 GiB : USCCODE_HEAP */
--#define ROGUE_USCCODE_HEAP_BASE 0xE000000000ull
--#define ROGUE_USCCODE_HEAP_SIZE SZ_4G
-+#define PVR_USCCODE_HEAP_BASE 0xE000000000ull
-+#define PVR_USCCODE_HEAP_SIZE SZ_4G
- 
- /* 0xE1_0000_0000 - 0xE1_BFFF_FFFF */
- /* 900 GiB to 903 GiB, size of 3 GiB : RESERVED */
-@@ -99,8 +99,8 @@
- 
- /* 0xF2_0000_0000 - 0xF2_001F_FFFF **/
- /* 968 GiB to 969 GiB, size of 2 MiB : VISTEST_HEAP */
--#define ROGUE_VISTEST_HEAP_BASE 0xF200000000ull
--#define ROGUE_VISTEST_HEAP_SIZE SZ_2M
-+#define PVR_VISTEST_HEAP_BASE 0xF200000000ull
-+#define PVR_VISTEST_HEAP_SIZE SZ_2M
- 
- /* 0xF2_4000_0000 - 0xF2_FFFF_FFFF */
- /* 969 GiB to 972 GiB, size of 3 GiB : FREE */
-@@ -110,4 +110,4 @@
- 
- /* 0xFF_FFFF_FFFF ************************************************************/
- 
--#endif /* PVR_ROGUE_HEAP_CONFIG_H */
-+#endif /* PVR_HEAP_CONFIG_H */
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index ceb78694cd98..ae965043237d 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -6,9 +6,9 @@
- #include "pvr_device.h"
- #include "pvr_drv.h"
- #include "pvr_gem.h"
-+#include "pvr_heap_config.h"
- #include "pvr_mmu.h"
- #include "pvr_rogue_fwif.h"
--#include "pvr_rogue_heap_config.h"
- 
- #include <drm/drm_exec.h>
- #include <drm/drm_gem.h>
-@@ -950,20 +950,20 @@ static const struct drm_pvr_static_data_area static_data_areas[] = {
-  */
- static const struct drm_pvr_heap pvr_heaps[] = {
- 	[DRM_PVR_HEAP_GENERAL] = {
--		.base = ROGUE_GENERAL_HEAP_BASE,
--		.size = ROGUE_GENERAL_HEAP_SIZE,
-+		.base = PVR_GENERAL_HEAP_BASE,
-+		.size = PVR_GENERAL_HEAP_SIZE,
- 		.flags = 0,
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
- 	[DRM_PVR_HEAP_PDS_CODE_DATA] = {
--		.base = ROGUE_PDSCODEDATA_HEAP_BASE,
--		.size = ROGUE_PDSCODEDATA_HEAP_SIZE,
-+		.base = PVR_PDSCODEDATA_HEAP_BASE,
-+		.size = PVR_PDSCODEDATA_HEAP_SIZE,
- 		.flags = 0,
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
- 	[DRM_PVR_HEAP_USC_CODE] = {
--		.base = ROGUE_USCCODE_HEAP_BASE,
--		.size = ROGUE_USCCODE_HEAP_SIZE,
-+		.base = PVR_USCCODE_HEAP_BASE,
-+		.size = PVR_USCCODE_HEAP_SIZE,
- 		.flags = 0,
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
-@@ -974,8 +974,8 @@ static const struct drm_pvr_heap pvr_heaps[] = {
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
- 	[DRM_PVR_HEAP_VIS_TEST] = {
--		.base = ROGUE_VISTEST_HEAP_BASE,
--		.size = ROGUE_VISTEST_HEAP_SIZE,
-+		.base = PVR_VISTEST_HEAP_BASE,
-+		.size = PVR_VISTEST_HEAP_SIZE,
- 		.flags = 0,
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
+>
+> With that change, feel free to add to v3:
+> Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
+>
+> Thanks for providing the reproducer script, I verified it on a N4 VM
+> which runs DQ QPL mode. So,
+> Tested-by: Harshitha Ramamurthy <hramamurthy@google.com>
+>
 
--- 
-2.43.0
+Thank you! I'll send v3 with the appropriate fix and the tags.
 
+> > -               page_info->pagecnt_bias =3D INT_MAX - pagecount;
+> > -
+> > -               /* Set pagecount back up to max. */
+> > -               page_ref_add(page_info->page, INT_MAX - pagecount);
+> > +               page_info->pagecnt_bias =3D GVE_PAGECNT_BIAS;
+> > +               page_ref_add(page_info->page, GVE_PAGECNT_BIAS - 1);
+> >         }
+> >  }
+> >
+> > diff --git a/drivers/net/ethernet/google/gve/gve_utils.h b/drivers/net/=
+ethernet/google/gve/gve_utils.h
+> > index bf2e9a0adb36..a5e3413234d0 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_utils.h
+> > +++ b/drivers/net/ethernet/google/gve/gve_utils.h
+> > @@ -25,7 +25,13 @@ struct sk_buff *gve_rx_copy_data(struct net_device *=
+dev, struct napi_struct *nap
+> >  struct sk_buff *gve_rx_copy(struct net_device *dev, struct napi_struct=
+ *napi,
+> >                             struct gve_rx_slot_page_info *page_info, u1=
+6 len);
+> >
+> > -/* Decrement pagecnt_bias. Set it back to INT_MAX if it reached zero. =
+*/
+> > +/* Up-front references gve holds on an RX page, so handing a buffer to=
+ the
+> > + * stack is a pagecnt_bias decrement, not a get_page(). Keep it in a u=
+16 so
+> > + * the 32-bit page refcount keeps the headroom every page needs below =
+INT_MAX.
+> > + */
+> > +#define GVE_PAGECNT_BIAS USHRT_MAX
+> > +
+> > +/* Decrement pagecnt_bias. Top it up to GVE_PAGECNT_BIAS if it reached=
+ 1. */
+> >  void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info);
+> >
+> >  void gve_add_napi(struct gve_priv *priv, int ntfy_idx,
+> > --
+> > 2.47.3
+> >
