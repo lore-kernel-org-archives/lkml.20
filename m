@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698938;
-	b=hRRa/J797Ry2OcVdqTdAYa/FJeUpsgFN9LaoEZnmpNSGp29th3VFaUaW8o/rZDMzBJjX
-	 qeKRwO4YF26md4tinbU1GG2hGx/ufGJQOhieSY2sOCIzKV+anD9ePUyBylfiChjawrJ+v
-	 NVRgnivPoD7jNpg2uL6nUeUCc9zg5BuY8bmOB2INgksphXs/IrVVxX7V6JFlMVSeCCozC
-	 fdo8igZD1NU5hv3G7issUBQIi/If2wRavnPORCkD+nOucYfVh6w+bB+QlyQ7N23vPxL51
-	 fdPgg+kQQmk18mIFsV81J9Tzp3ABpl/8Ek/cCWSGY0WnKyi4i8veg24P/4/0eqUHcHw==
+	t=1793698934;
+	b=pcGAeCyYWq62zXLVUNuYnB+J3Ps0OFNstdkdMyMB4fTKAeQ3tckuiITZid1SlaYBfFZq
+	 GP7eODkeQIqoOzqrFtzR5jfFVI/CdftyBUE2MA7jCI0rDKn11++nt0KROFm72h/bsJLt9
+	 OvUhbnB+ft62uE3p+yb406m+T943CrdpHslube40paTbUvsVQITWgef96w8l7CebhP3/N
+	 D1Ef/mDGf0R0516YlqCx2SDPNYFP8qSUw/thHhceaV7AxqwOMNNtS/TXf1F+DVp9dBJgI
+	 OxnPfu1uMyJVgkMpINX8XUW8R73oq/DZsF+0KpBjiscNnvByzz8RYCscTlWsVItvmdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698938;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698934;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
 	 Content-Transfer-Encoding;
-	bh=exGYOHHyJpvyX9qJHZqVV4kC2TwIojrZI+r/NMZ1IBs=;
-	b=EAhGa72Yc66DxvbNGBxDYLf6/Ypro+oGvZO91Ir5Iu3XyKsflzrE5PzK2U+JnhluxHuL
-	 0b2Uv9gAZ/ALdcdNwT0aJrtKGg00ss8jl0PBekbvc1SQi1A4jw10MtMJqu3WjzqIHk/nx
-	 uprtWHINgPODp96aBMJwXbVQO/0WWsDfb93pCxKhk3uyX0gH6coB6/B8kd+yeJdUfKCm7
-	 afeS5OKe3T7JfZwH06TqgG9QW0KEMNLHkN7g3KiMg5PPJdu8q6C9lFUQUDfz4iwh3yYdg
-	 nnFA3vjTR7a1CSrMyaxG8T9QFSmyNhFqBzJOASy0o4mNFjoFcmlq2PzCuRWKJ2c9/gQ==
+	bh=D41fnnFYq1W7c9caRbcxsvH282QipdwGAgcdsw9/aac=;
+	b=ePSH3jtFjEJRxLjxJb7GJUwX/iHNS0XXxa9WTdLmpWp9xdYLQhbdFY7JfIrSuO9u7CFv
+	 3t0nJTXZq06TIHW91+JEQl0qf8tGjVMLNae7UgVM+NDIpRfMYZa+VJQjm8oLvjvb02+Ll
+	 O/iRrRhIB2iBEPsPG5UHxNVrRkRGQ+Yz7c1FWxLI/UB8KSeYcPhlw3VdWiQAMG28M8Kyb
+	 cyrPgx8972zjUCOjCpog0hvXVRfdFEXfl6LOO7ki1u8SF3vsI+AYMKd8rcW15afXYDdQ9
+	 U6/4Cy8LlGgwG6fNPeX0bNf8QxpKkyuOmr40ZcZuizMNHhUrHyve3pm3bfrjfXFWjyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=beOsCXmT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1zSafbr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C475F606A331;
-	Tue,  3 Nov 2026 09:42:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63DF8606A326;
+	Tue,  3 Nov 2026 09:42:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=beOsCXmT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71231F0093A;
-	Tue,  3 Nov 2026 09:42:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1zSafbr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7130E1F000C1;
+	Tue,  3 Nov 2026 09:42:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793698937;
-	bh=exGYOHHyJpvyX9qJHZqVV4kC2TwIojrZI+r/NMZ1IBs=;
+	s=k20260515; t=1793698934;
+	bh=D41fnnFYq1W7c9caRbcxsvH282QipdwGAgcdsw9/aac=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=beOsCXmTkNfqrgW81gb1/M9E4Xpx6TpZUxaoKWk6TnIaUiuD5UQ6chRQ5krCJN80O
-	 TSas7EVWW48QzZK3AFQQrTwvWFTozvG9KFNEzxFi2SSLMO5/iM7IK2FjR5kMpp24WC
-	 Et2Ieak2wRcE9JtKw9QgnhcTHp0Mn051RTgBmzVzU5UZyh8eRt/YCW/KxWl/lbWp0U
-	 S0VjHHz6cgyNiFeAXGxuSxJhP12aTBmKX2+8lz5ycm+7sgMElpNjQO91u7b1hCfyF2
-	 BwcuR9+eq7jW5UIk0a47ddB/Ib5vdL1EDXmQxLaq6cy12j7eMcePP9LYO618NJXNn9
-	 nRkYdfPYLP/AA==
+	b=c1zSafbrkoVpxMIzuUasWV0geJWs4uuUvbBJU9g2JQtSZnLSvTRGtcUvui37cX0mw
+	 gkcHy6yzicHT4dk49/bDnCcqnTJmD4S+de48sb3qrb+b7GLHVdE1vk+gNrMPwD3/GE
+	 E4M66Fvv0UAjrv+MHHDGAZXs9QFYg9M/18CoR0JENR/NcSjCX0C2QaXUqfnB3ZN2RA
+	 vzfqYyaiDxumPRDjtpc25EoaRnSyIpA3ElPIR8Wiu1S3yvH4M3rLUdL4or75J4i9bk
+	 8qSoK+7tYKZ0nC2Rpq3FANbdAppSg0O2lriNt9zV2mcMQg1e59OzZFtzVpLjgvLMDV
+	 Nd/rbzJSyH8ug==
 From: Leon Romanovsky <leon@kernel.org>
 To: Jason Gunthorpe <jgg@ziepe.ca>
 Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-rc 3/4] RDMA: Clean up the INFINIBAND subsystem entry
-Date: Tue,  3 Nov 2026 11:41:59 +0200
-Message-ID: <20261103-rdma-branches-v1-3-763c07cc14aa@nvidia.com>
+Subject: [PATCH rdma-rc 2/4] RDMA: Add missing UAPI files
+Date: Tue,  3 Nov 2026 11:41:58 +0200
+Message-ID: <20261103-rdma-branches-v1-2-763c07cc14aa@nvidia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103-rdma-branches-v1-0-763c07cc14aa@nvidia.com>
 References: <20261103-rdma-branches-v1-0-763c07cc14aa@nvidia.com>
@@ -65,39 +65,53 @@ Content-Transfer-Encoding: 8bit
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-The Infiniband subsystem has had a broader meaning for a long time. It
-represents the entire RDMA stack rather than just the InfiniBand
-transport. Reflect this in the subsystem name.
-
-While at it, point contributors at the correct base branch for their
-work, which is for-next rather than the default master branch.
+Add the missing UAPI files to the relevant entries.
 
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- MAINTAINERS | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ MAINTAINERS | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index d49552a59692..54df71bd7d65 100644
+index ececae180352..d49552a59692 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -13111,14 +13111,14 @@ W:	https://www.infineon.com/part/TLV493D-A1B6
- F:	Documentation/devicetree/bindings/iio/magnetometer/infineon,tlv493d-a1b6.yaml
- F:	drivers/iio/magnetometer/tlv493d.c
- 
--INFINIBAND SUBSYSTEM
-+RDMA (INFINIBAND) SUBSYSTEM
- M:	Jason Gunthorpe <jgg@nvidia.com>
- M:	Leon Romanovsky <leonro@nvidia.com>
+@@ -11821,6 +11821,7 @@ M:	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
  L:	linux-rdma@vger.kernel.org
  S:	Supported
- W:	https://github.com/linux-rdma/rdma-core
- Q:	http://patchwork.kernel.org/project/linux-rdma/list/
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma.git
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma.git for-next
- F:	Documentation/devicetree/bindings/infiniband/
- F:	Documentation/infiniband/
- F:	drivers/infiniband/
+ F:	drivers/infiniband/hw/hfi1
++F:	include/uapi/rdma/hfi
+ 
+ HFS FILESYSTEM
+ M:	Viacheslav Dubeyko <slava@dubeyko.com>
+@@ -12146,6 +12147,7 @@ L:	linux-rdma@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/infiniband/hisilicon,hns-roce-v1.yaml
+ F:	drivers/infiniband/hw/hns/
++F:	include/uapi/rdma/hns-abi.h
+ 
+ HISILICON SAS Controller
+ M:	Xingui Yang <yangxingui@huawei.com>
+@@ -23440,6 +23442,7 @@ M:	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
+ L:	linux-rdma@vger.kernel.org
+ S:	Supported
+ F:	drivers/infiniband/sw/rdmavt
++F:	include/uapi/rdma/rvt-abi.h
+ 
+ RDS - RELIABLE DATAGRAM SOCKETS
+ M:	Allison Henderson <achender@kernel.org>
+@@ -29905,10 +29908,10 @@ F:	arch/x86/kernel/cpu/vmware.c
+ VMWARE PVRDMA DRIVER
+ M:	Bryan Tan <bryan-bt.tan@broadcom.com>
+ M:	Vishnu Dasa <vishnu.dasa@broadcom.com>
+-R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+ L:	linux-rdma@vger.kernel.org
+ S:	Supported
+ F:	drivers/infiniband/hw/vmw_pvrdma/
++F:	include/uapi/rdma/vmw_pvrdma-abi.h
+ 
+ VMWARE PVSCSI DRIVER
+ M:	Vishal Bhakta <vishal.bhakta@broadcom.com>
 
 -- 
 2.56.0
