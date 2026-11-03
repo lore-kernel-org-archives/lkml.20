@@ -1,86 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714371;
-	b=WErNoTmjPvN6rSLPeuSm0elZEGdZ8xdVVti+uSeetwoHgi6/ZwpP9nPlt0+5kG4W707x
-	 QVG5ECbYwJObl7Fh7xO/KgjEWUYZa0ZYhEWMRf13mYCxpBlUwspkbtSig7vLRNcYp7mQq
-	 bx9DNGDUwjtZfaE/zP7+RmBk5h9b6q9oLaaJhVf/TddHWcXuym/Hynw/68h9YOlEXFqJK
-	 hVEx7Y3DGEZ/+ZSdGjoEdTM0tD5z4Gv2Y5gAMLFzKaduteSrrrC3HPvSk7SplApOP+C59
-	 5gG3Ar+kFqpf9i2stYFfDMU3THmamsWx7vfeCvFj23mm6rQ4Q7B6rC2FowU+Gq2sg/w==
+	t=1793714372;
+	b=cAzZS/S68RyXE/AWgEATqKBrdW48/P2Ef2Kr7ITFiW7RR2x5L/biO6TqHnl+c0KiZDYj
+	 CV4nfpRSAAh/6l8fp4dh1CXJNL8GXseWMJSy4WCQ4tTQH+Eb4rwpbndtwQMMw+Q9jVK3E
+	 Ql6quU+PrcdPoGZBuCqzNHZydvTaaqeVI6NT3myGr7ywxV/Fqk5q0uE0jl/Ip8cUDzxnI
+	 hXtrG229KDvSFLFUUbqFP6PKAof4HWmgvVdsYKIZO3XQo5EjRruo96adVxmacJtM49xZ0
+	 u720/x5IRziKYY4j3eUN3BaObdIulCbuN0CnNjvXwJwtmAvSLT3+QgjANyfXUyqVExA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714371;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=74I3nnSN0fQYCG/L/O68krWPpqCBywczA6Ty/j7yNc4=;
-	b=5EoK94IIzmsweO1TwmjAlQKeDBinyRWMQGhnI+u4UM6g3qYbaa9Xr9sTKMT/COS44Y7Z
-	 nLHTVkmCYosnAA0r8yBwvcsk5QsFF0rGMJ6G2KHbj/NlSxlg8MAVKvoOYxlSpAIBdYM+9
-	 bijztYU4tGo8v0u2dqEttz1kXvoZGtTujnSSbWHKELA0LPwUJom20PjvV14pFXkR9QgVg
-	 aTvOh69TM/VOkXDty7hUag2ikPVztt6TPpnU2TPC91L1HOdTlKG6DTKOwR/1Su0xdx9EQ
-	 pqynLq1Ywlo7BKVWKYQoEjzc5mm2qaLIrOt9RcjF+DVgAI97WAGVUT8EgT5AfghUSxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714372;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=Qngkg57Ni1YhWMlAtKTzwfofY3KWH3EsG38ilqqk6Gk=;
+	b=l7ydQPwSowmSGWmlWm9tK1P9NuUhUxx3aIQrEtxXA+q6C7qsx3PRpuXcqkJLSEV7zLbA
+	 JIClKMH9MTuiBuODV7MhC1E5T1f4sL8dgeTZy7C8RnZA/a0Kp3uKSBDD1k01QkNVZ9z9r
+	 PwZ603nGQJK0eVCHaJ0SwCvKx0kz6238gBTwejk21q0ayq+aiqnzLP0zq34cPfrpuQQbr
+	 k1cAinfE5iLZTLWblC0Zc3/sePEWIk3QjzuL73j3r7h2ECITjSBDX91EoSVd31PXOkgOv
+	 9WYsfKueGlnBF3B/cV25d+leBSVYQDjlZqIc4gOvazYVPFo3Ps1e+4O7WmhKn3CrQng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=EdPDISy+;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=RAZNGhku;
+	arc=none smtp.remote-ip=209.85.215.225
+Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD668606D808
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:59:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD668606D808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4D1606D822
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:59:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE4D1606D822
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=EdPDISy+
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a59ffacb51so6220495e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:59:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793714369; x=1794319169; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=74I3nnSN0fQYCG/L/O68krWPpqCBywczA6Ty/j7yNc4=;
-        b=EdPDISy+MWl+Ucl0jvfBFY82lEhRx+VWiK5v854cqJ+4p8kABQSpLHJJZDUm8vFcTo
-         9zv83la3L5HziwETBGrjF4ocyi7HkjA/STGJZvnSQ659HbwbrgwdFS3Xci3IdOqgFaiL
-         lU/5A9MrZkRC+8567ZqbBj2CaSVFZqLcXZnL7pQzenqPhrYfEHvxqI2aqtU46F2uiupr
-         8IG7+et/TFCMaD6XHc9L+2z+2xkwYGPG5hR64IBs3SMPT70FKfjCccptPxjUnmm/MA6n
-         MwsfbenyPQNG2p4EFeqjunxiTzaflCP4fgplpfZ6ti4BP7C3I1YOvNuUCMcNq7w3obSr
-         Vj2w==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=RAZNGhku
+Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso782464a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:59:31 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793714369; x=1794319169;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793714371; x=1794319171;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qngkg57Ni1YhWMlAtKTzwfofY3KWH3EsG38ilqqk6Gk=;
+        b=hc3gQzj5HVGEnWYpuGWJiUYdVNPC4VNsHW4lo+OFF5j+JwBB/Sx3aVKBQLUDCSlRc6
+         4/zLhQXympYktYOPqsqNB+y55cpRUM+49ZtvRNRsGA1d5nWRIJQQ6H6XmhlqEyjRJhdr
+         BFcYc3ZwmzrnQEtK/JE32sjNr96ZjK9E0WoIjPeRJalxxTdL+8EDALqPBgALK6T4PhpK
+         8X8U33qWpn/Gt48Mtd3fOzHXE9RMTd3fJXOHPJ8oFw0cjgDOCzz9nwxzSxsQjb1cjZTj
+         1WzoNpIL1MWWKNZWd5/FK6C8WaLH7IC2byOz3nkCOs/ylsy9g77P07EAz+QHylTUwQ84
+         r/aw==
+X-Forwarded-Encrypted: i=1; AKwUvBzNHPXE9ryWLqTN5xzwGeR3CJXJ34tF0JmYYaeZ1RmqdaKyy+0ywB/sWaevQESF8PUqUbf+pDBlwV57+pU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/pmWHwhHUdykLYZtk/+ZYb/wPtIcrN4N7MhNAtnJ69j6jXA4QR
+	HmWANM17dSv6hUVc99Q/VVW4wyQD/D+ZNMVCnILB6CLiL3DJaG02Vdjz3Xcbl9fGNKRactla/w5
+	JXugsY+BJg8TZ4dIoZdUVg8nWSf4DsHPEc1/9QV1/S4sYYIESdxTyHGy01jKLtNwyaHl5+EWF8v
+	TE0DLRr9otupajoCZhxRbHnkUCl8mFrsgW8hbAXziQG5oPPkWDOxm8/yfZogEMpT4lAV+Dq9Dpu
+	s7dzAo5xrg487862PhOuxo=
+X-Gm-Gg: AYBFou3aCZAs3IdoJ++NUylLqek1UNkAm52Q1Xkugt0O7UKfGEA8WK13P+hsjbI47wz
+	S+iX32nvk46UBcB+j60+6QAx9TeqvlsYV+WFf3c2IazKN3P+gotNW+l3jVKwDZ7GeNhsTrfasIX
+	xFvWRPg7+0GyBJXFSKabRUjDyvSQrh+YiBHbPkiP7YS5DUmAUCAEMgGVHlzKmG9owYWzFGQBIfy
+	n8SyGozJVQtRoDhfjY17H3/tS9fnLBFeYCt4PoobRxqqdsYNXhsaj1jdrnW5vMqfhkQjH/nPQYG
+	NIU+7WWDJN52JiznZJKihYexWRjAEiLwG63E4mLbqVezkGYCv2XTE4YKanVkx1oTVnw78oglyy3
+	44s697XVoJ3iEfMBlU86nUXDo/JIUtZQbWst+jrrdUqAA/hgeEpcbvvpZyP5EYq4h/nXHyB/Szo
+	m+qsEJxOVy1DengeQmWGmgFbJCWURLA3al75P+FPs=
+X-Received: by 2002:a17:90b:3909:b0:3ac:a203:e095 with SMTP id 98e67ed59e1d1-3ae89536c23mr10218488a91.7.1793714370959;
+        Tue, 03 Nov 2026 05:59:30 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b07c4d7c5fsm1933118a91.0.2026.11.03.05.59.30
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 03 Nov 2026 05:59:30 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1a5005fd0f8so3930701c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:59:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793714369; x=1794319169; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=74I3nnSN0fQYCG/L/O68krWPpqCBywczA6Ty/j7yNc4=;
-        b=U9fs6SPEj4giOzeaTolKUEnmriuw1VT6sXXHKXqVKYQRxYRAXyFOlafPvx4HpNOPb2
-         ZRHW49DHLouFGno04ffLowslQgDwFX6yc0QZQACbqB4aI0Mn6k3mEm5zAgP5MRHatrom
-         kR6bjv6UCXlIBHeQUqUIgbXaMl9TytvextJzC2vbW8kNQwdGgTygW4QILJu36PSG857i
-         cLRempnKcUu4j8zomg0u5fkHl9UvwYCQrlfXxK7ZtcB8XgsKycHcxXJLjuLYppvV9TkC
-         Yt2U5eiGXZsXEHcPvCy7XUzFDzEQfGQNf51c6ox5re/lIsmAHTfR0LxBZG/3Uh3Tn8/d
-         MhWw==
-X-Forwarded-Encrypted: i=1; AKwUvBywPo/iFdy45KzSUTvhMYMHgbVNJllNL0A+crFVZmxIygy8TQHA+PlM0Fy7qDBNBnm4W4fBDE5rn2pTPiI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kVhLnzTWzTmHOazYaRiPA65infhhAShM8KquPF5Am0JO+OfE6
-	+s7SREX3/cP3xLlFc8f0wXuQrAnZdyRJEkcRhFyW4JEe+r4Mw0b4YpH1qPnwlsWcyBs=
-X-Gm-Gg: AYBFou3E09aDgxh5eryMacQxFWqbKd+A8yCMV5dzKDHpjdfoqyi0WrEuZs2sPEklOdy
-	S3ogw7/UDtD5xtJCx4/MxyakOHoIgdE75osrfrFdhdLyDxL/BsRfyAsWBJZAwwx5BqlMqaVFhxF
-	3eWaDFAhn5a0KDc3PJbwRPWoxUtqWn4uDImjVvcKrbYOk6iALFh1qJMH5T3eqarev3VrytO3CIO
-	4oh+vrbJpYpDqat/ytGcskgOFXc143Cv4F6eMSIANu4tXo8Qv6brYc7hPYImvHff/vpE4QRsdfM
-	zauhx9356lkl2Z8RADUiWRvjkAWmmogX2qcEWHVsF+dC9hsuLiV2BoPQHNz1MFFlcDWgJK9XRRI
-	UGWPRG/hIFKVPBvP/CyCoT5MuLSQ3KlCh0KVJwFcjtPW/88oMgVjhnYZ1iObXHwMDXsJJukjJuf
-	vxKTYv8xexCVdlNMb7qR4Z3Lnd/K7Y1qPWNM5dcfrAdH4PlGDldBY8r+69ar3LlXkSjD6+JMTov
-	8+9vntxcmDYNNf9tWa4pUZeQxru1ETfg+oO+4KLKaEp4UndWVcXfA/w+Tl2P0iZZafrvq8lgC7a
-	FCWOul2GB+lUFGZeNXHXm8doHWa9bVrVBA==
-X-Received: by 2002:a7b:ce0d:0:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4ac177538c5mr231277385e9.1.1793714368907;
+        bh=Qngkg57Ni1YhWMlAtKTzwfofY3KWH3EsG38ilqqk6Gk=;
+        b=RAZNGhkubzobtBl4XQ6QFZ+ZtDKkdhhSh6Cx9T8qqPrlLIpp2UDEVY6JmFOwtgrnMM
+         TCmFIzXB8qTb8c2uqPPWKqn7c3x0f0JV2S81PvfAt+vtQYo1AMDSgKqQOh8fw2b44F3T
+         uctOB0YWbGBqphDVaGgiwxPG/yYuj9s+Er5kU=
+X-Forwarded-Encrypted: i=1; AKwUvBzWyYlerib/xpwHFbPn9IvhK31bZDNWZQ+tluBvKF8Nv7pP3X3z9BZIGmJ4XslBO4MqMFcPJmbYk762Bp0=@vger.kernel.org
+X-Received: by 2002:a05:7022:ec85:b0:15a:2b63:a0cb with SMTP id a92af1059eb24-1ac59dd081cmr26545032c88.13.1793714368837;
         Tue, 03 Nov 2026 05:59:28 -0800 (PST)
-Received: from [10.202.112.30] ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b23b847348sm9348208c88.4.2026.11.03.05.59.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+X-Received: by 2002:a05:7022:ec85:b0:15a:2b63:a0cb with SMTP id a92af1059eb24-1ac59dd081cmr26544986c88.13.1793714368146;
+        Tue, 03 Nov 2026 05:59:28 -0800 (PST)
+Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm41658755c88.8.2026.11.03.05.59.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 03 Nov 2026 05:59:27 -0800 (PST)
-Message-ID: <2702c09a-3679-4d69-8072-e678f3764945@suse.com>
-Date: Tue, 3 Nov 2026 21:59:21 +0800
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Michael Reeves <michael.reeves077@gmail.com>
+Cc: Pieter-Paul Giesberts <pieterpg@broadcom.com>,
+	"Franky Lin (Zhenhui)" <frankyl@broadcom.com>,
+	Mathy Vanhoef <vanhoefm@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	asahi@lists.linux.dev,
+	Hector Martin <marcan@marcan.st>,
+	Daniel Berlin <dberlin@dberlin.org>,
+	Janne Grunau <j@jannau.net>,
+	linux-kernel@vger.kernel.org,
+	Hante Meuleman <meuleman@broadcom.com>,
+	linux-hardening@vger.kernel.org,
+	Arend van Spriel <arend.vanspriel@broadcom.com>
+Subject: Re: [PATCH 09/13] wifi: brcmfmac: Accept newer BSS information versions
+Date: Tue,  3 Nov 2026 14:58:49 +0100
+Message-ID: <20261103135856.3676311-6-arend.vanspriel@broadcom.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260925-brcm4388-submit-v1-9-b5cbc2cde2fb@gmail.com>
+References: <20260925-brcm4388-submit-v1-9-b5cbc2cde2fb@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,168 +127,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v4 0/4] migrates ocfs2 DIO from buffer_head to iomap
-To: joseph.qi@linux.alibaba.com, mark@fasheh.com, jlbec@evilplan.org,
- hch@lst.de
-Cc: ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261103124310.21143-1-heming.zhao@suse.com>
-From: Heming Zhao <heming.zhao@suse.com>
-Content-Language: en-US
-In-Reply-To: <20261103124310.21143-1-heming.zhao@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi List,
+On Fri, 25 Sep 2026 23:43:44 +1000, Michael Reeves <michael.reeves077@gmail.com> wrote:
+> From: Hector Martin <marcan@marcan.st>
+>
+> The driver accepts only BSS information version 109, rejecting scan
+> results with newer versions even though the common fields used for
+> reporting remain compatible.
+>
+> Accept versions 109 through 112 when reporting scan results.
+>
 
-Please ignore this patch set, as it failed to apply on sashiko.
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
 
-Thanks,
-- Heming
-On 11/3/26 20:43, Heming Zhao wrote:
-> This patch set migrates ocfs2 Direct I/O (DIO) from buffer_head mode
-> to iomap mode. And the code base is commit 4056b3c9d3c92ea, and also
-> merge Joseph's code and ideas from [1]:
-> 
-> v4 changelog:
-> 
-> Fix several issues found during a sashiko review[2].
-> 
-> To simplify iomap development, we currently adopt the simplest approach:
-> retaining the buffer_head style, where only one cluster is allocated
-> per iomap_begin() call.
-> 
-> When creating a filesystem using "mkfs -b 2K -C 8K" (where the cluster
-> size is greater than the page size), several xfstests cases crashed.
-> The root cause was an incorrect return value from iomap end_io.
-> 
-> Both the add and del of the orphan inode during write I/O are now placed
-> in ocfs2_file_write_iter().
-> 
-> Additionally, I attempted to implement .submit_io/.end_io in "struct
-> iomap_dio_ops" to free dwc inside end_io. However, because ->bi_end_io
-> runs in an interrupt context and ocfs2_iomap_dio_end_io_write() contains
-> sleepable functions, this approach required scheduling a workqueue directly
-> from the ->bi_end_io callback and calling ocfs2_iomap_dio_end_io_write()
-> within the workqueue thread context. Furthermore, since iomap_dio_ops.end_io
-> still cannot access any private data, it cannot accurately wait for the
-> work to finish. Testing with xfstests triggered hangs and crashes.
-> 
-> 
-> [1]:
-> https://gitee.com/anolis/storage-cloud-kernel/commit/ea3fe75e2060118ba093e90b1cd34fa382914b29
-> 
-> [2]:
-> https://sashiko.dev/#/patchset/20261018143319.22329-1-heming.zhao%40suse.com
-> 
-> v1 patch set:
-> https://lore.kernel.org/ocfs2-devel/20260724052559.15409-1-heming.zhao@suse.com/
-> v2 patch set:
-> https://lore.kernel.org/ocfs2-devel/20260727061802.18485-1-heming.zhao@suse.com/
-> v3 patch set:
-> https://lore.kernel.org/ocfs2-devel/20261018143319.22329-1-heming.zhao@suse.com/
-> 
-> --------------
-> # test report
-> 
-> This patch set has been tested on 7.3.0-rc7 kernel with the following test
-> cases.
-> 
-> ## ltp
-> 
-> runltp -f dio -d /mnt/ocfs2/
-> 
-> 1 fail: diotest4    9  TCONF  :  diotest4.c:346: Direct I/O on /dev/null is not supported
-> 
-> This fail can be ignored.
-> 
-> The test results: passed
-> 
-> ## xfstests
-> 
-> ./check -g quick -T -b -s ocfs2 -e generic/081 \
-> -e generic/266 -e generic/272 -e generic/281 \
-> -e generic/338 -e generic/347 -e generic/361 \
-> -e generic/628 -e generic/629 -e generic/648 -e generic/650
-> 
-> The test results are the same before and after the patch set.
-> 
-> ```
-> OCFS2_MKFS_LOCAL_OPT="-b 2K -C 4K --fs-features=local --fs-feature-level=max-features"
-> Failures: generic/003 generic/091 generic/094 generic/177 generic/211
-> generic/225 generic/263 generic/322 generic/329 generic/331 generic/370
-> generic/376 generic/424 generic/448 generic/467 generic/477 generic/481
-> generic/510 generic/513 generic/537 generic/552 generic/563 generic/578
-> generic/607 generic/620 generic/630 generic/755 generic/760 generic/777
-> generic/784
-> Failed 30 of 632 tests
-> 
-> OCFS2_MKFS_LOCAL_OPT="-b 4K -C 4K --fs-features=local --fs-feature-level=max-features"
-> Failures: generic/003 generic/177 generic/211 generic/322 generic/329 generic/331 generic/370 generic/376 generic/420 generic/424 generic/448 generic/467 generic/477 generic/481 generic/510 generic/513 generic/537 generic/552 generic/563 generic/578 generic/607 generic/620 generic/630 generic/755 generic/777 generic/784
-> Failed 26 of 632 tests
-> 
-> OCFS2_MKFS_LOCAL_OPT="-b 2K -C 8K --fs-features=local --fs-feature-level=max-features"
-> Failures: generic/003 generic/075 generic/091 generic/094 generic/112 generic/177 generic/211 generic/225 generic/263 generic/322 generic/329 generic/331 generic/370 generic/376 generic/424 generic/448 generic/467 generic/477 generic/481 generic/510 generic/513 generic/537 generic/552 generic/563 generic/564 generic/578 generic/607 generic/620 generic/630 generic/755 generic/759 generic/760 generic/777 generic/784 ocfs2/001
-> Failed 35 of 632 tests
-> 
-> OCFS2_MKFS_CLUSTER_OPT="-b 2K -C 4K -N 2 --fs-feature-level=max-features --cluster-stack pcmk --cluster-name hacluster"
-> Failures: generic/001 generic/003 generic/091 generic/094 generic/211 generic/225 generic/263 generic/322 generic/329 generic/331 generic/370 generic/376 generic/424 generic/448 generic/467 generic/477 generic/510 generic/513 generic/537 generic/552 generic/563 generic/578 generic/607 generic/620 generic/630 generic/755 generic/760 generic/777 generic/784
-> Failed 29 of 632 tests
-> 
-> OCFS2_MKFS_CLUSTER_OPT="-b 4K -C 4K -N 2 --fs-feature-level=max-features --cluster-stack pcmk --cluster-name hacluster"
-> Failures: generic/003 generic/211 generic/322 generic/329 generic/331 generic/370 generic/376 generic/420 generic/424 generic/448 generic/467 generic/477 generic/510 generic/513 generic/537 generic/552 generic/563 generic/578 generic/607 generic/620 generic/630 generic/755 generic/777 generic/784
-> Failed 24 of 632 tests
-> 
-> OCFS2_MKFS_CLUSTER_OPT="-b 2K -C 8K -N 2 --fs-feature-level=max-features --cluster-stack pcmk --cluster-name hacluster"
-> Failures: generic/003 generic/075 generic/091 generic/094 generic/112 generic/211 generic/225 generic/263 generic/322 generic/329 generic/331 generic/370 generic/376 generic/424 generic/448 generic/467 generic/477 generic/510 generic/513 generic/537 generic/547 generic/552 generic/563 generic/564 generic/578 generic/607 generic/620 generic/630 generic/755 generic/759 generic/760 generic/777 generic/784
-> Failed 33 of 632 tests
-> ```
-> 
-> ## fio on single node
-> 
-> fio --direct=1 --iodepth=32 --rw=write --ioengine=libaio --bs=128k --size=1g \
-> --numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-> - before patch write: IOPS=31.5k, BW=3935MiB/s (4126MB/s)(4096MiB/1041msec)
-> - before path overwrite (don't remove write.1g, run above fio command):
->        write: IOPS=39.5k, BW=4935MiB/s (5175MB/s)(4096MiB/830msec)
-> - applied patch write: IOPS=37.4k, BW=4676MiB/s (4903MB/s)(4096MiB/876msec)
-> - applied patch overwrite (don't remove write.1g, run above fio command):
->        write: IOPS=39.4k, BW=4929MiB/s (5168MB/s)(4096MiB/831msec)
-> 
-> fio --direct=1 --iodepth=32 --rw=read --ioengine=libaio --bs=128k --size=1g \
-> --numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-> - before patch : IOPS=47.7k, BW=5962MiB/s (6252MB/s)(4096MiB/687msec)
-> - applied patch: IOPS=48.2k, BW=6024MiB/s (6316MB/s)(4096MiB/680msec)
-> 
-> fio --direct=1 --iodepth=32 --rw=randwrite --ioengine=libaio --bs=4k --size=1g \
-> --numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-> - before patch
->    - creating write      : IOPS=3282, BW=12.8MiB/s (13.4MB/s)(1283MiB/100026msec)
->    - overwriting write.1g: IOPS=41.8k, BW=163MiB/s (171MB/s)(4096MiB/25115msec)
-> - applied patch
->    - creating write      : IOPS=3230, BW=12.6MiB/s (13.2MB/s)(1262MiB/100031msec)
->    - overwriting write.1g: IOPS=40.5k, BW=158MiB/s (166MB/s)(4096MiB/25908msec)
-> 
-> fio --direct=1 --iodepth=32 --rw=randread --ioengine=libaio --bs=4k --size=1g \
-> --numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-> - before patch  read: IOPS=361k, BW=1409MiB/s (1477MB/s)(4096MiB/2907msec)
-> - applied patch read: IOPS=362k, BW=1416MiB/s (1485MB/s)(4096MiB/2893msec)
-> 
-> ---------------------
-> 
-> Heming Zhao (4):
->    ocfs2: Add new ocfs2_map_blocks() to introduce iomap feature
->    ocfs2: switch DIO read path from buffer_head to iomap
->    ocfs2: switch dio write path from buffer_head to iomap
->    ocfs2: remove legacy blockdev direct-IO path APIs
-> 
->   fs/ocfs2/Kconfig          |   2 +-
->   fs/ocfs2/aops.c           | 568 +++++++++++++++++++++++++-------------
->   fs/ocfs2/aops.h           |  38 +--
->   fs/ocfs2/buffer_head_io.c |  12 -
->   fs/ocfs2/file.c           | 214 +++++++++++---
->   fs/ocfs2/ocfs2.h          |  46 ++-
->   fs/ocfs2/ocfs2_fs.h       |   3 +
->   7 files changed, 616 insertions(+), 267 deletions(-)
-> 
+Regards,
+Arend
 
+> Signed-off-by: Hector Martin <marcan@marcan.st>
+> Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
+> ---
+>  drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c   | 5 +++--
+>  drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h | 3 ++-
+>  2 files changed, 5 insertions(+), 3 deletions(-)
