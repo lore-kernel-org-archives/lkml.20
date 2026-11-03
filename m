@@ -1,58 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.69.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793679966;
-	b=1L8zvZenV9MryB3Zzr9SYxGHzuMcSJcKUUYEBCdK2NOgLMLPjDfAYAyRvMp6lqx0zO2T
-	 VWJVZ9eezQiyY2VHC6Yxdg3OoRo3/hPlTDgCdc2oFWU+Ml9IJh90zHE8Sl7syzlmYYXq4
-	 95D443B/t4mmAGBCkPATFrVVz5PY1HXXyoK9vSnjIci8NebaaFxcw4ycLtIfi9saP1y5R
-	 7yIBDs9LhtLLTBbM94VY2tJuCXgUCnSTM+bnDeNf9GpL36Q+H0pn7sfKbriJogkaYkpJ+
-	 024U6aaSRNeOJXufaN2eTDpC9u86vntk3z+wEtu+qmaI1gyLfhHX+zHj7N2jyFT8AUA==
+	t=1793679974;
+	b=xDpoLqkts5BfL1VmoGWqG5oujQ6h/wCtTNzI/C+flDkJ1IYzg41jLu5Sekdj1Ngn2WNR
+	 NG9U4VfceU4cz6NyqNwswJpui2oz2C+uiAyzZ4X7tmnVWjVkNqNkux8bsd7ltnyUxxOAb
+	 9RdzBqmejl6iOn94orpfB0mUlyMmN83oekw3vH2QS/8BG7lZKG9ClxHUqCAw/f+HWVmvv
+	 66XVeD6GJcnewIK+srXLNyS1dR/ZWILBSrxlZJKhq+OyiXUUUTRU8seHNGz9kaqIYnFtj
+	 R/hzPaGgtCmcoc0Xf7lUDFxR6Iy4EE6CNPdt52jaUpRpKY9u/Ex1jlgJ2522uIb8acQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793679966;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Info-Out:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-JNJ;
-	bh=mtdip9iG8kvZwfazJrrk93MIJWiLG6sxeuCO9RkwHoY=;
-	b=2lRvHi6r25QpFzb/guiSDIOPUgnJT591yssJ4CagAGR0PMO0+IPD2+yhDkfxrM8nLJCS
-	 HGhLQFbi2D5jQPL5hbXo6j5GvXGqmyISP1+DPezOKi/sRQQUWD5LDW+A31tV031vrx+Gb
-	 iLorkLUaoA4gZAeBvgkpkzfAATjSwNvZWuCBLfAys5l72oeBfX5cGfcColM3K+TCJkVTv
-	 zTSthqUCNsgVi2XmVkuZ1GOc1jJOeyX/K4ghXx0z1Mmr9+4sTndLKw3Mnqou4s5Qs4F9O
-	 vY/JOPe+J6YPRE7uAQFuLpK7Y+Fsmy3PTNAsjZod0PQYddq98lwhkcufELUBvmAJgnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793679974;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=PGfNJvt0jz4lC2WFoydgyKQ9YHvmNk2PJYm3FO57IiU=;
+	b=Xq/a6YKBBOQy/lelZ6WFEzlV/nBU+iN+IbiQBPk79+Ga2QjfHUoBsFaov1bvcG702IYz
+	 Nf0v6hRUow9fosu2YlppI0vyBK+2eRAPeEzxNPKwwGzZZSH4B7y9ZEoy7ttoJTcV6OUAy
+	 Rs7Y+PKlKfVEO4a2tkF7j24JjsmKC+xKAIw4C3LG9OhXGrzlgXBvA0eFP8oimuC98diHj
+	 QX09h8gTRfS5+ZU3w21KCk2I47YGRATszbIVjQ0fd+7czxLyxg/aOpwioih9Z68mJisrh
+	 Lsh+jPgzaL434ry68BwrqBZxuhaxTZ/5gD9/6UF+8k13w7bdYOQjaoMDrgyiLHYggfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=LvVBni9+;
-	arc=none smtp.remote-ip=57.103.69.231
-Received: from outbound.mr.icloud.com (mr-2004h-snip4-11.eps.apple.com [57.103.69.231])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MR+8S+02;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91645606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:26:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91645606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD530606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:26:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD530606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=LvVBni9+
-Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-100-percent-11 (Postfix) with ESMTPS id 9CB21180016A;
-	Tue, 03 Nov 2026 04:26:02 +0000 (UTC)
-X-ICL-RepId: 01a19fa8-3188-7563-9f7f-c3428e26c95b
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhOAEMGXAteC0kCQwJYEhVdRVkMVABGEVcfQA53AlEcVg1XQ1QEX1BfHA4EVAddBV1WUAJaS0ATBE0TBVIHXU1WDUcPWB5cFBcVQUNeCF4fTBwdDlgGEgBNCg42BlkFXglWA0MFNhIUXUVaDlsERxQXG1wAFwZbFAREAV0FXQNBCUsDWQVeB0EXSQNVB1sfQRQSUg5cH1MeXgtQLV4IXh9MHB0OWAYMUE0BQwgKAlEcVg1X
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793679965; x=1825215965; bh=mtdip9iG8kvZwfazJrrk93MIJWiLG6sxeuCO9RkwHoY=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=LvVBni9+GdldmO1lNHdGu8sI5vA5rtmUSr817JBaJ7jJJjGXNzudrdvmv0IM2EGtkEVqO8ZTNWD7tvAvrsZr5/WljDKzU5al2iNSlqtIrC+myWlGylyIGWGVCMb++AKcuxq6UgAOZNHVFBkSw+pVALmJ2vOsSWC2RIYAShbzg01gFXIHJUWrFi6OGMEQgtco0Psw8KeQxxF+pK1GFCTb10Da9eNaZd45MFXCU4mtwOnl6C+X4xibNoT82k8h9PLBl6KwKrhMii0LzXpnoggWNacTgvi45CCEiTwdlMNirGmz4V6V7FQsLEn8UVdLjCKqAdrtbIozquprAa+JcfKK7g==
-Received: from localhost.localdomain (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-100-percent-11 (Postfix) with ESMTPSA id C81AE1800114;
-	Tue, 03 Nov 2026 04:25:59 +0000 (UTC)
-From: Shuncai Tang <jacktangsc@icloud.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Shuncai Tang <jacktangsc@icloud.com>
-Subject: [PATCH v2] kernfs: fix stale comment referencing old @sd
-Date: Tue,  3 Nov 2026 12:25:51 +0800
-Message-ID: <20261103042551.10800-1-jacktangsc@icloud.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MR+8S+02
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36637676140so5143381eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:26:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793679973; x=1794284773; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PGfNJvt0jz4lC2WFoydgyKQ9YHvmNk2PJYm3FO57IiU=;
+        b=MR+8S+028NWHFOLgD3dGAo2Bjt89I6MGylX051UADfa55D890bNxI6alS/Ue0aIHSb
+         T8fyf0+V9b4AvgsYPgEcgFuEPz9RzVf9FYMkerL86HGa/HCPo700Tg04YrQT/iYBIsJx
+         Sozo23EspOBlk6drvIsKm8wheqxe3qwW3c0vbupsJNiheWRUgCQGRQ/lL/2gFKdmtFJn
+         BvsBWOszgUO/plSfRWoy/abAFccUmt2s4/QchVQnC772lWAgmAWqHT4pjI8RhhOYbF//
+         Ye/AlaoMuScFlXsYkr5GLr/bF4Iy4WoS9ZGyuEByudVdrzuWuQUK+voxOY3NrDqppUqt
+         hVcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793679973; x=1794284773;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PGfNJvt0jz4lC2WFoydgyKQ9YHvmNk2PJYm3FO57IiU=;
+        b=WoMckqllO45oyHNKiC97FCMgI3Zm8N5FX/2ERFlfzbti7qwV/4Fxw+siIu5xQzUBOS
+         wOA4YUXD3r/hIP4yeqSLlnvKfYiR2KYNOElsSYPWHwJxeHNCAY5Xtfj+BrPDmJYmXf8+
+         ZrW3UB++DcGoBjnV7CY/o3Un5wnDeWGUsN3iY5n7REpgHs6pLp+Q8B1ac9Ze+5PwHI/V
+         wc1VdNtKBKXI4WsO29ZxEfXgoxHnDBJT+KxlcKQqOlyikUunQgTeLDw+Vg1i7ktWPltU
+         3VMYmc8Gmpv2L6oTdVL64JB8m0qBcwadOKDIdbKAFGkJmbqiq73iZeRlaRD+pNzU4JgM
+         jvzg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHZlsoyZXFdPcRKYYBadrVSrXQgH6lSp3JGBcZHSE3oNEPIXrFEWrU6c9g0pBOLQMzSm8qjNzk91Mb+MI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcpxLbp/jN+PLSfKWP3/zXwOXGPNRTAXdOEhYs130UA1kcQ++g
+	Dpo8VD1TQv/H96GopJdAjCyKHR9cT714kVcSTe5LGDs4NBTS/rKlKfRRLemiFv5Ei3ntENRZFjf
+	9gnalvOn/PMPfGujMZqXmJlTtVGkaibYTDw==
+X-Received: from dybb7.prod.google.com ([2002:a05:693c:6087:b0:35d:1771:4816])
+ (user=vamshigajjela job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:c01c:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-36a50ecdd21mr16735703eec.7.1793679972480;
+ Mon, 02 Nov 2026 20:26:12 -0800 (PST)
+Date: Tue,  3 Nov 2026 09:56:04 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,65 +75,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxNyBTYWx0ZWRfX+Ih8INbMCFOn
- pNpMW4xiubBH5S1bMX4YVBeaPx62QPHxd9nSQWS2TnRbjey5MDDqYeWTjtbPSjPRg72HbbBZTDC
- Zn9b1ca890VZzyGjGlx12Mv8ysfAnQlAEYtYqjbQzahdJykMDAlZDoUWrnOkSZKkfhbIRpFwSF/
- zZeNUJhaxE3q3ss7ABb5G4sQ01g2DMK2IrhEr/6whHIaAwn5Yt3k0UPlYOtpakHinRX3bUIXedU
- IKtwMq6RZ68IRY9kKT6HdbjAxHt10orQSSuIuCtBd3r5SpNHpqEVA+EgSxZPTL2B4mzzDFjVmh5
- /nPGQQgnFUyUnKXN5y7EliHad/nVelCrXajqin3DKTIj+TBzbXtsqAkERrZ2I0=
-X-Authority-Info-Out: v=2.4 cv=ev/SD4pX c=1 sm=1 tr=0 ts=6ae9625b
- cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
- a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
- a=whGDNnZ4qqUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=v3ZZPjhaAAAA:8
- a=y0CipOANcWDlji84Qf8A:9
-X-Proofpoint-GUID: aF-1RuIVUnogzel85srVTsc2MFAd7X3N
-X-Proofpoint-ORIG-GUID: aF-1RuIVUnogzel85srVTsc2MFAd7X3N
-X-JNJ: AAAAAAABCNCz0kjW5/o4zIVJnbw4TUlt3BdaRPTdhVkxJ9Uji4jsViLbRE+s9IrqrRoMvm
- M/3oNoXyaeDz2ES/ImL625FRtWj/t5VBqOj0oQxSUg7cfrWCJPG6Dt9ukY3NJr6LkIL7Um
- N2vAhq3z4/i+p+DcrEEWtVtCSjfrf8TkPNVVp2Wf0QVVNUomBh0JINCJLR/618OGAKUj0j
- Jvvucr1lZtKdt4HjCbAUAQSl0j4d2qUKtBGRwJS+mm/coEjRORgEBfHHuc80nTERsj0Ftk
- 0MGkOPAJV9l74ke3s+IkralP9Ht5eiFKHfEkl2MD2Uo4lC5FnqtFPXMdKUvRWyIs/09NpC
- +446TKdM+lXknFUCVvuPIcCHzdxd4KDki1fC+AwNyzIX1w2uJgG3dfhpz6xSPQz9f9eIxL
- jq8tfSAdaeyiOt91aGJtjKvQWJ/HS22Ti42OaIYGVAfbm6abV0Vb3qsn4SjQBdd92XLmLr
- lPrclhEe8OE+zurE/uRxW2Qez2VYou4ZFIG0bMMVZtLW9QZebkxBskQKd3qigxdq+JxCDk
- Sj9f6jFgAWxrI6awwq6Yh0oWtS7BkhJ5TcOljg5KthL8SGLp60BUkXaI1eWXK9TvER77aM
- RlQCqenHTjf8R9M42KsDqIf8rAQP/KDiiXaif4GT7vsCv1SLwMtOikgk1pLe2D/UTREHP6
- zSExBLasfjQXXDm10KEua1m3+0ueF5po+vBVgFHqPe5XR7GpH2oRVXe21uUh4pILURjBI4
- NtT9mL0JZWBe6MRaSbC656MqmG/W22jJJRluPiDqF7fJwukB1PXbqaFXzld4dli7JkdaBr
- KsdTApnlHExoUrLLwkHRwlxWZ8+gudpn9gfvkcBgvJUnujir30DDWdaZr2xCiOhj0Y5sqw
- bkE2Uugq8xfxMJeTQVA0MTAcmdEszN8fLR0FZAtnzpRyv6ZzMq2A9ZFFTaUNs7E3pVfvLl
- THfMvIOHVnHDPtdjnfmzdCVlnb8AYBF08gjs4r86fBLjaGGWrTdO5JZDR/00HVDmTVu+O+
- xYd0ckeVNiHvMinB8UFl2eR88DsHCHkgXqwWmka8628qhlCdgrhRYBh5bz31LzFZpA9EKS
- mC7BTW0LisKwIZ+FBvbutpsamEX4Tdp1d9fVaGCQsA9jmDVlLd/cYlpOJi531g+/Nohab4
- ZPUIRAq1xD9fe5LP3xtH+IvgA/ULUHTGsWKf7TMgmvbnV5mNiFWw0qXrJYHB43Up3zlw==
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261103042608.387626-1-vamshigajjela@google.com>
+Subject: [PATCH 0/3] spmi: Add SmartDV SPMI controller driver and bindings
+From: vamshi gajjela <vamshigajjela@google.com>
+To: Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Peter Griffin <peter.griffin@linaro.org>, 
+	"=?UTF-8?q?Andr=C3=A9=20Draszik?=" <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	Jim Wylder <jwylder@google.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Vamshi Gajjela <vamshigajjela@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The comment still refers to old @sd which was a sysfs_dirent.
-Update it to @kn to match the current function argument.
+From: Vamshi Gajjela <vamshigajjela@google.com>
 
-No functional change.
+This series adds Device Tree bindings and a controller driver for the
+SmartDV IP Solutions MIPI System Power Management Interface (SPMI) master
+controller ("smartdv,spmi").
 
-v2: Use full name in Signed-off-by.
+This IP is integrated in Google Tensor SoCs starting with the G5
+generation (codename: laguna, canonically written as "lga",
+"google,lga-spmi") to communicate with on-board Power Management ICs
+(PMICs).
 
-Signed-off-by: Shuncai Tang <jacktangsc@icloud.com>
----
- fs/kernfs/kernfs-internal.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The controller supports MIPI SPMI v1.0 and v2.0 non-data bus commands
+(RESET, SLEEP, SHUTDOWN, WAKEUP), register read/write, extended register
+read/write, and extended register read/write long transfers up to 16 bytes.
 
-diff --git a/fs/kernfs/kernfs-internal.h b/fs/kernfs/kernfs-internal.h
-index f1e93b09e..0fd8dea0b 100644
---- a/fs/kernfs/kernfs-internal.h
-+++ b/fs/kernfs/kernfs-internal.h
-@@ -72,7 +72,7 @@ struct kernfs_root {
- static inline struct kernfs_root *kernfs_root(const struct kernfs_node *kn)
- {
- 	const struct kernfs_node *knp;
--	/* if parent exists, it's always a dir; otherwise, @sd is a dir */
-+	/* if parent exists, it's always a dir; otherwise, @kn is a dir */
- 	guard(rcu)();
- 	knp = rcu_dereference(kn->__parent);
- 	if (knp)
+Patch 1/3 adds the "smartdv" vendor prefix to vendor-prefixes.yaml.
+Patch 2/3 documents the Device Tree bindings for the SmartDV SPMI
+controller ("smartdv,spmi" and "google,lga-spmi").
+Patch 3/3 adds the spmi-smartdv controller driver.
+
+Vamshi Gajjela (3):
+  dt-bindings: vendor-prefixes: Add smartdv
+  dt-bindings: spmi: Add SmartDV SPMI controller
+  spmi: Add SmartDV SPMI controller driver
+
+ .../bindings/spmi/smartdv,spmi.yaml           | 126 +++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |   7 +
+ drivers/spmi/Kconfig                          |  10 +
+ drivers/spmi/Makefile                         |   1 +
+ drivers/spmi/spmi-smartdv.c                   | 525 ++++++++++++++++++
+ 6 files changed, 671 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/spmi/smartdv,spmi.yaml
+ create mode 100644 drivers/spmi/spmi-smartdv.c
+
 -- 
-2.50.1 (Apple Git-155)
+2.56.0.317.g454f8302e1-goog
 
