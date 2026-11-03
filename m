@@ -1,64 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725126;
-	b=Ybch91Qyi0pV/uRAq3RwU0AfJKuZfNBCRRz8UmYUyVHQ19HCHgzN/uruIdQbgi825k1z
-	 4F9Cx7Z7QJhuFmhGKlEMU7/noUEFVBehqWzd6VW2tQqJXVxEupbwxNFsAxiEvEi5oxXol
-	 KVAqGDAA2A+ieQ4NtNWaWL2C5om3QYX9LtqBY6fPvAFxOF08m7ZmUlpMvICiAVnaCZVfc
-	 I5DXRZTJEpYbPui2LlF255hlnAvTu0CHQKq43PDiytZAtIeP9YxXiSk1EoM+13mkerY4F
-	 8MQRbZhXh21aCQlIS/wdGMNoM4vztc2OtahDmHKSX4WjbLDf+brr3KKKsLgAuN/D1Tg==
+	t=1793725130;
+	b=nvrMtO3Q67bicckOK3SdA42WXjoEoiyeGM+pfGmWk6k5laLdnjdYhOkDCZlUuX8ZYn64
+	 tqdrF9GIFepvqg8N4exqjRMqRJnk0U//iQ+rNZlSvgvMN2KkPeyrYobWXCd2OyiebalKx
+	 ThNk6EfQmBqQoOqJU6rkkSKgx+4jO7anaIJr3vhYyxM2orCV51cZJ7gr7zyzZ+ASk4N4A
+	 Q0giSQ7CdrKoDJK8DxVcmlMOOugrwdj7PAKc2HK2FKy6jbTgsk4ff7VICbEMG070j1Nwj
+	 5FxM0gO8jabkhfBUZcS1OBPPhYdgzSgeyF7vkAt0jGhNCltqMDMJr/GWC3kzBbc00ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725126;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fK4HGLx2bl61G7BQj3adT/NL1+Sgt8o2Uq+I8Yh/8MY=;
-	b=ezbGj1I//qDFahpLsvyRcQt1RJ5I8QFBUby7tYuwbYFjCohOa9+BXfDIAwFCGiS5KQ5l
-	 OW2mwNlZFD099yvxhh62wyyOAYkibIz6NW6g1f48hd+aoe7wAdU6bdHE633XmmXDqHu/M
-	 5RxXXPJfQ0LbX0PejvPXl+uJknvveIIIuBkR8EolaUrERlpN/tlDkL/YVISiokXTEIR7t
-	 KT26M/sbdp8wBIt5I7I0XXUY/vrpR7nkUX0GJyqZREF6YY+cvA0j9jmTdqumDV4Do9AqV
-	 XsrBwJoSIgPlpnVjHSjMtoaR7dABhfxHK0irgXlhW7zgAKW8+NrJEUGLEj6CDRN0dZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725130;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZMykjE/7l/jsGdfR+n3nXl+yG8LC3pOXTPVPEB8YOmA=;
+	b=mhP4cXPAyXICWv3sgPfKLS/34agGYwl8UNQriQoSdNoLcrSOHHS73/6qoPTD0iRF3fiH
+	 3ybGSng7/QrGdapOONZ3hRDW+l4tkt0DRdMHKomLA+08J2+6ComZ+x/y2UcHfg8wN486j
+	 y5W2TR2zxelFgukJH91tNNjl/ygAcY1JXPGk9oyfwah9QY6IP4yBNgm7vmORo44ddaSEF
+	 9jEsRjgyNd/gCOQgc2g8W/OLynuhlQkAo/ROGkCaRMIjCJAxepD1fq54ixpSU3Mr77BQN
+	 alh+G80SsqsXugO8+e1kp4wMu7D0I+k9W3SBcM5qHY4apbmtHPUdjKXFx8akgkOpw3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c63b2jI9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kernelriot.com;
+	spf=pass smtp.mailfrom=kernelriot.com;
+	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b="h69B8+/y";
+	arc=none smtp.remote-ip=74.208.142.49
+Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C5373606A332;
-	Tue,  3 Nov 2026 16:58:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8FE606A332;
+	Tue,  3 Nov 2026 16:58:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB8FE606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelriot.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c63b2jI9
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1AFCB1F00919;
-	Tue,  3 Nov 2026 16:58:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793725125;
-	bh=fK4HGLx2bl61G7BQj3adT/NL1+Sgt8o2Uq+I8Yh/8MY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c63b2jI9+4FWVTZeH4ddFhEzy4MGXLeB8Xi9Vd1lTCnx117QG8qAcTH7UVak3bxZr
-	 Z5Q4/eIWLw13tisRUunP5XPhFNGy3cWJcRXSIDSS4k1+cFGCPc4PLnQL/zcaasJujs
-	 Ov2dRGFP5/zaJBQ7DELygJWFA151+x9ylnukDsDUSRFAyjd055WI55kOpfw6uBTcpM
-	 B3PDlZnEpTUqQ4s86CV5ng+HT7/ztQzOY/HEG8DxVM0G6JRyNUSIxNojHgeSCNfDS7
-	 1gNMup02LXU+5HVu1fYBiBqJ/+9g3/p1p9hG9EUfE8ZqJCyx3h+ONAMVsu0a4JA9aq
-	 r4vCd5tW+1NXQ==
-Date: Tue, 3 Nov 2026 18:58:41 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, linux-integrity@vger.kernel.org,
-	Mimi Zohar <zohar@linux.ibm.com>, keyrings@vger.kernel.org,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH v2 00/11] KEYS: Sanitize the garbage collector
-Message-ID: <auoSwRMIXLajVeWs@kernel.org>
-References: <aun4kXCJDtYomzpu@kernel.org>
- <aunNj35KmcAC4ByH@kernel.org>
- <20261103030226.2685251-1-jarkko@kernel.org>
- <641294.1793700187@dhowells-thinkpadp1gen8.rmtgb.csb>
- <669211.1793714419@dhowells-thinkpadp1gen8.rmtgb.csb>
- <683284.1793719946@dhowells-thinkpadp1gen8.rmtgb.csb>
+	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=h69B8+/y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
+	s=kr2026; t=1793725122;
+	bh=kLOhx7Xp1VWwEDJ5YlOdluqX5Krp+Iu/TEbVQCaGCzc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:From;
+	b=h69B8+/yiPfxJltzpSCRsWhjrdhAv1T1htNv6JY8a6Fi7iWIr+n5mGw5eV5u4fhiZ
+	 U3rTaOac/nhkUE941dJOI5Wwa9vi68uz1fQUFg6tALuvD9cG6DFrDjXfjR3zb+65TP
+	 KyNroY/vhYWr0jIoX10WYzLdmlF/zDgX9VclOUAae32i1d6MNU0Vowj/Qeu1FJih1+
+	 mRpfEYu8m2RtOWbDrPWGCYTkVKDFqXVXsLu7WyIuWH/TBQnvgLbtHVVSfdl/fwxu2d
+	 SFMv1wqhU5fBsK1Qku6vTDyqz2lfTwH9ntoebpcxNXx+TA39XytP9M1PADd2RLuR3F
+	 +EwdBgYwNj9mg==
+Received: by mail.kernelriot.com (Postfix, from userid 995)
+	id C0587819E3; Tue,  3 Nov 2026 16:58:42 +0000 (UTC)
+From: Magnus Leatti <magnusleatti@kernelriot.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net v2] net: stmmac: Clear DMA errors for multi-channel interrupts
+Date: Tue,  3 Nov 2026 13:58:08 -0300
+Message-ID: <20261103165808.72113-1-magnusleatti@kernelriot.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103125430.962715-1-maxime.chevallier@bootlin.com>
+References: <20261103125430.962715-1-maxime.chevallier@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,180 +79,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <683284.1793719946@dhowells-thinkpadp1gen8.rmtgb.csb>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 03:32:26PM +0000, David Howells wrote:
-> Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> 
-> > > Actually, it can be done if the rxrpc and rxrpc_s key types are moved out
-> > > into their own module upon which rxrpc.ko depends.
-> > 
-> > Hmm... I'll experiment with this, thanks. This was useful.
-> 
-> It's not entirely trivial.  I've attached a patch that makes a start on it,
-> but it needs access to bits of the security class implementations (rxkad and
-> rxgk).  Those bits only parse the key (and in the case of rxgk access the krb5
-> code), so in theory it should be possible to extract them out.
-> 
-> One thing that needs to be considered, though, is the security class selected
-> should really be up to the application, not merely switched on by the
-> security_id.  This is one of the reasons I would like to add an add_key2()
-> syscall that adds an additional parameter string argument.
+On 11/3/26 13:54, Maxime Chevallier wrote:
+> The Multi-MSI interrupt handler doesn't clear the DMA error interrupts,
+> and this leads to interrupt storms when one of these interrupts starts
+> firing :
 
-Thanks I'll investigate this.
+Retested v2 on the YT6801, same setup as v1: net at cb284914e749, glue
+unmodified, so the MISC interrupt stays unmasked.
 
-> 
-> David
-> ---
-> commit 365e715b91b9b2ac3030f51c31ff4de8f24a4e19
-> Author: David Howells <dhowells@redhat.com>
-> Date:   Tue Nov 3 14:15:39 2026 +0000
-> 
->     rxrpc: Move key types to own module
->     
->     Move the rxrpc and rxrpc_s key types to their own module so that if keys
->     pin the module that implements the type, they don't cause outstanding
->     connections to make the module unremovable.
->     
->     Signed-off-by: David Howells <dhowells@redhat.com>
-> 
-> diff --git a/net/Makefile b/net/Makefile
-> index 5b2dd7f07a85..f543097c89b9 100644
-> --- a/net/Makefile
-> +++ b/net/Makefile
-> @@ -30,7 +30,7 @@ obj-$(CONFIG_LAPB)		+= lapb/
->  obj-$(CONFIG_CAN)		+= can/
->  obj-$(CONFIG_BT)		+= bluetooth/
->  obj-$(CONFIG_SUNRPC)		+= sunrpc/
-> -obj-$(CONFIG_AF_RXRPC)		+= rxrpc/
-> +obj-$(CONFIG_RXRPC_KEYS)	+= rxrpc/
->  obj-$(CONFIG_AF_KCM)		+= kcm/
->  obj-$(CONFIG_STREAM_PARSER)	+= strparser/
->  obj-$(CONFIG_ATM)		+= atm/
-> diff --git a/net/rxrpc/Kconfig b/net/rxrpc/Kconfig
-> index 2cebb666dc07..ffd42d71f85a 100644
-> --- a/net/rxrpc/Kconfig
-> +++ b/net/rxrpc/Kconfig
-> @@ -3,6 +3,14 @@
->  # RxRPC session sockets
->  #
->  
-> +config RXRPC_KEYS
-> +	tristate "RxRPC key types"
-> +	select CRYPTO
-> +	select CRYPTO_LIB_DES if RXKAD
-> +	select KEYS
-> +	help
-> +	  Say Y or M here to include support for rxrpc and rxrpc_s key types.
-> +
->  config AF_RXRPC
->  	tristate "RxRPC session sockets"
->  	depends on INET
-> @@ -10,6 +18,7 @@ config AF_RXRPC
->  	select CRYPTO_LIB_DES if RXKAD
->  	select KEYS
->  	select NET_UDP_TUNNEL
-> +	select RXRPC_KEYS
->  	help
->  	  Say Y or M here to include support for RxRPC session sockets (just
->  	  the transport part, not the presentation part: (un)marshalling is
-> diff --git a/net/rxrpc/Makefile b/net/rxrpc/Makefile
-> index f994f9f30a29..196e0ce085ba 100644
-> --- a/net/rxrpc/Makefile
-> +++ b/net/rxrpc/Makefile
-> @@ -3,6 +3,7 @@
->  # Makefile for Linux kernel RxRPC
->  #
->  
-> +obj-$(CONFIG_RXRPC_KEYS) += rxrpc_keys.o
->  obj-$(CONFIG_AF_RXRPC) += rxrpc.o
->  
->  rxrpc-y := \
-> @@ -19,7 +20,6 @@ rxrpc-y := \
->  	input_rack.o \
->  	insecure.o \
->  	io_thread.o \
-> -	key.o \
->  	local_event.o \
->  	local_object.o \
->  	misc.o \
-> @@ -32,7 +32,6 @@ rxrpc-y := \
->  	rtt.o \
->  	security.o \
->  	sendmsg.o \
-> -	server_key.o \
->  	skbuff.o \
->  	txbuf.o \
->  	utils.o
-> @@ -45,5 +44,9 @@ rxrpc-$(CONFIG_RXGK) += \
->  	rxgk_app.o \
->  	rxgk_kdf.o
->  
-> +rxrpc_keys-y := \
-> +	key.o \
-> +	server_key.o
-> +
->  obj-$(CONFIG_RXPERF) += rxperf.o
->  obj-$(CONFIG_KUNIT) += tests/
-> diff --git a/net/rxrpc/key.c b/net/rxrpc/key.c
-> index cbd26da44951..c353a4304788 100644
-> --- a/net/rxrpc/key.c
-> +++ b/net/rxrpc/key.c
-> @@ -893,3 +893,39 @@ static long rxrpc_read(const struct key *key,
->  	_leave(" = %zu", size);
->  	return size;
->  }
-> +
-> +/*
-> + * initialise and register the RxRPC protocol
-> + */
-> +static int __init rxrpc_keys_init(void)
-> +{
-> +	int ret;
-> +
-> +	ret = register_key_type(&key_type_rxrpc);
-> +	if (ret < 0) {
-> +		pr_crit("Cannot register client key type\n");
-> +		goto error_key_type;
-> +	}
-> +
-> +	ret = register_key_type(&key_type_rxrpc_s);
-> +	if (ret < 0) {
-> +		pr_crit("Cannot register server key type\n");
-> +		goto error_key_type_s;
-> +	}
-> +
-> +	return 0;
-> +
-> +error_key_type_s:
-> +	unregister_key_type(&key_type_rxrpc);
-> +error_key_type:
-> +	return ret;
-> +}
-> +
-> +static void __exit rxrpc_keys_exit(void)
-> +{
-> +	unregister_key_type(&key_type_rxrpc_s);
-> +	unregister_key_type(&key_type_rxrpc);
-> +}
-> +
-> +module_init(rxrpc_keys_init);
-> +module_exit(rxrpc_keys_exit);
-> diff --git a/net/rxrpc/server_key.c b/net/rxrpc/server_key.c
-> index 3efe104b1930..b5e60a3364ad 100644
-> --- a/net/rxrpc/server_key.c
-> +++ b/net/rxrpc/server_key.c
-> @@ -42,6 +42,7 @@ struct key_type key_type_rxrpc_s = {
->  	.destroy	= rxrpc_destroy_s,
->  	.describe	= rxrpc_describe_s,
->  };
-> +EXPORT_SYMBOL(key_type_rxrpc_s);
->  
->  /*
->   * Vet the description for an RxRPC server key.
-> 
+4x 64-byte UDP RX flood for 10 s, same kernel:
 
+  without the patch: the MAC interrupt hits about 93k/s within 4 s,
+  stays at about 122k/s after the flood stops, and the machine stops
+  responding.
 
-Br, Jarkko
+  with v2: about 300/s during the flood, 0 after.
+
+8x 64-byte UDP RX plus TCP TX for 30 s: about 25/s during, 0 after,
+with TX at 744 Mbit/s alongside.
+
+The 4x flood also runs clean after link down/up, ring resize, an MTU
+change, a 100/1000 speed change and a module reload. Throughput is the
+same as with v1 (TCP RX 941, TCP TX 825 Mbit/s).
+
+Tested-by: Magnus Leatti <magnusleatti@kernelriot.com>
