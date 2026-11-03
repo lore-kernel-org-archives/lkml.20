@@ -1,88 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742156;
-	b=WI1JDpTll+sCgEQAPq3XQpUOWWkmhBu/yMqSE46c0vYhcApZhum9S6hVvkWHug6jMTEU
-	 m0ieV9raGSkAQAPy79d/8BIF1qXwe77L5za8XHDfrIPME5AEzY6N3zwgHzmdz3zEYU7T7
-	 Lmns26sJsjXB2wZiNvNqy8JlLn1c2sjcImrLxASyEWEvUh7UZZLRUzJUD4G74IA14YrWy
-	 sIsGfw60HNdavhq4HEXXO+jpCphRXeysHztVP2CYXCAfIWIeCVSxqi9sX1o/pi6fvw4ns
-	 62amcsshbW6ssxXgpcOF76x3yMU+fkoHNFuZHKRz9W1zTXbP6ffQ0QCrvVkFSsceWGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742156;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=azPPo8H7+DKD17rL0rWwBjVEKBbc6amwqtN9WdKwMgc=;
-	b=YSvJM2oqrLcSHkFvwd/7xJDJ0+dBNY/uRzYamQaEV5xLiVRlhSubbNeoahcJus0W0Lrm
-	 NmzpKTHW8o7PV4MoijDbkFan8NvI+tSBhmAxhzm1M60+tf5eMxgBErNxbKz52hbSoMBKB
-	 1FIjc91qt6PgyP3NQrcCR7EB0FR8pMgC2NeutZsHTBxy7dGEp0oN2uYmvKUZrEM2xGPJC
-	 iokypjoh7eaiBQ3Ps31exBYJD4vqMn3joHyRSnBg8+9kYUHunaLgM00N7V5kbyyNAIRhp
-	 6GSd5TmERUkOmCxB4/DhdH75EZpike8rckQjk8FltXPcv1CGaHMgf8bHile2uk+Zyzw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uG0kV9tr;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.74
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793742151;
+	b=d4jRa/SkJh9ApZ5ZoXlhzSQTpMV/t2SKcnjyyt01n6fn+Ky7cnK1+sf54v28fJfYYmsf
+	 +epTO/BuJpUPOZenUp8iGe93L1mRx+yIkZcpsvJ2J/fn948PDW9Sc6ziHMEoCh5n/UlEW
+	 c2lWPHtOz/zizuCvJtKG81MBCcgKh3w74Gjix22XEUJlv8IT/oKvdgiHesFtkiOIhezFA
+	 q7KIJj8RB6ZIQ45aFfKRctvVa74cMBXXPkF1Qrz7iSJQvHBuTzDbXgXEamzsVfbaR/OBS
+	 ai/64T2RmsL9za72ungKCakz8bBOk8AzZvmWbuG9XFH0n/DEbJhZaEurWoifB4EsBzg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742151;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xyG2HI4NcpK/DSvXjulwOuySX9lUQEEcGSwgmpPG/G0=;
+	b=FN4x4BaViyRJQSIs4JJ1RuyRJWZDJD3E7glq08ImhMMtTbBdksTHcFqBhoUVb0B4wfeq
+	 ZfQDbXiB+a4wcbtTPeiZHI99F/MoFvhixBr4Ep8Z7MNRdXtyBTRFmmiJ2NmG9BpbSaX9S
+	 pp8RwpCj0BDLR3pizSZPW2yP4Jym0s3qTrO1Jg9HYQilsvUAhnnabHMegWFfT8Oi3NZCh
+	 Y5Uk8qiKTfADigklB5YGjCM8xpzHnKut8fhwelRrMwRcq4PwJQiWkWRldjo8HcFdp3F5F
+	 X1aBVuZV3sVE29RTetlJzOWlf7W7u+wc30KLxVRsDON8hxHH2SHfH+bHgjlWR/ml85A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.74
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022074.outbound.protection.outlook.com [52.101.96.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4FA606A32E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:42:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A4FA606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uG0kV9tr
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1adbf62dd31so134664c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:42:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793742155; x=1794346955; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=azPPo8H7+DKD17rL0rWwBjVEKBbc6amwqtN9WdKwMgc=;
-        b=uG0kV9trF+tpH5NGG08X2nXLCYrNuuLYjRzsFhR+KujNcKwgdzFodzwzUBThLeO40q
-         bFtlq26uYDUXkvc+hIE/0/HJE0PHd8x92/AmZQEDmueeUixdh1+ORtHEJtJym0HCvpbk
-         O1FRmG1pWdQ+4Y8DQD9eF9sO1K4IZvEk2XebYJVfvCd2haUghPNIfioNcdJCeSztKlgH
-         lx18/3kxQ6WxcLja3A8ZpVfnwCY0hBGaYu3BJhU7I4Pk/omDVcKwZ1WvjsK3dnLp6Jy/
-         Rhpn4FhzTB865NMRltmKeeOwlgPwk3q+Xe0QazrIkT7TyVn53BjOE4Jd9dgRsE2Q0myk
-         eESg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793742155; x=1794346955;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=azPPo8H7+DKD17rL0rWwBjVEKBbc6amwqtN9WdKwMgc=;
-        b=ur6QlJx10o5MGZvNl7FKxbGy1qOdxREpiCf21SU3PGTqbNaxPPHhJG41IkgCUw5KpS
-         A0om2I/L+T+S34N6X41kMjiEaS8Wp3W28r8EelFMbPgthTh/8mAqxMRCiGCFJYOROFaW
-         f05pjNin9USLnFG6qke8eGEPvS518X7O0l8O78nB9WFR9iXo0M1y7xDB2cK3hz7t8Xdf
-         ZYj8uTPWHPG7it8H42gFO/vRoKbJZwkQQlRz+bqkIYYjDPiN5wKvxkC2JZ+D6kSLaoEM
-         SWPwAfPKGvZyN+0L+tUd5KiC2rBUcLldN4y5xblHAitXCQaaFFy5FMEtWZCyXj3OTpLG
-         u2sQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQwTskTiLyy+YKLIuzkknTmlYRw4UPs/flplwe0B5x780jjucxWX9JHvKyzQ+cJN40L07ALuBZ0JY8Cu8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Ui4QA/110lqDjcnvOufRXpVIe333otOX/oQqSIOrRtYrbQ+kI
-	47Vxem1rdknpMtNIGU9cM0YE+uxm3wmxa1UDJes3udLxPJI+Zxhdp4NXkVlMmg==
-X-Gm-Gg: AYBFou1wJMNgVigtpXj2YJo0zRYoVOdfAjaaOFJuNybThQRGW8QCrTfjhw2WjBWHoIp
-	+yuD2bNdm2X7sUimu066k2NEoZo+RxdlOuv/NyNJNRTBNTSlXg2FO0SFnidlKIPBat89tBlcYhv
-	d4MkpzSZ+vQf9D0rpMoY8EGSk0ursW+ndBODnsUIUywbSXA3qpEjm/FsFn5dlD0ZjgKjQLbmgzt
-	ldVXFpMsaDIiTtulsvCgxCp1HdQR3jJ1B52bHm/Y8zMdhlY9OwlLv2BrQXNy4GDdYNibBj6r1XL
-	06EVsW1odCR1s5oVwia6/JPW7HgSFOWMjdys1FAnHJ/ZJ7LuWDqt0eUd4xwc3p4Ll9NQy+CwC9R
-	8p5L4eG3IQPRQvLFEJYDAMHCoH1Dgc4Lf1aJb77+I3bRJggebuwGzH1xQHYnnlWtiw/E3iuSy6o
-	4/a/D8Y4IxGog61vpI7tMq7VqoBctHjw+aARR5TN/AK486ndqtiTBMaKV4ro9MIDN0htAsO/Q9A
-	54TM895FnNYpB9NaP3GhSm8Va3oJAWM0Lcx4PXN6jSPEZ6aTMp6KidImMkHLKS1ghc9M/VWjYKx
-	A89GgwK/0B/+RI2/Fob0xHZJFj9IDyWDPJXQse3rnxKFlTOhGlKbLSo=
-X-Received: by 2002:a05:701b:4349:b0:1a9:d04f:1b55 with SMTP id a92af1059eb24-1ac5d0da4acmr20007496c88.26.1793742155167;
-        Tue, 03 Nov 2026 13:42:35 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c69c3fsm1460505c88.20.2026.11.03.13.42.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 13:42:34 -0800 (PST)
-Message-ID: <e211bf3f-d696-4bc5-baff-e27b933a89ae@gmail.com>
-Date: Tue, 3 Nov 2026 13:42:33 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D931B606A31B;
+	Tue,  3 Nov 2026 21:42:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D931B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NXcW7j0l2HZeqBjT/QJE/oIQCnuBdju53p0KIHI8xsgOHFwGHyj/t7AdUkqnDdrETT9/e9SB0OTrgd1dgkiLEz0N6T/Kk0opM4vlZp3PphYudkxLG9Yq5U2mMqP/tVM++Fn78Bz7vn2mayg4Gu+dCO883UmhWY3pl2CAeN+7sUBONSkralbF8pSHXRNNTixV4qA4z70P4Hmr1eijzw0yNHCN+if+t3/FStgIqRDicskA1DRBgzu8r6Yfqn1w5yS6HOts2TBdrjK7OMXrJMcQzaKDYnv1q+ZNEfLruOtNRcMhLJ/9tyVIWc+Bz5WmCVzmONFDucUblS14LEK8Y4OpGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=xyG2HI4NcpK/DSvXjulwOuySX9lUQEEcGSwgmpPG/G0=;
+ b=aASi64D0aOIxtN1UWtn92Hq6E6vsxGUff3UbmR+LW4qhghaMWHdn3D6S+sQ993vL9FGcVf1WPIFcLX1N1CQljWCjKF3W8M6khEbrGuaDC9+IkELijBaiM7nO6MR8BClJKtmgAZTSoiz76PBm1aO7Q/O1XvIv1qzUNiIx6VaevrVoT915b1ULdNbB1RvBXZLZxqWU9ToLCRdeHbiiGhd5Y7ig9PC9vV8AJ93O0/zyv9zHz8GCQv3VEFOXTAwviK+tShwkcW1zGkEkHzJYAVEGypHDF94zQJSlcv3dDYZKSuRT/nS5c6JseL6jUJryOigsUar/Kx5HKTwA9IuNK9Rgyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:163::8)
+ by LO7P123MB015864.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:604::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 21:42:27 +0000
+Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::f71f:a9f:c4de:687a]) by LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::f71f:a9f:c4de:687a%5]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 21:42:27 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: arnd@arndb.de,
+	mcgrof@kernel.org,
+	petr.pavlu@suse.com,
+	da.gomez@kernel.org,
+	samitolvanen@google.com,
+	peterz@infradead.org,
+	ojeda@kernel.org
+Cc: akpm@linux-foundation.org,
+	gregkh@linuxfoundation.org,
+	mhiramat@kernel.org,
+	boqun@kernel.org,
+	atomlin@atomlin.com,
+	neelx@suse.com,
+	da.anzani@gmail.com,
+	sean@ashe.io,
+	chjohnst@mail.com,
+	mproche@mail.com,
+	nick.lane@mail.com,
+	linux-arch@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v12 0/3] module: Extend module_blacklist parameter to built-in modules
+Date: Tue,  3 Nov 2026 16:42:20 -0500
+Message-ID: <20261103214223.32598-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BL1P222CA0009.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c7::14) To LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:163::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,104 +103,444 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] serial: sb1250-duart: Convert to use a platform
- device
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-mips@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <alpine.DEB.2.21.2608060322360.55540@angie.orcam.me.uk>
- <alpine.DEB.2.21.2608060406470.55540@angie.orcam.me.uk>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <alpine.DEB.2.21.2608060406470.55540@angie.orcam.me.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LO2P123MB4190:EE_|LO7P123MB015864:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0b9fc8f-2b5e-42e4-2e80-08df39f35a75
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|5023799004|261022113327099003|56012099006|261009221227099003|261021123027099003|261009223027099003|261022105027099003|261102123227099003|261021121427099003|261022115727099003|261021135927099003|261022075727099003|261028144727099003|261102124527099003|261026121527099003|261026140227099003|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	pKS95ZnvG3tWfpCEYkSMtW2FzCPJmCS85sHZDiDlHJ2IutWPjqtT67/BVvplNMeVPo+TwGUY/+GrVnWnj18w/JfYMuVasHXH9HC5ls3v9Jq/Xe2uDo+mib0hOYTXw26z1b9zA0poUP5ARCiBisYl9V7w+OPluxqU0VLdk5XgbUAMkyoiHTQEai6bssDpIm8kCNTf63nEPxPWjs+HpoTX6uyiThoOyba+xLlyeUSvEYTsdmbUqBkVlVurovHwzA6ONf4OmJYu8F4ce2JCWrbojSXuUFet9Tf0Dedcbs7ipUpvqEV8ZIib+JUINy5hMPFJbNDs39x7of2bM52LRcMj5+6LHKimYgTl+lNzrv0tsPIR5u6oAJdBsT8de24tDwIdxUzigzy5KWlFp/dtxz14B35bq0FZ2G7Ea1UgaSAj1o1SvemKNGUuAUgAO7QmrjMIO6hWbKwIbHp5wY4JXkvMFH70UZyGgadnl4BBXZxa2pSnHw71+o8agEcbd6md7+YyoEIUUUaDRjMRmYFJX/RPgrpkE0opwni0knFxExPQDqGGI+oScbnChujBfbzPXh06y86aTk5lyyK+0p6asv4rtQKdtG6ADQNJANCsJN7JPlfaiXq4Yxn9OuWZbX49qkHN
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(5023799004)(261022113327099003)(56012099006)(261009221227099003)(261021123027099003)(261009223027099003)(261022105027099003)(261102123227099003)(261021121427099003)(261022115727099003)(261021135927099003)(261022075727099003)(261028144727099003)(261102124527099003)(261026121527099003)(261026140227099003)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BE3B85tSXeU9aGQnk1DglWlYUPt2HB2K5futhl4YtwEf4zls7WWCxQE9Uwg/?=
+ =?us-ascii?Q?5EB+HJV/KBY3Qoc6840hA6DBGcNQX3zeQ+y2Yi+hMSqwYfwc5qtdgDEqQZYE?=
+ =?us-ascii?Q?YQGpOvbV5wCzWl7OqaE2dymEqT+RV3fwT3/6rjfVCMwrUCBpfLKbIXF5pf7L?=
+ =?us-ascii?Q?tZ3UK+eVVMv6ivpO2r1UvCaSCfCwWpn6kgqv2sO2mkVdUXyU2LtPa7Q0ZBDv?=
+ =?us-ascii?Q?oz58xceEMjykPHpVLbsUgjvZN4LWFVJ4pfaoVqAogFms/2qNC22GfefEtXkp?=
+ =?us-ascii?Q?RV+GA6GnR/mUjDfFN+dwXDAt0h/lpx/NFnXWdM/TvfXsW8FoOT8UhGOA9ivE?=
+ =?us-ascii?Q?neIAYNMiUGAK9R9rpMe2XMF6VjJBIioJuwn0hiwqWg2N+CV2MmbdvNzAztEi?=
+ =?us-ascii?Q?0fjRAaLgJzUMR/pxhYw5KDkhMtCsD4SDKXyLK+Z5BshFci42Boo54wtu+ZkC?=
+ =?us-ascii?Q?CAx8iadBIpacVhZZgGrdwOxqe7JYvOebyxSIqHKFR/9prsUiheRKlWXbq4/+?=
+ =?us-ascii?Q?qCIWgo+XQBrMtdPes9aSvrsrm/nXWCKiUbZISITtBB/7tWlneM6i6XmOr1/f?=
+ =?us-ascii?Q?Ete13hNbFE5SjIKLVHUcHbpY0vSiAS7KZRjrU/MZlOZYHBaEpwasnZ8nc+sw?=
+ =?us-ascii?Q?aYVelPdZTkawBrb1gAsK1QrsgVZ3lBFmIxKKlcKutDok2Q2/LBW3abMlKN6k?=
+ =?us-ascii?Q?K6jF47hkz4TcK2iQ8QQDYyTpsf5Ou38LkcOdwB/gAN9vexjgNdY8CJaikp1O?=
+ =?us-ascii?Q?mHBraw5YgI66KlffC6UxftVtywPLpM03unlt3449NHmgsgg/HA8R2VjmHA1U?=
+ =?us-ascii?Q?lpk+deBfZRc8PpjocErTqywRoeacrg2J/5q/CRyKBSNzfNu0o+2I9ujYlTMn?=
+ =?us-ascii?Q?huwevYdDXqUCOY0BxNAn4ObjC4l57GxZXfuvUW38MeuqA5DA9sIbgZZjMSVH?=
+ =?us-ascii?Q?IPJcJCHmxT7D47bpZ+CzluReUeOBMyVxtIp+XQvcfR7Q3TtGV+T+xvtH6C6j?=
+ =?us-ascii?Q?a4nczfV4mzjKNAMzGfVW7bzM51OBEiSj+zmb9Le0oRHxvG3xa7rtejBtAuya?=
+ =?us-ascii?Q?wdkJJnZx0Of7/qEbNBzs+kAkso9FD0F6/1bnQmlA37Snao2NQwUcKF50ja+x?=
+ =?us-ascii?Q?c2cKO21C0DhZqRD9YazbMwJm3NMTkpLPuepYMis+mTy6PLxoHxh1nFmZf5uA?=
+ =?us-ascii?Q?tfNADdjjMU98jSvw3T8GYvuXz2NTcLN0U1NnKTbjl40iyRMmQK1JXfhPPBQh?=
+ =?us-ascii?Q?IhnE6i+oTIDbcKLPr0bYcP9INgFBP8x5ocyfoPSmX+wxGa81iQIQ5Lm8JbEy?=
+ =?us-ascii?Q?NFJAAM4drA6r9RxswhjscVANLFgSF5qdzbZhsMmHLOeSkzVZTN5xJUN0iGbp?=
+ =?us-ascii?Q?ABXjZj4ce3kTw9KYHJb/dn2wMk4vqewd+TES5FpAnrZzVwNyphzoubzXaApH?=
+ =?us-ascii?Q?0yP5sZdhBg9U7HtadDibJrt1lt9DbKwaOGNXudhcyT6uMeEPMHFE/g2dMeLv?=
+ =?us-ascii?Q?jfhmoFCHDrw9dLR9vSAJK9cuqMHmC/nmsuEk6+wYyHoTWgZBc03q58nYbA+z?=
+ =?us-ascii?Q?s3GBjfvXR6GgJt91DO1bc03rU3yL49JRTgc2viKv9vL/Y9wg62LDZ6DGBN4p?=
+ =?us-ascii?Q?IngSrL1D40yRKGXo59QWnQLHIKp2WADbrbEGcHtABqySdJV3XvT1OEthd57+?=
+ =?us-ascii?Q?8AEQmY3lq/OQlJ3qvDVVdEIK3HmHg4gaoBGL5j14bHTWg+9rUm02V8jQ2nNq?=
+ =?us-ascii?Q?8CgBTQK3Mw=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0b9fc8f-2b5e-42e4-2e80-08df39f35a75
+X-MS-Exchange-CrossTenant-AuthSource: LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:42:27.0826
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CJyFpjG61uqBd/Js2YB6tMhrgJH8ZMUBRGGlyjTK3ny/zfYZlEG79hZ78b0/y+gFzfnsizY+QRtxAMEbMAh0yw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P123MB015864
 
-On 8/6/26 03:54, Maciej W. Rozycki wrote:
-> Prevent a crash from happening as the first serial port is initialised:
-> 
->    pata-swarm: PATA interface at GenBus slot 4
->    workingset: timestamp_bits=62 max_order=18 bucket_order=0
->    Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
->    CPU 1 Unable to handle kernel paging request at virtual address 0000000000000208, epc == ffffffff8067f8f8, ra == ffffffff80666330
->    Oops[#1]:
->    CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.19.0-dirty #27 NONE
->    $ 0   : 0000000000000000 0000000014001fe0 0000000000000020 ffffffff80666130
->    $ 4   : 0000000000000000 a800000100e6f118 ffffffff8112cbc0 0000000000000000
->    $ 8   : 0000000000000002 0000000000000000 0000000000000000 0000000001a80000
->    $12   : 0000000000000000 ffffffff809fd488 000000004ddf14dd ffffffff00000000
->    $16   : a800000100e6f000 0000000000000000 ffffffff8112c1d0 a800000100e6f000
->    $20   : 0000000000000000 00000000000004d0 0000000000000004 ffffffff8112c1d0
->    $24   : 0000000000000001 0000000000000003
->    $28   : a80000010007c000 a80000010007fcb0 00000000000000ef ffffffff80666330
->    Hi    : fffffffffffffdb9
->    Lo    : 0000000000000035
->    epc   : ffffffff8067f8f8 __dev_fwnode+0x0/0x8
->    ra    : ffffffff80666330 serial_base_ctrl_add+0xb8/0x180
->    Status: 14001fe3	KX SX UX KERNEL EXL IE
->    Cause : 80800008 (ExcCode 02)
->    BadVA : 0000000000000208
->    PrId  : 03040102 (SiByte SB1)
->    Process swapper/0 (pid: 1, threadinfo=(____ptrval____), task=(____ptrval____), tls=0000000000000000)
->    Stack : 0000000000000000 ffffffff80cd5178 ffffffff80cd0000 ffffffff8112c1c8
->            0000000000000260 ffffffff806655c4 a800000100275bc0 ffffffff8064ac88
->            004000408112c000 0000000000000002 0000000000000000 ffffffff801965d0
->            a800000100786ba0 ffffffff80cd5178 a800000100786ba0 0000000000000004
->            a800000100275bc0 0000000000000000 0000000000000000 ffffffff80cd5178
->            0000000000000000 ffffffff8112c1c8 0000000000000260 00000000000004d0
->            0000000000000004 ffffffff80bf0000 00000000000000ef ffffffff80d171dc
->            ffffffff80d17120 ffffffff80d25658 0000000000000000 ffffffff80d50000
->            ffffffff80d2f928 ffffffff80d50000 ffffffff80d25698 ffffffff80cfcecc
->            00ffffff80b84428 0000000000000000 0000000000000006 0000000000000006
->            ...
->    Call Trace:
->    [<ffffffff8067f8f8>] __dev_fwnode+0x0/0x8
->    [<ffffffff80666330>] serial_base_ctrl_add+0xb8/0x180
->    [<ffffffff806655c4>] serial_core_register_port+0x174/0x8e0
->    [<ffffffff80d171dc>] sbd_init+0xbc/0xf4
->    [<ffffffff80cfcecc>] do_one_initcall+0x64/0x150
->    [<ffffffff80cfd284>] kernel_init_freeable+0x25c/0x30c
->    [<ffffffff809ff6e4>] kernel_init+0x24/0x118
->    [<ffffffff80112d20>] ret_from_kernel_thread+0x14/0x1c
->    
->    Code: 67bd0010  03e00008  2402ffea <03e00008> dc820208  67bdffa0  ffbe0050  ffb70048  ffb60040
->    
->    ---[ end trace 0000000000000000 ]---
-> 
-> -- where a pointer is dereferenced that has been derived from a null
-> pointer to the port's parent device.
-> 
-> Since no device is available with legacy probing and it's not anymore a
-> preferable way to discover devices anyway, switch the driver to using a
-> platform device and use it as the port's parent device.
-> 
-> Use platform_driver_probe() because SB1250 DUART devices are embedded
-> onchip the SoC and therefore not that straightforward to remove.
-> 
-> An unfortunate consequence of the switch to a platform device is we now
-> hand the console over from the bootconsole much later in the bootstrap.
-> The CFE console handler appears good enough though to work so late and
-> in particular with interrupts enabled.
-> 
-> Conversely, only starting the console device so late lets the port
-> initialisation code always use fsleep() for transmitter draining, so
-> drop the other variant since it is now dead code.
-> 
-> Since there is one way only remaining to reach sbd_init_port() now, drop
-> the port initialisation marker as no longer needed and go through the
-> channel resets unconditionally.
-> 
-> Fixes: 84a9582fd203 ("serial: core: Start managing serial controllers to enable runtime PM")
-> Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
-> Cc: stable@vger.kernel.org # needs to use .remove_new for <= 6.10
+This patch series extends the module_blacklist= command-line parameter (and
+its modern alias module_denylist=) to intercept built-in modules during
+early boot. Currently, when a driver is compiled statically into the kernel
+(=y), the parameter is silently ignored, precluding administrators from
+suppressing problematic drivers during boot-time disaster recovery. This
+series resolves that discrepancy by mapping built-in modules to their
+initialisation routines via transient metadata that is freed post-boot,
+providing a predictable and consistent administrative interface regardless
+of whether a driver is built as a loadable module or compiled into the
+kernel image. Below is a detailed breakdown of the motivation, operational
+rationale, and concrete use cases addressed by this work.
 
-On BCM91250E (Sentosa):
+1.  The Core Problem and User Experience Gap
+============================================
 
-Tested-by: Florian Fainelli <f.fainelli@gmail.com>
+Today, module_blacklist= works strictly on loadable modules. When a user or
+system administrator encounters a driver bug, hang during device probe, or
+hardware fault during boot, the natural and widely documented remedy is to
+pass module_blacklist=[driver] via the bootloader (GRUB, systemd-boot,
+etc.). However, if that driver is built into the kernel, the parameter is
+silently ignored. The kernel proceeds to run the driver's initialisation
+routine anyway, leading to the same panic, hang, or hardware misbehaviour.
+From the user's standpoint, whether a driver was packaged by their
+distribution or built by their provider as =m or =y is an internal
+implementation detail. Having module_blacklist= silently fail solely based
+on compilation configuration violates the principle of least surprise and
+complicates system recovery.
+
+2.  Why initcall_blacklist= is not an adequate substitute
+=========================================================
+
+The kernel does provide initcall_blacklist=, but it is impractical for
+general users, sysadmins, and automated fleet management tools for several
+reasons:
+
+    Obscure symbol names
+
+        - initcall_blacklist= requires the exact function name of the
+          initcall (e.g., snb_pci_uarch_init and e1000_init_module). Users
+          typically know the module name, not the internal function name.
+
+    Internal instability
+
+        - Initcall function names are internal kernel implementation
+          details. They change across kernel releases, refactors, or macro
+          rewrites, making it impossible to write stable bootloader
+          configurations or recovery documentation across multiple kernel
+          versions.
+
+module_blacklist= (or module_denylist=) resolves this by allowing users to
+specify the canonical, user-facing module name (KBUILD_MODNAME) that they
+already know.
+
+3.  Concrete use cases
+======================
+
+    A.  Disaster recovery and triage on production systems
+
+        When a kernel update introduces a regression in a built-in driver
+        (e.g., a storage controller), administrators need a way to bypass
+        that driver at boot time to get the system into a usable emergency
+        shell or collect diagnostic logs, without having to rebuild the
+        kernel on another machine.
+
+    B.  Monolithic/Hardened environments (CONFIG_MODULES=n)
+
+        In security-sensitive environments, kernels are frequently compiled
+        without loadable module support (CONFIG_MODULES=n) to eliminate
+        module loading attack vectors. On these systems, all drivers are
+        built-in. If a hardware erratum or firmware bug triggers a hang in
+        a built-in driver, administrators previously had no
+        module-name-based mechanism to disable the offending driver.
+
+    C. Hardware Errata and Conflicting Devices
+
+       On systems with buggy firmware or conflicting device IDs where two
+       drivers attempt to bind to the same hardware, users can prevent the
+       conflicting built-in driver from initializing without patching and
+       recompiling the entire kernel image.
+
+4. Implementation and Overhead Considerations
+=============================================
+
+We took great care to ensure this change introduces virtually zero runtime
+overhead:
+
+    Scoped to module_init()
+
+        - Only built-in drivers that explicitly use module_init() are
+          tracked. Core kernel subsystems using core_initcall(),
+          subsys_initcall(), etc. are unaffected.
+
+    Zero Resident Memory
+
+        - The metadata table (.initcall.modnames) and the module name
+          strings (.init.rodata) are placed entirely in init sections and
+          are completely freed from memory after boot via free_initmem().
+
+    Fast Path
+
+        - During boot, if neither module_blacklist= nor module_denylist=
+          was supplied on the kernel command line, the lookup is bypassed
+          entirely.
+
+In summary, this patch brings parity between modular and built-in drivers,
+removes a pain point in boot-time disaster recovery, and provides users
+with a predictable, consistent interface.
+
+Following review feedback, the implementation is structured as three
+separate changes to isolate a pre-existing bugfix, decouple the
+introduction of the new feature, and handle the terminology renaming:
+
+    1.  The first patch is a standalone prerequisite bugfix addressing a
+        pre-existing flaw in the module blacklisting logic where hyphens
+        and underscores are not treated interchangeably. Because the kernel
+        build system normalises module names to use underscores (e.g.
+        "my_module"), specifying a module with hyphens on the command line
+        (such as "module_blacklist=my-module") failed to match due to a
+        strict byte-for-byte memcmp(). It replaces memcmp() with
+        parameqn(), carries a Fixes: tag, and is CC'd to stable.
+
+    2.  The second patch extends the "module_blacklist=" parameter to
+        built-in modules using the original blacklist terminology. It
+        introduces the ".initcall.modnames" section to map initcall
+        function pointers to their associated KBUILD_MODNAME strings
+        (restricted only to module_init() invocations to save memory and
+        avoid matching core kernel subsystems). It also restricts the check
+        to a boot-time __init wrapper to eliminate Use-After-Free (UAF) and
+        Spectre v1 vulnerability risks when loading dynamic modules at
+        runtime, and adds a fast-path check to eliminate lookup overhead
+        when the parameter is not in use.
+
+    3.  The third patch renames the variables and helper functions to adopt
+        the preferred "module_denylist=" and module_is_denylisted()
+        terminology in the codebase. To preserve the existing user-space
+        ABI, "module_blacklist=" is kept as a legacy alias pointing to the
+        same module_denylist variable.
+
+Changes since v11:
+
+ - Replaced BOUNDED_SECTION_PRE_LABEL() with BOUNDED_SECTION_BY() for
+   .initcall.modnames in include/asm-generic/vmlinux.lds.h so that the
+   table remains inside the .init.data output section rather than
+   defining a nested output section
+
+ - Introduced a #[repr(transparent)] InitcallModname wrapper implementing
+   Sync in rust/kernel/module.rs and updated rust/macros/module.rs to use
+   it and allow non_upper_case_globals, fixing E0277 (*const c_char cannot
+   be shared between threads safely) when compiling built-in Rust modules
+
+ - Link to v11: https://lore.kernel.org/lkml/20260908203230.401020-1-atomlin@atomlin.com/
+
+Changes since v10:
+
+ - Introduced a standalone prerequisite patch to treat dashes and
+   underscores interchangeably in module_blacklist= via parameqn()
+
+ - Added '. = ALIGN(8);' before BOUNDED_SECTION_PRE_LABEL(.initcall.modnames, ...)
+   in include/asm-generic/vmlinux.lds.h to ensure the location counter is
+   explicitly 8-byte aligned before the start label is captured
+
+ - Fixed a build failure for built-in Rust modules in rust/macros/module.rs
+   by using Literal::byte_string() to initialize the static byte array in
+   .init.rodata, avoiding an unsized slice dereference (*(&[u8]))
+
+ - Expanded the cover letter to detail the background, operational
+   rationale, and concrete use cases for built-in module denylisting
+   (Andrew Morton)
+
+ - Link to v10: https://lore.kernel.org/all/20260903185557.183224-1-atomlin@atomlin.com/
+
+Changes since v9:
+
+ - Enforced natural structure alignment on struct initcall_modname in
+   include/linux/init.h via __aligned(__alignof__(struct initcall_modname))
+   to prevent compiler over-alignment and inter-element linker padding
+   (Petr Pavlu)
+
+ - Removed STRUCT_ALIGN() before BOUNDED_SECTION_PRE_LABEL(.initcall.modnames,
+   _initcall_modnames, ...) to eliminate unnecessary alignment (Petr Pavlu)
+
+ - Added <linux/init.h> to rust/bindings/bindings_helper.h and updated
+   rust/macros/module.rs to use the generated
+   ::kernel::bindings::initcall_modname struct rather than a locally
+   defined type (Gary Guo and Petr Pavlu)
+
+ - Placed the Rust module name string explicitly in .init.rodata within
+   rust/macros/module.rs (#[link_section = ".init.rodata"]) so that the
+   string memory is reclaimed alongside the initcall table after boot,
+   matching the C implementation (Petr Pavlu)
+
+ - Link to v9: https://lore.kernel.org/lkml/20260807012601.360452-1-atomlin@atomlin.com/
+
+Changes since v8:
+
+ - Extended Rust procedural macro support in rust/macros/module.rs to
+   generate .initcall.modnames metadata for built-in Rust modules,
+   maintaining feature parity with C built-in modules when evaluating
+   "module_blacklist=" and "module_denylist=" (Petr Pavlu)
+
+ - Merged the intermediate ___define_initcall_modname macro directly into
+   __define_initcall_modname in include/linux/init.h to clean up macro
+   expansion (Petr Pavlu)
+
+ - Reverted the parameter name in module_init(x) back to 'x' in
+   include/linux/module.h to remain consistent with surrounding comments
+   (Petr Pavlu)
+
+ - Cleaned up whitespace formatting in kernel/module/main.c (Petr Pavlu)
+
+ - Link to v8: https://lore.kernel.org/lkml/20260724024744.616286-1-atomlin@atomlin.com/
+
+Changes since v7:
+
+ - Fixed a double evaluation of __initcall_id(fn) in the built-in module
+   initcall macro expansion
+
+ - Link to v7: https://lore.kernel.org/lkml/20260724014345.589326-1-atomlin@atomlin.com/
+
+Changes since v6:
+
+ - Grouped the __initcall_fn_ptr() macro definition inside the existing
+   CONFIG_HAVE_ARCH_PREL32_RELOCATIONS block in include/linux/init.h
+   (Petr Pavlu)
+
+ - Localised the built-in module initcall level and section naming strictly
+   to include/linux/init.h by introducing the macros
+   __define_initcall_modname() and __builtin_module_initcall(), keeping
+   include/linux/module.h clean (Petr Pavlu)
+
+ - Removed the unnecessary dereference_function_descriptor() lookup wrapper
+   in get_builtin_modname() in favour of a direct pointer comparison
+   (Petr Pavlu)
+
+ - Cleaned up whitespace formatting in kernel/module/main.c (Petr Pavlu)
+
+ - Link to v6: https://lore.kernel.org/lkml/20260718190121.378314-1-atomlin@atomlin.com/
+
+Changes since v5:
+
+ - Resolved a modpost cross-section mismatch warning by introducing
+   do_one_initcall_builtin() as a strict __init wrapper function, rather
+   than performing the built-in module checks inside the __init_or_module
+   do_one_initcall() function
+
+ - Addressed a UAF race condition with concurrent dynamic module loading by
+   strictly bounding the blacklist evaluation to early boot via the new
+   __init wrapper, removing temporal check
+
+ - Mitigated a potential Spectre v1 speculative execution vulnerability by
+   ensuring get_builtin_modname() is exclusively called by __init code,
+   preventing unprivileged runtime module loading from speculatively
+   jumping into reclaimed ".init.text" instructions
+
+ - Updated Documentation/admin-guide/kernel-parameters.txt to explicitly
+   mark "module_blacklist=" as deprecated and document "module_denylist="
+
+ - Link to v5: https://lore.kernel.org/lkml/20260718051350.344772-1-atomlin@atomlin.com/
+
+Changes since v4:
+
+ - Split the monolithic patch into two distinct commits. One to extend the
+   functionality to built-in modules, and a second to safely transition the
+   internal terminology to "denylist" (Arnd Bergmann)
+
+ - Preserved "module_blacklist=" as a legacy core_param alias in the second
+   commit to ensure backwards compatibility with existing userspace
+   configurations
+
+ - Restricted the population of the ".initcall.modnames" section strictly
+   to module_init() rather than all ___define_initcall() invocations. This
+   prevents non-module core initcalls from being redundantly mapped, saving
+   memory and avoiding false-positive matches (Petr Pavlu)
+
+ - Introduced a fast-path evaluation to check if the blacklist/denylist is
+   actually populated before invoking get_builtin_modname(), avoiding
+   unnecessary lookups during boot (Petr Pavlu)
+
+ - Link to v4: https://lore.kernel.org/lkml/20260708020007.55728-1-atomlin@atomlin.com/
+
+Changes since v3:
+
+ - Renamed the external function prototype and internal helper to
+   module_is_denylisted(), while updating the backing variable in
+   main.c to module_denylist. To preserve user-space compatibility
+   while adopting modern terminology, separate core_param entries have
+   been introduced, allowing both the preferred module_denylist=
+   parameter and the legacy module_blacklist= parameter to resolve to
+   the same underlying variable (Andrew Morton)
+
+ - I introduced the __initcall_fn_ptr() macro helper to dynamically
+   resolve the initcall pointer configuration:
+    - For architectures with relative 32-bit relocations
+      (CONFIG_HAVE_ARCH_PREL32_RELOCATIONS=y), it resolves to the
+      relocation stub pointer  __initcall_stub(fn, __iid, id)
+    - For architectures without PREL32 relocations, it resolves
+      directly to the function pointer fn
+
+ - Decoupled the module_denylist parameter parsing and the
+   module_is_denylisted() function from CONFIG_MODULES, moving the
+   logic to init/main.c. This ensures the denylist works for built-in
+   modules even on monolithic kernels built without loadable module
+   support (CONFIG_MODULES=n)
+
+ - Removed the conditional stub implementation of
+   module_is_denylisted() in module.h and replaced it with a single,
+   unconditional declaration outside of the #ifdef CONFIG_MODULES block.
+   This prevents compiler warnings about missing prototypes and ensures
+   visibility under a monolithic configuration
+
+ - Replaced the initmem_freed state variable and its synchronisation
+   logic in kernel_init() with race-free spatial boundary checks using
+   is_kernel_text() and is_kernel_inittext() in initcall_get_modname()
+
+ - Aligned the .initcall_modnames table with relocations by assigning
+   .initcall_fn using the __initcall_stub() helper in
+   ___define_initcall(). This ensures the lookup matches the actual stub
+   pointer passed to do_one_initcall() when
+   CONFIG_HAVE_ARCH_PREL32_RELOCATIONS is enabled. Passed the preprocessor
+   __iid argument to ____define_initcall_modname once to avoid double
+   evaluation of __COUNTER__ (which caused build failures with LTO)
+
+ - Updated initcall_get_modname() in main.c to resolve the function
+   pointer fn using dereference_function_descriptor(fn) prior to
+   checking the .text and .init.text boundaries, and dereference both
+   fn and p->initcall_fn in the comparison loop to support descriptor-based
+   architectures (e.g., PPC64)
+
+ - Link to v3: https://lore.kernel.org/lkml/20260706050337.7613-1-atomlin@atomlin.com/
+
+Changes since v2:
+
+ - Avoided relative 32-bit offsets (PREL32) with inline assembly, opting
+   instead for standard C structures with absolute pointers. This fixes LTO
+   and CFI compatibility issues (e.g., under Clang) where raw inline assembly
+   fails to track compiler-generated symbols and CFI stubs
+
+ - Placed module name strings into the ".init.rodata" section via a dedicated
+   static array to ensure they are freed from memory after boot
+
+ - Avoided Use-After-Free (UAF) bugs post-boot when loading dynamic modules:
+   - Added an 'initmem_freed' flag, marked as '__ro_after_init', set after
+     free_initmem() to skip table lookups for dynamically loaded modules
+   - Added a blacklist check in do_init_module() for dynamic modules
+
+ - Simplified the linker script using the BOUNDED_SECTION_PRE_LABEL() macro
+   to define the ".initcall.modnames" section boundary
+
+ - Added a dummy/stub implementation of module_is_blacklisted() when
+   CONFIG_MODULES is disabled to avoid build errors
+
+ - Link to v2: https://lore.kernel.org/lkml/20260622140259.2974-1-atomlin@atomlin.com/
+
+Changes since v1:
+
+ - Pivoted entirely from exposing built-in initcalls and their blacklist
+   status via a debugfs interface to directly extending the existing
+   "module_blacklist=" and new "module_blacklist=" to intercept built-in
+   modules at boot (Petr Pavlu)
+
+ - Implemented 32-bit relative offsets (CONFIG_HAVE_ARCH_PREL32_RELOCATIONS)
+   to store the mappings, preventing binary bloat and preserving KASLR
+   efficacy
+
+ - Link to v1: https://lore.kernel.org/lkml/20260510061301.41341-1-atomlin@atomlin.com/
+
+Aaron Tomlin (3):
+  module: Treat dashes and underscores interchangeably in
+    module_blacklist
+  module: Extend module_blacklist parameter to built-in modules
+  module: Rename module_blacklist to module_denylist
+
+ .../admin-guide/kernel-parameters.txt         |  6 +-
+ include/asm-generic/vmlinux.lds.h             |  4 +-
+ include/linux/init.h                          | 25 ++++++++-
+ include/linux/module.h                        |  4 +-
+ init/main.c                                   | 55 ++++++++++++++++++-
+ kernel/module/main.c                          | 24 +-------
+ rust/bindings/bindings_helper.h               |  1 +
+ rust/kernel/module.rs                         | 18 ++++++
+ rust/macros/module.rs                         | 23 ++++++++
+ 9 files changed, 132 insertions(+), 28 deletions(-)
+
 -- 
-Florian
+2.55.0
 
