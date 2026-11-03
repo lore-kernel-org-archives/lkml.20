@@ -1,112 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687141;
-	b=LiqK/vfpBxn7U413FaT6fzEE+oA+DZKSpAKpn51uLzoKSC6rwMyy59cmQzooABFPfhdf
-	 /XQEvhBg28CkL2a3AU/gaIvdbShj68ZIghkiX+N+eVASiVRa8+zSUI0Lplk9Fpn1eEMEW
-	 b6Gwh325ykvY3/HqHYFYBK41CNQkJAbmhc5tr1ywuMm/b2FjlOOUunao6w6+P+E14cxSH
-	 1Z1iw5TZYwPba0aB8/RXYsyMj/yL/k3B4n7b9L/Y76WoaxBTFiKLs9uUkTPN5fXqoz9y9
-	 xaZP2AhYjM/JWw6Z4Yxl6OkCDS6rh3LN1YgXmeWsZVIOQ94T4CpGLkP00CswLlCWBjw==
+	t=1793687171;
+	b=t/NcfffRet8r44i92obp4LeiyvjpYCOFIDdDfqufO1HqgtnNcbi1Ur1ouWlbmVGf3nlD
+	 VNNYc7a8Y/cNGEjClrwmcBWICgqqzzo6/CyoZ8ozQJy8nMzQzMLeSc5lGi4ZDQVYNvxA1
+	 3+WUyDSfUrSSpsvQargEbdIqc7B1wCKhflIz6Wc3t5yyUfpPUyuTD27PGGkXy84LORBPY
+	 cUIJcCDiJS+pL3AeJYPpcLeqYZkuc5KJjx+9xzquXpGOyxKKUpgJWiNaCwjyymVMXtm5A
+	 +vICUq4vJwcTdJUTKPPD5zZ1J+usCyuXjrVO3JFTF0nSywPEL8GeTduqm91gpnIsJVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687141;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=;
-	b=eBeSFukNxTbL/Hi16SW5XE4rHlMB9chvy8mKCmiG+IMkoRw68dpLruDxxl5ToL+ht1sC
-	 Rx/BvXP5F8WHseFbKlA6dB7EvT2DXfxbSIVaUAiMX6RTdjGi/WGd3NRl7ur/w9kV/iGQq
-	 f6Lu0mav8zQXBD+Q6v97hBdBDROZQxXKAO6AHu8cbcv5bBQIbQwytYP89aXL05F7srSYM
-	 Rm/6DiHEPFW2CpfMDOSzz/2Ftxe4kNDBVYxXuQ2GAwwtrhLvoIjLYAfumap8gTdRfKan5
-	 WM5/WmGpTWKicBVLf5Lq5G/Q4kWdEi9b8+Uo6Oos43Eun0j/dYNf/f0WzZzbpOHVCpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687171;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XKYfNdocuB1MEsGC6i70NraA/BGJPa5duw67dNLX3zc=;
+	b=0Ptgl0GvE9W30YZ4b7/njTfbVJv6Utr2hHH0ZCbgSxRkdz4+XC3WrbnOxBuV5/Je3AV1
+	 lIpGGVxnnRQmpaqYpR96RShRWq/pQAzhLysiImeWmNGYd+be4Og6HDoCrFnnXh6TXG56P
+	 oQQg6lCOHgycnTf5N6WKgXI89LGzxKAO2CnOzV3vdneRIXmr/BgV0CMsfzkykgkuBI5SI
+	 5Wou6xiaUcj+hNyMBcceafCiohATFUbNVzCAusWJ5xvBNetPlzPj7JjzRr3PujRCWsWpd
+	 DHZIa3nbtbeqqq2dxgiE7h6H5JMlm3rVyNWaEj8paRlImdDECij11GgHFiUq464OeNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NKTIlecT;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WORAAsag;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.218
+Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com [115.124.28.218])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B153D606A338
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:25:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B153D606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NKTIlecT;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WORAAsag
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31egYG4002679
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 06:25:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=; b=NKTIlecTkJkLQpyk
-	l1CuiHINKA6OWTGX514QCSm3j//VdQG6yjs1xM+tfYH0ge25EUSaxS9NrDMWXWit
-	68+W2GXucwhjmXqFm0mJNnBCdKHpqcMaBPO3lkns6EcBkqKV1pXZ0GiUu40lrfw1
-	F+WduvqnYBt/SASF3tibJeVM6+PhR6Q4LTNm3Q+qoVMSZXI6BYq6xCNe5VKKpZhA
-	U3avqe2sONtupM3eHOSRIGEFPMu3pJtMVhN4fQPM3G++JCU1HNONCq7aloO1unvX
-	XCLkXgDrRx099SnCG29tLDVDC/6bQmicNs8zc5R4jrs9eEQ//jYwh7xVvrg12Ivu
-	72E2EA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq07ej93u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:25:39 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ea63087d79so35601915ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:25:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793687139; x=1794291939; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=;
-        b=WORAAsagLLAZE33dKvZqoXvNybMdRp9WwZKdp64c2t8FgmHKtShJMXY4OGNxD6XaXi
-         W7wm2kl7wwPu/FjVLdzNJHeqmapGp6jur8/FQ0hFubnkHkx0vmFeDH/CwwfWaAs8qvdF
-         mkow1e5wqzolDZxFYt/QTCkvX4xOaano8PFP0hb14DDmYB5M7TbtN3LFCUkemA+YZI85
-         +2HNblVLNglvL4aYO48Yz2iliubksQz7DaRvX8ZlJA+7oxsvPdwrbJCGXg7rRuCnC2Bi
-         pDT2oFigRnxqDeZwoSzBV4ZAi1GFqlmJqk6GE3plvHT0czDOYNK4ZAqjsbfdZl0ZR6Zu
-         AYrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793687139; x=1794291939;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=;
-        b=BCyHVq8k+3zlVzBvwZTSMAyEdpaK//1dPczf6X4k1Mk272fPXbdJTd4ZoCJJY1aVQ3
-         mK0kEx8Y7ubky6/5S4pWfbBBWns8d+rHP6qqfY4Vb6pXt0gOF5rotQYpsZ/DtPDPV2OQ
-         i3dqjSrI6Bnzjbuy1RlLzQwyQv0mdtJmF3zU7Y6h6zzL4vVJlAU55Sapu9pAAmf8zWDZ
-         DqAqQKuQMj4JT8vsPtFVQ76hQeo781cYfUD0XsAaO67rB2agk+lYPPLiQrE0iWbQXojl
-         B0FOiIy9RmFnswF6ekHl+oy8f3d28hmsdGVBp5SW0ajxQ1X6AX2c1oQqWj2F6UKcsMJM
-         9ENw==
-X-Forwarded-Encrypted: i=1; AKwUvBxPYCn5Zou6Y5o/WDMn+/qs3BqMayyyiS4Wff523FLREFS7cC3GbqEEzCemNi0fEWDdT44Bp+k7KjlOtFk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yHTc9TqVOH4McXllbn4b9ATnHY5KMCL19l+ObfNWwJ9njQuuy
-	Q4HLlbFWOETnI+ssImKLgTocGKIFXaMOFrGZQLrFAcdFg21H6DuzGYswlRWK4ReRCjEKeH0nD3U
-	XUwgVzz9CJIUFopDBsDMy2hMa+FfuK45tWecQEuQEFQK9E0cd4K0Ugo9uiAcxGya4XXI=
-X-Gm-Gg: AYBFou19EG4+MVtks1XchJy1xWH7NS4nHQyIzc2Dk58NYPIi3FGFnGWYXplmAVf8L78
-	A5hKon4ACqP1IZlBtzm7YsYrEGqtrRDtsSMuHA9AYGzw8uriCJzjKD4UGAocr7smGXqfuoF+Nnk
-	KMSdbgQBJeyM1TcsqrhjFRWXOUx6NLBr0pJwM4cDwrsHIFZQUDPs1d1ABkIL5hY0v4kmluLn0YL
-	zwFz2lRrlo60cipxRYFPss31OJfXTQjVsPPHGYsPZxZ5amZYw5GSeYIwsuqZaqbKz0L7RPLpO5u
-	fTMpO+x/UyTyFIfFp9FuHNfd49W61V6EyIH5JoQeG/ZWxc1lLI41ZudRK19+uDGnMuv0DdTn5Wy
-	CNbSjYTa89iZ3KsDfnET89diGWpqr5x52o5gZGTnL2izR9tWwicXophsjbwMHjd3xnTpJqESCzH
-	U1lFc2
-X-Received: by 2002:a17:902:f545:b0:2e9:9f14:c44 with SMTP id d9443c01a7336-2eb364ddee2mr111958285ad.49.1793687138968;
-        Mon, 02 Nov 2026 22:25:38 -0800 (PST)
-X-Received: by 2002:a17:902:f545:b0:2e9:9f14:c44 with SMTP id d9443c01a7336-2eb364ddee2mr111958015ad.49.1793687138325;
-        Mon, 02 Nov 2026 22:25:38 -0800 (PST)
-Received: from [10.218.31.237] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3924c858sm36924505ad.35.2026.11.02.22.25.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 22:25:37 -0800 (PST)
-Message-ID: <e1ac9331-7a3c-4836-bd78-b67b60f918fb@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 11:55:29 +0530
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055F9606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:26:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 055F9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.9243626|0.09915012;CH=green;DM=|AD|false|;DS=CONTINUE|ham_system_inform|0.00862597-0.00193639-0.989438;FP=2229952610361232051|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=liaoxuan@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jvVZCbV_1793687148;
+Received: from Ubuntu2404-XLH.hygon.cn(mailfrom:liaoxuan@open-hieco.net fp:SMTPD_---.jvVZCbV_1793687148 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 14:25:59 +0800
+From: Liao Xuan <liaoxuan@open-hieco.net>
+To: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me
+Cc: linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Liao Xuan <liaoxuan@open-hieco.net>,
+	default avatarZheng Tan <tanzheng@kylinos.cn>
+Subject: [PATCH 1/3] nvme: Add adaptive PCIe link rate switching function
+Date: Tue,  3 Nov 2026 14:25:43 +0800
+Message-ID: <85a11a4085d04a2823c04059702630cf34abf6d4.1790134954.git.liaoxuan@open-hieco.net>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1790134954.git.liaoxuan@open-hieco.net>
+References: <cover.1790134954.git.liaoxuan@open-hieco.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,429 +58,564 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 2/2] net: wwan: qcom_bam_dmux: Assign
- restricted DMA pool to remote processor
-To: netdev-bot+sashiko@kernel.org
-Cc: stephan@gerhold.net, andrew+netdev@lunn.ch, davem@davemloft.net,
-        kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, loic.poulain@oss.qualcomm.com,
-        ryazanov.s.a@gmail.com, johannes@sipsolutions.net, edumazet@kernel.org,
-        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        deepak.singh@oss.qualcomm.com
-References: <20261021-qcom-bam-dmux-vmid-ext-v3-2-cedd1f681102@oss.qualcomm.com>
- <179292379960.3134.17105636011699871887@kernel.org>
-Content-Language: en-US
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-In-Reply-To: <179292379960.3134.17105636011699871887@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyNSBTYWx0ZWRfX2k0OYe6u4ugD
- z24SdRfakjP6Oonu3+rkrCKkZ0Ns2UdMg0khkZWeOBsCFtw9r4PQ8vKYNs+SXFtVA09oLH+LFuS
- Rw+jOHj98NkPtkUisgvFJRbksh0iAovvzaD42KkxGeVEKlX//V8L8IqtdHECFg/XjTkg+SL329W
- FQWmhvQ9jDzYuqusM43vlDczswxPlJnQxIyCZgVwkVcYQbuE7osQCRKk1TuTyVsMtMv9XDA+PAw
- 5ER/3XupRJzcB8D1UJHR33XoYAjFOJIgminxOvD6YV9ZYQ5pg4amNiubTa/Rq1aZYCAzo23Ss1m
- y71DAq0vbkqIEjRbI23b8X/P+32brafm/51A0Xsq8+H5h0Yp1sFjQyPVW/F4w0dT+fZPolh9sb4
- zkxocXb86GZG3ofx6O1RAS48/+cdqDMjTv4pluv+/trtBeOGDMCjt6OAHKnTcqfIR5TMx+WO18w
- 62nHUq3RILNZP8hs71A==
-X-Proofpoint-ORIG-GUID: dFI5KO28nf8J9CLEfbFWxv-NBzdl2rvH
-X-Proofpoint-GUID: dFI5KO28nf8J9CLEfbFWxv-NBzdl2rvH
-X-Authority-Analysis: v=2.4 cv=B/wsQ+tM c=1 sm=1 tr=0 ts=6ae97e64 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=70-S8w_-Z3ilBdKCbEIA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyNSBTYWx0ZWRfX0qLcpMC5bgHg
- ISZ9SJ5biSX2FVW+x5huQFMuGiGZhQJqecaqb4BC9cceVlFir6f/rl95zT1AfwCX2u1fcH1WCk9
- fpRqOwSqtmoO8TfXu0FXro3gFnnh4O4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
- impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030025
 
+Add support for dynamically adjusting the PCIe link rate of NVMe
+devices based on I/O activity. The link is downgraded to a
+configurable minimum rate during periods of low activity to save
+power, and upgraded to the maximum supported rate as soon as the
+workload exceeds a computed threshold, so that peak performance is
+maintained under load.
 
-On 25-10-2026 03:53 pm, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 7 potential
-> issue(s) to consider.
->
-> Critical: 0 · High: 0 (1) · Medium: 4 (1) · Low: 3
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
->
-> - [Medium] The commit message says BAM descriptor FIFOs "must therefore
->    be constrained" to the shared region, and that they are covered "when…
-> - [Medium] bam_dmux_assign_dma_pool() always passes `u64 src =
->    BIT_ULL(QCOM_SCM_VMID_HLOS)` (line 777) to qcom_scm_assign_mem(), so…
-> - [Medium] In bam_dmux_remove(), `remote_suspended` decides whether the
->    pool goes back to HLOS-only, and it can be wrong in two ways.
-> - [Medium] Once the restricted pool is assigned RW to the modem VMID,
->    every RX buffer mapping copies uninitialized HLOS memory into memory…
-> - [Low] The patch changes the probe error path in bam_dmux_probe() for an
->    irq_get_irqchip_state() failure.
-> - [Low] The binding and the driver disagree on which qcom,vmid values are
->    valid.
-> - [Low] The driver and binding accept qcom,vmid values up to 63, and
->    bam_dmux_reclaim_dma_pool() passes `src = BIT_ULL(HLOS) |…
->
-> Pre-existing issues:
-> - [High] bam_dmux_remove() calls
->    cancel_work_sync(&dmux->register_netdev_work) at line 964, before RX…
-> - [Medium] This problem wasn't introduced by this patch, but net_devices
->    that registered successfully are unregistered and never freed.
->
-> --
->
-> net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
->
-> When qcom,vmid is present in DT, this patch requires a restricted DMA pool
-> and uses SCM to assign the whole pool to both HLOS and the remote VMID. The
-> pool is reclaimed for HLOS on remove or on probe error cleanup, unless the
-> remote side did not drop its power vote. It also changes the
-> irq_get_irqchip_state() failure path in probe to call bam_dmux_remove().
->
->> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
->> index cc6ace8d64371..fa3621224a56e 100644
->> --- a/drivers/net/wwan/qcom_bam_dmux.c
->> +++ b/drivers/net/wwan/qcom_bam_dmux.c
-> [ ... ]
->
->> @@ -762,6 +768,96 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
->>   	return 0;
->>   }
->>   
->> +static int bam_dmux_assign_dma_pool(struct bam_dmux *dmux)
->> +{
->> +	struct device *dev = dmux->dev;
->> +	struct device_node *rmem_np;
->> +	struct reserved_mem *rmem;
->> +	struct qcom_scm_vmperm dst[2];
->> +	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
-> [Severity: Medium]
->
-> Is it safe to assume on every probe that HLOS is the only current owner?
-> qcom_scm_assign_mem() documents @srcvm as the "vmid for current set of
-> owners".
->
-> Two paths can leave the pool owned by {HLOS, vmid} after the driver
-> instance is gone. The first is bam_dmux_remove(), which skips the reclaim
-> on a remote timeout:
->
-> 	else if (dmux->dma_pool_perms)
-> 		dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
->
-> The second is bam_dmux_reclaim_dma_pool(), which only logs when the SCM
-> call fails.
->
-> In both cases the only record of the assignment is dmux->dma_pool_perms.
-> That field lives in devm_kzalloc() memory, which is freed right after
-> remove or after the failed probe.
->
-> On the next probe (module reload, or unbind/bind of the remoteproc
-> parent), the zeroed dmux would ask TZ to move the pool from {HLOS} while
-> {HLOS, vmid} actually owns it. Would the assign then fail with "SCM assign
-> restricted DMA pool failed" until reboot?
+The amount of transferred data is accumulated on the I/O submission
+path and aggregated by a per-controller timer. The threshold is
+derived from the bandwidth of the minimum and maximum rates such that
+the extra time required to transfer the data at the minimum rate does
+not exceed the estimated link retraining time.
 
-Yes. This is fail-safe, since the pool is static reserved memory that is
-never returned to the page allocator. This matches the existing
-qcom_scm_assign_mem() users, which also only log reclaim failures.
+The feature is currently only supported on Hygon platforms.
 
->
-> The new probe error path calls bam_dmux_remove() right after the PC IRQ
-> may have powered up RX, so it seems likely to hit the timeout case.
+Signed-off-by: Liao Xuan <liaoxuan@open-hieco.net>
+Signed-off-by: default avatarZheng Tan <tanzheng@kylinos.cn>
+---
+ drivers/nvme/host/Kconfig        |  10 +
+ drivers/nvme/host/Makefile       |   1 +
+ drivers/nvme/host/core.c         |   4 +
+ drivers/nvme/host/nvme.h         |  42 ++++
+ drivers/nvme/host/pci.c          |   4 +
+ drivers/nvme/host/speed_switch.c | 367 +++++++++++++++++++++++++++++++
+ drivers/pci/pcie/bwctrl.c        |   1 +
+ 7 files changed, 429 insertions(+)
+ create mode 100644 drivers/nvme/host/speed_switch.c
 
-This path is not reachable with the SMSM irqchip, as
-smsm_get_irqchip_state() only fails for states other than
-IRQCHIP_STATE_LINE_LEVEL.
-
->
->> +	u32 vmid;
->> +	int ret;
->> +
->> +	if (!of_property_present(dev->of_node, "qcom,vmid"))
->> +		return 0;
->> +
->> +	ret = of_property_read_u32(dev->of_node, "qcom,vmid", &vmid);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to read qcom,vmid\n");
->> +	if (vmid == QCOM_SCM_VMID_HLOS || vmid >= BITS_PER_TYPE(u64))
->> +		return dev_err_probe(dev, -EINVAL, "Invalid qcom,vmid %u\n", vmid);
-> [Severity: Low]
->
-> Should the binding and this check agree on the valid range? The
-> qcom,bam-dmux.yaml binding in this series allows:
->
->      items:
->        minimum: 1
->        maximum: 63
->
-> This check rejects 3 (QCOM_SCM_VMID_HLOS) but accepts 0. So a DT with
-> qcom,vmid = <3> passes dtbs_check and then fails probe with -EINVAL. In
-> the other direction, vmid 0 is rejected by the schema but is passed to
-> SCM here.
->
-> [Severity: Low]
->
-> On 32-bit kernels, can a vmid between 32 and 63 be reclaimed correctly?
-> bam_dmux_reclaim_dma_pool() passes src = BIT_ULL(HLOS) | BIT_ULL(vmid).
-> However, qcom_scm_assign_mem() builds the source list with the unsigned
-> long BIT():
->
-> 	for (b = 0; b < BITS_PER_TYPE(u64); b++) {
-> 		if (srcvm_bits & BIT(b))
-> 			src[i++] = cpu_to_le32(b);
-> 	}
->
-> On 32-bit this shift is undefined for b >= 32, so the remote VMID entry
-> would not be written. src_sz is still computed with hweight64(), so the
-> SCM call would see an uninitialized trailing source slot. The helper's
-> int next_vm |= BIT(newvm->vmid) has a similar limit.
->
-> The root cause is in the existing SCM helper. However, this patch adds a
-> caller and accepts a range the helper cannot encode on 32-bit, and
-> QCOM_BAM_DMUX is used on 32-bit SoCs such as MSM8974. Should the range be
-> tightened here, or should the helper switch to BIT_ULL()?
->
-> [ ... ]
->
->> +	rmem = of_reserved_mem_lookup(rmem_np);
->> +	of_node_put(rmem_np);
->> +	if (!rmem)
->> +		return dev_err_probe(dev, -EINVAL,
->> +					     "Failed to look up restricted DMA pool\n");
->> +
->> +	if (!is_swiotlb_for_alloc(dev))
->> +		return dev_err_probe(dev, -EINVAL,
->> +				     "Restricted DMA pool not attached\n");
-> [Severity: Medium]
->
-> The commit message says:
->
->      BAM-DMUX DMA mappings and BAM descriptor FIFOs must therefore be
->      constrained to a designated memory region ...
->
->      When the BAM DMA controller references the same pool, its descriptor
->      FIFOs are covered by the assignment as well.
->
-> This check only looks at the bam-dmux device. The descriptor FIFOs are
-> allocated on the BAM controller's own device in bam_alloc_chan():
->
-> 	bchan->fifo_virt = dma_alloc_wc(bdev->dev, BAM_DESC_FIFO_SIZE,
-> 					&bchan->fifo_phys, GFP_KERNEL);
->
-> Their address is then programmed into BAM_P_DESC_FIFO_ADDR in
-> bam_chan_init_hw().
->
-> Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml has no
-> memory-region property and sets additionalProperties: false. This series
-> only updates the bam-dmux binding.
->
-> With a schema-valid DT, wouldn't the FIFOs stay in ordinary memory that
-> the modem VMID cannot reach? That would leave the XPU violation possible
-> for FIFO accesses.
->
-> Should the bam-dma binding gain a memory-region property? Should the
-> driver also verify, or at least warn, that the DMA controller behind the
-> rx/tx channels uses the same pool?
-
-This is covered by a separate binding change for the BAM DMA controller:
-https://lore.kernel.org/all/20261021-qcom-bam-dma-vmid-ext-v3-1-299355e8dd3b@oss.qualcomm.com/
-With memory-region on the BAM DMA node, dma_alloc_wc() allocates the
-descriptor FIFOs from the pool, without BAM DMA driver changes.
-
-Using the same pool for both nodes is a DT requirement. The DMA channels
-are only requested at modem power-up, so a check in BAM-DMUX could not
-fail probe and would only warn after the fact.
-
->
->> +
->> +	if (!qcom_scm_is_available())
->> +		return -EPROBE_DEFER;
->> +
->> +	dst[0].vmid = QCOM_SCM_VMID_HLOS;
->> +	dst[0].perm = QCOM_SCM_PERM_RW;
->> +	dst[1].vmid = vmid;
->> +	dst[1].perm = QCOM_SCM_PERM_RW;
->> +
->> +	ret = qcom_scm_assign_mem(rmem->base, rmem->size, &src, dst,
->> +				  ARRAY_SIZE(dst));
-> [Severity: Medium]
->
-> Once the whole pool is RW for the modem VMID, does every RX mapping copy
-> uninitialized kernel memory into it?
->
-> bam_dmux_skb_dma_queue_rx() allocates the RX skb with
-> __netdev_alloc_skb() and calls skb_put(skb, BAM_DMUX_BUFFER_SIZE) without
-> zeroing. It then maps the buffer DMA_FROM_DEVICE.
->
-> With a restricted-dma-pool, swiotlb_tbl_map_single() copies the original
-> buffer into the pool slot before the transfer, whatever the direction:
->
-> 	swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_TO_DEVICE, pool);
->
-> That would put up to 2 KiB of stale kernel data per buffer into memory
-> shared with the modem. This happens for all 32 RX buffers at power-on and
-> again on each refill in bam_dmux_rx_callback().
->
-> Should the RX buffers be zeroed before mapping when qcom,vmid is set?
-
-This is generic swiotlb behaviour for all restricted-dma-pool users: the
-original buffer is bounced for every direction, so that bytes the device
-does not write are preserved. Without a restricted pool, as on the
-existing BAM-DMUX platforms, the BAM accesses the skb directly, including
-its stale contents, so the pool does not widen the exposure.
-
->
-> [ ... ]
->
->> @@ -829,8 +929,11 @@ static int bam_dmux_probe(struct platform_device *pdev)
->>   
->>   	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
->>   				    &dmux->pc_state);
->> -	if (ret)
->> -		goto err_disable_pm;
->> +	if (ret) {
->> +		/* The PC IRQ may already have powered up the RX path */
->> +		bam_dmux_remove(pdev);
->> +		return ret;
->> +	}
-> [Severity: Low]
->
-> This changes the irq_get_irqchip_state() failure path from only disabling
-> runtime PM to a full bam_dmux_remove(). That seems to fix an existing bug.
-> The threaded PC IRQ is already registered at this point and may have run
-> bam_dmux_power_on(), which requests the RX channel and maps and submits
-> the RX skbs. The old err_disable_pm path leaked all of that while devm
-> freed dmux.
->
-> Could this be split into a separate patch with a Fixes: tag so it reaches
-> stable, and mentioned in the commit message?
->
-> The change also alters probe behaviour. The failure path can now block in
-> wait_event_timeout() for up to BAM_DMUX_REMOTE_TIMEOUT, it sends a
-> power-down vote through bam_dmux_runtime_suspend(), and it calls
-> disable_irq() on devm-managed IRQs.
->
-> [ ... ]
->
->> @@ -853,6 +957,7 @@ static void bam_dmux_remove(struct platform_device *pdev)
->>   	struct bam_dmux *dmux = platform_get_drvdata(pdev);
->>   	struct device *dev = dmux->dev;
->>   	LIST_HEAD(list);
->> +	bool remote_suspended;
->>   	int i;
->>   
->>   	/* Unregister network interfaces */
-> [Severity: High]
->
-> This isn't a bug introduced by this patch, but the new probe error path
-> relies on bam_dmux_remove() to tear down an RX path that may already be
-> active. remove cancels register_netdev_work before RX is stopped:
->
-> 	cancel_work_sync(&dmux->register_netdev_work);
-> 	...
-> 	remote_suspended = wait_event_timeout(dmux->pc_wait, !dmux->rx,
-> 	...
-> 	disable_irq(dmux->pc_irq);
-> 	bam_dmux_power_off(dmux);
->
-> During the wait, an RX completion can carry a BAM_DMUX_CMD_OPEN command
-> for a channel that has no netdev. That goes through
-> bam_dmux_rx_callback()->bam_dmux_cmd_open(), which calls
-> schedule_work(&dmux->register_netdev_work) again. Nothing cancels the work
-> after that.
->
-> Can the work then run after devres frees dmux, or register netdevs that
-> point at the freed dmux and are never unregistered?
->
-> During probe, netdevs[] is all NULL, so after a power-up ack every open
-> command from the modem would schedule the work.
-
-This is a pre-existing issue in bam_dmux_remove(), present since the
-driver was added. This is out of scope for this series.
-
->
-> [Severity: Medium]
->
-> This isn't a bug introduced by this patch, but are the registered
-> net_devices ever freed?
->
-> bam_dmux_register_netdev_work() calls free_netdev() only when
-> register_netdev() fails. bam_dmux_netdev_setup() does not set
-> needs_free_netdev, and this path only calls unregister_netdevice_queue()
-> and unregister_netdevice_many(). netdev_run_todo() only frees the device
-> when needs_free_netdev is set.
->
-> So each registered netdev seems to leak on remove. With this patch it can
-> also leak in the new probe error cleanup, if interfaces were already
-> created.
-
-This is a pre-existing issue in bam_dmux_remove(), present since the
-driver was added. This is out of scope for this series.
-
->
->> @@ -872,13 +977,21 @@ static void bam_dmux_remove(struct platform_device *pdev)
->>   	pm_runtime_set_suspended(dev);
->>   
->>   	/* Try to wait for remote side to drop power vote */
->> -	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
->> +	remote_suspended = wait_event_timeout(dmux->pc_wait, !dmux->rx,
->> +					      BAM_DMUX_REMOTE_TIMEOUT);
->> +	if (!remote_suspended)
->>   		dev_err(dev, "Timed out waiting for remote side to suspend\n");
->>   
->>   	/* Make sure everything is cleaned up before we return */
->>   	disable_irq(dmux->pc_irq);
->>   	bam_dmux_power_off(dmux);
->>   	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
->> +
->> +	/* The remote side may still access the pool if it did not suspend */
->> +	if (remote_suspended)
->> +		bam_dmux_reclaim_dma_pool(dmux);
-> [Severity: Medium]
->
-> Can remote_suspended be stale or wrong by the time it gates the reclaim?
->
-> It is sampled while the PC IRQ is still enabled, and disable_irq() only
-> runs afterwards. In between, the modem can raise its power vote again,
-> and bam_dmux_pc_irq() would run:
->
-> 	if (new_state) {
-> 		if (bam_dmux_power_on(dmux))
-> 			bam_dmux_pc_ack(dmux);
->
-> That requests RX, maps the RX skbs into the pool and acks the modem.
-> disable_irq() only waits for the handler to finish. The earlier true value
-> then reclaims the pool while the modem believes the link is up.
->
-> Also, dmux->rx == NULL does not necessarily mean the remote powered down.
-> If bam_dmux_power_on() fails in the PC IRQ handler or in probe,
-> bam_dmux_power_off() clears rx while pc_state is set to true. The wait
-> then returns immediately and the pool is reclaimed while the remote vote
-> is still asserted.
->
-> The commit message says:
->
->      Skip the reclaim and leave the pool assigned if the remote side did not
->      acknowledge the power-down, since it may still access the pool.
->
-> Would it be more robust to make this decision after disable_irq(), based
-> on the remote PC state (for example !dmux->pc_state)?
-
-Agreed. In the next revision, the reclaim can be decided after disable_irq()
-based on dmux->pc_state, so a failed power-on with the remote vote still
-asserted also leaves the pool assigned.
-
-Vishnu
-
-pw-bot: cr
+diff --git a/drivers/nvme/host/Kconfig b/drivers/nvme/host/Kconfig
+index 31974c7dd20c..098ec7abba66 100644
+--- a/drivers/nvme/host/Kconfig
++++ b/drivers/nvme/host/Kconfig
+@@ -134,3 +134,13 @@ config NVME_APPLE
+ 
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called nvme-apple.
++
++config NVME_SPEED_SWITCH
++	bool "NVMe adaptive PCIe link rate switching"
++	depends on BLK_DEV_NVME && X86
++	help
++	  This provides support for dynamic PCIe link rate switching for NVMe
++	  devices. When enabled, the NVMe driver can dynamically adjust the
++	  PCIe link speed and width based on workload requirement.
++
++	  If unsure, say N.
+diff --git a/drivers/nvme/host/Makefile b/drivers/nvme/host/Makefile
+index 67563a69f7dc..02d0200fcc88 100644
+--- a/drivers/nvme/host/Makefile
++++ b/drivers/nvme/host/Makefile
+@@ -19,6 +19,7 @@ nvme-core-$(CONFIG_BLK_DEV_ZONED)	+= zns.o
+ nvme-core-$(CONFIG_FAULT_INJECTION_DEBUG_FS)	+= fault_inject.o
+ nvme-core-$(CONFIG_NVME_HWMON)		+= hwmon.o
+ nvme-core-$(CONFIG_NVME_HOST_AUTH)	+= auth.o
++nvme-core-$(CONFIG_NVME_SPEED_SWITCH)	+= speed_switch.o
+ 
+ nvme-y					+= pci.o
+ 
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index beea23d04a70..85e0bfc4d7aa 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -4679,6 +4679,7 @@ static void nvme_scan_work(struct work_struct *work)
+ 		/* Re-read the ANA log page to not miss updates */
+ 		queue_work(nvme_wq, &ctrl->ana_work);
+ #endif
++	nvme_speed_switch_start(ctrl);
+ }
+ 
+ /*
+@@ -5103,6 +5104,7 @@ EXPORT_SYMBOL_GPL(nvme_remove_io_tag_set);
+ 
+ void nvme_stop_ctrl(struct nvme_ctrl *ctrl)
+ {
++	nvme_speed_switch_exit(ctrl);
+ 	nvme_mpath_stop(ctrl);
+ 	nvme_auth_stop(ctrl);
+ 	nvme_stop_failfast_work(ctrl);
+@@ -5318,6 +5320,8 @@ int nvme_add_ctrl(struct nvme_ctrl *ctrl)
+ 	nvme_fault_inject_init(&ctrl->fault_inject, dev_name(ctrl->device));
+ 	nvme_get_ctrl(ctrl);
+ 
++	nvme_speed_switch_init(ctrl);
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(nvme_add_ctrl);
+diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+index 2cff9fcbf740..0f27c73a99ee 100644
+--- a/drivers/nvme/host/nvme.h
++++ b/drivers/nvme/host/nvme.h
+@@ -339,6 +339,33 @@ enum nvme_ctrl_flags {
+ 	NVME_CTRL_FROZEN		= 6,
+ };
+ 
++#ifdef CONFIG_NVME_SPEED_SWITCH
++struct nvme_speed_switch_stats {
++	u64 read_bytes;
++	u64 write_bytes;
++};
++
++struct nvme_speed_switch {
++	bool initialized;
++	bool enabled;
++	u8 max_speed;
++	u8 cur_speed;
++	u8 target_speed;
++	u8 min_speed;
++	u32 monitor_interval;	/* ms */
++	u32 threshold;		/* KB */
++	struct timer_list timer;
++	struct work_struct work;
++	struct nvme_speed_switch_stats __percpu *stats;
++	atomic_t timer_active;
++};
++
++enum nvme_speed_timer_state {
++	NVME_SPEED_TIMER_INACTIVE,
++	NVME_SPEED_TIMER_ACTIVE,
++};
++#endif
++
+ struct nvme_ctrl {
+ 	bool comp_seen;
+ 	bool identified;
+@@ -481,8 +508,23 @@ struct nvme_ctrl {
+ 	enum nvme_dctype dctype;
+ 
+ 	u16			awupf; /* 0's based value. */
++#ifdef CONFIG_NVME_SPEED_SWITCH
++	struct nvme_speed_switch speed_switch;
++#endif
+ };
+ 
++#ifdef CONFIG_NVME_SPEED_SWITCH
++void nvme_update_io_stats(struct nvme_ctrl *ctrl, struct request *req);
++void nvme_speed_switch_start(struct nvme_ctrl *ctrl);
++void nvme_speed_switch_init(struct nvme_ctrl *ctrl);
++void nvme_speed_switch_exit(struct nvme_ctrl *ctrl);
++#else
++static inline void nvme_update_io_stats(struct nvme_ctrl *ctrl, struct request *req) {}
++static inline void nvme_speed_switch_start(struct nvme_ctrl *ctrl) {}
++static inline void nvme_speed_switch_init(struct nvme_ctrl *ctrl) {}
++static inline void nvme_speed_switch_exit(struct nvme_ctrl *ctrl) {}
++#endif
++
+ static inline enum nvme_ctrl_state nvme_ctrl_state(struct nvme_ctrl *ctrl)
+ {
+ 	return READ_ONCE(ctrl->state);
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+index 5440cf18b55b..dfba03409dc0 100644
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -1461,6 +1461,9 @@ static blk_status_t nvme_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 	ret = nvme_prep_rq(req);
+ 	if (unlikely(ret))
+ 		return ret;
++
++	nvme_update_io_stats(&dev->ctrl, req);
++
+ 	spin_lock(&nvmeq->sq_lock);
+ 	nvme_sq_copy_cmd(nvmeq, &iod->cmd);
+ 	nvme_write_sq_db(nvmeq, bd->last);
+@@ -1479,6 +1482,7 @@ static void nvme_submit_cmds(struct nvme_queue *nvmeq, struct rq_list *rqlist)
+ 	while ((req = rq_list_pop(rqlist))) {
+ 		struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
+ 
++		nvme_update_io_stats(&nvmeq->dev->ctrl, req);
+ 		nvme_sq_copy_cmd(nvmeq, &iod->cmd);
+ 	}
+ 	nvme_write_sq_db(nvmeq, true);
+diff --git a/drivers/nvme/host/speed_switch.c b/drivers/nvme/host/speed_switch.c
+new file mode 100644
+index 000000000000..0a828d04885b
+--- /dev/null
++++ b/drivers/nvme/host/speed_switch.c
+@@ -0,0 +1,367 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * NVMe link speed switch driver
++ *
++ * Adjusts the PCIe link rate of NVMe devices dynamically based on the I/O
++ * workload: the link is downgraded to a configurable minimum rate during
++ * periods of low activity to save power, and upgraded to the maximum
++ * supported rate as soon as the workload requires it.
++ *
++ * Copyright (c) 2026 Chengdu Haiguang IC Design Co., Ltd.
++ * Copyright (C) 2026 Kylin Software Co., Ltd.
++ *
++ */
++
++#include <linux/blk-mq.h>
++#include <linux/math64.h>
++#include <linux/pci.h>
++#include <linux/percpu.h>
++#include <linux/processor.h>
++
++#include "nvme.h"
++
++/*
++ * PCIe link bandwidth in KB/s for each generation (rows, Gen1..Gen5) and
++ * lane width (columns, x1..x16).  The table is used to derive the I/O
++ * threshold exceed/below which the link can be upgraded/downgraded.
++ */
++static const u32 nvme_speed_table[][5] = {
++	{  312,  625, 1250, 2500, 5000 },   /* Gen1 */
++	{  625, 1250, 2500, 5000, 10000 },  /* Gen2 */
++	{ 1000, 2000, 4000, 8000, 16000 },  /* Gen3 */
++	{ 2000, 4000, 8000, 16000, 32000 }, /* Gen4 */
++	{ 4000, 8000, 16000, 32000, 64000 },/* Gen5 */
++};
++
++static int nvme_bandwidth_index(enum pcie_link_width width)
++{
++	switch (width) {
++	case PCIE_LNK_X1:
++		return 0;
++	case PCIE_LNK_X2:
++		return 1;
++	case PCIE_LNK_X4:
++		return 2;
++	case PCIE_LNK_X8:
++		return 3;
++	case PCIE_LNK_X16:
++		return 4;
++	default:
++		return -EINVAL;
++	}
++}
++
++/*
++ * Read the maximum supported link rate of the upstream port from the Link
++ * Capability register.
++ */
++static int nvme_get_max_link_speed(struct pci_dev *pdev)
++{
++	u16 linkcap;
++
++	pcie_capability_read_word(pdev, PCI_EXP_LNKCAP, &linkcap);
++	return linkcap & PCI_EXP_LNKCAP_SLS;
++}
++
++static enum pci_bus_speed nvme_speed_to_bus_speed(u8 gen)
++{
++	return gen + PCIE_SPEED_2_5GT - 1;
++}
++
++/*
++ * Work item that actually changes the link rate.  The queues are frozen
++ * before retraining to quiesce I/O and resumed once the switch completed.
++ */
++static void nvme_speed_switch_work(struct work_struct *work)
++{
++	struct nvme_speed_switch *sw = container_of(work, struct nvme_speed_switch, work);
++	struct nvme_ctrl *ctrl = container_of(sw, struct nvme_ctrl, speed_switch);
++	struct pci_dev *pdev = to_pci_dev(ctrl->dev);
++	struct pci_dev *bridge = pdev->bus->self;
++	u8 cur_speed = READ_ONCE(sw->cur_speed);
++	int ret;
++
++	if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE)
++		return;
++
++	/* Freeze I/O to avoid timeouts during link retraining. */
++	nvme_start_freeze(ctrl);
++	nvme_wait_freeze(ctrl);
++
++	ret = pcie_set_target_speed(bridge, nvme_speed_to_bus_speed(sw->target_speed),
++				    true);
++	if (ret) {
++		dev_warn(ctrl->device,
++			 "failed to set target rate Gen%u (%d), trying rollback to Gen%u\n",
++			 sw->target_speed, ret, cur_speed);
++		ret = pcie_set_target_speed(bridge, nvme_speed_to_bus_speed(cur_speed),
++					    true);
++		if (ret) {
++			dev_err(ctrl->device,
++				"rollback to Gen%u failed (%d), disabling speed switch\n",
++				cur_speed, ret);
++			WRITE_ONCE(sw->enabled, false);
++			nvme_unfreeze(ctrl);
++			return;
++		}
++	} else {
++		WRITE_ONCE(sw->cur_speed, sw->target_speed);
++	}
++
++	nvme_unfreeze(ctrl);
++	dev_dbg(ctrl->device, "link rate changed to Gen%u\n",
++		READ_ONCE(sw->cur_speed));
++}
++
++/*
++ * Compute the I/O threshold (in KB) for a monitoring window.
++ *
++ * The threshold is derived from the following constraint: for the link
++ * speed to be upgraded, the transfer time of the data at the minimum
++ * speed must be greater than the sum of the transfer time at maximum
++ * speed and the link retraining time (100us):
++ *
++ *	data / min_bw >= data / max_bw + 100us
++ *
++ * which yields data <= min_bw * max_bw * 0.1ms / (max_bw - min_bw).
++ * The bandwidths are taken from the link capability of the upstream port
++ * and the link width capability of the device.
++ */
++static u32 nvme_calc_speed_threshold(struct nvme_speed_switch *sw,
++				     enum pcie_link_width max_width)
++{
++	struct nvme_ctrl *ctrl = container_of(sw, struct nvme_ctrl, speed_switch);
++	u64 min_bw, max_bw, x, y;
++	int bw_idx, min_gen = sw->min_speed, max_gen = sw->max_speed;
++	u32 threshold;
++
++	if (min_gen < 1 || min_gen > 5 || max_gen < 1 || max_gen > 5) {
++		dev_warn(ctrl->device,
++			 "invalid link rate range for threshold: min=Gen%d, max=Gen%d\n",
++			 min_gen, max_gen);
++		return 0;
++	}
++
++	bw_idx = nvme_bandwidth_index(max_width);
++	if (bw_idx < 0) {
++		dev_warn(ctrl->device,
++			 "unsupported link width (%d) for threshold calculation\n",
++			 max_width);
++		return 0;
++	}
++
++	min_bw = nvme_speed_table[min_gen - 1][bw_idx];
++	max_bw = nvme_speed_table[max_gen - 1][bw_idx];
++	if (min_bw >= max_bw) {
++		dev_warn(ctrl->device,
++			 "invalid bandwidth for threshold: min=%llu KB/s, max=%llu KB/s\n",
++			 min_bw, max_bw);
++		return 0;
++	}
++
++	x = min_bw * max_bw;
++	y = 10ULL * (max_bw - min_bw);
++	threshold = div64_u64(x + (y >> 1), y);
++
++	dev_dbg(ctrl->device,
++		"I/O threshold: %u KB (min=Gen%d, max=Gen%d, width=x%d)\n",
++		threshold, min_gen, max_gen, max_width);
++	return threshold;
++}
++
++/* Called on the I/O submission path to accumulate the transferred bytes. */
++void nvme_update_io_stats(struct nvme_ctrl *ctrl, struct request *req)
++{
++	struct nvme_speed_switch *sw = &ctrl->speed_switch;
++	struct nvme_speed_switch_stats *stat;
++	enum req_op op = req_op(req);
++	unsigned int bytes = blk_rq_bytes(req);
++
++	if (!READ_ONCE(sw->enabled))
++		return;
++
++	if (op != REQ_OP_READ && op != REQ_OP_WRITE)
++		return;
++
++	if (!sw->stats) {
++		dev_dbg(ctrl->device, "I/O statistics not allocated, skip accounting\n");
++		return;
++	}
++
++	stat = get_cpu_ptr(sw->stats);
++	if (op == REQ_OP_READ)
++		stat->read_bytes += bytes;
++	else
++		stat->write_bytes += bytes;
++	put_cpu_ptr(sw->stats);
++
++	if (atomic_cmpxchg(&sw->timer_active, NVME_SPEED_TIMER_INACTIVE,
++			   NVME_SPEED_TIMER_ACTIVE) != NVME_SPEED_TIMER_INACTIVE)
++		return;
++
++	/* First I/O of the activity period: compute the threshold and arm the timer. */
++	WRITE_ONCE(sw->threshold, nvme_calc_speed_threshold(sw,
++					pcie_get_width_cap(to_pci_dev(ctrl->dev))));
++	if (!READ_ONCE(sw->threshold)) {
++		dev_warn(ctrl->device,
++			 "failed to compute speed switch threshold, keeping current rate\n");
++		atomic_set(&sw->timer_active, NVME_SPEED_TIMER_INACTIVE);
++		return;
++	}
++	mod_timer(&sw->timer, jiffies + msecs_to_jiffies(READ_ONCE(sw->monitor_interval)));
++}
++EXPORT_SYMBOL_GPL(nvme_update_io_stats);
++
++static void nvme_clear_io_stats(struct nvme_speed_switch *sw)
++{
++	int cpu;
++
++	for_each_possible_cpu(cpu) {
++		struct nvme_speed_switch_stats *stat = per_cpu_ptr(sw->stats, cpu);
++
++		stat->read_bytes = 0;
++		stat->write_bytes = 0;
++	}
++}
++
++/*
++ * Aggregate the per-CPU I/O counters of the last monitoring window and
++ * decide the target rate: the maximum rate if the window exceeded the
++ * threshold, the minimum rate otherwise.
++ */
++static int nvme_check_io_and_decide_speed(struct nvme_speed_switch *sw)
++{
++	struct nvme_ctrl *ctrl = container_of(sw, struct nvme_ctrl, speed_switch);
++	u64 read_bytes = 0, write_bytes = 0;
++	unsigned long read_kb, write_kb;
++	int cpu;
++
++	for_each_possible_cpu(cpu) {
++		struct nvme_speed_switch_stats *stat = per_cpu_ptr(sw->stats, cpu);
++
++		read_bytes += stat->read_bytes;
++		write_bytes += stat->write_bytes;
++		stat->read_bytes = 0;
++		stat->write_bytes = 0;
++	}
++
++	read_kb = read_bytes / 1024;
++	write_kb = write_bytes / 1024;
++	dev_dbg(ctrl->device,
++		"I/O in window: read=%lu KB, write=%lu KB, threshold=%u KB\n",
++		read_kb, write_kb, READ_ONCE(sw->threshold));
++
++	if (read_kb >= sw->threshold || write_kb >= sw->threshold)
++		return sw->max_speed;
++	return sw->min_speed;
++}
++
++static void nvme_speed_switch_timer_fn(struct timer_list *t)
++{
++	struct nvme_speed_switch *sw = container_of(t, struct nvme_speed_switch, timer);
++
++	if (!READ_ONCE(sw->enabled)) {
++		atomic_set(&sw->timer_active, NVME_SPEED_TIMER_INACTIVE);
++		return;
++	}
++
++	sw->target_speed = nvme_check_io_and_decide_speed(sw);
++	if (sw->target_speed != READ_ONCE(sw->cur_speed))
++		schedule_work(&sw->work);
++
++	mod_timer(t, jiffies + msecs_to_jiffies(READ_ONCE(sw->monitor_interval)));
++}
++
++static void nvme_speed_switch_params_init(struct nvme_speed_switch *sw)
++{
++	sw->monitor_interval = 100;
++	sw->min_speed = PCI_EXP_LNKSTA_CLS_2_5GB;
++}
++
++void nvme_speed_switch_init(struct nvme_ctrl *ctrl)
++{
++	struct nvme_speed_switch *sw = &ctrl->speed_switch;
++	struct pci_dev *pdev;
++	int max_speed;
++
++	if (boot_cpu_data.x86_vendor != X86_VENDOR_HYGON) {
++		dev_dbg(ctrl->device,
++			"link rate switching is only supported on Hygon platforms\n");
++		return;
++	}
++
++	if (!dev_is_pci(ctrl->dev)) {
++		dev_err(ctrl->device, "link rate switching requires a PCI device\n");
++		return;
++	}
++	pdev = to_pci_dev(ctrl->dev);
++	if (!pdev->bus->self) {
++		dev_err(ctrl->device,
++			"link rate switching requires a PCIe upstream port\n");
++		return;
++	}
++
++	nvme_speed_switch_params_init(sw);
++
++	max_speed = nvme_get_max_link_speed(pdev->bus->self);
++	if (max_speed <= sw->min_speed) {
++		dev_err(ctrl->device,
++			"invalid link rate range: min=Gen%u, max=Gen%d\n",
++			sw->min_speed, max_speed);
++		return;
++	}
++	sw->max_speed = max_speed;
++
++	sw->stats = alloc_percpu(struct nvme_speed_switch_stats);
++	if (!sw->stats) {
++		dev_err(ctrl->device, "failed to allocate per-CPU I/O statistics\n");
++		return;
++	}
++	nvme_clear_io_stats(sw);
++
++	WRITE_ONCE(sw->cur_speed, sw->max_speed);
++	WRITE_ONCE(sw->threshold, nvme_calc_speed_threshold(sw, pcie_get_width_cap(pdev)));
++	if (!READ_ONCE(sw->threshold)) {
++		dev_err(ctrl->device, "failed to compute speed switch threshold\n");
++		free_percpu(sw->stats);
++		sw->stats = NULL;
++		return;
++	}
++
++	INIT_WORK(&sw->work, nvme_speed_switch_work);
++	timer_setup(&sw->timer, nvme_speed_switch_timer_fn, 0);
++	atomic_set(&sw->timer_active, NVME_SPEED_TIMER_INACTIVE);
++	WRITE_ONCE(sw->enabled, true);
++	sw->initialized = true;
++
++	dev_info(ctrl->device,
++		 "NVMe link rate switching initialized (min Gen%u, max Gen%d)\n",
++		 sw->min_speed, sw->max_speed);
++}
++
++void nvme_speed_switch_start(struct nvme_ctrl *ctrl)
++{
++	struct nvme_speed_switch *sw = &ctrl->speed_switch;
++
++	if (!READ_ONCE(sw->enabled))
++		return;
++
++	atomic_set(&sw->timer_active, NVME_SPEED_TIMER_ACTIVE);
++	mod_timer(&sw->timer, jiffies + msecs_to_jiffies(READ_ONCE(sw->monitor_interval)));
++}
++
++void nvme_speed_switch_exit(struct nvme_ctrl *ctrl)
++{
++	struct nvme_speed_switch *sw = &ctrl->speed_switch;
++
++	if (!sw->initialized)
++		return;
++
++	sw->initialized = false;
++	WRITE_ONCE(sw->enabled, false);
++	timer_delete_sync(&sw->timer);
++	cancel_work_sync(&sw->work);
++
++	free_percpu(sw->stats);
++	sw->stats = NULL;
++}
+diff --git a/drivers/pci/pcie/bwctrl.c b/drivers/pci/pcie/bwctrl.c
+index d48021bfd844..4b28e26f9531 100644
+--- a/drivers/pci/pcie/bwctrl.c
++++ b/drivers/pci/pcie/bwctrl.c
+@@ -156,6 +156,7 @@ int pcie_set_target_speed(struct pci_dev *port, enum pci_bus_speed speed_req,
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(pcie_set_target_speed);
+ 
+ static void pcie_bwnotif_enable(struct pcie_device *srv)
+ {
+-- 
+2.43.0
 
