@@ -1,111 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721213;
-	b=mYbnt43BolPG70LM1+GCKiTuSE8TXx8iePjCHQG5bFko3BJz9ThfRlJ8fC5t7wJZTLrd
-	 MH2uMOOt6o9LIA6T6X9VLjql2d4RrkKOrZ3Ehn7MkIUDpTMQ+OjDsDsIPIZpWDMk+UkiM
-	 phQEeZeFH+OBT3LhMkuo19u5HqSOldOQ9wKd19XbhiUj4BPi7FB803pvIipql8sgYdlQO
-	 EcxjlQR4avFm8nlOOOKKGRJIw7WFPLtRXJC0Xuo/2ZPmvM735AHxxVYN1e73bMT7jalE3
-	 vr+zSLbluBy/pNzvgZT6AbFT84/RRUqDk0FjHBI0mQL0qngkR4zLjYmt+5cPihLbSQA==
+	t=1793721234;
+	b=xal0HW62Iu54I+YOeMvFCVDuUPP6sbsoStC8BWUjnSPGCfNNbztn6EmkFY97OO5goPiA
+	 j5O9neJgS99/Vfw0hKgDxnrFnTw3p1caxDYPNeBs+N3Ig/PQARaw6K30kYWkCCHZVjtrL
+	 PmGsHwBFhoNTp9Kh4KtRtAJLm9omDF3NxZBqqnxy9KHz+qwM2apUTzscLYvs2Wqqn1Sid
+	 56no2MHQqiSwsUCtp1W2uZKJok11AGKGGXJ3EUn4ddmgizbt4EvvtukA1bwJiFv3PgQof
+	 UuQODy641OlqzRfe9j4YasSjtjfrS7oCECJgW2KRu9DgI3UtzfGcG1uwdhpxBA0COIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721234;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=N3SYB/BgxSNTh4u+DnHBIGPI0+Di9/c/+FCF8jLlAW8=;
-	b=HnAJHTHeby1Plv0iCCKhlMQ9/8Beof1UjGK+NWL/tINUiNFLqbM4po7MFh9Z5MbC/w6B
-	 An3l03s9GQbCOL+mmwvczTnJ7+SFjGNwTU7ZrI0ezqIXzt7RUEP46rni+CqSXfvWSv1Ti
-	 IVOi20lLk6iqT+MHo/1OgP7dpR7tL04jJ/rQFWzTw5VR5UFPlr59WNW11XGWwO1N2kiz7
-	 vdM+uJDaJRVRq3uicZVE2J2a1kvjV4zjJ1NMNnQPtkfgaxWBJLQRJTYUjs122QJ5TLZgc
-	 hFKIyxq5Tv9W08QTQcsKvzTwKuHoq0AvmJhKZJaBvw8mPuKfpftfy3me6ymDgOcLo3w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nEmxC+XMyeaIoNlwPc1SWvO2neh4TtG8l/JL7r+0TCM=;
+	b=K0/EjEL/q0eOdf5bfd9uOPtTBfJzNMYTxhsNgKQ1u8P4vn1MKJfPFjqTOzHpXsh0uxE3
+	 gzxTdDwbYNgrkxC6FIPXi6KcVfiOOTY4Pfugb3r9uy+3fFl+meVv9eM8ip0auPMvp3AF7
+	 9Y19HVaflefeUD99+bEsdpgNjzAjyl3tVkjESgw2B4FDFw8RD3SB4HHV9CJwj9V+bJEW5
+	 Gcqvvz3ctKVtgy3DjoXpQznY3OsyCVexeKwcjKHMpYTFiAGRodMqmNOuAn82Fll+wMFjF
+	 GiQvKUlkoLWgaPIOV2CRmgSrdqGmcLxz5+pr7auaL1F5hy56k/EMLtkqqjtEILnxHYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cV1rfcaP;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=furiosa.ai;
+	spf=none smtp.mailfrom=furiosa.ai;
+	dkim=pass header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b="AR/4TJEF";
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D230606D82F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:53:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D230606D82F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1BE2606A334
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:53:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1BE2606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cV1rfcaP
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1bc97805eso8661925e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:53:32 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=AR/4TJEF
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36a18fc7a38so8240918eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:53:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793721211; x=1794326011; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N3SYB/BgxSNTh4u+DnHBIGPI0+Di9/c/+FCF8jLlAW8=;
-        b=cV1rfcaPqw5g4hra3OliVPaZNo6ZdIE9kz5vixcXtW8Tfcy1T3Fd1n3Qomk8mTQtoI
-         CpwV91/ivTc7kQ83ItiGXYNE8ylwa+AsAircAYdQm6ZwwjB7P4XiRmfKM+vE4jEG34Ky
-         o/4C6yfjE8hT44bQiK0txjwN9GJYfYPlJfGGvoMJUrQGGYAtowQYH6GIoGokPjSUvtmv
-         rEBoIKAbNy+l49cfORY/Y7SbiazcTqcB67q8IBSAIrSy73fTqo4/KjNSTFKw43puoHE1
-         aiWcFLDFiEkTGYTmfDSKA0vUw3dHJP67zgI+JsxiYKWsnckfO8ZbUN7mHtN9DDpUFG4w
-         IniQ==
+        d=furiosa.ai; s=google; t=1793721233; x=1794326033; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nEmxC+XMyeaIoNlwPc1SWvO2neh4TtG8l/JL7r+0TCM=;
+        b=AR/4TJEFrCGlwDRiiHGBh+aPeZrm3/cwT62e+jkMKSR83FyL40YXWEk8+ErnCLRozc
+         xKQYxEomHSZ9Fovh1EBTjXveSLwT4g5+9PS3OzB/Iy5wR9Ple5+6lW7Zofued7FKPOZp
+         J6EjuyHSeO7xLxbOo3j96NDyDt8khMorLDgoA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793721211; x=1794326011;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N3SYB/BgxSNTh4u+DnHBIGPI0+Di9/c/+FCF8jLlAW8=;
-        b=2hdke8KHrhePvektI7m/ucbrZ4QxwWTjmtbilQ3A8ExvHYt9oYw9KTEwQQo9crULxu
-         jKVPRV8u8wKpBVTy1hA5F/+hEB3ww70ptniGCG9eM+eSuro3dquipuQ+7PGiNZ88+mXU
-         X6CwqFUlzDiBQ7OCCzRscmNeiFrKkYE603IaIecuddDx+9L7tMb4enWVR7gngAKHmlzv
-         LoJgKL4cHJ6ys3gIFtWlE2s375Lz0S2C7471CrmeSBMiAtvQL1p8oLZ86/pHVLXa/wCB
-         fYV0Fg4mTHZdW10ITFIF9unQemGrmp2x2E5KkHZAAhYN4bYshZwHfirGTPVUK6CgVJ2e
-         DfRA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7BqsRuRezTJZj8efOPXf/le+uuRoNjDUKg5EYvnrvRcOpAkTUcj54bsBeam27ktGUSfac0X9Z+Ad01I0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ChD8LI3In7HimOo8B2JMtiR1A2o37Z0lf0yrZBEW4ynAvRXRA
-	PJdEII8WgpsirSsmac5NdDH0u31BrPUStxVO0V+JDa3Sq9Qw8urBAH5h
-X-Gm-Gg: AYBFou3GYrUg4M1Lw+G17taflS9q12SpsyZT9Sr41Jf466gOpfu5X1V1Ro8ROWJ60Bq
-	i9cYDNA3Pd6ry+az0NM6E5wUdlbMfJR+wB0q4eJft+znOl99K+U/UefJbqEC028O+3xZFflfayH
-	7DFGzdjaYGA+7ruje9DkNmDMFSMiocvWtW2x6behfutCPHbW5Py2H4vGZymfznrf7arMRDWYWdX
-	yYawbXycY4D/ncFHtwmY4ayLp/0rToN8+SpL2bH+NF0jblxJL6TQG6VTGbqH6GcJ1xu8pwlleiW
-	CDyuQNK4nwUYGGvsmfe8ZC2DW9uGGEl81BwFpX10OrKVQDQsxM8Obj4lKTtZTVRnaCBsAFXu3YF
-	SbYsyeothQ/0FSjGNnQao4EgX6irbVJiKTYxxMTtnLUmREkzFRnd/VQVFhhWlusbXEPqRHTDG6C
-	JUfxs1E7M2D79wac4j7bQ08zeZUewAXyb9oKNsXw57oLKCbkP5V7jcpanpN308LigHBklGAUHEG
-	mvygyNd54Icu+hHrs+KY5lyeHlGVXuoizeOFmuawMh8aK5MZYp5Y7iLQhzRPT/hRry5ue9BWQym
-	NSKJPza848C3Z60Dxc1P8zaRl2g5fFTbYerODkW7LaTsHMUcQGw=
-X-Received: by 2002:a05:600d:6505:20b0:4b2:3c81:103 with SMTP id 5b1f17b1804b1-4b23c8106abmr73912745e9.2.1793721211351;
-        Tue, 03 Nov 2026 07:53:31 -0800 (PST)
-Received: from Termis-ROG-FLOW-Z13 ([2001:16a2:4495:e600:1209:ec98:a2b4:9c5a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a879f401sm63777815e9.5.2026.11.03.07.53.29
+        d=1e100.net; s=20260707; t=1793721233; x=1794326033;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nEmxC+XMyeaIoNlwPc1SWvO2neh4TtG8l/JL7r+0TCM=;
+        b=KL6jWlZI9n6P3DYkSvWxYtXvOaPfEuR4/5Fxqi1DtAD3nFfGipVDP9MXcJvujs2ojX
+         1/3ajMnIraX7sBjyHoIXIU6FvCuqwlQtxAwCdC3nJpQspIgH2mhtj4Z63+oiWCrqnb0j
+         +1J3chwBDG9HwFeGMRKDk73MlH9xZTcxDl0dZI4t4HBw+0oHnChSooKipUofDPHDz7ww
+         flEysB+DC4D+LJ4fM35vqcH7WuaD+arKGY/Epe7CuIqMRv6fMK3drREt2JQ07mXnFNKx
+         jxJxEXt9wNKyKU3T27HZLxOlBqSyYy5mTj79vk3zItXjNVyKHkczK5flcYE0rkrIMSWt
+         PbFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzAuUinAhsk8AC1gxBID4WcXj5o9a2CHm6g/MHYU/RiSgf75mzRJeY3Xo+JSIciAGBCw9A9x/7swWWysms=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gjlJZuSZ3x5kCjsn2tINIdt3LURuUQGpd5WaEF9MBc2srRLTt
+	nX8Y6tjbAL4M+LvNI51j2heq9mRje/k8ImBTbtPrDzenZAe5XfGc+GZtEZZVnshwpJQ=
+X-Gm-Gg: AYBFou24CHpmj7QKbkgTD3IK09nUkohKrhJwHdz8J4G+ScwiOc89K5a+od9edsGn6k0
+	LDYEOswaEfdh1Gt0jBo4hTA8tJzru6/h5Ksq+4IURqvwRPebwA6Ku9Dy5BANGAH+h69jGAciDZt
+	Bh30OLn9oNL6g0H1oFr82fNrL1XAzsrGzJKvUyf9LjlQYhDoOJ4gE9rub/Hvvs6QhdStFABJ2Xm
+	Dsa00GKwVsP9A9nvh+Hz7mYF+513Zzv4Pncj/8Tk0DgznQaXIDtl0SZEqLmwcvYQUhFOohTtrjk
+	LhNqbYKRslFPsxyMwB17GANuxIVYUFJ1u79gW3ORYrkNKTKXgTjLCLjyKT5KT5ZIn3/WWLNqr4d
+	kPeY3NQpfkK5G3CS87rKOQh9pkkarWJEhTSNgf07zSl6wCMmht7W4XEaeoEntJnVFJLOzz8OUdt
+	Cxq34NjEsBymqElSisLqoTEkbkD6MCGKzrHofQOgFnZ7zEDGUxDChNCWmtJH9Gg5/79yfnCAaWm
+	ljyWOt88TJXI9sbHEk+fnQDL3uYgZ3xD5yTopPDQotQtUzqVk6hMFOYyXyCB2xpoGJi41Olfx70
+	NEsnCiCWb4eW5iwrmt9YYr5j5XU8Lv0muBzg7NlZILZDkuW4vViQ
+X-Received: by 2002:a05:7300:d0b0:b0:369:9eea:cd25 with SMTP id 5a478bee46e88-36a4235f6ddmr19919106eec.7.1793721232748;
+        Tue, 03 Nov 2026 07:53:52 -0800 (PST)
+Received: from rock-5b-plus ([61.83.209.48])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36c8d3277e3sm7092744eec.29.2026.11.03.07.53.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 07:53:30 -0800 (PST)
-From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-To: Mario Limonciello <superm1@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bin Du <bin.du@amd.com>,
-	Nirujogi Pratap <pratap.nirujogi@amd.com>,
-	Benjamin Chan <benjamin.chan@amd.com>,
-	King Li <King.Li@amd.com>,
-	Caspar Adriani <caspar.adriani@proton.me>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Arec Kao <arec.kao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
+        Tue, 03 Nov 2026 07:53:52 -0800 (PST)
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Gyeyoung Baek <gye976@gmail.com>,
 	dri-devel@lists.freedesktop.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-Subject: [RFC PATCH 3/3] drm/amdgpu: add the OMNI13B1 (OV13B10) ISP sensor
-Date: Tue,  3 Nov 2026 18:53:13 +0300
-Message-ID: <20261103155313.114347-4-saif.elden.hatim@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
-References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+	Sidong Yang <sidong.yang@furiosa.ai>
+Subject: [PATCH v4] accel/rocket: Report NPU usage through fdinfo
+Date: Wed,  4 Nov 2026 00:53:38 +0900
+Message-ID: <20261103155338.1949294-1-sidong.yang@furiosa.ai>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,78 +97,328 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-amdgpu creates the ISP 4.1.1 devices only when it finds a sensor from
-isp_sensor_ids, which lists only OMNI5C10. The ASUS ROG Flow Z13
-(GZ302EA) has an OmniVision OV13B10 with _HID "OMNI13B1" on the same
-ISP, so its camera is never set up.
+There is no way to tell how much of the NPU a client uses. Implement the
+DRM usage stats: account the time each job occupies a core and report
+it per client as drm-engine-npu, along with drm_show_memory_stats() for
+the BOs.
 
-Add OMNI13B1 and register its GPIO lookups:
+The cores are identical, so they are reported as a single engine with
+drm-engine-capacity-npu set to rdev->max_cores, the number of core
+slots. The time is summed over all cores, with an atomic counter as the
+cores complete jobs concurrently.
 
-- enable_isp on AMDI0030:00 pin 85, as for OMNI5C10. The ISP4 capture
-  driver requests this GPIO and fails to probe without it. On the
-  GZ302 no ACPI device claims the pin, and the ISP also boots with it
-  left undriven, so its function on this board is not confirmed.
-- the sensor reset line on amdisp-pinctrl GPIO 0, active low, under the
-  "reset" name the ov13b10 driver requests. This is the same ISP GPIO
-  as the OV05C10 enable line.
+Jobs can outlive the file that submitted them, so the counter is
+refcounted and each job holds a reference. The time covers the whole
+period a job owns a core, so it also includes handling the completion
+interrupt and the gaps between the tasks of a multi-task job.
 
-Like the OMNI5C10 tables, they are registered once and stay registered.
-The ISP setup uses the software node that amd_isp4 attaches to the
-ACPI device, so this needs the amd_isp4 board configuration for
-OMNI13B1 to be in place.
+Document the keys in the rocket driver documentation.
 
-Signed-off-by: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c |  1 +
- drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c  | 13 ++++++++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
+v4: Report a single drm-engine-npu key with drm-engine-capacity-npu,
+    instead of drm-engine-npu0..2, as drm-usage-stats.rst specifies for
+    a group of identical engines, and document the keys (Tomeu Vizoso).
+    The subject no longer says per-core. Gyeyoung's tags are dropped as
+    the accounting changed.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 63088c072..412d3992c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -1726,6 +1726,7 @@ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)
- #if IS_ENABLED(CONFIG_DRM_AMD_ISP)
- static const struct acpi_device_id isp_sensor_ids[] = {
- 	{ "OMNI5C10" },
-+	{ "OMNI13B1" },
- 	{ }
+    Still depends on commit 6eff1d69dae8 ("accel/rocket: search every
+    core slot when a core is removed") for rdev->max_cores.
+
+v3: Add a rocket_engine_usage_create() helper for the counter
+    allocation in rocket_open(), to pair with
+    rocket_engine_usage_destroy() (Gyeyoung Baek).
+
+v2: Size the per-core counters by rdev->max_cores, the number of core
+    slots, instead of the number of cores bound when the file is opened.
+    Sashiko reported the out-of-bounds read and Gyeyoung Baek reproduced
+    it with KASAN.
+
+Link to v3: https://lore.kernel.org/all/20261103104804.1887489-1-sidong.yang@furiosa.ai/
+Link to v2: https://lore.kernel.org/all/20261101152723.1430312-1-sidong.yang@furiosa.ai/
+Link to v1: https://lore.kernel.org/all/20261031083642.1076356-1-sidong.yang@furiosa.ai/
+
+ Documentation/accel/rocket/index.rst  | 28 +++++++++++
+ Documentation/gpu/drm-usage-stats.rst |  1 +
+ drivers/accel/rocket/rocket_drv.c     | 70 ++++++++++++++++++++++++++-
+ drivers/accel/rocket/rocket_drv.h     | 15 ++++++
+ drivers/accel/rocket/rocket_job.c     |  7 +++
+ drivers/accel/rocket/rocket_job.h     |  4 ++
+ 6 files changed, 123 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/accel/rocket/index.rst b/Documentation/accel/rocket/index.rst
+index 70f97bccf100..53c9aa7e2229 100644
+--- a/Documentation/accel/rocket/index.rst
++++ b/Documentation/accel/rocket/index.rst
+@@ -17,3 +17,31 @@ project.
+ Hardware currently supported:
+ 
+ * RK3588
++
++.. _rocket-usage-stats:
++
++Rocket DRM client usage stats implementation
++============================================
++
++The accel/rocket driver implements the DRM client usage stats specification as
++documented in :ref:`drm-client-usage-stats`.
++
++The NPU cores are reported as a single engine, npu, with a capacity equal to the
++number of cores. The time is summed over all cores, and covers the whole period
++a job occupies a core.
++
++Example of the output showing the implemented key value pairs:
++
++::
++
++        pos:	0
++        flags:	02400002
++        mnt_id:	33
++        ino:	749
++        drm-driver:	rocket
++        drm-client-id:	246
++        drm-engine-npu:	2296549300 ns
++        drm-engine-capacity-npu:	3
++        drm-total-memory:	24216 KiB
++        drm-shared-memory:	0
++        drm-active-memory:	1920 KiB
+diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+index 70b7cfcc194f..288764730d23 100644
+--- a/Documentation/gpu/drm-usage-stats.rst
++++ b/Documentation/gpu/drm-usage-stats.rst
+@@ -218,3 +218,4 @@ Driver specific implementations
+ * :ref:`panthor-usage-stats`
+ * :ref:`xe-usage-stats`
+ * :ref:`amdxdna-usage-stats`
++* :ref:`rocket-usage-stats`
+diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+index 2bcfe4ab3c68..e22e8623db64 100644
+--- a/drivers/accel/rocket/rocket_drv.c
++++ b/drivers/accel/rocket/rocket_drv.c
+@@ -3,8 +3,10 @@
+ 
+ #include <drm/drm_accel.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_ioctl.h>
++#include <drm/drm_print.h>
+ #include <drm/rocket_accel.h>
+ #include <linux/clk.h>
+ #include <linux/err.h>
+@@ -68,6 +70,38 @@ rocket_iommu_domain_put(struct rocket_iommu_domain *domain)
+ 	kref_put(&domain->kref, rocket_iommu_domain_destroy);
+ }
+ 
++static struct rocket_engine_usage *
++rocket_engine_usage_create(void)
++{
++	struct rocket_engine_usage *usage;
++
++	usage = kzalloc_obj(*usage);
++	if (!usage)
++		return NULL;
++	kref_init(&usage->kref);
++
++	return usage;
++}
++
++static void
++rocket_engine_usage_destroy(struct kref *kref)
++{
++	kfree(container_of(kref, struct rocket_engine_usage, kref));
++}
++
++struct rocket_engine_usage *
++rocket_engine_usage_get(struct rocket_file_priv *rocket_priv)
++{
++	kref_get(&rocket_priv->engine_usage->kref);
++	return rocket_priv->engine_usage;
++}
++
++void
++rocket_engine_usage_put(struct rocket_engine_usage *usage)
++{
++	kref_put(&usage->kref, rocket_engine_usage_destroy);
++}
++
+ static int
+ rocket_open(struct drm_device *dev, struct drm_file *file)
+ {
+@@ -86,10 +120,17 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
+ 	}
+ 
+ 	rocket_priv->rdev = rdev;
++
++	rocket_priv->engine_usage = rocket_engine_usage_create();
++	if (!rocket_priv->engine_usage) {
++		ret = -ENOMEM;
++		goto err_free;
++	}
++
+ 	rocket_priv->domain = rocket_iommu_domain_create(rdev->cores[0].dev);
+ 	if (IS_ERR(rocket_priv->domain)) {
+ 		ret = PTR_ERR(rocket_priv->domain);
+-		goto err_free;
++		goto err_put_engine_usage;
+ 	}
+ 
+ 	file->driver_priv = rocket_priv;
+@@ -109,6 +150,8 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
+ 	mutex_destroy(&rocket_priv->mm_lock);
+ 	drm_mm_takedown(&rocket_priv->mm);
+ 	rocket_iommu_domain_put(rocket_priv->domain);
++err_put_engine_usage:
++	rocket_engine_usage_put(rocket_priv->engine_usage);
+ err_free:
+ 	kfree(rocket_priv);
+ err_put_mod:
+@@ -125,6 +168,7 @@ rocket_postclose(struct drm_device *dev, struct drm_file *file)
+ 	mutex_destroy(&rocket_priv->mm_lock);
+ 	drm_mm_takedown(&rocket_priv->mm);
+ 	rocket_iommu_domain_put(rocket_priv->domain);
++	rocket_engine_usage_put(rocket_priv->engine_usage);
+ 	kfree(rocket_priv);
+ 	module_put(THIS_MODULE);
+ }
+@@ -139,7 +183,28 @@ static const struct drm_ioctl_desc rocket_drm_driver_ioctls[] = {
+ 	ROCKET_IOCTL(FINI_BO, fini_bo),
  };
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-index 363266f3e..7d6072e27 100644
---- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-@@ -65,6 +65,14 @@ static struct gpiod_lookup_table isp_sensor_gpio_table = {
- 	},
+-DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
++static void rocket_show_fdinfo(struct drm_printer *p, struct drm_file *file)
++{
++	struct rocket_device *rdev = to_rocket_device(file->minor->dev);
++	struct rocket_file_priv *rocket_priv = file->driver_priv;
++
++	/*
++	 * This is an estimate: the time is taken around the whole period a job
++	 * occupies a core, so it also covers handling the completion interrupt
++	 * and, for a job made of several tasks, the gaps between them.
++	 */
++	drm_printf(p, "drm-engine-npu:\t%lld ns\n",
++		   atomic64_read(&rocket_priv->engine_usage->elapsed_ns));
++	drm_printf(p, "drm-engine-capacity-npu:\t%u\n", rdev->max_cores);
++
++	drm_show_memory_stats(p, file);
++}
++
++static const struct file_operations rocket_accel_driver_fops = {
++	.owner = THIS_MODULE,
++	DRM_ACCEL_FOPS,
++	.show_fdinfo = drm_show_fdinfo,
++};
+ 
+ /*
+  * Rocket driver version:
+@@ -150,6 +215,7 @@ static const struct drm_driver rocket_drm_driver = {
+ 	.open			= rocket_open,
+ 	.postclose		= rocket_postclose,
+ 	.gem_create_object	= rocket_gem_create_object,
++	.show_fdinfo		= rocket_show_fdinfo,
+ 	.ioctls			= rocket_drm_driver_ioctls,
+ 	.num_ioctls		= ARRAY_SIZE(rocket_drm_driver_ioctls),
+ 	.fops			= &rocket_accel_driver_fops,
+diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
+index 2c673bb99ccc..495d8b4a4d43 100644
+--- a/drivers/accel/rocket/rocket_drv.h
++++ b/drivers/accel/rocket/rocket_drv.h
+@@ -16,6 +16,16 @@ struct rocket_iommu_domain {
+ 	struct kref kref;
  };
  
-+static struct gpiod_lookup_table isp_ov13b10_gpio_table = {
-+	.dev_id = "i2c-ov13b10",
-+	.table = {
-+		GPIO_LOOKUP("amdisp-pinctrl", 0, "reset", GPIO_ACTIVE_LOW),
-+		{ }
-+	},
++/*
++ * Time the cores have spent running a client's jobs, in nanoseconds, summed over
++ * all cores. Jobs hold a reference, as they can outlive the file that submitted
++ * them.
++ */
++struct rocket_engine_usage {
++	struct kref kref;
++	atomic64_t elapsed_ns;
 +};
 +
- static int isp_poweroff(struct generic_pm_domain *genpd)
- {
- 	struct amdgpu_isp *isp = container_of(genpd, struct amdgpu_isp, ispgpd);
-@@ -240,10 +248,13 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
- 		return 0;
+ struct rocket_file_priv {
+ 	struct rocket_device *rdev;
+ 
+@@ -24,9 +34,14 @@ struct rocket_file_priv {
+ 	struct mutex mm_lock;
+ 
+ 	struct drm_sched_entity sched_entity;
++
++	struct rocket_engine_usage *engine_usage;
+ };
+ 
+ struct rocket_iommu_domain *rocket_iommu_domain_get(struct rocket_file_priv *rocket_priv);
+ void rocket_iommu_domain_put(struct rocket_iommu_domain *domain);
+ 
++struct rocket_engine_usage *rocket_engine_usage_get(struct rocket_file_priv *rocket_priv);
++void rocket_engine_usage_put(struct rocket_engine_usage *usage);
++
+ #endif
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ce994748dd5d..e613fae133e4 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -13,6 +13,7 @@
+ #include <linux/iommu.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/sched/clock.h>
+ 
+ #include "rocket_core.h"
+ #include "rocket_device.h"
+@@ -265,6 +266,7 @@ static void rocket_job_cleanup(struct kref *ref)
+ 	unsigned int i;
+ 
+ 	rocket_iommu_domain_put(job->domain);
++	rocket_engine_usage_put(job->engine_usage);
+ 
+ 	dma_fence_put(job->done_fence);
+ 	dma_fence_put(job->inference_done_fence);
+@@ -351,6 +353,7 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
+ 
+ 	scoped_guard(mutex, &core->job_lock) {
+ 		core->in_flight_job = job;
++		job->start_ns = local_clock();
+ 		rocket_job_hw_submit(core, job);
  	}
  
--	/* add GPIO resources required for OMNI5C10 sensor */
-+	/* add GPIO resources required for the sensor */
- 	if (!strcmp("OMNI5C10", acpi_device_hid(acpi_dev))) {
- 		gpiod_add_lookup_table(&isp_gpio_table);
- 		gpiod_add_lookup_table(&isp_sensor_gpio_table);
-+	} else if (!strcmp("OMNI13B1", acpi_device_hid(acpi_dev))) {
-+		gpiod_add_lookup_table(&isp_gpio_table);
-+		gpiod_add_lookup_table(&isp_ov13b10_gpio_table);
- 	}
+@@ -379,6 +382,9 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 				return;
+ 			}
  
- 	isp_base = adev->rmmio_base;
++			atomic64_add(local_clock() - core->in_flight_job->start_ns,
++				     &core->in_flight_job->engine_usage->elapsed_ns);
++
+ 			iommu_detach_group(NULL, iommu_group_get(core->dev));
+ 			dma_fence_signal(core->in_flight_job->done_fence);
+ 			pm_runtime_put_autosuspend(core->dev);
+@@ -587,6 +593,7 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 
+ 	rjob->rdev = rdev;
+ 	rjob->domain = rocket_iommu_domain_get(file_priv);
++	rjob->engine_usage = rocket_engine_usage_get(file_priv);
+ 
+ 	ret = drm_sched_job_init(&rjob->base,
+ 				 &file_priv->sched_entity,
+diff --git a/drivers/accel/rocket/rocket_job.h b/drivers/accel/rocket/rocket_job.h
+index 4ae00feec3b9..14aa78aebc99 100644
+--- a/drivers/accel/rocket/rocket_job.h
++++ b/drivers/accel/rocket/rocket_job.h
+@@ -38,6 +38,10 @@ struct rocket_job {
+ 
+ 	struct rocket_iommu_domain *domain;
+ 
++	/* When the job was handed to a core, and where to account the time */
++	u64 start_ns;
++	struct rocket_engine_usage *engine_usage;
++
+ 	struct kref refcount;
+ };
+ 
+
+base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
+prerequisite-patch-id: 519bcdfdde80d902309c8346f749ebc4bb6b29c0
 -- 
-2.56.0
+2.53.0
 
