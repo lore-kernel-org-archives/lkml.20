@@ -1,95 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716410;
-	b=NxfMX4YQZfPRtV4C55g687JAkp+m3DS4F9Nl55rC9KGOlQ5FhUWc7GERWmASSUA/qrZ7
-	 XYmGntXS2YfbbuAw+0YZw0VDErSFhb+XGz8nxxvYlS7uHBYWGYpAlrBVtiG19vNay5loZ
-	 JMRrh4gF8E3YUyaJWj7+DoXHCBz9NFVW7Wg16rJFkPlCCAikKOVFuHbudEnOdbR1rZwog
-	 Ka11AHa7jQ/DN3z00L0TN+o4GasoEV7hVdJtn9N9kQqTmuYDJdesdZXXvTAQG8tUPRiZ2
-	 kp5wCT10qcib9vxjJRBUV8uyMrhj7ov17MXAXv3B3+W/9goanLMsRnyf6edk0aZ/93A==
+	t=1793716421;
+	b=NQOhDF01yZzxapEUgBW3tmTPZESJttMFLU9cMmL4cEazk+jTLpuU7wKRD0Wt4ZbWHxS9
+	 MPrYfuvyDAIl2lr/H9RvzV0jokt7S2BMluRLx9Cnz+iMYP6X7iBJsZc40YmwE9SBEEbPI
+	 nrzlGZVANkWcb53xQT0uRTtG6C/WInyssdtXq3v7mKfNZvXtH3W/peDEc9jh8Q6pefRgA
+	 yHPqOJht0Go3LlCyqkgUCnep97ZhWrNJwKZL+zPoJiPiipJZQUGxvdlg2L+pZwfknpIKz
+	 MKPjamESbIy14x5hSHRquDW5GrNS5ffSNFcSK5whJjTSgL+rhsCvneo2mRsaN5RALwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716410;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=tI+UwBYPAdWdAqb3dEv/Iv9MEi3mF5GYk2Iq/sV6Q+g=;
-	b=Nf+fMkd7ljyYgu68jbBzzjOHvtNChXncbVQun/NKxW1DIaaOMiQyg12Ja1BBqvRsyb+f
-	 FrSFpgPh+YtYvmXrwgusOy8oFwTeDe4/BLRtf70w4nEKVIKxRcDuLVc/98iZqvvz8ZdaH
-	 XjUofjnTURbAMlaLFZutPlN3sw0mdrDPhKVBkCv93bcvMRZeCN32rJjlitzNm4x2ASIHR
-	 /RXlOfXnsNnB/aI5Rw5wN/bmFnnAxw0BZKQFLtVQEPjnHgiqqAK93ZxwJ9Aw+5OYcxLDl
-	 cchraPt0wBdyx1i5YZ+6X+D3I9p2cy5K8B8/c32T9xUmoaxqlTcS0DKk6qt+mpU5xBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716421;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=Yjcxfix6uQo+Hn0hmjT5iCwNk7IHTqrEDnbc55sHB4g=;
+	b=WXlW6p2r3r/w6QFGEwubcAiWJs3l1mHI3mzVlIHk20OfOxGFZdkDySKziOr2pbKtanmd
+	 p45kfgGUQ3NThONb4dqiPIB17cExNywdPMxgbevcehG6RIPQmPuvQERn7+WGnFGhTnzXs
+	 Woiz6vZ71A8+MLarbpBsQYnXhG9ZTZ2VkIH8+KSqt0XukGmQGgwnfobmLG89ZaJgwh4qt
+	 O0navZ6hwv0M7IwfpM8yQqI4CwSYu4k1v8ASQ7HRO3V8R4N3DMuocy4VUfoK0mqFrWjck
+	 vNYAnoRxi1GSpZhZJz/B+cRq1LgUHFR/9q0bXmrTkvSfb69Bgj9JHE8KA6p/Lr+/XcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OMakKWWq;
-	arc=none smtp.remote-ip=74.125.227.135
-Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b="Mjv//tb0";
+	arc=none smtp.remote-ip=212.227.15.19
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BBF606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52BBF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2229606A329;
+	Tue,  3 Nov 2026 14:33:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2229606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OMakKWWq
-Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-3ac63aee1ecso1185901a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:33:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793716409; x=1794321209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tI+UwBYPAdWdAqb3dEv/Iv9MEi3mF5GYk2Iq/sV6Q+g=;
-        b=OMakKWWq92Jd+LPrw2dMjUdTbbCAHgwKqsXYpnakA0v1IJIkLsk4HcA6AbC23W5evB
-         tBOnUGm/ka/t1RUwhJg+BHoPaU+s00V6u3Fe1ySkT1SBqwNnxJyzcLx+qHUoRYu32qhP
-         tXVZErMxSmBKIh3vGaM8ZQnRggivAf8MstgCX58MI2A/pAiHxCjpybxhMMRYYxvK5Mqk
-         m4teoOc30twESU7y+jNP2M7ZEUioy8qxI+whMvVDc98MA50iAUcLcIsXt8dD5CtmR1Y6
-         gRxgV4ApYBNEUqoUkpRJ0jyPFall9y1XOJZnbNjJs2eYgcoJ/SYs/A50n2jOFhvZOc4G
-         CQtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793716409; x=1794321209;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tI+UwBYPAdWdAqb3dEv/Iv9MEi3mF5GYk2Iq/sV6Q+g=;
-        b=TtaftZw7EC/MvoNWV7oFiTLFS7juog+zpg5Up1F0qgZc62UpOdDp9kuc51oSjtx1GB
-         rXng57+/3hFVxvzUmYygXdBiPiNweETYD63LP+/fi+H1fbEbCc6DUHR/8ofczwyaAbeD
-         6C9davPveV/aqdw94GrLwGYz+54rEszWpb1FOr0Q850EyH3xLrHX3K7B11PBdNpNsS8U
-         SMd176+0qyUXGJ4m9jAtZRxAEGJyySTtKb27IwfN87AwIrjQVpIRYR8J6qRRoElxh9su
-         FTOiAElulNn2JEUSrb7JWtX++DJb69jI834Masa4gvCTGeqegyGpnIGEg0VKaIrEpg9j
-         UEPQ==
-X-Gm-Message-State: APuU4Z9DOqgwf0wgpvw79QcHtvCEy9j+wKkzu2LZnILsow2ibaZHWx2l
-	LG5CeapEoYWhyaH5f1nsO0GLLl0M7qJPa6dJN1m8nxT3QobXBoWsVeJ/0TYvdScqwXyEsmUH
-X-Gm-Gg: AYBFou1pLw1zZwldgE5+KzPOR79hwj6kVIW+hKbMEIA5d7gjnfBr8Ah751otqzSVwx2
-	PfgF8ozEEeXGTmwCzfUdIg3h/mKv46UpVDU1/W8Ea6C8W6wxlPdGnkGGeJrsG06/Tbe0gp7dAbW
-	Pf0g4pYTWlctGq5NZJLgm4VwyYRDF/a9i+c6KLeKOCRosneCfQqseYNf3xzIDqDnYwnItoxbdhB
-	SjpfSdkxNxo4KXJSYr/THxTRPQ7n0/jo0GbgmgZXAK9ZA5itQp70KNASOcfWekgu4aMoTrIykSe
-	h6PxcgI4zCksCs0CMSCOsTBwFC8ukuvyxUbXzJFgQxZ+9gWvA7uAWc9d/sozvwMbJCOCv1Tgf81
-	Pk9qWkxUNuBXqXBN2XOfyVDFlS2LyS+f6bQTSUM3iqRxbMy9bq1X49sHMt616Sf214DYhWJI35g
-	ZNxWm/Q3JpfgUSiT6TGlRFurt5Vc3qCiMxrZQstV6NOPQg9Y49hyQ02qkAZLk0ukfUSd9H3y7F1
-	J4Tj0Uvk80ahDBVsaJpwopapdgvVYV5UzMCaFRwSMMFbKNHuxymyaihDebRzeLla3HD9tArAFDu
-	S1RVhMuYDde3sjNVrTSZlnI/UMyTYnPkNtO1xHlCRIGOBfPso8FzaY2C0qS1ALOynISxxf94PFL
-	Kb2XYkZUjH+n2lm0idtyg5N7cNXTebYOTd3eFj2GVEkF012Sne6SJW1q49/IEqwFxCw==
-X-Received: by 2002:a17:90b:4c08:b0:3ac:adce:60a9 with SMTP id 98e67ed59e1d1-3ae8957cc59mr11107986a91.9.1793716408508;
-        Tue, 03 Nov 2026 06:33:28 -0800 (PST)
-Received: from localhost (ec2-18-182-19-4.ap-northeast-1.compute.amazonaws.com. [18.182.19.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c9b0ec5sm4698225a91.16.2026.11.03.06.33.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:33:27 -0800 (PST)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
-	stable@vger.kernel.org,
-	Carlos Maiolino <cem@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>,
-	Viktor Malik <vmalik@redhat.com>,
-	linux-xfs@vger.kernel.org (open list:XFS FILESYSTEM)
-Subject: [PATCH] xfs: fix inverted action for empty leaf block in xfs_dir2_leafn_toosmall
-Date: Tue,  3 Nov 2026 22:32:58 +0800
-Message-Id: <20261103143308.10870-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=Mjv//tb0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1793716417; x=1794321217; i=w_armin@gmx.de;
+	bh=Yjcxfix6uQo+Hn0hmjT5iCwNk7IHTqrEDnbc55sHB4g=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=Mjv//tb0Q+OFuOlHBxMbLYgE/jF+uIoCgx/unJ42gOPbtaU8LmRNxt+OlBsUjdmT
+	 GFeNRxrPJjZY1vypC5vq2WM50zVPVn+cGOnajC5X3pM7NA57P1iaFxEdrTCwSEBK4
+	 E/kX64x+oPMI1X153crQjarGJ+P3EsRUm94Yks049Hdz0Bs2Tfi5OFYIiFjtCMpm/
+	 mOp/EpEWkEqpz/XGeSa193DH9IiBvJ2rVpxxDnJifaxlf/xbR9mkgZqIne3cXnvHv
+	 d5FqXy1rWtgXv0pQDqlGFVrAjhy0ILYv+mmYnINUJZtDgITwq7AVFrsHVz/b3hDDZ
+	 cgON8XsKP8lk/5HYcw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MysVs-1wcBIx2xve-00vy8R; Tue, 03
+ Nov 2026 15:33:37 +0100
+Message-ID: <f1306176-6ce0-41aa-898f-2c08c0e2553d@gmx.de>
+Date: Tue, 3 Nov 2026 15:33:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,43 +63,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: uniwill-laptop: Implement .hw_offloaded
+ trigger callback
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ hansg@kernel.org
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261030194704.424388-1-W_Armin@gmx.de>
+ <179362009806.1659.9035755040374496694.b4-ty@b4>
+Content-Language: en-US
+From: Armin Wolf <W_Armin@gmx.de>
+In-Reply-To: <179362009806.1659.9035755040374496694.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:D9CGvoQucKLnjq9hNahy4Rw7a8HFTX8q1e5yergWxk24bLzNDsQ
+ T2fzNGB7ujmRw/UV0KZvhUiyZxDHHKCf4PHjr8/4vz1nuwfvCuE/1Ytkcyq+QVu7iZj7aDH
+ 3iE5Sqab4Vl316TyLGzVk+x053k2FvKoc+y911BaQXom5r7IUTkLuTo4xk1a+qflaCMyFnX
+ leZVf69AGSO6eJ9ja4Dow==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:QhACpvbNGbM=;C8y5F5UYmsA+YLk63sxyHmtfGZu
+ 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
+ Fn4=
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+Am 02.11.26 um 12:48 schrieb Ilpo J=C3=A4rvinen:
+> On Fri, 30 Oct 2026 20:46:44 +0100, Armin Wolf wrote:
+>=20
+>> Since commit 8e04e5382aa9 ("leds: trigger: Add hw_offloaded() callback
+>> and provide trigger_may_offload_to_hw attribute") the LED subsystem
+>> allows triggers to report if they are being offloaded to the underlying
+>> hardware. Implement the necessary callback so that the LED subsystem
+>> knows that the lightbar trigger is always offloaded to hardware.
+>>
+>>
+>> [...]
+>=20
+>=20
+> Thank you for your contribution, it has been applied to my local
+> review-ilpo-fixes branch. Note it will show up in the public
+> platform-drivers-x86/review-ilpo-fixes branch only once I've pushed my
+> local branch there, which might take a while.
+>=20
+> The list of commits applied:
+> [1/1] platform/x86: uniwill-laptop: Implement .hw_offloaded trigger call=
+back
+>        commit: 086aeca907789bd2604f16f07bfc073b19015015
+>=20
+> --
+>   i.
+>=20
 
-When a directory/attribute leaf block becomes empty,
-xfs_dir2_leafn_toosmall decides whether to delete it by calling
-xfs_da3_path_shift to find a sibling.  rval is non-zero when no sibling
-is found and zero when one is found.
+Thank you :)
 
-The code currently sets *action = rval ? 2 : 0, which is backwards: it
-tries to delete the block when no sibling exists (corrupting the tree
-by self-merging) and keeps the empty block when a sibling is found.
-
-The analogous xfs_da3_node_toosmall (xfs_da_btree.c) uses the correct
-*action = retval ? 0 : 2, and the non-empty branch in the same function
-uses *action = rval ? 0 : 1.  Flip the empty-block case to match.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
----
- fs/xfs/libxfs/xfs_dir2_node.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/xfs/libxfs/xfs_dir2_node.c b/fs/xfs/libxfs/xfs_dir2_node.c
-index 19cb536e53ef..55244d153f84 100644
---- a/fs/xfs/libxfs/xfs_dir2_node.c
-+++ b/fs/xfs/libxfs/xfs_dir2_node.c
-@@ -1546,7 +1546,7 @@ xfs_dir2_leafn_toosmall(
- 			&rval);
- 		if (error)
- 			return error;
--		*action = rval ? 2 : 0;
-+		*action = rval ? 0 : 2;
- 		return 0;
- 	}
- 	/*
--- 
-2.34.1
-
+Armin Wolf
