@@ -1,71 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793746745;
-	b=QIaK24as/NJ9xJqBgXEzSKSQMajJpTH1LYZIWe5HpBUCTl/ZbmEgB7jH3pkrpwoEpZzX
-	 Ey1prwDZfrYaLhPCgqzk9YGJbtPdYk4pAFBQwMcEyvnJTB6KDB+TEPp7iXqd1aQBJZ/D/
-	 dNmtGcy3+H72QgRFG7i6I/ZvBFx6vbkRlyeQnvQ7MXVYPTMd6kblpKZvwhf8e/9Re367e
-	 iIqIwvcpJTOYOthk1Fe6Fbnvy1jRak9B2EpybMfwqektqTNE3WxBR0YoaFBEZD5NYFc5U
-	 YuISBt1zjdDGEUIpgzjQE+yuFHdN6UFy9iWrNm5ibMdT6NyoB5EzvNyMKuR7NHpBSeQ==
+	t=1793746769;
+	b=OKoBZn1pYBNRy5Lw7g3DynfSkYIoLKWSZyFBdfPcEbaIiseeBlOgENZJmAhK9+FZxBI6
+	 2Me3hmUv52e8fW3JXgFEl3CUYjaOacuQROw4YRSl0R3hOBDcjIfgHzHXqxhRO9gamkg9f
+	 bIHf5J9WroigDNRuJIPCHFUfB5WvK83CqoLTNdlCH2UIfxiKRmoAhJ8+H+bFZaXGbIBGn
+	 4kLB/HH8HFC69fYMX38FoET2u7+XdeDSMEuW+myNNHq96t58nJRwumWX8ul0omQpmhuEf
+	 TEenq7ZL/43PbFm7iIUE86RBOJJ4lEOdYi0AkDUkqGpITiXp0hRC6ae9SJvFDqRLuMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793746745;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=B0eqxT4KZIYBLooYPOsnwzdSBVuWqaCgyyU2d1XUpxY=;
-	b=WI7RhULXidFOqjihLC7g1u0B41ky03Jb5mhLPb/S6wy6xj3GQJQhJTI4I8CVRmqo+qq3
-	 9vDnlXLqlLdn4CSWYU6KvQskd0Pz9jCKQC8PwqUsGxyfm1eCWG7v+UXxQJPyaW4Thu8Lm
-	 gi8K+NKUIM8Bau8kH/nbv/sP9fMUJhp2icmTKGb5JNjQOrDOEukS4hDHmTbHYXMsiZUGW
-	 ZsN1d0H9x5B0vZ1ydJ6pcCITtyQ5fGegPluJbxZXV6xV/ZiUip/8RcXkimWzTgfUprVXa
-	 3PNPdsrpQTejj30+dUWIT0LRSv6xPBG4Jfx0/KBoe2fYIlix++cZLKl/mNJNKxcgo8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793746769;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=M4HWTp4evsaap0AfFKcKdMCCnVBz30GdJ6zIUdfmiDs=;
+	b=VtMWJWSePnxSk0ptHWkEAcJgRDHlWHpxh0m8/hwGOVs7DKzSdIAkfiGAxqCMt+7teHmj
+	 1zs7HGWiFwBhpV1gI2DUoaOVXnUK1rhC25Ib7wIsYk9N/3yIQcNhS7BDHiy9bLhx8njWh
+	 jiO7j1j5yMTc1JTRSEmcVqA4cat8Rs+fIU1QLZf8NB6IyF6XYDaNJAOmvIpGRXF9eaCzA
+	 OVgCi46W4v/n5QKf45aPPKWhdofNzzjMXGvVQyyoE+olmd2MTYLNhZ94IQMwCNHG9n474
+	 9bosP0LYrqqPbZNggB9LIrrmjzykvhHWhrLEE+BQtiklW9CyzHQuvEnWZBR1BAZQkng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=FaZr4542;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=weS3T+lu;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B76606A330;
-	Tue,  3 Nov 2026 22:59:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3B76606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105D2606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:59:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 105D2606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=FaZr4542
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=B0eqxT4KZIYBLooYPOsnwzdSBVuWqaCgyyU2d1XUpxY=; b=FaZr4542aWXs0WCE5Ue/yuPFZY
-	uSJx53o7232qP8Rsxd8W/ipIYmXUPtzYCKwGoC5TpROiY4DQ4j1/Najzu0NAmJntmI6ZGxD8FYl8L
-	oLf0e1fN8EKzT8eikSAnX8DBehD05WwvMz+SXHuqmF0lziQpFCexPhU8QXtsd1najPLYmc8Ma/ePD
-	FbNrLRcy+lgsnSHwbV5W3zjqAyfki1ro/5/TL8u1+yS1hsfxs8wI4dW7siLzuw+VSW3BKaqaU0b6x
-	o/yXC26pOQDPoiLFG4xqjAzzHsAyFY8l8tajlKmEwQ7zfPW6yA9Z+OtbGOKFD3zXFcZr99zcp2srG
-	5VsOZobA==;
-Received: from [151.115.150.205] (port=38596 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xONT6-0000000Fyyx-30Ff;
-	Tue, 03 Nov 2026 23:59:03 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 2/2] xfrm: fix selector matching for IPv6 atomic fragments
-Date: Tue,  3 Nov 2026 22:58:42 +0000
-Message-ID: <20261103225842.3204446-4-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103225842.3204446-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261103225842.3204446-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=weS3T+lu
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3535a54bed9so63935eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:59:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793746768; x=1794351568; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M4HWTp4evsaap0AfFKcKdMCCnVBz30GdJ6zIUdfmiDs=;
+        b=weS3T+lumGwZNXpPkdkHSE8Jo2JuhqQAzHhBPJmhkwd11KbkiRtZ5PdJSwY62ljLJR
+         rtvR/GZ/aXISKffBOo+sYoXKMI0zQgHjDAcNKUhz8ys9lsqLaW5SBB0+atFrMcUqnAcp
+         L9qEw6oNrHxrD5PyYRFmqHtQ43U5teRZ5R+WtH0W17l+njAFMJkK/O6YD3pKwdCaSnEM
+         HI9jSQ/NbUtq5NMzldHrYtNPpv2O2Nwj/WO+mHtGI+e1Dn6rHF/MIYxj+TzKJ1M1ZzRm
+         nSFJIQ3pV9w0X6PKyQzORfOrrvR4fn2t3qQrHYlKinGG3/pQf/FN6LTd7u7TLkkO/9Hn
+         mzVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793746768; x=1794351568;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M4HWTp4evsaap0AfFKcKdMCCnVBz30GdJ6zIUdfmiDs=;
+        b=y3fLk8/F+CxurbH3yHViizVS/98wpnf28QcCl1z/G5pltqqPt7/d5HfhOh62EFowaw
+         cPOceVl508PCQI/NwpLtHZLeHk9SPhM8Ri2fTZBdxqld2pVtqrMlehUMemfh1nyb5AhW
+         dq9fQ2cNVFim4PZBmBhaxlxD4sJBZDnn9oI7Dte6VpiMYZ1gOnqmOLAr4g9UcM5032df
+         rVqZjjyeNv7epmO1h9jAVUZOHn/F7bTCmaN3d42tP9w9SPz+NwNlCKXCB2XR5tv4nAfU
+         CkFsU4Oxhg2AOIJiwZB+wThn4JokHeEauc/E2QbKBYEDtlFU4yNrMXY+fUqObO2hJe6R
+         GsNw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLfaadOiJy82puSspZJazxZOVamUSP3qbgjl8YJNAikqBolPYMPu6zKhwgyA3WMtBfvZrYvTl3A15ahYo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ML/PoY6Yr2GD1Dh6NR7Xv2BN3+VcDLxA7ZODFXT3Df6eWiXH7
+	VKvLX9RNAI954zbsN1G/vKwpswaBi7muIieIht+ZuLuUdIOktbLomQ4Q
+X-Gm-Gg: AYBFou2acxbOdJ7nC5aqVw8haIFj0dfcv2POXnup33vmDo55PkRTcJSpNwZmgWAtj1O
+	mFNUapElDMESmt+67qZSqRfCUkRwKsDooKWNCc2piZpvH5XA4CNoxad6J+S56ifJ6bIvrXVIX26
+	GZ/IednV7Pqf4/M2H/UDlheqc6+sSLGLXeDfYNu8Hrf2lACnT8mZr2FZj4IhXeLSmh3eVxY1tNq
+	Jpq6wfCJ7WhexggpKXMDvPrIODs96aBaFyGkNzqyN/qhP3lWJR940n5+nILKuoT08HPJmPPqMHG
+	Q00Ofk6H1g0ugrOUihHExyGWK6BI72bByrqdOEaR7NHbqP6Sto/99Fx10E6+dqXp3bPQjBBGXrV
+	J8iHXLUZNALfP9/vXHrsZCUtwZ4s6k1Ws//dP3mFkZpjCfyrVftLCi72KM09kTVvif9OJPJJqMM
+	77BMO8xur7ZgJsOnjKCmlLCAQVM3bKrsQAmghYNlBiFrcemMiJMA0dnVryehv2XU7t11mS9KZOz
+	F/oxoAXqVWjatNQEKsOfxbyc502M3zMxjwxmudg/3YnNcGLmgn026Kcxvs1u2EysrYr+TtGqwpR
+	E29g58ps8/W3/v/nkv+jvqj02t1F0mm6hbfxLBobyFXWLI4jrCoev3cH8+YvtuS2WMJ+AtC5y+Q
+	QoijdZyBYCQNqsQQu
+X-Received: by 2002:a05:7301:6198:b0:36a:1e9e:ae61 with SMTP id 5a478bee46e88-36a42602aa1mr20317199eec.38.1793746767814;
+        Tue, 03 Nov 2026 14:59:27 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a67edsm1187111eec.8.2026.11.03.14.59.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 14:59:27 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: David Heidelberg <david@ixit.cz>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] Input: stmfts - event parsing and coordinate reporting fixes
+Date: Tue,  3 Nov 2026 14:58:40 -0800
+Message-ID: <20261103225923.3892612-1-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,70 +97,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-Commit 7e3a42a12c4b ("xfrm6: handling fragment") stopped decoding IPv6
-selector fields after a Fragment header. That is correct for real
-fragments because later fragments do not carry those fields, yet an
-atomic fragment is different because it contains the complete datagram,
-which allows XFRM to read its ports, ICMPv6 type and code, and GRE key.
-Leaving those fields zero lets a plaintext atomic fragment miss a policy
-that matches on one of them.
+This series addresses a few issues in the stmfts touchscreen driver's
+event handling and coordinate reporting for both FTS4 and FTS5
+controllers.
 
-Leave ports, ICMPv6 type and code, and GRE key unset for real
-fragments. For atomic fragments, treat the packet as a complete datagram
-during IPv6 session decoding and recover the ports at the transport
-offset found by the flow dissector.
+First, it updates the FIFO event parsing loops so that non-touch events
+(such as controller-ready, status, user-report, or debug events) do not
+abort processing of subsequent touch events already read in the same
+FIFO batch. Next, it validates the 4-bit slot ID extracted from event
+payloads against STMFTS_MAX_FINGERS before calling input_mt_slot().
+Finally, it switches contact and hover coordinate reporting to use
+touchscreen_report_pos() so that axis inversion and swapping properties
+parsed by touchscreen_parse_properties() are respected.
 
-Fixes: 7e3a42a12c4b ("xfrm6: handling fragment")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- net/xfrm/xfrm_policy.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+Dmitry Torokhov (3):
+  Input: stmfts - do not abort event parsing on non-touch events
+  Input: stmfts - validate slot ID in touch events
+  Input: stmfts - use touchscreen_report_pos() for coordinates
 
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index bda5100c9fdbf..24470dbd82639 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -3526,9 +3526,25 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
- 		decode_session4(&flkeys, fl, reverse);
- 		break;
- #if IS_ENABLED(CONFIG_IPV6)
--	case AF_INET6:
-+	case AF_INET6: {
-+		struct frag_hdr _fh, *fh;
-+		unsigned int offset = 0;
-+
-+		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
-+		    ipv6_find_hdr(skb, &offset, NEXTHDR_FRAGMENT,
-+				  NULL, NULL) == NEXTHDR_FRAGMENT) {
-+			fh = skb_header_pointer(skb, offset, sizeof(_fh), &_fh);
-+			if (fh && !(fh->frag_off & htons(IP6_OFFSET | IP6_MF))) {
-+				flkeys.control.flags &= ~FLOW_DIS_IS_FRAGMENT;
-+				flkeys.ports.ports = skb_flow_get_ports(skb,
-+									flkeys.control.thoff,
-+									flkeys.basic.ip_proto,
-+									NULL, 0);
-+			}
-+		}
- 		decode_session6(&flkeys, fl, reverse);
- 		break;
-+	}
- #endif
- 	default:
- 		return -EAFNOSUPPORT;
+ drivers/input/touchscreen/stmfts.c | 49 ++++++++++++++++++++++--------
+ 1 file changed, 36 insertions(+), 13 deletions(-)
+
 -- 
-2.47.3
+2.56.0.385.gac671c819a-goog
 
