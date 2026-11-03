@@ -1,91 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.223.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738942;
-	b=s5jipH3lc0kGLZeo4Gs1tvuyGPmyGHch/6fPhIDD9c33mFJvNQEp6maK9izSfJgHDEda
-	 B5kGAiP/jZ6G5FOJ5ePszsZZLQm5LbkozZBfYuWRlHgPBtjy233pK9oSCjqaOMqaqz70I
-	 mmjVzCVlCM4zbAQ/AH7OkXgp02CMHgfzgQk1mXcg2rpxn1/+ySyo1dt8UUlxHgLLXdv+d
-	 Sb0rKJFFgjVClBvR9xSc9KOBDHgILkEHiW0/5mrefTfvQigLsAWhtmH2hvJnE6ppjLp6Q
-	 vr8eG2KmLnWqhtSp23yjt9ZwLo8xaZSCdaJFbAGk5MzEwS5H3PsnSlVHaprIMKpzsuA==
+	t=1793738967;
+	b=NIN5+KwlzVLo3epSVGob+XXYKohvyBIeV/pwNH3mqwbw4bjWGisYE6EoMqCoP2ZtLqL5
+	 10PWQxAUPApaSSKMF+zQARuTGtJKCg4879oWCLi3Bihq4eEK6HYgjVrNd42A9uaC6FOm2
+	 YqTbxSl1Sx2Qu78KmLg+t/7F26Su7ggIhxq+5/60OOFP6aUSNCWVMkH1YbO8sUB6Zc/C8
+	 1hDZCDWqZXxseZID3vxCSv05ARBt8iSlsRQMQynZ5ou8UKEogvV0/x338q6xB+z37keiz
+	 9l0QxX4rtZK+YIMfoIaCmIn1fkU9ZGelLSDuXPLbuLQv+nVxkLY9Iqom7vLNUfi0ILw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738942;
-	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
-	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Spill-Robust:
-	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:Received:
-	 DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=CixWyglPjJq+NuYBAuybNSUrDT7S8FVzUuoegqk0l5g=;
-	b=lGmvMb+roSk0YY40Y6+iub4GAmJw1X6g9bVB8J0PFzs0cG8BDHezdxKBEq66uCgiTnB2
-	 B7NS170vSfdH77aHXnZhGKqtK60Fe5c4ys+G4+16bRlYfHkW7Mtc46vUl5Lj3aC3kxdIK
-	 5j3vd4UxKrSkQoXiZjA086xfCGhDNhvlCTyuU/BfnSeCz1OMwvSw2aTUpfGKq2WxJclLw
-	 TZOtTyeUyQ+4m8JtHlGqhuvopaXzYrKLIXWE40ipPfc5dTbC7wh6nfm7RoytcX+tnCXwk
-	 +3P6ptsvXes+k9oMVTPfo3RzBylAJjiukiwKo2BlZk4/2LklJONMlTwbprKqbYxEJ/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738967;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=FGhJGJT7/ajXBG/Ryc6jGnf7WdwsklM7FcdhFTQMZHo=;
+	b=FeJ9aXyim6XCxKg+R2wuucWpiHCTIDVCx+X2uWxDbabidI9vQSUJJwzkv4IEyxVmvgEG
+	 ONKcP0K0WnjlCMafWiPYuPbEo4imYBvqkKUPbkHigE9G7kcssy0nm5+S0wmEmrYO0P7UZ
+	 WluLC0HwOd/TmqKa9qSbYZHUCNQmfJI78hr+DvTba3+ImCpOJAtsoLEY6M8eUtG3atoA7
+	 4X4koiOgL9LVSvXazrfaV4p637wCOIazdqgdN38xQ+K8wvKXaJIKp8GajYacNZvi9b29z
+	 O9+dY19ItU0wtxAAutozxweOVL1MOSZ/bo6pe5tN5iWMGlgt5FDjDT/zTOciOqyC3Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=stgolabs.net;
-	spf=fail smtp.mailfrom=stgolabs.net;
-	dkim=pass header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=b8zCEMv9;
-	arc=none smtp.remote-ip=23.83.223.162
-Received: from seashell.cherry.relay.mailchannels.net (seashell.cherry.relay.mailchannels.net [23.83.223.162])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gFZr+y5N;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD660606A324;
-	Tue,  3 Nov 2026 20:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD660606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2F5606A324;
+	Tue,  3 Nov 2026 20:49:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C2F5606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=b8zCEMv9
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 885DE4C1392;
-	Tue, 03 Nov 2026 20:48:55 +0000 (UTC)
-Received: from pdx1-sub0-mail-a249.dreamhost.com (trex-green-2.trex.outbound.svc.cluster.local [100.99.192.246])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 2EA7C4C0C00;
-	Tue, 03 Nov 2026 20:48:55 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Spill-Robust: 300bfe26607bd16d_1793738935457_4122454896
-X-MC-Loop-Signature: 1793738935457:1005928785
-X-MC-Ingress-Time: 1793738935457
-Received: from pdx1-sub0-mail-a249.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.99.192.246 (trex/8.0.2);
-	Tue, 03 Nov 2026 20:48:55 +0000
-Received: from offworld (unknown [76.167.199.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a249.dreamhost.com (Postfix) with ESMTPSA id 4jK0zV1BM8zymd;
-	Tue,  3 Nov 2026 12:48:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1793738934;
-	bh=CixWyglPjJq+NuYBAuybNSUrDT7S8FVzUuoegqk0l5g=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=b8zCEMv9bhNCGM1tlmBK2EMLJBD1rcF1sm/u/EJTNNWWz3OG1iX9Mq2VL/ghE/4ch
-	 eqIGuBDuWjE/XvR9GDMpJYcW+YN4O6EOHwLc6oCxjxXAmxmm3my/Pm9mfPSUeqD+r8
-	 8LymCeE1FL+poryrkmBlBe40sOxdEo61oLWoduxYafry4p5ZKyL+1KoaggZy1x3tnR
-	 MPUBnvbI4fmY65BFuS1xCcROWODExD4KaFCSJLB4WxsmSTa0PRyDNOq0FHF38KFrY+
-	 wFO+5dUpyRyhr5qxbyRbWNgFPjJwznKh18a7eY4Ho1+qvk7sZ7M9bzfyY3Wq1JAdjw
-	 HwXsk1TKvFPOg==
-Date: Tue, 3 Nov 2026 12:48:51 -0800
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: Dave Jiang <dave.jiang@intel.com>
-Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
-	linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gFZr+y5N
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=FGhJGJT7/ajXBG/Ryc6jGnf7WdwsklM7FcdhFTQMZHo=; b=gFZr+y5NvotJO80HhnQaOhsgTN
+	YFOM0LShQYwZ2DbGuI2G5b90By4jiBXrTPrPIpZ6vEQDqbbCad4V807MCpRYqXpajD6DuA2AdJiBp
+	iTA8FAZDX76W0LBFSJNO25mq2MdLiCdO2bYqbvHfZS1cFGZpS4SYNCut2te9orGXAUtQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOLRP-00EAjb-DH; Tue, 03 Nov 2026 21:49:11 +0100
+Date: Tue, 3 Nov 2026 21:49:11 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
-	Jonathan Cameron <jic23@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>
-Subject: Re: [PATCH] MAINTAINERS: Update CXL, NVDIMM, DAX, and others for djbw
-Message-ID: <20261103204851.v2blzpa25xopouc6@offworld>
-References: <20261103201547.4079847-1-dave.jiang@intel.com>
+	Ciprian Regus <ciprian.regus@analog.com>
+Subject: Re: [PATCH net-next 0/5] net: ethernet: adi: adin1110: Add OPEN
+ Alliance TC6 support
+Message-ID: <49b292c4-c0e9-4b19-aa4d-d15dd20d25b6@lunn.ch>
+References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,32 +74,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103201547.4079847-1-dave.jiang@intel.com>
-User-Agent: NeoMutt/20220429
+In-Reply-To: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
 
-On Tue, 03 Nov 2026, Dave Jiang wrote:
+On Tue, Nov 03, 2026 at 06:09:13PM +0200, Iustin Stolniceanu wrote:
+> The ADIN1110 supports two SPI host interface protocols: the generic SPI
+> protocol, which the adin1110 driver implements today, and the OPEN
+> Alliance TC6 protocol. The protocol is selected by the SPI_CFG1 pin,
+> which the device latches when it comes out of reset.
 
->Dan is no longer with us. Removing entries in MAINTAINERS to prevent
->people from keep emailing his address.
->
->async_tx will be essentially orphaned. There has been discussion of
->deprecation for the feature on the dmaengine mailing list.
->
->fsdax will no longer have a maintainer. But there are reviewers still
->and Alison Schofield will continue to wrangle patches for DAX overall.
->
->Cc: Alison Schofield <alison.schofield@intel.com>
->Cc: Vishal Verma <vishal.l.verma@intel.com>
->Cc: Matthew Wilcox <willy@infradead.org>
->Cc: Jan Kara <jack@suse.cz>
->Cc: Davidlohr Bueso <dave@stgolabs.net>
->Cc: Jonathan Cameron <jic23@kernel.org>
->Cc: Vinod Koul <vkoul@kernel.org>
->Cc: Frank Li <Frank.Li@kernel.org>
->Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Is it possible to read the status of this pin from a register?
 
-Thanks for sending this.
-
-Acked-by: Davidlohr Bueso <dave@stgolabs.net>
+   Andrew
