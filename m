@@ -1,65 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704274;
-	b=0nHmoJ/e75++UrSt5WtckXoHqnAklfGD+JeHlPqf60HgQrEkz/PTM4DKTRmobu5lpetR
-	 kpSgLgTXgZJgJI8LVWX5LrbeWllefBxZm22J8SsfxsZpzOGula/lpoNxHZEKR8xMurHR8
-	 tsmXD489T+tyb4G7b/pl0aduH2coSsvllHBGtm/2wb7lOeoV9P2C/TbVm11XBGDMS4FHG
-	 2ZD5jk9fdgG1QZd1tfvWxYL0EA/8z3qG17PKd0Q0RQj4K95XkigmLXXD5Y9CSigFtwz7o
-	 1DTdJmpFNHJh+mHLb6om17LoIy7AzMoxVUjbOGs0iu/KG5Nd96TK+bjF36c5z6DhR3g==
+	t=1793704282;
+	b=RE4ekBg1QbTKzsz0DiayZVUEs291190cNtWli+31Uo9jVNNsGA+9Nk6L7MQ1o9gCsNWF
+	 btxgrJ4OKbH5oZLDY/Y/bDF0k5DyezhyhuC09t24XKlncUGayTRPymYi/cRHvdmmYatmX
+	 fjYIbFEBXXBXNiZXUA1D31PkI8WhZ+JiE2U9ZqewFDlrIC7XiWz/IYmUmb2V2wYGD/AT1
+	 a1uZOYBMaokUR8jTT02y1M7g5j65xbPUfSBPgYCrd+VV8xrJ3GrYXF32rNCZKD/FnRYw1
+	 XQwFzecp/llweKPDlN7oBWvYpnRnPuUhejKDb7M5rlVXR/X+6pULu1BsROYz1P8msWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704274;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HJXvKBetJ6+D3f3qQFBtlAFYG6QMCgZ7DblhIwwwoDU=;
-	b=Kvfn53BU/YuoVm2F3rAwmpE5BZ0fmtrjQbSi91QBLQm/fd5h+49VBfoRNq09LugTbvwD
-	 Mf/KFpS3xM/sj1KDty/z54KrHo4B9RuJpBY+q0ZujdmMGLZ6wjX+iO4jUflJLglABn3O9
-	 FB9Ej9kt33KCTt8Ksyf/H26bBG2pAaOh4yLmXPi1JggHMTboNwJ+z3Xr40OITzFwOmR86
-	 mCpxyrMOEmo5xpiEv4Ctzpf+y7tXuFXPdniqKFzm0fR70cug4hPitfPiuIfpAemd359B0
-	 yUgBAUeRuyB5/le96viA2ZYRPL7JuETWOXoSGn0Jzjrr/cPXVs/daTTeg90AITHOG4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704282;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=zsziOItZCdSqr6GfPwNxi2VUo0k/TNVIqc41ldRAkTY=;
+	b=2G4hnqK4hgZCN0PDGQh8A96oK9eYgkZEhidDa8NioXWCQB5LO4Zpp0pkSRKifYLUoBYi
+	 VYnfFdnIiv/b2d1dGkFbKk05uaysUN/k0xnVG4zHrnppZ/TV7jpYZvEtkZr6FxswxP8kF
+	 cM549jP/U0ypE3f7bL7FCq0RQAzqdseT81eOPsHjjigjR8JMKUuJom5PKPzpM5YXkb4KC
+	 dqKmk87KdNiiiW6qEuYr6Ubc2VObUIRkjwOs2Kcq/AAl0f50L5FtmsSFk7dLJWf8YnbAZ
+	 yu23L8t2MlrD80zikGzg2d+KmpE7jgHmu9olHOk9YN+HjAzfkoXvtEBu16vh3WG/p6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=dbjquFjY;
-	arc=none smtp.remote-ip=115.124.28.5
-Received: from out28-5.mail.aliyun.com (out28-5.mail.aliyun.com [115.124.28.5])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c6QbJhhB;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E9860A5BD0;
-	Tue,  3 Nov 2026 11:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06E9860A5BD0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA3A60A6F64;
+	Tue,  3 Nov 2026 11:11:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA3A60A6F64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=dbjquFjY
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793704263; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=HJXvKBetJ6+D3f3qQFBtlAFYG6QMCgZ7DblhIwwwoDU=;
-	b=dbjquFjY+H2MRTiqvXr5HtN/YqoFMmioZXNtQ+dZziZV8HvPdRO9Q6MJvsRYpnhWROu1gDYFi7S4pW99mM0lGM/Wqxeh2kGAhFPzrjcwt1jb/Vo9w5DwhDEYIkZvLdif8y78oDzYQYCSq+HsVycwZNqZ2wIJbRILhWVjPHzI7dU=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04992287|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0172255-0.00111262-0.981662;FP=15865239930251679264|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jviODwI_1793704261;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jviODwI_1793704261 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 19:11:02 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Guanglei Zhu <zhugl3@xiaopeng.com>
-Subject: [PATCH v2] net: wwan: iosm: drop redundant skb->data check in MUX DL decode
-Date: Tue,  3 Nov 2026 19:11:01 +0800
-Message-ID: <20261103111101.39235-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261102081920.50288-1-fangxy@xiaopeng.com>
-References: <20261102081920.50288-1-fangxy@xiaopeng.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c6QbJhhB
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 7C9AA1A1430;
+	Tue,  3 Nov 2026 11:11:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 45F946046C;
+	Tue,  3 Nov 2026 11:11:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1D5BD103291E2;
+	Tue,  3 Nov 2026 12:11:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793704272; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=zsziOItZCdSqr6GfPwNxi2VUo0k/TNVIqc41ldRAkTY=;
+	b=c6QbJhhB/17tzhguxUqsFLfsfw40KcAv6lH5rx6NQ2CQhwMBL8cubmbt11eaK5uGgj0AEm
+	7Qy7mqgujE50XjsiLMuVh4/Z6srFzzj4PZrrIZTsHzovhNPNXQMVqwH0UrBn+NqDlQMBG5
+	/HYfFg79zW07+iNKPS4+Htbq2kEJocaSJhXRkX9BkqQqMeudyohdnGKJlSvL6jINzX3BT9
+	/n/V9tOnpUgmDH030lxPWxrNe2NjCJ4rda0GYkrgXLiJovEzM0r/QnGbIKspPCbh+CuKgn
+	yz+Xtuntby1D5aOygkdnHYwGjKjfpPdXTkrjv1/DudQ8wtdvLYcOWB0PPI5SHg==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Tue, 03 Nov 2026 12:10:57 +0100
+Subject: [PATCH 5.10.y v2] gpio: dwapb: mask/unmask IRQ when disable/enale
+ it
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,47 +63,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-dwapb-fix-v2-1-9bd3785d1365@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBAFf4Xs2ZK2pCV48j8MB1q2skYpaStKC
+ P9uwavHeZnMWyFiIIxwLlYIOFMkP2aQpwLs0I03ZNRnBsmlFoJXrH93k2GOPqwzqq61UrXTFrI
+ /Bczz0bqCKgUvF2h/e3yZO9q0h3ZzoJh8WI7TWRz+n/4smGC2qdBJJ7lu1MV4nx40ltY/od227
+ QvQFFGgvgAAAA==
+X-Change-ID: 20261103-dwapb-fix-ab5776557f6c
+To: stable@vger.kernel.org, Hoan Tran <hoan@os.amperecomputing.com>, 
+ Serge Semin <fancer.lancer@gmail.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Alan Tull <atull@altera.com>, Jamie Iles <jamie@jamieiles.com>
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ralph Siemsen <ralph.siemsen@linaro.org>, 
+ xiongxin <xiongxin@kylinos.cn>, stable@kernel.org, 
+ Riwen Lu <luriwen@kylinos.cn>, Andy Shevchenko <andy@kernel.org>, 
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793704263; l=3409;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=IjodPtO+QNDMqV9Kndo+ZMbI8L2EGx8jZcDCaQ9m4nA=;
+ b=//LghERc+BKoG7dfzTpz8B3hwV0YVfJyUhLSSmUSNlUU7A4kIF3f6SttLSpQyhh6SrINhMUNt
+ dRoWjIxjxyxCAP25x5gC5DsMpGuq+0WQeNuDHudP3zrnBRC8JelGogu
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-The skb passed to ipc_mux_dl_decode() through the current RX path
-always has a valid data pointer.
+From: xiongxin <xiongxin@kylinos.cn>
 
-The only caller, ipc_imem_dl_skb_process(), checks for a NULL skb
-before calling ipc_mux_dl_decode(). The skb is allocated through
-ipc_pcie_alloc_skb() -> ipc_pcie_alloc_local_skb() ->
-__netdev_alloc_skb(), which provides a valid data buffer on
-successful allocation. Allocation or DMA mapping failures return
-a NULL skb instead.
+commit 1cc3542c76acb5f59001e3e562eba672f1983355 upstream.
 
-Remove the redundant skb->data check.
+In the hardware implementation of the I2C HID driver based on DesignWare
+GPIO IRQ chip, when the user continues to use the I2C HID device in the
+suspend process, the I2C HID interrupt will be masked after the resume
+process is finished.
 
-Suggested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+This is because the disable_irq()/enable_irq() of the DesignWare GPIO
+driver does not synchronize the IRQ mask register state. In normal use
+of the I2C HID procedure, the GPIO IRQ irq_mask()/irq_unmask() functions
+are called in pairs. In case of an exception, i2c_hid_core_suspend()
+calls disable_irq() to disable the GPIO IRQ. With low probability, this
+causes irq_unmask() to not be called, which causes the GPIO IRQ to be
+masked and not unmasked in enable_irq(), raising an exception.
+
+Add synchronization to the masked register state in the
+dwapb_irq_enable()/dwapb_irq_disable() function. mask the GPIO IRQ
+before disabling it. After enabling the GPIO IRQ, unmask the IRQ.
+
+Fixes: 7779b3455697 ("gpio: add a driver for the Synopsys DesignWare APB GPIO block")
+Cc: stable@kernel.org
+Co-developed-by: Riwen Lu <luriwen@kylinos.cn>
+Signed-off-by: Riwen Lu <luriwen@kylinos.cn>
+Signed-off-by: xiongxin <xiongxin@kylinos.cn>
+Acked-by: Serge Semin <fancer.lancer@gmail.com>
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 ---
 Changes in v2:
-- Drop the "fix potential skb leak" approach. The skb->data NULL
-  condition is unreachable through the current RX path, so remove
-  the redundant check instead of adding an ipc_pcie_kfree_skb() call.
-- Drop the Fixes: tag because this patch does not fix a reachable bug.
+- Fix typo
+- Link to v1: https://patch.msgid.link/20261103-dwapb-fix-v1-1-c93ef2f20695@bootlin.com
+---
+ drivers/gpio/gpio-dwapb.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
- drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-index 0bbd41263cc2..2b8a22980c87 100644
---- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-+++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-@@ -693,9 +693,6 @@ void ipc_mux_dl_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
+diff --git a/drivers/gpio/gpio-dwapb.c b/drivers/gpio/gpio-dwapb.c
+index d6240ae0f87ca..51bed3adafc1f 100644
+--- a/drivers/gpio/gpio-dwapb.c
++++ b/drivers/gpio/gpio-dwapb.c
+@@ -282,13 +282,15 @@ static void dwapb_irq_enable(struct irq_data *d)
  {
- 	u32 signature;
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
++	irq_hw_number_t hwirq = irqd_to_hwirq(d);
+ 	unsigned long flags;
+ 	u32 val;
  
--	if (!skb->data)
--		return;
--
- 	/* Decode the MUX header type. */
- 	signature = le32_to_cpup((__le32 *)skb->data);
+ 	spin_lock_irqsave(&gc->bgpio_lock, flags);
+-	val = dwapb_read(gpio, GPIO_INTEN);
+-	val |= BIT(irqd_to_hwirq(d));
++	val = dwapb_read(gpio, GPIO_INTEN) | BIT(hwirq);
+ 	dwapb_write(gpio, GPIO_INTEN, val);
++	val = dwapb_read(gpio, GPIO_INTMASK) & ~BIT(hwirq);
++	dwapb_write(gpio, GPIO_INTMASK, val);
+ 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
+ }
  
--- 
-2.50.1
+@@ -296,12 +298,14 @@ static void dwapb_irq_disable(struct irq_data *d)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
++	irq_hw_number_t hwirq = irqd_to_hwirq(d);
+ 	unsigned long flags;
+ 	u32 val;
+ 
+ 	spin_lock_irqsave(&gc->bgpio_lock, flags);
+-	val = dwapb_read(gpio, GPIO_INTEN);
+-	val &= ~BIT(irqd_to_hwirq(d));
++	val = dwapb_read(gpio, GPIO_INTMASK) | BIT(hwirq);
++	dwapb_write(gpio, GPIO_INTMASK, val);
++	val = dwapb_read(gpio, GPIO_INTEN) & ~BIT(hwirq);
+ 	dwapb_write(gpio, GPIO_INTEN, val);
+ 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
+ }
+
+---
+base-commit: f23b568f7597f98a241454018a34361ce2523c05
+change-id: 20261103-dwapb-fix-ab5776557f6c
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
