@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.167.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793715339;
-	b=rYaaKdBWpnKHgnCRE8bp2yfFnC4PpAOLVXis3cNpYLgwg3Nv/Tm5PKkmNPnTHY5tcJAP
-	 8Try7RbquHwOCpNJ0Om8E7gb5QmRrKbsgAULSygOBv8UYwXruK4x1Le9/cA1HqptDcA4j
-	 osIsALJT6XjjcIW25HfpfNsSaP84l1ZkwOOlxDgR+mmf6Os/Wju9Jx6jIdXdZNpYSxJME
-	 tGL+rll8682E0a6eIUXieniescdc7YvOFYRFWyOipfj6gU0ITJZM1I+xO5K63q9hc3a09
-	 EbpIkyRAX+sxUz9I1lkXVEWX6nk5Nhp2Sbll8hwEhhzhB28CLRvuwSIMBXPCVX4eO2g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715339;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=yDWpNrUsXpotQ6nNGJk4nYnh93lFCeEGbbdd70BhOpc=;
-	b=J4nLChC7U9NAWhS++Lo18RYV/0i2EFKtWYPFrJWW8izsYHz4ABzsGE1vNEa8TWt4Y3ZZ
-	 OZo5bQ2DBXQCwJkB5ryWYs+XkJTVkre07fV0Gigdck5y/SL93mGSAONxgIXQR9I7Phnw5
-	 GJkZx2Yr7DGGevg4n8G5mAC80Ie6Y6ci0KahffUHBThIJH4UnEapq1nTYSx2KMxYq+zR7
-	 uQou+6Fl+E64XoDnI10FGH5CTqDaALQnIQi+q8bv+pc/L4i8TuERm+tdT4U2di8TbvJoj
-	 W1NY8fMvBKnV/q1nSvkYmHW67xgR+i1+XSpUih7YRpj/EkYPI+bEKqUTLUluJlKUATQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hUOlkfG5;
-	arc=fail smtp.remote-ip=209.85.167.48
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793715351;
+	b=CIMbWwnUXAWgKZ7njm7jwD5eJ9dYC9birW9lbOt8cPSV4QTm81+flxlqkVgiiDof7G5i
+	 QtHEW1GMX7qt5YIfSm8utdViSjY8Y8PVhWRjL3tXGaJTy3TrtemzzvJ3MLYCiVy/lVHsR
+	 SVqTBxVyznYx06dAW++dC0zXJSPf6sE3HKGWRDS/lrDYBTQcuL2o0/v83l0NAnpeFne3F
+	 Q9iNpihGe6Kftu0qSVgpQozi8akNzffY+1rpUQtwUl2D2tncwZcsb7pcBHVpJ6hG5oMcP
+	 WdAq06bZpxLYbGLll+ky4IomRiWsAP3ZTyAS1/ygdJwKdJ6zgdjpOhTV7STs2SUcnlQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715351;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xEksWo7GlN0d12eDs55ivgjRN/CX83ariJNLMru8Xao=;
+	b=wRyC/mptsvCHt1ws3/6cRj0L+zc6ZGedQZQPqb/Y/yRl5cyjIDKz9fH1RGG3AQOqttS4
+	 1zqxbqLlpnhOP3E2TwM6NtmpAf6W0pr0Qr0r4B1+QhCT6znLTo9NWVHiZHpGRrFC0nzP8
+	 0RWGP/PKsTQ8orS4FXhg+qgHaXDAT3E1nKpawJiKrQ9SK4CunpYbjLSNkm+La49tzqBAp
+	 wScnNWeE3s6kv3ki4/tmq39Lzhwo2T/ttCtZiqcRxjgkIzG6hcr5VPUs875kHcbzoLHpp
+	 7Esg45L+Ss9z4tzEpcmrTxAZYHyjCTwuvISVUE4TSTWCZnlTiPahyD2wDpitwK5kuTg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7yYtvK7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068FA606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:15:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 068FA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2F9606A329;
+	Tue,  3 Nov 2026 14:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hUOlkfG5
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bfa65c8617so2536367e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:15:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793715337; cv=none;
-        d=google.com; s=arc-20260327;
-        b=a493+jL1rN3DxMXAlrlITYIPSd/DEhE8kIXprZlf2/ypKvlVwFCR4nua1G91Mw4mMg
-         LtjyebeizeFLa+HgnFqDLdJTeijeboOuLcPZSgLjePxPV0tjP/GQ1qWXF8ws5ozLNnFk
-         lem5OWVy0vldVWowvZccvC9eFux+Z06sTFIzINYZz8LZf+ojD9JLYyst4FO1w5sV/pw/
-         0AvKKsTq54M/90J9gTlzId8bLP1EP9kTG9Qm4dB7okjWNfiYzpWE3uYKxhcW6Nkz5yWz
-         QDF90McdLZ/zGcBtt7X4dxMB1Ko8Xv872N4NoP5+JaCz4lvLqzEcRm9fDKTMKBX0BxX4
-         bm9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=yDWpNrUsXpotQ6nNGJk4nYnh93lFCeEGbbdd70BhOpc=;
-        fh=1o68a2Ic52FWy9sQoPOa1PwkRiO0sqxxBwaKH6gcxL4=;
-        b=Xps9AZXWhChb1EgcVm30Tgpv6zXNuqcrGv0c5opcwpqujUA8nM+Os2NKO97gxgCzHF
-         NmZ7AKosq6/H6U6WyH/3q00+axuIouf9f0sj5gDgkM5uc6gpMwT7NJF0kE8LA92pA5IU
-         ibz/aadzIKu511HdnToua/1wmJd/5yCp4EASE5jHqUD5HY/8YWoQw00TBZUFfqDoRE9d
-         EyS2lVvwmsf03DSLjPu2EjrkAa1ImIQM7wS1I4USAQ+oMGmobGIcUknirsWUZVPjjk9x
-         WoSPQbos3MYVIz2awN7jyMfFaQ14Z0b+MoWPMe04PLVBXSiJDIC0khYEhhsvUQxoaFXN
-         ausw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793715337; x=1794320137; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yDWpNrUsXpotQ6nNGJk4nYnh93lFCeEGbbdd70BhOpc=;
-        b=hUOlkfG5WAMcs1RconWNpTny3UWvGBRJKYPQV6YB0NHk2a6fzbaDGT2sr2+zJg4h29
-         JVJ5K+cjpwamivKJIic/018tnkPjWwOVO8qxkzxZuT6FCpmYyIEprc64vIwx9FwxRBZM
-         ciBMVX3FB5b9syVFwH3aADqvk4k/+I0WLahTZkG51GFYrbPYy32g+7ked9ewIZkBJsAc
-         m6EQu6mOii+Ulm/shipEvCO0e27F00Jgpvix3FlBFTxBs85FG90sWB4014WevUtKKTvo
-         Qiypq3AVWk+DshEj6fYkakDsw+Y7a3jB9hLiYHue8PSw/uuIS9LVcILHghTxFym8HSDE
-         6VBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793715337; x=1794320137;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yDWpNrUsXpotQ6nNGJk4nYnh93lFCeEGbbdd70BhOpc=;
-        b=oCf/Rj4Ip/eT3eU687x4oO7Uct2WLhhVB/hKBOxcJYP+FNwtwCA9JDOBg8IrrXH9h6
-         tK0ZjeWGwdqfArESsE3T9Xra0oIlZRqUYEykQJDtfykHHoxF09eyhlw6ykndJ1E8GbFE
-         eph53bQuyAcCqirBHPOfMHLhULKphFMm4r7jqzX6YqHVctXbRe7tPbi2MLAV13DRuEXJ
-         OXL5Z50SvmKEQIv52WIbkq8Tef+v8ON416EnO6ZNlLgBY8EqL6Cu66Rb/Jd0jNafQuUP
-         C1S5MSghNm5R3SCNVcH6qzSRGHHh6c4FdKh/Os4hlv5Mw8QpToAKe0ol3BukdNicsi7E
-         IIfw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNYVSO4x0mOXk9PcTUFvd1lYctoIS7KQLDRuuFDX7RCtLOJoRhW4GfD98wmwxQPp4yAppZP+s6zXlXsPI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+S3jM/qSuUs2HOaQU/SgPigyWcyyyTd2vqaFz/ZjzuKzDkpr+w
-	mtIDazro/MLc94x6jf4foB4lfGnNXd1ej+iH54TUZxXZcdDXQM8TYi/waYPaG+c8kTQYz05v8My
-	mH5N55nG/Pi8Brap7ePSW7zBhDVOAhKc=
-X-Gm-Gg: AYBFou0zowPnKfcR6mmy11LFBUvfSV2re1VKodt6KHLTeT8CZdVOFSON38i57wrlCxm
-	k2+nVoWk+fIv2yUsQGNg3yQD9rvmSReDEbncmw079VELWSHb10DnhuiBJwrwDlv42K8VKYQROC2
-	aRfcDVE6ftXq9DE71Moigo30jJRprEofC3OlqpU4/7niQAhOQCgYxgpIx9eX6nvXZCfot5ntAyB
-	jow1bx8ynlH8kFinmQokYuIN7d5JLfaC9FmGSXGFBnJeG3Ia+w+kLJjMORul3HEc3nZTPHw50XW
-	oOAyQmMe6I9fa5CP74Fqp3ISuz8czMVHN5/FieBiBiqTgTvU1SKQ7M1x99XZxM3sWVZroGi0RLY
-	34GW+AZx6y4Qxh5l3Ub6jvefxSTNYhPARQEJSlJVjmG2I/ZG81jLnEYt1C3geYty7ZzpwLsJ0NK
-	fxqxxHnbsPe7weJoH2ZKphxS4h6AXVxudsSFxfBtxiXNFjkiXVO2LmdUlInK037hSSYa94vqqBQ
-	e95+fcoR/VSzg10vfFlGQg=
-X-Received: by 2002:a05:6512:6689:10b0:5bf:db9e:7520 with SMTP id
- 2adb3069b0e04-5bfdb9e7553mr2538316e87.25.1793715336819; Tue, 03 Nov 2026
- 06:15:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7yYtvK7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73541F000C1;
+	Tue,  3 Nov 2026 14:15:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793715351;
+	bh=xEksWo7GlN0d12eDs55ivgjRN/CX83ariJNLMru8Xao=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H7yYtvK7aiFHZiEDq2B8+XBZxTL5hcX2J5E3lKDaz+oUGpAZ8w2BTdCkjxlubDD8w
+	 FQaOfbZgLqYNhAJrkNBn2y04FSKLxN6L7aZwz8sLNnnvowKwBP29B2+1PS0y4vMwru
+	 UEThurXYzWSMZL56avKMLMW9UMlLe3iTAoBOOhFCL/NcgHDg0HM1y0p+vCKyxKyhw3
+	 Tcwa1MbEWcg8oZ0a2zVIAPnxiMFL9ugNlbyQ/k7Su8tdwmFjiYKVx0fSJf/zBETIQ2
+	 1z0rTqmP00tHQ8QynWCbg9ivUr/o5kd5C/78Enu7fc6+QVhiFyoNntfTPaaoEvUu3K
+	 DVNRuTMD09Mqg==
+Date: Tue, 3 Nov 2026 14:15:46 +0000
+From: Daniel Thompson <danielt@kernel.org>
+To: rva333@protonmail.com
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH 2/2] backlight: add ktd3137 support
+Message-ID: <aunskqwg_CbpBL49@aspen.lan>
+References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
+ <20261102-6768-ktd3137-v1-2-b5b4f903c56e@protonmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,39 +62,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it> <20261102-remoteproc_virtio_map-v2-8-26b300e01c62@valla.it>
-In-Reply-To: <20261102-remoteproc_virtio_map-v2-8-26b300e01c62@valla.it>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Tue, 3 Nov 2026 11:15:23 -0300
-X-Gm-Features: AclHuK8cFyqPPDbhURLrOci--cGby4Nti8tUDUPWT8TrjwRXBOSlhnxIc9j5uBc
-Message-ID: <CAMAsx6dogk20pTtpGaD_Ci2fam01UuUEe3KXDTH7UVjwRBRqnw@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 08/11] Documentation: remoteproc: expand virtio
- support section
-To: francesco@valla.it
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
-	linux-remoteproc@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-6768-ktd3137-v1-2-b5b4f903c56e@protonmail.com>
 
-On Sun, Nov 01, 2026 08:28 PM, Francesco Valla <francesco@valla.it> wrote:
+On Mon, Nov 02, 2026 at 09:58:49PM +0200, Roman Vivchar via B4 Relay wrote:
+> From: Roman Vivchar <rva333@protonmail.com>
 >
-Hi Francesco,
+> Add support for the KTD3137 display backlight IC. It's used in various
+> Xiaomi phones, such as Xiaomi Redmi Note 9.
+>
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> ---
+>  MAINTAINERS                       |   1 +
+>  drivers/video/backlight/Kconfig   |  11 ++
+>  drivers/video/backlight/Makefile  |   1 +
+>  drivers/video/backlight/ktd3137.c | 262 ++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 275 insertions(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 24dd5b43f167..23114fd09445 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -14622,6 +14622,7 @@ KTD3137 BACKLIGHT DRIVER
+>  M:	Roman Vivchar <rva333@protonmail.com>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
+> +F:	drivers/video/backlight/ktd3137.c
+>
+>  KTEST
+>  M:	Steven Rostedt <rostedt@goodmis.org>
+> diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+> index 7c66b8840d88..0196b8597367 100644
+> --- a/drivers/video/backlight/Kconfig
+> +++ b/drivers/video/backlight/Kconfig
+> @@ -199,6 +199,17 @@ config BACKLIGHT_KTD2801
+>  	  Say Y to enable the backlight driver for the Kinetic KTD2801 1-wire
+>  	  GPIO-controlled backlight found in Samsung Galaxy Core Prime VE LTE.
+>
+> +config BACKLIGHT_KTD3137
+> +	tristate "Backlight Driver for Kinetic KTD3137"
+> +	depends on I2C
+> +	select REGMAP_I2C
+> +	help
+> +	  Say Y to enable the backlight driver for the Kinetic KTD3137
+> +	  found in various Xiaomi smartphones.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called ktd3137.
+> +
+>  config BACKLIGHT_KTZ8866
+>  	tristate "Backlight Driver for Kinetic KTZ8866"
+>  	depends on I2C
+> diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+> index 34469711c6cd..b2d3b69e9e32 100644
+> --- a/drivers/video/backlight/Makefile
+> +++ b/drivers/video/backlight/Makefile
+> @@ -38,6 +38,7 @@ obj-$(CONFIG_BACKLIGHT_HP700)		+= jornada720_bl.o
+>  obj-$(CONFIG_BACKLIGHT_IPAQ_MICRO)	+= ipaq_micro_bl.o
+>  obj-$(CONFIG_BACKLIGHT_KTD253)		+= ktd253-backlight.o
+>  obj-$(CONFIG_BACKLIGHT_KTD2801)		+= ktd2801-backlight.o
+> +obj-$(CONFIG_BACKLIGHT_KTD3137)		+= ktd3137.o
+>  obj-$(CONFIG_BACKLIGHT_KTZ8866)		+= ktz8866.o
+>  obj-$(CONFIG_BACKLIGHT_LM3509)		+= lm3509_bl.o
+>  obj-$(CONFIG_BACKLIGHT_LM3533)		+= lm3533_bl.o
+> diff --git a/drivers/video/backlight/ktd3137.c b/drivers/video/backlight/ktd3137.c
+> new file mode 100644
+> index 000000000000..a3ff334b8d46
+> --- /dev/null
+> +++ b/drivers/video/backlight/ktd3137.c
+> @@ -0,0 +1,262 @@
+> <snip>
+> +static int ktd3137_init(struct ktd3137 *ktd)
+> +{
+> +	u32 val = KTD3137_CONTROL_DEFAULT | KTD3137_CONTROL_LINEAR;
+> +	int ret;
+> +
+> +	ret = regmap_write(ktd->regmap, KTD3137_REG_CONTROL, val);
 
-I only have a few language nits:
+Nitpicking but val seems a bit pointless here.
 
-> +supplied by the remote processor should be marked as dynamically allocable,
 
-"allocable" -> "allocatable".
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(ktd->regmap, KTD3137_REG_PWM, KTD3137_PWM_DEFAULT);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(ktd->regmap, KTD3137_REG_RAMP_ON, KTD3137_RAMP_DEFAULT);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(ktd->regmap, KTD3137_REG_TRANS_RAMP, 0x00);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
+> +				  KTD3137_MODE_CURRENT_MASK, ktd->led_current);
+> +}
+> <snip>
+> +static int ktd3137_probe(struct i2c_client *client)
+> +{
+> +	struct backlight_device *backlight_dev;
+> +	struct backlight_properties props = { };
+> +	struct ktd3137 *ktd;
+> +	u32 val;
+> +	int ret;
+> +
+> +	ktd = devm_kzalloc(&client->dev, sizeof(*ktd), GFP_KERNEL);
+> +	if (!ktd)
+> +		return -ENOMEM;
+> +
+> +	ktd->dev = &client->dev;
+> +
+> +	ret = devm_regulator_get_enable(ktd->dev, "vin");
+> +	if (ret)
+> +		return dev_err_probe(ktd->dev, ret, "failed to power up\n");
+> +
+> +	ktd->enable_gpio = devm_gpiod_get_optional(ktd->dev, "enable",
+> +						   GPIOD_OUT_HIGH);
+> +	if (IS_ERR(ktd->enable_gpio))
+> +		return dev_err_probe(ktd->dev, PTR_ERR(ktd->enable_gpio),
+> +				     "failed to get enable gpio\n");
+> +
+> +	/* HWEN should stay HIGH for at least 150us before I2C can be used */
+> +	fsleep(150);
+> +
+> +	ktd->regmap = devm_regmap_init_i2c(client, &ktd3137_regmap_config);
+> +	if (IS_ERR(ktd->regmap))
+> +		return dev_err_probe(ktd->dev, PTR_ERR(ktd->regmap),
+> +				     "failed to init regmap\n");
+> +
+> +	ret = regmap_read(ktd->regmap, KTD3137_REG_DEV_ID, &val);
+> +	if (ret)
+> +		return dev_err_probe(ktd->dev, ret, "failed to read chip id\n");
+> +
+> +	if (val != KTD3137_DEV_ID_A && val != KTD3137_DEV_ID_B)
+> +		return dev_err_probe(ktd->dev, -ENODEV,
+> +				     "unsupported chip id: 0x%02x\n", val);
+> +
+> +	ret = ktd3137_parse_dt(ktd);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ktd3137_init(ktd);
+> +	if (ret)
+> +		return dev_err_probe(ktd->dev, ret, "failed to init chip\n");
+> +
+> +	props.type = BACKLIGHT_RAW;
+> +	props.max_brightness = KTD3137_MAX_BRIGHTNESS;
+> +	props.brightness = KTD3137_DEFAULT_BRIGHTNESS;
 
-> +try to allocate it using dma_alloc_coherent(), which will resort to allocate it
+No need for KTD3137_DEFAULT_BRIGHTNESS. Just use KTD3137_MAX_BRIGHTNESS.
 
-"resort to" takes a gerund: "which will resort to allocating it".
 
-> +either from the first ``restricted-dma-pool`` region associated to the virtio
+> +	props.scale = BACKLIGHT_SCALE_LINEAR;
+> +	device_property_read_u32(ktd->dev, "default-brightness", &props.brightness);
+> +
+> +	backlight_dev = devm_backlight_device_register(ktd->dev,
+> +						       "ktd3137-backlight",
+> +						       ktd->dev, ktd,
+> +						       &ktd3137_backlight_ops,
+> +						       &props);
+> +	if (IS_ERR(backlight_dev))
+> +		return dev_err_probe(ktd->dev, PTR_ERR(backlight_dev),
+> +				     "failed to register backlight device\n");
 
-"associated to" -> "associated with". The same wording appears several
-times in the patch (e.g. "associated to the virtio device's parent"), so
-please fix all of them.
+dev_err_cast_probe()
 
-Thanks,
-Daniel
+
+> +
+> +	i2c_set_clientdata(client, backlight_dev);
+> +	return backlight_update_status(backlight_dev);
+> +}
+> +
+> +static void ktd3137_remove(struct i2c_client *client)
+> +{
+> +	struct backlight_device *backlight_dev = i2c_get_clientdata(client);
+> +	struct ktd3137 *ktd = bl_get_data(backlight_dev);
+> +
+> +	backlight_dev->props.brightness = 0;
+> +	backlight_update_status(backlight_dev);
+> +
+> +	gpiod_set_value_cansleep(ktd->enable_gpio, 0);
+
+Is this needed?
+
+> +}
+
+
+Daniel.
