@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701730;
-	b=k5azWFgejNcXGLXOergpOwHKEJLsnMfTpgt5htVRlrOnZrRHzU2m2VctInepmaGBu/5d
-	 myNKUaD1sGju2Y6Wsy5jnjxhNsTr6K9Ufd/JVCEd/YmkKFLrJNTa7pndwj12GEJNVPJxE
-	 MJlWwCzQ/5u/uGzg5zF864tmxSCgNQuCGmsnrVAt1kBzASS41BQFvnqJKtoJWFMWoh5+4
-	 bpfKrnlRsJAQpuAQyvmQhSq4bhXT0yURYUmvAvYjG6MoI9K7uqauIuM/+5h1L4mlbXEx+
-	 IMFzE9y3BebsGDKVN+2HmOsDCTn62fupCyJGa+l38HhEIcAvxwq7Cx7m3WYehbmghfw==
+	t=1793701725;
+	b=hPvBOx2pVaqPOCOVp5bpgGgIW+a0filjPiyK0QBhnuddVYAV1opv2Ta7ryPHdlFNmaQ3
+	 ZFuoPmVhT7k1dZ/CDPe1WSL1MB9y2z8nfXFLIFuvAy85ggT/LASPoiiK696JZqz6th6g4
+	 vvgmk4s9FX3RjEIbh/xcqchl7h2D1S0Rf+mUCCtO7UJZk3SuJ3IePPWkiugJmLq9zEm6E
+	 kJmgOJjSdfGAasDPVMkEpiRO4OlnC5ADwadtC5ZhXsGPxkTvEg3vj4XifJXH42z4I/7Nz
+	 PsX3AibcnKKro8vzGV95O7qAll0ffi9btj0lHMyknZ56lKN4HC0uVsD610Uxc4iFkVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701730;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701725;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=IkVoS4jmvjr31zvtykWxiCv9bdGPQENa/hPZ76jhwso=;
-	b=W4fzD23EYEVtJ5ijkXZUhKS2E8fYdD4uiuis/j1mq5/9dIVsTupH4PGENG+TU3rZaNgD
-	 vYAA9qrYWjWTq8g9pOaNfez8KACDjvKeZrmYFlLKiSOqcaoUAb3b25Nd4Z8rRMR3nELdW
-	 wDqm1qYec1Ds+7KqBNvmv3DgI7YbKhfaILMYegcxCcTivZMz+jMvNCbnkt8ErlEJk4JJZ
-	 nys/xcC2RYDyVe1zkmNY9g9a5G8DHzjxJy5ZyIf8x5oErpj38iMuHdEJNbreTiCS3N/hW
-	 oAwczoZeSgXU/JoT/6+ei+VQPust1QpwTj1vp0VQx2n25BiyHbkt42pSSKRPYCn6zCw==
+	bh=TmwjRRGkhnVnWcZ/zamrvsicPht4ljwppqlZ4OCe+QM=;
+	b=lezAXHEwd9fiAuVHzKZh9lRSXDuH8dg5Y5/3p3I9HAmEM1ohamNfx6QJtJt2Y1scUbES
+	 FgobJ38MOlcnMsaxIX4lvAkGN2L9mmp8ypbx/E/329jd+vGOewVV2C+B4Axl30SIxiC+y
+	 fRX2tRGjhgnMHlc+ndbmCK4wSbp59bt3WULZvjz7I0nGbDk7llhqTmMFJGHTwloLDqZxt
+	 ZBO3vDmmgLbmkENonnbKtNd8NLF6gHMHlyRfwVYMSRHtxQPBXrzryd5fgzrflA2dyhjDG
+	 he0IJqw6argoMH9mlsDJiYb/Ba3AmSq+yiPTqLgT3v4FMLwqKySlAIwUT5PVYN4LMtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,29 +25,24 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6E7607153F;
-	Tue,  3 Nov 2026 10:28:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE6E7607153F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCB7606A828;
+	Tue,  3 Nov 2026 10:28:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BCB7606A828
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAB3hpdat+lqc6k7AA--.6645S2;
-	Tue, 03 Nov 2026 18:28:42 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowABHWJlZt+lqZ6k7AA--.3118S2;
+	Tue, 03 Nov 2026 18:28:41 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Ido Schimmel <idosch@nvidia.com>,
-	Petr Machata <petrm@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] mlxsw: spectrum_ptp: release parsing depth on MTPPPC write failure
-Date: Tue,  3 Nov 2026 10:28:51 +0000
-Message-Id: <20261103102851.1340480-1-vulab@iscas.ac.cn>
+Subject: [PATCH] media: cec: extron: release the v4l2 device on disconnect
+Date: Tue,  3 Nov 2026 10:28:50 +0000
+Message-Id: <20261103102850.1340434-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,79 +54,54 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAB3hpdat+lqc6k7AA--.6645S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFWrCFyfurWrtw45Gry7GFg_yoW8uw4Upa
-	1Yg34YgF9xtr1aga1DXFs5XryYk3yIqay09FyfK3WSyrn5ZFW0vw13WF10yw18KrWxJryx
-	tr1fZFyrAw4DAFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowABHWJlZt+lqZ6k7AA--.3118S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur45uFy3Aw1fCF4kKryrXrb_yoW8GFWkpF
+	Z5Ka4DKryFkrs0gw4kta1kXF15Zrs7XrW8ury3Wa1vkrZ8JF1xGFWvy34qga1UAFWkXF98
+	J3Z8tFWxWFs5CFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcS
-	sGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIAA2rpnOFw7wAAss
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4U
+	JwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUFzVbDU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIByAwAAs2
 
-mlxsw_sp1_ptp_mtpppc_update() increases the global parsing depth
-reference count before writing the MTPPPC register when timestamping
-is enabled for the first time. If the register write fails, the
-reference count remains elevated even though no timestamping
-configuration was installed, and nothing will ever release it.
+extron_connect() registers a v4l2 device, which takes a reference on
+the underlying serio device. extron_disconnect() never unregisters it,
+so the reference is never dropped. The extron structure allocated in
+extron_connect() is not freed either.
 
-Drop the reference count again when the write fails. Also only drop it
-when disabling timestamping after the write succeeded, so that the
-reference count always matches the programmed state.
+Unregister the v4l2 device and free the structure at the end of
+extron_disconnect(), mirroring the error path in extron_connect().
 
-Fixes: c6b36bdd04b5 ("mlxsw: spectrum_ptp: Increase parsing depth when PTP is enabled")
+Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ .../media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c
-index 9c5862f4e16a..0db77af4828f 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c
-@@ -1190,6 +1190,7 @@ static int mlxsw_sp1_ptp_mtpppc_update(struct mlxsw_sp_port *mlxsw_sp_port,
- 	struct mlxsw_sp_port *tmp;
- 	u16 orig_ing_types = 0;
- 	u16 orig_egr_types = 0;
-+	bool depth_inc = false;
- 	int err;
- 	int i;
- 
-@@ -1214,12 +1215,21 @@ static int mlxsw_sp1_ptp_mtpppc_update(struct mlxsw_sp_port *mlxsw_sp_port,
- 			netdev_err(mlxsw_sp_port->dev, "Failed to increase parsing depth");
- 			return err;
- 		}
-+		depth_inc = true;
- 	}
-+
-+	err = mlxsw_sp1_ptp_mtpppc_set(mlxsw_sp_port->mlxsw_sp,
-+				       ing_types, egr_types);
-+	if (err) {
-+		if (depth_inc)
-+			mlxsw_sp_parsing_depth_dec(mlxsw_sp);
-+		return err;
-+	}
-+
- 	if (!(ing_types || egr_types) && (orig_ing_types || orig_egr_types))
- 		mlxsw_sp_parsing_depth_dec(mlxsw_sp);
- 
--	return mlxsw_sp1_ptp_mtpppc_set(mlxsw_sp_port->mlxsw_sp,
--				       ing_types, egr_types);
-+	return 0;
+diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+index 1f8ed7ff31e5..724709606a0b 100644
+--- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
++++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+@@ -1403,6 +1403,8 @@ static void extron_disconnect(struct serio *serio)
+ 	extron->serio = NULL;
+ 	serio_set_drvdata(serio, NULL);
+ 	serio_close(serio);
++	v4l2_device_unregister(&extron->v4l2_dev);
++	kfree(extron);
  }
  
- static bool mlxsw_sp1_ptp_hwtstamp_enabled(struct mlxsw_sp_port *mlxsw_sp_port)
+ static int extron_setup(struct extron *extron)
 -- 
 2.34.1
 
