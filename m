@@ -1,75 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793667752;
-	b=EnJiEzApGhI73n1MNVgwv/kDEGBipF7IIQgOFLWEXUx9FWrF3w6RxeYLXiV8Ko5I9647
-	 51sXLE5Rd5R+PniKX1WgtnV1aW+KARCPW1O9u/V6p+OvYBxAeI0fyEurz4Sl0n7qgZF5O
-	 aPWxoZtB0ptddXMflJJpb+FANM6g1aSPb7aDMRntsykxe/g6puFl+h72Kv7Ddky/iBscP
-	 sOnsfCCg5Pe+dBlhiF6QnSxkX0Jv0zKHWsO10F9AGPhdKgPZ3ujufOcF1ySz1BMfmC5My
-	 0e0m9qlf6NWIAQ5qBoyyB0CFhj/zrdQ14P5yYOuxkgX+EfD4RA1OQCbzNv7b4gFm2ww==
+	t=1793667790;
+	b=PCZ5Qmr03clJadlCtPoIuPoVcn6HOIrwifY3CCNclACbiMQZqyNmVX1DdM1rwNMfI4Nk
+	 IqqOGvTF2JzuslN5XTKq7HcB41nfxu7B6SpX9nAdDgJ3WDKF9/gdmcCnNNa4wo9GuzPAA
+	 3dHFpZ8QV++n0YL/g7DWzIrOI/JsDC2WWXdoRUuhSgpRAp/Wi9B0Biyu3IkgoinLH5oQ4
+	 1DhZCDUJXNgCzW1PLcBLKRUp8WC7Jgw/b5LseTdwY6A/Lg1kSm3NOKfS36KSDipGfEwVx
+	 hh1x+jdJxFWIrWiup5ROMG4vJrk/3EWU4JPy9ZmtRcZk9H6M4D7kQBOchF0NexSoV5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667790;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=f7jy8MubX3hGHk5TxpJrbkUXvzo9K2tHVQ0bkJ4pbKo=;
-	b=roZ4QV1qRuW0hnJOfk5RZxBpSK1kIsJhVT9ZirWdrlAMpRm8CLCotdm+3Bmc5bOZa3MP
-	 FTXMglGfZknw5/egsxYanBkrbhMirsYSfxZUdNsDm5lf8GNNvp33WaQAg29JVhi6bBSLs
-	 V3I5JoVowFgTtI/Wdgdbeve+7a1rez7H6zQdfX2/61sDBUMwfS4DLWnKt4QDKsltA8AK6
-	 yMJ+0ioqee+nOPlgrQOZKyYXfeM+jJ539mfq52FvCzxlFwQXTrHwnAfG7oHPVhkOXlHJZ
-	 qOjy8KaSrzovv8+oM+CYL0fLVF07N/sTPkcPp8aKgSE/ZiMTyoryc9AxVZCuLA6ee6w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=n0CzGjJGWSs7TyNtwS3AbENhTdJBxVqswg2+oAuEStg=;
+	b=EuV0E21BGrlrXcqLO597AmE0dwi9kHM+HS6mQjJqaRy2/clVc25H1+pbvuKXxBkUDwOF
+	 taPby4qg8vxRUZHRdb+FtJSmeAGlT3bUkik//hIDK/Ev8BeTqn7QVzooHiKyf/3DjW6Z4
+	 7lunli8kngUG6EC1noMUs5Z+2B/xn9tCcG3O+SgodNmXtf+d5LvwvPvbPCg9kZ4ooQX0O
+	 BvxEbqTCJmF2ttP6UIRSBr7GUoBTuF7ciov5ol8umbFvjbgPtd/BERsAJEC7UWP23ENMH
+	 cboEvtk3/8pZfYMP/0mXlkTfbqIlO5oNRMDndbCsgPMA3hZEELni/KiaMmKj2XlYGBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hngUx31M;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PZo97RUj;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BF9606D80D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:02:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56BF9606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F45606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:03:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12F45606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hngUx31M
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d5dbso2758106a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:02:32 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PZo97RUj
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36661f953e4so5635555eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:03:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793667752; x=1794272552; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f7jy8MubX3hGHk5TxpJrbkUXvzo9K2tHVQ0bkJ4pbKo=;
-        b=hngUx31MflnZWG7IyMGVRzuWU0A7FfM9DejatCTmV6uiL81fWjUwvZ1MAA8yS2bLgT
-         uq4h4R4m0HD8kcyS+mY0i/p1ZI1FrcFhA01NEsbVycExy6547FQCFVIxwJgeHKIcc+4R
-         slPkFYje0Cm0HEiNgT65zkUxulV86b9nrYnbL12Tdwf8Qiaqcsw/7mC1CBKRtsuNXmPv
-         I8WUVVCfzUutkT/0trki02vtL+u4OhrFQ0cyr9ORaCOoCLJZP8e4TW+1ULSXi5dPL/ic
-         6VEuX6zOUHUNhs/hLC0kEr7mVE1Ymo/MFNOx9siq0Qnuu+T2soCnj0j9JsjJleYXfJ3j
-         VE4Q==
+        d=chromium.org; s=google; t=1793667789; x=1794272589; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n0CzGjJGWSs7TyNtwS3AbENhTdJBxVqswg2+oAuEStg=;
+        b=PZo97RUjBjCMGZdvOa/HlTaLdNMNMxCOmFfPzjpcfg4YAk+Pn5mss95hBnF+dRw3+h
+         oRd7a5+1Te8c97EL5HNv0Ah5VXVhmUDmX6ZtLg2HdyLYOpwH2VgoB+6vPt3zSKmvJbPx
+         7Hn3H72Ihqi5nOcPcl14MwwHvTzddE+Zs16Xc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793667752; x=1794272552;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f7jy8MubX3hGHk5TxpJrbkUXvzo9K2tHVQ0bkJ4pbKo=;
-        b=wO/Iai8nZhf9qHMEyCzrfZrN/YIB6ZF//k2yYJ1apRw+ub2T3Zl5fxoO3Es830bxO6
-         vC6FhDSFPWGdzqfOZMbjgZMR5CmfTZ9XMLEarAbtZTQHIpvW3KtORNPp+iBNVjqq+ZfG
-         f4BOnl7fatWjeafIDOozcQjL6vQgZcXg/wF8+tGVGdMSZHU/NaKDiA5B03Y0r4YhWLDG
-         LH2G4jvwUG5A3y/9J9nC4PW+nBA9IpqxN2ZUHFLFHwkQEZ4PSDO9HSQpmChEo5Isw2qo
-         Cu7AiksFPShc9XxaAia+MLhXsvnhe3HQxI84erLH3m13CF1BkhEeDRImEy+IYxGrivJj
-         dS5w==
-X-Forwarded-Encrypted: i=1; AKwUvBxMsqOiOpewX4glUu5L7/Qq/GpB4ejzxW+kYMOulXoY4moWjFqF826DYHwZFEodFqxN9i97VV9o3Z5vIRw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ijh9rOydGAiahF4kLG4YF3GbjKFOBOwIl9Y4j4KnvtafC0Btu
-	98jCrC96ZSUF9KzYrG3zXTmmhLGfSbaH7XLFxkMCQ+1ARv731JF3EeMVSArSX30QZMgIn87xhnO
-	KRsxGRqoo10AFgA==
-X-Received: from pjqg15.prod.google.com ([2002:a17:90a:a80f:b0:3aa:f38e:cb2d])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:1a8b:b0:3ac:9e76:aa76 with SMTP id 98e67ed59e1d1-3ae8970fd9dmr9928947a91.13.1793667751455;
- Mon, 02 Nov 2026 17:02:31 -0800 (PST)
-Date: Tue,  3 Nov 2026 01:02:14 +0000
-In-Reply-To: <20261103010216.3447716-1-dmatlack@google.com>
+        d=1e100.net; s=20260707; t=1793667789; x=1794272589;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n0CzGjJGWSs7TyNtwS3AbENhTdJBxVqswg2+oAuEStg=;
+        b=h7LEzYFtiPzO3CtF3LJsg36JBIfAArRSILzyf5e8lAIRBqOAl+oZkO4Gjt8ZVIUTlJ
+         bVA21+9COrJhn3OsbTFs43fkMcvtLMOI8CtGumzHzMFxokRingj7Tf/18fsPlCqwjLMK
+         JrQS1kEA0V2MTQ98V0FiTFtqQkI7MSbBmc8x1FzRQkWSlJpQfuuT6xFEDtGBbysrR6MT
+         ZC5OsQ0l29j1v8/UqXvvWuS5K/qZtfX6SkD8eeR8rKFuw+6ojEaaKrpG4pZc342BscK9
+         OYHy7WolJCkJIgeraDiijNbU6TnMzhcBaGSLmXXTbOUIInybSe7tRkvRG2TavLqtCp2f
+         WIbw==
+X-Forwarded-Encrypted: i=1; AKwUvBytgYyjAXEta5x4qSK/TZ2/+DfpYTubFg0RFETZmEQxRfUz97xgkiJke3Zn9uKfGHBmChm7Y4RAtAfzzgc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jIVblwhJ9viP2yEdwtZbP59g04XE3trAWVAXNBC5jKcu/YwsM
+	fpL6zScyPeI8NANbnpUr+yUogROLGLDHHCPP2J9PvihN7dFpwSD15CZEJiicujkn9Q==
+X-Gm-Gg: AYBFou26vOYfm5e1xPzUp2HAWfDieMYXELHTUjKzAVWaoSxbr6DIWehevMBhR914JQ0
+	6nx+XxvAK7bGmFKW5i8dpjOn8IINdgKaHldIrcJMHH5FmmAGfNZkXimJ5VDnq36+xzcSFAIdk6e
+	k8ZsmHsER7sbHDDUWznvlSqe6SouHBM2PlPyMKeHOZpI8LHVP7rN2Pfmcqjxid1lJ1Y2n+brdXi
+	DhsotU8qZ1WVQhjm/xT44/NiZn1aTvslIcY97fHKrrI6j59hjv4UTx3CxF6A59cXghi/lmFJJ2E
+	gk9DLf5OY5Ru/fHXReuOWC70rn0eo+ik2LbEmXi+fFn0RmkdERF0VRptzMmPvkeORUVqE0Bq0a3
+	1MA3Wzv2OHA/dRWUM9L/yv16+Xn4HlCmIcXZ2apCIdwlzD7EZiN4QePG0N6Cr4YkB4v0AIEiKS+
+	cpQUXCDflE9qfUj//3lsjzJi4CgBXz6fqjSU1IszO2/SMoW0JE8O0mTOW+64nUR55wwABBnOTAk
+	Nxa6spMh2N2G+TKg81cwf7Z+6brkLnHpS9ELzPJlXqa43rQwhPI5nSp+uHAzho2IxShfcP3MFye
+	5sXDwUZTkKUY5w+kkLk26E4zlAuz4Bx/Em7zKVXU/NtoySIx4l0AZKQh2ZDfM9nB+J0=
+X-Received: by 2002:a05:693c:60dc:b0:36a:7c69:3f83 with SMTP id 5a478bee46e88-36a7c694623mr1481055eec.3.1793667788944;
+        Mon, 02 Nov 2026 17:03:08 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:c57d:c93d:3543:aab5])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-36a429000f8sm41756066eec.13.2026.11.02.17.03.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 17:03:07 -0800 (PST)
+Date: Mon, 2 Nov 2026 17:03:05 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 6/9] reset: google: Add CPM reset driver
+Message-ID: <aukyyYhDCBUdIH16@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.6.I0b1ad34a718a9b5f667d2481041970ea45989dd3@changeid>
+ <8d57f0a1dc8a07838bf1320f9b79588196264ff5.camel@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,178 +107,160 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261103010216.3447716-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103010216.3447716-9-dmatlack@google.com>
-Subject: [PATCH v3 08/10] mm/shmem_luo: Allow preserving tmpfs files that are
- still linked
-From: David Matlack <dmatlack@google.com>
-To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org
-Cc: Alexander Graf <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Christian Brauner <brauner@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	David Matlack <dmatlack@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8d57f0a1dc8a07838bf1320f9b79588196264ff5.camel@pengutronix.de>
 
-Allow preserving tmpfs files that are still linked. To preserve any
-file, require permission to write to it and the file to be opened for
-reading, and reject append-only files.
+Hi Philipp,
 
-shmem_luo already accepts any shmem file without links, which includes
-unlinked tmpfs files and files created with O_TMPFILE. Accepting linked
-files means that userspace doesn't have to unlink files to preserve them
-and can keep using them by path until the live update.
+On Wed, Oct 28, 2026 at 03:03:24PM +0100, Philipp Zabel wrote:
+> On Mo, 2026-10-26 at 14:43 -0700, Brian Norris wrote:
 
-The path of the file isn't preserved. Like other files from tmpfs
-mounts, a linked file is retrieved onto a tmpfs mount chosen by
-userspace, which can then link it at the path it wants.
+> > --- /dev/null
+> > +++ b/drivers/reset/google/reset-cpm.c
+> > @@ -0,0 +1,367 @@
 
-While a file is preserved, its size is frozen, so truncating it,
-fallocate() and writes past its end fail with -EPERM. For a linked file,
-this affects everyone who opens the file by its path, so a caller that
-can only read the file, e.g. a world-readable file in /dev/shm, could
-use it to break the owner of the file. So require permission to write to
-the file to preserve it, for all files. Like FS_IOC_ENABLE_VERITY, don't
-require a file opened for writing, so that binaries that are being
-executed can still be preserved through read-only fds. Also don't
-require a writable mount, since preserving a file doesn't write to the
-filesystem. If the size of the file can't change anyway, because it is
-immutable or on a read-only superblock, also let its owner preserve it.
-Don't let others do that, since the size could change again once the
-file is made writable. Like FS_IOC_ENABLE_VERITY, reject append-only
-files, since their writers can only append to them, and freezing their
-size would stop all appends.
 
-Also like FS_IOC_ENABLE_VERITY, require the file to be opened for
-reading. The retrieved file can be read, so otherwise a caller that can
-only write to a file could preserve it to read its contents.
+> > +static int goog_cpm_rst_mba_check_ret(struct device *dev, int ret)
+> > +{
+> > +	switch (ret) {
+> > +	case NO_ERROR:
+> > +		return 0;
+> > +	case ERR_LPCM_NOT_SUPPORTED:
+> > +		dev_err(dev, "the received request_id is invalid\n");
+> > +		return -EPROTO;
+> 
+> -EOPNOTSUPP?
+> 
+> > +	case ERR_LPCM_INVALID_ARGS:
+> > +		dev_err(dev, "invalid lpcm_id or rst_id\n");
+> > +		return -EINVAL;
+> > +	case ERR_LPCM_TIMED_OUT:
+> > +		dev_err(dev, "operation timed out\n");
+> > +		return -ETIMEDOUT;
+> > +	case ERR_LPCM_GENERIC:
+> > +		dev_err(dev, "internal error occurred\n");
+> > +		return -EREMOTEIO;
+> > +	default:
+> > +		dev_err(dev, "unknown error response from CPM\n");
+> > +		return -EPROTO;
+> > +	}
+> > +}
+> 
+> Is this specific to reset functionality, or should this maybe live in
+> CPM common code? I see that the return values in the power-domain
+> driver are not translated, but the clock driver contains a near-
+> identical copy of this function. Or maybe just printing the translated
+> error with "%pe" is good enough?
 
-Preserving a file also fills its holes, but don't require any permission
-for that. Anyone who can read a tmpfs file can already fill its holes by
-faulting them in through a read-only mapping, also on read-only mounts
-and for immutable files.
+Good question. Looking into the CPM firmware, it seems like these error
+codes are more or less standardized (they're a common definition from
+the Little Kernel project (https://github.com/littlekernel/lk)), so it's
+probably fair to do the translations in a common helper on the Linux
+side.
 
-Document the frozen size and the permission requirements.
+The strings are also probably unimportant, so %pe printing or similar
+seems fair.
 
-Signed-off-by: David Matlack <dmatlack@google.com>
+Regarding power-domain: it seems that the *use* of these "standardized"
+error codes is somewhat haphazard. The LPB services within the CPM
+firmware put error codes into different parts of the response payload,
+and use a different style of error code. So indeed, the power-domain
+driver cannot use the same helper.
+
+All in all, even scouring any additional services we have in
+not-yet-included-here CPM service drivers ... I only see clock and reset
+drivers using these. So the "commonality" is actually quite limited.
+
+Anyway, I'll see about a common helper, even if it's just for these two
+drivers.
+
+> > +	return goog_cpm_rst_send_mba_mail(provider, lpcm_id, rst_id, DEASSERT_OP_ID);
+> > +}
+> > +
+> > +static const struct reset_control_ops goog_cpm_rst_ops = {
+> > +	.assert = goog_cpm_rst_assert,
+> > +	.deassert = goog_cpm_rst_deassert,
+> > +};
+> > +
+> > +static int goog_cpm_rst_debugfs_assert_set(void *data, u64 rst_id)
+> > +{
+> > +	struct goog_cpm_rst_debugfs_entry *entry = data;
+> > +	unsigned long idx = to_rstc_idx(entry->lpcm_id, rst_id);
+> > +
+> > +	return goog_cpm_rst_assert(&entry->provider->rcdev, idx);
+> 
+> Calling into reset_control_ops like this bypasses all reference
+> counting in the core and breaks reset controller API promises.
+
+Yeah, sorry, I meant to take another pass at whether I should drop this
+entirely, or at least try to explain it better when including it. I
+clearly did not do that. More below.
+
+> > +}
+> > +
+> > +static int goog_cpm_rst_debugfs_deassert_set(void *data, u64 rst_id)
+> > +{
+> > +	struct goog_cpm_rst_debugfs_entry *entry = data;
+> > +	unsigned long idx = to_rstc_idx(entry->lpcm_id, rst_id);
+> > +
+> > +	return goog_cpm_rst_deassert(&entry->provider->rcdev, idx);
+> > +}
+> > +
+> > +DEFINE_DEBUGFS_ATTRIBUTE(goog_cpm_rst_assert_debugfs_fops, NULL,
+> > +			 goog_cpm_rst_debugfs_assert_set, "%llu\n");
+> > +
+> > +DEFINE_DEBUGFS_ATTRIBUTE(goog_cpm_rst_deassert_debugfs_fops, NULL,
+> > +			 goog_cpm_rst_debugfs_deassert_set, "%llu\n");
+> > +
+> > +static void goog_cpm_rst_add_debugfs(struct goog_cpm_rst_debugfs_entry *entry,
+> > +				     struct dentry *debugfs_root,
+> > +				     const char *name)
+> > +{
+> > +	struct dentry *d = debugfs_create_dir(name, debugfs_root);
+> > +
+> > +	debugfs_create_file("assert", 0220, d, entry,
+> > +			    &goog_cpm_rst_assert_debugfs_fops);
+> > +	debugfs_create_file("deassert", 0220, d, entry,
+> > +			    &goog_cpm_rst_deassert_debugfs_fops);
+> > +}
+> 
+> Please drop the debugfs functionality or explain what it is needed for.
+
+Ack. I think I'll probably go with "drop", but some notes:
+
+There's no real way to test and validate a "reset" driver without a
+consumer. There is no direct (even for debug) interface into the reset
+API, unlike in some other subsystems (e.g., GPIO). I believe the main
+purpose here on Pixel drivers has been hardware+driver testing, so one
+can test reset functionality before hooking it up to real client
+drivers, and without adding fake drivers or extra debug code (a la
+"printf debugging").
+
+(One might observe these results either via /dev/mem-like access to
+registers, or even through external debug peripherals/consoles that can
+monitor the status of the underlying component that is being reset.)
+
+This all would generally be in an early hardware bringup scenario, so
+admittedly it probably doesn't have as much of a use case in the
+upstream kernel  -- it's a long shot for this kind of hardware/product
+development to *actually* work directly on an upstream kernel, with
+upstream drivers.
+
+...but if I were imagining a better way to do this without bypassing
+reference counting: perhaps it could be useful to a have a
+debug-oriented "reset client" driver, that could bind to arbitrary reset
+devices, if they're not already owned, and expose a sysfs or debugfs
+interface like this? That could fill similar use cases for this sort of
+hardware testing/validation area.
+
+But anyway, I understand such a proposal should definitely come
+separately from this driver submission.
+
 ---
- mm/shmem_luo.c | 67 +++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 64 insertions(+), 3 deletions(-)
 
-diff --git a/mm/shmem_luo.c b/mm/shmem_luo.c
-index ecbeb37d33a8..0c012f242fc5 100644
---- a/mm/shmem_luo.c
-+++ b/mm/shmem_luo.c
-@@ -28,6 +28,24 @@
-  * the file are preserved. All others are reset to default. The preserved
-  * properties are described below.
-  *
-+ * A tmpfs file can be preserved even if it is linked, but its path is not
-+ * preserved. Userspace chooses where to put the file when retrieving it, as
-+ * described in "Retrieving Tmpfs Files" below.
-+ *
-+ * Preserving a file requires it to be opened for reading, since the retrieved
-+ * file can be read. It also requires permission to write to the file, since
-+ * preserving it affects all of its users, as described below. But the file
-+ * doesn't need to be opened for writing. For example, a binary that is being
-+ * executed can be preserved through a read-only file descriptor. The owner of
-+ * a file whose size can't change anyway, because it is immutable or on a
-+ * read-only superblock, may also preserve it. The file can be preserved
-+ * through a read-only mount. Append-only files can't be preserved.
-+ *
-+ * While a file is preserved, its size can't change and no holes can be punched
-+ * into it. Truncating the file, ``fallocate()`` and writes past the end of the
-+ * file fail with ``-EPERM``. This applies to all users of the file, including
-+ * users that open it by its path.
-+ *
-  * .. note::
-  *    The LUO API is not stabilized yet, so the preserved properties of a memfd
-  *    or tmpfs file are also not stable and are subject to backwards
-@@ -298,6 +316,45 @@ static void shmem_luo_unpreserve_folios(struct kho_vmalloc *kho_vmalloc,
- 	vfree(folios_ser);
- }
- 
-+/*
-+ * Check whether the caller may preserve @file. The retrieved file can be read,
-+ * so require @file to be opened for reading, like FS_IOC_ENABLE_VERITY does.
-+ *
-+ * Preserving the file freezes its size until it is unpreserved, for all users
-+ * of the file, so require permission to write to the file. Like
-+ * FS_IOC_ENABLE_VERITY, don't require a file opened for writing, so that e.g.
-+ * a binary that is being executed can be preserved. Also don't require a
-+ * writable mount, since preserving the file doesn't write to the filesystem.
-+ * If the size of the file can't change anyway, because it is on a read-only
-+ * superblock or immutable, its owner may also preserve it. The size could only
-+ * change again after the file is made writable, which is up to the owner or
-+ * root. Reject append-only files: Their writers can only append to them, and
-+ * freezing the size would stop all appends.
-+ *
-+ * Preserving the file also fills its holes, but that doesn't need any more
-+ * permission: Anyone who can read the file can fill its holes by faulting
-+ * them in through a read-only mapping.
-+ */
-+static int shmem_luo_may_preserve(struct file *file)
-+{
-+	struct mnt_idmap *idmap = file_mnt_idmap(file);
-+	struct inode *inode = file_inode(file);
-+	int err;
-+
-+	if (!(file->f_mode & FMODE_READ))
-+		return -EBADF;
-+
-+	if (IS_APPEND(inode))
-+		return -EPERM;
-+
-+	err = inode_permission(idmap, inode, MAY_WRITE);
-+	if (err && (sb_rdonly(inode->i_sb) || IS_IMMUTABLE(inode)) &&
-+	    inode_owner_or_capable(idmap, inode))
-+		return 0;
-+
-+	return err;
-+}
-+
- static int shmem_luo_preserve(struct liveupdate_file_op_args *args)
- {
- 	struct inode *inode = file_inode(args->file);
-@@ -307,6 +364,11 @@ static int shmem_luo_preserve(struct liveupdate_file_op_args *args)
- 	int err = 0, seals;
- 
- 	inode_lock(inode);
-+
-+	err = shmem_luo_may_preserve(args->file);
-+	if (err)
-+		goto err_unlock_inode;
-+
- 	shmem_freeze(inode, true);
- 
- 	/* Allocate the main serialization structure in preserved memory */
-@@ -362,6 +424,7 @@ static int shmem_luo_preserve(struct liveupdate_file_op_args *args)
- 	kho_unpreserve_free(ser);
- err_unlock:
- 	shmem_freeze(inode, false);
-+err_unlock_inode:
- 	inode_unlock(inode);
- 	return err;
- }
-@@ -710,9 +773,7 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
- static bool shmem_luo_can_preserve(struct liveupdate_file_handler *handler,
- 				   struct file *file)
- {
--	struct inode *inode = file_inode(file);
--
--	return shmem_file(file) && !inode->i_nlink;
-+	return shmem_file(file);
- }
- 
- static unsigned long shmem_luo_get_id(struct file *file)
--- 
-2.56.0.385.gac671c819a-goog
+Thanks for the review. I'll try to integrate the rest of the feedback in
+v2.
 
+Brian
