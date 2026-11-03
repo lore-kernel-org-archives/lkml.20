@@ -1,84 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714432;
-	b=4mP7b7vkWGXfa1P89L+HnwyBqYQuqSzLXezgF3vM1V2UiNDabb2RZblDsWyjJXbVS19o
-	 DFUacEJmyiYQpq8BeskoJAI0AhMFWnI8RPEOmY4JHu47xeJ3bjv85CmnyCf6xqpAhvU7/
-	 Z3FqKB4sTAX/wGm/oNhe+wYRUCgOswowrvLI1bnySe+EfK7Ad83ZT2FH/JmXRoOZvQEft
-	 9r9JrS/VReuW37nuDhaFVRTYPsD84+B4MWO4TQJ1uchRMwSJvZzCVJhsJIjcH0xhtQmX4
-	 o1cAuI85KNJLLH+JsWJ2rIWRYr3i+bdCmKJASxKNYKwHo/et0cPB0fLGYFaN8lXYiTg==
+	t=1793714482;
+	b=IfhwPyu1Pf+zXroVJz4hs7DDvVDCDKgNaniZ3t91SGbLvWk1lUr5W+NKTv6wPU4rj+OF
+	 uDsBtqDMjf5t51f5NAsQDuorebm2kmad0yvENys/KoKcm7y9b/bZvMj0th4giBlCurr+W
+	 ljDhsP4rUQeYIH0WMebAt2RRM4FPCv6qjxPS35lO35wuHRfaXZBF6ttyzwCbr0WmV5PR9
+	 iRvWn0d3Ptkdpy5j62f64e+e6swRdhlVmysGwyIue0lpgJDjVtfeM50qFDndPLiA3x9iV
+	 vB/m97P8jaSx0i6bLpFrOiEHqMnzqZDPH0YGJtggsmwRpbrql4uhh6YQ7cXbtftLy/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714432;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
-	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:Date:Message-ID:X-Scanned-By;
-	bh=sghhx7hUgnWBtJrOXqnImo4AESAyEK6ZOxakSdQV9Hk=;
-	b=RWmmzz6hG/W5C+X9IIbDE3P5ihLiUNZvyrQyW03lFCqU2NM0aKqdaw8oD7lIWSFtF38X
-	 tiGmid01X3JwoDqQese/9kyga/Ls7vmaWXqpjoBE8dzYssomcwRsoRxGdV6w4mDecsqtJ
-	 aUiUBU5XeWhNzG5KTCWydx/IvdEgwAAXQpqxoVwwuRHCtY9aclM3v/e/w8uaCkNvA9oY3
-	 7YdNAUdtIxpbf5aS/Ur8ur9vjpaVrWOoulWjv4D7hS3j8aUJnUImYPMA/YlDM3lPXPqrw
-	 1CGkL7c89FClS0yDWoGGrXxMU/yvdlBYN4Qdo7oYuyoLp+B4FTkFBIMUPUvO4uCSHjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714482;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=EZsHlnUndDVe+vKUSGCoj7IkGFEvWSmKL3jbpdQBZvA=;
+	b=pDJje67buZMEnfyCL+DcIsU0jum5lXHStN18QETtUKr+iYW8lPAmQkLDUb7iJRzhy7z5
+	 tLR/W7Ph6wkpUnm74/23Xn9GChN9rHFVuGsoB0kBfcH1IupFF3y0S9YWe4TDyBaSW1ehh
+	 oHWsnQMf7bZ7ct3q7Kg3BuX5dXoICSPXt8lcaHDE43JdM3Yk/EsC7NmJV1sj4fJmsnpcS
+	 A4lJi4wAXJCKiAat36CZZ4juMWIaDkHtpku7kWVIqLkvco8sf54Qp6+/yLS/fEyJ4wwfG
+	 5mDJ+T5bjwyomVrnOkVzmgM2YxX+0Atn3ZNVyGNIwIfGaz/SA6r8a5JzmllUgLqPbig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VJZNdVaL;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CFd6xJ2N;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6C7606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:00:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A6C7606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDAC606D820
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:01:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCDAC606D820
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VJZNdVaL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793714430;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sghhx7hUgnWBtJrOXqnImo4AESAyEK6ZOxakSdQV9Hk=;
-	b=VJZNdVaLRo9Voz8/iChKiMQbmSyzhx4wgmZncYdM5EDxrZcD0iw8H8fcRoiwaiTMfjlHqF
-	1AWavom1LYXOz3H9pmeucbgL3Vd5jueDXNuHhgePCtH7bUEr8Ltj4ms/cNcUdnjdn6hJjP
-	3qMSywhNrp5zsRYTqvcFONbA2pG1PvU=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-160-rJvXjCVzOPOFfXzcTVxD9w-1; Tue,
- 03 Nov 2026 09:00:28 -0500
-X-MC-Unique: rJvXjCVzOPOFfXzcTVxD9w-1
-X-Mimecast-MFC-AGG-ID: rJvXjCVzOPOFfXzcTVxD9w_1793714424
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E98C018007F1;
-	Tue,  3 Nov 2026 14:00:23 +0000 (UTC)
-Received: from dhowells-thinkpadp1gen8.rmtgb.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 931947EB;
-	Tue,  3 Nov 2026 14:00:20 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <aunNj35KmcAC4ByH@kernel.org>
-References: <aunNj35KmcAC4ByH@kernel.org> <20261103030226.2685251-1-jarkko@kernel.org> <641294.1793700187@dhowells-thinkpadp1gen8.rmtgb.csb>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: dhowells@redhat.com, Eric Biggers <ebiggers@kernel.org>,
-    linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>,
-    keyrings@vger.kernel.org, Roberto Sassu <roberto.sassu@huawei.com>,
-    Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-    Eric Snowberg <eric.snowberg@oracle.com>,
-    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-    "Serge E. Hallyn" <serge@hallyn.com>,
-    "open
- list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-    open list <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH v2 00/11] KEYS: Sanitize the garbage collector
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CFd6xJ2N
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso2801574a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:01:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793714481; x=1794319281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EZsHlnUndDVe+vKUSGCoj7IkGFEvWSmKL3jbpdQBZvA=;
+        b=CFd6xJ2NR5NhWmjfGK7vIJkFLy42NWFiWTDek1h0AKcALQcvfPM0A4EOdQEKqEnjqo
+         5BHunepR9ulXEW0BkmvmyZSCfTrniLb2KGRRjc4qhZmMzL8DyIKbPYqdz1aYDD7qvRI/
+         VVRLP0eLlRgV5DvluMeUecum10aEus6gS8SzC5OC5f5Qw73VL9/pny3ns2nxvw1H7vR1
+         8KUZg5QlShHRnbKbTpcO4LTiBt+6WRYdTQHXlns9DeCtCmSExnKjj9dmhxbyHkREi8sY
+         wYTO3HnVZQLVwVmBLjIi2XdgHWbzUqeVMU2xLfVypz/HbYLd7ctB2aVuX+8Ua0HnP1jr
+         FOFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793714481; x=1794319281;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EZsHlnUndDVe+vKUSGCoj7IkGFEvWSmKL3jbpdQBZvA=;
+        b=d92TArWqx9mT4twJ1Z+PH5x5MsuTL9aYxoOzDcojbEyIfFgErGQpjCGVNCFajmWRiW
+         qDFMqoi5wtfgCV8ExJVDAI33IIN4K0ww84wr51Zd3SZ6/I0I3siMwaK9nPCq7lDoufNq
+         tNamK7sRxC/NElvWVj7/+T8AaX8WZ8giPHOKGAchq8rSR4of8wE5FuFHpTCq6a/wtUxB
+         0idOqDK3g237O1iQ22vl61JUQw1CLADaFif4N7V/+SuMLBMpHws/5NbXZeeFNvplZeai
+         d72m5gMg6LDu2Umro6vepGuST+4Pp/uIQKIE5xAK7cd2WHuGVE8SlsnL2CYFwfy+cOBj
+         mRyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwixPsfA1dMT/0qGGQndHEmahSRDJJxovN1JwmS2XYOyKmgLo1fy07Ko76EgCgffW4uMwpxGKUQOi2NDV4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FwtwtsXHUfuY/FLPa1vb/kLI610vVZsm2EDi/w/pLiwkLTO0a
+	AL/2T2/qu17OZLmc9ho7Dd5Ou27DmVNEoKBqGqBJtgqFALRIFGYbGRx1
+X-Gm-Gg: AYBFou2cj9GfdLjz1ZL+qnIcoeKdcGLSnJPmViel7ZLKkKsWXtjbEKJ5j/mXRUx6d4x
+	mFZIx5Efcxf1jIeGx6CPVgLVPdk+OR1PSCdpYAxCRwLG6Xn5isioSiW4xaLyQTovLNmTmv0d6BH
+	Q3vpI0mBKiF8L0rldunwcYnIKCBTzVQ20V50/4mun6ne9TI5mmsOLEQvO3ivrAsxtcaI/DgSM4F
+	OimBmT5qfjWpdi7+EHRfB0mBdlQBB8sp0BgyINjJszaMd9BQMZjmyUb+Z+lpibGtx0XGRM4wkLk
+	tSqAkXr3qJVIGJ9khhbj9+Z7Y+PDnO84n5rIc//Hki4sn6qRLxhcQgqX/rkcLDJJT27Al8z/qId
+	YoFkqvXBkuEHWTTdFKHthqd9RGmPyCTziuvE5hVYGBPaWqM63SUP5FounDWnsiybuH1ODeXCpVF
+	JeVWlt2+e9ApCsBCkdoKXxvBEuAkx0SsAtZ7wjJ2+92dgvMr6b78kRY1Miq0VXvLEPFbOAifN56
+	PEWZhM9trmaWfEF+GIoYxkWuNh8gUYIJwFDn5ZUu+iVzgKu5W5FZSfk4z+b0HIefxu4KAGGpHM4
+	bqzn516rw0QvCbFDtEsKdo7dJGV1L/DvygqGXKDVNW4qz06Kghl+5ywwa2gzyktJ0wk2E08mmw=
+	=
+X-Received: by 2002:a17:90a:d998:b0:3ae:a59d:4e2a with SMTP id 98e67ed59e1d1-3aea59d4efemr5555004a91.47.1793714481065;
+        Tue, 03 Nov 2026 06:01:21 -0800 (PST)
+Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c8460acsm4722104a91.7.2026.11.03.06.01.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 06:01:20 -0800 (PST)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3 0/3] net: dsa: motorcomm: Add BR_FLOOD and BR_MCAST_FLOOD support
+Date: Tue,  3 Nov 2026 22:01:04 +0800
+Message-ID: <20261103140109.874443-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,22 +101,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <669210.1793714419.1@dhowells-thinkpadp1gen8.rmtgb.csb>
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 14:00:19 +0000
-Message-ID: <669211.1793714419@dhowells-thinkpadp1gen8.rmtgb.csb>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: 8bit
 
-Jarkko Sakkinen <jarkko@kernel.org> wrote:
+Offload BR_FLOOD / BR_MCAST_FLOOD to the hardware for bridges when
+feasible.
 
-> > Please don't do that.  That will cause the AF_RXRPC module to get pinn=
-ed in
-> > place by outstanding connections that haven't timed out yet.
+v3:
+  - refactor port isolation and filter action for standalone ports
+  - recompute flags when a port leaves bridge
+  - honor BR_HAIRPIN
+v2: https://lore.kernel.org/r/20261011030228.2761810-1-mmyangfl@gmail.com
+  - fix build error
+v1: https://lore.kernel.org/r/20261009005542.72860-1-mmyangfl@gmail.com
 
-Actually, it can be done if the rxrpc and rxrpc_s key types are moved out =
-into
-their own module upon which rxrpc.ko depends.
+David Yang (3):
+  net: dsa: motorcomm: Isolate all ports during chip setup
+  net: dsa: motorcomm: Rely on port isolation for CPU port
+  net: dsa: motorcomm: Add BR_FLOOD and BR_MCAST_FLOOD support
 
-David
+ drivers/net/dsa/motorcomm/chip.c | 233 +++++++++++++++++++++----------
+ drivers/net/dsa/motorcomm/chip.h |   4 +
+ 2 files changed, 164 insertions(+), 73 deletions(-)
+
+-- 
+2.53.0
 
