@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680375;
-	b=HpLYXtVJHoKsecL76TFenE7hYAccGHBiQNj1hzKKudtnyv1E6Gu2im8n+mWFo/lV7e5P
-	 0Aayt2jomE56QDWhZU8xLVRHF4Ju/sFmlGlYt4r4jaJ/voST5LrbjtBtT0mdA67LXUrxs
-	 nL2VeRrodN6S/YXl2qGuJdAEI1ZxVLXEBYl4rD5iT4upANZUxPQ/KPW9bPHc8oQNNY4aO
-	 VfQ4mGKJO4O7L7upOm4KxvPguJ+aVdQdO61RKTRLGo6pM8rTOL76jHSxH5daS7GNnOE69
-	 bfA+hFBJSh+p5Qs1rCYPGzfngqIm3oPOk/cF1HDyd7XqJXze2WAOV07uFUX6B4oCQgw==
+	t=1793680439;
+	b=M9tlcT923ThST0/8/9ES7bFeFO6cduCkTLXEi74vYL0nNoGqxcQabHb/PK+uXy/hMAsx
+	 omJvrhBgcRZIxgaLYdCfAiroUVN28zoypHqYPexeLfbHnnhS/puuAzznuAyTpxcLZDV9n
+	 JEQhr2uW98Pra3ZtTfiuPBzHkgLUTh3PSmeNOTm9CZiapZVE17N3bGFK7SGUBSVpQLIsi
+	 dBqP2ghg2MnANABDALF/FqjLuFOeEVC08VB/UmkTWLupvde56uUvvZ+zuig+bQ3eF+MF2
+	 p3aJIcdigw4E0rBP7PDvhKJHd2bjp2a+kC1EydkIBzsbUXfckufqv57Sf4zYJNdk3aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680375;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=19q9vzigX8jqYcPqoOoX69jW3y9J00k0rPbllW25cAw=;
-	b=l/Gb/FkO3POChytys2mE3BOnKwX3WvlmmcZ6JhjqGXJFtzxdi7jkMkRSjfFJ+MamqSSx
-	 fstSW5hT0CKRzWy6UaRbuVN9KdLpPh0428FNjeCDX3WKtyoV823rsB09MnZk9zswF1Klg
-	 hdwMTu0tD0AFAlE9l4N36kva+Fo/JzFFUMliXGT+QO8YG1jf5ZMeWtdsjvGBdAmlyK/C6
-	 82S/D6tgKWqxt+ghvWkB4YPPQR/zZQSOTmDlQf/PgbRpQVu2DdzetEzZ17IOL/Sg6Ub2g
-	 qqpVaWk8wKB5zJRs+2ZtB1F1pklRewiu1DRKoX7031fPwHd1lm5rZ/1fVl5aPSbucaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793680439;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=rAyXrOOiSgxA6Tmwf2Bm1LeAX51YI2TlZ2FCwqS13ZU=;
+	b=n80P6bie+PwgGxguQ3H7ReI99FKONJFOYYYfM/ODeC9pne5CdWnfPYxrrdzo/i2JUYj8
+	 tXxkUyIJLzvFLx0SD5UIMdeczXy1ST3suF0PNGCRxFHTOIS8/eDfIDq+IP/M3tmJQQ7Ep
+	 2vf+5ey+kCoAcXjjtVipDSWBqz4XYulmVpyHb0edriZ2a2nBkapLz+MEBe6fl3vOs4GAK
+	 FRr7Ox+qGu0dhiY+DbuFhONP7X4hu4Cxy+nMK6JwZXPGE+LI8kpJs1EywzEjttPTgKhxy
+	 WLYuSBJA+0/jbJWDv1FfiJDOxPgHg58hhfrzdpWD/8XplejOwPymNVi9LhDcnhODwqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PysSDeQb;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC143606A326;
-	Tue,  3 Nov 2026 04:32:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC143606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PysSDeQb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793680373; x=1825216373;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=KQbiMKS8DDpnCaGekHAZjggNEETizZpIkdral2UW2Fw=;
-  b=PysSDeQbtwQEy41UlTj5MqrxdgHkg3n04BFWJeiz4iP3as/uThteoGxO
-   BfbX+pj/3LyaFnw1awSMx5XyEC7jrOIcIRsev6Gd4iQT9eB8ZzxJPrLNj
-   knrHbZQnniHw14jW7bU3EP/HgPEBbDPUS1ywxMvA0jRI7u/aVkveaZyZJ
-   XOTFFcYBRfCJBOOcMlaX4kgvI7WPsgU7sBsjTrWR7ZwUSapHphrsz7PjW
-   lfFXhbtsNguBd3gcfxdALK90fYVOh8jIOcs5mc44EZ3MigRFvAoNWa6L7
-   4PzHT8HzD2QLppV1ovK6slvfAWLXwvcfAicy278N7/z0RVU25A+L1HZru
-   Q==;
-X-CSE-ConnectionGUID: OOhEo8p/Qj2+K0ZE3Ha3VA==
-X-CSE-MsgGUID: 5OsSXU0eS5CNU02GPaqnoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2271062"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2271062"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 20:32:53 -0800
-X-CSE-ConnectionGUID: 7LdIg2GCQO2tyEEivUKyJg==
-X-CSE-MsgGUID: ihSsea4lSLmeG2p6tjmzAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6314625"
-Received: from jstevens-mobl.amr.corp.intel.com (HELO [10.246.165.69]) ([10.246.165.69])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 20:32:52 -0800
-Message-ID: <5051866d-ff33-4b09-a4d0-756f305f5154@intel.com>
-Date: Mon, 2 Nov 2026 22:32:51 -0600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA40606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:33:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DA40606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a41f46d629so6142766b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:33:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793680438; x=1794285238;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rAyXrOOiSgxA6Tmwf2Bm1LeAX51YI2TlZ2FCwqS13ZU=;
+        b=BqEelL+80p/IWLopzehqfg021IPcZ7bLJaNz+ZesElXk829rsfRDJGSaNO2z7awNEY
+         tPZRRlrqhb6cnoWqUYBAhHbOGfBnOP/RnPmOR2aMnu6xpcxmRXyfCihaJcmuuXfRLSsS
+         cDCqC325CblhbvkBlg6vk2Q5GKbyFBoL/53OGGXIRvevNObyUpJ6BufJEfq0ylR7GEaW
+         gjwB0uM0P/JNBgMBmmeYwcjgg4PfpxyGjoRFa21PR5FreUD6Dh24PGniQCt9yXBriIuD
+         HVbqao21jYnoqC2NMirSn3WkRxmhThSQtRyuwf+lhrz5fasG5C3Z3SdBYiEq+SISYvNa
+         Zojg==
+X-Forwarded-Encrypted: i=1; AKwUvBz7gQod+tE37CeCNTQjuG/Q2CvJsPjGygPoIj34j39DCH4p1uUIjeipJILdvJ7qUiMw/XpOJLDL1dUTy5k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAAWSnbJP5fQmfNJ353gWFuyIlpx3aQ0nyMHIAX0rxdt+8WpKr
+	pBbh43PBl1quuBosoJ5lP0m62juf6F1E6436lO7memHA2qWWn85VIK7MQCzNLm0geYDryOrV/JQ
+	YH+rjynfmWxETtumH5Twha/O8eyykH4fIKQL5ei8MJF+gppnimiXTR3SGMx4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,78 +58,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
- GLOBAL_INUSE MSRs
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Jim Mattson <jmattson@google.com>, Sean Christopherson
- <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-12-zide.chen@intel.com>
- <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
- <auUQgRVFASkWtkoK@google.com>
- <3276824d-f6a0-455a-bf0c-703fc6d52cf1@intel.com>
- <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
- <6c9a13c9-e6c1-4540-a8ca-1f0e800f3571@intel.com>
- <CAO9r8zOWzr61pkkF01AvEp+YSOo6bA1N=L91RYiM=ETtK5+D9w@mail.gmail.com>
- <69c428d7-239a-485e-9494-32b8aa82da05@intel.com>
- <CALMp9eRsR8xaUmQyVu5QmYx1cZ2qFGGk+31bMymhmN9_iaPuMg@mail.gmail.com>
- <f7213eba-5b61-4514-a315-bce64823fad5@intel.com>
- <CAO9r8zM4eWD538L3osqSVoB0VHnjgRREtv2k419a1Vvuq+Q9rw@mail.gmail.com>
- <6d84ab57-a702-4ac0-9e29-579449b3d826@intel.com>
- <CAO9r8zMvkGzxUR7jBPVFWK+Fry4wk49J3WdwFqa22bSgGaS4YQ@mail.gmail.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <CAO9r8zMvkGzxUR7jBPVFWK+Fry4wk49J3WdwFqa22bSgGaS4YQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:1b25:b0:552:9d62:f1b6 with SMTP id
+ 5614622812f47-5640de5b910mr7813214b6e.51.1793680438337; Mon, 02 Nov 2026
+ 20:33:58 -0800 (PST)
+Date: Mon, 02 Nov 2026 20:33:58 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae96436.abb90550.19e2c9.0000.GAE@google.com>
+Subject: [syzbot] Monthly jfs report (Nov 2026)
+From: syzbot <syzbot+list421f13bcf36317d2fd2e@syzkaller.appspotmail.com>
+To: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	shaggy@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+Hello jfs maintainers/developers,
 
+This is a 31-day syzbot report for the jfs subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/jfs
 
-On 11/2/2026 5:37 PM, Yosry Ahmed wrote:
->>>> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
->>>> index 38c7a4fa1007..3849b3f5234a 100644
->>>> --- a/arch/x86/kvm/pmu.c
->>>> +++ b/arch/x86/kvm/pmu.c
->>>> @@ -862,6 +862,8 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct
->>>> msr_data *msr_info)
->>>>         switch (msr) {
->>>>         case MSR_CORE_PERF_GLOBAL_STATUS:
->>>>         case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS:
->>>> +               if (msr_info->host_initiated)
->>>> +                       pmu->global_status &= ~pmu->global_status_rsvd;
->>>>
->>>> The underlying issue still requires proper mutual exclusion between
->>>> Intel PT and mediated vPMU, which I think can be addressed separately.
->>>
->>> Or maybe handle the host PT while the guest is running? Not sure if
->>> that would be correct.
->>
->> Since KVM switches APIC LVTPC in guest context, it seems difficult to
->> correctly handle host PT PMIs while the guest is running.
-> 
-> One hacky way to do it is to make perf_guest_handle_mediated_pmi()
-> handle host PT before calling into KVM. This doesn't completely stop
-> the guest from seeing the bit tho. Also, I think we may have no way of
-> finding out if we still need to inject a PMI into the guest for a
-> different reason or not :/
+During the period, 0 new issues were detected and 0 were fixed.
+In total, 64 issues are still open and 73 have already been fixed.
+There is also 1 low-priority issue.
 
-Right, and the host perf subsystem doesn't know which GLOBAL_STATUS bits
-it is supposed to handle.
+Some of the still happening issues:
 
-The hardware-assisted perfmon_mask solution seems like a clean way to
-avoid this problem. :)
+Ref  Crashes Repro Title
+<1>  110743  Yes   kernel BUG in jfs_evict_inode
+                   https://syzkaller.appspot.com/bug?extid=9c0c58ea2e4887ab502e
+<2>  96427   Yes   KASAN: slab-use-after-free Read in lbmIODone
+                   https://syzkaller.appspot.com/bug?extid=ecf51a7ccb6b1394e90c
+<3>  55459   Yes   WARNING in dbAdjTree
+                   https://syzkaller.appspot.com/bug?extid=ab18fa9c959320611727
+<4>  50442   Yes   kernel BUG in txUnlock
+                   https://syzkaller.appspot.com/bug?extid=a63afa301d1258d09267
+<5>  9261    Yes   general protection fault in txEnd
+                   https://syzkaller.appspot.com/bug?extid=1d096d31de6a0491b55e
+<6>  8201    Yes   KASAN: slab-use-after-free Write in dtSplitPage
+                   https://syzkaller.appspot.com/bug?extid=a939a1121380d3212940
+<7>  8178    Yes   kernel BUG in dbFindLeaf
+                   https://syzkaller.appspot.com/bug?extid=dcea2548c903300a400e
+<8>  5481    Yes   INFO: task hung in lock_metapage
+                   https://syzkaller.appspot.com/bug?extid=1d84a1682e4673d5c4fb
+<9>  3323    Yes   UBSAN: array-index-out-of-bounds in dtInsertEntry
+                   https://syzkaller.appspot.com/bug?extid=5f7f0caf9979e9d09ff8
+<10> 2762    Yes   WARNING in dbJoin
+                   https://syzkaller.appspot.com/bug?extid=a67911c5a11315aa55a8
 
-And I think if Intel PT virtualization is re-enabled at some point,
-addressing the mutual exclusion issue would probably be necessary
-regardless.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
->>
->> I guess Intel PT virtualization could be re-enabled sooner or later, and
->> addressing the exclusion issue would be a must at that point anyway.
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
