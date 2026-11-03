@@ -1,110 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738854;
-	b=cI/xBOWLySq/6epspM7Kvlv2vxvR4+081AWZumTTrFS1hCP0U0Inl1usNDy/4sjUb3ge
-	 8MVmjbnfZ8Tr2J8s9ovo5jL2iMFMFbzqnVoIHBKBrB7MWrM8tJ1xs7uHhJw9zIPiLX0Ip
-	 POgZEIYHqwvHLSD/9hY+W3yBoFCiIhDjD1FxCldA/GlWW/dQEhAJpx6HjjRyPFTrXOlrp
-	 /m/TM2oWJ9yBM+58IkaCcJshOcMHQjJ2Xr2J0lF8twuAFmDh/lIqmzKEYdgj1tmnnlL3v
-	 lrErwo96xyOlAqDUHkVYw99RDmFK9WxI7cCKjMUkaUZOFifrBxSuyVulOP+IyVwV+/Q==
+	t=1793738850;
+	b=4SM92F9yarmKg5VM6u9v1HK8+pgtvTJ7mVFo9hcQspQPflEzR0b8Iafm5j59CIhiHOIe
+	 8GGL3dJ6pmQFyAU7aBVkA1kBlmC6O3BtVhB9ogWjN0F91iG8WqLADsA3A6wSK7T79dUBh
+	 YxI2cXJCqT211Vtbw6BC/5GWJZcXBicxQrkWLuOUv4NrzLMbwFNqPEV+7PMzeyav8rrLA
+	 zU0bM3cPTkJGKOZCh652Xd/HluSEuvhN64lTQ87r3+2QY3Tswf3V9VNurWuBxVJAFSW6X
+	 mqzLuOnWMqjNjXs2f7I5ov5lcVGI6Sy/uBW7Gjyq3oNCcZek45jFH+aGix23kia/EZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738854;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=g/w0MVtXQhj8idCIpqV/0m1Lb366EccRtPJCicxmKT8=;
-	b=eGO2fXII3hkkTSOZ13vbLMu1Zy6H+pY/IMbkksfEqHITYeXeemlIF6BME1omF8v0YeV0
-	 3/x+GHIKm0+mOBIeTytEDQlCFji8uUcX5CB+itq/ygYYVaSczV2Se2ps4Um2knRocRkFc
-	 cPqO19292MtdC7JQIDIWixuG6lCgW844VK+PEyZyzB0EWRUHG6PZPyN4MJu4Lt16YEwkr
-	 PsJdu/3t6sO/Y/kQIbxCxaq8JeX5ouy/hGe5WqgfrDw349ZUyg9L1tEM+hUHoQ3klj6zD
-	 pFXaIYXWeRgR3/JrE8AdcVoAv6VJZ9J5OsSiVuiBkvl6TP25aEvP2LIO7T790p8gF/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738850;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=WA4JldT6jZkiRqUOUhymd9+bMbgaai5DPTFvHOVFxkY=;
+	b=Qn5mIq53Zv5l+UvWGCZIwMdvweISPZamN04qnVrd6lC56+DYIYQooWSlDhyDSe0X+rfy
+	 0PU4dHD2lBTnmYzmdfRoGiQ+HGuujLIjQlnRnehkm0eIvogjhOcGYRXQ/3qyq5xQcX7/u
+	 EtVl7Sq8a+OFXYkd6pAHQljB2aIQ8UoK6Wcp86Rwn5We4/ItexRqg0R7EQYEt8sDRMeCB
+	 MRIeVEJLA/COh/Jle8itlIW2ViJhH2sR9Cv1wrpzgRTYS2F/X8YljuphOGuAKI7q8rSpg
+	 FE79rSje6yym9fqdUoq5Qd4ETWVnS9g0BYXVw7gPmJARfeFi3AmFVFMJlmupDiqUz2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vr7uH2SD;
-	arc=none smtp.remote-ip=209.85.221.170
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZ5aB4fV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C67606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:47:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6C67606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACCE606A332;
+	Tue,  3 Nov 2026 20:47:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vr7uH2SD
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5eafb65e204so1276228e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:47:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793738852; x=1794343652; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g/w0MVtXQhj8idCIpqV/0m1Lb366EccRtPJCicxmKT8=;
-        b=vr7uH2SDPp0m1ZV900ySJ/+0laHiUKGKf0+PFqOV2WzoKt+78TV9d2yp27Sm4/Gk1K
-         lUy1Za1otIExD9/VpuTBjWCIWYV0Tr/WfmgY3oA340BewQCPgkaPRfKCU0mEmj3e712K
-         QfTb7ciXQwMSgI9S7oFksCE+cMpSL9XH22l2kKK1g5AvcbmQgXV59cYKF1ZwQXFfTcFm
-         CC/uNrTGXvcIpT4LQrNO4Lh2Zs9hadiS7krOnPxFkWrS8x5I8n64kJ9p/tXUARRSquxQ
-         dg2KrWP0oFXhau9cHm4uQ478S7EWEXhoS3o37MZDlMWo2x9/ZhOWULLT1qwNTQHl9dcm
-         4wwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793738852; x=1794343652;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g/w0MVtXQhj8idCIpqV/0m1Lb366EccRtPJCicxmKT8=;
-        b=JaaQ2fGk56fF9849Wg38zEEypXfGbGohxyhxv2qpaTYrtQphig4XUhVRVQBsBVCJrc
-         izDRkLLvUujZT4kA7SZ8g3cl1+t1X75vZYFVMV+tYx7V59IMTqoBJI14OxT3jqK0g0/N
-         UNSn3QURElp7+cNR4TNFZi4tDjagwR2P4QuGgqY/sGZcRjwWcZO/ePDGkqUVx/VR2tOX
-         joBULCcV1Nnb061ZiJ4zLNmni3H6qmg3t6cLKG/+ksjjR70/oWJnzW68pezGE7l2aPyb
-         p7yBF2SVaeKjUzBSiygSzOUs39BMWxgkUzjIyP6cC1oY1cXA9TGdvpd0+bTjMNRvn46w
-         SZKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzdybe594yle3KdnntvlhYqBUcylA7z/Iu5CpVnW9TUH//7aI/8HS2lBQGYU4ZAMto44UkL0UrvXtTqcUw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WvbUlXQZMQoC9Yec9pGtmrXKdy94ctIZ44L+mF9Ls854hnnb2
-	JR9xVvLR5Sc3fr+6HWtTHJhojV45a+v1LUFOY1J1WVgMIIOnUekkvUI=
-X-Gm-Gg: AYBFou1OuT9TAyAnUFHsV6/kjgFJ/Lu+ui6tacmrpf35RTGg3J2dNVL4Os55xACVRYg
-	+PbyEJKCQ/uBXc3KK+FsPoKRVW7vfzlow2rj74I2xkSEm5wKBypnlNlYqbHRfecRop551qud4lU
-	sdpt8QCW3b3KcLLoaK6UqbOZ02scfoxV8IWTQPX0MKOxBKzLaiRuzuAacqzDNb0X3RJxPrvexvB
-	hEKrMh2At0RPJjRLtgWuCtnaXfheXBCsjS5CtT/a3rApT/BCJbYmLU8nrpDl0umA7aDcKLQsSPg
-	uczuWWUGbgXubbSN5Nqf7VUN/quKj3elgUE/QbkSWi83FMAMWM5V05VqCIakulcmlQFCeKwxO1N
-	qbk/y0ORQ2CmuDYbnDtZof76O1p/rfNncPJFD0CArr7A8b6K12tIc14Q7lVupGRMtR5QdE7FJoM
-	AF7pTw9u4+4a+KX24ZCl7WRtrlzS55vx0d5eHdnQSceD9F0V4PxgGlhp/HvuAAx72OGI4TEUNdk
-	Hq0bVGh4ZH/1asRGTrxcFQkFeVKnjCvqyto0VnAgtvDSLv3Z/rSBYrwNLn4Lcbjjefv4w2/jSp4
-	PgnuHjL9Ityr5fnnKX3egN0ZSpOJRXyEx0H2KlSNpLGbHc/0/DFWT1vYtyiVwe4ZiStN2uy+Bw+
-	s0inp
-X-Received: by 2002:a05:6122:3c54:b0:5ea:c11b:432c with SMTP id 71dfb90a1353d-5ec68971961mr6087782e0c.15.1793738847860;
-        Tue, 03 Nov 2026 12:47:27 -0800 (PST)
-Received: from localhost.localdomain ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca89b81b3sm119618e0c.2.2026.11.03.12.47.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:47:27 -0800 (PST)
-From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH v6 3/3] MAINTAINERS: add entry for Chipwealth CH1115 OLED Controller
-Date: Tue,  3 Nov 2026 17:46:53 -0300
-Message-ID: <1deac1052da01f892b385f0061c24bfefd8d0594.1793735996.git.nico.antinori.7@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1793735996.git.nico.antinori.7@gmail.com>
-References: <cover.1793735996.git.nico.antinori.7@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZ5aB4fV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219691F0093A;
+	Tue,  3 Nov 2026 20:47:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793738850;
+	bh=WA4JldT6jZkiRqUOUhymd9+bMbgaai5DPTFvHOVFxkY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MZ5aB4fVto6FbxRg77AGVx0jiXNVhH38K6sxyQ4CgLc3S9lJLQH7InuTEYv8lfOaf
+	 5uoad99J7Yo66MZORzU1SueYppREaWAp7DnLjMArd/bw7llqmgjA7QeRkN0TecqOjw
+	 mgPYGDAwQqwyEL4ByoiIyUJS5Ynf7UPLyKjtpGQBMTUIJCZtNDazrMWwmoLIPejkIK
+	 R4yBtwITyXNn68MPxARx6qpkmGIeYtFfjYSs2zxU7gR3nB0yXltF941REAJYSVQAZs
+	 JOShTK4Swr6Tw/lPkD7UPNQLTdL9bwzUWCtu2lgQU5SbFGQKMkCODHWkdfiTaQncQD
+	 tHuce+fkMYTgw==
+Date: Wed, 4 Nov 2026 07:47:09 +1100
+From: Dave Chinner <dgc@kernel.org>
+To: Kaitao Cheng <kaitao.cheng@linux.dev>
+Cc: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
+	brauner@kernel.org, cmllamas@google.com, aliceryhl@google.com,
+	nat@pixelcluster.dev, arunpravin.paneerselvam@amd.com,
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+	viro@zeniv.linux.org.uk, agruenba@redhat.com, trondmy@kernel.org,
+	anna@kernel.org, cel@kernel.org, jlayton@kernel.org, cem@kernel.org,
+	akpm@linux-foundation.org, david@fromorbit.com, david@kernel.org,
+	hughd@google.com, hannes@cmpxchg.org, yosry@kernel.org,
+	nphamcs@gmail.com, matthew.auld@intel.com, matthew.brost@intel.com,
+	thomas.hellstrom@linux.intel.com, jack@suse.cz, neil@brown.name,
+	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
+	qi.zheng@linux.dev, roman.gushchin@linux.dev, muchun.song@linux.dev,
+	ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
+	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
+	kas@kernel.org, mhocko@kernel.org, shakeel.butt@linux.dev,
+	ljs@kernel.org, kasong@tencent.com, axelrasmussen@google.com,
+	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+	chengming.zhou@linux.dev, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+	gfs2@lists.linux.dev, linux-nfs@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: Re: [PATCH] mm/list_lru: Account node removals in isolation helpers
+Message-ID: <aupITfr9pBKPrU20@dread>
+References: <20261103045053.59548-1-kaitao.cheng@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,34 +78,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103045053.59548-1-kaitao.cheng@linux.dev>
 
-Add MAINTAINERS entry for the Chipwealth CH1115 dot matrix OLED
-controller.
+On Tue, Nov 03, 2026 at 12:50:53PM +0800, Kaitao Cheng wrote:
+> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+> 
+> Successful writeback calls zswap_entry_free(), which removes the entry
+> from the LRU and decrements both the sublist and node item counts.
+> shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
+> to decrement the node count again.
+> 
+> The affected call path before this change is:
+> 
+>   __list_lru_walk_one()
+>     shrink_memcg_cb()
+>       zswap_writeback_entry()
+>         zswap_entry_free()
+>           zswap_lru_del()
+>             list_lru_del()
+>               __list_lru_del()
+>                 atomic_long_dec()  /* first node count decrement */
+>       return LRU_REMOVED_RETRY
+>     atomic_long_dec()              /* second node count decrement */
 
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
----
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
+That's a bug in the zswap code. You shouldn't be calling
+list_lru_del() from __list_lru_walk_one() context.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..ada64be352b6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8285,6 +8285,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/display/bridge/chipone,icn6211.yaml
- F:	drivers/gpu/drm/bridge/chipone-icn6211.c
+Walker callbacks are supposed to use list_lru_isolate() or
+list_lru_isolate_move() to remove the item from the LRU under the
+lru lock. i.e. the walk and remove are a single atomic operation,
+accounted by the walker infrastructure.
 
-+DRM DRIVER FOR CHIPWEALTH CH1115 PANELS
-+M:	Nicolás Antinori <nico.antinori.7@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-+F:	drivers/gpu/drm/tiny/ch1115-i2c.c
-+
- DRM DRIVER FOR EBBG FT8719 PANEL
- M:	Joel Selvaraj <jo@jsfamily.in>
- S:	Maintained
---
-2.47.3
+LRU_REMOVED_RETRY is for walkers that need to do work -after- the
+item has been removed from the LRU (e.g. reclaim work that can't run
+under the lru lock). i.e. the pattern for the callback code is
+remove-unlock-reclaim-LRU_REMOVED_RETRY.
 
+What the zswap code is doing is
+unlock-reclaim-lock-remove-unlock-LRU_REMOVED_RETRY. That's
+problematic, as we can have concurrent walkers, and so it's possible
+that two shrinker invocations try to remove the same item at the
+same time....
+
+.... oh, what a nasty hack.
+
+The zswap code is doing a list_move_tail() on the LRU object to
+rotate it to the end of the LRU list before dropping the LRU lock,
+in the hope that a concurrent scanner won't trip over it. That 
+doesn't fix anything...
+
+> During the mailing list discussion, Johannes Weiner suggested making
+> users of the isolation interface responsible for maintaining the item
+> counts, rather than having the walker decrement the node count based
+> on the callback's return value.
+
+urk. How is smearing the LRU NUMA abstraction into all the isolation
+interfaces an improvement?
+
+It seems to me that that this LRU hacking is all because of this:
+
+         * 2. Usually, objects are taken off the LRU for reclaim. In
+         *    this case this isn't possible, because if reclaim fails
+         *    for whatever reason, we have no means of knowing if the
+         *    entry is alive to put it back on the LRU.
+
+And so to work around this inability of zswap to handle failure
+sanely, the LRU list the reclaim code is being abused. And now the
+abuse of the lru list code is triggering problems with the LRU
+infrastructure, the suggestion is to push internal LRU structures
+into all LRU list walkers to allow racy (and IMO broken) walker
+behaviour?
+
+I'd much prefer the zswap code get fixed than to have to modify a
+dozen other subsystems to enable zswap to work around broken reclaim
+code...
+
+-Dave.
+-- 
+Dave Chinner
+dgc@kernel.org
