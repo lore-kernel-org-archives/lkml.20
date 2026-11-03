@@ -1,58 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.84.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706927;
-	b=2s4m9lAhvHbhSu7gWwSlUrA7h+IXqNxDaa7eKJLqVZeqTdhyDvHUCANmMjEtHYfxElxh
-	 4MPgzyIuFOFAuAw3m/6rv75FBE8Z90EZ3db4yAhTO4W5FbbK+vQ3ihap8AvDNDLzTWb9A
-	 iCDwBrsyhm7Tc/iKI+oQX9y7SkqltEH92IuPkeqFRyRlQsUxERM6m6LR7PcufySpWXceI
-	 AvEA3O/A5Gm9KdfCynzrXUlHLpbBoBlZiLLNelDI6IdhcWh0Cv/BcQeIaAdfQWbee1GA6
-	 8HZLDqywJ3UVmIftM34DGeAtETCpinp59kGXCUi4ZYP442UuRuAbkgE5uMYGWToOQ/g==
+	t=1793706935;
+	b=CC28+IukMc4CkckclqhrGpZ126GwoJCcR5UKZVk0Kvd1ZfW/lUW3MjWtrV90PIZ5n73E
+	 9SbVp4zCjJnEcTOftDUuOhBxwiJVS7MUifu8oamwrPaEZKXPBOeN2rs+oG1Se1bo1Vkky
+	 gN8h15ZwlkqZ2Y2yM7RVXFCcxijHhionltUK+Rb9VAChIcNnyoehACMMH9F7WvG1PJxvF
+	 eI6TPfuRvCMVGVLaWuKf2WK4ma56koJDD7eR5phyUWOJSfERaYCTzXgPqgDw5jIXp1V8g
+	 atiSL46UjExxjazIKH4T85PzMuONlkx/JKmWltD+v4MEZwzKSSCyboqGOA+noo8Nq2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706927;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-JNJ;
-	bh=f76CyJ9mwV3i+UpkEsml6LZZAUrkkYxlZzkuecGkozQ=;
-	b=T/588+nDRGztnjkLrIo2dyaMSrg8I5DdCDbv8KeoEp/BdKL+7vjMb2zWqXSeFpchSgtA
-	 r2BnSrojqiZ7cfLTQovmiX17jXsmrOe7kKF/AFcAKrrMwXhJRtO/bqHjJ5CJr0KCbmHqP
-	 PT9S76moswv052ATJPcKsnM3rxWglcMpuhk01fYzErZg6Hw4iUnSwyB2gx3xXl4lYzKnV
-	 6AOEDfMdR1oY18ngHSxNrBFsFeuEZZK8QFi4Q2knQ4E8PWfHyy6QIyoUoPaP156r08Ica
-	 6w8uJBCIXNj/5fp1dji7IKML1EITckPeRfneInl12Icws+9BVTCsOQeGKzfRIqMtqVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706935;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=HCorhxQxJT3W15/Ol75aTGcFGkkBMt7oxlNw+Tltp1E=;
+	b=S1p9anvZauYlBf84OoEBgpCApXFJnpFkvN91XmZ6FoLReKPS1mZLDc1W6dO9V3cpuoeH
+	 4xhI1hwawdoXo8fbYHFMJY8Cyv22tphuNTdUOzvvzCYeoLF4sKXl9KAE3TT0lWApYrWgG
+	 xbvSZK7kSdVReYStvsXonr247UM4z9RrXcMY94ZhAtBgzKMYZKimAMSqPps7N8hHbnkJX
+	 bjklXEalGHVrPxvD2IcvrK/tYyOW9J8NBNJvWolXHiKNqXWYIyc0nv7WnMUyALl1wojcp
+	 KYNecbnQWnn6oZMkw1TKt31cQRxZpSR1OPraQJTIPXrvwliOm5SibNTzLmZPDcQJkEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=nRUc5uVG;
-	arc=none smtp.remote-ip=57.103.84.76
-Received: from outbound.qs.icloud.com (qs-2004h-snip4-3.eps.apple.com [57.103.84.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="T/zDPAgz";
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2438E606A32E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:55:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2438E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F288606A326;
+	Tue,  3 Nov 2026 11:55:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F288606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=nRUc5uVG
-Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-2d-60-percent-4 (Postfix) with ESMTPS id D56161800118;
-	Tue, 03 Nov 2026 11:55:22 +0000 (UTC)
-X-ICL-RepId: 01a1a143-9309-724a-8a23-45ab1c42f372
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhOAEMGXAteC0kCQwJYEhVdRVkMVABGEVcfQA53AlEcVg1XQ1QEX1BfHA4EVAddBV1WUAJaS0ATBE0TBVIHXU1WDUcPWB5cFBcJQENeCF4fTBwdDlgGEgBNCg42BlkFXglWA0MFNhIUXUVaDlsERxQXG1wAFwZbFAREAV0FXQNBCUsCXAJeA0MXSQBbAF0fQRQSUg5cH1MeXgtQLV4IXh9MHB0OWAYMUE0BQwgKAlEcVg1X
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793706925; x=1825242925; bh=f76CyJ9mwV3i+UpkEsml6LZZAUrkkYxlZzkuecGkozQ=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=nRUc5uVGvnlFJfL8+DGJHIS48jd9ZVhXeaFPo06EqwXM9Qurkzh3mE9TNRlmx/bcFSdX4MxS/QdBiK8wjfXeReNCbHHsCxzjyUD5+tM+qLKEJyXuP9dOzZgpBHM7bZV05LXnea2QtTPFPB2/dNTncfDLSUBJXbZEezRQsyfl7z3nLQwVx3l3VduI3bramYEg9UNr8dd+0EKQpwBIdquQs3FoFvj5rCdnRKdurQc/jZiGp994LGFM3/7fRrtZB3p1gGyHFhsLktyb6BHp/obumLmOJPEYb5auwU+OY+hlOiXcQqlnWIy3xZnLHJDLPYTbQbnemUDAVN7a6yXRJe8jiw==
-Received: from localhost.localdomain (unknown [17.57.155.37])
-	by p00-icloudmta-asmtp-us-east-2d-60-percent-4 (Postfix) with ESMTPSA id 45C68180019A;
-	Tue, 03 Nov 2026 11:55:20 +0000 (UTC)
-From: Shuncai Tang <jacktangsc@icloud.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Shuncai Tang <jacktangsc@icloud.com>
-Subject: [PATCH v3] kernfs: fix stale comment referencing old @sd
-Date: Tue,  3 Nov 2026 19:55:13 +0800
-Message-ID: <20261103115513.13676-1-jacktangsc@icloud.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=T/zDPAgz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793706935; x=1825242935;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=NRlGTsFdID6TOhr7uHXdva//9pjtlPak/4evBt26tjw=;
+  b=T/zDPAgzuEFD59j2H+Sgu94i7H8U26fZpKFi/mkdTUOyCM8ppp+TE9Uk
+   ggfFDmdQJmH49gQB6KyhdPLznJdP+QU7zXzuJpc940liIvJgbwsb3ny2T
+   TxpxOTkUug8+kpvmxGMtkEB7LTlqfvnljcd+l7YQ72tDpU+STOpcyUT2b
+   j4dupaAr/mSPsjCZJtkgdLgPGL8hpSgL6ZxOg7EY6/VPWORl4EfM55+lc
+   ZMNVY72Tv2BFmqAHiUKLaL1QuH2NyP1A0mlibe5i6TEgenhysisX9+C7Q
+   /V8pMLtCKHcaWoJb+5U9zZVF0QQiC2veL/uyOEppPfXvtdt/ipM/H5Yum
+   g==;
+X-CSE-ConnectionGUID: Xkis6m7sRJ6XuSJoYhUUMA==
+X-CSE-MsgGUID: tNoHbzE6SHGIgCq55FPLEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2454751"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2454751"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:55:34 -0800
+X-CSE-ConnectionGUID: UXG0LlmJSGON8WP14xs+zg==
+X-CSE-MsgGUID: /usHt9haTsq5iys1QJ0A4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6265075"
+Received: from ijarvine-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.179])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:55:25 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 3 Nov 2026 13:55:20 +0200 (EET)
+To: James Hilliard <james.hilliard1@gmail.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+    Tony Lindgren <tony@atomide.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Richard Genoud <richard.genoud@bootlin.com>, 
+    Nicolas Ferre <nicolas.ferre@microchip.com>, 
+    Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+    Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+    Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+    =?ISO-8859-15?Q?Pali_Roh=E1r?= <pali@kernel.org>, 
+    Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+    Pengutronix Kernel Team <kernel@pengutronix.de>, 
+    Fabio Estevam <festevam@gmail.com>, 
+    "Maciej W. Rozycki" <macro@orcam.me.uk>, Timur Tabi <timur@kernel.org>, 
+    Peter Ujfalusi <peter.ujfalusi@ti.com>, 
+    Vignesh Raghavendra <vigneshr@ti.com>, 
+    Patrice Chotard <patrice.chotard@foss.st.com>, 
+    LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+    linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v9 3/8] serial: 8250_omap: serialize RX DMA completion
+ and flushing
+In-Reply-To: <20261102-submit-serial-8250-dma-cancel-v1-v9-3-9159caade148@gmail.com>
+Message-ID: <a95c92c6-afe3-52e3-c320-6d7ccd357965@linux.intel.com>
+References: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com> <20261102-submit-serial-8250-dma-cancel-v1-v9-3-9159caade148@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,64 +100,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: LBqpdxxDHIA_-i2ro2H2gXpREnbaH-eQ
-X-Authority-Info-Out: v=2.4 cv=COknnBrD c=1 sm=1 tr=0 ts=6ae9cbab
- cx=c_apl:c_pps:t_out a=bsP7O+dXZ5uKcj+dsLqiMw==:117
- a=bsP7O+dXZ5uKcj+dsLqiMw==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
- a=whGDNnZ4qqUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=v3ZZPjhaAAAA:8
- a=uR7FC2m04KeATL-xc2kA:9
-X-Proofpoint-GUID: LBqpdxxDHIA_-i2ro2H2gXpREnbaH-eQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA0NyBTYWx0ZWRfX7BqTvmYD4dDp
- AQaqvtAcSTbVgcbthCIZHiO4VfrfCbhqLdQ/Qb0dw9m9i6Nm9rfbsoVCxuvxjvevlYIZypf90pv
- p/ih8oFWn81bD1vGVa5jlWzNa1cttOCUpkc5k2abJZwCLoi64X2j82A8tIYTByaBAj4bJP8lHlM
- VLarl1trOGWBEiD+A2zRU6ZXTOypnuusD8YBFbReZdJOagROsxLJVS1mPcgmrxVVPfUDltvZrRx
- v5OA6QQbLFe5qI2RwJIaU53amGMbiDhRAwtVCqSkDb4RFi5RvZKxqAy4WLwwGk4913mfgwAoIQk
- eFz/1zIb0GYIPVbJQVSFP26y9Lb/HkN7m0Yj+ZB3/N0hQ5eN+uWS143z6wAl6U=
-X-JNJ: AAAAAAABMoCVOV7aSQhF+AosBEBhmiU//WmqJ9e/UWN7FdeoiOUvQv11zBmXIeGYoXxw0L
- IN+VH5WrYFRxAW+gg5dIwlwTbwGJYu0OAm4PG+1+cAhR+aTu9G9vfLQ3QBGMxqAIlSVW3v
- aaFrW6sWGDOBnLMg6mE1JJVRGJF+pu4QnApp97Wv/097Tlzn4RaSZKtjm+m7eKjOavMV93
- Tvsk+R99noXmKzk13xWWb2mBhGLQAZTOYHfZCfNz1uozE8l107fzBn9ZrSGYATnUFm5N+r
- bauwoQYhKghiE057HkhQ58TCvCzYMiCTplXl7wkTt6p+T4Osahf4uVEe1UYTpHym0g5Ge6
- 2AxAOGLMYrVnPxPYOniekpj1ENz4ZMVNGgdcyGsb3PS6HRXH/pguejSMNCxM6JrA7/b1xm
- TuECqx5Gaft2Cj52TiSMMi+tI0JGxU4vuwFk27eGfMNDGrK7bfY5thOoSbGK9089FS2r6J
- osIM3N19XMOJdzVC8ZBBom7kSvhoEKmA8JoOJwfVIWYWl9ukVwFUvBuvj95Qtl6eyGWz7a
- tnsAm9m9pR5w6Dl/0V5Lm2aJjBnr9Q5TLjp9CzOYi5W97R/Go/LuIhEzmfXn+Z2B+e31sg
- AHPyiC9ad5DZK1iOzZvdsAzWympPxdfWasAIguCIpqOrJ+ddeG+apgy0OD5gRvbjzpIQPC
- UBdDCCww063IqdPobfaFewCej/pOfHiEOHqnlHP805oMvmj4lzRAuLyhZck6HZvHlb+hRn
- h86N4oh7MF9GaYA30Hax7J9B4Gr2AEJgmUTQkJjzQIMqVhNSmZHWLbMd2Nzaa07kTH2Tke
- JCmNhKywll4a5zhr+4rPICSU7E/TxdY9KIxWl9DexvnWzMWYNqmsBpxd279uTVu8uCU/7f
- K0l4w9qjC45mEU8zqQ0pfXi65CoP5VK/Ji2U758NLNn2Gzkq6ko9EcI3uxjEfEPsPjK+Ge
- MyYnDkvyUxvorydluU1tr+HzwJ9Lj8x/QFu88aiJYlld+saVBBU1QG0FsL+/iRVr5w3I95
- lp5qciNfUbnsASn7GXPx4Wr1/x40XrHTgeY/dslEkSbibIXkDDermX4x8ivG09nuz6Dp+g
- 7RUMrRX4F1k2+x/zbciyGXlTPe6VoLYHppfAi9sIIY567d5ybHfMYG7q5HYx8VFv8UiC6n
- Uat20zQtYOrpIXxmxFWbIjdZnDRkmfaHrMkggJArdvel4SiZKNQsY=
+Content-Type: text/plain; charset=US-ASCII
 
-The comment still refers to old @sd which was a sysfs_dirent.
-Update it to @kn to match the current function argument.
+On Mon, 2 Nov 2026, James Hilliard wrote:
 
-No functional change.
+> Moving RX DMA locking out of __dma_rx_do_complete() left the DMA
+> completion callback calling it without rx_dma_lock. Shutdown and runtime
+> suspend flush RX under rx_dma_lock but without the port lock, allowing
+> these paths to overlap the callback's buffer accounting and flip-buffer
+> insertion. RX submission and UART interrupt handling also require the
+> port lock.
+> 
+> Take rx_dma_lock inside the port lock in the completion callback. Hold
+> the port lock around the shutdown and runtime-suspend flushes, matching
+> the existing interrupt-path lock order. Assert both locks in the common
+> completion helper and the port lock at the flush entry point.
+> 
+> Fixes: 789898416749 ("serial: 8250: 8250_omap: Move locking out from __dma_rx_do_complete()")
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  drivers/tty/serial/8250/8250_omap.c | 18 ++++++++++++++----
+>  1 file changed, 14 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+> index b6f108d34854..322403cec2de 100644
+> --- a/drivers/tty/serial/8250/8250_omap.c
+> +++ b/drivers/tty/serial/8250/8250_omap.c
+> @@ -771,8 +771,10 @@ static void omap_8250_shutdown(struct uart_port *port)
+>  	guard(serial8250_rpm)(up);
+>  
+>  	flush_work(&priv->qos_work);
+> -	if (up->dma)
+> +	if (up->dma) {
+> +		guard(uart_port_lock_irq)(port);
+>  		omap_8250_rx_dma_flush(up);
+> +	}
+>  
+>  	serial_out(up, UART_OMAP_WER, 0);
+>  	if (priv->habit & UART_HAS_EFR2)
+> @@ -898,7 +900,7 @@ static int omap8250_rs485_config(struct uart_port *port,
+>  #ifdef CONFIG_SERIAL_8250_DMA
+>  static int omap_8250_rx_dma(struct uart_8250_port *p);
+>  
+> -/* Must be called while priv->rx_dma_lock is held */
+> +/* Must be called with the port lock and priv->rx_dma_lock held. */
 
-Signed-off-by: Shuncai Tang <jacktangsc@icloud.com>
----
-v3: Move version changelog below the --- line.
+Nit, following kerneldoc's style, this would start with Context: (you 
+don't need to make it full kerneldoc but it is useful to follow the kernel 
+doc style where possible).
 
- fs/kernfs/kernfs-internal.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>  static void __dma_rx_do_complete(struct uart_8250_port *p)
+>  {
+>  	struct uart_8250_dma    *dma = p->dma;
+> @@ -911,6 +913,9 @@ static void __dma_rx_do_complete(struct uart_8250_port *p)
+>  	int			ret;
+>  	u32			reg;
+>  
+> +	lockdep_assert_held_once(&p->port.lock);
+> +	lockdep_assert_held_once(&priv->rx_dma_lock);
+> +
+>  	if (!dma->rx_running)
+>  		goto out;
+>  
+> @@ -977,7 +982,8 @@ static void __dma_rx_complete(void *param)
+>  	if (dmaengine_tx_status(dma->rxchan, dma->rx_cookie, &state) != DMA_COMPLETE)
+>  		return;
+>  
+> -	__dma_rx_do_complete(p);
+> +	scoped_guard(spinlock, &priv->rx_dma_lock)
+> +		__dma_rx_do_complete(p);
+>  	if (priv->throttled)
+>  		return;
+>  
+> @@ -995,6 +1001,8 @@ static void omap_8250_rx_dma_flush(struct uart_8250_port *p)
+>  	unsigned long		flags;
+>  	int ret;
+>  
+> +	lockdep_assert_held_once(&p->port.lock);
+> +
+>  	spin_lock_irqsave(&priv->rx_dma_lock, flags);
+>  
+>  	if (!dma->rx_running) {
+> @@ -1811,8 +1819,10 @@ static int omap8250_runtime_suspend(struct device *dev)
+>  		}
+>  	}
+>  
+> -	if (up && up->dma && up->dma->rxchan)
+> +	if (up && up->dma && up->dma->rxchan) {
+> +		guard(uart_port_lock_irqsave)(&up->port);
+>  		omap_8250_rx_dma_flush(up);
+> +	}
+>  
+>  	priv->latency = PM_QOS_CPU_LATENCY_DEFAULT_VALUE;
+>  	schedule_work(&priv->qos_work);
+> 
+> 
 
-diff --git a/fs/kernfs/kernfs-internal.h b/fs/kernfs/kernfs-internal.h
-index f1e93b09e..0fd8dea0b 100644
---- a/fs/kernfs/kernfs-internal.h
-+++ b/fs/kernfs/kernfs-internal.h
-@@ -72,7 +72,7 @@ struct kernfs_root {
- static inline struct kernfs_root *kernfs_root(const struct kernfs_node *kn)
- {
- 	const struct kernfs_node *knp;
--	/* if parent exists, it's always a dir; otherwise, @sd is a dir */
-+	/* if parent exists, it's always a dir; otherwise, @kn is a dir */
- 	guard(rcu)();
- 	knp = rcu_dereference(kn->__parent);
- 	if (knp)
 -- 
-2.50.1 (Apple Git-155)
+ i.
 
