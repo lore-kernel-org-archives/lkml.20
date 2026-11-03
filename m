@@ -1,74 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.38.247.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.229
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693076;
-	b=OrtyPzDX88sAa6MD11feT9gN6kn1LbIM3jYtIyXWqSO07HSB4qk95nT0IpvOSHeGZNt/
-	 oj3OtZmmx3ghJuU99sNhVGjaa3rgBiAhWpZJUXgaPGFcrBW1Ay+C43XPyynDWOH6eKQD0
-	 vBp3VQqdc3h8/jjQhxqe7CzQt62tcZA0Ro+q/xcUPKvJ/Yv33STAPUo2Hteb+gzjwPyjV
-	 W0EB44xssqQ+skgGotfLEDpxOEHMhPHpB1Rsjt6L3t2HhsJyYR9xLnm3w5DtOmyDeIF4U
-	 bwbXmH+dnNApmskMXw2ieuowNRaiqCBf/bqOpEeLIrNz7TD3v1tCKWxVMJgAduofRlw==
+	t=1793693093;
+	b=JKm8gwDQzB8O750bpcJQV/KU0neNsNSDkbqSJuePymwM9MJANW1u4Gutd5OWHdJYIEIl
+	 GeOl/mLE0AVH7g2ELxuC3OblUWUpSzzvC0Dzt/MkeTJ1GQSPBWGAPNBDnEl8jXWRKhIlp
+	 ujLQWgKdYZKyiRv1FzjtLmFANUgEFiTITPklf24IsOeYLqb+0Ivm4nbyWAnuFgDphV94U
+	 ZABkCDN06CAUudrXkKnkRdYnOsdLRV8IMiKuleZ41RH9uc+X5UfaeKhj6Q/foullXfrpL
+	 7RLkdmzVVCQMWSymgjjVKGD4CsUN0cRT815HgZaq8THtqbKQ5lAGqCtFgnfCga3uwkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693076;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Virus-Scanned:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spam-Status:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-NC-CID;
-	bh=L4EcRlcPTyEkbIxRjhXJq9ZXvdXvVbjjYlySVR1wKYI=;
-	b=2Ode1xzQnZeObJjtfZzdY0gvr8tpMFRKLF65niGemh3HapuddomRf1vV5aP53W5aI1AM
-	 qi1wF8hNEQPs9qk2QavDStsgkLNZ6DPQHZuS9bIMZbuHiv9K32Y1wodykMuW916rnr1Kx
-	 AnTT9wjs5Nlr/2c/7RRWvf50MJluzSfzNFkiLDT8imIq59zTe1nwcx9gXqcm2ITsHAnuR
-	 1CegouVTF3+AAtl/y4Bpf46ggiT6ENhs9tFfasvW+SN0a38JTr76BpJRX8BJE5jSI6+/v
-	 cI8NxSo2hL1kNsLAM7gyEfGhw0cDzK+9V6KHH69KY9lNr7C1/WCDYYc9VGuYfgNQaZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693093;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=lBZxiQ5cmXwoaVDZ7ajT7A8R3NOnKXHegqMIHSlVWYg=;
+	b=HX4CJgL3iSAEUbXIMlnW4jpLM7fS07gmETPTOTKwaGfGMtldB7vb7r5Pgpa7eWSNUXm0
+	 eb8oNzgbreD7VPrnVGyS0TZPt2695+Wvy3h0nua1mGlHAHdf3QHDKeHVG2LUo5Q2LqM/D
+	 /I5SYptqBSq0EW7QquG4nlGxIYmOvEWy0sZdVjMJfPzUlTSvRruBB0YkYwKV+GzOD4vdP
+	 frztskFqlNvqAASVb63/QqH4Uk1qrv3Q31qFOCtrd6qV1tHYBDVf61xZfUb73QNlGKSgH
+	 mOxTAeL65a0zLr8lGGptujXzYOYX2Aov6CPBim5FNO12I6ynQL+bDsMW2WJU9d2mrtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=aYIqX3pq;
-	arc=none smtp.remote-ip=46.38.247.119
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="WPkOyO7/";
+	arc=none smtp.remote-ip=95.215.58.229
+Received: from mta1.migadu.com (out-229.mta1.migadu.com [95.215.58.229])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CD2606D805;
-	Tue,  3 Nov 2026 08:04:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5CD2606D805
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD66606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:04:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FD66606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=aYIqX3pq
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jJh1W0RNxz8RZt;
-	Tue,  3 Nov 2026 09:04:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1793693071;
-	bh=yDjkuQhj8wqQW7sNON4Yy0/wXIldLBtFl12mMAzBTUA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=aYIqX3pqZYRHgMXt1cl5PXhWOkl92PXD2HC6hwfkeTj6/5x0BIS58eaWF5pxMqatX
-	 TVnSDqeCxgty+xcfflRxnG1ulNDV9QNGlCz226C+cE4OTYTa6w5FTdhjnKiaV0s8vB
-	 9qt0yQ9MUlmKrBP3iyKHnGos5cN2NXvHDWS00056tenzilh0S+eC1VDxPrRBaP4ZT9
-	 4vch9kdtN0QLp1ainTkmtSOM5Pc9msZAPwhv6ZCLIkdA4P6YpHC3nuwMOV7jlX8tA2
-	 Wc3UVSBu6somilMB5IHRejzUz4jbtp0robDXbjk5Nohm8zHx37er5dizXinX/r8D1B
-	 9n7yKqY4L8Vaw==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jJh1V6qskz4xJ2;
-	Tue,  3 Nov 2026 09:04:30 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.898
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jJh1S5T0Mz8tgr;
-	Tue,  3 Nov 2026 09:04:28 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 5889D5FA02;
-	Tue,  3 Nov 2026 09:04:17 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <7a1cb587-7640-4da5-92d8-57553fd00ca4@leemhuis.info>
-Date: Tue, 3 Nov 2026 09:04:16 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WPkOyO7/
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RWmMBXkZ+vwtLY3BE8puJytWEPMWyGOh1ixW8aK6vWM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793693091; v=1; x=1794297891;
+ b=WPkOyO7/jXnLDvvc58HZsAFsfZhlf1yGovKl4MbrDD3v7pUevz+ROx/uSPrQ1a7NHZFsII+0
+ gP0Gw5D1MyVzs8i7M66XV5NhZ+lxO8D2+BMYmIXo1Vr48JqGui41RiSMEIjRZEUmPTeEOwyDoa7
+ Qhw6IteAtpqUdxhI+EMQw8M4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id d76ee08530dc8e23;
+	Tue, 03 Nov 2026 08:04:51 +0000
+X-Mizu-Trace-ID: d76ee08530dc8e23
+X-Migadu-Flow: FLOW_OUT
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Tue, 03 Nov 2026 08:04:33 +0000
+Subject: [PATCH] irqchip/riscv-imsic: Synchronize remote state with IRQ
+ work
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,69 +60,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/gem-shmem: Install writable PTEs for write faults
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Sergio Lopez Pascual <slp@redhat.com>
-Cc: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
- Konstantin Fastov <kfastov@gmail.com>, David Hildenbrand <david@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-References: <20260804140403.16337-1-kfastov@gmail.com>
- <20260804162924.0268f80a@fedora-21.home>
- <CABWhNekebS6dt=Ft+74iG4YpCq-5ZcV1EvvERNxT612VUOC9Ww@mail.gmail.com>
- <18f0bae1-5cdb-460c-a147-33cd1fa2acdf@leemhuis.info>
- <CAAiTLFXd=LK93e=f3PE1f6y5m15yVknqqVNBei5rLz2AnSJ4pQ@mail.gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: 
- <CAAiTLFXd=LK93e=f3PE1f6y5m15yVknqqVNBei5rLz2AnSJ4pQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179369305797.899839.5052632304350013051@mxe9fb.netcup.net>
-X-NC-CID: 7sMBmLbKDQp9r384H0I/4YWHJCS0kWyZfxMwgublF8WzQF9lEXo=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-imsic-remote-sync-irqwork-v1-1-8b5c951fc62a@linux.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAxG4auQrm0yg4ZEr2JcaPnRapjRFgVDu
+ LujLr/FezM5TOG0q2YyvNQ1p4K4qkgux3QGa1tMdaibGMOatXcVNvR5APs7Cas9xmw33koHaWQ
+ TQwsq/d3Q6fR77w9/+/N0hQzfIS3LB/3jP2V9AAAA
+X-Change-ID: 20261103-imsic-remote-sync-irqwork-9cfec6c410de
+To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@rivosinc.com>
+Cc: Anup Patel <apatel@ventanamicro.com>, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
+ Troy Mitchell <troy.mitchell@linux.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5097;
+ i=troy.mitchell@linux.dev; h=from:subject:message-id;
+ bh=RWmMBXkZ+vwtLY3BE8puJytWEPMWyGOh1ixW8aK6vWM=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFkvpy6okFmZcNa7vdtgpfeWyO8zZ3w4vqH13Lv8ghreL
+ RzfZCIvd5SyMIhxMciKKbJ0P+DZVuATZVsgUOgLM4eVCWQIAxenAEzkcArDXzHZrdmfAnZsvee9
+ cz77heo9BSmFKsUCMwt3hgdd3e+5yYjhv2fKPcUE/RVvL/40XrcnKqleN61dWtFz3YWO7d4rJvb
+ mMgAA
+X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 
-On 10/29/26 17:55, Sergio Lopez Pascual wrote:
-> Thorsten Leemhuis <regressions@leemhuis.info> writes:
->> [CCing Paolo and Sergio]
->> On 8/4/26 16:57, Konstantin Fastov wrote:
->>> вт, 4 авг. 2026 г. в 17:29, Boris Brezillon <boris.brezillon@collabora.com>:
->>>> On Tue,  4 Aug 2026 17:04:03 +0300
->>>> Konstantin Fastov <kfastov@gmail.com> wrote:
->>>>
->>>>> Since the introduction of dirty tracking, drm_gem_shmem_vm_ops has a
->>>>> .pfn_mkwrite handler.  Its presence makes vma_wants_writenotify() true,
->>>>> so vma_set_page_prot() removes the write bit from vm_page_prot of
->>>>> shared mappings, and the vmf_insert_pfn() call in the fault handler now
->>>>> installs read-only PTEs even when serving a write fault.
->>>> [...]
->>>> The same issue is being discussed here [1].
->>>> [...]
->>>> [1]https://lore.kernel.org/dri-devel/20260804120529.1730187-1-pbonzini@redhat.com/
-> [...]>> FWIW, it seems that series takes a while to get polished and
-mainlined:
->> https://lore.kernel.org/all/CABgObfYgZ87%3DW%2B6E%3DN%3DWwTuyYkaoKU3hqd84JDTSAvT3_9dh6w@mail.gmail.com/
->>
->> To quote: "It ballooned a bit and getting acks from everyone involved is
->> hard... Either I or Sergio will get back to it."
->>
->> Is that something you/AsahiLinux/the world can live with?
-> 
-> Asahi still ships their own kernel with downstream patches, and have
-> backported Paolo's series. But for the rest of the world this is pretty
-> bad, as it means anything that requires virtio-gpu with blob mappings
-> (venus, native context, etc..) is broken.
+Remote IMSIC state updates are deferred to a timer on the target CPU.
+If that CPU has stopped its local clockevent and is waiting for a
+broadcast interrupt, enabling the broadcast IRQ can depend on delivery
+of that same interrupt. This can stall timer delivery when the broadcast
+IRQ is unmasked or moved to another CPU, including during CPU hotplug.
 
-Thx for this assessment, helped a lot!
-> Since the proper fix is going to take a while, I think having some form
-> of interim solution could be a good idea.
+Queue hard IRQ work to synchronize remote state independently of timer
+delivery. Keep synchronous updates on the local CPU and the timer retry
+for an unfinished vector move. Hard IRQ work also avoids depending on a
+schedulable worker when PREEMPT_RT is enabled.
 
-Sounds like it. Is there one that is in reach? Is reverting the culprit
-from Thomas and anything that depends on it an option? Boris patch this
-thread is about would not do the trick I assume?
+Fixes: 21a8f8a0eb35 ("irqchip: Add RISC-V incoming MSI controller early driver")
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+---
+This was found while bringing up the SoC timer on SpacemiT K3 as a tick
+broadcast device.
 
-Ciao, Thorsten
+Without a real broadcast device, the tick code falls back to the hrtimer
+based broadcast, which keeps one CPU's local timer running. Once the SoC
+timer is registered it replaces the hrtimer broadcast, and every CPU may
+stop its local timer in idle.
+
+On K3 the SoC timer interrupt goes through APLIC in MSI mode to IMSIC.
+When the CPU owning it goes offline, the interrupt is moved to a CPU
+that may already be idle with its local timer stopped. IMSIC leaves the
+enable on the new target to a timer on that CPU, and that timer can only
+fire through the broadcast interrupt, which is not enabled yet. The
+system stalls.
+
+Tested on a K3 COM260 board by offlining the CPU owning the broadcast
+interrupt, and then each CPU in turn, under a timerfd load:
+- v7.4-rc1 with the SpacemiT SoC timer series and local timers forced
+  to stop in idle
+- a vendor 6.18 kernel with SBI cpuidle states that stop the local timer
+
+Both stall without this patch and pass with it.
+---
+ drivers/irqchip/Kconfig                 |  1 +
+ drivers/irqchip/irq-riscv-imsic-state.c | 19 +++++++++++++------
+ drivers/irqchip/irq-riscv-imsic-state.h |  4 ++++
+ 3 files changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
+index 136bab41f801..5cdc3f52198c 100644
+--- a/drivers/irqchip/Kconfig
++++ b/drivers/irqchip/Kconfig
+@@ -651,6 +651,7 @@ config RISCV_IMSIC
+ 	bool
+ 	depends on RISCV
+ 	select IRQ_DOMAIN_HIERARCHY
++	select IRQ_WORK if SMP
+ 	select GENERIC_IRQ_MATRIX_ALLOCATOR
+ 	select GENERIC_MSI_IRQ
+ 	select IRQ_MSI_LIB
+diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/irq-riscv-imsic-state.c
+index 01620373b43a..f6373e4019a2 100644
+--- a/drivers/irqchip/irq-riscv-imsic-state.c
++++ b/drivers/irqchip/irq-riscv-imsic-state.c
+@@ -252,6 +252,11 @@ void imsic_local_delivery(bool enable)
+ }
+ 
+ #ifdef CONFIG_SMP
++static void imsic_local_sync_work(struct irq_work *work)
++{
++	imsic_local_sync_all(false);
++}
++
+ static void imsic_local_timer_callback(struct timer_list *timer)
+ {
+ 	imsic_local_sync_all(false);
+@@ -268,18 +273,19 @@ static void __imsic_remote_sync(struct imsic_local_priv *lpriv, unsigned int cpu
+ 	 */
+ 
+ 	/*
+-	 * We schedule a timer on the target CPU if the target CPU is not
+-	 * same as the current CPU. An offline CPU will unconditionally
+-	 * synchronize IDs through imsic_starting_cpu() when the
+-	 * CPU is brought up.
++	 * A remote CPU may have stopped its local timer and be waiting for
++	 * the broadcast interrupt whose IMSIC state needs updating. Use an
++	 * IPI-backed work item so enabling that interrupt does not depend on
++	 * its delivery. An offline CPU synchronizes IDs in imsic_starting_cpu().
+ 	 */
+ 	if (cpu_online(cpu)) {
+ 		if (cpu == smp_processor_id()) {
+ 			if (__imsic_local_sync(lpriv))
+ 				return;
++			__imsic_local_timer_start(lpriv, cpu);
++		} else {
++			irq_work_queue_on(&lpriv->sync_work, cpu);
+ 		}
+-
+-		__imsic_local_timer_start(lpriv, cpu);
+ 	}
+ }
+ #else
+@@ -510,6 +516,7 @@ static int __init imsic_local_init(void)
+ #ifdef CONFIG_SMP
+ 		/* Setup lazy timer for synchronization */
+ 		timer_setup(&lpriv->timer, imsic_local_timer_callback, TIMER_PINNED);
++		lpriv->sync_work = IRQ_WORK_INIT_HARD(imsic_local_sync_work);
+ #endif
+ 
+ 		/* Allocate vector array */
+diff --git a/drivers/irqchip/irq-riscv-imsic-state.h b/drivers/irqchip/irq-riscv-imsic-state.h
+index 189829b8673a..a36b9f0ef840 100644
+--- a/drivers/irqchip/irq-riscv-imsic-state.h
++++ b/drivers/irqchip/irq-riscv-imsic-state.h
+@@ -9,6 +9,7 @@
+ 
+ #include <linux/irqchip/riscv-imsic.h>
+ #include <linux/irqdomain.h>
++#include <linux/irq_work.h>
+ #include <linux/fwnode.h>
+ #include <linux/timer.h>
+ 
+@@ -34,6 +35,9 @@ struct imsic_local_priv {
+ 	unsigned long				*dirty_bitmap;
+ 
+ #ifdef CONFIG_SMP
++	/* Remote synchronization must not depend on a timer interrupt. */
++	struct irq_work				sync_work;
++
+ 	/* Local timer for synchronization */
+ 	struct timer_list			timer;
+ #endif
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261103-imsic-remote-sync-irqwork-9cfec6c410de
+
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.dev>
+
