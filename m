@@ -1,106 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793731214;
-	b=UTbIC3JBxVWJ59dT1bldvcDn/+zVUEt/XC57rGSkkuH+ySZjQGzU4f3+5xNYycc8DUN3
-	 G5ZpJSPvuEZ2OWvwcKn+CQWvWuNvwUz7tPgsPdWax62i9dM9uFMcfkT2JnlHXGptPwvtw
-	 DBinu+c1xKK7T97XZp1s1pqAX9RD55F5QvUxiX1ZafyrOOQuXuOgcedTdjTzqx8WgQWpf
-	 94QI1ELbXtN46Ltmg+zeLqFg0A7OUep6zeLftgMabbHBIfqui3ZF/x6m904pnNDuQXatx
-	 7FXaBetUT20AAI0/uU3QX8pqSvsGuhFiWW03goecQU1h/UbrE5cElRPm79vQXk4Ea3Q==
+	t=1793731472;
+	b=IfDmHSeg4o2vVaTc5EikC2WoJg1DfsQYn/lk1zwGKUIT9rtqyphMX2aiu7nJhAnjxieG
+	 ttfmd+Bm1m/IWA5TQrZofNNt8xIvvOG7H1IF79XyTbobOFO5MGKPuA05D802k36ZG5CaP
+	 STPW/DTV1DMkduYf+Pj1LShiIErURTTEOvetufn6TyV/0x3BP9TGDSS7awtbpH9EDNQTi
+	 qmb/XWuAr2eiF/KqFlMqm0zcysKxuYW2XqXFzoZGP6MjzDRERKN4yObEQ5EnYuvI7XQsJ
+	 Edg1t6dY7zlp0VC8A653YiaOL4KLh5HFq8+5A4l4lJgZ9sbnsnqewnoWVx9cTCn5qCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793731214;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=1LUYnHObY7Q3ByIwXxp+Nywos3UJ2Q6dqziyGEM81xo=;
-	b=MIleQLNWNebXUnfclWsiKzbBwCHDsCRFnTr4MgEGHInt3LMSlIWOR3U6IHMP4yuizORT
-	 8KNAXPIJ1aDTHD2kWYfThMRbVsTvmwD5p4PqX2slNhmoCgPJpGAEYl7XSVMJcq5YRh/uA
-	 7LeFmAWJ8rvy51v93eyit7QX/Mz4OlQNErD2+yCytzFRDyuhFVePfCjz2gyT4uJZ7To5V
-	 AkE9r0oKauauIzxbnCBTy0k9uCpjiXJpdJur+Rng5lFRI//JR5Swfa2MuJPWxsBu14pra
-	 yDpgdfUOOIoI2cN1yGZOSvGj4eme3LG3UExBbnsBsv2PIzWNVCZ+gfC1k/EHe06R1SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793731472;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=WjL+BboDzTnCr05d4B3GVddTa6hoTsb2Q7/tMkgbEgE=;
+	b=LQUTEr0itNSVONUKi7Bo0gzWw9lpOLYZABMR3YGJGjD5NJA5alol/kf+UIRmc8QDOdLi
+	 WhWLceqeaZWXVVo13jhMYl8pm/C5CSAghQgPvW1AwMFjgzFr5FQOJTOIOa3kEPhKoE0BI
+	 z/XMa/XQNH4RN4M/nevZqmbhUnWBGztRV/XDJ1et2xMF77RlvQLmltt0DFxr75KqT/LcD
+	 EYggcxsgYjo3KbC7o0D6oFBfiQVPAw6DXP2sgWP3HW2ukLHHIOEsyIhf5kC4/KEHuHwS/
+	 x6O9cqAdRvyBJ2EFaqFyXw0Hv9WMs16t8Rib79xdy0/C0epAvyyT+98wkzHtqmBsP5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ikPjzMCp;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="k4/TTGvn";
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465AC606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:40:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 465AC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DB2606A328
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48DB2606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ikPjzMCp
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so2491265a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:40:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793731213; x=1794336013; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1LUYnHObY7Q3ByIwXxp+Nywos3UJ2Q6dqziyGEM81xo=;
-        b=ikPjzMCpaDfmG8KPOzOEsJwFM+yQDjU4pRBJOrPrJestD5TluUkSMIg74H4UZxemrM
-         OjnAb7uRvPHCTXCTG1bFdZaz1Cfd0Iwkz2UQnW08QY0m9uibKlx7eZHklFGOYx5oL6Mr
-         Ejf9pP1RgIBeJQt5PTkbPGsXzG6AHdWAHFCT527MBajkGq/jZRfXVSai0GiYseiTweU3
-         B8k5XTKmBtBP7J9WYzD3p0DdIj/redhtrzwLXHD7GnY327miZxMuKkbyzSPELOoV/nLn
-         U+j5LhqKkke+ra3hON+8Zodxmcp6cWnmvhoznRKHb8R9xDvb94dsMxJiEm72lRVZSO0L
-         Xczw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793731213; x=1794336013;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1LUYnHObY7Q3ByIwXxp+Nywos3UJ2Q6dqziyGEM81xo=;
-        b=Zrbp475+rJAK7NwTEktskB498YfNXqWBU+UEHHcDRYr2Lp8Pi6azZKKroWfxRhITlC
-         Vf0MijX4mxcN9QUQkwo1Heu1i8kNqqLHD5JWHCpQ4RdSb5pVlu23thpjvFr/aDdze1Ru
-         lUAu8Gl8yzx0Vb3YI2v9NSpw0tlYOcMQbIucuuvi3NOKN3z/6wnBOST3b30M5DRO4EgZ
-         BRRIAurYQnts6gDkaOsEpoKExnQy1xezPw6VErx1JDVCHvFt21Dn6iEhFoHQaUKggNnl
-         OIBH+B0u1ptQqzQYgZiRPxVsp8UL1e88A1jPvqow8rp4iZBwzX/sZ+KpGiJvzZyKil0K
-         9hzA==
-X-Forwarded-Encrypted: i=1; AKwUvBwaDmjJUdriyxBycv75Sk6Gjcat7G/7Z0Ipv90c7oC/1rOzxX8LRcqehfdI4hZPwRJZoBz6M540giuoMos=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cX+lpd574ZyXLuv/t8Ppl2XoUlKYspJOT9GO8423Nq/ecMbQw
-	gtLhIdsfUJOYfyJm2nDwrxt/8OTqAZGkq76xnNXCmFQKvEFJ+hP82gB6/Vsu+w==
-X-Gm-Gg: AYBFou2YYaR/ltLezIjxxz7VmOn8+ZonhRm8mFuCHozDyWNLfTrV3PjI4xLyGwvvmqI
-	YeRsrfQcWg3HxfWdWotPTOpQTzgRrmsf4jtYjgLxHgtDSqF4rYTABTrC7ZsQZB87khSnTV67Rrr
-	8ZDyZFG85wVBIQIiyD4X7ogNfQUG4Izv8lyit5ohDR4NEparMzKgl1pyVy4JlrGs9+UaidQE3cJ
-	YXJ+XQ3zWspKn3GsF/WqQpmJnH930LB9yGe7AdaJ/cvlNlawdPNO9W6CRfdxXNoFTpvQvDTqgHU
-	4B6acm1TxrSpnjgndLA4efdE9beF4+Yr1Kjng8R81GqYFnrkbxygeIVTnaoWcmHaZxB8LEQcp3y
-	+JexfC4kVO4BDEDREDzHjMcxb+QGMTjFyFALsusBJ0N/mulCdB/aVWlpIhRIbHrzx3bt1uaNDbX
-	e+0jSjyeVJ56FO1vtH+MzrCZiHbANzHYaflW4DFuSOsJVNEMBiwvaEqXFnlIEaVer3oxn+W6b7j
-	K5xukls/dB+DBDQX56K6xJxI2165jko6wUT3OHkn3j+1cKLHQekjNTr1e+V0e0oYQt84cMbVmFg
-	SfxhbDJNRLHEsmzJq5LihkT7WSwNC7LpKoQybxUirLN72b39STd7Ik5v72jBq6zcaJBB0CKQmXO
-	zdA5zDXOAuc8U5oNRPEKf2VJaQf0y6M7Zrw==
-X-Received: by 2002:a17:90b:3e83:b0:3ab:2737:3396 with SMTP id 98e67ed59e1d1-3ae89855ccbmr11961848a91.65.1793731212415;
-        Tue, 03 Nov 2026 10:40:12 -0800 (PST)
-Received: from localhost ([153.61.198.247])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b094d70a60sm58552a91.1.2026.11.03.10.40.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 10:40:10 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 03 Nov 2026 18:40:09 +0000
-Message-Id: <DMLSN9VHK0P3.2A97046A4YXGY@gmail.com>
-Cc: <kernel-team@meta.com>, <cgroups@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, <linux-rt-devel@lists.linux.dev>, "Sashiko"
- <sashiko-bot@kernel.org>
-Subject: Re: [PATCH for-next-fixes v2 4/5] mm/slab: fix a deadlock in
- memcg_alloc_abort_single()
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Harry Yoo (Meta)" <harry@kernel.org>, "Johannes Weiner"
- <hannes@cmpxchg.org>, "Michal Hocko" <mhocko@kernel.org>, "Roman Gushchin"
- <roman.gushchin@linux.dev>, "Shakeel Butt" <shakeel.butt@linux.dev>,
- "Muchun Song" <muchun.song@linux.dev>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Hao
- Li" <hao.li@linux.dev>, "Christoph Lameter" <cl@gentwo.org>, "David
- Rientjes" <rientjes@google.com>, "Sebastian Andrzej Siewior"
- <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>
-In-Reply-To: <20261103-kmalloc-nolock-fixes-v2-4-19167cfe4779@kernel.org>
-References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org> <20261103-kmalloc-nolock-fixes-v2-4-19167cfe4779@kernel.org>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=k4/TTGvn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=WjL+
+	BboDzTnCr05d4B3GVddTa6hoTsb2Q7/tMkgbEgE=; b=k4/TTGvn6KawElXEg9Bb
+	qOZDns6dw9rlO8RAcyEW+R5LtiRWK3EUb1xjy1qv5PY7vclfnx0g2zpyRZVQHBQk
+	hS2cYY6dvAjl+vRiET3GcojY3mYknjggYIDCmsAOOODL5DWB24RiBNfTVe+sFXwA
+	ovDhC3fDMR0XK9MmSAXBVkPFBg3Z543a0Vc/+0kETuPaPFpyl6SYJO91d3WVkD9r
+	pcnEavNArnqZDMUAJXlOdMLBl2JLVqQbbmzKs9lmkKUVXbte2zMVrK+98TXCdCn4
+	V6761POK1dz1bRaU6iLEQZpFTg9RwZwQW5Ad0pqtUf4KdwYhnZT7/Jhg+CIIFitj
+	Ug==
+Received: (qmail 389364 invoked from network); 3 Nov 2026 19:44:13 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Nov 2026 19:44:13 +0100
+X-UD-Smtp-Session: l3s3148p1@m+AWpmNfMLbAwtcC
+Date: Tue, 3 Nov 2026 20:44:13 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Douglas Anderson <dianders@chromium.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Jyri Sarha <jyri.sarha@iki.fi>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Alison Wang <alison.wang@nxp.com>,
+	Paul Kocialkowski <paulk@sys-base.io>,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+	Philippe Cornu <philippe.cornu@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Jagan Teki <jagan@amarulasolutions.com>,
+	Ondrej Jirman <megi@xff.cz>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Igor Reznichenko <igor@reznichenko.net>,
+	Michael Walle <mwalle@kernel.org>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>,
+	Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,
+	Purism Kernel Team <kernel@puri.sm>,
+	Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
+	Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>,
+	Michael Trimarchi <michael@amarulasolutions.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Casey Connolly <casey.connolly@linaro.org>,
+	Michael Tretter <m.tretter@pengutronix.de>,
+	Cristian Cozzolino <cristian_ci@protonmail.com>,
+	Junjie Cao <junjie.cao@linux.dev>,
+	Ryan Brue <ryanbrue.dev@gmail.com>,
+	Nickolay Goppen <setotau@mainlining.org>,
+	Stefan Mavrodiev <stefan@olimex.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Robert Chiras <robert.chiras@nxp.com>,
+	Alexander Koskovich <akoskovich@pm.me>,
+	Markuss Broks <markuss.broks@gmail.com>,
+	Artur Weber <aweber.kernel@gmail.com>,
+	David Heidelberg <david@ixit.cz>,
+	Dzmitry Sankouski <dsankouski@gmail.com>,
+	Yedaya Katsman <yedaya.ka@gmail.com>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org
+Subject: Re: [PATCH 07/35] drm: rcar-du: use devm_drm_panel_bridge_add()
+Message-ID: <auorffiFkpqbhotm@shikoro>
+References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-7-5e3070a3478f@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,52 +150,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-drm-panel-funcs-v1-7-5e3070a3478f@oss.qualcomm.com>
 
-On Tue, Nov 03, 2026 at 06:47 AM Harry Yoo (Meta) <harry@kernel.org> wrote:
->  	if (likely(size == 1)) {
-> -		memcg_alloc_abort_single(s, *p);
-> +		bool allow_spin = alloc_flags_allow_spinning(ac->alloc_flags);
-> +
-> +		memcg_alloc_abort_single(s, *p, allow_spin);
->  		*p = NULL;
->  	} else {
->  		kmem_cache_free_bulk(s, size, p);
+On Mon, Oct 26, 2026 at 01:09:56PM +0200, Dmitry Baryshkov wrote:
+> The connector type passed to devm_drm_panel_bridge_add_typed() has been
+> ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
+> every drm_panel"), the bridge always has the type of the panel.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-can we call kfree_nolock(*p) here when spinning is not allowed ?
-Karl's patch did that. You replied that memcg_slab_free_hook() should
-not see an object that is not charged:
-https://lore.kernel.org/all/asaAwg1KeZoEYd4K@thinkpad/
-It's fine. __memcg_slab_free_hook() skips an object with objcg == NULL.
-The else branch relies on that. kmem_cache_free_bulk() also gets
-the objects that are not charged yet.
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-> +	if (likely(allow_spin))
->  		__slab_free(s, slab, object, object, 1, _RET_IP_);
-> +	else
-> +		defer_free(s, object);
-
-That's an irq_work interrupt per failed charge.
-kfree_nolock() tries free_to_pcs() first. It calls defer_free() only
-when that fails.
-
-Then no need for allow_spin in memcg_alloc_abort_single(),
-and the fix doesn't depend on patch 2.
-
-Something like this (compile tested only):
-
-diff --git a/mm/slub.c b/mm/slub.c
-index 45e077c..fb92b48 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -2551,7 +2551,10 @@ bool memcg_slab_post_alloc_hook(struct kmem_cache *s, gfp_t flags,
- 		return true;
-
- 	if (likely(size == 1)) {
--		memcg_alloc_abort_single(s, *p);
-+		if (likely(alloc_flags_allow_spinning(ac->alloc_flags)))
-+			memcg_alloc_abort_single(s, *p);
-+		else
-+			kfree_nolock(*p);
- 		*p = NULL;
- 	} else {
- 		kmem_cache_free_bulk(s, size, p);
