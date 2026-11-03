@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670800;
-	b=NqvRObCZaWYxtf6hj4Yal37qV+OYtgJGufYZaStmvlie53KyJo2nxmzbyh9QNkYUGzMk
-	 Inl8r4RH12bPzqDVdx7lNXPjWg+WXExcsUam+Ajuja+9CpgRaOt6FVWho+VazaZ6E37kM
-	 ikMm5Ovg16kfir85qgEu1VeSgl9tMUNa/pSl7z4Fm3ZswpcS+AjH7STdYQ7oU2HunUQ2p
-	 aoZHQQzaYVVbf07MiTNDOqY7MVRvR3d1sOSMeqncSIvNvKA155+SZFrtKs70+JLdFKySJ
-	 CsT/xDUfgrej4xFcRvyX24UDntW0PZbth0OtmZqzSV+jZ7ON7D9M53nmQkzljRXsQ9g==
+	t=1793670794;
+	b=ds8qL0P4cuazucF8/byWJcfIS1USg6JtU61SAtad5Eccs6uGoY5vMuczhNsdN1xxETbL
+	 BZ63PLghs3vCE3XCvuEwdZ2eIiv6/kRAG+xpmSyKf8ia7fnLfYE6acLu+mS6XIzoXW6TS
+	 y7bK4F8xWYwF6emjeBZHbbSG0+tzeSjbjrjm55UPBQzmsGj2oN3+WnGlmKWBjFf+0Vzp9
+	 z2UYpiJIYPvfVkpGiwVEf90cHnAafWTqT7U/z7Uhvf7+x0tRMOQ8lTdg9fHPJqtvCW6sR
+	 WPnkvEm4vnnryu9HM+GTw3cIuksCrfppiX0phMETr2VrYtIYTYc2yK6RoX3HNdf5Trw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670800;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670794;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0+mSBXLNAA0dwXnlKGB4VzBTQaYn7txRakynf3QsRrI=;
-	b=5QR2DL/FhdJCHN37nD/WqQe/p/ssr4h53/E+U6MpHBc738o/ePvCAdYMqLuoBHOuHXx0
-	 fTnGYH5NV+WObSh96E8AWBqbMLxOkV31E9vTEG+oxhR4WEgtbxtb73GODA0WPmYZLri6o
-	 ShJZyrhzEYDR9zT3269VXynMOwUVzsQy0Aq5+cXw7rZ0JZhknQraZyLGKd/upxFfEgVyt
-	 r4U10nXmramUUJakjdfgc1DAQlX5GfjAdBQXhn8KSOmHKLkjONnYi7EH3KSdwK4HZ9IBU
-	 rxC4Bcuknzt5mqupJLEBCDBbYYIBzpaDOmrz9Sae/+dmSS44yq03Fe6zTILn0IfNm0w==
+	bh=9d6Rr+p5PXOZDvPem8sLSBEFhwoGFFzLeX4U/7Xsf4c=;
+	b=qO4eu1bWOdASa4AtCfnpB1SPHzx3b45vidk57DpdDNT/7KgPv5dcNY+f6tllhKXrt2vF
+	 +x2TOmuY5WsSa72aCl6mRs6eIw1AXD0aKeDjO2MyeDd3PhEvuDfwB2LJZvkMpGH+662Dt
+	 ysdEmhP/kY4+vFpWvCQdAFqpett7UOF8nb9B8w6Z1yurUqstCatwzbGhGtojS/LT/+mAg
+	 fk0D/dm3yyJoCDazkQFVrK6DI3g32WhF5Uyv7BfcWfasfi4DuN9sd88JZ2ocgOLDi3feF
+	 K6tzEdqr6AAJiG5nT3f3ZmZqw0+HBy76iidSghE/tZbjPoPHvXzIE+J2dCupHnNuDGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQsuSs5S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TcBUmVen;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19B9606EEAC;
-	Tue,  3 Nov 2026 01:53:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60350606D833;
+	Tue,  3 Nov 2026 01:53:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQsuSs5S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093F41F00A1C;
-	Tue,  3 Nov 2026 01:53:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TcBUmVen
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3731F000C1;
+	Tue,  3 Nov 2026 01:53:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793670799;
-	bh=0+mSBXLNAA0dwXnlKGB4VzBTQaYn7txRakynf3QsRrI=;
+	s=k20260515; t=1793670794;
+	bh=9d6Rr+p5PXOZDvPem8sLSBEFhwoGFFzLeX4U/7Xsf4c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PQsuSs5Slt57uw2KiTg6p4IuEa6Ftql8y0WZ7NtYUqc9vQkDT6kH6yQipP/KsjGc0
-	 Ut8f/YMCuEP/FOq7hIL2TW/FDdDrPf0IgH5nlFRRyWD085o5fQ+DUUzH7F41fdwsX1
-	 HenktnIQU5lFIFkHCly1le05TUVhh2DZvy8vbOwfbRnTqb9Aqh6dLhXGnSFPb/RHYX
-	 AioF/jLDPY+MCwbZAhr9sz8nhzegq76YTza92QO0PNnFUBwodcKT+b3eVM8mO4+G3l
-	 wvOw5yRDQigt0zvDAbW8z+alJXSJtfDNuNlGVlm+GH1/aev489EPbP04Csf1bxkztu
-	 qXhoNMfPZNM5A==
+	b=TcBUmVengGhxr7ezJhyS1pJ8CZ71XILEQiyNBiv8LSPNZvZ6146hE2+yMr7ijSFsF
+	 HO9vAe+bMZgKuXaDZfz85khH46Uv35Q0F7ayaLiQf/UV3hyUoMNtlvglcBUL3HQYYH
+	 WJrKEzLvQi9zIqmLZLRCAzy6O3NSyBIh3++3suMsDvizGcmxlMhog/BmW2zjj8kZxc
+	 bdvXN3Amvg11XcCuWytw+4/jE+iRDdvd2wjzgUv5zvTL9qxXSxQynyQMTfYexZr7og
+	 EVEr75x2L+GTVFQ1do4ne4tCdE1yWTpk6Jp8bLCjkqHLk8LY3qKvfpdWboeI8VKhWh
+	 zF/VzZx6/QmbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org
-Cc: Alexander Potapenko <glider@google.com>,
+Cc: Wentao Zhang <wentaoz5@illinois.edu>,
+	Alexander Potapenko <glider@google.com>,
 	Andrey Konovalov <andreyknvl@gmail.com>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
 	Bill Wendling <morbo@google.com>,
-	Borislav Petkov <bp@alien8.de>,
 	Chuck Wolber <chuck@wolber.net>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
 	Dmitry Vyukov <dvyukov@google.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
 	Justin Stitt <justinstitt@google.com>,
 	kasan-dev@googlegroups.com,
 	linux-kbuild@vger.kernel.org,
-	linux-um@lists.infradead.org,
 	llvm@lists.linux.dev,
 	Marco Elver <elver@google.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
@@ -64,12 +58,10 @@ Cc: Alexander Potapenko <glider@google.com>,
 	Nicolas Schier <nsc@kernel.org>,
 	Peter Oberparleiter <oberpar@linux.ibm.com>,
 	Peter Zijlstra <peterz@infradead.org>,
-	Richard Weinberger <richard@nod.at>,
-	Thomas Gleixner <tglx@kernel.org>,
-	x86@kernel.org
-Subject: [PATCH v2 19/20] gcov: add MC/DC condition coverage support
-Date: Mon,  2 Nov 2026 20:52:37 -0500
-Message-ID: <20261103015238.3780910-20-sashal@kernel.org>
+	Thomas Gleixner <tglx@kernel.org>
+Subject: [PATCH v2 16/20] coverage: add MC/DC measurement
+Date: Mon,  2 Nov 2026 20:52:34 -0500
+Message-ID: <20261103015238.3780910-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103015238.3780910-1-sashal@kernel.org>
 References: <20261103015238.3780910-1-sashal@kernel.org>
@@ -84,95 +76,131 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Support CONFIG_COVERAGE_MCDC with gcov, using GCC's MC/DC condition
-coverage instrumentation (-fcondition-coverage), which is available
-since GCC 14. The data is shown by "gcov --conditions".
+Add CONFIG_COVERAGE_MCDC to measure Modified Condition/Decision
+Coverage (MC/DC) [1], which is required by several automotive and
+aviation standards for certifying safety critical software [2]. Start
+with Clang's source-based code coverage, which supports it since Clang
+18 [3].
 
-Add -fcondition-coverage to the gcov compiler flags when enabled, and
-disable the warnings about decisions it leaves out, as is done for
-Clang. Both are gated on the config option to avoid Clang warnings
-about unknown options.
+In the following example from arch/x86/events/probe.c, measured on
+v6.11, llvm-cov gives the MC/DC measurement for the compound logic
+decision at line 43:
 
-Also add -fcondition-coverage to CFLAGS_REMOVE in the x86 UML vDSO
-Makefile to prevent instrumentation of userspace vDSO code.
+   43|     12|			if (msr[bit].test && !msr[bit].test(bit, data))
+  ------------------
+  |---> MC/DC Decision Region (43:8) to (43:50)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (43:8)
+  |     Condition C2 --> (43:25)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     C1, C2    Result
+  |  1 { T,  F  = F      }
+  |  2 { T,  T  = T      }
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: covered: (1,2)
+  |  MC/DC Coverage for Decision: 50.00%
+  |
+  ------------------
+   44|      5|				continue;
 
+Only condition C2 was shown to independently affect the outcome of the
+decision, so the MC/DC of this decision is 1 out of 2.
+
+MC/DC uses bitmaps to track the executed test vectors, which grow
+quickly with the number of conditions. CONFIG_LLVM_COV_MCDC_MAX_CONDITIONS
+sets the largest decision to instrument, through -fmcdc-max-conditions.
+Larger decisions, and decisions the compiler can't instrument, are left
+out of the MC/DC data and only get branch coverage. The compiler warns
+about each of them, which is nothing to act on in the code, so disable
+those warnings; building with KCFLAGS=-Wpgo-coverage lists them. Clang
+only allows disabling them since version 22: older versions keep
+warning, and can't be used together with CONFIG_WERROR.
+
+Link: https://en.wikipedia.org/wiki/Modified_condition%2Fdecision_coverage [1]
+Link: https://digital-library.theiet.org/content/journals/10.1049/sej.1994.0025 [2]
+Link: https://clang.llvm.org/docs/SourceBasedCodeCoverage.html#mc-dc-instrumentation [3]
+Originally-by: Wentao Zhang <wentaoz5@illinois.edu>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/um/vdso/Makefile | 4 ++--
- kernel/coverage/Kconfig   | 7 +++++--
- kernel/coverage/gcov/fs.c | 5 +++--
- scripts/Makefile.gcov     | 5 +++++
- 4 files changed, 15 insertions(+), 6 deletions(-)
+ kernel/coverage/Kconfig   | 26 ++++++++++++++++++++++++++
+ kernel/coverage/llvm/fs.c |  5 +++--
+ scripts/Makefile.llvm-cov |  9 +++++++++
+ 3 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/um/vdso/Makefile b/arch/x86/um/vdso/Makefile
-index 7664cbedbe30f..adfc57c1a726d 100644
---- a/arch/x86/um/vdso/Makefile
-+++ b/arch/x86/um/vdso/Makefile
-@@ -42,8 +42,8 @@ $(vobjs): KBUILD_CFLAGS += $(CFL)
- #
- # vDSO code runs in userspace and -pg doesn't help with profiling anyway.
- #
--CFLAGS_REMOVE_vdso-note.o = -pg -fprofile-arcs -ftest-coverage
--CFLAGS_REMOVE_um_vdso.o = -pg -fprofile-arcs -ftest-coverage
-+CFLAGS_REMOVE_vdso-note.o = -pg -fprofile-arcs -ftest-coverage -fcondition-coverage
-+CFLAGS_REMOVE_um_vdso.o = -pg -fprofile-arcs -ftest-coverage -fcondition-coverage
- 
- #
- # The DSO images are built using a special linker script.
 diff --git a/kernel/coverage/Kconfig b/kernel/coverage/Kconfig
-index 8d9d5f063aea6..3429bc902c934 100644
+index acfcce23e4c97..8d9d5f063aea6 100644
 --- a/kernel/coverage/Kconfig
 +++ b/kernel/coverage/Kconfig
-@@ -108,8 +108,8 @@ config COVERAGE_PROFILE_ALL
+@@ -106,6 +106,32 @@ config COVERAGE_PROFILE_ALL
+ 	  larger and run slower. Also be sure to exclude files from profiling
+ 	  which are not linked to the kernel image to prevent linker errors.
  
- config COVERAGE_MCDC
- 	bool "Measure modified condition/decision coverage (MC/DC)"
--	depends on LLVM_COV_KERNEL
--	depends on CLANG_VERSION >= 220000 || !WERROR
-+	depends on LLVM_COV_KERNEL || (GCOV_KERNEL && CC_HAS_CONDITION_COVERAGE)
-+	depends on !LLVM_COV_KERNEL || CLANG_VERSION >= 220000 || !WERROR
- 	help
- 	  MC/DC verifies that each condition of a boolean decision has been
- 	  shown to independently affect the outcome of the decision. It is
-@@ -119,6 +119,9 @@ config COVERAGE_MCDC
- 	  Decisions that the compiler can't instrument are not measured, and
- 	  only get branch coverage.
- 
-+	  With gcov this requires GCC 14 or later, and the data is shown by
-+	  "gcov --conditions".
++config COVERAGE_MCDC
++	bool "Measure modified condition/decision coverage (MC/DC)"
++	depends on LLVM_COV_KERNEL
++	depends on CLANG_VERSION >= 220000 || !WERROR
++	help
++	  MC/DC verifies that each condition of a boolean decision has been
++	  shown to independently affect the outcome of the decision. It is
++	  required for certification by safety standards such as DO-178C
++	  (avionics) and ISO 26262 (automotive).
 +
- 	  If unsure, say N.
- 
- config LLVM_COV_MCDC_MAX_CONDITIONS
-diff --git a/kernel/coverage/gcov/fs.c b/kernel/coverage/gcov/fs.c
-index a761cfb837414..689b8b9a0d16a 100644
---- a/kernel/coverage/gcov/fs.c
-+++ b/kernel/coverage/gcov/fs.c
-@@ -866,8 +866,9 @@ void gcov_event(enum gcov_action action, struct gcov_info *info)
++	  Decisions that the compiler can't instrument are not measured, and
++	  only get branch coverage.
++
++	  If unsure, say N.
++
++config LLVM_COV_MCDC_MAX_CONDITIONS
++	int "Maximum number of conditions in a decision to instrument"
++	range 6 32767
++	depends on COVERAGE_MCDC && LLVM_COV_KERNEL
++	default 6
++	help
++	  This value is passed to the "-fmcdc-max-conditions" option of Clang.
++	  Decisions with more conditions are not instrumented. MC/DC uses
++	  bitmaps to track the executed test vectors, which grow quickly with
++	  the number of conditions.
++
+ # The per-subsystem COVERAGE_PROFILE_* options used to be GCOV_PROFILE_*.
+ config GCOV_PROFILE_AMDGPU
+ 	bool
+diff --git a/kernel/coverage/llvm/fs.c b/kernel/coverage/llvm/fs.c
+index e90c325daeba3..16ada19650d07 100644
+--- a/kernel/coverage/llvm/fs.c
++++ b/kernel/coverage/llvm/fs.c
+@@ -184,8 +184,9 @@ static void llvm_cov_reset(void)
  }
  
- static const struct coverage_backend gcov_backend = {
--	.name	= "gcov",
--	.reset	= gcov_reset_all,
-+	.name		= "gcov",
+ static const struct coverage_backend llvm_cov_backend = {
+-	.name	= "llvm",
+-	.reset	= llvm_cov_reset,
++	.name		= "llvm",
 +	.features	= IS_ENABLED(CONFIG_COVERAGE_MCDC) ? "mcdc" : NULL,
-+	.reset		= gcov_reset_all,
++	.reset		= llvm_cov_reset,
  };
  
- /* Create debugfs entries. */
-diff --git a/scripts/Makefile.gcov b/scripts/Makefile.gcov
-index 1cfe04d89b0a2..977c8ee023f68 100644
---- a/scripts/Makefile.gcov
-+++ b/scripts/Makefile.gcov
-@@ -18,4 +18,9 @@ CFLAGS_COVERAGE	+= $(call try-run,\
- 	cmp -s "$$TMP.ubase" "$$TMP.utest",\
- 	-fprofile-update=prefer-atomic)
- endif
+ static int __init llvm_cov_init(void)
+diff --git a/scripts/Makefile.llvm-cov b/scripts/Makefile.llvm-cov
+index 5babb09b6d3e6..e2875836291b8 100644
+--- a/scripts/Makefile.llvm-cov
++++ b/scripts/Makefile.llvm-cov
+@@ -3,4 +3,13 @@
+ CFLAGS_COVERAGE	:= -fprofile-instr-generate -fcoverage-mapping \
+ 		   -fprofile-update=atomic
+ 
 +ifdef CONFIG_COVERAGE_MCDC
-+CFLAGS_COVERAGE	+= -fcondition-coverage
-+# As for Clang: KCFLAGS=-Wcoverage-too-many-conditions lists what's left out.
-+KBUILD_CFLAGS	+= -Wno-coverage-too-many-conditions
++CFLAGS_COVERAGE	+= -fcoverage-mcdc \
++		   -Xclang -fmcdc-max-conditions=$(CONFIG_LLVM_COV_MCDC_MAX_CONDITIONS)
++# Decisions that MC/DC leaves out are nothing to fix in the code. Disable the
++# warnings here rather than in CFLAGS_COVERAGE, so that KCFLAGS=-Wpgo-coverage
++# can list them. Clang only allows this since version 22.
++KBUILD_CFLAGS	+= $(call cc-disable-warning, pgo-coverage)
 +endif
++
  export CFLAGS_COVERAGE
 -- 
 2.53.0
