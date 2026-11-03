@@ -1,64 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.96.220.36
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692885;
-	b=0EY15iH2bjpxjcziyCtG+4BhfWltAMU/R+nJ+yQ4drzythm1NbSyr5pHpMhIULuavw7y
-	 psWMgjVGWV/lZCeDv5Md2rg0P9TB2CpMytEygJjqsAzG6elRZyX33NuM6ledoCO5tffms
-	 tUg5vsiTQw5C9Goqah6TBHzm29xuf+zjvMDwpZhpQQtQRRigKKBvYZRd5tmC6R/UgjHRH
-	 NBu0FmUKzHFy6isS+CzxPR+zzOpQEvb8Mz4YYfOYZMc9iA0dF1TwjmNI5luhge6NfGYCN
-	 gWVHmxTxzJM2aGTOM1jrgV5bxmXgakxkYgMGYvAYSoafbjFwKKSJ6SVqY/mtuTKM52g==
+	t=1793692882;
+	b=SHnOXT2j31FJISCwcpN9CC/le03nYG7NrqXs0hl51mWuTpww1YtSoFSvO25WCjk5h0TD
+	 QbT7+OLbMdMHH1dBHz/NX5RfopTba1d2DoaQRH7EvcoIZj8M98yR9DuvIcVHR2keXufqG
+	 E8qL1lVjzfuD9oWViugeJhm6AQWm275Y62coRSxCii+qNM90e6Hsokunn7/+d+O2lf/dS
+	 w9vhM/n5FlbGyKH/izMABVqW8OrvVwT1bnYPiSpy+zjh8hPBBRL5LSc95FRpMcnJWepRX
+	 iA0ogAbzjBYCVqZXRC4vWVjcS+4pGhgeqNaqt6dOCTi9QBHbXlxTqX3t4o53XWwOoYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692885;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Dq6oOFOAZU2isTmULY88ZuxmHS/TA88BLaSmBq2/KSc=;
-	b=bD7cVd6j0sd+MU6/Uyf30liWIY3IkQwDsE+wnpaFfYl3dwQrS5BPpVHIusKwELuKNrkl
-	 1ue/brmL4K9r3g0EXbe17I5iqP9F/7TyM1h3oxrqwvlWQpF6G6j3fs948bkEf1ZL5fW51
-	 CrArGQ/CPv/a9HSY+bVI3ogUMr+mRybpozJKFcHQyaF+ARhACfEVgrCgQLy8sk/MW5KZy
-	 pRNL+3ZaRc7/CIrDmK4yLN4A3t7gxap3Y7G7IQnYFlfSdTItNJUabr/QrdQTBpRkmpRTO
-	 QAbbITWBWJ+Iq4dAy3MpMxJu6o/oeN/VGDC+7hS5MgQa+JSr3jGJnrVBLEGacdWYRGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692882;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
+	 DKIM-Signature:Received:Date:From:To:CC:Subject:Message-ID:Reply-To:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 Precedence:Priority:Organization:X-ClientProxiedBy;
+	bh=AulrUU0VFXvSrJAGFo85zXAc23lwBKp4vP1wSVUq+Rk=;
+	b=3HaQPBZnG9G6VXUOSjKR0vRvm37yKEb2KTZnbtZxvLW2QStRL9YlhBWg1j54bIqPyxrq
+	 hWzpx7zirjaJtEiRyQEJiCux27ROC14umT5+AFx3Aryq/Wcq1L+zTKakvydODIcFQ5wsx
+	 RPPdX5E86IKZ8ahpho4yRJumyim4U/huRe4L4b594ckpToL/ITTdKCIZFT8uT8+pqGykj
+	 DfSW8yB0n62BE+bVmlleOBR83naXk91CZb4QvBiIZRim8NR22iV8vkp08sQeugITft81g
+	 eQAuCwMYf5fZmifpA6WBt6QLn8Mw5bsyf0mD4ZAJz+a4jvSQCI/0hJnfWFvCC9KJirQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KINhXhpQ;
-	arc=none smtp.remote-ip=95.215.58.37
-Received: from mta1.migadu.com (out-37.mta1.migadu.com [95.215.58.37])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=secunet.com;
+	spf=pass smtp.mailfrom=secunet.com;
+	arc=none smtp.remote-ip=62.96.220.36
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF22E606A33A
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:01:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF22E606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KINhXhpQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kdenmgDIdcPw1gofp+pTbFrp5V8zDpPUvs8MrZtt0Lk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793692881; v=1; x=1794297681;
- b=KINhXhpQo6Z5xPdSXPPsx0nf/J0lHWKXck8ODR7OaMUSROoCZxv7QES/dD+P99XXs8F1xWpd
- qBDt/RNG9nbpEd9Mm+WW0Ow9iSpjRcIvUkI1NwfEC0vFbRkInd48LUAYvHI5JWCbRr77sJB+cZ4
- huwf/cFgJYDAPJDvfBzTbG7Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 656623d56c083c98;
-	Tue, 03 Nov 2026 08:01:21 +0000
-X-Mizu-Trace-ID: 656623d56c083c98
-X-Migadu-Flow: FLOW_OUT
-From: Qi Zheng <qi.zheng@linux.dev>
-To: muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	azpijr@gmail.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Qi Zheng <zhengqi.arch@bytedance.com>
-Subject: [PATCH 0/4] mm: hugetlb: fix some CMA-related issues
-Date: Tue,  3 Nov 2026 16:01:03 +0800
-Message-ID: <cover.1793692578.git.zhengqi.arch@bytedance.com>
-X-Mailer: git-send-email 2.48.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087EE606A338;
+	Tue,  3 Nov 2026 08:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 087EE606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id D95BC20748;
+	Tue,  3 Nov 2026 09:01:18 +0100 (CET)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id dr39lHmud8xT; Tue,  3 Nov 2026 09:01:18 +0100 (CET)
+Received: from EXCH-02.secunet.de (rl2.secunet.de [10.32.0.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 3A42F20190;
+	Tue,  3 Nov 2026 09:01:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 3A42F20190
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1793692878;
+	bh=AulrUU0VFXvSrJAGFo85zXAc23lwBKp4vP1wSVUq+Rk=;
+	h=Date:From:To:CC:Subject:Reply-To:References:In-Reply-To:From;
+	b=LTu1W9I/GERA4yBvnwWR9m32ftaX72hSnQcQBoqua3IbiVOBtaHJa0EV1Dn8O6vRr
+	 0uOAckMZOiqwuKFvO8Yaau64/ZxMd2VvxKErJhbPw0zMsA0JukabvI6RBg4TyBbkAS
+	 KLTO+dEvenFCUudvf5mbKkrsiDhBBXOeRSSP+kMBVYOoMwyIM9KfWN+pVmlb7W6wKJ
+	 MrdkzXSPAWbnTGSZwfDpqAIFCZnEVZTSahJle16uxs+LPWNGB82OrTOZzudOJqK494
+	 KM2MJ6YME6mkn5rKYP/XChnSql4CB/4fmxyQFcFEdtWtNj3BpYSB6PwoTcisFTGIRr
+	 H39dvPsYdVtgQ==
+Received: from moon.secunet.de (172.18.149.1) by EXCH-02.secunet.de
+ (10.32.0.172) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 3 Nov
+ 2026 09:01:17 +0100
+Date: Tue, 3 Nov 2026 09:01:06 +0100
+From: Antony Antony <antony.antony@secunet.com>
+To: Cen Zhang <zzzccc427@gmail.com>
+CC: <steffen.klassert@secunet.com>, <herbert@gondor.apana.org.au>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <horms@kernel.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <antony.antony@secunet.com>,
+	<baijiaju1990@gmail.com>, <jjzuming@gmail.com>
+Subject: Re: [PATCH ipsec v2 2/2] xfrm: use cached offload ifindex when
+ migrating an SA
+Message-ID: <aumUwuVWsOOQdMG-@moon.secunet.de>
+Reply-To: <antony.antony@secunet.com>
+References: <pm-xfrm-core-objects-candidate-0050-v4-3c6b8c5369a802e9be0e-0@gmail.com>
+ <pm-xfrm-core-objects-candidate-0050-v4-3c6b8c5369a802e9be0e-2@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +80,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <pm-xfrm-core-objects-candidate-0050-v4-3c6b8c5369a802e9be0e-2@gmail.com>
+Precedence: first-class
+Priority: normal
+Organization: secunet
+X-ClientProxiedBy: EXCH-04.secunet.de (10.32.0.184) To EXCH-02.secunet.de
+ (10.32.0.172)
 
-From: Qi Zheng <zhengqi.arch@bytedance.com>
+On Sat, Oct 31, 2026 at 11:28:49 +0800, Cen Zhang wrote:
+> An xfrm_state reference keeps its offload record alive, but does not
+> prevent xfrm_dev_state_free() from clearing xso.dev and dropping the
+> device reference. xfrm_do_migrate_state() checks xso.dev before
+> xso_to_xuo() dereferences it to obtain the offload ifindex.
+> 
+> With XFRM offload and migration enabled, XFRM_MSG_MIGRATE_STATE inherits
+> the old SA's offload configuration if the request omits
+> XFRMA_OFFLOAD_DEV and does not set XFRM_MIGRATE_STATE_CLEAR_OFFLOAD.
+> Device unregister can flush that SA between the check and the read.
+> The supplied report used a scheduling probe to delay migration in this
+> interval while in-tree netdevsim was removed through sysfs.
+> 
+>     Migration (xfrm_cfg_mutex)       Device unregister (RTNL)
+>     xfrm_state_lookup(): hold x
+>     test x->xso.dev != NULL
+>                                     xfrm_dev_state_flush()
+>                                       xfrm_state_delete(x)
+>                                       xfrm_dev_state_free(x)
+>                                         xso->dev = NULL
+>                                         netdev_put(dev)
+>     xso_to_xuo(&x->xso, &xuo)
+>       xso->dev->ifindex: NULL deref
+> 
+> The netlink configuration mutex does not serialize with the notifier,
+> and migration takes the state lock only after this read. The result is
+> a NULL pointer dereference even though migration still holds the SA.
+> 
+> Use the ifindex cached in the offload record at attachment, as state
+> dumps already do. The SA reference protects this snapshot throughout
+> the read, so serialization no longer depends on the device lifetime.
+> Annotate the binding check with READ_ONCE() to match the concurrent
+> WRITE_ONCE() in xfrm_dev_state_free().
+> 
+> Oops report as below:
+> 
+>     Oops: general protection fault, probably for non-canonical address
+>     0xdffffc000000001c: 0000 [#1] SMP KASAN NOPTI
+>     KASAN: null-ptr-deref in range [0x00000000000000e0-0x00000000000000e7]
+>     RIP: 0010:xfrm_do_migrate_state+0x1f06/0x2c50
+>     Call Trace:
+>      <TASK>
+>      xfrm_user_rcv_msg+0x3b3/0xc20
+>      netlink_rcv_skb+0x133/0x390
+>      xfrm_netlink_rcv+0x76/0x90
+>      netlink_unicast+0x504/0x840
+>      netlink_sendmsg+0x7f7/0xcf0
+>      __sys_sendto+0x425/0x470
+>      __x64_sys_sendto+0xe5/0x1c0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>      </TASK>
+> 
+> Fixes: a9d155ea9b44 ("xfrm: add XFRM_MSG_MIGRATE_STATE for single SA migration")
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-Hi all,
-
-This series fixes four CMA-related issues in HugeTLB reservation and
-allocation:
-
- - Avoid ineffective CMA reservations on 32-bit x86 kernels running on
-   CPUs that advertise 1 GiB page support.
- - Honor PF_MEMALLOC_PIN to avoid allocating CMA-backed folios during
-   long-term pinning.
- - Skip CMA allocation when the caller disallows direct reclaim.
- - Enforce cpuset restrictions on surplus allocations, preserving memory
-   policy semantics and handling concurrent cpuset changes without
-   discarding folios that remain eligible.
+Reviewed-by: Antony Antony <antony.antony@secunet.com>
 
 Thanks,
-Qi
-
-Qi Zheng (4):
-  x86: hugetlb: disable default CMA reservations on 32-bit kernel
-  mm: hugetlb: skip CMA allocations under PF_MEMALLOC_PIN
-  mm: hugetlb: skip CMA when direct reclaim is disallowed
-  mm: hugetlb: respect cpuset restrictions for surplus allocations
-
- arch/x86/mm/hugetlbpage.c |  2 +-
- mm/hugetlb.c              | 38 +++++++++++++++++++++++++++++++-------
- mm/hugetlb_cma.c          |  5 ++++-
- 3 files changed, 36 insertions(+), 9 deletions(-)
-
-
-base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
--- 
-2.54.0
-
+-antony
