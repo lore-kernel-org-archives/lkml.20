@@ -1,89 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690530;
-	b=zqKcDLsdxQPTvXpIeS/ucA9YJ/aK25EP7oew+OSzCVrSd8Y3OtplLWw+ysxcaa//3Bys
-	 rpz+DooKYyLjsPsV4YRx9wZRDrl8ga26oqUYnA4gNsHtIaJLUc8lo+Kfzj7g4bCnOk2yM
-	 UeMaLc5CBiAZJUneibKMF+1jvO8bblkGml3ljX9GhIYBrOYktpO6KU/QzPbRju5IjfsXc
-	 JGaBeFAXhSlEROzthJzrRyLygNnDfjzF/8sMKvF9V67Tk2aPsR7/wxHbA14wtxXBc63gQ
-	 N2MbKbXyCB5jPbR4h4mWOgpr/EasbezTmcJUoUOXFWw0zGXJJ1ZuCxlvzWUQ5Hzgb+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690530;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aU0Fo/t+9JMAeVCzpMHJlOqMoWJ9Ex7tTQwt5AkyeMU=;
-	b=F88NkN/qVv2OeCeuaC0X/aYGldDKghjQLPWtrOYtdd8mwwyXzcLUOdoae41H2lLGnhhr
-	 fnEINJ/CwPpDPv45RhUPDSyM41Kph9ppS0YgkFgbK/xH7CL/KPg9AJYilTP9FJH6eYuOv
-	 ns7BrmFqqMlABKg1nS9jyQbuFVPUnCFzIprXDAGnzf/SlkZThNAZIyYxT5LmhOqVfER3B
-	 iOH/dTWNTYZgh/jkzN6sj2mIMMugNTFJKeA3juLoYSJYtvTZvtXRDnQPgGABor8rT0fJY
-	 86V1R94FdlRNnXlFOwaF3AFOYmHCwXxlvedeWMVk+LuQx2ebUiDNfgjZaiKFKN+bd1w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=odyE8Yx6;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793690588;
+	b=eN8tEMVNIxHdHTHrOLmntcIyL9TJxgoyXl+XforqY8MEYaZfG4pvvrsZEOy00wU7ppW+
+	 VaZhOVJdCJthVtOlkMbHI/5rZlFlM7ZCDFGBbHBtQYh47FliVuN5ynkU70kaXM/xl5iCE
+	 NmBPgzJRYdDfbC2kYTvm1pRyM//ndjW7r1QCljuVrhwP4YEtptD22dUHWo5hzaAIlHmpy
+	 0bLFDDSdohUqdtT4ZNcICcLUSxpRKtP7J+Gju09KyAKydpd3Jvj6CpqFCnrjqOJTHmhYL
+	 OTcJKI9/GtThlzeeL17LZG0DqphHJlGuQ0HP/D0ejRfPJrEUG3vaIW/We8p37koYRVg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690588;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Originating-IP:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uj6Z6hevB+BUuZJZBweVQCsGFUBzD8SlCQUlqdZ4sGg=;
+	b=FHUzInawCEfkGL48YmUgCNjOV6iMFA8YbkmAMawOBjKlgmGfLrMTGQNrIWUYZMIwjAQr
+	 KYTgTjehMQxp5RyjgYUtbuzrJAHdzBnYYavQoOzaYWJPUCo2DSoIil4uNvv5ZNR2pAuVB
+	 2vhLiLNDA9jLvSzefSJHVPTBf5uEWcmOO7FDfCNSdT1F0NYNeK9oVzve796DHix/rGCn5
+	 AL6mzsjK3FZgbr4EZcUY3c0dAr58EMBsiD7lbllHNEqkyrqHGCZVfSPiC4sRB59qxFH3n
+	 nc1QRXLCxL9IaL0+dIUFaRTfBYbkjVv7wda+rW1nYyfxfeQ4siaRQyQ6Dyl/AcPLGdg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cn.bosch.com;
+	spf=pass smtp.mailfrom=cn.bosch.com;
+	dkim=pass header.d=cn.bosch.com header.i=@cn.bosch.com header.a=rsa-sha256 header.s=selector2 header.b=eq0KFw38;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011039.outbound.protection.outlook.com [40.107.130.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE52606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:22:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BE52606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB61606A324;
+	Tue,  3 Nov 2026 07:23:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCB61606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cn.bosch.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cn.bosch.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=odyE8Yx6
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so29003585e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:22:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793690529; x=1794295329; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aU0Fo/t+9JMAeVCzpMHJlOqMoWJ9Ex7tTQwt5AkyeMU=;
-        b=odyE8Yx65t7UsqvcKqLhGzKhrrqO8u63aeWrdMumgLCHNAkRMRNKLZ94Fdb4ABER4G
-         Xqxm/dhzsDrYsM3LYV2j6/Iw8zJ42pkhJsIT+AHkvC0LD4ak4XsSszP8mU+ocuZ7G8iO
-         RLbQOxQfAiqF5C7K2pXjz1ukuvWPTDx4eQkaPV4WjOrugqcyHQ155B+DRXG8EqpS+iHs
-         cimiWx/UsmQHZW12PGCdfs5k6bNUs4XBVMhSfJv6lgEdTjGiQOOKtC7Ew1BVUxLe8OsK
-         31D0UZANQTVx0TNw12/y7SFZvysT0hxyv/YuVw4lPEREjVVGLY6cDMFr+FCmkwojsSA3
-         6JQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793690529; x=1794295329;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aU0Fo/t+9JMAeVCzpMHJlOqMoWJ9Ex7tTQwt5AkyeMU=;
-        b=n29EfGlk1c1XMwbEUc9wwkMtcUTJYVb7EaPZgdxvgrE8z7gEojqMMrKyI0luNQict3
-         HGfttqMPyrCP7NhAE8PJuNEtIPCg560VCocaw+UsERO1F6nL4WDWJBPpnw+m7Ko9sO4H
-         Y4/u3sSwPhocv63Vy0aKPfUTTDOzPPUh5NVyNjKaeddx/KD9MHDlDMDb5jdx9KkWfEZH
-         uGmG0eKzp57Fy/0ZcniRiyR3cK3jYcOQENV+szzqeGw/mf3ty8Z4HSMMaPHw11w7tDST
-         gXrD2ymbjbRfwYlUXybj9WhuBXOUSVPcom16LkfSj4jZy0H0ALZjN6pAEnXRfoHHL3TT
-         YhvA==
-X-Forwarded-Encrypted: i=1; AKwUvBycykfA/j4kc17LknWtVSaVai4s6K2D7pXj2bK9rTdJiKpsyTlJvebf4Wea+spKdgQU4fMtCRpf+wxUrLU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IPsHTek1s4BDeLeW3Wa0FiuHWhEoIuB32u7X7hFv5Jlzew5gi
-	3pC0JEvYifYnb6BfgIkjD7HW/pa2cs2ttrDNrwF2oEvAsSebZRjNHYUG
-X-Gm-Gg: AYBFou1DsOE56/pZfBrQwY+vsWFXLhZdYQzlAD+G6F5uxS/7270V9lv6gkc9kALBf0Z
-	YjrRVhhnwp0Htmy5hraj54ip+8DZUSQYpKRJQQFHD6IJBtJy5eiyZmwTtYP+hlwf03aWixAMazH
-	Qd6O83sQIgIa3PxEIcG6QrYCISVrCH4HJcQLhFl/EMx+uwvxYsuZOHY82qzrfx85RzjZ4Jidh/t
-	8vafgRgX0jFtRAP768bxJqlPGgCdHvr2HhrMTNb4+4MBvzu0ixR1HYnM+LmOjOe8R5ppAF7SSQY
-	ZuOB5u7aOnLTzTka0J8rMnKGPO6a5qq18zYkmKP8Gs9IPd1K3wCuRtFqP3d8zUn4zzKx68yTgAr
-	pZA+plD22uzoeCyKotcUpe2zEHERARFXxcf1rnPzvcegJOSpP2+fCqESRj+47W1Df27zU+jn8uX
-	+J3ps9nMmw9smixA2RHgpeZBxbdwokxsENk5cn5mAV7fNSvzp1MTyuPLt16BQlZg7lQHVZOqC5l
-	T90tqFp3To48N7R1XjR4w1Zc6lVcmpBbfd9l5CHEn+V0TLqAdtJvmi+1uS2Bq7mCgUJSf6aTRdN
-	DKF1659q4wri5mGDTbVXepYX0V3ajlSjaa6doyqHUmzJEwtEk0ra5J6QzekD/ZBnJDsiH1k6Dia
-	E6h+eDqP2o94gCzNN+ICJ71KW5nqnjCdbyiM=
-X-Received: by 2002:a05:600c:190f:b0:4a2:1a:a11d with SMTP id 5b1f17b1804b1-4ac1275c26emr262447705e9.0.1793690528518;
-        Mon, 02 Nov 2026 23:22:08 -0800 (PST)
-Received: from [10.77.100.5] (ipservice-092-209-215-046.092.209.pools.vodafone-ip.de. [92.209.215.46])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a80e184esm41772445e9.2.2026.11.02.23.22.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 23:22:08 -0800 (PST)
-Message-ID: <2479af7b-7919-434c-a205-14e3b545c9a4@gmail.com>
-Date: Tue, 3 Nov 2026 08:22:05 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=cn.bosch.com header.i=@cn.bosch.com header.a=rsa-sha256 header.s=selector2 header.b=eq0KFw38
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TjS0aTuiH8n4ph9Iz1cGGypZSoBm9iFHvYGbty+X24ThTEbpISxCIfFGQLL3Rak4NH137T+UeCn8TgbdxAO7WiQScskeQFkB8nOCpTjbUO8tCjpqiIPcsVbyWZmYos3DdlumoUJxIHEDtKK2Zrw/SzTYs4IVJGfCGoHyDZM9XXDCENmCbw3VqHhWpCLtUj8stsOsyS8MOqD0Gm4yUxPhIjjMhWATZ9Uo7ge5LzSN0CUllrcvZPTTUHFeEEWJUqbkx2hlz8orDH0+GuIIZsQrTCo8JQEvooWKsbF3P2VDQSe5uHoAh0vmcQIrYzyq+NiZ/lgP2Hhv8uBfSxIWgrOjag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uj6Z6hevB+BUuZJZBweVQCsGFUBzD8SlCQUlqdZ4sGg=;
+ b=t6kq2O+/ZTsd4fafnucYa/Gl9cBaHupgd8y05m1wTGBZwtxtpcWFc7rVH2DoxHdrCa8bS4w2WJCg5m8gMKuUVIwUkNoV+ny13SCeYQQIy7QnQ5+0WvCIPZxhtGCXfFWp5rXUMRe7nanoks9eyzqprgMM4sLBrWvANJunXlieqrajMQRdCfQ1MrQFskNfd7pJwVgNfyNPAxddRUblTVIwfduCVeFDjMQ+9v6SGkacVWAJTVSIn2gea5EAKxJn/wkdeFjuXq9flIFeCcB/F01JqufX2f6ROLg/Ngn/QhXsIvk4XZY/Fl7w1kq7B9REu45Aj+NIYheP0OsJTKjZMKimww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 139.15.153.205) smtp.rcpttodomain=iav.lv smtp.mailfrom=cn.bosch.com;
+ dmarc=pass (p=reject sp=none pct=100) action=none header.from=cn.bosch.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cn.bosch.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uj6Z6hevB+BUuZJZBweVQCsGFUBzD8SlCQUlqdZ4sGg=;
+ b=eq0KFw38suBc6Wjpp10myq4eaDLJNonXwPtIecbHH76Af31hgveBBeBQpCor6PGT9YJ2xGc1/s2pjF79wuZDwxI/YakuEZKyjbZZHBtCYMoIngv9755KFkfdK3Ge/sTF4C9JFMJYTb8mu34x6l2UFYyznqmplvqxWgxwUxof8lBx/XZqDjgZpMPQLZebxhtrhEPCcgyZWPuG4V7bYQGpYWsW/SvOjkpLhfuIidrpjdLGiFVpBANZIcHz+CuKxNGzjl3ZZep5tG9TUoKdfharztOhjPFjLj0dxJWjJD4rwDK6wtfEjFTrfIThr4wkrRhSuIfJ4ToQ0yVFG0sN67EbBw==
+Received: from AM8P191CA0030.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:21a::35)
+ by AS8PR10MB6392.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:56d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 07:23:02 +0000
+Received: from AM1PEPF000C1ADB.eurprd02.prod.outlook.com
+ (2603:10a6:20b:21a:cafe::34) by AM8P191CA0030.outlook.office365.com
+ (2603:10a6:20b:21a::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Tue, 3
+ Nov 2026 07:23:01 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 139.15.153.205) smtp.mailfrom=cn.bosch.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=cn.bosch.com;
+Received-SPF: Pass (protection.outlook.com: domain of cn.bosch.com designates
+ 139.15.153.205 as permitted sender) receiver=protection.outlook.com;
+ client-ip=139.15.153.205; helo=eop.bosch-org.com; pr=C
+Received: from eop.bosch-org.com (139.15.153.205) by
+ AM1PEPF000C1ADB.mail.protection.outlook.com (10.167.242.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 07:23:01 +0000
+Received: from RNGMBX3002.de.bosch.com (10.124.11.207) by eop.bosch-org.com
+ (139.15.153.205) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
+ 2026 08:23:01 +0100
+Received: from WX8-V-0008J.wx.apac.bosch.com (10.190.167.205) by
+ smtp.app.bosch.com (10.124.11.207) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 08:22:56 +0100
+From: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+To: <iav@iav.lv>
+CC: Haoning Cheng <Haoning.CHENG@cn.bosch.com>, <andrew@lunn.ch>,
+	<hkallweit1@gmail.com>, <linux@armlinux.org.uk>, <davem@davemloft.net>,
+	<edumazet@kernel.org>, <kuba@kernel.org>, <pabeni@redhat.com>,
+	<lukas@wunner.de>, <rafael.j.wysocki@intel.com>, <wei.fang@nxp.com>,
+	<niklas.soderlund@ragnatech.se>, <paul@pbarker.dev>,
+	<florian.fainelli@broadcom.com>, <opendmb@gmail.com>,
+	<Thangaraj.S@microchip.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v2 2/2] net: phy: postpone PHY interrupts during sleep with MAC-managed PM
+Date: Tue, 3 Nov 2026 15:22:23 +0800
+Message-ID: <20261103072223.66463-1-Haoning.CHENG@cn.bosch.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026045343.837889-3-iav@iav.lv>
+References: <20261026045343.837889-1-iav@iav.lv> <20261026045343.837889-3-iav@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,71 +117,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/surface: aggregator: Fix use-after-free in
- ssh_ptl_shutdown()
-To: Wentao Liang <vulab@iscas.ac.cn>, hansg@kernel.org
-Cc: ilpo.jarvinen@linux.intel.com, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, stable@vger.kernel.org
-References: <20260917135607.2154130-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Maximilian Luz <luzmaximilian@gmail.com>
-In-Reply-To: <20260917135607.2154130-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM1PEPF000C1ADB:EE_|AS8PR10MB6392:EE_
+X-MS-Office365-Filtering-Correlation-Id: 583f3174-a672-4ddd-b543-08df397b4b74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|36860700016|82310400026|261102123227099003|261022075727099003|261021121427099003|11063799006|4143699003|56012099006|5023799004|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	xY7tdcmYMs//E1yxIwrfUOpTRmjtH4i21GY3Olg6nHvzyOCsTHr400lYIPYwMDvXREYYF37ZK7801NKecLEdj9tkQfmyhQXRWN4hS4lxoibNcGGDpTl6vtNiNI2Y+fjgzmF2JYLQ+UzLQH1yud71ihAcGpU2X5MSVUsbbqvjyapT8IWissHukfBn3NJvMFphTCmk9zXjVzRZWG62tOBsjsP2VecnszJlz3d/e3JXUKGgckTCG5haS2YVVa2GJ9kGbbaPRN8VXIvHxQ+Kr/SgZm6dL3l12DqU10paCBmGeaGFJbT0X6MLRfTBjmbdAD6RwATN2o3YyhOXhdXM2NairkCFvFdTdmluwuNJHudreLWWT6XNUN5UPi6tf+Mgmwn0y0tzydwrnuGQ06SgxqRvaamlsUh3/6jX1QGsoZ2GZWB9nM/FUFkbZq6pn1deOQi7zfyJd1/HDEzSjIBvAhR0N0mtMXuadra2CcxdlTyzNmcDpFaoBbM3/ZG/rolinXQDPuAidfv2l83xYwdVeIxZs3PPWJf841DBUA43A17SUy39TfADfNTVQmHiwOgOcOmj2vrUD8mha1s2TdbTb1nOhS1UHg/RRUvBddmJNezxj6Wvs+4xoblN4pQ4D18XFk93UKBHqtGOCSrZhKvpXJ0orJ4cxTQoqQJ73SUHI3KUT+QtfxGwmCdWcDCi6gimxCM7zgODZDLhUQKY872IgIyhoQ==
+X-Forefront-Antispam-Report:
+	CIP:139.15.153.205;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eop.bosch-org.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(36860700016)(82310400026)(261102123227099003)(261022075727099003)(261021121427099003)(11063799006)(4143699003)(56012099006)(5023799004)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4uhAhIK3nBiAc4bHcx0aCfcoRadLdkwtIl1J01lT6JLVQ2Lwr77a0SwOdpC5d/VDFEk9pPn+ooaheFn01OrmPlWeNAMxpKGnfZoKIab/nNOnHkyMCM8jOy0VQaUD6cydCak+vOZKVem4shXCLoD1maaCeDAeDcd7d6wLkPTsX3AQFjL2sisNJwfyMsBQgaEHbDVgknhIO7KX8qfpO3X2lJfdL9SdcHMp95IuLHANuLadv84cTXkJCOS4DpTURlilOcxLg+3SwggfdXxpxKYEfd2Rh98HJm91WGIPjtcl1WVtMBh+z8l65bjLV0ZTH0YjVrQjPfbnR4t5Wwr6gUB1w3QixVtHY+5ZK9+LjV1NRAoM5t5XGP2KloH64g661h3eqovtekslb6GZeax5721HUC7bsZiYoHu8Atwo4WuQUReFeq47ct5sYP6nrCRCySn+
+X-OriginatorOrg: cn.bosch.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 07:23:01.8811
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 583f3174-a672-4ddd-b543-08df397b4b74
+X-MS-Exchange-CrossTenant-Id: 0ae51e19-07c8-4e4b-bb6d-648ee58410f4
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0ae51e19-07c8-4e4b-bb6d-648ee58410f4;Ip=[139.15.153.205];Helo=[eop.bosch-org.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM1PEPF000C1ADB.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB6392
 
-Am 17.09.2026 um 15:56 schrieb Wentao Liang:
-> ssh_packet_put() is called on the loop variable of both
-> list_for_each_entry() loops in ssh_ptl_shutdown(), freeing the packet
-> before the iterator advances past it. Use list_for_each_entry_safe()
-> and move pending packets to complete_p, as their links use
-> pending_node, so that each loop walks a single list.
-> 
-> Fixes: c167b9c7e3d6 ("platform/surface: Add Surface Aggregator subsystem")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Hi Igor,
 
-Thanks! Overall valid fix, but similar to Ilpo I'd prefer this to be
-two separate patches, and a better commit message for the typo. See below.
+I tested the complete v2 patch series on our FEC-based platform.
 
-With that, feel free to add
+The patches successfully resolved the PHY IRQ issue during system
+suspend/resume. No related issues were observed during testing.
 
-Acked-by: Maximilian Luz <luzmaximilian@gmail.com>
+Tested-by: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
 
-> ---
->   drivers/platform/surface/aggregator/ssh_packet_layer.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/platform/surface/aggregator/ssh_packet_layer.c b/drivers/platform/surface/aggregator/ssh_packet_layer.c
-> index 3dd22856570f..871780828419 100644
-> --- a/drivers/platform/surface/aggregator/ssh_packet_layer.c
-> +++ b/drivers/platform/surface/aggregator/ssh_packet_layer.c
-> @@ -1983,13 +1983,13 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
->   		smp_mb__before_atomic();
->   		clear_bit(SSH_PACKET_SF_PENDING_BIT, &p->state);
->   
-> -		list_move_tail(&p->pending_node, &complete_q);
-> +		list_move_tail(&p->pending_node, &complete_p);
-
-This is fixes typo and should be addressed in a separate patch.
-
->   	}
->   	atomic_set(&ptl->pending.count, 0);
->   	spin_unlock(&ptl->pending.lock);
->   
->   	/* Complete and drop packets on complete_q. */
-> -	list_for_each_entry(p, &complete_q, queue_node) {
-> +	list_for_each_entry_safe(p, n, &complete_q, queue_node) {
->   		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
->   			__ssh_ptl_complete(p, -ESHUTDOWN);
->   
-> @@ -1997,7 +1997,7 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
->   	}
->   
->   	/* Complete and drop packets on complete_p. */
-> -	list_for_each_entry(p, &complete_p, pending_node) {
-> +	list_for_each_entry_safe(p, n, &complete_p, pending_node) {
->   		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
->   			__ssh_ptl_complete(p, -ESHUTDOWN);
->   
-
+Best regards,
+Haoning Cheng
