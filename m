@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793744097;
-	b=IF9wxztT2AvhBlxaj/o3AO7JWZmPSr7RjkzTlhYhgmsgTTPULssiiALhi+U6799K470R
-	 A1I5PtWbE6DGQrDIk1zrSIMoBYWMbkmzl3UBsA8foQia7JVD43GMBdVmVld8WPmSukomu
-	 EeulHU6l9RlH2ZCxpeuaRntEqdIlaryCj7LnPUQm+0w8Ztjvx8HcKr6QxcoHHXIll6xzz
-	 UqvnjXZkxLglQ8nvCeHcwtMeg3dHNyNTYBKqqtHeQgeoiD65kETNEXtrlh2L4c+zwCHB6
-	 qotU8ir/kCpAasXug0b7XD1GEMhHm2cHU6AR0dqyjhrJbLZkr0MhV2GgWaIKDhAktYw==
+	t=1793744093;
+	b=b8miePEoRnSzB5u9UXhqiFTyzBcHnKM7wx07kcg+Ljn7PcsgqofnyiDVICxJWu/ZTjPE
+	 w8f24ckyDPAWdW7BiKlh9I5iUu9M4bHdpaMqEVWi1f1Zw6wAdpO6jDQRxn6xpllLKeeLe
+	 /mUT+/foHcYL/wJVQH5yH3bF1gBNwFh6sCcjvqk00evClOquYZpVF6BZLAhrC58IO9TsB
+	 2cZ+kil+sFVK/3cOGlQadcSGhR8g8JFOY2iUjqWziGl1kMME4xLB8pUE7s5ZRuq1kPQFT
+	 NJXfg4C1OjXkyAYocGc+HuTNb59jhP5rvBtgLEC0pso8gefNJeHA6a3YtNGv0ZomgAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793744097;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793744093;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=KVXvU2y3CWgDkb2iD40+8fhR4es61+R0ZnlRm3BwJkU=;
-	b=Y7lnEEoCRRSt2jU55y/vt0zMMgWJg5WlCCdjTWkVLa4wUx57x3uarzPdQGs+gVfqLK15
-	 oRZhNTHQENcJ3GdxWwBKbBwiqDdB1J5nPVsCZaefsgGgX8VAQ61LWTml+qv8VSFZmG8n1
-	 OefLgWG0XRJiEQXPiHsIGQUSNcLrt8U80vMSzH9n4GyULTRVgVduNLo5/DGyYxwt0Hmpj
-	 c3oRZdpH9qRidmeIvXx6k5izRrJiGT+e1vm6EtnKjxdKf96I08nOkhPQzyvoGXPieoNnI
-	 qnY16Ij8+FOgSjbF06OTN79AhF9vCVsluOKugDVMMiJsxLsHkykIjQJ/XhXIMDvLSBg==
+	bh=+Gr5bWZcYgumQbnVFUL+12XP1Z/UJrPiizeHxuglwVk=;
+	b=Hj/NErpt3SdoN84o4sGYCG7FdVc1z+WxFPdPwEfTsbJOvMdB8YaY8YcfmXJwWL+FRrQM
+	 mGer1hM3wOxmz4wB4b8PbZ38yC8h41m6AHAVMFe1KiQ38T0M/ubw1InbMTIFuJDmYFe9T
+	 gHwP6PWO+gZAJHbPZjCQUzce7y7Cua12LNM8Z9BcSKbLqTvMhOiuNU2fZwoT8onnmikdn
+	 4lYAaXxlI0CzNevjNW5lkqO6GRbx8lBiPYnq0Niq+dU+Qu+mVyouUY4PNYTusHPdER60w
+	 b3uhzdXTGuZcrbm8l+ZideWU0OHkGn78rytkTwsaKNRnMrm+5/uXbaH8N0xwL6ivd3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LZpAD42C;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nc3fbsAF;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A4D606D81F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A4D606D81F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34623606D806
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:14:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34623606D806
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LZpAD42C
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48bbb06e746so34719f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:14:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nc3fbsAF
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso54736f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:14:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793744095; x=1794348895; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793744091; x=1794348891; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=KVXvU2y3CWgDkb2iD40+8fhR4es61+R0ZnlRm3BwJkU=;
-        b=LZpAD42CUB1C5U9iACvZadkklT0O0/YuNtSKrGyU8gkLIrqf449RkB3acFR89+fZb7
-         VmqTNzOvuCJe6oB+7ZPw+YgQNyC4JVvTnnMpARrCZCPn02/2KnUMuZTKDauitqvPgZeF
-         95KrYJ11fELxC2PkYaknRcc369seU18LSjwsN9moleqDG1sG79/JaqfwsogLyMccaTrO
-         7F0jitERdkD6VHoNfn/tZmI7jZ6mjFD/5IHTS7B6Mw7n+EKaF6Rt8CUiDlxLaZXpCqSK
-         1beaN8pc5pd4AOTIG/+hjmoZ1aDtF5Q6QGTRDOaRvUs6PX8j4KdEH/2mySzdhz1M/HIK
-         1WeQ==
+        bh=+Gr5bWZcYgumQbnVFUL+12XP1Z/UJrPiizeHxuglwVk=;
+        b=Nc3fbsAFwQLcZ+tb7po6KLX6VdqQ+Q6fQLjoTUXMMwFjDeKa28sKPm6Ji9A/N+75Nl
+         jgWylAHe57MoMhsCSYmX9/g9xE5ctQZtZqXTXVyEDthM0Xaw95kMgF0Rnr41U+4xToBu
+         9oveUtKAeRyVgFmYvUFW84WYknTA1FCmEKlQDT1S2SnxbNSpbo0v3pOI6VAy0fuupiD0
+         1HnldulSer/eS52AbkIYCrIcsGLnIyzhCRMnLoNX57PTOBl3/1NN6a/UWLo7+G0NKhKJ
+         j6rSCfNt/qMScvorIMP6m9DAhhevIBh930aF02E2DtBSPFlZhPDcHZRjMIKP9dt0UAP/
+         yD3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793744095; x=1794348895;
+        d=1e100.net; s=20260707; t=1793744091; x=1794348891;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=KVXvU2y3CWgDkb2iD40+8fhR4es61+R0ZnlRm3BwJkU=;
-        b=pmLsMAVC3tCKIvHsV7R8AdyJgMW1NejrsnRHT8rSi+VlZyxYsbeZGaLVE0Pk7FO3C6
-         lNID0ttjLpecxdVLDjYPGopS+xk2c1attT17lWiSSzNZUaLUOMRUhR3JuQpjUnIPEi0T
-         qwnwsQMIzPG6KuVSho0JE9yatSGI7BAwAPKovn+GCv82KhidDpxTZILhf9SjmFEOmYEh
-         1KE6dtl1aovetHrmmSbhou0KxD/c1bq09WuSprTMLDMg1t1SXKpZuF0Du050LHn+r1zd
-         UzJjLCBG9TFg7i8gPoOQv4oDw1sc/7992Pq805DKOR7RA/QXNT9vp7jax6nv/E98EUgH
-         ZsiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtUPilwH7YKraBiRz7jvTmY5e9ns/14KnY84d6uRv+WwouJ524/Z4aBvtWn2zXbYjzbcsO2J1Io5F4byc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+kOb1nTBGZuwppKQVsDylGi/lQhY2uCCt6Cx9K7CD0eUG66BCt
-	gF64YChy9xglaq35+iJvj+DD4brFUDR1yj0Q0F4y6Dd2mtO/S6xQwxbq
-X-Gm-Gg: AYBFou24hEbT6C2FgZScoGSxiwQvZrmp7EgHO5wy6rzajptrKWS8rLUMKocPpeBOMDi
-	4moPyxKmswBanAakYPhTNCI25F4bJe8Yu2kriLkbB5Y8TFEOtCtpcjNG9QOO/BIfu9yXhHFF+Ot
-	wwqUndpLpkjixWFsVIXpMfDbi0JaS2nb4ViaxIWcjNUGNZo7EKQDy8T7lyvwgwd+r2tubS13MGg
-	xSGo0n4+HPp47Wh8dzdBgmWyxx1p2H7gkGplMt7YRj21iU6HlP48FTQj02llayEjjnIF2JgACnh
-	KRqfZY2fnJCGgua/O0gG6E0zvkG1bRsQON9g9oxO5hMKNyTGuSTU5ks2ZZp2aToomjKKhXBQDlz
-	n/jGwni16jS86EYKkFtWb1pvW2SKpAT5qjONRDiPm962e3EZirNP2oGeakdoR/Wmc80hmvyqOUO
-	zYSvDMznyWjcC5THkaj8YUL25sWdeO7Ep+KG0xGBee6HdaDJcQ8mzGgMb7QKLDCpnhLIuWiHOor
-	ycBXOB0aeUO6kDKatPnL4FddHkS+r8OVLwQ3sek2Y6sDqFLw+SDrpVro4jooqYCpbM/1Vmsf7mx
-	y2etd0h5FXrEBXeJ/b4h449fBsLYoccQujKpFc1cSqVbZ/hTfgi2qf5RUg2glxlQ9/ajp9lm10n
-	V1SvyZ5b6dM8wo1IoL+synQ0kna5Wxgsckw==
-X-Received: by 2002:adf:fc0d:0:b0:48d:f383:2356 with SMTP id ffacd0b85a97d-48e6e500514mr25493814f8f.53.1793744094732;
-        Tue, 03 Nov 2026 14:14:54 -0800 (PST)
+        bh=+Gr5bWZcYgumQbnVFUL+12XP1Z/UJrPiizeHxuglwVk=;
+        b=zjsye7eZyGlxjDoIdyrppf3eyFyGwA5MlSw5UwcpmCkEBpAeqvJbbOIqixK4G5tbgN
+         hSF1/oqkwRrydQ/EKwmOXFCsISwdrB/eJnKIABHzZ76nuODEd78Gw3+YK/w9oRwMrEZb
+         uVZFlRBh5xnLZ6IwKuJdLv5UVlHgfEZn13gJkX2fAiJ9dW+y98O5UrcE4UQXEXCgYt2j
+         5al+tvPGM5A4orLg/G4A2kK2C+IHdIlixmalcUDPG7F2vRf3xe+h6IEYbNaLDd4qbmqA
+         za0bMUmI5WDJPP0+dlNYhdkjGIq8RhAx1q9wwLuY2IXv/EoS64/0o1wGLbwUN8cRi0Ae
+         y/gA==
+X-Forwarded-Encrypted: i=1; AKwUvBwotL6Fm9bjHhrONUltvirzbS8QL+IZUlvIMa7CaEIkNcC7EZvVN5dQqsa0rcxnAa+2jsJ4J0fufqc01dg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9o/sS5xSHwE/9B2wrAi0D2N9X8N/bahwf1fSzVibhHdJCxxEMJ
+	El6ecrKSODDeMRiTyN3ak07Yw6XTmpGGf6L2ADiI4Xs7/pZRBg2w+Rvs
+X-Gm-Gg: AYBFou1/859/hQsW6yLQnJLCncGJYC3k4UskAcANuNQYYR5pjKsDgnOMRVYCut8DxmG
+	aS03yTbUHn33gfYb6xTbve1FkYyFghqhhluvBi3RWJGPKY4kuxaw28Jw09C6xDWrVbWnuRwD0yh
+	xF9Sb0stsZfe/uMcXnqsviadKCmoda9pHzvEcK09BAB8hHu3vR+th2kqpU+9wvciV5Jam2GdK7U
+	+WU4FJcMvAIlPNgJ2WxL8VVA9G0vLhsDvob7537FqlLYQ00IgrsmTLe1JxvgmpMyfnmFKKHXFFC
+	jWSCk9z+N9EV9zLpl0L3tp0rUxt8PUyekNvTZNjRleVRDRvUQ8Gg90YoG3d1Tcjw1T14CuSnJaZ
+	zV56uHJKXdjVkcoNfx3Ud5gw++5KSCpedvTCsmZjVrptmKvj2qOoMQW92gtm3BzjBz+Qo5lJJ11
+	bp9Wu98vasKnija6ly2kGrw5eeVyK4mgUphcZW3oKey/ZWek4tjDVjWC3oDkOlZnCKo5UoN3IC1
+	SdytdXf+ZZxBtZogktBxmk7XH/iTnkOGQakSac1xOlvGor7k8A/mgLa10zTa5uhwKXkE3HbyS5R
+	5Hb5kEg1fuzDMzWr92edkrbauzKHRQKkXyjwpyUEbYSGJSw9dxJJtSd38vJuWpvM9z4wMmnmpvf
+	daTIRkMSNMPYvhIhfJM0TUiP/4Ls6AKo+2A==
+X-Received: by 2002:a5d:5d06:0:b0:48d:ff71:dd87 with SMTP id ffacd0b85a97d-48e6e303f29mr32359299f8f.17.1793744091527;
+        Tue, 03 Nov 2026 14:14:51 -0800 (PST)
 Received: from Ansuel-XPS24.localdomain (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48fec9cd43bsm328556f8f.14.2026.11.03.14.14.53
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48fec9cd43bsm328556f8f.14.2026.11.03.14.14.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:14:53 -0800 (PST)
+        Tue, 03 Nov 2026 14:14:50 -0800 (PST)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
@@ -99,9 +99,9 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	netdev@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH net-next v4 3/6] net: phy: mediatek: generalize cal_cycle function for GE SoC
-Date: Tue,  3 Nov 2026 23:14:34 +0100
-Message-ID: <20261103221439.30502-4-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v4 1/6] net: phy: mediatek: export __mtk_tr_write
+Date: Tue,  3 Nov 2026 23:14:32 +0100
+Message-ID: <20261103221439.30502-2-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261103221439.30502-1-ansuelsmth@gmail.com>
 References: <20261103221439.30502-1-ansuelsmth@gmail.com>
@@ -116,82 +116,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In preparation for support of special Software Calibration for Airoha PHY,
-it's needed to generalize the cal_cycle function as Airoha needs only
-part of its logic (the wait logic) to complete a calibration cycle.
+Export __mtk_tr_write to directly write to debug register.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- drivers/net/phy/mediatek/mtk-ge-soc.c | 32 ++++++++++++++++++---------
- drivers/net/phy/mediatek/mtk-ge-soc.h |  3 +++
- 2 files changed, 24 insertions(+), 11 deletions(-)
+ drivers/net/phy/mediatek/mtk-phy-lib.c | 5 +++--
+ drivers/net/phy/mediatek/mtk.h         | 2 ++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/phy/mediatek/mtk-ge-soc.c b/drivers/net/phy/mediatek/mtk-ge-soc.c
-index 2b1e9923db98..f3ce6e67eb38 100644
---- a/drivers/net/phy/mediatek/mtk-ge-soc.c
-+++ b/drivers/net/phy/mediatek/mtk-ge-soc.c
-@@ -39,20 +39,11 @@ struct mtk_socphy_shared {
- 	struct mtk_socphy_priv	priv[4];
- };
+diff --git a/drivers/net/phy/mediatek/mtk-phy-lib.c b/drivers/net/phy/mediatek/mtk-phy-lib.c
+index 4c4eca870bde..3e4fb899a85b 100644
+--- a/drivers/net/phy/mediatek/mtk-phy-lib.c
++++ b/drivers/net/phy/mediatek/mtk-phy-lib.c
+@@ -36,8 +36,8 @@ static void __mtk_tr_read(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+ 		*tr_high, *tr_low);
+ }
  
--/* One calibration cycle consists of:
-- * 1.Set DA_CALIN_FLAG high to start calibration. Keep it high
-- *   until AD_CAL_COMP is ready to output calibration result.
-- * 2.Wait until DA_CAL_CLK is available.
-- * 3.Fetch AD_CAL_COMP_OUT.
-- */
--static int cal_cycle(struct phy_device *phydev, int devad,
--		     u32 regnum, u16 mask, u16 cal_val)
-+int mtk_cal_cycle_wait(struct phy_device *phydev)
+-static void __mtk_tr_write(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+-			   u8 data_addr, u32 tr_data)
++void __mtk_tr_write(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
++		    u8 data_addr, u32 tr_data)
  {
- 	int reg_val;
- 	int ret;
+ 	__phy_write(phydev, 0x11, tr_data & 0xffff);
+ 	__phy_write(phydev, 0x12, tr_data >> 16);
+@@ -45,6 +45,7 @@ static void __mtk_tr_write(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+ 		tr_data >> 16, tr_data & 0xffff);
+ 	__mtk_tr_access(phydev, false, ch_addr, node_addr, data_addr);
+ }
++EXPORT_SYMBOL_GPL(__mtk_tr_write);
  
--	phy_modify_mmd(phydev, devad, regnum,
--		       mask, cal_val);
- 	phy_set_bits_mmd(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_AD_CALIN,
- 			 MTK_PHY_DA_CALIN_FLAG);
- 
-@@ -71,7 +62,26 @@ static int cal_cycle(struct phy_device *phydev, int devad,
- 	ret = phy_read_mmd(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_AD_CAL_COMP);
- 	if (ret < 0)
- 		return ret;
--	ret = FIELD_GET(MTK_PHY_AD_CAL_COMP_OUT_MASK, ret);
-+
-+	return FIELD_GET(MTK_PHY_AD_CAL_COMP_OUT_MASK, ret);
-+}
-+EXPORT_SYMBOL_GPL(mtk_cal_cycle_wait);
-+
-+/* One calibration cycle consists of:
-+ * 1.Set DA_CALIN_FLAG high to start calibration. Keep it high
-+ *   until AD_CAL_COMP is ready to output calibration result.
-+ * 2.Wait until DA_CAL_CLK is available.
-+ * 3.Fetch AD_CAL_COMP_OUT.
-+ */
-+static int cal_cycle(struct phy_device *phydev, int devad,
-+		     u32 regnum, u16 mask, u16 cal_val)
-+{
-+	int ret;
-+
-+	phy_modify_mmd(phydev, devad, regnum,
-+		       mask, cal_val);
-+
-+	ret = mtk_cal_cycle_wait(phydev);
- 	phydev_dbg(phydev, "cal_val: 0x%x, ret: %d\n", cal_val, ret);
- 
- 	return ret;
-diff --git a/drivers/net/phy/mediatek/mtk-ge-soc.h b/drivers/net/phy/mediatek/mtk-ge-soc.h
-index 008efd148a2c..14370b5ce482 100644
---- a/drivers/net/phy/mediatek/mtk-ge-soc.h
-+++ b/drivers/net/phy/mediatek/mtk-ge-soc.h
-@@ -354,4 +354,7 @@ enum CAL_MODE {
- 	SW_M
+ void __mtk_tr_modify(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+ 		     u8 data_addr, u32 mask, u32 set)
+diff --git a/drivers/net/phy/mediatek/mtk.h b/drivers/net/phy/mediatek/mtk.h
+index 79e09727b81b..3565e39b96a8 100644
+--- a/drivers/net/phy/mediatek/mtk.h
++++ b/drivers/net/phy/mediatek/mtk.h
+@@ -72,6 +72,8 @@ struct mtk_socphy_priv {
+ 	unsigned long		led_state;
  };
  
-+/* MTK GE SoC common functions */
-+int mtk_cal_cycle_wait(struct phy_device *phydev);
-+
- #endif /* _MTK_GE_SOC_H_ */
++void __mtk_tr_write(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
++		    u8 data_addr, u32 tr_data);
+ void __mtk_tr_modify(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+ 		     u8 data_addr, u32 mask, u32 set);
+ void mtk_tr_modify(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
 -- 
 2.55.0
 
