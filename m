@@ -1,96 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793665352;
-	b=WkkHuZThK8AoS5xFM584BpDWa9i/CGcIUysi/SL3DURFL0HTconG3kkTmdhiwKxNsvHz
-	 BsP8w/yfTRo8iB2PDz52F0MA48sBkR/UmHdJSEsgnsy2aADpHitCVr/rFDlUp9GOW/kTy
-	 P/Oe9SYvDBb0WrhAmsmsXRPaqPR5BEVoXgzcjUhmu5Nma+HTr84uJ9dqdFXU5SFsA7Gmy
-	 r0y5fbaFQGFO76eyiR+uq/VZ55CMUNoqM6t3O7MZ89EyujOPYyeeyPG7EJywzjo8NiY99
-	 ytPuqVX3L472VD07vfu3qBH2BUHMfAlN7MVljALLS1Njv+TbBifvmnkrMQHJ8n3YPkA==
+	t=1793665350;
+	b=HMADLBYZtHZdR81n9UeVVhEPlUa4tqz9KWaDrV481rdXtWlXR5FWWv0ucyMez17g7lnT
+	 Ktvbh0ixPvtcjulTniKQUBUAPu+PlsHWvEzU1gTIoHNeHAchta5B95LZPwix5IuNjF51c
+	 hpRu63oLcTScNvUVo0JeHOqBixFUC5hef2C19H0dPE3BP+xI7tolYTngwUvUBTFHlO+y7
+	 rFLXxD5J5g9Cg+JGSN0Tp2bVl18admytQLiF9sCSpYkRYF4RMHK/cZfRRhEMcNtXkjzSf
+	 tm5WE5Y0CVMVXoq+qwLWZThH8X3n2OJa8ccAI8yu8rcis6OumlWay+ZXwfbC8wk9YqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793665352;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gDbE7ZuFqAKZjgxEyRxAPTBHYtB2q95PfpD2xmbuaDw=;
-	b=1FOfk3E3BO8pQdrC/HhwHPRe/D7IroQCnlTKPlV6tkt/QpL5+4VooxhnO76jXzvW8UvA
-	 KBQM3D14FW38mhB/SJJZ4mCm5nOpqHt7si7TixChy4ZhKkYwescyBR0bw0QBTGWHpdtct
-	 s4fb5NGXMtySPy+HfKRaOKRbvESIGUeEJu0zp8Ww53PTwJL7eWgUZEVhUGIbaRIxl4y/A
-	 3oMAea6YF1A9BvgtQ79eXgqRTrY19OtzHYgamXBQTNUnEXNMaKOX+jhEQJIpVY+X81E5Y
-	 nRZaqb/lAHs0ucffxmtDVFGr7kItgzPeRpSzJ1Frb73IJcoaCchk4WykTFNDy+ZlVUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793665350;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Xo23pX0LkqDaqeUDm7pphUOpOZD0A0t29LsZLUd6y+w=;
+	b=nflhltSsybsZrfZtjgmuwfR69YXytNpX/myz6cKePdLoySwgDjPT35waQy6xjK85uLlj
+	 wtNCVAIis+V86o5A5PhRa/Ew7iHuSLciZeD6GfqPrgjmAvYRbskBJ+I48VxE0VsfJngV1
+	 5fPsMWpGrk31cPyp2yPKe3qMzotEKdFl3T6C6+3OeQShXKThpLbNINOUcSKSFEamwY51A
+	 2Iu5M34W2ct7MnC0PuTgAzsYgzhe9TrWiyV+UizcWN5Ixv+pMN34GkvbPEi0vTl+cx4Hx
+	 eOpLKHRcGZI3mXRu5nmI32RdzB5cNLgIEcmPuprXyFbw8xSVrCxLAypL9N7jGX0ymHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uFpHnvk7;
-	arc=none smtp.remote-ip=209.85.217.50
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qq+FAJfy;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAE9606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:22:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AAE9606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F9D606D80B;
+	Tue,  3 Nov 2026 00:22:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07F9D606D80B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uFpHnvk7
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7cb6dc850c7so849159137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:22:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793665350; x=1794270150; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gDbE7ZuFqAKZjgxEyRxAPTBHYtB2q95PfpD2xmbuaDw=;
-        b=uFpHnvk7ZYtJnUT37Bcn58M77cje5/IRts7xsei3sjEKc8ph3NBOCnbgIgu0Te6Vge
-         VNNgndgC3x4mZ0gfWVu50lmyMMdd5u2WKrBEXdu0B3tKXXEEKS6An/jd3HoNkx3OeSuI
-         YZGhA+vW5bctEc3ooRa7yRimxXGylv7z3nG0xL2yyhSjAgVg7MXx7UTeUlloyFam/4hq
-         r/aSyh5HhRg63iB+95oCIB9nsEAASuSKYcH+VSchz0IAxRkjbIumnPZwuEuS4ZlNoah4
-         OWp7e+DonWN0laoS5cQw1kaNAi/rsW8P8dnUmHs+fDNZy5mX/GmU+odE++88mgi2+RUA
-         YaZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793665350; x=1794270150;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gDbE7ZuFqAKZjgxEyRxAPTBHYtB2q95PfpD2xmbuaDw=;
-        b=xEjw+uFZl1+AEqR15HTRpRhY3FNaS0rIVDh0PpDZcybReHtMOaJK9KPy+/7EJ3U075
-         mlCoRbRqOLQApD8y4W72pt7Rvwbe9ADYAEezNU2gMI+Ta7h1o/mC2+KLadOZz5UjMgqr
-         O48Nsw5Etr9ez34VxWOSO9MhRKE7xWCE2HdTmLpQOGtpU7GOvtIK0olFHWLEWJ2EtDz2
-         RIyGQXisvsRwi9sGn7ie4acgo5Hs6j86RkIJr9LCC2szi5y2WB9W9TArnP55TmPO8EIR
-         +x7A9KFY5kLLcMfK5fjjXG20DQ5Ztb+8ufimueQw/focsarbvPMOWIgnvdxCYtQD/daK
-         Oiog==
-X-Forwarded-Encrypted: i=1; AKwUvBzWJli5IAxbieyrm2LabWQBS3wvJW46q8ELxQzTVXY4NHG1+HZkl+GYyPI/6eFSmAN6bJDTXRlcWOpTsws=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vytC8e+QgNQiUwwRv/mfU/ZkfK47O5WBe6+dJlTvgTpGgz6nC
-	Ey40fCC+QqOCtAHzdmTFYU9e1jyDUY5pqBqish6GHfBeK+QD5lcAdimi
-X-Gm-Gg: AYBFou3fSwo3SLrQ0tS4s5qY+niOro1IJz/EhaS/SEQq3OxQD+mAYP5oAz9Qa4V3YCH
-	5NrAisW2T48npsf9JkvCclXThktttEVlXj+bJVzTWdb8STB4QnSrmAlh3uxng4yOpjcPny78oMx
-	0kpuIRO9ChVPy3L+LEdWwb8GD5hpFuFDxE8xTM2XuvxyeQiPB5NwIw7UyLzOm4qJI24DpbXtAJP
-	roz71/8kVJ9ZdqCCfVyEqZQz/NQr1PS/V1Q4pPrOsJklWjb48ZkHOgnY+jtQ4a6udPY7VOmz3GD
-	usoIthrVaVSVSHVmB4Mv4detpYVUmBX3uoT9aciAjgIXcwvFBCDcW8KVkXg8An+1knTYjRNWgPJ
-	Hc65ZTG2X3WCaSnT2EwtJgXjXXG62SSes7yvhxDIQdD2kV/PFwRrTeM9gbYL8OLLQYoSQnHvFZx
-	bVbUaogvU0ynvJR3pvyCS0DA77+W5nbLDUvggFfqXmO5grSfsYBsT0At2ZpEulWHGbmuGHbNjqy
-	Q2F4DCmFUH0lCCiFh9cjogNiGeFVylerjU5SqlsX6QJ4CRftNR5HmCSXSi9j/fxmaehivJNBgHN
-	NhNop1sKxRzbG5UtIlXNWGA8lh8v+7nn7MN3yHI=
-X-Received: by 2002:a05:6102:3e84:b0:7c3:9daf:f949 with SMTP id ada2fe7eead31-7d072658ceamr4113731137.30.1793665350135;
-        Mon, 02 Nov 2026 16:22:30 -0800 (PST)
-Received: from bridge.. ([2804:14d:ba6b:8339:ade5:3173:4b5f:f40d])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec76ec2e49sm8580338e0c.2.2026.11.02.16.22.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 16:22:29 -0800 (PST)
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Oleg Nesterov <oleg@redhat.com>,
-	Jann Horn <jannh@google.com>,
-	Kees Cook <kees@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-Subject: [PATCH] fork: Don't let copy_exec_state() fail before rt_mutex_init_task()
-Date: Mon,  2 Nov 2026 21:21:57 -0300
-Message-ID: <20261103002157.219277-1-christian.aurichzm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qq+FAJfy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793665349; x=1825201349;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xBQkxZD2qmYmXTlHQrUaab8BxBJ6qbBDJIm+K6hAggk=;
+  b=Qq+FAJfy/Bk26zwisD69o+//daW27vznDV/Xuwap3LjOFUM/DuDsXl5p
+   qqikcI4Z2MQ5MvUho+qbPveOVBZyom5/ABi+Hs6N9OH4xBTG01WH7pGuo
+   idViaTJGixGa8rFI/AKK4rUJtgBkvK7CpeTlGmh3R0Q61tRqJydWQtSPV
+   EOzLycHhkjxXFW3vpkRdw69DpqmxWWfcm7RitDvOgnlTYZdhUD1z52I8Y
+   xjPJc6ZXi5Tfv6C3uWuimWGM3fJoPreamp9BqKyn0b+7PhfRFhvtz0tyb
+   m+WrTMgWm/3NufKZs2q9UM6LSllnSF5EATA+9MYpwP/vmVlUL4A78umLv
+   w==;
+X-CSE-ConnectionGUID: oG0hahULQ22lmGQhgrz8tA==
+X-CSE-MsgGUID: r3AdOqumTvSEGLXxvior9A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2255648"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2255648"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 16:22:28 -0800
+X-CSE-ConnectionGUID: TepHzMvJQ8SEPar/wdwHVA==
+X-CSE-MsgGUID: Yb20lfD8Rt6X3iiUOVSHRQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6607032"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 02 Nov 2026 16:22:27 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xO2IC-00000000i5I-0ILN;
+	Tue, 03 Nov 2026 00:22:24 +0000
+Date: Tue, 3 Nov 2026 08:21:25 +0800
+From: kernel test robot <lkp@intel.com>
+To: Viktor Korsnes <viktor.korsnes@remarkable.no>,
+	Jeff Chen <jeff.chen_1@nxp.com>,
+	Johannes Berg <johannes@sipsolutions.net>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Viktor Korsnes <viktor.korsnes@remarkable.no>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wireless 1/2] wifi: nxpwifi: fix hex parsing in
+ nxpwifi_parse_cal_cfg()
+Message-ID: <202611030826.7OV08JJo-lkp@intel.com>
+References: <20261102121856.1011263-1-viktor.korsnes@remarkable.no>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,73 +87,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102121856.1011263-1-viktor.korsnes@remarkable.no>
 
-Since commit 6b1c66c9cca9 ("exec_state: relocate dumpable information"),
-copy_exec_state() can fail before rt_mutex_init_task() has reset the PI
-state that dup_task_struct() copied from the parent. If the allocation
-fails while the parent owns an rt_mutex with waiters, such as a
-contended PI futex, free_task() finds the parent's waiters in the child
-and warns with CONFIG_DEBUG_RT_MUTEXES=y:
+Hi Viktor,
 
-  DEBUG_LOCKS_WARN_ON(!RB_EMPTY_ROOT(&task->pi_waiters.rb_root))
-  WARNING: kernel/locking/rtmutex_api.c:538 at rt_mutex_debug_task_free+0x7c/0xa0, CPU#0: repro/75
-  Call Trace:
-   free_task+0x34/0x80
-   copy_process+0x5e6/0x2550
-   kernel_clone+0xd7/0x420
+kernel test robot noticed the following build errors:
 
-This also turns lock debugging off until reboot, or panics with
-panic_on_warn.
+[auto build test ERROR on wireless/main]
 
-Commit 08cacffeef8f ("ftrace: fork: Initialize function graph state
-before copy_exec_state()") fixed the same problem for the function graph
-stack. Move copy_exec_state() down to just before copy_creds(). That
-restores the order from before 6b1c66c9cca9, where copy_creds() was the
-first step that could fail.
+url:    https://github.com/intel-lab-lkp/linux/commits/Viktor-Korsnes/wifi-nxpwifi-add-missing-header-to-HOST_CMD_CFG_DATA/20261102-131800
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless.git main
+patch link:    https://lore.kernel.org/r/20261102121856.1011263-1-viktor.korsnes%40remarkable.no
+patch subject: [PATCH wireless 1/2] wifi: nxpwifi: fix hex parsing in nxpwifi_parse_cal_cfg()
+config: i386-buildonly-randconfig-1002-20261103 (https://download.01.org/0day-ci/archive/20261103/202611030826.7OV08JJo-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611030826.7OV08JJo-lkp@intel.com/reproduce)
 
-Fixes: 6b1c66c9cca9 ("exec_state: relocate dumpable information")
-Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
----
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611030826.7OV08JJo-lkp@intel.com/
 
-Notes:
-    Reproduced in QEMU with failslab on the task_exec_state cache while the
-    forking thread holds a PI futex another thread is waiting on. With this
-    patch the fork just fails with -ENOMEM.
-    
-    Based on v7.4-rc1.
+All errors (new ones prefixed by >>):
 
- kernel/fork.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+>> drivers/net/wireless/nxp/nxpwifi/sta_cmd.c:1405:8: error: call to undeclared function 'hex2bin'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1405 |                             hex2bin(d, s, 1))
+         |                             ^
+   1 error generated.
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 8b108ed37152..fc12100e24d6 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2147,9 +2147,6 @@ __latent_entropy struct task_struct *copy_process(
- 	 * free the parent's ret_stack.
- 	 */
- 	ftrace_graph_init_task(p);
--	retval = copy_exec_state(clone_flags, p);
--	if (retval)
--		goto bad_fork_free;
- 	p->flags &= ~PF_KTHREAD;
- 	if (args->kthread)
- 		p->flags |= PF_KTHREAD;
-@@ -2177,6 +2174,13 @@ __latent_entropy struct task_struct *copy_process(
- #ifdef CONFIG_PROVE_LOCKING
- 	DEBUG_LOCKS_WARN_ON(!p->softirqs_enabled);
- #endif
-+	/*
-+	 * First fallible op. Must run after rt_mutex_init_task(), so error
-+	 * paths never see the parent's PI waiters.
-+	 */
-+	retval = copy_exec_state(clone_flags, p);
-+	if (retval)
-+		goto bad_fork_free;
- 	retval = copy_creds(p, clone_flags);
- 	if (retval < 0)
- 		goto bad_fork_free;
--- 
-2.43.0
 
+vim +/hex2bin +1405 drivers/net/wireless/nxp/nxpwifi/sta_cmd.c
+
+  1393	
+  1394	static u32 nxpwifi_parse_cal_cfg(u8 *src, size_t len, u8 *dst, size_t dst_size)
+  1395	{
+  1396		u8 *s = src, *d = dst;
+  1397	
+  1398		while (s - src < len) {
+  1399			if (*s && (isspace(*s) || *s == '\t')) {
+  1400				s++;
+  1401				continue;
+  1402			}
+  1403			if (isxdigit(*s)) {
+  1404				if (d - dst >= dst_size || src + len - s < 2 ||
+> 1405				    hex2bin(d, s, 1))
+  1406					return 0;
+  1407				d++;
+  1408				s += 2;
+  1409			} else {
+  1410				s++;
+  1411			}
+  1412		}
+  1413	
+  1414		return d - dst;
+  1415	}
+  1416	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
