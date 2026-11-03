@@ -1,41 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793674647;
-	b=B1r/AbEIdJzd2n6+yPWLFMeIYrVAzm0MARDtsPkpIB3s7odnJMsSmf5OXKQkYG3RnbW+
-	 uRTe588OO3XepwNpgWDp4RPmIG1i0axqgG3d1JadgaRyg0NDruO3HPskw0kWGy1MQAayi
-	 3rxuyN+m7k0Ph0S2Jm99eYPNXD5f+tSaDvvs8qft99YaMgt2o58GHNI/cvXDvmAJFuTa5
-	 bbd+L41h/oOIdBGwMJxs2iV+t+WY5aXxEXLWdeS0NiIo2pVianXzBk6CN8X3pdY4JnJmo
-	 msthdLK23ASHgFq/kp4Oy3dGN0Er/jaFYphaesjNJBndKtkn+YAmP+d2LbxVuBM9cKA==
+	t=1793674655;
+	b=Bvk9toSR6rCZyZb+bzyeVMHd6DE76GMa3qkf/3LzuN4VHgjDNmkoxx8fyj5J+bHD/xxr
+	 Y7Nv85s8tr3gksPf243+eDcaP1AuDiNDvhc9aVEGioTSEeUtZEzKnzdFn3BGSULOS9Mbt
+	 mpFl52rJYV/KG4WZ3K45T6Y5bS6gRXdnzJm1gQ9WUYv1cmdWSFQs7zSLIf3lcruz+X+UC
+	 q7dJ3RyAllP3Wlrh4WezDY5Ss/AIslC/VUqCdRR8YtZ8biIJQDRSGtVaicM7qOlcWm//4
+	 VKTyc6vUULUczT56bbC5uevFZ8CBctxTZdGD1okowsBasxbmcrjUqQfKSNj46Od6VnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674647;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=K/VKNZTnoHlYdA52mhm/Cd/cZKCsJadbDnR229CP3IM=;
-	b=KZ5HJnky0zy/fTcM9DxdcaW6VTp+52gfxFH69ofqXvTluGfhj62BrPaPyTNsiqztvjTS
-	 8V/XkrKOkXlCslEdIB+yZFCLjU5I5CNEb/YL8CXjgSOogGrGZ0Rk2Qh0y1ZCsZFDj/f9X
-	 tL4f/cd8YUGYIYRnu5h5iwIciVa/T/0+Ix1/fHW0xLYMsyqSPtletKwZJqssw0KLtmrce
-	 9C9xk5LdZGv3Yht19tEi2XShfc185jsP7qHamQYXyRlM9bYi4aXduk/ge2KdOVTT/yrii
-	 0VEuYfG8GML7ug/GZ8tGBkvkn8s/SM/OHE4/0qQpES2bw6FZa8IY3A2L7t7QQB9bHbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674655;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3PU94Mtq5y2jfrWNzTTXz2hKQJlADRro9ghWjEf4hyI=;
+	b=orUd/FWxKVDovkawDJWnhZxap6vXVsPQCbSuGNpp/JTSNrxYg1EAbgIjG+4L6wjwzpSh
+	 dB8LH5CA2lqp16MGZDB9bRmaSFRm6sjwnrhsyqtRvJo7Fu6PQQfbl/eiGv/CYpFt1RhxJ
+	 Ju1s4RBDkqrYRDdcrNNkAqM0+DJBaonFECQnxThztAunTYI+6EcFaE1z+wP/Odk7hk794
+	 E817FNeFwwmwUx61Bm9Bt9Y65FZQN5k7ZxPOf2WtBOyNbbMJ5uJusewGmtdj3L3GhlXXE
+	 VZmCWLU3+/G2jcVtmVlYMLoNHhK8opkGNksoSzw159H5adLh0/tE336h1zaP2NObuOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phytium.com.cn;
-	spf=pass smtp.mailfrom=phytium.com.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 23B4C606A33A;
-	Tue,  3 Nov 2026 02:57:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23B4C606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
-Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
-	by hzbj-icmmx-6 (Coremail) with UTF8SMTP id AQAAfwAHXt2NTelqAijbAQ--.33440S2;
-	Tue, 03 Nov 2026 10:57:17 +0800 (CST)
-Received: from [10.22.77.56] (unknown [123.150.8.50])
-	by mail (Coremail) with SMTP id AQAAf8DwOXOFTelq9qL0AA--.19487S2;
-	Tue, 03 Nov 2026 10:57:10 +0800 (CST)
-Message-ID: <b49779cf-5132-4539-86c2-e4f806b1675d@phytium.com.cn>
-Date: Tue, 3 Nov 2026 10:57:09 +0800
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sh3Z7f4Y;
+	arc=none smtp.remote-ip=91.218.175.243
+Received: from mta0.migadu.com (out-243.mta0.migadu.com [91.218.175.243])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B05606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:57:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8B05606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sh3Z7f4Y
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Q+dvcKKj0mIW3aumvJN6ron6Z+0VLRCZBIIddebUpDE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793674653; v=1; x=1794279453;
+ b=sh3Z7f4Ytk1TiTaWSJa5Hn5qre75h8aoP0cRSiJlcO8JeMILXfaGO45Clj5NIG36xZxczU2r
+ cZmo9IfhksyML7ue9CdFgkxl076XN+riveJcTzK6k2EuJFVlSjR1FhGYywuDDs7dz3FvS6JzwK3
+ TUBWCHIMBj4TpSkdl/KBYj94=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9d15e9a4ed6a39cb;
+	Tue, 03 Nov 2026 02:57:32 +0000
+X-Mizu-Trace-ID: 9d15e9a4ed6a39cb
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Dave Chinner <david@fromorbit.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH v6 5/7] mm/mglru: add tracepoint for scan_folios()
+Date: Tue,  3 Nov 2026 10:56:08 +0800
+Message-Id: <20261103025610.3738894-6-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261103025610.3738894-1-ridong.chen@linux.dev>
+References: <20261103025610.3738894-1-ridong.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,69 +90,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: PCI: Add linux,pci-domain-reuse property
-To: Krzysztof Kozlowski <krzk@kernel.org>, Will Deacon <will@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Wang Yinfeng <wangyinfeng@phytium.com.cn>, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
- <20261102095150.2370959-2-cuichao1753@phytium.com.cn>
- <8112d8ca-2234-490c-a4a2-c3b01adfbc88@kernel.org>
-From: Cui Chao <cuichao1753@phytium.com.cn>
-In-Reply-To: <8112d8ca-2234-490c-a4a2-c3b01adfbc88@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:AQAAf8DwOXOFTelq9qL0AA--.19487S2
-X-CM-SenderInfo: pfxlux1drrlkut6sx5pwlxzhxfrphubq/1tbiAQAHAGrnk0kFEwABsG
-Authentication-Results: hzbj-icmmx-6; spf=neutral smtp.mail=cuichao175
-	3@phytium.com.cn;
-X-Coremail-Antispam: 1Uk129KBjvJXoW7AF48CryrWr1UZw4DXF4xWFg_yoW8XrW8pF
-	WaqryDtFZ8XF10yw4vyw10vFWYkF4kJFW5J3WUGws8A398XF1UXrs29FW5u34UAF18ZrW0
-	vFWqq34kJFZ3ZaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
-	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
-	UUUUU
+Content-Transfer-Encoding: 8bit
 
+From: Ridong Chen <chenridong@xiaomi.com>
 
-On 11/2/2026 6:00 PM, Krzysztof Kozlowski wrote:
-> On 02/11/2026 10:51, Cui Chao wrote:
->> Add a new optional boolean property 'linux,pci-domain-reuse' for PCI
->> host bridges.
->>
->> By default, the 'linux,pci-domain' property must be unique across all
->> host bridges. This property allows a host bridge to explicitly opt-out
->> of this uniqueness check, permitting multiple host bridges to reuse the
->> same software domain number.
-> Why isn't this deducible from the compatibles?
-Hi Krzysztof,
+MGLRU's scan_folios() emits the classic-LRU tracepoint
+trace_mm_vmscan_lru_isolate(), which predates MGLRU. It reports the
+scan/isolate counts and the LRU type, but carries no generation or
+memcg context, so a trace of an MGLRU run cannot tell which memcg a
+given scan belongs to, nor how far reclaim has progressed through the
+generations.
 
-Thanks.
+Add mm_mglru_scan_folios next to it, reporting the same counters plus
+nr_sorted (folios moved to a younger generation by sort_folio()) and
+the context the classic tracepoint lacks: the node id and memcg id of
+the lruvec, and the max_seq, tier and min_seq of the type being
+scanned.
 
-The compatible cannot express this. "pci-host-ecam-generic" only
-describes how configuration space is accessed; it does not describe
-whether two host bridge instances may share one Linux PCI domain.
+Now that struct scan_control is visible to the trace header, pass sc,
+lruvec, type and tier straight in and derive everything else in
+TP_fast_assign(), so nothing is computed at the call site when the
+event is disabled. The int fields are grouped at the end of the entry
+to avoid padding on 64-bit.
 
-The same compatible is used on systems where every host bridge must
-have a unique domain and on this system where two RCs intentionally
-share a domain with disjoint bus ranges and resource windows.
-Comparing the compatible strings of the nodes therefore cannot
-distinguish our case.
+scan_folios() is the MGLRU-specific layer where folios are actually
+scanned, so it has no classic-LRU counterpart. The existing tracepoint
+is left unchanged.
 
-Adding a vendor-specific compatible only to trigger this Linux policy
-would not describe a different hardware programming model either.
-What actually makes reuse valid is the platform-level relationship:
-the bus ranges and resource windows are disjoint.
+Tested-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ mm/trace_vmscan.h | 66 +++++++++++++++++++++++++++++++++++++++++++++++
+ mm/vmscan.c       |  2 ++
+ 2 files changed, 68 insertions(+)
 
-If you prefer to avoid a new property, I can rework this to derive or
-validate reuse from the non-overlapping bus-range and resource layout
-instead. Would that be the preferred direction?
-
+diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
+index b2ad83e5f25e..8148b8224422 100644
+--- a/mm/trace_vmscan.h
++++ b/mm/trace_vmscan.h
+@@ -392,6 +392,72 @@ TRACE_EVENT(mm_vmscan_lru_isolate,
+ 		__print_symbolic(__entry->lru, LRU_NAMES))
+ );
+ 
++#ifdef CONFIG_LRU_GEN
++TRACE_EVENT(mm_mglru_scan_folios,
++
++	TP_PROTO(struct lruvec *lruvec,
++		 struct scan_control *sc,
++		 unsigned long nr_requested,
++		 unsigned long nr_scanned,
++		 unsigned long nr_sorted,
++		 unsigned long nr_skipped,
++		 unsigned long nr_taken,
++		 int type,
++		 int tier),
++
++	TP_ARGS(lruvec, sc, nr_requested, nr_scanned, nr_sorted, nr_skipped,
++		nr_taken, type, tier),
++
++	TP_STRUCT__entry(
++		__field(u64, memcg_id)
++		__field(unsigned long, nr_requested)
++		__field(unsigned long, nr_scanned)
++		__field(unsigned long, nr_sorted)
++		__field(unsigned long, nr_skipped)
++		__field(unsigned long, nr_taken)
++		__field(unsigned long, max_seq)
++		__field(unsigned long, min_seq)
++		__field(int, nid)
++		__field(int, highest_zoneidx)
++		__field(int, order)
++		__field(int, lru)
++		__field(int, tier)
++	),
++
++	TP_fast_assign(
++		__entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
++		__entry->nr_requested = nr_requested;
++		__entry->nr_scanned = nr_scanned;
++		__entry->nr_sorted = nr_sorted;
++		__entry->nr_skipped = nr_skipped;
++		__entry->nr_taken = nr_taken;
++		__entry->max_seq = lruvec->lrugen.max_seq;
++		__entry->min_seq = lruvec->lrugen.min_seq[type];
++		__entry->nid = lruvec_pgdat(lruvec)->node_id;
++		__entry->highest_zoneidx = sc->reclaim_idx;
++		__entry->order = sc->order;
++		__entry->lru = type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON;
++		__entry->tier = tier;
++	),
++
++	TP_printk("nid=%d memcg_id=%llu classzone=%d order=%d nr_requested=%lu nr_scanned=%lu nr_sorted=%lu nr_skipped=%lu nr_taken=%lu lru=%s max_seq=%lu tier=%d min_seq=%lu",
++		__entry->nid,
++		__entry->memcg_id,
++		__entry->highest_zoneidx,
++		__entry->order,
++		__entry->nr_requested,
++		__entry->nr_scanned,
++		__entry->nr_sorted,
++		__entry->nr_skipped,
++		__entry->nr_taken,
++		__print_symbolic(__entry->lru, LRU_NAMES),
++		__entry->max_seq,
++		__entry->tier,
++		__entry->min_seq)
++);
++
++#endif /* CONFIG_LRU_GEN */
++
+ TRACE_EVENT(mm_vmscan_write_folio,
+ 
+ 	TP_PROTO(struct folio *folio),
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index f3ec19352e6d..3054175717ab 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4833,6 +4833,8 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	trace_mm_vmscan_lru_isolate(sc, nr_to_scan,
+ 				    scanned, skipped, isolated,
+ 				    type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
++	trace_mm_mglru_scan_folios(lruvec, sc, nr_to_scan, scanned, sorted,
++				   skipped, isolated, type, tier);
+ 
+ 	*isolatedp = isolated;
+ 	return scanned;
 -- 
-Best regards,
-Cui Chao.
+2.34.1
 
