@@ -1,94 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693459;
-	b=UWxHsG8Ij1wY7QB15tf3KiRXkzroj7hYoEN7S8F+xZl01Fp/3QuJRVrVZSNHOuCgk3Lk
-	 oFu4/Ro/hVhJBSM2+acVKq1eESZoHF4LOE48547uUF04uyix/y43NjCoKBp+oBNWRrNsc
-	 qNT17WUoNYUDUKHWkpLG8n5jXElueBA5//vSpx0yX3wCdcbgQpdPcC5dce1uet+u/8p/w
-	 58K6LdDuAQID9CHuTmkPZbcvl29+4fxGbcjeFl9rShWaC/RCFkpwEhMMS0Vn21vz9YksG
-	 0dl0/F8LCfsJaWq1KD1K9MR1JcZl68vYflNZ5wln8lgJISNxfhHU5gyzbsxzc36yWOw==
+	t=1793693480;
+	b=5tgrySehPAdrTcIfgH3jGn9AVkT+3vxzUcQpaElPd8N7J9OHc58SFMcCnq+quVooTZzF
+	 gqY5PoPkfH6pS7zqxOwHBzPrLFpIr5czIMn3x9ezVk/6cz8pa1UJxQV2ClUX9pOKW6C4u
+	 DkPn5tR8t8YazUgDWgltNpWxwsBlo8wL79GOsgbt7NAX1CutGZkEaMtShohFr+11aQyOa
+	 KPFhJatgZRQ3IAofj/8Vcuab2IpqnPnHDZXOjAGLt9hUoKDlwazbi8uIEcq/uieoy3N6s
+	 F63Cx4VjJjb21KHvNgVJZkFxCIkCbpgGgBVyRnlxTqtRraHWQcHrkPIAtey86rNRUvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693459;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OCBEogtd4WQ6NFtESpTyBkJzNayzM85qVHDRTKTymcA=;
-	b=KyJ/V8NtL7dusEPUl+OpUwkID1jANezqTzB3+VCR2NKsoQGbJ0wOD0mBn5gLnHzk/9VN
-	 UlkRhUMvf/ZMDI3AERoEqCd39iUXQwaaCPnyMGa7St8DNuILMLlbmnmtcIwtAoBQyFwAQ
-	 ew4vb+M8LAjo//6zdDN1Vke141HZgier+UGtXHaB1hwUx6oGWtt6/UObbQ3MFVFg1G8F0
-	 ERXHjf20rGvPKyenmr1C6gVP0NpZigzWX9bAq98KLL0PRFUTKO8AurkZDDUfCWDM7kCj9
-	 jiEmQldeZY8DrPdXx140grKpDDFJ4qkoggaBKXi07tFJpkJqHdaaMk18DlZ5289R6UA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693480;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NQHiBdI0xyIEIllcHZs0yInsfxeb9r5VLhNWBGTa1x0=;
+	b=WhgvPRmjnPoOyeD+vOgElPtb8G6UsNVrx5x9SzVX2YGcOyud2kDgYrJ9HHoTw1IJOtIM
+	 p7eTrm8xR2lvmrzJDEe71EVkC4esAOcWmp+0DPjf1vApkcWtJ527fckG7pgCjaDsO+rBO
+	 Bx4Z4SZSLkkW5yeWwm/l1huvV7lB6noicaQG3TQBTyf6m9kwrJLMNV9lTYm1MhvaiVKDC
+	 0/UaRVPMjIBAU7rQdf/K1nbx/g+AHcLVKxgzZp25Aig12IpDvxbKJxRQROlmiUx8oJjmf
+	 ks9Ga0VbyNGK/xW/ZrzSFtc0iM0QfPyp6QP10e/U687jpJGgVAK+K6z5RuSYwJYB3Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iwIpZWkd;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0PDWy3U;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BD7606D804
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:10:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64BD7606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800C8606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:11:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iwIpZWkd
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-3678f64d078so5877777eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:10:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793693457; x=1794298257; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OCBEogtd4WQ6NFtESpTyBkJzNayzM85qVHDRTKTymcA=;
-        b=iwIpZWkd/OIVCNYDKv/ylUfUbC6RRjGeOfXP+TJDBfgUTZYPifM7e+YeHVHoaxgV06
-         27Zu7jZqrCgKe/0hb9AjB/DCdFPCeaXPrNqcn755+x8CMHrj27EZr29LL5aiYZMgkBCf
-         5p3nCi/0rijZhRnj5rTfwpJmGaMeNdLFyZboD7UOiCa1qdyjlkMvmMkovmipe1L9LaFA
-         U856VuuPf5w9JD7un/GhGqPTCFIdWS74vSddSxP5l5BVPwGsxi2227F9uBJUG8NV7UXD
-         h0q4A92rR0G9wVXLgAXMzzyH/LsGJKPTtuahj+b1O0YDfk0ulWH+7wbkGRUV6PD5/ZT3
-         a+qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793693457; x=1794298257;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OCBEogtd4WQ6NFtESpTyBkJzNayzM85qVHDRTKTymcA=;
-        b=lzaVGZBx5tk3U8XfjwiurqQP592VrVJFz+HbK17TT2bjhwGpoEdNq6xDM9qtS2ggOB
-         JXB7lDo1c8v8YyefidJMDXadAthq+2L8Kxj3jS2lPukSS6Qh0Mu4PoleIxVr4sdeQdFc
-         ly0IR9QNl+7PSfOUbq9TJTQk3TOdYls10/9xfOcGarE36qlqbvRHj498CbqNkpTMyD5q
-         YeYXBC5DGcMekeeBpKa+Dy7VC1iTdyTDHMaoCZUdvgkg53KcMVQ6bg9+dGYWfO/sWwyB
-         NuWN7UgAzR+xyz8TRga53aTuwN+m3XIbQemOT361jT2QD/CIL5QTlD5TFuCY2FpHyNd3
-         oj9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByIGfBNY/gomnyjczbh964qO6QDHs8sE17xDt7ggw7p3l5iy5MKwpjLHr73V6J9Z0mIJ7RhS4bWJ3wnllM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Mcl6LE8304VMIQcw869o8rSE2Jpq5QTAsDl82W1M8DBCekEr4
-	jthbizwSAtfwtpzNDUfKYEEQZ16nhQg+PkUn/vSp84oJCviQDxP7I+9u
-X-Gm-Gg: AYBFou3XzRESAoDEITP0vh7O49xzbsQJofHdCNsP1dMxV05WmPtCIB1peOpf/Ra2dan
-	C7CQdK8qQUr8T0sfpj6cBaIzbM0TqRuRdtmXSQnst2lbQq1SpGjT3gAVFoy3fyngrNTUV/o4kvy
-	s+JqjQYBaSwJtEKp03H5X9bT0OeBcnqAx4Ygm3YdppbktnWB8WLPN7uOW3UhxycqsWBAMXh+wnN
-	YUtdhqczTNwSNvDQ4eGf0trxbzR4/sGGjyHMNCw2wyslCDS8mkvGPE3hq6xdPKWe1QdslX9Uqaq
-	L8tSJ1t12nq5QfltdZQrEBAfPLotBcyQXYbpPJ2n06LKpAf6rtjYet39gNGsPkxFr7dxF5C/0pZ
-	6kKZttbeRBPfFAm3uA+mmLCPC8h1I12ul247Hgf/kGdTRUxjFBOtYqDMJEqGVpQtFDjk2zuvKVJ
-	Yju0LB0PJPMD15cHkUvqMaUDfqkOdqZc8t/bneCVW923anJDj2nqGUORO2a2UEzQyPLTutDsgP1
-	hqyUE+KVDQ0eihpkcCS5f/lmk9L3W7HCvYHmx9LMN2l/2YGpP1xcBmdtNzLPGwJE2S8sYuiJzZB
-	M0VPkfSA7KsfnU7x0UMFnnCTQHGDaumAouovaoYrlh2wjfbAwznZ32LX
-X-Received: by 2002:a05:7300:c39f:b0:366:6644:2839 with SMTP id 5a478bee46e88-36a42203e90mr19153100eec.3.1793693457451;
-        Tue, 03 Nov 2026 00:10:57 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36b13bd87b2sm4621906eec.28.2026.11.03.00.10.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:10:56 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: miklos@szeredi.hu
-Cc: fuse-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	shawnq1@163.com,
-	jamz@amazon.com,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] fuse: clear the old EOF tail when copying past EOF
-Date: Tue,  3 Nov 2026 08:08:46 +0000
-Message-ID: <20261103080846.55656-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0PDWy3U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6B821F00919;
+	Tue,  3 Nov 2026 08:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793693480;
+	bh=NQHiBdI0xyIEIllcHZs0yInsfxeb9r5VLhNWBGTa1x0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=e0PDWy3UxP/kvsGnXi328Pmi5xYrEFKmIm6BqK3JTDHYPF2tY3FoTK3QubpCeYr3F
+	 l4oWg2OGY045IW9TtLzS46o8lWfHIL4QT7Ane9Ss5goUWsEPx82gTQyuFwMNgSJtVs
+	 6M8Q4c//MKDtw/y3RK9ZpNNBZ9mHPdj0aBt+E9xk6hxDG9yYuJOVYr8Gpopn0voKmL
+	 kAjxFci0tl/J/xHJEx9tO8vvhezHhrzK8+rzrCH8OmKa4+YLT0VtYOVGPW1tpl0SfK
+	 fdFAJFE3teyviBmhf4zgRc6RoqfIm1Gq4udjutOQHlSb/yUI6NhTJoX5VCpGB2FLpm
+	 6ql8XWecvmK2g==
+Message-ID: <15b36696-91a0-4128-96e2-e2931a858f73@kernel.org>
+Date: Tue, 3 Nov 2026 09:11:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,61 +51,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/memory: use pmdp_get_lockless() for the pmd read in
+ do_fault_around()
+To: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+References: <20261103014749.96764-1-hui.zhu@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261103014749.96764-1-hui.zhu@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-__fuse_copy_file_range() invalidates the copied range before updating the
-destination size, but does not clear the tail of the old EOF page. If that
-tail was modified through a shared mapping and the copy starts in a later
-page, the newly exposed gap can contain stale data instead of zeros. A
-subsequent writeback can also send those stale bytes to the server.
+On 11/3/26 02:47, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+> 
+> KCSAN reports a data-race in do_read_fault / pmd_install; the same code
+> is in mainline:
+> 
+>   write (marked) to 0xffff8d52a75fb810 of 8 bytes by task 27487 on cpu 5:
+>    native_set_pmd arch/x86/include/asm/pgtable_64.h:83 [inline]
+>    pmd_populate arch/x86/include/asm/pgalloc.h:84 [inline]
+>    pmd_install+0xe0/0x120 mm/memory.c:444
+>    finish_fault+0x5bc/0xb00 mm/memory.c:5204
+>    do_cow_fault mm/memory.c:5432 [inline]
+>    do_fault+0x5d0/0x6e0 mm/memory.c:5526
+>    handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
+>    __mm_populate+0x144/0x270 mm/gup.c:2207
+>    __do_sys_mlockall+0x2cd/0x380 mm/mlock.c:764
+> 
+>   read to 0xffff8d52a75fb810 of 8 bytes by task 27527 on cpu 9:
+>    do_fault_around mm/memory.c:5341 [inline]
+>    do_read_fault+0x162/0x670 mm/memory.c:5381
+>    do_fault+0x31a/0x6e0 mm/memory.c:5524
+>    handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
+>    faultin_page_range+0x227/0x530 mm/gup.c:2156
+>    __x64_sys_madvise+0x67/0x80 mm/madvise.c:1479
+> 
+>   value changed: 0x0000000000000000 -> 0x000000001386c067
+> 
+> Both paths only hold mmap_lock for read, so do_fault_around() tests
+> vmf->pmd while pmd_install() populates it under the pmd lock.  The race is
+> benign: a stale pmd_none() only wastes the prealloc_pte, which do_fault()
+> frees again, and a pmd seen as populated only makes ->map_pages() find no
+> PTE and do_read_fault() fall back to __do_fault().
+> 
+> The load still has to be lockless-safe.  pmdp_get() is a plain READ_ONCE()
+> and can tear where pmd_t is wider than a word, as on i386-PAE where
+> pmd_install() publishes two words with a single cmpxchg8b.  Use
+> pmdp_get_lockless(), the accessor for pmd reads without the pmd lock and
+> what __pte_offset_map() already uses on this very pmd a few instructions
+> later.  It is pmdp_get() everywhere else, so the report is silenced the
+> same way.
+> 
+> No functional change on architectures that can load a pmd in one go.
+> 
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> ---
+> Changelog:
+> v3:
+> Shorten the comment to one line (David Hildenbrand).
+> v2:
+> Use pmdp_get_lockless() instead of pmdp_get() (David Hildenbrand).
+> 
+>  mm/memory.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 0fb676dd2bd63..f25c2ce0ef153 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -6017,7 +6017,8 @@ static vm_fault_t do_fault_around(struct vm_fault *vmf)
+>  	to_pte = min3(from_pte + nr_pages, (pgoff_t)PTRS_PER_PTE,
+>  		      pte_off + vma_pages(vmf->vma) - vma_off) - 1;
+>  
+> -	if (pmd_none(*vmf->pmd)) {
+> +	/* pmd_install() rechecks pmd_none() under the pmd lock. */
+> +	if (pmd_none(pmdp_get_lockless(vmf->pmd))) {
+>  		vmf->prealloc_pte = pte_alloc_one(vmf->vma->vm_mm);
+>  		if (!vmf->prealloc_pte)
+>  			return VM_FAULT_OOM;
 
-Remember the destination size before sending the COPY request. After a
-positive copy result, clear the gap from the old EOF to the copy start
-before publishing the new size. Keep the existing invalidation of the
-copied range. Apply the page-cache cleanup to non-DAX inodes and cover
-both write-through and writeback-cache connections.
+I'll wait for for review and then pick it up.
 
-Fixes: 88bc7d5097a1 ("fuse: add support for copy_file_range()")
-Reported-by: shaos <shawnq1@163.com>
-Link: https://lore.kernel.org/r/20261020003429.1009226-1-shawnq1@163.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/fuse/file.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index d5e1cb53d86a6b35e63ca31b1065068ea5bdb6be..d3fa2bac9903acbd15cdbe9483fe3605f7ab5da5 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -3000,6 +3000,7 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 	struct fuse_copy_file_range_out outarg_64;
- 	u64 bytes_copied;
- 	ssize_t err;
-+	loff_t oldsize;
- 	/* mark unstable when write-back is not used, and file_out gets
- 	 * extended */
- 	bool is_unstable = (!fc->writeback_cache) &&
-@@ -3047,6 +3048,8 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 	if (err)
- 		goto out;
- 
-+	oldsize = i_size_read(inode_out);
-+
- 	if (is_unstable)
- 		set_bit(FUSE_I_SIZE_UNSTABLE, &fi_out->state);
- 
-@@ -3087,6 +3090,9 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 		goto out;
- 	}
- 
-+	if (bytes_copied && !IS_DAX(inode_out) && pos_out > oldsize)
-+		truncate_pagecache_range(inode_out, oldsize, pos_out - 1);
-+
- 	if (bytes_copied)
- 		invalidate_inode_pages2_range(inode_out->i_mapping,
- 					      pos_out >> PAGE_SHIFT,
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+Cheers,
+
+David
