@@ -1,85 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793710870;
-	b=ZyrW0kfyE5bhRPRIjqxLaw5M3prwNG8BW5dOYY+OvqPvlY2CPJu7Zl/w+nIwfqnjjtPp
-	 3EjNokbr8MFG09OablJ7yzjx4Doe+Z4TWBg+QmUWmPyglN3Pn+VVXVlZyD5Wx7YAhzaxu
-	 c90VwQ+n+7DSdYfTjwFZNWSLL7W03gPPtyY9Z7Y97z3onarK902ubcMC7LnBJQQqZzKwz
-	 bO6B2ze5dejOKIbngz+uZCqkepuRd/tUPQ5xxmRD0m9By4g1CUzxNztFTunWInmhCzTAW
-	 lL4essteqN4nwLGAgEOIeESc72toDPXghLX8M9BI547zy/FQnWBmzulzTDD+bQb54Lg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710870;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tCXdSwBH2oP3ghx/QDnn7W2xUZbWzfZAqj/U/u/Gk6g=;
-	b=g2EB8JKVlJrxlh5r2IXMW6KkzjKzips0amqrjZVr0LLdU/AsxUe2yNvQOWPnQb7n/7hv
-	 xulm39AfQ3N50GtbJ+2lWy0N8/BoET1XXRb4sDQjoofukJwdgzDR3R74ohSM5XjNTgwEi
-	 jkhIuEEjylpBqb9K6bwTHbYP4bM2Ics6oBjscp6GD6d8wYZZmHxiiVYtfT7jSjx2P0ZHY
-	 B4Iy4UElSkrI915lJ3cIW3+Gu51JlMPC3/8OUMuo9vxmRjSgXIG9lTFuYyM4lk5kAdzfX
-	 BLZ3F1rLdh6d3fBs3yfZcuZhEJPgDkUYHuQ21KQeSgKsi9CfeByfCVANj4kL0S9C3mw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXLQP0Lj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.214
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793710891;
+	b=u+2MaMuUiupZoJJ5AuYpeOku/ECi8ZkpV8biA+MIrLMi32G9NPO/ZwY1XN0oRhXDslRn
+	 Yx4xOZw4gGBXFPrnjgYvJCrftF1K00ygxCfjStci8bM9NL0onK7f8L2Pn2xB/w+8USedX
+	 vNYriV768tIvPGryoH67PhXn79PRJOyakr0itN9eBFKll8/8UJrfJ/hPAwCbR6NXpmw0Z
+	 u0BlJGWuTXl0wVby/SU6k8J87JoTw9T9DtFCvNnboiugkejKpfB5ZH9gyHhcfx12n10vR
+	 gqk8D9n1P02+yTx2RWLqcyNd/kHIJKkkJXK2oFu+3ge0oA7uuD6Kig3omGgbyKpMNRQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710891;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID;
+	bh=DzJkftSALHxewxovsf7uhxAhrTSplWGmkUOlhUCVnSY=;
+	b=dnOrl9145nCKXd6fdY1TYgfnSpzXVw9tV3oHyzL2VVbETL26DrTCTFSYTQ18oitkSr6h
+	 xoKKLIuX6rKu6Hw2XntNk0Xl9wU1ilrPxupkKyEEFWL8Me8t6pbQOgL0ZaXxSGXH9DhmU
+	 9981zaTHa14mokg7SchhUbXS6NjMAZyohCy3awSRN/0PSulUTPVBk4KqKp3guuR2I3iZj
+	 ICQ4oey6eUCNxlW8MsJBNi2hQlNazZ0aYM2n/6bWjnxPNTX1gzxr7eTKvS8e3Xr9SpDfW
+	 IGzaG8R2K49l8tc2aZ1Uzu0yTNH0lSO4Sz8oiuwXjdqXFDomhvvGj2ck2lrdE0GT/Rw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=tuta.io;
+	spf=pass smtp.mailfrom=tuta.io;
+	dkim=pass header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=eqf2TMyy;
+	arc=none smtp.remote-ip=185.205.69.214
+Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40C6606A326;
-	Tue,  3 Nov 2026 13:01:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C242A606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C242A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXLQP0Lj
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793710869;
-	b=QpYu39bDByWJh/NDYkQEWbSck0DSzTmfeTmFk5Q5ziZHW0imrG7yc7W+HcwbEF9mHAru
-	 y/O30ZJtpry/F0+GJCBUrwYkEjvaH7f4B/2GCkC0GyVzVoRIe8QloRdOIC/e9oF6MBpON
-	 wuaGa8Bb2qzxhDfA+QA5y7I4YpO5+kVXXXz/t0rx918cDZbOYO2YdDG4P3vmVCvWVvb3a
-	 n73i8UGRwMipou+3OW14TH7aze+ILE2B9X8XQbozJg6/A/DMCbvt+/ze5xV5DjO03HS5C
-	 6aLH5jh9bdTwfxRXHWSuUOx+SKvF4bafUYkbqaSIQnlaatxK6JQRZItlCt4ucE7C8Ww==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793710869;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tCXdSwBH2oP3ghx/QDnn7W2xUZbWzfZAqj/U/u/Gk6g=;
-	b=qG/CQ0HMTpxgs4MJnhSfYyHzrE7T6bgl83YNIjTAJ23DCzcn/gcUeKKTIbwvWif4EVFt
-	 gLQTYR1LiqxXjkSUv7zeg+KYqKW+cN+Y4bdcOvCDdBmjQOg9CtVvtGQAUtCZUTjWIuNoD
-	 cTXvpXShgGAUjMqvPKrhwAItE7bElOLpuikVldq2WT9sUuj3RHC8EKqqT5duH1QStOsUg
-	 HBYMsqfg99ao6LIvf/NT6cPlfCjnhz+7TKw5vLa09nWQiB7ememAUaLeGyiI0Y+kORJCR
-	 mlZNpioKBv7gXsawpRsddoIH319Xk5zRXAMNKLTXh2JZ3YsfuFJGDdf3mCj7u+dm09g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id EA53F1F000C1;
-	Tue,  3 Nov 2026 13:01:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793710869;
-	bh=tCXdSwBH2oP3ghx/QDnn7W2xUZbWzfZAqj/U/u/Gk6g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bXLQP0LjwGBla+El08CNtbpaxd7UbR+6pX/IigwdmKhGtOWFU5xTgJ8xZCf6O9qkM
-	 0fXbjhoE3gxSzMy2glexp0H4VdjzFKBpotTjci5Z7iaoa52qqyxK4/OcTPHCGcXNkI
-	 pu8O3l/KHFtkgiqQ88iqxB0HkeQ8BNJbuyfw8FDHqK3i0eUurhlZ9jB7ZczbMoLMsL
-	 vCRLtHKnTO7bH05ICIU4ENQOnMaqvZJ9E43snxnmF5YttV2FgBbF+zM2qlRak6amMc
-	 Dw7Vz4oj139PVxKF+pj4BahpaBBbcyE6VM/jmAyxhEdbJULRO/2ybMV4nsVi+/kvKN
-	 frfo6S+5K0T4A==
-Date: Tue, 3 Nov 2026 14:00:55 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Raffaele Tranfaglia via B4 Relay
- <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
-Cc: raffaele.tranfaglia@gmail.com, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Dmitry Osipenko
- <digetx@gmail.com>, David Heidelberg <david@ixit.cz>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: light: al3010: fix out-of-bounds read of the scale
- table
-Message-ID: <20261103140055.00000efd@kernel.org>
-In-Reply-To: <20261103-al3010-scale-bounds-v1-1-6110c2ffe3b4@gmail.com>
-References: <20261103-al3010-scale-bounds-v1-1-6110c2ffe3b4@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=eqf2TMyy
+Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
+	by mail.w14.tutanota.de (Postfix) with ESMTP id 4E88B1A1AF134
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:01:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793710889;
+	s=s1; d=tuta.io;
+	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
+	bh=DzJkftSALHxewxovsf7uhxAhrTSplWGmkUOlhUCVnSY=;
+	b=eqf2TMyy3+mkJV/+c2wc0t8K4Dsg3aTKCPu/QKrEb6Sy93dJzgwWGLKBKeRFNySQ
+	6jEO1djZau3Q+nVjseWdLD6m+huqxCExAndgKZv063DmmyYRsvMMqCcmpnHFaJiHL6Y
+	T4uhHO0xsa3rcstdpEuNw8acVLNvkVJYZPis6L9FqVv5aWyFCAMIW28bFR6ckZRrJpc
+	TFm3uDuwL/iIANsXgMujVaDL9eS6j1gDwdc+RTGPsxPTv+AGmw+7pv/rmVM/cUD1KY/
+	M+t7uJDMEEFhy/q5x1bIHBqxNRQLNB6AvaHsA85pkZuwHNfdZZmaVaXvvCpX3amAixq
+	h9RI8/NdJg==
+Date: Tue, 3 Nov 2026 14:01:29 +0100 (CET)
+From: Edvard Conrad <edvard@tuta.io>
+To: Amir Goldstein <amir73il@gmail.com>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	Edvard Conrad <edvard@tuta.io>
+Message-ID: <P5WV0VL--F-9@tuta.io>
+In-Reply-To: <CAOQ4uxh67+vs0mr-Lxmwz9-N+F8m29WUNz+8qFLLDpOVYB7=vg@mail.gmail.com>
+References: <P58Wrer--F-9@tuta.io> <20261030-welpen-anbinden-nullen-b2432cee1d10@brauner> <CAOQ4uxjm=cGPnug18VuhKqiMvkWwLPNLO_TE3KxO8iLZG+veYQ@mail.gmail.com> <P5Qu3co--N-9@tuta.io> <CAOQ4uxh67+vs0mr-Lxmwz9-N+F8m29WUNz+8qFLLDpOVYB7=vg@mail.gmail.com>
+Subject: Re: [PATCH v3] fs: let backing files inherit FMODE_NONOTIFY from
+ the user file
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,39 +71,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+Feedback-ID: 0127f977f5e13e8051b46c6e7f57d0f95a0470d24b79d7c31d07fdf611cc427ab823e0f4692a810119c92d8768973a9281:TurnOnPrivacy!:tutamail
 
-On Tue, 03 Nov 2026 08:42:48 +0000
-Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org> wrote:
+On Mon, Nov 2, 2026 at 1:34 PM Amir Goldstein <amir73il@gmail.com> wrote:
+> Good catch!
+> Please test the attached v2 patch and post the new test cases.
 
-> From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-> 
-> The gain field read from the CONFIG register is three bits wide, so it
-> can hold values from 0 to 7, but al3010_scales[] only has four entries.
-> If the register holds a gain value of 4 or more, reading the scale
-> attribute indexes past the end of the table and returns garbage.
-> 
-> Reject such values with -EINVAL instead of indexing past the end of
-> the table.
-> 
-> Fixes: c36b5195ab70 ("iio: light: add Dyna-Image AL3010 driver")
-> Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-> ---
-> Found with LLM-assisted static analysis of drivers/iio, looking for
-> table lookups indexed by unchecked register fields; the fix was drafted
-> with the same assistant and reviewed and tested by me.
-> 
-> Tested on arm64 QEMU with i2c-stub and CONFIG_UBSAN_BOUNDS=y. After
-> writing a gain value of 4 to CONFIG (0x10), reading
-> in_illuminance_scale:
-> - before: two array-index-out-of-bounds reports (al3010.c:137 and
->   :138), and the attribute reads 0.000000
-> - after: the read fails with -EINVAL and no report is printed
-> ---
+v2 fixes the merged directory. An impure directory still deadlocks the
+same way: ovl_iterate_real() reads it through ovl_cache_get_impure() and
+ovl_dir_read_impure(), which v2 leaves without the user file, so
+ovl_dir_read() opens the upper directory with plain ovl_path_open():
 
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
+  fanotify_handle_event
+  fsnotify
+  fsnotify_open_perm_and_set_mode
+  do_dentry_open
+  vfs_open
+  dentry_open
+  ovl_iterate_real
+  ovl_iterate
+  iterate_dir
+  __x64_sys_getdents64
 
--- 
-Kind regards,
-Joshua Crofts
+That takes an upper-only directory that a lower file was renamed into,
+on layers that share a filesystem, so ovl_need_adjust_d_ino() sends it
+to ovl_iterate_real(). Passing the file down the same way v2 does for
+the merged case fixes it for me, on top of v2:
+
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -670,7 +670,7 @@ static bool ovl_fill_plain(struct dir_context *ctx, const char *name,
+ }
+ 
+ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+-			       struct rb_root *root)
++			       struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+@@ -678,6 +678,7 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_plain,
+ 		.ctx.count = INT_MAX,
++		.user_file = user_file,
+ 		.list = list,
+ 		.root = root,
+ 	};
+@@ -714,9 +715,10 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	return 0;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
++static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
+ {
+ 	int res;
++	const struct path *path = &file->f_path;
+ 	struct dentry *dentry = path->dentry;
+ 	struct inode *inode = d_inode(dentry);
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+@@ -735,7 +737,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	cache->is_refcounted = false;
+-	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
++	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -856,7 +858,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	dput(parent);
+ 
+ 	if (ovl_is_impure_dir(file)) {
+-		rdt.cache = ovl_cache_get_impure(&file->f_path);
++		rdt.cache = ovl_cache_get_impure(file);
+ 		if (IS_ERR(rdt.cache))
+ 			return PTR_ERR(rdt.cache);
+ 	}
+
+Results in a VM on 6b4b543fa18, each kernel run once and with -i 2,
+with the backing filesystem marked:
+
+                                file  dir   merged dir  impure dir
+                                            listed      listed
+  + c3d355f427ce                PASS  FAIL  FAIL        FAIL
+  + your v1                     PASS  PASS  FAIL        FAIL
+  + your v2                     PASS  PASS  PASS        FAIL
+  + v2 and the diff above       PASS  PASS  PASS        PASS
+
+The new cases are posted on top of the directory cases:
+  https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
+
+Thanks,
+Edvard
