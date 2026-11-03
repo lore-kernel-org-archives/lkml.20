@@ -1,66 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692842;
-	b=04tfi/HirlCmlp4hj6k0CdcyeyPBanz7gGLFhf+TtockgfP/aOr22IczgK3sZR0r1hH4
-	 FpsmCtogt6EQ5tInWUQDsOaOCbT4+xo1VY5gPL3YbJwqSAnW+OJtxGs6FWLrvT4O360uy
-	 vWP1p7Cz6ok1QUI3A0Blg2feGrBK3eFeNS+K//UfucjJwZb/ZM9DMFq70wsRAN7Dt6Vd2
-	 gFFRQ1ZnuAGPO4oFRMqsYPBXZaqyo6Q/Yk7LzgZNTBHglLAeNWge7zCNc2VZywtImEf9k
-	 udzHjWw7Ul6JJuh48S1ZxS91ELLXncaS2hgCdbFmLiiYyYDZOleDrOKs+Cxf5yFaRlA==
+	t=1793692857;
+	b=P5Ii2bja7bO+BzldpD0RlUs2O/P7gZbnN3InwFycuygPOA71VRpjMOK2zI8YkQB+YsCO
+	 HktmmBVC/vPFlkK7/doJGiFxEzXwKnBSk9SDEoRYYGEQMvExkzdc1AmKN9hI8RlDxadqQ
+	 O4LvgP8+6P/27rAoy1S9aDyjhS4mxAGMC+Z6E8eXESLsJ5+TtX+1ce9kEjYdsCFAzt9xT
+	 GKPQ1bsJ+ZHwvpGzhavXOo7CmBT9tE4YHGrAuCPWOM/V/otIJaYgXKtvqXsRTU0JE+u2X
+	 loSiR+OKIMEwOQJDloLJc9kX+25JIHDV5a0kK3z0LHGYclTeSm3gwD60mCD9M+WcYbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692842;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=o2eLsx/nGvouTivFiSiDQKL17S34wwlYhifrcocAVCA=;
-	b=JBNsBo5H/JOv15vmSxF9hRINqoRcv4YqCGON8JeXIOJBLz9kI/LOgU5MWfabLkcDwPfF
-	 1Ro/k2iZNcID0gDHPpEsWY6opKjEjZgUzETrUkvOgn2LnNpC8ccu34VMij2VcdOOAN/Ef
-	 xNhwKQoj6ACVuGtIUR61sZhoSElDrivsenm88vfs5DlxD4K2Lojtavhi9ETh29DUPXICL
-	 MrIOoqmIgBV3Ep/UnHUh+Cm29o5VKd0OCxhQwXd9U7PNvyVpI/ZBNQlUUXkoE5KEE6wwF
-	 0nzu/hJHgIqj4d/IE4n8UJLZInLmAwV3Oxa1dkCBhcYEmYYX7L7EW+m/5uF7HTKirKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692857;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jaPQ34I/G6MMT2pb+dBcgiPAsdHes/QH+s/hJq1mQjw=;
+	b=K1XgBKDrG+Gbxs9deP0hR8yWiXb/vM53s2GDnDyFVfg5ZnBQ6sZA9kcPoK8Zd7UVImsN
+	 XfT7l+1xbR3nMIQG6crv0z0RWY1pHQGrYIsJXHJJ1T+QMioo1aWvYtcWBlTbtJx92LsbT
+	 e+d8K67TyhGIdmFLaACWRUFR7BGQ133m3jQeFICgA1irkVpj89UBycwNW20mdFQTjio+u
+	 VLVwmu4t8BTCyigvbYtfKpHov3tGsDprFchN25R8bJkvCsSf3hre+SKJd0JB+OKVPRQsq
+	 OTllXIeMVRJ3qaU9/AzjgyA/aJvz375JojxZQSSROPtoqfHPVbL8/rfQrvE6Noplw8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9in8RL5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=aBXWkUP9;
+	arc=none smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05870606A324;
-	Tue,  3 Nov 2026 08:00:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD5D606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AD5D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9in8RL5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03EA31F0093A;
-	Tue,  3 Nov 2026 08:00:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793692841;
-	bh=o2eLsx/nGvouTivFiSiDQKL17S34wwlYhifrcocAVCA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g9in8RL56728oCnq6IV1kW+ddzlj4UsjLU4X6ShtIkiT2A5P6x7jvMcWBvRmWiQbx
-	 lTwHxTIr4GM2WexHy96Tc9t5+6AeFgQL/O1J/EPKo1K6Ppj+nfEPZkrom7LpXckGJk
-	 mAPGT7JzlRDLJT8bu3ngfPMcIlAno5MBOxrBkmHYI/ivJCZjHSZN/6+SLsgUSRYu7w
-	 4G6wuW2C/mqHMmdF548D9FaaFVDXKjoSfYb1o81hnDcDHjYEPUKwiWAr6pGGsq1BbW
-	 d3AkGCxgP5BggMhR43Q6OJ2mOmDilWS5gy+9ta5yLCMMTDrGSMMOLY/63ZNT2dOunk
-	 xDHwsIzVuUZ2g==
-Date: Tue, 3 Nov 2026 09:00:18 +0100
-From: Joel Granados <joel.granados@kernel.org>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>, 
-	Ido Schimmel <idosch@nvidia.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Petr Pavlu <petr.pavlu@suse.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Fernando Fernandez Mancera <fmancera@suse.de>, Willem de Bruijn <willemb@google.com>, 
-	Maoyi Xie <maoyi.xie@ntu.edu.sg>, Gerd Rausch <gerd.rausch@oracle.com>, 
-	Zhan Xusheng <zhanxusheng1024@gmail.com>, Oleg Nesterov <oleg@redhat.com>, 
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, Yung Chih Su <yuuchihsu@gmail.com>, 
-	Wyatt Feng <bronzed_45_vested@icloud.com>, Hannes Frederic Sowa <hannes@stressinduktion.org>, 
-	Flavio Leitner <fbl@redhat.com>, Petr Mladek <pmladek@suse.com>, 
-	"Paul E. McKenney" <paulmck@kernel.org>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 5/5] net: restrict message_cost and message_burst
- to non-negative values
-Message-ID: <aumTvqiaDRTd9rlY@hobbes>
-References: <20261027104701.296240-1-jiayuan.chen@linux.dev>
- <20261027104701.296240-6-jiayuan.chen@linux.dev>
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=aBXWkUP9
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id ABF873F780
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1793692855;
+	bh=jaPQ34I/G6MMT2pb+dBcgiPAsdHes/QH+s/hJq1mQjw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version;
+	b=aBXWkUP9q41s8F4rawwetX2HntceBR69rrDT+JIkZEmMbpRGvFQVMJsjQcH0JIgEX
+	 J5cRmXjo0XzXJGbQAwqLzwewAIS4mHk+K+17oC4Fptsk7bQDlZwlpxbV3MLNByAHCb
+	 8aTlqyP5Vd/BUHFsOU97+tb6PJJzyFZ4CBZwsNa/qZwBFm76YC7ytpc0opscAtRWzM
+	 KMVONE3pyqAn1iN/Wuix7mNrr23NlNYuLUuPUdPNABjEY4GiGVdna7SRLlojx2hotA
+	 a/3o9SNfwcjfyneXLgb01y5DjcCCB8mGzxFYBjMSwXE2xJH5dNQH5LgYguOJNrp44D
+	 zPsR35En38yAFkykjizzT4U8yIacJvLUTylIRAk1C41NFOGMX9jkCPrS0qM4IkQNR5
+	 rePvv4C8/oU7kiqCj2/KEJ5MHVMiVjED02lKtYpucF4Ram8siEvmCKPO+KTY3vmNKJ
+	 gUeCganuYdEhVo7AHv4R8NobPJLRwFlOBCJa6OeZ+JeIq+HL9EgWJYl/X5L7O2pMhA
+	 GCOUoHgchPTK9UVBlC/gbT1FgPM5yRFf08dAub7vDTZMfQBaK/w12CYN5MiY2Tfy2i
+	 EdjL60VCz5LTrd8JjBHMYkIrQiG2zbkI/ZxpII7j8Xq7xHbwtwWyRYlV6FSb9qZ+qL
+	 7x7kOUOXtbOdZu2zVwtIEghA=
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35c3c370b17so6581586eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:00:55 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793692854; x=1794297654;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jaPQ34I/G6MMT2pb+dBcgiPAsdHes/QH+s/hJq1mQjw=;
+        b=bYEaj14Ax61AJtTxu10049Zv/THZlH9f1pGC0Aut0ceiNH2pfBSzOInNdI9ijnjgAB
+         fWAN7RPNKX0P9xQrz87fSfd4iGzZiDAcR8VR0NLEjtXoxKaFU3vBpFmFLFCdcATIauKh
+         buMgzn58x7sCkLUiLzpYIMEfo/iy+4YlffwNi4jbk0gUa9NIlFnSgFCU3y+O9qydXMec
+         mS1T3Cp5o6NU3YbSVYoKqEY5pIkWVjfjOGt5nwHOgE1jN4RGj2zbuM7Q/v7RqGLSuLxk
+         GvRXWdcsYw59bs+glp+be8Q3RlqZwJyCxGxtMwGEwW4CBBvtV/5rNiSPGhAo24gKzHbG
+         E4yg==
+X-Forwarded-Encrypted: i=1; AKwUvBwN2YK/t9aJan+O/wOFu4oz9BNh39dlwoU+PCuncbcfFk7TrDSshb0bAftbdsUwWc0W+lBdUDi8zDMhCRY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8f/6lUyPMmonY3UVY4hTYmkpxRM+AIH6GsT1KiWh/a/ypGDyUP
+	0SxHQCksbsoMHKrt/yqHv36uTgC7f/mxKPezNT7a/mcTdtqtEH19JS8ykReQ1R/83kb+ONWRz2x
+	N6wYIFJHM4CslOMgKJGxbt/D+Etk6mfAhNgGyefJo/8tWisz+I7txjC5NTh0hzcgtMMChqJNYyT
+	yt8x5W0Q==
+X-Gm-Gg: AYBFou3HJBduufsiT8BJlinXc6geKIwV7nMqhakidmSCKXnL7TbbAsgPi/R3rkL0J7C
+	atxHYh30jYeM59lQKtKFAzF/i6rnezD80B+TjggPCyQ//vH2mqF9iXY4XUNDyeH4NCnFEPgg1ZW
+	IW4eaNpIR9gWfg8ZNTawplnIr1KkKdTVBhUaQ8GZfaP4Gm5jzBmVm/PIN+e5x2K52Zfv1ujswmq
+	tjl8M2omQU2tTZuLoLuoVqgIj5N0f8N0IU4du9EM1V3lL1vz10GAZtlocgbvAL53J+8TDC547Lk
+	/kU7xOWQH7dD4EFP3iAMSlVc1fzPsQ5ssOBOKie+Vu4D7zl1cQAXZGT7EChPWkJmk3//Gng4/88
+	s46SLqGd1hqLPZ35p7PkXmFGXSbiBTlDMQoF6v4grwhMKJdLiTUyzVqCZFHFQ2HgF3ydWs+/z1C
+	TzpU6BqkPrRJOHa+nSXQ==
+X-Received: by 2002:a05:7300:5988:b0:369:ef92:bd7b with SMTP id 5a478bee46e88-36a42426236mr18638140eec.41.1793692853878;
+        Tue, 03 Nov 2026 00:00:53 -0800 (PST)
+X-Received: by 2002:a05:7300:5988:b0:369:ef92:bd7b with SMTP id 5a478bee46e88-36a42426236mr18638097eec.41.1793692853176;
+        Tue, 03 Nov 2026 00:00:53 -0800 (PST)
+Received: from Garunix (122-58-163-222-fibre.sparkbb.co.nz. [122.58.163.222])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm37885274eec.4.2026.11.03.00.00.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 00:00:52 -0800 (PST)
+From: Matthew Ruffell <matthew.ruffell@canonical.com>
+To: Waiman Long <longman@redhat.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Caron Wills <caron.wills@pulsar.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	Jay Vosburgh <jay.vosburgh@canonical.com>
+Subject: [PATCH 4/6] sched/isolation: Drain per-CPU LRU batches when CPUs become isolated
+Date: Tue,  3 Nov 2026 20:59:38 +1300
+Message-ID: <20261103075940.110308-5-matthew.ruffell@canonical.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261103075940.110308-1-matthew.ruffell@canonical.com>
+References: <20261103075940.110308-1-matthew.ruffell@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,205 +138,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kbkkqf6zqumhyeya"
-Content-Disposition: inline
-In-Reply-To: <20261027104701.296240-6-jiayuan.chen@linux.dev>
+Content-Transfer-Encoding: 8bit
 
+From: Caron Wills <caron.wills@pulsar.com>
 
---kbkkqf6zqumhyeya
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net v2 5/5] net: restrict message_cost and message_burst
- to non-negative values
-MIME-Version: 1.0
+Isolated CPUs no longer batch folios in their per-CPU LRU caches, so
+that __lru_add_drain_all() never has to queue work on them. Boot time
+isolation (isolcpus=, nohz_full=) takes effect before any folio is
+batched, but a cpuset isolated partition can be created at runtime and
+the affected CPUs may still hold folios in their batches from before.
+Those would linger until the CPU happens to drain locally, and the next
+lru_add_drain_all() would fall back to queueing work on the now isolated
+CPU, which is exactly what must be avoided.
 
-On Tue, Oct 27, 2026 at 06:45:33PM +0800, Jiayuan Chen wrote:
-> net.core.message_cost and net.core.message_burst feed the interval and
-> burst of net_ratelimit_state, but neither rejects negative values:
-> message_burst uses plain proc_dointvec, and message_cost uses
-> proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
->=20
-> Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
-> negative"), ___ratelimit() splats on such values, so the next
-> net_ratelimit() caller warns, e.g. a martian source log:
->=20
->   Negative interval (-250) or burst (10): Uninitialized ratelimit_state s=
-tructure?
->   WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/32=
-18
->   RIP: 0010:___ratelimit+0x578/0x960
->   Call Trace:
->    <IRQ>
->    net_ratelimit+0x1c/0x30
->    ip_handle_martian_source+0x1bb/0x340
->    ip_route_input_slow+0x1057/0x3650
->    ip_route_input_noref+0x104/0x260
->    arp_process+0x109b/0x2510
->    arp_rcv+0x381/0x460
->    __netif_receive_skb_one_core+0x173/0x1c0
->    __netif_receive_skb+0x21/0x150
->    process_backlog+0x37e/0x1200
->    __napi_poll.constprop.0+0xa5/0x5e0
->    net_rx_action+0x4c0/0xf70
->    handle_softirqs+0x204/0x9b0
->    __do_softirq+0x10/0x18
->    do_softirq.part.0+0x49/0xd0
->    </IRQ>
->=20
-> Negative values never meant anything here: 0 already expresses both
-> "no limit" (interval) and "suppress everything" (burst).
->=20
-> Reject them at write time. message_burst can simply use
-> proc_dointvec_minmax with extra1 =3D 0. proc_dointvec_jiffies has no
-> minmax variant, so add proc_dointvec_jiffies_minmax(), mirroring
-> proc_dointvec_ms_jiffies_minmax(), and use it for message_cost with
-> extra1 =3D 0. Note that like the ms variant, extra1/extra2 are compared
-> against the converted jiffies value.
->=20
-> Fixes: a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are negati=
-ve")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Joel Granados <joel.granados@kernel.org>
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
->  include/linux/jiffies.h    |  2 ++
->  kernel/time/jiffies.c      | 40 ++++++++++++++++++++++++++++++++++++++
->  net/core/sysctl_net_core.c |  6 ++++--
->  3 files changed, 46 insertions(+), 2 deletions(-)
->=20
-> diff --git a/include/linux/jiffies.h b/include/linux/jiffies.h
-> index bbd57061802cd..de12920f8e94b 100644
-> --- a/include/linux/jiffies.h
-> +++ b/include/linux/jiffies.h
-> @@ -646,6 +646,8 @@ extern unsigned long nsecs_to_jiffies(u64 n);
->  struct ctl_table;
->  int proc_dointvec_jiffies(const struct ctl_table *table, int dir, void *=
-buffer,
->  			  size_t *lenp, loff_t *ppos);
-> +int proc_dointvec_jiffies_minmax(const struct ctl_table *table, int dir,
-> +				 void *buffer, size_t *lenp, loff_t *ppos);
->  int proc_dointvec_ms_jiffies_minmax(const struct ctl_table *table, int d=
-ir,
->  				    void *buffer, size_t *lenp, loff_t *ppos);
->  int proc_dointvec_userhz_jiffies(const struct ctl_table *table, int dir,
-> diff --git a/kernel/time/jiffies.c b/kernel/time/jiffies.c
-> index 9b3487d40cd6a..22a70caa58bc1 100644
-> --- a/kernel/time/jiffies.c
-> +++ b/kernel/time/jiffies.c
-> @@ -165,6 +165,14 @@ static int do_proc_int_conv_jiffies(bool *negp, ulon=
-g *u_ptr, int *k_ptr,
->  			     sysctl_u2k_int_conv_hz, sysctl_k2u_int_conv_hz);
->  }
-> =20
-> +static int do_proc_int_conv_jiffies_minmax(bool *negp, ulong *u_ptr,
-> +					   int *k_ptr, int dir,
-> +					   const struct ctl_table *tbl)
-> +{
-> +	return proc_int_conv(negp, u_ptr, k_ptr, dir, tbl, true,
-> +			     sysctl_u2k_int_conv_hz, sysctl_k2u_int_conv_hz);
-> +}
-> +
->  static int do_proc_int_conv_userhz_jiffies(bool *negp, ulong *u_ptr,
->  					   int *k_ptr, int dir,
->  					   const struct ctl_table *tbl)
-> @@ -213,6 +221,13 @@ static int do_proc_int_conv_jiffies(bool *negp, ulon=
-g *u_ptr, int *k_ptr,
->  	return -ENOSYS;
->  }
-> =20
-> +static int do_proc_int_conv_jiffies_minmax(bool *negp, ulong *u_ptr,
-> +					   int *k_ptr, int dir,
-> +					   const struct ctl_table *tbl)
-> +{
-> +	return -ENOSYS;
-> +}
-> +
->  static int do_proc_int_conv_userhz_jiffies(bool *negp, ulong *u_ptr,
->  					   int *k_ptr, int dir,
->  					   const struct ctl_table *tbl)
-> @@ -263,6 +278,31 @@ int proc_dointvec_jiffies(const struct ctl_table *ta=
-ble, int dir,
->  }
->  EXPORT_SYMBOL(proc_dointvec_jiffies);
-> =20
-> +/**
-> + * proc_dointvec_jiffies_minmax - read a vector of integers as seconds w=
-ith min/max values
-> + * @table: the sysctl table
-> + * @dir: %TRUE if this is a write to the sysctl file
-> + * @buffer: the user buffer
-> + * @lenp: the size of the user buffer
-> + * @ppos: file position
-> + *
-> + * Reads/writes up to table->maxlen/sizeof(unsigned int) integer
-> + * values from/to the user buffer, treated as an ASCII string.
-> + * The values read are assumed to be in seconds, and are converted into
-> + * jiffies. The converted values are checked against the optional
-> + * table->extra1 (min) and table->extra2 (max) bounds, in jiffies;
-> + * a value outside the range is rejected with -EINVAL.
-> + *
-> + * Returns 0 on success.
-> + */
-> +int proc_dointvec_jiffies_minmax(const struct ctl_table *table, int dir,
-> +				 void *buffer, size_t *lenp, loff_t *ppos)
-> +{
-> +	return proc_dointvec_conv(table, dir, buffer, lenp, ppos,
-> +				  do_proc_int_conv_jiffies_minmax);
-> +}
-> +EXPORT_SYMBOL(proc_dointvec_jiffies_minmax);
-> +
->  /**
->   * proc_dointvec_userhz_jiffies - read a vector of integers as 1/USER_HZ=
- seconds
->   * @table: the sysctl table
-> diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
-> index 473c162736d69..9226b96f2e89b 100644
-> --- a/net/core/sysctl_net_core.c
-> +++ b/net/core/sysctl_net_core.c
-> @@ -544,14 +544,16 @@ static struct ctl_table net_core_table[] =3D {
->  		.data		=3D &net_ratelimit_state.interval,
->  		.maxlen		=3D sizeof(int),
->  		.mode		=3D 0644,
-> -		.proc_handler	=3D proc_dointvec_jiffies,
-> +		.proc_handler	=3D proc_dointvec_jiffies_minmax,
-> +		.extra1		=3D SYSCTL_ZERO,
->  	},
->  	{
->  		.procname	=3D "message_burst",
->  		.data		=3D &net_ratelimit_state.burst,
->  		.maxlen		=3D sizeof(int),
->  		.mode		=3D 0644,
-> -		.proc_handler	=3D proc_dointvec,
-> +		.proc_handler	=3D proc_dointvec_minmax,
-> +		.extra1		=3D SYSCTL_ZERO,
->  	},
->  #ifdef CONFIG_RPS
->  	{
-> --=20
-> 2.43.0
->=20
+Drain all batches once from housekeeping_update(), right after the
+HK_TYPE_DOMAIN mask has been updated and next to the vmstat and memcg
+workqueue flushes that exist for the same reason, so that newly isolated
+CPUs start out with empty batches.
 
-This LGTM
-Reviewed-by: Joel Granados <joel.granados@kernel.org>
+Link: https://bugs.launchpad.net/bugs/2165410
+Signed-off-by: Caron Wills <caron.wills@pulsar.com>
+Signed-off-by: Matthew Ruffell <matthew.ruffell@canonical.com>
+---
+ kernel/sched/isolation.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
---kbkkqf6zqumhyeya
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/kernel/sched/isolation.c b/kernel/sched/isolation.c
+index 156025ef81b7..17d8171fe97b 100644
+--- a/kernel/sched/isolation.c
++++ b/kernel/sched/isolation.c
+@@ -10,6 +10,7 @@
+ #include <linux/sched/isolation.h>
+ #include <linux/llist.h>
+ #include <linux/pci.h>
++#include <linux/swap.h>
+ #include "sched.h"
+ 
+ enum hk_flags {
+@@ -149,6 +150,13 @@ int housekeeping_update(struct cpumask *isol_mask)
+ 	pci_probe_flush_workqueue();
+ 	mem_cgroup_flush_workqueue();
+ 	vmstat_flush_workqueue();
++	/*
++	 * Folios batched on the newly isolated CPUs before the update would
++	 * otherwise linger in their per-CPU LRU batches, since isolated CPUs
++	 * stop batching from now on (see lru_batching_bypassed()) and remote
++	 * draining is exactly what must be avoided on them.
++	 */
++	lru_add_drain_all();
+ 
+ 	err = workqueue_unbound_housekeeping_update(housekeeping_cpumask(HK_TYPE_DOMAIN));
+ 	WARN_ON_ONCE(err < 0);
+-- 
+2.55.0
 
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmrplE4ACgkQupfNUreW
-QU881Qv5AWWfnF1Ruky22k2G+2H2n6RfLkGk4bmIwQ48pNsbbSOJ3eX5+d6C2Zoo
-cTcgld7pDj+xI1lXnhsQ7JUgZGdR+8SoyKEmDu1KfidRj7FQV0i8v+O21WpooNfk
-TBteqHekPHA4FR4z6C5Yr77irgnj9RbVuE5ouASXpv8YKJlqa8yxoVLxoKx1CnhS
-5l0xxZ8eRmvKkQMyjenrGfQ1B4iftk/FKkHjIVyrV2aTpLrYER6oTLFIH3jrJ0By
-07ZVpLDBLUB2wPiEOrVXocadkQr+JBZy9UYkepXhbR3lEaOMM9G+GJ8WUPAzOjFz
-V2pdeanVf+rZM77gGp3qZ2vAguDkRA5J9lKe5zxujLwrST6h9o5ZQ4oHOiupf0B+
-6+NZTCM8qUO/N7NteI17+4ITHFZkUSMKMpzwP2P0Hl2gaA+7NCeTBrPz2dytwE+P
-mxZThyFWIAjoLLiobdYbaszhykxESBfXe+PVQxKCku5EwoOOcgqdIpG6DTidSMNA
-P6P+KYOJ
-=ZL7G
------END PGP SIGNATURE-----
-
---kbkkqf6zqumhyeya--
