@@ -1,111 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724716;
-	b=S/XqkB3iyblgBp9SWhV0OWBFE2woP1Au78UFCFfzXyBTRLMEoF2unRobFLQhl631dHJ0
-	 cnPyHofBH/GOSh0PwhWaN50hh/oA47ifLbtebT4eBt9VMhJgwZHaiAkZIePvORntYPQLk
-	 OEQ194pGVgFTZJtAN+SUutM3iRgVghnO+sAJRGRrvNmpv18KG/A0AoTL5afEQexuWEJgX
-	 tZa+uDwU9yrBo5QoX3bCVyfO7D790Hm8TNbjDuYLiPupdkVpOL99DRQhtY/4L4iC50TC8
-	 ygRIeBs0IG1u96Bg6cpJuusu0pqL/o8oFHm4WaLfyfZv2CHJhynUwNjkgAYcXiptFGw==
+	t=1793724757;
+	b=gcY1+YLGLjxORBQjnHdGjKCQ5fT4bByT5RLBbiW0Xyxy21QJfj98pk580hNrfs+47fzx
+	 im64xPiW8Gp8y7aytiCu2SnYkuqGB1g6YeI8YxT037z8+arXU+g8SXfvTgawH+6chv6pM
+	 pmwlGM4kNkikx53FPZC6BNsGQ0uIumfDpd9tEDymE3KulbY63bvA6j9moSe4gP0emz9o5
+	 sXkHFPQc5hz6wBJ65BaGQ7QZ0gIEfzq1FgTqd06KM4RwDjaEE6mcRqSerwNUVeDgEAESj
+	 XGwbfPK0Jiw1tOSZaGOaWFrScjnLHaffg1pUtzD1RkNoiW767K4jjrULwmpFRd9RQvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724716;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=ww63b6rV9yLGr6fapOF9p7X8k1KrA76K+KqklPl6AUQ=;
-	b=ghsiggBo63ZtVYH2WkYIrO2/a/IcJtDD3z7dIw+/yqMot0mnRy3UrML0u9jCxemz5PlD
-	 MVB5cBFPaUtSOIjzbMY49HV62qp7wfJ3s0scmTyHq3qnvmWwl5kUVjNJLpb2latmlfoDW
-	 H9CAIau5IKDL2kraw6VIpWJHSIfO60aVNxJpiaRFFpUUoO7EN8891NAcBOtvHS3JIiC2c
-	 4NJeFKKjVM0WwaZrly//hFm2o7ZUcn3RnY0PZWTOibR1sAOsAOoVjM8epd5dI7l9XxKyt
-	 RLpMuemjNrJM/dhVhfw4Tr5ymG74FQwwUdQ8zm6roJjh4Ee1Ber0xvP52cBslQhfqUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724757;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=lNlcpPLo7FBrO/QJvjnMbL90+K6TUMGiPf3gYVpjyjI=;
+	b=cOQvVDJkFAsKifNqeiehGpOQkMsVEHPTiAN4hm8Y/qRDA4olUCLjtkHUMOJwljdqvJJZ
+	 3zZ638Xod+zqhtPtgQlknondx2R3VQH3vJa2TIVodmbw5eoJejrKFKcYO8bjproCLaj++
+	 nC7Ws9Yzgpv/Q9KV/yxC+p01J4wBMuq5JBY0tZ7wEvM2ZMX6kKh5lr9xFe/+TApL1+2hb
+	 KOEb1RomF23N/CsDWzPdO5ixxg75VsRoBoGquTmv63s+voO1Id0y1krNNcdzkkHmuShA+
+	 PF5atOUNNi0lxE5r3QEysy99nOBI3fOrttP4vESmgLiGTeZXgGPXUTogoccW9vG/Vag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Dj1mbKNQ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rsosKy56;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EupygsBD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61258606D803
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:51:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61258606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BEE606A326;
+	Tue,  3 Nov 2026 16:52:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Dj1mbKNQ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rsosKy56
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.phl.internal (Postfix) with ESMTP id 598451380477
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:51:54 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 03 Nov 2026 11:51:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793724694;
-	 x=1793731894; bh=ww63b6rV9yLGr6fapOF9p7X8k1KrA76K+KqklPl6AUQ=; b=
-	Dj1mbKNQkPedGNpTexFP1K3JVjXipCe2Ass63vfq3BzhNfYgmm1lbHgGlRAcewDi
-	6cyaTzIAvcjeOkBA3+iPPFBZicS1IyIvwNqy9ILTH8kqJtEjHIGXSFpWMQD8cLos
-	Y0xtRElLt+78t9thJaSF2Ir5tSEsv+zcfWm6tiY89LkABEfCqU6ZdCou9avqsuVb
-	ChMr5HzZPYwFWIlFDmv5TE7ZgGVb7pTkSG3cgPp7YEvqbCZXnWQQFpsKTe1ELiMN
-	DwKWviW4idNoBlpVFf7vaxvU+pRCesXNQbQT8mIY4oTaRrUKyDgLe7iyTwkIHEfg
-	G8fGQ/F75B+GcGaHfR7XXw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793724694; x=
-	1793731894; bh=ww63b6rV9yLGr6fapOF9p7X8k1KrA76K+KqklPl6AUQ=; b=r
-	sosKy56SneyHtH2nPW51p8cAN59LV95v+1/5urbr/jjAR867qvrpE1JSxh2SlKc2
-	SKpEPYMIF1WeMkYFLEJ08E9KsLcwGSaR0bHbPY4LJwOxpGUJ9N/JhMcMbMWByBgz
-	KU9bvVu9moGqjQfEuTB/iRRknBHa9tgrXDjkDSTr+QYFvUl+c4quFtofYmVCsMxV
-	3xPBsEAO+91i350q0c6utldFmchSR6POg8mhOECx4vNDunP2y0/ZM08b0FBC+bDX
-	jSx3+fAlgyRfdyk3pHLz+O8KkvgsRP7nkQ56ciPjyWlMoDTogdnAgvlZQYe8WhaX
-	dwmrgO9aCpSunQoTL/HBQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793724694; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:NFjv9B0//pqkKX+VR8ugtbUiwPtvQyg8dEDWaLXuc8SkMus
-	JR1q3P0mEf0MKXKlGZXJT+Qh9pp5zfFd5R+CQsF5C5PBX5IvmmGmsl4kzF286D1m
-	LY4VFzhMrMVf7mmZnXRUshWvTC2A59PHclHwf12owCvwxuJoZbSmOJraJW2wXagN
-	h6k4pJI3oagYlCdUlChtB8hxLlXfXuxcznqor3/R+3cPEa8GBLtzfNQ15o5RcHpf
-	cqWwvY30GFGtJvwgnW7Wvu575PD162nO/4p4nBMtTOhiJh4jGValhiWGrRhwADqH
-	BHKdYNOLmHis8WxywIJRC21XHkGJSlZ2nTKmkTw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:uDppxkB2xuuUm25nkAmjihzTR+csjEN79VLU68Rp+J8=:uOLVkjm0R26ZnS3PGvJ6Yj/fso3xKOIZRBK+O6o6E78=;
-X-ME-Sender: <xms:CRHqag6Epwu450deqUUCa36arqVQ6KYBLuyKn6TH_6oFCe8pLFdhww>
-    <xme:CRHqasuhbjNNvmQ5SVEJBZJTrS2s5BeAcvXeTTmiI8AACp1APzoIvkbxFHl9pkHGQ
-    x6QkSAs4G64peJVDed_tg-ht7u1XQi3o6CKAgDmkKbgaVMst9AmkP5M>
-X-ME-Proxy-Cause: dmFkZTGfqj82wKuGk4ZI82BtEQxQjZDRlyz+yRbLWqC1zSuhUiHwg+/cbj2/EFVqOLQQf+
-    BuK5wn/50lwSgUdi2d9L0V/R3Nk6RoX/EgjIGN2SEiYg+3TF1Nu+fxjkB/XhMRTEp0Tds/
-    YFhPk0ufDWTaRRa3vNgw+M3LCFHdKAvy7KTLczH7G/Ug56TJZHtw2S/dxGAA83JMVHpwhm
-    puH1D+ebRkLCQ1/tHDRIsjuj45ng2rxn8tTuvTP4sUjjN4j3257C8oLdOc3FtMJ7JZPSpa
-    d6S7VTXfvpUjPM5zAV+AUjNEp3filhEjGtpcV3kiO2F1OGyUH2CWjqVtLMuOTyTHWR8YIL
-    dzCTPJqSjFc6qReXfGvRNwlTmjJ62+HzuZsCBIhbtz9K/VBB8Dz8WNpNg0EvXgCwUTQ8gM
-    TVET8lQbBzEfCyzOklQh54gNOcNNbKAdTk0w/Z6oVxk6IBDVDTKV9sgBDcHa17JUubuYR4
-    fQLZAzAMOsyLPcFlbjShoaWxBpIT2+uVnJToDEF5pPXSsjHD0VeRh1IJnHxwFxeFoDRMs1
-    ORf2E2D/FYBMvyhEYRyJSRl5saMxOrZYo+cvREwdiRTdbH8bXa/HIeyCe7Eeb6Kdcx1o+j
-    KGK1pQhXntx6hMCl7nHvK6g85OvQqvDMicDiCuHAHyf4cnVhOvPmJ/VJY9gg
-X-ME-Proxy: <xmx:DxHqavuSE4u_e1kR6xxC4Eryp_yZyV3MoMsHOSRZU99BvPz-ckiQRg>
-    <xmx:DxHqak4lpEobbrRkbOxlGfmcrubO3rPLJ_eEJBMLdNWaqxT7bThmsA>
-    <xmx:DxHqauEKiSUTmdtSL9jgQixKxnGNRCCxSPSVmVybs7vcwxNQbIFu0A>
-    <xmx:DxHqarhzMCNPv8EP4OCb1ANP4q7mEBFhutkzNuU0CI841ygbAydx0A>
-    <xmx:FhHqat7EK8FisL_DZW88ZBrWlI0bH6ejWRHHEbXMwovzujkNIvAMHgxV>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 6B31A32A0093; Tue,  3 Nov 2026 11:51:21 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EupygsBD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878361F000C1;
+	Tue,  3 Nov 2026 16:52:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793724756;
+	bh=lNlcpPLo7FBrO/QJvjnMbL90+K6TUMGiPf3gYVpjyjI=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=EupygsBD3uzXVUovJisqhgzt+LGoP/Rpk+flj07K63weXGyyPWRChJxAJhJeH2LG0
+	 0siQzFJGtwXDHa5+9zIcY6Gh/vC4NOYw3n1OBwHBozIqlSHAbTZ+4XkgmKSd+zSqxG
+	 UX96tkXQoHElBiI17QAIKIfNa3m1alT7qQB37WMva/U2q6xBAYfsSHIVT4et6+ymko
+	 uAsx+pno2MOOCpopFvigrq3vkaoaPDoFzHwqxsrtOxZnrGKZJkW/zTcZxHK5RIDuAX
+	 2GGoJwU63nzuloquRD2j0WgDIPAFLQaer1MiqPb3CDAAAuW7xKQx3bcEZOry9m6xdr
+	 VpaaY8V92GWBw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D37E391AFFF;
+	Tue,  3 Nov 2026 16:52:36 +0000 (UTC)
+Subject: Re: [GIT PULL] Crypto library fixes for v7.4-rc2
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20261102174428.GA1935@sol>
+References: <20261102174428.GA1935@sol>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261102174428.GA1935@sol>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git tags/libcrypto-for-linus
+X-PR-Tracked-Commit-Id: 01ad209f122b7c173477bd60c7997564f9c65961
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: b2e7a7bbc127534b73936a505237f08758552252
+Message-Id: <179372475516.1755341.2580594496121383266.pr-tracker-bot@kernel.org>
+Date: Tue, 03 Nov 2026 16:52:35 +0000
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-crypto@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Herbert Xu <herbert@gondor.apana.org.au>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,80 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ThreadId: AHCvEt5753PB
-Date: Tue, 03 Nov 2026 17:51:00 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Dave Hansen" <dave.hansen@intel.com>,
- "Andrew Morton" <akpm@linux-foundation.org>,
- "Peter Zijlstra" <peterz@infradead.org>
-Cc: "kernel test robot" <yi1.lai@intel.com>, oe-lkp@lists.linux.dev,
- "kernel test robot" <lkp@intel.com>, linux-kernel@vger.kernel.org,
- "Finn Thain" <fthain@linux-m68k.org>,
- "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "Sasha Levin" <sashal@kernel.org>, "Thomas Gleixner" <tglx@linutronix.de>,
- "Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>,
- "Ard Biesheuvel" <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- "Alexei Starovoitov" <ast@kernel.org>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Boqun Feng" <boqun.feng@gmail.com>,
- "Daniel Borkmann" <daniel@iogearbox.net>,
- "Dinh Nguyen" <dinguyen@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Gary Guo" <gary@garyguo.net>, guoren <guoren@kernel.org>,
- "Hao Luo" <haoluo@google.com>, "Jiri Olsa" <jolsa@kernel.org>,
- "John Fastabend" <john.fastabend@gmail.com>,
- "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>,
- "Jonas Bonn" <jonas@southpole.se>, "KP Singh" <kpsingh@kernel.org>,
- "Mark Rutland" <mark.rutland@arm.com>,
- "Martin KaFai Lau" <martin.lau@linux.dev>, "Rich Felker" <dalias@libc.org>,
- "Song Liu" <song@kernel.org>, "Stafford Horne" <shorne@gmail.com>,
- "Stanislav Fomichev" <sdf@fomichev.me>,
- "Stefan Kristiansson" <stefan.kristiansson@saunalahti.fi>,
- "Will Deacon" <will@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>,
- "Yoshinori Sato" <ysato@users.sourceforge.jp>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, "Kirill A. Shutemov" <kas@kernel.org>
-Message-Id: <e5b82b14-3d86-496e-ba7a-68e028c2da44@app.fastmail.com>
-In-Reply-To: <3bf3f477-a048-457b-8032-43d8d1451e9e@intel.com>
-References: <202611022259.def3e086-lkp@intel.com>
- <20261103122647.GL1813469@noisy.programming.kicks-ass.net>
- <20261103074305.27bfc570fb81346860867bdc@linux-foundation.org>
- <3bf3f477-a048-457b-8032-43d8d1451e9e@intel.com>
-Subject: Re: [linus:master] [atomic] 80047d84ee:
- WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 3, 2026, at 17:29, Dave Hansen wrote:
-> On 11/3/26 07:43, Andrew Morton wrote:
->
-> Heh, same code. Same basic problem. Two different detectors firing.
->
-> But I also kinda feel like shooting the messenger on this one. The
-> warnings are presumably to help us with performance problems. This is
-> old, legacy code that nobody cares about running fast. So they're not
-> actually helpful here. I don't think it's the craziest thing, at least
-> on x86_32, to just turn the warnings off.
->
-> Also, if there are plans to get all the pmd_t's off the stack, maybe we
-> should just manually align them for now. 
+The pull request you sent on Mon, 2 Nov 2026 09:44:28 -0800:
 
-I would still prefer to align the types than the objects, if only
-for the reason that the interfaces that operate on the type clearly
-expect it to be aligned.
+> https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git tags/libcrypto-for-linus
 
-> It wouldn't hurt to make the definitions uglier like:
->
->  #define pxx_xchg64(_pxx, _ptr, _val) ({
->    _pxx##val_t *_p = (_pxx##val_t *)_ptr;
-> -  _pxx##val_t _o = *_p;
-> +  _pxx##val_t _o __aligned(sizeof(_pxx##val_t)) = *_p;
->    do { } while (!try_cmpxchg64(_p, &_o, (_val)));
-> 	native_make_##_pxx(_o);
->    })
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/b2e7a7bbc127534b73936a505237f08758552252
 
-I initially misread the code the same way. However, the warning
-here is about _p being misaligned, not &_o, so Sasha's patch
-would be the one that aligns the objects.
+Thank you!
 
-      Arnd
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
