@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745741;
-	b=VFTSLn7SqWYBzQzvSXhTro7nvzkYNuYZpW5iOpI8d59ATzRylhOSoBBEljRMSONWceAd
-	 e98iouqEoOoAI0FehK1Rlq7pajlDRs1P+xs19LHWkKHb8Dft9UgRzI3ck5fGr5oCoIaHC
-	 5Xu0EluVUvPyjVi8Gv1FCsrkQGU7FKU02VBnzltslQkhh6d+iTSvH3lej7EPog5CmPDV9
-	 lQZxrxL4E2YHPZjQc8oDS5sxJQ2n8MYX13TofgNjpa4Qyt6wgFv8yVjEJJXtmWXtA81Az
-	 kZUuZEDfOd0c1I11Ae3X4IukLt9OLCZjnEMl2kD2quYU7+ARCXIe5O6KiivE/mj2hGA==
+	t=1793745755;
+	b=KFxrbKdR1M56jTgao0+t7ch8hfHt5Wl7M1tmmlC24vbCgLka5j5zshAmnIWyIJINRAiQ
+	 VG6xfvhSB+qFDg/QCB+LLGPjD+6RpR90oU0C4O7Mt5A1Jy0MMA/LChGA6g/AEa0rVqDWg
+	 i1fKq2wRbGvdieCQHolfQ4/xAJU2eXKDLIMJpggSgbSO5Yx8YgQzMcLrGuBwOYDi49KNM
+	 xDijnMdP2NE2Awu9mqTa35FuCb9nEdRTNo+YtwQWgXZ7Y9z7upoHhfN16ErB7RTlLXM8h
+	 qDnd6Th5qAEYKorQMxY5yQLn4CWqqEH2kQQ28NXegqHFqGEJRgEZOGecTiJaZl6aWlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745741;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745755;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=0sdOH+ree5IgSPVQKTOIGghF0UA7yYGr+BoCWpeeYkw=;
-	b=OxS7HWF09u/Sn7fHZFHgTJZiO2YlKEYekl0qMwNZxPd/PSTKaowjrGkBljmK6djPAnCG
-	 cAdIaz0sqi2nSxcx4lfYxZVyyKB8xzU0UDmwpzer9OqsPgKS/EZiQA0EWVrQKszFT+W7N
-	 GBZLbj7Wq1gp9FHr5gSZHUgH3DjymBMZ3+MVfHcNcO0AncsyE7cw9CBY3Px/jsnAEfIn7
-	 jUXNwsW7cN59uy2ESVKHfRmHmqyM7048wTHLYFYgtJ+4QazLibAZwwd0UiPg0UDijtXSN
-	 ll9ppzOj9a3A4Mb/huKFfrsmcWmsUJc2RFXOD1jGh+IQfCP8OeggReNkMw+xdYaAfmQ==
+	bh=PEvKgHuzMcEqcFdxZxPthE75TieLrA0urwCwR3k19ac=;
+	b=LOYQFNOPsFgwl7FHhn3ZMmZYxzJCdEnVSKmauX4Hu9V3T5MIpFbQbtKbyVM1jH0DW/sA
+	 Cj1tq/dSVtH+1tg6XjI8OFAtZoBZ/V4Xma21d8aDm1wbgBwlQw230PIRJm2Gj5zIBIxKe
+	 XtHszT52tvmpTBSCu0eNbfy52X4Yz169cuL6nVWt4fHrPPDMHq67dcggx3xNQTJBpeosd
+	 77Ixw0CLes4nyFeMtkZaAUil33YE9kjz/CZYDfhcUfa3RHoZBhFkJMPVE881ZEBrKO8Dk
+	 ivJkWW2Vf89rQ6+gvXnZ8Dzvcz1UPiK8B75XdVQXOufcN3ioUbItC4CUlvobwTjkNxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3OODWw5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngCPkUY0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6036B606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:42:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A656C606D807
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:42:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3OODWw5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5523B1F00A16;
-	Tue,  3 Nov 2026 22:42:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngCPkUY0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3E2A1F00A18;
+	Tue,  3 Nov 2026 22:42:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793745741;
-	bh=0sdOH+ree5IgSPVQKTOIGghF0UA7yYGr+BoCWpeeYkw=;
+	s=k20260515; t=1793745754;
+	bh=PEvKgHuzMcEqcFdxZxPthE75TieLrA0urwCwR3k19ac=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=j3OODWw5Srwk+0gbX4fyeLkLjZvFoO6R0yB4+xMzR8P/p///RRFdepCpbPXSBgM3l
-	 +yNqBT9AaqMvua1u+Mi/APYqqzvs+QC5lEMqPR2VJu9jUsuGlRaK2mmH5+Z/jrQS5I
-	 S2IvZmvzmEuWMHa8M5I8Yot7Mc/NF+DQP1sItWdZgS3GeQuF4pyy0XWKKo6OcJlirU
-	 HXZBrslBY8ifd31JeUokHTeUfyRgHNvpfgg8mMqT4h+nIsTHwxdiRAvwVibOHwurAY
-	 8VHKoF+iwJ6VVxZ/cgyd42tihAf3cQaIb/ihdiYteZrSH8HKjopnyJLihisQOReD87
-	 dlHd5wuE8ChNw==
+	b=ngCPkUY0jlR5Djwrf4nIjSIorDE1ghYkWYzgJSc1vgf4n9R9yaGn3wULmw0KOcstt
+	 6aZGCzzU4BeKvANk8Gfa/qHtpmfmDbRX+zXEvNMWUY3HsGEbcy5yzNikUJmgTPC7MC
+	 +1+yY1aExPT3mr+4jratPgIP8zrDN0DsMS9F1PVS22AskyURF0L025OV8bLuhlemRR
+	 0Kx9HCZgOzqrhIfDumPV313oJFhKOMaPW7pdcwwZ7O/Ji6M/7M5l7jT3dLX7uJbO+V
+	 4aFXp/rjwtb7uv/PAlvQ0io6IwjFq/gv5VLqlRiew35lIjfsa/Iq7PRrp5h67G6LYv
+	 K7U61LGn4wCYA==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Tue, 03 Nov 2026 16:42:04 -0600
-Subject: [PATCH v11 03/12] drm/amdgpu: Check bios_scratch_reg_offset in
- backlight level helper
+Date: Tue, 03 Nov 2026 16:42:11 -0600
+Subject: [PATCH v11 10/12] drm/gud: add connector luminance support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-superm1-backlight-property-v11-3-00cce7b2ba22@kernel.org>
+Message-Id: <20261103-superm1-backlight-property-v11-10-00cce7b2ba22@kernel.org>
 References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 In-Reply-To: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -70,40 +69,77 @@ Cc: Mario Limonciello <superm1@kernel.org>,
  Xaver Hugl <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org
+ nouveau@lists.freedesktop.org, 
+ Mario Limonciello <mario.limonciello@amd.com>
 X-Mailer: b4 0.16.0
 
-Ensure adev->bios_scratch_reg_offset is non-zero before accessing
-scratch registers in amdgpu_atombios_scratch_regs_set_backlight_level(),
-so they are not accessed when they were never set up, such as in KUnit
-tests.
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Expose GUD display brightness through the connector LUMINANCE property
+when DRM_LUMINANCE is enabled. The value is mirrored into tv.brightness
+during atomic check so it is sent to the device with
+GUD_REQ_SET_STATE_CHECK in the same commit.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
 v11:
- * Clarify the commit message
+ * Apply LUMINANCE in the atomic commit instead of a worker, fixing an
+   endless commit loop, a use-after-free on disconnect and brightness
+   being clobbered on DPMS off (Sashiko)
+ * Attach the property at connector init (Sashiko)
+ * Keep selecting BACKLIGHT_CLASS_DEVICE (Sashiko)
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/gud/gud_connector.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 27c0dc8f6137a..2d8c2ba04e670 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -1622,7 +1622,12 @@ void amdgpu_atombios_scratch_regs_engine_hung(struct amdgpu_device *adev,
- void amdgpu_atombios_scratch_regs_set_backlight_level(struct amdgpu_device *adev,
- 						      u32 backlight_level)
- {
--	u32 tmp = RREG32(adev->bios_scratch_reg_offset + 2);
-+	u32 tmp;
-+
-+	if (!adev->bios_scratch_reg_offset)
-+		return;
-+
-+	tmp = RREG32(adev->bios_scratch_reg_offset + 2);
+diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gud_connector.c
+index ddbf3b3ebbca8..bfb298bbc9b51 100644
+--- a/drivers/gpu/drm/gud/gud_connector.c
++++ b/drivers/gpu/drm/gud/gud_connector.c
+@@ -292,10 +292,19 @@ static int gud_connector_atomic_check(struct drm_connector *connector,
+ 	struct drm_connector_state *old_state;
  
- 	tmp &= ~ATOM_S2_CURRENT_BL_LEVEL_MASK;
- 	tmp |= (backlight_level << ATOM_S2_CURRENT_BL_LEVEL_SHIFT) &
+ 	new_state = drm_atomic_get_new_connector_state(state, connector);
++	old_state = drm_atomic_get_old_connector_state(state, connector);
++
++	/*
++	 * LUMINANCE is sent to the device as tv.brightness in the same commit,
++	 * the brightness change below then triggers GUD_REQ_SET_STATE_CHECK.
++	 */
++	if (connector->luminance_property &&
++	    old_state->luminance != new_state->luminance)
++		new_state->tv.brightness = new_state->luminance;
++
+ 	if (!new_state->crtc)
+ 		return 0;
+ 
+-	old_state = drm_atomic_get_old_connector_state(state, connector);
+ 	new_crtc_state = drm_atomic_get_new_crtc_state(state, new_state->crtc);
+ 
+ 	if (old_state->tv.margins.left != new_state->tv.margins.left ||
+@@ -324,7 +333,7 @@ static int gud_connector_late_register(struct drm_connector *connector)
+ {
+ 	struct gud_connector *gconn = to_gud_connector(connector);
+ 
+-	if (gconn->initial_brightness < 0)
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE) || gconn->initial_brightness < 0)
+ 		return 0;
+ 
+ 	return gud_connector_backlight_register(gconn);
+@@ -699,6 +708,13 @@ static int gud_connector_create(struct gud_device *gdrm, unsigned int index,
+ 		return ret;
+ 	}
+ 
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE) && gconn->initial_brightness >= 0) {
++		ret = drm_connector_attach_luminance_property(connector, 0, 100,
++							      gconn->initial_brightness);
++		if (ret)
++			return ret;
++	}
++
+ 	gconn->encoder.possible_crtcs = drm_crtc_mask(&gdrm->crtc);
+ 	ret = drm_encoder_init(drm, &gconn->encoder, &gud_drm_simple_encoder_funcs_cleanup,
+ 			       DRM_MODE_ENCODER_NONE, NULL);
 
 -- 
 2.53.0
