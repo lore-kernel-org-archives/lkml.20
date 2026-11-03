@@ -1,62 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694864;
-	b=mPjIfGZ9rX1lNYo7llu/5pcVIUdLY9az9p+YkZQbcu9p+xcNE/dpkcwX9fcv/Zt3NZKT
-	 KdOjQyvyHkKXFSfMLVJKFHbJc61pMwSrCEwBKJSEDjqWrSeAyhFQn0O5Gn8Spe65mctPG
-	 sAwU62zhnfxoopRCYVlTbXJmaVwuYwGpqo50Pq/5sHrFrVRt4UNZLgtPydYgLoaTCoKjr
-	 Y62RJXkSWdCgev2yG5f4cM022AERXDywA0ExpPIysjrmcDcCRuPtfYeGjJ/qJYO6cdhOF
-	 h41vAvhex/7PK8xtfxkOgy5VuTYmtE8gD3K4eRV+9nXpKEGMDSgU3pSYg0Ew6H8svZg==
+	t=1793694877;
+	b=2HTvzOTgn1FQQn13zTlhmZsp95ooetgwn2Ea66Eaa6s7ohDFzw5LlMuvDYwGupIkg0sF
+	 XRye7jOr+efS6B1D8MtlJAe6AoKvHLvxokjiCqjVGREORgGgelhdkumj5hsLk4z4n5rDV
+	 yjyOiqabIImCrPJCflyeJ0aq6kU6ntyqCOyDWBiGmMXgcuYqHOyh7/nbP7zkcUPLXJwVB
+	 0hek8jJw6x1up4CZIcTPXMUIbx7w1jePDgHXOVfcSSiMY4fDvHwnZVcxoKscYkbFZmhlf
+	 tLY9kgEbtF/QukcCC216125MA7bIz6xXTf0QntR/3YDMCvx3v/JO/nLxYEkj5qwZaGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694864;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aN23VJMnhewW35EFlasRUP/lg6fg3jZoPm2+MgYcpys=;
-	b=jEmBpJeX4O7RmiA2LAJnZKSlr+C/rRDww5jy7le4T5JyQCKQHTQgVmLSzAGpzAVpf1ou
-	 kcrYFSWzvjbet+aiURijlRCvoWP2yPzEFW+QWQZ4AYIIadEAWBsY/qRFjygWnOL+pNF2G
-	 ZFejZDrKSlAZbUtzNAlY9sdlpxsFRxi+ym4KNhJybTdEMm/vHK0tbZGPWZirCDoZPhOXL
-	 Ck3ofVXSJYmHAgIMewW5n1wdbb2EuAWfwxvmH7dYNJr+Xv1GKScmUT3M5izrI5hBwrNX/
-	 fB/+kq9zXVPh/IQgwHu8OmE5YC3ICPG2Mb9hEUvWIs7WQ9Kc23Wf2q7GrKaUHN7Tsgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694877;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=o94uNRQqzrylUu01kiRSHaUQ5l5ZXHsTJxuqTtmUWsA=;
+	b=oNsh/X52zzJbJfQN5lpayceMPRq/dU8ucFvZ4x3/qp+cNgLpwZpOcAR3+pZ2mPIxI3jy
+	 oCZsgsY5y4uKthspFMlmo21bJi9hWx2Uf9W8KVJ+0YRvsuKFM9l9DpxkNyjSOvtC3bTA5
+	 4gem3tYvckeXla2qV2WNmen5xaZUhiASRp71cs3CyZTLjKc0qIU13h43CsUnPbH4oZFjk
+	 +Tgx2XDI9aR4xVeN1wW+5Keh9Mj0WBP9dkKN55V0tkOpyk064nx5SK6IO5OmxzCPIUFQU
+	 h321D7bvxJv6mGZcXxIzdRJLa8wJrcx/A4ludj9BQEPvsU2wVEleLrfyxRv9vXZM7qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WBOLm89A;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TLVy7iFt;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30884606A33D;
-	Tue,  3 Nov 2026 08:34:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3723A606A33D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:34:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3723A606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WBOLm89A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AF291F00A02;
-	Tue,  3 Nov 2026 08:34:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694864;
-	bh=aN23VJMnhewW35EFlasRUP/lg6fg3jZoPm2+MgYcpys=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WBOLm89AFwFi8IKVAeRS7jeysXzyogNfn+p+fbL1rf1QBt3Zxg3/CWf/4PwF8AjJ5
-	 YwD6VCr9pSdjp3MvVSrREbeBsfgPF3a1RD97c3PzrlJiIzmPvPZL0WjaW3r9AdNHaa
-	 qMsQl5xEa5W1LsZfQxkqjaLzYNT8k+fX/Qskx8KMjt4KokItdq9433mvMAK3oo1IMG
-	 VfS6LfCspss/z3XnogPK2QMaRXW52/5QJXrxI7J83/zHlASPGusI2dtAjkyktWZjOV
-	 IujbpWEanzXE27yWs+vhB3zULLkKkMcVZo4XR6lnjjGAjh4BT1q7Ykt7AF3Gb9NRA2
-	 2BABiVeJtVtzw==
-Date: Tue, 3 Nov 2026 08:34:15 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/8] mm: remove clear_page_dirty_for_io()
-Message-ID: <aumcgdzoPhuB6zQc@gremlin>
-References: <20261102-page-wrappers-v1-0-e7280bdb31f6@columbia.edu>
- <20261102-page-wrappers-v1-3-e7280bdb31f6@columbia.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TLVy7iFt
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1931288f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:34:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793694874; x=1794299674; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=o94uNRQqzrylUu01kiRSHaUQ5l5ZXHsTJxuqTtmUWsA=;
+        b=TLVy7iFtFV1eosB1viqZ7kViXpvbRMjgrFtWB9Imq6n76wjr8s3iRUHWE8hgHwH7Gr
+         0KInipeNWTR08EjSERF8pBe1LkUAMlskiz3X0+LPzZHWD1VodvaOFpXD/XS36dPppxjU
+         EdiIuVK+VO4HJkL8KSHmDuftog2QHWddAXkE3Ed+Il3YJmrHhKr/mAO8DsoyZJlUakNL
+         4rxY/hQtmPfk36jSWuthX2k94iG9CN/Mho5dKMpxFLKqaIuEZzHldAH5jH+2JYLyUFMt
+         lmeeuZpbICNNFyG19S+eF5BPU+e+q0kgrq+2pfK3WorZgLrO1HemIDKFRt/Js6Ibxqlr
+         T3Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793694874; x=1794299674;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o94uNRQqzrylUu01kiRSHaUQ5l5ZXHsTJxuqTtmUWsA=;
+        b=xHeZ3x2nkALm0SnRg46+4yDwYWHalFysE3/VMRMtIpOvO3ZZdy606LMvvPuFNsYvi5
+         IiCBgHfUOAzV5PqY2PsE1wr6K8pE8uvNrbuU0qQyhMY3vJdfjEukYSRHD78u5eHR1EUR
+         TxQVS+tWekOhP1qExlRMksqYx1LbbejqNyFu0Hsea6VZPYdMXR0/z2frBP7EpJMO1qYG
+         oWJ1G/T8n2QqhatPYoCdmQq67wLnBwll2l/STQH7t3J67+u5Ew7vWNJhfCQeoL27d7MW
+         Va/rpo3t3UbjTtmmxSHQyOHxGC7qMzy9Rv8kJjScVVjBDR6O+oKI23t8puUMs86svecN
+         9xww==
+X-Forwarded-Encrypted: i=1; AKwUvBxEwP9MoeyVoePvhPIMwOXt/eE/Fcqv27YQqSliGoCSG8AiXhf8nbSAI1SJ3ljc5FGk+8atBQFpW7U7i9s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8PwKbJmMRWVFGyuTQl0Yo2sEwnH9VCjlfBSmwGgwgD5ALHP0Z
+	oGp0ccxGbDFbfrFjaAxvtZBbzGljjw3ZXmChHz4lXWlwJY01tZTgvkDdKfRpw0uylno=
+X-Gm-Gg: AYBFou3eelJEfRrcRSQQwNlGnokx08uRWBr/lXy7yGr2MdiXeb/OSett3H0e6WnLGlv
+	NSoA6q/lntugqp+ziH38x/spaf3BrnSr6tEpLIrc+ZdJcgUD3t4vASosiqzE6V1co9aym152ke6
+	AAWtjMLn0byxDA9gGTjyS817I7G07a+UCygRvqI6hAuFWYRZ5evgoj73P47RiWCXkKHS4FgDQ7V
+	t1hmX0yVCIalOP9DrSP4iNccxOmsqgPDft9RXIo9rR7NvYqxts2vrC2czMsg54OM2xbpfQC5NYZ
+	QCEEMXkKF2/aQdwzARM8EnxKPkH3NdNcFvYY/7XbMZeKkXX51bbc3u+YcvtlJEglyF/56dMK1Ui
+	lxAicTi3SIM4ia3+rNOtfUMGelKUfO8hIt5lD14Xm0mb7kdACGvL0MOVNF1tkARHFc8jiN6IBXj
+	Hwe7KfiRLdZXA1VQbrJ2+j/01e4ls0B9531IQcW/kB4v4XrjStiS1s9Os2/O3VnJ6qDfHajG4t4
+	GQSeyI5kXUo4W0ACzSqr79/oFnekYzerKeMbhwM69QCg+UUIcAm4+bCt7qoaPHXhfsd3Ju8ufKr
+	1St8C5SZbdgNBhwIdCiW+ZZt6jzyA9D91UiDRY0=
+X-Received: by 2002:a05:6000:2892:b0:48d:eb44:650c with SMTP id ffacd0b85a97d-48e6e309f40mr28006453f8f.40.1793694874669;
+        Tue, 03 Nov 2026 00:34:34 -0800 (PST)
+Received: from localhost (109-81-32-81.rct.o2.cz. [109.81.32.81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8a7d1sm23718452f8f.38.2026.11.03.00.34.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 00:34:34 -0800 (PST)
+Date: Tue, 3 Nov 2026 09:34:33 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] memcg: force charges from reclaim before trying
+ the limits
+Message-ID: <aumcmb9iBpovh97u@tiehlicka>
+References: <20261030205418.341214-1-shakeel.butt@linux.dev>
+ <20261030205418.341214-3-shakeel.butt@linux.dev>
+ <auhN7v127jwy-q-W@tiehlicka>
+ <auli2Zlf1F0tyi4X@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,95 +107,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102-page-wrappers-v1-3-e7280bdb31f6@columbia.edu>
+In-Reply-To: <auli2Zlf1F0tyi4X@linux.dev>
 
-On Mon, Nov 02, 2026 at 05:54:08PM -0500, Tal Zussman wrote:
-> There are no callers left. Point the comments that named it at
-> folio_clear_dirty_for_io() instead.
->
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+On Mon 02-11-26 20:34:40, Shakeel Butt wrote:
+> On Mon, Nov 02, 2026 at 09:46:38AM +0100, Michal Hocko wrote:
+[...]
+> > @@ -2789,6 +2779,15 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+> >  	if (do_memsw_account())
+> >  		page_counter_charge(&memcg->memsw, nr_pages);
+> >  
+> > +	/*
+> > +	 * If the allocation has to be enforced, don't forget to raise
+> > +	 * a MEMCG_MAX event.
+> > +	 */
+> > +	for (mem_over_limit = memcg; mem_over_limit;
+> > +	     mem_over_limit = parent_mem_cgroup(mem_over_limit))
+> > +		if (!mem_cgroup_margin(mem_over_limit))
+> 
+> Second, !mem_cgroup_margin() is true at usage == max, so a charge that fits
+> exactly raises an event (unlike today).
 
-LGTM!
+True
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
+> > +			__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+> 
+> Third, we definitely need a break here otherwise every ancestor at its limit gets
+> an event which does not happen today.
 
-> ---
->  include/linux/pagemap.h | 1 -
->  mm/folio-compat.c       | 6 ------
->  mm/gup.c                | 6 +++---
->  mm/page-writeback.c     | 2 +-
->  4 files changed, 4 insertions(+), 11 deletions(-)
->
-> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-> index 692ce3867a1d..9adfeae2153c 100644
-> --- a/include/linux/pagemap.h
-> +++ b/include/linux/pagemap.h
-> @@ -1315,7 +1315,6 @@ static inline void folio_cancel_dirty(struct folio *folio)
->  		__folio_cancel_dirty(folio);
->  }
->  bool folio_clear_dirty_for_io(struct folio *folio);
-> -bool clear_page_dirty_for_io(struct page *page);
->  void folio_invalidate(struct folio *folio, size_t offset, size_t length);
->  bool noop_dirty_folio(struct address_space *mapping, struct folio *folio);
->
-> diff --git a/mm/folio-compat.c b/mm/folio-compat.c
-> index 9f2cd0ebfbbd..13d4d39e1896 100644
-> --- a/mm/folio-compat.c
-> +++ b/mm/folio-compat.c
-> @@ -42,12 +42,6 @@ int set_page_dirty_lock(struct page *page)
->  }
->  EXPORT_SYMBOL(set_page_dirty_lock);
->
-> -bool clear_page_dirty_for_io(struct page *page)
-> -{
-> -	return folio_clear_dirty_for_io(page_folio(page));
-> -}
-> -EXPORT_SYMBOL(clear_page_dirty_for_io);
-> -
->  bool redirty_page_for_writepage(struct writeback_control *wbc,
->  		struct page *page)
->  {
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 7d43ce717b24..335dcb3a5c17 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -298,16 +298,16 @@ void unpin_user_pages_dirty_lock(struct page **pages, unsigned long npages,
->  		folio = gup_folio_next(pages, npages, i, &nr);
->  		/*
->  		 * Checking PageDirty at this point may race with
-> -		 * clear_page_dirty_for_io(), but that's OK. Two key
-> +		 * folio_clear_dirty_for_io(), but that's OK. Two key
->  		 * cases:
->  		 *
->  		 * 1) This code sees the page as already dirty, so it
->  		 * skips the call to set_page_dirty(). That could happen
-> -		 * because clear_page_dirty_for_io() called
-> +		 * because folio_clear_dirty_for_io() called
->  		 * folio_mkclean(), followed by set_page_dirty().
->  		 * However, now the page is going to get written back,
->  		 * which meets the original intention of setting it
-> -		 * dirty, so all is well: clear_page_dirty_for_io() goes
-> +		 * dirty, so all is well: folio_clear_dirty_for_io() goes
->  		 * on to call TestClearPageDirty(), and write the page
->  		 * back.
->  		 *
-> diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-> index 0694ec4098f6..b56f2c91b0f2 100644
-> --- a/mm/page-writeback.c
-> +++ b/mm/page-writeback.c
-> @@ -2821,7 +2821,7 @@ EXPORT_SYMBOL(folio_mark_dirty_lock);
->   * This cancels just the dirty bit on the kernel page itself, it does NOT
->   * actually remove dirty bits on any mmap's that may be around. It also
->   * leaves the page tagged dirty, so any sync activity will still find it on
-> - * the dirty lists, and in particular, clear_page_dirty_for_io() will still
-> + * the dirty lists, and in particular, folio_clear_dirty_for_io() will still
->   * look at the dirty bits in the VM.
->   *
->   * Doing this should *normally* only ever be done when a page is truncated,
->
-> --
-> 2.39.5
->
+This is a separate thing but shouldn't we actually raise the event on
+all levels that are over?
 
---
-Cheers, Lorenzo
+> I want to keep my current version.
+
+OK, fair enough. My intention was to have those two parts closer
+together but this is not something I would insist.
+
+Acked-by: Michal Hocko <mhocko@sus.com>
+Thanks!
+
+-- 
+Michal Hocko
+SUSE Labs
