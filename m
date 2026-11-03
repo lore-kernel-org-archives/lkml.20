@@ -1,75 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793728097;
-	b=bj+2wSCK6jeuFHmCq1HeGTMTQk3fi5+bEp1drip8Q37CzHa7dSjsbBBEkrLiRXZvWXfo
-	 zMgfuF3PyalPeCccsm8d+WzrfEg0Rx9Zxl8q7ziFQ7bHDFLnci9PTEzyJPdx1S67FQvhj
-	 ph0eGxbooJ3MYqj+7EqFyN2/KAjyoy8m35CAe9lhrA2vlxjwGeOFTAKJeKIKX7l3gM0r2
-	 hRzQ0aAa4I7/Aul5gkuhtsOuV9hnE7jdHc74gkx59mXNUiKqkWZ3SlDSImKjlWaTVvecK
-	 GmRlQh2IveQLwwKnwSBAGhf9f6bk8Ab9ED+Vg5ExK19pevmxbhxDtMd6gjrRaBZaKwA==
+	b=WPt9ZBdlkSJbvhEnO0mrPmURlSlIWRJsdKsbDtsT0CaKApb09nC07k+4ZNjKSdwukJGr
+	 zirRGZTp5bnBvFxio8YEyOV7nuTJW7sJzXQFjBH/XZoWuLNqGBK1t4uojg3C8JjnteQvS
+	 ippqkiYsrPrwE8xMH7apwDLvdnC7hCNdturR8RxUXEnWt72r/qM6Sv6u871m7cx7SFKf3
+	 fQfaiO8rn6146N2qv2ojj6VERlM9mh+fyM6VykeyJ6MBAxmiCAmCQnK+mpZJl3hD9CSRl
+	 dNufjw1VkYwcxDcBBc2JVg5y0jMRLmvLcATPl+8656vyisZxLoBtClIkV824LFPiSkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793728097;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID;
-	bh=dLUVtjZIJ/v1snvst+dkbepdyQJMtG/e3rdPXYts+UU=;
-	b=csvg67gZH2GKsTNHYJEIk83OTscEWsoRNZ6JCbxXW7czaP3o/j2/sBAl4CZfgJjA8mvy
-	 w6xlEKVtN42BK9K+9O+T6mb0fYu1TDZj7AK4n9ABNwz8Ovq7fIf+YHSxVTWBU27sVCWNu
-	 Iub+tLEuxkXVXzsyXfdlnzMBymMMZ1CZfLnVU6Fble7CzKlpmEr+6NZd7Q4xc+AblDBXq
-	 vnyaudx1z/kA5UDFri4ekZ6/zaj4CEOX65UK/TsWOkxOkkeOFYuzV78av4IsNQ1YhaHtG
-	 d0Ait4p4TABEav0dsz4tHb/kYDo7Bih/DTBOU1c9Z14bQhLMhZOqsZQcMPgfLekv8BA==
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=taOA9UbDWUlC58AOCilW4/hn1kzjX1JE47yYJ1jUDdw=;
+	b=BQGbCSOixkKIq+9zLQNb7wl51eZB7iCql1vi7uT1H+ys3I0tKeUh8oLfUUS009XkyOre
+	 N/8QXYxMNN0ymBYfiJkbIKXWJgd56bPu6+ChCX6m8RQnOYeDK0x3gHQvLxbOGygysP8R2
+	 erDZ/qAmWP5GiPYzy7Mr+Y9ESm3Up2KBgE4W3ZW3/0Ymz2jPnOxefrHinA8fIUTvppTxU
+	 tk4lRKWv1lAC1IwwFEnHzLQw3cQo1WEgbFsFHXYwRw/sdgCcwNJQ62JNpfp4DpywVDa8+
+	 D1mvkePrlTzQfsIGn1OPYHVuuHIaLDNmN9OEet6kaNNOtSbajhJUWWjvAh8KR8ujQ9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=RbfOy8UC;
-	arc=none smtp.remote-ip=205.220.165.32
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=exSJ7rC3;
+	arc=none smtp.remote-ip=212.227.17.12
+Received: from mout.web.de (mout.web.de [212.227.17.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F16606A330;
-	Tue,  3 Nov 2026 17:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60F16606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD6B606A324;
+	Tue,  3 Nov 2026 17:48:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CD6B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=RbfOy8UC
-Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EAlMN1539806;
-	Tue, 3 Nov 2026 17:48:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=corp-2025-04-25; bh=dLUVtjZIJ/v1snvs
-	t+dkbepdyQJMtG/e3rdPXYts+UU=; b=RbfOy8UCiu1qMmoLNrs0He5ysvIxm6Lt
-	Cw/zREpoVpdk+eYHc8alz7UKyeO2Knldv/Fr3fRzosCpAgSjvJ8p7ED2UyXP3FcS
-	JsxrDa69WYlP6nEePaFWObLXPPD2MoZ7mMpCFgYQfz97EMkpHWa80FAMpxhgJvLb
-	1ucHQ9C9IwQ/+yDYjMeWbEjOFprtsayZp1xPSMOGZqmCGDCbFyn7r9dIzQlJhx2h
-	ZJ9WWBZZ8/ss669RKA07BO340Ku9eebU3lDLeIC1N+22lMASM2VldyvtUVwcNjw4
-	ax3K43NNWSwpWT0P7NwiB2cAIX+dPj5r2WI4aWQ55nfC0XGgaJAyQw==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn78acrta-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Tue, 03 Nov 2026 17:48:05 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3HPsgx2435237;
-	Tue, 3 Nov 2026 17:48:05 GMT
-Received: from lab61.no.oracle.com (lab61.no.oracle.com [10.172.144.82])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4hqk4nk116-1;
-	Tue, 03 Nov 2026 17:48:04 +0000 (GMT)
-From: =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
-To: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-        Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-        Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Shuah Khan <shuah@kernel.org>
-Cc: linux-kselftest@vger.kernel.org, John Stultz <jstultz@google.com>,
-        =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
-Subject: [RESEND PATCH v2 0/1] kernel/locking: Add mutual exclusion self-test
-Date: Tue,  3 Nov 2026 18:47:56 +0100
-Message-ID: <20261103174800.1398612-1-haakon.bugge@oracle.com>
-X-Mailer: git-send-email 2.43.5
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=exSJ7rC3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1793728089; x=1794332889; i=markus.elfring@web.de;
+	bh=taOA9UbDWUlC58AOCilW4/hn1kzjX1JE47yYJ1jUDdw=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=exSJ7rC34/st85E7GY6MCIZUVb72cKgwihHbxBgIrArhXZAJbWzm7fiYbXFFHuhr
+	 WFwMyxrCWTtje1vAflw9KOP7Iypc7vKIR/AMdTvh52BMYXXdClXQAC/KmvUn6xEL3
+	 7FiNSEs0/or5FDb2Skevqgdo0AvXv0Mj7IIQM1h9108gZ875FASkqTImhMQjd8hoo
+	 kMy+e8e7cW86NEUPiTM66CsUFOBrFb81pXsphzWKj7bug/QdksRso6g7oaR1fUVkK
+	 H0nKSz/SolXMYD6M6NEUBIL5mXnU/u6rqoQUoChh/baQq72VDV+s9qyY3HYnN5DbD
+	 jDsMXvI5FcQ7EhKmYQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mvsq5-1wYWqM3Cdz-016gEz; Tue, 03
+ Nov 2026 18:48:09 +0100
+Message-ID: <aa076739-d573-43b7-85ad-d2a6e88db1e9@web.de>
+Date: Tue, 3 Nov 2026 18:48:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,96 +63,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] Replacing special goto statements by direct returns?
+To: Julia Lawall <julia.lawall@inria.fr>, cocci@inria.fr
+Cc: tools@kernel.org, kernel-janitors@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>
+References: <52418f50-b3ff-461d-8e66-c10f70e35b2a@web.de>
+ <161f567a-f33-7865-8787-844a299ef9c1@inria.fr>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <161f567a-f33-7865-8787-844a299ef9c1@inria.fr>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_04,2026-11-03_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- adultscore=0 bulkscore=0 phishscore=0 suspectscore=0 spamscore=0
- lowpriorityscore=0 malwarescore=0 mlxlogscore=797 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030070
-X-Proofpoint-GUID: jyFQ29lINDPDYLKVHJnGNi3_gHlU_GLM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA3MCBTYWx0ZWRfX3h2MsqWEFWcS
- RvFKSSv8XTrHZBPAkvtPtUaU9uVdsfieUPnAQ6h2Xs8JhTETNxksAz2baDxOEZZS4c2dKnnTN5t
- SfgxJfb0SsCYyKuXZ7qUXUm+tjN87G6xm5+sgIdFYaRCrybbeIBY
-X-Authority-Analysis: v=2.4 cv=Mo3HeGae c=1 sm=1 tr=0 ts=6aea1e55 b=1 cx=c_pps
- a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22 a=x0eKOSpe3m1H3M0S9YoZ:22
- a=R5gcnNxLHOFc8d1k_nsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13532
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA3MCBTYWx0ZWRfX7GiO0qhJCIGH
- kp2CKTDzxE8XPFMpdR1HUe/JoQpCzO7sq5ELAhbe/R/dMxpXetD7PhnHRv/ZiH6JATF65FBr/d5
- bXbl6jrhMED3TlPHIe1pT7vvHxn1ZjQGJUFelL9r+x0uo3g+rL4tIRQPA419dCojprgPEhDCdxb
- 2pySCIWit4tAHg2vxaFBXU0TOLtO5CHO91xgRMLlmfduzydep2+DCdZdtwNyCenpyeDULExrfXu
- uyknE9ppXb1wI59W0pdKKZQqoLtNgce2wjBus5WJOs19Ank/au2gQWwKXWBt26NJSuviCwjNr67
- cKt1BRukrCdPRweb08pyWN1yPT4J+fFZJQexET/0VA0Frd1JXXz8NEuKN1JE8s5i2CqMkLetnqc
- YMeXNGBR5sscmMPzd1jigb3NFaGL2BnO/CVmBrElk/7YwEcE0tga1BjVmnGcVmQ+gyHP3iB+kOd
- ulowm1FzdBeVYUwyn5ykjTKJcUvqDzTa+XN4Mg6g=
-X-Proofpoint-ORIG-GUID: jyFQ29lINDPDYLKVHJnGNi3_gHlU_GLM
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:+FmgXsgMq0TU4TV2pE/6jopS+3uxk/uaDUQq+AYZy9SgckjsTNB
+ MEvDA/iKTB+6LPMZ1723ydpv0wLIcUFVEX9G3SuoMshdJ+LmnfLlbaP0D/xokFnAWcwUcbQ
+ mEuWRIyOHr/zr0UdtowxRpxsg8dLXAnO4OwmWP+h5gorPiEbJx7EqkHf1gRhcGCb7AMqwGT
+ riGfOXDR6aoLGxbkYBGWg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:LcFd1KGuBpw=;tkx6WxeHQdRAOHR26JoCGZJbbeW
+ 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
+ 1JXlDAzspepc=
 
-Hi,
+> I think you can do:
+>=20
+> @useful@
+> statement S;
+> expression error;
+> identifier error0;
+> position p;
+> @@
+>=20
+> S
+> error0:@p
+>   return error;
+>=20
+> @useless@
+> position p1 !=3D useful.p;
+> expression error;
+> identifier error0;
+> @@
+>=20
+> f(...) {
+> (
+> <...
+> - goto error0;
+> + return error;
+> ...>
+> &
+> ...
+> error0:@p1
+>   return error;
+> )
+> }
+>=20
+> I have not tested this.
 
-Please consider the following patch for the v7.4 merge window.
-
-This patch adds a stress-based selftest for kernel locking and atomic
-synchronization primitives. The test runs concurrent workers against
-an array of counters while maintaining a simple invariant: every
-increment is paired with a decrement, so the sum of all counters must
-remain zero.
-
-A common test interface allows the same workload to exercise a range
-of locking primitives, including spinlocks and rwlocks, as well as
-variants using atomic and bit operations without an explicit
-lock. After the workers complete, the module checks the invariant and
-reports a failure if the resulting sum is nonzero.
-
-The test provides regression coverage for memory-ordering issues that
-may otherwise be difficult to reproduce. In particular, it can expose
-the regression fixed by commit 415d83249709 ("locking/atomic: Make
-test_and_*_bit() ordered on failure") on weakly ordered architectures
-such as Arm. It also includes a variant modeling the incorrect
-acquire/release ordering formerly used by RDS before commit
-1422f28826d2 ("rds: introduce acquire/release ordering in
-acquire/release_in_xmit()"). This variant fails on Arm systems.
-
-The patch also adds a kselftest script that:
-
-* first runs an intentionally unsynchronized variant to verify that the
-  workload is capable of exposing lost updates;
-* obtains the available test variants from the module;
-* runs each non-broken variant; and
-* supports low, medium, and high effort levels for interactive and CI use.
-
-The module exposes parameters for selecting the test variant, run
-duration, and number of elements.
-
-A successful run does not prove correctness, but the test provides a
-practical way to detect synchronization regressions and reproduce
-known classes of ordering bugs under load.
-
-If this commit gets accepted, I have the intention, subject to other
-work priorities, to expand on the locking primitives, and in
-particular add a double set of ww_mutexes for each counter and attempt
-to acquire both in a random order. Using both the Wound-Wait and
-Wait-Die variants.
+This is a pity.
 
 
-Thxs, Håkon
-Håkon Bugge (1):
-  kernel/locking: Add mutual exclusion self-test
+> It might not work,
 
- kernel/locking/Makefile                    |   1 +
- kernel/locking/mx_test.c                   | 723 +++++++++++++++++++++
- lib/Kconfig.debug                          |  10 +
- tools/testing/selftests/locking/Makefile   |   2 +-
- tools/testing/selftests/locking/mx_test.sh | 171 +++++
- 5 files changed, 906 insertions(+), 1 deletion(-)
- create mode 100644 kernel/locking/mx_test.c
- create mode 100755 tools/testing/selftests/locking/mx_test.sh
+I got corresponding development concerns.
 
---
-2.43.5
+* You proposed to use a statement variable in the SmPL rule =E2=80=9Cusefu=
+l=E2=80=9D.
+  How safe is the control flow connection to the subsequent code?
 
+* Another metavariable declaration is probably helpful for =E2=80=9Cf=E2=
+=80=9D in the SmPL rule =E2=80=9Cuseless=E2=80=9D.
+
+
+Questionable test result:
+Markus_Elfring@Sonne:=E2=80=A6/Projekte/Coccinelle/janitor> spatch --parse=
+-cocci replace_goto_by_return-Julia.cocci
+=E2=80=A6
+minus: parse error:=20
+  File "replace_goto_by_return-Julia.cocci", line 25, column 2, charpos =
+=3D 400
+  around =3D '...',
+  whole content =3D & ...
+
+
+Would you be looking for a better SmPL conjunction?
+
+
+> or it might be very slow.
+
+I hope that experiences can grow also for more desirable software run time=
+ characteristics.
+
+Regards,
+Markus
