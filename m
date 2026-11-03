@@ -1,47 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715597;
-	b=v3eFZ6qTGJYbC5aDnEGHipS9ZKzmXXcxgeWIFQGVTbti1fNUY/nfPzHgGC5b0td3DAd7
-	 aFMOsAmGFfWbQkaUoQpbxtZHsKV5JuAlCw+RCyQDSm6N5ptMIpeTTT/FEJuRSo83DCyK0
-	 ckl3XU4Oa8gRu3R+hxgRxJzQbh+2eOi9Px0YhJv3O8PqFtExpkc/BjXTi7NWgXh25ZLUj
-	 SPMnzBPrPozKENbF4TQNJi/K6JDXPBuUGCnIJ41Ole/ONheHdpEIVTFgzoKfBP/2e7Gdu
-	 eG1NOAA7IMximevQ2xCXz/3K7a+eEKOHxSJR8CspIpu9kqJObOI0ILhf16qnsA4vHSw==
+	t=1793715606;
+	b=4rQNSmVI/fqXMWTS7PCBOrdVDYxCZAKn5AFZhl0kXafTbV+TqKir4If9c/yRe1gYAlXE
+	 m8C+q9Ti1+5VHHECo4uoO6mQi4ukdkE22riJkwqHMPHJMSDfwQiWbVvhsp6MNwltyyIYo
+	 KSj+SCIliqAKogjQym+Hxqx7wCfim/l4n23q2hIoh6gwhLNLzcA5At8SC6wMdk4SxQnOT
+	 cEvi7myGx943t17RSHeFx6wXtSt/bY1RpbrMKB6e5OQ8ywqr9/f70dUevXopmM/6KKSWt
+	 ITa7+gCGJvKTUzEaTW9NBv9+zKILKDbwOShT2ilvzwXEWkxUhRAChrnOLyun3NTzitg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715597;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=SZCN1KJ0Gxb3baIrMzkxwxg1JoGJHrMBrLpX0iRDcDQ=;
-	b=rYhPfrHHwcvrbe/dYqipjCQm9IckwBuP/cv/5l92rNuSanme6vTpi0auquZ3suHrlutc
-	 HWxRoYERcCuQ6NFK4edOqOTC5KJptUrllH7T9gx8XktGF802IqOl+gSpf25XO0/Eep6QR
-	 UqDwXp9qNZgyfaUQQC4e+6e/SB+T+y1zqWepgXLg90vJlBn/3t/LKPnswyXV7etnwJe3S
-	 kmPNXbeV0EvvP0BYw2B3TIk22WsYekcs08D/JcUhheB4ZWQNZQYC5kR7BIiB0tUYZENYp
-	 PFeu0tKhk2k5HWbetG03eGmcGEDJ3tho5YPISQq1vKh7WVPk04tkBa7OgPdw4Nl0qjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715606;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=2l7sqExqMj4Qy8taKddk/sZMVV6oRyxAHdiPHqn7mIo=;
+	b=uhDtj8CabWnAFYpSGgBVGfj5FrLoY48TuaDm0v5deUvhzPSSp0i2pc815anzrqeFXbLj
+	 34zzuUYOj2z9Pc+w17o6xpG6JZjAvulaEpvbnmW28wbJ5+RWjnMG8OyKu0qbv2l32rYca
+	 Nl8uKIDT6d0m5fWunVbIBMm1Sjs4OD8L4ADC6+fVZOPooI/gkb1uVkEHiBaZ5CppJuzoc
+	 HMAd14jrQ6esvY3VmKvRYqEkyxMcB0snNEDVZOnhjU01Vzfc2Rai9gRl8c9BVmZaGIM4C
+	 e6tn1VHNMXPsk3QNK95hT/z9o2QhwBdBDOk+La4eoUJEv6yrPrIfVIC9UO6r83vGpFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0kMnQsS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQtGjWn0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF96606A327;
-	Tue,  3 Nov 2026 14:19:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE50606A333;
+	Tue,  3 Nov 2026 14:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0kMnQsS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53C21F000C1;
-	Tue,  3 Nov 2026 14:19:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQtGjWn0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4241F00A16;
+	Tue,  3 Nov 2026 14:20:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715596;
-	bh=SZCN1KJ0Gxb3baIrMzkxwxg1JoGJHrMBrLpX0iRDcDQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=c0kMnQsSOC5cxQwmlZLw8EGmyMWEFgPbWGm1M9peib0BSrFl+zK8FYEf8gcjgs6HG
-	 E/7vFzVvnDyAQiwvvr+rmEO4BmDtMZoAjLBCB8uwIh2oOS2ZGViO44iXFqPIXIPCXK
-	 So+dNI6VbTOqt8/wJxBvL/IG3sgPaYvOWsC4iB4idqwEBuCHo2InTFUyt3XSNtc8cs
-	 jtXr4l0gFUsa8ihfJzrCmFGeHYUQqfyTrO1mobWwBgWyo+NimJZQHu444pLWRH8jWZ
-	 Njb3Dj5UTK487c9IwBL8aqobl6jwLdG73YczFMjWY/uBCEAFl+0cRbKQ/5rFCfoxUX
-	 P+pOS6Rl+kU0w==
-Message-ID: <593b9102-73cd-44f1-9a57-7df0806d6505@kernel.org>
-Date: Tue, 3 Nov 2026 15:19:53 +0100
+	s=k20260515; t=1793715606;
+	bh=2l7sqExqMj4Qy8taKddk/sZMVV6oRyxAHdiPHqn7mIo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=mQtGjWn0tGARjA6Qoc6usSqPUcT1HcPgH1u6G1prYFE0dIXhCQYw/6F931g8cJxSo
+	 DTAOmD0JMZW/QLCqtP/1SxhsKpobj7LlFUdLY5wGnO4JGcqv4zPpX0lJDCt0wUgeYL
+	 DpvOhBXtIyVNf/8SQNGPaFLo3NlJOX67qm//oSOc9sQl4RgMkRexshhaZAofUi2kR8
+	 0SvruGQLFWnbNtrEQuKCtx+IFmmrUXjRze/7Xs4SZNea6JlpeuZMbh28iVfPYUQ0Wy
+	 mbhDMPIZgNwQ3yHDj5NqmBpUVHF6Xiep1lpERCYMrl7EQ8w64dcCflcE/82zLvsQTP
+	 XLEdYEOBWuP0A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 030F838007CC;
+	Tue,  3 Nov 2026 14:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,109 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] media: videobuf2: order buffer initialization
- before bufs_bitmap publication
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa <tfiga@chromium.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
- <CGME20261103105616eucas1p212ea654a93c4754fcc58bf449a2e58b4@eucas1p2.samsung.com>
- <20261103-vb2-mmap_lock-v2-2-054e11dcd013@chromium.org>
- <c1caf0c5-d82e-44c1-9d0f-934008f4febd@samsung.com>
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US
-In-Reply-To: <c1caf0c5-d82e-44c1-9d0f-934008f4febd@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] vsock: reject negative tv_usec in
+ SO_VM_SOCKETS_CONNECT_TIMEOUT
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179371560480.1166073.16451930000365691837.git-patchwork-notify@kernel.org>
+Date: Tue, 03 Nov 2026 14:20:04 +0000
+References: <20261030064428.73930-1-phind.uet@gmail.com>
+In-Reply-To: <20261030064428.73930-1-phind.uet@gmail.com>
+To: Nguyen Dinh Phi <phind.uet@gmail.com>
+Cc: sgarzare@redhat.com, bobbyeshleman@meta.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ georgezhang@vmware.com, acking@vmware.com, dtor@vmware.com,
+ virtualization@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-On 11/3/26 14:39, Marek Szyprowski wrote:
-> On 03.11.2026 11:56, Ricardo Ribalda wrote:
->> Stateless mem2mem decoders call vb2_find_buffer() -> vb2_get_buffer()
->> from .device_run() without holding q->lock or q->mmap_lock, which can
->> run concurrently with VIDIOC_CREATE_BUFS on a streaming queue.
->>
->> Both set_bit() and test_bit() are unordered, and mutex_lock(&q->mmap_lock)
->> is only an acquire barrier. On weakly-ordered architectures such as
->> arm64, a lockless vb2_get_buffer() caller can observe a newly set bit in
->> q->bufs_bitmap before the kzalloc() zeroing, buffer initialization, and
->> q->bufs[] pointer store performed by __vb2_queue_alloc() become visible.
->>
->> Pair smp_mb__before_atomic() in vb2_queue_publish_buffers() with
->> test_bit_acquire() in vb2_get_buffer() so that any reader observing a
->> set bit in q->bufs_bitmap also sees a fully initialized vb2_buffer.
->>
->> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Fri, 30 Oct 2026 14:43:50 +0800 you wrote:
+> From: Nguyen Dinh Phi <phind.uet@gmail.com>
 > 
+> The timeval validation checks tv_usec < USEC_PER_SEC but not
+> tv_usec >= 0, so a negative tv_usec makes the timeout computation
+> wrap into a bogus value, later tripping "schedule_timeout: wrong
+> timeout value" instead of being rejected.
 > 
-> Can't we use ordinary locking instead of those memory barriers and relying
-> on not-always-atomic bit operations? For me this looks like over-optimization,
-> taking into account that those operations are not on the critical path nor
-> anyhow time-comparable with filling the whole buffer with image data.
+> [...]
 
-I was thinking the same thing.
+Here is the summary with links:
+  - vsock: reject negative tv_usec in SO_VM_SOCKETS_CONNECT_TIMEOUT
+    https://git.kernel.org/netdev/net/c/c0ef6144b4d6
 
-I *think* the code is correct, but I'm not sure. Memory barriers are hard to get
-right, and I consider myself to be a newbie when it comes to that. A simple spinlock
-is much easier to understand, and this is hardly a high-performance loop where you
-need to squeeze the last bit of performance out of it.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-It's why I wanted to split this off from the original patch, so it is easier to
-review.
-
-Regards,
-
-	Hans
-
-> 
-> 
->> ---
->>  drivers/media/common/videobuf2/videobuf2-core.c | 8 ++++++++
->>  include/media/videobuf2-core.h                  | 6 +++++-
->>  2 files changed, 13 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
->> index 70ef38c3d16a..d0dd4b22b646 100644
->> --- a/drivers/media/common/videobuf2/videobuf2-core.c
->> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
->> @@ -461,6 +461,14 @@ static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
->>  
->>  	lockdep_assert_held(&q->mmap_lock);
->>  
->> +	/*
->> +	 * Order the buffer initialization and the q->bufs[] stores done by
->> +	 * __vb2_queue_alloc() before the bits that publish them. Pairs with
->> +	 * test_bit_acquire() in vb2_get_buffer(), which is also called
->> +	 * without q->lock or q->mmap_lock held, e.g. by vb2_find_buffer()
->> +	 * from a mem2mem .device_run().
->> +	 */
->> +	smp_mb__before_atomic();
->>  	for (i = start; i < start + count; i++) {
->>  		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
->>  			    test_bit(i, q->bufs_bitmap)))
->> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
->> index 2e93e6985d5f..20b961da21e0 100644
->> --- a/include/media/videobuf2-core.h
->> +++ b/include/media/videobuf2-core.h
->> @@ -1288,7 +1288,11 @@ static inline struct vb2_buffer *vb2_get_buffer(struct vb2_queue *q,
->>  	if (index >= q->max_num_buffers)
->>  		return NULL;
->>  
->> -	if (test_bit(index, q->bufs_bitmap))
->> +	/*
->> +	 * A set bit guarantees that the buffer is fully initialized, pairs
->> +	 * with smp_mb__before_atomic() in vb2_queue_publish_buffers().
->> +	 */
->> +	if (test_bit_acquire(index, q->bufs_bitmap))
->>  		return q->bufs[index];
->>  	return NULL;
->>  }
->>
-> Best regards
 
