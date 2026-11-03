@@ -1,72 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749880;
-	b=nrzI8geA+JWNMZVLm8mUYcsjta91y/HHpAdj5nvj/wWH1wM0ZgjFZoUDOTSR2PzLM+f6
-	 MgFBs4bRjuY3XrlbkxAyKEKSetPZxcjXOanAM5ECov5+XOC8iZXGxo/eoM3htOvzspsnJ
-	 cQQ4Y1JT75seMj2ncR6btWxfJmBnA5ioRAJ6cu8KqyAL5Jdf0MAr83IABc4reXcGSEx6y
-	 t1couKRffBi1EWREFp3u+YK1sZr2cGXGecx5YNRhhBReH/cOQUcTwyYxMoQ1Fcfe/LUCU
-	 I8hfLil3wa0EiU0XxnPiVOtE6gQFirC2YnPTp+fxwz2/YRrtZKejmNc2o/9gbFRKEjA==
+	t=1793749920;
+	b=KhX5CDgwD+2lAPN6aPGgxMrf9q7s8/e4x/50SIbSOR3ozwlw1tXf+mER/UMC+omhvv8Y
+	 TqvHfJiHy8OfIc8pUd9iQla3hQO+ZRFQEelMRcW9g5MA5vVVOyCbVhl83qIzYSnQsR3j/
+	 4jy0KupuNdLIFt3Iv6ufk0zRFixSS4mDUD3L0QPhI6Q1orAwVXl5RODCNUajFaorHwx5t
+	 nxtUBNVBXAwPFG96Fsyy26jJSWTSlZVK3l05/AS9VetN5PUM9znoCxO7/nFAxhmnC9j12
+	 qJmNjwyZPAVUaK+kWQnU8mdIMkZJG0vq6GAnFACzznyruajme+JVYS2tf/YBKtqo1zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749880;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749920;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=HlYo3npPGUByceGrtIHjkrKEtKjClf+MQJt0+OILPSo=;
-	b=DD0lI9Hm/ORPy+r4Y/l+Kw9JKD2c35DBGYxQEybg1qZn8SP/UTajeXxN9B5F9XWT2rwM
-	 44wLu9K175KUwaRJT0VT1OD98NdMBD7Qcy3VUl6OUOhTysVWxnhE73UQZoY4WkFttr1jG
-	 xQm/NHeEqDrgnt2t+f/bgT4CfTiYfizG6N74cS++N1djYQVDMcoYr2JJRleBoOK7hPg0o
-	 6tCyImEYev+42X9FrunlEUVTus0RYN9KS9CdWkoEqTpHmRP8WE5uZ6JX771OYBiDwWfHj
-	 15SSyrwPWzsEVrGrNvSczgPJAWgRYOMzFO7NLdNbM59jUESGWiMdhge/Y7GAJOnyfMw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=u2FL5iZJ3JHIjTjapoLLiX3E/WLeHQAJjW9k9AzRwQk=;
+	b=HiVcmvgUtH15esVQeUtF+ZoXnU8gOZWCTqETUl0cjXXI84QifK/24ahtS+rUQ2PPpXPq
+	 ZfXzwXW7fsry0H6ZyHg02dvCW49JaaZ2UexNHFixuW2WG10P8SJmcKyy23u1Qg9KeKE/n
+	 gZFF7l3k/G4pOjRiNJNZH0AUgnUMKPdLsrElmGuzRkUoiGlZ5jLLr29uqH065dwaJY9ul
+	 8veFFl5oTNLhi/aKagd5gyt3VLg/WBbVvXrEpXFXCRrgIOoyBwGJAhDV28Ot18iRuAp1I
+	 DEh56BJwFDzTbh54t2cjoQ+VWS80aYS76jsZReN97zLSp3pDjrgaK030z2o6Lbzfoyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sanglardf.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="m6dG/A2N";
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UPGN4NCT;
+	arc=none smtp.remote-ip=74.125.229.135
+Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ED7606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:51:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8ED7606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sanglardf.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D47606A33C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:51:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52D47606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m6dG/A2N
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so175026eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:51:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UPGN4NCT
+Received: by mail-dl2-f7.google.com with SMTP id a92af1059eb24-13985f8229aso154227c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:51:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793749879; x=1794354679; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HlYo3npPGUByceGrtIHjkrKEtKjClf+MQJt0+OILPSo=;
-        b=m6dG/A2NsKVzxeDyOKO2PMtypyyYXjQhUti86iSKwUr7pTjmjlJYqElhhfP9bEIShM
-         DL7nmovmsHGt393Jb+ab6O75RiOUvYTFt1epocYtzfU0v+8HEHb+kB8gE3pShMsmEFIl
-         bpnlETXk3nS1EndI1WYzaUiqN+GbHOgw1N5eBarEZVphF5wnHo1LD5JgTRpiPohexCih
-         SgcJDQDiu57wh0KpivyN7DvXOwHScocOKE+pxvP8uh8CnRVuIz34Z+oR77mzEKnbnv6f
-         AjtKzwhNXZrGJlpZZTt2Tfcc867jdRteEo8c+jhw/2cuLWiEa9Vo/P3RYF6lDF3v7Cwv
-         dKhQ==
+        d=gmail.com; s=20260707; t=1793749918; x=1794354718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u2FL5iZJ3JHIjTjapoLLiX3E/WLeHQAJjW9k9AzRwQk=;
+        b=UPGN4NCT1NhBPIdKHOKGSo0GUnrckC9TyZik21lyvgHH0js5GC9k5TJvR4sCkcW/zf
+         1lqBRPSCRMRSY8+khu79223f0n2Ep0gmSa94vrnY8TxyBaizryjW9AhJNcZtA2mf3rpP
+         c+7JpL8AACxqCsQvF+N7Q0U9wahzNZPeATpsssFqEZKAqYmSoi13mFrBPWqmLOiY7rAs
+         7bc7HjUey4W9j/QrJb+6rhxinIql8PWDfb0Y3Wzu2YMrYCxKlqq1hT1Un32U7SuPjVFM
+         RqQ13NeFN5J8S2CANiaczj8DJJSAn87CmCAoq//kL8v1lI8OLCvoVpchWHTM8BtStETw
+         HPCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793749879; x=1794354679;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HlYo3npPGUByceGrtIHjkrKEtKjClf+MQJt0+OILPSo=;
-        b=yIhF3FuEKWcBaIZ5czKhiKYsfEFtnwTS0o5ejf9+VOcna4xOdcAmkZ2spsl+D0dtqs
-         S/aNM9CcuXiDIzi8447HbIoGvPlQjMrtQslX3gS/6Bv0ySKnPuWi/mHbReloHsq8dA3R
-         UFLmpmPzBi0j/l6ro5l26TNDadTrHsWqdekdCMOGJjYUMaVG+/Hhugkok7WMyJ0pY/RD
-         d0t1qdJp3nxDVXLHseYYCOfxsqqvE8KuE924RMyZTU9v0lk0Mz4tVJ6DfLkDbboHkXIj
-         mYOMDJ7tmPx8VMGWzZ/oi0QpCFbz+iXe0o0rrnKO48CyzgHlrxGzGsK2Kp+9gmm08IEU
-         pLcw==
-X-Forwarded-Encrypted: i=1; AKwUvBzuRjuGNSSjjgGh2f1UA4pgzLWRk/Mp2JqkWvBSp45d9XFbks8d8I7x071Ucmb7X09vj5NXXo4STKYnGy8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9K5GvtLdiGYgghvcTgjFiyth7EPxzYgbx3YCPef7EdsKF2OpPv
-	8PhJLghikpjj9tADtmo7M9CFYo1jkRCc020u6xHPVxQ/IHorr8xxKSRk9FjzSpis9rmdCB7RIle
-	zb9xwbHuWvBUFGLb+3w==
-X-Received: from dycc2.prod.google.com ([2002:a05:693c:60c2:b0:36b:fcaf:70f8])
- (user=sanglardf job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:88d4:20b0:36a:1e0a:accb with SMTP id 5a478bee46e88-36a4241bcccmr22600419eec.35.1793749878549;
- Tue, 03 Nov 2026 15:51:18 -0800 (PST)
-Date: Tue,  3 Nov 2026 23:51:15 +0000
+        d=1e100.net; s=20260707; t=1793749918; x=1794354718;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u2FL5iZJ3JHIjTjapoLLiX3E/WLeHQAJjW9k9AzRwQk=;
+        b=FsyuQvwXdB+YnJhYt3TQU+vZD/hYjokBRXgYgysnGAbHyXHRmR+jgy0HAjJBBtupJU
+         YnCH2x+c5DIcZcBK+nMHmoUItA97pwgHFKQrIGJBPPxwxKrVSPCGS+oGRW5rK4fv42mV
+         Qi/hXS3XsmyG9xuIy+PFKHBwvQ2dQoNOJ+X9E7qykoKsKgqzVeNRdlVqAiqnMBfkkepJ
+         w3fPDZHs0Baa36SXgfClvDTxlqCDNJIU5CGmIoyULuPR8XTy4d/OE89/nA+1Vn/g5Ghr
+         eWbPyiGguvQrgY28sYV7e+ZDP0mYbsUJarb4DKmbF6HjvrFkh6QJLEIt22XpKNtnGKIJ
+         IdlQ==
+X-Forwarded-Encrypted: i=1; AKwUvByM/jOfYx4JDd/vvRl+mHdu7Tiw9vdeHkG6LYA9eYpI6aASgoMBUE/wXCtj90wxjMyHrp/y1Ul6utb9j7Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89g7m7VcS51FJalVIyhdl/V3avEn2B+CFT/027sCu9yNNh8U9k
+	ref8IG0kBt/PDNl6GZHtxyZdsU/TuPJTichLBh4y5fEdtyx/Kpr63bG1
+X-Gm-Gg: AYBFou09o54RVPXhVInqyUEAjWXTnr6e1CXO+cTU3rboQNQYUp9eLlR9KE/wScOvi/p
+	paOWA6loy9lhjpBZhTv0gq1/kDKVFHvUdV1Ojp74rHWhLAsk7ZAimymWEczgS7MVXcCXAD+9aF/
+	qQT97VpR9TL3J+wHNneR5syiVHUJBIVvEY/iCTElWZnP0zeAkPKpFog/thf5K00+NUhZvGMLd13
+	nBsa7FMDIzykYGupPJqNuAmJcmoQ3BpKVilPYGVNq0YDE8hPtjtK8kbvtA6bLY2J25DZfKzOqkG
+	RWlNIUh8um8SsXzGOx0idnsLejIK465yPCM+TcOwvS+4mnYRwRogjHqCLLJZIV/BDeVfWrKIF2u
+	CBYqCE6t33aggtv4FUPDpR/oL9X1FrmSKuacPpWYF8oGxeIKdHmawvvQVbUp+kJZNcL6FHA2ZZv
+	3agLkgC/ECEmcJLkCLJAjw9MXsPIUTm/k0hXmbh6DKIcweUr1pKijoY9DK79hPuIfv+0diU61Uq
+	7xM3d78yHiqDP3m/FAqexdeGs9HwvQmhEN7N2Hkf1BSyKkS/0zT//iYVb0RZ/ri7OI7sFq9ladI
+	yYbcUZx2Tq245smZhZi3nMI=
+X-Received: by 2002:a05:701b:230b:b0:1b2:4378:3545 with SMTP id a92af1059eb24-1b2437835a8mr3011803c88.21.1793749918147;
+        Tue, 03 Nov 2026 15:51:58 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:70::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c748eesm2167834c88.23.2026.11.03.15.51.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 15:51:57 -0800 (PST)
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	sdf@fomichev.me,
+	almasrymina@google.com,
+	bobbyeshleman@meta.com,
+	asml.silence@gmail.com,
+	razor@blackwall.org,
+	daniel@iogearbox.net,
+	leitao@debian.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH net-next v2 3/7] net: devmem: use niov_shift in net_devmem_get_niov_at()
+Date: Tue,  3 Nov 2026 15:51:48 -0800
+Message-ID: <20261103235152.1904727-4-sdf@fomichev.me>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103235152.1904727-1-sdf@fomichev.me>
+References: <20261103235152.1904727-1-sdf@fomichev.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,66 +117,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103235115.3991801-1-sanglardf@google.com>
-Subject: [PATCH] usb: core: Emit KOBJ_CHANGE when usb_reset_device() succeeds
-From: Fabien Sanglard <sanglardf@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alan Stern <stern@rowland.harvard.edu>
-Cc: Oliver Neukum <oneukum@suse.com>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Fabien Sanglard <sanglardf@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-When usb_reset_device() succeeds without re-enumerating the device,
-userspace receives no device-level uevent indicating that the reset has
-completed. For usbfs clients such as adb, usb_forced_unbind_intf()
-unbinds the interface before the port reset, and device_attach() leaves
-it unbound afterward because no kernel driver matches.
+TX bindings use PAGE_SIZE net_iovs, and the TX lookup hard-codes it.
+Derive the index and offset from binding->niov_shift instead, so TX
+bindings can use larger net_iovs. No functional change, TX bindings are
+still created with PAGE_SHIFT.
 
-Since usbfs suppresses uevents on interface claim/release, userspace
-receives UNBIND(intf) before the reset and no event when the device is
-ready to be re-claimed, forcing it to fall back to polling /dev/bus/usb.
-
-Emit KOBJ_CHANGE on &udev->dev.kobj in usb_reset_device() when the reset
-succeeds, after usb_unbind_and_rebind_marked_interfaces(udev), so
-userspace is notified (with DEVNAME) once the reset and all kernel
-interface rebinding are complete.
-
-Suggested-by: Oliver Neukum <oneukum@suse.com>
-Signed-off-by: Fabien Sanglard <sanglardf@google.com>
+Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
+Reviewed-by: Mina Almasry <almasrymina@google.com>
 ---
-Tested across snd-usb-audio (no pre/post_reset), usbhid (with
-pre/post_reset), and usbfs (adb) using udevadm monitor:
+ net/core/devmem.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Interface driver                Uevent sequence on reset (ret == 0)
---------------------------------------------------------------------------
-Kernel (no pre/post_reset)      UNBIND(intf) -> BIND(intf) -> CHANGE(dev)
-Kernel (with pre/post_reset)    CHANGE(dev)
-Userspace (usbfs, e.g. adb)     UNBIND(intf) -> CHANGE(dev)
-
-Discussion: https://lore.kernel.org/linux-usb/20261012171609.88273-1-sanglardf@google.com/
-
- drivers/usb/core/hub.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 199d3f535..9b3835ced 100644
---- a/drivers/usb/core/hub.c
-+++ b/drivers/usb/core/hub.c
-@@ -6447,8 +6447,10 @@ int usb_reset_device(struct usb_device *udev)
- 		}
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index 32fafbfa1359..6339f221bc82 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -455,13 +455,15 @@ struct net_iov *
+ net_devmem_get_niov_at(struct net_devmem_dmabuf_binding *binding,
+ 		       size_t virt_addr, size_t *off, size_t *size)
+ {
++	size_t niov_size = 1UL << binding->niov_shift;
++
+ 	if (virt_addr >= binding->dmabuf->size)
+ 		return NULL;
  
- 		/* If the reset failed, hub_wq will unbind drivers later */
--		if (ret == 0)
-+		if (ret == 0) {
- 			usb_unbind_and_rebind_marked_interfaces(udev);
-+			kobject_uevent(&udev->dev.kobj, KOBJ_CHANGE);
-+		}
- 	}
+-	*off = virt_addr % PAGE_SIZE;
+-	*size = PAGE_SIZE - *off;
++	*off = virt_addr & (niov_size - 1);
++	*size = niov_size - *off;
  
- 	usb_autosuspend_device(udev);
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-	return binding->tx_vec[virt_addr / PAGE_SIZE];
++	return binding->tx_vec[virt_addr >> binding->niov_shift];
+ }
+ 
+ /*** "Dmabuf devmem memory provider" ***/
 -- 
-2.56.0.385.gac671c819a-goog
+2.53.0-Meta
 
