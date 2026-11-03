@@ -1,81 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703469;
-	b=z09n5Avujm1iyPTPQDfL6lpUP99sx1OuyMhUZXg8GxT6O2vNuWYmYAZ6jXGkwVG9M85z
-	 QvY0tA1NPj0irL3L103Jq0rPr1V2W9SYzGhWqY9GtfkHen5EwJv4idbeP1bYjvlBay0j4
-	 evQAKRUin8CfSwM3Ud6C3aN8Yi90URaDsUX8cEA54RX3+vdBeAc3GpXKQ/23NZsq+458g
-	 IAhCQZ1Q7wVbfofJkbx5Hv45nE8NTPyJoHgr8OLSPDe6NkaUrvBC384O/DWcBlYSl9U3d
-	 iULRJaV8QdwNBpMPBJPrwdaPyiIkbyZgYOv9ACQhq3QI8MJNVZ7YUETghL4NmI3EGWw==
+	t=1793703478;
+	b=ttM5lVNGrO7/IcO1QLlRX6/5kAl2Mv2AVk9QUAuViaNk7Y3KEc2tM9d9NmAjqMyjbh78
+	 W2ukX+P0MIGxGkjsJBgr9S4+we2xpZWNNsp+lLBK1icqo2lEPGYUsEj86QE1vfNf2xxFH
+	 w0N7+edJ/tbh9zmy9zL76DwuE+njQPA1oIwU6Gzppf/PIrp14Rl+HZBGccphhmnXFflW/
+	 QIQ74vqoIV1HwtENw4akwfQWztx+BCUPYmRDCST9b1Q08MZ75CjRmqZsOnxOysL1hq6ta
+	 4wXo0Tvl3lLIHWaQCJEf131Cv7fumOEyaOHNHJqR0BaZ9UgSvdqwoEa3yRhlDIJBrkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703469;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=DDfICRyidzH2Xd0djapzVszHzRWjlx8ddWZ00UYB6Ac=;
-	b=pTDZ7brKdccwSuPwesNiULw3iDLQcAJNmaUQAibuwg/73B40h1p7ew+Ag1dN7fN2iyUC
-	 qXiQz1hPPXqP7gYk6LGdS3LWlIUBrU5H+VplxQ9AIrGPmjAo1rjlk5eEnrEWB3sA7nuOZ
-	 PoOPkrM3MP5qVX9VFIb536DLEVjkiP2P8ePvaFRpA3a2ccwwKP1doHdh6kESQH4SPcwRg
-	 JtanVssGL2ggIQB9DRvg0sbduyPpDrlp1cNtJakBjpJk3Uh69zkHJdliJWBjWlO47S08M
-	 dtYlKjWnrP4c8orXWynI751rCJK63Ovw1qUblReO2s8CEoakO2i6vJVldf34Wizl10A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703478;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=uecybL+gqfrB8HHj3vVKJyhfRKn7L+ejiH5DOEaosNc=;
+	b=pc2cUAPQuwgLTHp6qwSa40X444sOXJ9XNYtSmQ7tv0pQwpbD8cIT+UfrWq7IG9aLqSMW
+	 Ifkx9XHmGZcj/9h9OQp6g9U5KGTP6JhLUycT5+DPOE2NJuxQjqHhyrvBQalvv1LwhF2e8
+	 OUzEWDhp1I8Z7smbC3gyiEH+HcbreKeViOGWAQ/nlM+9iR1bvmds8UxkIRccnNPbaw/m2
+	 S/MenyBUfZZhrZTgLryJS8Dd6ArA5B30FFtpiNm8wfFB+FHROjLbwkTV5dVTIMHnGqJU3
+	 hqipNU/y+y1NH6EHfX0zqJhm75PD6ckIxnhFlPh4RGDHBHr7daFJO8lpACNj1Pn2ANw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AwykSUyB;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bBa7T2lO;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IR7HKpyH;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E55606BF96;
-	Tue,  3 Nov 2026 10:57:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97E55606BF96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5ED606C5B7
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:57:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D5ED606C5B7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AwykSUyB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793703469; x=1825239469;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tVqPDu+U/KkDYeLuXRepbX+YYLrWZCTzJZvgZd55h8w=;
-  b=AwykSUyB0WmhNagLmxWxocxAYHapilLHrt9YjIkLfU4MnAqEfZ6e4Qkh
-   bkJjbBbSz9vfyljiXQxDti8JNt5JwUXusBP3ukIer6lfNmuCmvv4p7kI0
-   ahW+G1QlGD1vygWhPUKyImQKEWvy2mce7KLxbfENn1CueUFAEjVZBDlqL
-   hWgAIod5yToaJ2Nxd5J7M8bfcoxoaqV3m/7r55JRhTECN+vt2+aaAgQyz
-   l9hp6ZdEri268bwowHWNqzaTM3BRLdy74ftcjX1NEBWeN4rpbU3xbBnFy
-   7LUGFP6/aKJRCOKQT0oJxXfuhD/gpY3u9DKc768Qf4Q3k9rJ4RVxn/xX2
-   A==;
-X-CSE-ConnectionGUID: 2liL6YWGToeJ0EUxSs3FrA==
-X-CSE-MsgGUID: +fvNWychQFSaR4PYab88xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2302077"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2302077"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:57:48 -0800
-X-CSE-ConnectionGUID: 43AHykudSHympGxlpG29+w==
-X-CSE-MsgGUID: Fjb47Nx4QzCgkr4Wz5LA+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="8181103"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa011.fm.intel.com with ESMTP; 03 Nov 2026 02:57:46 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOCD1-00000000ie0-2XzN;
-	Tue, 03 Nov 2026 10:57:43 +0000
-Date: Tue, 3 Nov 2026 18:56:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>, jikos@kernel.org,
-	bentiss@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
-Subject: Re: [PATCH v2] HID: wacom: replace sprintf calls with safer
- alternatives
-Message-ID: <202611031828.iUFgzaYo-lkp@intel.com>
-References: <20261101054830.291749-1-nehuenlian.kernel@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bBa7T2lO;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IR7HKpyH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793703477;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uecybL+gqfrB8HHj3vVKJyhfRKn7L+ejiH5DOEaosNc=;
+	b=bBa7T2lOJ+4pF2WLhuJ0Y1S/bo5D48zOxrbNpkeP0iS0LOi67rlAAT3sznN229mI9G3Cy/
+	kMYmP/+nP8amZ7BywKn3sLSxA80NwooEqQggcMYv7ZUw/iT1mPr2fOtMRvjlPCJX6AHSyq
+	apDQurP5hOTmEwx7YKaWSiT0Kzlockc=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-354-nPGZRfyLMvOWx-3BStztLA-1; Tue, 03 Nov 2026 05:57:56 -0500
+X-MC-Unique: nPGZRfyLMvOWx-3BStztLA-1
+X-Mimecast-MFC-AGG-ID: nPGZRfyLMvOWx-3BStztLA_1793703475
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48b00febba3so2752210f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:57:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793703475; x=1794308275; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uecybL+gqfrB8HHj3vVKJyhfRKn7L+ejiH5DOEaosNc=;
+        b=IR7HKpyHpsu6vhKrQ2umLvoyYUPBYAXMIoBY7nB3Guu/f+JDm/h4J8Eu/Yde4UqUyy
+         pwI1kjp429XrY3TRPE3QkcTlZmhy+Zui6gkCSUr0mxWKOl0Cx84ul0mY4+Woz3AktlBN
+         PG+0YoaN1x0c2ZvdoVXkJswZJWBLMQ9fVki2P5xN3O9mnjKYKzysByPpWC/U/XKpthB6
+         sXs3P84hbEpNBy0K0rrBeDfsDY9s7oStI78pwNsWs2+xoSL/xoVBGNMKhz4a3a1LVona
+         dDx0JUDNe679Q4woAXHDbi7QJTWRWXo/RLnFCuGFfmwG+qLUTmcf+81v7R3C0Mdfv2ZK
+         aB5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793703475; x=1794308275;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uecybL+gqfrB8HHj3vVKJyhfRKn7L+ejiH5DOEaosNc=;
+        b=g9QHvAoXSUegbb7dmgI/+4HiiDTmgbwl0J8R+bQoVYfI4kPKtmz795iYTNUtg9dbLP
+         x5kdmNNfdr8uWQgZ44k9M9ElspLcNdzZPnkogt7CgfbyIkrkcmLN2gx4cOW4qm42sd8x
+         68Bfk1Y7+GqJjyhOi4rDhbggcRTOAHZZ9W5IEPXtQy5S6V2CXmDLYxsQ+7wPwCQglr+4
+         vbwsgilYtfX6zBsqlIF7RhNyEN30ylUBqFEu57YYyP/xGHzDDOIzo+e1813p1xk74QVs
+         uReIVH5XZss5GxqjP3F0Ii77XnBmxilapyvOmYnsJbPp3PICB1ujhiOudxOou+YdlU/s
+         9U1A==
+X-Forwarded-Encrypted: i=1; AKwUvBz/9SOJWnQbDWOI1fCsN7ctLNw2ydRVVf93e8/i3rm58/3LPouCresJQ+ls0TZ7hba6bFJpnGYvcYlQHBk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RsrmcAJ3RtzM/qsX+XlEwNiE07YmweniAHew4Gs7xGhTdo8O3
+	5LOh5u7HioVEAUMRZottynRtDMkpjxCpYLHu1l0kJHR7Dq7qayM90zjsCB3GQU48f4pE+coseLR
+	Ap9OSQyzQ8ZALISYuaS6Xjo3Uk1KnO0XX1LNt28T6m/Zm7BSqr4tk78C55EdebSLBVw==
+X-Gm-Gg: AYBFou064m/3bWHi82106gtpCxLoKDgIwaaWdNn4ucgB85yb/khB7m+jzngvvC0P8mQ
+	bozOw0XGfE+L5SEGu+22AgEN83U4gJxjUcCUcL6fbz3wiMxlgZTG7BiHvWQUZqJwMk6c7dWJD9I
+	w/82frg0z+gK9lhQDx9aMQ8tm6XjvjAw2tWkXvLJkRUqLHUu1F9EFBgEyQ420BVnotg5t282iwU
+	fWI1q1i9kgQPedgEdj6OMp4JJyrnhXSF96kiqTQ3yIPThhGpFshbClgZ2ZocT3dwbN0klxkU+kE
+	KYL8KCsOx3C+MghPvrF2q7y7umRdGO0ADVGD4OxmXsC9c4TYdHZahm3cLx84zEqozIuCZoY3RrU
+	zjqj2UdlAvbkxqUGt7kQI9liKL1iSAlLrK5qPMauSCw==
+X-Received: by 2002:a05:6000:25fd:b0:48e:2406:57d0 with SMTP id ffacd0b85a97d-48e6e2f6620mr27753773f8f.19.1793703474650;
+        Tue, 03 Nov 2026 02:57:54 -0800 (PST)
+X-Received: by 2002:a05:6000:25fd:b0:48e:2406:57d0 with SMTP id ffacd0b85a97d-48e6e2f6620mr27753733f8f.19.1793703474133;
+        Tue, 03 Nov 2026 02:57:54 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8c6e9sm24257782f8f.43.2026.11.03.02.57.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 02:57:53 -0800 (PST)
+Date: Tue, 3 Nov 2026 05:57:50 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	virtualization@lists.linux.dev, kvm@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: Re: [PATCH] vhost/vringh: reject zero-length indirect descriptor
+ tables
+Message-ID: <20261103055650-mutt-send-email-mst@kernel.org>
+References: <20261102122942-mutt-send-email-mst@kernel.org>
+ <20261103032935.58823-1-fangxy@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,128 +122,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261101054830.291749-1-nehuenlian.kernel@gmail.com>
+In-Reply-To: <20261103032935.58823-1-fangxy@xiaopeng.com>
 
-Hi Nehuen,
+On Tue, Nov 03, 2026 at 11:29:35AM +0800, Fang Xieyan wrote:
+> Hi Michael,
+> 
+> Yes, same fix - sorry. The October 21 posting is a duplicate
+> of the v2 I posted on September 26:
+> 
+> https://lore.kernel.org/virtualization/20260926160755.21485-1-fangxy@xiaopeng.com/
+> 
+> I resent it as a new patch instead of a v3.
+> 
+> The !len form is equivalent to v2's len < sizeof(struct
+> vring_desc) check when combined with the modulo check -
+> zero is the only length below one descriptor that is also
+> a multiple of the descriptor size.
+> 
+> The diagnostic change is to pass the byte-order converted
+> len instead of the raw desc->len, so the reported length is
+> correct when the vring byte order differs from the CPU byte
+> order.
+> 
+> Would you prefer that I send a v3 on the original v2 thread
+> with this diagnostic correction, or should I drop the
+> October 21 posting and leave v2 as is?
+> 
+> Thanks,
+> Fang
 
-kernel test robot noticed the following build warnings:
+pls take a look at my tree, vhost branch. if you want any
+changes made wrt that, pls let me know.
 
-[auto build test WARNING on hid/for-next]
-[also build test WARNING on linus/master v7.3 next-20261030]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+-- 
+MST
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Nehuen-Lian-Bova/HID-wacom-replace-sprintf-calls-with-safer-alternatives/20261101-024830
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
-patch link:    https://lore.kernel.org/r/20261101054830.291749-1-nehuenlian.kernel%40gmail.com
-patch subject: [PATCH v2] HID: wacom: replace sprintf calls with safer alternatives
-config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20261103/202611031828.iUFgzaYo-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031828.iUFgzaYo-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611031828.iUFgzaYo-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/hid/wacom_sys.c: In function '__wacom_initialize_battery':
->> drivers/hid/wacom_sys.c:1842:37: warning: passing argument 2 of 'snprintf' makes integer from pointer without a cast [-Wint-conversion]
-    1842 |         snprintf(battery->bat_name, "wacom_battery_%ld", n);
-         |                                     ^~~~~~~~~~~~~~~~~~~
-         |                                     |
-         |                                     char *
-   In file included from include/linux/kernel.h:32,
-                    from include/linux/random.h:7,
-                    from include/linux/nodemask.h:94,
-                    from include/linux/numa.h:6,
-                    from include/linux/cpumask.h:15,
-                    from include/linux/smp.h:13,
-                    from include/linux/interrupt_rc.h:18,
-                    from include/linux/spinlock.h:60,
-                    from include/linux/mmzone.h:8,
-                    from include/linux/gfp.h:7,
-                    from include/linux/slab.h:17,
-                    from include/linux/hid.h:19,
-                    from drivers/hid/wacom_wac.h:7,
-                    from drivers/hid/wacom_sys.c:6:
-   include/linux/sprintf.h:13:47: note: expected 'size_t' {aka 'unsigned int'} but argument is of type 'char *'
-      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
-         |                                        ~~~~~~~^~~~
->> drivers/hid/wacom_sys.c:1842:58: warning: passing argument 3 of 'snprintf' makes pointer from integer without a cast [-Wint-conversion]
-    1842 |         snprintf(battery->bat_name, "wacom_battery_%ld", n);
-         |                                                          ^
-         |                                                          |
-         |                                                          long unsigned int
-   In file included from include/linux/kernel.h:32,
-                    from include/linux/random.h:7,
-                    from include/linux/nodemask.h:94,
-                    from include/linux/numa.h:6,
-                    from include/linux/cpumask.h:15,
-                    from include/linux/smp.h:13,
-                    from include/linux/interrupt_rc.h:18,
-                    from include/linux/spinlock.h:60,
-                    from include/linux/mmzone.h:8,
-                    from include/linux/gfp.h:7,
-                    from include/linux/slab.h:17,
-                    from include/linux/hid.h:19,
-                    from drivers/hid/wacom_wac.h:7,
-                    from drivers/hid/wacom_sys.c:6:
-   include/linux/sprintf.h:13:65: note: expected 'const char *' but argument is of type 'long unsigned int'
-      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
-         |                                                     ~~~~~~~~~~~~^~~
-
-
-vim +/snprintf +1842 drivers/hid/wacom_sys.c
-
-  1820	
-  1821	static int __wacom_initialize_battery(struct wacom *wacom,
-  1822					      struct wacom_battery *battery)
-  1823	{
-  1824		static atomic_t battery_no = ATOMIC_INIT(0);
-  1825		struct device *dev = &wacom->hdev->dev;
-  1826		struct power_supply_config psy_cfg = { .drv_data = battery, };
-  1827		struct power_supply *ps_bat;
-  1828		struct power_supply_desc *bat_desc = &battery->bat_desc;
-  1829		unsigned long n;
-  1830		int error;
-  1831	
-  1832		if (!devres_open_group(dev, bat_desc, GFP_KERNEL))
-  1833			return -ENOMEM;
-  1834	
-  1835		battery->wacom = wacom;
-  1836	
-  1837		n = atomic_inc_return(&battery_no) - 1;
-  1838	
-  1839		bat_desc->properties = wacom_battery_props;
-  1840		bat_desc->num_properties = ARRAY_SIZE(wacom_battery_props);
-  1841		bat_desc->get_property = wacom_battery_get_property;
-> 1842		snprintf(battery->bat_name, "wacom_battery_%ld", n);
-  1843		bat_desc->name = battery->bat_name;
-  1844		bat_desc->type = POWER_SUPPLY_TYPE_BATTERY;
-  1845		bat_desc->use_for_apm = 0;
-  1846	
-  1847		ps_bat = devm_power_supply_register(dev, bat_desc, &psy_cfg);
-  1848		if (IS_ERR(ps_bat)) {
-  1849			error = PTR_ERR(ps_bat);
-  1850			goto err;
-  1851		}
-  1852	
-  1853		power_supply_powers(ps_bat, &wacom->hdev->dev);
-  1854	
-  1855		battery->battery = ps_bat;
-  1856	
-  1857		devres_close_group(dev, bat_desc);
-  1858		return 0;
-  1859	
-  1860	err:
-  1861		devres_release_group(dev, bat_desc);
-  1862		return error;
-  1863	}
-  1864	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
