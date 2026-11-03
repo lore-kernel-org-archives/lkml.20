@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690844;
-	b=ZqBrSq95uOmxTRNKPapPnzcbdGwuK57HMumLzdwlopjaBPKmGFksC7sf1v9sSrQp2hwW
-	 dVdeDEOkLcBK+d0DOq7+gguNY1XRcrr/nv9bxwe8TMyf8HrZ10VzJiflFsL2g8DwDffK8
-	 DZ08onCCJjTCM+8lT8ZmEjgt22l/3uYSmCO4gXxlvUs5DmGe03jvsLK82xGVGU+niahTB
-	 BqZwltg2yfPjLTg0K1pwwFPKNxuDRwhlr3/HWt5b/BpAb5zMb3mt8pNYlJexyMFsJdgiz
-	 SI/2kKRd94WTP+9lkmteQpBEo4Bj9GQS9VjcF/PGL9xzz4JqQC84Ni4RNiDSNUWrUFw==
+	t=1793690835;
+	b=z1cyJaR5ZWYj6fVD9Ib9jKaRL+gacmmLYmIZ2OLM6ZoFGgIAw+lNulpyQ79DR5klVj1o
+	 tZDcdX/R5PMWS4/biXbWWq0IDDMcPcHTK3sYcLrWSlpQ7hnQfRu4K84TrtYfMiu4qzQwR
+	 qj5Q5aOFKzZi2W+gTBYZqmgj1jCErNYYAytFbXCgNt7vTQLbtOQD9m41hHIm+lyMTFVuy
+	 tkRpPOS7YCdjMBlJNkl2YEqeCSdd68dDi6Bdu5e+M/7omtY0H2gSJKpDzQ4NtZW+/aAyn
+	 Mam4qA/M2pwMkWCl8FFJLiZg8zQnIlOFcOgSd9edFJ0R+uTYjUTA73pYdXjyrvfDOyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690835;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xM3fZ0DeX/mIM0tXabGWnukqQCpCqfaj/WoRQI2M76A=;
-	b=b+DjH39xcPCKMnw2A96Ypx9A//8gST7/0/0IFx/uItGhbQCsmClhnUuHTJVX40A19YfA
-	 X+qTNXHs1JgHjBSHX0JBkMmLdiuZU0hI4HG6ihqxZXvcEyduNoBN/LjxQuMHA41533WIx
-	 vlEa9f13/pRBDN+HUv/VP/I8akQ37Ha/v246gurLNAW7JiFoZ/8fijnb9ttzm7Yfr2foe
-	 pmnMaE5yUwkPmsyCX6PL80nrgoKvbU6m8dIJ9f7P3CJdXqQUHqwC0ouOOndOXVXBrAT/I
-	 rkJz8WC8+UCXpUh1gbCuArHmypm8MZSSpj/+UtN1rDZFhp61byxraC27lP79mBM61CA==
+	bh=7eYOmf5dnuYvytTS8GHoY52pownLnSNNMv8lMZb1qIg=;
+	b=tFErCLwj/KVeqBGbTcbZRcdNKr7GMH9ShZJnhrbSyNfCGFsDgCdUd6K4F2UT9qwWfLhy
+	 bZjnNeglb7VR2bMfKa1uwM6Il2IRXoYkdr5Z+KTLXV3xaPQWhtkr+5wj7ehO5K6rOtU61
+	 jvUwtMfw//+u9Jdd43qrSauBZ4Pz15qivmEyZtAuUND+dijMNySTADLREagduosRxcKSv
+	 ePg5f9JgICPZxfYmvk6TfWozCZAZ9hptVbxqVytKHMJSUMh/7UK8J+EFx6bhepyc83owk
+	 2q6DGVroF47AKmf1IYte7x+gGO6tSPdUx+oJjcb3yqFhPUT/AEq+sK8THbbGyAkzHlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BHR1QXCP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtbMin2Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDDA606D805;
-	Tue,  3 Nov 2026 07:27:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13718606D80A;
+	Tue,  3 Nov 2026 07:27:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BHR1QXCP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4011F000C1;
-	Tue,  3 Nov 2026 07:27:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtbMin2Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D6BB1F00919;
+	Tue,  3 Nov 2026 07:27:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690844;
-	bh=xM3fZ0DeX/mIM0tXabGWnukqQCpCqfaj/WoRQI2M76A=;
+	s=k20260515; t=1793690832;
+	bh=7eYOmf5dnuYvytTS8GHoY52pownLnSNNMv8lMZb1qIg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BHR1QXCPq21cyEaTcSEtOMw/y9NQh+fLQxxtBdepNjhYEbM3Sh+rHoShJh7K5Zgh2
-	 +C85UKOPVr1aNp81RealW7rDfru9iukd0+s1S20WpyfmUd1Qzittzh+lSSQqXeMjQ8
-	 26oyxQFEW9PHYLDGzwrP6VkzmS9CNOJVoF0RS6qBqJ50k0yNIZfqbqVZva4wHzYgWx
-	 ZgmKC/rSI7yCLfhnHF3EVr3J+J0x7WEHLGsgcGijy4AslEMs5WLjY5zjiEtZyIaVIx
-	 KKUpbF78PtiM6xHgp97lvfj8T8O8y1ayCLem/7D1V2ZLk1Zs9aYZkv9L7D9C1D/zyo
-	 cM5JyqMKWLKsA==
-Date: Tue, 3 Nov 2026 08:27:21 +0100
+	b=QtbMin2Q+rShsnO2Ieyj8ZNr+EH8M4NnWDL3OR843nlfdPCs5ERJrvR+daBe/8Ka8
+	 pw80kUdxPCfzxantXdBothBcWRg847ImmcL6wi1mnedB0PF4PO3Fae3pvq39LBC7jq
+	 PdruqxWERNxKsGNsvl4sTFjAXN+ochJk4RMUdIK8b4enI492L0gojmeh8FkftBU1DJ
+	 umVZo4tJCXU1DZAxrAQP3ZaqAMD1Whw8rHuiZqGiPiHyrRCkQrCMNjaT1/1aASK9T2
+	 v/OF4ZPT9gYrw7XYN5xKlQwBiDEuLnVjp3uGN8OmoBcxRFxWhLf/Kf9tsoyG7ypx2N
+	 rmgNkEpY4BtkQ==
+Date: Tue, 3 Nov 2026 08:27:10 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, zack.rusin@broadcom.com, 
-	linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com, 
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/vmwgfx: Put the buffer object when handle creation
- fails
-Message-ID: <20261103-violet-goldfish-of-enthusiasm-1afde0@quoll>
-References: <20261103071527.1091375-1-vulab@iscas.ac.cn>
+Cc: herbert@gondor.apana.org.au, linux-crypto@vger.kernel.org, 
+	davem@davemloft.net, linux-kernel@vger.kernel.org, ayush.sawal@chelsio.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: chcr - Free fallback transforms when device
+ assignment fails
+Message-ID: <20261103-groovy-lyrical-chinchilla-8eb9fb@quoll>
+References: <20261103063850.1033008-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,26 +60,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103071527.1091375-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103063850.1033008-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 07:15:27 +0000, Wentao Liang wrote:
-> vmw_gem_object_create_with_handle() leaves the allocation reference with
-> its caller, including when drm_gem_handle_create() fails. The allocation
-> ioctl currently skips dropping that reference on this error path, leaking
-> the buffer object and its backing storage.
+On Tue, 03 Nov 2026 06:38:50 +0000, Wentao Liang wrote:
+> The skcipher, RFC3686 and AEAD initialization callbacks allocate their
+> fallback transforms before calling chcr_device_init(). If no active
+> device can be assigned, chcr_device_init() returns -ENXIO and the
+> fallback is leaked. The crypto core does not invoke the algorithm's
+> exit callback after its initialization callback fails.
 > 
-> Drop the allocation reference at the common exit when an object was
-> allocated. Keep the helper ownership rules unchanged, as its other callers
-> already release the returned object on failure.
+> Free the fallback transform before returning the device assignment
+> error in each of these initialization callbacks.
 > 
-> Fixes: 9ef8d83e8e25 ("drm/vmwgfx: Do not drop the reference to the handle too soon")
+> Fixes: b8fd1f4170e7 ("crypto: chcr - Add ctr mode and process large sg entries for cipher")
+> Fixes: 0e93708dabc0 ("crypto: chcr - Add fallback for AEAD algos")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  drivers/crypto/chelsio/chcr_algo.c | 21 ++++++++++++++++++---
+>  1 file changed, 18 insertions(+), 3 deletions(-)
 > 
 
 
