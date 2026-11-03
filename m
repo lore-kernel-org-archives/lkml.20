@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711733;
-	b=yKbHTQlOeWoF8QtYhoJ1XW1JA/kHOfrcz7iQe0/t1fpyEheiZPsOaU3Lis7bC7dr0mTp
-	 4/wmdfjKboJhF1V0Sm6uWfF7j0LH0A/Wzs1lsiS/CVAkWAD5MeX+hLUpMprX7TqPCYmxg
-	 /98St4HDii+lvjnS19dAsufhaK1Rsaj0Xz6lg2aN5gwiPy6EkNg7ysjR4gkQmd4eGgefx
-	 uah0DfGIpYzUUAwPLaIIWYMDx2gCIFLvCbqG4S6EClr8ZXXaENXlDXVrNxTW/nYnFH6VO
-	 W7HHuD8HzxynZN32dHi9agvzExsmRc0W5QKEBmFP40CyaQzH/dTYa12DU8uCPvkCo+A==
+	t=1793711746;
+	b=kFfphRSAHQcFhagKx+HSvJFuwF62Y6sq+EU3vyZiPkHS8qgIJVjfo7VLElGwJiIzcwpf
+	 awn/sqIg8P/ksYX1u2h6jZXdNUU+LZTwAwW7yNttyUuDyZuR1la+XBkZlMWyPGCjiKEJe
+	 ImVTeTkOntyqKarfD7j63VXEHwuUk4tPywIjo83B5M2wwwEI5qKW+w//LMISxFkYkTpVf
+	 qcp5JZTiYMCCDAatJtXPIvX+Kv2EJNqmH22wQKfZd0Au9W2LKTqk9ZmMkwWmc0kT1kOva
+	 Yj6PR2aUkd8i/pRdtecywLoLUEoodfx6wKi6eepLJ8fPAu5tRtdt5RbrnIEpY6qC1MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711733;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=iQyUbsIr1eaHQc2Hjl2d87Wsi2zieh9fyDAeTXMlsuY=;
-	b=RytnIp68yYCZKYLhVU6oN/FJ5qpInrTn1N1bVo8xDfP3PDupgyNeilv5M8twNKwZeGr6
-	 eX+ObV72GHXOwQ+PumMiBLEhn5EGrjnre8LlSeDWbOlOHwU/ytjw5M/rY1rKkJMramSkA
-	 r6C9hWPrD3ofWE+LhVu31yjfleIt+1rDWvrpDZh26fSm13sCVMXo732n9feA0UKQJ72BH
-	 66mxYPAYsutQrq9KpsWjm30Ldu8xBmwnjEIK5y3RG4TRZ7tb2bOiIhFxMieKnpPeYg0Hm
-	 uiHYPvYfpKZ6koFcU8JIXkEo30fksBCmCuihowKwI9ywtNhTOyZQWamszZo5PC8KEoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711746;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cEu6w7zc9xGGvYxDWD1Er5JrgHrkBwXwDSIR3F4m0hM=;
+	b=xNb+i6MBygKKJJ/lz6XKx02pAagfuOWBgntDp0tsIyRkdn75rkwLqByLnZHHBWQjEDNB
+	 YNGLOtlnpXD2sHx2m9Yw/00y3DGsyHEuTgc9Sl/Nmg4WY+riaoFD8PHNksguJIFm5rBl3
+	 ce1tajMYjRiYSxKWduEcZgP9R/7PgeKlKBtfOLFcBkecgWg4oCJNG8EQvhpVE2YTjFtsp
+	 gJF9AX9Qh1p8E1P3hOzvMYPyvdNnxa8ZKN1hMf+uunhRmg4tAvllE4CJE6ALUtntpRnAr
+	 bdzdZqCF8rxICZWPRD9FE5AhJM63oszeIKJ6s7ags1J+JkUYaGyorNv1z8yyjU/VyRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XLsQboEs;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1zhYdw7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8388606A326;
-	Tue,  3 Nov 2026 13:15:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8388606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF088606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:15:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XLsQboEs
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=iQyUbsIr1eaHQc2Hjl2d87Wsi2zieh9fyDAeTXMlsuY=; t=1793711731; x=2109071731; 
-	b=XLsQboEsX5/FQQBVlTFM59rbOb69QRWC55e+jTWAXKxJqatwyVu9yWqZY6U61G9XmYKRKnvolIV
-	Z2/hAwmq+ekvP7aPKecHnem6fLoaytDZVs84PN8bxGn4idLXyeIEJ0enFDMOMGDFdo68rhgI/bUyg
-	+HgArplIxnj9GCzX87bTEPI8STIEQPmYDbDfbBhpcTBsoF71SxdHzgZ2VbBMzdXBjiMBrocFLzfT3
-	TEfQ6uCX4W0OsfayANQU/GggH85fzOWwqipuTvwAmLjUI1HRJfpunRTM7qpJTr++inKVdedza1MRn
-	evKjxxHROsGBGMPGYZmbZmBObrsYoiHV88Hw==;
-Received: from [58.29.145.179] (helo=[192.168.8.237])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xOEMF-001F7T-F9; Tue, 03 Nov 2026 14:15:23 +0100
-Message-ID: <a82664f2-79a2-41c0-8dfe-4c7ccb1412e4@igalia.com>
-Date: Tue, 3 Nov 2026 22:15:15 +0900
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1zhYdw7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D611F00A22
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:15:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793711745;
+	bh=cEu6w7zc9xGGvYxDWD1Er5JrgHrkBwXwDSIR3F4m0hM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=f1zhYdw7G0DFKoEJMu2JdhTahA4X7F+lNt8oTUflBFnROSbXXQr6TbGzNO4Prboay
+	 GtY9cDxaOGFRESEh347lCHAlrCvnE/6V1y2zU6xl6nP7TPn6SaCR0XanTIpmaOoxgt
+	 q7ipuzHCcxwPkBwut2/3ZCTGJH05Ez1/7LYVb+UcHXmGMgGcQ64f9MbZM+52vDuzqR
+	 0ES8gT68871HGTKBEt9S/CupCrh3k9Gk35wFrAgFez4Qox7R7uC1+d47TbHiaAJ6ne
+	 +BXoH+HdqKacD+0m7bVqWtUD0s6se716WLDiS/aktJ30RGeeVcSY2ZRtGk/biISdoZ
+	 dRPN0vpxGWp7A==
+Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-49429181ce9so2523398fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:15:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByzySYpH5hSb1+5UFIVH+XorrBReJ5NbpCi+tC4ygoTvLTSNTLmpD3s65PEMecbwDj1BbDviQlQMwcZzwg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OPNKsqiRktfTGAFZPX+pC7BJF1IF4PHcHuNcTScBgYhgU07J4
+	c7pN9q3hf1qIwjHPjanBo+YAhZSYIQkfoJwdNBgW8fN1E+Hahy0fPNL2i9trErA0Jwz6Pxcw3/k
+	Nh8bLBVI+boprVA24J7T48Cg1efbDy1U=
+X-Received: by 2002:a05:6871:ac03:b0:494:b8f4:9a42 with SMTP id
+ 586e51a60fabf-4a9072d3ed5mr7152581fac.8.1793711744462; Tue, 03 Nov 2026
+ 05:15:44 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,149 +59,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next 3/3] selftests/bpf: libarena: Add rb_next()
-To: Emil Tsalapatis <emil@etsalapatis.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, david.dai@linux.dev,
- Gavin Guo <gavinguo@igalia.com>, bpf@vger.kernel.org,
- sched-ext@lists.linux.dev, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com
-References: <20261028060046.549097-1-changwoo@igalia.com>
- <20261028060046.549097-4-changwoo@igalia.com>
- <DMKKK0ZLYSKU.3UZ614ZC9DH05@etsalapatis.com>
-From: Changwoo Min <changwoo@igalia.com>
-Content-Language: en-US, ko-KR, en-US-large, ko
-In-Reply-To: <DMKKK0ZLYSKU.3UZ614ZC9DH05@etsalapatis.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <cover.1792838740.git.julius@bairaktaris.de> <3733295a358d34df6220ea924d2b710ca537cf6d.1792838740.git.julius@bairaktaris.de>
+ <20261103124438.GM865646@horms.kernel.org>
+In-Reply-To: <20261103124438.GM865646@horms.kernel.org>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 3 Nov 2026 14:15:33 +0100
+X-Gmail-Original-Message-ID: <CAL4WiirPsc6e_j8eWZVQsrrxD7NN1sAq=D7NxCSzFEqD_2K3UQ@mail.gmail.com>
+X-Gm-Features: AclHuK_2zNVn7Z2lHHOyUpXGKRKtOJ8o0wEl1ZUUg5R9TrhPykKJ2PymiNKDISs
+Message-ID: <CAL4WiirPsc6e_j8eWZVQsrrxD7NN1sAq=D7NxCSzFEqD_2K3UQ@mail.gmail.com>
+Subject: Re: [PATCH net v4 4/4] ipmr: do not drop GSO packets that fit the MTU
+ after segmentation
+To: Simon Horman <horms@kernel.org>
+Cc: Julius Bairaktaris <julius@bairaktaris.de>, netdev@vger.kernel.org, dsahern@kernel.org, 
+	idosch@nvidia.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, 
+	steffen.klassert@secunet.com, willemb@google.com, jiayuan.chen@linux.dev, 
+	mfleming@cloudflare.com, almasrymina@google.com, bigeasy@linutronix.de, 
+	richardbgobert@gmail.com, ecree.xilinx@gmail.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Le mar. 3 nov. 2026 =C3=A0 13:44, Simon Horman <horms@kernel.org> a =C3=A9c=
+rit :
+>
+> On Sun, Nov 01, 2026 at 05:42:32PM +0100, Julius Bairaktaris wrote:
+> > ipmr_prepare_xmit() drops a packet with DF set when skb->len exceeds th=
+e
+> > route MTU, without checking whether it is a GSO packet. A UDP multicast
+> > stream received with fraglist GRO or UDP GRO forwarding enabled is
+> > aggregated into GSO packets, and every aggregate is dropped with
+> > FragFails, while ip_forward() lets the same packets pass by checking
+> > skb_gso_validate_network_len(). Do the same for multicast routing,
+> > leaving room for the outer header on tunnel vifs. ip6mr has no such
+> > check and leaves GSO packets to ip6_output().
+> >
+> > On an IPQ8074 router with fraglist GRO on, a 10 Mbit/s stream of
+> > 1316-byte DF datagrams routed by igmpproxy loses 14.5 to 15.5% (n=3D3)
+> > and 0% with this change.
+> >
+> > Fixes: 9fd1ff5d2ac7 ("udp: Support UDP fraglist GRO/GSO.")
+> > Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+>
+> Reviewed-by: Simon Horman <horms@kernel.org>
 
-
-On 11/2/26 5:07 PM, Emil Tsalapatis wrote:
-> On Wed Oct 28, 2026 at 6:00 AM UTC, Changwoo Min wrote:
->> Add rb_next(), the in-order successor through parent pointers.
->>
->> Add a selftest that walks a tree with repeated keys and checks the walk
->> against the order in which the head leaves the tree.
->>
->> Signed-off-by: Changwoo Min <changwoo@igalia.com>
->> ---
->>   .../bpf/libarena/include/libarena/rbtree.h    | 23 ++++++++
->>   .../bpf/libarena/selftests/test_rbtree.bpf.c  | 54 +++++++++++++++++++
->>   2 files changed, 77 insertions(+)
->>
->> diff --git a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
->> index a8dd8c2e7596..956b4a24b52a 100644
->> --- a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
->> +++ b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
->> @@ -103,6 +103,29 @@ void rb_node_free(struct rbnode __arena *rbnode);
->>   
->>   int rb_integrity_check(struct rbtree __arena *rbtree);
->>   
->> +/*
->> + * Return the in-order successor of @node, or NULL if @node is the last one.
->> + * Walking from rb_first() with it visits the tree in key order, equal keys in
->> + * insertion order. Call it under the writer's lock.
->> + */
-> 
-> Let's move this to the main *.bpf.c file, with the rest of the traversal functions.
-
-Sure. Will do in v2.
-
-Regards,
-Changwoo Min
-
-> 
->> +static __always_inline struct rbnode __arena *rb_next(struct rbnode __arena *node)
->> +{
->> +	struct rbnode __arena *parent;
->> +
->> +	if (node->right) {
->> +		node = node->right;
->> +		while (node->left && can_loop)
->> +			node = node->left;
->> +		return node;
->> +	}
->> +
->> +	/* Climb until we leave a left subtree; its parent comes next. */
->> +	while ((parent = node->parent) && node == parent->right && can_loop)
->> +		node = parent;
->> +
->> +	return parent;
->> +}
->> +
->>   /*
->>    * Lockless reads of the head and the node count. They need not be called
->>    * under the writer's lock, so they are advisory: the tree may change before
->> diff --git a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
->> index 57c4395c046a..784cc9edea17 100644
->> --- a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
->> +++ b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
->> @@ -425,6 +425,60 @@ __weak int test_rbtree_first_update(void)
->>   	return rb_destroy(rbtree);
->>   }
->>   
->> +#define NEXT_NR_NODES	64
->> +
->> +static struct rbnode __arena *next_nodes[NEXT_NR_NODES];
->> +
->> +SEC("syscall")
->> +__weak int test_rbtree_next(void)
->> +{
->> +	struct rbtree __arena *rbtree;
->> +	struct rbnode __arena *node;
->> +	u64 seed = 0xcafe;
->> +	int i;
->> +
->> +	rbtree = rb_create(RB_NOALLOC, RB_DUPLICATE);
->> +	if (!rbtree)
->> +		return 1;
->> +
->> +	/* Pseudo-random keys with repeats, so the walk crosses equal keys. */
->> +	for (i = 0; i < NEXT_NR_NODES && can_loop; i++) {
->> +		/* LCG using Knuth's MMIX constants for determinism. */
->> +		seed = seed * 6364136223846793005ULL + 1442695040888963407ULL;
->> +		node = rb_node_alloc((seed >> 33) % 16, i);
->> +		if (!node)
->> +			return 2;
->> +
->> +		if (rb_insert_node(rbtree, node))
->> +			return 3;
->> +	}
->> +
->> +	node = rb_first(rbtree);
->> +	for (i = 0; i < NEXT_NR_NODES && can_loop; i++) {
->> +		if (!node)
->> +			return 4;
->> +
->> +		next_nodes[i] = node;
->> +		node = rb_next(node);
->> +	}
->> +
->> +	if (node)
->> +		return 5;
->> +
->> +	for (i = 0; i < NEXT_NR_NODES && can_loop; i++) {
->> +		node = rb_first(rbtree);
->> +		if (node != next_nodes[i])
->> +			return 6;
->> +
->> +		if (rb_remove_node(rbtree, node))
->> +			return 7;
->> +
->> +		rb_node_free(node);
->> +	}
->> +
->> +	return rb_destroy(rbtree);
->> +}
->> +
->>   struct rb_embed {
->>   	u64 pad;
->>   	struct rbtree tree;
-> 
-
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
