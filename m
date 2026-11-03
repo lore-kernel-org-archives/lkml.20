@@ -1,132 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.177.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793670881;
-	b=0lH1BN/2SxwzP2fFdKejCxQGMAWL50fqxhYj0J+KUq38V6aTqRJvjJizmfEe/Kb7Qhkz
-	 s/3EoRTt4nvowimcE+WFZWMzoP5BjxhraChsX5egBTobpkeeZSGq5119XYJqjMmMgS42K
-	 qCr6VbmagNbdbQKv4vA1WPU2a1not2LgzcMy95C4oceO/eHlvtB/28M4M3hQ6oYY00AAi
-	 zoEFthmAr+xD1Sp98Is1nr7iPSSgCr3aJGinl/2pB2SDyMvHOIYBhpLzaurOv6CyCp5N4
-	 N+KSzFRGCl0LRNQiRQ8u1u9eVOpBFQHI7G5u1eqXPJoBO8aJnOqiMRBS+eczjUoI3JQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670881;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis;
-	bh=13bFW0v9jvf4p8LUMzy5R4OSuAi+NA5C4e1vHREHwAs=;
-	b=EGQXMQ6+31tW3d+LrS1kdh2InbvajPMEOS1p68jiaAPFFmOWUJ4ZqWTy1YBxNWhx0MPe
-	 5kRu7lDUnOjdCdLsYDf+kRRyniy2VoQIFWydxrQFMsrzOy4tQ44ExWpZIIExmKY6D+9Wv
-	 vCjxm6uMBU5+idU2gHGjpDplIA4MNw3f7IAv+Bxle+sW11aR2xqN8uTRWetJHJ5HFDgz1
-	 Ke8FB9zZIHzsaia28kXhd6gamGhhSkOriCyGlpZkbcxS0ODHm5RkiL8ir+khiFkwBR3l1
-	 YwalXwIGuJYvkFMeDFkjHmBe1QPDpujJeqSRunl/1X8HLzGlqIxAty36Tl6BBtsiT8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b="jQvW/ZBd";
-	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=CfuMSzFn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.177.32
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793670942;
+	b=AGgrVOsYYxvBAWPbg4Y0s8/j1bVVAxhLKwM1ZOhSS0uV3uHqPPlzX4pBwQ17UnnWYeE3
+	 NaGj5x0ZLGKJ/TjljYiaGwC+iJ2Ld5ndqiGQ+iG0NRAP2yVt+cFN/qjFbC/qxwOt4NEdy
+	 pNFDXAeiFqRy6hWA4r8SBHCdKwv6h1iVAmFDyphOOs+Acc1nP4HtTYLx3DifvU8yMJ01u
+	 +UiyOSLRsQUMNZqTxJZ7nypo8Aoekd66GNnumAQuO/81q/K6WAB03TtbblGwUrN0ULAAe
+	 YEIw/J++3qtR/a/p1xj4hd3H9xyrXCd6x4ydiXT2hXSJlK4VmPH/z3kFfnl4ssrddeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670942;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qGDumbZ6QNJHe0qnRFO/h4j9er9Rsffo3+e4MuXt5PY=;
+	b=xZC8Bm6/HGO4aP0kC2r/SYcxaS4mARe4omOz9kfIh+jwACzh3E8p30N4plVRNxi7G8hu
+	 EG+ptc6+knK+BQQVJRmAbQ749w6z+q3HHexjXAcmZQvQVNXE4VmYzsUDnk55TqQBB//AY
+	 eEzMYARtgZkUXCM7yEAJHhgvv/+a6eZKm0YwT50VpGV8IxUKLpnBj1a8G9jNk5QEy7G+2
+	 OLStDFh8sNgo0CZHFI6BxHYfbYuPDP7UbyvTUad0hIF4ypgy4ANdummLaFro7zOsWbXtl
+	 RckSouebIE5EZmt7Y5jij9fxiEVqrR/WIqnbGciYjZGtEnjSWPnceJfmp4eMKQGgYAg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aAtHDulJ;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDE1606A33B;
-	Tue,  3 Nov 2026 01:54:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEDE1606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F58606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:55:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F58606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=jQvW/ZBd;
-	dkim=pass (1024-bit key, unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=CfuMSzFn
-Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2KXeEl3937192;
-	Tue, 3 Nov 2026 01:54:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=13bFW0v9jvf4p8LUMzy5R4OSuAi+NA5C4e1vHREHwAs=; b=
-	jQvW/ZBdYbpoxs8WtV4/xxbMt5bCsbhXrMxvxG8sGyZjK7AV+GrWEqaePkGBkqE4
-	jT5U0ndwQ/fyVNzzCSWI7p7luK1a1KTn/mUEyBT8dIzUkHR8/e0ixwDn1GKhj4eU
-	yuzIA4nsn6/Y+YjPRFZxK3pkn+YYXF1i1BS45WmcHT+hJ6OU9j8nm2KnuGAYERm1
-	DrGDYK5oTWU6/rcP5UU+UpwfeQf54dZlVtZUZgx45YaOgQCJHmZx1Vk4FMFQtgdj
-	rQQAHeLDDUAiSio9xkZ80omKmCXAkRzyKXrHDbrGd7jm9oxzRMshQnOg1S/8JQKs
-	jBZ38GiUuLD0BAi/lCe4dg==
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn8cfu2q6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Tue, 03 Nov 2026 01:54:35 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31h3OF3634914;
-	Tue, 3 Nov 2026 01:54:35 GMT
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012058.outbound.protection.outlook.com [40.93.195.58])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4hq60d0h3y-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
-	Tue, 03 Nov 2026 01:54:35 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e6PIdFmmDicpMpwK2+qw1L3jhKbi3RxrMt/Tf5eRAV7aBer8IdZzAtE9j19wgmXRDV+5/MzxkC2juPaTbb1sQJvfbX1N5skqFBGsGhmOEFD4ntRrH5nI1COTlzpo8+FpRRW0oqh8RmThMuo72MsLyR9zB0PFYNrSdnoRQFoHhp+ddjTx8iu1Qn1rCfIAftGXKZAUAsHI4QxTdmRjCUby0zQC0DRDA0FIBV2L7nc1U4OYGTsDipQu6jD8yzaTJEU45R/24WSt9usHaYCp9hVxn67AoMAzKUo0KRfka/RJcW/0wszQ+QM1N3bGNbQ+jHfkvKra+QFwkgGG38cpqcpA6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=13bFW0v9jvf4p8LUMzy5R4OSuAi+NA5C4e1vHREHwAs=;
- b=aJKs7dNRGCaWC+Jk9nKccglPhnHOi2A+d+In9ErwokdNsOTu8M2Iy9yw10STxYTqWQjoMLJvHtCKixI6+AfMU3kAZQXmY6anfMDOuz3EknbFpe5rGqJqOh7ZDgPZTgmF4zEdBZEhSCC2g7BHwVzR0/0ZXD5r0fH67NZV1KlQB7g7YQkEs5jpCZfndFjTxQ7euCzM6BoZRHxLVcpvBqSrT4ECpNssV5m29CVUXY4JE1OIWOFrj+ZJWrdJHdUmzHDvUNczL4emb9oHlVgUv4toAl6+OU9HzHuqlndh3pEx4XW2v/p6e3+nrEdmHiucfZ2pZO02NebzRUkm2SLvqE3spw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aAtHDulJ
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so2871965a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:55:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=13bFW0v9jvf4p8LUMzy5R4OSuAi+NA5C4e1vHREHwAs=;
- b=CfuMSzFnNjbT2QGPugAir2RJ7vby3yFcZHWnw070yugk0yDxmuuIr2q+taKJvMUN7t0oBPwGvkd91FkSmrHDuGgt//KTGg6RnDfCRImhW/7J636ou78lS9kntPP1o6TaooovsMB09lC57I98bONbekyY7iy1KrtwofOduZeyd/c=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from CH2PR10MB4261.namprd10.prod.outlook.com (2603:10b6:610:7d::23)
- by CH2PR10MB4214.namprd10.prod.outlook.com (2603:10b6:610:a6::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 01:54:32 +0000
-Received: from CH2PR10MB4261.namprd10.prod.outlook.com
- ([fe80::fd17:1c07:31b4:a8aa]) by CH2PR10MB4261.namprd10.prod.outlook.com
- ([fe80::fd17:1c07:31b4:a8aa%6]) with mapi id 15.21.0569.009; Tue, 3 Nov 2026
- 01:54:32 +0000
-Message-ID: <655b611e-9b04-4f6e-abd8-3fefcd6e01ab@oracle.com>
-Date: Mon, 2 Nov 2026 17:54:30 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] vhost-vdpa: fix pinned page leak in
- vhost_vdpa_pa_map() error path
-To: Tal Zussman <tz2294@columbia.edu>, "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        =?UTF-8?Q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>
-Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20261031-vhost-vdpa-unpin-v1-0-94ffc9683256@columbia.edu>
- <20261031-vhost-vdpa-unpin-v1-1-94ffc9683256@columbia.edu>
-Content-Language: en-US
-From: Si-Wei Liu <si-wei.liu@oracle.com>
-Organization: Oracle Corporation
-In-Reply-To: <20261031-vhost-vdpa-unpin-v1-1-94ffc9683256@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0242.namprd03.prod.outlook.com
- (2603:10b6:a03:3a0::7) To CH2PR10MB4261.namprd10.prod.outlook.com
- (2603:10b6:610:7d::23)
+        d=gmail.com; s=20260707; t=1793670941; x=1794275741; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qGDumbZ6QNJHe0qnRFO/h4j9er9Rsffo3+e4MuXt5PY=;
+        b=aAtHDulJAd24yaDyPCZ1dlHh6zxava+NXVhUqPoXdKVimu5EzEg4L3ddFVf3UdBjaP
+         zJdJ0VypB+oX0pEdEeeAGz0TZYf3/D33H2htNsMM5dTXd9pYr2xc88Bmq5Z/ozn1p1Bp
+         8OmEwNF8PRV6of3QC5VclywSD9s4oEDOL0zwHuR/LJeZM8Uoug9rGf3Rs56PCe7g46Lv
+         hUmxOCiXNLRxt4qPI8GZIfPIMnAIZDx2zgq6TsL8lWMnl46dUHmVYchmXE+2Pfp39u64
+         /my+l0DI2+KbxzOta4fL80HVYSGiS+YC1fqi1KUdiTzE6nYjGNqCDlGGqWWxHuedkiiE
+         eALA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793670941; x=1794275741;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qGDumbZ6QNJHe0qnRFO/h4j9er9Rsffo3+e4MuXt5PY=;
+        b=AfQrzbjy62K+tprTLKrpQ+6IMbrDve43IuV8fZppav/y9UrxF8WwPTn2VhvWTKsj6J
+         TJ6mrla7fq2XSZDS3vvhbnRREqYJus8ujdalnQcIFF7AloGf4YbIQeyrhiBLDVuFZ+BO
+         a0rhZsCpleX329/bX42ArRSlZLLgnwd1Wz+bNMfv8gDdty+SlcBYW+7FH2+4wdD6Vl9t
+         v5v2PL27KI5f2UnhEGwhYsZDXG1sy9yHvwyWObwVoN4/vVS1GmN2OmBBNvktVXfdvz54
+         4BXHBip8KGN1VF4PJvAI4Nqw2FEK5MB5DYtiq+QTdChrbC3oCpmauMZdEvT+tt3f8ov7
+         4xhA==
+X-Forwarded-Encrypted: i=1; AKwUvBwf4uR0r67wRiqef9YM93ncMiGw+0TV8F866OT8joub4nr8ZxKWl04MnDqOMVdBxS1ZiJ1lPWRMJpCeTNk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+LgblB/iliPNzkHfaBZfNy5Ir5XvfwSxXTdbNPvE3yNSWbvs8b
+	HH94Z+UumObOXo/Oi+6//wAGBeVGfbT+z0lTpNn3RB8WCsdN9m5vEiR0
+X-Gm-Gg: AYBFou3gSkJro/oZGeCNiRZ4wcvxytEcVeCi45VciUrKIvlGhSZ8krPahZeS2fkL8II
+	uRwlh8rGyOAaYFhRqCRoyTUSfpLh92vN56sjSbcFNjIW05wMZGFpHAcCgHeP9AFCVhDo3iw5ggL
+	RuvmJJ3A1BcxuGKgPXzBEORc8lkzgLQt4Bh1ySgq6sKeUQeCLN+w4ma7zf0iXx6dm7K/r9Dttej
+	+FYrE1JpAqrmOxMKNkH1SFxQKpRw22Vx6kte+yNcBZKwy99yJ2/vna2ckWtyJY4KVVojPSbnatg
+	WwnTvzBiAw/6/miilctQFuYHc5gz1icEgAlYuqu8iggPuquUAJ/dDZE3BKIafRuK9ozZ0tQb25R
+	lvGkTmXfSixKN1fgnrN/PpBHwVVUD/4Y7CuraQHlU/zHlxpdgX1KSnJfQkBjaMkZf/w++rRTJuU
+	pmCqQsvhps9xJ3tIz+iKgTOfT8eeD+CCp+lmV8SkK2p2GRbhXrlWGaveXgyL4ymKdaaykTnHDdF
+	Piynf9ThbcosGQBzL2mY3icXh4pgtDUPgr8GUngfHjKED7XW9FCbg7wbJLN4E56oma/YGRiidCL
+	IEJW+n7M6p+idnB99+QS0E2lfQVj2hDXGj0arKK4p97G0ignvf5AWx9a5pSDrTUYusMGvXp1LBx
+	GePOLeBkK3LRKGTEppTo9YuX17vrcmu+oS8FQoOBGK2c/xg411/QXcYw++L9PvDCv
+X-Received: by 2002:a17:90b:58cb:b0:3ac:a6a5:5743 with SMTP id 98e67ed59e1d1-3ae898168f4mr9219145a91.32.1793670940925;
+        Mon, 02 Nov 2026 17:55:40 -0800 (PST)
+Received: from sanjays-pc.govzhome.govindz.co.nz ([203.94.55.80])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c5844acsm1570730a91.4.2026.11.02.17.55.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 17:55:40 -0800 (PST)
+From: Sanjay Govind <sanjay.govind9@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
+	dmitry.torokhov@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Sanjay Govind <sanjay.govind9@gmail.com>
+Subject: [PATCH v2] HID: santroller: add driver for Santroller controllers
+Date: Tue,  3 Nov 2026 14:53:35 +1300
+Message-ID: <20261103015335.974344-1-sanjay.govind9@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016025403.779635-1-sanjay.govind9@gmail.com>
+References: <20261016025403.779635-1-sanjay.govind9@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,182 +101,746 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR10MB4261:EE_|CH2PR10MB4214:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c191dec-a11c-4832-cb75-08df394d67aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|42112799006|1800799024|23010399003|366016|6133799003|10067099003|18002099003|261102123227099003|22082099003|56012099006|4143699003|261022105027099003|261022075727099003|261026140227099003|261028144727099003|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	H3ihjVouzrbtuPGseSKBpU/k4qzXrDTneaDF0qkcwDzxFBR/iu7RaF1l0oa8Y+TbrKVtaqijW2CnJT33TjLydPcgVY0rxZEfEK3o9HepuWvthNbCDJnx30uzZ4VN+eO27V2brkTEA90uI7SM3i/cDYqdjVE9Em4FcPlTCE0sKa835TfaYj4GqLEcOHAOz+Wj+9PskJJDcRAThTPJpGtLyYL9XnitZNbSyj0mKMrpVRBdMhPwGTCPGvOr0gk6jLakb4i9V77J9RDgYa5dWDFLSG2aGHIGCo3vn1WTgqDTx7/ENShRTRqaKHouNAN54tX4B/ZGw8HSdZ/6MY5yqKt9rxBipJaE8cQd3Th7sgaHptX3NazczE7SxalsysEP/VQ0gnrNx6+7QwWwK6fDggfCSSl68ANDL1Lubb8nVSqO7scsYMoJX69+h21islilULlk4+saEQlHcrN0iFzVw/DcL4Wc+WSaP+G0rToCPv3MpkZ2aAs2n26WphhyyfVWRLSxKpi5++CIYLMztoLXJ3WETC3UIByFGxe6VNNQKVRCTKQOudntOVBXJtlrMy4dZVprokLKhLdMS/1swuhwsQjMol6LZZ0BNbtcCZADdhR5B8dOUYCAANFdG6khTYNcGeDa5gddEu45nEkxSiVpqRrpyhvysgG1ojKCgmZ1kXvcPoI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR10MB4261.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(42112799006)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(18002099003)(261102123227099003)(22082099003)(56012099006)(4143699003)(261022105027099003)(261022075727099003)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bkd0TUFFSjhmdW5hQmFGRTlMQjBVbDBqQ05CbmdaWHdYVUdpekJEaVZyTFRK?=
- =?utf-8?B?MkJwZ0c1NVlqaE0vaGlKUmxhY2RqRlY3QWwzWUdCRG9UQmtKQjQrNkJFVHpa?=
- =?utf-8?B?aFdnZmdzYmFYLzVRTThjbEtjYmRyOHhrU2I5bndXb3hzYnF1SFB3S0FpUVVE?=
- =?utf-8?B?TnVqWGhpOW1vbGVJQzFTTjdITlVuS2RuZTAySjZUQkIvS0gxNjBOVFA1ejI2?=
- =?utf-8?B?d0lGOWlneDcyTGRSdm8zaFZEcHZIRmZtSDkrUXZ4RFMrc0FaNUpsWmZPNVVX?=
- =?utf-8?B?WWM0WXJLR0JDNmg1Z3pmbkY1RGR2bDUrdllLVHU0QUJ0eW5wY3RpQmVYVzk2?=
- =?utf-8?B?K2NnNGhyU1lneWowdGwwU2E5UHg5S1V4QWNiU0dYR2dBeVNWODZuOVZIV215?=
- =?utf-8?B?YjBkSlltL3p2SFhzT0t4R1RnRWZaM1dJRy9pUG5USzhPYmp3T3E2U1VhSVBC?=
- =?utf-8?B?cjJXUk55czVMQWdIRmp0SDFlWi95R0tTbEF2SEg0c2IvMnplV2pNeitFWHpG?=
- =?utf-8?B?cFFOK25HRjc4QVhkME4wTzJzZGdFZW44TnpzRUFqZEI2NTJqaXVQTTkydVVo?=
- =?utf-8?B?SmtJUVRRSkIyUCtFdjlqa29nSEJ1d0NNb1FQb3haZ2JtU0NSRGQza1BWaXNI?=
- =?utf-8?B?eWgyZTJqdU5QWVNKSnlYTDBaWml1UC8vODVZQWNuUGlOYkFZL1pFek9WRGpX?=
- =?utf-8?B?RFBHNjZXdTZybERFNEtGSlFxNlFFM1E1WFhhYWNUMG95bTJPT1YxazNLTXg1?=
- =?utf-8?B?T1RyUGg5ejZGeXpydmZjZnhHUEcvMFc2M01ham5sSHAyeUVncnBtZy9BdTFW?=
- =?utf-8?B?VjQwRHJkTW8yd1ZNUm5qczNKTVBNUmhEdGh0UzhmbGIzaTNNRHJqUVpGTFlr?=
- =?utf-8?B?dnlicFhuU3g3SnIyTEpkMWg4dEtCd0t3OEpNM2NteU5aVWRIWnJBUkJoVm8y?=
- =?utf-8?B?Tk1WMHRqTVNJaFZzZ0JwSEZnanJ6eUs5cVdYU3M4UE92eCt0d3IvMG43ajNR?=
- =?utf-8?B?YTBVa3FqODlyMWZWYk5MbzRFYjVUSDVvTjNnZllaYU9ZS2ZBUGgvVHJrNjU5?=
- =?utf-8?B?UTBXaFZCYURkMkVreW9KaHdLb205Z3RtUkdSa3ZrNEx3emMxQ3UyUHRHS3pn?=
- =?utf-8?B?UG90aDBvKzhGM1pUVzdtRWx1UEVJeDhRaWpRT2owRW9sZmpQM0Y1bjNlVk40?=
- =?utf-8?B?V0tKVklUREp6R0tNVHoxaW95UENSckppa3BxVVJGemlOdDM2M1phVlVQdFY0?=
- =?utf-8?B?YlBLcGlBQ3pXOGt1WjJpMERlaituZUEvcWd4M3kreEQyeTFsbHRHN3NMbzh0?=
- =?utf-8?B?a2EyanJ3cDNuY0ZWTEYzbkFRd2p0OE1vMVFGUVE2T0wrbUpDdUpNOEpscEFV?=
- =?utf-8?B?NXJLZkhQQ0syREZjcncwTUFIMlJTVVM0UWNSZDJoWGt1SlJuVXFGTWtnU29y?=
- =?utf-8?B?dGd3aGtlNkFwNTFDREpYRU5kNzY1c21QU0Uxc1FsRWhvcFVhYTN6ZFNHMDhZ?=
- =?utf-8?B?eGR6QXlhUDNQUkhSeDhHaEo3bTRWYnN5ZlZCZ1N4Zitla2pzUzNSWDFBcVRx?=
- =?utf-8?B?dmhOWnlrb0tPUWxSZEtWU29HT3JxTGNBQnI4b0ZVem92T3lLVlZCampCaUEz?=
- =?utf-8?B?S2Y0RWZWVjdhRjdjQWxFR1laSzU3QjVTSkt0M0xBMnBRUlZHY0lTWXF1UTI3?=
- =?utf-8?B?ZGRTL20vTmIrak5YN1JOUE54WVh1SmRRc3JRRlFsaXJvbTFveVFFNUVjSkoy?=
- =?utf-8?B?NDhlc2pyOTU0cnVoOVd1TlVweXNSL1BYSW85RGpPQXZlNVZCNmt6djNENnJj?=
- =?utf-8?B?MXc4akgwVEFTb0RITmZZQUwwTVhIaE1OOUlKeE5rOUJJcXJJR2IyN0pPWXZx?=
- =?utf-8?B?aXRtcllyYVduNGFacDBCbmZNTFkvY3U3M1VUYlY1RnB2N1N5YnRKNmVPVzJN?=
- =?utf-8?B?NEZjbkJBOHF0d1FiVDNEYlhjbTEyR1lQblZPVzQ0aXlRMythMXRxbEtOT3lZ?=
- =?utf-8?B?ZlJ4U1ZmdXZFQ2JCSS81SnhtemFTNTAxc2RyVWFpV3RoK2NBbGk3M3d2YW5I?=
- =?utf-8?B?SjRoUnU0OCtJUWZxamluaHpyRGhiZ2NjRmRNNm5TSTBzOEpMaE9OS3ZvdXRH?=
- =?utf-8?B?TTg4cUN5MFl6TWt3aWtjcE1objA0cnlHQnlHK1FGUExpVW9qdjVJRGRYUEVr?=
- =?utf-8?B?LzdjczhITmJ5eVYyZHdXZ21jY2poQmM0YmJsMWJ3T0VTSHhmeDduQUJKNHdX?=
- =?utf-8?B?b2tTenFLWk0wMUxCNHAzVEtJUnVHMEpweFkvQUpiTElQS0hXWFpmd3l0cWI3?=
- =?utf-8?B?YXA4VCtGNUJIMklPSzhOL0s3bDNObGJocTY4cWFSWDRKdWo1ZjYwdz09?=
-X-Exchange-RoutingPolicyChecked:
-	X1U2aBIyu57iubTQG4vJ2WX/L/zav7kHK7kPtwmVUpqRDJ3Eb3iiRPZPH4yP8XW/WQqDkaJSBaPxRMYC8iSND/DfCx4jcHGnZq9arqI0tac+g9+ZWZoKUcvZYqfm6gZy9ymBmfim1/O8FWbrNsUPJEQFoWR1eH6QwkkoziJ+4UWxrvGJQUHN06vbfMGXxQPnt9hsh2csuSSKL+HN3bN5IDYZ2FL/dxSy/0ukgvpxUHl3V3dUY3XVVGZKbbL/ucqg0vOP5qV30AX71tfGwNaDwGNDS3CP05iXdmJoG/9re20dqcmgcDwQGeQXox6hIHpSetbdiNKM+F6W/kyTcV/zGQ==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	dqD7eCDwCZ6uH0fX99XBTh2pV1BPsQzS0OdAXd6AdqsaljikyrwjEvJc9qILiHO3YFpusoD3yQk5NubHbRw4dgIK84JDCChcUVJVu8NaBEe3f1E7dsNbynBL8UdzjMNI6yXK73qrf0q95OKraYUT+5cFH3jcjmWCYcsDfqw0jFbHcEf5SaI4LuQ0ca3NBsyWSLODRHK9w/FnXhMk50JpH7oL3mr/84RsDmpOHpzaOJxem41HC1SM8Ivby0ZQU1OoP198/aw5qBPuUGcvLIX7gYI3DtjZawZ49x52D01yxZUK9RW7T8L/vF3ngn4plb3hWL3yineD9TqSn3wKvIwAcy4QLvLpl6TeFRbL3CH2t1Vp/BtdoYfWkBeuN1COlvYO0Mzgi0d+nJtfO0NymuYyTYI50Do+O8czmYnQBjmmpH0wldQzrdyME4P85sXHWKKirS7Ye/U7BSs9rOcLeoeTpNtvTMC/k6861PSjUoY2weAXvkrKrLOJUmHU9/t/H7Bz78brU3LHq/lDIzaREm+62rC6vCEBc/vuqtHGz3wpgky+wMYSt5InwFN23TdITQmVHIgEx8bG/IUgIbPERIiqsxoMwgajpTY3O+FCO/wieyE=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c191dec-a11c-4832-cb75-08df394d67aa
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR10MB4261.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 01:54:32.6372
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h9aCxxtY1AicYxSzQCBwoS/Y3l5fZfjgqaAt7/BuBzi4HtdXut9riPk5z44Ipy4YoD1DedKrOVR7CAzV+OyniA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR10MB4214
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 adultscore=0
- mlxlogscore=999 phishscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.22.0-2610300000 definitions=main-2611030007
-X-Proofpoint-ORIG-GUID: IL6CG2ZHmGlNWwU05X9R9V4gEk8A3_kk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAwNyBTYWx0ZWRfXzq/mD3YVONac
- 0FmB7IFYatR4ejtk6w8YHYTOdNmtpCiW9f9WvRntaZTnjG9fvO5RAv0t6HDK80/J4mGAxZF+i0h
- 0KZmMx+mklbtt2BP5mu7kbNSr7q8HJoV7P7Y0PR2SDy8SQZcZBo4PHDX2puSsL8/yCI0ufkGvKJ
- y/jdxhDLjhOLeJMfd8zUn5Sov6iR48VL/U+UfRzlcVS0TtGAWbPbGRW8lCi4zDICysKmC+AZJYe
- MNJyW3ii/xi2DKx+s0mJUzSC5T8DXQwerkpD7hR1woLJcDl3SMYlFeVxDnF6rR9BI3tn12JXSie
- U+2G6N7AAiPnFTuP7HgWHwwn/QWKb33bSNRl5MoYqVSVVgq7hQpq1xLqlLrbXriYcpfkDVPUktP
- sqilPUkIV00cQvN25c/9lc2tx8mlG1N2bOlJb3r0eUHjZreTpUQkcX8IuthnPh+YvTQI2OyUb0T
- jU5Smj4kZtJonomFaASvI3o2d1aiPz7ywAzNeyag=
-X-Proofpoint-GUID: IL6CG2ZHmGlNWwU05X9R9V4gEk8A3_kk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAwNyBTYWx0ZWRfX7VXztsL85LrY
- xzKDAZefDWs7QugYGZU2vtatpAu/ym04R74SISb23IG0Tqgc2O6lBgUjUrvMDsJZYS/TiivldAw
- RyBW8HcAxd/hNW5h8Fh+vBlBIOqcYwIl3Bcjq+807jm/giBWSbNA
-X-Authority-Analysis: v=2.4 cv=OZQNnRTY c=1 sm=1 tr=0 ts=6ae93edb b=1 cx=c_pps
- a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=BqU2WV_vvsyTyxaotp0D:22 a=VwQbUJbxAAAA:8
- a=yPCof4ZbAAAA:8 a=fVNGNZ_F2ZD5tW3CtwYA:9 a=QEXdDO2ut3YA:10
- a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12101
+Content-Transfer-Encoding: 8bit
 
-Good catch! Thanks for the fix, it looks good to me.
+Santroller is an open source firmware for DIY and modded game
+controllers and instruments: https://github.com/Santroller/Santroller
 
-On 10/31/2026 10:45 AM, Tal Zussman wrote:
-> When pin_user_pages() or vhost_vdpa_map() fails, vhost_vdpa_pa_map()
-> is supposed to unpin the pages pinned after the last successfully
-> mapped chunk, i.e. the range [map_pfn, last_pfn]. The unpin is guarded
-> by nchunks, but nchunks is reset to 0 every time a chunk is mapped from
-> inside the current page list, so a failure after any such boundary
-> leaves that pending range pinned forever. With physically scattered
-> memory nearly every page list contains a boundary, so the leak happens
-> on practically every failed IOTLB update.
->
-> The pending range is non-empty exactly when a page has been pinned,
-> which last_pfn already tells us, so drop nchunks and test last_pfn.
->
-> Fixes: ad89653f79f1 ("vhost-vdpa: fix page pinning leakage in error path (rework)")
-> Cc: stable@vger.kernel.org
-Acked-by: Si-Wei Liu <si-wei.liu@oracle.com>
+Santroller devices work like hubs: a user can connect several
+instruments and controllers to one device, and on USB each active
+profile appears as its own HID gamepad interface. On current firmware,
+each of these interfaces answers a vendor features report (usage
+0xff00:0x2882) with the emulated controller type and a set of
+capability bits.
 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->   drivers/vhost/vdpa.c | 8 ++------
->   1 file changed, 2 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
-> index ff7d90719171..d9af728942b3 100644
-> --- a/drivers/vhost/vdpa.c
-> +++ b/drivers/vhost/vdpa.c
-> @@ -1151,7 +1151,7 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
->   	unsigned long list_size = PAGE_SIZE / sizeof(struct page *);
->   	unsigned int gup_flags = FOLL_LONGTERM;
->   	unsigned long npages, cur_base, map_pfn, last_pfn = 0;
-> -	unsigned long lock_limit, sz2pin, nchunks, i;
-> +	unsigned long lock_limit, sz2pin, i;
->   	unsigned long page_offset;
->   	u64 start = iova;
->   	long pinned;
-> @@ -1187,7 +1187,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
->   
->   	cur_base = uaddr & PAGE_MASK;
->   	iova &= PAGE_MASK;
-> -	nchunks = 0;
->   
->   	while (npages) {
->   		sz2pin = min_t(unsigned long, npages, list_size);
-> @@ -1202,7 +1201,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
->   			}
->   			goto out;
->   		}
-> -		nchunks++;
->   
->   		if (!last_pfn)
->   			map_pfn = page_to_pfn(page_list[0]);
-> @@ -1233,7 +1231,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
->   
->   				map_pfn = this_pfn;
->   				iova += csize;
-> -				nchunks = 0;
->   			}
->   
->   			last_pfn = this_pfn;
-> @@ -1248,7 +1245,7 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
->   			     PFN_PHYS(map_pfn), perm, NULL);
->   out:
->   	if (ret) {
-> -		if (nchunks) {
-> +		if (last_pfn) {
->   			unsigned long pfn;
->   
->   			/*
-> @@ -1260,7 +1257,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
->   			 * the corresponding unpinning will be handled by
->   			 * vdpa_unmap().
->   			 */
-> -			WARN_ON(!last_pfn);
->   			for (pfn = map_pfn; pfn <= last_pfn; pfn++)
->   				unpin_user_page(pfn_to_page(pfn));
->   		}
->
-> -- 
-> 2.39.5
+Inputs are left to the generic HID input layer, as the report
+descriptor already describes the buttons, axes and d-pad. Since users
+name each profile, and on USB the firmware puts that name in the
+interface string, the driver uses it to name the input device, so each
+connected instrument or controller can be told apart.
 
+The driver also handles the outputs the device reports supporting:
+rumble, player LEDs, an RGB indicator LED and the euphoria LED of DJ
+Hero turntables.
+
+The configuration interface and devices whose report descriptor lacks
+the features report are left to hid-generic. Devices that advertise the
+report but fail to answer it are still connected as plain gamepads.
+
+Signed-off-by: Sanjay Govind <sanjay.govind9@gmail.com>
+---
+ MAINTAINERS                  |   6 +
+ drivers/hid/Kconfig          |  12 +
+ drivers/hid/Makefile         |   1 +
+ drivers/hid/hid-ids.h        |   4 +
+ drivers/hid/hid-santroller.c | 611 +++++++++++++++++++++++++++++++++++
+ 5 files changed, 634 insertions(+)
+ create mode 100644 drivers/hid/hid-santroller.c
+
+Changes since v1:
+- Serialize concurrent player LED updates under the driver lock.
+- Move output enabling into a helper to keep probe error handling
+  consistently goto-based.
+- Use a longer feature-report timeout over Bluetooth and still bind as a
+  plain gamepad when a device advertises but does not answer the report.
+- Drop the subtype sysfs attribute and its ABI documentation; SDL can
+  identify the controller from USB descriptors already exposed through
+  sysfs.
+- Rebase onto the current hid/for-next.
+
+AI assistance was used to review the v1 thread, prepare the rebase, and
+remove the subtype sysfs interface.
+
+Testing:
+- git diff --check
+- Built hid-santroller.ko against the running 7.2.11-arch1-1 kernel.
+- Bound both Santroller HID interfaces to the driver; verified live input
+  events, tested the player LED and RGB indicator and restored their
+  original states, and verified rumble with fftest.
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4a69da715c58..028c8f7f40fa 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11703,6 +11703,12 @@ L:	linux-input@vger.kernel.org
+ S:	Maintained
+ F:	drivers/hid/hid-pulsar.c
+ 
++HID SANTROLLER DRIVER
++M:	Sanjay Govind <sanjay.govind9@gmail.com>
++L:	linux-input@vger.kernel.org
++S:	Maintained
++F:	drivers/hid/hid-santroller.c
++
+ HID SENSOR HUB DRIVERS
+ M:	Jiri Kosina <jikos@kernel.org>
+ M:	Jonathan Cameron <jic23@kernel.org>
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index 2481bc01c435..2fab7003ce18 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -1138,6 +1138,18 @@ config HID_SAMSUNG
+ 	help
+ 	Support for Samsung InfraRed remote control or keyboards.
+ 
++config HID_SANTROLLER
++	tristate "Santroller game controller support"
++	depends on LEDS_CLASS_MULTICOLOR
++	select INPUT_FF_MEMLESS
++	help
++	  Support for game controllers and instruments running the Santroller
++	  firmware, including rumble, player LEDs, the RGB indicator LED and
++	  the DJ Hero turntable euphoria LED.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called hid-santroller.
++
+ config HID_SEMITEK
+ 	tristate "Semitek USB keyboards"
+ 	help
+diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
+index 43a8eb0f389b..afe88185289b 100644
+--- a/drivers/hid/Makefile
++++ b/drivers/hid/Makefile
+@@ -131,6 +131,7 @@ obj-$(CONFIG_HID_ROCCAT)	+= hid-roccat.o hid-roccat-common.o \
+ obj-$(CONFIG_HID_RMI)		+= hid-rmi.o
+ obj-$(CONFIG_HID_SAITEK)	+= hid-saitek.o
+ obj-$(CONFIG_HID_SAMSUNG)	+= hid-samsung.o
++obj-$(CONFIG_HID_SANTROLLER)	+= hid-santroller.o
+ obj-$(CONFIG_HID_SEMITEK)	+= hid-semitek.o
+ obj-$(CONFIG_HID_SIGMAMICRO)	+= hid-sigmamicro.o
+ obj-$(CONFIG_HID_SMARTJOYPLUS)	+= hid-sjoy.o
+diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+index 91319aa6516d..ed3940cd36cd 100644
+--- a/drivers/hid/hid-ids.h
++++ b/drivers/hid/hid-ids.h
+@@ -1216,6 +1216,10 @@
+ #define USB_VENDOR_ID_PHILIPS		0x0471
+ #define USB_DEVICE_ID_PHILIPS_IEEE802154_DONGLE 0x0617
+ 
++#define USB_VENDOR_ID_PID_CODES		0x1209
++#define USB_DEVICE_ID_SANTROLLER	0x2882
++#define USB_DEVICE_ID_SANTROLLER_V2	0x2883
++
+ #define USB_VENDOR_ID_PI_ENGINEERING	0x05f3
+ #define USB_DEVICE_ID_PI_ENGINEERING_VEC_USB_FOOTPEDAL	0xff
+ 
+diff --git a/drivers/hid/hid-santroller.c b/drivers/hid/hid-santroller.c
+new file mode 100644
+index 000000000000..a2048e4ea321
+--- /dev/null
++++ b/drivers/hid/hid-santroller.c
+@@ -0,0 +1,611 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * HID driver for Santroller game controllers
++ *
++ * Santroller is an open source firmware for DIY and modded game
++ * controllers and instruments: https://github.com/Santroller/Santroller
++ *
++ * Copyright (c) 2026 Sanjay Govind <sanjay.govind9@gmail.com>
++ */
++
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/completion.h>
++#include <linux/hid.h>
++#include <linux/idr.h>
++#include <linux/input.h>
++#include <linux/led-class-multicolor.h>
++#include <linux/leds.h>
++#include <linux/module.h>
++#include <linux/spinlock.h>
++#include <linux/usb.h>
++#include <linux/workqueue.h>
++#include <dt-bindings/leds/common.h>
++
++#include "hid-ids.h"
++
++#define SANTROLLER_REPORT_ID_OUTPUT	0x01
++#define SANTROLLER_REPORT_ID_FEATURES	0x10
++
++/* Only devices exposing this usage support the features report */
++#define SANTROLLER_FEATURES_USAGE	(HID_UP_MSVENDOR | 0x2882)
++
++#define SANTROLLER_OUTPUT_REPORT_SIZE	11
++#define SANTROLLER_FEATURES_REPORT_SIZE	3
++
++#define SANTROLLER_FEATURES_RETRIES	8
++#define SANTROLLER_FEATURES_TIMEOUT	msecs_to_jiffies(100)
++/* Over Bluetooth, the host may still be enabling notifications for the reply */
++#define SANTROLLER_FEATURES_TIMEOUT_BT	msecs_to_jiffies(250)
++
++#define SANTROLLER_CMD_RUMBLE		0x5a
++#define SANTROLLER_CMD_PLAYER_LED	0x5c
++#define SANTROLLER_CMD_RGB_LED		0x5d
++
++#define SANTROLLER_PLAYER_LED_OFF	0xff
++#define SANTROLLER_NUM_PLAYER_LEDS	4
++
++/* Capability bits from the features report */
++#define SANTROLLER_CAP_PLAYER_LEDS	BIT(0)
++#define SANTROLLER_CAP_RGB_LED		BIT(1)
++#define SANTROLLER_CAP_RUMBLE		BIT(3)
++#define SANTROLLER_CAP_EUPHORIA_LED	BIT(6)
++
++static DEFINE_IDA(santroller_player_ids);
++
++struct santroller {
++	struct hid_device *hdev;
++	struct input_dev *input;
++
++	struct completion features_done;
++	const char *name;
++	u8 caps;
++
++	int player_id;
++	struct led_classdev player_leds[SANTROLLER_NUM_PLAYER_LEDS];
++	struct led_classdev_mc rgb_led;
++	struct mc_subled rgb_subleds[3];
++	struct led_classdev euphoria_led;
++
++	spinlock_t lock;		/* protects the output state below */
++	struct work_struct output_work;
++	bool output_enabled;
++	bool rumble_dirty;
++	bool player_dirty;
++	bool rgb_dirty;
++	u8 rumble[2];
++	u8 player;
++	u8 rgb[3];
++	u8 *output_buf;
++};
++
++static int santroller_send_report(struct hid_device *hdev, u8 *buf, size_t len)
++{
++	int ret;
++
++	ret = hid_hw_output_report(hdev, buf, len);
++	if (ret == -ENOSYS)
++		ret = hid_hw_raw_request(hdev, buf[0], buf, len,
++					 HID_OUTPUT_REPORT, HID_REQ_SET_REPORT);
++
++	return ret;
++}
++
++/* Must be called with sc->lock held */
++static void santroller_schedule_output(struct santroller *sc)
++{
++	if (sc->output_enabled)
++		schedule_work(&sc->output_work);
++}
++
++/*
++ * The firmware handles a single command per output report, so build the
++ * next pending one into buf. Returns false if nothing is pending.
++ */
++static bool santroller_next_command(struct santroller *sc, u8 *buf)
++{
++	guard(spinlock_irqsave)(&sc->lock);
++
++	memset(buf, 0, SANTROLLER_OUTPUT_REPORT_SIZE);
++	buf[0] = SANTROLLER_REPORT_ID_OUTPUT;
++
++	if (sc->rumble_dirty) {
++		sc->rumble_dirty = false;
++		buf[1] = SANTROLLER_CMD_RUMBLE;
++		buf[2] = sc->rumble[0];
++		buf[3] = sc->rumble[1];
++		return true;
++	}
++
++	if (sc->player_dirty) {
++		sc->player_dirty = false;
++		buf[1] = SANTROLLER_CMD_PLAYER_LED;
++		buf[2] = sc->player;
++		return true;
++	}
++
++	if (sc->rgb_dirty) {
++		sc->rgb_dirty = false;
++		buf[1] = SANTROLLER_CMD_RGB_LED;
++		memcpy(&buf[2], sc->rgb, sizeof(sc->rgb));
++		return true;
++	}
++
++	return false;
++}
++
++static void santroller_output_work(struct work_struct *work)
++{
++	struct santroller *sc = container_of(work, struct santroller, output_work);
++	int ret;
++
++	while (santroller_next_command(sc, sc->output_buf)) {
++		ret = santroller_send_report(sc->hdev, sc->output_buf,
++					     SANTROLLER_OUTPUT_REPORT_SIZE);
++		if (ret < 0)
++			hid_warn_ratelimited(sc->hdev,
++					     "failed to send output report: %d\n", ret);
++	}
++}
++
++static int santroller_play_effect(struct input_dev *input, void *data,
++				  struct ff_effect *effect)
++{
++	struct hid_device *hdev = input_get_drvdata(input);
++	struct santroller *sc = hid_get_drvdata(hdev);
++
++	if (effect->type != FF_RUMBLE)
++		return 0;
++
++	guard(spinlock_irqsave)(&sc->lock);
++
++	sc->rumble[0] = effect->u.rumble.strong_magnitude >> 8;
++	sc->rumble[1] = effect->u.rumble.weak_magnitude >> 8;
++	sc->rumble_dirty = true;
++	santroller_schedule_output(sc);
++
++	return 0;
++}
++
++/*
++ * The firmware shows a single player number, so the lowest lit player LED
++ * wins. Turning all of them off turns the indicator off.
++ *
++ * Different player LEDs can be set concurrently, so look at all of them
++ * under the lock, where the last caller is sure to see every update.
++ */
++static void santroller_player_led_set(struct led_classdev *led,
++				      enum led_brightness value)
++{
++	struct hid_device *hdev = to_hid_device(led->dev->parent);
++	struct santroller *sc = hid_get_drvdata(hdev);
++	int i;
++
++	guard(spinlock_irqsave)(&sc->lock);
++
++	sc->player = SANTROLLER_PLAYER_LED_OFF;
++	for (i = 0; i < SANTROLLER_NUM_PLAYER_LEDS; i++) {
++		if (sc->player_leds[i].brightness) {
++			sc->player = i;
++			break;
++		}
++	}
++	sc->player_dirty = true;
++	santroller_schedule_output(sc);
++}
++
++static void santroller_rgb_led_set(struct led_classdev *led,
++				   enum led_brightness brightness)
++{
++	struct led_classdev_mc *mc = lcdev_to_mccdev(led);
++	struct santroller *sc = container_of(mc, struct santroller, rgb_led);
++	int i;
++
++	led_mc_calc_color_components(mc, brightness);
++
++	guard(spinlock_irqsave)(&sc->lock);
++
++	for (i = 0; i < ARRAY_SIZE(sc->rgb); i++)
++		sc->rgb[i] = mc->subled_info[i].brightness;
++	sc->rgb_dirty = true;
++	santroller_schedule_output(sc);
++}
++
++static int santroller_register_player_leds(struct santroller *sc)
++{
++	static const char * const functions[] = {
++		LED_FUNCTION_PLAYER1, LED_FUNCTION_PLAYER2,
++		LED_FUNCTION_PLAYER3, LED_FUNCTION_PLAYER4,
++	};
++	struct hid_device *hdev = sc->hdev;
++	struct led_classdev *led;
++	u8 player = sc->player_id % SANTROLLER_NUM_PLAYER_LEDS;
++	int i, ret;
++
++	for (i = 0; i < SANTROLLER_NUM_PLAYER_LEDS; i++) {
++		led = &sc->player_leds[i];
++		led->name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "%s::%s",
++					   dev_name(&sc->input->dev), functions[i]);
++		if (!led->name)
++			return -ENOMEM;
++
++		led->brightness = i == player;
++		led->max_brightness = 1;
++		led->brightness_set = santroller_player_led_set;
++
++		ret = devm_led_classdev_register(&hdev->dev, led);
++		if (ret)
++			return ret;
++	}
++
++	/* Show the assigned player number until userspace says otherwise */
++	guard(spinlock_irqsave)(&sc->lock);
++
++	sc->player = player;
++	sc->player_dirty = true;
++	santroller_schedule_output(sc);
++
++	return 0;
++}
++
++/* The firmware takes the euphoria LED as a rumble command with equal values */
++static void santroller_euphoria_led_set(struct led_classdev *led,
++					enum led_brightness brightness)
++{
++	struct santroller *sc = container_of(led, struct santroller, euphoria_led);
++
++	guard(spinlock_irqsave)(&sc->lock);
++
++	sc->rumble[0] = brightness;
++	sc->rumble[1] = brightness;
++	sc->rumble_dirty = true;
++	santroller_schedule_output(sc);
++}
++
++static int santroller_register_euphoria_led(struct santroller *sc)
++{
++	struct hid_device *hdev = sc->hdev;
++	struct led_classdev *led = &sc->euphoria_led;
++
++	led->name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "%s::%s",
++				   dev_name(&sc->input->dev),
++				   LED_FUNCTION_INDICATOR);
++	if (!led->name)
++		return -ENOMEM;
++
++	led->max_brightness = 255;
++	led->brightness_set = santroller_euphoria_led_set;
++
++	return devm_led_classdev_register(&hdev->dev, led);
++}
++
++static int santroller_register_rgb_led(struct santroller *sc)
++{
++	struct hid_device *hdev = sc->hdev;
++	struct led_classdev *led = &sc->rgb_led.led_cdev;
++
++	sc->rgb_subleds[0].color_index = LED_COLOR_ID_RED;
++	sc->rgb_subleds[1].color_index = LED_COLOR_ID_GREEN;
++	sc->rgb_subleds[2].color_index = LED_COLOR_ID_BLUE;
++	sc->rgb_led.subled_info = sc->rgb_subleds;
++	sc->rgb_led.num_colors = ARRAY_SIZE(sc->rgb_subleds);
++
++	led->name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "%s:rgb:indicator",
++				   dev_name(&sc->input->dev));
++	if (!led->name)
++		return -ENOMEM;
++
++	led->brightness = 255;
++	led->max_brightness = 255;
++	led->brightness_set = santroller_rgb_led_set;
++
++	return devm_led_classdev_multicolor_register(&hdev->dev, &sc->rgb_led);
++}
++
++/* Name the gamepad input device and add rumble before it is registered */
++static int santroller_input_configured(struct hid_device *hdev,
++				       struct hid_input *hi)
++{
++	struct santroller *sc = hid_get_drvdata(hdev);
++	struct input_dev *input = hi->input;
++	int ret;
++
++	if (!sc || sc->input)
++		return 0;
++
++	if (hi->application != HID_GD_GAMEPAD &&
++	    hi->application != HID_GD_JOYSTICK)
++		return 0;
++
++	if (sc->name)
++		input->name = sc->name;
++
++	if (sc->caps & SANTROLLER_CAP_RUMBLE) {
++		input_set_capability(input, EV_FF, FF_RUMBLE);
++		ret = input_ff_create_memless(input, NULL, santroller_play_effect);
++		if (ret)
++			return ret;
++	}
++
++	sc->input = input;
++	return 0;
++}
++
++static int santroller_raw_event(struct hid_device *hdev,
++				struct hid_report *report, u8 *data, int size)
++{
++	struct santroller *sc = hid_get_drvdata(hdev);
++
++	if (sc && data[0] == SANTROLLER_REPORT_ID_FEATURES &&
++	    size >= SANTROLLER_FEATURES_REPORT_SIZE &&
++	    !completion_done(&sc->features_done)) {
++		sc->caps = data[2];
++		complete(&sc->features_done);
++	}
++
++	return 0;
++}
++
++/* The device answers the features command with an input report */
++static int santroller_get_features(struct santroller *sc)
++{
++	u8 *buf __free(kfree) = kzalloc(2, GFP_KERNEL);
++	unsigned long timeout = SANTROLLER_FEATURES_TIMEOUT;
++	int i, ret = -ETIMEDOUT;
++
++	if (!buf)
++		return -ENOMEM;
++
++	if (sc->hdev->bus == BUS_BLUETOOTH)
++		timeout = SANTROLLER_FEATURES_TIMEOUT_BT;
++
++	for (i = 0; i < SANTROLLER_FEATURES_RETRIES; i++) {
++		reinit_completion(&sc->features_done);
++
++		buf[0] = SANTROLLER_REPORT_ID_FEATURES;
++		buf[1] = 0;
++		ret = santroller_send_report(sc->hdev, buf, 2);
++		if (ret < 0)
++			continue;
++
++		if (wait_for_completion_timeout(&sc->features_done, timeout))
++			return 0;
++
++		ret = -ETIMEDOUT;
++	}
++
++	return ret;
++}
++
++static bool santroller_has_features_report(struct hid_device *hdev)
++{
++	struct hid_report *report;
++
++	report = hdev->report_enum[HID_OUTPUT_REPORT].report_id_hash[SANTROLLER_REPORT_ID_FEATURES];
++	if (!report || !report->maxfield || !report->field[0]->maxusage)
++		return false;
++
++	return report->field[0]->usage[0].hid == SANTROLLER_FEATURES_USAGE;
++}
++
++/*
++ * Each profile on a USB device gets its own interface, named after the
++ * profile through the interface string.
++ */
++static const char *santroller_profile_name(struct hid_device *hdev)
++{
++	struct usb_interface *intf;
++	const char *name;
++
++	if (!hid_is_usb(hdev))
++		return NULL;
++
++	intf = to_usb_interface(hdev->dev.parent);
++	name = READ_ONCE(intf->cur_altsetting->string);
++	if (!name || !*name)
++		return NULL;
++
++	return devm_kstrdup(&hdev->dev, name, GFP_KERNEL);
++}
++
++static void santroller_start_output(struct santroller *sc)
++{
++	guard(spinlock_irqsave)(&sc->lock);
++
++	sc->output_enabled = true;
++}
++
++static void santroller_stop_output(struct santroller *sc)
++{
++	scoped_guard(spinlock_irqsave, &sc->lock)
++		sc->output_enabled = false;
++
++	cancel_work_sync(&sc->output_work);
++}
++
++static int santroller_probe(struct hid_device *hdev,
++			    const struct hid_device_id *id)
++{
++	struct santroller *sc;
++	int ret;
++
++	ret = hid_parse(hdev);
++	if (ret) {
++		hid_err(hdev, "parse failed\n");
++		return ret;
++	}
++
++	/*
++	 * Older firmware and the configuration interface don't support the
++	 * features report, leave those to the generic HID handling.
++	 */
++	if (!santroller_has_features_report(hdev))
++		return hid_hw_start(hdev, HID_CONNECT_DEFAULT);
++
++	sc = devm_kzalloc(&hdev->dev, sizeof(*sc), GFP_KERNEL);
++	if (!sc)
++		return -ENOMEM;
++
++	sc->output_buf = devm_kzalloc(&hdev->dev, SANTROLLER_OUTPUT_REPORT_SIZE,
++				      GFP_KERNEL);
++	if (!sc->output_buf)
++		return -ENOMEM;
++
++	sc->hdev = hdev;
++	sc->name = santroller_profile_name(hdev);
++	init_completion(&sc->features_done);
++	spin_lock_init(&sc->lock);
++	INIT_WORK(&sc->output_work, santroller_output_work);
++
++	ret = ida_alloc(&santroller_player_ids, GFP_KERNEL);
++	if (ret < 0)
++		return ret;
++	sc->player_id = ret;
++
++	hid_set_drvdata(hdev, sc);
++
++	/*
++	 * Start without connecting hid-input or hidraw, so the features
++	 * report can tell santroller_input_configured() what the device is.
++	 */
++	ret = hid_hw_start(hdev, 0);
++	if (ret) {
++		hid_err(hdev, "failed to start HID device: %d\n", ret);
++		goto err_free_id;
++	}
++
++	ret = hid_hw_open(hdev);
++	if (ret) {
++		hid_err(hdev, "failed to open HID device: %d\n", ret);
++		goto err_stop;
++	}
++
++	hid_device_io_start(hdev);
++
++	/*
++	 * Older firmware never answers over Bluetooth, so without the
++	 * features, still bind as a plain gamepad.
++	 */
++	ret = santroller_get_features(sc);
++	if (ret == -ENOMEM)
++		goto err_close;
++	if (ret) {
++		hid_warn(hdev, "failed to get device features: %d\n", ret);
++		/* Ignore a late reply, the caps are settled from here on */
++		complete(&sc->features_done);
++	}
++
++	hid_device_io_stop(hdev);
++
++	santroller_start_output(sc);
++
++	ret = hid_connect(hdev, HID_CONNECT_DEFAULT);
++	if (ret) {
++		hid_err(hdev, "failed to connect HID device: %d\n", ret);
++		goto err_stop_output;
++	}
++
++	/* hid-input may have unwound after santroller_input_configured() */
++	if (!(hdev->claimed & HID_CLAIMED_INPUT))
++		sc->input = NULL;
++
++	/* The LEDs are named after the gamepad input device */
++	if (!sc->input)
++		goto out;
++
++	if (sc->caps & SANTROLLER_CAP_PLAYER_LEDS) {
++		ret = santroller_register_player_leds(sc);
++		if (ret) {
++			hid_err(hdev, "failed to register player LEDs: %d\n", ret);
++			goto err_stop_output;
++		}
++	}
++
++	if (sc->caps & SANTROLLER_CAP_RGB_LED) {
++		ret = santroller_register_rgb_led(sc);
++		if (ret) {
++			hid_err(hdev, "failed to register RGB LED: %d\n", ret);
++			goto err_stop_output;
++		}
++	}
++
++	if (sc->caps & SANTROLLER_CAP_EUPHORIA_LED) {
++		ret = santroller_register_euphoria_led(sc);
++		if (ret) {
++			hid_err(hdev, "failed to register euphoria LED: %d\n", ret);
++			goto err_stop_output;
++		}
++	}
++
++out:
++	/* hid-input and hidraw open the device themselves from here on */
++	hid_hw_close(hdev);
++	return 0;
++
++err_stop_output:
++	santroller_stop_output(sc);
++err_close:
++	hid_hw_close(hdev);
++err_stop:
++	hid_hw_stop(hdev);
++err_free_id:
++	ida_free(&santroller_player_ids, sc->player_id);
++	return ret;
++}
++
++static void santroller_remove(struct hid_device *hdev)
++{
++	struct santroller *sc = hid_get_drvdata(hdev);
++
++	if (!sc) {
++		hid_hw_stop(hdev);
++		return;
++	}
++
++	santroller_stop_output(sc);
++	hid_hw_stop(hdev);
++	ida_free(&santroller_player_ids, sc->player_id);
++}
++
++static int santroller_resume(struct hid_device *hdev)
++{
++	struct santroller *sc = hid_get_drvdata(hdev);
++
++	if (!sc)
++		return 0;
++
++	/* The device may have lost its LED state, so send it again */
++	guard(spinlock_irqsave)(&sc->lock);
++
++	sc->player_dirty = sc->caps & SANTROLLER_CAP_PLAYER_LEDS;
++	sc->rgb_dirty = sc->caps & SANTROLLER_CAP_RGB_LED;
++	sc->rumble_dirty = sc->caps & SANTROLLER_CAP_EUPHORIA_LED;
++	santroller_schedule_output(sc);
++
++	return 0;
++}
++
++static const struct hid_device_id santroller_devices[] = {
++	{ HID_USB_DEVICE(USB_VENDOR_ID_PID_CODES, USB_DEVICE_ID_SANTROLLER) },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_PID_CODES, USB_DEVICE_ID_SANTROLLER_V2) },
++	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_PID_CODES, USB_DEVICE_ID_SANTROLLER) },
++	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_PID_CODES, USB_DEVICE_ID_SANTROLLER_V2) },
++	{ }
++};
++MODULE_DEVICE_TABLE(hid, santroller_devices);
++
++static struct hid_driver santroller_driver = {
++	.name = "santroller",
++	.id_table = santroller_devices,
++	.probe = santroller_probe,
++	.remove = santroller_remove,
++	.raw_event = santroller_raw_event,
++	.input_configured = santroller_input_configured,
++	.resume = pm_ptr(santroller_resume),
++	.reset_resume = pm_ptr(santroller_resume),
++};
++module_hid_driver(santroller_driver);
++
++MODULE_AUTHOR("Sanjay Govind <sanjay.govind9@gmail.com>");
++MODULE_DESCRIPTION("HID driver for Santroller game controllers");
++MODULE_LICENSE("GPL");
+-- 
+2.56.0
