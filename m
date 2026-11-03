@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.203
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729965;
-	b=QiHiwsIqvrvL3EwAXdElFNhK0II+QS6pvewtw91QWXjY85pc+WM+9qN4PINiQha5thTO
-	 t3dypMRmmAfkznXFrc0GId/7NgJeAHsz41OtHNW3GpNp3YsFztU3L/XFOLtCSteOWQGFv
-	 Hngrm0SqZ5Rp9vI28HbXXdEtPL78jCGWAYh2hv1amHknpvYKdo6+06Z+okICFrmAXrRTx
-	 DUFvvgXqBrLy3mjdYqjATruCuGLF0v7RJ+5WfwDwIxZGQBW683dh8HkGlx0wVEAfOeIXi
-	 z+RDD6hqTsCTev0dTB7blkcDSSlVQbpjMQJKRwtgO0fb0WBP/ss/CW/cN4//obqrsvg==
+	t=1793729972;
+	b=ILcxEsdzNPtJIrhPuyzojbYNkCrXKB/Xr//2DGR3nRhQGBhJ/kQ2//qz24oJRHYOwSrO
+	 +h3QO3AOskUvKmYog6oBM8OdQeF0ETMFqB3iBcQzkoOndoGYkWTf5CKAzLfQKf89yDghv
+	 biZPaZzlQtfCNc9RKDxngTAhvAF/rbds0U04W64r0S8Yd+Pt0gcYi6SNu0moj3NGScRIr
+	 sUeUNt/4dtEGevLkRTyacchl9YT2WjwTsufV7vynjybpvgnv6QuJTMmE3mUofy5Mv9vZA
+	 NxPXdn42OcwvY6cPqM4yCrlvN1ke/lFBmY775JSDkVnbIzMzZzpnDkdrOmAxqNzHd8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729965;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cy5NVa4zy9qS6Mga9ltUsUEtCniHJojXVPr9zJunu6w=;
-	b=Xmfpo2c9d0Ho3bZ83t+tZ2prbT3u9FbhGuIUp2r2j/KyK297HGxDOnWpz+mvO2oiYAfw
-	 QWL3Gd63wlUkhXthpp2xpKwHoAiAYkGmMrUVzTsznEkhYgeK7UJBgHbWi4HugbvbpSvIz
-	 L6U6WcsMnXvl5Ygmtr75CQU0BG1/mgpyGyLDhHxT/ZLaTdEDyJ6zd5TNrNzalQZKGqH9o
-	 +w94Vd/13BYOZ2CKcuEP3hXsnsSETk3+l4aWLjmeOX0CDA/ZMSZQk4CfOuoSnj/4DuxMb
-	 vyqrz09slX2kVupwCBhPVzd89JKM8BYLaiodjlg6b9KjAX+B41wR8sfdiGPBiNtYwYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729972;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ikpjRxzxut3T/KDasjzHggVPTQG5Ge+eGv+OSVemEXk=;
+	b=NDy4V7uz5qpJiOLa/SuEkQNRDiCs5Mkrkz0HzCGJ0XFRHauSwWKK/OwAfaZOxmTnJ7V4
+	 nu9pxlrF62GSHw233B3vb3pYYFNXA6dwdP2wxdusXWOTS8BDndAMvnjrl/bcgxof7+PPU
+	 Se+ssru32vW3W5VoJ7hZUiMFMVwOoK2fCwmQGZn5/z4gx7J/l+WhWz9IRqHcX4/X75kY/
+	 Jf2iIYgXGE7pM+hzcun7pCyEdr8S8XM2MLH+C/73W9laYidmAfS58Jlge6ICb7C/lVqoa
+	 KzpykTBPV24XTiSbkqnoLw11Cj8H6Hls/5KiXqrITYZgrWUw+nsGxobaXTAsBF/sqbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wG6CV3Gj;
-	arc=none smtp.remote-ip=91.218.175.203
-Received: from mta0.migadu.com (out-203.mta0.migadu.com [91.218.175.203])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9sJCu1x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C4C606EE97
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04C4C606EE97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A960F6082BE7
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wG6CV3Gj
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=q/ovGyzi7R6zckhCMNiZ94Ym7wcqVfK/WB2DmfreLvE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793729962; v=1; x=1794334762;
- b=wG6CV3GjvIJcnzS8uuv6N0bGjfTxLRFRQU7Bm7+tTALamOvLkvRQX5O2Ao75S25YdPf+butm
- NFU+j4fHQYBhxOus7INUPkcqkAQRbl2Tklzr6Qr12le4YBlRGkaGnwlRJAwDlHFJXWehEIM79kh
- l6lhRrAT7hnl+9ByiUPhSAVE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a72f377556df3c9b;
-	Tue, 03 Nov 2026 18:19:21 +0000
-X-Mizu-Trace-ID: a72f377556df3c9b
-X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	shuah@kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9sJCu1x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D441F00A25;
+	Tue,  3 Nov 2026 18:19:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793729971;
+	bh=ikpjRxzxut3T/KDasjzHggVPTQG5Ge+eGv+OSVemEXk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=c9sJCu1xp74krmFkMVk8mLe2ptw4u+UQIkBrktG1eh45b/H6ID18PQHlk5dcst1r6
+	 gv0yMz7OoYa9jmuiZC4P4il5W4zCsYkIGdBmH+hInR68kATNWaQkYJs/QirwAUbgOW
+	 ShcB1cIuQOhXJc28DYjRzkZQJrnE4yyaFMdrNNNTeoo1KNKqyLls8xKxvOE5Si7zd3
+	 cv/GxpIWQPrALyfNuQTqRKlbKITWsNeGtc86ZCTuulJBqnkS/kvuiBlFcuEtZW2SlA
+	 4mhsoIbFCuhL7hyYIjBGvwBuUgSER7Y0n+6fy+dZjsXm4x4DKnHwlRSikzB+wlGYsW
+	 O2gdqMVXqF9XA==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Samiullah Khawaja <skhawaja@google.com>
+Cc: kexec@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	jose.marchesi@oracle.com,
-	david.faust@oss.qualcomm.com,
-	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v4 8/8] selftests/bpf: cast explicitly in the arena subprog and callback faults
-Date: Tue,  3 Nov 2026 10:18:16 -0800
-Message-ID: <20261103181816.254686-9-vineet.gupta@linux.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103181816.254686-1-vineet.gupta@linux.dev>
-References: <20261103181816.254686-1-vineet.gupta@linux.dev>
+	linux-mm@kvack.org
+Subject: [PATCH 2/2] mm/memfd_luo: keep memfd frozen until finish
+Date: Tue,  3 Nov 2026 19:19:14 +0100
+Message-ID: <20261103181916.2462825-3-pratyush@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+In-Reply-To: <20261103181916.2462825-1-pratyush@kernel.org>
+References: <20261103181916.2462825-1-pratyush@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,115 +65,187 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Stream tests fail with BPF_GCC, e.g.
+From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-  test_stream_arena_fault_address:FAIL:stream__open_and_load unexpected error: -13
+After a memfd is retrieved, it immediately goes back into "normal"
+operation. The file comes back unfrozen, and its pages can migrate, it
+can be truncated, and so on. If the memfd is depended on by something,
+like iommufd, that can open a window for folios to move around before
+the consumer can re-establish its references.
 
-They call stream__open_and_load(), which loads every program in the object,
-and two of those do not verify:
+Finish is the conceptual point when a retrieved file can start to behave
+as "normal". So take an extra reference on the folios and freeze the
+memfd on retrieve until finish.
 
-  #481/11 stream_success/stream_arena_subprog_fault:FAIL
-  #481/12 stream_success/stream_arena_callback_fault:FAIL
-
-Both dereference an arena pointer and leave the cast to the compiler:
-
-  int __arena *addr = (int __arena *)0xdeadbeef;
-  *addr = 1;
-
-Without arena support __arena is only btf_type_tag("arena"), so no
-addr_space_cast is emitted and the store is to a scalar, which the
-verifier rejects. GCC splits it into byte stores, 0xdeadbeef not
-being aligned:
-
-  r2=3735928559 ll
-  *(u8*)(r2+0)=1            <- plain store, no cast
-
-Their siblings in the same file do not rely on the compiler; they use
-bpf_addr_space_cast(), which emits the instruction byte by byte and
-works anywhere. Do the same here.
-
-The address space has to come off the local as well. Left on, a
-compiler that supports arenas casts a second time for the
-dereference, on a pointer the explicit cast has already converted:
-
-  r2 = addr_space_cast(r2, 0, 1)
-  r3 = addr_space_cast(r2, 0, 1)
-  *(u32*)(r3+0)=1
-
-With it off, GCC with and without arena support and clang all emit the
-same thing, which is what the test wants:
-
-  r2 = addr_space_cast(r2, 0, 1)
-  *(u32*)(r2+0)=1
-
-What these two assert is the fault report, not how the pointer was
-produced, so nothing they were testing is lost.
-
-Measured on bpf-next with a stock bpf-gcc, test_progs before and
-after. Every test that loads this object recovers, not just the arena
-ones:
-
-  stream_arena_fault_address                   FAIL -> OK
-  stream_fd                                    FAIL -> OK
-  stream_fd/blocking                           FAIL -> OK
-  stream_fd/edge                               FAIL -> OK
-  stream_fd/empty                              FAIL -> OK
-  stream_fd/hup                                FAIL -> OK
-  stream_fd/nmi_epoll                          FAIL -> OK
-  stream_fd/nonblock                           FAIL -> OK
-  stream_fd/open                               FAIL -> OK
-  stream_oversize                              FAIL -> OK
-  stream_partial_read                          FAIL -> OK
-  stream_success                               FAIL -> OK
-  stream_success/stream_arena_callback_fault   FAIL -> OK
-  stream_success/stream_arena_subprog_fault    FAIL -> OK
-  stream_syscall                               FAIL -> OK
-
-and the subtests of the object that failed to load appear for the
-first time:
-
-  stream_arena_fault_address/read_fault             -> OK
-  stream_arena_fault_address/write_fault            -> OK
-  stream_arena_fault_address/xchg_fault             -> OK
-  stream_arena_fault_address/cmpxchg_fault          -> OK
-  stream_arena_fault_address/load_acquire_fault     -> OK
-
-Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+Suggested-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 ---
-v3 -> v4: was 6/8. No longer drops #include <bpf_arena_common.h>,
-which the arena_base() patch now needs in this file.
+ mm/memfd_luo.c | 87 +++++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 68 insertions(+), 19 deletions(-)
 
- tools/testing/selftests/bpf/progs/stream.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/tools/testing/selftests/bpf/progs/stream.c b/tools/testing/selftests/bpf/progs/stream.c
-index b4d88d0e01ad..8c49a130150b 100644
---- a/tools/testing/selftests/bpf/progs/stream.c
-+++ b/tools/testing/selftests/bpf/progs/stream.c
-@@ -341,9 +341,10 @@ int stream_arena_cmpxchg_fault(void *ctx)
- 
- static __noinline void subprog(void)
- {
--	int __arena *addr = (int __arena *)0xdeadbeef;
-+	int *addr = (int *)0xdeadbeef;
- 
- 	arena_ptr = &arena;
-+	bpf_addr_space_cast(addr, 0, 1);
- 	*addr = 1;
+diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
+index 9fd9abf9fedf6..50dbbda47ad3c 100644
+--- a/mm/memfd_luo.c
++++ b/mm/memfd_luo.c
+@@ -55,6 +55,14 @@
+  *   Only seals known to this LUO version (see ``MEMFD_LUO_ALL_SEALS``) may
+  *   be present; preservation fails with ``-EOPNOTSUPP`` otherwise.
+  *
++ * Restrictions
++ * ============
++ *
++ * While a memfd is preserved, and after it is retrieved until the session is
++ * finished, its size can't be changed and holes can't be punched in it.
++ * Operations that would do so (``ftruncate()``, ``fallocate()``, writes past
++ * the end of the file) fail.
++ *
+  * Non-Preserved Properties
+  * ========================
+  *
+@@ -456,33 +464,56 @@ static void memfd_luo_discard_folios(const struct memfd_luo_folio_ser *folios_se
+ 	}
  }
  
-@@ -364,9 +365,10 @@ int stream_arena_subprog_fault(void *ctx)
- 
- static __noinline int timer_cb(void *map, int *key, struct bpf_timer *timer)
++/* Drop the references retrieve() holds on the folios added to the file. */
++static void
++memfd_luo_put_retrieved_folios(const struct memfd_luo_folio_ser *folios_ser,
++			       u64 nr_folios)
++{
++	for (u64 i = 0; i < nr_folios; i++) {
++		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
++
++		if (pfolio->pfn)
++			folio_put(pfn_folio(pfolio->pfn));
++	}
++}
++
+ static void memfd_luo_finish(struct liveupdate_file_op_args *args)
  {
--	int __arena *addr = (int __arena *)0xdeadbeef;
-+	int *addr = (int *)0xdeadbeef;
+ 	struct memfd_luo_folio_ser *folios_ser;
+ 	struct memfd_luo_ser *ser;
  
- 	arena_ptr = &arena;
-+	bpf_addr_space_cast(addr, 0, 1);
- 	*addr = 1;
+-	/*
+-	 * If retrieve was successful, nothing to do. If it failed, retrieve()
+-	 * already cleaned up everything it could. So nothing to do there
+-	 * either. Only need to clean up when retrieve was not called.
+-	 */
+-	if (args->retrieve_status)
++	/* If retrieve failed, it already cleaned up everything it could. */
++	if (args->retrieve_status < 0)
+ 		return;
+ 
+ 	ser = phys_to_virt(args->serialized_data);
+ 	if (!ser)
+ 		return;
+ 
+-	if (ser->nr_folios) {
+-		folios_ser = kho_restore_vmalloc(&ser->folios);
+-		if (!folios_ser)
+-			goto out;
++	if (args->retrieve_status > 0) {
++		/*
++		 * Retrieve was successful, release the folios and unfreeze the
++		 * file so it can be used normally.
++		 */
++		struct inode *inode = file_inode(args->file);
++
++		folios_ser = args->private_data;
++
++		inode_lock(inode);
++		memfd_luo_put_retrieved_folios(folios_ser, ser->nr_folios);
++		shmem_freeze(inode, false);
++		inode_unlock(inode);
+ 
+-		memfd_luo_discard_folios(folios_ser, ser->nr_folios);
+ 		vfree(folios_ser);
++	} else if (args->retrieve_status == 0 && ser->nr_folios) {
++		/* Retrieve was not called, discard the preserved folios. */
++		folios_ser = kho_restore_vmalloc(&ser->folios);
++		if (folios_ser) {
++			memfd_luo_discard_folios(folios_ser, ser->nr_folios);
++			vfree(folios_ser);
++		}
+ 	}
+ 
+-out:
+ 	kho_restore_free(ser);
+ }
+ 
+@@ -552,7 +583,10 @@ static int memfd_luo_retrieve_folios(struct file *file,
+ 		nr_added_pages += npages;
+ 		folio_add_lru(folio);
+ 		folio_unlock(folio);
+-		folio_put(folio);
++		/*
++		 * Keep the reference from kho_restore_folio(). It is dropped
++		 * in finish().
++		 */
+ 	}
+ 
+ 	shmem_recalc_inode(inode, nr_added_pages, 0);
+@@ -566,9 +600,12 @@ static int memfd_luo_retrieve_folios(struct file *file,
+ 	folio_put(folio);
+ put_folios:
+ 	/*
+-	 * Note: don't free the folios already added to the file. They will be
+-	 * freed when the file is freed. Free the ones not added yet here.
++	 * Drop the references held on the folios already added to the file.
++	 * The folios themselves will be freed when the file is freed.
+ 	 */
++	memfd_luo_put_retrieved_folios(folios_ser, i);
++
++	/* Free the ones not added yet here. */
+ 	for (long j = i + 1; j < nr_folios; j++) {
+ 		const struct memfd_luo_folio_ser *pfolio = &folios_ser[j];
+ 		phys_addr_t phys;
+@@ -589,7 +626,7 @@ static int memfd_luo_retrieve_folios(struct file *file,
+ 
+ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
+ {
+-	struct memfd_luo_folio_ser *folios_ser;
++	struct memfd_luo_folio_ser *folios_ser = NULL;
+ 	struct memfd_luo_ser *ser;
+ 	struct file *file;
+ 	int err;
+@@ -624,6 +661,17 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
+ 	vfs_setpos(file, ser->pos, MAX_LFS_FILESIZE);
+ 	i_size_write(file_inode(file), ser->size);
+ 
++	/*
++	 * Keep the file frozen until finish(). Other preserved objects might
++	 * depend on it.
++	 *
++	 * The file isn't visible to anyone yet, but take the lock anyway since
++	 * shmem_freeze() requires it.
++	 */
++	inode_lock(file_inode(file));
++	shmem_freeze(file_inode(file), true);
++	inode_unlock(file_inode(file));
++
+ 	if (ser->nr_folios) {
+ 		folios_ser = kho_restore_vmalloc(&ser->folios);
+ 		if (!folios_ser) {
+@@ -632,16 +680,17 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
+ 		}
+ 
+ 		err = memfd_luo_retrieve_folios(file, folios_ser, ser->nr_folios);
+-		vfree(folios_ser);
+ 		if (err)
+-			goto put_file;
++			goto free_folios_ser;
+ 	}
+ 
+ 	args->file = file;
+-	kho_restore_free(ser);
++	args->private_data = folios_ser;
+ 
  	return 0;
- }
+ 
++free_folios_ser:
++	vfree(folios_ser);
+ put_file:
+ 	fput(file);
+ free_ser:
 -- 
-2.53.0-Meta
+2.56.0.385.gac671c819a-goog
 
