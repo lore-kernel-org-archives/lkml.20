@@ -1,56 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704266;
-	b=R1hijyhDvkX0/Ub8tXQYogRKBOo8AEvOJGJ2G9A5ORGl5uBiEJ3+WQQHDE7b3WxNauU7
-	 8n4/X5Skataj1AFU0F59VLbyk7ezDGgnrxXGWwLrAwXeawRc4RYua1Z7bfsFzCC6v+bS8
-	 vU6Sh0YpoCoIaAcAJ6hBu5EGUMC3Wm1iYuKBoaGXxlMPdDo70uPk8U/xBLOEtHfooQPYd
-	 7LEAEArirhxoitDmp5CvYlDQ87M5ZJpm8LTwyNw9wX12jOh33CtcEqbVhO8HkV0rZV6RI
-	 2S3nWYo4SzOYDvJZWVLw+oHsrXoVXW2IV124Kk2O3+XL/K00sbTvInO62xkdyI+hFTw==
+	t=1793704255;
+	b=ealNev3pRJmrEz4LOTxfXB2SoFoZzu0mu0KIUpDrXgAPfUCX+WgxZw6CkKpch45osB0g
+	 d89UkuL6U2hyb37GxELVhOgeo8Wm6omVzesWMZeiiouzQ1fcBdCXrfD8vB8onf3E2mDY4
+	 V1o+5dwaJo30KtY6xpwRXngvP/lbFACg/JJM728lQZXk4DwsJB1Ob/WF2iEOF69LfiBdR
+	 /jeTDlFfG/ISQ/vsu0924jIaLZNJSeMYSVCoELM+UfJV0pPChsEPE9ld2hwp0UojryaJI
+	 4HQ8+TYRxoYo1mMmdqQr7wsfnRzIIsqDOkRz3+mUNHO+Q/JY+z94IpoeMU9sD1mWWHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704266;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704255;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VuwVRdvDqCkcqJ5PJHMF6vUMeb8k7ai3Z7802NTQ/kM=;
-	b=jTklxoZjd9VgN8HFtDBAyRDpiPj3NICSHlIWV2VNO6mE6WsHBATyU9tQfN7tTHwigUnR
-	 LlWOWZgKdLN52EMLryzxleQfWz5IeL5prQCkbUZqmrlJlSN5J21wcLsalv5rvpeSu8fZZ
-	 L0+z09wxQAnW4c5ZJ5Vg6zNHaA7+QCCWnau8n2PKPCb71ZL6EbKUgKOueckva159r5KpM
-	 BqTHUgvGRxzs/HoO/3SHsPnBT3FanAPFgT0ixRVjE6GgGhH4psUI/Ts1KSBp1Wqiu4Ijw
-	 QQeLyXo2d8F5GLmrh3PuZXnXKoQ+hm2k+p84Ri3+cUAIl84cqSEiEmTP3p0Ns/prc0g==
+	bh=/pg0XXHZscRJVa2E7zhHFbdQCZ7KHQ6g29HtpeDbe0w=;
+	b=DZ4UsyolxkYQZPrZSbk3FZu/B68JkFDh5eI9kG9HLpAgZxU7O8neI7TYrIALduLxbQFQ
+	 sMvIKr7QH0H5FUXXse853gEA+AisUTrZc3o2P5PseLHysFxuLoPqjtpwGecv2hFwBl9n4
+	 BCM/Nxk+xScdJsPgW6bCQ7gqACOVGTudcvsNx3xvKr91t4K/0xP4BTyis3g6nRwRVYD7x
+	 IEVInVN0BbMmPjBQDUeQLDzueINA27GLiCHOaDZzndgktM3Ii9BeBD4jN2N/3txxkkidX
+	 aP4kt2HH5c7JTwhtjegbTvuE4RNW6G6DcdSy40nDjMXS/AuoB7BbYKyvIuBrq1uLl1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOUks73f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOo0edod;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D86660A382F;
-	Tue,  3 Nov 2026 11:11:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B45606F7F0;
+	Tue,  3 Nov 2026 11:10:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOUks73f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC9C1F00A02;
-	Tue,  3 Nov 2026 11:11:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOo0edod
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44351F00A16;
+	Tue,  3 Nov 2026 11:10:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704266;
-	bh=VuwVRdvDqCkcqJ5PJHMF6vUMeb8k7ai3Z7802NTQ/kM=;
+	s=k20260515; t=1793704254;
+	bh=/pg0XXHZscRJVa2E7zhHFbdQCZ7KHQ6g29HtpeDbe0w=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EOUks73fgJnqlSXAkmCa587RZrLJRZ0VTowmJ9cNDiCsu6A1RFVY/IjVjZdIdG/ms
-	 v6vLmzgrlgZfPfznot5XJDQqmnmHBgV/OREOSQU9sRTSY/2h8Z1Cndmz2GcWv0130m
-	 dO7iGATWSHLXZi0oNnu81o0RhaHwCpQDEtx96kcNasTzE+xaRBcZsIl9zwUDaqjrB8
-	 1K5eHUexYg01hRlRjUHT2/ulCBDj/cXMFhAmebM9o8zp9cr2bNC+QSs9IX/RgbTvDg
-	 4x1kEEaumt0//dpqA93XdGVcVCwejQTT+a2CDA/nDQlhNuW4A4VJkZyVxBKq1Xd7pQ
-	 2Uz+AQpv9nrhg==
-Date: Tue, 3 Nov 2026 12:11:03 +0100
+	b=DOo0edod+NpniumTKGzUqE405H/LrT2mPZzUMpVsrVCDRuUxwO7+M0oC1ghzTi44F
+	 bR4kgVp1NJHyCM+bwqQ1UbRA6YtUZsDt5WCz8IDcGQu9dhDG9+1AcMCZ3Se22S/bWY
+	 PnZrM0TneTHyzePiMybL9jJBIY4OBWLO54gd/mnWjZ2AWxpqq0tHOdizMDXGL2tqiC
+	 zQYOtINtIYphmmvs6akZdMODtZT4K1HGdkDPkECns/876cv0/KL7uF7wDHAjI59RR7
+	 TVp8DjCdR6MU2gybor6wEzaDFvYxwDYyPDYG5OEv4vPC6NuTgs7X6Kq8PmdDgaFf+1
+	 zBMkT13VT2sAg==
+Date: Tue, 3 Nov 2026 12:10:51 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, 
-	stable@vger.kernel.org, Petr Machata <petrm@nvidia.com>, 
-	Ido Schimmel <idosch@nvidia.com>, Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>
-Subject: Re: [PATCH] mlxsw: spectrum_ptp: release parsing depth on MTPPPC
- write failure
-Message-ID: <20261103-immortal-cunning-oyster-316afd@quoll>
-References: <20261103102851.1340480-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, ath11k@lists.infradead.org, 
+	linux-wireless@vger.kernel.org, Jeff Johnson <jjohnson@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: ath11k: release the rproc reference on teardown
+Message-ID: <20261103-loyal-carrot-vole-8e4ee4@quoll>
+References: <20261103102859.1340835-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,27 +58,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102851.1340480-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102859.1340835-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:28:51 +0000, Wentao Liang wrote:
-> mlxsw_sp1_ptp_mtpppc_update() increases the global parsing depth
-> reference count before writing the MTPPPC register when timestamping
-> is enabled for the first time. If the register write fails, the
-> reference count remains elevated even though no timestamping
-> configuration was installed, and nothing will ever release it.
+On Tue, 03 Nov 2026 10:28:59 +0000, Wentao Liang wrote:
+> ath11k_core_get_rproc() looks up the target remoteproc with
+> rproc_get_by_phandle(), which takes a device reference and a reference on
+> the remoteproc driver's module.  The resulting pointer is stored in
+> ab_ahb->tgt_rproc and never released: ath11k_ahb_free_resources() only
+> tears down the firmware resources, and the probe error paths after the
+> lookup jump to err_core_free without dropping the reference either.
+> rproc_shutdown() does not release it, it only drops the power reference.
 > 
-> Drop the reference count again when the write fails. Also only drop it
-> when disabling timestamping after the write succeeded, so that the
-> reference count always matches the programmed state.
+> Release the reference when the AHB resources are freed and on the probe
+> error path, so that repeated bind/unbind cycles no longer accumulate
+> remoteproc references and the remoteproc module can be unloaded again.
 > 
-> Fixes: c6b36bdd04b5 ("mlxsw: spectrum_ptp: Increase parsing depth when PTP is enabled")
+> Fixes: ba929d6fe31a ("ath11k: Remove rproc references from common core layer")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
+>  drivers/net/wireless/ath/ath11k/ahb.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
 
 Multiple things here:
