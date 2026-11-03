@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700475;
-	b=UA+eus1wx1KA2/4hGMvvzTAuh/20q4k+s3tbMzrunDAEIFCVlxpcgYvtqKD4rh8LQrro
-	 NKJ0Yl8S9d4ggKV03UFetJvcLFTfG4wbsB6P+wtQ9nO8LjYrgTXfngsRFoBkk7pVPx1tw
-	 /Sgjq3DGlj74zyU0mbHzngv9e7t4NbVtbqAwCFuyvAHmt+QSJYSRBalKF8V0COs7PFC2b
-	 beT5MejqVM2zRETl0tKKav92K7tY3QSvywB7mfDY8tB+4Cd/TLxC4l5OPamVWqp8M3XUf
-	 yKw/X+6uh++PNLOmF5IFgtaXD4o44U75/dSAq/Qs3685/E+hEX0Y3U8mFqRHLD7n9Xw==
+	t=1793700524;
+	b=nTjsvRM7KJh7qCHYQ9XZ025XxWvG021INqKfdc4Yqdsp911Ap1Cb5L9ClJhnvLEjx0Ob
+	 zeS7ucDi6S/7H0KyjKSMeG3yXyIblCD0izVN7xRsbBOrB7o8mcQNuvey1HFWjxM5zVlhv
+	 0oDUR2XUslCx2gnLV+fIso0hZH9B9iHuq0a1JkcGWvhe2ulK1gLKDIMfmfVSgb10aEb/6
+	 BqJxOnh+kiufb6sjWMz6aTrz/JvOieU0uCEdXXtvjF8OA+ldYiVBKJ22rXxU8oHANM+0V
+	 8RJ/NugIk7zSVxdK2W9Xs0GY1oaIcjlmalw9jlBHaYgDUlmwXrRD22oq5lxC48KCSxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700475;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SJsmFd97LTwyZ96d6CJJUwteWk3GiFywwWpryyUntpQ=;
-	b=xDXe4fo0DvLZYx94Il9cofe9QO3T1V7SWCsmruASI/xnQVnh7Lw29Gt68AcuN38c+mAG
-	 Zy8SfwlOpVm3jQKW53sYUcbQSvvJz8LUppo2RszNFY2KgxgTrpKFiL5G3CSNEBLXi1IxM
-	 MaF2eE+5ibQKSZ23CjDPDYBasJxelvoTmb1UnpiZ+Jvb4OCSzqhHaO87xhyoz2VVahxye
-	 k7n4E3iG0CsPUuxfz6iC/TRcLJGKrjP7or80ppbdxBfoLSKOAGNr7zr7Z0fCcWYfRgrh1
-	 mMmtnyG43/xzLR4iNrm7yGYlufLrezQMQqkHra/mC+ibOew6rAjodaRQ+n3oGxjl+lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700524;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=swdTypR9uUvAnD2bDnj7k3fz81yQtU6FPJ1wUHvFkwI=;
+	b=Aahujy/Xa8r+bfgaEwfN+iz18gUrYpc0DoMFaI0zd1WfZX0bMMdLj81JbU8CKfxkEWYQ
+	 ZhQytRWNN//ZNmnZFxgZyY765ZgNdE05qcWHGZyeA1LfZnvv04Es/yvU6C0n5zlkSVSJh
+	 Fe2p2zZg8JyvnEVoGnqUWTAA97zNAvLRR2BPB9Iwkz83mdi/7W4uq5UY6QHwAqUdDV8cc
+	 Z805Z2l1Id+1NmHxkTMAjNTO1uRl7mc5SounjdbCqchgbkue9mSKc7lqzwm9Bj2XBWGh7
+	 9ld8mrLvZJh72CYrILwtoCu4v+35uJ62AFyuf46FZ/nejwJ4UhH4NI75OQ0b6H9+fmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osGSGPlv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D238606A817
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:07:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D238606A817
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 654a2600d76e11f19a56ed5b684f684d-20261103
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_MISS
-	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG
-	HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN
-	HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME, SA_TRUSTED
-	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
-	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
-	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:65cdc808-a4a7-49c3-92dd-10e53b2f0b2b,IP:10,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:10
-X-CID-INFO: VERSION:1.3.19,REQID:65cdc808-a4a7-49c3-92dd-10e53b2f0b2b,IP:10,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
-	elease,TS:10
-X-CID-META: VersionHash:7db8b62,CLOUDID:a56069770302e11e76778d73c0ce566d,BulkI
-	D:261103180741YRSD4B2I,BulkQuantity:0,SF:17|19|66|78|102|127|153|850|865|8
-	98,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,Q
-	S:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,
-	ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 654a2600d76e11f19a56ed5b684f684d-20261103
-X-User: lienze@kylinos.cn
-Received: from localhost.localdomain [(114.244.3.119)] by mailgw.kylinos.cn
-	(envelope-from <lienze@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 812115188; Tue, 03 Nov 2026 18:07:37 +0800
-From: Enze Li <lienze@kylinos.cn>
-To: sj@kernel.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	lienze@kylinos.cn,
-	enze.li@gmx.com
-Subject: [PATCH] mm/damon/core: use list_{next,prev}_entry() in damon_{next,prev}_region()
-Date: Tue,  3 Nov 2026 18:07:14 +0800
-Message-ID: <20261103100714.70742-1-lienze@kylinos.cn>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6B0606A817;
+	Tue,  3 Nov 2026 10:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osGSGPlv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D4AF1F000C1;
+	Tue,  3 Nov 2026 10:08:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793700523;
+	bh=swdTypR9uUvAnD2bDnj7k3fz81yQtU6FPJ1wUHvFkwI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=osGSGPlvNq1u3P3HRQCuQxVQKk7aBFb2Zu86APBhfj9PFRB+EIoC5cYrDls1aY5NI
+	 iBZMWBUNFp0IbJH4XK58xD/pCM/4Ijpgiiw6zEsr6eoaooFyHvhjfM4PDY2vimLxRL
+	 AVURGVxOpQpqFbqLW3/NCWE/CN8DLEHp3ZxiDkWqBVH3oMBEWf1QZtU44pCNHyBEK4
+	 xaYJ51H/346ii7rjw+QS5z4NUOp8ZBX4bWKMtjA5PGk0Yvac3examoxAhT7kSUjI65
+	 73UeQDkJGqg5kzFQOnu0xqyXIKt1jmDIlFJonkCwqGtRh35zAjAq8umEQKiXzthg0x
+	 XOTzVBHsJxTiA==
+From: Leon Romanovsky <leon@kernel.org>
+To: jgg@ziepe.ca, Abhijit Gangurde <abhijit.gangurde@amd.com>
+Cc: allen.hubbe@amd.com, a.k@amd.com, nikhil.agarwal@amd.com, 
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261027092353.1961552-1-abhijit.gangurde@amd.com>
+References: <20261027092353.1961552-1-abhijit.gangurde@amd.com>
+Subject: Re: [for-next 1/3] RDMA/ionic: size the MR PTE reservation to
+ max_sg
+Message-Id: <179370052089.1715411.8295798950749355699.b4-ty@kernel.org>
+Date: Tue, 03 Nov 2026 05:08:40 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,39 +59,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-damon_next_region() and damon_prev_region() manually do container_of()
-type casting to fetch the next and previous region from the linked
-list.  Use the dedicated list.h helpers, list_next_entry() and
-list_prev_entry(), as damon_first_region() and damon_last_region() do.
 
-Signed-off-by: Enze Li <lienze@kylinos.cn>
----
- include/linux/damon.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Tue, 27 Oct 2026 14:53:51 +0530, Abhijit Gangurde wrote:
+> CREATE_MR with map_count zero makes firmware reserve its default number
+> of PTEs. A fast-registration memory region (MR) whose max_sg is larger
+> than that default fails at REG_MR.
+> 
+> Pass max_sg as map_count. The virtual address (VA) and length stay zero
+> because no buffer is mapped yet.
+> 
+> [...]
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 380f9cf6ddd8..2ba43257e043 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -988,12 +988,12 @@ static inline unsigned long damon_rand(struct damon_ctx *ctx,
- 
- static inline struct damon_region *damon_next_region(struct damon_region *r)
- {
--	return container_of(r->list.next, struct damon_region, list);
-+	return list_next_entry(r, list);
- }
- 
- static inline struct damon_region *damon_prev_region(struct damon_region *r)
- {
--	return container_of(r->list.prev, struct damon_region, list);
-+	return list_prev_entry(r, list);
- }
- 
- static inline struct damon_region *damon_last_region(struct damon_target *t)
+Applied, thanks!
 
-base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
+[1/3] RDMA/ionic: size the MR PTE reservation to max_sg
+      https://git.kernel.org/rdma/rdma/c/bfef8b13241cdb
+[2/3] RDMA/ionic: set the SQ WQE color bit
+      https://git.kernel.org/rdma/rdma/c/d1b8977f3a009e
+[3/3] RDMA/ionic: key recv completions by producer index
+      https://git.kernel.org/rdma/rdma/c/9ca2239d2fd274
+
+Best regards,
 -- 
-2.56.0
+Leon Romanovsky <leon@kernel.org>
 
