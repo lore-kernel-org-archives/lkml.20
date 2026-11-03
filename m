@@ -1,58 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715006;
-	b=x1cgd7MgUBKsS2hntrSKBGeTuhB3NLZkTmqzro789jVikwBnigp9vCF6oOF/tHGW2OVu
-	 jRUug7YvReuLtzbo5RCufMTdiTNqoihrkHWNg+c4rbJ3Xt9nC/znNYBfIh0lPgmueedN0
-	 sq4DveH5NjQIYD3sXNeqlPMjbXpfC07SzNEqd+7dk12mloZi6pyaMMAtCNOsXe4k/8N2K
-	 l8gt7916czqnGVU4JbIdUuFukiLv5MJ0FXgyavas3JnRt65rEkCc56C91qEpLu3hj0+25
-	 +iwFSbegqxtFe306+cTFqRYpiGlGpqm26ofazO1NWkMF7dXIPWTYSxFTd69OlFSErAQ==
+	t=1793715025;
+	b=ia+FnL2LI3nzuVAhvDAnal+hCh3Wxji6tPIM/Pins7C+YJT5QBVnfomaQO2mKZ7ZKdQi
+	 iEShNxFEKPk4yQKIYncyW7mNgvsSfehkn4SZ6GHbGtlLUKVjydgNgXMJQbrerVL49j1EB
+	 z1lmHBN+Jf9tEnmAZnuxKza5Kf+pSbrV57nwyM9UfB1zYzQ1AewQqg4w68P3Ae5zV6JyP
+	 TCGikOoxxIkzh/X2VJGuNhwZ62eg9ImHU5vbPyLj2RImYmBQeYCsloe63B5qE8cUH5FVF
+	 iGVzVOK8GY6PN9to/HPpHxmM7eJduLNkVmi5okJf6u2HKy8MV8svMkobINiXLornvKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715006;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qzg8QxS/frlrk57hvLDahMynox2KuT4SpVk1LZUW0TE=;
-	b=0cMYdWctWZrtmhPLBU2vLmlWHjBm3xPZiFKX4tzcPzNA2cNLV2gpH+cmEG8pfVNaOlXl
-	 Kw9A8GK5Ov5g5tzeHnKu5wfCKaHGeuffjv5PyeJ4Vpe7IEVGnW66GwhLqtiC7mY9bQ90v
-	 2dUZGSQIXrPIvcraEZCu/VBFnidHZ86HnUv1bM9Tmj8pX/8oIeU/oAin7TA30dSE/roTJ
-	 T7/ka6HrKqRWGnYcRL2PmXQ1/Hl0pImrFqtB09MavVNJsNRspgkRGZQH0Yh4mJtxfPOPV
-	 zmEin5pjjKuHa5Z4i+6p2d+na6SAGRrXGOjOq5NLvaTHAZPb/PWUZgptczMb70OuSCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715025;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=9hcT28SYX76z1COvWorzxu+1gkA4oj6GNwI2cd7zGC4=;
+	b=ve6nwXNB/yTTk1tKsUllEugm2ATxOxhYFj3TyYg2DK4BN8w6XoWxh2XCla82iQRQxXnY
+	 n3yVuF4TjF18WkwnUq4rRJgBxpIz3VQK6GRsf5OROzajO4RV54HAV4D8xRKDr5aeMT7wW
+	 xUuUSCtIJZq4j+vjwNrF/SvMir1vpQN732KZSOi4CaGKqekQ0WKWlr6UDf565c1whnmkJ
+	 8vtX2T20nrjVPfRyWnCeigX4KFWN70zmpPf2f7fPLwhOF48r6fSppRrtVg/FFgj6iLNaL
+	 Qwppbx/l9VyFkXQzGg7paBGsqfZLbGTSJXwWl/roTRujjHrZfyaWqmqJd79QMlJo8ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYhaKxjT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8gG2FyS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF98F606A334;
-	Tue,  3 Nov 2026 14:10:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F88A606A32C;
+	Tue,  3 Nov 2026 14:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYhaKxjT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6821F000C1;
-	Tue,  3 Nov 2026 14:10:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8gG2FyS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C32D1F000C1;
+	Tue,  3 Nov 2026 14:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715005;
-	bh=qzg8QxS/frlrk57hvLDahMynox2KuT4SpVk1LZUW0TE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KYhaKxjTGsgSF1PMtP9Gf1F86pV97/YQAze1GGUjGnXWkBFnXZK2xehoeEfPmzJOg
-	 USZTxpFDj+mszdLE28PC+I8ZGzOr61vyVArCCUu3jehaqD9R3vorJrbf96S44NYHAM
-	 2xs+INVT7guNgPWZuXUSXufObBs8J5RE5ZNUIQEBpMelI+cVrukICzVjIbv1oxMI+F
-	 SjAOLIXCTaw3N80xQe1x1abSxVxXx36s2pOLUQqO3Dat3E9fuAnPD+WOFLCa/vCZF4
-	 RBFNtDDSnU3xKWmkw72KUcgirP009qCstdh7psQZWr48PBiB4Qv80Sm9S5X99DY10+
-	 OCK8d/k+PFWcg==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Aveline Noir <jm5905938@gmail.com>,
-	Bijan Tabatabai <bijan311@gmail.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 5/9] mm/damon/{p,v}addr: skip folios already on the migration target node
-Date: Tue,  3 Nov 2026 06:09:57 -0800
-Message-ID: <20261103140958.115634-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102150757.93058-6-sj@kernel.org>
-References: 
+	s=k20260515; t=1793715025;
+	bh=9hcT28SYX76z1COvWorzxu+1gkA4oj6GNwI2cd7zGC4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A8gG2FySIrvGccJDt9QVUN41xO71+6Rpf7aiyxt8Vsopa/Ys8hBvt1hDZeBlS/PGw
+	 MOt8BcnF/W4r1s15z+9Q6nzud+DWuRPuIHnctKYism3LQZOnWs3vU+zGKDYcGAak9v
+	 i1JqUhBvQ5kbpMtFLU6xUwyGov9lzqLdMvTVOsorWieMgO07vFjRnAf8TphXqmT54a
+	 fGU5gWTkE4FlbUGGSThdSpyyACGOdEcur0TIARvk+d+UVbVw5+sbat1Ht0raY6TNIJ
+	 eZtyJEUng8T8aAiarrufke9huCyGceFpE9bK2kxHfRy5JVsGTTX+UrBQ3G6s7LkukY
+	 Bnv6IKVnB5Lwg==
+Date: Tue, 3 Nov 2026 15:10:22 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Matthew Ruffell <matthew.ruffell@canonical.com>,
+	Leonardo Bras <leobras.c@gmail.com>
+Cc: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Caron Wills <caron.wills@pulsar.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org, linux-mm@kvack.org,
+	Jay Vosburgh <jay.vosburgh@canonical.com>
+Subject: Re: [PATCH 4/6] sched/isolation: Drain per-CPU LRU batches when CPUs
+ become isolated
+Message-ID: <aunrTtH00__Xi7PW@localhost.localdomain>
+References: <20261103075940.110308-1-matthew.ruffell@canonical.com>
+ <20261103075940.110308-5-matthew.ruffell@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,35 +83,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261103075940.110308-5-matthew.ruffell@canonical.com>
 
-On Mon,  2 Nov 2026 07:07:52 -0800 SJ Park <sj@kernel.org> wrote:
-
-> From: Aveline Noir <jm5905938@gmail.com>
+Le Tue, Nov 03, 2026 at 08:59:38PM +1300, Matthew Ruffell a écrit :
+> From: Caron Wills <caron.wills@pulsar.com>
 > 
-> While measuring DAMOS migration overhead, I found that the target_nid
-> path isolates folios already on the target node, then puts them back on
-> the LRU without migrating them.
+> Isolated CPUs no longer batch folios in their per-CPU LRU caches, so
+> that __lru_add_drain_all() never has to queue work on them. Boot time
+> isolation (isolcpus=, nohz_full=) takes effect before any folio is
+> batched, but a cpuset isolated partition can be created at runtime and
+> the affected CPUs may still hold folios in their batches from before.
+> Those would linger until the CPU happens to drain locally, and the next
+> lru_add_drain_all() would fall back to queueing work on the now isolated
+> CPU, which is exactly what must be avoided.
 > 
-> Skip them before isolation in vaddr and paddr, as the vaddr explicit
-> destinations path already does.
+> Drain all batches once from housekeeping_update(), right after the
+> HK_TYPE_DOMAIN mask has been updated and next to the vmstat and memcg
+> workqueue flushes that exist for the same reason, so that newly isolated
+> CPUs start out with empty batches.
 > 
-> In a synthetic same-node fvaddr test on a two-node x86-64 KVM guest (8
-> interleaved runs per kernel), guest-kernel cycles fell by about 29% with
-> 4 KiB regions and 90% with 16 MiB regions. Median kdamond CPU time fell
-> by about 76% with 16 MiB regions, with no clear change with 4 KiB
-> regions.
-> 
-> Cc: Bijan Tabatabai <bijan311@gmail.com>
-> Signed-off-by: Aveline Noir <jm5905938@gmail.com>
-> Signed-off-by: SJ Park <sj@kernel.org>
+> Link: https://bugs.launchpad.net/bugs/2165410
+> Signed-off-by: Caron Wills <caron.wills@pulsar.com>
+> Signed-off-by: Matthew Ruffell <matthew.ruffell@canonical.com>
 
-Somehow I dropped my R-b, sorry.  Andrew, could you please add below?
+There was this patchset:
+https://lore.kernel.org/lkml/20260519012754.240804-1-leobras.c@gmail.com/
 
-Reviewed-by: SJ Park <sj@kernel.org>
+Leonardo, do you plan a v5?
 
+Thanks.
 
-Thanks,
-SJ
-
-[...]
+-- 
+Frederic Weisbecker
+SUSE Labs
