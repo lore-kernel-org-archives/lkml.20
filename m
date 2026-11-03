@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704272;
-	b=3lzTvUMRtwdBcaxXEk3LZ2WVyPEQ++a18vKWzvCWW+LV3gQgZw83/K1Hn+Mxy1athSsT
-	 gQ4vusHrhBG7qR6FdByy9PK/PU2a5uyHFMtuCXAbUsHMkFNbsqNXMBj/ymqH0IUYZ0/XX
-	 Li0n6hJOOl/eWaRgVdwzrar15b3AL0xKLSbjig8juknJAt3r4lahtKyCeP4lO1MoPS/I0
-	 hZzJwgGhnZtDXv5ctP9BaM6HseOXremlXrNkn0KSTDzQ0xRQ7NJnggRxyYnZP5Un/XQlt
-	 v3rJJXsMUvkwMrSc1Y0em0IPBCwWLfc0hXiA0tey0ZiWKKaa2yXY9lfyVAxE6lexzTg==
+	t=1793704263;
+	b=n6AB6x+eb+eghj55pKyb/A6Up+XK1lFxlhDFdPcGqhmR2GzFuYhiI92L47muYqyJOIK8
+	 2htwvuXTjX4DHe+ocUfN4vrNyIjrmTI0rbzy/zYT29vGJqSz1G9e1QsXXB/3ZCPnuvH6o
+	 wFC4Xvd3hWShCO4zYwqd4pAoctw0KeJBUImmYliPfoCVtqooUAGF4ZI/juCKRQu4iL4vG
+	 rwOAjVqKO1ajgtFJGjr+JFHk2BZQLjq1OTTrpBdz652WGTXPA4pSVDbRGNWKtaPfDuHv/
+	 sv5V1v+NLx34nqc/hUL0GdVzw3zgUkG+yOxSF7kMymhVYZYOfXoJnTIO6AhE0TZq/3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704272;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704263;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2ME5JyCxKMxf/pwrx0ni5cWoaFDGbuwJ8j4UWAQ8Xq8=;
-	b=2oY84yG6qduRgVuKV9T8R86tJ6ALrGf8AeS/KY7NdWY5A5ZYUQBxvrpzNR6WUBxUg7nj
-	 R7biC4DoPt/LxPv+l3+W6/hsFbo3Adv9NlODqCGqcRTvnfFksdOlP7ENmjHRe2kBgO83s
-	 17CX+KD77+uoUCdHZ2Jeb9C82HnXxQEGM77ZrPrffkrjD3Oo8FdDx6xeEO8DxB+JWp2o3
-	 sN1Ss9FJ7ULZQGN0scfd28FYJK9PiRIQmtgvtkg7kDKeqr6zN4GCiSc1hmX4bYQwC5dKf
-	 Tef1oWTRcSjJcrrStFNCpHkeKbHQm9OJf5CgIM4TjdvMbxaAB6B443V5kxlmUxKeqlA==
+	bh=TpY7gfCybRj7+hCyHruI8lUkdXq2GT2C0QBLYpHMn5U=;
+	b=JzNUErZCb7vmQHxX1BIAvNcYuTQcRZcqbluvehBP457x0NuugKZd9OcUsqoVk70Gn+7g
+	 zCOg0I40dBeqf2FRU5px5SmpZhb5+YcJ7k00LN/1pFCNqOnEWcgkDiXtT3lTx7g7PLF9R
+	 bx4f5uus6BHQutFfMZ8kfvh50umyiu15SW4ZHzwXfRbTfUceKVrxX2/e3izDiFPpsRiTJ
+	 eVZCivsHP0gFIIN+DBR1Gca8EYNCpNYcgGVvawfEXmwpIDR0Lp58oaMQQxuwb16DKji6M
+	 V9HWBQX4EMuoN+lD3+nHuVvMhv7F+K2suL7LgwZBefmCl2fdxyy5IsbgkliFYiQ3M8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KFPsHcTo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEzLaXw4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4BC60A5BDF;
-	Tue,  3 Nov 2026 11:11:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95566606FACC;
+	Tue,  3 Nov 2026 11:11:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KFPsHcTo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E731F0093A;
-	Tue,  3 Nov 2026 11:11:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEzLaXw4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2F21F000C1;
+	Tue,  3 Nov 2026 11:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704272;
-	bh=2ME5JyCxKMxf/pwrx0ni5cWoaFDGbuwJ8j4UWAQ8Xq8=;
+	s=k20260515; t=1793704263;
+	bh=TpY7gfCybRj7+hCyHruI8lUkdXq2GT2C0QBLYpHMn5U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KFPsHcTodsjT8/Aazn7U+epkvhJQACdLgFRsNLL9Gc0JWXy9CCLQkGq6KA1RkjrHr
-	 1JQdQipvPJbBoK2rUEnimqRyX+3DgQ/A724Qlq01V3UrQlaa0xWIOjZauuslIyH0qP
-	 /M0E8QmBzW0gtBRsKcGO0CTW/quSiAfjansBSQZPrm+sC8bH6HB6CAXNsyzFwVWyoe
-	 iTYhRLNpr9EdTW6f1viDHP5HkUqDG4rBwpUdsiUBlH+wnXTQXvCME+bnBUuepvTFy1
-	 GfZS6hkydKpF/P/bquu6oa7B8HYMP4h1GcxE2ctrK9cGrogrSPNQvwHrJ/Yd4hmT58
-	 wxeg4YsbN28Bw==
-Date: Tue, 3 Nov 2026 12:11:09 +0100
+	b=cEzLaXw46GCElArUYrx2ojVrPAkir1oQf0DqjgF2UCOI5kSYG7Lb9zrxa5trV1XXj
+	 svMUHNqVoPkpYBD6XO61ebJYHDsZ+wUrkhMIxpHs5U4s9xFWQgPRb2B0viyjRU77Ey
+	 ji1x1gZRIqMpMApHcHoIhUySm2oRWb+kFPYGixlRe1R4IpH7MTmdV34n1atKwLY7YH
+	 xtvdnawDaO3/ajig/4F3JKWtB6VDaGsoads3xxKxp75k+WjuQs5clAclcGfnrzU/XL
+	 DXBRF2yhhAW8lFzrzMa3Y+GjjeRKZOiWy9wIgVaJjQpXUqMNWjAVRXJkh69m3xbYSg
+	 Lj10Pu/NmXq/g==
+Date: Tue, 3 Nov 2026 12:11:01 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org, 
-	Paolo Abeni <pabeni@redhat.com>, stable@vger.kernel.org, netdev@vger.kernel.org, 
-	Eric Dumazet <edumazet@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>
-Subject: Re: [PATCH] net: ethernet: sunplus: spl2sw: release the port node in
- probe
-Message-ID: <20261103-shiny-terrific-husky-6ab367@quoll>
-References: <20261103102852.1340500-1-vulab@iscas.ac.cn>
+Cc: linux-wireless@vger.kernel.org, Jeff Johnson <jjohnson@kernel.org>, 
+	linux-kernel@vger.kernel.org, ath11k@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] wifi: ath11k: release the rproc reference on
+ teardown
+Message-ID: <20261103-clever-adder-of-culture-daa0dc@quoll>
+References: <20261103102915.1341148-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,25 +59,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102852.1340500-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102915.1341148-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:28:52 +0000, Wentao Liang wrote:
-> spl2sw_get_eth_child_node() returns a device node reference obtained
-> from for_each_child_of_node(), so the caller must drop it with
-> of_node_put(). spl2sw_probe() never does, leaking one reference per
-> port on both the success and the error paths.
+On Tue, 03 Nov 2026 10:29:15 +0000, Wentao Liang wrote:
+> ath11k_core_get_rproc() looks up the target remoteproc with
+> rproc_get_by_phandle(), which takes a device reference and a reference on
+> the remoteproc driver's module.  The resulting pointer is stored in
+> ab_ahb->tgt_rproc and never released: ath11k_ahb_free_resources() only
+> tears down the firmware resources, and the probe error paths after the
+> lookup jump to err_core_free without dropping the reference either.
+> rproc_shutdown() does not release it, it only drops the power reference.
 > 
-> Drop the reference once the node is no longer needed and on the early
-> continue paths.
+> Release the reference when the AHB resources are freed and on the probe
+> error path, so that repeated bind/unbind cycles no longer accumulate
+> remoteproc references and the remoteproc module can be unloaded again.
 > 
-> Fixes: fd3040b9394c ("net: ethernet: Add driver for Sunplus SP7021")
+> Fixes: ba929d6fe31a ("ath11k: Remove rproc references from common core layer")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/sunplus/spl2sw_driver.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>  drivers/net/wireless/ath/ath11k/ahb.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
 
 Multiple things here:
