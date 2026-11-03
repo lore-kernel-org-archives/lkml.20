@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793709662;
-	b=vUj8gw9f7AK1W7WRI13PkTqcJPDg0Ol1GKvEDg5GoSKF4o7MhbZiYNqHVbkvv3a3smnB
-	 EFhE9HJoSJ3Gp5KGtxNOjw9NGLd2TaY5H71YJZQBnHsat8V9w1m4FV4/bjbPVygsnfblE
-	 CAkrH4uY8vXRLXb7MSXYy9xXz826G5pjlX8bkl7Esh3uquYlji66rKhZzzYeWyMvuVeBl
-	 3WHF/sDj1D0WPLvT204lsg4OYVAkw7898eaZ9UzhFdslssvPbcyxi+rxZooPyTXG8CEcP
-	 TmDL6D2jNlo4SIrKNoAv4h3TH7W8+EI7OD/9fmCYZ3WiFk1oiwDgKB5DQIWwWpihp0w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709662;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RQl3hqohQ/Z/sRPHduciY8J4ZvVSVl35Zc9E3tyencc=;
-	b=Uq2CVA2Ev1GrFP4fIfyo7Du3m/ugkhqO8L5uUI4uGH/yP77TZSW4ojc4Ei8mSOZ4NOjm
-	 pN9Aj9La+oyKGo+lNLb0BJj2qKWVQgRkwWq/cphyn1RBBV1CpBEnp55FEO1r3L3YADh2G
-	 V9miO4Pv1Iivc1igp470WqBo9VfZNMP6l+xqNalEApwoEl0DbOS3aY6PtlelmUEBtywhQ
-	 gF1pE0yhjJ7C9XgBNocsr0MmLaLYmAC9QkfpA15mNUOgGF8o8orU21j+nHAjI77d9g+5s
-	 52l4qHj915cw2OEeTO9NeQl3QMGhY8Am3z+tOEf3ad6GEpTnzuxA7VGBRbd7DBaMRUQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zUaLjWZJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.22
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013022.outbound.protection.outlook.com [40.93.201.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793709778;
+	b=SoQwjHQNylrBvoRgqzwA190zLyLhIqOogo4dF+iA2c96BW2Kc2n5vPP3VJ2PCRxOJ//Z
+	 rk+gQ2P1+2Y6eu2YqkQ5mxhydTlukbJ7L+h/NxDSsx0OTd950bAbF50PfKxCSibCTNKhm
+	 z+T0wUSkhlHskDupRlf8oSElm2IUSPuWxpsU4cEASq2CMZuyZX7F+1p6Q65HsbQT4SY+6
+	 0ov4j+2uxRxdg1Hpx1GlF7FOwODfI/yfJwreo8EkrUYmbyR7Cpk2VnY2KNRDFcuzBOnn5
+	 3JbKXdDbSLraMBfrPBWOZ0U7UUlBw7TbL508tuiTLd2hrMgELCJsYnfTfiaCI+kDCaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709778;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ciHSUnx2iyvwoHNlv2Dzk8sL4mtfDhCNXQ+egE7PL1A=;
+	b=Ga5lP69cdq4Eip3sv0wk9QcVqB4FZQRnfWPxkdFWbbnR3Ijdmll75bLThDdrkoVAojR6
+	 5kzQhYRAHh4pAm0dgTDBtTn6RGNd+PZGvjlhew+Bbf7/xijxamGCScca1YPm9/eeKkxW+
+	 h8H2zIPKjUWsqLWZNsVJRV5RU8ij7amTCvPEOed98IVnpW1k1g8AoQ4jrSISfU26TpsX1
+	 gHV7/mSOMfrBS9Tpw5nuXjin5E7v6Xknq4uy+YBvlOJxTcHW0uoK46E/ZIPNYz+hSRlWJ
+	 MozmGhJuKgCZsFCqtMequYQs19oQ0XqPqEz00pa19sidOCyAvS2gKsJTezrHgPbqqOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cv6tOcZh;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996A1606A335;
-	Tue,  3 Nov 2026 12:41:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 996A1606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6251606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:42:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6251606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zUaLjWZJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CLqMoftDiHe9hhKXBkiw2Zj2sJ3YLpLLwesTDU53O+4H3auu7u+SfFzCJVwB+UgwWZVZdNGOUW/tllyhXlL11cQtpLS6embd4ISbj+7T66h5J/O1rW+AwmFBZ1DF2uosSb4xRnVV3/dchvt+VpS8iKwP4sxaCbw+90s2TPwJbHN6MIA68sIBy0hmUdCieH2LStJygiW7vel9LM834ncibiryfkWB2moq7MPJKy/EKEDe3NagHARnjxDZsFiKnVJ5nW3WC03qG4Sdm3Pr46IdCr6vWUvrPzVr6U+xydVkeFn/BguDpvhe6fghsgxZ5h/Uf19npq23KivUy3RgYLlg2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RQl3hqohQ/Z/sRPHduciY8J4ZvVSVl35Zc9E3tyencc=;
- b=vjOPkJJpIL/n14ztZ8Iwz/5KTpaO8PDHofvIh6zqdcEk4EhVqYrM/5nSNw9p3ks0R18JeOEU+87iCBfoIHjQe7YOaFaXQey+zGiIn8uvoYAxHHKNG/biwQg+xKh/3bwmnC4jsbikVHai7AeTAY86PG7+TOK5hllXaswktg90/wF3ACAyPSnPXj2nPxWMgykCu4reEwrzEhz1LNXUkAuLHWQy0k+1wFQXQzbvtx97FWXvHv+Ycuq1yiMsfFXJfgDfsIr28WJxhZDPYrTz7tEFXHUPS/4cJJihJolKDbG5sxSXvEkdpCr/OXsygo58QK0MaDxTcFkHUXbmyzUl2JwppA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RQl3hqohQ/Z/sRPHduciY8J4ZvVSVl35Zc9E3tyencc=;
- b=zUaLjWZJpHDTa4QL5CUyKxl/oyOyRggGTnRCqKTC7RFf7lh5Ua4aiFSupk///E8PCe66cRN1eV8qPG9/7UZZBaM4Yzrd82T2u2PYB04bO5cvJeODyBrjhRFGNIO+VA5TZFzykpt4efucj77Y6aq5Pk6sElgwRZxVn2SU9qsLY1s=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB8147.namprd12.prod.outlook.com (2603:10b6:806:32e::5)
- by MW4PR12MB7468.namprd12.prod.outlook.com (2603:10b6:303:212::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 12:40:56 +0000
-Received: from SN7PR12MB8147.namprd12.prod.outlook.com
- ([fe80::3923:c1a4:778b:56f2]) by SN7PR12MB8147.namprd12.prod.outlook.com
- ([fe80::3923:c1a4:778b:56f2%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 12:40:56 +0000
-Message-ID: <797e993c-f477-4777-9485-5a9b89aeea7b@amd.com>
-Date: Tue, 3 Nov 2026 18:10:44 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 1/8] dt-bindings: net: add Xilinx TSN Endpoint
- Ethernet MAC
-To: Rob Herring <robh@kernel.org>, netdev-bot+sashiko@kernel.org
-Cc: srinivas.neeli@amd.com, nagadheeraj.rottela@amd.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
- richardcochran@gmail.com, michal.simek@amd.com, bigeasy@linutronix.de,
- clrkwllms@kernel.org, rostedt@goodmis.org, edumazet@kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com, git@amd.com
-References: <20261016-patches_v2_external-v3-1-e33d3960ca1e@amd.com>
- <179249749105.3135.3116293825083161439@kernel.org>
- <20261021031657.GA3867774-robh@kernel.org>
-Content-Language: en-US
-From: "Neeli, Srinivas" <srneeli@amd.com>
-In-Reply-To: <20261021031657.GA3867774-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0166.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1cf::7) To SN7PR12MB8147.namprd12.prod.outlook.com
- (2603:10b6:806:32e::5)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cv6tOcZh
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so40381805e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:42:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793709776; x=1794314576; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ciHSUnx2iyvwoHNlv2Dzk8sL4mtfDhCNXQ+egE7PL1A=;
+        b=cv6tOcZhOlrneN2e0L7KVixoOxxuZ8sdvhuc59rLVFokDhOwstRraFITv+AGbVUiDO
+         t+VDc0SLgnIqbNkfFEQJ+EaXoXpNRKRjfdYdkjaio1wG/YY8q6hnCfSq83FckBWqRCAY
+         6Fy95Z1layXDyp7kvrybPF+uC1Tuv8b8dTBBwFe8kgitIu5WA+qi8yDswTvRrfeatIzy
+         fjbOTOShkX503If0jPbS5vpjHcJMIGYwb2/5kQMQU3SCj3rNyyRbB+GnXWxPdwUVuHBH
+         LmZ8+/mDst1YOLoP4xmglmO3oLjFTSZVuWHr4SbhWI2BYyGlIbAs9WXupnWkQSLZjpOr
+         g2Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793709776; x=1794314576;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ciHSUnx2iyvwoHNlv2Dzk8sL4mtfDhCNXQ+egE7PL1A=;
+        b=yfpsx1V69YG5md2Y9onawyOhsaFkPjjgetLVsL8uWBVuWYdUDru7C9xBH3rKemJSn+
+         sBfQFy7wk8c8Dz3dyg13wemR4XnXDlynyF+e48T6g5cR/c13WMWCjcVhXZW7kxkH0D5v
+         JChcOxV3BPrkXELwBIB19n7zxL0fXFCeuXV6ldDsZm0e0/P4p3mLt0fgVz9LgOEw5aXL
+         9+3XYNo2OnH5RrJFw2BtJ2oJubUugzGMgtY0OwEbc/f2x8EFSJIn3d/pBZdyj+Fsrfh4
+         Yg4bouBgFvO74+oFBVxFAi94Hff43a57p/jkWRZ3CGgIh8HtRWj3fwp6TZ3opb6fat8V
+         riXQ==
+X-Forwarded-Encrypted: i=1; AKwUvByPjAxYfptvu0YPbLngSrpAHIpxF5D24rFjecFgsIxCcaQMu045rDG7t33/owHeWU8HWmcZAC7BI+6OX10=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+RJiwZ1VfiGLpfWxmnKtlQ+0DDyFKy11LsmacZ3532Dul7VVLv
+	kNpNI1zpoCtPcmjaqBBd4hBZp1CaxSVC6grF8sZdTNReKoUHkKeySzJ5
+X-Gm-Gg: AYBFou3Y1qtOwnsfYnYhuJL0rxsE9UOhese/jgLB/9MFjqnfO9Fh2iTuI/Q4H4PYCNk
+	gLGlL4Hw5GOdo/kP949o3pJt9nmBTbo6PkwSlJTxzwsY7YjU/ylX5b2SZRBzS1QLMS6OXdVbncF
+	psKgZG4KID9cL85nQkdOtiCSh/RR/grtFawaijsYKEkZCXA8kFXoxZZqk2LKWMAE9fxShJrxd69
+	d1r6+610WLZ6kg8c+qQ3H9pX5koAMgVJO6AnFmrGv4mhX6M6y8Z0nwZ/iU4oZShNLW9Jxdxzpv5
+	i0JykUUDO5s14nDOTq83S5RqewayoQ5ntV0tMkYdSuV3uC68ggTQ9iiqx6XGA5ugEg1+8HHPYnW
+	l6RX6RYMGry7BnRLSC4oWUyLTBo70f7GX9kBe7rEr9/NRrEzBF5ClmhjOfhfuDoZ2Ug0+WLCRC/
+	D74G96J/YnDvqcQRlTWYj3tT+qZb+gkvSOz44GSlAZLi4tno7zdy8mMtp7Rs44a99C73w7d8Ec2
+	EMAp0VAfLFQshUxkh+dxaApeYWl0x777h8haec2Etop6XJwrC4Uyb6qRchccPHANAtIl2YVuv0t
+	2HZNmsegSd3jFE+3JIxYAmn25g==
+X-Received: by 2002:a05:600c:6387:b0:4a2:150f:1605 with SMTP id 5b1f17b1804b1-4ac1904a81amr299352705e9.24.1793709775886;
+        Tue, 03 Nov 2026 04:42:55 -0800 (PST)
+Received: from webserver.. ([149.3.36.8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a922c298sm48802845e9.9.2026.11.03.04.42.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 04:42:55 -0800 (PST)
+From: Aleksei Fedorov <ring.zero.sh@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com
+Cc: juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	Aleksei Fedorov <ring.zero.sh@gmail.com>
+Subject: [RFC] sched/eevdf: fall back to the leftmost entity when nobody is eligible
+Date: Tue,  3 Nov 2026 12:42:42 +0000
+Message-Id: <20261103124242.102319-1-ring.zero.sh@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,256 +103,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB8147:EE_|MW4PR12MB7468:EE_
-X-MS-Office365-Filtering-Correlation-Id: f33a8ebb-ff59-46d8-9239-08df39a7b46c
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|22082099003|18002099003|3023799007|10067099003|261102123227099003|11063799006|4143699003|261021121427099003|261026140227099003|261022105027099003|56012099006|261026121527099003|261022075727099003|261009223027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	S6oO+0ya1mz+M5Gr6Rjh7OmVSyfrxP+ivbwndFq1FdM/0jEbdWk4bEnzLG4hf8Bo/6DMiIUXVaOBmibcZHa1UWF1rv0fD7PPJ6LeO0B9hbMWr+JvQ+YJ1HQkMuxbsDf39Ty7mMfKV2ryZNGSWhXytzw/z6Fx2BJw4VNvPOmx8FI0DKw+AhVrB551FC0ZuwHXpFMgSEgFVOvki4GrdEmOQVagSqPRml1kEXOLmq9dq4W2PCaHVDlh+VCraIe2nRuL2wuek+n1dPZ08IUD5blURMATLVjbQZ3bkwvhtC/ySdMRYEtYXxVzZt1WvSiJsnit9x7l6a+UijtkePLtlMJXZ2qSOtBw/9wtwMriOmVKf/EdzYH0QbkVlJd8T7jM5vfGcrgrO6zhiVmHPtTyKK0PtrnmZqXoTaaVPXjqYOKv25hi5QrkSmzR6y1L4qJLFiNrA1CPeGCKGC4vT1MKeL/S5bzWoNX3SbWBIYfnYH2jKEnwe3sU+0NlWaTw0+x/Ij7b++pMrTlbA19WD7QcQWYdHzD4r5YxuYqBeMNcWwNSlcAO2MjrRN4RNnY1ZnV9enLEIOcNpQnzRjeYVjdSUfz05KMHCk1R6nYD6D3CEHwdKR2B1UaaGuEGqKZ/I88+qUJd
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB8147.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(18002099003)(3023799007)(10067099003)(261102123227099003)(11063799006)(4143699003)(261021121427099003)(261026140227099003)(261022105027099003)(56012099006)(261026121527099003)(261022075727099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a2UvK3NUUWJ0bUF2L0hsTGI1dVR2YkVWcmpvaFJIY2VkSkFPZ0xNai9obHdp?=
- =?utf-8?B?a3diVE9IRWRwV2RnSGRqRkM0bHNQNkxFVTBJMUFxLzBXcHptVXBVcWQ4b09M?=
- =?utf-8?B?OURDSjhXR0pIdktIWTVzYldta0lHOVRENStSS1lqckFTVGZZbzNBb3NSS3U5?=
- =?utf-8?B?ZnRFR2FPR2lMaWdKYVV5ZE9IeVpkZG85eEUzVXcxZWFOSjB0RGlHeVc0MmpC?=
- =?utf-8?B?cmUwR0VyclQ1ck5icHZRWTUxaGVkNnJMSy9TL2lMSGxIOXZ2THdNQ3c5VGlx?=
- =?utf-8?B?M3ptUzgzb0tRZjFlNW5DakxOdjh6UHdMZDNLWWlZOUMzVjRDVmp0cFNzTkhs?=
- =?utf-8?B?aVdrVnlRVE03RmRna09TYTdnQXdQVTVaWkNRTlJZeC9XWnNvVjdoamNiMmxT?=
- =?utf-8?B?ZkMyRlhqZm1TbnJubGZER3BmRFJ3dFovQVRET0REc3RYRUdpSkZKblhpbnM4?=
- =?utf-8?B?Kys2Z29EMStTb3VZd2NTbU1qRWtpZHhZWVZJYmlaUlBGemdsQWdBSnZodUs3?=
- =?utf-8?B?VDhiWHN2SGNBdDM1N3Bwb3FNam1rbE9uZzFYWE5JVURVNnRudEczRmdPbytR?=
- =?utf-8?B?TEkwNnR2QmZvaEI0MFpSeFFwMkRwcTFwM0dQOWtnZzlta1BLTU1zNU8rRmlX?=
- =?utf-8?B?Sm9rcmZDYUU0R2pXMTRndnVHZE1vQ2oxVEpCbFVjV3ZFVkdsVCt4QU5KOU15?=
- =?utf-8?B?eitESjdCT2ozL0V4MUc0UHdQWWhGQkFid3FMRE1OUHBITUJLSG5WSDFRRTdH?=
- =?utf-8?B?MmpOMjVrYTFTWndaaTEzaXQxSi94OTY5YzA1eEh4QTdlM3dwOXdSZmIzbzhX?=
- =?utf-8?B?SjRrU0MwaHJOZit3RGdjMno5YmJVTnlRcGpnZFlPVjBJb2thN2RWUVlUUW9B?=
- =?utf-8?B?Wk54V1RkUUVUSm9JOXZ1WG1NcDBQeTBlT1k2bE1TWDFvRTZISXd1K0NLays2?=
- =?utf-8?B?TFdkYysrbmtQWHNoZHhnSlFhYWFjc25MazRITHZpWTNoemh4UGdycnhiMExp?=
- =?utf-8?B?L2V5K0dkYTdzZmZVUmhyS2lzbGhXM3gvblFSd0lCVy8ydjJlTEttcUhFUlpq?=
- =?utf-8?B?YUI0ejdBY2JLN01udkNSWmovTzN1MDJOU1o5NTVtajFlaEtneEViT0VMM3g1?=
- =?utf-8?B?NVRGL0FFcW1idnNTY2wwRFgwSXU3cmRSZ2plb2ZvczcxRStSOXVLby8zZ2Uy?=
- =?utf-8?B?M2ZvbWNLT3V5RnloOUV5bWgzOVFFb1o4ODQxVGtNWkhmNWxWbVllMFA2OTlL?=
- =?utf-8?B?dHJ5OCtQV3JYQTdKdVYyNG44Y3lYWlNSdW5UN21VZ0lMNytCbjcyNHh5b2Jz?=
- =?utf-8?B?V2QvWmNzYWJUNG9DMk80bjFaelRNRE9nWXMzUHJycG40NC9kN1E1MUt1anNS?=
- =?utf-8?B?anRTcE5uOVZaWXk5V2YwV1BhV0IrZ09pb0owMTdzdWdNdm9icUcwRHFIWk1s?=
- =?utf-8?B?T0daUERwL2RaTmdFdlQyd09QTzVrOFpIYlBqYnZRV2lNNTJCb2dVdWlxN0Zx?=
- =?utf-8?B?dGhrRldybjczcjAyQmhXR3FGZWU3ZXVBaUs4cE9KTEZaTGpXaTg4SHRYNVpN?=
- =?utf-8?B?VGJQUmdDdTUzUnhyV1VXWUgvZnJ6SGRhMTY5QjczcUlzQnpqNWtpOHBLelgz?=
- =?utf-8?B?T0VETXBZdGJhS3hSU3FSQjI5R1pzbWVua3pWaGtZYnl2MTRjN21kL3dhUW14?=
- =?utf-8?B?akhEaG5Tc1hqRkJuMFRaYjMwUkJXb2RKaHgyelZ3TkhYeEFuWnpWOTlHWkNn?=
- =?utf-8?B?NXloSWRhZFpZMmp4L2tUcHhUVzE5aXVWb25WZmhuK2hjUnJpY29XRjNpeUF4?=
- =?utf-8?B?SlEzVnVIdElTMVBDMEhmekVTTExPb0xsTm9USEp1Mzl5V3RNMDJiUFd4VE1i?=
- =?utf-8?B?ZklXd1JQcnFnQjB2ZDgvQnI5M2pTdTllUVdOYnFRb1o0Z1Q4SlF2N0p3bFZN?=
- =?utf-8?B?YTJLUUhoMXk2L05oZ0YvV0tscVdjcWFiNWlMRmtvKzFzUmxoRWVNSFBkOUhu?=
- =?utf-8?B?bk1QV3MvRGp2Z0pFa2wwem1kWEhCYmVoSm1RUFo5ajR5UnFIL1JVQXRUcmtY?=
- =?utf-8?B?bXRmOGJWYmVWMkY2WURyNG11SFJNaGJjeHo0MzhlQ3RGUWpBSkdDajh2cGtS?=
- =?utf-8?B?NnEzcjkrVGxlRjZ0Wm81MHRTRFh3dVRWc1VTZms4dlZRVFhRV3ZUMUc2Qjh1?=
- =?utf-8?B?MGtEYW5Ja1RhVG4xUFJRSDErc1U3UHdQWmVuQUlzWFRiZnpKUzdEeG1MWlVU?=
- =?utf-8?B?bWh6clJZZEVsZDRVREIvYmVkQTVqeGExR3c4UE5nckV5cVo1TGNzSWowVTM1?=
- =?utf-8?Q?qaZTx/cfIfxGauKPUD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f33a8ebb-ff59-46d8-9239-08df39a7b46c
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB8147.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 12:40:56.0502
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x+/cvT1xtftGoEE49y/PJ3O1lDiWCunU5zxHTs3ong/AWPKpr8Ns1TEG7O73w+v4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7468
+Content-Transfer-Encoding: 8bit
 
-Hi Rob,
+pick_eevdf() returns NULL when more than one entity is runnable and
+entity_eligible() is false for every one of them, including curr. The
+caller then dereferences that pointer.
 
-On 10/21/2026 8:46 AM, Rob Herring wrote:
-> On Tue, Oct 20, 2026 at 11:58:11AM +0000, netdev-bot+sashiko@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found more severe
->> issue(s) in other patches of this series. This mail is only an FYI, in case
->> you want to address the nit picks below when you respin.
->>
->> Low priority / nit picks for your consideration:
->>
->> - [Low] In Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-
->>    ethernet-mac.yaml, the ethernet@ node's dma-names (lines 81-96) does…
->> - [Low] Concern: tx-queues-config only enforces a lower bound tied to
->>    xlnx,num-priorities, and the rest of the checking is left to a driver…
->> - [Low] The child compatibles in
->>    Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-…
->>
->> --
->>
->> dt-bindings: net: add Xilinx TSN Endpoint Ethernet MAC
->>
->> This adds a YAML binding for the Xilinx TSN Endpoint Ethernet MAC IP in
->> its Bridged Endpoint configuration. The wrapper node owns the shared
->> clocks and xlnx,num-priorities. It has two children: an xlnx,tsn-ep-mac
->> endpoint that holds the DMA channels, and an xlnx,tsn-switch three-port
->> switch with its MDIO buses and ports.
->>
->>> diff --git a/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
->>> new file mode 100644
->>> index 0000000000000..bca834120b3b1
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
->>> @@ -0,0 +1,491 @@
->> [ ... ]
->>
->>> +properties:
->>> +  compatible:
->>> +    const: xlnx,tsn-endpoint-ethernet-mac-3.0
->> [ ... ]
->>
->>> +patternProperties:
->>> +  "^ethernet@[0-9a-f]+$":
->>> +    type: object
->>> +    $ref: /schemas/net/ethernet-controller.yaml#
->>> +    unevaluatedProperties: false
->>> +    description:
->>> +      Endpoint MAC sub-node. Provides the host-side data path through the
->>> +      DMA channels described by its dmas / dma-names.
->>> +    properties:
->>> +      compatible:
->>> +        const: xlnx,tsn-ep-mac
->> [Severity: Low]
->> The wrapper compatible is versioned (xlnx,tsn-endpoint-ethernet-mac-3.0).
->> The child compatibles here and on the switch node (xlnx,tsn-switch) are
->> generic and carry no version.
->>
->> writing-bindings.rst asks for specific compatibles, with no device-family
->> names. For sub-blocks of a bigger device, it asks for device-based
->> compatibles.
->>
->> If a later IP revision, or the planned Endpoint-only variant, changes the
->> endpoint or switch register layout, how would these child nodes be told
->> apart? The endpoint driver later in the series matches only on
->> "xlnx,tsn-ep-mac" in xlnx_tsn_ep_of_match.
->>
->> Should the child compatibles be tied to the device or version, the same
->> way the wrapper compatible is?
-> It's fine. Being specific is less important given there's a specific
-> parent compatible.
->
->> [ ... ]
->>
->>> +      dma-names:
->>> +        minItems: 2
->>> +        maxItems: 16
->>> +        items:
->>> +          pattern: "^(tx|rx)_chan[0-7]$"
->>> +        allOf:
->>> +          - contains:
->>> +              pattern: "^tx_chan[0-7]$"
->>> +          - contains:
->>> +              pattern: "^rx_chan[0-7]$"
->>> +        description: |
->>> +          Names matching the entries in 'dmas', one per DMA channel and in
->>> +          the same order. TX channel names use "tx_chan<N>" and RX channel
->>> +          names use "rx_chan<N>", where N is 0..7. At least one TX and one RX
->>> +          channel are required. Example: "tx_chan0", "tx_chan1", ...,
->>> +          "rx_chan0", "rx_chan1", ....
->> [Severity: Low]
->> The description says the names are "one per DMA channel". The v3
->> changelog says "Cap TX at 8 and RX at 8 channels". Does the schema
->> enforce either of these?
->>
->> Without uniqueItems: true, dt_binding_check appears to accept a 16-entry
->> list of fifteen "tx_chan0" plus one "rx_chan0". It also appears to accept
->> "tx_chan0".."tx_chan7", then "tx_chan0".."tx_chan6", then "rx_chan0".
->>
->> dtschema doesn't add uniqueness to -names properties by itself. For
->> example, renesas,drif.yaml lists "rx", "rx", while renesas,sdhi.yaml sets
->> uniqueItems: true on its clock-names.
->>
->> Could uniqueItems: true be added here? The pattern only allows eight
->> names per direction, so that would also enforce the 8 TX / 8 RX limit.
->>
->> Later in the series, ep_count_dma_channels() rejects duplicate TX and RX
->> names at probe time. So the runtime result is a DT that passes schema
->> validation and then fails probe.
-> IIRC, dma-names is the exception here. So yes, you should add
-> 'uniqueItems: true'.
+On Ubuntu linux-aws 6.8.0-1066.69 and 6.8.0-1063.66 the fault is
+pick_next_task_fair+0x91, mov r14,[rax+0xa0], RAX = 0, CR2 = 0xa0.
+Five oopses on one Xen HVM guest, from 2026-10-24 through 2026-10-28.
+commit 1560d1f6eb6b ("sched/eevdf: Prevent vlag from going out
+of bounds in reweight_eevdf()") is present in both kernels and does
+not stop the NULL return.
 
-   I tried to add uniqueItems: true under dma-names and I observed the below
-   error:
+Take the leftmost entity so schedule() can finish. WARN_ON_ONCE records
+the substitution. It does not repair the eligibility state that rejected
+every entity.
 
-       xlnx,tsn-endpoint-ethernet-mac.yaml: patternProperties:^ethernet@...:
-       properties:dma-names: Additional properties are not allowed
-       ('uniqueItems' was unexpected)
-         from schema $id: 
-http://devicetree.org/meta-schemas/string-array.yaml#
+On a guest booted with this change the warning fired once, on
+2026-10-31 16:08:42 UTC, at pick_eevdf+0x22d in kernel/sched/fair.c:967.
+The guest was still running on 2026-11-03, with no further oops.
 
-   As per my understanding the core DT schema already has uniqueItems: true
-   for dma-names:
+Signed-off-by: Aleksei Fedorov <ring.zero.sh@gmail.com>
+---
+ kernel/sched/fair.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/dma/dma.yaml
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 0feec172f..1b940ced9 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -1196,6 +1196,18 @@ static struct sched_entity *pick_eevdf(struct cfs_rq *cfs_rq, bool protect)
+ 	if (!best || (curr && entity_before(curr, best)))
+ 		best = curr;
+ 
++	/*
++	 * More than one entity is runnable, but none was eligible and curr
++	 * was cleared. Returning NULL makes the caller dereference the
++	 * result. Take the leftmost entity so schedule() can finish.
++	 * WARN_ON_ONCE records that substitution. It does not repair the
++	 * eligibility state that rejected every entity.
++	 */
++	if (unlikely(!best)) {
++		best = __pick_first_entity(cfs_rq);
++		WARN_ON_ONCE(best);
++	}
++
+ 	return best;
+ }
+ 
 
-   I also tried to reproduce the negative test scenarios reported by
-   netdev-bot using:
-
-     make dt_binding_check DT_CHECKER_FLAGS=-m \
-  DT_SCHEMA_FILES=Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
-
-     With DT_CHECKER_FLAGS=-m I can reproduce the reported errors. 
-Without it
-     those negative scenarios pass. As per my understanding netdev-bot ran
-     without DT_CHECKER_FLAGS, which is why it reported these cases as
-     accepted. As all the scenarios are rejected once DT_CHECKER_FLAGS is
-     passed, I am ignoring the warning and keeping the binding unchanged.
->
->> [ ... ]
->>
->>> +        patternProperties:
->>> +          "^queue[0-7]$":
->>> +            type: object
->>> +            additionalProperties: false
->> [ ... ]
->>
->>> +        required:
->>> +          - queue0
->>> +          - queue1
->> [ ... ]
->>
->>> +allOf:
->>> +  - if:
->>> +      properties:
->>> +        xlnx,num-priorities:
->>> +          const: 3
->>> +    then:
->>> +      patternProperties:
->>> +        "^ethernet@[0-9a-f]+$":
->>> +          properties:
->>> +            tx-queues-config:
->>> +              required:
->>> +                - queue0
->>> +                - queue1
->>> +                - queue2
->> [Severity: Low]
->> With xlnx,num-priorities = <2>, can a tx-queues-config that contains
->> queue0 through queue7 still pass dt_binding_check?
->>
->> The ^queue[0-7]$ pattern accepts every index from 0 to 7. The if/then
->> blocks for num-priorities 3..8 only add entries to required. So the
->> schema has a lower bound tied to xlnx,num-priorities, but no upper bound.
->>
->> Later in the series, ep_parse_tx_queue_config() rejects queueN with
->> N >= num_tx_queues at probe time, so only schema validation is affected.
->>
->> Could each if/then block also set queueK: false for K >= N, so the
->> schema rejects these nodes too?
-Understood. I will address the upper bound check in the next version.
-
-Thanks
-Neeli Srinivas
-
-pw-bot: cr
-
-> Shrug. Sounds too complicated.
->
-> Rob
+base-commit: b99b7f60c5b473d374c68b53753153b4aa9e0702
+-- 
+2.34.1
 
