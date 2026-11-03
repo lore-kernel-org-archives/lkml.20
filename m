@@ -1,53 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702558;
-	b=oW6kXDT28wIqKHiMrA9kqzsLYpeKc4vG7BPVCyZhj3wMsC89T7rP/os5h2dkllnNJTbD
-	 XnxTnkSeVDEuFI13T+HITjQ4OXVY8MpG1k0mXNxXQKLrlpA5xpsduVa1VN3hZN7IIYhXa
-	 N0E8rrqQyj2GGQelD7yxr8qFmuiSESEEKKGH9RQQxypTPze6Xf4gA4aFHy/SomMRTl2Dd
-	 RGxrRghcavRWCFAmiRV8xr9Co+jBm4c49s+ossPntQzvZvfrNdxR7kwYfZWHOBfOee1D5
-	 LZCv53yted3uwzqMbThrt521qKvXi/blby+bNDGpwsiX0ZxrTx8J7XPaPgTyYxcZt6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702558;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=Utk8d1BRt2/HG85jDbMHPQ3tb5+bNgE6B4vI9z4ICAM=;
-	b=3LB4VGeRm8Wa4/QNkb0AFB3+hc/EdWqi8EQHNVx43YCfNFKwIf6lTKOMS+4ZbwnxHdLL
-	 0eHPmpHAek+JkNsWcOCvqE8VxUCwUm4wZDEwzR6Luaa9H4aqOKyXNAukY1FVKNRluu7FI
-	 x6rObJSfy/DvzuI8WCy4+NjXNscCxyMzrE7Jm64xC26UOb/eMfeJBwv/VUOuy+Fi+ypjO
-	 SPDXLnKUIN7vpBMjOfLEL4jk0fDmxt6EwXPkwgxolLDoCX+O3HpIKrsvPAB1znoy+DMpb
-	 L70DX8jJILfueRjmjGwsLv/Xg+yoaDhqE2rC++z1L72z2AVj2ZIuhBXvNLIU9eIc4rA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793702615;
+	b=rKhqETxEoC5Y11tanN8SZMvAyQ2JcsofHnWuINwAFvZ8aH6Dom9GyoLp4ntqZEOp1fPr
+	 xH1xkQFyFrk2B3EizLsTIJSgtQx4U+GQcZN8Yjti93kPYLBi5jrD9buTlRFyiGzYpob1f
+	 WzJVheBVVlXZ+mLJ2QAyJa6QlpstsgURkkwVTHD56CKoJ6UytQwqHVfod9fpuKDi7lesc
+	 Ul7P1dlHzCcWkEvRZ9kdT7oLgyi2I8k3fDrv8W2kn0u4AZm1uDXff1TqsjRmirpOyWKeA
+	 iHXtCBq5BkTtkNOGOVL7Xo4iW1Mh7jFCpcctr80sEZN6QgKFwIqOh3XLgvL07xz1cjA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702615;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+2clxmetH1f6hKvvIm6D4A4xikxCFsBoxO8NB0gBXdk=;
+	b=PjJwZbC8HxPYfv2z4vPYuf1TCpfnyWDNJYXSvyflgXo2i4G1qyN7pZtCQwl1jTzxMLe6
+	 qUf/oP48klWuzSSeM76siVHA1voIRbFSuDe3IefMiDAaW6MQTZdFT6OneqgM2AR4proHQ
+	 MlY2uxO9aoXYwYo4926YU1UcBR4MSkFDGANenvRIOgF5giHQz7BQzo95ebAQX07z31q13
+	 0Ca8JCf5Xoz2ubmgtJiVpjETWpy6P67AunKrTdCCyBVd5OSJnFiZnwP5OQG3ERSC7IpKv
+	 zZ/br+TxGZlMepcSy0OqFWvgcH1A9PXHs5WCBrA0KRfaoeuFR77Vkucz0IeYvmF1Ung==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pvHUVb+T;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926706077D9E;
-	Tue,  3 Nov 2026 10:42:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 926706077D9E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAHFpeXuulqpcg7AA--.2830S2;
-	Tue, 03 Nov 2026 18:42:32 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Justin Chen <justin.chen@broadcom.com>,
-	Al Cooper <alcooperx@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] phy: broadcom: use devm_clk_get() in brcm_usb_phy_dvr_init()
-Date: Tue,  3 Nov 2026 10:42:40 +0000
-Message-Id: <20261103104240.1373792-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9513E606BF8C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:43:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9513E606BF8C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pvHUVb+T
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-84e513874f8so2780059a34.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:43:34 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793702613; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IXYKVTeQFQHL8CEeWmXkgbDB4eBnXnG2iPfnY9oTs70PMmiJmqKTVERlz0V79069Y1
+         7MtaT5L3bG8O6ctcysT8Q+WIId0tfP6RbAR8TT1uKUFIZob5wKPmQUZRL8Z1xXSKaH/k
+         aWCA4/K4xDXXgrX4iAKvw6FnMjh/6ISwh8RBg/wcUXlUeg2cozbVZ2IaMFXalgnnoXkQ
+         4qm3wwyc7NiHLzO6j3PQZ9C/fCCSKWVP+vlmTYR3EF+p3jgakPB7cuumfXF3ucWMu5pL
+         cAZsMQkGKYxZam3zFXJO0HCFQ1EHWVozZ+MIA7QUTQamyiCL/x5DyqgU2zqGo92BDIpR
+         K8rA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+2clxmetH1f6hKvvIm6D4A4xikxCFsBoxO8NB0gBXdk=;
+        fh=YccwASdL0ZrW2b6PRZhmzkqvzyAyO0nSRGKIWgxFml8=;
+        b=l6OQvNAtwiKPIHdNdl6NwvtFnUacIO/qrwVopQPHUrxF5tBbuNf88HJD2A0UQnxNoW
+         BtMw29JiL+STYZeFzjm31e6oQcyzSt7VvKDQwza9DRFRrdxWqAXqoVKqBwiz4ygUU+Lm
+         Imd6y6fq5/ggAZJb1AP7Z8iwgPhmD0qcRedzR+HCFrIZ058ANmQXlOlmw2NIrxnK8R1/
+         L8wxAF5diDJvp6tLg7RRfffHX+AONxdpq2+Ry0+idyBpRKnY88fbNw/nz4qqTDYx7rJa
+         nODFqnFPhbfUhyZPJ/m5Mz2oa30aX4z7XJ/uoQuJffR8oMzXzj6nen0EyJkl/c9OmUqw
+         N6jQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793702613; x=1794307413; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+2clxmetH1f6hKvvIm6D4A4xikxCFsBoxO8NB0gBXdk=;
+        b=pvHUVb+TZmgxclqFDg39YmdZ72npbnrQBfllBxOMX+Ta7oW1AwDG9k9Kvxdyi4PU00
+         cjSP3Leaq2CNcma9d8zP2NByk/xiCQHb3q+CXX5H1tzZXDtaYp2Oa9CUf6fgIqVkNH9r
+         8Yol+azpqA3Kn4y5LqnbDDu5IjjWf1rBENKk9POJFQs7sbp+nSMaP90xLalxpWY3IJ+Y
+         xLa4t1Wpvt43sSMGTetP2PpWOE5d79YozpiiUlPOS9DUsFp2ssr45HyUoi20klm85TPV
+         qCbK5xappNbZwz8RfxogE9A8wmOBt81ZM0RaTJ2zEBqrmewB2Si/01plMLlRQA6EeCrY
+         AAjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793702613; x=1794307413;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+2clxmetH1f6hKvvIm6D4A4xikxCFsBoxO8NB0gBXdk=;
+        b=cOTfGHfjGyQLBPg3iwkdHtqn88PtM8G1fpKWCd/XsJ2vGlk8cZrvGH11MishLpXwBl
+         wq0gJgQZekj246TdDI3QfBAWPBttl/JCXLB1FfvbPacweD37ohyaeiMfEcSVBe608kf4
+         oL6jILXcQX3E43pyxhQ5duwZgVF2AexfFm1PBIvWXNrrWxB+tdbt9VF3DJaPe1zvMzZG
+         rRXwlzIzQBMG3MN+OVHsl8RAySp+dBpEh71/pZo/UMyBLj0qUZsNQ22OUXU8ai7nRSLM
+         O5+8tLmeH5OgewRZi4PiDwAYkZ2A8uqzQcap4Qyp+d4PUprBTSt83fHRk8zAQ1/XaP91
+         v7PA==
+X-Forwarded-Encrypted: i=1; AKwUvByekPgTy1LeLUy/e2r9x2bzJEzZZVWwox5lqgBju8641omwwRAVLfpHeUuAchu5WzXO6puFrdpI+VsjRJ0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9QmBQPaoAOZ9TQvkYSr/5or+VfNiQol/SudvgIpaRyYw3l7gmk
+	75UcZ3t0SablQg3/WUCUgzc3YkMaZakoog57wRzt5FsIwvI+sVK8KLxNVFlvPJBDi4qy5XmoS0d
+	qX+8Z81sD+j2n1r0HH2F4XmhwxPgC2o8=
+X-Gm-Gg: AYBFou0hEir6+19UcXDJr/52XW1Wrb3qqZAKCDDAx160rJq8SA4xXd/kjMiNJ3lh3rX
+	UiG9tvK+Og+1XKnLTULdFcLV922vlEjNspNRzM67avVeHWUuUUPVeSYwshroo8jjICNotqr7qAw
+	3xoBMWI/Xh3JSWnEWcMUKxD6eENAv+zz6ORDRvc7XQU2Rf0usnpRvgGvMoV+U/H2DEdCb5zyDYm
+	6grk9xqoHzpDkZsPEDo5iSi89qYNKik7WsDiXUITGrgyZ0oKH2qeNHzNVguLqRBIEuPNaN1s4kN
+	ASUwu1feOeUAtShVUQjm2qqCVQfZhVPvoJXJM43tniz2eEC09omuvEvMTqmgpYcC0zPftiycqMG
+	aNlm5FUJxWgcHlcbi9GcHt8r5jzD1JaotksnL+Y0mvrVY4Xcu2cEdr3VVzrY=
+X-Received: by 2002:a05:6830:3114:b0:824:659a:adbf with SMTP id
+ 46e09a7af769-85d364be1b5mr12424576a34.5.1793702613420; Tue, 03 Nov 2026
+ 02:43:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,95 +104,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHFpeXuulqpcg7AA--.2830S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAF4DtFy5KF4rKr1Duw4fAFb_yoW5XFW5pa
-	yxJFWYkr4DCFW7Ka12qw1DZF1Fyw1IgayYkry8t3WS93W3Z348J3W0gr1FvF4ayrWkCws5
-	Jry7Ka4xJ3WDCFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBEb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWrXVW3AwAv7VC2z280aVAFwI0_Cr1j6r
-	xdMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2
-	zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43Mx
-	AIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
-	Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
-	xGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_
-	Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMI
-	IF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x07bOAw3UUUUU
-	=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIB7pQAAsZ
+References: <20261030032314.1978575-1-zhiyuzhang999@gmail.com> <179367762613.488856.7087052675164086918@kernel.org>
+In-Reply-To: <179367762613.488856.7087052675164086918@kernel.org>
+From: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+Date: Tue, 3 Nov 2026 18:43:21 +0800
+X-Gm-Features: AclHuK-oQ_9e5ylG83bQrdxRkkrucYAPnzsIDVk3iyXuWtU1FMLt9B2kyf0M3b4
+Message-ID: <CALf2hKugxdDx0TmsY-ob5Q9gPzjRcDc8Dv7bhAV-oMgB_=r5zA@mail.gmail.com>
+Subject: Re: [PATCH net] tcp: restore IPv6 af_ops on disconnect of a v4-mapped socket
+To: netdev-bot+sashiko@kernel.org
+Cc: edumazet@kernel.org, kuniyu@google.com, ncardwell@google.com, 
+	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	matttbe@kernel.org, martineau@kernel.org, geliang@kernel.org, 
+	netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	lyutoon@gmail.com, tpluszz77@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-brcm_usb_phy_dvr_init() obtains the USB 2.0, USB 3.0 and suspend
-clocks with of_clk_get_by_name() and clk_get().  Both take a reference
-on the clock that the driver never releases: the error paths after the
-lookups return without clk_put(), and brcm_usb_phy_remove() only
-unregisters the sysfs group and the PM notifier.  clk_prepare_enable()
-and clk_disable_unprepare() only change the prepare/enable counts and
-do not drop the reference.
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] The patch does not fully close the bug class it targets: an IPv6
+>   skb handed from the socket backlog to tcp_v4_do_rcv(), which then=E2=80=
+=A6
+>   ...
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261030032314.1978575-1-zhiyuzhang999%40gmail.com
 
-Use devm_clk_get() so that the references are dropped automatically on
-probe failure and driver detach, and drop the now unused device node
-argument.
+Good catch, thanks. I can reproduce this by widening the window with a
+socket filter.
 
-Fixes: 49859e55e364 ("phy: usb: phy-brcm-usb: Add Broadcom STB USB phy driver")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/phy/broadcom/phy-brcm-usb.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+For v3, I'll keep tcp_v6_disconnect() and make tcp_v4_do_rcv() drop
+non-IPv4 skbs before interpreting TCP_SKB_CB(skb)->header.h4. The skb is
+from the old connection, so dropping it seems safer than passing it to
+tcp_v6_do_rcv(). This also covers the ACK path.
 
-diff --git a/drivers/phy/broadcom/phy-brcm-usb.c b/drivers/phy/broadcom/phy-brcm-usb.c
-index e606db489698..c0cb701e419a 100644
---- a/drivers/phy/broadcom/phy-brcm-usb.c
-+++ b/drivers/phy/broadcom/phy-brcm-usb.c
-@@ -401,14 +401,13 @@ static int brcm_usb_get_regs(struct platform_device *pdev,
- }
- 
- static int brcm_usb_phy_dvr_init(struct platform_device *pdev,
--				 struct brcm_usb_phy_data *priv,
--				 struct device_node *dn)
-+				 struct brcm_usb_phy_data *priv)
- {
- 	struct device *dev = &pdev->dev;
- 	struct phy *gphy = NULL;
- 	int err;
- 
--	priv->usb_20_clk = of_clk_get_by_name(dn, "sw_usb");
-+	priv->usb_20_clk = devm_clk_get(dev, "sw_usb");
- 	if (IS_ERR(priv->usb_20_clk)) {
- 		if (PTR_ERR(priv->usb_20_clk) == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
-@@ -440,7 +439,7 @@ static int brcm_usb_phy_dvr_init(struct platform_device *pdev,
- 		priv->phys[BRCM_USB_PHY_3_0].id = BRCM_USB_PHY_3_0;
- 		phy_set_drvdata(gphy, &priv->phys[BRCM_USB_PHY_3_0]);
- 
--		priv->usb_30_clk = of_clk_get_by_name(dn, "sw_usb3");
-+		priv->usb_30_clk = devm_clk_get(dev, "sw_usb3");
- 		if (IS_ERR(priv->usb_30_clk)) {
- 			if (PTR_ERR(priv->usb_30_clk) == -EPROBE_DEFER)
- 				return -EPROBE_DEFER;
-@@ -453,7 +452,7 @@ static int brcm_usb_phy_dvr_init(struct platform_device *pdev,
- 			return err;
- 	}
- 
--	priv->suspend_clk = clk_get(dev, "usb0_freerun");
-+	priv->suspend_clk = devm_clk_get(dev, "usb0_freerun");
- 	if (IS_ERR(priv->suspend_clk)) {
- 		if (PTR_ERR(priv->suspend_clk) == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
-@@ -542,7 +541,7 @@ static int brcm_usb_phy_probe(struct platform_device *pdev)
- 			return -EINVAL;
- 	}
- 
--	err = brcm_usb_phy_dvr_init(pdev, priv, dn);
-+	err = brcm_usb_phy_dvr_init(pdev, priv);
- 	if (err)
- 		return err;
- 
--- 
-2.34.1
+I have posted v3 at:
+https://lore.kernel.org/netdev/20261103103633.2707416-1-zhiyuzhang999@gmail=
+.com/
 
+Could Eric or Kuniyuki please review it again?
+
+Thanks!
+
+pw-bot: cr
