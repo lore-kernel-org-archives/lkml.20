@@ -1,78 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793711198;
-	b=12BJELe/Y7zID5N4BY9MXH5WpuMKIGneMAAFmqbxOkO3E0yB6FccxTjWE/eX6ZwsbslT
-	 /lcu4UhMhpCBijRwaW+OqPeTCqREJUt4A4H5E07IbQQnCte9gqcLCPXUuRDCXMvEm3uUS
-	 UEVfBmHYPhBeC4A6x1yQWVL7YVzQAS9mL57V/1aF/vzzVKAWYWhnsmq0110zPqr7nLUXo
-	 i7XdkQ6cfa+V/qGzqvy/NUgX34eF7Dx2yMYNAm9VRbar1JyCVgQXxEDSQiivjbUO4jG1T
-	 QZ6mi3uMuyhX+YP6YO5n0SAi9YQ+d0havA2bJnkVB1+7U7AiGD6SGvSKcVNMs8J4h7A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711198;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=T7dNxYtDoMA2dfCWOGYnCjA+jSBrv6GabrxLztBDz60=;
-	b=zL/TmKP55caeEx1wuu00wXugjA3jQEOvkZrFP6iC1JC7IFtOebNR7AZ1lMSx9VcLmEeQ
-	 vBoLAUIJMh11SoSgiE2ciVL0vlLXfLTrccQnyKWt0WUU+lCLno0hf63VgCWTmzXn/oaFS
-	 zzYNboqBv1/aJOpElJK1lapE2ggV7lDu+TG5bGmJiKQRDKW6m22GPKVD4ZfgZ9RIuFYhj
-	 SMYZbKSf9AKyhIGREjNMH6uFR7hlgZuasyqRKWtf5QQXZlR5qxNZqlTwDCqhfTw5vF882
-	 VGJyhXH3CWActgLYwjAEcHWcyGLnCfAyAadu8zTKaxatf7vRJm6lYV5H4OGme9ZHKdA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6nl0lWw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793711196;
+	b=lQeLMF2F5BjObBankrNIWQmYjHuaeIMfopaYk1LW66MgI8dnEjJH/YdKh4vaX16cr3lf
+	 eT3R7wMOvLVMcm4ley0hVJ8Ca0O2DPpcWdZ5fUNRPYQyLso+FvymS/crDIP6/UoA4UGTJ
+	 sQrnm9jwLkumnwjif/vFOzbn1Efax+5RVqoaJiHqjoFiF/iHHHR701eIf+Dp5xO1GKDL5
+	 G4VXY1///d8Kn67xDPmWJ+vIiWXz3gXcbi9oHv/whV4+XX7NJ37rMCLwsC1lc4LfF7aaj
+	 TmLRSGS2yzoKYKJCxA5LBdEo/28ViAgW0EXMUB+VjuZ1WlHUJghaBv5lUueXUXBz1uw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711196;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=GpnTD0Y8foNyYZLXMIcPDF4aNhJHeN2XBgEwyfG41to=;
+	b=g+u4XG1RmE3+J2t9c6CGQ2Ds0eM3uJTT7tndWuGtf+/c+fjDwSHkCyObgogtoCtBeG/l
+	 OczsLU4gTZ6OM8SPwfYBD6ZYccz0ljIxHRdlS3/BSjZq66FT82CqlM/7hhhXI1vRDrxZ+
+	 hVKTj0EGPHhRZwNR0qxolh8ACUOSJq0lGSnjuy9PM+cqJ0Ul++XAWwz6tVd5BR8rmi6jm
+	 mFAarMduAQGsG5Ba7Tld9QwvwzK/8aYwZVzJiHolQCIVBOtJxfBJVhtSTXCQhlWVYWPCF
+	 WntjRzo+jn9A7IgZW33nhvUV6tDtvc/oWAD2q5nI+hnNiRvRD8rCtzrzyVubrg/xzOw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M19R1cWi;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687FE606D83B;
-	Tue,  3 Nov 2026 13:06:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740FA60850BA;
+	Tue,  3 Nov 2026 13:06:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6nl0lWw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793711198;
-	b=zTFOo7/48oZW8XGkM1C4cI8Wx76qJGYtHDytOMOwdDkxw+qy7jisRGUl2u8whnYId1j0
-	 x4WawsNpan6ExOXcxBQ9VYulmCxzh3TOZM7HXuTlqwg2nW37t4VgjdrTEmxYLRVDShiKD
-	 KGkCBpY8wpFQrtY8FC7USQp+mMXdKTyLk8L7TsYtnElzRlv1f0W8zmkGAeXexbRQmFh6J
-	 TSZU83JkvEXcJ/+klNh1xo9uTKONsGoHNvwe+0g4d9RXHxQ+ER9Z7iWHKHf9qEX1LXz8x
-	 THJql2mUn0cnUFRwoBnB7YtRCWd/G1Zg5Gqq31Gms+RiiU6zgw0Hqo4gbNkG3SkCxaw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793711198;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=T7dNxYtDoMA2dfCWOGYnCjA+jSBrv6GabrxLztBDz60=;
-	b=OpKsOhgJFBp+8Vjlz3a6BE7sdunJscAL90PnngmDcYIo2xl+9K7Y9VDG07SlTRZbdhca
-	 wInMx6KsIv4gAxNond/LzuCMWB8iZMP79Azb2Jwy+yeawP84UV3a2qS8VvIu4ioKHlI8r
-	 zbAy3zSWqNjiSTE6mvSD58b375WqMTKB2ASVpxsjq1cJ1a13mmVUBCKNONecg43D36AHQ
-	 yQtkFBLnq/LpWRIDUtQVL/Gwgq3TkFNBqonfFWiA0Uzyy9pehjou7Wh4qRRyAM2zkcgCu
-	 5hwE9O+m2UQPsGfjX5bsuTmJD+iSnuOcV7IspbeUGvbwzAbpW32dT45Y/jKzL6m3Cbw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6EB561F0181A;
-	Tue,  3 Nov 2026 13:06:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M19R1cWi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1580C1F00A15;
+	Tue,  3 Nov 2026 13:06:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793711198;
-	bh=T7dNxYtDoMA2dfCWOGYnCjA+jSBrv6GabrxLztBDz60=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=e6nl0lWw/o/fXvt6qYtXQN5Lz8qQMiINE8JOJGqYNEC+VWr/ygbtTlmaf8xNcnNR+
-	 MWxPaNd89kcm0/QYkyUS/u3qwN3TfOHXRmfoJijo6s8XaqIVkMfRyt9ErpfTfVdrYq
-	 DJOUfdXRSwUzuRmvVSiu1OK+EK09KmtuSYyplEcxCYje9myekTRTfWyRuf0GwYrxNo
-	 T1r8nPtaeLjGBeO/zz7usYt4eoDLmdkNKN4OGChKGWu9LWCFmLZHqSGcDnQSXAL8+2
-	 uGWAkLPF6FY3lOx4h/vKobJxC3dCawmFi8AtNLztzdCD7+oJlqjURyUU+PFmKjWSPs
-	 Uzko2m2P/Ticg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C0E4D46962;
-	Tue,  3 Nov 2026 13:06:25 +0000 (UTC)
-From: Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org>
-Date: Tue, 03 Nov 2026 14:06:18 +0100
-Subject: [PATCH] btrfs: add io_uring interface for BTRFS_IOC_DEFRAG_RANGE
+	s=k20260515; t=1793711196;
+	bh=GpnTD0Y8foNyYZLXMIcPDF4aNhJHeN2XBgEwyfG41to=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=M19R1cWi1iIgdzxrg5bA8vh/gO+eF1WBudfOveIotw0sC6L9MnxSlnfi8FJTG9GXq
+	 0wgy6+KI7s4dJhXtBvZOicvixbhvht3J2bh6UmizYHexT1lJHv30LrvntKmQuLNsf/
+	 hPAuvhZ4mY5PAsOmx08lNT3vm1pHHD3i2AJ93lKX9G5N0nsSXAnj0lMkRqC/xA/n57
+	 Wi74+HJo3fou0XYnKoa9OspAI+jZ/Dv4sYTgetCyKItDUm/IEn9DMMSjCC1XwAs62B
+	 r9AMOpoeHyhPBKsfrmYtKFAYDvsPdm8bhDFEn5hoqvdzEc63RIrlg/BvMEw1lNX2Vl
+	 Nh+Ud6lqhsvmA==
+Subject:
+ Re: [PATCH net v2] net: mana: Avoid waiting on dead HWC after device reset
+From: netdev-bot+sashiko@kernel.org
+To: sahilchandna@linux.microsoft.com
+Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, kotaranov@microsoft.com, horms@kernel.org,
+ ernis@linux.microsoft.com, gargaditya@linux.microsoft.com,
+ mawasthi@linux.microsoft.com, kees+treewide@kernel.org,
+ schakrabarti@linux.microsoft.com, leitao@debian.org,
+ linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 03 Nov 2026 13:06:34 +0000
+Message-ID: <179371119457.488856.15091459505678902875@kernel.org>
+In-Reply-To: <20261030125009.3758592-1-sahilchandna@linux.microsoft.com>
+References: <20261030125009.3758592-1-sahilchandna@linux.microsoft.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,246 +69,416 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-btrfs-uring-defrag-v1-1-50bf656a71cd@amutable.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBBFr1Jm7UBTmypeRVwk6SQdwSgzqQild
- zfR5fv89zZQEiaFS7eB0JuVn7mCOXQQFpcTIc+VYeiHyZj+iL5IVFyFc8KZoriEwziGkzXnyTo
- LVXwJRf78otfbn3X1dwqlldrDOyX04nJY2vRwWkhg37/J++NjjwAAAA==
-X-Change-ID: 20261103-btrfs-uring-defrag-244c751865a5
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, 
- Daan De Meyer <daan@amutable.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793711183; l=9013;
- i=daan@amutable.com; s=20260712; h=from:subject:message-id;
- bh=aeyr1gniHen92wxzU6GnzI504bi8iU5pRP9wYYntiMQ=;
- b=yUWn9HAoPS04U7CjCiZznhQO6x7z32uO3IkcDEHe8u/k2X0GC0XiZtQGjYgEWOp3xa9h2i14F
- pIL0BwTPdscAdIYTH8gUvDYIREo38Swtwq+IrFVyJF8C2cPgDAnY9mK
-X-Developer-Key: i=daan@amutable.com; a=ed25519;
- pk=I1l+WwrtmzRgofA5SQ1wTuJi18fjh91w+f5uRkFeZEA=
-X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
- auth_id=868
-X-Original-From: Daan De Meyer <daan@amutable.com>
-Reply-To: daan@amutable.com
-Content-Transfer-Encoding: 7bit
 
-From: Daan De Meyer <daan@amutable.com>
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
-btrfs_uring_cmd() only handles the encoded read and write ioctls, so a
-program that drives its I/O through io_uring has to defragment a file
-with the ioctl from a separate thread. We're working on a
-systemd-journald change that needs this. On btrfs, every writeback of a
-journal file allocates a new extent, and journald defragments each
-finished part of the file from a helper thread with
-BTRFS_IOC_DEFRAG_RANGE.
+Critical: 0 · High: 0 · Medium: 4 (3) · Low: 2
 
-Let's accept BTRFS_IOC_DEFRAG_RANGE as a uring command. The command
-calls btrfs_ioctl_defrag(), so it runs the same checks in the same order
-and returns the same errors as the ioctl. Before that, it calls the LSM
-ioctl hook like the ioctl syscall does, so that a policy that denies the
-ioctl also denies the command. security_uring_cmd() isn't enough for
-that. Smack checks read access in security_uring_cmd(), and it checks
-write access in the ioctl hook for this ioctl. A caller with
-CAP_SYS_ADMIN also skips inode_permission(), so nothing else checks the
-label. overlayfs calls security_file_ioctl() the same way.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The arguments are passed inline in the command area of a 128-byte SQE,
-either on an IORING_SETUP_SQE128 ring or as IORING_OP_URING_CMD128 on an
-IORING_SETUP_SQE_MIXED ring. The 48-byte struct doesn't fit in the 16
-bytes of command data of a 64-byte SQE. The encoded commands pass a
-pointer in addr instead, but the command would then read the arguments in
-io-wq after io_uring_enter() has returned. That breaks the promise of
-IORING_FEAT_SUBMIT_STABLE. io_uring copies the SQE before it queues the
-command to io-wq, so inline arguments are stable on every path, including
-IOSQE_ASYNC. The other SQE fields and the rest of the command area must be
-zero, so that they can carry flags later.
+- [Medium] The new TX drain in mana_dealloc_queues()
+  (drivers/net/ethernet/microsoft/mana/mana_en.c, lines 3822-3844)…
+- [Medium] In mana_dealloc_queues(), hwc_dead is set only when
+  mana_gd_dev_reset() succeeds: `if (err) netdev_err(...); else if (hwc)…
+- [Medium] mana_hwc_send_request() checks hwc_dead and hwc_timeout
+  locklessly (READ_ONCE at hw_channel.c:878 and 918-919), then posts the…
+- [Medium] mana_hwc_send_request() now returns -ETIMEDOUT without posting
+  the WQE whenever hwc_timeout == 0 (hw_channel.c:878-879 and 918-922),…
+- [Low] The comment this patch rewrote in mana_destroy_txq()
+  (mana_en.c:2733) says "Forget the SKBs freed in mana_dealloc_queue()…
+- [Low] The timeout path of mana_hwc_send_request() does `if
+  (READ_ONCE(hwc->hwc_timeout) > 1) WRITE_ONCE(hwc->hwc_timeout, 1);`…
 
-The command only handles regular files. The ioctl on a directory
-defragments the subvolume tree, which isn't an operation on the file.
-btrfs_dir_file_operations has no uring_cmd, so io_uring returns
--EOPNOTSUPP for a directory.
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but in
+  mana_dealloc_queues(), when mana_gd_dev_reset() fails after…
+- [Medium] This problem wasn't introduced by this patch, but when
+  wait_for_completion_timeout() expires in mana_hwc_send_request()…
+- [Medium] This problem wasn't introduced by this patch, but
+  mana_hwc_destroy_channel() (hw_channel.c:831-838) frees hwc->txq and…
 
-btrfs_defrag_file() takes the inode lock, reads pages and throttles on
-dirty pages, and mnt_want_write_file() sleeps while the filesystem is
-frozen. Like the encoded write command, the command returns -EAGAIN when
-io_uring issues it with IO_URING_F_NONBLOCK. It does all of its work when
-io_uring issues it again from io-wq, and it keeps nothing in the PDU in
-between.
+--
 
-struct btrfs_ioctl_defrag_range_args has no padding, and pahole shows the
-same layout and a size of 48 bytes on i386 and on x86-64. The command
-therefore needs no compat variant.
+net: mana: Avoid waiting on dead HWC after device reset
 
-We tested the command with a liburing program on a loop-mounted btrfs.
-It gave the same results and the same errors as the ioctl, on fragmented
-files, on invalid arguments, on read-only mounts and under Smack.
+This patch replaces the sleep-based TX drain in mana_dealloc_queues(),
+which could last up to 120s, with a bounded synchronous CQ poll (3
+retries, 100 ms apart) after NAPI is disabled. If sends are still
+pending it resets the device at most once. A successful reset sets a new
+hwc_dead flag, which mana_hwc_send_request() checks together with
+hwc_timeout == 0 so it can return -ETIMEDOUT without posting a WQE, and
+mana_fence_rqs() and the SHM teardown handshake are skipped once
+hwc_dead is set.
 
-Signed-off-by: Daan De Meyer <daan@amutable.com>
----
-This lets a program that drives its I/O through io_uring defragment a btrfs
-file without a thread for the ioctl. A systemd-journald change we're working
-on defragments each finished part of a journal file and needs this.
+> diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+> index 3bca4b683134b..a50a36ba25710 100644
+> --- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
+> +++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
 
-The command takes struct btrfs_ioctl_defrag_range_args inline in a 128-byte
-SQE, either on an IORING_SETUP_SQE128 ring or as IORING_OP_URING_CMD128 on an
-IORING_SETUP_SQE_MIXED ring. A pointer in addr would be read in io-wq after
-io_uring_enter() returns, which breaks IORING_FEAT_SUBMIT_STABLE. The
-unused SQE fields and the rest of the command area must be zero.
+[ ... ]
 
-The command calls the LSM ioctl hook and then btrfs_ioctl_defrag() from
-io-wq, so it runs the same checks in the same order and returns the same
-errors as the ioctl. A liburing test compared both paths on fragmented
-files, invalid arguments, read-only snapshots, read-only mounts, read-only
-filesystems, unprivileged callers and a Smack policy, and found no
-difference. The ioctl results match an unpatched kernel.
----
- fs/btrfs/ioctl.c | 88 ++++++++++++++++++++++++++++++++++++++++++++------------
- 1 file changed, 69 insertions(+), 19 deletions(-)
+> @@ -819,7 +819,12 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
+>  	 * non-zero, the HWC worked and we should tear down the HWC here.
+>  	 */
+>  	if (gc->max_num_cqs > 0) {
+> -		mana_smc_teardown_hwc(&gc->shm_channel, false);
+> +		if (READ_ONCE(hwc->hwc_dead))
+> +			dev_warn(hwc->dev,
+> +				 "HWC unavailable, skip SHM teardown handshake\n");
+> +		else
+> +			mana_smc_teardown_hwc(&gc->shm_channel, false);
+> +
+>  		gc->max_num_cqs = 0;
+>  	}
 
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index f3e2afe221be..49429946804d 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -2442,7 +2442,8 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
- 	return ret;
- }
- 
--static int btrfs_ioctl_defrag(struct file *file, void __user *argp)
-+static int btrfs_ioctl_defrag(struct file *file, void __user *argp,
-+			      const struct btrfs_ioctl_defrag_range_args *args)
- {
- 	struct inode *inode = file_inode(file);
- 	struct btrfs_root *root = BTRFS_I(inode)->root;
-@@ -2487,30 +2488,32 @@ static int btrfs_ioctl_defrag(struct file *file, void __user *argp)
- 			goto out;
- 		}
- 
--		if (argp) {
-+		if (args) {
-+			range = *args;
-+		} else if (argp) {
- 			if (copy_from_user(&range, argp, sizeof(range))) {
- 				ret = -EFAULT;
- 				goto out;
- 			}
--			if (range.flags & ~BTRFS_DEFRAG_RANGE_FLAGS_SUPP) {
--				ret = -EOPNOTSUPP;
--				goto out;
--			}
--			if ((range.flags & BTRFS_DEFRAG_RANGE_COMPRESS) &&
--			    (range.flags & BTRFS_DEFRAG_RANGE_NOCOMPRESS)) {
--				ret = -EINVAL;
--				goto out;
--			}
--			/* Compression or no-compression require to start the IO. */
--			if ((range.flags & BTRFS_DEFRAG_RANGE_COMPRESS) ||
--			    (range.flags & BTRFS_DEFRAG_RANGE_NOCOMPRESS)) {
--				range.flags |= BTRFS_DEFRAG_RANGE_START_IO;
--				range.extent_thresh = (u32)-1;
--			}
- 		} else {
- 			/* the rest are all set to zero by kzalloc */
- 			range.len = (u64)-1;
- 		}
-+		if (range.flags & ~BTRFS_DEFRAG_RANGE_FLAGS_SUPP) {
-+			ret = -EOPNOTSUPP;
-+			goto out;
-+		}
-+		if ((range.flags & BTRFS_DEFRAG_RANGE_COMPRESS) &&
-+		    (range.flags & BTRFS_DEFRAG_RANGE_NOCOMPRESS)) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+		/* Compression or no-compression require to start the IO. */
-+		if ((range.flags & BTRFS_DEFRAG_RANGE_COMPRESS) ||
-+		    (range.flags & BTRFS_DEFRAG_RANGE_NOCOMPRESS)) {
-+			range.flags |= BTRFS_DEFRAG_RANGE_START_IO;
-+			range.extent_thresh = (u32)-1;
-+		}
- 		ret = btrfs_defrag_file(BTRFS_I(file_inode(file)), &file->f_ra,
- 					&range, BTRFS_OLDEST_GENERATION, 0);
- 		if (ret > 0)
-@@ -4999,6 +5002,50 @@ static int btrfs_uring_encoded_write(struct io_uring_cmd *cmd, unsigned int issu
- 	return ret;
- }
- 
-+static int btrfs_uring_defrag(struct io_uring_cmd *cmd, unsigned int issue_flags)
-+{
-+	const size_t cmd_size = 2 * sizeof(struct io_uring_sqe) -
-+				offsetof(struct io_uring_sqe, cmd);
-+	const struct io_uring_sqe *sqe = cmd->sqe;
-+	const struct btrfs_ioctl_defrag_range_args *args;
-+	int ret;
-+
-+	/*
-+	 * btrfs_ioctl_defrag() sleeps on the inode lock and on page reads, and
-+	 * mnt_want_write_file() sleeps while the filesystem is frozen. We return
-+	 * -EAGAIN so that io_uring issues the command again from io-wq.
-+	 */
-+	if (issue_flags & IO_URING_F_NONBLOCK)
-+		return -EAGAIN;
-+
-+	/*
-+	 * The arguments don't fit in the command area of a 64-byte SQE, so they
-+	 * are passed inline in a 128-byte SQE. We don't take a pointer to the
-+	 * arguments. io-wq would read them after io_uring_enter() has returned,
-+	 * and the application may have reused the memory by then. io_uring
-+	 * copies the SQE itself before it queues the command to io-wq.
-+	 */
-+	if (!(issue_flags & IO_URING_F_SQE128))
-+		return -EINVAL;
-+	if (sqe->addr || sqe->len || sqe->uring_cmd_flags || sqe->buf_index ||
-+	    sqe->file_index)
-+		return -EINVAL;
-+	args = io_uring_sqe128_cmd(sqe, struct btrfs_ioctl_defrag_range_args);
-+	if (memchr_inv(sqe->cmd + sizeof(*args), 0, cmd_size - sizeof(*args)))
-+		return -EINVAL;
-+
-+	/*
-+	 * The ioctl syscall calls the LSM ioctl hook before btrfs_ioctl(). We
-+	 * call it too, so that a policy that denies the ioctl also denies the
-+	 * command.
-+	 */
-+	ret = security_file_ioctl(cmd->file, BTRFS_IOC_DEFRAG_RANGE, 0);
-+	if (ret)
-+		return ret;
-+
-+	return btrfs_ioctl_defrag(cmd->file, NULL, args);
-+}
-+
- int btrfs_uring_cmd(struct io_uring_cmd *cmd, unsigned int issue_flags)
- {
- 	if (btrfs_is_shutdown(inode_to_fs_info(file_inode(cmd->file))))
-@@ -5016,6 +5063,9 @@ int btrfs_uring_cmd(struct io_uring_cmd *cmd, unsigned int issue_flags)
- 	case BTRFS_IOC_ENCODED_WRITE_32:
- #endif
- 		return btrfs_uring_encoded_write(cmd, issue_flags);
-+
-+	case BTRFS_IOC_DEFRAG_RANGE:
-+		return btrfs_uring_defrag(cmd, issue_flags);
- 	}
- 
- 	return -EINVAL;
-@@ -5558,9 +5608,9 @@ long btrfs_ioctl(struct file *file, unsigned int
- 	case BTRFS_IOC_DEFAULT_SUBVOL:
- 		return btrfs_ioctl_default_subvol(file, argp);
- 	case BTRFS_IOC_DEFRAG:
--		return btrfs_ioctl_defrag(file, NULL);
-+		return btrfs_ioctl_defrag(file, NULL, NULL);
- 	case BTRFS_IOC_DEFRAG_RANGE:
--		return btrfs_ioctl_defrag(file, argp);
-+		return btrfs_ioctl_defrag(file, argp, NULL);
- 	case BTRFS_IOC_RESIZE:
- 		return btrfs_ioctl_resize(file, argp);
- 	case BTRFS_IOC_ADD_DEV:
+[Severity: Medium]
+This is a pre-existing issue, not one introduced by this patch. Can the
+rest of this teardown race with an HWC completion interrupt that is
+already running on another CPU?
 
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261103-btrfs-uring-defrag-244c751865a5
+Setting gc->max_num_cqs = 0 is a plain store. It stops new CQ dispatch,
+but it doesn't wait for a mana_hwc_comp_event() that is already in
+progress. After that:
 
-Best regards,
---  
-Daan De Meyer <daan@amutable.com>
+mana_hwc_destroy_channel()
+  mana_hwc_destroy_wq(hwc, hwc->txq)    <- frees msg buffers and hwc_wq
+  mana_hwc_destroy_wq(hwc, hwc->rxq)
+  mana_hwc_destroy_cq()
+    kfree(hwc_cq->comp_buf);
+    mana_gd_destroy_queue(gc, hwc_cq->gdma_eq)
+      ...
+        mana_gd_deregister_irq()        <- list_del_rcu() + synchronize_rcu()
 
+The only drain of the EQ callback happens after comp_buf and the work
+queues have been freed. An in-flight handler uses hwc_cq->comp_buf, and
+the tx/rx event handlers dereference hwc->txq and hwc->rxq. The hwc_dead
+branch added here doesn't change this ordering.
 
+> @@ -862,9 +867,17 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
+
+[ ... ]
+
+> +	/* Fail fast before taking the HWC slot, after a device reset, a
+> +	 * request already holding it may never complete.
+> +	 */
+> +
+> +	if (!READ_ONCE(hwc->hwc_timeout) || READ_ONCE(hwc->hwc_dead))
+> +		return -ETIMEDOUT;
+
+[Severity: Medium]
+Is it intended that hwc_timeout == 0 now means the WQE is never posted?
+This check and the second one before mana_hwc_post_tx_wqe() return
+-ETIMEDOUT without submitting anything whenever the timeout is 0, not
+only after a device reset. Before this patch, a zero timeout meant the
+WQE was still posted and wait_for_completion_timeout() was called with 0
+jiffies.
+
+mana_serv_reset() sets the zero timeout to mean "don't wait", and it
+never resets the device:
+
+	/* HWC is not responding in this case, so don't wait */
+	WRITE_ONCE(hwc->hwc_timeout, 0);
+	...
+	mana_gd_suspend(pdev, PMSG_SUSPEND);
+
+That path handles GDMA_EQE_HWC_RESET_REQUEST, gf_stats HWC timeouts and
+probe-time recovery. Along mana_gd_suspend() -> mana_remove() ->
+mana_detach() -> mana_dealloc_queues(), none of these commands reach the
+hardware now: the MANA_CONFIG_VPORT_RX disable, the fences, and the
+WQ/CQ object and DMA region destroys. An FLR only happens if TX sends
+happen to be pending.
+
+mana_destroy_rxq() still DMA-unmaps and frees the RX buffers and the
+page pool while the hardware RQ and RX steering may still be live. The
+SHM teardown that makes the hardware invalidate MST entries only runs
+later, in mana_gd_cleanup(). If the RX data path is still active at that
+point, can RX DMA land in buffers that were already unmapped and freed?
+
+mana_fence_rqs() also still runs on this path, since only hwc_dead is
+checked. Its msleep(100) per queue now waits on fences that were never
+posted.
+
+> +
+>  	mana_hwc_get_msg_index(hwc, &msg_id);
+
+[ ... ]
+
+> @@ -897,6 +910,17 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
+
+[ ... ]
+
+> +	timeout = READ_ONCE(hwc->hwc_timeout);
+> +	if (timeout == 0 || READ_ONCE(hwc->hwc_dead)) {
+> +		err = -ETIMEDOUT;
+> +		goto out;
+> +	}
+> +
+>  	err = mana_hwc_post_tx_wqe(txq, tx_wr, dest_vrq, dest_vrcq, false);
+
+[Severity: Medium]
+What serializes this lockless check against the
+WRITE_ONCE(hwc->hwc_dead, true) in mana_dealloc_queues()?
+
+Some HWC users don't hold RTNL, for example
+mana_gf_stats_work_handler() -> mana_query_gf_stats() every 2 seconds,
+or mana_ib verbs. They can run while mana_dealloc_queues() issues the
+FLR. Such a request may already be posted when the FLR happens. It may
+also pass this check, get preempted, and then post to the freshly reset
+device.
+
+Setting hwc_dead, or hwc_timeout = 0 in mana_serv_reset(), never
+completes ctx->comp_event. That request then sleeps in
+wait_for_completion_timeout() for the full captured timeout (60s in the
+commit message's example).
+
+The commit message says the driver returns "-ETIMEDOUT immediately
+without submitting commands to hardware that cannot respond", but in
+this window commands are still submitted and wait. Doesn't this also
+delay the gf_stats worker's scheduling of the service reset by the same
+amount?
+
+>  	if (err) {
+>  		dev_err(hwc->dev, "HWC: Failed to post send WQE: %d\n", err);
+> @@ -904,14 +928,13 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
+>  	}
+>  
+>  	if (!wait_for_completion_timeout(&ctx->comp_event,
+> -					 (msecs_to_jiffies(hwc->hwc_timeout)))) {
+> -		if (hwc->hwc_timeout != 0)
+> -			dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
+> -				command, hwc->hwc_timeout);
+> +					 (msecs_to_jiffies(timeout)))) {
+> +		dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
+> +			command, timeout);
+>  
+>  		/* Reduce further waiting if HWC no response */
+> -		if (hwc->hwc_timeout > 1)
+> -			hwc->hwc_timeout = 1;
+> +		if (READ_ONCE(hwc->hwc_timeout) > 1)
+> +			WRITE_ONCE(hwc->hwc_timeout, 1);
+
+[Severity: Low]
+This read-check-write isn't atomic. If mana_serv_reset() runs
+WRITE_ONCE(hwc->hwc_timeout, 0) between the READ_ONCE() and the
+WRITE_ONCE() here, can the 0 be overwritten with 1?
+
+With this patch, hwc_timeout == 0 is the sticky "don't submit" signal
+for both new checks above. If it is lost, later requests during the
+service-reset teardown take a slot, post a WQE and wait 1 ms instead of
+failing fast. mana_need_log() also goes back to returning true for them.
+Would a cmpxchg() here keep the zero from being lost?
+
+>  
+>  		err = -ETIMEDOUT;
+>  		goto out;
+
+[Severity: Medium]
+This isn't a bug introduced by this patch. On this timeout path,
+mana_hwc_put_msg_index() at the out label releases the slot while the
+posted WQE is still outstanding, and ctx->comp_event is never
+reinitialized. A late response is then handled by
+mana_hwc_handle_resp():
+
+	if (!test_bit(msg_id, hwc->inflight_msg_res.map)) {
+	...
+	memcpy(ctx->output_buf, resp_msg, resp_len);
+	...
+	complete(&ctx->comp_event);
+
+If a new request has taken the same msg_id (find_first_zero_bit() tends
+to hand out slot 0 again), can it get the old command's response? Can it
+return immediately because of the leftover completion count?
+
+If the handler passes test_bit() just before bitmap_clear() and is then
+delayed, can memcpy() write into the stack buffer of a caller that has
+already returned?
+
+The 1 ms reduction after the first timeout is kept, which makes such
+late responses more likely while the HWC is slow but not dead.
+
+> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> index 6b7c027e497ed..2bf17fdcfa2bd 100644
+> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
+> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+
+[ ... ]
+
+> @@ -2725,10 +2730,10 @@ static void mana_destroy_txq(struct mana_port_context *apc)
+>  			apc->tx_qp[i]->txq.napi_initialized = false;
+>  		}
+>  
+> -		/* Forget the SKBs freed without being completed after a drain
+> -		 * timeout, now that NAPI can't complete any. Doing it here also
+> -		 * covers the queues that a lower channel count won't recreate,
+> -		 * which could otherwise stay stopped.
+> +		/* Forget the SKBs freed in mana_dealloc_queue() without
+> +		 * completion, now that NAPI can't complete any. Doing it
+> +		 * here also covers the queues that a lower channel count
+> +		 * won't recreate, which could otherwise stay stopped.
+>  		 */
+
+[Severity: Low]
+This isn't a bug, but there is no function called mana_dealloc_queue().
+Should this say mana_dealloc_queues()?
+
+Also, on the dealloc path the NAPI teardown block just above this
+comment is now always skipped. mana_dealloc_queues() already calls
+netif_napi_del_locked() and clears txq->napi_initialized before it calls
+mana_destroy_txq(). Could the comment say that NAPI teardown for this
+path now happens in mana_dealloc_queues()?
+
+[ ... ]
+
+> @@ -3774,42 +3784,104 @@ static int mana_dealloc_queues(struct net_device *ndev)
+
+[ ... ]
+
+>  	if (apc->tx_qp) {
+>  		for (i = 0; i < apc->num_queues; i++) {
+
+[ ... ]
+
+> +			if (txq->napi_initialized) {
+> +				/* Stop the NAPI poll so it cannot run
+> +				 * concurrently with the synchronous drain.
+> +				 */
+> +				napi_synchronize(napi);
+> +				napi_disable_locked(napi);
+> +				cancel_work_sync(&tx_cq->dim.work);
+
+[ ... ]
+
+> +				tx_cq->budget = 0;
+> +				for (retry = 0; retry < MANA_TX_DRAIN_RETRIES;
+> +				     retry++) {
+> +					do {
+> +						tx_cq->work_done = 0;
+> +						mana_poll_tx_cq(tx_cq);
+> +					} while (tx_cq->work_done);
+> +
+> +					if (!atomic_read(&txq->pending_sends) ||
+> +					    trigger_flr)
+> +						break;
+> +
+> +					msleep(100);
+>  				}
+> -				break;
+>  			}
+> +
+> +			pending = atomic_read(&txq->pending_sends);
+> +
+> +			if (!trigger_flr && pending > 0) {
+> +				trigger_flr = true;
+> +				flr_txq_id = txq->gdma_txq_id;
+> +				flr_pending = pending;
+> +			}
+
+[Severity: Medium]
+Is this drain window as long as it looks? On the last pass (retry == 2)
+the loop polls, sees pending_sends > 0, does msleep(100), and then exits
+without polling again. pending is read straight after that sleep.
+
+pending_sends is only decremented in mana_poll_tx_cq(), and NAPI is
+already disabled, so CQEs written during that final sleep are never
+counted. In practice, completions are only seen if they arrive within
+about 200 ms of napi_disable_locked(). Once trigger_flr is set, every
+later queue gets a single poll.
+
+If pending is still nonzero, mana_gd_dev_reset() resets the whole PCI
+function:
+
+    static int mana_pci_dev_reset(struct gdma_context *gc)
+    {
+            return pcie_flr(to_pci_dev(gc->dev));
+    }
+
+hwc_dead is then set, which affects every vPort and the RDMA aux device
+until a service reset rebuilds the HWC.
+
+The driver itself allows much longer TX stalls on healthy hardware, in
+mana_probe_port():
+
+    /* Recommended timeout based on HW FPGA re-config scenario. */
+    ndev->watchdog_timeo = 15 * HZ;
+
+Could a slow but working device get a function level reset here during a
+routine close, MTU change, channel or ring change, or XDP attach?
+
+The commit message says the device is reset "only if sends remain
+unacknowledged", but acknowledgements that arrive during the final sleep
+are never checked. Is there a hardware basis for the roughly 200-300 ms
+budget?
+
+> +		}
+> +
+> +		if (trigger_flr && !(hwc && hwc->hwc_dead)) {
+
+[ ... ]
+
+> +			err = mana_gd_dev_reset(gd->gdma_context);
+> +			if (err)
+> +				netdev_err(ndev, "device reset failed %d with %d pkts pending in txq %u\n",
+> +					   err,
+> +					   flr_pending,
+> +					   flr_txq_id);
+> +			else if (hwc)
+> +				WRITE_ONCE(hwc->hwc_dead, true);
+>  		}
+
+[Severity: Medium]
+What happens when mana_gd_dev_reset() fails here? trigger_flr means the
+device already looks unresponsive, but the failure branch only logs an
+error. hwc_dead stays false and hwc_timeout keeps the firmware value.
+
+The reset can fail in several ways: pcie_flr() fails when pci_dev_wait()
+times out, cdx_dev_reset() can fail, and mana_gd_dev_reset() returns
+-EOPNOTSUPP when there is no dev_reset op. In that case both new checks
+in mana_hwc_send_request() pass:
+
+mana_dealloc_queues()
+  mana_disable_vport_rx()
+    ...
+      mana_hwc_send_request()
+        mana_hwc_post_tx_wqe()
+        wait_for_completion_timeout()   <- full hwc_timeout, e.g. 60s
+
+The !(hwc && hwc->hwc_dead) check doesn't skip mana_fence_rqs() either,
+so each RX queue adds another 1 ms timeout plus msleep(100).
+
+All of this runs under RTNL. Can the RTNL stall this patch is meant to
+fix still happen when the reset fails?
+
+>  
+>  		for (i = 0; i < apc->num_queues; i++) {
+
+[ ... ]
+
+>  			txq = &apc->tx_qp[i]->txq;
+>  			while ((skb = skb_dequeue(&txq->pending_skbs))) {
+>  				mana_unmap_skb(skb, apc);
+>  				dev_kfree_skb_any(skb);
+>  			}
+
+[Severity: Medium]
+This isn't a bug introduced by this patch. When mana_gd_dev_reset()
+fails above, this loop still unmaps and frees every SKB on
+txq->pending_skbs. The device may still own WQEs for those
+unacknowledged sends.
+
+If the device is still alive, can it DMA-read through the stale IOVAs
+into memory that has been freed and reused? With an IOMMU that would
+show up as IOMMU faults. Without one, unrelated kernel data could be
+sent on the wire.
+
+The code before this patch did the same thing: it broke out of the loop
+after the failed reset and then freed the SKBs.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030125009.3758592-1-sahilchandna%40linux.microsoft.com
