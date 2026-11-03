@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793707633;
-	b=oCOGB/61ua1PuG2NCAZdOZuS49MKfOU15uGBMzzITV3WdMFeU/8mY/0TkjRP3KnSErA7
-	 J5zuE+zmRhEdwYB4V3zu99DsNLJWz4AOf4EFEVu7JEubhhQBNSWpYQzWT2Qfm+6fSeTvt
-	 xIj3SMwfiBoONnIioWzb3xTgFEq0s68huf/3aklcxPr7PTTeoIc/9HBlIEdFPHIWMldy+
-	 y0zJhfm0wVbsU/KtuU1JKDyfC2OcDRFN0aPlIISDXpxSrWOQxz2sy6vI2wbpjI3polidS
-	 nyowVgwzMqhQ6Z+BwFqQj72H65yjle9inA3EyRNukUuBxedKC9z5G0slhHZvs8Hbodw==
+	t=1793707643;
+	b=ZwrvyiDmJwx4tvu+rgugcPoosViH8ii0EylSiVs+Wb6Ph2oTlxXqgZhhSnGKsSqrPUpo
+	 EKDpRJ8W/kqszRJIDsjpQbc+fw8gdOvlRqclKZaGplIgP/7rdlPihvAjWo3v0t6lV9FLQ
+	 2pEgZ94sNFrGWYRsD6k+EqcbdxPWrDPPDyAhS0am6j6PmjGPQ14/sMV4ZUPbkXPgBCZuf
+	 begI4aTEqQCUgYG7iRWRUmEWVvfGg4UAo13/hIuwNJj8dINkKj3SpeaxdOYsKOYK3bKF0
+	 kJsuF/CRYOYXo83C51EZu3Gp4l0Ag0GG3I7GkqexD5Nmv4Brb6pBKEpOGytYroYfHCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793707633;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ySKYasBAII9CIYefFSpb/rg/yMp8IEyXS3kf72/gGBA=;
-	b=vhIOB0C7KIx1coSn5Bi1AkecdhUkwwY/crEt9enCOPXZAxNnxNAbMAaotdPeF92p0lVc
-	 +jXyT7NAPBteqj2AzAYIm11NNrYvAEVgWq1V811T1KIKg+RaDADCHVOo5Xlm9OaWGWjdk
-	 jFIGZSqbLVzKf2WWg6gXy7/LfkwTOAOoDBjbXaARyhRG8E6fMfq9ksT8gCrQcHG/BTG/U
-	 NyYmGYbNjQkhoUApwjtyIULmTmPLScRjWptgfYReVtTlPr8ERWgpjusfcAtbIL9wtb91y
-	 v387HTqwpyUIxU9tRXybPbHxdNpFKi/Rzuo8s67kAM1Lqpg0bpLzcHBWCQnhK9e+QpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793707643;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=K8uqNkscU2FaIG6RYZND7pIcUqrKGFhzzR5p/SFA9v8=;
+	b=LR9cI+zPRiydPvWlem4i6Rc4zo2pyBRR9+mfp+n8lJrCBf3Sby9dEFTL2wP4b76PjeL0
+	 m2ys8xDVGeyguuuCV96BU+FtaQa59U7J/XgpI/0hThOC+6L02joaD3KBSSkBA5EC/eJC4
+	 YERrBbTHUQw7PkZtADjvXdLZHPfBYDoQUkD4DEhLOMSRWSak0qJA1juxPepZqm2epXiqB
+	 KaQ/WtrCw9EPEKKmibdJTJNLMvIXhFKOEsVcOXmcQdzWVYj77fjawdBFDWWsIAXySc3Vk
+	 ++kV2mLB1Kybo2DS6Kq2aZrQOdQtE/kUZVlh+Op9kMTpU2sFgK70Iw/+e/9C9U3pVZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=m3WUwboX;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461CE606A331
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 461CE606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Q0eV2EAe;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F36DA606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:07:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F36DA606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=m3WUwboX
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so2208210f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:07:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793707631; x=1794312431; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ySKYasBAII9CIYefFSpb/rg/yMp8IEyXS3kf72/gGBA=;
-        b=m3WUwboXryGP5oVHnpI0HTzT9uj7fYvhet6mk4sWWx0x4PrenYceEUJlv3euNPKAEo
-         BbArikY82AVFcsR3v3ktJXu59DemC8n06or/d9t8esVwbC+0zqTm+veRMq9ktkjRDpWK
-         FFldoBEWsCAFy3szNe2uF5pilY/Qdbzg/BIQA9g3Yxs9pWFLrBebl8W3+IY9hDUTNj7j
-         A+aixhJV8XJQnDBA7LLphsWRsi2u5wYREm1FJDZ9B+3M3ep8ZkgORTwBQh+2smHpbCKd
-         hIE1bmbd9UxOBmBJtP6w+vYznTkRkhYQS4gTSNHh+ca/oAGe7BqS99MI3g8T6Gb/c8Ow
-         AkkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793707631; x=1794312431;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ySKYasBAII9CIYefFSpb/rg/yMp8IEyXS3kf72/gGBA=;
-        b=gPdFGIaiOqdDxW+f38EzzMMNgk4nU6ll5qZsA86o/Bz6WaSP5V2+KiUfo1oaIRy93w
-         bOLKPytSuhPYLE1SnEb4oDZQckDtzqZTZkjBU5MGB6GZxpt+btJaP6sPJ3Umxd118AW9
-         Ioi+ShavVZYr7H9HcizXF4xavNFLKyc3toVN1ksz9lgy26LvsyGDlw2H7VX1/KfaY9cS
-         rQ0JiW3D9EQpxS+Sz1Jw848UIz6jF4uMyZkbZ8CtOUm1jof8jaOq8tKsQ9T+8FhZkugW
-         LRii0h1815BACzu2VoX+A+G7Eb1n1sdV06UBWnUtbNUOBYVskj0Y20KYKBD/XXx/ABGq
-         k3/g==
-X-Forwarded-Encrypted: i=1; AKwUvBx7M0zmf/2j+M1G2hfUocWLBU+o6TgEwG2/HP7A45KPdmCgiiWLg6ZB/TfLYIgt1kyO8KWFTIuWkXbWNZs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8jANq6XvPF8nArtfq4H6etWZZX6na8N2EISEp3OSmwMFWVS3HL
-	CCT7pwcC4AksYosApLo17T//GP1TkPuvFY5bjxfrhlp37uF9JQVUahpEqZ418RR7Fc8=
-X-Gm-Gg: AYBFou3wlFhcg7O0qeMMxYPhCKzCiW9qRQl7g/P7UWKpTdENjml5Srcyqd05G9ukLml
-	X5SZsabFR9QIUiuPkicbxL+qSJjjM/0rfbw5npWT5+XSVPaHcWBSDG5GkK4KXAiv0oXi0Pha2Y6
-	AwHSsb60xQlabTB5J+WE5EZMQH5PLrk+AcRgTj1v6yo9lk2+re5aL+ue+1DPo5GjBirJhFv/Gj3
-	LJLFZE1pRFSoRelj0N+gycRK0O5ee2fble4vkH6WbXUYh0aE0bdSjPnzcbvNEl3s4k3VChse/s0
-	WkWeh0zSq4SzoEnie5gUxinvipbEZ1jpjmy6Z5XOzYzJJ4z3VHUBqMgIlbiefigLkpQ0h5o5VFg
-	xzM1fC3YSzkTC60aMERWCJ43i5NCU/T/6s1DHcp8QaJ+riyS/IwXJaX2JJQokPxFu388KJL103H
-	1f8viBCLf4Uziq5Z67Nwx4M25VANzhK/2Jt4OsyuuGq2eBaJfiRZJEVM7eKXtnkv4f/IaRhZE0L
-	3eRGSDDJE40H3/gg3/Nu3GwpTZ1POQ8d0v8i7L9vXoepdbdq7sl40Wp+BJ03DUi8ZiTGOG66Sp7
-	LYAIDihV0C876fM3CxwAQFxVUleiS3Mn
-X-Received: by 2002:a05:6000:4311:b0:48e:20ed:d5e7 with SMTP id ffacd0b85a97d-48e6e2ff167mr26869683f8f.34.1793707630565;
-        Tue, 03 Nov 2026 04:07:10 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8c0b6sm23904045f8f.41.2026.11.03.04.07.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 04:07:10 -0800 (PST)
-Message-ID: <a188c604-46c0-48fb-9cbd-9eacad88b5c9@linaro.org>
-Date: Tue, 3 Nov 2026 12:07:09 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Q0eV2EAe
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F1771576;
+	Tue,  3 Nov 2026 04:07:19 -0800 (PST)
+Received: from [10.211.55.3] (unknown [10.57.89.242])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5E9A73F628;
+	Tue,  3 Nov 2026 04:07:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793707642; bh=hK3MN8TjrLMaZdqoM0PJM7e6NcVLgSyCjM0vuw9G/qQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=Q0eV2EAeRupgMHORXMSxr3KrXESrjGCpzcUjICXBElHUz/1yufnig1vswQRSuIN6u
+	 quxTZMg7oD77u9fQYRzIKIedoKjhaCqnnzukj7Ygqa93NnetNuM93mBVE0jAoJ+dZO
+	 qjatw0lYOrLm+OJuL3ydYTzabuIU8xO3m16apqI8=
+Message-ID: <a9cb3133-34b0-4e96-aeb2-9c56851ae419@arm.com>
+Date: Tue, 3 Nov 2026 12:07:18 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,98 +53,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] perf vendor events arm64 AmpereOneX: Deprecate
- BPU_FLUSH_MEM_FAULT
-To: TAKANO Mitsuhiro <takano32@gmail.com>
-Cc: Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- John Garry <john.garry@linux.dev>, Will Deacon <will@kernel.org>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Ilkka Koskinen <ilkka@os.amperecomputing.com>,
- linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>
-References: <42801873-8908-07a6-aed1-c7076c689e8e@os.amperecomputing.com>
- <20261103112609.3772250-1-takano32@gmail.com>
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH] fs/resctrl: Fix CLOSID propagation when reparenting
+ monitor groups
+To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, peternewman@google.com, bp@alien8.de, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261031101052.1692230-1-ruanjinjie@huawei.com>
+ <3a637631-c8ec-4e26-a03c-5ac80d16fab3@arm.com>
+ <e2ed5936-205a-4976-8bf1-5fde2621cd55@huawei.com>
 Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261103112609.3772250-1-takano32@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <e2ed5936-205a-4976-8bf1-5fde2621cd55@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi Jinjie,
 
+On 03/11/2026 03:34, Jinjie Ruan wrote:
+> 
+> 
+> 在 2026/11/2 22:46, Ben Horgan 写道:
+>> Hi Jinjie,
+>>
+>> On 31/10/2026 10:10, Jinjie Ruan wrote:
+>>> Renaming a monitor group to move it below a different control group
+>>> changes the CLOSID of every task in that monitor group. mongrp_reparent()
+>>> updates rdtgrp->mon.parent and rdtgrp->closid before calling
+>>> rdt_move_group_tasks() to propagate the new CLOSID to the tasks.
+>>>
+>>> rdt_move_group_tasks() uses its first argument to identify the tasks to
+>>> move. For a monitor group this is is_rmid_match(), which on MPAM compares
+>>> both the PARTID and the PMG of the task with the parent control group's
+>>> CLOSID and the monitor group's RMID. After rdtgrp->mon.parent and
+>>> rdtgrp->closid have been updated, the match uses the new CLOSID, so no
+>>> task in the monitor group matches and none is moved. The tasks keep the
+>>> old PARTID and continue to use the old control group's allocation.
+>>
+>> Ah, that's pretty broken.
+> 
+> Hi Ben,
+> 
+> You are right! I found several issues about this with mpam.
+> 
+>>
+>> I was previously under the impression that moving monitor groups on MPAM systems was not permitted
+>> as the monitor bandwidth counters are required to be always running and so would glitch when moved.
+> 
+> Got it. Then this operation should indeed be forbidden. Unfortunately,
+> in practice it hasn't been forbidden yet.
+> 
+>> Peter Newman posted a patch in 2024 which added this restriction [1] but it didn't reach upstream.
+>> As, the moving of monitor groups is already broken for MPAM systems I think it would be ok to forbid
+>> them.
+> 
+> Should I pick it up and rebased on v7.4-rc1 and send out it again?
 
-On 03/11/2026 11:26, TAKANO Mitsuhiro wrote:
-> AmpereOne named event 0x121 BPU_FLUSH_MEM_FAULT until
-> commit 10a149e4b4a9 ("perf vendor events arm64 AmpereOne: Rename
-> BPU_FLUSH_MEM_FAULT to GPC_FLUSH_MEM_FAULT") renamed it.  The next patch
-> in that series, 16438b652b46, added the AmpereOneX tables with the old
-> name in memory.json, so 0x121 carries two names: GPC_FLUSH_MEM_FAULT in
-> core-imp-def.json and BPU_FLUSH_MEM_FAULT in memory.json, and the
-> default perf list output shows both.  The old name has been in every
-> release since v6.8, so deleting it would break scripts that use it.
-> 
-> Mark the entry deprecated instead of deleting it, as Ian Rogers asked:
-> perf list then shows 0x121 once while those scripts keep working.  The
-> x86 tables use the same wording, and
-> commit eda39f98bbc5 ("perf vendor events amd: Reintroduce deprecated
-> Zen 5 core events") brought back deprecated AMD events for the same
-> reason.  The flag is only read when listing; the entry still registers
-> event=0x121, so perf stat -e bpu_flush_mem_fault resolves as before, and
-> regenerating the tables changes nothing but that flag.
-> perf list --deprecated still prints the name in the text output; the
-> JSON path does not consult the flag, so perf list -j cannot show it.
-> No metric expression and no other file refers to either name.
-> 
-> The duplicate came in because jevents checks repeated names, not event
-> codes, and one encoding carrying several names is legitimate, so nothing
-> is added for that here.  No AmpereOneX machine was available, so the
-> listing was not run on hardware; Ilkka Koskinen, who added both tables,
-> tried v1 and v2 and reports that they behave as expected, and his
-> Acked-by is for this variant.  The JSON edit and this changelog were
-> written with an LLM assistant, Hermes Agent, working from the code and
-> the thread; the checks above were run here.
-> 
-> Fixes: 16438b652b46 ("perf vendor events arm64 AmpereOneX: Add core PMU events and metrics")
-> Suggested-by: Ian Rogers <irogers@google.com>
-> Link: https://lore.kernel.org/20261021224527.167637-1-takano32@gmail.com
-> Link: https://lore.kernel.org/CAP-5=fX+2eRGCHcU43sqU=gi9iKvxqyS6ipwRSnvFcap3D+QzQ@mail.gmail.com
-> Link: https://lore.kernel.org/42801873-8908-07a6-aed1-c7076c689e8e@os.amperecomputing.com
-> Acked-by: Ilkka Koskinen <ilkka@os.amperecomputing.com>
-> Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
-> ---
-> v2: keep the entry and mark it deprecated instead of deleting it,
->      as Ian Rogers suggested, and word both descriptions the way
->      the x86 tables do.  Ilkka Koskinen Acked-by v1 and asked for it
->      to be carried over to v2; the description wording was added on
->      top of that, as said in this thread.
-> v1: https://lore.kernel.org/20261021224527.167637-1-takano32@gmail.com
-> 
->   .../perf/pmu-events/arch/arm64/ampere/ampereonex/memory.json | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/memory.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/memory.json
-> index 6c06bc928415..114f95e41e0d 100644
-> --- a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/memory.json
-> +++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/memory.json
-> @@ -35,9 +35,10 @@
->           "ArchStdEvent": "MEM_ACCESS_CHECKED_WR"
->       },
->       {
-> -        "PublicDescription": "Flushes due to memory hazards",
-> +        "PublicDescription": "This event is deprecated. Refer to new event GPC_FLUSH_MEM_FAULT Flushes due to memory hazards",
+That makes sense to me. So, yes please.
 
-Extremely minor nit, but there should be a full stop before 'Flushes'. 
-But if marking it deprecated makes it not show in Perf list, then it 
-doesn't make a difference.
+Thanks,
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+Ben
 
->           "EventCode": "0x121",
->           "EventName": "BPU_FLUSH_MEM_FAULT",
-> -        "BriefDescription": "Flushes due to memory hazards"
-> +        "BriefDescription": "This event is deprecated. Refer to new event GPC_FLUSH_MEM_FAULT",
-> +        "Deprecated": "1"
->       }
->   ]
 > 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+>>
+>> [1] https://lore.kernel.org/lkml/20241205153845.394714-1-peternewman@google.com/
+>>
+>> Thanks,
+>>
+>> Ben
+>>
+>>>
+>>> x86 matches on the RMID alone, so it is unaffected. Now only arm64 mpam
+>>> affected.
+>>>
+>>> Save the monitor group state before it is modified and use the saved state
+>>> as the source of the task move. The updated group remains the destination,
+>>> so matching tasks are moved to the new CLOSID and RMID.
+>>>
+>>> Fixes: 8da2b938eb7e ("x86/resctrl: Implement rename op for mon groups")
+>>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>>> Cc: stable@vger.kernel.org # 7.1.x
+>>> ---
+>>>  fs/resctrl/rdtgroup.c | 3 ++-
+>>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+>>> index 57ab090072c2..33b23b59a6de 100644
+>>> --- a/fs/resctrl/rdtgroup.c
+>>> +++ b/fs/resctrl/rdtgroup.c
+>>> @@ -4322,6 +4322,7 @@ static void mongrp_reparent(struct rdtgroup *rdtgrp,
+>>>  			    cpumask_var_t cpus)
+>>>  {
+>>>  	struct rdtgroup *prdtgrp = rdtgrp->mon.parent;
+>>> +	struct rdtgroup old_rdtgrp = *rdtgrp;
+>>>  
+>>>  	WARN_ON(rdtgrp->type != RDTMON_GROUP);
+>>>  	WARN_ON(new_prdtgrp->type != RDTCTRL_GROUP);
+>>> @@ -4338,7 +4339,7 @@ static void mongrp_reparent(struct rdtgroup *rdtgrp,
+>>>  	rdtgrp->closid = new_prdtgrp->closid;
+>>>  
+>>>  	/* Propagate updated closid to all tasks in this group. */
+>>> -	rdt_move_group_tasks(rdtgrp, rdtgrp, cpus);
+>>> +	rdt_move_group_tasks(&old_rdtgrp, rdtgrp, cpus);
+>>>  
+>>>  	update_closid_rmid(cpus, NULL);
+>>>  }
+>>
+> 
 
