@@ -1,104 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793739588;
-	b=qJQm1xE5F4VYIGEo4WLt+SsSuNYbInmZFQrKoX3PWf/mxd789WDpCj8Y6t67jazOcq0g
-	 c+hhsiaagwzW/zOgP/VNV/Au9tE3ptffSCPbAp4fu652tcBvE5oZjkZWxx0+jq7OoBqX/
-	 wuI0j81CQhUR2FVxv8PeNn2i4KODSSp6r5AMOUKcHsYKfSmF8L8faz3SvscgivgvqQjfJ
-	 dvNlvayCG4fsEJBP9cJSsUhynAJXEGYIGvOfg4zpBFQog22+GAcpt0muyQe90EEgOLzKu
-	 h6uACnl6yU5NXXIYQt16wtrTpLPizo60WfEMxPQJtOfggxU8kfeHagE2JKNeW22KsgA==
+	t=1793739592;
+	b=ftl9M1rIM+r8LKxm3FG3wg+11SkAm02lKvuuR6JHf1D1iYo3enWCiXJbLXFTUthbtnHw
+	 Igp8Kzy/VWtS4izhY1BBO0ZKgM1I653MkALJX8OWRPFPgn9tQkA1cjWSEp54lQ/Vw7XUD
+	 au0TzS67THHuxasQd8Mm7qud1t4qmEeDFbmst3b/S3Bovpw2//HFI0NUJa8vCXvuVwjMS
+	 Qy9STDzbQ3EevuIbKhL+MJPXUycXtS56AcricIN0rJLIH9VmFaRRxicQPJlroiOae99Bc
+	 ZkDE+Xx5liV5mEVUfF7516UNvYZUnHzLpL6sDDCyGAi87/eUYbX5gdIPe92o0iPlmKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739588;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=jIOfDT3IwsQpj8TnqlAW1aIsfN94rzEJ/Etbch7OzL0=;
-	b=wMjfL0tawhbxd1TouuJz40hRxHj0A4H8bOAQwkCfRjxNesvzTKrG3jmfOJA390GFZTgZ
-	 ur0S7en2qubljs//7Qwlu1SWnZMYGucjWPaTvd4Qeqo6s2qOqv5QUzaEuQt8rZRWPfEhG
-	 YtGPBma52PkgaXa11j41PJ0DQLd39C9O/+2RXSIiNtE/Jb8HWRQeYo/ovebnEhw000jkT
-	 ESdl1Ni0xliE7bRdoy0hCNxBWFxnsr5tm+imFPRcyar7YZrSy/v51Ww8plahqIVzNqN43
-	 MVklxKMx1HVHYLVH1XmXwR3SDE3k/LlnPmrk4x858IFFqDtBKJnLnDrPLfdy7Ohu6sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739592;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=2lqPU1i/NYd7KL1kWuqVHp4WfF9iJW5OIp18EbwlBIc=;
+	b=R0vBa7lWtdNoH/WPMWpMzO0p5HG7B9Xs2k+PDb/MszfVndG0aZEDDtYDVfFOXWBLooPB
+	 8jKxtgmxA7Be07+wA3Xwwa8zTrEWm6n4lW2fR7otzygkBA8SXNec5wrO5zz5AUDUw0Jrd
+	 FeQfHFTtiiBkxyUvnRxkA7o1/23p7OprdfsajtxFwDzTRvmvMXYgbjEN1NlWe61eTrOzv
+	 HbNt4/ItdAfHZ8XlQLznb0o9W0q/Ln4V7a5KRegO8QI7GO5Cwy7FbSYm3uDQt1oiTJudQ
+	 5GEZpH6FyK1eJEPFM9j823aDb+SNkGvJcBkCUDgT+hefLaLBddj5NEmSqYNXBuEV4kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NcvufMpD;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kn1dICsH;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C76606A31B;
-	Tue,  3 Nov 2026 20:59:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4C76606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E49E606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E49E606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NcvufMpD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793739587; x=1825275587;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Is+02CMo7tmYzfkUqq4Kp6Vj8IvFPcMBCUl7ofrrCyo=;
-  b=NcvufMpDikqG4vu6XUjJSnMawKoID6fkqe51fzAiZnmapIfNvQGtD7U8
-   tqQTmwQhVg71Jz+XKJVf2K0eiINGi+nQaSldNqO8ozVil/DrO9OXr3Vfq
-   DvlGlDyX5L/PY3yWKgMinrfxUTSzuK75H7nq77NYEm7JjJ/W7mqmQnrOg
-   VfFPapRKxBXNNiFIbrIleWYi3qcdKfWH9MNFlPL3VGIt+qtOvn6YmiY72
-   xGwDwHPTVE8bLRUj65JCJOhfwWA6QwXas1ZGsF3//sQE9N/Xe1HeIme7v
-   ZH8zKrO0f6Q5CWMNPaL5w5O8BCjixy/1AR7DG9kUOcxtYnSqiiyT9m40O
-   Q==;
-X-CSE-ConnectionGUID: q2rNVgusR0u67WlIzZ6i9g==
-X-CSE-MsgGUID: moHz3GrcRXKnZqJZbV3Jbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2381051"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2381051"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 12:59:46 -0800
-X-CSE-ConnectionGUID: KwHr3Wc1TcOeCFSLBDwGGg==
-X-CSE-MsgGUID: +8NIkjyITqyhuWdXdCEudQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6902774"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 12:59:39 -0800
-Date: Tue, 3 Nov 2026 22:59:37 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Raul E Rangel <rrangel@chromium.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Timur Tabi <timur@kernel.org>,
-	Peter Ujfalusi <peter.ujfalusi@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v9 7/8] serial: 8250: retire canceled RX DMA before
- reusing the receive buffer
-Message-ID: <aupLOfg4CGMoaW0c@ashevche-desk.local>
-References: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com>
- <20261102-submit-serial-8250-dma-cancel-v1-v9-7-9159caade148@gmail.com>
- <auoa8OWBxqaQuKRq@ashevche-desk.local>
- <CADvTj4rL23q6eO8vjVe9vL1g6B8aoZqsbnThi2QJqkj=9e59sw@mail.gmail.com>
- <auoit0AkmVeCvXqk@ashevche-desk.local>
- <CADvTj4rwm5BH8veX9i5_4trvzQFRPbDrAby7sXuEth6H6zJH2A@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kn1dICsH
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b08aee6b3eso57093a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:59:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793739591; x=1794344391; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2lqPU1i/NYd7KL1kWuqVHp4WfF9iJW5OIp18EbwlBIc=;
+        b=Kn1dICsHv3kIJp4YekG1h6JEQEA+bb5bCjvVPaeJ6H/LaCXUx6GdnQcLOIAReqRk2B
+         cA3ung01tvuILYIEgFi9p/GdsTTRJHqk1NLM0Zh29v/pGAMnCaliaRjQbFYf39uMaP6U
+         SCxpfso98S46IB43YPr3mGqI0FcYjFlm673p6yeRmxalRdip4/HTBoFvbULk2M/b2Y3k
+         rUk/HW2G8hcZJ1+qm+gv4H5lhYoV4wZivpIKuMkH6sM6dOx2iZwrFY2JOYdPYIUxc2xB
+         OzUjn6SwmK5uxcJ6XiGSDubmTIAckrb9be0eEudZIohO0s3KkWORPTgGszhDXHmagmmu
+         Cstg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793739591; x=1794344391;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2lqPU1i/NYd7KL1kWuqVHp4WfF9iJW5OIp18EbwlBIc=;
+        b=zZyN9HyMZgguARBtpnmEsLZpLsgVdjg5DKQ3vkApgbI7lK9P4/meUHW7uAkB2GEaB+
+         5VlSQbe54wzYdVlSV9bnXK5r/SswKJ/qy8oB2moc2E/LUeANhOqA+Ft20YiaCToqEhBX
+         sUvmUPO1qBWRjkdo56vtGzPePIGgxNSWfQDi2t4Rj2U/gonGTzOxMjYYlpj0jR9Jrmml
+         xf7M2UUydP8XOHW/12a9Dqy19i2KiKLwxEbMRtL6Nzn+qx7x0nL3lVIbjZh8nuqgWc7Q
+         POsEs1Qy2uWTJt9GKFvIazxOcMNXZEn7O0FTiuwznbITrzFotVOI/HssUmv4qafFN00H
+         +gsA==
+X-Forwarded-Encrypted: i=1; AKwUvBztZsYWb+jf0+UI1D+aydpiHPa6/stxPIYDf9sYF68qD/H7A/zhyYah5R6IDuH08LFfsd2IAmBFYa2KxOc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Qxi17csK79/p1W1LhPm2cPw/tZhvMc721geQ8FOewyg6ntymQ
+	vBbVLQOpoICuJNgmZfscpajX3WwPuu1X4EZAGCEkicN07yGkMnZ13HZxlCZ/5QgzE2s62lclsw7
+	GyGxxGw==
+X-Received: from pjhw8.prod.google.com ([2002:a17:90a:5288:b0:3ae:c401:753])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:d887:b0:3ac:8af9:4a77
+ with SMTP id 98e67ed59e1d1-3ae897c94e8mr12522138a91.10.1793739591455; Tue, 03
+ Nov 2026 12:59:51 -0800 (PST)
+Date: Tue, 3 Nov 2026 12:59:50 -0800
+In-Reply-To: <CALMp9eTdY3=1BrOYgov852VeAy3+Os7bvhWogvB0YF-JQrmtig@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,145 +79,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADvTj4rwm5BH8veX9i5_4trvzQFRPbDrAby7sXuEth6H6zJH2A@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+References: <20261102231428.13523-1-pbonzini@redhat.com> <20261102231428.13523-5-pbonzini@redhat.com>
+ <CALMp9eT7cnBf6kSXZLWuMyG9a52QveWjzzLz3Z9E=kPuX_ahVg@mail.gmail.com>
+ <aukmeb9mV8b504T6@google.com> <CALMp9eTdY3=1BrOYgov852VeAy3+Os7bvhWogvB0YF-JQrmtig@mail.gmail.com>
+Message-ID: <aupLRleTJSIDTE9M@google.com>
+Subject: Re: [PATCH 4/7] KVM: nVMX: Process each host MSR entry at most once
+ when unwinding failed VM-Entry
+From: Sean Christopherson <seanjc@google.com>
+To: Jim Mattson <jmattson@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	stable@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 11:16:46AM -0700, James Hilliard wrote:
-> On Tue, Nov 3, 2026 at 11:06 AM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Tue, Nov 03, 2026 at 10:54:38AM -0700, James Hilliard wrote:
-> > > On Tue, Nov 3, 2026 at 10:34 AM Andy Shevchenko
-> > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > On Mon, Nov 02, 2026 at 04:14:34PM -0700, James Hilliard wrote:
-
-...
-
-> > > > > +static void serial8250_rx_dma_flush_work(struct work_struct *work)
-> > > > > +{
-> > > > > +     struct uart_8250_dma *dma = container_of(work, struct uart_8250_dma, rx_flush_work);
-> > > > > +     struct uart_8250_port *p = dma->port;
-> > > > > +     unsigned int delay_us = USEC_PER_MSEC;
-> > > > > +     ktime_t start = ktime_get();
-> > > > > +     bool recover, retry, restore_rx;
-> > > > > +     bool warned = false;
-> > > > > +     int ret;
-> > > > > +
-> > > > > +     guard(serial8250_rpm)(p);
-> > > > > +
-> > > > > +     for (;;) {
-> > > > > +             scoped_guard(uart_port_lock_irqsave, &p->port) {
-> > > > > +                     /* Shutdown cancels this work and drains both DMA channels. */
-> > > > > +                     if (dma->shutting_down)
-> > > > > +                             return;
-> > > > > +                     /* Serialize reset with completion and shutdown notifications. */
-> > > > > +                     WRITE_ONCE(dma->rx_pause_wakeup, false);
-> > > > > +                     retry = dma->rx_pause_pending && !dma->rx_terminating;
-> > > > > +                     if (retry) {
-> > > > > +                             ret = serial8250_rx_dma_try_flush(p);
-> > > > > +                             retry = dma->rx_pause_pending && !dma->rx_terminating;
-> > > > > +                     }
-> > > > > +                     recover = dma->rx_err;
-> > > > > +             }
-> > > > > +             if (!retry)
-> > > > > +                     break;
-> > > > > +             if (!warned && ktime_ms_delta(ktime_get(), start) >= MSEC_PER_SEC) {
-> > > > > +                     dev_warn_ratelimited(p->port.dev,
-> > > > > +                                          "RX DMA pause stalled: %d; retaining transfer and retrying\n",
-> > > > > +                                          ret);
-> > > >
-> > > > _ratelimited() is a slop of AI without understanding the code. It makes nonsense
-> > > > in combination with warned.
-> > >
-> > > The two controls have different scopes. warned is local to one invocation
-> > > of the flush worker and prevents repeated warning attempts while that
-> > > flush remains stalled. A later flush starts with warned cleared again.
-> > >
-> > > The rate limit applies across worker invocations and UART ports. It limits
-> > > messages from separate stalls, rather than repeated retries of the same
-> > > stall.
+On Tue, Nov 03, 2026, Jim Mattson wrote:
+> On Mon, Nov 2, 2026 at 4:10=E2=80=AFPM Sean Christopherson <seanjc@google=
+.com> wrote:
 > >
-> > How? The whole _ratelimited() is nonsense here.
-> 
-> dev_warn_ratelimited() uses a static ratelimit_state at the call site,
-> shared by all ports. The intent was to limit warning bursts across ports
-> and separate flushes, while warned only covers one flush.
-
-Right and imagine if the two or more devices are trying to printing the same
-message in parallel. What will this give to the user? Something like
-
-	$DEVICE: ...error message...
-	$FUNC: N callbacks suppressed
-
-And one may not know how many devices are affected by this N callbacks that
-suppressed.
-
-> > > > > +                     warned = true;
-> > > >
-> > > > Altogether NIH _once().
-> > >
-> > > dev_warn_once() uses a static flag at the call site, shared by all ports.
-> > > After the first warning, subsequent stalls would remain silent even after
-> > > recovery or reopening the port, including stalls on another UART.
-> > >
-> > > The intended behavior here is at most one warning attempt per prolonged
-> > > stall, while keeping later incidents diagnosable and limiting their
-> > > aggregate logging rate.
+> > On Mon, Nov 02, 2026, Jim Mattson wrote:
+> > > KVM needs to do better.
 > >
-> > Yes, so what the point to use _ratelimited()?
-> 
-> It was intended to limit warning bursts across multiple ports and
-> separate stalls, while warned prevented repeated messages for one
-> stalled flush.
-> 
-> I'll use dev_warn() with the per-flush warned flag and one-second
-> threshold instead. That keeps one warning per prolonged stall and lets
-> each port report its own failure independently.
+> > Meh, KVM is doing pretty darn good, all things considered.  Yeah, this =
+code sucks.
+> > But I'm not convinced the alternatives suck less.  We've gotten the set=
+ of missed
+> > consistency checks down to effectively zero, module the TPR mess that I=
+ do test
+> > by running warn_on_missed_cc=3Dtrue.
+>=20
+> I don't understand the TPR mess. The SDM says, "With the exception of
+> fields corresponding to virtualized APIC registers (defined in Section
+> 32.1.1), software may modify the virtual-APIC page referenced by the
+> current VMCS of a logical processor in VMX non-root operation. (This
+> is an exception to the general requirement given in Section 27.11.4.)"
 
-This sounds better.
+Oh, I wasn't aware of that.  I agree, that gives us an "out" for vTPR, most=
+ly.
 
-> > > > > +             }
-> > > > > +             /* Notifications also cover completion or shutdown before sleeping. */
-> > > > > +             wait_event_hrtimeout(dma->rx_pause_wait, READ_ONCE(dma->rx_pause_wakeup),
-> > > > > +                                  ns_to_ktime(delay_us * NSEC_PER_USEC));
-> > > > > +             delay_us = min(delay_us * 2, USEC_PER_SEC);
-> > > > > +     }
-> > > > > +
-> > > > > +     if (recover) {
-> > > > > +             ret = dmaengine_terminate_sync(dma->rxchan);
-> > > > > +             if (ret) {
-> > > > > +                     /* Retain ownership and keep RX masked if DMA cannot be stopped. */
-> > > > > +                     dev_err(p->port.dev, "failed to stop RX DMA: %d\n", ret);
-> > > > > +                     return;
-> > > > > +             }
-> > > > > +     } else {
-> > > > > +             dmaengine_synchronize(dma->rxchan);
-> > > > > +     }
-> > > > > +
-> > > > > +     scoped_guard(uart_port_lock_irqsave, &p->port) {
-> > > > > +             restore_rx = recover || dma->rx_pause_pending;
-> > > > > +             dma->rx_pause_pending = false;
-> > > > > +             dma->rx_terminating = false;
-> > > > > +             dma->rx_running = 0;
-> > > > > +             if (dma->shutting_down)
-> > > > > +                     return;
-> > > > > +
-> > > > > +             if (!restore_rx)
-> > > > > +                     return;
-> > > > > +
-> > > > > +             /* Apply the current enables, including any intervening stop_rx(). */
-> > > > > +             serial8250_out_IER(p, p->ier);
-> > > > > +     }
-> > > > > +     if (recover)
-> > > > > +             dev_warn(p->port.dev, "RX DMA failed, using PIO\n");
-> > > > >  }
+> I would argue that this prohibits changes to VTPR between KVM's
+> software VM-entry checks and hardware VM-entry to VMCS02. If the
+> hardware VM-entry fails because VTPR has changed, section 27.11.4
+> gives KVM the freedom to implement whatever "unpredictable behavior"
+> we like. Yes, that probably does include loading MSR values from the
+> VM-exit MSR-load list, but why complicate things?
+>=20
+> Something like returning to userspace with
+> KVM_INTERNAL_ERROR_EMULATION following a prohibited write to an active
+> VTPR seems far easier--and cleaner. What am I missing?
 
--- 
-With Best Regards,
-Andy Shevchenko
+My biggest concern is that KVM could kill L1 if an L2 coerces L1 into tryin=
+g
+VMLAUNCH/VMRESUME with invalid state.  KVM simply can't *know* that an unex=
+pected
+VM-Fail was due to the vTPR wrinkle.  Even if KVM re-checked state, it's po=
+ssible
+for the vTPR to be "restored" to a good value.
 
+I.e. if KVM exits to userspace with KVM_INTERNAL_ERROR_EMULATION, then ther=
+e's a
+non-zero chance of a false positive.  KVM could exit to userspace if and on=
+ly if
+it caught the guest red-handed, but then we'd still need this horrific code=
+ for
+the other cases, so that seems rather pointless.
 
+warn_on_missed_cc helps, but in practice it can't detect cases for which we=
+ don't
+have test coverage.  So *if* there was a bug that could be exploited by L2 =
+to DoS
+L1, odds are good warn_on_missed_cc didn't catch that hypothetical bug eith=
+er.
+
+Maybe with AI we can be 100% confident that KVM performs all of the VM-Fail
+consistency checks?  Again, I'm not opposed to alternative approaches, but =
+at the
+same time I don't feel a sense of urgency.
