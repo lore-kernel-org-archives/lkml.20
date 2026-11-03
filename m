@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793673466;
-	b=SMGTLojcFDA7RFHIzsyBP0VNbjIGlnvU1Je+p97ujnk98Cy/Gdg6Wl5D9c0bLvfo8cjH
-	 ozAM4Sxc7PXzx4Tjgz67ODXUEz5DkusHE9A4hn59ygg26VeWJRtm1IQFBp94ZcIguDkv3
-	 Utj+GQrAWvBf5wxFEKhXQPbrvXUrz3qxpMafSO+ieP4rPiRgEnr5NpFyx/UkEoS9R15ks
-	 UgGlM82Er+oC3N3PIx2Q7HNdtTnuccHCZRMqBwLs5jFfCwm6GImeS2ar+crnAvwAyr+Qo
-	 ev8lKgvCgpMWVfRjdGQ5CxsiHt+SpoMYR7rXnY96qq4g3qr4SdEEvAwHvzAPygJLeiA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673466;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=aEZiUdHtVe6n866bPKhnP+/zTxBd9R2ODjgeXi2Z0Tk=;
-	b=DL3F0TDMYicbuFUPlLuXOtfevVEFhcYVqp1Ad1UfIlPQllm5l6iMRETOkFbI0zs0umTu
-	 q5eVS30nF5KWaMHYqVFiUZ6X5NHxVvNQGPCKxq6wbS5eHPhjt8P/drhCeyBEls1LNOrOX
-	 4lSEWpAelUCxz7jo1LwEVAWj2ScDieKKi72n//DVrFtAwup80tEBilZ3oZ1oyLdVzbnat
-	 Ik5EBnEjfLh8YpE565KTYb8bfunBdXCkoGh+HaoJIqUCzmG7bY3E9i7iZg0kIdiinVSjk
-	 61CqeUTEhVdJOfppTusuuUdmhwPyXEOHDiAXTF2ICePPghRk/iZDACz1ZNvUioIRV1Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LCtrHkQk;
-	arc=fail smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793673479;
+	b=DBlHMSc+AvoQP+YTX+bKGEC6ICvTl4cwG+UO5YzdBfPa6V1Z1deTqYwTyo0zxUO5Ivev
+	 26kMrpBQLugK0pfqkC6JPgU0cRJ8we8DaQL/dNcnG0XDki5KFbvS9eLLRRhmfP2k0Pbi1
+	 PHryJBLzVCXP1PQax8LFLjDNj6yloDkRyEH4gKUW5Io0ZAtrCeXFYPSqTx5y1Ntr45HQW
+	 OD7d3EmqAC9FsICcmtb7tacvHJp21qkgghRdaoMXQSJRPsPqHhnwnAo1XD/7lZYqFSo1o
+	 TSCYOKlhKmtfyJfEOQEO9Jzvf0yHebWAjYF6ZCabKvabIF9wWF21DwEHXWyuv+1lgsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673479;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0sRD0l57hfFVgwi/g0tAS1yR0jpVl0PruXeq1WJE2ek=;
+	b=aDOpyuxUBPfGKUpGZw/qPBtDrMRBpaI2bs8MJKOStMeAzK3gvitWsKTlBes6ivBCGMPT
+	 8UD4HjrzZXX705UE6xIij2JD8hz3/rpmekIkbcqU9IfOHN3s57NAMVPtm/j41cdWVyB9W
+	 x7klIzU2mBm0BmYE3IXGs2F5YXJzd/uJyrXXuUnwii17dI3AffwXDcDpBAibHKpj3DvWq
+	 RGGWDZrEXjJePsrbFi7g34BMsjqBtxrZUN42NezJA30091pFnTynBjqu/UGETjhMYJz38
+	 4r1UBsLP0UW2B7+PXrY76h7H7nC3bju8d0RTR9dL35b0fMg+2oCwVOPz+lBNLXyvGKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BPouTgqF;
+	arc=none smtp.remote-ip=91.218.175.25
+Received: from mta0.migadu.com (out-25.mta0.migadu.com [91.218.175.25])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B82606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:37:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48B82606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62F1606A33C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:37:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B62F1606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LCtrHkQk
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5366463571cso45847181cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:37:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793673465; cv=none;
-        d=google.com; s=arc-20260327;
-        b=itS/lOe8nQNYnd3ulvY/u7EF+N9v8my26AqLsFuo65qy84x5+ehwqCID6TyJQS3zGe
-         QzHJp0JXQz1QlRoK3adTymBpGgTF79GS0GgvOise0/D/BRUrdYm96CuQaSDZR+ISgD1o
-         aM25vmt2g4JXKXldoYYXCSd3GOSb1aMvcVxQni8nzsvcL2nXaS7SYsPsx9NyUS0mzUVX
-         vfcK2LsLBt8rwivIT/cJ6F0qxJzeXfM/DZiWxlGVdCMpaEvd1YaeFI4aU+a7WzBjrqLh
-         dpi9WZB4bX5of3fADgLJUWN3q9q4w0DETltOjMU+O3zJ4GZOhnQI+JlXMJeXG37e9FDO
-         /8wQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=aEZiUdHtVe6n866bPKhnP+/zTxBd9R2ODjgeXi2Z0Tk=;
-        fh=k+FDUqCBh5qJQLWSvMH2yuchI1386fzuvXFHJ1sXhx8=;
-        b=cJo3zGbpMx122n1Icxp09x+nBi23rYB9EMMoc6IblupSalFxrN6FyS7NWfy99cM8mx
-         23ZiCu+m3aAO9pYzH7EiufGZDlHNqiLikdd/ScTAcdXqpZTecxeYZLQO931GKVBIZQq1
-         5VpL2oa+T7NsZ18oVYMtHaA0iE/YShTJmF35eN/HDxNY9FYkCv2xYtpsUVgZnHWmxb9J
-         IOOdbc5aYtzagA0PLi2djJuKlw7N7OPds9zK3/HmbcI8UZ8JT815vCHASmB1J0pY1Kc8
-         nzmVIg2nQbcB23TNLjbd6a98Js+eIMSmgcb0isEvQJGe2Q1iUGI5JzCFBtOODDSQw0Rh
-         6h6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793673465; x=1794278265; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aEZiUdHtVe6n866bPKhnP+/zTxBd9R2ODjgeXi2Z0Tk=;
-        b=LCtrHkQkks1Vc9cShisAjTrT1zXR6O1/JU2MG8G6pnGN/yPwb+XvlQRQiRBwZ9sd2T
-         8+v9RZTK8VR4nxCdjRI8QiDPCpy23JOPdjE9EqctaKL3g4DA86sdxjHQ+QS+VI+H27tD
-         Sj0Sq2KQtunKPPtGa+NHup2tIOfq5bLQRfPba2o9aoRgbbR03inxQmP5oIFYVz5VPLt9
-         n6FAtnnnIzWSkNsLDnOdAWwFPLFnGWpYaK6ejZwfVmvbqqt6gA4AQHahrXvg6hhPVyJz
-         iSaugX4vZ3NfTz9+SPDq16DDQ1uwDr8Pkj7iULljNJjQ9suBqYK4x+AfFzCDC725RwZ4
-         J8xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793673465; x=1794278265;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=aEZiUdHtVe6n866bPKhnP+/zTxBd9R2ODjgeXi2Z0Tk=;
-        b=khran8tSBoixTNDvmOKobHSQ/oM029DUCyWdB3WDa2mbWCIZYpDYfJbFqtjegqpClL
-         w5S+5Th98w2K8d43CXOVTxfQp0ri0qH9Yed7Z+tr1WwbKfKoKtGWzDzaxMJGXEW/SFRF
-         OamHx+VZivEeQW19Z1l6PagExaZUy8kYtL9LmoIXZCXCPpN917OIpBE1Ed94oQYGzu4x
-         yR2HNA4TXWPVgIgSpmHwwWwViV3oDLp5Wa3h3XYJmmkkEnCmlbGPHqb7Xx4vnmbXz/gb
-         1wsrkhpqPoemR4ReioTJ7sg4b28nqPvcmnoWtcy4VePUjSHlknVM2vEGrY+9Sm3w69dQ
-         S6rQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjKFMK0Ul/GIMSOLsB7cv6Kercp7A4ksGLnALqqZ7xi2MYevIUQU7tl4HeKsutfToyxom19b0uR350eXo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JkDn9ERbcMzNmoWhCcTZeI+PH5IidKgOuNiXkCo7J0Zh1fSBI
-	4lW1Imuq1PDc0+0KZL6FH0DW9MmTQouvGqb08A4jMVEBcxif/OCgsxg4kMRFMJ/MfJIwGmRRI7g
-	XyoQjnJb7wdJpWAwarAxNaius7yOeO3Q=
-X-Gm-Gg: AYBFou1vYDr52ZCt3NczHtsTrioofC3kgzqr+1hx3qAT+9Ija6r4RN8PtwveOTCIXBj
-	3HeZNEJm9rCaShVTMM5Gw3MkY/zJefwWYv3NlD2hCGadkcVhHeCp5A9TQu4tWzGBIRiJ9GKiHHa
-	7r8jWJRQZVt9aMkeg9HdC/AX05xnsMSIU1ioz2S0nlFzEJfTcbtqcVOF/npCn+wKA/UquyvLx2c
-	SbawoiF31GUdwd0svixCd6a6MmBX/c+p4s2Sqcdt0SsIa0Xgutdda2wBiO90FUVrD9mqnOxVB2m
-	/dk8jNDqYZWyg7iWAbtDC+phWWUYJgdKOWlgRZNp3FObPChDXcgXv2tjvQOxCw49FhivOBI3F8X
-	qFvvgGYE2/VSIO0yxHKfLKneo3USkrBUcu3weDwlOmGUg3Vr4/OGWCpjazRymvk3Z8XUjDUh80p
-	bLKjl4oJePiCNnFNy7T/ReZoFLBFKu+rSSRjHye7TmJ8yyEVTdxYXbD1LwRp4syr7mC0JYEc4EH
-	dkb25BkwKIs6M/XLyWdycmdOcmgWGO5ydspmuap33RTspA=
-X-Received: by 2002:a05:622a:1b09:b0:533:a8fe:e430 with SMTP id
- d75a77b69052e-542b6593777mr202082331cf.14.1793673465209; Mon, 02 Nov 2026
- 18:37:45 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BPouTgqF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YB1TgEsc5rIC0KVTq3a2dIhsapr6DQo3zVEdWup7xnE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793673476; v=1; x=1794278276;
+ b=BPouTgqFgshjAvhj6sxurvqh1w/QHAmPKM+joIfs4B3j7ii59pHmukgTYDqDVQ/2GHfqzxAO
+ qS3cX3U0tkj3jplgCBeU42e+Z7ekg+mAPd2hm8c/SKoaC3ikbaNc5mbpeRJDhq3XFJCyWkYrtZa
+ +UnphlWtrr6ojt2ZNHRm6w+4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 35c4c235a93bf988;
+	Tue, 03 Nov 2026 02:37:56 +0000
+X-Mizu-Trace-ID: 35c4c235a93bf988
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 3 Nov 2026 10:37:34 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>, Shuah Khan <shuah@kernel.org>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+	David Lebrun <david.lebrun@uclouvain.be>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Mathieu Xhonneux <m.xhonneux@gmail.com>,
+	David Lebrun <dlebrun@google.com>,
+	Stefano Salsano <stefano.salsano@uniroma2.it>,
+	Andrea Mayer <andrea@common-net.org>
+Subject: Re: [PATCH net 5/6] seg6: account for the MAC header in skb checksum
+ on L2 encapsulation
+Message-ID: <aulI7pl1oWRKzXgt@fedora>
+References: <20261031225033.64-1-andrea.mayer@uniroma2.it>
+ <20261031225033.64-6-andrea.mayer@uniroma2.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,34 +76,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102150757.93058-1-sj@kernel.org> <20261102150757.93058-9-sj@kernel.org>
-In-Reply-To: <20261102150757.93058-9-sj@kernel.org>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Mon, 2 Nov 2026 23:37:34 -0300
-X-Gm-Features: AclHuK-Jg7-xraD80qWPaNaA0iIrhVFnMpsq1hNuG58d2LObr6cS1Stfw00xqhY
-Message-ID: <CAMAsx6epLXuUjaV3J0=SWAuLvajr4h58DTM9gL+LMmaCyjcxUg@mail.gmail.com>
-Subject: Re: [PATCH 8/9] Docs/admin-guide/mm/damon/lru_sort: fix grammar and stlye
-To: manuelebnerli@mailbox.org, sj@kernel.org
-Cc: corbet@lwn.net, rdunlap@infradead.org, skhan@linuxfoundation.org, 
-	damon@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031225033.64-6-andrea.mayer@uniroma2.it>
 
-Hi Manuel,
+Hi Andrea,
+On Sat, Oct 31, 2026 at 11:50:32PM +0100, Andrea Mayer wrote:
+> In L2ENCAP and L2ENCAP_RED mode, seg6_do_srh() puts the MAC header back
+> in front of the frame with skb_push(), without adding it to skb->csum.
+> The encapsulation then calls skb_postpush_rcsum() only for the outer
+> headers. With CHECKSUM_COMPLETE the MAC header is missing from
+> skb->csum, which no longer covers the whole packet as required.
+> 
+> For a forwarded packet, ip6_forward() sets ip_summed to CHECKSUM_NONE with
+> skb_forward_csum(), and End.DX2 does the same before sending the frame.
+> When the packet is delivered on the same node, a raw socket with
+> IPV6_CHECKSUM still reads skb->csum. With skb->csum computed by the device,
+> the kernel can then log a "hw csum failure", as if the device had computed
+> a wrong skb->csum.
+> 
+> Use skb_push_rcsum(), which also calls skb_postpush_rcsum() for the MAC
+> header.
+> 
+> Found by manual code inspection of the skb->csum updates in the SRv6 code,
+> and observed in a VM without kernel changes or error injection: with
+> skb->csum computed by a tc ct action, a BPF tracing program on
+> ip6_forward() shows skb->csum missing the MAC header. With this patch,
+> skb->csum covers it. Also tested against the srv6 selftests, and with a
+> ConnectX-6 Lx NIC (mlx5) that provides CHECKSUM_COMPLETE.
+> 
+> Fixes: 38ee7f2d4756 ("ipv6: sr: add support for encapsulation of L2 frames")
+> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> ---
+>  net/ipv6/seg6_iptunnel.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
+> index 0d39a38a5dd2..3821d8e1409e 100644
+> --- a/net/ipv6/seg6_iptunnel.c
+> +++ b/net/ipv6/seg6_iptunnel.c
+> @@ -456,7 +456,7 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
+>  			return err;
+>  
+>  		skb_mac_header_rebuild(skb);
+> -		skb_push(skb, skb->mac_len);
+> +		skb_push_rcsum(skb, skb->mac_len);
+>  
+>  		if (tinfo->mode == SEG6_IPTUN_MODE_L2ENCAP)
+>  			err = __seg6_do_srh_encap(skb, tinfo->srh,
+> -- 
+> 2.43.0
+> 
 
-> Docs/admin-guide/mm/damon/lru_sort: fix grammar and stlye
+Should we put the skb_push_rcsum() inside of __seg6_do_srh_encap() and
+seg6_do_srh_encap_red()? They all do skb_mac_header_rebuild() again.
 
- "stlye" -> "style"?
-
-> Fix tenses. Split long sentences thereby imporove readability.
-
-"imporove" -> "improve"
-
-> +suitable to be used as a trustworthy access pattern source. These situations
-> +including reclamation target page selection under sudden memory pressure.
-
-Shouldn't this be "These situations include"? As written it is a
-sentence fragment.
-
-Thanks,
-Daniel
+Thanks
+Hangbin
