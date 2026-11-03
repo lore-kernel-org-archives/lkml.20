@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723841;
-	b=Lvd2fxOIEXKTsQ8+Nkgq+BzXNS8vlZetVsTK30PvJnGA8EHGHRJN6swun6c7KoaesJ5D
-	 z8CYOLui5xuVyDQ2PXGyxIkKCouH4h6MpvFDc6DxutTmc7k+oSLkvkpyHxb5Or6Lt7FP/
-	 OSF/COh60h2IWiOwlK5ew7W8kUe5AM7vC6g14V/zygA8a6+Rc2shoPXbog1K0ejBhl+AZ
-	 nV3KONHqcRe5qJqjZUs6/vI8SwgtRNgkIcVfLk6iJfzlEZPv478B+5BE+PWxDYvYJzKdL
-	 dO+aEMhP4BnDI3yHCxwzgdDdmgECl/mRqbd9p/f9HfkEWIOjLyJJkC2/b0ADb70WKng==
+	t=1793723842;
+	b=BoIGtDgGmAOjs8HGyzS4c+1Pdj4hy5rsjUb9uir/oaKnPrOflDmkmH8A1hn5D0BH+FVQ
+	 KEQz+d6eoSMIYvqnH3w5/ibzNAGDAxFOsAZT/zLTbwL3NoqtKdrsYn49bvvyyeJe6KVhz
+	 y8TDdqStqGZziQdDOIU5inY4DYMR0GK31ayahrSPW1haHGoe6GStMzssoNkfqUnKaI5Sg
+	 Be7zmLTP8YlnybRyFJN7OpqWsNPzHAl83i6QGFpoJ2PwFG5U+/iwoZP45HkPWPVzkrVkH
+	 4ZBlhhi09uDI7p743fv+4YwJpAX3CCfn8dZolrj4DWutjT8ML9aZzoxwNRjml7HUpUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723841;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723842;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=zl50UKdvdlW8XEIziu1Zq0cNn23HYvybJSqNilE3YHc=;
-	b=YM3xWVG1gSafdAXkJoAWHcccG9E32bLn7GQGhQOC5+ewoU/WPo4gAfTT4hnafY4nYjGk
-	 qe58k5Yuy59TTwU/0FL5P0kUTcCTsXAv72nAQR9nECL8Ge5oNlQ1B8CG5MVb0bNvn8UG8
-	 rXGD8TE/pp9c/r8Aol6g1//89hTw8bCErEBOn8wQeQmp2EPyA/qv+10rDQ7rsGeVCidbd
-	 44uvZVZbQVhsKbFzVEMYXCONZKXhp1/hplu12UZIGVXcCjfRx2wmLGSl0lwKKYJtAAiUQ
-	 CAshgeBz52qwQUpog3ZNsvwaZjy6o7usReUvfykfCIuWPI6u2+81n8XTiKK/QFjjJ5w==
+	bh=puIm5drKvsAtTzpQuwSkW9RuuhHt2CPtr5r817ZaEWU=;
+	b=KiUUr5tw3J9JDZ2qLmsnvfF7x4aP0hY5U8f57bafRRh+Z2RNMv2H/SIYTuEiSi8/EzxZ
+	 +MOcf+yfh4FLz6CjXq0b4duaxdGRYhupcpkmYF2vmux4TGxprXpxIrGpFAjFVOsX9vhq/
+	 KPYHZQUOAb1g/avK/+MlM43O88gHCGhR+/2/sRiysGrRHpQzWILVbGAESfrj3OUM90IhP
+	 mkZ5q49co+ypCwcnCffAV6BGe21KFHBgGMkQSkZe4p6J90w0WpTUjAPvAaCqV2sd6pEJ2
+	 yyhVPtVyJc6G3Ui1JbsOj5Onkx6rmxHmuWnaKSfb8unMDqE8rjzHCFlRmjGwrutxbQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=linux.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69D9606D81C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:37:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E69D9606D81C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B16606D839
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:37:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14B16606D839
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e0d1da913so759923f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:37:20 -0800 (PST)
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dee593f18so4092702f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:37:21 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793723839; x=1794328639;
+        d=1e100.net; s=20260707; t=1793723840; x=1794328640;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zl50UKdvdlW8XEIziu1Zq0cNn23HYvybJSqNilE3YHc=;
-        b=lCWADGBD7FNhJGL4y/GuXQFBodUi0EVC+ii4oVzRiC7N3GojUVuH/h6LI8rjGidNGu
-         Z3r8oQolS498tw70hYJnvzOvTA6HeVXgjqYywo2pGTpr8Y5Q3oi4q0iTgDIeBYf5utHR
-         SjYWSxJ+Gwx+Tl42maWSfSHUuhcARp452LDaJRE0K2lZEEdNmyVGXgSBn7R8QH/+aZ3q
-         5XPLMMNayHR6GmhCDJ9Q26qfXJQAmHzRUbY1NScWLn6SDzreNyEQ+8QUTg2JcN+DQ77e
-         6IPaD6NN3ylbuwFhDTJnYkyrYwRKHgHunQCFKJ1l7xC2r0FrVgXyHUGqKSZjaKb0rWhm
-         4NEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLibr4TCeNfvauCkDtb1KHC5d0Q3ljkN8D7ybpXy/2dM09ZklmuozgAyI/SCu1uZBw+0F1QO1UNkzWWeI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UUvuwpsnMrB8KQFp/vQBvr/5FuSCm1M0h7Lpvm/VE0JshV/1Q
-	rPWTcpHP+5ydMFW/X4PjcnNIq8LTdoHrLt4vQ6sJFSOSVRGN3MgFy+El
-X-Gm-Gg: AYBFou3r3Fr3eAJyfNIPaMgPOXF0KuRxwCuCdticI9wr1iBf6cMs9L9zNd5UGQ8ww5U
-	04dUEOlz3H9wdinpX5d6lHdAao5nOXtaC2D+gGxH8gj85EGC/Id0dYI4LmZ0Y4feFVY3seZ79tB
-	li/YTSI+RPICssttk8ysD5pDF+Xfka+kb+FTBrgr2vL/6/Q7Gxn2xUhkeErZ51s7w9AD4374Rda
-	lqO3+TwE/ZGNljNPcr92mwSOIwh7Rs+HswsqwNnEtkSuSH+coGW+BBxbWI7nZiXR7qB1Srml75R
-	bKcgQCT4QTjNY2FDtdqQySI+8qRzOCV0o8PB3maE9R5Z5uSHNW1IjZlYdsP7bDpO+5cqQFlVVgD
-	rZkxpPExmwMa0JVQgqy2Gj0x85wYTjRuH5JxEiLde7HDhbHs0XnP8E41bfUVql7Gdt7JCR7wEC3
-	Hawo5m6JplqVOB7qsGvnMUlXt9wlCkiHmqUfl2FNgB9riLebBkAKf2Hjc6Y4RXjYYzTOkyUrDYA
-	QGxaT8D0Ezoj1Pp/O8RGrF4AHGdbT3OUCa14/jWuC55pa9kx6ol4u342ARlBRa5LJKBIDqsC0di
-	dOkTcsf791YvfUr1a5e67TXApgOtpJ0Qjf9Kr90vE6MTvoIdivWvM/xd/FAEKcCl5LScdgyI2qg
-	ff9V12tDRWqE3pO6Q0togRpkKRQ==
-X-Received: by 2002:a05:6000:2082:b0:487:13a9:80d with SMTP id ffacd0b85a97d-48e6e2cb572mr32349416f8f.10.1793723839219;
-        Tue, 03 Nov 2026 08:37:19 -0800 (PST)
+        bh=puIm5drKvsAtTzpQuwSkW9RuuhHt2CPtr5r817ZaEWU=;
+        b=fWNYL2cBkwhPiE8djzMF7/h5ZnG9R70wsuyX6XAdAipTJyRsbjN11yLH0GUE9QMTex
+         8sRpcIauRw4jhiu5iWeQDNKiIJtgiiSDqK5rdoezy6dzP5k5vda9I+oXKNaLCKw84vKK
+         am96vSEB3h6mhz0X/oUn632LM6LcZn3v71cMWPfH99hKHduBsDIr7i3IzfSBSHZamtUv
+         zG/0jghyev9HoTVTXZUojWLn26zzWRmPsGleM4sA1sTGsiaen9RA3aWNHMX6qGEDQji5
+         FXlJUdWkP967GhQLq6WB9CNYkklwBHhWA4HJCyrTb0jKQlEJibWERgI/Yj+NQdGJ9PEb
+         H1Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzt71H2oJkD/4xSSDBhlipfRCPvhwdSKhePui0tnZ3tismu7xZwI4FKo3r7babBEwFv7UvxeS0/Qr5pcQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cJmLV1Xw08OwP4X/6QK82RUROkqU7kCp8LQ/Qa+M8eUPFwigq
+	9s0heQhK8QIa3tN02mCx8mtWGu8ryA5LFHiGLSX9l3T0lWKfAvYfq5Qp
+X-Gm-Gg: AYBFou3JDGZO6vPgBC9RN8Sjby7/MeANUDr1zsED9Hq3tcL1psgaLYxt8aAJ3kVRe0u
+	JpnI215N1riJieftZ7Kq+lEc/JPI5oop/LGAEAFStGvuMBoMrf9xoZKSA+uWr0GhORO61wKXtt6
+	fNMK/hiu+aUbAj4twGAC3ivSjgxu+PTxtVE1AHe2Z2CNkAAkkrrhcUZA2L6Oui8rPKnYEkm5jmb
+	WNJHL6Vx3NAQsm6VgZqCy02NvuGP3FbOzM+tm8exQJCDHdvD7+gCH5CThJFEuRMnSba327OXY/f
+	HqUzug0Pwb66YYgkFIqAroREpVWEi+dEWTLTZNKgQejGp6CEKuY9EK1Upr9r0EVVzPrVvZx7888
+	+XH4Fy0oWz2B2LLZLoF8z8enMtXWj76nOT5uwalhp2rf9UoAiI/hToZUXAQymkc+QoJEWfnI4sg
+	uU3d58KWhVj4inRZleRl3783UcAv5LMKwHHqvi3vaBGNXxEObttf0PhWIHT8l0JTQsrw9cN2mE4
+	j+yc0n+cMn3O/iaAtoI/S99fWPYo16e6gX1ejoND9Q+Xr6De5u86D5vCGhVpJdbSVAwDLrr8dKv
+	2EAZkXMVvm3prYkSXP7vlGHJygLnrJQ8HBM2bdadOrb7lgePLG2jTG9ef9eFVfuHxbyI6GaRryg
+	i6VO75Wmy9GSMrqAl5CYSItijhw==
+X-Received: by 2002:a05:6000:2213:b0:48c:7f18:c85e with SMTP id ffacd0b85a97d-48e6e3042d5mr30563697f8f.45.1793723840170;
+        Tue, 03 Nov 2026 08:37:20 -0800 (PST)
 Received: from threads.localdomain ([90.254.187.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3e9sm29044772f8f.6.2026.11.03.08.37.18
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3e9sm29044772f8f.6.2026.11.03.08.37.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 08:37:18 -0800 (PST)
+        Tue, 03 Nov 2026 08:37:19 -0800 (PST)
 From: Lucas Tanure <tanure@linux.com>
 To: xianwei.zhao@amlogic.com,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -86,9 +86,9 @@ Cc: netdev@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-amlogic@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 2/7] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
-Date: Tue,  3 Nov 2026 16:37:10 +0000
-Message-ID: <20261103163715.385394-3-tanure@linux.com>
+Subject: [PATCH v5 3/7] net: stmmac: dwmac-meson8b: add support for the Amlogic T7
+Date: Tue,  3 Nov 2026 16:37:11 +0000
+Message-ID: <20261103163715.385394-4-tanure@linux.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103163715.385394-1-tanure@linux.com>
 References: <20261103163715.385394-1-tanure@linux.com>
@@ -103,116 +103,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The T7 has the same ethernet glue as the G12A but needs two clocks of
-its own. The controller reaches memory through a pipeline stage with
-its own gate; nothing else claims it, so it is switched off as unused
-and transfers never finish. The glue registers sit in a block clocked
-together with the MDIO multiplexer, which probes after the controller
-has programmed them: the writes are lost and the port keeps the
-bootloader's delays.
+The glue registers on the T7 are laid out exactly as the G12A ones, RX
+delay field included, so the T7 can reuse the G12A settings.
 
-So the T7 gets its own clock list, without the timing adjustment clock
-it never uses. Its delays follow ethernet-controller.yaml: the PHY adds
-the 2ns, and only the receive delay line offers fine tuning, so only
-rx-internal-delay-ps is valid here.
+What it does not share is how the controller reaches memory. That path
+runs through a pipeline stage with a gate of its own, and no other
+device has any use for that gate. Nothing claims it, so it is switched
+off as unused and a transfer that has started can never finish.
+
+Without that gate the controller cannot do DMA at all, so it is
+required rather than optional: a clear probe failure beats an
+undiagnosable hang later.
 
 Assisted-by: LLM
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 Signed-off-by: Lucas Tanure <tanure@linux.com>
 ---
- .../bindings/net/amlogic,meson-dwmac.yaml     | 59 +++++++++++++++++++
- 1 file changed, 59 insertions(+)
+ .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-index e769c9bb70d8..6de013e3e8f6 100644
---- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-@@ -23,6 +23,7 @@ select:
-           - amlogic,meson-gxbb-dwmac
-           - amlogic,meson-axg-dwmac
-           - amlogic,meson-g12a-dwmac
-+          - amlogic,t7-dwmac
-   required:
-     - compatible
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+index e4d5c41294f4..450f7b4b29a6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+@@ -81,6 +81,7 @@ struct meson8b_dwmac;
+ struct meson8b_dwmac_data {
+ 	int (*set_phy_mode)(struct meson8b_dwmac *dwmac);
+ 	bool has_prg_eth1_rgmii_rx_delay;
++	bool has_pipeline_clk;
+ };
  
-@@ -57,6 +58,59 @@ allOf:
-             - const: clkin1
-             - const: timing-adjustment
+ struct meson8b_dwmac {
+@@ -384,6 +385,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+ 	struct plat_stmmacenet_data *plat_dat;
+ 	struct stmmac_resources stmmac_res;
+ 	struct meson8b_dwmac *dwmac;
++	struct clk *pipeline_clk;
+ 	int ret;
  
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: amlogic,t7-dwmac
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: GMAC main clock
-+            - description: First parent clock of the internal mux
-+            - description: Second parent clock of the internal mux
-+            - description:
-+                clock of the pipeline stage inserted in the bus path between
-+                the controller and the DRAM. Without it, the controller cannot
-+                complete DMA transfers.
-+            - description:
-+                clock of the register block holding PRG_ETH0 and PRG_ETH1.
-+                Without it, the block reads as zero and ignores writes.
-+
-+        clock-names:
-+          items:
-+            - const: stmmaceth
-+            - const: clkin0
-+            - const: clkin1
-+            - const: pipeline
-+            - const: pclk
-+
-+        # The PHY adds the 2ns RGMII delays, see ethernet-controller.yaml.
-+        # The RX delay line of this glue is fine tuning in 200ps steps,
-+        # added on top of what phy-mode describes. The TX side has no fine
-+        # tuning: its only step is a quarter of the clock period, the full
-+        # 2ns at 1Gbit/s, so the TX property is not accepted.
-+        tx-internal-delay-ps: false
-+
-+        # Deprecated: new SoCs use the standard *-internal-delay-ps
-+        # properties instead.
-+        amlogic,tx-delay-ns: false
-+        amlogic,rx-delay-ns: false
-+
-+  # Delay definitions for Meson8b and newer
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - amlogic,meson8b-dwmac
-+              - amlogic,meson8m2-dwmac
-+              - amlogic,meson-gxbb-dwmac
-+              - amlogic,meson-axg-dwmac
-+              - amlogic,meson-g12a-dwmac
-+    then:
-+      properties:
-         amlogic,tx-delay-ns:
-           enum: [0, 2, 4, 6]
-           default: 2
-@@ -106,6 +160,7 @@ allOf:
-           contains:
-             enum:
-               - amlogic,meson-g12a-dwmac
-+              - amlogic,t7-dwmac
-     then:
-       properties:
-         rx-internal-delay-ps:
-@@ -142,6 +197,10 @@ properties:
-       - items:
-           - const: amlogic,meson6-dwmac
-           - const: snps,dwmac
-+      - items:
-+          - const: amlogic,t7-dwmac
-+          - const: snps,dwmac-5.10a
-+          - const: snps,dwmac
+ 	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+@@ -443,6 +445,13 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dwmac->timing_adj_clk))
+ 		return PTR_ERR(dwmac->timing_adj_clk);
  
-   reg:
-     items:
++	if (dwmac->data->has_pipeline_clk) {
++		pipeline_clk = devm_clk_get_enabled(dwmac->dev, "pipeline");
++		if (IS_ERR(pipeline_clk))
++			return dev_err_probe(dwmac->dev, PTR_ERR(pipeline_clk),
++					     "missing pipeline clock\n");
++	}
++
+ 	ret = meson8b_init_rgmii_delays(dwmac);
+ 	if (ret)
+ 		return ret;
+@@ -479,6 +488,12 @@ static const struct meson8b_dwmac_data meson_g12a_dwmac_data = {
+ 	.has_prg_eth1_rgmii_rx_delay = true,
+ };
+ 
++static const struct meson8b_dwmac_data meson_t7_dwmac_data = {
++	.set_phy_mode = meson_axg_set_phy_mode,
++	.has_prg_eth1_rgmii_rx_delay = true,
++	.has_pipeline_clk = true,
++};
++
+ static const struct of_device_id meson8b_dwmac_match[] = {
+ 	{
+ 		.compatible = "amlogic,meson8b-dwmac",
+@@ -500,6 +515,10 @@ static const struct of_device_id meson8b_dwmac_match[] = {
+ 		.compatible = "amlogic,meson-g12a-dwmac",
+ 		.data = &meson_g12a_dwmac_data,
+ 	},
++	{
++		.compatible = "amlogic,t7-dwmac",
++		.data = &meson_t7_dwmac_data,
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, meson8b_dwmac_match);
 -- 
 2.56.0
 
