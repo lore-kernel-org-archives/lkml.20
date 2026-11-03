@@ -1,106 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711240;
-	b=HMqJ0uJ/ftCF+8V8fZKEd42+sTRK3di+WJIlrXixi356vzPDWh7ktnxFm7MdXinxv54c
-	 JlitQcrEI1QHmFWv33g3awqXiM2gSRuaKfE0gQ388XU+i67auB0tgPKafKH6VwU1TgIMo
-	 4HHUCn8AFdos4iw4XWcy8uCGzIMlP1ikR9G1oq5nZcAoQMbqxYC/6xtjkFPlufQuDH1ZX
-	 PAwFAE4IAZRZ9JunZxw/thO+2tBDGpQ6XplPPwMahnT/TcrK8fpqiCuh4ihQr644Lq0ga
-	 2aPf5kPxybkD04Ykiuz/USzjT0F8USInEbmmjXXFRwWNmADc1LMh5uoJSFFfPN/PQEg==
+	t=1793711275;
+	b=NjZ8vs2uRoHMR0NnDK/DQVdEkO0rna8mRyEdLIBFoiQF/qvpPiRrGyd1khvlC5iTpF4/
+	 Haw/UM4NM+DBgbLR4bveyAX/vCtE6qPGHxoF0228N622P98dD+b17B+shNE85DB7oDwMo
+	 aYs4gWYYeeTDBQdqJ/JOZZtWfHCRUVMUQQGTnRqTt3u5U0B8diDgqt+UPMyPm7Z8upoHi
+	 E3XgZdeysC/pu5nag8Wif97TnnF05EOTAsV5VueeTYcRDSRHNg4USg03wOyAHXTEPBmNO
+	 itYvlIc14lF26SpiP1Wt06T4OScqIlt38JO15reN633LHubIkrKGXlt5aLxNPZK7CBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711240;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=5ei1qzUQ80RWMNSfAQVvO6ePcINruafcMN98c0m54xI=;
-	b=DBUJTmoMWpcL2uiTfjJK5ZE1ukqg5JkFY8F43EB5c7xXVIAS2nZAA8grAYbBdqYs3LJp
-	 hucWljgB9ihEAGNUc+h/ENGTeVMlWrOsZTmE/5x/pNne9xdIrkapfEnRKYEwOlV2Zj/s2
-	 Kjbv3v3Uu7ZRbPN5uZp7oQ9vEuwOzriS9eZoiYCI9dZy9kv/1sa6O+EnjjMNIBAyBgbuR
-	 11kLX9CLZhaawVmL73pIRbW6AZ68Og26CYDJPY8ukKLGbnAsf26v3QPQk+TJa3u1Y+N/n
-	 olI1CvuTYhQASwW/MTWqnJnM/EDNlzJzSPPlNspk2l1YUuhO686e9miuwsZgMtDZ4OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711275;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zW6mfRDfJlJujbvw1IGU4dhItJDWWt4lFHg3ixIXfNc=;
+	b=oN58fH5sb+KzKQNgU8/cJyK1tAPrIyTmCCqKNcIEDhoolBiauUpGNOWsXy6Hl7oarYPe
+	 E4hUmrdDxpDV84qfHJuRqoanYykrdSK5eIYwjOTH/9EeGPUdp7y1VzHQ0FU069Ii8zU1a
+	 Te6LLz/VisxRw8wuYubpkNtoV3hMNzvtpilI3iBCU1EOo7Ew/914TCsyNLDTRpL0j3xG1
+	 LkSPoqeNkQ36nC86kcdYL7ac/r2OnECXJNBYwekaVCTYZz9FhYU9hX+fAwIy+wfBXB+oI
+	 RmlT4Irjq8O8mHYGjp3eyCmuHV+FmOR1Wi5Lfvkt+T1bIJQZfn34T0O3tIFCyH3DH+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=A5GcxYN9;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VhCUM5Qk;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=A5GcxYN9;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VhCUM5Qk;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=iqCzK0sc;
+	arc=none smtp.remote-ip=185.70.43.102
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CFF606A326;
-	Tue,  3 Nov 2026 13:07:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03CFF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1756C606D805
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1756C606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=A5GcxYN9;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VhCUM5Qk;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=A5GcxYN9;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VhCUM5Qk
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2F8AE1F7BC;
-	Tue,  3 Nov 2026 13:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793711238; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5ei1qzUQ80RWMNSfAQVvO6ePcINruafcMN98c0m54xI=;
-	b=A5GcxYN9wy8/ytysxXU6dUHT7ZoRHVe3p3cRnO8qcUaxSPiKJT0C/3OVXV7k7e7elXAznz
-	RQr7vAeOozgR+adf9WpqwpbJgduWYGgnOgIU040/KET2vvam8jyKKQ0vEnIZEAqMsQgNRp
-	K779yc424KKF24xydqu177Y5rWWmyK4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793711238;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5ei1qzUQ80RWMNSfAQVvO6ePcINruafcMN98c0m54xI=;
-	b=VhCUM5Qk6BLit4qPNyGmeVsbZSTi3DcoXqRY3gIm1cHlzvhYt6QxJxsJwA5Xlr7w2xqiCf
-	RDjRc7KVrqsz72Cw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793711238; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5ei1qzUQ80RWMNSfAQVvO6ePcINruafcMN98c0m54xI=;
-	b=A5GcxYN9wy8/ytysxXU6dUHT7ZoRHVe3p3cRnO8qcUaxSPiKJT0C/3OVXV7k7e7elXAznz
-	RQr7vAeOozgR+adf9WpqwpbJgduWYGgnOgIU040/KET2vvam8jyKKQ0vEnIZEAqMsQgNRp
-	K779yc424KKF24xydqu177Y5rWWmyK4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793711238;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5ei1qzUQ80RWMNSfAQVvO6ePcINruafcMN98c0m54xI=;
-	b=VhCUM5Qk6BLit4qPNyGmeVsbZSTi3DcoXqRY3gIm1cHlzvhYt6QxJxsJwA5Xlr7w2xqiCf
-	RDjRc7KVrqsz72Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 038F31350A;
-	Tue,  3 Nov 2026 13:07:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id gMwGNIXc6WruKQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 03 Nov 2026 13:07:18 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 98E39B26B; Tue, 03 Nov 2026 14:07:13 +0100 (CET)
-Date: Tue, 3 Nov 2026 14:07:13 +0100
-From: Jan Kara <jack@suse.cz>
-To: mt4022@columbia.edu
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, tz2294@columbia.edu
-Subject: Re: [PATCH] fs: annotate data race in get_nr_inodes()
-Message-ID: <mcogcmb35mvo7eiizsbp2bsqr3pstlxz4255cr2w7lcaavqx4j@d4ianauxqkfe>
-References: <20261027-kcsan-inode-v1-1-1ef0eb871f2c@columbia.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=iqCzK0sc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1793711271; x=1793970471;
+	bh=zW6mfRDfJlJujbvw1IGU4dhItJDWWt4lFHg3ixIXfNc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=iqCzK0sc7cecORzDmY3YWfT5hLlIEjoJA6u80pAONmYNHB6PUjlxR4C2E/mV4SFs1
+	 uGCKeFcrBFBXgC1TzTk+VbkD+jBjepV9clKS8SsfZXsZdAxqgR8WDVzvpzA6lb+FRd
+	 lPy/fD63GhNciaLjtIqflt+L5mOgzG6eGdBBb3NY+hFrmfbg9XeDPjURob9scBI1e6
+	 hiDfXXLcSYDu9Tij7TaJZztU4h+0ck5rfWRIJ7J71xcam9fjxpkqnwj1t5zwNtlMzX
+	 pid9Kj1LeyhzARMLaM2YazATJN4fa2WPd2evwiU2QDZQTXUlZEKvsx9ElsujCTllj8
+	 40H3fIPmMkD6g==
+Date: Tue, 03 Nov 2026 13:07:42 +0000
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
+From: Paolo Bertinetti <paolobertinetti200f4@proton.me>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, Kan Liang <kan.liang@linux.intel.com>, Leo Yan <leo.yan@arm.com>, Francesco Nigro <nigro.fra@gmail.com>, Sumanth Korikkar <sumanthk@linux.ibm.com>, linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+Subject: [PATCH 0/2] perf: Fix PERF_EVENT_IOC_REFRESH for tracepoints and breakpoints
+Message-ID: <20261103130732.764081-1-paolobertinetti200f4@proton.me>
+Feedback-ID: 117280896:user:proton
+X-Pm-Message-ID: 2045d11603ba2f0177be2f8a7bfbb574cb29152f
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,88 +61,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-kcsan-inode-v1-1-1ef0eb871f2c@columbia.edu>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,columbia.edu:email,suse.cz:email]
-X-Spam-Score: -12.80
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue 27-10-26 16:08:49, Mani Tofigh via B4 Relay wrote:
-> From: Mani Tofigh <mt4022@columbia.edu>
-> 
-> get_nr_inodes() sums the per-CPU inode counts without a lock, and the
-> result is only an estimate, so it's harmless if one of them changes
-> during the sum.  Wrap the reads in data_race() to mark this.
-> 
->   [   11.857490] BUG: KCSAN: data-race in get_nr_inodes+0x9f/0xf0
-> 
->   [   11.857568] race at unknown origin, with read to 0xff1100002b6281e8 of 8 bytes by task 106 on cpu 1:
->   [   11.857621]  get_nr_inodes+0x9f/0xf0
->   [   11.857675]  get_nr_dirty_inodes+0x1d/0x110
->   [   11.857748]  writeback_inodes_sb+0x3d/0x60
->   ...
-> 
->   [   11.870052] value changed: 0x00000000000000b3 -> 0x00000000000000b5
-> 
-> Found with KCSAN while fuzzing under a deterministic hypervisor that's
-> currently under development.
-> 
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Since commit 18dbcbfabfff ("perf: Fix the POLL_HUP delivery breakage"),
+an event that reaches its PERF_EVENT_IOC_REFRESH limit is stopped with
+pmu->stop() and disabled. Re-arming it adds it back with PERF_EF_START,
+but perf_trace_add() and hw_breakpoint_add() never clear
+PERF_HES_STOPPED. Tracepoint, kprobe, uprobe and breakpoint events
+re-armed this way deliver only their first overflow. Francesco reported
+it with the "Event re-armed with PERF_EVENT_IOC_REFRESH" perf test,
+found through an async-profiler bug.
 
-Looks good. Feel free to add:
+These patches make both PMUs set the state from PERF_EF_START on every
+add, as perf_swevent_add() does. The pmu->stop() call stays, so the
+POLL_HUP fix of 18dbcbfabfff is kept.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Leo's series [1] removes that pmu->stop() call instead, which also
+avoids this, and is still pending. Either way, add() with PERF_EF_START
+should start the event.
 
-								Honza
+Tested in QEMU/KVM, x86_64, 4 vCPUs, v7.4-rc1 with PROVE_LOCKING:
 
-> ---
->  fs/inode.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/inode.c b/fs/inode.c
-> index 1cb6293b237a..ee4366264c36 100644
-> --- a/fs/inode.c
-> +++ b/fs/inode.c
-> @@ -79,7 +79,7 @@ static long get_nr_inodes(void)
->  	int i;
->  	long sum = 0;
->  	for_each_possible_cpu(i)
-> -		sum += per_cpu(nr_inodes, i);
-> +		sum += data_race(per_cpu(nr_inodes, i));
->  	return sum < 0 ? 0 : sum;
->  }
->  
-> 
-> ---
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> change-id: 20261027-kcsan-inode-ad562064d53f
-> 
-> Best regards,
-> --  
-> Mani Tofigh <mt4022@columbia.edu>
-> 
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+- perf test "Event re-armed with PERF_EVENT_IOC_REFRESH": the tracepoint
+  case goes from FAILED (count 1, 1 overflow) to Ok (count 1000, 1000
+  POLL_HUP signals).
+
+- A small test that re-arms each event from its signal handler and
+  triggers it 200 times, overflows delivered:
+
+                 v7.4-rc1   + patch 1   + patch 2
+    tracepoint       1         200         200
+    kprobe           1         200         200
+    uprobe           1         200         200
+    breakpoint       1           1         200
+
+- The full perf test suite and tools/testing/selftests/perf_events give
+  the same results before and after, apart from the REFRESH test. Many
+  perf tests fail in my VM on both kernels, for setup reasons.
+
+- No lockdep or other warnings in dmesg.
+
+I can add kprobe, uprobe and breakpoint cases to the perf test if that
+helps.
+
+[1] https://lore.kernel.org/r/20260514-arm_cs_clean_perf_handle-v2-0-cbb29c=
+3b3661@arm.com/
+
+Paolo Bertinetti (2):
+  tracing/perf: Clear stop state in perf_trace_add()
+  perf/hw_breakpoint: Clear stop state in hw_breakpoint_add()
+
+ kernel/events/hw_breakpoint.c   | 3 +--
+ kernel/trace/trace_event_perf.c | 3 +--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.53.0
+
+
