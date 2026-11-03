@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699696;
-	b=RD/L7T96O9Q6c4nAX40CBdtf6DJZJpMU907W21RWckog4umlkUNj+NrI7LO4Qvhacgl8
-	 e8JF9I38CByoFWxezlOg1fPznEv5i1P/rQ35DUEG9UFl3QEzYXnybthv5BSeurBAKLAAF
-	 Ry8Zw+8lsug+SmDcZSZnJ8kzJaYiIVx7+P2yhLb0hQE3Kp9A1yPEBWixWaG4eAmI//sS3
-	 YfxYuWf7hfhoKwoKfcVYDm+qEvZTG9xVZpGQuXrwNHAvDbVNUGuOo/qF077G6TOHwoxjw
-	 cyz9nVRPowqHJlaKTZpAf6JX6Qb4my8gzlgJlN/I/MZBSn8vzWn3s8c39k8u8TO5kqQ==
+	t=1793699706;
+	b=skDTOamnv1xBJpOQY4PmgD3DkaNnPkENWqUeW5yktK8ZRrewtfq6gOCy02WOsEGrLsjn
+	 zLuOFucQPry4VVyZQWAIanyA9xQINKawgB0nkU8CE+k07iC2zAxHoqBp3yH785SdSD5Yp
+	 isrTm98s7Qsd8hXHPw1X4DVp6ltTDe3FM0nNL31OzTuiAmXVq0ZsP605+rdsKy58cYK/T
+	 +zBiYC8fYfWIc6A8Ocg1ywFYJHKISwUx+0ADIsWcWp75sT2wYnlew+auDZXvFq1lEPMoO
+	 avgWeRiy5hiwV7xiTQ/i5128r/iDaMZwwWCgMYEDjZYqVO/dvXXSJso7Ctb1pAR3Xww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699696;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699706;
 	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7O3qK6NQZiMzw6jt5TU0sGJN/nyeWM0XPpYnj5iMF0A=;
-	b=ZCsgr3BzSqOreB22lxfHesbo7jO3GvWJyAjd02K6BhAXvH+mTgs1QLcZgsuNUFoF3MpO
-	 RdrPAYhI5dgtcnCmt1uLtO1gFqtB/xotTBqqr1CtSOVlIjfMQ5oh3xZQexzCkon4W5+Po
-	 OVJ203UzmtMRbcq85r09svb3C3ZruUSKsnbjTjRHkE9avNSt+B+buHwNI2e37P1AH4vU7
-	 54VdO1hEUpXHIS2vsTRd2pnPrZ0fwub02+J2KRFZKqrkZlOW4bhVM0qy+H/QO551EZ3Y7
-	 LLLuxEnDOae5rt74KLMTD4Jej9A5mG+RM3xZXCFfSs3bENs3ixfVEe7Yu8y4hYrUKQQ==
+	bh=SjvoufU53YipE1rwywIAKoeshFADyLF0Pz/wwifWPLc=;
+	b=dDt8ZsNXcHtCg+E1+vzmeHPIcadY9c69iZoW9oirCLfU34n4L0V9NrDh6en1nx9gyU93
+	 eyZm/hiO4c44dcjVnZW5AQIchN7AtQEFdaBvZ/nTnQdYLsvqADaMyFj2WY0iwB0dfv87y
+	 sqd5tys303Jsbn0DITzQxmUxhW8agmEBq0gFcxymRDUmLc6CE/K7B0Y9ZT26ZJJWbWLfz
+	 Pa0SKOWw6eM8W67kPBkzAaWSl1ZKH/onnFxwMnNkFS1nO7NdqF+XrqakHPaYFlHtQoO6F
+	 aAyMfEdGGjPtrKe8vw4zcS/+QBE3cTWC1H3LRxXlc33LYd53AO4CwDewAQGkoui6jbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="g+C8K/jo";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ipAf4aQx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D6D606EEBD;
-	Tue,  3 Nov 2026 09:54:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EF7606EEBD;
+	Tue,  3 Nov 2026 09:55:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+C8K/jo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 929B71F000C1;
-	Tue,  3 Nov 2026 09:54:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ipAf4aQx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08DFB1F000C1;
+	Tue,  3 Nov 2026 09:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793699695;
-	bh=7O3qK6NQZiMzw6jt5TU0sGJN/nyeWM0XPpYnj5iMF0A=;
+	s=k20260515; t=1793699706;
+	bh=SjvoufU53YipE1rwywIAKoeshFADyLF0Pz/wwifWPLc=;
 	h=From:To:Subject:Date:In-Reply-To:References;
-	b=g+C8K/jomsZefw1qcVsmBeaODrK+U3vuhGwdWYqNycpGmzXhpngBmIfn9QIDh7IWi
-	 x8HX2TfBKL4FjvZJUqYLwYvvOHp4kU2ikHnNIyHoj33RtLWqnyWpmo2wrZr3fZMOpx
-	 qB59s6Ln8ayr5PL9RfqDJmqTM4hSW6/jYdulM6rvhdqr1XdJePdR6njuorM501eL30
-	 sPdEbsQqhQc0uzCRo2AgVeEeDT2fYD3p6lJ2XbJo6eCkrAqbYO0v7NMYkjmC+pR5Zk
-	 zu5J7D0O3/z3B4uUM/AA4ilzIQFe0627vWBCB0tJNu3ESoUJkCQ+Dg19cSD+QXR7zT
-	 Lh2BfR0xSreIA==
+	b=ipAf4aQxmwFJ6JQpkH2dW3va5wADsnlLaKSf3YIirnl1+7RTxxy+7bfrn1rwdv+PW
+	 Lk2QQsFQnSAC6mGHL1W0RrmskUBZrNbdlioy7QkLXrjVb5gKzQA3U6/41UBWcyMfZP
+	 MGKRncKc9INgH6itXj5ZA6tes6jkpWB6eVBM5hvFxhJGLjdT3lBDzTViCwoRvvmVuw
+	 GSdjCb9ZZr5I15xthWutzxdfoQAvhzKUP/Eg6VqSnaoUX10E1w+loqKTmhA1Zx9hZc
+	 zNC9vnnWJwyY0G1vUfL2KmhS2kN0P7cHsGAz21okI8xqw+12yorO+gIz2jlw1rTlDb
+	 TBpFoaLprfv3g==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Vinod Koul <vkoul@kernel.org>,
@@ -46,9 +46,9 @@ To: lee@kernel.org,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 01/10] soundwire: bus: Hold bus_lock when looking up slave devices
-Date: Tue,  3 Nov 2026 09:53:45 +0000
-Message-ID: <20261103095445.81414-2-lee@kernel.org>
+Subject: [PATCH v2 02/10] soundwire: sysfs: Use sysfs_emit_at() in array show callbacks
+Date: Tue,  3 Nov 2026 09:53:46 +0000
+Message-ID: <20261103095445.81414-3-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <20261103095445.81414-1-lee@kernel.org>
 References: <20261103095445.81414-1-lee@kernel.org>
@@ -63,63 +63,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sdw_get_slave() iterates over bus->slaves and requires bus->bus_lock to
-be held by the caller.  However, sdw_handle_slave_status() and
-sdw_clear_slave_status() drop bus->bus_lock immediately before calling
-sdw_get_slave().  If a concurrent slave teardown unlinks the node via
-list_del_init() and frees the slave while bus->bus_lock is dropped,
-sdw_get_slave() can spin forever on the self-referential list entry or
-dereference freed memory.
+words_show() and the show callbacks generated by sdw_dpn_array_attr()
+format firmware-supplied property arrays into the sysfs buffer using
+unbounded sprintf(buf + size, ...) loops.  If firmware provides a large
+array count, sprintf() can write past PAGE_SIZE and corrupt kernel
+memory.
 
-Keep bus->bus_lock held across the sdw_get_slave() lookup in
-sdw_handle_slave_status() and sdw_clear_slave_status().
+Replace the sprintf(buf + size, ...) calls with bounds-checked
+sysfs_emit_at() calls.
 
-Closes: https://sashiko.dev/#/bug/linux-b0e65a93-dfd4-4e3d-a96c-8f13ba0aafd2
+Closes: https://sashiko.dev/#/bug/linux-543ff498-3bed-412d-8972-4855c5aa6008
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 
 v1 => v2: Drop Fixes and Stable tags
 
- drivers/soundwire/bus.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/soundwire/sysfs_slave.c     | 6 +++---
+ drivers/soundwire/sysfs_slave_dpn.c | 8 ++++----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index aeaae5a57c89..15c66effbf4f 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -1907,9 +1907,9 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 			mutex_unlock(&bus->bus_lock);
- 			continue;
- 		}
--		mutex_unlock(&bus->bus_lock);
+diff --git a/drivers/soundwire/sysfs_slave.c b/drivers/soundwire/sysfs_slave.c
+index a2ee064147e0..35272cfe9fc8 100644
+--- a/drivers/soundwire/sysfs_slave.c
++++ b/drivers/soundwire/sysfs_slave.c
+@@ -161,9 +161,9 @@ static ssize_t words_show(struct device *dev,
+ 	int i;
  
- 		slave = sdw_get_slave(bus, i);
-+		mutex_unlock(&bus->bus_lock);
- 		if (!slave)
- 			continue;
+ 	for (i = 0; i < slave->prop.dp0_prop->num_words; i++)
+-		size += sprintf(buf + size, "%d ",
+-				slave->prop.dp0_prop->words[i]);
+-	size += sprintf(buf + size, "\n");
++		size += sysfs_emit_at(buf, size, "%d ",
++				      slave->prop.dp0_prop->words[i]);
++	size += sysfs_emit_at(buf, size, "\n");
  
-@@ -1954,9 +1954,9 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 			mutex_unlock(&bus->bus_lock);
- 			continue;
- 		}
--		mutex_unlock(&bus->bus_lock);
- 
- 		slave = sdw_get_slave(bus, i);
-+		mutex_unlock(&bus->bus_lock);
- 		if (!slave)
- 			continue;
- 
-@@ -2052,9 +2052,9 @@ void sdw_clear_slave_status(struct sdw_bus *bus, u32 request)
- 			mutex_unlock(&bus->bus_lock);
- 			continue;
- 		}
--		mutex_unlock(&bus->bus_lock);
- 
- 		slave = sdw_get_slave(bus, i);
-+		mutex_unlock(&bus->bus_lock);
- 		if (!slave)
- 			continue;
- 
+ 	return size;
+ }
+diff --git a/drivers/soundwire/sysfs_slave_dpn.c b/drivers/soundwire/sysfs_slave_dpn.c
+index d2561400da77..16872ea64b1f 100644
+--- a/drivers/soundwire/sysfs_slave_dpn.c
++++ b/drivers/soundwire/sysfs_slave_dpn.c
+@@ -134,10 +134,10 @@ static ssize_t field##_dpn_show(struct sdw_slave *slave,		\
+ 	for_each_set_bit(bit, &mask, 32) {				\
+ 		if (bit == N) {						\
+ 			for (j = 0; j < dpn[i].num_##field; j++)	\
+-				size += sprintf(buf + size,		\
+-						format_string,		\
+-						dpn[i].field[j]);	\
+-			size += sprintf(buf + size, "\n");		\
++				size += sysfs_emit_at(buf, size,	\
++						      format_string,	\
++						      dpn[i].field[j]);	\
++			size += sysfs_emit_at(buf, size, "\n");		\
+ 			return size;					\
+ 		}							\
+ 		i++;							\
 -- 
 2.56.0.385.gac671c819a-goog
 
