@@ -1,43 +1,43 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692483;
-	b=vKyEQzD/cDHweThbwvvOks3/cAQl50d0lhWXaj5U/Ba4+oex6mcXeW3HW4j62Bduv1eJ
-	 YIFHqOb+3vgT25h/mvCySGX5WabS1fuLtoKM/MY+Q18S0V915RAm8TA38p3pNdlOm92an
-	 6v+LsqMYp/R0fMjGJu4/ET25XAUtMTAuoRol9tcNh+F1SQwOCt9ftbZKOk/Q6vtSJxWfh
-	 3xV/O/X2npDWfuzYnT947QXGTydtvXF0UyOsBpKs7iU2f7CG6fllXoOOTc3kVA09sn7fQ
-	 0vpJ3J8AFK6kxup8kDlA0RGG6eDfq3ri+CG4VzT7LyqgHPAbNzw9KYudObPMVROTsJA==
+	t=1793692482;
+	b=LpHyhqjZVXrqq9rNArpTMj4gjKkVhY+fyALG7fXXKaYfeuiu/ur6pdIcevJ4T6GLH95G
+	 YY7pO21Umqea4rnMNfdt2fjHZUQozfDYhX2lIVoydXHkfMH+HnHi+lCk6fTFr+/oOZ9Sq
+	 x68popb4H7vSJbLmphBTpzg6vMOxMF46Ljo4vJjT2lDfPbJtVwpNsLww45dvekyDKgtHX
+	 mT5CbksFLLrjp1f0MR32TiLKdpDXYdQscoC4Qq8y+JteJ6E6qVUxdQ39NEkpx2JTch9Ne
+	 pSDwVL1rFqzvEc/k4X+Z6FST+sKbEF5IFDw/cbHUJniMniP+EWrMbKQp9GUhvmRZt9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692483;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692482;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtEIJfpuzKtI=;
-	b=V3da/1JSF4avhNRmaT0Br2G84rcu9K/YIsOoSCYubk190GjdgeyYoLRbxEqikLO2ldGe
-	 1BXFVLWmPKbdzQNCBawsOzL9bv5yCYTNAvYsVDjX06HGbc2EIONPUhnO15Qd4lkn/0lh4
-	 ZKlecSuqqUjlbmV/GwPMJINIO4xhncww8WKYXezwj+TfoDd1mqJD7ut7rPjkdevFsVrop
-	 ijOA7Z3rRY0dWTkzyeTgAJJcYbDGSFU5+0rI1T/5kWNj6nFAHq06FdNubjZ+M9KQ69w5f
-	 ai2znj6AEIvOU0QjgfSfTGoL7ucMmuMrKTIJyUriIQPGA+Iy4odxNioRPfbO7BmpgJQ==
+	bh=3AVUzai6kUvRwEMdGkNO6IDLtw6WkIQXLNpWFxmybmw=;
+	b=OPQeqAC+63P3VNV1o972EHspb+3JQSFRlevzsE5p9uMphp2N2mzs13fKO+ZZYY5BUis3
+	 IJCdMIfyGxyNmw5wn+Rla3+QoQQ1Mb2dwt3GN0PElS+v3zy/s8l/OawaDX3HLpLYVSjJD
+	 6lElEZO0C1lGzTrSlO4Y8aORn2/AJepsLuVhU8fp2ERH1aOv6URxIAN4YJppQjzn3wWAo
+	 Sg3wTFWmZrcss37vYI5UHdVQWVHosrSW0D+1DLMRgTeIwlSC1aPplygpBWgKj6CCLMI9M
+	 lNPWYoX/jCYHygbVRV7v8xkSkasDR5HPqcVi2YikbV0EtllCdVDfCj/8lZ2+ch4cLQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.xidian.edu.cn;
 	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
 	arc=none smtp.remote-ip=162.243.164.118
 Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97DFC606A324;
-	Tue,  3 Nov 2026 07:54:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97DFC606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 989CF606A329;
+	Tue,  3 Nov 2026 07:54:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 989CF606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtE
-	IJfpuzKtI=; b=muoIAL+EHBIik1QVZ6fFdipSuwpKHoWWgAjjR6504GnkbsrOge
-	B6RQNl0h0Hgkkapv7dbxHnJIy/4AFO+UDz15r0gM2O8tSNXDt1TJ9N8sb+yhVYnx
-	93VO6fIWE92gbEEPQHgS98x5HL5rqfvLo0L9ZUNdbQ7hnrgCx+xyyauh8=
+	Content-Transfer-Encoding; bh=3AVUzai6kUvRwEMdGkNO6IDLtw6WkIQXLN
+	pWFxmybmw=; b=xIZ7SuypzZlMlV2ZQO/8x2Nj3/RmX3pYxH5lGv0+Ex0drpWa9e
+	8WoiIeL1tmA7Q+jFR629zDf5bOBrH3O4zrKuE+jbSYF9LnZKtoaBFa7IlclhAId0
+	YxuCdKfycPSq9b6mKs/cKhiQ6z7igOGoOg2DXBAwLjOJ++/mOQ3xsDIY8=
 Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkB2fP8sk+lqE0IdAQ--.49868S4;
-	Tue, 03 Nov 2026 15:54:27 +0800 (CST)
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkB2fP8sk+lqE0IdAQ--.49868S3;
+	Tue, 03 Nov 2026 15:54:26 +0800 (CST)
 From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
@@ -47,9 +47,9 @@ Cc: linux-media@vger.kernel.org,
 	Bin Yu <byu@xidian.edu.cn>,
 	Cheng Wen <wencheng@xidian.edu.cn>,
 	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v5 2/3] media: dvb-core: keep dvb_device alive while checking users count in frontend release paths
-Date: Tue,  3 Nov 2026 15:54:19 +0800
-Message-Id: <20261103075420.7772-3-25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v5 1/3] media: dvb-core: fix use-after-free in dvb_remove_device()
+Date: Tue,  3 Nov 2026 15:54:18 +0800
+Message-Id: <20261103075420.7772-2-25031212351@stu.xidian.edu.cn>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261103075420.7772-1-25031212351@stu.xidian.edu.cn>
 References: <20261103075420.7772-1-25031212351@stu.xidian.edu.cn>
@@ -63,13 +63,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkB2fP8sk+lqE0IdAQ--.49868S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxWF1kJry8CFyrCF4fury8Zrb_yoW5Krykpr
-	Z3JFW5KrWUKw4kKrs7C3W7ZrnYvF4Syr98C34xt3Z7Cr1fX34SkryFq34q9r13Cr93A3yj
-	qwnrGay8C3y7AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmC14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+X-CM-TRANSID:BbQMCkB2fP8sk+lqE0IdAQ--.49868S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3AF18tr1DGry3tr47AFy7Jrb_yoW7Aw13pF
+	Z8Wa45KrWq9r4xWr4UAF1jvF95Cr1Sy34rCrWSkrn7KF43JFyIyrZ5ta4UJa13A397AFyU
+	XFW7Jr1kW3yUCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmC14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
 	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
 	ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr0_Cr1U
 	M2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
@@ -80,40 +80,70 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxWF1kJry8CFyrCF4fury8Zrb_yoW5Krykpr
 	106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AK
 	xVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7
 	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_
-	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRMKZAUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUGD2rop1WenQABs-
+	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUF2NNUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUGD2rop1WenQAAs+
 
-Both dvb_frontend_release() and the __dvb_frontend_open() error path
-inspect dvbdev->users after calling dvb_generic_release(), which ends
-with dvb_device_put().  If that put() drops the last reference - e.g.
-the device was unregistered during USB disconnect while this was the
-last open() file - "dvbdev" is freed before ->users is read:
+dvb_remove_device() clears dvb_minors[] and drops the minors-table
+reference while holding minor_rwsem, but then keeps using "dvbdev":
 
-	BUG: KASAN: slab-use-after-free Read of size 8
-	 dvb_frontend_release+0x28b/0x2b0 dvb_frontend.c:2903
+	down_write(&minor_rwsem);
+	dvb_minors[dvbdev->minor] = NULL;
+	dvb_device_put(dvbdev);          /* may kfree(dvbdev) */
+	up_write(&minor_rwsem);
 
-The same pattern exists at err1: after dvb_generic_release() in
-__dvb_frontend_open(), the ->users check runs on an object that may
-already be gone.
+	dvb_media_device_free(dvbdev);
+	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
+	list_del(&dvbdev->list_head);
 
-Take the extra reference *before* dvb_generic_release(): the file
-still holds its own reference at that point, so the get is guaranteed
-to be valid, while a get after the put() could itself touch freed
-memory.  Drop the reference again after the ->users check.
+If the put() happens to drop the last reference, the remaining three
+statements are use-after-free.  KASAN reports the read of dvbdev->minor
+inside device_destroy(), and the list_del() then writes list poison
+into the freed object.
 
-On the __dvb_frontend_open() error path the reference is deliberately
-not put() back inside the function.  fops->release() does not run for
-an erroring open(), so dvb_device_open() calls dvb_device_put()
-itself; that put() drops the reference taken here.  This also keeps
-the accounting balanced: dvb_generic_release() already dropped the
-file's original reference, and the extra get hands dvb_device_open()
-one to drop in its place.
+The reference accounting itself is fine: dvb_unregister_device()
+pairs the put() with its own one for the caller, and direct callers
+such as dvb_unregister_frontend() and dvb_ca_en50221_release() rely
+on dvb_remove_device() consuming the minors-table reference only.
+The problem is the ordering, so move the put() after the last use of
+the object.  The entry is already gone from dvb_minors[], hence no
+concurrent open() can acquire a new reference in between.
 
-In dvb_frontend_release() the reference is balanced explicitly, before
-dvb_frontend_put(fe).
+dvb_register_device() has the mirror problem.  It fills in
+dvb_minors[minor] before calling dvb_register_media_device() and
+device_create(), and when one of them fails it frees the object and
+the file operations:
 
-Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
-Fixes: a2dd235df435 ("media: dvbdev: drop refcount on error path in dvb_device_open()")
+	dvbdev->minor = minor;
+	dvb_minors[minor] = dvb_device_get(dvbdev);
+	up_write(&minor_rwsem);
+	ret = dvb_register_media_device(...);       /* may fail */
+	if (ret) { ...; kfree(dvbdev); }            /* entry stays */
+	clsdev = device_create(...);                /* may fail */
+	if (IS_ERR(clsdev)) { ...; kfree(dvbdev); } /* entry stays */
+
+An open() that arrives in that window follows the array entry, takes
+a reference of its own and runs the file operations of a device whose
+registration has not completed, while the error path frees the object
+under it and the caller frees the private data behind it.  The array
+entry is left behind as well, pointing at freed memory.
+
+The minor number only has to be handed out once, and that is already
+guaranteed by dvbdev_register_lock, which is held for the whole
+function.  Filling in dvb_minors[] is what makes the device reachable,
+so do that last: pick the minor as before, but publish the entry only
+after dvb_register_media_device() and device_create() have succeeded.
+Since nothing can have looked the device up, the error paths keep
+releasing it with a plain kfree(), exactly as they do now, instead of
+unpublishing an entry and dropping references that were never taken.
+
+A devtmpfs or udev open() that arrives between device_create() and the
+publication finds dvb_minors[minor] still empty and gets -ENODEV, the
+same answer it gets for a minor that does not exist yet.  Closing that
+window would require holding minor_rwsem across device_create(), which
+would serialize every DVB open() against the uevent handling of the
+new node; the window is a few instructions wide and userspace retries.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Co-developed-by: Bin Yu <byu@xidian.edu.cn>
 Signed-off-by: Bin Yu <byu@xidian.edu.cn>
@@ -121,53 +151,62 @@ Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
 Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
 Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/media/dvb-core/dvb_frontend.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/media/dvb-core/dvbdev.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index 0286da57f382..00c29cf7ddf0 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -2834,6 +2834,14 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
- 	mutex_unlock(&fe->dvb->mdev_lock);
- err2:
- #endif
-+	/*
-+	 * dvb_generic_release() ends with dvb_device_put(), which may
-+	 * drop the last reference if the device was unregistered while
-+	 * this file was open.  Take an extra reference first so the
-+	 * ->users check below cannot touch a freed object.
-+	 * dvb_device_open() drops it again when ->open() fails.
-+	 */
-+	dvb_device_get(dvbdev);
- 	dvb_generic_release(inode, file);
- err1:
- 	if (dvbdev->users == -1 && fe->ops.ts_bus_ctrl)
-@@ -2934,6 +2942,15 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
- 		mb();
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a..ef88a6395442 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -545,7 +545,6 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 	}
+ 
+ 	dvbdev->minor = minor;
+-	dvb_minors[minor] = dvb_device_get(dvbdev);
+ 	up_write(&minor_rwsem);
+ 	ret = dvb_register_media_device(dvbdev, type, minor, demux_sink_pads);
+ 	if (ret) {
+@@ -583,6 +582,18 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 		return PTR_ERR(clsdev);
  	}
  
 +	/*
-+	 * dvb_generic_release() ends with dvb_device_put(), which may
-+	 * drop the last reference if the device was unregistered while
-+	 * this file was open.  Take an extra reference first so the
-+	 * ->users check below cannot touch a freed object, and drop it
-+	 * again right after.
++	 * dvb_minors[] is what dvb_device_open() follows, so fill it in
++	 * only now that dvb_register_media_device() and device_create()
++	 * have succeeded: an entry that is reachable while those can still
++	 * fail would let a concurrent open() take a reference of its own to
++	 * the object the error paths are about to free, together with the
++	 * private data behind it.
 +	 */
-+	dvb_device_get(dvbdev);
++	down_write(&minor_rwsem);
++	dvb_minors[minor] = dvb_device_get(dvbdev);
++	up_write(&minor_rwsem);
 +
- 	ret = dvb_generic_release(inode, file);
+ 	dprintk("DVB: register adapter%d/%s%d @ minor: %i (0x%02x)\n",
+ 		adap->num, dnames[type], id, minor, minor);
  
- 	if (dvbdev->users == -1) {
-@@ -2954,6 +2971,8 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
- 			fe->ops.ts_bus_ctrl(fe, 0);
- 	}
+@@ -598,7 +609,6 @@ void dvb_remove_device(struct dvb_device *dvbdev)
  
+ 	down_write(&minor_rwsem);
+ 	dvb_minors[dvbdev->minor] = NULL;
+-	dvb_device_put(dvbdev);
+ 	up_write(&minor_rwsem);
+ 
+ 	dvb_media_device_free(dvbdev);
+@@ -606,6 +616,13 @@ void dvb_remove_device(struct dvb_device *dvbdev)
+ 	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
+ 
+ 	list_del(&dvbdev->list_head);
++
++	/*
++	 * Drop the minors-table reference only after the last use of the
++	 * object above: should this be the last reference, freeing it any
++	 * earlier would turn those statements into a use-after-free.
++	 */
 +	dvb_device_put(dvbdev);
-+
- 	dvb_frontend_put(fe);
+ }
+ EXPORT_SYMBOL(dvb_remove_device);
  
- 	return ret;
 -- 
 2.34.1
 
