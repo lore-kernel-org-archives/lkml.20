@@ -1,53 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670737;
-	b=kBd/cDlEuMuTLU09cG3FGH7rkK75wPErQMiDThoAlH5aPl5lA3a3z70D8upkppJ3LVLX
-	 mfmDxPtm2VuKdLpa21RP6Ac3FiKdLEE9bhXlAMeJLn/PAVAG//U2rzm5x8aUMXbTW+dxy
-	 4ial6hfVh/GKn+UqvMabUeMnbVDG2wfJt1y09HTbO7ybl2bFmYJyQnDQeArg7jzXcWYBS
-	 RfuCfrcIhuzr4i0PNYFm7xdeAn+cMDqO1yOD3QVYn7fgzsX8UygBgPfLzs0k7e8mqNsvH
-	 l18FTEHw1DiT6n6CWE4adT9yrs4VgqJFvXTjN7lrO0dQYf86Yrb+goWIGg4Cae6Z0SA==
+	t=1793670772;
+	b=Ii8AQ8jYs2Id3IfhcUkXDIStgeCREdGJoVoKdTHlllnMWAooYNDvljTQxmyRjsuLHtih
+	 fIqfVsxhCsAMXZe44P93/WpuCu9Jxm8UJbR0NYVZAnVBQxDSFTKLx1j6TRagCF3vgGdX5
+	 FRHRXhp/AxtNTqSFRYvZpG/7cdCmZU7ttMRn1keFFRczN3m8Ce6fvGTW5sM/Rxg7RfaSb
+	 eyT+vg+oJkVGBdJbs3nkmXGCz3H3+Ye5jCeC0wBgISItPsM4wZMlZHVItCCLDJDAS9Sua
+	 GrpAiZYiNs/1Xo5/R3FFtB44mhMHtVfaiv2z7y2obwVHtyWrPryTUzXSi0fgeThs3nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670737;
-	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
-	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=RtyNW0gmNKu+F4S4geYgGRfWCseBxV4f/FbulQHc5qY=;
-	b=5UxPMc3VCulHIWfu89GXj1ind/nXQu79RhOisdzd+IoPbaYyRnnh0ZUteo14RPiyZLwL
-	 udvQ4uVc4xg5Z1JfbLPPKzSTo7ABE+v7LlyZY5eX/VzNo2k51JmlfuEKwwA+8s4VwyaqI
-	 VrXb8lgSZew8wegwUUertlQjHvBfsQxfx8rBEyNovGGsqBQHmXpth6wcxx/6nruxXFvL9
-	 SKRkwvjQs8kBYO7F9wZnwbE6vleqgVQsbql9cBGJE5cWs/XqGg505jNJOBxKDaMwYecXY
-	 Zo52+E0rFZBgEz5qibk2Inds1el18APJ7kU7tlX2G98kLkOXLXW/YtpFenuWZZkQkNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670772;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=cK3dJ0rNIB+mrELhNWs3cKMy8uumY3Vdzy3BuldPAKU=;
+	b=F9h+5NwTAhMGoCpy+C3btWQpKfcZz/UxvYxli1BXUlnjuNG/6kqNvieZvQw68Znf3kL1
+	 B7HTxIhqEOhzcfx9TdtaKS1N3IedeEPGAQ4vkmGLuPRu1DZZRT5c1Z3xDQGZx172ys5YZ
+	 A3NuQSI3hRPZpYPW8EmyzRtRgotBHpsLhNpAk8iCQ2aQKXWoZqGRscMqBJSvN8ugTQcci
+	 q+RY3hNW3rBS95FYVBU6lFpcTP77tiNstZ3p9EQ41gxu2pVYbinR2s5eiLvImblSGcHaB
+	 NGYJjuA7QNJe+fV+hllSjfUcBJH4yVgY+zkp95k20jdOxCStlHQhyrq03V1URZ8f83A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 17C08606A324;
-	Tue,  3 Nov 2026 01:52:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C08606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxUNFOPulqFs0bAA--.15379S3;
-	Tue, 03 Nov 2026 09:52:14 +0800 (CST)
-Received: from [127.0.0.1] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJDxBc1MPulq3QkyAA--.9889S2;
-	Tue, 03 Nov 2026 09:52:12 +0800 (CST)
-Subject: Re: [PATCH v1] mm/slub: Genericize x86-specific cmpxchg16b comment
-To: Harry Yoo <harry@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
- loongarch@lists.linux.dev, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261102082730.12430-1-yangtiezhu@loongson.cn>
- <auihvtpGJPDbb4Hz@thinkstation>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <5ce58389-db68-54f2-51fb-0d43b0e0cb2d@loongson.cn>
-Date: Tue, 3 Nov 2026 09:52:11 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oSlhd+Ri;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD33606A33A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oSlhd+Ri
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C1C1F00A15;
+	Tue,  3 Nov 2026 01:52:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793670772;
+	bh=cK3dJ0rNIB+mrELhNWs3cKMy8uumY3Vdzy3BuldPAKU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oSlhd+RiBVbGSflebXoROD4KW5kiV6LYpltNmobSjBcfYZLpdz5DplrQAPHbBSYi1
+	 sO0dtCj7UFbSoetW1kDbQ+kiDDdl6GUsBPhsDRJSvXsjOgBzgey6p61dY06j9qQ97o
+	 XRZ5DD38FvtkHTR4NJ5i+OK7OSGsMpfuN8SDSosd6chN401VqIC8GLkZCU7fBPlRgM
+	 Fhis6DjpLhLqw45HnQdAiDkEufKA+htS2DLHsbLnFceeN3uFgxCf5XqgqhSZtUrSOe
+	 WxyvkmfyuUeQL4FAJZdP2I7DetmenTqw7HrbJZrZxoKUJAWbpGHhNhIVQVRLchpSde
+	 yh/DJYKPjKSUA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Chuck Wolber <chuck@wolber.net>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	kasan-dev@googlegroups.com,
+	Marco Elver <elver@google.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Peter Oberparleiter <oberpar@linux.ibm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Subject: [PATCH v2 03/20] coverage: add a common debugfs interface
+Date: Mon,  2 Nov 2026 20:52:21 -0500
+Message-ID: <20261103015238.3780910-4-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103015238.3780910-1-sashal@kernel.org>
+References: <20261103015238.3780910-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,61 +66,258 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <auihvtpGJPDbb4Hz@thinkstation>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc1MPulq3QkyAA--.9889S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Ar13WFyktF43uFyDCF13WrX_yoW8Gr18pa
-	yktFW8X398Xr1a9ws7Ca17Ww1fXa4UKr97Cw15G348Jr9xKr15GFy0yrWfWayrXryS9342
-	kas2qFW3Zw4UXFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
-	twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l
-	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
-	42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j5o7tUUUUU=
 
-On 2026/11/2 下午10:49, Harry Yoo wrote:
-> On Mon, Nov 02, 2026 at 04:27:30PM +0800, Tiezhu Yang wrote:
->> The kmalloc_nolock() infrastructure relies on slab caches with double-word
->> atomic cmpxchg capabilities (__CMPXCHG_DOUBLE). The current inline comment
->> in __kmalloc_nolock_noprof() uses 'cmpxchg16b' as the prerequisite hardware
->> capability.
+Each coverage implementation creates its own top-level debugfs entry
+with its own conventions: /sys/kernel/debug/gcov/ and
+/sys/kernel/debug/kcov. Give them a common root,
+/sys/kernel/debug/coverage/, which contains:
 
-...
+  backend  name of the selected code coverage measurement implementation
+  reset    write to reset all coverage data of that implementation
+  gcov     symlink to ../gcov when gcov is enabled
+  kcov     symlink to ../kcov when KCOV is enabled
 
->> diff --git a/mm/slub.c b/mm/slub.c
->> index 45e077c7526c..216bc6b5d776 100644
->> --- a/mm/slub.c
->> +++ b/mm/slub.c
->> @@ -5589,8 +5589,8 @@ static void *__kmalloc_nolock_noprof(DECL_TOKEN_PARAMS(size, token), gfp_t gfp_f
->>   	if (!(s->flags & __CMPXCHG_DOUBLE) && !kmem_cache_debug(s))
->>   		/*
->>   		 * kmalloc_nolock() is not supported on architectures that
->> -		 * don't implement cmpxchg16b and thus need slab_lock()
->> -		 * which could be preempted by a nmi.
->> +		 * don't implement 128-bit atomic cmpxchg and thus need
->> +		 * slab_lock() which could be preempted by a nmi.
-> 
-> maybe "double-width atomic cmpxchg" is more accurate considering
-> e.g.) x86-32 implements cmpxchg8b?
+backend and reset are only present when a code coverage measurement
+implementation is selected, so a kernel with only KCOV just has the kcov
+symlink. The data formats are defined by the respective toolchains and
+stay implementation specific. The existing paths are kept as they are,
+since lcov, distribution tooling and syzkaller rely on them; the gcov
+reset file now shares its implementation with the common one.
 
-OK. Using "double-width atomic cmpxchg" is much more accurate
-as it perfectly covers both 32-bit and 64-bit platforms, and
-aligns well with the __CMPXCHG_DOUBLE flag.
+The common reset never touches KCOV, whose coverage buffers are owned
+by the tasks that set them up.
 
-I will send out v2 with this update later if no more comments.
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ MAINTAINERS                |  8 +++++
+ kernel/coverage/Makefile   |  1 +
+ kernel/coverage/core.c     | 71 ++++++++++++++++++++++++++++++++++++++
+ kernel/coverage/coverage.h | 22 ++++++++++++
+ kernel/coverage/gcov/fs.c  | 21 ++++++++---
+ kernel/coverage/kcov.c     |  3 ++
+ 6 files changed, 122 insertions(+), 4 deletions(-)
+ create mode 100644 kernel/coverage/core.c
+ create mode 100644 kernel/coverage/coverage.h
 
-Thanks,
-Tiezhu
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 79de9a6964152..01bdf404bfde8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6632,6 +6632,14 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/coda.yaml
+ F:	drivers/media/platform/chips-media/coda
+ 
++CODE COVERAGE
++M:	Sasha Levin <sashal@kernel.org>
++S:	Maintained
++F:	kernel/coverage/Kconfig
++F:	kernel/coverage/Makefile
++F:	kernel/coverage/core.c
++F:	kernel/coverage/coverage.h
++
+ CODE OF CONDUCT
+ M:	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ S:	Supported
+diff --git a/kernel/coverage/Makefile b/kernel/coverage/Makefile
+index a4cd8cc18d9bc..881fada442bd1 100644
+--- a/kernel/coverage/Makefile
++++ b/kernel/coverage/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
++obj-$(or $(CONFIG_COVERAGE_KERNEL),$(CONFIG_KCOV)) += core.o
+ obj-$(CONFIG_GCOV_KERNEL) += gcov/
+ obj-$(CONFIG_KCOV) += kcov.o
+ 
+diff --git a/kernel/coverage/core.c b/kernel/coverage/core.c
+new file mode 100644
+index 0000000000000..f90dd78fce557
+--- /dev/null
++++ b/kernel/coverage/core.c
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Common debugfs interface of the kernel's code coverage implementations.
++ *
++ * /sys/kernel/debug/coverage/ is the root for all of them. The selected
++ * code coverage measurement implementation registers itself as the
++ * backend, which provides the "backend" and "reset" files.
++ */
++
++#include <linux/bug.h>
++#include <linux/debugfs.h>
++#include <linux/fs.h>
++#include <linux/init.h>
++#include <linux/seq_file.h>
++
++#include "coverage.h"
++
++static struct dentry *coverage_root;
++static const struct coverage_backend *coverage_backend;
++
++struct dentry *coverage_debugfs_root(void)
++{
++	return coverage_root;
++}
++
++static int backend_show(struct seq_file *m, void *unused)
++{
++	seq_puts(m, coverage_backend->name);
++	if (coverage_backend->features)
++		seq_printf(m, " %s", coverage_backend->features);
++	seq_putc(m, '\n');
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(backend);
++
++static ssize_t reset_write(struct file *file, const char __user *buf,
++			   size_t len, loff_t *pos)
++{
++	coverage_backend->reset();
++	return len;
++}
++
++/* Allow reads so that a recursive copy of the directory doesn't fail. */
++static ssize_t reset_read(struct file *file, char __user *buf, size_t len,
++			  loff_t *pos)
++{
++	return 0;
++}
++
++static const struct file_operations reset_fops = {
++	.write	= reset_write,
++	.read	= reset_read,
++	.llseek	= noop_llseek,
++};
++
++void __init coverage_register_backend(const struct coverage_backend *backend)
++{
++	if (WARN_ON(coverage_backend))
++		return;
++
++	coverage_backend = backend;
++	debugfs_create_file("backend", 0444, coverage_root, NULL, &backend_fops);
++	debugfs_create_file("reset", 0600, coverage_root, NULL, &reset_fops);
++}
++
++static int __init coverage_init(void)
++{
++	coverage_root = debugfs_create_dir("coverage", NULL);
++	return 0;
++}
++fs_initcall(coverage_init);
+diff --git a/kernel/coverage/coverage.h b/kernel/coverage/coverage.h
+new file mode 100644
+index 0000000000000..1b7e3ce25b686
+--- /dev/null
++++ b/kernel/coverage/coverage.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _KERNEL_COVERAGE_H
++#define _KERNEL_COVERAGE_H
++
++struct dentry;
++
++/**
++ * struct coverage_backend - code coverage measurement implementation
++ * @name: name reported by /sys/kernel/debug/coverage/backend
++ * @features: optional space separated list of enabled features
++ * @reset: reset all coverage data collected so far
++ */
++struct coverage_backend {
++	const char *name;
++	const char *features;
++	void (*reset)(void);
++};
++
++struct dentry *coverage_debugfs_root(void);
++void coverage_register_backend(const struct coverage_backend *backend);
++
++#endif /* _KERNEL_COVERAGE_H */
+diff --git a/kernel/coverage/gcov/fs.c b/kernel/coverage/gcov/fs.c
+index 764918570de13..a761cfb837414 100644
+--- a/kernel/coverage/gcov/fs.c
++++ b/kernel/coverage/gcov/fs.c
+@@ -28,6 +28,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/mm.h>
+ #include "gcov.h"
++#include "../coverage.h"
+ 
+ /**
+  * struct gcov_node - represents a debugfs entry
+@@ -628,11 +629,10 @@ static struct gcov_node *get_child_by_name(struct gcov_node *parent,
+ }
+ 
+ /*
+- * write() implementation for reset file. Reset all profiling data to zero
+- * and remove nodes for which all associated object files are unloaded.
++ * Reset all profiling data to zero and remove nodes for which all associated
++ * object files are unloaded.
+  */
+-static ssize_t reset_write(struct file *file, const char __user *addr,
+-			   size_t len, loff_t *pos)
++static void gcov_reset_all(void)
+ {
+ 	struct gcov_node *node;
+ 
+@@ -648,7 +648,13 @@ static ssize_t reset_write(struct file *file, const char __user *addr,
+ 		}
+ 	}
+ 	mutex_unlock(&node_lock);
++}
+ 
++/* write() implementation for reset file. */
++static ssize_t reset_write(struct file *file, const char __user *addr,
++			   size_t len, loff_t *pos)
++{
++	gcov_reset_all();
+ 	return len;
+ }
+ 
+@@ -859,6 +865,11 @@ void gcov_event(enum gcov_action action, struct gcov_info *info)
+ 	mutex_unlock(&node_lock);
+ }
+ 
++static const struct coverage_backend gcov_backend = {
++	.name	= "gcov",
++	.reset	= gcov_reset_all,
++};
++
+ /* Create debugfs entries. */
+ static __init int gcov_fs_init(void)
+ {
+@@ -874,6 +885,8 @@ static __init int gcov_fs_init(void)
+ 	 */
+ 	debugfs_create_file("reset", 0600, root_node.dentry, NULL,
+ 			    &gcov_reset_fops);
++	debugfs_create_symlink("gcov", coverage_debugfs_root(), "../gcov");
++	coverage_register_backend(&gcov_backend);
+ 	/* Replay previous events to get our fs hierarchy up-to-date. */
+ 	gcov_enable_events();
+ 	return 0;
+diff --git a/kernel/coverage/kcov.c b/kernel/coverage/kcov.c
+index 9402227bd7ba8..54071af990eec 100644
+--- a/kernel/coverage/kcov.c
++++ b/kernel/coverage/kcov.c
+@@ -27,6 +27,8 @@
+ #include <linux/log2.h>
+ #include <asm/setup.h>
+ 
++#include "coverage.h"
++
+ #define kcov_debug(fmt, ...) pr_debug("%s: " fmt, __func__, ##__VA_ARGS__)
+ 
+ /* Number of 64-bit words written per one comparison: */
+@@ -1180,6 +1182,7 @@ static int __init kcov_init(void)
+ 	 * use of debugfs_create_file_unsafe() is actually safe here.
+ 	 */
+ 	debugfs_create_file_unsafe("kcov", 0600, NULL, NULL, &kcov_fops);
++	debugfs_create_symlink("kcov", coverage_debugfs_root(), "../kcov");
+ 
+ #ifdef CONFIG_KCOV_SELFTEST
+ 	selftest();
+-- 
+2.53.0
 
