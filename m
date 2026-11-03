@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.212.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793671376;
-	b=TH3WdSjUZXNU46QajSMXmaVkEHWWIrlD5++dByq/hD+RVW9pOHJx31UFOxAqr7i27hMX
-	 EZ9OlwT0wq2sr3D5+zojyfOk6JNgZCpItsOrv2BLDVdt66RfBcTf06TIXwxrk7pYljYkO
-	 gi/omfsMKjwrl8O1jxTstiWELmKA0SxK2B8MtPNObgwrRYFkTsAGLrndXdJL1wad0fXU9
-	 6jOgFHPuA9mujxerHwVTgvOWDpLuXlvpneIdfk8vnb2B5bScX+nHTLtTok1uaC9dL/b87
-	 BkliH2ZoSefH5KtN8tAwLBXVztOfjQLZZpbpn0WRsdZYRiIQe7SaUrdki1IIa8ZuOEA==
+	t=1793671430;
+	b=5F/yTh5psOU0+AFF6KgKSPrRgwtsu2vHZi+5ra81U7k0zJRabhvN6iiCjs0K/FBFtyxb
+	 JwP80eBWcCrr6LJT0MdfjwVEDBnCttYCR8fWFMgr0opLquiRnsudF6pUVY9xVWC7xo3fl
+	 1NDn2c5f20KqWh60FUXVMnRsocZLQFuSWSdY2hxVcYXXfNCfr7BafWEQbHVnLELpyak7+
+	 /i41C0FKxGzo9i0P5ESSxMH8WksN9p0rgsXX7lXryGWKRiAFfSfT0PAN8pVzfNgdfEtnB
+	 QZRd+1vdqIDdo7IC4x1Wj01xAwJ+bE1LLO16HZnDK/Ww7an+4DOjuLjl7jp72Fp+t3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793671376;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=I6clnDvf+pQ6GdcW33LHaGdN8K3c0qv2ixxAW0EE458=;
-	b=Arq54oOQhEWi/NVFcmn5za+7ccrXI3X7Dc5wFOTYT6cT+KWyqwmFKCdW4wnQNW4asdUy
-	 UJ4AQwL6mUst0YAnumGsla8Lea2WBgYtZeld1L7fCj0EI9x7V46Ikna9s4bHwRjuiPqQ3
-	 W6GMgGew8Jou3LKyM8z/s5BRD9yhJaH6lzuEOwmnYlQSlyTROrWwHrj92uNWXMmmg2MAZ
-	 N1mFsLjz+HNTUnHgkytUasMg2XQdn8ZQQOXP5zrrM1pcdM/pBPNiKUfFNlUcca8r8lFFk
-	 tgXK0jm8HDi6PdHr/fPH26hmcnPirvJi3z811NxmvoYGYqJs0uu/4+scXYnt7kwSNgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793671430;
+	h=Received:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
+	 References:User-Agent:MIME-Version:Content-Type;
+	bh=O+RhHEljv2BPiMQxKLBYGsUSVyhObf/DA3n0OJGfp1Y=;
+	b=vo6R0P20rWzwVO6hXTsa0zNmoOIhYynlUK1DvdFhNooZgZaNifp1mbusJla3+b/JrrLs
+	 FUB0cCiTxCV8Y7QHwNrpHd/ClGbmlquP+D1PhO2WCM6hNgMc4bgEsf2BREwsU0z/FLYvI
+	 9pmq/7y60qmvjn2ufWHkL+QkQVb3YDxrOCT4jcv2V5MsBWacB5/ynbbojv7dWsERXBRv8
+	 d1NlcLPBQXv3LLX4r8We7QfSg4QhXtfqHaWw+wky77KqxgGRG5VNflF/aagB7wkzvxqwX
+	 L9kqU1fQODTglI62A2xlvGi7HNo8W70w+/1JCHuTdpeB/jbtw1+B6JuDUe9xvb7IgAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=DmTebpPN;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dmarc=permerror header.from=inai.de;
+	spf=pass smtp.mailfrom=inai.de;
+	arc=none smtp.remote-ip=144.76.212.145
+Received: from a3.inai.de (a3.inai.de [144.76.212.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35367606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:02:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35367606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=DmTebpPN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=I6clnDvf+pQ6GdcW33LHaGdN8K3c0qv2ixxAW0EE458=; b=DmTebpPN29pwHq0l5moSH8RpYs
-	F+Cicwx0/dNZSMeXmsY0+Im7Lf8/KsKSo5qQmyE4cXFhSWBr9DKo+6pGuXm4OcJOCdZPgOKjqEAD8
-	KaUcrCqz9MwrgzHSTr1GAu+sr4ewAOLCtD392WsCacZkoYAikaLnpCcsEDaj8CzOy4RQE3gjxpUnI
-	92TMGi78kFOcTXVHNG2YnRSnhscSE9LY+4Vvz0A9Yq2KJOS0b8jR03gJ/Glbscy9cpS0130roqs//
-	M4APMfdUrPztgQfCkLakCConKcNtNRqFtf4Wya5NMqtcgQ1rcYoMOTe2CRyqQSnlyPjSybxD1FoFq
-	hHZ4ml3g==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xO3rT-00000000pgD-1zIE;
-	Tue, 03 Nov 2026 02:02:55 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Jason Baron <jbaron@akamai.com>,
-	Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2] dyndbg: use correct function parameter names in kernel-doc
-Date: Mon,  2 Nov 2026 18:02:54 -0800
-Message-ID: <20261103020254.2491892-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF7C606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:03:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=inai.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inai.de
+Received: by a3.inai.de (Postfix, from userid 25121)
+	id 8AE591003FB013; Tue, 03 Nov 2026 03:03:47 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by a3.inai.de (Postfix) with ESMTP id 88D0F11003ABD1;
+	Tue, 03 Nov 2026 03:03:47 +0100 (CET)
+Date: Tue, 3 Nov 2026 03:03:47 +0100 (CET)
+From: Jan Engelhardt <ej@inai.de>
+To: David Laight <david.laight.linux@gmail.com>
+cc: "Paul E. McKenney" <paulmck@kernel.org>, torvalds@linux-foundation.org, 
+    linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+    Bradley Morgan <brads@mainlining.org>, Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
+In-Reply-To: <20261102163448.3956dde3@pumpkin>
+Message-ID: <s2530278-793s-8r51-s5q8-349s35q8159r@vanv.qr>
+References: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop> <4p5316or-75o2-s068-74s3-6q5011o75672@vanv.qr> <6f24126a-7f84-40f8-a297-095b470beb8b@paulmck-laptop> <qnrr9sr7-19rq-6rp9-0oq9-5939r07no828@vanv.qr> <20261102163448.3956dde3@pumpkin>
+User-Agent: Alpine 2.26 (LSU 649 2022-06-02)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,37 +53,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Avoid kernel-doc warnings by using the corrrect function parameter
-names. 'classes' is part of the VA_ARGS so it should be specified
-with '@...'.
 
-Warning: include/linux/dynamic_debug.h:102 function parameter '_maptype' not described in 'DECLARE_DYNDBG_CLASSMAP'
-Warning: include/linux/dynamic_debug.h:102 Excess function parameter '_type' description in 'DECLARE_DYNDBG_CLASSMAP' (did you mean one of: '_maptype')
-Warning: include/linux/dynamic_debug.h:102 Excess function parameter 'classes' description in 'DECLARE_DYNDBG_CLASSMAP'
+On Monday 2026-11-02 17:34, David Laight wrote:
+>> 
+>> I can get gcc-17.0.0-20261102 with no further command line options
+>> to turn `atomic_compare_exchange_strong`+uint16 into some object code
+>> that does not contain a call to libatomic, for sh2, sh3, sh4. Haven't 
+>> tried xtensa or the others.
+>> Thus, is the patch really needed?
+>
+>Won't that need a big jump in the minimum supported compiler version?
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-v2: rebase & resend
-
-Cc: Jason Baron <jbaron@akamai.com>
-Cc: Jim Cromie <jim.cromie@gmail.com>
-
- include/linux/dynamic_debug.h |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
---- linux-next-20261102.orig/include/linux/dynamic_debug.h
-+++ linux-next-20261102/include/linux/dynamic_debug.h
-@@ -96,9 +96,9 @@ struct ddebug_class_map {
- /**
-  * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
-  * @_var:   a struct ddebug_class_map, passed to module_param_cb
-- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-+ * @_maptype:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-  * @_base:  offset of 1st class-name. splits .class_id space
-- * @classes: class-names used to control class'd prdbgs
-+ * @...: class-names used to control class'd prdbgs
-  */
- #define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
- 	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
+12.0.0-20210420 behaves the same. I just chose 17 because that was
+convenient to try first.
