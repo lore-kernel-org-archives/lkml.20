@@ -1,110 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713873;
-	b=zCY0+x6OUhl8uBItX2zIKJuF9m6Ie8AcRuFKUCEzcuQDd2cNqB7EOlQuCU40itbmg5KK
-	 pBCA3cE+NVqFXSc2593iUrCQwpw0jDdhKkMM9NpiLhazznPZVER4zhzpb/oYgtFdEW5KP
-	 jLZwnwCEHtFTWEsh9FEdKus4WAan0bKyeGGHXGczg4SE7JnvpCXGzr4+seEO1QR6XINN5
-	 4uUH7Rthe+PMuEs4CfaIJw6TJ5ZSlHqn0KenEekOmx6KFztb9KterCRKlJAU+L7KuNk47
-	 gJC/Bpv6PB4tVRMBpwrvj6Ili/bsaKUvd0JEm0xo0sSV6ehWtrccXcKGU0jcid+Ic0g==
+	t=1793713902;
+	b=ZK0Aqtd+wDKk9EsMf5FUtLTW3clnjF7nP4y9FT6oDIoBSXss6A3OTba1+kJHpHAEWJ7/
+	 qqAD2Q7rl/pHKXN3PvhZIOF0TEAMq5hjnv/6bmeU+HN4+wLJMxR7+XVmKIWS3+m9M/6KD
+	 ooAepxy6nfl0U1okkoC2JGBZNAz8tW9NsuVsj7sn8poXRxGqOus1vCJ3bNB7RxaO3uw+p
+	 yT9hLyfCbHsQcxe9foxJQvHLuq2Dtr431X+H6PLmgCVARy4cAqFewmBDtbt7A+9bDX6of
+	 y6rNnncVpO0vSJs314AVNKXkPXHfHf9Gt9fMmmKheDrvyoyl+1z/o/VnLg1nOyJMhzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713873;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=khEl6AiVmGdFxootcAKTxbxTqRouR+Ypn7yM7tzmVes=;
-	b=sqmvbCKGWU0qthqs3cBvCq4OXd7uyD2FFHofVa2po+BS+et/nZTtrBgH8d2GCnH+ROAe
-	 5Im8LohS/YFxBUh4qMJ0tT2FpZwN+1tlqF6EIFjiGau0IYLHqcs5obVriGpSQLhApeVlk
-	 UfWPkdAcxMOtRGnvEna1AoTcMrap8y4sGxGNJDSmShHLz31HNYy66qQc8pEGWEmJwgDW+
-	 Z7sh56kkLqPXvdIhGvhOlWGzjfrb67bPBVXaBnaHh52YJD4u3UkJy35bxw7ZIcPn0F5vg
-	 UdStydA+AKH+zCrtzM6TUG7rT+XFPQyQk62xuZ//twuT5CL9XXZ+91j8j/s50kAIHmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793713902;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=amMRRZdMr2jGfMUqswfwghZn650KtRuPeSCOo/86gME=;
+	b=Q0TxC8QwxWcpdc/Gou3BF6n9ng5fy6GwAMlf6NOB0vUUsdym0ygmBOb2LUQIAhlUFTod
+	 ifl6m3f46s6DgYi7dX5lTxmfs/OzUm26mL2Ifx+oo1lNU9/+Zk5K/EB/pCaOgrPAIwNwe
+	 F82j9tzdlVg88yQwmJrEVHoeqhJbZaNE5s1rM8aWyoBgca1GElqJ7krqbAF3qdIUw+8fo
+	 v+1yqqetLUPWOJPDBq3XjMUP60EgSNPct8DF7s82/OaO+opeBcPbev5mdnINAWVyl8/9I
+	 GGtGixrhSoVAi8KC3lJ16UyQaoD36FcaaSr0kXqzBQMPbYgBt/Aanj4B+45cWQmdAbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ublNyEuV;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=i++tGijZ;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692A9606A334
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:51:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 692A9606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA80A606D807
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:51:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA80A606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ublNyEuV
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so7808962eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:51:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793713873; x=1794318673; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=khEl6AiVmGdFxootcAKTxbxTqRouR+Ypn7yM7tzmVes=;
-        b=ublNyEuVZhEs1i6z93JX/R8YewpZyMQAk3YlLFwfuXYBFSs4sfkWLWIfpH7P/AJNuS
-         5qixV2Ch2exi433cUqhwtamsH5RTjKKU5h+UnV5JwGoMz+/z5255XiDa4N8V1E1e5/5m
-         xIef+CIO+jQgdVmK4fVDAbtkxiq0uhCruvAI43NOs9cjwT12hiRlo91JCbLIKW80eVtA
-         AT2480xZi4B6M19h6dw5RIaZjKogbNOIf3kkerNxRy0JgoNulp0m+f42w0sQV9RigTM6
-         LTzwtARR6jVp6JcgqjxdNtoiPMyOT/xT5JoPXvxsPpU9wQ//lqBy9S1SjrH+olHgj9zq
-         xKXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793713873; x=1794318673;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=khEl6AiVmGdFxootcAKTxbxTqRouR+Ypn7yM7tzmVes=;
-        b=ycH6zIBDo02tMoN5Y9AhBBDwSznJC0xlwUL9zxBtcyNgauhepd3fulyYAUtYH/zteM
-         8t05Pb643jaxozOx68Fpo92SvcOHBmBeVS0ma1PMKRFMWJu2zw5f9HFDI+XCeTGc3VSe
-         L93/tV44dvE6Q7LD08IhxiDAlb0Tk9t5AKLKAtARQi5kh6px6wzWFIFyYCG7OCRUauUa
-         LGpckdGL4yrLW16uiVy8WYSV1IzD8zHamP5/n21/tKblQLnc75dTGMah/s76Qpt93TzJ
-         u/apqQYGOD4uamzPROiRW3IoJdXv95LjTvacnTJAvWqAUEwnPfPUVMjAK8okSQ+ig0wY
-         g/zA==
-X-Forwarded-Encrypted: i=1; AKwUvByMAsztJMkTQGTmYlD4OJ/ijTPHEnWIznNaIrO0TD59O3Y6qdAVsjGzIXUt7R1Zpp6aClK/cJwVna6q2u4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8feiOD32xvdEMnToPwbn+jt4qHfg2SQuJDTlZ+4+qTPakODTZ1
-	T8jD/SbWV+rf5RayERAVebR1lSuCkBV/+Iz4p7KjuGvIy4uEZrm1ney8
-X-Gm-Gg: AYBFou3AEvml0MexLZXukmFwXpSCKreWgi63e7X9r5pR77Sae/9Zn3YReuHvMVSNY2Y
-	mT8vnfwfl22+x4sM+yRgn7q1LH/i89ldR4KFuJJULIB0SGeSOyFhmIiZV1gEP20gtk+0vLNHABe
-	rqm53r42GOYlpbdL2iYVMV9JmlBMG+D/QYvh+ksjJ8UcvjFs1ZfPUzEVLPf3TyUy8Lu9SqoPzRk
-	rPss2WXXMG7jNLQJd/wQFrMbitO/grvScc6jqrGsMW2wt0/oLAOAYsQk6S7t9/cBivZSF0vNAP0
-	KnHlPOdE/nMt0d7c1P2TbUZG1urHbEhX/aOdtzv7CIfm3lVSs6GSJGLE0Pls7ZG84XFwBND8+qf
-	3beaRDFtEB2ECP+8GH2W7Jvn9NO6VryjK9ibogr7Lg7kMHd+0KAOBTfi/lueSpdNeYE5dYw2ml8
-	DXoVe2ZFnM9Uo1/TBYywWB4jJ9SPuvtYJrfDFE/WGcIiipzqZt4czPpjsjYIb8awppYd0cSopBL
-	XQvWDjWTBKiMldilqtQWGtEZTLta3AsV41zg9regFqeX1dPiHGx9FAjgggXdTvp6AdVqv7l/92n
-	LDtaVfDZQt3Pe8XamCqdvgwMPZR7OaMQwbAadYIC9DSW
-X-Received: by 2002:a05:7022:4b:b0:1a3:dbb2:478a with SMTP id a92af1059eb24-1ac5c92de5dmr24655310c88.27.1793713872384;
-        Tue, 03 Nov 2026 05:51:12 -0800 (PST)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1845817csm42837321c88.5.2026.11.03.05.51.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 05:51:11 -0800 (PST)
-From: Joonhoe Kim <26rote@gmail.com>
-To: gregkh@linuxfoundation.org,
-	Thinh.Nguyen@synopsys.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: abel.vesa@oss.qualcomm.com,
-	wesley.cheng@oss.qualcomm.com,
-	krishna.kurapati@oss.qualcomm.com,
-	konrad.dybcio@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	neil.armstrong@linaro.org,
-	val@packett.cool,
-	balaji.kalkonda@oss.qualcomm.com,
-	tvlad744@gmail.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] arm64: dts: qcom: kaanapali: Mark the USB controller as a Type-C mode switch
-Date: Tue,  3 Nov 2026 22:50:57 +0900
-Message-ID: <20261103135057.1682-4-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261103135057.1682-1-26rote@gmail.com>
-References: <20261103135057.1682-1-26rote@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=i++tGijZ
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3DiBWD796960;
+	Tue, 3 Nov 2026 13:51:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=amMRRZ
+	dMr2jGfMUqswfwghZn650KtRuPeSCOo/86gME=; b=i++tGijZ7hR50B3l9GPxIq
+	Skwee+UbQmd/XbkLoN4SVVeKZX+7QYDtj1ebfJLKt7vTNd2RZpbpFbMo4LrJiFhL
+	83bv19zSeJeHYSKu2rn/ehA9Y5SZIKkEHgRVOuVnEeEpcQ/PPZKEpjORSEsQm0QO
+	v44KwQSs3J6EWYsnrcqOhkNdRJ2rkcU3PEpGplD04S/al3vPmPGiB5FLInewmbn5
+	R0x2unI9fgFjrrbEHMkdc/yLx4IS3oNpmuA67s/wCHksFT4adE8minQTTf3ETKpX
+	/1UQNrcnG4tGbej178ehKXA6vY67x6f9gYlgoWqQZf3IyXh0m/TQn0OsOFTfIvfg
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn6rd5uux-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 13:51:18 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3DZZwE2643583;
+	Tue, 3 Nov 2026 13:51:18 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnv5gtjbu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 13:51:18 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A3DpAxi45679056
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 3 Nov 2026 13:51:10 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A632820043;
+	Tue,  3 Nov 2026 13:51:10 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 139E82004B;
+	Tue,  3 Nov 2026 13:51:07 +0000 (GMT)
+Received: from [9.124.210.158] (unknown [9.124.210.158])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  3 Nov 2026 13:51:06 +0000 (GMT)
+Message-ID: <dad757bf-831d-4fd3-9aa7-912686792e97@linux.ibm.com>
+Date: Tue, 3 Nov 2026 19:21:05 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,35 +85,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] powerpc/eeh: Add RTAS-based error injection
+ support on pSeries
+To: Narayana Murty N <nnmlinux@linux.ibm.com>, mahesh@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
+        gregkh@linuxfoundation.org, oohall@gmail.com, npiggin@gmail.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        tyreld@linux.ibm.com, vaibhav@linux.ibm.com, sbhat@linux.ibm.com,
+        ganeshgr@linux.ibm.com, sourabhjain@linux.ibm.com, haren@linux.ibm.com,
+        thuth@redhat.com
+References: <20260721033815.5300-1-nnmlinux@linux.ibm.com>
+Content-Language: en-US
+From: tasmiya <tasmiya@linux.ibm.com>
+In-Reply-To: <20260721033815.5300-1-nnmlinux@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: phM9KG2FZYKfUgyJ1G5xJj26iXu-MzDu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1NCBTYWx0ZWRfXwDOPzlfu4LM3
+ 7e7teHjA1FQu5YEExDjj4VQo3YAqmIhS8b4IHmxkODc873hOT1i+dVqb5ferMBPEPUbEZPGQHHs
+ gt+N/4lXPQdaBbkZRD01dbFKKmrVzhn4UBxRTJfls0i7M6pB8iJYG2aXs6uO/VtKeyM52+NxNn9
+ e39jZ/mdZ+uR2/hOA0fpO8nmqJgwtkWGqgH4SevABD89biarU92nSd5VlDOmKNyCtns5+wSh0RY
+ HDYIQEaZZPlpGLNTRfaVlXSmkLnBLzsJ+4jV+OIliu8f0GJ54ztE4oIBFxgEcXzT69VpiUxbny2
+ Fh0c50XYf9SH/Nr+C/+alY16cK1Z3YaMshvLSs6BwcYa+kLD7oesI1Z9cuRGgbvS8PTyaM5VzEf
+ c0GhwXqEOzlL5B/PWb2gDBa3Wrk502WZtspL9HD6Bs8rmT0phdeFPdYsiNqYcdn+w9JElTlEq28
+ VJTnMUhxUGIl4OmTLjQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1NCBTYWx0ZWRfX0YKLHXznd7MD
+ 5ifwbWA1zCIFfhgaNJVRV0Ft6/nKTBGh8QjuJAqhQSpoT3faAXErZneAj9v6FhA3ktTW0QjdkQL
+ LYdU5YNJomxFAO3lknYfEkDQdlybRIM=
+X-Authority-Analysis: v=2.4 cv=QK391QLL c=1 sm=1 tr=0 ts=6ae9e6d7 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=wt1o8H50IsT6fsVrqxAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: Q-Z2Z5kjThjNDbi0Ik4UnNLL83gVK7Qc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_02,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 clxscore=1011 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030054
 
-When the USB3-DP combo PHY is a mode switch, DisplayPort pin
-assignments C and E put it in DP-only mode, where it stops the USB3
-PIPE clock. Make the USB controller a mode switch as well, so that it
-moves to the UTMI clock first and keeps its USB 2.0 port working.
+Greetings,
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Joonhoe Kim <26rote@gmail.com>
----
-The "mode-switch" property of usb_dp_qmpphy comes with patch 3 of
-Balaji Kalkonda's Kaanapali DisplayPort series:
-https://lore.kernel.org/all/20261022-kaanapali_dp-v3-0-b5ae8e6083c3@oss.qualcomm.com/
+I have tested this patch on my KVM guest environment. I am able to 
+inject EEH errors from host console using location code for a VFIO 
+passthrough device.
 
- arch/arm64/boot/dts/qcom/kaanapali.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Tested-by: Tasmiya Nalatwad <tasmiya@linux.ibm.com>
+Reported-by: Tasmiya Nalatwad <tasmiya@linux.ibm.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-index e48a179d0722..a06d5d867488 100644
---- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-@@ -3941,6 +3941,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 			tx-fifo-resize;
- 			dma-coherent;
- 
-+			mode-switch;
- 			usb-role-switch;
- 			wakeup-source;
- 
--- 
-2.43.0
 
+
+Thank you
+Tasmiya
