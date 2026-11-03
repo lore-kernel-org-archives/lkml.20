@@ -1,55 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694654;
-	b=d8k+t5HTOmcUwgZx0e0MoablFUwj+a5Jj8d3gM4SnzMQ3chRKlvfw15LJIQjQp6NenzA
-	 4NxM/3Hu2C4Z7eLQi5ZFGnw8GnFji+XW0GFyUrO7ZFGLNWwCDIY3Mc6goacokb4plx/v4
-	 q9ApFSUylHgyPgdHwRbRSlte/sKpyxe03AHQ0PuVH5uP7zoMQVI5PIJqGY0uHta9BWzQB
-	 OaQ/PmHWmM8TVpyU+M3fMSd0rHFPsaqBWQk+7uk1dutnzD/RyzIET3Gxgz8G8v0+rfCNN
-	 8E/H6hUOXQ39QDNJ/lox/KIV3YHhXJeec5ebo2RNAkC9jdCTdwY/PdCm1IEa5eQS68g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694654;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=UctO3145cL9Mnt0rgKiILCyiKir6F3WDinvtjnpXP0I=;
-	b=4ISW1fhCt7kI4m+uYUwU0b3EmtrfH/1XP9iVGbMb3MFwwW8Ah6FuQZqw4AmneYiJGbCo
-	 Y5cJygzRKKlrWsqoTk6mOwbsMaYxyyJmBmNate1Knt/odxpMEilfpWuWaDhChmYsAG1K1
-	 DPzD0Yb0j9ZEEPAZw9F6SvdIQcDave8esdltqn2iNeq2dl45xQbNNtB/9Qog/Xjm3PAdF
-	 dv852RjIZxVlN1rVDm4KThtpCCa53Y3yAEFeWQ29qRwk7fSNip/Kd+4qXnZI2Sh8Ugf/k
-	 QTv4JiHnB2WkSXDRiU1QoUSxiNTjXTl7r5i8DLDju+dZCOw5EECGmqsPDrtdtk1wqzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0A236082BD4;
-	Tue,  3 Nov 2026 08:30:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A236082BD4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=UctO3145cL
-	9Mnt0rgKiILCyiKir6F3WDinvtjnpXP0I=; b=oNe9AzvaOhtWvRoA/pB52kEUxx
-	wWg0autPMksve/Jajd1H9VdAN9o2+GLYxMfRP0kDAlK33s6t+df6r5wet1sNhDaa
-	5qikmhRALqO80N2SAs42JyV/y4oLSKjQy1rY/SJgxdTl7hsgKxRs9wK8nVReZDOK
-	PI/CBFAUsXP4UchF4=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCGqgCwm+lqS+8dAQ--.21892S2;
-	Tue, 03 Nov 2026 16:30:41 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v6 0/3] media: dvb: fix use-after-free family in dvb-core and dvb-usb disconnect paths
-Date: Tue,  3 Nov 2026 16:30:36 +0800
-Message-Id: <20261103083039.33430-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793694683;
+	b=HQtIx9J5uAbysEnquuYGYF9Q+5yzMAkES+dGm6tCxLiPDf1G38DWj9qs4NK67syYNVgn
+	 PWHsUrf5fOgwi4ZVfttSwv4jTsUheMzy8FbjJkTCmYSr9YykktXpL3OtiVNuSUGD7ksDc
+	 W87xr3v9/KqUYChaJMtwKUjd4bv3gjxu4snFu+4oU1vx25cqqnhxrJG2BHp2XEE7vcqxN
+	 PxCzBoE5Y9J4gFH55zBbeNWqvqUx27++uaEPcewYu1GUVZcAoLKjcqxcmPsDhYXfP8+pf
+	 FfoaDroK/k7Gh4o6M7fY4CKavBJOJ0m7x+cVq/e6n5bkuQ5aQ/GvT0I86qcM068xtbA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694683;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=q/mBhlfy80rj6cUX8Jd9WooTu7Q+5/yF3m1Z/y6pSKc=;
+	b=gV2zgujgkwyaVQgvvPjsADUdfa5dxQw6bejMGYhpYHNUOw3ixQ7/Q21+5leT+UqMm3U+
+	 5JlsgYfzPYpqxFJDw9PYO9LtR9PR0LHD5oZ2u+UgrNJMNQHi4iFlCbbiqotm1JzGowuBN
+	 JeiZ+WffaZoUlglpYQztFkW+dNNasrjxlkJebK6mzsIyxunZwVP82bdu8uW2DSkx+/aUl
+	 necaK2Z92I2yYNryYKLmQdyN3nmeJWIpjIt28KF/uD0u8qBD0q1OV6O16UEnOKfU0O0z+
+	 fuP5AfGyXMcXZ2nRlUBxU5S3xd6elP471Ska0IFzjejZZ0omMMsfoGZos6BVuDjbFlA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=dUWXfFPR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.20
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011020.outbound.protection.outlook.com [52.101.70.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41ED7606C6A2;
+	Tue,  3 Nov 2026 08:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41ED7606C6A2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=dUWXfFPR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YtDBtBnUzeiDB/bGr1tCD8IOsZHUn64f2tcgX0gx6/SbkMDS32s+FkVyRYwtk2TOnTE5ggfywmGwj6D+EmdAOSHN07syYApTbpqCpG6aqnTIyKK3TpZKlSqIGdG1nAQpbIFtNQkBCiNhjX75cRAHswOUF1tTxQ92p8IbODbL50SHE/aTgFhmHx9V/rkYvLuJSxRx+GNi13fyWY7sPOAYGPLMXJFpQ9w390gF5qVtyAvwLvcE7ec0yzszRa/0QPiggXxrUzY7jHXFheReQGV9uwzUzIyBTffyh4gke207jdx8XePOzystEaSXzON4SXJDete6LEbmIyi1BjDl09xqXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q/mBhlfy80rj6cUX8Jd9WooTu7Q+5/yF3m1Z/y6pSKc=;
+ b=tiCZKafgky1iDp7THcl/kCMZnfjMuTfBxOAYuCUJlL3K8uf4mlAzWPHOfv7Gm1AlOpucp618fVineJmrpFrqQqYHPGZB+K1dBhJ2CifmRT81IeeSY0j93YD6jLjqZiF5HwGaskoubfgxajCYXrlV8G11MOUXzOFUa7ks8OHr4bVCiSCDqJleiifAOkljilkrfsdCh1m3MeaCatPPz6hKpNPKGa1yzvJyGchBZB6/otvq4LeZBKnuudZGgdwcCmvauQgrs09CH8Jz4dAbReE9KeB5/koJY8/o+owAynrJq6xRNuL/ai6rSghSRzzFR3JS6qZ6al02GwYmXgwJgqQVsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q/mBhlfy80rj6cUX8Jd9WooTu7Q+5/yF3m1Z/y6pSKc=;
+ b=dUWXfFPRp51XYeUL2DUlOqOOnscrbjdKQrQUDoIsmJc4yIFKzxnd4lyUj/HVw+7EQx2dmqHyq3XCC4Lg8BtX8pSel+zrl9U2DyzVmVUhzcpgOY7bFaapWN6Wr5Oe72Cza2T5QSiD3/+EyJFLIYqRGKDQSKA19VQr7gcX2rsiHreDy0AHniUANlMaIOKtgT42AlhRCNNyytQKSi9YSQlAIPFeSAPonS80AGIUpiEKbtnZOtsSYS9sxp2ZTGXfd6Y3BdrVDj8rbSXwWCMnBjsxa2gPlhI3PSQNRjVcI11AjW+eyMsoPRllqgrWon/aarQmR3wHZVG/pOzsXDRmIk5jKQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM9PR04MB8179.eurprd04.prod.outlook.com (2603:10a6:20b:3b5::20)
+ by AMDPR04MB733680.eurprd04.prod.outlook.com (2603:10a6:20b:749::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 08:31:18 +0000
+Received: from AM9PR04MB8179.eurprd04.prod.outlook.com
+ ([fe80::a551:cde0:6730:1d85]) by AM9PR04MB8179.eurprd04.prod.outlook.com
+ ([fe80::a551:cde0:6730:1d85%5]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 08:31:18 +0000
+Message-ID: <c00bab0d-c62e-4b29-ae6d-ae5e851040f1@oss.nxp.com>
+Date: Tue, 3 Nov 2026 10:31:14 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: defconfig: Enable PINCTRL_S32G2
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chester Lin <chester62515@gmail.com>,
+ Matthias Brugger <mbrugger@suse.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
+ Larisa Grigore <larisa.grigore@nxp.com>, Lee Jones <lee@kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Dong Aisheng <aisheng.dong@nxp.com>,
+ Jacky Bai <ping.bai@nxp.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Srinivas Kandagatla <srini@kernel.org>, Alberto Ruiz <aruizrui@redhat.com>,
+ Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org,
+ Enric Balletbo <eballetb@redhat.com>, Eric Chanudet <echanude@redhat.com>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ NXP S32 Linux Team <s32@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+References: <20261102141635.3768024-1-khristineandreea.barbulescu@oss.nxp.com>
+ <2026110233-unlocked-outclass-9584@gregkh>
+ <1cb65dfc-78a7-4cdb-bb39-c40b980b2504@oss.nxp.com>
+ <e8add933-e918-40c9-afa7-d66fd589bb9d@kernel.org>
+Content-Language: en-US
+From: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
+In-Reply-To: <e8add933-e918-40c9-afa7-d66fd589bb9d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0021.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c9::12) To AM9PR04MB8179.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3b5::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,301 +118,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkCGqgCwm+lqS+8dAQ--.21892S2
-X-Coremail-Antispam: 1UD129KBjvAXoW3Aw1DXF48Ar1DWw43Gry7GFg_yoW8GF1xKo
-	Zagr4rX3Wrtw4qka48AFnrGF4agFn7u3ZxWay5Ar4q93y8Wrs8Aw15Kw4DXFWkXr40krnx
-	t34qqrZ8GFsxAFn5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUYL7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20xva
-	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2
-	x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8
-	JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG
-	64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r
-	4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAq
-	YI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI4
-	8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20E
-	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
-	AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUUGjg5UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2roqcKe4wABsb
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8179:EE_|AMDPR04MB733680:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a8c4be8-9468-47b8-a4ba-08df3984d527
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|19092799006|11063799006|4143699003|56012099006|261009223027099003|261028144727099003|261102123227099003|261022105027099003|261021121427099003|261026121527099003|261026140227099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+ AOasZMpXpjntFpffYbhSibnzoRKsj2h59rRWaPTq/ROiJZxG0foTVbhxCQIgARvGQubgGM7f82dOT69Ri3mUx8ziHQY2OpCEe6HYnMc/hLxgopbY0HM/pfzUOorVuZRbHlsT25a8SdoKHaABZ3TxLd+E2f2wkfD3RY50Ikf2tXPZu0V+TaBqbD4rplQEaNdG6vIjT9p4LCi0uo2MR5WFuwrZ4I/d6l2N7eEz1AHBHG/3a+QmtnrNWHcWStf6rO8nkUnhrbrHUYVVzhhSQUIml4H2El0Q6LbJ9/asXciyTI7zBkCtUM8ZxxeMtPJuG/qplqmn659XRzcZPW9ScCDOqGAGryLTJJrgn2X3PBvSPRMEiI/j9xRXoBrJmb2Fgr9DN0ciusPkQ/dWUrQvdg1GACRqgYe7uRgSR3Xua5xOs+QtnAspYDJk7hmCBZ/LXh8I6OxB2Nxlzq8Yc7Ame9Vlc0ZMbd/Om2cB09VDJZHZu0+X9lr8OnuDNzy1ih/7CMt7cHic/aEZbi/3UeT4qHMDry59ek+eZTTzhsbJCSi1qULLRPt4ts92UY0ywabnqFKg5R+wEgzCHCNJl2EXQ+UwwtD5TPV7mAJbfLDecOmUjIJrmbfA+roWtwY6ZaeE6LozrJbcoUmfCAizChJAkikvXnrVR+wuoAL3LiuWFoUYRKQ=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8179.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(19092799006)(11063799006)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261102123227099003)(261022105027099003)(261021121427099003)(261026121527099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?YXVFbTlLdmQ4TFdXSmhkVWp5emZ6WGtadENleUwyL3QwY0NLbWZQVEYxWjdu?=
+ =?utf-8?B?aG9xMjVwWTVRa3ZmRUhVVVMzQW9DdHlCaVRZeVRIalFwdnVGVXFScGF4UHpr?=
+ =?utf-8?B?c2puaW12VVY5WnNJV3F2YTZpdC9HNHhGTEFVS3UvTmZhOUt6WjgwOU1IYVhq?=
+ =?utf-8?B?Y0NlRy9KZWw1M2d4U2tUMTlHbzhHeGVtMXhMM0FkbkFFK0ZIQzdwSzJhSHVn?=
+ =?utf-8?B?eFh3ZnIzY3FIRHlUa3Zuc1I3UnlWR0xiQ2U3aU9tcUJDVm1BTFJ1NkpGWUxG?=
+ =?utf-8?B?cjBHdHVWRElCbGx6ZUhlV2MxOFQ5U0pRWlU5OXhhNXFMTnpkM1k2aGF3cTRJ?=
+ =?utf-8?B?NnJPOTBRVUhyMnZUN3VHSno3Tm9oMnhTL1FBMnhmeGZ4MkE4WThMZjhoMWRP?=
+ =?utf-8?B?K01TQ1RBa1JXZi85emtaRTlnZDhNRnBDWmZzbjhZNWJzRUQ3dDBZNi8vRjR4?=
+ =?utf-8?B?LzhUSEIzdENWcEFJZVdnaUlVRzA5L2pQY202VFdnN2tQQlpqaGpzY0RtUUZk?=
+ =?utf-8?B?SEpjVjNab1RPd1hueVNESnd3b0JoVXc1bUdnVEpCK1FHOU0vODBmL2lnVE9k?=
+ =?utf-8?B?ZW9VZ1dudzJpOFQ3QmEyNXJUdnJWbXN5djJlTmZrKzVhUEFOM05NVnNEZTJY?=
+ =?utf-8?B?ZlJ0eUlBUHZMdWZod1JoTzdCd1ovZk5lZ01Hek9GbU56di9iNHZ0cHlWOHVO?=
+ =?utf-8?B?b01BeHJNM1lCcWNDcHJDeEthWGdmN1RpWm9rS1ZZNVJxcWhqeFl6Q0huNXhH?=
+ =?utf-8?B?bjBKRk94YnFqakNuRWZsb1h3a1Y4dEc2MUF1b2dzc0Fkb0JLL1cwS0RTSEhK?=
+ =?utf-8?B?dWJNVjZFMEEvU01ab1hScVBMTEM4dXhOemZZT0lZYjZkdXp0a0FlenE3SHRS?=
+ =?utf-8?B?em1DeDdMQ21hMjg0T0hKR21yWWg1WHFaYTBFMXBVZXJzdHpodEJMWHdCL3pa?=
+ =?utf-8?B?eGNsNFM3eHNxcDArNFA5TzljeHZVS0NCMlFPcW5rWEZVZjIxbnFRZVpoUVN0?=
+ =?utf-8?B?YXROb09KL0FqeU1XVXhHQzFOejNwbitsSzFQZ2tmaE5iUGwzNUtsajJSRWtp?=
+ =?utf-8?B?M1gyOW4ra3p2Z0Z5MWdDQThHRGpaV0VwWHArSnNzVlE4Q2JLWkFqY1BNd1Nz?=
+ =?utf-8?B?Ry90OUowN2hTWSsycnVZdzZVZzhMU2MxR1VqY2ZIMGFYR1JuSHhzVTNSUjRh?=
+ =?utf-8?B?c210bWZRb1JveWlXajVDb09STWl3bG1mbVRQOWdibHdvaW44aXRLZU82cUxI?=
+ =?utf-8?B?QTZVOVJITWVnaWtIbjJoMGo5a1M1WlU2Zll3VUFsTEV4QTh1N1pReHVEM1FB?=
+ =?utf-8?B?K3ZkejRhVnd0UGJiN3JYb3hCYWV2MldzaEdjNi81NERBbi9kK2NkdUo0V1dy?=
+ =?utf-8?B?TTNhQzh3eVRjdVcrQ1grRmVrMGNPM21Gd3RsYmZ2OWw0L3BPb1JZcENCWlg1?=
+ =?utf-8?B?Z1NuTFZYR1VSVzZCd2FCYkZaMU9iUVQwTUs2cU9IVmUwSzcvUFBVVW1aYVk3?=
+ =?utf-8?B?VlBteUtMTkZ2YnJJTExwQ3haQTJaZVlJdnYwVS9PWm83QjczUGFXdUZndTlP?=
+ =?utf-8?B?bmYwNW4rTnA5Y2Rha1JuNERZRnR3T1lKWXc4d0VvYVQ3VzUzT0J1OUltcGlF?=
+ =?utf-8?B?MlAwdmlmK0NBK1BsbGNnRFB0UFB3K1RjS1RCMnFYVk84eWFxMDM1eWpnQVpT?=
+ =?utf-8?B?bTViRmgzY1MwTlBQNDhVL2U4OWdmSEgvZThQNldFYkd3V1FKMklySXQxZzZN?=
+ =?utf-8?B?UG9BTlJXSWxtU01DVlpDQkxpYUhtUnFQMkFDY2xXdXdnRWFlR3ZsUWVpTy8r?=
+ =?utf-8?B?MTNzTG9wb3oxUmxkUmxpUHFzdnNyWmpLd0hqTjZMWFRob2cxL0V6bUNKdkFt?=
+ =?utf-8?B?Mk9CRnNIYkpSRlhSSnNBWjdwYUhqTVZJb0xIK0hrZXZTYS9YRHRwL0kyM0pB?=
+ =?utf-8?B?UThyRHE5Q1loSXdyeGpjSUNGOWpudDFUcmpMOWFxQkkzVGNyWnhveHBiRFhU?=
+ =?utf-8?B?TlVxSWNVU2FJdEhtZER3NXdNTzFXQVhTYThRWjhxL1JUeWtRWmRESUpLZ29p?=
+ =?utf-8?B?U1FGc09tTUNaVHFzWmNxVkcxM24xNjlXMmxmaFYvNmFlZjg3TTR6WkRob0RQ?=
+ =?utf-8?B?MU9xVFU4eXFCdWRzMUZWdlJzWWVNVnlaam9nSWRsdmMxRmE0RDVlUmo2TmFv?=
+ =?utf-8?B?ZUxLc1BiR1d2UmlhamhNN0pjRWtDSFlQemdsbnBWVXVpRUR2aCt2TGdieCta?=
+ =?utf-8?B?SDlScU9EOXorN0hySW1DWFEzazFGVXhaek00WklNVndCTXN5YlY2bXNFTmNR?=
+ =?utf-8?B?RlhZbXBhMmhCbnZnZjJzSE9Wb05vK2RJWEJhem9YU3Jodlo2WnlvWkFyOGR4?=
+ =?utf-8?Q?6BuBdf1ePC3SOYRhh8+WkvlQFXbDch+0H2qAU?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a8c4be8-9468-47b8-a4ba-08df3984d527
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8179.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 08:31:18.6455
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tQz07t45dlNRM+UFbvnNi+vPYrJgqsE26dnWVsARoOPw9qmvbyBtjtWJl8XDMWW1d1XZjSTZGKTkRjsSzUHNu6bB7FT+d4bePm9mu1q1dGR0fZVPUYbxLIiExcRVv9a7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB733680
 
-Hi all,
+On 11/2/2026 4:55 PM, Krzysztof Kozlowski wrote:
+> On 02/11/2026 15:49, Khristine Andreea Barbulescu wrote:
+>> On 11/2/2026 4:24 PM, Greg Kroah-Hartman wrote:
+>>> On Mon, Nov 02, 2026 at 03:16:35PM +0100, Khristine Andreea Barbulescu wrote:
+>>>> Enable the NXP S32G2 pin controller driver in the arm64 defconfig so it
+>>>> no longer requires a manual "make menuconfig" step. The symbol selects
+>>>> PINCTRL_S32CC, pulling in the common S32 pin controller support used
+>>>> across the S32G family.
+> 
+> Well, my standard request - why would we want it? You need to list the
+> upstream board(s) needing it. We do not develop defconfig for downstream.
+> 
+> 
 
-this is v6 of the series fixing a use-after-free family in the
-DVB-USB disconnect path, seen with a Pinnacle PCTV 400e USB DVB-S
-receiver (ttusb2 driver) on 7.1.2 + KASAN/UBSAN.  v6 keeps the
-structure of the series and addresses the points raised while
-reviewing v5 (see the changes below).
+Hello Krzysztof,
 
-The root cause is a lifetime mismatch:
+The upstream boards needing it are the S32G2-based S32G274A-EVB and
+S32G274A-RDB2 and the S32G3-based S32G399A-RDB3. All of them rely on
+the SIUL2 pin controller, so a defconfig kernel needs it enabled to boot
+to rootfs on these boards.
 
-  1. open("/dev/dvb/adapter0/frontend0") grabs a dvb_device ref and
-     starts kdvb-ad-0-fe-0;
-  2. ioctl(/dev/bus/usb/BBB/DDD, USBDEVFS_DISCONNECT_CLAIM) unbinds
-     the ttusb2 driver -> dvb_usb_device_exit() -> dvb_usb_exit() ->
-     frees everything the still-open descriptor can reach;
-  3. the fd's ->release(), or the in-flight frontend thread / i2c
-     transfer, then dereferences the already-freed
-     "struct dvb_usb_device" (usb_mutex, i2c_mutex, i2c_adap) and
-     the already-freed "struct dvb_device".
+> Also, odd CC-list, really random.
+> 
+> Please use scripts/get_maintainers.pl to get a list of necessary people
+> and lists to CC (and consider --no-git-fallback argument, so you will
+> not CC people just because they made one commit years ago). It might
+> happen, that command when run on an older kernel, gives you outdated
+> entries. Therefore please be sure you base your patches on recent Linux
+> kernel.
+> 
+> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+> people, so fix your workflow. Tools might also fail if you work on some
+> ancient tree (don't, instead use mainline) or work on fork of kernel
+> (don't, instead use mainline). Just use b4 and everything should be
+> fine, although remember about `b4 prep --auto-to-cc` if you added new
+> patches to the patchset.
+> 
 
-Patch 1 fixes the "struct dvb_device" object itself:
-dvb_remove_device() dropped the minors-table reference before it was
-done using the object, and dvb_register_device() published
-dvb_minors[minor] while dvb_register_media_device() and
-device_create() could still fail, so an error there freed the object
-- and the driver private data behind it - underneath a concurrent
-open().  The minor entry, which is what makes the device reachable, is
-now filled in only after registration has completed, and it is
-published under the lock that open() takes before it looks the entry
-up, so a concurrent open() waits for a complete device instead of
-failing with -ENODEV.
+You're right, generated the list on an outdated tree. Thank you for
+the explanations. I'll use latest b4 / get_maintainer.pl for the next
+version.
 
-Patch 2 fixes dvb_frontend_release() and the dvb_frontend_open() error
-path, which read dvbdev->users after dvb_generic_release() may already
-have dropped the last reference (KASAN at dvb_frontend.c:2903, and the
-same pattern in the open() failure unwinder).  The reference needed for
-the check is taken before dvb_generic_release(), while the file's own
-reference still guarantees that the object is alive, and it is dropped
-again right after the check.
+>>>>
+>>>> Signed-off-by: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
+>>>> ---
+>>>>  arch/arm64/configs/defconfig | 1 +
+>>>>  1 file changed, 1 insertion(+)
+>>>>
+>>>> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+>>>> index 7b4985b29b21..545a2b7db8a5 100644
+>>>> --- a/arch/arm64/configs/defconfig
+>>>> +++ b/arch/arm64/configs/defconfig
+>>>> @@ -704,6 +704,7 @@ CONFIG_PINCTRL_BCM2712=y
+>>>>  CONFIG_PINCTRL_SKY1=y
+>>>>  CONFIG_PINCTRL_IMX_SCMI=y
+>>>>  CONFIG_PINCTRL_IMX91=y
+>>>> +CONFIG_PINCTRL_S32G2=y
+>>>
+>>> Why?  Shouldn't the normal platform-specific defconfig work for this
+>>> instead?  what defines the arm64 defconfig to require this now for all
+>>> arm74 platforms?
+>>>
+>>> thanks,
+>>>
+>>> greg k-h
+>>
+>> Hello Greg,
+>>
+>> ARCH_S32 is already enabled in the arm64 defconfig, but the supported
+>> S32G boards also depend on this pin controller for their pin muxing.
+>> Without it, some peripherals never finish probing, so a defconfig kernel
+>> cannot boot to rootfs on these boards.
+> 
+> Greg has valid point, you did not really address it. Explain why it
+> should be user-selectable choice in the first place.
+> 
+> 
+> Best regards,
+> Krzysztof
 
-Patch 3 gives "struct dvb_usb_device" a kref and a "dead" flag.  The
-reference is held for the whole lifetime of each registered frontend
-and dropped from a wrapper around fe->ops.release(), so the release
-callback that runs when the last descriptor is closed after a
-disconnect still sees live memory.  The embedded "struct usb_device"
-is pinned the same way, and the USB/i2c workers check ->dead and bail
-out of the actual hardware I/O instead of touching a gone device.  They
-take no reference of their own: they already run under the reference of
-the frontend or of the bus binding, and a transient reference there
-could be the last one, which would run the release function from inside
-->master_xfer().  Everything an open frontend can still reach through
-the device - the I2C adapter, ->priv_destroy() and the per-adapter
-private data - is released from the release function as well, when the
-last reference is dropped, instead of at disconnect time.
+Agree, since the driver is required by all S32G boards, it shouldn't need
+to be selected manually. In v2 I'll make PINCTRL_S32G2 default to ARCH_S32
+in Kconfig, instead of adding it to the defconfig, and also list the upstream
+boards needing it in the commit message.
 
-Crashes addressed (excerpts below the diffstat):
-
-  KASAN: slab-use-after-free Read in i2c_transfer        (reports 1, 9)
-  KASAN: use-after-free Write in dvb_usb_generic_rw      (report 2)
-  UBSAN: array-index-out-of-bounds in i2c_transfer       (report 3)
-  KASAN: slab-use-after-free Read in dvb_frontend_release (report 4)
-  KASAN: null-ptr-deref Write in ttusb2_i2c_xfer         (report 5)
-  UBSAN: array-index-out-of-bounds in ttusb2_i2c_xfer    (report 6)
-  KASAN: slab-use-after-free Read in dvb_remove_device   (report 7)
-  KASAN: slab-use-after-free Read in dvb_device_open     (report 8)
-
-All three patches pass checkpatch with zero errors and warnings, apply
-on top of the media fixes base (git am reproduces the exact trees) and
-are build-tested on x86_64 with gcc 11.4: drivers/media/dvb-core and
-drivers/media/usb/dvb-usb are compiled with CONFIG_DVB_USB_TTUSB2=y,
-once built-in and once with CONFIG_MODULES=y and CONFIG_MEDIA_ATTACH=y
-so the module reference accounting in patch 3 is compiled as well.
-
-Changes in v6:
-
-  - [PATCH 1/3] holds minor_rwsem across device_create() and the
-    publication of dvb_minors[minor], so an open() that races with the
-    registration waits for the entry instead of failing with -ENODEV.
-    device_create() only runs the devnode and uevent callbacks, neither
-    of which takes minor_rwsem, and dvb_device_open() takes
-    dvbdev_mutex before it acquires minor_rwsem while registration
-    takes no dvbdev_mutex, so the lock order is unchanged;
-  - [PATCH 3/3] removes the transient references from the transfer
-    paths: dvb_usb_generic_rw() and ttusb2_i2c_xfer() could otherwise
-    drop the last reference from inside ->master_xfer(), where the
-    release function would call i2c_del_adapter() underneath the
-    transfer that still uses the adapter.  The references taken by the
-    bus binding and by each registered frontend already cover the
-    callbacks, including the remote-control work, which
-    dvb_usb_remote_exit() cancels synchronously before the framework
-    reference is dropped;
-  - [PATCH 3/3] documents fe_release in the kernel-doc of struct
-    dvb_usb_fe_adapter.
-
-Changes in v5:
-
-  - [PATCH 1/3] fills in dvb_minors[minor] only after
-    dvb_register_media_device() and device_create() have succeeded,
-    instead of publishing the entry first and gating dvbdev->fops.
-    memcpy(dvbdev, template, sizeof(*dvbdev)) copies template->fops,
-    so the fops gate of v4 needed an explicit reset and still exposed
-    a half-registered device; publishing the entry late needs neither,
-    and the error paths keep releasing the object with kfree() because
-    no reference can have been taken.  dvbdev_register_lock already
-    serializes registrations, so the chosen minor cannot be handed out
-    twice while it is unpublished;
-  - [PATCH 3/3] releases the I2C adapter, ->priv_destroy() and the
-    per-adapter private data from dvb_usb_free_device() instead of at
-    disconnect time: dvb_usb_i2c_exit() no longer races transfers that
-    a frontend can still start, cxusb's ->priv_destroy() no longer
-    destroys the mutex that the frontend release path still takes, and
-    tuner callbacks no longer read freed adap->priv;
-  - [PATCH 3/3] marks the device dead in dvb_usb_init()'s error path,
-    before the adapters are torn down, so callbacks that keep the
-    object alive do not run against a device whose initialisation
-    failed;
-  - [PATCH 3/3] keeps the v4 handling of the module reference, the
-    frontend unregistration on a late frontend_init failure and the
-    ->dead re-checks under usb_mutex / i2c_mutex.
-
-The patches are real git diffs, produced by "git format-patch" against
-the media fixes branch.
-
-YuanZhe Liu (3):
-  media: dvb-core: fix use-after-free in dvb_remove_device()
-  media: dvb-core: keep dvb_device alive while checking users count in
-    frontend release paths
-  media: dvb-usb: refcount dvb_usb_device to fix disconnect UAF on open
-    chardevs
-
- drivers/media/dvb-core/dvb_frontend.c    |  19 ++++
- drivers/media/dvb-core/dvbdev.c          |  27 +++++-
- drivers/media/usb/dvb-usb/dvb-usb-dvb.c  |  58 +++++++++++-
- drivers/media/usb/dvb-usb/dvb-usb-init.c | 108 ++++++++++++++++++-----
- drivers/media/usb/dvb-usb/dvb-usb-urb.c  |  17 +++-
- drivers/media/usb/dvb-usb/dvb-usb.h      |  21 +++++
- drivers/media/usb/dvb-usb/ttusb2.c       |  20 ++++-
- 7 files changed, 237 insertions(+), 33 deletions(-)
-
---
-Excerpts from the KASAN/UBSAN reports (Pinnacle PCTV 400e, 7.1.2,
-CONFIG_KASAN=y CONFIG_UBSAN=y):
-
-Report 1: KASAN: slab-use-after-free Read in i2c_transfer
-
-  BUG: KASAN: slab-use-after-free in i2c_transfer+0x324/0x360
-  Read of size 8 at addr ffff8880050a0f08
-
-   i2c_transfer+0x324/0x360 drivers/i2c/i2c-core-base.c:2312
-   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
-   tda10086_release+0xa3/0x180 drivers/media/dvb-frontends/tda10086.c:692
-   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
-   __fput+0x3a6/0xac0 fs/file_table.c:510
-
-  Underlying object is the dvb_usb_device, freed by dvb_usb_device_exit()
-  on USB unbind while the fd was still open.
-
-Report 2: KASAN: use-after-free Write in dvb_usb_generic_rw
-
-  BUG: KASAN: use-after-free in mutex_unlock+0x5b/0xa0 kernel/locking/mutex.c:579
-  Write of size 8 at addr ffff8880050a4eb8 by task kdvb-ad-0-fe-0/268
-
-   mutex_unlock+0x5b/0xa0 kernel/locking/mutex.c:579
-   dvb_usb_generic_rw+0x216/0x460 drivers/media/usb/dvb-usb/dvb-usb-urb.c:59
-   ttusb2_msg+0x1f2/0x5a0 drivers/media/usb/dvb-usb/ttusb2.c:97
-   ttusb2_power_ctrl+0x8a/0xa0 drivers/media/usb/dvb-usb/ttusb2.c:483
-   dvb_usb_fe_wakeup+0x84/0x2d0 drivers/media/usb/dvb-usb/dvb-usb-dvb.c:254
-   dvb_frontend_thread+0x216/0x1620 drivers/media/dvb-core/dvb_frontend.c:677
-
-  The frontend kthread issues CMD_POWER while the device is being torn
-  down; d->usb_mutex belongs to the freed dvb_usb_device.
-
-Report 3: UBSAN: array-index-out-of-bounds in i2c_transfer
-
-  UBSAN: array-index-out-of-bounds in kernel/locking/qspinlock.h:68:9
-  index 6996 is out of range for type 'long unsigned int [2]'
-
-   queued_spin_lock_slowpath+0x7de/0x820 kernel/locking/qspinlock.c:285
-   _raw_spin_lock_irqsave+0xae/0xb0 kernel/locking/spinlock.c:166
-   rt_mutex_lock+0xa9/0xb0 kernel/locking/rtmutex_api.c:89
-   i2c_transfer+0x1b3/0x360 drivers/i2c/i2c-core-base.c:2312
-   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
-   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
-
-  Mutex in the freed dvb_usb_device has a garbage ->owner tail;
-  decode_tail indexes out of the per-cpu qnode array.
-
-Report 4: KASAN: slab-use-after-free Read in dvb_frontend_release
-
-  BUG: KASAN: slab-use-after-free in dvb_frontend_release+0x28b/0x2b0
-  drivers/media/dvb-core/dvb_frontend.c:2903
-  Read of size 8 at addr ffff88800632bd60
-
-   dvb_frontend_release+0x28b/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2903
-   __fput+0x3a6/0xac0 fs/file_table.c:510
-
-  Allocated by dvb_register_device+0x1d6/0x1230 dvbdev.c:472 /
-  dvb_register_frontend+0x3ed/0x640 dvb_frontend.c:3051.  The struct
-  dvb_device is freed by dvb_remove_device/dvb_device_put on disconnect,
-  then read at line 2903 ("dvbdev->priv") by the still-open fd's
-  release().
-
-Report 5: KASAN: null-ptr-deref Write in ttusb2_i2c_xfer
-
-  BUG: KASAN: null-ptr-deref in mutex_lock_interruptible+0x61/0xb0
-  kernel/locking/mutex.c:1059
-  Write of size 8 at addr 0000000000000ed0
-
-   mutex_lock_interruptible+0x61/0xb0 kernel/locking/mutex.c:1059
-   ttusb2_i2c_xfer+0x60/0x660 drivers/media/usb/dvb-usb/ttusb2.c:374
-   i2c_transfer+0x1c6/0x360 drivers/i2c/i2c-core-base.c:2292
-   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
-   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
-
-  i2c_get_adapdata() returned NULL after the dvb_usb_device was freed
-  (0xed0 is the offset of i2c_mutex inside it).
-
-Report 6: UBSAN: array-index-out-of-bounds in ttusb2_i2c_xfer
-
-  UBSAN: array-index-out-of-bounds in kernel/locking/qspinlock.h:68:9
-  index 8284 is out of range for type 'long unsigned int [2]'
-
-   queued_spin_lock_slowpath+0x7de/0x820 kernel/locking/qspinlock.c:285
-   _raw_spin_lock_irqsave+0xae/0xb0 kernel/locking/spinlock.c:166
-   mutex_unlock+0x9a/0xa0 kernel/locking/mutex.c:582
-   ttusb2_i2c_xfer+0x490/0x660 drivers/media/usb/dvb-usb/ttusb2.c:428
-   i2c_transfer+0x1c6/0x360 drivers/i2c/i2c-core-base.c:2292
-   tda10086_release+0x100/0x180 drivers/media/dvb-frontends/tda10086.c:692
-
-  mutex_unlock(&d->i2c_mutex) on the freed dvb_usb_device wakes a waiter
-  list that no longer exists.
-
-Report 7: KASAN: slab-use-after-free Read in dvb_remove_device
-
-  BUG: KASAN: slab-use-after-free in dvb_remove_device.part.0+0x1f9/0x250
-  drivers/media/dvb-core/dvbdev.c:606
-  Read of size 4 at addr ffff88800611ce2c
-
-   dvb_remove_device+0x1b/0x30 drivers/media/dvb-core/dvbdev.c:596
-   dvb_unregister_frontend+0x62/0x90 drivers/media/dvb-core/dvb_frontend.c:3080
-   dvb_usb_device_exit+0x1a4/0x490 drivers/media/usb/dvb-usb/dvb-usb-init.c:338
-   usb_unbind_interface+0x188/0x770 drivers/usb/core/driver.c:458
-
-  Freed by dvb_remove_device.part.0+0x1c8/0x250 (dvbdev.c:601): the
-  function frees dvbdev via dvb_device_put() and then still reads
-  dvbdev->minor at line 606 for device_destroy().
-
-Report 8: KASAN: slab-use-after-free Read in dvb_device_open
-
-  BUG: KASAN: slab-use-after-free in dvb_device_open+0x32c/0x350
-  drivers/media/dvb-core/dvbdev.c:99
-  Read of size 8 at addr ffff888004b50618
-
-   dvb_device_open+0x32c/0x350 drivers/media/dvb-core/dvbdev.c:99
-   chrdev_open+0x145/0x400 fs/char_dev.c:411
-
-  Freed by dvb_device_open+0x29c/0x350 (dvbdev.c:113): open() grabbed
-  the dvbdev from dvb_minors[] under minor_rwsem and the
-  dvb_device_get() succeeded, but f_op->open() then failed and
-  dvb_device_put() at line 113 freed it; a concurrent open() follows
-  the stale pointer.
-
-Report 9: general protection fault in i2c_transfer
-
-  RIP: 0010:i2c_transfer+0x1b0/0x360 drivers/i2c/i2c-core-base.c:2312
-   R14: ffffffff81ff8926  (call *(%r14) - garbage lock func ptr)
-
-   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
-   tda10086_release+0xa3/0x180 drivers/media/dvb-frontends/tda10086.c:692
-   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
-
-  Same i2c_transfer UAF as report 1, but here the freed memory was
-  reused so adap->bus_lock points to a garbage function and the
-  indirect call faults.
-
--- 
-2.34.1
+Best regards,
+Khristine
 
