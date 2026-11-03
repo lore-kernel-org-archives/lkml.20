@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729951;
-	b=MgAZsg8sXiYR0Sq0oYK4BCTeR1QGfnyK2hAAEfoUSOgi44ieiaVgFi8YefQoVs1N4vWR
-	 qqRRh9jgZuDAwDBzZHyIa7h3G+Yi/dxnVREInJMPu+NB7//6yawmkA+bTMSP7R7J9Pjno
-	 BwhHGpLOWEewqN69S4wIwLn0zUcjB7nCA0LyWNYbM0yQB3oCZh2ur9DMgj2gt4TKNbi/K
-	 4PFwWU6fej73XMAaU2JA9xCKpLGCKbTGDGeqBLpp5qeuCZEBQpTnS9yIh4bsdK6VMYVlP
-	 yhzMceZT7neDRRSWyaE7mSc8IhvR8PRS2zRC/q8R5pNWXf7Py4bGiLrT+r2oKuQkekg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729951;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Infomaniak-Routing;
-	bh=MOf4jGoNjklui20b3tjGfAb5reyk40611yCdNTmL8YM=;
-	b=j64iVejDYcTXdHhzwBsDngZzyv58Jl0JmIW91dmKMP1tj3NfeKSCxmGKF0wbDala+E1m
-	 o3ARP50ZjLh8iOkubg+Je2UARfM1R9ntOtek37/T/GyYGATj3zctAmo5JJZFV+y8Pqc1t
-	 YulyBKbxcWen51Aq88Fz/qaKtjR0T9ZYFquK87EUZc2LIS1GJJoda3kbhADUt1CcQ+X+e
-	 ba6QplaPFtJ1gMYOLmZRxZHiTXpdRyXTSYYhLu2jvFF8YM3v/TYFY/NgmAkKTVUuFSk7p
-	 bH3TPCz6QlxoXIONVZix8OBNxqh5N6uaOZNUb/TRqRfMDkR683ePIzxn9FjBbLWFICQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=0leil.net;
-	spf=pass smtp.mailfrom=0leil.net;
-	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=DsXd0tFD;
-	arc=none smtp.remote-ip=45.157.188.15
-Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch [45.157.188.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793729942;
+	b=Okcz51E9fzV2s+IkVuEhCXWROEEaYnz0hPQtDt+sPAyimcF48zkTzQN1j7orRyVMb69G
+	 XiLZjZLcl4F5iAaZd7aB3xClL6qZNA+yRKu5JkY7eDDaeV9B1VcGZ1E538hOVKtGTvWdi
+	 JmZkSmi4HTNbwES4LPmtawcPGfzeRlbETMe+59M3gVE1MGcdcqRu2wU1tRY8ys2rE6zWt
+	 V6IDlfx6s7y/TAlDP4HOpwIiHvUFZY7qiI+lwIJxRi7qLTMBwqkqsbOyAXPGiMkPuVVca
+	 EDaIV1u6qZ7/kmN9O3sJHezLIh34dHu8Ok+5FNCbUst6OWJkARzh6MdovMjtdkn1tiQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729942;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=IhcsKsF4c4Bor6ZjDZme0cgeE1Ch/I0WodiVCA7SelM=;
+	b=P4NXIHWaoRsIb1CLuIgg9Upm5vaaS6dQ60FAoWfR3QqEJXvIMW2xkKjpBmwl1VmtGcCb
+	 v77VZA+BGEn/0DuScybunu/s9qG3gpTLUYZVlpm0ju3QHUbQmmwtvXqJGgtvtoMCOB1D8
+	 B4OhrNbUY1O2KUDfqTfQYWCZwaDI7FtGizvxpOuwUyYrv2Q/iAllOVgOhCUd8J2wi9hlq
+	 /hOnh1P+V9CF843y360f9JoHO6GCDg4Kjv2RBtHb+nZPJTrGsvOAJql0S/Vix5bqJd2ye
+	 AIk+uHn1Hx4S+NZONvH9Zs+xcbcDCOIWibkaPH97sm3Tj9qxKbjRWQUe5ViKiWxaklg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByKGCdBK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B78E606A328;
+	Tue,  3 Nov 2026 18:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByKGCdBK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793729942;
+	b=UxmtYHcH++KuSzSy0auBgxwHKEdqk0FWtQe9rwHW80190P3GCSRFhcmLGpQ40RUER2n0
+	 7lxPvJDzlNoft4PZS06EA5nm1pOKgxGbapqFPpuINQC64KLVKoUhrVJ6Q/ZXF3BK+lKom
+	 Pn8RRayw6K0GT7BTyPRtOkubiOfpFJcfym4H3PCSQ3SlOQEuXe8pSYWR8M8Npsh07YpP/
+	 14k8BHp5VEniDy+5fw6otkzagOka01BsGysj8gQwCWOKzbCPyz9JM0YmU5fFsP29Qcdy5
+	 AAIVwpM4dYonvTaBA2PqXP96XOR9/gKbcZ8J1fKwqjtxNnZjkCLWCt77CtiO3VWwGYw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793729942;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=IhcsKsF4c4Bor6ZjDZme0cgeE1Ch/I0WodiVCA7SelM=;
+	b=Dx2xB5A2CxOaBwGAWm6cIyQaaM2r5w7O8J53GP/gy7xakO2psTej83Z+e8gBfDL30OGZ
+	 ZZUJgHe/tDgKNa2o1EtNhxKbDL5e5z2sdCRhx4hV7SMCcbqN5pb+9T+3PV6DBbueGe7rH
+	 zn2ITGvuMPlPMZI2A/GrKXDvR0bPGDlVzscXRRjuSDPEs0KiQCc7s2SCKyE0iCOUqIJ1c
+	 ct6mjWAUBs+nyDNeI1kwJb61R+aUdb4HMuuQEoGRKLNF286I0TpKo3MRRcKNekZbqvQMT
+	 Sq9bzbv4YbvKpN0ggVauP09wZb55YPiYp/P0kwu+7f26o/fvCfwqEbdJTbIsjHluK+A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016FF606A331
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 016FF606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=DsXd0tFD
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJxff68bgzkyT;
-	Tue,  3 Nov 2026 19:19:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
-	s=20231125; t=1793729946;
-	bh=MOf4jGoNjklui20b3tjGfAb5reyk40611yCdNTmL8YM=;
-	h=From:Date:Subject:To:Cc:From;
-	b=DsXd0tFDLTDRXX3RSqyLlcB1kW3IhvNccFTPnIAI9MNsLSqO9qNP0Vs4mUtBu/E5x
-	 fv/PF2FeyeNnamovPYIvlSII91vhuXpDLPSw8/XrlQ0MyTUd6pDcAFcX47FpKUX3p7
-	 fr+Sl/a5D+vQXNBQxC3OXLqKsvTWXcvNdKP9kpIbTA2IFW/3zPR7CFtZHUy+miu04S
-	 HPayaCPNIuz2g8Puj9gFKsi9Fu4qncciMG79Fuf7XCBpUgBsXP0Q/6XS98XwD49Wku
-	 /cyKq7brUT4mXjalsDI+jCHPRvXgq+XwEx9nAdpjxQuP8CCE0+1BOAT2M9PzG5Nhie
-	 0a6/TJtBedWQw==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJxfd4ttrzfD0;
-	Tue,  3 Nov 2026 19:19:05 +0100 (CET)
-From: Quentin Schulz <foss+kernel@0leil.net>
-Date: Tue, 03 Nov 2026 19:18:58 +0100
-Subject: [PATCH] arm64: dts: rockchip: support camera module on Haikou
- Video Demo on RK3399 Puma
+	by smtp.kernel.org (Postfix) with ESMTPS id 9BE2D1F000C1;
+	Tue,  3 Nov 2026 18:19:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793729942;
+	bh=IhcsKsF4c4Bor6ZjDZme0cgeE1Ch/I0WodiVCA7SelM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ByKGCdBKMXljtwAZqJi5rrb3qtF2/R7MVUIh2EI8Osf03XSxwhHjMLu7LYcqr421l
+	 gSgowfrxS5REw+1hN9gFdsCKX6AsA6S0O9Q2IfMsSZJqeRs9B24b1lL9bHh0l/+GrQ
+	 a+/uFHPgSWMx0ESjvukwUpJcW1j9wj/8qLqpxj4h+hs6ylQin4WyBx3CM35wz7mzTH
+	 PzJK5RLKB2LjaI6fC5eSRDow/+9jRRu6P84hV7ajNv6UJQRiSl1UzrWAOE1RttYZI1
+	 ozltsMuTixIPRjEVR1OupwlERBbCiskB08Ik4gjlgose7ZFRfFARzI8hvxjUy5/7Tb
+	 PAf/2tc/oFs/g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0029346A51;
+	Tue,  3 Nov 2026 18:19:00 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Tue, 03 Nov 2026 13:19:01 -0500
+Subject: [PATCH] eventpoll: wake the next waiter when a woken waiter is
+ killed
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,138 +84,104 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-epoll-killed-waiter-v1-1-36e08c16b8a2@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqDMBRG4a3IHfdCorZCt1I6SPRXbw0qiS8Q9
+ 260w29wzk4BXhDonezksUiQoY/Qj4TK1vQNWKpoSlX60lpljHFwjjtxDhWvRiZ4NrktapspPPO
+ CYjl61LLd18/37zDbH8rpWtFxnFu4jhp3AAAA
+X-Change-ID: 20261103-epoll-killed-waiter-a4b7fb30e547
+To: Christian Brauner <brauner@kernel.org>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>, David Rientjes <rientjes@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793729940; l=2916;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=E8yisygosXMPs5dY2TbIReZZXoa4ZP3lxybfZT/nZno=;
+ b=aPmE12Nzr0ZXZzOHh4n1Njq5Crq6XBaG7njn8SMGIP/JOD/Z9dC6jXRYiGqBowMARDfU0qXSn
+ 0Y0LS0MWt62BJgfbMUG/9E4thuifNVP9VcCUMfJ3FCiwqBw1O9hHd/d
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-rk3399-puma-haikou-video-demo-cam-v1-1-9a49d97839b5@cherry.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ7CIBBG4as0s3aSUhIiXsW4oPBrx4bSgDQmT
- e8u6vLbvLdTQRYUunQ7ZWxSJC0N6tSRn9zyAEtopqEfjFK95jxrbS2vNTqenMyp8iYBiQNiYu8
- ih7MZYbR1VoFaZ824y/v3uN7+LnV8wr++YTqOD1jo+mCFAAAA
-X-Change-ID: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Quentin Schulz <quentin.schulz@cherry.de>
-X-Mailer: b4 0.17-dev
-X-Infomaniak-Routing: alpha
 
-From: Quentin Schulz <quentin.schulz@cherry.de>
+From: Mani Tofigh <mt4022@columbia.edu>
 
-The Haikou Video Demo adapter has a proprietary connector for a camera
-module which has an OV5675 camera sensor and a companion DW9714 focus
-lens driver.
+Processes sharing an epoll instance can sleep forever while an event is
+ready.  An event wakes only one waiter, which then wakes the next one in
+ep_done_scan() if events are still ready.  Since commit c257a340ede0
+("fs, epoll: short circuit fetching events if thread has been killed"),
+ep_send_events() returns before the scan when the waiter has a fatal
+signal.  If the woken waiter is killed before it runs, nobody wakes the
+next one:
 
-This adds support for the camera module on RK3399 Puma module fitted on
-a Haikou devkit with the Haikou Video Demo adapter.
+  Task A                     Task B                 Task C
+  epoll_wait(ep, -1)         epoll_wait(ep, -1)
+                                                    write(efd)
+                                                      /* wakes A only */
+                                                    kill(A, SIGKILL)
+  ep_send_events()
+    return -EINTR
+      /* skips ep_done_scan() */
+                             /* still asleep */
 
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+B then sleeps until another file on the instance becomes ready, if ever.
+This can hit eg a pre-fork server whose worker gets OOM killed.  Commit
+7fab29e35630 ("fs/epoll: restore waking from ep_done_scan()") fixed the
+same kind of hang when the wakeup in ep_done_scan() was removed.
+
+Keep the early return so that a dying task still doesn't take events
+nobody will see, but wake the next waiter there if events are ready, as
+ep_done_scan() would have.  With the fix, B gets the event.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 2s.
+
+Fixes: c257a340ede0 ("fs, epoll: short circuit fetching events if thread has been killed")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
-Camera only works once the ov5675 driver is adapted[1] to work with
-24MHz MCLK. With the similar work done for RK3588 Tiger[2], we now have
-all our modules supporting the same set of features when used in
-conjunction with Haikou Video Demo.
-
-Same request as made in [2], please only merge this once the OV5675
-series[1] is merged.
-
-[1] https://lore.kernel.org/linux-media/20261026101646.2450051-1-heiko@sntech.de/
-[2] https://lore.kernel.org/linux-rockchip/20261026102027.2451025-1-heiko@sntech.de/
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/epollkill.c
 ---
- .../rockchip/rk3399-puma-haikou-video-demo.dtso    | 55 ++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
+ fs/eventpoll.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
-index 141a921a06e47..6c28e7e60ef28 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
-@@ -16,6 +16,7 @@
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- #include <dt-bindings/pinctrl/rockchip.h>
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index 7a32c70bf2ad..b959af04772c 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -2144,10 +2144,17 @@ static int ep_send_events(struct eventpoll *ep,
+ 	/*
+ 	 * Always short-circuit for fatal signals to allow threads to make a
+ 	 * timely exit without the chance of finding more events available and
+-	 * fetching repeatedly.
++	 * fetching repeatedly. The wakeup that got us here may have been the
++	 * only one for the events on ->rdllist, so pass it on to the next
++	 * waiter, as ep_done_scan() would have.
+ 	 */
+-	if (fatal_signal_pending(current))
++	if (fatal_signal_pending(current)) {
++		spin_lock_irq(&ep->lock);
++		if (!list_empty(&ep->rdllist))
++			wake_up(&ep->wq);
++		spin_unlock_irq(&ep->lock);
+ 		return -EINTR;
++	}
  
- &{/} {
-@@ -100,6 +101,12 @@ &i2c1 {
- 	/* OV5675, GT911, DW9714 are limited to 400KHz */
- 	clock-frequency = <400000>;
+ 	init_poll_funcptr(&pt, NULL);
  
-+	focus: focus@c {
-+		compatible = "dongwoon,dw9714";
-+		reg = <0xc>;
-+		vcc-supply = <&cam_afvdd_2v8>;
-+	};
-+
- 	touchscreen@14 {
- 		compatible = "goodix,gt911";
- 		reg = <0x14>;
-@@ -122,6 +129,50 @@ pca9670: gpio@27 {
- 		pinctrl-names = "default";
- 		reset-gpios = <&gpio4 RK_PD6 GPIO_ACTIVE_LOW>;
- 	};
-+
-+	camera@36 {
-+		compatible = "ovti,ov5675";
-+		reg = <0x36>;
-+		assigned-clocks = <&cru SCLK_CIF_OUT>;
-+		assigned-clock-rates = <24000000>;
-+		clocks = <&cru SCLK_CIF_OUT>;
-+		avdd-supply = <&cam_avdd_2v8>;
-+		dvdd-supply = <&cam_dvdd_1v2>;
-+		dovdd-supply = <&cam_dovdd_1v8>;
-+		lens-focus = <&focus>;
-+		orientation = <MEDIA_ORIENTATION_FRONT>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cif_clkouta>;
-+		reset-gpios = <&pca9670 6 GPIO_ACTIVE_LOW>;
-+		rotation = <180>;
-+
-+		port {
-+			cam_output: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <450000000>;
-+				remote-endpoint = <&mipi_in_cam>;
-+			};
-+		};
-+	};
-+};
-+
-+&isp1 {
-+	status = "okay";
-+
-+	ports {
-+		port@0 {
-+			mipi_in_cam: endpoint@0 {
-+				reg = <0>;
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <450000000>;
-+				remote-endpoint = <&cam_output>;
-+			};
-+		};
-+	};
-+};
-+
-+&isp1_mmu {
-+	status = "okay";
- };
- 
- &mipi_dsi {
-@@ -145,6 +196,10 @@ mipi_in_panel: endpoint {
- 	};
- };
- 
-+&mipi_dsi1 {
-+	status = "okay";
-+};
-+
- &mipi_out {
- 	mipi_out_panel: endpoint {
- 		remote-endpoint = <&mipi_in_panel>;
 
 ---
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
+base-commit: a522dd871024a0f065bfa7638afdb929607f58fc
+change-id: 20261103-epoll-killed-waiter-a4b7fb30e547
 
 Best regards,
 --  
-Quentin Schulz <quentin.schulz@cherry.de>
+Mani Tofigh <mt4022@columbia.edu>
+
 
