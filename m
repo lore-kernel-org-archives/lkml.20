@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725821;
-	b=0KMozSKfQRGuPE1+/cAhdj2kVp47ZkqTg5xE4gFh40gqjPO/jEbMmUtajXkz5pHcCCyb
-	 ie8uv1dr7VpweKi++h+9SYIo9geNUrnz7OJcFKXRtIlOCHb1BfAobgXFJ8A+KzQ+LD60P
-	 cliIS/QgAmMFKgWx7K0VI9e+negIdZG3EWozHl+Qc1+yUn6nLaOE+ozQYwx86LkvCwKaN
-	 smoXZupXGDY079Jhns0diDv50FQmPc6LmFosPhQoOCnpo4wU+qebk5Ab/BqCrlP8alGR6
-	 bwFCl8hSb3mo86422S7vvw8erzqjgLIA9VpacuPxYLImb2cl68k2u5msD57NfnmL6WQ==
+	t=1793725829;
+	b=bjLnXAvNOfOm6eYxc6TCjGy52Gcg0dux4+dW5M3JTbmXKcqMl2L0f3o4uall0guhMDPW
+	 yinNfr7qv22JN+AsAopIZuVHVxUcErynEVVPePyeaMuslnCvOuYxrZ1odJ7vf2d55g1gr
+	 q3O77XrYUSgYZHmZZhT/tmrjHyGRwHJTTLSFf+S/HsOmGPbpZYYSVSXTbWQmKn9Tf2MzG
+	 Gs54cja1B/UxPl0uyJnRes/R4keOjED4ndLzYnwIYv6ZGSnuBtI9CobE8THU562hHSvqf
+	 16D2OoNESJSyrXMD7VP+06rseFXC7Ri5oh2mW3nTtjHWWfp2pDWPwelWtRJ1NvcnEag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725821;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=v98czZJjrFY0hKiKY11IKxTSpAh/LCSHwoFbHDSEB+0=;
-	b=WnBjOLi1woW0EehTU0/+AfXHZncNyrDQ+NjLGz7TBoiz+ld95X+XdechdNJdNjdNc5Kw
-	 OAMBmxB7wxUjTvsRIfqEstr5OiAtH46Irk+tM3etPGY7P8Cdpg3gm80YFvvVkpk4pz6zJ
-	 r5pVyylPY8mamOYX6AC5c/d+VE2tRvD+fXY6ffraQmq/cO4rDEj+f+lqKhTLtPMQJ4eDr
-	 YUhy9PVMTmIVHOFGH/mI6Ww7J2R1hwquLXjzFoeTpRSb5R49gDXouHi5SgFwrDxwsBLZ9
-	 hBKdedcgl8X5bzKnAc1X0+h0mzKL+4fRgXV8GlvTgxnRj2Uows3C43eQKl6uPNaMX9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725829;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Ip/T2QHMM1U7PlZWA82V3rfXa8D3fyu28S4r/+LgVzM=;
+	b=k29uOszd8lFpi67Y3Eo9PsbaCr3fESSCMReuKuNDCvEcOGn5BaRtM6WwkGNWn9k2hOvr
+	 Ne/QM6fH4OL2vRzVvz38cxn4GQE1wffA382rYokuKU6OurQwCBitmCIhOFC0a8ab1ooVk
+	 BX5s60hadWMhGm3Ih6NwAYd82TGdrtzRPQ0QjPSddZ9S02/Cl8P1Vsmzb0TcR9r1q0KGs
+	 E/juU2BHm0V9UhLOnue58+qn14xlspHGBOuIBBNtlniYMQvvkxaWcoXFldzu0B2yxHnbc
+	 E9KfGX1vYbZzvBfRGvxLcBL+bzYDlxg+ENaTvZ/q8gFJ/+9abavCBh6JiUqEji0W1iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OIjvoPlh;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFkRmAG6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6067606A332
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:10:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6067606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2A4606A332;
+	Tue,  3 Nov 2026 17:10:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OIjvoPlh
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso44537865e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:10:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793725819; x=1794330619; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v98czZJjrFY0hKiKY11IKxTSpAh/LCSHwoFbHDSEB+0=;
-        b=OIjvoPlhEcC/mavN0s5g8B1KSJ3zQtXy7YeWfoqEhXVNkSWKQnNFAeJZz8I2Dh914p
-         xxePxGvSW7Y1CE2m/+d9g/gYqpeOwSVuaE+5FzxISuuDYq7YdktGn2C7a9S3JDDjEqxB
-         rOZREhKipGyNj27oBhC7Q/aJq0TkeQsrUP3J6zQKpBq9H8IXSgm6F7iWeE4n6YiBn2uz
-         Kj0GjbZBofKvVDY+q1MhIxwMb56ytIvN8XmKi3BcSgnkYe6ccGACw3ydmtdvKag0cAd+
-         711PVlA696c+VOhublTnygHUeb9ijDFrOQPjAzFUmKta3QEP1PMtHVGy2pwI2TNT2Lzs
-         U9sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793725819; x=1794330619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v98czZJjrFY0hKiKY11IKxTSpAh/LCSHwoFbHDSEB+0=;
-        b=uRx+QthFNaok6n5IFrMdgPDpvjqrCyF5AD4A4fdvNmgp1TsCtrPPTi1ficvpR265Wf
-         i2ccOiFqFiLfkDpIIIqg8XcOR1QNKqY1LFFZtD7dGZwCTfuJ3nhec45xb8SrS0AyttDw
-         KR6Ud7ztNF68zVMR2cyBZmOX2z8CIgUq+7HvJYXjUCEczFernogaaY3TXkWfg5YCvQwc
-         tQ1tyHblLfEYce4MgbTkiqAkbLc1/gA3D5ejcKdYUbtOAF1nZA9FCn9E8nT5ryLMGokE
-         swPOIMIaT1X3qCw8dHhNGtlaTl2kPCVf6YKdxX9XHBQLiGqJxUPteP+Au6vgNd5GSAh4
-         IG0A==
-X-Forwarded-Encrypted: i=1; AKwUvBz6hXIRdynnXBYOJKKJ1U7Z1uTn+ZyTPmv0MF9y2BRE34DZ57OMVby6D/WYvnh/K/2mccerjqU5oeeDU24=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CQ2/aRT7SYQcnWH6WIGGECGinC0WDxsvlmYj8n8w69vkqpoxC
-	vvgolT2kNOKaYUeBZDWAxe7M2AgKuKdPwdSuevyK6FE3zoMYqZgcDexS
-X-Gm-Gg: AYBFou3iJFUF+QKTr00olAo/UZPDdMgdYhwMz56U9jNYhapQdlvrw8mUJrkGzgWGkfo
-	fe+rKOnc2eEg2LtUbsI1R08gWEiuJA5tUQXdnSVljNKxn+VBp9UVNqZl4QZvx835XFKc8vSQyQR
-	rhF/WnJjEoCuylzGtP566MHfIAKtQYdS9yg0Ztisdl8vUJJFpAZFOE7wyfO6EkxZ2QIEH4bPrko
-	4dX8Geg2hnVSbLLapbfWIeoMGOOg1hbJMT4yhnodA9ukgfGJ93oOT7UM54xS7JdqiCSv37Wbn8m
-	GETiB/+ysa5xu8m4xYiOg9gqjHoH6mAaMnmmQHh3YS67Ruu3oCWF1V+oiGaJghA+ImFRJIkqN2k
-	AAJrH/YuYKBRu80pT+19Ju54QP3nNhnFvmJYBnUtk0Nl3uQECma35PDkFOqjYUUki9nemJLKdqQ
-	ZKbkYdO38xrcZjmKcfZ2MDXjW1ShQvZ7UHrSurBRWXC0+ZmQ+HxKlrnEP4SknE2T8972HyV+5qu
-	vvh/ERuQCsSIvDB5i6WzelcpuGcX/jlbVvLxmaLOylQ//pS3tI8IGmSCY66jE/6No+5931e3hEp
-	aYJoF5FjC2YK6oMFbXvBFU98NiXDDCXporeGOcIUckqnOFtC8FQLLPqk
-X-Received: by 2002:a05:600c:a48:b0:4b2:2ec5:8a2b with SMTP id 5b1f17b1804b1-4b22ec58f9emr97823365e9.10.1793725818948;
-        Tue, 03 Nov 2026 09:10:18 -0800 (PST)
-Received: from LAPTOP-AVI.. ([147.234.101.233])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9fafe08sm112749075e9.3.2026.11.03.09.10.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 09:10:18 -0800 (PST)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: mingo@redhat.com,
-	peterz@infradead.org
-Cc: juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	tommaso.cucinotta@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] sched/deadline: Clamp negative runtime in sched_getattr
-Date: Tue,  3 Nov 2026 19:10:14 +0200
-Message-ID: <20261103171013.2511027-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFkRmAG6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279A71F0093A;
+	Tue,  3 Nov 2026 17:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793725828;
+	bh=Ip/T2QHMM1U7PlZWA82V3rfXa8D3fyu28S4r/+LgVzM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FFkRmAG6LkkqN0fW62sNlkPULJy+l7owdtI62XDAYAYLNCQb9jFm3WYPu7t1IHikJ
+	 ChbiNyC5dqw5wzgjb1LQ9ylj5jzfeud3M/nH4xF7eM703wLiHhxTW3sT2x61CQaR9e
+	 phxUKqZMYtS72O6mcg6ITVwhFkLK8SQGxvUNL8UrhADz13c0+eCCdIStZfGsCYpJZu
+	 RwIHzHcAyF842gRK7H2MsoS95EULovEG1RO62N6aWjLtevxGxnXElXWegWJOc2llww
+	 wdnV/MT9Rz0VfZ4jy8lNqhJmbpwCVLopK8tcGYeJr7V+9OhfTof1VHpEWrII4n4ZHP
+	 Y3MHC92O58DBw==
+Message-ID: <58a5f4aa-0410-455b-9e3b-f1a4676a5359@kernel.org>
+Date: Tue, 3 Nov 2026 18:10:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,47 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH] selftests: mptcp: pm_nl_ctl: print sizeof() with %zu
+Content-Language: fr
+To: Sasha Levin <sashal@kernel.org>
+Cc: Mat Martineau <martineau@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Geliang Tang <geliang@kernel.org>, Simon Horman <horms@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+ mptcp@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261103155506.534973-1-sashal@kernel.org>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20261103155506.534973-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-A SCHED_DEADLINE task can overrun its execution budget, leaving
-dl_se->runtime negative until replenishment. Dynamic sched_getattr()
-copies this signed value into the unsigned sched_attr.sched_runtime,
-causing userspace to see a value near U64_MAX instead of zero
-remaining budget.
+Hi Sasha,
 
-Clamp negative runtime to zero when reporting the dynamic value.
-Keep the signed deadline accounting unchanged.
+On 03/11/2026 16:55, Sasha Levin wrote:
+> On 32-bit architectures size_t is an unsigned int, and printing
+> sizeof(struct nlmsgerr) with %ld warns:
+> 
+>   pm_nl_ctl.c:73:71: warning: format '%ld' expects argument of type 'long int', but argument 5 has type 'unsigned int' [-Wformat=]
+> 
+> Use %zu.
 
-Reproduced the overflow on an unpatched 7.4-rc1 kernel in a QEMU
-guest. Verified that the patched kernel reports zero for negative
-runtime, while positive runtime, static parameters, replenishment,
-and non-deadline queries behave as expected.
+Thank you for the fix, it looks good to me:
 
-A five-run VM benchmark of the unchanged static sched_getattr()
-path showed no apparent regression (median 110.62 ns before,
-102.10 ns after). Negligible improvement maybe just due to noise.
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
-Fixes: 2e7af192697e ("sched/deadline: Add reporting of runtime left & abs deadline to sched_getattr() for DEADLINE tasks")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
- kernel/sched/deadline.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+@Net maintainers: please apply this patch to net-next directly.
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index c0ebdcde5fe5..7b098da8076c 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -3870,7 +3870,7 @@ void __getparam_dl(struct task_struct *p, struct sched_attr *attr, unsigned int
- 		if (task_current(rq, p))
- 			update_curr_dl(rq);
- 
--		attr->sched_runtime = dl_se->runtime;
-+		attr->sched_runtime = max_t(s64, dl_se->runtime, 0);
- 		adj_deadline = dl_se->deadline - rq_clock(rq) + ktime_get_ns();
- 		attr->sched_deadline = adj_deadline;
- 	} else {
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+Cheers,
+Matt
 -- 
-2.43.0
+Sponsored by the NGI0 Core fund.
 
