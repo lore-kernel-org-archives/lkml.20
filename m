@@ -1,80 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694649;
-	b=V3Ib1/bGCEIhY0EGu4ic6V6SekztzHplCjowZzfzdF2DdamtPL8XnXMMUjfSVvQScE5c
-	 +b85HzhYrS7BxIKH+hd+xhh4ku3uvGe8uG7ad2lD5qIUWTmSuZsAovIO03fe66rEOLePr
-	 VnvbHpwJ3wStVvfQlh7OgsxGMghYpP4u7hpvVmyfgVsHQcMufBf3tAxMXwvsLXfVZjTPH
-	 2rQWwyR1EEMSlO7M7/NaIyboRoxOOUPQqzlSLRoRpdeigStQZEsEWi0+C9eb+jNLsk92y
-	 5GMcm73AfMMdZnvHy/w9MEP2vSa1OanlgJ1lCgTTeFIiiNl065aop6zxsMUkENWkWmA==
+	t=1793694655;
+	b=tDRtRWA4xLP/L7uxEFVwCqSWmWdBeRJCniUePga8tQ9JXnbULPm9ttlm/7t+mZfvbVjG
+	 Nwpx3QC1ry0ZaBDxtBQvbUbqMzxzhqeFqCuNSjAY9URsKmSJHPSXsYAQ7/WOyA/rL7OlZ
+	 PRexa9YrlbReC5kX7lGawDxYa+43YofU6cDtS1fnK9vQsponht73Vr9+cdTyZPWHCNoqX
+	 iXAYY+jFjH4KZmTQxBTQmAWiGpHIafrElhcGPhS3ojLdmMqUSUWJl/NNSyfTONwv8lJHs
+	 7Ox+xc1Bb/RtSfkVmiA9wZYFhLMDmDUJwRgCTACqz/TfZ+NQfl7B8YbutYDsa8jXorw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694649;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 Content-Transfer-Encoding;
-	bh=zou+KVsm2n9nqlMfRGiAQzjZcxVzPW1ERt8vMIU0ka0=;
-	b=FmPW02nWFqrrcTXaSJ9lJ0nG16xvPiXj5mu5j95rd7xzvwoGHaEvAavOqDrGCGjoPcXE
-	 iVr3J0hn9pFnlMZRlCDeIReT2iD7v9WpickRxOjStsYf5t2WJddrGTJJHKLmOhce2q6ja
-	 vtaLJ/BLVPcXpD82A76IFcrN6MKM7TEKnyBu1pMPMBu55YVyR8vkhX3Zz8sUiunlqyc4v
-	 +Zcc7uGay5UkZvVLaqbIa9AIs5TLloDMTRkvkl+TFxXv40QT1/ImzZYTVFRgyvMII8yOl
-	 fZf4Ol0slVba+eNmkew0mXT6w5A5vH6KcC2TYHSIYGL4qu8GFjyfCp4YUc4cZdMNn3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694655;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtEIJfpuzKtI=;
+	b=qmxofma6krL61Uu8usPq0uxeROtM77WEDvRRP8wFRelxfbQPmTXs/PnltKvtwLt3HdgT
+	 yyl40p/hZFHXzmTKrDr/PEZk9DpwHuBNheew/os9CeRs2xdoWmw1SKmbFOi2Jjkdxh52M
+	 NGQfjLWDNEHOUhjdTpmZnfVbBp+YY+jxnTytZgROETWVJxLnicD/fT7G2tLeGHgoDwHXu
+	 vXuBU6zN/LhfFPeUqRMIpdIgXYEjHwOrTwwvo/NOcp8ArjDqZ0nlEbDFvCdOhrU1i08P6
+	 zNnGJqLAu+5eNrd6qC+DK9ldtvjKBcmQ8pY+VjNPwP5Bi7yaXQtYz/J0iK0O0ncOg9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLHimlxC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B0B606D838;
-	Tue,  3 Nov 2026 08:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLHimlxC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450251F00A1B;
-	Tue,  3 Nov 2026 08:30:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694649;
-	bh=zou+KVsm2n9nqlMfRGiAQzjZcxVzPW1ERt8vMIU0ka0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DLHimlxCefo/k2EjvP9GldR2G+4iyoRNoluNqhtvtS5SVhTYC0+zwp3Vn9NSc8nUC
-	 bArX/UP+xVzwRva+W7VBtBKT4JK7kvO+gOfEVoFVpPhzUdsVDo04W2f0YVsPUHLM0J
-	 YkPUIu5ZlOcuw0LOVZF+g2409Fv2ruuZAaEzNAHcEjafcG9pWZXja4J37adWHSRq1n
-	 KsjxCbV/EIYhrgc4UUxn6jS6gssB+z4oVgEfUNnKWSjYxqNFTo7uu6JTfo0AZtuWGe
-	 ZlD8IA0mKHJ5+AEGTSwr9k2BeOQfMnI8rCJ+f36TVlHCY2GNS5V9BVnnvw92f4p4qb
-	 VppiWTvDWOhOQ==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 555CF60A2628;
+	Tue,  3 Nov 2026 08:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 555CF60A2628
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtE
+	IJfpuzKtI=; b=Ne9Zhp3t4XMGe+Zf+MejVQD3IuC2FG1mQ4s9EN7a5pNIsvg8rR
+	T99hHgh0saFcBfBqecMtWebM5NgM5ZAUiRJLtxyAPjEJNtDI7BPCDp8ztBsExpgr
+	ZtxCkDLHMBI9whYgaDURj4wgkAfpwYI8xqCH1OR1zsQ6QlJnYXbubx6I0=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCGqgCwm+lqS+8dAQ--.21892S4;
+	Tue, 03 Nov 2026 16:30:47 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v12 08/19] PCI/P2PDMA: Answer routing per TLP class
-Date: Tue,  3 Nov 2026 10:29:47 +0200
-Message-ID: <20261103-fix-p2p-acs-v4-0-v12-8-912101f93517@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
-References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
+	stable@vger.kernel.org,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v6 2/3] media: dvb-core: keep dvb_device alive while checking users count in frontend release paths
+Date: Tue,  3 Nov 2026 16:30:38 +0800
+Message-Id: <20261103083039.33430-3-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261103083039.33430-1-25031212351@stu.xidian.edu.cn>
+References: <20261103083039.33430-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,363 +62,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkCGqgCwm+lqS+8dAQ--.21892S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF1kJry8CFyrCF4fury8Zrb_yoW5Krykpr
+	Z3JFW5KrWUKw4kKrs7C3W7ZrnYvF4Syr98C34xt3Z7Cr1fX34SkryFq34q9r13Cr93A3yj
+	qwnrGay8C3y7AaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmG14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
+	ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVWxJr0_GcWl
+	nxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4
+	CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvj
+	eVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I
+	1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7sRiK0P7UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2roqcKjcQAAs1
 
-From: Leon Romanovsky <leonro@nvidia.com>
+Both dvb_frontend_release() and the __dvb_frontend_open() error path
+inspect dvbdev->users after calling dvb_generic_release(), which ends
+with dvb_device_put().  If that put() drops the last reference - e.g.
+the device was unregistered during USB disconnect while this was the
+last open() file - "dvbdev" is freed before ->users is read:
 
-calc_map_type_and_dist() returns one mapping type per provider and client,
-valid only for strictly ordered Requests carrying an Untranslated address.
-Clients that use Relaxed Ordering or ATS cannot ask what the fabric would
-do with their traffic.
+	BUG: KASAN: slab-use-after-free Read of size 8
+	 dvb_frontend_release+0x28b/0x2b0 dvb_frontend.c:2903
 
-Add enum pci_p2pdma_tlp_flags to name a class and pci_p2pdma_map_type_tlp()
-to ask about one. The topology walk and the ACS Control reads do not depend
-on the class, so decide all of them from the one walk and cache them
-together, four bits each. Every class still answers alike; the controls
-that tell them apart come next.
+The same pattern exists at err1: after dvb_generic_release() in
+__dvb_frontend_open(), the ->users check runs on an object that may
+already be gone.
 
-Tested-by: Tushar Dave <tdave@nvidia.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Take the extra reference *before* dvb_generic_release(): the file
+still holds its own reference at that point, so the get is guaranteed
+to be valid, while a get after the put() could itself touch freed
+memory.  Drop the reference again after the ->users check.
+
+On the __dvb_frontend_open() error path the reference is deliberately
+not put() back inside the function.  fops->release() does not run for
+an erroring open(), so dvb_device_open() calls dvb_device_put()
+itself; that put() drops the reference taken here.  This also keeps
+the accounting balanced: dvb_generic_release() already dropped the
+file's original reference, and the extra get hands dvb_device_open()
+one to drop in its place.
+
+In dvb_frontend_release() the reference is balanced explicitly, before
+dvb_frontend_put(fe).
+
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Fixes: a2dd235df435 ("media: dvbdev: drop refcount on error path in dvb_device_open()")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/pci/p2pdma.c | 167 ++++++++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 132 insertions(+), 35 deletions(-)
+ drivers/media/dvb-core/dvb_frontend.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index c643f275890c..9d416329aa4b 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -530,6 +530,31 @@ static u16 pci_acs_p2pdma_quirk_redirect(struct pci_dev *pdev, u16 ctrl)
- 	return ctrl;
- }
- 
-+/**
-+ * enum pci_p2pdma_tlp_flags - Properties of the TLPs a client will issue
-+ *
-+ * These describe the traffic rather than the topology, and select which ACS
-+ * controls apply along the peer-to-peer path. A value of 0 means strictly
-+ * ordered Requests carrying an Untranslated address.
-+ *
-+ * @PCI_P2PDMA_TLP_TRANSLATED: Requests carry an ATS Translated address. PCIe
-+ *	r7.0 sec 6.12.3 routes those to the peer regardless of ACS P2P Request
-+ *	Redirect and ACS P2P Egress Control wherever ACS Direct Translated P2P
-+ *	is enabled.
-+ * @PCI_P2PDMA_TLP_RELAXED_CPL: Non-Posted Requests carry the Relaxed
-+ *	Ordering attribute, and PCIe r7.0 sec 2.2.9.1 requires the Completer to
-+ *	return it in their Completions. Sec 6.12.1.1 never redirects those, so
-+ *	ACS P2P Completion Redirect does not gate the path.
-+ */
-+enum pci_p2pdma_tlp_flags {
-+	PCI_P2PDMA_TLP_TRANSLATED	= 1 << 0,
-+	PCI_P2PDMA_TLP_RELAXED_CPL	= 1 << 1,
-+};
-+
-+/* Every combination of the flags above selects one routing class. */
-+#define PCI_P2PDMA_TLP_CLASSES \
-+	((PCI_P2PDMA_TLP_TRANSLATED | PCI_P2PDMA_TLP_RELAXED_CPL) + 1)
-+
- enum pci_acs_p2pdma_state {
- 	PCI_ACS_P2PDMA_NOT_SUPPORTED,
- 	PCI_ACS_P2PDMA_DIRECT,
-@@ -546,7 +571,7 @@ enum pci_acs_p2pdma_state {
-  * bus addressing be assumed.
-  */
- static enum pci_acs_p2pdma_state
--pci_acs_p2pdma_request(u16 ctrl)
-+pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
- {
- 	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
- 		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
-@@ -558,7 +583,7 @@ pci_acs_p2pdma_request(u16 ctrl)
-  * affects a Completion.
-  */
- static enum pci_acs_p2pdma_state
--pci_acs_p2pdma_completion(u16 ctrl)
-+pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
- {
- 	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
- 				   PCI_ACS_P2PDMA_DIRECT;
-@@ -727,21 +752,23 @@ struct pci_p2pdma_acs_path {
- };
- 
- static enum pci_acs_p2pdma_state
--pci_p2pdma_request_state(const struct pci_p2pdma_acs_path *path)
-+pci_p2pdma_request_state(const struct pci_p2pdma_acs_path *path,
-+			 unsigned int tlp_flags)
- {
- 	if (path->req_upstream)
- 		return PCI_ACS_P2PDMA_REDIRECT;
- 
--	return pci_acs_p2pdma_request(path->req_ctrl);
-+	return pci_acs_p2pdma_request(path->req_ctrl, tlp_flags);
- }
- 
- static enum pci_acs_p2pdma_state
--pci_p2pdma_completion_state(const struct pci_p2pdma_acs_path *path)
-+pci_p2pdma_completion_state(const struct pci_p2pdma_acs_path *path,
-+			    unsigned int tlp_flags)
- {
- 	if (path->cpl_upstream)
- 		return PCI_ACS_P2PDMA_REDIRECT;
- 
--	return pci_acs_p2pdma_completion(path->cpl_ctrl);
-+	return pci_acs_p2pdma_completion(path->cpl_ctrl, tlp_flags);
- }
- 
- /*
-@@ -750,13 +777,16 @@ pci_p2pdma_completion_state(const struct pci_p2pdma_acs_path *path)
-  * the peer's bus addresses.
-  */
- static enum pci_p2pdma_map_type
--pci_p2pdma_route(const struct pci_p2pdma_acs_path *path)
-+pci_p2pdma_route(const struct pci_p2pdma_acs_path *path,
-+		 unsigned int tlp_flags)
- {
- 	if (path->unreadable)
- 		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
- 
--	if (pci_p2pdma_request_state(path) == PCI_ACS_P2PDMA_DIRECT &&
--	    pci_p2pdma_completion_state(path) == PCI_ACS_P2PDMA_DIRECT)
-+	if (pci_p2pdma_request_state(path, tlp_flags) ==
-+		    PCI_ACS_P2PDMA_DIRECT &&
-+	    pci_p2pdma_completion_state(path, tlp_flags) ==
-+		    PCI_ACS_P2PDMA_DIRECT)
- 		return PCI_P2PDMA_MAP_BUS_ADDR;
- 
- 	if (path->uf_blocked)
-@@ -767,7 +797,9 @@ pci_p2pdma_route(const struct pci_p2pdma_acs_path *path)
- 
- /*
-  * Name the ports that keep this path off a direct route, so that the admin
-- * can hand them to pci=disable_acs_redir=.
-+ * can hand them to pci=disable_acs_redir=. That parameter clears the
-+ * redirect controls, which decide the default class, so that is the class
-+ * this reports on.
-  */
- static void pci_p2pdma_warn_path(struct pci_dev *client,
- 				 struct pci_dev *provider,
-@@ -801,9 +833,10 @@ static void pci_p2pdma_warn_path(struct pci_dev *client,
- 
- 	seq_buf_init(&acs_list, buf, sizeof(buf));
- 	seq_buf_init(&quirk_list, quirk_buf, sizeof(quirk_buf));
--	if (pci_acs_p2pdma_completion(path->cpl_ctrl) != PCI_ACS_P2PDMA_DIRECT)
-+	if (pci_acs_p2pdma_completion(path->cpl_ctrl, 0) !=
-+	    PCI_ACS_P2PDMA_DIRECT)
- 		pci_p2pdma_list_redir(&acs_list, &quirk_list, a_child);
--	if (pci_acs_p2pdma_request(path->req_ctrl) != PCI_ACS_P2PDMA_DIRECT)
-+	if (pci_acs_p2pdma_request(path->req_ctrl, 0) != PCI_ACS_P2PDMA_DIRECT)
- 		pci_p2pdma_list_redir(&acs_list, &quirk_list, b_child);
- 
- 	pci_p2pdma_warn_redir(client, provider, &acs_list, &quirk_list);
-@@ -968,6 +1001,31 @@ static unsigned long map_types_idx(struct pci_dev *client)
- 	return (pci_domain_nr(client->bus) << 16) | pci_dev_id(client);
- }
- 
-+/*
-+ * One cache entry holds the routing of every TLP class, four bits each,
-+ * indexed by the &enum pci_p2pdma_tlp_flags combination that selects it. An
-+ * absent entry reads back as PCI_P2PDMA_MAP_UNKNOWN in every class.
-+ */
-+static_assert(PCI_P2PDMA_MAP_THRU_HOST_BRIDGE < 16);
-+
-+static unsigned long
-+pci_p2pdma_map_types_pack(const enum pci_p2pdma_map_type *type)
-+{
-+	unsigned long val = 0;
-+	unsigned int flags;
-+
-+	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
-+		val |= (unsigned long)type[flags] << (flags * 4);
-+
-+	return val;
-+}
-+
-+static enum pci_p2pdma_map_type
-+pci_p2pdma_map_types_unpack(unsigned long val, unsigned int tlp_flags)
-+{
-+	return (val >> (tlp_flags * 4)) & 0xf;
-+}
-+
- /*
-  * Calculate the P2PDMA mapping type and distance between two PCI devices.
-  *
-@@ -999,6 +1057,10 @@ static unsigned long map_types_idx(struct pci_dev *client)
-  * port, and Completion Redirect for read Completions on the Completer-side
-  * port.
-  *
-+ * Those controls apply to different TLPs, so every class named by &enum
-+ * pci_p2pdma_tlp_flags is decided from the one walk and cached together;
-+ * @tlp_flags selects which one is returned.
-+ *
-  * If ACS redirects traffic at either divergence port, return
-  * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE. If the ACS Control register cannot be
-  * read, return PCI_P2PDMA_MAP_NOT_SUPPORTED. Otherwise, return
-@@ -1012,14 +1074,16 @@ static unsigned long map_types_idx(struct pci_dev *client)
-  */
- static enum pci_p2pdma_map_type
- calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
--		int *dist, bool verbose)
-+		int *dist, unsigned int tlp_flags, bool verbose)
- {
--	enum pci_p2pdma_map_type map_type = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
-+	enum pci_p2pdma_map_type map_type[PCI_P2PDMA_TLP_CLASSES];
- 	struct pci_dev *a = provider, *b = client, *bb;
- 	struct pci_dev *a_child = NULL, *b_child = NULL;
- 	struct pci_p2pdma_acs_path path = {};
- 	struct pci_p2pdma *p2pdma;
- 	bool cpu_p2pdma, host_whitelisted = false;
-+	bool host_fallback = false;
-+	unsigned int flags;
- 	int dist_a = 0;
- 	int dist_b = 0;
- 
-@@ -1053,6 +1117,8 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 	 * request can only get to the peer through the host bridge.
- 	 */
- 	*dist = dist_a + dist_b;
-+	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
-+		map_type[flags] = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
- 	goto map_through_host_bridge;
- 
- check_paths_acs:
-@@ -1085,18 +1151,24 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 	}
- 
- 	/*
--	 * Below a shared upstream bridge, a path whose divergence ports do not
--	 * redirect routes the request directly.
-+	 * The walk and the config reads above serve every class; only the
-+	 * decision below depends on the kind of TLP being routed.
- 	 */
--	map_type = pci_p2pdma_route(&path);
--	if (map_type == PCI_P2PDMA_MAP_BUS_ADDR)
--		goto done;
-+	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++) {
-+		map_type[flags] = pci_p2pdma_route(&path, flags);
-+		if (map_type[flags] == PCI_P2PDMA_MAP_THRU_HOST_BRIDGE)
-+			host_fallback = true;
-+	}
- 
--	if (verbose)
--		pci_p2pdma_warn_path(client, provider, &path, a_child, b_child);
-+	if (verbose && map_type[0] != PCI_P2PDMA_MAP_BUS_ADDR)
-+		pci_p2pdma_warn_path(client, provider, &path, a_child,
-+				     b_child);
- 
--	/* An unreadable control or unusable forwarding leaves no route. */
--	if (map_type == PCI_P2PDMA_MAP_NOT_SUPPORTED)
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f382..00c29cf7ddf0 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -2834,6 +2834,14 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
+ 	mutex_unlock(&fe->dvb->mdev_lock);
+ err2:
+ #endif
 +	/*
-+	 * Nothing needs the host bridge: the classes that did not get a direct
-+	 * route have no fallback that would use it.
++	 * dvb_generic_release() ends with dvb_device_put(), which may
++	 * drop the last reference if the device was unregistered while
++	 * this file was open.  Take an extra reference first so the
++	 * ->users check below cannot touch a freed object.
++	 * dvb_device_open() drops it again when ->open() fails.
 +	 */
-+	if (!host_fallback)
- 		goto done;
- 
- map_through_host_bridge:
-@@ -1109,16 +1181,19 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 		if (verbose)
- 			pci_warn(client, "cannot be used for peer-to-peer DMA as the client and provider (%s) do not share an upstream bridge or whitelisted host bridge\n",
- 				 pci_name(provider));
--		map_type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+		for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
-+			if (map_type[flags] == PCI_P2PDMA_MAP_THRU_HOST_BRIDGE)
-+				map_type[flags] = PCI_P2PDMA_MAP_NOT_SUPPORTED;
++	dvb_device_get(dvbdev);
+ 	dvb_generic_release(inode, file);
+ err1:
+ 	if (dvbdev->users == -1 && fe->ops.ts_bus_ctrl)
+@@ -2934,6 +2942,15 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ 		mb();
  	}
- done:
- 	rcu_read_lock();
- 	p2pdma = rcu_dereference(provider->p2pdma);
- 	if (p2pdma)
- 		xa_store(&p2pdma->map_types, map_types_idx(client),
--			 xa_mk_value(map_type), GFP_ATOMIC);
-+			 xa_mk_value(pci_p2pdma_map_types_pack(map_type)),
-+			 GFP_ATOMIC);
- 	rcu_read_unlock();
--	return map_type;
-+	return map_type[tlp_flags];
- }
  
- /**
-@@ -1159,7 +1234,7 @@ int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
- 			return -1;
- 		}
- 
--		map = calc_map_type_and_dist(provider, pci_client, &distance,
-+		map = calc_map_type_and_dist(provider, pci_client, &distance, 0,
- 					     verbose);
- 
- 		pci_dev_put(pci_client);
-@@ -1425,22 +1500,28 @@ void pci_p2pmem_publish(struct pci_dev *pdev, bool publish)
- EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
- 
- /**
-- * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
-+ * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA transfers
-  * @provider: P2PDMA provider structure
-  * @dev: Client device that initiates the transfer
-+ * @tlp_flags: &enum pci_p2pdma_tlp_flags describing the TLPs @dev will issue
-  *
-  * Determines how peer-to-peer DMA transfers should be mapped between
-  * the provider and the client device. The mapping type indicates whether
-  * the transfer can be done directly through PCI switches or must go
-  * through the host bridge.
-+ *
-+ * ACS routes a peer-to-peer transaction by the attributes its TLPs carry, so
-+ * the answer depends on @tlp_flags. A caller that passes flags its traffic
-+ * does not match gets a mapping the fabric will not deliver.
-  */
--enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
--					     struct device *dev)
-+static enum pci_p2pdma_map_type
-+pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
-+			unsigned int tlp_flags)
- {
--	enum pci_p2pdma_map_type type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
- 	struct pci_dev *pdev = to_pci_dev(provider->owner);
-+	unsigned long cache_index, cached = 0;
-+	enum pci_p2pdma_map_type type;
- 	struct pci_p2pdma *p2pdma;
--	unsigned long cache_index;
- 	struct pci_dev *client;
- 	int dist;
- 
-@@ -1457,16 +1538,32 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- 	p2pdma = rcu_dereference(pdev->p2pdma);
- 
- 	if (p2pdma)
--		type = xa_to_value(xa_load(&p2pdma->map_types,
--					   cache_index));
-+		cached = xa_to_value(xa_load(&p2pdma->map_types,
-+					     cache_index));
- 	rcu_read_unlock();
-+	type = pci_p2pdma_map_types_unpack(cached, tlp_flags);
- 
- 	if (type == PCI_P2PDMA_MAP_UNKNOWN)
--		return calc_map_type_and_dist(pdev, client, &dist, true);
-+		return calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
-+					      true);
- 
- 	return type;
- }
- 
-+/**
-+ * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
-+ * @provider: P2PDMA provider structure
-+ * @dev: Client device that initiates the transfer
-+ *
-+ * Same as pci_p2pdma_map_type_tlp() for a client issuing strictly ordered
-+ * Requests that carry an Untranslated address.
-+ */
-+enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
-+					     struct device *dev)
-+{
-+	return pci_p2pdma_map_type_tlp(provider, dev, 0);
-+}
++	/*
++	 * dvb_generic_release() ends with dvb_device_put(), which may
++	 * drop the last reference if the device was unregistered while
++	 * this file was open.  Take an extra reference first so the
++	 * ->users check below cannot touch a freed object, and drop it
++	 * again right after.
++	 */
++	dvb_device_get(dvbdev);
 +
- void __pci_p2pdma_update_state(struct pci_p2pdma_map_state *state,
- 		struct device *dev, struct page *page)
- {
-
+ 	ret = dvb_generic_release(inode, file);
+ 
+ 	if (dvbdev->users == -1) {
+@@ -2954,6 +2971,8 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ 			fe->ops.ts_bus_ctrl(fe, 0);
+ 	}
+ 
++	dvb_device_put(dvbdev);
++
+ 	dvb_frontend_put(fe);
+ 
+ 	return ret;
 -- 
-2.56.0
+2.34.1
 
