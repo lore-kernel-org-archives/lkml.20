@@ -1,50 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689586;
-	b=mLO6axtl64WUIult9Z6iVOS0F0NtMCsShsffs1tzPyNOPiAs4kxmkGtGyM1o6/p7mlk3
-	 DVeu6Xz3c5cBut1d4vO4iCLdIWI7zTMrTTBVSQhXCylEpXL9fyOwY3sxAOzw5A8PFhuQY
-	 QD/FdIiJnsoBASp7K3TEdujILaugbSg+fj4a1L8fDHV5ari0ECpQEWhwozs6PzUcTjgow
-	 lKaxYfkq+oCVKHhe/G6t/xb3DU2vbbEjccYhx/nhUmINMqYuF5KEvy7/hW8oGFvgEa590
-	 Z6MmDdpJnZCIhtt1UWXw6moJsSJogI6j2zCX4MTb65dMDHGF72pntQPSMGHgv8oPMeQ==
+	t=1793689656;
+	b=MMLWLJHGvmUOr4PkEfowPPi4LWJhh7z4EbKyO4gma8oPiSYsqTarSlN5Xrh7+IS02xny
+	 BLMUQj/9jTf9Xx+xqS6K13ofgPzJDeeuK7JuhZfaVZy9ayn+SSlfmL5GCTqxAddPnRyTg
+	 pU42z1+83CSght73aQHLvJ36/8DP/BBliuJFJ8bPhPGO141v69dl8kjQwM3dH57/31bXk
+	 GbCKxjGLqaqNMze12nipz/6/EWQ+L+lCTFnNCNQ/ueYhsqkPcCfAHbL3+0oV7INZGEVKJ
+	 B5pqub5ny/sYYmgF6VLfbihpn/4d+XuqpaYnYGYOlRhtLBdgNa4YW+VM81IFFOUkkqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689586;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=lzx1z1WsCZ9bJXMmnAsRLv8NJqpQ4NgCzrf2v7mt/sg=;
-	b=GhPQ2Ty9NTbcf8v49awaKJA52RfpYO7JnZ85/RnrrqDBlF2/UKU9ZhV905gVf5EDvN01
-	 OYE8ndIppG9d1DDIDqdf37U5pN4ilo4ZUPT3TUUyYo8WJRnz44I6A4v6YNEi3UjsQqtnw
-	 +SJ+mccYFfu1CfpKyrNPM/Fe4AxLkLaGR3zPUZWnPlf7uNhV8k1XD4u2MAGVsnefW6m7e
-	 fzvL0bZodrzC0dD2DWJQ972EYO6Ec3PzuQm2ySgpjOsH0HEhQ3byWCZZkjuzyGNzq/jhf
-	 ytseYscBq6oU/jjTV2tEKFUyx7fKWt5Fram0O5QNYEHs33pQ6P5+knvEsxhIQ1gbHKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689656;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=2tQek1qiZL4Js2GpnQFztu1faM+c6GSagpIcxNr7m9g=;
+	b=Z94wG/TUuoQIoaW7dKDjs+C5094Bc/sKq86cyUd02xHyvLROxkJFUkYYKfDEET3qKJzr
+	 nl7GRIT3GpoR4WogsWfFAxc8Ju67NaIgChFpuqJ0ODxdTx+AGxdAFu3lVdU9guTHGAEm0
+	 XIfU+m4JF7rJFVLMV2gZqW3TsM4l4AiUi3bZpcP66fCH3l186f3Yt/VUfQ6QwYyd+wxpW
+	 +RCYZh8cLIc3aCfYdsjBvVuCNbhMREoW1WZIjAJa9TUnwtSXm16AdrI6NFcn/Iy0uSced
+	 oI57kz3N5kZU2N0VwH+m4LZaDlDq/eGeqkVBRqiH3m9HKXKo4+181bhXvu5ywNIbRjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6024606A329;
-	Tue,  3 Nov 2026 07:06:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6024606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAB3hpfsh+lq8Kw5AA--.4349S2;
-	Tue, 03 Nov 2026 15:06:20 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu/jpeg: Unwind late software init failures in v2-v4
-Date: Tue,  3 Nov 2026 07:06:29 +0000
-Message-Id: <20261103070629.1083890-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=qkfKMdYn;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E81B606A329;
+	Tue,  3 Nov 2026 07:07:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E81B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=qkfKMdYn
+Received: from [192.168.1.10] (unknown [4.194.122.136])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 7A57D20B7166;
+	Mon,  2 Nov 2026 23:07:17 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7A57D20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793689640;
+	bh=2tQek1qiZL4Js2GpnQFztu1faM+c6GSagpIcxNr7m9g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qkfKMdYn8BRvJp96+mIGOJodjPZo3QsLvaXaw0dXTIn9JjgXjWi0M9nKW9YQUP/7E
+	 BT/KjK7OBsK18zBgSiniHBuKfANsYwwSLjbiZFjokV2R/o5Apl8vwyLVrS6i1gWmEM
+	 0htMk9PnxumShIpq8GGOgt1lmI9EHfFxyVZoHOwQ=
+Message-ID: <4f330292-0fda-472b-8302-75ed5f6725eb@linux.microsoft.com>
+Date: Tue, 3 Nov 2026 12:37:29 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,130 +53,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAB3hpfsh+lq8Kw5AA--.4349S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWrW3tr48Ar47CF4xAr4fZrb_yoWrGw17pa
-	yfZF90vr18ArsrtryDX3WUZF4Fgw13XayrWrWUCwnaq3W3Ar95trn7AFWUJ34kGFZ2krs3
-	Jr1DJ3y7uFsFvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
-	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUO2
-	NtDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQAA2rpWfWRkAAEs0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] iio: adc: versal-sysmon: disable interrupts on
+ shutdown
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
+ Jonathan Cameron <jic23@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ amitrkcian2002@gmail.com
+References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
+ <20261102122112.1723130-4-amit.kumar-mahapatra@amd.com>
+Content-Language: en-US
+From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+In-Reply-To: <20261102122112.1723130-4-amit.kumar-mahapatra@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The JPEG 2.0, 3.0 and 4.0 software initialization callbacks create their
-rings before allocating register dump storage and creating the reset
-mask sysfs file. If either of the latter steps fails, the callbacks
-return without releasing the initialized JPEG resources, including the
-ring buffers and vmid_wait fence reference. The IP block's status.sw flag
-has not been set, so the common error cleanup skips its sw_fini callback.
+Hi Amit,
 
-Suspend the JPEG work and release the JPEG software resources on these
-late failures. amdgpu_jpeg_sw_fini() also releases the register dump
-storage if it was successfully allocated before sysfs creation failed.
+On 02-11-2026 17:51, Amit Kumar Mahapatra wrote:
+> Interrupt teardown is registered with devm_add_action_or_reset(), so
+> sysmon_disable_interrupts() runs when the driver is unbound but not when
+> the system shuts down: device_shutdown() invokes only the driver's
+> .shutdown callback, which this driver does not implement.
+> 
+> The device is therefore left with its alarm interrupts enabled in
+> hardware once Linux has stopped servicing them.
+> 
+> Add a .shutdown callback performing the same teardown, so the device is
+> quiesced before control is handed on. The helper lives in the core
+> module, so it is exported for the platform front-end. It skips a
+> device described without an interrupt, which never set up interrupt
+> handling.
+> 
+> Disabling the interrupts at shutdown is safe to have and not a must have
+> requirement for shutdown.
+> 
+> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+> ---
+>   drivers/iio/adc/versal-sysmon-core.c | 19 +++++++++++++++++++
+>   drivers/iio/adc/versal-sysmon.c      |  6 ++++++
+>   drivers/iio/adc/versal-sysmon.h      |  1 +
+>   3 files changed, 26 insertions(+)
+> 
+> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versal-sysmon-core.c
+> index 6595d07038c1..d39aaba9a8b6 100644
+> --- a/drivers/iio/adc/versal-sysmon-core.c
+> +++ b/drivers/iio/adc/versal-sysmon-core.c
+> @@ -1000,6 +1000,8 @@ int devm_versal_sysmon_core_probe(struct device *dev, struct regmap *regmap)
+>   	if (!indio_dev)
+>   		return -ENOMEM;
+>   
+> +	dev_set_drvdata(dev, indio_dev);
+> +
+>   	sysmon = iio_priv(indio_dev);
+>   	sysmon->regmap = regmap;
+>   	sysmon->temp_oversampling = 1;
+> @@ -1050,6 +1052,23 @@ int devm_versal_sysmon_core_probe(struct device *dev, struct regmap *regmap)
+>   }
+>   EXPORT_SYMBOL_NS_GPL(devm_versal_sysmon_core_probe, "VERSAL_SYSMON");
+>   
+> +/**
+> + * versal_sysmon_shutdown() - Disable SysMon interrupts on system shutdown
+> + * @dev: SysMon device
+> + *
+> + * Interrupt teardown is a devm action, which runs on driver unbind but not
+> + * on system shutdown, so disable the interrupts here as well.
+> + */
+> +void versal_sysmon_shutdown(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> +	struct sysmon *sysmon = iio_priv(indio_dev);
+> +
+> +	if (sysmon->irq > 0)
+> +		sysmon_disable_interrupts(sysmon);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(versal_sysmon_shutdown, "VERSAL_SYSMON");
+> +
+>   MODULE_LICENSE("GPL");
+>   MODULE_DESCRIPTION("AMD Versal SysMon Core Driver");
+>   MODULE_AUTHOR("Salih Erim <salih.erim@amd.com>");
+> diff --git a/drivers/iio/adc/versal-sysmon.c b/drivers/iio/adc/versal-sysmon.c
+> index 529d0486c9f9..4d5e3d14cf15 100644
+> --- a/drivers/iio/adc/versal-sysmon.c
+> +++ b/drivers/iio/adc/versal-sysmon.c
+> @@ -71,6 +71,11 @@ static int sysmon_platform_probe(struct platform_device *pdev)
+>   	return devm_versal_sysmon_core_probe(dev, regmap);
+>   }
+>   
+> +static void sysmon_platform_shutdown(struct platform_device *pdev)
+> +{
+> +	versal_sysmon_shutdown(&pdev->dev);
+> +}
+> +
+>   static const struct of_device_id sysmon_of_match_table[] = {
+>   	{ .compatible = "xlnx,versal-sysmon" },
+>   	{ }
+> @@ -79,6 +84,7 @@ MODULE_DEVICE_TABLE(of, sysmon_of_match_table);
+>   
+>   static struct platform_driver sysmon_platform_driver = {
+>   	.probe = sysmon_platform_probe,
+> +	.shutdown = sysmon_platform_shutdown,
+>   	.driver = {
+>   		.name = "versal-sysmon",
+>   		.of_match_table = sysmon_of_match_table,
+> diff --git a/drivers/iio/adc/versal-sysmon.h b/drivers/iio/adc/versal-sysmon.h
+> index a1ac3289719c..a21dacc13471 100644
+> --- a/drivers/iio/adc/versal-sysmon.h
+> +++ b/drivers/iio/adc/versal-sysmon.h
+> @@ -122,5 +122,6 @@ struct sysmon {
+>   };
+>   
+>   int devm_versal_sysmon_core_probe(struct device *dev, struct regmap *regmap);
+> +void versal_sysmon_shutdown(struct device *dev);
+>   
+>   #endif /* _VERSAL_SYSMON_H_ */
 
-Fixes: 63d5f8db5313 ("drm/amdgpu: Enable devcoredump for JPEG2_0_0")
-Fixes: d949e91b42f2 ("drm/amdgpu: Enable devcoredump for JPEG3_0_0")
-Fixes: c3dddd602967 ("drm/amdgpu: Enable devcoredump for JPEG4_0_0")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c | 9 ++++++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 9 ++++++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c | 9 ++++++++-
- 3 files changed, 24 insertions(+), 3 deletions(-)
+Change looks good to me.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-index 72069b77f6f1..0707e065160a 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-@@ -115,14 +115,21 @@ static int jpeg_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_2_0, ARRAY_SIZE(jpeg_reg_list_2_0));
- 	if (r)
--		return r;
-+		goto err_jpeg;
- 
- 	adev->jpeg.supported_reset =
- 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
- 	if (!amdgpu_sriov_vf(adev))
- 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
-+	if (r)
-+		goto err_jpeg;
-+
-+	return 0;
- 
-+err_jpeg:
-+	amdgpu_jpeg_suspend(adev);
-+	amdgpu_jpeg_sw_fini(adev);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-index 564e40899df2..f88200bcb2b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-@@ -130,14 +130,21 @@ static int jpeg_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_3_0, ARRAY_SIZE(jpeg_reg_list_3_0));
- 	if (r)
--		return r;
-+		goto err_jpeg;
- 
- 	adev->jpeg.supported_reset =
- 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
- 	if (!amdgpu_sriov_vf(adev))
- 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
-+	if (r)
-+		goto err_jpeg;
-+
-+	return 0;
- 
-+err_jpeg:
-+	amdgpu_jpeg_suspend(adev);
-+	amdgpu_jpeg_sw_fini(adev);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-index b29ca3a49939..454f16f24d7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-@@ -141,14 +141,21 @@ static int jpeg_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_4_0, ARRAY_SIZE(jpeg_reg_list_4_0));
- 	if (r)
--		return r;
-+		goto err_jpeg;
- 
- 	adev->jpeg.supported_reset =
- 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
- 	if (!amdgpu_sriov_vf(adev))
- 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
-+	if (r)
-+		goto err_jpeg;
-+
-+	return 0;
- 
-+err_jpeg:
-+	amdgpu_jpeg_suspend(adev);
-+	amdgpu_jpeg_sw_fini(adev);
- 	return r;
- }
- 
--- 
-2.34.1
+Reviewed-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
 
+Regards,
+Prasanna Kumar
