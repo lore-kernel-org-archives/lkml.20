@@ -1,63 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714544;
-	b=iWSO78MoUTnxRltbCZQ9hMiXJdO2hqGOHWK4q+ZjgeKNGzhK5i52XvNGhV6kd87Ig0K5
-	 ompRpF9evgaLwnYqnwEt4/xEKUeIuON5VXJCsswFvqsp9I3Cn5Tdhic4DECUgHvPfrbON
-	 QVI9OhJF529MQX6uz/ljRMpY/wST5T1K4MtffxuFx09eC6z1ocoQfeksUjROyPwbw//jI
-	 waXpJO/H3n2Mo0fx7cq5EKb5XeCb6iqellHtBtI9L3dXlicXGpv42CcAGgfdSiwht2uvm
-	 auL2gtd3L1rrCeTMwObGQH+wcuLDf1J4/V/JQ1VWZBudKOTi7WQuGRwd28oGwIusQeA==
+	t=1793714551;
+	b=WLHEOTJRgVkh3O9vKCpkWdL2mREtZ+A2mmKwDu+fU9+Xg/6WAoRDw7lOSI3icEjs/PFP
+	 9dS006DZ/mMMBYezFBtGg76/3BoJOfmHS9jpYq1S/K95ObRV4IjwQqm3zJnkxzsW6BYeE
+	 r78FqNYovUYmN4WoGDyVTjY14D0hkjAw4vY3czgpzaShtSG64cVScoMs1KFhtba6HIjP4
+	 Be9SWy9YCG3Hw6L6RHxdw7Sl6cDlHQPI1QdO6KIp9BnTLdcxduJfhqClx9yXlPUoushIX
+	 JD+Vt0e15h7k+F5r65fIEqjm5vq02bPztxlbl3jKotCFi4Zkv7wm3K0SeDjL9tq1vtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714544;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/ci6k4oqs2nbzif7LoyW5jMqduAUL1OYo5QDwTnoE6U=;
-	b=YmLZ/Rt+Vb62hTfD6RKV6ptZTjLIdwDxv3AItp4YCW7+haZTa3YaCPK41L+om1+FORpS
-	 33uIB4I9cHYgAVrhURkbhkfThcFfrkpvbOpF9PFlrDIO0n6WqOhoEGCddx4q1paQniUTc
-	 UgMsa+cjqt9ZiKFeGaacpKD1VUEFiO/BZFmtm6sdHOu29atYLSCugO4dRySzOxZtUgBP/
-	 G3TmsbKnvbLQ9UwSmvnczmfeujY1jmsDBcr8SqIiJYRl9+mvr5NV8tTpwM031x2T7J9e1
-	 kRptY2SCP+BpkhebjBBy8DyLHGKGkBAzyYrVwyYOztmEgf58ZxyvBPMzE9QvRD1gFdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714551;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=U2kSEVRi2hxXG2GFOz4rcCNrV0dltOZ+Pl3QkTNM8Pc=;
+	b=G23sLFcwAS+JQxlUviwmGm/eyFl1DhOobPcy8+6Ksj3SFgyJ78+hkU3E4phKxYqsxtRy
+	 iHlTA3aRY7gLBbS4KLKYTsQq18pFSNFLCut3KreOUjse8ARTCtdpIaM3yKPQta41Ytek4
+	 49D8BPMmGL5Zmjy4gsLI2lzwXp63SugyqNzK45iDRHkG9KvyV53rDgIb2wM74r4b9+0/p
+	 ixZEfQ/AI9yN/0TbXtplecmS+Q+tXyP0btbI//VNtVGNeKIu44wRaW1puvA7jJyoeevtv
+	 bqsAnmbu3dAJqo/jSGJQmeuQP8kX5jgeyJB51rS6ldOUv5XaC1sFqgk6h1oh72lJjQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ClcOSqOh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dIF4YyTT;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EC1606D810;
-	Tue,  3 Nov 2026 14:02:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FB660A2600;
+	Tue,  3 Nov 2026 14:02:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0FB660A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ClcOSqOh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA8F1F00919;
-	Tue,  3 Nov 2026 14:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793714544;
-	bh=/ci6k4oqs2nbzif7LoyW5jMqduAUL1OYo5QDwTnoE6U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ClcOSqOh/CnPKw1DMkG91z2imhABNwjhBfnoloDtaj7Cug8/HNTgrWmo0q0/NLRM0
-	 jAQBjZQPvvERHlTJoaha8MziXTISd7ublVu3Axv8F4iBf/5mG5n4L4RSRXC9sKPM3B
-	 J147+7K7A0X+pRUEOt4aTUxHuAkoPl/SpHj/WVEz3xwYpiCOik3M5ThafXIoNvtXRs
-	 i+FLDmDdBBneLljLlj+p9/36DwN2IvmuS9689/gt9TbctHz/LFIVa1mWOJDGHIHV24
-	 oUF5I164rW9nTudIjIBH/NQym/yCqTysWmFw6sYUTgXgGo3B8n/16mojf0AqAvjtZv
-	 Xviiok/VRFJxg==
-From: Sasha Levin <sashal@kernel.org>
-To: Josh Poimboeuf <jpoimboe@kernel.org>,
-	Miroslav Benes <mbenes@suse.cz>,
-	Petr Mladek <pmladek@suse.com>,
-	Joe Lawrence <joe.lawrence@redhat.com>
-Cc: Song Liu <song@kernel.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
-	Yafang Shao <laoar.shao@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	live-patching@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] selftests/livepatch: skip based on the test modules instead of KDIR
-Date: Tue,  3 Nov 2026 09:02:18 -0500
-Message-ID: <20261103140218.17568-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103140218.17568-1-sashal@kernel.org>
-References: <20261103140218.17568-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dIF4YyTT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793714550; x=1825250550;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=21/dBFytCw06WfTSnztehqTIWH3fJ3UemgDQsPHVjOg=;
+  b=dIF4YyTTboUQu6daqPnfWosES/Wzgd0ka1i2WrKovstKerg+u4FtzG4W
+   ttQS8E85prPFCELWsKszsgi09I5X3USCSH0r4zMDZSHXynHAQZEFwibTy
+   EpHSa8vFjcnNJKR1I/Soj2WxKNs6XilV1IIWKgxlNIfcgHLFpac7mnggK
+   TR+eTILL25+7ql4HtU9DCZzYKL7YAzD15JC/ya1qxfLYgbsi/8d0biyRR
+   iz/l4jYyi826GrAiGW0zCimDhckuksSKdXGcQlUJN//d+Y9BiWkgUaQgV
+   zaIafSor9ZznlTRH8+w/7F4J/B65TDKNZpffhxYETYir1R88hxnywispV
+   A==;
+X-CSE-ConnectionGUID: FEUajjFKQWGnblCjvwe6UQ==
+X-CSE-MsgGUID: 4sVGRYX/RgiZYwIxPKcagQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2329165"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2329165"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:02:29 -0800
+X-CSE-ConnectionGUID: Y42j3A5eTQ6QKttsrzyCkA==
+X-CSE-MsgGUID: 5M+a3Yp+QLeE0Ajy1Oi1EA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6755557"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 03 Nov 2026 06:02:23 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xOF5g-00000000ioO-0URQ;
+	Tue, 03 Nov 2026 14:02:20 +0000
+Date: Tue, 3 Nov 2026 22:01:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v3 6/7] dmaengine: fsl-edma: support per-channel DT child
+ nodes
+Message-ID: <202611032138.hVbEmkem-lkp@intel.com>
+References: <20261102-edma-iommu-v3-v3-6-9d0e62a954eb@Example.Com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,58 +99,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-edma-iommu-v3-v3-6-9d0e62a954eb@Example.Com>
 
-setup_config() skips every test when there is no kernel build directory
-at $KDIR or /lib/modules/$(uname -r)/build. The test modules are built
-together with the selftests and the scripts load them from
-test_modules/, so nothing needs a build directory at run time. A
-machine running an installed kselftest tree usually has none, and the
-tests are skipped there although the modules were built and installed.
+Hi Peng,
 
-Check for the modules that __load_mod() loads instead, and remove
-has_kdir(), which has no other users.
+kernel test robot noticed the following build errors:
 
-Fixes: 54ee3526796f ("selftests: livepatch: Avoid running the tests if kernel-devel is missing")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- tools/testing/selftests/livepatch/functions.sh | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+[auto build test ERROR on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
 
-diff --git a/tools/testing/selftests/livepatch/functions.sh b/tools/testing/selftests/livepatch/functions.sh
-index 8b26b70f92d8c..14fc9cade4de3 100644
---- a/tools/testing/selftests/livepatch/functions.sh
-+++ b/tools/testing/selftests/livepatch/functions.sh
-@@ -44,16 +44,10 @@ function is_root() {
- 	fi
- }
- 
--# Check if we can compile the modules before loading them
--function has_kdir() {
--	if [ -z "$KDIR" ]; then
--		KDIR="/lib/modules/$(uname -r)/build"
--	fi
--
--	if [ ! -d "$KDIR" ]; then
--		echo "skip all tests: KDIR ($KDIR) not available to compile modules."
--		exit $ksft_skip
--	fi
-+# Check that the test modules were built before loading them
-+function has_test_modules() {
-+	compgen -G "test_modules/*.ko" > /dev/null ||
-+		skip "test modules are not available"
- }
- 
- # die(msg) - game over, man
-@@ -151,7 +145,7 @@ function cleanup() {
- function setup_config() {
- 	is_root
- 	[[ -d "$SYSFS_KLP_DIR" ]] || skip "livepatch is not available"
--	has_kdir
-+	has_test_modules
- 	push_config
- 	set_dynamic_debug
- 	set_ftrace_enabled 1
--- 
-2.53.0
+url:    https://github.com/intel-lab-lkp/linux/commits/Peng-Fan-OSS/dmaengine-fsl-edma-unregister-channels-before-vchan-cleanup/20261102-144955
+base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+patch link:    https://lore.kernel.org/r/20261102-edma-iommu-v3-v3-6-9d0e62a954eb%40Example.Com
+patch subject: [PATCH v3 6/7] dmaengine: fsl-edma: support per-channel DT child nodes
+config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20261103/202611032138.hVbEmkem-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611032138.hVbEmkem-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611032138.hVbEmkem-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   ld: drivers/dma/fsl-edma-main.o: in function `fsl_edma_child_to_chan_id.isra.0':
+>> fsl-edma-main.c:(.text+0xa99): undefined reference to `__udivdi3'
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
