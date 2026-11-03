@@ -1,67 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704647;
-	b=Dn/n0M3P2bUWsQpdtBjU3XbkaebfT0cunZr8MMyJ+jGL1BpFIspkinKRmW0nlyY84Bl/
-	 yMim2pbER+2qhOwslNIVqTvoO151ozIR4YoJ0sTsRIEXQvwiz0ISoH6E8k+osVlDl3Gq4
-	 p4Ltf5XaKd506yIyaeY/njQaz5OvISzLuSSPbpEuVVZQ/2GSRriLcr5DlYzFClQkXtBVx
-	 YJU0RtZVJmbCTx9jiHRDYb5aGG+xK2roPIiuZ7NeaejG3PeqWxeRHt0F9PgkbesyNnEbq
-	 j0tF93QQQF+dawzb+t4mGKVXxpEEBC24ySMSeSEAac4fS0Hyt5CtSY81LvEjT2ldCpg==
+	t=1793704658;
+	b=tY6NrZG4ZqR3bEZYU7K8WOd1duRoNXkAzLH0iFoKzhocGwGV7Zg36LMgabyfEXZUuEUM
+	 e3rECpOVKIcDqEwctohGwevhLYqZYNz/musNNpEn6YMCs5ftLBtwSH+lYdpPossAMePhZ
+	 JqOyRmJxy3H3rvOOxdAEK8BkJBrJ66mmSwbhYvbbi5dSr/TDe+6Ntpk/TcvPsdzXV62sA
+	 IZKZgLpt4LZZ+lOEbT0ad00sgiDqYVoS//wn7q6dIGR2WPl4P2mhC0HUgd176UJxSgno/
+	 Z+EhnVlMhxCtKgV4phc2CdauSCl7/csq66dJaWJzEcPDSTdjNuQTJqHNhbeVAY1gR+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704647;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=qJTrP+kjOqQC+fLtoQKFgh4j2LTr9sgJUcT6kjbQdzI=;
-	b=U5ZpDBgTJEEkFo0WW9ImciScMSZ/Z6Jq17iI0iV8AeKl6oy6gFlDSHBAtKxfYtsZmaQL
-	 WFA/TPxPbtGBtkJtCVAAa+GO8KrcbK8t3jB+8OMwIW84yNfVnwhYLtOFcvrGvqgXUEbFq
-	 OqFrpQJzu3kOCZyPRQ3rJlOMtZT634Jn553ypdy5CsRH7L182krZQXbM2yQsYDJcdN+qU
-	 11g5ltw/2ADpjtgh1xXYJ/AC+ACsLE0sh5bWvoiHry6fPbgtlLAizGu+XPhdDw6olx5wZ
-	 SQdkA2ywaH5E0lQwkQ3FaLUEJur07PVLHOW8F7Z+PQED2S2yJEnQkM+nFyEt2oRoLWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704658;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rO8PyIeQTJjW9jZC3eDavQXhSeNQrxCH5KHGWPFOq/g=;
+	b=QTKmL4n8/yQPKI7fRethXWdI4G7vrVFT3E2i/XK6ikgupIXi96ugei4rMvsmgM6YlJ67
+	 a0jpO2FSYc+a6OIkmSDs0ubwpFTUulfGSB/PcfYQ5e64ue4KJyxWOJQeRgDZ44G4SJPxo
+	 9mg/GaYfGAeyv3KZbjojeykvTtkMcqSsUZ48mahIpfPOrz0ePGWAGlh94GbSm5fCRDj93
+	 3WCC1jkLOT3/RYfYlubL6lhlU1A1mrKUUKiMgzHemYdlpBstAJ0YXqxqSYiMp/iLgRGWS
+	 vMzi5X9DCj5yLvZzaX9H20IQgmb2n+gJX/rvEh5RMe2Z0EGoLcY6rUVxcLr1a3Wwg4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d3kIDosD;
-	arc=none smtp.remote-ip=95.215.58.81
-Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pC00q7jq;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD835606C584
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:17:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD835606C584
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9D3606C5B2
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:17:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F9D3606C5B2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d3kIDosD
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sujENotXY12t9gdwLn9SgJTO4k95J48ndEmhzKrZbdE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793704642; v=1; x=1794309442;
- b=d3kIDosDjMK0YP6UIZGbSsXibt1/Wam3Ebt5E/+pXHZbnw9ay/notpySx4SXGOgBSc+yCpdh
- d+YDCZkslma/tE33PBuOwqFTEYvKlJxLGJQA4D/YIH7tfeoDe6V2wV1vi4Nrq5vjS8cayTAWxHN
- 2agyXBRqUqrKbnaoDl9XeAQg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0b9e4ef34d459c9a;
-	Tue, 03 Nov 2026 11:17:22 +0000
-X-Mizu-Trace-ID: 0b9e4ef34d459c9a
-X-Migadu-Flow: FLOW_OUT
-From: Qingfang Deng <qingfang.deng@linux.dev>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Asim Viladi Oglu Manizada <manizada@pm.me>,
-	Eric Woudstra <ericwouds@gmail.com>,
-	Felix Fietkau <nbd@nbd.name>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v4 1/2] pppoe: pass bound packets directly to generic PPP
-Date: Tue,  3 Nov 2026 19:17:09 +0800
-Message-Id: <20261103111711.28202-1-qingfang.deng@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pC00q7jq
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a070b3f44aso1340445b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:17:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793704657; x=1794309457; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rO8PyIeQTJjW9jZC3eDavQXhSeNQrxCH5KHGWPFOq/g=;
+        b=pC00q7jqqQBbxlVHA5rOT/XIHx7ltpNjFk+cCBir1T0pdSFH28M7qzyByjbn3UDjkD
+         QYtroc+dE6qSS+TgIQx1KpBMUpQ8N2fBm5I3HF17p+Mau2KDVYRlfXI81lMFGUXYu59Z
+         Xn5ASiRkjyc09137mQy1qDtuKMMK1CeufA7R8yVeWObx5WJy57dyIyABIg1PIbX4VXG7
+         jawfmjK8SEx5iKYjoRg3Kv1ydaRnyXNg0XrFoMkxeoNw7+frDKMvg3EYax9tzjAwVsC/
+         UNfZZFzf9SCSbjqY+loz1zg09jWsD2VRXpgfAMwuOPyXc8CeULVPtOpRQcuHseANL7/v
+         t+PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793704657; x=1794309457;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rO8PyIeQTJjW9jZC3eDavQXhSeNQrxCH5KHGWPFOq/g=;
+        b=IlFZkP3rxcE6KpA+1KKgiI2w1R0yf6RUoGYOoNHvVn4QHtyHo6KzM7tJPptt0z1rf2
+         EmwH7qfcRMxRCMeOFS6n9SfKr0aVHq4gU3bcpG5YjYb+s2CtVdI3aQtXs2Z//12V2eU+
+         /qy4u8PqAScZ8qP2O6NyN+Hnv90S6gSjbb8vwCpOo0xTN7enm21/L5KwwLgvQnDRxM/t
+         1IRYADpXDIXtjYtY4NwUwFs48w6ldbdLnx0gXTdWvjRpvDrEzo+f70ecct9iQ1TX2XJ4
+         TGuJOhskLFnLh3n+1h4OcZnpX7yIdJwczdRGR8TqfL81GTK7veB66QLg2nD+pv2LH8FF
+         lAmA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHlUM/pJNT5mGYX11Drn2jIGFI4LFyT9LPMctCjJfoyvR6MBjjP7cHB4GTBqEiqxNA5r9Sq4eakrJpUAA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/bKWo1yHVOEp907W+O6FK+mOhYfbBbqZRYSDGsprvNniRQmIc
+	/4/48nl1twts8arpp+4RWTNrISJDA8VwUtuyhw/o+yeb50uB9kRkkgID
+X-Gm-Gg: AYBFou3Awg+s3JawXHgptVtUIf70/qmnRcqfHUY+2DUpJ06wuKMx751PvaE11M4k0AD
+	hu8r/rLF/H6hdd2NvgqAe0qiup4XUOmuAqzT7y6b/mdy+juZIvpcexO615AMwMrphMvPi2MK0P+
+	+xqNRXzjnK7XRczcKXyW30aHHaren/wuJ0sYUC03r/u+3zYPiXGJtVxlATSvJHqJcIgtdQI7UMI
+	/IczBu4aWF/+XBfwVo7pvIytRbrMf2p35MvRDv6jtOLwVAdv0Ys17dmMOKKzETjFb5JaPzNMEk6
+	U8TVa5VCov0ylJYOp9RQA2245wHZwPjZJcSnAp4UieOD0599Ly0RqlpVqW04I4YwBFCzlc5Wg+V
+	anu+neeOer0sD1Q9JC4oTj+0TCFxn8DEN4199ZQ9YEvsXZeNTc/pCYiFjmyq6CqzM5FgxO/WrMS
+	fjIdJ6C9NmEcXuqJnAdnVx46q+BwVXKoF6gwe2Q/42t38IP/9/KXihF2VCvgjlPyHDswgWcKK65
+	H18Z1kMq1PyMk1KndMqknzakj+aLIL/Hnq7mqzzueB6tSJ0ASbZSG/GPmv97NNguQeQ1vyIN19p
+	k96CorlG2ZNsxuMRsnzhozxMjRjmSF2DjTQhc/LO5CRmqwM2BDjeH9ypCFCjFCYBgf0u
+X-Received: by 2002:a05:6a21:3216:b0:3e2:ad49:b24f with SMTP id adf61e73a8af0-3e928e47524mr11186434637.68.1793704656472;
+        Tue, 03 Nov 2026 03:17:36 -0800 (PST)
+Received: from xiaolei-VMware-Virtual-Platform ([219.142.21.190])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aadaf82a66sm3065147b3a.56.2026.11.03.03.17.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 03:17:36 -0800 (PST)
+From: "Xiaolei Wang (Kaihong)" <xiaoleiwangxiaolei@gmail.com>
+To: sj@kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	error27@gmail.com,
+	xiaoleiwangxiaolei@gmail.com
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>
+Subject: [PATCH] mm/damon/core: reject empty access pattern intervals on scheme commit
+Date: Tue,  3 Nov 2026 18:54:18 +0800
+Message-ID: <20261103105418.362459-1-xiaoleiwangxiaolei@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,114 +108,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Bound PPPoE sockets pass received frames to the generic PPP layer. They
-currently do so through __sk_receive_skb(), which takes the socket BH
-lock and serializes calls to ppp_input().
+DAMOS schemes accept access pattern bounds with min > max (e.g.
+min_sz_region > max_sz_region).  No input path validates the bounds:
+damon_new_scheme() stores the pattern as is, and the sysfs ul_range
+stores are plain kstrtoul().
 
-The lock originally prevented ppp_input() from racing with
-ppp_unregister_channel(). Commit ec4215683e47 ("ppp: defer channel free
-to an RCU grace period to fix pppol2tp RX UAF") now keeps the generic
-PPP channel alive until in-flight RCU readers have completed, so bound
-packets can be passed directly to ppp_input() from pppoe_rcv().
+At runtime __damos_valid_target() evaluates "min <= x <= max" for each
+of the three pattern dimensions.  A reversed interval is an empty set,
+so every region fails the check and the scheme silently never matches
+anything: nr_tried stays zero forever while the kdamond keeps running
+normally.
 
-The direct bound receive path also skips the socket filter check in
-__sk_receive_skb(). This does not affect normal pppd PPPoE operation:
-pppd uses the kernel PPP channel and does not attach a receive filter to
-a socket. Instead, it uses the generic PPP pass and active filters,
-installed through PPPIOCSPASS and PPPIOCSACTIVE, unaffected by this
-change. Set skb->dev to NULL to match __sk_receive_skb()'s other
-behavior.
+With such a reversed interval, damo starts normally (rc=0, kdamond
+state=on), but nr_tried and nr_applied stay zero forever and the target
+RSS does not drop.
 
-Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+The same holds for the watermarks thresholds, which must be monotonic
+(low <= mid <= high).
+
+Validate the access pattern and watermarks at the beginning of
+damos_commit(), through which both new schemes (damo start) and online
+updates (damo tune) pass.
+
+Fixes: 1f366e421c8f ("mm/damon/core: implement DAMON-based Operation Schemes (DAMOS)")
+Cc: stable@vger.kernel.org
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Signed-off-by: Xiaolei Wang (Kaihong) <xiaoleiwangxiaolei@gmail.com>
 ---
-A local receive-path benchmark sends 1492-byte IPv4 packets through
-multiqueue TAP -> PPPoE -> PPP in a 16-vCPU x86-64 QEMU KVM guest.
-The guest runs on 16 E-cores. Senders are pinned to distinct guest CPUs.
-CONFIG_PARAVIRT_SPINLOCKS and CONFIG_X86_NATIVE_CPU are enabled.
-This synchronous TAP receive path does not use GRO.
-The generic PPP receive lock (ppp->rlock) is retained in both
-variants. Median throughput over 12 samples per cell across four
-boots, expressed as IP-layer Gbps:
+ mm/damon/core.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-  Senders       Before       After     Change
-        1        19.08       19.63     +2.89%
-        2        31.52       33.77     +7.15%
-        4        53.67       63.48    +18.28%
-        8        39.79       51.50    +29.42%
-       16        49.40       61.33    +24.15%
-
-Repeating the test with a separate benchmark-only change that removes
-the generic PPP receive lock:
-
-  Senders       Before       After     Change
-        1        19.45       19.89     +2.23%
-        2        33.29       34.92     +4.90%
-        4        61.72       67.01     +8.57%
-        8        44.46      123.76   +178.35%
-       16        54.62      220.48   +303.69%
-
-Eight and sixteen senders perform worse than four whenever at least
-one receive lock remains. With both locks removed, throughput
-rises from 67.01 Gbps with four senders to 123.76 Gbps with eight
-and 220.48 Gbps with sixteen.
-
-A separate matched GRO-off/on test uses threaded TAP NAPI and UDP
-packets with a valid checksum. Senders and NAPI threads share the same
-1/2/4/8/16 guest-CPU sets. UDP GRO forwarding is enabled in both modes;
-only rx-gro changes. Medians use the same sample and boot counts.
-With the generic PPP receive lock retained, in IP-layer Gbps:
-
-                   GRO off                GRO on
-  Senders     Before      After      Before      After
-        1       13.44       13.42       14.35       14.15
-        2       21.11       20.81       25.80       25.26
-        4       42.18       40.89       45.31       44.76
-        8       48.09       59.12       74.96       75.73
-       16       46.84       54.99      142.00      142.27
-
-With the benchmark-only generic PPP receive lock removal:
-
-                   GRO off                GRO on
-  Senders     Before      After      Before      After
-        1       13.47       13.41       14.20       14.32
-        2       20.63       19.86       25.58       25.21
-        4       41.15       40.21       41.91       44.02
-        8       50.61       70.97       76.39       74.38
-       16       48.69      122.52      141.55      142.89
-
-GRO coalesces 3.33-5.07 input packets per PPP receive skb across
-measured samples. Packet and byte counters account for every datagram,
-with zero TAP drops or PPP receive errors. The threaded-NAPI results
-are a separate comparison from the synchronous TAP results above.
-
-GPT Codex assisted in the benchmarks.
----
-v4: repost after net-next is open, and set skb->dev = NULL before input.
-    attach a benchmark with TAP's NAPI path.
-
-v3:
-https://lore.kernel.org/netdev/20261030045943.2093-1-qingfang.deng@linux.dev/
----
- drivers/net/ppp/pppoe.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
-index 67c28ac763ef..5d5187e4976b 100644
---- a/drivers/net/ppp/pppoe.c
-+++ b/drivers/net/ppp/pppoe.c
-@@ -415,6 +415,12 @@ static int pppoe_rcv(struct sk_buff *skb, struct net_device *dev,
- 	if (!po)
- 		goto drop;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index eb1fcdabc007..865627bda240 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -1566,10 +1566,29 @@ static struct damos *damon_nth_scheme(int n, struct damon_ctx *ctx)
+ 	return NULL;
+ }
  
-+	skb->dev = NULL;
++static int damos_validate_scheme(struct damos *s)
++{
++	struct damos_access_pattern *p = &s->pattern;
++	struct damos_watermarks *wmarks = &s->wmarks;
 +
-+	if (likely(po->sk.sk_state & PPPOX_BOUND)) {
-+		ppp_input(&po->chan, skb);
-+		return NET_RX_SUCCESS;
-+	}
- 	return __sk_receive_skb(&po->sk, skb, 0, 1, false);
++	if (p->min_sz_region > p->max_sz_region ||
++	    p->min_nr_accesses > p->max_nr_accesses ||
++	    p->min_age_region > p->max_age_region)
++		return -EINVAL;
++	if (wmarks->metric != DAMOS_WMARK_NONE &&
++	    (wmarks->low > wmarks->mid || wmarks->mid > wmarks->high))
++		return -EINVAL;
++	return 0;
++}
++
+ static int damos_commit(struct damos *dst, struct damos *src)
+ {
+ 	int err;
  
- drop:
++	err = damos_validate_scheme(src);
++	if (err)
++		return err;
++
+ 	dst->pattern = src->pattern;
+ 	dst->action = src->action;
+ 	dst->apply_interval_us = src->apply_interval_us;
 -- 
-2.34.1
+2.53.0
 
