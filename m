@@ -1,54 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695135;
-	b=3aga5iLyBNUcWaRc2VhJ5tqfC+pSOjCBw7eJaY0Uv60yZ3pwxEKjOvIuWV5bf8IsGbDj
-	 U957VDgo/oSK7n+Laf+RTKYx3oIyWurI1roZISmJ2A1+vsCJnXqD60y3KFAVUHuZsE7a6
-	 Hbk6lxjK/A6vPYBH0+uzJNs1U3H0xaKqv0M60It6gR+SmQJW2RuUeN5cMYifESrtfjmif
-	 3C4Z5ABN7ll1jV2796eT4O6CNyOBTb2hdl2evWO+NED3eKe/8TvR364zD+kuQoMc8CpQr
-	 71CnykDHJ1j27r1nh/TEScBmfkYteck8AfIyh6fFNkYAvUWwnl2u3ITsBpexdCFu6fA==
+	t=1793695143;
+	b=3PzppxY56mWTBpWuzNQlmbNrbhyhUbqerIymAzlgyrIzqckQISkE3T+UrgT0SevWOrxk
+	 1NYQZazVxxT/s6peXKshBbkmO0NNCu2TFsr9W/MOGqYb2suUnWZs2KNVG/wquLZzyafvk
+	 D+SdZfxYWvcoSQpJaUF3NmHLyi9gopjS2a9AJng6eWIbo9irojWtnmttE49EqewB6XuH7
+	 u3sHjHKNPd2vXpv2WZ9Hwh6FbBDeKeIdU68rqwbBPEz45GHHscVrzYkGYbYEYF4+vna+x
+	 8flh0xcmMt69ONAjeW2+8Z39c7YPlWi8AgqNEz9NEIuNwIaX/DUULaSe9LVk8pAupYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695135;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qeqwFlyJpg/hyC5+cDpsscxjxixuGz6INW/VspMuWu8=;
-	b=4hA3zK2dy7b5aBVAd4T2nFlDsL67Bl6ahhdhgI1Xw1NO3GIJKZXwR1ZX5BvVi/uYCX6L
-	 pyVArBd8MKMrQOfa+FbB+ATMgfTfb8UQiHHBPFhZyUVm23wgZV1ZcK2cu4mpHs8hQta7s
-	 W5F7D11PpXR8tjKJvXFvvvi/OfvaEoI2acZC0ylpF5nMO4ik1bjtpER78NZAFRi4NUWV2
-	 kb3sgPo7t+dpgiFMMRCHe2Tzat2RoyRs0V3v2kO8ItEyHVo3XQyx5H6/6sZbAWkdAC3Oo
-	 4r040IwF7lA+5cW8TyD/AkJLW3E6T0nMMAmrzhbCIRqMUNGfvPXEM9+LWMcANQ2IIwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695143;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=MRTks+7ld7RMCsMZY4NHpGohDqoSKPsEVE5vKTy4ZGs=;
+	b=JkFwrBjOOCVNlJ2xWHaWWipxzVOZAaCZFfr+dwlz/r5Q03BO2JmSVeKemUlKpOTuGuhg
+	 iaFCdKle07h3UDMHk09D5bY0CR398oNOs4EbFZl7ZaxJTI9p1Mf531BX5J5FQXWHsKTqm
+	 KDAhPzmmyl7nPVz7sNa1+A2PZQ98JHtLigVLm8iXu/boLX+VpprRl8wkkOBUb4veF4gF3
+	 /nuOMrjFqHeYck/sPZ9bx/fNMrWICP9f21zuNNbRpQiI7VToyuQc0y2/mCxuCxq8vIEvI
+	 xM1VCdShATdtaSKXnzBDhf+TGKeRc3KLgXzwj2heNFIttO4KVRILet8Zc9hRiMlCjDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ROPqMjXI;
-	arc=none smtp.remote-ip=91.218.175.122
-Received: from mta0.migadu.com (out-122.mta0.migadu.com [91.218.175.122])
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=FzhtqlhW;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A46606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01A46606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDB6606A33D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:38:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EDB6606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ROPqMjXI
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OSN5qGHgqiHVh7/05xFfowZL4pMsF7I9FTtrXt2Dh7Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793695132; v=1; x=1794299932;
- b=ROPqMjXI5XlPI4j2+AMYhgpbz8V4jO1vsprSWBij54GaljEpun6cdUgvud1esw4g1ip9qwvg
- fsTAQ9gdAlNWK7zqvCd/jneT7dLIbvPehxzOCbiFFcMIHZx1ClxtmYq+gcr3R7jTmQ9V53IVzlH
- yyMf7sjmzypXX+cjR/BV8gP0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c2bade759b0e2b73;
-	Tue, 03 Nov 2026 08:38:51 +0000
-X-Mizu-Trace-ID: c2bade759b0e2b73
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9cabcddf-d807-4a36-84f1-5bb06ea72aac@linux.dev>
-Date: Tue, 3 Nov 2026 16:38:39 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=FzhtqlhW
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so5152085e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:38:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli.us; s=google; t=1793695135; x=1794299935; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MRTks+7ld7RMCsMZY4NHpGohDqoSKPsEVE5vKTy4ZGs=;
+        b=FzhtqlhWaJl8/mR5HSEsoDwcWP7F6hzS6SADauqAQGdfoDE1MyfnX/pMvL8xxXfm6y
+         GIu5T3pkFU7JZwkuiHng+TEYbg3mYN0Dnc4ZcreC9vKEFh1iTWYxTUNtP6YOIxkyb++g
+         pfSfRH1bj01FENErN9h5Es4nug0+yQGK7BzSD7NSZIICk93SgEaHo5iWQO573bppmgy4
+         JGinVjtRi4ZFntVmtNpKEMwWBwNfJl4ufBshlTDs6VNMyRBFna8wYzNCOqkdAsH+unnU
+         WbEmFhkkGduaAnA+odcSRJ4a5quFKvu+hFPS9DojkfnVsZgGsJEFJVYYS19OH/GsH9++
+         ySCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793695135; x=1794299935;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MRTks+7ld7RMCsMZY4NHpGohDqoSKPsEVE5vKTy4ZGs=;
+        b=NRuR9Z2tyU33b76XUVAHv9ZFcIfDEcEbYHFC+QT+RCRGiPzdZ2Bme1v1U+p2pItxxo
+         KxhtSVqMkVdzAvc9VTAClGVYyNYIwRnMRPTEwIQWJiZajMCV4nSyzEk4wevM1m8z/e8U
+         gmWSC2/IjZX7mKpSPRRXCA63TCdhZwXBxm8Fzalvb/PQKUabsPKq/OX/aRTs6UqXNSdz
+         lRaQK1e5S4jWX/EEA9fErETO/D+7AujlnmKK6EcaNWtUxtdQ2tlR5lQq3axB/lzuvdUr
+         Jrsgvk1C8Y3WtDUp/y2cEvs6iC9DDyV6T9uH4iWZRBs+IBDoCfW/4YFR7MqAGpNmATrr
+         X6QQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxUypg5qjdi17ZSPMMXtB5xG1L+fPmmoAd6iExj7RGc5um/KiMuNEIcR+wTaRxriOKaP5aPsOdq5FSTCxE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Xker6KWeo6wruSmdbTnKCjMNV5V6eZhxRvM6b+rNEb0jA8Qil
+	43xRtnCmHrrRTZBUVwTTnpzCxfJrohtlzGDEw+hndqBA2wMG/LjIjkdM8qDXa/D/T2w=
+X-Gm-Gg: AYBFou0BeBYYIZ/43+D2lfrxap9IPsusZdGNhbpBiavl5fPvPrzhDt2fLhSRLdhvkV1
+	Mcy+OMYxmaviMfoPJWQxcUSP/i/KhQA7WvQ9zRPCsfKACwz/ag9ZjCOKg/3UYi/zvocCPKzXFaw
+	ULCaob7wmRIxSjPWIhr8g5I6ZvLBsoJyz9G/F12tM/2fpcu1uf2Dbr0L7Rb9HZrjsIfyEFGHf1K
+	jAzVEUbGf55h9plCIoCnoWt/GOGQtPV9Vfh+sjlnxj7tqBHNQPkAIMMX1iiIAs4f7EnPBdJX2M+
+	qCva6sBvXMDaO+biDNucT1RKyznXX9uACnIJ2YvksAPi3Ym8s6HT7Ykq5Aw0F+ZBpXauoxrg39a
+	YALo9GyIWG84Ni5NMeM6R6DUxo5fvXf7C99G1kUfPns9RMVZLq5elMAhp2ucdeeeBdy72GmTuWU
+	lVvphfRttlMRODmMCNYgKwoCX9WHhSCVdzbYfSxQeGXeYKf+cszYalK/ABIGvCWWgoUNQ8xu9CL
+	wS+dGkhZcZjIASUan6u7CB5x9pseCxZp8jTipkqaqX/mU2SfKm3nyOWcCyFCdREgQv7kQtCIKkW
+	K41yqaOB/f3ZX+uf73aMEgyidw29ThYrLc+f2fjxUTwOEQozOwPwI0hh35U=
+X-Received: by 2002:a05:600c:8116:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4ac17e10724mr285917965e9.16.1793695135152;
+        Tue, 03 Nov 2026 00:38:55 -0800 (PST)
+Received: from localhost ([208.127.45.21])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm432002285e9.1.2026.11.03.00.38.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 00:38:54 -0800 (PST)
+Date: Tue, 3 Nov 2026 09:38:50 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
+	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com, 
+	cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <aumdeBFHvrN5_NgX@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <yq5a7bjajaco.fsf@kernel.org>
+ <atooh7uO2RauUTfY@FV6GYCPJ69>
+ <yq5av76sj10a.fsf@kernel.org>
+ <20261023142038.GE3977851@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,125 +109,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/7] mm/mglru: add tracepoint for inc_max_seq()
-To: Barry Song <baohua@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
- cgroups@vger.kernel.org,
- "open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20261103025610.3738894-1-ridong.chen@linux.dev>
- <20261103025610.3738894-8-ridong.chen@linux.dev>
- <CAGsJ_4xCTSctcPcC7X6Dx4zYaOycaPqs0DG7AaxB55wx1Afwpg@mail.gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <CAGsJ_4xCTSctcPcC7X6Dx4zYaOycaPqs0DG7AaxB55wx1Afwpg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023142038.GE3977851@ziepe.ca>
 
+Fri, Oct 23, 2026 at 04:20:38PM +0200, jgg@ziepe.ca wrote:
+>On Fri, Oct 23, 2026 at 01:34:53PM +0530, Aneesh Kumar K.V wrote:
 
+[..]
 
-On 11/3/2026 2:48 PM, Barry Song wrote:
-> On Tue, Nov 3, 2026 at 10:58 AM Ridong Chen <ridong.chen@linux.dev> wrote:
->>
->> From: Ridong Chen <chenridong@xiaomi.com>
->>
->> Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
->> youngest generation. There is currently no tracepoint on this path, so
->> the moment a new generation is created, and how the min_seq of each type
->> trails behind it, cannot be observed as it happens.
-> 
-> We might be more interested in why aging is triggered rather
-> than the exact moment when max_seq is advanced.
-> 
-> With your patch, we get:
-> 
-> ~ # cat /sys/kernel/tracing/trace | grep mglru_inc_max_seq
->             a.out-93      [001] d..1.   278.276539:
-> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=4 anon_min_seq=2
-> file_min_seq=1 nr_anon={0x0,0xf016,0x12,0x0}
-> nr_file={0x1886,0xb,0x4c,0x0}
->           kswapd0-50      [000] d..1.   278.422400:
-> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=5 anon_min_seq=2
-> file_min_seq=2 nr_anon={0x5,0xccb6,0x3439,0x0}
-> nr_file={0x4ae,0x4f,0x55,0x0}
->           kswapd0-50      [000] d..1.   278.508003:
-> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=6 anon_min_seq=3
-> file_min_seq=4 nr_anon={0xccb6,0x3d29,0x1,0x0}
-> nr_file={0x0,0x59,0x7,0x0}
->           kswapd0-50      [000] d..1.   280.046056:
-> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=7 anon_min_seq=4
-> file_min_seq=5 nr_anon={0x3bf3,0xcbbd,0x23e,0x0}
-> nr_file={0x0,0xb,0x1,0x0}
->           kswapd0-50      [000] d..1.   280.124876:
-> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=8 anon_min_seq=5
-> file_min_seq=6 nr_anon={0xcafd,0x3e31,0x0,0x0}
-> nr_file={0x0,0x5,0x7,0x0}
->             a.out-96      [001] d..1.   290.629014:
-> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=9 anon_min_seq=7
-> file_min_seq=6 nr_anon={0x0,0x10615,0xb,0x0}
-> nr_file={0x331,0xb,0x9a,0x0}
->           kswapd0-50      [000] d..1.   290.653098:
-> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=10 anon_min_seq=7
-> file_min_seq=7 nr_anon={0x15,0xef23,0x18c4,0x0}
-> nr_file={0xb,0xb8,0x55,0x0}
->             a.out-96      [001] d..1.   290.684875:
-> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=11 anon_min_seq=8
-> file_min_seq=9 nr_anon={0xeee3,0x1afb,0x2,0x0}
-> nr_file={0x0,0x76,0x4,0x0}
-> 
-> You can see that the youngest generation is always zero,
-> because you're just getting the newly added youngest
-> generation :-)
-> 
+>> 
+>> ./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 device-get                                                               
+>> # device-get, 1 fragment, generation 0                                                                                      
+>>   device.generation 0            
+>>   device.caps                                                                                                               
+>>     cap.evidence                                                                                                            
+>>       cap.min-challenge-length 0                                                                                            
+>>       cap.max-challenge-length 0                                                                                            
+>>       cap.max-total-output-length 369098752                                                                                 
+>>       cap.evidence-flags evidence-accept
+>>       cap.object                                                                                                            
+>>         cap.blob-class cert-chain                                                                                           
+>>         cap.blob-instance 0                                                                                                 
+>>         cap.format spdm-cert-chain
+>>         cap.representation raw                                                                                              
+>>         cap.representation tcb-digest                                                                                       
+>>         cap.hash-algo 4                                                                                                     
+>>         cap.hash-algo 5          
+>>         cap.hash-algo 6                                                                                                     
+>>         cap.max-length 16777216                                                                                             
+>>   device.info                                                                                                               
+>>     pci.name 0000:02:00.0                       
+>> 
+>> I think we can use evidence-refresh to select the blob-instance for the
+>> desired slot once the CCA specification supports that.
+>
+>Jiri these ctlv outputs are really neat, it would be nice to include
+>some of them in the commit messages so people can get a sense of how
+>this looks without running it?
 
-Hi Barry,
+Okay.
 
-Thank you very much for testing and reviewing.
-
-> This somehow suggests that the information is redundant, as
-> there is always a zero there.
-> 
-> I suspect we'll need an additional tracepoint to show why
-> aging is triggered and at what sc->priority it happens.
-> 
-> But do you know why you trace the moment just after aging
-> is completed, rather than the reason why aging is needed?
-> 
-My original goal was to pair it with mm_mglru_scan_folios, to see how
-the aging window of each memcg moves. The per-generation anon/file
-nr_pages were added following your suggestion on v1. I put it at the
-end of inc_max_seq() because of the restart there, as max_seq and
-min_seq are only final after that.
-
-You make a very good point that the reason for aging is also
-important. So I'd like to discuss which way is better:
-
-1) Keep mm_mglru_inc_max_seq, and add another tracepoint at the aging
-  decision in try_to_shrink_lruvec(), reporting why aging is needed
-  and at what sc->priority.
-
-2) Replace mm_mglru_inc_max_seq with a single tracepoint in
-  try_to_shrink_lruvec(), right before try_to_inc_max_seq(), reporting
-  the reason, sc->priority, swappiness, max_seq/min_seq and the
-  per-generation nr_pages before aging. The youngest generation is
-  not empty at that point, and the new window after aging can still
-  be seen from the following mm_mglru_scan_folios.
-
-Which one do you prefer?
--- 
-Best regards
-Ridong
-
+[..]
