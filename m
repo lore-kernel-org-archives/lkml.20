@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705770;
-	b=EPuBG5i14pCkQ1edAB3WH+n0Kpcid/4WsnroVr2b8B1qK1dcJGzbbWm03r3b5lMNf3ZG
-	 pqeIF647JGTq50eJDPlU0STBKJzH7ZfsR92+TUbJBdp9iQaxGorkIFEAbGYLrouUKuDWT
-	 iX4C8GMSeFoArr6NS/BFWhFjq1uz6xphv3mwjeNqzxvGsfvD9McdecXDb4d4n57oV0dHj
-	 oj5OIZiwt6dXFAonqfH0dSo/uMZ0CJ8K+10/50zlYEMj3sFsr43IuZuUKmn5TM0cHh8lI
-	 1DikHGCNBdjNXD5+e+XpguBopT4OHXH0aIGsJoQ4nLFtK6gDS1iOcw+G9YJHcb832ZQ==
+	t=1793705771;
+	b=4rdsg35I/9Wix+AJTTpdkLYX5w2OL5DmbqySngWg7KNYuonWm/qb0yKElCbBpuRYrfIZ
+	 ssit7mN+2ImS4A7TYm2nb6LAE5UljFVFTxKZDJmT4qFXhw3DuInGOBAqmZP5Pv3e+3/L5
+	 Ig/5HaWuwW+Ar8hKI24BXdxp+kFeUh6eS/CyDRO3bcN+3DjRSLYBZxk9CeIiZ3jVPg7i+
+	 TVmhQlMzkMixKPAVBouPGtc2/rjWN7fmZyaIlewh3ZwOdGRKiQC0Hz8Ndv1hx2p8OTk6e
+	 bfVVUxI1URUbrAd6pzZfdYPf0WgRKPSphZr2I2dRxGwwiSxBBdgDChbD8RPXWTbCQYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705771;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=bpBURpBXm/MMTzlPB/GAVzURYs7DsIf8ymLFXLYmJWs=;
-	b=aaQcIzUIeitwI8dndrkCkD/C2cSha0uyjmlQDx1G0TM7PQOkxYM3vibeXbQFxIrgCiSM
-	 362WKYEvJ6wba4Q6t8MEYYRvcqs09Mm6fc3z/in/JVK5SzkKg+nP9/c6vZVdnI5is6zNc
-	 AZPHxTs0e+K9ybnwW5TuS/A2Y10u2UPrTvcEj/Z2K2bDEX9dwbUZC4bvEslVgQiC1y4OS
-	 5+lPiI/sunFapn+xwKlS/Z2pcxGU0kCd3FVYqWnQgO7/P+bnPuCqcwED5sMGggU0PH89j
-	 Z5pCSHwkwKYqsySM4KbpGmVZZK0jOBOvObPjFkW+Hyj0K+igNTv+mS2Cggwn/jS+8hA==
+	bh=5BT1om7dMxe0+KPFlhkATOyCWnao3HxieIFWLVHi+3I=;
+	b=SsgsONR5F20KJw06BAYonXh4wxXx5Jq+jfQB+tE01s7wWnC07fP21PuVYJ066OwdCt7b
+	 297CIvbPmxvY/QY8q+DsCwMKYTIXd6HO1XuuHufk0erBNWVAck2WGqQB/yWwEjPY2sdA3
+	 c89vf9y+xGfnaMyhgz+bbZZRkNastKtNsW0gXDskr8Ms2vbB2z2c5Ys0xeYPGR0n6OFUQ
+	 kWYn5YmXnfHhHqnaQs5nwUn7BtyiJ6Js4vdB8RVYXRXeJoXIzKH0nxenqlTECncTLbPHe
+	 SRmU2T6EwpAwLMdofkGErPhAZsdyXpPuYqmSxut+RKu7RO7gG2MFe0brgQOOfYx9IuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y0qABuNN;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=BNw4fsXN;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40ABF606D835;
-	Tue,  3 Nov 2026 11:36:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40ABF606D835
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DCA606EE86;
+	Tue,  3 Nov 2026 11:36:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54DCA606EE86
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y0qABuNN
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=BNw4fsXN
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6064A243E;
-	Tue,  3 Nov 2026 12:33:44 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7F2AD27FE;
+	Tue,  3 Nov 2026 12:33:45 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793705625;
-	bh=ujEBSZQxL+jUQzjM8s4pNuw/G+D4yaw4qDjeFkGdZ5U=;
+	s=mail; t=1793705626;
+	bh=lCX97vVaNf2WptwIp7Q2Y19AtPkuKlMbVEBKL5bbL1U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Y0qABuNNa/OdDZu30jGBdZT5YqELt5e2uWDdzAZo3SNPC8ACntrnpmYljQjMul/WW
-	 iFVQyJeP9Bd7f2ISK6e2C0yJ6VE96UJYMXhqFQVZW7LODkVxY59QGSeRFJuflZqUmp
-	 ARsAO25i/TiZCqbHzjVyI7sEf/BT7Ghan+HhIfG0=
+	b=BNw4fsXNZN3+/+uDs7U9f54aBfzd9g2SPlmgtU9oPHLaAdVyYK3i/T3kUsLS894O0
+	 kwhUHJLi8yKsZ7Uj5bbk0UYEUIc382SJTcMuZVFozWColUVaBPR2ZvzBsrIu82Rkrv
+	 dONE1xmhSPBOxpaYBbhCzLbB/h3qTXkeD3C+n/7M=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Tue, 03 Nov 2026 13:34:25 +0200
-Subject: [PATCH v5 05/15] drm/tidss: Remove the unused vp_bus_type feat
+Date: Tue, 03 Nov 2026 13:34:26 +0200
+Subject: [PATCH v5 06/15] drm/tidss: Use the AM625 features for AM62A7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-beagley-ai-display-v5-5-f1c8d0e52bb4@ideasonboard.com>
+Message-Id: <20261103-beagley-ai-display-v5-6-f1c8d0e52bb4@ideasonboard.com>
 References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,115 +73,177 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3488;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5259;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=ujEBSZQxL+jUQzjM8s4pNuw/G+D4yaw4qDjeFkGdZ5U=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccXbGpRddZtjQEcmqyrI3N8nGzVz3S4J4SR9
- ym28x4CHWCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHFwAKCRD6PaqMvJYe
- 9TvzD/9Bym7yo1JAvV1Blee0fp2xAWIO/TWvW06EWr8MVstN9mAPDIDI818ufr/snzsi9duKSHA
- woiRfK6myIgNHODLHllv9UF0Yzx4Rog3ehrj6umzTFzMHZ/1yi4Zd2A1oPwi65pE1NKERk3jPSi
- TfJxbkMwlurGfERPgLU2JNmoq4qvI3An6zDIdH1mVyA9u/S+Zso9ancdAY+4I/aur8MM27lECSl
- mW8imOKFK6CwmitqISKeRdSJzeBap5WFC0+Pd3eYFF2ucOx2t8xPolkll39UT0CVh59Jy43Czq2
- XvXNGGkWshd4ySkV/hUQ/21iZa2ORGoHYPtzBfe/3goZ+RniWCKmg4DUhyGiaTB8TZsAHK+BrCH
- T9Y3cPXHhaZolrK77OTdUiv/ZK51XxMEb0Yrou9d5/Q+xOMGY2UNokdq/iS1RMaap+BKC6rVc6Y
- Ha7YFnYqRYp4Zt6gpvB2CScoZM/wN7rFEbSmBC299+fAabHwxxiUsACOkuD7D7USxJy4b7qRKzp
- kXtwdrQmhzNzXAEJ4vNcnYRoNo3p71Vw6b3CBqn5QBjheSA8hbjxnbp2+GqvA/BHktVEIT8l0C+
- UC+QDkAcehmWXYZsFtFQpPnXqQ8g9HFnKBhmicCJYEvaF592ZORrsTThfRoi5n/jn8d6ophcaTa
- HFoPodLo9c/cmsQ==
+ bh=lCX97vVaNf2WptwIp7Q2Y19AtPkuKlMbVEBKL5bbL1U=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccX2ciXsFVaa3ku/BlYaLVhRR5Ey+tYT1l5W
+ 7qqG/rlbreJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHFwAKCRD6PaqMvJYe
+ 9W/xD/9BL9boxlQmi12B33BPVysIEAP5++92nJI7q/nIq+JZGfESc1NfrWq28x2gLxXNsG43g6d
+ OO7FLyCvOJmwpA0eKmBU0IP9XaQBDsS2I8X1c9s9DH4sh308Wra91PobvAX+Y+jzoMnMWKvCo0l
+ CBdmmymD6zegBVUBhXqg+zGOAtIX8aHXvzPwMnoUxfPMmmgfBIly4R4GbOYcVF4HIQRw9RQmFEv
+ lBskFKJCzF/k0xmEJJxpJ67cI9jzESvikp2giC+SPbQBy+OqB2jkp6S8IGB8ISLl7JgwSX5gl8Q
+ q71Dw8zOPCkw7gRdKwRk1McNzR2LpeW8JKQO33RGEVgUtjhhg5Zdi7Rm35pr2ixA9OI78XCnywm
+ 4RcTIbbdvuzYpZWqmVutVTtgvnMwiz+2XPK2t8MqmJmQ5O9yfFMLNLI47RzSKNRjNE1ys7UkC06
+ +qHYXAFhFE3jvUiFvQBgp5SEpU2SMY0jnaI4cE9UROQ5xv+NlBLa0FVWtX/er/bSkp8uM2GMqOE
+ oAbI+kS2MU86XHvm3lqGapBrVmzq2Mv3T00UktmWFK1HOlMF01QLoySEUnK2qJVH5SlUfTKjmOa
+ 9+uIUcNTPNIWmgFccuD+weKSIkp4RQ/wMGnfeflNKSyDjPplGr0xYnrAQWvSbIu1d05RG2sHvXt
+ M+dYHosDbWlX6Vw==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-Nothing reads the 'vp_bus_type' feat any more, and can be removed.
+With the recent cleanups, the data in dispc_am62a7_feats is identical to
+dispc_am625_feats, except the subrevision, and the only place where we
+have a difference of behavior wrt. the subrevision is in a debug print.
 
-Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+Drop the dispc_am62a7_feats and use dispc_am625_feats for AM62A7. The
+debug print will print a few extra OLDI status bits for AM62A7, which
+are not relevant as AM62A7 doesn't have OLDI, but that is harmless.
+
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c | 9 ---------
- drivers/gpu/drm/tidss/tidss_dispc.h | 9 ---------
- 2 files changed, 18 deletions(-)
+ drivers/gpu/drm/tidss/tidss_dispc.c | 59 -------------------------------------
+ drivers/gpu/drm/tidss/tidss_dispc.h |  2 --
+ drivers/gpu/drm/tidss/tidss_drv.c   |  2 +-
+ 3 files changed, 1 insertion(+), 62 deletions(-)
 
 diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 8c537280faf5..028cf78df3fe 100644
+index 028cf78df3fe..17390f0c3913 100644
 --- a/drivers/gpu/drm/tidss/tidss_dispc.c
 +++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -90,7 +90,6 @@ const struct dispc_features dispc_k2g_feats = {
- 	.vp_name = { "vp1" },
- 	.ovr_name = { "ovr1" },
- 	.vpclk_name =  { "vp1" },
--	.vp_bus_type = { DISPC_VP_DPI },
- 
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-@@ -167,7 +166,6 @@ const struct dispc_features dispc_am65x_feats = {
- 	.vp_name = { "vp1", "vp2" },
- 	.ovr_name = { "ovr1", "ovr2" },
- 	.vpclk_name =  { "vp1", "vp2" },
--	.vp_bus_type = { DISPC_VP_OLDI_AM65X, DISPC_VP_DPI },
- 
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-@@ -262,9 +260,6 @@ const struct dispc_features dispc_j721e_feats = {
- 	.vp_name = { "vp1", "vp2", "vp3", "vp4" },
- 	.ovr_name = { "ovr1", "ovr2", "ovr3", "ovr4" },
- 	.vpclk_name = { "vp1", "vp2", "vp3", "vp4" },
--	/* Currently hard coded VP routing (see dispc_initial_config()) */
--	.vp_bus_type =	{ DISPC_VP_INTERNAL, DISPC_VP_DPI,
--			  DISPC_VP_INTERNAL, DISPC_VP_DPI, },
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
- 			.gamma_size = 1024,
-@@ -328,7 +323,6 @@ const struct dispc_features dispc_am625_feats = {
- 	.vp_name = { "vp1", "vp2" },
- 	.ovr_name = { "ovr1", "ovr2" },
- 	.vpclk_name =  { "vp1", "vp2" },
--	.vp_bus_type = { DISPC_VP_INTERNAL, DISPC_VP_DPI },
- 
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-@@ -384,8 +378,6 @@ const struct dispc_features dispc_am62a7_feats = {
- 	.vp_name = { "vp1", "vp2" },
- 	.ovr_name = { "ovr1", "ovr2" },
- 	.vpclk_name =  { "vp1", "vp2" },
--	/* VP1 of the DSS in AM62A7 SoC is tied off internally */
--	.vp_bus_type = { DISPC_VP_TIED_OFF, DISPC_VP_DPI },
- 
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-@@ -422,7 +414,6 @@ const struct dispc_features dispc_am62l_feats = {
- 	.vp_name = { "vp1" },
- 	.ovr_name = { "ovr1" },
- 	.vpclk_name =  { "vp1" },
--	.vp_bus_type = { DISPC_VP_DPI },
- 
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index 3dff391d3fec..ebaf559d56e5 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -59,14 +59,6 @@ struct dispc_errata {
- 	bool i2000; /* DSS Does Not Support YUV Pixel Data Formats */
+@@ -350,60 +350,6 @@ const struct dispc_features dispc_am625_feats = {
+ 	.vid_order = {1, 0},
  };
  
--enum dispc_vp_bus_type {
--	DISPC_VP_DPI,		/* DPI output */
--	DISPC_VP_OLDI_AM65X,	/* OLDI (LVDS) output for AM65x DSS */
--	DISPC_VP_INTERNAL,	/* SoC internal routing */
--	DISPC_VP_TIED_OFF,	/* Tied off / Unavailable */
--	DISPC_VP_MAX_BUS_TYPE,
+-const struct dispc_features dispc_am62a7_feats = {
+-	.scaling = {
+-		.in_width_max_5tap_rgb = 1280,
+-		.in_width_max_3tap_rgb = 2560,
+-		.in_width_max_5tap_yuv = 2560,
+-		.in_width_max_3tap_yuv = 4096,
+-		.upscale_limit = 16,
+-		.downscale_limit_5tap = 4,
+-		.downscale_limit_3tap = 2,
+-		/*
+-		 * The max supported pixel inc value is 255. The value
+-		 * of pixel inc is calculated like this: 1+(xinc-1)*bpp.
+-		 * The maximum bpp of all formats supported by the HW
+-		 * is 8. So the maximum supported xinc value is 32,
+-		 * because 1+(32-1)*8 < 255 < 1+(33-1)*4.
+-		 */
+-		.xinc_max = 32,
+-	},
+-
+-	.subrev = DISPC_AM62A7,
+-
+-	.common = "common",
+-	.common_regs = tidss_am65x_common_regs,
+-
+-	.num_vps = 2,
+-	.vp_name = { "vp1", "vp2" },
+-	.ovr_name = { "ovr1", "ovr2" },
+-	.vpclk_name =  { "vp1", "vp2" },
+-
+-	.vp_feat = { .color = {
+-			.has_ctm = true,
+-			.gamma_size = 256,
+-			.gamma_type = TIDSS_GAMMA_8BIT,
+-		},
+-	},
+-
+-	.num_vids = 2,
+-
+-	.vid_info = {
+-		{
+-			.name = "vid",
+-			.is_lite = false,
+-			.hw_id = 0,
+-		},
+-		{
+-			.name = "vidl1",
+-			.is_lite = true,
+-			.hw_id = 1,
+-		}
+-	},
+-
+-	.vid_order = {1, 0},
 -};
 -
- enum dispc_dss_subrevision {
+ const struct dispc_features dispc_am62l_feats = {
+ 	.subrev = DISPC_AM62L,
+ 
+@@ -945,7 +891,6 @@ dispc_irq_t dispc_read_and_clear_irqstatus(struct dispc_device *dispc)
+ 	case DISPC_K2G:
+ 		return dispc_k2g_read_and_clear_irqstatus(dispc);
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 	case DISPC_J721E:
+@@ -963,7 +908,6 @@ void dispc_set_irqenable(struct dispc_device *dispc, dispc_irq_t mask)
+ 		dispc_k2g_set_irqenable(dispc, mask);
+ 		break;
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 	case DISPC_J721E:
+@@ -1479,7 +1423,6 @@ void dispc_ovr_set_plane(struct dispc_device *dispc, u32 hw_plane,
+ 					x, y, layer);
+ 		break;
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 		dispc_am65x_ovr_set_plane(dispc, hw_plane, hw_videoport,
+@@ -2384,7 +2327,6 @@ static void dispc_plane_init(struct dispc_device *dispc)
+ 		dispc_k2g_plane_init(dispc);
+ 		break;
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 	case DISPC_J721E:
+@@ -2501,7 +2443,6 @@ static void dispc_vp_write_gamma_table(struct dispc_device *dispc,
+ 		dispc_k2g_vp_write_gamma_table(dispc, hw_videoport);
+ 		break;
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 		dispc_am65x_vp_write_gamma_table(dispc, hw_videoport);
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
+index ebaf559d56e5..d07352f7b2bd 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.h
++++ b/drivers/gpu/drm/tidss/tidss_dispc.h
+@@ -63,7 +63,6 @@ enum dispc_dss_subrevision {
  	DISPC_K2G,
  	DISPC_AM625,
-@@ -87,7 +79,6 @@ struct dispc_features {
- 	const char *vp_name[TIDSS_MAX_PORTS]; /* Should match dt reg names */
- 	const char *ovr_name[TIDSS_MAX_PORTS]; /* Should match dt reg names */
- 	const char *vpclk_name[TIDSS_MAX_PORTS]; /* Should match dt clk names */
--	const enum dispc_vp_bus_type vp_bus_type[TIDSS_MAX_PORTS];
- 	struct tidss_vp_feat vp_feat;
- 	u32 num_vids;
- 	struct dispc_vid_info vid_info[TIDSS_MAX_PLANES];
+ 	DISPC_AM62L,
+-	DISPC_AM62A7,
+ 	DISPC_AM65X,
+ 	DISPC_J721E,
+ };
+@@ -96,7 +95,6 @@ static inline bool dispc_vp_is_am65x_oldi(const struct dispc_features *feat,
+ 
+ extern const struct dispc_features dispc_k2g_feats;
+ extern const struct dispc_features dispc_am625_feats;
+-extern const struct dispc_features dispc_am62a7_feats;
+ extern const struct dispc_features dispc_am62l_feats;
+ extern const struct dispc_features dispc_am65x_feats;
+ extern const struct dispc_features dispc_j721e_feats;
+diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
+index 44b0b009c29a..7e7f2ba6ae82 100644
+--- a/drivers/gpu/drm/tidss/tidss_drv.c
++++ b/drivers/gpu/drm/tidss/tidss_drv.c
+@@ -238,7 +238,7 @@ static void tidss_shutdown(struct platform_device *pdev)
+ static const struct of_device_id tidss_of_table[] = {
+ 	{ .compatible = "ti,k2g-dss", .data = &dispc_k2g_feats, },
+ 	{ .compatible = "ti,am625-dss", .data = &dispc_am625_feats, },
+-	{ .compatible = "ti,am62a7-dss", .data = &dispc_am62a7_feats, },
++	{ .compatible = "ti,am62a7-dss", .data = &dispc_am625_feats, },
+ 	{ .compatible = "ti,am62l-dss", .data = &dispc_am62l_feats, },
+ 	{ .compatible = "ti,am65x-dss", .data = &dispc_am65x_feats, },
+ 	{ .compatible = "ti,j721e-dss", .data = &dispc_j721e_feats, },
 
 -- 
 2.43.0
