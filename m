@@ -1,49 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694521;
-	b=4ep93E4dcqsLaabUTURm/zQej+7u0DsTwfpUnRakeo+Ajy63FHP/T+kskJdoZERUgpb7
-	 oF1Dz2JdyTq9u8ZZx8hmtHou6DwO6eBq3+zgioDGpBkkY9jOezGlCl+VhSKb9YNxuPN7G
-	 0Bh/BSleSKT0gHXYa1RmlW+iy5x3/+tpJ3jwTiD9gdpHTtAFE1/W90mE/AzhFeB06aEUh
-	 VxO/9fAkKLScw4KsONROsJZ31YTD3NWsgCcUfPSfJLwv+5mhQkOY3lngLykhUSBaf54S9
-	 H9fiVg+zGDMHcg0P65d6c7d/FPyEpfKqB1HsAuQg0SQG6ZniPD6wYpPgbQxeGp9PnEA==
+	t=1793694598;
+	b=1fCjHLYWmg9gapwFZGlw0Wa/HExnbjEQkKeTfBTql5tbVO/T7ox6NhL8ESCaUyx4EmrF
+	 Q2fIT1UfC9RFcgkKLzM76Blhxu4hQaMT56aPYytkYl/W/UhUJqZf4gQVW+lJa3WX+t9v8
+	 6SWfnvSHfVcbnYmUlcRHkERKFYzlxe2Awr8lFgeZjHTuYraZIox9SYHO0PCpSlCGYfgF/
+	 sfq4cZxlwqR1o9eM3Z8dqm0zhdiZO/i6X8OWKICoAMva7ILAjusbxbJHiAxP5eL8wd85m
+	 erHVBBqMGMLeWKRQogb4MB1SwXEzigbdVF81pndLmDY0w2bl3fM2psF8pSvSSeg0ZQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694521;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=+r8pnwhMHB5jLX3oATZwY65Zu2eC59JDXV4HC2urFtw=;
-	b=X6D5lib0PCEXdOygkiJq5Cwk2kYxld3WCGXCeq3FbfCKxrpJ+JiK6LOR3UqQ/DcmuUi9
-	 JZk0XH/Hds1RFwS6y8og3YorMTfdj5a0TdACKAgw1et1Qk5iC96E72KeZ495W3SgGam71
-	 Ua38QstzjEdQ2HqSrW2Hp3bRco/SV861lanAa2iI5VUJ9oOBNViqcWfkvVJBYPpM958aP
-	 zRr07mUYnaC0F2yt4dkkBfQvitmW2+5Joha6+f/NcyAaDhmU7haqfDQPgvyijEX2R/GLy
-	 ZghpCydrz/FNn0eIeWDRy3FfMf8QodEi9ZhHGEhEqKW5GRtbhabKj+c0vKTmpe/5V4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694598;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=o3LJ0Hj1WCiPYc9EufOE1mRGFeHL/H8/8bQjlcMAaT0=;
+	b=Sf6gd183/YAojtAK74DWZk73OAImU2p5uievFSHDYTwMdUX2z26UzedRJuGvV9w3/x0x
+	 yD+lbpod9MaywYxINbYVnt+AuQS19ntTr/J/OauxbGwavu+Z6HVz2HbVi5r5t6zMiDNa6
+	 sHhYu9srtQfx0lh/TBDf0q8xHIl1LCMh0sa4+i1ib016CqhteP/i8TczKs//m7OwsWb3c
+	 +ZJTlczK1cRSUAzN62jafz7hQ94vwY48c7ug817IzKabHjqb3uGOBNZHtMThCHMmISvsq
+	 RyT5Y5ThlYPTH/G1jNXogy8F1nFjOUvI40YXZxf+jn9QpedC70VGcXNx3ktpiRaKY/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9Ml+7XL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9D8606A324;
-	Tue,  3 Nov 2026 08:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9Ml+7XL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246291F00919;
-	Tue,  3 Nov 2026 08:28:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694521;
-	bh=+r8pnwhMHB5jLX3oATZwY65Zu2eC59JDXV4HC2urFtw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Q9Ml+7XL7Kuk3GUTX3YwuXtB84wQiQO212b9iapqYfTrZMxSxUD9870E4QjPxde7Z
-	 +VBXPp2BK4psoSYwtPWPFT0lNNU5ZOfRj1/xsEtAJVXdO6Yl1K8ZqHSXE9REXO8T+O
-	 flqv7GTIsCyTzpdfyOaCRz40r5ihfxv0RwZ50H/Dr/CMH0JCUEfazP8VPnRYp3xBm+
-	 uoQqlp/wXSp/ulahJmYjE4RLhwo6Nv06EtnyIcosgU8Tctx76oAEKSpZMiwvj/YQ6b
-	 rMu9iK7DbIvjNFY4qzFi0F6Abd80x9PzgoqsmkT97vq3vp+xz4K82f6T7dEWLq3cO9
-	 HteKyHxjiGzkA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 03 Nov 2026 08:27:46 +0000
-Subject: [PATCH 5/5] mm/khugepaged: drop/reacquire mmap read lock if
- skipped enough VMAs
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B455606A326;
+	Tue,  3 Nov 2026 08:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B455606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1793694602; x=1825230602;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=EHNvnomPYWJp5Iwb8XgCJS4byDJYYpzu7MQG1ZHfDDs=;
+  b=Q0+0hKhMJ71IPRMWt5usbU55EN3FnSg4MHJ7m8IPmmGIXbhTK1CyuhNc
+   o4QIZUROHIzajYkCoyf0fzITrlAtzW98hyGw+hYvMpRD8fIj3T6u8hW20
+   rYjgwRywcoaeJvd9EvNefanp6XWO4gNyVSMbLUFxUeoO5MX6mn7/XEfzR
+   i6WIytGt0G65BtpPAqiW82+O/3CsQlVPjuy6SWwpA5FALMKg0otvooFtH
+   xlFUjZhJPFS2Le1uWHQWclIA9TsYvTywlF7R1dlpBoVezxd5kmOsuHBRC
+   rI4lptoym+FjWqlFuq8miEgAdW1JLnooAAW68+yF2R7A9tDltwZnRzjxB
+   A==;
+X-CSE-ConnectionGUID: mkHVKEemQYKyShKrAcDMuQ==
+X-CSE-MsgGUID: 9ReKZA2BSwGantYAUKCrTw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:29:54 +0200
+X-CSE-ConnectionGUID: yzbgF8sjTtuqhosP4VXsfQ==
+X-CSE-MsgGUID: PhbRgaCpRbupdCDZWfycYA==
+Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.2])
+  by ces03_data.me-corp.lan with SMTP; 03 Nov 2026 10:37:33 +0200
+Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Tue, 03 Nov 2026 10:29:46 +0200
+From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Date: Tue, 03 Nov 2026 10:29:37 +0200
+Subject: [PATCH 1/8] i2c: nomadik: optimize struct layout, change unsigned
+ char into u8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,119 +68,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-khugepaged-latency-fix-v1-5-a07ab16ac860@kernel.org>
-References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
-In-Reply-To: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
-To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Waiman Long <longman@redhat.com>, Suren Baghdasaryan <surenb@google.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Yonghong Song <yonghong.song@linux.dev>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3038; i=ljs@kernel.org;
- h=from:subject:message-id; bh=7szhW9anHqn+tjJY4eGPLfmwS6rN78UkiZRvp6JyL8E=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJezub5E/2p1nzGvw2RC0/PE9vdXPljkpbzJDbPr2eLw
- x1/n/10taOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATWefPyLCsRGvj9/87Q+ON
- +JuWvbHUvszw8+Zn+4x4771vXJxDSiYyMlw0E30iNvGZe2Vzo2Vi4cx5afFFmneO+J/RuPjGyi3
- QigcA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Message-Id: <20261103-i2c-nomadik-fixes-v1-1-655c6af2cb70@mobileye.com>
+References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
+In-Reply-To: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
+To: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ srinidhi kasagar <srinidhi.kasagar@stericsson.com>, 
+ Ben Dooks <ben-linux@fluff.org>, Andrea Gallo <andrea.gallo@stericsson.com>
+Cc: linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+X-Mailer: b4 0.16.0
 
-khugepaged walks an mm's VMAs under the mmap read lock in
-collapse_scan_mm_slot(), checking for ineligible VMAs first, and skipping
-them if encountered.
+Change type of `tft` and `rft` fields of `nmk_i2c_dev` structure from
+`unsigned char` to `u8` and `buffer` field of `i2c_nmk_client` structure
+from `unsigned char *` to `u8 *`.
 
-It charges cc->progress 1 page against the 8 * HPAGE_PMD_NR budget when
-these are encountered, however only checking this budget once an eligible
-PMD-spanning VMA is encountered.
+Put two bool variables `xfer_done` and `has_32b_bus` and two u8 variables
+`tft` and `rft` together in order to reduce struct size wasted for padding.
 
-It can therefore hold the mmap read lock for a long time if there are a
-large number of ineligible VMAs present in an mm, over which time no mmap
-write locks (and thus no VMA write locks) can be acquired.
-
-Address this by dropping + re-acquiring the mmap read lock after
-KHUGEPAGED_MAX_SKIP_BATCH VMAs have been processed. Use the newly
-introduced mmap_read_lock_nosteal() to ensure queued writers take
-precedence when doing so.
-
-This was tested locally with ~1M ineligible VMAs mapped ahead of a
-collapsible region of memory, and resulted in a reduced mmap_lock hold time
-of 170us down from 95ms.
-
-This was also observed to reduce mmap_lock stalls in concurrent threads of
-a similar duration.
-
-KHUGEPAGED_MAX_SKIP_BATCH was derived empirically to a conservative value
-of 1024 VMAs, which should not interfere with mm's that have an ordinary
-number of VMAs.
-
-Local measurements indicated no change for ordinary use cases, so this is
-all upside.
-
-This work came out of investigations into mmap stalls when getting latency
-numbers for an unrelated patch series.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
 ---
- mm/khugepaged.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/i2c/busses/i2c-nomadik.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 216c4b8d28c4..b9c72ee8b421 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -66,6 +66,12 @@ static DEFINE_READ_MOSTLY_HASHTABLE(mm_slots_hash, MM_SLOTS_HASH_BITS);
+diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
+index c3878670da9c..45b4815b0945 100644
+--- a/drivers/i2c/busses/i2c-nomadik.c
++++ b/drivers/i2c/busses/i2c-nomadik.c
+@@ -170,7 +170,7 @@ enum i2c_operating_mode {
+ struct i2c_nmk_client {
+ 	unsigned short		slave_adr;
+ 	unsigned long		count;
+-	unsigned char		*buffer;
++	u8			*buffer;
+ 	unsigned long		xfer_bytes;
+ 	enum i2c_operation	operation;
+ };
+@@ -187,13 +187,13 @@ struct i2c_nmk_client {
+  * @clk_freq: clock frequency for the operation mode
+  * @tft: Tx FIFO Threshold in bytes
+  * @rft: Rx FIFO Threshold in bytes
++ * @xfer_done: xfer done boolean.
++ * @has_32b_bus: controller is on a bus that only supports 32-bit accesses.
+  * @timeout_usecs: Slave response timeout
+  * @sm: speed mode
+  * @stop: stop condition.
+  * @xfer_wq: xfer done wait queue.
+- * @xfer_done: xfer done boolean.
+  * @result: controller propogated result.
+- * @has_32b_bus: controller is on a bus that only supports 32-bit accesses.
+  */
+ struct nmk_i2c_dev {
+ 	struct i2c_vendor_data		*vendor;
+@@ -204,15 +204,15 @@ struct nmk_i2c_dev {
+ 	struct clk			*clk;
+ 	struct i2c_nmk_client		cli;
+ 	u32				clk_freq;
+-	unsigned char			tft;
+-	unsigned char			rft;
++	u8				tft;
++	u8				rft;
++	bool				xfer_done;
++	bool				has_32b_bus;
+ 	u32				timeout_usecs;
+ 	enum i2c_freq_mode		sm;
+ 	int				stop;
+ 	struct wait_queue_head		xfer_wq;
+-	bool				xfer_done;
+ 	int				result;
+-	bool				has_32b_bus;
+ };
  
- static struct kmem_cache *mm_slot_cache __ro_after_init;
- 
-+/*
-+ * The number of VMAs with nothing to scan to walk before dropping and
-+ * reacquiring the mmap_lock to relieve lock contention.
-+ */
-+#define KHUGEPAGED_MAX_SKIP_BATCH 1024
-+
- /**
-  * struct khugepaged_mm_slot - khugepaged information per mm that is being scanned
-  * @slot: hash lookup from mm to mm_slot
-@@ -2910,6 +2916,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 	struct mm_struct *mm;
- 	struct vm_area_struct *vma;
- 	unsigned int progress_prev = cc->progress;
-+	unsigned int skipped = 0;
- 
- 	lockdep_assert_held(&khugepaged_mm_lock);
- 	*result = SCAN_FAIL;
-@@ -2951,6 +2958,14 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 			/* Unable to collapse, skip to the next candidate. */
- 			mm_slot->address = ALIGN(vma->vm_end, HPAGE_PMD_SIZE);
- 			cc->progress++;
-+			if (++skipped >= KHUGEPAGED_MAX_SKIP_BATCH) {
-+				/* Skipped a lot of VMAs, so wait for writers. */
-+				mmap_read_unlock(mm);
-+				cond_resched();
-+				mmap_read_lock_nosteal(mm);
-+				vma_iter_set(&vmi, mm_slot->address);
-+				skipped = 0;
-+			}
- 			continue;
- 		}
- 		hstart = ALIGN(vma->vm_start, HPAGE_PMD_SIZE);
+ /* controller's abort causes */
 
 -- 
-2.56.0
+2.43.0
 
