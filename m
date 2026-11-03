@@ -1,81 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793721965;
-	b=y4JR3ADAMIczkIDGSclOvwAwsHTLRZUGsMxaw1fEO17m6Nq6xDY2gfDM9/Rh7WU13Uqr
-	 fML7iLT8qdgOvhHzA8u5+13gAioldnPy4Jw3L/pnXfbEFboxuCWrL0bqgS3f93WyzAqn5
-	 1oTdxhvvgvnLbtMKkWH3he3VE6kA3Rj6pKnIVrMC+Cb7j0TgkN/vreF3Ya0iZKooiM5LO
-	 QOD3FWNFVDN6+S9PxPe8/TFwQ3m2VQRmPtrRZVOQUpN4bht/JjgkrSM2LnD/XRjnC2LfN
-	 s0Cmpl1XaxhwXolJPprICZtsnMoPtPBMmkoIUhe2qpsiQdDykHL5bKiwD+o11b5gxuA==
+	b=ELGlWhbdwtshtSfLpmKz6ml4yyITVBpNY/jd88lxU49vdFxmBLqmFIgMjSHZTdAkCCtz
+	 g2267+RKu881KG8ZAr5tpg9WUWJoAAZkm9xbB5wln/Q2QC8AMnrqxsCVnlKmKk64aisvA
+	 SSM5zB0ZK4xGBa9tB5bkUDzzdPawQkEjsWaKyRuLm4OdV2UTidz5OTWeXJm5eQ32pNntr
+	 6m3vz5RCKDY61TIyRaMTDUz3yDD2P3BrNWQJauhCqOzBUFsTNtm0wiGySrNJHDyNcCYRe
+	 KQVUoEfNHSFC2LiJ07pWwVSbCeTXQ+DKtOrx/PQUBGn3fnaA4GjWDuwxr1uXvI04CIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793721965;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=RtjWS+Rl15OxWIKAquzxeERLFmCYxpheVr2kTDLFGCs=;
-	b=FVXu2y0ZJM019NEnMjGSEsSRqPT/txAU0TyZCYsiIndW3wCe1bZ+NOzesocaKwm1bMfF
-	 V9bx2GwHuc5F95HkzMXceNQ2BFrZYzfxdaRdMUbOYJA0uiKOwI6Kb6m4NA09eJ2iR4iKl
-	 4CcPZKVQkF127aXoFMFKbIrB3UQGrtYQ8Yw34zaxtBzZhqabaqelbfI6ciO3dPX1N4yxp
-	 iRT87WsJ1oesX8D8dYW2sgJmLGF6nAg/BNcOYkbaGF1QiYncVDFHPXuKYlbg3C4ttTQbM
-	 Pot77DXCSEyMEqqyEI1VIdkxxjo06E81u+48KmYMzcPKOc72PT8uBivU9EX9ATw4D/g==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hSehECxM5OmeuNZLHLBGBNwYZB+YaKpkw0khTkFJZnw=;
+	b=L5mf92irb5G0DHrvS9emgIkjTSjYxuvhj2I+p55C+dxC8x6MkUHih+b//kzOpPE9b7yo
+	 WzScFGxtr2bwvrB9E+lo1EdcNbZ+VbVfHXxfSCufbPzkd5OnMBHOP6SHO/gUtom/ATdjg
+	 okY2zx5Gp4JD/ru1aiGTeOHUbReP1PdzYFFcwnJ3FalY9/PjZLx+DNcRpoJ89nDPQjBZ8
+	 DRAwadwaNhwr9nXKt5avGLpw9sDxXgd0dHRAwwCvcrhbC6p8VJOOfcGOzni+vnGYqaBi9
+	 G90WBkAAxwh6XyS1bYmLG8aW2i+056mjewa4rHR+0s3QBrT4EMltFNw0Mus8gRGyV4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aFU1gZ0q;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jB6ot0V8;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC938606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:06:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC938606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CDF606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:06:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62CDF606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aFU1gZ0q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793721963; x=1825257963;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Q9SURTZ81MiAnKBH+kKXsgn9FP0ZpGgJ1Ua+t993uDM=;
-  b=aFU1gZ0qsXHiiccI2PXI42geHCkKLsJRTzWIiovR4Dro9mL0Fdlwc03d
-   h46MTTmJNfWuaGkDXybAEamoRHwnSf8bCic+GIRph4JTIO4JFHOebHA1b
-   xemp2oQEVdizudmPGplMxO0jWEhyMeIn6O3tLvH9Hhz74p/YHDgS4R9RR
-   ycI4JJ6HvcptElHHCzrLxFwwER0PTakGOblEUg51CX6g4mlzKknHorOkp
-   N+NaJiPP0qTfeS4Oib65kBSGYb3wx022HicBhJWOBRae6Iv0RwHd/anpR
-   AC+TScWFdqHUTukT753N7uDDnAi/JeJwSu86xqvcj3s6hBKHNUc1ghHzp
-   A==;
-X-CSE-ConnectionGUID: sTg2XxO9T8mpf6+M686lfw==
-X-CSE-MsgGUID: 8tXagp61Rx+MUuuH4gk/yg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2362000"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2362000"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:06:03 -0800
-X-CSE-ConnectionGUID: HtgbmJs7QSujkf9Xu7ssGQ==
-X-CSE-MsgGUID: ORJ8voURRfq4ObwiFyuizw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6468510"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 03 Nov 2026 08:06:00 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOH1J-00000000iwJ-24Wz;
-	Tue, 03 Nov 2026 16:05:57 +0000
-Date: Wed, 4 Nov 2026 00:05:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
-	jassisinghbrar@gmail.com, michal.simek@amd.com, tanmay.shah@amd.com,
-	saeed.nowshadi@amd.com, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, ssengar@linux.microsoft.com,
-	tgopinath@linux.microsoft.com, srivatsa@csail.mit.edu
-Cc: oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH 1/2] mailbox: zynqmp-ipi: Fix CPU hotplug state cleanup
-Message-ID: <202611032308.xkvLFqmo-lkp@intel.com>
-References: <20261103062051.676519-1-ptsm@linux.microsoft.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jB6ot0V8
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-14fc585291cso3460209c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:06:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793721964; x=1794326764; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hSehECxM5OmeuNZLHLBGBNwYZB+YaKpkw0khTkFJZnw=;
+        b=jB6ot0V8stA9Z77PzXtFcwerR4qPDCNUa5RCM533Y3uc2rwm2WcNuVZAD9b4DMcnyn
+         7flcyKdTf9XXT4ChwLdFTNvaHd5ldHlYaoolloUG1BZd3PPSeoCB4yiZtW1vUInkcZx8
+         of5CijR3HY/CiDJpos2HDAjOAMnmULzKadjJgdAC7RKVHtPY+HM3ZZryvtHdWNmxy98V
+         bIgFsFNUEGy6ETRoAu3vebJMCI/cb0xq97gKWbIGSBpRQVAAPSLt4rHWnj4qz57vu85Z
+         /4EaOsNU2OI7wl9u8SXR0GIZak2dajErVGmn5cvn3WYuw2x667PfAdBqu8/K2GmON8hQ
+         dSQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793721964; x=1794326764;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hSehECxM5OmeuNZLHLBGBNwYZB+YaKpkw0khTkFJZnw=;
+        b=lVw8g2gRFuIuSk8weUO3v9ZpGSuaR/aeg1GpZzDLpgZmq7I7qUwy3tRNvjbZ9VaDPg
+         45SgsWs4+JP/tV7YQWMQhduxhGcoJ0BjgylNmsqSZMwP7l7YaE5CuJvzZMND9cjnbs8W
+         VTBskfDAV1sWjUgp6kdKvxeA2w1IffPkjt5CsuQRaMBEPgTAFK/5xMZ3PFkzL/z+jzUm
+         6opY/XS9wOYJBEiGrf07ek2FojPYA6Fg/IaaI73Dkaov25m/JID8muQ7VoiuBFUa/jJ9
+         pfhHYhkIY3dMW3w0Iz1d1ByRcm1vc7Ve0tEgYKQgSQmkh+dMt4+D9XzfFs838o1F9zxu
+         u5Kg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfg3w78nBBv4CUjZ7yDeD5/3wfQ0JF0BJmNt/6S2Uq9ro99jAJiLEyjKJNHlaaBwjdm2NqoxTic+2I37g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Zrojif5mrFJgzBExW5N9ITME69NKaq/Oi121wv7nnWirBrcIz
+	cmbM14l4l0kk8/Y8CUtwCgiBL2pt/EfKhCPwS0qET2IGuqNAHWhuNtw=
+X-Gm-Gg: AYBFou3gDaJTuuRYMRMgxf7AGPX+5zQMeT837tDE04aomt8+EC9LN06bLgmWhfTQrsK
+	lzkLIznM0IcbjcLZQ7UudMsWQdTumkGaKoyYIRqg0E5eCPDshBKV38VF8Xr+KIoWOVKGjqZ448H
+	35ZFgQi2ANf/gzmGi4eGBYL6sjvdLvH69mFiviR8cXXEJzOGkR2NU57GuisZVXNze6Fs6TGMcWT
+	XNmOJhjAstWz5Lzut+iHahrMhbYLYfHyhbk9WmY+rl8m3sH1tOze6biKMcDs8y02IBSmm7vNzyT
+	omrOw38ANzKRbp3TZ+9JTFClm4UeAC1cKCLxCCIOEl/TLaDfUTRvCbhzYu1qiN2X0yiheQPx7Bb
+	DK/vKZ8t1Sl6antcBGyRB2i4YYevFVE7EQvuX0jLLU+BScMxDycDNKSnbJiCMVkVoXg/pUDD6w2
+	b9sjHRDYyqJ8gf7tmdsKj4DiKYxRaR6FBUQu7FxcpOuwrrKdh+C/8ScIZnqAl3WhDSEMRm9O4aR
+	KArYvmq9xL4zPfT2Pg9wglQfQWzQbWjlwUcAwJt3cguvtN9dJ8+Ahc8RVC5uTUfffjf7mvGPYSt
+	r+lT2X1/DBCvekUejpypyoQ+nzP6eMcgASJMU2KmXaaWIx5JWTuFYT+u5sSwug==
+X-Received: by 2002:a05:7022:f20b:b0:136:c443:80e5 with SMTP id a92af1059eb24-1ac56d94b0amr21085882c88.6.1793721963966;
+        Tue, 03 Nov 2026 08:06:03 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([27.60.19.149])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1aed79b3dfcsm47910609c88.12.2026.11.03.08.05.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 08:06:03 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: alexdeucher@gmail.com
+Cc: airlied@gmail.com,
+	alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	atharvatiwarilinuxdev@gmail.com,
+	christian.koenig@amd.com,
+	dev@deq.rocks,
+	dri-devel@lists.freedesktop.org,
+	ed@aicharmers.com,
+	kenneth.feng@amd.com,
+	linux-kernel@vger.kernel.org,
+	simona@ffwll.ch
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+Date: Tue,  3 Nov 2026 11:05:53 -0500
+Message-ID: <20261103160553.1431-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
+References: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,38 +106,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103062051.676519-1-ptsm@linux.microsoft.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Prasanna,
+> I forgot to remove the pptable check.  Can you try a simplified
+> version of the patch?  I think all you need to do is delay the UCLK
+> DPM enablement until late_init.  Something like the attached patch.
+> 
+> Alex
 
-kernel test robot noticed the following build warnings:
+Also, i've tested this patch with the 5K patch, the UCLK then just never
+gets initialized, so this patch is literally incompatible with 5K.
 
-[auto build test WARNING on jassibrar-mailbox/for-next]
-[also build test WARNING on linus/master xilinx-xlnx/master v7.3 next-20261030]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+And also if ur wondering, what patch am i talking about you can see it here:
+https://github.com/t2linux/linux-t2-patches/blob/main/7003-amdgpu-add-support-for-5K.patch
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Prasanna-Kumar-T-S-M/soc-xilinx-Fix-event-manager-CPU-hotplug-state-cleanup/20261102-223515
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/jassibrar/mailbox.git for-next
-patch link:    https://lore.kernel.org/r/20261103062051.676519-1-ptsm%40linux.microsoft.com
-patch subject: [PATCH 1/2] mailbox: zynqmp-ipi: Fix CPU hotplug state cleanup
-config: arm64-defconfig (https://download.01.org/0day-ci/archive/20261103/202611032308.xkvLFqmo-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611032308.xkvLFqmo-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611032308.xkvLFqmo-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> Warning: drivers/mailbox/zynqmp-ipi-mailbox.c:141 struct member 'hp_state' not described in 'zynqmp_ipi_pdata'
->> Warning: drivers/mailbox/zynqmp-ipi-mailbox.c:141 struct member 'hp_state' not described in 'zynqmp_ipi_pdata'
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I still need to make combine patch (otherwise bad tearing in gnome/mutter), and i need to
+enable 5K in EFI aswell to remove the shitty quirk to initialize display eariler than smu,
+And make it usable with simpledrm.
