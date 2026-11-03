@@ -1,104 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691380;
-	b=bt0+r9/a3auKf12qy+NaZEAANpFLllSuOqWlGZwFKVehqF7OuHLj/KdnDw0I6MHg2g9X
-	 IiSjJppetNRhoKBDX0HPvhGGInStVMNdOjTV7diSwLhlB58NBhlYeT6CWe1EcQWGzhFYE
-	 F/QoyAeyCQZQlKiJR5NsDB97JOIe+SwxgV5A/WuFm0yCrfNTieqFlTuIGItNlD3oSyY2k
-	 rSTCgw2SZXx+CwBwS4gnawlUujzJxwNZ89/pY9hVw0GQi7hZkrfyRmnuWpgTDb2ri3X/3
-	 J1Sj+XR6E0du8PfXr+DaGS2VJ28h1nPTGwu+zHlMotPInbhkRKUogSTHppoyHtQOMIA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691380;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=DSC6JjlgRMyo/flGSFSpmhDsonj3okaZacamCAF3ma8=;
-	b=U8vzmIJfaADnyS53WvAM/q4RMWquWQgVWiOuvrZ1e4yDTDxP9/1TJhiy1zaZJC8MQ1Yd
-	 I49Aadcmb5EuU/Gkg4sYG595qqsHnqwWcRzNuIjbIvt/rjrIuPmLdjrO5rdSyekbuoVvt
-	 eHe+EOwYo5tatrrZE21YvZ/lgE5ihPj6FZAwsn/mAVTZx+Dv1k+G6i4NRxe3huOSkV0qn
-	 /ZTALW+dxX7a9fu9860OvvHqAyEhhtSeQEv+NCg5PLqFSIrXefJcMGeO6892n3JNCKKCV
-	 zBIqZE9rFsda3g1C3sfdz3Ck6zHUSSBZTcd7jN3FtNPoTMEYv1/D+F+uYNqJTLHncYA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=teQKTgiT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=x+CSolNF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="dByO6/K1";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SwYirdYi;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793691461;
+	b=Tyjpg0pF7EdXKXxyHTP9fNVA3QOavbfIn/SzASYb9Yh9H4Pwynvm0viA/5lzYOKLax8N
+	 baWbwjmPbv/5tkhh3uCgLYwVdPQphPnxM0fxcip4xlmA+isAMktlWVRgZVKtVhvRhgtjV
+	 PQoE97J1zW3j3edlx2REnobDJNv3msqmY/6qsE3ZmQg7iqPgCb5+9hwI5tmMpEeCBPYLl
+	 KoXPBPMAYHFoVwb6GexFZZy8kSe84io+heIvzSgEFcElQlEOtbl6mhP2p66KBA6kN1Nlm
+	 c62Fxm3RAyotl/si+xaetZC1xvk7aANn5UCafHRz77JI4fhQ7CZwWhCRZKKxnklDe/Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691461;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=85i27vNHcmh26GGO34/PDAduUVAyw2KWb9PQhHoG2mE=;
+	b=UO1q3R/2MwUMAp6H3rHrvjc2I/nzYm+aZJuWcp83wlLxQ2IFthZfR+RNjnwdwAD14jdJ
+	 EP2zOs/WJ5hyaGfoBXITBlHNyjQbdS0jLnWZHWqxG6B6uKGSi7hI9Yb9kL7agaRwtlz2v
+	 bhB/qv6kU+Nm8AF8gX7gNwOdtaGTNV1ZgFxt5zd6ULaMRdu1SOV/kgCBsx7+gocaWn9L3
+	 osWCclXZA76HE8jUSCGR7yHAd2nslZRV8ux2j2l+p3AJ0DWNjRekQFfLSiHxx/lcMx++1
+	 6hrKMyiGvPauAVJ5me8RtZxQzo5CdwzLrvVRfuyD+KxGgk+tspcXTyqSoOltJYAfaSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=dnggIaTJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D844A606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:36:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D844A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3086606A324;
+	Tue,  3 Nov 2026 07:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3086606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=teQKTgiT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=x+CSolNF;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dByO6/K1;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SwYirdYi
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5F79F1F7BC;
-	Tue,  3 Nov 2026 07:36:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793691378; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=dnggIaTJ
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BB6E2200B28;
+	Tue, 03 Nov 2026 08:37:37 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793691457;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DSC6JjlgRMyo/flGSFSpmhDsonj3okaZacamCAF3ma8=;
-	b=teQKTgiTXVz61sihesxNmCZOs1cENatcBQ5FMYX5VjeB90SyWRq5rz8wJWWh6KJxoVWZ+X
-	cMdGhjqjhAjWhCt1ITqcQjaOTXH0xWYply3dr+nkDJmF/s2Tf//bypA3ujj/+u5QbfSJ5t
-	lHj2iaSRP37c07AAu11Rg6rQSQ0LwjY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793691378;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	bh=85i27vNHcmh26GGO34/PDAduUVAyw2KWb9PQhHoG2mE=;
+	b=dnggIaTJ0kBUxE+Wt/mjxk5/+E1bTENcxd/AVZztDM5hSxVKa8gjQTJiVKqVBqNPYt6cyz
+	9MW9XlpZvPd9/hD2xGbRPhvuRgLneq/PxR+QRdmX36GWo4cHaX2/Lc4Uoaf5KD/js2XY6D
+	Y+raiiGmJluHnUdvP5rFHB54M412wkYgU2XEjPEPetziimkULZ1WHGyUxQk/s8IIW38N3I
+	RuBb1NRmuoPlSPsd0NMx7xp6d+WEiEP+0ifcySuBBdgC8QL/428VLVx0Delq6QfD99iln8
+	qZIk5aHYdVsPoXNLHeapEr34wKypdXVkyrczxSiurfJd1HHTPLtoAEBh/bdj+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793691457;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DSC6JjlgRMyo/flGSFSpmhDsonj3okaZacamCAF3ma8=;
-	b=x+CSolNFu7YNyZ3iA2/so7RF/wQLGFbl6tcQRLzdV3ClLoQIxMN8w0lNyGoVOTAZQKVNEW
-	V6Pg6vApCNxOtMAA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="dByO6/K1";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=SwYirdYi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793691377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DSC6JjlgRMyo/flGSFSpmhDsonj3okaZacamCAF3ma8=;
-	b=dByO6/K1piXRRs/K1SYRLJMeaYQ1oEfu4iz6kvQWK30dDamwDEEWfEL11G2pvZ0MM5nsVD
-	sGy7C9q0HyvzuE2jEzEeO/R8d2HQZXkGGpEThUNhuVF6YPn9uEilcjh4a4XX+CC9HBbqLy
-	Ml/2uGHhXcLj1LMMDXhwoxzHQ9YzM4Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793691377;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DSC6JjlgRMyo/flGSFSpmhDsonj3okaZacamCAF3ma8=;
-	b=SwYirdYio71KEO5Iy3jUVyc5mHPZ375bbcxcNN8+JaQbMtOg+oSgh8uKmjIm+CHoo6HCh7
-	UWU2zsuvCwjyAtDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 04A4C134B8;
-	Tue,  3 Nov 2026 07:36:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hcbaLvCO6WqJUwAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 03 Nov 2026 07:36:16 +0000
-Message-ID: <5deeca7b-8891-42b4-bcff-e8cc566409bb@suse.de>
-Date: Tue, 3 Nov 2026 08:36:16 +0100
+	bh=85i27vNHcmh26GGO34/PDAduUVAyw2KWb9PQhHoG2mE=;
+	b=KUF2GQ/GVTK8m/WieoQ0K1gOVitj4vqqucB8jBrNzzXHnBoXO4xf7HBQS4ZA2D4TJCHh8i
+	JGjhZfO5wOmK3XaGmXjxcZEMB0oFhG5EAfICmFvcvV2AnuToRdf9BlVaX/MPiG5C/7E+Ce
+	p1L3//ZxkvKULetehfM3Td8pXAlC0uYRD/0Q40nlK1jMjMXsCjH0Ddw7+htqtwrFg/LF3Y
+	7TI15jH3aogkcKXZ0jQ++eGP3gbbaORmhoDpr7SvGHQHFHwQ9p481pPh8Kk43hissGcavq
+	N4qy3mjSbwn8vQA6ElzF4ZqVGXjj4xd3vh6fZqxym2LxQs5xBV4pG5knLDhn6A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793691457; a=rsa-sha256;
+	cv=none;
+	b=Pc8IkTKUKWSPJMguNT13h5HSSsDD1AvPjYfGZ70oCF771cg6/lcOqGeZiH3WaHHe83+g4s
+	eQ/5rRz+Ndl8SPqh2H7A8vfCTwdRvjPANiJ6A7TG6bap1o4dh9o/YZGWKUfismrJY5guaM
+	yp7IPWx1pKa62hljX1iLskexLROwGNPhTDRdMqbll0OUAxyRoJ0z9izoj2auxBaXau4lya
+	Y9F/CTiO0KbC50o9iqHrjgNSBZkq/hJA4F/y8ievtAdLT4I9jr4B1uJdDthmc0QTn8sUib
+	r8/ucTgL1cZ1b3Ftxcb+MOJUdvor7RB5K/uKHCTE/2LCu65PICJkOVx4XF4Sww==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xO95N-002Pt0-28;
+	Tue, 03 Nov 2026 08:37:37 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xO95N-00000008nLW-2Ilh;
+	Tue, 03 Nov 2026 08:37:37 +0100
+Date: Tue, 3 Nov 2026 08:37:37 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Stefano Munari <stefanomunari.sm@gmail.com>
+Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: usb: lan78xx: resume phylink on non-reset USB
+ resume
+Message-ID: <aumPQeI3lInBvbNT@pengutronix.de>
+References: <20261102235133.23011-1-stefanomunari.sm@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,112 +105,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmet: use appropriate types for authentication payload
- lengths
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>, hch@lst.de,
- sagi@grimberg.me, kch@nvidia.com
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261031075932.4345-1-sreekuttan2156239@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261031075932.4345-1-sreekuttan2156239@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 5F79F1F7BC
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_TO(0.00)[gmail.com,lst.de,grimberg.me,nvidia.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email]
-X-Spam-Score: -13.50
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261102235133.23011-1-stefanomunari.sm@gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-On 10/31/26 8:59 AM, Sreeraj S Kurup wrote:
-> The authentication payload length is obtained as a u32 value from the
-> NVMe command, but nvmet_auth_challenge() and nvmet_auth_success1()
-> accept it as a signed int.
-> 
-> Use u32 for the payload length parameters in both functions to keep
-> their types consistent with the value returned by
-> nvmet_auth_receive_data_len() and avoid an unnecessary conversion
-> from unsigned to signed.
-> 
-> Also, use size_t for data_size in nvmet_auth_challenge(), since the
-> calculation includes sizeof(), which returns size_t. This avoids
-> implicitly narrowing the calculated payload size to int.
-> 
-> These changes make the payload length handling consistent with the
-> underlying types and avoid potential signedness and narrowing issues.
-> 
-> Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-> ---
->   drivers/nvme/target/fabrics-cmd-auth.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-> index 70136f6c22e8..99caad6fb87f 100644
-> --- a/drivers/nvme/target/fabrics-cmd-auth.c
-> +++ b/drivers/nvme/target/fabrics-cmd-auth.c
-> @@ -448,13 +448,13 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
->   	nvmet_req_complete(req, status);
->   }
->   
-> -static int nvmet_auth_challenge(struct nvmet_req *req, void *d, int al)
-> +static int nvmet_auth_challenge(struct nvmet_req *req, void *d, u32 al)
->   {
->   	struct nvmf_auth_dhchap_challenge_data *data = d;
->   	struct nvmet_ctrl *ctrl = req->sq->ctrl;
->   	int ret = 0;
->   	int hash_len = nvme_auth_hmac_hash_len(ctrl->shash_id);
-> -	int data_size = sizeof(*data) + hash_len;
-> +	size_t data_size = sizeof(*data) + hash_len;
->   
->   	if (ctrl->dh_tfm)
->   		data_size += ctrl->dh_keysize;
-> @@ -488,7 +488,7 @@ static int nvmet_auth_challenge(struct nvmet_req *req, void *d, int al)
->   	return ret;
->   }
->   
-> -static int nvmet_auth_success1(struct nvmet_req *req, void *d, int al)
-> +static int nvmet_auth_success1(struct nvmet_req *req, void *d, u32 al)
->   {
->   	struct nvmf_auth_dhchap_success1_data *data = d;
->   	struct nvmet_ctrl *ctrl = req->sq->ctrl;
+Hi Stefano,
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+On Tue, Nov 03, 2026 at 12:51:33AM +0100, Stefano Munari wrote:
+> lan78xx_suspend() calls phylink_suspend(dev->phylink, false) on an open
+> interface, which always stops phylink and halts the PHY. The matching
+> phylink_resume() is only called from lan78xx_reset_resume().
+> When the USB device stays powered across system sleep (e.g. s2idle) and
+> the USB core calls .resume instead, the link stays down until the interface
+> is brought down and up by hand. The ifdown triggers:
+> 
+>   WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0x44/0xc8
+>   called from state HALTED
+> 
+> Move phylink_resume() to the end of lan78xx_resume(), which both resume
+> paths go through, and call it only if the resume succeeded and the
+> interface was open, mirroring lan78xx_suspend(). As a side effect,
+> lan78xx_reset_resume() no longer starts phylink on a closed interface.
+> 
+> Tested on a Raspberry Pi 3B+ (LAN7515) with s2idle: the link now comes
+> back up on its own after resume and ifdown no longer warns.
+> 
+> Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
+> Signed-off-by: Stefano Munari <stefanomunari.sm@gmail.com>
 
-Cheers,
+Partially tested on net-next (4dd16e31135e) with a LAN7850 on an
+i.MX8MP. The USB host is reinitialized across s2idle here, so only
+.reset_resume is used. With the interface closed, s2idle resume no
+longer shows "multicast write failed -EACCES" and the WARNING at
+phy.c:1352 in _phy_state_machine() (4/4 without, 0/4 with this patch).
+An open interface still comes back after resume. The plain .resume
+path, which is the main case of this patch, is not tested.
 
-Hannes
+Tested-by: Oleksij Rempel <o.rempel@pengutronix.de>
+
+Thank you!
+
+Best Regards,
+Oleksij
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
