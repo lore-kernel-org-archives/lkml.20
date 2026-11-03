@@ -1,78 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729960;
-	b=XvaX/62WPog+mjeinBiatmzFp/3dP1Cm8uLTcJQ+uFiZZ3eQ1M6/f+enY3lnqu5Gt62P
-	 fn5c9PFG5h544FeteEkQyTUtuixu0zp9IeW91Ouqi7Qt/KbQGrQcDYVTOUw1YKdDlX+EV
-	 ZmMAdseHkL90WMsyTgZ0AO5AmWHvPceGVMv/cXX8L2k+BNn3GbQ8G3sOpw2VbdIzCVvyr
-	 zK7EoKLhiEPztPLQdFniSNuUU/G+ekkwCMHzXCt1+ucSFfxeSSZybgVxHtFY/aQKjVjyU
-	 QQoVD6FvaL/XQUV2jUCgxvm1d028GTjb03DCAhS/mecwk3YKAluvCSH8YyjsiwXSwIQ==
+	t=1793729968;
+	b=GDraxKsWUMv4WQodQAdCzGF4OTwKkLoxI0KMQa9axjyFE38EVKUXi32KN616iOVoVXPT
+	 WUjMdm2mJNmjag9mL0Ndxvo1SS8SD8j9PF7bsIM6QYABLT59E2Fx+mc2UaDg5S/a9QBLX
+	 NTazvuThyZSd/9tc/BHFlapRrORxXjLxdtLxyWC+OZWJguSQMoY+Cs5v8/ZJb1T8Qnhfh
+	 Ne36jXWcROJBuZRypEBe20iZC531wB9FvaEJttJna6rv/xaeLIKB4wPyID+TaiLK5guX3
+	 PWTPx7gesce+OnL3QEo13meq11R5RstSosKL2jaEn5iZGuLF9dwdAlHp3wUIPgTEyyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729960;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=a6e33FUXB/GBiDw4+lwPznAxPC7ALaJyHv7KaCKbPmk=;
-	b=MqlsYx/9iXV+BcMXLTSWxiGakiRs3Dsfd+2Rbv5ZjMjhTyxX20+RaFCWX1ob0t08bJTf
-	 fYejtLJ1iqlnkRt3BN4Q5oHJ/uJrJC6KR5EPckcFYi61VtI3St026emZrsAxIEshx8lUp
-	 OxV0ggBdU9YQ73JZN8iV6WsZwUNJOE9ol7Fa7xiR8nmMUNGFPak6Os5zhZi34CWPx9EmH
-	 AvvZv4CIRFlsh27JgS4EfbIeqXyQt7kR7bRAlghOjDuefYLrjffLO0JIkFxBcvXBpiSrN
-	 BTzSfOHT130YW9iotfMarb6YAc/qLaYc0pgHS545qp/LxxkjiYD7n97E5FQHR8IDQWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729968;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=311d7n2dqnSPEAnLl6q87tl5I8DFqOkQSr5KKtyq8g8=;
+	b=mLgLo1WaHwYuATU1pAOFe+LJZ0NGKUtd5i5b0E7T6E0LawVkM7Yw8VrN0F/Joo/VdVgd
+	 XoP4HcBKdxLoBo9a8YbRxrsVv4y6WYvMbczi+yIS3XCvDCgWun28FJY3R1mj81tVipcVJ
+	 0P73CVI0Q0UQsICAVlgzLyrtG5c54oc3fVB3sDbymXG926yWgsn5B8nRIdbgRGJocBQSx
+	 1fsSaic/yftEX0cdz2hgOsmnbxScXptsXfKL1Yz/o4Xf12q7fJ7qTAbuf+9CIu934XXWt
+	 nrU3fNpxwx0C2kMJiqvZVh6Q9oY14aMA+xjJUqOs6bH9Vp6t3TCxcGC1flxDGy+SzvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PK6AizbL;
-	arc=none smtp.remote-ip=91.218.175.195
-Received: from mta0.migadu.com (out-195.mta0.migadu.com [91.218.175.195])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fq1rfYgK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC30606D831
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBC30606D831
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214E5606EE92
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PK6AizbL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2hguKlDZFZ6O92tcQVjyXL2fJi6dM7PMsX0fLFDYtGg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793729958; v=1; x=1794334758;
- b=PK6AizbLtyu1CxXklZGGmxDaJ3afApG4wSjRuW53XtJ7HVsIYb5nODCMXJCcvSJYrEXJfylH
- aSgWMyS8j7OFpvN2Iy+ZbAOU0ORCkNlBt6iPueL+qJpXdJaadHUY/5Wxhw6kDCzzkNF32nOVRTC
- z8BhVp+RSaVyDBK1WNSbvVig=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ccfdecbf43939bb5;
-	Tue, 03 Nov 2026 18:19:17 +0000
-X-Mizu-Trace-ID: ccfdecbf43939bb5
-X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	shuah@kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fq1rfYgK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C0E1F00A22;
+	Tue,  3 Nov 2026 18:19:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793729967;
+	bh=311d7n2dqnSPEAnLl6q87tl5I8DFqOkQSr5KKtyq8g8=;
+	h=From:To:Cc:Subject:Date;
+	b=fq1rfYgKXk42I9ToJEzH73Q9X1IWBI2kJKuMUvrEQ77nSva0xnf9nltI88RY3onHu
+	 K7iTQ/pcQotwqKX+7eB0AZvkGVaT3W0tjqSbV3FTb4Jt7iDPVp1GaHjPjOmSVXazRT
+	 C+jVBJ++MckWwU4WdjJn1dxNX8WRr7TArZ027tWwy2SsBA4oOPMKHtsOoc8D5WYUhz
+	 qHAKOWBsViGGU4HsnJKHMIyNaIlJNkLendDJJZE9U5OcNxan2CFopA3mLqgMUa7Kqz
+	 G6FVmtWAeKYlO/H6YyJYIRAwQyFMwNvn/DkYO55naShWgbwsLnbCIEB9gfPUtMaR6w
+	 g59g4NhKrEQlw==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Samiullah Khawaja <skhawaja@google.com>
+Cc: kexec@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	jose.marchesi@oracle.com,
-	david.faust@oss.qualcomm.com,
-	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v4 7/8] selftests/bpf: cast explicitly in the struct_ops arena triggers
-Date: Tue,  3 Nov 2026 10:18:15 -0800
-Message-ID: <20261103181816.254686-8-vineet.gupta@linux.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103181816.254686-1-vineet.gupta@linux.dev>
-References: <20261103181816.254686-1-vineet.gupta@linux.dev>
+	linux-mm@kvack.org
+Subject: [PATCH 0/2] memfd_luo: keep memfd frozen until finish
+Date: Tue,  3 Nov 2026 19:19:12 +0100
+Message-ID: <20261103181916.2462825-1-pratyush@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,145 +63,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-trigger() in struct_ops_arena.c and its three siblings puts the
-__BPF_FEATURE_ADDR_SPACE_CAST guard inside the function, so without
-arena support the body is gone and the program falls through to
-"return 0". The host side then does
+From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-  err = bpf_prog_test_run_opts(bpf_program__fd(trigger), &topts);
-  ASSERT_OK(err, "test_run");
-  ASSERT_EQ(topts.retval, 0, "trigger_retval");
+Hi,
 
-and passes, having run a program that did nothing.
+This series keeps a retrieved memfd frozen until finish. The main
+motivation is to let dependents like iommufd have a chance to acquire a
+reference. It also fits conceptually: finish is the point when the file
+should be back to "normal".
 
-These are not driven by test_loader, so __skip_without_arena cannot
-reach them. They do not need it: cast_kern() is a nop when the
-compiler supports the address space and bpf_addr_space_cast(ptr, 0, 1)
-when it does not, so one cast makes the body work either way and the
-tests run for real instead of being skipped.
+Patch 1 allows keeping private_data from retrieve to finish. This is
+needed by memfd to keep hold of folios_ser, which it uses to give up its
+pins.
 
-No verdict changes: struct_ops_arena/arena_arg and /arena_autobind
-reported OK before, from an empty body, and report OK now from one
-that runs. What changes is that the OK means something.
+Patch 2 does the main change.
 
-Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
----
-v3 -> v4: was 8/8. cast_kern() instead of the skip_tests flag in
-.data, so these run rather than skip. (Alexei)
+The series is based on
+https://lore.kernel.org/kexec/20261103172251.2348370-1-pratyush@kernel.org/T/#u.
 
- tools/testing/selftests/bpf/progs/struct_ops_arena.c           | 3 +--
- tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c  | 3 +--
- tools/testing/selftests/bpf/progs/struct_ops_arena_member.c    | 3 +--
- .../selftests/bpf/progs/struct_ops_arena_member_render.c       | 3 +--
- 4 files changed, 4 insertions(+), 8 deletions(-)
+Regards,
+Pratyush Yadav
 
-diff --git a/tools/testing/selftests/bpf/progs/struct_ops_arena.c b/tools/testing/selftests/bpf/progs/struct_ops_arena.c
-index 8aa8639df91f..3fffa24839ee 100644
---- a/tools/testing/selftests/bpf/progs/struct_ops_arena.c
-+++ b/tools/testing/selftests/bpf/progs/struct_ops_arena.c
-@@ -86,7 +86,6 @@ struct bpf_testmod_ops3 testmod_arena = {
- SEC("syscall")
- int trigger(void *ctx)
- {
--#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
- 	u64 __arena *val;
- 	int ret;
- 
-@@ -94,6 +93,7 @@ int trigger(void *ctx)
- 	if (!val)
- 		return 1;
- 
-+	cast_kern(val);
- 	*val = 41;
- 	ret = bpf_testmod_ops3_call_test_arena((u64 *)val);
- 	if (ret)
-@@ -134,6 +134,5 @@ int trigger(void *ctx)
- 		return 11;
- 
- 	bpf_arena_free_pages(&arena, (void __arena *)val, 1);
--#endif
- 	return 0;
- }
-diff --git a/tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c b/tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c
-index 495faa0f4a8b..3455ca9e2d47 100644
---- a/tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c
-+++ b/tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c
-@@ -45,13 +45,13 @@ int unrelated(void *ctx)
- SEC("syscall")
- int trigger(void *ctx)
- {
--#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
- 	u64 __arena *val;
- 
- 	val = bpf_arena_alloc_pages(&arena, NULL, 1, NUMA_NO_NODE, 0);
- 	if (!val)
- 		return 1;
- 
-+	cast_kern(val);
- 	*val = 41;
- 	if (bpf_testmod_ops3_call_test_arena((u64 *)val))
- 		return 2;
-@@ -59,6 +59,5 @@ int trigger(void *ctx)
- 		return 3;
- 
- 	bpf_arena_free_pages(&arena, (void __arena *)val, 1);
--#endif
- 	return 0;
- }
-diff --git a/tools/testing/selftests/bpf/progs/struct_ops_arena_member.c b/tools/testing/selftests/bpf/progs/struct_ops_arena_member.c
-index a2218cd81619..afbe59f77af6 100644
---- a/tools/testing/selftests/bpf/progs/struct_ops_arena_member.c
-+++ b/tools/testing/selftests/bpf/progs/struct_ops_arena_member.c
-@@ -80,7 +80,6 @@ struct bpf_testmod_ops3 testmod_arena_member = {
- SEC("syscall")
- int trigger(void *ctx)
- {
--#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
- 	u64 __arena *val;
- 	int ret;
- 
-@@ -88,6 +87,7 @@ int trigger(void *ctx)
- 	if (!val)
- 		return 1;
- 
-+	cast_kern(val);
- 	*val = 41;
- 	ret = bpf_testmod_ops3_call_test_arena_member((u64 *)val);
- 	if (ret)
-@@ -104,6 +104,5 @@ int trigger(void *ctx)
- 		return 4;
- 
- 	bpf_arena_free_pages(&arena, (void __arena *)val, 1);
--#endif
- 	return 0;
- }
-diff --git a/tools/testing/selftests/bpf/progs/struct_ops_arena_member_render.c b/tools/testing/selftests/bpf/progs/struct_ops_arena_member_render.c
-index 09b4c740bdca..c4e134e14f87 100644
---- a/tools/testing/selftests/bpf/progs/struct_ops_arena_member_render.c
-+++ b/tools/testing/selftests/bpf/progs/struct_ops_arena_member_render.c
-@@ -63,7 +63,6 @@ struct bpf_testmod_ops3 testmod_arena_member_render = {
- SEC("syscall")
- int trigger(void *ctx)
- {
--#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
- 	u64 __arena *val;
- 	int ret;
- 
-@@ -71,6 +70,7 @@ int trigger(void *ctx)
- 	if (!val)
- 		return 1;
- 
-+	cast_kern(val);
- 	*val = 41;
- 	ret = bpf_testmod_ops3_call_test_arena_member((u64 *)val);
- 	if (ret)
-@@ -80,6 +80,5 @@ int trigger(void *ctx)
- 		return 3;
- 
- 	bpf_arena_free_pages(&arena, (void __arena *)val, 1);
--#endif
- 	return 0;
- }
+Pratyush Yadav (Google) (2):
+  liveupdate: luo_file: allow keeping private_data from retrieve until
+    finish
+  mm/memfd_luo: keep memfd frozen until finish
+
+ include/linux/liveupdate.h   |  8 ++--
+ kernel/liveupdate/luo_file.c | 11 +++--
+ mm/memfd_luo.c               | 87 ++++++++++++++++++++++++++++--------
+ 3 files changed, 81 insertions(+), 25 deletions(-)
+
 -- 
-2.53.0-Meta
+2.56.0.385.gac671c819a-goog
 
