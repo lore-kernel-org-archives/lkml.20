@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690816;
-	b=ymjat0USP5tLq9zKqpw6+BK8G769p08pKCqGTgLZx2N+hMhAdL/8fPsXEKGWKcWZx+/x
-	 AOJmhnCr/G4Ft+fBFf4KznpCH66fBPwAMhG8dihlFBDV5On5vVQm26y+i5Y6tfYLhg0iK
-	 XNbbp0hHRFmD5sg08/83uWTDjmzRNXaNuPxgpus+150KrE1idnVUnq1/oWFfj56lM3Y/i
-	 3Qcd6ayYMpSPvQGW5wlp10Gn0H9lOp10ikqwV2cnba5njYrTv10Vf7cc4BtUuyw5RsD6Z
-	 db1wep96UKFet8hXA4XnhkcvjD+HrcOQa1LRNK2XyD3Q2HGja8lvpKF3ma2vcUb8J3Q==
+	t=1793690830;
+	b=LIzQQFXY+DrKpoM+1PxAmXJwfPv1coGCP/xn+YLd0UqWrfzwLQ1SsfJv97OtXRnaoRTV
+	 uirDMsZPoX51X+vdxHATWAOcg+Ekv8Nrvd9wfRuGogU6wsZPCrDnNeUKe+Pi9OL0wc3q+
+	 ZOr/YXAYCb/FrA4BtkLcLr01qNv8BBlYp0zqUflZ3Sdicor14RGaarQZi7H6sH5GWpg6R
+	 s5vyEjOtRSpzZkLE0yzS5H+QNNlBVW5CxCXwdXzIYEuoUUXBxm65ESQce/YfvDVMz0EaI
+	 bPfYdg2t/EW3HcYRZwjvvxP7dhoNBgxx22l18vJ8nKM5SYO77VcGsoWIBesQdExUJ7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690816;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690830;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1W+dLatY9nnSDyIP/7UDjOZciumv9YU0Js0RJ5PhO4s=;
-	b=ppXvI56MQLhyBpIxIzu5IuPLwWTqoIoqOx9SU9NGbR3RwAWaQsYRP6m7QrUSnkE8SGF3
-	 VRu5fHzRnEd62Qz4vFM8lIYoG9ysH47TQhJaMsLZ/Vxiuoonfv9hwxHYnvAP39Rn8m0bS
-	 IiC+IWYRoJzWyVkvdG7YJ9Ukpbdg4pp7fJ/0SBXoMqPhEnSv4C7kVTJmqbDl9kN4Tr1Tv
-	 oiUoPqyQ5hhmG0CTPm9LyxX9jpONFevuAhs3eeRtO8W6qExsCHYcDySZrdQhC7zHZwYtP
-	 ZsgzPtvxs5Ii1nQtp2gcYsd9E4FuKaMklvkcSnRTzLRFnD/vBGot4HhoJ8L0RWI1FEQ==
+	bh=qBkNWuQjMxbzb8GowBbFRJH6mDDvu8/YycY80DV4sxg=;
+	b=uCqVHN7lZbrXBHnfXjXiocEvOnqGPVbyiKw0ojUQCw8BwBcaIoXutMoWD76wD9UauFr7
+	 TCLCr37UItT+xjMKa/v3ETJ+X1s3/fI6J5U3PHULg4nIvhU+E5bLA4s62Tcf/sTMRY0WZ
+	 IAQ/4OJRpPM75IggjVwkEJ5tJw0C26SBh1ZuclJ6s1DBQf3jwVFVGTGYZH7AJ98KNx3eL
+	 Jl5hQaUOQVWLOUCJaEfV+MMe078oMd01olls1yKAq8g4lRNGuXcr7fORqy9d2rQxFHy4J
+	 /eiEssIHJDN6GQ7/7UJuqhRVqFQex0kRXEC5IHN64NyBoI+y2DecCqYhsPWY4jN+/qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b0v84Ky3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbp3AaRE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F58606A337;
-	Tue,  3 Nov 2026 07:26:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C67606D813;
+	Tue,  3 Nov 2026 07:27:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b0v84Ky3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400BB1F00A16;
-	Tue,  3 Nov 2026 07:26:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbp3AaRE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618EC1F00919;
+	Tue,  3 Nov 2026 07:27:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690816;
-	bh=1W+dLatY9nnSDyIP/7UDjOZciumv9YU0Js0RJ5PhO4s=;
+	s=k20260515; t=1793690830;
+	bh=qBkNWuQjMxbzb8GowBbFRJH6mDDvu8/YycY80DV4sxg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b0v84Ky3dU/Duc4o23FRWcU5iuPmoE2POmJhnPd7BAea3aNMxLwvz5rXBkmS8Nt/n
-	 +IyIiw3aa+YmlBx1hOP02leHB9bhbAERAhf75pBpHrFLAuLmfGUXBHEFQJPmpuzczZ
-	 ZymLKjUKF2VA9fUcL97G2zPUbW0Y+1cabTzb0x8a1ZD288i4/u5JfuF6uGgUAnn3Xb
-	 u/uD0w4ECgP0ZyNo8pQOYlaG3VSeruzMccIdsdY2KZM48zehBhvjg5x1KDUbAWr3tQ
-	 XrAA0MFc1zWm4wTimoEZt84qhXlkg2/9Xa9RDqoRZzBm07tDbAIq7u/7MlGPPNSMCG
-	 GqqA4+qhdTW1A==
-Date: Tue, 3 Nov 2026 08:26:53 +0100
+	b=mbp3AaREA+dLIfDpOdOXAGyEEA626RN4qLobmzleU2aNSNM8/td25Nk8pMOCoctTr
+	 jMYzKWgtxYkeWB2zS4y34iOmaLVOlYna9L5JnyPf1Bol4+gECftZJhKqJ7xOKtFHiN
+	 p0r00AkQFS5639OZM3rtdgjKV0z5vgOn6xQ7eOmI2k/JAg+1XHR8t20ihuh1HCYzsf
+	 aVHklt2yyd34Vhi+xXnafR0gRb1QJavkbn8D/dSBJBBzYb1GR929qrC+ohqBfcMQBf
+	 T1yFgRQK2gTjn31ot/vydkN/h3FAPrZRCkbSmBybSk2tp6Zpu/usET66v+b+9+aw3w
+	 csJhG2pw1nNiQ==
+Date: Tue, 3 Nov 2026 08:27:07 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, dakr@kernel.org, linux-kernel@vger.kernel.org, 
-	nouveau@lists.freedesktop.org, lyude@redhat.com, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/nouveau: Remove the audio device link on component
- unbind
-Message-ID: <20261103-hungry-fearless-hummingbird-dc7d80@quoll>
-References: <20261103070331.1079868-1-vulab@iscas.ac.cn>
+Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org, 
+	linux-media@vger.kernel.org, stable@vger.kernel.org, christian.koenig@amd.com, 
+	phasta@kernel.org, sumit.semwal@linaro.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dma-buf: Release input fences in the unwrap merge order
+ test
+Message-ID: <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
+References: <20261103064457.1056056-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,26 +60,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103070331.1079868-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103064457.1056056-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 07:03:31 +0000, Wentao Liang wrote:
-> nv50_audio_component_bind() creates a stateless device link from the HDA
-> device to the GPU. Component unbind clears the audio component pointers
-> but never removes that link. Stateless links are reference counted and
-> must be explicitly released by their caller, so repeated component binds
-> retain a link reference on every cycle.
+On Tue, 03 Nov 2026 06:44:57 +0000, Wentao Liang wrote:
+> The merge order test creates an array and a chain as inputs to
+> dma_fence_unwrap_merge(). The merge takes references to the underlying
+> fences but does not consume the input containers. The success path only
+> puts the merged result, leaking both the input array and the outer chain,
+> which owns the inner chain.
 > 
-> Remove the link after disconnecting the audio component in unbind. This
-> also covers a later failure of the HDA component master's bind callback.
+> Put the outer chain after checking the merged result and fall through to
+> the existing array cleanup on success as well as failure.
 > 
-> Fixes: 742db30c4ee6 ("drm/nouveau: Add HD-audio component notifier support")
+> The dma-buf-fence-unwrap KUnit suite passes all 11 tests under UML.
+> 
+> Fixes: b1cce631e61f ("dma-buf: add selftest for fence order after merge")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/nouveau/dispnv50/disp.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/dma-buf/st-dma-fence-unwrap.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 
