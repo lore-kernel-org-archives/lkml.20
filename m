@@ -1,80 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.54.77.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694613;
-	b=fm3vwPIiAsM3cAffPLyt1DuhtVJHKO9thAlamtmjIUMth8gXdn6wZ1UNWS/YHL5n/2j4
-	 RDBqKOB8hQrRQaTfiNjlntvyN3kNiH82+JPPmVu4MjGLha0zk+gvJ/aSZ+SoQflr2nSOi
-	 TcgDCWgv4XBICtor19iuNIr12EFF7pbkWdUHYgsp/VvTfEXvuJ28q/cLRyyNf65totIEL
-	 2BtKKLh8/iOt99E1W5rsAXa5+otb9MUls0G9bdCqnEJqZ2+e7bCjkYq9BglXJKWkUyS9C
-	 P0qoKLWa76E5FgGHTgB4yGNOGDHojPem2/+cvCo1LLKew6Br7CWECHaVCy/ZtsCvlWw==
+	t=1793694605;
+	b=V9k3mmjRD70ZdzrniE+23OnEoRBIys2m44+H/6teRZP6XeWSGc4r0NzH+vvD1HzHidil
+	 bzbqvyElvGMhtHk6xO0I6WOAIOArwp3uP7KD/ILlFH+sVWbALvHE0O7yLAqTMKWWb5cKH
+	 4tmXaUpmo1MoBCt4yt+zYY6nmHzxLlu2Cf6SZ7ACrGjffGiev6SVKdfS4GDHLC7azh1Uo
+	 Fd2whgPOKRbJika4e1GgUkUfqJUTp1PowKanH9xlAaA7vEiKkhgbxXb5GhDsTLlLx/8Jr
+	 Mc23p4iHzLg9sKOZWrI0uEuMMn+M+HJEdsnJBt7m2NYQD0a92QfxWAIkU0QzkvXK+iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694613;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 Content-Transfer-Encoding;
-	bh=jMsCflS36xjM5xM77gmQxJkejXiZCOlxvrxpfrVWc+Y=;
-	b=VCvxabUrjUmHMePj9ftlVnr/V4y27s3nG3a2lmHhhvSO+vnKhi7e1MpJEPwxHZe8II3o
-	 DM0VniqfyQV0eWfhebv+aCH0c4nvonDEBrXJOzC5P+zQcY1byDPHtemcc6uOkctPb8OGZ
-	 wge+pGfGFNOdTUmCWRGnZlaOzz0G4H53B/IV13JmUGxFzHsnaIkTVXbZlpdhKPxLlIV39
-	 XiM5Hyh0R3b3D8h0NGbR7TgUW/H5BDgcao7Fu77MUtLIPl2gfbAq/964NzxJ3CFdpBgcl
-	 v4jL+l2MbzEGwh7Z/Yx3OApzg9LC9gtLSntBkZtxX1uV+83za9KOenVCI4LB+I5jsng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694605;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=UXMQ7hhiNiQ/jAk4pXl0gn07FcMfjNUnkmFpOUCMZD8=;
+	b=L4Dxd8FoOjCpRc0gBqScViQGyddTOjXRlkxnGVGdMAfJdLc+R8UZHK7Jp47CQpga+2kc
+	 gEZlkICf+InjdRZimYj4AV1YuxWt/FWh7ud067Gnn2DKRAKYZKlnkt9JKWvponKernbth
+	 Uo7RqS3eelFxSkxEuxn8eDItY5D2eaxbDcsag6Yip/Zlqio2KpPhoNxkoXXhjz3Ie9pHu
+	 dzFVPXWckmLjiHNSlxGhPMHnW8pBTyWCeH6Xvby452AR0XXiVpffZQVijCGs/wwq/7dvy
+	 0HDeBB9ApHKniId2xkMV74R6gjL2Kqsrsf+0nkGIktzzjeTBIAYoCZGEDx/RcQYToSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5dxzOoN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC429606EE95;
-	Tue,  3 Nov 2026 08:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5dxzOoN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC021F00A23;
-	Tue,  3 Nov 2026 08:30:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694612;
-	bh=jMsCflS36xjM5xM77gmQxJkejXiZCOlxvrxpfrVWc+Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A5dxzOoNkDrW4pNqVVyZoklt9Azfg+rSlnLM4mi3BebvkCaa++F/7TpjYlr5zu8wy
-	 4yDD9HfFhTwRuQ0eI0YVHiBgutbM9gl7+BpiJGKoDjUmx0Qh4+3hUkGhTMZigaVRAj
-	 FGz1gAGtbH6SL8KlkVBpzELQqjEAbyBJ+yEaL6UPWLkvk1rnxyKpHitCPg7rU6LpM4
-	 U5/XE9JUJh/38SEUypc8pmzSmAG5aixgcrLNvM4qkWWIVZxHDvvcn3icojD1C4n6n4
-	 SIaWmfGIIrE7TQ8Rv5n12j6VtykfdpxzYYfC3OwRfvoeKfTn33lMic2wRCr7yPaOFQ
-	 eZYtkej6XWYFA==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v12 02/19] PCI/P2PDMA: Document the TLP attribute assumptions
-Date: Tue,  3 Nov 2026 10:29:41 +0200
-Message-ID: <20261103-fix-p2p-acs-v4-0-v12-2-912101f93517@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
-References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=207.54.77.171
+Received: from esa4.hc555-34.eu.iphmx.com (esa4.hc555-34.eu.iphmx.com [207.54.77.171])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4840B606D821;
+	Tue,  3 Nov 2026 08:30:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4840B606D821
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1793694611; x=1825230611;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=q47mtdoDQRmiw7gaqC6BeePUyqDsQMH5NeO1kW62avc=;
+  b=QmpaWbxjdcAO15lT7BasCGUqkOsE0e1B4Hp9tCBbEpmDo9WONb6B0Ti3
+   FbkNnxwz3UNHaJmVKaGGPOJzBC6fcKOArS5woRvPh89w3utsGfjgC77Yl
+   vodFDqiIx6k7JMrBnAwXPTBFL4AFI4WmfOIn6QpBbNvEWhhVxpStf6WP2
+   IoYj7gxXDizh2nseijuZUSF2pJEKM2sCE4fpNY+LEiz1h8MB4CYa0B5Bb
+   5OgCK/Kl5duvuzit23qb1HEES6MwZkPB5pbCcog4TM7d8bEAIYszwnZqd
+   O2wVzK5r1ssO//SWVDxY7F8K5zG6+JFFgZSGo4vKX3dDiXOdQULwWBTrb
+   A==;
+X-CSE-ConnectionGUID: ZOE9ffQ1SGCOr0FS3GFOkA==
+X-CSE-MsgGUID: /urnmpQnRyeSWzfImvAQqg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces04_data.me-crop.lan) ([146.255.191.134])
+  by esa4.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:30:03 +0200
+X-CSE-ConnectionGUID: F/KqzQK/QC2763Ssv9KmXA==
+X-CSE-MsgGUID: HqLe6wGhRn+svd3Djuf20Q==
+Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.3])
+  by ces04_data.me-crop.lan with SMTP; 03 Nov 2026 10:37:49 +0200
+Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Tue, 03 Nov 2026 10:29:55 +0200
+From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Date: Tue, 03 Nov 2026 10:29:42 +0200
+Subject: [PATCH 6/8] i2c: nomadik: handle pm_runtime errors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,45 +66,47 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-i2c-nomadik-fixes-v1-6-655c6af2cb70@mobileye.com>
+References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
+In-Reply-To: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
+To: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ srinidhi kasagar <srinidhi.kasagar@stericsson.com>, 
+ Ben Dooks <ben-linux@fluff.org>, Andrea Gallo <andrea.gallo@stericsson.com>
+Cc: linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+X-Mailer: b4 0.16.0
 
-From: Leon Romanovsky <leonro@nvidia.com>
+In nmk_i2c_xfer(), pm_runtime_get_sync() is called on start and then
+the controller registers are accessed without checking the return value.
+If pm_runtime_get_sync() fails, access to the register of the device that
+was not correctly powered on may cause a bus fault or other unpredictable
+system behavior.
 
-P2PDMA selects a mapping without receiving the Request's ordering or
-Address Type attributes. Its ACS handles only strictly ordered Requests
-carrying an Untranslated address.
+Check the return value of pm_runtime_get_sync() and it if is not 0,
+return the error immediately.
 
-Document that the result is not defined for Relaxed Ordering or
-ATS-translated Requests because those TLP attributes can select different
-routes through the fabric.
-
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-Tested-by: Tushar Dave <tdave@nvidia.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
 ---
- Documentation/driver-api/pci/p2pdma.rst | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/i2c/busses/i2c-nomadik.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
-index 63cff9e4d2c9..80f8fec9b0e9 100644
---- a/Documentation/driver-api/pci/p2pdma.rst
-+++ b/Documentation/driver-api/pci/p2pdma.rst
-@@ -15,6 +15,13 @@ then based on the ACS settings the transaction can route entirely within
- the PCIe hierarchy and never reach the root port. The kernel will evaluate
- the PCIe topology and always permit P2P in these well-defined cases.
+diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
+index d07246d11b35..361a5fc6a587 100644
+--- a/drivers/i2c/busses/i2c-nomadik.c
++++ b/drivers/i2c/busses/i2c-nomadik.c
+@@ -734,7 +734,9 @@ static int nmk_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	int i;
+ 	struct nmk_i2c_dev *priv = i2c_get_adapdata(i2c_adap);
  
-+This evaluation assumes clients issue strictly ordered Requests carrying an
-+Untranslated address. Its result is not defined when clients use Relaxed
-+Ordering or issue ATS-translated Requests because those TLP attributes can
-+select different routes through the fabric. Unless ACS Translation Blocking
-+is enabled, a Port with ACS Direct Translated P2P enabled routes a
-+Translated Request directly to the peer regardless of the redirect controls.
-+
- However, if the P2P transaction reaches the host bridge then it might have to
- hairpin back out the same root port, be routed inside the CPU SOC to another
- PCIe root port, or routed internally to the SOC.
+-	pm_runtime_get_sync(&priv->adev->dev);
++	i = pm_runtime_get_sync(&priv->adev->dev);
++	if (i)
++		return i;
+ 
+ 	/* setup the i2c controller */
+ 	setup_i2c_controller(priv);
 
 -- 
-2.56.0
+2.43.0
 
