@@ -1,94 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716277;
-	b=vb31xBbxliQmb5N9ecB+hjv3wa+8IBqt+RvXXnPAacTgjnitndf+thOjIcQygPRKBE20
-	 WV7eY2+yv3y04oOaPdPA106YxkiYRQkxEyWnXNCjOKZdPXIIOQg0AYtWDLcP9Qdy9Rl66
-	 7xulaaEUJvMbOeg5Kq8ehLPMS+5uNrdQY/I3JpNPV8mW9wRvS9wcbx/IH/44ve+In8PbV
-	 xyEGaonWLT1b5UKhgdqQgLuiCQKYhUJ4Z59DFBaZ/PzkjSqL92O/2mfajY2jDc7f1LQ0b
-	 WJmWUpQrTkPyIFT6d+bIYnrYXTT8Iw2p73XsSwCtVU0aV27fRANHjI+xvTIkCLadmNg==
+	t=1793716294;
+	b=P86Iw1gOnt+e3/JV7CwWR4A7n2Hb1MSDDs1icbqkqIx/UpCNvfoT4IQGhBSiUaaMJVUb
+	 /9tQs2q/v0/ytNb2hREbUOG4Shb/09o9ci+MV7QXGdFWBg2xoBYVv13zs9bbpTgmT11C2
+	 GXxLADnXGM8n6ceIn5wSJkVNzcYJK01OL8UvMFC4karidx4ZSI6s/gD2IKmbEVzvTqaMy
+	 TEPj4ESahaC/QjW7Uv+z3+m4Wr5vhvWHsi463GUSSAYuyajHjXHt40YMxJulyWIDJ/QUU
+	 OwZcaDB7RdsUJjuuTp3bHVKFV/HIZTHDv6FEk9VORkPrsPoYnOsHux8bGZp35zuGTLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716277;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716294;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=u9ZaJd6aju36DuDO9RJNLklXVPiZP2FTMqXACefRn38=;
-	b=1imbT7t2A3VyyCHrhuH+T2jm20Y434i7v4lXb14i8fFL7wRDuAKqiT3ut8zNFXtwgUuB
-	 CKS/B08l7Gjy32uc6eU/uoyrbzbLNLR0CgGF9aLtwTfX4QQXxM8H1HjX4qr9aq/mABHkD
-	 G8jz9hFm4OyJTvDApzBYREUm37mqhIlR7JELUzDXlRhJ3zu58eCcX8wixdjXE+dwAIIdt
-	 uKoQqTk3aQm8vWIXWlPUo+Su38se+9SM+2LU1rBXtuOeM242ikkiq5L8lNpMPv0hVwGGJ
-	 iIsatMdEhKWdc5SeulAZOAzGlHx8pkGjfygYcHANkalwfrg6Eiv/kybH2ItPIS20O3g==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=EKlM9iD6F1gyXy04opeEG9+C51VAWggNyeLVBX+b5pY=;
+	b=4l4KH5E+jUAf2UxuGSFWVwtSYnAyDAZinXvFN/By4Wbwm0sTfPZ3eTNBXz7QP8ZTu3aV
+	 YTi+tTzsDxvGQpGEZU5OI5AyMoyZoKInvmZYUwvtm5IgMrx0/6VmPyFeoHXZ1GfVuL6v/
+	 EF2IxB9Z0Fd+wjYcRMWBYhmCwnXFXfIx7lrH0LKeDDNsXDFcNUeLU/018FUqk7duy2/pb
+	 zRxnzKQBZsGVaAW11OFDldtx4IgTVRPPHnwKBOJWFBovNEakEAY3oPuTiw7io/YmNQ1oy
+	 VJtZExe6M83t3jW88YO3duKfyhZAsXOx+fOYjBNQTT2IKkRSM+T5bBJ6USzTcf596Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=JT4Dgk3D;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jEkLpkXm;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550A76082BCC
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:31:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 550A76082BCC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0216085090
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A0216085090
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=JT4Dgk3D
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1ae18eb9b69so3126949c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:31:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jEkLpkXm
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so5954853eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:31:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793716276; x=1794321076; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793716293; x=1794321093; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u9ZaJd6aju36DuDO9RJNLklXVPiZP2FTMqXACefRn38=;
-        b=JT4Dgk3D/jhsxfk4IrhfbXwkMOuRTkVIgKEXssrb4iJvOgCDN0aH73b+2eGWqnll+U
-         WpXXntpnlnTazTxY5oldBR594LJpDvSFT2I2ZS0uBNFiMZyXkx3XAkivUO1rbp/du3wd
-         lgRSIVa7Q+0AjehCQxfMczoGAUH42Wz3YYMHC6SyJ6GlYROvocU39RFrCIzeCb6nK9j/
-         ncCrxKF2CaIEK3iv4ueec50dEqPtjLW5RE41XZ80/iGeoY4vMHLl9EeB9DYnWyo0c59m
-         AXfN25Adnrk5KuTQpFQTp293D1gmxhvJsRcHHSCTkoGuMjGow6iZ9h/Jyl0Xp6v0UCrX
-         EKFg==
+        bh=EKlM9iD6F1gyXy04opeEG9+C51VAWggNyeLVBX+b5pY=;
+        b=jEkLpkXmCf5QOuqb5v1ryNkU59Z9axc6y+LPgVXqn75nefdxLvnI9LYBuxgEX+k3OK
+         jWlTB0CljoZs3Ju/7VGouL6n/qkT/jOywJyk6r/MlSMaVM814/g3O1ET9E9GE8qWAPwV
+         gtbkIQmr13hZ3v/R5R4zpEj9VMl+G9u6RLr9Duc3r7A5kWKYhEju/qOAlbj1PmrLUHwq
+         fo8eBvCYLJo0RVGlgBqvYWnuigdY5halbWMjPePLQ6X7UBF9W5dZHWyA80Z/vcWXsuh+
+         p4FMnYC2Wa2yI1mFI3KFPPoBL0IzJKv9jxBzuYMHSDOY5rtJJZ3ZvkPs0PrssDALyez5
+         gPRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793716276; x=1794321076;
+        d=1e100.net; s=20260707; t=1793716293; x=1794321093;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=u9ZaJd6aju36DuDO9RJNLklXVPiZP2FTMqXACefRn38=;
-        b=wUTTllVWjxvtrM6+eeF6uj0CE+N1PtiPtA6we1Po9aWmX+r+teIOKdrXndZHSmOmRr
-         24ndPRFujoC3AGY8MKe+JGp1xzGoCGbk2Me9b7wHSxtP0kwBly9u5zqrxijDMyPW/Olo
-         18gejnSbXqVLoVcSVN+v32DwyfSgIcgOr+SjbWLkw/yT42ika1I8trMmwlYLGa7scSh9
-         JJKQouekn/jvhQKAWWg+25Es0o3kSdhQpI5SaFYgUFL77ARs1U4pQObBJ9JBc6qASSw4
-         qyK5SbNlEml2Dh8soAk9m0iHq6GoCQ+YXu0z5UeUPdvaXHJYn/oKGLEAqmT+BkWnVmd2
-         jpOg==
-X-Gm-Message-State: APuU4Z/ZgLa63DKe2L7CFWzZlt6dhfuAiApZNQHVe9H63I7kD2CGPrXr
-	GJh/bL7WEPVjwTKilEackHnhU8FG5RWlUyRmmSsqwMBOrPloQi+iPGJM22LZHxrvwUw=
-X-Gm-Gg: AYBFou3tUykRUwD+WKaCVN9SxXcjrRk6gj/Lcls+5qehzV46I/EEI1vgd94Zg8X9dbv
-	RZalb4Hf7YcnTq3IL+3EEQQdtHm1NbG9XTzqPvwntIjNSBpeWwvp9gLAenfvkLlnDkgl42FpubM
-	zcI0ymH4RieZfpX6DbJhllIp7cfm8fUfIGZVjI5+9esd469sjV9do9We+pP0Grk8ktAnslDF0xG
-	S+vbz3SMEHI4Kd6ltpwnO+Mo7cueCx+yTB8FO96QyxXvVFGw4oiIoVgh17uMtiSaG1vhLpqcLC+
-	P6vkye+nspsmDVBhBAb1wN5b0W+L6N2oajzjpg028Hk+u3BMODkLu2d1S+a+x0NhwF1woCI6Z++
-	tLQ4HdR93wP+YTOE9sy0UhesUMgkyRggphR7u9hx+DasD8J6bjAC/jRBArWEGRCe9/lPzRM03zY
-	CvRzqHpueZa2zle5uVedHDXcopioSCVAFHF43Z2pjpo64Hmdve8f8Z7y0f/FRg/j3QrGT73+i2H
-	nJFQMBCEdKzjcih3HaZF8uez9f/kXlZUz1+AXDMcUM8k7wlFpCs0ibWVE5j899qyGIp6ndwtVyx
-	1UOM+HveSGui7PYBHLgbskERvuKcNjST6DMVRvVELyECoC632tKHp5czEqxw613fnzQS/4NOUZ7
-	g1DAWFHKCHwjH
-X-Received: by 2002:a05:701b:4287:20b0:1a8:b566:80c2 with SMTP id a92af1059eb24-1ac5d889488mr19713490c88.17.1793716276188;
-        Tue, 03 Nov 2026 06:31:16 -0800 (PST)
+        bh=EKlM9iD6F1gyXy04opeEG9+C51VAWggNyeLVBX+b5pY=;
+        b=tyZYGLLujSqZlu+IHm6xBNNb5rrVt52alu8qgVoM7UQRSGymIEDPqYl4luHvisX7YP
+         NH2qKW+/UILcvoQ1wsP/jOqdqSOKIxmNO7QNF+ohEGXD3rouUb+3olyMHPGMRqh65R4N
+         w4dWtUdqNosnWH4Q/brNMyGV4Qw9GVrz+QkOVpFVGujpE78a707w5LyEXPtPFkKeFtyJ
+         L6d4jnVpuEygfonOpJ8xOvDueeACOh5WMAq/WcqFLCoI0Vx9tT+VBt0JReKUzZo7Lo7z
+         AINymD35flTQcuvXgvMOhEfmHVULhN3dWkbwWljryaWY0yIenUTmt6cfUd2RUOVn7oNE
+         L7ww==
+X-Forwarded-Encrypted: i=1; AKwUvBybD6P148h3apFHqtvl7qWHFCYmJ/pV9lHRFBe6v9jVu0FydgQ3UBd90ijG488Q4JMFQx1MNyrFqPRfDRw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6dTt45JYl+0DkQ+Xxmn3RWzKAJ/qh6Td18HETucHshn/XWfmX
+	V0pB1i0Q9mFuQ7DQn/MGaQ4UD/cdShhKaC6SWWt/fx2MN11S/7mQtNw33omIVto2BGU=
+X-Gm-Gg: AYBFou2GIq9yTE/DbCUdPo288gsrZgp6mY1TEHuplEgdslb8j3TcKtM8dFXOdrVXH2W
+	TUlZg4PNxO0V7dsDDkU2h0Yqgqy3eRGZ7y7hByp4Tyaer+BnUnR1VHYTVEOHdv/L/eajOq8VddU
+	Trh/Mwacm7Pm1fCC1Z0yPgfrHvKJb26YaOeZGAjDyPiqur6TGafv/p4qakrvyV4HnoGJ8GurXCI
+	OuKhN2Rf4Af2olUOgTlYfqPDTiBZ+u8M2f7Vr3On+JogpC7xLVXj+GXFhN4p1e/NUkB01GTtLHJ
+	DOwdj9k8zoUSqYr8qskrvvuSTqer+M+h6PwkQrE1QRTiTQQiUi4Ni0imr+RL9CRxsB13FntJiBS
+	X3YSp4z9PkDOYErJ3CtaXS0w0IfrS+nZmrP6aWuBuQMoRSX/F9Ijso/tCtC/P8R2MTW+0c7kaSY
+	3Tor9rPikDh4c2+hPs/xwRk3FKMP/k4HjTV/keHZLojBROY4w5GDLhIDH1rtMrz/yVIMvLNdO0S
+	4WAXlV1eIQgx2Yuq3D0q0DTsLka7nVpWY9SDRbd8Vf/nWjKNU/yL4T56Oe/q9385kMXXlUJ3FEP
+	O6MWsklfqT8whbEWNNJ5P0pZQ/gQ/OON8KAoErFlfYcct5zSlWIMExxTOenT+NMym5HjYx0FyBS
+	3NDlNUN1UiYgk
+X-Received: by 2002:a05:7022:1706:b0:1ac:7044:2bad with SMTP id a92af1059eb24-1ac70442d69mr16914729c88.36.1793716292497;
+        Tue, 03 Nov 2026 06:31:32 -0800 (PST)
 Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b23b847348sm9534779c88.4.2026.11.03.06.31.15
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b23b847348sm9534779c88.4.2026.11.03.06.31.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:31:15 -0800 (PST)
+        Tue, 03 Nov 2026 06:31:31 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
-To: dlemoal@kernel.org, hch@lst.de, linux-block@vger.kernel.org, 
- shao.mingyin@zte.com.cn
-Cc: linux-kernel@vger.kernel.org
-In-Reply-To: <20261031221737569WQ3bg8y80Ht7JdTCWwlkL@zte.com.cn>
-References: <20261031221737569WQ3bg8y80Ht7JdTCWwlkL@zte.com.cn>
-Subject: Re: [PATCH] zloop: fix the error code in the blk_mq_alloc_disk
- message
-Message-Id: <179371627516.3691261.2270107097490778251.b4-ty@b4>
-Date: Tue, 03 Nov 2026 07:31:15 -0700
+To: mst@redhat.com, stefanha@redhat.com, hch@lst.de, 
+ Sergii Ushakov <sergiiushakov@google.com>
+Cc: virtualization@lists.linux.dev, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, xuanzhuo@linux.alibaba.com, 
+ eperezma@redhat.com, pbonzini@redhat.com, Jason Wang <jasowangio@gmail.com>
+In-Reply-To: <20260918135120.1261150-1-sergiiushakov@google.com>
+References: <20260918135120.1261150-1-sergiiushakov@google.com>
+Subject: Re: [PATCH v4] virtio-blk: clamp max_segments to virtqueue ring
+ size
+Message-Id: <179371629139.3691261.5658135029894981037.b4-ty@b4>
+Date: Tue, 03 Nov 2026 07:31:31 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,16 +106,24 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
 
-On Sat, 31 Oct 2026 22:17:37 +0800, shao.mingyin@zte.com.cn wrote:
-> When blk_mq_alloc_disk() fails, "ret" still holds the zero returned by the
-> preceding blk_mq_alloc_tag_set() call, so the error message always reports
-> "err=0".  Save PTR_ERR(zlo->disk) in "ret" before printing it, like the
-> blk_mq_alloc_tag_set() and add_disk() failure paths do.
+On Fri, 18 Sep 2026 15:51:20 +0200, Sergii Ushakov wrote:
+> In virtblk_add_req(), each request consumes 2 extra descriptors (out_hdr
+> and in_hdr) in addition to the data scatter-gather segments.
+> 
+> When a hypervisor (e.g. QNX Hypervisor) advertises VIRTIO_BLK_F_SEG_MAX
+> with seg_max = 1024 alongside a 1024-entry split ring (vring.num = 1024)
+> and VIRTIO_RING_F_INDIRECT_DESC disabled, lim->max_segments is set to
+> 1024. When the block layer submits requests with 1023 or 1024 data
+> segments, total_sg reaches 1025 or 1026. This exceeds vring.num (1024),
+> causing virtqueue_add_split() to return -ENOSPC and permanently wedge
+> the blk-mq queue.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] zloop: fix the error code in the blk_mq_alloc_disk message
-      commit: 703f6aee8d8d1cb6227af56169be6b1dc4d3c4d5
+[1/1] virtio-blk: clamp max_segments to virtqueue ring size
+      commit: 603e66e8dd6adf2bad54bb27f4b690eacba3745e
 
 Best regards,
 -- 
