@@ -1,70 +1,168 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793681452;
-	b=iy6M176ZxwOPPGirQGk+7ZPcmHDRef7TjP8nClxHZ+jO5Bd9PfMjEXFJJaeCH+kQJv7Q
-	 0Lsw7KcIVMEKtSbNKa7xQ9xLLTPbfP/ikuii6uGVKW2YSKTrNXb0LoZEUuQ9Hc5OE2lm3
-	 8FMq5AiDjWGQtkDoPbugKf3g1IdSpPT2bX4MYDi696tBnf66FJnHAUVTmHD1CGYX4sHeY
-	 kboCJ1n9tiANK1F0ztlHmzg0zJF/el6UEWFOeIr7V15pHZXM4Xpu1LDckelQqFecAS8+m
-	 yGevbYAtTWd7iLW+j3iwpO5Gw3nz57L7pHKCefWEdClT7cpJzq5ua2J4hEyeK4JHYQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793681452;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=VCG6vD8rR/pdlNXtHACcscaUXRMsGyKYVMf1/TRGKXQ=;
-	b=KkpgZp0Gm/oso6avfz2/yqnbDlTKfkB9tuK8blse8E6Yu+znvOS8lAtH4fxdf4seJr0A
-	 2+Odu43LVdkyh9Bo3+jRKYxH527A0db7BA78kFi77BRxcw5qabhzI3tfVfJ8RZWrWzocw
-	 oqkItHBuStbdmkn5tfdZxSNbHnhf5DLADGSB2dk8uTnrkOHN5kR2jfsJCIOytOiqFlJ8+
-	 x+YqkAz6vYsnnm4qJFWHndutfufvZFPwbFJXYas1Gd0fHhReTwzfgDRmirT9ijpHHQtdu
-	 CPqBxB0LkMefNKTnfrtwfH8uAT07lW4fZh/5bYxS0BeCr5+tTn8HFjQ25gX43sHhYVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iKOD/F1D";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.1.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793681454;
+	b=24QhX5pWwHBlKKH0WfZSJIfPkc9670hoYrGulluABSQOtcdBm6etKoXERgJQQdkLIZ9n
+	 tf6vDdVjm7xCK9TeNyPZGaRf/V1Va3uOQoad5L/ekWY+v8pUYPBtDIHNPoR06LIu0vEQN
+	 1TUzKJTS9JeWBTrLNspAT5I+VId4jvg5lDNyDRUjkxZpImxaM21ne2+YookDpf5TWa732
+	 eS1XN2RwQ3EaxD3Svx/O+iXYZExSRFGIVRtIvobH2cH4aQS8fW8i1kTbKcI6LremPrF7Y
+	 R2AvmgrOvRExd7Ju9PE4AHhL0pKhy8cntqtIfG5Be2KIliT00zdtN1Zaldn0gOLqZcQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793681454;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QtqHDWHRhO5y4jFged8jVQLpM2d/chcU5newRAprwhU=;
+	b=Ozt5JfodsioO9+sY+iDiEKc23YN0AI150rNrTgZkkpH4x2sIQNskPqqMr7CdMJzwjUni
+	 DBZTBND2kpYKVSnNcBnnOqP9Fgu7H9lKv/rPU06ad67JB/zBlaioxPI7iT54MzqAl+adZ
+	 43e6H996quPxoAVJVWpr3OL9LXG0y1M+DLBJU2/g/c6q+bPPPwJaGTcYdh7bZ86SQbLc6
+	 uvSr+N+WCVoEiB3CVZ6nDKAqmagHk1G+HiMLvCItGg1meRCQyJyvtbozAGeo+KpJdVHEL
+	 C9RFHIaCWbE1XLZKwv+Fq9+ZdEXWAq7Xm2hpd9OvZcSwbnLD7suyUwR4SW+wjPHtCaQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=orFSDDUw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.1.12
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazolkn19011012.outbound.protection.outlook.com [52.103.1.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F92606A324;
-	Tue,  3 Nov 2026 04:50:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF01606A330;
+	Tue,  3 Nov 2026 04:50:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DF01606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iKOD/F1D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30701F000C1;
-	Tue,  3 Nov 2026 04:50:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793681451;
-	bh=VCG6vD8rR/pdlNXtHACcscaUXRMsGyKYVMf1/TRGKXQ=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=iKOD/F1DoDA1BPNlqrwGZPlBJ0RByo4gXxn7AvT1c0z2VKWYtVtnFxIRaS8gAlzFp
-	 9g/oeW2MwJlwxG++y8wcRmCqWaEy7iozggu58169uoiQ15MYRmPV2KNNwQrVNImgan
-	 Fg72xBxs8Y5q9KpnVkB6KGExHZYJ8oNTvoMl7cQzJk0yR+lCi3iI3r7r43N8eSYBAw
-	 kkSPeJFusC7TcfeW70I34Hry+889DGgi9CuIYkqCiniRCTep8FjBdTGu0EwJZ3T1Dr
-	 /xYQN3p2A3ZmW9iSp2laDIe8yfwXFyIyM8ll0YLZ8POgZp18Cc81s6Rzs5N3anoiBK
-	 Hd/Rngr6hoYBQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 7E982CE0A33; Mon,  2 Nov 2026 20:50:51 -0800 (PST)
-Date: Mon, 2 Nov 2026 20:50:51 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Gary Guo <gary@garyguo.net>,
-	Bradley Morgan <brads@mainlining.org>,
-	Kunwu Chan <kunwu.chan@gmail.com>, rcu@vger.kernel.org,
-	lkmm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH -rcu/dev 1/4] hazptrtorture: Release all deferred hazard
- pointers before stopping
-Message-ID: <178eaa0b-e7bd-455e-ac3c-f1115d731a52@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261027163811.2470569-1-parri.andrea@gmail.com>
- <20261027163811.2470569-2-parri.andrea@gmail.com>
- <eb59edbb-c6e8-49c6-a426-c55cdb792853@paulmck-laptop>
- <9da03ed6-fea2-44df-8aee-f7a61a1d35ce@paulmck-laptop>
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=orFSDDUw
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xsATJjjgUxuc/SZZgqYeq1uUKyUizK9L5dJcfTiNKgLMu50Oeh8Cz+R151Z+7h1GgopeAhARUO+oNkNn0CIL3exK3JiTSRm0bOl4ldoUcsmCtL6u9LtLGmScthh98UpYs7O394VzI1hVg6M01nPQQwA5ZcbK3F11xfROf1eIHuvjn6IdH7MkRa+Q3AZHY8qnuos9SvGd0T982upJ2H0ZMQ2gQxGPnDcM1LwriZIQ2EGrj5RO0O/w8B73/SimMAO0okpcFYzqYYXRlWCEt+gWcWdu9oJxmbZLmOORqEHjzUAVpLAJ4BM8yqVpkodQBJ0jw0rNeF+tAinaMf2Sqhj2wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QtqHDWHRhO5y4jFged8jVQLpM2d/chcU5newRAprwhU=;
+ b=nK3S0LddAvMGiRzx5q524etX7LF9lca2lL5XyIsQLgQFh40ElZ3SCJVJHUZy4IgMp5SGbp/fOt6F7AQVu65SXMiZ+/flO07nWt4rZgEHDa7sv8bx7+5onT3pnt9Mj7P0Ijz1pQux3j/ozwEMqPNWMXRoeC5IVtCoPBYS+u1bJRZh1UbHqHFgnucIUQqUZpy5DQ9AHPkpmfSCX5FYs6WNUXuHyDdf2ZZBvebrqszaf9mmekdwy32Aeo+bD2F5mHuUrHHQBytbqnh37eHW3Ka7yF24h7iGsvDnrV444xDYoAoc3j6Who/otX9gcu8ua83UyRNJVKM9aDY0tUHwf0ZKtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QtqHDWHRhO5y4jFged8jVQLpM2d/chcU5newRAprwhU=;
+ b=orFSDDUw1sy+Wh2abn5NTBB5GKMF/xYxZjrJmytIFe15DGn9TPUiJav4nRMHxpBElNqUBK8lvgOzidIi4LLIAsgXcgi4VokstXovulQPH06likObX8Zhay8yH0w0n0IGn32kDKFWGNbZtiH0x0mzkmoWl4VxsT2nafmncGEJp/JMGF7/c3kAqt8wqrxm6JSpV70bCX9Bu+j6bVyS/71buuBbuHev0Y7QCG4FGZHialCSZrm1L9iEGFIL2A2z1wkXXTwc/CAip9fRKrzVwZ38Lbp35NkgzraV+sLWvKsaX+yAkp+cBnBfN7/73sl8GM/OkpXc6vrN1F58SVbAW4HC+A==
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
+ by LV0PR02MB11136.namprd02.prod.outlook.com (2603:10b6:408:335::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 04:50:51 +0000
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 04:50:49 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Daniel Pereira <danielmaraboo@gmail.com>, "mhkelley58@gmail.com"
+	<mhkelley58@gmail.com>
+CC: "haiyangz@microsoft.com" <haiyangz@microsoft.com>, "wei.liu@kernel.org"
+	<wei.liu@kernel.org>, "decui@microsoft.com" <decui@microsoft.com>,
+	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org"
+	<skhan@linuxfoundation.org>, "rdunlap@infradead.org" <rdunlap@infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: RE: [PATCH 1/1] Documentation: hyperv: Update docs for PCI pass-thru
+ device support
+Thread-Topic: [PATCH 1/1] Documentation: hyperv: Update docs for PCI pass-thru
+ device support
+Thread-Index: AQIXomI6+otxfN4JCoxVV9PiYLu2L7anLLuAgAAsR2A=
+Date: Tue, 3 Nov 2026 04:50:48 +0000
+Message-ID:
+ <MN2PR02MB68638712B3DECB1C25FDD5A0D4692@MN2PR02MB6863.namprd02.prod.outlook.com>
+References: <20261101022257.52819-1-mhklinux@outlook.com>
+ <CAMAsx6eCrbcseb=eM_GW+3k2YF3t38Was35oQHW+3UkidsvKWA@mail.gmail.com>
+In-Reply-To:
+ <CAMAsx6eCrbcseb=eM_GW+3k2YF3t38Was35oQHW+3UkidsvKWA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|LV0PR02MB11136:EE_
+x-ms-office365-filtering-correlation-id: df3ac77b-9f5b-4acb-4aaf-08df396607cc
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|31061999003|37011999003|15080799012|51005399006|8062599012|19110799012|8060799015|21061999006|24021099003|55001999006|13091999003|25010399006|102099032|19061999003|3412199025|440099028|40105399003;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?d3VVYmlycmNhVWhuYm1HU0ZSaitURzBqU2JjalFqWndURThOTGt0NVZsbTY0?=
+ =?utf-8?B?NndGMWJuL1FxZzFkT2NIdm0wc0hkMi9QQzdIN2hqZG40Vy9heVNCV09QQy9h?=
+ =?utf-8?B?RFRBTFFQUVhJdmJjeklselFzVlJLYnZVNE1yS1hjbFVnSzhVRUpnUVdvaDJu?=
+ =?utf-8?B?V09iZTRqU3pQdFJMVWhHc1RVcXhyNDhybG11Ni9obUhxRnozSWlkem5DNkJR?=
+ =?utf-8?B?M082M2RRZExFekRkVHFPMnVoamlOb1dHNkNZbmg0dFY4YTUvMTQyTGhqbmtj?=
+ =?utf-8?B?QS9jUzQvT0M3VGsyM0ZhcDRxMFZKNFV1bm9RVEdYeWV1eVM4YVdNWFZMMVZ0?=
+ =?utf-8?B?SUs4WjdTVC9sWktOVkVTUmhQd0tLL3RBLzNHY3JYV1RZYU1rODM5cjA2UWlK?=
+ =?utf-8?B?bDFaZkx6V3dvZ0kzdStSZU80UnNRRHZJaWtTL1VXUm5oaHZSVEk1UlF5Zlc1?=
+ =?utf-8?B?clY1bGFaQWNWSzJiU2NiSzJHZ09BS0Yrd21kU2piVjhuQmRMUkU0blJvbDRO?=
+ =?utf-8?B?c2hqVHZBcm5aL1dtc044bEFHM1BxVnVXZkF3bmRXdjFna3p6TFk2cm9WYkJ3?=
+ =?utf-8?B?UU1LUitnNFI3bUVVbDRQSmRzcVBDeG1Obnljck1uS2hJZW8vaVBSbXZZbC9i?=
+ =?utf-8?B?V2doekZxSXBmL21JK1VseXkwdmtZNHUzWlpZaEdXSU85Ym8yS05uZUtwQU9D?=
+ =?utf-8?B?d1hubWphWE5tVUwzOXZLT1FZcjU3YUJXOEx0eTgxenJiSVkyQllYT2xvakpo?=
+ =?utf-8?B?V2c0VDVuOUdsSVpsbnhtbndpb0tNZ2d5U2duVGcyQ09FYkVIRUtacENmUkUx?=
+ =?utf-8?B?TGhVUnQvcElqTm10SnFJR08yM3Jhazh2aFo0MjB4VXhGMlR3TkR1eUdORHJq?=
+ =?utf-8?B?RUpMbDR0VlJzSlNFUVpjU1VZdHJHTk8rU2xNYTBGek14T0hodG4ySW4zbHJh?=
+ =?utf-8?B?N2F3cURoNTk2ZnpxbTZFUU5LUjJPWGRReHAyMlVqc3kvSnhhTGlmRGFwbVR0?=
+ =?utf-8?B?dG0vNk05SzNqd2RPY0ZJNWtQeVJwZWFxeC96VlZlVlV0WE1wd3NRVHQ0dW13?=
+ =?utf-8?B?cGVqNy9mYVpiNXI5UDBkNExOcHVrODB6dklSbzBDWXduZE1oM0RCK3J6WkVG?=
+ =?utf-8?B?aGI4QmZZUFJyOS9vc1laQVhHZm12Uk94SVRlWHJibU9BcVVkckF0dVZ4T2V0?=
+ =?utf-8?B?SHBwcERNVHVnUzArTXpqM1BHenNMTklUUC81dCtEdG5uNHVuNUxPNnFJSW1p?=
+ =?utf-8?B?NHZHazVqZUdhSkpiZjBENER5UWxYU1RyNlU2T2FhU05VVWZnUlBKMlhaV0JV?=
+ =?utf-8?B?U3lCbHdneFBBeDc2ZGIrUDkyMy9BcEY0Q2E3cnFoWjQzRkJQLzZ5dFNydkpX?=
+ =?utf-8?B?VTM2QnVHZnllRUF4bnp5aEpiNVFrVGM5VjJ2NGY4ZmNzMXdQTWE5WkVGVGlI?=
+ =?utf-8?B?cEZ3YjNPalpZMUovVEpnNUl0emQyS2luTjEyQXJobEF2YU1nZklad080RUFm?=
+ =?utf-8?Q?vyjGe8=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?bmVoK3BzS3Jmc3NVWjFmZkxudjBpaWNWRzFuT3lzZFBRNWRBVGRmL0NrblZK?=
+ =?utf-8?B?UFM1dHRjdy95VzEyTXY2WU8wQUlXWnRTb0R1N3NaY0JxanpwbEhGZXZ3Y1J4?=
+ =?utf-8?B?MDFtVnBIYXlFejRWby9nbkNYOGRybTE4b2NseUV1UWNLbzBXSUVHeG9lbVhS?=
+ =?utf-8?B?UHhCK0hwY2pwWWUrVWZDUkhlTU4yTCtqbzRZZ1orbVhLeUFJVGtLWHN1dmpv?=
+ =?utf-8?B?YnZhVGFDeTFKMXJJOFJuNHpDZndKZi9CcnA4RnppdjZINFQ1Q1ViOXhUM2Ir?=
+ =?utf-8?B?RTgvTmtmSGo2T0hqbEpVN2ROQzBPZHBuWUgzaENEaEJsbnVza1EySzA5TmJj?=
+ =?utf-8?B?bzA2dlp6aXBYS2w5RWQ4eWcrVTE2ZGFkSTl4KzNGV0JzZG4xcDNuaDdpTE1v?=
+ =?utf-8?B?bnFHcHQvSWU3VmNQOUJSY0E5VGdBK0FsZ3ZoVDc4NDVLN2tjVVBkamxtdk1r?=
+ =?utf-8?B?TGlvZjhoM25FV1NUWEYzZ1dzV0lQWHlPbzNiZkJKWkRDZ0hMZU00R3RBUkls?=
+ =?utf-8?B?L1h1OC9DVnRkWHpCbFVnRU1QRFA1dExkV3pKMnQzZGF4ODZ1RlhtOEQwL2Rt?=
+ =?utf-8?B?R2dreXFta09nTUVQY0QvOTkwS1h1T0VTVmVJOU1DNU5LMCtRUFQwMklEcjlS?=
+ =?utf-8?B?YUtjb2tWVGRuTzM2KzJLdUNPKzhaYzMyQjY3RkV5Rm0xbWhnSytSUER1Wng1?=
+ =?utf-8?B?LzRRNDUyWkdKS0pzcWtHdmNpWU1XRFBZZE5TTGtZMHZKY0tVSXpJVVEySlFS?=
+ =?utf-8?B?NzUxdTJYelRmbURqNGZXT3AzN3UxZGphYk15cFlaOG5mOXpnRzZaR3VjZHdn?=
+ =?utf-8?B?elBDaS9POFptcjAvOXZVZXFybkJWUlNlQklDRkRBVkJldWMwSWZxRVNTRWdW?=
+ =?utf-8?B?Z3VIWFNxVXl2aVdmVngvZXlVUUx1ak5Lc2tlZ3pSQUsvRkRRWFJhUG9ybjdq?=
+ =?utf-8?B?UDBMQnYzcURXSGI5TGh6V01DT21UbytnSmRKOHVmV1J6RnRmZzdZY2poblU1?=
+ =?utf-8?B?c1V2WENGakFRV3R0REk4bEUybm13QXNRWU5oQWtrajZIWFp3N2htYjZsMUk5?=
+ =?utf-8?B?R2czMklnL2d0Q2taU2tmTWxYQURWRzdUSERMQ0R5b0FjMUhiMHMyMlZOSWU1?=
+ =?utf-8?B?RENmWVoyUTVLQ3ZsTEZzUGtuMUVIMHNyclhvODNoaUowVTZpRTd1QnpOaDFp?=
+ =?utf-8?B?S1k5STRNZW1idDc0VXBzdmlCdFM2Nm1tVUx1ck41REFTaGF2dlkvNTFxbmJD?=
+ =?utf-8?B?SmRsRDZxK25GWHF3YWJjY3RWT1dlMmxiT3U3eDRhMlFJQ1lzQmhrL3VZVmxU?=
+ =?utf-8?B?cHliUmFHYXN2VGRkdW5YeU9XQ29UQmxHcmt3NW9VKzBGc09IVXZIQTUyTzhp?=
+ =?utf-8?B?TitJWmZDdStRQW9yclpIaUo3blNHQXB6bVpRbTBML283T1M2dEJUd1hRbURy?=
+ =?utf-8?B?SkFjUVUyMDg5Q0U4TFJJVC9lSUM3L2dhd1BNUDVpSEtieDM5dERnemhtcHVX?=
+ =?utf-8?B?ZVkzRTh3c1N3WGQ1YWl6MHNQNURoUXhZMUpLWERBRFBaVU1SS1RXSnVCNm11?=
+ =?utf-8?B?TWRMaXZ5R3hYUlo0S2htYkZhSUdERUk2cTdFeXN2YlYzY24yT1hxaG93QlU3?=
+ =?utf-8?B?MFQ2S3hyS2lpTU5DY0N0WEp6TGcvOStxZ29iYlNJTVhTbmQweEFjU1czVmdl?=
+ =?utf-8?B?aVE1OWlzY0lOWE1ETldYU1hMNmZCYTN0cTYzdHFFbTNsYjQ0Q0tWK2hCVGl0?=
+ =?utf-8?B?d3FGdThPVWE0L1YrQ2FrZWFPazNhSGRsMUVMV3NWclZNSUVIT0hOV0JjYjNt?=
+ =?utf-8?Q?XMB/lZVyKP79SZz1HAl3fMQ1R0HPphtq2kkOY=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,270 +172,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9da03ed6-fea2-44df-8aee-f7a61a1d35ce@paulmck-laptop>
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: df3ac77b-9f5b-4acb-4aaf-08df396607cc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 04:50:48.9741
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR02MB11136
 
-On Wed, Oct 28, 2026 at 04:51:12PM -0700, Paul E. McKenney wrote:
-> On Wed, Oct 28, 2026 at 10:26:18AM -0700, Paul E. McKenney wrote:
-> > On Tue, Oct 27, 2026 at 05:38:03PM +0100, Andrea Parri wrote:
-> > > hazptrtorture can hang at shutdown when deferral is enabled, as in the
-> > > PREEMPT scenario: the writer stays in ->sync() and kthread_stop() on it
-> > > never returns, until kvm.sh kills QEMU:
-> > > 
-> > >     [ 1800.899278] hazptr-torture: Stopping hazptr_torture_do_pending task
-> > >     [ 1800.899447] hazptr-torture: Stopping hazptr_torture_writer task
-> > >     [ 1812.713870] hazptr-torture: rtc: 00000000225df70a ver: 12436 HTWS_SYNC tfle: 0 rta: 12437 rtaf: 0 rtf: 12427 onoff: 48783/48783:48786/48786 3,254:3,280 611671:731494 (HZ=1000) acq: 5720353149 rel: 5720210186 acqirq: 571927 relirq: 714778 reldefer: 714139 relundefer 714114
-> > >     [ 1812.713971] hazptr-torture: hazptr_torture_stats is stopping
-> > > 
-> > >     Summary: Potential hang (QEMU killed)
-> > >     !!! PID 1393523 hung at 1980 vs. 1800 seconds
-> > > 
-> > > hazptr_torture_cleanup() stops the do_pending kthread first, then the
-> > > writer, then the readers.  Once torture_must_stop(), do_pending makes
-> > > one last pass and leaves its loop, but unless stutter_will_wait(), that
-> > > pass releases the deferred hazard pointers of a single CPU.
-> > > 
-> > > Readers can also still defer after that pass, from the iteration they
-> > > are in when torture_must_stop() becomes true.  Readers that have left
-> > > their loop hold no hazard pointer, so the writer waits on one of the 25
-> > > deferred hazard pointers above (reldefer - relundefer) that nothing
-> > > releases.
-> > > 
-> > > Stop the readers before do_pending, and do_pending before the writer.
-> > > do_pending still leaves its loop at torture_must_stop(), and now
-> > > releases the deferred hazard pointers of all CPUs once
-> > > torture_kthread_stopping() returns, that is, once
-> > > hazptr_torture_cleanup() stops it, after the readers.  The writer can
-> > > still wait in ->sync(), but only until then.
-> > > 
-> > > This should be safe because readers defer only from their own loop,
-> > > which they have left once torture_stop_kthread() returns for them, and
-> > > the hazptr_torture_acquire() IPI runs synchronously within that loop.
-> > > The readers do not need the writer to stop: they leave their loop at
-> > > torture_must_stop(), after at most one stutter_wait().
-> > > 
-> > > do_pending keeps the torture_must_stop() check before its sleep.  A
-> > > kthread_stop() that comes after that check and before the sleep starts
-> > > still delays do_pending's exit by a full kthread_do_pending_ms sleep,
-> > > however long that is.  With the readers stopped first, this happens
-> > > only if do_pending passed the check before the test began stopping and
-> > > had not yet gone to sleep when kthread_stop() came, after all the
-> > > readers had stopped.
-> > > 
-> > > With this change, a 30-minute PREEMPT run on x86_64 with 8 CPUs ends
-> > > with "End of test: SUCCESS" and with as many hazard pointers released
-> > > from the pending lists as were deferred (reldefer: 983727 relundefer
-> > > 983727).
-> > > 
-> > > The hang was found with the help of an LLM.
-> > > 
-> > > Fixes: f23d7b47ced9 ("hazptrtorture: Add kthread to release deferred hazard pointers")
-> > > Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> > 
-> > Again, thank you!
-> > 
-> > Please see the question below.
-> > 
-> > 							Thanx, Paul
-> > 
-> > > ---
-> > >  kernel/rcu/hazptrtorture.c | 13 +++++++++++--
-> > >  1 file changed, 11 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
-> > > index 7c8b5899fb011..c46083a8af093 100644
-> > > --- a/kernel/rcu/hazptrtorture.c
-> > > +++ b/kernel/rcu/hazptrtorture.c
-> > > @@ -560,6 +560,9 @@ static int hazptr_torture_do_pending(void *arg)
-> > >  		// Omit stutter_wait() because this function needs to do cleanup.
-> > >  	} while (!torture_must_stop());
-> > 
-> > The torture_must_stop() function expands to this condition:
-> > 
-> > 	torture_must_stop_irq() || kthread_should_stop()
-> > 
-> > The torture_must_stop_irq() function expands to this condition:
-> > 
-> > 	READ_ONCE(fullstop) != FULLSTOP_DONTSTOP
-> > 
-> > And the fullstop variable is set to FULLSTOP_RMMOD by
-> > torture_cleanup_begin() (unless it has already been set to
-> > FULLSTOP_SHUTDOWN).
-> > 
-> > And torture_cleanup_begin() is invoked by hazptr_torture_cleanup()
-> > right at the beginning, before reaching any of the calls to
-> > torture_stop_kthread().
-> > 
-> > So doesn't the above torture_must_stop() instead need to be
-> > kthread_should_stop()?
-> > 
-> > As it is, hazptr_torture_do_pending() will still stop before the
-> > hazptr_torture_reader() instances do, correct?
-> > 
-> > Or am I missing something subtle here?
-> 
-> Well, one thing that I am missing is that changing from
-> torture_must_stop() to kthread_should_stop() might cause trouble
-> if rcutorture execution is terminated by system shutdown.
-> 
-> So my next suggestion is that this be added just after
-> hazptr_torture_reader() exits its do-while loop:
-> 
-> 	for_each_possible_cpu(cpu)
-> 		hazptr_torture_do_one_pending(cpu, &rand);
-> 
-> Thoughts?
-
-How about like this?
-
-						Thanx, Paul
-
-------------------------------------------------------------------------
-
-commit 863f3c68c5dce601456368a9152de0239421cef9
-Author: Andrea Parri <parri.andrea@gmail.com>
-Date:   Tue Oct 27 17:38:03 2026 +0100
-
-    hazptrtorture: Release all deferred hazard pointers before stopping
-    
-    hazptrtorture can hang at shutdown when deferral is enabled, as in the
-    PREEMPT scenario: the writer stays in ->sync() and kthread_stop() on it
-    never returns, until kvm.sh kills QEMU:
-    
-        [ 1800.899278] hazptr-torture: Stopping hazptr_torture_do_pending task
-        [ 1800.899447] hazptr-torture: Stopping hazptr_torture_writer task
-        [ 1812.713870] hazptr-torture: rtc: 00000000225df70a ver: 12436 HTWS_SYNC tfle: 0 rta: 12437 rtaf: 0 rtf: 12427 onoff: 48783/48783:48786/48786 3,254:3,280 611671:731494 (HZ=1000) acq: 5720353149 rel: 5720210186 acqirq: 571927 relirq: 714778 reldefer: 714139 relundefer 714114
-        [ 1812.713971] hazptr-torture: hazptr_torture_stats is stopping
-    
-        Summary: Potential hang (QEMU killed)
-        !!! PID 1393523 hung at 1980 vs. 1800 seconds
-    
-    hazptr_torture_cleanup() stops the kthreads in random order, which
-    means that there could be a reader thread still running after
-    the do_pending kthread does its last cleanup pass.  If the writer
-    is still running at that point, any remaining deferred hazard
-    pointers will never be cleaned up and the writer can wait forever
-    if it is unlucky enough to be waiting on one of the deferred
-    hazard poiners.
-    
-    Therefore, make each reader clean up all deferred hazard pointers,
-    which means that after the last reader finishes, there can no
-    longer be any deferred hazard pointers, which means that the
-    writer can terminate promptly.
-    
-    With this change, a 30-minute PREEMPT run on x86_64 with 8 CPUs ends
-    with "End of test: SUCCESS" and with as many hazard pointers released
-    from the pending lists as were deferred (reldefer: 983727 relundefer
-    983727).
-    
-    The hang was found with the help of an LLM.
-    
-    [ paulmck: Make readers release deferred hazard pointers. ]
-    
-    Fixes: f23d7b47ced9 ("hazptrtorture: Add kthread to release deferred hazard pointers")
-    Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-    Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-
-diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
-index 7c8b5899fb011..3059ccb01979d 100644
---- a/kernel/rcu/hazptrtorture.c
-+++ b/kernel/rcu/hazptrtorture.c
-@@ -449,6 +449,28 @@ static void hazptr_torture_defer(struct hazptr_pending *hppp, struct torture_ran
- 	atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_defer, raw_smp_processor_id()));
- }
- 
-+/*
-+ * Release the specified CPU's set of deferred/pending hazard pointers.
-+ */
-+static void hazptr_torture_do_one_pending(int cpu, struct torture_random_state *trsp)
-+{
-+	struct hazptr_pending *hppp;
-+	struct hazptr_pending *hppp1;
-+	struct llist_head *llhp;
-+	struct llist_node *llnp;
-+
-+	llhp = per_cpu_ptr(&hazptr_pending, cpu);
-+	llnp = llist_del_all(llhp);
-+	if (!llnp)
-+		return;
-+	llist_for_each_entry_safe(hppp, hppp1, llnp, hpp_node) {
-+		hazptr_torture_reader_tail(hppp, trsp);
-+		atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_undefer,
-+					    raw_smp_processor_id()));
-+		kfree(hppp);
-+	}
-+}
-+
- /*
-  * Hazard-pointer torture reader kthread.  Repeatedly dereferences
-  * hazptr_torture_current, incrementing the corresponding element of the
-@@ -513,31 +535,13 @@ static int hazptr_torture_reader(void *arg)
- 		stutter_wait("hazptr_torture_reader");
- 	} while (!torture_must_stop());
- 	torture_kthread_stopping("hazptr_torture_reader");
-+	// Each reader clears all CPUs, so nothing is left after all
-+	// readers exit their for_each_possible_cpu() loops.
-+	for_each_possible_cpu(cpu)
-+		hazptr_torture_do_one_pending(cpu, &rand);
- 	return 0;
- }
- 
--/*
-- * Release the specified CPU's set of deferred/pending hazard pointers.
-- */
--static void hazptr_torture_do_one_pending(int cpu, struct torture_random_state *trsp)
--{
--	struct hazptr_pending *hppp;
--	struct hazptr_pending *hppp1;
--	struct llist_head *llhp;
--	struct llist_node *llnp;
--
--	llhp = per_cpu_ptr(&hazptr_pending, cpu);
--	llnp = llist_del_all(llhp);
--	if (!llnp)
--		return;
--	llist_for_each_entry_safe(hppp, hppp1, llnp, hpp_node) {
--		hazptr_torture_reader_tail(hppp, trsp);
--		atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_undefer,
--					    raw_smp_processor_id()));
--		kfree(hppp);
--	}
--}
--
- /*
-  * Hazard-pointer release of deferred/pending hazard pointers.
-  */
-@@ -560,6 +564,7 @@ static int hazptr_torture_do_pending(void *arg)
- 		// Omit stutter_wait() because this function needs to do cleanup.
- 	} while (!torture_must_stop());
- 	torture_kthread_stopping("hazptr_torture_do_pending");
-+	// Readers clean up after themselves before exit.
- 	return 0;
- }
- 
-@@ -773,9 +778,7 @@ hazptr_torture_cleanup(void)
- 		return;
- 	}
- 
--	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
- 	torture_stop_kthread(hazptr_torture_preempt, preempt_task);
--	torture_stop_kthread(hazptr_torture_writer, writer_task);
- 
- 	if (reader_tasks) {
- 		for (i = 0; i < nrealreaders; i++)
-@@ -785,6 +788,14 @@ hazptr_torture_cleanup(void)
- 		reader_tasks = NULL;
- 	}
- 
-+	/*
-+	 * Stop the writer only after do_pending, and do_pending only after
-+	 * the readers: the writer may be waiting on hazard pointers that
-+	 * readers deferred, which do_pending releases once they stopped.
-+	 */
-+	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
-+	torture_stop_kthread(hazptr_torture_writer, writer_task);
-+
- 	torture_stop_kthread(hazptr_torture_stats, stats_task);
- 
- 	/* Do torture-type-specific cleanup operations.  */
+RnJvbTogRGFuaWVsIFBlcmVpcmEgPGRhbmllbG1hcmFib29AZ21haWwuY29tPiBTZW50OiBNb25k
+YXksIE5vdmVtYmVyIDIsIDIwMjYgNjoxMiBQTQ0KPiANCj4gSGkgIQ0KPiANCj4gPiArYW5kIHVu
+bWFzayBpbnRlcnJ1cHRzLiBJdCBiZWNvbWVzIHRoZSBwYXJlbnQgZG9tYWluIGZvciB0aGUgcGVy
+DQo+ID4gK2RldmljZSBJUlEgZG9tYWluIGNyZWF0ZWQgYnkgdGhlIG5vcm1hbCBMaW51eCBkcml2
+ZXIgZm9yIHRoZQ0KPiANCj4gSSB0aGluayAicGVyLWRldmljZSIgc2hvdWxkIGhhdmUgYSBoeXBo
+ZW4gaGVyZSB0b28sIHNpbmNlIGl0J3MgYW4gYWRqZWN0aXZlLg0KPiANCj4gPiArImlycWNoaXBA
+PHBhZGRyPiIgZG9tYWluIGNyZWF0ZWQgYnkgdGhlIEdJQ3YzIGRyaXZlciB3aGVuIGl0DQo+ID4g
+K2luaXRpYWl6ZXMgdGhlIHZpcnR1YWwgR0lDdjMgaGFyZHdhcmUgcHJvdmlkZWQgdG8gdGhlIGd1
+ZXN0DQo+IA0KPiBJcyAiaW5pdGlhaXplcyIgYSB0eXBvPyBTaG91bGRuJ3QgaXQgYmUgImluaXRp
+YWxpemVzIj8NCj4gDQo+ID4gK2RldmljZSdzIE1TSS9NU0ktWCByZWdpc3RlcnMvdGFibGVzLiBU
+aGUgZ3Vlc3Qgd3JpdGVzIGEgdmlydXRhbA0KPiANCj4gSSB0aGluayB0aGlzIG9uZSBpcyBhbHNv
+IGEgdHlwbywgcmlnaHQ/IFNob3VsZG4ndCBpdCBiZSAidmlydHVhbCI/DQo+IA0KPiA+ICtPbmNl
+IHRoZSBob3N0LXZhbGlkIE1TSSBtZXNzYWdlIGlzIG9idGFpbmVkLCB0aGUgZ3Vlc3QgbXVzdCB0
+cmVhdCBpdA0KPiA+ICthcyBhIGJsYWNrLWJveCB0aGF0IHRoZSBndWVzdCBkb2VzIG5vdCBpbnRl
+cnByZXQgb3IgbW9kaWZ5LiBUaGUgb25seQ0KPiANCj4gImJsYWNrIGJveCIgKG5vIGh5cGhlbikg
+aXQncyB1c2VkIGFzIGEgbm91biBoZXJlLCBzbyBpdCBzaG91bGRuJ3QgYmUgaHlwaGVuYXRlZC4N
+Cj4gDQo+ID4gK3ZhbGlkIGd1ZXN0IGFjdGlvbiBpcyB0byB3cml0ZSBpdCB0byB0aGUgTVNJL01T
+SS1YIHJlZ2lzdGVycy90YWJsZXMNCj4gPiArdXNpbmcgdGhlIC5pcnFfY2hpcF93cml0ZV9tc2lf
+bXNnIGZ1bmN0aW9uIG9uIHRoZSBIVi1QQ0ktTVNJWC08UENJYWRkcj4NCj4gDQo+IHN0cnVjdCBp
+cnFfY2hpcCBoYXMgbm8gLmlycV9jaGlwX3dyaXRlX21zaV9tc2c7IHNob3VsZG4ndCB0aGlzIGJl
+DQo+IC5pcnFfd3JpdGVfbXNpX21zZz8gU2FtZSBpbiB0aGUgbGFzdCBwYXJhZ3JhcGguDQo+IA0K
+DQpUaGFua3MgZm9yIHRoZSBjYXJlZnVsIHJldmlldyEgWWVzLCB0aGVzZSBhcmUgdHlwb3MgYW5k
+IGh5cGVuYXRpb24NCmVycm9ycyB0aGF0IEknbGwgZml4IGluIHYyLg0KDQpNaWNoYWVsDQo=
