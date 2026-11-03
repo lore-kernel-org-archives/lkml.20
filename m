@@ -1,106 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793679163;
-	b=MkA9ZlO+vNN4EgRL+IIZxgwB/bfL3lqOQgZlELBRueEQKZhnpazr6PsDIC6YRsLK3Wqm
-	 MmkZT52ByaqGeSiKqEwzzL6JkFC2XiVvGnGUHIddDfaB26bhPCA/zHldklDpj12INbMnR
-	 GfON0jkzLHsSPrkOLtlLDNVKSpK2+gPuWqTyjNfH2u6uWtNsb/7kZ42OZChILDvnpOyXg
-	 /KStt4+p7kLFynK1pQK0h+isNDy092JGTwDCGkUQsZ4Sc5zcKuMPpXjkck2b3g5CJ+yhf
-	 YfA+WYkG53tCUsKC3v+klR2Pj7BBqX1Cnra/z0rYRVSIInImYJO4yeuIUQJzEJSTxVQ==
+	t=1793679261;
+	b=IGcl+n6qGXJ4EE9zsDCH0/1oaCgq9bxtfHcYXHKt3iXAdQsUQt5oYMkMaGt//HpvBFaE
+	 tCb1L/V4osZ5wHj/uCyOsbJtaCznawfQtsWzDBPTB4Ywtw8mGYOgnMpvCXcPCg8FV0tjD
+	 rV71KwE+DcyszBF0+Iodqb3DqEHkhgmGfpibH/p96YiCLTs7aL+qlr+8k5ILq8nd6UVU2
+	 7vda75Ewb0eV7NmZ1ikDes1eoc2mTaESQLuU8Z/hEzva0fe1pI+pkMESC4L1cZtoxN9hK
+	 0RmXVHt7vxxi/e/+AQhKQ/6PahlAx9AWTFvXeb79yOg7REjWA8PLngCyTbiEn5qnCSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793679163;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793679261;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AoK1tSvrGC/yGpo34e5d7pEB1O9R0LQE99Bs7YS2fkw=;
-	b=mbSNydmHJ5r3MKy+VRQ/8CPXGMbFS9fbDeByJLd57Map73QK+opn7Pe/dvirMoJ8bAra
-	 1l7SnmrGknAmTqY/RrJ7bbVx3j+afzTOcxKLdJGFGqGZo/bPSMxF7TqL00k0kivRrBIJr
-	 dYoq+62aKqvXb5Ff3CFcns3Vr2JMaACOXUuE1giOIlV2ApeqzDj5oHlRjLynOS1mRRpvw
-	 SPQedY5zlYwAevTS1Q8Xgrl5BH39yhTWocHG/AJDdx2CRd6DktVVCRunwV5xniodeieGf
-	 hWXvO5RpPmkWZOqhwJ+btOJHyZHq7R9sfq8HuUB7a43qS7XQ+Q+i34eCKoQBtHN2TLg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Fp1Lx/Kg3pMRBBCsAns7CtggXW6vZRcTbQp37OcvvAQ=;
+	b=Upvob2yQVVXWBSQgu0AsaINSyqtE1b9Z70XlYH2VUblzQrL1X6KA/Lqx1aDOxoAxzNFX
+	 V2qZEn3T1JimlQsra678s4LEf4OfzScpRVHwoB/sBe5/6y1mBghtNM/ffOoqJvETRE/Ol
+	 w2x0C+sRuoedDIlWK5m/6aDv1OyXdd0JAVdnAAoCXkvL8nZCCQCh2NeXLTeJGIeZRmzTO
+	 HHQ1omLNm9PukcV3KrXUgGgRVyerV8PHW0gszdBkhFb6y2iHZ1JmsXniVtsKDpiKOHA/o
+	 YI/+iyBRi7e9Lcne8e5yIWRVMOwtAcjK5xgDS0c9D7fTWOfqrRPGagZIHEd7i31gKkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yNb5JtGr;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="VUc48P/b";
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF29606A336
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:12:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EF29606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAB3606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:14:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FAB3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yNb5JtGr
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdb2dfcca94so629982a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:12:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VUc48P/b
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36a3451ea93so5849205eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:14:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793679162; x=1794283962; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AoK1tSvrGC/yGpo34e5d7pEB1O9R0LQE99Bs7YS2fkw=;
-        b=yNb5JtGr8cWg5rgW1J6E4bnifWYrSmlFuU4BFB4PrdDiock0WoXQJSnoDQ/L5yHiTC
-         LxrnCsVRpGrSizZV6gvhHqJ6thD5TD1LQc8Ayb7CQbdyA/KtE2Sq0Ti6NDl/LvpTd9PW
-         6jA7il4MedAFpJDcCBW/Bo3jG2g1JGqf/V89cymLwPJHMqMgYWi2hhFhkC2/i2Pe9KI5
-         6Yi7LxTM6A8eAZe1HLf7xYUKKkr9y+jD72q5Ah4F+3V1EVQUTGDhgHEmPeFghvzzzfVB
-         KReqJ0ql86WwSd9wmCovyUBASO8+BIMWferu3vt5faIJSUtJzjFUy+4E5B5ysKlWtSao
-         wCug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793679162; x=1794283962;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20260707; t=1793679260; x=1794284060; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AoK1tSvrGC/yGpo34e5d7pEB1O9R0LQE99Bs7YS2fkw=;
-        b=y4+1meKtkJw8oeh3w45Tz8W5e4/bX1sZTUX1dR6CEXLaxD115rP+d6CyvNrENMb3wg
-         avr3QdSk3DzkO05meLJYuDFkgZbfDOpru7edc9G6NqcZZ2ut8oT+Go5bdJmNd0yGw+lF
-         cyT2XVIKOWYCOovd5tbr6Rm8/QGxzKio6uUn+vT7EDF/fWXDHESKChlXFXQLE/yIyiyc
-         0+kqZnVwnFmw1rrabmnvhb7ZnhfAK2bY6E92gl12Dbj51CPVxARqk6S0FQcl/pQdnh57
-         DSF6HEAa4QWV6wm+e7blvh07piuLZ8gFXi6aQ5yJGg5mjQy0gQAQH6dc5RfZ2CMcWcPi
-         npsg==
-X-Forwarded-Encrypted: i=1; AKwUvBz1D902r5dbeTULvz0kkwQAuEuLIM1diNuU7gvitDRuRQ0KPB/zNUMlSB24bBv3j13dB9FcFJbgLlOQuYk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VsDxB5YI6KHcNwo25307zocXyMi8jYtgiZqtvn+wTXmgmyz5X
-	ksV5K2FLOZEtkF+c6gOOXG8eOfWfxF8IiQwQ79SQ59FW8LJChw5e0fcb
-X-Gm-Gg: AYBFou1hwawNRpxU8l1kB5KTE30UjoKhP3O0BGGT8MYUeAso/gyuLrMJ8bwsScP+Tt2
-	WAcGc8qKaCLBEDy22S/6x+VuRUyOU2P0qCS8gNIyQn8Zkk6/8QeO4UOkJiSPJ779kdGSSHBnHxA
-	hMk+ST8dbiqEUcTlhZvS3E3Xl+E+UHi6hk8vT4IrO29DaoAptObIoGqhHjqfXkly2yyOxFuMEgQ
-	VOBe8TXdxYZF1N5eFQ5TNpDS62Xr/PPJE/1gliAoKt+GzgwR7KRyGSCd/kr7Y4qDF7eT8dV1iZ0
-	AFop0cilR/oYb8X2WF5zE6cZnagntFckEG8uqgef7GNecpyuJ2b1WQiy1HKTNOXvO7Dwz3dgDEj
-	TdwU64aUzfmDYWpJgUYzy4t/I3i8tSm5BybaqZMr+1YePmliGlvJme2CO3FezoQZhIiU0NsKMhr
-	REQCIcn8la3cLlw2oeYR3TK1CuOq0VJ8waFOKktIChwklH+NocnnZUcg95EQfMSc+eWjSRpuG8f
-	ekKVb84Iyld7Atv9jESVlEDkTutSpSW9hYtzcITjGzpjDgygJhGWy0n1H3D53HUlO0XdEqJvhdk
-	BwuD4XPu
-X-Received: by 2002:a17:90b:4d01:b0:3a7:cffb:8b96 with SMTP id 98e67ed59e1d1-3ae8970ef3fmr9559326a91.18.1793679161371;
-        Mon, 02 Nov 2026 20:12:41 -0800 (PST)
-Received: from gmail.com ([2407:cdc0:f00f::117])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c6f010asm1941708a91.15.2026.11.02.20.12.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 20:12:41 -0800 (PST)
-From: Jia Jia <physicalmtea@gmail.com>
-To: netdev@vger.kernel.org
-Cc: stefanha@redhat.com,
-	sgarzare@redhat.com,
-	bobbyeshleman@gmail.com,
-	mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v5 4/5] vsock/virtio: coalesce native RX write-space notifications
-Date: Tue,  3 Nov 2026 12:11:33 +0800
-Message-Id: <20261103041134.33310-5-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261103041134.33310-1-physicalmtea@gmail.com>
-References: <20261103041134.33310-1-physicalmtea@gmail.com>
+        bh=Fp1Lx/Kg3pMRBBCsAns7CtggXW6vZRcTbQp37OcvvAQ=;
+        b=VUc48P/b6X2ZpZvux4yNMu9AJit/kHYdez0cEtwtBB5oj8OjGO3hI4B3ofgXSj44GT
+         fNwzJzSR8bFjf99ULHbYLZnr+ZUBnBYB1ObIn+lTSHrFGgQR48A6uzMr0Zz5Cwy+eloZ
+         GXrXXEJaNDUtSF2lXHesOcOVZaCSSndnL5wo+d0caHNwYJnOUdiixQiKAThYopp4ugZ/
+         qc7veLORHD7yytyaFvdqyKD0/jRiGObJbUZjxd/xmYf4gdja2OjnXupjTRL7s6PsR+fY
+         iHFaf4KumuBoDtf4MN1Rj4eF7kaV6XVR3BTm1jfgrPL8zQp1LPk4Eq+WNSCFk0MB3c+R
+         KOkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793679260; x=1794284060;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fp1Lx/Kg3pMRBBCsAns7CtggXW6vZRcTbQp37OcvvAQ=;
+        b=W73DBNBYOSn2bT5OnDYH7rSfMGN5o8u5IlxlFIAD9RWGB2p+ar5vz9BwVID/E1WIRA
+         WQydt3RZEVQtyahuOVMJK7EH1b4KdHVxm7YHNxfe9+pyvlnUyWdO7yRio8XiJpIXUe97
+         24tpHZTjHPtYetvl6A8gcAKX5nd2RxTJNtsX5aJ97xQvJPplURq7xLUD/17qwMTxOvlF
+         IGt/eb7hsvIvrMaoKe6EMekvOCD9ivV+QshaiC1PK4FhtnwQ4M/QB3aZXzDvXwGgfkBG
+         pzwD6E2q+KFK06Ld3SE4tb2iQQoLsC4DiHlfHHWa/0bRumAoMiWUIATCEpHYE1E4yVc8
+         rFrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHTA7o3iFl/kqXLI82bmRDulopyTJ1uI7YBs2k9sN45Jur1j/N3vrTimLtNEwbVbY4RaxuC2NKtoekNvc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/riVduxsV+oPeHL/WTQAMthCdg6SRrRhQWOMszmhnYj92rw4zo
+	ybtcbUhw3GPrtOhU+I1wkF1mhjFsxbDYoj5g2fpycQ2HZuiRXf2ZVSWiaAUr9YEeODjtasdMaZ3
+	3O8qVjtPrZw==
+X-Received: from dyz12.prod.google.com ([2002:a05:693c:408c:b0:351:2266:121])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:1602:b0:369:f9da:a70f
+ with SMTP id 5a478bee46e88-36a423af719mr15654717eec.17.1793679259838; Mon, 02
+ Nov 2026 20:14:19 -0800 (PST)
+Date: Mon,  2 Nov 2026 20:14:13 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,292 +75,285 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261103041416.2940213-1-irogers@google.com>
+Subject: [PATCH v16 0/3] perf: Add Raspberry Pi AXI PMU driver
+From: Ian Rogers <irogers@google.com>
+To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Dom Cobley <popcornmix@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	"=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=" <u.kleine-koenig@baylibre.com>, Stefan Wahren <wahrenst@gmx.net>, 
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+	bcm-kernel-feedback-list@broadcom.com, linux-perf-users@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Each received packet can update peer credit and call sk_write_space(). A
-writer cannot consume that credit while the virtio RX worker retains the
-socket lock, so repeated native write-space notifications in one RX batch
-are unnecessary.
+Motivation & Background
+=======================
+Currently, Linux lacks a standard perf-API compatible driver for the
+Broadcom AXI bus-watcher performance monitor blocks on Raspberry Pi
+platforms (BCM2835, BCM2711, and BCM2712). Prior out-of-tree vendor
+solutions relied on custom debugfs nodes and ad-hoc kthreads, preventing
+integration with standard Linux perf tooling (`perf stat`, `perf list`,
+etc.).
 
-This patch coalesces write-space notifications on the native AF_VSOCK path;
-data-ready remains per-packet here.
+Note that this hardware block (`brcm,bcm2835-axiperf`) is distinct from
+the Northstar BCM5301X AXI Trace Module (`brcm,bcm5301x-axi-pmu`,
+https://lore.kernel.org/r/20261027175124.3518239-1-florian.fainelli@broadcom.com).
 
-The batching patch establishes batch ownership before its first packet.
-This lets this patch record a pending notification for that packet and
-flush it even if the packet immediately ends the batch. Deliver it while
-holding the socket lock to preserve the callback context of the existing
-receive path. A following patch changes that timing together with
-data-ready handling.
+Key Architectural Features
+==========================
+1. Standard Linux Perf Integration:
+   - Exposes uncore AXI interconnect events via
+     `/sys/bus/event_source/devices/rpi_axi_pmu/` and documents them in
+     `Documentation/admin-guide/perf/rpi-axi-pmu.rst`.
+   - Supports up to 3 concurrently monitored `(bus, filter)` pairs per
+     monitor (`NUM_BUS_WATCHERS_PER_MONITOR = 3`), with reference counting
+     so all counter metrics on the same `(monitor, bus, filter)` share a
+     single hardware watcher without multiplexing.
+   - Enforces group validation (`rpi_axi_pmu__validate_group()`) to reject
+     event groups requiring more than 3 watchers per monitor at
+     `perf_event_open()` time, while supporting time-multiplexing across
+     more than 3 ungrouped buses.
+   - Masks counter deltas to each hardware register's bit width (32-bit for
+     `*trans`, 28-bit for `*wait`/`*max`, and 8-bit for `rpend`) and tracks
+     per-interval watermarks for level registers (`*max` and `rpend`) so
+     `perf stat` and `perf stat -I` report accurate peak levels.
 
-Capture the native write-space callback before socket publication and
-access it through AF_VSOCK helpers. Sockmap can change the protocol,
-write-space callback, and psock marker without the socket lock. Serialize
-each batch eligibility check with sk_callback_lock; if a packet boundary
-observes a replacement, finish the batch and use the regular per-packet
-path.
+2. Hybrid MMIO & Firmware Mailbox Architecture:
+   - System Monitor (`monitor=0`): Performs fast atomic-safe MMIO reads.
+   - VideoCore VPU Monitor (`monitor=1`): Polled asynchronously in process
+     context (`vpu_work`) via a single 44-word bulk Raspberry Pi firmware
+     mailbox `RPI_FIRMWARE_GET_PERIPH_REG` call across all three VPU bus
+     watchers. At probe time, `rpi_axi_pmu_vpu_accessible()` verifies that
+     the firmware can reach the VPU monitor hardware and hides the `vpu_*`
+     sysfs events if unavailable.
 
-Packets admitted on the native path use the saved native callback at batch
-finish. Reloading a current sockmap callback would not synchronize its
-invocation with teardown; a wrapper seen before teardown need not forward
-the native wakeup after its psock is gone.
+3. Per-SoC & Stepping Support:
+   - Patch 1 adds the Device Tree binding (`brcm,bcm2835-axiperf`,
+     `brcm,bcm2711-axiperf`, `brcm,bcm2712-axiperf`) and `MAINTAINERS`
+     entry.
+   - Patch 2 adds the driver and admin-guide documentation for BCM2835 and
+     BCM2711.
+   - Patch 3 adds BCM2712 (Raspberry Pi 5) C0 and D0 support, including
+     runtime D0 stepping detection via the bus-watcher AXI ID mask field,
+     C0 (13-port) and D0 (10-port) System bus tables, 6-bit sparse AXI
+     master ID filter tables (`BCM2712_FLT_MAX = 64`), and `ratrans`.
 
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
----
- include/linux/virtio_vsock.h            |  4 +-
- include/net/af_vsock.h                  |  7 +++
- net/vmw_vsock/af_vsock.c                | 16 +++++
- net/vmw_vsock/virtio_transport_common.c | 78 +++++++++++++++++--------
- 4 files changed, 81 insertions(+), 24 deletions(-)
+Hardware Validation
+===================
+The bus tables, master ID filters, and register layouts have been validated
+against Broadcom register documentation and direct hardware measurements on:
+- BCM2835 (Raspberry Pi 1 B+)
+- BCM2837 (Raspberry Pi 3 B+)
+- BCM2711 B0 (Raspberry Pi 4 B and Raspberry Pi 400)
+- BCM2712 C0 (Raspberry Pi 5 rev 1.0)
+- BCM2712 D0 (Raspberry Pi 5 rev 1.2 and Raspberry Pi 500)
 
-diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
-index 748633aa0cc81..bf28e8e32e280 100644
---- a/include/linux/virtio_vsock.h
-+++ b/include/linux/virtio_vsock.h
-@@ -287,12 +287,14 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
-  * Initialize a batch to zero before use. A non-empty batch owns @sk's socket
-  * lock and the reference returned by vsock_find_connected_socket_net(). The
-  * caller retains both until it calls virtio_transport_rx_batch_finish(). An
-- * empty batch owns neither.
-+ * empty batch owns neither. A pending native write-space notification belongs
-+ * to the lock holder and is delivered by virtio_transport_rx_batch_finish().
-  */
- struct virtio_transport_rx_batch {
- 	struct sock *sk;
- 	unsigned int pkts;
- 	size_t bytes;
-+	bool write_space_pending;
- };
- 
- static inline bool
-diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
-index 5549298c1ec6b..b76ab565ea58b 100644
---- a/include/net/af_vsock.h
-+++ b/include/net/af_vsock.h
-@@ -63,6 +63,11 @@ struct vsock_sock {
- 	u32 peer_shutdown;
- 	bool sent_request;
- 	bool ignore_connecting_rst;
-+	/*
-+	 * Captured before the socket is published. This identifies AF_VSOCK's
-+	 * native write-space callback after a consumer has replaced it.
-+	 */
-+	void (*native_write_space)(struct sock *sk);
- 
- 	/* Protected by lock_sock(sk) */
- 	u64 buffer_size;
-@@ -78,6 +83,8 @@ s64 vsock_stream_has_data(struct vsock_sock *vsk);
- s64 vsock_stream_has_space(struct vsock_sock *vsk);
- struct sock *vsock_create_connected(struct sock *parent);
- void vsock_data_ready(struct sock *sk);
-+bool vsock_write_space_is_native(const struct sock *sk);
-+void vsock_call_native_write_space(struct sock *sk);
- 
- /**** TRANSPORT ****/
- 
-diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-index 44cee74519555..e39567990539f 100644
---- a/net/vmw_vsock/af_vsock.c
-+++ b/net/vmw_vsock/af_vsock.c
-@@ -958,6 +958,7 @@ static struct sock *__vsock_create(struct net *net,
- 		sk->sk_type = type;
- 
- 	vsk = vsock_sk(sk);
-+	vsk->native_write_space = sk->sk_write_space;
- 	vsock_addr_init(&vsk->local_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
- 	vsock_addr_init(&vsk->remote_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
- 
-@@ -1122,6 +1123,21 @@ void vsock_data_ready(struct sock *sk)
- }
- EXPORT_SYMBOL_GPL(vsock_data_ready);
- 
-+bool vsock_write_space_is_native(const struct sock *sk)
-+{
-+	const struct vsock_sock *vsk = vsock_sk(sk);
-+
-+	return READ_ONCE(sk->sk_write_space) ==
-+	       READ_ONCE(vsk->native_write_space);
-+}
-+EXPORT_SYMBOL_GPL(vsock_write_space_is_native);
-+
-+void vsock_call_native_write_space(struct sock *sk)
-+{
-+	vsock_sk(sk)->native_write_space(sk);
-+}
-+EXPORT_SYMBOL_GPL(vsock_call_native_write_space);
-+
- /* Dummy callback required by sockmap.
-  * See unconditional call of saved_close() in sock_map_close().
-  */
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index f83e5b2edce35..af26344678e41 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -1865,31 +1865,55 @@ virtio_transport_rx_batch_can_continue(struct virtio_transport *t,
- 	       !virtio_transport_rx_buf_full(vvs);
- }
- 
--/* The caller holds sk's socket lock. */
-+/* The caller holds sk's socket and callback locks. */
- static bool
--virtio_transport_rx_batch_can_receive(struct virtio_transport *t,
--				      struct sock *sk, u32 len)
-+__virtio_transport_rx_batch_can_receive(struct virtio_transport *t,
-+					struct sock *sk, u32 len)
- {
- 	if (!virtio_transport_rx_batch_can_continue(t, sk, len))
- 		return false;
- 
- 	/*
--	 * Sockmap can replace sk_prot and publish a psock without the socket lock.
--	 * Check both at each packet boundary; a boundary that sees a replacement
--	 * returns to the existing per-packet path.
-+	 * Sockmap can replace sk_prot or sk_write_space, and publish a psock,
-+	 * without the socket lock. Coalescing is safe only for the native
-+	 * write-space callback, so a boundary that sees a replacement returns to
-+	 * the existing per-packet path.
- 	 */
- 	return READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
-+	       vsock_write_space_is_native(sk) &&
- 	       !virtio_transport_sock_has_psock(sk);
- }
- 
-+/*
-+ * Sockmap teardown restores the native protocol and write-space callback
-+ * under sk_callback_lock. Serialize each packet admission check with those
-+ * updates.
-+ */
-+static bool
-+virtio_transport_rx_batch_can_receive(struct virtio_transport *t,
-+				      struct sock *sk, u32 len)
-+{
-+	bool batchable;
-+
-+	read_lock_bh(&sk->sk_callback_lock);
-+	batchable = __virtio_transport_rx_batch_can_receive(t, sk, len);
-+	read_unlock_bh(&sk->sk_callback_lock);
-+
-+	return batchable;
-+}
-+
- /*
-  * The caller holds sk's socket lock. If @batchable is non-NULL, update it
-  * after processing @skb to say whether a native STREAM/RW batch can continue.
-+ * When @batch is non-NULL, record a native write-space notification for batch
-+ * finish. A writer cannot consume the updated credit until this lock is
-+ * released.
-  */
- static void
- virtio_transport_recv_pkt_locked(struct virtio_transport *t,
- 				 struct sk_buff *skb, struct sock *sk,
--				 struct net *net, bool *batchable)
-+				 struct net *net, bool *batchable,
-+				 struct virtio_transport_rx_batch *batch)
- {
- 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
- 	struct vsock_sock *vsk = vsock_sk(sk);
-@@ -1921,8 +1945,12 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
- 	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
- 		vsk->local_addr.svm_cid = le64_to_cpu(hdr->dst_cid);
- 
--	if (space_available)
--		sk->sk_write_space(sk);
-+	if (space_available) {
-+		if (batch)
-+			batch->write_space_pending = true;
-+		else
-+			sk->sk_write_space(sk);
-+	}
- 
- 	switch (sk->sk_state) {
- 	case TCP_LISTEN:
-@@ -1947,7 +1975,7 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
- 	}
- 
- 	if (batchable)
--		*batchable = virtio_transport_rx_batch_can_receive(t, sk, 0);
-+		*batchable = virtio_transport_rx_batch_can_continue(t, sk, 0);
- }
- 
- /* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
-@@ -1991,7 +2019,7 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
- 		goto free_pkt;
- 
- 	lock_sock(sk);
--	virtio_transport_recv_pkt_locked(t, skb, sk, net, NULL);
-+	virtio_transport_recv_pkt_locked(t, skb, sk, net, NULL, NULL);
- 
- 	release_sock(sk);
- 
-@@ -2008,20 +2036,31 @@ EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
- 
- /*
-  * Release an active RX batch. A non-empty batch holds the socket lock and the
-- * reference returned by vsock_find_connected_socket_net(). An empty batch
-- * holds neither.
-+ * reference returned by vsock_find_connected_socket_net(). Deliver any
-+ * deferred native write-space notification while holding the lock, preserving
-+ * the callback context of the regular receive path. An empty batch holds
-+ * neither.
-  */
- void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
- {
-+	bool write_space_pending = batch->write_space_pending;
- 	struct sock *sk = batch->sk;
- 
- 	batch->sk = NULL;
- 	batch->pkts = 0;
- 	batch->bytes = 0;
-+	batch->write_space_pending = false;
- 
- 	if (!sk)
- 		return;
- 
-+	/*
-+	 * The packet was admitted with the native callback. Do not reload a current
-+	 * callback here: sockmap can replace or remove its wrapper independently.
-+	 */
-+	if (write_space_pending)
-+		vsock_call_native_write_space(sk);
-+
- 	release_sock(sk);
- 	sock_put(sk);
- }
-@@ -2080,7 +2119,8 @@ virtio_transport_rx_batch_process(struct virtio_transport *t,
- 		return;
- 	}
- 
--	virtio_transport_recv_pkt_locked(t, skb, batch->sk, net, &batchable);
-+	virtio_transport_recv_pkt_locked(t, skb, batch->sk, net, &batchable,
-+					 batch);
- 	if (!batchable) {
- 		virtio_transport_rx_batch_finish(batch);
- 		return;
-@@ -2158,16 +2198,8 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 	}
- 
- 	lock_sock(sk);
--	/*
--	 * Serialize initial admission with sockmap's callback updates. Later
--	 * packet boundaries recheck native state and end a batch when they
--	 * observe a replacement.
--	 */
--	read_lock_bh(&sk->sk_callback_lock);
- 	batchable = virtio_transport_rx_batch_can_receive(t, sk, len);
--	read_unlock_bh(&sk->sk_callback_lock);
- 	if (!batchable) {
--		/* State or receive-buffer failures keep the regular lookup path. */
- 		if (!virtio_transport_rx_batch_can_continue(t, sk, len)) {
- 			release_sock(sk);
- 			sock_put(sk);
-@@ -2176,7 +2208,7 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 
- 		virtio_transport_trace_recv_pkt(hdr, &src, &dst);
- 		if (virtio_transport_recv_pkt_set_owner(skb, sk))
--			virtio_transport_recv_pkt_locked(t, skb, sk, net, NULL);
-+			virtio_transport_recv_pkt_locked(t, skb, sk, net, NULL, NULL);
- 		else
- 			kfree_skb(skb);
- 
+Example on Raspberry Pi 5 (BCM2712) counting all 11 metrics on the `arm`
+bus simultaneously on a single bus watcher:
+
+  $ sudo perf stat -a \
+      -e rpi_axi_pmu/arm_atwait/ -e rpi_axi_pmu/arm_atrans/ \
+      -e rpi_axi_pmu/arm_amax/   -e rpi_axi_pmu/arm_wwait/ \
+      -e rpi_axi_pmu/arm_wtrans/ -e rpi_axi_pmu/arm_wmax/ \
+      -e rpi_axi_pmu/arm_rwait/  -e rpi_axi_pmu/arm_rtrans/ \
+      -e rpi_axi_pmu/arm_rmax/   -e rpi_axi_pmu/arm_rpend/ \
+      -e rpi_axi_pmu/arm_ratrans/ \
+      -- dd if=/dev/zero of=/dev/null bs=1M count=2048
+
+   Performance counter stats for 'system wide':
+
+           222,085      rpi_axi_pmu/arm_atwait/
+        21,789,405      rpi_axi_pmu/arm_atrans/
+             2,196      rpi_axi_pmu/arm_amax/
+        39,623,624      rpi_axi_pmu/arm_wwait/
+        43,482,567      rpi_axi_pmu/arm_wtrans/
+             2,197      rpi_axi_pmu/arm_wmax/
+               554      rpi_axi_pmu/arm_rwait/
+            96,264      rpi_axi_pmu/arm_rtrans/
+                 1      rpi_axi_pmu/arm_rmax/
+                 5      rpi_axi_pmu/arm_rpend/
+            48,148      rpi_axi_pmu/arm_ratrans/
+
+       0.208600205 seconds time elapsed
+
+And filtering `per_atrans` by `VPU_UC0` (`filter=1`) and `ARM` (`filter=11`):
+
+  $ sudo perf stat -a \
+      -e rpi_axi_pmu/per_atrans/ \
+      -e rpi_axi_pmu/per_atrans,filter=1/ \
+      -e rpi_axi_pmu/per_atrans,filter=11/ \
+      -- sleep 1
+
+   Performance counter stats for 'system wide':
+
+            29,393      rpi_axi_pmu/per_atrans/
+            19,934      rpi_axi_pmu/per_atrans,filter=1/
+             9,452      rpi_axi_pmu/per_atrans,filter=11/
+
+       1.001089440 seconds time elapsed
+
+Tooling & AI Assistance
+=======================
+Per Documentation/process/coding-assistants.rst and
+Documentation/process/generated-content.rst:
+- Tools used: Google Antigravity (gemini-3.1-pro), Anthropic Claude, and
+  Sashiko automated kernel patch review, alongside standard kernel tooling
+  (scripts/checkpatch.pl, scripts/kernel-doc, dt-doc-validate).
+- Summary of prompts and assistance:
+  - Assisted in converting the downstream Raspberry Pi debugfs AXI monitor
+    (drivers/perf/raspberrypi_axi_monitor.c) into a Linux perf PMU driver
+    (drivers/perf/rpi_axi_pmu.c), generating the repetitive
+    PMU_EVENT_ATTR_STRING sysfs event tables across SoC generations, the
+    Device Tree binding schema (brcm,bcm2835-axiperf.yaml), and the
+    admin-guide documentation (Documentation/admin-guide/perf/rpi-axi-pmu.rst).
+  - Assisted with iterative review and fixes across revisions, including
+    synchronization between atomic MMIO reads (pmu->lock) and deferred
+    process-context VPU mailbox polling (vpu_mutex / vpu_work), bulk VPU
+    mailbox reads, BCM2712 C0/D0 stepping detection and filter masks, and
+    per-interval watermark tracking for level registers (*max and rpend).
+- Portions affected:
+  Documentation/devicetree/bindings/perf/brcm,bcm2835-axiperf.yaml,
+  Documentation/admin-guide/perf/rpi-axi-pmu.rst, and
+  drivers/perf/rpi_axi_pmu.c.
+- Testing and verification:
+  All generated code and tables were reviewed by the authors and tested on
+  physical BCM2835, BCM2837, BCM2711 B0, BCM2712 C0, and BCM2712 D0
+  hardware using perf list and perf stat (single-watcher multi-metric
+  counting, perf stat -I interval watermark tracking, AXI master ID
+  filtering, VPU firmware accessibility probing, and 10-bus multiplexing).
+
+Changelog
+=========
+v16:
+- Addressed Sashiko review feedback on v15 (Patch 2):
+  - Returned early from `rpi_axi_pmu__validate_group()` when
+    `leader == event` to avoid dereferencing `leader->ctx` (which is NULL
+    during `event_init` for standalone events and group leaders) inside
+    `for_each_sibling_event()` when `CONFIG_PROVE_LOCKING=y`.
+  - Enforced `RPI_AXI_MAX_EVENTS` (66) during group validation in
+    `rpi_axi_pmu__validate_event()`.
+  - Dropped `depends on !RPI_AXIPERF` from `drivers/perf/Kconfig` as
+    `RPI_AXIPERF` is only defined in the downstream Raspberry Pi kernel
+    tree.
+
+v15:
+- Device Tree Bindings & MAINTAINERS (Patch 1):
+  - Dropped `kernel-list@raspberrypi.com` from `maintainers:`, sorted
+    `compatible:` alphabetically, and required both `reg` items (`System
+    monitor registers` and `VPU monitor registers`) across all SoCs per
+    Krzysztof Kozlowski.
+  - Added `MAINTAINERS` entry and noted distinction from
+    `brcm,bcm5301x-axi-pmu`.
+- Driver & Hardware Validation Fixes (Patches 2 & 3, co-developed with Dom
+  Cobley on https://github.com/raspberrypi/linux/pull/7671):
+  - Added `Documentation/admin-guide/perf/rpi-axi-pmu.rst`.
+  - Masked `*wait`/`*max` deltas to 28 bits (`GENMASK(27, 0)`) and `rpend`
+    to 8 bits (`GENMASK(7, 0)`), and implemented per-read-interval
+    watermark tracking (`counter_is_level()`) for `*max` and `rpend` with
+    `prev_count` reset under `pmu->lock` in `rpi_axi_pmu_read()`.
+  - Removed non-existent `ratrans` on BCM2835 and BCM2711, and corrected
+    the BCM2835 VPU bus table (`0..13` matching BCM2711 plus `14 = sdram`).
+  - Re-enabled the BCM2712 VPU monitor (`0x7ee00000`) via the firmware
+    mailbox, added probe-time `rpi_axi_pmu_vpu_accessible()` verification,
+    and hid `vpu_*` sysfs events via `.is_visible` when firmware support is
+    unavailable.
+  - Replaced per-event VPU mailbox reads with a single 44-word bulk read
+    (`rpi_axi_pmu_vpu_read_watchers()`) with `__le32` endianness
+    conversions (`cpu_to_le32()` / `le32_to_cpu()`) and `config_gen[]`
+    tracking, and defaulted `hrtimer_interval_ms` to 1000 ms when the VPU
+    mailbox is used.
+  - Used `rpi_firmware_find_node()` to locate the firmware node.
+  - Corrected BCM2712 sparse AXI master ID filter numbering
+    (`BCM2712_FLT_MAX = 64`), added BCM2712 D0 runtime stepping detection
+    (`pmu->axi_id_mask`), D0 System/VPU filter mask encoding, the 10-port
+    D0 System bus table, and renamed `bstm_top`/`arb3`/`src` to
+    `rp1`/`sdio_wifi`/`sd_dma`.
+
+v14: https://lore.kernel.org/r/20261002175738.3242646-1-irogers@google.com
+- Removed `firmware` phandle property from `brcm,bcm2835-axiperf.yaml` per
+  Krzysztof Kozlowski.
+- Removed `LINUX_VERSION_CODE` checks per Uwe Kleine-Koenig and Florian
+  Fainelli.
+- Separated BCM2835, BCM2711, and BCM2712 bus and filter tables, exposed
+  all counter metrics per bus without synthetic `Bytes` scaling, and added
+  bus-watcher reference counting and group validation.
+
+v13: https://lore.kernel.org/r/20260815172712.50119-1-irogers@google.com
+- Added `allOf`/`if` block in `brcm,bcm2835-axiperf.yaml` and cleaned up
+  sysfs attribute definitions and comments.
+
+v12: https://lore.kernel.org/r/20260815082048.4043217-1-irogers@google.com
+- Added Device Tree binding patch (`brcm,bcm2835-axiperf.yaml`), split
+  per-chip `attr_groups`, and returned `-EPROBE_DEFER` when firmware is not
+  yet ready.
+
+v11: https://lore.kernel.org/r/20260815082048.4043217-1-irogers@google.com
+- Added `READ_ONCE()`/`WRITE_ONCE()` on `enabled[idx]` and restored
+  `flush_work()` in `rpi_axi_pmu__exit()` so queued VPU watcher disables
+  complete on module unload.
+
+v10: https://lore.kernel.org/r/20260815082048.4043217-1-irogers@google.com
+- Removed unused `num_started` state variable from `struct rpi_axi_hw_events`.
+
+v9: https://lore.kernel.org/r/20260813064228.2799872-1-irogers@google.com
+- Adjusted PMU and CPU hotplug registration order in `probe()` and
+  simplified BCM2712 sysfs event visibility.
+
+v8: https://lore.kernel.org/r/20260813064228.2799872-1-irogers@google.com
+- Switched `pmu->lock` to `raw_spinlock_t` for `PREEMPT_RT` compatibility
+  and reduced `RPI_AXI_PMU_TIMER_INTERVAL` from 2000 ms to 100 ms.
+
+v7: https://lore.kernel.org/r/20260813052419.2770841-1-irogers@google.com
+- Isolated all BCM2712 definitions into Patch 2 and initialized
+  `vpu_disable_pending` on watcher allocation.
+
+v6: https://lore.kernel.org/r/20260813043533.2744442-1-irogers@google.com
+- Fixed `Kconfig` `RASPBERRYPI_FIRMWARE` dependency, added
+  `vpu_disable_pending` for VPU watcher teardown, and let the hrtimer
+  self-terminate when `active_events == 0`.
+
+v5: https://lore.kernel.org/r/20260812230800.2646749-1-irogers@google.com
+- Added `monitor_running` tracking, deferred VPU watcher disablement to
+  `vpu_work`, and protected `event->hw.state` updates under `pmu->lock`.
+
+v4: https://lore.kernel.org/r/20260812052417.2361040-1-irogers@google.com
+- Avoided global monitor reset when other watchers are active and fixed
+  error handling on mailbox read failures.
+
+v3: https://lore.kernel.org/r/20260812002728.2283079-1-irogers@google.com
+- Switched hrtimer to `HRTIMER_MODE_REL_SOFT`, set `.suppress_bind_attrs =
+  true`, and cleaned up probe error unwinding.
+
+v2: https://lore.kernel.org/r/20260811235112.2267241-1-irogers@google.com
+- Added `of_device_get_match_data()` chip selection, CPU affinity check in
+  `event_init()`, and counter wrap delta masking.
+
+v1: https://lore.kernel.org/r/20260811083828.2057695-1-irogers@google.com
+- Initial submission.
+
+Ian Rogers (3):
+  dt-bindings: perf: Add Broadcom Raspberry Pi AXI PMU definition
+  perf: Add Raspberry Pi BCM2835 AXI PMU driver
+  perf: Add Raspberry Pi 5 (BCM2712) AXI PMU support
+
+ Documentation/admin-guide/perf/index.rst      |    1 +
+ .../admin-guide/perf/rpi-axi-pmu.rst          |  164 +
+ .../bindings/perf/brcm,bcm2835-axiperf.yaml   |   50 +
+ MAINTAINERS                                   |    9 +
+ drivers/perf/Kconfig                          |   13 +
+ drivers/perf/Makefile                         |    1 +
+ drivers/perf/rpi_axi_pmu.c                    | 4152 +++++++++++++++++
+ 7 files changed, 4390 insertions(+)
+ create mode 100644 Documentation/admin-guide/perf/rpi-axi-pmu.rst
+ create mode 100644 Documentation/devicetree/bindings/perf/brcm,bcm2835-axiperf.yaml
+ create mode 100644 drivers/perf/rpi_axi_pmu.c
+
 -- 
-2.53.0
+2.56.0.385.gac671c819a-goog
+
