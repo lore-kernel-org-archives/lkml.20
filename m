@@ -1,97 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714482;
-	b=IfhwPyu1Pf+zXroVJz4hs7DDvVDCDKgNaniZ3t91SGbLvWk1lUr5W+NKTv6wPU4rj+OF
-	 uDsBtqDMjf5t51f5NAsQDuorebm2kmad0yvENys/KoKcm7y9b/bZvMj0th4giBlCurr+W
-	 ljDhsP4rUQeYIH0WMebAt2RRM4FPCv6qjxPS35lO35wuHRfaXZBF6ttyzwCbr0WmV5PR9
-	 iRvWn0d3Ptkdpy5j62f64e+e6swRdhlVmysGwyIue0lpgJDjVtfeM50qFDndPLiA3x9iV
-	 vB/m97P8jaSx0i6bLpFrOiEHqMnzqZDPH0YGJtggsmwRpbrql4uhh6YQ7cXbtftLy/Q==
+	t=1793714490;
+	b=uFq0y87qdiGcoMe+F7AmGDOgrrTebojDZFD3lCIlWPw+HzsSw2AhKAsZ44wP33wgMMBR
+	 stuWFbJ6P6BRFl/DmvUbXk2DcbpCEM5dlBapr/qzjh61USKRGEL/mnWGj8AJUfoiOMcT6
+	 lvWNCBjSFMFhPlQ5Tp3SDqtmbbDMO5yMoL3I0gXEMYho7yFhAX5y1dXyforA3+dV9nZN9
+	 q4Z/oYV0GlOCPPRMfKxr1+CsY2O+Z7akMGYCisRp28QX6WaQ1qvS1uECbhISVa8GEFP38
+	 oiV0Zec0cGpE75Bq9yD0q+Yy6wE8xMkJI1b1L51wxlpPmTIwlIgW0/GZkirdJaWQ1XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714482;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EZsHlnUndDVe+vKUSGCoj7IkGFEvWSmKL3jbpdQBZvA=;
-	b=pDJje67buZMEnfyCL+DcIsU0jum5lXHStN18QETtUKr+iYW8lPAmQkLDUb7iJRzhy7z5
-	 tLR/W7Ph6wkpUnm74/23Xn9GChN9rHFVuGsoB0kBfcH1IupFF3y0S9YWe4TDyBaSW1ehh
-	 oHWsnQMf7bZ7ct3q7Kg3BuX5dXoICSPXt8lcaHDE43JdM3Yk/EsC7NmJV1sj4fJmsnpcS
-	 A4lJi4wAXJCKiAat36CZZ4juMWIaDkHtpku7kWVIqLkvco8sf54Qp6+/yLS/fEyJ4wwfG
-	 5mDJ+T5bjwyomVrnOkVzmgM2YxX+0Atn3ZNVyGNIwIfGaz/SA6r8a5JzmllUgLqPbig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714490;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=bPRbykHolawBfCGnDVRos5HJS/K/9CLK+rvFUUZN+bY=;
+	b=CU9ZuKwDn3jWa0VfRFp0Eo0t3Th5igYQgId9jtQooV6lzTSUqxdJ5o+7lL8TXy2S+cBO
+	 i8QE7xrTxgBz+WTTN0a8STjkQxLHJjCdZbv/mo47XX0PqZanwmhGaVKEtwC6iOLK00OM/
+	 bsnMd+3HAytcGCMijbR9NozUvsZXiYXnTPe/7I54JtBxoB1zqhABSRsVrl2stcFVFtSb+
+	 RmwquSY5KdkkVPPCSL0XjsECq4YzgaPWauSWX4ldz5s8xOY1Gsb3DyZQzkzH1L0jEgN9R
+	 jLxLIvDCJQa/lLB2RzJKtbp96EFm89FiHICNp+La3/U8tLVzvpxe5QFsypNKSwIG6/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CFd6xJ2N;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNvyMkl7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDAC606D820
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:01:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCDAC606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46AC6082BFD;
+	Tue,  3 Nov 2026 14:01:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CFd6xJ2N
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso2801574a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:01:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793714481; x=1794319281; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EZsHlnUndDVe+vKUSGCoj7IkGFEvWSmKL3jbpdQBZvA=;
-        b=CFd6xJ2NR5NhWmjfGK7vIJkFLy42NWFiWTDek1h0AKcALQcvfPM0A4EOdQEKqEnjqo
-         5BHunepR9ulXEW0BkmvmyZSCfTrniLb2KGRRjc4qhZmMzL8DyIKbPYqdz1aYDD7qvRI/
-         VVRLP0eLlRgV5DvluMeUecum10aEus6gS8SzC5OC5f5Qw73VL9/pny3ns2nxvw1H7vR1
-         8KUZg5QlShHRnbKbTpcO4LTiBt+6WRYdTQHXlns9DeCtCmSExnKjj9dmhxbyHkREi8sY
-         wYTO3HnVZQLVwVmBLjIi2XdgHWbzUqeVMU2xLfVypz/HbYLd7ctB2aVuX+8Ua0HnP1jr
-         FOFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793714481; x=1794319281;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EZsHlnUndDVe+vKUSGCoj7IkGFEvWSmKL3jbpdQBZvA=;
-        b=d92TArWqx9mT4twJ1Z+PH5x5MsuTL9aYxoOzDcojbEyIfFgErGQpjCGVNCFajmWRiW
-         qDFMqoi5wtfgCV8ExJVDAI33IIN4K0ww84wr51Zd3SZ6/I0I3siMwaK9nPCq7lDoufNq
-         tNamK7sRxC/NElvWVj7/+T8AaX8WZ8giPHOKGAchq8rSR4of8wE5FuFHpTCq6a/wtUxB
-         0idOqDK3g237O1iQ22vl61JUQw1CLADaFif4N7V/+SuMLBMpHws/5NbXZeeFNvplZeai
-         d72m5gMg6LDu2Umro6vepGuST+4Pp/uIQKIE5xAK7cd2WHuGVE8SlsnL2CYFwfy+cOBj
-         mRyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwixPsfA1dMT/0qGGQndHEmahSRDJJxovN1JwmS2XYOyKmgLo1fy07Ko76EgCgffW4uMwpxGKUQOi2NDV4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FwtwtsXHUfuY/FLPa1vb/kLI610vVZsm2EDi/w/pLiwkLTO0a
-	AL/2T2/qu17OZLmc9ho7Dd5Ou27DmVNEoKBqGqBJtgqFALRIFGYbGRx1
-X-Gm-Gg: AYBFou2cj9GfdLjz1ZL+qnIcoeKdcGLSnJPmViel7ZLKkKsWXtjbEKJ5j/mXRUx6d4x
-	mFZIx5Efcxf1jIeGx6CPVgLVPdk+OR1PSCdpYAxCRwLG6Xn5isioSiW4xaLyQTovLNmTmv0d6BH
-	Q3vpI0mBKiF8L0rldunwcYnIKCBTzVQ20V50/4mun6ne9TI5mmsOLEQvO3ivrAsxtcaI/DgSM4F
-	OimBmT5qfjWpdi7+EHRfB0mBdlQBB8sp0BgyINjJszaMd9BQMZjmyUb+Z+lpibGtx0XGRM4wkLk
-	tSqAkXr3qJVIGJ9khhbj9+Z7Y+PDnO84n5rIc//Hki4sn6qRLxhcQgqX/rkcLDJJT27Al8z/qId
-	YoFkqvXBkuEHWTTdFKHthqd9RGmPyCTziuvE5hVYGBPaWqM63SUP5FounDWnsiybuH1ODeXCpVF
-	JeVWlt2+e9ApCsBCkdoKXxvBEuAkx0SsAtZ7wjJ2+92dgvMr6b78kRY1Miq0VXvLEPFbOAifN56
-	PEWZhM9trmaWfEF+GIoYxkWuNh8gUYIJwFDn5ZUu+iVzgKu5W5FZSfk4z+b0HIefxu4KAGGpHM4
-	bqzn516rw0QvCbFDtEsKdo7dJGV1L/DvygqGXKDVNW4qz06Kghl+5ywwa2gzyktJ0wk2E08mmw=
-	=
-X-Received: by 2002:a17:90a:d998:b0:3ae:a59d:4e2a with SMTP id 98e67ed59e1d1-3aea59d4efemr5555004a91.47.1793714481065;
-        Tue, 03 Nov 2026 06:01:21 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c8460acsm4722104a91.7.2026.11.03.06.01.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:01:20 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 0/3] net: dsa: motorcomm: Add BR_FLOOD and BR_MCAST_FLOOD support
-Date: Tue,  3 Nov 2026 22:01:04 +0800
-Message-ID: <20261103140109.874443-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNvyMkl7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2871F00A23;
+	Tue,  3 Nov 2026 14:01:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793714489;
+	bh=bPRbykHolawBfCGnDVRos5HJS/K/9CLK+rvFUUZN+bY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RNvyMkl77/wB+TKUhO6X/Vsf2i8uYfQQHsCp2e6sIBV03LbpJ6GxqHxSUHPSpQTNZ
+	 CI6rBm9JwRP2j7gDDaJ0y/HQLz6p+tN7IqgT+BVC7+kA4sGZS8K1SVjiC3OitAdmCZ
+	 dnSjPivgNrMVhBrtEPnov1DXrYT1RLN0jluXjbTdgArGhwCYXQcu+Pz/M94xSpesUV
+	 d/U62dXS00RO3dSOT8j+AIg5KMJ+kMga7RIMhFbTJK4cDrD0a0vHQOgN49kKEUz48R
+	 RJ8/1JIm3uiZD5egP7DXyHHDKOftJyx91tyK/sOGckJ/q6Udv88hpE2LDUjFPp4fko
+	 py1IrVmFnuSjA==
+Date: Tue, 3 Nov 2026 15:01:26 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Matthew Ruffell <matthew.ruffell@canonical.com>
+Cc: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Caron Wills <caron.wills@pulsar.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org, linux-mm@kvack.org,
+	Jay Vosburgh <jay.vosburgh@canonical.com>
+Subject: Re: [PATCH 2/6] kthread: Keep unbound kthreads off nohz_full CPUs
+Message-ID: <aunpNqPV38FG94-f@localhost.localdomain>
+References: <20261103075940.110308-1-matthew.ruffell@canonical.com>
+ <20261103075940.110308-3-matthew.ruffell@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,28 +81,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261103075940.110308-3-matthew.ruffell@canonical.com>
 
-Offload BR_FLOOD / BR_MCAST_FLOOD to the hardware for bridges when
-feasible.
+Le Tue, Nov 03, 2026 at 08:59:36PM +1300, Matthew Ruffell a écrit :
+> From: Caron Wills <caron.wills@pulsar.com>
+> 
+> Since commit 041ee6f3727a ("kthread: Rely on HK_TYPE_DOMAIN for
+> preferred affinity management") kthread_fetch_affinity() only removes
+> domain isolated CPUs from a kthread's affinity, assuming that nohz_full
+> CPUs are always domain isolated as well. Up to v6.13 every kthread
+> inherited kthreadd's affinity to housekeeping_cpumask(HK_TYPE_KTHREAD),
+> and from v6.14 the preferred affinity was filtered with HK_TYPE_KTHREAD,
+> so nohz_full CPUs were always excluded.
 
-v3:
-  - refactor port isolation and filter action for standalone ports
-  - recompute flags when a port leaves bridge
-  - honor BR_HAIRPIN
-v2: https://lore.kernel.org/r/20261011030228.2761810-1-mmyangfl@gmail.com
-  - fix build error
-v1: https://lore.kernel.org/r/20261009005542.72860-1-mmyangfl@gmail.com
+This was done on purpose because on all setup we have met so far, it didn't
+make sense to run nohz_full with load balancing. After all the point is to
+run a pinned single task on a single CPU. We have seen too many misconfigured
+CPU isolation workloads due to that constraint not being enforced since the
+origins.
 
-David Yang (3):
-  net: dsa: motorcomm: Isolate all ports during chip setup
-  net: dsa: motorcomm: Rely on port isolation for CPU port
-  net: dsa: motorcomm: Add BR_FLOOD and BR_MCAST_FLOOD support
+I'm open to counter-arguments of course but you better have a good case.
 
- drivers/net/dsa/motorcomm/chip.c | 233 +++++++++++++++++++++----------
- drivers/net/dsa/motorcomm/chip.h |   4 +
- 2 files changed, 164 insertions(+), 73 deletions(-)
+Thanks.
 
 -- 
-2.53.0
-
+Frederic Weisbecker
+SUSE Labs
