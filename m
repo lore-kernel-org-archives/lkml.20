@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.99.196.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793750401;
-	b=o5dgHS9G2oUhSGkNP+B15KPg32FTMJoTLrzB/QmEPbAdRGS3nRrB0twB4sC3bcXnykMq
-	 bRaykK39U9Dtqw3bCObFmtKIX2G8AiRUo6R48jIiUT65QINGHa2toVZOM4GTN6Lg4EcGh
-	 DPvMkFxX1dRqNQQeaw/GOCb8MvK/gSnhVKlOhmL7wy3UUc8MAPpIBWwtXvPCH3GcHLa5b
-	 QmrTa+I7fB9Tt+/ytw4UW61AolOKBxxWa5uPsGo0jvV0SnVsBmoxRpVIP8+7HkJUQKcit
-	 O5yt8sIvGQRA25hyEB9FXp4gDjDBwT/4sQ1e+n4dW3kQEKgaoN6mu6pTn96EnbH4Zng==
+	t=1793750494;
+	b=XJOw3YPneUKduguQ7RhoyPJr4CFEoJDzdB4fV4c8JaLVRxvrucKlUHtqZKhemB6mKhJz
+	 qfgczNg4+ppg+8o5Zm0mN4/uFRhq+bEJNWGAmN6KXObcq4e/UAaiXNV2sR8QUGMBiu56o
+	 TNVtye6oUTEFvSF45IXi9maW6HA0v1+o/6Bm6IK/UGZ8VUcQhYQ8Ti8o7u9bjnUwF9pbN
+	 KhpaioX0R4qiSv9EeCxnQ3H981J4OIEb4rCZROXoXdmsITiyC5s5ThAiDd67ghjnDnPJn
+	 J4vvAzIZmYcPcBrgZYlc1AR5ZfwhQsfkgALVnwb5Vh/ZXIGumKZYlIovAZHbSoXET+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793750401;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:cc:
-	 Subject:Message-ID:MIME-Version:Content-Type;
-	bh=5ATE2yOKOGosqztjcDkKOQnRfc8HCctD0ggQ5fWEyCU=;
-	b=29jx4pUfng01xfkpQl+mVDHKn/I5yvxGW2a14xfJddcK5pMywwbkJz+5BuWsK7OHqsEj
-	 S0asyuhZt6JT6lK9A6B4uQVhfDyxkCLc+J+GFgB7zzBnl1MEskCS7f49CgKUGjh7GvflL
-	 hV6zZzZtu9e87+jqvdROc3m3Yfh8xMAMQ65V98ws8I6x9pE9aqkJ7+SQU73D7v2Uqq/Op
-	 yaIJhakRWG+A18p+0e6mhG3SvtxUqnVpTjFcoOrAydWxU4eyMArLBy4gI1xTV5P1JV0BN
-	 4ad06jbdbAfW2gyV5zF/lT8BmJ8UJM/wuScoXP40MTr0wJ0pYc5g6DINtehBonb/VYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793750494;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=nc6RxU+OqQopRhiBNovmRAc/YnhfEy+dcErAkMU5NGw=;
+	b=nqnm3GsxZmhQmswIopWMF/uprD8aCcE5is8uxoznsIgl+WskNZSHPfA1PjV7fRSSWINU
+	 2c3+l+euWmXadVqYiZ0u9uWKWUhwM2vE3ru1RNMsk39aJz+r+ks5ExUEdL6nncr8PwxgZ
+	 OQ5/5Zs9RZwEeq57FqK3SvU91VltHDSDwx4N8wh+iwfedK0+zm58evAr1irLSJDnP/mNt
+	 U8nL2WkuGQuqPyHyC3k5Wvby7FndyJYnQKuuCbdJno+KpxUSUbX1UWLrBRKADGQfyuSHx
+	 5PL/bbRAKr6yVprY4+InWq9vmM2h8gqR/I4lor0mbjLXRdOvnk/BOFgKQtu1vddvwEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=namei.org;
-	spf=pass smtp.mailfrom=namei.org;
-	dkim=pass header.d=namei.org header.i=@namei.org header.a=rsa-sha256 header.s=2 header.b=lc85+kVR;
-	arc=none smtp.remote-ip=65.99.196.166
-Received: from mail.namei.org (namei.org [65.99.196.166])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gkv6Ozs4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207E7606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:59:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 207E7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=namei.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=namei.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4A4606A324;
+	Wed,  4 Nov 2026 00:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=namei.org header.i=@namei.org header.a=rsa-sha256 header.s=2 header.b=lc85+kVR
-Received: from localhost (localhost [127.0.0.1])
-	by mail.namei.org (Postfix) with ESMTPS id 77EFB30A;
-	Tue,  3 Nov 2026 23:59:52 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.namei.org 77EFB30A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=namei.org; s=2;
-	t=1793750392; bh=5ATE2yOKOGosqztjcDkKOQnRfc8HCctD0ggQ5fWEyCU=;
-	h=Date:From:To:cc:Subject:From;
-	b=lc85+kVR3wIurMgfagfD0AGZHdlIGrWAhT9dKV9jWAT0Bvws1syg0vy+69Bq2zhNj
-	 pgQli0hPDW0lWFRiAhwfb8xXwb3oEyWJ92YDuZ5pDq6Q+rcS12PaoVUM87Wni52sUl
-	 r6ZY6RgquUnspV+iFDu7WA+LrSb9+WCw+egJEWrU=
-Date: Tue, 3 Nov 2026 15:59:52 -0800 (PST)
-From: James Morris <jmorris@namei.org>
-To: Christian Brauner <brauner@kernel.org>, 
-    Julia Lawall <julia.lawall@inria.fr>
-cc: Greg KH <greg@kroah.com>, gmonaco@redhat.com, ojeda@kernel.org, 
-    aliceryhl@google.com, gary@garyguo.net, namcao@linutronix.de, 
-    sashal@kernel.org, natalie.klaus@runtimeverification.com, 
-    willy@infradead.org, paulmck@kernel.org, corinnt@google.com, 
-    stewart@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-    Paul Moore <paul@paul-moore.com>, tytso@mit.edu, 
-    keisuke.nishimura@inria.fr, jean-pierre.lozi@inria.fr
-Subject: Kernel formal methods mailing list?
-Message-ID: <ed89f1ce-cdca-d6f6-3e1-f0fa34eac4d@namei.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gkv6Ozs4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF611F00919;
+	Wed,  4 Nov 2026 00:01:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793750493;
+	bh=nc6RxU+OqQopRhiBNovmRAc/YnhfEy+dcErAkMU5NGw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Gkv6Ozs4/HpWnMmj1cULtJ0WuT3u3EblpO59FtMKlIzcTmnPybcjz/XkscQlsE/AQ
+	 BrszHhwStF8DYU11mQY6E/su8Qt9/o1PbnWyEsCsqscHY8qbpMS5YRws0QSmJB6V0z
+	 55cqjhh7RKD7mEDcTuv0MpzDAbs5C6l+O2Z0ENtNdv+6rQKhIClaGuDlbF4jJ/0r57
+	 /KtQhJ6pUUbiplg9yeBTBXxpPiouP+BnxNb8HyyL/VhhdfPHdDndc9OYgKXiAjVANj
+	 mbOFzIiWGctfunnIMXV6/cM4FjWB/u9qZxFK+t3ujpW97MYVt3L391YpDQ/uadIM48
+	 N823wnHHgvCUQ==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 7C94625D848F;
+	Wed, 04 Nov 2026 00:01:31 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Kamlakant Patel <kamlakant.patel@broadcom.com>, 
+ Felix Gu <ustc.gu@gmail.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261103-xlp-v1-1-696d0a50b84e@gmail.com>
+References: <20261103-xlp-v1-1-696d0a50b84e@gmail.com>
+Subject: Re: [PATCH] spi: xlp: reinitialize completion before each transfer
+ block
+Message-Id: <179373105256.2270148.2745191993512783429.b4-ty@b4>
+Date: Tue, 03 Nov 2026 18:37:32 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,41 +63,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1130; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=cDr8g/cDhSJy2HNkHEhkfJL7PSqtSdZ9YDQ4vYzcJFs=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeld4W+RLw6bFJ0J+k7tw50+8GTFOdsjCriseu4buc+
+ v12z4vJHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjIAQNGhhuHZKY0iS+INL6Z
+ c1hQffGknrLCmwEz7JTZ7iYw1/BxKTIyzDmXFtzgbP+XtzeCjS/yo+Fco7uHCncJOM4WXMt2UsS
+ cGQA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi Folks,
+On Tue, 03 Nov 2026 20:00:22 +0800, Felix Gu wrote:
+> spi: xlp: reinitialize completion before each transfer block
 
-I've tried to include folk who are known to be working on formal 
-verification for the Linux kernel. Apologies if I've missed anyone and 
-please forward as appropriate.
+Applied to
 
-Several Linux kernel developers & researchers have been experimenting 
-with formal methods in recent times, I think largely due to the potential 
-of LLMs to lower some of the costs and barriers to entry.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
-Examples I'm aware of include a presentation by Corinn Tiffany at LPC on 
-her work with XArray [1], and Christian Brauner's linux-formal repo [2].
+Thanks!
 
-I've been experimenting with formal verification as part of a hypervisor 
-research project [3] (which is admittedly not the kernel).
+[1/1] spi: xlp: reinitialize completion before each transfer block
+      https://git.kernel.org/broonie/spi/c/bf0507562dd0
 
-I'm interested in learning from what others are doing in this area, and 
-sharing potentially useful findings, especially in terms of identifying 
-_practical_ approaches for verification of low-level systems code.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-I suspect there's a lot that can be done on smaller scale, well-defined 
-projects, by developers who don't necessarily have specific expertise in 
-formal methods, but have deep expertise in the target subsystem.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Thoughts? Would it be worth setting up a mailing list?
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-[1] https://lpc.events/event/20/contributions/2540/
-[2] https://github.com/brauner/linux-formal
-[3] https://github.com/orgs/beryllium-project/repositories (WIP review snapshot)
-
-
--- 
-James Morris
-<jmorris@namei.org>
+Thanks,
+Mark
 
