@@ -1,84 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705708;
-	b=amtVUW85rSvzmSzIj+puJcmfXLWRvuNhlFLBjWXOrfJwvNIRucGJQ2Xta1pMbXzdZBe+
-	 nd88exaji5RSRkh+dPpb5kp52W06vOhzrvfkxr3yYtwFrR26ZEnz4dtKvLquqXUVXxV81
-	 gNNofanXPJ0K6MO6ooZTibGHy3g8opxtnoNUwVOEyP6AshMDugj9MTgzLta5IADLvoABd
-	 3Olq6yc8Ct/rp2TneZW5SojZMHlvwqOw4RL2s+sLMTIeAgAfKS7KQX1V+TIavs2HjxuNS
-	 zB+Hmp2IPLeGhfgJT38gb/dp/W1AWxyt/C3w6iG8FS9El5KbLolO4MCj4ilZTZ4q2Vg==
+	t=1793705735;
+	b=vkOHZTWEWfI9SHXupnH5NcegLw8FXzslKCFd42/l1Hvhsc1SL85CNmhOukU9B6+R9GgI
+	 LLOcdUYO8Y5ZVxFv9QbU43igFHtjW4ki7EaGE3wMVsOoHOAooDFUM1w38KG5d7+0X9LFI
+	 e4FAJD6P3jtITbpaLohCV9HxmOfCz+MCg58wg4z7/VjkunwwMsP9KvDoPabrIY9IJMX4p
+	 vSYSMQp9j3eGOWKJcFnXt+iVJt3xB+8NtW3rnaFJX0/dp53eOwgc8ygHPRu9A0dZI+y6U
+	 6JwGw8ft+mHDywSH+d15B8YDfuJao1iO5cjoVmhCgusFDEhLlscLhA1HVyXrVitX4dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705708;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=c4JVriSqnhUXcVvzsLVWWTJSNNQ43arV+TIdoGKN4wc=;
-	b=0HgoXP5sWxsvya+3rc1O/tKM4wHzm3wyyetvbJo1FnkXCHDn0Yt4ucHJUzEnMx6icinI
-	 feVYEu1kWlYKBV+ojIVrMkP7/H9+xwCkN32vLVNKoo+szMjHCDUFLCxT+EJ6jIZZdZaYN
-	 G7IHP6A2pcfpMrHu9v9xf9tgYrrpOycn01NHvaV2J37nALtCz1VTLB6c6Q5SsuTh8V9OP
-	 Go/47+9CRIn7JrAZHd3wPMXQGqkFKDCOY9g8umtmVTbxApVR1A6OlCBD3QrfthmPwu/ND
-	 ia2tKvV4HBRIc1kUPt99fApXZKO3wLg9cKYlwWsI6o8gYg4SY9fVqY6z6oTjFrgCXSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705735;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LKUnUURPxCCQnn0/zAL5oUiqitujy5IJ59hG70436C8=;
+	b=Wm06G6XrH3740b4wQXj6PPUzyj10hKt3ChrFgYS5Bi4WRavXUY4ndWp+RL3KedoD1oEo
+	 7x5f6o2FkjYtik1KNUk3PBFaMA7kYFg7hcEveFauE1Xu0Z7GkWvte/ZKrZ/oyhSYdZ++M
+	 xfstvXfAYCQr+V+QNDBztUuHz3EQ774ck86/nlND2tH4DHYUwgk0Ue1X3cGjm5UXtawPy
+	 Wr4fpOPolyddpVdj5Lyq48y6Zi2pYmHkD+vbm7nmXi0RA3XR8qgTC4HAhWfsZXUe70IP1
+	 g5jWnzoaD0puSqmJNd6+n4+REqfvRkheKPnFjOhVZRSQomQrzSgeY+CoBdd/mvEhfVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="TCjQ2/+u";
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1ECVZnz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0167606A335;
-	Tue,  3 Nov 2026 11:35:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0167606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732E5606A326;
+	Tue,  3 Nov 2026 11:35:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TCjQ2/+u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793705707; x=1825241707;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tOgvAIWfP2qhCgfnXFmqJFEJPtgyNY65FfFSjXCkrF0=;
-  b=TCjQ2/+u049wJbDb8DTu1nLMdwCkTynso2p4aDOStjizdvTHxp7NZRAq
-   5H1RxOVDeJbvwnvQM+QNliEwGvtoSkY6WtqvMr4D6XOCzO0e48zxDFBqI
-   7TH8iGnVCifRMbxJUIU09C7zP9zK5TC8DzjWzH7OSasXlskdwAO2806z6
-   LdA3/oN/Iy/3x5273rAhjQkACR4cZrF8/Ba4mJg5dGyHG87cdn4A393aC
-   LRBWp/KgwWLQ/1d0FGIKQeu/26YBv3RNJiiknRweYfx1E48NBhxzfSKr5
-   E/3ASdfkv/Ukj3By7jodGpbE+/8sSj/H9DauGN4MAVNsNonqo3vi9PilS
-   w==;
-X-CSE-ConnectionGUID: DW2bZ6pUSGGGfDgCMNJe5A==
-X-CSE-MsgGUID: k6kEylNHRe60U3xm20TH5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2419704"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2419704"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:35:06 -0800
-X-CSE-ConnectionGUID: 1kyjFEKOSMKKVAo4bH7i9w==
-X-CSE-MsgGUID: G++Ps7n8TbyaAh1xolbZhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6231256"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:35:05 -0800
-Date: Tue, 3 Nov 2026 13:35:02 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Kent Gibson <warthog618@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5 7/7] gpiolib: let the character device free its IRQs
- first on chip removal
-Message-ID: <aunG5r3aKrJG-vJA@ashevche-desk.local>
-References: <20261103-gpiolib-chip-removal-v5-0-aambrozewicz@nvidia.com>
- <20261103-gpiolib-chip-removal-v5-7-aambrozewicz@nvidia.com>
- <aum82qe3S5W0FvK2@ashevche-desk.local>
- <20261103122634.6badd16e@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1ECVZnz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D331F000C1;
+	Tue,  3 Nov 2026 11:35:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793705735;
+	bh=LKUnUURPxCCQnn0/zAL5oUiqitujy5IJ59hG70436C8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P1ECVZnzr9CJFL5gouN5bcvYxOOKQPlPPcVZy6yYN1vQrUnSjQV3w6oMe1KVR5lEi
+	 zocpyAnPKFclr5Y04gMz3QqM/sKExagLeaV/dcZbYyiVNagXrDl3kRVRdsjUrjD3yj
+	 9P9GS07DfygIeKkwAAajwhGA/HIP7Rktz/VsP1R7w0yJMOyJbFlTVy6gDw+Z6pt2Az
+	 HLCuQtNXGvXVS3NLvljGFevVAQpDQQhgv4/bP0TKvE8iN1jFQytA36LhuJtgBd3D5d
+	 UwbjSctQFgA/TiaVKGxuhWjFpvm9+dkW+FmotioQU2Xv5ticgT3AHP3hd1DppRI4vG
+	 fLYY2cBR7ZATw==
+Date: Tue, 3 Nov 2026 12:35:31 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Guido =?utf-8?Q?G=C3=BAnther?= <agx@sigxcpu.org>, Robert Chiras <robert.chiras@nxp.com>, 
+	Tim Harvey <tharvey@gateworks.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com, 
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v2 2/8] dt-bindings: embedded-controller: remove
+ #address-cells and #size-cells from required
+Message-ID: <20261103-poetic-comical-skua-defb5a@quoll>
+References: <20261022-cleanup_dtb_warning-v2-0-e9502fafec59@nxp.com>
+ <20261022-cleanup_dtb_warning-v2-2-e9502fafec59@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,53 +70,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103122634.6badd16e@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261022-cleanup_dtb_warning-v2-2-e9502fafec59@nxp.com>
 
-On Tue, Nov 03, 2026 at 12:26:34PM +0100, Herve Codina wrote:
-> On Tue, 3 Nov 2026 12:52:10 +0200
-> Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> > On Tue, Nov 03, 2026 at 12:32:40PM +0200, Adrian Ambrozewicz wrote:
-
-...
-
-> > > Link: https://lore.kernel.org/all/20240227113426.253232-1-herve.codina@bootlin.com/
-> > 
-> > No. Either make it Closes tag (if appropriate) or add a reference like
-> > 
-> > Link: $URL [1]
-> > 
-> > and mention [1] in the text, otherwise it makes Linus T. grumpy. I think
-> > I already told that.
-> > 
+On Thu, Oct 22, 2026 at 03:37:05PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> IHMO, "Link:" instead of "Closes:" according to this reply in the series
-> pointed out [2].
+> The "^fan-controller@[0-9a-f]+$" child node is optional, so it is not
+> necessary to always have address-based child nodes.
 > 
-> [2]: https://lore.kernel.org/all/20240923150522.66b418d1@bootlin.com/
+> "refer to the board hardware user manuals to see what features are present"
+> Means fan-controller is optional, which may not present at boards.
 > 
-> The history was:
->  - [1] (the link in this patch) proposed a fix
->  - It has been rejected and a improved one has been done [2]
->  - [2] has been accepted and led to the commit ec8b6f55b981 ("gpio: free irqs
->    that are still requested when the chip is being removed"). This commit
->    is already mentioned as 'Fixes:" in this patch.
+> Remove '#address-cells' and '#size-cells' from the required list.
 > 
-> So, IMHO, in this patch:
->   ...
->   takes (config_mutex, or a new mutex for v1 line events). Herve Codina
->   first proposed calling the notifier earlier [1].
->   ...
->   Link: https://lore.kernel.org/all/20240227113426.253232-1-herve.codina@bootlin.com/ [1]
->   Fixes: ec8b6f55b981 ("gpio: free irqs that are still requested when the chip is being removed")
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> change at v2
+> - add descriptions about why fan-controller is optional.
 
-Thanks, WFM!
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
