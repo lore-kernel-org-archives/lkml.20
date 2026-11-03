@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696347;
-	b=KbBv5wU1a6xwtrEfw9Fb98cPcPkRHopxhC6F4QNpMtuYHkD4Yo22iCEPDw911kJ3EYs1
-	 1I/sUf4KTKV9dK5ha54nIsfTSchcwAlRvEAnYtPqrd6jsIIsj42sktg7ide91wsEaKoN5
-	 xNVUW1GXdsR/YCDDxZXLHdammgHIPkdb3/XuLmUaTWIpRzUyTiz36lOqPjhEzVbF3xxDf
-	 NKgIwVHaqUKdcgTvsivOPfksacaPKcR3L8/3OWIyhVmtoHKjXDQGVrXNOlFCX8kstJWvg
-	 HZ3vf0cgoXuhyXSx26P+QNeNAvzYTJgkWmDDNulDkDZm5CyM6BB4LG5KtK0odwGDZdA==
+	t=1793696357;
+	b=cp1NbWL3Wy4MQnEXVN7sFAJsde2TnDRtY45mg1tscX8dj/w7BqCgUxqfG72JNf1S2dqd
+	 OZuUP1VRLUQ/WAYNpeY61j1rLe82hRROYxlcT3pIF01pwwKqSdg7zF5KrGs+8NdF+mqbM
+	 ul2765DlEsJW+8eItq2VK0ZwJxDD3tO4YWVzQLZVFiDo7qVPcUJuHsWIdESdL3xiTAkLq
+	 YfYjbZZsFBl/GVb4rLFaCvW9xKBfpg/bs57vBpn/Hw7CT1xO0g/HzW5lHaBogu8/4aA0A
+	 GGuLSkLhuiQ5xy2h3UPE2BZ/JDiR8SXdLE+8v36hXAbuEoxxZYylxpxUXwCFfsvhdbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696347;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696357;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=XdWSx5jEVXu7O1L25NHaAg46eSzRTcB1Jp91d+n101c=;
-	b=zRYZPwGG2wGESXeDavw6Y21vA3Uug2ahPanndzfJXeiLCnnpqwAOTrmBOCvd2cWl8BGY
-	 v+4SekWY4ruL5XHaNuGNeYT/ZOIkcHavlfBDz4FngLOJX3oPF0993UORvjcjvG1zUKkir
-	 0fHDoteAgqqNMLH9W6eLgk0Cm5tyHlfKg4EcOvPnfLp3cbJN6HDkMZFNmq4ymyTN/RuvM
-	 gNQ/RjIc0rRSbykZ86eqUVlVF7O8zaKHINfFXvUN3RXCZCPIfotQ9SJC7fcgPGj2aeQCy
-	 99BmB0rHi2eNYlty5pDP6GoIpHmrpmrW0nZHjfflLnViKbQuQL94ewa/1fun+3aezEA==
+	bh=rA1Ovd0Kzmkr6NATBzq19LdNhCK5jrPNyVR/5XvodLA=;
+	b=MYyBWC4vNvSAkHjG1l+WGkZadwz4EOi9wDIlZhNCvUDkZraTXCbk7gnn3Vtl7nR8z+x1
+	 KN+PrYXBk9DjWTN5FTDUXhmjVp7ZtBQ0Gyr4NNO0RlKLKvjjUrkYNTcvGuYHtpVavjmmZ
+	 LAjiC4rAFa3ETsF0LTW/wOgYiGeRI2JLcqFhD7/zzHut8VQpISO3MRBi1LfnyqFNxep6V
+	 TzjrNdVcJaQydBAajGImnWwcz+TxlipXlZiX65UrL+CDQk7hCJ4rf0iwiHTGafBPN0W4W
+	 GjpbIDtE9KcaSuw4KOiXZt0LQ7U5NBWd30oLyd0cSqa3nL5sL1cVvoojP6A0MxQ8hSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="LIuF6/hp";
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GwfWNW3q;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EA8606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42EA8606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A79606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:59:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90A79606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LIuF6/hp
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ae1a9e187aso602726a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:59:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GwfWNW3q
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab2cb02816so570058a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:59:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793696346; x=1794301146; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793696356; x=1794301156; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XdWSx5jEVXu7O1L25NHaAg46eSzRTcB1Jp91d+n101c=;
-        b=LIuF6/hpv1AgtjFXjp2ShrntXPKcsD88kx0s6e7fdlnL8ABV7PiYqBep30VMoMSMLd
-         Z32mVdVeN5AiZHNtTv8LGxnzxyov50oTRROB4Y2AstoEEd72TutJlCfLJSxSeuhj09GH
-         kgN4n+OfsHu4f9W1l8Ww+8yYYqWsXdiDWtrXgj4nKb/f7KXO3jg3xEbKCZorhmJq+zCZ
-         EBZkSKVVyRgHBonsQPlpYT9sJ4kwlKDWBnXoLiha5WzA0RhfUV7Q7YE4Tri6pJOosH3+
-         UHfHrK03cPQliS+K2xbkqR5SIuofSZLwSbm413A3siMLaz/ShIL+rs6MWfP0OiYoSQC5
-         3JsA==
+        bh=rA1Ovd0Kzmkr6NATBzq19LdNhCK5jrPNyVR/5XvodLA=;
+        b=GwfWNW3qDAiD5R4hrCV0GCl+mXn2dw/xdGiCMYzVXnh8sAo5j30pzKaJQ2c8Yqb+2y
+         R2NhPV6XfLLtSftaQyzY0ccCktIvRfCOIIxuseEwn/HltiMoK38y+JTGogIgZUwfaw46
+         tdbC23erg8nvyt6asc4sC+Ns8l4T2E9EjfmJ5LkE5tkJ4sFHbCnN7NiFOMtoS4azkeFM
+         64lF9Cz4bFrJ7/YlGIFvdlMi/jQ11pfGwapqs92V9N7LndtS7ou+8UGIujsqvaUoqBSb
+         XHuRVmowHsCLH17yFAVxR9OvuXNTXHtCiqNj/nRYcOIMLlHTNUdBr38yq2PURkXJCVx6
+         +RFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793696346; x=1794301146;
+        d=1e100.net; s=20260707; t=1793696356; x=1794301156;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XdWSx5jEVXu7O1L25NHaAg46eSzRTcB1Jp91d+n101c=;
-        b=kH09akN8kR+571F/vNjwSiJE5q3QD7El6dvPq4bRwhPWmbvojeDHxsqppJYkhxXC6f
-         KkaDO3pNGKYmwy++q0+tsRJ6k3LXJmqeYanADK75l1cGi7M1XsHa2cd9i7Ht33X69H+B
-         3NZS83YLVRUxezGJHNDivDtWXMWWOpcmrnzmiUthHqFojS+fFlZI+h6nz1DzXPgENPtF
-         tXDagUU+CVbhOcGua0Yd0/+Twoz6/o8N+aTVD1cU+FO4s7hNtLhrn7Ts8Kizc4xkakf7
-         +olmNdH1J+Qw0owbo/03WBYdHju+IRkTrJS6U8FRfnt8jU6NnhkBEUyKPNr1ExdmPsKd
-         m8Tw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJNPqY7snZzej7xmLfNKrB5+5+YZu+74w9RDxYzca1N0dYdS76/MzAEbhkk6NMbWntIK0bJzRyBv2pQnk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92bAYWwBE3f+cNgVNPXXKvAYIKFPW8gX0Vxvx8EqXqt+u62iuE
-	4Rf0CKY9Qli0LO0rqq1RB0K9ov7A5Cc3PWkZtjE/y69vZMhInuz8Tpko
-X-Gm-Gg: AYBFou1dYcVhcgRu7iBp1W3EIXtllEoGlZzY7wpVP7E6T1xUF5NRYlfy984R4bVdLR6
-	FPVqWaa80eahQ4cu3u1RlkI8voI68FAeLAkP9rr/gNCwHkGDRED80I/SHljQIvy28GR903sC4vh
-	OzDaumcmAMa1v+587pCxINBdBh/T6yi+AtDRV/Ba59gWG7iGCD8uQk9QDQoGRSqooTaWBtZm+d6
-	rX4/YlwNxukOWt5eMVBd0aONHvujqhLzvxwvRl+b3FcUAeCXBNTChi4kQi17dHVT1CeQj+4Kfk9
-	vY3VEf7QzVALn+5bgKL+Eg/JD0Kp+an1mJ3QjRfnSw5eG7LiVpwCazgks+ESBjqEN4pYPMUWWrI
-	gSSTvHu9pXEU5Jx8XT1eZhkqeWYzYkn5J+SuVZIwWvgk9aLw4LlQIa1MTzYJTpju/l6XXETZ2dI
-	0hC6qwTAhR0achdzyKX5XogbwWX02yvSvXmwXPQrZ0H/1QY5b+fCOkWPVj3+Xkbjke/djCX2M3o
-	b3nE0Vz9R6F27N7DJub60HXZVcKKdEq3OW0cUt0Yfluw0YbenOLODg19KaL4Gi4qYporJu/FcAH
-	/EzGYT6bLMGRPSYqq/Av9LyhejkhOnlaIYULq1AY/vP7S1+7KGpDnLOoyqskAih7BlWkA8M9pcF
-	XpUKgiikq+0XP
-X-Received: by 2002:a17:90b:4487:b0:3ac:9c37:9422 with SMTP id 98e67ed59e1d1-3ae89626108mr17481897a91.2.1793696345686;
-        Tue, 03 Nov 2026 00:59:05 -0800 (PST)
+        bh=rA1Ovd0Kzmkr6NATBzq19LdNhCK5jrPNyVR/5XvodLA=;
+        b=TIX6ZFMrg9UPIPQJiJArWl55cteNt6d24na+Ksdex2EsVX5ZG9qdno7b7NVvqzVaqo
+         HmixcV9Iq7DtTG/Ro8IeCLtU2QSurZgxqspHV1lq1ye/MqQhBK7j2I2Xv+BxEstoXmAV
+         7dnY/mTjZEjCWrJRwuloBU9qmvW6ZP9GmmlhI3YfDWLDp3W8jR7bg/KitvUpQU47X5h1
+         Od+lzLTvKHgscQ0I0I74pSofumUMo94YkbL3ri8NltrxzZzloTsTRgHD9rGX6QrWkzkg
+         iw9sPkGVURvmSa6sJ1YT7/gwNY6RdF2pTxScYSWFAEOKoBRNOSronqItF/YFsDtb0hl6
+         +Pug==
+X-Forwarded-Encrypted: i=1; AKwUvBx8x+Nw9UZI0Sx5C90zFr3y8/2KY4jz7Fphcy9ItwXTWJmu0VryfsI3UUjSRgdD+7uDaVbV/mYhnoNCyTo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZLyGcsEMP78k29B4hsoCe2Bp/GMC8ISKRyBvfTyVq5xG26TWW
+	Bfuofc8L6K0e9zzDz13FBukD/Lgs9jixnQbey03k0ccnWTZE9z1jwF9w
+X-Gm-Gg: AYBFou25k33AzboPrhrW6eDFACN+wcuz1PeFGtRHpB+jhpZyGQgSffC2p0j+4if4et4
+	03Jt0aJs3tLUiuiw+jzNhuFM41lbj4A8Vmg35D/MZiUcODMuSust/UGo16NB99Dyke4ZkF8wteT
+	/bEi1JqZ+pfwlGPGQKn8BcSchslYw8JUzsVqX+PRYCc2Bz4xZXRVqx92pPaqWiHCg0dV7CFuxbS
+	+DJuAG4eLz+dAWTf7Ag3A8jjKPINvGJqD/+LjZH2PSwbEtrTXj+fjFiqc3CcGlYmhsUDaM9+rPm
+	UhtOGiwZhPSIzlZCvSr4vCyuSgBZO3i9aYeLbcRYNd1S53ykzDpiYdiCTaSaNoqZwp9abjYd0lK
+	TZm4OMYsVcdGB+ubFAJNbhM8kbesbGCdU6aNdiZg76VyXWKlE5nnKUfqsSdlD2Cdmc8cmgglcxP
+	6P779W0xQ/PVvmNSMQmrOn7gxguG13vOPr+mK2kGUl+KraM8mh3QFciHyx7EEdYZUrJrPKDa913
+	g5yVJ1F7PLN2znGaFzg37pKmt/PxzEQyDLklfHgC2LM83jy/uJjN68Y07UFX1Ox+K/RpyjWXGWG
+	8T/jwDV94wDOQBd2Obq06S2avv5ZF0fydYvjwoQZo1biDqTFTHNWWsn6/7DOLdrqeMY6VUroj9M
+	96xrORKM6jWhV
+X-Received: by 2002:a17:90b:53c4:b0:3ac:9e5e:d1a5 with SMTP id 98e67ed59e1d1-3ae8988339dmr19037670a91.6.1793696355979;
+        Tue, 03 Nov 2026 00:59:15 -0800 (PST)
 Received: from chenyou.. ([140.116.39.229])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c6740a1sm3345662a91.10.2026.11.03.00.59.00
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c6740a1sm3345662a91.10.2026.11.03.00.59.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:59:04 -0800 (PST)
+        Tue, 03 Nov 2026 00:59:15 -0800 (PST)
 From: Chen-Yu Yeh <chenyou910331@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -98,9 +98,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: [PATCH 1/3] dt-bindings: phy: sophgo,cv1800b-usb2-phy: Add USB role switch properties
-Date: Tue,  3 Nov 2026 16:58:45 +0800
-Message-ID: <20261103085847.338613-2-chenyou910331@gmail.com>
+Subject: [PATCH 3/3] riscv: dts: sophgo: sg2002-milkv-duo256m: Enable USB role switch
+Date: Tue,  3 Nov 2026 16:58:47 +0800
+Message-ID: <20261103085847.338613-4-chenyou910331@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261103085847.338613-1-chenyou910331@gmail.com>
 References: <20261103085847.338613-1-chenyou910331@gmail.com>
@@ -115,45 +115,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The USB role on CV18XX/SG200X is selected by the ID override in the top
-syscon, which belongs to this PHY, so the PHY is what provides the role
-switch.
+The USB-C port of the Milk-V Duo 256M is the only USB connector on the
+bare board, and the vendor image uses it in device mode by default.
+Host mode is mainly needed with the USB & Ethernet IO board, whose USB
+hub hangs off the same controller.
 
-Allow usb-role-switch and role-switch-default-mode on the PHY node. The
-default mode only has a meaning when the role switch is present.
+Use the role switch in the PHY so that one DTB can do both, and default
+to peripheral to match the vendor image.
+
+This changes the default of the port from host to device. To use host
+mode, including the hub on the IO board, select it at runtime:
+
+  echo host > /sys/class/usb_role/3000000.syscon:phy@48-role-switch/role
 
 Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 ---
- .../bindings/phy/sophgo,cv1800b-usb2-phy.yaml         | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/sophgo,cv1800b-usb2-phy.yaml b/Documentation/devicetree/bindings/phy/sophgo,cv1800b-usb2-phy.yaml
-index 2ff8f85d0282..a1d164686b07 100644
---- a/Documentation/devicetree/bindings/phy/sophgo,cv1800b-usb2-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/sophgo,cv1800b-usb2-phy.yaml
-@@ -34,6 +34,15 @@ properties:
-   resets:
-     maxItems: 1
+diff --git a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
+index d4e86c15664e..0ad1dfd9449c 100644
+--- a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
++++ b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
+@@ -105,6 +105,11 @@ &uart0 {
+ };
  
-+  usb-role-switch:
-+    $ref: /schemas/usb/usb-drd.yaml#/properties/usb-role-switch
+ &usb {
+-	dr_mode = "host";
++	dr_mode = "otg";
+ 	status = "okay";
+ };
 +
-+  role-switch-default-mode:
-+    $ref: /schemas/usb/usb-drd.yaml#/properties/role-switch-default-mode
-+
-+dependencies:
-+  role-switch-default-mode: [ usb-role-switch ]
-+
- required:
-   - compatible
-   - "#phy-cells"
-@@ -51,4 +60,6 @@ examples:
-       clocks = <&clk 93>, <&clk 94>, <&clk 95>;
-       clock-names = "app", "stb", "lpm";
-       resets = <&rst 58>;
-+      usb-role-switch;
-+      role-switch-default-mode = "peripheral";
-     };
++&usbphy {
++	usb-role-switch;
++	role-switch-default-mode = "peripheral";
++};
 -- 
 2.43.0
 
