@@ -1,128 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793726853;
-	b=u4klhM0Vd8ZvLJnypjvzxIy3y6VF1BugoZBADQrgw6hdqmXuBr2hDFnJ0UkDo5ogKi6I
-	 EAMQ5kDLMEfN2PmR4kJHru+XiEHSk7iHti5LkmtqQ07Q3b/M7sbBnkCThhKv0sU3iOKnO
-	 m59DTzSUtPkHKhwiYxKLVJ4kjxkodXTNmd2Hn71wUqG0x8mIC/pL2HdNGcpoirFgoI8jY
-	 WeO5n36BVY35l4gotf6W8JhWj1WvhJrXIeHl+4fgCIT8V86++X/pnJB62+Kaq0t1JZnJy
-	 wu8E5gB1Ihe3nb267ANTXVlx+OIx9yF8e3EZakoTunpsLeiNUwdqDfqbYszKTwR58DA==
+	t=1793726874;
+	b=YdggfLNCQFzoCNws4QVmWtOlwECgxx3YfdYIRZDOiXlNtg8X67W4ejC8UTrlKNL3Z+ai
+	 p3CofCHd4QY2CYrsLQ8mP93Gt3rbcCf8dJ/DUUxX4yKiN9ge1rScWkRwdu+Qt05+JfCcm
+	 heQbKhKAOnGORlxhxKmHOGFGbIbODFnnSUKZOMwOZVD2jmLDw9ghJ4Wh6yyS0W0lRdpbv
+	 cu8TVsT9Ku30n21tRJyRLRqtkUZVRm39TM4nexQKXQGCqHoVutRRjjQEyVvwbNoYb7wRx
+	 Z69A+mMzhnB0gdWpoeplhObB+2ISKNoRp8lOQxVgl5SBar90XqEZyW2icY+fmjt66Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793726853;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oQ9etUacckBarYb1JALwGYSQHISLb3hr+LJXqLQq1xU=;
-	b=viKnAqGtr9nmW5BEjgaNIWtFIHGTYKeUfCVVUyzZ1xNZd+d3w7dppNQo9ccVwLHjXfUD
-	 wa7+C1m23ZHFB1gVwEMuOoADojujQ1epx8/B9VNnCTZJqeidbgFVMy7ZJ+JdfcfeyVfiG
-	 atbUw+cmo/1KyBk0QV6B6abR3QDa05hn+10JoFjsUPYwscUdSQTlRxZl1s3thVWhp5kVX
-	 CsZAPpkhVKPwzM7KDjVUj8WQhZfMYFcrX6zyrd6KYzd7DzORbQdIgUufppG6bccfQO0Dq
-	 ZLosW9CwUTDOzVRae4zDi6tqApSNG8hgcS07SEBzY/FU+xAtYOt1kUllghvwH4EM3sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793726874;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:
+	 References:In-Reply-To;
+	bh=C7J2xwMhxMcLYQn+HgHArsLVIUvcNtC3sZDiMzWGQG0=;
+	b=Dqpui6YSjE99W4tk08y4PrdMFm06i/cZqX2xHIppYwHT/W8BH7/zfqrTXXu9vGoOtsW0
+	 +B/l6t1HUeZrX9sH9h0JfsyxhzgsjZtBiE7A01ph+tkkkNrZeej5OmPffSny7Vspuf7fe
+	 CkZbOeYesa3Bi8X/DjmYUbk2rGTHNlLRYGsgMuVlUOmdM3mfREeCmiLSjti7Ss37SsKFm
+	 /d06lbl1d2SSnLEIc7RsnqfYLr3UdfQq0Oo5SJmT8Td4KpWTeYa4uMKqAapgzbGwfrLnP
+	 Xg8etzq0fu15Lo6ZsVNwnjYfzl5erwqmYfnVrmX8wbIRG7HtDzQKGBIrT6BRhdCcBtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=zetR+WpW;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=JXEGoqh0;
-	arc=none smtp.remote-ip=202.12.124.151
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qvfk2p2C;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40225606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:27:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40225606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2390606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:27:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2390606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=zetR+WpW;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=JXEGoqh0
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 9CA811D00052
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:27:26 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Tue, 03 Nov 2026 12:27:26 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793726845;
-	 x=1793813245; bh=oQ9etUacckBarYb1JALwGYSQHISLb3hr+LJXqLQq1xU=; b=
-	zetR+WpWn9DhB4CeqpdiTiOi6s3x1UHu7weQGhm2ryOeMvJOG6EbjaND+uAwD8/F
-	+yHK9G6THdOWskS1PZ3uPXbtfVJ5VnYmCM6ZHf/59jXjuDRF9Xg+pQNYcaq2Kz0a
-	UohJvK4+1FeTRUVIGvzYmST4S/mgxuWW+jX5ktnkedgHLoz1bUCNAT0lgOU3s98h
-	jkBfEAoQJ4MlzRq5yYvNvoHW7Bl9wX/Y8z4iaTltOKNwt1NZcOQf6osZ5mAPZQnO
-	wGm11tfJNslo4W/hBKsbwas0lKBNhrCzsT9BqMms8t9yW+GlEKcAVqCWBUJi8A1v
-	VQLn9FtvziPL99xru7n1/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793726845; x=
-	1793813245; bh=oQ9etUacckBarYb1JALwGYSQHISLb3hr+LJXqLQq1xU=; b=J
-	XEGoqh0vkEc6Pb/P4kC/F0BEteuIO/Gug2WUziJjRiNGWhl+PUL61lnf5/MwAfVY
-	G1Z+toMCX+Gig21jp5bKjQHEklPhbiBXGUkk9lbNC2I+4QaLx4b4+kZQxwetlir5
-	YTXzm52wvRo7IXoyuLgcatTA6poR/3N10IcXIEZNmy9fmB7wMvtG96yr+cs/S+oq
-	pOJwW3PbjAIZwYcwPm4W4k63DYPC5bb49lqXYI8G6EJpcr2f0AeLLKUhCPwAs6cu
-	Wa3nC/7SA4V8/A0G1ID4Gf+ZEuSyPK8ae3u0LDt5x5BdW4nC4oWhKdZmrC2AQQn6
-	B3DJz8UxMO9rEBcDue2VA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793726845; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:kWlHYpiT8VwBySsUdPmD90Jaz8GvjtR5jPfvdi2SXbNOsqV
-	0Rld/NF2BeOl6G9mPybz2E+zX2BnyvHkAZPBdjwMTOBKAzuCk+63l94Bk3HzzdNK
-	ZHaMw2toDQjQzAlK4y4R8NZRgdjd6SyRQLBIxEvI/7gRdy5B8OXhET8hUAia9mHz
-	S/T2poJYlbA0DCWlSKEzFWAHAItboevp5g+ZYogaMmBET76yBlY/soY2OEaL32f4
-	vSHP+DQ+M5dkLA3MpvfC9zc1AVLWg5+fuj6D5T30vqKTiDHCSdyFXDScxEzjmvuh
-	HspkZK55DmGSFX+m+aJilqy903gIMA/OeoNXbow==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:zgsJtPfv4psusrXCbVcJ6TIGiHw75jq9I7pFokzImBE=:1pZpE/kNCy4mvcWmUyjXa3kNQemONISbbXXEIL2Fhpc=;
-X-ME-Sender: <xms:fRnqaj0V-QKEOq1eWK_awsP416S3Tw7nbbLXILBvLcdO_fLz-5OpJQ>
-    <xme:fRnqahj9xaJXLVmq9Y4wmagmx4LVjPk5RbX0y8s46lDo4aK-JlfwMOBt5EuoXEjnQ
-    rAkLdsTkV2721_9jOUNkl5ZeQje3tHvECC_RoaImz0fYLBsgHklib8>
-X-ME-Received: <xmr:fRnqak9Y--WXP7stmwrYpG7OBqRtSh9g_RYTNEt6Oabd5t6pVjqEKzf6nKdRaw>
-X-ME-Proxy-Cause: dmFkZTEJbO7YJqbe3YmLuAs4b/MTR3S3PLssy8c1J8Dg54gC2msHiH/u1QXpq0oEYWNfTb
-    hf36B+a5u4em/nWh9BXbMQ/a2ZW7sNVARuiEEtjeDq8w8dG3VaVDwRMhuHoZ9s8IblQTn5
-    bHDnhh7ylFoeH3xSPHkVrElHsF60YWho6nGjfmw7brc9qWQqKtTbwRlTrxwpHpeHI0gk1o
-    OJKEmoMYPVHZQ0G8eiTiDqh+guwsvgUkXid7sYO8x4URpUpiaOvj3cma+uUHcgifjVZXUF
-    qfbrBZoIK2hwkdF1003/NfsNJpQtwsdsaLt8mdLyskdHAA+dQu84KG5ZGrkeclgWWllPkd
-    ufqcYs3l3M79OWXxL77HBpdZEev7DnuniUyXWGZ1Yc6UPRZG1+gK4AahhOs6B/aCp8JfZ+
-    ctHoRSRRaTzZ5GumKU+CYtCTrxtY6u9Cpm+CJb7uGruJ78E5G6kSXQm07BaQ2y46Vw7M/+
-    QDuyqOl0ayEVsg51PK+iudM5iTBJkjtTxXIPle5tdcWFZ6vm8MkHVyBxL7yybcMcgqzTBg
-    qB1wa7Sc9WZoQy36mNlp0zUye5n4mSwCsO5u7mfDO8gmyEVZi7Kk7jIvNN7HDajScxuVU9
-    0xK1D6Il1AytMWcd95a17xV4iwctmW09Y3rpMtR84n/OsnEuAUCCmXPU7hrQ
-X-ME-Proxy: <xmx:fRnqatIG2ttoasAnQjYUfvKx2__Tdpyy1ASYNwKkaEmQ7sbcioWN8w>
-    <xmx:fRnqapwDcUT0CvZ3g_T8mFC5YlVb3-P9Gn4NmJj4-0Ji2LPtJZu65w>
-    <xmx:fRnqag2Bvp8UxJ9xdzcq7fZZ1zA-SAYuI6Mq12lMtQY4KMdiSNc93Q>
-    <xmx:fRnqai-rtYSLoJ1NTkhlE6sFTafVvxHnTeN4GZGlvkZgL9-CZpwZTQ>
-    <xmx:fRnqalxC73gaLcpjFT8RgXzJ4RBhPhe2hnFhfY0AVwnl7qi23jCSP9Cb>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 3 Nov 2026 12:27:23 -0500 (EST)
-Date: Tue, 3 Nov 2026 10:27:21 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Peter Xu <peterx@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, David Matlack <dmatlack@google.com>, Shuah
- Khan <shuah@kernel.org>, Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe
- <jgg@ziepe.ca>, Raghavendra Rao Ananta <rananta@google.com>, Vipin Sharma
- <vipinsh@google.com>, Alex Mastro <amastro@fb.com>, Matt Evans
- <matt@ozlabs.org>, alex@shazbot.org
-Subject: Re: [PATCH v3 3/3] vfio: selftests: Test BAR write faults after
- clear_refs
-Message-ID: <20261103102721.5d76c471@shazbot.org>
-In-Reply-To: <20261102230445.3993629-4-almasrymina@google.com>
-References: <20261102230445.3993629-1-almasrymina@google.com>
-	<20261102230445.3993629-4-almasrymina@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qvfk2p2C
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e4831c028so3912013f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:27:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793726872; x=1794331672; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C7J2xwMhxMcLYQn+HgHArsLVIUvcNtC3sZDiMzWGQG0=;
+        b=qvfk2p2C7RCe841ado8qfFCS9EjFtuex2WDROo9E1Fc+ZhltsWR8vV/rOq8z5I/k57
+         i3OGX0Wr2HUlX5zo0HJCLZs28lP+10Fth3SFAs8j1PknAVLmwsILnXxT75hbwpoj3mJz
+         IYCPW01qa04mTijdJ4QJYJANkJ9seTSqhbYnwcHcZ35YfNGTk7XzMa2YjOrSZQ68spD9
+         +s8BYOoXJ+NdDhKHpkfxestZlteDvW1FVKYgK0L1ajglWzOoUcwAHlqS3XXE88Sz26Ne
+         kKl3qzhacnH2H3er+WMxxp5rl8vZTDFab0IITU4dQil1PxAIXbLjlf2wr0tvFf9Wb6BA
+         vszw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793726872; x=1794331672;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C7J2xwMhxMcLYQn+HgHArsLVIUvcNtC3sZDiMzWGQG0=;
+        b=uMo6pdK+XPdhdRs+vGy2rtyJpUOOr3op+hxzV4hnt8DmHBXtoE4nzjxzX8JRZbfpTo
+         06Yr/LyobnoN1IpvGMuCA/dMg5ZbclZNN8e8qWQb4pLTbqfCz6k0/KWckWBbWmbjsryF
+         UBtVwXf2CUQFqkKQ9SvQ+/Bkm96rIy1APk7d79Su8Ocp9CKPFXFPlybF0hkTU9tfHGf/
+         +NYS/bfjJXrqUWRfRXpQuYz5zyAqrMaEz+wMVYcmRR0Ax2v3/qqSS90wNFBR+mSWbLpK
+         SSFdBH0UOLqU9gw1Vat8jLSzkKdwzrruBBRm8ZIPMNwyfmwmQ+ThzmqQZ534WRI8wGUm
+         TGTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbqoHoCEoMmvG4dLm35bOAAVEOC+Z5UoY2GfCnhZk03vRLLYcpO9erQgERjnYOZE41qazE2o7WSb261QQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bofnNHMBkj6t+N17UHWzOQp9cKTDfeXsu3UEPRS2YXZj210zg
+	L3PR5WcwyiwDZy9KKhAUdBvnmvF489OW7+K5OBGDlb/uJaPzEOZaO4Xd
+X-Gm-Gg: AYBFou3+NPU1keRcXqJDTm7Cg30mMbJmWpI4hT2DBSUsGc67UcVAwbZAyJngtGHhS9F
+	MYnm52RtdGB7TBrQf0yskztuAdftJ5ckt3B6fBwX77wkXWJ5k8vJcO3UuN58jzVizgmK+zhEiD4
+	4bEotORGna1JngIPEfqvOONy0S52XEm3MbNCHxp/X7HGJ+JlySe9N9QZ/CHKnccef9mPVy0FMVa
+	L/cazUIZzzWU4dWa65SMS7Z5DVWBbN5br5HGxc7CnW4VS25UPXukOR3U9jM9C6tkCrBo/kKERRD
+	WhODUVpAwGawMAHL3X0gaHFEVhDJn228pKpwi/YAH49scw06WWbgc3pUKvV45oU7v354wXnvSL2
+	q0aDW/3pMy9D6e5jfEYm+GuCix23rPhqPdzopaEuzhHQUzc1FYMePX8VNoBYheJu+bRihB5xc9m
+	AzSxQqsOE0P3CxGw+hNAVMBwhhOoQDO+yYk1XsV8PeA5vjua0XrdaJLRiLwmlNPSFpsmZp/xCVx
+	BYEgl5O4UgHn4ChTcpp+Gza6jFVzxG0B63f1w1FvR8BcdhehJJR1e3m71D4bp+6VU3+XCG7FVQw
+	LyZLlB/yUgs53aBekIGRHspxV9HVCUII9K7FLrS02A3g5A==
+X-Received: by 2002:a05:6000:26c8:b0:48e:10a7:40f with SMTP id ffacd0b85a97d-48e6e302612mr29233891f8f.17.1793726872045;
+        Tue, 03 Nov 2026 09:27:52 -0800 (PST)
+Received: from localhost ([151.60.201.12])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728ddsm25764477f8f.9.2026.11.03.09.27.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 09:27:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,135 +86,171 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=7bf7be77af3bb2ca970a31782cf12336c55eb4edcc365a7f2b8809684642;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Tue, 03 Nov 2026 18:27:48 +0100
+Message-Id: <DMLR3VF6HEMW.34XWXBBJLV9A3@gmail.com>
+Cc: "David Sterba" <dsterba@suse.com>, "Alexander Viro"
+ <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
+ "Namjae Jeon" <linkinjeon@kernel.org>, "Sungjong Seo"
+ <sj1557.seo@samsung.com>, "Konstantin Komarov"
+ <almaz.alexandrovich@paragon-software.com>, "Chris Mason"
+ <mason@kernel.org>, "Jan Kara" <jack@suse.cz>, "Yuezhang Mo"
+ <yuezhang.mo@sony.com>, "Chuck Lever" <cel@kernel.org>, "Darrick J . Wong"
+ <djwong@kernel.org>, "Sean Smith" <defendthedisabled@gmail.com>, "Andrey
+ Albershteyn" <aalbersh@kernel.org>, "Pedro Falcato" <pfalcato@suse.de>,
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+ <linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <exfat@lists.linux.dev>,
+ <ntfs3@lists.linux.dev>, <linux-api@vger.kernel.org>
+Subject: Re: [RFC PATCH v3 1/5] vfs: add provenance time (ptime)
+From: "koraynilay" <koray.fra@gmail.com>
+To: "Amir Goldstein" <amir73il@gmail.com>, "koraynilay"
+ <koray.fra@gmail.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261101015551.786044-1-koray.fra@gmail.com>
+ <20261101015551.786044-2-koray.fra@gmail.com>
+ <CAOQ4uxiuJ=eZu28FZAUz3rpqPKqCimPxJucOnYYuBowvD09_Cw@mail.gmail.com>
+ <DMLJ5DR2A4KZ.28U8XSZ0KFJTG@gmail.com>
+ <CAOQ4uxiTS-QT7y1avNSasJSffkt2uRNkdrb2_GrK7kJ82-MoXw@mail.gmail.com>
+In-Reply-To: <CAOQ4uxiTS-QT7y1avNSasJSffkt2uRNkdrb2_GrK7kJ82-MoXw@mail.gmail.com>
 
-On Mon,  2 Nov 2026 23:04:45 +0000
-Mina Almasry <almasrymina@google.com> wrote:
+--7bf7be77af3bb2ca970a31782cf12336c55eb4edcc365a7f2b8809684642
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-> Add a regression test in vfio_pci_device_test to verify that huge_fault
-> on writable MAP_SHARED VFIO PCI BAR mappings handles write faults after
-> soft-dirty tracking clears VM_SOFTDIRTY and downgrades vma->vm_page_prot
-> to read-only via /proc/self/clear_refs ("4").
-> 
-> Use vfio_pci_find_mem_bar() to locate a memory-backed BAR of at least
-> 2 MiB that is safe to read and write, and zap existing BAR mappings via
-> PCI_COMMAND_MEMORY before each sub-test to verify both:
-> 
-> 1. Read-then-write fault sequence after clear_refs, exercising in-place
->    huge PMD/PUD write-protection upgrade via wp_huge_pmd()/wp_huge_pud().
-> 2. Direct initial write fault on an unpopulated BAR VMA after clear_refs,
->    exercising vmf_insert_pfn_pmd()/vmf_insert_pfn_pud() with
->    FAULT_FLAG_WRITE set.
-> 
-> Skip gracefully when the device has no known memory-backed BAR >= 2 MiB
-> or when /proc/self/clear_refs soft-dirty tracking (CONFIG_MEM_SOFT_DIRTY)
-> is unavailable.
-> 
-> Suggested-by: Alex Williamson <alex@shazbot.org>
-> Cc: David Matlack <dmatlack@google.com>
-> Cc: Matt Evans <matt@ozlabs.org>
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
-> ---
->  .../selftests/vfio/vfio_pci_device_test.c     | 65 +++++++++++++++++++
->  1 file changed, 65 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/vfio/vfio_pci_device_test.c b/tools/testing/selftests/vfio/vfio_pci_device_test.c
-> index 93c11fd5e081..323a316f59e7 100644
-> --- a/tools/testing/selftests/vfio/vfio_pci_device_test.c
-> +++ b/tools/testing/selftests/vfio/vfio_pci_device_test.c
-> @@ -1,10 +1,13 @@
->  // SPDX-License-Identifier: GPL-2.0-only
-> +#include <errno.h>
->  #include <fcntl.h>
->  #include <stdlib.h>
-> +#include <unistd.h>
->  
->  #include <sys/ioctl.h>
->  #include <sys/mman.h>
->  
-> +#include <linux/compiler.h>
->  #include <linux/limits.h>
->  #include <linux/pci_regs.h>
->  #include <linux/sizes.h>
-> @@ -102,6 +105,68 @@ TEST_F(vfio_pci_device_test, validate_bars)
->  	}
->  }
->  
-> +static void zap_bar_mappings(struct vfio_pci_device *device)
-> +{
-> +	vfio_pci_cmd_clear(device, PCI_COMMAND_MEMORY);
-> +	vfio_pci_cmd_set(device, PCI_COMMAND_MEMORY);
-> +}
-> +
-> +static int clear_soft_dirty_refs(void)
-> +{
-> +	ssize_t ret;
-> +	int fd;
-> +
-> +	fd = open("/proc/self/clear_refs", O_WRONLY);
-> +	if (fd < 0)
-> +		return -errno;
-> +
-> +	ret = write(fd, "4\n", 2);
-> +	if (ret < 0)
-> +		ret = -errno;
-> +	else
-> +		VFIO_ASSERT_EQ(ret, 2);
-> +
-> +	VFIO_ASSERT_EQ(close(fd), 0);
-> +	return ret < 0 ? ret : 0;
-> +}
-> +
-> +TEST_F(vfio_pci_device_test, bar_write_fault_after_clear_refs)
-> +{
-> +	struct vfio_pci_mem_bar mem_bar;
-> +	int ret;
-> +	u32 val;
-> +
-> +	if (!vfio_pci_find_mem_bar(self->device, SZ_2M, &mem_bar))
-> +		SKIP(return, "No memory-backed BAR >= 2M on %s\n", device_bdf);
-> +
-> +	zap_bar_mappings(self->device);
-> +
-> +	ret = clear_soft_dirty_refs();
-> +	if (ret == -ENOENT || ret == -EINVAL)
-> +		SKIP(return, "soft-dirty clear_refs unsupported (%d)\n", ret);
+On Tue Nov 3, 2026 at 4:14 PM CET, Amir Goldstein wrote:
+> On Tue, Nov 3, 2026 at 12:13=E2=80=AFPM koraynilay <koray.fra@gmail.com> =
+wrote:
+>>
+>> On Mon Nov 2, 2026 at 3:00 PM CET, Amir Goldstein wrote:
+>> > On Sun, Nov 1, 2026 at 2:57=E2=80=AFAM koraynilay <koray.fra@gmail.com=
+> wrote:
+>> >>
+>> >> Add provenance time (ptime), indicating the time when a file or
+>> >> directory was created. This is user-settable via file_setattr() and
+>> >> retrievable via statx(2) (using STATX_PTIME) or file_getattr().
+>> >>
+>> >> The semantics of when to preserve this new timestamp are the same as
+>> >> mtime, the idea being that there is a correspondence like this:
+>> >>
+>> >> ctime <-> btime
+>> >> mtime <-> ptime
+>> >>
+>> >> so every operation (copying, moving, ...) that currently preserves mt=
+ime
+>> >> should also preserve ptime.
+>> >>
+>> >> Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
+>> >> FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
+>> >> xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr()=
+ to
+>> >> allow ptime to be used with the file_setattr()/file_getattr() syscall=
+s.
+>> >>
+>> >> [ This is a re-implementation of the initial patch[1] by Sean Smith
+>> >>   <defendthedisabled@gmail.com>, following the advice[2] from Darrick=
+ J.
+>> >>   Wong <djwong@kernel.org> of using file_setattr() instead of updatin=
+g
+>> >>   utimensat() ]
+>> >>
+>> >> [1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabled@=
+gmail.com
+>> >> [2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
+>> >>
+>> >> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.4.7
+>> >> Signed-off-by: koraynilay <koray.fra@gmail.com>
+>> >> ---
+>> >>  fs/file_attr.c            | 33 +++++++++++++++++++++++++++++++--
+>> >>  fs/stat.c                 |  2 ++
+>> >>  include/linux/fileattr.h  |  5 +++++
+>> >>  include/linux/stat.h      |  1 +
+>> >>  include/uapi/linux/fs.h   |  8 +++++++-
+>> >>  include/uapi/linux/stat.h |  7 ++++++-
+>> >>  6 files changed, 52 insertions(+), 4 deletions(-)
+>> >>
+>> >> diff --git a/fs/file_attr.c b/fs/file_attr.c
+>> >> index 833e03810b24..c0645cb22bf3 100644
+>> >> --- a/fs/file_attr.c
+>> >> +++ b/fs/file_attr.c
+>> >> @@ -102,7 +102,7 @@ EXPORT_SYMBOL(vfs_fileattr_get);
+>> >>  static void fileattr_to_file_attr(const struct file_kattr *fa,
+>> >>                                   struct file_attr *fattr)
+>> >>  {
+>> >> -       __u32 mask =3D FS_XFLAGS_MASK;
+>> >> +       __u32 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
+>> >>
+>> >>         memset(fattr, 0, sizeof(struct file_attr));
+>> >>         fattr->fa_xflags =3D fa->fsx_xflags & mask;
+>> >> @@ -110,6 +110,8 @@ static void fileattr_to_file_attr(const struct fi=
+le_kattr *fa,
+>> >>         fattr->fa_nextents =3D fa->fsx_nextents;
+>> >>         fattr->fa_projid =3D fa->fsx_projid;
+>> >>         fattr->fa_cowextsize =3D fa->fsx_cowextsize;
+>> >> +       fattr->fa_ptime_sec =3D fa->fsx_ptime.tv_sec;
+>> >> +       fattr->fa_ptime_nsec =3D fa->fsx_ptime.tv_nsec;
+>> >>  }
+>> >>
+>> >>  /**
+>> >> @@ -141,15 +143,20 @@ EXPORT_SYMBOL(copy_fsxattr_to_user);
+>> >>  static int file_attr_to_fileattr(const struct file_attr *fattr,
+>> >>                                  struct file_kattr *fa)
+>> >>  {
+>> >> -       __u64 mask =3D FS_XFLAGS_MASK;
+>> >> +       __u64 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
+>> >
+>> > That is not the correct way to extend this API.
+>> > This fixed mask was added as a placeholder for
+>> > "We intend to add support for more xflags to selective filesystems":
+>> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-2-amir73i=
+l@gmail.com/
+>> >
+>> > Please see this POC patch for filesystems to publish their supported
+>> > xflags mask:
+>> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-3-amir73i=
+l@gmail.com/
+>>
+>> Thanks, I did not think of adding a dynamic mask like that, I will look
+>> into it and implement it for v4.
+>>
+>> > This will allow callers of file_getattr() to know if the filesystem
+>> > supports ptime
+>> > without trying to set it and failing.
+>>
+>> So after adding fsx_xflags_mask to file_kattr, every filesystem would
+>> populate fsx_xflags_mask with all the returned (=3D=3D supported) FS_XFL=
+AG_*
+>> in their own specific .fileattr_get, correct?
+>
+> Not all filesystems. Just the ones that wish to extend the constant
+> legacy FS_XFLAGS_MASK.
+> So just the ones that you change to support XFLAGS_PTIME
 
-My comment on v2 that this doesn't accurately test whether soft-dirty
-is supported, potentially leading to a false pass still stands.
+Ah ok yeah that makes more sense, so like the fileattr_has_fsx_mask()
+(that checks if fa has fsx, ignoring the suppored/allowed ones specified
+as second arg) that I added, but in the opposite way: "I advertise only
+the extra fsx (so only 0 or FS_XFLAG_PTIME rn) that I support".
 
-Please also have the courtesy to give reasonable time for review before
-a respin.  Personally I would expect self review and testing to take
-longer than the 80 minutes between David's feedback and v3.  Thanks,
+Thanks,
+koraynilay
 
-Alex
+> Thanks,
+> Amir.
 
-> +	ASSERT_EQ(0, ret);
-> +
-> +	/*
-> +	 * clear_soft_dirty_refs() stripped write permissions from
-> +	 * vma->vm_page_prot on the unpopulated BAR mapping. Fault it read-only
-> +	 * first, then write to exercise in-place write-upgrade
-> +	 * (wp_huge_pmd/wp_huge_pud).
-> +	 */
-> +	val = READ_ONCE(*(u32 *)mem_bar.vaddr);
-> +	WRITE_ONCE(*(u32 *)mem_bar.vaddr, val);
-> +
-> +	/*
-> +	 * Zap the BAR PTEs/PMDs, clear soft-dirty again, and fault with an
-> +	 * immediate store to exercise initial write insertion
-> +	 * (vmf_insert_pfn_pmd/pud with write=true).
-> +	 */
-> +	zap_bar_mappings(self->device);
-> +	ASSERT_EQ(0, clear_soft_dirty_refs());
-> +
-> +	WRITE_ONCE(*(u32 *)mem_bar.vaddr, val);
-> +	(void)READ_ONCE(*(u32 *)mem_bar.vaddr);
-> +}
-> +
->  FIXTURE(vfio_pci_irq_test) {
->  	struct iommu *iommu;
->  	struct vfio_pci_device *device;
 
+
+--7bf7be77af3bb2ca970a31782cf12336c55eb4edcc365a7f2b8809684642
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRJ2XvJtXGwULYEerQ0bnTtJTDoOAUCauoZlAAKCRA0bnTtJTDo
+OBnVAP9J2oe3Q/z4+CIvNcDvvOtFdyX98jyvuqmiHKySHzb6XAD+N8QVNASksB7a
+or/C2uBDgyHnZr93FRknmz2MMzGnvwQ=
+=0YAO
+-----END PGP SIGNATURE-----
+
+--7bf7be77af3bb2ca970a31782cf12336c55eb4edcc365a7f2b8809684642--
