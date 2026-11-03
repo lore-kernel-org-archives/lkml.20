@@ -1,89 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695965;
-	b=DHw6JP78d+DuAlKCzje/tRBuPDd0qsu3APXBnra/SyEWVuioL9ldEn8XQQ+gBdbehHOf
-	 If1L49XX21IJ7NZwKH7IJ537gbEKuVRKsWWOnK1HnuUog06TE2tdb+fxwB3z0uyOGxL4r
-	 wrQPlRmmTb7Xr1oljcX7WO2HhjpgdkPuNpHcY8HH+rzYUakB1asXLTlQAN2Ma7tM9Pp1R
-	 so6RCnqo4ftiGR2Qe0Rqk9kcbvwu029QFTtmCveS4Nb9uv/GHF1jlWfAth2r2ouEVA4gM
-	 stPOjRdYu+T2tP7Em+zI9l1CXfmyet/Bni29+9Y4CYz/66IRWanjXJcVBz4ZtJL4fFA==
+	t=1793696008;
+	b=cqhSKvobxzl+B8Jd0IDvLSbos62NvnXdpml7ChDoVTx4XxrSlKT88+mwGJapZrujWhC8
+	 L0MObp4tc6qYrfQpYsFPI17SNjhtjr55eC1fl5YOuk4pWts8wM79rWlD98tTsMpKTT75R
+	 UDSmnaWsJhTINCAZSm6mvYr18J0d6EWQ4ZuYkkjP9VRhM59EnE2WAymNh+p+Kf5Q46Q62
+	 tTMip88x9YDKiOCU/CJRWFBw/wO9a5SefIEuJ+U+dRlxBcS4P/fSbaYAyKhXoqDTOAe70
+	 r46YgphBybDvRYyTHJe+6od6S9nwcZycMLBoxOKkc1zIiV7iCn1Vx+V91m2mHrKViUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695965;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RHBl9u4PW6S73EDeR1NNdDwKss/rh1D+3K5dZAbhGGY=;
-	b=fiWsIm8njppyPQieHsRMnh5QGVjUWM0t7gB9Yp2q7YcAcwk3wN6osEru6YMzo44UG/R2
-	 xHltby0lFoxtkNhf/VpIj8vbSSlxh/i38vOF4OOZ+u3A0rWICOZErktS3OvmnuV/mHxeJ
-	 +YWo414tyqCm++HpgmG/Tkd7KcSPd2gWL5ur7BFVY5nY/gbDw4SWxtxj9gHGgEDFqAFDO
-	 ekYbMJiXOthqdwoF9cLD7hTXMNx7ugauzr7vGw0DV/LjENAy4xhMxY7hwqnSRLMCjSP9G
-	 CWY+u+gAxnU+ccizM2s5gAeGgHhI78DqTyWj342+QUJggi/bS0DSTiK7CTdgEPxzsZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696008;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=EcSoxxnJMuvLP1xQ1FTzrMC+CsvkWlzyYnlR9skwhbc=;
+	b=uXx4SHyaX8PFob0f4+hfPRopLTTvKkfsujNcBGDwYU8UCR5SxZ9WcEPQXuDuychMnqNK
+	 58CsD7A9TNcV7n7m/y6V/WPE6pZ7HkzvvvvJrC5H14upmwKrMROS/01qaa0i4yAazvMhe
+	 6/IoLZ49l/vFucqrbvQg0tjyaCcnWYsC9I0XVicSPgl8dKAngzecePLYlLBkCiaHNqXtE
+	 c+b4EP0X8IXTXhnRKS+ksDK6G+hzL5ELQjEPczhLM+B/1jkuhIh/GWmXyfeq5FDGpH9A4
+	 aGz4ccX1Mz9aPy7lVJu8/bKm1ItASK+GfMjCqKqnkp3HNECCt//AmjUYUxWhgRZJjnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Kkpeey0y;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWZQdAmA;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8172606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:52:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8172606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6798606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:53:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6798606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Kkpeey0y
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso38984715e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:52:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793695963; x=1794300763; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RHBl9u4PW6S73EDeR1NNdDwKss/rh1D+3K5dZAbhGGY=;
-        b=Kkpeey0ycZBJPK+awNbsenphUdiA1HBnSjtXYjGhfY5uRNOtzFiSXHpBO2CsUDlSn1
-         BR17Mtf+4UFo8KlNtiDO6kKqbyOVAcyQn2/e407Rg36fz0qJLB2/KvcdXqMWUH8Sm1wi
-         NB74W2BH5B8hXPl5ZEg1u+piume7YhDXGoE1DwDJuCbBy+/axt89rbeinnTeXAaO8KVi
-         ah/0gtiNMCR7nZCC5P6mf6BvDpvNEp8lkBDzP8Ow1+aiEopPhBfM9iR/pBXPMhE7rxOL
-         Aimpz5/LbY8ztjW/DNCC09gMg4LamBkDuwZlAAsVceoeS53QCXbwFeOFkOb9ZJ7eNvV/
-         xb7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793695963; x=1794300763;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RHBl9u4PW6S73EDeR1NNdDwKss/rh1D+3K5dZAbhGGY=;
-        b=gNxPmbzeAncxxTdrWyZ+F4MTc14c1V4FTRQGTjlqPxubOF812dAtOgLCGbv0rfcV+Z
-         MeRLF447SB748tZknQn97/S1sdRfNQdQcXUHh3U4X5BwHrT0KxLXKpHPWCu1m8e6Tfh+
-         oVDsJm/uigZsGFFPW5o7ry7WNuYNmBFRDTf27gFvhQ9UyIomdVlKi6dJ9D641JCjuxyD
-         8cFeK3YYju/ehNmoWrDwn8oW04tl6WXt+q4aFp0VvKS3EkOVdtmnX76j7aO2Iv80/RVO
-         6XATCHuKABoVShf/yq0qcpndNEEXP4iJ4U5Ld1XsjOGFwI/3UACRaRKaDOUoKTnsB5cw
-         53DA==
-X-Forwarded-Encrypted: i=1; AKwUvByvfpsrjEyiOayMEyyat7YQBet/wuz4iqkVbFojm6U/vTlzf6LGhJjk2MHJS5RPK3HwWcrFDL+5BRdStVs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QIe8v1KNAgpsFz2JdQd2rJjAF4KPrlHzHth+A+2HTrEzEXjB+
-	ayltpHKVbe49Z4RNkR5yG98GsoaNlVoi82ukycyHoMHedf6i6CG35g8yenSMsMgCfp0=
-X-Gm-Gg: AYBFou1BGibqNSmjVFuhkzan/QgeCt+dy/PVTg6tqJZA6mvcsyHYpwi0nUGjx8eD58D
-	qJrKnAfujx0dEQ7p37foYKKnOOfIIsYnE+JuVqd8dnpc958RCO9T994PlhPjpnuEwZTd2fcJq6F
-	HowlHBV73Uq5iZgsjToUjaZb1EjdjPkK9HU8REIfxJJYZvxGNbU+1dWw9L8hkEJor5Cb26m5ZMD
-	+xKF9fgOPhh3Lla4lkUKW1tJQYRsWyZ5O/4x/aUGCPYWMhHQnt3F1FhqmonJRkaTXOM78EptszO
-	qBwEmKYMr307UkAdLl2wVmFMeWKWfup8cPZTG120Y0dNKchDf3bXaTL6hSvvxygUPmly/xhKMik
-	kOAKXNGPp5Lh473oqyzZimK0qZUUkj3BfIwt8kVeoPUcA1RGo2xroxf6ve7GCQ1aj9ylwzz1VBq
-	zG9x2yIcbto1oMXrQflbw8XiMMJ6zu6+IRIgmu1RGaJTlZeg9YDa1ksgRuVCbjG9/ave+N6CfvP
-	jclmiHRHzbCbf/BMYudjukFsTo0eyGbF8MwTumrQJix4nIAGQ7rIHXBcJ14GSrx/GPbKP2kwjN9
-	wlKDvLnE72UJC57MbbB5v1ZJii6srGg69WNkDlWIsMkZK/Ih/vtX0lwOxF9Io4LM6w24cdUVo+M
-	E1eN50dI=
-X-Received: by 2002:a05:600c:6216:b0:4a3:5aea:21e5 with SMTP id 5b1f17b1804b1-4ac1737c533mr271366495e9.9.1793695963059;
-        Tue, 03 Nov 2026 00:52:43 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:95a2:4869:9f46:45f0? ([2a01:e0a:106d:1080:95a2:4869:9f46:45f0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a8c6a9e0sm43117295e9.6.2026.11.03.00.52.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 00:52:42 -0800 (PST)
-Message-ID: <3736bdc3-0f1e-49a9-9559-5a3b7383848b@linaro.org>
-Date: Tue, 3 Nov 2026 09:52:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWZQdAmA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793696007; x=1825232007;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=p622XnqmTxgrIzjfBothae0z/U5tiui9rdZzVBu4Is4=;
+  b=kWZQdAmAHWviGIfFlDM3zas+iVKaoD6CJckzrrrj0kNyG7Bvt4xGap5x
+   0YaW3AFjosPoa+ryY8ZxKzeKxNl+ykVAf9XxAVku7WWsT5LM7/o2K2wj0
+   DM7s0JJRGYfyCgdkh5Tk0UrtYWjCsV9UstJfhvR3KGW6k/w7+91A0nY/W
+   SFImqHkmuMVSNALy8UH/F71x5kuBmeOUWsN6i/ImgZC8NWzz8NN7xcSBk
+   JB/vd8P3T5iV5CHWXzDsmYIoftKO3wEfkO9rYJtZ/5RjMRtGgF2aF90Rw
+   K6W0B2igXls0LSWnhYwr5mrEO8i5fYU3hLyPiyVlgCIZ++Kjxax0RBZBK
+   Q==;
+X-CSE-ConnectionGUID: Cb/6JbaPRk6/zm2IijAGEg==
+X-CSE-MsgGUID: pxwRNFtiR72I39r5RTLjUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2439716"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2439716"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 00:53:07 -0800
+X-CSE-ConnectionGUID: WZiypFdLTL2ooUY+g3QchA==
+X-CSE-MsgGUID: aMbtfmTWR4S2MGK4pGQEuA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6255554"
+Received: from yufei-inspiron-3910.sh.intel.com ([10.239.92.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 00:53:05 -0800
+From: "Yu, Fei" <fei.yu@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux.dev
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	David Airlie <airlied@redhat.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	Hui Peng <benquike@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com,
+	Fei Yu <fei.yu@intel.com>
+Subject: [PATCH v2] drm/virtio: Put GEM objects when dropping a vbuf without queueing it
+Date: Tue,  3 Nov 2026 16:53:14 +0800
+Message-ID: <20261103085314.3102802-1-fei.yu@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
+References: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,57 +89,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2] arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan
- tachometer
-To: Igor Velkov <iav@iav.lv>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261006-hc4-fan-tach-v2-1-e27ad96e92a2@iav.lv>
- <20261102-ping-fan-1@iav.lv>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261102-ping-fan-1@iav.lv>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/2/26 19:20, Igor Velkov wrote:
-> Hi Neil,
-> 
-> Gentle ping: this has your Reviewed-by from Oct 7, but I don't see
-> it in for-next. Could you pick it up for v7.5?
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-Yes
+virtio_gpu_queue_ctrl_sgs() drops the command when drm_dev_enter()
+fails or when vqs_released is set during device removal. It unlocks the
+reservations and frees the vbuf, but never releases the GEM object
+references that the caller transferred in vbuf->objs. Those references
+are normally dropped by the dequeue worker once the host completes the
+command, which never happens for a command that was not queued.
 
-Neil
+If a framebuffer flush or transfer (e.g. the fbdev damage worker) races
+with device removal, the GEM object backing the buffer keeps a stale
+reference and is never freed. GEM objects do not hold a reference on the
+drm_device, so the device is still released, with the object's node left
+in the vma offset manager:
+
+  Memory manager not clean during takedown.
+  WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown+0x62/0x280
+  Call Trace:
+   drm_managed_release+0x1bb/0x540 drivers/gpu/drm/drm_managed.c:75
+   drm_dev_release drivers/gpu/drm/drm_drv.c:924 [inline]
+   drm_dev_put+0x1f/0x30 drivers/gpu/drm/drm_drv.c:957
+   virtio_dev_remove+0xb8/0x170 drivers/virtio/virtio.c:375
+   ...
+   virtio_pci_remove+0x7c/0x110 drivers/virtio/virtio_pci_common.c:760
+   ...
+   remove_store+0x123/0x140 drivers/pci/pci-sysfs.c:524
+
+The vmalloc_to_sgt() failure path in virtio_gpu_queue_fenced_ctrl_buffer()
+has the same problem, and additionally leaks the vbuf itself.
+
+Add a helper that releases a vbuf which was never added to the
+virtqueue, including the object references it owns, and use it on all
+three early-exit paths. None of the callers touches the object array
+after handing it to the queue functions, so this cannot double-put.
+
+Fixes: b1df3a2b24a9 ("drm/virtio: add drm_driver.release callback.")
+Fixes: a46991b334f6 ("drm/virtio: abort virtqueue wait on device removal to avoid hung task")
+Fixes: e1218b8c0cc1 ("drm/virtio: Use vmalloc for command buffer allocations.")
+Reported-by: syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
+Link: https://lore.kernel.org/all/20260927040655.14531-1-ngocthang2710.1999@gmail.com/
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+[fei.yu: also handle the vmalloc_to_sgt() failure path, pass the fence
+ to the helper instead of a bool, fix the Fixes tags]
+Signed-off-by: Fei Yu <fei.yu@intel.com>
+---
+Testing: syzbot C reproducer (PCI remove/rescan loop) for 120s in QEMU
+with fbcon on virtio-gpu: v7.4-rc1 printed "Memory manager not clean
+during takedown" in 377 of 441 cycles (kmemleak: 4040 objects); with
+this patch, 487 cycles, no warning, no kmemleak report.
+
+v2 (Fei Yu, Nguyen's v1 got no review for weeks):
+ - also handle the vmalloc_to_sgt() failure path in
+   virtio_gpu_queue_fenced_ctrl_buffer(), which leaked the vbuf as well
+ - pass the fence to virtio_gpu_drop_vbuf() instead of a bool
+ - replace the Fixes tag: b7170f9457f2 only changed the return type;
+   point at the commits that added the three early-exit paths
+
+v1: https://lore.kernel.org/all/20260927040655.14531-1-ngocthang2710.1999@gmail.com/
+
+Note: Hui Peng's "drm/virtio: fix vbuf->objs double-free, fence NULL
+deref, and sgt error path" [1] touches the same paths (by moving the put
+into free_vbuf()) and conflicts with this patch.
+
+[1] https://lore.kernel.org/all/20260919223440.3884176-1-benquike@gmail.com/
+
+ drivers/gpu/drm/virtio/virtgpu_vq.c | 30 +++++++++++++++++++++--------
+ 1 file changed, 22 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index d99fb9e32..21271966b 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -208,6 +208,25 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
+ 	kmem_cache_free(vgdev->vbufs, vbuf);
+ }
+ 
++/*
++ * Free a vbuf that never made it into the virtqueue.  The caller handed
++ * over the references in vbuf->objs, which would otherwise have been
++ * dropped by the dequeue worker once the host completed the command, so
++ * release them here.  If a fence was passed, the reservations are still
++ * locked and must be unlocked first.
++ */
++static void virtio_gpu_drop_vbuf(struct virtio_gpu_device *vgdev,
++				 struct virtio_gpu_vbuffer *vbuf,
++				 struct virtio_gpu_fence *fence)
++{
++	if (vbuf->objs) {
++		if (fence)
++			virtio_gpu_array_unlock_resv(vbuf->objs);
++		virtio_gpu_array_put_free(vbuf->objs);
++	}
++	free_vbuf(vgdev, vbuf);
++}
++
+ void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
+@@ -437,9 +456,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 	int ret, idx;
+ 
+ 	if (!drm_dev_enter(vgdev->ddev, &idx)) {
+-		if (fence && vbuf->objs)
+-			virtio_gpu_array_unlock_resv(vbuf->objs);
+-		free_vbuf(vgdev, vbuf);
++		virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
+ 		return -ENODEV;
+ 	}
+ 
+@@ -459,9 +476,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 		 * synchronize_srcu() wait in drm_dev_unplug().
+ 		 */
+ 		if (vgdev->vqs_released) {
+-			if (fence && vbuf->objs)
+-				virtio_gpu_array_unlock_resv(vbuf->objs);
+-			free_vbuf(vgdev, vbuf);
++			virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
+ 			drm_dev_exit(idx);
+ 			return -ENODEV;
+ 		}
+@@ -542,8 +557,7 @@ static int virtio_gpu_queue_fenced_ctrl_buffer(struct virtio_gpu_device *vgdev,
+ 			sgt = vmalloc_to_sgt(vbuf->data_buf, vbuf->data_size,
+ 					     &sg_ents);
+ 			if (!sgt) {
+-				if (fence && vbuf->objs)
+-					virtio_gpu_array_unlock_resv(vbuf->objs);
++				virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
+ 				return -ENOMEM;
+ 			}
+ 
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+prerequisite-patch-id: aa41f7089456b709927a2d1d5480fdc2f0f2ec76
+prerequisite-patch-id: 78c30e7ee8bc1e8d2c9e0626e8988a021d61b3bc
+-- 
+2.43.0
+
