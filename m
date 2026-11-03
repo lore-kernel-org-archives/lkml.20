@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793717585;
-	b=PBvnqyrov41cy9QTKK+Ud4A4/DZwnPhNgDbn1Tb67fc0k+zUAG3k5lzS03ZbqmSeJXDM
-	 3tPvsviyuP1WgT3Vu50uyAjcpu4VTgmBqQTBm137I0WG667YCo12D6EoZQgnMWQS7pfr3
-	 xjwAsMhrNL6Zer+V1AIJEx2voVqZDLTPcoeGSMrlkvFXkC0UAK+PNg4lt8fTfk31EQb4o
-	 jF8bEv+ub3P2RXbsbeLHkEbdYOtPw1g32hIXS1bGkK49ackPn9vVjFL12Hn/BrpUZzKfU
-	 QDO9G0uwyPPSj07lNXE+fr07AaQ3aSW5eyIzg0HqhfYiDbsGwVwDUevhNG9dxfopCvQ==
+	t=1793717584;
+	b=oYNqLJctAqGICd/WqJqfiJ8AJejL0lE4qorxiZSlVy7Xg3Xe9ClHeRDrvgA+L4FKziJ5
+	 RgjQHocSytg65OQngFq/Rhnnaq8+kmqRryzmM0+qwTb7fm9bx/34aI8z476IvCz9l0tGw
+	 1N6AmVZkS4+jfjTKzsIHgpwwJmY9SmUJETNoImWbI44VOYwDlp9dAglcHd4yb4uj0xzo/
+	 hqc8rtleI3nh8N7Avl2ed4JuidtISwBswq6aiOM96+kErBZ+FiZ3jZqYVOnQG0vqzopDy
+	 eNXonia6fUmCjTOXTWu0Za/qcstjWDGZZistRo+QvfwIfyCg4viwaUvTfXmBENWGeXQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717585;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717584;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ZgsSRgLhdRJXX0D7l/a2ulYRdMo+CZDmbqVMPRhhICM=;
-	b=ScoIOKI24spaHNS2Nx3ypjiiG497XPTL08vEWEUAi9heJ+fTixCfVkjb97jJq9t6RGEw
-	 1QmqOJRyAANJHAyRmrcyXlqK6zKNaB5yrZwaJHuseTrj67xCxu1ICjZ6d5x3ANUCAHjUT
-	 ecYneUDqK9F7ljn9ab8cogn1k2Fo73ejPvUyJhR74k+OUQK+OQTdZuSLiRe7ngcd+XIwF
-	 uLqs/psOFUCsyQ3mea12EqVg1KOdleNcQBkaeKzTcoqmbJlX2ZsT4RpgZmyFLo518ztmi
-	 jotAIxNOvnjvDvkCAA5znwgzbsTbE5pvfbDUS2NeRn8qDss5IKnH3caI2+QjuMZT/PA==
+	bh=XeYeuHW2ROs8z63PamAF7/Z5t0LYjZHf+QlIp4GkasQ=;
+	b=VmJfdp5Vp16UEahxku6Tt15nRxSwkAhONcvKZdeUeUoQDNnFVE8oqVPNgR40TPoMQvij
+	 L6mYR/+JfA5ZeOMgNNRJqtimOHMUVVGJ903Ub7xirutvu+aC4qfrAJjieHpUIGwRhRM2+
+	 zA8wbWIzWN9BYZ7J/4AGu6lSkVPS4LCXnIwy1ptrrDZeDmZdfgoHZXMDEofjWtGEX36gT
+	 YMRiqJPUR9WrthOURvwXvd1H2pudP5F/8QTsQNt2YHFqX6JKj0ThyalleoiX0TirYwbwG
+	 Icd8G6H0pUd798XJNMTi+nTIvvtVTRE19N3Yz7inBP7v9DsHWyjDp/lbk9MXe0usOSQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcQQD26j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BFr4/yct";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DF760A5BDC;
-	Tue,  3 Nov 2026 14:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187896082BCE;
+	Tue,  3 Nov 2026 14:53:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcQQD26j
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BFr4/yct
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793717583;
-	b=1V31pSPAn/+/FqScK9noDd28CdPaNy+33vsKiyCAsassRvPZL0t4yCMvWbSbBDriHi1F
-	 ma6MRXDPAL798Mar27IhauMEIiH4e+Cz+CZiTkKgtx30Zmg+d6MT693PoF5FRfDCZ3rgJ
-	 OVlri4UUfFI8tv864vxKtEiT2sD5vra2/Cl1aCO9Ke2qdAnA94L4cE2O76oy6pOgKHi/7
-	 JbJBh6VVZvVCHzroI/SCwIiCFbT1/KN1T4P/fu3nfN4qtnz7m2OyZPdSUnUaI0voy4Iai
-	 irwnh6cEPSQyAaDTGXq4SPv0xxj8zzI4AYYKJ/Z/iNwG2xR/v4uhkvqVeHhzlTbe7Rg==
+	b=Vt5vgzOgUidt4JbWaZcCz/clZujxwkPrV1Pad2AhSpMR1CHR8TsaYxtb+9uVaSZaLuMX
+	 6iMC9HhMm3o9qLx5eooot4EPsBja3ko5RmldowBx4iu0ufy9r7WO7nOZLf09j3YrMljIa
+	 KdnfyV266mEe68uhICVg9lzmQ1WSOapEkkrKFq19psgrv4tATUtgZYFqJU2HDxEZkyQiA
+	 GAjmgJQqqxoggiIdFzLw/gy8b6CjHG1GPUNhxg37XAoUFFdmrhMLsUST2zagShHmrzgqR
+	 B4CrX8yJjMQjKXLD8Gk9Ctnio11RLDUudWP70n8YT+nrua1MHhcajW58R9f2M3lukSw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793717583;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ZgsSRgLhdRJXX0D7l/a2ulYRdMo+CZDmbqVMPRhhICM=;
-	b=zGaPfuuCJcNGO+5NuJsXNg3QbdHGMT+QFBo9KW7GnbF1xEtwU6+KF1vCiMNEQSh9r7Ik
-	 vILDYWInLfSIsdWqoaOV+rouqLl2WIuk+/cpQHY9dzrI1wNj4EYc6HGa4CR1IpWt73/AR
-	 1jmnkPF4D0Iy560/JokZ5yREtR1r0zo3JUluoULUahMPCut59dnMTYjvdeGJVwjOAMMrG
-	 K8Dq2XJgNBdGhDxBkQOcneZDbiUS7x3n/Tqhl8wOHNkIl2yvoy93lbEfdBIqfPe8teyBn
-	 WmGfeL/O0GkWAbnMnwalanoesrx20ayOdD4Xvx827WQrS9KgcLUuijuKCkyPBe86VdQ==
+	bh=XeYeuHW2ROs8z63PamAF7/Z5t0LYjZHf+QlIp4GkasQ=;
+	b=o0wbu55c4SUcyxpcE7ct9t7wcXv0gpJTbkOfVYjoTkehYHTynYqS20zwtY3iAyexKQbe
+	 4xrTHWzBxzGgz4n9Tmq6XumF4bXsJI1V7e8+rLYFlVkMnkq8t2pWNr6Q5XkpW/Prc5EZU
+	 N53rZKZXo/kR03d43y9+AkeLGBIAzBhkRcDzWSMvIaWs+TNz4TtjvNYd/V+U8vxQ6qxky
+	 Nx6JCoCNJtlWwVM02MlBGqM1pP7V1X4vbP1ZirhE4G24mUecAAv1jZQBqDhKhKw6/A/MI
+	 0jfTEBwHa+/rWCLQOslt0PEq02IlLxEpdYIfBj8yn+FgELm+d+/UuIC7p8EIe+BHTcQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E4C821F0093A;
-	Tue,  3 Nov 2026 14:53:01 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 113EB1F00A16;
+	Tue,  3 Nov 2026 14:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793717583;
-	bh=ZgsSRgLhdRJXX0D7l/a2ulYRdMo+CZDmbqVMPRhhICM=;
+	bh=XeYeuHW2ROs8z63PamAF7/Z5t0LYjZHf+QlIp4GkasQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gcQQD26j3orAlu23raTtvUQUIEWJBUU8k9DynM8xDxVnYHU68j2m9Phrgke0s5tL2
-	 9PC1TveTSoqgkhr/E6bjj14tFSuWjqRc9fQWbtBZvislIZjqdsUYrzNzRLg/0s7kHZ
-	 JU0KhF+w89aa/69X5MhmKszQopvw2OUMiNmSDZVWeVdFfejqtPb283PD7QV9S41RD6
-	 /f2qyAfJzJJXlXYwr2iFRyVwTE3ZeGHD7Ry75Q3CtisDBBzvzT4WDzg6QdATQXRmzb
-	 vJd7eZP/f07JHhqBzGV7a50fRcW+lPG6u5qbXHoeee0KTNAW1vBpHw2HK5x2qWWRe9
-	 sNkp2JaVOh6/Q==
+	b=BFr4/yctpoHtZ12wpGwpayWjRRgrj4USciE8hO7ox3a5l3aydG4DoBrrslFYg/u2J
+	 OgiLnnqP9+BkoyPwpl2whZJnl6t9aEEye/ykPGv2gXUmhsHHdOw0tmb3uYZvs+i/6r
+	 OQKjQcKj4njHVP+1OLc0I3eUEHtqNJrJb9qHIBWPyQDrQmZlS/+WXn5a6hLhVnpo2d
+	 hUjivjEDdc5o13Wu7yb6NVQI50ZZXRrXT67lUcQyQJCtgJ4FWk3bxp4ps8LHK0yc2K
+	 USe7KM1iST9iXxlHnHvZd11JCKITfJrmYAjOFHha4rieKrN/9yNzGLYQaFpNAQmk13
+	 rD/TZcQ6YOKHQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 697E3469A2;
+	by lkml.kernel.org (Postfix) with ESMTP id 929C4469AE;
 	Tue,  3 Nov 2026 14:53:01 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Tue, 03 Nov 2026 11:52:58 -0300
-Subject: [PATCH v3 02/10] iio: backend: add devm_iio_backend_get_optional()
+Date: Tue, 03 Nov 2026 11:53:01 -0300
+Subject: [PATCH v3 05/10] iio: frequency: ad9910: move channel indexes into
+ a shared header
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-ad9910-backend-support-v3-2-0e9224ddf7b7@analog.com>
+Message-Id: <20261103-ad9910-backend-support-v3-5-0e9224ddf7b7@analog.com>
 References: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
 In-Reply-To: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
 To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -101,11 +102,11 @@ Cc: Olivier Moysan <olivier.moysan@foss.st.com>,
  Randy Dunlap <rdunlap@infradead.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793717581; l=4433;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793717581; l=4373;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=DR+JgLsY7qzSw7iJ/0ySFgwEAMpmPHtv/6q9aBcxSno=;
- b=DGkCPtymJw3YK+3vP3zTiq3xT4HrI+5ohXpB3/hKOkFbDCw+BDCBkqAYYnZsiF0mdjnwuXtaL
- PFT3szY4R4UDnFiPAjYHExlLCujsF9UHEsSKdvp8NykBLjslEdXonVA
+ bh=x6NMO+HwBMwaNr1Y6ukLdwzGO76H8amSFklxVgJRt5o=;
+ b=6GQANRHDSKSzRVRY5K9fM4xK3ktmpmUSy4CUtWNCgAgI+YBCd2CQ6cFc/7li9GDOiNgt8h0KJ
+ fqsB1vQ55I/CgsVaqpFuI1kfvqO2Ij93Xf/I1HxmJtmt3QndcNlhaT3
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
@@ -116,107 +117,144 @@ Content-Transfer-Encoding: 8bit
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Frontend devices might not need a backend driver to rely on. An IIO device
-that supports backends can behave differently when they are not available
-and that should be acceptable. Such parts may provide basic functionality
-solely using the control interface (SPI for instance), being able to have
-extended features when a backend is present.
+The channel indexes are used as channel identifiers in IIO backend
+operations, such as enabling a parallel data port destination or
+selecting a profile. Move them, along with the data destination
+definitions, into a shared header, so that the frontend and backend
+drivers agree on those identifiers.
 
-Add devm_iio_backend_get_optional(), which returns NULL when the backend
-is not described in firmware, i.e., when the io-backends property is not
-present or, for a named lookup, when the name is not listed in the
-io-backend-names property. Other errors, such as probe deferral, are
-still returned.
-
-To make that possible, a named lookup that does not match any entry of
-io-backend-names now fails with -ENOENT, the same error returned when the
-io-backends reference is missing. Also, the missing reference is no longer
-logged as an error, leaving that to the caller.
+No functional change.
 
 Reviewed-by: Nuno Sá <nuno.sa@analog.com>
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- drivers/iio/industrialio-backend.c | 38 ++++++++++++++++++++++++++++++++++++++
- include/linux/iio/backend.h        |  2 ++
- 2 files changed, 40 insertions(+)
+ MAINTAINERS                    |  1 +
+ drivers/iio/frequency/ad9910.c | 35 ++-------------------------------
+ drivers/iio/frequency/ad9910.h | 44 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 47 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/iio/industrialio-backend.c b/drivers/iio/industrialio-backend.c
-index fbf5c39d7655..d12d163f45ca 100644
---- a/drivers/iio/industrialio-backend.c
-+++ b/drivers/iio/industrialio-backend.c
-@@ -1006,6 +1006,9 @@ static struct iio_backend *__devm_iio_backend_fwnode_get_by_index(struct device
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 351ec0bca477..64aa7b539ca3 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1735,6 +1735,7 @@ F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backend.yaml
+ F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
+ F:	Documentation/iio/ad9910.rst
+ F:	drivers/iio/frequency/ad9910.c
++F:	drivers/iio/frequency/ad9910.h
  
- 	struct fwnode_handle *fwnode_back __free(fwnode_handle) =
- 		fwnode_find_reference(fwnode, "io-backends", index);
-+	/* not described in firmware, let the caller decide what to do */
-+	if (PTR_ERR(fwnode_back) == -ENOENT)
-+		return ERR_CAST(fwnode_back);
- 	if (IS_ERR(fwnode_back))
- 		return dev_err_cast_probe(dev, fwnode_back,
- 					  "Cannot get Firmware reference\n");
-@@ -1034,7 +1037,17 @@ static struct iio_backend *__devm_iio_backend_fwnode_get(struct device *dev, con
- 	int ret;
+ ANALOG DEVICES INC MAX22007 DRIVER
+ M:	Janani Sunil <janani.sunil@analog.com>
+diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
+index 8bc24d0b7442..dc13986dff3d 100644
+--- a/drivers/iio/frequency/ad9910.c
++++ b/drivers/iio/frequency/ad9910.c
+@@ -33,6 +33,8 @@
+ #include <linux/iio/iio.h>
+ #include <linux/iio/sysfs.h>
  
- 	if (name) {
-+		if (!device_property_present(dev, "io-backend-names"))
-+			return ERR_PTR(-ENOENT);
++#include "ad9910.h"
 +
- 		ret = device_property_match_string(dev, "io-backend-names", name);
-+		/*
-+		 * device_property_match_string() also returns -ENODATA when
-+		 * @name is not listed in the property, which means that this
-+		 * backend is not described in firmware.
-+		 */
-+		if (ret == -ENODATA)
-+			return ERR_PTR(-ENOENT);
- 		if (ret < 0)
- 			return ERR_PTR(ret);
- 		index = ret;
-@@ -1061,6 +1074,31 @@ struct iio_backend *devm_iio_backend_get(struct device *dev, const char *name)
- }
- EXPORT_SYMBOL_NS_GPL(devm_iio_backend_get, "IIO_BACKEND");
+ /* Register addresses */
+ #define AD9910_REG_CFR1			0x00
+ #define AD9910_REG_CFR2			0x01
+@@ -194,11 +196,6 @@
+ #define AD9910_RAM_ENABLED(st)		\
+ 	FIELD_GET(AD9910_CFR1_RAM_ENABLE_MSK, (st)->reg[AD9910_REG_CFR1].val32)
  
-+/**
-+ * devm_iio_backend_get_optional - Optional device managed backend device get
-+ * @dev: Consumer device for the backend
-+ * @name: Backend name
+-#define AD9910_DEST_FREQUENCY		0
+-#define AD9910_DEST_PHASE		1
+-#define AD9910_DEST_AMPLITUDE		2
+-#define AD9910_DEST_POLAR		3
+-
+ /* PLL constants */
+ #define AD9910_PLL_MIN_N		12
+ #define AD9910_PLL_MAX_N		127
+@@ -302,34 +299,6 @@ struct ad9910_ram_fw {
+ 	__be32 words[] __counted_by_be(wcount);
+ } __packed;
+ 
+-enum {
+-	AD9910_CHAN_IDX_PHY,
+-	AD9910_CHAN_IDX_PROFILE_0,
+-	AD9910_CHAN_IDX_PROFILE_1,
+-	AD9910_CHAN_IDX_PROFILE_2,
+-	AD9910_CHAN_IDX_PROFILE_3,
+-	AD9910_CHAN_IDX_PROFILE_4,
+-	AD9910_CHAN_IDX_PROFILE_5,
+-	AD9910_CHAN_IDX_PROFILE_6,
+-	AD9910_CHAN_IDX_PROFILE_7,
+-	AD9910_CHAN_IDX_PARALLEL_AMP,
+-	AD9910_CHAN_IDX_PARALLEL_PHASE,
+-	AD9910_CHAN_IDX_PARALLEL_FREQ,
+-	AD9910_CHAN_IDX_PARALLEL_POLAR_AMP,
+-	AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE,
+-	AD9910_CHAN_IDX_DRG_FREQ,
+-	AD9910_CHAN_IDX_DRG_PHASE,
+-	AD9910_CHAN_IDX_DRG_AMP,
+-	AD9910_CHAN_IDX_DRG_FREQ_RAMP_UP,
+-	AD9910_CHAN_IDX_DRG_FREQ_RAMP_DOWN,
+-	AD9910_CHAN_IDX_DRG_PHASE_RAMP_UP,
+-	AD9910_CHAN_IDX_DRG_PHASE_RAMP_DOWN,
+-	AD9910_CHAN_IDX_DRG_AMP_RAMP_UP,
+-	AD9910_CHAN_IDX_DRG_AMP_RAMP_DOWN,
+-	AD9910_CHAN_IDX_RAM,
+-	AD9910_CHAN_IDX_OSK,
+-};
+-
+ enum {
+ 	AD9910_POWERDOWN,
+ 	AD9910_DWELL_EN,
+diff --git a/drivers/iio/frequency/ad9910.h b/drivers/iio/frequency/ad9910.h
+new file mode 100644
+index 000000000000..6452a8678ed9
+--- /dev/null
++++ b/drivers/iio/frequency/ad9910.h
+@@ -0,0 +1,44 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * AD9910 SPI DDS (Direct Digital Synthesizer) driver
 + *
-+ * Gets the backend associated with @dev. A backend not described in firmware,
-+ * i.e., the io-backends property is not present or @name is not listed in
-+ * the io-backend-names property, is not treated as an error.
-+ *
-+ * RETURNS:
-+ * A backend pointer, NULL if the backend is not described in firmware,
-+ * negative error pointer otherwise.
++ * Copyright 2026 Analog Devices Inc.
 + */
-+struct iio_backend *devm_iio_backend_get_optional(struct device *dev,
-+						  const char *name)
-+{
-+	struct iio_backend *back = devm_iio_backend_get(dev, name);
 +
-+	if (IS_ERR(back) && PTR_ERR(back) == -ENOENT)
-+		return NULL;
++#ifndef IIO_FREQUENCY_AD9910_H_
++#define IIO_FREQUENCY_AD9910_H_
 +
-+	return back;
-+}
-+EXPORT_SYMBOL_NS_GPL(devm_iio_backend_get_optional, "IIO_BACKEND");
++#define AD9910_DEST_FREQUENCY		0
++#define AD9910_DEST_PHASE		1
++#define AD9910_DEST_AMPLITUDE		2
++#define AD9910_DEST_POLAR		3
 +
- /**
-  * devm_iio_backend_get_by_index - Device managed backend device get by index
-  * @dev: Consumer device for the backend
-diff --git a/include/linux/iio/backend.h b/include/linux/iio/backend.h
-index 9c16b695a602..93d5f2073cc3 100644
---- a/include/linux/iio/backend.h
-+++ b/include/linux/iio/backend.h
-@@ -267,6 +267,8 @@ int iio_backend_extend_chan_spec(struct iio_backend *back,
- bool iio_backend_has_caps(struct iio_backend *back, u32 caps);
- void *iio_backend_get_priv(const struct iio_backend *conv);
- struct iio_backend *devm_iio_backend_get(struct device *dev, const char *name);
-+struct iio_backend *devm_iio_backend_get_optional(struct device *dev,
-+						  const char *name);
- struct iio_backend *devm_iio_backend_get_by_index(struct device *dev, unsigned int index);
- struct iio_backend *devm_iio_backend_fwnode_get(struct device *dev,
- 						const char *name,
++enum ad9910_channel_idx {
++	AD9910_CHAN_IDX_PHY,
++	AD9910_CHAN_IDX_PROFILE_0,
++	AD9910_CHAN_IDX_PROFILE_1,
++	AD9910_CHAN_IDX_PROFILE_2,
++	AD9910_CHAN_IDX_PROFILE_3,
++	AD9910_CHAN_IDX_PROFILE_4,
++	AD9910_CHAN_IDX_PROFILE_5,
++	AD9910_CHAN_IDX_PROFILE_6,
++	AD9910_CHAN_IDX_PROFILE_7,
++	AD9910_CHAN_IDX_PARALLEL_AMP,
++	AD9910_CHAN_IDX_PARALLEL_PHASE,
++	AD9910_CHAN_IDX_PARALLEL_FREQ,
++	AD9910_CHAN_IDX_PARALLEL_POLAR_AMP,
++	AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE,
++	AD9910_CHAN_IDX_DRG_FREQ,
++	AD9910_CHAN_IDX_DRG_PHASE,
++	AD9910_CHAN_IDX_DRG_AMP,
++	AD9910_CHAN_IDX_DRG_FREQ_RAMP_UP,
++	AD9910_CHAN_IDX_DRG_FREQ_RAMP_DOWN,
++	AD9910_CHAN_IDX_DRG_PHASE_RAMP_UP,
++	AD9910_CHAN_IDX_DRG_PHASE_RAMP_DOWN,
++	AD9910_CHAN_IDX_DRG_AMP_RAMP_UP,
++	AD9910_CHAN_IDX_DRG_AMP_RAMP_DOWN,
++	AD9910_CHAN_IDX_RAM,
++	AD9910_CHAN_IDX_OSK,
++};
++
++#endif /* IIO_FREQUENCY_AD9910_H_ */
 
 -- 
 2.43.0
