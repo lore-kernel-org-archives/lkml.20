@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705848;
-	b=Bta6gXQuudHKJLTejpvulaTlSCmdhj5HLpkyxNXZaYAqAHOCE4BEGdM3OBKEgVpYo0Lk
-	 +EdwdmSOIJgDlr6QVHgdJWMlA5l4dxU0fbp85xSEO6rvB3iAvjgIeA+k45r748WJZX5Hi
-	 RjhQfA9EeMG+gjtRTbXIZWILALLMfcMDQSwQPtUtcBDN1b6nr32fh7iv6mysvzivszAG6
-	 rF5PG18vwpAb0Q2PQWfJ2WWvF7dHyhIC1gmegcJBQ4ZKNQJjBwIAhvIVepvVzpXmlpSMx
-	 hFYtOh9P7fEUFOOTw5a7sMCjYGaYxYCF94GLQUfilyJpK9BPE4j0b0wfGSAYYHxPWhQ==
+	t=1793705849;
+	b=cxAx124q4OWSnu0zn5GjfOPtFe6hyoYSj9fzedVdXvwJuQoR3BLGd1pERJXllZKOhVL9
+	 GRvetDHzRlukRSLbephHOEjcz/FxXTox6RrQgTVlx34qoSOCqDMuOjFd5hyV7B40S9GG+
+	 hzAYRaco5wdoy1n9Bt+6gsouh2Uft8wXJgHlpUVChoFzQjaOrY5riUPDoT796GzJZ/PGS
+	 6CzavogKMXQGoLNMIDzj/xQaa/BBP4dQC3GUmMZBTR40pssJcxX/UOuz7TuKKkKJiIn10
+	 DNNRSLiPA767QgeXTgpvsZhx5lwERmlVHmi3AiteZzaipAgs0Yy5hDnDCZcNlFEhO8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705848;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705849;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BHZ8wigQ+noV1zThe9Z+XoDY/JY+YdNhjpHWSzpgF40=;
-	b=b7f05fYqKaUXmDryp8I1BebI+A4An+o2vuX4eKiFzKNVQ1ZgWzQUwYOC/C5IkOZ9eZIy
-	 0mesajLJF49YPhauBcKbPH/x6SbsCMkrIwk2lnyVkmnh2CEe64BaVarQzqfyMeVhuZ0e8
-	 fhO53t97QEyk9OyuK206Kl9GQcnBA6npaU4WD7zlwIiSrZwwN177uyx2kT6ntFBghZ0vo
-	 WiamEpJ7QqHRgJSOKwpaQVb9bdoakqGcdqQEHpeaCO0P7hWSP3HYzGotFyYI+/omI4y/t
-	 XCo9ncilqSHtGmeUj01+f8F8jU/+09E1pOov7876xpWOo0gnYh0yTzJc2AxYfA1c1lg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SwDDfs8eS2UrIyJ875nz0ilkf79JUl413gKXLxgd0/A=;
+	b=Iwe6BIgPj3R7eFi1jzpjzYD1Rb0eDcq2vRGAYT1Rx6XaGhfdIDfYHnwBvOrkRoBZhCfc
+	 cjSjPKkdsh590VprFGu4HxQMurNLnpuy9L9S0jsmsqW2WOGT+LavszcDkauupOLA3mWVy
+	 TZ4a31jho5FSOS8mqVzpPW5czDqd8BmhZMX74LXfP+AqkCVec0IZ+83DRFiraTSO+/SAA
+	 VCTeFSjmXnh41rYci0QcufLtxLB7g24DQ8cYOMeEKovat9vgTQYhEJBoZHLOE2g4IjUKl
+	 aHBq4mpTgiDOrCtBNJQ+Q04CEuqSjl6JOtNVogekH6ZqVyX1jB2mtoUmjmXv0y5BSNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ionos.com;
 	spf=pass smtp.mailfrom=ionos.com;
-	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=dqRmTDXe;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=B5miBP30;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6141B606D817
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:37:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6141B606D817
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFA4608360D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:37:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BFA4608360D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=dqRmTDXe
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48dee593f18so3815876f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:37:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=B5miBP30
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so3193619f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:37:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1793705841; x=1794310641; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BHZ8wigQ+noV1zThe9Z+XoDY/JY+YdNhjpHWSzpgF40=;
-        b=dqRmTDXeZ3TfhW2LCKEt4x3hIFoTeh4yebdPNvrUZ4BqhaMerPf8i2f07+cGqfTTy5
-         kzjkddzp1nJ1JT/0AAYsU9bnsaiw8aEjUSG2S1xp4T1FR3vBqtNnDLZXUOnh5wyLo2XE
-         I3wQeLeDpzUzSsRXl/X4P5jC2biHktFxiaXCryI7q25lLjhjSUJMz75JnPQXc4f9dM2E
-         PZFn6JpUQ8UAL2kUBo1uokNU7IEx1jZgsjiOGVsps4xDTy0kk5r9SA1cjVYZDs8qptLU
-         dbhoecyP0/yTrlEvRu+MuohKI79D5bV3xoQ6jWUX3BME+yJy5Q2733wJpwJ+9UO4bVTc
-         CikA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793705841; x=1794310641;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=ionos.com; s=google; t=1793705848; x=1794310648; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BHZ8wigQ+noV1zThe9Z+XoDY/JY+YdNhjpHWSzpgF40=;
-        b=JMvG35FiKJaSDGBMTzAif5tm6UHjyZMvf6h0ktaZDbVEqZOwK0fkRf7KO78eVTI+zS
-         jn5XY8fVYbI9pvKJaNr6QCMjUcmlCr7dEwDA6uuW868r96/xKHj7no5oov2xmvnhuHKb
-         V8tYhLJzfmiEYYkXjDrqctT11A17hemk62WvnoKv4lVYhJEKbl02iih2rVntXoi5R2yF
-         oBy2z/YuaD0AOFwiZOR63sQzK/70QAcyRRbz7Y7z8yhd844zB9Nk4eCuwIlqR9uCOv1a
-         hnD1vRTMoT/qg43nhQo8QFqSBitj6VrWtQg7d6de8N5GRrLP37TDT50x6AuK8PdL/Xx8
-         xzKA==
-X-Forwarded-Encrypted: i=1; AKwUvBykd8CbDO92WdmnOCORwDz8xK0wtix1eh2ZDGBlNZSLyPcQlbBazgfUrpCOu0ttpGpZsNF1CQNec8gZquA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+EeXVdpduz1ULM7pj58v+Vt+OpuOJtYFtcb28zvWCWXdZEVy8C
-	DBWUGBDtx0eRdmXjXcO6nuJfZ0J29jz+fweVxV8++HNlwCHH2x+4DmiuGiVXVClC1Qc=
-X-Gm-Gg: AYBFou34lfLENB8oCclxq/GbL8i8Mz4aqvdDk1zu9NBPtGsthdqPc69L8LcoxYENETw
-	E/u6aT3vnmEgGzHqRzHcelYu5VdoODzNN75jIipL4s8blofEoh/otsmyRci2iF4Wtb8leuWS7Zi
-	tNcfWFLYRN/QcTOJ6wfr+W3qeAfC6o+bNCVvI2/TfKdw3lF1WT4QpVkYJqvkSU6nJA4roJWicYg
-	PlzF7xu+pRSV3i+umRJ3DKqbHKFQzGHMxrbwYxykym0fD/6BYNuwmJiMMROVHDeGFAwgoFu5rf9
-	Og12SkJutrWy8yXDqBmDb31bjv6IYdrtcE/N9PnR8bqhGbEkwlR1T6Z7cIxja2GjgbpiIaaVPre
-	UG8S1yHB0VC8JbHu86jqftSXRh+Rdq9WpSDfLAeJqQ4kU6nBVoPyIQdz+iAb5x5OeQhs+S2A2kZ
-	R6O42Xd00AYpz6uxUd0XK8LXiFD5Mc7h0Fpybt2PXYk1k6vc6yL974/HAX1xZy3oyhtcwhXCzPm
-	dPed07akSjPW3J35zUgqz1SovOrm74UOqdPl9rHthiuqMcxoVCrNdN/Yo14BcxTelA5Ij2BxCzU
-	mv93r6/lXXOqLMJIr27F09lpzgDrYmSq9vfL1yHCDhscrrHCNtJWGQs2g1eDnD+nxBzAYuNXQnh
-	dDVsIgMSldReLvkzeFd2/qJtbnKyYq2PP8ShvLlBQ6oPDtpp5cwM=
-X-Received: by 2002:a05:6000:2501:b0:48d:ee35:b3fe with SMTP id ffacd0b85a97d-48e6e2b9c3emr28666535f8f.8.1793705840586;
-        Tue, 03 Nov 2026 03:37:20 -0800 (PST)
+        bh=SwDDfs8eS2UrIyJ875nz0ilkf79JUl413gKXLxgd0/A=;
+        b=B5miBP30hXqwh/4dXSrYtoEd0RPDsXOtTrsEQy8aifRuN2FNnv3lMB8ZA/voKyHE4L
+         sHP3jM3uBIWs7dxmwwKmzJFGmP1c7OjAonmr11P3fAJazZnspPxssii2Toj6lb3GLLq3
+         tHf/LLpWcHrgbhGG2fyCXHYUoRqEWiKqhK9YbMC0DuXekEVpbHJguDadjPvgXB2Qtedn
+         JArOf5msr9t7pzgpQEcqFMTj4oELKBi3/+yX4tBska95hF8jHWJNq9hozStEQM54/ZzR
+         nWnpuzFXWz5jk8k+s+iZ6JIekWQMAHj4SQ47HObmNuNsOOi7yINqB0V2YhN1hve/It34
+         MYhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793705848; x=1794310648;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SwDDfs8eS2UrIyJ875nz0ilkf79JUl413gKXLxgd0/A=;
+        b=e6RmdlL5Eb0v/GzFVJyLbPEvYjSpO6DGHWya1Zc6KruB4srALSR6Ddlfhvw277SHV2
+         u1DsTib1gd0wVO0MsrkUsXV+W/+LXLRCSCrWea+60SJd5AqH94LhTpyLPBgtwqnwWcLP
+         RZ5mRFGqGk2+2QoojERMw+rS+6F4uRgfC08zvu/OLLd49cTMDdmlXgJf59pzYyVfmFUd
+         NasCCqfSO1DGP5ywlhnR7uo43BmNCjVJY/HbpclGui0JYvQIdldmvPOrgy/H2fqDYxyY
+         /YYnfTr5xd1c0HGHarRD2rj2S5CxO0hPZvES/tAZW4aRwMRTWT+z7mELdK6WBHA9RugG
+         xU8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxJHHD4Sp4JY8l0rJokfJU3tHCuD6K9FEcCqjYP1eShnie32XcFNVniGNzZpMEx+wUave6mus9K5zB+paw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9e3Vvs2/eZgrDhC8fOevW/6iwsrSfcI8o51ra5mjunj8r1j+kH
+	WUmVoGee+ULGV1DCNSIXs174WvKzsjo2NC+iCDcLmKnYb4Qa43fKyO9sN4PXmsbsusQ=
+X-Gm-Gg: AYBFou09+I1I8onoUoqxQZC3VOO0ElDDYfkh+bldzVNyw9QAwwLlGnbht1cLQ3ANLp+
+	ces41p/k/vMXwHA26hMFcIAAH9EQXgmrbZYGFwfUv9PFxfrBoACHTXg5YAxXz4pRx/gxdu/CkUy
+	SC9/+VvgOZiMtJOJzJrsZN7J5bwTQA6vw3LOf1w/XTTBPQu3lByD8fBUJEjRGZcZPbV86BUMREl
+	SjXxGAQV7AZeM2en76rk/sikogOHSv8JVCVH+UkTspvAiGVmyqMyl0vdhBbBGxNiBn85xhqN11X
+	CLhkKt0pK+/+9zHHgqIArVqVbJr2ulNEI6r7uNDczrGPeeFMzhh+JK6kWPk5T/9fZ8nGO8pjK9v
+	eEezt8tpUvkNDV/gWi/m7frztnArYsz54ug6GMM6PkI+r6mttuMJx0ZwmcAzVtfRB0A8e/k3+TY
+	bZ0Wj/ZKEZ3j+zFFmAY7xP0IKdNdAsa1nW7YV0TNXbBwx6tiUk4qJfFPcQ5Q8SRnto+AbRo+oOE
+	YVWnsXW+8rKWnK0XmsXSLtHHp9YQRlhifDcYiPM1HvY/v8RIiylSOCb3lefiyuJfKuxxWBUID3v
+	5zs/UeAvuy3NQY3xzLDFF1Cbu2nlHL+CoCwWc+CgFBZf/Vx0Ze4mIoxSv2JzecfgJJXvlZ0tYUk
+	Xx5kq06P1oNSbjmfEaag39cawTNw+MA==
+X-Received: by 2002:a05:6000:400a:b0:48e:4115:f3e8 with SMTP id ffacd0b85a97d-48e6e50096emr30315688f8f.27.1793705847639;
+        Tue, 03 Nov 2026 03:37:27 -0800 (PST)
 Received: from raven.intern.cm-ag (p200300dc6f04b700023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f04:b700:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78f95sm23000997f8f.28.2026.11.03.03.37.19
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78f95sm23000997f8f.28.2026.11.03.03.37.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 03:37:20 -0800 (PST)
+        Tue, 03 Nov 2026 03:37:26 -0800 (PST)
 From: Max Kellermann <max.kellermann@ionos.com>
 To: akpm@linux-foundation.org,
 	kasong@tencent.com,
@@ -101,10 +102,12 @@ To: akpm@linux-foundation.org,
 	linux-kernel@vger.kernel.org,
 	rcu@vger.kernel.org
 Cc: Max Kellermann <max.kellermann@ionos.com>
-Subject: [PATCH v2 0/5] mm: multi-gen LRU: reduce memcg rotation overhead
-Date: Tue,  3 Nov 2026 12:37:05 +0100
-Message-ID: <20261103113711.1832834-1-max.kellermann@ionos.com>
+Subject: [PATCH v2 4/5] mm/mglru: avoid redundant rotations of young memcgs
+Date: Tue,  3 Nov 2026 12:37:09 +0100
+Message-ID: <20261103113711.1832834-5-max.kellermann@ionos.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103113711.1832834-1-max.kellermann@ionos.com>
+References: <20261103113711.1832834-1-max.kellermann@ionos.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,124 +119,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series addresses excessive time spent rotating memcgs during
-MGLRU reclaim on systems with a large number of memcgs.
+Concurrent reclaimers can request promotion after another reclaimer
+has already moved a memcg into the young generation.  Requeueing it
+into a random bin again adds list mutations without advancing the
+old-generation scan.
 
-On some servers with tens of thousands of cgroups, we had repeated
-soft lockups and RCU stalls:
+Therefore, skip `MEMCG_LRU_YOUNG` when the memcg is already in the
+default segment of the current young generation.
 
- rcu: INFO: rcu_sched self-detected stall on CPU
- rcu:         60-...!: (1118 ticks this GP) idle=ca74/1/0x4000000000000000 softirq=140067260/140067260 fqs=10
- rcu:         (t=2101 jiffies g=180256409 q=94266 ncpus=96)
- rcu: rcu_sched kthread starved for 2073 jiffies! g180256409 f0x2 RCU_GP_WAIT_FQS(5) ->state=0x0 ->cpu=53
- rcu:         Unless rcu_sched kthread gets sufficient CPU time, OOM is now expected behavior.
- rcu: RCU grace-period kthread stack dump:
- task:rcu_sched       state:R  running task     stack:0     pid:15    tgid:15    ppid:2      task_flags:0x208040 flags:0x00000010
- Call trace:
-  __switch_to+0xc4/0x108 (T)
-  __schedule+0x2b4/0x978
-  schedule+0x2c/0xc0
-  schedule_timeout+0x7c/0x110
-  rcu_gp_fqs_loop+0xec/0x4e8
-  rcu_gp_kthread+0x12c/0x160
-  kthread+0x118/0x1e0
-  ret_from_fork+0x10/0x20
- rcu: Stack dump where RCU GP kthread last ran:
- Sending NMI from CPU 60 to CPUs 53:
- NMI backtrace for cpu 53
- CPU: 53 UID: 3758108211 PID: 4052395 Comm: php-cgi8.3 Tainted: G        W    L      6.18.52-i1-ampere #1203 NONE
- Tainted: [W]=WARN, [L]=SOFTLOCKUP
- Hardware name: Supermicro ARS-110M-NR/R12SPD-A, BIOS 1.1b 10/17/2023
- pstate: 40400009 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
- pc : handle_softirqs+0xa4/0x2e8
- lr : __do_softirq+0x18/0x20
- [...]
- Call trace:
-  handle_softirqs+0xa4/0x2e8 (P)
-  __do_softirq+0x18/0x20
-  ____do_softirq+0x14/0x28
-  call_on_irq_stack+0x30/0x48
-  do_softirq_own_stack+0x20/0x38
-  __irq_exit_rcu+0xc0/0x100
-  irq_exit_rcu+0x14/0x28
-  el1_interrupt+0x3c/0x58
-  el1h_64_irq_handler+0x14/0x20
-  el1h_64_irq+0x6c/0x70
-  lru_gen_rotate_memcg+0x210/0x280 (P)
-  shrink_node+0xb14/0xcc8
-  do_try_to_free_pages+0xd0/0x508
-  try_to_free_pages+0x11c/0x230
-  __alloc_frozen_pages_noprof+0x4f8/0xe00
-  get_free_pages_noprof+0x20/0x60
-  ceph_alloc_readdir_reply_buffer+0xa4/0x160
-  ceph_readdir+0x248/0xeb0
-  wrap_directory_iterator+0x54/0x88
-  shared_ceph_readdir+0x1c/0x28
+In my micro benchmark, this increases the request rate by 36% and
+reduces the average duration of each write request by 27%.
 
-The problem was lru_gen_rotate_memcg().  Its memcg tail insertion
-walked the destination bin while holding the per-node `memcg_lru.lock`
-with interrupts disabled.  With so many cgroups, the lock duration
-grew too long and thousands of concurrent reclaimers were contending
-for the spinlock all the time.
-
-Reclaim can also repeatedly promote memcgs that are already in the
-young generation, and scans of empty or protected memcgs can bypass
-the rescheduling points in page reclaim.
-
-This patch set contains three parts:
-
-The first 3 patches add a cache for each bin's tail to make tail
-insertion constant time.
-
-The fourth patch skips redundant YOUNG rotations when the memcg is
-already in the default segment of the current young generation.
-
-The last patch adds rescheduling points between memcg reclaim attempts
-and at bin/retry boundaries to avoid potential remaining soft lockups
-under extreme pressure.
-
-I ran a micro benchmark on branch 6.18 on a 12-core Xeon 5118: 8
-concurrent workers repeatedly write `1024M swappiness=0` to the root
-cgroup's `memory.reclaim` for 60 seconds, against a previously
-prepared set of 1500 memory cgroups.  Each worker issues its next
-request when the previous one returns. The test measures request
-throughput and latency under concurrent MGLRU reclaim.  All requests
-returned EAGAIN, indicating that the requested reclaim target was not
-met; the reported throughput counts completed reclaim attempts, not
-reclaimed bytes.
-
-Results:
-
-                  Requests/sec  Mean latency  Maximum latency
- Unpatched               4.56     1739.85 ms       4083.55 ms
- Patches 1-3            43.42      183.53 ms        393.15 ms
- Patches 1-4            59.22      134.03 ms        393.44 ms
- Patches 1-5            57.80      137.63 ms        412.72 ms
-
-Constant-time insertion increases request throughput by 9.5x.
-Avoiding redundant YOUNG rotations adds another 36.4%.  The full patch
-series improves the unpatched throughput by a factor of 12.7.
-
-All requests returned EAGAIN.  These results measure reclaim attempts
-that did not meet their requested target.
-
-I did not measure scheduling-latency improvements of the last patch.
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
-v1->v2: rebase after MEMCG_LRU_HEAD was removed by d5d1712c5928
-  ("memcg: remove lru_gen_soft_reclaim()")
+ mm/vmscan.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Max Kellermann (5):
-  include/linux/rculist_nulls: add hlist_nulls_add_behind_rcu()
-  mm/vmscan: move code to lru_gen_{add,del}_memcg()
-  mm/mglru: cache the last memcg node, make tail insertion constant time
-  mm/mglru: avoid redundant rotations of young memcgs
-  mm/mglru: reschedule between memcg reclaim attempts
-
- include/linux/mmzone.h        |  4 ++
- include/linux/rculist_nulls.h | 36 ++++++++++++++---
- mm/vmscan.c                   | 76 ++++++++++++++++++++++++++++++-----
- 3 files changed, 101 insertions(+), 15 deletions(-)
-
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 3075949bf641..899f756bd15b 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4620,6 +4620,14 @@ static void lru_gen_rotate_memcg(struct lruvec *lruvec, int op)
+ 	else
+ 		VM_WARN_ON_ONCE(true);
+ 
++	if (op == MEMCG_LRU_YOUNG && old == new && lruvec->lrugen.seg == seg)
++		/*
++		 * This memcg is already in the young generation and
++		 * reshuffling it again cannot help the scan of the
++		 * old generation.
++		 */
++		goto unlock;
++
+ 	WRITE_ONCE(lruvec->lrugen.seg, seg);
+ 	WRITE_ONCE(lruvec->lrugen.gen, new);
+ 
+@@ -4633,6 +4641,7 @@ static void lru_gen_rotate_memcg(struct lruvec *lruvec, int op)
+ 	if (!pgdat->memcg_lru.nr_memcgs[old] && old == get_memcg_gen(pgdat->memcg_lru.seq))
+ 		WRITE_ONCE(pgdat->memcg_lru.seq, pgdat->memcg_lru.seq + 1);
+ 
++unlock:
+ 	spin_unlock_irqrestore(&pgdat->memcg_lru.lock, flags);
+ }
+ 
 -- 
 2.53.0
 
