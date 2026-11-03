@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793727185;
-	b=QDDimsFdDYyae/hh9xUnwRSlVSV0i1650VveSSiK6fsdXdUjQsvGvv8k892fgX6TFRZx
-	 UsDdIpW0EfQIC8e6pAWMZ9JtzO82+UAO7A0T76a7JcoE+2lnjb3WYOQW9C2r25Nn0DrxA
-	 CDWOnwHkWVPelZh6H9YrK1zVAZXIKGzzBvNYtfHe4gO/t4GeMpogYmb3pA+c1/HBf4Hw7
-	 B0kygPuLbdJHv3UjOAdOIxxadll/n8HNaSeCBdkuIHhuZPOKDUDPQwTNJjvS0ko0amcp/
-	 qgJ4+ATAqT11UIcLAGxOr6vLmN2wAwQ9thkCQMsG63vwbGx5Nd/wi+g/SII2Kk89vBg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793727185;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:X-CM-TRANSID:
-	 Message-Id:X-Coremail-Antispam:Date:X-CM-SenderInfo;
-	bh=wx+pTWYe2L1J9TNpz5QtoSwN8J9xEqwWbSaGt++qleY=;
-	b=o9hKHHjz/lxvxJmAA99q9++3NMhMNHcvxotGAnNrTMItLX7g0nP65jvYvqRPv5uaCelH
-	 /u3KOQoR8IH+LYlKIXpEVcTWmDSDcwv/jxlv4ZgrBNHnzSnZA7Xnsj3c/CGog/q8V4WHz
-	 T+CAKM8Ep61DT8QqaTjr4+kL2a/hu3v1eqOCxtwwxNfj+Bfc+C6D85Tlt2/I/vSu/lDwt
-	 dX9FNHISzyiZqwdkC3h1yJNd+cLSw5sG/eb/Pfywlo2aDvc/cM9EYGHBDNlb/+nJB+iyQ
-	 gcH7MPRndvqqqeGkxa2dWbJQjFJLLF44jbpGO1IAr/muvf9oki4xmGD+zsPOmuBgBYA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="PVCHlrY/";
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793727224;
+	b=PnPAImTizHqB5phI8swk4Q0f/8KyjnSzrTkF0+oLnfqLauzoCl6gSCa+QSlMSF7Y41gI
+	 zp2+gjbvZCW+nGrWRnfmdsAkqEWQtNUUh1OC+f+u8t0W7Mho+5Di/MTHYsCIDVHcBGdvp
+	 1YKMrHykORQk89cXNalEq37xqCgPCU8zH75scZ6keH18ZAaBbdJs7kvlWZQaBOfEp3y7q
+	 ibasO5Kf/HF7BMXnRCXpSYymZYFPM958PyOAgDppAMIZEcbgFExsoTn97dSDpKfy0J2Fk
+	 /UOm7d5iipFUxy/2CzuT/aVnRJIhtfQc2lUPeasPVJModgyWymlpo2YB/fdGJxLCsSg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793727224;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7kvZc0WwzYck+poOQJ20Zoq10UgCXsTI0hx1dF0SoGQ=;
+	b=qESnH6vnEmNb8oDO4dgIXRj9A9FNIpMq+wwfp+Sp5ArmssWaXC7fErA9zAlvevvWhT2V
+	 5xMgTExRM3sOBNcZnI9CmdArlr5Fiat1y63jbZ0znCUroUJh+faG2JSEAtjwZW5+3ZZ/E
+	 zetBqlKwlBEkcBgi0ql20x9Mj36yPNNATZaqI5WP9pvLliKXLJKLbDhcVVBoqJyuDmovV
+	 qcEWaneA1mvlWuy4PlJwx268Yn2vqCF+uv81pnF4hZ6ZQ/0J9PXqQujo/fPtQlK00s4v5
+	 lDOc/tRzoisMDT0gJeZ2+Ks2AVFtV9HssS1eXEiauvNiZore8z6ic+QNrAArGKjQnRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nuro.ai;
+	spf=pass smtp.mailfrom=nuro.ai;
+	dkim=pass header.d=nuro.ai header.i=@nuro.ai header.a=rsa-sha256 header.s=google header.b=TFRBLPbh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A854606A328;
-	Tue,  3 Nov 2026 17:33:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A854606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDA4606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:33:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDA4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuro.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PVCHlrY/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Message-Id:Date; bh=wx+pTWYe2L1J9TN
-	pz5QtoSwN8J9xEqwWbSaGt++qleY=; b=PVCHlrY/Uy5NiugXnsGWzwtaizh87dW
-	f3Q62CpWneg5N2lLggoeW8RO00etsPNV3+HhhDWThP0n5D8pV/TFqpejvX4dbWFA
-	zAEPI2KqjjvxN5u8oaEYEj8j41q1FF95Ech3mLMrwTeIu4uvbvjdZWZkq6jYJFT8
-	XYulfqXr42m0=
-From: shaos <shawnq1@163.com>
-To: Amery Hung <amery.hung@bytedance.com>
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
-	Martin KaFai Lau <martin.lau@kernel.org>,
- Toke =?utf-8?q?H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
-	netdev@vger.kernel.org, bpf@vger.kernel.org,	linux-kernel@vger.kernel.org
-Subject:
- [PATCH] bpf: net_sched: reject bpf_throw() in qdisc teardown callbacks
-X-CM-TRANSID:PSgvCgCXagqsGupqnkg9Dg--.50703S2
-Message-Id:<6AEA1AAD.2E7977.08739@m16.mail.163.com>
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw45ZFW5trWrtFWftry8AFb_yoW7Zr43pa
-	ykZ345Kr4rJr43WFsFyF4DAF13C39xWw4UCryDWry5CwsaqFyjqFWxKa47uFyYkryDCry0
-	qr1qy3W3WF40kFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jsdbbUUUUU=
-Date: Wed, 4 Nov 2026 01:32:29 +0800 (CST)
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbCzw0HFWrqGq3ejAAA31
+	dkim=pass (2048-bit key, unprotected) header.d=nuro.ai header.i=@nuro.ai header.a=rsa-sha256 header.s=google header.b=TFRBLPbh
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36661f953e4so6695852eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:33:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793727221; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Cz2QnRNsMPRHMloX9RXRIokytNJ4K6oLnririvENzmorrgXVMjjME0u8ODhMWvEcIR
+         DXECKBqdiut+tshKgdTDy2tyNtW7ukY03YNAfZPgxKOngh5C3v749eB8ZpJmNYn8R9JN
+         wnTBMFJxa2M2BehqdRB2pvN3t92aVMJNe/ddWnzcQ6xjnSO/xoFlYzPRYg2zQTLRcSxJ
+         +NWPdfha1oDy2mZSx++HkV51rmFuKzQdGRph+pw1yeFiFvgIKR+bVMQQe2Idt6J44j1O
+         wdlwnHqmSAQcwHF45z6HMNBTg/ukoodD7gJXXZDN7ZjBcC5flXiISCb+C29Ga7LfnJbW
+         zxTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7kvZc0WwzYck+poOQJ20Zoq10UgCXsTI0hx1dF0SoGQ=;
+        fh=HI4qdzCYveNIahtan6Rtbcmly7ZOCkwvmYrFtRC/ZnU=;
+        b=IjVQuZ8/bq7hJxST6hqUj8dL5ItNv4HSuSmo2jIueqf30AAR1B57aDyNF2ht2P1Fv9
+         gvVDxSr24KECQat5rA/QR58R28TZ27u0a2JJT38BB7/bcARk4EAwkdxxGCpkYMpia3J4
+         HcAqWY8/SsHnkTTJUiWruxKAf4ertqnr5v6dOmnWGZfNIeECR+0vTnsDKqx5eySqpilp
+         BadejEKnkq1I9q6k8NDJMRZsFjZO9/I296lbCu0gRb69awFq2NHOEsYFWjPi0eiu31v2
+         G8ZiiJbvcO1ga13FuJtALmDiIPtmcOyVb9thGf1rvPP6u+6WPIOSctyL82sG/jrPjcX+
+         gB2g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nuro.ai; s=google; t=1793727221; x=1794332021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7kvZc0WwzYck+poOQJ20Zoq10UgCXsTI0hx1dF0SoGQ=;
+        b=TFRBLPbhchxEjVic4OjH2G6TlzzzBV6v5GpaZQ4uYVPNG0kcoMKN7kt+p6Jbnbd1/a
+         kgiOYnLwfmbMm8v835wlejip6icnD9TlGNpoqTW3NHEUjwkFHJwTqWF+3PxRKxvJFeFN
+         qkK46HVPevdP1pD3nFt89lP+7SGf/tC1eS4BzLQj6UOC+akMgDFV/XKbO8eK9NlovlS5
+         D49H+w6ot8+kcl4pQvm0uW2n3OmsrfyV3Ooh7iFlbllHQrLeTqWzgzCUy8k7FxOQvlmt
+         OReAu8HbDKY33eez0l3l/naoXWGuJavhKDrR1tKj1oXXaDGRMXy4rG1BNP+F7seHMOZT
+         jnZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793727221; x=1794332021;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7kvZc0WwzYck+poOQJ20Zoq10UgCXsTI0hx1dF0SoGQ=;
+        b=Y3U7GAJ9Xp67DOYT8lQwbR28y0Gv8zeI2dKnY6E9EENmfNNBXuh3JeDqVCTWto2Kb3
+         4+iT5VH5/8D07WxMCCnE51KFHkM6I80PTr6uMY3cP0r9z2wxlO3eGzgCgA1q+CreZ8aD
+         N0jH108UjUYNjmJhU/2kLpOKscTxDW4lvqtN3jPcdQryNfOo5JHfmAMV9YLJmTRk6Opo
+         3RYizGKin0Zfia768yXdCr1L4G/vcd+XyoNOgAQ/71GiHhnIpHiHtCMMUHf8dP/BNHXn
+         oXw0dPLNWnu1Fulp/QOOl16bEOx9TOr1Bf0/8MwOPoy+KNsH18/BkY9p1RQzcNCtuOuO
+         cFmA==
+X-Forwarded-Encrypted: i=1; AKwUvBwUGoOI07Bl91HyVERHpfJyaknSakoF1E9N+j+l0kubsjuUPBJLVyoN+eRgleOXOn+Xpo6Z103u/+KFpbY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KrCqqBBvJU4O+7eY3OEKJKWyrQ0Q3+b7dBaHw6AYFgJZnsl67
+	MXUxG1QpWGrU7XRN6wfHWKawRH8pOCRpxh/t32QYwenD1e6tIoEZZoAyck9OLcHZ5o0JN9mp0vm
+	X7NivksKov7xxy2dtQmK4cy59nZyB6SmRL4KehT4Vgg==
+X-Gm-Gg: AYBFou0OVvhYDFRRRPbLtrnAp2HhlBAhG6B6FINRpGcyC79dG54Kymj9AuV49CMxqS6
+	16HjLcBHoDz9+UBfrDvp72gkl6HZWqOHjHxaMZ/A20+ecCOH6UiCB66ZiXMF0WdcG4QjT5mmx4o
+	m8G25N/SvC2FwqSEHFv5hb6obn8yzs2AyebNcPmBHorMgVcsOA44KdDHEPw/MNWzJywNFGGSAUZ
+	V7MMx0CZOn1mGMYRnSr+dbNfgauJsHT5FkMOsrOC/c1d0+UJF0oTlgUKLMJH5l+SfrM4f1ywVhG
+	L458dyIUe9cFVvEdkhIGYccJNnFaHaTiOv4USvcsSA6rhokRRaCXLIAwuyKkGCG9ZHkOvJ+8hzr
+	y98eoI9Xc0urbyhyYadqHwa6yYepF68i1Cqb8
+X-Received: by 2002:a05:693c:69d2:b0:368:9553:f2da with SMTP id
+ 5a478bee46e88-36a423f5c39mr22713847eec.31.1793727220500; Tue, 03 Nov 2026
+ 09:33:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,136 +103,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261029211101.2089535-1-jkain@nuro.ai> <179365451164.3131.3767942488983292@kernel.org>
+In-Reply-To: <179365451164.3131.3767942488983292@kernel.org>
+From: Joseph Kain <jkain@nuro.ai>
+Date: Tue, 3 Nov 2026 09:33:29 -0800
+X-Gm-Features: AclHuK_PDtuEdSbv3VB2Euk4_sVkJ92-U7LaM2mWw4pMO2EN7sk9aMuBs79Bl8w
+Message-ID: <CA+Y90PiVR8kdiXFuj-M3pfMgidAM8NdJONiEk0jDBtatRLHj0w@mail.gmail.com>
+Subject: Re: [PATCH net v7] net: stop defer_count outliving the deferred-free list
+To: netdev-bot+sashiko@kernel.org
+Cc: edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	davem@davemloft.net, netdev@vger.kernel.org, horms@kernel.org, 
+	kuniyu@google.com, sdf.kernel@gmail.com, kerneljasonxing@gmail.com, 
+	willemb@google.com, almasrymina@google.com, mkarsten@uwaterloo.ca, 
+	jiayuan.chen@linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Mon, Nov 2, 2026 at 1:21=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
+e:
+>
+> With the subtraction moved after the napi_consume_skb() loop, does
+> deferral stay disabled for the whole drain?
 
-A BPF qdisc's generated reset/destroy epilogue cancels its watchdog
-timer.  bpf_throw() unwinds directly to the exception callback and
-skips that epilogue.  If the timer was armed, qdisc deletion frees the
-qdisc while the embedded timer remains queued.  Later timer-queue
-activity accesses the freed qdisc, producing a KASAN slab-use-after-free
-and a kernel crash.
+Yes, for a full batch. The detached skbs remain charged until the
+freeing loop completes; smaller batches can leave capacity for
+further admissions. I should have explained this admission-window
+change.
 
-The reproducer registers a BPF qdisc whose dequeue callback arms the
-watchdog and whose reset/destroy callbacks throw.  Two fresh KASAN boots
-reported use-after-free in rb_insert_color on an object allocated by
-qdisc_alloc() and later freed by qdisc teardown.  An otherwise identical
-no-throw control completed deletion cleanly.  The required BPF and
-network-administration capabilities make this a privileged local kernel
-crash; no privilege escalation or code execution is demonstrated.
+Preliminary non-PREEMPT_RT x86 VM tests recorded no limit rejections
+in either variant at skb_defer_max=3D128. Results at 16 and 32 showed
+mixed rejection and purge counts. Throughput and CPU cost were not
+measured, so these results do not establish a performance advantage
+for either ordering.
 
-HEAD commit:    c03c1a14507dfaf8b856c2608f9ac216021fc222
-Git tree:       30fd2ef82912c26cf3a58ad0ba6afc375fa851ac
-Source version: Linux 7.3
-Compiler:       gcc 11.4.0, GNU ld 2.38, clang 20 (BPF PoC)
+I propose retaining the current single-pass drain for now. If
+another revision is needed, I will explicitly document that the
+detached batch remains charged until freeing completes.
 
-The console log, full KASAN kernel config, and BPF C reproducer are
-available from one fixed-revision Gist:
+> This is a pre-existing issue, but can a runtime change to
+> net.core.skb_defer_max still leave a per-(cpu, node) queue at or above
+> the new limit with no purge pending?
 
-Console output:
-https://gist.githubusercontent.com/shaos26/9908a8ddac69e303cb5dcc709958537f/raw/3fa043e43683907bcccacdc80a71b150920049da/console-output.txt
-Kernel config:
-https://gist.githubusercontent.com/shaos26/9908a8ddac69e303cb5dcc709958537f/raw/3fa043e43683907bcccacdc80a71b150920049da/kernel-config.txt
-PoC source:
-https://gist.githubusercontent.com/shaos26/9908a8ddac69e303cb5dcc709958537f/raw/3fa043e43683907bcccacdc80a71b150920049da/poc.c
-
-Run this as root in a disposable VM booted with the target kernel,
-CONFIG_DEBUG_INFO_BTF=y, bpftool, iproute2, clang 20, and libbpf-dev.
-Build each variant against that kernel's BTF; test them on separate
-fresh boots.  With libbpf headers installed under /usr/include:
-
-    bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h
-    CLANG=/usr/lib/llvm-20/bin/clang
-    LIBBPF_INC=/usr/include
-    "$CLANG" -target bpf -D__TARGET_ARCH_x86 -O2 -g -Wall -Werror \
-      -Wno-missing-declarations -I. -I"$LIBBPF_INC" \
-      -DVARIANT_THROW=1 -c poc.c -o qdisc-throw.bpf.o
-    "$CLANG" -target bpf -D__TARGET_ARCH_x86 -O2 -g -Wall -Werror \
-      -Wno-missing-declarations -I. -I"$LIBBPF_INC" \
-      -DVARIANT_THROW=0 -c poc.c -o qdisc-control.bpf.o
-
-Mount bpffs if it is not already mounted, register the matching object,
-attach its qdisc to loopback, send one packet to arm the watchdog, and
-delete the qdisc:
-
-    mkdir -p /sys/fs/bpf
-    mount -t bpf bpffs /sys/fs/bpf 2>/dev/null || true
-    bpftool struct_ops register qdisc-throw.bpf.o /sys/fs/bpf
-    ip link set lo up
-    tc qdisc add dev lo root handle 1: agent31_uaf
-    ping -c 1 -W 1 127.0.0.1
-    tc qdisc del dev lo root
-    sleep 10
-
-For the separate control boot, register qdisc-control.bpf.o and use
-qdisc kind agent31_ctl in the same sequence.
-
-On the vulnerable kernel, the two throw runs reproduced the KASAN UAF;
-the no-throw control survived.  With the patch below, the verifier
-rejects bpf_throw() from reset/destroy with -EACCES, before qdisc
-registration.  The patched control object registered, attached, armed
-and deleted normally, then survived the watchdog interval.
-
-Fixes: 7a2dafda950b ("bpf: net_sched: Add a qdisc watchdog timer")
-Signed-off-by: shaos <shawnq1@163.com>
----
- net/sched/bpf_qdisc.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/net/sched/bpf_qdisc.c b/net/sched/bpf_qdisc.c
-index 098ca02aed89c..61f0dc93d3856 100644
---- a/net/sched/bpf_qdisc.c
-+++ b/net/sched/bpf_qdisc.c
-@@ -12,6 +12,7 @@
- #define QDISC_MOFF_IDX(moff)	(moff / sizeof(void (*)(void)))
- 
- static struct bpf_struct_ops bpf_Qdisc_ops;
-+static const struct bpf_verifier_ops bpf_qdisc_verifier_ops;
- 
- struct bpf_sched_data {
- 	struct qdisc_watchdog watchdog;
-@@ -131,6 +132,7 @@ static int bpf_qdisc_btf_struct_access(struct bpf_verifier_log *log,
- }
- 
- BTF_ID_LIST_SINGLE(bpf_qdisc_init_prologue_ids, func, bpf_qdisc_init_prologue)
-+BTF_ID_LIST_SINGLE(bpf_qdisc_throw_ids, func, bpf_throw)
- 
- static int bpf_qdisc_gen_prologue(struct bpf_insn *insn_buf, bool direct_write,
- 				  const struct bpf_prog *prog)
-@@ -307,20 +309,31 @@ enum qdisc_ops_kf_flags {
- 	QDISC_OPS_KF_COMMON		= 0,
- 	QDISC_OPS_KF_ENQUEUE		= 1 << 0,
- 	QDISC_OPS_KF_DEQUEUE		= 1 << 1,
-+	QDISC_OPS_KF_TEARDOWN		= 1 << 2,
- };
- 
- static const u32 qdisc_ops_context_flags[] = {
- 	[QDISC_OP_IDX(enqueue)]		= QDISC_OPS_KF_ENQUEUE,
- 	[QDISC_OP_IDX(dequeue)]		= QDISC_OPS_KF_DEQUEUE,
- 	[QDISC_OP_IDX(init)]		= QDISC_OPS_KF_COMMON,
--	[QDISC_OP_IDX(reset)]		= QDISC_OPS_KF_COMMON,
--	[QDISC_OP_IDX(destroy)]		= QDISC_OPS_KF_COMMON,
-+	[QDISC_OP_IDX(reset)]		= QDISC_OPS_KF_TEARDOWN,
-+	[QDISC_OP_IDX(destroy)]		= QDISC_OPS_KF_TEARDOWN,
- };
- 
- static int bpf_qdisc_kfunc_filter(const struct bpf_prog *prog, u32 kfunc_id)
- {
- 	u32 moff, flags;
- 
-+	/* bpf_throw() bypasses the generated watchdog-cancellation epilogue. */
-+	if (kfunc_id == bpf_qdisc_throw_ids[0] &&
-+	    prog->aux->st_ops &&
-+	    prog->aux->st_ops->verifier_ops == &bpf_qdisc_verifier_ops) {
-+		moff = prog->aux->attach_st_ops_member_off;
-+		flags = qdisc_ops_context_flags[QDISC_MOFF_IDX(moff)];
-+		if (flags & QDISC_OPS_KF_TEARDOWN)
-+			return -EACCES;
-+	}
-+
- 	if (!btf_id_set8_contains(&qdisc_kfunc_ids, kfunc_id))
- 		return 0;
- 
--- 
-2.34.1
-
+Agreed, and as you say it is pre-existing: neither the reject path nor
+proc_do_skb_defer_max() kicks, before or after this patch. Both of your
+examples look right to me. It is out of scope for this patch, which is
+about counts outliving the list.
