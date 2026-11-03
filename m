@@ -1,102 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793729157;
-	b=OQAok4mrPPfkC4tuIrN+NiTi1riGNVkMwN+KHn4RJr71h07l5GDmkrMexaKsd9bUa+m7
-	 36BK0C85Xm9wgb3Cm46OZkFSqTRCZNT4jbTrh+TVQxY0Bf8UJzuS8Zgm5u0fxKLHLvtxW
-	 LTPCzn2h7h2i4aXMfS8Jvv1AZkkY00SAZFvEHZaXVES9HNCuRCcNMG/RsKnvO3WICt8Sd
-	 3/HDkpj7S/rTZ/RT/5FmXLkIPJEaYYPEVcWvZpHeJjq5Cu9P7PJywM6BB1865gb7IEcRZ
-	 +SRXfPVMvjqITliZZC0HEgCqdD5rX6oz8F7H4Oszd9yhl14dnU65d+H4qGI98Ms9g4A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729157;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793729175;
+	b=o/rNH3sT/ukM3dLbP00MFfSOr4HpsvGRtQcFfsWYvN2ybcyWuqjSpXp0wAd7F9N8Qg7z
+	 TmEzL0aVbdat8OZUS0cGV9+FGe4rtgSe5mDIQk/+0KcIqgdjznBd/KkYhW4/vo0FT/tDW
+	 Uwa9YfZBejgSXv7q2/TpLGRcNimmbncZg7Xj0m7b1sV/N4uUOC42bfteGf9s3fy4Y9Uwq
+	 gVljxiKBdtd1OiT9i0PlppkB3JLbQD/jJIK1jKrhfA+s0LwAjLLMau77zbWE76NUaUVte
+	 A0LJXeaEoBznl5cX2V/JThMvpaBKGh/43bumvVKg6FrfgtazGjBUFrQin+CDBDA3IQQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729175;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KNbjwm4E9DcWTobQLF+oFd4MAgDdWhobdyNW4zlZws4=;
-	b=VT9JF1/dQ1hTNNiq1dZQVE7EW7d9WYtie2Y+V03OwBVc7IoLB1xWWs04Y37LdIhxkZRD
-	 h7k9OelJFgJU9F4/a21SzkBqKFotPpIX9crhdf26uKbi5Iqpr8Z2GmXO7P7b835zqtdc4
-	 SKxm0v5ZiSu5cMUj631hqXmKRdIv91NXtTietvtaI6a9NNJXftomu6b9KAijlUMNPTv3/
-	 Z/HdiW2Aqtjbr/lHSeg5JcqBA8blj31Y8lm4qnwQf0xqGiMwPmXPS8PnDrEdo/JDIquMP
-	 gt9vwCAkDh9yt+LFH+Ecv+kgI8p20Y/yMDGNoNPtR3F0NeIxfaEpdD+qwiyIMRGJDfA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=/dRBcMfZeipH0bf8lHSiASOZP3cat5iGjHJj/5kyYjE=;
+	b=p4XM2ZArhWRt6/o+dkluYwX0K7Z72x++2JCYgIVlGYceepA3+yTjsWJ3aoLtkpHVY0AH
+	 wnVpZl564RdbwIKXX0bn3zgtQ9pi8DDRDNT39mlBlkDrNWpvUwOrgaOYs6nOuzwTeB3Cq
+	 sZiXthMsY+M/QOVtBo6IN/g9T9XuiiLrKdny2RajzrTxsRgEisHx74NNf7hF+v0u+lSzr
+	 h4C5JZcpgcLifzm3RdUxwk31cbXfIzVGSZB2OHkiUBNmRr+0igjf0/A1szK4K2JAYz+4e
+	 pVP5EfMhKX2dy3bWk0sYc15VkkplbmiU4wsfaF1l14WV+dFPaSX+cHKSMXa0ZY7vMLA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eBXg5HLV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.48
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=idNvEbbb;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6AB606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:05:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA6AB606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CBF4606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:06:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CBF4606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eBXg5HLV
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7c03744ef27so1473190137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:05:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793729156; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GETiAaAtScBLGcpfiUY+kDHQKPNSXZuYsKSmxFxccKQ8Ef+rNwj6ZUaSSKcb5BlXZ+
-         w/KQ6KBLk7ElElIhOIw6PvX1gWodwe+IjPRIvT7HTglBUM0r7BwJV2vXHhsOkECR7cr4
-         0IpHWVV483OKEFvRF6Rjosku4diIupRYmd+Lb7IXzDx3+1LY6MAaqnTCJKUAKthEQl/8
-         ykiio7YyTbLZzPhBRByjiIDUfR6wJgpjnxLyJDJSHk1+Ulir8VNHG4stSjEQHB/S3/tr
-         4R5IqD7GQ3Kqg+3waZixURF4Lg03nHR71DSA8ZXy/lhMPMJnrUnff/E6AbA2NSXFPMJn
-         B+ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KNbjwm4E9DcWTobQLF+oFd4MAgDdWhobdyNW4zlZws4=;
-        fh=tbHGXRCMNLySTun6hQih4YL0QxODQRI9GYv2MQZD5xc=;
-        b=Bkw60vmNy6QPjUX4iQ0D+bCSbrflG3Hi4GZtuysJ90EBTZ0Itx/4zJkkfbkXevZg2+
-         CBtsBkpjKjme6KshJHsKwjNtb2sITowNpoLebr3kNi8zbgfslOc+/9dxG0l88WcjE7d7
-         7jfHv3aVMmOpbBxLbxDTOfFzBV1OxwXbsex5wyWL+ASbq3keHsdEDukqWQ4WFzkwJhS5
-         ELNtIjP7mb5dxTJzG6Pu02hG4Z19O2ZIDNmNrUK+biIfheV/x9sXgK2U3w/oa1oJiarZ
-         rDd/E4i5ryp87WmOC2p4sPXsU65DDRQvYQ/G6wze1d1Nl19S1lAEixjqedBgzdC0OhKW
-         px1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=idNvEbbb
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so44649675e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:06:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793729156; x=1794333956; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793729172; x=1794333972; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KNbjwm4E9DcWTobQLF+oFd4MAgDdWhobdyNW4zlZws4=;
-        b=eBXg5HLVs3+DnyK0HOE1HArp8LeVs07vZX8/90QXs4aNyYpremL/O+2hqZPtnY/Pxt
-         afntlOfHYW5A3PQNeX1Nn0nICWejEG5J/bf59loCPDYM2t9QmhPpo9VG8TbqDjhQ9A/H
-         GRmNSCNJ+hwceiMQg99yXPTWIjbZq5eUSafvD0KyaU+0YsXpil/GuuHhlZydBvt1ECH/
-         VrPgrNzoAZ9iPS+z13CW2aJJs2oDtansUJq3cgqJbiI5m6dxM7QIzdbBCZN8NaZPNjR7
-         5JSEawDva8Iyute9qb+55E8YDfEeKUMnmfcmiBCKrdpOjMv5Y76Zmprh3TZc9buitoW5
-         brYA==
+        bh=/dRBcMfZeipH0bf8lHSiASOZP3cat5iGjHJj/5kyYjE=;
+        b=idNvEbbbZpJyK0/FZ5PKq6vZIUwUCRUMAt2Qm1csJy31sLm4GXNKwGoQz3qgo4Wntm
+         TmJ3Cw1XVYSYscnxrd4ofDDx6MpIrZaMvzSLvk+OY/9fRhrVtMLBQyJRGtjCt3ZBIhd3
+         2fb8GTxGgHOuDi4Fx6NxVplGElDpt3+8M9zzoevPmrtslJw+ugANd8l0KF9/zkLhobjN
+         DbGePUSxW6WWTgXx45fyepLWOPu8JVrVQMOK0a1cmtg27RcaPwxZXn1c8EDQK1xCk2ES
+         YHUGYQ+OJat/IPqtWQZCa28odubgCZiqF1db3FnJC4QhuKlFFoAZzzFIhMLO/1uSXKIV
+         UbUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793729156; x=1794333956;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793729172; x=1794333972;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KNbjwm4E9DcWTobQLF+oFd4MAgDdWhobdyNW4zlZws4=;
-        b=igpKYA2qQ1ey7umD/1Q85tQ+RC726VsAfOflGI7/0f+2Yi3EsVQqdgDk3jZr71Xr9y
-         DqKz++6y2/rxH0xMDK3TPo2lBe8pURy2/Rds0Qukywf4Jdy0ORlh3PPNdZc6dXgiISeP
-         srZws9seZtnhFKsgCuzKo7WZQHRLxg/WcowXlX7vigOAaJo+sRhlrnQiqWWnLw1LiMDq
-         kv713AT7nj5N2z688r9ifiSZVttyj7bztO0z73h0oL4nLGbdreoMHRcfGQ5r28+Y1PUC
-         UzCBKkHqWGLMUDmKmp1IpFihtJX9V++Qw5kt8RKBsyIPz5qWgKN+1ClpW4lxec8oTTs7
-         WLYw==
-X-Forwarded-Encrypted: i=1; AKwUvBy0epkiIhGU2/05ZLYkCnDJT/xo3U+p+0DaZ1SAYhaQkGoM5Da4W+7i6o8unKyvyji9itVJoMm3qCZmbZ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kw+dDZrqyYQSC4/zsAavjk94KQ2J6FFDte1VJhXDtO/bsY2qA
-	CoDZ7xseZaV55avwst1vJG2mou2MTANBKJCN7lVDgYUzrG7j6U3GYweTWtDOAtP3vNgwaJApUQR
-	UvmPekUkMlvIJSOCgNpP+9dOfsGBfxaE=
-X-Gm-Gg: AYBFou1aVgfr6Qu19b0fQVL5b0D9CiwGKskZVyc3UkNoVBCzGw9QtmJ/7WSP8Sencqt
-	f8E+Xb2NpB2zawGLv1IQYQey3YjlPSv2OFpqqSp57tbEw27n6NQWudLYQZseEFZGxJAYePq3ZEB
-	lspSynaqEaqFECX8czrigL13zVT3osOFS1krWPQ/1Etxq0ihRICC7WGsJ3heunkhuF7i1s3HEpR
-	i1svu12AntBcC1WrRvRt9SoiAjPwVBYwvzeQXhkkeQEuVnQDBt2h/jSXratqatP83pltxdNkw5o
-	zR767r7eVJZHmC7PX0mqbG1RDFk0rnyjdSU5tvC753qJdkLbz8TXPlCCGisH9hxycIE4M0Ka2/7
-	zprCFAsk/kT+VtCRO5JLctyJCZ58COq2KxTd+Ne9BqzYt+fFx1O06el+Dm0f3hr5aKeU2epKGRn
-	Vl3hS4c+vD1CIpP005E4eirBa0PdSFjotRfkCiFcSEhf6H3AaxFCBu/Q0fYs2EyO7O32m0X54EY
-	DrB5WGN/NTOUKFwsrQ1uDSDnrHmfg==
-X-Received: by 2002:a05:6102:5121:b0:7cc:5c9d:7e07 with SMTP id
- ada2fe7eead31-7d072635de3mr4255291137.11.1793729155740; Tue, 03 Nov 2026
- 10:05:55 -0800 (PST)
+        bh=/dRBcMfZeipH0bf8lHSiASOZP3cat5iGjHJj/5kyYjE=;
+        b=L5OeKR6cah1xnptwZhgrZZUNqd8lgzf7qwf7VyxH0K3qmQX+3SeIu5xFvajhb/T+Cv
+         eUvCRrwd97b4yAPJ+2RP1QeugK2j2y51K/dhSUudA6HwM0d3USPo4UzNswQbkQUrBnH0
+         43QxhkrLkcB+NNf6UhyGnnOR90qKm2vqiaqWwr3mRaPXD1qYGj1IA5WUeh9FF13BVkad
+         hUraarrL5uKDC6FyEACQhl5dSdpuKxeYw+NJBynK4yaPXz9GUJjEeegASSmTp4/o6LJw
+         Ev/dNX6W4ZXvgXAn9PIKu/n6tD7TjAaUOzEWEOvK3Vx4r56jeLVjUVtBxlR8ORj5CHNN
+         ZLPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxXAdXdBz9loBr++NQR3Tq3Tdz+uazC0sfxiVDBXLLLx5aq82Xnxvd5wrkaszkVUM3tx5Lekk/HIOdAsNc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MN7rkmFRNqRJOBS4oyqpHcswHoMhSZetW3YURnJG7ruNhdjkF
+	DYK/S8kCqz/ZH9nkPjPuZxgikoJ175C/NLucj3Vtk++AB6HOOqOz1/nH
+X-Gm-Gg: AYBFou2CpFargiSF5dJdty8SqQgZzaPcyU0tWct398U+2ErPoTKqWTIp0d8/mP4DXMO
+	HR0E7nN241nXKTgwG9ZfDVsL+FIVDxbGa9VLqnAWnbtkvZuJ5s4gHr38AP/0Kw1t0hmJ2bOJLbw
+	puw1CvXwDUmURzrsHX0A3TwIIB9/pyYKMG5QbDtom25Ft8syJ5zIrIivFglZ9x+Q8t2gw/Nabrg
+	MUsMvxt+y1tvwBy9qLsqn9Hao7bQr5N5p+PmsuzHC/akBgAcukM5pRxIMZJ0VOc3qEgcQb150jC
+	UjiAJiL7NDnMgqwzG2GvevS88XoBs0b6m/k8VseY8lPrAhzV6JLrvojFg+KiciGkeQRlFbx7RIz
+	QQgf0LH4foIHiljF0Dvr8KzG2WO2dP6f978JMHCLK7eAcX8XVk8wpmFznN9a8jWhcAxy6B1mmQq
+	ct/KWTvOjOeT7WC7MHorXeajb9czaV5AB9qyqZ3aiMU7CSphgg+FQXRzMz7E7cWl8dtKp29tR+f
+	K2DIAdyzirgDPZ0W3mNJkRrhWepTO6Pl7sMrPPIe581B36H5by7Ht3js6gi8eBa6hzhA1i0peKi
+	/lkOO7n+R++k/lSJrrIg2FYnCL1/xPZRhiulf53LOm2VhcW9ZenZDibIIrIw4/BV8ZlyFl+V5xn
+	4Xhs+rcc5QQkd91P+04v968mA1yJf2GuVgOC/no/EL00QBnJ+eCnbqgFQfBrS366TZSjrZcXuMc
+	ahQ2L0ShUJQuqWUMZ0aeOzh1nZFj5ficoGzKmvgNwgc7x1kXq7L6bo4o1IO0eoDT+fCbQZ+WymD
+	pQOGUoWMsvnA661kw2arJ4pgjDhoBFgcrUADqtVDVNoTLvosvScY2nf23CRlCn+m5SobZD3nL0h
+	/xWC71U=
+X-Received: by 2002:a05:600c:6095:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4ac18b7e1c1mr284061485e9.23.1793729172136;
+        Tue, 03 Nov 2026 10:06:12 -0800 (PST)
+Received: from jernej-laptop.localnet (194-152-27-116.dynamic.telemach.net. [194.152.27.116])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2afee292bsm82769945e9.4.2026.11.03.10.06.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 10:06:10 -0800 (PST)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH 03/10] staging: media: cedrus: h264: mark long-term references in
+ the frame info
+Date: Tue, 03 Nov 2026 19:06:09 +0100
+Message-ID: <zYI0QcxKSEeu6sHIbu0-3w@gmail.com>
+In-Reply-To: <29e72b15007592f98dd000f5f62a85367c590347.camel@collabora.com>
+References:
+ <20261102170303.1973892-1-jernej.skrabec@gmail.com>
+ <20261102170303.1973892-4-jernej.skrabec@gmail.com>
+ <29e72b15007592f98dd000f5f62a85367c590347.camel@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,174 +112,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com>
- <20261102-submit-serial-8250-dma-cancel-v1-v9-7-9159caade148@gmail.com> <20261103161104.2449407-7-rrangel@chromium.org>
-In-Reply-To: <20261103161104.2449407-7-rrangel@chromium.org>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 3 Nov 2026 11:05:42 -0700
-X-Gm-Features: AclHuK8ExVfXbcYLwfHHnCvMLw6HMi1Pim5AHzKRXmfuq3AFPdi8A4knMcfIqjI
-Message-ID: <CADvTj4qXcOqS-wDrrN-x3sXUQr5BtFBeGzz_wqpW8WJ1DMPg+g@mail.gmail.com>
-Subject: Re: [PATCH v9 7/8] serial: 8250: retire canceled RX DMA before
- reusing the receive buffer
-To: Raul E Rangel <rrangel@chromium.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Tony Lindgren <tony@atomide.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Richard Genoud <richard.genoud@bootlin.com>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
-	=?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, Timur Tabi <timur@kernel.org>, 
-	Peter Ujfalusi <peter.ujfalusi@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
-	Patrice Chotard <patrice.chotard@foss.st.com>, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	imx@lists.linux.dev, linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Tue, Nov 3, 2026 at 9:11=E2=80=AFAM Raul E Rangel <rrangel@chromium.org>=
- wrote:
->
-> Hi James,
->
-> Thanks for v9 =E2=80=94 fixing asc_startup() locking in Patch 2/8, waking
-> tty->write_wait for drain waiters in Patch 5/8, splitting OMAP RX locking
-> and IRQ quiescing into Patches 3/8 and 4/8, and adding rx_pause_wait with
-> immediate wakeups from dma_rx_complete() and serial8250_do_shutdown() all
-> look good. Waking rx_pause_wait under port->lock cleanly avoids delaying
-> normal completion or cancel_work_sync(&dma->rx_flush_work) during shutdow=
-n.
->
-> Two remaining comments on Patch 7/8:
->
-> 1. Escalating to serial8250_rx_dma_recover() after a bounded pause-stall
->    window on partial RX transfers:
->
->    The commit message notes:
->    > A provider which never pauses or completes retains RX ownership unti=
-l
->    > an error or shutdown; a timeout alone cannot establish that discardi=
-ng
->    > the buffer is safe.
->
->    I completely agree that a timeout alone cannot establish that *reusing=
-*
->    or *freeing* dma->rx_buf is safe while the channel is still running.
->    However, calling serial8250_rx_dma_recover(p) under p->port.lock once
->    the retry budget expires does *not* reuse or free dma->rx_buf without
->    stopping the channel:
+Dne ponedeljek, 2. november 2026 ob 19:50:44 Srednjeevropski standardni =C4=
+=8Das je Nicolas Dufresne napisal(a):
+> Hi,
+>=20
+> Le lundi 02 novembre 2026 =C3=A0 18:02 +0100, Jernej Skrabec a =C3=A9crit=
+ :
+> > The frame info of a reference has a reference type for each field, in
+> > bits 1:0 for the top field and 5:4 for the bottom one, which is 1 for a
+> > long-term reference. The driver never sets it, so the hardware handles
+> > long-term references like short-term ones, also where they differ, like
+> > in temporal direct and implicit weighted prediction. The vendor library
+> > sets it.
+> >=20
+> > This fixes MR8_BT_B and MR9_BT_B of the H.264 conformance suite.
+> >=20
+> > Fixes: 6eb9b758e307 ("media: cedrus: Add H264 decoding support")
+> > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> > ---
+> >  drivers/staging/media/sunxi/cedrus/cedrus_h264.c | 12 +++++++++++-
+> >  drivers/staging/media/sunxi/cedrus/cedrus_regs.h |  8 ++++++++
+> >  2 files changed, 19 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c b/drivers=
+/staging/media/sunxi/cedrus/cedrus_h264.c
+> > index 892193c12b2f..a716955655f7 100644
+> > --- a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
+> > +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
+> > @@ -69,13 +69,21 @@ static void cedrus_fill_ref_pic(struct cedrus_ctx *=
+ctx,
+> >  				struct cedrus_buffer *buf,
+> >  				unsigned int top_field_order_cnt,
+> >  				unsigned int bottom_field_order_cnt,
+> > +				bool long_term,
+> >  				struct cedrus_h264_sram_ref_pic *pic)
+> >  {
+> >  	struct vb2_buffer *vbuf =3D &buf->m2m_buf.vb.vb2_buf;
+> > +	u32 frame_info, ref_type;
+> > =20
+> >  	pic->top_field_order_cnt =3D cpu_to_le32(top_field_order_cnt);
+> >  	pic->bottom_field_order_cnt =3D cpu_to_le32(bottom_field_order_cnt);
+> > -	pic->frame_info =3D cpu_to_le32(buf->codec.h264.pic_type << 8);
+> > +
+> > +	ref_type =3D long_term ? VE_H264_FRAME_INFO_REF_TYPE_LONG_TERM :
+> > +			       VE_H264_FRAME_INFO_REF_TYPE_SHORT_TERM;
+> > +	frame_info =3D VE_H264_FRAME_INFO_TOP_REF_TYPE(ref_type) |
+> > +		     VE_H264_FRAME_INFO_BOT_REF_TYPE(ref_type) |
+> > +		     VE_H264_FRAME_INFO_PIC_TYPE(buf->codec.h264.pic_type);
+> > +	pic->frame_info =3D cpu_to_le32(frame_info);
+> > =20
+> >  	pic->luma_ptr =3D cpu_to_le32(cedrus_buf_addr(vbuf, &ctx->dst_fmt, 0)=
+);
+> >  	pic->chroma_ptr =3D cpu_to_le32(cedrus_buf_addr(vbuf, &ctx->dst_fmt, =
+1));
+> > @@ -128,6 +136,7 @@ static int cedrus_write_frame_list(struct cedrus_ct=
+x *ctx,
+> >  		cedrus_fill_ref_pic(ctx, cedrus_buf,
+> >  				    dpb->top_field_order_cnt,
+> >  				    dpb->bottom_field_order_cnt,
+> > +				    dpb->flags & V4L2_H264_DPB_ENTRY_FLAG_LONG_TERM,
+> >  				    &pic_list[position]);
+> >  	}
+> > =20
+> > @@ -174,6 +183,7 @@ static int cedrus_write_frame_list(struct cedrus_ct=
+x *ctx,
+> >  	cedrus_fill_ref_pic(ctx, output_buf,
+> >  			    decode->top_field_order_cnt,
+> >  			    decode->bottom_field_order_cnt,
+> > +			    false,
+>=20
+> nit: Not a hard objection, but I really hate boolean parameters. It could=
+ be a
+> simple as:
+>=20
+> +			    false, /* short term reference */
+>=20
+> Or using an enum. My preference being documented here, its yours to decid=
+e.
 
-Successful dmaengine_terminate_sync() establishes the required stop and
-callback-draining guarantees. The concern is not that the buffer remains
-unsafe after successful termination, but that this recovery path discards
-the pending receive data and disables RX DMA until reopen.
+I'll use VE_H264_FRAME_INFO_REF_TYPE_* as parameter. I have to fix sashiko
+issue anyway.
 
-A failed pause followed by an incomplete status can be temporary, including
-when completion has not yet been published. Retrying preserves the chance
-to deliver that transfer without switching to PIO. Memory safety after
-termination and the decision to discard the transfer are separate issues.
+I'll keep your Reviewed-by, unless you object.
 
->    - Calling serial8250_rx_dma_recover(p) under p->port.lock inside the
->      worker's retry block sets dma->rx_err =3D true and
->      dma->rx_terminating =3D true (and keeps RX masked in UART_IER), whic=
-h
->      causes serial8250_rx_dma_flush_work() to exit the for (;;) loop
->      (retry =3D false, recover =3D true) and call
->      dmaengine_terminate_sync(dma->rxchan) outside p->port.lock in proces=
-s
->      context (8250_dma.c:233-239).
->    - If dmaengine_terminate_sync(dma->rxchan) succeeds (ret =3D=3D 0), th=
-e
->      channel is stopped and its callbacks are drained, so clearing
->      rx_pause_pending/rx_terminating and restoring p->ier safely falls ba=
-ck
->      to PIO ("RX DMA failed, using PIO\n").
->    - If dmaengine_terminate_sync(dma->rxchan) also fails (ret !=3D 0),
->      lines 235-239 already retain dma->rx_buf and return early with RX
->      interrupts masked.
->
->    Why does this matter in practice?
->    Look at drivers/dma/tegra186-gpc-dma.c:
->    - Line 1521 unconditionally assigns .device_pause =3D tegra_dma_device=
-_pause,
->      so dma_get_slave_caps() (drivers/dma/dmaengine.c:614) sets
->      caps.cmd_pause =3D true and serial8250_request_dma() enables RX DMA.
->    - On Tegra186, tegra186_dma_chip_data sets .hw_support_pause =3D false
->      (line 1351), so tegra_dma_device_pause() (lines 420-423) uncondition=
-ally
->      returns -ENOSYS. (On Tegra194/234/264, tegra_dma_pause() at lines
->      389-414 polls TEGRA_GPCDMA_STATUS_BUSY after setting
->      TEGRA_GPCDMA_CHAN_CSRE_PAUSE for 20 us and returns -ETIMEDOUT if the
->      channel does not pause.)
+Best regards,
+Jernej
 
-The Tegra186 case is a permanent capability mismatch. dma_get_slave_caps()
-derives cmd_pause from the presence of device_pause, but this provider
-installs that callback even when hw_support_pause is false.
+>=20
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+>=20
+> >  			    &pic_list[position]);
+> > =20
+> >  	cedrus_h264_write_sram(dev, CEDRUS_SRAM_H264_FRAMEBUFFER_LIST,
+> > diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_regs.h b/drivers=
+/staging/media/sunxi/cedrus/cedrus_regs.h
+> > index 05e6cbc548ab..961fe023bb43 100644
+> > --- a/drivers/staging/media/sunxi/cedrus/cedrus_regs.h
+> > +++ b/drivers/staging/media/sunxi/cedrus/cedrus_regs.h
+> > @@ -616,6 +616,14 @@
+> >  #define VE_AVC_SRAM_PORT_OFFSET		0x2e0
+> >  #define VE_AVC_SRAM_PORT_DATA		0x2e4
+> > =20
+> > +/* Frame info word of a frame buffer list entry in the AVC SRAM */
+> > +#define VE_H264_FRAME_INFO_PIC_TYPE(v)		SHIFT_AND_MASK_BITS(v, 9, 8)
+> > +#define VE_H264_FRAME_INFO_BOT_REF_TYPE(v)	SHIFT_AND_MASK_BITS(v, 5, 4)
+> > +#define VE_H264_FRAME_INFO_TOP_REF_TYPE(v)	SHIFT_AND_MASK_BITS(v, 1, 0)
+> > +
+> > +#define VE_H264_FRAME_INFO_REF_TYPE_SHORT_TERM	0
+> > +#define VE_H264_FRAME_INFO_REF_TYPE_LONG_TERM	1
+> > +
+> >  #define VE_VP8_PPS			0x214
+> >  #define VE_VP8_PPS_PIC_TYPE_P_FRAME		BIT(31)
+> >  #define VE_VP8_PPS_LAST_SHARPNESS_LEVEL(v)	SHIFT_AND_MASK_BITS(v, 30, =
+28)
+>=20
 
-serial8250_request_dma() already rejects RX channels without cmd_pause.
-Correcting the provider's capability reporting would prevent this
-unsupported configuration from being enabled in the first place, rather
-than discovering it after receiving data. That is different from a pause
-timeout on hardware which supports the operation.
 
->    When an RX timeout interrupt (UART_IIR_RX_TIMEOUT) fires on a partial
->    transfer (e.g. a few bytes typed at an interactive console or a short
->    command waiting for a reply, count < 4096), hardware transfer completi=
-on
->    will never occur while the remote peer is waiting for our response. Wi=
-th
->    an unbounded for (;;) loop:
->    - Those partial bytes in dma->rx_buf are never delivered anyway (even =
-if
->      we wait forever until the user closes the port, serial8250_release_d=
-ma()
->      terminates the channel without copying dma->rx_buf).
 
-For a provider which never pauses or completes, retries cannot restore
-reception. A request/response peer can indeed leave the descriptor
-incomplete indefinitely, and closing the port then loses those bytes.
-Backoff and diagnostics limit the retry cost and expose the stall; they do
-not solve that liveness problem.
 
-For pause-capable hardware, a recovery timeout does not have to prove
-that the failure is permanent. The concern is what happens after that
-timeout: the current recovery path discards the pending transfer and
-leaves RX on PIO until reopen.
-
-Is there a recovery approach that avoids an indefinite RX stall without
-turning a potentially temporary pause failure into loss of DMA for the
-rest of the open session?
-
->    - UART RX remains permanently dead with RLSI/RDI masked and never fall=
-s
->      back to PIO.
->    - serial8250_rx_dma_flush_work() holds a runtime PM reference
->      (guard(serial8250_rpm)(p)) for the lifetime of the open port.
->    - On 8250_dw, dw8250_idle_enter() (8250_dw.c:151) sees
->      serial8250_rx_dma_flush(up) =3D=3D -EAGAIN and silently aborts
->      dw8250_set_divisor() and dw8250_check_lcr(), breaking baud-rate and
->      LCR updates while rx_pause_pending is stuck.
->
->    If serial8250_rx_dma_flush_work() escalates to serial8250_rx_dma_recov=
-er(p)
->    under p->port.lock once the stall threshold is reached (or immediately=
- when
->    dmaengine_pause() returns -ENOSYS / -EOPNOTSUPP), dmaengine_terminate_=
-sync()
->    safely stops the channel before any buffer state is released and the U=
-ART
->    recovers on PIO instead of wedging until close().
->
-> 2. Minor nit in drivers/tty/serial/8250/8250_omap.c:783-784:
->    In omap_8250_shutdown():
->      WRITE_ONCE(up->dma->rx_pause_wakeup, true);
->      wake_up(&up->dma->rx_pause_wait);
->    8250_omap uses its own synchronous omap_8250_rx_dma_flush() and never
->    schedules rx_flush_work or sleeps on rx_pause_wait, so those two lines
->    in omap_8250_shutdown() can be dropped.
->
-> Thanks,
-> Raul
