@@ -1,95 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699732;
-	b=kiuN4GQnyoRnj7OWzDNwgkVqxp7VFbh/onO+5+vhZRcol5bkYZYdonk9Le2WJ/ImxIDl
-	 d90jt1CKTTGZ6OnPa4uXHP5I+oattUal1mj3hfz76c0TJy9cfU0GOlCYbrCj880pawiim
-	 AHrimrfVgKWiBV5SxDdZ3FFRN6tECh+yIbGHdYQYzeppfwt2eMbBscc5bElu0N9Gkqzep
-	 OoyZc+sJHYQODfbonSktFgQUZlk5xMWsFaAfPo1TO1ZY0Wz1Wu2z3wBtv4RXROo+xtB+M
-	 7B61hoQBBzAgiJwNPVlZlX1eW+JaFS/o5zOrLI4gtKTLmbvA+f4KjRlc7+WikbwC9Ow==
+	t=1793699736;
+	b=rmIArrVUjSlmjbWutXiA+Glktn5l4r4X9D6diyoPD/WKojjBihd6D+JDBMqjA5z+tSis
+	 remZQEIeMFQ3qplZpfO8EnjexjVvGSwAL0qAn+vKMxb3FfO6axXDFzUqM8xdzzuYQk0mp
+	 OSDIfJZCOl7XcbarAMtoDBQ9sB6eF9hs6Qvqo/TBqlgF0j1vo/qykL/aGsIqzAUQ/0TQI
+	 k0MObvw2Kpy9mGFSUGTNM9YBkDuo/CRfIeQ3yuMPGvQIkt7ULeDU7QocX08i9q8PNEeXr
+	 L7v/CbwZ4OZxUlmjg4Ap4cexPAc8wNO8nLKBkVdi9ZBMlplWZIiCVikNMiIPXluAb/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699732;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/rEx9xsJMA/TnhcQ+QAyFw753KGccvIQfoQPHH40/e8=;
-	b=c8dXaHfzuqBj3genM7ZYJQkspcxkHiHZuSRWjokuAjH3b6UCpbb4bP8wJK+yP9Dp2nwc
-	 JyDGlx7hXi5V+ghoVjfwof0RqBFrT8t3iqHW/3V1Vy2mSnUfFbREGzZ8Eadb30sgJV7I6
-	 7TXbJpGPg4hVZm1tg4UMxOb4qGPmfrLMwDrecKRIsJCYYdCJbqZjcAVPti1LZN5SV4Q4Q
-	 WN7o/WhFN1L//yPh6xJttd/FFovTgYjzlT90hJLGri+evk5i5M+Ssy20ZswBDkFfUgbZq
-	 DjUIlUvQCFCMqLwA3MIgPRJPyJ4U4a3ljwdpupmdHpL4sWQjE/q6eIkvzWiiSU+kJag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699736;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=BeQGUCOl1k+ajaLkli3SGFUKxG/MbdebyYfebJs1qjY=;
+	b=32cG/VyanLqV0WiCdGR2STENJo/LqmR+wq5bmVBdO9K9bhKLDF0owUQdM2xfIVTn+9C7
+	 w45JV83hiejtMkr5WydX8I+fUod3k/+mDViS+aLPXHy4G3U7+PBzL4SyYB+W52e159AzW
+	 pM+j5VXfcs9g24cLAlryMj01iqZc+UcO2M3lVz/wZ0H88Eyb/Gc/u7YfUVO78kTpopGPn
+	 7/m/wbqu8Cy5IY3uwJ81palSc1VyDBK4QGvo1ki5NjpbX7PbGc27fCSG9A+xPmJJHlueA
+	 M4wg4vCgfj1SEhF3g+buO/xT0JqWYbK45/O3xrjDH3R0A13PUIO/qN0Z+Ad85Ws84/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jd3rrcZz;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="lB/78FF9";
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FCB60A6F43
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:55:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76FCB60A6F43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80CD60A6F6C;
+	Tue,  3 Nov 2026 09:55:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E80CD60A6F6C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jd3rrcZz
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e8246b13cbso33749855ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:55:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793699732; x=1794304532; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/rEx9xsJMA/TnhcQ+QAyFw753KGccvIQfoQPHH40/e8=;
-        b=Jd3rrcZz5YgR4MOcersmQYFB/he9g3x9TqjLKgTaZZn+hkIwnWUAFrC/1zS9i6EIx8
-         V3FYNfV+RAd7JBcYxTjDUE1BM51jbx2o2pltz/7CHkYVd1Sd8PrGJJkHG/rzXXF+zU+S
-         LARCTTgCD0t/+aj/MzcGWuJ0OHPO+gQ5DBCaBL8Xg472neQulMunSo12K0uf1kHWCbFX
-         leA6gm7c0gdFjPrD0eTJ4fZQybkRExQg2j+2IZOlprqSpj/DSzjGg/CSDoH+Ux6+EKKI
-         Py5t2GvZ8EekGw8MUMhdx5jFYOf+DBTv/T1s+E2tkVQP4EJ9+1WNDGQIncvbeCnMLovb
-         ScLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793699732; x=1794304532;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/rEx9xsJMA/TnhcQ+QAyFw753KGccvIQfoQPHH40/e8=;
-        b=SJYi9SkWO+6EIjLrn7APHJJ1HZmaeEFWUju5h/azBcHNQaL3cR2pMpdDD2kw+dfcHf
-         b3E1PFOPneznCbFKq4VKC3JXh6mVpRpcVbCg43dGkJ79OEzKZep2duOhDh/D6ASyAMJg
-         WW5fqHhKvurxkbzhPhGK9N4H59evvcA9BM+VfBW+NyqQByzEDJOXd+IxkHknB5mq+liD
-         rg3E6h9HTvXaPL0+LaU8p4iJSomB17QCP50mpMwO2ZAM/XcIKU7L3R+EB5Hx6adXpczi
-         mBoz2AgAyF465HQn54/i+0o83U3DBpBqZBb5aG9RYR+KnbURxo0Mp/o284qeki/QaeO7
-         OqjA==
-X-Gm-Message-State: APuU4Z83W34w+kwC9G2G+cS4m3BFwlj9pUWpHICDlv9gMpck17f3hEEF
-	Hr80YVouIhisIEAr396yd83W3WT50TML6V9yT1/lSRlcMvRch4r6zgtw
-X-Gm-Gg: AYBFou2xZbS9Dnp0kynuYfoV3hcEh91PTkK7fkf1pIzMHdzqzOL9lBxKI+Tl958vlkD
-	lnGHGH33iFxlcFKN8MoNiiIZu1SESjDRTX2asQ7x2VmK6h8p4Eik+Cp6afgnnAnbyyUcE1T/8gy
-	JCLq03bHVMka/GO1JPJvCquoDJF8jelBuCEo2nD5mbg5zUm93MHtRY8GeLoU4ej68QMwCQ5Dfnv
-	rl7cxbcsf+TC3vMAqowqN/3XY6LhWMmGlvWxTmFvvN7nN1a0Z4InJJb68LpBMpsyLGeZQ/dq/JE
-	hf1g1o1G/sMiOivsDKsclZ7QRx/8vE//qZb0D+0CMQzkgF7Sz1WgKcFDmBaNRtUbbUb+C1/+huS
-	LA1YJvMC8e9FIKQ8T96VW9x84m/M+OeZhjLUAI7DULARErQQno/Mk7OFi3xfGNred1CTpJFaFTl
-	AiOXj0i6IstTTwOXqUl/jrZfDvnjnHJ1atbTmR1phvd2v0dHRBWmYSLldooT6YiPREqaEqIfqYQ
-	eoEhXYtRrN759ok43fTTyVuFuEkZ47oBRWHGDZQDX6XgRApsXp/TgHFaus2PgjjScNkqFexLLvj
-	ZK9ClUFoO1zHaIqTnOJi2DXOldbu6KFdFaUcZVFDec78wActixQ3kL8=
-X-Received: by 2002:a17:90b:280c:b0:3ac:9669:846b with SMTP id 98e67ed59e1d1-3ae895746f6mr10607167a91.9.1793699731765;
-        Tue, 03 Nov 2026 01:55:31 -0800 (PST)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c69d8e2sm3505470a91.12.2026.11.03.01.55.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 01:55:31 -0800 (PST)
-From: Ping Li <leeonion.muyu@gmail.com>
-To: ben.horgan@arm.com,
-	james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	reinette.chatre@intel.com,
-	fenghuay@nvidia.com
-Subject: Re: [PATCH] arm_mpam: Only program MATCH_PMG when the monitor supports it
-Date: Tue,  3 Nov 2026 17:55:26 +0800
-Message-Id: <20261103095526.238470-1-leeonion.muyu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <912dbaa0-0fc0-46fb-819a-6594538b47cd@arm.com>
-References: <912dbaa0-0fc0-46fb-819a-6594538b47cd@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lB/78FF9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793699735; x=1825235735;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0UZauren3FKcX2qFQSrZTnrqyYVdkjbCTu/nrHaJWM4=;
+  b=lB/78FF9SfGF3XuUMS4v3Taq1uW+GjkRtqt+rIEzLAMw6p/G49Oy9HgK
+   MN6EDznTCZwhdlXRuqF1d2jcWLPiSTa9aw50Cd2GeoB4jJSdCm7bMHi/d
+   AJ3WEqHBSks+wy7ICd9l1btwGbYAVH7W+4izl9orK1DOwc/u7TognEFiQ
+   cZXDwx1tNxi+bv5uc/afwOzQyc9yi+nBxF3WZVpG2+d4MWj3U5BDtcgC8
+   6/4UHH8ocIaCPBwAddPQFu8pTIAYjRa8qQ5zLYeEVzHOQcNKVW2+1uXWO
+   Qu2JC8/2+3VzyCZlzguaZkZmPvkv7+AQfwe7E9COwPrGqqOnzlzJyXMmi
+   Q==;
+X-CSE-ConnectionGUID: nGplRYa2RfSa4ZSX8AU5DA==
+X-CSE-MsgGUID: p//tAmR7RuaM9mEX+bPZeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2306693"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2306693"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 01:55:35 -0800
+X-CSE-ConnectionGUID: c9SjTP9tRECL/nhQYcKZXw==
+X-CSE-MsgGUID: U4AhdxKWR/+2AadWm0Giyw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="8223937"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 01:55:32 -0800
+Date: Tue, 3 Nov 2026 11:55:29 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joshua Crofts <crofts@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] staging: iio: addac: adt7316: replace kernel.h
+ with explicit headers
+Message-ID: <aumvkSfdGIoJHtmn@ashevche-desk.local>
+References: <20261102094236.57757-1-abdelnasserhussein11@gmail.com>
+ <20261102094236.57757-3-abdelnasserhussein11@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,21 +87,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102094236.57757-3-abdelnasserhussein11@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Ben,
+On Mon, Nov 02, 2026 at 11:42:36AM +0200, Abdelnasser Hussein wrote:
+> Drop the proxy header <linux/kernel.h> and replace it with direct
+> inclusions per the Include What You Use (IWYU) principle. Also remove
+> unused headers and keep the list alphabetically sorted.
 
-Sharing the outcome of our discussions with the hardware team and Arm
-support, to close this thread:
+> Explicitly add:
+> - <linux/bits.h> for BIT()
+> - <linux/err.h> for IS_ERR() and PTR_ERR()
+> - <linux/errno.h> for error codes (-EIO, -EPERM, -EINVAL, -ENOMEM,
+>   -ENODEV)
+> - <linux/kstrtox.h> for kstrtou8(), kstrtou16(), and kstrtoint()
+> - <linux/pm.h> for EXPORT_GPL_SIMPLE_DEV_PM_OPS()
+> - <linux/string.h> for memcmp()
+> - <linux/types.h> for fixed-width and standard types (u8, u16, bool, s64)
+> 
+> Drop unused headers:
+> - <linux/i2c.h> (no I2C symbols used in core driver)
+> - <linux/kernel.h> (proxy header)
+> - <linux/list.h> (no linked list symbols used)
+> - <linux/rtc.h> (no RTC symbols used)
+> - <linux/slab.h> (no kmalloc/kfree symbols used)
+> - <linux/workqueue.h> (no workqueue symbols used)
 
-Although the MPAM specification allows up to 8 bits of PMG, our
-hardware team found that the DSU120AE and the Cortex-A520 only
-propagate 1 bit of PMG. Assuming 1 bit was as good as none, and
-without consulting the software team, they considered the 2 monitor
-groups it would allow dispensable. So the MSC they designed
-implements MSMON but no PMG support, and the bus carries PARTID only,
-without the PMG bit.
+This is too much for this type of change. Please, move it to the changelog and
+comment block (after '---' line).
 
-Sorry for the noise again on this one, and thanks for the pointers.
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
 
-Ping
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
