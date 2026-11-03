@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.214.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793726905;
-	b=P0XN7bG20qKavpMtxkDHgYpSrqjuIWdigDp4J5HnW05Q67VV2viWkS5zFAUFz+RTUGwO
-	 oag4p3IVClP4Q0RS38lFGFXBNXahv37oBGDidogIU1YlSv73ThhEyM7XT1QjFaCVRcmZi
-	 NIAv6tQfTDkfYfTIpg5mgp02NEO6ZYujOKgmVFgolXLVGsw6P1nEgal54NEUqj9c6vmNc
-	 Xf7VnrprynVjrMxZAuSg7DONvveoAU/xZiT/LcsJV58YnCl4zhS3F/uMRqfJtFeoZlKVk
-	 THiImCbV19kuDna9FDhL+AIg+X/WbaAZdxl2uwdEXvxeRNp6ruY8l9JORMeC0oDXNrQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793726905;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=kEBpiJ283G+BfgzwSR839fsCo4B4rRemOVjloruxGD0=;
-	b=NbgaDjPa6sSS9b4wiBRNRlPRtnM1G3sqEI2ckw9ueo479AmZIDK4SCSPdIblQXBVDz2o
-	 9P8wJ9ymby+FdjataXn3WnkRSNKTKrdvSxH/el8uPu4vLJTi/ZkR23s9EYYKLNBiJsz7y
-	 A53JHsTIDuybSh4oL1jU/SxKbV+ukeVJd9SKCG4x7FOy7suI8zN0rJqYYyzW4uegAduwp
-	 m2U3wqaEGmQdHWR2Rh4nH6rXNOKGySO1baRZbivPFjB0ZxzV6f2e2nz/Jvsu1ILb2JEHW
-	 KQPq51ox/KRRJZbOYbYUT0UP6LBf+jsiSD8isNTRqYnUemxFmxjOgxrkXJYv6u3KEIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pm7yUVKT;
-	arc=fail smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793726948;
+	b=AMcCSqieQnELMCah22an/rWB6bUKkh6d9VzTHVjbqm8bsjkyhs1katfLsOn828L9ERl3
+	 QyeHmC8tzXfUlgKyuKwwMEAdorE7Tqtx0Su/s11fgS32+jLud1ag4TozzqgKJDNBmaxtl
+	 2Wd+hNqKb5tiuEchNRAOWVnFxldyH9SBDtf5hDqcvhuogUsx3/i4DpbyNksazilDeMWNP
+	 V/Rq3Eb809LdhEigHTt16DBzmsHxtAs8o87duPFDe8CkW/dC2nYZT/YccKiBuJ2rFCoQ/
+	 LspV23e8uy+JjIaKGvITKAt8HQ7WSLuwPGTCDWiZz+5gY+KhPA/ViItzwy9t5CQpZIw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793726948;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pE2Np3lykFq0oDsMz7rUAvpVPt/uIba14MNTRAnJoec=;
+	b=U3Mp3FQWJSWjUA9YS2sNSZo8kABBUlIBawnFFExLL+V0z3fgbwa/ssS4uaWmPeOmgcWe
+	 TgGHUFiIdj2yMpvyH8/Vsq2KjFhiEn6Sh7s4Z62m8FOiPD9VBb3Y5wr36Vvy8BM181dTh
+	 3J4AU0rn9UaAQRk1f9sWsD99j2/1UymqXtLbj9zIS2zdoifgmm1RJzQineGpVE2J2WtfA
+	 R7QQNoolOCxBA/c7iK1UyYShtyOUBslauXLoPZi94+reCB5kePHjuSnYhFyDy50qXDt63
+	 C/rq7cW53mtfnpLSNM2OfW1NSwd9XtKclBL0e9sOJ3VRYIa7dHR/XJ4EDV0hybtk43w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fy1CbYfr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110C4606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 110C4606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E2E606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:29:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pm7yUVKT
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ea19c28a50so8350325ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:28:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793726904; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RMR8VxtRPcjZXm8PP4Ur3+/UJZg6co2EeLuEE79PWtp6wxghtDd56IvLmCONIciBTW
-         eb9YTLblThBNQ6t1Ws8tKG7gR0oy2DJPu8NSOtsf4gxoY+Xch15w6zwI9Oeavj+ubMVO
-         P8naNqO1CHBIUHI1YltV7XrcZHq539AFXuTQJHMHn6UJOKoUHU6dYeqn5WwKRDgR2Nsx
-         aXCmv7qluSq8/FhOkBJbO93iVbyC69v1SO6lMlRZl/9gQOZkGlBGqL5tw5S/1cyq5wuJ
-         p/dQcdykZXE6TYvvvFb4YL7gxCg/ba6PL/wPMaCAJ17QpfTUB5TqsiOtE87yLguxH0IY
-         cPcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=kEBpiJ283G+BfgzwSR839fsCo4B4rRemOVjloruxGD0=;
-        fh=TWMaOw7BtTg4PNhasFD3Nxfg0BwLbxNqEHGzmoHR8tk=;
-        b=HnjAyg7bb4zBMyTYUJEr97XqV6CyPV/05xrF+9Xbu8dXy10lcOtjk52N9WSWRIHRDM
-         sWaEGR8oefOF0X6TbFzVtsKu4WYuAh2gyplnItUsCb07nsEWZiz5J6ZVQsQA1zf/8YLS
-         gBngs1/7zOfcxSaPhWnY2jKdodCbIT7QzsZfMWipza+nQZYtfiysZEeQLziwoYjL69l6
-         Jzxyop6MtkXz2/MzZgh+2avbjmcLDaG/RqORjbWl7tClV6RKKJeuEt4oRsXasT/wjLAY
-         ChVc93Zcx3bTnRm7KlrVsjFDkl1KCYojRsV2SOFWLOU5bd8T50p4YG+/JcrJGV4w8wbx
-         G5XQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793726904; x=1794331704; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kEBpiJ283G+BfgzwSR839fsCo4B4rRemOVjloruxGD0=;
-        b=pm7yUVKTVW4vYTp5NjisHiNHUFnL7AWIT/WL5HZRoMFc05srdUqWbSnEsSR591BxHh
-         yc4WOM9fxBBMX0GvTFmStLicbokwtMCSPOewUrK77znTj5lyDTIIpxUyEgHkpSDOT7tv
-         RaK2JNx81XtrnMCkL+co47eOPrEPOFE1HKFQ8pyPerayqhkitI4ToNOZdHcL0IVwwtP7
-         zHhWaA/AFBlvBoroWircj7OqHUMfsVF7raExvoyEwe3sfKPtoFZPdUIAaO42CF5CAhpc
-         Le+wo83jFyyZiY/5b9xiO5/yN2LZWLthcXdxoLZjfLwm9GEmnW8YjXaIn1WpKvgaT5il
-         1eZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793726904; x=1794331704;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kEBpiJ283G+BfgzwSR839fsCo4B4rRemOVjloruxGD0=;
-        b=nnN5Okqstj0FkW0aNm5dPQ9xhZCFjcMICRBzkI9y9M/fdEqKGMugTbGYkicr06JpA3
-         41+dZ42D5wpoCrgfUTvN8g8cRmlY95kfqmMNG5ybQ0+UKmIjvAs1a3tzobwvudURFn6L
-         +6YitzbA4KHMz7WgpcZF3omivTKSd56nxnlv3KAoQZJaPT4Ullwv353NhGC6TU0xWjm0
-         wjY47h/5QTfxP5zt7h2M1JjznMoHukzPUoWM1o1BerK0MFlHoXDDO/o6BahTJZCZ6tdQ
-         VDlDdmQJ2neWWRMMa9nVabRI9O9JZvbxCde0d8Pi37PJigTfhMHl/Y0KIEMqxs5z3RS1
-         qULQ==
-X-Gm-Message-State: APuU4Z9/sv6hdD9zPo9A8R87V08/oap0BdNIIB7etOWjqYGFtKt4//nG
-	8OlSw2CiA3wwNXylvUSFEvAkkVTVRxMqxVQXxOzwp6/ZcctsXkGORBlE/KjMJA/PQsrARM1e4D+
-	NjSGy9AcMixQJ78o8/KBPwQQj4K1gNxJlNMCOuU4=
-X-Gm-Gg: AYBFou2GtFrbHqsOBXie6AF+m2A+uQddE7NPbo9d8CNHYZ8/V/c2SkKZqJLuGNSUuuW
-	So/kWjH6A1vywN9kM0zDATmERzMFQubp/djy555+6iyy2uzzbqqWok97/McwouK0r8QlGnMP5iw
-	YJDGlt0l/M068fKncVURUsr/QUl60uBvnvw1UllppIMiSvfCH2wz6L0EdJW/SFgH3KrL/KkdKXh
-	oAXe1uV0s+zMe4v6sOuTfoExdoiuf27uDiPdA1fChiBvjgOtHHk+bDpB/YDKxz3GI8R/Et70PLu
-	xuUjPM8sGOf654ptHqq+mb++oi+bhDszOgWQxNpVO520sg4e3OHcqmG71soA5nZg9CRuMfhZ9oQ
-	0MlTdZL2Q2HdFRfH/g/nOMDfU1PBzcOyFyGj2Lw3FjLZlks/0ngli9dDdumMl14gJ/qdIhA==
-X-Received: by 2002:a17:90b:4c07:b0:3a7:a463:54bb with SMTP id
- 98e67ed59e1d1-3ae89849bd3mr20177808a91.5.1793726904268; Tue, 03 Nov 2026
- 09:28:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fy1CbYfr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1F21F000C1;
+	Tue,  3 Nov 2026 17:29:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793726948;
+	bh=pE2Np3lykFq0oDsMz7rUAvpVPt/uIba14MNTRAnJoec=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Fy1CbYfrBs/Oux4o7jViXIGWEjIp2SDX+seRNw7Osj6jbA3F09gjrUVe3UA/OnvLt
+	 VhGGVqXvEKuqTUhqp3qaK3noQrRPsl6TJbZKaM+bX+Kqq2+MZVjVfzkhaQy7WJLmgm
+	 Mmp/LSVU75Ud8eS4Z92xbyopCXI39NYTrhXg9YTq/V1RW+G2UfGCoT6t1ow8LUtiWw
+	 8PdgVvYMPG1bANAUARF5B3jAKQZpbP2PwgCVQX8z9xHdPR87XKeoDJya1dqbcpfZtK
+	 IRdvMVLjIFD1aiFS+19JQ8/rZKQdHmsBcQrNPyyeW6kaNTOz3GNkmibgE9INLsL2jx
+	 P91CV6KLqp8KA==
+Message-ID: <28a08334-b52f-49ca-a209-624520864605@kernel.org>
+Date: Tue, 3 Nov 2026 18:29:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,21 +51,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAH78Gvtz15Q1icWZFpB68CY3xhdyddw41XCDR8BRS9zwA8EyWw@mail.gmail.com>
- <20260902161840.75210-1-q.h.hack.winter@gmail.com>
-In-Reply-To: <20260902161840.75210-1-q.h.hack.winter@gmail.com>
-From: Qihang <q.h.hack.winter@gmail.com>
-Date: Wed, 4 Nov 2026 01:28:12 +0800
-X-Gm-Features: AclHuK9UhaaoZiz6xdLTBcXFgRxd8zBDXrDfftklHx4HcmQXAI2sdQsSHQFwHbI
-Message-ID: <CAH78Gvufhaj0Cm9A3tgC1qKq3pR8TeOB75zr_knZcxeE7P=W2Q@mail.gmail.com>
-Subject: Re: [PATCH] apparmor: bounds-check the OWNER companion perms entry at
- load time
-To: john.johansen@canonical.com, georgia.garcia@canonical.com
-Cc: linux-kernel@vger.kernel.org, apparmor@lists.ubuntu.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/page_alloc: more checks for
+ alloc_contig_frozen_range() with __GFP_COMP
+Content-Language: en-US
+To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Yu Zhao <yuzhao@google.com>,
+ Zhenghui Hao <zhenghui.hao@qq.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261102-free-pfn-on-alloc-contig-range-error-path-v2-1-a9fe939a85c3@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261102-free-pfn-on-alloc-contig-range-error-path-v2-1-a9fe939a85c3@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi John,
+On 11/2/26 17:24, Zi Yan wrote:
+> When alloc_contig_frozen_range() is called with __GFP_COMP, certain inputs
+> can cause a mismatch between a requested range and its allocated range,
+> leading to the WARN at the end of the function and page leaks. No in-tree
+> user passes such inputs. Add checks to prevent it:
+> 
+> 1. the order is at least MAX_PAGE_ORDER: free pages during isolation can
+>    merge up to MAX_PAGE_ORDER, extending the allocated range beyond the
+>    requested range;
+> 2. the number of pages in the range is a power of 2: ilog2() can round
+>    down, so that the compound page will not cover the requested range;
+> 3. start and end are naturally aligned to nr_pages: a compound page must be
+>    naturally aligned, and the unaligned range can also lead to a mismatched
+>    allocated range.
+> 
+> Because of check 2, the same power of 2 at the end is redundant and
+> removed.
+> 
+> Add a comment on the WARN path to clarify it should not be reachable, so no
+> one in the future will try to fix the impossible page leak.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260628-keep-subpage-private-zero-at-free-v1-0-f4ce3930d10f%40nvidia.com?part=1
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> ---
+> Sashiko reports that if alloc_contig_frozen_range() with __GFP_COMP can
+> allocate a free page range different from the requested range, the function
+> triggers a WARN and returns EINVAL without freeing the allocated PFNs and
+> causes free memory leaks. Add checks to prevent it.
+> 
+> The is_power_of_2() check and start PFN alignment check are added with the
+> help of LLM.
+> ---
+> Changes in v2:
+> 1. added 3 checks for __GFP_COMP to prevent the allocated range from
+>    mismatching the requested range, which can trigger the warning.
+> 2. removed the redundant power of 2 check at the end of the function.
+> 3. added a comment on the WARN path to clarify it becomes unreachable.
+> 4. dropped Fixes tag.
+> - Link to v1: https://lore.kernel.org/r/20260629-free-pfn-on-alloc-contig-range-error-path-v1-1-496ff9ca22db@nvidia.com
+> ---
+>  mm/page_alloc.c | 25 +++++++++++++++++++------
+>  1 file changed, 19 insertions(+), 6 deletions(-)
 
-Just a quick ping on this patch.
+Applied to page_alloc/for-next, thanks!
 
-Thanks, Qihang
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 15ff5c1feef4f..003911ef393be 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -7326,12 +7326,24 @@ int alloc_contig_frozen_range_noprof(unsigned long start, unsigned long end,
+>  					    PB_ISOLATE_MODE_OTHER;
+>  
+>  	/*
+> -	 * In contrast to the buddy, we allow for orders here that exceed
+> -	 * MAX_PAGE_ORDER, so we must manually make sure that we are not
+> -	 * exceeding the maximum folio order.
+> +	 * The use of __GFP_COMP has the following requirements:
+> +	 * 1. the order cannot exceed MAX_FOLIO_ORDER (>MAX_PAGE_ORDER is OK);
+> +	 * 2. the order is at least MAX_PAGE_ORDER to ensure at the end
+> +	 *    outer_start and outer_end match start and end respectively;
+> +	 * 3. the number of pages in the range is a power of 2;
+> +	 * 4. start and end are naturally aligned to nr_pages.
+> +	 *
+> +	 * 3 and 4 are also the requirements for __GFP_COMP pages in general.
+>  	 */
+> -	if (WARN_ON_ONCE((gfp_mask & __GFP_COMP) && order > MAX_FOLIO_ORDER))
+> -		return -EINVAL;
+> +	if (gfp_mask & __GFP_COMP) {
+> +		const unsigned long nr_pages = end - start;
+> +
+> +		if (WARN_ON_ONCE(order > MAX_FOLIO_ORDER ||
+> +				 order < MAX_PAGE_ORDER ||
+> +				 !is_power_of_2(nr_pages) ||
+> +				 !IS_ALIGNED(start, nr_pages)))
+> +			return -EINVAL;
+> +	}
+>  
+>  	gfp_mask = current_gfp_context(gfp_mask);
+>  	if (__alloc_contig_verify_gfp_mask(gfp_mask, (gfp_t *)&cc.gfp_mask))
+> @@ -7428,12 +7440,13 @@ int alloc_contig_frozen_range_noprof(unsigned long start, unsigned long end,
+>  			__free_contig_frozen_range(outer_start, start - outer_start);
+>  		if (end != outer_end)
+>  			__free_contig_frozen_range(end, outer_end - end);
+> -	} else if (start == outer_start && end == outer_end && is_power_of_2(end - start)) {
+> +	} else if (start == outer_start && end == outer_end) {
+>  		struct page *head = pfn_to_page(start);
+>  
+>  		check_new_pages(head, order);
+>  		prep_new_page(head, order, gfp_mask, ALLOC_DEFAULT);
+>  	} else {
+> +		/* Unreachable with the __GFP_COMP checks above */
+>  		ret = -EINVAL;
+>  		WARN(true, "PFN range: requested [%lu, %lu), allocated [%lu, %lu)\n",
+>  		     start, end, outer_start, outer_end);
+> 
+> ---
+> base-commit: afb4eea28037fa55c4560313ecbd8a1e1da8369a
+> change-id: 20260629-free-pfn-on-alloc-contig-range-error-path-acc001232468
+> 
+> Best regards,
+> --  
+> Yan, Zi
+> 
+
