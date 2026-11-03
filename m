@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711275;
-	b=NjZ8vs2uRoHMR0NnDK/DQVdEkO0rna8mRyEdLIBFoiQF/qvpPiRrGyd1khvlC5iTpF4/
-	 Haw/UM4NM+DBgbLR4bveyAX/vCtE6qPGHxoF0228N622P98dD+b17B+shNE85DB7oDwMo
-	 aYs4gWYYeeTDBQdqJ/JOZZtWfHCRUVMUQQGTnRqTt3u5U0B8diDgqt+UPMyPm7Z8upoHi
-	 E3XgZdeysC/pu5nag8Wif97TnnF05EOTAsV5VueeTYcRDSRHNg4USg03wOyAHXTEPBmNO
-	 itYvlIc14lF26SpiP1Wt06T4OScqIlt38JO15reN633LHubIkrKGXlt5aLxNPZK7CBQ==
+	t=1793711280;
+	b=oNVTDG3feMMl7wH19bGzFDGXYLb1XrUmliJANmR488f4EiZiuWYeUWEuOu6kexPEsetl
+	 dKrpxbT9hIh0iKaUMxMmeWGGCEmHYSiz5i2y4GnA9os5enigzPflPl78ppkq2Kb6kf1zq
+	 l8qKScxqflwG/fIYL6ahDSWyyGTH956gSXjH9ZAr8x356lnD1RZWq4k39RiXlyeLE+3m1
+	 0TG9fPiG0ap07by6rgN55TiF4tIenOgOLYqIxo8uzu0ysM+vU3I8B/c1whgCh6v4KFiJL
+	 q+QZv8yaxbyI1NyEP4iyQy1As7MMm2biSDlRaMDwqLDXR41kUW2EHNz4wfqXCWJpbJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711275;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711280;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zW6mfRDfJlJujbvw1IGU4dhItJDWWt4lFHg3ixIXfNc=;
-	b=oN58fH5sb+KzKQNgU8/cJyK1tAPrIyTmCCqKNcIEDhoolBiauUpGNOWsXy6Hl7oarYPe
-	 E4hUmrdDxpDV84qfHJuRqoanYykrdSK5eIYwjOTH/9EeGPUdp7y1VzHQ0FU069Ii8zU1a
-	 Te6LLz/VisxRw8wuYubpkNtoV3hMNzvtpilI3iBCU1EOo7Ew/914TCsyNLDTRpL0j3xG1
-	 LkSPoqeNkQ36nC86kcdYL7ac/r2OnECXJNBYwekaVCTYZz9FhYU9hX+fAwIy+wfBXB+oI
-	 RmlT4Irjq8O8mHYGjp3eyCmuHV+FmOR1Wi5Lfvkt+T1bIJQZfn34T0O3tIFCyH3DH+A==
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MYoRPDO2ldHCIxVRmX3/6hlZLkNTnG6TdvBQMsOgf4o=;
+	b=CESFoHvjaYnlG2nOnAHMrjsimAfsoLSZEYVIj5jIfBqM3exMuLDpBxKWn3YEK+naKLE6
+	 8EGXfa0iwWsWkMx4jUJcUmvVps3SYiovJRJDgZ6ztuZBpulF5nlBGWX992SjNyKE/3+ib
+	 AQN7y8WQxr1ZmO9C1lYxkBoH7So4hfGRzJzNBI5e3m5G9RP9wfH0Le3VRxJ+08+X6Qz+F
+	 xXbW1JajM314Gosv+kTnVhw2hKMNYPirt7GF4JO6lHhuHMQU0tV8MvrRV9dR+skS/UXBj
+	 yNVH9QvhbTXkrzG3w5iJwLTWAJ1p2dMTjYih9TyvOlb9OdNlluvJEq0Iiwa7HEurPnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=iqCzK0sc;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=fLhOBE6A;
 	arc=none smtp.remote-ip=185.70.43.102
 Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1756C606D805
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1756C606D805
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5985D606D823;
+	Tue,  3 Nov 2026 13:07:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5985D606D823
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=iqCzK0sc
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=fLhOBE6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793711271; x=1793970471;
-	bh=zW6mfRDfJlJujbvw1IGU4dhItJDWWt4lFHg3ixIXfNc=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=iqCzK0sc7cecORzDmY3YWfT5hLlIEjoJA6u80pAONmYNHB6PUjlxR4C2E/mV4SFs1
-	 uGCKeFcrBFBXgC1TzTk+VbkD+jBjepV9clKS8SsfZXsZdAxqgR8WDVzvpzA6lb+FRd
-	 lPy/fD63GhNciaLjtIqflt+L5mOgzG6eGdBBb3NY+hFrmfbg9XeDPjURob9scBI1e6
-	 hiDfXXLcSYDu9Tij7TaJZztU4h+0ck5rfWRIJ7J71xcam9fjxpkqnwj1t5zwNtlMzX
-	 pid9Kj1LeyhzARMLaM2YazATJN4fa2WPd2evwiU2QDZQTXUlZEKvsx9ElsujCTllj8
-	 40H3fIPmMkD6g==
-Date: Tue, 03 Nov 2026 13:07:42 +0000
+	s=protonmail2; t=1793711277; x=1793970477;
+	bh=MYoRPDO2ldHCIxVRmX3/6hlZLkNTnG6TdvBQMsOgf4o=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=fLhOBE6AFg3XWS36/vKh6bMXv3GdufcKcBir46hWFdiMN051iR0bysnC1QRzvwWHd
+	 7YxWvFVLxdu62amRoAYorKShfKUd+DF/d+BMNm2m5cFdwmbIm7ri5br63e/F46HrUR
+	 CyspmqC7WgBZiHxi1Lus4oX2rPaK4dT1Rwl0ixbSvrw2P8aZ5VDDsbFzvRE6jc9m0X
+	 Su6c6owfYYdk609hsTsVUqWPuLDq2M3XN0XTcdxUVnsg02b7GHxXh30D5a62aXsSNx
+	 hDItWg89a9WBoTzstcs9C3tVJJEo0H2vsdv+NkSlgRqpU5hXfXUBrxExG8Dc21hAvf
+	 GXcGSmNzLJIww==
+Date: Tue, 03 Nov 2026 13:07:53 +0000
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
 From: Paolo Bertinetti <paolobertinetti200f4@proton.me>
 Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, Kan Liang <kan.liang@linux.intel.com>, Leo Yan <leo.yan@arm.com>, Francesco Nigro <nigro.fra@gmail.com>, Sumanth Korikkar <sumanthk@linux.ibm.com>, linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-Subject: [PATCH 0/2] perf: Fix PERF_EVENT_IOC_REFRESH for tracepoints and breakpoints
-Message-ID: <20261103130732.764081-1-paolobertinetti200f4@proton.me>
+Subject: [PATCH 2/2] perf/hw_breakpoint: Clear stop state in hw_breakpoint_add()
+Message-ID: <20261103130732.764081-3-paolobertinetti200f4@proton.me>
+In-Reply-To: <20261103130732.764081-1-paolobertinetti200f4@proton.me>
+References: <20261103130732.764081-1-paolobertinetti200f4@proton.me>
 Feedback-ID: 117280896:user:proton
-X-Pm-Message-ID: 2045d11603ba2f0177be2f8a7bfbb574cb29152f
+X-Pm-Message-ID: 23b129853125ff2a3bd4b098af01727aed75e499
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,59 +68,42 @@ Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 Since commit 18dbcbfabfff ("perf: Fix the POLL_HUP delivery breakage"),
-an event that reaches its PERF_EVENT_IOC_REFRESH limit is stopped with
-pmu->stop() and disabled. Re-arming it adds it back with PERF_EF_START,
-but perf_trace_add() and hw_breakpoint_add() never clear
-PERF_HES_STOPPED. Tracepoint, kprobe, uprobe and breakpoint events
-re-armed this way deliver only their first overflow. Francesco reported
-it with the "Event re-armed with PERF_EVENT_IOC_REFRESH" perf test,
-found through an async-profiler bug.
+__perf_event_overflow() stops the event with pmu->stop() and disables
+it when the PERF_EVENT_IOC_REFRESH limit is reached. When userspace
+re-arms the event with PERF_EVENT_IOC_REFRESH, the event is enabled
+again and pmu->add() is called with PERF_EF_START.
 
-These patches make both PMUs set the state from PERF_EF_START on every
-add, as perf_swevent_add() does. The pmu->stop() call stays, so the
-POLL_HUP fix of 18dbcbfabfff is kept.
+hw_breakpoint_add() sets PERF_HES_STOPPED when PERF_EF_START is
+missing, but never clears it. The flag set by pmu->stop() stays, and
+perf_bp_event() drops every later hit, so a breakpoint re-armed this
+way delivers only its first overflow.
 
-Leo's series [1] removes that pmu->stop() call instead, which also
-avoids this, and is still pending. Either way, add() with PERF_EF_START
-should start the event.
+Set the state from PERF_EF_START on every add, as perf_swevent_add()
+does.
 
-Tested in QEMU/KVM, x86_64, 4 vCPUs, v7.4-rc1 with PROVE_LOCKING:
+Fixes: 18dbcbfabfff ("perf: Fix the POLL_HUP delivery breakage")
+Assisted-by: LLM
+Signed-off-by: Paolo Bertinetti <paolobertinetti200f4@proton.me>
+Cc: stable@vger.kernel.org
+---
+ kernel/events/hw_breakpoint.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-- perf test "Event re-armed with PERF_EVENT_IOC_REFRESH": the tracepoint
-  case goes from FAILED (count 1, 1 overflow) to Ok (count 1000, 1000
-  POLL_HUP signals).
-
-- A small test that re-arms each event from its signal handler and
-  triggers it 200 times, overflows delivered:
-
-                 v7.4-rc1   + patch 1   + patch 2
-    tracepoint       1         200         200
-    kprobe           1         200         200
-    uprobe           1         200         200
-    breakpoint       1           1         200
-
-- The full perf test suite and tools/testing/selftests/perf_events give
-  the same results before and after, apart from the REFRESH test. Many
-  perf tests fail in my VM on both kernels, for setup reasons.
-
-- No lockdep or other warnings in dmesg.
-
-I can add kprobe, uprobe and breakpoint cases to the perf test if that
-helps.
-
-[1] https://lore.kernel.org/r/20260514-arm_cs_clean_perf_handle-v2-0-cbb29c=
-3b3661@arm.com/
-
-Paolo Bertinetti (2):
-  tracing/perf: Clear stop state in perf_trace_add()
-  perf/hw_breakpoint: Clear stop state in hw_breakpoint_add()
-
- kernel/events/hw_breakpoint.c   | 3 +--
- kernel/trace/trace_event_perf.c | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/kernel/events/hw_breakpoint.c b/kernel/events/hw_breakpoint.c
+index 789add0c185a..7a606213f33d 100644
+--- a/kernel/events/hw_breakpoint.c
++++ b/kernel/events/hw_breakpoint.c
+@@ -968,8 +968,7 @@ static int hw_breakpoint_event_init(struct perf_event *=
+bp)
+=20
+ static int hw_breakpoint_add(struct perf_event *bp, int flags)
+ {
+-=09if (!(flags & PERF_EF_START))
+-=09=09bp->hw.state =3D PERF_HES_STOPPED;
++=09bp->hw.state =3D (flags & PERF_EF_START) ? 0 : PERF_HES_STOPPED;
+=20
+ =09if (is_sampling_event(bp)) {
+ =09=09bp->hw.last_period =3D bp->hw.sample_period;
 --=20
 2.53.0
 
