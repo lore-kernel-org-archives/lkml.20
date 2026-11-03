@@ -1,54 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.125
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715299;
-	b=mhDW67D7FJHSfy8PKIqNRKYQCYoM6ybVv+3Yyb/DNv0udzNr5uaOdNjZpIfC1vcQxd+x
-	 4UAXO0kekPU45vAMmxNGo3lAH3oca2DwejIcMtwg8/rZyrIWMa/NbzdDYewfjbu5hy9pw
-	 HZbShxuyTmSRuxpo8c8K3z6lOLcqZvcSgWx6wO4hZ5sp9nCqqBcS3I1gXxXWkExzNh9VA
-	 qahKoNeBMZOR1S3d6sLdtPYPItEGdHKo9tcJCwyvBXDzXwC/NLvOJzrzIm69bfV3pT/UH
-	 FyzcWKvwWIiOG++9o1/oURw1YhFLAjNLT+pudvOtOSQwCrd+wTt7H1n3jWSguBXBQeA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715299;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hb7W8ZfcpcGuyitw8MKKejiETPNUSLAqWJjSCjJfVkc=;
-	b=jhFdQDhySMiq1v2Zz16VVDreNekFj4/Dax9NL2jTiZlWKL7UpX8Mn7cV7lIoqEGfVt95
-	 YEQtkIpgpyJiUMt0bWoCWQKcllom+4N5raqMAvFoHWYJdfg1G9NauxY36uGI4Ml3XHZbt
-	 7nWi/zKf2xEOVBpxz34DntdrTvb/4p3Xh8kAwf5lri5esiAESyIHLKrt8xVELko8lqL/w
-	 4P+upHx5MZX250oA8KyZrXtLPl5uxWSkxASqngjjoC4NutzzP3PdSE60yQx7Tu3strd91
-	 GMSqJGhMZ5qzGNVjZT/A+zjpAD1ylv7ZrXbExohefJzlKDREWZeYrjITPTyOsnOqcqQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UcPZd5lS;
-	arc=none smtp.remote-ip=91.218.175.125
-Received: from mta0.migadu.com (out-125.mta0.migadu.com [91.218.175.125])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.167.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793715339;
+	b=rYaaKdBWpnKHgnCRE8bp2yfFnC4PpAOLVXis3cNpYLgwg3Nv/Tm5PKkmNPnTHY5tcJAP
+	 8Try7RbquHwOCpNJ0Om8E7gb5QmRrKbsgAULSygOBv8UYwXruK4x1Le9/cA1HqptDcA4j
+	 osIsALJT6XjjcIW25HfpfNsSaP84l1ZkwOOlxDgR+mmf6Os/Wju9Jx6jIdXdZNpYSxJME
+	 tGL+rll8682E0a6eIUXieniescdc7YvOFYRFWyOipfj6gU0ITJZM1I+xO5K63q9hc3a09
+	 EbpIkyRAX+sxUz9I1lkXVEWX6nk5Nhp2Sbll8hwEhhzhB28CLRvuwSIMBXPCVX4eO2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715339;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=yDWpNrUsXpotQ6nNGJk4nYnh93lFCeEGbbdd70BhOpc=;
+	b=J4nLChC7U9NAWhS++Lo18RYV/0i2EFKtWYPFrJWW8izsYHz4ABzsGE1vNEa8TWt4Y3ZZ
+	 OZo5bQ2DBXQCwJkB5ryWYs+XkJTVkre07fV0Gigdck5y/SL93mGSAONxgIXQR9I7Phnw5
+	 GJkZx2Yr7DGGevg4n8G5mAC80Ie6Y6ci0KahffUHBThIJH4UnEapq1nTYSx2KMxYq+zR7
+	 uQou+6Fl+E64XoDnI10FGH5CTqDaALQnIQi+q8bv+pc/L4i8TuERm+tdT4U2di8TbvJoj
+	 W1NY8fMvBKnV/q1nSvkYmHW67xgR+i1+XSpUih7YRpj/EkYPI+bEKqUTLUluJlKUATQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hUOlkfG5;
+	arc=fail smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D66606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:14:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52D66606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068FA606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:15:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 068FA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UcPZd5lS
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nvhKmcMNrimN7vYoc4Ma8HJX/CYBPd9scQz2RhWk4Mw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793715296; v=1; x=1794320096;
- b=UcPZd5lSOH2HkMg9vQWvclxMn785uO1QN5M2dbzfTggqQwImEt/JXp6HONIkQWz+o22jyrJ0
- gKteo8ExmzjHHH4RRHmSfxpjLjQuoJiV/DrugXZhvNy1/DK+q1sYCAVoKOOdLpdo8EkGgjsDsIO
- wT3hMQMuzIOBWnOImfCf0ysA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ec54b8c6cd1a93a9;
-	Tue, 03 Nov 2026 14:14:55 +0000
-X-Mizu-Trace-ID: ec54b8c6cd1a93a9
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <77b8befb-e3dc-4a3f-ab30-b6c85bb90f94@linux.dev>
-Date: Tue, 3 Nov 2026 14:14:50 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hUOlkfG5
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bfa65c8617so2536367e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:15:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793715337; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a493+jL1rN3DxMXAlrlITYIPSd/DEhE8kIXprZlf2/ypKvlVwFCR4nua1G91Mw4mMg
+         LtjyebeizeFLa+HgnFqDLdJTeijeboOuLcPZSgLjePxPV0tjP/GQ1qWXF8ws5ozLNnFk
+         lem5OWVy0vldVWowvZccvC9eFux+Z06sTFIzINYZz8LZf+ojD9JLYyst4FO1w5sV/pw/
+         0AvKKsTq54M/90J9gTlzId8bLP1EP9kTG9Qm4dB7okjWNfiYzpWE3uYKxhcW6Nkz5yWz
+         QDF90McdLZ/zGcBtt7X4dxMB1Ko8Xv872N4NoP5+JaCz4lvLqzEcRm9fDKTMKBX0BxX4
+         bm9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=yDWpNrUsXpotQ6nNGJk4nYnh93lFCeEGbbdd70BhOpc=;
+        fh=1o68a2Ic52FWy9sQoPOa1PwkRiO0sqxxBwaKH6gcxL4=;
+        b=Xps9AZXWhChb1EgcVm30Tgpv6zXNuqcrGv0c5opcwpqujUA8nM+Os2NKO97gxgCzHF
+         NmZ7AKosq6/H6U6WyH/3q00+axuIouf9f0sj5gDgkM5uc6gpMwT7NJF0kE8LA92pA5IU
+         ibz/aadzIKu511HdnToua/1wmJd/5yCp4EASE5jHqUD5HY/8YWoQw00TBZUFfqDoRE9d
+         EyS2lVvwmsf03DSLjPu2EjrkAa1ImIQM7wS1I4USAQ+oMGmobGIcUknirsWUZVPjjk9x
+         WoSPQbos3MYVIz2awN7jyMfFaQ14Z0b+MoWPMe04PLVBXSiJDIC0khYEhhsvUQxoaFXN
+         ausw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793715337; x=1794320137; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yDWpNrUsXpotQ6nNGJk4nYnh93lFCeEGbbdd70BhOpc=;
+        b=hUOlkfG5WAMcs1RconWNpTny3UWvGBRJKYPQV6YB0NHk2a6fzbaDGT2sr2+zJg4h29
+         JVJ5K+cjpwamivKJIic/018tnkPjWwOVO8qxkzxZuT6FCpmYyIEprc64vIwx9FwxRBZM
+         ciBMVX3FB5b9syVFwH3aADqvk4k/+I0WLahTZkG51GFYrbPYy32g+7ked9ewIZkBJsAc
+         m6EQu6mOii+Ulm/shipEvCO0e27F00Jgpvix3FlBFTxBs85FG90sWB4014WevUtKKTvo
+         Qiypq3AVWk+DshEj6fYkakDsw+Y7a3jB9hLiYHue8PSw/uuIS9LVcILHghTxFym8HSDE
+         6VBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793715337; x=1794320137;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yDWpNrUsXpotQ6nNGJk4nYnh93lFCeEGbbdd70BhOpc=;
+        b=oCf/Rj4Ip/eT3eU687x4oO7Uct2WLhhVB/hKBOxcJYP+FNwtwCA9JDOBg8IrrXH9h6
+         tK0ZjeWGwdqfArESsE3T9Xra0oIlZRqUYEykQJDtfykHHoxF09eyhlw6ykndJ1E8GbFE
+         eph53bQuyAcCqirBHPOfMHLhULKphFMm4r7jqzX6YqHVctXbRe7tPbi2MLAV13DRuEXJ
+         OXL5Z50SvmKEQIv52WIbkq8Tef+v8ON416EnO6ZNlLgBY8EqL6Cu66Rb/Jd0jNafQuUP
+         C1S5MSghNm5R3SCNVcH6qzSRGHHh6c4FdKh/Os4hlv5Mw8QpToAKe0ol3BukdNicsi7E
+         IIfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNYVSO4x0mOXk9PcTUFvd1lYctoIS7KQLDRuuFDX7RCtLOJoRhW4GfD98wmwxQPp4yAppZP+s6zXlXsPI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+S3jM/qSuUs2HOaQU/SgPigyWcyyyTd2vqaFz/ZjzuKzDkpr+w
+	mtIDazro/MLc94x6jf4foB4lfGnNXd1ej+iH54TUZxXZcdDXQM8TYi/waYPaG+c8kTQYz05v8My
+	mH5N55nG/Pi8Brap7ePSW7zBhDVOAhKc=
+X-Gm-Gg: AYBFou0zowPnKfcR6mmy11LFBUvfSV2re1VKodt6KHLTeT8CZdVOFSON38i57wrlCxm
+	k2+nVoWk+fIv2yUsQGNg3yQD9rvmSReDEbncmw079VELWSHb10DnhuiBJwrwDlv42K8VKYQROC2
+	aRfcDVE6ftXq9DE71Moigo30jJRprEofC3OlqpU4/7niQAhOQCgYxgpIx9eX6nvXZCfot5ntAyB
+	jow1bx8ynlH8kFinmQokYuIN7d5JLfaC9FmGSXGFBnJeG3Ia+w+kLJjMORul3HEc3nZTPHw50XW
+	oOAyQmMe6I9fa5CP74Fqp3ISuz8czMVHN5/FieBiBiqTgTvU1SKQ7M1x99XZxM3sWVZroGi0RLY
+	34GW+AZx6y4Qxh5l3Ub6jvefxSTNYhPARQEJSlJVjmG2I/ZG81jLnEYt1C3geYty7ZzpwLsJ0NK
+	fxqxxHnbsPe7weJoH2ZKphxS4h6AXVxudsSFxfBtxiXNFjkiXVO2LmdUlInK037hSSYa94vqqBQ
+	e95+fcoR/VSzg10vfFlGQg=
+X-Received: by 2002:a05:6512:6689:10b0:5bf:db9e:7520 with SMTP id
+ 2adb3069b0e04-5bfdb9e7553mr2538316e87.25.1793715336819; Tue, 03 Nov 2026
+ 06:15:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,223 +105,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
- without FSRM
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Kiryl Shutsemau <kas@kernel.org>, bp@alien8.de, dave.hansen@linux.intel.com,
- dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
- mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org,
- hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
- kernel-team@meta.com
-References: <atCpTMcAALymqADw@thinkstation>
- <20261017192727.2760919-1-usama.arif@linux.dev>
- <atiKeB-76nOj-ztU@thinkstation>
- <CAHk-=wh+dyDPs2kp=KoUiCYdk2MBBqzTKYbrkAyOMV9Z1XNu0w@mail.gmail.com>
- <20261022094958.13aeb5c0@pumpkin>
- <5f6fa235-55bc-45c6-90a8-20f75152e9f2@linux.dev>
- <20261103083238.672cdfa5@pumpkin>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20261103083238.672cdfa5@pumpkin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it> <20261102-remoteproc_virtio_map-v2-8-26b300e01c62@valla.it>
+In-Reply-To: <20261102-remoteproc_virtio_map-v2-8-26b300e01c62@valla.it>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Tue, 3 Nov 2026 11:15:23 -0300
+X-Gm-Features: AclHuK8cFyqPPDbhURLrOci--cGby4Nti8tUDUPWT8TrjwRXBOSlhnxIc9j5uBc
+Message-ID: <CAMAsx6dogk20pTtpGaD_Ci2fam01UuUEe3KXDTH7UVjwRBRqnw@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 08/11] Documentation: remoteproc: expand virtio
+ support section
+To: francesco@valla.it
+Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
+	linux-remoteproc@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Sun, Nov 01, 2026 08:28 PM, Francesco Valla <francesco@valla.it> wrote:
+>
+Hi Francesco,
 
+I only have a few language nits:
 
-On 03/11/2026 09:32, David Laight wrote:
-> On Mon, 2 Nov 2026 23:03:39 +0000
-> Usama Arif <usama.arif@linux.dev> wrote:
-> 
->> On 22/10/2026 10:49, David Laight wrote:
->>> On Wed, 21 Oct 2026 08:18:25 -1000
->>> Linus Torvalds <torvalds@linux-foundation.org> wrote:
->>>   
->>>> On Tue, 20 Oct 2026 at 23:55, Kiryl Shutsemau <kas@kernel.org> wrote:  
->>>>>
->>>>> Moving MOVQ inside ALTERNATIVE_2 is ugly...    
->>>>
->>>> Yeah, maybe it would make sense to make that function be
->>>>
->>>>         movq %rdi, %rax
->>>>         movq %rdx, %rcx
->>>>         ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
->>>>         RET
->>>>
->>>> instead? No nop instructions at all, and both alternatives are two bytes.
->>>>
->>>> Then do any ERMS logic at the top of memcpy_orig, which now has the
->>>> registers ready for string instructions anyway.  
->>>
->>> Is it possibly to just patch "rep movsb; RET" over whatever gets generated
->>> for memcpy_orig (after the two register moves) ?
->>> Then there are neither nops nor a jmp.
->>>
->>> David
->>>   
->> Hi,
->>
->> Sorry for the late reply. I had taken time off for the past couple of weeks
->> and didnt have access to my work station.
->>
->> I implemented Davids suggestion and I think it looks good. The scalar body is
->> now part of __memcpy(), and FSRM replaces the existing 32-byte check with
->> "rep movsb; RET". Non-FSRM calls fall straight into scalar code, and FSRM
->> returns before any padding.
->>
->> I have retained the 2048-byte ERMS cutoff, since selecting REP from 32 bytes
->> regressed short copies in the Cooper Lake tests.
->>
->> I asked LLM to review it and it indicated a problem with ITS: returns are
->> patched before alternatives are copied, so the return decision uses the
->> replacement's source address. I align replacement storage outside the
->> copied range so ITS retains the return thunk and relocation preserves its
->> target. This adds no executed padding.
->>
->> Any thoughts on below? I will send it as a proper patch for review
->> if it looks acceptable.
->>
->>
->> From 9baffefb71c7223702c7bcd96d43b9a2828f3939 Mon Sep 17 00:00:00 2001
->> From: Usama Arif <usama.arif@linux.dev>
->> Date: Thu, 1 Oct 2026 14:15:12 -0700
->> Subject: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
->>  without FSRM
->>
->> Commit 68674f94ffc9 ("x86: don't use REP_GOOD or ERMS for small
->> memory copies") left ERMS CPUs without FSRM, including Cooper Lake and
->> Skylake, using scalar code for all out-of-line copies. Btrfs/zstd input
->> staging and output flushing accounted for about 34% of memcpy_orig()'s
->> sampled weight in Meta's x86 fleet profile.
->>
->> Use REP MOVSB from 2048 bytes on ERMS CPUs without FSRM, keeping scalar
->> copies below that threshold. FSRM continues to use REP for all sizes.
->>
->> Merge scalar code into __memcpy() and overlay its existing 32-byte check
->> with REP MOVSB and RET on FSRM, removing the non-FSRM entry jump. Copies
->> below 32 bytes bypass the ERMS gate. SHR11/JNZ fits one ten-byte NOP
->> without ERMS; the REP arm reloads the original count from RDX.
->>
->> With ITS configured, align replacement storage before its start label so
->> the raw FSRM return retains its thunk before relocation. The alignment
->> padding is outside the copied range.
->>
->> On Cooper Lake (boost disabled, capped at 1.401 GHz), plain-RET userspace
->> replicas with aligned warmed buffers and entry offset zero modulo 64
->> measured 4 KiB copies at 371.7 ns originally and 123.4 ns with this patch:
->> a 66.8% paired reduction across five process runs. A separate sweep using
->> REP from 32 bytes increased 32/64/128/256-byte times by
->> 114.9%/54.4%/66.1%/23.2%, respectively.
->>
->> Small-copy costs remain: a warmed aligned zero-byte copy at entry offset
->> 48 modulo 64 took a paired 0.75 ns more (+7.9%) than the original, in all
->> five runs. These microbenchmarks do not establish a kernel workload gain
->> or the best threshold across CPUs.
->>
->> Direct copy checks and memcpy KUnit passed with all four ERMS/FSRM
->> combinations and with ITS forced on; the copied return target was verified.
->>
->> Signed-off-by: Usama Arif <usama.arif@linux.dev>
->> ---
->>  arch/x86/lib/memcpy_64.S | 42 ++++++++++++++++++++++++++--------------
->>  1 file changed, 27 insertions(+), 15 deletions(-)
->>
->> diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
->> index 12a23fa7c44c5..407b226d4de2f 100644
->> --- a/arch/x86/lib/memcpy_64.S
->> +++ b/arch/x86/lib/memcpy_64.S
->> @@ -31,24 +31,27 @@
->>   * which the compiler could/should do much better anyway.
->>   */
->>  SYM_TYPED_FUNC_START(__memcpy)
->> -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
->> -
->>  	movq %rdi, %rax
->>  	movq %rdx, %rcx
->> -	rep movsb
->> -	RET
->> -SYM_FUNC_END(__memcpy)
->> -EXPORT_SYMBOL(__memcpy)
->> -
->> -SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
->> -SYM_PIC_ALIAS(memcpy)
->> -EXPORT_SYMBOL(memcpy)
->>  
->> -SYM_FUNC_START_LOCAL(memcpy_orig)
->> -	movq %rdi, %rax
->> +#ifdef CONFIG_MITIGATION_ITS
->> +	/*
->> +	 * Returns are patched before alternatives. Keep the replacement
->> +	 * return in the first half of a cache line so ITS retains its thunk
->> +	 * when the instruction is copied to its final address.
-> 
-> I'm not 100% sure what that is about, but does it mean that the cache line
-> alignment of the code here also matters?
+> +supplied by the remote processor should be marked as dynamically allocable,
 
-Not the alignment of __memcpy() itself, only that of the replacement in
-.altinstr_replacement.
+"allocable" -> "allocatable".
 
-On ITS affected CPUs, a RET in the lower 32 bytes of a 64-byte cache
-line needs mitigation, so apply_returns() leaves such sites as a jump to
-its_return_thunk, whose own RET is in the upper half, and turns the rest
-into a plain RET. It runs before apply_alternatives(), so for the RET in
-the FSRM replacement it decides from the replacement's address, not from
-where the code is copied to. A plain RET could then end up in the lower
-half of a line in __memcpy().
+> +try to allocate it using dma_alloc_coherent(), which will resort to allocate it
 
+"resort to" takes a gerund: "which will resort to allocating it".
 
-> 
->> +	 */
->> +	.pushsection .altinstr_replacement, "ax"
->> +	.balign 64
->> +	.popsection
->> +#endif
->> +	ALTERNATIVE __stringify(cmpq $0x20, %rdx; jb .Lhandle_tail), \
->> +		    __stringify(rep movsb; RET), X86_FEATURE_FSRM
->>  
->> -	cmpq $0x20, %rdx
->> -	jb .Lhandle_tail
->> +	/*
->> +	 * Prepared RCX is scratch for checking length >= 2048.
->> +	 * The 10-byte alternative fits a NOP without ERMS.
->> +	 */
->> +	ALTERNATIVE "", __stringify(shrq $11, %rcx; jnz .Lerms), X86_FEATURE_ERMS
-> 
-> Can you use %rdx here, preserving %rcx for the 'rep movsb'?
-> You might need to swap cx<=>dx in the rest of the function.
-> (I'm sure we could use #defines to give names to registers....)
+> +either from the first ``restricted-dma-pool`` region associated to the virtio
 
+"associated to" -> "associated with". The same wording appears several
+times in the patch (e.g. "associated to the virtio device's parent"), so
+please fix all of them.
 
-Yeah thats a good idea! It does make the code change a lot bigger, but its
-easy to review as its just swapping rdx to rcx. If there arent any major objections
-to this version, I will send it as an official patch tomorrow with the swap you
-suggested plus a bit more cleanup on the commit message and comments.
-
-
-Thanks for the review!
-Usama
-
-> 
-> David
-> 
->>  	/*
->>  	 * We check whether memory false dependence could occur,
->> @@ -169,5 +172,14 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
->>  
->>  .Lend:
->>  	RET
->> -SYM_FUNC_END(memcpy_orig)
->>  
->> +.Lerms:
->> +	movq %rdx, %rcx
->> +	rep movsb
->> +	RET
->> +SYM_FUNC_END(__memcpy)
->> +EXPORT_SYMBOL(__memcpy)
->> +
->> +SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
->> +SYM_PIC_ALIAS(memcpy)
->> +EXPORT_SYMBOL(memcpy)
-> 
-
+Thanks,
+Daniel
