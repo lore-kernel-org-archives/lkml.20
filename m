@@ -1,67 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711179;
-	b=XBPMPNQ0hOl6ZEvM2mTI8vqXCj0QQfNgQScesI6NGFax5Rqya+46QP0zpkEvfyxIOJJs
-	 xU29PIvluEba8O11PZtNf8HIvaOFdHsbAhnJlmNYulL0EZ3YbFxfDNxFXm69DSA74gzxH
-	 ByEbDQ5IU0qtz2zziSKTzWPgY4Rsiw6CV6uomihDtgjdXANvUCjZ/EJO73nKZrU/m26Op
-	 GuKmYb241Vish73OhPJB471cDdHVXa0lU+0MDL137jo8j7OsGwf9QXB8045901ORLX4mt
-	 jXZLIA2v3/3Tq/Vq0UXUnowwPEpoHkVWSoHK5ruVZxGdRJUG6LMgkNNvatppsrdjzPg==
+	t=1793711180;
+	b=HzehEQQMh2tqVMKneRKHR47YcvGgE2a7ix7o/CfVmMFX/nFkuJzyoHnm7tUFPfp3osfX
+	 1bebGy/NLHJEHce4Af2Rvk2YrYcC9OfYUPChGG5fknw3R7leObb8doXrF45BBddAAsOeR
+	 ZPfc65NiQ7sUDCSM0W82cNyojwwG0lwuBOM0BzPIo8VB70zx8Hd0yyEpRdEz6kU/PzoTP
+	 uwA6rrD+uXGjTGcr73YzisFH6vFm1rfPm/n9KuK7hUc1SzCF/2dru7+XghTEKLaf2Ucpp
+	 4ehzOxKaaZBLXuEH12/uXFQso9d9OriHFuM6JVcUII1hZp+HnMr0omIMEETXxa5x9PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711179;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711180;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
 	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
-	bh=tWxPJzZwEoBsVUWyHIoViN5NlrycE+BNkSoICL6D6cY=;
-	b=4TtNTmDm3CdbCgliB8v3qJpOLQy0fDku4m1jmYd2ADd3DX2Cj0qT8Gg6lNe97ZlWbUhU
-	 zrksXdtuXah0P3U59N0U7mBCVM4seak/tiZNN4oCTEv8MKu3EEsrKP9714TwRdi9Qpzuy
-	 8EyV2+8ksioYDFd7CjOiX/bL1oU+gXbAITRwlfkmq17Wxotk/ZCirO3PxdoFmMQxWyAOb
-	 b+wLbQXxhuZXvzoMuL3ZqIMkUjJn8cEqpQ3zGxFqm3SLcLJWQqrQ5OE2xOoTI2uOjuDPY
-	 jhDdHqf5XT1vyxsv1gGde/HDGkMM+ZWtC2usuZ61ZeFqyZZKXfkOHWDnvZsJ7V40H9Q==
+	bh=hKXq0WGbyVJ4/tDG4Vk1teTQwOi0V+tMcOilLKOGtJQ=;
+	b=Wxtr1mZQoRHfZRut+VtN0xiX7w03FuIadCLlCfVzNR94DUS6d0oD3cg+xOIusAMrvo9B
+	 B0c8nMcrvyp58umtr0bxgg4FA7IkPLKUo75q1stLLIM2GtOiTaSSK9KQEwYqeyC3nqhLl
+	 AWMP1nYGOkPlDrr29tjjRrJqrxpI2i202vE4O+Ti8bZ9sZ92F8b4WzGichSozM126fXgv
+	 pUct/VcQKoUDG810mpy7cJWQahuhaJMuQhAFEeLd0H8IV3ULducCvpAz4e9Aq4l4TbgN4
+	 6JZVs7/rTYX3fFm5nnON3+IC1lzdgeE9ZbjGdjur9p0cBgsg1qCVTOOzgII4sJrwZWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1IFRfsM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7HD2XKi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D17D606A327;
-	Tue,  3 Nov 2026 13:06:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BF3606D811;
+	Tue,  3 Nov 2026 13:06:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1IFRfsM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 298B21F00A02;
-	Tue,  3 Nov 2026 13:06:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7HD2XKi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE561F00A1C;
+	Tue,  3 Nov 2026 13:06:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793711179;
-	bh=tWxPJzZwEoBsVUWyHIoViN5NlrycE+BNkSoICL6D6cY=;
+	s=k20260515; t=1793711180;
+	bh=hKXq0WGbyVJ4/tDG4Vk1teTQwOi0V+tMcOilLKOGtJQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G1IFRfsMsfNhwvUPIp3LCRqhl4kH/da+XzUX45vDSJ0J0prTPqYKv2B2oSD9Tc5aN
-	 o9B0atx6oVZLwSdoEl65Ec6NdGRB3Vg1j5Q8MvieJR2BIY3NQ0KSlwizrEX5ClSVdz
-	 bjZJqTLNIVAJuhKlVW+70aQZBXK8cmeVnj6FG9H8KsOIyYX+k33fSbyG5asVexm+K+
-	 WFE+gjZmXeMHygR2ULEOapK3S3ZT/eDFG0hgKhE7Y0tuSANS5/1WJOC75eebzHBUbY
-	 bbRyfpW0PAQ6mJ59O5iMKwGYeQ8TI2eliUM9OCayKHUiiyk9elWlUVZ9CcpBvK+3IN
-	 pzjtyoPZOlKjQ==
+	b=m7HD2XKidnRAsWZ6QsB9Qe5Pzdj2ZaJ6LQDj0sXIOyufw+tRPxGkLo575tesGXNbn
+	 EtTHZpd9E9zJvxm5HsKRJi18hN/taHyBHFete6Qv5a5vSPSknE1mM3ND5aelaYLk8k
+	 g6XCQTwmBM0Bji2+PmZd5cpHZ8eLZL2TtPt5TN4ctnG4Uee2e8rGws4sqmF93vVtT1
+	 H11kF8HDe3f/5ujuTxJK6tjIwW9+tc76/HWTdiysakmwUOyYqtbyP/yirGItlRQKan
+	 IM5NFYapPKOrUc9uOKSkiYSp/xA1EadjEt55JxsuginwdP88tbPv865YsIbKryaD04
+	 w3DGguffkvEAw==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
 	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <maz@kernel.org>)
-	id 1xOEDQ-0000000ATWs-3vOV;
-	Tue, 03 Nov 2026 13:06:17 +0000
+	id 1xOEDS-0000000ATWs-3C5P;
+	Tue, 03 Nov 2026 13:06:18 +0000
 From: Marc Zyngier <maz@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Colton Lewis <coltonlewis@google.com>
-Cc: Radu Rendec <radu@rendec.net>,
-	Oliver Upton <oupton@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
+To: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
 	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Raghavendra Rao Ananta <rananta@google.com>
-Subject: Re: [PATCH v2] irqchip/gic-v4: Use a separate lockdep class for vPE doorbell IRQs
-Date: Tue,  3 Nov 2026 13:05:28 +0000
-Message-ID: <179371111254.2844725.1319552424303810824.b4-ty@b4>
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: arm64: Ensure TLBs and I-cache are private to each vCPU in pKVM
+Date: Tue,  3 Nov 2026 13:05:35 +0000
+Message-ID: <179371111277.2844725.10385477365574044594.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261027180610.2840837-1-coltonlewis@google.com>
-References: <20261027180610.2840837-1-coltonlewis@google.com>
+In-Reply-To: <20261020074311.1873316-1-fuad.tabba@linux.dev>
+References: <20261020074311.1873316-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,24 +80,24 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: tglx@kernel.org, coltonlewis@google.com, radu@rendec.net, oupton@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, rananta@google.com
+X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, vdonnefort@google.com, qperret@google.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, 27 Oct 2026 18:06:09 +0000, Colton Lewis wrote:
-> By default, init_desc() assigns the shared irq_desc_lock_class lockdep
-> key to desc->lock for every struct irq_desc. Device drivers that
-> register an IRQ affinity notifier establish a lock dependency chain of
-> &irq_desc_lock_class --> &pool->lock --> &p->pi_lock --> &rq->__lock
-> when irq_set_affinity_locked() calls schedule_work() while holding
-> desc->lock.
+On Tue, 20 Oct 2026 08:43:11 +0100, Fuad Tabba wrote:
+> All vCPUs of a VM share its VMID, so KVM flushes a physical CPU's TLBs
+> and I-cache for the VM whenever a different vCPU of that VM is loaded
+> there. pKVM guests, protected or not, run on the hypervisor's stage-2
+> and VMID, and the host doesn't flush for them. Nothing at EL2 flushes
+> instead, so a vCPU can hit TLB and I-cache entries that another vCPU of
+> the same VM left on that CPU.
 > 
 > [...]
 
 Applied to fixes, thanks!
 
-[1/1] irqchip/gic-v4: Use a separate lockdep class for vPE doorbell IRQs
-      commit: 7100185bdc1162eb2eca1dd20a036314e27f1561
+[1/1] KVM: arm64: Ensure TLBs and I-cache are private to each vCPU in pKVM
+      commit: cadcd8d70f331044d12aa6a9644f8253cd2bf29a
 
 Cheers,
 
