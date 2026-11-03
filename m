@@ -1,59 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.203
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729970;
-	b=rLTejD1q9KHWdkm+Ph2ZF3A6Hqyp16jZyToI5JMKfB4ljVePpU8RO2gi0faSbUI407tZ
-	 XCD+APoBg7aet3GTTHdauxPtiV20vxml7TGTuZ5VFeDvQQSFb/157H8EajVcwSyfBHjHI
-	 htM0APUBF+vSikphBl4c0b9JdSt6EO5dZKr6bODd5mqbMB/s2+XI1Qo9yZt7nxSw8+vw2
-	 RQhwKL4CnjxODLErwdRRF6RAZu2zpXH+HenBya8SEfGm2KX9danPUioE/a6FAnnyb7a4Q
-	 dj7XzxsHsQ0SSQSRcC8hxRe7jnNYS/S5jAaqMiWmm4XcHw36xO1+Rh1YoZTDohZ/eQQ==
+	t=1793729965;
+	b=QiHiwsIqvrvL3EwAXdElFNhK0II+QS6pvewtw91QWXjY85pc+WM+9qN4PINiQha5thTO
+	 t3dypMRmmAfkznXFrc0GId/7NgJeAHsz41OtHNW3GpNp3YsFztU3L/XFOLtCSteOWQGFv
+	 Hngrm0SqZ5Rp9vI28HbXXdEtPL78jCGWAYh2hv1amHknpvYKdo6+06Z+okICFrmAXrRTx
+	 DUFvvgXqBrLy3mjdYqjATruCuGLF0v7RJ+5WfwDwIxZGQBW683dh8HkGlx0wVEAfOeIXi
+	 z+RDD6hqTsCTev0dTB7blkcDSSlVQbpjMQJKRwtgO0fb0WBP/ss/CW/cN4//obqrsvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729970;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FYHOxuzquXBIUkTOvswFznqwg+VfrAF2mXc+DGRaufk=;
-	b=yetiW7oX9MW8SkGre5/3bGswxJm77FehgtK1mOtrwkKphRg4R9sqIFPsNrKuMnaVCFn9
-	 yY6/QuWkCnQmddlYnIZ230+XY5kWvf+xURDLLkfhQgFxyjo6gOFMS2kKvytaPg+39TCdm
-	 XAUTAW5OLOxxByChK6BLydkynZzVGDYAveGzRIj0+TVHhRfdOJYPVeWYRTg1vKlwx3MjH
-	 qp84GJpvC3JC499WpkZjybt1vHFLxSd5lPHHX1MfmHIZ+O2gMo72f0KfG247TC49T0vm2
-	 n7QKbRG0PZMJ8kdFKVDRJhJ8OqpHis0sPs3bSz00XP2NOhLCrkvhnQzYdPkvXvO5QBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729965;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cy5NVa4zy9qS6Mga9ltUsUEtCniHJojXVPr9zJunu6w=;
+	b=Xmfpo2c9d0Ho3bZ83t+tZ2prbT3u9FbhGuIUp2r2j/KyK297HGxDOnWpz+mvO2oiYAfw
+	 QWL3Gd63wlUkhXthpp2xpKwHoAiAYkGmMrUVzTsznEkhYgeK7UJBgHbWi4HugbvbpSvIz
+	 L6U6WcsMnXvl5Ygmtr75CQU0BG1/mgpyGyLDhHxT/ZLaTdEDyJ6zd5TNrNzalQZKGqH9o
+	 +w94Vd/13BYOZ2CKcuEP3hXsnsSETk3+l4aWLjmeOX0CDA/ZMSZQk4CfOuoSnj/4DuxMb
+	 vyqrz09slX2kVupwCBhPVzd89JKM8BYLaiodjlg6b9KjAX+B41wR8sfdiGPBiNtYwYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bt1+zkKF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wG6CV3Gj;
+	arc=none smtp.remote-ip=91.218.175.203
+Received: from mta0.migadu.com (out-203.mta0.migadu.com [91.218.175.203])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50D16082BCE
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C4C606EE97
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04C4C606EE97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bt1+zkKF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245421F00A1C;
-	Tue,  3 Nov 2026 18:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793729969;
-	bh=FYHOxuzquXBIUkTOvswFznqwg+VfrAF2mXc+DGRaufk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bt1+zkKFo0p/VYFtoaUpCeVO3q5Cot/MAaSoDdO3JiIxqdBgddjfqGHVdU99f1yWj
-	 RsT6XXcuLwdpqT7Qab6KbC+RyTnGd06cSobRJaWbAoKxvdNKnkWvxmFMjQCOqumBl8
-	 takgjwM5VsjAfThX6toPDwysqGPdMju8o34WUTRroShJvepb9fCACdAZdXesrVMKJE
-	 0zFf5NU8SdZRixP7e04hwd7Ic/5kKoelEmkDaAuxulY3md1Z3X9wnC/JaDAjGz1Mhx
-	 5bVn2I1v8p5m/7t2COrI4myiOIdk36kvbkiHLIcGlK31qI5uR8RK+4eW7NOuA83TUs
-	 uroXbiBov88PQ==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Samiullah Khawaja <skhawaja@google.com>
-Cc: kexec@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wG6CV3Gj
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=q/ovGyzi7R6zckhCMNiZ94Ym7wcqVfK/WB2DmfreLvE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793729962; v=1; x=1794334762;
+ b=wG6CV3GjvIJcnzS8uuv6N0bGjfTxLRFRQU7Bm7+tTALamOvLkvRQX5O2Ao75S25YdPf+butm
+ NFU+j4fHQYBhxOus7INUPkcqkAQRbl2Tklzr6Qr12le4YBlRGkaGnwlRJAwDlHFJXWehEIM79kh
+ l6lhRrAT7hnl+9ByiUPhSAVE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a72f377556df3c9b;
+	Tue, 03 Nov 2026 18:19:21 +0000
+X-Mizu-Trace-ID: a72f377556df3c9b
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	shuah@kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 1/2] liveupdate: luo_file: allow keeping private_data from retrieve until finish
-Date: Tue,  3 Nov 2026 19:19:13 +0100
-Message-ID: <20261103181916.2462825-2-pratyush@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-In-Reply-To: <20261103181916.2462825-1-pratyush@kernel.org>
-References: <20261103181916.2462825-1-pratyush@kernel.org>
+	linux-kselftest@vger.kernel.org,
+	jose.marchesi@oracle.com,
+	david.faust@oss.qualcomm.com,
+	Vineet Gupta <vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v4 8/8] selftests/bpf: cast explicitly in the arena subprog and callback faults
+Date: Tue,  3 Nov 2026 10:18:16 -0800
+Message-ID: <20261103181816.254686-9-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103181816.254686-1-vineet.gupta@linux.dev>
+References: <20261103181816.254686-1-vineet.gupta@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,90 +84,115 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+Stream tests fail with BPF_GCC, e.g.
 
-The private_data field of struct liveupdate_file_op_args lets file
-handlers keep runtime state that is not preserved. It is set by
-.preserve() and passed to the later outgoing callbacks, up to
-.unpreserve(). But in the new kernel, nothing set by .retrieve() is
-kept, and .can_finish() and .finish() always get a NULL private_data.
+  test_stream_arena_fault_address:FAIL:stream__open_and_load unexpected error: -13
 
-Handlers might need to keep runtime state from retrieve until finish.
-For example, memfd will need to remember the folios it holds on to
-until finish so it can release them there.
+They call stream__open_and_load(), which loads every program in the object,
+and two of those do not verify:
 
-Save the private_data set by a successful .retrieve() in the luo_file,
-and pass it to .can_finish() and .finish(). The handler must free it in
-.finish().
+  #481/11 stream_success/stream_arena_subprog_fault:FAIL
+  #481/12 stream_success/stream_arena_callback_fault:FAIL
 
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Both dereference an arena pointer and leave the cast to the compiler:
+
+  int __arena *addr = (int __arena *)0xdeadbeef;
+  *addr = 1;
+
+Without arena support __arena is only btf_type_tag("arena"), so no
+addr_space_cast is emitted and the store is to a scalar, which the
+verifier rejects. GCC splits it into byte stores, 0xdeadbeef not
+being aligned:
+
+  r2=3735928559 ll
+  *(u8*)(r2+0)=1            <- plain store, no cast
+
+Their siblings in the same file do not rely on the compiler; they use
+bpf_addr_space_cast(), which emits the instruction byte by byte and
+works anywhere. Do the same here.
+
+The address space has to come off the local as well. Left on, a
+compiler that supports arenas casts a second time for the
+dereference, on a pointer the explicit cast has already converted:
+
+  r2 = addr_space_cast(r2, 0, 1)
+  r3 = addr_space_cast(r2, 0, 1)
+  *(u32*)(r3+0)=1
+
+With it off, GCC with and without arena support and clang all emit the
+same thing, which is what the test wants:
+
+  r2 = addr_space_cast(r2, 0, 1)
+  *(u32*)(r2+0)=1
+
+What these two assert is the fault report, not how the pointer was
+produced, so nothing they were testing is lost.
+
+Measured on bpf-next with a stock bpf-gcc, test_progs before and
+after. Every test that loads this object recovers, not just the arena
+ones:
+
+  stream_arena_fault_address                   FAIL -> OK
+  stream_fd                                    FAIL -> OK
+  stream_fd/blocking                           FAIL -> OK
+  stream_fd/edge                               FAIL -> OK
+  stream_fd/empty                              FAIL -> OK
+  stream_fd/hup                                FAIL -> OK
+  stream_fd/nmi_epoll                          FAIL -> OK
+  stream_fd/nonblock                           FAIL -> OK
+  stream_fd/open                               FAIL -> OK
+  stream_oversize                              FAIL -> OK
+  stream_partial_read                          FAIL -> OK
+  stream_success                               FAIL -> OK
+  stream_success/stream_arena_callback_fault   FAIL -> OK
+  stream_success/stream_arena_subprog_fault    FAIL -> OK
+  stream_syscall                               FAIL -> OK
+
+and the subtests of the object that failed to load appear for the
+first time:
+
+  stream_arena_fault_address/read_fault             -> OK
+  stream_arena_fault_address/write_fault            -> OK
+  stream_arena_fault_address/xchg_fault             -> OK
+  stream_arena_fault_address/cmpxchg_fault          -> OK
+  stream_arena_fault_address/load_acquire_fault     -> OK
+
+Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
- include/linux/liveupdate.h   |  8 +++++---
- kernel/liveupdate/luo_file.c | 11 ++++++++---
- 2 files changed, 13 insertions(+), 6 deletions(-)
+v3 -> v4: was 6/8. No longer drops #include <bpf_arena_common.h>,
+which the arena_base() patch now needs in this file.
 
-diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
-index 63ea5417de849..21caff8a98a7e 100644
---- a/include/linux/liveupdate.h
-+++ b/include/linux/liveupdate.h
-@@ -36,9 +36,11 @@ struct file;
-  * @serialized_data:  The opaque u64 handle, preserve/prepare/freeze may update
-  *                    this field.
-  * @private_data:     Private data for the file used to hold runtime state that
-- *                    is not preserved. Set by the handler's .preserve()
-- *                    callback, and must be freed in the handler's
-- *                    .unpreserve() callback.
-+ *                    is not preserved. For outgoing, set by the handler's
-+ *                    .preserve() callback, and must be freed in the handler's
-+ *                    .unpreserve() callback. For incoming, set by the handler's
-+ *                    .retrieve() callback on success, and must be freed in the
-+ *                    handler's .finish() callback.
-  *
-  * This structure bundles all parameters for the file operation callbacks.
-  * The 'data' and 'file' fields are used for both input and output.
-diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
-index c39f96961a85b..ca4b685d6e1ce 100644
---- a/kernel/liveupdate/luo_file.c
-+++ b/kernel/liveupdate/luo_file.c
-@@ -130,9 +130,11 @@ static DEFINE_XARRAY(luo_preserved_files);
-  *                 .retrieve(), and .finish() callbacks, allowing it to track
-  *                 and update its serialized state across phases.
-  * @private_data:  Pointer to the private data for the file used to hold runtime
-- *                 state that is not preserved. Set by the handler's .preserve()
-- *                 callback, and must be freed in the handler's .unpreserve()
-- *                 callback.
-+ *                 state that is not preserved. For outgoing, set by the
-+ *                 handler's .preserve() callback, and must be freed in the
-+ *                 handler's .unpreserve() callback. For incoming, set by the
-+ *                 handler's .retrieve() callback, and must be freed in the
-+ *                 handler's .finish() callback.
-  * @retrieve_status: Status code indicating whether a user/kernel in the new kernel has
-  *                 successfully called retrieve() on this file. This prevents
-  *                 multiple retrieval attempts. A value of 0 means a retrieve()
-@@ -596,6 +598,7 @@ int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
- 	}
+ tools/testing/selftests/bpf/progs/stream.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/progs/stream.c b/tools/testing/selftests/bpf/progs/stream.c
+index b4d88d0e01ad..8c49a130150b 100644
+--- a/tools/testing/selftests/bpf/progs/stream.c
++++ b/tools/testing/selftests/bpf/progs/stream.c
+@@ -341,9 +341,10 @@ int stream_arena_cmpxchg_fault(void *ctx)
  
- 	luo_file->file = args.file;
-+	luo_file->private_data = args.private_data;
- 	/* Get reference so we can keep this file in LUO until finish */
- 	get_file(luo_file->file);
+ static __noinline void subprog(void)
+ {
+-	int __arena *addr = (int __arena *)0xdeadbeef;
++	int *addr = (int *)0xdeadbeef;
  
-@@ -622,6 +625,7 @@ static int luo_file_can_finish_one(struct luo_file_set *file_set,
- 		args.handler = luo_file->fh;
- 		args.file = luo_file->file;
- 		args.serialized_data = luo_file->serialized_data;
-+		args.private_data = luo_file->private_data;
- 		args.retrieve_status = luo_file->retrieve_status;
- 		can_finish = luo_file->fh->ops->can_finish(&args);
- 	}
-@@ -639,6 +643,7 @@ static void luo_file_finish_one(struct luo_file_set *file_set,
- 	args.handler = luo_file->fh;
- 	args.file = luo_file->file;
- 	args.serialized_data = luo_file->serialized_data;
-+	args.private_data = luo_file->private_data;
- 	args.retrieve_status = luo_file->retrieve_status;
+ 	arena_ptr = &arena;
++	bpf_addr_space_cast(addr, 0, 1);
+ 	*addr = 1;
+ }
  
- 	luo_file->fh->ops->finish(&args);
+@@ -364,9 +365,10 @@ int stream_arena_subprog_fault(void *ctx)
+ 
+ static __noinline int timer_cb(void *map, int *key, struct bpf_timer *timer)
+ {
+-	int __arena *addr = (int __arena *)0xdeadbeef;
++	int *addr = (int *)0xdeadbeef;
+ 
+ 	arena_ptr = &arena;
++	bpf_addr_space_cast(addr, 0, 1);
+ 	*addr = 1;
+ 	return 0;
+ }
 -- 
-2.56.0.385.gac671c819a-goog
+2.53.0-Meta
 
