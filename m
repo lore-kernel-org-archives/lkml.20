@@ -1,95 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793667459;
-	b=f71fO3KQpU6whvzGw/50S+QX/5aJVq6T58IladlU3bACIRSwqMrKYPilWAGxKTq32Q4I
-	 CWUMAFiqR8ey3xox13jFT8hKR/8RvTERQ/BROIZFuboIN/PeuG6ONJSsM/gU/4rwcFp8j
-	 x9gi/1B5hnd8VkBos4vn5bNem+qSLswJQXupD0eVHFS8zKkotgSkMMxJhCb5W1lgmOh+h
-	 EXPGqlFUB6OVncTM176BXlTITjBZDxvT7SPKa0ZFiRbYQnH5bMfohmSJzAeOwwPuvTMTk
-	 7Xnb6WzUJ1fMjS2SxyU64Ro8X/VkloJOeCzbCFmKJh1I2dUO2EREBA+ObUxZ1DCW+2w==
+	t=1793667501;
+	b=Xkm5RIreG4D4DQC+TlaVWIaFUNL18AWBDQyfWN+6086g6ufc0F5ic/am+DXtTKA7MdoS
+	 xu0CFrUqZZepBM6I3Q0gbCZnEiW4KKMHrEGfkpGTgA2/LGN8Rqi3I0trirVl4/DqsRMGf
+	 GASFHj3iK93UOraG87d7C4pe+Dx5+HAd6EZd1uezF5Ci/VXmcPMR13zFL1lQ7Bx4Kz461
+	 sgFCHwIbCcad6I8VBpRJtoDexfyb8KdKHHfgMD3Wpn9bTRlx6Q1/GZchqFVijWXPICNnf
+	 H1GUgHqduYTlh2yhte4jE7hW4ZGtRN+9qlYn8KAI6cp8MbMjlDx3Vba04Y9rTGSRUvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667459;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+2UKtwt9x18VdYCAR8wQw2Q9Kvi9rO1UD6jFCQWD72A=;
-	b=puNN5hdIoui7h4KUQFvAGjA8/gnNVRoFOa1l0aGW5V8HhpxAlfNF7lD0VHt5XXum3PX7
-	 M4ymhs7gCAxRmC9fxpHl0bknMgvuLi573nh8PNsQJxLbES6kyLP5o9AfMOOgu0U+ET9P8
-	 BS9rIgOpiQr1T5jC3SD4Ya7zV0EugW6+yoGRstorMBT3G/1S9C9D47cEzWuGElAEqY7f5
-	 lvClSXumn6ol9kX3yWDSuTmL8zGTNuHbPJxPkhMWI7vmXv8RDrNdCKC9SX0mgHXHuhKQN
-	 8kJSGwCfhF3+CxtrzqLR7lIwjWpmNyDeIMqjKdOTetCw1H0r4eq8cY0VtQib8UMvmAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667501;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=sIYbSw3W8nAa477Tus4X1jVHWb07BT37U/Yy9DhTMvo=;
+	b=Xh/nO3rj8RJDDFcnylrYnJEqrjNYeQCcOSOrMRIjCXOds2epWWA8mYaETBaegeQnhjp9
+	 YkBTXQFkcSjmorHlp4eRWVL5UkTRXl/ggwpsODcbEaz3fBnOVe9kjP4bUUBNVEbsqwNS7
+	 yxbbW+AK4h81yyrJ17bhZ8AWQwVHAS4Ili9UdIZ6tBhNEdNUlENiCDbXPHqxmcKcWXrnb
+	 tBqK1XyBJh3611tL4rgrOKEBzjIudFyKhL81e0PucSHJ3h7IDTmOPimTnH5UEZwGkV7QB
+	 jGWUsSW19nrV8qQ40AHbb+nJZCFZGYJpBPIx4p/Kd2LZBL4GUAy3DnmuPgTv7KrFoLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XsjO+6aX;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ALARzZqi;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C276C606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:57:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C276C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D88E606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:58:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D88E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XsjO+6aX
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso22186235ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:57:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793667458; x=1794272258; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+2UKtwt9x18VdYCAR8wQw2Q9Kvi9rO1UD6jFCQWD72A=;
-        b=XsjO+6aXkaIaFVChcZh88jLO5eIUKPLFIacVr+396eDBXm8EUjvI8v5UG1G1j9Xqg+
-         B46l6ECyTDjY2Icx0PqjmIdSBZRCDTw5MfmNZfIUjBf3GTpODMnH3vbQFObHDa1TmX7f
-         rMYldfyvF1fyWJZ26l7gxmL7G5TGuNI8XZK4/4DsjaTOIO7UFpy1c8RpXeiku5WwPiuE
-         WsVjSU8LnXzAdP1ZHLf9YgD1mHCAUE7g+AfdFhUoqkVZNOvLk5EuCxtEMgeORxQN8Hjs
-         Ov3uawyyjtWAFE3E2YIghd6fp6vLoETL1M/Hkps8bxfgoezKfa/Ljnq+rPEnMfddcnfw
-         HAvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793667458; x=1794272258;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+2UKtwt9x18VdYCAR8wQw2Q9Kvi9rO1UD6jFCQWD72A=;
-        b=xKD4Ue+Bz0QBwr8j2mo+3v5x4mix4FRzlqlrAZZa+UiggX6ioLv3qbst8CRbO59/jd
-         Nz3DK2g1FFVUlhR/isdNh6UcL0p2c46bbxRbh69vyeIkuakihLg/eXJP5EtC2cFSK50a
-         UHmI7flTJVyxvzSNppsNDAmJZVWEHplxc1iZFw1vybUNQuLl2PIwMjhuqRhVq9gERF6U
-         fClP9tQo45vld2PU9c2Lt4Nmkdzhs/25cwjnaluoRM+awnJrhzsMf9VrycuskHMXrzFO
-         8lVlpIDCM5NoWovA9/GjYp/JNQPV9ZkRcJj8GcQ0mA0apUpKLl0iOGmMbCDJz7l3w+Ec
-         Pcvg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5YSKU1mOUsBeENq6WSsveOZ5+rR1fgHARck816Vy3ZBrpfGUEEbEYqNeLfHQaurL5hcAGawscC4hyvAo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9B+hlYdLi15o39aw+BND14uNeDKFSb1cTe20HTXfTXUNVQR4mM
-	z/A8JmtTbwSBlhV+gJJYVc8te69PeRWp/2M/qPAouriB23YK7XQ97nLOsAQ0wLkj
-X-Gm-Gg: AYBFou1hMRiCbwE7HwaGPwXflYaMQfOCmJPoQhshTjmpawMyKaiR5ooTD/XXx1An39j
-	pdw4h1ao8fxCJ97St2tK+ZdqOMee7W2C8ZpcAEKPOUH6c93yS5RjL0BVanFy1EETHqwgBxt0oYA
-	mNPr+Ldyexf4CmZkjK2Cw2hlj4AsFRfqKw9Oj/LiaFE8EOgwMaEF3N2iuOiEbRFljyAaV06aP0z
-	G8S4IZKa9gLYuQRNXGoS7HczYYtkOwkM6eFtKiCYso7vWBPMDz7fXz5qzYVqQUMbJbs0FszAv3D
-	dVBmeTiu1QchQn6NH7e6MN0O7F9yotguVCjrPZgYHkj3jA+ew0JzzmwgO8cfgxQ/veM6671RYDF
-	nnihwugTooAHIf7cOzCXDRfIj1EUveYBhfwq0xdT99bU/fQLftT02/Lt5mHctHLL34hsi9lWL7I
-	dAHp+wKIK1QQaNYOmhcAi3MY//5elAA47NUnp70sILsN77XgBGnsQB4ZTsef3CtyagDqN014NdH
-	IgT/chrDFWlMVvK43hcLdqIH4a/Q1E7EyiEvmi2jHYWGuZ7UCnHyWEPCoA8j0gFh3VmhTrYmuiy
-	eXoKkOkqpnFKo7/K6RoEMy173s59B8OyzCSiohpj2DEw56FX1CX08cFBrr/599fFqFFe2xFijdz
-	qbA1ZTImDiw==
-X-Received: by 2002:a17:903:1251:b0:2df:9497:3c89 with SMTP id d9443c01a7336-2eb36526a09mr98398335ad.59.1793667458033;
-        Mon, 02 Nov 2026 16:57:38 -0800 (PST)
-Received: from fedora.lan (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39267b8asm32654855ad.44.2026.11.02.16.57.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 16:57:37 -0800 (PST)
-From: Artem Novak <artem122novak@gmail.com>
-To: ysato@users.sourceforge.jp,
-	dalias@libc.org,
-	glaubitz@physik.fu-berlin.de,
-	linux-sh@vger.kernel.org
-Cc: geert+renesas@glider.be,
-	linux-kernel@vger.kernel.org,
-	Artem Novak <artem122novak@gmail.com>
-Subject: [PATCH v3] sh: sh7305: add TMU0 clock support
-Date: Mon,  2 Nov 2026 18:56:45 -0600
-Message-ID: <20261103005645.101643-1-artem122novak@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ALARzZqi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793667500; x=1825203500;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=xMtYGLouTlTuAqWe+3zFi4u4Vl8Px7aT8IwwxZZdKe0=;
+  b=ALARzZqik7UHxPXRMas0mCUpNVvQkCcwfg8ekDlqa3UBaZMXP46GdkrD
+   VBmTV867mwFH5w0NX1XnnQuINouMwTOSNLiIHbDSxUBsPP433SWcbydwW
+   xpOHZKVMBHhTSntgdVhneSY3BgSX+ymiiFYZtSb20CqgtashcTWONtaK6
+   UoO2YUqaVzSV3Svs9n1qt9WaA2cjt0SKsnxnouLZr/ccZY97hg9/WsK2S
+   Osz0ULpkIvXRftQrdjIW/Rwh68XMM14ZmHPGu44Bz/p/PgofaUZ8BRPwe
+   MOcsY1rBjC7YWeTent/EtDhNwleQbPXfqH/bLZPDvIkv1+9rRRsjEmIzc
+   w==;
+X-CSE-ConnectionGUID: Kx4DCmAQSLuiVgUpOpRl1g==
+X-CSE-MsgGUID: O0hZD0jOQNiCPbYOkJuLRQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2257370"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2257370"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 16:58:19 -0800
+X-CSE-ConnectionGUID: Uk9R0ufYTC2djkTEprG3nA==
+X-CSE-MsgGUID: SUfnOj1cR+eINHJPpTXmEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6435468"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 16:58:11 -0800
+Date: Tue, 3 Nov 2026 08:58:07 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Finn Thain <fthain@linux-m68k.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ard Biesheuvel <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Daniel Borkman <daniel@iogearbox.net>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>, Gary Guo <gary@garyguo.net>,
+	Guo Ren <guoren@kernel.org>, Hao Luo <haoluo@google.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Jonas Bonn <jonas@southpole.se>, KP Singh <kpsingh@kernel.org>,
+	Marc Rutland <mark.rutland@arm.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Rich Felker <dalias@libc.org>, Song Liu <song@kernel.org>,
+	Stafford Horne <shorne@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Will Deacon <will@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>, yi1.lai@intel.com
+Subject: [linus:master] [atomic]  80047d84ee:
+ WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
+Message-ID: <202611022259.def3e086-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,146 +103,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Register the SH7305 master, peripheral, bus and CPU clocks using
-the SuperH clock framework. Add the TMU0 module clock gate using
-MSTPCR0 bit 15.
 
-Keeping SH7305 clock initialization independent of the legacy CPG
-initialization framework, which relies on arch_init_clk_ops().
-Disable SH_CLK_CPG_LEGACY for SH7305.
 
-Signed-off-by: Artem Novak <artem122novak@gmail.com>
----
- arch/sh/Kconfig                        |  2 +-
- arch/sh/kernel/cpu/sh4a/clock-sh7305.c | 78 +++++++++++++++++++-------
- 2 files changed, 59 insertions(+), 21 deletions(-)
+Hello,
 
-diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
-index 5ce7df11c3ec..c5cc486eb1a3 100644
---- a/arch/sh/Kconfig
-+++ b/arch/sh/Kconfig
-@@ -536,7 +536,7 @@ config SH_CLK_CPG_LEGACY
- 	def_bool y if !CPU_SUBTYPE_SH7785 && !ARCH_SHMOBILE && \
- 		      !CPU_SHX3 && !CPU_SUBTYPE_SH7757 && \
- 		      !CPU_SUBTYPE_SH7734 && !CPU_SUBTYPE_SH7264 && \
--		      !CPU_SUBTYPE_SH7269
-+		      !CPU_SUBTYPE_SH7269 && !CPU_SUBTYPE_SH7305
- 
- endmenu
- 
-diff --git a/arch/sh/kernel/cpu/sh4a/clock-sh7305.c b/arch/sh/kernel/cpu/sh4a/clock-sh7305.c
-index 0e683dd6de11..03d4b5f987dd 100644
---- a/arch/sh/kernel/cpu/sh4a/clock-sh7305.c
-+++ b/arch/sh/kernel/cpu/sh4a/clock-sh7305.c
-@@ -7,6 +7,8 @@
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/io.h>
-+#include <linux/clk.h>
-+#include <linux/clkdev.h>
- #include <linux/sh_clk.h>
- 
- #include <asm/clock.h>
-@@ -84,13 +86,13 @@ static unsigned int sh7305_divisor(unsigned int shift)
- /*
-  * master_clk is the clock before the B/I/P divider stages.
-  */
--static void master_clk_init(struct clk *clk)
-+static unsigned long master_clk_recalc(struct clk *clk)
- {
--	clk->rate = sh7305_base_rate();
-+	return sh7305_base_rate();
- }
- 
- static struct sh_clk_ops sh7305_master_clk_ops = {
--	.init = master_clk_init,
-+	.recalc = master_clk_recalc,
- };
- 
- 
-@@ -140,27 +142,63 @@ static struct sh_clk_ops sh7305_cpu_clk_ops = {
- 
- 
- /*
-- * Ordering must match arch/sh/kernel/cpu/clock-cpg.c:
-- *
-- *   0 master
-- *   1 peripheral
-- *   2 bus
-- *   3 cpu
-+ * SH7305 main clocks.
-  */
--static struct sh_clk_ops *sh7305_clk_ops[] = {
--	&sh7305_master_clk_ops,
--	&sh7305_peripheral_clk_ops,
--	&sh7305_bus_clk_ops,
--	&sh7305_cpu_clk_ops,
-+static struct clk master_clk = {
-+	.ops		= &sh7305_master_clk_ops,
-+	.flags		= CLK_ENABLE_ON_INIT,
- };
- 
--void __init arch_init_clk_ops(struct sh_clk_ops **ops, int idx)
--{
--	if (idx < ARRAY_SIZE(sh7305_clk_ops))
--		*ops = sh7305_clk_ops[idx];
--}
-+static struct clk peripheral_clk = {
-+	.ops		= &sh7305_peripheral_clk_ops,
-+	.parent		= &master_clk,
-+	.flags		= CLK_ENABLE_ON_INIT,
-+};
-+
-+static struct clk bus_clk = {
-+	.ops		= &sh7305_bus_clk_ops,
-+	.parent		= &master_clk,
-+	.flags		= CLK_ENABLE_ON_INIT,
-+};
-+
-+static struct clk cpu_clk = {
-+	.ops		= &sh7305_cpu_clk_ops,
-+	.parent		= &master_clk,
-+	.flags		= CLK_ENABLE_ON_INIT,
-+};
-+
-+static struct clk *main_clks[] = {
-+	&master_clk,
-+	&peripheral_clk,
-+	&bus_clk,
-+	&cpu_clk,
-+};
-+
-+#define MSTPCR0		0xa4150030
-+
-+static struct clk mstp_clks[] = {
-+	SH_CLK_MSTP32(&peripheral_clk, MSTPCR0, 15, 0),
-+};
-+
-+static struct clk_lookup lookups[] = {
-+	CLKDEV_CON_ID("master_clk", &master_clk),
-+	CLKDEV_CON_ID("peripheral_clk", &peripheral_clk),
-+	CLKDEV_CON_ID("bus_clk", &bus_clk),
-+	CLKDEV_CON_ID("cpu_clk", &cpu_clk),
-+	CLKDEV_ICK_ID("fck", "sh-tmu.0", &mstp_clks[0]),
-+};
- 
- int __init arch_clk_init(void)
- {
--	return cpg_clk_init();
-+	int i, ret = 0;
-+
-+	for (i = 0; !ret && i < ARRAY_SIZE(main_clks); i++)
-+		ret = clk_register(main_clks[i]);
-+
-+	if (ret)
-+		return ret;
-+
-+	clkdev_add_table(lookups, ARRAY_SIZE(lookups));
-+
-+	return sh_clk_mstp_register(mstp_clks, ARRAY_SIZE(mstp_clks));
- }
--- 
-2.56.0
+kernel test robot noticed "WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked" on:
+
+commit: 80047d84eed25e9c92cfb9169980a0dfec110246 ("atomic: add alignment check to instrumented atomic operations") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+
+[test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
+
+in testcase: trinity
+with following parameters:
+
+	runtime: 300s
+	group: group-02
+	nr_groups: 5
+
+
+config: i386-randconfig-1005-20261101
+compiler: gcc-14
+test machine: qemu-system-i386 -enable-kvm -cpu Icelake-Server-noTSX,enforce,lm=off -smp 4 -m 4G
+
+(please refer to attached dmesg/kmsg for entire log/backtrace)
+
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <yi1.lai@intel.com>
+| Closes: https://lore.kernel.org/oe-lkp/202611022259.def3e086-lkp@intel.com
+
+
+[   18.704659][ T3738] ------------[ cut here ]------------
+[   18.706815][ T3738] WARNING: include/linux/instrumented.h:62 at __split_huge_pmd_locked+0x6d2/0xac0, CPU#0: trinity-c1/3738
+[   18.717796][ T3738] Modules linked in:
+[   18.719286][ T3738] CPU: 0 UID: 65534 PID: 3738 Comm: trinity-c1 Not tainted 6.19.0-rc6-00100-g80047d84eed2 #1 PREEMPT(lazy)
+[   18.723193][ T3738] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   18.726644][ T3738] EIP: __split_huge_pmd_locked (x86/include/asm/pgtable.h:228 (discriminator 1) huge_memory.c:3128 (discriminator 1))
+[   18.728717][ T3738] Code: dc 85 d2 75 0c c6 45 c2 00 85 c0 0f 84 ee fe ff ff f6 45 bc 03 0f 85 47 03 00 00 8b 45 bc 80 08 10 c6 45 c2 01 e9 d5 fe ff ff <0f> 0b 0f c7 4d ec 0f 84 34 fd ff ff eb f2 e8 db 58 40 01 85 c0 0f
+All code
+========
+   0:	dc 85 d2 75 0c c6    	faddl  -0x39f38a2e(%rbp)
+   6:	45 c2 00 85          	rex.RB ret $0x8500
+   a:	c0 0f 84             	rorb   $0x84,(%rdi)
+   d:	ee                   	out    %al,(%dx)
+   e:	fe                   	(bad)
+   f:	ff                   	(bad)
+  10:	ff f6                	push   %rsi
+  12:	45 bc 03 0f 85 47    	rex.RB mov $0x47850f03,%r12d
+  18:	03 00                	add    (%rax),%eax
+  1a:	00 8b 45 bc 80 08    	add    %cl,0x880bc45(%rbx)
+  20:	10 c6                	adc    %al,%dh
+  22:	45 c2 01 e9          	rex.RB ret $0xe901
+  26:	d5 fe ff ff          	{rex2 0xfe} ud0 %r23,%r31
+  2a:*	0f 0b                	ud2		<-- trapping instruction
+  2c:	0f c7 4d ec          	cmpxchg8b -0x14(%rbp)
+  30:	0f 84 34 fd ff ff    	je     0xfffffffffffffd6a
+  36:	eb f2                	jmp    0x2a
+  38:	e8 db 58 40 01       	call   0x1405918
+  3d:	85 c0                	test   %eax,%eax
+  3f:	0f                   	.byte 0xf
+
+Code starting with the faulting instruction ===========================================
+   0:	0f 0b                	ud2
+   2:	0f c7 4d ec          	cmpxchg8b -0x14(%rbp)
+   6:	0f 84 34 fd ff ff    	je     0xfffffffffffffd40
+   c:	eb f2                	jmp    0x0
+   e:	e8 db 58 40 01       	call   0x14058ee
+  13:	85 c0                	test   %eax,%eax
+  15:	0f                   	.byte 0xf
+[   18.738340][ T3738] EAX: 00000000 EBX: 04507067 ECX: 00000000 EDX: 00000000
+[   18.740746][ T3738] ESI: 00000000 EDI: 04507067 EBP: 44669d30 ESP: 44669cd8
+[   18.743073][ T3738] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 0068 EFLAGS: 00010202
+[   18.745603][ T3738] CR0: 80050033 CR2: 00000004 CR3: 042e6000 CR4: 00350ef0
+[   18.747953][ T3738] DR0: 3678f000 DR1: 36ba2000 DR2: 00000000 DR3: 00000000
+[   18.753554][ T3738] DR6: ffff0ff0 DR7: 00070602
+[   18.755107][ T3738] Call Trace:
+[   18.756252][ T3738]  ? split_huge_pmd_address (huge_memory.c:3270 huge_memory.c:3284 huge_memory.c:3297)
+[   18.758035][ T3738]  ? vma_adjust_trans_huge (huge_memory.c:3309 huge_memory.c:3321)
+[   18.759892][ T3738]  ? __split_vma (vma.c:554)
+[   18.761489][ T3738]  ? vma_modify (vma.c:596 vma.c:1674)
+[   18.762981][ T3738]  ? vma_modify_flags (vma.c:1694)
+[   18.764670][ T3738]  ? madvise_vma_behavior (madvise.c:169 madvise.c:1441)
+[   18.765920][ T3738]  ? madvise_do_behavior (madvise.c:1721 madvise.c:1937)
+[   18.767061][ T3738]  ? do_madvise (madvise.c:2030)
+[   18.768042][ T3738]  ? __ia32_sys_madvise (madvise.c:2039 (discriminator 1) madvise.c:2037 (discriminator 1) madvise.c:2037 (discriminator 1))
+[   18.769149][ T3738]  ? ia32_sys_call (kbuild/obj/consumer/i386-randconfig-1005-20261101/./arch/x86/include/generated/asm/syscalls_32.h:220)
+[   18.770238][ T3738]  ? do_int80_syscall_32 (x86/entry/syscall_32.c:83 x86/entry/syscall_32.c:259)
+[   18.771374][ T3738]  ? entry_INT80_32 (x86/entry/entry_32.S:940)
+[   18.772429][ T3738] irq event stamp: 781495
+[   18.773388][ T3738] hardirqs last  enabled at (781509): __up_console_sem (printk/printk.c:345 (discriminator 1))
+[   18.775278][ T3738] hardirqs last disabled at (781522): __up_console_sem (printk/printk.c:343 (discriminator 1))
+[   18.777167][ T3738] softirqs last  enabled at (781232): handle_softirqs (softirq.c:468 softirq.c:650)
+[   18.779118][ T3738] softirqs last disabled at (781219): __do_softirq (softirq.c:656)
+[   18.781012][ T3738] ---[ end trace 0000000000000000 ]---
+[  220.112163][    T0] CE: hpet increased min_delta_ns to 5000 nsec
+[  220.112245][    T0] CE: hpet increased min_delta_ns to 7500 nsec
+[  220.112306][    T0] CE: hpet increased min_delta_ns to 11250 nsec
+[  313.879988][  T384] sh: can't kill pid 3613: No such process
+[  319.115692][    C0] CE: hpet increased min_delta_ns to 16875 nsec
+LKP: ttyS0: 335: LKP: tbox cant kexec and rebooting forcely [  325.428435][  T335] sysrq: Emergency Sync
+[  325.430372][   T10] Emergency Sync complete
+[  325.431919][  T335] sysrq: Resetting
+
+Kboot worker: lkp-worker71
+Elapsed time: 360
+Host load: peak load1 279.34, peak cpu pressure 96.63%, qemu waited 0s for a cpu in 360s, container throttled 0s, 6 samples
+
+kvm=(
+qemu-system-i386
+-enable-kvm
+-cpu Icelake-Server-noTSX,enforce,lm=off
+-kernel $kernel
+-initrd initrd-vm-meta-160.cgz
+-m 4096
+-smp 4
+-device e1000,netdev=net0
+-netdev user,id=net0,hostfwd=tcp::32032-:22
+-boot order=nc
+-no-reboot
+-device i6300esb
+-device pci-testdev
+-watchdog-action debug
+-rtc base=localtime
+-serial stdio
+-display none
+-monitor null
+)
+
+append=(
+ip=::::vm-meta-160::dhcp
+root=/dev/ram0
+RESULT_ROOT=/result/trinity/group-02-5-300s/vm-icl-i386/yocto-i386-minimal-20190520.cgz/i386-randconfig-1005-20261101/gcc-14/80047d84eed25e9c92cfb9169980a0dfec110246/0
+BOOT_IMAGE=/pkg/linux/i386-randconfig-1005-20261101/gcc-14/80047d84eed25e9c92cfb9169980a0dfec110246/vmlinuz-6.19.0-rc6-00100-g80047d84eed2
+branch=linux-next/master
+job=/job-script
+user=lkp
+ARCH=i386
+kconfig=i386-randconfig-1005-20261101
+commit=80047d84eed25e9c92cfb9169980a0dfec110246
+mem=4G
+intremap=posted_msi
+rcuperf.shutdown=0
+rcuscale.shutdown=0
+refscale.shutdown=0
+audit=0
+kunit.enable=0
+init_on_free=0
+max_uptime=3600
+result_service=tmpfs
+selinux=0
+debug
+apic=debug
+sysrq_always_enabled
+rcupdate.rcu_cpu_stall_timeout=100
+watchdog_thresh=55
+workqueue.watchdog_thresh=140
+smp.csd_lock_timeout=100000
+sysctl.kernel.hung_task_timeout_secs=140
+net.ifnames=0
+printk.devkmsg=on
+panic=30
+softlockup_panic=1
+nmi_watchdog=panic
+oops=panic
+load_ramdisk=2
+prompt_ramdisk=0
+drbd.minor_count=8
+systemd.log_level=err
+ignore_loglevel
+console=tty0
+earlyprintk=ttyS0,115200
+console=ttyS0,115200
+vga=normal
+rw
+earlycon=uart8250,io,0x3f8,115200n8
+keep_bootcon
+)
+
+"${kvm[@]}" -append "${append[*]}"
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261102/202611022259.def3e086-lkp@intel.com
+
+
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
 
