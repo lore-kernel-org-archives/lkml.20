@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793716247;
-	b=3e8ejcCndwFBCq5OEptNnIjLwaj+zuOWjJXq/mF/UX05RxWmjwvhByxIqLkxlkWuTvOd
-	 iOPL7+YEbFlKr0Z6+q2OUwi1INgBIhTMpV+nN4RKtCRqd1ALgIvJQDNUMb9Z4A3TSjBlW
-	 4T+vGIO4brl1XUkQsED6xI9IWxxdbynpOtdae6SELrlDGrtMyMQqjPvepi7eTSSZIdb3A
-	 uZ7GNzr7urOb5S39guBfr/a6zwOLxrv4pMhwFRJAaM0hNP7xqEEm5ZWto25BVXLKlT0w2
-	 X+sf1PnQZnQCVvV3YJ14VLZyUlFE2w6gJM9k4dy47rWgR2U/KpOgufgVdxRU5l14bkg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716247;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793716267;
+	b=CRd21PBxOQ9RgDatZ5kLiRb1won/vKua5FIpz1R58XlZDcDHWMLyNzNgBVAspHWQz9XZ
+	 fVSu2ogWRHk/hRsaqIhvhM1odcvE2wrwXlw6kteQfpGpuqYL2PB+iKpecchPvQVWiHJ8J
+	 BypZSPnKBx3Y6pr6vwQo2hZrAfrouQDMXIWUC71I5xHSDDnM/ihm5QByfzqleZdrZi1ow
+	 8SybKb3VHFDqJN4fahpO1r1uohVo2gZba3RKD+IIJbl1wueDbt0LKef6i9fClSslUdjPP
+	 wJfFEGAG7C+Sb+5uXLNCH2hiK8ivMTziEb3uNaBtzsTu8ko8PfBDwvCWZBV9VECYGtQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716267;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
-	b=rvG5swzhQ1rw0CrmIAApulx5jPazxCc2uBcuuzw0nQQJHN5twZ+Q/pMSSqaOPZwE5XI9
-	 pgvtQ6VLE+E0RKgBE7Lx0LJCWCUojKhPpf1vP51V7/RHo3GJm4XOGn01hlSfJipm+9pr3
-	 7T2tMyFGfHS4b2DiqK4oHngD2DfdHpDvOi66NWSZzvmVVAXO02rImGJRHIH6dOCOsTOD9
-	 kAuCRitH6OcEVSPcCURlfUI0i1SKLHNoqcOXeEKHVFhwomEpC4RUc5wE53q2beRo6gqbj
-	 UdDq29dPwaJUe/bHmRh8Xj8JZHabNmf1fV8YtTTtZXnLrE18FXZL5+SAgkEM4VRvGhQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oBM1N4sa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=+GXjmDSpdPKSM3dvXbu3WCZAHTmv+G6w0ssCMfJAnCM=;
+	b=RrgYEVaXIQS8HobQLcd5oz+4+s+Rde3IqNs3NNtUCCc/dxQUxqs2SHYjyNsS1aExbSIG
+	 JbSuIWDbQ7EwE5o8d34pblSOLiCxSUzYqB2sJWmq8IqP6gZUI4pGXH0x2fRuVx7lIrAhi
+	 Cv6S8YlrxeK7ogOvfYK1gtv85+r/kFtG7D8FF7rg1nUVp3CZ9i2o8kodXYiHrpf5OjoDx
+	 ZcRD6kRfNTmeNyW2EExDvM99NCP/Dafb8iwa6wMgwP4cuX5PZ2M9UFpp6Jr7qzW6pu3O5
+	 WGb5OUEwAUk9DZY1cqGtf80zd9tthM+jZQOZ7VPcr46b7636Xpwl13gX54dCKogaKQA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=JAL5xEbx;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2EC606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:30:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F2EC606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF26F606D80E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:31:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF26F606D80E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oBM1N4sa
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36a6b774d12so328160eec.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:30:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793716246; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lpL3aMC8kKI74tB3jpYaAZz5DDmWDGp6atn+UeNHVlBOZkcsE+NjMRsO/w1QyW7U4G
-         xWrFZNripT+K3iU6bJew0Mpquo1hTMat0iRDvndYNzB1XFYyx6TpQeBC1rVJXnQYfN7L
-         FbDAKVfU/DtkKVcWGiOncWigLBT/NuqBBEStkgvGhMiH/Q2sU7uiFnrKDl2Emkf2PTd7
-         YIajXGbHZSWQa2XqjVCzQAvF5h3TtZOHl9RA7LA0cRP5OUNtwa1fFloCghvCnief70oj
-         oI1NCyPZAYF6BLQ4uoWuYy++OkbCvn46fx9+TrLJhGI9ClrsphYcg7KH/9VE24GF4yMI
-         sXLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
-        fh=RQ56vti5W9ag8wO3sfihzBYIfm6fTiKWeX6XYtyU5c8=;
-        b=J3tGz/gMVdIxOQuEtccndsfzCrItfUoh8Q0z0f7IuQdvXx+0H0M3TGKUHklpNsIb5J
-         3g8xV5x/23/N5eQ60br5vanVujWDmkCeJjWboDZZFgw+9t/9BSc9uJgQTlVou9CD8/8O
-         5vM6JSwN1nQUKNz9dEuoIOw9c9Xg1h93C/eArnvhnujmemo2+SY4u3A8SACmDlrttmV+
-         XPd1DNJj7sybQMWf6Usg7AJcaZF8bJLK/r3yAtTM+NigaLaLvcajbwvS4m+9La+Fc7aT
-         n0TAIBJm7XymZ1jQ4ul54jCsadhDd3Ul/wQ1OibFYjz4XhzbE3wYBERivgP/eAPEexET
-         FMFw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=JAL5xEbx
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1931ff67a29so8730431c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:31:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793716246; x=1794321046; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
-        b=oBM1N4sa6U3jNfhhL7I7ObmRfkyN+jR4kbsvMKPQNwyrfNXfF39v2l578aYkXxGksL
-         5G+GQQ8LJWM3cSE3emoIAWFi/W67piDHUcr1/1cN7wkm2zMdjyBJVfuxWgF/HXolIwqZ
-         aupLiA93MIrY/vVelLLtT2QlzmTejm2qQP/wRnmIGrLuqQMd57L7rrY9IhyPsI45UjWZ
-         N/m+jyBgJydQhqbfqg6QwJyKI9diPjSMpXLLzyYPcQ7yp/KFtGOnwFFXlBN8v35dlfGM
-         AIZcy8OPD0zxFjxyu+A9IboneNaPg9cU7NapUUKyIa+2syMwuiL3vZ4u+FFBXm0vZ00A
-         APFw==
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793716266; x=1794321066; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+GXjmDSpdPKSM3dvXbu3WCZAHTmv+G6w0ssCMfJAnCM=;
+        b=JAL5xEbxeRyI5iZfq2c75QvgWSvM8A+hwAkPoB5Ef0uYyHxKF51D+EkIcYAiVT42GW
+         O8+rFQnzDXYUm2OXJlerdC3iicYR4aSaSaHH3Ep/VgS3dutNQteQPI38N9cTs923fA4D
+         BIryhyqdfWTScigh6MyLKL1CJS2d6DQawQgkmWOyqgp69tkPhN8FiEZNW53On/G87OWp
+         kqGTqlIrju9gHXn+A4kicd+uohnWUkqFnZgHPqVrRm/AudeUaSqo5Vxq/cHqmboyto3O
+         deySONUwD/jokWH+7+DxV4OSMbR/tJKnNpueSZ3h16f9pmnrEaRKiRgNtstEGOao5RnI
+         wqBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793716246; x=1794321046;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793716266; x=1794321066;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
-        b=R9xy05nBKL6Wkp3sewZuhybSRZc5LTvEL+NrsnXlBFBqMKjIAjSw9xny4fNAtJvQhp
-         G219t+dwK3XAuvtJ3CLRYNk3qzL8Csl6QEBp2rTBGoVzHAVzt5r6yeiBKESLENaLH7x1
-         eQh1Pc55QZiqdUMbJPDQhuYMiHh+uhAcxLDRy+qf6q56fVryCrbxP+qBGj12ekIBbml0
-         pfuwqjz/QImXGwnGASvvt/Ecu5PIohpFg61x2JgswDYTh5H9DPY+yaelUakNuQn6powS
-         s7YP5KJeCISSnboMZw9IWgSbfiYMtMBRE6bJJX2kS++0raekvzCJOL1AJkYYksZADfgF
-         aFLg==
-X-Forwarded-Encrypted: i=1; AKwUvBwhdXuebeaPhPgJp75K/C0aOHOWKzLme9Xwc+3PlH0uk9Jw1Chh18/aBLch/BGqH4lPhU6CNaATJMyPCoM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gJvoouVPl2wQ0GcWfNmp42o3ub+RNA/AyZXjnAxRuqyl8neOr
-	MqraPFArZDmr9OuGPdUaFYl3etWjqklvaxfQjWViVg+N+n8N7N4cbxoVg8f4SSe9PA0W0LYhOSa
-	Vw7whyPV6RgG/zXY+BgImMOYgpAaesxU=
-X-Gm-Gg: AYBFou0XcL6IWKMlKjI/PbPhUPiFswzvExbgyOs5bSYXgb8VhDmX3WoFME2XJhhnA1C
-	w+NE+56PySDEzQnkstonJ6KVmH5Vv/jc1nZeyh9FxyN0/ZtHzUrptsF8qkc6+0B4YXNacI2K+SF
-	j4p7EL9Gkz8shn9WXoKOG001LFIxReBLBZ/KrPUm/8Fr1+tGdpu2h8ZrGd4vI5j2yppLdJiK3Au
-	TJzwwpaLUDAoT2cavsC53l4yrKX2QPDMoskcKaJWFrqXUigFliX+G4pdTBALoaIVEsk+iyXmolM
-	cZm6CGbSOZMeBX0HiGhtL9ptRiHTFBhhZHGorOi7jYuqx7XIaf+FlRdS+pXa+/KLeefg2MJYUDk
-	wsqaE6T5XDaRti1JlhDJ8XSQTBtaMLG123azAUB8USXxiPSODL8a0j2pRcpNRGKjTFAvT3f9uvs
-	yxYypcT5YITHov4azKbPWBLpo=
-X-Received: by 2002:a05:7022:eb46:10b0:14b:edb2:c3bc with SMTP id
- a92af1059eb24-1ac4fd01362mr31568742c88.0.1793716245958; Tue, 03 Nov 2026
- 06:30:45 -0800 (PST)
+        bh=+GXjmDSpdPKSM3dvXbu3WCZAHTmv+G6w0ssCMfJAnCM=;
+        b=OFkRYmabUKk4QlhelHbo7euB0panjR84baBD+BK3IkPUK8a8+o+QFtLwZiIiXWaBgV
+         z0oF1Rc4mzMO7ZucapudPUMwJAbPDPqEJyNR6QHoLtsFHAEQ76hBXgor1zx1nUSvdIAQ
+         xZs1HkIEwn5tH5z4Njqy8D2alqtmPBvg7DkRr4g2DzPYayLJXJjiw1ygXhp9hxKBjP2b
+         YGp9zu4fKDKxq0Im2aGLUPfPPSEHVtjgtzH+0+YT1TY4Yas/D0/vwgzz3He+Nf35HVmm
+         EiGnE/ePZBqDm+E4NaLitmMQH97GfEhalnYHthWIOeaoRaFsNQqADjRFLLF0XSaNj9uV
+         T7xw==
+X-Forwarded-Encrypted: i=1; AKwUvBwyNmaIFABr12HexuxzhtaRaLB3akounFBcDwzGdfQYccsqFr+P4EQySpPptxBemD6+rs0pCEZ1KIw5BE4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8VfFFK9HGMoeF/9XfHLRZMt1eYz8MjcXEaRtDPeag45jTmcFV
+	jxDgz2ILh6pAkuVMBEinVhp40Qj539wcyDhmYa7ruavmkBvm11QdCGc0J8tV/bghVNE=
+X-Gm-Gg: AYBFou1d+bZ7acvpHg3mNziXS/Q+EkyoZlI+MXrlTRFrtlk+JN3b3zrx5DGhBxogneP
+	GGIDkk+Fb3/bJUREFYaTA3rOTjqf5qiBYSvkK20LSf698cJew6IUlWqtcHoWt+v54S01sXaP7IQ
+	Y8TIn1oVIX+0Z+Z2VAMhwhfkdb775+6XkHDaiIMrSu5sNxc43M7C3ev3MpNJCWkRFjGJbTulX9v
+	WjUFRWrbnrLm77mDnLNEoDOXObnxaWo1vaOlzFHPtli6+TDSKzfeTTXV0NX0IxS7wQUXy3ZkYtq
+	hfKHv9R2U3robWm60Z2o3MhvC3soCLq4p63llvjQv2aXJ8hGnGWz1xv/NnISOU56Cbg3WPV1Scc
+	IRRIzFsUAkPi82cKix0Bjb71MzCfVejLgz6HlxkRTOJBYBSKNjVuNKVPEBuiWgoxKKSZGMyX00k
+	rXCwcOI8DPfd+9ecUdrrCe/kyymL6rdwDFgyBuBFI0GJ2118v/BEXVxMxEvRI9LGTFCoHeiLKjx
+	kQ2k6fQu518EWaWSnIWaIIpmxFcrkX5Es6aL37Q3M7ljLFXZg9MttPYgusZCxxIQDbOz18mAQSh
+	GUr2Ac2eEEW+RwEXrMmzANi09YAGTmDBbB0Jmnh0wmLooPLELySWYWtE6OZ6STay9GwmEOBpMu0
+	9+FZCMVrppG67
+X-Received: by 2002:a05:7022:c88:b0:194:3a84:e67a with SMTP id a92af1059eb24-1ac5d0da7e6mr18645854c88.41.1793716265860;
+        Tue, 03 Nov 2026 06:31:05 -0800 (PST)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b23b847348sm9534779c88.4.2026.11.03.06.31.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 06:31:05 -0800 (PST)
+From: Jens Axboe <axboe@kernel.dk>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, Eugenio Perez <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Stefan Hajnoczi <stefanha@redhat.com>, Ming Lei <ming.lei@redhat.com>, 
+ Cong Zhang <cong.zhang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, virtualization@lists.linux.dev, 
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261103-virtblk_sync_quiesce-v3-1-f40233f9bdd9@oss.qualcomm.com>
+References: <20261103-virtblk_sync_quiesce-v3-1-f40233f9bdd9@oss.qualcomm.com>
+Subject: Re: [PATCH RESEND v3] virtio_blk: use synchronous quiesce in
+ virtblk_freeze_priv()
+Message-Id: <179371626469.3691261.7199603294029974156.b4-ty@b4>
+Date: Tue, 03 Nov 2026 07:31:04 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,62 +104,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260916144014.879355-1-ed@aicharmers.com> <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
- <20261030123000.5573e70f@kait2en-mbp15-1>
-In-Reply-To: <20261030123000.5573e70f@kait2en-mbp15-1>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 3 Nov 2026 09:30:34 -0500
-X-Gm-Features: AclHuK_LxctmigwVoDcx69kjcX_YjAvRxU28VYR1bNj9rG5Y2V1BrN_dTiv7lGw
-Message-ID: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-To: =?UTF-8?Q?Andr=C3=A9_Eikmeyer?= <dev@deq.rocks>
-Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, 
-	Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
-	Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Fri, Oct 30, 2026 at 7:30=E2=80=AFAM Andr=C3=A9 Eikmeyer <dev@deq.rocks>=
- wrote:
->
-> On Thu, 29 Oct 2026 17:57:49 -0400
-> Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> > @Andre Eikmeyer I think this patch should fix your system as well.
->
-> Hi Alex,
->
-> I guess you have seen it already but the patch doesn't match the 16,1.
-> Its boards are 7340/020f and 7340/0210, and v4 only matches 0218, 0219
-> and 021a.
->
-> That hang is what I sent a fix for
-> https://lore.kernel.org/all/20261024162109.307247-1-dev@deq.rocks/
->
-> The VBIOS trains the UMC p-states at different frequencies the pp-table
-> lists. The SMU hangs as soon as UCLK switches into level 2. Deferring
-> the UCLK enable doesn't change the levels, so the hang just moves from
-> boot to later under load.
->
 
-It is the same issue.  I don't want two fixes for the same issue. I
-just sent an updated version of this patch expanded to cover more
-macs.
+On Tue, 03 Nov 2026 18:32:21 +0800, Cong Zhang wrote:
+> blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
+> blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
+> while the flag is clear. It can then be preempted before it gets a
+> request. At that time, it has no queue usage reference, so
+> blk_mq_freeze_queue() does not wait for it.
+> 
+> virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
+> blk_mq_unfreeze_queue(). A new request can enter the queue. The old
+> dispatcher can run again, use its old flag check, get the new request,
+> and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
+> reset the device, delete the virtqueues, and free vblk->vqs. The old
+> dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
+> kernel can crash.
+> 
+> [...]
 
-Alex
+Applied, thanks!
 
-> The two patches can coexist after a trivial rebase.
->
-> > ...your system...
->
-> I need to clarify here. I actually don't own a 16,1. But I maintain a
-> distro (KaiT2en) that specializes on T2 Macs. So the patches I develop
-> are extensively tested by the community before submitting. Atharwa is
-> part of this community. Ed is not, but Atharwa reviewed and tested the
-> code.
->
-> Best,
-> Andre
+[1/1] virtio_blk: use synchronous quiesce in virtblk_freeze_priv()
+      commit: 6c6dec7883f8eb10b326bc9d109a4990c885d949
+
+Best regards,
+-- 
+Jens Axboe
+
+
+
