@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793664206;
-	b=2zkohAsmoQnCJyiI4xC1Zn8EYYyN83Pf7/EVlWQGMQViYzDYMubYIaXIGuIVWr+6AZ3d
-	 ueZ6nkFYlIo9LMzSUni8sYBHLjKHmTrY4jzfigMnmBKj8xlf1oSgnyJPfg3llUPtNPSjU
-	 6UAFh7n1Vuir4DPmrtOuX8VkU5PQcKhuuLjYLPYQWnHkWBoehqCeqjgi2chvTwOpJqnz4
-	 UNUO4AF3H86D929uAmbCj45X1xM99iT3cN2YAnnAq2GJvbVetDaAv9l3GdYOPz2oaDvM5
-	 iTonXW56VGjFFg1FdNnTtGnkTJNrlx+s2ItRt4FrW/ohn3sQHVNt5aqg+9lATpGUEiw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793664206;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mwQ2z/age/B8OVHRkYCsNYXmBR1En6PKc33rR/ATxnM=;
-	b=oftM+V1pYmtfMyJMSP7NO5q+PID+YgaMvztWJzD6Zc9jq/P3P6LiWYwDa4uW8pMgNSGj
-	 FlJStTi3BHUmEDJbtyuvRI6GMM9cPccM00PBBjiU+H6LkBmyGQNFSDwD9w5LySU8fjMV2
-	 80whOfqBAJLABHc+gDk4woRT4WPJHEpG/JBsvr17lTnJqrvKNATWKNf/a0OSmzYQnmlhN
-	 OyCCBtrHL3CJ1x4SD7z9/QPUAe7b3jmF4u+eSHnnCggypsRXIGXfl0C+z847AfK8xhOqo
-	 CqvBkyuj3roW7eAleDLJx/aOBvhb8zwgL+v5glYYPIBeSA2SY30UQYaYIUJ2yo+q7Zg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gvvbvhit;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.57
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793664194;
+	b=WrAg22d+huaeFfUVmrsbJ1EqlVTCoi5X9H7cZOhNFi4V4ljvRMoh0/oKXBLZLcKP5xfb
+	 jdFpFCiMr48h5g5CUndSsyd5IQCmWDrh13kF7k3HCW9AFQEL2FZmQTF2XF7RlPd9OljX5
+	 cXRqkQGvT953sE8v3PlXxwTCzOBhTB69R3I6n0/BZkwhUtFsl/Lj2Wk9Cq0eZs1z30Cyg
+	 ihUWtKVcUsn4YNRtTt5VfTX4DmzTAFgQZDjao4kP5v83+vjdPCsldmTSlScTBgINBxMwH
+	 xmiAqWA8vWc1zlfELgEGTLON+m/cvM1EDUUsHTrkITkLw2Il38oOmvFrobEVgN3aBJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793664194;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BzqME7gm9Bs07DmaNG7+cfgcqsg33JcmGd9FHepRU2s=;
+	b=1pCqlBfeeqg8kwwzyOkeWfCUsQqZEI9iA4jQB+q/RiGpOcxSBf9oP54ewysP6t2ecVwS
+	 LdqElPBLlgBngPmoPpFI9IzV/gbUDArnigdF7kgl3x5Xkbp5mnmUeGpytxrDXRDwcS1pS
+	 nX8zTcH0JqNEr6xankKfaRM7rkSL7KTsZnyVyWqsGEbzAs7rIXGMzOhpClSg02qACww8B
+	 d5NR+SCo7dyUcSSrcwopcWZkhmw835td0RClaw1lJJLnR1QqPGPL96HnZdqZHofXsrbf4
+	 ZGpjXMWN5gN1yFehMPV2zPBL/vzpQft0eEwKo8d58uymWggcdtOOEjfsBm5jt/yh27w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="TW/Qlw6r";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.57
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010057.outbound.protection.outlook.com [52.101.201.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A05A606D804
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A05A606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437AB606D81B;
+	Tue,  3 Nov 2026 00:03:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 437AB606D81B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gvvbvhit
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36a18fc7a38so6660150eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:03:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793664205; x=1794269005; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mwQ2z/age/B8OVHRkYCsNYXmBR1En6PKc33rR/ATxnM=;
-        b=gvvbvhit4nOAdNkRPqtYIUGcc6H/xG2s8hlp9IhhIq9jKPuQGFb29VyWC6t4fPgxEY
-         K1dCFrM3A1YvNsszCGWXiyTq0IBycUQbiUmPphnV0IzOKQ+Ma9EbpM7TZcBpHkynviJ1
-         r7yQ1nvl6FcMfxNksKst1MMkUWlit9ClXviYQB+ToKSPooKSIfqPX/CUxckfUgTQnK2C
-         bkzo8sJsdIrsrEMD1la9b0TtU9MpjHsYM45COJYCdMQcNUmGvGcBFc9kzOvFONyCw6BG
-         c+1kCsrND1aUi1SU2E/n8brTsX48fXDq2ioWdI0F3aJbkufqiXbSHZyrEU3ZkXciqkg/
-         zJ7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793664205; x=1794269005;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mwQ2z/age/B8OVHRkYCsNYXmBR1En6PKc33rR/ATxnM=;
-        b=qXRiwgygsMPnFKazuATBYruV/htg1Pgw7wlOuYRo23c4llN9kCI7RRz8RbXb3zRQD2
-         K6OTsWUrLshzuvkfUOHDn9hfDN1w2DxbJvTPlAp1TaCNOExkfijh8oUUD93XQbY6Yl+Z
-         xiew7J8rPi9oFL/Vx/LRLu5B3XO1wfv7IfL2R4iNVP4LACj0YC7kQnFksssuRFsOHwtd
-         g6udEkwKkdhtBIwl2V/ARn/mf80NSR7OZs+Vh0AIlbs5VNA4JeTjtUiyymZiHjfMG7rI
-         Q8Mv5uMuAOAKQr/mFcnsxrcowTiQ22sRBw0eVFGJN2DUtBAhZs0jT2/5kfEpEW7TxhLa
-         4RpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz5f8D6YmFHc7BIwFQs16x19MKuvV2ja1XIUxwIZ6cEwZUWEFjeAGxo2VozEemmCl0PRcsy+hG3P5FRV24=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xFUTn7IekM3+veD2BtNLVWUQJuk3FKmULAe8Xz2x3mK+VQqaj
-	SuDoFZgUamrtN89ab/Hyz46VmJ60mX7wClYxkZMGt39fesmy/SxIV0cI
-X-Gm-Gg: AYBFou3GWOngfqvOCUbi5O9PddBFg/SHYl3S/dVysA8nHMgOKxWAf8iY3GNUdFm9sas
-	JHrZrX+OXgAMR/wb55UWHifzdTCyIDz8YFye7uujX/ZkkZTZ/fa2nVyTec/RWD4TdLEIKV+PIx/
-	AjzpaRZERvY7adqoPzemCHNUBDEHbUyOGVJBVl/sdNW7MtT6OPmI4Xq/fyynTTLKF19Z+13M9tJ
-	TtCrrXfUMSIfKZUjn7aP4k9U0rGnVRznahvQuWr1Id66zVfgJ98DrZn4jSfc9wzlLg5/fHFBJbQ
-	++HRNonPoZtWuRAxGaE7qQ+Gch6Cow0LYqXET1uS2ezMhJq33KOM3xGCLMVYnYYDhs3IrttVi+b
-	GMU00scsvxOABoiu8Gup4fkbRBL7/rAC69+FX6G3K69ziikywl8jKXEtA5Q3d0Qy3A6Ujy4W6sn
-	0tKB2Dwr0Qy0Tjcy+XG0e9vFYjFNQP0m7p3CWkxjze0Hcu6QrHPlnHi3Icd3FHyqYb2qleFJMjZ
-	4y2EQcPSEMbmnj8de6rd9M+TjJgGnoGwy2r2S3bO+XRY6NJ3uSJTSZ2jaBJcI3hCe9FJsLT0pUZ
-	5fC/6Rwbqdq4f0tP2tB3Mp/iniv4epWd99zMRvlP4w==
-X-Received: by 2002:a05:693c:69d1:b0:358:3426:d601 with SMTP id 5a478bee46e88-36a4221b3c6mr19297627eec.2.1793664205205;
-        Mon, 02 Nov 2026 16:03:25 -0800 (PST)
-Received: from penguin.lxd ([12.187.136.98])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429018casm36699729eec.14.2026.11.02.16.03.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 16:03:23 -0800 (PST)
-From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-To: hannes@cmpxchg.org,
-	yosry@kernel.org,
-	nphamcs@gmail.com,
-	chengming.zhou@linux.dev,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	kanchanapsridhar2026@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/1] mm: zswap: Move the crypto_acomp to be per pool, instead of per-CPU.
-Date: Mon,  2 Nov 2026 16:03:13 -0800
-Message-Id: <20261103000313.13677-1-kanchanapsridhar2026@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TW/Qlw6r
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HVlWDSekvofmP/XPmnies+dRnamRSEYHcvaYab6540ApWNbHYIiDiYqGX2w8AP2Mq4HRJEt84NLGGttXZbo5obatlTsaXZL3qJdXuJvRH4oKLQd9cpQECsR4jBJWjjHKLFjxzMLzdLedlh57tcCJiaK/y2nfmbOa/aH5WXKSQ/dt6VH7hYFBZnXEOFDiSdzThgo8pmRCpHtLLm/u1YD93kCVac+nDIV0YwvWb2Tj4TzIhjpX9ZHdQvOV3uKehee3CFEl/CPKPGsHk2DV8p9gBvx8leSzj7DxFylkBVBAx9N1xH3XLvvGVMzVCm1AiuwxaYRl8DAanIOJdI7n8XbXGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BzqME7gm9Bs07DmaNG7+cfgcqsg33JcmGd9FHepRU2s=;
+ b=NKr1kPT34EdYyrtm3LxWc7rN+ASOBAT1VJIAAhOWMmUlhILIoHATm0J1So9FO0mIZ/IgMimXNk1BiSx3inZ4kY13SmbC82OeuKM5ONapp00653DkGFwp4uVHCljM3LAUTGUBtcL0o1vYwZ8pTZ13aCr4Pcujd0C55mZYsSX4GqfeyKwB9Jy2Imzi+ABYWQN72ynEzdvBr9BxnXijBow+bk2ik3ukG2Kzbdb62J9mzLoRFyLrPMLeCwS7qAyKJySvstvTKCcRyZVis9MuwO8rn4YwBs8T/dKDjgyk49sxarV2kwXd4LQOxZPaU2pGfu5cqauiAw+/yU2H5rL5Bmwe1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BzqME7gm9Bs07DmaNG7+cfgcqsg33JcmGd9FHepRU2s=;
+ b=TW/Qlw6rOz9rBg25ubhJ5AF0C4QpeR4zY0nv6IPctsfPwxsRjncxvZ3CyVKbRitPvDCo1Yb5SIVH+cWVZ1gWiLlJBbbwaNUC2dN7p3aBYbgE51PiQ6dLkjYXw+GljUJTRWe5Sr2Wj2Th62jAKkYBdcZB0Zu3v0eHr+L0p1KkPzxsq3vHNBzbOsF42jUn7CUJJdiCBJFarI6qhgXiHDjLeXvhELdw/Yb+koKRUhAeTrctTejOBWKO07Xd51RoowPIP6Zw/9VJyelM4tUYQj6B7VhusiHoTkiRdL86+jAzCHGRQ4wSUCrIx7xG1CVVa5mml5lISUIFMNWaM1bU7dZlaA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
+ by DM3PR12MB9415.namprd12.prod.outlook.com (2603:10b6:8:1ac::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 00:03:07 +0000
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d]) by PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 00:03:07 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Date: Tue, 03 Nov 2026 09:02:52 +0900
+Subject: [PATCH 2/4] gpu: nova-core: gsp: add the GMC API header
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-r000_rebase_on_cmdq-rpc-v1-2-189f9ff3bfd2@nvidia.com>
+References: <20261103-r000_rebase_on_cmdq-rpc-v1-0-189f9ff3bfd2@nvidia.com>
+In-Reply-To: <20261103-r000_rebase_on_cmdq-rpc-v1-0-189f9ff3bfd2@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: OSTP286CA0082.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:227::19) To PH7PR12MB6858.namprd12.prod.outlook.com
+ (2603:10b6:510:1b4::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,162 +102,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6858:EE_|DM3PR12MB9415:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51fc8ed2-eefd-4dfe-b9bf-08df393dd713
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10070799003|6133799003|10067099003|22082099003|261102123227099003|18002099003|3023799007|56012099006|11063799006|261022105027099003|261021121427099003|261026121527099003|261026140227099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	oDwCex1JCiLMRV3j+tMKuwq0bFllu2h594Nr9Mk1VKjTSuPOzw3hknQh80prcc7t7GWUYrtpmWcJxOMy2mSREDXNgoAiFzvPa5wvx5sPG2gCZVC1nwWwWZsA8Dvff6PXrKY6UN4Mml4EeC5ND5cFOTlVhU16eKivJukhicWlxH4mETyGmprNZ2f8j+I3CCpFjRIW3LSQgqfFN/HzgMS3jNCfe2dAkux6mJncnTQdKWt2j6pxweV/7Zo64EC06a1l7jHRFl2EjlrWO24Lh+Slqi6KpESm9yVS+yR2nYecVCljWQPq1bmP+xzbHEu+1kWFtBPsNy7asoj7rguwtHH5q8yzdxZ5SKgEKrx5e0pRergfwMsz5VSJGI/EdSqZZ188Ghxf7t7i8ytx4a1joiIEcR1u9IiTS8m3KoPb5L8X32qRinTclpijDyqrJUjgtY9zrTELtZXqS7rWAo5Xy6+UeooDqOMRsPxAKXJCpry1XIwEX4jYCg/XOBUCE6JGV6E/9ySnVKcNVD1BH5+/XrWke7Oo5Wxux8HtyecX4DiF5HxHKPmKwGjfkR1W6q3IVGXrrxc+co3Udd5BF8mnpHrtJqXYnGVVQu3DQ6rMJ099Qvp/SEamw2OCaWAksO/BZcQZMIJ2T4VbWm41kovTjArdQlkJdU0o0H6HyfdQx7U2Q5E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6858.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10070799003)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(3023799007)(56012099006)(11063799006)(261022105027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WThvbU9hcUhuQVlFL0h3NjZiTXJpdDVZN2RPVWRHUlVNSi8ySFdMRk5FWGJZ?=
+ =?utf-8?B?eE9td2ljWkxjTmpaNmMvYWpMM2N1MlhwdVBaMWdMRmdZU2FQMkdBVG0zS1lX?=
+ =?utf-8?B?QXJhcXVXaVc4dFJOeEFudEpWR3VHZEJRTzYycGhaMmZPeTNBRjUxRXVEd0NB?=
+ =?utf-8?B?cVFaNkVNNlVmZFdyWTN0RDMxN2R2VjZEbGcrY3dIK09qWnZIalBXa3ZucEFq?=
+ =?utf-8?B?ZDRYU0luZlhNM291emxwaCt6R09yQlFiSGpRSXdtbzJkZWpId3ZiRWloTk5E?=
+ =?utf-8?B?aFpud0phUk4reExPS3BCMW5NYXYwUHJvMENWKzBOSVlncW4rQzBYcTl1V3FB?=
+ =?utf-8?B?MHFJRXRKNC9YM2JsOHoyQnFlTlloSHpmcjM2ZGpZRk9QUzE3dmZPQXZzS3Bm?=
+ =?utf-8?B?ajlQOTF3ZzF4N1J3S01BdnZiY25Tam9KczBaOThGd2Z3blRlVGFRc21OK2s2?=
+ =?utf-8?B?U3RtYXRmanJrNllleWRjQ0YvWUdORkRWczdVSThYSDA1ZGtmQmp1U0EzbUxy?=
+ =?utf-8?B?d1J1T01zKzVWdGhWeGI5ZGZFNkpnRFRDOHhLaitTNk1LSjljRzMxMG83b2Zu?=
+ =?utf-8?B?alJrL3ZGS2hya1pEc0N4cGIxbG9vdnUyeUtLMGE4SkZLRHFGbk1zREYwVjdQ?=
+ =?utf-8?B?cFI2cm5JSnZjTTZmVmU4bElCSGNUcHNQdU1NZm85MUZDamwydVJyRmZycGNM?=
+ =?utf-8?B?ZjMvWjJIZnhnM0dJWWkrWWRzYjNaeGZCMWFKSE4wM1NrQW9Mc0RxWUZxeGFh?=
+ =?utf-8?B?NFVlbFI3bUp6SnBvb0JJb2tPbHJuc1hleSt6aEhCcjNYQjVubjVrTVZDaVIv?=
+ =?utf-8?B?U2FENEFmU3pjT2dzVXcvOW1pSnNCaHJlc1lrdC9SNTMwdTVuTkhmcGxOTUhB?=
+ =?utf-8?B?Tjc3QldjRTFGNC9YRnQzLzA3a0xaMTVDNmJYLzNuT3NIdGJmTlJWY01tV1pn?=
+ =?utf-8?B?TmhUK2J6K3k5RHM3VDU1SXNoSFJ0WVJxZm9vUDlYNUJGSFcrS25xSU9laFBG?=
+ =?utf-8?B?aFNHalFUNHNoZFN3bW03NXJMVnREbmlFUURnN0N3UzVPcmFJWGx3RE1RVVJN?=
+ =?utf-8?B?Vm5kek15ZnJwRmsvT25uV1VaQUN4VlVVT3lhYURNbVV2SzVDMGJkTGx4RWlw?=
+ =?utf-8?B?bFc4SGk3b0xPTDd5cWdPZitrNUdBVTlKdlhCOW5kUGtSTjU1YlFBRzAvVlZS?=
+ =?utf-8?B?VHV0a1VZNmUxaG5KYnFtL3UwTENqQ2c3UktWNWNlbzllV2RXNm5MV3ptUEJr?=
+ =?utf-8?B?TnNGRVRXK29nclA4U3ZSa1pDWUYrdjhEUVgxYWZHTUh5OWFwQWU1SFNrR0U3?=
+ =?utf-8?B?Unh5bVRibkdRMFJ1dVhnZ1RwTTVISXFyOCt3MG9lcjNOYUs1R1pLSU5MN2Va?=
+ =?utf-8?B?ZTU1elpwTzh2TEFveFRNRnA3dGpKMHZhaTcvbUlWenRsR1BMVnhCTThOTzRa?=
+ =?utf-8?B?eC9QSGl3Q0MxaVRwYWVmTjhUcTVGK3FSQllvT3lsaW8zVEhaZ3BmRHZjOTJU?=
+ =?utf-8?B?QkViNTBMRzdlVkNaV0ZESTlyRXZwRWtxazBwM29vaVhaem9HQytIQnFucStD?=
+ =?utf-8?B?dkZJcW4yNmRnMEEzWUpDMy9iWW1FZUVGVWY2ZUdPMG1rSDc2V3hHNTZ2YWlE?=
+ =?utf-8?B?aXUvT1BkWUI4SVhiTUc3Ykcvei8yNG42VGtid1Nkb3hiTzlpd3BHUnNhNVdl?=
+ =?utf-8?B?Q0UxNG04Uko0dFZwWmJyM1NqNW9NdmtSWExsVWJRaXI4ZjdPa0hZdGRvWm81?=
+ =?utf-8?B?ZDJvN0hlaHB0UFRmTEs0V0EvN2NXYzhxc2NXLzB2MkhMcjRpdEREN1owVzhs?=
+ =?utf-8?B?MGJOZUdPYVg2dVN6eDVoaEFLcFRsamZ3WE1LN2trcnFIQ3hYWDhUS211cFF2?=
+ =?utf-8?B?ZG1RYnA4TFRyMmZuWTdFL2VETjFmRmpGQVhaa2JUcHY0TzdsZkRkVEpKelFJ?=
+ =?utf-8?B?cFBTeWlLZWpaMllWYlpET0RKZXZOTCs4ZC9LWmY4blFqbWRFV1ZsZ2h3QnYr?=
+ =?utf-8?B?a0lyUkpGNXNoS1VPM2dmTTJZOEhsK01tWHN5WWpqQzlFS2sraFR3QmJPb0FX?=
+ =?utf-8?B?Nmd1eGlsdVJuaHNXRE02K0lQNW1nMWo4Ni9Pcy9hUjNFV0Z4aWFoMkI1Ulo4?=
+ =?utf-8?B?c1JTN09iZGR1dEtIZEs1NUtqaE5LUlhGOVpFRmhSeFlVSDNzdWRVVzFMYWxp?=
+ =?utf-8?B?dkVlbWlHaTlybzVQZ295elp2WnVNeXYrZC9DaWt3ajlGQWRITVBucmhUaGdm?=
+ =?utf-8?B?QUQ2NXpIeVErdUQveGE2bjBtc2xWc0ZvWmkrcitITkFVTlg0OUU2SzdSRnNm?=
+ =?utf-8?B?VlYzY1U0WEpGcXkvVHVVclpBSjVaSnNINHVuMXp2dFpjZ292QXB0TlNjTEsw?=
+ =?utf-8?Q?a8LT53WSHrfHJmIrx1F538vU4IIX5UxkszrTAWoyQmCjj?=
+X-MS-Exchange-AntiSpam-MessageData-1: q46pMSKjAC+jLw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51fc8ed2-eefd-4dfe-b9bf-08df393dd713
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6858.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 00:03:07.5470
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GvchZrFRvvxvlzpTJpYhpRB38Rx0wfWhCIuXrzoEDktf//h/8f93R17N6+R0QlrA4Qt4jXbmuFnAQ5K5o7wLIQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9415
 
-The "struct crypto_acomp" member of the per-CPU "struct
-crypto_acomp_ctx" has been moved to "struct zswap_pool" since this is a
-global entity representing the crypto algorithm.
+From: John Hubbard <jhubbard@nvidia.com>
 
-We save 56 bytes per-CPU by not allocating per-CPU memory for the
-crypto_acomp. The size of the global "struct zswap_pool" increases from
-240 to 248 bytes as a result of this change.
+The r000 firmware carries GSP-RM's boot protocol, and its newer
+interfaces in general, over the GMC (GPU Management Controller) API:
+messages that follow the queue element header with a GMC API header
+instead of an RPC header.
 
-Suggested-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
+Add the GmcApiHeader type as a newtype over the GMCAPI_HEADER binding,
+so we can define the GMC send and receive paths in the following
+patches.
+
+[ acourbot: wrap the bindings type instead of redefining it; make
+  `status` return an `Option` to avoid returning a value whose semantics
+  are ambiguous.]
+
+Assisted-by: LLM
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- mm/zswap.c | 63 +++++++++++++++++++++++++++---------------------------
- 1 file changed, 32 insertions(+), 31 deletions(-)
+ drivers/gpu/nova-core/gsp/fw.rs | 106 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 106 insertions(+)
 
-diff --git a/mm/zswap.c b/mm/zswap.c
-index ad01c691a263..68825a6c0b68 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -151,7 +151,6 @@ struct zswap_comp_ctx {
- 
- /* Separate requests, so that decompression does not wait for compression. */
- struct crypto_acomp_ctx {
--	struct crypto_acomp *acomp;
- 	struct zswap_comp_ctx comp;
- 	struct zswap_acomp_req decomp;	/* unused with on-stack requests */
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 213ef5bfb258..367c8b5e3443 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -37,6 +37,7 @@
  };
-@@ -167,6 +166,7 @@ struct zswap_pool {
- 	struct crypto_acomp_ctx __percpu *acomp_ctx;
- 	struct percpu_ref ref;
- 	struct rcu_work release_rwork;
-+	struct crypto_acomp *acomp;
- 	struct hlist_node node;
- 	u8 idx;
- 	char tfm_name[CRYPTO_MAX_ALG_NAME];
-@@ -286,16 +286,6 @@ static void acomp_ctx_free(struct crypto_acomp_ctx *acomp_ctx)
- 	acomp_request_free(acomp_ctx->decomp.req);
- 	acomp_ctx->decomp.req = NULL;
  
--	/*
--	 * We have to handle both cases here: an error pointer return from
--	 * crypto_alloc_acomp_node(); and a) NULL initialization by zswap, or
--	 * b) NULL assignment done in a previous call to acomp_ctx_free().
--	 */
--	if (!IS_ERR_OR_NULL(acomp_ctx->acomp))
--		crypto_free_acomp(acomp_ctx->acomp);
--
--	acomp_ctx->acomp = NULL;
--
- 	kfree(acomp_ctx->comp.buffer);
- 	acomp_ctx->comp.buffer = NULL;
+ use crate::{
++    bounded_enum,
+     fb::{
+         FbRanges,
+         FbSizes, //
+@@ -906,6 +907,111 @@ pub(crate) fn function(&self) -> Result<MsgFunction, u32> {
+     }
  }
-@@ -322,6 +312,17 @@ static struct zswap_pool *zswap_pool_create(char *compressor)
  
- 	strscpy(pool->tfm_name, compressor, sizeof(pool->tfm_name));
- 
-+	/*
-+	 * In case of an error, crypto_alloc_acomp() returns an
-+	 * error pointer, never NULL.
-+	 */
-+	pool->acomp = crypto_alloc_acomp(pool->tfm_name, 0, 0);
-+	if (IS_ERR(pool->acomp)) {
-+		pr_err("could not alloc crypto acomp %s : %pe\n",
-+			pool->tfm_name, pool->acomp);
-+		goto error;
-+	}
++bounded_enum! {
++    /// Commands of the GMC API.
++    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
++    #[repr(u32)]
++    pub(crate) enum GmcCommandId with TryFrom<Bounded<u32, 24>> {
++        GspInit = r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_GSP_INIT,
++        ExecGenericBootloader = r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER,
++        ExecHsBinary = r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_HS_BINARY,
++        GspSuspend = r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_GSP_SUSPEND,
++        MmuFaultQueued = r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_MMU_FAULT_QUEUED,
++    }
++}
 +
- 	/* Many things rely on the zero-initialization. */
- 	pool->acomp_ctx = alloc_percpu_gfp(*pool->acomp_ctx,
- 					   GFP_KERNEL | __GFP_ZERO);
-@@ -385,6 +386,14 @@ static struct zswap_pool *zswap_pool_create(char *compressor)
- error:
- 	if (pool->acomp_ctx)
- 		free_percpu(pool->acomp_ctx);
++bitfield! {
++    /// The `command` word of a [`GmcApiHeader`].
++    pub(crate) struct GmcCommandWord(u32) {
++        /// Command ID.
++        23:0 id ?=> GmcCommandId;
++        /// Set by GSP-RM on the response to a request. Not set for requests and events.
++        24:24 is_response => bool;
++    }
++}
 +
-+	/*
-+	 * We have to handle both cases here: an error pointer return from
-+	 * crypto_alloc_acomp(); and NULL initialization by kzalloc_obj().
-+	 */
-+	if (!IS_ERR_OR_NULL(pool->acomp))
-+		crypto_free_acomp(pool->acomp);
++/// Header of a GMC (GPU Management Controller) API message.
++///
++/// In a queue element, it follows the queue element header and precedes the payload of the
++/// command.
++#[repr(transparent)]
++#[expect(dead_code)]
++pub(crate) struct GmcApiHeader {
++    inner: r000_00::GMCAPI_HEADER,
++}
 +
- 	if (pool->zs_pool)
- 		zs_destroy_pool(pool->zs_pool);
- 	kfree(pool);
-@@ -423,6 +432,13 @@ static void zswap_pool_destroy(struct zswap_pool *pool)
- 
- 	free_percpu(pool->acomp_ctx);
- 
-+	/*
-+	 * We have to handle both cases here: an error pointer return from
-+	 * crypto_alloc_acomp(); and NULL initialization by kzalloc_obj().
-+	 */
-+	if (!IS_ERR_OR_NULL(pool->acomp))
-+		crypto_free_acomp(pool->acomp);
++#[expect(dead_code)]
++impl GmcApiHeader {
++    /// Creates the header of a request for `command`, sent with sequence number `sequence` and
++    /// followed by `payload_size` bytes of payload.
++    ///
++    /// `max_reply_size` is the largest reply the sender accepts, and zero for a request that
++    /// GSP-RM does not answer.
++    ///
++    /// # Errors
++    ///
++    /// - `EOVERFLOW` if `payload_size` does not fit its 32-bit field.
++    pub(crate) fn init(
++        command: GmcCommandId,
++        sequence: u64,
++        payload_size: usize,
++        max_reply_size: u32,
++    ) -> impl Init<Self, Error> {
++        let init_inner = try_init!(r000_00::GMCAPI_HEADER {
++            command: GmcCommandWord::zeroed().with_id(command).into(),
++            size: payload_size.try_into().map_err(|_| EOVERFLOW)?,
++            sequence,
++            __bindgen_anon_1: r000_00::GMCAPI_HEADER__bindgen_ty_1 {
++                request: r000_00::GMCAPI_HEADER__bindgen_ty_1__bindgen_ty_1 {
++                    max_response_size: max_reply_size,
++                },
++            },
++            ..Zeroable::init_zeroed()
++        });
 +
- 	zs_destroy_pool(pool->zs_pool);
- 	kfree(pool);
- }
-@@ -840,34 +856,20 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
- 	 * To handle cases where the CPU goes through online-offline-online
- 	 * transitions, we return if the acomp_ctx has already been initialized.
- 	 */
--	if (acomp_ctx->acomp) {
--		WARN_ON_ONCE(IS_ERR(acomp_ctx->acomp));
-+	if (acomp_ctx->comp.areq.req)
- 		return 0;
--	}
- 
- 	acomp_ctx->comp.buffer = kmalloc_node(PAGE_SIZE, GFP_KERNEL, cpu_to_node(cpu));
- 	if (!acomp_ctx->comp.buffer)
- 		return ret;
- 
--	/*
--	 * In case of an error, crypto_alloc_acomp_node() returns an
--	 * error pointer, never NULL.
--	 */
--	acomp_ctx->acomp = crypto_alloc_acomp_node(pool->tfm_name, 0, 0, cpu_to_node(cpu));
--	if (IS_ERR(acomp_ctx->acomp)) {
--		pr_err("could not alloc crypto acomp %s : %pe\n",
--				pool->tfm_name, acomp_ctx->acomp);
--		ret = PTR_ERR(acomp_ctx->acomp);
--		goto fail;
--	}
--
--	ret = zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp);
-+	ret = zswap_acomp_req_init(&acomp_ctx->comp.areq, pool->acomp);
- 	if (ret)
- 		goto req_fail;
- 
- 	/* Skip the per-CPU request when decompression can use the stack. */
--	if (acomp_is_async(acomp_ctx->acomp)) {
--		ret = zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp);
-+	if (acomp_is_async(pool->acomp)) {
-+		ret = zswap_acomp_req_init(&acomp_ctx->decomp, pool->acomp);
- 		if (ret)
- 			goto req_fail;
- 	}
-@@ -876,7 +878,6 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
- 
- req_fail:
- 	pr_err("could not alloc crypto acomp_request %s\n", pool->tfm_name);
--fail:
- 	acomp_ctx_free(acomp_ctx);
- 	return ret;
- }
-@@ -1031,7 +1032,7 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
- 	 * Otherwise serialize decompression on the shared per-CPU request.
- 	 */
- 	if (!acomp_ctx->decomp.req) {
--		ACOMP_REQUEST_ON_STACK(req, acomp_ctx->acomp);
-+		ACOMP_REQUEST_ON_STACK(req, pool->acomp);
- 		DECLARE_CRYPTO_WAIT(wait);
- 
- 		zswap_set_acomp_req_callback(req, &wait);
++        try_init!(GmcApiHeader {
++            inner <- init_inner,
++        })
++    }
++
++    /// Returns the `command` word of the header.
++    pub(crate) fn command(&self) -> GmcCommandWord {
++        GmcCommandWord::from(self.inner.command)
++    }
++
++    /// Returns the sequence number of the message.
++    pub(crate) fn sequence(&self) -> u64 {
++        self.inner.sequence
++    }
++
++    /// Returns the size in bytes of the payload following the header.
++    pub(crate) fn payload_size(&self) -> usize {
++        num::u32_as_usize(self.inner.size)
++    }
++
++    /// Returns the `NV_STATUS` carried by a response to a command.
++    ///
++    /// Returns `Some` with the `NV_STATUS` code if the `response` flag of [`Self::command`] is set;
++    /// otherwise returns `None`.
++    pub(crate) fn status(&self) -> Option<u32> {
++        if self.command().is_response() {
++            // SAFETY: we just checked that the message is a response.
++            let status = unsafe { self.inner.__bindgen_anon_1.response.status };
++
++            Some(status)
++        } else {
++            None
++        }
++    }
++}
++
++// SAFETY: This struct only contains integer types, including inside its union, and a zero-sized
++// array. It has no padding.
++unsafe impl AsBytes for GmcApiHeader {}
++
++// SAFETY: This struct only contains integer types for which all bit patterns are valid.
++unsafe impl FromBytes for GmcApiHeader {}
++
+ /// Arguments for GSP startup.
+ #[repr(transparent)]
+ #[derive(Zeroable)]
+
 -- 
-2.39.5
+2.56.0
 
