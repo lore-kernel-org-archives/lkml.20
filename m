@@ -1,59 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729972;
-	b=ILcxEsdzNPtJIrhPuyzojbYNkCrXKB/Xr//2DGR3nRhQGBhJ/kQ2//qz24oJRHYOwSrO
-	 +h3QO3AOskUvKmYog6oBM8OdQeF0ETMFqB3iBcQzkoOndoGYkWTf5CKAzLfQKf89yDghv
-	 biZPaZzlQtfCNc9RKDxngTAhvAF/rbds0U04W64r0S8Yd+Pt0gcYi6SNu0moj3NGScRIr
-	 sUeUNt/4dtEGevLkRTyacchl9YT2WjwTsufV7vynjybpvgnv6QuJTMmE3mUofy5Mv9vZA
-	 NxPXdn42OcwvY6cPqM4yCrlvN1ke/lFBmY775JSDkVnbIzMzZzpnDkdrOmAxqNzHd8w==
+	t=1793729993;
+	b=taOCDnBm+/Ks5LntQDiscTO1wWx7M4SD+iFHRk7KWl0csWjgOXy0EGUhZrWhbgyMmH7c
+	 K8AIuQKqi1EvU5wMjz5F0X32ZE1AH68czM82bIaS2u9C4bYLV0uviHoBWJByeSGL02RG+
+	 5ZgzfDbCdoy1aIhVfyQPIpkdEoPBR2mJoMfYQJXC2zD1B9yiWX/xHcVRAjnkKpULxU26/
+	 j0+Yr4qPrsXAoNXrCI2QUUYjwlmOSABRXfQTG82h22FZVJSXmmqlo+8Wd5C88xPaGJ+Pp
+	 5i/mIJ0tWuxc07jXjAWHQEE1rXnaN6ZSLr/baZfAdOqo9W6wTsqqfv4y6RAvQ7idenQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729972;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ikpjRxzxut3T/KDasjzHggVPTQG5Ge+eGv+OSVemEXk=;
-	b=NDy4V7uz5qpJiOLa/SuEkQNRDiCs5Mkrkz0HzCGJ0XFRHauSwWKK/OwAfaZOxmTnJ7V4
-	 nu9pxlrF62GSHw233B3vb3pYYFNXA6dwdP2wxdusXWOTS8BDndAMvnjrl/bcgxof7+PPU
-	 Se+ssru32vW3W5VoJ7hZUiMFMVwOoK2fCwmQGZn5/z4gx7J/l+WhWz9IRqHcX4/X75kY/
-	 Jf2iIYgXGE7pM+hzcun7pCyEdr8S8XM2MLH+C/73W9laYidmAfS58Jlge6ICb7C/lVqoa
-	 KzpykTBPV24XTiSbkqnoLw11Cj8H6Hls/5KiXqrITYZgrWUw+nsGxobaXTAsBF/sqbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729993;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
+	 To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=CxPmNkrdL66AIfJyn1xViBqXlyUc1HsQv2fthprM7Ng=;
+	b=idQ6hqeE0KpnCRyzd7bk8CUpkL27clW5ajEv/fxqTDM2JPeBEW4LVduGQSpgS7RUiKeu
+	 zMThgsI/mtCNg0nIzdvJdgfH03IaZZp/Oza4IgR1mC1T5LrDaNgCYwauByvTkEv1YiXX4
+	 ZpVb5C0DTZZi19WPKAMoR3NWBS9iJQrCcMg+xa14ELBUTfwzjLbxdGhvMD9AZCuycVOu+
+	 AgAv9xDZA4dlBlyJzt4reDHVNwJjOM/K/vQzv4GjEuvxWV3AJQw4yNubqx2/eoFU5rZbX
+	 GUBK06aZTNnmcVfxRmmeXiv4R3fS3JIOWcQVxEEYEgHWb7PXYI4f+LWluO2AQGu9+WA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9sJCu1x;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A960F6082BE7
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9sJCu1x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D441F00A25;
-	Tue,  3 Nov 2026 18:19:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793729971;
-	bh=ikpjRxzxut3T/KDasjzHggVPTQG5Ge+eGv+OSVemEXk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c9sJCu1xp74krmFkMVk8mLe2ptw4u+UQIkBrktG1eh45b/H6ID18PQHlk5dcst1r6
-	 gv0yMz7OoYa9jmuiZC4P4il5W4zCsYkIGdBmH+hInR68kATNWaQkYJs/QirwAUbgOW
-	 ShcB1cIuQOhXJc28DYjRzkZQJrnE4yyaFMdrNNNTeoo1KNKqyLls8xKxvOE5Si7zd3
-	 cv/GxpIWQPrALyfNuQTqRKlbKITWsNeGtc86ZCTuulJBqnkS/kvuiBlFcuEtZW2SlA
-	 4mhsoIbFCuhL7hyYIjBGvwBuUgSER7Y0n+6fy+dZjsXm4x4DKnHwlRSikzB+wlGYsW
-	 O2gdqMVXqF9XA==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Samiullah Khawaja <skhawaja@google.com>
-Cc: kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 2/2] mm/memfd_luo: keep memfd frozen until finish
-Date: Tue,  3 Nov 2026 19:19:14 +0100
-Message-ID: <20261103181916.2462825-3-pratyush@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-In-Reply-To: <20261103181916.2462825-1-pratyush@kernel.org>
-References: <20261103181916.2462825-1-pratyush@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2AF606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A2AF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so36584235e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:19:53 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793729992; x=1794334792;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CxPmNkrdL66AIfJyn1xViBqXlyUc1HsQv2fthprM7Ng=;
+        b=f2afSwP4KPSw93d5AItIZ/6ITjLKanFv4QcdWYmKhGQLyMMrcc9QllmxJYmtoa1s9B
+         xgLFlV/dH1J5KUiMnMc3rq7b+TrFStogkAx8HqYBn8gD76EYtqXDJJgbGQK9FJby1SM9
+         1czaQpc5HqMSW8LgZe6n/205r9IB3VBOhH6ZErtYdpsT2Ek6WNhbgf9YCjGmGA4lWeC/
+         rJkcV7QwlY0ZOXtiYYX8D0iwLntlIqlr8AWDmb+9C8zmDMc/W1/zYhmjqtq+Bo3rHjti
+         8YRr6S8JRjPjsGTL0MbvtzeRBaO8QEJMZIJ4odOM3FxFj7wNGv3OxldOq84f0ZQUYPae
+         3tug==
+X-Forwarded-Encrypted: i=1; AKwUvBwW6QkC0csMkMHcVt3xPWZ5+9CblHjj7aUfGvIGjK/1p69eh/8vqvdshUkeAeTiE4oFMuyo4PMhfNwhxpg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7KcdM62gir6rkeedzK+vuMA2vJbbQyOO0eELorpcc2zOFsMgX
+	uNJIwwbhlpkwJYVWX3ytbV/7oIqDU+9H7nKFJggYJuF+PbNKFwQ2il8=
+X-Gm-Gg: AYBFou12WjCfu/OsEaUNxPdbdmPoODlcVGnrgvK72CjPn5qgbdVC8zS1FGYUpQwdb7K
+	2Ao6hFLErGQd4VLA+Il39lDbEB1veGl0CNgd/5QvnR28dLkaY4G2BEvsLvCOa/3iV76aLXiyyeN
+	zNadppdFBWuBkmNcZcw4YHtLP5Rcm4f3Wor+jwe4xU4rjfpxoBRUaDuzaGhSS/R5MXUuVAmr1qh
+	67xJhqcI68J64pDMOUVAj3DKjFF+YIcV+0F7Tex9NgtEXhp3Kle1zV1VTP92RaE+YqUtnfwIvls
+	7z4v3PXyxL2ByUCPAw4Pm2lUqGEv57akSsJqoeIxNTZ7+2P0X0RDm7jpOZ1NeplW+Z/KxA+oIiO
+	yPQHCr3rEmWRlL4W32dPbuVMu/tGv4H3l7337bbNztoypO5UHTcOD7Hg/5nr9W6yglcDgrZTTm0
+	hB0LPduMpjrEab39eUyp25zGlkOg+KQnmZxkjnBNxMBpLnfd9zxE0+TdnjZnnI79TCYnBQD1qbU
+	VDLeXdA/K1v3hhMfmq9fAC4EX/jbYoyC1YHeawfwigGiSyAGNgqvOccvKb3rsb22fkQa7snS2gn
+	65SbdDUA/F3s9WLfREbSixSQVo7Urp0TquYvlzoj
+X-Received: by 2002:a05:600c:350b:b0:4a3:2f35:38aa with SMTP id 5b1f17b1804b1-4ac1932bac0mr284037035e9.29.1793729991346;
+        Tue, 03 Nov 2026 10:19:51 -0800 (PST)
+Received: from [127.0.1.1] (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b411de95b4sm777745e9.0.2026.11.03.10.19.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 10:19:50 -0800 (PST)
+Message-ID: <6aea25c6.9efe04cf.11c115.259a@mx.google.com>
+Date: Tue, 03 Nov 2026 10:19:50 -0800 (PST)
+From: D. Manresa <dmanresa@gmail.com>
+To: brgl@kernel.org, bartosz.golaszewski@oss.qualcomm.com
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org,
+ andriy.shevchenko@linux.intel.com, sakari.ailus@linux.intel.com,
+ driver-core@lists.linux.dev, linux-acpi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] driver core: fix unbalanced reference counting for
+ software nodes
+In-Reply-To:
+ <20261023-swnode-dev-notify-balance-v2-0-948d920a79f6@oss.qualcomm.com>
+References:
+ <20261023-swnode-dev-notify-balance-v2-0-948d920a79f6@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,189 +89,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+Tested your v2 on a Surface Pro 7+, where ipu-bridge attaches the IPU's
+software node with set_secondary_fwnode() after device_add(), which is
+the case the series is about. Reading the node's kobject reference count
+directly across a PCI remove of 0000:00:05.0:
 
-After a memfd is retrieved, it immediately goes back into "normal"
-operation. The file comes back unfrozen, and its pages can migrate, it
-can be truncated, and so on. If the memfd is depended on by something,
-like iommufd, that can open a window for folios to move around before
-the consumer can re-establish its references.
+  6.19.8, unpatched:  4 bound, 3 while removed, stuck at 3
+  7.3 + this series:  4 bound, 4 while removed
 
-Finish is the conceptual point when a retrieved file can start to behave
-as "normal". So take an extra reference on the folios and freeze the
-memfd on retrieve until finish.
+The 4 is one registration reference plus three child port nodes. No
+refcount_t, KASAN or other splats either way.
 
-Suggested-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
----
- mm/memfd_luo.c | 87 +++++++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 68 insertions(+), 19 deletions(-)
+How much that covers: the rescan does not re-probe, because mainline
+ipu-bridge only unregisters its IPU HID node on the error path of
+ipu_bridge_init(), so the next software_node_register() hits -EEXIST.
+Separate leak, unrelated to your patch, but it means only the first
+cycle really exercises the fixed path.
 
-diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-index 9fd9abf9fedf6..50dbbda47ad3c 100644
---- a/mm/memfd_luo.c
-+++ b/mm/memfd_luo.c
-@@ -55,6 +55,14 @@
-  *   Only seals known to this LUO version (see ``MEMFD_LUO_ALL_SEALS``) may
-  *   be present; preservation fails with ``-EOPNOTSUPP`` otherwise.
-  *
-+ * Restrictions
-+ * ============
-+ *
-+ * While a memfd is preserved, and after it is retrieved until the session is
-+ * finished, its size can't be changed and holes can't be punched in it.
-+ * Operations that would do so (``ftruncate()``, ``fallocate()``, writes past
-+ * the end of the file) fail.
-+ *
-  * Non-Preserved Properties
-  * ========================
-  *
-@@ -456,33 +464,56 @@ static void memfd_luo_discard_folios(const struct memfd_luo_folio_ser *folios_se
- 	}
- }
- 
-+/* Drop the references retrieve() holds on the folios added to the file. */
-+static void
-+memfd_luo_put_retrieved_folios(const struct memfd_luo_folio_ser *folios_ser,
-+			       u64 nr_folios)
-+{
-+	for (u64 i = 0; i < nr_folios; i++) {
-+		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
-+
-+		if (pfolio->pfn)
-+			folio_put(pfn_folio(pfolio->pfn));
-+	}
-+}
-+
- static void memfd_luo_finish(struct liveupdate_file_op_args *args)
- {
- 	struct memfd_luo_folio_ser *folios_ser;
- 	struct memfd_luo_ser *ser;
- 
--	/*
--	 * If retrieve was successful, nothing to do. If it failed, retrieve()
--	 * already cleaned up everything it could. So nothing to do there
--	 * either. Only need to clean up when retrieve was not called.
--	 */
--	if (args->retrieve_status)
-+	/* If retrieve failed, it already cleaned up everything it could. */
-+	if (args->retrieve_status < 0)
- 		return;
- 
- 	ser = phys_to_virt(args->serialized_data);
- 	if (!ser)
- 		return;
- 
--	if (ser->nr_folios) {
--		folios_ser = kho_restore_vmalloc(&ser->folios);
--		if (!folios_ser)
--			goto out;
-+	if (args->retrieve_status > 0) {
-+		/*
-+		 * Retrieve was successful, release the folios and unfreeze the
-+		 * file so it can be used normally.
-+		 */
-+		struct inode *inode = file_inode(args->file);
-+
-+		folios_ser = args->private_data;
-+
-+		inode_lock(inode);
-+		memfd_luo_put_retrieved_folios(folios_ser, ser->nr_folios);
-+		shmem_freeze(inode, false);
-+		inode_unlock(inode);
- 
--		memfd_luo_discard_folios(folios_ser, ser->nr_folios);
- 		vfree(folios_ser);
-+	} else if (args->retrieve_status == 0 && ser->nr_folios) {
-+		/* Retrieve was not called, discard the preserved folios. */
-+		folios_ser = kho_restore_vmalloc(&ser->folios);
-+		if (folios_ser) {
-+			memfd_luo_discard_folios(folios_ser, ser->nr_folios);
-+			vfree(folios_ser);
-+		}
- 	}
- 
--out:
- 	kho_restore_free(ser);
- }
- 
-@@ -552,7 +583,10 @@ static int memfd_luo_retrieve_folios(struct file *file,
- 		nr_added_pages += npages;
- 		folio_add_lru(folio);
- 		folio_unlock(folio);
--		folio_put(folio);
-+		/*
-+		 * Keep the reference from kho_restore_folio(). It is dropped
-+		 * in finish().
-+		 */
- 	}
- 
- 	shmem_recalc_inode(inode, nr_added_pages, 0);
-@@ -566,9 +600,12 @@ static int memfd_luo_retrieve_folios(struct file *file,
- 	folio_put(folio);
- put_folios:
- 	/*
--	 * Note: don't free the folios already added to the file. They will be
--	 * freed when the file is freed. Free the ones not added yet here.
-+	 * Drop the references held on the folios already added to the file.
-+	 * The folios themselves will be freed when the file is freed.
- 	 */
-+	memfd_luo_put_retrieved_folios(folios_ser, i);
-+
-+	/* Free the ones not added yet here. */
- 	for (long j = i + 1; j < nr_folios; j++) {
- 		const struct memfd_luo_folio_ser *pfolio = &folios_ser[j];
- 		phys_addr_t phys;
-@@ -589,7 +626,7 @@ static int memfd_luo_retrieve_folios(struct file *file,
- 
- static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- {
--	struct memfd_luo_folio_ser *folios_ser;
-+	struct memfd_luo_folio_ser *folios_ser = NULL;
- 	struct memfd_luo_ser *ser;
- 	struct file *file;
- 	int err;
-@@ -624,6 +661,17 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- 	vfs_setpos(file, ser->pos, MAX_LFS_FILESIZE);
- 	i_size_write(file_inode(file), ser->size);
- 
-+	/*
-+	 * Keep the file frozen until finish(). Other preserved objects might
-+	 * depend on it.
-+	 *
-+	 * The file isn't visible to anyone yet, but take the lock anyway since
-+	 * shmem_freeze() requires it.
-+	 */
-+	inode_lock(file_inode(file));
-+	shmem_freeze(file_inode(file), true);
-+	inode_unlock(file_inode(file));
-+
- 	if (ser->nr_folios) {
- 		folios_ser = kho_restore_vmalloc(&ser->folios);
- 		if (!folios_ser) {
-@@ -632,16 +680,17 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- 		}
- 
- 		err = memfd_luo_retrieve_folios(file, folios_ser, ser->nr_folios);
--		vfree(folios_ser);
- 		if (err)
--			goto put_file;
-+			goto free_folios_ser;
- 	}
- 
- 	args->file = file;
--	kho_restore_free(ser);
-+	args->private_data = folios_ser;
- 
- 	return 0;
- 
-+free_folios_ser:
-+	vfree(folios_ser);
- put_file:
- 	fput(file);
- free_ser:
--- 
-2.56.0.385.gac671c819a-goog
-
+Tested-by: D. Manresa <dmanresa@gmail.com>
+Assisted-by: LLM
