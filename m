@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701611;
-	b=XZbetodK2JkyX3+g8S8gQXk8VKhBtyL6CszgGwRyxPuF9gwSMsIEnr+CLCWpgboC8hDC
-	 YYG5ShIoe1d9sWTiMe/GoX1SkxeMepZ8GS/goYT43ptcRwwJQou3gegr93DIG1YW2AtZn
-	 W49mKVHZHvZdoC8FE+o7aiNIUSv5ZKMXlU/X+3zwrhzTA3SXI3YnnPipn/qBAWT0Exi34
-	 t3dxCYIX6gtnsNgsL8su07P+5QtvLzpykc4f+HO+lrEOyzyvbZkoU/5QCVUR8D9qP8KoL
-	 Eb2PSkQwaM2hoee6UHXfTyMbZBzhnIsKItbKcq3HQYvUP0LhH454HyOqFNGYOhyZvgA==
+	t=1793701622;
+	b=x2uTThTmlxpnuA1hFGrBLe8NSBbvaBdfGMUNRPaLHYQXKgCsMhES1MdN87QUjdbuOIr7
+	 SYE7GHv3X7V1N03J/VMTi8SfPF86edEb0jnuh5Wbave1WW0x9tb9/L/hjoz4zNgscmYmr
+	 XRug+RFqppl0VBZpWuUKxU9SWe8fcY/oMy9BoRHILOmx3qMJFmSE8Rv2XJQDsIFgVnyNe
+	 EpTzvwXb05BwwtoZ+izwOd8SVh2cb/QAx/4OrjP1G7FOqqWPvlnvp59sZXRAq48np42Qd
+	 tdijn+DhZ/OffGEVgRw9CA4EoO6HaRKH3HhKuECFTZ46lmk2GGwp4g5Y6HuvouwwzFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701611;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701622;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R9XeDdNG3SfD34Ot+GAcgU3Z6g81VFnBLXSrMlwBreg=;
-	b=D1rRtjTg/QG/kZMlW9d3ygUfNvOA55wX1HXftx9JxV+wRSES2EaIhFE3sjVP2BD+Pnlj
-	 7HP/grgbOJ9Bo8YPzNfrX2MJal9aWgvCzGtwcESVLUp17FWsd+ysAeuEQYrjSOzOSuW5S
-	 AyjqnvBYed4O77+nPVtGuOPYBQWut5E46LwmJTWOSzAi6PhMKnwUQajg60AFYKtNoQT6C
-	 uFRf3VWUMPMp6Bem3uJPusXpi1rY7UQ77z6TN3TpGwXeFSLtiWaF0GE7GPAyI2pF10PH+
-	 LwApG9Xy9N0Kabh5CuWzuXsEuNqkkxSu5gTK6RXQJJhPu1RB0IswVwYOOHL5hQxlVuA==
+	bh=Kscpnze2DihFqQD9KJv4DVZc3CpyOiRtlqpKtxfOoeA=;
+	b=IjCCY2Dq74ajfM9dKciiYSyWK2C/H7idEwALjp84s8ZYLwCSNz9yt08o4B/pP4J8zScI
+	 BP9hsBDZlxvKUUY/vRt0mc+gahaLheA6DTn7v1MhKIfWJpaujzG1TWF8jzNd0xdMKq26k
+	 Xs7xSVyb/KdAVPxOPm0AtuLkcSwZVO3d66We4W0Ig+KHOoqCS2I9VI/pFeg6Jj4c07OSZ
+	 YToZc7WMe8f/1/7wxsA5Hb9o+Z57kATBwd4MCpmTojMTWMj8QrFGTrobNdMQ6TspTt7kn
+	 QfDW6dGkEXVfu3PBz/iYEDKYCh7skIS8dscYEy41tgA2fiaAa2nZHQ7unkiJFT9wxVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gj7/7uaW";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XS1GXljn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F4C606FAC1;
-	Tue,  3 Nov 2026 10:26:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E6860850A0;
+	Tue,  3 Nov 2026 10:27:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gj7/7uaW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E8941F000C1;
-	Tue,  3 Nov 2026 10:26:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XS1GXljn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FA61F0093A;
+	Tue,  3 Nov 2026 10:27:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701610;
-	bh=R9XeDdNG3SfD34Ot+GAcgU3Z6g81VFnBLXSrMlwBreg=;
+	s=k20260515; t=1793701622;
+	bh=Kscpnze2DihFqQD9KJv4DVZc3CpyOiRtlqpKtxfOoeA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gj7/7uaWPD8l6WCj0nkt/dxqvS9SCyLl9TTQbG6hPZEVvTZ5+7uEmWYcgQJ5VNW61
-	 SFuhU2qByE2lKcYuC9ggyHv94fyQv1Id3fNfwGTC5pJIHDQ4kAWNm1hq+YRueNuW18
-	 o62P3bhO4pwqnKEaIO1omu8NR6FFii2r1WSUKURfTr4FEE+IVgiXjkkGoOXQ+daLxZ
-	 lmMZ9M96hfu5PwTjnR2zxMcf47/LpDluWegzpGbV3fcPARsJmh51jtuBIzYjW8/Z6l
-	 1KKvF5Hw5S0frWh36GQhe7TKp9GY8ihe3Vf4QZlh3eGV8gwn7DqTjJSxH8kvKmgOdx
-	 ZnI/XJh5NZ6Ag==
-Date: Tue, 3 Nov 2026 11:26:48 +0100
+	b=XS1GXljnAKfkvxZdnKyj+KiEIT7Ry0hKN51P6osuui0Nfbax0JhpvujzaC+DzNu3F
+	 EP3E1Jx8Z27pbx1ni92MuctOFf0VWtom7xBbAoMvZhTEBidkSeFaOeMfIHNWB38PTY
+	 dWWlsMDdYNuX3CrI2Ta5ZZM8RWW6FnItzUy9IWYpqd3lXtA+5kkXsXOKucVl8STtR6
+	 ARFwoz794BQvF3RAemMvsEYRDx4hdFU52smlLqIRlTmEH8jOuo4utpdQl+2U1brOUE
+	 KluSSN5cfUNBzgizZc8Kt0Ud9J2OibSlfrEf3WweEqxmmYzdxfXf9zsx9Ju+B9RIrO
+	 srZYTA7r4yTXg==
+Date: Tue, 3 Nov 2026 11:27:00 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-media@vger.kernel.org, Devarsh Thakkar <devarsht@ti.com>, 
-	linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: imagination: Release m2m device on probe failure
-Message-ID: <20261103-tiny-centipede-of-fragrance-a21f0f@quoll>
-References: <20261103094617.1289402-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: radio-isa: Unregister v4l2 device on probe failure
+Message-ID: <20261103-aromatic-strategic-mastiff-e62aa3@quoll>
+References: <20261103094618.1289428-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,28 +58,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103094617.1289402-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094618.1289428-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 09:46:17 +0000, Wentao Liang wrote:
-> e5010_probe() initializes the mem2mem device after registering the v4l2
-> device. When mapping the "core" or "mmu" register region, requesting the
-> IRQ or getting the clock fails, the error path jumps to the
-> fail_after_v4l2_register label, which only unregisters the v4l2 device.
-> The v4l2_m2m_dev allocated by v4l2_m2m_init() is not released, so it
-> leaks on these probe failures.
+On Tue, 03 Nov 2026 09:46:18 +0000, Wentao Liang wrote:
+> radio_isa_common_probe() registers the v4l2 device with
+> v4l2_device_register(), which takes a reference on the parent device. If
+> creating the controls, calling the driver's init callback, setting up the
+> controls or registering the video device fails, the error path frees the
+> control handler, releases the I/O region and frees the card, but never
+> calls v4l2_device_unregister(). The reference on the parent device is
+> leaked, and radio_isa_common_remove() does not run after a failed probe
+> to release it later.
 > 
-> Release the m2m device from that label as well, so that every error path
-> taken after v4l2_m2m_init() succeeds frees it. v4l2_m2m_release() accepts
-> a NULL pointer, so the v4l2_m2m_init() failure path is unaffected.
+> Unregister the v4l2 device in the error path before releasing the I/O
+> region.
 > 
-> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+> Fixes: 137c579c12bb ("[media] radio-isa: add framework for ISA radio drivers")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/platform/imagination/e5010-jpeg-enc.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+>  drivers/media/radio/radio-isa.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 
