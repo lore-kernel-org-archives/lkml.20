@@ -1,90 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793703844;
-	b=zuFM9efZ2gDeUlEgN9rOovAR83qgKbUnPf28n6r/hltkPY2q7+YdqlWgrb4z9k0XNtkk
-	 GhFWvfI66UcP6XeyHm0dAp7UdogeiadmCvfEQeuOls4EpJlWIl+N7FBJw121sTJUl+v72
-	 iI54mhlpXZlhP2TLLGVwRKNa8GxGunJJwGr0gIf57kbdzOPuEtf1ZIhUOxIqdDtEMlF+u
-	 32CJv4IJ43Sebyb4a6FcioanIQ6wDghewOaxMi45eGD1YRUByLmpE3S6xHI+HZpdVGpwL
-	 5BBP/JXeG2h6W/vqt4s8EWJW38L/4K0yF4pyHeXRwfzCXjSuNA/dmu07s+t9IOZV9WQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703844;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=9+j8TmaWLqssBXOiaemL9Pho6D080LRmzK8roZic8Ps=;
-	b=CLs8Ghu2gz4TxBzA1nEoWRHu8vcKDpmXorQzFlCGgXJ4iRAr730lXN7ZM+zGPuJS7PwH
-	 I2mKOSiiHcb//C6TwikK9DtGVieTTyQN5sI06EUl+DaHOLD3UEZhGRt9UfN/vQTI+pNXM
-	 LyS38K8Vd2nivRrNeHf+VXdbzz2ChXiLM5Mc29PJUb/VzUCU4ll1vTkzMcXssNrczXCi0
-	 QtCMiUOKJ42kYFl6WmBXgJaXldrI7ZOI4Dm0PZkzcokxKBQbFXGPRxQYP0YJXBmddFBG6
-	 lSh+NklBt22MbLa9tkRaJPqIR8V+BNOpBxtwxJcK7PTIwkZ/EQ5ro7p4VdkHI2RWq2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Jc90BoPB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.168
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793703856;
+	b=K6WViE0FCd66b1fVAsV3D1+e44xosOHvfGxx5yxtpdK3i2OMi59H3KyNL3ojHwcXYWzd
+	 8psxdrnYln9CgRbHAowGmw2taGkeufbjwCIfHpUFbS2E/zBTqYQsAgRegyubZIMOvu4Mh
+	 nIoDBwDv7W7yDSDCJckbPnaJqWvDrd9eue2k6Tqc/fwbwCtg2R873sNWttDkaWEZX8Pl6
+	 ap6QN+VCpluNUr1/AIJ/G6Icma456melGe2HcONyUlW3mVGeOvfm3TYxpkpz+gFINaA4/
+	 lwb96mZqZijApTBgAXfDBumeaZt6FCsAQNoWVpJzq6n/IaTTRoYOcfF9eL2OFFSiGAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703856;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Infomaniak-Routing;
+	bh=em0sl5f3cl7hm/dK9xuLVyHUX7w3KpTJOOXQ+Qvn1oc=;
+	b=BJz1ZMIoMfMJcc14OGYPQ27OQbAJPHyPgo7tcNONwFsZADbzQJXk9G9m8L990oiS2NIb
+	 s2IKsQDsY98AZxZTYLM6y9V7VYrYfJEUEE7XEqvgG4BVLOKXEnWUecLRAkA7UNGnNAHgd
+	 nCNmhm08lfve/QqMF8pV1OJDdxh/PCEZ6z4aLC4ZTvpdaV+8AyXyn0uAgf7RGp28fMz7M
+	 iGWNxSjBYVZ1gcUFzIqWBCujGA5YksGmLHMCMLnjeqnbxtFvO2L73Jtzq5COkqCett0Qr
+	 pRNpj9P7vEzCXo6IF3xCF+19QkU11FJH4W//mVgQkBr54W9BpjY6m0lZHHZ9KgOAsNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=daylightlinux.ch;
+	spf=none smtp.mailfrom=daylightlinux.ch;
+	arc=none smtp.remote-ip=84.16.66.168
+Received: from smtp-42a8.mail.infomaniak.ch (smtp-42a8.mail.infomaniak.ch [84.16.66.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544A3606BA77
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:04:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 544A3606BA77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Jc90BoPB
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9D3482000E3;
-	Tue, 03 Nov 2026 12:04:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793703841;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9+j8TmaWLqssBXOiaemL9Pho6D080LRmzK8roZic8Ps=;
-	b=Jc90BoPB2m09qPV5RCIggu7BdHaigZs6oobU/kkMRjlBvAQQsER36aTYs+0yA4V2viZn0D
-	9IOFnm4MB2MrtSWlBawUEn6m77a+pjGsUtPg2Jh9RvDMzHE/FIrmgZNh5h+CYpDwQXX5jD
-	PInHrpp2ZdVA0T8XeRSodcB5WlYvLvfZDtqC4XjERA6LUcs94M6GOmBdnbtPMf01xb1r2S
-	V8UrXgvcdt1+KL5bTrDQ9HCOKfB3aIuHHYgna2kvUIW/cTkRIOypRpEYFd3t7W1uC7pkbc
-	uMoepfkGQ15NlXW9fEqQeZ0YWY55oxNkfj4tjw//OIhvyTq3DQokuzhZk0pgYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793703841;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9+j8TmaWLqssBXOiaemL9Pho6D080LRmzK8roZic8Ps=;
-	b=T49uY6iISswxJGUtAIkUg8wnsDsUJizPUO3sawt1f2O1BXLVCYGBQE0ajEGa2gNNV78NU+
-	7L3a7hhs8dGEvBValngCo0hBJiDANqQwMUNJ1m1AuYD/9itxmIJ9QhLLMVvQDAdHhM56WM
-	MVAMX3PP6axkRUiLIH5TUYZNaPyO39HTUWYtYzkBD07mnDsNGFM3vPECWf9xl/mKUADZWF
-	adW5UMzwDpgvLxEBNSteHJYgrp8V+yBmQ/TKlXu460xSGgZuG+Ee3dT9wBJ5G8XrzUWuWc
-	qYsITrrpF3dH6XKzKXC2VhO1fw5Co4qtEMi4ZwghwjGwPcpsLFD85oe0ZYwAQw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793703841; a=rsa-sha256;
-	cv=none;
-	b=Rx6LJC2yTwIOFc6EGkNmrGtrnjTzEvcY++tM/oV8LLfz5QM7h9x9mY4C3Z8S9L588dbilv
-	w5jy9BoYMt6EUr0gC+aQLnl4AQnyVCh0BaPd//AMaL9An0sBqQjLfsuv8SyMz/b+3Ww/eR
-	ORd0UFW3BHtirreItQZs1ShGIaJeYIj/O2X4sKuiM2G/5OfaQyoVeEH7yHMuuEdyfppaMs
-	e6Gded/RTFspCTzgjkOYJSY7invnM7WY447zw7vYzPTRaCrWUNzOc9YNQBk4KVFUiOAPgo
-	YlilMSkEuvCt3vgptrFl79cSFb62ExXMV+DvTP9Gm1zdl2L8FrdDFrCSbb/zWA==
-Message-ID: <bb3ee3d119d848034fa16943a4df9639b39df98c.camel@pengutronix.de>
-Subject: Re: [PATCH v2] reset: spacemit: Fix the RCPU2 PWM reset registers
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>, Guodong Xu
- <docular.xu@gmail.com>,  Yixun Lan <dlan@kernel.org>
-Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>, Alex Elder	
- <elder@riscstar.com>, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, 	linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 12:04:01 +0100
-In-Reply-To: <20261021132130.3026998-1-alan.tseng.cs@gmail.com>
-References: <20261021132130.3026998-1-alan.tseng.cs@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63147606BA77
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:04:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63147606BA77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daylightlinux.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=daylightlinux.ch
+Received: from smtp-4-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJm0s52jrzC4r;
+	Tue,  3 Nov 2026 12:04:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daylightlinux.ch;
+	s=20261016; t=1793703853;
+	bh=em0sl5f3cl7hm/dK9xuLVyHUX7w3KpTJOOXQ+Qvn1oc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=gHVl20S3De8kRxBxcsHgpLh0PFkoIbwp/0MtJSDwHMQD4wIJUtm6qa4EpWD7VGMJu
+	 Suzrh8G+5icVZI8mKULuXAKOmYqvmqf+qHvtw3hkRbn7QHh5uzmqM8G05kktZZPurl
+	 8IBjIzMf6pe+fvoDQrheLAXkS4Aih5hVQ0K11BC0pJ4Lpk0UvAh2ElTTlisU4SgG97
+	 l/kGInTTwGqMU/U9F7X6dOE7Ky8zVq3F+jw91rkNZT5Lr3ySCrlpD3m/rZgQwenst7
+	 yVjVIhB5hWpO9BGYhlK1sW9EdTZMRlfFySZFVSKsVxuwTfgMSSqiHUFSFn/TIVZcUz
+	 BjsA04GkPPYiQ==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJm0r5SbjzqGb;
+	Tue,  3 Nov 2026 12:04:12 +0100 (CET)
+Received: from unknown by raspberrypi with local (Exim 4.96)
+	(envelope-from <info@daylightlinux.ch>)
+	id 1xOCJI-00EwZs-1E;
+	Tue, 03 Nov 2026 12:04:12 +0100
+From: Hamdy Abou El Anein <info@daylightlinux.ch>
+To: nathan@kernel.org
+Cc: nsc@kernel.org,
+	linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	hamdy.aea@protonmail.com
+Subject: [PATCH] kbuild: detect module name collisions between '-' and '_'
+Date: Tue,  3 Nov 2026 12:04:11 +0100
+Message-ID: <20261103110411.11698-1-info@daylightlinux.ch>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,20 +68,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-On Mi, 2026-10-21 at 21:21 +0800, Hung-Chun Tseng wrote:
-> Every entry in k1_rcpu2_resets[] uses RCPU2_PWM9_CLK_RST, so asserting
-> or deasserting the reset of any RCPU2 PWM from 0 to 8 acts on PWM9
-> instead. Each PWM has its own register, RCPU2_PWMn_CLK_RST at offset
-> 4 * n, as k1-syscon.h already defines.
->=20
-> [...]
+From: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
 
-Applied to reset/fixes, thanks!
+Kbuild converts hyphens to underscores in KBUILD_MODNAME, and the module
+loader treats both characters as equivalent. However, modules-check.sh
+compares module basenames without normalization. Consequently, modules
+named foo-bar.o and foo_bar.o pass the conflict check even though they
+have the same effective module name.
 
-[1/1] reset: spacemit: Fix the RCPU2 PWM reset registers
-      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3D168cae7e87463
+Normalize basenames before checking for duplicates, and use awk to show
+the original module paths in diagnostics. Preserve detection of exact
+duplicates and leave distinct names unaffected.
 
-regards
-Philipp
+Signed-off-by: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
+---
+ scripts/modules-check.sh | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/modules-check.sh b/scripts/modules-check.sh
+index 4c8da90..3d12dc5 100755
+--- a/scripts/modules-check.sh
++++ b/scripts/modules-check.sh
+@@ -13,10 +13,19 @@ exit_code=0
+ # Check uniqueness of module names
+ check_same_name_modules()
+ {
+-	for m in $(sed 's:.*/::' "$1" | sort | uniq -d)
++	for m in $(sed 's:.*/::; s/-/_/g' "$1" | sort | uniq -d)
+ 	do
+ 		echo "error: the following would cause module name conflict:" >&2
+-		sed -n "/\/$m/s:^\(.*\)\.o\$:  \1.ko:p" "$1" >&2
++		awk -v name="$m" '
++			{
++				basename = $0
++				sub(/^.*\//, "", basename)
++				gsub(/-/, "_", basename)
++				if (basename == name) {
++					sub(/\.o$/, ".ko")
++					print "  " $0
++				}
++			}' "$1" >&2
+ 		exit_code=1
+ 	done
+ }
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0
+
