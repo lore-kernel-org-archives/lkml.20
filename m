@@ -1,57 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793729968;
-	b=GDraxKsWUMv4WQodQAdCzGF4OTwKkLoxI0KMQa9axjyFE38EVKUXi32KN616iOVoVXPT
-	 WUjMdm2mJNmjag9mL0Ndxvo1SS8SD8j9PF7bsIM6QYABLT59E2Fx+mc2UaDg5S/a9QBLX
-	 NTazvuThyZSd/9tc/BHFlapRrORxXjLxdtLxyWC+OZWJguSQMoY+Cs5v8/ZJb1T8Qnhfh
-	 Ne36jXWcROJBuZRypEBe20iZC531wB9FvaEJttJna6rv/xaeLIKB4wPyID+TaiLK5guX3
-	 PWTPx7gesce+OnL3QEo13meq11R5RstSosKL2jaEn5iZGuLF9dwdAlHp3wUIPgTEyyw==
+	b=QdrO3vNTS8NG4he4edmsdFjxoaMAOHBGElWxELKsP97bMnhrgpFgPg8OtrfcOKWZaPjc
+	 nanLD92kiWOLgjf7qpwd7IIlBmm6KkvqsoyFvBz75hEEj6doc1QIqRI/yqm2+tmAuxTZ2
+	 GMyREXoYEhMSGy63oWzJ1TLgUVskWQKHnwzSR7xbFWbgYAHiUQJgII24Ldb69cto6RXH0
+	 RhhoWDmY3eImFTFsxizun0p2gjsIxPoMi1L8Gq/hyG3jroCIFNEE6bi7XtdcVrJXPTURJ
+	 vvCSKy/j7ki8VioHQFpv2bs0xHIHqOQ/KuVNnXuOSK/k5JfdDl4nR9hiGqxvg6X5D+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793729968;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=311d7n2dqnSPEAnLl6q87tl5I8DFqOkQSr5KKtyq8g8=;
-	b=mLgLo1WaHwYuATU1pAOFe+LJZ0NGKUtd5i5b0E7T6E0LawVkM7Yw8VrN0F/Joo/VdVgd
-	 XoP4HcBKdxLoBo9a8YbRxrsVv4y6WYvMbczi+yIS3XCvDCgWun28FJY3R1mj81tVipcVJ
-	 0P73CVI0Q0UQsICAVlgzLyrtG5c54oc3fVB3sDbymXG926yWgsn5B8nRIdbgRGJocBQSx
-	 1fsSaic/yftEX0cdz2hgOsmnbxScXptsXfKL1Yz/o4Xf12q7fJ7qTAbuf+9CIu934XXWt
-	 nrU3fNpxwx0C2kMJiqvZVh6Q9oY14aMA+xjJUqOs6bH9Vp6t3TCxcGC1flxDGy+SzvQ==
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=3KbP6qAK/EhHIofDfFegwnkBwYgeXvEQlgbW5GWBZok=;
+	b=Cz1sIMsqsfwMwttFclHJ4az36RqHVfTNMdw3nWCPvWOdi1+mxT+M2LJv0u6Nockpr5E4
+	 PzgKvNsY1EE4E17SHpdV15c6ojXY5CTqYtPfvvY1JQUila4tXDVKKGrTn1Rz9kXZ2dvB+
+	 gtuESgMr7juUBdtWnxb5FiP1Ekf64gDcDEojhEjqSeulBJAtUtM30v9Tv/gcAQoRAs7iV
+	 p6WQ+y16vDH0302HPgRntedlaLTBwSdAOuIkyhIsh+C4jDdi64ewGP5c66yHMaS9teaSG
+	 crlZkvsLtuLnwytHtyiatR8vlpfdX3p+HE3rKFlOWBWtzlHHKKE73dUL+2tHPVTTI9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fq1rfYgK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=daRhlLg7;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214E5606EE92
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B9B606EEB9;
+	Tue,  3 Nov 2026 18:19:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3B9B606EEB9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fq1rfYgK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C0E1F00A22;
-	Tue,  3 Nov 2026 18:19:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793729967;
-	bh=311d7n2dqnSPEAnLl6q87tl5I8DFqOkQSr5KKtyq8g8=;
-	h=From:To:Cc:Subject:Date;
-	b=fq1rfYgKXk42I9ToJEzH73Q9X1IWBI2kJKuMUvrEQ77nSva0xnf9nltI88RY3onHu
-	 K7iTQ/pcQotwqKX+7eB0AZvkGVaT3W0tjqSbV3FTb4Jt7iDPVp1GaHjPjOmSVXazRT
-	 C+jVBJ++MckWwU4WdjJn1dxNX8WRr7TArZ027tWwy2SsBA4oOPMKHtsOoc8D5WYUhz
-	 qHAKOWBsViGGU4HsnJKHMIyNaIlJNkLendDJJZE9U5OcNxan2CFopA3mLqgMUa7Kqz
-	 G6FVmtWAeKYlO/H6YyJYIRAwQyFMwNvn/DkYO55naShWgbwsLnbCIEB9gfPUtMaR6w
-	 g59g4NhKrEQlw==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Samiullah Khawaja <skhawaja@google.com>
-Cc: kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 0/2] memfd_luo: keep memfd frozen until finish
-Date: Tue,  3 Nov 2026 19:19:12 +0100
-Message-ID: <20261103181916.2462825-1-pratyush@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=daRhlLg7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=3KbP6qAK/EhHIofDfFegwnkBwYgeXvEQlgbW5GWBZok=; b=daRhlLg7ipCg5aIvkcT78l5mF2
+	epPsPO11AY3N/H6YvZy0GQTotRlC5Z3DSAt/CM98wC1pfVTeXQCix23kQkdZeHX5RlxGYT3S/LQa3
+	Qsk3zEitndrhJBMqCeZI4K6IehJxiwzhXHQy9WpohPeEDIC/3oOVjJyejgitBZPnHcmAqXfsf1WXv
+	xpgbkdhQ3vIT6L/FFxHT0jfM8XJvf/ioKByh0Ltv5wU0QSgPVfOied1vtMkwEPcSRrgg9J1UW1JDq
+	RPIM7wpVMMpPvWr8mUpu3I1DO9itoY2M88V58s45HMtCT7M0489lYIw17F0dwoYVQzH5Z247n+kcn
+	pWJT58SQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOJ6U-00000003Orx-49L1;
+	Tue, 03 Nov 2026 18:19:27 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	linux-usb@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v3] USB: ohci: ohci_pdriver.h: fix missing kernel-doc comments
+Date: Tue,  3 Nov 2026 10:19:26 -0800
+Message-ID: <20261103181926.2838476-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,37 +67,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+Convert comments to kernel-doc format to avoid kernel-doc warnings:
 
-Hi,
+Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_on'
+ not described in 'usb_ohci_pdata'
+Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_off'
+ not described in 'usb_ohci_pdata'
+Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_suspend'
+ not described in 'usb_ohci_pdata'
 
-This series keeps a retrieved memfd frozen until finish. The main
-motivation is to let dependents like iommufd have a chance to acquire a
-reference. It also fits conceptually: finish is the point when the file
-should be back to "normal".
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+---
+v2: move all kernel-doc comments to before the struct instead of
+    having them inline insidet the struct. (Alan)
+v3: add Alan's Ack;
+    indent the struct member descriptions with tabs just as the ones
+    above these are indented (Alan)
 
-Patch 1 allows keeping private_data from retrieve to finish. This is
-needed by memfd to keep hold of folios_ser, which it uses to give up its
-pins.
+Cc: Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Patch 2 does the main change.
+ include/linux/usb/ohci_pdriver.h |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-The series is based on
-https://lore.kernel.org/kexec/20261103172251.2348370-1-pratyush@kernel.org/T/#u.
-
-Regards,
-Pratyush Yadav
-
-Pratyush Yadav (Google) (2):
-  liveupdate: luo_file: allow keeping private_data from retrieve until
-    finish
-  mm/memfd_luo: keep memfd frozen until finish
-
- include/linux/liveupdate.h   |  8 ++--
- kernel/liveupdate/luo_file.c | 11 +++--
- mm/memfd_luo.c               | 87 ++++++++++++++++++++++++++++--------
- 3 files changed, 81 insertions(+), 25 deletions(-)
-
--- 
-2.56.0.385.gac671c819a-goog
-
+--- linux-next-20261102.orig/include/linux/usb/ohci_pdriver.h
++++ linux-next-20261102/include/linux/usb/ohci_pdriver.h
+@@ -13,6 +13,10 @@
+  * @big_endian_mmio:	BE registers
+  * @no_big_frame_no:	no big endian frame_no shift
+  * @num_ports:		number of ports
++ * @power_on:		Turn on all power and clocks
++ * @power_off:		Turn off all power and clocks
++ * @power_suspend:	Turn on only VBUS suspend power and hotplug
++ *			detection, turn off everything else
+  *
+  * These are general configuration options for the OHCI controller. All of
+  * these options are activating more or less workarounds for some hardware.
+@@ -23,12 +27,8 @@ struct usb_ohci_pdata {
+ 	unsigned	no_big_frame_no:1;
+ 	unsigned int	num_ports;
+ 
+-	/* Turn on all power and clocks */
+ 	int (*power_on)(struct platform_device *pdev);
+-	/* Turn off all power and clocks */
+ 	void (*power_off)(struct platform_device *pdev);
+-	/* Turn on only VBUS suspend power and hotplug detection,
+-	 * turn off everything else */
+ 	void (*power_suspend)(struct platform_device *pdev);
+ };
+ 
