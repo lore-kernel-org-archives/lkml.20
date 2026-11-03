@@ -1,82 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705474;
-	b=WYsulPTMrhNLnJoCpSkXfZ7uWQ4g9+BbHxU5PmZHWJNgE4FLP308BBLi7Ip7efWesIbL
-	 XO0SYuX0ORmECaxBZmQL26wAJdFw/khRkTK75U+0Ai3ZFaEVDSwZDAYWZe5agueEDvkfn
-	 Y3b4b2EVfqf9o6Keb/s5M+WOe0Gj/CuyAc1JRBLIHXQ4Lm32KiRFayQoFP0FNcp6SN2e3
-	 vwV1uXvnMUQSVwge3FtVU4OmZPCfpxeb74pcg5ioGYDsxiin/+nNSuLo9rZxuijZmuYR5
-	 Kvt2boK/tAsoKXiO1LruHE4bAVUb2JWL70WtVIpa/tCyeAt39EjhZzqctc1pPokpSOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705474;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=O1JZvTFraPtP3QzvAHnEQ2a+1nCTtawi4htjRHO97d4=;
-	b=zA2w+SteDPUiZZWgwWvshno2APMOVdhjTquK9Vw6NMQBz6c8j1IBKZCS0xA3qmttzL1J
-	 GC7y2yjFlUVHTOozwL06oKQg8tRqK+I6/FeI3bbXyAtK7BniQxiYeiETHLaL57zdl4iP4
-	 aOCKPCmRH75SJBi4rUiOFCaMPGM3SpYVmcDWD+B+GJMHfNA7weNBFFPlYSBsvmLQQlkqi
-	 D56TYPehCNuNbf/tF/hRwlaBuj3I0EdL5fvV0iUO6pAxt6IFtMs7Na5dE64sLBbR5gLaN
-	 ED/BlY3bo0JrqEmOx2dLA6+wS/PUq8BvFP4B+iF+wWwSmrT9ygmck7shcebJ4UOZ7zQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Mv74Ya4N;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793705492;
+	b=ZpCbO1wXBjBxTWHedqUGqvZbIad9Gyd4zA4pKmwhb7x3SqswRc3PzwK+U4p6/xIlo361
+	 SSs/s4XAzhQ47iM/UyZ/cMJYg2bfu1ddwVUqKVNKUPiEZxKvIoWWJI1JDrOspF6WD9KDa
+	 vNixUKhf/pI9yleF9ND7G/tiZplhp1vzFQwqx/edaNQDvhrSA5grZL1RMeRQYV9Iu6d/y
+	 uWfA7P1hOgrt55FCJK27OusOx7AlUihV0ETDmgKcrJ0WqpU/BqooAk6v7fLDLLByO/938
+	 5t3yrPzCkyuIJ0odrmKjPmMVXuEmmigWSHyXOQGm21bB3sHifKy1hvtTFtlZnjN96cw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705492;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=F2SnKxo6sv4vSn1dXELKrcR20Glkqp4+7/ht9vZM4ow=;
+	b=X4pGoOnv+ES2UZYi7YxercdyERhckF+13nPzr2G4BcR4feAMCX9deEfDV2tyu2kl38no
+	 ZIVAMfut23EAkVqQkRJCM/RHFoAR1ehUonfSW+E/i0g1h+sIw69Kkik2PnsFdIhP7d8ac
+	 oMdP1IubvAkA5oHvMecw5LBar2ICYNaixI+qyAX2d3X7F3mKtGODOXvut3DHj3xcAjEnR
+	 yFPnkPJntZzp8Ii/mzqovaDm2FZvnw4utsErHUDGlvbTgUQE2MICcnG9uIubxTrmdGPZt
+	 x7QB0GVWp1ljxsXSE960/jku5a/n6tMAzMU13zId7aAwrNi/P3fq7ANaf4mtmIOWd/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KG2T6QrB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.52
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011052.outbound.protection.outlook.com [52.101.52.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8655E606A324;
-	Tue,  3 Nov 2026 11:31:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8655E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08474606A33F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:31:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08474606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Mv74Ya4N
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3AE1WZ4044449;
-	Tue, 3 Nov 2026 11:30:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=O1JZvT
-	FraPtP3QzvAHnEQ2a+1nCTtawi4htjRHO97d4=; b=Mv74Ya4NNEq39VVxQqO2U9
-	7m21RdajLItguPM0OK8/pZRuV951qG8kgfG0L3PJXy9F3+roLpr2r1cJPqbAr7hv
-	Nab73d5E1KEsQvnxhD3O4EeqfHhxeTIp0S6v+0oGfL7OCKVuLBlhVpdNfdPCC5N1
-	HOdD5KxfW0sh7pO9cQJb/9YPFRgI17bAn22w7JlxNkBJXn2ifH6BENA9xdzx2fY8
-	14nKtKospsU8/45bpleFL5WIevEXqbKoosQ1YaSJT8iHleaaThnUbRuHvzdOJoG7
-	1KC8Y+zZ78cunQ+JWhqOllQ3/a7+ia99XkRB5oY3oSRiTeTBmmilay3IiBSihVjA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80snbgf-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 11:30:28 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3AYovl2376725;
-	Tue, 3 Nov 2026 11:30:27 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnu1vj6x1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 11:30:27 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A3BUNaE46203318
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 3 Nov 2026 11:30:23 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 02B482004D;
-	Tue,  3 Nov 2026 11:30:23 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A36362004B;
-	Tue,  3 Nov 2026 11:30:21 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.93.113])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  3 Nov 2026 11:30:21 +0000 (GMT)
-Message-ID: <a21a0cbd-cc77-48c9-b158-ccd14636fd66@linux.ibm.com>
-Date: Tue, 3 Nov 2026 12:30:21 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KG2T6QrB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u4wz1FuZHEniY87JJWyaDnOlfV/b7wg2YJAY5Si1YQIlMSu9VPgasZa1Mop9RpNycer5ioFKFrk4P8mHR1x9QSIeQUnpjR8FY/AGcuqM0mVS1glhU6XdXxAUgmcbqZzTH+c1szG0wbs/6AE2C1ZkvBOyPag7pKHKqAz0LLm0F1sr2bvM+htZJH/JEjhtdL+BMoFG2etnkuLTWx+kak6TIkhmPmIMCe07vdL/x2Yc5NksMyi82FVHC4xsqm+HVZuCYoBoUqD3gfJaToq6MEMmF0GDSVlStvNVihWoJlUaB6nh6DVZFZHQPhKe43ngWEan2Q5Rat0vV3klWAbhQ4/M4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F2SnKxo6sv4vSn1dXELKrcR20Glkqp4+7/ht9vZM4ow=;
+ b=bMSTEKAbeDRePXo+cfef3V/GOeJPFsRow7x0OzhVfyAoBnvNdaFxX0rTvBn4n+VvJ+wckTMp/wFRWgHVjDt1F0EYM/8r+yLv9a0uENAu53ga5XgMGX3M7JT/1G92VD73Hv118dodOsopM/8WyHl0gjZAySOle/ktY+2OB6TQeVO2cP654PmsgfeKpRb+xNsMoOb9pljQNczijbrRv35PZZObiQDQqi8VWXS/KR5fZO03Riwwj4YsmHMMVBUpM2aJ4pplpMAJqgrp3G/GXCkB0iVfGbdk8y5NWf25XFcv8pKU2H4x2MPfjQw+tRH9gWYaCPHX794yY8HTTP88AcBTjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F2SnKxo6sv4vSn1dXELKrcR20Glkqp4+7/ht9vZM4ow=;
+ b=KG2T6QrBKr52w76udPJ1U8Do3tJdTJhOZ1iSwFJmRaqkd5kdqE0oapeBf3BXaBmtR6wBaJI1LZKto21uyp0U65e0hO1OzEQEorkXvM3WEWt4jX0CcG4YlRLKOvGEGVsLpHtl+OISmmazIgTYtZrnNXnug+p8/FQ1qlTXR+F+EQE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7771.namprd12.prod.outlook.com (2603:10b6:8:138::6) by
+ SAEPR12MB231369.namprd12.prod.outlook.com (2603:10b6:802:204::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 11:31:28 +0000
+Received: from DS0PR12MB7771.namprd12.prod.outlook.com
+ ([fe80::9a3e:791f:33b6:3d8c]) by DS0PR12MB7771.namprd12.prod.outlook.com
+ ([fe80::9a3e:791f:33b6:3d8c%4]) with mapi id 15.21.0569.010; Tue, 3 Nov 2026
+ 11:31:27 +0000
+Message-ID: <0d37c6e9-50df-45ea-9187-610b55c70c14@amd.com>
+Date: Tue, 3 Nov 2026 12:31:22 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/unaccepted_memory: Do not accept ranges that are no
+ longer E820 RAM
+To: Ard Biesheuvel <ardb@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org
+Cc: "H . Peter Anvin" <hpa@zytor.com>, Tom Lendacky
+ <thomas.lendacky@amd.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>,
+ linux-mm@kvack.org
+References: <20261102113127.161823-1-pankaj.gupta@amd.com>
+ <bd56cfa0-6fdc-4e83-b571-f2abf647afa2@app.fastmail.com>
+ <a9fb9818-39fd-4b6e-8998-761bc3439893@amd.com>
+ <f241f883-39f2-408b-9f44-574ce8d2910a@amd.com>
+ <deb5ea81-70bd-463d-8d98-ed51c316cf75@app.fastmail.com>
+Content-Language: en-US
+From: "Gupta, Pankaj" <pankaj.gupta@amd.com>
+In-Reply-To: <deb5ea81-70bd-463d-8d98-ed51c316cf75@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0118.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a3::13) To DS0PR12MB7771.namprd12.prod.outlook.com
+ (2603:10b6:8:138::6)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,205 +105,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] sched: decouple PREFERRED_CPU from PARAVIRT in
- Kconfig.preempt
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Mete Durlu <meted@linux.ibm.com>, Yury Norov <ynorov@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Yury Norov <yury.norov@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andrea Righi
- <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        K Prateek Nayak <kprateek.nayak@amd.com>, Mel Gorman <mgorman@suse.de>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Steven Rostedt
- <rostedt@goodmis.org>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Valentin Schneider <vschneid@redhat.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-s390@vger.kernel.org
-References: <20261101192203.6979-1-ynorov@nvidia.com>
- <20261101192203.6979-2-ynorov@nvidia.com>
- <388636ac-4521-4523-bb5b-b6bc71591ff6@linux.ibm.com>
- <20261102110026.GG1813469@noisy.programming.kicks-ass.net>
- <9273846b-d815-4c40-a7a0-960281515878@linux.ibm.com>
- <66ccd713-5571-4c1a-b59e-29adbc9852e3@linux.ibm.com>
- <efe1657f-b1c6-4096-8868-fb53097b1847@linux.ibm.com>
- <439758ce-c807-4b5b-b2e5-31fb9f1c6f11@linux.ibm.com>
- <aecd7142-ee54-4cf9-80aa-3546cc2661e3@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <aecd7142-ee54-4cf9-80aa-3546cc2661e3@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: _x9SqjpgHY88d0_Sk4v_Zp7BV68BVJmQ
-X-Proofpoint-ORIG-GUID: dG1vFU4noVIxlSmSo9Z-mPu8Dk2sB7dR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA0NCBTYWx0ZWRfX1rQ8Gd2xYRG2
- DAjcLJd19Xs2+CCmwzWjpRXPs0tATFhBOXFMUaSh2bQqsy+ZaTBlbi28YwDGZMw/pP2IFi2+aYX
- j12PegQwSGbjJ9TrbK5XTl9bDEHsVVHhlp+P6LeoWS8FCxrBAs+SkJ95YdjQ/9DlevH+Na8h/bU
- t578K62dsmTbE02HRIMgM/KF+6wCMs9mRUcvSFJAuvEyTSWDFmc/B6uVTHnnx5WU1pbhiE0+i6B
- On9aG6pDwlEoscswK/X4Wh+n+M7+dttDDCbqvOU3xw707yXxY1TDc4cdBfoGJ/i/oWo7vcthj1Q
- Q9AgT6hlH55OAKerSesp/sEXENyyR8bH+4M1vn+EMhtNUOUlHs97vuB1Xx+fE6iROdm80BXeg67
- MwhPPrGhgZpkjs3vmOQl/gGp5K2SOyCT+jYz53MG+0wq+baErp9KpaMXIrvAdtYLgLYFGf8fDLn
- Vxz8yx7cvGxAefyeH6g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA0NCBTYWx0ZWRfXwyqrXCz1KKlB
- CGhgxiMT3NUThEDMyIO9Kv9cqxG99fU52TEkXBGB3rG53/Xz4cil4YGJwqaZ22itvvFAvTEWA5n
- 9dblDwCPX3XD9PrCL+j3rceZwTZJntk=
-X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6ae9c5d5 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=Ikd4Dj_1AAAA:8 a=naYFAUwE1L9fWVycxNkA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_02,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030044
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7771:EE_|SAEPR12MB231369:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9994db77-0d60-44a6-5a4f-08df399dffdf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|4143699003|11063799006|56012099006|261009223027099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|261021135927099003|261026121527099003|261026140227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	9ICpa3gh0j4/qruPv6bi3Tz0dSNemJD3ez7XLGWRzWMzR1Uaj/mKzBFZShlYXwN+nPWPytP4fBGDZ226lr4xNrPFdkiMu7ECP5zCeX8XT/7d/AKBG1axKeaSgt9qZCuGkuHQ9zNQXLVFWXjiVz83bZxGdrDfjNVASov0Y6M7ttDdSvEtfMMUXQo4OJLNzfsEimp/ERF62cWDXt0X1V5StnP2SIDvEhxf5lrjhzpV1eWoCGBk4mT0aVo12aHndy1pb6J7JWI9rmqvR27CKXjN7pcyXnEs6e4saguwv1pe63dHYGq5Gg5Rq2/4nxe/41DFMuCJ00V3UWiOeWXk0Sc9nQ5Y9hTqhOycF4LKJTk+Tj+zadW8cNklMaN4XYAsq7KDGq3vgEfl2imEfkC+5TWQ16ikzf1+jwcQAHtuHTp1JtmbwEm4gD2PzDDyZZfiXNw5AGTM8Lvc9CogcmURTcDGjautf1rDlH2v+S5Y82cy/sht1F15tfLBoGahfncllpa8by9kiKFQKz5Fr7HgfXEt541UmDcTru74GstTOyH7Lm7TwcNwgrG/3Wc3R0UIJgBlJCfwQZTsCy9nyBZdM6iJ5VGXp1C2C6vnKF+EGVXZYPL13p898MFRPfqtx8G0JEUy
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7771.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(4143699003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(261021135927099003)(261026121527099003)(261026140227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bFgxR3BHZi9DbmlVc0x3QUo0R2J2WUY2em1OQ0hPQTVvVUs3TTFFK1UzTFRR?=
+ =?utf-8?B?dXkrTytMMEduakpLSDRjdFAwR0pPc1lKbGJ4eXdVSFBxREhoMHJ2c3VTOXA0?=
+ =?utf-8?B?bWV2TEl2MWFMMjFIZkE5UmZzUGJTcEVKSXJmMTVYdVZGMUcvOWd5a0J0Mkw0?=
+ =?utf-8?B?K2JSQ0hrMHJQNGpsUmdJMU84M0NZNDR2MnBBTzVtM0R4QkNxaHBwN1E5b3R3?=
+ =?utf-8?B?eWx3NVFlV1M4bWRCK2g0MXpyeDlnTmI1UFlLUWhWaVEzWnJoSUwyZlQ2N0VP?=
+ =?utf-8?B?OWdiNVU0YUZtR1RYZHFaR1g1VkJ2VjRCOXpFTGhSTWptalcyZ0I2OHhxcHFY?=
+ =?utf-8?B?cTh6Y2dSUHJmL2VINVhJd3p5STFGbXpPM0ZjRHZ0SmpBcG1LQnhScGxDQ285?=
+ =?utf-8?B?OCtZK1pjdTRnSlJwRVFmNDMxSHhrYTgwNW5SN01VQUR2NjJQdzgybWVuVzhW?=
+ =?utf-8?B?NDBwV0NtRTZ6U1VHR0lJK3VxbkRNR24zalA1NzU4REYxU09mUXRRcklUQklN?=
+ =?utf-8?B?VnJZeStBZStnVUh1VlpUNGdJOUZOclcwaXMvWW9WeGJ3U05vZmUvVmZsaWZM?=
+ =?utf-8?B?NTMwREQ5OGF0LzVxdm1JWDIvRC9qVDQ4SVFERk52TW1qNkU0S2J1dENSSVpS?=
+ =?utf-8?B?U1J0S3dKSkJ3d1V4eng2N2grZjk1ZVVmNVdtRXRyUzBJTWRVc3NJR2lKbldr?=
+ =?utf-8?B?dndJcnVNL3RTSm96QkRNenNlRmRkOWhsYnl1VTZZRS84MXg2ZlorQkpaZXdP?=
+ =?utf-8?B?R3FCd1ZIekJoUk01K0F6MVRMazZvc1QrbkJaakZEbUZEMEtLWGFSN25jckhv?=
+ =?utf-8?B?M0xFY0Z2ZUU4TFdUUUE5RjdMdTFHZUZxL0RWSW11cC9qbkhZNjFhaGZqM1d1?=
+ =?utf-8?B?OVhLOStNZE9XQm1IYnFPVFhBN1FhYXBpZXFYUTlEVjExL1ZEbEtpZEFKaTNP?=
+ =?utf-8?B?Vi9xT0dqU1orY3NLQ2dNRFZRTWdGL2hNWXlKQmM3cTJOL28yZmNWNFJVVis1?=
+ =?utf-8?B?Yjl4RWFhd2JYdmlLRGJBMk51UkVIa0tKc3FHNytrV3kzVG1uOFRadVpNYlc4?=
+ =?utf-8?B?eUx0RWhRN0E5UEN3aHdVUi9ZdytpMVY4YjJGTlM2QisvaU1Uelo4VVhVclFn?=
+ =?utf-8?B?N3ZCZUh4a2NBVlBtSVlvV2gwTHhNbkhURHk3eXQxUDRNK2lGNmpSamZPVjRv?=
+ =?utf-8?B?ZGx2RWx0Sm1PL3JFN1RoYmdsc2FrY09kWENZQUlheURTZGhlNW1SREt0N051?=
+ =?utf-8?B?MVNhT1dmTHcwRGVRRUdHbTdBbHhudENQbWdXUm9GNEtzYThocnFJZFAxalZ6?=
+ =?utf-8?B?T3ZGN0RIQ1pPVzJjMFRHZXpMOTRWd2Q5aERDWVZpYngyZFVKVlZRWmN3a29P?=
+ =?utf-8?B?U1o1eVRPNVN4OHdYaGVQVEVaY2liS3JydXBJdCsvL0hhc1ZOYTIrYnNzbVpE?=
+ =?utf-8?B?VVNoYXlUdWFnYU1BenNOTVgzSWQ4RWFIZXRGcGNlVENDWks1K29NSEZycXVP?=
+ =?utf-8?B?ZmxHNmY2N2xIaER4MnRCZGNCUXpUM3JWdWk3MVVDdUdjSmljcTJLQWVqODR5?=
+ =?utf-8?B?azZEQ2IyK0pzMXkrSU5GZzNVMkp1SUYxU2pWUUdRVy9kZUx3cmxSUm1KamZT?=
+ =?utf-8?B?cktzRy9Ia0d0NkJ4ZEI2SFAxajk4TnlYZnhWbCtiRDdRMjRUNVljaTgxS2R2?=
+ =?utf-8?B?TFZ0eW9TdUxVMHZsQ2t5cWdZU3ZFSC9ySkg2Q3RrMEJPVUxWcWpXeThXM3ZN?=
+ =?utf-8?B?Z3ZsUnJFTGswTU9HZ1ZBaEd3cTBtMkMvRnd0SDd3K2NIdDYrYXMrOC9rb1Zp?=
+ =?utf-8?B?cHBoaXpRSmR6cVJ5R2ozcDNrdHZrWFJPY2tROWo2blRuYkk1enhQZHpaK3Zl?=
+ =?utf-8?B?WTFwM2FtUEMxUXpSWVdybVhQcmU0QmRjdkFyRkFNYzY5RHFsTFljNGpsYllE?=
+ =?utf-8?B?M3hsRzV2ZFdLL2NoS1BrMk9xdFJFUytpbDFOQ2ZEMjIxdUs2SVZJaS80RHNh?=
+ =?utf-8?B?SEpKdFcwMm1ZTjhQbTZmSUprU1lGZXBBaGZsc2NHRmVlNlZZT0NzemJoSEhv?=
+ =?utf-8?B?YUFmdUY3MExRdVZBek94cHlmNFdydjRxNTdiTkM1cnd1ejdLVEV6QitNdGZy?=
+ =?utf-8?B?dWMrS080SjVod3hKOGdDVlc0OGNhc1dyTTNhbjJNTWxsVXY0RGhLQWhENFVk?=
+ =?utf-8?B?M21xcjBwY0dFdE5OS0xrSXlaZDlrMXJkR1ltNnhLY1dmY0c3VnB4Qjl2c0Mw?=
+ =?utf-8?B?aEhxTGppcE0reWdyenlTQWlzVlZjVlNISmRucEFPL2RWNCtrTXRxVXpNZHp2?=
+ =?utf-8?Q?3t6N76/sGdvE1vMdWx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9994db77-0d60-44a6-5a4f-08df399dffdf
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7771.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 11:31:27.8163
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PilKoSG5me1p/6KlkChbXWLYH07t/FyGJc3xQV/nM67XlOd1N+yahM8SeUBrIFRs6NBRzTo5aI5gkl4JlJD8xg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAEPR12MB231369
 
-
-
-On 11/3/26 12:26, Ilya Leoshkevich wrote:
-> 
-> 
-> On 11/3/26 06:49, Shrikanth Hegde wrote:
->> Hi Ilya,
+>>>> Can we just disallow memmap= when running in a confidential VM?
+>>> My experiments showed: memmap itself don't have a problem but memap
+>>> with a hole is causing crash.
+>>>
+>>> There might be some usecases which are already using this, e.g:
+>>>
+>>> https://lore.kernel.org/all/20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org/
+>>>
+>>>
+>> Its also good to have a general safeguard to not accept memory that is
+>> not marked as RAM in e820?
 >>
->> On 11/2/26 7:11 PM, Ilya Leoshkevich wrote:
->>>
->>>
->>> On 11/2/26 14:00, Shrikanth Hegde wrote:
->>>> Hi.
->>>>
->>>>
->>>> On 11/2/26 5:04 PM, Ilya Leoshkevich wrote:
->>>>>
->>>>>
->>>>> On 11/2/26 12:00, Peter Zijlstra wrote:
->>>>>> On Mon, Nov 02, 2026 at 11:16:30AM +0100, Ilya Leoshkevich wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 11/1/26 20:21, Yury Norov wrote:
->>>>>>>> The IBM s390 doesn't enable PARAVIRT config for their hardware
->>>>>>>> virtualized Logical Partitions (LPAR). However, the steal time is
->>>>>>>> accounted for the LPARs, once the config VIRT_CPU_ACCOUNTING_NATIVE
->>>>>>>> is enabled.
->>>>>>>>
->>>>>>>> Preferred cpumask doesn't rely on any feature gated by PARAVIRT 
->>>>>>>> config,
->>>>>>>> and requires it to minimize the configuration space and runtime 
->>>>>>>> overhead,
->>>>>>>> with the lack of non-paravirt user. Now that s390 wants to adopt 
->>>>>>>> preferred
->>>>>>>> cpumask, there's no reason to keep it coupled to paravirt.
->>>>>>>>
->>>>>>>> Make PREFERRED_CPU a user-configurable option, even if 
->>>>>>>> paravirtualization
->>>>>>>> is not enabled, and drop PARAVIRT dependency on the steal governor.
->>>>>>>>
->>>>>>>> Keep the default module selection conditional on PARAVIRT so 
->>>>>>>> other SMP
->>>>>>>> configurations can opt in without enabling the governor by default.
->>>>>>>>
->>>>>>>> Link: https://lore.kernel.org/all/4605dad5-aab2-49e3-b919- 
->>>>>>>> bf9897181834@linux.ibm.com/
->>>>>>>> CC: Mete Durlu <meted@linux.ibm.com>
->>>>>>>> Signed-off-by: Yury Norov <ynorov@nvidia.com>
->>>>>>>> ---
->>>>>>>> Can be applied independently from the rest of the series.
->>>>>>>>
->>>>>>>>    drivers/virt/Kconfig   |  8 ++++++--
->>>>>>>>    kernel/Kconfig.preempt | 12 ++++++++++--
->>>>>>>>    2 files changed, 16 insertions(+), 4 deletions(-)
->>>>>>>
->>>>>>> This is really useful to us, since even though s390 is nominally
->>>>>>> paravirtualized, it does not technically benefit from defining
->>>>>>> CONFIG_PARAVIRT.
->>>>>>
->>>>>> And therefore removing PARAVIRT is the only possible solution?
->>>>>>
->>>>>>> Specifically, steal time accounting happens by
->>>>>>> computing a difference between wall time and CPU time, and not by
->>>>>>> explicitly querying the hypervisor.
->>>>>>
->>>>>> Nobody explicitly asks the hypervisor, that would be horrendously 
->>>>>> slow.
->>>>>>
->>>>>> Something trivial like this should do.
->>>>>>
->>>>>> ---
->>>>>>   arch/Kconfig                           | 9 +++++++++
->>>>>>   arch/powerpc/platforms/pseries/Kconfig | 1 +
->>>>>>   arch/s390/Kconfig                      | 1 +
->>>>>>   drivers/virt/Kconfig                   | 2 +-
->>>>>>   4 files changed, 12 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/arch/Kconfig b/arch/Kconfig
->>>>>> index 1163736de1f9..8980054beb52 100644
->>>>>> --- a/arch/Kconfig
->>>>>> +++ b/arch/Kconfig
->>>>>> @@ -1080,6 +1080,15 @@ config HAVE_IRQ_TIME_ACCOUNTING
->>>>>>   config HAVE_PV_STEAL_CLOCK_GEN
->>>>>>       bool
->>>>>> +#
->>>>>> +#  Archs that can account CPUTIME_STEAL; normal route is through 
->>>>>> PARAVIRT which
->>>>>> +#  selects HAVE_PV_STEAL_CLOCK_GEN. Directly selected by s390 and 
->>>>>> PPC-LPAR
->>>>>> +#  which have their own thing and don't go through generic 
->>>>>> cputime accounting.
->>>>>> +#
->>>>>> +config HAVE_CPUTIME_STEAL
->>>>>> +    bool
->>>>>> +    default y if HAVE_PV_STEAL_CLOCK_GEN
->>>>>> +
->>>>
->>>> Can't PARAVIRT_TIME_ACCOUNTING be the kconfig we can rely upon.
->>>> s390 can add it to the config (similar to HAVE_CPUTIME_STEAL)?
->>>>
->>>> I guess it is selected currently where the steal time reporting 
->>>> happens.
->>>
->>> Looking at update_rq_clock_task(), s390 would still need to provide a
->>> pointless dummy paravirt_steal_clock() implementation in this case.
->>>
->>> [...]
->>
->> Other possible option is, you could use CONFIG_HAVE_PV_STEAL_CLOCK_GEN 
->> which
->> defines the dummy implementation and you don't update that method. 
->> That way
->> you may implement PARAVIRT_TIME_ACCOUNTING mostly with kconfig changes.
->>
->> But it needs the arch to implement static calls. I am not sure if s390 
->> has it.
-> 
-> We will get non-optimized static calls soon [1], so this would be not so
-> great from performance PoV.
+> Personally, I think all these command line hacks should be avoided in
+> confidential VMs, on the basis that the firmware's view of memory should
+> be in sync with the OS.
+Fair enough. I can post a separate on top RFC patch to disable memmap= 
+holes completely
+for confidential guests and see if anybody objects.
 
-I just realized it's enabled only when CFI is enabled, so it's not an
-option anyway.
+That said, this patch fixes a real crash with memmap= holes 
+functionality in confidential guests today,
+and should be backported to stable kernels as well. It also hardens the 
+existing code to only accept the
+e820 RAM regions.
 
-[...]
-> [1] https://lore.kernel.org/linux-s390/20261026102952.4153711-1- 
-> hca@linux.ibm.com/
+Thanks for having a look!
+
+Pankaj
 
