@@ -1,73 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793674993;
-	b=tH4WW5pjjaqfrapOInSs9ZUE7OYe6oI3rZlnLb1odWh4Rh/w709eAYdm3uc8awdKjEjL
-	 hrHvqySq0P3b1r79EKERDPG7t+Uq6Qnmz98S615tszh17gWuweqSCGoqp8W7UXTbbY6LB
-	 CSeBKu02C6qY9NlsTryqHtvRuTvndVBJcfpPETLYoe5Hq0M3B2uQjKvHZenVQxrJ62IKd
-	 6b1snO3pHWqMWFGa9HEg3fwWnd+yNPo0N1JXudXG+o2laiMNfSxls1itzKxO5XJbo0Hgi
-	 JUILVyIK4w9R8uqhejsqQZu7vvgJoX0AqAxyuz7lxnDFpGGhw8K0SFwEwUb4DR7sU1g==
+	t=1793675007;
+	b=asdG7Srv7q+z81hpaIaqKKq80mq8MBVB1TN0aB7miPe3jsU9Vk0XFhe5IqRf0Rli9LqC
+	 fWnGgeHYt8cmOAGSSHN1h+AlAMt+UDkBQuD4HRRiV/1Uc4bRsP0ERPEFJDng1UawfXAy9
+	 jZxFCwlZLBBpYx+n3R/YevgCM/0hw2kFFD7aNXB/+kMvmgciNbJZ5Ku0mwsS/y0ycKCKe
+	 V/Yq4oLmojFfibxug4O1dwV6mqHYe0U6/jCWo1vYpEH3PRDfoyp4GVS37VURHk+g3cXVB
+	 EDykfNh7qeZRmAqoJV6WCwxo6rrg8y6BsuPPUoFck2wO9W7LS7eO+E5oB72EH0lTD1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674993;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	bh=oCrt+/j4hdeOK45YwUt4sEBeoooxnL1Gvg4diMjrU0M=;
-	b=5mM32OsLyvYkZmmnmBxtjkvN9qawPRgBSE9ecBQkvprfPofYQhYsbFuyjPuJASbhoe7f
-	 Uz1m1vbBg5wbbF18gAzlsI9yXPg6F8Zwn57BlXjb9XLaygVxuO1+DbHXHOPvQDdQZXbCw
-	 CUoJy1vF5ag9mwmV03vx70Q8vjPKGGsoAd7ARF+xNb3UBaFcrq+NXp5M/g8/P1oIdXZ1L
-	 18jvuPLUKmdcQSgMq5I6vK+t4jP9YYQqbPbfPRFUoTqut2R0yRIObSN2Y9XmbxElBjwX6
-	 HhB4nDwHQIixK7YIl+ysoJ5omvbHCZMfXbitSepoM1XtbT+EjhD6YSYL+kCNLkTmFGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793675007;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Uqw+5mlwITbWQBp+QPEhRs9ar6zOfcGAmPDQLIQUXow=;
+	b=aZTnH5AZU7DJAPFKcHwCD5rXLYkLr5q9dQvNIPy+DTGGhsc+9p4FulogViShBHFk/qgC
+	 smM4707oXTIeGHSxYKhmiuzBwT42PMGsLjWoTeHicTXKuqbu82jLwDwyvwYW/Yu8O48w/
+	 cNBX3+pMLRH3yiAca9xDqtzfpN7UyAk3TzqwhFObcwPPIPuh+mmIiJxmOMzupRJAvPG21
+	 xG25aWgxP2O1G66WO1AFCUnNP1+fx3vSEL7A2HQ4KKHlIsW3UtAQVGC+27FIqnImXOhoL
+	 DAVMAvrFTZ6VSXneiOG/RODHb37bnwflkVNcHDa1N8n1pHn8/Xvd3aEmcAUUPE1Sw1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lslxYma8;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7cX7w9m;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31464606D812;
-	Tue,  3 Nov 2026 03:03:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31464606D812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B36B4606D826;
+	Tue,  3 Nov 2026 03:03:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lslxYma8
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A332rArA2688820, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793674973; bh=oCrt+/j4hdeOK45YwUt4sEBeoooxnL1Gvg4diMjrU0M=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=lslxYma84pbsN7RGk22fDtWY4A184oQMrfkyHe9Ck8zUQ0dXM1evljPGTX2sUlrp2
-	 Aqaaigu3oD3qY/8s38i0ryAFx9f78lReHgIPcMzCZW50cgMgP86a7oLYWtC8eLI4Bx
-	 JFbHCyoGu3lNEnHXOd3cYlkx1EW0W42fKoDKYthZVva5qzc2xVb9p35wXCdFTRcn1b
-	 2w6mJuxxieLpQYmS1OPmuCtVgexFU2ddD0djKsEsRJimBoNh2XdnLGfJiT+h8Yz37b
-	 8q4iQPr3SRhSvIy0M6uEPl6dJqWm7HvbmvvFZHuPk/zaEPVH79b1pJaSnXsHefagrf
-	 oxlsRuNsKNCUQ==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A332rArA2688820
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 11:02:53 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 11:01:59 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS06.realtek.com.tw
- (10.21.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 3 Nov 2026 11:01:54 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>, Ping-Ke Shih <pkshih@realtek.com>
-CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ulf Hansson
-	<ulfh@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Kalle Valo
-	<kvalo@kernel.org>, <linux-wireless@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Luka Gejak <luka.gejak@linux.dev>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH rtw-next] wifi: rtw88: sdio: reject oversized RX packets
-In-Reply-To: <20261009123022.87787-1-luka.gejak@linux.dev>
-References: <20261009123022.87787-1-luka.gejak@linux.dev>
-Message-ID: <534c767d-c243-4916-80e9-3ce5f8424476@RTKEXHMBS06.realtek.com.tw>
-Date: Tue, 3 Nov 2026 11:01:54 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7cX7w9m
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BBF3B1F00A1A;
+	Tue,  3 Nov 2026 03:03:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793675006;
+	bh=Uqw+5mlwITbWQBp+QPEhRs9ar6zOfcGAmPDQLIQUXow=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=K7cX7w9md7w4IY06caeSyAp8ndjv1JWxlzXMmM54qmdBYP0qh5GUkf3s15/v8tbUN
+	 bTiitpxKWkIrLn2Sde7EFjGqJ7FnxiwWdt2Fw+M5/K/1NaVRmgDWZq7+HBgbwR9roa
+	 88DRtwrjdQao7wqpVohWY4iHXluxE+X7FcGEpZgyrm1jGkrhbDykOh2q2l+BtFQ/WC
+	 MVGLAz3uoqdfECY+5OKB3doLKzMGfkdL0GoRHz608UvQ6trTNSwOooMjhFODstVz3C
+	 A2MS/LomsVfWaLEmkfS9Bz4/j436Cs6C5dMB++y67vQZ8GveVABKLSEohhrpgmJDr6
+	 nuh/Y3ZsNavWQ==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>,
+	linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	keyrings@vger.kernel.org,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-kernel@vger.kernel.org (open list),
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
+Subject: [RFC PATCH v2 09/11] KEYS: Pin the backing kernel module for a key type
+Date: Tue,  3 Nov 2026 05:02:14 +0200
+Message-ID: <20261103030226.2685251-10-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103030226.2685251-1-jarkko@kernel.org>
+References: <20261103030226.2685251-1-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,26 +69,287 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Luka Gejak <luka.gejak@linux.dev> wrote:
+Add the owner field (populated with THIS_MODULE) to struct key_type.
 
-> rtw_sdio_rxfifo_recv() also takes the last-entry path when the descriptor
-> claims more data than rx_len. The skb is then passed to rtw_sdio_rx_skb(),
-> which calls skb_put() with pkt_len and does not check it against the space
-> left, so a bad descriptor can overflow the skb.
-> 
-> Reject the packet when pkt_offset + pkt_len exceeds the bytes left.
-> 
-> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Pin the module in key_alloc() and keyring_restrict(), and release it in
+key_gc_unused_keys() and keyring_destroy(), which are wires to the keys
+and restrictions.
 
-1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+Reject module owners still in MODULE_STATE_COMING so that the failed
+module_init() paths cannot leave behind referenced keys.
 
-83ca360e8528 wifi: rtw88: sdio: reject oversized RX packets
-
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
-https://github.com/pkshih/rtw.git
+ include/linux/key-type.h |  6 ++++-
+ security/keys/gc.c       |  3 +++
+ security/keys/key.c      | 48 ++++++++++++++++++++++++++++++----------
+ security/keys/keyring.c  | 33 ++++++++++++++++++++++-----
+ 4 files changed, 71 insertions(+), 19 deletions(-)
+
+diff --git a/include/linux/key-type.h b/include/linux/key-type.h
+index c4f329b6ae3f..9ecec31ad571 100644
+--- a/include/linux/key-type.h
++++ b/include/linux/key-type.h
+@@ -10,9 +10,11 @@
+ 
+ #include <linux/key.h>
+ #include <linux/errno.h>
++#include <linux/init.h>
+ 
+ #ifdef CONFIG_KEYS
+ 
++struct module;
+ struct kernel_pkey_query;
+ struct kernel_pkey_params;
+ 
+@@ -161,6 +163,7 @@ struct key_type {
+ 				     const void *in, const void *in2);
+ 
+ 	/* internal fields */
++	struct module		*owner;
+ 	atomic64_t		index_id;	/* Opaque keyring index ID */
+ 	struct list_head	link;		/* link in types list */
+ 	struct lock_class_key	lock_class;	/* key->sem lock class */
+@@ -168,7 +171,8 @@ struct key_type {
+ 
+ extern struct key_type key_type_keyring;
+ 
+-extern int register_key_type(struct key_type *ktype);
++int __register_key_type(struct key_type *ktype, struct module *owner);
++#define register_key_type(ktype) __register_key_type(ktype, THIS_MODULE)
+ extern void unregister_key_type(struct key_type *ktype);
+ 
+ extern int key_payload_reserve(struct key *key, size_t datalen);
+diff --git a/security/keys/gc.c b/security/keys/gc.c
+index 3cfbf00085b3..f4ae3e57a4be 100644
+--- a/security/keys/gc.c
++++ b/security/keys/gc.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/slab.h>
++#include <linux/module.h>
+ #include <linux/security.h>
+ #include <keys/keyring-type.h>
+ #include "internal.h"
+@@ -151,6 +152,7 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
+ 	while (!list_empty(keys)) {
+ 		struct key *key =
+ 			list_entry(keys->next, struct key, graveyard_link);
++		struct module *owner = key->type->owner;
+ 		short state = key->state;
+ 
+ 		list_del(&key->graveyard_link);
+@@ -179,6 +181,7 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
+ 
+ 		memzero_explicit(key, sizeof(*key));
+ 		kmem_cache_free(key_jar, key);
++		module_put(owner);
+ 	}
+ }
+ 
+diff --git a/security/keys/key.c b/security/keys/key.c
+index 3f1f0fc13710..0b2a03c511e5 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/export.h>
+ #include <linux/init.h>
++#include <linux/module.h>
+ #include <linux/poison.h>
+ #include <linux/sched.h>
+ #include <linux/slab.h>
+@@ -234,19 +235,34 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 
+ 	key = ERR_PTR(-EINVAL);
+ 	if (!desc || !*desc)
+-		goto error;
++		goto out;
++
++	/* Failed module initialization ignores outstanding module references. */
++	if ((type->owner && module_is_coming(type->owner)) ||
++	    !try_module_get(type->owner)) {
++		key = ERR_PTR(-ENOENT);
++		goto out;
++	}
++
++	if (restrict_link && restrict_link->keytype &&
++	    ((restrict_link->keytype->owner &&
++	      module_is_coming(restrict_link->keytype->owner)) ||
++	     !try_module_get(restrict_link->keytype->owner))) {
++		key = ERR_PTR(-ENOENT);
++		goto out_put_module;
++	}
+ 
+ 	if (type->vet_description) {
+ 		ret = type->vet_description(desc);
+ 		if (ret < 0) {
+ 			key = ERR_PTR(ret);
+-			goto error;
++			goto out_put_restrict_module;
+ 		}
+ 	}
+ 
+ 	desclen = strlen(desc);
+ 	if (desclen >= KEY_MAX_DESC_SIZE)
+-		goto error;
++		goto out_put_restrict_module;
+ 	quotalen = desclen + 1 + type->def_datalen;
+ 
+ 	/* get hold of the key tracking for this user */
+@@ -323,8 +339,6 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 	refcount_inc(&key->domain_tag->usage);
+ 	atomic_inc(&user->nkeys);
+ 	key_alloc_serial(key);
+-
+-error:
+ 	return key;
+ 
+ security_error:
+@@ -338,7 +352,7 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 	}
+ 	key_user_put(user);
+ 	key = ERR_PTR(ret);
+-	goto error;
++	goto out_put_restrict_module;
+ 
+ no_memory_3:
+ 	kmem_cache_free(key_jar, key);
+@@ -352,13 +366,22 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 	key_user_put(user);
+ no_memory_1:
+ 	key = ERR_PTR(-ENOMEM);
+-	goto error;
++	goto out_put_restrict_module;
+ 
+ no_quota:
+ 	spin_unlock_irqrestore(&user->lock, irqflags);
+ 	key_user_put(user);
+ 	key = ERR_PTR(-EDQUOT);
+-	goto error;
++
++out_put_restrict_module:
++	if (restrict_link && restrict_link->keytype)
++		module_put(restrict_link->keytype->owner);
++
++out_put_module:
++	module_put(type->owner);
++
++out:
++	return key;
+ }
+ EXPORT_SYMBOL(key_alloc);
+ 
+@@ -1231,19 +1254,20 @@ int generic_key_instantiate(struct key *key, struct key_preparsed_payload *prep)
+ EXPORT_SYMBOL(generic_key_instantiate);
+ 
+ /**
+- * register_key_type - Register a type of key.
++ * __register_key_type - Register a type of key.
+  * @ktype: The new key type.
++ * @owner: Module owning the key type.
+  *
+  * Register a new key type.
+  *
+  * Returns 0 on success or -EEXIST if a type of this name already exists.
+  */
+-int register_key_type(struct key_type *ktype)
++int __register_key_type(struct key_type *ktype, struct module *owner)
+ {
+ 	struct key_type *p;
+ 	int ret;
+ 
+-	memset(&ktype->lock_class, 0, sizeof(ktype->lock_class));
++	ktype->owner = owner;
+ 
+ 	ret = -EEXIST;
+ 	down_write(&key_types_sem);
+@@ -1264,7 +1288,7 @@ int register_key_type(struct key_type *ktype)
+ 	up_write(&key_types_sem);
+ 	return ret;
+ }
+-EXPORT_SYMBOL(register_key_type);
++EXPORT_SYMBOL(__register_key_type);
+ 
+ /**
+  * unregister_key_type - Unregister a type of key.
+diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+index 5281da9d5bf7..1561406b68fa 100644
+--- a/security/keys/keyring.c
++++ b/security/keys/keyring.c
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/export.h>
+ #include <linux/init.h>
++#include <linux/module.h>
+ #include <linux/sched.h>
+ #include <linux/slab.h>
+ #include <linux/security.h>
+@@ -436,6 +437,9 @@ static void keyring_destroy(struct key *keyring)
+ 	if (keyring->restrict_link) {
+ 		struct key_restriction *keyres = keyring->restrict_link;
+ 
++		if (keyres->keytype)
++			module_put(keyres->keytype->owner);
++
+ 		key_put(keyres->key);
+ 		kfree(keyres);
+ 	}
+@@ -1062,7 +1066,7 @@ int keyring_restrict(key_ref_t keyring_ref, const char *type,
+ 
+ 		if (!restrict_type->lookup_restriction) {
+ 			ret = -ENOENT;
+-			goto error;
++			goto out;
+ 		}
+ 
+ 		restrict_link = restrict_type->lookup_restriction(restriction);
+@@ -1070,7 +1074,15 @@ int keyring_restrict(key_ref_t keyring_ref, const char *type,
+ 
+ 	if (IS_ERR(restrict_link)) {
+ 		ret = PTR_ERR(restrict_link);
+-		goto error;
++		goto out;
++	}
++
++	if (restrict_link && restrict_link->keytype &&
++	    ((restrict_link->keytype->owner &&
++	      module_is_coming(restrict_link->keytype->owner)) ||
++	     !try_module_get(restrict_link->keytype->owner))) {
++		ret = -ENOENT;
++		goto out_free_restriction;
+ 	}
+ 
+ 	down_write(&keyring->sem);
+@@ -1088,12 +1100,21 @@ int keyring_restrict(key_ref_t keyring_ref, const char *type,
+ 	up_write(&keyring_serialise_restrict_sem);
+ 	up_write(&keyring->sem);
+ 
+-	if (ret < 0) {
++	if (ret < 0)
++		goto out_put_module;
++
++	goto out;
++
++out_put_module:
++	if (restrict_link && restrict_link->keytype)
++		module_put(restrict_link->keytype->owner);
++
++out_free_restriction:
++	if (restrict_link)
+ 		key_put(restrict_link->key);
+-		kfree(restrict_link);
+-	}
++	kfree(restrict_link);
+ 
+-error:
++out:
+ 	if (restrict_type)
+ 		key_type_put(restrict_type);
+ 
+-- 
+2.47.3
 
