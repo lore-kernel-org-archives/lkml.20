@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.63
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793735273;
-	b=reMRtDWvQ2jS0iSuppTRboQlgo//B0j+PE2KF7GP/EJORwJd836+EOrtTEk8q8+hgrwA
-	 G5FvOSdvoU3Bs190J5y7DD0sOZMofO/ULzrIcgzF2B4usPCFJo1aUcr62Q2Y9vw/1FA8s
-	 TNmMU03O+RzPt6d7HRwiaI/jeogQmUxXG12dHjxFQ0lLzfQN9HUh1BdZ5Wvj0RKCZYc+4
-	 2AJR2yabxvTU1RMXoteOP/hJckuBWlHS7aFAcTMKKPbbZ6tBrwplaO79UIzyzpUdZWVdw
-	 cLAUDjYPkRNzqqwotNAk+iS6s1mjhc8im4XlrmfDVxCByKAZMaDWzeKR1JPAZEGhoug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735273;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=hVEFEWSi2oMht2RAJ28CZ0oXCm1B65IFoTrsA8yR13s=;
-	b=uUsNITvD0c/t0KL2tpVO9QKknrFyD3KIXdOL9CEt1uJcKpmCgz48uNXarJj+N7LlrzIo
-	 D0S+piAn+RlNlnSJYqxm5MRRrPUKZd0HcLz+KltcTJ7P0QQXOD6LmBXxawyAUpsdFnaRu
-	 bohrWzj1F8a+ZD0nsc3aVoljYj3ux38RxODMZba+0wYfo3n8Njz9xdySXwNZYFMDH8N5Q
-	 GtEh8xS8xcnGW82DJoXaygExPvGJrEEsxa5UjGirgMnW3Y5KxwKKOKYeWiooZFcFkJs83
-	 4Ne1CfqJae6NxhoQ07rdzekZJiAfAr8zU0az8qD+0t+7kIj+59bc7t99nLAA5js+5Rg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="xeIg/2+X";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.63
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010063.outbound.protection.outlook.com [52.101.46.63])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793735282;
+	b=VYIUmph5ZPagpgl6dfZwrNdlTJ4Ecriy0WtoEMa+3Xra38c8gVY6ecmTYnW2GuSZAzv1
+	 95SEK/ReKSFpu2ySILCDam8z9CcnRISk2ttR+cDNkAo+m6ExHTnib8K2ljXGicb2URd9m
+	 VHbCp7raYU+v2aanvqDmq/Yb/rrG6KpNv2JxcwI0StjGZ/s2VMBJFwCg9qfbDPy98wkga
+	 JhkEA02P4nYv7gSyYU5cV754KYHf1T+Zn603yYNp53L+dCeZ6t1wbPfri5GmStyhCrReU
+	 M75FHCsVBuK8Jb0ttwaOOyjmc6I959McV6eTfG82DTmpu6BmrGhyJ2NvN0LK5q86wwg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735282;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=VXvJfI/dWhdkcdG1zI34QvgiZR0Honn8mj5uvJip0QM=;
+	b=KkobDc0+qsvm69cHXnw3rov9zrHbgIdlLuLjY+Rz+TE0do4ukoB8bcutUWIU8bk+Z5dv
+	 ptB4G442tk3ndZL5asg9O+UA1Fg4gtiBtQxKjjlKyUsZaceIYQ+nmdnYOf7fDvzWwiBJI
+	 lOgxzuPldFtDEPII6ujzHDdJw55uw1tQb6afNvwxCGIibBp/ovs6wPuIkGK/pJVTE4f0I
+	 qB1zxUPP/WBpBDYjUXoWCj73t0CfSANFRnJrlidxFqbClwAbVviqHOEI6z+wx8MpqPd41
+	 ymWC9sDlY7jYI0943Hvkd5uovwn9QJUC1LayajhWJ/WPQ5N1j6+Jv3t1NvuFteGBIvA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H6WQJUUF;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90785606D805;
-	Tue,  3 Nov 2026 19:47:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90785606D805
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D1A606A328
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4D1A606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xeIg/2+X
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GqIFOqOHHfcThayGIWTwXpU6JJGKFLWYnzEIJA3aHxiWF2F8ba9oKtvqVWuhAuVyGWkkaceSjIMLqssCkmxIh+UhBrT1MchaLLybGs17V0VfBbGkTPCLq945wVPzZlFom7bQQYXk/7Z0s0hAxG2RZ1sLi+sst2owWktsgd6xvw6UOJmboV+bC3SIWMzDu7QsNx0PpRk1lc+0U7HUL6I+lAuSdCmB/DxGgQHa/X/cWClr473rin3GcCb/po+gjfMppD3iV1BnIx94bwEoI2NKgJobGHOrXHHASx1Z6zYCCEAx1GKhA6qioaw3jlg5jZKSbxFpe9tSTADa8r/i7QdMOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hVEFEWSi2oMht2RAJ28CZ0oXCm1B65IFoTrsA8yR13s=;
- b=Aetzn/pzYg1vZ+yE2VbDS5AmbwOfKt+aK8DL18IuxAY9qWMNwSdoWCstdLgro08Pp7UFaR/LDjg6RWQe0TmHZVlPziWNksG2s8YBL6Uh604Pi5gMRl22dSLaRofSgCaGrbpt2RlQOr7MDh4J5ajGFWcvbsZLtEG8g5mr1qo7KJ8eADOmsEn5swNNXs6RV42vvgtPZR33fer4Bzgly7UzEKPZVHFSYJOGD6cCegl4+x4n+GHPMPzg5QWLQXpOTQv3/Ndkem/4HMXJcC/yuwdpuAq4XHh7sfuYEtqR+xDk6T6Pl/M3JfW4kAttdt1CNlA3HqOpf0z7hL1XZPyzEUaxRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hVEFEWSi2oMht2RAJ28CZ0oXCm1B65IFoTrsA8yR13s=;
- b=xeIg/2+X7ONvdNinNBxuZkpfM053cuuo7I4Fkj1NcDsURn0roOIPU0iAmtRAboR0bl1xAJBxBEcAHVdaQXK17GlIono6/0/+FlCcCLtptJDTDP4padEtf+oGzKM60bmmwWHHBa92iMiZmLh8L81wLJ+khrcPIyfVxcFydAzZyq4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- SJ2PR12MB8739.namprd12.prod.outlook.com (2603:10b6:a03:549::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 19:47:44 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 19:47:44 +0000
-Date: Tue, 3 Nov 2026 14:47:34 -0500
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>, Len Brown <lenb@kernel.org>,
-	linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H6WQJUUF
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15943c9c005so4139345c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:48:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793735281; x=1794340081; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VXvJfI/dWhdkcdG1zI34QvgiZR0Honn8mj5uvJip0QM=;
+        b=H6WQJUUFlKKaWZ84UY9W3Yr2WFBYEWYpyd+D7n0FN+LVdGD+bRROnCOjYNVqMwCTQG
+         KYs1wqIsKvXcB68tNuJZc9gxs3kXtfzgzdac9QURPRloGkktHfOgMZQB3m1puNKVTS2e
+         A6GPY1DVBItpBXuSCL1joUHZR+cwVNP+Vg/CM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793735281; x=1794340081;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VXvJfI/dWhdkcdG1zI34QvgiZR0Honn8mj5uvJip0QM=;
+        b=WGZP1FfDpo1eA9rYy2jTVRx8Yno726zh/rW+Xal9G/ldRkDYS8QgJyiLXTdjyQrGHO
+         GA0jrt2qI630Wb5zpqNm4N8Nl+aE9AVFyplbS5xpxVNaoZdWv0ykk4cwE4xO5ZYNxBcr
+         oRpJf4wAh3FJ/8CIz8XWRbo/3O6fMr/nRZ3PnTWZzt0UFRxNvlSRsWmZ66mAso6Q3Enu
+         Xtqg7+DmY6F9ybxz7oVesRokLpHd6kLEMmfo39MjwXt+bodtsvpb1B+VygSyz6jI3oHZ
+         HPv8Bbw1ERkcwiamFd/8iLrdyV08xVFbq5uGkVUk7ve+ejQ4L2b8wdbGAANmV7vFTos5
+         C0BQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjwSRolMg97GvrJ8bFtQe/RCvL1Qlzu72ztmLqGZZ+AONHqSxc2BjJoqwVv9+GUnKYygWRLtuccFgGM74=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OEcBJ0JHMsDOsxv/xf2EU7FpJ0GCaup6Hxwq00CKuCykozwVJ
+	pDUwYYlMKF9mBsV9oeKdq6iG4I/Mk86RINkjkbqCb35+vK91ZedGa3EVFlliP0aAFg==
+X-Gm-Gg: AYBFou2/UIU1GU5JVFFI04f2r4g47LwerzX4k/oNRJClXuAQ4p6R4fm9GoclZSJ3Ydt
+	Lqr5b6Q8u4n2t4GRU1kNVrfYkTmDM+LwwQnA1IYvFtPQH90hmaQhhQDIXCsCeQ563SUZ8rbdHvR
+	zppQhF/EtwvpvE11Eux1dbsOzWb0adc+DOpUmTx6bZFoDKJbFFlPrrwkBWnxCeNNapkcDdGAHDl
+	J3eYGMrhofRIi6IYZWKb3fV/NpJU4t83HM60ygagbTXPCUBB2B87bX+UQXDbSNGBiN0h4S0fYon
+	uDKTSKIbfdKWi95Ty31SFr/gDzcxPBW4+10CrEPfkkQSjURWY2FALNm8yHn9NEfDjLGNhmKrECs
+	rO8GMbTTX2ECqC/sVI3UX22UB3lQ0Mid4vhVCHDHFz+M6DJyPgQev6paPt/j48HqmWv4LFmaCTl
+	p31K4FJWt858Cf4OO1evJCSDsnEmsG+mlk6rY+57V7fcx+S8LIipKG+AHsJO5IZhk3qLkEIv4tI
+	QU9mjziEqiqUHGMX+2cU8wXksZs8p+qtCzJ/cRdkljqYZ1dvvQa/ukeSJA6DHzz4IkD42fDaYva
+	iQkIeZU/vv1JXI+4/mjD/8jm0gzpC8jPTx9zNrumYtXJrIGphgK50Z38XJN6RUVuQ0w=
+X-Received: by 2002:a05:7022:e807:b0:1b2:4188:840b with SMTP id a92af1059eb24-1b2418884a4mr3582177c88.25.1793735280597;
+        Tue, 03 Nov 2026 11:48:00 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:ab71:b3df:693a:fbf2])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b245c463e9sm1010564c88.14.2026.11.03.11.47.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 11:47:59 -0800 (PST)
+Date: Tue, 3 Nov 2026 11:47:58 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Stanley Jhu <stanleyjhu@google.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Praveen Talari <praveen.talari@oss.qualcomm.com>,
+	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Jens Axboe <axboe@kernel.dk>, Bart Van Assche <bvanassche@acm.org>,
+	linux-pm@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] PCI/DPC: Avoid access to non-existent AER
- capability
-Message-ID: <20261103194734.GA314988@yaz-khff2.amd.com>
-References: <20261020181924.3003553-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20261020181924.3003553-2-sathyanarayanan.kuppuswamy@linux.intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020181924.3003553-2-sathyanarayanan.kuppuswamy@linux.intel.com>
-X-ClientProxiedBy: CH0PR03CA0199.namprd03.prod.outlook.com
- (2603:10b6:610:e4::24) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+Subject: Re: [PATCH] PM: runtime: Update runtime_pm.rst for non-fatal resume
+ errors
+Message-ID: <auo6bvjDtwAMKOid@google.com>
+References: <20261029040005.2100005-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,143 +101,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|SJ2PR12MB8739:EE_
-X-MS-Office365-Filtering-Correlation-Id: df8fbcc7-43fe-4ffd-4072-08df39e353c9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|6133799003|10067099003|22082099003|261102123227099003|18002099003|3023799007|56012099006|4143699003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261026121527099003|11063799006|261009223027099003|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	UNksAFS3as4vEUa6gXQi7wDQyV5aZNFArU+vAyhyic9O3U0gpqZRiwM8feOAqwg7gXnD7jjU7AyQLdvlFJOxYfcRxizLyvLt13bDY6Lu4KXl0CMHMELTCEeGnaiI2mrd90RrJDwNu8pooPPIPzfpmLLAx4cOte7zUEA4CZPwqlhVnVqpLj0jFacEBiAhC76Wk9K3oBw8cTzR6IqN8FSZHL7Ji8QjxaPPAC9r/Rj1E6BUk4YsjE+Yfm+7ubPp4X/qKkki0Amb8EqaBvBp+kvfHBNvRK+UMWnSK0PxC6HI8GtRjbgGGOomj2m8o1XJLErH3B0VJroGj/lGWGCnHFkfabtrrtGsFUavDL/HsQRL9hPeMwa8JVMHjmV0u+wUrnC1cSKNS64Y7xlfeXrZ65cyKHBiy3u4rxkR/CSxAv0J/93hLbHFQRfXtq+z8iiguVlHtH39sRwCjeqHzmy39/W52QrTPPcop0HIY2f/JCgdpbqfTKnMxfCTm7fS4plrfN3y6M0VCqzml2f8ju2EXo8zR6OeM1JQHV5x91XA927+f37AKFTKd+3kq234kwHzGJS13hLL0hdfTn8nW98b3LorSp6vMD9uguemBgKIEWWnX7wm6l8wS+9BcgtnaTvkHOUX
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(3023799007)(56012099006)(4143699003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261026121527099003)(11063799006)(261009223027099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WvDB43eRq+1riGpi4vDG0iqXSfZZ8WYuq3Zrt+Vu/LXUSTvhOA2fe9IGyXoJ?=
- =?us-ascii?Q?r7Ez4IBZec420YmGdgi38wOJIyRQfE4Y9jv/olCCnL7/JCWXy4OSYqbENRbX?=
- =?us-ascii?Q?sIxeajVUJIDcWS3SXGZR7Y8LgHfgfGzPl6xA8AOf84niWqHA79Dah8/4lUJP?=
- =?us-ascii?Q?znwakAskDDORMtMX+WJUUb644B9twdS0bRv12xmnzFtZp8K2jM6PcpOZrb26?=
- =?us-ascii?Q?jC7E9WBKkQDt/r1g4XGpCjxw2S7X95TVIgajgXi4edPgxZgYEr6/zEfzxux+?=
- =?us-ascii?Q?6Bq/6bRqNiGNt7DZfJuMjybBPPbTpEkV/TcIKbQtN5U0O7ecd9sP0wTs0FaY?=
- =?us-ascii?Q?Q1kMHMSGK4EQwWUM+5vd7V8YAejguTWwdeQz+1vHwye40+4O7A6XRIYLYEMU?=
- =?us-ascii?Q?hEOIs3cn9z1+AkmlpH+4EzN7VUsukj04PMYkwZxymu+EIRMeZAxkPYccCRfz?=
- =?us-ascii?Q?TXFGq9knzXqEviE/yfrY2MZOZ+p2fdZbebS/CV2npxDs21gJt3n6/yZ3aO87?=
- =?us-ascii?Q?M90nWpJoAZwd7OoxH/lIx2RNT7lRzyEV6aoYNvCmYJBzzwd52oWRw6o11dXH?=
- =?us-ascii?Q?gou/TcnOH5R7KaVYfgMWq5Ut8gxHBHLVJyiVbxNH+JboA5S0Qyv5v6dMCv0F?=
- =?us-ascii?Q?sb5EYHSFLDGO2DiUyBuj/pgqnpAzmmjRw205PqpFLU+8pzbCYm9+ARQ7zxJJ?=
- =?us-ascii?Q?nnIWxa04aBJ6xa963Oq6/qWurIxYNRLIpIDGHSi/Ffq+kgNBnbfpAr2FnJjg?=
- =?us-ascii?Q?W0XKC/8k8sC+v5KUS0x+QAr746VtLpQRaojRtbLnw44JsxwcH2nl76oNBYA0?=
- =?us-ascii?Q?cjY3+14TVsZ7I3sds+XOMcw604we5/3GtLbD/c/3eJEROxfgWuxFsuoV+4pX?=
- =?us-ascii?Q?evclbbZ5V8riUOzU+5zeX4PwbsxfBciqc+e2jsz1JijY/FOjcA/tEQsUoE+h?=
- =?us-ascii?Q?QMGTQuzhjxKu2mIKxLw7VdlVc9U+KUhctVPKfkOY/2Kzd+Dfu2tkwHSX1D2o?=
- =?us-ascii?Q?u7DqstzaZRexdWtT9vXk2BXKBbn7N97b9K+srfI2J4iKj8eiYIOos8aBZUFA?=
- =?us-ascii?Q?h/MNAExU/4t8yf28JoHf5wVuFt3GIBBpiz1XUsj43xfp4A5uhzZY52BDuHvO?=
- =?us-ascii?Q?XfjcwfBK2TJFQmkkZwsvYAXPh3p/6MyzwYkjXbB8Vk0fwSAc+YjVil9pOUrq?=
- =?us-ascii?Q?srfg8hGOxVAgclYtGnc8v91SnlbMGavA59by54cTH9dDNrjV/31KpAHbF+V3?=
- =?us-ascii?Q?pJHXaav5alwrbd/vsCBTdi59ctS0k98l8ivW52KWfNQhoON9HZzirjCs+qd1?=
- =?us-ascii?Q?YzwrzttAry00+zTyeZpeghZM7IWNqehNAAARhVuyZ4wGujxyAlEblbZkzZdh?=
- =?us-ascii?Q?x2n2ZIyhTijBlFvSxFrhT+7rocJTokmxzJXWfYLIy4piIT+Nl2XmffTAkjjr?=
- =?us-ascii?Q?HsJ2C9jYBqm7RRAEfkGEiW6i/lwmi7FC53I9hZaFVUNO1+4xO8t+Lp9kTcvI?=
- =?us-ascii?Q?woBAXrQrfs2Nf3peu47+yxwLr28PznHp7EAXiMWAwvBihSonCIABtYnaQAa3?=
- =?us-ascii?Q?tw1NJdaCED/seVr5IV+EScZHhJDEgv30apSP3PyGasHlitNhwIZWfs/HXmPv?=
- =?us-ascii?Q?OCTLJAk1XOq440gLwSIUILqhoGQyZN8+9chWg+zsHrd/91INAwo66NYgJzDk?=
- =?us-ascii?Q?BuYJMytAbZYjTNLV1QCg8NQiNlo7FtpCDlNapxpz6SdP8B5l?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df8fbcc7-43fe-4ffd-4072-08df39e353c9
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 19:47:43.8679
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: we5ufWLbexONXjvxdVF1vx35Ynep4wsBfAHpMNyiQEF18pa0LilN5lZAXUhmNCisWxO/sN8LHT/m9+7FZ2LzHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8739
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029040005.2100005-1-stanleyjhu@google.com>
 
-On Tue, Oct 20, 2026 at 11:19:18AM -0700, Kuppuswamy Sathyanarayanan wrote:
-> From: Lukas Wunner <lukas@wunner.de>
+Hi Stanley,
+
+On Thu, Oct 29, 2026 at 03:11:45PM +0800, Stanley Jhu wrote:
+> Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
+> suspend callback failures"), rpm_callback() no longer sets
+> dev->power.runtime_error when ->runtime_resume() returns an error.
+> However, Documentation/power/runtime_pm.rst still states that the PM
+> core treats any ->runtime_resume() error as a fatal device error and
+> refuses to run runtime PM helper functions until the device status is
+> manually reset.
 > 
-> Downstream Port Containment does not mandate presence of an Advanced Error
-> Reporting capability, so a Downstream Port may support DPC, but not AER
-> (PCIe r7.1 sec 6.2.11.2).
+> Update the resume callback semantics bullet to state that on error the
+> PM core resets the runtime PM status to 'suspended', returns the error
+> code from synchronous resume helpers, and leaves power.runtime_error
+> unset so a subsequent resume request can invoke ->runtime_resume()
+> again. Also drop ->runtime_resume() from the ->runtime_idle()
+> comparison of callbacks whose negative return codes are treated as fatal
+> device errors.
 > 
-> In February 2019, commit 9f08a5d896ce ("PCI/DPC: Fix print AER status in
-> DPC event handling") amended the DPC driver to access the AER capability
-> without checking for its presence.
-> 
-> In May 2020, commit 708b20003624 ("PCI/AER: Remove HEST/FIRMWARE_FIRST
-> parsing for AER ownership") fixed it by inserting a call to
-> pcie_aer_is_native() in dpc_probe(), which implicitly checks for presence
-> of an AER capability.
-> 
-> However already in October 2019, commit 35a0b2378c19 ("PCI/DPC: Add
-> "pcie_ports=dpc-native" to allow DPC without AER control") made it
-> possible to override the check:  The DPC driver may access a non-existent
-> AER capability if "pcie_ports=dpc-native" is passed on the command line.
-> 
-> Fix it by making the DPC driver cope with AER-unsupporting Downstream
-> Ports.
-> 
-> There are two places where the AER capability is accessed:
-> 
-> - dpc_get_aer_uncorrect_severity() uses it to discern whether a Fatal or
->   Non-Fatal Error triggered DPC.  Access the Device Status Register
->   instead, in accordance with PCIe r7.1 sec 6.2.5.
-> 
-> - dpc_is_surprise_removal() uses it to detect whether a Surprise Down
->   Error triggered DPC.  Return false on AER-unsupporting devices.  The
->   function works around an AMD-specific quirk and it seems reasonable to
->   assume that all affected products are AER-supporting.  In any case the
->   detection is not possible without AER capability.
-> 
-> Insert a temporary check for an AER capability after the call to
-> aer_get_device_error_info() because the function currently returns false
-> for AER-unsupporting devices.  The check will become obsolete and will be
-> removed with the imminent baseline capability error reporting.
-> 
-> Fixes: 35a0b2378c19 ("PCI/DPC: Add "pcie_ports=dpc-native" to allow DPC without AER control")
-> Signed-off-by: Lukas Wunner <lukas@wunner.de>
-> Cc: stable@vger.kernel.org # v5.5+
+> Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend callback failures")
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 > ---
->  drivers/pci/pcie/dpc.c | 23 ++++++++++-------------
->  1 file changed, 10 insertions(+), 13 deletions(-)
+> This updates Documentation/power/runtime_pm.rst as discussed in the v3
+> thread for commit eef1d74bf88f:
+> https://lore.kernel.org/r/CAJZ5v0ga8qqYg79+hQVtO8T=FOCj8XLmTz3HpEKoOykV_K-HSQ@mail.gmail.com
 > 
-> diff --git a/drivers/pci/pcie/dpc.c b/drivers/pci/pcie/dpc.c
-> index 2b779bd1d861..793a799053f1 100644
-> --- a/drivers/pci/pcie/dpc.c
-> +++ b/drivers/pci/pcie/dpc.c
-> @@ -236,21 +236,15 @@ static void dpc_process_rp_pio_error(struct pci_dev *pdev)
->  static int dpc_get_aer_uncorrect_severity(struct pci_dev *dev,
->  					  struct aer_err_info *info)
->  {
-> -	int pos = dev->aer_cap;
-> -	u32 status, mask, sev;
-> +	u16 devsta;
+> Two .runtime_resume() paths assumed the old latching behavior:
+> - blk_pre_runtime_resume() (q->pm_only underflow):
+> https://lore.kernel.org/r/20261029040001.2100001-1-stanleyjhu@google.com
+> - __ufshcd_wl_resume() in UFS, where after a failed resume the retried
+>   resume releases the clock-gating hold a second time:
+> https://lore.kernel.org/r/20261029040002.2100002-1-stanleyjhu@google.com
+
+Those need a close eye, as the code involved is a bit subtle. I tried to
+review, but I'm not really an expert in those subsystems. (I'm also not
+quite sure the second one was 100% a regression, vs further exposing an
+existing underlying problem.)
+
+> Should other .runtime_resume() callbacks that undo suspend-time state
+> on failure, assuming no retry, be audited?
+
+Sure, that seems reasonable (although difficult), especially considering
+you seem to have identified real problems here already. I don't know
+that you'll get a formal sign-up from anyone here for that work, but
+you're free to do it yourself :)
+
+>  Documentation/power/runtime_pm.rst | 17 +++++++++--------
+>  1 file changed, 9 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
+> index 40a5c23d5259..04dc2a538352 100644
+> --- a/Documentation/power/runtime_pm.rst
+> +++ b/Documentation/power/runtime_pm.rst
+> @@ -222,11 +222,12 @@ what to do to handle the device).
+>      I/O operations as needed.  The runtime PM status of the device is then
+>      'active'.
 >  
-> -	pci_read_config_dword(dev, pos + PCI_ERR_UNCOR_STATUS, &status);
-> -	pci_read_config_dword(dev, pos + PCI_ERR_UNCOR_MASK, &mask);
-> -	status &= ~mask;
-> -	if (!status)
-> -		return 0;
-> -
-> -	pci_read_config_dword(dev, pos + PCI_ERR_UNCOR_SEVER, &sev);
-> -	status &= sev;
-> -	if (status)
-> +	pcie_capability_read_word(dev, PCI_EXP_DEVSTA, &devsta);
-> +	if (devsta & PCI_EXP_DEVSTA_FED)
->  		info->severity = AER_FATAL;
-> -	else
-> +	else if (devsta & PCI_EXP_DEVSTA_NFED)
->  		info->severity = AER_NONFATAL;
-> +	else
-> +		return 0;
+> -  * If the resume callback returns an error code, the PM core regards this as a
+> -    fatal error and will refuse to run the helper functions described in
+> -    `Section 4`_ for the device, until its status is directly set to either
+> -    'active', or 'suspended' (by means of special helper functions provided by
+> -    the PM core for this purpose).
+> +  * If the resume callback returns an error code, the PM core sets the
+> +    device's runtime PM status back to 'suspended' and returns the error
+> +    code from synchronous resume helpers.
+
+This part seems good.
+
+> As with a suspend callback
+> +    returning -EBUSY or -EAGAIN, this does not set power.runtime_error,
+
+I think this is a weird comparison to make, for two reasons:
+
+1) we don't talk about power.runtime_error anywhere else in this doc.
+   That's probably a good thing, since it's not really something any
+   consumers should need to inspect in most cases. Instead, the
+   runtime_suspend() section you're referring to mentions "remains
+   'active'" (i.e., can be retried later) or "fatal error" and "will
+   refuse to run [...] until [...]" (i.e., not retriable).
+
+2) -EBUSY and -EAGAIN aren't relevant here at all. All error codes are
+   now treated the same for runtime_resume(). (I know you aren't
+   claiming they matter in runtime_resume(); but the wording seems a bit
+   cloudy to me.)
+
+I think it would be better to flip the comparison to the other
+direction, and deemphasize power.runtime_error. For example:
+
+  "Unlike with the suspend callback, failures in the resume callback are
+  never considered fatal, [...]"
+
+> so
+> +    the helper functions described in `Section 4`_ are not blocked and a
+> +    subsequent resume request can run the resume callback again.
+
+Looks good to me.
+
+>  The idle callback (a subsystem-level one, if present, or the driver one) is
+>  executed by the PM core whenever the device appears to be idle, which is
+> @@ -250,9 +251,9 @@ call to pm_runtime_autosuspend().
+>  To prevent this suspension (for example, if the callback routine has scheduled
+>  a delayed suspend or determined the device cannot be idle), the routine must
+>  return a non-zero value (typically -EBUSY or -EAGAIN).  Unlike
+> -->runtime_suspend() and ->runtime_resume(), the PM core does not treat negative
+> -return codes from ->runtime_idle() as a fatal device error; any non-zero value
+> -simply stops the PM core from suspending the device.
+> +->runtime_suspend(), the PM core does not treat negative return codes from
+> +->runtime_idle() as a fatal device error, and any non-zero value simply stops
+> +the PM core from suspending the device.
+
+Looks good. Sorry, I think I missed this part when updating this
+language recently in commit aedc51762a0d ("PM: runtime: Clarify
+->runtime_idle() callback return value handling").
+
+Brian
+
 >  
->  	info->level = KERN_ERR;
-
-Did you settle your question from here?
-
-https://lore.kernel.org/all/74fe0d79-dc90-4c05-ba9c-9a0eec1ada48@linux.intel.com/
-
-Thanks,
-Yazen
+>  Core Guarantees and Synchronization Rules
+>  -----------------------------------------
+> -- 
+> 2.56.0.313.g2479322e68-goog
+> 
