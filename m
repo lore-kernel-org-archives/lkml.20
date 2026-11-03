@@ -1,96 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672872;
-	b=hCewZpYKTRIdx2dH4P4COGjSUEqm2DTIXLcP/G6MHeZeAGoLYJ6P5gJcin8kuaFRqEHJ
-	 NwtAZsZZEUKTTHPCyaC1Ruj/yTTRH9TgZt1zNhvWDNbTX3bET37TM8VkQ6XQYcQv/M4C+
-	 2wqHj3h8FvRsk6vj5w7F73YCDVFYNpyHSEuyye63tOEdKKskM93MXRFZWIB4mWGD30a4M
-	 5Fb7lHCOv2AFH68lnJD+5xthHyCc3QppI79HJyPFUNbAMvF5lbrphcrUjueHX3thcm4dR
-	 mjaisj9jVmzGvY6F2yK++dK6dyOYGc6DmdKRzt0fQzzFuuVKMg3gq80qb3ouviNM2Sg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672872;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793672913;
+	b=lX8tgwXxe7Eu3I2dcVdXn+Y2Cd4TRlxQidSJRnBQWvsOMnptFHGbUQfW66ZYyaOJYV1K
+	 gOoEBXkvs8+lipUkYgjLT460rx/bK50dMmhs9vgd4LEnHU/cmLAEIt1drrlR3yn+gHeyP
+	 CEJwiZ/mvoKEvv83hewQuftI/+FyQL9Ztq4ES/IDSlFIKVzsZGlkN7ntYujmtNGt7qNdO
+	 6cOMXV9aQKe6egKO9igwaRxQ+GZ7iQYA5qWG4U9QKH0yLhykrCBEnGM8RFZN9XJpuJcVq
+	 S9fGRlLtntaXxIcnp6wIS/IPp6glnWrqhjDie+LHbmW7cZJp755TjMxTpl7bcdIwGdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672913;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=N9b5P4R0OxwfaJ7nD/07qWvYSSSIbI12/NxxmTR8Z8M=;
-	b=BVM5FHwLI0CS69p14BE9dUYOdXHbzwHnSgq01sI77K4PbWzkPDAr74SYv7neau5LDJ1f
-	 4AVgUt5973GCLU6+AQAWV44OOVw+25+lDYBNIKpccSgUfqX3R0d9WK5hvsPlaNxqtb+i+
-	 bJWnNWbsF4wY/700iqk2sBx66tsmbqzjP0N1nXntpwzvcTNghP1isFreQ4KuxRrnS8dAm
-	 xG2r+BkzylMcyB/j9+QkU9S957+tmKTUrE4O+0MOo6kBdWeIrasI2P3AuirmzSpGmA8AT
-	 uNb9R06CMOYQfRBnpnrcQ59yECQpv5r69ts3ZeZKgwzWtjfRZ9LK0QmD4zv5Z4qJPPw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=43k2JoRgmvLGktezxg5Tqe/6VKPUAsfo21mLYAXJ+uI=;
+	b=uqvzaK3ydp1tlIna5GbILNbvMc4UCtfEWd8ZUgEt1pmyyXgOeEK76WtZKBIkTZLu8uVN
+	 aFP4mXVPhuPScOFB+/f6xr5tnriNiWC5nEoqxZSmc23/a3Ru3UhjIBFXDsztqPYtdYloA
+	 rU0Npf5JvzEIkejyMurJDHEe3Su3YA3FhrQkmoC5MRfj7WAJf1pKblNqrNyjCbWuRIWuN
+	 +kXN1vcDsmfh5vVEqsoIQf+jUksbtD4Arjy/kuWodmEcPvxFGpLzGUlO98/SsT2vSV3u2
+	 zaRYjq6ALSgvon3Mw91LwAkCFdhaWQyjJudCIC8XhWUptKOyd23gw03+JZnbJLoobig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HHXO6qJa;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TBcVpV3N;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B3A606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:27:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34B3A606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2371C606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:28:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2371C606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HHXO6qJa
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1438d9363fbso254694c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:27:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TBcVpV3N
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-533778ab0bdso53012551cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:28:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793672912; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CmXik7Qjmq2os80txx3qIOEW+jaABHQ915eYPPKtV4n17sbkIwrMp75Qj4hlDNrOvw
+         Lc4hIM1vYdXgpB0aHBGXB+LqsRgo2IBgdq1HM3cVEGhO/gbF9AsjsrqC9PjDerG0pDJo
+         Mjbji625cA1zPRGVzDr62UE3VN9uPQnFtd/o7DH8o8Ph5FnKOy8Hp4aoDKrw+TNsZypq
+         6ndpBqUtPEHyfGwYHK2l3kq7TDSV/mF5aZSDFOSmIXprCWclKIjZyZial3m4zdFOLiyI
+         5ne4lBKetrDN23UbBf63ril8f86/4nfWPdYmkuxu4JKpc0wR023DD6E/Jcpn5c1Oaiyw
+         CiCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=43k2JoRgmvLGktezxg5Tqe/6VKPUAsfo21mLYAXJ+uI=;
+        fh=WCyrcxGpTHSB56xeRhvxNWrnG51luZBQ/iOd8K0/Gt8=;
+        b=ixgmyGQBdsRbWNNAfCpTqcoEcmD7ieUu0ZxVi4iJZMwavzUMRW2M/XVxrRiTjV3le8
+         aoeQUtHx8GIEMl0eIRi/4e0pIjvAMxNKsULKrJ6rxYw9Pgwr+JfGqBcV97JwveqKp0ne
+         p/RV8j7eA8o38IqjNW68XEJgnCx6fzkPYErfHOmBPXrzuOXZ0nqrbqbNGAlMVArIq7Wc
+         li6BSbEJLFf5xE6XlgReHcMIGZ8u6kXqNP5fq3AWx1yhwhSV7qY1M823SCCA/VBDd+Fn
+         wdbiQzXLTJbAacErK69Gek38AzEEnoitfkOVD1uWcjqVDOaV7E9lh3nyFf3nqLQjVjpR
+         2QuQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793672871; x=1794277671; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N9b5P4R0OxwfaJ7nD/07qWvYSSSIbI12/NxxmTR8Z8M=;
-        b=HHXO6qJamIH9YTOp6hlmQqsiTYtL0kVWzK+q5XnMrAfTDbBstJF445LjWYJecaDas3
-         XQwi+TzvmSAnon3vNz8QZggoP/67q8bkFrpEVEZf3320dmG2hQPRPNGpE1KM231Q8lok
-         zeYK7kLVBhbPNbVwtZ0c4lOIwjvk88Jd53WiDHEH0mOPBA7vMTfMIcYCUb6e2CQP39An
-         K9tjXluTsrsH3R6dBSx9S+RqvRist9LK0g/4A6QJphWpIhbpgjPx2IGbEMsbjrg4cLg+
-         pjmLU4fnEf7N/fihJmnOLttnmh/ba5h98W/p5hzxsvDAmYGwuy8KwB0rhLbFzrBoekH7
-         iKeQ==
+        d=gmail.com; s=20260707; t=1793672912; x=1794277712; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=43k2JoRgmvLGktezxg5Tqe/6VKPUAsfo21mLYAXJ+uI=;
+        b=TBcVpV3Nm0DEYNMpivFPwbeMW+Qgh+kb04TIohJNdNrJXXHNLdU09nGHewGUewzNB9
+         kGC2oUWJ6M26At3CDIR3ChUKw8t/UezDkoB22nnJOwjzv3syJrngkTRCnZp90UBO+KJR
+         jw2tK1G9qf563Dq/aHrzwejkDJKKaNuQ1oPPe9Wu+sk8CrTm01ftG8UFfK+Op3Ky5V3K
+         a1J7/HcjRla/z9oh2iSNS34iC5Dy0pJSl4thJ8LmoAhb81bYvvJ5JCBeB8gO4pD8WLtK
+         zJEMycOpLbu7GrSQ9VNPnvdK0Y9R0s398SjtBGUIQg+zf5y7TWhZpymUFUFrUSS0me02
+         shaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793672871; x=1794277671;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N9b5P4R0OxwfaJ7nD/07qWvYSSSIbI12/NxxmTR8Z8M=;
-        b=2YdB04OMyHiDL0oL6CYV3XrMvWq5UjnhqgLY2G2crVwsk4lGq4a0z3HEMeFyGEd7sr
-         MR2vxf/Wi1XNKlJctb/FUDhT85uSOnEXiFKQ+Z61hqnwvhsrCb8GhbLXw+szJeRIOAui
-         4ncU9EDNEVmT7aCZANUCfa2B9qGxL6jSi0bky2DwXNhCFN+A7NthcyvzT3MKuMhjBGuF
-         Qayp3Z/Kddxbg59FHOtv7TKSIIc8Hzq79mATf14jNMWE1X5t/deYAeymS2Glu4r5qyYP
-         a2JFee4vqA3mUF8NV/51lB2PJHHOyKLdJW8oIn1InboEJAFZiBmHqCy3bPMJXArVJydB
-         ukkg==
-X-Forwarded-Encrypted: i=1; AKwUvBwD+XXQPK0TusRclZL73q/1MIqnVfAxz8UH++LnezJ8HYov2exB6FY8GC4W0kLQLd0ulfYawX2msZ/ZS10=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIagMlPJCckFCudMvApWTvIMwhrdxj8clM2Vj57CYqPPUQAF1KM
-	S1DBwo3M0srnyqoXg7WOadFqgr1B0j7NevBrce3mE8uoyaFiVcyvBScN
-X-Gm-Gg: AYBFou3duxswNCMgIZxWXJnZNLLsCLJ7Z/ld+A+QXTZthGdGe1PNUlmqAbOrEzVIzuf
-	upkKnu5L3VrQhGmNwQhxrg5JXCWDRrAe/xetZ+tgfo49akoOg9XQdFHQo9oJONpPrlQMg8s2hry
-	TR2ueq7wQnvV0eFPl0u7g/L4PGrb3QcAp6PaMIQDYWuBH/8s0+PpvTEh26cXa9GDbGVXw0WruSA
-	uHI4GV46SpEzU4IInjCefJLtD06qhmT9xjup408rONqnOGIjNKg5m8SHTPRlNzeHGZspVSt7V59
-	/qp1puh+0BM99Ym1lr9/dZk+BR8eT2KK2pE+/INTmClDvJ2ry4kPjLXznvKSzq2XFt2jM8H5Htq
-	Waue/PrSUPR7jX58+nmMbj4VyrKipa8CHiyy9Cv5Z2SghFVJ3YVZNU9ZZq0IYQ3wruztoeYfKLQ
-	ht+qyVDOsIboMCh4btO7GH9qIu0R7alZrYRDK9UFaAknP52MBsFRXTpKERqLcnEcvGFqjpY4VEo
-	rx9gNK3zNaZD+pru4rXdrV4u0hyxBw71VkIDF1bGSQ/cM2Rh9kBOopfyeCjnLvFi+DNbUX3GH20
-	zmXWJG1yGG2yizTwinMszWCQDSnbvmZOdGqWQMepkrCU
-X-Received: by 2002:a05:7022:3c02:b0:196:b805:9546 with SMTP id a92af1059eb24-1ac5a67f996mr13146306c88.10.1793672870937;
-        Mon, 02 Nov 2026 18:27:50 -0800 (PST)
-Received: from localhost.localdomain ([61.255.248.240])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4b08bsm43931281c88.16.2026.11.02.18.27.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 18:27:50 -0800 (PST)
-From: Song jeonghak <thdwjdgkr123@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shardul Bankar <shardul.b@mpiricsoftware.com>,
-	Edward Adam Davis <eadavis@qq.com>,
-	Markus Elfring <Markus.Elfring@web.de>,
-	syzbot+98547b0428b6a6a3467c@syzkaller.appspotmail.com
-Subject: [PATCH v2] hfsplus: free failed b-tree nodes in hfs_bnode_put()
-Date: Tue,  3 Nov 2026 11:25:22 +0900
-Message-ID: <20261103022522.21918-1-thdwjdgkr123@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793672912; x=1794277712;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=43k2JoRgmvLGktezxg5Tqe/6VKPUAsfo21mLYAXJ+uI=;
+        b=S3t8pOxevYcmoa71qgmuVMH8xG7cR/Q7EASemw91XVw/6C032lpMMXeP6h8bb9eG6o
+         Y773gRK14IYBkFJmsmU4zfjR9J/5PImr/jCH6sGjnpvYyoF8fsTg0nz6dQN3s40MmRmv
+         2AwrOYiHwsBt17a2/wBuSNnnE0r5oCzuE4TBhfBwR6BeSHBK6eXhYGUyVt1Lzm/+9utB
+         AIJAL0t031ZQKTwONkeoGxusLV5+KTZD7c7cH10k79ugAZGtyqjVAgVDomrFHyVOWDEK
+         WRG1q1fR6/7PFk0D63pPrbk3l80qJQu3cr4aPQFUMfCN+btnVJbBzCX8gmnEh3eu1lEv
+         GimA==
+X-Forwarded-Encrypted: i=1; AKwUvBzoWWIEqqklj08tqOM94NS6ei2FzoKFa3FLgjtbKl8MhsGWjD0aFYubj/7N1AkFAAeayy/h6cyfaCdyqCI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ONpbnbr+wke2TPEcyGZEH3ycJAoqCer5p/S1T35iA9TFwtv1Q
+	B9S8RJ2VEWC+NSvnCpiI99mIaaMzbu28sQguN8sewFetAdDz0v2MYFTr2E1Kp/rIsirjd42p7Bc
+	7gppxdTjXjhmQybKiDCh/Tm70TWX70Z37XzVxkyg=
+X-Gm-Gg: AYBFou3VYsFJ6sx3sOruXWegjVjAgpPP5aiqY6B6SSPmwQjFs/V0fddd/zo7bInuE+L
+	us8vLugs3S6etg0BQnPRC1916SwuDdS03WPpKfVrzxIO4fEuNyrw8gwH2B/Ox2ve8y9TsrrA/K3
+	UR1P7J7dJo0KjB6Q5El6OUN6Q16SrtpYXaRrYlU8PKy2Z09Ju6Zna0PFjxT9Acov2yTde5jhOcn
+	6YOr0NRBgpNLyyqGYFZsiaMogv73srreN5pPxrnKNhx+rkHRuAeEQ/b4i6Lm68XbF1v4XR6R2WD
+	tH0P/lSPd4B3IS/r9gIVBqx7cmVHvr1hJiC8iWlmtK5NfVXLyoP1U2raRQpmL1GfZXhHWmENhgy
+	y9feTncRiiPEgTLmpkbinjPaIkS63Y39XRvj6gaJaEfsTvT7mRIW37zpZCGsFlHAXE+W1pnyVCs
+	n425cjRxcG5eLTqZ2SGM8Ud33dna6aNc107qDdfNu6VaZSUwNWQcIb6gYd0bkH/H1xyvHD07OEQ
+	g9/7QlwAoYH/HvPpoUvAPhYTg==
+X-Received: by 2002:ac8:59d3:0:b0:536:3a49:f76 with SMTP id
+ d75a77b69052e-542b62a60f2mr208129931cf.27.1793672912039; Mon, 02 Nov 2026
+ 18:28:32 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,111 +105,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
+ <20261013-sahara_protocol_new_v2-v9-1-dc9f24357c4a@oss.qualcomm.com>
+In-Reply-To: <20261013-sahara_protocol_new_v2-v9-1-dc9f24357c4a@oss.qualcomm.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Mon, 2 Nov 2026 23:28:20 -0300
+X-Gm-Features: AclHuK-mWSKXd9lnXqiSNJlntbzfXiWNAcEZqwA15ieqTiGdj9OVEQ3Jtku0h9M
+Message-ID: <CAMAsx6dwZVCVQpfh9DYVU3NoTrsbRLOiORdMKm3Yo-vQLmpyFQ@mail.gmail.com>
+Subject: Re: [PATCH v9 1/7] Add documentation for Sahara protocol
+To: kishore.batta@oss.qualcomm.com
+Cc: jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com, 
+	ogabbay@kernel.org, mani@kernel.org, corbet@lwn.net, 
+	skhan@linuxfoundation.org, rdunlap@infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-hfs_bnode_find() flags a node it fails to load with HFS_BNODE_ERROR and
-then drops its reference with hfs_bnode_put(). When the last reference
-goes away, hfs_bnode_put() only releases nodes flagged HFS_BNODE_DELETED.
-Every other node stays hashed in tree->node_hash as a cache entry and is
-freed later by hfs_btree_close().
+Hi Kishore,
 
-That is fine while the tree is open, but hfs_btree_open() looks up the
-header node itself. If that lookup fails, hfs_btree_open() unwinds with
-iput() and kfree(tree) and never calls hfs_btree_close(). The failed node
-is still hashed, nothing references it anymore, and it is leaked. syzbot
-triggers this by mounting a corrupted image:
+> +| SAHARA_MODE_MEMORY_DBEUG | 0x2 | Memory debug mode. The host should |
 
-  hfsplus: failed to load extents file
-  BUG: memory leak
-  unreferenced object 0xffff8881040930c0 (size 96):
-    __hfs_bnode_create+0x57/0x310 fs/hfsplus/bnode.c:476
-    hfsplus_bnode_find+0x138/0x660 fs/hfsplus/bnode.c:554
-    hfsplus_btree_open+0x30b/0x5d0 fs/hfsplus/btree.c:384
-    hfsplus_fill_super+0x272/0x880 fs/hfsplus/super.c:546
+Is "DBEUG" a typo? Shouldn't it be "SAHARA_MODE_MEMORY_DEBUG"? The
+rest of the document spells it "debug".
 
-Free a node that is flagged HFS_BNODE_ERROR when its last reference is
-dropped instead of leaving it hashed. This follows the existing
-HFS_BNODE_DELETED handling: unhash the node under hash_lock, drop the
-lock, then free it. Unlike a deleted node, a node that failed to load is
-still part of the on-disk tree; only its in-memory copy is dropped. Its
-bit in the allocation map therefore stays set and its on-disk contents
-are left alone, so neither hfs_bmap_free() nor hfs_bnode_clear() is
-called for it. A later hfs_bnode_find() of the same node number now
-reads the node from disk again instead of getting the cached failure.
+> +| target. The Sahar client interprets|
 
-Tested with the syzbot C reproducer in QEMU (x86_64, kmemleak) on
-next-20261023: the leak was reported in 3 of 3 runs before the change and
-in 0 of 3 runs after it, two of which ran with slub_debug=FZPU. On a
-valid image, creating 3000 files, deleting half of them, and remounting
-gives identical results before and after, and fsck.hfsplus reports the
-volume as OK. checkpatch.pl --strict and sparse report nothing for
-bnode.c. This was not tested with KASAN or with concurrent access to the
-same node.
+I think this one is also a typo, right? Shouldn't it be "Sahara client"?
 
-Claude (Anthropic) was used to help with the root cause analysis, the
-reproduction setup and drafting this changelog. The code change itself
-was written by the submitter.
-
-Fixes: 8ad2c6a36ac4 ("hfsplus: validate b-tree node 0 bitmap at mount time")
-Reported-by: syzbot+98547b0428b6a6a3467c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=98547b0428b6a6a3467c
-Signed-off-by: Song jeonghak <thdwjdgkr123@gmail.com>
----
-Changes in v2:
-- Corrected the changelog. v1 said a failed node "has no b-tree map bit
-  to release and no contents to zero out". That is wrong: the node is
-  still part of the on-disk tree, so its map bit is set and its contents
-  are on disk. They are left alone on purpose. No code change.
-- Kept HFS_BNODE_ERROR as its own branch rather than folding it into
-  the HFS_BNODE_DELETED one as Markus Elfring suggested, so the fix does
-  not touch the existing HFS_BNODE_DELETED path. I can merge them if
-  that is preferred.
-- fs/hfsplus is unchanged between next-20261023 and next-20261102 and
-  the patch applies as is, so the test results above still hold.
-
-v1: https://lore.kernel.org/all/20261026152139.458677-1-thdwjdgkr123@gmail.com/
-
-Viacheslav, v1 did not show up in your mail client. It was sent with
-git send-email as plain text and is on lore at the link above. This
-version is sent the same way.
-
-This takes the direction Viacheslav suggested while reviewing Edward
-Adam Davis's earlier attempt, "[PATCH] hfsplus: Supports freeing newly
-created tree head" (April 2026): look at HFS_BNODE_ERROR in
-hfs_bnode_put() rather than special-casing the header node. That thread
-did not get a follow-up version.
-Link: https://lore.kernel.org/all/tencent_C4F16CD096B0EAEAEE5ACDB07A266E382C0A@qq.com/
-
-fs/hfs has the same structure: hfs_bnode_put() has no HFS_BNODE_ERROR
-handling, and hfs_btree_open() looks up the header node and then frees
-the tree without hfs_btree_close() on failure. I have not reproduced a
-leak there, so this patch leaves fs/hfs alone.
-
-sparse reports a few warnings elsewhere in fs/hfsplus (ioctl.c and
-attributes.c) that are not touched by this patch.
-
- fs/hfsplus/bnode.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/fs/hfsplus/bnode.c b/fs/hfsplus/bnode.c
-index 3a1a1fa6f2e2..3d159db229e5 100644
---- a/fs/hfsplus/bnode.c
-+++ b/fs/hfsplus/bnode.c
-@@ -702,6 +702,14 @@ void hfs_bnode_put(struct hfs_bnode *node)
- 			hfs_bnode_free(node);
- 			return;
- 		}
-+
-+		if (test_bit(HFS_BNODE_ERROR, &node->flags)) {
-+			hfs_bnode_unhash(node);
-+			spin_unlock(&tree->hash_lock);
-+			hfs_bnode_free(node);
-+			return;
-+		}
-+
- 		spin_unlock(&tree->hash_lock);
- 	}
- }
--- 
-2.43.0
-
+Thanks,
+Daniel
