@@ -1,91 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691759;
-	b=x309/gOjik0qGUD0bsLkgVBXOXXzQplFt0JH4aDtnkOsJev98W2QA0N7CLIBT7Rw/L27
-	 qyD/GaetKIvGX2rktOlCeRx3elSIeMovR9N6rsHvvpkQNhdM3ANOc37nNbwpMQfBbS0PU
-	 yuwt7GeA7hzQ9AUB+2qKO3lxCK9q02wdD0DT1TH3+D0APDp7aW34zhOE44jaqV7eqDQWc
-	 5II+niS7vhqRo1HiBLiRyzancuTn+Mcn3dcn64GVMogYbGRE39cUpi052g2UI3E3oKKB9
-	 JQND6FnqAyTgxaNUzPi9LLeMgamOTCzZlXYU3roZCvnbMvWninL95Kf0zHxF/Su/Kyg==
+	t=1793691740;
+	b=aZdSAOGVrweC2Kpf58N8uWYKhaGKPGiioqGWffSyr8WzAmD6TFb7HskExa9G3MZTA+Jh
+	 mdAtjqiFrPsE7WVwlXORg4+jMmoDkaHhw4GpR+T1BK5BaWkTdoHRdGn2n++3p6zVrc3S3
+	 a8CQNJnvCQypQkr5/nKZKtBGSOGhNfHcWoDlRL7783pLlb0lArOUO7fV529NBQULtgm9J
+	 nXmsKLNE85K/RnP+PUxuxGqRA48PhWBnkZoQZqtQiuQv3i9RfUxxDRF4nTPYj5DVvyqS1
+	 b/YjkIgl6AQCCM+tn3Yg5ha/SBr/B1B+hUh8AwIfzxcEy+TExbtRE4oxW0WgKXdkoZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691759;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=uB7Zr8fjFw4qUXECHUjQ+xk9xZP2bxklv1w4UlXmhmk=;
-	b=WHAC2ptnsc8RfkuiHvDqf1EM/OiANwXK2BzhD6IWIouWZCTGgaWezNp8HI2j5PS545fY
-	 Er1qV//Y3/g8+XDweCvhwaEoCuNBPXXGSfzSYRRF3liTAsOgPp2K4yFnSmU6qDAoWEHDz
-	 Xc4jH7hnVwA+aWWi/wzcxjDQ/LH0P9tPYlXZfqGl2BKjS6ZiMlaF9vL1WYkC3Cg91IsF6
-	 +LR3TleKw6Ub1Pcogr+LmJlOjyfIEbPNfie0y1Hi4g4sd/67euf/19+wnFGfy6V0JAc/X
-	 7w02q8KsIjiD7uMbRHH2D+c/HbHFA/70/ImTAnulasb58f0t2oZ2K06VSq3z1GocQUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691740;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=AsebL0SV4JIm5nAIq/dekHuEghxm2nhQQ3cBE8OMrZU=;
+	b=2pKtP2b51TYQfGez1EySYjo+k0tojzjUnb+20zSrnKGFUx6MeQP2aFn8xazjK4wqjGc1
+	 ymsstOKzqxUxhQ5GdV+Yvsw8Dp7WduJixX4V7gSqFfFA0sR3+FjFs+8a5jrREXcsXowQN
+	 TVg2jXiS7B2t0pBRzG2SO7BMcDe9mHQmABlJ5QhkcAzhJxcaxuPl+xkDWX6QODi7CFKgn
+	 vq3tZg/ktAOyUrYIXSzEpFJeVqe6ZwDGuuIfOwVaXD5PDpT+s2sOyIWHjmq33g/3X6W4Q
+	 /90N8AcjG8HEKcV95+pBEtWMMdEPLUd6LpizS+SaSOn9Hip76GJUJWDNt5KvyD5T9Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iuunEE49;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PsNTm2JC;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E844B606A331
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:42:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E844B606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF4D606A32C;
+	Tue,  3 Nov 2026 07:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CF4D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iuunEE49
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd6a7b62ce8so1301026a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:42:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793691758; x=1794296558; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uB7Zr8fjFw4qUXECHUjQ+xk9xZP2bxklv1w4UlXmhmk=;
-        b=iuunEE49RrUD7Hpbjb2aUZpMRRiSomZtYuMEEtERJOZbiR8kxx+YH+vYOgQ+YsCWbt
-         RsF5/PphdWanvJKIjgCMNn4vM9DbkCJKhZtZ9hAP2PKwsN6RQB3LyzjOTJN9Uz12zspn
-         wQKnLLHKrUnZI9+WVFKGNdXV68ubmPNmgnrIpClrPBHHe71Mc3eYtnTRYAFI+SBMVsVE
-         eoCi+ADQcSzmgeidNnoJee61DeNBSqPhDcI+waf46+C9jdmMY+2y/q7HHlrHbOtDYKgp
-         fOW9O5KtKB3aOtgcG9FG0vIWslBcbeyGNqxA7aaXqTVouumvhsScGaKv+vE0rzIVoqeA
-         8/LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793691758; x=1794296558;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uB7Zr8fjFw4qUXECHUjQ+xk9xZP2bxklv1w4UlXmhmk=;
-        b=L8vafsiV0nr8FpW7CC7cxanAdusM6kD5MRbODv1Y/3OKxsS5qrwXM3hnwflLOmgENc
-         8PrZISQScJ+v7wxcuAjfKd3R9MnBokqcPHh49YAUkxAxkcsQgRghKp/f+WekQ5MfO5N8
-         3nQ23Zym3m16LA226qU/WBeqBHmJlNPecQkuuzLGwE/BoM6w7di+x+AmS3W2x4CbA6NY
-         6+4g1d0oZH6iNpooOp3CEORG8lEz0geR5NOPz3o3ng/T58IPQxMs0CEIGy2NswWs+gde
-         gfwHk1hTYf3XkzY9Kw2Fcl0DWSla3h2vUtXGfQ1CGB1sXeAMaQBIwKQ6h/wp/gpn1Sq5
-         s08g==
-X-Forwarded-Encrypted: i=1; AKwUvBx4X0wt+ZMyk5F3LeLqxLD3Igi0KVHySN7tFZYLqstyZGUTW07xkrYmNgTInx/Xk6++Jy6U/UFZeBA0VaE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8J4v0jrZKWrAQZ/lRRr4/GtMRATS7/cWQ9AfdJrAsjySphSTr1
-	TDvrLShWb+3B3CDyR017NesxkOplxUaJOWNeRtN3Aft5dHXZjKB7Lp7v
-X-Gm-Gg: AYBFou2HOCVGFbgR3qKL2w1tXx1nkACtNOY9LFZ3UuzyCHCV24jZT7OUnsqbxV3Cl6u
-	ZklAl1jP1HAFn5tZ3g4yNWOlkNCnzrpE6AgT73vG3mJXyBlXChhVF+SEOZk8iVBszXJ9ETqWexk
-	i+K0yVAuJ6d+KbuZKqh4TkNK/yUUKxavH923GtQIJPsQgt5UmuLl0vgDuXsSAgsFiun19Uist+K
-	NxpLDuPtDgDWIWldIypv/oq8R8fS3vl36pAlbqfji3K1pE47QEbTbluffFtTA6BN3shxaLeEq4T
-	ukqrooUFL48BhUQq/XWyLoapQqAwyN4yYyYNFdGkK4v+KiHUFZDK6Ik1lGXzXLSDMQg2V0ZHhZK
-	s64Yf0LcUE5Dg9K9DhgMtgl1opNsmuQuyuwz7d6UNBtOmfaX7HVPJe9Rfv4Z5q8i7CRy2XhZENR
-	nvblPrfUYSlQTOYRc7bMAM6UdqcYBDf/wDG4NSVb1uExg1SBX00u0utavIRJPllcfCSNZcAO0oj
-	5hjXAn8bnIYTQ54GMLbCyCiUyrTTjs3rlEIXyF/yfewR9hNxdqBhNi0FxQflgHh7HH4CFnkUeMz
-	dhl5buxB2X2kNgHKKm7hQnGLVKbYya8a326JHExrgx+jf/EBm6Q4hSEpDmgNVNrSXNw1iUNqvdv
-	YJQV9kWg6pDZvEqogDJuTVKlqAvoQ0ec+0kJAMCrY5zUKIsQnno2Rz6RwIxdIi6txW4/LlxMBY6
-	H7spQ=
-X-Received: by 2002:a17:90b:4483:b0:3ac:9259:1234 with SMTP id 98e67ed59e1d1-3ae8979ba8emr10104416a91.39.1793691758138;
-        Mon, 02 Nov 2026 23:42:38 -0800 (PST)
-Received: from [192.168.2.34] ([2403:581e:d87e:0:739f:50a5:e171:f133])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c903d0dsm2956769a91.12.2026.11.02.23.42.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 23:42:37 -0800 (PST)
-From: James Calligeros <jcalligeros99@gmail.com>
-Date: Tue, 03 Nov 2026 17:40:05 +1000
-Subject: [PATCH v4 17/22] arm64: dts: apple: t8112-j473: Add
- speaker/headset jack nodes
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PsNTm2JC
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31iLcm293279;
+	Tue, 3 Nov 2026 07:41:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=AsebL0
+	SV4JIm5nAIq/dekHuEghxm2nhQQ3cBE8OMrZU=; b=PsNTm2JCXHL5YWNc2HA7nu
+	3ekSgWyiqAG997E0KV30e+DyzXirMhDHId9tUD268U1AATG59FlgtdC/3kLRJ7MD
+	rU+y0SefBlOI6WJmHD2Aek8S5trz+bpXzzTFDierBdoq60q2FiuUbM/Ngvu1xdK7
+	w3NfXQ8MFzkAuURQEDTdrEy843xdt2VVJ+i5PCjpFC4lOYLuRr1YI32hajsoRJcf
+	pliKkNzyxYCT3L88QRvUPE8z+li/SS31XGo7DgXcVImM8bxX7QDBQemuf9PNiUey
+	gqMs/r7zhSpprbXiXt8zhAJn5dZbJAhWxcD3LKOCEqkqIWhd/O+Hc6rD4+7sGR1w
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn826md1d-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 07:41:47 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A37V22w1870698;
+	Tue, 3 Nov 2026 07:41:46 GMT
+Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnv5gs8ct-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 07:41:46 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A37evjo25625244
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 3 Nov 2026 07:40:57 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A9A1158065;
+	Tue,  3 Nov 2026 07:41:45 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CEE4B58057;
+	Tue,  3 Nov 2026 07:41:39 +0000 (GMT)
+Received: from [9.61.129.51] (unknown [9.61.129.51])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  3 Nov 2026 07:41:39 +0000 (GMT)
+Message-ID: <3ea92a26-9374-479e-a693-b59de26f647c@linux.ibm.com>
+Date: Tue, 3 Nov 2026 13:11:38 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,117 +86,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] nvme: remove namespaces in parallel
+To: Qiliang Yuan <odys.yuan@gmail.com>, Keith Busch <kbusch@kernel.org>,
+        Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+        Sagi Grimberg <sagi@grimberg.me>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-block@vger.kernel.org, Hannes Reinecke <hare@kernel.org>,
+        Ming Lei <tom.leiming@gmail.com>,
+        "Shin'ichiro Kawasaki" <shinichiro.kawasaki@wdc.com>,
+        Stuart Hayes <stuart.w.hayes@gmail.com>
+References: <20261103-bug-nvme-remove-ns-async-v2-1-44e43766e44a@gmail.com>
+Content-Language: en-US
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20261103-bug-nvme-remove-ns-async-v2-1-44e43766e44a@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-macaudio-v4-17-637484efe46d@gmail.com>
-References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
-In-Reply-To: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
-To: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- James Calligeros <jcalligeros99@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>
-Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
- patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1811;
- i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=KxdvsBHCHsOgUdKIYNQ3yP4bIh+4Vy0Oz8XtoAQOVeo=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFkv+89Xx62O3jC1V+SyUKnljuUFkfUzbs2NS1jV+n2zh
- uF0wYv7OyayMIhxMViKKbJsaBLymG3EdrNfpHIvzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
- aKRjrGPEwMUpAFO97DIjw47K7990qu8sXTpV40lwXnSeuuYVy6OzqzYf1q1SUq3je8Pwz9zvc/D
- 7CTr8d4OP+Apqzq+on+4kU1LvfPuwfrGark0hHwA=
-X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
- fpr=B08212489B3206D98F1479BDD43632D151F77960
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 09poGoz4s45RTlUea7cRuyvGgAS341yE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyOCBTYWx0ZWRfXwXKM3om4gZiG
+ 8SC0bjUbPcrtVRh8TV8zi5mEq5QEsOE0z+V9q46/MNJH2hUr6qBPqsFQshUUMcbCKbbFRu8dkHg
+ G6TqDL12SvXF4xzVTuMN3OrgUWEDzLnM6FMpQUGgfpRIhPNdCQdOCwzXmOPFZwKJVjOm1ta7sLb
+ YVVGV83Jh1naXh1duGKEi7MDdiuibALRB6gYvnqIIxWIviyS5yjwEtiruLf+PhbQFJ2H+UUpeeP
+ AwD91qbGlH2owCSzH/pa4IzogrbvGvTJqvShInVV5RDvutDp/CZYSePMpTHz7vpJBBSzy8a6cpi
+ 3LQk0tInwEZ27RKaPWZFx6LodVNYnNUgkU++OBs25655DOSn4brGzy9IGtx3ysgjKiucOzC+IR1
+ xtFx+3KDyUwBImmLwjS6yA0Wmoe1+EkTSazPFf9gir1OFVlro20UAKC2D8hqGFkxGuz5FjOy7RG
+ zV9A/KVTErzA6QQD+0A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyOCBTYWx0ZWRfX5XPEleUDtoGU
+ Vg/4DcDMT0AuRfqUmGM0yhRjFiTvxrAHTXJuWL8XKQQ1eOU2skJktcyBJHMx0D7Cu1jwfw9uyGE
+ WeQOD3yJvm6hShxrqAvR29DZAhiXPFI=
+X-Proofpoint-GUID: 1zObZRFC-CnTTc3J-Vl8yX7INanH0aN5
+X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6ae9903b cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=5cS5l0lNN1-yX1iPpGsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030028
 
-The M2 Mac mini integrates Apple-specific variants of the TI TAS2764
-and Cirrus CS42L42. Add these nodes and advertise them to the machine
-driver via the sound node.
+On 11/3/26 11:58 AM, Qiliang Yuan wrote:
+> nvme_remove_namespaces() removes the namespaces of a controller one
+> after another. Each removal waits for RCU grace periods in
+> del_gendisk() for the namespace and for its multipath head, about
+> 20 ms in all.
+> 
+> Deleting a controller, such as disconnecting from a fabrics target,
+> thus takes time proportional to its namespace count, over a second for
+> 64 namespaces. Scanning had the same problem until commit 4e893ca81170
+> ("nvme_core: scan namespaces asynchronously") made it add namespaces
+> in parallel.
+> 
+> Remove the namespaces through an async domain the same way, and wait
+> for all of them before returning. Each removal still waits about
+> 20 ms, but the waits now overlap: a grace period is system-wide, so
+> removals that wait at the same time are released by the same grace
+> periods instead of each needing its own.
+> 
+> Disconnect time from a target on the same host, over tcp to 127.0.0.1
+> and over nvme-loop, with 4 I/O queues, median of 3 runs on each of two
+> boots per kernel:
+> 
+>    namespaces  transport  before              after
+>             8  tcp         170 /  171 ms        85 /   91 ms
+>            32  tcp         628 /  628 ms       294 /  293 ms
+>            64  tcp        1201 / 1308 ms       533 /  550 ms
+>            64  loop       1988 / 1913 ms      1283 / 1200 ms
+> 
+> Signed-off-by: Qiliang Yuan<odys.yuan@gmail.com>
 
-Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
----
- arch/arm64/boot/dts/apple/t8112-j473.dts | 58 ++++++++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/apple/t8112-j473.dts b/arch/arm64/boot/dts/apple/t8112-j473.dts
-index 105a9d118980..6d79164cea89 100644
---- a/arch/arm64/boot/dts/apple/t8112-j473.dts
-+++ b/arch/arm64/boot/dts/apple/t8112-j473.dts
-@@ -85,4 +85,62 @@ &typec1 {
- 	label = "USB-C Back-right";
- };
- 
-+/* Audio codecs */
-+&i2c1 {
-+	status = "okay";
-+
-+	speaker: codec@38 {
-+		compatible = "ti,sn012776";
-+		reg = <0x38>;
-+		interrupts-extended = <&pinctrl_ap 11 IRQ_TYPE_LEVEL_LOW>;
-+		shutdown-gpios = <&pinctrl_ap 88 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		ti,imon-slot-no = <0>;
-+		ti,vmon-slot-no = <2>;
-+	};
-+
-+	jack_codec: codec@4b {
-+		compatible = "cirrus,cs42l84";
-+		reg = <0x4b>;
-+		interrupts-extended = <&pinctrl_ap 149 IRQ_TYPE_LEVEL_LOW>;
-+		reset-gpios = <&pinctrl_nub 12 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "Jack";
-+	};
-+};
-+
-+/ {
-+	sound: sound {
-+		compatible = "apple,j473-macaudio";
-+		model = "Mac mini J473";
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		headphone-dai-link {
-+			link-name = "Headphone Jack";
-+
-+			codec {
-+				sound-dai = <&jack_codec>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&mca 2>;
-+			};
-+		};
-+
-+		speaker-dai-link {
-+			link-name = "Speakers";
-+
-+			codec {
-+				sound-dai = <&speaker>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&mca 0>;
-+			};
-+		};
-+	};
-+};
-+
- #include "hwmon-mini.dtsi"
-
--- 
-2.56.0
-
+Looks good to me:
+Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
