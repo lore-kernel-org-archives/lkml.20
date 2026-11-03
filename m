@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697160;
-	b=bJUlymMqlfb7sRdHKp5O2hX+Vl3P43ygmI44IYvsRS1KYvMQAV3ponjVaswBOcDpk1zr
-	 XNNeB0mFw4yT4H1L9577sfdjedscJbumLBocSn7ITFR8N7PLblimV208dZiAmNg/HLfSA
-	 q1hg/74cIUFQQ41dPVyScsdCJDJSy3qSmBHMWCxG7rG2macEhmdNj09s67ld9MIOzgSus
-	 4dpu1ZA9cwOyKAGyB+cHn9+uVcKgLlkNXzaAFXcQ7/RIKdk9RddR/IgY4TZdAK8K3djAT
-	 9H4ZvdS3uuuNgk5glsReFfLrM4oNf8hkoXg0uDCABMlVzI2jwTEnVPSCUu4uzxWo0/Q==
+	t=1793697169;
+	b=zpBvpyuHtAKR7j1iDGV99a1NVfR750vgx0Ann1xDMB+OIylrx/gOIzwipKGGbDHDPJBb
+	 GxQWK4g3cYVpdpK+fyhW+VnAzqoHEXq81v+RRaWI0wIdadhwxsLo7vo0ZYbDLFnwmlNpG
+	 SVo9giHRgsiitec58m4ICPshD/lRcLBlyVsPAVMqtMt/Vuzny/Rw5Ztx7Jh/YBiNFqFsN
+	 74nYkFEWeKVW2b/8OGDtcsrMjfNCFlCQ7LL/NaIGeuI/0UJLO3HUoIQkLBsHfnn2v/RqT
+	 PUH8T5hcfbW6b83LleVcTWB/Xq6DLbhwDBJijElqffzaWeM44mIMq5juoTRznyamHBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697160;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=OYP/jrCpbZUv5s67bKRUA8Uq8znYrrO3Cdq0yWmKstk=;
-	b=OpVvpTtudEIHmS8ZAETFzMY1ArEJ8HsqQguq37tW52UoxE2d9zlqd2h0rp8Rlewy9Xwg
-	 BpM112lDb1cp5P+tYM9ims+mXYnP216bXbd65i+nMiVuMlP4MbQxXouzfMaTxLyk+2TzT
-	 uMRlYYUnKqAqLVwA5gpqAbq2xKbyUkRDmEyraJNfmHa0cDxYsAsZj1UGNGM88B3fGN1fM
-	 F+gX9DMtKNHhBLESzAuINjZGU9r+LfZiS4UDhOMXRuy6+wUWkmRgt/a3CLnkG3O19cmAD
-	 RXukkKQZs+k8wPacDUSaPSUNo8unzWw6lFKz48/Piy3I27m7mK0ip6WQCaPcUdBp3tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697169;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ErjjaE4RW/5nRw+4oz+qsM8b9z5s5mnnmQMT84WCfP4=;
+	b=HEADAQm0NpuZ7ICZ5kjVJHlTx9UdPq3j9sDDm9EXq5bieGFE3KX/mxWlQTR+7DWjxD9h
+	 p8ACB25bgVmYt9OMKJCfkQn4v38riH6gD9L8RsNRNo1gUQC0qHVGVMS6iYpyR+Qlq5fcp
+	 5tqDVUtkEMbCoJUe2eSe2Gquhq6HDge7LoIoP7E491Zo04pt8PKD2XWux041FM+4Lsmem
+	 mcBBhAG9AbKaPVOl56/oWEEvpyqX7b9mWXBGORpiptXMZ9euGvJTWSEDCotIrxFeIxgQW
+	 cfTCUilvHH/La3ziR9BGO3hCyIcrlw1xXas3Aizgb0J3NwSFYWKutuYOhLyVhklupag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UBYNtf2f;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjHJjZnH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255CD606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:12:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 255CD606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818DD606A327;
+	Tue,  3 Nov 2026 09:12:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UBYNtf2f
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=OYP/jrCpbZUv5s67bKRUA8Uq8znYrrO3Cdq0yWmKstk=;
-	b=UBYNtf2f67DlaOnb9IoYrGANta2eJfmSw/mIKFkMaKnEeyTFIzSpzB2ud3NkTLfmMnvj18r+d
-	jXlWHO/J3axedY3/y8VSnPPtF0ekjTEJ2H+t05qN6hJub+uZ3jxVLweYCmMkVJ0tlQPL68jEgOW
-	FZpbzTyoeBFsV8vryL5DQZ4=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jJjWs0hd0zLlSW;
-	Tue,  3 Nov 2026 17:12:25 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4B46F40586;
-	Tue,  3 Nov 2026 17:12:35 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 3 Nov
- 2026 17:12:34 +0800
-Message-ID: <7b68ea3f-23ba-42d1-b719-70c0fabf26cd@huawei.com>
-Date: Tue, 3 Nov 2026 17:12:33 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjHJjZnH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 649761F00A16;
+	Tue,  3 Nov 2026 09:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793697169;
+	bh=ErjjaE4RW/5nRw+4oz+qsM8b9z5s5mnnmQMT84WCfP4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CjHJjZnHJhML0IaNYkNnjUimzWrMY+rv3vUBhX7VJZ58Hn/Vja471Sv8GRBP0j9wR
+	 GoUYKY6SGyiMtf2YG3486PCDMd02cSD6kIs0zFGArLXN8bclXQovAAJi1tWz8u6i+2
+	 VTzAZbalCBsa6ib+cVgk2UKQ2ov4j4uiX7TjaNpepEZx1jYJpztowO9RApgU/lSnqR
+	 3SUb0e3AOACYHkJkQ7Sgd8fQZjp8iy3cFCoJwNZwBkLH6l/D89Hp+qKC2x51M9EsqW
+	 gndNLpn9RVygU3gcvTkHkFBC5DRvu7VibL1eABt60xFGG4pVbmgvUGQc+RhLVfl5oy
+	 d3hSMv3S3jANQ==
+Date: Tue, 3 Nov 2026 10:12:43 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Sascha Bischoff <sascha.bischoff@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Timothy Hayes <timothy.hayes@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 03/10] irqchip/gic-v5: Serialise IRS synchronisation
+ requests
+Message-ID: <aumlixJkwDBlv8Yf@red-moon>
+References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
+ <20261102-host_gicv5_fixes-v1-3-743b61626fc5@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,62 +64,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/crash: update fdt on cpu hotplug remove
-To: Shivang Upadhyay <shivangu@linux.ibm.com>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-CC: <maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <ritesh.list@gmail.com>, <sshegde@linux.ibm.com>,
-	<sourabhjain@linux.ibm.com>, <rppt@kernel.org>, <baoquan.he@linux.dev>,
-	Anushree Mathur <anushree.mathur@linux.ibm.com>
-References: <20261103085319.51480-1-shivangu@linux.ibm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261103085319.51480-1-shivangu@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-host_gicv5_fixes-v1-3-743b61626fc5@arm.com>
 
-
-
-在 2026/11/3 16:53, Shivang Upadhyay 写道:
-> Currently fdt for crash kernel is not updated on cpu hotplug remove,
-> which can lead to the following XIVE warnings on the crash kernel
-> bringup.
+On Mon, Nov 02, 2026 at 01:32:56PM +0000, Sascha Bischoff wrote:
+> IRS_SYNCR writes are ignored while IRS_SYNC_STATUSR.IDLE is clear.
+> Calls to gicv5_irs_syncr() for different IRQs can overlap, allowing
+> the second request to be dropped. Its caller can then observe the
+> first request completing and assume that its own events have been
+> processed.
 > 
-> [    0.630795][    T1] xive: H_INT_GET_QUEUE_INFO cpu=16 prio=6 failed -55
-> [    0.630912][    T1] xive: Error -55 getting queue info CPU 16 prio 6
-> [    0.680899][    T1] xive: H_INT_GET_QUEUE_INFO cpu=17 prio=6 failed -55
-> [    0.681000][    T1] xive: Error -55 getting queue info CPU 17 prio 6
+> Serialise the request and completion poll with a raw spinlock. We use
+> atomic polling, as the lock cannot be held over a sleeping wait.
 > 
-> Fixing this by updating crash fdt on cpu hotplug remove path also.
-> 
-> Reported-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
-> Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Signed-off-by: Shivang Upadhyay <shivangu@linux.ibm.com>
+> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
 > ---
->  arch/powerpc/kexec/crash.c | 2 --
->  1 file changed, 2 deletions(-)
+>  drivers/irqchip/irq-gic-v5-irs.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
-> index 775895f31037..0ef10e39ae49 100644
-> --- a/arch/powerpc/kexec/crash.c
-> +++ b/arch/powerpc/kexec/crash.c
-> @@ -639,8 +639,6 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+> diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
+> index 4edf787f3f97f..ead76560ea08f 100644
+> --- a/drivers/irqchip/irq-gic-v5-irs.c
+> +++ b/drivers/irqchip/irq-gic-v5-irs.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/log2.h>
+>  #include <linux/of.h>
+>  #include <linux/of_address.h>
+> +#include <linux/spinlock.h>
 >  
->  	switch (image->hp_action) {
->  	case KEXEC_CRASH_HP_REMOVE_CPU:
-> -		return;
-> -
+>  #include <linux/irqchip.h>
+>  #include <linux/irqchip/arm-gic-v5.h>
+> @@ -22,6 +23,8 @@
+>  #define LPI_ID_BITS_LINEAR		12
+>  
+>  static DEFINE_PER_CPU_READ_MOSTLY(struct gicv5_irs_chip_data *, per_cpu_irs_data);
+> +/* Synchronization requests must not overlap in an IRS Domain. */
+> +static DEFINE_RAW_SPINLOCK(irs_sync_lock);
+>  static LIST_HEAD(irs_nodes);
+>  
+>  static u32 irs_readl_relaxed(struct gicv5_irs_chip_data *irs_data,
+> @@ -507,10 +510,11 @@ void gicv5_irs_syncr(void)
+>  		return;
+>  
+>  	syncr = FIELD_PREP(GICV5_IRS_SYNCR_SYNC, 1);
+> +	guard(raw_spinlock_irqsave)(&irs_sync_lock);
 
-LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Why does it have to be a spinlock ?
 
->  	case KEXEC_CRASH_HP_ADD_CPU:
->  		update_crash_fdt(image);
->  		break;
+Thanks,
+Lorenzo
 
--- 
-Best regards,
-Jinjie
-
+>  	irs_writel_relaxed(irs_data, syncr, GICV5_IRS_SYNCR);
+>  
+> -	gicv5_wait_for_op(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
+> -			  GICV5_IRS_SYNC_STATUSR_IDLE);
+> +	gicv5_wait_for_op_atomic(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
+> +				 GICV5_IRS_SYNC_STATUSR_IDLE, NULL);
+>  }
+>  
+>  int gicv5_irs_register_cpu(int cpuid)
+> 
+> -- 
+> 2.34.1
+> 
