@@ -1,111 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708357;
-	b=5KM0pZbHi9tVUytFvorLfs5eAS3uYgnk2dvC7Jk1CkgE1/x4w6onvMRzkFtM8HsPQHbq
-	 fcsapLYsvMQU/mN6AlXh+WyHcpvZ8Gla/vLvObReUu0IjhV9G7Aq3x9UrVXhIjY0XqTV3
-	 ucsvCYegDMfZAdyjM/s6ISbEIHwt4oxMEyhAeETTu4jR3nxLburoBNHVBOcYty6Cchju1
-	 YtkxlSELdhVbPcLA2Ih0yLWmManxEtUuJJDQxjZZy1V2jVzyYqNqhakP99/T9hYYRx2qu
-	 43UX4rdgQhR4C3S6i0RhnKv6TyWMKZ5e1ffmcmUdWvUF1UiZlRdu/6+L5zYYgXFMCEw==
+	t=1793708389;
+	b=w6wEEPdJYIHjI3vI5uatr/Pg7n9DJPEDDMH/WHDlYjzKOUzaTYOB2ckWl6hE9IOf1uWN
+	 1fvQqsOW5cQn+hzyVz9sEb0M31B8ygTqqXTachJmgQY4yyU4po5OiPkXq9kw+HiJicvCE
+	 MfjnWvwIXCzKPrgCm0GCSOv5HtRjgEg/2/cO/SPDMeKsDkkEehmy38EqWNGPwuJZNRnhA
+	 WaoFTq56KWt+r4W6CtfqVD4otqICm2u9VPNqxSYVq4ArMx7r9TIzK5jZL+LS1OsCA2Pmx
+	 EjHTa3B9nZP36riFGl37i3obYGuJtpxhWik/oK8rplSXrM5hpM8CzUp+9S+OozQaQ4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708357;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=QTA/8aqS3UQVMBO5mPFfmRbMeq/D+FGrY3Jal56YUeY=;
-	b=s8B3hN7U0x+OGbXrbAHju/zHfE0ZU6fmZ1fS9FGcsdOABlFOgUuZaIOJ6J/wqG98Mjeq
-	 07cm8hrUxOcHYGE1gqYckGWMiTxYuC6/zXO1moJaDW5VHEMvU5e0m55sv4LqeCR5hjfQm
-	 zfL2YE/fvQo3xRXYOVc4fLIBUeQ7tOhlBsGlsf2RFcf/JRU0BThA11qZD3fn1MFDAJjTp
-	 yRSl4SpYWX+FtsS6pxKAOH0bN8oVfpeY2Z2cvOYceZTgTHN+Mm+WRxT6seOq1+LlZ2wW1
-	 h2DrW3qwXsCAiKw9fdd3Rwwnl2cFGycjWxxCzywPCeEjOhYP7UKsS9UgNlKOenE+ZSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708389;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=POwmkuKuZt+3esNskzrXPk+zZUe1C1spyDLFbmW5YFo=;
+	b=Uxv+5jyaTY704SO4jOMeDWSRTrw3dTf5ZXBSHaGW6MLphdu8V1cbPQ1hoyKHIPlsiW+p
+	 Zh0IvD9HXP+Z9ehYBUI4VYRA7ClpDdsJOheVqwcesuRc6pXs9JK/sOJhMEI4AoboLADS0
+	 1cYsjoi2053zuaj4+t4e06ybNE7RNoaNlkoKjW3g8ShLBC9ci9nSAxVf9p99MoQtugfDv
+	 ilnHVmwUNtw/pgFQDvR4V1Ct/sRNtWDr76P/aMzk2VfVNqyRzT+BqTjqGwftopNxWDfTs
+	 G+Tva6bEnvspiYo2SpRmDcW+PpihZZaJscFxy+Y1kOZSt4B7Mqkul4IvqHFOFg/ZQeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=IwIaXHeR;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LmxBSw30;
-	arc=none smtp.remote-ip=103.168.172.157
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVqTLxYV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E89606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:19:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93E89606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3330606A326;
+	Tue,  3 Nov 2026 12:19:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=IwIaXHeR;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LmxBSw30
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 971F61400167
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:19:15 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 03 Nov 2026 07:19:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793708337;
-	 x=1793794737; bh=QTA/8aqS3UQVMBO5mPFfmRbMeq/D+FGrY3Jal56YUeY=; b=
-	IwIaXHeRPwogYpe2SECWYNWDubD8mhrhouAJHACeoZPlMR1d5Cz8usEUMvHo0wom
-	G9mHs9D9HL/o8Jsb/DRLT01WbrK39hM9GiBD7qhyah9JoctC3KZwuWP+kqc+McQ2
-	oSh6JYoWdTjCtIyAg6NsJuw2WrXsLDhZGFsw5XeU9JGJcVQeyR6fcuePVIAUGel5
-	jY1AzI2v8bTsNHk4qFh6jljSmLg9kSfxCYIdI3Q0AYp14M+8wRNN6tGUAyVpWTb0
-	QI5RIBZWnPajKIUOzOgoD7PqGLRQ8ntteY6WJ8/62/O1019wiWh49ZFyz3Q2twRv
-	FCK89SFuQ+5E1PY+NVaH7w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793708337; x=
-	1793794737; bh=QTA/8aqS3UQVMBO5mPFfmRbMeq/D+FGrY3Jal56YUeY=; b=L
-	mxBSw30OM6mLT6vbNHE4ftPHwUIUsorjT4tstYYuMX5ECZQ6Gm8PMeOA9m2Uj9yj
-	eZXNoKbRcQ2bQLabSaFsBS+2WDXNSXWtXy7aEMESEztIh6cpIQXDdCDqCO/fJqb8
-	INhSsoX2Aqw8ySeZL7cIxCMNs0ZIM4x4umq1Qwo6PRdwCzSy4TypmuLUHEjMHVYz
-	xyM++Loe13vb4KYYjpniKa4BKtyi2YiUCi++hTOuQAUl65gO2nzMADnsgoYh51y6
-	hLa7IPSTPsQIl0AKdI/5QinNP5qHFRtI/tAl2cmiZj6HxyLCJrvyp6fgbgZc/UEe
-	gCOVOKT1YXLSugcn2fDFQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793708337; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:GMYVFl1GNSxNjGeVEvd6tXPF+LBiAPza5zPU1dCNpGjHOzy
-	2mZiNBum0YE0NM2cp1Kj+ZwaYBGRUDS8IH1dNhmEHhMtxqEeWQNTJgGQc5itqHpx
-	MFKixa5gAdj2TR3SnrQll2dfdmtTGFAEQQTeBsxFzQdGAzzRu/1dzZ7aHH/KPxtu
-	xMA563mhVAEQo53cuJnVaChspEHjR5i7/rSUOwcIcwvnRmzSwfPQ+Bh0E93+hoZz
-	lpKztFr9CvV6KqZhTtBGZOkk0SwuCXeWDGDneP/yG1+iAEsMCs8xqA20O8wxNHwZ
-	kDCWcMorIfoFlFyGuFQpt+5tzdiapHFoOupXlfQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:En5Peq+Snfi/eaQUCZvq34DDOZ6Pz0xz4Kq5l1eou78=:FBQ7MOoqVPG/XUKFaKj7ep4eojBckJ5fp9oLmCC9eFQ=;
-X-ME-Sender: <xms:I9HpavCnssS-rueYl71nrruFT-CteJ1Ijlgwr6vXDSrvLdAaxBxyFA>
-    <xme:I9HpagX1wQ8tpiL7dWWByqG7pOLT4oJrEMOYZJzTkdnfPf5CXPBr4XL_8Yti9CGgV
-    jMkgBQJzHx-a7zOr6nX63k9to3NylENRI1sVveeeL8T9iWBDg1dw6pjAw>
-X-ME-Proxy-Cause: dmFkZTGjV0PeAloasTQ9SA4h/XW32kCZrPwzmd/ZG6fbFY4ucNLYWVQtUgWeBtrXjENBoS
-    8emnuw3fu6rdLH0pE/Q5kssXkHl5IKL2h9VB0WL20QhZy+mAV6x4Iy9+6LcAJXj1QOcObD
-    kGPv4XBcffTylnXLF11j08YTlaRDnVl/PPeFMa9oPB5FX3KP0YZt/xD6NZ5S3AyYxJSCMK
-    nJvMMCZS4mSDuPqgLNW0dXLyrlVkGts23Tepl/97+aRYTkxb4NJ9MdemZlPnPKJgXv1tfg
-    tJJ8bS90OCPQj1+VfaUWALLTAuri7Id9LQfQ/FxavaaV8GXuOHsYHbtxF2R3ShK0rDGjGi
-    994iKaHegdWSk8tcm/f3JK+AEBq4kTnEdNvspsm8A2EdXeVbRdBUy1/rURYbpPPUAu3Uys
-    Z3htXp/+gI2jd7oZw2PlxdGl8sXH8zJ0FSkeYJW2MGAG49tyyYXea2+qdtlyLQz5aspPp6
-    sFkCLyjKjFcjoCfxGqOHmzjOXiLoKZrTOHzrYZ0Y1xP0qrhyIXGst2H8aVn0j1+aSZbYZS
-    1RyputP2Find0IcGHbBBVO4hW89pydmfv28e4ZZwdHYp+CjUXyRvVcaq7GZDmBtAEjIfHc
-    dto6aZVE1m1LVYqctXehuAaMJdjU0pLQtRZcN5TiTzq7S2jXyqmf7fHVgUTQ
-X-ME-Proxy: <xmx:KdHpal4joqMsWHd8Qx9eZzOw0o6H1eR6K5plV9ihnSH5xrU-K-vIkA>
-    <xmx:KdHpaucsr4T9NFNcq_dPYJdbIhlY-D4lA7a84PSRBs1dlTXdymW2ZQ>
-    <xmx:KdHpajvysMyszNoWmIQxDFmDwIGsYLmqhWi_6_IUmfX-o7n75--adg>
-    <xmx:KdHpamhoMOn680jQkJkkoar7H_CFd5yWlRCF1VfruPOsZTYZayV1sg>
-    <xmx:MdHpamYj-ogDwKPGfKfeldNxfolqTO-PHI6kjT66s_0pjFax3eCHUs4R>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 3EA7E32A0093; Tue,  3 Nov 2026 07:18:43 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVqTLxYV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6A61F000C1;
+	Tue,  3 Nov 2026 12:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793708388;
+	bh=POwmkuKuZt+3esNskzrXPk+zZUe1C1spyDLFbmW5YFo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FVqTLxYVXhhvCCs2K2udWe77IUJZaW0gxJnll2Ek6FOW9d1ANmypr4R2AGUDKTDeC
+	 lWECtjLWqnLaEg4nmB6O3KBAo5ebBLR31GoOZIA2w+7w2aR3GdyO7yFmBdZ/K+9ENs
+	 X7FhxdrBT08pErwLMOeuG8N9SNU3YaTtIyeYshqcEaRdxvtiUstEhjeeaUekosmuQ0
+	 11EL/aJJP4nMIn5l8c76xspxRK4LUULIVZiDWqcZG8pmY+WMEb2oLmQTR3BIJwni43
+	 DfTSUxE3CDPox/gEvZxnLpHWSsYTdAySbrQ474RXMygfzLeGZRwV+PKFWBMgtugBvo
+	 oeTev71XIJEwQ==
+Message-ID: <7f3e822e-3749-41c5-8390-e6d74b203927@kernel.org>
+Date: Tue, 3 Nov 2026 12:19:45 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,201 +51,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AHCvEt5753PB
-Date: Tue, 03 Nov 2026 13:18:12 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "kernel test robot" <yi1.lai@intel.com>,
- "Peter Zijlstra" <peterz@infradead.org>
-Cc: oe-lkp@lists.linux.dev, "kernel test robot" <lkp@intel.com>,
- linux-kernel@vger.kernel.org, "Andrew Morton" <akpm@linux-foundation.org>,
- "Finn Thain" <fthain@linux-m68k.org>,
- "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "Sasha Levin" <sashal@kernel.org>, "Thomas Gleixner" <tglx@linutronix.de>,
- "Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>,
- "Ard Biesheuvel" <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- "Alexei Starovoitov" <ast@kernel.org>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Boqun Feng" <boqun.feng@gmail.com>,
- "Daniel Borkmann" <daniel@iogearbox.net>,
- "Dinh Nguyen" <dinguyen@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Gary Guo" <gary@garyguo.net>, guoren <guoren@kernel.org>,
- "Hao Luo" <haoluo@google.com>, "Jiri Olsa" <jolsa@kernel.org>,
- "John Fastabend" <john.fastabend@gmail.com>,
- "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>,
- "Jonas Bonn" <jonas@southpole.se>, "KP Singh" <kpsingh@kernel.org>,
- "Mark Rutland" <mark.rutland@arm.com>,
- "Martin KaFai Lau" <martin.lau@linux.dev>, "Rich Felker" <dalias@libc.org>,
- "Song Liu" <song@kernel.org>, "Stafford Horne" <shorne@gmail.com>,
- "Stanislav Fomichev" <sdf@fomichev.me>,
- "Stefan Kristiansson" <stefan.kristiansson@saunalahti.fi>,
- "Will Deacon" <will@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>,
- "Yoshinori Sato" <ysato@users.sourceforge.jp>
-Message-Id: <250cd11a-d738-4211-8714-93f548114d79@app.fastmail.com>
-In-Reply-To: <202611022259.def3e086-lkp@intel.com>
-References: <202611022259.def3e086-lkp@intel.com>
-Subject: Re: [linus:master] [atomic]  80047d84ee:
- WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/9] media: qcom: camss: Introduce SOF sequence
+ tracking
+To: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>, bryan.odonoghue@linaro.org,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
+ <20261102-v4l2-frame-sync-v2-2-25cbed7a772f@kernel.org>
+ <MPrRsE5vvB26tbMAT443IrH7Zr_tyIPaFwvQfnZj5TJUaM5uN8MyHB6kU6Y7rW92Sy35A5GfNcv95YOt-4YUNw==@protonmail.internalid>
+ <8196a664-f73b-4da1-aea0-0ea49676a4eb@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <8196a664-f73b-4da1-aea0-0ea49676a4eb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 3, 2026, at 01:58, kernel test robot wrote:
-> Hello,
->
-> kernel test robot noticed 
-> "WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked" on:
->
-> commit: 80047d84eed25e9c92cfb9169980a0dfec110246 ("atomic: add 
-> alignment check to instrumented atomic operations") 
-> https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
->
-> [test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
->
-> in testcase: trinity
-> with following parameters:
->
-> 	runtime: 300s
-> 	group: group-02
-> 	nr_groups: 5
->
->
-> config: i386-randconfig-1005-20261101
-> compiler: gcc-14
-> test machine: qemu-system-i386 -enable-kvm -cpu 
-> Icelake-Server-noTSX,enforce,lm=off -smp 4 -m 4G
->
-> (please refer to attached dmesg/kmsg for entire log/backtrace)
->
->
-> If you fix the issue in a separate patch/commit (i.e. not just a new 
-> version of the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <yi1.lai@intel.com>
-> | Closes: 
-> https://lore.kernel.org/oe-lkp/202611022259.def3e086-lkp@intel.com
->
->
-> [   18.704659][ T3738] ------------[ cut here ]------------
-> [   18.706815][ T3738] WARNING: include/linux/instrumented.h:62 at 
-> __split_huge_pmd_locked+0x6d2/0xac0, CPU#0: trinity-c1/3738
-> [   18.717796][ T3738] Modules linked in:
-> [   18.719286][ T3738] CPU: 0 UID: 65534 PID: 3738 Comm: trinity-c1 Not 
-> tainted 6.19.0-rc6-00100-g80047d84eed2 #1 PREEMPT(lazy)
-> [   18.723193][ T3738] Hardware name: QEMU Standard PC (i440FX + PIIX, 
-> 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> [   18.726644][ T3738] EIP: __split_huge_pmd_locked 
-> (x86/include/asm/pgtable.h:228 (discriminator 1) huge_memory.c:3128 
-> (discriminator 1))
-> [   18.728717][ T3738] Code: dc 85 d2 75 0c c6 45 c2 00 85 c0 0f 84 ee 
-> fe ff ff f6 45 bc 03 0f 85 47 03 00 00 8b 45 bc 80 08 10 c6 45 c2 01 e9 
-> d5 fe ff ff <0f> 0b 0f c7 4d ec 0f 84 34 fd ff ff eb f2 e8 db 58 40 01 
-> 85 c0 0f
-> All code
-> ========
->    0:	dc 85 d2 75 0c c6    	faddl  -0x39f38a2e(%rbp)
->    6:	45 c2 00 85          	rex.RB ret $0x8500
->    a:	c0 0f 84             	rorb   $0x84,(%rdi)
->    d:	ee                   	out    %al,(%dx)/out
->    e:	fe                   	(bad)
->    f:	ff                   	(bad)
->   10:	ff f6                	push   %rsi
->   12:	45 bc 03 0f 85 47    	rex.RB mov $0x47850f03,%r12d
->   18:	03 00                	add    (%rax),%eax
->   1a:	00 8b 45 bc 80 08    	add    %cl,0x880bc45(%rbx)
->   20:	10 c6                	adc    %al,%dh
->   22:	45 c2 01 e9          	rex.RB ret $0xe901
->   26:	d5 fe ff ff          	{rex2 0xfe} ud0 %r23,%r31
->   2a:*	0f 0b                	ud2		<-- trapping instruction
->   2c:	0f c7 4d ec          	cmpxchg8b -0x14(%rbp)
->   30:	0f 84 34 fd ff ff    	je     0xfffffffffffffd6a
->   36:	eb f2                	jmp    0x2a
->   38:	e8 db 58 40 01       	call   0x1405918
->   3d:	85 c0                	test   %eax,%eax
->   3f:	0f                   	.byte 0xf
+On 03/11/2026 07:11, Gjorgji Rosikopulos (Consultant) wrote:
+>> +
+>> +void csid_sof_event(struct csid_device *csid, unsigned int id)
+>> +{
+>> +	struct v4l2_event event = {
+>> +		.type = V4L2_EVENT_FRAME_SYNC,
+>> +		.id = id,
+>> +		.u.frame_sync.frame_sequence =
+>> +			atomic_inc_return(&csid->sof_seq[id]),
+>> +	};
+> On first look this was looking strange because the id is used for the
+> control id events not for frame sync. But on second thought it may make
+> sense, but the question is how the userspace should interpret those ids?
+> As of today userspace does not have any info for the VC and csid internal
+> pipelines (so called lines). So with the current state of the code
+> the id is VC which makes sense becouse the SOF/EOF packets are recieved
+> based on VC. So i am thinking of two options:
 
-This is apparently how we got here:
+The id is not the VC its the CSID:id/port/line-number. VCs don't change 
+what this means; its the SOF event as seen by the CSI decoder - inside 
+of which there may be multiple VC:DT combos.
 
-static __always_inline void instrument_atomic_check_alignment(const volatile void *v, size_t size)
-{
-#ifndef __DISABLE_EXPORTS
-        WARN_ON_ONCE(IS_ENABLED(CONFIG_DEBUG_ATOMIC) && ((unsigned long)v & (size - 1)));
-#endif
-}
+This is also the case for PIX which is just another CSID 
+port/id/line-number.
 
-static __always_inline void instrument_atomic_read_write(const volatile void *v, size_t size)
-{
-        kasan_check_write(v, size);
-        kcsan_check_atomic_read_write(v, size);
-        instrument_atomic_check_alignment(v, size);
-}
+> 
+> 1. Move SOF event in vfe (rdi/pix sub-devs) we have per line sub-device
+>     and will be well known to userspace for which line is reported.
+> 
+> 2. Add and propose extension of videodev2 documentation that
+>     id of frame_sync event types represents SOF per virtual channel.
+> 
+> Personally i votoe for (1) because it will well fit with stream-api
+> support and usespace will have clear understanding of the SOF to which
+> stream belongs.
 
-#define try_cmpxchg64(ptr, oldp, ...) \ 
-({ \
-        typeof(ptr) __ai_ptr = (ptr); \
-        typeof(oldp) __ai_oldp = (oldp); \
-        kcsan_mb(); \
-        instrument_atomic_read_write(__ai_ptr, sizeof(*__ai_ptr)); \
-        instrument_read_write(__ai_oldp, sizeof(*__ai_oldp)); \
-        raw_try_cmpxchg64(__ai_ptr, __ai_oldp, __VA_ARGS__); \
-})
+You know from the media graph which CSID drives which VFE:output so it 
+is 100% possible to know which CSID:SOF relates to which VFE always. 
+CSID::SOF is a hardware description of what the CSID decoder sees. I 
+don't support mis-reporting it as a VFE event TBH.
 
-#define pxx_xchg64(_pxx, _ptr, _val) ({                                 \
-        _pxx##val_t *_p = (_pxx##val_t *)_ptr;                          \
-        _pxx##val_t _o = *_p;                                           \
-        do { } while (!try_cmpxchg64(_p, &_o, (_val)));                 \
-        native_make_##_pxx(_o);                                         \
-})
+More than that though, there is in-fact a VFE specific SOF/EOF and EPOCH 
+event but these require the CSID feeding a frame into the VFE pipeline 
+and the VFE moving through its own state-machine to process that frame.
 
-static inline void native_set_pmd(pmd_t *pmdp, pmd_t pmd)
-{
-        pxx_xchg64(pmd, pmdp, native_pmd_val(pmd)); 
-}
+So they are separate signals and separate logical events representing 
+different things with different timings in hardware, meaning different 
+things to userspace.
 
-#define set_pmd(pmdp, pmd)              native_set_pmd(pmdp, pmd)
+CSID:SOF is the thing you want to trigger off of if you are for example 
+trying to align an IMU timestamp, not VFE SOF.
 
-static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
-                unsigned long haddr, bool freeze)
-{
-        pmd_t old_pmd, _pmd;
-...
-        /*
-         * Withdraw the table only after we mark the pmd entry invalid.
-         * This's critical for some architectures (Power).
-         */
-        pgtable = pgtable_trans_huge_withdraw(mm, pmd);
-        pmd_populate(mm, &_pmd, pgtable);
-...
-}
+Feel free to propose VFE:SOF/EOF if it makes sense for VCs - I don't 
+think I have a clear picture of what you want to do there - interested 
+though.
 
-So the cmpxchg8b() happens on local "_pmd" variable, which happens
-to be unaligned on the stack in this configuration and could potentially
-span a page boundary.
-
-I don't know why if this has to use an atomic pmd_populate() here,
-but if this is required, the patch below would ensure that the
-cmpxchg8b operates on an aligned word.
-
-       Arnd
-
-diff --git a/arch/x86/include/asm/pgtable-3level_types.h b/arch/x86/include/asm/pgtable-3level_types.h
-index 580b09bf6a45..526986ba6b17 100644
---- a/arch/x86/include/asm/pgtable-3level_types.h
-+++ b/arch/x86/include/asm/pgtable-3level_types.h
-@@ -5,11 +5,11 @@
- #ifndef __ASSEMBLER__
- #include <linux/types.h>
- 
--typedef u64	pteval_t;
--typedef u64	pmdval_t;
--typedef u64	pudval_t;
--typedef u64	p4dval_t;
--typedef u64	pgdval_t;
-+typedef u64	pteval_t __aligned(8);
-+typedef u64	pmdval_t __aligned(8);
-+typedef u64	pudval_t __aligned(8);
-+typedef u64	p4dval_t __aligned(8);
-+typedef u64	pgdval_t __aligned(8);
- typedef u64	pgprotval_t;
- 
- typedef union {
-
-
-        Arnd
+---
+bod
