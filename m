@@ -1,60 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719317;
-	b=aDMQWhcr6G4qoo1oSVVF2TXlZFkwlpeDj8UXK6sAa3mNnkQFXvWb59JtHsKcLPlbFJKa
-	 R8zfzkfhN+nPTa2OoY0WDXrdsgsc7WyANtjc88pKZmfGNCDejpTPA7h+Tp0/vS8C72XAk
-	 QB62bDih2TRpwQpJxVJNuKUWdI4S7KY/JSVtfQlSU28kHCSXl38wvW9sBrQJNaSQvNdNn
-	 VPSyKPiXwngUpK5/rWs3RitTllZw85SFKUofzntMuY0DTTwEF4q44agaoZnaenK4owcvs
-	 NsNvhW5Ah8sMByXtkTWBfjN4W73Ia9celShHwKv1bUylJCMBiqS48xJJcMEGnM9YnDQ==
+	t=1793719366;
+	b=l6hpnZ24DYROYUFNnovmKyppvs3OnuAsTFu7GugIPqbpe5oC7Nwq8x2qtRT26bTtKF5D
+	 YXWrHXStXdPRRFpV5Vyhrt3kFXFbRFlr3VlrH8sL748PT624wY9lW+wjocfth+AXwmaDu
+	 RN+4YlGDp0Nx+1gJtokIg+hVogj02UJknTWxPWcwEbggMrkdEc3rBjB0v56OXBkvfx8SN
+	 9H+qg8uTQFY1Ghl0W0DDLC7hQAor6wa+OPey20N+iiqIz5WD+uQBa4dhQ/jY04UhWvMdj
+	 p6Csc9L2hP+naFQ0xRycQItcdI2tQnt43Z+8n9N1VCWLOfiCYCuh0O+LqLq2NCm5CqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719317;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JoLc0tLRW6eAwNOg58s4xMBjrC0q7X6tzQl25fCbdZg=;
-	b=IsdTA/amQQAJ7hP0oixVNLYZz04pf3HW+5xa06DadNutsMWkw0mOv7P+j5U/RePXWtu7
-	 RxYqrPy2sXqk+Ra1ev5r084QDlcuz1zJL5EkcLb3GV1xYvVxvxJwOTaoprqDQynq3AqDe
-	 G9jFBq9+XymZMn2emku1+SBqdesvaXbdXIZRm+htEf4rGeGHWQ4bw1SQniT68IEkSqFRS
-	 9NYJW1xe+F62dnIGhOAjhxHnqIyxFOAYbpnhOwCA6s45iiGDu18OKB3juMT96OxMiWbo9
-	 BpUPKLhZN0jgDQSy5Sj4dro1W6OdvfkcXLSTkPgo0bK01mxgly4JhCpL/kvlZPL7nzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719366;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=4+H98LPenOtXM20iyFs2uc1o5Gjvbk6CvWIcoeiCnUk=;
+	b=FwCj1qTQdHpzHx+3rvrNG6cXvtuiN3RkajPcjukMjhmgYpIjf8FP8zNVhhHriRuXS2Gf
+	 0RLVAbcpFBQR3fNWueulpy5+ckIe62yHv8EOEv4EbSAVnln9gRQzHEeGNttIX4v4ZVshp
+	 3z2YzUXAoY+qUz8wlhJ0VUoJ8kWde0FQBlm1Y9I+qkasWmKrdFCKX0r780wwjh6A4bgWK
+	 xkGGrLH7wDQIFh3OsI8EzRfVnvtUtLgvF2/dQFQFTktn52f+rKKnzZyl40vnWeNgR3z5y
+	 QpXahR2ypPBVWMhT9odzQSfsrWDAzwcQ4BTzXcf6Nso4GME615r4/EmWiUxps+IIAtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b="e/28QZrj";
-	arc=none smtp.remote-ip=185.70.43.166
-Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Iu/eUn1W";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB710606A7A0
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:21:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB710606A7A0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B673C606A7A0
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:22:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B673C606A7A0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=e/28QZrj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793719309; x=1793978509;
-	bh=JoLc0tLRW6eAwNOg58s4xMBjrC0q7X6tzQl25fCbdZg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=e/28QZrjOVQRoLqSTslqXIOvOiffP9NFF9pzkflb8rM6KNng9cu7YsTrP7Hmjmckx
-	 A8rniU86IInlwkzctFBhYYxblnhG1PeBhahyBspgcGZvcuc5rKFrMXo48ppMXt1QiI
-	 v6vHmZFOw8c5mvkVOrJlUOMXO1rhasrR3acwgsxzJawwuzYK8O00ALWaD2bTFgy2xA
-	 q1BPXK0/z2CU3w6oV/b8IPu9ofsaVA75HnTttUUQ6vqIcuI+MeeBFJMupFvtDdGImx
-	 TdaelalJ0ki7FaYssw2y8qnxvM0hHQe4AALXVKMzGDmcl2cFBe+tW4el2xHEErQkQm
-	 oSjZiklzPL24w==
-Date: Tue, 03 Nov 2026 15:21:45 +0000
-To: Daniel Thompson <danielt@kernel.org>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
-Message-ID: <CmvbeteAqxtpenZUmJ4dqRvXYjjDzTTDevRB4NUlN0WGLOUk0jwzt2C3ZtuZ3Eb2UwBDEPUWpu9biU1OOhKGWQITolX96cFXolBTMgSyh1c=@protonmail.com>
-In-Reply-To: <aunyu4ToQ0T3b2Mj@aspen.lan>
-References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com> <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com> <aunqGVkX7-Y61iDA@aspen.lan> <_kyk4j6fx0PX5QqVrjAIGH-5fzUhj-fKhD8YT4F734mCOnQCDXui6wQB77AOka69_gblWOJN2SxzC5OSrH1lXiQeciLfVnWuPHS0JfaMKD4=@protonmail.com> <aunyu4ToQ0T3b2Mj@aspen.lan>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 2545d42f3fa76bf9b85c028d11f510898844a499
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Iu/eUn1W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793719364;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4+H98LPenOtXM20iyFs2uc1o5Gjvbk6CvWIcoeiCnUk=;
+	b=Iu/eUn1WYtB4MmUYpENh4yto/cqyDYmMP/wdyZ8Z8b7cfZ7B8P36YtJiZfu3tGUoWBUqOH
+	3sykg3G5yaENEBraxzCGdubsI44dz1zTejNiXGQ86rs90YerukezsOY1cXaLC6iMjAA54h
+	0tAN/SMjQRUUL8kFtkEZA29qUzBi2rw=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-652-ZpBEt-W5O6Gb3NzZNS-d9g-1; Tue,
+ 03 Nov 2026 10:22:41 -0500
+X-MC-Unique: ZpBEt-W5O6Gb3NzZNS-d9g-1
+X-Mimecast-MFC-AGG-ID: ZpBEt-W5O6Gb3NzZNS-d9g_1793719357
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DA50219560BF;
+	Tue,  3 Nov 2026 15:22:35 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5C78C26C;
+	Tue,  3 Nov 2026 15:22:30 +0000 (UTC)
+Message-ID: <e2b45603-fedd-43ef-b3ee-63846b05bbd3@redhat.com>
+Date: Tue, 3 Nov 2026 10:22:29 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,62 +71,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] cgroup/cpuset: Don't wait for memory migration when
+ cpuset.mems is written with O_NONBLOCK
+To: Tejun Heo <tj@kernel.org>, Matthew Ruffell <matthew.ruffell@canonical.com>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Caron Wills <caron.wills@pulsar.com>,
+ Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, linux-mm@kvack.org,
+ Jay Vosburgh <jay.vosburgh@canonical.com>
+References: <20261103075940.110308-1-matthew.ruffell@canonical.com>
+ <20261103075940.110308-6-matthew.ruffell@canonical.com>
+ <aun2vUjloJjH3Hpb@slm.duckdns.org>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <aun2vUjloJjH3Hpb@slm.duckdns.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Tuesday, November 3rd, 2026 at 4:42 PM, Daniel Thompson <danielt@kernel.=
-org> wrote:
 
-> On Tue, Nov 03, 2026 at 02:34:02PM +0000, Roman Vivchar wrote:
-> > Hi Daniel,
-> >
-> > On Tuesday, November 3rd, 2026 at 4:05 PM, Daniel Thompson <danielt@ker=
-nel.org> wrote:
-> > > On Mon, Nov 02, 2026 at 09:58:48PM +0200, Roman Vivchar via B4 Relay =
-wrote:
-> > > > +  led-max-microamp:
-> > > > +    minimum: 5000
-> > > > +    maximum: 29800
-> > > > +    default: 20200
-> > > > +
-> > > > +  vin-supply: true
-> > > > +
-> > > > +required:
-> > > > +  - compatible
-> > > > +  - reg
-> > > > +  - vin-supply
-> > >
-> > > Why is vin-supply required?
-> > >
-> >
-> > The chip cannot function without VIN power supply. Even if it's on the
-> > always-on power rail on certain board, there's always a chance it might=
- be
-> > accidentally left disabled on the other. It's better to document supply=
- in
-> > the bindings as far as I understand.
+On 11/3/26 9:59 AM, Tejun Heo wrote:
+> On Tue, Nov 03, 2026 at 08:59:39PM +1300, Matthew Ruffell wrote:
+>> From: Caron Wills <caron.wills@pulsar.com>
+>>
+>> Writing cpuset.mems migrates the memory of every task in the cpuset on
+>> the ordered cpuset_migrate_mm_wq, and since commit 3514309e0322
+>> ("cpuset: Defer flushing of the cpuset_migrate_mm_wq to task_work") the
+>> writer flushes that workqueue from task_work before returning to
+>> userspace, so that the write appears synchronous (the design of commit
+>> e93ad19d0564 ("cpuset: make mm migration asynchronous")). The writer
+>> therefore sleeps in TASK_UNINTERRUPTIBLE for as long as all queued
+>> migrations take. On a system with isolated CPUs running SCHED_FIFO tasks
+>> that was measured at 2 to 10 minutes (LP: #2165410), and it is unbounded
+>> in principle: a migration blocked behind a starved kworker or a slow
+>> expedited grace period holds up every migration queued after it.
+>>
+>> The writer is usually systemd. It applies AllowedMemoryNodes= from PID 1
+>> itself, and since v259 it opens every cgroup v2 attribute file with
+>> O_NONBLOCK precisely to opt into asynchronous semantics wherever the
+>> kernel offers them (src/basic/cgroup-util.c, cg_set_attribute(), citing
+>> the memory.max/memory.high behaviour of commit c8e6002bd611 ("memcg:
+>> introduce non-blocking limit setting option")). While PID 1 is stuck in
+>> the flush, logind cannot create sessions and SSH logins fail.
+>>
+>> Honour O_NONBLOCK the same way memcg does: skip the task_work flush when
+>> the file was opened non-blocking and let the migration complete in the
+>> background. Blocking writers keep the synchronous behaviour and the
+>> cgroup.procs attach path is unchanged.
+>>
+>> This does not make the migration any faster; it only stops the writer,
+>> in practice init, from being held hostage by it.
+>>
+>> Link: https://bugs.launchpad.net/bugs/2165410
+>> Signed-off-by: Caron Wills <caron.wills@pulsar.com>
+>> Signed-off-by: Matthew Ruffell <matthew.ruffell@canonical.com>
+> This makes sense to me. Waiman?
 >
-> You haven't just documented the binding, you have also made the property
-> mandatory by adding it to required.
->
-> So what I am asking is why is this property listed as required. You
-> didn't implement the driver in a way that makes the supply mandatory.
+> Thanks.
 
-Not sure I follow.
+Yes, that looks good to me too.
 
-In the driver I've used devm_regulator_get_enable(), rather than _optional(=
-),
-since my understanding is that the non-optional helper is a standard kernel
-API for required supplies (with regulator core warning and fallback to dumm=
-y
-regulator in case DT omits it).
+Maybe, we should also update the cgroup-v2.rst to list the condition 
+when synchronous waiting will be skipped when updating cpuset.mems as it 
+is a behavioral change.
 
-Do you suggest dropping vin-supply from required: ? On my board it's connec=
-ted
-to an always-on supply, though I can't tell about others. I can proceed wit=
-h
-this if the DT maintainers are okay with that.
+Cheers,
+Longman
 
 >
-> Daniel.
->
+
