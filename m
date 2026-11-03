@@ -1,62 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694601;
-	b=B6sDiACak6Y57ZNfJL5lowK1cs/ISlHyD1oUYytnY00YMYW7I3xSjvfx56SUFWxPThq/
-	 OHW/bTgdsJoN0l5g5jfxhu1dPsWZLxSqgdF3hjk8O8IIaLTeE0a94wXrANe/lUz5S4PLc
-	 FXr6Fnuo823KRq6kNCelwYMXePYz/t2/uZsq8n8CuDGIoBrgGonACdti0Jd3t98CdGEyL
-	 21axULUYn82WEhY3sHwIdCSoBI1bpFnpLgC0fEDONVEuDszEwqgNp/OZVSTHExZyQp6bh
-	 L0GpTstc7k5YfZCEC/QN2/hrRnn4tFgEBtnF4xQHvVZR4Rzwv7UKdNhTH+5QUdRIrvg==
+	t=1793694616;
+	b=wv1vvp6FLo4OHzkYD0wAwnofEnr8feuIGtTRkV7bHmdNrYWfvBxAwLOJatHb993L54ZW
+	 c32qUiIIq9NGaWeeuBtyb0YSk9rMLQKKdjIaNkRV0b1j+4Yl+QLRWrvPvK5Dg6bw6Tebq
+	 vOafvdg8uPDoARWz6MoAgcmxy0qA+44t0gYRmFRmvoalmm4JVu0QYn/I/HOcuZTL8cm/p
+	 iRaqPP3LyCLisrzFwTJvkWFujXNgp6O9VWHZ4t4jxSE0+4KNtrruEyWMaZL7c98tF4GNL
+	 IK0WBO53AhVOCzu6KmR7TbBjWdGpc9BJokid2uCRRGu2ImsNhof47sBOfjTH8wSBADQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694601;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=ODSyaZb6iOYvcs1BvP93T2fTuOcB0dzKDjVE0d08qMA=;
-	b=ZX/xNkvAx/TE7O9I/q+7vMYPM7FoF4lXSryMT77C2z+p7idhveGk773fddPIJFXUFWEW
-	 IHZhEa+RfTdoPUM4bFPZwD/1jz4+mwvzqc9+J6qRdbARnosLOBucJhtBnXAMPt0E7YjLb
-	 DvhgG4ZDmiQss/3hqFtusxTlVgI0db72fR2jHlA/BZmWdl4ZlyqmcOp/A/NblUw74VUpN
-	 KHs53T4zaUE7q3azPO0GgugCphyk0WItrL3kbYOJbxtZ+ZBdP8DXUSI7Hh6Pvx7KkH7pg
-	 pr3sUzWXUmy43C4fKkeYBxdZYTVmiJhOeKPUhXIR407XBIhy7N+ADtiGhphFebF/iBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694616;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 Content-Transfer-Encoding;
+	bh=suM+yJUENuUH8k9rILjA8WryGPPI96ylhLYj0oNn5cw=;
+	b=hwx/vnDUkMo/jSpY+9T5lxXKSSZyE8dpSVu+HURmSS7E9f7UMFSoMpkqKqj2Aq/cVtnO
+	 c9AvPRQY6MPzOvq18om8F8KE1e8J+b06QBA0M4/+6Qaacm7X+61cdqLqThSFFvUrCXvgL
+	 yXRFDGJhinmh4ryOD9z097zQEtNFuFNMEsFn/p74TlhX84AJqowLGxXF7blw4DRh0cv1V
+	 rGIQDTcfTqPOjj/V0UmIUB44J/2/Z3PsdT6hHJJYAromxtLAsx4bGZu3pnihluTp8Te+q
+	 ymNEhL2092cyW9Hz6jdmbarA5Q2FEhLFB3qsmAsTj4cEaZ4FSmZBq5FCWD5sVVZT1cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	arc=none smtp.remote-ip=23.90.104.147
-Received: from esa2.hc555-34.eu.iphmx.com (esa2.hc555-34.eu.iphmx.com [23.90.104.147])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6851D606A33B;
-	Tue,  3 Nov 2026 08:29:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6851D606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1793694606; x=1825230606;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=5ot/vsSV1jLBRjwCF03ft7v/3Sn6vO/9cVJVvarpdRI=;
-  b=f+dXn9y6luI6qlVN2tczzvIwI+klJdHm1Ski7c07OzBbMhuwjViK+gCv
-   3UK3Cw/5agtSQK7fNEhpj/bRAHCcekSqEWdU4y2ttwtd8OW17T8FSFD1m
-   2KEQMvfmXdxjMRe/xaaTSlUqj5zjsFojEdVI2vi87oTx4oJsyDZgKGN7t
-   g+T/1Sv9aUIghJfMhcU1XPxHXgNeMf1USDLoLcU3YtbiaOCWkTZT3olYA
-   OrP8nwBl7mtsUkyC9+/Ck3yWY9hYUSY9ddSG8ayiBR5+ot5oXw8NY1i2U
-   LyZK00tm9zwyO65OVOFnNcupM2vQcWKhNOhTN5b24C4m6bqT730wEbZ/U
-   A==;
-X-CSE-ConnectionGUID: 934Ie9vNTzGq9yPtCoPvOQ==
-X-CSE-MsgGUID: JiB7NE88TWWNP8vXjD1xyg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces01_data.me-corp.lan) ([146.255.191.134])
-  by esa2.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:29:56 +0200
-X-CSE-ConnectionGUID: U4AlIu8lTLi7/mwzFOBadw==
-X-CSE-MsgGUID: 2tgeEiiiSi6r1E36YMkUNw==
-Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.2])
-  by ces01_data.me-corp.lan with SMTP; 03 Nov 2026 10:37:49 +0200
-Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Tue, 03 Nov 2026 10:29:48 +0200
-From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-Date: Tue, 03 Nov 2026 10:29:38 +0200
-Subject: [PATCH 2/8] i2c: nomadik: do not try to retransmit I2C message
- series on errors
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fjz9UnDF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24090606EEBE;
+	Tue,  3 Nov 2026 08:30:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fjz9UnDF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D65A1F0157F;
+	Tue,  3 Nov 2026 08:30:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793694616;
+	bh=suM+yJUENuUH8k9rILjA8WryGPPI96ylhLYj0oNn5cw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Fjz9UnDFtgYjMsH73XbSUP1eNZ1aQiRiwLS9cTVEho2WcBHzhVbnmPdV+2ojnM4iL
+	 e+tyqTX+1/doL90SXcfojRdhCYRs3r8/FaXAhf026vWBcX7JY8mFj0AUd3og7TE6Bg
+	 tgXobrY92pjXTXF2VTSVhXOIM96lyQqxLkwHxOIlMgPOnUWVkEgL+Xq9vaLuAfSKlQ
+	 /BwqfsemYY2F7cyGNL/dIWU4tdddwtONtvWta9rrLC1jint/fRjrWdCogY5vBRYN6i
+	 ephzYSFluQcWHLnJ1TWNWlsNX+DslvvcT/xn+VWk4JDInPui5BRlJIfD2iR/aqIygR
+	 uCSPaVmKXO5PQ==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH v12 01/19] PCI/P2PDMA: Honor device-specific ACS redirection
+Date: Tue,  3 Nov 2026 10:29:40 +0200
+Message-ID: <20261103-fix-p2p-acs-v4-0-v12-1-912101f93517@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
+References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,76 +85,213 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-i2c-nomadik-fixes-v1-2-655c6af2cb70@mobileye.com>
-References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
-In-Reply-To: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
-To: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- srinidhi kasagar <srinidhi.kasagar@stericsson.com>, 
- Ben Dooks <ben-linux@fluff.org>, Andrea Gallo <andrea.gallo@stericsson.com>
-Cc: linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-X-Mailer: b4 0.16.0
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
-i2c-nomadik driver of I2C bus controller in xfer() callback retransmits
-the whole message series in cause of any fault, and returns fault only
-after third failed attempt. This behavior contradicts with API because
-not only it hides hardware faults, but also re-sends messages, while
-they are not guaranteed to be idempotent.
+From: Leon Romanovsky <leonro@nvidia.com>
 
-Remove the triple attempt to send messages in xfer() callback.
+Some ports, such as Zhaoxin Switch Downstream Ports, redirect peer-to-peer
+traffic without an ACS capability, as their device-specific ACS quirks
+report. P2PDMA reads only ACS Control, so below such a port it hands out
+bus addresses for traffic that goes to the host bridge.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Take Request and Completion Redirect from a bridge's quirk too. Ignore
+endpoint quirks, which only describe traffic between an endpoint's own
+functions. Skip bridges on a root bus: they never sit between two peers,
+and the AMD southbridge quirk may sleep there during DMA mapping.
+
+pci=disable_acs_redir= cannot override a quirk, so name such ports
+separately.
+
+Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/i2c/busses/i2c-nomadik.c | 30 ++++++++++++------------------
- 1 file changed, 12 insertions(+), 18 deletions(-)
+ drivers/pci/p2pdma.c | 114 +++++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 96 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
-index 45b4815b0945..ca9366e09e71 100644
---- a/drivers/i2c/busses/i2c-nomadik.c
-+++ b/drivers/i2c/busses/i2c-nomadik.c
-@@ -716,27 +716,21 @@ static int nmk_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	int status = 0;
- 	int i;
- 	struct nmk_i2c_dev *priv = i2c_get_adapdata(i2c_adap);
--	int j;
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 45260423dfb0..ba94b0f33928 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -21,6 +21,8 @@
+ #include <linux/seq_buf.h>
+ #include <linux/xarray.h>
  
- 	pm_runtime_get_sync(&priv->adev->dev);
++#include "pci.h"
++
+ struct pci_p2pdma {
+ 	struct gen_pool *pool;
+ 	bool p2pmem_published;
+@@ -490,6 +492,44 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
+ 	return NULL;
+ }
  
--	/* Attempt three times to send the message queue */
--	for (j = 0; j < 3; j++) {
--		/* setup the i2c controller */
--		setup_i2c_controller(priv);
--
--		for (i = 0; i < num_msgs; i++) {
--			priv->cli.slave_adr	= msgs[i].addr;
--			priv->cli.buffer		= msgs[i].buf;
--			priv->cli.count		= msgs[i].len;
--			priv->stop = (i < (num_msgs - 1)) ? 0 : 1;
--			priv->result = 0;
--
--			status = nmk_i2c_xfer_one(priv, msgs[i].flags);
--			if (status != 0)
--				break;
--		}
--		if (status == 0)
-+	/* setup the i2c controller */
-+	setup_i2c_controller(priv);
++/*
++ * Some ports send peer-to-peer traffic upstream without a standard ACS
++ * capability, such as Zhaoxin Root and Switch Downstream Ports. Their
++ * device-specific ACS quirks say so. Report whether @pdev's quirk says that
++ * @flag is in effect.
++ *
++ * Only ask bridges. The quirks for multi-function endpoints only say that
++ * their functions do not talk to each other directly, which says nothing
++ * about their traffic to other devices. Skip bridges on a root bus too. They
++ * never decide whether two peers connect directly, and for them the AMD
++ * southbridge quirk calls acpi_get_table(), which may sleep. DMA mapping may
++ * call this code where sleeping is not allowed.
++ */
++static bool pci_acs_p2pdma_quirk(struct pci_dev *pdev, u16 flag)
++{
++	if (!pci_is_bridge(pdev) || pci_is_root_bus(pdev->bus))
++		return false;
 +
-+	for (i = 0; i < num_msgs; i++) {
-+		priv->cli.slave_adr	= msgs[i].addr;
-+		priv->cli.buffer		= msgs[i].buf;
-+		priv->cli.count		= msgs[i].len;
-+		priv->stop = (i < (num_msgs - 1)) ? 0 : 1;
-+		priv->result = 0;
++	return pci_dev_specific_acs_enabled(pdev, flag) > 0;
++}
 +
-+		status = nmk_i2c_xfer_one(priv, msgs[i].flags);
-+		if (status != 0)
++/*
++ * Add the Request and Completion Redirect that @pdev's quirk reports to its
++ * ACS Control value. Only ever add them: a quirk that covers every device of
++ * a vendor says "no" for the ones it does not know, and that must not hide
++ * their own ACS controls. What a quirk says about other controls only means
++ * that the control does not apply, so ignore it.
++ */
++static u16 pci_acs_p2pdma_quirk_redirect(struct pci_dev *pdev, u16 ctrl)
++{
++	if (pci_acs_p2pdma_quirk(pdev, PCI_ACS_RR))
++		ctrl |= PCI_ACS_RR;
++	if (pci_acs_p2pdma_quirk(pdev, PCI_ACS_CR))
++		ctrl |= PCI_ACS_CR;
++
++	return ctrl;
++}
++
+ /*
+  * Check if a PCI bridge has its ACS redirection bits set to redirect P2P
+  * TLPs upstream via ACS. Returns 1 if the packets will be redirected
+@@ -498,14 +538,13 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
+ static int pci_bridge_has_acs_redir(struct pci_dev *pdev)
+ {
+ 	int pos;
+-	u16 ctrl;
++	u16 ctrl = 0;
+ 
+ 	pos = pdev->acs_cap;
+-	if (!pos)
+-		return 0;
+-
+-	pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl);
++	if (pos)
++		pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl);
+ 
++	ctrl = pci_acs_p2pdma_quirk_redirect(pdev, ctrl);
+ 	if (ctrl & (PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_EC))
+ 		return 1;
+ 
+@@ -520,6 +559,51 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
+ 	seq_buf_printf(buf, "%s;", pci_name(pdev));
+ }
+ 
++/*
++ * Sort a port that redirects into @acs_list, the ports to suggest for
++ * pci=disable_acs_redir=, or @quirk_list. That parameter only clears the ACS
++ * Control register, so it cannot undo a redirect that a device quirk reports.
++ */
++static void pci_p2pdma_list_redir(struct seq_buf *acs_list,
++				  struct seq_buf *quirk_list,
++				  struct pci_dev *pdev)
++{
++	if (pci_acs_p2pdma_quirk(pdev, PCI_ACS_RR) ||
++	    pci_acs_p2pdma_quirk(pdev, PCI_ACS_CR))
++		seq_buf_print_bus_devfn(quirk_list, pdev);
++	else
++		seq_buf_print_bus_devfn(acs_list, pdev);
++}
++
++/* Drop the final semicolon. Returns false if no port was listed. */
++static bool pci_p2pdma_end_list(struct seq_buf *list)
++{
++	if (!seq_buf_used(list))
++		return false;
++
++	if (!seq_buf_has_overflowed(list))
++		list->buffer[list->len - 1] = '\0';
++	return true;
++}
++
++static void pci_p2pdma_warn_redir(struct pci_dev *client,
++				  struct pci_dev *provider,
++				  struct seq_buf *acs_list,
++				  struct seq_buf *quirk_list)
++{
++	pci_warn(client,
++		 "ACS redirect is set between the client and provider (%s)\n",
++		 pci_name(provider));
++	if (pci_p2pdma_end_list(quirk_list))
++		pci_warn(client,
++			 "hardware redirects peer-to-peer traffic at %s, which no kernel parameter changes\n",
++			 seq_buf_str(quirk_list));
++	if (pci_p2pdma_end_list(acs_list))
++		pci_warn(client,
++			 "to disable ACS redirect for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
++			 seq_buf_str(acs_list));
++}
++
+ static bool cpu_supports_p2pdma(void)
+ {
+ #ifdef CONFIG_X86
+@@ -722,13 +806,14 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+ 	enum pci_p2pdma_map_type map_type = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
+ 	struct pci_dev *a = provider, *b = client, *bb;
+ 	struct pci_p2pdma *p2pdma;
+-	struct seq_buf acs_list;
++	struct seq_buf acs_list, quirk_list;
+ 	int acs_cnt = 0;
+ 	int dist_a = 0;
+ 	int dist_b = 0;
+-	char buf[128];
++	char buf[128], quirk_buf[64];
+ 
+ 	seq_buf_init(&acs_list, buf, sizeof(buf));
++	seq_buf_init(&quirk_list, quirk_buf, sizeof(quirk_buf));
+ 
+ 	/*
+ 	 * Note, we don't need to take references to devices returned by
+@@ -739,7 +824,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+ 		dist_b = 0;
+ 
+ 		if (pci_bridge_has_acs_redir(a)) {
+-			seq_buf_print_bus_devfn(&acs_list, a);
++			pci_p2pdma_list_redir(&acs_list, &quirk_list, a);
+ 			acs_cnt++;
+ 		}
+ 
+@@ -768,7 +853,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
  			break;
+ 
+ 		if (pci_bridge_has_acs_redir(bb)) {
+-			seq_buf_print_bus_devfn(&acs_list, bb);
++			pci_p2pdma_list_redir(&acs_list, &quirk_list, bb);
+ 			acs_cnt++;
+ 		}
+ 
+@@ -782,15 +867,8 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+ 		goto done;
  	}
  
+-	if (verbose) {
+-		/* Drop the final semicolon; the list is not empty here */
+-		if (!seq_buf_has_overflowed(&acs_list))
+-			acs_list.buffer[acs_list.len - 1] = '\0';
+-		pci_warn(client, "ACS redirect is set between the client and provider (%s)\n",
+-			 pci_name(provider));
+-		pci_warn(client, "to disable ACS redirect for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
+-			 seq_buf_str(&acs_list));
+-	}
++	if (verbose)
++		pci_p2pdma_warn_redir(client, provider, &acs_list, &quirk_list);
+ 
+ map_through_host_bridge:
+ 	if (!cpu_supports_p2pdma() &&
 
 -- 
-2.43.0
+2.56.0
 
