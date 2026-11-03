@@ -1,53 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.25.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738017;
-	b=mxWqW/mkYD+ffGK8ADzqDQL32Q/9A9ibVXrMsefiUOjwDZx+/2U73qCRZCCYcV4RYVOB
-	 VqNr+L9CoK3b8iSlxRiAfOHrSWYzMYuh80rexQ0RLrmdtIAl++hGxdd5BJ/QItm82uvo+
-	 XbH70FqYPhS78brU1calLKuW9qfQHoXDOcj0wt0wzDkW8LKR+SptX4N6VI5rxwramFekM
-	 o+0zR1T/wrDIf61PUiQzK1yQTWYsevrU0KVj9YXHJJSeuOZHAFYuZzA4y7TDlqVSqsa+U
-	 4vSRAH5vHT7FRIX4GlJ9Iudp+8zSWRNJNHGf9LPV9Rc0CYBhAglGK1C3qUBOGw7seTw==
+	t=1793738035;
+	b=iKLX6f0Az224x14PzdtQn1VwHu+ghQqUTwx5kzNyHVirM+kZDw6cREdG0Nd0/9suaqHU
+	 MTK0FkqTlWnGw+swWScizkN3gMn/KBYrOzmrmQGw+Lcucc0MWPrl5lEkoc/rYW9UAJ6VI
+	 xRjAyIrZamgzFf/ngPva/mbt+oJ3W7PpeyXHwaN9Y36tQLbG304eHLzduz8pExN2hjop8
+	 SbZGSC/6DZzvuHnQEuZ9pPLUAM/Wy0yChTg1bkwvTlW+1wWbURWegDtBCaGACFTzBPBVs
+	 eu7f/qQ3K3nCsQ9HDuHCLb8bAHVZOrCEFQ8pyAOxwxZrx6GU9vzzLavGDel6nykh8Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738017;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=OXDc5ezpSoR7IfOkdZK6JrzmX2iAs+aVI0tl0bUgJvc=;
-	b=Wyh6gmBd+7+BGom8yYwfDQ0wV+9xExKVwfNyAqKbvVyugJTVTUNBE8IjsfXDlZNLw9xG
-	 0SI0E0nH/itamd4w/p5I2wSOS9EKHEW8Y13k0xEWITTNzy7qVYaaRQTZI6pTK/TGNCNVy
-	 YMV0HfuDWbUUSfGHrXHARcwnZ2Yzkxv00gQrT3oh3qrbiQm0hyEFASisWsX+5cndIOIpB
-	 iettP+UWKA/fNdNv+cxRAx4EQWT1Eh2lZ47/30kPsf+wiguLaXaEqvFZYPG3zXjqI3HBU
-	 egt+D7GDR095Axj015mwnSHbiCKSsypIIS89znibCEsQe6NbPdfEZal3tZ0EMA7cjKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738035;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:
+	 DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=gviGI+/aVfXi8KK0fmiJUHN9/SwDPBwhZYFY667FLqg=;
+	b=uuH6Q3dF0zKoNBBEgv/gDMAugSa/oEqn4/y4iFJ2q4mcsDuj64SpR8i+6B1ED2oZErZ3
+	 DTjuszZVr1+aC0XqdI8cfS4faI/1bHZmvhW4Vefd9GHOLFCwkCd5hZHGGPhPijkgZ8nvh
+	 zGREt1pp1a4LfycQ5GCoY2zKOmszKGAWfLgzGjN899YMQ6UuwgBcUgKT9GGkbeIkmoPIu
+	 g4w+0RUmPtqsPa2XhEEJe/t4kCixBTPMCDlOvg/RG7TrquwQtONT/5xJ0f3GmrRxZ0JNO
+	 L1yz7CYgi62ABUhtov/1W4kGMHzNHMojMRx6Uig+kt70Gcq1e16uuSu3lxn7C63lZwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=rnplus.nl;
+	spf=pass smtp.mailfrom=rnplus.nl;
+	dkim=pass header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=NR9fwCpe;
+	arc=none smtp.remote-ip=178.251.25.70
+Received: from mail.rnplus.nl (mail.rnplus.nl [178.251.25.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28905606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:33:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28905606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c55ba309c2so19063b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:33:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793738016; x=1794342816;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OXDc5ezpSoR7IfOkdZK6JrzmX2iAs+aVI0tl0bUgJvc=;
-        b=VbCfo0tjDXksRnMXnpix561rDwl6qlZ8IsMY+Nk4MgOISEfHmwBeQQh6ao8gjGi9Yg
-         K1ZuRbMNB5x4IeBOdN7Ttg1d2OSZGEr1rQ606HxIOf80au1JyeLOqFjchGGDcdvk3LfP
-         6Wh5cPwTRLevE/Mv9r/5D9vaOgGY6yJUQB8SdNgN0Gx81aMeTqNSXAiGxCq99yWzDKFr
-         pN4BjG+c0AnwOxYlEIKRI6cZuHjQf+ouIB3UqLRgCRgHgLwEUHKfe9qw2EsGfYn4ryBa
-         cZ2iIcVuzVme1DhJEJjh0eumjrQ8lhrrTsrNnLrU+JGgT7M6M/92W424TfyFjXS2s0lS
-         4gGg==
-X-Gm-Message-State: APuU4Z/D4DqMVX8eDGs9kIk1AzEo/dYVVkyVlbQnGl/M3xh8eDW7EFsQ
-	fi84Nhv3dTWkV2S2NH5hLTq6KRP2F945PxXPH4+gw+7S9ge+xccSIOcDn+AKi6CAdTXsdPf9qFZ
-	O6JU4FCXp96Be8ThOvlyad2aVmzzSQ/iHPYQc3CdmHb+MEVlteHu9g1RoBT8=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62580606A333
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:33:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62580606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rnplus.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rnplus.nl
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=NR9fwCpe
+Received: from localhost (unknown [127.0.0.1])
+	by mail.rnplus.nl (Postfix) with ESMTP id 7ECE237978B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:33:46 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at rnplus.nl
+Received: from mail.rnplus.nl ([127.0.0.1])
+	by localhost (mail.rnplus.nl [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id AdaBmekWgLit for <linux-kernel@vger.kernel.org>;
+	Tue,  3 Nov 2026 21:33:46 +0100 (CET)
+Received: from E595 (unknown [185.10.157.158])
+	by mail.rnplus.nl (Postfix) with ESMTPSA id 56C7B379779;
+	Tue,  3 Nov 2026 21:33:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=rnplus.nl; s=dkim;
+	t=1793738022; bh=2wkTu59kSxoO15eMfM57RBq7UEe0GI/tQEudoKg9A2A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NR9fwCpe44g4hkPId3bcDP97wwZb0KOba59eFPlHCMMc6PnTI+zQGQ6k8SSGQYqlv
+	 2AmPdVB2LW9JAwDeMnffsnch0krk/qIwu8L9RhH+iYD9Sm4Gn4jdnlU/3M0Bbx8zXm
+	 q+SojoJuIcYda3h6l1Dakp3uZvKCI8lXrdak7V2g=
+From: Renze Nicolai <renze@rnplus.nl>
+To: Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Renze Nicolai <renze@rnplus.nl>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/4] ARM: dts: aspeed: x570d4u: Fix fan tach channel assignments
+Date: Tue,  3 Nov 2026 21:33:03 +0100
+Message-ID: <20261103203308.54789-3-renze@rnplus.nl>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103203308.54789-1-renze@rnplus.nl>
+References: <20261103203308.54789-1-renze@rnplus.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,48 +73,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1527:b0:4c4:28a5:1885 with SMTP id
- 5614622812f47-5640d9278d9mr9644492b6e.9.1793738016233; Tue, 03 Nov 2026
- 12:33:36 -0800 (PST)
-Date: Tue, 03 Nov 2026 12:33:36 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aea4520.26d36f6c.15fe18.000d.GAE@google.com>
-Subject: [syzbot] Monthly lsm report (Nov 2026)
-From: syzbot <syzbot+list9b459ecc7623bd2224e4@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello lsm maintainers/developers,
+The tachometer channel numbers for FAN4, FAN5 and FAN6 did not match
+the board's actual PWM wiring, causing incorrect fan speed readings.
+FAN6 is wired to PWM5 and FAN5 is wired to PWM6 (not PWM6/PWM5
+respectively as previously assigned), and FAN4's tach channel was
+off by one.
 
-This is a 31-day syzbot report for the lsm subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/lsm
-
-During the period, 1 new issues were detected and 1 were fixed.
-In total, 6 issues are still open and 47 have already been fixed.
-There are also 2 low-priority issues.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 121     Yes   INFO: task hung in process_measurement (3)
-                  https://syzkaller.appspot.com/bug?extid=cb9e66807bcb882cd0c5
-<2> 54      Yes   INFO: task hung in ima_file_free (4)
-                  https://syzkaller.appspot.com/bug?extid=8036326eebe7d0140944
-<3> 4       Yes   memory leak in prepare_creds (7)
-                  https://syzkaller.appspot.com/bug?extid=53515d23498d641e21ea
-
+Signed-off-by: Renze Nicolai <renze@rnplus.nl>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts
+index 7d27833b761d..6e7e3e7ec101 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts
+@@ -320,19 +320,19 @@ fan@2 {
+ 	fan@3 {
+ 		/* FAN4 (6-pin) */
+ 		reg = <0x03>;
+-		aspeed,fan-tach-ch = /bits/ 8 <0x04 0x0b>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x03 0x0b>;
+ 	};
+ 
+ 	fan@4 {
+-		/* FAN6 (6-pin) */
++		/* FAN6 (6-pin), wired to PWM5 */
+ 		reg = <0x04>;
+-		aspeed,fan-tach-ch = /bits/ 8 <0x06 0x0d>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x05 0x0d>;
+ 	};
+ 
+ 	fan@5 {
+-		/* FAN5 (6-pin) */
++		/* FAN5 (6-pin), wired to PWM6 */
+ 		reg = <0x05>;
+-		aspeed,fan-tach-ch = /bits/ 8 <0x05 0x0c>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x04 0x0c>;
+ 	};
+ };
+ 
+-- 
+2.56.0
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
