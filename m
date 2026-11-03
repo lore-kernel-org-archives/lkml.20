@@ -1,55 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725009;
-	b=puwUzQEjR8OcNcKWTMgbENP80oB2eUDbRqiBgNPtbMxG0iGf5M50I7gmpIiT/eMe2RML
-	 MzwKVNUsmdLDJEMf5eYkHKvcPZ8rit/ItYcRU/XZEot6T9j0OFyZy517Z3Ir1lgz4JTgS
-	 xJe0EKK4gKs/tb52JmMuz72miEz8xr7hv56jwrY5k0F7HsO3QFZAbLsGrCL97xhjXRKze
-	 BhWZliSDob/gIld4AO6TihbEtAZZAX7uEp+Yy+BRojFGLR+k3shmLbt2XXbKhFCMFzYwH
-	 YaFZHM8icqnwRSpuxcReL/kvl1K/n6+1BYuX7N2LBNODbMFea2F5ztQrJ1Z6XuvEr4A==
+	t=1793725126;
+	b=Ybch91Qyi0pV/uRAq3RwU0AfJKuZfNBCRRz8UmYUyVHQ19HCHgzN/uruIdQbgi825k1z
+	 4F9Cx7Z7QJhuFmhGKlEMU7/noUEFVBehqWzd6VW2tQqJXVxEupbwxNFsAxiEvEi5oxXol
+	 KVAqGDAA2A+ieQ4NtNWaWL2C5om3QYX9LtqBY6fPvAFxOF08m7ZmUlpMvICiAVnaCZVfc
+	 I5DXRZTJEpYbPui2LlF255hlnAvTu0CHQKq43PDiytZAtIeP9YxXiSk1EoM+13mkerY4F
+	 8MQRbZhXh21aCQlIS/wdGMNoM4vztc2OtahDmHKSX4WjbLDf+brr3KKKsLgAuN/D1Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725009;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=u00v9p+RUdxqIPRxo9/1l1Zn1bcxXIjHtPQI/MyY3yY=;
-	b=cgY3YfnVAoD9eaZ5Me9Y2rbyyMYvUu4/+NyJ+ViEGbKqUwkDzONaySWLOjQp7iMJ8V2O
-	 E7AacSxNnBiDWGTwarYiQ3/4C7NFn2kzdtXeJbRZw3fEZgzc3p2JiGSfcbZ7SqqRRQScf
-	 rV3K4BzBLyGtbcdPzkITiJJDMZhKsq3P52Quunl/WTwDsBJU5pYwYS6z4ypNLeCX13doC
-	 svGYhHDRlnjcm2HyxC+XCuESJPwlXeLbJPKHBAhlX4yk2Vll0EBFHGKqTTReEysO53d4n
-	 67RgkReZyrPBtOqLXM2vCNcVXQsIfEt1dbctK7zu9hdqrumtdaAxtKgnnXUyIqGOgvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725126;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fK4HGLx2bl61G7BQj3adT/NL1+Sgt8o2Uq+I8Yh/8MY=;
+	b=ezbGj1I//qDFahpLsvyRcQt1RJ5I8QFBUby7tYuwbYFjCohOa9+BXfDIAwFCGiS5KQ5l
+	 OW2mwNlZFD099yvxhh62wyyOAYkibIz6NW6g1f48hd+aoe7wAdU6bdHE633XmmXDqHu/M
+	 5RxXXPJfQ0LbX0PejvPXl+uJknvveIIIuBkR8EolaUrERlpN/tlDkL/YVISiokXTEIR7t
+	 KT26M/sbdp8wBIt5I7I0XXUY/vrpR7nkUX0GJyqZREF6YY+cvA0j9jmTdqumDV4Do9AqV
+	 XsrBwJoSIgPlpnVjHSjMtoaR7dABhfxHK0irgXlhW7zgAKW8+NrJEUGLEj6CDRN0dZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaGj5T09;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c63b2jI9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143A4606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C5373606A332;
+	Tue,  3 Nov 2026 16:58:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaGj5T09
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB7DA1F00A15
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:56:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c63b2jI9
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1AFCB1F00919;
+	Tue,  3 Nov 2026 16:58:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793725008;
-	bh=u00v9p+RUdxqIPRxo9/1l1Zn1bcxXIjHtPQI/MyY3yY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TaGj5T09XEEWEnyjikMKxMV1836N9QpBHuKWrweBYQpN3iKprg6L4fcTCpIdOXpYq
-	 0mvicIGADIBHtz40mVAwdl+7pTgAyPL6EZlogJJGjUsXt8m7TBAxsqV8Hw2iDRBAR7
-	 /LrJJAVttrwClFBLNedpfFGSeIjwzIVuNNZeKC0o8yWzT2324w44hz9URT22L/K52v
-	 u4h59cBWjMIDX75dxvNGTqb53+7u5yjdxkn1V3O78APlGPEamdY2V/neW9jXTZVeBr
-	 v9BmLRWBpY2eQ4FhBm62LBrAEWPMwaGMNODv5qgUCer1qD3FQtdxdMuFlLFrosT2Ul
-	 RQ+ci67HBOEJA==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so4164968e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:56:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxQA0Rm3iOmjb2QbTAInkuw4aJyCkbcaguUuwptHdIr+DlXsZHZPbVMbTIRb/7mAmlFeV8JCglZbSBal2U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zHdNXBSN6O6i2sS92UEjKN912bBrTFy/TH3JYLrMQprf1VXSI
-	lScMYynEO1zHs3zOKQQwwlfSfi8YJfBEEhBpLo8Ufb7CDsknMOMYxkaLzloxShvm/wtn4cKMGWF
-	zGl+ewgcv+dWGwXKkqfftNLiqIHsSqSQ=
-X-Received: by 2002:a05:6512:10c2:b0:5be:4340:d588 with SMTP id
- 2adb3069b0e04-5bfd9566e55mr4813488e87.31.1793725007020; Tue, 03 Nov 2026
- 08:56:47 -0800 (PST)
+	s=k20260515; t=1793725125;
+	bh=fK4HGLx2bl61G7BQj3adT/NL1+Sgt8o2Uq+I8Yh/8MY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c63b2jI9+4FWVTZeH4ddFhEzy4MGXLeB8Xi9Vd1lTCnx117QG8qAcTH7UVak3bxZr
+	 Z5Q4/eIWLw13tisRUunP5XPhFNGy3cWJcRXSIDSS4k1+cFGCPc4PLnQL/zcaasJujs
+	 Ov2dRGFP5/zaJBQ7DELygJWFA151+x9ylnukDsDUSRFAyjd055WI55kOpfw6uBTcpM
+	 B3PDlZnEpTUqQ4s86CV5ng+HT7/ztQzOY/HEG8DxVM0G6JRyNUSIxNojHgeSCNfDS7
+	 1gNMup02LXU+5HVu1fYBiBqJ/+9g3/p1p9hG9EUfE8ZqJCyx3h+ONAMVsu0a4JA9aq
+	 r4vCd5tW+1NXQ==
+Date: Tue, 3 Nov 2026 18:58:41 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>, keyrings@vger.kernel.org,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH v2 00/11] KEYS: Sanitize the garbage collector
+Message-ID: <auoSwRMIXLajVeWs@kernel.org>
+References: <aun4kXCJDtYomzpu@kernel.org>
+ <aunNj35KmcAC4ByH@kernel.org>
+ <20261103030226.2685251-1-jarkko@kernel.org>
+ <641294.1793700187@dhowells-thinkpadp1gen8.rmtgb.csb>
+ <669211.1793714419@dhowells-thinkpadp1gen8.rmtgb.csb>
+ <683284.1793719946@dhowells-thinkpadp1gen8.rmtgb.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,86 +68,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029035253.2333852-1-yaojiale02@163.com> <20261029035253.2333852-2-yaojiale02@163.com>
- <aunzRO9rxFUlC0Ym@red-moon>
-In-Reply-To: <aunzRO9rxFUlC0Ym@red-moon>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 3 Nov 2026 17:56:34 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jtab00kmvS_1RoQHr=PKV3hj=AEP5hS_B-udj5KrQjsg@mail.gmail.com>
-X-Gm-Features: AclHuK9IaHYinCfEPEj9175Cpk8zU69uV-UMGla90QOFlwHtZeWz8-rFk4SmMeg
-Message-ID: <CAJZ5v0jtab00kmvS_1RoQHr=PKV3hj=AEP5hS_B-udj5KrQjsg@mail.gmail.com>
-Subject: Re: [PATCH v2 01/20] ACPI: irqchip: validate MADT entry bounds before probing
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Jiale Yao <yaojiale02@163.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Marc Zyngier <Marc.Zyngier@arm.com>, 
-	Hanjun Guo <guohanjun@huawei.com>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <683284.1793719946@dhowells-thinkpadp1gen8.rmtgb.csb>
 
-On Tue, Nov 3, 2026 at 3:44=E2=80=AFPM Lorenzo Pieralisi <lpieralisi@kernel=
-.org> wrote:
->
-> On Thu, Oct 29, 2026 at 11:52:32AM +0800, Jiale Yao wrote:
-> > IRQ chip probing invokes validation and probe callbacks after the commo=
-n
-> > table walker has only established that a generic subtable header is
-> > readable. A malformed length can leave callback field accesses outside
-> > the MADT.
-> >
-> > Validate the generic header length and ensure the complete declared
-> > entry is contained in the table before invoking IRQ chip callbacks.
-> >
-> > Fixes: e647b532275b ("ACPI: Add early device probing infrastructure")
-> > Cc: stable@vger.kernel.org
->
-> I don't think this patch fixes anything (actually you don't know, it
-> might break kernels that are currently booting).
->
-> Remove the stable tag (on the whole series, though others might have a
-> different opinion). If this gets merged, goes to stable and then
-> we discover it triggers a regression (on existing platforms whose
-> ACPI tables are broken but the system is working) it would be very
-> annoying.
->
-> > Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> > ---
-> >  drivers/acpi/scan.c | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> >
-> > diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-> > index 0b17a7e51956..10e8d736f44b 100644
-> > --- a/drivers/acpi/scan.c
-> > +++ b/drivers/acpi/scan.c
-> > @@ -2896,6 +2896,13 @@ static DEFINE_MUTEX(acpi_probe_mutex);
-> >  static int __init acpi_match_madt(union acpi_subtable_headers *header,
-> >                                 const unsigned long end)
-> >  {
-> > +     unsigned long start =3D (unsigned long)header;
-> > +
-> > +     if (start >=3D end || end - start < sizeof(header->common) ||
-> > +         header->common.length < sizeof(header->common) ||
-> > +         header->common.length > end - start)
-> > +             return -EINVAL;
->
-> This is a check that AFAICS could be done in acpi_parse_entries_array() o=
-nce
-> for all (where you also know header->common is what you need checking, bt=
-w).
->
-> Actually, what's missing there to avoid peppering the kernel with
-> BAD_MADT_ENTRY checks is the entry size (that we could add with a LUT).
->
-> The downsize is that by centralizing it, if anything breaks (which is
-> possible) we have to revert it and therefore remove the check for all
-> consumers.
->
-> I don't know. Rafael, all, thoughts on this ?
+On Tue, Nov 03, 2026 at 03:32:26PM +0000, David Howells wrote:
+> Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> 
+> > > Actually, it can be done if the rxrpc and rxrpc_s key types are moved out
+> > > into their own module upon which rxrpc.ko depends.
+> > 
+> > Hmm... I'll experiment with this, thanks. This was useful.
+> 
+> It's not entirely trivial.  I've attached a patch that makes a start on it,
+> but it needs access to bits of the security class implementations (rxkad and
+> rxgk).  Those bits only parse the key (and in the case of rxgk access the krb5
+> code), so in theory it should be possible to extract them out.
+> 
+> One thing that needs to be considered, though, is the security class selected
+> should really be up to the application, not merely switched on by the
+> security_id.  This is one of the reasons I would like to add an add_key2()
+> syscall that adds an additional parameter string argument.
 
-I have concerns similar to yours: It may break systems that currently boot.
+Thanks I'll investigate this.
 
-That said, I can imagine a hostile host trying to crash a CoCo guest
-by exploiting this missing check.
+> 
+> David
+> ---
+> commit 365e715b91b9b2ac3030f51c31ff4de8f24a4e19
+> Author: David Howells <dhowells@redhat.com>
+> Date:   Tue Nov 3 14:15:39 2026 +0000
+> 
+>     rxrpc: Move key types to own module
+>     
+>     Move the rxrpc and rxrpc_s key types to their own module so that if keys
+>     pin the module that implements the type, they don't cause outstanding
+>     connections to make the module unremovable.
+>     
+>     Signed-off-by: David Howells <dhowells@redhat.com>
+> 
+> diff --git a/net/Makefile b/net/Makefile
+> index 5b2dd7f07a85..f543097c89b9 100644
+> --- a/net/Makefile
+> +++ b/net/Makefile
+> @@ -30,7 +30,7 @@ obj-$(CONFIG_LAPB)		+= lapb/
+>  obj-$(CONFIG_CAN)		+= can/
+>  obj-$(CONFIG_BT)		+= bluetooth/
+>  obj-$(CONFIG_SUNRPC)		+= sunrpc/
+> -obj-$(CONFIG_AF_RXRPC)		+= rxrpc/
+> +obj-$(CONFIG_RXRPC_KEYS)	+= rxrpc/
+>  obj-$(CONFIG_AF_KCM)		+= kcm/
+>  obj-$(CONFIG_STREAM_PARSER)	+= strparser/
+>  obj-$(CONFIG_ATM)		+= atm/
+> diff --git a/net/rxrpc/Kconfig b/net/rxrpc/Kconfig
+> index 2cebb666dc07..ffd42d71f85a 100644
+> --- a/net/rxrpc/Kconfig
+> +++ b/net/rxrpc/Kconfig
+> @@ -3,6 +3,14 @@
+>  # RxRPC session sockets
+>  #
+>  
+> +config RXRPC_KEYS
+> +	tristate "RxRPC key types"
+> +	select CRYPTO
+> +	select CRYPTO_LIB_DES if RXKAD
+> +	select KEYS
+> +	help
+> +	  Say Y or M here to include support for rxrpc and rxrpc_s key types.
+> +
+>  config AF_RXRPC
+>  	tristate "RxRPC session sockets"
+>  	depends on INET
+> @@ -10,6 +18,7 @@ config AF_RXRPC
+>  	select CRYPTO_LIB_DES if RXKAD
+>  	select KEYS
+>  	select NET_UDP_TUNNEL
+> +	select RXRPC_KEYS
+>  	help
+>  	  Say Y or M here to include support for RxRPC session sockets (just
+>  	  the transport part, not the presentation part: (un)marshalling is
+> diff --git a/net/rxrpc/Makefile b/net/rxrpc/Makefile
+> index f994f9f30a29..196e0ce085ba 100644
+> --- a/net/rxrpc/Makefile
+> +++ b/net/rxrpc/Makefile
+> @@ -3,6 +3,7 @@
+>  # Makefile for Linux kernel RxRPC
+>  #
+>  
+> +obj-$(CONFIG_RXRPC_KEYS) += rxrpc_keys.o
+>  obj-$(CONFIG_AF_RXRPC) += rxrpc.o
+>  
+>  rxrpc-y := \
+> @@ -19,7 +20,6 @@ rxrpc-y := \
+>  	input_rack.o \
+>  	insecure.o \
+>  	io_thread.o \
+> -	key.o \
+>  	local_event.o \
+>  	local_object.o \
+>  	misc.o \
+> @@ -32,7 +32,6 @@ rxrpc-y := \
+>  	rtt.o \
+>  	security.o \
+>  	sendmsg.o \
+> -	server_key.o \
+>  	skbuff.o \
+>  	txbuf.o \
+>  	utils.o
+> @@ -45,5 +44,9 @@ rxrpc-$(CONFIG_RXGK) += \
+>  	rxgk_app.o \
+>  	rxgk_kdf.o
+>  
+> +rxrpc_keys-y := \
+> +	key.o \
+> +	server_key.o
+> +
+>  obj-$(CONFIG_RXPERF) += rxperf.o
+>  obj-$(CONFIG_KUNIT) += tests/
+> diff --git a/net/rxrpc/key.c b/net/rxrpc/key.c
+> index cbd26da44951..c353a4304788 100644
+> --- a/net/rxrpc/key.c
+> +++ b/net/rxrpc/key.c
+> @@ -893,3 +893,39 @@ static long rxrpc_read(const struct key *key,
+>  	_leave(" = %zu", size);
+>  	return size;
+>  }
+> +
+> +/*
+> + * initialise and register the RxRPC protocol
+> + */
+> +static int __init rxrpc_keys_init(void)
+> +{
+> +	int ret;
+> +
+> +	ret = register_key_type(&key_type_rxrpc);
+> +	if (ret < 0) {
+> +		pr_crit("Cannot register client key type\n");
+> +		goto error_key_type;
+> +	}
+> +
+> +	ret = register_key_type(&key_type_rxrpc_s);
+> +	if (ret < 0) {
+> +		pr_crit("Cannot register server key type\n");
+> +		goto error_key_type_s;
+> +	}
+> +
+> +	return 0;
+> +
+> +error_key_type_s:
+> +	unregister_key_type(&key_type_rxrpc);
+> +error_key_type:
+> +	return ret;
+> +}
+> +
+> +static void __exit rxrpc_keys_exit(void)
+> +{
+> +	unregister_key_type(&key_type_rxrpc_s);
+> +	unregister_key_type(&key_type_rxrpc);
+> +}
+> +
+> +module_init(rxrpc_keys_init);
+> +module_exit(rxrpc_keys_exit);
+> diff --git a/net/rxrpc/server_key.c b/net/rxrpc/server_key.c
+> index 3efe104b1930..b5e60a3364ad 100644
+> --- a/net/rxrpc/server_key.c
+> +++ b/net/rxrpc/server_key.c
+> @@ -42,6 +42,7 @@ struct key_type key_type_rxrpc_s = {
+>  	.destroy	= rxrpc_destroy_s,
+>  	.describe	= rxrpc_describe_s,
+>  };
+> +EXPORT_SYMBOL(key_type_rxrpc_s);
+>  
+>  /*
+>   * Vet the description for an RxRPC server key.
+> 
 
-It might be better to try to use the actual length instead of
-header->common.length if the latter is too large though.
+
+Br, Jarkko
