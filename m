@@ -1,56 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697697;
-	b=qfCFDZMH94X+kPhw60elqdh2QfgdgGP3nAnolNCSRWse1JMAKOxguw+JUscPQZF8DON9
-	 4H1hg04o4D+h1B8f7v5Pkfp1TkoU+ayfNFnHOt77dlYA0ddP7fKkOxCQ9gIIizzPEGyIu
-	 o3yEnKMbEkmf5X63PDZLoEf/Raq4f9fOeurP4DDCnr1fxaBpVcXIcAoJ31hYb5xbiybRy
-	 XCHfAScoosmlqFdTSIfWz3mA3+tTTqcMf/xOatHvHjHyLfUrEHDO21HC2iO3Xq2JqVsMx
-	 Aw2BCzRn9ehFr8TjwFxSk6iaTQMfDcKxjdDpgdny4i2CTeo1xPm1tdmjz9r3jEIPO6g==
+	t=1793697677;
+	b=Y0d6iocpf2YuqWMsFzkJtMXeiJ/bs1C3/2DgRjd7LW5Pi+B40NRqlg4qQLZtTIvawKxm
+	 zwRJOYSgEy1XdH+w5M7hosXu9CdcF4av3+54KTavhgHUlSUxvj1yBfXpPnPBEr+hfkv5f
+	 8IfbB4u0MibKEU2KqUGlN2S+ZNNw5BoOaempA0Lq3J2Vbb3ZAD1U6Oxpa785W/0ki5Un6
+	 rEmsPvtE6fRzWKD1U5uDHsak43cq0H5QvchZtTUw0x14xQH9z9v7plnhVL/Xm/+K7EWX9
+	 I6P4ioa3bcQHKzxwdE/NIDG/reTrf5LzUiWbDFm3wfXTujkd9AH0gywaWHx0TgvJKcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697677;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=gZHsMDdpmPsnd9fVKQ5HXshg/Ennof29jt+F+15lfj0=;
-	b=WY1NSn8y5b8vI5u/LtOL0TRP4L69MARw8DjTiP5N0boZsxlClYcDGQkHIs17xPyH8kl5
-	 9KsMAEcKHbr29sIKNnQYOfxqC9h5VknnclCOyFMvyl5DNhm7JX4OnDRnhZ813F8Iomgnw
-	 COQsxCJZO97wbWtYJMEsqT10SnzEKW3tG+XvDpbHWHbHve8M05TsmnDeC4EXAceAOaiwK
-	 xkKq/bnxps8bJHHffJGKe8NvrcfBjMQcZvY1eNqKqbkJ84KHPjKNfVFlXD6KReJwRKWMt
-	 Z6jPZWYB3o+bPCQuuDIGMoY+e1U35aDtv+ueCL3ZmSyI0l77ebnabQ7/DnabS94cHNg==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=9seIfKUb5mL9/pRiltJe+WDkz9VAJT3ACyumajU4uZs=;
+	b=L7VxFWNr2KEj6RlJpH8BAPAVU6NFk6Ve0J2jO0kROA1LwDquvESLmPq3e1yxWZFfrn6K
+	 KZyw8FyFWucpVaGGrh5GR2LSUZCSN0BZqI+d91vyOevkRRPu+EGDibE0iNCF1JxCJuujr
+	 asBBdIXIT+GNBCX9rGh895i0asNWCQT0bZMf66sUZt2yKgu9ExzFcnvgP3xTTmzpQfCFO
+	 eBN7P3qiqYYW/TXJfIziVJ/GfZcieUL1rHScOBED/+QOZzj0SodS4ME47Su1BymSwaHWP
+	 bvklHclnjvcicLmXYoT70sCdhEB3XQsoZLj6gJ3Y3DM+YXVYR8EF9R9LiGPScQr+JFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="K3tC/zFB";
-	arc=none smtp.remote-ip=91.218.175.50
-Received: from mta0.migadu.com (out-50.mta0.migadu.com [91.218.175.50])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I0mgW61i;
+	arc=none smtp.remote-ip=91.218.175.34
+Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6D4606EE84
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:21:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A6D4606EE84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFE7606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:21:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AFE7606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K3tC/zFB
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I0mgW61i
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+cX65HWUnORHAEQhsq35CFgzfw7YbOZo0pOLpUvDick=;
+DKIM-Signature: a=rsa-sha256; bh=Dogg26upRcYPteVZYsSyT1265sb9gcafjUHnbvF97og=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793697694; v=1; x=1794302494;
- b=K3tC/zFBBRu4ADhoe1N2zLREOqd3FVjNSxtKLe0SuRZRBOxT2XDSserV5nj0LFXrncQ7KbyB
- sFaC5V24BpTtlNrl43iEJNiK6UNAt3Lnl7DwaCuN4LjvlRLc6zWUB80zfuHUuzT7OimvJeNGY90
- M0+RziEd0Rb4k6S9T/6qMLK8=
+ t=1793697675; v=1; x=1794302475;
+ b=I0mgW61inAYftsexWS2+OTxq41aS9OM4setyUhQfKYaBmWfTJytrcMqojQ0HODeozLwBPc8B
+ F2sx/UdNm9jEmk4u1B8Ym+o8SjPVTsrOktNVM0L/K66HIL7G9pqJIfOc53Pz+vjek0BaOQevYR5
+ dfLHkzjveKcQhLRg/Iyy8nb4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id a7b269fb289dbe95;
-	Tue, 03 Nov 2026 09:21:34 +0000
-X-Mizu-Trace-ID: a7b269fb289dbe95
+Received: by mta10.migadu.com with ESMTPS id 6dbf83cf33588557;
+	Tue, 03 Nov 2026 09:21:15 +0000
+X-Mizu-Trace-ID: 6dbf83cf33588557
 X-Migadu-Flow: FLOW_OUT
 From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Tue, 03 Nov 2026 17:20:51 +0800
-Subject: [PATCH net v2 2/3] ipv6: ioam6: use transformed packet nexthdr for
- ECMP re-lookup
+Subject: [PATCH net v2 0/3] net: ioam6: makes IOAM insertion transparent to
+ IPv6 ECMP
+Date: Tue, 03 Nov 2026 17:20:49 +0800
+Message-Id: <20261103-ipv6_ioam_ecmp-v2-0-6ef0318bdb5e@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,10 +62,12 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261103-ipv6_ioam_ecmp-v2-2-6ef0318bdb5e@kylinos.cn>
-References: <20261103-ipv6_ioam_ecmp-v2-0-6ef0318bdb5e@kylinos.cn>
-In-Reply-To: <20261103-ipv6_ioam_ecmp-v2-0-6ef0318bdb5e@kylinos.cn>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12Nyw6CMBREf4XctTVtg/Wx4j8MIW25yFVpSYuNh
+ PDvArpyeSYzcyaIGAgjXLIJAiaK5N0CcpeBbbW7IaN6YZBcKsElZ9QnVZHXXYW265nGHBuuc1N
+ rhGXUB2zovR1eweEA5TeML3NHO6xXa62lOPgwbtoktvLPcPo3JME4Oxt1FAejmtzy4jE+yfm4t
+ w7KeZ4/uK+fcMQAAAA=
+X-Change-ID: 20261020-ipv6_ioam_ecmp-ae4ef0a4bdae
 To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -75,135 +78,83 @@ Cc: Hangbin Liu <hangbin.liu@linux.dev>, linux-kernel@vger.kernel.org,
  Hangbin Liu <liuhangbin@kylinos.cn>
 X-Mailer: b4 0.16.0
 
-From: Hangbin Liu <liuhangbin@kylinos.cn>
+This series makes IOAM insertion transparent to IPv6 ECMP, as required
+by RFC 9486 (C2): a packet carrying IOAM options must be forwarded
+along the same path as the identical packet without them.
 
-RFC 9486 (C2) requires that the ECMP hash of a packet carrying IOAM
-options is the same as the hash of the identical packet without them.
+Patch 1 fixes the transit side: hash policy 0 hashed the raw IPv6
+nexthdr, which becomes NEXTHDR_HOP once an IOAM Hop-by-Hop header is
+inserted. The policy-0 key (and the ICMPv6-error flow selection) now
+uses the nexthdr the packet would have had if the Hop-by-Hop header
+carried only IOAM options and padding.
 
-On a destination-cache miss the old code always re-looked up the
-transformed packet under hash policy 0 with NEXTHDR_HOP (and, for
-local flows, keys that do not match the original socket lookup), so
-it could pick a different ECMP sibling.
-
-Inline insertion leaves the destination unchanged: reuse orig_dst and
-cache the fake null_rt, keeping the sibling from the original lookup.
-
+Patch 2 fixes the injecting node: on an ioam6 output destination-cache
+miss, inline mode now reuses orig_dst so the ECMP sibling from the
+original socket lookup is kept (the destination does not change).
 Encapsulation may switch the destination to tundst, so it still
-re-looks up. Take flowi6_proto from the transformed packet HBH (41
-after encap, so ipproto rules match as for plain ip6ip6) and
-precompute fl6.mp_hash from the packet, since ip6_route_output()
-carries no skb and would otherwise drop ICMPv6 quoted-flow and L4
-keys.
+re-looks up the transformed packet, using the Hop-by-Hop nexthdr for
+flowi6_proto (IPPROTO_IPV6 after encap) and precomputing fl6.mp_hash
+from the packet so ICMPv6 quoted-flow and L4 keys are not lost when
+ip6_route_output() runs with no skb.
 
-Depends on patch "ipv6: route: consider IOAM options in ECMP hash
-policy 0".
+Patch 3 adds selftests/net/ioam6_ecmp.sh, covering both places: a
+transit forwarder with a multipath route, and an encapsulating node
+compared against a plain ip6ip6 baseline.
 
-Fixes: 8cb3bf8bff3c ("ipv6: ioam: Add support for the ip6ip6 encapsulation")
-Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+The issue was found while reviewing RFC9486. It can be reproduced and
+verified by the newly added ioam6_ecmp.sh test.
+
+Tested with:
+ecmp_rehash.sh
+fib_nexthops.sh
+ioam6_ecmp.sh
+tcp_ecmp_failover.sh
+forwarding/gre_inner_v4_multipath.sh
+forwarding/gre_inner_v6_multipath.sh
+forwarding/gre_multipath_nh_res.sh
+forwarding/gre_multipath_nh.sh
+forwarding/gre_multipath.sh
+forwarding/ip6gre_inner_v4_multipath.sh
+forwarding/ip6gre_inner_v6_multipath.sh
+forwarding/router_mpath_nh_res.sh
+forwarding/router_mpath_nh.sh
+forwarding/router_multipath.sh
+
 ---
-For AI review:
+Changes in v2:
+- patch 01:
+  * use skb_network_offset() as the start of offset.
+  * try get inner next header for ICMPv6 errors.
+- patch 02:
+  * use origin dst for inline mode, as dst is not changed.
+  * use HBH nexthdr for encap mode, as dst may change to tundst.
+- patch 03:
+  * remove `-w` to prevent ping from ignoring `-c` and continuing to send
+    packets before receiving replies.
+  * remove beta_tnl warm up since the tunnel will be re-create every time.
+  * move trap cleanup before setup
+  * update some comments
+  * remove tunsrc in ioam encap setup
+- Link to v1: https://patch.msgid.link/20261028-ipv6_ioam_ecmp-v1-0-9b6715b6f4c0@kylinos.cn
 
-The mp_hash precompute makes policy-2 hash inner keys while plain ip6ip6
-baseline hashes outer — pre-patch also diverged (proto 0 vs 41);
-C2 for policy 2 was broken before and after, no new violation class, and
-the patches claim/test policy 0 only.
 ---
- net/ipv6/ioam6_iptunnel.c | 79 +++++++++++++++++++++++++++++++----------------
- 1 file changed, 53 insertions(+), 26 deletions(-)
+Hangbin Liu (3):
+      ipv6: route: consider IOAM options in ECMP hash policy 0
+      ipv6: ioam6: use transformed packet nexthdr for ECMP re-lookup
+      selftests: net: add ioam6 ECMP test (RFC 9486 C2)
 
-diff --git a/net/ipv6/ioam6_iptunnel.c b/net/ipv6/ioam6_iptunnel.c
-index cfb2c41634a0..246533276be8 100644
---- a/net/ipv6/ioam6_iptunnel.c
-+++ b/net/ipv6/ioam6_iptunnel.c
-@@ -405,34 +405,61 @@ static int ioam6_output(struct net *net, struct sock *sk, struct sk_buff *skb)
- 
- 	if (unlikely(!dst)) {
- 		struct ipv6hdr *hdr = ipv6_hdr(skb);
--		struct flowi6 fl6;
--
--		memset(&fl6, 0, sizeof(fl6));
--		fl6.daddr = hdr->daddr;
--		fl6.saddr = hdr->saddr;
--		fl6.flowlabel = ip6_flowinfo(hdr);
--		fl6.flowi6_mark = skb->mark;
--		fl6.flowi6_proto = hdr->nexthdr;
--
--		dst = ip6_route_output(net, NULL, &fl6);
--		if (dst->error) {
--			err = dst->error;
--			goto drop;
--		}
- 
--		/* If the destination is the same after transformation (which is
--		 * a valid use case for IOAM), then we don't want to add it to
--		 * the cache in order to avoid a reference loop. Instead, we add
--		 * our fake dst_entry to the cache as a way to detect this case.
--		 * Otherwise, we add the resolved destination to the cache.
-+		/* Inline insertion does not change the destination. Keep
-+		 * orig_dst so the ECMP sibling from the original lookup is
-+		 * preserved (RFC 9486 C2 for locally generated traffic).
-+		 * Cache the fake null_rt so later packets take the same path.
- 		 */
--		local_bh_disable();
--		if (orig_dst->lwtstate == dst->lwtstate)
--			dst_cache_set_ip6(&ilwt->cache,
--					  &ilwt->null_rt.dst, &fl6.saddr);
--		else
--			dst_cache_set_ip6(&ilwt->cache, dst, &fl6.saddr);
--		local_bh_enable();
-+		if (ilwt->mode == IOAM6_IPTUNNEL_MODE_INLINE ||
-+		    (ilwt->mode == IOAM6_IPTUNNEL_MODE_AUTO && !skb->dev)) {
-+			dst = orig_dst;
-+			dst_hold(dst);
-+
-+			local_bh_disable();
-+			dst_cache_set_ip6(&ilwt->cache, &ilwt->null_rt.dst,
-+					  &hdr->saddr);
-+			local_bh_enable();
-+		} else {
-+			/* Encapsulation may change the destination (tundst);
-+			 * re-lookup with the transformed packet keys so the
-+			 * outer hash matches the identical packet without IOAM.
-+			 */
-+			const struct ipv6_opt_hdr *hhdr;
-+			struct flowi6 fl6;
-+
-+			hhdr = (const struct ipv6_opt_hdr *)skb_transport_header(skb);
-+
-+			memset(&fl6, 0, sizeof(fl6));
-+			fl6.daddr = hdr->daddr;
-+			fl6.saddr = hdr->saddr;
-+			fl6.flowlabel = ip6_flowinfo(hdr);
-+			fl6.flowi6_mark = skb->mark;
-+			fl6.flowi6_proto = hhdr->nexthdr;
-+			fl6.mp_hash = rt6_multipath_hash(net, &fl6, skb, NULL);
-+
-+			dst = ip6_route_output(net, NULL, &fl6);
-+			if (dst->error) {
-+				err = dst->error;
-+				goto drop;
-+			}
-+
-+			/* If the destination is the same after transformation
-+			 * (which is a valid use case for IOAM), then we don't
-+			 * want to add it to the cache in order to avoid a
-+			 * reference loop. Instead, we add our fake dst_entry
-+			 * to the cache as a way to detect this case.
-+			 * Otherwise, we add the resolved destination to the
-+			 * cache.
-+			 */
-+			local_bh_disable();
-+			if (orig_dst->lwtstate == dst->lwtstate)
-+				dst_cache_set_ip6(&ilwt->cache,
-+						  &ilwt->null_rt.dst, &fl6.saddr);
-+			else
-+				dst_cache_set_ip6(&ilwt->cache, dst, &fl6.saddr);
-+			local_bh_enable();
-+		}
- 
- 		err = skb_cow_head(skb, LL_RESERVED_SPACE(dst_dev(dst)));
- 		if (unlikely(err))
+ include/uapi/linux/in6.h                  |   1 +
+ net/ipv6/ioam6_iptunnel.c                 |  79 ++++---
+ net/ipv6/route.c                          |  95 +++++++-
+ tools/testing/selftests/net/Makefile      |   1 +
+ tools/testing/selftests/net/config        |   2 +
+ tools/testing/selftests/net/ioam6_ecmp.sh | 348 ++++++++++++++++++++++++++++++
+ 6 files changed, 495 insertions(+), 31 deletions(-)
+---
+base-commit: c3e67bd82b9b9b1a5118f09a429ccefe2aab0741
+change-id: 20261020-ipv6_ioam_ecmp-ae4ef0a4bdae
 
--- 
-2.56.0
+Best regards,
+--  
+Hangbin Liu <liuhangbin@kylinos.cn>
 
