@@ -1,102 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711669;
-	b=lNZQAJehDeakQh1Qe9P/Y27G6V/1EwEMeUY8rhYllKFSb0DR1JZZ2MGFULTZkCaNMU/J
-	 vT2sVjKO7X/S27K3nA4dC+Exfskp4wiVUodJrTHTIfdzmI/+kWQZXIGrK705lipAJEDC3
-	 EgUgPeuyR2JbTYRauZyMacsJBbbAGVnWwWkrd+8AM23mj289/PWY6z5C5UTIwAKA5M1qJ
-	 v4/hGPJE8IlYgloRuXKTAIbM/fScFNT6hbirZLALtcU2nqZizXq9ngZxs9AUbJfSkuWOC
-	 Z7i1Ks9cl+sKWZmlXTP/HKGfwyKoo1RgE0jxZSdi36bZHbqox5beEI/g7iIalYbX3yw==
+	t=1793711695;
+	b=420IbvTO+551JfWy0HDvuFJCnZpYoGB1QTw4wCOtyZGeSbYN4V2+YXU9UrSI7Hy3MyKf
+	 yL2vS66z0A9HbZdgX89t90VcvZL+pib0AXmTRqPfekC+bfRE3cIsbGMzHMjPed5+Wyz1M
+	 PjnoLDJnkKlJnXuw5p568SmnY7A7S/z3BoTYc8X5GP8VpRTo8eqQm3v1ap1CFKBVeBrAB
+	 ZaSGzGT4XjQA6vAe7V9GkwYn9nii/sbqemfUnNIG1KuBezrRk24p3Y07RvAMSjs5OFUB0
+	 46HnnF8pL1MlkfNaWxIZTZMutsPM35/uadgKvOOQRzrIoTQx3LCboEhWkGpi2EBaB1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711669;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
-	b=Z6vnzIs1l+k0tKjcyso1fjcV26NMpJhHD4uAd9uZ1tKOolbeoropisU9X6mahWyREmfW
-	 Rb4gvgQPExsZwKZw2kQqnDwz2b2SLt2KReHHNq30TWkRo502l250MP5J6qEyTePzj2db6
-	 C6Iyx5zCMp+MYcY9yXxs8vwQnpq2bgp9Ka9dhVR6Xr9tcHMDBNmFN+c7X4Auzg3f0xW2T
-	 brgo8C31rsdiiziievh730wCBsOYTrQO4dl66bMSOBA10ZIXt8skeoqnANYDaqahwj3Pe
-	 UYLSlGR1bMdm+SxHnSBOBgX5SRrcbfBbCkpz1fTSeJK6RC/jfATDNoMoBFm7yq3ejTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711695;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=OfIZX0zVNkUweF251bj/CyePsa3O8Tj5vZPXXxbgpT4=;
+	b=Eo9er7C+zOdbKycKixMxaut5bgH1PKTcnblRyN5hqxtOAk/6bhXgr8dxxTSJ/PLpv0Kv
+	 7JvKjKTPVrx4AlBVH7fE+4YtHT0buswmkmYSdmmK5GiC0mAs3x0vBbueFEQ8ZHtKg3saY
+	 VFdXjzHNtZCd9eSGctoDR/G7iP5vbgJcP5hi3je72z91slA9pQPfhtq6EY57tTjaDaMmF
+	 jEXtCqHnlZ+TjhC+qA53gYa17zSTkHSpyoOZqqlgXvqvjc3LhHBVfvXRDPVSMZH0yfHNO
+	 ZK2q9ngg9XuXnQug2L5MAkf1hxfR1fjQOeMbE2+MQytX2tU2OWg2+Yy17VUdRU/Mnig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wKFhpKn8;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7EwAjiQX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wKFhpKn8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7EwAjiQX;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=aPyANorZ;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188A1606A327;
-	Tue,  3 Nov 2026 13:14:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 188A1606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD2F606A32E;
+	Tue,  3 Nov 2026 13:14:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DD2F606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wKFhpKn8;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7EwAjiQX;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wKFhpKn8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7EwAjiQX
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1C76821F33;
-	Tue,  3 Nov 2026 13:14:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793711667; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
-	b=wKFhpKn8FbpiC1Ry3ukLnKh9WcjasGmPN3hj4tWGmwvoCWlXXC7jWfNDr6IOKpEW3Soqjj
-	VsOjjo+tDi8Vi/p7BV0jxsqUJR6vthFZJmG0lnnU0OVHzEykYuhxwy/bDHI9VQ6lVyuAPH
-	uI68YrZX+vbMKz1n1uNoumBoxINPezk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793711667;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
-	b=7EwAjiQXMuoVIB5khWZ2AS/zoAA6A/P0hTHchANcF8Y8UpIscgPh1ZNQF+3nWUZAJKeqP7
-	0kR5dx1SK/d2i6Bw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793711667; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
-	b=wKFhpKn8FbpiC1Ry3ukLnKh9WcjasGmPN3hj4tWGmwvoCWlXXC7jWfNDr6IOKpEW3Soqjj
-	VsOjjo+tDi8Vi/p7BV0jxsqUJR6vthFZJmG0lnnU0OVHzEykYuhxwy/bDHI9VQ6lVyuAPH
-	uI68YrZX+vbMKz1n1uNoumBoxINPezk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793711667;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
-	b=7EwAjiQXMuoVIB5khWZ2AS/zoAA6A/P0hTHchANcF8Y8UpIscgPh1ZNQF+3nWUZAJKeqP7
-	0kR5dx1SK/d2i6Bw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D002C1350A;
-	Tue,  3 Nov 2026 13:14:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 416+KjLe6WoEMQAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 03 Nov 2026 13:14:26 +0000
-Message-ID: <46911561-1659-44ad-be43-61036548d626@suse.de>
-Date: Tue, 3 Nov 2026 14:14:26 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=aPyANorZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=OfIZX0zVNkUweF251bj/CyePsa3O8Tj5vZPXXxbgpT4=; t=1793711693; x=2109071693; 
+	b=aPyANorZh63yM/FrwdVoSsfpqVGJR7ln3r1YWP1WFuM9JZ1Bb1FKHk2hS8xE9N218c6bpZVMqJP
+	m7ij8wzZ/NnXNcJaJoXQ38JewZtADbJ5ClxSQnBADLKRkJv+iAMMnRex7PVgQcxjHr/7blIrFpNPM
+	/jOu9kNbRxMz74Fel5zHD9s4XyG9x3HOt62dni+AihnVuhimTRGDP6uaEFp/ZtV6AIpxzF1LBMl99
+	Cyb4Ic+gN5Oc787xgH3vXVdEDJQggmKXzSP9EWph/OmuxhcLEGDHB0cMnmAKc+lpYJCm8b/D6JFDz
+	CPqeyka2y+2aWXsk33ve5LMHmqL6uZnMdoug==;
+Received: from [58.29.145.179] (helo=[192.168.8.237])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xOELd-001F3u-LJ; Tue, 03 Nov 2026 14:14:45 +0100
+Message-ID: <07681b2b-3960-4866-affd-43ec7190a14e@igalia.com>
+Date: Tue, 3 Nov 2026 22:14:37 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,97 +58,181 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] nvme: remove namespaces in parallel
-To: Qiliang Yuan <odys.yuan@gmail.com>, Keith Busch <kbusch@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, Hannes Reinecke <hare@kernel.org>,
- Ming Lei <tom.leiming@gmail.com>, Nilay Shroff <nilay@linux.ibm.com>,
- Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
- Stuart Hayes <stuart.w.hayes@gmail.com>
-References: <20261103-bug-nvme-remove-ns-async-v2-1-44e43766e44a@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261103-bug-nvme-remove-ns-async-v2-1-44e43766e44a@gmail.com>
+Subject: Re: [PATCH bpf-next 1/3] selftests/bpf: libarena: Order equal rbtree
+ keys FIFO
+To: Emil Tsalapatis <emil@etsalapatis.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, david.dai@linux.dev,
+ Gavin Guo <gavinguo@igalia.com>, bpf@vger.kernel.org,
+ sched-ext@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com
+References: <20261028060046.549097-1-changwoo@igalia.com>
+ <20261028060046.549097-2-changwoo@igalia.com>
+ <DMKK7WGBASS7.2VBQTIIX6YEGS@etsalapatis.com>
+From: Changwoo Min <changwoo@igalia.com>
+Content-Language: en-US, ko-KR, en-US-large, ko
+In-Reply-To: <DMKK7WGBASS7.2VBQTIIX6YEGS@etsalapatis.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,kernel.dk,lst.de,grimberg.me];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.infradead.org,vger.kernel.org,kernel.org,gmail.com,linux.ibm.com,wdc.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -11.79
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 7bit
 
-On 11/3/26 7:28 AM, Qiliang Yuan wrote:
-> nvme_remove_namespaces() removes the namespaces of a controller one
-> after another. Each removal waits for RCU grace periods in
-> del_gendisk() for the namespace and for its multipath head, about
-> 20 ms in all.
-> 
-> Deleting a controller, such as disconnecting from a fabrics target,
-> thus takes time proportional to its namespace count, over a second for
-> 64 namespaces. Scanning had the same problem until commit 4e893ca81170
-> ("nvme_core: scan namespaces asynchronously") made it add namespaces
-> in parallel.
-> 
-> Remove the namespaces through an async domain the same way, and wait
-> for all of them before returning. Each removal still waits about
-> 20 ms, but the waits now overlap: a grace period is system-wide, so
-> removals that wait at the same time are released by the same grace
-> periods instead of each needing its own.
-> 
-> Disconnect time from a target on the same host, over tcp to 127.0.0.1
-> and over nvme-loop, with 4 I/O queues, median of 3 runs on each of two
-> boots per kernel:
-> 
->    namespaces  transport  before              after
->             8  tcp         170 /  171 ms        85 /   91 ms
->            32  tcp         628 /  628 ms       294 /  293 ms
->            64  tcp        1201 / 1308 ms       533 /  550 ms
->            64  loop       1988 / 1913 ms      1283 / 1200 ms
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> ---
-> V1 -> V2:
-> - Explain why removing the namespaces in parallel saves time
-> - Drop patch 2 until the elevator switch locking change settles:
->    https://lore.kernel.org/r/20261031044141.5569-1-laveeshb@laveeshbansal.com
-> 
-> v1: https://lore.kernel.org/r/20261102-bug-nvme-remove-ns-async-v1-0-61780fee111c@gmail.com
-> ---
->   drivers/nvme/host/core.c | 13 ++++++++++++-
->   1 file changed, 12 insertions(+), 1 deletion(-)
-> 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Hi Emil,
 
-Cheers,
+Thanks for the review.
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+On 11/2/26 4:51 PM, Emil Tsalapatis wrote:
+> On Wed Oct 28, 2026 at 6:00 AM UTC, Changwoo Min wrote:
+>> An RB_DUPLICATE tree links a new key to the left of an equal one, so
+>> rb_least() and rb_pop() return the newest of several equal keys. A
+>> queue of tasks keyed by vtime should instead serve equal keys in
+>> arrival order, as sched_ext's vtime-ordered DSQs do.
+>>
+>> Send equal keys right on insert, as the kernel's rb_add() does. A new
+>> node then lands after every node with an equal key. Rotations and
+>> removals preserve the in-order sequence, so equal keys stay in
+>> insertion order without a tie-break field.
+>>
+>> Add a selftest that interleaves equal keys while the tree grows and
+>> checks the pop order.
+>>
+>> Signed-off-by: Changwoo Min <changwoo@igalia.com>
+> 
+> Hi Changwoo,
+> 
+>    Patch looks fine to me, one nit below.
+> 
+>> ---
+>>   .../bpf/libarena/include/libarena/rbtree.h    |  6 +--
+>>   .../bpf/libarena/selftests/test_rbtree.bpf.c  | 37 +++++++++++++++++++
+>>   .../selftests/bpf/libarena/src/rbtree.bpf.c   | 16 +++++---
+>>   3 files changed, 51 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
+>> index 486428911d96..00e63b12d82e 100644
+>> --- a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
+>> +++ b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
+>> @@ -45,9 +45,9 @@ enum rbtree_alloc {
+>>    * the existing node.
+>>    *
+>>    * RB_DUPLICATE: Allow nodes with identical keys in the rbtree.
+>> - * Finding/popping/removing a key acts on any of the nodes
+>> - * with the appropriate key - there is no ordering by time
+>> - * of insertion.
+>> + * Nodes with identical keys are kept in insertion order, so
+>> + * rb_least() and rb_pop() return the oldest of them. Finding
+>> + * or removing by key acts on any of them.
+>>    */
+>>   enum rbtree_insert_mode {
+>>   	RB_DEFAULT,
+>> diff --git a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
+>> index 856c484a009a..1e2a0fac1e4f 100644
+>> --- a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
+>> +++ b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
+>> @@ -248,6 +248,43 @@ __weak int test_rbtree_duplicate(void)
+>>   	return rb_destroy(rbtree);
+>>   }
+>>   
+>> +#define FIFO_NR_NODES	64
+>> +#define FIFO_NR_KEYS	4
+>> +
+>> +SEC("syscall")
+>> +__weak int test_rbtree_duplicate_fifo(void)
+>> +{
+>> +	const u64 per_key = FIFO_NR_NODES / FIFO_NR_KEYS;
+>> +	struct rbtree __arena *rbtree;
+>> +	u64 key, value;
+>> +	int ret, i;
+>> +
+>> +	rbtree = rb_create(RB_ALLOC, RB_DUPLICATE);
+>> +	if (!rbtree)
+>> +		return 1;
+>> +
+>> +	for (i = 0; i < FIFO_NR_NODES && can_loop; i++) {
+>> +		ret = rb_insert(rbtree, i % FIFO_NR_KEYS, i);
+>> +		if (ret)
+>> +			return 2;
+>> +	}
+>> +
+>> +	for (i = 0; i < FIFO_NR_NODES && can_loop; i++) {
+>> +		ret = rb_pop(rbtree, &key, &value);
+>> +		if (ret)
+>> +			return 3;
+>> +
+>> +		/* All of key 0 in insertion order, then all of key 1, ... */
+>> +		if (key != i / per_key)
+>> +			return 4;
+>> +
+>> +		if (value != key + FIFO_NR_KEYS * (i % per_key))
+>> +			return 5;
+>> +	}
+>> +
+>> +	return rb_destroy(rbtree);
+>> +}
+>> +
+>>   static inline int
+>>   clean_up_noalloc_tree(struct rbtree __arena *rbtree)
+>>   {
+>> diff --git a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c b/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
+>> index 7f0f6dc3e17d..e6c9430f734b 100644
+>> --- a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
+>> +++ b/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
+>> @@ -161,8 +161,14 @@ struct rbnode __arena *rbnode_find(struct rbnode __arena *subtree, u64 key)
+>>   	return node;
+>>   }
+>>   
+>> +/*
+>> + * Find the node to link @key under. Smaller keys go left and everything else
+>> + * right, so a new key lands after every node with an equal key and equal keys
+>> + * stay in insertion order. Rotations and removals preserve the in-order
+>> + * sequence, so they keep that order too.
+>> + */
+> 
+> I think this description is more harm than good let's remove it. Can we also keep the
+> old name? The new one sounds like we're inserting a parent.
+
+Sure, I will drop the comment and keep the original name in v2 as you
+suggested.
+
+Regards,
+Changwoo Min
+> 
+>>   static
+>> -struct rbnode __arena *rbnode_least_upper_bound(struct rbnode __arena *subtree, uint64_t key)
+>> +struct rbnode __arena *rbnode_insert_parent(struct rbnode __arena *subtree, uint64_t key)
+>>   {
+>>   	struct rbnode __arena *node = subtree;
+>>   	int dir;
+>> @@ -171,7 +177,7 @@ struct rbnode __arena *rbnode_least_upper_bound(struct rbnode __arena *subtree,
+>>   		return NULL;
+>>   
+>>   	while (can_loop) {
+>> -		dir = (key <= node->key) ? 0 : 1;
+>> +		dir = (key < node->key) ? 0 : 1;
+>>   
+>>   		if (!node->child[dir])
+>>   			break;
+>> @@ -255,7 +261,7 @@ int rb_node_insert(struct rbtree __arena *rbtree,
+>>   	if (rbtree->insert != RB_DUPLICATE)
+>>   		parent = rbnode_find(parent, key);
+>>   	else
+>> -		parent = rbnode_least_upper_bound(parent, key);
+>> +		parent = rbnode_insert_parent(parent, key);
+>>   
+>>   	if (key == parent->key && rbtree->insert != RB_DUPLICATE) {
+>>   		if (rbtree->insert == RB_UPDATE) {
+>> @@ -278,8 +284,8 @@ int rb_node_insert(struct rbtree __arena *rbtree,
+>>   	}
+>>   
+>>   	node->parent = parent;
+>> -	/* Also works if key == parent->key. */
+>> -	if (key <= parent->key)
+>> +	/* An equal key goes right, after the existing ones. */
+>> +	if (key < parent->key)
+>>   		parent->left = node;
+>>   	else
+>>   		parent->right = node;
+> 
+
