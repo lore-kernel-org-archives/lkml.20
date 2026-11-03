@@ -1,50 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689410;
-	b=ans9/mgR1f8KuVmO9YbWs7S06J/El5sxb1GYNr5JifkDSkpvX306f5Vhg2f9bIVfE5I2
-	 ADVXuAbXAVnJiV/8dJEqu/w4VkjYxs8os9zfIv59+Un4ptzu6Udy+1OFksJCb3Ny0/RJt
-	 e3k85+YLXz9GjMR9GlMRLVpuF8CYSb6C/yywc4UGNTBPsMMOmY8WcYz+6gWH2gkEzU3wO
-	 yO687LVLH0+QtMa9ArFOGk2HrS8dkJtcp0RpWzmdfrM55aRRUzuCKWMhSYsUkAI5wSUm0
-	 AyUGY6NOCQp/rsI3KgpyU3k3WHQ9Kb8TJDOSF994AS5FTOvP/1n6TjdF+9hV2g7hKhQ==
+	t=1793689462;
+	b=nbBmuhcx79GrP3J3VijNjJ7HtqBeiXumY6IuXi/S35b8cvCScB9ZgA7dKxUVl364B/vL
+	 QM6giSdAgw/ymAQDoYU5rRWPjdS4Yc6605/eKvCx29RyruQWu5I3rhUcwaFCNro0zY+oW
+	 EthVMU8nixal6kJzux19emldgZebB2Eu8kr9wEDnDRiwcqxmXLaE6aVm1HzR+N2yIcjXh
+	 doaYKlBI7e8HPg8ZSzNXzEmJ4np8wt3CRoqNf0hEOY2RN3OTYOre7AqRqBv39DDZYlkMb
+	 mHm7/3+z48taRVchGTtx6N094HlrSLH1lhkcOvWVtR0I7BsbXFVrVx5hcx2zpyfo2gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689410;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=aQIzl+tuB5OFcAf0kolt2eswfBhJMyO4rrUmymjV7pY=;
-	b=rVVbuyRbaoWcTzvDUN5Lnm3Gs4Ddk0qO+GpHur+ag4+Gu1Xt+ZZJo0Wu5jWEQLegUmg6
-	 ofctkDgwoXydIpDvpxwmd49qoh8JQjdZoq9Sm1SBQNTx8BWea8NtK1pSPyCrz7ihgqWZN
-	 aZ+LZkokGiQvNBOpd34kSD63SWvpLp9JgqlEY5keUJiRPDjQ8mq9fXlFAbeK0z99QmTjw
-	 A8uIe/LYfNTnPMFQqfFaI/wrglsu4T4BbskI5kPCCRoluKARb30Nc1It1q15HDQtujj8S
-	 EadL2et8tqMQ9YdRcgrWgj9rg9Gl6JEzLwU5YPH0Vfm/850a7WvTTleozjQ3l3XWNKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689462;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=v3HVGrDn19qzJKOsOUSd0NNPtRrAAsxOMD2NnhVPCgo=;
+	b=F/g4ecpGpxxbehVS10DO46gOPARPa0MDov2jdxNaIjwgckqEP3prhl4AAaUOSXKTmwUw
+	 9dV7JPMYnrH640GePej2u+1Eef79FB/C3bT1sKq5/wekv0taD2XSUhIpe1y+7E9Ppxqd9
+	 XOFRwo9gK6S61lTJLCgBDZ1f2ff39FNq3qtV03QJrkVr8c8qIS6FqYAgZVUMgdiY+UtQp
+	 7+6NRnrzGJitJlzsx7sMbGiO0MLczzuf3CHfVOeL54LhgREl0qqtBEVkrBR7xj3BZXCDk
+	 ZQkZGklEHIPN7XLkckhAseSthx+P7UU8SM+qFNphaP61jSunJBh6eSUvjIanmMJw70A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--robertpang.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P3IPTl+R;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C57606A324;
-	Tue,  3 Nov 2026 07:03:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1C57606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADn9ZY6h+lqvKQ5AA--.377S2;
-	Tue, 03 Nov 2026 15:03:22 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: lyude@redhat.com,
-	dakr@kernel.org
-Cc: nouveau@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau: Remove the audio device link on component unbind
-Date: Tue,  3 Nov 2026 07:03:31 +0000
-Message-Id: <20261103070331.1079868-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03E0606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C03E0606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--robertpang.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P3IPTl+R
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1aa0fb7f157so6032720c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:04:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793689461; x=1794294261; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v3HVGrDn19qzJKOsOUSd0NNPtRrAAsxOMD2NnhVPCgo=;
+        b=P3IPTl+RbNzVLTOKrXaQQZns1M7Zkhfj2OCkUUY9k5uIssjSECmBKFO11x14bYMJXW
+         +6tpc8ksOZ7B2A41b0/UUh80ncD04oS0nTEEwmLlvoZAKsn5FLQy732N+X7TVQjXM7Cx
+         gGgZuEC6HRpeEQb2AvwEsh0v3peWfOFRIUvwoNGgk0/V8EjDS4QgZ2G+13vy7Uu+FNYL
+         tOipZ5c3pFoaOoeQuYSF/DeoFJdy5VIF5XO4tPFkmoHFYpM5SNsdWVW79BjZEUryo1TT
+         jd7Uz2TKEJXbudVZE71wqbqjJBWi8lITCawdu5ToY/oCIA9pJVHIJ5mMxe2sMAi+l8Ub
+         KGkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793689461; x=1794294261;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v3HVGrDn19qzJKOsOUSd0NNPtRrAAsxOMD2NnhVPCgo=;
+        b=jyXaFbV3bJDRLJmwCiLoh/wepfHcjA5qyqwV1LXApUGcachrfuKku4RckRUhlRmGr2
+         XoBtWVDrkpNZyqVYDH478gAn3EsNn2MX9e9qhPlccj0BTGLjjFrR0fGBjhEAWYzooSIv
+         z7oaUcwgtqiyjzpBDFg+LcAMcPEoSH++xXUEhDRx67u0bGKJIwuC9MqE4mcz1GJ5OCaH
+         KdyCFGmsl9R81C036n3Q0sfH9/7upRvMDowLDuSbea+kbJrtdV/ha8TJPs6KyedOu8mV
+         uZyh1He77pfag6yfJSh5Dl7+i1JxveRFsv9e4RTxPZwOevKNauWQQDPqG7qqJ02jdJRk
+         lz3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxQTzw/TzIMT7BzbTbTVBloFDP7fEc9aIKdvnlZC3lgc1wyzvqgln5hwSEcjwWgqHb2QlGUrQx747x0jMc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nEap4tZcPP3lQBGxkhQKAbkrZqJwm9hNW5jhe43+MmusVmFqm
+	M0f+aGBw9sk22/c7kKOneR+pmzS2EJG5BjgZeUXPtOalodp4/S6Mu6bg5HiEOwLwWbWZi6YlUm6
+	PbVdUyW3dV0RjXVfl+EH+3g==
+X-Received: from dldyr25-n2.prod.google.com ([2002:a05:701b:4519:20b0:195:cde8:ab41])
+ (user=robertpang job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:1089:b0:14d:3c0c:79e9 with SMTP id a92af1059eb24-1ac5b027fccmr17755954c88.11.1793689460359;
+ Mon, 02 Nov 2026 23:04:20 -0800 (PST)
+Date: Mon,  2 Nov 2026 23:04:06 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,57 +75,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADn9ZY6h+lqvKQ5AA--.377S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KryfCr15XFyDJry7tr43ZFb_yoW8GrykpF
-	48XF9xArWUWa1agay0y3W0vF15CanYyFWxC3sFk3sIgws0yr97CryYqw48XrW5JFs3uFs0
-	qrnxt34UXa18CaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
-	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUO2
-	NtDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQAA2rpWfWRkAACsy
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
+Message-ID: <20261103070407.1211071-1-robertpang@google.com>
+Subject: [PATCH] bcache: fix available bucket accounting in bucket allocation
+From: Robert Pang <robertpang@google.com>
+To: colyli@fygo.io, kent.overstreet@linux.dev
+Cc: linux-bcache@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	robertpang@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-nv50_audio_component_bind() creates a stateless device link from the HDA
-device to the GPU. Component unbind clears the audio component pointers
-but never removes that link. Stateless links are reference counted and
-must be explicitly released by their caller, so repeated component binds
-retain a link reference on every cycle.
+In bch_bucket_alloc(), a cache set's avail_nbuckets is decremented whenever a
+bucket is allocated, assuming that the bucket becomes unavailable once
+allocated. However, when a bucket is allocated but the GC mark is unset or
+reclaimable, it is available still. This false counter decrement leads to an
+inflated in-use measurement, which triggers cache bypasses once CUTOFF_CACHE_ADD
+is reached, persisting until the next garbage collection cycle.
 
-Remove the link after disconnecting the audio component in unbind. This
-also covers a later failure of the HDA component master's bind callback.
+Fix this by ensuring avail_nbuckets is only decremented when the allocated
+bucket is already marked and not in the GC_MARK_RECLAIMABLE state.
 
-Fixes: 742db30c4ee6 ("drm/nouveau: Add HD-audio component notifier support")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Robert Pang <robertpang@google.com>
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/md/bcache/alloc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index e91130f93db6..bcfddb7008ac 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -672,6 +672,8 @@ nv50_audio_component_unbind(struct device *kdev, struct device *hda_kdev,
- 	acomp->ops = NULL;
- 	acomp->dev = NULL;
- 	drm_modeset_unlock_all(drm->dev);
-+
-+	device_link_remove(hda_kdev, kdev);
- }
+diff --git a/drivers/md/bcache/alloc.c b/drivers/md/bcache/alloc.c
+index 3ec240ec685d..2d0cb9b414ac 100644
+--- a/drivers/md/bcache/alloc.c
++++ b/drivers/md/bcache/alloc.c
+@@ -446,7 +446,8 @@ long bch_bucket_alloc(struct cache *ca, unsigned int reserve, bool wait)
+ 		b->prio = INITIAL_PRIO;
+ 	}
  
- static const struct component_ops nv50_audio_component_bind_ops = {
+-	if (ca->set->avail_nbuckets > 0) {
++	if (ca->set->avail_nbuckets > 0 &&
++	    GC_MARK(b) && GC_MARK(b) != GC_MARK_RECLAIMABLE) {
+ 		ca->set->avail_nbuckets--;
+ 		bch_update_bucket_in_use(ca->set, &ca->set->gc_stats);
+ 	}
 -- 
-2.34.1
+2.56.0.398.g882cbad275-goog
 
