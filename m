@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793736445;
-	b=bwVFPpBLwuz5GAhsgXrR/WPkzRh2LRM13qDoTDaGmP97g7ZgHnk56ARBliKf/fM7yBBe
-	 GyG86StUIRlAYM5BeAkWUksC+PgMQFVtnltcZxN2bd2syCvHhVQr7ypZx/I0C9V1cvSRa
-	 kzYRs3Ek/xKSux/gEuzp/TyoeOQ73EFwgLJtREVRE3PfivsDveg2E+X6p5Hw6TNpEGzgM
-	 9JMaGVq1Wb1u9jqmBb+Mu7vb8grFumKuGVbM7sxye/RCZ1St72e7LPFjIiNx5jizPEQDR
-	 2pScxLhUg85myoumgZ/JylZrJKITAoqgc1x1VGNrvMaIJxxra8IjN8dtxnrqhn3VrKA==
+	t=1793736467;
+	b=OBsl2ZflvZ7R9MOaOaHcazvBoJXFfXwXjMBA0BWhdzimOHg6jqkis/NbyNaHDH/Bwfm9
+	 2WGe52F9+D63bLi2j7oPtwXNHTYaGMpNrTLgHwPAx77Mp/gWYA7aEyrEjRJCglN1cnzEL
+	 5dmK1dyMgrSC4F+1xL5skrhnqorjdFmFtl/od4PQXGsqnKsTTwH8nvgiQZw0C0JmiYCGX
+	 bboKcqBS1Llu7F3Ph36s+2D6yesf/TX4MQRPeeze25X+eI0ie6dDKcvzsyXfuIA3HDJrS
+	 aIYGVwS6GQAuPk175odFsakR6Q7jHNdsfvAFpwtKp77KMC3NVlhfsmzQJES5cxh3R7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793736445;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Djp7fxIvWGZFaV0DbzEZyakJG4BafUd57S34IbT5aLo=;
-	b=UJnRnGKxDw533fRrNXDNBSYceATpeok54UiHtPSzIXJuAvqrVAyUh2RefHipjd8YURhi
-	 U2ikNOAV6wGIXzqlug2Jwus9AlyLy/Gbj4PfS/9EDh/rROuAvaZif70c2/9Pn/zZdpxcW
-	 SSxKUuouapCK9lCOJ7fFdPh3aSuADHVpZC/AG0nktRUu3uJqRAufY+KA/hT/+mvELNuZ9
-	 Jp8zqlJ6GR9rY+prIkFMb3V8qFm5QUycEcJvTedRWiuhq+Iic7SfmX4WLGvDVLFz9T540
-	 jMBcesBAiBtFFOrn4G3+YfWqzqRbvxIVwnuVp2lDYRBrjdFFOghSGPzXnIIyRXPwMqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736467;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5rZwAD3Ycaihst6dgcoNSxFsehJMseduQ8wGz5Hbzvw=;
+	b=U6Y0F1dvEDqd4ByqQJ5Kp3kCsERAXVyll9ZWQpdJlvw1SO54JP9E4AfLBVDP5jLJ8ElR
+	 u0Kqe5emrWDaulbU1BoPfV88rnQj7ahJhGLZXln/dkrZsFK2VOMht1M020zgAWRmGmu2V
+	 HyEDYwuOfDKcAyYA5M8P04SZanuSLJNWrPQUgyEd4GMouq6sYMHrMFKidI1C2nt/NZ1DV
+	 hYtVPG54WV0CAXn28p+POGM8lpmZT+fR9LXROuQyHtaXBltJITeminhl4qvs+BwDDu0rt
+	 I7GbzfFiGgcqPXMWcM969M93ATgNWTkiYFyB/JzglRJD90WaUR1zVheZoCmElK6/J/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JKiHUjlx;
-	arc=none smtp.remote-ip=95.215.58.225
-Received: from mta1.migadu.com (out-225.mta1.migadu.com [95.215.58.225])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCC3nV3g;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D28606EE84
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:07:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72D28606EE84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DCE606A31B;
+	Tue,  3 Nov 2026 20:07:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JKiHUjlx
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+HBh9PCDoOVSgniwVzdp064w1if1mJ10eg0q78SkfXI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793736442; v=1; x=1794341242;
- b=JKiHUjlxQinO8oW9vB04u469qYYq4s5Hq+cjCf/v0prr7PqlsqGgKIfpUlh7Fif+YGr4LVMl
- SiOpRU3ciGYrakDAfinmi6u2sgmtN+vKi6/qrlTam+WoJ5xoLuimakR+FBL0YPvHRVEM4FJv1ON
- psTHG4yZQ5GLYBT11hm7EcOg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8a98e208986c0b77;
-	Tue, 03 Nov 2026 20:07:22 +0000
-X-Mizu-Trace-ID: 8a98e208986c0b77
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: broonie@kernel.org
-Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Oder Chiou <oder_chiou@realtek.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/5] ASoC: rt721-sdca: wait for PDEs to reach PS0 after powering them up
-Date: Tue,  3 Nov 2026 12:05:39 -0800
-Message-ID: <20261103200540.3863272-6-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103200540.3863272-1-matthew.schwartz@linux.dev>
-References: <20261103200540.3863272-1-matthew.schwartz@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCC3nV3g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 777DE1F000C1;
+	Tue,  3 Nov 2026 20:07:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793736466;
+	bh=5rZwAD3Ycaihst6dgcoNSxFsehJMseduQ8wGz5Hbzvw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jCC3nV3gatYb+Op+60ZOPxNoM07PP2vmltvuWnmxmXsapTEmJjATJ7Nr6ROlU3ZeY
+	 kHis+d1l0GqsnjSrVf6k4t2mhB323KrYjYFec9GQ+u+xjyH5DmTGnk2pJguctxEjLW
+	 MAK0ac+wmy5baBVsuFkGb1c6bkO1yq/Q+OHz65KtZROwEVXqhT0y+5ZET3JAfq/QU+
+	 ycQ5Cg3scRwTpTYrY429Bk5l72MDqb8Q7x3SoGpjbcO3ZZJjlI2yDFF2s09na/pOey
+	 5aWbIQ9VtwzJ496kH61763zne4hBv9T2tfF9dK8GsjlDTbvuUfQRTmZwvWY3oUIOXr
+	 XTQF91uXjCFJw==
+Date: Wed, 4 Nov 2026 07:07:37 +1100
+From: Dave Chinner <dgc@kernel.org>
+To: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+Cc: Christian Brauner <brauner@kernel.org>, gfs2@lists.linux.dev,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+5e659793378ad9e06387@syzkaller.appspotmail.com
+Subject: Re: [PATCH] iomap: allow writeback from kswapd again
+Message-ID: <auo_CehOVzTMq6kc@dread>
+References: <20261103023804.8074-1-wuyiqing@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,170 +60,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103023804.8074-1-wuyiqing@cmss.chinamobile.com>
 
-The PDE event handlers write REQUESTED_PS and return, so DAPM unmutes
-the feature unit and the stream starts while the power domain is still
-transitioning. On the ASUS ROG Xbox Ally X20 the first headset mic
-capture after the capture path powers down starts with about 0.45 s
-pinned at full scale, and the DisCo tables give the jack function PDEs
-up to 500 ms to reach PS0.
+On Tue, Nov 03, 2026 at 10:38:04AM +0800, Yiqing Wu wrote:
+> Commit ff59f71f1c95 ("iomap: simplify writepages reclaim guard") removed
+> the PF_KSWAPD exemption from the iomap_writepages() guard on the
+> assumption that kswapd can no longer reach filesystem writeback now
+> that pageout() returns PAGE_ACTIVATE for non-shmem, non-anon folios.
+> That assumption only covers the folio reclaim path.  kswapd can still
+> reach filesystem writeback through the inode shrinkers, and syzbot
+> reports exactly that on GFS2:
+> 
+>   WARNING: (current->flags & PF_MEMALLOC) in iomap_writepages
+>   kswapd -> balance_pgdat -> shrink_node -> shrink_slab
+>   -> super_cache_scan -> prune_icache_sb -> evict
+>   -> gfs2_evict_inode -> evict_linked_inode -> gfs2_log_flush
+>   -> gfs2_ordered_write -> filemap_fdatawrite -> do_writepages
+>   -> gfs2_writepages -> iomap_writepages
 
-Poll ACTUAL_PS with sdca_asoc_pde_poll_actual_ps() after each power up,
-like rt722 does since its DMIC pop noise fix, and use the 500 ms maximum
-for the jack function PDEs. Power down is left alone because ACTUAL_PS
-can stay at PS0 while the data port is still running.
+Oh, that's awful. Nothing should be calling into iomap_writepages
+from reclaim context.
 
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
----
- sound/soc/codecs/Kconfig          |  1 +
- sound/soc/codecs/rt721-sdca-sdw.c | 17 ++++++++++++++++
- sound/soc/codecs/rt721-sdca.c     | 33 +++++++++++++++++++++++++++++++
- sound/soc/codecs/rt721-sdca.h     |  1 +
- 4 files changed, 52 insertions(+)
+i.e. Doing data writeback from the inode cache shrinker is extremely
+suboptimal for many reasons, so I'd consider this a gfs2 bug, not an
+iomap issue. It's even worse when data writeback is being driven by
+an inode cache shrinker. I'm surprised that lockdep hasn't thrown a
+hissy-fit over this (i.e. inode locks taken in writeback appearing
+both above and below reclaim.
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index ba59dabeeccde..133f397cc6e96 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1978,6 +1978,7 @@ config SND_SOC_RT712_SDCA_DMIC_SDW
- config SND_SOC_RT721_SDCA_SDW
- 	tristate "Realtek RT721 SDCA Codec - SDW"
- 	depends on SOUNDWIRE
-+	depends on SND_SOC_SDCA
- 	select REGMAP_SOUNDWIRE
- 	select REGMAP_SOUNDWIRE_MBQ
- 
-diff --git a/sound/soc/codecs/rt721-sdca-sdw.c b/sound/soc/codecs/rt721-sdca-sdw.c
-index fc34a0537d5fb..44cf9ca866c94 100644
---- a/sound/soc/codecs/rt721-sdca-sdw.c
-+++ b/sound/soc/codecs/rt721-sdca-sdw.c
-@@ -39,6 +39,14 @@ static bool rt721_sdca_readable_register(struct device *dev, unsigned int reg)
- 		RT721_SDCA_CTL_HIDTX_CURRENT_OWNER, 0) ... SDW_SDCA_CTL(FUNC_NUM_HID,
- 		RT721_SDCA_ENT_HID01, RT721_SDCA_CTL_HIDTX_MESSAGE_LENGTH, 0):
- 	case RT721_BUF_ADDR_HID1 ... RT721_BUF_ADDR_HID2:
-+	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT721_SDCA_ENT_PDE12,
-+		RT721_SDCA_CTL_ACTUAL_POWER_STATE, 0):
-+	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT721_SDCA_ENT_PDE40,
-+		RT721_SDCA_CTL_ACTUAL_POWER_STATE, 0):
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT721_SDCA_ENT_PDE2A,
-+		RT721_SDCA_CTL_ACTUAL_POWER_STATE, 0):
-+	case SDW_SDCA_CTL(FUNC_NUM_AMP, RT721_SDCA_ENT_PDE41,
-+		RT721_SDCA_CTL_ACTUAL_POWER_STATE, 0):
- 	case SDW_SDCA_CTL(FUNC_NUM_AMP, RT721_SDCA_ENT0,
- 		RT721_SDCA_CTL_FUNC_STATUS, 0):
- 		return true;
-@@ -64,6 +72,14 @@ static bool rt721_sdca_volatile_register(struct device *dev, unsigned int reg)
- 		RT721_SDCA_CTL_HIDTX_CURRENT_OWNER, 0) ... SDW_SDCA_CTL(FUNC_NUM_HID,
- 		RT721_SDCA_ENT_HID01, RT721_SDCA_CTL_HIDTX_MESSAGE_LENGTH, 0):
- 	case RT721_BUF_ADDR_HID1 ... RT721_BUF_ADDR_HID2:
-+	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT721_SDCA_ENT_PDE12,
-+		RT721_SDCA_CTL_ACTUAL_POWER_STATE, 0):
-+	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT721_SDCA_ENT_PDE40,
-+		RT721_SDCA_CTL_ACTUAL_POWER_STATE, 0):
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT721_SDCA_ENT_PDE2A,
-+		RT721_SDCA_CTL_ACTUAL_POWER_STATE, 0):
-+	case SDW_SDCA_CTL(FUNC_NUM_AMP, RT721_SDCA_ENT_PDE41,
-+		RT721_SDCA_CTL_ACTUAL_POWER_STATE, 0):
- 	case SDW_SDCA_CTL(FUNC_NUM_AMP, RT721_SDCA_ENT0,
- 		RT721_SDCA_CTL_FUNC_STATUS, 0):
- 		return true;
-@@ -595,3 +611,4 @@ module_sdw_driver(rt721_sdca_sdw_driver);
- MODULE_DESCRIPTION("ASoC RT721 SDCA SDW driver");
- MODULE_AUTHOR("Jack Yu <jack.yu@realtek.com>");
- MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("SND_SOC_SDCA");
-diff --git a/sound/soc/codecs/rt721-sdca.c b/sound/soc/codecs/rt721-sdca.c
-index 9f567caecb70a..db4bf367011ec 100644
---- a/sound/soc/codecs/rt721-sdca.c
-+++ b/sound/soc/codecs/rt721-sdca.c
-@@ -21,6 +21,9 @@
- #include <linux/soundwire/sdw_registers.h>
- #include <linux/slab.h>
- #include <sound/soc-dapm.h>
-+#include <sound/sdca.h>
-+#include <sound/sdca_asoc.h>
-+#include <sound/sdca_function.h>
- #include <sound/sdw.h>
- #include <sound/tlv.h>
- 
-@@ -1482,6 +1485,32 @@ static int rt721_sdca_fu36_event(struct snd_soc_dapm_widget *w,
- 	return 0;
- }
- 
-+/* The DisCo tables give the jack function PDEs up to 500 ms for PS3 to PS0 */
-+static const struct sdca_pde_delay rt721_jack_pde_delays[] = {
-+	{ .from_ps = SDCA_PDE_PS3, .to_ps = SDCA_PDE_PS0, .us = 500000 },
-+};
-+
-+/* REQUESTED_PS only starts the transition, so wait for ACTUAL_PS to reach PS0 */
-+static void rt721_sdca_pde_wait_ps0(struct rt721_sdca_priv *rt721,
-+				    unsigned char func, unsigned char entity)
-+{
-+	const struct sdca_pde_delay *delays = NULL;
-+	int num_delays = 0;
-+	int ret;
-+
-+	if (func == FUNC_NUM_JACK_CODEC) {
-+		delays = rt721_jack_pde_delays;
-+		num_delays = ARRAY_SIZE(rt721_jack_pde_delays);
-+	}
-+
-+	ret = sdca_asoc_pde_poll_actual_ps(rt721->regmap, func, entity,
-+					   SDCA_PDE_PS3, SDCA_PDE_PS0,
-+					   delays, num_delays);
-+	if (ret)
-+		dev_warn(&rt721->slave->dev, "PDE 0x%x did not reach PS0: %d\n",
-+			 entity, ret);
-+}
-+
- static int rt721_sdca_pde47_event(struct snd_soc_dapm_widget *w,
- 	struct snd_kcontrol *kcontrol, int event)
- {
-@@ -1495,6 +1524,7 @@ static int rt721_sdca_pde47_event(struct snd_soc_dapm_widget *w,
- 		regmap_write(rt721->regmap,
- 			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT721_SDCA_ENT_PDE40,
- 				RT721_SDCA_CTL_REQ_POWER_STATE, 0), ps0);
-+		rt721_sdca_pde_wait_ps0(rt721, FUNC_NUM_JACK_CODEC, RT721_SDCA_ENT_PDE40);
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
- 		regmap_write(rt721->regmap,
-@@ -1518,6 +1548,7 @@ static int rt721_sdca_pde41_event(struct snd_soc_dapm_widget *w,
- 		regmap_write(rt721->regmap,
- 			SDW_SDCA_CTL(FUNC_NUM_AMP, RT721_SDCA_ENT_PDE41,
- 				RT721_SDCA_CTL_REQ_POWER_STATE, 0), ps0);
-+		rt721_sdca_pde_wait_ps0(rt721, FUNC_NUM_AMP, RT721_SDCA_ENT_PDE41);
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
- 		regmap_write(rt721->regmap,
-@@ -1541,6 +1572,7 @@ static int rt721_sdca_pde11_event(struct snd_soc_dapm_widget *w,
- 		regmap_write(rt721->regmap,
- 			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT721_SDCA_ENT_PDE2A,
- 				RT721_SDCA_CTL_REQ_POWER_STATE, 0), ps0);
-+		rt721_sdca_pde_wait_ps0(rt721, FUNC_NUM_MIC_ARRAY, RT721_SDCA_ENT_PDE2A);
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
- 		regmap_write(rt721->regmap,
-@@ -1564,6 +1596,7 @@ static int rt721_sdca_pde34_event(struct snd_soc_dapm_widget *w,
- 		regmap_write(rt721->regmap,
- 			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT721_SDCA_ENT_PDE12,
- 				RT721_SDCA_CTL_REQ_POWER_STATE, 0), ps0);
-+		rt721_sdca_pde_wait_ps0(rt721, FUNC_NUM_JACK_CODEC, RT721_SDCA_ENT_PDE12);
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
- 		regmap_write(rt721->regmap,
-diff --git a/sound/soc/codecs/rt721-sdca.h b/sound/soc/codecs/rt721-sdca.h
-index cc3bce0ba5178..2ae68ce3fde28 100644
---- a/sound/soc/codecs/rt721-sdca.h
-+++ b/sound/soc/codecs/rt721-sdca.h
-@@ -260,6 +260,7 @@ struct rt721_sdca_dmic_kctrl_priv {
- #define RT721_SDCA_CTL_XUV				0x34
- #define RT721_SDCA_CTL_FU_CH_GAIN			0x0b
- #define RT721_SDCA_CTL_FUNC_STATUS			0x10
-+#define RT721_SDCA_CTL_ACTUAL_POWER_STATE		0x10
- 
- /* RT721 SDCA channel */
- #define CH_L	0x01
+This is the patch series that Jan Kara came up with to deal with
+these issues in inode eviction:
+
+https://lore.kernel.org/linux-fsdevel/20261009133253.20102-1-jack@suse.cz/
+
+This allows filesystems to defer inode eviction that might block
+(e.g. due to transaction reservations, journal commits, metadata
+read requirements, data writeback requirements, etc) to a context
+where the work is allowed to block and isn't running under memory
+reclaim context or restrictions.
+
+That patchset is needed for ext4, XFS alreayd does this, and it
+would seem that gfs2 needs it for glock reclaim....
+
+> Under memory pressure kswapd evicts GFS2 inodes whose glock is still
+> dirty, and gfs2_evict_inode() -> gfs2_log_flush() ->
+> gfs2_ordered_write() then writes back the ordered data of every inode
+> on sd_log_ordered.  This is long-standing, intentional behaviour: in
+> the default data=ordered mode GFS2 must flush dirty data before the
+> log commit that writes the metadata.
+
+It's also long standing, known broken behaviour w.r.t. shrinkers
+running in memory reclaim contexts.
+
+So, why doesn't this warning happen through the direct reclaim path?
+i.e.  what makes only kswapd trigger this?
+
+I see nothing that prevents direct reclaim doing inode eviction
+from triggering this same path through gfs2_evict_inode(). IOWs,
+direct reclaim should also be triggering the warning in
+iomap_writepages(), hence it is not clear to me why re-adding the
+kswapd guard is anything other than a band-aid over the broken code
+in gfs2....
+
+> Writeback from kswapd has been
+> explicitly allowed since 2010, when the guard was still in XFS:
+> commit d4f7a5cbd544 ("xfs: allow writeback from kswapd"), because
+> the kswapd stack usage is low and it cannot deadlock on the
+> filesystem.
+
+No, that was a regression fix for turning off all writeback from
+reclaim in XFS as a 'what problems does stopping mm reclaim
+writeback actually cause' experiment. That was the first steps we
+took down the path to get rid of the problematic random dirty page
+writeback issues that memory reclaim had.
+
+IOWs, we didn't want to allow it, but we had to tolerate it because
+the MM behaviour was unfixable at the time. Now that the
+pageout()->.writepage() path for dirty filebacked page writeback is
+gone from the mm, we no longer have to tolerate this behaviour 
+and so the guard got removed. It only took 15 years to get to this
+point....
+
+tl;dr: Writeback through iomap in memory reclaim context is -a bug-.
+
+> Beyond the noisy warning the new guard is actively harmful: it returns
+> -EIO on every hit (WARN_ON_ONCE only limits the report), while
+> gfs2_ordered_write() ignores the filemap_fdatawrite() return value, so
+> the log commit proceeds with metadata even though the ordered data was
+> never written, breaking the data-before-metadata ordering guarantee of
+> data=ordered mode.
+
+This is definitely a gfs2 bug - writeback can fail for -many-
+reasons, so ignoring IO submission failures when data integrity is
+required is a definitely filesystem bug.
+
+> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> index d6e2f1ded5ca..324da0f5cb29 100644
+> --- a/fs/iomap/buffered-io.c
+> +++ b/fs/iomap/buffered-io.c
+> @@ -2082,7 +2082,7 @@ iomap_writepages(struct iomap_writepage_ctx *wpc)
+>  	 * Writeback from reclaim context should never happen except in the case
+>  	 * of a VM regression so warn about it and refuse to write the data.
+>  	 */
+> -	if (WARN_ON_ONCE((current->flags & PF_MEMALLOC)))
+> +	if (WARN_ON_ONCE((current->flags & PF_MEMALLOC) && !current_is_kswapd()))
+>  		return -EIO;
+
+AFAICT, direct reclaim will still trigger this warning and the bad
+gfs2 behaviour, so I'm struggling to see this as anything other than
+shooting the messenger...
+
+Cheers,
+
+Dave.
 -- 
-2.56.0
-
+Dave Chinner
+dgc@kernel.org
