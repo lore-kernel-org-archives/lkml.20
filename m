@@ -1,108 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712137;
-	b=rO3egPKvrI/OtSI8BpCFSX7GxyLBV0AfvjHXykm2zROlquCikDX8HiEUrPF/zTGaBYlu
-	 IIwAj0c2UybUj2mPe3Z19VC8Lq/1gQKX0w7zETHzfwO2qUBeDNfYuK6ihV5rDnrUISP3V
-	 nI/rwzAmhVVpSCYWJnzi/HZlQXJlKVIjeuV+M7yEXhql8YtbCMBvhLOqHVcnK/S4ykH1c
-	 VPH0gWag4LWlyT6JVXSVZaAF6LAltOtpBNK4qKYzQw4ENAN5uFUHRL+wplyA0I0mz7VRX
-	 UBbvCs55sxRu30DRv+wwSxFCNeERyB9cjbzbHgXKp7yGBa2QIjiawz2uFeEjKZSfiRg==
+	t=1793712151;
+	b=gD4C9GX9N70T7vdKr7neTPrv+wXSvqaaaw9rGVC6h4olC11kCdD3/h8DU5OCZ2VW4wYR
+	 9uwUh46A+tgGjkK0z4cGSECI9IOaRqDgrbGFJLu9CJhKN2KGi2nDeCAv1/lf6+Fp768AU
+	 ARdmLAo3jxwjntjLi2ZmPZRKbBmdElBZPfe+pWrT84Xd855Xa6Ku0EmzfzaAMKg4lP7ze
+	 vAnXUGzqPxWwqOAQ1+o8/T12tqoUvGPemrDJr11TRR7DMAyBLlStNne16xTBYBKmsC0CC
+	 4OdjrVYwh1pWQBByihUzEa1RUWWTxQuPS74S9FSjCX/y2alTcc1d2NyC/sEz6/Jdduw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712137;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8Kzcx1A/Tq9zWXJslDd6YxO62sKoQa5PKvjaSVV6eKA=;
-	b=MQ34q3JkUdQ44v9HSEIUw8zw5AiJ4E8smFFawfGmVyVZGdqtWWUVzCcvc1R01SBDVAnI
-	 w7f9bOb0X/6BHiNl7ltvpa+y79K/A5zswkBrbHpBB7VZu2gQbDOefEo4xFnBxbBk/ff5N
-	 wLceEEMXv1ipHo7gbmfXjQxthepinPHw8olXI0dYIXRrXZa5bOPpA/TjLySbX4dPywn9V
-	 Pt9E27PD9k4NZKRrBh7/HXssDpOnA7GbD/2Aqs2C5k7I6CmFfOPJANdehDUAtnBysSw9c
-	 JSIbWUwqw6twg28zwk6C9dJnBTPFkOJfSexD50KYL6LDzJaCg6KctG7N/KY8mtuaQhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712151;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZO15Wpi9ERhHWGfexIrXUF/h1fo5dyIH9P5nUF4t1yQ=;
+	b=E0h3xrdc70AARFuuQijYU5oT3kS0afguC4h8escXClKyLvxjRdHZFTkb9MQn4vk/DIXq
+	 OTnN+G0FyCirRkgqMFdV2aqGbmfeutEiCsNT0/fia9yqzfzBiClo8XZhp7vUFMu/4w04a
+	 3VJu87s9QUelWzshXW9eeV6eijdxZHPfYoWVd5p5lsCqnIOgMBegodpWyA+DjyUC92WLN
+	 DwehtcTmKUVyyau559mfZLES9lRayLj7ngZV4O1URecXMFH/tZzCV2tv3jP2Y/RSJhmKw
+	 JWLt+qgP4qhmNKgz6KZCq51H/QqBqxDTa8uQzSUIPJPd8+v4xSBkB/mVaCblp0vjbPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xGKBFkvy;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=hFn5Q9UN;
+	arc=none smtp.remote-ip=109.224.244.17
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FC1606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:22:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5FC1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95228606A327;
+	Tue,  3 Nov 2026 13:22:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95228606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xGKBFkvy
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso34062525e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:22:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793712135; x=1794316935; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Kzcx1A/Tq9zWXJslDd6YxO62sKoQa5PKvjaSVV6eKA=;
-        b=xGKBFkvyoruR2hSynxaYEtGpl7S+cJLG6RbJGPvEpLWcJKfstePG11sMWW86D6JbMT
-         NfQgB5pKxSmsP+6RdXj1tS5GNywATI1Wx1e9t9n0yFvgV+VvAlPSG8zGogInyagVRwFD
-         tnqDbPhRv8fb+5GA0ayL2dTZPMb0OBZSoFt2qziemUJ8JIeh1Bj4qKAfT9ds2M2kauWs
-         NF09J/wzdkImyWRIwas3xiALvjdm5Yeg72Aeki07YFuxmG8iAIO+teed5s+MmTDNRqep
-         jEQ3z0ZmXyVwHJqfotVs5Un9/T5qd+EIg6R2x2Mx+OpZ7qSQaoJUCSsUGgvJenp9j0ZR
-         NfCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793712135; x=1794316935;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Kzcx1A/Tq9zWXJslDd6YxO62sKoQa5PKvjaSVV6eKA=;
-        b=dFGwByUtIbQL/pNaiqCFOS1jfbFgoAguxe+R09a18XBE2yWhkfknQ4CK3GRrSqnjd7
-         es3ZJYLAzgsfOm4zuz2s5xPxJGs6KYyRahWJUhOIbSFWt9wu5VtZaKBpKYsmyNa66QNT
-         tkBUjGTtuGfogcAhgCSowy2mjEzyfHBhgl7fkrZ6kegSqZi71C7mp+uNliQkpwKTXdn9
-         szqpDKa8clpSrSPzjMqRTJi5Rhx1NDIpRqfTqPBWplc9H+H9A5GDyteBWL+fq9mO4Dn4
-         vJAlvNiRoIDStLnys9Mo53Ru3wzoTjgMhH9EFfXBl9MAxLpz34Z9z6/KP1s6vG88UL8v
-         EGnw==
-X-Forwarded-Encrypted: i=1; AKwUvBwqV95qFPkU/pwct5HBNnYEQI2vQWHbre/3/4RfnKTWHLkL9pkvclROUHRHdszo5ixDJmsW8Ej5Q/7huQM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TVbBdzjn/TMPmK/jUQeuy5pFnFrqVnhV39xk+1Okpe9Uy2RMQ
-	L/+f+BMB7mPHawACrVTFdk435Qs6pInQNv3R5Z9T1LswNaBZG6ggMDna
-X-Gm-Gg: AYBFou1yiHxmL9j9KEDHVLRM8jSbCBZUFwBugxxIt7XSa2qHgvrCi2BYQ8+Zjf3IVKM
-	Ed97awkqcpx56E2WJshCRcFw5Bm6PL96jfu4Yoz60Aghs7qmV+yHlQaTD8xMXtat9K4xmCR/JCr
-	gxjL2tkXT2qa4qWR/VODZxqqTZ/JEFxQvNfh05CuDf1WcfhZoPzEpuPmcmrS6Gf6DvjkAekewHZ
-	pUzppxtujfMWX4mp4KGz7kZr/hxw9shSg8Jh582lzH+6nmFXQrbuQRU+yzzEA+GIp6fJauhJSCr
-	ptaiFl8Q71j61zc8Pe5Dh5g8STrouN9IFmnt2C6jBkbbbd5sWhzkVBY0SDvCw/kX+WjRvvGtkTK
-	ryzA9o0M4lcFUYdAtpypRDJKhOQdj+8Zpjyrmp0ibpx7/2ggy4VV8fif3dgwSAh7PZKbyLvFDrh
-	FGe/nE9zYLyLwH162msHVGu/f5xdMx3UkUuakz5LNBsLm/IhtPcavAOauSo6fyZtiVPXXKw3Myz
-	n0KBMTn4/W0zp3m2MYBiEP3EaWotbaTzKVsyjs7g/nxZ3xxDGw/ABw13lOrjkQQmh/Guv02FMSh
-	zxaWLG1zT4ldcXAJ/tdfrMcgZ/2HZ1WlN4aV1HeWouMIAd3zRahMLn+A7P2PhPorySNXpIQypkv
-	EsQ==
-X-Received: by 2002:a05:600d:6508:b0:4b0:bc65:b9b5 with SMTP id 5b1f17b1804b1-4b0bc65ba2bmr123679275e9.35.1793712134651;
-        Tue, 03 Nov 2026 05:22:14 -0800 (PST)
-Received: from andreayoga.wind3.hub ([31.189.68.219])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aa953d35sm56944055e9.9.2026.11.03.05.22.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 05:22:14 -0800 (PST)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Juri Lelli <juri.lelli@redhat.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Waiman Long <longman@redhat.com>,
-	Tejun Heo <tj@kernel.org>,
-	Hui Su <sh_def@163.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched: Fix cpuset_mutex double unlock in __sched_setscheduler()
-Date: Tue,  3 Nov 2026 14:22:08 +0100
-Message-ID: <20261103132210.4142-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aum6IBxgdiJ09Kiv@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261102134606.242743-1-parri.andrea@gmail.com> <aum6IBxgdiJ09Kiv@jlelli-thinkpadt14gen4.remote.csb>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=hFn5Q9UN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793712147; x=1793971347;
+	bh=ZO15Wpi9ERhHWGfexIrXUF/h1fo5dyIH9P5nUF4t1yQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=hFn5Q9UN4acnKSncmrnd3yfY+uI/TcYmWgP8Y/RilS8cdrETAyed/0p++h+Ekr7lV
+	 eORBgcH2zCXBLbgG5wj+Tr2LHvansoxi7E9lAD6VhR2U7+/lA4RKBVCqFBvGOEHgm/
+	 9k88zueHdttM4BAz5RZ2NEY2W87ZrpQmz3WWSk82BqvzoswrGLmTaerTJAYGtduxLU
+	 kIrlTWxaA67pKUkZBmaMiVk5ROAQXtHBj7QI2sYX7VOqQLNxh0ZNUq57QHa1nG7ST+
+	 Hs3YNQxuNIQ2SRrLJRVqe7wQFFwgb0IGMCzWs0+VXiB7QRHBkTYd53WZeT3oeSmlwI
+	 kkwUkxAXSTTrg==
+Date: Tue, 03 Nov 2026 13:22:23 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+From: Sinan Turunc <enscrpt@pm.me>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH] ALSA: line6: Bound capture copies by the PCM buffer size
+Message-ID: <20261103132205.675-1-enscrpt@pm.me>
+In-Reply-To: <sashiko-outbox-195233@kernel.org>
+References: <20261103120723.328-1-enscrpt@pm.me> <sashiko-outbox-195233@kernel.org>
+Feedback-ID: 48393780:user:proton
+X-Pm-Message-ID: d4340bebf67f51a740dfad832b5337d9ef0e7896
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,24 +64,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 11:40:32AM +0100, Juri Lelli wrote:
+> Does clamping frames to runtime->buffer_size here cause the capture
+> stream to stall whenever an incoming packet exceeds the buffer size
+> (for example, when a user configures a 1-period 64-byte capture buffer
+> of 11 or 16 frames and receives a regular 44- or 48-frame 1 ms packet
+> or a larger USB/IP packet)?
 
-[...]
+Yes. Clamping frames to buffer_size adds exactly one buffer to pos_done
+and then subtracts it, so the ring position never advances and the
+stream makes no progress. The same holds for a buffer of exactly one
+packet, so the bound has to be two packets.
 
-> The fix looks good to me.
->
-> Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+v2 takes a different approach: snd_line6_capture_open() now constrains
+SNDRV_PCM_HW_PARAM_BUFFER_BYTES to at least twice the larger of the two
+endpoints' packet sizes, so hw_params rejects a buffer that cannot hold
+two packets, and line6_capture_copy() keeps only a guard that drops an
+oversized packet with a ratelimited error instead of clamping it, for
+the case that should no longer be reachable.
 
-Thanks!
+> Also, fsize is not read again after frames is computed at the top of
+> line6_capture_copy(), so is the assignment to fsize here unused?
 
-> As I said in the other fix, I'm not sure we want to keep the reproducer
-> in the changelog, or if it's better to start collecting them somewhere
-> else (it might be easier to actually run them).
+fsize is read in the single-chunk branch (memcpy(..., fbuf, fsize)),
+which runs when pos_done is zero, so the assignment was used. It goes
+away in v2 with the clamp.
 
-Same as in the other thread: fine with moving it to your tests, and if
-you'd like a v2 with the program replaced by a link, just let me know.
+v2 tested on 7.3-rc7 against 1024-byte packets: a 1024-byte buffer is
+now refused at hw_params with -EINVAL, and a 2048-byte buffer streams
+for 30 s with no KASAN report, with hw_ptr sampled once a second at
+positions 0 and 256 inside the 512-frame buffer and advancing by about
+450000 frames per second.
 
-Thanks,
-  Andrea
