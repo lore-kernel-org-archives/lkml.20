@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729452;
-	b=ZS5T1YyoAzOWorSofU56crRgJzEGASX82TkjF+GY5snuzUOBslGul0nEpjL/K0tzG3p8
-	 nlV/cJlZMlVFFQgkSK96aaKiJUkN1TGUQEphMZ3TqtMcvrBqNVnNA9/IU3+8J5qYyBIjr
-	 jjMai4jM5ERTgaqUvwGTZxA/tTlvzLwnvbIyPw7EPhCOwlp5hOmoZ3+qDbJOnNjrWNlsw
-	 S6wLYGLxUxEWEBQeYHpSDAqlah10aytOuyswpExPDaWllYFXXTaxWc3UrXCE1MSkoDjn2
-	 jn3hLj1okP9+hwMMzW3YuuvwmQnGYKC6/4PQMcqcYBnxxT50g4Y2zhXlTZcAsLLQ3bQ==
+	t=1793729463;
+	b=xbdmIEl0ksJ2quuzVoSFYdDGZuRapjWFNqprzXKvyWZe3IMD60ltCXfUrJ5g6xJ2ExT6
+	 pbWSZolDXWadsqFHV08Kh42n99pnu4qkVL7zmE7NSWRPGeadyEMwONZpw6QHvA1InsluZ
+	 l81rQOtTcj4eydFefuwR+Vmeyy/ut/tA1CQS/mMEmGagXecLxRbdh1Ww2xYASAoHWLYnt
+	 Qe6Cq03M1WpeF9GMHq13C7n3VZiXbEReP8latjlAdIMUeKoyDoHfUPj4uGX5d0jhg8FSt
+	 xpayyN7r2vK1ETmULrIYL6STxXizZErNMfeAf6VUUqUV8NNnc8XvB2YYuFMuEacm7TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729452;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Toz1R3wAc2FhVXHWEHEjC1eCdZQGifAUi3nvgfstv/g=;
-	b=SpHduumJhWBziWPLwKAAUtH/CUvP/LVCjXCkZKQYgRApLDekvcmytUEbhTwUX34k7BQD
-	 rW90GzAEhMiPhJYP+6c7mtQ3h6Jo2Zdz8NcFb/HRVAR3aIdrp4NSM1129ep1HDjt2rSfa
-	 LimCcArmUv40odBA7/XhBI04Xk3kyVIwzZw6k7zZ8pyZAbkHJjqszyuV8NmKLV4SyENja
-	 FX7gqU69io3m1YVx7czYNIA4yUACzttbEVplidAOx59AB31dak/y4dCdPW796lloLiY3a
-	 tb/C86NcDumWrB2q3jQ2Pc8A5Blzp5UGMSAbnSDoqfYZkn2O+iilXbafPU6m4LkVdXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729463;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tTVKurc9kGIhuhJC6hakp2QSmzsX9SX1tKAh9my/9n8=;
+	b=Eb4O/4HyM9iLGdJ6ceWF+ADknHDyz/Dr2talQjkdoLkjd9QEfsi9C9287wQnTC+OsGnp
+	 Mpbr+BV7HdAyqTK89KT4yiiqu7JwAlG4xJInjvKnSLts26U/l/Z4JPk+3p/2tCruhtK+W
+	 aXr0gNwYjofIjBs0/Agny5ICjtCBafFlvKuuLT1eVVx2tHL6fRECzz7jlggJWw+CV4QNJ
+	 EzE+06qnwIzWRQM7hcfcNx2hBbTN+pkC84NqXXc/EqRFCkStzhCwUJmUwVn8foLLtDWPW
+	 ue3OKe5IoE68jQfYcUD18pV0QWdT3QwfxZ7erb1edTYdQpbjF9Qvj9iLGDR7X3qO7qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPMOjK7M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwuESlr8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E876606A31B;
-	Tue,  3 Nov 2026 18:10:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7670D606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:11:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPMOjK7M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08AC81F00919;
-	Tue,  3 Nov 2026 18:10:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwuESlr8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F7601F000C1
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793729451;
-	bh=Toz1R3wAc2FhVXHWEHEjC1eCdZQGifAUi3nvgfstv/g=;
-	h=From:To:Cc:Subject:Date;
-	b=OPMOjK7MBiTBEhFboXZUcMpuDvA/DO/6BjqgI+FRRViIkueGF+1dL+2uenVjonGzi
-	 /zUyHCJt+zQAh/nC7bHVA+F7Tim4d6a7WM8z0w6c+F3uivKe9sxR3oeeDmHUQsLIQD
-	 eiQcSyjpZnk049XzgvLoWBbqUDB9eTnV7sw+/zeZQmk/saQeUrDSMFawwnOGKiG3Ir
-	 hL+bGo2sBAwS2wTrkpOa4uGPJ3sFvVnAQ5Ao0FwaX3ZewJVMR+GmUwhnMkgjIF+d49
-	 u9OAAuTPi01ypTahdXrw95aiNBsKf0X+1CIdkRRkzW8Lq8qDvJSDA2Vj7QTHnJA3Kk
-	 FSxDH6cg0679g==
-From: Tycho Andersen <tycho@kernel.org>
-To: Ashish Kalra <ashish.kalra@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Tycho Andersen (AMD)" <tycho@kernel.org>
-Subject: [PATCH v1 1/2] crypto: ccp - Bump minimum firmware version for SEV-SNP support
-Date: Tue,  3 Nov 2026 11:10:01 -0700
-Message-ID: <20261103181002.2200214-1-tycho@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793729462;
+	bh=tTVKurc9kGIhuhJC6hakp2QSmzsX9SX1tKAh9my/9n8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XwuESlr8OQ67yjRLkNZkS5jLbRSrI8EJtBrIOSoFdnvWWzpVa/LjFwah3W0zmfRB1
+	 pBUK6jemqxdraGVqiyXMjqgxDg+RENl4K4ndCX2wx1lKKwoC6cEVEX8TEsQVZyDe08
+	 nb97/z0nzEwiyCCWYPzrM37yxBfa/bndGQJc0uDWVqgd4mAZD/FLSoapPfPciB9XhP
+	 k7Ne9N+EgTjixv7FLqDEHZIk4hNs9quwsyUpAOG0ZXYFquwgblJ6M6KpNSr0Crq+sr
+	 aBb5WVrQJ15PMVMMo0RiMJsbRDcS51uC9PGM2S0kFC/lex8ScRMsDkUaD0bVpcZCf0
+	 iU3z88BSE9sIw==
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-9903fde8db8so983365241.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:11:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzSkghlsSbVQQE6DNUsuK4tJAaI+wimZejmH6VqMasKLzAOvHfB4GEKUCCJw1iMovgvjH3DIhPb7yNA0h4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8R6YzKS7BgRIYg/g05al96XGd7SolRsz/mDeBo+d7wvq6AYVfn
+	twqS6gWEcZaZm+tXobzTvwz3tF4AthVU3S3jc51voy4+1wT6F6Ao4zS4ebavA90fPPzS9YBxxHA
+	iCag1LE/HCavccdJCCkf0bKmLZYiZJqY=
+X-Received: by 2002:a05:6122:488f:b0:5ec:3e18:a8da with SMTP id
+ 71dfb90a1353d-5ec689737efmr6255947e0c.17.1793729456351; Tue, 03 Nov 2026
+ 10:10:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,57 +59,283 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261103-b4-btrfs-data-integrity-v2-0-577dc2690061@toxicpanda.com>
+ <20261103-b4-btrfs-data-integrity-v2-3-577dc2690061@toxicpanda.com>
+In-Reply-To: <20261103-b4-btrfs-data-integrity-v2-3-577dc2690061@toxicpanda.com>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Tue, 3 Nov 2026 18:10:19 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H6B9=fL2_Lx5OzWLRtFXNqfgnTn=kCf4NnE8JktuhSDKw@mail.gmail.com>
+X-Gm-Features: AclHuK-enhHChCkU85AEg6Ya23uqbf2RYeIoQIh4TMc5ZRKj8fTxDdWuqhyj8Zg
+Message-ID: <CAL3q7H6B9=fL2_Lx5OzWLRtFXNqfgnTn=kCf4NnE8JktuhSDKw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] btrfs: wait for ordered extent IO in fast fsync
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
+	Qu Wenruo <wqu@suse.com>, Boris Burkov <boris@bur.io>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: "Tycho Andersen (AMD)" <tycho@kernel.org>
+On Tue, Nov 3, 2026 at 3:57=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> w=
+rote:
+>
+> A fast fsync waits for writeback and then checks
+> BTRFS_INODE_COW_WRITE_ERROR to see whether a COW write failed. If one
+> did, it must wait for the ordered extents to complete before logging,
+> since until then the extent maps of the failed range point to extents
+> that were never written. Logging them puts unwritten extents in place
+> of the data that was there before when the log is replayed.
+>
+> The flag can be set too late for that check. end_bbio_data_write()
+> clears writeback before it finishes the ordered extent:
+>
+>   end_bbio_data_write()            fsync
+>
+>   btrfs_folio_clear_writeback()
+>                                    filemap_fdatawait_range()
+>                                    BTRFS_INODE_COW_WRITE_ERROR clear
+>                                    btrfs_log_changed_extents()
+>   btrfs_finish_ordered_extent()
+>     set BTRFS_INODE_COW_WRITE_ERROR
+>
+> The write paths that fail before submitting a bio, writepage_delalloc()
+> and submit_write_sector(), clear writeback and finish the ordered
+> extent through btrfs_mark_ordered_io_finished(), which never sets the
+> flag at all.
+>
+> Fix by dropping the flag and having a fast fsync wait for
+> BTRFS_ORDERED_IO_DONE on the ordered extents it collected for logging.
+> can_finish_ordered_extent() sets it only after recording any error with
+> BTRFS_ORDERED_IOERR. The wait costs little, because IO_DONE is set
+> right after writeback is cleared, not when the ordered extent completes.
+>
+> Fixes: f13e01b89daf ("btrfs: ensure fast fsync waits for ordered extents =
+after a write failure")
+> Fixes: a11d6912fdd9 ("btrfs: remove folio parameter from ordered io relat=
+ed functions")
+> CC: stable@vger.kernel.org # 6.10+
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-The SEV firmware has received many critical bug and security fixes since
-1.52. Bump the minimum supported firmware version for SEV-SNP to 1.55
-(first available in linux-firmware release 20230919). See
-https://www.amd.com/en/developer/sev.html for firmware release notes with
-exact bug fixes and CVE details.
+The idea looks sound to me.
 
-While these macros are called SNP_MIN_API_*, since 6131e119f579 ("crypto:
-ccp - Abort doing SEV INIT if SNP INIT fails") both SEV and SNP fail if SNP
-fails to initialize, so this firmware requirement really applies to SEV
-hosts that are SNP capable at the time of init.
+Sashiko found something and from a quick glance it seems valid to me:
 
-Also upgrade the debug log to an error log to give people some idea about
-why things failed.
+https://sashiko.dev/#/patchset/20261103-b4-btrfs-data-integrity-v2-0-577dc2=
+690061%40toxicpanda.com
 
-Signed-off-by: Tycho Andersen (AMD) <tycho@kernel.org>
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
----
- drivers/crypto/ccp/sev-dev.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Thanks.
 
-diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
-index 5c996ab63895..13e6af5549f5 100644
---- a/drivers/crypto/ccp/sev-dev.c
-+++ b/drivers/crypto/ccp/sev-dev.c
-@@ -43,9 +43,9 @@
- #define SEV_FW_FILE		"amd/sev.fw"
- #define SEV_FW_NAME_SIZE	64
- 
--/* Minimum firmware version required for the SEV-SNP support */
-+/* Minimum firmware version required for SEV-SNP support */
- #define SNP_MIN_API_MAJOR	1
--#define SNP_MIN_API_MINOR	51
-+#define SNP_MIN_API_MINOR	55
- 
- /*
-  * Maximum number of firmware-writable buffers that might be specified
-@@ -1523,7 +1523,7 @@ static int __sev_snp_init_locked(int *error, unsigned int max_snp_asid)
- 		return 0;
- 
- 	if (!sev_version_greater_or_equal(SNP_MIN_API_MAJOR, SNP_MIN_API_MINOR)) {
--		dev_dbg(sev->dev, "SEV-SNP support requires firmware version >= %d:%d\n",
-+		dev_err(sev->dev, "SEV-SNP support requires firmware version >= %d:%d\n",
- 			SNP_MIN_API_MAJOR, SNP_MIN_API_MINOR);
- 		return -EOPNOTSUPP;
- 	}
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.56.0
-
+> ---
+>  fs/btrfs/btrfs_inode.h  | 10 ----------
+>  fs/btrfs/file.c         | 52 +++++++++++++++++++++++++++++++++++++++----=
+------
+>  fs/btrfs/ordered-data.c | 31 -----------------------------
+>  3 files changed, 42 insertions(+), 51 deletions(-)
+>
+> diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+> index f7aa0d145185..65ba8ec23258 100644
+> --- a/fs/btrfs/btrfs_inode.h
+> +++ b/fs/btrfs/btrfs_inode.h
+> @@ -89,16 +89,6 @@ enum {
+>         BTRFS_INODE_FREE_SPACE_INODE,
+>         /* Set when there are no capabilities in XATTs for the inode. */
+>         BTRFS_INODE_NO_CAP_XATTR,
+> -       /*
+> -        * Set if an error happened when doing a COW write before submitt=
+ing a
+> -        * bio or during writeback. Used for both buffered writes and dir=
+ect IO
+> -        * writes. This is to signal a fast fsync that it has to wait for
+> -        * ordered extents to complete and therefore not log extent maps =
+that
+> -        * point to unwritten extents (when an ordered extent completes a=
+nd it
+> -        * has the BTRFS_ORDERED_IOERR flag set, it drops extent maps in =
+its
+> -        * range).
+> -        */
+> -       BTRFS_INODE_COW_WRITE_ERROR,
+>         /*
+>          * Set by reflink while it holds the source's VFS inode lock shar=
+ed.
+>          * Direct IO writes also take that lock shared; one that finds th=
+is bit
+> diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+> index f978c6524aa0..4ae9aed8993f 100644
+> --- a/fs/btrfs/file.c
+> +++ b/fs/btrfs/file.c
+> @@ -1512,6 +1512,42 @@ static inline bool skip_inode_logging(const struct=
+ btrfs_log_ctx *ctx)
+>         return false;
+>  }
+>
+> +/*
+> + * Wait for the IO of the ordered extents collected for logging to be do=
+ne, and
+> + * return true if a COW write among them failed.
+> + *
+> + * Waiting for writeback is not enough to know that: the end IO handlers=
+ clear
+> + * writeback before they account the IO in the ordered extent. An ordere=
+d
+> + * extent gets BTRFS_ORDERED_IO_DONE only once all of its IO is accounte=
+d, and
+> + * can_finish_ordered_extent() sets BTRFS_ORDERED_IOERR before that.
+> + */
+> +static bool cow_write_failed(struct btrfs_inode *inode,
+> +                            struct list_head *ordered_extents)
+> +{
+> +       struct btrfs_ordered_extent *ordered;
+> +       bool failed =3D false;
+> +
+> +       list_for_each_entry(ordered, ordered_extents, log_list)
+> +               wait_event(ordered->wait,
+> +                          test_bit(BTRFS_ORDERED_IO_DONE, &ordered->flag=
+s));
+> +
+> +       /*
+> +        * can_finish_ordered_extent() records a write error before it se=
+ts
+> +        * BTRFS_ORDERED_IO_DONE, both under this lock.
+> +        */
+> +       spin_lock(&inode->ordered_tree_lock);
+> +       list_for_each_entry(ordered, ordered_extents, log_list) {
+> +               if (test_bit(BTRFS_ORDERED_IOERR, &ordered->flags) &&
+> +                   !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags)) {
+> +                       failed =3D true;
+> +                       break;
+> +               }
+> +       }
+> +       spin_unlock(&inode->ordered_tree_lock);
+> +
+> +       return failed;
+> +}
+> +
+>  /*
+>   * fsync call for both files and directories.  This logs the inode into
+>   * the tree log instead of forcing full commits whenever possible.
+> @@ -1615,7 +1651,7 @@ int btrfs_sync_file(struct file *file, loff_t start=
+, loff_t end, int datasync)
+>          * IO of a lower priority task while holding a transaction open.
+>          *
+>          * For a full fsync we wait for the ordered extents to complete w=
+hile
+> -        * for a fast fsync we wait just for writeback to complete, and t=
+hen
+> +        * for a fast fsync we wait just for their IO to complete, and th=
+en
+>          * attach the ordered extents to the transaction so that a transa=
+ction
+>          * commit waits for their completion, to avoid data loss if we fs=
+ync,
+>          * the current transaction commits before the ordered extents com=
+plete
+> @@ -1627,7 +1663,6 @@ int btrfs_sync_file(struct file *file, loff_t start=
+, loff_t end, int datasync)
+>          */
+>         if (full_sync || btrfs_is_zoned(fs_info)) {
+>                 ret =3D btrfs_wait_ordered_range(inode, start, len);
+> -               clear_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_fl=
+ags);
+>         } else {
+>                 /*
+>                  * Get our ordered extents as soon as possible to avoid d=
+oing
+> @@ -1640,15 +1675,12 @@ int btrfs_sync_file(struct file *file, loff_t sta=
+rt, loff_t end, int datasync)
+>                         goto out_release_extents;
+>
+>                 /*
+> -                * Check and clear the BTRFS_INODE_COW_WRITE_ERROR now af=
+ter
+> -                * starting and waiting for writeback, because for buffer=
+ed IO
+> -                * it may have been set during the end IO callback
+> -                * (end_bbio_data_write() -> btrfs_finish_ordered_extent(=
+)) in
+> -                * case an error happened and we need to wait for ordered
+> -                * extents to complete so that any extent maps that point=
+ to
+> -                * unwritten locations are dropped and we don't log them.
+> +                * If a COW write failed, before submitting a bio or duri=
+ng IO,
+> +                * the extent maps of its range point to unwritten locati=
+ons
+> +                * until the ordered extent completes and drops them. Wai=
+t for
+> +                * that, so that we don't log them.
+>                  */
+> -               if (test_and_clear_bit(BTRFS_INODE_COW_WRITE_ERROR, &inod=
+e->runtime_flags))
+> +               if (cow_write_failed(inode, &ctx.ordered_extents))
+>                         ret =3D btrfs_wait_ordered_range(inode, start, le=
+n);
+>         }
+>
+> diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+> index df74c75d6c29..27aca31866fd 100644
+> --- a/fs/btrfs/ordered-data.c
+> +++ b/fs/btrfs/ordered-data.c
+> @@ -436,37 +436,6 @@ void btrfs_finish_ordered_extent(struct btrfs_ordere=
+d_extent *ordered,
+>                                         uptodate);
+>         spin_unlock(&inode->ordered_tree_lock);
+>
+> -       /*
+> -        * If this is a COW write it means we created new extent maps for=
+ the
+> -        * range and they point to unwritten locations if we got an error=
+ either
+> -        * before submitting a bio or during IO.
+> -        *
+> -        * We have marked the ordered extent with BTRFS_ORDERED_IOERR, an=
+d we
+> -        * are queuing its completion below. During completion, at
+> -        * btrfs_finish_one_ordered(), we will drop the extent maps for t=
+he
+> -        * unwritten extents.
+> -        *
+> -        * However because completion runs in a work queue we can end up =
+having
+> -        * a fast fsync running before that. In the case of direct IO, on=
+ce we
+> -        * unlock the inode the fsync might start, and we queue the compl=
+etion
+> -        * before unlocking the inode. In the case of buffered IO when wr=
+iteback
+> -        * finishes (end_bbio_data_write()) we queue the completion, so i=
+f the
+> -        * writeback was triggered by a fast fsync, the fsync might start
+> -        * logging before ordered extent completion runs in the work queu=
+e.
+> -        *
+> -        * The fast fsync will log file extent items based on the extent =
+maps it
+> -        * finds, so if by the time it collects extent maps the ordered e=
+xtent
+> -        * completion didn't happen yet, it will log file extent items th=
+at
+> -        * point to unwritten extents, resulting in a corruption if a cra=
+sh
+> -        * happens and the log tree is replayed. Note that a fast fsync d=
+oes not
+> -        * wait for completion of ordered extents in order to reduce late=
+ncy.
+> -        *
+> -        * Set a flag in the inode so that the next fast fsync will wait =
+for
+> -        * ordered extents to complete before starting to log.
+> -        */
+> -       if (!uptodate && !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags))
+> -               set_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_flag=
+s);
+> -
+>         if (ret)
+>                 btrfs_queue_ordered_fn(ordered);
+>  }
+>
+> --
+> 2.55.0
+>
+>
