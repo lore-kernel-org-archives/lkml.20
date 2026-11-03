@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723968;
-	b=DqLOT/O8Ns8FaclKYlrBnH8Bi5qZJSY0cI5HtDZEYWYCGXFAqccygYWLDx+I7nsiDS4c
-	 pZE+0MXmyK/JxbMIpHywK21fbDpEHaers7ycQrouBEeJr8ArwdGNiJac32fPQ2+h5dBtp
-	 NQ6nZJHYP6P4gFAbhHd2HYKfGCzNLOTPk4c12peWy789DRKS1vIbRE7ZMs72OYIPGbgGP
-	 l+AHdr5VgSyUyIAh13cWOmlC1JLP5zpeSH/j9eLbL1Jd9RwnHnvY+z5DUykv74pxMK9Mf
-	 r1vwPAIvkT0TRHrOA6xDsy5BKSbCDgDLbeo4x5Cem63T/F3cZyZdYM5DaIZRJnR6h8g==
+	t=1793723964;
+	b=jrZtcdzH3CtrcVRSzWFBQUb2CgnNkVqiSRVo2yY+IJzhgd5Pnd++7oKJMo0j+8l0R4uC
+	 kkvsy1YDlL8aKTLkKy/Ets0opZ57/KRQfNamkkGCRwgS/6IIpLzqMo5EFvdM7uOD1Scnr
+	 YlqnHxz4SWbkLpm/LgJXV7NUKMc7CAxeyt2gNqUzCuCDdYz+h8uFJrJTqeFdWcX+eNhgP
+	 B+EtpDEt/DIseStnHb9IucdieDIFQPnAeqdAJMLTQsYd6/nHoPB09xFqc1BEUZM0dziNn
+	 UjLEqzTm0c8gzehhGj8ma1eiY/UFg20fDlrlPPwE746u1XXZQzMOBM7ySi5lrIXrZRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723968;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723964;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ynLnvUTX6OUwI9Rad50F+oVa95c877fK+kIjaHq7gYw=;
-	b=jQXCrctgf8vEpv1TW+9UhCsAfhKf4iwqqaye7ZDDlemEyXUKX9oEn9TTQ8heVJrn0Dm+
-	 J380NPNqCKMJGlH9QOrmsnPaq3E3y2xQCLrQCC/MQkT5ON9HXh5NarLM8uZnpTOLEuT1w
-	 COmWpaprchicatxgyVb4PBxPu7gQUixRr8Q/sA115cCzTxCKW76+yfgJ0MDt7IdoKshbZ
-	 ba59B+lEZct6beCc4RX/m+Y00uQgVrOEjMmerLq9+DB6yLd+OIDNMTacSbo0aUjOjcf/z
-	 rAPi7l7wu7TIqrSAqGqK1Ca5YIg4qHKEpIOzrMLVKlRx2jaFJ9yT/DYQLS0XLMARhZQ==
+	bh=LTSU5/pZYUh6nYi5BogYnBf5CzMMj9W0mg8QPzWoMe4=;
+	b=vb9vFwC36E2Gi3vurxm3FYWe88ugo2ndxoqeDjX6svGqVW/eSNAD76XjjJH0eR3d8vqO
+	 6gc5NKM6vg1+1EcU+gGm6VgOSAXhFlVqoznf2pT3SgErzue9kD8yzpCKJGW0Ge33rI8B9
+	 28HLhRscfvWYRdoYfqncyaSJ+YL2ac+KkNDh/dhjtzULxOfe/rcoq+0drcX663471QvyU
+	 jRC+Hk6/JXAYjkQuUAFPYiTJJijTjfNuNF3AzLv8193ErcWK1GxOON/Q0pY3YGZHL8nN/
+	 xcSODDcVmjZxiblnzsx/bhr6UiIg5EdsXcFr9NLbk9W/ORiXYBPmffONRX19PyFTg+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8vuVutf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duNoA8Y5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5876860A2630;
-	Tue,  3 Nov 2026 16:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0483E606EE95;
+	Tue,  3 Nov 2026 16:39:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8vuVutf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A5B1F0093A;
-	Tue,  3 Nov 2026 16:39:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duNoA8Y5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5541F000C1;
+	Tue,  3 Nov 2026 16:39:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723968;
-	bh=ynLnvUTX6OUwI9Rad50F+oVa95c877fK+kIjaHq7gYw=;
+	s=k20260515; t=1793723963;
+	bh=LTSU5/pZYUh6nYi5BogYnBf5CzMMj9W0mg8QPzWoMe4=;
 	h=From:To:Cc:Subject:Date;
-	b=V8vuVutfXAZH6lxPpst7Nso/NZVFQXGWTlZG6Hnt6pAcaR03kbKV/uTW6i9KyUqNE
-	 O8R9bK3RnNPnc1/Ak82LSmvFHxWdufMp2MJroQ1o4T7lqNH8a9j2+hd8GxaIJHOXw2
-	 xhr58iPYqG/HDPsINUPy9/zmZV9S1bjx6tV1krS9DXGeO9p4ZieTm3GVuYQhCHLYEF
-	 9AD38ghGMYnJSiMoBvn7oX5fBj58p+76KMkzS8q5StBBf0Zrzqr9wHu1XAeE6PDVI5
-	 +pkvEE6b1YAvaGsXPnewaMtHBgNSN4IUmtfL7wigzZIzxR+Ye4aEMGbgW46VNN/oWu
-	 /87h1uzJbiF7Q==
+	b=duNoA8Y5ru9vlhtYc4y6cbTqMFzvbnfZDFyrvGZ5VsuAlu7DS3eSJnqfIfKuYeX3n
+	 wbC39fXFRvoBdC6gbwC7FXBT+9RF5u7MbAkwuZzLJV+/RVxa3z3e7ZssOFCr2n/p0J
+	 qMHvQu0Omko9bbjLNv39izqEHCUNXQ38Efw51BAhSfaatvm5QlTVl8noeIN5tbBfpw
+	 utdFBNNFR59nnU5WCJhZaBOOj7U4/XM1O/aXv4CLSKvOTxxJcJJY3ZJ45FHHZfQ+6c
+	 GmNVy4DZfgNOj77yG2rLX/gXgkEa6gjoN9/BLk39tDuqUoYalDBdv5bt/SSzHykTRb
+	 nEU+a3s/uJo0Q==
 From: Sasha Levin <sashal@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	Breno Leitao <leitao@debian.org>,
-	io-uring@vger.kernel.org,
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Dmitry Safonov <0x7f454c46@gmail.com>,
+	Simon Horman <horms@kernel.org>,
 	Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/io_uring: cast optval through uintptr_t in mini_liburing.h
-Date: Tue,  3 Nov 2026 11:39:26 -0500
-Message-ID: <20261103163926.641431-1-sashal@kernel.org>
+Subject: [PATCH] selftests: net: tcp_ao: don't shift a size_t by 32
+Date: Tue,  3 Nov 2026 11:39:21 -0500
+Message-ID: <20261103163921.641347-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,12 +65,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-io_uring_prep_cmd() puts the optval pointer into the 64-bit optval field
-of the SQE with a plain cast, which warns on 32-bit architectures:
+gen_tcp_addr() shifts the size_t n right by 32 and masks it with BIT(32)
+- 1. On 32-bit architectures both shifts are as wide as the type, which
+is undefined:
 
-  mini_liburing.h:272:23: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+  aolib.h:230:40: warning: right shift count >= width of type [-Wshift-count-overflow]
 
-Cast through uintptr_t.
+Convert n to uint64_t first and mask with 0xffffffff.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -76,22 +80,24 @@ Found with 32-bit builds of the selftests (gcc 16 and clang 21 with
 KernelCI's 32-bit arm builds show the same warnings. The changed files
 build without them now, and the x86_64 builds don't change.
 
- tools/include/io_uring/mini_liburing.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/net/tcp_ao/lib/aolib.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/include/io_uring/mini_liburing.h b/tools/include/io_uring/mini_liburing.h
-index 44be4446feda5..1f5b0cfc1e5b6 100644
---- a/tools/include/io_uring/mini_liburing.h
-+++ b/tools/include/io_uring/mini_liburing.h
-@@ -269,7 +269,7 @@ static inline void io_uring_prep_cmd(struct io_uring_sqe *sqe, int op,
+diff --git a/tools/testing/selftests/net/tcp_ao/lib/aolib.h b/tools/testing/selftests/net/tcp_ao/lib/aolib.h
+index 53be1744237ee..71ff975533089 100644
+--- a/tools/testing/selftests/net/tcp_ao/lib/aolib.h
++++ b/tools/testing/selftests/net/tcp_ao/lib/aolib.h
+@@ -226,8 +226,8 @@ static inline union tcp_addr gen_tcp_addr(union tcp_addr net, size_t n)
+ 	union tcp_addr ret = net;
  
- 	sqe->level = level;
- 	sqe->optname = optname;
--	sqe->optval = (unsigned long long)optval;
-+	sqe->optval = (unsigned long long)(uintptr_t)optval;
- 	sqe->optlen = optlen;
- }
- 
+ #ifdef IPV6_TEST
+-	ret.a6.s6_addr32[3] = htonl(n & (BIT(32) - 1));
+-	ret.a6.s6_addr32[2] = htonl((n >> 32) & (BIT(32) - 1));
++	ret.a6.s6_addr32[3] = htonl((uint64_t)n & 0xffffffff);
++	ret.a6.s6_addr32[2] = htonl((uint64_t)n >> 32);
+ #else
+ 	ret.a4.s_addr = htonl(ntohl(net.a4.s_addr) + n);
+ #endif
 -- 
 2.53.0
 
