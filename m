@@ -1,62 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793747865;
-	b=Jv8pFpuimHj3e1lsy+0ZgyI4K6TpnntA88TzQAhJCQ8WBhSY2uvtCuNQhSLQe+O/ppDk
-	 Zl6CYTBr64SPBWpITxumKiqxbk6bJE3yvmpNMKF8r/zKmzHqjN78fbviMpux9Dw+92spE
-	 XZ6RjSnaj+3s0mX5xorVCX1u2Ce7yD/xDq+ny5XJ4SgDMGEshbfa/obPk9kk1Sc2NNo7R
-	 sQ5zQPDtPsC1B6rysvzXoSSkujp4G2gip+7/eY9i7mt75Yh6W3bpIqU3Oqxd//+l5sI6q
-	 4DlGr9v+4CY/T1JxUa0W0KJG0MJKC+CAEY4UMPXyu0FiS4XXSMhCGabroagWMkb9iIA==
+	t=1793747876;
+	b=oVvrxRPmyi9j6xsNqQVr0JSod/YDvRcyn/ojEYanZp02SZisl1YhdSAN84GfiedpS4nc
+	 v8Kg10UbxnWSGTce2hHS8AdqffmBU0lhC/GUL3lC234JgohCoZnQMwzBFGdtgjoWaRPRK
+	 smt+/VRhzn3BK3NUFkU3iJ4BVn5S3URuQg7x+qSnM/IRUVZCL4YbiUEvtq3wQYDJxmTjd
+	 NQAHYT0oEIfWVXcZTksud0PgA4DJ+e9XR8F/zOzPBr0LvLxDcWuaRBUVBKjAG5mvu82As
+	 xi7+6NQNExKys8TM8YeWLpr9LnbWls8nY4vCbRv8bS151uMYrc19dMNLBKJ+UxanDwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793747865;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=cTRxgqB3j0rUHFGARJLABy1S/kakTChhAy0kJQKCjqg=;
-	b=L/embmxKKeJKJpSBk7XjhNqZL7btwTpqsSWzvFSjNcekAmrRgdVStVGbf3itWDU4hf5D
-	 XNjDcGpYyJ6OXvkI1xV8ki3bWxpNheJRdOKQlRjAY/UNSD4CAwJ0SgB9FQIT5rVMicFr0
-	 0go+q5gv8Y+i1Re2NOYGe0HC8hKSSiGq+WOrHTtf91q+TgGNrzIKLGLjzBtZIqsJtneTU
-	 v8pUFuFgnbZwzrwAEU9G5X2iIm0XR4q4Y/YKBTbSoHiDZ8It0FpVnP0O8XAhwmGe4znw2
-	 EydqFdp3jgdhbg75CSXh7DUlA+3CIgBmycmj3Hado8YaOl0eSUTxyUHFOsIqh1JKp2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793747876;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=WqNNSoFVGkzMo6pK4A+r0nyZRgEKN7rRbtYYlknDqFI=;
+	b=oU6kLIdHlhKJzQSkqgdwgfGWPXt70E8h2xisv7IH+ZipT+4h+BifutVdsq8dkvi2kFBc
+	 7KjB8spQGN3yFkznC+dIKW1R5wzck/d+OfpYJnTUBjsTbsPoerAtK99GMa/2Fq3H0kwNb
+	 c8XH8j1sMNJGNI2PrESjSS6QTeBDn/DEtin8RFcYPlXY1WTEg38MltXz5MyLhqKwiWDbY
+	 qrNIPlarUAjp7hMN0L2YyChdiCBiENLVPtn0aam57iQ0kY69UCW6Dptku+BM/C5fljuoM
+	 oMziCBeuHRFfKmQ4Bip0+RYw75GJF3M+1fHnaV2GPBorURzcR5Y5n9GMxrR1ssGwEXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVgbubw7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zXsf7Yoc;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PMv1RD75;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E596D606A31B;
-	Tue,  3 Nov 2026 23:17:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64315606A324;
+	Tue,  3 Nov 2026 23:17:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64315606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVgbubw7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA491F000C1;
-	Tue,  3 Nov 2026 23:17:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793747864;
-	bh=cTRxgqB3j0rUHFGARJLABy1S/kakTChhAy0kJQKCjqg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=AVgbubw7svOXEVBxux+Dhz+y37Ms4+FQgqiM8ABE6Pm5Sa/ecZNGFphoQEqUKsqY6
-	 +O1BZp6pBFxwblWR4AqqKdot7SN8PGa1p33SwK09KleQMJccK4ayq+OUODesnJ0Frg
-	 Ab2lEBWVAX3hpWoWbfAVnG5g/U81yzce74MsvPosYZixJv51G6sO2vu4e1nKV0mlBS
-	 SJx3y3n4ztDkEfblZbC0/GPhNGJa3eNv+K1H2YrZ554FcvdT6HncAeMI7WDc5TWXId
-	 WdoeYRxOU0YDt+R3WHzxC8UZewnnzVqRH3iAkgaxhiQIhNTbffFlM/Yl1xGpYZpQ4R
-	 UgWS2K/6qkt2w==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 726EB25BE13B;
-	Tue, 03 Nov 2026 23:17:42 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Baojun Xu <baojun.xu@ti.com>
-Cc: tiwai@suse.de, andriy.shevchenko@linux.intel.com, 13916275206@139.com, 
- alsa-devel@alsa-project.org, shenghao-ding@ti.com, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, k-yi@ti.com, 
- henry.lo@ti.com, robinchen@ti.com, niranjan.hy@ti.com, pin-hao.huang@hp.com, 
- Syed.SabaKareem@amd.com
-In-Reply-To: <20261103131755.1558-1-baojun.xu@ti.com>
-References: <20261103131755.1558-1-baojun.xu@ti.com>
-Subject: Re: [PATCH v2] ASoC: amd: acp: Add support for more projects on
- ACP7.0
-Message-Id: <179372713592.2270148.14622565162095930987.b4-ty@b4>
-Date: Tue, 03 Nov 2026 17:32:15 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zXsf7Yoc;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PMv1RD75
+Date: Wed, 4 Nov 2026 00:17:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793747871;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WqNNSoFVGkzMo6pK4A+r0nyZRgEKN7rRbtYYlknDqFI=;
+	b=zXsf7YocqOwQekIPxLBpeH4vlcgq4v/Z0L8nj8+Z4O3hML1phARFLTDqy8KX0fKXf0o/Vp
+	EcnJoU5NMrwFaQREMur1rx2HgmPSEv8ebDUzs7oSs+1oH7kN/0IzjvVcqg1CpLENoHhgZ0
+	U7OVwspuKkkDEA5MNIl6ZwivoBOwKCs24uEIpNUAPr+GJL3GDARfu/nmwi0v7NEhSZZzdw
+	oADhD2a+tzD6aNVDxdYBc5H8/81XShJ7LCeiaMBByF6FPyblOZ//gI/gcBxekp7Uf+Tt/j
+	TqKdWJEfpxX8j/meODcOPmm0F4jjCGinQa0Tf0dVHlxR+n3AGO8/UzPV+hb1Vw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793747871;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WqNNSoFVGkzMo6pK4A+r0nyZRgEKN7rRbtYYlknDqFI=;
+	b=PMv1RD75fNiAj3wq/WumgKR4Go0gQrlRBHhZfd24HZcaEcOy/e7eC+sMLmjcrH7j32aGcV
+	sM7LyPf0/T+aDjAg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: James Clark <jjc@jclark.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, Chintan Vankar <c-vankar@ti.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Simon Horman <horms@kernel.org>,
+	Daniel Zahka <daniel.zahka@gmail.com>,
+	Alexander Vassilevski <oss@vassilevski.com>,
+	Nora Schiffer <nora.schiffer@ew.tq-group.com>,
+	Grygorii Strashko <grygorii.strashko@ti.com>,
+	Robert Nelson <robertcnelson@gmail.com>,
+	Miroslav Lichvar <mlichvar@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: ethernet: ti: am65-cpsw-nuss: Enable
+ timestamping of unicast PTP packets
+Message-ID: <20261103231750.R8W01B3E@linutronix.de>
+References: <20261102135117.419539-1-jjc@jclark.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,46 +84,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1125; i=broonie@kernel.org;
- h=from:subject:message-id; bh=CDX6Fuc9P7pYJEpQIcjCPJIH9WOKQPKlv7/smLOIYbM=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeZU+z05N8LL6QeZmBnIzLLOsbQfeitT5feWbS7OTEw
- XFA7IZKRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACayl5mR4fpMt9jWtv4kcZmJ
- yzLUtm3OsLZlfeyQuzDHq2fy2b++powMDWGGVybU/Ln4fW2hgcH7nHMfjm9efuDtrXi5J5NFHD+
- fYwUA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261102135117.419539-1-jjc@jclark.com>
 
-On Tue, 03 Nov 2026 21:17:55 +0800, Baojun Xu wrote:
-> ASoC: amd: acp: Add support for more projects on ACP7.0
+On 2026-11-02 20:51:17 [+0700], James Clark wrote:
+> On a BeagleY-AI (J722S), ptp4l as a unicast master (unicast_listen) logs
+> "received DELAY_REQ without timestamp" for each unicast Delay_Req, and
+> its port goes to FAULTY after "timed out while polling for tx timestamp"
+> for the first unicast Sync.
+> 
+> am65_cpsw_nuss_hwtstamp_set() does not set the TS_UNI_EN bit (bit 24) of
+> the port's TS_CTL_LTYPE2 register. According to the TRM (J722S TRM
+> SPRUJB3D, 12.2.1.4.7.13.5.1 Ethernet Port Receive Event and
+> 12.2.1.4.7.13.5.2 Ethernet Port Transmit Event), this bit must be set
+> for the port to timestamp PTP event messages over UDP sent to a unicast
+> address; without it, only messages sent to the PTP multicast addresses
+> selected by the TS_107 and TS_129 to TS_132 bits are timestamped. TI's
+> netcp_ethss driver for the Keystone 2 Ethernet switch, which has the
+> same timestamping registers, always sets TS_UNI_EN.
+> 
+> Set TS_UNI_EN along with the other bits. With this change, ptp4l in the
+> same setup gets timestamps for the unicast Delay_Req and Sync messages.
+> 
+> Fixes: b1f66a5bee07 ("net: ethernet: ti: am65-cpsw-nuss: enable packet timestamping support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Clark <jjc@jclark.com>
+> ---
+> This was discovered while using ntpperf -D/-N to evaluate PTP hardware
+> timestamping performance. The patch was generated by an LLM coding
+> assistant.
 
-Applied to
+I have here a AM642 EVM and eth0 here uses am65-cpsw-nuss. I didn't
+manage to get ntpperf up but 
+	ptp4l -i eth0 configs/UNICAST-{MASTER|SLAVE}.cfg
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+uses UDPv4 and should do what you describe. But then I noticed that it
+uses 224.0.1.129 as destination which is enabled by TS_129 and does not
+look like a unicast address. Buh.
+netcp_ethss sets TS_UNI_EN but it does not set the other TS_ bits. The
+reference manual in Annex D (for am64x) describes how matching works but
+it does not say if TS_UNI_EN should be enabled in addition to the other
+TS_ bits, which match a specific address, or not. It just says it
+matches either this with the specific bit set or anything with the UNI
+bit.
 
-Thanks!
+It continues to work for MC with this bit set so
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-[1/1] ASoC: amd: acp: Add support for more projects on ACP7.0
-      https://git.kernel.org/broonie/sound/c/a08578200344
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Sebastian
