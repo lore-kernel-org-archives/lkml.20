@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710853;
-	b=jDk6rqLVcy4LWUdhJ/Hn2xVFedbhhBhShNmKhy+MNncMXUym9fqCaOnt5Ur4KQ26yUFK
-	 OUrZk62ifRZL0gxdx1RybfY1TNfEoqulPnYh1UweJabLRvzVmDsU25z/KZEo7mtyth4CI
-	 4Dlekr7BR/CwOR6C4r92/UAlyNgG96hkBl93tqqnaE3mK3m/Mlq2cLQqIPsf14qKGZQQV
-	 wvEQTQVinYn+y70S9bULpd/JntW1y/23tOGPIF1yLttyQMKeRuwE4H9fCRoQlpjRUOfib
-	 UUjf36peNQGVSF/vHBJrEQgUonuc1Jlih+z6gBJbcOxGyHk3QYh9MwTCTmHm3sYg1pg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710853;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793710870;
+	b=ZyrW0kfyE5bhRPRIjqxLaw5M3prwNG8BW5dOYY+OvqPvlY2CPJu7Zl/w+nIwfqnjjtPp
+	 3EjNokbr8MFG09OablJ7yzjx4Doe+Z4TWBg+QmUWmPyglN3Pn+VVXVlZyD5Wx7YAhzaxu
+	 c90VwQ+n+7DSdYfTjwFZNWSLL7W03gPPtyY9Z7Y97z3onarK902ubcMC7LnBJQQqZzKwz
+	 bO6B2ze5dejOKIbngz+uZCqkepuRd/tUPQ5xxmRD0m9By4g1CUzxNztFTunWInmhCzTAW
+	 lL4essteqN4nwLGAgEOIeESc72toDPXghLX8M9BI547zy/FQnWBmzulzTDD+bQb54Lg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710870;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KDvkIJpsL2iF0Ol0UE1M+BI5UFldgpU1Os03NfWfA8k=;
-	b=YfDgnADJvklockIuNPl0fSKqlmYFAwRORsa/7/5A6Ws+ylr7MeFrOCHJXa//Vnw2zJiL
-	 OYEPPAwfdjg7MfQN9drXF7ZFiDOfGsMfUTypmMamrXm+Ufn/Bc++CGWm9FwkleQx9wDYp
-	 s+ANlIpJ4AR/SLIFkUAoErAGTcAl/jbOoE8vqUN5AVRuwkqfg5W86ctNsIonf2OB8u8yf
-	 gr8ZvVPG+XzgiDJZ5WRRyLSJO+5TJCrV37U0ILKqIzJkkXQqeHQiWbcKm7g8LWUB43Od+
-	 2n7zBv1gCrAaXWGaGGrgHLIsGRrTT977ptsmfLXrsaKwj+j4BimvpQvexE/m+kQkRFQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAoHtOC+;
-	arc=none smtp.remote-ip=100.103.45.18
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=tCXdSwBH2oP3ghx/QDnn7W2xUZbWzfZAqj/U/u/Gk6g=;
+	b=g2EB8JKVlJrxlh5r2IXMW6KkzjKzips0amqrjZVr0LLdU/AsxUe2yNvQOWPnQb7n/7hv
+	 xulm39AfQ3N50GtbJ+2lWy0N8/BoET1XXRb4sDQjoofukJwdgzDR3R74ohSM5XjNTgwEi
+	 jkhIuEEjylpBqb9K6bwTHbYP4bM2Ics6oBjscp6GD6d8wYZZmHxiiVYtfT7jSjx2P0ZHY
+	 B4Iy4UElSkrI915lJ3cIW3+Gu51JlMPC3/8OUMuo9vxmRjSgXIG9lTFuYyM4lk5kAdzfX
+	 BLZ3F1rLdh6d3fBs3yfZcuZhEJPgDkUYHuQ21KQeSgKsi9CfeByfCVANj4kL0S9C3mw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXLQP0Lj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id DFA25606A327;
-	Tue,  3 Nov 2026 13:00:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40C6606A326;
+	Tue,  3 Nov 2026 13:01:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAoHtOC+
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E28651F00919;
-	Tue,  3 Nov 2026 13:00:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXLQP0Lj
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793710869;
+	b=QpYu39bDByWJh/NDYkQEWbSck0DSzTmfeTmFk5Q5ziZHW0imrG7yc7W+HcwbEF9mHAru
+	 y/O30ZJtpry/F0+GJCBUrwYkEjvaH7f4B/2GCkC0GyVzVoRIe8QloRdOIC/e9oF6MBpON
+	 wuaGa8Bb2qzxhDfA+QA5y7I4YpO5+kVXXXz/t0rx918cDZbOYO2YdDG4P3vmVCvWVvb3a
+	 n73i8UGRwMipou+3OW14TH7aze+ILE2B9X8XQbozJg6/A/DMCbvt+/ze5xV5DjO03HS5C
+	 6aLH5jh9bdTwfxRXHWSuUOx+SKvF4bafUYkbqaSIQnlaatxK6JQRZItlCt4ucE7C8Ww==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793710869;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=tCXdSwBH2oP3ghx/QDnn7W2xUZbWzfZAqj/U/u/Gk6g=;
+	b=qG/CQ0HMTpxgs4MJnhSfYyHzrE7T6bgl83YNIjTAJ23DCzcn/gcUeKKTIbwvWif4EVFt
+	 gLQTYR1LiqxXjkSUv7zeg+KYqKW+cN+Y4bdcOvCDdBmjQOg9CtVvtGQAUtCZUTjWIuNoD
+	 cTXvpXShgGAUjMqvPKrhwAItE7bElOLpuikVldq2WT9sUuj3RHC8EKqqT5duH1QStOsUg
+	 HBYMsqfg99ao6LIvf/NT6cPlfCjnhz+7TKw5vLa09nWQiB7ememAUaLeGyiI0Y+kORJCR
+	 mlZNpioKBv7gXsawpRsddoIH319Xk5zRXAMNKLTXh2JZ3YsfuFJGDdf3mCj7u+dm09g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id EA53F1F000C1;
+	Tue,  3 Nov 2026 13:01:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793710852;
-	bh=KDvkIJpsL2iF0Ol0UE1M+BI5UFldgpU1Os03NfWfA8k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HAoHtOC+bPyONNuGQAiCOetoZe2w+0vf5XU470B2EcE0vQ/mn2sFb5hUbWofwbMmn
-	 zwcfGP8PFj+GoufDx6Vqop7XuyKj9fi5i2EAhlcmVEvhhbz8AYIs/phP284rfpTlww
-	 aCRH9mJfqRV0N4pfgSt6tsUsSDZVl6Yu4Mf4fEoiyUFtwbvY5ywyE9Ch7WUlsmsFMX
-	 tRZoAdBOYCN5oXPRpzPtN/TOSzGt/6sqeS/51EKu35H1oNYlguoDdOT9DemdP15W6n
-	 zSFMOzIhsEZMfoYFLSSyJz1BwLgIte3XPaYTa+9+9xlbzPlFqV//4Tz34jnTvCvGfD
-	 YHGvg1dmgsJLA==
-Date: Tue, 3 Nov 2026 15:00:48 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: peterhuewe@gmx.de, jgg@ziepe.ca, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org, liuc63@xiaopeng.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: eventlog: check the payload size before reading tag
- events
-Message-ID: <aunbAIcxu8XTW0Ph@kernel.org>
-References: <20261103084155.426783-1-zhugl3@xiaopeng.com>
+	s=k20260515; t=1793710869;
+	bh=tCXdSwBH2oP3ghx/QDnn7W2xUZbWzfZAqj/U/u/Gk6g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bXLQP0LjwGBla+El08CNtbpaxd7UbR+6pX/IigwdmKhGtOWFU5xTgJ8xZCf6O9qkM
+	 0fXbjhoE3gxSzMy2glexp0H4VdjzFKBpotTjci5Z7iaoa52qqyxK4/OcTPHCGcXNkI
+	 pu8O3l/KHFtkgiqQ88iqxB0HkeQ8BNJbuyfw8FDHqK3i0eUurhlZ9jB7ZczbMoLMsL
+	 vCRLtHKnTO7bH05ICIU4ENQOnMaqvZJ9E43snxnmF5YttV2FgBbF+zM2qlRak6amMc
+	 Dw7Vz4oj139PVxKF+pj4BahpaBBbcyE6VM/jmAyxhEdbJULRO/2ybMV4nsVi+/kvKN
+	 frfo6S+5K0T4A==
+Date: Tue, 3 Nov 2026 14:00:55 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Raffaele Tranfaglia via B4 Relay
+ <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
+Cc: raffaele.tranfaglia@gmail.com, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Dmitry Osipenko
+ <digetx@gmail.com>, David Heidelberg <david@ixit.cz>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: light: al3010: fix out-of-bounds read of the scale
+ table
+Message-ID: <20261103140055.00000efd@kernel.org>
+In-Reply-To: <20261103-al3010-scale-bounds-v1-1-6110c2ffe3b4@gmail.com>
+References: <20261103-al3010-scale-bounds-v1-1-6110c2ffe3b4@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,72 +89,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103084155.426783-1-zhugl3@xiaopeng.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 04:41:55PM +0800, Guanglei Zhu wrote:
-> The EVENT_TAG branch of get_event_name() casts the event payload to
-> struct tcpa_pc_event and reads from it:
-> 
-> 	pc_event = (struct tcpa_pc_event *)event_entry;
-> 
-> 	switch (do_endian_conversion(pc_event->event_id)) {
-> 	...
-> 		for (i = 0; i < 20; i++)
-> 			d_len += sprintf(&data[2*i], "%02x",
-> 					pc_event->event_data[i]);
-> 
-> The log iterators only verify that the event header plus the declared
-> event_size stays within the log buffer; they do not require the
-> payload of an EVENT_TAG entry to be large enough for the fields the
-> branch reads. A truncated entry makes the branch read up to 20 bytes
-> of event_data[] past the end of the entry, and, for the last entry in
-> the log, past the end of the buffer itself.
+On Tue, 03 Nov 2026 08:42:48 +0000
+Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org> wrote:
 
-
-What does the spec say about this?
-
+> From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
 > 
-> Skip entries whose payload cannot even hold the event id, and skip
-> the 20-byte digest dump when the payload cannot hold the full
-> tcpa_pc_event header plus the digest, so the branch never reads
-> beyond the entry it is formatting.
+> The gain field read from the CONFIG register is three bits wide, so it
+> can hold values from 0 to 7, but al3010_scales[] only has four entries.
+> If the register holds a gain value of 4 or more, reading the scale
+> attribute indexes past the end of the table and returns garbage.
 > 
-> Fixes: 55a82ab3181b ("[PATCH] tpm: add bios measurement log")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> Reject such values with -EINVAL instead of indexing past the end of
+> the table.
+> 
+> Fixes: c36b5195ab70 ("iio: light: add Dyna-Image AL3010 driver")
+> Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
 > ---
->  drivers/char/tpm/eventlog/tpm1.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Found with LLM-assisted static analysis of drivers/iio, looking for
+> table lookups indexed by unchecked register fields; the fix was drafted
+> with the same assistant and reviewed and tested by me.
 > 
-> diff --git a/drivers/char/tpm/eventlog/tpm1.c b/drivers/char/tpm/eventlog/tpm1.c
-> index 0397e3361020..f93a358a706e 100644
-> --- a/drivers/char/tpm/eventlog/tpm1.c
-> +++ b/drivers/char/tpm/eventlog/tpm1.c
-> @@ -178,6 +178,10 @@ static int get_event_name(char *dest, struct tcpa_event *event,
->  		}
->  		break;
->  	case EVENT_TAG:
-> +		if (do_endian_conversion(event->event_size) <
-> +		    sizeof(pc_event->event_id))
-> +			break;
-> +
->  		pc_event = (struct tcpa_pc_event *)event_entry;
->  
->  		/* ToDo Row data -> Base64 */
-> @@ -203,6 +207,9 @@ static int get_event_name(char *dest, struct tcpa_event *event,
->  			name = tcpa_pc_event_id_strings[do_endian_conversion
->  							(pc_event->event_id)];
->  			n_len = strlen(name);
-> +			if (do_endian_conversion(event->event_size) <
-> +			    sizeof(struct tcpa_pc_event) + 20)
-> +				break;
->  			for (i = 0; i < 20; i++)
->  				d_len += sprintf(&data[2*i], "%02x",
->  						pc_event->event_data[i]);
-> -- 
-> 2.50.1
-> 
+> Tested on arm64 QEMU with i2c-stub and CONFIG_UBSAN_BOUNDS=y. After
+> writing a gain value of 4 to CONFIG (0x10), reading
+> in_illuminance_scale:
+> - before: two array-index-out-of-bounds reports (al3010.c:137 and
+>   :138), and the attribute reads 0.000000
+> - after: the read fails with -EINVAL and no report is printed
+> ---
 
-Br, Jarkko
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
+
+-- 
+Kind regards,
+Joshua Crofts
