@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749568;
-	b=ly/GSa3/MC9zRgbCRUz3wjD8eivitPS9tC7raOolGk3tiZWZ79qSHxIPC+NxfmYBqAk5
-	 XUGIUh618i0NG5P/2uROdaFm9ERgKVgjrBg+Iur1jqWUC3ofeqpyaWMIA4EuOT2WWMXYv
-	 czxPtfSR99DV8dlQ8U5LCzQqOeuwq/Qe1KwJxeQuJQVbYdlFHVETHfiogxknTsLND/cND
-	 Js5wDoi9tfwI4K5WqwPXxcuW3yz9U716e6+I22W/oRQtkYAUg8TBA42+eeV1yqbWkA5mU
-	 z64t6wItXuqR8pqnZ6bXqeXcd/M2q+Dk/7Zt6QNLH/3FbyzTRHrDilgs0OnLPG8Gcbw==
+	t=1793749565;
+	b=uYQMVH5hZBjkKG1h5mnPn71fp/CRYmBYaeZTpbI/IMJ2ae1OL3SHuBh9LQd+FkVFoc4+
+	 lzlZDL1Iw36ADg8qJPii9bBSe2TeZN8Naid7fc5Tm6dIB8z+habstOHc3BHnFL6JCPg0x
+	 cwt+EaZFzyXFcyrsClQH8O7kSkP0Ds/MAl4Bz4oyBEe+CcQ2uqaSOwXj5z3ptHJK2vt6t
+	 lgP7+xGrNcL9Rp0LUAVAhoooEk3zatJsXfJ96G6DNv0CXMtBH3bkknsRcypVmI6g+y+4l
+	 LpkbhfAqPfSR3awSAt/6lG9QchC/3nl3NImE6X2/aNN4EyQ9PEOaO/rs4ipWiBd3S7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749568;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749565;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=++IqdBnwEZWfjM5g8hKPhyQsGbsgIIgWkA1RsyTYyoA=;
-	b=SC9ASOyhh+Wrzx/W8Oveyg6nJ+NHvtE2kJzBpvdImiDVbEzTi56Nkye5VCmeCngpAPKO
-	 FW2j2xkWYFSBmz77aU1PJtqUggsm0I82AmWTRCehYt8t+K/WOncT0t8iJ90GWZ7rkWWMS
-	 7nqln0G3UoAv2YFjGQqFh3EZK8V+WqUiYHUsZP5w/V0kId6TkeKlcwLErbpi72Cy16YmU
-	 YuwYNC2GHtM7TIIB9ZceWvttr0wbqy5s2IV5VmoM5M0bWZuBdp7+LYGlE3MS5nnu0KHyq
-	 OkZ2rsb88FM6qrJI7Slc67CXvmBFtYAa5xbk57YPJS0dpU4MOVZFVK3+HqwPiRTLChw==
+	bh=03fEdwKC+32oYkwLbiklOK3DaL2k6ls++oHZizBEI2g=;
+	b=eID0L1dCExYPlndxnxP04OpqLXKrAl7k55mvkGmyoXdzCmRMQHu6A8pPmcexOYifFYkl
+	 pUeSjr2yaXOR8xII207RCP3mv6mRGk49IcvuuzfWsufVqliVouiZEV8W9hHmpYbq3KGmZ
+	 rb1/cBW43TzNDMU/TDj492zNeKZ3EGKC79hZcEnudQKzVRCWVU9Yc5kx0K4eqkQFAOYSy
+	 QHQpzeVQoKoqWhMzocYbHR+6qUSwLoyUG4aDSK137R4+S+ot21lU9F3Qj7lryl7ZMe6Us
+	 7AoMeNhbUWWXEMiVQFMiNETLn56zLVfJY3YJ8X6Xyr6iB7He+E2qlTbrnyhlOEUUD3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=a4M5MLiZ;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PR3Phmqh;
 	arc=none smtp.remote-ip=74.125.82.71
 Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF667606A331
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF667606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806B2606D825
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 806B2606D825
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=a4M5MLiZ
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1acbaf81bebso224778c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PR3Phmqh
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1b20a4b5f2bso240406c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793749567; x=1794354367; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793749564; x=1794354364; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=++IqdBnwEZWfjM5g8hKPhyQsGbsgIIgWkA1RsyTYyoA=;
-        b=a4M5MLiZd6TGxVv8+FDzqRqf633RQAJhbLaxAH0I6SST6yOd+mBrFH7m+KrHF4dn/d
-         miJ7QZPckWV32sEut42Cs7eXl3xtdv5ICRNAJXgOhZADb8vqlk+g6ej9bZ8/GyCwyApu
-         GTpv5SFNo04hVvajZpP8F3wPsTDyk+hBTbuuaD9wefJVUsJ0VkHOT87RAtlYCbJmBWmH
-         vRVBS4SM5YhiM7OYsNyF+fCgfuGa28RcFVmzeqlncF1yddpsL0dSEXJjaC8NDSZRLXhN
-         gFFJUHbka//3FJL+vqP0I+N02GY9TJ5peai+tdjhvemM5Je6+OT6ULfSCTccH10/db+F
-         hnsg==
+        bh=03fEdwKC+32oYkwLbiklOK3DaL2k6ls++oHZizBEI2g=;
+        b=PR3PhmqhCdcWbCrxmhvvWpuHCPJlLPNIuoOxOhlmR39WSRFeRnYKW6EVAz2INukbTp
+         qnvLhH2pN5ZnO4kOxEa0bxG3hgxvtzA2JGuRudH7ex2WnPmznL5bWb/LrHgj3MFI6Q+D
+         rCMtXhVpkhUsYRAVp6Ec0IDydhhsWNSktIQfMT+yM99miJWGYEXK9WxIuSodvKNBqZBO
+         qCbVV1akx8xbpeXuDLc1VBYdvzxFu1J9+Gb0cKl62biQJgcrF77UG4/9BL+KJY4Uq3U9
+         o+2Vv74wE7DPqLKScPYNvh5Dp9d3OXLlEdn/djzvG+yMnzdSvRBZ82hAq08MlKBvJu4A
+         w/sQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793749567; x=1794354367;
+        d=1e100.net; s=20260707; t=1793749564; x=1794354364;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=++IqdBnwEZWfjM5g8hKPhyQsGbsgIIgWkA1RsyTYyoA=;
-        b=eFwdgyht8aGryMupdP6gPCRxrYuLkQGzqH+wdDzJl8RGerxVjq3lX3b2nv5rBcdTbi
-         wLt/wM7CzQ9hZDp+1nWO6yLwsDVuaRZDRNw7279HBKiWb6/Fzm+f9GqvdsoH7J7lNYm8
-         wlcwW+DIYArvyG7ui5lKQGBjjGEzJZ/NA18FNpTMBP84GplT79l3+2R8EBzLl16BVKQS
-         Qoth//+YglJ8vcG84Dr4j8snc+46PcIcieyn45Ax/d8V05hHHC99LV96qdBwSnhYl/dD
-         vo5PvL8Q16J7lENvPeczbUajaJ89W5KFSblTdgknCaeY6U5Lt8zjBI57K0EBU8VOlG6K
-         KIUw==
-X-Gm-Message-State: APuU4Z+CKegOQ4QSczkaw4WpONvNeH3WWdXHTD9sCxX2MayGxBOxOquQ
-	jVnu0YeRmHbSsLTzh7aND4iEIv/mBFsxgrNH5EzlrqjdEIYmYrVYi3etemyoR1zym04569WjMuZ
-	5jmWhoE6K6Q==
-X-Received: from dlbsv9.prod.google.com ([2002:a05:7022:3a09:b0:1ab:fb55:f657])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:42c3:20b0:1b2:366a:e7d1
- with SMTP id a92af1059eb24-1b2366ae854mr8921344c88.32.1793749566526; Tue, 03
- Nov 2026 15:46:06 -0800 (PST)
-Date: Tue,  3 Nov 2026 15:44:38 -0800
+        bh=03fEdwKC+32oYkwLbiklOK3DaL2k6ls++oHZizBEI2g=;
+        b=iNVcOzls/0DCmz6eVE6mKHxpl76Vj5lEMysL7mzQSykUenwGZaOc/XK5joT7y+m7Pn
+         YSeQPvz4YqUAMROAFuAbyIleJ2XHq9oCDHkn8jJyOSW5TBZlk4wjj9NCh18d4qEw9nzX
+         jzw9f3+tjxd+A5rJ8e9CT3s7v0O4nv6ykglohToqfaFtaAB9Y5Ud/u3RcNnltb3OKcLF
+         LJRTxgGD41dyIboLcm2fUJPDR6t1/bx9p9Xvisatw7iBdrvnT/A1dXpZHXnuarFdBU6R
+         5Hw7NkFLXsWslF0exx/of9ZwL+4oM7/Zxe8vB9CsdTkaQT2xTVXdxiK/G7K4P2E2OC5o
+         8Ngg==
+X-Gm-Message-State: APuU4Z/N8RSRaIk0DmOAz6W/BE/uR6MrEsEZ8uHpkw8cDz+0tYMn34LN
+	ZflVpT9hPnMm9W3PB+lT+gNNI4bmZcDRjpFC94EVQacRXlNx1huYYEjsLhjICiL3BHNUTJZUgFB
+	t7qDkc0NT6A==
+X-Received: from dlbur23.prod.google.com ([2002:a05:7022:ea57:b0:15b:1fa2:b32d])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4517:10b0:185:fd0c:4585
+ with SMTP id a92af1059eb24-1ac5fb18de9mr21081064c88.33.1793749563835; Tue, 03
+ Nov 2026 15:46:03 -0800 (PST)
+Date: Tue,  3 Nov 2026 15:44:37 -0800
 In-Reply-To: <20261103234502.1008382-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,9 +79,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261103234502.1008382-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103234502.1008382-23-irogers@google.com>
-Subject: [PATCH v1 22/41] perf script: Don't drop metric samples for CPUs
- missing from the evsel
+Message-ID: <20261103234502.1008382-22-irogers@google.com>
+Subject: [PATCH v1 21/41] perf script: Fix metrics computed from samples
 From: Ian Rogers <irogers@google.com>
 To: linux-perf-users@vger.kernel.org, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -96,62 +95,134 @@ Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-perf script -F metric looks up the index of the sample's CPU in the
-evsel's CPU map and, when it isn't present, prints "Missing CPU map
-entry for CPU <n>" and ignores the sample. When the perf.data file
-doesn't record the CPUs of an event, as is the case for perf record,
-__perf_evlist__propagate_maps() sets the evsel's CPUs to the host's
-online CPUs. If a CPU is offline when perf script is run, or the
-perf.data file was recorded on a machine with more CPUs, then every
-sample on such a CPU is dropped from the metrics with a message, for
-example thousands of:
+perf script -F metric computes metrics from the sum of sample periods of
+the events, but the computed values were wrong and the output was
+garbled:
 
-  Missing CPU map entry for CPU 1
+ - perf_stat_process_counter() replaces each count with its delta from
+   the previous raw count. As counts were left as deltas, the next sample
+   computed negative deltas for the counts of all CPUs and threads other
+   than the sample's. Restore the counts to the running totals after
+   processing.
 
-perf script currently only supports global aggregation of the counts
-used for metrics, the counts of all CPUs are summed. So place the counts
-of a sample whose CPU isn't in the evsel's CPU map in the first CPU of
-the map, as was already done for samples without a CPU. This doesn't
-change the metric values computed for samples of the CPUs in the map,
-the summed counts just include the previously dropped samples, and so
-isn't a regression. Aggregating per CPU, and using the CPUs of the
-perf.data file's environment rather than the host's, would be future
-improvements.
+ - Metrics for all events were displayed after every sample. Only display
+   the metrics associated with the sampled event.
 
+ - The new_line callback started a metric line that the next metric
+   started again. Each metric starts its own line, so make it a no-op.
+
+ - The metric value was written to stdout rather than the event's output
+   file.
+
+For example, with whitespace reduced:
+
+  $ perf record -e '{cpu_core/instructions/,cpu_core/cycles/}:S' -a sleep 1
+  $ perf script -F comm,cpu,event,period,metric
+
+Before:
+
+  perf [001]  2206 cpu_core/cycles/:
+  perf [001] metric: 42972.00 tma_info_inst_mix_instructions
+  perf [001] metric: perf [001] metric: 1.20 tma_info_thread_cpi
+  perf [001] metric: perf [001] metric: 0.83 tma_info_thread_ipc
+  perf [001] metric: 51762.00 tma_info_thread_clks
+  perf [001]   804 cpu_core/instructions/:
+  perf [001] metric: 18446744073709549568.00 tma_info_inst_mix_instructions
+
+After:
+
+  perf [001]  2206 cpu_core/cycles/:
+  perf [001] metric: 67668.00 tma_info_thread_clks
+  perf [001]   804 cpu_core/instructions/:
+  perf [001] metric: 46758.00 tma_info_inst_mix_instructions
+  perf [001] metric:     1.45 tma_info_thread_cpi
+  perf [001] metric:     0.69 tma_info_thread_ipc
+
+Before, the cpu_core/cycles/ sample is followed by the metrics of both
+events, such as tma_info_inst_mix_instructions that only uses the
+instructions event, rather than just tma_info_thread_clks. The CPI and
+IPC lines repeat the "perf [001] metric:" prefix as script_new_line()
+started a line that script_print_metric() started again. The following
+cpu_core/instructions/ sample shows tma_info_inst_mix_instructions as
+18446744073709549568, a negative delta, as the counts of the other CPUs
+were left as deltas by the previous sample. The same deltas made the
+before tma_info_thread_clks value of 51762 too small.
+
+After, each sample is followed only by the metrics of the sampled event,
+one per line, and the metric values are computed from the running totals
+of the sample periods of all CPUs.
+
+Fixes: 4bd1bef8bba2 ("perf script: Allow computing 'perf stat' style metrics")
 Fixes: 3622990efaab ("perf script: Change metric format to use json metrics")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/builtin-script.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ tools/perf/builtin-script.c | 32 ++++++++++++++++++--------------
+ 1 file changed, 18 insertions(+), 14 deletions(-)
 
 diff --git a/tools/perf/builtin-script.c b/tools/perf/builtin-script.c
-index 199a5af81f37..afed2353ef80 100644
+index da3f1793774e..199a5af81f37 100644
 --- a/tools/perf/builtin-script.c
 +++ b/tools/perf/builtin-script.c
-@@ -2409,15 +2409,14 @@ static void perf_sample__fprint_metric(struct thread *thread,
- 	/* Update the evsel's count using the sample's data. */
- 	cpu_map_idx = perf_cpu_map__idx(evsel->core.cpus, (struct perf_cpu){sample->cpu});
- 	if (cpu_map_idx < 0) {
--		/* Missing CPU, check for any CPU. */
--		if (perf_cpu_map__cpu(evsel->core.cpus, /*idx=*/0).cpu == -1 ||
--		    sample->cpu == (u32)-1) {
--			/* Place the counts in the which ever CPU is first in the map. */
--			cpu_map_idx = 0;
--		} else {
--			pr_info("Missing CPU map entry for CPU %d\n", sample->cpu);
--			return;
--		}
-+		/*
-+		 * The evsel's CPUs may not contain the sample's CPU, for
-+		 * example the sample may have no CPU or, when the perf.data
-+		 * file doesn't record the evsel's CPUs, the evsel's CPUs are
-+		 * the host's online CPUs. As only global aggregation is
-+		 * supported, place the counts in the first CPU of the map.
-+		 */
-+		cpu_map_idx = 0;
+@@ -2340,18 +2340,14 @@ static void script_print_metric(struct perf_stat_config *config __maybe_unused,
+ 	if (color)
+ 		color_fprintf(mctx->fp, color, fmt, val);
+ 	else
+-		printf(fmt, val);
++		fprintf(mctx->fp, fmt, val);
+ 	fprintf(mctx->fp, " %s\n", unit);
+ }
+ 
+ static void script_new_line(struct perf_stat_config *config __maybe_unused,
+-			    void *ctx)
++			    void *ctx __maybe_unused)
+ {
+-	struct metric_ctx *mctx = ctx;
+-
+-	perf_sample__fprintf_start(NULL, mctx->sample, mctx->thread, mctx->evsel,
+-				   PERF_RECORD_SAMPLE, mctx->fp);
+-	fputs("\tmetric: ", mctx->fp);
++	/* Each metric is printed on its own line by script_print_metric(). */
+ }
+ 
+ static struct aggr_cpu_id script_aggr_cpu_id_get(struct perf_stat_config *config __maybe_unused,
+@@ -2379,7 +2375,6 @@ static void perf_sample__fprint_metric(struct thread *thread,
+ 	};
+ 	struct perf_counts_values *count, *old_count;
+ 	int cpu_map_idx, thread_map_idx, aggr_idx;
+-	struct evsel *pos;
+ 
+ 	if (!init_metrics) {
+ 		/* One time initialization of stat_config and metric data. */
+@@ -2445,14 +2440,23 @@ static void perf_sample__fprint_metric(struct thread *thread,
+ 	/* Update the aggregated stats. */
+ 	perf_stat_process_counter(&stat_config, evsel);
+ 
+-	/* Display all metrics. */
+-	evlist__for_each_entry(evsel->evlist, pos) {
+-		cpu_aggr_map__for_each_idx(aggr_idx, stat_config.aggr_map) {
+-			perf_stat__print_shadow_stats(&stat_config, pos,
+-						aggr_idx,
+-						&ctx);
++	/*
++	 * Processing the counter replaced the counts with deltas from the
++	 * previous raw counts. Restore the running totals so that only the
++	 * next sample's period is added to the aggregated stats.
++	 */
++	for (unsigned int cpu_idx = 0; cpu_idx < perf_cpu_map__nr(evsel->core.cpus); cpu_idx++) {
++		for (int thread_idx = 0;
++		     thread_idx < perf_thread_map__nr(evsel->core.threads);
++		     thread_idx++) {
++			*perf_counts(evsel->counts, cpu_idx, thread_idx) =
++				*perf_counts(evsel->prev_raw_counts, cpu_idx, thread_idx);
+ 		}
  	}
- 	thread_map_idx = perf_thread_map__idx(evsel->core.threads, sample->tid);
- 	if (thread_map_idx < 0) {
++
++	/* Display the metrics associated with the sampled event. */
++	cpu_aggr_map__for_each_idx(aggr_idx, stat_config.aggr_map)
++		perf_stat__print_shadow_stats(&stat_config, evsel, aggr_idx, &ctx);
+ }
+ 
+ static bool show_event(struct perf_sample *sample,
 -- 
 2.56.0.385.gac671c819a-goog
 
