@@ -1,53 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700338;
-	b=J7KlIG+XuHLt8MTlS1ipXwuYsHNd//0gpGJiwrwYgr05YGzuXlibPjgObEa2pH2OnV9V
-	 bzLV80rQ86qLaChfi1fpTxelC/a3r562LnkjCUYLx/AeM8AIKBfEi4X8BWinWRrYFBp0O
-	 f/X3xbSWGfdwIqDBZzZV3Jd4zxoq0kzYU5QyG/txijyNn8bcB4T4okgKX1+xQOrv+1IHb
-	 iuIlFzpK6CvyGOCvUZwD1tLykvQPkjGgxz2RuZVt3LMztkozx5P87sCMBRYckc/MzrjS+
-	 Ocnrptrd+amQy49VhScps0m7S91EBXkZ6CXUaDx9VxmxApSmtYHqMsnoAhls4nrJZGA==
+	t=1793700339;
+	b=3FcP6OTN1WkwOmCjjOMrndVoZvcYnDp5xIVNpSz/H2aIs8Mxw4HPIGEcqp/76KLZmH9P
+	 wwEuDjBN7avnt0UkG6P8IEq5EIr/6dybf9NAGYjCWMK4z5Vdnu2Vaja+trPbgQARaWbtG
+	 R0UAguCcVhai1XixRM9cfIvgBH48WE48r9yuhlRrUDEgGa+rVywXuVs7dtzWpswwfk237
+	 KeeLfCiN0ZhyrWwBBy3W/DOvbs+WMGHAp33/ETafRy2SVDcJg3RbdlO1ybZdcMq37JWaP
+	 x2Vxg+0z0XoPNW3m7vg+3EL9dq2lCA3rdneVAff54n3E32fbZ2hfrmKRG4Zhn1iNw+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700338;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=ByPNk7WVXKKOvJ36WOgrk1MlN7/4NiJqbuu2dUHy2Xs=;
-	b=AaSDJkhWPIqLN7gLnFCD7G5LsJcz/QxmaSX4/5T9vE6YQY7bnf+yXytNzKhE13Q5C3oK
-	 F21Kok/mfHwnqB8iQ3jszOYcMYTuvtzAzPltr5bDnsVd6q8aviLaoOI8u0hPFaVsi3/Qp
-	 R0qmJty0WALzne6vEeEIDt+fZb6SuFWmk1xNffG1eDjhTVt8MSzr1EidalTmLQysF62TP
-	 1PzZ0NxV4RN6arv/LG5UiZofQsIkfy1XsdFDhYY35QT16/ZIXC/jHW9Zv6y5oXTTyWXbc
-	 tZVKWVzV5O6SS6Yqk5Od5y2RejczSZgqp6OnDWO2r3cpyF9tJOQeemvcq2jZTn1MR3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700339;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=gJbduYY+2MLz7vY8LSMtIk42i7cqHj5q97uCgEORjb8=;
+	b=v7BEwnt7Z4uE5wQJ6m8Zv+T06H+u/KEKoPkD6Hw01RDJAHJ72YhheXlt1bAiSz3Jm/hg
+	 VJ43tBE7g4LyGiQtow8O8snu3Ac2dLBiElhFByZ6f4xgcFM275RpWZ2WOr2iPf3oOgO6L
+	 jJ11dJt9vdS7IMg2j/BUtJ/Rp5UX05SMvRZJN44I5EPxKjLkulnqFn6OpJ3zhgqWs89Ne
+	 qYfwSt5U7MG9g/O3kfQ3Po6OOdlDkUHR8UpadqcRpOdDVqt3xDJmeeCrNPHygXmT7O9vI
+	 Rg4FOfxT4xUrEmCI3b2Qo6PhqX+16E9dlrs4Fdhlm0cvCFnrMtlo7NLq1PkERTqDQ4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=fQrAP2BL;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60813606FAEE;
-	Tue,  3 Nov 2026 10:05:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60813606FAEE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=fQrAP2BL
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DF89AA164E;
-	Tue, 03 Nov 2026 11:05:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1793700328; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ByPNk7WVXKKOvJ36WOgrk1MlN7/4NiJqbuu2dUHy2Xs=;
-	b=fQrAP2BL7JpoiiZbLEVWh05PjvnB4Ft259KFIC35n0gJ3L1HvzjfL5/3UW/5+437U4vbQS
-	SzcvVzTyFuQUSvIpWhv9hAaPpRq/X5KrJH6LldvAU5Vevh+K3FHaPKtnUTUV7VHwFZtoCo
-	IGMmjMCN/0VT/JgRXAyFB1baGiMExGiAcQk2XOQa3k3cN1s/RcuBkkfc2DKjkugDEvEFXz
-	L6atfOc62OUDnwwJTbs963RSsJTSyexFRo6iyN0H/aRnOETtaIp+HsaYz6L2WgvsUk8VNX
-	SmEdlpUqext0E0Fc05/yWBFa7aHO9+igUjknBaZZs20kLr7P7pZ+fr09VNUZlw==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Tue, 03 Nov 2026 11:04:59 +0100
-Subject: [PATCH net-next v6 5/9] net: bcmgenet: derive the receive buffer
- length from the MTU
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D3460A381C;
+	Tue,  3 Nov 2026 10:05:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30D3460A381C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAXIZLmselqnXs7AA--.2519S2;
+	Tue, 03 Nov 2026 18:05:26 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: mvpp2: free pending TX timestamp skbs when the port is stopped
+Date: Tue,  3 Nov 2026 10:05:35 +0000
+Message-Id: <20261103100535.1310088-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,277 +58,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-nb-genet-mtu-nn-v2-v6-5-61d5631676e5@tipi-net.de>
-References: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
-In-Reply-To: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAXIZLmselqnXs7AA--.2519S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KrW3ArW5ZryxGr4fZrW7CFg_yoW8urW7pF
+	WjyryYyFWkXF47Z347Wa1jyr1Fqw1xtF43GFWIk34Yq347Grykur409a90vFW8JrWkXry7
+	AF4xKFsrGr4DXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
+	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
+	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpnOFgbAAAs8
 
-The receive buffer length is a fixed 2048 bytes. The packet ready
-thresholds keep whatever value the reset left. Neither follows the MTU.
+mvpp2_tx_hw_tstamp() takes an extra reference on skbs that need a TX
+timestamp and stores them in port->tx_hwtstamp_queue[]. The reference is
+dropped by mvpp2_isr_handle_ptp_queue() when the hardware reports the
+timestamp. Nothing drains the queues when the port is stopped, so skbs
+still waiting for a timestamp keep their reference until their queue
+slot is reused, and are leaked for good when the port is removed.
 
-Compute the receive threshold from the MTU and program it into RBUF. The
-buffer length follows from it, with the status block on top. The MTU is
-still fixed at ETH_DATA_LEN, so the threshold comes out at the reset
-default and the buffer only grows by the status block the hardware already
-wrote. Derive UMAC_MAX_FRAME_LEN and the flow period from the MTU too, with
-a floor at ETH_DATA_LEN so a lower MTU does not stop the MAC accepting a
-standard frame.
+Free the queued skbs in mvpp2_stop(), after the interrupts have been
+released.
 
-Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Fixes: f5015a594c50 ("net: mvpp2: ptp: add support for transmit timestamping")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 85 +++++++++++++++++++++-----
- drivers/net/ethernet/broadcom/genet/bcmgenet.h | 18 +++++-
- 2 files changed, 85 insertions(+), 18 deletions(-)
+ drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index a0f170bf35ef5..645112f95f8ce 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -48,18 +48,36 @@
- #define GENET_Q0_TX_BD_CNT	\
- 	(TOTAL_DESC - priv->hw_params->tx_queues * priv->hw_params->tx_bds_per_q)
- 
--#define RX_BUF_LENGTH		2048
- #define SKB_ALIGNMENT		32
- 
-+/* RBUF and TBUF hand a frame to the DMA once the threshold is reached. Both
-+ * registers are 8 bit in units of 16 bytes and want a multiple of the 256
-+ * byte burst size, so 0xf0 is the largest usable value.
-+ */
-+#define ENET_THLD_UNIT		16
-+#define ENET_THLD_BURST		256
-+#define ENET_THLD_DEFAULT	0x80
-+#define ENET_THLD_MAX		0xf0
-+
- /* Page pool RX buffer layout:
-  * RSB(64) + pad(2) | frame data | skb_shared_info
-  * The HW writes the 64B RSB before every descriptor of a frame. Only the
-  * first one also gets the 2B alignment padding.
-  */
--#define GENET_RSB_PAD		(sizeof(struct status_64) + 2)
-+#define GENET_RBUF_ALIGN	2
-+#define GENET_RSB_PAD		(sizeof(struct status_64) + GENET_RBUF_ALIGN)
- 
--/* RX buffer plus the skb_shared_info napi_build_skb() places behind it */
--#define GENET_RX_BUF_SIZE	SKB_HEAD_ALIGN(RX_BUF_LENGTH)
-+/* A descriptor never spans more than one page, which also holds
-+ * skb_shared_info behind the frame, so on 4K pages the page bounds the
-+ * threshold before the register does. Larger pages fit several descriptors.
-+ */
-+#define ENET_SHINFO_LEN		SKB_DATA_ALIGN(sizeof(struct skb_shared_info))
-+#define ENET_THLD_PAGE_LEN	round_down(PAGE_SIZE - ENET_SHINFO_LEN - \
-+					   sizeof(struct status_64), \
-+					   ENET_THLD_BURST)
-+#define ENET_THLD_MAX_LEN	min_t(unsigned int, \
-+				      ENET_THLD_MAX * ENET_THLD_UNIT, \
-+				      ENET_THLD_PAGE_LEN)
- 
- /* Tx/Rx DMA register offset, skip 256 descriptors */
- #define WORDS_PER_BD(p)		(p->hw_params->words_per_bd)
-@@ -2273,7 +2291,7 @@ static int bcmgenet_rx_refill(struct bcmgenet_rx_ring *ring,
- 			      struct enet_cb *cb)
- {
- 	struct bcmgenet_priv *priv = ring->priv;
--	unsigned int size = GENET_RX_BUF_SIZE;
-+	unsigned int size = SKB_HEAD_ALIGN(priv->rx_buf_len);
- 	unsigned int offset;
- 	dma_addr_t mapping;
- 	struct page *page;
-@@ -2288,7 +2306,7 @@ static int bcmgenet_rx_refill(struct bcmgenet_rx_ring *ring,
- 
- 	/* page_pool handles DMA mapping via PP_FLAG_DMA_MAP */
- 	mapping = page_pool_get_dma_addr(page) + offset;
--	dma_sync_single_for_device(&priv->pdev->dev, mapping, RX_BUF_LENGTH,
-+	dma_sync_single_for_device(&priv->pdev->dev, mapping, priv->rx_buf_len,
- 				   DMA_FROM_DEVICE);
- 
- 	cb->rx_page = page;
-@@ -2367,10 +2385,10 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 		}
- 
- 		/* Sync the full buffer; the HW may have written anywhere
--		 * up to RX_BUF_LENGTH.
-+		 * up to priv->rx_buf_len.
- 		 */
- 		page_pool_dma_sync_for_cpu(ring->page_pool, rx_page, rx_offset,
--					   RX_BUF_LENGTH);
-+					   priv->rx_buf_len);
- 
- 		hard_start = page_address(rx_page) + rx_offset;
- 		status = (struct status_64 *)hard_start;
-@@ -2392,7 +2410,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 					     : sizeof(struct status_64);
- 
- 		/* Reject lengths that would underflow the SKB build path. */
--		if (unlikely(len > RX_BUF_LENGTH || len < min_len)) {
-+		if (unlikely(len > priv->rx_buf_len || len < min_len)) {
- 			netif_err(priv, rx_status, dev,
- 				  "invalid packet length %d\n", len);
- 			BCMGENET_STATS64_INC(stats, length_errors);
-@@ -2643,6 +2661,41 @@ static void bcmgenet_link_intr_enable(struct bcmgenet_priv *priv)
- 	bcmgenet_intrl2_0_writel(priv, int0_enable, INTRL2_CPU_MASK_CLEAR);
+diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+index 317af54369cf..fc020b8c8830 100644
+--- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
++++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+@@ -3419,6 +3419,22 @@ static void mvpp2_isr_handle_ptp(struct mvpp2_port *port)
+ 		mvpp2_isr_handle_ptp_queue(port, 1);
  }
  
-+/* Receive threshold in register units. Covers the alignment bytes and the
-+ * frame, but not the status block, which the hardware adds on top.
-+ */
-+static unsigned int bcmgenet_pkt_rdy_thld(unsigned int mtu)
++static void mvpp2_tx_hwtstamp_flush(struct mvpp2_port *port)
 +{
-+	unsigned int len = GENET_RBUF_ALIGN + mtu + ETH_HLEN + VLAN_HLEN;
++	struct mvpp2_hwtstamp_queue *queue;
++	int nq, i;
 +
-+	len = round_up(len, ENET_THLD_BURST) / ENET_THLD_UNIT;
-+
-+	/* Keep the reset default for the common MTUs */
-+	return clamp_t(unsigned int, len, ENET_THLD_DEFAULT,
-+		       ENET_THLD_MAX_LEN / ENET_THLD_UNIT);
++	for (nq = 0; nq < ARRAY_SIZE(port->tx_hwtstamp_queue); nq++) {
++		queue = &port->tx_hwtstamp_queue[nq];
++		for (i = 0; i < ARRAY_SIZE(queue->skb); i++) {
++			if (!queue->skb[i])
++				continue;
++			dev_kfree_skb_any(queue->skb[i]);
++			queue->skb[i] = NULL;
++		}
++	}
 +}
 +
-+/* A buffer has to hold everything the threshold lets the hardware deliver */
-+static unsigned int bcmgenet_rx_buf_len(unsigned int mtu)
-+{
-+	return sizeof(struct status_64) +
-+	       bcmgenet_pkt_rdy_thld(mtu) * ENET_THLD_UNIT;
-+}
-+
-+/* Program the MTU dependent registers. Call with the MAC disabled. */
-+static void bcmgenet_set_mtu_regs(struct bcmgenet_priv *priv, unsigned int mtu)
-+{
-+	u32 thld = bcmgenet_pkt_rdy_thld(mtu);
-+
-+	bcmgenet_umac_writel(priv, ENET_MAC_FRAME_LEN(mtu), UMAC_MAX_FRAME_LEN);
-+
-+	/* GENET v1 maps other registers at these offsets */
-+	if (GENET_IS_V1(priv))
-+		return;
-+
-+	bcmgenet_rbuf_writel(priv, thld, RBUF_PKT_RDY_THLD);
-+}
-+
- static void init_umac(struct bcmgenet_priv *priv)
+ static void mvpp2_isr_handle_link(struct mvpp2_port *port,
+ 				  struct phylink_pcs *pcs, bool link)
  {
- 	struct device *kdev = &priv->pdev->dev;
-@@ -2659,7 +2712,7 @@ static void init_umac(struct bcmgenet_priv *priv)
- 			     UMAC_MIB_CTRL);
- 	bcmgenet_umac_writel(priv, 0, UMAC_MIB_CTRL);
+@@ -4914,6 +4930,7 @@ static int mvpp2_stop(struct net_device *dev)
+ 		free_irq(port->port_irq, port);
  
--	bcmgenet_umac_writel(priv, ENET_MAX_FRAME_LEN, UMAC_MAX_FRAME_LEN);
-+	bcmgenet_set_mtu_regs(priv, priv->dev->mtu);
- 
- 	/* init tx registers, enable TSB */
- 	reg = bcmgenet_tbuf_ctrl_get(priv);
-@@ -2765,7 +2818,7 @@ static void bcmgenet_init_tx_ring(struct bcmgenet_priv *priv,
- 
- 	/* Set flow period for ring != 0 */
- 	if (index)
--		flow_period_val = ENET_MAX_FRAME_LEN << 16;
-+		flow_period_val = ENET_MAC_FRAME_LEN(priv->dev->mtu) << 16;
- 
- 	bcmgenet_tdma_ring_writel(priv, index, 0, TDMA_PROD_INDEX);
- 	bcmgenet_tdma_ring_writel(priv, index, 0, TDMA_CONS_INDEX);
-@@ -2776,7 +2829,7 @@ static void bcmgenet_init_tx_ring(struct bcmgenet_priv *priv,
- 				  TDMA_FLOW_PERIOD);
- 	bcmgenet_tdma_ring_writel(priv, index,
- 				  ((size << DMA_RING_SIZE_SHIFT) |
--				   RX_BUF_LENGTH), DMA_RING_BUF_SIZE);
-+				   priv->rx_buf_len), DMA_RING_BUF_SIZE);
- 
- 	/* Set start and end address, read and write pointers */
- 	bcmgenet_tdma_ring_writel(priv, index, start_ptr * words_per_bd,
-@@ -2795,8 +2848,9 @@ static void bcmgenet_init_tx_ring(struct bcmgenet_priv *priv,
- static int bcmgenet_rx_ring_create_pool(struct bcmgenet_priv *priv,
- 					struct bcmgenet_rx_ring *ring)
- {
--	/* Buffers share a page. bcmgenet_rx_refill() syncs each one for the
--	 * device, PP_FLAG_DMA_SYNC_DEV would sync the whole page.
-+	/* Buffers may share a page, depending on PAGE_SIZE and the MTU.
-+	 * bcmgenet_rx_refill() syncs each one for the device,
-+	 * PP_FLAG_DMA_SYNC_DEV would sync the whole page.
- 	 */
- 	struct page_pool_params pp_params = {
- 		.order = 0,
-@@ -2859,7 +2913,7 @@ static int bcmgenet_init_rx_ring(struct bcmgenet_priv *priv,
- 	bcmgenet_rdma_ring_writel(priv, index, 0, RDMA_CONS_INDEX);
- 	bcmgenet_rdma_ring_writel(priv, index,
- 				  ((size << DMA_RING_SIZE_SHIFT) |
--				   RX_BUF_LENGTH), DMA_RING_BUF_SIZE);
-+				   priv->rx_buf_len), DMA_RING_BUF_SIZE);
- 	bcmgenet_rdma_ring_writel(priv, index,
- 				  (DMA_FC_THRESH_LO <<
- 				   DMA_XOFF_THRESHOLD_SHIFT) |
-@@ -4138,6 +4192,7 @@ static int bcmgenet_probe(struct platform_device *pdev)
- 	/* Mii wait queue */
- 	init_waitqueue_head(&priv->wq);
- 	bcmgenet_hfb_init(priv);
-+	priv->rx_buf_len = bcmgenet_rx_buf_len(dev->mtu);
- 	INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
- 
- 	priv->clk_wol = devm_clk_get_optional(&priv->pdev->dev, "enet-wol");
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-index 6f40be5445e0b..dc49518c577ec 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-@@ -31,9 +31,17 @@
- #define ENET_BRCM_TAG_LEN	6
- #define ENET_PAD		8
- 
--/* Longest frame the MAC must accept for the default MTU */
--#define ENET_MAX_FRAME_LEN	(ETH_DATA_LEN + ETH_HLEN + VLAN_HLEN + \
--				 ENET_BRCM_TAG_LEN + ETH_FCS_LEN + ENET_PAD)
-+/* Longest frame the MAC must accept for a given MTU. ENET_PAD is slack the
-+ * driver has always carried, it rounded the default up to 1536 from 1528.
-+ */
-+#define ENET_FRAME_OVERHEAD	(ETH_HLEN + VLAN_HLEN + ENET_BRCM_TAG_LEN + \
-+				 ETH_FCS_LEN + ENET_PAD)
-+#define ENET_MAX_FRAME_LEN(mtu)	((mtu) + ENET_FRAME_OVERHEAD)
-+
-+/* The MAC keeps accepting a standard frame below the default MTU */
-+#define ENET_MAC_FRAME_LEN(mtu)	ENET_MAX_FRAME_LEN(max_t(unsigned int, (mtu), \
-+							ETH_DATA_LEN))
-+
- #define DMA_MAX_BURST_LENGTH    0x10
- 
- /* misc. configuration */
-@@ -218,6 +226,8 @@ struct bcmgenet_rx_stats64 {
- #define  RBUF_ALIGN_2B			(1 << 1)
- #define  RBUF_BAD_DIS			(1 << 2)
- 
-+#define RBUF_PKT_RDY_THLD		0x08
-+
- #define RBUF_STATUS			0x0C
- #define  RBUF_STATUS_WOL		(1 << 0)
- #define  RBUF_STATUS_MPD_INTR_ACTIVE	(1 << 1)
-@@ -248,6 +258,7 @@ struct bcmgenet_rx_stats64 {
- #define TBUF_CTRL			0x00
- #define  TBUF_64B_EN			(1 << 0)
- #define TBUF_BP_MC			0x0C
-+#define TBUF_PKT_RDY_THLD		0x10
- #define TBUF_ENERGY_CTRL		0x14
- #define  TBUF_EEE_EN			(1 << 0)
- #define  TBUF_PM_EN			(1 << 1)
-@@ -613,6 +624,7 @@ struct bcmgenet_priv {
- 	void __iomem *rx_bds;
- 	struct enet_cb *rx_cbs;
- 	unsigned int num_rx_bds;
-+	unsigned int rx_buf_len;
- 	struct bcmgenet_rxnfc_rule rxnfc_rules[MAX_NUM_OF_FS_RULES];
- 	struct list_head rxnfc_list;
- 
-
+ 	mvpp2_irqs_deinit(port);
++	mvpp2_tx_hwtstamp_flush(port);
+ 	if (!port->has_tx_irqs) {
+ 		for (thread = 0; thread < port->priv->nthreads; thread++) {
+ 			port_pcpu = per_cpu_ptr(port->pcpu, thread);
 -- 
-2.53.0
+2.34.1
 
