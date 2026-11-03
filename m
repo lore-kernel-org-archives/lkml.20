@@ -1,46 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693663;
-	b=TFz3jYBP7JHPXxR98Jg41j8gkmAyWehCOSddnHI9bXJ4rZ8J8sXRGT8QA2SW9khImJgq
-	 SJ9aRjZjqOnEOu1/NUbFy6jFllqRnsBQzPuYOkmnIqkvux3vj7vjGjWyDeXsjGIa9ngBn
-	 BQFt1ky0Ap2jJbG5zkLleCghaClZi0hwG8GdQttue3WvscF1a1wHb5OsJzzA0b+1oNsLQ
-	 ZUD53cuwMW4WH9tJkLY17RfEXRjYj83QkSyIJTwbX0aMGfSClgdxkp9mZOiM34SXObGqW
-	 0opvh4BbV9ob3+DvAg/h7mg0FDToj+5DlQepimHci3pmEaPDgtA1HaiobCcpFUuZrdw==
+	t=1793693712;
+	b=aP2RBMi+sgSExI1RcexxErSy8jcVHCCdTbc87jR6bG+MUqJOT7NyW3Flv8MaTgWYzlyU
+	 G/Cs+rFH7rNPMLI1j2MkQAMRWjGsH60V+P8juU8Jipue9uCjTPbxFhtAKTh71ZdL3Bnm+
+	 0M2b27Jt8dyUxpa3Oz8k59I4dzVNugKnAhnAPUSPzZ+K3D+jAeRmhl8S4OdeWsgsKtNSK
+	 lD++3Xg8e9aqxg4QYABiq3fvoBwJ3TNqVniH3bZvoFdEDhdQP2qvDeJKx8L1bgr8ezunM
+	 XCiOLVUY3YMP+q0fr2YDAB+Fz8CvxN15wT1lmDTAjAa3CyhbgLuRiHIpKtGni+GXmAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693663;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=9WvENImLqxCgY1amf4low1ga5uTuzK/2834N4b/cV4Q=;
-	b=p+9GB2VZ9eO1n2/9PUZJ6Eyxj53Uh1iuAFNRo97Ui90g643nXEHUR2vC8PsdqB96oskF
-	 MkbvRWeqTSCoxeXd1ZHBLul1AGXJUoJy45zpHinjNo2Scy+jEkh3iy6OqG8JcpNVyitqK
-	 HL8NK+5hsSBunsBso0q3rI5cJSjMktXYwDGvZVSiFR+8vqYKJwBLzrIp2uIR3h4tNdQGK
-	 vzUmbEtZTCUlmE4vZfm0wrMkgI7N4OKyj+5qdqjFdedUT364TC4W5r8KZvGYHSnW2Jppc
-	 x6P6ipJ3LnMpwhf3gIO4mWuCG9orb1yA7p2selGXgIjTCvPjQZQULGa64GW2KgD2hrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693712;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=BliLsDRj4BVefHY0apAlXatRGt/1Hw6rKHjbEQ5OtPA=;
+	b=gA6SrxDm3eNNoU2RZoi0t6mZqvKm8fJEkleHVflTvJqVp5IUQEYeFJ2qM6SGsTdgHMdm
+	 QtMsM4JBPdeSqi5bkf3r3UFz0K1SVSSIUXjvoXmgLgjnK4HvX4VRlyC4od1SnAzrMkqvw
+	 x8X6D3Vv2SaiHaJfNYa7CkIP6o1xxKPOVK/OOOAldYNnimQybRKIRzhbD3hhsAIBP6Yrt
+	 DipWAbOj97ZSxa9DMPUc+2TrWHD7XfB21VsMQyvK3/BjlGMx1ww0fGXz94WoSVsNHtwAk
+	 QXTk7fuHaqdecXrw7wUp4S2ZcEBSUNJTGqyh4UYxJQGf378GH6KWotgEuSI4t6wXYfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lst.de;
-	spf=pass smtp.mailfrom=lst.de;
-	arc=none smtp.remote-ip=213.95.11.211
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07995606A324;
-	Tue,  3 Nov 2026 08:14:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07995606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 8187468BEB; Tue,  3 Nov 2026 09:14:18 +0100 (CET)
-Date: Tue, 3 Nov 2026 09:14:18 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, rcu@vger.kernel.org
-Subject: Re: [PATCH] nvme: wait for SRCU readers before splicing the
- namespace list
-Message-ID: <20261103081418.GB4301@lst.de>
-References: <20261103-bug-nvme-remove-ns-srcu-v1-1-e239087d63ac@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7509C606A332;
+	Tue,  3 Nov 2026 08:15:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7509C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.98])
+	by APP-05 (Coremail) with SMTP id zQCowABH4LX3l+lq3fQ9AA--.19826S3;
+	Tue, 03 Nov 2026 16:14:52 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Wei Fu <wefu@redhat.com>,
+	Drew Fustini <dfustini@tenstorrent.com>
+Cc: linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Icenowy Zheng <uwu@icenowy.me>,
+	Han Gao <rabenda.cn@gmail.com>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v4 1/2] dt-bindings: phy: add binding for T-Head TH1520 USB PHY
+Date: Tue,  3 Nov 2026 16:14:43 +0800
+Message-ID: <20261103081444.1983071-2-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
+References: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,90 +66,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-bug-nvme-remove-ns-srcu-v1-1-e239087d63ac@gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABH4LX3l+lq3fQ9AA--.19826S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxurWfuryDGFykJry8tFWUJwb_yoW5XFyUpa
+	yfGr1ftwnagrna9w4fJF10kF1fKrs5ZF1Fqr17Ww18Xws0g3WFq3sFkr15ZF48Jr48ZFW7
+	uFs09Fy2kF17Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQYb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4
+	IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48J
+	MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AK
+	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8aiiDUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Tue, Nov 03, 2026 at 01:30:35AM -0500, Qiliang Yuan wrote:
-> Readers walk ctrl->namespaces under ctrl->srcu, and some of them sleep
-> there, e.g. nvme_wait_freeze() waiting for I/O to drain.
-> 
-> nvme_remove_namespaces() moves the list onto its on-stack ns_list with
-> list_splice_init_rcu(), which only waits for RCU readers before
-> relinking the entries. A reader still on the last namespace then follows
-> its next pointer to ns_list instead of ctrl->namespaces and treats the
-> stack as a namespace. Deleting a controller while a Format NVM
-> passthrough waits for a delayed read on the last namespace gives:
-> 
->   BUG: KASAN: stack-out-of-bounds in nvme_wait_freeze+0x102/0x120
->   Read of size 8 at addr ff110001d2f3fc38 by task nvme/4413
->   Call Trace:
->    nvme_wait_freeze
->    nvme_passthru_start
->    nvme_submit_user_cmd
->    nvme_user_cmd
->    nvme_dev_ioctl
->   BUG: unable to handle page fault for address: ffffffff8af04850
-> 
-> Open-code the splice and wait for SRCU readers instead. This also takes
-> the RCU grace period out of every controller deletion:
+The TH1520 SoC features a Synopsys USB 3.0 FemtoPHY with some custom
+glue logic configuring PHY parameters.
 
-This feels like a design issue with list_splice_init_rcu or rather
-using list_splice_init_rcu with SRCU.  Do we need to encapsulate
-and verify this logic in a list_splice_init_srcu so that other
-potential users won't get it wrong again?
+Add a binding for it.
 
-> 
->   64 tcp controllers, 1 namespace each   before        after
->   nvme disconnect-all (ms)               3543 / 3474   3221 / 3146
->   nvme_remove_namespaces() avg (ms)      39.6 / 38.9   34.4 / 33.7
-> 
-> Fixes: be647e2c76b2 ("nvme: use srcu for iterating namespace list")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> ---
->  drivers/nvme/host/core.c | 19 +++++++++++++++++--
->  1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index a7a4d09644c13..8f032b3edde9a 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -4754,10 +4754,25 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
->  	/* this is a no-op when called from the controller reset handler */
->  	nvme_change_ctrl_state(ctrl, NVME_CTRL_DELETING_NOIO);
->  
-> +	/*
-> +	 * Readers walk the list under ctrl->srcu, so hide the namespaces from
-> +	 * new readers and wait for the current ones before moving them over.
-> +	 * list_splice_init_rcu() can't be used as it only waits for RCU
-> +	 * readers.
-> +	 */
->  	mutex_lock(&ctrl->namespaces_lock);
-> -	list_splice_init_rcu(&ctrl->namespaces, &ns_list, synchronize_rcu);
-> +	if (!list_empty(&ctrl->namespaces)) {
-> +		struct list_head *first = ctrl->namespaces.next;
-> +		struct list_head *last = ctrl->namespaces.prev;
-> +
-> +		INIT_LIST_HEAD_RCU(&ctrl->namespaces);
-> +		synchronize_srcu(&ctrl->srcu);
-> +		ns_list.next = first;
-> +		ns_list.prev = last;
-> +		first->prev = &ns_list;
-> +		last->next = &ns_list;
-> +	}
->  	mutex_unlock(&ctrl->namespaces_lock);
-> -	synchronize_srcu(&ctrl->srcu);
->  
->  	list_for_each_entry_safe(ns, next, &ns_list, list)
->  		nvme_ns_remove(ns);
-> 
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261102-bug-nvme-remove-ns-srcu-93d8a75a9b1b
-> 
-> Best regards,
-> -- 
-> Qiliang Yuan <odys.yuan@gmail.com>
----end quoted text---
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+Changes in v4:
+- Finally added Conor's R-b.
+Changes in v3:
+- Re-add avdd33-usb3-supply to the required properties list.
+- Add reg to the required properties list, as this is a MMIO peripheral.
+Changes in v2:
+- Lifted avdd33-usb3-supply from required properties list. Because of
+  this the R-b from Conor isn't added yet for reconfirmation. (The
+  related regulator isn't yet controllable because no driver is
+  available.)
+
+ .../bindings/phy/thead,th1520-usb-phy.yaml    | 75 +++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml
+
+diff --git a/Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml b/Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml
+new file mode 100644
+index 0000000000000..0d2494a71b2bd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/thead,th1520-usb-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: T-Head TH1520 USB PHY
++
++description: |
++  The T-HEAD TH1520 USB PHY is a Synopsys USB 3.0 FemtoPHY glued with some
++  custom logic to configure PHY parameters.
++
++maintainers:
++  - Icenowy Zheng <zhengxingda@iscas.ac.cn>
++  - Wei Fu <wefu@redhat.com>
++  - Drew Fustini <dfustini@tenstorrent.com>
++
++properties:
++  compatible:
++    const: thead,th1520-usb-phy
++
++  reg:
++    maxItems: 1
++
++  "#phy-cells":
++    const: 0
++
++  clocks:
++    items:
++      - description: PHY bus clock
++      - description: PHY reference clock
++
++  clock-names:
++    items:
++      - const: bus
++      - const: ref
++
++  resets:
++    items:
++      - description: PHY bus reset
++      - description: PHY reset
++
++  reset-names:
++    items:
++      - const: bus
++      - const: phy
++
++  avdd33-usb3-supply:
++    description: |
++      3.3V power supply for the PHY, named AVDD33_USB3 in the SoC pin list.
++
++required:
++  - compatible
++  - reg
++  - "#phy-cells"
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - avdd33-usb3-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    phy@ec030000 {
++      compatible = "thead,th1520-usb-phy";
++      reg = <0xec030000 0x10000>;
++      #phy-cells = <0>;
++      clocks = <&clk_misc 1>, <&clk_misc 3>;
++      clock-names = "bus", "ref";
++      resets = <&rst_misc 6>, <&rst_misc 7>;
++      reset-names = "bus", "phy";
++      avdd33-usb3-supply = <&avdd33_usb3>;
++    };
+-- 
+2.56.0
+
