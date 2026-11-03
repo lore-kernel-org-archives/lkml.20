@@ -1,87 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793701323;
-	b=s2bm+g4iIdEiskfNLjkLH5qrr068MthEMtY9pX7OcBN4CQ8d/nkI2N4x3kLwnxRVOVTw
-	 jtmDaOISibJeAEgtFtlH4/oyjvud3lZEraWXMQTCCPk6kg+ryCK9gu9LHef5BYCLR932D
-	 WX16HUAbBBaAasqyGyUzgXaLL7htvCfU1g+L1U+jX723A55ZLih55ty2dDvpaiVyoXpV+
-	 ZM2RgQ/xfLZeSAgmCjigob8JswFDmA1xCAxeAj3opoJTc8QGl6DEQpqMZEYRVTq3fGRcQ
-	 RRB9gNBmo9PAfSU4ZyW+fQs7Ydby/Ac51fj3UeitNwRfj0e8XkfU8AzpRwqIB6/AtIw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701323;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=+QaWJ5XuuUWt8kLhoR+LPkBukE/7L+BqVvrpm352Puc=;
-	b=ze21TdQEJtDbi07frtoh9fVxwPVBKdepY0Y0pfWKQyWDVOVDWbDqH7LU5p+OKK7SE6pf
-	 UTFwn2nnYJf9B0qqgBGZzgCBhR9MKQmX3gn/L3RBbw4uaRY/lxGxxeIYwauTBJ8a5ewzV
-	 uXv9uKj4X5XHsLNa4A8P2QZO61NjYm4NXjB+UDCDGwgje9Cp8f3Yj2YOBAlWaiLTCKQy3
-	 /DF39SIf8v/Ne70dJ2t7fvnrBDmDVUg/JZPoTUxXoQtmOyZXXJbXQ9rXfZjupqRFJCNKB
-	 h66sLHmkXTs+Qam064hv08YpbqeGwdSSH/gO7xewRXCDX7FKuFNea2UTtqX7RZLyTVA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XHkKpfO5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.203.187.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793701324;
+	b=jyUUnb8WdHV5ncDFNwC+ZtQ25CSvHLxC4HOynIzCXYuXKzG6Fc3f8dbyYJaIwv1dSPTM
+	 Xiv9Plfqq4L6HovC0T8i6B6WMai4JWUp/xs0z506xoMlO1hnIW5UJhHB5UYE4pvCFGJ2s
+	 PKfdX0/pzxgkdYeAO1U4ig0HnxqD5F8xurxjj7ULO7a392DX3N5mLQ8Xs/7ObWtPXLqks
+	 d2SUxWFZnQswiIt4ZSbxSrECvlFN2n5lgJL1hQ3IUbwLDS7/O8j9Ztg4xVjcwYJbOPLkr
+	 69a2yBdidTPCGSGu5EGI6bAclpK4S/0i1bTI+b3gIlYkuWlDnx5XdzZBJ5HlDHoLukw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701324;
+	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Classification-ID;
+	bh=XBGYXyG+q5C5jiAPKuxNdMQjml1qU3QkBoOAjcwWNXQ=;
+	b=fmo8e7igkb4UHZM2+MzJF3BCzuoSdY0gYz+9sdi5HK3lOUsoZ36QdTV2janHM9O8yL/9
+	 /oL1vjXnuqzHflYn5eKTvhyleXtuv8aMocsK4akvxqjNKhvXrXC8bgsXTRiblP3m0hQe/
+	 SP6fbTvoyox92nqE+zp1gQraSEBLmgqenTxLVcQPuH1V32WP9bw8iV1icXGj+LekVEuWV
+	 vkB1hf+zGYHtIdR51y3QmcvLDdgjfwQJBCMJjRqIoNv/ESCueYSP8Nim38Xc3Jd4rQh4p
+	 2CbzZ+sTBr8vyIwCDicXm7pWqdemY3AQc94x1xlYWUl1UFVA+GVxWNu6jM6fHMRKipA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mev.co.uk;
+	spf=pass smtp.mailfrom=mev.co.uk;
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=D6Xow631;
+	arc=none smtp.remote-ip=173.203.187.81
+Received: from smtp81.iad3a.emailsrvr.com (smtp81.iad3a.emailsrvr.com [173.203.187.81])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA6F606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:22:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FA6F606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09899606D831
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09899606D831
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XHkKpfO5
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CA041200318;
-	Tue, 03 Nov 2026 11:21:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793701313;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+QaWJ5XuuUWt8kLhoR+LPkBukE/7L+BqVvrpm352Puc=;
-	b=XHkKpfO5aT1X4oy1mX3lecbImJyZJ3+U7RbgruV9RfIzs3DaCNp5bkJwZRGZfo4QgTXS1s
-	I9W5HYjK8fobYAV3VwCnQgtIpe6xiYOaimT5v341YSH01ic2snrcmElxSh+TNrk9OW+61Y
-	LZyWe8jaP0X0OdIURCvqjhUspNCweiNEsj94gDzxgX5dGF4xcPhfNbP2+KmjZaA5YJWoNj
-	wfq9JVuV06gms06VK8V0HqYUE4+SY7m5XlRdrjAgxtHxJKKWZB0ztxSHF1cHpmRnVRaLXk
-	l1HTNSDh4PXJs2UL5TyERY86k7rZupxmwzXuff/t6Lyc2xopofB0oU5wxeU2ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793701313;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+QaWJ5XuuUWt8kLhoR+LPkBukE/7L+BqVvrpm352Puc=;
-	b=I9J7TKLvxQiZFhB2s4hGZt3z0OiInPmy3QWDuMNJjepYwVBx0IPTgQr6iams4mubujGHrb
-	kvibOGmz5nNUyufIcriQ1VvRkzNdVSJBJ39Wcd2g3JUROIEjnzp3lWgwDZwfr82AtMAjLn
-	d1GmjfTWGAW20ZfgXHOalVH21mJaTTLV1L2p/BcumBGPnWXY/fA5YlXKfL8cM29TYu6ZJM
-	lgAsAGd16llA0iuV4qx9wMFDlAL4R82lZNACMbJKtnkM20TwK6TC3nOnNBjGKTt29X7aZe
-	x9PBykx7NO6R/bU6cSfQ2iDCsMyfu4NZ/yFzTN/uE25pa9651Ok2CtgXkHK1iQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793701313; a=rsa-sha256;
-	cv=none;
-	b=DLzoq2LwnZMP/o3XI46iUhsJhiPhwCNCP2MeI7HDeiGuOvx4eLMCXWpq7/6/9W+aUQyflm
-	/iEtjukuP32W+1LEh4iTkDdDADVTFQdeSiRg8eyDRvhkQNq4rxCw6sAfbPWb2EvOhaEPFx
-	YNu6fWFN3RuVje73YuIzXGCRGPk9o4RA1soBzXN/DkU2jN7RKQ+zSyAaZ9cHwOfmdjRITL
-	3uyaUlzlgIaLmHVgrd+oB3TWDpQXDLc09mCK0dUZOcs5V8j/EnLE6AkdXT+OFbAPwoeg4N
-	81b5nCh/4jou8fbeTXT0Od5PLtFtuBUMtvW4QIN8y10ZZjg+eYdxk6mPgCSyyw==
-Message-ID: <48d7459fc34adac1ac614e79d9930902345759d2.camel@pengutronix.de>
-Subject: Re: [PATCH v2] reset: Add KUnit test cases
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 11:21:53 +0100
-In-Reply-To: <20261102155207.19252-1-tzungbi@kernel.org>
-References: <20261102155207.19252-1-tzungbi@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=D6Xow631
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+	s=20221208-6x11dpa4; t=1793701317;
+	bh=6BGIec/cDOqNiNea/OamAjX1uzgN4KXehG99Ixpwcb4=;
+	h=Date:Subject:To:From:From;
+	b=D6Xow631lGGCqpqeV+mIuHuV+IPC3l9DntGOIP54kZeLvDkodLu+gbL8jrmQBCBE5
+	 tjXf3JiUlGfGc2DZ8gsO+ReNHE7falFxpr60V1FpTD0JO5Gnz4+e3rXkpRNWdIDS9b
+	 7360G9xhmfG9eZkrXqsjZwAR38GE3OPdfEoRiwIE=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp19.relay.iad3a.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 0AF0756BA;
+	Tue,  3 Nov 2026 05:21:56 -0500 (EST)
+Message-ID: <64edfb9a-183a-4719-831e-c771c6eec559@mev.co.uk>
+Date: Tue, 3 Nov 2026 10:21:56 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,122 +54,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] comedi: comedi_bond: Track opened devices independently
+ of subdevices
+To: Wentao Liang <vulab@iscas.ac.cn>, hsweeten@visionengravers.com
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261103063301.1025860-1-vulab@iscas.ac.cn>
+Content-Language: en-GB
+From: Ian Abbott <abbotti@mev.co.uk>
+Organization: MEV Ltd.
+In-Reply-To: <20261103063301.1025860-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Classification-ID: 53a150ee-45cb-4729-9aad-4a6ced7252d4-1-1
 
-On Mo, 2026-11-02 at 23:52 +0800, Tzung-Bi Shih wrote:
-> Since commit 9035073d0ef1 ("reset: convert reset core to using firmware
-> nodes"), reset suppliers and consumers can be wired up using software
-> nodes without requiring Device Tree or hardware devices.  Leverage this
-> to add KUnit test cases for the reset controller framework.
->=20
-> The test cases cover the following scenarios:
->=20
-> - Basic: Verifies that a consumer can acquire a reset control via
->   fwnode and perform reset, assert, deassert, status, release, and
->   acquire operations.
-> - Use After Unregister: Verifies that after the supplier unregisters
->   the reset_controller_dev while a consumer still holds a reset_control
->   handle, subsequent consumer operations fail safely with -ENODEV.
-> - Concurrent Unregister: Verifies that unregistering the
->   reset_controller_dev concurrently with an in-flight reset operation
->   waits for the active operation to complete before returning.
->=20
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+On 03/11/2026 06:33, Wentao Liang wrote:
+> bonding_detach() closes devices by walking the bonded subdevice array.
+> If a device has no digital I/O subdevices, do_dev_config() never adds it
+> to that array. Its open reference is then lost. The same happens if
+> configuration fails before the first subdevice entry for a device has
+> been added, for example when allocating that entry fails.
+> 
+> Keep the device returned by each successful comedi_open_from() in a
+> separate array indexed by the configuration option. Close those devices
+> on detach, including attach failure cleanup. This also removes the need
+> to deduplicate closes for devices with multiple bonded subdevices.
+> 
+> Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
-> Test:
-> $ ./tools/testing/kunit/kunit.py run \
->         --kconfig_add CONFIG_RESET_CONTROLLER=3Dy \
->         --kconfig_add CONFIG_RESET_KUNIT_TEST=3Dy \
->         reset_test
-> ---
-> v2:
-> - Separate out from the revocable series.
-> - Add reset_test_exit() to clean up rstc and rcdev on test exit or
->   assertion failure.
-> - Clean up kthreads on error paths in reset_test_concurrent_unregister().
->=20
-> v1: https://lore.kernel.org/all/20261011121246.162759-5-tzungbi@kernel.or=
-g
-> ---
->  drivers/reset/Kconfig     |   5 +
->  drivers/reset/Makefile    |   2 +
->  drivers/reset/core-test.c | 351 ++++++++++++++++++++++++++++++++++++++
->  3 files changed, 358 insertions(+)
->  create mode 100644 drivers/reset/core-test.c
->=20
-[...]
-> diff --git a/drivers/reset/core-test.c b/drivers/reset/core-test.c
-> new file mode 100644
-> index 000000000000..613db78040c6
-> --- /dev/null
-> +++ b/drivers/reset/core-test.c
-> @@ -0,0 +1,351 @@
-[...]
-> +static void reset_test_concurrent_unregister(struct kunit *test)
-> +{
-> +	struct reset_test_context *rtc =3D test->priv;
-> +	struct test_concurrent_unregister_context *ctx;
-> +	int i, ret, val;
+>   drivers/comedi/drivers/comedi_bond.c | 17 ++++++++++++-----
+>   1 file changed, 12 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
+> index a10cfbd04c72..ac8937550ce9 100644
+> --- a/drivers/comedi/drivers/comedi_bond.c
+> +++ b/drivers/comedi/drivers/comedi_bond.c
+> @@ -55,6 +55,7 @@ struct bonded_device {
+>   struct comedi_bond_private {
+>   	char name[256];
+>   	struct bonded_device **devs;
+> +	struct comedi_device *opened_devs[COMEDI_NDEVCONFOPTS];
+>   	unsigned int ndevs;
+>   	unsigned int nchans;
+>   };
+> @@ -215,6 +216,8 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+>   			return -ENODEV;
+>   		}
+>   
+> +		devpriv->opened_devs[i] = d;
 > +
-> +	rtc->rcdev.ops =3D &reset_test_concurrent_unregister_ops;
+>   		/* Do DIO, as that's all we support now.. */
+>   		while ((sdev = comedi_find_subdevice_by_type(d, COMEDI_SUBD_DIO,
+>   							     sdev + 1)) > -1) {
+> @@ -312,24 +315,28 @@ static int bonding_attach(struct comedi_device *dev,
+>   static void bonding_detach(struct comedi_device *dev)
+>   {
+>   	struct comedi_bond_private *devpriv = dev->private;
+> +	unsigned int i;
+>   
+> -	if (devpriv && devpriv->devs) {
+> -		DECLARE_BITMAP(devs_closed, COMEDI_NUM_BOARD_MINORS);
+> +	if (!devpriv)
+> +		return;
+>   
+> -		memset(&devs_closed, 0, sizeof(devs_closed));
+> +	if (devpriv->devs) {
+>   		while (devpriv->ndevs--) {
+>   			struct bonded_device *bdev;
+>   
+>   			bdev = devpriv->devs[devpriv->ndevs];
+>   			if (!bdev)
+>   				continue;
+> -			if (!test_and_set_bit(bdev->minor, devs_closed))
+> -				comedi_close_from(bdev->dev, dev->minor);
+>   			kfree(bdev);
+>   		}
+>   		kfree(devpriv->devs);
+>   		devpriv->devs = NULL;
+>   	}
 > +
-> +	ctx =3D kunit_kmalloc_array(test, 3, sizeof(*ctx), GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_NULL(test, ctx);
-> +
-> +	for (i =3D 0; i < 3; ++i) {
-> +		ctx[i].test =3D test;
-> +		init_completion(&ctx[i].started);
-> +		init_completion(&ctx[i].enter);
-> +
-> +		if (i =3D=3D 0) {
-> +			ctx[i].thread =3D kthread_run(
-> +				test_concurrent_unregister_supplier, ctx + i,
-> +				"supplier%d", i);
-> +		} else {
-> +			init_completion(&ctx[i].entered);
-> +			init_completion(&ctx[i].exit);
-> +
-> +			ctx[i].thread =3D kthread_run(
-> +				test_concurrent_unregister_consumer, ctx + i,
-> +				"consumer%d", i);
-> +		}
-> +		if (IS_ERR(ctx[i].thread)) {
-> +			ret =3D PTR_ERR(ctx[i].thread);
-> +			while (i--)
-> +				kthread_stop_put(ctx[i].thread);
-> +			KUNIT_ASSERT_EQ(test, ret, 0);
-> +		}
-> +		get_task_struct(ctx[i].thread);
-> +
-> +		wait_for_completion(&ctx[i].started);
+> +	for (i = 0; i < ARRAY_SIZE(devpriv->opened_devs); i++) {
+> +		if (devpriv->opened_devs[i])
+> +			comedi_close_from(devpriv->opened_devs[i], dev->minor);
 > +	}
-> +
-> +	rtc->priv =3D &ctx[1];
-> +	ctx[1].expected_ret =3D 0x12345678;
-> +	/* consumer1 enters reset(). */
-> +	KUNIT_EXPECT_EQ(test, rtc->reset_count, 0);
-> +	complete(&ctx[1].enter);
-> +	wait_for_completion(&ctx[1].entered);
-> +	KUNIT_EXPECT_EQ(test, rtc->reset_count, 1);
-> +
-> +	/* supplier0 unregisters. */
-> +	complete(&ctx[0].enter);
-> +	ret =3D read_poll_timeout(reset_control_status, val, val =3D=3D -ENODEV=
-,
-> +				1000, 100000, false, rtc->rstc);
-> +	if (ret) {
-> +		for (i =3D 2; i >=3D 0; --i)
-> +			kthread_stop_put(ctx[i].thread);
-> +		KUNIT_ASSERT_EQ(test, ret, 0);
-> +	}
-> +	/* supplier0 can't exit.  It's waiting for all consumers. */
+>   }
+>   
+>   static struct comedi_driver bonding_driver = {
 
-This comment looks like an untested assertion.=C2=A0For all we know,
-reset_controller_unregister() may have already returned by now.
+The problem with the lost open references could also be fixed without 
+adding extra storage for an array in struct comedi_bond_private by 
+calling comedi_close_from(d, dev->minor) from bonding_attach() if the 
+device opened by comedi_open_from() does not have a suitable subdevice, 
+or an error is found in the inner 'while' loop.
 
-How about signalling a completion "ctx->exited" after
-reset_controller_unregister() returns, calling
-wait_for_completion_timeout() here, and asserting it times out?
-
-
-regards
-Philipp
+-- 
+-=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
+-=( registered in England & Wales.  Regd. number: 02862268.  )=-
+-=( Regd. addr.: S11 & 12 Building 67, Europa Business Park, )=-
+-=( Bird Hall Lane, STOCKPORT, SK3 0XA, UK. || www.mev.co.uk )=-
