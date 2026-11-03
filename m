@@ -1,80 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694669;
-	b=CQ52j8+e75EWESoyVLjxRq+p3k55uk+FtliKAeKDO2nCkdWUzAmTs1hyKOFHDNzi+Yad
-	 QJ5z+ElN3GMvCYfD8M/Dtv9+coNQKdZqOF20SccsLAV4tHz9v3HutKXlHK8XTEhiIwTyX
-	 HFzO1EVHCm9TRnoUV8HVbhQwzR1DXXDGnVk4EvtoMJcCVXJ3KRexCGirJBHk2IrEXLd2x
-	 gJHx0F78F2tYbAHnmuJuCmqPWYq7XO7425O+34YbTe7dIspSM7a4XxlmWiLuAffXPqS3U
-	 /lTIiqe4DnzGyukk8r1pKTaZLjTxIFMo2RleY70Rx+WeRsR2uOoJi9ERGzqENlR59og==
+	t=1793694654;
+	b=d8k+t5HTOmcUwgZx0e0MoablFUwj+a5Jj8d3gM4SnzMQ3chRKlvfw15LJIQjQp6NenzA
+	 4NxM/3Hu2C4Z7eLQi5ZFGnw8GnFji+XW0GFyUrO7ZFGLNWwCDIY3Mc6goacokb4plx/v4
+	 q9ApFSUylHgyPgdHwRbRSlte/sKpyxe03AHQ0PuVH5uP7zoMQVI5PIJqGY0uHta9BWzQB
+	 OaQ/PmHWmM8TVpyU+M3fMSd0rHFPsaqBWQk+7uk1dutnzD/RyzIET3Gxgz8G8v0+rfCNN
+	 8E/H6hUOXQ39QDNJ/lox/KIV3YHhXJeec5ebo2RNAkC9jdCTdwY/PdCm1IEa5eQS68g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694669;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 Content-Transfer-Encoding;
-	bh=iXAsA4acO94QS42kh3VYh4FOfBVOAs2xWKCo/zdX/J4=;
-	b=x8q1RL80Fz933JezgVHM77tRYzHlmPUbsAT1m065hLxlfzorsLo5BJpahaU/jRUl75Ff
-	 dJ+oTIHx61kMXzWvcphVoeyJUwa9+gvf/3qf3Z0fWqVj/w4E+W2K28XlcIWftAmz9LJmn
-	 Ja61+1NwRyc5XUeiXQNUhus2cvfLJ7hy/0/lE9lmEMQGJgHG2CQB3M9IXkodkCJu7eJtp
-	 UUJPaXcHgZqVlEmtBbATWXoYxwTiG5cigFwsnYJnaCES/TRI60QwncXgqlpG7A9dgOzvk
-	 HdrqksWkvjoG3JzUGzHcewxo7hWBAV2rWV1SAkor1XpozaVArSIg1Jp4LTgsdS96k1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694654;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=UctO3145cL9Mnt0rgKiILCyiKir6F3WDinvtjnpXP0I=;
+	b=4ISW1fhCt7kI4m+uYUwU0b3EmtrfH/1XP9iVGbMb3MFwwW8Ah6FuQZqw4AmneYiJGbCo
+	 Y5cJygzRKKlrWsqoTk6mOwbsMaYxyyJmBmNate1Knt/odxpMEilfpWuWaDhChmYsAG1K1
+	 DPzD0Yb0j9ZEEPAZw9F6SvdIQcDave8esdltqn2iNeq2dl45xQbNNtB/9Qog/Xjm3PAdF
+	 dv852RjIZxVlN1rVDm4KThtpCCa53Y3yAEFeWQ29qRwk7fSNip/Kd+4qXnZI2Sh8Ugf/k
+	 QTv4JiHnB2WkSXDRiU1QoUSxiNTjXTl7r5i8DLDju+dZCOw5EECGmqsPDrtdtk1wqzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfJFTLxv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2120606A94B;
-	Tue,  3 Nov 2026 08:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfJFTLxv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FC5C1F00A1A;
-	Tue,  3 Nov 2026 08:31:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694668;
-	bh=iXAsA4acO94QS42kh3VYh4FOfBVOAs2xWKCo/zdX/J4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AfJFTLxv6XhNPeP+XU/3K26Ttx5SBjOD0VWiWhdh2E3RF2CVpx6ZyEMFkZTSpl8IS
-	 oHqoL2iIKv5Bjo39aHYJS7sOa9JPrAVz4rHP0yAs4gy8Z8RHKKrLBYq/j3AJrVMpsR
-	 SK2klYssy3QMXxXUwQ4NuRdvVu5M2E17NgR1qPiCierIxmHRyq+FP0G7HMgpLk0frp
-	 dNv3TTIGS4yFUYvsOFassbUl7FaWW9+fMtwjunxj9riq1eZWhj30aV/H1dat1d/mxK
-	 N6N2UJpgKsFFOHIj91AY6ycQ8GU1vTxQcGq9w+HYJsz5w8yYHkSrYSLoADodnHptuh
-	 BrzUohD/WNbsw==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0A236082BD4;
+	Tue,  3 Nov 2026 08:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A236082BD4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=UctO3145cL
+	9Mnt0rgKiILCyiKir6F3WDinvtjnpXP0I=; b=oNe9AzvaOhtWvRoA/pB52kEUxx
+	wWg0autPMksve/Jajd1H9VdAN9o2+GLYxMfRP0kDAlK33s6t+df6r5wet1sNhDaa
+	5qikmhRALqO80N2SAs42JyV/y4oLSKjQy1rY/SJgxdTl7hsgKxRs9wK8nVReZDOK
+	PI/CBFAUsXP4UchF4=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCGqgCwm+lqS+8dAQ--.21892S2;
+	Tue, 03 Nov 2026 16:30:41 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v12 18/19] PCI/P2PDMA: Evaluate the ATS path for clients with ATS enabled
-Date: Tue,  3 Nov 2026 10:29:57 +0200
-Message-ID: <20261103-fix-p2p-acs-v4-0-v12-18-912101f93517@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
-References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
+	stable@vger.kernel.org,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v6 0/3] media: dvb: fix use-after-free family in dvb-core and dvb-usb disconnect paths
+Date: Tue,  3 Nov 2026 16:30:36 +0800
+Message-Id: <20261103083039.33430-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,212 +59,301 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkCGqgCwm+lqS+8dAQ--.21892S2
+X-Coremail-Antispam: 1UD129KBjvAXoW3Aw1DXF48Ar1DWw43Gry7GFg_yoW8GF1xKo
+	Zagr4rX3Wrtw4qka48AFnrGF4agFn7u3ZxWay5Ar4q93y8Wrs8Aw15Kw4DXFWkXr40krnx
+	t34qqrZ8GFsxAFn5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UjIYCTnIWjp_UUUYL7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20xva
+	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2
+	x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG
+	64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r
+	4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAq
+	YI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI4
+	8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
+	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
+	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20E
+	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
+	AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUUGjg5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2roqcKe4wABsb
 
-From: Leon Romanovsky <leonro@nvidia.com>
+Hi all,
 
-P2PDMA assumes every client issues Untranslated Requests. A device with
-ATS enabled may translate any address it is handed, including a bus
-address, and Translation Blocking can reject its Translated Requests on
-a route the Untranslated answer called usable.
+this is v6 of the series fixing a use-after-free family in the
+DVB-USB disconnect path, seen with a Pinnacle PCTV 400e USB DVB-S
+receiver (ttusb2 driver) on 7.1.2 + KASAN/UBSAN.  v6 keeps the
+structure of the series and addresses the points raised while
+reviewing v5 (see the changes below).
 
-Unless the client declared per-mapping ATS, take the Address Type from
-its ATS Enable bit. Never hand such a client bus addresses: only an IOVA
-survives translation, and whatever it issues untranslated goes through
-the host bridge, whose route must therefore be usable. Apply this after
-the topology-only cache, and in pci_p2pdma_distance_many() too, so that
-provider selection agrees with the mapping.
+The root cause is a lifetime mismatch:
 
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- Documentation/driver-api/pci/p2pdma.rst |  8 +++
- drivers/pci/p2pdma.c                    | 92 ++++++++++++++++++++++++++++++---
- 2 files changed, 93 insertions(+), 7 deletions(-)
+  1. open("/dev/dvb/adapter0/frontend0") grabs a dvb_device ref and
+     starts kdvb-ad-0-fe-0;
+  2. ioctl(/dev/bus/usb/BBB/DDD, USBDEVFS_DISCONNECT_CLAIM) unbinds
+     the ttusb2 driver -> dvb_usb_device_exit() -> dvb_usb_exit() ->
+     frees everything the still-open descriptor can reach;
+  3. the fd's ->release(), or the in-flight frontend thread / i2c
+     transfer, then dereferences the already-freed
+     "struct dvb_usb_device" (usb_mutex, i2c_mutex, i2c_adap) and
+     the already-freed "struct dvb_device".
 
-diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
-index 05f896a0814b..c004b6dc028f 100644
---- a/Documentation/driver-api/pci/p2pdma.rst
-+++ b/Documentation/driver-api/pci/p2pdma.rst
-@@ -62,6 +62,14 @@ P2PDMA therefore decides each class of traffic separately, and
- ``pci_p2pdma_map_type()`` answers for the one a DMA mapping is built for:
- strictly ordered Requests carrying an Untranslated address.
- 
-+The PCIe ATS Enable bit covers the whole device, and most devices translate
-+any address they are handed once it is set. Unless a driver has declared with
-+``pcim_p2pdma_set_ats_per_mapping()`` that its device chooses ATS per mapping,
-+that bit decides which Address Type P2PDMA assumes, and a client with ATS
-+enabled is never handed a bus address, which it would translate as though it
-+were an IOVA. Its Translated Requests may still route directly, but anything
-+it issues untranslated reaches the host bridge, so that route has to work too.
-+
- The two directions are decided independently. Translation Blocking (TB),
- Direct Translated P2P (DT), Request Redirect (RR) and Egress Control (EC) on
- the Requester-side port decide the Request:
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 144314ab5fae..a81cd37a1834 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -1448,6 +1448,59 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- }
- EXPORT_SYMBOL_IF_KUNIT(calc_map_type_and_dist);
- 
-+static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-+						unsigned int tlp_flags)
-+{
-+	if (client->ats_enabled)
-+		return tlp_flags | PCI_P2PDMA_TLP_TRANSLATED;
-+
-+	return tlp_flags & ~PCI_P2PDMA_TLP_TRANSLATED;
-+}
-+
-+/*
-+ * A client that translates every address it is handed cannot be handed a bus
-+ * address, which it would translate as though it were an IOVA. Its Translated
-+ * Requests may still route directly, but a Request it issues without a
-+ * translation carries the IOVA to the host bridge, so that route has to work
-+ * as well.
-+ *
-+ * Take the Address Type from @tlp_flags rather than reading the ATS Enable
-+ * bit again, so the policy and the class it applies to always agree.
-+ */
-+static enum pci_p2pdma_map_type
-+pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
-+			   bool per_mapping, unsigned int tlp_flags,
-+			   enum pci_p2pdma_map_type type)
-+{
-+	if (per_mapping || !(tlp_flags & PCI_P2PDMA_TLP_TRANSLATED) ||
-+	    type != PCI_P2PDMA_MAP_BUS_ADDR)
-+		return type;
-+
-+	pci_dbg(client,
-+		"P2PDMA ACS: provider=%s bus address withheld; ATS is enabled for the whole client\n",
-+		 pci_name(provider));
-+
-+	if (cpu_supports_p2pdma() ||
-+	    host_bridge_whitelist(provider, client, false))
-+		return PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
-+
-+	return PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+}
-+
-+/* Whether the driver of @client called pcim_p2pdma_set_ats_per_mapping(). */
-+static bool pci_p2pdma_client_per_mapping(struct pci_dev *client)
-+{
-+	struct pci_p2pdma *p2pdma;
-+	bool per_mapping;
-+
-+	rcu_read_lock();
-+	p2pdma = rcu_dereference(client->p2pdma);
-+	per_mapping = p2pdma && p2pdma->ats_per_mapping;
-+	rcu_read_unlock();
-+
-+	return per_mapping;
-+}
-+
- /**
-  * pci_p2pdma_distance_many - Determine the cumulative distance between
-  *	a p2pdma provider and the clients in use.
-@@ -1463,15 +1516,19 @@ EXPORT_SYMBOL_IF_KUNIT(calc_map_type_and_dist);
-  *
-  * "compatible" means the provider and the clients are either all behind
-  * the same PCI root port or the host bridges connected to each of the devices
-- * are listed in the 'pci_p2pdma_whitelist'.
-+ * are listed in the 'pci_p2pdma_whitelist'. Each client is judged the way
-+ * pci_p2pdma_map_type() maps it, so one with ATS enabled for the whole device
-+ * also needs a host bridge that supports peer-to-peer DMA.
-  */
- int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
- 			     int num_clients, bool verbose)
- {
--	enum pci_p2pdma_map_type map;
-+	enum pci_p2pdma_map_type map, type;
- 	bool not_supported = false;
- 	struct pci_dev *pci_client;
-+	unsigned int tlp_flags;
- 	int total_dist = 0;
-+	bool per_mapping;
- 	int i, distance;
- 
- 	if (num_clients == 0)
-@@ -1486,8 +1543,18 @@ int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
- 			return -1;
- 		}
- 
--		map = calc_map_type_and_dist(provider, pci_client, &distance, 0,
--					     verbose);
-+		per_mapping = pci_p2pdma_client_per_mapping(pci_client);
-+		tlp_flags = per_mapping ? 0 :
-+			    pci_p2pdma_client_tlp_flags(pci_client, 0);
-+		type = calc_map_type_and_dist(provider, pci_client, &distance,
-+					      tlp_flags, verbose);
-+		map = pci_p2pdma_client_map_type(provider, pci_client,
-+						 per_mapping, tlp_flags, type);
-+		if (verbose && map != type &&
-+		    map == PCI_P2PDMA_MAP_NOT_SUPPORTED)
-+			pci_warn(pci_client,
-+				 "cannot be used for peer-to-peer DMA with %s: ATS is enabled for the whole device and the host bridge is not whitelisted\n",
-+				 pci_name(provider));
- 
- 		pci_dev_put(pci_client);
- 
-@@ -1794,6 +1861,11 @@ EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
-  * ACS routes a peer-to-peer transaction by the attributes its TLPs carry, so
-  * the answer depends on @tlp_flags. A caller that passes flags its traffic
-  * does not match gets a mapping the fabric will not deliver.
-+ *
-+ * Only a client whose driver called pcim_p2pdma_set_ats_per_mapping() takes
-+ * the Address Type from @tlp_flags. For any other client its ATS Enable bit
-+ * decides, and a client that translates every address it is handed never gets
-+ * %PCI_P2PDMA_MAP_BUS_ADDR.
-  */
- static enum pci_p2pdma_map_type
- pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
-@@ -1805,6 +1877,7 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 	struct pci_p2pdma *p2pdma;
- 	struct pci_dev *client;
- 	bool provider_state;
-+	bool per_mapping;
- 	int dist;
- 
- 	if (!pdev->p2pdma) {
-@@ -1822,6 +1895,9 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 
- 	client = to_pci_dev(dev);
- 	cache_index = map_types_idx(client);
-+	per_mapping = pci_p2pdma_client_per_mapping(client);
-+	if (!per_mapping)
-+		tlp_flags = pci_p2pdma_client_tlp_flags(client, tlp_flags);
- 
- 	rcu_read_lock();
- 	p2pdma = rcu_dereference(pdev->p2pdma);
-@@ -1838,10 +1914,11 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 		 pci_p2pdma_map_type_name(type), type, provider_state);
- 
- 	if (type == PCI_P2PDMA_MAP_UNKNOWN)
--		return calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
-+		type = calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
- 					      true);
- 
--	return type;
-+	return pci_p2pdma_client_map_type(pdev, client, per_mapping, tlp_flags,
-+					  type);
- }
- 
- /**
-@@ -1850,7 +1927,8 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
-  * @dev: Client device that initiates the transfer
-  *
-  * Same as pci_p2pdma_map_type_tlp() for a client issuing strictly ordered
-- * Requests that carry an Untranslated address.
-+ * Requests. Their Address Type is Untranslated unless the client enables ATS
-+ * for the whole device.
-  */
- enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- 					     struct device *dev)
+Patch 1 fixes the "struct dvb_device" object itself:
+dvb_remove_device() dropped the minors-table reference before it was
+done using the object, and dvb_register_device() published
+dvb_minors[minor] while dvb_register_media_device() and
+device_create() could still fail, so an error there freed the object
+- and the driver private data behind it - underneath a concurrent
+open().  The minor entry, which is what makes the device reachable, is
+now filled in only after registration has completed, and it is
+published under the lock that open() takes before it looks the entry
+up, so a concurrent open() waits for a complete device instead of
+failing with -ENODEV.
+
+Patch 2 fixes dvb_frontend_release() and the dvb_frontend_open() error
+path, which read dvbdev->users after dvb_generic_release() may already
+have dropped the last reference (KASAN at dvb_frontend.c:2903, and the
+same pattern in the open() failure unwinder).  The reference needed for
+the check is taken before dvb_generic_release(), while the file's own
+reference still guarantees that the object is alive, and it is dropped
+again right after the check.
+
+Patch 3 gives "struct dvb_usb_device" a kref and a "dead" flag.  The
+reference is held for the whole lifetime of each registered frontend
+and dropped from a wrapper around fe->ops.release(), so the release
+callback that runs when the last descriptor is closed after a
+disconnect still sees live memory.  The embedded "struct usb_device"
+is pinned the same way, and the USB/i2c workers check ->dead and bail
+out of the actual hardware I/O instead of touching a gone device.  They
+take no reference of their own: they already run under the reference of
+the frontend or of the bus binding, and a transient reference there
+could be the last one, which would run the release function from inside
+->master_xfer().  Everything an open frontend can still reach through
+the device - the I2C adapter, ->priv_destroy() and the per-adapter
+private data - is released from the release function as well, when the
+last reference is dropped, instead of at disconnect time.
+
+Crashes addressed (excerpts below the diffstat):
+
+  KASAN: slab-use-after-free Read in i2c_transfer        (reports 1, 9)
+  KASAN: use-after-free Write in dvb_usb_generic_rw      (report 2)
+  UBSAN: array-index-out-of-bounds in i2c_transfer       (report 3)
+  KASAN: slab-use-after-free Read in dvb_frontend_release (report 4)
+  KASAN: null-ptr-deref Write in ttusb2_i2c_xfer         (report 5)
+  UBSAN: array-index-out-of-bounds in ttusb2_i2c_xfer    (report 6)
+  KASAN: slab-use-after-free Read in dvb_remove_device   (report 7)
+  KASAN: slab-use-after-free Read in dvb_device_open     (report 8)
+
+All three patches pass checkpatch with zero errors and warnings, apply
+on top of the media fixes base (git am reproduces the exact trees) and
+are build-tested on x86_64 with gcc 11.4: drivers/media/dvb-core and
+drivers/media/usb/dvb-usb are compiled with CONFIG_DVB_USB_TTUSB2=y,
+once built-in and once with CONFIG_MODULES=y and CONFIG_MEDIA_ATTACH=y
+so the module reference accounting in patch 3 is compiled as well.
+
+Changes in v6:
+
+  - [PATCH 1/3] holds minor_rwsem across device_create() and the
+    publication of dvb_minors[minor], so an open() that races with the
+    registration waits for the entry instead of failing with -ENODEV.
+    device_create() only runs the devnode and uevent callbacks, neither
+    of which takes minor_rwsem, and dvb_device_open() takes
+    dvbdev_mutex before it acquires minor_rwsem while registration
+    takes no dvbdev_mutex, so the lock order is unchanged;
+  - [PATCH 3/3] removes the transient references from the transfer
+    paths: dvb_usb_generic_rw() and ttusb2_i2c_xfer() could otherwise
+    drop the last reference from inside ->master_xfer(), where the
+    release function would call i2c_del_adapter() underneath the
+    transfer that still uses the adapter.  The references taken by the
+    bus binding and by each registered frontend already cover the
+    callbacks, including the remote-control work, which
+    dvb_usb_remote_exit() cancels synchronously before the framework
+    reference is dropped;
+  - [PATCH 3/3] documents fe_release in the kernel-doc of struct
+    dvb_usb_fe_adapter.
+
+Changes in v5:
+
+  - [PATCH 1/3] fills in dvb_minors[minor] only after
+    dvb_register_media_device() and device_create() have succeeded,
+    instead of publishing the entry first and gating dvbdev->fops.
+    memcpy(dvbdev, template, sizeof(*dvbdev)) copies template->fops,
+    so the fops gate of v4 needed an explicit reset and still exposed
+    a half-registered device; publishing the entry late needs neither,
+    and the error paths keep releasing the object with kfree() because
+    no reference can have been taken.  dvbdev_register_lock already
+    serializes registrations, so the chosen minor cannot be handed out
+    twice while it is unpublished;
+  - [PATCH 3/3] releases the I2C adapter, ->priv_destroy() and the
+    per-adapter private data from dvb_usb_free_device() instead of at
+    disconnect time: dvb_usb_i2c_exit() no longer races transfers that
+    a frontend can still start, cxusb's ->priv_destroy() no longer
+    destroys the mutex that the frontend release path still takes, and
+    tuner callbacks no longer read freed adap->priv;
+  - [PATCH 3/3] marks the device dead in dvb_usb_init()'s error path,
+    before the adapters are torn down, so callbacks that keep the
+    object alive do not run against a device whose initialisation
+    failed;
+  - [PATCH 3/3] keeps the v4 handling of the module reference, the
+    frontend unregistration on a late frontend_init failure and the
+    ->dead re-checks under usb_mutex / i2c_mutex.
+
+The patches are real git diffs, produced by "git format-patch" against
+the media fixes branch.
+
+YuanZhe Liu (3):
+  media: dvb-core: fix use-after-free in dvb_remove_device()
+  media: dvb-core: keep dvb_device alive while checking users count in
+    frontend release paths
+  media: dvb-usb: refcount dvb_usb_device to fix disconnect UAF on open
+    chardevs
+
+ drivers/media/dvb-core/dvb_frontend.c    |  19 ++++
+ drivers/media/dvb-core/dvbdev.c          |  27 +++++-
+ drivers/media/usb/dvb-usb/dvb-usb-dvb.c  |  58 +++++++++++-
+ drivers/media/usb/dvb-usb/dvb-usb-init.c | 108 ++++++++++++++++++-----
+ drivers/media/usb/dvb-usb/dvb-usb-urb.c  |  17 +++-
+ drivers/media/usb/dvb-usb/dvb-usb.h      |  21 +++++
+ drivers/media/usb/dvb-usb/ttusb2.c       |  20 ++++-
+ 7 files changed, 237 insertions(+), 33 deletions(-)
+
+--
+Excerpts from the KASAN/UBSAN reports (Pinnacle PCTV 400e, 7.1.2,
+CONFIG_KASAN=y CONFIG_UBSAN=y):
+
+Report 1: KASAN: slab-use-after-free Read in i2c_transfer
+
+  BUG: KASAN: slab-use-after-free in i2c_transfer+0x324/0x360
+  Read of size 8 at addr ffff8880050a0f08
+
+   i2c_transfer+0x324/0x360 drivers/i2c/i2c-core-base.c:2312
+   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
+   tda10086_release+0xa3/0x180 drivers/media/dvb-frontends/tda10086.c:692
+   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
+   __fput+0x3a6/0xac0 fs/file_table.c:510
+
+  Underlying object is the dvb_usb_device, freed by dvb_usb_device_exit()
+  on USB unbind while the fd was still open.
+
+Report 2: KASAN: use-after-free Write in dvb_usb_generic_rw
+
+  BUG: KASAN: use-after-free in mutex_unlock+0x5b/0xa0 kernel/locking/mutex.c:579
+  Write of size 8 at addr ffff8880050a4eb8 by task kdvb-ad-0-fe-0/268
+
+   mutex_unlock+0x5b/0xa0 kernel/locking/mutex.c:579
+   dvb_usb_generic_rw+0x216/0x460 drivers/media/usb/dvb-usb/dvb-usb-urb.c:59
+   ttusb2_msg+0x1f2/0x5a0 drivers/media/usb/dvb-usb/ttusb2.c:97
+   ttusb2_power_ctrl+0x8a/0xa0 drivers/media/usb/dvb-usb/ttusb2.c:483
+   dvb_usb_fe_wakeup+0x84/0x2d0 drivers/media/usb/dvb-usb/dvb-usb-dvb.c:254
+   dvb_frontend_thread+0x216/0x1620 drivers/media/dvb-core/dvb_frontend.c:677
+
+  The frontend kthread issues CMD_POWER while the device is being torn
+  down; d->usb_mutex belongs to the freed dvb_usb_device.
+
+Report 3: UBSAN: array-index-out-of-bounds in i2c_transfer
+
+  UBSAN: array-index-out-of-bounds in kernel/locking/qspinlock.h:68:9
+  index 6996 is out of range for type 'long unsigned int [2]'
+
+   queued_spin_lock_slowpath+0x7de/0x820 kernel/locking/qspinlock.c:285
+   _raw_spin_lock_irqsave+0xae/0xb0 kernel/locking/spinlock.c:166
+   rt_mutex_lock+0xa9/0xb0 kernel/locking/rtmutex_api.c:89
+   i2c_transfer+0x1b3/0x360 drivers/i2c/i2c-core-base.c:2312
+   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
+   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
+
+  Mutex in the freed dvb_usb_device has a garbage ->owner tail;
+  decode_tail indexes out of the per-cpu qnode array.
+
+Report 4: KASAN: slab-use-after-free Read in dvb_frontend_release
+
+  BUG: KASAN: slab-use-after-free in dvb_frontend_release+0x28b/0x2b0
+  drivers/media/dvb-core/dvb_frontend.c:2903
+  Read of size 8 at addr ffff88800632bd60
+
+   dvb_frontend_release+0x28b/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2903
+   __fput+0x3a6/0xac0 fs/file_table.c:510
+
+  Allocated by dvb_register_device+0x1d6/0x1230 dvbdev.c:472 /
+  dvb_register_frontend+0x3ed/0x640 dvb_frontend.c:3051.  The struct
+  dvb_device is freed by dvb_remove_device/dvb_device_put on disconnect,
+  then read at line 2903 ("dvbdev->priv") by the still-open fd's
+  release().
+
+Report 5: KASAN: null-ptr-deref Write in ttusb2_i2c_xfer
+
+  BUG: KASAN: null-ptr-deref in mutex_lock_interruptible+0x61/0xb0
+  kernel/locking/mutex.c:1059
+  Write of size 8 at addr 0000000000000ed0
+
+   mutex_lock_interruptible+0x61/0xb0 kernel/locking/mutex.c:1059
+   ttusb2_i2c_xfer+0x60/0x660 drivers/media/usb/dvb-usb/ttusb2.c:374
+   i2c_transfer+0x1c6/0x360 drivers/i2c/i2c-core-base.c:2292
+   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
+   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
+
+  i2c_get_adapdata() returned NULL after the dvb_usb_device was freed
+  (0xed0 is the offset of i2c_mutex inside it).
+
+Report 6: UBSAN: array-index-out-of-bounds in ttusb2_i2c_xfer
+
+  UBSAN: array-index-out-of-bounds in kernel/locking/qspinlock.h:68:9
+  index 8284 is out of range for type 'long unsigned int [2]'
+
+   queued_spin_lock_slowpath+0x7de/0x820 kernel/locking/qspinlock.c:285
+   _raw_spin_lock_irqsave+0xae/0xb0 kernel/locking/spinlock.c:166
+   mutex_unlock+0x9a/0xa0 kernel/locking/mutex.c:582
+   ttusb2_i2c_xfer+0x490/0x660 drivers/media/usb/dvb-usb/ttusb2.c:428
+   i2c_transfer+0x1c6/0x360 drivers/i2c/i2c-core-base.c:2292
+   tda10086_release+0x100/0x180 drivers/media/dvb-frontends/tda10086.c:692
+
+  mutex_unlock(&d->i2c_mutex) on the freed dvb_usb_device wakes a waiter
+  list that no longer exists.
+
+Report 7: KASAN: slab-use-after-free Read in dvb_remove_device
+
+  BUG: KASAN: slab-use-after-free in dvb_remove_device.part.0+0x1f9/0x250
+  drivers/media/dvb-core/dvbdev.c:606
+  Read of size 4 at addr ffff88800611ce2c
+
+   dvb_remove_device+0x1b/0x30 drivers/media/dvb-core/dvbdev.c:596
+   dvb_unregister_frontend+0x62/0x90 drivers/media/dvb-core/dvb_frontend.c:3080
+   dvb_usb_device_exit+0x1a4/0x490 drivers/media/usb/dvb-usb/dvb-usb-init.c:338
+   usb_unbind_interface+0x188/0x770 drivers/usb/core/driver.c:458
+
+  Freed by dvb_remove_device.part.0+0x1c8/0x250 (dvbdev.c:601): the
+  function frees dvbdev via dvb_device_put() and then still reads
+  dvbdev->minor at line 606 for device_destroy().
+
+Report 8: KASAN: slab-use-after-free Read in dvb_device_open
+
+  BUG: KASAN: slab-use-after-free in dvb_device_open+0x32c/0x350
+  drivers/media/dvb-core/dvbdev.c:99
+  Read of size 8 at addr ffff888004b50618
+
+   dvb_device_open+0x32c/0x350 drivers/media/dvb-core/dvbdev.c:99
+   chrdev_open+0x145/0x400 fs/char_dev.c:411
+
+  Freed by dvb_device_open+0x29c/0x350 (dvbdev.c:113): open() grabbed
+  the dvbdev from dvb_minors[] under minor_rwsem and the
+  dvb_device_get() succeeded, but f_op->open() then failed and
+  dvb_device_put() at line 113 freed it; a concurrent open() follows
+  the stale pointer.
+
+Report 9: general protection fault in i2c_transfer
+
+  RIP: 0010:i2c_transfer+0x1b0/0x360 drivers/i2c/i2c-core-base.c:2312
+   R14: ffffffff81ff8926  (call *(%r14) - garbage lock func ptr)
+
+   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
+   tda10086_release+0xa3/0x180 drivers/media/dvb-frontends/tda10086.c:692
+   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
+
+  Same i2c_transfer UAF as report 1, but here the freed memory was
+  reused so adap->bus_lock points to a garbage function and the
+  indirect call faults.
 
 -- 
-2.56.0
+2.34.1
 
