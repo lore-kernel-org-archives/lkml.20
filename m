@@ -1,64 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712670;
-	b=EN3BY6hNhB5Dj7I1ESLST58qJkk4ZzhlQ0DXvGryMibjjf5mk4OASaCW7STRL2iLiufQ
-	 BLf9iXUeRWDAp5IkwlMGzpLmlCE908MRNngdJQDSFk3eDHNoqm7M7MBd0QXsT2Hyl3Gee
-	 hvuj4LPcezOtHLNUoruDPsqtuYtU7gTtss7rhT9OBBKu4MKFMRgGWMEqgyRGCmYzxygZC
-	 TxQ5WeUKX9gm6vTXFLr40CW3Dt63xddfjidicqAMrxmBblScE9+QKyalpR6gVbdJyBZys
-	 tFcR1ZJeJqWkClAu29UvA6uwn1eUBTVZUoOEvUJicjpevNRwv6+fm+lGPfUsKY43KYQ==
+	t=1793712680;
+	b=BQb/CV2Gqnf9XBFaRNCeMlYdXyBUYD307NMHQYkf2cFPvu1m4ScHmROhqeuir/lJNgEv
+	 k4EJdnPdChnRuBGHxQa+PG/s37uCziosoQm268RnqU3bahXU1LQlv5EOVWCVC2sgZMpwO
+	 SgvL1dbm9pB0jUGI9cL8Y0byFLlhSlryJ+Lyx48blVidO2a0NQKOE4CCiC+P2djfXT/0T
+	 z5tpyB3lHKBEmxBFK0GSWWcA9IuLKf+5XJ/vnvlWQwvFgbhbQPJAMp1DuWDUBdwVgsY5q
+	 4yONS+JZEq1EuJYwwa5WLD3g1vK7zLVTvdX4LMDzGRUxzp5JBUx35Y9QsDagVPr5P2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712670;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=9RF5bmgBFOvuDjB0XV04CAil3nzrHImYSkW40EAqvfg=;
-	b=am0xCJQUpSqrbT0Vx2X8z3o7YpbtcWcIdGN2yaRsThhY2/ryXU28UuIZo6o13Osg7O6h
-	 anF1t+F+Xy0/b4kspD+ZQ52DbTKnTQs3vrWWaYFuKaCfdjbFc7HOGko30iOdx9E1oJzje
-	 3dd5yLSBZ6NNnZyP561VJcpfheLFInFXHqiyHg5DudS0Ko4uBUAnWQn0sBns6Di9Jerd5
-	 UfGnIdnZKfsJ9trYoeVYYzkcupVtL9LzjZYs86febsRTAJ/Gi74znW8Gr3wnXCyqKzIsN
-	 5PGSXbN6HsKnvCo1c26BQMy99bgVmvkcrnE290KCxXiLpp+8KP3dcKvPZxRY0amv8Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712680;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=bqSSouDoyJf0YGFehgWYnnk2xGKwMtREqQQCF8wiudg=;
+	b=IXI2NedoZHQAf3EwgK7J2dE3e1iFeXHDjGrQN2QSIXPwhcJ7Qv7A/+cAJY/cC4AsAHL3
+	 iR8KyLbEDm3cRYYD1n3t4xBi44gXvKksTUSMLsD6A4OS6M4dVcI2RQcoMDHI4mAjK5mIa
+	 hDhjVYFjG6IPLC7kRJ8t6yNcqRw1j+oJGvl7T3CAkQVF85mwkBzP7MLHMuXK5xFkFLXCy
+	 BdB6aRwFjJvF+1Y9d4F/yCmIwjckpEunakB6FAEUIE+gWQ7dqdbjT08WahK2qR8wyqh8e
+	 jhXr+wbUg0CFdQF6+OcZQv1mr1KZKDyFjEJUDjNkxYx4xEsj2IHhGnfFzRsOIIAecvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=siemens-energy.com;
-	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
-	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=bGNJSwUh;
-	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=mmXSvCqV;
-	arc=none smtp.remote-ip=185.136.65.144
-Received: from mta-65-144.flowmailer.net (mta-65-144.flowmailer.net [185.136.65.144])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SBMs4pMo;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0636F606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:31:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0636F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A77E606A33A;
+	Tue,  3 Nov 2026 13:31:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A77E606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=bGNJSwUh;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=mmXSvCqV
-Received: by mta-65-144.flowmailer.net with ESMTPSA id 20261103133100451450b8170019fdc0
-        for <linux-kernel@vger.kernel.org>;
-        Tue, 03 Nov 2026 14:31:00 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
- d=flowmailer.net;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:Date:Message-ID:MIME-Version;
- bh=9RF5bmgBFOvuDjB0XV04CAil3nzrHImYSkW40EAqvfg=;
- b=bGNJSwUhULT3laE4eNVB0pAKgfmRugkOql03vw9sM9wBtdLyQzmXUwpm5i4n8gnl2Rc/qG
- Gobh6e/GuziH0wibbO9SDq/NFrHfnEstjXQD0LlBbt4wNeUjNrbMns9vROcsTDVrUbw+z484
- 2n6QiqpgUZzgPof5zzwRpVWfKxgeA=;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
- d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:Date:Message-ID:MIME-Version;
- bh=9RF5bmgBFOvuDjB0XV04CAil3nzrHImYSkW40EAqvfg=;
- b=mmXSvCqVUXKCCmxP3fxdc+24N12DyzfSKXH4o9xkMrJYzHODEnGYniLCJkxPaBKSsH/yEu
- aZruTJXYJYp974a+GmGI+W0zwwZowYVqqiaD/acDREbwjRSZrEPFUO6k4ByR92tuE5jvcpWj
- Oj1ZriXA/5AZeZY6iJgFbY7E2PtgBsX7yBYmX6iLqkmNNnIdCNPntv3LIcRwbLhdWvSlUJCH
- VEd14cZYC8z2v3yOe+FwFDkddUWDTW9kAaOcGNuoLvk1OfqzlLZda1ik7jzdnMQb+E9LViBB
- RNh//0jcu44E0WxDK6Hw3iNVph0WEcCAqKQTIhPrMWv6+PMpVEx7Wumg==;
-From: Simon Schuster <schuster.simon@siemens-energy.com>
-Subject: [PATCH v2 0/3] lib: Add software mul/div helpers and use them from
- nios2
-Date: Tue, 03 Nov 2026 14:30:27 +0100
-Message-Id: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SBMs4pMo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793712680; x=1825248680;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hkR8M4AVECxKSn4GYebF87vUMQPK1tTyUqELFgxgqRs=;
+  b=SBMs4pMoauBtpedelBcC49z4kvO8AMo7TtACgeFMjLOfl4DXt66bxMHJ
+   XEh4U4rRY32DpnOKeliENg5B02GQ3JiJidpJS/9izMPO9ZCO31XGYrmTr
+   lOL4EqqPCT3BibNcwOU2x3jB0Eclj2BAzdtY3JdaneuY+iqALFKtIIGiC
+   RlR3fb2d8C9XO5L19+mJ+6k8ZrQvpJfNgso30NmiltPSZCIxEwN7oLilw
+   YyAD/2OecJOyqSqFxAeTbofirdkfkLEGBjdJehOaV3POiwrOLbu9ofEgi
+   Qqaptfs0Xqz7Lparr2lXq3+yIlGaqQXBWnRleNmGO6sxsWWIxLNi5PeB4
+   Q==;
+X-CSE-ConnectionGUID: REkoUaqRQcaGfQpDmI1H/g==
+X-CSE-MsgGUID: dpZiRuxSRSK1VrSc8Tcorg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2429900"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2429900"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 05:31:19 -0800
+X-CSE-ConnectionGUID: lTrs3dgKTlWdj0SfnJ8l6A==
+X-CSE-MsgGUID: kcSFKz+DTo2hkMUZE0wIXQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6542067"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 03 Nov 2026 05:31:12 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xOEbU-00000000ilw-1efr;
+	Tue, 03 Nov 2026 13:31:08 +0000
+Date: Tue, 3 Nov 2026 21:30:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: Matthew Ruffell <matthew.ruffell@canonical.com>,
+	Waiman Long <longman@redhat.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Tejun Heo <tj@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Caron Wills <caron.wills@pulsar.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org
+Subject: Re: [PATCH 3/6] mm/folio, mm/mlock: Don't batch folios in per-CPU
+ LRU caches on isolated CPUs
+Message-ID: <202611032138.4bxGcYLC-lkp@intel.com>
+References: <20261103075940.110308-4-matthew.ruffell@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,92 +108,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPPh6WoC/42NQQrCMBBFr1Jm7UiSlqCuvId0EZNpO2ATyWiwl
- N7d2BO4fI/P+ysIZSaBS7NCpsLCKVYwhwb85OJIyKEyGGWsVq3CyEkMZppTIXyLq4s04IPvo/d
- o23AOanAuWAM18cw08GfP3/rKE8sr5WV/K/pn/wwXjQo7ajvtrVUnQ1dhmikKUqQ8LkefZui3b
- fsCEquxh9EAAAA=
-X-Change-ID: 20261030-nios2-remove-usage-of-libgcc-63d9d0faad62
-To: Dinh Nguyen <dinguyen@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org, 
- Vineet Gupta <vgupta@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793712660; l=3078;
- i=schuster.simon@siemens-energy.com; s=20250818; h=from:subject:message-id;
- bh=W8xwPsjIABokCDuT4eVFZpTy4WRFjbZQjhH29zd7Mq4=;
- b=x95hPakuWHzajV5vrydAo6xUVBfCnt26Na08yWUu1Fy+NDP6SwMmZwZxZlWaoi6/hK3lo7FkN
- v5mZuwGm0OdCKvkvqQS53xXQ60rLS1nMYO0JgRSJJMn2cz1kSbLMV5L
-X-Developer-Key: i=schuster.simon@siemens-energy.com; a=ed25519;
- pk=PUhOMiSp43aSeRE1H41KApxYOluamBFFiMfKlBjocvo=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103075940.110308-4-matthew.ruffell@canonical.com>
 
-Recently, there have been linking failures on nios2 regarding libgcc
-symbols that we reexport to modules (in particular __mulsi3 [0], and
-__divsi3_table [1]).
+Hi Matthew,
 
-In the resulting discussion, Arnd suggested [2] dropping the libgcc
-dependency altogether, as -- while specific functions might be fine --
-libgcc does not expect to run in a kernel-like freestanding environment.
+kernel test robot noticed the following build errors:
 
-To this end, Dinh Nguyen was kind enough to locate and extract
-GPLv2-compliant versions of the software mul/div/mod functions required
-by nios2 gcc and integrate them into the kernel. As Arnd also suggested
-[3] that these might be helpful to other smaller architectures (such as
-arc or openrisc), I've further extracted them to lib/ with corresponding
-CONFIG_GENERIC_LIB_* options that allow selectively enabling and
-exporting these as required.
+[auto build test ERROR on akpm-mm/mm-everything]
 
-The patch series compiles mostly^4 fine in a nios2 allyesconfig
-without modpost errors; a quick boot test on a regular build also
-completed successfully.
+url:    https://github.com/intel-lab-lkp/linux/commits/Matthew-Ruffell/sched-isolation-Consider-nohz_full-CPUs-isolated-in-cpu_is_isolated-again/20261103-205935
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261103075940.110308-4-matthew.ruffell%40canonical.com
+patch subject: [PATCH 3/6] mm/folio, mm/mlock: Don't batch folios in per-CPU LRU caches on isolated CPUs
+config: sh-allnoconfig (https://download.01.org/0day-ci/archive/20261103/202611032138.4bxGcYLC-lkp@intel.com/config)
+compiler: sh4-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611032138.4bxGcYLC-lkp@intel.com/reproduce)
 
-Best regards,
-Simon
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611032138.4bxGcYLC-lkp@intel.com/
 
-0: https://lore.kernel.org/lkml/20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de/
-1: https://lore.kernel.org/lkml/20261026234452.1086974-1-sashal@kernel.org/
-2: https://lore.kernel.org/lkml/686f4ca2-0fb6-4a73-9cdb-0edcccafdd62@app.fastmail.com/
-3: https://lore.kernel.org/lkml/426c73b7-b4dc-4b68-9aa5-6145a13280bc@app.fastmail.com/
-4: There seems to be an unrelated issue in linux-next regarding
-   CONFIG_PNFS_BLOCK. Furthermore -Wno-attribute-alias
-   -Wno-missing-prototypes -Wno-missing-declarations and
-   -Wno-unused-function were required due to unrelated Werror-related
-   compilation issues; but as this series concerns compiler intrinsics
-   that are never explicitly referenced in code and it links fine this
-   seems acceptable to me.
+All errors (new ones prefixed by >>):
 
-Signed-off-by: Simon Schuster <schuster.simon@siemens-energy.com>
----
-Changes in v2:
-- Reorganised to directly add to lib/* skipping arch/nios2/lib/math.c
-- Dropped __gcc_bcmp as it is not actually needed
-- Link to v1: https://lore.kernel.org/r/20261030-nios2-remove-usage-of-libgcc-v1-0-4e341c66082e@siemens-energy.com
+   mm/folio.c: In function '__folio_batch_add_and_move':
+>> mm/folio.c:293:13: error: implicit declaration of function 'lru_batching_bypassed' [-Wimplicit-function-declaration]
+     293 |         if (lru_batching_bypassed())
+         |             ^~~~~~~~~~~~~~~~~~~~~
 
----
-Dinh Nguyen (2):
-      lib: extract 32bit mul/div helpers from nios2 into GENERIC_LIB
-      nios2: Drop usage of libgcc in favour of GENERIC_LIB_*
 
-Simon Schuster (1):
-      nios2: export __divsi3_table
+vim +/lru_batching_bypassed +293 mm/folio.c
 
- arch/nios2/Kconfig              | 10 +++++
- arch/nios2/Makefile             |  4 +-
- arch/nios2/kernel/nios2_ksyms.c | 22 ----------
- arch/nios2/lib/Makefile         |  1 +
- arch/nios2/lib/math.c           | 24 +++++++++++
- include/linux/libgcc.h          | 10 +++++
- lib/Kconfig                     | 15 +++++++
- lib/Makefile                    | 10 +++++
- lib/divmod.c                    | 94 +++++++++++++++++++++++++++++++++++++++++
- lib/mulsi3.c                    | 24 +++++++++++
- 10 files changed, 189 insertions(+), 25 deletions(-)
----
-base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
-change-id: 20261030-nios2-remove-usage-of-libgcc-63d9d0faad62
+   280	
+   281	static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
+   282			struct folio *folio, move_fn_t move_fn, bool disable_irq)
+   283	{
+   284		unsigned long flags;
+   285	
+   286		folio_get(folio);
+   287	
+   288		if (disable_irq)
+   289			local_lock_irqsave(&cpu_fbatches.lock_irq, flags);
+   290		else
+   291			local_lock(&cpu_fbatches.lock);
+   292	
+ > 293		if (lru_batching_bypassed())
+   294			folio_move_lru_now(folio, move_fn);
+   295		else if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
+   296				!folio_may_be_lru_cached(folio) || lru_cache_disabled())
+   297			folio_batch_move_lru(this_cpu_ptr(fbatch), move_fn);
+   298	
+   299		if (disable_irq)
+   300			local_unlock_irqrestore(&cpu_fbatches.lock_irq, flags);
+   301		else
+   302			local_unlock(&cpu_fbatches.lock);
+   303	}
+   304	
 
-Best regards,
--- 
-Simon Schuster <schuster.simon@siemens-energy.com>
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
