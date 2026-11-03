@@ -1,73 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717549;
-	b=axiKfS54sN/qrLLXbkYrJtVIMeRpomLJGDML8y+rUyBMiqHQUrfoOmo8wPvMv2MFY3mf
-	 dcvPYDiqwQ9nHvY43JEx0Vvd+TRLM5/IKbRkm4sQUePR6JVLQCtVOKPcGitWAKp9Sn36O
-	 cOiSfA6NicAqCWa6LJcDZ2ETx5GaGKS6gVCU8FvAdrrp0/ti8zqeppIibebQRo7a2Y+yf
-	 MMEjE1+AH7eMR5tc264wTjpGHscW15cpz8IWrPCKIxJMDd/IPYQ/gtOHa4W9XggHEgHS+
-	 CVfF7bZwKDwTPu2kkyQ23nMEavxsfhKnhMYQMaLrEcVqAr4Fewii4JwGqEF6yKEKu3w==
+	t=1793717536;
+	b=ozvyOo1X/IWpp2CD8dex5dErfHuuR6siT7frnvEWpxDcYDQ0piv9yMx2YVQMlZHh778Z
+	 u+B2OHnH8omX6YKioBg0C6GGzAOUYUqgAFxAOnBbLBvqPDPDxKTiEy1kDvJ53dpqq/R5R
+	 x397Wjgh1gNMCCeAektjPM8m6hIbXqoXcnXtedGz+merCyyL+Bt34EITl8jkQE8bHi+nG
+	 JCRoJifD0RzVzOLFGOAHQLToBg0Zy5hCx3Tlrjxdnvk4gD6nEH15Kc82zKbFCP85vMWj/
+	 D6EcTgp60SKMMsm1tvOlML+uEi/axxKzNfAPDSnRgzhOHJJbdjpcNue9g/Ez/Stg6XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717536;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=A+tKrZaRWVm75PTRzfEdV7eNXoe4/w0grid+41M9KbQ=;
-	b=aBhduu2PXY7InC4ZxP2hirvpIYtYRUVQdlpKoZ2G109OdzfrVNdobJKU8tSOBMzf8V0j
-	 LETPblpDZdyBvF9ZuDYhQrzUXQHcheTFHUVzcmX8PLPCBqjPzbHiucYToaRLbSK8WmvWp
-	 da4EXoXrwJZnyJAVAanFQKNykJ4pNOvRWm95qSty33w0G0gmQrNALzL1p+ts6a1nnx/JD
-	 o1bJTfFv2i2sbtChGIi9+k4wRkYEoqO1DGq7a6CVenZGoJdqCYxXUcdb5J3m+WxixZxug
-	 qOuF4pq3J7SanhLzAun2D2hfq1hT//F434xPFblw4QrDmVtpX3XmoAaEokSBgPkS8Bw==
+	bh=vqtldXMQZ1dp8gutvel+gR2ZaMSMk3LkO6R06nCcmTM=;
+	b=arvqmO0ARuMzYWbHw+c9j2ttyGk/lGL6PutBZiAXpGbi0h9eoQyKSo9sAX02mjVj8EIO
+	 NVUYVJcgXvE7iASg4c9WACBDO+fhi8fckKSli7pIOdX3/+dmXI1aPJea6fiH4M3+YF/Ki
+	 KVHYYCuXWYnky3CL6mvzYNCjfCEm/sBJjMHh+SYjSUGpHkozATJ0bJZaPyVlZcd0PByIG
+	 J3L+KJsHVLhTz1gE/q6ovSfvQ0HF7MGRu2cj65K1AgEPBWLxL6yFT8PtUpsEkI37hkWyM
+	 bWu4qprvEsk9xOubFJ594MlWP4YJoT9ohh2pzKXpE1UAv4P3tv9P0AuHIj4MdLbupKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRc3mOoD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ov7aGQ5a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E086660A263B;
-	Tue,  3 Nov 2026 14:52:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A562606B268;
+	Tue,  3 Nov 2026 14:52:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRc3mOoD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E06C1F000C1;
-	Tue,  3 Nov 2026 14:52:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ov7aGQ5a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BDF61F00919;
+	Tue,  3 Nov 2026 14:52:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717548;
-	bh=A+tKrZaRWVm75PTRzfEdV7eNXoe4/w0grid+41M9KbQ=;
+	s=k20260515; t=1793717536;
+	bh=vqtldXMQZ1dp8gutvel+gR2ZaMSMk3LkO6R06nCcmTM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eRc3mOoDdkBOCF0c8E/7Al2WeUUQHZwfCTZzH4z9srXUfoQFFrxdTPXBTzP3y/8ue
-	 uGJ33I3jaiSXOW7AZim45b199vK9dUFMVNGMu26lIzppvPYIYOCvKP2zd6AjC6mriz
-	 VxVuqmdsnn6oETkTVmv6xaBb2PzmscOXwVgUhmjHnWmnKBzqBt3RzgnE5ssO049Qyq
-	 ISE7ZbDUORr2e0CDKzKmFzsM2G63jcoAHBlL5gvSE0WlUScH+3bP0/caDfsMxW1Vko
-	 Q+Isn6QNEHcPnVw5A7WEZ0y5DGl303Duvcx5TSywbUGoT2B1kRvwgUKLfSDkSPbgEx
-	 PanebEwa3IU/w==
+	b=ov7aGQ5aDSEPVJPnNKa5PvGT8AtPUk9WaotbMMK3QnggihKkFJrfxv4MvkdnClSp5
+	 8unx1gkNIH/6fG86TEFjFW2KnjYG2n1yZFshFY89nwRCk3xVUk3b+nvG1BwcKiSvEs
+	 BwuoDS3w9fhWGBjjVu6xRQRmMQP7D0U8k4A4SsOEIovUN2AUkOHRHtx6CmEIrHkSJc
+	 X91fId757gewzIxtKjEFjj2Qcjy1BcLfb+IxwJ13m+BA0w59uOXYY4eOzQ98YellP7
+	 TNduhKXZ6vekk99DdgGt1HjFAASCDQbK7LJC2Yjg3UXBI9Ln1ZewWoB6ehsmlLitET
+	 eT4iYrR7ytWxg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Hoan Tran <hoan@os.amperecomputing.com>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Alan Tull <atull@altera.com>,
-	Jamie Iles <jamie@jamieiles.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Benjamin Robin <benjamin.robin@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-gpio@vger.kernel.org,
+	patches@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Ralph Siemsen <ralph.siemsen@linaro.org>,
-	xiongxin <xiongxin@kylinos.cn>,
-	stable@kernel.org,
-	Riwen Lu <luriwen@kylinos.cn>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH 5.10.y v2] gpio: dwapb: mask/unmask IRQ when disable/enale it
-Date: Tue,  3 Nov 2026 09:52:00 -0500
-Message-ID: <2026-11-03-1-daily-reply-0012-re-gpio-dwapb-5-10@kernel.org>
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	linux-tegra@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jon Hunter <jonathanh@nvidia.com>
+Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
+Date: Tue,  3 Nov 2026 09:51:52 -0500
+Message-ID: <2026-11-03-1-daily-reply-0004-re-6-1-191-rc2-stmmac@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103-dwapb-fix-v2-1-9bd3785d1365@bootlin.com>
-References: <20261103-dwapb-fix-v2-1-9bd3785d1365@bootlin.com>
+In-Reply-To: <8fd15777-fc45-4293-8255-c8d3d28a8156@nvidia.com>
+References: <8fd15777-fc45-4293-8255-c8d3d28a8156@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,11 +81,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> From: xiongxin <xiongxin@kylinos.cn>
+> > Could you test if adding in 2eb85b750512 fixes the issue?
 >
-> commit 1cc3542c76acb5f59001e3e562eba672f1983355 upstream.
+> I confirmed that that does fix it.
 
-Queued for 5.10, thanks.
+Thanks for testing. Queued for 6.1: 2eb85b750512 ("net: stmmac: don't clear
+network statistics in .ndo_open()") followed by 38cc3c6dcc09 ("net: stmmac:
+protect updates of 64-bit statistics counters") again.
 
 -- 
 Thanks,
