@@ -1,83 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719958;
-	b=igLh7UeyQfSbuDqhRzCPa6bE7m3V36/i9VIif7sCu0s14Nys5DvSNZXJmYwGUlw1fiXK
-	 HpUF4pM/RP24jPI+HLn/A/Z1/o1lOYZpQ3Lil2UM67JbfA1BCYu4Vhm8sYtTtWYJrXa3n
-	 ZVWD0//ZFOKO/cgC23BFQEIljmGdmzy0j2kZ+4oO/5y1xqj1yJL0p+RZrv07KDL/mkagq
-	 wTfXMhwy42OOvkyCiYR7FMBiU4ucZAcxNBUK3Fr61pu5CprtMn86u5TdmmtXmvr78y3k8
-	 +SV7QdHsJWm2M+61hPxMcAplgUC/WTsKTkYJjAtAt+Ev2cELI7GRj6g6Qb286v8xTKw==
+	t=1793719974;
+	b=umOSJoTB/w6f459M8BOsJURdTRwA/Qg2zDV1F2mrOQqp/rj40/Tqm5kMjdXZpDY0stxc
+	 aowdmdq4UlL62vszCZNuxCa1O6JtqN70Qq+3sLvXUcjEjdesK6T+v1mkU2zSQFDN0lW1S
+	 zR80nXT/EPgcBSc3YqIXkMFWhOKx/CoJXP18nXLNKjm4bPe5W5SjDg6CshbbygnwY6bH1
+	 z6U2ae4gWgwteQ5cmOMGXTznnMU2u+U1IEC4Z6NbU6u+OvGjM800X9fulMuXC8fjJ7muX
+	 hiKA+aydMtbKo/a4qX1of8IdwQIyy9SN5QmAopMMMyMMRCN8FUPZUISEGFIusGbrdtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719958;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
-	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:Date:
-	 Message-ID:X-Scanned-By;
-	bh=VmOZ73jgvHkU0dumvVNmxvri2WLmB7Wyi+ggYVy61Tw=;
-	b=NyYZzqx9gfmcNai8/iGtMTfd7GIzjcjZr0VHT7ht9D5UPn92xOEO5uUiPsjPVVrXSEjP
-	 5PqnoxmquHW6iJkFZVXpOXkqVXWH2eyfZvSkVgntSijNVgBnc7v+nI4jAwwlqGEyL0nsg
-	 G1t3lwWx6wfrOc1TIXZbBfmS21yntbnki/IE4xHy7x9geVINLEIVBwLIU6+MrWhpnbl/5
-	 x/KAblSYvFKetu9IiVQ4R5qsdaf+bqNIXOdFjhcjpRMZSWoLyqCEYGv/uOW4GcStRdQP6
-	 Qp0ZL1kkNgyaxsypD8E9kTyPChD3PeSOMTFS6Aa3Eb4v06WDKxzVksNPsU65bA6mNgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719974;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jvXZgZKQOD3OX+L2W5SOQ7Mfgo1KYf6m5NuhnlIPKN0=;
+	b=Sd5u+ELxjhB0ZxmI99h6EsM/5H/rLP1AEehyFR7atXkpYNVyHAmKf1rttYcgdBEn4I1R
+	 T23GMLU+wScTkXpBtP6S9abZuhhD+I9Y3PCv9ovI/eo1yj72hqfUOuB0HHa8rqHF6g354
+	 inNu/jWJMbvq7jrtvJqNTUbGsixl9SrYjjSE7G9hbyNvBuluXbeRf6rU1WDfhSJecEAZa
+	 dHvE2RzG8UvV8J1MnmkWRVbynMI5JeUd+L4xNmu8PtOcTHnLavhnyXzzVn6TZVJGaQp+N
+	 gIbTcW55rq/58Rhx+8OH0wIEk5Cfy7iF2/i1LtTM36KVBjKgj44Zt2eNvGdGuXiMofg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h2N8pzUd;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lu9CuajT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DFC606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:32:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10DFC606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196FE606D83E;
+	Tue,  3 Nov 2026 15:32:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h2N8pzUd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793719957;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VmOZ73jgvHkU0dumvVNmxvri2WLmB7Wyi+ggYVy61Tw=;
-	b=h2N8pzUdVQqe5ZCLNiU8NuMPVedAFlYRJPBxG4pSUmR2KI9ITAs5PqA1OrhcnwfVuHJgli
-	tM2FogLvthTAF2U9P9P9AysBiiN842zaS86rXVFUsHxISzT09fZvu75UAsarxrT0Z0973+
-	2p1okoy4cUZoVJTVmxhyfe6GiXP2bBc=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-222-iXgHiXyjMFO01IbGrQNv8Q-1; Tue,
- 03 Nov 2026 10:32:33 -0500
-X-MC-Unique: iXgHiXyjMFO01IbGrQNv8Q-1
-X-Mimecast-MFC-AGG-ID: iXgHiXyjMFO01IbGrQNv8Q_1793719951
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4A9671956057;
-	Tue,  3 Nov 2026 15:32:31 +0000 (UTC)
-Received: from dhowells-thinkpadp1gen8.rmtgb.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 67B3118005B0;
-	Tue,  3 Nov 2026 15:32:27 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <aun4kXCJDtYomzpu@kernel.org>
-References: <aun4kXCJDtYomzpu@kernel.org> <aunNj35KmcAC4ByH@kernel.org> <20261103030226.2685251-1-jarkko@kernel.org> <641294.1793700187@dhowells-thinkpadp1gen8.rmtgb.csb> <669211.1793714419@dhowells-thinkpadp1gen8.rmtgb.csb>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: dhowells@redhat.com, Eric Biggers <ebiggers@kernel.org>,
-    linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>,
-    keyrings@vger.kernel.org, Roberto Sassu <roberto.sassu@huawei.com>,
-    Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-    Eric Snowberg <eric.snowberg@oracle.com>,
-    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-    "Serge E. Hallyn" <serge@hallyn.com>,
-    "open
- list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-    open list <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH v2 00/11] KEYS: Sanitize the garbage collector
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lu9CuajT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9BD11F00A18;
+	Tue,  3 Nov 2026 15:32:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793719973;
+	bh=jvXZgZKQOD3OX+L2W5SOQ7Mfgo1KYf6m5NuhnlIPKN0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Lu9CuajTh6T+e139vMNYDhrcFDnkSxFm7I+Ts+as5e9pJXizpM/gM6VrE3rH1NcXN
+	 BMJtlRpKdDkvjB1gFTUXQT9wwdtw8pJJd6HnV7pS97U95iUZNRs0zgr3VQsXiSiVs0
+	 P6SK+1kpW2ARpsHQHZjEllG5JRbgBqxLwdM0MwcTroGpapmv2bLQ1h0zfCfaj8KAzT
+	 rhPrE4yl/zDbpXvEdOj1aszkN2QLtu/8EVEFNQOjD6tditj3WAemYuL4DZ4+5xluFQ
+	 JFenDPQHFjGOjdYJPP6LbpNHaj8XkoPvsSheLVT/WLex+2YpMrkye4x8+RBZWdAEFh
+	 CJ+7P38SNm2tg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org
+Subject: [RFC PATCH v7 4/8] rust: DmaFence: Replace call_rcu() with synchronize_rcu()
+Date: Tue,  3 Nov 2026 16:31:34 +0100
+Message-ID: <20261103153138.1087330-6-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103153138.1087330-2-phasta@kernel.org>
+References: <20261103153138.1087330-2-phasta@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,175 +78,205 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <683283.1793719946.1@dhowells-thinkpadp1gen8.rmtgb.csb>
-Date: Tue, 03 Nov 2026 15:32:26 +0000
-Message-ID: <683284.1793719946@dhowells-thinkpadp1gen8.rmtgb.csb>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Transfer-Encoding: 8bit
 
-Jarkko Sakkinen <jarkko@kernel.org> wrote:
+The C dma_fence contract demands that a fence's data disappears no
+earlier than 1 RCU grace period after the DriverFence was signaled.
 
-> > Actually, it can be done if the rxrpc and rxrpc_s key types are moved out
-> > into their own module upon which rxrpc.ko depends.
-> 
-> Hmm... I'll experiment with this, thanks. This was useful.
+So far, we achieved this with dropping the DriverFence's data in a
+deferred manner with a manual, raw binding call to call_rcu().
 
-It's not entirely trivial.  I've attached a patch that makes a start on it,
-but it needs access to bits of the security class implementations (rxkad and
-rxgk).  Those bits only parse the key (and in the case of rxgk access the krb5
-code), so in theory it should be possible to extract them out.
+However, this call_rcu() does not solve one problem: It is conceivable
+that some driver data must not drop in atomic context; but call_rcu()'s
+payload *can* be executed in atomic context.
 
-One thing that needs to be considered, though, is the security class selected
-should really be up to the application, not merely switched on by the
-security_id.  This is one of the reasons I would like to add an add_key2()
-syscall that adds an additional parameter string argument.
+Moreover, the current developments in drm::JobQueue, where a DriverFence
+is always coupled 1:1 with a Job, allows for dropping job and fence
+through a work item.
 
-David
+The undesirable blocking behavior of synchronize_rcu() would, thus, not
+be annoying any thread anymore. The direct users of DmaFence could
+achieve the same by dropping their DriverFences through work items.
+
+The only conceivable other solution, queue_rcu_work(), would, for many
+users, schedule a work_item from another work_item, which seems
+undesirable.
+
+Additionally, using the existing synchronize_rcu() abstraction has the
+advantage of us getting rid of a raw bindings call.
+
+Replace DriverFence::drop()'s call_rcu() with synchronize_rcu().
+
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
-commit 365e715b91b9b2ac3030f51c31ff4de8f24a4e19
-Author: David Howells <dhowells@redhat.com>
-Date:   Tue Nov 3 14:15:39 2026 +0000
+ rust/kernel/dma_buf/dma_fence.rs | 101 ++++++++-----------------------
+ 1 file changed, 24 insertions(+), 77 deletions(-)
 
-    rxrpc: Move key types to own module
-    
-    Move the rxrpc and rxrpc_s key types to their own module so that if keys
-    pin the module that implements the type, they don't cause outstanding
-    connections to make the module unremovable.
-    
-    Signed-off-by: David Howells <dhowells@redhat.com>
-
-diff --git a/net/Makefile b/net/Makefile
-index 5b2dd7f07a85..f543097c89b9 100644
---- a/net/Makefile
-+++ b/net/Makefile
-@@ -30,7 +30,7 @@ obj-$(CONFIG_LAPB)		+= lapb/
- obj-$(CONFIG_CAN)		+= can/
- obj-$(CONFIG_BT)		+= bluetooth/
- obj-$(CONFIG_SUNRPC)		+= sunrpc/
--obj-$(CONFIG_AF_RXRPC)		+= rxrpc/
-+obj-$(CONFIG_RXRPC_KEYS)	+= rxrpc/
- obj-$(CONFIG_AF_KCM)		+= kcm/
- obj-$(CONFIG_STREAM_PARSER)	+= strparser/
- obj-$(CONFIG_ATM)		+= atm/
-diff --git a/net/rxrpc/Kconfig b/net/rxrpc/Kconfig
-index 2cebb666dc07..ffd42d71f85a 100644
---- a/net/rxrpc/Kconfig
-+++ b/net/rxrpc/Kconfig
-@@ -3,6 +3,14 @@
- # RxRPC session sockets
- #
- 
-+config RXRPC_KEYS
-+	tristate "RxRPC key types"
-+	select CRYPTO
-+	select CRYPTO_LIB_DES if RXKAD
-+	select KEYS
-+	help
-+	  Say Y or M here to include support for rxrpc and rxrpc_s key types.
-+
- config AF_RXRPC
- 	tristate "RxRPC session sockets"
- 	depends on INET
-@@ -10,6 +18,7 @@ config AF_RXRPC
- 	select CRYPTO_LIB_DES if RXKAD
- 	select KEYS
- 	select NET_UDP_TUNNEL
-+	select RXRPC_KEYS
- 	help
- 	  Say Y or M here to include support for RxRPC session sockets (just
- 	  the transport part, not the presentation part: (un)marshalling is
-diff --git a/net/rxrpc/Makefile b/net/rxrpc/Makefile
-index f994f9f30a29..196e0ce085ba 100644
---- a/net/rxrpc/Makefile
-+++ b/net/rxrpc/Makefile
-@@ -3,6 +3,7 @@
- # Makefile for Linux kernel RxRPC
- #
- 
-+obj-$(CONFIG_RXRPC_KEYS) += rxrpc_keys.o
- obj-$(CONFIG_AF_RXRPC) += rxrpc.o
- 
- rxrpc-y := \
-@@ -19,7 +20,6 @@ rxrpc-y := \
- 	input_rack.o \
- 	insecure.o \
- 	io_thread.o \
--	key.o \
- 	local_event.o \
- 	local_object.o \
- 	misc.o \
-@@ -32,7 +32,6 @@ rxrpc-y := \
- 	rtt.o \
- 	security.o \
- 	sendmsg.o \
--	server_key.o \
- 	skbuff.o \
- 	txbuf.o \
- 	utils.o
-@@ -45,5 +44,9 @@ rxrpc-$(CONFIG_RXGK) += \
- 	rxgk_app.o \
- 	rxgk_kdf.o
- 
-+rxrpc_keys-y := \
-+	key.o \
-+	server_key.o
-+
- obj-$(CONFIG_RXPERF) += rxperf.o
- obj-$(CONFIG_KUNIT) += tests/
-diff --git a/net/rxrpc/key.c b/net/rxrpc/key.c
-index cbd26da44951..c353a4304788 100644
---- a/net/rxrpc/key.c
-+++ b/net/rxrpc/key.c
-@@ -893,3 +893,39 @@ static long rxrpc_read(const struct key *key,
- 	_leave(" = %zu", size);
- 	return size;
- }
-+
-+/*
-+ * initialise and register the RxRPC protocol
-+ */
-+static int __init rxrpc_keys_init(void)
-+{
-+	int ret;
-+
-+	ret = register_key_type(&key_type_rxrpc);
-+	if (ret < 0) {
-+		pr_crit("Cannot register client key type\n");
-+		goto error_key_type;
-+	}
-+
-+	ret = register_key_type(&key_type_rxrpc_s);
-+	if (ret < 0) {
-+		pr_crit("Cannot register server key type\n");
-+		goto error_key_type_s;
-+	}
-+
-+	return 0;
-+
-+error_key_type_s:
-+	unregister_key_type(&key_type_rxrpc);
-+error_key_type:
-+	return ret;
-+}
-+
-+static void __exit rxrpc_keys_exit(void)
-+{
-+	unregister_key_type(&key_type_rxrpc_s);
-+	unregister_key_type(&key_type_rxrpc);
-+}
-+
-+module_init(rxrpc_keys_init);
-+module_exit(rxrpc_keys_exit);
-diff --git a/net/rxrpc/server_key.c b/net/rxrpc/server_key.c
-index 3efe104b1930..b5e60a3364ad 100644
---- a/net/rxrpc/server_key.c
-+++ b/net/rxrpc/server_key.c
-@@ -42,6 +42,7 @@ struct key_type key_type_rxrpc_s = {
- 	.destroy	= rxrpc_destroy_s,
- 	.describe	= rxrpc_describe_s,
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index c04b68fe67fe..d26cf9e8e4b1 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -42,7 +42,7 @@
+             Atomic,
+             Relaxed, //
+         },
+-        rcu::rcu_barrier, //
++        rcu::synchronize_rcu, //
+     }, //
  };
-+EXPORT_SYMBOL(key_type_rxrpc_s);
  
- /*
-  * Vet the description for an RxRPC server key.
+@@ -65,7 +65,7 @@ pub struct FenceContext<T: FenceContextOps + Send + Sync> {
+     /// The sequence number for the next fence created.
+     seqno: Atomic<u64>,
+     // The name parameters can be accessed by the dma_fence backend_ops. UAF
+-    // errors are prevented by the `call_rcu()` in `drop_driver_fence_data()`.
++    // errors are prevented by `synchronize_rcu()`.
+     /// The name of the driver this FenceContext's fences belong to.
+     driver_name: CString,
+     /// The name of the timeline this FenceContext's fences belong to.
+@@ -149,15 +149,11 @@ fn next_seqno(&self) -> u64 {
+     ///
+     /// This is needed because many times, creation of a [`DriverFence`] must not
+     /// fail, and allocating might deadlock in some situations.
+-    ///
+-    /// The `data` you pass here must not perform any operations that are illegal
+-    /// in atomic context in its [`Drop`] implementation.
+     pub fn new_fence_allocation(
+         &self,
+         data: T::FenceDataType,
+     ) -> Result<DriverFenceAllocation<'_, T>> {
+         let fence_data = DriverFenceData {
+-            rcu_head: Default::default(),
+             // `inner` remains uninitialized until a `DriverFence` takes over.
+             inner: Fence {
+                 inner: Opaque::uninit(),
+@@ -243,15 +239,10 @@ fn drop(self: Pin<&mut Self>) {
+             panic!("Forgotten fences in FenceContext.");
+         }
+ 
+-        // Ensure that the driver cannot unload while there are still dma_fence
+-        // callbacks running. At the same time, the RCU barrier addresses the
+-        // problem inherited by the C backend, in which backend ops callbacks
+-        // might be accessing the fence while it is being signaled (or shortly
+-        // after). This could cause UAF access on the fence context's
+-        // `fctx.driver_name` and `fctx.timeline_name`.
+-        //
+-        // Wait for the RCU callbacks in `DriverFence::drop`.
+-        rcu_barrier();
++        // If a DriverFence signals without doing a synchronize_rcu(), and a
++        // fctx drops immediately afterwards, then backend_ops still accessing
++        // the fctx might run into UAF if we don't wait for them here.
++        synchronize_rcu();
+     }
+ }
+ 
+@@ -615,12 +606,9 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+     // necessary so that the C backend can free the allocation (coming from our
+     // Rust code) with kfree_rcu().
+     inner: Fence,
+-    /// Callback head for dropping this in a deferred manner through RCU.
+-    rcu_head: bindings::callback_head,
+     /// Reference to access the FenceContext.
+     fctx: &'a FenceContext<T>,
+-    /// The API user's data. It is essential that the data only performs
+-    /// operations legal in atomic context in its [`Drop`] implementation.
++    /// The API user's data.
+     #[pin]
+     data: T::FenceDataType,
+ }
+@@ -955,15 +943,15 @@ fn drop(&mut self) {
+         // dma_fence_is_signaled_locked() because the C backend wants to get rid
+         // of the latter.
+ 
+-        // SAFETY: `guard` is valid until the `call_rcu()` below.
++        // SAFETY: `guard` is valid.
+         let signaled: bool = unsafe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
+         if !signaled {
+             pr_err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
+-            // SAFETY: `guard` is valid until the `call_rcu()` below. The fence
+-            // must not have been signaled yet, which we check directly above.
++            // SAFETY: `guard` is valid. The fence must not have been signaled
++            // yet, which we check directly above.
+             unsafe { bindings::dma_fence_set_error(guard.as_raw(), ECANCELED.to_errno()) };
+-            // SAFETY: `guard` is valid until the `call_rcu()` below. The lock
+-            // must be held, which we acquired above.
++            // SAFETY: `guard` is valid. The lock must be held, which we
++            // acquired above.
+             unsafe { bindings::dma_fence_signal_locked(guard.as_raw()) };
+ 
+             // SAFETY: `self.data` is valid because `self` is valid.
+@@ -988,59 +976,18 @@ fn drop(&mut self) {
+             return;
+         }
+ 
+-        // SAFETY: Valid because `self` is valid.
+-        let rcu_head_ptr = unsafe { &raw mut (*self.data.as_ptr()).rcu_head };
++        // Make sure none of the fence backend_ops can access fence-data anymore.
++        //
++        // TODO:
++        // This would not be necessary if the C dma_fence backend were using a
++        // spinlock to properly synchronize its signaled state. Fix it in C and
++        // then remove synchronize_rcu().
++        synchronize_rcu();
+ 
+-        // SAFETY: `call_rcu()` is always safe to be called. `rcu_head_ptr` was
+-        // created validly above. The module must perform a `synchronize_rcu()`
+-        // or `rcu_barrier()` call to guard against module unload.
+-        unsafe { bindings::call_rcu(rcu_head_ptr, Some(drop_driver_fence_data::<T>)) };
++        // SAFETY: Valid because `self` is valid.
++        unsafe { drop_in_place(&raw mut self.data) };
++
++        // SAFETY: The `synchronize_rcu()` above ensures all accessors are gone.
++        unsafe { bindings::dma_fence_put(self.as_raw()) };
+     }
+ }
+-
+-// TODO:
+-// The entire call_rcu() mechanism in the drop above and the code below would be
+-// unnecessary if C's dma_fence_signal() could be reworked in a way that after it
+-// ran, the caller knows that no fence_ops callbacks can be running anymore.
+-// In other words, if the dma_fence backend would use its spinlock for full
+-// synchronization.
+-//
+-// Then we could move the drop_in_place() and dma_fence_put() upwards into the
+-// drop() implementation and call it a day.
+-
+-/// Finally really drop this `DriverFence<T>`
+-///
+-/// # Safety
+-///
+-/// `head` references the `rcu_head` field of an `DriverFenceData<T>`. All
+-/// accessors to that `DriverFenceData<T>` must be gone by now. This must be
+-/// ensured by signalling the associated `DriverFence<T>` and then waiting
+-/// for a grace period until calling this function here.
+-unsafe extern "C" fn drop_driver_fence_data<T: Send + Sync + FenceContextOps>(
+-    head: *mut bindings::callback_head,
+-) {
+-    // SAFETY: Caller provides a pointer to the `rcu_head` field of a `DriverFenceData<C>`.
+-    let fence_data = unsafe { container_of!(head, DriverFenceData<'_, T>, rcu_head) };
+-
+-    // SAFETY: `fence_data` was created validly above. All the fence's data will
+-    // only drop below, but the raw pointer to the raw C `dma_fence` remains
+-    // valid because the reference count is only decremented at the end of the
+-    // function.
+-    let fence = unsafe { (*fence_data).inner.inner.get() };
+-
+-    // SAFETY: `fence_data` was created validly above. The user has already
+-    // dropped the only conventional accessor to the user data, the `DriverFence`,
+-    // one grace period ago. All accessors are gone now.
+-    unsafe { drop_in_place(&raw mut (*fence_data).data) };
+-
+-    // The inner `Fence` explicitly does not get dropped because there may be
+-    // many more users / consumers, each holding their own reference.
+-
+-    // SAFETY: Once a `DriverFence` is initialized, the inner `fence` is valid
+-    // and initialized. It is valid until the refcount drops to 0, which can
+-    // earliest happen once we drop the `DriverFence`'s reference here.
+-    unsafe { bindings::dma_fence_put(fence) };
+-
+-    // The actual memory the data associated with a `DriverFence` lives in
+-    // gets freed by the C dma_fence backend once the fence's refcount reaches 0.
+-}
+-- 
+2.56.0
 
