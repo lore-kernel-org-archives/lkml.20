@@ -1,111 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713348;
-	b=Jz2EzFtkZDxrjTTsJu9REgToSxWr6RZO21N435nVGT+2WY00ck6iLj3TGlC17LRTQS+8
-	 Se5iprS9y3n5tKzIM7EVjccV2UZrFSZoKIHBiVksAaVu3zGSM/lC4pPf5eiIw+k3F9qTf
-	 qwhHy1MOGh64A/PETm3SzP5RhN6oLss5eGViaoXgC95rCI+jCYxdi2jMVJyYX4rAO/1ne
-	 AWPUdwtLnwoj6kdQ6FHi4KV6V+HdPSQL+HZ0MlLNzOd6+GxNRjyr5StqXuUH7Lx4Or4S2
-	 jIO65mS3M48eF7eKTUtY8bD3y5XwRpuiOEoSDhuDXMVR/11bbem/lNpavErxj2ttp1w==
+	t=1793713390;
+	b=uxTN6Gj/+LYWqhPCXf0Mx9xsINyZgZZdINjE6J+Q7iwwU/fu/gPg5/PrFzzX/uxe7sFx
+	 zzaXQFKnciR1XTAUX6TG8dXsZs9ZtiZHzuIbIbw7iVxWkYzBJO3EVhtTFMuKBPB4rCvWW
+	 TcTKcHQBwNuZTa5cD7TXKjvIPHOg16FOyHDiMprhBTC/6p6AfGslItiYXXMnCK5pZvRfr
+	 zM3WyAv49tqhiEC8bEgmawXkEaNv00q//GMy68b0kpdv6gIPWZ6UBivP/jYveSzpfOUxc
+	 7+TGWDECkOWBohpxVML8/2otS7doBEgqK1YotJwSRSC7QmJVYV/f07hCF5H/EmpCL4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713348;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=C6BsRfaEgIRLQQWK6sElJj2ULb7RxiZTRv6a00pf8q4=;
-	b=oLZ6oOesvUUh+nxra3tl541lH9NPrVGLaolpJ+Sc9oqFHLw8SGkJhEz3yo3AfWBCVBSi
-	 VrbfxgQgcUv2dMSiEp+5ATV5ZLqpEfh7EW2hpHGtKU74fEdLq+JWOmWXCiyBSO3FKJANh
-	 lqXQ1ta4f3ITH8oodVWGpbxdwDLDlOQ7igUWav44GnsanodH2EWjscm1BnSX+hNUaY/MM
-	 ZYCUSE9XRgyF+tDLSAj/X+5cs8tnz6hQ+FUbQF7ALLL2N3bYkKmPy2viT1l1I7JG+oQ4w
-	 ICUmOTyo0K4RfufnaC0TGvvSO8nlMlupofE8MBRVnIJHJ7U0pxPe5lRHAgeZh9CpoMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793713390;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZdmQqQyK0aZOjizbaMy6h2oKR3b5w3MhsCDtNgmmsDs=;
+	b=2bY1/Ax1HH9HZo/1sWLX527RkSk3NB6TiJ4Hfy3IXFXUpiPszc/Hn7kVBl5jlRcSpeHJ
+	 VhdfGvvSVS33HyxbeEvQyzOdIuiRV4QQP1SGe0yptEx3m/A35zcTBF5D7NllS8czqSwe2
+	 up/G5kUnD580xELhmRFaZV3bRwAs7DtgrvjyKDdCw5wCeR4dsCqd1LLdiQhvdrYpnaZIg
+	 dFdOJXkZeV6YqzGy6M3edWtQAT7qfsH9NF/VxSWr2rFEDkqd83LmunxqdbECSlm8SVYDJ
+	 OquTWGkPuuQvYo76d1dnONPC+3Osx65/5fZfadUwY1YxLc3hcv4oS3vdgt4YdLnfWAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b="KkN/+8PM";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=gsz0dw+7;
-	arc=none smtp.remote-ip=103.168.172.137
-Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QFzWZrvK;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A728606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:42:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A728606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55310606A324;
+	Tue,  3 Nov 2026 13:43:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55310606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=KkN/+8PM;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=gsz0dw+7
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.phl.internal (Postfix) with ESMTP id 2828B13807C4
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:42:27 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 03 Nov 2026 08:42:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793713327;
-	 x=1793720527; bh=C6BsRfaEgIRLQQWK6sElJj2ULb7RxiZTRv6a00pf8q4=; b=
-	KkN/+8PMCJmN9+oJDv1PT2v8YZWiIx0HgEHZi/kgNA/HhDba5WP1BuWQNOZOURbV
-	Hrj/ZLB5gspp7ptXLCWd2/lcTCZvqc/UiLbYblYrtfSBf+oSCoLS9Yt3LCf1ulBj
-	lg1TYfpqS16gvfgfu4EHr85s4ixt1DDrbKFtPydgVIzB9cPvJ5BmeNYM3yNu9Z0n
-	FAXefH0FFZUkBX8NR+6WOj4j3rloPScdno3dG1HXBGsIv/fnPE3Kz/SGuwq3NtTI
-	dudCN7ANM/SRMQf6LVw2OntByOGKb8K3+NWBsyIZjE0fc1ImLBgPxjPKGQopgLDz
-	ruitXt5rpbx7Tq5bSgwmUw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793713327; x=
-	1793720527; bh=C6BsRfaEgIRLQQWK6sElJj2ULb7RxiZTRv6a00pf8q4=; b=g
-	sz0dw+77oExHBK39kaNw32WrtTlwOJhqphNMVRGuWcrVG3KBO7SUns78QvkvuR1U
-	ovHSscfd8k54mBoeP2/T1l1J0pfxstu/JooCt1G1kXyu6s6J5TU8AxiTdQ3pztNo
-	1i83BBorBn5uaYx5ieRd3kmTsaIIqEDwSBmqZCXK479b2CQBdsSEVgAuXEhtj06g
-	f2xYXuraOvh+cMnFS+sOgVd8XZ+DN493zKM1YLf2pr4N61dfphFj15e8MHu2eCcD
-	er7TAc1AvgPhPTdWRzFFJc6ya0hvsc8C5ZOySQBplVAwy7Mlf3/XoaT+Yax0/SSF
-	OB5b7Wc9BHM4pI2uH/4+g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793713327; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:fysYV3+zyw4B+YAezIzAT/QmDLYWJDiWmC7MDSz/vsvBHf6
-	ZjaWXCx1yLPr6okMlCG3Dk2HOb1PygSJJXa/tpabSW8jS1czf1K3ABRvi40HNGfn
-	fXYLQhIV+6CzjVt59xmTpum+DNc2UHAu0/9cIlA8zKYnHYoQG9cZD9DiRUgpFc+S
-	vlroLmxEhLFTfgXHSsUXaako9WR390khsTnz7nAbJ3H+SeF/L8YZHn6HVuzmDPK2
-	UVe4I2YGcY8n9DZHAkZV0MjnjdDzdxd0RqtiBbvW2Ql98Pjp87QK0MPZzt4Ba64H
-	Eu6G8PCpz7+jFS47q2+hkDHQDYKczIaacT+SA0g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:6lfwly49jdk/TRQzQzohVpgwjHD/wkTSstU+gGerY1o=:h/NM9bjvMaJEdmp3okr+dW8dFy0qHLVaOWeZgTL04zo=;
-X-ME-Sender: <xms:oeTpatWZDpRRNZMWjhAskAQCMLqYvau0PUyGwPOYFLY0pY6Y9njaiQ>
-    <xme:oeTpaoaxV4qoKNi5Ha6QuCd6u5HJZEERfSmA_tlbmn0FuwbNeMxgM4D80-yFTbUaX
-    1cbqN1e5bOFSx23ABc5q4LlDVGSq1-KR4WsXI6AIE_4tL5z2z-EtEx7>
-X-ME-Proxy-Cause: dmFkZTEA4KzNuwOsua5pffRMjkBOk8wzkxvQ/2CpeYBWTRKldBKNhQCsSJE8Uh9dEQ0Ef0
-    GZHbXMgWrOiuBvBaWlxEbzf5C4JmAB81c5UxCXTIHaP/8pbXByeVsb/te6GpmqZXZlblAg
-    cKGjztPo3uHjg+8wCId1LCLEttpHXAcoPDOOz/66xY7x28JRQSuiF2Kqea58r7ttfq13S3
-    vy/rynGbxesfWoFi0HCPVVWm9XxX9JVLVWEhx/hoN7T4hNR+A0wUjV33nFR6E5KwtUgHee
-    5HY5ePjyfCf2olwovw2KYth+I2fo+vLeN24GLXo3DbsdCMBSrrFPTbK5R3zN8lQ3nGBVRD
-    7A4WcGepoqTPXzuv6+agcCPg7oTJe9F+HWtlF7Z4ISIU5FI04YMIQrBBNBu3NmBVQwwxeh
-    kJlxgwLuCEvccGYTJOZI3KhHXSQfZ7r4qm8sFi73x/cP4J5H5gKnM2iNKfhWsNh3IDTvxP
-    YKkWDuvUXsg9aFQEUPRjj6Ks8b1xBqLIr2L56C3vMDoJ3IEwEtMX5enoas8JQFqZDr+yL4
-    yPtrobI2V9uesTkvFL1E3x0YPCUwvluj3uzHDLrERF0ZNYro2piN6RGU0NvkoUFSPSftdN
-    rB8URlSfV0C2tKh9aRLdepIKneucn81ERHwkoQmItOqAMOOnShSiRfl/ESBQ
-X-ME-Proxy: <xmx:p-TpampxcJCb0YP76X94qK88tf_J79dTHp214itTmMD_LbR71BcL0A>
-    <xmx:p-TpapGUWlOsHG7W7wuO7uNqAusEcz8_mP2VgpOYxjzS8xfhgmVa1A>
-    <xmx:p-Tpamic8G5a7o4akCQHtMOCub9DetJVBRrpWGFMVhanMfwGsFu4sA>
-    <xmx:p-TpajO0fKvscWeKk5uMiINqSqzFYwLlqKRDd6c50uDQ5K5IY-z27g>
-    <xmx:r-TpanHhEjtwrLSxgMyCywLuGWEPXQp6v4HPDY2KlB8m2jguXX7K5daW>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 31DC432A0097; Tue,  3 Nov 2026 08:41:53 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QFzWZrvK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793713388; x=1825249388;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=TfR4xA2U6Ko/BxSgGY90vgDu+p7Z0W5UgU306Djsi/Y=;
+  b=QFzWZrvKzrKnJpLbRNhg5u4GWqtutWIotxkbQ07oM+61OuKiHaYIRqq8
+   Lg7nQNUyhwZXIKLeQ8dPGSm8NT6gF2CDmO0ka68+VmwkEZWwMArmWM6tF
+   KLgWT+8Ewi1nyfT2GP+WZR0fYASSVGJEuaId+CGEPrvkd3/Oanz6nRbGy
+   x/M4CbC/S+H7iwzPaa53AXOZl8pCiGIvIRPjdedWaAKKP2EeTYplIbi6z
+   2CF0OtswIkNK937PCt7kqMJ1zFVTNrdj3aGDdDKulym42j6vjPPEcHwAy
+   Ye+rEvmFNp2UhE2JeazWXa4TBwCGgUELNZv9BVO4P5PnCIni573Q4yIpO
+   w==;
+X-CSE-ConnectionGUID: 6g35H5VHRZKkqJnvl7TiUg==
+X-CSE-MsgGUID: TpnYN6N6TDmxbkNYPuPaSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2328063"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2328063"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 05:43:07 -0800
+X-CSE-ConnectionGUID: pa3ixEsgSKW1rzdRWsKnZw==
+X-CSE-MsgGUID: gtCZth5kRr2s8QldRcd3Sg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6428180"
+Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
+  by orviesa001.jf.intel.com with ESMTP; 03 Nov 2026 05:43:05 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: linux-sound@vger.kernel.org
+Cc: broonie@kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz,
+	amade@asmblr.net,
+	linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.dev,
+	vkoul@kernel.org,
+	yung-chuan.liao@linux.intel.com,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: [PATCH v2 0/7] ASoC: Intel: avs: Soundwire support
+Date: Tue,  3 Nov 2026 14:49:51 +0100
+Message-Id: <20261103134958.2089136-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,141 +85,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AHCvEt5753PB
-Date: Tue, 03 Nov 2026 14:41:32 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Sasha Levin" <sashal@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>
-Cc: "kernel test robot" <yi1.lai@intel.com>, oe-lkp@lists.linux.dev,
- "kernel test robot" <lkp@intel.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, "Andrew Morton" <akpm@linux-foundation.org>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- "Kirill A. Shutemov" <kas@kernel.org>, "Finn Thain" <fthain@linux-m68k.org>,
- "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "Thomas Gleixner" <tglx@linutronix.de>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>,
- "Ard Biesheuvel" <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- "Alexei Starovoitov" <ast@kernel.org>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Boqun Feng" <boqun.feng@gmail.com>,
- "Daniel Borkmann" <daniel@iogearbox.net>,
- "Dinh Nguyen" <dinguyen@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Gary Guo" <gary@garyguo.net>, guoren <guoren@kernel.org>,
- "Hao Luo" <haoluo@google.com>, "Jiri Olsa" <jolsa@kernel.org>,
- "John Fastabend" <john.fastabend@gmail.com>,
- "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>,
- "Jonas Bonn" <jonas@southpole.se>, "KP Singh" <kpsingh@kernel.org>,
- "Mark Rutland" <mark.rutland@arm.com>,
- "Martin KaFai Lau" <martin.lau@linux.dev>, "Rich Felker" <dalias@libc.org>,
- "Song Liu" <song@kernel.org>, "Stafford Horne" <shorne@gmail.com>,
- "Stanislav Fomichev" <sdf@fomichev.me>,
- "Stefan Kristiansson" <stefan.kristiansson@saunalahti.fi>,
- "Will Deacon" <will@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>,
- "Yoshinori Sato" <ysato@users.sourceforge.jp>
-Message-Id: <846703eb-111c-4376-a0ba-36bd3e13f632@app.fastmail.com>
-In-Reply-To: <e69e6690-cfc0-4ea8-83e1-5ad2d98b84d5@app.fastmail.com>
-References: <202611022259.def3e086-lkp@intel.com>
- <20261103122647.GL1813469@noisy.programming.kicks-ass.net>
- <20261103123508.3910990-1-sashal@kernel.org>
- <e69e6690-cfc0-4ea8-83e1-5ad2d98b84d5@app.fastmail.com>
-Subject: Re: [linus:master] [atomic] 80047d84ee:
- WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 3, 2026, at 14:13, Arnd Bergmann wrote:
-> On Tue, Nov 3, 2026, at 13:35, Sasha Levin wrote:
->>
->> I tried the typedef change. It works, but gcc ends up realigning the
->> stack in a lot of pte/pmd code (126 more functions with Arnd's version
->> in a small config, 204 with yours), including handle_mm_fault(). Just
->> aligning the two locals seems simpler:
->
-> The question is how many of the other functions may be affected by the
-> same bug. I see a variation of the same code in vmemmap_split_pmd(),
-> and aligning the types is clearly the safer option here, especially
-> given that most 32-bit architectures already align u64 all the time
-> the same way that 64-bit ones do.
+The RaptorLake-P and RaptorLake-M based platform used in Automotive area
+do utilize SoundWire for streaming audio.  This patchset brings such
+support to the public domain.
 
-FWIW, I checked the other architectures that may be affected:
+If possible, I'd like the changes to go through Mark's tree.
 
-- 32-bit arm has transparent hugepages and a 64-bit pmd_t with lpae,
-  but that type has natural alignment, and pmd_populate is a
-  simple assignment.
+As the patchset updates drivers/soundwire, I've decided to strip it off
+any machine-boards and have here just the changes done to the main
+soundwire driver and their user/usage.  Machine boards for RPL-P/M will
+follow in a separate set and do not touch drivers/soundwire stuff.
 
-- arc has transparent hugepages and a 32-bit pmd_t but a 64-bit
-  pte_t that is not naturally aligned. It probably should be
-  aligned, even though I don't see any actual bugs
 
-- sh has a 64-bit pmd_t on sh4a CPUs that is not naturally
-  aligned and probably should be, but there are no transparent
-  hugepages.
+The reasoning behind modyfing the soundwire code:
 
-All other 32-bit targets don't use transparent hugepages
-or 64-bit pmd_t. 
+Typically dai->startup() is responsible for checking if all the required
+resources are available whereas dai->hw_params() is responsible for
+configuring such resources.  Existing code does the PDI assignment and
+its configuration within one function - intel_hw_params().  The logical
+split is not possible.  The change provides functions that represent
+such logical blocks: assign, release and config.  Such division exists
+already for the HDAudio interface, see sound/hda/core/stream.c
 
-We probably only need to align p?d_t though, not p?dval_t.
-How about the version below?
+For the user i.e.: avs-driver (sound/soc/intel/avs) it also makes the
+code very cohesive - aligns with that's done on the HDAudio side as all
+the HDAudio streams are assignment during dai->startup() and configured
+with dai->hw_params().  
 
-    Arnd
+Also, the existing code fetches the PDIs based on pre-defined "dai_id".
+That's not the case for the avs-driver.  It simply asks: "is any PDI
+free?" and assigns it for the substream if one is found.
+No predefining.  Again, this aligns with how HDAudio streaming is done.
 
-diff --git a/arch/arc/include/asm/page.h b/arch/arc/include/asm/page.h
-index 9720fe6b2c24..af5303459d56 100644
---- a/arch/arc/include/asm/page.h
-+++ b/arch/arc/include/asm/page.h
-@@ -65,7 +65,7 @@ typedef struct {
- 
- typedef struct {
- #ifdef CONFIG_ARC_HAS_PAE40
--	unsigned long long pte;
-+	unsigned long long pte __aligned(8);
- #else
- 	unsigned long pte;
- #endif
-diff --git a/arch/sh/include/asm/pgtable-3level.h b/arch/sh/include/asm/pgtable-3level.h
-index d1ce73f3bd85..6d5e2e3248f2 100644
---- a/arch/sh/include/asm/pgtable-3level.h
-+++ b/arch/sh/include/asm/pgtable-3level.h
-@@ -33,7 +33,7 @@ typedef union {
- 		unsigned long pmd_low;
- 		unsigned long pmd_high;
- 	};
--	unsigned long long pmd;
-+	unsigned long long pmd __aligned(8);
- } pmd_t;
- #define pmd_val(x)	((x).pmd)
- #define __pmd(x)	((pmd_t) { .pmd = (x) } )
-diff --git a/arch/x86/include/asm/pgtable-3level_types.h b/arch/x86/include/asm/pgtable-3level_types.h
-index 580b09bf6a45..061283293341 100644
---- a/arch/x86/include/asm/pgtable-3level_types.h
-+++ b/arch/x86/include/asm/pgtable-3level_types.h
-@@ -16,14 +16,14 @@ typedef union {
- 	struct {
- 		unsigned long pte_low, pte_high;
- 	};
--	pteval_t pte;
-+	pteval_t pte __aligned(8);
- } pte_t;
- 
- typedef union {
- 	struct {
- 		unsigned long pmd_low, pmd_high;
- 	};
--	pmdval_t pmd;
-+	pmdval_t pmd __aligned(8);
- } pmd_t;
- #endif	/* !__ASSEMBLER__ */
- 
-diff --git a/arch/x86/include/asm/pgtable_types.h b/arch/x86/include/asm/pgtable_types.h
-index 2ec250ba467e..5c028b3f59c4 100644
---- a/arch/x86/include/asm/pgtable_types.h
-+++ b/arch/x86/include/asm/pgtable_types.h
-@@ -292,7 +292,7 @@ enum page_cache_mode {
- 
- typedef struct pgprot { pgprotval_t pgprot; } pgprot_t;
- 
--typedef struct { pgdval_t pgd; } pgd_t;
-+typedef struct { pgdval_t pgd __aligned(sizeof(pgdval_t)); } pgd_t;
- 
- static inline pgprot_t pgprot_nx(pgprot_t prot)
- {
+avs-driver -only patches follow the three soundwire ones.  First, they
+extend the existing code so it can accommodate SDW interface.  With that
+done, laverage existing PCM code (sound/soc/intel/avs/pcm.c) and
+soundwire-intel to implement DAI operations.
+
+
+Changes in v2:
+- dropped duplicate headers as pointed by Amadeusz
+- fixed PDI initialization for ace2x as pointed by Bard. This is done by
+  introducing ->init_pdis() ops and calling it just before
+  ->register_dais(). The body of the ops is 1:1 with the existing PDI
+  initialization code
+- fixed the error path if init_pdis() fails, as pointed by Bard
+- fixed Amadeusz' email for all the headers
+
+A number of changes pointed by Sashiko:
+- fixed compilation when CONFIG_SND_SOC_INTEL_AVS=y and
+  CONFIG_SOUNDWIRE_INTEL=m. This is done with help of new kconfig:
+  SND_SOC_INTEL_AVS_SOUNDWIRE
+- added missing kernel docs
+- avs_sdw_dai_trigger()/prepare() now rollback sdw_stream state if DSP
+  operations fail
+- avs_sdw_dai_shutdown() now NULLs the sdw_stream context
+- wanted to reserve this for later but since the bot pointed this out,
+  updated hw_params(), hw_free() and prepare() to accommodate for
+  suspend/resume scenario with a SDW stream
+- sdw_intel_acpi_scan() now returns -ENODEV if the library is disabled
+  (previously returned 0)
+- avs_sdw_probe() now exits early if the link_mask is 0
+- disabled SDW probing for avs-driver on ACE2+ platforms
+
+
+Cezary Rojewski (7):
+  soundwire: intel: Define stubs when library is disabled
+  soundwire: intel: Allow for dynamic assignment of PDIs
+  soundwire: intel: Split PDIs and DAIs initialization
+  ASoC: Intel: avs: Pass irq to dsp_interrupt callback
+  ASoC: Intel: avs: SoundWire support
+  ASoC: Intel: avs: Expose common PCM functions
+  ASoC: Intel: avs: SoundWire PCM BE operations
+
+ drivers/soundwire/cadence_master.c    |  65 ++++++
+ drivers/soundwire/cadence_master.h    |  25 +--
+ drivers/soundwire/intel.c             |  41 +++-
+ drivers/soundwire/intel.h             |  10 +-
+ drivers/soundwire/intel_ace2x.c       |  25 ++-
+ drivers/soundwire/intel_auxdevice.c   |   4 +
+ include/linux/soundwire/sdw_cadence.h |  35 ++++
+ include/linux/soundwire/sdw_intel.h   |  45 +++-
+ sound/hda/core/Kconfig                |   2 +-
+ sound/hda/core/Makefile               |   3 +
+ sound/soc/intel/Kconfig               |   8 +
+ sound/soc/intel/avs/Makefile          |   4 +
+ sound/soc/intel/avs/apl.c             |   2 +-
+ sound/soc/intel/avs/avs.h             |  15 +-
+ sound/soc/intel/avs/cnl.c             |  25 ++-
+ sound/soc/intel/avs/core.c            |  22 +-
+ sound/soc/intel/avs/loader.c          |   3 +
+ sound/soc/intel/avs/messages.h        |   2 +
+ sound/soc/intel/avs/mtl.c             |   2 +-
+ sound/soc/intel/avs/path.c            |   2 +
+ sound/soc/intel/avs/pcm.c             |  42 +---
+ sound/soc/intel/avs/pcm.h             |  50 +++++
+ sound/soc/intel/avs/pcm_sdw.c         | 289 ++++++++++++++++++++++++++
+ sound/soc/intel/avs/registers.h       |   4 +
+ sound/soc/intel/avs/skl.c             |   2 +-
+ sound/soc/intel/avs/soundwire.c       | 117 +++++++++++
+ sound/soc/intel/avs/soundwire.h       |  63 ++++++
+ 27 files changed, 816 insertions(+), 91 deletions(-)
+ create mode 100644 include/linux/soundwire/sdw_cadence.h
+ create mode 100644 sound/soc/intel/avs/pcm_sdw.c
+ create mode 100644 sound/soc/intel/avs/soundwire.c
+ create mode 100644 sound/soc/intel/avs/soundwire.h
+
+-- 
+2.34.1
+
