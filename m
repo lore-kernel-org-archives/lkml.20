@@ -1,105 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699210;
-	b=i7ONK2fpDx4DQqgnFu5RmCcOYHmJa+J4nD9/6sOsbXGnbDJpwair5M3BPZ7wYIsEFjnA
-	 dBBMdoZiChwSy7lpEuZa1e99kOGGoEEwnu/Gi1NAI//Nbb8QLrb6TzzlndPobXqjaZs4n
-	 h6Uku7q5Z9JAo04PSHyVgD0olMCi06zA17Kk4vO7KH/6In5SFBgngX9mqnkdBlL94mXhB
-	 XgdawPwKLtWYZVrz74QXT4DDtlM/iTD8Mv0ZmRHoFyBLhcD84aOgRkitCslKNsAe7BPW7
-	 EtRi6FPoogr5E2G6uz3hKtxBKf/xblwaphnfHtSe5aKEZzNk3H/wK1NflykI2DAK6JQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699210;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:X-ME-Sender:
-	 X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:
-	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
-	 Content-Type;
-	bh=/IKeePEzkzQb0ij5rJyiMvvaU4VMD6EhYQBwHPP2ZQM=;
-	b=ywZi+rFwQ+ev1kdS4M2SvEFEh7KWLDvbJ2iWUNYjAAgfPSsM6Eltc1/VX82MSS9HBVZS
-	 V6Fe9ym1Eu31udPbMVqlC48nHdNE0rtetc1WIGHmZs2BDfGPAgOHyPK4WFHvuIb68uMHl
-	 kKPCJBytuabmhFNwSIVgYTazzpt2/RnBcKYM6tonIgIVWJixeqlq+bCrBIHz0dTtrsOk0
-	 bqsSU/SxZklVPahhUx0UsF5xh+EEMyi2nVkmhD7MIutSJufGkdLEvRDV5SmD27e1vHS+8
-	 wO1/Ild5kuG8WMQfqGY653NkflyvaQ+iJM/Upx9q5KAAXqONi3XuqmExFmgGSsG1rtg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=none smtp.mailfrom=linux-m68k.org;
-	arc=none smtp.remote-ip=202.12.124.154
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793699223;
+	b=DxfWqLAcC4eLB7NjJ6ILrAYK/iMA6GeWwbEMjpukQYnaK20Ol1TZBTg5T7l8hFdk0KB6
+	 EcLFLRcDaUZrvUHAb1QTyIIHfnYxpUTrshZTs76AkEvyfrIyDogOJN1yEQA/ak9uG7RPc
+	 L03RBZJ+2JduswBcpeY+bMyZDMXTb5hZjrgJiWlURnah7OBhAYChWpxbG4aAaz2eLasEq
+	 NldlBpRCl6DoGqN8cSMgoU5jM9THD6oEqlfHKauOdwUKo8yhJf4Aq9pDqw/loEx01eM6Q
+	 ZElTuYL8er6Q7BJsb+tvemIDSajMMLRlUWmmeA+Sjzc8/UjI6rw0l0Q83cxCzXpIeaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699223;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=yRfAE5lM/RCUsJPrIa5QZ/uOcu2NRcRQfgumlTEgJ1E=;
+	b=M2aXCWrx1JTdwpDjCILTDQ7UxebcA+HRKWaMdG1IEK3/ke7auLRA+yx1u8XM8lg3VjWL
+	 oeNSmBZCJuWNMJX6rdYuqzwTDJFicR358N2TF3e2De3ytfHzgmtfJSbWLrPMiMViELIrD
+	 ktg3wTnqn+klkdNedbbwm/J45clv39Ceso906YfBpihGKe8gB79LiBOYXxQpw5UxMfByv
+	 4qm1pG03e5Jq15ETDQukZiqjLlLiV2Iuy1N8eItYk4tlLsb9MMj49oZNwN6ByRF3kfvO0
+	 P+7hoVJHU5zaFAjw5hgdNhUuaCBkK0HBTcB4d32qsoLDbsQHodE5b6KwXXXksKcN4eA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nAb5Pslr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.11
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012011.outbound.protection.outlook.com [52.101.48.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3FC606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:46:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE3FC606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 04A017A008F;
-	Tue,  3 Nov 2026 04:46:44 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 03 Nov 2026 04:46:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793699204; x=1793785604; bh=/IKeePEzkzQb0ij5rJyiMvvaU4VMD6EhYQB
-	wHPP2ZQM=; b=hwcOYUL6yDd71JGia5mt9XdEkl5igSIOSPcEZCYUmSq0pBCZPYS
-	+bqrJvDQcJDFXJQu7ALZ9u9Z00jVaKSTSlyzODlvMiKxs1ixxzzijxzWOGBFirJ4
-	LCWo199EPZvtoRb2PEEN3ilhsVGyPtFOhmR44yTjNcoZE3WmZYjlAhJHQxmLodUs
-	oBHrESTKWM7t7/f57mj/vehCTP8iJNplCVGTxOO59YCMiwQp9VIBc8kaFliHEAR2
-	On4Zke+ZMhkBW5KROEURMndOmONPvmEpbSdu2BnJeLxqkNTWOQRq0vUhD4Q69VJ0
-	faq5kDgjCTksyTZBR0Si2pjYURb9rPRoJRA==
-X-ME-Sender: <xms:g63pao1oXemuL-_ffQhBs_yx62UXFOVjkRzWI27LIuCeLYLpRA1kTg>
-    <xme:g63pamZ2iUVFO4-9oPLQNC9JlHp0Kxe-qLOa7Zxp1WSvU6TVB0irDhNXXo2kRiN6b
-    phXSOyVhnDo0RG2i8Z9PhyKooYH5P8U4ZrezqDDR4rGVpNJZHVdXkgdJg>
-X-ME-Received: <xmr:g63pasv7gKy0kxOqQSNoyWuus8qBlg2sSuhgoHCVy1FFF-wKaqPVB_efBmOq8scn5Yu6V5Eb9-ViYJ9h0B86Gz8bQ-b6Xzq-CFU>
-X-ME-Proxy-Cause: dmFkZTGsab++Yb187nq4D1T5x8jnxJ1X+qM2yU337wNKyg/7p/AZFEimtm/w/ej5BGPHh5
-    jdVZ1lx05ifLTc80WlGqgvEyQBW93KVfuWHMBGQH0nRiKPv1sBpHlcNNu/r82osNl2UlzG
-    P/uNVb2MlqBf/wb+gPI+q03IAtBsjpxsayKL4q/JWUj9WQgzLVIInu2VI1hYRhkdbOhAHU
-    WkvBXSUXnOM6rkYRr5DiTj7aksnHRCf0dfuN9r1ymrfTaqoh8MKxPT1o9jg8bVPOUiCtia
-    qy7AP4qT0uaRPBU9qa7bHI5H7UDYCRLJUOUhd44sTlVm1xkWLd45S4tj740ViSqWLnmEUT
-    fo6u47Ob0pMttntHtGzqhCbeOGhLsBrs8XDwKLXq93UaCdCd1QVmvH1twQVEtThmpr+xuv
-    +UbT2UCUbhUZYW4oOe/3b36/L7gUBA8oryNhJqJNd8xBOGx5PCdLFv4u1KyogHHLzNGdtw
-    kIDzB5ScPgLNQOVgQ8dIYa7rviL32fVrIBn/ctTf3taDWXDK+vEBzCwdVFohLOZJKZ95g/
-    GX6/sMP+FTtm/0Ky/yYnA3LrEQU3ZoB+7guD07Pn9J2lmzC+86zFhccITemct0RRYKZj9j
-    xcs7mz6xosDFKwxlBdfZscmkvWys9LNSd+MDHanHdSWIWXALnXli+h3f15CQ
-X-ME-Proxy: <xmx:g63palBBf4wc9Kag6Yv3st7h3K8ypt80VvukO_1N8frQp6cXRiv-KQ>
-    <xmx:g63pavD4a_GBFH7TRGR6LPcyVbqcyZUKofI_hJDwAuvjXZ0L80vaKA>
-    <xmx:g63pannhtLkDPR3Rt-qSZiJ8TaechLUDUGtgLSmUQyzfg1583E70vw>
-    <xmx:g63paou899ZZnaoPgVKO1OjqWnvlqG80Jw5CyuMYXXU-9c0cLLfx5A>
-    <xmx:hK3pahdr3F0oGXfZC6DJ6oveDNi6Y1Ut0m6lGSlZBZnz-pKMEC8KzNmA>
-Feedback-ID: i58a146ae:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 3 Nov 2026 04:46:40 -0500 (EST)
-Date: Tue, 3 Nov 2026 20:46:36 +1100 (AEDT)
-From: Finn Thain <fthain@linux-m68k.org>
-To: kernel test robot <yi1.lai@intel.com>, 
-    Peter Zijlstra <peterz@infradead.org>, 
-    Andrew Morton <akpm@linux-foundation.org>
-cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org, 
-    Geert Uytterhoeven <geert@linux-m68k.org>, Sasha Levin <sashal@kernel.org>, 
-    Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
-    Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-    Ard Biesheuvel <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
-    Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, 
-    Arnd Bergmann <arnd@arndb.de>, Boqun Feng <boqun.feng@gmail.com>, 
-    Daniel Borkman <daniel@iogearbox.net>, Dinh Nguyen <dinguyen@kernel.org>, 
-    Eduard Zingerman <eddyz87@gmail.com>, Gary Guo <gary@garyguo.net>, 
-    Guo Ren <guoren@kernel.org>, Hao Luo <haoluo@google.com>, 
-    Jiri Olsa <jolsa@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-    John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
-    Jonas Bonn <jonas@southpole.se>, KP Singh <kpsingh@kernel.org>, 
-    Marc Rutland <mark.rutland@arm.com>, 
-    Martin KaFai Lau <martin.lau@linux.dev>, Rich Felker <dalias@libc.org>, 
-    Song Liu <song@kernel.org>, Stafford Horne <shorne@gmail.com>, 
-    Stanislav Fomichev <sdf@fomichev.me>, 
-    Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
-    Will Deacon <will@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
-    Yoshinori Sato <ysato@users.sourceforge.jp>
-Subject: Re: [linus:master] [atomic]  80047d84ee:
- WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
-In-Reply-To: <202611022259.def3e086-lkp@intel.com>
-Message-ID: <13bdec81-18cb-4a1c-4932-41751346a621@linux-m68k.org>
-References: <202611022259.def3e086-lkp@intel.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CFA606A331
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:47:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5CFA606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nAb5Pslr
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JErGgP2OYWNRPRjNvwy4MDqsDmZ18A7VMUojctrm9i7iNIa1Ol2T3JhsSqyS+gvRHJvvO8jKmarxKmCUbis1RdiK5J+aktWe8oHWRmvIuyCplCq1RWnoLuLyRErJtKz6bOr6JVRI28jFlIKaSlVHjSMPuhoOY0SIxtr+PGC1miuuruF4t5tC4EtiPNw6dKHyKeBMp/xgrwZo7h+9hQ5yuB32XWNuRWWUTWMCrdVwTjBAQ7TNyE3woM2GDJSh4BU1Z5APq52ZOYcd63cCReO+UkitSB/+5VqKVJvtNCTCCMHn/eZfnD0INT6dztiScb+69YbkR58K2yQNfRjynS5prQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yRfAE5lM/RCUsJPrIa5QZ/uOcu2NRcRQfgumlTEgJ1E=;
+ b=WVLBAr/aH8tGjY1e0W8OJiGsSGXca0vIiOc/CZSt5K3+cxkeW92bWs3cYkrdq3lzXIj6oX2gPFrsLObDfjm4Y7a/Rza8bhpISgDc4hDVLnUoUXtArrGI8a+jlxJIqe+fb1dBUkJM4ejEcu633rAnriExocY9APO7WAVX/dQsAuN8l9bx6V5ApNal2deNHD5xeljssoP8qy+5CYsMeG8P0isDD3nUmZmDeKEN5vYaEmaehlSkq9BbPGT17Fzuax3KGWOaCNEAo6mGdlvtXpViXIh/wYGFHbjeLwO7EA1N8hwdg4ftiNz6sBrXi5qJjlG4kor7OtDmYKL9g1PBLFhtoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yRfAE5lM/RCUsJPrIa5QZ/uOcu2NRcRQfgumlTEgJ1E=;
+ b=nAb5PslrWKwTZQ5eu3n5HLTesWf/yVUQHrPd/ZUdQttJsoRTH++XVMFsI0z0sQGXhzfuAVBe2Wx5l5OHyfWqErQ9TzmzNxJnWQcDb3rYu3vTjGonsdnIgaiPw0L/B1uec/hMTmY3sxeZvKSwJl6a/wKaUKnrjm3sgfaJzo8Ps8g=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LY0PR12MB991423.namprd12.prod.outlook.com (2603:10b6:404:21e::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 09:47:00 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 09:46:53 +0000
+Message-ID: <de29b510-04db-4bac-a45a-ea8bf7632b39@amd.com>
+Date: Tue, 3 Nov 2026 10:46:49 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/syncobj: Silence allocation warnings for user-sized
+ arrays
+To: "Yu, Fei" <fei.yu@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
+ Madhur Kumar <madhurkumar004@gmail.com>
+References: <20261103085002.3100723-1-fei.yu@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261103085002.3100723-1-fei.yu@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN9PR03CA0355.namprd03.prod.outlook.com
+ (2603:10b6:408:f6::30) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,29 +101,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LY0PR12MB991423:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bf55686-0468-48a2-10df-08df398f643d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|261102123227099003|261022105027099003|56012099006|11063799006|261021123027099003|261009223027099003|261009221227099003|261028144727099003|261022075727099003|261021121427099003|261026140227099003|261026121527099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	a8fy0USYZkaDMS5LGVSdRJHs//f3FPHzpVfTRGNJKM+AKBPiqtT6mZKUH3gDLiUu0FYKtLJCZQJDoths/3zGCspvJMWbpK2LZ23SbbwHld2Wr19XeLioz0HiZMwuOB6AhGatIYqxYSCVQkLoEqxCIlKBye2PD23JpZE/gYpimpYNEQZq+l3l81+SWH/gcJQ6xbAQGMWHkx4h2Ydyvujw8+wI3kqlOYJj0Bpff2hp16am2VxnTS63FEAMfwcfMYeA1yMMrksNAcINNicisvsXzi87qaeqa4LN6w4Pr1pOp25viI+4Fo4UjlFe8UO5B3HIVALFvUbQBrtJhhdN1h8sZ+0et9J4+UDVEUZ56f0JU0Ixsfl03NiA3uu8PPcIhn3mAMMrZymxz3qUMqHecbM+5Fdiqk8dV8Pz86W5d2ywD5CHyzLS67itZFayVolBxs+cs9CoBwh2CHDSWDl0VRz1r97JdofudA47v1EVuAz2sKF3794C1t99xtVBBj9CKCCXiJTOGuEfwwimM3jw/1f26hhg70buSoZXfAvNClsHC5OkGkPb+tiy8eZwUKPu2G3vHZUBvENriEHpjEimK+SifjHA3ZX/R0CL1+xpK3boxprrAoutAYhQxau7X7MJiene
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(261102123227099003)(261022105027099003)(56012099006)(11063799006)(261021123027099003)(261009223027099003)(261009221227099003)(261028144727099003)(261022075727099003)(261021121427099003)(261026140227099003)(261026121527099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cm5yTnJuczBOdzhJRzBSRmQ3YlhZTmRrMkdMeVBsdTQ2OVdqbjJpa2R1RUVG?=
+ =?utf-8?B?anBBeVowcGtDbkFLUk5yTUcxTU5qNzNpdTZMTVFtRlU4WjVrcEkrYnVyejdx?=
+ =?utf-8?B?NjZ0Z2pGdmhSaDQxZ2lLOEhIWUl5b1FFOXVPbWdLdFVDeERoamg0aUtsUDZr?=
+ =?utf-8?B?OFIxMmYwTFM4RjdublBRTFhWLzhQUmV6Vnc5MzJvTVpCdlJZQjZJYnczS0ZV?=
+ =?utf-8?B?b1h4Mzlzc2F1clp2ZzNCeGdOVkZ0cGNaUXJKK0RlOU1jVER4Y1ZmYnVQZmZq?=
+ =?utf-8?B?eEVuWUJ0WGJQV2JMdTFNNlNkaU1xMmpIay9Qa3V5N09NVGdmeHcrTEcwMUNu?=
+ =?utf-8?B?c2tOcS8rbGFITDk1clRRODRpUnVnVVRtOW9JODlldHlwTFR1OGpiUTFrQkZD?=
+ =?utf-8?B?Z3lmVUZscTlHRkxvTlJLM1lQSTVJc2xjaEx0UldJbzhCcUdvbDRsdkx1OFlF?=
+ =?utf-8?B?cTNoajhNY2VzYUNlMXNxN1dUTHVEbHdNYVY3Z3FsVmxZMEplVWhTdmJSYWV6?=
+ =?utf-8?B?bURCUlVoblpXdVQ2bFpndUd2RHM5a3d3OHhhY2J2VndCRmZMZ1lSaHREd3N2?=
+ =?utf-8?B?Z25OV2F0M3hUb0N2Znphak1pNFlrUnlUaTZHNGpBeXdqckpxbmQrSVhNK0Ft?=
+ =?utf-8?B?MkY3TEEyYXJRUnJMZFpyUDBJOEthVjNwR3lxMFB4UzlBV3Y3TkNFZGxWQUFO?=
+ =?utf-8?B?Ylgwbk5GWi9LcTRDQ3M1bUlabkEzRmpZd0xvb2w0amx3RFozTFFhMUU1MFdB?=
+ =?utf-8?B?Zkx2Sm1xVHFSN1dYdmJtYmJsMXJYRkZ5RVJnUzgrbWFKR2Y0RkRSY1IwUnQr?=
+ =?utf-8?B?dFZvZUtSK1pLb2pIQnFWV0tMT0FzTkozNkhkQVg4cU1zZ1hyNHhpdjg1ZWNr?=
+ =?utf-8?B?bURTcm5BQWtBdFV1djVTOXg4em1zdXd1SFFqTWlXN1V5LzlZMUhWTWRROUE5?=
+ =?utf-8?B?UGZ5TmdQWFJ6S0R4S24zQlBoUEc2UEY0ZDZBR3FuQmJ6L3cydVBSOUdTZzgy?=
+ =?utf-8?B?RGI3K2Y2K3laaXExcVovYzRBM2xBT3lTUWJXRnFLSGNCYlVSbVg3QnAvS0dT?=
+ =?utf-8?B?blpGem9PTC9IVWF4REQ1anBnM2dyOGNGcFBzY0w1VlViY1lhMUwxTEdPWnRy?=
+ =?utf-8?B?M0R6S1J5dWg3a09GRjZHV1VXZ1VhWXpmNm1wWXR2NmdOTEp0S1E2eFhKUHZ5?=
+ =?utf-8?B?cy9EOGkyTUxnUnBnQmZwOEY2UHdxaUp1b0hYZ0RuM3g0WVM0bFFQOTFWWGFv?=
+ =?utf-8?B?eDVuaWUrQlNoZ3hVLzB6UDhBbDNrcTF6U1A5NWRROGY3dWR0T1Q0eG5yaUpT?=
+ =?utf-8?B?R1Zld0hiRUNkUCtoK1l4Vy9NQWowaHFLdk9Wd0czMGtuTGtoZGxxOXk2K3h5?=
+ =?utf-8?B?TG9UQTIvMTl0cWZsZG5HamxuT2xUa3BkL1dnOU5sNFhnSnhFOENuaUNSRlFB?=
+ =?utf-8?B?S29pZlVzTUNVck5DNmh6TndhdDZjY2NMdG4wdEtLMGlkYjUyOVB6cFNGQlYr?=
+ =?utf-8?B?OTdyZkZkZHNKeWlseVFvZ21UeXJ0cWlsYXkzb1NYdHg1dlZpQUpNbnNHaks0?=
+ =?utf-8?B?Nkt2QzJPYjFlWjhodENMTkNoeGI0WFg0Y2dtQVU5bGdLQU5iMitqcW03ZkNC?=
+ =?utf-8?B?cTgvN2pKUHRLZVQ4YWNQYTh3d0ZMMSs0WTIvZzE1djVhZ2RDZTFDT0d4ZGww?=
+ =?utf-8?B?b1JzQS9HWTJKNFpneVdsU2RzLzM3ZFgvLzFwUnR0emlDVnBndU5lTWRFWHI0?=
+ =?utf-8?B?N0RObWVRZC9BeUNLbnltRzRBVUY4YXpMQTRTOEtGZHYzTjlSVVB2UHVVR282?=
+ =?utf-8?B?TUNVR0tJQXRpMlhQSTRSQUswRi9ESlJORFY3UVBCTGxUYW5taFdpemF2UG1w?=
+ =?utf-8?B?U01pMUR6akhGWkhuNDlaOEM5N1ZXc2p2WTNhZ0RFTkhMSitMZlYyNmh1ejF3?=
+ =?utf-8?B?N1p1dy9RejcyMEM1OU02VHVTelo1VlVSV1lFVE1YQ3Q4YUl3VzRYV0F2Ylox?=
+ =?utf-8?B?UTJxditnNHNDVER6Z2JtWU1QbitXN3gxcmZQRFJaTDRSaVdxYi81RnVSd3BO?=
+ =?utf-8?B?RXl1eEsyZ3VFVjFueHJURjQzNjY1SlV5MUJYQW9CY2w1QUwxOGtKdU8xWUd5?=
+ =?utf-8?B?VFNDVmFVVmpDYkR4dGk1aElybFE0citjOFZ4WlFBYzlHRjJYZGR4Wmo3Y29U?=
+ =?utf-8?B?YlI4M0h1RUJzODRCcTRJTnVHTVlxN05hWjhQRm5hL2I0a1IrbWtjRVVKZ29k?=
+ =?utf-8?B?cE5oTU92V3cvYnJVdHZVUDBmWlNjYzloRjN0ODRObmV3TjhQRE9BREphNUwr?=
+ =?utf-8?Q?dPuCn0bA5ifYb4ZBNF?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bf55686-0468-48a2-10df-08df398f643d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 09:46:53.6066
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +kTaGErxrNCVvntQuV0WGpCutw6PwIeoZf2LH6IEQzN7qVcWxE9AxkAgOcBnr1wU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB991423
 
+On 11/3/26 09:50, Yu, Fei wrote:
+> From: Fei Yu <fei.yu@intel.com>
+> 
+> The syncobj wait, timeline wait and timeline signal ioctls allocate
+> several temporary arrays whose size is taken directly from the u32
+> count_handles provided by userspace:
+> 
+>  - handles and syncobjs in drm_syncobj_array_find()
+>  - points and entries in drm_syncobj_array_wait_timeout()
+>  - points and chains in drm_syncobj_timeline_signal_ioctl()
+> 
+> A large enough count makes these allocations exceed KMALLOC_MAX_SIZE
+> and trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
+> 
+>   WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
+>   Call Trace:
+>    __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
+>    __do_kmalloc_node mm/slub.c:5519 [inline]
+>    __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
+>    _kmalloc_noprof include/linux/slab.h:995 [inline]
+>    _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
+>    drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
+>    drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
+>    drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
+>    drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
+> 
+> The allocation failure itself is already handled by returning -ENOMEM,
+> so the only problem is a warning that userspace can trigger at will.
+> 
+> Pass __GFP_NOWARN to all allocations whose size is derived from
+> count_handles.
 
-On Tue, 3 Nov 2026, kernel test robot wrote:
+That is clearly not a good idea. __GFP_NOWARN should only be used when the allocation is optional and that is really not the case here.
+
+> Guarding only drm_syncobj_array_find() is not enough:
+> the wait entries are much larger than a handle, so a count that passes
+> drm_syncobj_array_find() can still trigger the same warning in
+> drm_syncobj_array_wait_timeout().
+> 
+> No functional change and no new limit on the uAPI.
+> 
+> Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
+> Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
+> Signed-off-by: Fei Yu <fei.yu@intel.com>
+> ---
+> Testing: on v7.4-rc1 (x86_64, KASAN) the syzbot C reproducer triggers the
+> ___kmalloc_large_node() warning with the same size (0x100000920); with
+> this patch it runs clean. DRM KUnit: 667/667 passed.
+> 
+> Notes:
+>  - An earlier attempt [1] added a size check returning -ERANGE, but only
+>    for the handles array, so the syncobjs array and the much larger wait
+>    entries could still warn, and it changed the ioctl's error codes.
+>    This version keeps the existing -ENOMEM behaviour for all six
+>    allocations.
+>  - kvmalloc() was not used on purpose: it would let userspace trigger
+>    multi-GB vmalloc() attempts. A hard upper limit on count_handles
+>    would be a uAPI change; happy to do that instead if preferred.
+
+Yeah that is most likely what we need to do here.
+
+A "reasonable limit" needs to be applied to the number of handles given when that is exceeded -EINVAL returned.
+
+The problem here is to find that "reasonable limit" since this function needs to scale from the tiny embedded device to the largest HPC cluster on the planet.
+
+Considering that using kvmalloc() is probably justified.
+
+Regards,
+Christian.
 
 > 
-> kernel test robot noticed "WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked" on:
+> [1] https://lore.kernel.org/all/20251227160830.34291-1-madhurkumar004@gmail.com/
 > 
-> commit: 80047d84eed25e9c92cfb9169980a0dfec110246 ("atomic: add alignment check to instrumented atomic operations") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+>  drivers/gpu/drm/drm_syncobj.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index f1d4da168..10aede1c0 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -1051,7 +1051,8 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                 lockdep_assert_none_held_once();
+>         }
+> 
+> -       points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
+> +       points = kmalloc_array(count, sizeof(*points),
+> +                              GFP_KERNEL | __GFP_NOWARN);
+>         if (points == NULL)
+>                 return -ENOMEM;
+> 
+> @@ -1064,7 +1065,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                 goto err_free_points;
+>         }
+> 
+> -       entries = kzalloc_objs(*entries, count);
+> +       entries = kzalloc_objs(*entries, count, GFP_KERNEL | __GFP_NOWARN);
+>         if (!entries) {
+>                 timeout = -ENOMEM;
+>                 goto err_free_points;
+> @@ -1238,7 +1239,8 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>         struct drm_syncobj **syncobjs;
+>         int ret;
+> 
+> -       handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
+> +       handles = kmalloc_array(count_handles, sizeof(*handles),
+> +                               GFP_KERNEL | __GFP_NOWARN);
+>         if (handles == NULL)
+>                 return -ENOMEM;
+> 
+> @@ -1248,7 +1250,8 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>                 goto err_free_handles;
+>         }
+> 
+> -       syncobjs = kmalloc_objs(*syncobjs, count_handles);
+> +       syncobjs = kmalloc_objs(*syncobjs, count_handles,
+> +                               GFP_KERNEL | __GFP_NOWARN);
+>         if (syncobjs == NULL) {
+>                 ret = -ENOMEM;
+>                 goto err_free_handles;
+> @@ -1573,7 +1576,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>                 return ret;
+> 
+>         points = kmalloc_array(args->count_handles, sizeof(*points),
+> -                              GFP_KERNEL);
+> +                              GFP_KERNEL | __GFP_NOWARN);
+>         if (!points) {
+>                 ret = -ENOMEM;
+>                 goto out;
+> @@ -1586,7 +1589,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>                 goto err_points;
+>         }
+> 
+> -       chains = kmalloc_objs(*chains, args->count_handles);
+> +       chains = kmalloc_objs(*chains, args->count_handles,
+> +                             GFP_KERNEL | __GFP_NOWARN);
+>         if (!chains) {
+>                 ret = -ENOMEM;
+>                 goto err_points;
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> --
+> 2.43.0
 > 
 
-It appears that a misaligned lock was accessed in 
-__split_huge_pmd_locked() back in 6.19.0-rc on i386.
-
-And it appears that bisection landed on commit 80047d84eed2 ("atomic: add 
-alignment check to instrumented atomic operations") because that's when 
-the check got added to detect such accesses.
-
-If the misaligned atomic operation is somehow normal in this situation (?) 
-then I guess it's a false positive from DEBUG_ATOMIC=y.
-
-But if it was unintentional, the next step would probably be to check 
-whether the current mainline kernel has the same issue.
-
-I have to confess to a state of ignorance about the mm subsystem so I 
-don't know what to conclude here.
