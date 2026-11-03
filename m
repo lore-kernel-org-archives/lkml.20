@@ -1,60 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670796;
-	b=JcggTWUEzODzk/S5qhVpm2jEj4xymGyOYgS1YYnOZIS9bW+HXo4WJ1qSxI83ECqxmEBd
-	 Xat8wSUeoeOSvdBkc+BiA7l2zMU9ck5RSi86MzOs43xUgmxtfJJh/+Xlhw8se6Ys/xeU6
-	 kX8AY8I6uKbbEL0Mam8wMxmvMIPHPgDwCzsTZd7Lk5HFwDhotN4VsXzn3x+HaPug/Vp1l
-	 9mYHtUH79vZpjPkx9eOYWAAZJ2RQpz8lHeUEmmkcUEJTEd+tyBu/Vvz44Xg87iX6VomA9
-	 yIHun628D1TWV2wmQa5IZ3D1IWvHk28ocfMEjoNigbiMDxfmjLybu9Rv8WMAKnnsYFg==
+	t=1793670811;
+	b=a5XPH1Xj8x9f7yvR/crhEsta+K2+rGwf7BFikiC9rxZAZZ/hoxgtNFpTt/HnYAf6mDWj
+	 Hsa3STK9rS590xj1SBcC+BdsLgFlMljwmKF6oNwoBGnETTWTIYK2TBpsZpIJg8htioc4n
+	 Fh7yz/B/EBcqArCL4OdstlOZNHMz0lonvTWkPtajXKUfQs7XZFZPNpJyX/U+r9d3ZzIlQ
+	 fast2uWfWzGUwq57dvWYSd1JN0esOtv5tpZjQOmCUTAyXJG4HjZFD4uYhYN+wVS/yYkCJ
+	 Sj/REICFbtaq9HKAT4NtA1W3h2J1UXRirG8wj0rhJBKh3cRmr88Yd8om2z6OxZe3Znw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670796;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3FMP9N5qxp2Dx+DZWbFS4IIf2RBtBdVEHLLPzTwmg4w=;
-	b=1GEMS+zUuBtxxVgJPwY37++7ZSlSU0b19eoSdahEno1XTma7M9LsBQjoddIKGJCLv6YU
-	 ayiAh5kaY62V1Qq4ITw76A+zcchxJgfDmKFY4TGazgd0SsGfIor7EvB3xm43uDPw1L+lN
-	 0UuwGOrQbr5uAPxIX/O/KqNCBBZOOsixiGtucriO7jDlSP8zKn7lKGPE2DAJbzITqBtOW
-	 zZZ1AvuaLEqysrjjwn+7/dDDR/Is7d/65zHophmohAOSwBzmGtjEqIZnG/JR3uo163+VN
-	 fPUrF8SFifsrtXe+KkcbSxdxtL0qWTyhOB4H3M/0OGwsoF3XOzUZRTqUwSf2E639l2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670811;
+	h=DMARC-Filter:DKIM-Signature:Date:Mime-Version:Received:
+	 X-Original-From:From:To:Subject:Content-Type:
+	 Content-Transfer-Encoding:References:Reply-To:X-Lms-Return-Path:Cc:
+	 In-Reply-To:User-Agent:Message-Id;
+	bh=0mcZiMssm+nV8vlLOA/UxbEB8G9QgJwIn4A5a4GlkeU=;
+	b=njk9RUi68X3eCKqtnTfUZjSfDxK9rXQrtMjYCc7p4ClsRrq8AmViWxQ5JBQ4rghFDxV9
+	 Dk1LAq84jMlINYKppPw3kB5WyxEIkuaocHVymOuMQut5eMqek84w+i/XF9OTudU78gZyA
+	 jbI5iZs33wWcP8PcAkK+cl5OAAUcjbKtY99X1PLb1sJbf25fu4kPyN5aVZhoXS+86J4+U
+	 gRxSqyQui8DtbyvO0z6rvF9k+U++QTf11U5/yu+5TB/ZBeZX7Yqv/2G1rney1k8hMP2h/
+	 cOp1vDB8b8ya05X20HIdIl1nfo30HZeZA0CKyQGWLtKuWgmlUnSj1vTox/CU1pYtjsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ngu4Mti9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=VyEH4RYS;
+	arc=none smtp.remote-ip=209.127.231.51
+Received: from va-2-51.ptr.blmpb.com (va-2-51.ptr.blmpb.com [209.127.231.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D637D606D83E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:53:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F76B606A332
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:53:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F76B606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ngu4Mti9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EB851F00A20;
-	Tue,  3 Nov 2026 01:53:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793670795;
-	bh=3FMP9N5qxp2Dx+DZWbFS4IIf2RBtBdVEHLLPzTwmg4w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ngu4Mti9P1G+eE6/vM/zhVk22P1y8JsyVYTN2xb55EDU6qWlGzNVLUyXcGWKgzCHQ
-	 3H+xqW7sYN1DklK0nMDPBsvLU5089Y7G9eEShoEvNzkoNVcNloQCsSlwFjBEBt8KS+
-	 z4MZKOpVYShxku0sTajEHNCLKQpOM+Kv/3HocRAejYjRCTaoViz/1aJt4bmZE/NsID
-	 K82GH2giEdjkMqyk7p3c0iqBn+SjZhnowG0Banw2p9aLpqdZFQYw9wUdsKUNS5Ra0j
-	 UrvixrlzeRudqX1QCKBRIcU5ZLpYnokMROGWEktHYwcAYUU6gJQeBNQ+8ZKzntEntt
-	 OynEyRcrzP/5Q==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Chuck Wolber <chuck@wolber.net>,
-	Frantisek Hrbata <fhrbata@redhat.com>,
-	Marco Elver <elver@google.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: [PATCH v2 17/20] gcov: fix gcov_info_add() merge semantics for IOR counters
-Date: Mon,  2 Nov 2026 20:52:35 -0500
-Message-ID: <20261103015238.3780910-18-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103015238.3780910-1-sashal@kernel.org>
-References: <20261103015238.3780910-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=VyEH4RYS
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793670799;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=0mcZiMssm+nV8vlLOA/UxbEB8G9QgJwIn4A5a4GlkeU=;
+ b=VyEH4RYS9nspR/+gsXphjq4UZ0H/99nFOeY7twoNKraTD/dLcqPVRiZ7ck1tkstcQ5hrTw
+ LiXJUrGIOx8oE0JPswtPCYzNUPxTmNgYwjWCxnAsxiZcIBJRezZ/qTrdlKGUT6RzVYPNiE
+ Arxxlb2LpY1P6gCxQ1TBoU4ylNxYF2pTdYH3AD74LnCGICS/k1YF5t65AqKd1Le2e+wuYk
+ 8UZzdcHOEgwvgiJzVBmz7BcJoxS81gg5K+FDORLvVTT0ezB/tAqQ0f3Y9JGH7AhhhcDujs
+ QbDiL+BXli2Nvnvuv2a/Ll6T+HR0UBqudi6jTqYCW5TjkSzgFRzDSpmJA8vRNQ==
+Date: Tue, 3 Nov 2026 09:53:14 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,76 +53,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Tue, 03 Nov 2026 01:53:17 +0000
+X-Original-From: yu kuai <yukuai@fygo.io>
+From: "yu kuai" <yukuai@fygo.io>
+To: "zhanghao" <zh_exit@163.com>, <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH v2] md/raid5: fix inverted condition in rdev_set_badblocks call
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+References: <20261017074343.59513-1-zh_exit@163.com> <20261017083737.61793-1-zh_exit@163.com>
+Reply-To: yukuai@fygo.io
+X-Lms-Return-Path: <lba+26ae93e8e+3f064a+vger.kernel.org+yukuai@fygo.io>
+Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+In-Reply-To: <20261017083737.61793-1-zh_exit@163.com>
+User-Agent: Mozilla Thunderbird
+Message-Id: <d862e16f-a444-4572-b0af-38b3768ed978@fygo.io>
 
-gcov_info_add() unconditionally uses += to merge all counter types.
-This is wrong for counters that use IOR merge semantics (bitwise OR),
-such as GCOV_COUNTER_IOR and GCC 14's GCOV_COUNTER_CONDS (MC/DC
-condition coverage). These counters store bitsets that must be merged
-with |=, not accumulated with +=.
+=E5=9C=A8 2026/10/17 16:37, zhanghao =E5=86=99=E9=81=93:
 
-Detect IOR merge semantics by comparing the merge function pointer
-against __gcov_merge_ior, matching how GCC's own libgcov identifies
-merge semantics. This fixes the pre-existing bug for GCOV_COUNTER_IOR
-and also enables correct merging for MC/DC condition coverage data.
+> Commit fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
+> attempted to unify badblock handling but introduced a logic inversion in
+> raid5_end_read_request().
+>
+> The original check was:
+>
+>      if (!(set_bad && In_sync && rdev_set_badblocks(...)))
+>              md_error(...);
+>
+> which records badblocks when `set_bad && In_sync`, and calls md_error()
+> either when recording fails or when the rdev is not In_sync. The new
+> condition `if (!(set_bad && In_sync))` skips rdev_set_badblocks() exactly
+> during recovery/reshape (In_sync is set), so failed badblock updates no
+> longer trigger md_error() and the rdev is not marked Faulty. This allows
+> reconstruction to continue on a disk with a saturated badblock table,
+> potentially propagating corrupted data to the replacement disk.
+>
+> Restore the intended behavior by recording badblocks when `set_bad &&
+> In_sync`, and calling md_error() in the else branch so that non-In_sync
+> rdevs, replacement devices, and the too-many-read-errors path are still
+> marked Faulty.
+>
+> Fixes: fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
+> Cc:stable@vger.kernel.org
+> Signed-off-by: zhanghao<zh_exit@163.com>
+> ---
+> v2:
+> - Add the else branch calling md_error() for the !(set_bad && In_sync)
+>    cases, as pointed out by Sashiko: replacement device read errors,
+>    the too-many-read-errors path, and non-In_sync uncorrectable reads
+>    would otherwise no longer mark the rdev Faulty.
+>
+>   drivers/md/raid5.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+Applied
 
-Fixes: 5f41ea0386a5 ("gcov: add support for gcc 4.7 gcov format")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/coverage/gcov/gcc_4_7.c | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/coverage/gcov/gcc_4_7.c b/kernel/coverage/gcov/gcc_4_7.c
-index 8fa22ababd943..923cfb34966b2 100644
---- a/kernel/coverage/gcov/gcc_4_7.c
-+++ b/kernel/coverage/gcov/gcc_4_7.c
-@@ -18,6 +18,8 @@
- #include <linux/mm.h>
- #include "gcov.h"
- 
-+extern void __gcov_merge_ior(gcov_type *, unsigned int);
-+
- #if (__GNUC__ >= 15)
- #define GCOV_COUNTERS			10
- #elif (__GNUC__ >= 14)
-@@ -187,6 +189,15 @@ static int counter_active(struct gcov_info *info, unsigned int type)
- 	return info->merge[type] ? 1 : 0;
- }
- 
-+/*
-+ * Determine whether a counter uses IOR merge semantics (bitwise OR of
-+ * bitsets). Used for condition coverage (MC/DC) and other IOR-based counters.
-+ */
-+static bool counter_is_ior(struct gcov_info *info, unsigned int type)
-+{
-+	return info->merge[type] == __gcov_merge_ior;
-+}
-+
- /* Determine number of active counters. Based on gcc magic. */
- static unsigned int num_counter_active(struct gcov_info *info)
- {
-@@ -259,9 +270,17 @@ void gcov_info_add(struct gcov_info *dst, struct gcov_info *src)
- 			if (!counter_active(src, ct_idx))
- 				continue;
- 
--			for (val_idx = 0; val_idx < sci_ptr->num; val_idx++)
--				dci_ptr->values[val_idx] +=
--					sci_ptr->values[val_idx];
-+			if (counter_is_ior(src, ct_idx)) {
-+				for (val_idx = 0; val_idx < sci_ptr->num;
-+				     val_idx++)
-+					dci_ptr->values[val_idx] |=
-+						sci_ptr->values[val_idx];
-+			} else {
-+				for (val_idx = 0; val_idx < sci_ptr->num;
-+				     val_idx++)
-+					dci_ptr->values[val_idx] +=
-+						sci_ptr->values[val_idx];
-+			}
- 
- 			dci_ptr++;
- 			sci_ptr++;
--- 
-2.53.0
-
+--=20
+Thanks,
+Kuai
