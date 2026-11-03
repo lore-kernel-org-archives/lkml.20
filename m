@@ -1,57 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700338;
-	b=NJEiRCC/MvH5queNgw5dn0uhcJNv0rQm1RGMsK+bVDzOzi8bk+/xNeC+AwZRhn+cosZo
-	 /YE41SRhwUJlNwmhvba1vRNTEYQVZK2EwFs3fnlcE9MeVezxeduQsQ1WuO5xaf+ecQY2C
-	 hZbZ6OozL+6CbQgs/6GNg9Qw7DaK4+VgGLbtsr1GR7hNAWZTr6uXiESVYixKZ+cLJyqFh
-	 8pXOFXspOwX9xN1TZvQE/H2xRVLt+/m4dwUUYUUcQL6Dg7k0EVSSs7QCBksUk6drGHIjD
-	 RL2k8UPEZytag9UzNRqqhClgFE12S3Mi1dNoD5T2ElNI5AGyAqJWartkGnR5fplJDBQ==
+	t=1793700332;
+	b=Lmk9lPHBXGiF2yU4NAeSUh+yTbYzaKa0C7pIq3Yi2Npii/i5ljEoF/WKHYPy3dvqYaoy
+	 YZYK3dWT1zv1Y7xmIRjvoBdbSa2+lAK3PwTCjNppWK0vDJYTL9Ttemw7GIny5FdVx/ZYH
+	 nPIBPGog7RW3mV7oeeCC/m2Ke+5w/kihcxxUjRdEr2zYSzO2HzllIw0N2mhkeeVi+2MZC
+	 bgBGvW4N9x7ZvQSMK2mN8KD/WvYBUpK1sQAAn7ycCl0LHtkg1HKCIKHcYLV+0h5Qp0Qg8
+	 IGtTQ96kIbbkANke5/1qqbExZHEvMf9gbbWLx1ndMiHJmTuhtWejvFv+NDuhxMnoIbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700338;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=Oh/m/hg+bzvxxYBT2T2fdKMkhIaukkQ/MVnjb8MgjsY=;
-	b=m1jb2XQh6dInPRqDc88B94FlOO8IJhWZ6RXqdkrnrkpvwoqb0FuibbYMm+aJX4DS9T/O
-	 t2rAYfqLWkyub09wIfck5FV6ub9xnG13MHa2ItLuoDkd6v01xKjmtuGrBdafA6ah1tF9T
-	 n9WCRjFMx+eQtiAVUQU55YTe7EXfXl+692oXTbWNBFMHBt1uc77t78IHzirmIzBlJiiqB
-	 lV5N4q1Re7XME5tDEguS3kKtT9BxcmemCQ5Gas6mj8fuRXraeykfNxRvi0q/1TL0bztkR
-	 1oDk/OmY+5s0jRa3As+JGcxc5v6gHtELls+oGYE+EtBPrJmZ3/RjdiJDwLUddjTpBkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700332;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=t1AzGJxh4L3mNVDifirHPxxV2YDxOwUtgjqwYYf78oI=;
+	b=KDSlpSQzrY40TzGekYvcO8vdqoDdVeQB9skZYu+4tMAsM7+bPWIT9gGR3+tiR4Xgdlai
+	 4Nj8coxSZWNMgQCEcfLQwJB4OeuL4KNz5qje8J6ItQHwMalFLHEZrgpTOhnz/ABx25mqL
+	 SeocAjaprGUPFxyGr/yrST2c5O58u8TFk6dOPneOjTxV58q9tjVPDiLb8eMn3ZEmPOBP6
+	 ortBoMJbBUO9wpRdH3Gdgz452WAP1TUuHzFfO6poRpuXiR7oWfeodjB5Q3Z5rOAD+oTO+
+	 KctDX6hl5hSPepQ++aQisNDJfEewUm6C2a4dzvfNaoP7Iytu0qMJx2gk2TCbypxMCLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=idYpYZdH;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB3C60850B3;
-	Tue,  3 Nov 2026 10:05:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDB3C60850B3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACnt5jnselqoXs7AA--.2514S2;
-	Tue, 03 Nov 2026 18:05:27 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Sunil Goutham <sgoutham@marvell.com>,
-	Geetha sowjanya <gakula@marvell.com>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: octeontx2-pf: drop the TC mark reference when adding a flow fails
-Date: Tue,  3 Nov 2026 10:05:36 +0000
-Message-Id: <20261103100536.1310108-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616AC606FAEF;
+	Tue,  3 Nov 2026 10:05:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 616AC606FAEF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=idYpYZdH
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DEA9FA164F;
+	Tue, 03 Nov 2026 11:05:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1793700329; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=t1AzGJxh4L3mNVDifirHPxxV2YDxOwUtgjqwYYf78oI=;
+	b=idYpYZdHm8i4frYOaS1V69d9u6dZgDoEU8Z7vF3hYuALZgpirFNTotcKF6HS0RRFsi6N0f
+	iN/RbLbqZwAupFSW0YaODKPqj45drH6ahhOn2rH5XaOorJs5lb4qzal4K3hJz+wosPip7N
+	kP1Z5OsOF3BXBv2vpQiZk9h4mSD9C/LLwBA/OCp0gU/L6KRWzd/ZuO1wvxgNQ4MXZIxKlP
+	wMQ8GZDVVYRFPHiiO20z5BHHnBfNG2G3T+r2ATbS+0cGr6LUpqzUlUSmMeZHDiM9uhp6WY
+	2nIlOv9C+bvoBEEwFgAveq126pdla+zt7+uxLUpvxe4QFMLXeK0ppcpatuW9dA==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Tue, 03 Nov 2026 11:05:00 +0100
+Subject: [PATCH net-next v6 6/9] net: bcmgenet: split frames that end just
+ past the transmit threshold
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,88 +57,337 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACnt5jnselqoXs7AA--.2514S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uw4UWw15uFy7JF4fAF4kXrb_yoW5JrW3pr
-	48u3429F1rAr17Wrn7Ja15Ary5Gw4jqFy5Gay8Cw1Sgw13Arn7Za4DK3y09348KrZ3Ga9I
-	qFyjyws5Ca1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
-	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
-	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIBiCQAAss
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-nb-genet-mtu-nn-v2-v6-6-61d5631676e5@tipi-net.de>
+References: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
+In-Reply-To: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
+To: Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-otx2_tc_parse_actions() increments flow_cfg->mark_flows when it finds a
-FLOW_ACTION_MARK action. The reference is meant to be dropped again by
-otx2_tc_del_flow() when the flow is removed, so a flow that fails to
-install after its actions were parsed leaks it: the checks for the MCAM
-entry, the insertion into the flow list, the mailbox allocation and the
-mailbox reply all free the new flow node without touching the counter.
-The same happens when parsing the actions itself fails after the mark
-action was processed.
+A frame that ends a few bytes past the transmit packet ready threshold
+stops the transmitter as soon as a shorter frame follows. Tx DMA then
+refuses to halt, so every later bcmgenet_init_dma() fails and the
+interface cannot be opened again. IP fragmentation generates that pattern
+on every datagram, full frames and a short tail.
 
-Release the reference on the error paths of otx2_tc_add_flow(), using
-the match id of the parsed request to tell whether it was taken.
+The window starts one byte past the threshold and never reaches 64 bytes.
+On a v5 it ends 28, 32 and 46 bytes past thresholds of 2560, 3584 and
+3840, and link speed makes no difference. That is one DMA transfer wide,
+which wtschueller measured and proposed to split around.
 
-Fixes: 6a57f091622a ("octeontx2-pf: Add support for offload tc with skbedit mark action")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Splitting such a frame over two descriptors keeps its end out of that
+transfer. Both share the one mapping, so the wire bytes do not change.
+
+The threshold kept its reset value until now. Raising it only once the MTU
+asks for more than ETH_DATA_LEN leaves the common MTUs as they were.
+
+The MAC inserts a checksum only into a frame it holds in full, so a longer
+one has to fall back to software.
+
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 157 +++++++++++++++++++------
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h |   2 +
+ 2 files changed, 125 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
-index dee38d5c7f65..c3726d9f455a 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
-@@ -1237,6 +1237,13 @@ static int otx2_tc_del_flow(struct otx2_nic *nic,
- 	return 0;
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index 645112f95f8ce..f5d7379e90400 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -59,6 +59,11 @@
+ #define ENET_THLD_DEFAULT	0x80
+ #define ENET_THLD_MAX		0xf0
+ 
++/* A frame ending this far past the transmit threshold stops the transmitter
++ * once a shorter frame follows. Widest window measured is 46 bytes.
++ */
++#define ENET_TX_THLD_WINDOW	64
++
+ /* Page pool RX buffer layout:
+  * RSB(64) + pad(2) | frame data | skb_shared_info
+  * The HW writes the 64B RSB before every descriptor of a frame. Only the
+@@ -1910,15 +1915,19 @@ static struct sk_buff *bcmgenet_free_tx_cb(struct device *dev,
+ 
+ 	if (skb) {
+ 		cb->skb = NULL;
+-		if (cb == GENET_CB(skb)->first_cb)
+-			dma_unmap_single(dev, dma_unmap_addr(cb, dma_addr),
+-					 dma_unmap_len(cb, dma_len),
+-					 DMA_TO_DEVICE);
+-		else
+-			dma_unmap_page(dev, dma_unmap_addr(cb, dma_addr),
+-				       dma_unmap_len(cb, dma_len),
+-				       DMA_TO_DEVICE);
+-		dma_unmap_addr_set(cb, dma_addr, 0);
++		/* A cut descriptor left its mapping to the one after it */
++		if (cb != GENET_CB(skb)->split_cb) {
++			if (cb == GENET_CB(skb)->first_cb)
++				dma_unmap_single(dev,
++						 dma_unmap_addr(cb, dma_addr),
++						 dma_unmap_len(cb, dma_len),
++						 DMA_TO_DEVICE);
++			else
++				dma_unmap_page(dev, dma_unmap_addr(cb, dma_addr),
++					       dma_unmap_len(cb, dma_len),
++					       DMA_TO_DEVICE);
++			dma_unmap_addr_set(cb, dma_addr, 0);
++		}
+ 
+ 		if (cb == GENET_CB(skb)->last_cb)
+ 			return skb;
+@@ -2154,7 +2163,10 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ {
+ 	struct bcmgenet_priv *priv = netdev_priv(dev);
+ 	struct device *kdev = &priv->pdev->dev;
++	unsigned int split_i = 0, split_at = 0;
+ 	struct bcmgenet_tx_ring *ring = NULL;
++	dma_addr_t split_mapping = 0;
++	unsigned int split_size = 0;
+ 	struct enet_cb *tx_cb_ptr;
+ 	struct netdev_queue *txq;
+ 	int nr_frags, index;
+@@ -2162,6 +2174,7 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	unsigned int size;
+ 	skb_frag_t *frag;
+ 	u32 len_stat;
++	bool split;
+ 	int ret;
+ 	int i;
+ 
+@@ -2171,8 +2184,14 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	nr_frags = skb_shinfo(skb)->nr_frags;
+ 
++	/* Cut a frame ending in that window in two at the threshold, its end
++	 * then lands in a separate transfer.
++	 */
++	split = unlikely(skb->len > priv->tx_thld_len &&
++			 skb->len < priv->tx_thld_len + ENET_TX_THLD_WINDOW);
++
+ 	spin_lock(&ring->lock);
+-	if (ring->free_bds <= (nr_frags + 1)) {
++	if (ring->free_bds <= (nr_frags + 1 + split)) {
+ 		if (!netif_tx_queue_stopped(txq))
+ 			netif_tx_stop_queue(txq);
+ 		ret = NETDEV_TX_BUSY;
+@@ -2189,6 +2208,19 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		goto out;
+ 	}
+ 
++	/* The MAC inserts a checksum only into a frame it holds in full and
++	 * silently drops a longer one, so fall back to software.
++	 */
++	if (unlikely(skb->len > priv->tx_thld_len) &&
++	    skb->ip_summed == CHECKSUM_PARTIAL) {
++		if (skb_checksum_help(skb)) {
++			BCMGENET_STATS64_INC((&ring->stats64), dropped);
++			dev_kfree_skb_any(skb);
++			goto drop;
++		}
++		nr_frags = skb_shinfo(skb)->nr_frags;
++	}
++
+ 	/* Retain how many bytes will be sent on the wire, without TSB inserted
+ 	 * by transmit checksum offload
+ 	 */
+@@ -2199,33 +2231,73 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	if (!skb)
+ 		goto drop;
+ 
+-	for (i = 0; i <= nr_frags; i++) {
++	/* A threshold that already ends a buffer needs no cut */
++	if (split) {
++		unsigned int buf = skb_headlen(skb);
++		unsigned int covered = buf - sizeof(struct status_64);
++
++		while (covered < priv->tx_thld_len) {
++			frag = &skb_shinfo(skb)->frags[split_i++];
++			buf = skb_frag_size(frag);
++			covered += buf;
++		}
++
++		split_at = buf - (covered - priv->tx_thld_len);
++		split = split_at && split_at < buf;
++	}
++
++	for (i = 0; i <= nr_frags + split; i++) {
++		unsigned int f = i - (split && i > split_i);
++		bool cont = split && i == split_i + 1;
++
+ 		tx_cb_ptr = bcmgenet_get_txcb(priv, ring);
+ 
+ 		BUG_ON(!tx_cb_ptr);
+ 
+-		if (!i) {
+-			/* Transmit single SKB or head of fragment list */
+-			GENET_CB(skb)->first_cb = tx_cb_ptr;
+-			size = skb_headlen(skb);
+-			mapping = dma_map_single(kdev, skb->data, size,
+-						 DMA_TO_DEVICE);
++		if (cont) {
++			/* Rest of the buffer cut above. It unmaps for both,
++			 * the hardware is done with it only now.
++			 */
++			mapping = split_mapping + split_at;
++			size = split_size - split_at;
++			dma_unmap_addr_set(tx_cb_ptr, dma_addr, split_mapping);
++			dma_unmap_len_set(tx_cb_ptr, dma_len, split_size);
+ 		} else {
+-			/* xmit fragment */
+-			frag = &skb_shinfo(skb)->frags[i - 1];
+-			size = skb_frag_size(frag);
+-			mapping = skb_frag_dma_map(kdev, frag, 0, size,
+-						   DMA_TO_DEVICE);
+-		}
++			if (!f) {
++				/* Transmit single SKB or head of frag list */
++				GENET_CB(skb)->first_cb = tx_cb_ptr;
++				GENET_CB(skb)->split_cb = NULL;
++				size = skb_headlen(skb);
++				mapping = dma_map_single(kdev, skb->data,
++							 size, DMA_TO_DEVICE);
++			} else {
++				/* xmit fragment */
++				frag = &skb_shinfo(skb)->frags[f - 1];
++				size = skb_frag_size(frag);
++				mapping = skb_frag_dma_map(kdev, frag, 0, size,
++							   DMA_TO_DEVICE);
++			}
+ 
+-		ret = dma_mapping_error(kdev, mapping);
+-		if (ret) {
+-			priv->mib.tx_dma_failed++;
+-			netif_err(priv, tx_err, dev, "Tx DMA map failed\n");
+-			goto out_unmap_frags;
++			ret = dma_mapping_error(kdev, mapping);
++			if (ret) {
++				priv->mib.tx_dma_failed++;
++				netif_err(priv, tx_err, dev,
++					  "Tx DMA map failed\n");
++				goto out_unmap_frags;
++			}
++			dma_unmap_addr_set(tx_cb_ptr, dma_addr, mapping);
++			dma_unmap_len_set(tx_cb_ptr, dma_len, size);
++
++			/* The cut hands buffer and mapping to the next one */
++			if (split && i == split_i) {
++				GENET_CB(skb)->split_cb = tx_cb_ptr;
++				split_mapping = mapping;
++				split_size = size;
++				size = split_at;
++				dma_unmap_addr_set(tx_cb_ptr, dma_addr, 0);
++				dma_unmap_len_set(tx_cb_ptr, dma_len, 0);
++			}
+ 		}
+-		dma_unmap_addr_set(tx_cb_ptr, dma_addr, mapping);
+-		dma_unmap_len_set(tx_cb_ptr, dma_len, size);
+ 
+ 		tx_cb_ptr->skb = skb;
+ 
+@@ -2242,7 +2314,7 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			if (skb->ip_summed == CHECKSUM_PARTIAL)
+ 				len_stat |= DMA_TX_DO_CSUM;
+ 		}
+-		if (i == nr_frags)
++		if (i == nr_frags + split)
+ 			len_stat |= DMA_EOP;
+ 
+ 		dmadesc_set(priv, tx_cb_ptr->bd_addr, mapping, len_stat);
+@@ -2254,13 +2326,14 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	skb_tx_timestamp(skb);
+ 
+ 	/* Decrement total BD count and advance our write pointer */
+-	ring->free_bds -= nr_frags + 1;
+-	ring->prod_index += nr_frags + 1;
++	ring->free_bds -= nr_frags + 1 + split;
++	ring->prod_index += nr_frags + 1 + split;
+ 	ring->prod_index &= DMA_P_INDEX_MASK;
+ 
+ 	netdev_tx_sent_queue(txq, GENET_CB(skb)->bytes_sent);
+ 
+-	if (ring->free_bds <= (MAX_SKB_FRAGS + 1))
++	/* The next frame may need a split descriptor on top of its fragments */
++	if (ring->free_bds <= (MAX_SKB_FRAGS + 2))
+ 		netif_tx_stop_queue(txq);
+ 
+ 	bcmgenet_tx_kick(priv, ring, txq);
+@@ -2675,6 +2748,17 @@ static unsigned int bcmgenet_pkt_rdy_thld(unsigned int mtu)
+ 		       ENET_THLD_MAX_LEN / ENET_THLD_UNIT);
  }
  
-+static void otx2_tc_put_mark_flow(struct otx2_nic *nic,
-+				  struct npc_install_flow_req *req)
++/* The transmit threshold in register units. Keep the reset value while the
++ * MTU has no use for more, the hardware never reaches it below ETH_DATA_LEN.
++ */
++static unsigned int bcmgenet_tx_pkt_rdy_thld(unsigned int mtu)
 +{
-+	if (req->match_id)
-+		refcount_dec(&nic->flow_cfg->mark_flows);
++	if (mtu <= ETH_DATA_LEN)
++		return ENET_THLD_DEFAULT;
++
++	return ENET_THLD_MAX;
 +}
 +
- static int otx2_tc_add_flow(struct otx2_nic *nic,
- 			    struct flow_cls_offload *tc_flow_cmd)
+ /* A buffer has to hold everything the threshold lets the hardware deliver */
+ static unsigned int bcmgenet_rx_buf_len(unsigned int mtu)
  {
-@@ -1273,6 +1280,7 @@ static int otx2_tc_add_flow(struct otx2_nic *nic,
+@@ -2685,8 +2769,10 @@ static unsigned int bcmgenet_rx_buf_len(unsigned int mtu)
+ /* Program the MTU dependent registers. Call with the MAC disabled. */
+ static void bcmgenet_set_mtu_regs(struct bcmgenet_priv *priv, unsigned int mtu)
+ {
++	u32 tx_thld = bcmgenet_tx_pkt_rdy_thld(mtu);
+ 	u32 thld = bcmgenet_pkt_rdy_thld(mtu);
  
- 	rc = otx2_tc_prepare_flow(nic, new_node, tc_flow_cmd, &dummy);
- 	if (rc) {
-+		otx2_tc_put_mark_flow(nic, &dummy);
- 		kfree_rcu(new_node, rcu);
- 		return rc;
- 	}
-@@ -1287,6 +1295,7 @@ static int otx2_tc_add_flow(struct otx2_nic *nic,
- 		if (rc) {
- 			NL_SET_ERR_MSG_MOD(extack,
- 					   "MCAM rule allocation failed");
-+			otx2_tc_put_mark_flow(nic, &dummy);
- 			kfree_rcu(new_node, rcu);
- 			return rc;
- 		}
-@@ -1331,6 +1340,7 @@ static int otx2_tc_add_flow(struct otx2_nic *nic,
- 	return 0;
++	priv->tx_thld_len = tx_thld * ENET_THLD_UNIT;
+ 	bcmgenet_umac_writel(priv, ENET_MAC_FRAME_LEN(mtu), UMAC_MAX_FRAME_LEN);
  
- free_leaf:
-+	otx2_tc_put_mark_flow(nic, &dummy);
- 	if (is_cn20k(nic->pdev))
- 		cn20k_tc_free_mcam_entry(nic, new_node->entry);
- 	otx2_tc_del_from_flow_list(flow_cfg, new_node);
+ 	/* GENET v1 maps other registers at these offsets */
+@@ -2694,6 +2780,8 @@ static void bcmgenet_set_mtu_regs(struct bcmgenet_priv *priv, unsigned int mtu)
+ 		return;
+ 
+ 	bcmgenet_rbuf_writel(priv, thld, RBUF_PKT_RDY_THLD);
++	bcmgenet_writel(tx_thld, priv->base + priv->hw_params->tbuf_offset +
++			TBUF_PKT_RDY_THLD);
+ }
+ 
+ static void init_umac(struct bcmgenet_priv *priv)
+@@ -4193,6 +4281,7 @@ static int bcmgenet_probe(struct platform_device *pdev)
+ 	init_waitqueue_head(&priv->wq);
+ 	bcmgenet_hfb_init(priv);
+ 	priv->rx_buf_len = bcmgenet_rx_buf_len(dev->mtu);
++	priv->tx_thld_len = bcmgenet_tx_pkt_rdy_thld(dev->mtu) * ENET_THLD_UNIT;
+ 	INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
+ 
+ 	priv->clk_wol = devm_clk_get_optional(&priv->pdev->dev, "enet-wol");
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+index dc49518c577ec..5f462b9774fad 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+@@ -544,6 +544,7 @@ struct bcmgenet_hw_params {
+ struct bcmgenet_skb_cb {
+ 	struct enet_cb *first_cb;	/* First control block of SKB */
+ 	struct enet_cb *last_cb;	/* Last control block of SKB */
++	struct enet_cb *split_cb;	/* Cut, the next one unmaps for both */
+ 	unsigned int bytes_sent;	/* bytes on the wire (no TSB) */
+ };
+ 
+@@ -617,6 +618,7 @@ struct bcmgenet_priv {
+ 	void __iomem *tx_bds;
+ 	struct enet_cb *tx_cbs;
+ 	unsigned int num_tx_bds;
++	unsigned int tx_thld_len;
+ 
+ 	struct bcmgenet_tx_ring tx_rings[GENET_MAX_MQ_CNT + 1];
+ 
+
 -- 
-2.34.1
+2.53.0
 
