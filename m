@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695069;
-	b=AMFf5jSAdBrQintgMJ+0h7ZXN7yfDZrpG2+cw2bzhkL9rjfGCbiEmoyTd+PGL2iy+J/d
-	 BJMATaIQItYSNrEDA21mK1mrgiTR747i5RiM4eUROMa34I6TTIMqFM6yc4s82teplACIK
-	 PL6YeeeBqesU9zAHAbUHXyGU+v/X04euE8NQ9wKXM1HmBIGvbolihU/4Uynf+6kEL5AWJ
-	 qQevXMI33R46Gpq4LmHfliTue0iqgVGbWIU2zrW7idbBp75bXkVR6P4iVL/aPEHYJ5QCa
-	 HeaRzgvnk3TX/1N7KQi7gxhhXLV2RuN5isBklZ//TC63a2CddfOriI6RmiHC5FhcJKQ==
+	t=1793695070;
+	b=iNKRnCS9eHVA9nJepRjRtNJu+31pH2MW88YqmZxvYG2Z3+/HaAiNqhXmzHNdMNaEs11W
+	 a2TBocaiatzololOpau3xllPu/zdjLi1jm0rMz7QCPFnOnHCtmzy3sc058c7KwN/actU/
+	 cB+YjPNUNPZAjYsg3aD7h0HPsB8xPiPNtF6SM4DsLRtBh7cMMq15PZDeGEcaC8F/yGWP6
+	 C1FPRQDPXhDjbfaFeGohfcx0MYdTNC2HAPBaZcAKSHoHP6kheycuFy3AZygXyu/DgUlyA
+	 UHQBLgotqABRUr/5h4vTw7D3RMJyuaaQtK6esgAg1px+085+9H7ya6P/npuXrih47dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695070;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
-	bh=gLyFCV6uPI1mR2E4O3AORbT2E7qYBf0FnuYXTdJmAoE=;
-	b=0T+VkRm7+PtPyWSLILC0XjZX5W/qkDCLeD8d9KknnZNO7AikFC8X35hla8sl2jEUpr1I
-	 D5H/vl260fQ8zuCJ/zfo1gX4QEmHDevFCC4cRdZEPhcJKqKMLBur8BSmdqWQlfYHEPesM
-	 R497QTEm6pr6ZZZbv2eUJG/VJofvqwhfUYUxePactI3vJE/TxAKI/kzcglUS2FvLbHRRv
-	 1lcPuWa+ULZew5giGzHP6sdinZAhobRV1q6Iqodd6U632S3zNjTtEdlqVe8DdzAlUzHes
-	 Q9vEqwPFyjaSty7qg360oS3jrHaIdsnAkqZGmjKuHDeqs6OhDs8ohVF1oC+1YfslK8A==
+	bh=aIu6pEYpp53YfCiyYllM4lyrdWdbqBwyNFhZJ0QDrzY=;
+	b=aaRk1yXgZDoXJAudXsXHshQZsebx2TH6TD95WonDItCzKbCR6m24zE2WGpFeb8wSXGIr
+	 Dg3a5Ib5Ljh0xkxLFVsglT7FmCN8zV11DzBD+kPgHA9M7TcnpMp45RJfLhnJbIOMa5YPY
+	 FM4Z60oVD9H1rVWR54JzFV5ThYACG/k1oXRAlCsYzl4iZ6PfPt2Q8DsZk9PntoX/vEpLA
+	 hCcG6sA0DjcUecemYyIXFs42edm8dQM72+xRcSkeamu9DDvPSV7FD9sHYMWOcqksA/r7+
+	 7K4SzeB7SjfHHJFMRAbwFwHIjIPhWv6fatvpvIFYlOFmed5E8eOvh3fFwThOYGlYgVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=imgtec.com;
 	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=q2XnChvL;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=pAx46JpZ;
 	arc=none smtp.remote-ip=91.207.212.86
 Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC411606A94A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4FA606A94D
 	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:37:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC411606A94A
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC4FA606A94D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=q2XnChvL
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=pAx46JpZ
 Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A37Pb2A3472577;
-	Tue, 3 Nov 2026 08:36:58 GMT
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A37Pb293472577;
+	Tue, 3 Nov 2026 08:36:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=g
-	LyFCV6uPI1mR2E4O3AORbT2E7qYBf0FnuYXTdJmAoE=; b=q2XnChvLsyo88za1F
-	72PjUH6wNtntqGrMfpiFXNjM6/P462mgWrkCuhQQVllbF7q4gUvTyGYB59UPRzaG
-	wNXWLdhzIKfMCUTqzDE2L7YVmz5+Fyzc+ejt++y9wF6v3ruMy4y5W1hL0ZVTYviD
-	bkvnH9MrL5StYx4pD0D4xTKvTPjuulCAmy2L3JDarZD59GWCY59vYYQB0gtdj6G6
-	txRpEZ0+qfXeFkWxtvSn07pVjq8+Lsq/lrOBGrNkUwmbHww8ttyCyKaz5D7IRZX8
-	17jL4mvSgXmew85q+oiQDvRU5NvxHyjWxBtTlCjExU4wvtyMVBBM1ntI+ebJ+ibc
-	ESIng==
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=a
+	Iu6pEYpp53YfCiyYllM4lyrdWdbqBwyNFhZJ0QDrzY=; b=pAx46JpZrDqRu/evI
+	Aq1MDV3s7qXci83vln0VfpLn86YkJxSdZk5HrL3S4IUdtPlNVFtRFbPOkRM5KLz2
+	L/J882wXKhBZh6sT4BdkEhA74VTKhF1fJ8xpSffZnukqJ6nbk6c7ovUj+jxyug6R
+	ag+TzyypwY4ageUGsgDGlxD0G8sJaD3oUEymlqfn1Lfqn+Q+rREEI4g5zYoIHdxN
+	pgQYqf1fRnWlI/Jf95Z5B1ZjMYi1kjT5nh5WU9CHBXaoRMggw0n2fzClQe9NGezq
+	TF8ny4FU0f7G941ktXWVbXZBWVdHqYABarOrkzKk3koKGCuciZCE5YHlWT8+H5wV
+	9+AFw==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hn7ft239e-1
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hn7ft239c-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 08:36:58 +0000 (GMT)
+	Tue, 03 Nov 2026 08:36:55 +0000 (GMT)
 Received: from [127.0.1.1] (172.25.5.26) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
- 2026 08:36:56 +0000
+ 2026 08:36:53 +0000
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 3 Nov 2026 10:36:20 +0200
-Subject: [PATCH v3 4/5] drm/imagination: Limit access to the META firmware
- interface
+Date: Tue, 3 Nov 2026 10:36:18 +0200
+Subject: [PATCH v3 2/5] drm/imagination: Limit access to the RISC-V
+ firmware interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,7 +72,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261103-prep-meta-fw-arch-independent-v3-4-563dbaf1b779@imgtec.com>
+Message-ID: <20261103-prep-meta-fw-arch-independent-v3-2-563dbaf1b779@imgtec.com>
 References: <20261103-prep-meta-fw-arch-independent-v3-0-563dbaf1b779@imgtec.com>
 In-Reply-To: <20261103-prep-meta-fw-arch-independent-v3-0-563dbaf1b779@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>,
@@ -92,366 +92,90 @@ CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
         "Alexandru
  Dadu" <alexandru.dadu@imgtec.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793695010; l=11364;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793695010; l=2210;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=YS+IlkT+WaOR3yCK7OPB3mvoLJPmJa30aIUkNg4XjFc=;
- b=azgY9kfAkDiJgMDIoMB8KgRO7/q7S4cups2+/4hNdBxCDN1iPBuqhaAy1SdzWKejtfp8KdFvA
- psyjhgNUf4DC7RBJGyiwYCsr0DoFx6t0HCrFvo6T2PMye7tHaiTJ3DB
+ bh=wDgtp6LBF/C29pe2CVlQTKRn+Z/Fia+UZ37qNopawhs=;
+ b=w+Gyv3TMuwx08RVtch0st92wmz/6eNI2KWeTPmwweMCdhYtrj340UsGsJhTiIPRV6BhUWady0
+ OqGZzRkzTCKCbwOHmnSs4HYuLrR3CoEejAfUxvaO1BUJGUcUhhtFRyw
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-ORIG-GUID: RbyYuOe3_25RfLtBKscGR5PmrnfCt9nC
-X-Proofpoint-GUID: RbyYuOe3_25RfLtBKscGR5PmrnfCt9nC
-X-Authority-Analysis: v=2.4 cv=HaSB3SE8 c=1 sm=1 tr=0 ts=6ae99d2a cx=c_pps
+X-Proofpoint-ORIG-GUID: mkaN-67E4oe6FEKjsKq0jtBvvKHKDx_v
+X-Proofpoint-GUID: mkaN-67E4oe6FEKjsKq0jtBvvKHKDx_v
+X-Authority-Analysis: v=2.4 cv=HaSB3SE8 c=1 sm=1 tr=0 ts=6ae99d27 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=h_3jC4m0AyQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=v5vwIpuZDtUGK11seQkA:9 a=QEXdDO2ut3YA:10
+ a=r_1tXGB3AAAA:8 a=xwwprR_ITuhyIuDbuUkA:9 a=QEXdDO2ut3YA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfXxuIY6MoJ964k
- 1HDJPjYL0Mu6+mEz/3KFdnmz93HwDSui0tNm6icMAARjak7pkodoY2ixfcUd1qV7T2JqGpprk14
- 85m5loiYkd5KD/k3HNrwEZND6jh0iqE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfX+XFXY0FV1vN2
- Btdqoxf196T61zBONrRXVhTx4wHIPZnJIq9PnIZjkkYsv45cukBbP7SgTyaEcAd64JFtt6oyikm
- 69habNScRc8/eEuxPFX+kVh617H13PfRZaNBBJdx7I80WnsV0Iprg2STTMp1lmzbv5nhv7gB+5H
- YfHIbY9k5zb1rIyq7b8Gpg3xG6DJlT8qCT0ss4NblAiaRaLVC3d2rIF3Xrzq4y9KG4OJjTdBxNk
- UXu8DiWE53KBf9yIGAioWxorcgL1xriMa0dc5g2a/3cOE8vvwdI3Whe/Gg1M4i3idwYrgGvDr69
- PtUeVJ0Cl8K1llr0pLyCd7k5NKLaGj+QJHwRSJqjX/myiHVuPWl/8OOJf8V+sDNwudoUoA4honh
- 9k5+Ocyx02zPhsSnzbrQP8zxnZ1znz8uPgn/Qi+mDDCtrZR2dbqPV3MHZafMviexuxiUgZMqbkn
- +udD81ZI3Wlk9iMjHUA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfX7XA1Fz5OQyaA
+ /b/lKbyJaGC6WT29xFrwg87hyTMkU++GcLqs/0rDcWW3ybqYH/J+GnCKTOa/cDp6u7efZ9sIBYl
+ lqO4sQcnQyNnOFlCTt5+OkQOToVlbBc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfXwnLfLIbpGe8V
+ sO8sen0vpRU/tKGfNMVZColhRT8stt2GN4uyw0yWq31crqPXMc8bXs8+agY/fvqq9Ddf1aOmk5h
+ 5sMsLDhK/rNqi2yo/snSplgpaw0qhIiqCcI4kWDILS8fLXWGt5+5VQV6xvQBo21ufmbuTwcEpuo
+ BmkkNbjzDqm3TjJXvFuF+h0XpERdF21ZAi1XqM0AN37kqiC9R3WAJfAIE1xZNHQqWDQbUkJEXc0
+ K4OxTFfzRmmNmO3gQohIVpJIh0ysJFBX4KPNe4Iml/Aj5ymkVZpShbiEiuU+m/yQo28QDMto9Ff
+ wJrV1Pp9CMBgzA7MJfU0YIb5o5lsip5/OFxFBvQcLUA+81ZmQ5e/lBmPIORF2Cq++i/0HCbcQsC
+ v4H8iG7dxSKuv122ssLciaeTMUksVArwz9XJaKUj7jTN0yWTqTkHglfnOiVKTOMIxYtp2SbNGWE
+ R5N3lyq/2iX7Sqknx/g==
 
 From: Alessio Belle <alessio.belle@imgtec.com>
 
-Ensure all accesses to the META firmware interface are done via the
-generic firmware interface.
-
-To achieve this:
-- Introduce a new function to the firmware processor table to remove
-  the last direct access to the META firmware interface from
-  outside of the generic firmware logic.
-- Remove the META firmware interface header.
-- Rename the META firmware processor header adding an "internal" suffix.
-- Add guard to the META firmware processor header to prevent accidental
-  inclusion outside of the META firmware specific logic.
-- Add a multi_dm_thread_assoc property to struct pvr_fw_defs to isolate
-  that behaviour from the architecture.
+- Rename the RISC-V firmware processor header adding an "internal"
+  suffix.
+- Add guard to the RISC-V firmware processor header to prevent
+  accidental inclusion outside of the RISC-V firmware specific logic.
 
 Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_fw.h               | 26 +++++++++
- drivers/gpu/drm/imagination/pvr_fw_meta.c          | 28 ++++++++--
- drivers/gpu/drm/imagination/pvr_fw_meta.h          | 14 -----
- drivers/gpu/drm/imagination/pvr_fw_mips.c          |  1 +
- drivers/gpu/drm/imagination/pvr_fw_riscv.c         |  1 +
- drivers/gpu/drm/imagination/pvr_fw_startstop.c     | 61 ++++++++++++----------
- drivers/gpu/drm/imagination/pvr_gem.h              |  1 -
- ...{pvr_rogue_meta.h => pvr_rogue_meta_internal.h} | 10 ++--
- 8 files changed, 93 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c                     |  4 +++-
+ .../{pvr_rogue_riscv.h => pvr_rogue_riscv_internal.h}          | 10 +++++++---
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 4b25291135b6..610406668bbb 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -184,6 +184,23 @@ struct pvr_fw_defs {
- 	 */
- 	void (*irq_clear)(struct pvr_device *pvr_dev);
- 
-+	/**
-+	 * @must_wait_fw_idle: Check if the FW stop sequence should wait for hardware
-+	 *                     to report FW idle before proceeding.
-+	 *
-+	 * @pvr_dev: Target PowerVR device.
-+	 * @wait[out]: Whether the FW stop sequence should wait for FW idle.
-+	 *
-+	 * This function is optional. The assumption is that we must always wait
-+	 * for the firmware to reach idle; implement this function and return
-+	 * %false to alter this behavior.
-+	 *
-+	 * Returns:
-+	 *  * 0 on success.
-+	 *  * Any appropriate error on failure.
-+	 */
-+	int (*must_wait_fw_idle)(struct pvr_device *pvr_dev, bool *wait);
-+
- 	/**
- 	 * @has_fixed_data_addr: Specify whether the firmware fixed data must be loaded at the
- 	 *                       address given by the firmware layout table.
-@@ -191,6 +208,15 @@ struct pvr_fw_defs {
- 	 * This value is mandatory.
- 	 */
- 	bool has_fixed_data_addr;
-+
-+	/**
-+	 * @multi_dm_thread_assoc: Specify that all threads must be associated
-+	 *                         with the DM separately rather than just the
-+	 *                         first thread (the default behaviour).
-+	 *
-+	 * This value is mandatory.
-+	 */
-+	bool multi_dm_thread_assoc;
- };
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-index 84f568b5510f..f451f97a4f2f 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-@@ -4,10 +4,11 @@
- #include "pvr_device.h"
- #include "pvr_fw.h"
- #include "pvr_fw_info.h"
--#include "pvr_fw_meta.h"
- #include "pvr_gem.h"
- #include "pvr_rogue_cr_defs.h"
--#include "pvr_rogue_meta.h"
-+#define PVR_ROGUE_META_INTERNAL_H_EXPLICIT_INCLUDE
-+#include "pvr_rogue_meta_internal.h"
-+#undef PVR_ROGUE_META_INTERNAL_H_EXPLICIT_INCLUDE
- #include "pvr_vm.h"
- 
- #include <linux/compiler.h>
-@@ -32,7 +33,7 @@
-  *  * 0 on success, or
-  *  * Any error returned by pvr_cr_poll_reg32().
-  */
--int
-+static int
- pvr_meta_cr_read32(struct pvr_device *pvr_dev, u32 reg_addr, u32 *reg_value_out)
- {
- 	int err;
-@@ -563,6 +564,25 @@ pvr_meta_irq_clear(struct pvr_device *pvr_dev)
- 		       ROGUE_CR_META_SP_MSLVIRQSTATUS_TRIGVECT2_CLRMSK);
- }
- 
-+static int
-+pvr_meta_must_wait_fw_idle(struct pvr_device *pvr_dev, bool *wait)
-+{
-+	u32 reg_value;
-+	int err;
-+
-+	err = pvr_meta_cr_read32(pvr_dev, META_CR_TxVECINT_BHALT, &reg_value);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * Wait for Sidekick/Jones to signal IDLE including the Garten
-+	 * Wrapper if there is no debugger attached (TxVECINT_BHALT = 0x0).
-+	 */
-+	*wait = !reg_value;
-+
-+	return 0;
-+}
-+
- const struct pvr_fw_defs pvr_fw_defs_meta = {
- 	.init = pvr_meta_init,
- 	.fini = pvr_meta_fini,
-@@ -573,5 +593,7 @@ const struct pvr_fw_defs pvr_fw_defs_meta = {
- 	.wrapper_init = pvr_meta_wrapper_init,
- 	.irq_pending = pvr_meta_irq_pending,
- 	.irq_clear = pvr_meta_irq_clear,
-+	.must_wait_fw_idle = pvr_meta_must_wait_fw_idle,
- 	.has_fixed_data_addr = false,
-+	.multi_dm_thread_assoc = true,
- };
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.h b/drivers/gpu/drm/imagination/pvr_fw_meta.h
-deleted file mode 100644
-index 911ad700cba6..000000000000
---- a/drivers/gpu/drm/imagination/pvr_fw_meta.h
-+++ /dev/null
-@@ -1,14 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only OR MIT */
--/* Copyright (c) 2023 Imagination Technologies Ltd. */
--
--#ifndef PVR_FW_META_H
--#define PVR_FW_META_H
--
--#include <linux/types.h>
--
--/* Forward declaration from pvr_device.h */
--struct pvr_device;
--
--int pvr_meta_cr_read32(struct pvr_device *pvr_dev, u32 reg_addr, u32 *reg_value_out);
--
--#endif /* PVR_FW_META_H */
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_mips.c b/drivers/gpu/drm/imagination/pvr_fw_mips.c
-index 6914fc46db50..ec0dad1692c3 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_mips.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_mips.c
-@@ -196,4 +196,5 @@ const struct pvr_fw_defs pvr_fw_defs_mips = {
- 	.irq_pending = pvr_mips_irq_pending,
- 	.irq_clear = pvr_mips_irq_clear,
- 	.has_fixed_data_addr = true,
-+	.multi_dm_thread_assoc = false,
- };
 diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-index 2b24c40bc20f..ef2801276252 100644
+index cd84635bb88d..0d4dd45520a9 100644
 --- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
 +++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-@@ -182,4 +182,5 @@ const struct pvr_fw_defs pvr_fw_defs_riscv = {
- 	.irq_pending = pvr_riscv_irq_pending,
- 	.irq_clear = pvr_riscv_irq_clear,
- 	.has_fixed_data_addr = false,
-+	.multi_dm_thread_assoc = false,
- };
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_startstop.c b/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-index 98ca2692239d..ab637ba7d108 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-@@ -3,10 +3,8 @@
- 
- #include "pvr_device.h"
- #include "pvr_fw.h"
--#include "pvr_fw_meta.h"
- #include "pvr_fw_startstop.h"
+@@ -7,7 +7,9 @@
+ #include "pvr_fw_mips.h"
+ #include "pvr_gem.h"
  #include "pvr_rogue_cr_defs.h"
--#include "pvr_rogue_meta.h"
+-#include "pvr_rogue_riscv.h"
++#define PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
++#include "pvr_rogue_riscv_internal.h"
++#undef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
  #include "pvr_vm.h"
  
  #include <linux/compiler.h>
-@@ -199,6 +197,30 @@ pvr_fw_start(struct pvr_device *pvr_dev)
- 	return err;
- }
- 
-+static inline bool layout_is_mars(struct pvr_device *pvr_dev)
-+{
-+	u64 layout_mars_value = 0;
-+
-+	if (PVR_FEATURE_VALUE(pvr_dev, layout_mars, &layout_mars_value))
-+		return false;
-+
-+	return layout_mars_value == 0;
-+}
-+
-+static inline int must_wait_fw_idle_before_stop(struct pvr_device *pvr_dev)
-+{
-+	bool wait_fw_idle = true;
-+	int err;
-+
-+	if (pvr_dev->fw_dev.defs->must_wait_fw_idle) {
-+		err = pvr_dev->fw_dev.defs->must_wait_fw_idle(pvr_dev, &wait_fw_idle);
-+		if (err)
-+			return err;
-+	}
-+
-+	return wait_fw_idle;
-+}
-+
- /**
-  * pvr_fw_stop() - Stop FW processor
-  * @pvr_dev: Target PowerVR device.
-@@ -214,15 +236,9 @@ pvr_fw_stop(struct pvr_device *pvr_dev)
- 				       ~(ROGUE_CR_SIDEKICK_IDLE_GARTEN_EN |
- 					 ROGUE_CR_SIDEKICK_IDLE_SOCIF_EN |
- 					 ROGUE_CR_SIDEKICK_IDLE_HOSTIF_EN);
--	bool skip_garten_idle = false;
--	u64 layout_mars_value = 0;
--	bool layout_mars = false;
--	bool meta_fw = pvr_dev->fw_dev.processor_type == PVR_FW_PROCESSOR_TYPE_META;
--	u32 reg_value;
--	int err;
- 
--	if (PVR_FEATURE_VALUE(pvr_dev, layout_mars, &layout_mars_value) == 0)
--		layout_mars = layout_mars_value > 0;
-+	bool layout_mars = layout_is_mars(pvr_dev);
-+	int err;
- 
- 	/*
- 	 * For cores with the LAYOUT_MARS feature, SIDEKICK and SLC would have been
-@@ -250,7 +266,7 @@ pvr_fw_stop(struct pvr_device *pvr_dev)
- 		       ROGUE_CR_MTS_BGCTX_THREAD0_DM_ASSOC_MASKFULL &
- 		       ROGUE_CR_MTS_BGCTX_THREAD0_DM_ASSOC_DM_ASSOC_CLRMSK);
- 
--	if (meta_fw) {
-+	if (pvr_dev->fw_dev.defs->multi_dm_thread_assoc) {
- 		pvr_cr_write32(pvr_dev, ROGUE_CR_MTS_INTCTX_THREAD1_DM_ASSOC,
- 			       ROGUE_CR_MTS_INTCTX_THREAD1_DM_ASSOC_MASKFULL &
- 			       ROGUE_CR_MTS_INTCTX_THREAD1_DM_ASSOC_DM_ASSOC_CLRMSK);
-@@ -297,6 +313,8 @@ pvr_fw_stop(struct pvr_device *pvr_dev)
- 	 * powered down by the FW.
- 	 */
- 	if (!layout_mars) {
-+		int wait_fw_idle;
-+
- 		/* Wait for SLC to signal IDLE. */
- 		err = pvr_cr_poll_reg32(pvr_dev, ROGUE_CR_SLC_IDLE,
- 					ROGUE_CR_SLC_IDLE_MASKFULL,
-@@ -309,24 +327,12 @@ pvr_fw_stop(struct pvr_device *pvr_dev)
- 					sidekick_idle_mask, POLL_TIMEOUT_USEC);
- 		if (err)
- 			return err;
--	}
- 
--	if (meta_fw) {
--		err = pvr_meta_cr_read32(pvr_dev, META_CR_TxVECINT_BHALT, &reg_value);
--		if (err)
--			return err;
--
--		/*
--		 * Wait for Sidekick/Jones to signal IDLE including the Garten
--		 * Wrapper if there is no debugger attached (TxVECINT_BHALT =
--		 * 0x0).
--		 */
--		if (reg_value)
--			skip_garten_idle = true;
--	}
-+		wait_fw_idle = must_wait_fw_idle_before_stop(pvr_dev);
-+		if (wait_fw_idle < 0)
-+			return wait_fw_idle;
- 
--	if (meta_fw || !layout_mars) {
--		if (!skip_garten_idle) {
-+		if (wait_fw_idle) {
- 			err = pvr_cr_poll_reg32(pvr_dev, ROGUE_CR_SIDEKICK_IDLE,
- 						ROGUE_CR_SIDEKICK_IDLE_GARTEN_EN,
- 						ROGUE_CR_SIDEKICK_IDLE_GARTEN_EN,
-@@ -346,7 +352,6 @@ pvr_fw_stop(struct pvr_device *pvr_dev)
- 					ROGUE_CR_MARS_IDLE_CPU_EN |
- 					ROGUE_CR_MARS_IDLE_MH_SYSARB0_EN,
- 					POLL_TIMEOUT_USEC);
--
- 		if (err)
- 			return err;
- 	}
-diff --git a/drivers/gpu/drm/imagination/pvr_gem.h b/drivers/gpu/drm/imagination/pvr_gem.h
-index ae7af82b6f17..e84be25f8576 100644
---- a/drivers/gpu/drm/imagination/pvr_gem.h
-+++ b/drivers/gpu/drm/imagination/pvr_gem.h
-@@ -5,7 +5,6 @@
- #define PVR_GEM_H
- 
- #include "pvr_heap_config.h"
--#include "pvr_rogue_meta.h"
- 
- #include <uapi/drm/pvr_drm.h>
- 
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_meta.h b/drivers/gpu/drm/imagination/pvr_rogue_meta_internal.h
-similarity index 98%
-rename from drivers/gpu/drm/imagination/pvr_rogue_meta.h
-rename to drivers/gpu/drm/imagination/pvr_rogue_meta_internal.h
-index 3020e6582daa..dd978988ed40 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_meta.h
-+++ b/drivers/gpu/drm/imagination/pvr_rogue_meta_internal.h
+diff --git a/drivers/gpu/drm/imagination/pvr_rogue_riscv.h b/drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h
+similarity index 81%
+rename from drivers/gpu/drm/imagination/pvr_rogue_riscv.h
+rename to drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h
+index d971729e18a4..ba18c2a82205 100644
+--- a/drivers/gpu/drm/imagination/pvr_rogue_riscv.h
++++ b/drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h
 @@ -1,8 +1,12 @@
- /* SPDX-License-Identifier: GPL-2.0-only OR MIT */
- /* Copyright (c) 2023 Imagination Technologies Ltd. */
+ /* SPDX-License-Identifier: GPL-2.0 OR MIT */
+ /* Copyright (c) 2024 Imagination Technologies Ltd. */
  
--#ifndef PVR_ROGUE_META_H
--#define PVR_ROGUE_META_H
-+#ifndef PVR_ROGUE_META_INTERNAL_H
-+#define PVR_ROGUE_META_INTERNAL_H
+-#ifndef PVR_ROGUE_RISCV_H
+-#define PVR_ROGUE_RISCV_H
++#ifndef PVR_ROGUE_RISCV_INTERNAL_H
++#define PVR_ROGUE_RISCV_INTERNAL_H
 +
-+#ifndef PVR_ROGUE_META_INTERNAL_H_EXPLICIT_INCLUDE
++#ifndef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
 +#error This file may only be included if explicitly defined
 +#endif
  
- /***** The META HW register definitions in the file are updated manually *****/
+ #include "pvr_rogue_cr_defs.h"
  
-@@ -353,4 +357,4 @@ struct rogue_meta_ldr_cfg_blk {
+@@ -36,4 +40,4 @@ enum rogue_riscvfw_region {
  
- #define ROGUE_FW_PROCESSOR_META "META"
+ #define ROGUE_RISCVFW_REGION_BASE(r) ((u32)(ROGUE_RISCV_REGION_##r) << ROGUE_RISCVFW_REGION_SHIFT)
  
--#endif /* PVR_ROGUE_META_H */
-+#endif /* PVR_ROGUE_META_INTERNAL_H */
+-#endif /* PVR_ROGUE_RISCV_H */
++#endif /* PVR_ROGUE_RISCV_INTERNAL_H */
 
 -- 
 2.43.0
