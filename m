@@ -1,21 +1,23 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.129
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.0
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793701384;
-	b=0Pu50MGmvc85WINkQ+3hS2SjLJuYdOsKsFlyt6uQTvVCQVwYy0X7X+FK09Ib/GtwUgrl
-	 X8FPo/CMgTRJXjow2yImbnQCcuXSWZZANg1kD6YRt7bSQbCHdm570rYtLdu3R4lDQ3oZR
-	 r2UUkF/UZVL4YC4gdbsOVMsjPkq7YjsINF/YwLv3MHF5rqEDDD1xachiPhZV2MpobHN2x
-	 G3XCfZ851i2eIINQb7c/5L2FOz34rK3gbTVFFBWqDD/HQ+4ThCR6msjxi/smjcFWq/dM9
-	 gBbaMsR3DQm51+qVXkIlSmDDyqSdwsYorBlv3QHeYg8H+SmqdDoLWN0eB1mQTc7klzA==
+	t=1793701383;
+	b=04BtaFdL/YVpLImz9uH4yP1pg9CgNXpqQAm9729PLPPKDsfEWGjFlrJqElCwN3DgTXRd
+	 0Rmy1JDzZeMMzQoHSK8X0Jljulz0wphiwxy80IOX4fej0axn+3g5r5Cxx8aSSdxqS0cmw
+	 NgTfVU9KRN/d9Fbl24DnIME2vPsiPyhX/lOVz+bVgdb8XvjQclcJ4arfUmDC1szR9Mmpo
+	 vOhV+9kMTOfCT4eYopO1q/m8Pl51QcJdrua/a7oddNmSMPoSsRKq5ONQBsXqKcaCqjK9E
+	 e7c+sK9Bpr0VFH0fk5PH8EG4VGwMkaQM0xiMduI1gdR5RyraxMEtlnfc0qVBPdhXxjw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701384;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-Microsoft-Antispam:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701383;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -23,67 +25,74 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5DKAMgnpjqZ2qJo7tp17BVb72LsfOofvXQmqn0W7A98=;
-	b=KFGbxhOQmxJWebVvGJZoLXMNxQFuPG4ftU4mp86YJ0WP6jAdYEznBCDS7a+f+1eZr8DG
-	 L8cqmvtqDiNwK5qQ2UyvKcfdXeVYZhlkknJ0BjlvE5t+0yOxiAKp9VgJVtgpdj53UWWWG
-	 ZCAoAn5Oc1IXSfiadrTdKtawI00nXrvvyZGHa1LfmRDDzZXWV/WMLDmjsLFiW9dXDxBIc
-	 Jm6GaUxG2OAPC1ZDqqCk8ZEy+wap6ivgu8gQXM5cHGSUgwaDoBk89KRhqRd5xw2QnXZQb
-	 aYKtqbGMhD8e3oKVWExd5477hDOQ9KMPsUFNE5vD1UfTft1k0yay3GEp3yLRAx2NBCQ==
+	bh=lsVWZ3yZ8A4fjC5I0E9eXi1TKVm7EBqT8G/B8snzOkU=;
+	b=QjFEuBih4HFBKVcTrKNhO2KWw0yYHhJg26GeuGta+YGpz5HcXh+5zDdY3U6sCpmlFTdZ
+	 2KHFIi+s5wL07Etonv/DNgTrtDNQNf97dXsMqp+sXmRJDPJEZFBK9z8AmMnSNvbjzLJLo
+	 ULueCOV7YsmZm8rzv5WiZrxPA7dqTfej9mlZv3OYDo2eFOtmCmDugK6eW3NgUV35lQ04Q
+	 g2ffzTGl4MDPmzg1iy5q+4alqdXoNJjlDBE7T//7ToV2sAKaKF+AuPooQ+C6u0WR9hsp7
+	 EoKJX/HRyZ0FMjzfJmh7RT80QGRQvYe/wxJA8tKmDUtJUikyCCJ3oPqOmdWOz2RrX9A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.129
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2129.outbound.protection.partner.outlook.cn [139.219.17.129])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Z8ZiihmR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.0
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010000.outbound.protection.outlook.com [52.101.193.0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B09606A837;
-	Tue,  3 Nov 2026 10:23:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74B09606A837
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PL2/n8akhIdXh+44ScI9c9FLGyO1Vw16sA6mKV7KkZ0Tq/Ne4PvnNen5NlTbIqDDxczTAOQklTKzs+6e+7j+NUtPu7caBVDGsbRSV2+b/bMhyZVt8yOd0mUWJM2JCIZntgxq4ZaEOTZT6uepyvprrYzVyw25pxMlpbaUZp6H1Wjf1QyOL4R4EW3vK5CEsBx27VhpX7KiDacuFVlAink5g1ox/bEWmGNL4s3y6rMFJYkQKbPUUkTXi6ctG1saVvQzOVVYgOnbiTU1wnYgTEEXs43HQD8cIsmDfGEaAr4OP/073Eua4zQJ7UVPcilEHBLsiRFP53sKTY+gAYcH+fIomQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE845606FAD9;
+	Tue,  3 Nov 2026 10:23:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE845606FAD9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Z8ZiihmR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WXTyIw5gBJDTjen4cM45tNqVg7h2DdtlGEapQZXeEtw1dib5OqbE/VO01otX4asH0z1aisuQMegJMNSfsdO10iVNW2+3XbpC6uM1LowASXFMgCaAsvx9GdSryIRZ3KiZaf4zZBlMFzkdmuBwMJJb+GuxrZ1enMuBmGjLlUqgHxAVdtp8GEbp0MbYk1ZbBQB6oHMxQ/D7B5V6lmqWcl+UEKdjFM4Ij4HpxvA3hkTXzOE+dzZRhxfdEyOuVzybOuaPHhps1STC5sghx8jo4HJ/Jfnv0BGOZpRrneL97eOYKJBLYDbOJaxxB1FMZ/rBvzxw5IAH/2gUGb/HD/7LKgU8oA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
+ s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5DKAMgnpjqZ2qJo7tp17BVb72LsfOofvXQmqn0W7A98=;
- b=kmQ2/xyhUhpJwKIumuxfwo0X3GlFPElKCYg2I8sf8T3nslbrSXpdaQm5uCvaWFrQ/+MlUi4LSkRMZzV0HoimerdslFMBf4ohq1rTjsh1czhwBKQMIlhYwclsaqmhaE8mKg/rPN7r0JfJpRed5R1vjPVICiYw4S1JXX8kgHxHRewcwFCFN0ZzfBxHxmajCnb/ZXhaiUh4ov/WSxQBqfZ9Lv+hS/DQdcO7T/D+AW3H6c1U7P391BimoRgBX9NHHJYboasHTFu7BR3KBzHI5ryZmAhIkCt6tByv3CJGXqr0wUNVvBJPCTE58Z9S8KM+cV7FBkiApaWcSQtXvcSPCiZtOQ==
+ bh=lsVWZ3yZ8A4fjC5I0E9eXi1TKVm7EBqT8G/B8snzOkU=;
+ b=jE/vVXsOpKYWAxqSfLLSABI7c7o9fit3BzRWHjqytc3Byui+iY3Hv8ewsGgEROY1VXoUqymXldz/8jzSW78NGe2NuA/suQ6Bmb9PznB5pQci1v7UOitnSsZeg/OoiMwUaVfRlycgh/S1hmyGaBp8DXGE1guYxxT+bvm2KpspYp4upGnU4pj7G0TzGtIZa/l6b+h1MLYUrtYAVLqqER4QnghhT2IbjidsJDbqExy8N8rZvTyDayGRQGf5zY/SUhJJ+itKJFLrGm88N/e9tsHVsDy2i4m6B/cxRMD6+vZceSPCi5hgYUjqTqGcLpRvLrW4befrEpupqRaIJxugwACw/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lsVWZ3yZ8A4fjC5I0E9eXi1TKVm7EBqT8G/B8snzOkU=;
+ b=Z8ZiihmRIv4r4EGwQq+Exi09+s0YiNN8K6yFOy+RH1nPYXb6Lt9P1FDTia9N49Fdv+s9HW+oCaiHgC8Y5PIIEwpZ0V8CaLzudm/MQ0VQBrMY43tNNtv9hDcCXpUXhqhBpkVrS6uYTfLy4oVg85lSSfqGvdFSrstIcsi+BddsTyPjtOi1pmRmw2gv2aA65MNdXZ3GuRkTjpgTEATLnW6f2MbiSRre+RwMx7y8KjYeZ8lA0qL6Q/gwmHizBR3FCoz2S5B7RItye5jMCvbeLzXDh+i+F1XL3WPhArWXSsvPeOMGT/B2305xWtxgwtrFK+/iTIuPVZRfvCMl0NAGjjdCQw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1329.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 10:22:52 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0569.011; Tue, 3 Nov 2026 10:22:52 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v1 RESEND 7/8] dt-bindings: pinctrl: Add starfive,jhb100-vga-pinctrl
-Date: Tue,  3 Nov 2026 02:22:35 -0800
-Message-Id: <20261103102236.96872-8-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261103102236.96872-1-changhuang.liang@starfivetech.com>
-References: <20261103102236.96872-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BJXPR01CA0066.CHNPR01.prod.partner.outlook.cn (10.43.33.33)
- To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn (10.2.3.102)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CY0PR12MB177289.namprd12.prod.outlook.com (2603:10b6:930:138::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 10:23:00 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 10:23:00 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Date: Tue, 03 Nov 2026 19:22:42 +0900
+Subject: [PATCH 4/7] gpu: nova-core: run the generic bootloader from its
+ own type
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-r000-fw-v1-4-e3d38fc130e3@nvidia.com>
+References: <20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com>
+In-Reply-To: <20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY4PR01CA0087.jpnprd01.prod.outlook.com
+ (2603:1096:405:37d::15) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,238 +103,317 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1329:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb5cc841-e08c-442b-5795-08df39946ad5
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY0PR12MB177289:EE_
+X-MS-Office365-Filtering-Correlation-Id: f4c02eb0-6e4a-4b58-e62b-08df39946fa7
 X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|366016|1800799024|23010399003|6133799003|10067099003|261102123227099003|22082099003|18002099003|3023799007|38350700014|56012099006|261022075727099003|261026121527099003|261026140227099003|261021121427099003|261022105027099003|261009223027099003|261028144727099003;
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10070799003|261022115727099003|11063799006|56012099006|261009223027099003|261102123227099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261028144727099003|261026121527099003|261026140227099003|10067099003|22082099003|18002099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	Q1GTpo5+qtAaRFrqB2fQP7tcHASLFReTqHd6eAoYBjXXXWnKQwvHB/xhwuQFnWizJyvIPcBcMOEEykD2bKXhG5WOW0Jli+qIsT+La+qfnWtwoDi2UXSTp7PMU2Oi5El7pf+fuOUsE/XgggiZEHc6E1qNB7Y/Gg0sD1UERFJv18Cfxdjak5kZTPRamFucia0NlaTrw7l+ZZEskIr7q0v4UysTODFOUujbC79Wi3B1omUqcxrJdLGb/SgUQxYUdV+4MjmhsUBTRaLFQ0eM+ESWatBRut2avNqMv6ksxSMfzDokkQEGRcEVgXhPWzllGX1AKEnSE9pThzAfF+NUkwNJ8xKXx+ukjpkdTjiw97jHBsX6g/WR5fExItbaXHsW2xPZfElgduA06m/y9CcRNjQ/D+miUaJKtdOgFp2z6JtaTIolzGbljtu7Qpd2rHbTuJ1M78loUAi53XlmG0EQ536p6JfAqDWzJluiSCP9UiVCuM3/ZjN/AatU6SzPPsjAddSl8dI0tNOUppvMg/6kuYQ5n2EYjVmIwh9JisUPtTz946G3H2lihoNpWoAz3sghbw8y
+	OfXpR1VjseyCqmaWyF1K8bW+Rm8UfU/m/qlrh5oF1Ruv1McJBUn671oS/7neJPNzsh6wr0sK9o0/PxQYCaS7bfD02QUSXUFtlcrn3kskY6i9IEw7ncLppTgLvbPknBu4v4ctb9j/U9nIcEqNT7PAlyhBAS7Plq3OF/U3EcXvlKLlLKiAyyqcxZPFo0tUf4oBO/LOSTZR7zlbppT4yhFEIc5rgIlULWGo4fm/h0bebIf+c0vdNtzf7nh8j4aOAh9+D4GX0HIBQybp4xBZba0/OSVilHnOpYcRW1zW8/XBvjLTLXVCm4mUD3dqRhHiDHgdeKJNeYAZL6op+6BQBvAFYQQ6OhkZl3735S8a1WqK9C9FcXXGKwIv3JsULZuUPjEDSBe4Wk2CJJ30eEtR72WXpJfk2nbuFDfbD83A5BIvy6PFrIsFIrLNd3nEjESDRywn8ZqODsy0Z8dHTBIA7CpCo5qwAoA4kZOYynngnuAaVBhjC5YtIVG5unNb7w/gxJmBIwdpy0CTE0wGSwtmjKRhNLJw8LLkkiG6l5ajk4uTDwIK+hYYBrp9PIneTJitXoX9Rm57mI+K4YHIxc7mIVbGfB6S6lxW85b+76wLt+1jxEOInFuKvGa+eorQldiytZf38+rIOFFBG/Uq4uuemTWqXrdincMeP66zuIDJ9/adXgQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(261102123227099003)(22082099003)(18002099003)(3023799007)(38350700014)(56012099006)(261022075727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022105027099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10070799003)(261022115727099003)(11063799006)(56012099006)(261009223027099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261028144727099003)(261026121527099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zOJwM0wFjQSqptxTWZYmskmPy1qMygJ9gBlqbUx0Yy1+/BJeLWKaxDjIqVWI?=
- =?us-ascii?Q?+RacVGnfUKAGn5eriAvRvtoC2+zz7hVd6CLl6mR/rkd9xEJ/ep8iEzv71xke?=
- =?us-ascii?Q?ut0MdfDiFdKEbVcBuKYAo2yU5OdXa7JFaOaXT33HSjlklPsATxfSOuiQmIrO?=
- =?us-ascii?Q?RUoYVKgoI4N3NlQ2sGiIUM3LZRwE25uemWMXekR/iJFB0FZWx3zqaBtEciBe?=
- =?us-ascii?Q?7ANgvAe45qxMLpmWlKq3sKRDvdvsZahr8IRgs79j1Tf1z/VhIgdAmQnHHqwz?=
- =?us-ascii?Q?3KW7IHvY+KT+ZoT31dzMx4mtIFV+GlygROVP1c/N84uhnI816ckt1T9WmclR?=
- =?us-ascii?Q?GBZjyWTYi9kQ2iUb/Tvc8LhEeU6dzOhukdEuip06HaayTsvimqnjciCzz/Im?=
- =?us-ascii?Q?eytN/zHzGw0C74rA1Thypmz5011YB51kAOQLmhzQDE/QyFWh9bM5dYmQExCO?=
- =?us-ascii?Q?ldRvqh6VVpuAljARWXeXToMCEtHyLLkIK0T2SAqZb/FZDx/fWAHQeaX5QroA?=
- =?us-ascii?Q?rgbJvvH/fGIbdTNR50ETShJ0JX2LGSkI2WXUB8c85jeQMrdJ9M/BJsTOs+zT?=
- =?us-ascii?Q?DkVqKRnzZ25eOT8BB5cerFoJpnZbTX3mOCeOnpeWwHzgd+eF/a3ecST1+cCJ?=
- =?us-ascii?Q?cEF8aT8ddnr/GZuE3sMwXS94pkH1nVOArTIfsKxp2+y0NAuUzOopUj11j64D?=
- =?us-ascii?Q?VSQ4pVEdVcNjwPKDG3jeF2h/J592UReRUpMboIz/6kq7+7PhnJm3IEh4L6Lz?=
- =?us-ascii?Q?Roa7pPX5PRh5SlqhssrvZUx+SAq9XYqpmFgeFG9sevB8BiOe1nsz/GvC5DCa?=
- =?us-ascii?Q?flo+3qtqyoTSs3Rch9Tx90AZtm5IJLaD49PUcJFjr386YsIKbCBDM7PLaw7z?=
- =?us-ascii?Q?URQWb/RnqXDMeB4PIhnlHTJ0N+f1eatyaFJaEbVHH0P6j25JGglCQiP/YgiG?=
- =?us-ascii?Q?lB1PRQ6CI8/RI5ti6YMpdxMZwebhvC1xIrI1bS6aEdmQQyx1xdSObh8e9Ce1?=
- =?us-ascii?Q?lZnxTI+eQslg89G7NddEp1jfAec6svixSESXtZjMvjeLpNEs0H5cM+UveQP6?=
- =?us-ascii?Q?9ruTq73GE2wzHhett7oLLBHUGS18o2WAqPsj1h3jsTSvKJUT/+JX2cEuBOLO?=
- =?us-ascii?Q?5t8qGgy8EhaikGbJwGFysCsDhCPVa0y4PJ0cbwYa+QyRyTopUL1Fo4K/Ded6?=
- =?us-ascii?Q?mJzu7YwXUQv+TiA22E9Z5Zzq983m1UbR0rfDrm1iKUAChpSV72II5PyNroGd?=
- =?us-ascii?Q?PKbsgTlv1AGeN8zTnuMQL/YaAWvksdy2gpymoRYSW4hAAPEvHhacKo/lzMrG?=
- =?us-ascii?Q?puUU/LWF1TmpgCGCNsUuWdQzCITGk8HUFC8zvWO/pHJCcfFFjOIsaoE4mEMc?=
- =?us-ascii?Q?ajcD8LUks0u13EqN2I/VHOjc61mg5tHh8C6axVA8eF5oRHnvByAclk4BZV4p?=
- =?us-ascii?Q?x3Wuc6MN1KaWOdHQ+OKgRd2RdEg4VnyMCG1ahbFGhqAoKizJist1jiNolhGX?=
- =?us-ascii?Q?FOWLjYa9Gw2DhFfbfEPpjV2vYXg7JbsX+MzvcnMbEglmuOeMrDhpVlkud09s?=
- =?us-ascii?Q?UYlVnVNeR4iHPo1FQUc1nRIbD6xuIJqi79RG87RrrEAnJAv8qEt084MWTav3?=
- =?us-ascii?Q?9lhhei9pM2tWpXmvoRnvGX13SOeytTWHnmBw93zEDMCY/xFCXHpxs3LqpUWA?=
- =?us-ascii?Q?dBYaDxyI2AF8mOeMo+dyyLkRedoNtVhGdZZ04YjuxrslNBcMEnmkcAlb5XGI?=
- =?us-ascii?Q?S4/wvDrPT9jHLLFadxdfQFGf5A5TGhol8uUcLdMVFwKeaufymGtG?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb5cc841-e08c-442b-5795-08df39946ad5
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+	=?utf-8?B?MTJHN1hsYmJFOWpjSDVOQXpXbXpmU2RrcEtRMGF4UGE5cVNsY05GMjlwTDlR?=
+ =?utf-8?B?cUVtUjBJNTRWUUQ4UGhWSzhGa3RNTE9IVzFENWVrRWRqYXpHR3lJQzYrMVBM?=
+ =?utf-8?B?SER2ZERqeSttMVZ2M29RSG1QUjQrSFJheXNhVTFMdFNscUdBSUFNWkFZNjRS?=
+ =?utf-8?B?NHBaRXVNT3lyNHZ3dGhoOGk1SGVUZWxHSS9pUGN2dUlHcXhUcHhYQnlnYmg0?=
+ =?utf-8?B?SUdid29HMkd2cjQ2NkQ0UVpRUVFwRjJ2T21USVhWV2tXcTB0L3lOZXZMMWtl?=
+ =?utf-8?B?MFZHYnBwLzkrQWEybEZaRlFsb0lyRXBFSitxMG94K3dYOUtzcXlkZi9WTnJE?=
+ =?utf-8?B?UUtFT09OanhWM2VwWnFuWW1uaXZ3UTdFTGEzcTN5VWtEbEFJZzgvVFNRNzUr?=
+ =?utf-8?B?d1B6dHRzVHFqcVphRnBvMlBHV0FUVlRyOFREaXlzaXUzMlhGQm5zSUNxeTNj?=
+ =?utf-8?B?T2ZOaTVFeG9YTGtjelcwQ2NIYVFrbXlyVWZkbzFoWlNJVkVFWTlLSHNJaU9C?=
+ =?utf-8?B?ZDJSVUpzUEdjZEw1akY0MmhwRnRsL25ybFVwNWRHeE5DSkFOblFITWg5RzU2?=
+ =?utf-8?B?Sk5QYUNDeDNDUnNwMU42TTBzbUM2aDlFNXJDeGJ1NjdIUEpia2V0MTFSeVhH?=
+ =?utf-8?B?MlpScGpVVDFXSDhHVjhIVHhScmxMZ1FmVGx2dHBJOGoyTmRRYkt3czJxMXBq?=
+ =?utf-8?B?bEthb05oMnlNckozcFBiSlJRS2NaUVhVRlJoYzZqRGRNREc5SWZsclV4VnIw?=
+ =?utf-8?B?b1BlUTVsOWdieEtsZFYyWmdwd3JhVkprT3l6VVlkeU5paVo4eUp0K2d6MC9I?=
+ =?utf-8?B?ZEY2VTNYd3crdEcxVE91SGFZckp5MjJNN2l2dGJHckRvWDRCR0N0UzllV2c4?=
+ =?utf-8?B?U0x1RENmWG5hUC9rQkxUdDhjaGlyV0tPdGI2RmhaYkRGWWlyZkV0dng4Tk82?=
+ =?utf-8?B?V1lHTlp0MkRHd05oeUhzQmxFcCtjSXlmSkNFVmlsZ0g0YjVMTUFITFkzYXpE?=
+ =?utf-8?B?aHhtODV4S0NoU3hYeXNCaTk3U3c1TDB4OTJUWHBVdDUxWkIzeCtoMzJZTzhp?=
+ =?utf-8?B?elFQTlBhOWV2R29wWGtuNkpQQ1BQQ0RTdXRxZXVUMWZsVi9ITEhWamxzVWdS?=
+ =?utf-8?B?d0ZBLzNacldEN2gxUzVMVk1lcDdzalVyZGtJaGRzTU9KdmMzdm5pNTVvM3V0?=
+ =?utf-8?B?NjRFWWQreTRIL1dZb3gzSGdyZmdMN3lqeFgycUxzS1IydG0zZm9acG40YWlh?=
+ =?utf-8?B?d0RPSS82SW8xSEVQbHRkY3k0b1U3emtCNEtqWHBmTUthcnVIZlNDdTRJbHRt?=
+ =?utf-8?B?eWc3OHNOSG5YOUJVNFpmbkY1UENYZUtEZE84cmVOWGZaa2xSMEtqVnVzd1BE?=
+ =?utf-8?B?dStaQzhTOWptU2xIbjJha0hLd0kyem1WZWxoMHpyMS9iVW0xVjhkVlQ0Q0g3?=
+ =?utf-8?B?UjJIc2Mza1Z5ZCtTVnRhSmZyaHZoVkNSb2F0S056cndpUmVhZGFRV0lRQnps?=
+ =?utf-8?B?V05WSG92VllpaGdjcEhzTWZZTHc4Zzh6UmZxd1A3WmpoRzhoNk5vQWJhT1ZY?=
+ =?utf-8?B?RW9ZNnNiL0FybWh1TGwzTy91SHZvMTQydjJIQWJ5N290d2VUVG9SVVZpNWdh?=
+ =?utf-8?B?QmVrZlRJdkp4cWM5YWgxejY1OU1hUWJmMmRybU54UlAzT0hTV1orRjcxR0NS?=
+ =?utf-8?B?ZnBUYVJRRXY1QnRIU1pqLzFYUC9CUVhBWEdRMDVEb3hLQkpEbjlhYk1xWjhj?=
+ =?utf-8?B?RkhuNlR5QkFxT25wdjViQStMMUlCc1pzU29HVkk3MUhpY2gxWEVYc25zWlRW?=
+ =?utf-8?B?c2VzRWhHaFlUdzErV2ZaVmtBSlR2aW1pTDhoUEY2ek5icGk2TW53THUzeTMw?=
+ =?utf-8?B?U3F6eWpZU1orZFpXVW5oa09aNll6WFRnNkdNRnI0SmhWa1A5Y25JOTQ4Zmp1?=
+ =?utf-8?B?eHJ3ZTBmNVNDSUdiZjlYMUIzNXlyVlJKN0I2U29BN0lYNDRSWjFPdjAvZWVn?=
+ =?utf-8?B?NUpoUmJLc0VEMmVPZFZOZGozdEk4VDNPWUdoaStOQUdDaE1JSk9lTXczZC9G?=
+ =?utf-8?B?a0NTMUJrWWVoUkFDakk1dnp4TDZmS3JtbEFZeE45NDF6KzJ1Ykg0S012d0FT?=
+ =?utf-8?B?WlhCZlQvWGt4OFFrbXNWVU44OE1sTzg0L3BuV3NxUEE4MWprNDduMVA5Zko2?=
+ =?utf-8?B?N3hycklibUFPWVBTbkVmdVY5ZVFsb2RYamV3ejBVdGNFRzdvWGx1dnBCTW1u?=
+ =?utf-8?B?N3pyME5aWmZvWE9QTlNnT25nbk5SS2NNUzZMcElFeEtidnNTbitETVNSaE9B?=
+ =?utf-8?B?Zm44VUZqbnIyYm5DMmJJUHFoaVdlU1ZLUHZ6K2ljalBRY2VIOGNTdGE3M2pT?=
+ =?utf-8?Q?QE65EncLAy7G9BUk0JlfMVDLh4jHIPJh13tt4cYwCynR7?=
+X-MS-Exchange-AntiSpam-MessageData-1: jOGMaERnpQwiUw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4c02eb0-6e4a-4b58-e62b-08df39946fa7
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:22:52.2636
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:23:00.1893
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 37CGUFZDjB2BQSWbRmbpd9YNJeAY4XTP7SoDUSMqpfLfmtm/fBOiiirSSiSZq78TwzT/Ctoq2J7YBQmhckppGWo3zvzSKRUpQG7MT799CZmt6sJi/b1fD84norEwgk1X
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1329
+X-MS-Exchange-CrossTenant-UserPrincipalName: wz5ISkHQNnCP2rh7Sz8ajmUWwZjx1GueLC3RDRAC/UYAaiHLz26MjBg7wPp/9mo97i4C+IPn+eIST0Pb+KXOUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY0PR12MB177289
 
-Add pinctrl bindings for StarFive JHB100 SoC VGA(vga) pinctrl
-controller.
+From: John Hubbard <jhubbard@nvidia.com>
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+The generic falcon bootloader needs a descriptor in DMEM to know what to
+load, so loading it into a falcon means loading the two together by PIO
+and starting the falcon. The FWSEC wrapper did that through its own
+implementation of the PIO loading traits. The r000 load-and-execute
+bootloader event will need to do the same thing.
+
+Give the generic bootloader a run method, which pairs it with the
+descriptor that it receives, loads the pair by PIO, starts the falcon
+with the given MAILBOX0 value and returns the mailboxes once the falcon
+has halted. This will allow the FWSEC and r000 load-and-execute
+bootloader event to share the same code.
+
+No functional changes.
+
+Assisted-by: LLM
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- .../pinctrl/starfive,jhb100-vga-pinctrl.yaml  | 163 ++++++++++++++++++
- 1 file changed, 163 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-vga-pinctrl.yaml
+ drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 55 ++-------------
+ drivers/gpu/nova-core/firmware/gen_bootloader.rs   | 80 +++++++++++++++++++++-
+ 2 files changed, 84 insertions(+), 51 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-vga-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-vga-pinctrl.yaml
-new file mode 100644
-index 000000000000..f0e35da58eab
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-vga-pinctrl.yaml
-@@ -0,0 +1,163 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/starfive,jhb100-vga-pinctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+index ad798ec5645a..c7bb877fcf20 100644
+--- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
++++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+@@ -16,22 +16,16 @@
+         register::Array,
+         Io, //
+     },
+-    prelude::*,
+-    transmute::AsBytes,
++    prelude::*, //
+ };
+ 
+ use crate::{
+     falcon::{
+         gsp::Gsp,
+         Falcon,
+-        FalconBromParams,
+         FalconDmaLoadable,
+         FalconFbifMemType,
+-        FalconFbifTarget,
+-        FalconFirmware,
+-        FalconPioDmemLoadTarget,
+-        FalconPioImemLoadTarget,
+-        FalconPioLoadable, //
++        FalconFbifTarget, //
+     },
+     firmware::{
+         fwsec::FwsecFirmware,
+@@ -50,11 +44,10 @@
+ pub(crate) struct FwsecFirmwareWithBl<'a> {
+     /// DMA object the bootloader will copy the firmware from.
+     _firmware_dma: Coherent<'a, [u8]>,
++    /// The bootloader that copies the firmware.
+     bootloader: GenericBootloader,
+     /// Descriptor to be loaded into DMEM for the bootloader to read.
+     dmem_desc: BootloaderDmemDescV2,
+-    /// BROM parameters of the loaded firmware.
+-    brom_params: FalconBromParams,
+ }
+ 
+ impl<'a> FwsecFirmwareWithBl<'a> {
+@@ -127,7 +120,6 @@ pub(crate) fn new(
+             _firmware_dma: firmware_dma,
+             bootloader,
+             dmem_desc,
+-            brom_params: firmware.brom_params(),
+         })
+     }
+ 
+@@ -136,13 +128,9 @@ pub(crate) fn new(
+     /// The bootloader will load the FWSEC firmware and then execute it. This function returns
+     /// after FWSEC has reached completion.
+     pub(crate) fn run(&self, dev: &Device<device::Bound>, falcon: &Falcon<'_, Gsp>) -> Result<()> {
+-        // Reset falcon, load the firmware, and run it.
+         falcon
+             .reset()
+             .inspect_err(|e| dev_err!(dev, "Failed to reset GSP falcon: {:?}\n", e))?;
+-        falcon
+-            .pio_load(self)
+-            .inspect_err(|e| dev_err!(dev, "Failed to load FWSEC firmware: {:?}\n", e))?;
+ 
+         // Configure DMA index for the bootloader to fetch the FWSEC firmware from system memory.
+         falcon.pfalcon.update(
+@@ -154,8 +142,10 @@ pub(crate) fn run(&self, dev: &Device<device::Bound>, falcon: &Falcon<'_, Gsp>)
+             },
+         );
+ 
+-        let (mbox0, _) = falcon
+-            .boot(Some(0), None)
++        // Run the bootloader, which loads the FWSEC firmware and runs it.
++        let (mbox0, _) = self
++            .bootloader
++            .run(falcon, &self.dmem_desc, 0)
+             .inspect_err(|e| dev_err!(dev, "Failed to boot FWSEC firmware: {:?}\n", e))?;
+         if mbox0 != 0 {
+             dev_err!(dev, "FWSEC firmware returned error {}\n", mbox0);
+@@ -165,34 +155,3 @@ pub(crate) fn run(&self, dev: &Device<device::Bound>, falcon: &Falcon<'_, Gsp>)
+         }
+     }
+ }
+-
+-impl FalconFirmware for FwsecFirmwareWithBl<'_> {
+-    type Target = Gsp;
+-
+-    fn brom_params(&self) -> FalconBromParams {
+-        self.brom_params.clone()
+-    }
+-
+-    fn boot_addr(&self) -> u32 {
+-        // On V2 platforms, the boot address is extracted from the generic bootloader, because the
+-        // gbl is what actually copies FWSEC into memory, so that is what needs to be booted.
+-        self.bootloader.boot_addr()
+-    }
+-}
+-
+-impl FalconPioLoadable for FwsecFirmwareWithBl<'_> {
+-    fn imem_sec_load_params(&self) -> Option<FalconPioImemLoadTarget<'_>> {
+-        None
+-    }
+-
+-    fn imem_ns_load_params(&self) -> Option<FalconPioImemLoadTarget<'_>> {
+-        Some(self.bootloader.imem_load_params())
+-    }
+-
+-    fn dmem_load_params(&self) -> FalconPioDmemLoadTarget<'_> {
+-        FalconPioDmemLoadTarget {
+-            data: self.dmem_desc.as_bytes(),
+-            dst_start: 0,
+-        }
+-    }
+-}
+diff --git a/drivers/gpu/nova-core/firmware/gen_bootloader.rs b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
+index a3de545731f5..fe820ac6b49a 100644
+--- a/drivers/gpu/nova-core/firmware/gen_bootloader.rs
++++ b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
+@@ -17,8 +17,12 @@
+         self,
+         gsp::Gsp,
+         Falcon,
++        FalconBromParams,
+         FalconDmaLoadTarget,
+-        FalconPioImemLoadTarget, //
++        FalconFirmware,
++        FalconPioDmemLoadTarget,
++        FalconPioImemLoadTarget,
++        FalconPioLoadable, //
+     },
+     firmware::tlv::{
+         request_tlv, //
+@@ -180,12 +184,12 @@ pub(crate) fn new(
+ 
+     /// Returns the address at which the falcon starts executing the bootloader: the IMEM virtual
+     /// address of its first code block.
+-    pub(crate) fn boot_addr(&self) -> u32 {
++    fn boot_addr(&self) -> u32 {
+         u32::from(self.start_tag) << 8
+     }
+ 
+     /// Returns the PIO parameters that place this bootloader in non-secure IMEM.
+-    pub(crate) fn imem_load_params(&self) -> FalconPioImemLoadTarget<'_> {
++    fn imem_load_params(&self) -> FalconPioImemLoadTarget<'_> {
+         FalconPioImemLoadTarget {
+             data: self.ucode.as_ref(),
+             dst_start: self.imem_dst_start,
+@@ -193,4 +197,74 @@ pub(crate) fn imem_load_params(&self) -> FalconPioImemLoadTarget<'_> {
+             start_tag: self.start_tag,
+         }
+     }
 +
-+title: StarFive JHB100 VGA Pin Controller
++    /// Runs the bootloader on `falcon` to load and start the image that `dmem_desc` names.
++    ///
++    /// The bootloader and the descriptor are loaded by PIO, the bootloader is started with `mbox0`
++    /// in `MAILBOX0`, and this returns the mailbox values once the falcon has halted, that is,
++    /// once the loaded image has run to completion.
++    ///
++    /// The caller resets `falcon` beforehand, and programs the FBIF aperture of the context DMA
++    /// slot that the descriptor names with the location of the image.
++    ///
++    /// # Errors
++    ///
++    /// - `ETIMEDOUT` if the falcon has not halted within two seconds of starting.
++    ///
++    /// Errors from the PIO load are propagated as-is.
++    pub(crate) fn run(
++        &self,
++        falcon: &Falcon<'_, Gsp>,
++        dmem_desc: &BootloaderDmemDescV2,
++        mbox0: u32,
++    ) -> Result<(u32, u32)> {
++        falcon.pio_load(&GenericBootloaderLoad {
++            bootloader: self,
++            dmem_desc,
++        })?;
 +
-+description: |
-+  Pinctrl bindings for JHB100 RISC-V SoC from StarFive Technology Ltd.
++        falcon.boot(Some(mbox0), None)
++    }
++}
 +
-+  The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
-+  per2, per2pok, per3, adc0, adc1, emmc, and vga.
-+  This document provides an overview of the "vga" pinctrl domain.
++/// The generic bootloader together with the descriptor that it reads from DMEM offset 0, as one
++/// firmware that [`Falcon::pio_load`] accepts.
++struct GenericBootloaderLoad<'a> {
++    bootloader: &'a GenericBootloader,
++    dmem_desc: &'a BootloaderDmemDescV2,
++}
 +
-+  The "vga" domain has a pin controller which provides
-+  - function selection for GPIO pads.
-+  - GPIO pad configuration.
-+  - GPIO interrupt handling.
++impl FalconFirmware for GenericBootloaderLoad<'_> {
++    type Target = Gsp;
 +
-+  In the VGA Pin Controller, there are 4 multi-function GPIO_PADs. Each of
-+  them can be multiplexed to several peripherals through function selection.
-+  Each iopad has a maximum of up to 2 functions - 0 and 1. Function 1
-+  is the default function which is generally the GPIO function. Function 0
-+  is the alternate functions or peripheral signals that can be routed to an
-+  iopad. The function selection can be carried out by writing the function
-+  number to the iopad function select register.
++    fn brom_params(&self) -> FalconBromParams {
++        // The bootloader is unsigned, and the falcon HALs of the chipsets that load it this way
++        // write no BROM registers, so these values never reach hardware.
++        FalconBromParams {
++            pkc_data_offset: 0,
++            engine_id_mask: 0,
++            ucode_id: 0,
++        }
++    }
 +
-+  Each iopad is configurable with parameters such as input-enable, internal
-+  pull-up/pull-down bias, drive strength, schmitt trigger, slew rate, input
-+  debounce nanoseconds.
++    fn boot_addr(&self) -> u32 {
++        self.bootloader.boot_addr()
++    }
++}
 +
-+maintainers:
-+  - Changhuang Liang <changhuang.liang@starfivetech.com>
++impl FalconPioLoadable for GenericBootloaderLoad<'_> {
++    fn imem_sec_load_params(&self) -> Option<FalconPioImemLoadTarget<'_>> {
++        None
++    }
 +
-+properties:
-+  compatible:
-+    items:
-+      - const: starfive,jhb100-vga-pinctrl
++    fn imem_ns_load_params(&self) -> Option<FalconPioImemLoadTarget<'_>> {
++        Some(self.bootloader.imem_load_params())
++    }
 +
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-controller: true
-+
-+  '#interrupt-cells':
-+    const: 2
-+
-+  gpio-controller: true
-+
-+  '#gpio-cells':
-+    const: 2
-+
-+  gpio-ranges: true
-+
-+  gpio-line-names: true
-+
-+patternProperties:
-+  '-grp$':
-+    type: object
-+    additionalProperties: false
-+    patternProperties:
-+      '-pins$':
-+        type: object
-+        description: |
-+          A pinctrl node should contain at least one subnode representing the
-+          pinctrl groups available in the domain. Each subnode will list the
-+          pins it needs, and how they should be configured, with regard to
-+          function selection, bias, input enable/disable, input schmitt
-+          trigger enable/disable, slew-rate, input debounce and
-+          drive-strength.
-+        allOf:
-+          - $ref: /schemas/pinctrl/pincfg-node.yaml
-+          - $ref: /schemas/pinctrl/pinmux-node.yaml
-+        additionalProperties: false
-+
-+        properties:
-+          pins:
-+            description:
-+              The list of IOs that properties in the pincfg node apply to.
-+
-+          function:
-+            description:
-+              A string containing the name of the function to mux for these
-+              pins.
-+            enum: [ gpio, vga ]
-+
-+          bias-disable: true
-+
-+          bias-pull-down:
-+            type: boolean
-+
-+          bias-pull-up:
-+            type: boolean
-+
-+          drive-strength:
-+            enum: [ 2, 5, 8, 10, 14, 16, 18, 20 ]
-+
-+          drive-strength-microamp:
-+            enum: [ 2000, 5000, 8000, 10000, 14000, 16000, 18000, 20000 ]
-+
-+          input-debounce-ns:
-+            minimum: 0
-+            maximum: 10485680
-+            description:
-+              Debounce time in nanoseconds. The hardware counts in 80 ns
-+              stages with a 17-bit counter, so the maximum is 10485680 ns.
-+
-+          input-disable: true
-+
-+          input-enable: true
-+
-+          input-schmitt-enable: true
-+
-+          input-schmitt-disable: true
-+
-+          slew-rate:
-+            enum: [ 0, 1 ]
-+            default: 0
-+            description: |
-+                0: slow
-+                1: fast
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - interrupts
-+  - interrupt-controller
-+  - '#interrupt-cells'
-+  - gpio-controller
-+  - '#gpio-cells'
-+  - gpio-ranges
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        pinctrl_vga: pinctrl@11136100 {
-+            compatible = "starfive,jhb100-vga-pinctrl";
-+            reg = <0x0 0x11136100 0x0 0x100>;
-+            resets = <&voutcrg 14>;
-+            interrupts = <236>;
-+            interrupt-controller;
-+            #interrupt-cells = <2>;
-+            gpio-controller;
-+            #gpio-cells = <2>;
-+            gpio-ranges = <&pinctrl_vga 0 0 4>;
-+        };
-+    };
++    fn dmem_load_params(&self) -> FalconPioDmemLoadTarget<'_> {
++        FalconPioDmemLoadTarget {
++            data: self.dmem_desc.as_bytes(),
++            dst_start: 0,
++        }
++    }
+ }
+
 -- 
-2.25.1
+2.56.0
 
