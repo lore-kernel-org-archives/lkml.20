@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700337;
-	b=ANctgZRhj/nAgdo8XHxTdatWUvOFOtGE+dGb7XCoIKCAgjz/njrvj1gFVPl/FtO3VzEi
-	 zWhd60aA9zdgMg/TTfLxclC1lx4+ttZ2nj/GYjLJB5T8nNrsILJCUzaf7Mw9cmCWltzBg
-	 O13eYeTGdr4wWOeKUTjBniT5UEsoDHuPhvGS3i0rhYLzYaw6UbQB6cXma+xKnL+EbmVU+
-	 a0bbjPnC6762ZHLYrmOJmqgQ8XPELgBlDs3R97foZ1e8r5oxMDNPpoJbzh9D5hnavAeSh
-	 P+WDqn0PwmHCMZQn4OR88OHlnriRNwY7/py//s3tXnushhwfu2N4PSoBtrg3USYfpeQ==
+	t=1793700342;
+	b=HBaEETGG+tlU4ZlSeCePRj69h0ibHr1BbEoihP+9i2vx802N/gTqxRB0V/rT35AVbfmj
+	 zdgrRvbNP0sH2Q/Wb3t/CLVdzyp7YLO+c4VSZNVvaTCIFRxYXdtIP8vEdcPh8rexfBJYy
+	 JCaDIXq8fpzom96YDJG+OZK+j/Bkwk/uFCr8mSNxdN0dvIZ2X1EEyl3hjTvtIv94WY2fE
+	 Rfbq73ZJQsIs3HL/RBDG1/1k2OW5LFSP2ynHEwdGQULrkDVWUrfpab7KEwQWHagihE9GK
+	 jFuI6Pu/ZwZwdi8Nr8sBIbEw5fno+F3gZ6UHjaxbK1Teb+gteGosoZYilBKNtW9pMlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700337;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=HCukR9YFAOk3lavwPJ7DeboS3Lw+qEhNBmLe1sbsC3o=;
-	b=1ZNef7yUvoxkvx66kxU0tExzbhGhTLjncVCQQrxqI+wdHfBg5aFCbJeKRIDXULw4TppT
-	 Cal64UQDsZTYf/pG+7aE+ha1yV59aoWCbELPRuAYRu291eV2qUeySt40j9jM+0p8IC8A5
-	 AFI16Dtza1s1NylfH76vTCSAB+KQ59Ln5BtieuHjf8TcLYEVDjeh7f+xZ7knfEWBwfASK
-	 H57bZGZTgDrAndQOIB4dlmvHvomSId1Dq13zo56OMkEVqCk+ku3w6V1BA9tf36kmcu9QB
-	 Crjp6txQVF4fetsD9qCbjX7rgbjjgO9a2yGTMomD3TwkiuN+q871ot/E7IsnElS4e3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700342;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	b=sZ8iIiaepkG9ZzJ/n/c+7ROgmVKkehmYoWkgnkqIwTWamhYPELFWCPk2MhF0uYki3ycC
+	 8ewVYQhlvHjPrpImqKu83L2uKDGqZI2Dbxc2vVkVP7oHs0/rMDM4xIXSbCqy8Y1JKlIEc
+	 o99lNrLy8WF8FQ719U7F3trMELcUxtzZiMEhoGkEWC+KvVGcJdvcpJput18yxaGyYUQG2
+	 dxGlkyx0/l7bwhurAyCBc3+Vyr+pSNfaVyAmiFMbtNyJ8yOiVsuB5+gkYifu6M5fqRoSh
+	 B/7DOlUaMOXYcvF6vyL5ObgG4P857hghsd+sGE3nBXOB13pAJNfBr5yR1+GvUefeISw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="rBe/U6iH";
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F996083637;
-	Tue,  3 Nov 2026 10:05:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F996083637
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAHGJnjselqfHs7AA--.2489S2;
-	Tue, 03 Nov 2026 18:05:23 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Madalin Bucur <madalin.bucur@nxp.com>,
-	Sean Anderson <sean.anderson@linux.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAF160A6F76;
+	Tue,  3 Nov 2026 10:05:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EAF160A6F76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=rBe/U6iH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=rBe/U6iH87B0qY54XpJ15tczz5
+	WjXEq5V2yu05cJftNIUkU56GDu3kh6sRGL8+ioilyfGpgpJeQCXlxWvsIuHpGDDllor2S+NENnQIK
+	nMXcnWQ7IjltbuIsSeQ4iARBnaZVqFEoqNNzwSoBPFd7VoluptQ023hJTp7ZTqndlXaqB02t0exhs
+	8H9zIgxSJVFmDkFUkizRU9Lc1EPVCgkPFqLLr7TYCTx/VeY5dlLY75n+qMDR+3XJGrYNdtvmUNQGr
+	UJzVSo2pjUpprKXKpxbmDSlE8n8y2dQIriej6hX+mXTjbzL6Qqy2JLOkvmtufPGazrkuG/1YupW/O
+	5J1QUnDw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOBOf-00000001sNo-2nyM;
+	Tue, 03 Nov 2026 10:05:41 +0000
+Date: Tue, 3 Nov 2026 02:05:41 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: axboe@kernel.dk, arnd@arndb.de, ben.hutchings@codethink.co.uk,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] net: fman: drop the FMan device reference after port probe
-Date: Tue,  3 Nov 2026 10:05:32 +0000
-Message-Id: <20261103100532.1309969-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH] block: Return the soft block size for compat BLKBSZGET
+Message-ID: <aumx9cUHc82OE0zZ@infradead.org>
+References: <20261023153645.37546-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,81 +64,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHGJnjselqfHs7AA--.2489S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kry5ZFWUJw47WF15Zr45Awb_yoW8Zr1fpa
-	yDGa909rWrG3WY9w1DXa1IvF10kw42y34rWryIyw4SqrsIvryrtrWUZFyvvF43ZFZ7Wa4Y
-	yryUArZ7AFs8J3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
-	IYCTnIWIevJa73UjIFyTuYvjfU7nmRUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIBh+QAAsf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023153645.37546-1-dennylin0707@gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-fman_port_probe() looks up the parent FMan platform device with
-of_find_device_by_node(), which takes a reference on the embedded
-struct device.  The reference is released on the error paths, but not
-after a successful probe, and the __devm_request_region() failure path
-jumps directly to freeing the port.
+Looks good:
 
-As a result the reference is never dropped.  Put the FMan device and
-the port node before returning success, and route the failed region
-request through the existing cleanup labels as well.
-
-Fixes: 18a6c85fcc78 ("fsl/fman: Add FMan Port Support")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/net/ethernet/freescale/fman/fman_port.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/freescale/fman/fman_port.c b/drivers/net/ethernet/freescale/fman/fman_port.c
-index 1b8fef69114e..faf1e35399cd 100644
---- a/drivers/net/ethernet/freescale/fman/fman_port.c
-+++ b/drivers/net/ethernet/freescale/fman/fman_port.c
-@@ -1850,15 +1850,13 @@ static int fman_port_probe(struct platform_device *of_dev)
- 
- 	port->dts_params.fman = fman;
- 
--	of_node_put(port_node);
--
- 	dev_res = __devm_request_region(port->dev, &res, res.start,
- 					resource_size(&res), "fman-port");
- 	if (!dev_res) {
- 		dev_err(port->dev, "%s: __devm_request_region() failed\n",
- 			__func__);
- 		err = -EINVAL;
--		goto free_port;
-+		goto put_device;
- 	}
- 
- 	port->dts_params.base_addr = devm_ioremap(port->dev, res.start,
-@@ -1868,13 +1866,14 @@ static int fman_port_probe(struct platform_device *of_dev)
- 
- 	dev_set_drvdata(&of_dev->dev, port);
- 
-+	of_node_put(port_node);
-+	put_device(&fm_pdev->dev);
- 	return 0;
- 
- put_device:
- 	put_device(&fm_pdev->dev);
- return_err:
- 	of_node_put(port_node);
--free_port:
- 	kfree(port);
- 	return err;
- }
--- 
-2.34.1
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
