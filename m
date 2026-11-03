@@ -1,68 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692295;
-	b=t2kCITogx1JILkCLFThDKbmskcxP/sA7Ni4qscuVa3KJ9Q0PF95PtUAGy4mRClyYyfZH
-	 H8D65cNkXT3uRHWPFIvco7OiCh6r1dbxlbUpMzbhgCqGJ5QAENwTxK73T6Lc+kQtCyEaM
-	 r86mt2mUO4YbR+9OYXta4HqBMh5uY/fD6vZu7rCpjWCPhY8Pli0jOrntChV5FGibEr1xL
-	 m2h021LNd4sbGVqqCke80Gs+JjcRSFeBIKLna2djzsr/1PMBsVpypFFc4iHzsE75jZibj
-	 BdMJrWVQeq/w4Zl2sSF8jd8Bq1AkmXgLxJw/gXUP4q5PMlTpOZN6OW0dhsQGIRIGMpA==
+	t=1793692353;
+	b=C37grSQHF8FOhBPvycrYZd9Qq8cIhHZPtvKAgJIhIV2TSnnN9bc7mj+7+1aGOSkQkwBV
+	 jzQJFzlUblQtWOfF3gh+w3tBdqlRLwb5MftOTumSvJQVU1rJvBGZ1xRcYVotYcpdbtP2O
+	 gLZp6iF8l20NKgsLTSy9EoI+4/letyqQLrs80gvPg58m5+T6+kFX71UBJ40yNlIDKePvv
+	 20ZAM1zCRZ6EKrRF8HYab+kvgFVWKShoyvghdnAlmbthY8gHRqVPfBrtZfh4dvMMg628Q
+	 qkNGqSDwYJ0DtceWRDhVb2b7+XMH1Nm6MsDNzYRgMkF3SGvzjf/MGtKGXVCMTW0SiJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692295;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=i4FRcqlBkKrERcX6LVE6bfkkzsZUFWTaKDF/GtJ2zvU=;
-	b=A5AH0Zm6AaU8rtyHTfySIJO4XLdYrPqUJEHLuOA1GFbQ+jtP7dd3+F6axeMV6yP7CSjl
-	 SSLZzCaYyp2r3bfflIm9bp/qSABTen0MH1H/dXEFferyRAxt5nsEtxdXzohPPvjbUykIJ
-	 i76QGwTITYw8bpP2vZIIjJH6sGEoCYiABS0cwYWvUHnG0xnB7k1MnWewKlSEreesUYmzy
-	 crNI8c6gNeZMcb6xDro75MyQf/TCIC0rG+kB9lG0Y84hBTDLdWEXn7fTv0ytteXYXGmIa
-	 H+N1KxaZZnysx5m2CO8wsquRcVueqtfY51Qke/FBOnFVAuTbZg1netZJHLtsSpPBVmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692353;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=6R7CNAZpahPnRPALzexY2OH6fEkMajMjI2gkDqsBlDU=;
+	b=UxKXOTCixX/niaZFBaeH7hsNADHpy0jEk+5nWCso+zq2LkJPV+ReJvc+7Tb9kWe/2S4b
+	 opS/1J2btcWFuDmXHFdli4wjkTsUyBXXg7vL4FgkLOdOafFSr0jZ7gWA46FhpfOD2kwjT
+	 dK2lOSgCzKqKOTjsUuccJGmDSKbiURx62LMf5o3GtBoVhzGF2EyEwoQ+mWdkWhvKWKlzs
+	 29rjwf8hgCEg+QCZe47MaqApSr/bbJylJ/YZEPOn4ZrP2kh74AMQnluIFgAnSSvB/cmuj
+	 gFz5np6H0ThupXI17/L4d0vP276xts3H8mvvfaZyy7MdA4n/LNF7C8pWKuX2XurDvPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=rpEsjF5Q;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jwFFhm2t;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE25606D825;
-	Tue,  3 Nov 2026 07:51:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDE25606D825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36117606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:52:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36117606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=rpEsjF5Q
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=i4FRcqlBkKrERcX6LVE6bfkkzsZUFWTaKDF/GtJ2zvU=;
-	b=rpEsjF5QczRhKBY+ehfn1H9Yzuez1IjYCW/ZZrzhAj7X1nsUoWgsOQlHQD5ekVuQHF/zhZd9T
-	p4omz5pjWT/2AFn9ffiVVjrbToXTfxAMMwAisYHew5su0c58wCW4opIqhaW6re2xyvlReZ/cs2o
-	5LelcGQa0OlzG69jS4jpVlw=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jJgkK0sqYz1K9X7;
-	Tue,  3 Nov 2026 15:51:21 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5A69B40561;
-	Tue,  3 Nov 2026 15:51:25 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 3 Nov 2026 15:51:24 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <nicolas.bouchinet@oss.cyber.gouv.fr>, <xiujianfeng@huawei.com>,
-	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
-	<shuah@kernel.org>, <caixinchen1@huawei.com>
-CC: <linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<lujialin4@huawei.com>
-Subject: [PATCH -next 8/9] Documentation/ABI: document the lockdown securityfs file
-Date: Tue, 3 Nov 2026 16:24:20 +0800
-Message-ID: <20261103082421.3033195-9-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
-In-Reply-To: <20261103082421.3033195-1-caixinchen1@huawei.com>
-References: <20261103082421.3033195-1-caixinchen1@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jwFFhm2t
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so25472175e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:52:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793692346; x=1794297146; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6R7CNAZpahPnRPALzexY2OH6fEkMajMjI2gkDqsBlDU=;
+        b=jwFFhm2tuc1+z5jLnk8sYRGl0PF0y6/Ww1TdQrFosY/eeNTOr0xylurNbVeVQLNlZv
+         2CZu1AuVJjMeshKnvR6pMhS9fGTwvqZdnEbDID7huggt7Txf27tIREa0kZIJ6KbvPXyD
+         I/+GUlkENCStsCbpiDiekWaOA00Dfz4TgKC7KHzjsdPAycZ9fMIJNkao+YHjzSTAH+PU
+         +3gPOww4J5ryq6pbu4zJwbp22ZnGrrE4NursYmlPurU6VQIF12FJModxPj9Q4Y+ohyOe
+         puhN+lDJptO1YJBC9+qc3iDZ/1/5lK40wJz1wHBHQgTDaOpE5SOJZtoUR9po9K1bOva9
+         83PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793692346; x=1794297146;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6R7CNAZpahPnRPALzexY2OH6fEkMajMjI2gkDqsBlDU=;
+        b=KwAZNNFqFMEljGcquUtc/AwvK/12OQDa66NuQPmeeH3kEH6i0fnA9cZHdvVR1rMl7R
+         twyh7spJkY3cle2VGlzWqXMGkY5QJP9p2jhknMik2zotSx8aC9rtienGlo5WbLi7cI4M
+         x+KXEBxpXnd3APW7eu+iQt4LRyTmwo9jqn10u6GtFogSznr83I5cnSsansqH3+YNJLNA
+         UM6k8/7/5B7HaG32V6F2E/hsXLqn5G5/w7KNg4/+cNf6Pl5tpljAzwLbtRMliRa2YXBW
+         vme/AIbii7LYkR3b8HlF+riSs9K9xm9SmDRzV8s0ZqYe82wEolfanRTLDC3MAIGlrwNe
+         Ojtw==
+X-Forwarded-Encrypted: i=1; AKwUvBzgZ7zVxw72ec1KLx86JpOL/G7R0KVBPUl+DUBZBRg7OzT6t/qOG8utE885G97fRqrzZGkUoJqMVHs7N+I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3zHHrUh4Of5VsxIa4w9CA3a5nl5I0GfT10Zerx+jwmNfgM/gk
+	KTJv5nodc5lYeIXykroQBSJti9XhAlb5SqiDi1qz1b084cg8Z7QGT/AG
+X-Gm-Gg: AYBFou1flDGt7In8yEsXibTIlfB0ex5jdosQ8wm1naTnRt7WI65yEBJeEGLzuS4SUbu
+	VmrGgr21BH1GvubWx8hDVBIoYL+KYDUJjQmSoWhFAhepzepeTw3r1ZC9vB4f5giqG32CJvfjz9O
+	K9C5ZzHRAyv9xjYX7kLKBdPbWEUdyH65QIIt7sJ2YhvpDpCZJK1hKQqYm2YytkcuIo2ZLryU6MV
+	xZtA1rP4M5jNGFtxCasHkygK83eNQBWcwJ6eKsyPAv9bEGpTt1IEPdke5HZX7ebgFtEf/c+TuWS
+	ywTclL4OKA9Yhvkw9o3e8e3j5bfO4tM7IUSjzD/sm1Fct7U/qV01zHTxjuzv4XedJu+AP5GyDRd
+	LU3r3Ov6wTiXUGu+faPuFL4xdtGYVr6fQ6vQJ0kX2+7BtEHdwFoLpMtYyVwhHLwSD10nWOUNKOp
+	sWHkA1DlnkIy2fJMVDksfWGkkr9U5OUdNZsolobAQK443QZBwnBpNWaU8/uaA3cT5EGzEHzIq2C
+	QolSieqw6lgqlhKlOm4mg8PSpBV87FLxcXTxYsZ4tDFDag5fdeCK7LNguOOHk35/X4sxvVDuj2l
+	ho+61isuz4cELLqCMwExzZ9q/hNMmID+V8pZjPfSUh5KwL3zh4p8GcoqDh/Hh7AcKl4jZKCxog0
+	SkG70iodMZxasrapp6Bjez94KfG3ZjRepiBG0ZbVztFxrCe0yEW6v2l/HxS8al1Q7ZQ8nArHIl5
+	izwg9OUazTd/M=
+X-Received: by 2002:a05:600c:4e49:b0:4a4:6fdb:cc42 with SMTP id 5b1f17b1804b1-4ac17b2c38bmr299232835e9.11.1793692346478;
+        Mon, 02 Nov 2026 23:52:26 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aa953d35sm37915295e9.9.2026.11.02.23.52.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 23:52:25 -0800 (PST)
+Date: Tue, 3 Nov 2026 10:52:22 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Eric LI <eric.lee0305@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: fix space prohibited before that close
+ parenthesis
+Message-ID: <aumStg3EuhPbWkZu@stanley.mountain>
+References: <20261031042315.1122699-1-eric.lee0305@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,84 +101,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031042315.1122699-1-eric.lee0305@gmail.com>
 
-Describe the /sys/kernel/security/lockdown interface: the levels it
-reports, how the active level is marked, when the file is present, and
-the write semantics (escalation only, EPERM for the current or a lower
-level, EINVAL for an unknown level).
+I'm going to Ack this patch.  The other patches to silence this warning
+introduced weird no-op macros but I feel like this patch does the right
+thing.
 
-Also add the new ABI file to the LOCKDOWN SECURITY MODULE entry in
-MAINTAINERS.
+Reviewed-by: Dan Carpenter <error27@gmail.com>
 
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
----
- Documentation/ABI/testing/securityfs-lockdown | 41 +++++++++++++++++++
- MAINTAINERS                                   |  1 +
- 2 files changed, 42 insertions(+)
- create mode 100644 Documentation/ABI/testing/securityfs-lockdown
+I don't really care if the patch gets merged or not, but in your heart
+you will know that I approved it and hopefully that counts for
+something.  :P
 
-diff --git a/Documentation/ABI/testing/securityfs-lockdown b/Documentation/ABI/testing/securityfs-lockdown
-new file mode 100644
-index 000000000000..490dc607492c
---- /dev/null
-+++ b/Documentation/ABI/testing/securityfs-lockdown
-@@ -0,0 +1,41 @@
-+What:		/sys/kernel/security/lockdown
-+Date:		August 2019
-+KernelVersion:	5.4
-+Contact:	linux-security-module@vger.kernel.org
-+Description:
-+		The lockdown securityfs file reports and controls the
-+		lockdown state of the running kernel.  It is provided by
-+		the lockdown LSM and is located at
-+		/sys/kernel/security/lockdown.
-+
-+		The file is present only when CONFIG_SECURITY_LOCKDOWN_LSM is
-+		enabled and the lockdown LSM is active: either
-+		CONFIG_SECURITY_LOCKDOWN_LSM_EARLY is set, or the LSM is
-+		listed in the "lsm=" kernel parameter.  Otherwise the node
-+		is absent, and userspace must handle its absence.
-+
-+		Reading the file returns the supported lockdown levels,
-+		with the currently active level enclosed in square
-+		brackets.  For example, when the kernel is not locked
-+		down::
-+
-+		  [none] integrity confidentiality
-+
-+		and when the kernel is in integrity mode::
-+
-+		  none [integrity] confidentiality
-+
-+		The file may be written with the name of a level to lock
-+		the kernel down further.  Lockdown can only be escalated,
-+		never relaxed, so writing the currently active level or a
-+		lower level fails with EPERM.  Writing an unrecognized
-+		level fails with EINVAL.  Successful writes return the
-+		number of bytes written.
-+
-+		The kernel can also be locked down at boot time with the
-+		"lockdown=" kernel parameter, or unconditionally at build
-+		time via CONFIG_LOCK_DOWN_KERNEL_FORCE_INTEGRITY or
-+		CONFIG_LOCK_DOWN_KERNEL_FORCE_CONFIDENTIALITY.
-+
-+Users:		fwupd and other userspace tools that query or manage
-+		kernel lockdown state
-diff --git a/MAINTAINERS b/MAINTAINERS
-index aaf2825ac945..38ff3797f2cd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15621,6 +15621,7 @@ M:	Xiu Jianfeng <xiujianfeng@huawei.com>
- L:	linux-security-module@vger.kernel.org
- S:	Maintained
- T:	git https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/lsm.git
-+F:	Documentation/ABI/testing/securityfs-lockdown
- F:	security/lockdown/
- 
- LOCKING PRIMITIVES
--- 
-2.18.0.huawei.25
+regards,
+dan carpenter
 
