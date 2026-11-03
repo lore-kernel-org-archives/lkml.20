@@ -1,60 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.117
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793727464;
-	b=skkyvM6RpNvu0BvIt3tZrwjY9ujswGKCOpVaoktZyF5N/3qtyd3zHsIG4ULgB1olOsbc
-	 egAElZ/Li54f32yyhr3piE/8jUSBsobgXA4+O/11EfV4yBcyjKXtPhbFEetb4DYtu61jZ
-	 wrx0NkxDf6h5O2rMzgzDvXniWo5/fAivN2fkP4i7vBcFfJdBk7ZluCeg4RB98q3VGMNtA
-	 leCC6mdpyO7K91kscIEQv+EnNFGUD65JtPRIxGcgpfbMTflJKU//HCTNs4aVn+1qg6buz
-	 t+C7bUTB4j7/jmwpM2bGLPABNcveWiH/dap2Wmp4aYJ09oLUN2SBWGRLtPbBUbztUIw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793727464;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qFjhgIGgPZUYlvL+RYcSfUXPWGvrnI6FenzKH94jOMM=;
-	b=DO81q76VtVsiISVzxyqH7hDSmPogzaj2XQNlQrnEtV/vvKKiB/37kHqD47jX947mjW3f
-	 KBgr96YMEdvVvg5Ay1dcqRUoIHSR11Nt3FRVMxxGcN5NSIrsqZI1HuaJ7nqRArPEz2o0Y
-	 mfX/IfwlgBoZkcdqeEslUl9VgM/96bXDjRJQdYxD9vFWwSnxK0vrHEZpKvnk7/4ZUtlpy
-	 rTSlGzWDW19sNJEoFRmvraJj+kNfyvMgwxfgNatBYqezBDLUAM+Qk9BBt6hwPGrv2q9r2
-	 wu3tL4uWzxyrSY3BPBv4CJCBI1//rsm9W4Db0t3SVeGgwfSHvauBzUjI2qPmPkBE22w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=karaolidis.com;
-	spf=pass smtp.mailfrom=karaolidis.com;
-	dkim=pass header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=wRvZOb3s;
-	arc=none smtp.remote-ip=109.224.244.117
-Received: from mail-244117.protonmail.ch (mail-244117.protonmail.ch [109.224.244.117])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793727479;
+	b=qdwTZILMpQPCexMfmDQmha7E6Ft/Z+NzZxGZVNki8Rpw1E2MUrtMT/QS63SxSWMb4DAc
+	 gWKOcKM9CX5nMDH+jUQQqKwQZs7bvBNs4utvAcFkR9X+4/9BPQ/toJggc8TxMRoGta3FO
+	 /WKOpJdqFgjsb0Sdtg9MuJUH70S9AYLn0pYKrHNGXEwHH+5m7kA7lg7yry2KtxWRKyZ2K
+	 WOxVYsdwqXaIam45px8amHpJui06d3ZjKDOcB4pBgUXWGHcvcRIbq5645nGMYGHhl9Fpv
+	 p7dWEFbYoog+Gjwla4V/GRAd+zWlSbvQhN/ZMOdNlM6cG8k1KXmdKWDdmjJDHuRV7Sg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793727479;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=i43QKafOz1PWWQERC8n1Cv+ufMVMze6Rma/7HGXWp+Q=;
+	b=dbUmpc13gBpp6A8cZfqa6DTCS6R9poEXFn1N8L6yRKmfyWjV1HMJEye30iw1oPwVr0eV
+	 MiFh6h5yjMKHWs0n8fn4O8swMwKbjU/gS7PTBRJ1HUtFvU8bVp3aON/VgewOUm4U0lwX3
+	 o9LJ8XRaoCNEsxZQQDXZ2ejUQG5DHjsOyVpIfqwDs6kiIZIczxyDF4HQKH4vvQ8XomR71
+	 dMQGKydmQco4XcCwIPressdYKhWk33XBfO7mfOcgqLuuWDANkm4xYYCkvCLaUlvi3KURc
+	 /S3+fYGSCR7k2r4b7n4dm6wgpKNpcHZdiuqXtWEBouWvJqP46ya1RaGH43lkJr96c3A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eby5NgVd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.6
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013006.outbound.protection.outlook.com [40.93.201.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49199606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:37:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49199606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D088606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:37:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D088606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=wRvZOb3s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
-	s=protonmail3; t=1793727460; x=1793986660;
-	bh=qFjhgIGgPZUYlvL+RYcSfUXPWGvrnI6FenzKH94jOMM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=wRvZOb3sE3o59vmGwvbkJ49QorWYcdSvzlj8XXAZic+nqaL8DGQ2lwfyGveYMZn2+
-	 uP7JMbZVJ35G7ju606zIJ5GiIZSqJSqXFJYsGPGBUvclWtIjwt4ZdMY0X/IoAHZbxU
-	 8RjdHhuX3k8ycoj+Pz9FBK5a2cAcWa4Z9ClukeMD1E2MWkBcqXGTrcppA0GesLHMSu
-	 D72mvXFvpKGF4eGLnNH5F62MiL+ctCnUL+nl8ryPaLXa6AMapR+KGcWco3+SorPH9i
-	 +1v+mhfGSZvbhybpL2OCZ40+zmJIv3BBkLF6hcRdQUDakvY2l4ZCgZ7WqTdrGp0J84
-	 k2uSOebhIKFGg==
-Date: Tue, 03 Nov 2026 17:37:32 +0000
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-From: Nick Karaolidis <nick@karaolidis.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Oscar Salvador <osalvador@suse.de>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, =?utf-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>, Hui Zhu <teawater@gmail.com>, Georgi Djakov <georgi.djakov@oss.qualcomm.com>, virtualization@lists.linux.dev, linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org
-Subject: Re: [PATCH RFC 0/6] virtio-mem: support memmap_on_memory
-Message-ID: <TOhF_b9SkdekrK9Ee-ti1ZwiT3wqERe1fpF8nA8WgHb-MX26lmQTex3l_NDfWzFKR7gcmLfjxB2YWixGw3LpR1mvgmPWR7uy1bkqbGREMpQ=@karaolidis.com>
-In-Reply-To: <fd6094d5-50d3-4e73-8c09-91b0769476ab@kernel.org>
-References: <20261103-virtio-mem-memmap-v1-0-308ae1da6240@karaolidis.com> <fd6094d5-50d3-4e73-8c09-91b0769476ab@kernel.org>
-Feedback-ID: 101209095:user:proton
-X-Pm-Message-ID: 08ccacc36e0bd2d68f132c0bd7bb29272cb682f1
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eby5NgVd
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KHgXgi1YvHstlv+6WrV+DSI/ADnxC6MkZpWFZWlf65YP9Qd1OZISaoKFJ1Ahl5sx5HQPTZNV70D8+uiRyqHs21fdr18ImtRkb68rlkOmkluyOYSTjI3YfRTMEE1BWzMHV1mAZ9gW1DxCDxKKLPgLQnR0mZhE35knwLsk5RvP3SIDsedV5685jb0SNfzD18Y+QrWEQkO926BR/G6ddNkK/J/t5ZnNdOPIfL5Ps02vDYFhs2RgsgJyJ9vwBP6tGiWzTcBxo5zk5HzmABIkKwrbr1ZQznDx6bIjizmUiWoEHTiUfv00bpk+sLuTmNQFEut5+XHmmhGM3ZZ5l/12eEdwZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i43QKafOz1PWWQERC8n1Cv+ufMVMze6Rma/7HGXWp+Q=;
+ b=XSYFqnz5I7TNfiblXsYMT78RNgF4mX93rIOYsKc1xOihTIgdpuGmUfLLBxOlFftg6q3ZTBpZIOrpaBkA0lzug0SaoKB/UW994272UN/dnAfBe5jINEj4fJMUpLrVabHrBQ/9MCO+P7IXD9W0Z67Vj5vgmhObMMLd0NelrJfNcl461OQWenBWyNz1KyN5+Q3Dtci0Wi7jN6hW8cqHyQSHgeIvlnzJhF3rMGmM1CHLMCUL3DLUzOgk9uPc3hyNLT9QXgmBXQJLaMlnnUIq/Y2QbsCLwyTY6z2Iwxk7SyakfQ7MxtY9E/tzQ3SlTrdrsjxnX5XbACRQZnOjbkoBw6zaZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=intel.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i43QKafOz1PWWQERC8n1Cv+ufMVMze6Rma/7HGXWp+Q=;
+ b=eby5NgVdS8KZ9tHsty1JZaCm8Bi8XAfbbx5tNab+wQzxT9+Ijt3gNL1yzi4biblN9VtUku+nP1dA2TuDnMQsv2PMCPEwSC+4qSXWdaWQ/mvFzMK8GrbZXBpQxNkMBkZZu5g9LMG/xNc/zk85ZYYe8bVZ0ozmHQHIs4KJkUKXF8AtqQWoyEq530IgrBXeXiAbBYa62CzlNzJDs4scBHuHy/DWqfLfrJqWYQRBzYuYLxz6Lw8PQeF0wrs5GUfGea9D0cWt7s/i5853BSyHto9mOaMOyvXDeSZMDhSB34N128NEd15BorojR3Yuzk43gFEtIe/ELiVyBZLZBtCdyo1YDQ==
+Received: from CH0PR03CA0038.namprd03.prod.outlook.com (2603:10b6:610:b3::13)
+ by SJ0PR12MB6856.namprd12.prod.outlook.com (2603:10b6:a03:47f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 17:37:48 +0000
+Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
+ (2603:10b6:610:b3:cafe::3) by CH0PR03CA0038.outlook.office365.com
+ (2603:10b6:610:b3::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 17:37:47 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 17:37:47 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
+ 2026 09:37:26 -0800
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
+ 2026 09:37:25 -0800
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Tue, 3 Nov 2026 09:37:22 -0800
+Date: Tue, 3 Nov 2026 09:37:20 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Yi Liu <yi.l.liu@intel.com>
+CC: <joro@8bytes.org>, Lu Baolu <baolu.lu@linux.intel.com>, Kevin Tian
+	<kevin.tian@intel.com>, Will Deacon <will@kernel.org>, Robin Murphy
+	<robin.murphy@arm.com>, Jean-Philippe Brucker <jpb@kernel.org>, "Jason
+ Gunthorpe" <jgg@nvidia.com>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 5/5] iommu: Reject a same-domain replace in the attach
+ handle APIs
+Message-ID: <auob0IV+h0aiW8u2@nvidia.com>
+References: <cover.1793602084.git.nicolinc@nvidia.com>
+ <b7dd43ba78b7342a2e0356870502746a8b7f34aa.1793602084.git.nicolinc@nvidia.com>
+ <68570abd-f619-4d9d-a7af-d2acf1f9aad3@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,68 +119,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <68570abd-f619-4d9d-a7af-d2acf1f9aad3@intel.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|SJ0PR12MB6856:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06ff8705-180a-4ad4-eee1-08df39d12d2a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006|261021135927099003|261022105027099003|261026121527099003|261028144727099003|261102130727099003|261026140227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	zrjI5gFC6c9/rctCHHh0HiB6TxGN7SWYSF0eiQul0NVRYV7mp3Q+faqljdjusg8HM9px/ne8u6srOjt749baUj9deTPMxLxwqT6XaLwaCdtOed/5/Tfe0GxegHAbW+mPGNZ8+vKPpfgo2CuD7aH4OypqqEBCFOiME0OXF8EREQ8+ec6VyEu2y6KrBGRIPLZ5yxZWLOYxGFFqOG/Tjsc9RhKqOgQALrONZa64OCUcl48ORrtcbzWZGnF6FN+wa6ZJUYNacfTVFudInwAV+Q8FtWZR0w3c08HvmlKBxQka7HOtB/XkRQs5lzBU1HFe/r1y2x4uQZABVMy8zdnuqLbrF0W5s1MmxjfHmjeFZAbwP37F2ZOIHBn8lb5UoS/KsmG43I+OdtR116dx8QmGpzKPqcFaGfdhtUhZ8TDCHJjnzDjMON/eaAy5zpfHvil0v5d24oHfvPl5/kuF4nczi2QZ0/QT+U6fs5sSpgPkl5ruDgD/d3InpeqLACATbGjIZKQ+3/GoKbDi8hGO8SRsyRzBRzlhczyQlXasj8ETOqUxf1EnHLnV2U4Omm764P024/xHOHneiN1HnPqJj2FCbyDPW158etKhFWFBu4DsRV6ulOVF2kSNnzOf2gTONTVnL0iBKJO63rGLHZflw1convdGsQv2pAKfOPfkiBNsvn84jQQF6EWEmfH100fI3mnh4sDMuwAr/vb9d/JbvG+9O7i91w==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261021135927099003)(261022105027099003)(261026121527099003)(261028144727099003)(261102130727099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HpL2DZkPEcMp5lJcVkEu8U4o0iFRV7/tdTwfVhEYvmz1TSGdpMGMPwVPmBwnoPrbYZzH2ZlI4qfJl28qnTpnx9OiThko+/USOWFk/kyCyih+C4xRc6Mu+qGgr01NRQ/ijoSDvB+5F9WoYDvgUxaZnZiAYtxbXlOQQqIgTfIBlM9DGdb2scaKNFF3aqD6xzJMVDpuv/VgmRsA4JilMmcQ/fxImh55VKyy27aC/W9hkjcqci5NKwmLvMaPaf2l3wxtx76EbhXEXqC6CI6BgpXy7aJrHDqv8QUlF6wKhPMt1LHeC4CZDTTGky312js5zCocdqfSYJ9SWAy0Ffeasz9+qusWZoLhLrZbtqSlj39wjBzC7a2dW12bRfO6tF8XOr9XIbJntl0UgWdNDlvd9Mf8xCdPsohdogk89eU3304yrhzFJ5ZWndF8+u3c15Wq4c5I
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 17:37:47.7526
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06ff8705-180a-4ad4-eee1-08df39d12d2a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF0000013F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6856
 
-On Tuesday, November 3rd, 2026 at 4:29 PM, David Hildenbrand (Arm) <david@k=
-ernel.org> wrote:
-> Care to pitch the use case to me?
+On Tue, Nov 03, 2026 at 07:59:52PM +0800, Yi Liu wrote:
+> On 11/2/26 15:04, Nicolin Chen wrote:
+> > @@ -3716,6 +3716,10 @@ EXPORT_SYMBOL_GPL(iommu_attach_device_pasid);
+> >    * Caller should always provide a new handle to avoid race with the paths
+> >    * that have lockless reference to handle if it intends to pass a valid handle.
+> >    *
+> > + * The @domain must not be the domain currently attached to the @pasid. Such a
+> > + * same-domain replace would skip the driver callback flushing pending faults.
+> > + * Then, those faults could use the old handle after the caller frees it.
+> > + *
+> 
+> 
+> Not a native speaker, but this reads a bit ambiguous to me:
+> 
+> I parsed the last sentence as describing intended/acceptable behavior
+> rather than the hazard being guarded against - "Then, ... could use"
+> reads like a neutral continuation rather than a warning. Might be worth
+> making the use-after-free explicit, e.g.:
+> 
+> A same-domain replace would skip the driver callback that flushes
+> pending faults - this is a use-after-free hazard: a fault still holding
+> the old handle could dereference it after the caller frees it.
 
-Sure! The point of my project is better control over guest memory.
+OK. I will respin a v3.
 
-Each VM boots as small as possible. An agent in the guest throttles the
-workload with memory.high before it OOMs and asks a daemon on the host
-for more, the daemon grants it (or not) by resizing the virtio-mem
-device, and the guest gives it back once it no longer needs it.
-
-From there, one can set up VM priorities, revocation policies, etc etc.
-
-> Is this something that your use case would actually benefit from,
-> or was that project already discarded?
-
-It is live, though on my own server for now, and nowhere near
-datacenter scale. It's a 32 GiB box running two VMs, a CI runner and a
-game server node.
-
-Each used to have a static 32 GiB with a balloon because both workloads
-could potentially use up to that much memory.
-
-At the ceiling, the memmap for 30 GiB is about 480 MiB in the kernel
-zones of a 2 GiB VM, on top of up to about 360 MiB of other unmovable
-memory.
-
-> Why so much MOVABLE memory,
-
-Have you seen RAM prices lately? :)
-
-In more seriousness, giving memory back only works if unplugging
-reliably succeeds, so hotplugged memory is onlined movable.
-
-Onlining some of it to the kernel zones, as auto-movable would, makes
-that part hard to unplug again.
-
-> and how do other kernel allocations (page tables etc) cope with
-> that?
-
-On said VMs, page tables peaked at 75 MiB, and page tables,
-unreclaimable slab, kernel stacks, and percpu memory together at about
-360 MiB. They scale with the workload, while memmap scales with the=20
-plugged size, which is why I started with it.
-
-The other problem I hit was inodes. Their page cache ends up in
-ZONE_MOVABLE, which reclaim for kernel allocations does not scan, so
-they pile up in the kernel zones. In testing with 1 GiB of boot memory,
-that meant OOM kills and usually a panic. Working on it turned up two
-inode LRU bugs, which are now in 7.4-rc1:
-
-  8dc4116041e2 ("fs: don't lose inodes that another LRU walker is isolating=
-")
-  8ee09f597763 ("fs: rotate inodes whose page cache could not be dropped")
-
-I have a series for the pinning itself that I'll post separately.
-
-My VMs have been running with all mentioned patches (with some minor
-tweaks) applied for some 5 weeks.
-
-Thanks!
-Nikolaos
+Nicolin
