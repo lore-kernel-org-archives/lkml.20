@@ -1,67 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793674998;
-	b=hfAlGAvzgutknKHgGVXLDhL8+H2swJS1s61/bV2l/f7RnMgkp6revfaC6RgT50hQKa+E
-	 J5W7saNp2oiJ42R/hZvTZMvuQAzgs2rG/H6eVfw4iT9PnW8zDHvYEtSNeWFzZMe72xjaJ
-	 iefgGWpMsVXIg8lrG5uimdqTOnDOHtjgdfh3f8CqmMcNucOHunSIdpyE3Ooj3Qce4WV1n
-	 /z08avAkOMRL4AGn2WT3ePNDSJAklrhA/5xMdx70T8A+j2axZIgBNqBabRdWbqMyt72+2
-	 KEk2uF/A0kv9xe5usWHaWKgNygenEcy26e+m6oZRKGNImN8H+26wTg8BFlbrQahRNbA==
+	t=1793674993;
+	b=tH4WW5pjjaqfrapOInSs9ZUE7OYe6oI3rZlnLb1odWh4Rh/w709eAYdm3uc8awdKjEjL
+	 hrHvqySq0P3b1r79EKERDPG7t+Uq6Qnmz98S615tszh17gWuweqSCGoqp8W7UXTbbY6LB
+	 CSeBKu02C6qY9NlsTryqHtvRuTvndVBJcfpPETLYoe5Hq0M3B2uQjKvHZenVQxrJ62IKd
+	 6b1snO3pHWqMWFGa9HEg3fwWnd+yNPo0N1JXudXG+o2laiMNfSxls1itzKxO5XJbo0Hgi
+	 JUILVyIK4w9R8uqhejsqQZu7vvgJoX0AqAxyuz7lxnDFpGGhw8K0SFwEwUb4DR7sU1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674998;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LMWGk9gDJDuKIuq5BO2Fto/mxAJ3HEcBl5y5WIpfXJ4=;
-	b=sroZknxmImIS0wi0KASusx/UQxNVXloSzPyqpMhkDiUvpOKXEP/Hm14gl6FbJasfejgH
-	 z/A9tr54qmCpVOB3p373A22iCH4U/0ZjJtna4AD4G44IZmVxzabZBC9EdEJZl7gJ3qjfp
-	 uH3wKATmd8lZeIOP5aJa7IxcHBbfhDWG11Ks/MIKPDUT9Rs+Llwj1yrqXFNcEh1mVdaZ7
-	 eh3QNrU3/b0kVCxV/Q78Fo1Z9bLHK7y0boRrYnxe/suHMShgsz2vw454pJg93IoLu3YRt
-	 FDZp7ZT0kivmqrbf4HxY8HeY43Y1u6BUfsXBET2wPoYld8JgFPqhx+YmOdBgtqjSedw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674993;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	bh=oCrt+/j4hdeOK45YwUt4sEBeoooxnL1Gvg4diMjrU0M=;
+	b=5mM32OsLyvYkZmmnmBxtjkvN9qawPRgBSE9ecBQkvprfPofYQhYsbFuyjPuJASbhoe7f
+	 Uz1m1vbBg5wbbF18gAzlsI9yXPg6F8Zwn57BlXjb9XLaygVxuO1+DbHXHOPvQDdQZXbCw
+	 CUoJy1vF5ag9mwmV03vx70Q8vjPKGGsoAd7ARF+xNb3UBaFcrq+NXp5M/g8/P1oIdXZ1L
+	 18jvuPLUKmdcQSgMq5I6vK+t4jP9YYQqbPbfPRFUoTqut2R0yRIObSN2Y9XmbxElBjwX6
+	 HhB4nDwHQIixK7YIl+ysoJ5omvbHCZMfXbitSepoM1XtbT+EjhD6YSYL+kCNLkTmFGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjcwGPPJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lslxYma8;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id DB9D7606A327;
-	Tue,  3 Nov 2026 03:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31464606D812;
+	Tue,  3 Nov 2026 03:03:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31464606D812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjcwGPPJ
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0E18A1F00A18;
-	Tue,  3 Nov 2026 03:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793674997;
-	bh=LMWGk9gDJDuKIuq5BO2Fto/mxAJ3HEcBl5y5WIpfXJ4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mjcwGPPJo6fXy0uGEgHALXFhsfwXqZkmBQZTHuMatyVfYo9ZVASYOOXEQvJkki82M
-	 P25AEtdOYGsfgDqvyq9qZqAGj9M0gPtthKx+wUzy2FzV0rkaUhB3TxgoiZQGw+XPVN
-	 v1ffea+WCBsytjhUGg9LXD24UIre58NVSrktKxJJauVXmR/7RirB6d9IVvd3DLdbGD
-	 usJ6279QNk6ChFDJqkL9IbD+Wtk/5Iq2x/QqLphlSYB0Gv3zAKGFp4oIDG6mJUSmQv
-	 ySpCrf5EuODXvJBMkct9htQ/vbfn0NUjKOJdC6GPq5K0vROxhFF8qsJm0S8F6K2Sju
-	 3zRBTsfgy/h3g==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	linux-integrity@vger.kernel.org,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	keyrings@vger.kernel.org,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Sumit Garg <sumit.garg@kernel.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [RFC PATCH v2 07/11] KEYS: trusted: TEE: Disable sysfs bind attributes
-Date: Tue,  3 Nov 2026 05:02:12 +0200
-Message-ID: <20261103030226.2685251-8-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103030226.2685251-1-jarkko@kernel.org>
-References: <20261103030226.2685251-1-jarkko@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lslxYma8
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A332rArA2688820, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1793674973; bh=oCrt+/j4hdeOK45YwUt4sEBeoooxnL1Gvg4diMjrU0M=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	b=lslxYma84pbsN7RGk22fDtWY4A184oQMrfkyHe9Ck8zUQ0dXM1evljPGTX2sUlrp2
+	 Aqaaigu3oD3qY/8s38i0ryAFx9f78lReHgIPcMzCZW50cgMgP86a7oLYWtC8eLI4Bx
+	 JFbHCyoGu3lNEnHXOd3cYlkx1EW0W42fKoDKYthZVva5qzc2xVb9p35wXCdFTRcn1b
+	 2w6mJuxxieLpQYmS1OPmuCtVgexFU2ddD0djKsEsRJimBoNh2XdnLGfJiT+h8Yz37b
+	 8q4iQPr3SRhSvIy0M6uEPl6dJqWm7HvbmvvFZHuPk/zaEPVH79b1pJaSnXsHefagrf
+	 oxlsRuNsKNCUQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A332rArA2688820
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 3 Nov 2026 11:02:53 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 11:01:59 +0800
+Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS06.realtek.com.tw
+ (10.21.1.56) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Tue, 3 Nov 2026 11:01:54 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>, Ping-Ke Shih <pkshih@realtek.com>
+CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ulf Hansson
+	<ulfh@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Kalle Valo
+	<kvalo@kernel.org>, <linux-wireless@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Luka Gejak <luka.gejak@linux.dev>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH rtw-next] wifi: rtw88: sdio: reject oversized RX packets
+In-Reply-To: <20261009123022.87787-1-luka.gejak@linux.dev>
+References: <20261009123022.87787-1-luka.gejak@linux.dev>
+Message-ID: <534c767d-c243-4916-80e9-3ce5f8424476@RTKEXHMBS06.realtek.com.tw>
+Date: Tue, 3 Nov 2026 11:01:54 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,29 +77,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Suppress sysfs bind and unbind attributes on trusted_key_driver so that
-userspace cannot unbind the driver and unregister key_type_trusted while
-the trusted module remains loaded.
+Luka Gejak <luka.gejak@linux.dev> wrote:
 
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> rtw_sdio_rxfifo_recv() also takes the last-entry path when the descriptor
+> claims more data than rx_len. The skb is then passed to rtw_sdio_rx_skb(),
+> which calls skb_put() with pkt_len and does not check it against the space
+> left, so a bad descriptor can overflow the skb.
+> 
+> Reject the packet when pkt_offset + pkt_len exceeds the bytes left.
+> 
+> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+
+1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+
+83ca360e8528 wifi: rtw88: sdio: reject oversized RX packets
+
 ---
- security/keys/trusted-keys/trusted_tee.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/security/keys/trusted-keys/trusted_tee.c b/security/keys/trusted-keys/trusted_tee.c
-index 6e465c8bef5e..5d1288189e5c 100644
---- a/security/keys/trusted-keys/trusted_tee.c
-+++ b/security/keys/trusted-keys/trusted_tee.c
-@@ -264,6 +264,7 @@ static struct tee_client_driver trusted_key_driver = {
- 	.id_table	= trusted_key_id_table,
- 	.driver		= {
- 		.name		= DRIVER_NAME,
-+		.suppress_bind_attrs = true,
- 	},
- };
- 
--- 
-2.47.3
+https://github.com/pkshih/rtw.git
 
