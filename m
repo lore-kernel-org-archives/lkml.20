@@ -1,52 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704258;
-	b=4m0eQsoj5r3yp32mH3ckxp/nLOk8AYoE53xEQOe76XOqyjdl/xK3qieDpzcjWtoOsFou
-	 wjL5AyYJnNXwnBPwLqu9ZdTDk9r3JUSiJAa/NMaBXj73Lkz0IsUSqTkyfGv0ta/wjpBD1
-	 LSatm8B71bUll/wteshk107lIbSGWUd1R/REHC564im3SVZKJU783GqTrMmaOWMOjMhHa
-	 LmILExSqUckDlzB6h9oM8RUu5z58BFBFkaJbAnn+MYCUg0Cri4zmG6GkMTzS6SDmrTydJ
-	 Sgc1K6WxTyojvW7YzNuOL18cnhCJY7WbKLIletkLpGivFSqvTI+8bq0zw+ahWwXSHkg==
+	t=1793704266;
+	b=R1hijyhDvkX0/Ub8tXQYogRKBOo8AEvOJGJ2G9A5ORGl5uBiEJ3+WQQHDE7b3WxNauU7
+	 8n4/X5Skataj1AFU0F59VLbyk7ezDGgnrxXGWwLrAwXeawRc4RYua1Z7bfsFzCC6v+bS8
+	 vU6Sh0YpoCoIaAcAJ6hBu5EGUMC3Wm1iYuKBoaGXxlMPdDo70uPk8U/xBLOEtHfooQPYd
+	 7LEAEArirhxoitDmp5CvYlDQ87M5ZJpm8LTwyNw9wX12jOh33CtcEqbVhO8HkV0rZV6RI
+	 2S3nWYo4SzOYDvJZWVLw+oHsrXoVXW2IV124Kk2O3+XL/K00sbTvInO62xkdyI+hFTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704258;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704266;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RE+aXXA/wR6GIKDSc8AVIfNk5ebi+YmfdsADPRUWcYE=;
-	b=1Khaw4luxXTSMvnEwf2r3vaSJSf7KwZ+RsuDRXf1cFs7VMkj+rtE7rXNC6lwdJ43oOPX
-	 VHXq0e63v7MDK+4uqEF9Ev9fVCqGRbyfQkZSCICK3IafDysU73tmWw+haMhmV9xEQIe1U
-	 0JhpBKrNQoMxwnY4yT78osespmUsLIo3fx0k52t/AjlRUpkg6jYVy24jIrhYZIxeTwYXP
-	 bN2lQEWGEPqsAX1rHyqxZ/dBdfV9hMfvYQokiTAi8DeM6miU6a8P1azdBHvveODXSZm9s
-	 ZNcX0ZNJw0276lAcwSOzU1gS+AH3MWMXgM0qKqqhWTKAxtv/SXkiyDCsBDRLfsFtDJw==
+	bh=VuwVRdvDqCkcqJ5PJHMF6vUMeb8k7ai3Z7802NTQ/kM=;
+	b=jTklxoZjd9VgN8HFtDBAyRDpiPj3NICSHlIWV2VNO6mE6WsHBATyU9tQfN7tTHwigUnR
+	 LlWOWZgKdLN52EMLryzxleQfWz5IeL5prQCkbUZqmrlJlSN5J21wcLsalv5rvpeSu8fZZ
+	 L0+z09wxQAnW4c5ZJ5Vg6zNHaA7+QCCWnau8n2PKPCb71ZL6EbKUgKOueckva159r5KpM
+	 BqTHUgvGRxzs/HoO/3SHsPnBT3FanAPFgT0ixRVjE6GgGhH4psUI/Ts1KSBp1Wqiu4Ijw
+	 QQeLyXo2d8F5GLmrh3PuZXnXKoQ+hm2k+p84Ri3+cUAIl84cqSEiEmTP3p0Ns/prc0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TyY1VKm5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOUks73f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E137160A2631;
-	Tue,  3 Nov 2026 11:10:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D86660A382F;
+	Tue,  3 Nov 2026 11:11:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TyY1VKm5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358551F000C1;
-	Tue,  3 Nov 2026 11:10:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOUks73f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC9C1F00A02;
+	Tue,  3 Nov 2026 11:11:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704257;
-	bh=RE+aXXA/wR6GIKDSc8AVIfNk5ebi+YmfdsADPRUWcYE=;
+	s=k20260515; t=1793704266;
+	bh=VuwVRdvDqCkcqJ5PJHMF6vUMeb8k7ai3Z7802NTQ/kM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TyY1VKm5LDVr7ikDYq/sAXeBKjInzslwl3OqClwWZLEtUKaGaTM+gS4jKHd6YyPD+
-	 17+WL1VaVBEmTDRkAgw9I6zELadqi0r2ra6bq26qzSU/YMP1HrDwvvXsTccp2gQ8bn
-	 r3kUWrhQdlXaGJM2I0VKtX5ORv3u2gHNefDlhAYM1BP0q4sJ9j0YlQfJL2075xI8nx
-	 1VlrP/HrqNi4AlpA6A3QzJiIqqE1t/YEkcDak/uQUMqA+HGqB2VD1yoPgj9mJrkNX7
-	 Ntiud5HCEEL7FOqucqBAOjnsZhII/TFr3p5fg/IXazOs3i7KyFgLW15Xsgl7ciL7n7
-	 eeqy6uKH3JJYg==
-Date: Tue, 3 Nov 2026 12:10:55 +0100
+	b=EOUks73fgJnqlSXAkmCa587RZrLJRZ0VTowmJ9cNDiCsu6A1RFVY/IjVjZdIdG/ms
+	 v6vLmzgrlgZfPfznot5XJDQqmnmHBgV/OREOSQU9sRTSY/2h8Z1Cndmz2GcWv0130m
+	 dO7iGATWSHLXZi0oNnu81o0RhaHwCpQDEtx96kcNasTzE+xaRBcZsIl9zwUDaqjrB8
+	 1K5eHUexYg01hRlRjUHT2/ulCBDj/cXMFhAmebM9o8zp9cr2bNC+QSs9IX/RgbTvDg
+	 4x1kEEaumt0//dpqA93XdGVcVCwejQTT+a2CDA/nDQlhNuW4A4VJkZyVxBKq1Xd7pQ
+	 2Uz+AQpv9nrhg==
+Date: Tue, 3 Nov 2026 12:11:03 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	linux-wireless@vger.kernel.org
-Subject: Re: [PATCH] wifi: ath6kl: free the ath6kl core on USB disconnect
-Message-ID: <20261103-unbreakable-chinchilla-of-aurora-d98dcc@quoll>
-References: <20261103102901.1340914-1-vulab@iscas.ac.cn>
+Cc: Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, 
+	stable@vger.kernel.org, Petr Machata <petrm@nvidia.com>, 
+	Ido Schimmel <idosch@nvidia.com>, Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: Re: [PATCH] mlxsw: spectrum_ptp: release parsing depth on MTPPPC
+ write failure
+Message-ID: <20261103-immortal-cunning-oyster-316afd@quoll>
+References: <20261103102851.1340480-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,28 +62,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102901.1340914-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102851.1340480-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:29:01 +0000, Wentao Liang wrote:
-> ath6kl_usb_probe() creates the core with ath6kl_core_create(), which
-> allocates the wiphy and the per-station aggregation state in
-> ath6kl_cfg80211_create(). These are released by ath6kl_core_destroy()
-> only. ath6kl_usb_device_detached() calls ath6kl_core_cleanup() and then
-> frees the HIF private data with ath6kl_usb_destroy(), so the allocation
-> made at probe time is never released when the USB device is detached.
+On Tue, 03 Nov 2026 10:28:51 +0000, Wentao Liang wrote:
+> mlxsw_sp1_ptp_mtpppc_update() increases the global parsing depth
+> reference count before writing the MTPPPC register when timestamping
+> is enabled for the first time. If the register write fails, the
+> reference count remains elevated even though no timestamping
+> configuration was installed, and nothing will ever release it.
 > 
-> The SDIO counterpart, ath6kl_sdio_remove(), already calls
-> ath6kl_core_destroy() right after ath6kl_core_cleanup(). Do the same in
-> the USB detach path.
+> Drop the reference count again when the write fails. Also only drop it
+> when disabling timestamping after the write succeeded, so that the
+> reference count always matches the programmed state.
 > 
-> Fixes: 241b128b6b69 ("ath6kl: add back beginnings of USB support")
+> Fixes: c6b36bdd04b5 ("mlxsw: spectrum_ptp: Increase parsing depth when PTP is enabled")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/wireless/ath/ath6kl/usb.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
 > 
 
 Multiple things here:
