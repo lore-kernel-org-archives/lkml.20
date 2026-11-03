@@ -1,79 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728307;
-	b=hsOY6dK/IUWbgQMLNByiXJQOW5qpgOX+gM3m5c5XjUsaZIkgYIXoYMFDexeGDpuBvUcr
-	 ugPjXqUabqf3AAJ7rYY645qmuAq4i5wvBgT+uCjeDLui5jwMr9ykvO9R5GtIaTO3OyFMm
-	 4HN3vP0Ls1hDfyVjcRTvxep8G8LFYHQrGw9MhyhxqP56LZWufzjUwPF8CDB1JPm4A69Zf
-	 ipUqZObekhUdm9PhopmLkag8ATXFt+Tk3tS5U4OBx8S1G72BF5+e9sUltywD86OHmwgTw
-	 rpQwKsB5mUZTvFKXTwgdDK6TOLzLZr5X3lp6RpjtUTgNRGQ3D0A5CpiiQOdDYxmX6RQ==
+	t=1793728429;
+	b=v4Z/sFPipCVFEPJZ4KVoiqnGKXR+Av8BB1tM3uQ4BKZOWoXfzoyW+XT5XGniffGEPkDJ
+	 o9NKEE1tfD7P25hwjs6c0k8oVjfZxJNFt4EAaXF6GIit1OmtDN9ZEiJb311cXeWT81sdE
+	 +Oq5PTBdA3WK9oDj+nlRts19mb4c6IRQ1EJ2+pCNf41j33MO5PP3fCOwi4fImFc/dU1C6
+	 R2YYGPLTkx6Hxvd4JsfiTWH+Qlqu4jvdJLp9LonBswwW2XAR+yJau4ffoenjqMGc0/8gS
+	 VRmlsHVIixdzit/hFE1Pf76o+qfcftpXK9K1cZvOIddN8jd+1BHHZBGkDHyFSDTXl4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728307;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=R9rwuiah1mEgbqQCSd+Ah4mYf3c/C8eBl/wcNjI9svs=;
-	b=Uby78pDNsx+z1C1DOnD6i/m63iS7SSJ9WsNoB+3CYPhrr2yLLHUtQY0tHcdw+zeifCqf
-	 67QIcHxsfVXWVGhU+J9WQMumJ+RDysqWzjfzqJfY+UqPHNfGSxaC34DyTjlxUmLpElbqe
-	 ZfQqwCSBblq1dLNfa8ebexqIMZfIidu0DOOw4AK12IUALPPGzcZ8oRLPHnlcukTnd2a/u
-	 /4qtR0GnU7RqqQ14SbYEK+HrCHnmqrUKbxZZ8pqrwfDbiwWlvl+QFq9N4yLPvFK8pp6ZG
-	 4ntCaPjtaYABuaOva+WON37hb+LEeC2T93NYWDgQVJHdgzCo3FNj+4C3tSfM/JcXKdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728429;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nv/S8+4XbDZcebn2R51IJieAKP1m3RtJvkfF3QMxym4=;
+	b=3lrlrmUHiFPoFuZHzH0zT7PJU99PHBomJDKzvJpGkebY/Y1UF7uZljM1zEceounwNPtD
+	 fb9gu7nKVqHWdgc0BpueQXXXSf0zCPNSnwjXRuXGFFr4b3/Ru4kIQwAYAKdvDTAzWz14P
+	 /BPs1ira5mpky829jeVThfueqCbyGpUButGRWzc8vhxxxYji0TR2MsECsGTjnoCCOOG4g
+	 CXUJTfevjHfiIkFtmylEkqo9tqe675OOJHW2lQimZL/4UNL17YiH9nLr3nd87xeKWX5E8
+	 frQRAlGM9mMb1lppKwGhj3ssiDDdZflsHY3edx2IG1y/MKxdGUveZcNIPMZ0w8814rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YGN9uZZN;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=r8YfTIAk;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EBCB606A335;
-	Tue,  3 Nov 2026 17:51:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EBCB606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 724C6606A324;
+	Tue,  3 Nov 2026 17:53:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 724C6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YGN9uZZN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793728306; x=1825264306;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AVpN612zkCB9naibtE/gJKAwd/OOYKMHVnMK4oGbxI8=;
-  b=YGN9uZZNz98ydu+QSz8wbFmcPG5xm8kbajenHRMzlZBm1aTUnf4oKjFl
-   OpFzeGlpjv3pCdXODQskstkzcEdLcdA8z2OIcz8u0XDqM6SZqO3Zf/dCl
-   rPv4EZCHVmB1q4zm1EWjmppzGQI7h2Q+f6AMpWSM2+Ikr0AvPeui5jlNy
-   nArL/+KpX3dOp3gEbpjWIzJyqvYmzLlno7n8vTVsVtLJGHFbBbe1BHyuN
-   eI0/SkTraApFqyvydMeAqJAOwRvWj8tcaES9pDaxFALko2jQdet7EtpcM
-   1Sxtd7BNDyI/U6yqXgWLn6fIH+GAmhMwwhTtCuAS0smH8rwZ0CEgyDMPM
-   Q==;
-X-CSE-ConnectionGUID: CB2sgV1PS1qOlIIeJ0yNow==
-X-CSE-MsgGUID: iYYjsRWXREe2QUFHSdf/2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2463441"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2463441"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:51:45 -0800
-X-CSE-ConnectionGUID: FFUNtS/VQ7GPqE8zuRQGLw==
-X-CSE-MsgGUID: uwTjvFrASZ6Fdk0DVB491g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6499695"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:51:43 -0800
-Date: Tue, 3 Nov 2026 19:51:40 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v5 1/7] lib: kstrtox: support E notation in
- kstrtoudec64() and kstrtodec64()
-Message-ID: <auofLF8TivwJiMwT@ashevche-desk.local>
-References: <20261102-e-notation-v5-0-d399e544a982@analog.com>
- <20261102-e-notation-v5-1-d399e544a982@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=r8YfTIAk
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJx5S5T4Rz1XLktx;
+	Tue,  3 Nov 2026 17:53:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793728424; x=1796320425; bh=nv/S8+4XbDZcebn2R51IJieA
+	KP1m3RtJvkfF3QMxym4=; b=r8YfTIAkCYBU4vtqIaBhFbgBI53QY2dlipL8p6MZ
+	R6N+cyOsOyihZHkfJVGt/cWCcM8VzMaYn4V8rdyg66wOEzSsHPsKAA6nxPgtC1L3
+	GrdU9a0qyA62toxXqekrxhMxPtFtaCuZJgXdfRmFdpt8rGrVArYfZjPvr6ieWLa1
+	XiAIh4APqPCF47YiOJNJvv8GQN+r0zjy7qtDT6pAOnYYIKu9UYQffw50or9sOYii
+	zTh1xLotom9/E8WepKxW8Z4bSJFwZeT1PN/E4KNbwuhw8vdoq6TrmfyHTIJkTmrt
+	e1TlWUBryytPkLD6gKwama66XixRoa6zBL19NfJUgN+F5A==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id P6WlHWsK3ueh; Tue,  3 Nov 2026 17:53:44 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:b098:ee7:dc7c:db4e] (unknown [104.135.182.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJx5M4wVSz1XLkvj;
+	Tue,  3 Nov 2026 17:53:43 +0000 (UTC)
+Message-ID: <a608e18b-30a1-4c26-a456-c6b219d4a517@acm.org>
+Date: Tue, 3 Nov 2026 09:53:42 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,41 +70,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-e-notation-v5-1-d399e544a982@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 01/11] ufs: core: Return a negative errno from WLUN
+ suspend/resume
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
+ NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Pedro Sousa <pedrom.sousa@synopsys.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Can Guo <quic_cang@quicinc.com>,
+ Asutosh Das <quic_asutoshd@quicinc.com>
+Cc: imx@lists.linux.dev, linux-scsi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
+ eballetb@redhat.com, echanude@redhat.com
+References: <20261103133215.1385823-1-larisa.grigore@oss.nxp.com>
+ <20261103133215.1385823-2-larisa.grigore@oss.nxp.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261103133215.1385823-2-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 07:40:59AM -0300, Rodrigo Alencar via B4 Relay wrote:
+On 11/3/26 5:32 AM, Larisa Grigore wrote:
+> __ufshcd_wl_suspend() and __ufshcd_wl_resume() may return a positive result
+> code, e.g. from ufshcd_link_startup() when DME link startup fails while
+> restoring the link.
 > 
-> Allow decimal strings to carry an exponent suffix, such as "2.7e10" or
-> "271828e-5", in kstrtoudec64() and kstrtodec64(). The exponent is added
-> to the requested scale to work out how many integer and fractional digits
-> are consumed. A negative effective exponent drops integer digits.
+> The runtime PM core treats any non-zero value as a failure of the WLUN,
+> but rpm_get_suppliers() only checks for a negative value. The LUs
+> consuming the WLUN are thus reported as resumed and receive I/O while
+> the WLUN is still suspended.
 > 
-> The digits are now scanned first and the string termination is checked
-> before any conversion. A missing or malformed exponent ("1e", "1e+")
-> returns -EINVAL. An exponent that overflows when added to the scale, or
-> that makes the result exceed 64 bits, returns -ERANGE.
-
-...
-
-> +static int skip_digits(const char **s)
-
-In case we need a new version, the skip_and_count_digits() fits better.
-
-> +{
-> +	const char *start = *s;
-> +
-> +	while (isdigit(**s))
-> +		(*s)++;
-> +
-> +	return *s - start;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> Convert positive values to -EIO, as ufshcd_init() already does.
+> Do the same in __ufshcd_wl_suspend() for consistency, so that callers
+> always get a negative errno.
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 
