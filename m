@@ -1,99 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793667501;
-	b=Xkm5RIreG4D4DQC+TlaVWIaFUNL18AWBDQyfWN+6086g6ufc0F5ic/am+DXtTKA7MdoS
-	 xu0CFrUqZZepBM6I3Q0gbCZnEiW4KKMHrEGfkpGTgA2/LGN8Rqi3I0trirVl4/DqsRMGf
-	 GASFHj3iK93UOraG87d7C4pe+Dx5+HAd6EZd1uezF5Ci/VXmcPMR13zFL1lQ7Bx4Kz461
-	 sgFCHwIbCcad6I8VBpRJtoDexfyb8KdKHHfgMD3Wpn9bTRlx6Q1/GZchqFVijWXPICNnf
-	 H1GUgHqduYTlh2yhte4jE7hW4ZGtRN+9qlYn8KAI6cp8MbMjlDx3Vba04Y9rTGSRUvQ==
+	t=1793667535;
+	b=Q2ZcFUV/LD0v89kzBMCQH6IvLTDtyme5L6jYB5PPDk0ZtUj3Qap11Ttr6+7XsfGobPX2
+	 Kpu4Kol9QRp7dLIO+Jv7hXWazrZaBV1aN4W6IR+Nwzazk4HDkIIIdumHX5o18yrMfoq57
+	 HaxhZauTNwAcJRUqUgGrh4Tyc4NhftB0jICwIo58azkqVFm+EqBdMfqexLYLtnD7RrbDB
+	 V1rHewfaKFLzF9qKpQzki22wtWjHJQJB54Pms+qhS218JVF2iJo5BI/xh/zrAqFxIk66U
+	 3h7SiO1ohMWOPs+yVBrxVFn9urwhb6YdP+Ecj2LOfVEAHszqblQGMqIbGxBsDjSJ9Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667501;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=sIYbSw3W8nAa477Tus4X1jVHWb07BT37U/Yy9DhTMvo=;
-	b=Xh/nO3rj8RJDDFcnylrYnJEqrjNYeQCcOSOrMRIjCXOds2epWWA8mYaETBaegeQnhjp9
-	 YkBTXQFkcSjmorHlp4eRWVL5UkTRXl/ggwpsODcbEaz3fBnOVe9kjP4bUUBNVEbsqwNS7
-	 yxbbW+AK4h81yyrJ17bhZ8AWQwVHAS4Ili9UdIZ6tBhNEdNUlENiCDbXPHqxmcKcWXrnb
-	 tBqK1XyBJh3611tL4rgrOKEBzjIudFyKhL81e0PucSHJ3h7IDTmOPimTnH5UEZwGkV7QB
-	 jGWUsSW19nrV8qQ40AHbb+nJZCFZGYJpBPIx4p/Kd2LZBL4GUAy3DnmuPgTv7KrFoLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667535;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=QoYRJANCltXIHssksq3+ydkfr4I2KVxvqmMBU8nH1QA=;
+	b=4hMh7yw6HNUMyFKHS/X+o40EfWb/T7HJdI48N+MEOv93kts/LEYh9PAVjTQrDSUhWkHu
+	 a65akNib0HcZjD5ilXy9+YPw+ap0N5XFrr3jn3U/StbDnx8UAjQipLEk1cVpNlb2KopoD
+	 sbZ6lTKtdc41veB2ST8Oioeq6xISKujE4mf+Ltx+0B1NhKcOW005abrZrdPh+QfZgxs2V
+	 zV6Ya10pbIcj0QrvHIObxnMy4a1CJUFZInYWC+Eh7kaCQ0xOtidNkINfpe4s30Tk9PgKG
+	 hfmnJc1zaxuvlo4yujH5Uq2e/CUYdEPHseYQeEbgxS7YpnLTtNlu2kupA3G2Mq29S/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ALARzZqi;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=H1zPRlIe;
+	arc=none smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D88E606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:58:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D88E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED4F606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8ED4F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ALARzZqi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793667500; x=1825203500;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=xMtYGLouTlTuAqWe+3zFi4u4Vl8Px7aT8IwwxZZdKe0=;
-  b=ALARzZqik7UHxPXRMas0mCUpNVvQkCcwfg8ekDlqa3UBaZMXP46GdkrD
-   VBmTV867mwFH5w0NX1XnnQuINouMwTOSNLiIHbDSxUBsPP433SWcbydwW
-   xpOHZKVMBHhTSntgdVhneSY3BgSX+ymiiFYZtSb20CqgtashcTWONtaK6
-   UoO2YUqaVzSV3Svs9n1qt9WaA2cjt0SKsnxnouLZr/ccZY97hg9/WsK2S
-   Osz0ULpkIvXRftQrdjIW/Rwh68XMM14ZmHPGu44Bz/p/PgofaUZ8BRPwe
-   MOcsY1rBjC7YWeTent/EtDhNwleQbPXfqH/bLZPDvIkv1+9rRRsjEmIzc
-   w==;
-X-CSE-ConnectionGUID: Kx4DCmAQSLuiVgUpOpRl1g==
-X-CSE-MsgGUID: O0hZD0jOQNiCPbYOkJuLRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2257370"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2257370"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 16:58:19 -0800
-X-CSE-ConnectionGUID: Uk9R0ufYTC2djkTEprG3nA==
-X-CSE-MsgGUID: SUfnOj1cR+eINHJPpTXmEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6435468"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 16:58:11 -0800
-Date: Tue, 3 Nov 2026 08:58:07 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Finn Thain <fthain@linux-m68k.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ard Biesheuvel <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Daniel Borkman <daniel@iogearbox.net>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>, Gary Guo <gary@garyguo.net>,
-	Guo Ren <guoren@kernel.org>, Hao Luo <haoluo@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Jonas Bonn <jonas@southpole.se>, KP Singh <kpsingh@kernel.org>,
-	Marc Rutland <mark.rutland@arm.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Rich Felker <dalias@libc.org>, Song Liu <song@kernel.org>,
-	Stafford Horne <shorne@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
-	Will Deacon <will@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>, yi1.lai@intel.com
-Subject: [linus:master] [atomic]  80047d84ee:
- WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
-Message-ID: <202611022259.def3e086-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=H1zPRlIe
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53512cd2f85so49114081cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:58:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793667533; x=1794272333; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QoYRJANCltXIHssksq3+ydkfr4I2KVxvqmMBU8nH1QA=;
+        b=H1zPRlIek7ds8M6NQOXwrD7lOc3bluGthhRv4XKpDgzkRsAQZQ9QpELH7lynxKitrC
+         iAK3y/NLEfzWZg/zLhxLIfDoe3wG0Zi0g7uRxjIB5PHRUoAwVJYqdwPM5ma8QgTsDzzE
+         A1YlDOQMCvdTjJvkcVq/n8F/g3cxTcOLvq0rFJUC7KCBYjJ3KGXhiwuXhH17l0Swl0ek
+         aliTnEwJ2nESBRVL7qU/uR1nVs17I8sEP39YljjfAB04uP1vgKV3xHgqnt9dYYqWPGUi
+         9LoVzZmGLFBycgB8TaF7d/PDBIFGxvyUNueK0pVkswaKoLaJV6OK4ikoFARC+YUNYP5F
+         F/uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793667533; x=1794272333;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QoYRJANCltXIHssksq3+ydkfr4I2KVxvqmMBU8nH1QA=;
+        b=Ymmqk7lbE0JHbiQgso7iaDa6PiUVKar59ROuRSdNNFmk1tZ/fr5MxE8fH5lu62DCt1
+         6/HYH3NOBXwf+rBau6ZAPZiPX0Mr0spBaGHpER9T2JFe9KROccHQW6F3oPXmTaJKujvU
+         wM7iNRRYJETrLzSG17sGwXQp8uT8m+4tuJMza1ZjpWhZxgjCryS1fi6fOvSqnBgg6buo
+         qkRqFIjiLAH6GRCx5s0eW2sEufH3PvHqnrDlUhWcrgqI1LemR40AHESBjrR3aHnEDvT4
+         OpPEPZd8sw0rsOAFYCMcAa0vEfaUVlEFZR7GyTKn9cI1vTORqoIh+2hfKRuB1UIhLs/3
+         Xzjg==
+X-Forwarded-Encrypted: i=1; AKwUvBymVQh2Y6Jfi284CJ4hwoPRes109ac7kiXg2tNc2K8XiOx6kRYV99Q0adZWXh2xmYRaf7PwTp7rv5TF6ro=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgoc6ZquiylDj+OgWq6iFafr4VpPGitIz3WpL+bI6/0UPhhRFV
+	/gwJjqlxuRRf4kUNX5wiMYLlcabepkTzoxjR70JfEV8nb1m/uB46pzqD6Bc1wYn9G+Q=
+X-Gm-Gg: AYBFou0RXYwedQdmDi5vsl6rdb1lTDjTXjtqQlkL+nICdYeSStee+CT4W5c98Vi3O4M
+	r/zRggxP/s+SllF4AWwf29Kfveo9iIedvuXuF87oXSTkbdaAf+HYFAPG1WMgwRuO8dC4u9ziINI
+	WaeZbrhLZxokkAjy08uGAMbhjjNoj2P5Lg9PQdHv6jQPYv9ouxdnVHLK1iuKtrlfEmWzGVVvJn1
+	Lknv7Dk7iSPMN270YIqfV5jdimWfkJbaDZQFHD+5ppoO+UsXZCxMOxtjhRL4Q/PiSUDitSfnSvn
+	BGdOMN7qHkNmCwXJgvus/65qnMC9WEqXfFuwQYCUDR0bAf6JeHMc4H8RDiUVD0CsvSpCitnMgqg
+	0VnrWmKwGgVusgl29DeVJq2B5ODlYmR69XZ2b7vDsS8q8anQuDWkoypeUdcuBxH0Nc75XGDqyQC
+	zCoz7sjscT+QV81hAB6NQ91ZqfvBOr5EgRBP6HSQWohY+YEeTi5Li2pNgBYhLdHwSxsxLJB0yyR
+	g7k9esxn1wDMcan0ofU3Mq+6kvK9YdsKCJ0Wss8f0zaW9XOJ7gICnIpbzGMxQl3ixJKO+bklDiF
+	wRAknLfoiukalfZE44vslnw+2pRaXj0OGjkL8a3MbuWikF+qMGi2HIn+Bcc7TA8jx7yAyn1CekL
+	esqd2p1/XmQ==
+X-Received: by 2002:ac8:5f92:0:b0:533:a4a:8826 with SMTP id d75a77b69052e-542b6595288mr197108781cf.19.1793667533172;
+        Mon, 02 Nov 2026 16:58:53 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5498b49d8efsm12193441cf.7.2026.11.02.16.58.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 16:58:52 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xO2rT-0000000BHob-1A7Z;
+	Mon, 02 Nov 2026 20:58:51 -0400
+Date: Mon, 2 Nov 2026 20:58:51 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"suzuki.poulose@arm.com" <suzuki.poulose@arm.com>,
+	"drdeeglaze@gmail.com" <drdeeglaze@gmail.com>,
+	"James.Bottomley@hansenpartnership.com" <James.Bottomley@hansenpartnership.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"Xing, Cedric" <cedric.xing@intel.com>,
+	"alistair.francis@wdc.com" <alistair.francis@wdc.com>,
+	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+	"Reshetova, Elena" <elena.reshetova@intel.com>,
+	"kas@kernel.org" <kas@kernel.org>,
+	"ankita@nvidia.com" <ankita@nvidia.com>,
+	"jiri@resnulli.us" <jiri@resnulli.us>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Jiang, Dave" <dave.jiang@intel.com>,
+	"Quigley, David" <david.quigley@intel.com>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"pgonda@google.com" <pgonda@google.com>,
+	"jpiotrowski@nvidia.com" <jpiotrowski@nvidia.com>,
+	"Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+	"lukas@wunner.de" <lukas@wunner.de>,
+	"Fang, Peter" <peter.fang@intel.com>,
+	"jic23@kernel.org" <jic23@kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"sameo@meta.com" <sameo@meta.com>, "aik@amd.com" <aik@amd.com>,
+	"sathyanarayanan.kuppuswamy@linux.intel.com" <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	"ksinyuk@kernel.org" <ksinyuk@kernel.org>,
+	"qinkun@google.com" <qinkun@google.com>
+Subject: Re: [PATCH RFC 20/20] attestation: Add the TDX family implementation
+Message-ID: <20261103005851.GH3889730@ziepe.ca>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-21-jiri@resnulli.us>
+ <ed52bb6d48c87ab8023bf2165cadffa259e21725.camel@intel.com>
+ <20261023141218.GD3977851@ziepe.ca>
+ <343e4a12f2fdbb4e9a19c4afe49cf2b8908d6739.camel@intel.com>
+ <20261023220030.GM3977851@ziepe.ca>
+ <7843a833723e3aad40f8fc4de3a83f5a5059280f.camel@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,195 +134,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7843a833723e3aad40f8fc4de3a83f5a5059280f.camel@intel.com>
 
+On Mon, Nov 02, 2026 at 07:02:37PM +0000, Edgecombe, Rick P wrote:
+> > Though I am planning/hoping to have a sane admin tool here as we agree
+> > to things, so admin can do like:
+> > 
+> > $ attest report
+> >    TDX Report:
+> >      Xyz 
+> >      Abc
+> >    TPM Report:
+> >      124
+> >      435
+> 
+> Hmm. TPM report is a signed thing right? But "TDX report" is not. Or "TDX
+> report" is really the TDX quote?
 
+Yeah, the signed thing.
 
-Hello,
+Sounds like in the TDX language it is TDX quote. ARM CCA calls their
+signed thing report. systemd calls the entire aggregate bundle the
+report. I think TPM called it quote. Isn't it nice everyone has their
+own words?
 
-kernel test robot noticed "WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked" on:
+Jiri, I suppose we should meditate on what word you use in the schema
+to try to be clear.
 
-commit: 80047d84eed25e9c92cfb9169980a0dfec110246 ("atomic: add alignment check to instrumented atomic operations") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+> I still don't see the need to expose the TDX report (TDX definition
+> of report) through a generic interface.
 
-[test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
+Great, let's not do that. Signed things only is what I was expecting,
+because that is what systemd needs when it generates its aggregated
+"report" to send to verification.
 
-in testcase: trinity
-with following parameters:
+> Are you thinking about having any kind of community
+> call for TSM? Maybe we could walk people through TDX attestation.
 
-	runtime: 300s
-	group: group-02
-	nr_groups: 5
+If we have to, but it is more inclusive if the mailing list has a
+record of such things..
 
+I was thinking of trying to organize some smallish summit type call of
+a longer duration when this is more solidified and everyone has time
+to digest it so we can go over *everything* and confirm people are
+happy. This would be a 'come prepared' kind of call, instead of a
+physical conference. Let's see
 
-config: i386-randconfig-1005-20261101
-compiler: gcc-14
-test machine: qemu-system-i386 -enable-kvm -cpu Icelake-Server-noTSX,enforce,lm=off -smp 4 -m 4G
+> > > On the TDX side we would have to work through how to ask for a
+> > > specific type of quote. In the initial set we have planned, the host
+> > > will decide.
+> > 
+> > That's fine. Broadly the "default" report format should be set by the
+> > VM's instance type, eg defined by the CSP. It should not change
+> > launch to launch of the same VM.
+> 
+> In the attestation space, it seems there are people who want many
+> slightly different things. And it has been generating option
+> complexity on top of the TDX legacy baggage.
 
-(please refer to attached dmesg/kmsg for entire log/backtrace)
+Yeah, I am aware.. Above has been my view as the only logical position
+for a CSP to take. If you change the format of the TDX quote from
+launch to launch you risk ABI breakage with the customer's
+verifier. You will have angry customers if one day their VMs boot and
+they don't verify anymore.
 
+> > If you also want to have a way to query specific types, like AMD's
+> > guid thing, then that's fine too. But I think integrating into systemd
+> > report might be a bit tricky so I'm not sure it is a great idea.
+> > 
+> > In all cases the format of the report is labled, passed to userspace
+> > and given to the verifier. I see Intel already defined DICE format as
+> > 'larger than 8k'.
+> 
+> I'll have to check (or maybe Peter can chime in) if there is some easy label to
+> look at.
+> 
+> > We'd probably want to give that a dedicated label in
+> > CTLV land.
+> 
+> Not following what you mean exactly. A CTLV format that contains the report? Or
+> a user ABI way to request a certain format?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202611022259.def3e086-lkp@intel.com
+The CTVL output will always be something like {label, data blob}, for
+everything so it is self described.
 
+Since the DICE and non-DICE TDX quotes sound non-interoperable they
+should have different labels.. I guess? I really don't know the
+details of TDX enough to say.
 
-[   18.704659][ T3738] ------------[ cut here ]------------
-[   18.706815][ T3738] WARNING: include/linux/instrumented.h:62 at __split_huge_pmd_locked+0x6d2/0xac0, CPU#0: trinity-c1/3738
-[   18.717796][ T3738] Modules linked in:
-[   18.719286][ T3738] CPU: 0 UID: 65534 PID: 3738 Comm: trinity-c1 Not tainted 6.19.0-rc6-00100-g80047d84eed2 #1 PREEMPT(lazy)
-[   18.723193][ T3738] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   18.726644][ T3738] EIP: __split_huge_pmd_locked (x86/include/asm/pgtable.h:228 (discriminator 1) huge_memory.c:3128 (discriminator 1))
-[   18.728717][ T3738] Code: dc 85 d2 75 0c c6 45 c2 00 85 c0 0f 84 ee fe ff ff f6 45 bc 03 0f 85 47 03 00 00 8b 45 bc 80 08 10 c6 45 c2 01 e9 d5 fe ff ff <0f> 0b 0f c7 4d ec 0f 84 34 fd ff ff eb f2 e8 db 58 40 01 85 c0 0f
-All code
-========
-   0:	dc 85 d2 75 0c c6    	faddl  -0x39f38a2e(%rbp)
-   6:	45 c2 00 85          	rex.RB ret $0x8500
-   a:	c0 0f 84             	rorb   $0x84,(%rdi)
-   d:	ee                   	out    %al,(%dx)
-   e:	fe                   	(bad)
-   f:	ff                   	(bad)
-  10:	ff f6                	push   %rsi
-  12:	45 bc 03 0f 85 47    	rex.RB mov $0x47850f03,%r12d
-  18:	03 00                	add    (%rax),%eax
-  1a:	00 8b 45 bc 80 08    	add    %cl,0x880bc45(%rbx)
-  20:	10 c6                	adc    %al,%dh
-  22:	45 c2 01 e9          	rex.RB ret $0xe901
-  26:	d5 fe ff ff          	{rex2 0xfe} ud0 %r23,%r31
-  2a:*	0f 0b                	ud2		<-- trapping instruction
-  2c:	0f c7 4d ec          	cmpxchg8b -0x14(%rbp)
-  30:	0f 84 34 fd ff ff    	je     0xfffffffffffffd6a
-  36:	eb f2                	jmp    0x2a
-  38:	e8 db 58 40 01       	call   0x1405918
-  3d:	85 c0                	test   %eax,%eax
-  3f:	0f                   	.byte 0xf
+> > One of the things I'm quite adament about on the data labeling is that
+> > if something sees Blob type A then it should at least be able to
+> > verify the signature. Further format variation should be self
+> > describing data within the signed payload. If it is so different that
+> > you can't verify the signature then you have to give it a different
+> > label too.
+> 
+> I'll make sure this made it back to our attestation people. (probably someone
+> already picked it up)
 
-Code starting with the faulting instruction ===========================================
-   0:	0f 0b                	ud2
-   2:	0f c7 4d ec          	cmpxchg8b -0x14(%rbp)
-   6:	0f 84 34 fd ff ff    	je     0xfffffffffffffd40
-   c:	eb f2                	jmp    0x0
-   e:	e8 db 58 40 01       	call   0x14058ee
-  13:	85 c0                	test   %eax,%eax
-  15:	0f                   	.byte 0xf
-[   18.738340][ T3738] EAX: 00000000 EBX: 04507067 ECX: 00000000 EDX: 00000000
-[   18.740746][ T3738] ESI: 00000000 EDI: 04507067 EBP: 44669d30 ESP: 44669cd8
-[   18.743073][ T3738] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 0068 EFLAGS: 00010202
-[   18.745603][ T3738] CR0: 80050033 CR2: 00000004 CR3: 042e6000 CR4: 00350ef0
-[   18.747953][ T3738] DR0: 3678f000 DR1: 36ba2000 DR2: 00000000 DR3: 00000000
-[   18.753554][ T3738] DR6: ffff0ff0 DR7: 00070602
-[   18.755107][ T3738] Call Trace:
-[   18.756252][ T3738]  ? split_huge_pmd_address (huge_memory.c:3270 huge_memory.c:3284 huge_memory.c:3297)
-[   18.758035][ T3738]  ? vma_adjust_trans_huge (huge_memory.c:3309 huge_memory.c:3321)
-[   18.759892][ T3738]  ? __split_vma (vma.c:554)
-[   18.761489][ T3738]  ? vma_modify (vma.c:596 vma.c:1674)
-[   18.762981][ T3738]  ? vma_modify_flags (vma.c:1694)
-[   18.764670][ T3738]  ? madvise_vma_behavior (madvise.c:169 madvise.c:1441)
-[   18.765920][ T3738]  ? madvise_do_behavior (madvise.c:1721 madvise.c:1937)
-[   18.767061][ T3738]  ? do_madvise (madvise.c:2030)
-[   18.768042][ T3738]  ? __ia32_sys_madvise (madvise.c:2039 (discriminator 1) madvise.c:2037 (discriminator 1) madvise.c:2037 (discriminator 1))
-[   18.769149][ T3738]  ? ia32_sys_call (kbuild/obj/consumer/i386-randconfig-1005-20261101/./arch/x86/include/generated/asm/syscalls_32.h:220)
-[   18.770238][ T3738]  ? do_int80_syscall_32 (x86/entry/syscall_32.c:83 x86/entry/syscall_32.c:259)
-[   18.771374][ T3738]  ? entry_INT80_32 (x86/entry/entry_32.S:940)
-[   18.772429][ T3738] irq event stamp: 781495
-[   18.773388][ T3738] hardirqs last  enabled at (781509): __up_console_sem (printk/printk.c:345 (discriminator 1))
-[   18.775278][ T3738] hardirqs last disabled at (781522): __up_console_sem (printk/printk.c:343 (discriminator 1))
-[   18.777167][ T3738] softirqs last  enabled at (781232): handle_softirqs (softirq.c:468 softirq.c:650)
-[   18.779118][ T3738] softirqs last disabled at (781219): __do_softirq (softirq.c:656)
-[   18.781012][ T3738] ---[ end trace 0000000000000000 ]---
-[  220.112163][    T0] CE: hpet increased min_delta_ns to 5000 nsec
-[  220.112245][    T0] CE: hpet increased min_delta_ns to 7500 nsec
-[  220.112306][    T0] CE: hpet increased min_delta_ns to 11250 nsec
-[  313.879988][  T384] sh: can't kill pid 3613: No such process
-[  319.115692][    C0] CE: hpet increased min_delta_ns to 16875 nsec
-LKP: ttyS0: 335: LKP: tbox cant kexec and rebooting forcely [  325.428435][  T335] sysrq: Emergency Sync
-[  325.430372][   T10] Emergency Sync complete
-[  325.431919][  T335] sysrq: Resetting
+Yeah, I'm quite adament about this. I don't want this to turn into a
+funnel for undefined binary blobs that nobody can understand. At a
+minimum the signature has to parse, and at the maximum I'd love to
+insist on a userspace implementation to dump the contents. We will
+see.
 
-Kboot worker: lkp-worker71
-Elapsed time: 360
-Host load: peak load1 279.34, peak cpu pressure 96.63%, qemu waited 0s for a cpu in 360s, container throttled 0s, 6 samples
+This will naturally force people to use the right labels since they
+won't be able to make a dumper if they don't.
 
-kvm=(
-qemu-system-i386
--enable-kvm
--cpu Icelake-Server-noTSX,enforce,lm=off
--kernel $kernel
--initrd initrd-vm-meta-160.cgz
--m 4096
--smp 4
--device e1000,netdev=net0
--netdev user,id=net0,hostfwd=tcp::32032-:22
--boot order=nc
--no-reboot
--device i6300esb
--device pci-testdev
--watchdog-action debug
--rtc base=localtime
--serial stdio
--display none
--monitor null
-)
-
-append=(
-ip=::::vm-meta-160::dhcp
-root=/dev/ram0
-RESULT_ROOT=/result/trinity/group-02-5-300s/vm-icl-i386/yocto-i386-minimal-20190520.cgz/i386-randconfig-1005-20261101/gcc-14/80047d84eed25e9c92cfb9169980a0dfec110246/0
-BOOT_IMAGE=/pkg/linux/i386-randconfig-1005-20261101/gcc-14/80047d84eed25e9c92cfb9169980a0dfec110246/vmlinuz-6.19.0-rc6-00100-g80047d84eed2
-branch=linux-next/master
-job=/job-script
-user=lkp
-ARCH=i386
-kconfig=i386-randconfig-1005-20261101
-commit=80047d84eed25e9c92cfb9169980a0dfec110246
-mem=4G
-intremap=posted_msi
-rcuperf.shutdown=0
-rcuscale.shutdown=0
-refscale.shutdown=0
-audit=0
-kunit.enable=0
-init_on_free=0
-max_uptime=3600
-result_service=tmpfs
-selinux=0
-debug
-apic=debug
-sysrq_always_enabled
-rcupdate.rcu_cpu_stall_timeout=100
-watchdog_thresh=55
-workqueue.watchdog_thresh=140
-smp.csd_lock_timeout=100000
-sysctl.kernel.hung_task_timeout_secs=140
-net.ifnames=0
-printk.devkmsg=on
-panic=30
-softlockup_panic=1
-nmi_watchdog=panic
-oops=panic
-load_ramdisk=2
-prompt_ramdisk=0
-drbd.minor_count=8
-systemd.log_level=err
-ignore_loglevel
-console=tty0
-earlyprintk=ttyS0,115200
-console=ttyS0,115200
-vga=normal
-rw
-earlycon=uart8250,io,0x3f8,115200n8
-keep_bootcon
-)
-
-"${kvm[@]}" -append "${append[*]}"
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261102/202611022259.def3e086-lkp@intel.com
-
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
-
+Jason
