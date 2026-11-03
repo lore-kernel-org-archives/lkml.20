@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793744829;
-	b=UvB/UgB1J8KiDm6pXiGlmTFmDS23l2AgIckaLWvlZHln1TGx7SkHQh9jQKhGzd4L20Xb
-	 +E6CcmC3w0/84NzO4qUwCpiNAtpsovq8innUx2eJplOmYBKo+FUscXjvRYI8vjWeXcZnA
-	 NuoUCAiW0St0Lu2prD+lfzAIKFF9N0o2cTvO64qPLofiHjAhK9IcZqNsf/YRwBMSEK55t
-	 VCmWxdmdoJj77a2SJlOKxKrWHBb+GodxqfOi8Fs9l2enMd5+hAykElmYJH0E4qiypMT0+
-	 LMXYKh9Fle3NNgKxs6fmif+ndu1rjcIHOIoIsJSTg7tVoPMPMMlIfXc68xteGA6f26Q==
+	t=1793744832;
+	b=zRo2I7P92EXXHvg8SaVVlMMCzvN0Dls415xvAgPPOStLriT5a0wvaNUJK90pvXF9+hy1
+	 nSVkN6CWIN3FFrIHMbcwaJzBqImUK6uxjTZ5CaewAKI9DEP//vj99xsJXwlkmzW0HoeW6
+	 zwT3sppLDW2/oJsKPwDa1whAwacT6U7KY3FagtyCkJzuEfimkOAjnWA+VxHahybyIEjIC
+	 qqSOqzn447lKJVTgWbRLVObJsPM6VjnCssYzAFehtQermn64BiAAD7C+JfE6GQnNmZQlx
+	 VpeMdjVhU352qowRPRxG8Iv4nT3pXCmrW5IhZq50RX3sh2ZjRmJsNIfWONSbYCuCjJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793744829;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793744832;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CX279Eb4tbMpKOIQlNE7fd8p5zbQeZ51F2VkoR5Ky6s=;
-	b=a57nkC7dGZf2HJaZ1CK8mHZnyEtUENjaRXU+GVBM+BmESQeZlMOJCardWAEVgdM2BceU
-	 MVFMiuAJf/yZpish/7B9JBjGwwlfR6JITUhtrMURElt4fZnTNj1yTn/1d3djSRWw2QlFy
-	 y4VpSvHpHUt86gxiv3zcKYu4Wucjpr7RlRXzDQe0oSfjKQhIJvJgsB1iTva1od1DT54m2
-	 lFcXDY4Hy4ZLn73vEwtiVhaJ3Oqa81ZQatDT5U6eO6BzZndX0XCAsOalZSQmEWH4pmhB7
-	 QPd+YVx9LbNMusxQenlf3tcyXa7SEJlhGxngzijXkhhKWyNCfkaLg1Ij6QkMJmi1MfQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=/ci6k4oqs2nbzif7LoyW5jMqduAUL1OYo5QDwTnoE6U=;
+	b=ZO32DU+JMnGMdPZWux0nFQnX3/q/ou3UB5qKr6kYvsG14humwbjc9Ia9bh1L30N3QZls
+	 dRFQawIi0omJNWu/ZvCD6Xi5RxSGD+m6E6V3J7MZQh7JVyyGkGbmxOZdnhyp8fBgWhKD1
+	 qCn/BiLNuBtZoqzY0mq9k7UgPGS68fvpdRl0mo+jJPjrxkKpEQ6qPcCuO4a6NtIpjAMY8
+	 nnBjR3PczjdtBHDmpFViZjGdmvPvhnG2jicjll1hNX4kZnOl93yOf0W5TIYdsvEVwU/uc
+	 ncJAy3qh/KJrm+vekqQbKnc894TM5Td0UnuSVzq9fdx+T6FlsTTz8gGDEJPRyPwg0hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hiTOAc9Q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UpWzzhRM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE74606A31B;
-	Tue,  3 Nov 2026 22:27:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E911E606A33D;
+	Tue,  3 Nov 2026 22:27:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hiTOAc9Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 858BC1F000C1;
-	Tue,  3 Nov 2026 22:27:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UpWzzhRM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644F11F000C1;
+	Tue,  3 Nov 2026 22:27:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793744828;
-	bh=CX279Eb4tbMpKOIQlNE7fd8p5zbQeZ51F2VkoR5Ky6s=;
-	h=From:To:Cc:Subject:Date;
-	b=hiTOAc9QiC8NEHTB+6maeLQHqivGXNc2o52KUZ7h4A2jDrZvTAHbrl+FB/5cEfEml
-	 SZ2cFgQEltrBJlpFsPU4PX/miCLSi5o+9K/lqa4Y97I4zTVcNpbluLxxeYiIIwkWJc
-	 /QQQa+6/Uhnwi82aRRTqA+iGwFgfmS7Lfv4E3WhRrdiQ14RTU4qcZ/C8F1BvW6vZ+1
-	 bZwnj79+eIihBz3X3m9zjrVJYsdLhKy/LdQ6Y+BopsNwpYLoOVbUU2P/B+40k11Wp+
-	 0o0HCj4ipuOACaVDID9sOAaRpu6SjkCc89d3uxW6j+DNvPt9Y0YZSt5j4xUGDjQrQL
-	 ucj6GT9x5gb9A==
+	s=k20260515; t=1793744831;
+	bh=/ci6k4oqs2nbzif7LoyW5jMqduAUL1OYo5QDwTnoE6U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UpWzzhRMe9ouT661sPi2E4GkWyV6XJHdZ28Tqb9ukfNRrl2Y1tuzlICwpCNwbCfla
+	 q2JFOcIFcdMCBsgxBX4AXf6bXKsoWNGxoPwycISf1+tTIfpiDKqIhUn+QiN79qAljB
+	 9F1wAqhKGgGX+tr126emyFK36KF0zOGHYGxEsXVqldP2R4O6Mqzfk8HHBK9geU7hOq
+	 chrw1wp+IuQHAF1CDL+Tm+5EglSCWCL9zHWTCETpEuSlPCkIz0hUqFhRh+z7UeKBDE
+	 fKj0jzbDbwkNqRl/ZNJjTiebSVqOlRDA45EzkaHJd95ro+2frsvbIfTRqS5WzHABRF
+	 rQ3VKIKkV23aA==
 From: Sasha Levin <sashal@kernel.org>
 To: Josh Poimboeuf <jpoimboe@kernel.org>,
 	Miroslav Benes <mbenes@suse.cz>,
@@ -52,10 +52,12 @@ Cc: Song Liu <song@kernel.org>,
 	live-patching@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] selftests/livepatch: fix building and running outside the host kernel
-Date: Tue,  3 Nov 2026 17:27:04 -0500
-Message-ID: <20261103222706.1642224-1-sashal@kernel.org>
+Subject: [PATCH v3 2/2] selftests/livepatch: skip based on the test modules instead of KDIR
+Date: Tue,  3 Nov 2026 17:27:06 -0500
+Message-ID: <20261103222706.1642224-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103222706.1642224-1-sashal@kernel.org>
+References: <20261103222706.1642224-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,45 +69,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The livepatch test modules are built against the running host kernel
-even when the selftests are built for a kernel in an output directory,
-and the scripts skip every test on a machine without a kernel build
-tree, even when the modules were built and installed with the
-selftests.
+setup_config() skips every test when there is no kernel build directory
+at $KDIR or /lib/modules/$(uname -r)/build. The test modules are built
+together with the selftests and the scripts load them from
+test_modules/, so nothing needs a build directory at run time. A
+machine running an installed kselftest tree usually has none, and the
+tests are skipped there although the modules were built and installed.
 
-Patch 1 picks KDIR from O or KBUILD_OUTPUT, stops passing O and
-KBUILD_OUTPUT on to the module build, and skips the modules for kernels
-without CONFIG_LIVEPATCH. Patch 2 makes the scripts check for the test
-modules instead of a kernel build tree.
+Check for the modules that __load_mod() loads instead, and remove
+has_kdir(), which has no other users.
 
-Tested on v7.4-rc1 with an x86_64 kernel with CONFIG_LIVEPATCH built in
-an output directory. The modules build against it with relative and
-absolute O and KDIR, through tools/testing/selftests and through the
-kernel's kselftest targets, and clean removes them in all of those
-cases, also after Module.symvers is gone. The installed tree was run in
-a VM that has no build directory for that kernel: all 8 livepatch tests
-pass, and they skip cleanly when test_modules/ is missing.
+Fixes: 54ee3526796f ("selftests: livepatch: Avoid running the tests if kernel-devel is missing")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ tools/testing/selftests/livepatch/functions.sh | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-Changes since v2:
-- Patch 1: clean test_modules through the kernel source tree that
-  contains them, so that clean no longer skips them for a relative O, a
-  missing Module.symvers or a missing /lib/modules/$(uname -r)/build,
-  and pass a KDIR given on the command line on as an absolute path.
-  Both found by Sashiko.
-- Patch 2 is unchanged.
-
-v2: https://lore.kernel.org/all/20261103140218.17568-1-sashal@kernel.org/
-v1: https://lore.kernel.org/all/20261014200154.1365200-1-sashal@kernel.org/
-
-Sasha Levin (2):
-  selftests/livepatch: build test modules against the selected kernel
-  selftests/livepatch: skip based on the test modules instead of KDIR
-
- tools/testing/selftests/livepatch/Makefile    | 28 +++++++++++++++++++
- .../testing/selftests/livepatch/functions.sh  | 17 ++++-------
- .../selftests/livepatch/test_modules/Makefile | 11 ++++----
- 3 files changed, 40 insertions(+), 16 deletions(-)
-
+diff --git a/tools/testing/selftests/livepatch/functions.sh b/tools/testing/selftests/livepatch/functions.sh
+index 8b26b70f92d8c..14fc9cade4de3 100644
+--- a/tools/testing/selftests/livepatch/functions.sh
++++ b/tools/testing/selftests/livepatch/functions.sh
+@@ -44,16 +44,10 @@ function is_root() {
+ 	fi
+ }
+ 
+-# Check if we can compile the modules before loading them
+-function has_kdir() {
+-	if [ -z "$KDIR" ]; then
+-		KDIR="/lib/modules/$(uname -r)/build"
+-	fi
+-
+-	if [ ! -d "$KDIR" ]; then
+-		echo "skip all tests: KDIR ($KDIR) not available to compile modules."
+-		exit $ksft_skip
+-	fi
++# Check that the test modules were built before loading them
++function has_test_modules() {
++	compgen -G "test_modules/*.ko" > /dev/null ||
++		skip "test modules are not available"
+ }
+ 
+ # die(msg) - game over, man
+@@ -151,7 +145,7 @@ function cleanup() {
+ function setup_config() {
+ 	is_root
+ 	[[ -d "$SYSFS_KLP_DIR" ]] || skip "livepatch is not available"
+-	has_kdir
++	has_test_modules
+ 	push_config
+ 	set_dynamic_debug
+ 	set_ftrace_enabled 1
 -- 
 2.53.0
 
