@@ -1,57 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712171;
-	b=rqpoUZ93CRBboAokx9bBcaZaZiXJGDh1KfLU4ku42ShBbrNPCnBRU93KN2l04emX6yiR
-	 e5R2pZrpc1ITUTe2MpuJzYW6fEdkh4EKf050SpWIaK3nxiEVAt0w06SXY+YfhLyaDhZwe
-	 P5R25M/CMGG/ITdnGFdToml5DIFMTgYPOzGET2IrCdkvjv9vH9NqnYSeTsYb6/l2enTzH
-	 Cp9CzuS20B4/81Cmk+qiWsCV9v54cTGI4hIc4eGynRUHH9AzHZ2g/TW9KbA9P6+NRyCWL
-	 dwr5UPWzsfRztZmpS26fwdM/JIfhrFW51BVSNprNs7hN0nTqGrRbs67xYU5QlvQDF4A==
+	t=1793712180;
+	b=hx/EtatKz4pVmH7t2XVml542RC3IypVslzB5c6feTq2JF+J0Qt00CNhSPiquzUQNc52x
+	 931vvbhb8LDfKivs57E8gDIAR/24ifY/8YUna5fMn2ux2p+OmSt0jqeX72KD6z8UKJ9xP
+	 eU2wfcFY9U71VsbNJn7rAU+zr/022Opg7gsdZMft+AZJ2raK/MqOkhXGiikm1OfmlBBx5
+	 aap0Thyxj5z8OA0dOoXcDA3GeAVP1r3LI2J/1/fE80MxUjybxHCqP7wtOZAkHx6k/gYnB
+	 l3WO++jYNsNWpbYgOwDdrVivkHqw/RK2j7RrFmt04yDVlWMc9hw1I7+otSuE1S0/e+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712171;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=iQivvky2ATDTmaxZzTIV2FyhaqawfZzHTFUstVZoE7s=;
-	b=Yks5kxRYVONa3i8rvI+bX94g3Ib3b0z8DSKJQTy4QwwikRpHj4TBIpdSFUofTZRBOC06
-	 5Yecar4HRwEYHxLS/x7M5iKwsZeOYSLYZYZheyAN9S7fbmo6+880iBFQv3thQ7AgFSO+x
-	 TiYqJVyRoP+/UYtmz0MLl/ReelmKbeS9qe+D0gFn174rlxcDIUoUHGcMk6KhlyGVvwEUH
-	 0xYzkLGPcC9NVk82GJYP93D3nZhn5ceeEPnau0t6eflmz53e5iqoBWpRumeJAA+23CLiY
-	 a6RxamoUwSTw5mZqsggxpw7vfjW3RITyPmw2oJ389r+AvSNK2cNYa+ie6rXdZIjVDPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712180;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=T0FqMog4IcpWe1YEj5FPSU9w3uh4BL0oNm3nVQw/i0g=;
+	b=PdxNLmIGPzhRmOd6Kr2L7511ieQAQv8f/v4Ica0V6cE/KAXey0Co8RHWM4Cbc5QI//Us
+	 EjsgCo0M6gkkfeXCozNHVGZgWFOzqUuOV46P/zHZXzHex3moSLlPxABCxGYTE6xabl5Ed
+	 aTaHBn+V0sHnvdQ9XR+bBe5hLo5aSczPD1ulLL7MIBTayjpL0kVYZYFNqVsHgGjY7kkNi
+	 niFVI0po7zSA0PgsXzmyVkmas0WZJTKPn5ai/prZ7/DZ2aHzr26ECKJrXx5QosP/0QItK
+	 gumVStubzT70BdKJWf352DhsAZrvR3FafME+/EsQVRRfz0KKa2G3ozglDClcXAlSm8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RXPsMV1x;
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MZKobFRF;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37126606A324;
-	Tue,  3 Nov 2026 13:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37126606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5FA606D820
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:22:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E5FA606D820
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RXPsMV1x
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793712169; x=1793971369;
-	bh=iQivvky2ATDTmaxZzTIV2FyhaqawfZzHTFUstVZoE7s=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=RXPsMV1xT0Do4WHpXEam5AhviJnf4d2MuC5A7yUmIF03LFsA440tOD9TnQQLanCSO
-	 mRkmPMGLPCvh31AnOGr30HUh0mZaZxyWCvOHPRoOEzcVE008RT8Ly6R/GjHZPgvE42
-	 6zZrS+m5lboG2otqtralXJSQrJnIJnahOPymjBtIn0k5d4dx19BvIUnIN5nBh0mIj3
-	 BLNO7U0n+GpqRkhdsNN/UbuxaLEuv9r8QayNwuNUIaxP1a7kV+eotubv/m1NYz2adN
-	 r3u+am2GydXBtgrdSwAObtBl0O1u9OLqZFoGEDhfysKNDz340C2aar6qqGq9sThz17
-	 xLYF6bUi6I6+A==
-Date: Tue, 03 Nov 2026 13:22:44 +0000
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-From: Sinan Turunc <enscrpt@pm.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2] ALSA: line6: Reject capture buffers smaller than two packets
-Message-ID: <20261103132227.696-1-enscrpt@pm.me>
-Feedback-ID: 48393780:user:proton
-X-Pm-Message-ID: ccc3b01cd691daf4f6f25c596ac56161c798b3e0
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MZKobFRF
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e6eb21a8fso1717659f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:22:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793712178; x=1794316978; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T0FqMog4IcpWe1YEj5FPSU9w3uh4BL0oNm3nVQw/i0g=;
+        b=MZKobFRFf2B6nwmZ6eNhe4g2CS9IOmc0lTwHjXT1iu1WmeivllUndpmE3aR7eCJJp5
+         VjGxTBcBIrVXrzNUTMpJd15+jkHywvDgHwuWcfS42Ov8IjGS5X3Jzo3+2V+ijphWzRmD
+         snE/r3vaZy8lcWdmkHGOzOof8kdxjbizFG/mgdZvog2aGlDaH7JfaZ5Yvdylxj+oJDX6
+         f4e+OTxlkrUlR4RVKhOl5ep+B0PQTbxtaRWmXhcK4NH/h4hkf17C74Jzsx+KLtZ8WO1Y
+         UKE1GrBaYandU4Kt6xIRmGYGDoGg2nGxp+jD6f8D11gvFjUmy30dRJoa/YnAvbl6TWHF
+         XDiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793712178; x=1794316978;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T0FqMog4IcpWe1YEj5FPSU9w3uh4BL0oNm3nVQw/i0g=;
+        b=e3+X3PZc+zdp1oMWqdkWMox4g/PAZz8JnRMDXAtg6HC2Qdv9nnmd1LCPr4nyg13IWD
+         Nxgz3JpzxFaHUenF52UEeDV4aril5HAjITJ7GY5IrVXVbNy8JJEXCDnCPnYDw04T5LY1
+         GGTEXapOjuBlDO9CkC++IoTUVsRTHQ0kcKPVir6UFAIsmbKk25J/rfc5Tv60790O5aOw
+         M2IGJTB0TBduBsmemUWlBz3t8KM6lKEt950fgzB0zN0Yw5v+c9U9Ewi40Baed1iZLjbz
+         oF6anwV+yUJEzRAqoMCJTesihWFk1hSaRE5SvL0/7pj15FN/TCiwlDFm4l/OTD+GbIkP
+         QxLA==
+X-Forwarded-Encrypted: i=1; AKwUvByz/1FORbAP5BvYSzZHOpn1uTC06WRBZft8DkU/IT7qfU7/efeFjdJG5SgV2Tv7pLgVUJN+qLVhLmNnh5M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WxO98FkcH2RFMmk1rP0YZBaUeUeZQG061mkurW/XnM80nPc6a
+	xUOqlA1/ZWEOhbW0veIenxRB+AlBfnyHRZUIvH3yV3ZhjH6ShnzJFQDiH1DU7eGsMKM=
+X-Gm-Gg: AYBFou1Y2yFFfVgzlFC3HSj+Q2ZIngQbLvjlAvZATSsMoPYSIcR4tda/5uCLoJ8nMLR
+	gCBNCSDVzUgeZjECrtFG7KRQY2zTIY+rg5y0NDl7VsZoyk+Loa/askMvkUjEff8w+Srtn50tLf7
+	mnIKSFV61rRiTfjA5AfPm9eSktKqmAtCpI1EcaDyfkVRySS1qd/rYNkV4w1kCEvzN5LjbCiPg7N
+	WQoaIEgcDb8w2tCpp3bVmzNm8JGVBr3AQoiC8/NOhJp5Pf4af8SCgGxHhUau5s3uVNveaawgLCG
+	zvZG0fIw0tE3qDcUZMvuYdSDrndrxb1yk6QtIqkUWvNf4qjr/kBAvbnTe8aCk86mm7ZjlH9b+O4
+	xQcytEh5DtCpfw5eq9z4V9MYAa/W7JSZHbvwWVoiWIhrNHlDcC9CM2avQI/TUbAXrtVCCGyByn+
+	GAkdE/AqgsYGkO0lHHHQfRq6k0/ExHEbDbYqxr/dXR3aWxxsPfhgOlvuvZOtPcYSCZmMYShJ2YL
+	17kbJFj8iSRa2+2NLOCOKzN0sScsxEJ2SDuLVN7qFBmn9wEfALNztoWI+c2K8c1sEnMxkgXfXU0
+	6GcmAtEYKSnfqHEF2lPfy3CCdQvBNBMn9/8dwPzzqVrjmyX3MIDO8osEriHemou110Irmv8Bf62
+	1i3qmRy7PPjCH46inFp4Scj8xk6cv6ngPF2Og
+X-Received: by 2002:a05:6000:178c:b0:487:b50:101c with SMTP id ffacd0b85a97d-48e6e2bc04cmr30304403f8f.5.1793712178173;
+        Tue, 03 Nov 2026 05:22:58 -0800 (PST)
+Received: from localhost (p200300f65f19a9048e0e65dd41210f6d.dip0.t-ipconnect.de. [2003:f6:5f19:a904:8e0e:65dd:4121:f6d])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e71bae0f4sm22307781f8f.58.2026.11.03.05.22.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:22:57 -0800 (PST)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Arthur Kiyanovski <akiyano@amazon.com>,
+	David Arinzon <darinzon@amazon.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Dawei Feng <dawei.feng@seu.edu.cn>,
+	netdev@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] net: ena: Make ena_pci_id_tbl.h self-contained and simplify
+Date: Tue,  3 Nov 2026 14:22:40 +0100
+Message-ID: <20261103132240.442686-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,97 +111,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2948; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=+gVsiAK1fNaTWf0SLgLEclzZ7RxZ7QMhU5Ir6dVMJ0o=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq6eAgL7zVVP7fPFGVhsfUEA1f4G7B+oNrtVkxA PfbgruqQwOJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCaungIAAKCRCPgPtYfRL+ TulZB/4oev48ydjymW0ga7XATv51XGwH4LXerAt0rTWGhlkPYIABl+gqDyfAeJ2lfTdJvNquLHs +mJA54G8XKszvK9yGqevwoWdI4NpwXK/acTrH0mVvNb+29pCxyirGFa+j90eQH+6FnIDkGDDKEQ 0P1KFYRJ9+qTb9C4fqh3LdE80BmEZU1te7TcnEzvCcB7Io/0GQwPSq8Jvr5NydLl9Tqtv25y8hZ IzThpm7SyvhSMVzpL6WPk0NK3P2S1OGIW5YlfPT8xn8f93RPRO/Y0azHBZuzCWriF7rWoHjGhKE XO1kqCpEoI8Ab8BV18l8pja/BJCdZOaPVziWru/tzYpPH4pB
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-line6_capture_copy() splits the copy into the ALSA ring buffer once at
-the buffer end and wraps pos_done once, which is only correct when one
-packet holds at most buffer_size frames. The packet size comes from the
-device's endpoint, and the per-device hw structs allow 64-byte periods
-with periods_min 1, so a packet can be larger than the whole buffer.
-audio_in_callback() logs an oversized packet and then copies it anyway.
+The header makes use of struct pci_device_id and PCI_VENDOR_ID_AMAZON.
+Include the needed header for those and drop the local definition of the
+latter.
 
-The packet size is known at probe time, so constrain
-SNDRV_PCM_HW_PARAM_BUFFER_BYTES in snd_line6_capture_open() to at least
-twice the larger of the two endpoints' packet sizes. Two rather than
-one, because pos_done advances by the packet and wraps once, so a buffer
-of exactly one packet leaves the position unchanged after every packet.
-hw_params then rejects a buffer that cannot hold two packets, and the
-single wrap is valid for every configuration that gets through. Keep a
-guard in line6_capture_copy() that drops an oversized packet with a
-ratelimited error, for the case that should no longer be reachable.
+While touching this file drop some cpp guards and improve the coding
+style.
 
-Reproduced on 7.3-rc7 with a USB/IP device presenting the GuitarPort
-interface layout and 1024-byte packets into a 128-byte buffer: ALSA
-logged "invalid position: pos =3D 224, buffer size =3D 32" and the driver
-logged "driver bug: len" on every following packet. With this patch a
-1024-byte buffer is refused at hw_params, and a 2048-byte buffer streams
-for 30 s with no report and with the position moving inside the buffer.
-
-Fixes: 705ececd1c60 ("Staging: add line6 usb driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
 ---
-v2: constrain the buffer at open instead of clamping in the copy. v1
-clamped the frame count to buffer_size, which left the ring position
-unchanged on every oversized packet and stalled the stream, as the
-Sashiko review of the line6 patch pointed out. A buffer of exactly one
-packet has the same effect, so the bound is two packets. The clamp is
-replaced by a drop guard for the case the constraint makes unreachable.
+Hello,
 
- sound/usb/line6/capture.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+(implicit) v1 of this patch had a different subject, so maybe teh
+automatisms won't find it for automatic comparison, but you can find it
+at
+https://lore.kernel.org/netdev/20261102110907.356621-2-u.kleine-koenig@baylibre.com
+. Changes since then:
 
-diff --git a/sound/usb/line6/capture.c b/sound/usb/line6/capture.c
-index 6dbaf30232f..7aaf7826c48 100644
---- a/sound/usb/line6/capture.c
-+++ b/sound/usb/line6/capture.c
-@@ -94,6 +94,18 @@ void line6_capture_copy(struct snd_line6_pcm *line6pcm, =
-char *fbuf, int fsize)
- =09if (runtime =3D=3D NULL)
- =09=09return;
-=20
-+=09/*
-+=09 * snd_line6_capture_open() constrains the buffer to hold at least
-+=09 * two packets, so this cannot happen for a conforming device. Drop
-+=09 * the packet rather than overrun the single wrap below.
-+=09 */
-+=09if (unlikely(frames > runtime->buffer_size)) {
-+=09=09dev_err_ratelimited(line6pcm->line6->ifcdev,
-+=09=09=09=09    "packet of %d frames exceeds %lu-frame buffer, dropping\n"=
-,
-+=09=09=09=09    frames, runtime->buffer_size);
-+=09=09return;
-+=09}
-+
- =09if (line6pcm->in.pos_done + frames > runtime->buffer_size) {
- =09=09/*
- =09=09   The transferred area goes over buffer boundary,
-@@ -224,6 +236,23 @@ static int snd_line6_capture_open(struct snd_pcm_subst=
-ream *substream)
- =09if (err < 0)
- =09=09return err;
-=20
-+=09/*
-+=09 * line6_capture_copy() wraps the ring buffer once per packet and
-+=09 * advances pos_done by the packet, which only works when the buffer
-+=09 * holds more than one packet: with exactly one, pos_done gains a
-+=09 * buffer and loses it again on every packet. The packet size comes
-+=09 * from the device, so bound the buffer by two packets here. The
-+=09 * impulse-response path copies a playback URB into this ring, so
-+=09 * take the larger of the two endpoints.
-+=09 */
-+=09err =3D snd_pcm_hw_constraint_minmax(runtime,
-+=09=09=09=09=09   SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
-+=09=09=09=09=09   2 * max(line6pcm->max_packet_size_in,
-+=09=09=09=09=09=09   line6pcm->max_packet_size_out),
-+=09=09=09=09=09   UINT_MAX);
-+=09if (err < 0)
-+=09=09return err;
-+
- =09line6_pcm_acquire(line6pcm, LINE6_STREAM_CAPTURE_HELPER, false);
-=20
- =09runtime->hw =3D line6pcm->properties->capture_hw;
---=20
-2.56.0
+ - keep the local header and make it self-contained
+ - Do the simplifictions in the header instead of the folded-in copy
+ 
+Note that while keeping the header is fine for me in principle, I still
+consider it a bit ugly to have a variable defined in a header. OK, there
+is only a single user, but if there were two or more, each user would
+get its own copy of that variable. 🤷
+
+Still this patch makes my mod_deviceid.h check script happy because now
+the usage of pci_device_id doesn't depend on ena_netdev.c including
+<linux/device-id/pci.h> before ena_pci_id_tbl.h.
+
+Best regards
+Uwe
+
+ .../net/ethernet/amazon/ena/ena_pci_id_tbl.h  | 31 +++++--------------
+ 1 file changed, 8 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/net/ethernet/amazon/ena/ena_pci_id_tbl.h b/drivers/net/ethernet/amazon/ena/ena_pci_id_tbl.h
+index 3ecdf29160ca..72605991528c 100644
+--- a/drivers/net/ethernet/amazon/ena/ena_pci_id_tbl.h
++++ b/drivers/net/ethernet/amazon/ena/ena_pci_id_tbl.h
+@@ -6,39 +6,24 @@
+ #ifndef ENA_PCI_ID_TBL_H_
+ #define ENA_PCI_ID_TBL_H_
+ 
+-#ifndef PCI_VENDOR_ID_AMAZON
+-#define PCI_VENDOR_ID_AMAZON 0x1d0f
+-#endif
++#include <linux/device-id/pci.h>
++#include <linux/pci_ids.h>
+ 
+-#ifndef PCI_DEV_ID_ENA_PF
+ #define PCI_DEV_ID_ENA_PF	0x0ec2
+-#endif
+-
+-#ifndef PCI_DEV_ID_ENA_LLQ_PF
+ #define PCI_DEV_ID_ENA_LLQ_PF	0x1ec2
+-#endif
+-
+-#ifndef PCI_DEV_ID_ENA_VF
+ #define PCI_DEV_ID_ENA_VF	0xec20
+-#endif
+-
+-#ifndef PCI_DEV_ID_ENA_LLQ_VF
+ #define PCI_DEV_ID_ENA_LLQ_VF	0xec21
+-#endif
+-
+-#ifndef PCI_DEV_ID_ENA_RESRV0
+ #define PCI_DEV_ID_ENA_RESRV0	0x0051
+-#endif
+ 
+ #define ENA_PCI_ID_TABLE_ENTRY(devid) \
+-	{PCI_DEVICE(PCI_VENDOR_ID_AMAZON, devid)},
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMAZON, devid) }
+ 
+ static const struct pci_device_id ena_pci_tbl[] = {
+-	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_RESRV0)
+-	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_PF)
+-	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_LLQ_PF)
+-	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_VF)
+-	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_LLQ_VF)
++	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_RESRV0),
++	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_PF),
++	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_LLQ_PF),
++	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_VF),
++	ENA_PCI_ID_TABLE_ENTRY(PCI_DEV_ID_ENA_LLQ_VF),
+ 	{ }
+ };
+ 
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0.rc1
 
