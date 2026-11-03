@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742874;
-	b=wBWDODV/TMPxf7MbYosGiKQT9t3UZELRyDLw84teGWHfJDqqf6BGnoammtpJDIKZJM6c
-	 4305ph2UBYxQ/VrYDOnXrEzGi8NkDGctafn1tPh17tcpXWI/eq0M+jPlG/YzZz7u097Q6
-	 mcyfG8xN983WZqxsF0a6+Kv9Xqc8epj+JTqnrrDwtokzsUk5Dga3oTZz22ipmD7nK2Eke
-	 2iQeg08wkqoN34Es4OLH1iU2jczsKBNZswLjej9J4fQEXRsdn4M/h/WfmKZn6GWSjuaQM
-	 NfpJTNvb9A89foZc+IV2ydb2WxJ6J3Q2S5tzxMnvDkiLsWVIHs8zFbx3DxXSWbxL65Q==
+	t=1793742890;
+	b=agO/iRsqlbfvXmqgtSIU9ztrhsRJgWvqsKlIGfYkg44+uwdvmUXqPvc7CgAowtu+8fy0
+	 TKPBD7lyNHGbkzn8m2gHsiO2ZGjC2//3tgIZ4VOniVFJWElFqfZqKN3A7UjtL0NA4rd3u
+	 kDeD5xRyM8C7+dF3S4fBme9AYfCRz/as10x4sGBybSJww+E4RBSQLXuRffGofDadv4vUI
+	 djokI079RCMacY7h7NTgXzhaFztELrOBfXCY32D65Wx3/Vn0g6RnORNa/3SBNsrrNKV2C
+	 aZNJ5CXfy4L/0m98yKbOO5iQe5Sn07x7oGH7Owyn3AjcJ5XWlunh9T/ANFy5Vfu91ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742874;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pNIYfgovfeYUTnUWQVAULaUQM12WfGegAeKvV0ijU6k=;
-	b=kin8U4JDoY+cJuUgukAzHfp6sQadJkxorZmcwuwTzrzqO2SvMQiM/mDuGzcM72A5ssFg
-	 L0qNw6qeCAE0IfwTuT4rgHP/gzuCBF8XppV77vt3rHgKsI7NKmllkKudal8vnRQ4n9ta0
-	 yexnetlXrNCfpay+kmZ7v5QxiNyN9WR0g+2ABkRN2JRVKnjo4lP0cxv13v+rscINl6+Xl
-	 IDnnG5mR5sCiGqbjAMHbHEFKmym88F8K9yDiulbE3f9RYRF4vbOIjdG3m5JgHx4nqNIPC
-	 scEZNTq/TwqsFRNMM+rKBxrPlI019fFN00nZ+hPpkBBs+oP9bu7FhpuyAnD3N0v6Mcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742890;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=dsJ1Z8U35IPEXIiop8EnuAFRBYPIToUsEh0hWLkvSJg=;
+	b=C/7N4FGBAynNy+DqZzIFKZsr8bgzDPY+zwYhXfCu8EDuvWK9vMj6aaxsYH2CMLgIse0o
+	 es06E0QLpAxFVn1ryI27SfT5+zjy9hhKRKRc1AbYBZyh5kGeD8j94XaNUn7AlXwZ/uXKh
+	 Ed50m+rxFeaNw5DmlRsaiVuNgW9+pSGww1VgpuaQlGt1ZECAszKo9TNpN9MK9NxLXs226
+	 c8lNuJmdryeAXYy2KEuOMvG+IUSkedMv5gP231hk9S7uM6qEMMT038m1tNOECAnATIn+l
+	 4rnAx53k917YM6SAo3oU0KiWXGrEPvnsIcP2W8eXMVnRc+1LTOqa+cmodhb0yv/Oshg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="jfGbh/HO";
-	arc=none smtp.remote-ip=91.218.175.218
-Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vFndjKIS;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035B6606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:54:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 035B6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF49606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:54:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BF49606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jfGbh/HO
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lzvO4MZjJaBVQmlohMoJ2wbpUm50n891PebbguUdryA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793742870; v=1; x=1794347670;
- b=jfGbh/HOsOxsUSry2IPwFxi6NWyrWkFH+e42+sVp/RFdXSh06V1SmbSthalzB3AIH8ca9D66
- vF9TykAblu8zQ2IAx8XCnn3bFD/jvEMWy2QIL/pPdATwExO3oGsf314SYjMFfA4ha1s0Ml1Lo0L
- srd6w/fYsWxBAeHqu3MyTPE4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 608ed53c19633f31;
-	Tue, 03 Nov 2026 21:54:30 +0000
-X-Mizu-Trace-ID: 608ed53c19633f31
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: "Zi Yan" <ziy@nvidia.com>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	"Andrew Morton" <akpm@linux-foundation.org>,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	linux-mm@kvack.org,
-	ying.huang@linux.alibaba.com,
-	"Baoquan He" <baoquan.he@linux.dev>,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	kas@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	"Nico Pache" <nico.pache@linux.dev>,
-	"Liam R.Howlett" <liam@infradead.org>,
-	ryan.roberts@arm.com,
-	"Vlastimil Babka" <vbabka@kernel.org>,
-	lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org,
-	nphamcs@gmail.com,
-	shikemeng@huaweicloud.com,
-	yosry@kernel.org,
-	qi.zheng@linux.dev,
-	luizcap@redhat.com,
-	kernel-team@meta.com,
-	"Thomas Gleixner" <tglx@kernel.org>,
-	"Ingo Molnar" <mingo@redhat.com>,
-	"Borislav Petkov" <bp@alien8.de>,
-	"Dave Hansen" <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Subject: Re: [PATCH v8 07/30] x86: mm: add PMD swap-exclusive helpers
-Date: Tue,  3 Nov 2026 13:54:22 -0800
-Message-ID: <20261103215423.104469-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <DLX6HZQ71WVN.1AIA7V63XWARY@nvidia.com>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vFndjKIS
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so11901385e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:54:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793742888; x=1794347688; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dsJ1Z8U35IPEXIiop8EnuAFRBYPIToUsEh0hWLkvSJg=;
+        b=vFndjKISh0pYzREfCpZfm3scn4wXMjbDb+M9zJY+or5CMvZX6bi7AiNpu6d3mQfj9F
+         6ehn9LEXgHfP7h0H58IJxkn2DJEEmD9x8AMZU5pO8CudOveh80p/8F2UEHlCDuWcx5Hy
+         7byr9Ty1KtF6aGjVo0nmH261aL1qXpcTozVyx/NL5CTiDGVuz2+W7AlxPHu72ysteMVB
+         Y1HmUl1a232SYhWXFt1QiRiATN+gM3dubXwRZnn0jCp02pndU2uHyDYtFbFkJVp+fBV/
+         Ap6aMhbre/63Z96gtTole5h64rTmXB1HEKaWvptfQcsfuF84+owVXXoUoBu0sHMA3vBd
+         PkZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793742888; x=1794347688;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dsJ1Z8U35IPEXIiop8EnuAFRBYPIToUsEh0hWLkvSJg=;
+        b=or2MwaP7TEJA1ZecK0pUJBIc4jNjwrfvKg7USKW+OohkzzCmSMSbIwF/XvZA+jG83v
+         9D9CHcx1FTHC8Ivca4TdTcAJ69latja7x3Ihi8Efz+fm7Pym+0PP96FJZfBdnwbj3csj
+         NZvAgpE2RbMf+0lcrDXYH+OLubEwjljVuFioR92haipPvkDti5XVq/XWxUkJciiNMu81
+         eB5+DlVTpeQClfKkaUs+okYtG7hkWjcJaE7hrfILPgXiJnpD5kLvk24N0o+XsBHBaphh
+         GU1jgrNMi8iuBIyouMRCGVjoifWpnaMRufFDfOIB1rle9PW1p0zLtJNITEnNYBiMkW9G
+         Plcw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLogByuNtVp9s9CgSCK/GPSy7h4XJqV06sHBQlaAvDAfivtbzHQaBiufw2foXXbfs7wsKwkkpMwTSnuwI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+F4FTYpi7Dv/elyguzI2wPWDui9nchV4DjE5+kbA+6L0GIKsie
+	rTfv1Ck8h9k0ps+4aShExjIiALwVXr+NRtvJRJLqwhWQJw1i1HO/ASRJ
+X-Gm-Gg: AYBFou1k1VgIYxlYey8qClgECR4c8MGMkZUAuzAI8adIoIrh+O61h+7CulUz9iJjdp6
+	bnwgminl+/sUTL1V9S+WNGpwH98fz8JqTWfrIDRfoGOyetG3h6falKawQB8GoKl1Vz62fTEfCMZ
+	tp3PGa6xLqEoLtqQpX0fg3vRZoq5sSzv0Z6e3xVu4lQ0oGKUZUe80OJEyWqZF+Gk+aAORJmvm7C
+	rVpZmE4y9KwGXu+LgpyRrMe6Fjre7+Rd1qPP9AByuq9Hu8FH41ReomsDL1wSVJH9eOg9a8t9PoQ
+	aAQP5PbjO3G/vQIrYV560jxx2ym+NOHxoKCHaS9VNG1bBqP+bU/LtS1Hba3EUuFPimJQiFBbK2T
+	16S6MTWZNzhUlx68S4lRI2SD7OnRYuMlhlYCCbOrWklDjsKzFIHpF4S2vvrg0kAXOA1dGyJhFJa
+	2oksmI/QrKjVTt++z9yOLlrGdS/Jd/grRrnUnp4VY2Yi9pY43P+EeHicklW8WddBDfpLs89S3Uj
+	S5zjr+KdtH9Fi4m+Q6m0crlE/1np59ur3lzOvZbq5kbjkReHKTpudBJ54pl6xPrtsmEbaN0rqtg
+	vY1Ojsj4AK93UBe61MdYhYTN3sC09bqDrPRocK/xrHgQysLrywFwZGJwvBGTOrtN
+X-Received: by 2002:a05:600c:5595:b0:4a2:d6cf:86e4 with SMTP id 5b1f17b1804b1-4aa8a7ad60bmr310402295e9.10.1793742887762;
+        Tue, 03 Nov 2026 13:54:47 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99d67sm246869f8f.24.2026.11.03.13.54.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 13:54:47 -0800 (PST)
+Date: Tue, 3 Nov 2026 21:54:46 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, jpoimboe@kernel.org,
+ leitao@debian.org, keescook@chromium.org, hpa@zytor.com
+Subject: Re: [PATCH 4/6] x86_64/entry: Mark all syscalls __noendbr
+Message-ID: <20261103215446.5d27d33d@pumpkin>
+In-Reply-To: <20261103085143.GX2668564@noisy.programming.kicks-ass.net>
+References: <20261102112549.714541309@infradead.org>
+	<20261102114000.771366690@infradead.org>
+	<20261102170630.1dfc00eb@pumpkin>
+	<20261103085143.GX2668564@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,92 +101,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, 05 Oct 2026 16:14:52 -0400 "Zi Yan" <ziy@nvidia.com> wrote:
+On Tue, 3 Nov 2026 09:51:43 +0100
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-> On Fri Oct 2, 2026 at 5:52 AM EDT, Usama Arif wrote:
-> > Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
-> > swap round-trip, which makes PG_anon_exclusive have to survive in a swap
-> > PMD and not just in a swap PTE.
-> >
-> > x86-64 encodes a swap PMD exactly like a swap PTE, so the new helpers reuse
-> > _PAGE_SWP_EXCLUSIVE, bit 3, which the swap-entry layout already reserves
-> > for PG_anon_exclusive. 32-bit x86 aliases that bit to _PAGE_PSE and does
-> > not select ARCH_HAS_PMD_SOFTLEAVES; assert that, because an exclusive swap
-> > PMD would otherwise be pmd_present().
-> >
-> > Cc: Thomas Gleixner <tglx@kernel.org>
-> > Cc: Ingo Molnar <mingo@redhat.com>
-> > Cc: Borislav Petkov <bp@alien8.de>
-> > Cc: Dave Hansen <dave.hansen@linux.intel.com>
-> > Cc: x86@kernel.org
-> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> > Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> > ---
-> >  arch/x86/include/asm/pgtable.h | 20 ++++++++++++++++++++
-> >  1 file changed, 20 insertions(+)
-> >
-> > diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
-> > index d551120a7c889..c35dfa6ceda05 100644
-> > --- a/arch/x86/include/asm/pgtable.h
-> > +++ b/arch/x86/include/asm/pgtable.h
-> > @@ -1525,6 +1525,26 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
-> >  	return pte_clear_flags(pte, _PAGE_SWP_EXCLUSIVE);
-> >  }
-> >  
-> > +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-> > +/* 32-bit aliases this to _PAGE_PSE, making an exclusive swap PMD present. */
+> On Mon, Nov 02, 2026 at 05:06:30PM +0000, David Laight wrote:
+> > > --- a/tools/objtool/check.c
+> > > +++ b/tools/objtool/check.c
+> > > @@ -4672,8 +4672,15 @@ static int validate_ibt(struct objtool_f
+> > >  		    !strcmp(sec->name, "__patchable_function_entries"))
+> > >  			continue;
+> > >  
+> > > -		for_each_reloc(sec->rsec, reloc)
+> > > +		for_each_reloc(sec->rsec, reloc) {
+> > > +			struct symbol *sym = find_symbol_containing(reloc->sec->base,
+> > > +								    reloc_offset(reloc));
+> > > +
+> > > +			if (sym && !strcmp(sym->name, "sys_call_table"))
+> > > +				continue;  
+> > 
+> > Does that slow things down somewhat?
+> > Could you do it the other way around??
+> > So remember the bounds of sys_call_table and just check whether the relocation
+> > in inside it.  
 > 
-> Is it better to say? Since the above comment sounds like 32-bit
-> specific, but the actual constraint is about not being _PAGE_PSE.
 > 
-> _PAGE_SWP_EXCLUSIVE cannot be _PAGE_PSE, otherwise making an exclusive
-> swap PMD present.
+> --- a/tools/objtool/check.c
+> +++ b/tools/objtool/check.c
+> @@ -4676,7 +4676,7 @@ static int validate_ibt(struct objtool_f
+>  			struct symbol *sym = find_symbol_containing(reloc->sec->base,
+>  								    reloc_offset(reloc));
+>  
+> -			if (sym && !strcmp(sym->name, "sys_call_table"))
+> +			if (sym && sym->syscall)
+>  				continue;
 
-Updated the comment to:
+I meant save the symbol info for sys_call_table (or maybe all of them?)
+and just see in the relocation in in that region.
+Seems better than checking all the symbols and then seeing is a specific
+one matched.
 
-/*
- * _PAGE_SWP_EXCLUSIVE must not alias _PAGE_PSE, which would make an
- * exclusive swap PMD present.
- */
+David
 
-which I think is clearer.
+>  
+>  			warnings += validate_ibt_data_reloc(file, reloc);
+> --- a/tools/objtool/elf.c
+> +++ b/tools/objtool/elf.c
+> @@ -556,6 +556,9 @@ static int elf_add_symbol(struct elf *el
+>  	if (strstarts(sym->name, ".klp.sym"))
+>  		sym->klp = 1;
+>  
+> +	if (!strcmp(sym->name, "sys_call_table"))
+> +		sym->syscall = 1;
+> +
+>  	if (!sym->klp && !is_sec_sym(sym) && strstr(sym->name, ".cold")) {
+>  		sym->cold = 1;
+>  
+> --- a/tools/objtool/include/objtool/elf.h
+> +++ b/tools/objtool/include/objtool/elf.h
+> @@ -85,7 +85,7 @@ struct symbol {
+>  	u8 fentry            : 1;
+>  	u8 profiling_func    : 1;
+>  	u8 warned	     : 1;
+> -	u8 embedded_insn     : 1;
+> +	u8 embedded_insn     : 1; //  8
+>  	u8 local_label       : 1;
+>  	u8 frame_pointer     : 1;
+>  	u8 ignore	     : 1;
+> @@ -93,11 +93,12 @@ struct symbol {
+>  	u8 cold		     : 1;
+>  	u8 prefix	     : 1;
+>  	u8 debug_checksum    : 1;
+> -	u8 changed	     : 1;
+> +	u8 changed	     : 1; // 16
+>  	u8 included	     : 1;
+>  	u8 klp		     : 1;
+>  	u8 dont_correlate    : 1;
+>  	u8 fake		     : 1;
+> +	u8 syscall           : 1;
+>  	struct list_head pv_target;
+>  	struct reloc *relocs;
+>  	struct section *group_sec;
 
-> 
-> > +static_assert(_PAGE_SWP_EXCLUSIVE != _PAGE_PSE);
-> > +
-> > +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
-> > +{
-> > +	return pmd_set_flags(pmd, _PAGE_SWP_EXCLUSIVE);
-> > +}
-> > +
-> > +static inline bool pmd_swp_exclusive(pmd_t pmd)
-> > +{
-> > +	return pmd_flags(pmd) & _PAGE_SWP_EXCLUSIVE;
-> > +}
-> > +
-> > +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
-> > +{
-> > +	return pmd_clear_flags(pmd, _PAGE_SWP_EXCLUSIVE);
-> > +}
-> > +#endif
-> > +
-> >  #ifdef CONFIG_HAVE_ARCH_SOFT_DIRTY
-> >  static inline pte_t pte_swp_mksoft_dirty(pte_t pte)
-> >  {
-> 
-> Otherwise, LGTM.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-
-Thanks for the review! And apologies for the late reply, I was away.
-
-> 
-> 
-> -- 
-> Best Regards,
-> Yan, Zi
-> 
-> 
