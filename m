@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793746779;
-	b=bes6LxO2XPJ18Q3luewhpSxgT/uQdueS02x2bd7jEy0AnLeKc3DbqR/81Wrv0PBDTFUA
-	 wip/1MpSRPJ2C2uWUr14tOQbcxFk2rSzIAXkNUzUNGqeD2FAf8RhMbLjPDGryryLmDYgM
-	 36qrZpeST1rWZa3IHD3ReLwW21Zj5YAkHWRXVhKDiDofCGTzVvELjOIiQYfiGZQokHNbn
-	 5KFpSNcWd3iwC4k1RcIZPSVV6PdRbxm4y++jaf75XUbtRVxerdBqj/Oc1OZoSfnTu0rVi
-	 DSuhEDK4L5zT5Dlxq82ji9V2hEVuLp2YtI4hMhlXolhIbJRQvJ55N7WpTQLJs4y0HuA==
+	t=1793746836;
+	b=TsQMD8UxSJmcrKMOpmDGuTPNWURzC4ShGWS5WSsJZjDbpiPkQSxMdTG4QlPrJObddVqq
+	 iD+WhZtZbXewrd2XLvoeJxez49+JmBKDhucfSPq9ZWQF+qpoCaqcGZ6p8Irr/1RiO1PuF
+	 FGxDNXK5z1eR800kWO17sdx8kT6q1EaOjrR8cybk/N+5RQhrsWSQazMtd58j6kuRWDcrL
+	 2D3aYPPE0Y7fHq7MDTxR0YxhV6Q7VGGm3upSdVkwDWqzaL3CSFo2A3vex1lxNxcPEcd5Y
+	 1SlAxEESuYqFpFDW5zvjeukAu6nRgAVx0YXb6Z8VJuC8d4T02XSDFPL9sF5iWuPdAxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793746779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793746836;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=K8Xl6Cocv0cl5LTtyFifxzrgj29Mq3NqZ1spMjgXTok=;
-	b=JGBIhp9FH3kuncFc++iWgnF5u+kVykgHrfKgf4c2ikfkkpKuJemrP7V0UTeOVRLsgFy/
-	 m/VIrByqv7m7b2P7JBM6JnEcERfcDzwbDE/84KtBTVVjROWkfpzJlDzCbOnSJD6JCpAzn
-	 noOcGMGuH/jgg4JynTXNHbd1I+Npo+0PRlBeb9bRA6hDyaI0R4ZXcRdz3D6+8sH/ffPTz
-	 ixfrCacDoIDe0mbyabUifFSvMFTPMwMgGgnEGdOr9dWlKVk/cgQz9jhSzVMuv9U/0HwPe
-	 XBNq4WjpPiAn3QR/zIWTN9/UtshNXcGroTsvNnmmoBUaM8hmLqarMeNoVe0zs87GcwQ==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ng/QrrM3y10w8XPOybnoxA8wkETs3t+fZhj0GSFzGJo=;
+	b=lKIm6S7/JMYlvcEOqKrHpCs8wpAfmLKHiJtmnhTXea1xvRXzno3xK2x+oKi+MJehETaX
+	 AxHGyPF3tEaQtxv16dkRkoDHgZZVRGRWo5ZaSXip54+XE4zCeTS6vGjkAvx+Z0yDeOjWn
+	 lVauqTNNBpyS6icIKkoyuKmZFhG0mjq3T8BXVwwsnHjxHqDIFuuLW5IMSmSFSzmoLLLxq
+	 n44gyOhCMqj+wTLJA4MQ0ZuhmlcDlsAzTw2JoKxszC3iuBNe2fHtApX0hKd+TQ32TyVNS
+	 PUBWIvx/ixxtXn7XsYXs996YrV1e8bTFPs5lh96k206Jt9kHaQexb2dgSp8vKtnewhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X6dmqFFK;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yi2h096L;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC6D606A336
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEC6D606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB75606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:00:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AB75606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X6dmqFFK
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-353804b591eso103137eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:59:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yi2h096L
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48afbd2c386so50534f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:00:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793746773; x=1794351573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K8Xl6Cocv0cl5LTtyFifxzrgj29Mq3NqZ1spMjgXTok=;
-        b=X6dmqFFKDgPuolduHlUByfe23WmdYyeRJH/7WCxeu8+9SiD2WdJO+mQoqt9m22R2CG
-         c/rXWu/zk1oEcv6B7E8FV+WcUNhR4+beBKD3P+AOqNeMki9mj/0SWCVBu/Hk+bb1bDQs
-         w9bcjmh2eNQq5FsOW0Oo7uRTLzdIxsIJoSEiDYNI0vVpQiBKfyOvloc3IbibWDdEgsVE
-         w8unhSX/Uxfr+JbDoHxlTA2q+B9DFS2whxzacqK/AIhUn6RcFa7Z6k7GcI5ZZG7N9mLR
-         kxmFqXv5klupYFw9yb7mu7a8iQP1wsa5hffWWHZHk8xmemKyrxiT1Et5VI6rAvS0aCWP
-         pMvw==
+        d=gmail.com; s=20260707; t=1793746835; x=1794351635; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ng/QrrM3y10w8XPOybnoxA8wkETs3t+fZhj0GSFzGJo=;
+        b=Yi2h096La6CM0yNxmdC0FckitQOFkyAF2UnvBmIDgwxQe0uyl68LgQQfqy5qdTMG4u
+         auejbXu3iGS9LNEll0lZIIQ3QXxZp7CH5gKrh2IeFeIxHeomwn3JgYWvcZeWDNWkZ/tH
+         7vofdmHef4MEuIkg8HPmeTwWQ5SBRfa+dZnstVYdk4CrcS/yq4UTLbk7psS0nXHnd3DF
+         e1WlzX735C9Yya2oCNN6/9AVdD/4QiRphhLSE1Spoov2keMlHGAHKoOM0dLtzeTix5Md
+         m+UknyVkWnYMhovQ3towt8WvNpe3C1gyl/4wsvB99/SGPHgZSJWtlyqxzs3jVKWHB2rq
+         VtCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793746773; x=1794351573;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K8Xl6Cocv0cl5LTtyFifxzrgj29Mq3NqZ1spMjgXTok=;
-        b=hj4aFKnkFlZ2OavbGT7epFWqAFpnBbVNQ8+Hh5Cu5j14DTVY+hxG/xWcZJAx8GdqGZ
-         IKBZEKv7/cxmZ4AnfxsZyn7aSVX/B018eoWkWhOsgtRgH36orUnyKb/FTk+OCODPx8FR
-         cVFpF1Ti+G+lj0ecFRQ8+JoDdIugx9Jgm8ouNb2WSphGR8NIcIWd5/6z5R+pyVisreu/
-         u4hAsCnZ4+wzitjuoPGi+FgCL7F/IwPE7tGf095ki9rbhtnewXtrcEqG455rF2syrHI2
-         Qm5y0NIs4BKXyekeu0I95DkX6UlG6ynDFPUg4guStC6+QZNGsMhifBxdthuaAWACfHww
-         n7gA==
-X-Forwarded-Encrypted: i=1; AKwUvBxa+0FCEykZolvQvTTd8r3uMMcWxIh6Uw+hXCTS2ExnsVgARwUkdS9WS4YqTVKn3qoCMwWvuAtiS/tpEEI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fVSJjjOgUTX0G37OFo8y+djziLv9yV+ooE4YV3wCE7bs8qnMB
-	SsvMlY5IJxENFV+WvufE/UOl7ylzSveLkiNVKhumJDkj0RBcOHrcedtn
-X-Gm-Gg: AYBFou247cCKuZS8KvsMjz2yIkBNXdwS3u1GV+NgSpl0TWaUfZ2YLzf/aYTZ7tdu021
-	xbUEEqOwiCJdV0rhjYQr9Ya/K4b5McI6mV3Ac8KacVT1UvTz2wHQCnB9tHawW8li6GJ/2XTzkxK
-	rZWp0w9T9SUCfKOOb6s+Kl4dMmXOvWi3YYj3u6pUh7RcvualTFyVilt2pchf5YZXsB8qWHPbL6i
-	3V0RQ9Gfbg5WyBWMVbipEkFgIDOzslKUwS8sxDYwS8yCulgpcMzyGMn6bu4IPrg5StKk+46N+DB
-	P0YuBRfvXcx3VC+mlGwByM1eMgrMOAXdH6Now1eaxFPf3JU8X4Hp6Cn8k8RkmNp+n2k2NadhZIj
-	K7LQoaxWsaWJHF15ibnjmw8UdlPHryZ3lUcK9EJF7smDt80f8BYIlvxoojN9UPYAmtVZ/nfiau/
-	l+8LTyzgSH2wH2qbwFs9Bj3dg7yuYRKdJ8BLI6ndOqSTWmn+tbQpEU4Km5n5Bmvlxo1VLsnX9ih
-	WBAYmNSAYqJgdkpiY7+WUjG4MAmblrdxC9/+1d5HmuYWAb804gSwlKounzRKcEL95EkD3wxlfzH
-	2iLQIC5jB9N9O43pMGjEj7BYL2omCjpMNd6tARHBc7LmTJ2LjNscvDDfffAKWogReeoYOk5h+xV
-	97739wBerUQ6D3tMI
-X-Received: by 2002:a05:693c:8817:10b0:36a:1788:3d1c with SMTP id 5a478bee46e88-36a423fd04dmr21957538eec.34.1793746772523;
-        Tue, 03 Nov 2026 14:59:32 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a67edsm1187111eec.8.2026.11.03.14.59.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:59:31 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: David Heidelberg <david@ixit.cz>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: Petr Hodina <petr.hodina@protonmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] Input: stmfts - use touchscreen_report_pos() for coordinates
-Date: Tue,  3 Nov 2026 14:58:43 -0800
-Message-ID: <20261103225923.3892612-4-dmitry.torokhov@gmail.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-In-Reply-To: <20261103225923.3892612-1-dmitry.torokhov@gmail.com>
-References: <20261103225923.3892612-1-dmitry.torokhov@gmail.com>
+        d=1e100.net; s=20260707; t=1793746835; x=1794351635;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ng/QrrM3y10w8XPOybnoxA8wkETs3t+fZhj0GSFzGJo=;
+        b=EthuHPk98d9S/3bXxDZnprYB0prAGY1dibLWr5e832MGCBGWuKvbssvkfFaLqaunC+
+         EEGtK/aoeoWgpAZOzdwZqlnuWon7dexeKmYnXvvNOCOHIRUMD5FC7HiB6IIq1wOoW7WA
+         5lSxS8RxiYINROKF6Ma2OWklz3ZetjWXTGXw/mOgzSb9Du/5NfVY1547wGi3ln6M7bs0
+         nG/sGz1oxoHfNJ2a+9egFiJVTwhUIFBhTl94HciR/XXX4WZSY7ACt9npHYKBvj2Nqvnl
+         aVU+d991SFkBfH4EAZ3n4BPlEFV4MuzO31PMRXyx/abKeESM5msaC6gplC7JpTg7Yvmw
+         Zpuw==
+X-Forwarded-Encrypted: i=1; AKwUvBwjv43n7UDFFnaEYOr4IiUHkeHcTgy3ozydulZyEcour6UYQH3S/PZuzaGo3DNARglMNVJgsU2boC5jmQE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LwEUZdzlKKz0LRzFwjY41ol0wHfRzgDxbQeihk2oaec2oG3a3
+	Whcs4PIzTZ2FLzNVng7N+ci5ndfVSbW7oOF4vUIcFKw5QfBUrAe5KE6q
+X-Gm-Gg: AYBFou1BKe5KusE3n2uELgIvFtj+sg3GohTyQl1fhaCRlgg0unP+hu//8xfNfrfPLqV
+	hyoIy1tDI8t+ekHLjlg6YuxIRQkxATzRqa76XPwSVQsAW0NEB7E2R5wkY4NT2eQuNNPNqnmyMjK
+	+VnZW0k/DEZ1ux9mOzHvApVE14ZNJLcMfn7gNDSMApgAWfQb/25uFG4AsVZgR34Fd6+Q/BjHCjV
+	FsJ/FzURUkDg+UoZwuT4gJ3VdJC3QfeY755Ii2hCGJlf0UJEbl+2Hxg6j0ZA4SMmTPBHXX2qxC5
+	FDy8Ky90If3iHhbVJKO6/w/rFsAQpGxLMzOp74/zflT0wW1sn9FKnCP03u9pjRLcmKnkXTaGa2P
+	gYss/3L3lSBqd06mIqJMCLDlCGSi0arxfg1han33POEoLJFPvzwz5BDqZovMRmysFIC3xuXBamc
+	18r89jK0IY3ZA9BeeP1vaI3c/38fRR6nUJLHB2BNU0qEBe8kIE9KFs5hmngYGHtNt7fbH5Uq/Wl
+	+6f/6Ch+z1/tSjH2cvfjX4ho+nT1uCNDxdjZmHERF5/kIrQaP1Z09lnvsowRPWCg0yCYco04yrs
+	moj1u3k982Y9EldmBKVm6mA5XC29bkVBnCEjnVk=
+X-Received: by 2002:a05:6000:1acb:b0:48b:a7:6396 with SMTP id ffacd0b85a97d-48e6e4f56dbmr31204523f8f.41.1793746834692;
+        Tue, 03 Nov 2026 15:00:34 -0800 (PST)
+Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda207d8sm415342f8f.52.2026.11.03.15.00.33
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Tue, 03 Nov 2026 15:00:34 -0800 (PST)
+Date: Wed, 4 Nov 2026 00:00:31 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Bin Yu
+ <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH v3] usb: xhci: Fix use-after-free race in
+ xhci_stop_device()
+Message-ID: <20261104000031.679944e7.michal.pecio@gmail.com>
+In-Reply-To: <20261103160100.23190-1-25031212351@stu.xidian.edu.cn>
+References: <3ca5cced-f429-42d9-9bbb-f5111acd9665@linux.intel.com>
+	<20261103160100.23190-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,60 +101,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-During driver initialization, stmfts_probe() invokes
-touchscreen_parse_properties() to parse axis inversion and swapping
-properties into sdata->prop.
+On Wed,  4 Nov 2026 00:01:00 +0800, YuanZhe Liu wrote:
+> A KASAN slab-use-after-free read was observed in xhci_stop_device():
+> 
+>   BUG: KASAN: slab-use-after-free in xhci_stop_device.constprop.0.isra.0+0x395/0x430
+>   drivers/usb/host/xhci-hub.c:479
+>   Read of size 8 at addr ffff88804e85d2f0
+> 
+>   Freed by task 585700:
+>    kfree+0xf8/0x390 mm/slub.c:6566
+>    xhci_free_virt_device+0x3f/0x50 drivers/usb/host/xhci-mem.c:881
+>    xhci_free_dev+0x286/0x350 drivers/usb/host/xhci.c:4131
+>    usb_disconnect+0x6b6/0x910 drivers/usb/core/hub.c:2391
+>    ...
+>    usbdev_ioctl+0x6f05/0x86d0 drivers/usb/core/devio.c:2826
+> 
+>   Allocated by task 572283:
+>    xhci_alloc_virt_device+0x171/0xb70 drivers/usb/host/xhci-mem.c:986
+>    xhci_alloc_dev+0x475/0x840 drivers/usb/host/xhci.c:4271
+>    usb_alloc_dev+0xe8/0xdc0 drivers/usb/core/usb.c:661
+>    hub_event+0x1c82/0x4050 drivers/usb/core/hub.c:5953
+> 
+> xhci_stop_device() reads xhci->devs[slot_id] without xhci->lock and
+> keeps using the pointer across xhci_alloc_command(GFP_NOIO), which may
+> sleep.  All callers (the port suspend and bus suspend paths in
+> xhci_hub_control() and xhci_bus_suspend()) drop xhci->lock before
+> calling it, so a concurrent usb_disconnect() -> xhci_free_dev() can
+> clear xhci->devs[slot_id] and free virt_dev under xhci->lock in that
+> window.  The endpoint loop then dereferences the freed virt_dev.
 
-However, stmfts_report_contact_event(), stmfts5_report_contact_event(),
-and stmfts_report_hover_event() continue to report coordinates directly
-using input_report_abs(), ignoring any configured axis inversion or
-swapping settings in sdata->prop.
+Hi,
 
-Update coordinate reporting across all three functions to use
-touchscreen_report_pos() with &sdata->prop so that axis inversion and
-swapping transformations are properly applied.
+Good job crashing a real driver and not just dummy-hcd as usual.
 
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/input/touchscreen/stmfts.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+But is it not a bug in the first place that we are suspending a device
+which is being deleted or deleting one which is being suspended?
 
-diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
-index 25d127aa8642..f68da3e1309b 100644
---- a/drivers/input/touchscreen/stmfts.c
-+++ b/drivers/input/touchscreen/stmfts.c
-@@ -241,8 +241,7 @@ static void stmfts_report_contact_event(struct stmfts_data *sdata,
- 	input_mt_slot(sdata->input, slot_id);
- 
- 	input_mt_report_slot_state(sdata->input, MT_TOOL_FINGER, true);
--	input_report_abs(sdata->input, ABS_MT_POSITION_X, x);
--	input_report_abs(sdata->input, ABS_MT_POSITION_Y, y);
-+	touchscreen_report_pos(sdata->input, &sdata->prop, x, y, true);
- 	input_report_abs(sdata->input, ABS_MT_TOUCH_MAJOR, maj);
- 	input_report_abs(sdata->input, ABS_MT_TOUCH_MINOR, min);
- 	input_report_abs(sdata->input, ABS_MT_PRESSURE, area);
-@@ -344,8 +343,7 @@ static void stmfts5_report_contact_event(struct stmfts_data *sdata,
- 	input_mt_slot(sdata->input, touch_id);
- 	input_mt_report_slot_state(sdata->input, tool, true);
- 
--	input_report_abs(sdata->input, ABS_MT_POSITION_X, x);
--	input_report_abs(sdata->input, ABS_MT_POSITION_Y, y);
-+	touchscreen_report_pos(sdata->input, &sdata->prop, x, y, true);
- 	input_report_abs(sdata->input, ABS_MT_TOUCH_MAJOR, maj);
- 	input_report_abs(sdata->input, ABS_MT_TOUCH_MINOR, min);
- 	input_report_abs(sdata->input, ABS_MT_PRESSURE, area);
-@@ -375,8 +373,7 @@ static void stmfts_report_hover_event(struct stmfts_data *sdata,
- 	u16 y = (event[3] << 4) | (event[4] & STMFTS_MASK_Y_LSB);
- 	u8 z = event[5];
- 
--	input_report_abs(sdata->input, ABS_X, x);
--	input_report_abs(sdata->input, ABS_Y, y);
-+	touchscreen_report_pos(sdata->input, &sdata->prop, x, y, false);
- 	input_report_abs(sdata->input, ABS_DISTANCE, z);
- 
- 	input_sync(sdata->input);
--- 
-2.56.0.385.gac671c819a-goog
+Would you mind revealing your secret sauce and posting complete stack
+traces of how you got there, including xhci_stop_device()? What kernel
+version was that? Those line numbers don't match current code.
 
+As you are .edu, perhaps you have a reproducer for this bug?
+
+> commit 88716a93766b ("usb: xhci: Fix panic if disconnect") added a
+> NULL check for this case, but that only helps when the device was
+> already freed before the check; it does not close the window.
+
+That's an old bug, not sure how such things can still be happening?
+It seems that xhci_free_dev() doesn't return until everything is
+cleared, and I would naively expect USB core not to suspend the bus
+until all devices are suspended or finished disconnecting.
+
+In testing, I see xhci_bus_suspend() 100 ms after disconnection, so
+this race seems tricky to trigger. How have you done it?
+
+Regards,
+Michal
+
+> Look up xhci->devs[slot_id] only after taking xhci->lock, and bail out
+> if it is NULL or if the device is already being torn down.  The
+> tracepoint reloads virt_dev->udev, so it moves under the lock and only
+> runs while the device is still attached.
+> 
+> xhci_free_dev() clears virt_dev->udev without xhci->lock, and only
+> later detaches the device from xhci->devs[] in xhci_free_virt_device(),
+> also under the lock.  Take xhci->lock when clearing ->udev so that
+> xhci_stop_device() can rely on it while holding the same lock.
+> xhci_free_virt_device() clears xhci->devs[slot_id] and frees the device
+> under xhci->lock, so a device found there while holding the lock stays
+> alive until xhci_stop_device() drops the lock, after which virt_dev is
+> not used anymore.
+>
+> Fixes: be88fe4f4dda93e3 ("USB: xHCI: port power management implementation")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
