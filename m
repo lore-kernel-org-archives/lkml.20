@@ -1,62 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708065;
-	b=HuNIwd1YZkPE+Fz/z0+FdLkPQcohitk2BoIbpqzKiVWy2mQX6MdVomwrHP2N9z+yuBIr
-	 L7EvIBqoft0ntnZtz0UgOfPr3KapiukX77w03a8D7Nl0v8zarhpepg3aqmLsdqHg02E0N
-	 U69SjLGGv/gDTnnEoNiLtldOU9fpW6hm69Lq+btOMFmre6shwH37YA7YlYvyi61ga+4e3
-	 Q0doh3OKlKGJTlPzeUHpfRDWNOispWFzgU1bBEDl4uJLGLBXz0fBGfDg6gmLvk43OcROq
-	 wt32pQ7a76ioO31F2wmDoCln7WJLM6B4S/xrsiUtuWXjw+ETM67Nub07M7wyfiGBVLw==
+	t=1793708141;
+	b=xqqtscW2M8AdXx5yPwnzpdHmn+7Ik5bhUnqFzshxH+TyuSWviNlJlAFQ95kYpN+GtEeN
+	 gEQzjnRgBjhv3OgU5O6gNA9R4rNqtAIfm7w5PA5SCYQL8GEVTwzRt56eAltolpUrmPjD7
+	 HJt0Zwb6IlKxia4jnrQZUyHl5yAu3p663OLgvh3Z+l2LChbPZqXPXje4V/Pq8uOzgNVUQ
+	 Cna+qOoIoGrhO5VWY4eAaY98YtRpzq4lN0hp8iBj3mSyucQizY+saLdqrc8zNwKzL5KR6
+	 1vEyzAQ/S5SKcPx20VUrl0ESgkxnz/wDNvWPQhbaJL1DhwKlY+G/y1x7XnDUz8u1tYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708065;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 List-Id;
-	bh=2VuRkx1ifV+1qy8E2tw7ebAsUaRcxKdh18yyLgfwynU=;
-	b=XM8iuFcIR0ka19VBA7dhVFtLugJFsZvXP+XyQQ/RkJdq6sH2zu7QSBLOTyTc5YV0EnNM
-	 T2UMciwdiU5K73Gj6kCiMLB2xomvQzdIXNM1IfFiA9EWYZkNh9c7qYL6IAvZSjT18ypLT
-	 EMNeyvcnLMir+YYpCxdkDakJBEUUjZ+64WSJY0piXdJ+TrydO7onPrxpdv3LMB1DTISj9
-	 Y5od0wgC6eWm4tSShQBAnyWEKomqEQyfa4My79EIHVZmssRyB2/sqeIKdFGkFcuvzNTZI
-	 XtJV9ogppI+doQ/yzrmWRlAZWWu0iaZKZ50WmseWQwXj12oFIVuBMKP1kBK5NPzD/IA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708141;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=8wBqdKLHHXSqR7AJ6tuSpjHoQqmJinv7wm2sN1Tdae0=;
+	b=fjRHOaCkJgZPsCt104xWLmLBN7lUrIUTnQ7eldstYvKGrzjp6W5F8Z0yvhvSxFe71S54
+	 LAr0YOrwRMTDhR6ha+c+d1hobjEhQejsYIATccTBNiqPXKw256JKy5POxXqVLgvTrJLOq
+	 Q0axXp+0CxrGvNzKou1MMDiGFfr6JPTml75lUWI1EzeViv8qHs9wWJdd7n0rIxLeY442o
+	 HT0nXuvUtzKPT77I0uin/VU1HAkttjAdNqbbeR4xlthuM4XR+LydypPUhr13/Qdlo0gG0
+	 rhQK0UlocCy9n6BhLc1l3FvrpWbASS8oPElNP+6QuC9QlkKawrun9jXz+ruafPhpDpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codewreck.org;
-	spf=pass smtp.mailfrom=codewreck.org;
-	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=kCUPi9ZX;
-	arc=none smtp.remote-ip=62.210.214.84
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0RCcAOaU;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8486D606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:14:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8486D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6923606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:15:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6923606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=kCUPi9ZX
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id CB2AB14C2D6;
-	Tue,  3 Nov 2026 13:14:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1793708050;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 list-id; bh=2VuRkx1ifV+1qy8E2tw7ebAsUaRcxKdh18yyLgfwynU=;
-	b=kCUPi9ZXiw4H+Y0/iTwMHLMHvkSKqnZK+dhM0GkxEOJM5Q2wxrXl8404938h+olRG8nz/1
-	JLJ/ojeqWijKidbS1AunJAAyOkO+S6b7NGzNyLut5i4/js8SWtgXpqwJXuT9d5BWDDIWm7
-	HZ2pd5rPbhJBRKtxGqZm69QQQuDnTP7/sObFlWssusp9VUKNtaxWfXrWH7OfOu4fC7mrOQ
-	MYnGi7UyB727p7eHV1AvjX+1udF54jHEtpL1Q9kiNwsgTHq5uOXVgfTzzUWLIvmWgjnGkq
-	F/7DQdTz7L295Bh2NxMlLaX+eE/q0bTGdux/RV2QIut/AlsRXJ7EBxPqmESxqQ==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id baf2ab49;
-	Tue, 3 Nov 2026 12:14:07 +0000 (UTC)
-Date: Tue, 3 Nov 2026 21:13:52 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Eric Van Hensbergen <ericvh@kernel.org>, v9fs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] 9p fixes for 7.4-rc2
-Message-ID: <aunQAEOa6mn2E5wm@codewreck.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0RCcAOaU
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso1834240a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:15:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793708140; x=1794312940; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8wBqdKLHHXSqR7AJ6tuSpjHoQqmJinv7wm2sN1Tdae0=;
+        b=0RCcAOaUMvdRKwqhghV9k6boeWfAgxTaR2LC8TuN6qmtAUoaqcRE+lNPQq18+rSw48
+         vIHp0RQ/q+Z2rrYXNdgrckfHWHxUMNrxOe/zINgmorS2LLH74zS0EP0wIF6l55/FS9Qz
+         3NGE3Bn2VmMc44xfd7yOZ92srW1cqZwwt4G5b5gpTYPkq3zkSaguHVWaQMOv1ev7MjU2
+         /fhpy4SMaLdyOyczbvYNAXJa+opNypC+8cQegl9h9Cnivr7pxyVz9W0UNdYll6ZQ8XQt
+         Bac94mxQ7QdOS18YrO7psybIkcJTlOw4NoT5vv+PFdT41tlYu7eiUy7yPnlL++33E7ZR
+         VC5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793708140; x=1794312940;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8wBqdKLHHXSqR7AJ6tuSpjHoQqmJinv7wm2sN1Tdae0=;
+        b=ksny4bGkP+LdIpEYvNKd++wUTyu+xpSqiTS7hrJbqFVXTATxOQFI5z3iUIcVf1Z21q
+         S/nc4RNexy/8YoDBIiluVfdylAh9L5xekQve3EE+I0N356bP9jVnpqf4+7irhdKrZQm8
+         kpMORj8j+ISDcmZik+F+LQXdhJ6v/joXhGfzJktt0ZFYb19GL6fAiMnEPzwQkT9HTNCA
+         nDHSTR0DZ0/nq/0uGnw/ZeFULu+hOf/eey5jgDmBeUUjnNKSOwyQBA34vKRSdKsk8K2e
+         BWAB6iWx3Nv1nVkGWCMnAGkb1hxsiXaaD0d4pfIJz/P2OqMh7WMyL8dAI4OBjklkN9c1
+         r0ZQ==
+X-Gm-Message-State: APuU4Z9F/S7HoEyp/7xhN8b7bkscCBdxUlbtrJxcwceGacVSGUkADDJh
+	q55aq/2f4Yd3cF/oLARq6D1MEY7lRDahSTMP4H9utPU4VZBky+cNBPQp
+X-Gm-Gg: AYBFou3cOP+8zLSHLu9/PZLbPwl4GBPxfj+SFnl7Jt4Iyj7jYVaoD9ecNTIqgEWEpnr
+	IgmOBasMZxxJnZlF9FKPFAfmHFay6MMc5j7wUpcx4cL/a2XTVbAE59Ryo0WhRAu/WbOqcrz8xNS
+	rRKEFRiyefNClTVyhzL0Xi3YM8jE7fkVMsmftwcMND25CAPhZrYWLdU6BaVd88r2qhiqKcHUQdj
+	igEAuFWF3C34uG20CXm1UCVz4Pn2o/no0KvUoct93UuVoshB0jDUiG1VSDB5pnVcWDM+eRnSLLj
+	LBxi3lh7CwsqrjaqJr6YMSR0HYrV9bV6yNtyeqn6lvxCIcSntwf9O18g4oSaGlOiHMQSN9zgz3O
+	IoM2IjXhGV4eNqm17OEnjmiQ33DyiuwKKq6pzuKvGEwB+WT/YJl4B8X/FypcdDXyTDb1taeWpz4
+	QCHGwWeeXPUfcynfoymEHfVNPbr/yQSntmaHrj24bdeOTHQQ+cG8563+7lAGNrEiz7d5qlaW1L3
+	INGjLbe70RvzlANstNgTTl/ZvlgQ56lRi7JWeJ2jMBuMvedgdPsNtleVvC5RCfFdk4BRr+P4lUR
+	eLJPS7I9KZs9NFPGAIy8lI4AncjcfgpOgcXx/EM0YbjL6/7tyTobmhE=
+X-Received: by 2002:a17:90b:3d47:b0:3ad:1b0b:1246 with SMTP id 98e67ed59e1d1-3ae8981280cmr9675823a91.32.1793708140115;
+        Tue, 03 Nov 2026 04:15:40 -0800 (PST)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c71c253sm4177200a91.16.2026.11.03.04.15.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 04:15:39 -0800 (PST)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: james.morse@arm.com,
+	ben.horgan@arm.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	andre.przywara@arm.com,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com
+Subject: arm_mpam: plans for the SMMU integration series?
+Date: Tue,  3 Nov 2026 20:15:34 +0800
+Message-Id: <20261103121534.532108-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,151 +96,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+Hi James, Ben,
 
-Sorry for being late to the merge window, I still don't have much time
-for this and the flu hit at a bad time.
-At least the LLM fixes sort of slowed down recently? Or maybe it's just
-the time of the cycle and/or I got used to it, time will tell...
+I have recently been debugging SMMU MPAM support, and noticed the
+series James has on the mpam/snapshot+extras/v6.18-rc1 branch. Is
+there a plan to merge it upstream?
 
-
-The following changes since commit c60ae98c5aa64021751b38ab1313b19d620bf640:
-
-  9p: Fix v9fs_issue_write() to update i_size and remote_i_size (2026-09-12 07:49:22 +0000)
-
-are available in the Git repository at:
-
-  https://github.com/martinetd/linux tags/9p-for-7.4-rc2
-
-for you to fetch changes up to 35ecd40c0d7e4f772d00dfec9f7077315ba5ca82:
-
-  9p: optimize p9_fcall struct (2026-10-29 06:05:56 +0000)
-
-----------------------------------------------------------------
-This is mostly a huge wave of LLM-driven fixes
-
-A few exceptions:
-- a new vsock transport was added, since it's a variant of the existing
-fd/tcp transport there is little harm in taking it in
-- there's an incomplete fix for when file actual size doesn't match
-the size attribute (e.g. exports of sysfs), the fix addresses when
-st_size > actual size with cache=none but just about everything else
-is still broken (st_size=0 with actual data regardless of cache, or
-with data cache st_size > actual is still wrong and so are symlinks
-with 0 size)... Maybe at some point I'll find time to understand how
-netfs works and address these :|
-- some fixes for the usbg transport by its author, thank you!
-
-----------------------------------------------------------------
-Ankit Thakur (4):
-      9p: fix header guard comment in acl.h
-      9p: fix typos and wrong parameter docs in vfs_inode.c
-      9p: remove duplicated assignment in v9fs_fill_super()
-      9p: fix typo in file header comments
-
-Barret Rhoden (1):
-      9p: treat read return values of 0 as EOF
-
-Chengfeng Ye (1):
-      net/9p/usbg: clear stale request context after abort
-
-Deepanshu Kartikey (1):
-      9p: don't WARN_ONCE on racy symlink fid lookup failure
-
-Dmitry Antipov (1):
-      9p: simplify v9fs_cache_session_get_cookie()
-
-Dominique Martinet (1):
-      9p: optimize p9_fcall struct
-
-Haobin Wu (3):
-      9p: skip intermediate directory entry name copy in p9dirent_read()
-      9p: skip directory entries with names longer than NAME_MAX
-      9p: skip over-long directory entry names for legacy 9p2000 too
-
-Hemanth Selam (1):
-      net/9p: fix typos in comments
-
-Hui Peng (1):
-      9p: reject RERROR/RLERROR with zero errcode
-
-Hyungjung Joo (1):
-      net/9p/usbg: clear stale client pointer on close
-
-Kees Cook (1):
-      9p: Add const and unsigned to wnames allocation type
-
-Matus Skvarla (1):
-      net/9p: add vsock transport
-
-Michael Bommarito (1):
-      9p/trans_virtio: reject mount tags longer than NAME_MAX at probe
-
-Michael Grzeschik (6):
-      net/9p/usbg: also disable endpoints on p9_usbg_close
-      net/9p/usbg: set client to Disconnected on usb9pfs_disable
-      net/9p/usbg: always reset completion when disconnecting
-      net/9p/usbg: call disable_usb9pfs() from usb9pfs_disable()
-      net/9p/usbg: fix out_req buffer leak in disable_usb9pfs
-      net/9p/usbg: remove bogus context initialization in alloc_requests
-
-Omokefe Emmanuel Onanaroghene (1):
-      9p: fix kernel-doc warning for enum p9_session_flags
-
-Rosen Penev (1):
-      9p/xen: Use array for data rings
-
-Stefano Garzarella (1):
-      9p: fix privport option setting wrong RDMA field
-
-Yehyeong Lee (1):
-      9p/xen: validate the response size from the backend
-
-Yifei Gao (1):
-      9p/xen: fix refcount leak in p9_xen_response() on wrong tag
-
-Yizhou Zhao (6):
-      9p: use fc->net_ns for network namespace in RDMA and socket transports
-      net/9p/usbg: fix descriptor cleanup use-after-free
-      net/9p/usbg: fix prefix matching in device lookup
-      net/9p/usbg: Fix use-after-free on usb9pfs_clear_tx
-      9p/xen: drain response work after unbinding IRQ
-      net/9p/usbg: Fix use-after-free in disable_usb9pfs()
-
-Yuanfu Xie (3):
-      9p: don't decrement a server-owned zero nlink
-      9p: fall back to the normal open path for non-regular files
-      9p: do not store the create fid on special files
-
-Zhao Zhang (1):
-      9p: fix caches_show() out-of-bounds write
-
- Documentation/filesystems/9p.rst |  12 ++++++++-
- fs/9p/acl.h                      |   2 +-
- fs/9p/cache.c                    |   7 ++----
- fs/9p/fid.c                      |   2 +-
- fs/9p/v9fs.c                     |  18 +++++--------
- fs/9p/v9fs.h                     |  26 +++++++++++++------
- fs/9p/vfs_addr.c                 |  10 ++++++--
- fs/9p/vfs_dentry.c               |   2 +-
- fs/9p/vfs_dir.c                  |  32 +++++++++++++++++------
- fs/9p/vfs_file.c                 |   2 +-
- fs/9p/vfs_inode.c                |  26 ++++++++++++++++---
- fs/9p/vfs_inode_dotl.c           |  36 ++++++++++++++++++++------
- fs/9p/vfs_super.c                |   2 +-
- include/net/9p/9p.h              |   4 +--
- include/net/9p/client.h          |  14 +++++++----
- net/9p/Kconfig                   |  10 ++++++++
- net/9p/client.c                  |   3 +++
- net/9p/protocol.c                |  12 ++-------
- net/9p/trans_fd.c                | 109 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------
- net/9p/trans_rdma.c              |   2 +-
- net/9p/trans_usbg.c              | 101 ++++++++++++++++++++++++++++++++++++++++++++++++++++---------------------
- net/9p/trans_virtio.c            |   5 ++++
- net/9p/trans_xen.c               |  79 +++++++++++++++++++++++++++++----------------------------
- 23 files changed, 372 insertions(+), 144 deletions(-)
--- 
-Dominique Martinet | Asmadeus
+Thanks,
+Ping
