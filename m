@@ -1,112 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793688934;
-	b=gY0cuUzKqAS9YmevYqDjZzJcFr9svJN7QcqCWy/uaCQWKTEzJG9aLDUmetvfh1BkkUc+
-	 sOIQkivZMjy3y62ocMpe5djSVFOMMLpxM25evJUx/e681usUzgcFjpUfy29ao/cCfXpwW
-	 XyXcFOo0F9K5YKQJYZ9U6RwJQ2onZoSn2RXfj4CLKd9JJ3/cvDRyx/KuU4P+a/ZFFmNyO
-	 0YACqHphcvxZ1FlV67+1pYEUyCuqmItyJ2d5ErZggORWYbFzCU+Dihw5J4qy4wBR/L7/Y
-	 qUdSKSwIAQzVsW2P2GGsoO33Y9bT7t8XAw2dahDZoqXSYM52gnzrMCLpCyGziplwhNw==
+	t=1793688936;
+	b=PlBzDsVyLXcPcbzZU9HtzbaHKFlSn2ZpiKjHhVvzGEnOOn+3+FilFmL5lfMejWKJRAvV
+	 33NagN6EftoVbR+GWWtKm19idwdm791jkKLaty/pUsPTDIhvUsuHfGYsTW8Gay61H8PBG
+	 B4mOOaDcY5DCEJZAmjt14D6J7Wd/iSAsyk9RGvoUpPYXLtZL6sEkiWAAvBL/RoTRX8fO3
+	 jBBAUHY+lk73VWZ1PftYSxC5Rhpd6aTTynWWk4LT9Bd3N0qZraN5ItmnZPXymP+J6tYAB
+	 JVMDfqxksVAzjMIDb0vRUxAu77erYWFsvzF0FH00IGgnPz3NoYOyQzFQmnsZ2jpNCEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793688934;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793688936;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=jg8NEK3ZW1ubDPMf7drkDVCuPq6ogQM+ofkG9ZyFXQE=;
-	b=BQtmoUaRC1n2cOPLWznZvrUFL3N6EX6Uezd8lqyeTe7GCCkpYE4tq4OVyIOYIfpXA7eD
-	 6EmufLvTJ1uhIkiwKvS82pl20dwNa9UgZ3DISLmqBWl6AN8YkcdT1o2s85be4/etUztq5
-	 9WP1LByA+543LkDFvE6LcpSATsZyTMe+My4/VJdNVdx+Fhe633sVpbrXo01BIPFcAGrls
-	 dHQU55y8s+GT4jhrWSC99+tZQpVOC7hQbGsJvjj7p9UDDxcTpQrhX9cGH62C3IxwPVBrG
-	 dXtFg/UvcmCmgtPZwTFq1RDe2caWJQQ+7vvJZpu6qQg8dTZjsXOit75yWsmEXUg7kjQ==
+	bh=5eoKnttr8d0Ojq6L5syAw5jkS+Q5yVG5Q+JQ/FVXY8w=;
+	b=Vr4xX6iWwXj8H1mtasJjnwljpn/HeaSUFdWAxzN1zsxnQZ17NTRE1i+emA3F82nD85DH
+	 0wPOAX5n83n0VovP2JhDVnhLrXQzzVa8PTOqy733P8153XUh+EPmjaLTl1GtycJ/6KyqQ
+	 S+b4IYi47tkWlNIAKa8IW/bvqxigW1AbISnwBPLWCeeiaJyXrZr/aGYcypCkZ6p1FoJz0
+	 S5gaVE5Fu3h3C4KVYF/AOYFjFaJPpICYl6As8GaX7KX8ZhLQb5RxbM30GbfRdrvoI/RsJ
+	 FQa6qMVIVA4tpyGZEI+3vKQdQCAABVdJFMMoVNBZnTW6Y/jnd9ZO5kHgpUbKAYCooSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=l5TRNqzI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KbM6sVC3;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zq3wF36m;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M9uVqPX+;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3715606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:55:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3715606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA86606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:55:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBA86606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=l5TRNqzI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KbM6sVC3
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31eDmr2403177
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 06:55:33 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zq3wF36m;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M9uVqPX+
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31eLgH470810
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 06:55:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jg8NEK3ZW1ubDPMf7drkDVCuPq6ogQM+ofkG9ZyFXQE=; b=l5TRNqzIbTQl2soi
-	UhAorkwSPLzlVsJhsGz2MK8lVVssIdBqBZsrZl0fOK/o4G11lnxym6XCFCt/VjEf
-	7lzT0OfR+MGUgeAeGqd87+S2jcFgBCbJ7VKTbo4cnXgdCDFBlXm5AceV2xhriZk0
-	raA6Zkdcyj0PDZY8vHDnhnSbMJt2Xdn+W1BLQLwNRdNzDseDvfS6PMNrvMSgqgMe
-	wC8FII89ucdKCtN8Jt0cgak1km6XnVEN9zlKmOLl6odqCjo1gvNtC/25c30n1nKf
-	onSWWhkCfKHqRJW7/emVvKF7NTamxZhqZ8XOFmoGFs2Bxj5xtztPqIPE72R1FTDc
-	CwAmbw==
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq3uy1hq1-1
+	5eoKnttr8d0Ojq6L5syAw5jkS+Q5yVG5Q+JQ/FVXY8w=; b=Zq3wF36m2QiXyVkt
+	JayEmq5i5Krz/7n8QhHRoII7D+li/vrRe4ik2vEwMiEoQ/QR4//G8iHgQC+PPUCr
+	9aaYHYwbfQx8Zs1fuYQ98dp/ZoFNob5Zbkx+XxTrRrSe+zlfK7JBV+1Dm89eTY3u
+	vwvYZfjo1nUK3/q7TeyIyMSuI4Sd6gQ6b6N2rYh2ktvs8DSYvolbquMzsZcTrcf3
+	yvEF0wtahSadCaRmbic5QszrWm2rhMqoOrp0f3QfwCJkOIcpkLyOjGWu5Hu0Ou54
+	Q0c6Bs3VeiByAjzI7l5FY1MHj3qsn5X/3C3n50GTMaLVzGaNcS1qBFzP7e3Va/L4
+	RrYMaw==
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq081tcuc-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:55:32 +0000 (GMT)
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-555eaa3ff0dso892918b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:55:32 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:55:35 +0000 (GMT)
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-85c1135c288so1089338a34.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:55:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793688932; x=1794293732; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793688934; x=1794293734; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jg8NEK3ZW1ubDPMf7drkDVCuPq6ogQM+ofkG9ZyFXQE=;
-        b=KbM6sVC3z5eP0F96eopdkd9XhMozs69QCUAGA2FeyEYE/BHTf+z/ikIWktoFlT2q3b
-         sQIrgC/thDseI/TYiU4YpAvxbgaoRZB7QSEcJC8D47cCrM3l+LCrjzokpMw2RBl9nMnH
-         URqswjU8ZDq2RfuVDWo08jl26YjFJXPWLZKsuJ4fk08j3tCYMi1iG9KDb4+MtJ0yIoVi
-         Uj9MYgCGAcqAAa/ws9m+ghMy5Ac1h6JQNoQZilfgZe+QVO5ksY1ZYZYlme0JO2bH3ZYt
-         H/oWBwJtPkXkUFAfw7yULqQ9uu0AoJoamW2tlN4JMuU8SsQeQDCjHBR88vbAQ/vbpF7I
-         i5Rg==
+        bh=5eoKnttr8d0Ojq6L5syAw5jkS+Q5yVG5Q+JQ/FVXY8w=;
+        b=M9uVqPX+skgbjtAOmwWu+ol6eCfR9UeMvvMF5h/11bhNv+Fm5Hp73uol+F7GUHjYqX
+         Pv7b04r0FDtqdN2z+j9KVmCKgHNpkQdSxCJKvSbTBQ7gouVFsduAIy6X1ImxyvghAEHG
+         O1W5lP+cgRgfMKT5a2nRZCWUcnlkJk4qqAyRlBhA0XYG/z57f5QKL/A44smB73xao8En
+         2P9RAOoV84zjQ+fKzILOMPLMNQ8sESkmX0Qrq8//69gFTXNFgGR3jJLNhlDJ1a09/G0w
+         W7md9WFy13LLAIF/oaoz6pn9yzV0bxsGHsMDLGHhzlmXS++l/dyVKwCN3ZWgG5zOUe8h
+         6INA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793688932; x=1794293732;
+        d=1e100.net; s=20260707; t=1793688934; x=1794293734;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jg8NEK3ZW1ubDPMf7drkDVCuPq6ogQM+ofkG9ZyFXQE=;
-        b=KpBtay7/hCHNOG2KoCXLuQYnA9epGO54Npy6+dcdRSwktk3c1cyep0/TNJgFeLW1dh
-         d3FT327J3xZnk3UI7aB2r3Vxg41H5Q69gzU2RJwdzRsyRMpj5m9bpR3xL3oVJCW/Jm9M
-         HANNx2K306iHx3hlDi3sZ0LbkuhD1kmNtTJNRuE3cxvacmmddz1tpHMDvLAgpRnFl2CO
-         OmJyOfnnq/CMRpfciIzKAne0K9Nm8VfNnQ/yEAnq5YOcH8+A09XX13XHyIZSHzy6r6Ug
-         WDwnha7eMeO1b4HCr2hrPJOkWxbdnOalyvm/8RgOXaUmDSwGdYPc0uJFqaea2i1rbG58
-         vz4g==
-X-Forwarded-Encrypted: i=1; AKwUvBwCUhKdF8bbDqOe2pEtdBCfkqrHF81/iEj/b4wvpUslK/0XcGQP3ZKlMNXL5aXXNHOptJFBLBur+uufMvU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzMeB0/ieqakfKtYocYKXUAxAnCJ9ZiaLy55N3M6AjB1PrmLje
-	vfRYC0VYGBtVMN1HWGQglP3+iLOlMiWlssUALWOhphIuB5ImFBa9NI83M6JL4XzDB38IFDhJqZ1
-	Pg64/f+XgQc9vsqJ+ExCc9/ssuF8F/YSRongRO37bMN5t8Ofcz2wKD1uuPJMJtKzn3qk=
-X-Gm-Gg: AYBFou2zSZt3pCLLFAbq9D/xxXeyx1yea7PRScRd+aanjqlxTxKk1FwJKYuIFe3BKIX
-	K7/Qxgg+wf/Y41IZLkTLnfaMLIyRUD2F1bgRpL7AWXja44H59bGBIolsL/YTOYMmpwOZQ/ae6G0
-	CUCCMBa735/Eiceew10qX+zAuPUz5+R20EO6wHVKqvTgZr5aJ0uf2SwPoKUJp0RFsgzzsv2cNaz
-	LXPycw/s4Fr7ZwCMORsoRELtNQerL2FYW+K39XS8o+n55pM7iCXuYrWA2g7JdTlzDznlhjrN/AJ
-	uTa8j9kATWBC49mLHVMBMgZV+krtZ5F1bP1fV/ZK8dh9U356/+Oj3cetAbJdxMNffJkFdHOrCyI
-	SzCHmPzLqptdjwHh2fLMavlk55evOxsF7VkEaDt1BkjmOQPe8Ml10EBJTtJbhIgVf3S3gtVnU/6
-	fktkTF/wSK5ATza7wfeUI=
-X-Received: by 2002:a05:6808:bd1:b0:55c:866:20de with SMTP id 5614622812f47-5640d9d5e9fmr12645145b6e.2.1793688932118;
-        Mon, 02 Nov 2026 22:55:32 -0800 (PST)
-X-Received: by 2002:a05:6808:bd1:b0:55c:866:20de with SMTP id 5614622812f47-5640d9d5e9fmr12645126b6e.2.1793688931721;
-        Mon, 02 Nov 2026 22:55:31 -0800 (PST)
+        bh=5eoKnttr8d0Ojq6L5syAw5jkS+Q5yVG5Q+JQ/FVXY8w=;
+        b=Wiq3WFoChiInJiyOaGWR8ZXDoxIlSM2w5iE9K/cGMIIGrC8T5e7R0iNYH/DzQmIFLI
+         MRgOPX2rzU3k7Kr29WyevHPWved6jGnPkZAIMafR2ipxOsDN2B0JdSQy5bh4tdIH6SVQ
+         sP1KihKHTcoEqiojpdLxozWYnhqn/g5XHGZKiXkLElGbzsftUkYOMzXbht8YI9tI8U5B
+         NR3xMcn72nZaqCJ2FWJtzEgNdPUIw8/Dg/TBsoLc+1Q9uIk1Xw2cGXdz4OmP8Pj2c5qo
+         tPBj6qAWYXryt4msqsDh9qckmbH8JFBJaO342/b6E6HrZ+0oCgd57e9xjcPe9jRL7omv
+         CBSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwqFSllVlCkBV8twnII7PHSFOSkI/qkcqlXKuqAbwm/STXAHa3RHHWm/766sqFMzHm5P8ft9tJaoBScvk8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYlUnGXjHaH75rDOfZjsmlvxTsfAGxKWIG2V8gDUE1MA29j5IC
+	3KZEajcwVMYYcQfz7xwRjQyvztSOZ+vISfSjWLMEbpiTGsoekF7GqB4OKHEFIHhg87lZPag1xaU
+	r74jiHx8EH/NksNybR+bmA07/dezagY774AGmLNPjRjR4VGkW/CeEzBwllrr+pjJoqJTex0Svnx
+	k=
+X-Gm-Gg: AYBFou1qyT8gBH/CwDJTPXO7MMOVRk/XnAlOHlarbt/LZw+wFjt0FcReDf+euARRgRu
+	xZScIGoVPhYt5HOtYIVFMco8wcAvHgk1gl0cGYcSU0YwYFuDVkcwfKKVrSk6H1AUQByezeys00K
+	dUC5Fe0vZZRjjg6oPEdQpxVlwebb5G7kucsgBn3RDw9uvKIdF1H4GC5+K0o3z0Sy7TG4uoBJhGJ
+	kvns64As0kp6ZP7yhDSCcj6RDMhM6nDFXlaPPwq68SJl2VcZPfCXB96JOBI07ze+ZYGB75aIJxJ
+	chw3Z+oNhXtq4L25gYX3Z7dL2HAfZXWRTPwfyfHCZOBaL4yMQlZGcvYUKG89mUAHgmGTdlO2hrW
+	cNIeMtbfhQ8GYlNPvWD2ecwBEO0o2pdelEH8pvWlmQi/dwoprZt4/sQwiyMAAU7ml4zr27Vz+Y9
+	F5EsQvsEpo7Om2ovrIs6Q=
+X-Received: by 2002:a05:6808:1209:b0:4e8:9e40:a0dc with SMTP id 5614622812f47-564101873f9mr11041438b6e.1.1793688934261;
+        Mon, 02 Nov 2026 22:55:34 -0800 (PST)
+X-Received: by 2002:a05:6808:1209:b0:4e8:9e40:a0dc with SMTP id 5614622812f47-564101873f9mr11041424b6e.1.1793688933917;
+        Mon, 02 Nov 2026 22:55:33 -0800 (PST)
 Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fe423fasm10305974b6e.16.2026.11.02.22.55.29
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fe423fasm10305974b6e.16.2026.11.02.22.55.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 22:55:30 -0800 (PST)
+        Mon, 02 Nov 2026 22:55:33 -0800 (PST)
 From: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 22:55:20 -0800
-Subject: [PATCH v2 1/2] Bluetooth: hci_conn: Fix SCO/eSCO
- Transport_Unit_Size for HCI data path
+Date: Mon, 02 Nov 2026 22:55:21 -0800
+Subject: [PATCH v2 2/2] Bluetooth: hci_uart: Remove redundant NVMEM
+ dependency
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,7 +119,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-fix_kconf-v2-1-b4bd28de37b5@oss.qualcomm.com>
+Message-Id: <20261102-fix_kconf-v2-2-b4bd28de37b5@oss.qualcomm.com>
 References: <20261102-fix_kconf-v2-0-b4bd28de37b5@oss.qualcomm.com>
 In-Reply-To: <20261102-fix_kconf-v2-0-b4bd28de37b5@oss.qualcomm.com>
 To: Marcel Holtmann <marcel@holtmann.org>,
@@ -131,121 +132,67 @@ Cc: Zijun Hu <zijun_hu@icloud.com>,
         linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
         Zijun Hu <zijun.hu@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-ORIG-GUID: 1iEK6jzeA7-sQdgzbb0yqOh0ryXOfnFI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyNyBTYWx0ZWRfX4h5W0ICCoGaC
- 5ofg1XKKpLFP2ulGONkVBgJEzwDVu1wCGx/+bNPDvjBgvqiT27SA3jksGMAKMFiuLzCP2Uxk5ew
- 94MS6BLNVD+dlDblRZUqqmj1QwEDl2VRI/eF/SGfT1NQiXS4SEuptN4RehYDdx8z6XqiChBFBO+
- /6OT1UnqwEtIDs8UHRXad1sYh3X2eDFhUwq12YdcV+UedSRbmmGFsrLgYpv2RczG9W6m/D0J0z1
- wc6n+4Fc8iWHDTL9mX2mYCEOApEnQkRPTlk7DefBN1eMd2j4eLUArhZhdG0v4e/5WAyGwrkZS76
- exwfdiF4TLs5z0MQebb5GkX5JKxM/7viasbCQ9Qn8dQ2JzeNxKTAdRN0iwKV9d2sfGosm7JKPKA
- 2dU6kkeSymFqwVZUyXEH0LFBkyqqn6rHCRQnYLd+H08soerAatxvccQgufTxkOeuPCpQQtG+Kce
- 2tX3faBxEZxrLdxfBUQ==
-X-Authority-Analysis: v=2.4 cv=VoG2kO2n c=1 sm=1 tr=0 ts=6ae98564 cx=c_pps
- a=4ztaESFFfuz8Af0l9swBwA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyNyBTYWx0ZWRfX/+CS8eYJ/Hud
+ eSZTNOk5CZiNHgkEv8dQPAzMKsxMoXgHd472CiEGI56MOMoEnYBO1BbloLAKL0vj5NiGmW/tsJw
+ ioLbFlq9L2gV1g3kgmj0ckR6IGorHlU=
+X-Proofpoint-ORIG-GUID: qB7wSa2tn3foKVAVE2h9ctANjElTLdeg
+X-Authority-Analysis: v=2.4 cv=F73C5ahN c=1 sm=1 tr=0 ts=6ae98567 cx=c_pps
+ a=+3WqYijBVYhDct2f5Fivkw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=HEh3y00BNYiN-q-pdcgA:9 a=QEXdDO2ut3YA:10
- a=TPnrazJqx2CeVZ-ItzZ-:22
-X-Proofpoint-GUID: 1iEK6jzeA7-sQdgzbb0yqOh0ryXOfnFI
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyNyBTYWx0ZWRfX5+TAi/YOTxDs
- W+4VwR2GCCUME6a+AoAd87qcOIO3BJAZB/GctE1/+JLYNCGQ46fWXfLseO5c1+Ro75sKlhmfp+m
- IBR+0EskZB/vzoz2KQUnsm4dyCSpguY=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=4keN-7vRS7seC8qMJf0A:9 a=QEXdDO2ut3YA:10
+ a=eYe2g0i6gJ5uXG_o6N4q:22
+X-Proofpoint-GUID: qB7wSa2tn3foKVAVE2h9ctANjElTLdeg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyNyBTYWx0ZWRfX1bJaSBvhlFp5
+ g55pWgJuAbYBzBDgAmihrZ92hmwE5T/bE3kOK/YLZgRY8bhzvV3Ha/+rgXZn63QxwnDSYFAunep
+ l7+f6EEEKc6N7IY17antcmtoVNFvZpKpxgEkPooV492sn+ikAc2cWEdzph0qn4O/g0V4H2SMD9+
+ 1bBjDv/6IHYj0BW1ivGPczDQn3b2JW9nVZXe095UOK4gRNk5UBEFPwrrT/oVO7nCTPX1zf0uJez
+ lG+kbEXm8No96HdTR6RHF6xQPymAokhppr+hR7fJdLnBgWX1UCRIzbHHPrh08iGwF8xCwAaiu1v
+ 3tD7c0CLzqHpHw1tRRAtQKGqC7tMDJ0rokbvdgvA9hTmd/9Ls4cWeL8Zt7UDRMXkQdmpbLI+UBU
+ 3Y1h+vZbeXjS3hWVBpLjaqLV3AQZUNeV3xbsh4TQUCyHAzO/n8ZRD41Iqt/RX4Lrtq7jb5drXI/
+ Kqhkgnsndq/HWo4rQyQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 spamscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611030027
+ malwarescore=0 phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030027
 
-Correct (Input|Output)_Transport_Unit_Size based on Core spec v6.3,
-Vol 4, Part E, 7.1.45:
+'depends on NVMEM || !NVMEM' always evaluates to y, so it has no
+impact since the following commit changed NVMEM type from tristate
+to bool:
 
-  "The Host shall set the Input_Transport_Unit_Size and
-   Output_Transport_Unit_Size to be equal. For HCI Host transport
-   the Host shall set them to 0."
+Commit 2a37ce25d9f2 ("nvmem: disallow modular CONFIG_NVMEM")
 
-Fixes: b2af264ad3af ("Bluetooth: Add support for HCI_Enhanced_Setup_Synchronous_Connection command")
 Signed-off-by: Zijun Hu <zijun.hu@oss.qualcomm.com>
 ---
- net/bluetooth/hci_conn.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/bluetooth/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index b007f623b2ec..eebd73988bf6 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -322,18 +322,20 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
- 		cp.in_coded_data_size = __cpu_to_le16(16);
- 		cp.out_coded_data_size = __cpu_to_le16(16);
- 		cp.in_pcm_data_format = 2;
- 		cp.out_pcm_data_format = 2;
- 		cp.in_pcm_sample_payload_msb_pos = 0;
- 		cp.out_pcm_sample_payload_msb_pos = 0;
- 		cp.in_data_path = conn->codec.data_path;
- 		cp.out_data_path = conn->codec.data_path;
--		cp.in_transport_unit_size = 1;
--		cp.out_transport_unit_size = 1;
-+		if (conn->codec.data_path) {
-+			cp.in_transport_unit_size = 1;
-+			cp.out_transport_unit_size = 1;
-+		}
- 		break;
+diff --git a/drivers/bluetooth/Kconfig b/drivers/bluetooth/Kconfig
+index b18482b5677f..ad5eabb8eb77 100644
+--- a/drivers/bluetooth/Kconfig
++++ b/drivers/bluetooth/Kconfig
+@@ -112,17 +112,16 @@ config BT_HCIBTSDIO
+ 	  SDIO interface.
  
- 	case BT_CODEC_TRANSPARENT:
- 		if (!find_next_esco_param(conn, esco_param_msbc,
- 					  ARRAY_SIZE(esco_param_msbc)))
- 			goto unlock;
+ 	  Say Y here to compile support for Bluetooth SDIO devices into the
+ 	  kernel or say M to compile it as module (btsdio).
  
- 		param = &esco_param_msbc[conn->attempt - 1];
-@@ -348,18 +350,20 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
- 		cp.in_coded_data_size = __cpu_to_le16(16);
- 		cp.out_coded_data_size = __cpu_to_le16(16);
- 		cp.in_pcm_data_format = 2;
- 		cp.out_pcm_data_format = 2;
- 		cp.in_pcm_sample_payload_msb_pos = 0;
- 		cp.out_pcm_sample_payload_msb_pos = 0;
- 		cp.in_data_path = conn->codec.data_path;
- 		cp.out_data_path = conn->codec.data_path;
--		cp.in_transport_unit_size = 1;
--		cp.out_transport_unit_size = 1;
-+		if (conn->codec.data_path) {
-+			cp.in_transport_unit_size = 1;
-+			cp.out_transport_unit_size = 1;
-+		}
- 		break;
- 
- 	case BT_CODEC_CVSD:
- 		if (conn->parent && lmp_esco_capable(conn->parent)) {
- 			if (!find_next_esco_param(conn, esco_param_cvsd,
- 						  ARRAY_SIZE(esco_param_cvsd)))
- 				goto unlock;
- 			param = &esco_param_cvsd[conn->attempt - 1];
-@@ -379,18 +383,20 @@ static int hci_enhanced_setup_sync(struct hci_dev *hdev, void *data)
- 		cp.in_coded_data_size = __cpu_to_le16(16);
- 		cp.out_coded_data_size = __cpu_to_le16(16);
- 		cp.in_pcm_data_format = 2;
- 		cp.out_pcm_data_format = 2;
- 		cp.in_pcm_sample_payload_msb_pos = 0;
- 		cp.out_pcm_sample_payload_msb_pos = 0;
- 		cp.in_data_path = conn->codec.data_path;
- 		cp.out_data_path = conn->codec.data_path;
--		cp.in_transport_unit_size = 16;
--		cp.out_transport_unit_size = 16;
-+		if (conn->codec.data_path) {
-+			cp.in_transport_unit_size = 16;
-+			cp.out_transport_unit_size = 16;
-+		}
- 		break;
- 	default:
- 		goto unlock;
- 	}
- 
- 	hci_dev_unlock(hdev);
- 
- 	cp.retrans_effort = param->retrans_effort;
+ config BT_HCIUART
+ 	tristate "HCI UART driver"
+ 	depends on SERIAL_DEV_BUS || !SERIAL_DEV_BUS
+-	depends on NVMEM || !NVMEM
+ 	depends on POWER_SEQUENCING || !POWER_SEQUENCING
+ 	depends on TTY
+ 	help
+ 	  Bluetooth HCI UART driver.
+ 	  This driver is required if you want to use Bluetooth devices with
+ 	  serial port interface. You will also need this driver if you have
+ 	  UART based Bluetooth PCMCIA and CF devices like Xircom Credit Card
+ 	  adapter and BrainBoxes Bluetooth PC Card.
 
 -- 
 2.34.1
