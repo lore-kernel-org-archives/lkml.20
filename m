@@ -1,133 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793673870;
-	b=SLmecQSRRG6xwVb9pLNnKclyBYx0M8TJLXR0n9iYKDN4Ln1+56ORtRTUm+RUIi2hDp/p
-	 jnDvskFCWkfvGXggCGXDWh54eXkfbQmMUi8KZf8WLsfhHAoTorgEETeb14xOuK5QWEGLi
-	 A5YPEzg2AytrpiirMGnOsaq/UEKnBiAzY3eUZT/DsQisFH5OC/kVSUBzrAbYcAqtncxNt
-	 CCTfCP18oDSGZblJWDv2YCMcJs97nNfEWl7i6AB/nUJCXwcpW3F+tuL3MFKMMYSImqeyk
-	 uyhyWhuxFLG64mJBYK0QkMxrH07DhGtNxbMbvsSYu/hUMFotvCALCjd3n1joQvzMBzw==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.95.113
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793673903;
+	b=UuqsAiDCMSO1Xn9MKQubR46UxLp9686oNDSCIQ672hh7YicPNRUljaHtzGnmMDImXHsg
+	 YYN8fDakvNzBE2CrSYfcJ5AWgKM4iNA043+CZJyxR1339VFMcwB/4PNeNONd3dMNzePbd
+	 3u5TN9TF003oKTqC5kcUE+HT0in0Ros2SV/ztSDh8HAl3n9sH0MNryeksptuVxnXlgjnd
+	 /182lbci7CcVkjeRvlrQvdfgjcTVqHOoED2T+MwJ1ccMEPBbEGlg01Cp8sJIntumJI5y8
+	 7/oz6ECmoBLcwTF9m7viZeaYEncSgvgo0P85g6Sd7oztLG8ty8xH8jOpyVpuYSvhd3g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673870;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673903;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=hofk/crGI7OV0rvymdNq28OsqIsqTa5jFADk7sxdao0=;
-	b=YOUUlp+zhYNihiFvJ3UVC0GMyZEbjAc2/Hct/NyQSiCLtXW0IiI3kuVOOA3wJbV3Tx4q
-	 Lk93hp/JTg61ewRfrKPvI0w2B2RkDfCYez+7qmojc20Y7uThbBkE70rTZPRg+r8YvuaI0
-	 1BidzKmM5eWLdyFtTiLx+8Qj1Q0s1l2Hj/xXdh4pidcinrwbht0kZseAa4EYvW8omIK19
-	 Fkdn19beNJLJXKX9Hnat0LvMkIzCU2Xuob77jDuDHqHDVaew4jS7e2sHLvC9TyBWJDZxe
-	 /ihEDlTMo9hrp5c+5Sew/jzT9cqT2yu5Ip5VOnf2yLj7EqdfPgfoITXMyZcu4ixD5tA==
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=j2PzMKclJ0XXRtE8rhnZiT/fJmdBjVtkmRUeMkoGe1o=;
+	b=lY7FuWhPG9SoNJwQ5D5knFZ/Ied2BUMxH/k51QkMDjdEyVdY5SbRuIGWIrxmOB5vB4+2
+	 OvuOEc3JgZ7hLG0FMG2J775oXaVtj4yAJWCV9OJtbc4H0Xg67muJZ4XVuD4jO2MVr7NUl
+	 H15eVzYGPGHCWeyINbp2wVoXwlas9nTV5lo2Vo+CNp6ScWPZGcuFAVMXpVsW/3Gpp8/UP
+	 efIlWFlDqTufN1K+3Sd29SlpeYgpMxqU0bNzj1PJR1C56Ski5eG5OvmkdQ+C2aLWMIBZv
+	 Efmb15PPCHrpyi37kOZD/k5Ab7e728J/WPn3ayl6R+TrXSlEKivJ+HH9dBtyuq37COw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Iib45MRS;
-	arc=fail smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.95.113
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021113.outbound.protection.outlook.com [52.101.95.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCAE606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:44:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FCAE606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Iib45MRS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793673868; x=1825209868;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=r8aQlf/FEu5dW8XRyC6hQ6rc5k6qKz079Bc8fXiQxJA=;
-  b=Iib45MRSsLS0ycl5jHkkq8Tu0zi8PV1jJbjZqr9BHDshYdnszedmkk9a
-   aWVqZ5T8rtzHoCQcAQwThodAjfoLAtmBIp0tAYUkaWQb5+F5UcgtbvLXS
-   dA6mi3Fq8xea+5BewbLKnZ5y7Dzxo9RI1AEKWXf+MTubn4c+K3GuqXBYf
-   JfLLzaDsiUp2l71SiGfUcwThrt9cspamAYrUogsm1GkzR7B/JNtOeVrLp
-   3c3HhqUvJGxPh5dpp3iXARJszjVsepHjGIVFYOoiJo4UjSA90eQnIb5o7
-   LOJ5LwRi/I9ZpqatBntsAhnBz295NHHVxXIusjpT06gWachnHQs3duMqx
-   g==;
-X-CSE-ConnectionGUID: NvM7DxsZQpuJ9psekvhF2g==
-X-CSE-MsgGUID: w/9eyHcaShqTxsrABFbIuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2391984"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2391984"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 18:44:25 -0800
-X-CSE-ConnectionGUID: 2YtNFWICR9qFyuCYd/BV9A==
-X-CSE-MsgGUID: +x8lwqWDRp2p8j8c9Gu54g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6171274"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 18:44:22 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 18:44:22 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 18:44:22 -0800
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.12) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 18:44:22 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6B5606A32E;
+	Tue,  3 Nov 2026 02:45:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC6B5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Trcn9MLGMlv3GZ8UrjTv+I7Vd6l/W+WbTlof3L13bGJsEbSu3Cod+zKI9HR5zsGeQu4LsUQ15lQdoQn6+Sv8eEohc4bVaOkSG+nkkIxvsxLmrl1AM9MzhGA2SQ26urhqF9LMMrsdPjyUKNoH/Ye1I4RIIAyHneq62lcvFHT7NdKk+mKCu9XV6d1jG9iKg6QAipQvzdfsR0EgCg9GHtImo1h/8sffhAwTMnLh2bN42yViVYZy88foWuR2h0ZUHvCd7Zy/74cNQOQayAfmkm/UfeDPpA+kJehfkJ/TmPkB26X7pbngJMmcesE6A4RT66HX61g6qc1JXpV8AOA4F4DNKA==
+ b=RLgNaDJfLbPKbrknciQlJHtQSBuwl53EQEOmCwnqZWaFY8eJpbF0sFllRb/6XGuQHW8JRMFQQhGrgYUYFqwCAGVusavMVzXNyW5MfYvLCISXNbtoUpGiMGsKDW/Chl7IC446oQh/pvDz7CR+AlWZvWn1La3oC/1jyCpMg5LMFUsz09xWG3U4/cUZlf4tDUkH3Y6DBx5hy+xW18O/wGzAJc8kLi5s2XtmXhhjO8s96eUiKM++2DK9V7GSRWxWBpzS6oaPnXWKc0qlbsPAJHBF60Ke/7NR8UXUpvSt1Y7FN8J+NsuToAGCxgJs6XPx4cRjz4j/ihH0VOYM36nvNC3iVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hofk/crGI7OV0rvymdNq28OsqIsqTa5jFADk7sxdao0=;
- b=WKvNvaFrFE05uWNABtkphOD12HGRGrcBQ+WXLRNfv4DxAlp6+nm/UfNcCo4aXsaRFadPYfcCpKA7v5PFa3MTqeIsn7HOaMXwuGOwPZ5Lg6NbHKNMZZb7LajHAisZ3+oH5RhcvQwnCYf+KRCGxEyIQT2x58Xe5LprZFSx0Z2FTFQazDJ116cF9IAn0A71Il3Y5lUkfp3YCsT66Wf/fk6f5+0tlivVY7SNIT/2+LfkcJw1M/J0Bxjj4u4xpZmz7iGQBnrgakViyQjFZuZrVWvofi8s4xp862bphKONV7x+LL8Xhfclx2/ewJ9UCVo2A59d82PR1mOKobIoIOhiqiOQDg==
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=j2PzMKclJ0XXRtE8rhnZiT/fJmdBjVtkmRUeMkoGe1o=;
+ b=jSSrn+aSALN396aeUl93CwFDNAI1GW5TPjDFLzXuGXBrCojzJDjcG0yJ+HaHOqS14ISMRXwI04JPyww07CqnGa8uXf4GdMb2Z3Ust51lgAAAGJQuIh+LH0oADYDa52Dit0VeKvQOYGvWoyvjbXD/NctF0N6QpPDJeq5uuuBoSqJr0KHK27Uwor/JNllb6E9ruOtpd8Qu0kJ2Rszigx0gEHXUU01vRV3aRfMiAUnRbslqvVYMW8Omb/aGZD9sOavMwO9UKkK7qLRxGyIWfgkqIxQydeP6LSH0G7fmHV0DARMy83UJhXZERiTdYZIH8A+lt/jeRipdUIVNMRMWbvNUVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- LV0PR11MB9816.namprd11.prod.outlook.com (2603:10b6:408:383::10) with
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:163::8)
+ by LO2P123MB6972.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:31d::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 02:42:19 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%3]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 02:42:19 +0000
-Date: Tue, 3 Nov 2026 10:24:44 +0800
-From: Chen Yu <yu.c.chen@intel.com>
-To: Qais Yousef <qyousef@layalina.io>
-CC: Zhan Xusheng <zhanxusheng1024@gmail.com>, <peterz@infradead.org>,
-	<mingo@kernel.org>, <tim.c.chen@linux.intel.com>,
-	<vincent.guittot@linaro.org>, <juri.lelli@redhat.com>,
-	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
-	<mgorman@suse.de>, <vschneid@redhat.com>, <linux-kernel@vger.kernel.org>,
-	<zhanxusheng@xiaomi.com>
-Subject: Re: [PATCH] sched/cache: Don't use fits_capacity() to compare thread
- and CPU counts
-Message-ID: <aulF7A_9Y0nbgo61@chenyu-dev>
-References: <20261102021536.1026143-1-zhanxusheng1024@gmail.com>
- <bc97743f-5ceb-4ecd-8f3d-1b217eb9020f@layalina.io>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <bc97743f-5ceb-4ecd-8f3d-1b217eb9020f@layalina.io>
-X-ClientProxiedBy: SI3PR02CA0011.apcprd02.prod.outlook.com
- (2603:1096:4:295::18) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+ 2026 02:45:00 +0000
+Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::f71f:a9f:c4de:687a]) by LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::f71f:a9f:c4de:687a%5]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 02:45:00 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: pmladek@suse.com,
+	john.ogness@linutronix.de,
+	rostedt@goodmis.org,
+	senozhatsky@chromium.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	akpm@linux-foundation.org,
+	baoquan.he@linux.dev,
+	rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	ruirui.yang@linux.dev,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	kees@kernel.org,
+	anna-maria@linutronix.de,
+	frederic@kernel.org,
+	tglx@kernel.org,
+	mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: [RFC PATCH v2 1/5] panic, sys_info: Fix duplicate and dropped all-CPU backtraces in panic
+Date: Mon,  2 Nov 2026 21:44:49 -0500
+Message-ID: <20261103024453.922373-2-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261103024453.922373-1-atomlin@atomlin.com>
+References: <20261103024453.922373-1-atomlin@atomlin.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN8PR04CA0066.namprd04.prod.outlook.com
+ (2603:10b6:408:d4::40) To LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:163::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,161 +126,237 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|LV0PR11MB9816:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8b14344-f76d-4cba-ba23-08df39541489
+X-MS-TrafficTypeDiagnostic: LO2P123MB4190:EE_|LO2P123MB6972:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1f62944-3cfd-4731-5407-08df39547478
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|261102123227099003|56012099006|4143699003|11063799006|261021123027099003|261009223027099003|261028144727099003|261022075727099003|261022105027099003|261026140227099003|261022115727099003|261026121527099003|261021121427099003|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: qFuhBFlse3P7Dm5WNGQUJcub4ITmAs0ojnznDeCM4aCA35VgrNloGRsMmkgRw61HqIHnjI5HSesyXwyKuaTjSDS0i8HITm3Jw3LsTc2FJfu2ZjJsSwa8J4caaE51IUpksZNPwvgh/7gqal0GMTc5+5ElWcoK06twKKOrOXMGkCrW41UyEVZ9eTy8I6GR5ScBIu8/y/c0sH+GuGOjjdIbpttHA20H3Dr401y2dH4FgSzNmySBvZFhcEGob6twgGr356BJjLS9ywzJr4zw4SxhbAhvqs7MHlWUSRt0gKb2mES8fM8egv1par87sW1Fe1pvciqXZqPjuPXYGFEv2SrL34qXDm98ymLgAu5VvH4DG6rSzjQklSNF+iO59jv+szc4gFTlEx/KordwiOSFy2QjKIn5phM3pmmA10ElKaND4XU76J4IgRer/HGguY1D3vLVzh2/B3vll4HDsWG7n9df2aL1YGuKQLxI+tnA71JJuTH4tyGMAq3HCGgU/RpS7yU3Md56dIRxbztVAqqTxw6w0fy9qMJg2fT1iR8+pX7paokjouYqgnfEjFWlev93P1dwDl/82ZZ/e/b3FikX3Ou40TnRYRlX9S3GKtMlcdEPm+P7u8DHaTj3c9zQgGqJBJOP
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(261102123227099003)(56012099006)(4143699003)(11063799006)(261021123027099003)(261009223027099003)(261028144727099003)(261022075727099003)(261022105027099003)(261026140227099003)(261022115727099003)(261026121527099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|6133799003|10067099003|22082099003|261102123227099003|18002099003|261102130727099003|921020|56012099006|5023799004|261026140227099003|261022105027099003|261021121427099003|261021123027099003|261022075727099003|261026121527099003|261009223027099003|261028144727099003|261021135927099003;
+X-Microsoft-Antispam-Message-Info:
+	DEEsuFzEaAIPMEIC59UGqHjLCniHLOC0ny/ExPwmC4p8xvIGuUTG+kyGMDlxfSJpGiSkHxQvpkUFxdYYlLNr5nYPrzxFHKgCE2NVzRWmC96LncgucyQWT7GbT1RUMnH3JBlwKRJRQb755FQBZyYqAbiLy/DkRy58+FhxPzT1MdINAVyolkgWCGdT6NBr/2f0R6I+sk1zwJ1Ha5pilCUnjUB7uUELYG9vrObZPD5bHbxEiMCL0UZrG98mBx7TvFvOgLzJ2xnWfSlr47y6Qr5n3NeCepfraVHydSLit4yEHoANCRJbEQ4dAqrYmV4qyb8udl2BbhP9GiuyuWp1l8aPtLl3cOyL49kE9l5am2vzY3VJwNgbePK9TDV8Mdhl3sBe4EVXjbxl6lfoAVO8at+NyhsoQJvxe6rx9YN6vqD5764f4fQ0iKMR8mEbeoBfOOyBgmAky1rVIOaZ+UID/h28CGeOFiTH2jnfsGhuVzVHmwTnOgm36Pj2us1xnf00twlfPC0leBzM7+O431mO7rg/zE07oh8ATNTXvKce4I4vfumTBwVZrTkKU26zr5x2OLWylIxAYBr+mbUlqNY5dEC3eiUtIShGLzjwx44BxYBuIIojEjlvK05y1MhpnvAuwgKdAqJn0Yr4kYulYjlAEqGr6v0dAjNEnBXThYvvPuVboqrkT2qQr+fISoGP2Ovpyj5jAh1MVqa1dfCvdBZYkPf3IQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(261102130727099003)(921020)(56012099006)(5023799004)(261026140227099003)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(261026121527099003)(261009223027099003)(261028144727099003)(261021135927099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PatgSMklY179MJqleZZBJmWKcBS6RLDQiZ+Yl6LDu3Roag9sd91NO6IoCLec?=
- =?us-ascii?Q?6Qt/gWVC+qkY5olx3C45YTwTInMr2l8z8W324fDliAIt6YIouuWFwaIv/aee?=
- =?us-ascii?Q?2vaskStQMB8Plw7qcbLyAAscRPQtXLkZBx8gXKGM6R/vuhxqltT4sEOftQxV?=
- =?us-ascii?Q?bw4kid6GnNaH7WT8J7JVIjs00PFPwisT9y6TY5U/Felb0LUC9kFvolFy/e4Y?=
- =?us-ascii?Q?Mc9XppXh+bIhiieccZCkC1O7ufjMJBfbtLvsRP8/XgwCpSujtxofvFpyW9Ou?=
- =?us-ascii?Q?ePVltuVkklaRqCaKG9T3aC4IvL5mi74YdJDY9L/EKNX8B6wJCQWLel1hX6po?=
- =?us-ascii?Q?Io8gjg2RJ5WjHCPKinngeW0hpLkVyIQjPbMPrE4feYeYCaHle5W7F+JoiTCE?=
- =?us-ascii?Q?vYToa4WxsjaLuq53T6bFCk5xTMLEw24xvv2kurOnBJ/n8jJ02DeyXubUE4KK?=
- =?us-ascii?Q?SCM2ZPRycGSyfN7Cli2diX8VbC2tk3bxfLA0jdFjV+DJ2SqlaBWh4I92DMUc?=
- =?us-ascii?Q?wPylYycC96nhelfl2xDzEgq03YqmDuJLY2oOd3YzLeuEaKCZkWu+GarW/Ssg?=
- =?us-ascii?Q?1lBJSpSewiXbPjbZZYdBBvFt9BDNCD9lK+vXWRkb2PSjaQBTb90bI+y6Cwx1?=
- =?us-ascii?Q?jYLXyu2NOQ0PPFh6hS2oXy2JoUFv9qZ5Ubj1M+bDukhh6lXwp/9+JU2ArXjx?=
- =?us-ascii?Q?pDAUMZF4wxbkKtlRvSWHmRhFXxvL189c1/p0CSYA0pn8c7Q/8bjAY+BXqOUs?=
- =?us-ascii?Q?vU70Lor230Ss1jKfeITJbLtuirWh5P18VAZmBN+M9CS4OzICWzn1EUvNmiO9?=
- =?us-ascii?Q?lEAdGNRrgV9KqxhnhMUt9SRG2QUjwlRvJ+2cF0jV6H2vtMTQwZDtBF0g8B92?=
- =?us-ascii?Q?SYDvCfX9Ite1ZDLrhVvscuI0/RpRb8t+71gY3mzuYej5rLyj1/LUxZy9pFxD?=
- =?us-ascii?Q?dMtGdyIqL+g+sEmdxHoTo8iaLvh7J5wMISbq/YTi4Pc71SZwpzK70SOh68ZS?=
- =?us-ascii?Q?lsLq/N6A6r74oZGciVbDCkiK5CywtnZNT/s/vWUOucSQOCTsmj6+rJKD0dMs?=
- =?us-ascii?Q?JSCIr99wpBZ0tu7QPGiD8MnhKso3nXPXtJbrxgi/41UEAXsuPqiBs5VvmL3C?=
- =?us-ascii?Q?tNRWdgDUc2pInxo5EzZgxTjpaRSmG6bTRAzqsMZKoTG3LrRhs7gu5O9JmrYC?=
- =?us-ascii?Q?vbtkougoIHUQ8YOFEalDjrGzj7nVs+iHBeLj8LL1yKpRdZP2MyiunuQsfILk?=
- =?us-ascii?Q?FE9QPXXEUB8RZkixz2zs10OBPcKCHF9A/D8hdvUGin5NZnXt2uVoQvkIv37W?=
- =?us-ascii?Q?wnMMG+TWxBSUIRNjZOyq3eWOumwY6NG/QNKu0t7+RLnS74GVqy/pLibILO8r?=
- =?us-ascii?Q?HJ+bgHFmURT4J0766TbKLiiwh3CyG+SGUE0X7p58Lvr/YyxW++9HB83ulH3e?=
- =?us-ascii?Q?mZrtjWSdakuU3/mwomBdeyrgIdAEn3YW4Cl0VNcpXHMKkHsrVcDMhTGCANni?=
- =?us-ascii?Q?lMmrUVCWUTzOgk1J/5XGxRsyLUwoJW6kIwylBHnAEI4PFupQUaEwKEa0N0ix?=
- =?us-ascii?Q?JbWBDIi0E3KftmiNKkHaf90JuO14OBkFMj20hbeqaLtNsCg84tscS03aa42u?=
- =?us-ascii?Q?0i7I9lwwPmQL2L7zKgGbCUCxNyVNIBFyobM60C1Mp+Ezs62a4Dn6XPWpYt/T?=
- =?us-ascii?Q?Qu4t/qhhpBXuFAOGevrcl+lNr0+oNiY4ul+CAbC3fbXpXqRkaZ/zUC586Zeh?=
- =?us-ascii?Q?3ZcgELb3vA=3D=3D?=
-X-Exchange-RoutingPolicyChecked: vl3IshPGzZikYdMk0s7wIVxPzAE5wwhGLSI6V6nJLZBmQ2j3K0ct2aid+33UeQdQ/KT6SROcy8glGP1Zngz6lDzNVFwv9u3O28UCyA474fEIPmPytkH3D5nzYRgREjEjXvFYVog5vog6OcwI9M3YnRCdL18P1cMinXQS2vc73hKgZE2jfB7wqC0rCOo961sVv2ohRclIF/5K+1nFEoWtH9G0PTo1R42v2NceYiC0C+jjrjIi8iNDB2b2cYXC0ybIspCab9slBvMPeH8BDTXPh5Sj7xeesv8CidYyzTVAQL+WZ93zWJ6FZh1qr1F08DMMBBYCclWrm9M43i8lvbAoyA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8b14344-f76d-4cba-ba23-08df39541489
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?bu+rvqO3I51fLboa/uhLhKXgVxpP3g6ZKzHeUKAbzBACr7PI157grrvBIxEv?=
+ =?us-ascii?Q?GmVlXuMu21o5Jeq/gyS7LiBZrt58oc9dR7nMUEaNa65MfIyCnSi0MA89eDUU?=
+ =?us-ascii?Q?O+EWA2n3ow7d3Tf+4YG5PiKO04azoeIQdLdCEvx40AwNqRmApGxKjmbzzUNm?=
+ =?us-ascii?Q?LttsaiiELtR6xj+IEAe3PLW7JqHdpfcz8IwmKGur5zXNdNo83DZuf4Bc7rCx?=
+ =?us-ascii?Q?Q0+Pm14iMHt01Zg/dsqULBIWYMwDFRKrgNAbGk66EeaiF1C8rla/PJGCbIae?=
+ =?us-ascii?Q?ZikJg4XZkVJDCXoaoGPdfxFDC/oMAbpxKD5NGcc31rh3nxT+alM8MSyE0dTJ?=
+ =?us-ascii?Q?7hKU40hBSrdxKJQvgcw9g803TZowQz4DEyguSlHA1Dnsnj02RUUGbXZmx1oi?=
+ =?us-ascii?Q?08rLLtLyapk0pojabQu1YxhtkOsJPAjo7z+jx07WinP1q3mQAlWySMtZZVeK?=
+ =?us-ascii?Q?/H7kecDGYrSqOwY7jd88TM/dKpQyLZrFt20c7HzOxfMW2J5tvHEsF0uUOT1a?=
+ =?us-ascii?Q?2/C9sFIFD/SwMGUfNYSGv6tZeLPiGxEYf/0nGREtOWEDgT1eVPb7RLmvvDlo?=
+ =?us-ascii?Q?VCKSCoXsCRW1257auPG/l+wvIUQMmySQVvx6hsfdfUaUpa6QM3fm8nTlAc23?=
+ =?us-ascii?Q?4wlJhzEujFJ/qMR4AnZGUxlNk7x9LuCK/U0BxXHH4VPJY8Y1fMt74P3Z11s1?=
+ =?us-ascii?Q?yNd08hby+aYYsKjtrvPXI1j4RV0+2QI64J+TtoMC43bBLl6WbS3StIVHAdEk?=
+ =?us-ascii?Q?OlnG+12lvD+CRACsVpMt7Gfn15mmDpnAQ/t2ZUFXTU4yDmORlyE7Tq2B5dHW?=
+ =?us-ascii?Q?4wcYQcnA/DlkKWce5oDAlnWaHO+aT0TLsPetUfpfNn2f60u2Z4mgLBbASHc0?=
+ =?us-ascii?Q?4i0wKtqHHUc6P01vXe5QySUaYeIcgPPQMe+0MXuzDBps4h3jc/QV6nzWW0Oh?=
+ =?us-ascii?Q?bXojOMvKGQn2Ll0kDrXA+k598/5MLt6TMLQeOqKdGqWFTJwlQpRtZliM/qbh?=
+ =?us-ascii?Q?QSP3V7cgap6fMbSDjNd3rKjWUvUSUjoI8T4Dihuy1NGcsrN9cD6409CJSD1O?=
+ =?us-ascii?Q?lqHobJd3RqNueabi0dYm+uUrlmwI2Lokw6XVR/0LrypypJ76Oht0aotkRJMX?=
+ =?us-ascii?Q?63zOWNdKGNggPae0CsSqPRL2zHZc2nK50LhcHxgm77mCrNSu5OT+xMk2seV3?=
+ =?us-ascii?Q?G4JZ9vQNydmpl2UisxPgWWVUAfcBBbzxkWHVVj9LlvXvJRWIIMtXs0SFTXqt?=
+ =?us-ascii?Q?fsX5WakncsEGPpcFcjizWtCOdZafihsdoNVS4R6Xf1rXGWivH/6fvzsms7Nb?=
+ =?us-ascii?Q?ZFXNXMoXd94tz58tt5Kz1KBDLodKOQgBic8yx9NpMXvkJqiYA9jmol/MqYcp?=
+ =?us-ascii?Q?+hohjBIXAnkmxE6Z/xQWnY9WLUya1fuYgACldiwHV2wOuxcTKCxDIBCAVuGx?=
+ =?us-ascii?Q?/0JrsMUeaIOFXv2JHejxYS/ueLa32v+G1uxVPzJ5cvbg97cLsnm/0OQujgLy?=
+ =?us-ascii?Q?br0dlje9qUtel5+oLK966cx1anOpanYkhgh2dRKCK+V+tb0G0qkWcvqTIgEB?=
+ =?us-ascii?Q?rfiDvyyYdbUSWisoa61iZhUMEU7Geap2fXroCrd18gQuIAjvK9hkF4BPni6K?=
+ =?us-ascii?Q?a0AMfaYqzP3VVQJiUwBhgME5jDPycyduCHIo/uwN1ymXeKMckcknhOKDp8ih?=
+ =?us-ascii?Q?MgIOmph//Wih5zWQhEXsA7OxEPse8tRxPERF1d0gDsacLYG4+kKlCZfE8+Jj?=
+ =?us-ascii?Q?0kDAXGkh2Q=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1f62944-3cfd-4731-5407-08df39547478
+X-MS-Exchange-CrossTenant-AuthSource: LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 02:42:19.6375
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 02:45:00.5994
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0Gua9j64pLgp+7nQd0x1SD6BlZkzsEyBIcQLyQNidsLC3QmeLg2r3PpfFBd6uvcVe39oOrmsa/iYcYdmACA45g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR11MB9816
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: snS+TJ8ZAX+FWrsGp79hOQY3IBrFLpSVtXF6jzdwv9K5gkFMQxgsuE6flNqpPN/vH2kcvIxLXs3bsqSrxKdQRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P123MB6972
 
-Hi Qais,
+When sys_info() was factored out of kernel/panic.c by
+commit b76e89e50fc3 ("panic: generalize panic_print's function to show
+sys info"), __sys_info() gained an unconditional call to
+trigger_all_cpu_backtrace() when SYS_INFO_ALL_BT is set, while
+panic_other_cpus_shutdown() retained its own call to
+panic_trigger_all_cpu_backtrace().
 
-On Tue, Nov 03, 2026 at 01:31:17AM +0000, Qais Yousef wrote:
-> On 11/2/26 02:15, Zhan Xusheng wrote:
-> > From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> > 
-> > invalid_llc_nr() uses fits_capacity() to compare a thread count with a
-> > CPU count, only for its 20% margin.  Qais's series changes
-> > fits_capacity() to take a CPU number as its second argument, and this
-> > call would then pass the CPU count as a CPU number without a warning.
-> > 
-> > Give the check its own helper.  x * 5 < y * 4 is the same comparison as
-> > x * 1280 < y * 1024, so there is no functional change.
-> > 
-> > Link: https://lore.kernel.org/all/20260504020003.71306-5-qyousef@layalina.io/
-> > Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> Thanks for the patch. LGTM, although I hope we can do better.
-> 
-> Reviewed-by: Qais Yousef <qyousef@layalina.io>
-> 
-> > ---
-> > This keeps the 20% margin.  Qais would rather not add hardcoded
-> > margins, and llc_aggr_tolerance already scales the LLC size here, so
-> > the margin could go, but that changes when a process stops being
-> > aggregated.  Tim, Chen Yu, would you drop it?
-> 
-> Tim, Chen,
-> 
-> From capacity comparisons, we had issues that we move too slowly or too fast in
-> some cases, that's why I was trying to remove this magic number.
-> 
-> I'd be surprised if this gives a global win.
-> 
-> Is this the best we can do? What is the problem you're working around here?
-> 
-> I see we have other magic like llc_aggr_tolerance and llc_imb_pct etc.
->
+This causes two problems during a kernel panic:
 
-The original idea was to avoid threads overaggregating on their preferred LLC.
-There are several metrics used to avoid this overaggregation: the first one is
-utilization, the second one is the number of active threads, and the third one
-is the LLC cache size.
+    1.  vpanic() invokes panic_trigger_all_cpu_backtrace() inside
+        panic_other_cpus_shutdown() before stopping secondary CPUs, and
+        then invokes trigger_all_cpu_backtrace() a second time inside
+        sys_info(panic_print) after secondary CPUs have already been
+        shut down, stalling for up to 10 seconds waiting for offline
+        CPUs to respond to NMIs. Furthermore, if SYS_INFO_ALL_BT is
+        configured via the kernel.kernel_sys_info sysctl rather than
+        panic_print, panic_other_cpus_shutdown() misses it prior to CPU
+        shutdown.
 
-1. llc_overaggr_pct is used for utilization. The default value is 50%, which means
-that if the utilization of the preferred LLC exceeds 50%, we slow down the aggregation.
+    2.  If sys_info(SYS_INFO_ALL_BT) is invoked on the panicking CPU
+        prior to panic_other_cpus_shutdown(), calling
+        trigger_all_cpu_backtrace() directly bypasses
+        panic_trigger_all_cpu_backtrace() and leaves
+        panic_triggering_all_cpu_backtrace unset. Because panic_cpu is
+        already active, vprintk_emit() silently drops all NMI backtrace
+        messages originating from non-panic CPUs.
 
-2. invalid_llc_nr() leverages fits_capacity() to skip any process that has too many
-active threads, and we don't want it to become saturated because every CPU in this LLC
-has one runnable thread. fits_capacity() was reused only because it happened to be a good
-fit for this case, and we don't want introduce extra tuning knobs like llc_overaggr_pct,
-so 80% was chosen simply because fits_capacity() uses that value.
+Export panic_trigger_all_cpu_backtrace() with a panic_on_this_cpu() and
+one-shot guard so all-CPU backtraces are only emitted once before
+secondary CPUs are stopped, consult sys_info_get_mask(panic_print) in
+panic_other_cpus_shutdown(), record prior Oops stack dumps in
+panic_try_start(), and route SYS_INFO_ALL_BT in __sys_info()
+through panic_trigger_all_cpu_backtrace() on the panicking CPU.
 
-2. exceed_llc_capacity() checks whether a task's memory footprint exceeds the LLC cache
-size. This is where llc_aggr_tolerance is involved.
+Fixes: b76e89e50fc3 ("panic: generalize panic_print's function to show sys info")
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+---
+ include/linux/panic.h    |  1 +
+ include/linux/sys_info.h |  1 +
+ kernel/panic.c           | 31 +++++++++++++++++++++++++++----
+ lib/sys_info.c           | 17 ++++++++++++++---
+ 4 files changed, 43 insertions(+), 7 deletions(-)
 
-So for 1, 2, and 3, they address different aspects that prevent overaggregation. We can not
-simply remove one of them and let the rest avoid overaggregation. For example, the process
-might have very low utilization (frequently doing context switch) but have a large number of
-active threads. In this case, we don't want to do aggregation for this process.
+diff --git a/include/linux/panic.h b/include/linux/panic.h
+index 17e61b61c45f..3b56f873f1e2 100644
+--- a/include/linux/panic.h
++++ b/include/linux/panic.h
+@@ -57,6 +57,7 @@ void panic_reset(void);
+ bool panic_in_progress(void);
+ bool panic_on_this_cpu(void);
+ bool panic_on_other_cpu(void);
++void panic_trigger_all_cpu_backtrace(void);
+ 
+ /*
+  * Only to be used by arch init code. If the user over-wrote the default
+diff --git a/include/linux/sys_info.h b/include/linux/sys_info.h
+index a5bc3ea3d44b..e7699b82aa49 100644
+--- a/include/linux/sys_info.h
++++ b/include/linux/sys_info.h
+@@ -18,6 +18,7 @@
+ #define SYS_INFO_BLOCKED_TASKS		0x00000080
+ 
+ void sys_info(unsigned long si_mask);
++unsigned long sys_info_get_mask(unsigned long si_mask);
+ unsigned long sys_info_parse_param(char *str);
+ 
+ #ifdef CONFIG_SYSCTL
+diff --git a/kernel/panic.c b/kernel/panic.c
+index 574ee5a12f92..4cb26914b2af 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -70,6 +70,7 @@ static bool panic_console_replay;
+ 
+ bool panic_triggering_all_cpu_backtrace;
+ static bool panic_this_cpu_backtrace_printed;
++static bool panic_all_cpu_backtrace_printed;
+ 
+ int panic_timeout = CONFIG_PANIC_TIMEOUT;
+ EXPORT_SYMBOL_GPL(panic_timeout);
+@@ -451,13 +452,21 @@ bool panic_try_start(void)
+ 	old_cpu = PANIC_CPU_INVALID;
+ 	this_cpu = raw_smp_processor_id();
+ 
+-	return atomic_try_cmpxchg(&panic_cpu, &old_cpu, this_cpu);
++	if (!atomic_try_cmpxchg(&panic_cpu, &old_cpu, this_cpu))
++		return false;
++
++	if (atomic_read(&panic_redirect_cpu) == PANIC_CPU_INVALID &&
++	    (test_taint(TAINT_DIE) || oops_in_progress))
++		panic_this_cpu_backtrace_printed = true;
++
++	return true;
+ }
+ EXPORT_SYMBOL(panic_try_start);
+ 
+ void panic_reset(void)
+ {
+-	atomic_set(&panic_cpu, PANIC_CPU_INVALID);
++	panic_this_cpu_backtrace_printed = false;
++	atomic_set_release(&panic_cpu, PANIC_CPU_INVALID);
+ }
+ EXPORT_SYMBOL(panic_reset);
+ 
+@@ -538,8 +547,21 @@ void check_panic_on_warn(const char *origin)
+ 		      origin, limit);
+ }
+ 
+-static void panic_trigger_all_cpu_backtrace(void)
++/**
++ * panic_trigger_all_cpu_backtrace - trigger NMI backtraces on all CPUs once
++ *
++ * Temporarily permit non-panic CPUs to emit messages into the printk ring
++ * buffer while capturing all-CPU backtraces during a panic. Subsequent calls
++ * are ignored so backtraces are not re-triggered after secondary CPUs have
++ * been shut down.
++ */
++void panic_trigger_all_cpu_backtrace(void)
+ {
++	if (!panic_on_this_cpu() || panic_all_cpu_backtrace_printed)
++		return;
++
++	panic_all_cpu_backtrace_printed = true;
++
+ 	/* Temporary allow non-panic CPUs to write their backtraces. */
+ 	panic_triggering_all_cpu_backtrace = true;
+ 
+@@ -558,8 +580,9 @@ static void panic_trigger_all_cpu_backtrace(void)
+  */
+ static void panic_other_cpus_shutdown(bool crash_kexec)
+ {
+-	if (panic_print & SYS_INFO_ALL_BT)
++	if (sys_info_get_mask(panic_print) & SYS_INFO_ALL_BT)
+ 		panic_trigger_all_cpu_backtrace();
++	panic_all_cpu_backtrace_printed = true;
+ 
+ 	/*
+ 	 * Note that smp_send_stop() is the usual SMP shutdown function,
+diff --git a/lib/sys_info.c b/lib/sys_info.c
+index f32a06ec9ed4..496893eb776b 100644
+--- a/lib/sys_info.c
++++ b/lib/sys_info.c
+@@ -7,6 +7,7 @@
+ #include <linux/kernel.h>
+ #include <linux/ftrace.h>
+ #include <linux/nmi.h>
++#include <linux/panic.h>
+ #include <linux/sched/debug.h>
+ #include <linux/string.h>
+ #include <linux/sysctl.h>
+@@ -153,14 +154,24 @@ static void __sys_info(unsigned long si_mask)
+ 	if (si_mask & SYS_INFO_FTRACE)
+ 		ftrace_dump(DUMP_ALL);
+ 
+-	if (si_mask & SYS_INFO_ALL_BT)
+-		trigger_all_cpu_backtrace();
++	if (si_mask & SYS_INFO_ALL_BT) {
++		if (panic_on_this_cpu())
++			panic_trigger_all_cpu_backtrace();
++		else if (!panic_in_progress())
++			trigger_all_cpu_backtrace();
++	}
+ 
+ 	if (si_mask & SYS_INFO_BLOCKED_TASKS)
+ 		show_state_filter(TASK_UNINTERRUPTIBLE);
+ }
+ 
++unsigned long sys_info_get_mask(unsigned long si_mask)
++{
++	return (si_mask & ~SYS_INFO_PANIC_CONSOLE_REPLAY) ? :
++		READ_ONCE(kernel_si_mask);
++}
++
+ void sys_info(unsigned long si_mask)
+ {
+-	__sys_info(si_mask ? : kernel_si_mask);
++	__sys_info(sys_info_get_mask(si_mask));
+ }
+-- 
+2.55.0
 
-After the fine-grained control cache-aware scheduling is introduced, we allow the user tune
-these parameters per group aggressively. But for the global settings, we don't want to bring
-any performance regression, so these parameters are just safeguards for a global conservative
-strategy. 
-
-For Xusheng's patch, it looks good to me at the moment.
-
-thanks,
-Chenyu
-
-
-> > 
-> >  kernel/sched/fair.c | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > index cfc982205b98..dfd6528d18ee 100644
-> > --- a/kernel/sched/fair.c
-> > +++ b/kernel/sched/fair.c
-> > @@ -1469,6 +1469,12 @@ static bool exceed_llc_capacity(struct sched_cache_group *grp, int cpu)
-> >  	return false;
-> >  }
-> >  
-> > +/* Are the running threads (in SMT siblings) below ~80% of the LLC's CPUs? */
-> > +static inline bool fits_llc_nr(u64 nr_threads, unsigned int nr_cpus)
-> > +{
-> > +	return nr_threads * 5 < (u64)nr_cpus * 4;
-> > +}
-> > +
-> >  static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
-> >  			   int cpu)
-> >  {
-> > @@ -1485,8 +1491,8 @@ static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
-> >  	if (scale == INT_MAX)
-> >  		return false;
-> >  
-> > -	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
-> > -			(scale * per_cpu(sd_llc_size, cpu)));
-> > +	return !fits_llc_nr(READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads,
-> > +			    scale * per_cpu(sd_llc_size, cpu));
-> >  }
-> >  
-> >  /*
-> > 
-> > base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-> 
