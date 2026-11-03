@@ -1,53 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704263;
-	b=n6AB6x+eb+eghj55pKyb/A6Up+XK1lFxlhDFdPcGqhmR2GzFuYhiI92L47muYqyJOIK8
-	 2htwvuXTjX4DHe+ocUfN4vrNyIjrmTI0rbzy/zYT29vGJqSz1G9e1QsXXB/3ZCPnuvH6o
-	 wFC4Xvd3hWShCO4zYwqd4pAoctw0KeJBUImmYliPfoCVtqooUAGF4ZI/juCKRQu4iL4vG
-	 rwOAjVqKO1ajgtFJGjr+JFHk2BZQLjq1OTTrpBdz652WGTXPA4pSVDbRGNWKtaPfDuHv/
-	 sv5V1v+NLx34nqc/hUL0GdVzw3zgUkG+yOxSF7kMymhVYZYOfXoJnTIO6AhE0TZq/3Q==
+	t=1793704274;
+	b=0nHmoJ/e75++UrSt5WtckXoHqnAklfGD+JeHlPqf60HgQrEkz/PTM4DKTRmobu5lpetR
+	 kpSgLgTXgZJgJI8LVWX5LrbeWllefBxZm22J8SsfxsZpzOGula/lpoNxHZEKR8xMurHR8
+	 tsmXD489T+tyb4G7b/pl0aduH2coSsvllHBGtm/2wb7lOeoV9P2C/TbVm11XBGDMS4FHG
+	 2ZD5jk9fdgG1QZd1tfvWxYL0EA/8z3qG17PKd0Q0RQj4K95XkigmLXXD5Y9CSigFtwz7o
+	 1DTdJmpFNHJh+mHLb6om17LoIy7AzMoxVUjbOGs0iu/KG5Nd96TK+bjF36c5z6DhR3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704263;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TpY7gfCybRj7+hCyHruI8lUkdXq2GT2C0QBLYpHMn5U=;
-	b=JzNUErZCb7vmQHxX1BIAvNcYuTQcRZcqbluvehBP457x0NuugKZd9OcUsqoVk70Gn+7g
-	 zCOg0I40dBeqf2FRU5px5SmpZhb5+YcJ7k00LN/1pFCNqOnEWcgkDiXtT3lTx7g7PLF9R
-	 bx4f5uus6BHQutFfMZ8kfvh50umyiu15SW4ZHzwXfRbTfUceKVrxX2/e3izDiFPpsRiTJ
-	 eVZCivsHP0gFIIN+DBR1Gca8EYNCpNYcgGVvawfEXmwpIDR0Lp58oaMQQxuwb16DKji6M
-	 V9HWBQX4EMuoN+lD3+nHuVvMhv7F+K2suL7LgwZBefmCl2fdxyy5IsbgkliFYiQ3M8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704274;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HJXvKBetJ6+D3f3qQFBtlAFYG6QMCgZ7DblhIwwwoDU=;
+	b=Kvfn53BU/YuoVm2F3rAwmpE5BZ0fmtrjQbSi91QBLQm/fd5h+49VBfoRNq09LugTbvwD
+	 Mf/KFpS3xM/sj1KDty/z54KrHo4B9RuJpBY+q0ZujdmMGLZ6wjX+iO4jUflJLglABn3O9
+	 FB9Ej9kt33KCTt8Ksyf/H26bBG2pAaOh4yLmXPi1JggHMTboNwJ+z3Xr40OITzFwOmR86
+	 mCpxyrMOEmo5xpiEv4Ctzpf+y7tXuFXPdniqKFzm0fR70cug4hPitfPiuIfpAemd359B0
+	 yUgBAUeRuyB5/le96viA2ZYRPL7JuETWOXoSGn0Jzjrr/cPXVs/daTTeg90AITHOG4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEzLaXw4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=dbjquFjY;
+	arc=none smtp.remote-ip=115.124.28.5
+Received: from out28-5.mail.aliyun.com (out28-5.mail.aliyun.com [115.124.28.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95566606FACC;
-	Tue,  3 Nov 2026 11:11:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E9860A5BD0;
+	Tue,  3 Nov 2026 11:11:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06E9860A5BD0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEzLaXw4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2F21F000C1;
-	Tue,  3 Nov 2026 11:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704263;
-	bh=TpY7gfCybRj7+hCyHruI8lUkdXq2GT2C0QBLYpHMn5U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cEzLaXw46GCElArUYrx2ojVrPAkir1oQf0DqjgF2UCOI5kSYG7Lb9zrxa5trV1XXj
-	 svMUHNqVoPkpYBD6XO61ebJYHDsZ+wUrkhMIxpHs5U4s9xFWQgPRb2B0viyjRU77Ey
-	 ji1x1gZRIqMpMApHcHoIhUySm2oRWb+kFPYGixlRe1R4IpH7MTmdV34n1atKwLY7YH
-	 xtvdnawDaO3/ajig/4F3JKWtB6VDaGsoads3xxKxp75k+WjuQs5clAclcGfnrzU/XL
-	 DXBRF2yhhAW8lFzrzMa3Y+GjjeRKZOiWy9wIgVaJjQpXUqMNWjAVRXJkh69m3xbYSg
-	 Lj10Pu/NmXq/g==
-Date: Tue, 3 Nov 2026 12:11:01 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-wireless@vger.kernel.org, Jeff Johnson <jjohnson@kernel.org>, 
-	linux-kernel@vger.kernel.org, ath11k@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH RESEND] wifi: ath11k: release the rproc reference on
- teardown
-Message-ID: <20261103-clever-adder-of-culture-daa0dc@quoll>
-References: <20261103102915.1341148-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=dbjquFjY
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793704263; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=HJXvKBetJ6+D3f3qQFBtlAFYG6QMCgZ7DblhIwwwoDU=;
+	b=dbjquFjY+H2MRTiqvXr5HtN/YqoFMmioZXNtQ+dZziZV8HvPdRO9Q6MJvsRYpnhWROu1gDYFi7S4pW99mM0lGM/Wqxeh2kGAhFPzrjcwt1jb/Vo9w5DwhDEYIkZvLdif8y78oDzYQYCSq+HsVycwZNqZ2wIJbRILhWVjPHzI7dU=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04992287|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0172255-0.00111262-0.981662;FP=15865239930251679264|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jviODwI_1793704261;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jviODwI_1793704261 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 19:11:02 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: [PATCH v2] net: wwan: iosm: drop redundant skb->data check in MUX DL decode
+Date: Tue,  3 Nov 2026 19:11:01 +0800
+Message-ID: <20261103111101.39235-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261102081920.50288-1-fangxy@xiaopeng.com>
+References: <20261102081920.50288-1-fangxy@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,71 +69,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103102915.1341148-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
+The skb passed to ipc_mux_dl_decode() through the current RX path
+always has a valid data pointer.
 
-On Tue, 03 Nov 2026 10:29:15 +0000, Wentao Liang wrote:
-> ath11k_core_get_rproc() looks up the target remoteproc with
-> rproc_get_by_phandle(), which takes a device reference and a reference on
-> the remoteproc driver's module.  The resulting pointer is stored in
-> ab_ahb->tgt_rproc and never released: ath11k_ahb_free_resources() only
-> tears down the firmware resources, and the probe error paths after the
-> lookup jump to err_core_free without dropping the reference either.
-> rproc_shutdown() does not release it, it only drops the power reference.
-> 
-> Release the reference when the AHB resources are freed and on the probe
-> error path, so that repeated bind/unbind cycles no longer accumulate
-> remoteproc references and the remoteproc module can be unloaded again.
-> 
-> Fixes: ba929d6fe31a ("ath11k: Remove rproc references from common core layer")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/net/wireless/ath/ath11k/ahb.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
+The only caller, ipc_imem_dl_skb_process(), checks for a NULL skb
+before calling ipc_mux_dl_decode(). The skb is allocated through
+ipc_pcie_alloc_skb() -> ipc_pcie_alloc_local_skb() ->
+__netdev_alloc_skb(), which provides a valid data buffer on
+successful allocation. Allocation or DMA mapping failures return
+a NULL skb instead.
 
-Multiple things here:
-1. Your team ignored completely previous feedback. Multiple times.
+Remove the redundant skb->data check.
 
-2. You use multiple identities with this email address, thus I doubt that we
-   speak with an actual person.
+Suggested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+---
+Changes in v2:
+- Drop the "fix potential skb leak" approach. The skb->data NULL
+  condition is unreachable through the current RX path, so remove
+  the redundant check instead of adding an ipc_pcie_kfree_skb() call.
+- Drop the Fixes: tag because this patch does not fix a reachable bug.
 
-3. Your bot does not even bother running checkpatch, right?
+ drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-4. Nothing of this was reproduced nor tested.
-
-5. Finally, the same feedback:
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
-
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
-
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
-
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem (so a patchset grouping multiple patches with a short cover
-letter), how to document the issue discovery method and what was
-or was not tested.
-
-Best regards,
-Krzysztof
-
-
-
+diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+index 0bbd41263cc2..2b8a22980c87 100644
+--- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
++++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+@@ -693,9 +693,6 @@ void ipc_mux_dl_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
+ {
+ 	u32 signature;
+ 
+-	if (!skb->data)
+-		return;
+-
+ 	/* Decode the MUX header type. */
+ 	signature = le32_to_cpup((__le32 *)skb->data);
+ 
+-- 
+2.50.1
 
