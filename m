@@ -1,104 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723208;
-	b=UsIdkK4bR8WjZPifmjeeIKcP6tN+E+kyrOUHCeeMMbAL31GWxbq2cI62DEvBYxnU4GI+
-	 kLYOYup18bANEzJoHhzaAO+y3+yWkEOqZ6z+Y41NowDPNKJTSZ0yMPhgGZ74IGk5HqfrW
-	 L3VJg7P2xeOXNheEX8maZfTisZ+EHB1aanqtKVCbfEIy13vcSoD+DcMeKsus6Se3KGQQo
-	 zpUPtfyw8tkHdMwITr1AoZZPYbp7p9xYbaelFCOjbU7r3laPuukaMdKTBDY74c3zqct3I
-	 nwfPYgLfLoJzvCnrcT7Bmro0ktMfjCHogLmatJfrauO6MFhauYqFa3UWe3IHYyKACtA==
+	t=1793723214;
+	b=ROIpJ7CFO/Dy0WPc89eCVOuAlG3zVBEUawfnYyNEAImB9KyDITW/w2g9zpPjggu+3rUt
+	 g8y+OzwDMikvFmpoOxL78Hy04zhTxSFFnSenPWWjMdF/06oWa/yAHQrV0IMlzQSEsDVE8
+	 2VhD9KuFYdT7GmyATNfp0Quv/8X/QvECbYxtglL3joEt98fTgnPPpjFJ4qFBgXwDttPh9
+	 9DcNIhc2pcuQzbcHlLY/mmViwARjknwWRlNWCqKaEZXqz8CNGTXabO63qdRXrEyr0lYxa
+	 C3TKHEw+SA0b72mUweArwWn23/LAOKyO4WXJ27zdBMTQMXdgZlqIaxEBju7S2McUEaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723208;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=rouW7nDm2RAxW8KJh1mBeowYSzyQJYswbOx6xzxW26I=;
-	b=3qQaNbQQlxNZtbCAVNk3MVSNele6BaqeTFdFG08IQXzIqseL3GzC+fq2vpKoKllCobqw
-	 H2C/3fovvFv7wNoal7UfQN7dt4i1m1SAZMsuYtcIOrBVkMt6ER6uzeToCByU1LbsnKWy/
-	 CwaIQ7T3uyKTB2f1Drwe2mo3jsDhrC8MbIBhejYj4PLgYYx3USVkxtvhBnJ8g8PhRFkAS
-	 IyExprczhu6VFftvn0Hk4idna1qpY3EkBTq8YEjKbrbTsH2PVMbx/i5gUmDrSsh6njPbt
-	 gFY4BTexv+FfHMJHGPP0BApuvb15VmUQftdOBh4wPxVRC7457MFplKes72swNkFLgmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723214;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=YVSDIrIIzR9VS4mWTO/q1Mp+Me/njugHvJ+exw7MsBc=;
+	b=NciIcofuuVOoAzhS48asdvIGTMJPDBRHQ19FXM//3Hwb07AGmtoQXzQpwQVuS7fKRSD4
+	 LMaJ9ym/lYgHSlouWtuJXuQpmPw2/seU5YR/izsJxJJJ8lACeqQrt5S4KZo7xVdRqDr4n
+	 XfOLAfUaXaayHcwkdH0uF//YwPC8X0+7I86LIyuyidQjFIlC8BunVRHh7TpNXqwOrzoRq
+	 jGLP18cN8oeO84S1If7kADwhg5G7h2Z7Q/Ys9Nf/fLuQgd44LZIEh79HeBZJibdDzazc+
+	 uwFwwXsAMvWb6pOY1MFo/jY9FYHxiedWZ9RY3yaGCeHy8rmZnD/hysRkuRXyYb9Qd/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1NKBjawz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tvc6WHl9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=O00ctMrb;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bzygVwcx;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Vo2qH0rt;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C9D606A327;
-	Tue,  3 Nov 2026 16:26:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3C9D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89921606A331
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:26:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89921606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1NKBjawz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tvc6WHl9;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=O00ctMrb;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bzygVwcx
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 40BCA1F7B6;
-	Tue,  3 Nov 2026 16:26:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793723206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rouW7nDm2RAxW8KJh1mBeowYSzyQJYswbOx6xzxW26I=;
-	b=1NKBjawzsf9PETfHWSEvBLYRuL0k+NovLQqKA8iTIZdCWIMPCBXAQoeRxE0cod9VblD8J8
-	OcyhSACe2WcGVnVoTCDcNPVMLrooiEbrcOulaAnXciCKLL/VdR2SPxOjvCGGw88ONe8zXt
-	GWwFWc91F9twexc0WLuvPwxfFnQ60cs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793723206;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rouW7nDm2RAxW8KJh1mBeowYSzyQJYswbOx6xzxW26I=;
-	b=tvc6WHl96AxZeSxWXyQNtJW597ZfDoqrl3dB7e6bWNPUO9hw0v5vjC/QsTsQjLUjDzgpxG
-	xxxXaEx69ARebNAg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=O00ctMrb;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bzygVwcx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793723205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rouW7nDm2RAxW8KJh1mBeowYSzyQJYswbOx6xzxW26I=;
-	b=O00ctMrbIa/ZUYnmI0ZDEBP/Z6ySkVq4ePuJGqBwj8oHyUkjip+EovTfhuDTbm9ArPFRHK
-	/BonMrU+nV2Kl2Qns8rFi76ncxwvOYCotIT4JaketV/PeMMiaOswJH7WpsQq6sCzv53BgK
-	N7/Cs2Pkuqzy5VAs5cQ+ZUnsmP3bM4U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793723205;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rouW7nDm2RAxW8KJh1mBeowYSzyQJYswbOx6xzxW26I=;
-	b=bzygVwcx/B7vQu6/HShqQgImb/hL7D1OMGKETyqXcdGIuUCOmttBzhwb6QjJmkP7KY3eiQ
-	XBaSIrgHihlB83AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AD09C134B8;
-	Tue,  3 Nov 2026 16:26:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id cm5NIkQL6mpNfgAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 03 Nov 2026 16:26:44 +0000
-Message-ID: <bdef8300-8570-4103-8c8b-cb978c88eb81@suse.de>
-Date: Tue, 3 Nov 2026 17:26:44 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Vo2qH0rt
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261103162650euoutp02b026c2e57aa9050e8770ac306d15257b~klcGqsmcd2173021730euoutp02g
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:26:50 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261103162650euoutp02b026c2e57aa9050e8770ac306d15257b~klcGqsmcd2173021730euoutp02g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793723210;
+	bh=YVSDIrIIzR9VS4mWTO/q1Mp+Me/njugHvJ+exw7MsBc=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Vo2qH0rtUulQjTrvDSQeJ3FpQ5/0v4yjObZmApKDrtovCvqGFLsds5v4aD5h7yjGw
+	 wCypu29RbvmDDkS2f66RSUdwWk03EBJ1dibVH/lGC+fCL5SjE8eE49epyXQaLhhvqV
+	 doLOZNNKtAG8LABMwmRcRzAYnQajLB12K4sfollI=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261103162649eucas1p2160b4c61bbe857eb702337e35ad8b2e8~klcFy-Wv13209832098eucas1p29;
+	Tue,  3 Nov 2026 16:26:49 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261103162649eusmtip1b9257770e9aa42f127e639da49ee93ae~klcFXrMLm2977329773eusmtip1Q;
+	Tue,  3 Nov 2026 16:26:49 +0000 (GMT)
+Message-ID: <d495affe-2501-4a82-9798-aa4b279a0cba@samsung.com>
+Date: Tue, 3 Nov 2026 17:26:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,177 +64,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] scsi: virtio_scsi: implement eh_host_reset_handler
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, mst@redhat.com,
- jasowangio@gmail.com, mkp@kernel.org, James.Bottomley@hansenpartnership.com,
- pbonzini@redhat.com, eperezma@redhat.com, virtualization@lists.linux.dev,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- sashiko-bot@kernel.org, kwolf@redhat.com
-References: <20260911164417.33860-1-ngocthang2710.1999@gmail.com>
- <28865bba-ac60-4c6e-aec8-64b1fcdb1c8f@suse.de>
- <20260914133144.15509-1-ngocthang2710.1999@gmail.com>
- <20261102200615.GC1738758@shajnocz.csb>
- <c5460180-e134-423a-b67f-a58a00106eb8@suse.de>
- <20261103135156.GB2072598@shajnocz.csb>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v2 1/2] media: videobuf2: publish buffers in bufs_bitmap
+ under mmap_lock
+To: Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa
+	<tfiga@chromium.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans
+	Verkuil <hverkuil@kernel.org>, Benjamin Gaignard
+	<benjamin.gaignard@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
 Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261103135156.GB2072598@shajnocz.csb>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-12.00 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,redhat.com,kernel.org,hansenpartnership.com,lists.linux.dev,vger.kernel.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 40BCA1F7B6
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261103-vb2-mmap_lock-v2-1-054e11dcd013@chromium.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261103162649eucas1p2160b4c61bbe857eb702337e35ad8b2e8
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96
+X-EPHeader: CA
+X-CMS-RootMailID: 20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96
+References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
+	<CGME20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96@eucas1p1.samsung.com>
+	<20261103-vb2-mmap_lock-v2-1-054e11dcd013@chromium.org>
 
-On 11/3/26 2:51 PM, Stefan Hajnoczi wrote:
-> On Tue, Nov 03, 2026 at 08:27:52AM +0100, Hannes Reinecke wrote:
->> On 11/2/26 9:06 PM, Stefan Hajnoczi wrote:
->>> On Mon, Sep 14, 2026 at 08:31:44PM +0700, Nguyen Ngoc Thang wrote:
->>>> Once virtscsi_eh_timed_out() lets SCSI EH run on an unresponsive host,
->>>> abort and device reset both fail the same way (same dead ctrl vq), and
->>>> since virtio_scsi implements neither target nor bus reset, EH falls
->>>> through to scsi_eh_offline_sdevs(), which frees the stuck commands' DMA
->>>> buffers without any guarantee the device has actually stopped touching
->>>> them. If bus mastering (or whatever broke the transport) comes back
->>>> later, the device can still write into memory the kernel has already
->>>> reused.
->>>>
->>>> Add a real eh_host_reset_handler instead. virtio_reset_device() is the
->>>> guarantee scsi_eh_offline_sdevs() was missing: once it returns, the
->>>> device will not touch guest memory again, so it is safe to hand
->>>> outstanding commands' buffers back. Reuse virtscsi_remove_vqs() +
->>>> virtscsi_init() -- the exact sequence already used across
->>>> suspend/resume -- to tear the virtqueues down and rebuild them.
->>>>
->>>> Verified with a QEMU virtio-scsi repro (PCI_COMMAND_MASTER cleared
->>>> mid-write): EH now runs abort -> device reset -> host reset -> abort ->
->>>> device reset -> host reset -> offline, then dd's stuck fsync returns
->>>> EIO and D-state drains to 0, in ~244s total. No task remains
->>>> uninterruptibly blocked.
->>>
->>> By the way, there is a known limitation in the QEMU virtio-scsi
->>> implementation where some reset-related operations are implemented
->>> synchronously (can block vCPUs and QEMU activity while waiting for I/O
->>> to drain in some situations) instead of asynchronously. Recently there
->>> has been work in QEMU to make VIRTIO device reset asynchronous, for
->>> example, but it needs to be implemented on a per-device basis and
->>> virtio-scsi hasn't taken advantage of it yet.
->>>
->>> Please let me know if you'd like to discuss or contribute. It's
->>> something that is on my radar but not until 2027.
->>>
->>>>
->>>> Suggested-by: Hannes Reinecke <hare@suse.de>
->>>> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
->>>> ---
->>>> v1 -> v2: implemented eh_host_reset_handler as suggested by Hannes
->>>> Reinecke in review of the original RFC, instead of relying solely on
->>>> the EH loop falling through to offline.
->>>> ---
->>>>    drivers/scsi/virtio_scsi.c | 24 ++++++++++++++++++++++++
->>>>    1 file changed, 24 insertions(+)
->>>>
->>>> diff --git a/drivers/scsi/virtio_scsi.c b/drivers/scsi/virtio_scsi.c
->>>> index b4f20c487718..9698f4f91cc6 100644
->>>> --- a/drivers/scsi/virtio_scsi.c
->>>> +++ b/drivers/scsi/virtio_scsi.c
->>>> @@ -833,6 +833,8 @@ static enum scsi_timeout_action virtscsi_eh_timed_out(struct scsi_cmnd *scmnd)
->>>>    	return SCSI_EH_NOT_HANDLED;
->>>>    }
->>>> +static int virtscsi_host_reset(struct scsi_cmnd *sc);
->>>> +
->>>>    static const struct scsi_host_template virtscsi_host_template = {
->>>>    	.module = THIS_MODULE,
->>>>    	.name = "Virtio SCSI HBA",
->>>> @@ -846,6 +848,7 @@ static const struct scsi_host_template virtscsi_host_template = {
->>>>    	.eh_abort_handler = virtscsi_abort,
->>>>    	.eh_device_reset_handler = virtscsi_device_reset,
->>>>    	.eh_timed_out = virtscsi_eh_timed_out,
->>>> +	.eh_host_reset_handler = virtscsi_host_reset,
->>>>    	.sdev_init = virtscsi_device_alloc,
->>>>    	.dma_boundary = UINT_MAX,
->>>> @@ -947,6 +950,27 @@ static int virtscsi_init(struct virtio_device *vdev,
->>>>    	return err;
->>>>    }
->>>> +/*
->>>> + * No bus/target reset in virtio-scsi, so EH lands here after device
->>>
->>> The choice to use the VIRTIO device reset in virtscsi_host_reset() looks
->>> good to me, but I would like clarification on this comment. virtio-scsi
->>> does have I_T_NEXUS_RESET and I believe this is the modern equivalent to
->>> the pre-SCSI-6 TARGET RESET. Is it really the case that virtio-scsi
->>> doesn't have target reset? And do you want to go ahead and implement
->>> .eh_target_reset_handler() using I_T_NEXUS_RESET?
->>>
->> Would probably not a bad idea to use I_T_NEXUS_RESET here.
->> Not sure what it does internally, though; _is_ there a nexus
->> to reset?
-> 
-> Whether there is any benefit to I_T_NEXUS_RESET may depend on the device
-> implementation. In QEMU:
-> - LOGICAL_UNIT_RESET resets just 1 LUN
-> - I_T_NEXUS_RESET resets all LUNs
-> - VIRTIO device reset also resets the HBA itself
-> 
-> In practice QEMU's I_T_NEXUS_RESET is unlikely to fix things if
-> LOGICAL_UNIT_RESET wasn't sufficient. Maybe it will help on other device
-> implementations though.
-> 
-> I think the Linux driver mapping should be:
-> - .eh_device_reset_handler() -> LOGICAL_UNIT_RESET
-> - .eh_target_reset_handler() -> I_T_NEXUS_RESET
-> - .eh_host_reset_handler() -> VIRTIO device reset
-> 
-I guess 'target_reset' is pretty much pointless for modern setups.
-If lun reset doesn't work it's pretty much guaranteed that target_reset
-won't help, either.
-(Unless you are on SAS, then it might, as I_T nexus reset actually
-resets the SAS link and such does something useful).
-Problem is that in most cases LUN reset fails as the _communication_
-to the LUN is interrupted, and hence sending another TMF across the
-same communication channel won't help, either.
-For virtio that would mean that we'd have to reset the virtio queues;
-can we even do that in a meaningful fashion?
+On 03.11.2026 11:56, Ricardo Ribalda wrote:
+> vb2_mmap() only takes q->mmap_lock, not the main queue lock (q->lock).
+> To keep vb2_mmap() safe, newly allocated buffers must not become visible
+> in vb2_get_buffer() until they are fully initialized and q->mmap_lock is
+> held.
+>
+> Commit a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+> started setting q->bufs_bitmap inside __vb2_queue_alloc() before buffer
+> memory is allocated and without holding q->mmap_lock. As a result:
+>
+> - A concurrent mmap() can find a half-initialized buffer, and if buffer
+>   allocation or .buf_init() fails, __vb2_queue_alloc() frees that buffer
+>   without holding q->mmap_lock, causing a use-after-free in vb2_mmap().
+> - If fewer buffers are allocated than requested, they are already
+>   counted as active in q->bufs_bitmap before .queue_setup() checks
+>   whether the smaller count is acceptable.
+>
+> Fix this by keeping new buffers only in q->bufs[] during allocation and
+> setting their bits in q->bufs_bitmap under q->mmap_lock once allocation
+> and .queue_setup() succeed, and let __vb2_queue_free() read q->bufs[]
+> directly when cleaning up unexposed buffers.
+>
+> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 
-Cheers,
+One minor issue below, besides that is look fine.
 
-Hannes
+Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
+
+
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 66 +++++++++++++++++++++----
+>  include/media/videobuf2-core.h                  |  8 +--
+>  2 files changed, 61 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+> index b0a6084f1757..70ef38c3d16a 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -431,6 +431,9 @@ static void init_buffer_cache_hints(struct vb2_queue *q, struct vb2_buffer *vb)
+>   * @q:	pointer to &struct vb2_queue with videobuf2 queue.
+>   * @vb:	pointer to &struct vb2_buffer to be added to the queue.
+>   * @index: index where add vb2_buffer in the queue
+> + *
+> + * The buffer is stored in @q->bufs[] but remains invisible to vb2_get_buffer()
+> + * until published with vb2_queue_publish_buffers().
+>   */
+>  static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, unsigned int index)
+>  {
+> @@ -439,7 +442,31 @@ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, uns
+>  	q->bufs[index] = vb;
+>  	vb->index = index;
+>  	vb->vb2_queue = q;
+> -	set_bit(index, q->bufs_bitmap);
+> +}
+> +
+> +/**
+> + * vb2_queue_publish_buffers() - publish buffers staged by __vb2_queue_alloc()
+> + * @q:		pointer to &struct vb2_queue with videobuf2 queue.
+> + * @start:	index of the first buffer to publish.
+> + * @count:	number of buffers to publish.
+> + *
+> + * Set the @q->bufs_bitmap bits of the @count fully initialized buffers that
+> + * __vb2_queue_alloc() stored in @q->bufs[] starting at @start, which makes
+> + * them visible to vb2_get_buffer().
+> + */
+> +static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
+> +				      unsigned int count)
+> +{
+> +	unsigned int i;
+> +
+> +	lockdep_assert_held(&q->mmap_lock);
+> +
+> +	for (i = start; i < start + count; i++) {
+> +		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
+> +			    test_bit(i, q->bufs_bitmap)))
+> +			continue;
+> +		set_bit(i, q->bufs_bitmap);
+> +	}
+>  }
+>  
+>  /**
+> @@ -460,6 +487,11 @@ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
+>   * @first_index: index of the first created buffer, all newly allocated buffers
+>   *		 have indices in the range [first_index..first_index+count-1]
+>   *
+> + * The allocated buffers are stored in q->bufs[] but not published in
+> + * q->bufs_bitmap: the caller must either publish them with
+> + * vb2_queue_publish_buffers() or free them with __vb2_queue_free(), both under
+> + * q->mmap_lock.
+> + *
+>   * Returns the number of buffers successfully allocated.
+>   */
+>  static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+> @@ -562,7 +594,8 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+>  	struct vb2_buffer *vb;
+>  
+>  	for (i = start; i < start + count; i++) {
+> -		vb = vb2_get_buffer(q, i);
+> +		/* See __vb2_queue_free() for why vb2_get_buffer() isn't used */
+> +		vb = q->bufs[i];
+>  		if (!vb)
+>  			continue;
+>  
+> @@ -580,6 +613,11 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+>   * __vb2_queue_free() - free @count buffers from @start index of the queue - video memory and
+>   * related information, if no buffers are left return the queue to an
+>   * uninitialized state. Might be called even if the queue has already been freed.
+> + *
+> + * Buffers are looked up directly in q->bufs[] instead of through
+> + * vb2_get_buffer() so that buffers staged by __vb2_queue_alloc() that were
+> + * never published in q->bufs_bitmap (because a later .queue_setup() call
+> + * rejected the allocated number of buffers) are freed as well.
+>   */
+>  static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned int count)
+>  {
+> @@ -587,9 +625,13 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  
+>  	lockdep_assert_held(&q->mmap_lock);
+>  
+> +	/* q->bufs is NULL until vb2_core_allocated_buffers_storage() runs */
+> +	if (!q->bufs)
+> +		return;
+> +
+>  	/* Call driver-provided cleanup function for each buffer, if provided */
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  
+>  		if (vb && vb->planes[0].mem_priv)
+>  			call_void_vb_qop(vb, buf_cleanup, vb);
+> @@ -624,7 +666,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  		q->cnt_unprepare_streaming = 0;
+>  	}
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  		bool unbalanced;
+>  
+>  		if (!vb)
+> @@ -676,7 +718,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  
+>  	/* Free vb2 buffers */
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  
+>  		if (!vb)
+>  			continue;
+> @@ -1000,14 +1042,16 @@ int vb2_core_reqbufs(struct vb2_queue *q, enum vb2_memory memory,
+>  
+>  	if (ret < 0) {
+>  		/*
+> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+> -		 * from already queued buffers and it will reset q->memory to
+> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
+> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
+> +		 * straight from q->bufs[] and resets q->memory to
+>  		 * VB2_MEMORY_UNKNOWN.
+>  		 */
+>  		__vb2_queue_free(q, first_index, allocated_buffers);
+>  		mutex_unlock(&q->mmap_lock);
+>  		return ret;
+>  	}
+> +	vb2_queue_publish_buffers(q, first_index, allocated_buffers);
+>  	mutex_unlock(&q->mmap_lock);
+>  
+>  	/*
+> @@ -1125,14 +1169,16 @@ int vb2_core_create_bufs(struct vb2_queue *q, enum vb2_memory memory,
+>  
+>  	if (ret < 0) {
+>  		/*
+> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+> -		 * from already queued buffers and it will reset q->memory to
+> -		 * VB2_MEMORY_UNKNOWN.
+> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
+> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
+> +		 * straight from q->bufs[] and resets q->memory to
+> +		 * VB2_MEMORY_UNKNOWN if no buffers are left.
+>  		 */
+>  		__vb2_queue_free(q, *first_index, allocated_buffers);
+>  		mutex_unlock(&q->mmap_lock);
+>  		return -ENOMEM;
+>  	}
+> +	vb2_queue_publish_buffers(q, *first_index, allocated_buffers);
+>  	mutex_unlock(&q->mmap_lock);
+>  
+>  	/*
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+> index 4b4f4c15c53a..2e93e6985d5f 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -564,9 +564,11 @@ struct vb2_buf_ops {
+>   * @mmap_lock:	private mutex used when buffers are allocated/freed/mmapped
+>   * @memory:	current memory type used
+>   * @dma_dir:	DMA mapping direction.
+> - * @bufs:	videobuf2 buffer structures. If it is non-NULL then
+> - *		bufs_bitmap is also non-NULL.
+> - * @bufs_bitmap: bitmap tracking whether each bufs[] entry is used
+> + * @bufs:	videobuf2 buffer structures. Must be accessed with
+> + *		vb2_get_buffer(), as an allocated buffer cannot be used
+> + *		until it is published.
+
+
+"Drivers must access it through vb2_get_buffer()", otherwise You risk getting
+tons of poor-LLM generated patches fixing vb2-core to use vb2_get_buffer()
+instead of poking q->bufs[].
+
+> + * @bufs_bitmap: bitmap tracking published buffers. Bits are set and cleared
+> + *		under @mmap_lock.
+>   * @max_num_buffers: upper limit of number of allocated/used buffers.
+>   *		     If set to 0 v4l2 core will change it VB2_MAX_FRAME
+>   *		     for backward compatibility.
+>
+Best regards
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
