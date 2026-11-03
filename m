@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725650;
-	b=L26ZBYP557c0u89L7rxFDv7d5V/AUx4GN5nTeMoHPbbUFmEuY1gNwhDO0kBf1lMuTwXw
-	 E8+aNpggA01XJqpg8KEb+Ygc3RgL3dUOu99vvaBo7eLbrQ81Lwhl25nCduHOYGkF5iqg7
-	 wiioAdQsFA0+Wf9X3RAqCn7WnI22/AGVzK21Kt1Kg/9LXITlCEzuvIBV/Z5zOuc196UGf
-	 q/PoetDg2ODDSKA1fj4hLjCKwB6AO2lhGPf1W/ypS7X3BViR3qPj28E++fPiEJh8hRbK4
-	 ZH4gM50oUANy/j1c08WGa/Axw3zjDaWxe4hI2Szepezgf0Z46oieBBvpDAKmNfiW02w==
+	t=1793725660;
+	b=CzI0AMWjlFO386ueaxwbWJN1VuGegqITDwNPgfFD8j3AT4BOiuqDOGbMUr0DZF9gGait
+	 jnmBobNHP2DMAUfkBRSc+0EHYLe78djl+ZusNjJB4SlbdQe1FAZ2ujAiPBxfD4AcLFdxX
+	 zsuoBV1jmUDvdg9l+5ZUi19nWc8rV6wn4jQDR+Z7m9zMl7r0uTz+LnoHNNPaGvPEEVmsL
+	 GeAVmx39wYd3DctXUoEb8gntpEIKa6h6jVwrE1nxMdNiB/r4Ji3T2uRKheM3knIz+qg9D
+	 lOZhhJjfR+AV6t+7tWkuZHtuuDlxrVkltOCPxvpVQTplAz41OAKC8tAsrh2QvaOkasg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725650;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=KLRMVFFyvrLd0GX9ll6qf9ApFCeqabmtblqncpF8arc=;
-	b=08FLB8QCo2ik911Ddoo4+GMzcjYGlpqLXLB8tDlIqeioeZcPoWy/WfxGYg/vzqOV8rH3
-	 hpQ19uVGqLAkkuGQAkI99N/+LJgjrfKsdj4gqxXtFsFGd36uRbXuTcXX9rWAvImMfSQlR
-	 4yjluj2+qelT+0douuiEeFkG6AwFSIKqR7o/KDuIHZBJUNWEjwiGzt85F9pKg8x/soHBk
-	 yCnfl6Uozm9+W/qQJaTXfptZBxZhzXxtNojxTgETDljHrF6vX4gYObZzOMcEzkjeTw+4f
-	 K9rkDxAUCqrWxJ4q8ilgBfP446x96Ynd8rnmDbOZUlZvwUumbFlDrQTHs1/AKAVQOVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725660;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZInQYbUxcW7DtenoLG5Di5mlTcEFYHlYTealy8i6jec=;
+	b=GrEgt/8j/lJazopgONV1k3pzLCuce+pBTSFLb8D9+R1Lzm4otkst39fbfqq/RnpB0GVs
+	 FeDkwlHvmsn0PcmeKFiWGIN2mpDZF+buldxkqNmR/yPl9w8aJUXtbBZajid4GjZs8zu8q
+	 ABLmRqUp2jREj0KPDYZlflHiJ1iXDtg33/JJKYfwML9z6Q9uNir6vq5wO7oiZjbqJG4KC
+	 SqjIqIdg/1Wt1jB/WDWC1FSAjD2NZUP9h/JHEh6w415bC8+O/3z6Qpqjm1mHzHg4Iy+K2
+	 SRYuLtQlMzUH1go4eH3r4vIYIQu25+AtrSrcnUVNM1+vOcFN7woDW/hPOrVonDaTKUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=CnTckfzZ;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CRYm/p6I";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7AB606A32D;
-	Tue,  3 Nov 2026 17:07:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC7AB606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46619606A330;
+	Tue,  3 Nov 2026 17:07:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=CnTckfzZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=KLRMVFFyvrLd0GX9ll6qf9ApFCeqabmtblqncpF8arc=; b=CnTckfzZiffq8PwgNoxN5RlRgX
-	ftARL5taRaNTM/p1tPzrI3mU3xogFiaHlJrsL/CvbbHN7B9UvvxNLy5bsO9WYx7swhTc+L4M7+3Tb
-	dcJO5+vHUS1bvy18mjDzhUws1m16j5IG7h97XgqruKDnD1wWoVJbzN0RsQNc+vgMfUmEMOtTR0xp9
-	cfvuLGMbA2aHEZLH3s8P+mv9uKy2dDfvuzRbP1yfNnHRsrWFkhaqTpjkX7OgRWN/2aTie9Gl+9C/C
-	RsGovsTg72IAyx2T0JyvJa1qdIHemZfgnlI/z6u9HS/ivdUyzGI6zCmvbTUNvLmxjPPDW5lofQ8+n
-	irxuq6LQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOHyq-00000003Gom-2rTF;
-	Tue, 03 Nov 2026 17:07:28 +0000
-Message-ID: <cead23d2-30ea-46ae-9a44-036148e943cc@infradead.org>
-Date: Tue, 3 Nov 2026 09:07:28 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CRYm/p6I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED901F000C1;
+	Tue,  3 Nov 2026 17:07:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793725659;
+	bh=ZInQYbUxcW7DtenoLG5Di5mlTcEFYHlYTealy8i6jec=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CRYm/p6ICZSxky9n/VQiT9ftqP0Xz98pTyJeInVCT1/uq8LOHegw/996L7obhOZCZ
+	 KYah+S3oETUHs0AXYH3sdrtxI7OjqMW511MPhJB/1OkMOutdbAGJ/Dx5lIM7ljqA9d
+	 tspmkeuvKOZeyN2SFMJDUxRcw141O60DY/zM84f7ttM1OiYxpiqU3XZO4jYZU1xXjM
+	 gv6IGs07YCcPEgcxv9Z3AVEwatTD2iWNAqdrxTlKdcMRDd7MQlAb+/KFH9NXccX7E/
+	 tc1oj8QhxIZv9DgZDNshINWa9fNHRZ/x3ouufFbPljjSd8u71ANmnztteHSHWWxeX9
+	 o/Usjq3CtbrgA==
+Date: Tue, 3 Nov 2026 09:07:37 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Colin Ian King <colin.i.king@gmail.com>
+Cc: John Garry <john.garry@linux.dev>, Will Deacon <will@kernel.org>,
+	James Clark <james.clark@linaro.org>,
+	Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+	linux-perf-users@vger.kernel.org, kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH][next] perf cs-etm: Fix spelling mistake "should't" ->
+ "shouldn't"
+Message-ID: <auoU2bRDQkQkXJNF@z2>
+References: <20261028183137.537812-1-colin.i.king@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,56 +69,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: fuse: fix typos in fuse-caches.rst
-To: Viacheslav Shevchuk <slavik.a.shevchuk@gmail.com>, miklos@szeredi.hu
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, fuse-devel@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261103094407.912-1-slavik.a.shevchuk@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261103094407.912-1-slavik.a.shevchuk@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261028183137.537812-1-colin.i.king@gmail.com>
 
-
-
-On 11/3/26 1:44 AM, Viacheslav Shevchuk wrote:
-> Fix two misspellings of "successfully" and change "then next time"
-> to "the next time".
+On Wed, Oct 28, 2026 at 06:31:37PM +0000, Colin Ian King wrote:
+> There is a spelling mistake in a pr_err error message. Fix it.
 > 
-> The misspellings were found with the help of an AI coding assistant
-> (Claude Opus 5.5) by grepping Documentation/ for the entries in
-> scripts/spelling.txt.
-> 
-> Signed-off-by: Viacheslav Shevchuk <slavik.a.shevchuk@gmail.com>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
+Applied to perf-tools-next, thanks!
+
+Best regards
+Namhyung
 
 > ---
->  Documentation/filesystems/fuse/fuse-caches.rst | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  tools/perf/util/cs-etm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/filesystems/fuse/fuse-caches.rst b/Documentation/filesystems/fuse/fuse-caches.rst
-> index 0778dd3d..d19592c6 100644
-> --- a/Documentation/filesystems/fuse/fuse-caches.rst
-> +++ b/Documentation/filesystems/fuse/fuse-caches.rst
-> @@ -156,11 +156,11 @@ in several occasions:
+> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
+> index bdcf94813129..65bce2450549 100644
+> --- a/tools/perf/util/cs-etm.c
+> +++ b/tools/perf/util/cs-etm.c
+> @@ -434,7 +434,7 @@ static int cs_etm__map_unformatted_trace_ids(struct cs_etm_auxtrace *etm)
+>  			continue;
 >  
->  - When a new file system object is created (e.g. ``FUSE_CREATE``,
->    ``FUSE_MKDIR``, etc).
-> -- When a lookup is sucessfully performed.
-> -- When a dentry is sucessfully revalidated (``->d_revalidate()``).
-> +- When a lookup is successfully performed.
-> +- When a dentry is successfully revalidated (``->d_revalidate()``).
+>  		if (!intlist__empty(etmq->traceid_list)) {
+> -			pr_err("CS_ETM: Unformatted queue should't have trace ID\n");
+> +			pr_err("CS_ETM: Unformatted queue shouldn't have trace ID\n");
+>  			return -EINVAL;
+>  		}
 >  
->  A dentry expiry time can be set to 0, indicating that it is stale. This means
-> -that a ``FUSE_LOOKUP`` will be sent to user-space then next time it needs to be
-> +that a ``FUSE_LOOKUP`` will be sent to user-space the next time it needs to be
->  looked up. It can be set to 0 in several occasions:
->  
->  - When the user-space FUSE server explicitly requests a dentry to be invalidated
-
--- 
-~Randy
+> -- 
+> 2.55.0
+> 
