@@ -1,102 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690120;
-	b=RQHtIt3rHJxZ4fCXyxSBLCbreezxwkWSBFZzfRkFr0pJPWqFfL5EpgU8MgtnQgZxL5Ii
-	 SFFmcss1EzKdvyUt5wLdmpELOJ+yrV4kszmj7IEy0+ZEMz4AunPuqAX9a3Yeb0T2pV5h5
-	 sGXHXHRzpZu2l7ONp9Dm3CEkowUcQy5ymNlgp3y3WZO7PmD0zT9gmsv2oZsV7dw3uwvb4
-	 xYtNoI/e7nGTp3R8TX3KsmB8rCTeoxnL7Zaeqtn/qtVnaU/QR+4av55aQFUSy+8pZtJye
-	 qUbWELd/Im5PO4Xvz0vA2CrKSK4wXveiMw+HWVhCFGrsDE9mr1ys3tAoXl8imqw8thQ==
+	t=1793690153;
+	b=SYC9xmN0FOVSMAjMpq8CAlumodSNyiCpnvRT1YGaAe6058/PpQBgSjhr+W0LHcR3KZza
+	 Ek0/EKPEqPCRX0Jnn/HFmTNg2f2h7ymHP6yHDynzhwwSyaEhovMJw4GcGAe0tIfylKqnE
+	 0EtRo+wEgbn+uFSL2PBp3iQUAndhefrbsaediEETD+i7W6p/qLG3nbN5mYEWbO2EEFcV/
+	 TsE0LKsDAlpsatecjwvZS3A6rzFoEUHl1S9v0mafHwdXH0KsDuTS+KyyQazjlyIl5ObQ/
+	 RFLmaXfrvdEWwVB+2s0OWdVJ95fh7lztLN/5485JCUysGLJG6OPI0Gqp8iSCJDQyqPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690120;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=811OydeNzYN7nt//0FjlaPrP+tHT92V1t9WCuYGo8E8=;
-	b=H9gu8Wqx49PEJOGfuNzR06JjbfBcveuiWSTZeQOuAtQY/IP4NUdqjkleML+gHyrNR/9I
-	 1Lsdwt8GBW5AETIYy27VEXoeHV42UEQYc4+3gKSto4/4t2ESeuSb/CRzJwrxClCLBFI8h
-	 OS5Zc+gu0CZPiTp1fmvcYBdKqYBKtuQrTUq4JzQEOMnpjqWYcqzwk3Ez8N+ECkbB8Ypab
-	 iuA+BR+NtDgwjGj/aKX8fyJ6CTsQXkyS+bChEttxBIsvaJibD3E2fLSjFbczVKwKYE6DZ
-	 oZnm9fgZLAQrbf8N5oE4GMVz9SRVQlYsEQDZ75FmzpOgwYZgwNacKeavn5XqlNfsBUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690153;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=1wn8B8AtBDch11Kn2VubYj0NKMdWprvKTv7qKouH7kM=;
+	b=eJJ4kVmpHh42aKEVU4zFoh3nT9BEWUKsQ8EFhevCjKT01bvNZkeD74R8iDScYkq88Lv0
+	 8dgpFOi7vfsmZ9FDYyyupV9BCwaDDQitl9moHjecYR48DPBo8NJMEKBTS4OdlkWFoeFML
+	 0hjAKfXjRekvNv44dz5th/lB6hnq1bV4+tij7bCkpyU6Lo5XXbBa25qY8dm592Qu+vBMH
+	 CewzDFC9+aRSO27wVfVH24fJuc34bwrKGn+CPT4FD293fo0HEKFAY48ckp8iLJur6ToSg
+	 9ttysZNswgHshz6Xn+b/WW2mbUZXw9c9stkNddz0zXjBWaqVnzzSCHFfsTznbIQuBfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qop+LuiR;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CvOiXTIS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qop+LuiR;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CvOiXTIS;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=bcvj1Rae;
+	arc=none smtp.remote-ip=74.125.82.225
+Received: from mail-dy1-f225.google.com (mail-dy1-f225.google.com [74.125.82.225])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E320E606A32C;
-	Tue,  3 Nov 2026 07:15:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E320E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410CA606A331
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:15:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 410CA606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qop+LuiR;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CvOiXTIS;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qop+LuiR;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CvOiXTIS
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 001641F889;
-	Tue,  3 Nov 2026 07:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793690118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=811OydeNzYN7nt//0FjlaPrP+tHT92V1t9WCuYGo8E8=;
-	b=qop+LuiR8BFOJHwrFigWAVCqjD897LpO5QU+XqbkHgO/zrLpOpdhGvYNFjFm9EpjqTkCfI
-	wmUotR3YLqNwdIEsirRtUX72EqY/NoQ6XI31EmluWTDB6MR4e6H2TGsAJ2Nu0jBqU+gUCQ
-	JS1bmYXB9h2W4V6VI72WWu50STu0QwE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793690118;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=811OydeNzYN7nt//0FjlaPrP+tHT92V1t9WCuYGo8E8=;
-	b=CvOiXTISdk+WRBm2Wk4q74RcInMQJbGQ7nwiOGwNT5nKdfVCCPpMUwosDVAvG1LS8FqfSv
-	vfqvC0PdHbLKOoCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793690118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=811OydeNzYN7nt//0FjlaPrP+tHT92V1t9WCuYGo8E8=;
-	b=qop+LuiR8BFOJHwrFigWAVCqjD897LpO5QU+XqbkHgO/zrLpOpdhGvYNFjFm9EpjqTkCfI
-	wmUotR3YLqNwdIEsirRtUX72EqY/NoQ6XI31EmluWTDB6MR4e6H2TGsAJ2Nu0jBqU+gUCQ
-	JS1bmYXB9h2W4V6VI72WWu50STu0QwE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793690118;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=811OydeNzYN7nt//0FjlaPrP+tHT92V1t9WCuYGo8E8=;
-	b=CvOiXTISdk+WRBm2Wk4q74RcInMQJbGQ7nwiOGwNT5nKdfVCCPpMUwosDVAvG1LS8FqfSv
-	vfqvC0PdHbLKOoCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E4235134B8;
-	Tue,  3 Nov 2026 07:15:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id z18BKwSK6WobPAAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 03 Nov 2026 07:15:16 +0000
-Message-ID: <dd6d8c92-a96c-4bb3-aee1-a28f2156fb9d@suse.de>
-Date: Tue, 3 Nov 2026 08:15:16 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=bcvj1Rae
+Received: by mail-dy1-f225.google.com with SMTP id 5a478bee46e88-353804b591eso6765111eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:15:53 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793690152; x=1794294952;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1wn8B8AtBDch11Kn2VubYj0NKMdWprvKTv7qKouH7kM=;
+        b=htSl02T21LKu1MILf37UzMiK2Z8EQ+9OmsYL6WqRfa92fjFXGqH/abahI7tW6JszU4
+         nKgcTKb4MLXFoS6R8gUtjwI3o2P+E6da8ByamMpAoksL2QfAonP9l70tLwDloYm87UEc
+         cTfHv0EPN89pt0ukuuYxYx9N96KqJXLJqZ2Y5GfSXXS4S67Jka4Ns6ZaYS/NyszMzrFU
+         Sk0Nx8Ln/RkhPuSXuBVu9lUdWetrob4jN4vvPUnUZduM0ETUVGkx0BHwili11raN2JF1
+         i5N2V7rtb2uYKEM3BFnV1vzNjNAnSHQJAROeNsear0C8wLTQK15yxHNEZOsR3OzZ0PmA
+         4wDg==
+X-Forwarded-Encrypted: i=1; AKwUvBx91DbOcR373nhJoM8Fyap/jtdi0y8cwdpfEqeB1yOMRafGkrurYmKWu5xGZ69CKMDNo7WAtwCkQ58UeZc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8bKdPsXD8nRDJbEfS8TxUESelzkpnkiU22Hpg7vZON1iiUjKlo
+	G7uAkTfpN9dn8PzFWpzrv2S1nDshqMUemE85xxogtDBrc08Dm0++QVTRRhHb6bpaCkLy5BcoeDE
+	cqnDweygGMTUg3TBUdTu9LA7t/5izSjLidiltDMYrtj2eLfqtHpsvuM5zvqMF4Rwvc5KXCFEkIJ
+	WnMGAvQCU96mrDqiSQi9VLjs5dfPpFT2FLeM51M++7wpa4dUDsZrL1ZBxmzPGzoyKYODSvBKuZr
+	cslZVcjurORGvEU
+X-Gm-Gg: AYBFou04vN6ILoG9dOW2+q/FBV5mybHbGYXVhLjsgWxo2cvHpI3GRWZWr5cj5R6yEbN
+	UqfMdklaR95UGtjWJ7R2mT7inNjOqMany7gvHwEKdbf4vbGrwPqCOdKWZNHw74FIxS7FANXiq64
+	HXlaBEu7kf0HGwDxLslXOIrS+d4GE6sjIeCkhwv9KPuDDniGHe6KLqXhcjvb6RaxkZYwMPoLOmo
+	av+H+9S9zJIkwbq5nVKHxzzTQQNDtS60O1Pj0QyD84H1rlFzdIVs42vC/d4KoBYaH35SBzu2mWD
+	HrCtOQyS4hrTU2kZ7Ya2gicmgFtWpgJp/3mQYXG6W/sNU/nuxRZq9/9hrQkUOPxT5ejPgY3y++8
+	jU0QmTnzJdQ2dOlyf//JG6u+dymXJU+o2CqcMw6E4Te9lCAPuo6AQU/MyUwmWLUqkbv9SIsZZEt
+	AFHo3fThbNArZzmUcw6X897JAiqClG2TXr
+X-Received: by 2002:a05:7300:c00f:20b0:36a:4ea9:19ad with SMTP id 5a478bee46e88-36a4ea91fd1mr16083261eec.9.1793690151817;
+        Mon, 02 Nov 2026 23:15:51 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-36a42834601sm115291eec.6.2026.11.02.23.15.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 02 Nov 2026 23:15:51 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93caf6c528aso547566985a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:15:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793690150; x=1794294950; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1wn8B8AtBDch11Kn2VubYj0NKMdWprvKTv7qKouH7kM=;
+        b=bcvj1Rae0e/Z49sEiM8xM99SiEVHBK1AvoCSNe1/nh0OOd00B7FBvB8EA9kCFoebmm
+         mF29Qk1Rjm+Qg8DHF0eka4OIKxgarHwSl/F2xdwuNSRpjf3qFj46oVC5Ly1BDl2rqc86
+         wB9UFnxQDXU8uI9VxCn3zTmlyaZA3K2N3NuH0=
+X-Forwarded-Encrypted: i=1; AKwUvBxhfLGZ0O/Nt15tdbApFGJznywPMA27Q6PSQNZDlHmQdo0ryVWI23JRmzQoSYjOO/AAiHb6Mdsg2HJ4v8w=@vger.kernel.org
+X-Received: by 2002:a05:620a:1a04:b0:93e:7939:acd0 with SMTP id af79cd13be357-944216bd289mr2142665485a.37.1793690150284;
+        Mon, 02 Nov 2026 23:15:50 -0800 (PST)
+X-Received: by 2002:a05:620a:1a04:b0:93e:7939:acd0 with SMTP id af79cd13be357-944216bd289mr2142663485a.37.1793690149883;
+        Mon, 02 Nov 2026 23:15:49 -0800 (PST)
+Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9442581b2d2sm1018334585a.15.2026.11.02.23.15.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 23:15:44 -0800 (PST)
+From: Zack Rusin <zack.rusin@broadcom.com>
+To: Borislav Petkov <bp@alien8.de>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	x86@kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	virtualization@lists.linux.dev,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	Zack Rusin <zack.rusin@broadcom.com>
+Subject: [PATCH v3 1/3] x86/vmware: Move high-bandwidth hypercalls out of line
+Date: Tue,  3 Nov 2026 02:14:56 -0500
+Message-ID: <5c509e51a3e04b95a6447fabc9db20d72152a8f3.1793685318.git.zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1793685318.git.zack.rusin@broadcom.com>
+References: <cover.1793685318.git.zack.rusin@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,402 +134,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 3/5] tls: update the RX key when a KeyUpdate
- is received
-To: martin.nvme.dev@gmail.com, John Fastabend <john.fastabend@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>,
- kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org,
- Alistair Francis <alistair.francis@wdc.com>,
- Martin Belanger <martin.belanger@dell.com>
-References: <20261102-keyupdate-rfc-v4-0-f17419972b9f@gmail.com>
- <20261102-keyupdate-rfc-v4-3-f17419972b9f@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261102-keyupdate-rfc-v4-3-f17419972b9f@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,queasysnail.net,davemloft.net,redhat.com,lwn.net,linuxfoundation.org,infradead.org];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.79
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 11/2/26 5:58 PM, Martin Belanger via B4 Relay wrote:
-> From: Martin Belanger <martin.belanger@dell.com>
-> 
-> When a KeyUpdate arrives, kTLS blocks reads with -EKEYEXPIRED until
-> the user installs the next key. A kernel user such as nvme-tcp or
-> sunrpc never does, so the connection stalls.
-> 
-> For a socket with a registered RX secret, derive the next key and
-> install it when the KeyUpdate is decrypted. The record is not passed to
-> the user, so recvmsg(), splice() and read_sock() go on to the next
-> record. Without a registered secret the behavior is unchanged.
-> 
-> A KeyUpdate that is not alone in its record, has a wrong length or an
-> invalid request_update value ends the connection, as RFC 9846 section
-> 4.7.3 requires. So does a peer that sends more than 8 KeyUpdates in one
-> second, the same limit as GnuTLS. That case is counted as
-> TlsRxRekeyError and logged, rate limited.
-> 
-> Signed-off-by: Martin Belanger <martin.belanger@dell.com>
-> ---
->   include/net/tls.h       |   7 +++
->   net/tls/Makefile        |   3 +-
->   net/tls/tls.h           |   2 +
->   net/tls/tls_keyupdate.c | 154 ++++++++++++++++++++++++++++++++++++++++++++++++
->   net/tls/tls_sw.c        |  43 ++++++++++++--
->   5 files changed, 202 insertions(+), 7 deletions(-)
-> 
-> diff --git a/include/net/tls.h b/include/net/tls.h
-> index aacc6d12226e..a5bc28a7d1f5 100644
-> --- a/include/net/tls.h
-> +++ b/include/net/tls.h
-> @@ -63,6 +63,11 @@ struct tls_rec;
->   
->   #define TLS_HANDSHAKE_KEYUPDATE		24	/* rfc8446 B.3: Key update */
->   
-> +/* KeyUpdate: msg_type, 24-bit length, request_update (RFC 9846 4.7.3) */
-> +#define TLS_KEYUPDATE_MSG_SIZE		5
-> +#define TLS_KEY_UPDATE_NOT_REQUESTED	0
-> +#define TLS_KEY_UPDATE_REQUESTED	1
-> +
->   #define TLS_AAD_SPACE_SIZE		13
->   
->   /* SHA-384, the longest hash of a TLS 1.3 cipher suite kTLS supports */
-> @@ -142,6 +147,8 @@ struct tls_sw_context_rx {
->   	u8 zc_capable:1;
->   	u8 reader_contended:1;
->   	bool key_update_pending;
-> +	u8 key_update_count;		/* received in this window */
-> +	unsigned long key_update_window;	/* jiffies */
->   
->   	struct tls_strparser strp;
->   
-> diff --git a/net/tls/Makefile b/net/tls/Makefile
-> index 6edcf1271b75..ce8ac6a59f8c 100644
-> --- a/net/tls/Makefile
-> +++ b/net/tls/Makefile
-> @@ -7,6 +7,7 @@ CFLAGS_trace.o := -I$(src)
->   
->   obj-$(CONFIG_TLS) += tls.o
->   
-> -tls-y := tls_main.o tls_sw.o tls_proc.o trace.o tls_strp.o tls_hkdf.o
-> +tls-y := tls_main.o tls_sw.o tls_proc.o trace.o tls_strp.o tls_hkdf.o \
-> +	 tls_keyupdate.o
->   
->   tls-$(CONFIG_TLS_DEVICE) += tls_device.o tls_device_fallback.o
-> diff --git a/net/tls/tls.h b/net/tls/tls.h
-> index b2061f6bf065..63ece8074985 100644
-> --- a/net/tls/tls.h
-> +++ b/net/tls/tls.h
-> @@ -149,6 +149,8 @@ int init_prot_info(struct tls_prot_info *prot,
->   		   const struct tls_cipher_desc *cipher_desc);
->   int tls_hkdf_expand_label(const u8 *secret, size_t secret_len,
->   			  const char *label, u8 *out, size_t out_len);
-> +int tls_keyupdate_rekey(struct sock *sk, int tx);
-> +int tls_keyupdate_rx(struct sock *sk, struct sk_buff *skb);
->   int tls_set_sw_offload(struct sock *sk, int tx,
->   		       struct tls_crypto_info *new_crypto_info);
->   void tls_update_rx_zc_capable(struct tls_context *tls_ctx);
-> diff --git a/net/tls/tls_keyupdate.c b/net/tls/tls_keyupdate.c
-> new file mode 100644
-> index 000000000000..281c7b13eb82
-> --- /dev/null
-> +++ b/net/tls/tls_keyupdate.c
-> @@ -0,0 +1,154 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Copyright (c) 2026 Dell Technologies Inc. or its subsidiaries.
-> + *
-> + * TLS 1.3 KeyUpdate, RFC 9846 sections 4.7.3 and 7.2.
-> + *
-> + * A TLS 1.3 peer can change the key of the direction it sends in at any
-> + * time. It sends a KeyUpdate message, then encrypts all later records
-> + * with the next key. A sender must also change its key before the key
-> + * has protected too many records (section 5.5).
-> + *
-> + * The next key is derived from the application traffic secret, not from
-> + * the current key. User space gives the kernel only the key and IV, so
-> + * the kernel cannot derive the next key on its own. Without the secret,
-> + * a received KeyUpdate goes to the application, and the kernel stops
-> + * decrypting until the application installs the next key with TLS_RX.
-> + *
-> + * With TLS_TX_TRAFFIC_SECRET or TLS_RX_TRAFFIC_SECRET, user space also
-> + * gives the kernel the secret of that direction. The kernel then handles
-> + * KeyUpdate itself. This file derives and installs the next key, and
-> + * processes a received KeyUpdate. tls_sw.c sends KeyUpdate messages.
-> + */
-> +
-> +#include <linux/jiffies.h>
-> +#include <linux/skbuff.h>
-> +#include <net/strparser.h>
-> +#include <net/tls.h>
-> +
-> +#include "tls.h"
-> +
-> +/* A peer that sends more KeyUpdates than this in one second ends the
-> + * connection. Each one costs three HMACs and a new key, and carries no
-> + * data.
-> + */
-> +#define TLS_KEYUPDATE_RX_MAX_PER_SEC	8
-> +
-> +/**
-> + * tls_keyupdate_rekey - install the next key of one direction
-> + * @sk: socket
-> + * @tx: non-zero for the transmit direction
-> + *
-> + * Derive the next application traffic secret from the registered one,
-> + * then its key and IV, and install them. The record sequence number
-> + * restarts at zero.
-> + *
-> + * Return: 0 on success, or a negative errno. On error the installed key
-> + * and the registered secret do not change.
-> + */
-> +int tls_keyupdate_rekey(struct sock *sk, int tx)
-> +{
-> +	struct tls_context *ctx = tls_get_ctx(sk);
-> +	struct tls_traffic_secret *secret;
-> +	const struct tls_cipher_desc *cipher_desc;
-> +	u8 iv[TLS_MAX_SALT_SIZE + TLS_MAX_IV_SIZE];
-> +	u8 next[TLS_MAX_TRAFFIC_SECRET_SIZE];
-> +	union tls_crypto_context tmp = {};
-> +	struct tls_crypto_info *info = &tmp.info;
-> +	int rc;
-> +
-> +	secret = tx ? &ctx->tx_secret : &ctx->rx_secret;
-> +	cipher_desc = get_cipher_desc(ctx->prot_info.cipher_type);
-> +	if (!cipher_desc || !secret->len ||
-> +	    cipher_desc->salt + cipher_desc->iv > sizeof(iv))
-> +		return -EINVAL;
-> +
-> +	/* version and cipher_type; the rest of tmp stays zero */
-> +	*info = tx ? ctx->crypto_send.info : ctx->crypto_recv.info;
-> +
-> +	rc = tls_hkdf_expand_label(secret->data, secret->len, "traffic upd",
-> +				   next, secret->len);
-> +	if (rc)
-> +		goto out;
-> +
-> +	rc = tls_hkdf_expand_label(next, secret->len, "key",
-> +				   crypto_info_key(info, cipher_desc),
-> +				   cipher_desc->key);
-> +	if (rc)
-> +		goto out;
-> +
-> +	rc = tls_hkdf_expand_label(next, secret->len, "iv", iv,
-> +				   cipher_desc->salt + cipher_desc->iv);
-> +	if (rc)
-> +		goto out;
-> +
-> +	memcpy(crypto_info_salt(info, cipher_desc), iv, cipher_desc->salt);
-> +	memcpy(crypto_info_iv(info, cipher_desc), iv + cipher_desc->salt,
-> +	       cipher_desc->iv);
-> +
-> +	rc = tls_set_sw_offload(sk, tx, info);
-> +	if (rc)
-> +		goto out;
-> +
-> +	memcpy(secret->data, next, secret->len);
-> +
-> +out:
-> +	memzero_explicit(next, sizeof(next));
-> +	memzero_explicit(iv, sizeof(iv));
-> +	memzero_explicit(&tmp, sizeof(tmp));
-> +
-> +	return rc;
-> +}
-> +
-> +/**
-> + * tls_keyupdate_rx - process a received KeyUpdate
-> + * @sk: socket
-> + * @skb: the decrypted record, which starts with a KeyUpdate message
-> + *
-> + * Called with the socket locked, for a direction with a registered
-> + * secret. The caller does not pass the record to the user.
-> + *
-> + * Return: 0 on success, or a negative errno if the connection must end.
-> + */
-> +int tls_keyupdate_rx(struct sock *sk, struct sk_buff *skb)
-> +{
-> +	struct tls_context *ctx = tls_get_ctx(sk);
-> +	struct tls_sw_context_rx *rx_ctx = tls_sw_ctx_rx(ctx);
-> +	const struct strp_msg *rxm = strp_msg(skb);
-> +	u8 msg[TLS_KEYUPDATE_MSG_SIZE];
-> +	int rc;
-> +
-> +	/* A KeyUpdate must end its record (section 5.1). Another message
-> +	 * in the same record is not supported.
-> +	 */
-> +	if (rxm->full_len != sizeof(msg) ||
-> +	    skb_copy_bits(skb, rxm->offset, msg, sizeof(msg)))
-> +		return -EBADMSG;
-> +
-> +	/* msg_type, a 24-bit length of 1, then request_update */
-> +	if (msg[1] || msg[2] || msg[3] != 1)
-> +		return -EBADMSG;
-> +	if (msg[4] != TLS_KEY_UPDATE_NOT_REQUESTED &&
-> +	    msg[4] != TLS_KEY_UPDATE_REQUESTED)
-> +		return -EBADMSG;
-> +
-> +	if (!rx_ctx->key_update_count ||
-> +	    time_after(jiffies, rx_ctx->key_update_window + HZ)) {
-> +		rx_ctx->key_update_window = jiffies;
-> +		rx_ctx->key_update_count = 0;
-> +	}
-> +	if (++rx_ctx->key_update_count > TLS_KEYUPDATE_RX_MAX_PER_SEC) {
-> +		TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXREKEYERROR);
-> +		net_warn_ratelimited("tls: peer sent more than %d KeyUpdates in one second\n",
-> +				     TLS_KEYUPDATE_RX_MAX_PER_SEC);
-> +		return -EBADMSG;
-> +	}
-> +
-> +	rc = tls_keyupdate_rekey(sk, 0);
-> +	if (rc) {
-> +		TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXREKEYERROR);
-> +		return rc;
-> +	}
-> +	TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXREKEYOK);
-> +
-> +	return 0;
-> +}
-> diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
-> index 771e02bff519..027c32edaf85 100644
-> --- a/net/tls/tls_sw.c
-> +++ b/net/tls/tls_sw.c
-> @@ -1551,15 +1551,28 @@ static int tls_check_pending_rekey(struct sock *sk, struct tls_context *ctx,
->   	if (hs_type == TLS_HANDSHAKE_KEYUPDATE) {
->   		struct tls_sw_context_rx *rx_ctx = ctx->priv_ctx_rx;
->   
-> -		WRITE_ONCE(rx_ctx->key_update_pending, true);
->   		TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXREKEYRECEIVED);
-> +
-> +		if (ctx->rx_secret.len) {
-> +			err = tls_keyupdate_rx(sk, skb);
-> +			if (err) {
-> +				tls_err_abort(sk, err);
-> +				/* callers free the record only on success */
-> +				consume_skb(skb);
-> +				return err;
-> +			}
-> +			return 1;
-> +		}
-> +
-> +		WRITE_ONCE(rx_ctx->key_update_pending, true);
->   	}
->   
->   	return 0;
->   }
->   
->   /* On decrypt failure the connection is aborted (sk_err set) before
-> - * returning a negative errno.
-> + * returning a negative errno. Return 1 for a record the kernel consumed
-> + * (a KeyUpdate): the caller frees it and does not pass it to the user.
->    */
->   static int tls_rx_one_record(struct sock *sk, struct msghdr *msg,
->   			     struct tls_decrypt_arg *darg)
-> @@ -1883,6 +1896,11 @@ int tls_sw_recvmsg(struct sock *sk,
->   		err = tls_rx_one_record(sk, msg, &darg);
->   		if (err < 0)
->   			goto recv_end;
-> +		if (err > 0) {
-> +			tls_rx_rec_done(ctx);
-> +			consume_skb(darg.skb);
-> +			continue;
-> +		}
->   
->   		async |= darg.async;
->   
-> @@ -2023,9 +2041,8 @@ ssize_t tls_sw_splice_read(struct socket *sock,  loff_t *ppos,
->   	if (err)
->   		goto splice_read_end;
->   
-> -	if (!skb_queue_empty(&ctx->rx_list)) {
-> -		skb = __skb_dequeue(&ctx->rx_list);
-> -	} else {
-> +	skb = __skb_dequeue(&ctx->rx_list);
-> +	while (!skb) {
->   		struct tls_decrypt_arg darg;
->   
->   		err = tls_rx_rec_wait(sk, nonblock, true, false);
+The high-bandwidth helpers contain inline assembly which temporarily uses
+%bp as a VMware ABI register. Keeping that assembly in vmware.h duplicates
+it in callers.
 
-Why this change? Looks a bit out of place here...
+Move both helpers to vmware.c and export them for the vmwgfx module.
+Preserve their unwind hints and remove the redundant caller-wide objtool
+annotations from vmwgfx.
 
-> @@ -2039,7 +2056,10 @@ ssize_t tls_sw_splice_read(struct socket *sock,  loff_t *ppos,
->   			goto splice_read_end;
->   
->   		tls_rx_rec_done(ctx);
-> -		skb = darg.skb;
-> +		if (err > 0)
-> +			consume_skb(darg.skb);
-> +		else
-> +			skb = darg.skb;
->   	}
->   
->   	rxm = strp_msg(skb);
-> @@ -2121,6 +2141,11 @@ int tls_sw_read_sock(struct sock *sk, read_descriptor_t *desc,
->   			err = tls_rx_one_record(sk, NULL, &darg);
->   			if (err < 0)
->   				goto read_sock_end;
-> +			if (err > 0) {
-> +				tls_rx_rec_done(ctx);
-> +				consume_skb(darg.skb);
-> +				continue;
-> +			}
->   
->   			released = tls_read_flush_backlog(sk, prot, INT_MAX,
->   							  0, decrypted,
-> @@ -2520,6 +2545,12 @@ static void tls_finish_key_update(struct sock *sk, struct tls_context *tls_ctx)
->   {
->   	struct tls_sw_context_rx *ctx = tls_ctx->priv_ctx_rx;
->   
-> +	/* Only a pending KeyUpdate holds poll() back. The in-kernel rekey
-> +	 * runs while the KeyUpdate record is still queued.
-> +	 */
-> +	if (!READ_ONCE(ctx->key_update_pending))
-> +		return;
-> +
->   	WRITE_ONCE(ctx->key_update_pending, false);
->   	/* wake-up pre-existing poll() */
->   	ctx->saved_data_ready(sk);
-> 
+Preserve the argument sequence from commit e0e022004bbe ("x86/vmware:
+Fix i386 high-bandwidth hypercall arguments").
 
-Otherwise looks good.
+Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
+---
+ arch/x86/include/asm/vmware.h       | 62 +-------------------------
+ arch/x86/kernel/cpu/vmware.c        | 68 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_msg.c |  3 --
+ 3 files changed, 70 insertions(+), 63 deletions(-)
 
-Cheers,
-
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+diff --git a/arch/x86/include/asm/vmware.h b/arch/x86/include/asm/vmware.h
+index fb011cef01e7..f3ffe358d2a3 100644
+--- a/arch/x86/include/asm/vmware.h
++++ b/arch/x86/include/asm/vmware.h
+@@ -253,12 +253,6 @@ unsigned long vmware_hypercall7(unsigned long cmd, unsigned long in1,
+ 	return out0;
+ }
+ 
+-#ifdef CONFIG_X86_64
+-#define VMW_BP_CONSTRAINT "r"
+-#else
+-#define VMW_BP_CONSTRAINT "m"
+-#endif
+-
+ /*
+  * High bandwidth calls are not supported on encrypted memory guests.
+  * The caller should check cc_platform_has(CC_ATTR_MEM_ENCRYPT) and use
+@@ -266,66 +260,14 @@ unsigned long vmware_hypercall7(unsigned long cmd, unsigned long in1,
+  * This assumption simplifies HB hypercall implementation to just I/O port
+  * based approach without alternative patching.
+  */
+-static inline
+ unsigned long vmware_hypercall_hb_out(unsigned long cmd, unsigned long in2,
+ 				      unsigned long in3, unsigned long in4,
+ 				      unsigned long in5, unsigned long in6,
+-				      u32 *out1)
+-{
+-	unsigned long out0;
+-
+-	asm_inline volatile (
+-		UNWIND_HINT_SAVE
+-		"mov %[in6], %%" _ASM_AX "\n\t"
+-		"push %%" _ASM_BP "\n\t"
+-		UNWIND_HINT_UNDEFINED
+-		"mov %%" _ASM_AX ", %%" _ASM_BP "\n\t"
+-		"mov %[magic], %%eax\n\t"
+-		"rep outsb\n\t"
+-		"pop %%" _ASM_BP "\n\t"
+-		UNWIND_HINT_RESTORE
+-		: "=&a" (out0), "=b" (*out1)
+-		: "b" (cmd),
+-		  "c" (in2),
+-		  "d" (in3 | VMWARE_HYPERVISOR_PORT_HB),
+-		  "S" (in4),
+-		  "D" (in5),
+-		  [in6] VMW_BP_CONSTRAINT(in6),
+-		  [magic] "i" (VMWARE_HYPERVISOR_MAGIC)
+-		: "cc", "memory");
+-	return out0;
+-}
+-
+-static inline
++				      u32 *out1);
+ unsigned long vmware_hypercall_hb_in(unsigned long cmd, unsigned long in2,
+ 				     unsigned long in3, unsigned long in4,
+ 				     unsigned long in5, unsigned long in6,
+-				     u32 *out1)
+-{
+-	unsigned long out0;
+-
+-	asm_inline volatile (
+-		UNWIND_HINT_SAVE
+-		"mov %[in6], %%" _ASM_AX "\n\t"
+-		"push %%" _ASM_BP "\n\t"
+-		UNWIND_HINT_UNDEFINED
+-		"mov %%" _ASM_AX ", %%" _ASM_BP "\n\t"
+-		"mov %[magic], %%eax\n\t"
+-		"rep insb\n\t"
+-		"pop %%" _ASM_BP "\n\t"
+-		UNWIND_HINT_RESTORE
+-		: "=&a" (out0), "=b" (*out1)
+-		: "b" (cmd),
+-		  "c" (in2),
+-		  "d" (in3 | VMWARE_HYPERVISOR_PORT_HB),
+-		  "S" (in4),
+-		  "D" (in5),
+-		  [in6] VMW_BP_CONSTRAINT(in6),
+-		  [magic] "i" (VMWARE_HYPERVISOR_MAGIC)
+-		: "cc", "memory");
+-	return out0;
+-}
+-#undef VMW_BP_CONSTRAINT
++				     u32 *out1);
+ #undef VMWARE_HYPERCALL
+ 
+ #endif
+diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
+index f7ab9e7902cf..7cfc894f0663 100644
+--- a/arch/x86/kernel/cpu/vmware.c
++++ b/arch/x86/kernel/cpu/vmware.c
+@@ -30,12 +30,14 @@
+ #include <linux/reboot.h>
+ #include <linux/static_call.h>
+ #include <linux/sched/cputime.h>
++#include <asm/asm.h>
+ #include <asm/div64.h>
+ #include <asm/x86_init.h>
+ #include <asm/hypervisor.h>
+ #include <asm/cpuid/api.h>
+ #include <asm/timer.h>
+ #include <asm/apic.h>
++#include <asm/unwind_hints.h>
+ #include <asm/vmware.h>
+ #include <asm/svm.h>
+ 
+@@ -67,6 +69,72 @@ struct vmware_steal_time {
+ static unsigned long vmware_tsc_khz __ro_after_init;
+ static u8 vmware_hypercall_mode     __ro_after_init;
+ 
++#ifdef CONFIG_X86_64
++#define VMW_BP_CONSTRAINT "r"
++#else
++#define VMW_BP_CONSTRAINT "m"
++#endif
++
++unsigned long vmware_hypercall_hb_out(unsigned long cmd, unsigned long in2,
++				      unsigned long in3, unsigned long in4,
++				      unsigned long in5, unsigned long in6,
++				      u32 *out1)
++{
++	unsigned long out0;
++
++	asm volatile(UNWIND_HINT_SAVE
++		"mov %[in6], %%" _ASM_AX "\n\t"
++		"push %%" _ASM_BP "\n\t"
++		UNWIND_HINT_UNDEFINED
++		"mov %%" _ASM_AX ", %%" _ASM_BP "\n\t"
++		"mov %[magic], %%eax\n\t"
++		"rep outsb\n\t"
++		"pop %%" _ASM_BP "\n\t"
++		UNWIND_HINT_RESTORE
++		: "=&a" (out0), "=b" (*out1)
++		: "b" (cmd),
++		  "c" (in2),
++		  "d" (in3 | VMWARE_HYPERVISOR_PORT_HB),
++		  "S" (in4),
++		  "D" (in5),
++		  [in6] VMW_BP_CONSTRAINT(in6),
++		  [magic] "i" (VMWARE_HYPERVISOR_MAGIC)
++		: "cc", "memory");
++	return out0;
++}
++EXPORT_SYMBOL_GPL(vmware_hypercall_hb_out);
++
++unsigned long vmware_hypercall_hb_in(unsigned long cmd, unsigned long in2,
++				     unsigned long in3, unsigned long in4,
++				     unsigned long in5, unsigned long in6,
++				     u32 *out1)
++{
++	unsigned long out0;
++
++	asm volatile(UNWIND_HINT_SAVE
++		"mov %[in6], %%" _ASM_AX "\n\t"
++		"push %%" _ASM_BP "\n\t"
++		UNWIND_HINT_UNDEFINED
++		"mov %%" _ASM_AX ", %%" _ASM_BP "\n\t"
++		"mov %[magic], %%eax\n\t"
++		"rep insb\n\t"
++		"pop %%" _ASM_BP "\n\t"
++		UNWIND_HINT_RESTORE
++		: "=&a" (out0), "=b" (*out1)
++		: "b" (cmd),
++		  "c" (in2),
++		  "d" (in3 | VMWARE_HYPERVISOR_PORT_HB),
++		  "S" (in4),
++		  "D" (in5),
++		  [in6] VMW_BP_CONSTRAINT(in6),
++		  [magic] "i" (VMWARE_HYPERVISOR_MAGIC)
++		: "cc", "memory");
++	return out0;
++}
++EXPORT_SYMBOL_GPL(vmware_hypercall_hb_in);
++
++#undef VMW_BP_CONSTRAINT
++
+ unsigned long vmware_hypercall_slow(unsigned long cmd,
+ 				    unsigned long in1, unsigned long in3,
+ 				    unsigned long in4, unsigned long in5,
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_msg.c b/drivers/gpu/drm/vmwgfx/vmwgfx_msg.c
+index fd77ab6568cb..20ab4019680c 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_msg.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_msg.c
+@@ -24,7 +24,6 @@
+  *
+  */
+ 
+-#include <linux/objtool.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+@@ -289,7 +288,6 @@ static int vmw_send_msg(struct rpc_channel *channel, const char *msg)
+ 
+ 	return -EINVAL;
+ }
+-STACK_FRAME_NON_STANDARD_FP(vmw_send_msg);
+ 
+ 
+ /**
+@@ -384,7 +382,6 @@ static int vmw_recv_msg(struct rpc_channel *channel, void **msg,
+ 
+ 	return 0;
+ }
+-STACK_FRAME_NON_STANDARD(vmw_recv_msg);
+ 
+ 
+ /**
