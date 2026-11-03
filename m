@@ -1,100 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728730;
-	b=LCpwoPEJoblwXrbBJVMSVfpByWIOWARDOK65KBDWuVvK/gAFLzi/MtQPQXIHRWGnODSq
-	 6ohcEa4qqLHpaFdVD/adQUKBixtSuCnV6qPiupmbGPHxUavdAJUtap9GImHpOpddZfHEY
-	 Yah5qvxazPkOMwXDnQctBdMznCKa4TNpHTIH3x7mrLw90O65GktfFqR2RzB6/nZCh1k16
-	 REZAR0cB3A6pjD920iipjXnctfQKvkxAP71GXMz1WazxK7WTvQuhl4a4zHezS8TFNFISz
-	 O8kFVORWBPtoB5S94x7k4fpUPOBqgIeUPCinWGzdRRtyXAbB5wrHWNm4H9UfxEUvyAQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728730;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=p2G0dLEYJa6Qb+n/QzdqL+sRNnPKrQvJpRd+2nxjaFU=;
-	b=OcB6+ec07qvD/N+X9VFcglqfJaZXL+bvlBXA9UOEIymbOFPLAMtQpLSrvjbefEe2axab
-	 9J2SyqIBRtGAfflXRT53hUI3U247fkxqVF140EQGy4kQOmyk9fnodlGOHYXl8Bct/HZBe
-	 Nd1ZMiyto+A3hfs5nOugr5WG2j9iYatFa0+K2cCZ3mdCkY2HYHy317RjQlBZO0J3Xyi1h
-	 Lf5PLlWVethzlgx19VCbAsM8uwk0r9NE41l+sKWi72czjf1wKqZi35HpVHpii1xDAtTzq
-	 PpzYM0k6GdPmP0zRSydO8Cjod6Di6m5slSdvI68jBOsTFJgDhugJQayS0QKc+o32f1w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wpNy8L96;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793728752;
+	b=i2KrsMEjesGC15m8CUnbsiZDA7taXiTkLGrTV8D7GfqT94KArXp7QwmHfiJSLUF6pn6y
+	 k5ksASQsRXOJcwp/6o7ZlTlPjZqBNTt954G9Ahbi0Ui61iFN90A1iUwu3rS5KJXKMshSP
+	 AInlnN7IGNZZ7VMIbCmgpttreqwlBlTXlyfjBEvsaRutOp+wRlNQRLqb7bJWYFxl+DsAF
+	 amF70vC6RYIQbTH/zwbAlFR6tlxc4KGZ08M6KlQ4+qg5x8LEp26iL49t5miPeTxEzoQ1H
+	 LdFe8Ps7zdVaU85XFp4q53dQwTt1o4f9rewTjEySbDsvhjotPCqYIL5tupMdMTL5IwQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728752;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=mWiqVESok8K3e9rRJ3g5fJGIMlnrH+fRsBAgdT4QzNQ=;
+	b=La1R6P3eOLLjHnVS1P010KBxg1KkTRAFJfpcWJ+KgP9INuPjq/T5gqRLUGRcibRs1b7m
+	 Kf8t/95PiKt1U6CBr4Stv/zW+hnSmJVnT/zttaO7t+eeDTGN69H62WHghmID9LXOS3Kmu
+	 Ef/bH3Pn5p4ybZ7mZg9uvZE3LmLLxGtFkJQruvpaO5CroYzdUPDdQTpanblIsQOIPKLy0
+	 Qj+9PTt6zqhzcWkoi0caRhPvHSR2JPfcTg6+AYLvHbHVemyY20aZ+O87LBdc+4ASOeWVw
+	 IkwP/qr6EiGa7MDUbU/VI3UDGRBJH6A1jJpHxdbpRkQNXaErM5Ei2Yt8xuCbxARfOtg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Pqj1t6SN;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TFpuBiHU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB760606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:58:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB760606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E83606A328
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:59:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93E83606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wpNy8L96
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a17a332ecso6736102eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:58:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Pqj1t6SN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TFpuBiHU
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3HPV0P3161520
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 17:59:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mWiqVESok8K3e9rRJ3g5fJGIMlnrH+fRsBAgdT4QzNQ=; b=Pqj1t6SNvt9mXeCb
+	hNVopmbn9MiawHBmT2+h8CuwFfJ7Rhzss4hq0VOkFh5Lg+ssvczhD+M5RkNLLvQA
+	EsOKJ3GPuAJuqm2uFam95CXwY+RgZ0MYSguXwq5e/xSkKzjJkvZc6YjhAr2jpaSv
+	oH0cn1hoi8ikq2/oXwzCgk3lqTWYDTu7LNnDN66Q6yaEytKX1AEv3pLlIR3PJ1we
+	w9CYirNzC5faq9nbYB/EJKt7JR+1VhJgC3iCjjs0gFQJVLj6z98EZ0r1zsoBvsz+
+	1SNJyZjWM5eLiSh15j2tPTKPp2oaWsbFoRrqvumbfeM7QZQQJret7o11ZceFVj2u
+	HLFoDg==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqh2bh2k8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 17:59:10 +0000 (GMT)
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-6795a39e53fso1573691d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:59:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793728750; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mfGiJcrbkRrpDqGfoqURvvl3PpsNh+xZ0vRQ2sVt7ZDYNVn6dfFv75JUJOOgEdUJ07
+         Fa2f4IaG6Ity4vcWPjiX7kDlL4Tn6DquN4Dz/3yF58mbZ8PCjskh9r7mVdeuCT6uLkGk
+         G+2QVPf2pFQ6Z/X3rYRCDojZF9Qs+ZPRhZHQAk/493Itf1HxV33c1YrBbj+eCOphNknk
+         RQT1useWSnSQ2KkhLL75mMe3Rmnd38QF2L7kp40D1j2WOlMwy99GuBqrH5kvaww3GNpk
+         wnPy+Xl6XdsO2SWUPaCgF1UauM2YTcX/6DD4D9BbWHAbp9+xH4FgXeTAu9AAuU+p8t3l
+         k1hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mWiqVESok8K3e9rRJ3g5fJGIMlnrH+fRsBAgdT4QzNQ=;
+        fh=r7YlBsLKekOglfA4SLMyW6D+66RQNZoOH2OEGc3Xpm0=;
+        b=fu2NNpzjQ4Dmr5HIb6+RBp7NukSyWiygVkdzGWkEP8INihqbVs/T9T8DfJTeVOP6cv
+         uhZmWp4alKZW7W8TNNrIKKqGOapHXDhQHyrm5cJ2j7wzll6iPc5VcNJ/QDTa+lbhQaD2
+         hY/MT0cRDnpZGfeglH4IxLErMngq3+46yqf6q0GFSE4X4gjPiu4MAGNszrLm7D1GM/FS
+         3KWUZBsOi1Bs9W5TCb0TWkTxOlQs+MhZchAbOkXY6CW2jqv/ngmzQ+CfRk2hRogM3zqN
+         W/WV7SlkvbhrkhqEgjzao3rZE5mx4oMrK9bUx0QLFwwf1tGGBizNb42Xs+QS4mCD6lYH
+         qziw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793728729; x=1794333529; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p2G0dLEYJa6Qb+n/QzdqL+sRNnPKrQvJpRd+2nxjaFU=;
-        b=wpNy8L96hd9X4oCPe4lcJLBsyQJaQOHmtqbiW3hhz1P+7wgXZPIlU1tZQSho/e/w/C
-         Cyk2WI/wJhPxv7g6QRuTW1WbgIe2d55m8Uyn1hjVr8/fgRmTLe1jLFemiolNRRpxOH3T
-         t/ea84ceN21GWAp/gOCvpyS1nmFl9Dwj+FQ9XoNqqqulQ/U9g+AYd+ijOJGUdkN2cyws
-         Iq4CW6CzXUCszRKEhS4RvpYNl5Wknx8EoM4/HWN1BzGt6USqgwVGRxscv4nJhMzMuwgw
-         +ENqNAj8WK+p2ZRim1YfSTjl0s1NUI32GCEDZMdjobe2k7lohnrdkblZhs/Fzma34t1Q
-         iMFg==
+        d=oss.qualcomm.com; s=google; t=1793728750; x=1794333550; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mWiqVESok8K3e9rRJ3g5fJGIMlnrH+fRsBAgdT4QzNQ=;
+        b=TFpuBiHUEANusbS91C0W/XRtlMvP+CmdEiXMOarQ0aE818BV09lsoCkOgWuo+BPLYy
+         ZR+eBhtEhUOaxrsgA9oD+A5MdUyBXYLE6C0dfl0ISGZ409VYCODu7teujNo5eGrlm6Y5
+         fND+yHrwEPxPtn5nat/1OVrCXz3AjEadf4H0j68YQm/wzAFCSOYc1qlBCu0MFBzYRnu/
+         CD/1UfELN3MnrO6Vy6oSanjYxBtICxoB2gFcTDgMrBJ6Hp3gIUFNho9ZVvqucVGnAJ1A
+         Sm/uQzTaFsIuPuSg/HUxZxwkkl/jCYZ1HjXp2ID/3U7szAi7mdobiDT/rIKp/Md+OqiW
+         /5Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793728729; x=1794333529;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p2G0dLEYJa6Qb+n/QzdqL+sRNnPKrQvJpRd+2nxjaFU=;
-        b=sOU8iMza8dbA3WnH0viaTvr2yQp6jSQIXo5h4gQxujVzcqY/3zDpi8mnIFU0O+VNC+
-         AFqCgtHZbNSdiAaJeNTpStI+9jIc4xTnNQcW8tuUHJC34OXviVFsxKzcjkKK7AkyfjZZ
-         bUla9ukiCvh0tBnzNJweqJ3OZUFFelAu1xsfJuyTdtKQXc4y9jCxR+56NongpZKiTvg3
-         PEsm1Zg5m7GXtTB+u/vabbEWRzGop+90drLcFLSSVY5vcBu8kKkNHxk5u3cCwAMZ87Dw
-         2iF1lc/JNRrHHF3Ss9rgatwCdX8ZKHdZBC4AvgsnbrKoXatvfxkGaSOfPcy2746pjumk
-         CJPQ==
-X-Gm-Message-State: APuU4Z/SEHUd+ZXl70RsHDf7apMRAbIm24lvmFSD6f+4ClBlVIdY/EUB
-	kSVWi8MOJmkwIvyjrZkq0L/euOgNEvB3YUHPAu1iipDm4w92X+SfFk/K
-X-Gm-Gg: AYBFou2aTMPsyjA7XJJfuq0urno0mZo+G+Ov2TP8dNJuKikgAeYim7pGDM7MZ9Vy5p6
-	q4Za38QXbymiVryIf1j32HFY9Xc1yI31qasdLqyyex95ZXtmqT2Oj5YQ0k+7T36C987KoTxE90x
-	ra+hvW2153gBzaPFqZboDhdZXiRZRmEwmrDYr70ne2vt56tY+iLEHLnNaqWOqY2Z83eslkl6mRt
-	rNodssaeJalTH2aFj+Q6k3QoyoE8InyIxa8eUD+CQYBiXUhfOEMhS/UFnu+BW1WO8LWFuCenFlC
-	/rWeP0Ah9cJ078t5BR00KSrgK68xgzY2FHyA1NFdKuA1X9ccwpIb+XszMyvgyw3jH4qEBrZByTN
-	NJD7IotPByvE9F7B0JYs3kskNS18indBUC+xcAmdgkPcqrRqDgzoGg/bbS8CsPP156U9vgK6htP
-	TVta0sKAQdE99IlqTZESfOuS5r6b+XPeWg1VDuiopK1FG8zZq+R2U+1jkOKepak8VsAVqOTSQ8C
-	joWaFUcBw2ZcaPO5MdpKkMK1CZyUKDjd5ECKio5TBgJhkFLTpvukDgI65xr1WdE988iwlur458S
-	7ZS8G9b9xYMI/3jTKjan9I2pkF8OxU0v+dh9jyMkT36nn0MbdBWhgddKoaeISOEeDalNSE38jEN
-	cNYE=
-X-Received: by 2002:a05:7300:4f24:b0:368:40c6:3a01 with SMTP id 5a478bee46e88-36a422224d1mr18620493eec.2.1793728728792;
-        Tue, 03 Nov 2026 09:58:48 -0800 (PST)
-Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42952e1csm52256902eec.20.2026.11.03.09.58.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 09:58:48 -0800 (PST)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	co+bba0c6b49150bef3@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] ftrace: Complete subops teardown after hash update failure
-Date: Tue,  3 Nov 2026 09:58:31 -0800
-Message-ID: <20261103175832.3374540-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103175832.3374540-1-bestswngs@gmail.com>
-References: <20261103175832.3374540-1-bestswngs@gmail.com>
+        d=1e100.net; s=20260707; t=1793728750; x=1794333550;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mWiqVESok8K3e9rRJ3g5fJGIMlnrH+fRsBAgdT4QzNQ=;
+        b=PTcuaoVJTl/T59DltwF2KDmm0OwFKm/gCmgTjuOtJ69Jpd+8Dl8KUwqJa46ZQz5sJu
+         ENqytwQDf6yEgCgu9gPSS86Lar3GzDux84SJKpGqWEZWw6i0Kt+F9RbjXraFYGzLiHz/
+         kdB5zxMdHsdiNBeoW5oglSAKbVf28QiSjBAK+p9oSnwDFW2wFwKtWDRuAstaJ4ZkE8DE
+         Fq6adnwUJq1zCrGdadSQQYCZ4YYQmHHOoqaxUFc2C4m6A1HXuG2g9HNWaJjgnzoIYWm2
+         Y2m6O/eYu5pVlEOxSBhFsTxd+DmXVRn6kpsbPRo7TGUNxVi0NZqx70mqqFcjkLrTXxtG
+         bw/A==
+X-Forwarded-Encrypted: i=1; AKwUvByYcf2mGASOgbtlffPWciVjxY0kA6NwI3BsI1YJ1aiPmxaeAefVfS2GAWsFnxaNcIyOCAld5AHusawXmyU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98aGnsmqoqxHVUJntFWJjJ0VWJZ+fqo9CTz+NsvRg7WTRDQHBL
+	zK4Cj/F4gvzIfsU+qarmF8sWkoEkYKGnNg+wyQKkoXOcTvMMvVEgASWso9sN0aVMNhCb6h7iCAk
+	pm/R2E/4DlL2RtydZknzqyI6s7H6BwYFKry0q9roEuqZRldM5aMCPDl7mjlIWsAqPssQTr6hYUp
+	5pkuC0FMDT5mWaUX1FYdgHt0xs9cvUZRAMrTpOkC/1n3SAO24dpw==
+X-Gm-Gg: AYBFou3SdYy2qYLcQrghLrRUbniLzlfNN43nhINziPq5XetcqU3feGnfNQkC4kxDl5z
+	fg4MsJWvC/XozBVRcEUv4r7yzkII1HPqOfQuvjOqac8+FrVuOEHfZKaPGRALAkFi+t1a5HNYi85
+	ceTbfquB4lNwDse8wkuitBQu4ETLpp7rZFyndekR7MbyellhZ5fJoFHnRAhMWlAk8sSgGhUzj7A
+	beNRuRqw9Oxus4m4jtwgXxV2qBuALybG8rTHAh2
+X-Received: by 2002:a05:690e:1381:b0:679:a5fc:2f35 with SMTP id 956f58d0204a3-67a8d3dab47mr11993842d50.19.1793728749804;
+        Tue, 03 Nov 2026 09:59:09 -0800 (PST)
+X-Received: by 2002:a05:690e:1381:b0:679:a5fc:2f35 with SMTP id
+ 956f58d0204a3-67a8d3dab47mr11993818d50.19.1793728749355; Tue, 03 Nov 2026
+ 09:59:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,156 +128,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260730062219.2836938-1-sammiee5311@gmail.com>
+In-Reply-To: <20260730062219.2836938-1-sammiee5311@gmail.com>
+From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 18:58:58 +0100
+X-Gm-Features: AclHuK_eyUJ4LVzmPr0ntwvbkf_nZEw5d7HFVp4LeIbjHcyHf9f2l13O5bkRG6I
+Message-ID: <CAGgiveUc+TkGyGDxuuCLpHO=i22-4fn1CqjqnnmWLdWWYOZfPA@mail.gmail.com>
+Subject: Re: [PATCH] tee: qcomtee: user: check the parameter count from the supplicant
+To: HyeongJun An <sammiee5311@gmail.com>,
+        Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+Cc: Jens Wiklander <jens.wiklander@linaro.org>,
+        Sumit Garg <sumit.garg@kernel.org>, linux-arm-msm@vger.kernel.org,
+        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA3MSBTYWx0ZWRfX6uYydmT6ZL+x
+ SRJmTaj0xIt6+WqsOnGk+EfqGzxqDsErKAECMFnfBkG2p8bROqExqsCZXYub4p6fuVqZUJSW440
+ qco6QlD3W+mO/e8KaQhLgyCT8cNcNNI=
+X-Authority-Analysis: v=2.4 cv=Xs1vqlF9 c=1 sm=1 tr=0 ts=6aea20ee cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=pGLkceISAAAA:8 a=YeeCoqeVfiiWHf5BpmsA:9
+ a=QEXdDO2ut3YA:10 a=Epx66wHExT0cjJnnR-oj:22
+X-Proofpoint-ORIG-GUID: CCEwIJVqLnFTPCU3ZGtEJB39_uNIzSG0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA3MSBTYWx0ZWRfX4+ZhBX8dpnd4
+ 6rb+cSohwJC1zfe8oFvePd4t21l//N79MtMtFQkd0iyzGSKy2W5SX/CyIuRA1axfFzCUG1MWTnH
+ EefIQOeU+OMaXilIGgZEDp087lBOy3b0g24vh6acdW76/I6510GMvD4CNRPWQ60vggE7D64nr1j
+ 4jKxeNtHtkKZjwXP+jkvCVAlrfRiQHYOrKxPGj1WebqAp6EtIAL3m43/YAajnt4WzpckuMo4xXm
+ qA4GMiJ8xSjcFMTjYM+uskKRFTC+hNU0wWsRJLIOU/fBq64NnAPAkFSUHbml7Dd53wmsvqPoskE
+ Z56FncEB7vI1euhTB1LBAU8ou/V8+t7VK5VCLyzF3B14m+3OUnpNUsZpI/ciDnHw4bbQb5kheTA
+ jkNWRI+MGxKeGo83M8TkHZrugOvAyAw/qIco0oS2YEWfyeA1XQqpCE95i+1PqdQsNYoEh8CMHzj
+ YlhFygDBawNeEfC/3qA==
+X-Proofpoint-GUID: CCEwIJVqLnFTPCU3ZGtEJB39_uNIzSG0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_04,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ bulkscore=0 adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030071
 
-When removing a graph operation while other operations remain,
-ftrace_shutdown_subops() rebuilds the manager hashes. Memory allocations
-in rebuild_hashes() or ftrace_update_ops() can fail with -ENOMEM.
+Hi,
 
-On a rebuild failure, the subop has been removed from the list but still
-has FTRACE_OPS_FL_ENABLED and FTRACE_OPS_FL_SUBOP set. On an update
-failure, it is added back to the list. Neither outcome matches
-unregister_ftrace_graph(), which has already removed the graph slot.
+On Wed, Aug 5, 2026 at 11:23=E2=80=AFAM HyeongJun An <sammiee5311@gmail.com=
+> wrote:
+>
+> The qcomtee_cb_params_to_args() walks the argument array QTEE asked for a=
+nd
+> indexes the parameter array the supplicant supplied, but it never looks a=
+t
+> num_params. A supplicant that answers TEE_IOC_SUPPL_SEND with fewer
+> parameters than the request needs makes that walk read past the end of th=
+e
+> allocation.
+>
+> To fix this, reject a response that is too short, the way ureq_select()
+> already does for the receive direction.
+>
+> Fixes: d6e290837e50 ("tee: add Qualcomm TEE driver")
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+> ---
+>  drivers/tee/qcomtee/user_obj.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/tee/qcomtee/user_obj.c b/drivers/tee/qcomtee/user_ob=
+j.c
+> index 10452fcc7ccb..2a594ae299da 100644
+> --- a/drivers/tee/qcomtee/user_obj.c
+> +++ b/drivers/tee/qcomtee/user_obj.c
+> @@ -507,6 +507,10 @@ static int qcomtee_cb_params_to_args(struct qcomtee_=
+arg *u,
+>  {
+>         int i;
+>
+> +       /* Supplicant can not send fewer parameters than requested. */
+> +       if (num_params < qcomtee_args_len(u))
+> +               return -EINVAL;
+> +
+>         qcomtee_arg_for_each(i, u) {
+>                 switch (u[i].type) {
+>                 case QCOMTEE_ARG_TYPE_IB:
+> --
+> 2.43.0
+>
 
-For example, enable a function_graph tracer with a nonempty filter and a
-return fprobe. Fail an allocation in rebuild_hashes() while disabling the
-fprobe, disable the tracer, then re-enable the fprobe. The stale SUBOP
-state routes its filter update through the now-empty manager list.
-rebuild_hashes() leaves its output pointers uninitialized, and ops_equal()
-can crash when dereferencing them.
+Looks good. Amir, do you agree?
 
-Complete non-final subop removal on both error paths by clearing its
-enabled/subop flags and manager pointer without adding it back to the
-list. Initialize the rebuild outputs to EMPTY_HASH as well.
-
-A failed manager hash update may leave functions enabled that only the
-removed operation traced. Keep per-subop filtering in that case, since
-direct graph dispatch skips those checks. Restore direct dispatch after
-a successful removal from two graph operations to one, or after a
-successful first registration.
-
-This depends on the reader synchronization in the preceding patch.
-Clearing the enabled flag after a failure allows the caller to release the
-subop filter, while an existing graph callback may still hold it. Backport
-both patches together.
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000802: 0000 [#1] SMP KASAN NOPTI
-KASAN: probably user-memory-access in range [0x0000000000004010-0x0000000000004017]
-RIP: ops_equal (kernel/trace/trace.h:1011 kernel/trace/ftrace.c:3416)
-Call Trace:
- ftrace_update_ops (kernel/trace/ftrace.c:3464)
- ftrace_hash_move_and_update_subops.isra.0 (kernel/trace/ftrace.c:3795)
- ftrace_hash_move_and_update_ops (kernel/trace/ftrace.c:5095)
- ftrace_set_hash (kernel/trace/ftrace.c:6006)
- ftrace_set_filter_ips (kernel/trace/ftrace.c:6020 kernel/trace/ftrace.c:6769)
- register_fprobe_ips (kernel/trace/fprobe.c:290 kernel/trace/fprobe.c:1020)
- register_fprobe (kernel/trace/fprobe.c:979)
- enable_trace_fprobe (kernel/trace/trace_fprobe.c:838 kernel/trace/trace_fprobe.c:1480)
- fprobe_register (kernel/trace/trace_fprobe.c:1555)
- __ftrace_event_enable_disable (kernel/trace/trace_events.c:913)
- event_enable_write (kernel/trace/trace_events.c:943 kernel/trace/trace_events.c:1995)
- vfs_write (fs/read_write.c:685)
- ksys_write (fs/read_write.c:739)
- do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
- entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-Kernel panic - not syncing: Fatal exception
-
-Cc: stable@vger.kernel.org
-Fixes: 0ae6b8ce200d ("ftrace: Fix accounting of subop hashes")
-Reported-by: <co+bba0c6b49150bef3@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- kernel/trace/fgraph.c | 10 +++++++---
- kernel/trace/ftrace.c | 22 ++++++++++++++--------
- 2 files changed, 21 insertions(+), 11 deletions(-)
-
-diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-index 14733f519..48521bc33 100644
---- a/kernel/trace/fgraph.c
-+++ b/kernel/trace/fgraph.c
-@@ -1406,8 +1406,11 @@ int register_ftrace_graph(struct fgraph_ops *gops)
- 	gops->ops.flags |= FTRACE_OPS_FL_GRAPH;
- 
- 	ret = ftrace_startup_subops(&graph_ops, &gops->ops, command);
--	if (!ret)
-+	if (!ret) {
- 		fgraph_array[i] = gops;
-+		if (ftrace_graph_active == 1)
-+			ftrace_graph_enable_direct(true, gops);
-+	}
- 
- error:
- 	if (ret) {
-@@ -1435,6 +1438,7 @@ int register_ftrace_graph(struct fgraph_ops *gops)
- bool unregister_ftrace_graph_start(struct fgraph_ops *gops)
- {
- 	int command = 0;
-+	int ret = -EINVAL;
- 	bool removed = false;
- 
- 	if (WARN_ONCE(!(gops->ops.flags & FTRACE_OPS_FL_GRAPH),
-@@ -1461,9 +1465,9 @@ bool unregister_ftrace_graph_start(struct fgraph_ops *gops)
- 	if (!ftrace_graph_active)
- 		command = FTRACE_STOP_FUNC_RET;
- 
--	ftrace_shutdown_subops(&graph_ops, &gops->ops, command);
-+	ret = ftrace_shutdown_subops(&graph_ops, &gops->ops, command);
- 
--	if (ftrace_graph_active == 1)
-+	if (ftrace_graph_active == 1 && !ret)
- 		ftrace_graph_enable_direct(true, NULL);
- 	else if (!ftrace_graph_active)
- 		ftrace_graph_disable_direct(false);
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index c7d74b33d..7c712d99f 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -3672,6 +3672,8 @@ static int rebuild_hashes(struct ftrace_hash **filter_hash, struct ftrace_hash *
- 	bool first = true;
- 	int ret;
- 
-+	*filter_hash = EMPTY_HASH;
-+	*notrace_hash = EMPTY_HASH;
- 	temp_hash.filter_hash = EMPTY_HASH;
- 	temp_hash.notrace_hash = EMPTY_HASH;
- 
-@@ -3713,7 +3715,13 @@ static int rebuild_hashes(struct ftrace_hash **filter_hash, struct ftrace_hash *
-  * will not affect functions that are being traced by other subops that
-  * still exist in @ops.
-  *
-- * If the last subops is removed from @ops, then @ops is shutdown normally.
-+ * If @subops is the last subop, @ops is shut down normally. Otherwise,
-+ * @subops is detached even if the manager hash update fails. The manager
-+ * hashes may be partially updated, but still cover all functions required by
-+ * the remaining subops.
-+ *
-+ * Return: 0 on success, or a negative error code on shutdown or hash update
-+ * failure.
-  */
- int ftrace_shutdown_subops(struct ftrace_ops *ops, struct ftrace_ops *subops, int command)
- {
-@@ -3753,15 +3761,13 @@ int ftrace_shutdown_subops(struct ftrace_ops *ops, struct ftrace_ops *subops, in
- 	/* Rebuild the hashes without subops */
- 	ret = rebuild_hashes(&filter_hash, &notrace_hash, ops);
- 	if (ret < 0)
--		return ret;
-+		goto out;
- 
- 	ret = ftrace_update_ops(ops, filter_hash, notrace_hash);
--	if (ret < 0) {
--		list_add(&subops->list, &ops->subop_list);
--	} else {
--		subops->flags &= ~(FTRACE_OPS_FL_ENABLED | FTRACE_OPS_FL_SUBOP);
--		subops->managed = NULL;
--	}
-+
-+out:
-+	subops->flags &= ~(FTRACE_OPS_FL_ENABLED | FTRACE_OPS_FL_SUBOP);
-+	subops->managed = NULL;
- 	free_ftrace_hash(filter_hash);
- 	free_ftrace_hash(notrace_hash);
- 	return ret;
--- 
-2.56.0
-
+Cheers,
+Jens
