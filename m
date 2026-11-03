@@ -1,78 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793669798;
-	b=h6GXbL1CftCjUvhjhG8+cFF3p3ZCERg0QdxNtygmjFbWSGp7rHOMCuHifV0szI5W9V8T
-	 c3d19bssUu7Ylb7XtDWqJN8KbzF25GnQF3hGy53LFQILkAThW2JYGdY3/rvYt2ilVvyQv
-	 qmFlW3k0lJ+/goGNfDVxMMDkQLbulzWyRRRIMGXcE0XlR88Yotdbq5OHq3mVhQjrlz+Lj
-	 MFKpYBEhC401ocSKy1NoMpDrZ5vqYWRgZhX0gcHPh+HIyIkb9N6VnvTQZAwXnljm1b2+r
-	 xaJDAGlTPRcHOQvUORnBuk+XaKc3TBN4HsDyOU4XKV9YgsTyMvJu+qhAE/o60vzs36A==
+	t=1793669871;
+	b=FgphZWy9+6+8m7p6iXxgZtaRKwNyeJtTOBsAH9qVk2BnuXwwhOwSvRO22jKy+5vm55tZ
+	 FOOJ1Ek4wTufnnVYctHB2iNwcBxbZis3dkL9J7V6wR0Tddiu7a5X30Q1KV1zvF8GkRK6T
+	 PsTki/imaM2s0BTRS4p2UZEwCWqxXJv5DKxo32abzy0x1EyWjE6maR6tUz35GCY1rlu8i
+	 X1iHKfeYK008vgOTEpUTSujssw2forkJB0C/b93OHUhwIVV6udsZVZNYUgOCtOkUVfMlW
+	 eyoX0d/VhJx/fHYTDhnMplhl3vCcM6GM0dxzNAz0PbSMXmSARd1C8mwtIp4vANtxUTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793669798;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=y46+NJ5aqAHpCrKu6VjLDpm+yebJcad5AzOl3gzfzyk=;
-	b=oVDM41xnG8YdBQXzpQTZNQZrSuG4ZHBeixgAL4V7ZWq4aGYukMAcq3DuLGBQE7e4vraC
-	 HwT/5VF2LCZdEdw7bqyIC3yTgbXLlT39lYe0DYyWGf+4K9ANjWdMwUDnd05hyG2hKId+T
-	 F53MGXY/EOwfPn4w5lr7XWbc/Tv3pImm5WtDw545HCUCIsej/vr36xUeeRoGQaFZWqIN8
-	 jUInG/jSWW6Nx0v4h+18rRshlLCC7Lu9pdEaXoE5Em1BKDWE0pjKr4I/iYBsrEDZd1C1O
-	 LBDSU9j3dhN/HNn830Xv5UGbsmCRWVRU7h6jqDtIxgL6d9sDO7gd4dIEXzk0MH2OmTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793669871;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=NkKLoQiT3QLn1o0kL1YKYPKps4dql8DQmXqMzeu4JqA=;
+	b=qjnFNXqFvRnBgHVD6z2yWAb6hxHtzOq18T8Gib8X1KUVAfsQPB+ciX5wUHRfyOaez8c8
+	 ePNS8tqiXOKUmEVcJZrMYpNcVoZYiHRVgQyijaySzNYuxUgcCFv2YNvLNNDgtfbK0TmUQ
+	 qnmU2DdaUUbo99evSoSU0smgklenU/G3m2Ck2o1c6A0ksLuZbJta5ymKBA1Hysi4tbYR4
+	 2RIJ2WOp5dcCLjiGs6kGABeHRXMjyAOupEeji7VfDd2ZSiBn9HwGaEVLkacjRQIDBDq3o
+	 O28TjZhJjNB7lBPnh+Mtpuxl4Tt69R0SHjVbXD/z3/Mx5qWk/79WtKZ6I4lk2WEitcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLHAsFVr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=khEmIFfW;
+	arc=none smtp.remote-ip=115.124.30.133
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B079606A324;
-	Tue,  3 Nov 2026 01:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2D1606A324;
+	Tue,  3 Nov 2026 01:37:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A2D1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLHAsFVr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5964C1F000C1;
-	Tue,  3 Nov 2026 01:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793669798;
-	bh=y46+NJ5aqAHpCrKu6VjLDpm+yebJcad5AzOl3gzfzyk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kLHAsFVru9ldiCUzwG8pcEIm685zZg5oPrTwKMzUyM60f2CKmLCvXyCfCD+PhWfyX
-	 raK/9se8VbJvZy93e+TrAiYYxLvI9wsoDk10fran98JIXZvNChsmpPaXOf50B4qkuL
-	 rDIq+NRyq0r+Ky7r9RiZjF6Wb9IYL8RGDnhP4OEicrdtr+PsKcX5L6Oy3cuxuDZJd1
-	 XsH+WOWwUM+/VWye+3AUnK7/GSQrUWbQoXl+J/CaRs6gQx+Rf02HRkyJJV6mZpOhjQ
-	 TXeDdeNUZFY+rBVzBF+H8d0QVd2LtTB9t/CbMSVa3tW6lCOYMPPr3oVRNUD/Rx1tnG
-	 yJXp6nZtlKxFQ==
-From: SJ Park <sj@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: SJ Park <sj@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/8] mm: remove end_page_writeback()
-Date: Mon,  2 Nov 2026 17:36:29 -0800
-Message-ID: <20261103013630.94182-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102-page-wrappers-v1-2-e7280bdb31f6@columbia.edu>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=khEmIFfW
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793669867; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=NkKLoQiT3QLn1o0kL1YKYPKps4dql8DQmXqMzeu4JqA=;
+	b=khEmIFfW61Vx04EDurerN1Hds3zuwk5P+dNfJ624RCcQ4Xguvzh6gNR71Xwx/uHHR1itaVJ9rkjCqk+q9eunETbbIn51Se7G8/mDIISDgu8AAqDdA03Cro1L90LW1ljzwThY5GyaAO9TlRymR2RyNZljqEw+7fNZ4LHpfQ8Hok0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XE0PTwb_1793669863;
+Received: from 30.247.169.117(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XE0PTwb_1793669863 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 09:37:45 +0800
+Message-ID: <70e15aaa-44c9-478a-8e61-1dfc19dc50a0@linux.alibaba.com>
+Date: Tue, 3 Nov 2026 09:37:43 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,22 +53,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] riscv: stacktrace: do not report the walker's own
+ frame from arch_stack_walk()
+To: Karl Mehltretter <kmehltretter@gmail.com>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Changbin Du <changbin.du@intel.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Mark Rutland <mark.rutland@arm.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>,
+ Rae Moar <raemoar63@gmail.com>, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
+References: <20261010132712.46931-1-kmehltretter@gmail.com>
+From: Shuai Xue <xueshuai@linux.alibaba.com>
+In-Reply-To: <20261010132712.46931-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 02 Nov 2026 17:54:07 -0500 Tal Zussman <tz2294@columbia.edu> wrote:
 
-> There are no callers left. Update the two comments that still named
-> it to refer to folio_end_writeback().
 
-Makes sense to me.
-
+On 10/10/26 9:27 PM, Karl Mehltretter wrote:
+> stack_trace_save() uses skipnr + 1 because arch_stack_walk() is expected
+> to first report the return into stack_trace_save(). With FRAME_POINTER,
+> the RISC-V arch_stack_walk() calls walk_stackframe(), which starts from
+> its own frame and first reports the return into arch_stack_walk().
+> stack_trace_save() therefore starts one frame too early. For example,
+> page_owner records begin at __set_page_owner() instead of the allocation
+> site.
 > 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> Move the walker into an always-inlined helper and call it directly from
+> arch_stack_walk(). Keep walk_stackframe() as a wrapper for its existing
+> callers.
+> 
+> return_address() skips level + 3 entries, while the arm64 implementation
+> skips level + 2. After removing the extra frame, use level + 2 so
+> ftrace_return_address() and CALLER_ADDR results do not shift by one caller.
+> 
+> Fixes: 6a00ef449370 ("riscv: eliminate unreliable __builtin_frame_address(1)")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> Tested with the KUnit suite from patch 2 on QEMU's virt machine, clang 22
+> (LLVM=1), on af32da41b032:
+> 
+>    mainline                        stack_trace_save 0/3, return_address 2/2
+>    stacktrace.c change alone       stack_trace_save 3/3, return_address 0/2
+>    this patch                      stack_trace_save 3/3, return_address 2/2
+> 
+> A BeagleV Ahead (TH1520) booted with this patch passes all five cases.
+> The stack_trace_save() result on mainline (0/3) was also reproduced with
+> GCC 15.2 and QEMU 10.2.1.
+> 
+> Without CONFIG_FRAME_POINTER the walker scans the stack for anything that
+> looks like a text address and its start frame is not exact before or
+> after this patch. What return_address() returns there is unchanged: the
+> walk loses one leading entry and the skip count goes down by one.
+> 
+> The reliable unwinder series [1] rewrites this walker and has the correct
+> start frame for stack_trace_save() as a side effect, but leaves
+> return_address() at level + 3. This patch conflicts with 5/7 of that
+> series; if that goes in first, only the return_address.c hunk is needed.
+> 
+> [1] https://lore.kernel.org/r/20260914092648.51254-1-xueshuai@linux.alibaba.com
+Hi Karl,
 
-Reviewed-by: SJ Park <sj@kernel.org>
+Now that 7.4-rc1 is out and neither your two patches nor the reliable
+unwinder series made this merge window, I'm preparing v7 of the series
+for the next one.
+
+Are you OK with folding your patches into the livepatch series rather
+than keeping two conflicting walkers in flight?
+
+Thanks.
+Shuai
 
 
-Thanks,
-SJ
 
-[...]
