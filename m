@@ -1,74 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730694;
-	b=X64emhsmCcdPLKYSn3I0C/ghydZ6wu7Z5SQw9RWz9SWbCTctk/TOhSvdXl4PXVG4pj85
-	 p0yYP027n+vkAxG8SjPJcgVq2O7+gCFXZ1XRBAFdLfzdQ8OAW1tUFg9y7NelPEh0Z6zaG
-	 3tlYtgRAxKguv8XsIYAqVFpprPZ7f2gbPn+uLC40C9XJbc5GaO1zWmhWqbJ+kcuNW1cB7
-	 5RJElPfBTTvifH8gaNkxcYLUqC6YpjsrmXzsdzgkTph8P9Ib50s3JKoqtIo9vmcAatJS1
-	 6ASSZDpVjTDBpOq2RGFCfMxsU26YPWGCsJr9XobTQ1b4EfjpgNVD29mULt2tzN50aqg==
+	t=1793730719;
+	b=Pmlh8jV5ehevPK1AZcOOGni685h19rq+kSk5iacYLHRBs0rAo1jhnZiLFOF6mx9eBLv+
+	 G4qNlRXii5GtHAq5cXaPWM/WE5LJn7hCA4RtX22ocZ1XyxvPqU1VOFKrIkOgwlGRsKom2
+	 4xoHefo3NwqQPSCjHgVoRe1zK/ASnR5YPXuY6OKnh9D3dafKLc/1E1eqzNx97uTQqG4sk
+	 BTy7HzRXK/uieXReIFpd/MDK8aqz5L3IuyyQQ6kBrys2UhORNISSG5xwkVtd70q4y1/Uo
+	 NY/mFd1lr84SNAk23acONHS6vKOnboqwERBLvuJws7odP/uAJcvYTsK4tKWmnWpz6vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730694;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=jbU+wfPnPFIh6lU3pnI3zzPid1+8Ib7N5XiDr9+QpkQ=;
-	b=PxKeXSzzZraVi3byfhImbdFyXPbMBJn3x1MTh//TbeptJdxJZYFHeIJ7dXvxx3wnsY1K
-	 Gdl9eJKwBnYeiNhCGLsUbAguo23K+dalMI/cHrm3G0qBXf7X1Gx1VrnzCmCtjlcDy8IO0
-	 bmfj3wLBIO456SAMyDrAaI3cZT3HMxhZhUpMbITpMW73mIGKEmW7cqpH4GToYI+R/Y9k6
-	 09MH7ft1yAn2HDNmgWHmBFsrZTPYSmfLt3QaLpeJIDOtRXtn0rYvbpE0j3WFcHymH0Yr7
-	 TRWG8/Mps9+Z9gul6MpEE6ahjkNmANdA65kwGu/mEMOXNto+M+z0eOG9n93OdyxpMNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730719;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=YL7pUVyNm44/Ihd2CJn9w6SXbjo2vEV8c+XqARMDpew=;
+	b=y2fakBrzrqNTxqAxDCwSRlWapvpfAopttlR6i2U7mrX5QgYULfrlMzoR6bs21RFvLVL0
+	 s8ABe8Tf1JFYbyoRx1I2Xsyljw9IWyI1Op5EwGfQYluqJ5OBhtZ0BU1WliOn2sgGxoWeN
+	 8WNTlc/7blkJ46Yurc+jiHcKoAxLXXAPBMWBBkooUlCs1Rtw62BftZAi2+rfYX7jxE69P
+	 ED+FEfHdJoSDlTAQSYNsQPnp7zdz7ajLL/am4GRrl3nkWBM/B/fnCwTXOrnWhMygiJh7P
+	 K5TVdao0CqchGmlgaRflp5HYc5pSzzePojsJf9NPGGIoIaRKBLy91nJzXURPrceItGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSLxeaC+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4aik7Uv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1FE606A324;
-	Tue,  3 Nov 2026 18:31:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A5B606A326;
+	Tue,  3 Nov 2026 18:31:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSLxeaC+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740FF1F000C1;
-	Tue,  3 Nov 2026 18:31:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4aik7Uv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA3A1F000C1;
+	Tue,  3 Nov 2026 18:31:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793730693;
-	bh=jbU+wfPnPFIh6lU3pnI3zzPid1+8Ib7N5XiDr9+QpkQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nSLxeaC+0k0qqm/z6aBhDoxwlCX6ThGf5pYYsanb1WX5thiEb8Z3DtLF75GxsW/O5
-	 GMZC0aJl7GJbnrQLRX1qmH3bLGpJhgxDDVEhPbajvei1ZmVZkZZuKQzsXclDvS3FLz
-	 JqDgzwsqEUqFc+JbYH9Jkshn6+yY178WxD/xHneQaYDS5r/n+JnUy1w6odyVUa4STI
-	 QwQAZn8yXcGME+v83nj3qlGT6VVMYmnc3AQP3FswYICcENEKw201/R2MXLFwQheg7+
-	 pBh/mDCkGKGk4YhBLJSsePnm6voVwlDUGi2Rh7gymWPjmN3vqh/ipKu1A8THywHHi1
-	 /6f51GaJd9vlQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xOJIB-0000000AeGq-2TYK;
-	Tue, 03 Nov 2026 18:31:31 +0000
-Date: Tue, 03 Nov 2026 18:31:31 +0000
-Message-ID: <864idx3gxo.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Andreas Grapentin <gra@linux.ibm.com>
-Cc: Steffen Eiden <seiden@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	kvm@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] KVM: s390: arm64: Fixes for arm64 KVM support
-In-Reply-To: <20261103-s390_arm64_kvm_fixups-v1-0-21c36fedd878@linux.ibm.com>
-References: <20261103-s390_arm64_kvm_fixups-v1-0-21c36fedd878@linux.ibm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1793730718;
+	bh=YL7pUVyNm44/Ihd2CJn9w6SXbjo2vEV8c+XqARMDpew=;
+	h=From:Subject:Date:To:Cc;
+	b=A4aik7UvTF+WBnIEzANiOSGgFaXLqjJm80sWxnLlbMh4FnIt0x8C5uRcgdMKlvJKS
+	 +3D7SA68QXXmbdnQaybnbvcwtnvQ6BcikEn1lAWCt09If373L+S9PQ2j2CQfnzcLBj
+	 3TxbEz81yFpdP+/UQA/mV+0sIGjX59VF4A71jqjZ80YpmimmDR+JzxiYxlhhQtBinP
+	 DDyhfldjwHvV4Vu2cHjzNbl4Ej+UVYy5cL5ZS6SnV1RxtorKYeF8YdVGpULGZGQJLR
+	 SLgrMbLoZKZLBvL9Wx8bqpbZ8GrvpUYxSvk7m85OmBC/j93QJ1U58pQv7Kz574M4+w
+	 4xQtd7t8JUjaQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 0/2] mm/memfd: handle GUP references reliably when
+ write-sealing
+Date: Tue, 03 Nov 2026 19:31:43 +0100
+Message-Id: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,46 +53,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: gra@linux.ibm.com, seiden@linux.ibm.com, borntraeger@linux.ibm.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com, svens@linux.ibm.com, kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI8o6moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMj3bTMitTi+OT8otR4I11jy1RTy8S0lERLQ0sloJaColSwPFBHdCy
+ EX1yalJWaXAIyQ6m2FgAYc4tScAAAAA==
+X-Change-ID: 20261102-fixes_core_2-39e59afda919
+To: Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Rheinsberg <david@readahead.eu>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1358; i=david@kernel.org;
+ h=from:subject:message-id; bh=7nmu6fRF1UbgSM50uuDb6xwGPEFwgJ+ETyCbNbuUspQ=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJeaUzXmx9/Xi7wYJ3EfcPQuq+aeyNMehVU1wQ9/ezl4
+ OJpfTuwo5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgImcDmD4n/DbZVlKGAOfCcdW
+ z/fTtX+v0ayb//LJfp1ovtSTEz9st2NkeMW5bKX8AS2Ps6ubhFk6jXu7SpUvzNcR1Dz+6fJ00/p
+ +dgA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Tue, 03 Nov 2026 16:37:01 +0000,
-Andreas Grapentin <gra@linux.ibm.com> wrote:
-> 
-> Some fixups for the previous series that introduced arm64 KVM support on
-> s390. Forward-declare enum vcpu_sysreg because we are definitely going
-> to need that, then make the module naming consistent and iron out an
-> inconsistency in the definition of vcpu->arch.pause between s390 and
-> native arm64 KVM.
+I spent way too much time on this, looking for better options. I think
+patch #1 fixes the most immediate issues but something like patch #2 is
+needed.
 
-It's an interesting one. Obviously, this wasn't caught by building the
-upstream code. I guess this triggered with the rest of the patches?
+Long story short: someone can trigger a race such that we don't detect
+GUP references when write-sealing, allowing to modify content later.
 
-> 
-> No functional changes intended on either arm64 or s390.
-> 
-> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
-> ---
-> Andreas Grapentin (2):
->       KVM: s390: arm64: Declare enum vcpu_sysreg
->       KVM: s390: arm64: Fix kvm_arm64 module naming consistency
-> 
-> Steffen Eiden (1):
->       KVM: s390: arm64: Turn vcpu->arch.pause into a counter
-> 
->  arch/s390/include/asm/kvm_host_arm64.h |  8 ++++----
->  arch/s390/kvm/arm64/Makefile           | 12 ++++++------
->  2 files changed, 10 insertions(+), 10 deletions(-)
+Patch #1 handles pins reliably for folios with a pincount. Patch #2
+handles the remaining references, but can reject write-sealing with
+populated file mappings. vm.memfd_write_seal_mapped allows restoring the
+legacy behavior if needed.
 
-Looks all reasonable to me.
+All alternatives to patch #2 I tried ended up too complicated and nasty
+in corner cases. We should never have allowed write-sealing with
+existing file mappings.
 
-Acked-by: Marc Zyngier <maz@kernel.org>
+Plenty of details in patch #2.
 
-	M.
+Did some testing on x86-64 without any surprises.
 
--- 
-Without deviation from the norm, progress is not possible.
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+David Hildenbrand (Arm) (2):
+      mm/memfd: handle GUP pins more reliably when write-sealing
+      mm/memfd: handle GUP references reliably when write-sealing
+
+ Documentation/admin-guide/sysctl/vm.rst | 21 +++++++++++++++
+ mm/memfd.c                              | 45 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 65 insertions(+), 1 deletion(-)
+
+---
+
+base-commit: 462595652740dc45f2392dc59d9609e509ee60af
+
+change-id: 20261102-fixes_core_2-39e59afda919
+
+--
+
+Cheers,
+
+David
+
