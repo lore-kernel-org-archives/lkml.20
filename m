@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.127.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743367;
-	b=bdri7qRCnMzXttAf7fzRXgbiBHV+gOkiQNuURYd8mad6SGKtCR3HP+8GGnFfpMdZjb22
-	 nDmvOuWeXLt4IkJopKHXZ95sdc+BA9bltrPqNJVgXNfpg6Ouc2z+iXG+yJr2rYUA8mHW2
-	 nHvaFVGsOr5m1Ly3AX2PtaiXmzHmy9zF27oi/arHrkmUhyVj31OCwT7xrNmIFWzhvDQeY
-	 uIz+P7dAyVsqpUm6rFDnkKCbgf5EcKnzWLzFTitokF1JPlWFHEzdn362DOBmUBWalDXM4
-	 wybNaIQrCOgSgx6E8dpH0Ga5Eara+zuKHKPd+y4pyeTpHbrJPxOrBVzwm4yp60w+QoQ==
+	t=1793743369;
+	b=sIIWKAh7gTszYPrHkNaxhKTeo6ZEeMO2MYdQ5lMj9cZIynQSacvT616iX/3zG+Dlt9k5
+	 QZsGXPp62iAYX53dFLMdt2NW7E9oIODG5zS6OZchPBEWIZtoRNBZLFTFs1C1Ea9DV/jCb
+	 /YBsjhBikIiFz1VYuXHKz2Lozz9IicWPN9DxWkDfcV/39gCHoSs3q8p2GM/RhcBqyRWyk
+	 zdynLIgXyYZEpbeQdSCft8CNAmCbj/bDitwPzDwWWnjeJKAg0VxvK4OLO0ksczAFxVfhm
+	 XFqn49Fhv6AD1c0Pd7C2qOV94hJ2xEEUQUbqJPo8+5xVnwpqYWDdl7LBdXQLO11dmpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743367;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743369;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=2kfmdaXcSuOz7RwfaYopIcZepxe7U504MJR/bucejts=;
-	b=Xqche9UnHPfHjHposZr7XP+tiHxNIaDbAWZsQchiDEKq1qoAa12Ef1+PCzjOh9YJu3my
-	 jKOeJDPb0vVzNOGX+YUdShI58li04s52x9lDimuF+SbkpsIg/dHEfICtzHMZZ3IrzUA4H
-	 y1XSgYZqaiJEaIg4aa8YU3PTCloHVPUZhF66PUclQYuKAdlg/O1wCPnAy5O0N5Yo25lJu
-	 Sw8vH1KQCqLs//ughNlcCc5rcYGldwdBpX0aLy77jMLpzV100Cm1p402gkG/nPajFA5xQ
-	 W7r1Ghw84iBb1dSfcp5CIYI0tyWB4/XNdlDpoaSD0B3KbyaA+DEwcvzfiymx8RJBFzA==
+	bh=TMTD8ylMz6V8M3Yk1dT1clZMvxV/CbkFKd6fldeMADY=;
+	b=aEIVUogjfzy7ghcA6bPqHVz5Rve5sCzjSiiyjRFY6Mb/htlBfu+Df0f5RI3kz57rSK3B
+	 jIKDdIZ/jDlbHw6w+GCqmsy/3/NzT4SoFQiQAm2c/HTaW8/LlgNrRw27N425JSIpDw5Oo
+	 n6BL/qSTSyVCZzRLDhY/h25vLUAUMooDh1a1OZUJG8ukOA9k4QoVnA6wkvjl/1tchTaV+
+	 rOoharZrvffgoedfnYgk+lcHqJAJ4yZs8EzU6LDUCgtbEaPuI5uGWMBjE5OVwkakh1M+z
+	 oNmFjsj8kHkovXyd1y1Zt1VCcqj+K2sSIOuNfb4NoVPTl/8x6keV69/Dr4qpvMDexhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=szelinsky.de;
 	spf=pass smtp.mailfrom=szelinsky.de;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=PeNt7mCo;
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=adwIjxqC;
 	arc=none smtp.remote-ip=85.214.127.56
 Received: from szelinsky.de (szelinsky.de [85.214.127.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52505606A32C;
-	Tue,  3 Nov 2026 22:02:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52505606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4507606A337;
+	Tue,  3 Nov 2026 22:02:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4507606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=PeNt7mCo
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=adwIjxqC
 Received: from localhost (localhost [127.0.0.1])
-	by szelinsky.de (Postfix) with ESMTP id 50924E836CF;
-	Tue, 03 Nov 2026 23:02:43 +0100 (CET)
+	by szelinsky.de (Postfix) with ESMTP id 2DB82E8337A;
+	Tue, 03 Nov 2026 23:02:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
-	s=mail; t=1793743363;
+	s=mail; t=1793743367;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2kfmdaXcSuOz7RwfaYopIcZepxe7U504MJR/bucejts=;
-	b=PeNt7mCo6zmzOiD+62uuk7FTqUqAUxTwgPXyWCNSVsnk9kUmOHOSt1c/XSO8r2zP2XUcZ5
-	r8NP7sSyDct3YAniRPMC3mfhhwUcn69F645G0dHzL1KsyNwckrst2Iwgol0JxGidNx5QFt
-	D4hoi+J1PX9MxzCfkz7OCZXZHbLSn2iPmQgYB2Ed3GJh7Q2rDj1jQEY+bmKywAONdgWbmb
-	0o1FOBXEYn+oEgNFgQ4mptFccddSbeIfT4iOu6lRwRUoS0aocyPPEPd82IUyQ+zb1z9RDz
-	JthfwqG6xmUxUW3lDUrB7+mRO/v/HNurvyECgNbPa2FBwplAgTLMSJjYaXem1Q==
+	bh=TMTD8ylMz6V8M3Yk1dT1clZMvxV/CbkFKd6fldeMADY=;
+	b=adwIjxqCvi+Pxo9ZgBZ/WFZiv5scrhp9eGpI6xtAaKMCtokhFDLc6ao4D5Js8caBMAFOvs
+	z4u5PE8yhGnCgKfJQS5c10kIvUKknjkIwCOxZ6QR7qBQGdSwvROPNTaky2s1VVxo2+lcPq
+	CPFOLw7VKsyudeI/UmoEXzYzTaBBT1wyYdSCgzbhyS1tz7AYRZp3POk2rQMQeNulN7YGan
+	vVSk5KjpCxli64wgwphvo1ya3nSTHlPNCNoQcVb9p/9+jzpWyT09AYeJBJsy+9CuK7SPsi
+	h1W4GzqR6tL34OU62ivH8ESA65mWuUaNrN15PI3T6zz2VUw1sn/GSuKEgsZNWQ==
 X-Virus-Scanned: Debian amavis at szelinsky.de
 Received: from szelinsky.de ([127.0.0.1])
  by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
- id JCJ0Bja0Hk2J; Tue,  3 Nov 2026 23:02:43 +0100 (CET)
+ id LJOGhyoqj5wE; Tue,  3 Nov 2026 23:02:47 +0100 (CET)
 Received: from p14sgen5.lanhh (dslb-088-070-183-026.088.070.pools.vodafone-ip.de [88.70.183.26])
 	by szelinsky.de (Postfix) with ESMTPSA;
-	Tue, 03 Nov 2026 23:02:42 +0100 (CET)
+	Tue, 03 Nov 2026 23:02:46 +0100 (CET)
 From: Carlo Szelinsky <github@szelinsky.de>
 To: Oleksij Rempel <o.rempel@pengutronix.de>,
 	Kory Maincent <kory.maincent@bootlin.com>,
@@ -73,9 +73,9 @@ Cc: Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Carlo Szelinsky <github@szelinsky.de>
-Subject: [PATCH net v3 09/14] net: pse-pd: unregister from the controller list before freeing PI data
-Date: Tue,  3 Nov 2026 23:02:12 +0100
-Message-ID: <20261103220217.1131971-10-github@szelinsky.de>
+Subject: [PATCH net v3 14/14] net: pse-pd: pd692x0: defer probe while a manager supply is unresolved
+Date: Tue,  3 Nov 2026 23:02:17 +0100
+Message-ID: <20261103220217.1131971-15-github@szelinsky.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261103220217.1131971-1-github@szelinsky.de>
 References: <20261103220217.1131971-1-github@szelinsky.de>
@@ -90,53 +90,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pse_controller_unregister() frees the PI array while the controller is
-still on pse_controller_list, and only removes it from the list
-afterwards. of_pse_control_get() walks that list under pse_list_mutex
-and reads pcdev->pi[i].np in of_pse_match_pi(). A consumer that probes
-at that moment can read the freed PI array.
+pd692x0_req_managers_pw_budget() uses each manager regulator's supply
+without a NULL check. The supply is NULL while the vmain regulator is
+described but not registered yet, because regulator_register() does not
+wait for its supply. Probe then crashes.
 
-Remove the controller from the list first, before the worker is
-drained, the power domains are flushed and the PI array is freed. Both
-sides take pse_list_mutex, so once the controller is off the list, no
-new lookup can find it, and a lookup that is already running finishes
-before the PI array is freed.
+Return -EPROBE_DEFER in that case.
 
 Found by code inspection. Not reproduced.
 
-Fixes: 9be9567a7c59 ("net: pse-pd: Add support for PSE PIs")
+Fixes: 359754013e6a ("net: pse-pd: pd692x0: Add support for PSE PI priority feature")
 Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
 Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
 ---
- drivers/net/pse-pd/pse_core.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/net/pse-pd/pd692x0.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-index 36f8e4e7d191..43f6e304fe5e 100644
---- a/drivers/net/pse-pd/pse_core.c
-+++ b/drivers/net/pse-pd/pse_core.c
-@@ -1185,13 +1185,17 @@ void pse_controller_unregister(struct pse_controller_dev *pcdev)
- 	 */
- 	if (pcdev->irq)
- 		disable_irq(pcdev->irq);
-+	/* Unlink before tearing down: of_pse_control_get() walks the list
-+	 * and reads pcdev->pi[], and must not hand out a new control for a
-+	 * controller that is going away.
-+	 */
-+	mutex_lock(&pse_list_mutex);
-+	list_del(&pcdev->list);
-+	mutex_unlock(&pse_list_mutex);
- 	cancel_work_sync(&pcdev->ntf_work);
- 	pse_flush_pw_ds(pcdev);
- 	pse_release_pis(pcdev);
- 	kfifo_free(&pcdev->ntf_fifo);
--	mutex_lock(&pse_list_mutex);
--	list_del(&pcdev->list);
--	mutex_unlock(&pse_list_mutex);
- }
- EXPORT_SYMBOL_GPL(pse_controller_unregister);
+diff --git a/drivers/net/pse-pd/pd692x0.c b/drivers/net/pse-pd/pd692x0.c
+index 34f0dfbccd06..568789bd912f 100644
+--- a/drivers/net/pse-pd/pd692x0.c
++++ b/drivers/net/pse-pd/pd692x0.c
+@@ -1056,6 +1056,15 @@ pd692x0_req_managers_pw_budget(struct pd692x0_priv *priv)
+ 		struct regulator *supply = priv->manager_reg[i]->supply;
+ 		int pw_budget;
  
++		/* The regulator core registers the manager regulator even
++		 * when its vmain supply cannot be resolved yet and retries
++		 * later, leaving ->supply NULL until then.
++		 */
++		if (!supply)
++			return dev_err_probe(&priv->client->dev, -EPROBE_DEFER,
++					     "manager %d: vmain supply not resolved\n",
++					     i);
++
+ 		pw_budget = regulator_get_unclaimed_power_budget(supply);
+ 		if (!pw_budget)
+ 			/* Do nothing if no power budget */
 -- 
 2.43.0
 
