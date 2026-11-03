@@ -1,102 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793734591;
-	b=qh3W7zysjo7QH6/d35WB67YSwVCIYRmsTT+wzp63dOIRJ4qF+quOuExQtK6RLXlgeX34
-	 r/GQuWkM7PL4QJlQRPL6rHb/30vN3dXGJNOCuEpo0YL0+yVxB0Ow1Y/0tqJLSdzvMH4ns
-	 8USFkfCLlhH2Ie9FNjYfetDoxtZ+ksBiPaC04F9Wc64f9koIKEd8Ljr91+fBGaBtBpwa2
-	 ipIG0l+SEzhfX+dtJWuUdHpJ6JGffEg2w5s54MkfvBsKJk8ZcPkJ46J8v9gvu6DoVwwlJ
-	 lQPb2h7jr3WSrPONZzLSywEctjiS0rZUqoyvGGgIpXAF4LQGOmU3mZ9sLOtmoCIJdQA==
+	t=1793734691;
+	b=nyGLO5NMtRqrbD71pCdv9VuUcnBR8JzqQ4vlgeLPYVRThEGLyydty2AH+1EPwuu+WIXu
+	 zMcjjBuwCbjYWyGq7VfodkOMpOAjzGryltV9Dm9x9bxgIj5P8+5wVEnCxptCpcyJsr9Sc
+	 K9s2Wkw5/3qhhv4nc70pSWqCIPiSDlj4A4++O4DZFHY2GLYY3NarOdF0uLd+ldw0vy7KA
+	 JepvlTh0FdSkSe9cPAhyx7A48UeG7+PS+y+UrAxrOoLkoGP1naSYyAJfKDF+dLSeGHpbT
+	 eO1d/qH1GTT+/2wgS6sSW63N4aFuzDblzDRiMGfrdtJyy89OUb50NR2yWm4A25xCo9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793734591;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793734691;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=uq8YUdEumE4c58BERrSl6Gv5Qqe1I7TfJJee/dW1I8E=;
-	b=qhz29BBNO6oLinml2QvjlpWT7SXPVw28EyYlkkZKe6RQmfQHwoLpEg992jjS6WMMiAo6
-	 Ygjo9aHvlJpgQYAdNZdGuVcOt4YsQUr4HQhBO+PkRrxugLRUI9WX7Q4I6I9DpJ4ljWl9Z
-	 NhiC/9UAVyBHW9ccKRS1R7qqaE86SwOhQLhTJ1yLmM+PGDyQZ5IbGP3ATbDJzAMYB4v5D
-	 UJL8jRlUWVpGknM/Ys0BNazcQbkNQ5QWMpJbTKxbv7aQiu3gPJx9G/NBLe1HPFty8Cuje
-	 Tk1Gy8scuJirzh8eXU47OKG7j5fCdAei1jjXeiBXOkmHl+Loaj6OyPw0JW+4V1gR/Ww==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=8PPx/HR4xDG+iQY+cv1KoaG7KZBkWYuC6hmVzUweW8E=;
+	b=BrjMeHKpRbb4axBkhNiPMNIptaZQJ3DgbpWZ+p+yVFG/vY9PAPfAgR3tl696SLDRBks2
+	 d30rl3EqPWljtiv6Tew+j3Hm4f7s0LklhaVul8A+WKXpLlzES/kQguJE4J15hXHvQMK96
+	 HoaMJhd7s3daqll/6z7SMVejxsYwoMt8zOgQeqVBWlcoHp7sNWjFoBZiwWGLIqZAx4bO1
+	 HIthWsR7GDjjozk0Trb0yrsVBW/xs1hSMrVvNe4V+2uVoisiBNrDT3w5JL6OUu0RwuA13
+	 F//OzkGE/lE1CIgzLj+EsPTYpDZQT+bBCmeiM2ws6wQTXAlLBgHtUg+D6KOTZWPVW9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=YMW4bIJV;
-	arc=none smtp.remote-ip=209.85.222.169
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Fpvs0M3M;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADD9606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:36:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ADD9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49062606A333
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:38:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49062606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=YMW4bIJV
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-930c0f9c1b1so464138685a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:36:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Fpvs0M3M
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so34752945e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:38:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793734590; x=1794339390; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uq8YUdEumE4c58BERrSl6Gv5Qqe1I7TfJJee/dW1I8E=;
-        b=YMW4bIJVKmfZNUHQkJBFPSiXdQPboccJarQXWNJzHuIeQFVmp3tDQVORVYvJhFFPmQ
-         /OWUpRRQPUEwdVF++8yaDOdDua/wZ6JHhu0LVhI6Ruhe6Vcf9r2Qr0zVNOipsXfAmqf8
-         XA0q3tNuhyld4TPZ+Wg0wzf+H5/RX2Iw3KiAnUze1F3FG3WrQT3bXlR7RNEMuBPy4DTs
-         NLfKdlvlIlnSF4QE4vS4oHRUSQ2AqYLVK0Y1IhFtzBD+B2TLGyQ+t6QyclvjsPEtvr3s
-         aoGcSpiE0eAxPQFf1bfPcdtgcf0lQo6eL3E/2jOzXrhRZlIUzb+5jG8ffUGF2ZROi9lw
-         HAhw==
+        d=baylibre.com; s=google; t=1793734689; x=1794339489; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8PPx/HR4xDG+iQY+cv1KoaG7KZBkWYuC6hmVzUweW8E=;
+        b=Fpvs0M3MJhfioY9sbGDh6sQpSD9Paq/GLsra9eG2IsBCECMHqW/VdV9qY4TiuxhRrr
+         cTyFX27EkNM+Kzl1cJR6W+R5Cg/eP7GdbSQPB2wa4aI5XQr4JWBXaYh7RtYF5UJjx4NY
+         3VkuqRbCTUOJ7l6YaSZVQOiiAnB9YSyjVYUczbVorXCkvTMEDGUiSZXj70NDg3xhDHvn
+         c+lBuNeaJ05Um34iCSb8ldNZU5474mF4yP+njoF3/NcIx/WC2oKmpdbEO9Pg4BlxSrIK
+         d56ApTQNhRN6nt5+gLZz5T8FNuHz25vvI2rTl9zzKLpwN7MUJShsl+VbpL/3K67EoxKa
+         C3FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793734590; x=1794339390;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793734689; x=1794339489;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uq8YUdEumE4c58BERrSl6Gv5Qqe1I7TfJJee/dW1I8E=;
-        b=n/q3xEZNMrQXQpqCFWQ8Fv+b6n+ZngcyMNEpU8/mN4mpgNo7RWhg+2fxye0oeatwKJ
-         QmTKvRN58fyfXaXamjJbLzT56rfg9FNBFpX9Vr41E8eqNySCgxWQgCbbBy4jGpkaESdc
-         GN/HKI0h3RbRGMG3d3d785yy7zg9KB064sfSyvp8ZLtDVqb2fWw5c7jhiTC31RnujCf1
-         quoRiemiRd6iWo8OlPgq7qgzV7edgA1zaL9Qbge5juIOU/usmDBYuQTUdox7V80BIOWp
-         gRlhnkPeLvUgwl1fFqDi/NR0nyqGZ1Nu2kiuWXUQquSXhlUKlGiTmnoj15wk5jfcMk/M
-         F7XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz2xQbr/eYQJMrvT803CB3/SOGpJC0zBhX+nLa2bevW2UiKo3Bj3+p9Y1Bbr+1ueyvI3E0jT/lYL1fUOyw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dUQF58vy96ykW2CW741Xu82Zz6c0COv/OlyvwnIe0WiWCmwue
-	PtY5JeL6zbxsBad9zvGEG3pybMIYdNtRw2/rorZ2j7Ubuu2ChMvg175GCfmnkceNbA0=
-X-Gm-Gg: AYBFou0xp6OvrkcIIVQRS8qXmg8HP/3b5jVBv3JbADF6UsVUOrq6/Ym3KPhOSnW2R02
-	+oBKsTIkdMja3KDQBZnjs/u1RZbzyoTcsdFa2mI84DSlBHsspsiBgxbeo3ay9exLTjqWnIRvEHu
-	xbM2KBqJ4WIDdN4cvw2YWf8X0aFksrOU035zYUAKfJxEOcMb8cQMAyckqO0m8Pvl3vQGuI80r/A
-	zSB860rXcaVAmum4H13omkC5ZStTgRvh5k1hxw0MzGlXDOy20UFcQ4ZYEgGn+ROvrdYlISgEwMO
-	dfJxhDsvbZFzhMXt+cjd1X32791icuBJ3z32jzUxtSrM1ur7EE5f9vn4UoXCBro/Lp4HuqXwqOl
-	YDy7pE3JpW/F7+DSTR6suDDHeNNQfUv1EqpBbgh2JGQoAYePoaBxZIagg9Esb+xk9Doq6/zI8mW
-	uhTaeGYQQUR3corz2f+ZvYkBD1YWp6Ds0ZIVz7Obf1xvUuviarTFe3tku03S+sFDJkYbB6SxJYl
-	Yf3VQuEcd73H+3XKufSA6ghjGHnrjNh1d3USpUtOP7OUyLKK71l9BLc9IqVbuFJxykwwhNjn6/c
-	mdaG6SERnMRvZ1QUpi/TFuv4IvuuPRFLHGTeHOUL6Dr7jD8OW7o5G30SD2ArRigb3LqWNyANf+y
-	fOngUN7nmOg==
-X-Received: by 2002:a05:620a:8013:b0:93c:2726:77ec with SMTP id af79cd13be357-944214cba5emr2106461085a.5.1793734590511;
-        Tue, 03 Nov 2026 11:36:30 -0800 (PST)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4852ba3sm9839685a.31.2026.11.03.11.36.29
+        bh=8PPx/HR4xDG+iQY+cv1KoaG7KZBkWYuC6hmVzUweW8E=;
+        b=Xh3V1KmIkG40muzCPft13HMFcmECyu6aSUxI6AI1+wUXpfSvfYtYJHJ9rUy1V/FhZ7
+         dP/zGblx+S8puLA3GXHp2vxF1hN538VNFkzJKMvfBImNZYaVBdqhUQUjnsOcdL0GBljv
+         /6wuAu81hosdd3+6VnnRBWSHveUoxCfvMk25TszFTLkKJ1gXWQcyk0DdBhZJhESpdk5z
+         bHrSZUUHh5op8ZXoAv2YsANehcr3Qd+C2bOAbRwRNcvlG7taXyHUr9rAjwEszFbjhQic
+         9+ivqqKDyoz7tjz1P+IJ6UyzlCqSESqH+3/rD/5CnNCf7bofTJO7JDdveD8X0sw7KxiT
+         wweg==
+X-Forwarded-Encrypted: i=1; AKwUvBz5W5SQ9NfNFtQmYC9H5u/2wcObLKxlQWebTMbjgLcOtjVTRNCxurigDWrP47KO72CzxI1lGKKfnIsW7qQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z90J6cJfHwZRm0QxXJx1JwoZwqlMVdDrcNX2AeTmVLL4OE59+DU
+	2dPP72NdInhs8VCsjlmErcVFvYmyGbB7C37+yKRoyKUYfZAIXquOIzvSFRCQSPwJoc8=
+X-Gm-Gg: AYBFou3wsak773KN5+4uwCPaF1cb+Kz47YV7oUPnGoiMKnSV7E01K8uzyey2+MtuYAP
+	kyb2PW0Yg/7URwU1ZX4BfN3SWIL7N77jW2uB9TddEoNgA5eNxQ42XZUPvTFlrVcVrRxlftizE0a
+	ZEyoo9NQ0bWfpK6lC0aW3hVEXXW7qdzDz3Te2ZP95hmkTXNZVEtUBbgb6STTgzBbv6vEgyMBRHo
+	Kh3FKMdks+T4zcjhn66yDRqoAlISBCuFtJtedSx8x4y/eCjqaEgvL0zOArauFXN8cq5zc2zqZWY
+	T1hYygh7+WnbNhiaTqeIlBfQtWlYMUfUNdgQFfqqH0sQ9OmCcfeGvbGeXoSTLT/6H39XFOlDRoc
+	zVmyRZLnOYcBLlqyZoMqZuGggc2SodfanNFnN/rvTQcSspy+Rdx0I7o2QOo9naB0XwM31IyH46L
+	sRAbnojlW1IlNVeySIAeKwxuIBEHgvwr5aDJRTmp6nImiycF/pax9P1XZPZEwhTzL73QD6Bvr4R
+	9DYUxXriUzS6ouQ4kIMWmRKHN+pHlFhUQLQ+FmIhckeyBhxL3FN4Wl207H/dpfn/7wMiDmjDm1N
+	bOMboDlLIGcoZwdN+AkQQhbQMQ==
+X-Received: by 2002:a05:600c:1387:b0:4a2:729:f7ce with SMTP id 5b1f17b1804b1-4ac17d16afbmr327136595e9.8.1793734688513;
+        Tue, 03 Nov 2026 11:38:08 -0800 (PST)
+Received: from localhost ([2001:4090:a244:81d0:2c16:1c4d:8a04:e0bf])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b41297c16asm5880115e9.3.2026.11.03.11.38.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 11:36:30 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xOKJ3-0000000Dn4k-1aHz;
-	Tue, 03 Nov 2026 15:36:29 -0400
-Date: Tue, 3 Nov 2026 15:36:29 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Kevin Tian <kevin.tian@intel.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iommufd: copy to and from folios in batch_rw()
-Message-ID: <20261103193629.GO3889730@ziepe.ca>
-References: <20261031-iommufd-folio-dirty-v1-0-2cef66d2d6d1@columbia.edu>
- <20261031-iommufd-folio-dirty-v1-2-2cef66d2d6d1@columbia.edu>
+        Tue, 03 Nov 2026 11:38:07 -0800 (PST)
+From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Date: Tue, 03 Nov 2026 20:37:28 +0100
+Subject: [PATCH 1/4] dmaengine: ti: cppi41: Use td_queue to restore
+ DMA_TDFDQ
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,37 +93,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031-iommufd-folio-dirty-v1-2-2cef66d2d6d1@columbia.edu>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-v7-3-topic-am335lpm-cppi41-v1-1-d7213446c5f5@baylibre.com>
+References: <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
+In-Reply-To: <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Tony Lindgren <tony@atomide.com>, Daniel Mack <zonque@gmail.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
+ "Francis, Sebin" <sebin.francis@ti.com>, 
+ "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1510; i=msp@baylibre.com;
+ h=from:subject:message-id; bh=B/woc6BJx2wq+Pk4aPkNjANUiNT1MPY10g3hs4IO0Lw=;
+ b=owGbwMvMwCXWejAsc4KoVzDjabUkhqxXFlyRG8zuTBTpWpAlxTx3WtnpBxcO69g8tjr4bdF+e
+ 4NuL4FVHaUsDGJcDLJiiiydiaFp/+V3HktetGwzzBxWJpAhDFycAjCR+kuMDN++hwdM3JT0Tyz0
+ 942/oX37VxlO3nTyqs631XPZrW4d3sjA8IeLazrbguufuTwsdxSqh5uFz7nr4+m+Unp74tcVSVn
+ tS7kB
+X-Developer-Key: i=msp@baylibre.com; a=openpgp;
+ fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
 
-On Sat, Oct 31, 2026 at 04:33:19PM -0400, Tal Zussman wrote:
-> batch_rw() copies one page at a time and, for writes, dirties each page
-> with set_page_dirty_lock(). Walk the pfn batch a folio at a time
-> instead, copying with memcpy_to_folio() and memcpy_from_folio() and
-> marking each folio dirty once. Convert the single-page copy in
-> iopt_pages_rw_page() to the same helper.
-> 
-> iopt_pages_rw_access() rejects dmabuf pages, so only pinned user memory
-> and memfd pages can reach batch_rw(), and those are always folios.
-> 
-> memcpy_to_folio() also flushes the dcache after the write, which the
-> open-coded memcpy() didn't.
-> 
-> This removes the last use of set_page_dirty_lock() in iommufd.
-> 
-> With ftrace timing iopt_pages_rw_slow() through the mock driver on a
-> non-debug kernel, slow-path writes to THP-backed pages drop from ~1310 to
-> ~930 ns/page (now the same cost as a read), and writes to 4K folios drop
-> ~9%.
-> 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->  drivers/iommu/iommufd/pages.c | 35 ++++++++++++++++++++---------------
->  1 file changed, 20 insertions(+), 15 deletions(-)
+In init_cppi41() td_queue.submit is used to setup DMA_TDFDQ. In
+suspend/resume the same value is read, stored and restored.
 
-This looks reasonable to me
+To get rid of the suspend register access, use td_queue.submit in resume
+as well to restore the value.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+---
+ drivers/dma/ti/cppi41.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-Jason
+diff --git a/drivers/dma/ti/cppi41.c b/drivers/dma/ti/cppi41.c
+index 88756dccd62c..458d20b12462 100644
+--- a/drivers/dma/ti/cppi41.c
++++ b/drivers/dma/ti/cppi41.c
+@@ -146,9 +146,6 @@ struct cppi41_dd {
+ 	struct list_head pending;	/* Pending queued transfers */
+ 	spinlock_t lock;		/* Lock for pending list */
+ 
+-	/* context for suspend/resume */
+-	unsigned int dma_tdfdq;
+-
+ 	bool is_suspended;
+ };
+ 
+@@ -1174,7 +1171,6 @@ static int __maybe_unused cppi41_suspend(struct device *dev)
+ {
+ 	struct cppi41_dd *cdd = dev_get_drvdata(dev);
+ 
+-	cdd->dma_tdfdq = cppi_readl(cdd->ctrl_mem + DMA_TDFDQ);
+ 	disable_sched(cdd);
+ 
+ 	return 0;
+@@ -1195,7 +1191,7 @@ static int __maybe_unused cppi41_resume(struct device *dev)
+ 
+ 	init_sched(cdd);
+ 
+-	cppi_writel(cdd->dma_tdfdq, cdd->ctrl_mem + DMA_TDFDQ);
++	cppi_writel(cdd->td_queue.submit, cdd->ctrl_mem + DMA_TDFDQ);
+ 	cppi_writel(cdd->scratch_phys, cdd->qmgr_mem + QMGR_LRAM0_BASE);
+ 	cppi_writel(QMGR_SCRATCH_SIZE, cdd->qmgr_mem + QMGR_LRAM_SIZE);
+ 	cppi_writel(0, cdd->qmgr_mem + QMGR_LRAM1_BASE);
+
+-- 
+2.55.0
+
