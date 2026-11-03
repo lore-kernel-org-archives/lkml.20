@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723044;
-	b=z94vvsVMva5I/OdTiQUG7g/Gz/ir4luUKmV3NKCxmTc8zUBzL/r5UjGCCFmB9LHVYQtE
-	 +I+p5fZX7niIwkSdEYqKvqq5wCNZn16AvyfuFZBa07Scx1T2ZEdHMANIL0gJjij89uoRv
-	 f+i7jLQDrYL2LhLlqLqKr0b0s+F9H0f5c6ij3Nam1NutWdMfWOi9q6HwA3cfCikYMZ+uk
-	 FJLKkSGl7yvNtyVylfSI6nIqkcNSn6pR6Po6hpAxYwbpdN5WYygQAx9+Ms2By0gC6BYc8
-	 zUIk9sz01WAlqKU+wew/NHqNZx9UwrmFZ/iCu/33vT1Ij3IOcfTeFTjgKtZuQDDzC/Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723044;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4r3GXE7D/VKsxdrJGYislD9zQL6xUFs08TL6iBbCuDM=;
-	b=D0uRFhO6ZNppCD7UjAbhIMyuMGzNM2x/MnjvS8VUHdEFPvg9FK+NDv770Z9dDFsvE3Wl
-	 3uWC1B+YM0VS3eulzbtshZMPVTRS2SErTV+7IjHsoRB5xIhwF9ZEvv8hbyHoOxY0Waf49
-	 grOiy6IigjUMmWs3WsPS6tIQLWMvca/mrP7ZW4aW+FqHc3i0XyMkzMuLWHTZ4Y5ECvPoz
-	 Rcv9EUKCDldDPeJpMbn4xz/8OCDo7y4CyfO0yaj0jImLnNhFey8IC+VZ4YEIouOLCEWMm
-	 1PYr/1WJl+VFoctIj0KuchjoxTfVVf01+G+HdDZfVOdgbWtcBZ4urHyKywg+z+/x3fg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZlR1E54;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793723062;
+	b=IlM5HjKAedTyU4vswT/VjVVbq7YaVWzrbouJqc6pLFOVECwZLLuvCkzRhm2RvXuGe72z
+	 eBFH4uP+EzrMWVlN+RcEckVvscdHqgrFtDftqXzhH6jwFBByHHqf8+++FjndBGY+Xa3R/
+	 0RM0qwYk3DrzVnqmYHWH5zJzQt/xMwoiF2AjmGSTj21lMH6RfeeZzsQ3LP6nfMg6mOnDm
+	 VjjqoV+fhDL9G9ShiZRJp/TB29JUGDLdOUS1ickXHCLpTiNxev7n4TiQ9qaBP+v6JosPU
+	 b/xRA4a00UFpXyFVn02J+htKaUbvsp2ONclW8IuGcekwMUYBXL26bLTFppYRs0L2a4w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723062;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nWaM2FkmdisC7Xf7y0ibO+gkIMg0c2qSBatZ5U8CyUE=;
+	b=OXGQlQmJkmKX4InbBDsV91tsI5Z5CgAU3jBXiDbWcoCTVWgVdc2k6cGRjXzN2acwSJ9M
+	 B0ZBi32tUQCMgXDLcT72KFkx0Wo8jHSsYt9uzkC0tkXGDtq1KQ5/HNDS/qfkHCq3r+Ya9
+	 nAOhFjuKtJkVfrU0D/5/ykqf4ibdx5H/5yqQmtN77207eWmfXAQPzo3em8fQnAlkiePZ+
+	 ODZezPaGgyhuNA+AYSmKgFaZBtLknP0kb8ogDZHkwbf2ArVIhWgsTcNwPB4KKqc8azees
+	 ZbEqfyhCFLGBCvV22fC6yHNSh90FpkFEs1vUpchBs7KK7Cwtv2yogmMXYPS6ZWqoV9g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gyQwWXPa;
+	arc=fail smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A591E606A324;
-	Tue,  3 Nov 2026 16:24:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3882606A333
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:24:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3882606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZlR1E54
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF38C1F00919;
-	Tue,  3 Nov 2026 16:23:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723043;
-	bh=4r3GXE7D/VKsxdrJGYislD9zQL6xUFs08TL6iBbCuDM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aZlR1E54tj2woQj3u+lfcauS14uPIk5Y4waaTpwy/h5JtRIw0M8zyPKu2+XCopiVW
-	 FWKAPPbZfynqufPMwVIYF/JwMsZiNRrXdELsOBouaU+n24Bl9xkfzpX5aHDIXcOQfC
-	 DWGUfY77RnkwdaS4kRZjR/+27KxjBFeF8JBZVnA2Ph6e08xVOf0D10cGircBXwpWy6
-	 dD7NH/UqSVVOmma3z44OCdeji4ZBF6hyB0WruIuto78ghdjjTgKe14AlFo6VoGIlPR
-	 4i3gVVexpORJHU0i00/lkIiLWdhtGKnSgahrixF6rWi3Dm3cfQBkh02D6gp8p3umB6
-	 sMKi7fCProX2Q==
-Message-ID: <c301fb04-1144-4ec9-a41e-3c98fb569e0b@kernel.org>
-Date: Tue, 3 Nov 2026 17:23:40 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gyQwWXPa
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a018493d57so70585e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:24:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793723060; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aWQbtDzvphrC3xPMTZPMUdKNT0jAR3yPk0rewrI5BLycl8P53781RKZxfcs1dq6oLd
+         3rUHnDq7iWeEs16A+KyFB8GajWfnuXBnKGzax7o6WbB4OTRwBTcfNESUy5bpXXf8kW79
+         mFsd/UR5AInCbgvPBbL/g0fVkDvcQF909mWTFG5coHowsuu2tt3TIrNbLd8I+46+/na1
+         95BakfARKbNa868axRRNxU/pgCpF7SPZovf9LAmzBd7cbZHXWtwQNOudApcgip9XZ+6B
+         Ki6xRHtjNpgBkHqBkdRCim/JGjF1T1BJ+15OrOEdo8qjAeVuyK9oVovXOYKq1baBbEcN
+         1b7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nWaM2FkmdisC7Xf7y0ibO+gkIMg0c2qSBatZ5U8CyUE=;
+        fh=PIyDHgKdUL9zJ548PU3AlAD9f8hMZ2YwbzwdwSy34R0=;
+        b=X220JdIicZRrBo5KOd6YKWws8sR0ie4zNCjHZrqIyZsB6yeWgmvU8qxCrq2NbmE5rt
+         tM9Vp2Or0lHc48n8RVf6KLEqvah6nzfO/ii0vpV11nufNWCe0S06y4FLdWV7Ir/4Cjry
+         3/jI4FJyHO7/Ic2bkS71WrPjbOZtI9wMkcKcqybqKdu/ek5v8ZM6kXG0J+oneyoZ/eeh
+         duXj72HBA8rZEmaiKHrnMJ7VGc0UFcyqjg/o+f61GOWZ92wkYGNF3e9gqNM4LhJbP+IZ
+         SsUVuxhQKlPA7vaw33dcdCt63gnKhxgE4TH7Tzg87W3Cl9OFnJ/p8/XilsmKLA5Afd0S
+         V4JQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793723060; x=1794327860; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nWaM2FkmdisC7Xf7y0ibO+gkIMg0c2qSBatZ5U8CyUE=;
+        b=gyQwWXPakqNPqfLYpECPqP6kIovu0Rno6xf9dsy6UzX8gWi245sCaxZa/cASDVGW+J
+         u0Sphg57Zh/hS9iwpMru/kTgY4p2YWrbrjOSDbwjweKZa/kzCWwdk3quGrintQuo4Taw
+         bm7ZbWvvsGfiz/7tjXeFRZGCOUT7z2vERL07JW7OAhvGY7E9CwOF8ORk5D3Ni6GSO4p5
+         QsJkYuDyBI5XRQqzd2SuOJkRpwJvbqNF5yHEXrGOJk994AEhZtn+eXpBlmtZxeAJ5jJT
+         VQgPhac+bIdKj/k/+OPjoAWglWwq+xHwqmEvt06Rve98YDSDzI77rOQtSJ7coUAYHNjw
+         JaXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793723060; x=1794327860;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nWaM2FkmdisC7Xf7y0ibO+gkIMg0c2qSBatZ5U8CyUE=;
+        b=p665Stl70ZE2n5SiM3a6h4LeOYKb0WEqK0xAyl/UcAZi594vWQfO1gv756RW8+Z9Xi
+         F+eIypxZ07t8HZU4DmKJ6MmTWIpCWg7U27IwDQaC8YYX8iGHwXZ4LTwcKEE/aBPMSslP
+         6FOLl7rxsJadX3JBo+v/D/5sjBgrOwb4lv78yEtWVZ8bKSgFB5dVYSHzvj9b9nfxMgLb
+         c+phggMcnld3VTve7Q20eLXjB5aWp2ihvRuMSnauc6kHXZPPIuLAq4zqyb6XpAKY3Cor
+         9DTzhXFfAoRag0SyQO5kioik9Whn7m8uxj3XSlAOmQOssQx1Zg3T0M5PMhUmjeqeMeIo
+         TidA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRDekJ8ElwqZmHFqsTJzQm0/W13ALCI4FwuPmgRtlxf0WTrmiHwYIj215wwb4H0Da/PmnCIAiJLqHxwMw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Qw2ZrF+ISmMWm15g33duy9R+1K+G0VMyjiU4yfuP+tBr/8jRJ
+	JRxxLS0IkX6R6JNgUYbhHlBrnDrAAf9l5AyZbflyQi6W4kDISuVUuFGAH3E1xvU16FgW74OjyKR
+	gXpHRk9w+gqPuGwNw+OC+0MPAsP/PHFJj+4ZBA6w+
+X-Gm-Gg: AYBFou0xM55AVzz4xmeQNxviNStO/YmCCLdfCMhhEJrV3iVM2RKgPGgOxmzUpkFFNiX
+	/hgylUCd4sJDDy4uC5tMMOZwCTE5O/y5s3FtkOj+j8w+SfsXdZ15CJO7V3/97zYa9q+ApwCw8Au
+	jnHjBy5ZNXb73dU1qnDzsW5ZWyP+0rWuyxQVNXp/dh6p/cNHP1t2mlCICITCFco+rcP8+CZA47S
+	TggUr12Og4PHoUAQ/hoJIg9lFuODBnZFhRcsR/8rtzLci3fcbdWSFwZicCrqIuJEXGQutskpliU
+	/IcmU+wjILfE5nCUp5TDCFdnpucPBbCFc2X5jlAgfPDK2nLf4SLBnv1sVlxpXoA8Y6jntQ4GbwR
+	hXgd/13+2qnosUwbL4V3BcRpzpwxecudSdo3tPbmlkaeAU0W9wwv92uDOPEwjubyymkpfAYVks3
+	WWhdPdPu3d5Eadb4in9+Da5xI=
+X-Received: by 2002:a05:600d:848e:10b0:4a1:eb11:489d with SMTP id
+ 5b1f17b1804b1-4b2e3792525mr718955e9.16.1793723059760; Tue, 03 Nov 2026
+ 08:24:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,172 +105,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
-To: Hugh Dickins <hughd@google.com>
-Cc: Alistair Popple <apopple@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Byungchul Park <byungchul@sk.com>, Chengming Zhou
- <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>,
- David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>,
- Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>,
- Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
- John Hubbard <jhubbard@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Muchun Song <muchun.song@linux.dev>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>,
- Nick Piggin <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>,
- Peter Xu <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>,
- Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
- Uladzislau Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
- Xu Xin <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>,
- Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Manfred Spraul <manfred@colorfullife.com>,
- Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
- <20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
- <b04d8d01-b42d-d948-b7b8-c360f8ec6002@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <b04d8d01-b42d-d948-b7b8-c360f8ec6002@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261103155459.534792-1-sashal@kernel.org>
+In-Reply-To: <20261103155459.534792-1-sashal@kernel.org>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 3 Nov 2026 08:24:06 -0800
+X-Gm-Features: AclHuK_dqXVxHCWjDX7Q7eybw3sAcf-f-Ua-B2wyA1INBKZKvcYJncwSGXQwV3g
+Message-ID: <CABdmKX10Ykk8qhZt9GjEm_vWz4Fx_WGjpvQLeSbohu4O2_8h9A@mail.gmail.com>
+Subject: Re: [PATCH] selftests: dmabuf-heaps: print size_t with %zu
+To: Sasha Levin <sashal@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, Shuah Khan <shuah@kernel.org>, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/3/26 09:27, Hugh Dickins wrote:
-> On Fri, 30 Oct 2026, David Hildenbrand (Arm) wrote:
-> 
->> I am not really the best shmem/tmpfs/memfd expert around, but it should
->> be good enough to judge when something is ready to be picked up, to then
->> pick it up. I'll have to heavily rely on Hugh and Baolin on judgment
->> for the more involved and more controversial bits.
->>
->> Rename "TMPFS (SHMEM FILESYSTEM)" to "MEMORY MANAGEMENT - SHARED MEMORY
->> (SHMEM/TMPFS/MEMFD)" and move it accordingly. Add myself as a MAINTAINER
->> so people know whom to CC.
-> 
-> Thank you for taking this on, David. And thank you of course to the
-> unlisted Andrew Morton, who has been uncomplainingly filling in for
-> me year after year; and thank you to Baolin too.
-> 
+On Tue, Nov 3, 2026 at 7:55=E2=80=AFAM Sasha Levin <sashal@kernel.org> wrot=
+e:
+>
+> On 32-bit architectures size_t is an unsigned int, and printing it with
+> %ld warns:
+>
+>   dmabuf-heap.c:215:43: warning: format '%ld' expects argument of type 'l=
+ong int', but argument 2 has type 'size_t' {aka 'unsigned int'} [-Wformat=
+=3D]
+>
+> Use %zu.
+>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Hi!
-
-> "SHARED MEMORY": should ipc/shm.c be added to our list of files below,
-> as mm/memfd.c is? (Though both can also go off to hugetlbfs instead.)
-> Or do you prefer to regard ipc/shm.c more as a client of mm/shmem.c,
-> rather as drivers/gpu/drm is?
-
-I would consider it more of a client indeed. memfd started out as a client as
-well, but things escalated a bit ... :)
-
-I see that Andrew is assigning it its own section, is that good enough for you?
-
-> 
-> We don't often have to touch ipc/shm.c, and generally ipc/ is well cared
-> for by Manfred Spraul (but I couldn't see a block in MAINTAINERS for it).
-
-Agreed!
-
-> 
->>
->> Add mm/core.git as the target git tree. Once shmem becomes a high volume
->> component we can dedicate it a separate tree and have dedicated people
->> pick it up.
-> 
-> Okay: but do keep in mind that tmpfs is a filesystem, and often the
-> FS folks make small adjustments to it, which usually go unconflictingly
-> through Christian Brauner's tree. 
-
-Yeah, I think that's just fine and expected. I know Christian, so that's easily
-dealt with off-list.
-
-Thanks for the heads-up!
-
-> That generally works well, so please
-> let's keep on working in that way (just once I remember holding off
-> intended MM changes to shmem.c for a release, while FS were busy there).
-
-Jup!
-
-> 
->>
->> While at it, add some more shmem/tmpfs/memfd related files+directories
->> we missed so far.
->>
->> There is also "kernel/pid_sysctl.h", which includes some of the pid
->> namespaced sysctl vm.memfd_noexec. But that's really more of a proc/
->> namespace thingy, so it's not a good fit here.
-> 
-> Agreed: if I ever heard of it, I soon forgot.
-> 
->>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> Acked-by: Hugh Dickins <hughd@google.com>
-
-Thanks Hugh!
-
--- 
-Cheers,
-
-David
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
