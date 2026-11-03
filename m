@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706635;
-	b=QFIGR/qVpM86De3SQwYULxCu0NDOxg/YFf0ZescqTi1K+Jy4+HmGM1OoCD1PZn98jc0J
-	 IxXhzItLRupZvhmHHfdFwSmMI752xtsyjkp9vHvaBUHII4BWN6u/3OoZzIapo0wxFQWCp
-	 /ltvgB1rLbmQFsbqa7c5sroHKvGUaKvDn+tVoSff3pG7YzU5Xpv5RL53akIbvx20U3WGq
-	 M1Ia00vLCpBnyxee84RJfqqxQnnXN1B9ihFrGuSL1ij32HFPIY3+MHbXybqNwtyl/NU6t
-	 knwfcG1CAhmaA1/Nc4d2b/uawP+0ka3X6atww+TwVlCgyIJCuIDYPDz+k8NWyyDdlJw==
+	t=1793706639;
+	b=i+rd+tsbaSxUMlCcZVEQE2LtGshjTV3b6eYIwftJPIP+6RYcPbXzuX/Ow2P7yJs7MZ69
+	 VaXw8Jtmj3pE8zHLa8z25lJzK43F+NjNGfguFpYRlL4jXS23lsosA0wnQre5Ts7lxqtnG
+	 INpojwq2qnjYuauDAth9MevBivk22gOx2s3VpD2CABrdH+sQDua96U/qkxTJ5XVkplD+v
+	 vGHa+E1QZnM8SYBjIvNYVf6sLSWRT7ur31Zq2nVkGqTEtW5wTGQq9pLs7RG3fo6xw7x51
+	 Soz30V71LbDsk20QrWW1L4XdFJOUAs6hVluECqtLANJNNtnjORmtNf452r1LSUluLwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706635;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=EHw38eN6k0S5PS2GsJCCIBq6WinXXG92Pz27LCOAbJ4=;
-	b=Tp3Rcm3oSF8GSqrLIWJlcv72sOPYQg2DjiL/n/m987rrg1YUVH8cEemFrQib3+/lS81f
-	 bymo2eM2YMiZgU9DpplscPM2A+xPjECQnBBmo73infLbsu84recBxqYZMTviMqhWIEO+M
-	 Fxo8zlQGgXVoWIz6uHEyjd/+LJoY/ko4i4cEF/kYFx/ZjxBmbGEfq5K8aFXQZK3Zp5Fma
-	 DuNsr2M86cok/fWoLHgW/tL+xJGNQEKiJCqo2aF9m4R5lvzlZa28ZAyWcI8tj3DPdJHVF
-	 60OVqpoeOIqFRSmPibBXnpTaX7TCzGLIpWRuiZPSNVcmV9eyWoEazOGVt9Zxi9izT+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706639;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=J5ylKNuin1LZMmgIF/8LPxT0Doar8l8mhrMQc1igFaU=;
+	b=Ly5I2m+RP76JsaKceu4DTviW2eEgq/TPbcLwhIxoz2GSMdw5uluCmfZ4VGfTgdWRMavd
+	 2TU/k9TWjE6PUaifUcl+TmoTFQHy7WmoTjwWhJm7tbB1BCxYEhsmxfSBvnOPXN0QEbWgE
+	 SipoX3gk/jS3Q+WqW48SffzDJN65tGn0//cNDmES7xxUds3XqCBoKaGRKsPpDan2iypfu
+	 WCiBf1Ovszo+XG0FIgKUb5cK4dhINWpQN8AypRQlXq55AEOhN5Z0D5M7dfHRFSwXWS8gh
+	 4hd3aU3yRhk5sbzq99s17mm1tEtEZ6kYpjdSVk515pKH1WgU9sFwNGqaUU/ZegSruoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hU3C0FQ6;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2AC2606D839
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:50:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2AC2606D839
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ypz6xYHo;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B6D606EEB3;
+	Tue,  3 Nov 2026 11:50:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20B6D606EEB3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hU3C0FQ6
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 18C8E1691;
-	Tue,  3 Nov 2026 03:50:31 -0800 (PST)
-Received: from [10.211.55.3] (unknown [10.57.89.242])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2185F3F632;
-	Tue,  3 Nov 2026 03:50:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793706634; bh=RNsb2c+IWPbtzdn1kpsrH4bVFNQRQRVMo/MtYmG/t8A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hU3C0FQ6kf3yBRUnF5y2GzAQ8LrgdiyU5Gx73gUkAsW4hZ6XKIZHsa/EXx9rUQU4L
-	 Ds/Gwhdd+2RDxfB3SmEM7faltIBC2vAN930vp2/7miQcAIZbwmbfPqVIBClJ67QUZa
-	 RsGhsAIRcgZP/IP6utP3Ae01c+NKsOOC7NTHG+zI=
-Message-ID: <9fac528e-d7b4-4052-8e50-4f4fae27b95b@arm.com>
-Date: Tue, 3 Nov 2026 11:50:24 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ypz6xYHo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793706638; x=1825242638;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XPRQrHV8qvOW70VHhKROgx5AfILIuPwXUOs275wQqgA=;
+  b=Ypz6xYHoL/SpkNYsG+LNnrtHjB7WMQfq/qEKO4j9pGI57/gU7YW8Sdkg
+   0FhUMjxKtffEFFNH4RJ64njqkSCm4mQzOGMK2NLxqbMn13Om65ZZkQApV
+   g3iXqVPhT0KtMvzhckGmoTy0jsXInIw1J14HzvkdbCPmgEDZDiugSvJbU
+   VGd8uU1pI0dzX1ABSgfw6+Lqk1W4Su2N2xMbOej0+W7CYJRU7OV/9FlU6
+   5d2Q38KUC/qI8OpWwpOGLj77yI33bmL9PrVzeko7ARBQlR6KXcgstDn9N
+   70kSKCzDXnb+VojC4vscUg0FOUtmBYOZLHrLEx+H8SuvDLBlvSBb65WO1
+   w==;
+X-CSE-ConnectionGUID: r563xNCiSPSAlvTCjfBBww==
+X-CSE-MsgGUID: cJ1Gc4FvSjayDwzYzBul0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2456262"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2456262"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:50:37 -0800
+X-CSE-ConnectionGUID: JxUfLLtWS9OqqGK40Iv9DQ==
+X-CSE-MsgGUID: C+QRoI2BSrCvkZJBPGsVzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6765508"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:50:35 -0800
+Date: Tue, 3 Nov 2026 13:50:31 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kang Chen <k.chen@smail.nju.edu.cn>
+Cc: Marius Cristea <marius.cristea@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: pac1934: validate the ACPI channel
+ configuration
+Message-ID: <aunKh9KH0-iZDWIl@ashevche-desk.local>
+References: <20261103114100.74050-1-k.chen@smail.nju.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,49 +83,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH] arm_mpam: Only program MATCH_PMG when the monitor
- supports it
-To: Ping Li <leeonion.muyu@gmail.com>, james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- reinette.chatre@intel.com, fenghuay@nvidia.com
-References: <912dbaa0-0fc0-46fb-819a-6594538b47cd@arm.com>
- <20261103023742.2624994-1-leeonion.muyu@gmail.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261103023742.2624994-1-leeonion.muyu@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103114100.74050-1-k.chen@smail.nju.edu.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Ping,
-
-On 03/11/2026 02:37, Ping Li wrote:
-> Hi Ben,
+On Tue, Nov 03, 2026 at 07:41:00PM +0800, Kang Chen wrote:
+> The four _DSM calls that describe the channel configuration trust the
+> returned package.  The first one is walked in pairs and its count is
+> used to index the four-element labels[], shunts[] and
+> active_channels[] arrays; a longer package writes past them, and an odd
+> count reads elements[i + 1] past the end.  Non-string or non-integer
+> elements make the driver use union members that hold unrelated data,
+> including a firmware-chosen pointer for devm_kmemdup().
 > 
-> Sorry to bother you again. I was looking at how the driver derives
-> mpam_pmg_max, and I think there is a similar blind spot:
-> 
-> mpam_msc_hw_probe() folds every MSC's MPAMF_IDR.PMG_MAX into the
-> global mpam_pmg_max, regardless of whether the MSC has any monitors.
-> 
-> Concretely, on our platform the DSU has no monitors and reports
-> PMG_MAX=1. Our memory controller MSC has monitors and currently
-> reports PMG_MAX=0, but if we later add PMG support and report
-> PMG_MAX=31, the global value would still be clamped to 1 by the DSU,
-> and resctrl would only expose 2 RMIDs per CLOSID instead of 32.
-> 
-> Should the convergence only consider MSCs that have monitors?
+> Validate the object type, the package count, and the type of every
+> element before using it.  Allocate the labels with devm_kzalloc() and
+> reject an impossible allocation length, so the terminating NUL cannot
+> be written out of bounds on 32-bit systems.  Reject milliohm values
+> that would overflow the u32 micro-ohm fields, and micro-ohm values that
+> do not fit in u32.  Also validate the single-element bipolar and
+> sample-rate packages before reading them.
 
-No, the PMG_MAX can also indicate the largest propagated and so still
-needs to be taken into account. Rules I_GSHTX and I_BTFZC are relevant here.
+There was another patch with better alternative. Check it and test instead of
+this one.
 
-Thanks,
 
-Ben
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> The PE-side value from MPAMIDR_EL1.PMG_MAX would still apply, as
-> that is the maximum PMG the cores can tag traffic with.
-> 
-> Thanks,
-> Ping
 
