@@ -1,85 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793718635;
-	b=VPxNeU3Btk/Obmo3KTklkeBNwcrXzlgZtBtijmXxjbqDHNmE8lmMRH68tfy3ZcizQQtb
-	 EXCOJ7ltYVw2X+/7W+5BU2puPTplLODOB2Zl4xnLfceFDE9buDIyUjeizSQSrfHD/C7fu
-	 zUcTmd32gxItB7Jr40T9SinlLyNLlUKXYOgrvwvrnRO4pKGD3SQyY4hL0aImhbTLMCF97
-	 p4qysvarNEIx1qzjlVZkLxBG7E3lM1RIR/s+Rqs48kUMU9ExaNR9nv06D+tGcn+90qitQ
-	 uN8R1EP9M4ath1taJAdAKzAv1O+Yg7cV8jzXsIomSsIZkOYuhPaUuz9lreG0zweyedg==
+	t=1793718648;
+	b=hu0c4zAVSdt6YqfZuqBksuab3RR0Hm8KHFILTtFHZsUkH+zySyGBcYtsEnTgEjf8WFxt
+	 WPqNM22wzcXhXIT9HQwE/Yur4PciCz9zxpF/0bnWd+VOrqkdnHdF75Ae3ZDNIVlOhmWOv
+	 M0YMtGqHBv4T51jfDdYWIPNc6PafMdq7fmhluFDnGNoL3br7yz5jvEb6q4ThxrJyImaG4
+	 PXFVnE7o89yi1j8+CDVrUFqUAsw6wB0E/eDhBtYCTY2o+8re0pWgr9tyYj+RJs+0j/vQw
+	 vEweKkn2//oGcF3coV8lQTofyomLnjVy6b1muH143clQL3+/g1zdBhXWi2/Ztz/Acag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718635;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718648;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=y4ejFprHMn7fbA6AWJoEiEq8rfSRXpFulq4sNe2AGUA=;
-	b=v0miR7iciAvQZSlzc5W88nEjGSF+nRZ0iWpT1+D3LjGBfBYnGgM4XHVE2ZKuQdUEPAyo
-	 rTFQwSiiN7xWBGEBDv81Mh0ZWRA2getVKDhBbw8eTxRcrrmmxDjO2IumNpgo0jvZnsr1V
-	 YPsKWoAGJXWfsThxqmwNGjt/hGSK21ImhX6nUe8Hk+ZGEFQ1allonqcTrvZ12Kh2d76+O
-	 UGmZ5mcPBkpssMfF4604FByJzfVRepByIw8SQfm6Vyzcv73zeFIpWbYu2zyY9Otlaaeit
-	 tXSOgHc5+7teORa9nzP5UzVxb1zQGUK3EYurbAzWwVHo5VbEzumBvM5nfJw5n+dXu2A==
+	bh=69LtF5LxsSyai3V1zpFQvGHNKgI/ivVQp0YDn5JQf9U=;
+	b=ttJOMkDNQDt6Vfiq2DZ4CVGgF2t3qABVEhbVfPHdVcuobOlW3nCCraDt5qPSn/hxQbOj
+	 qM1hssQDisKU7hQSmVwuApjv/R11kIiOIOdsfgSdQsaQ8AkyAKLVWEOId4RSyRcNHe7zF
+	 Jzc2SZQjRqv17I7ZX6ciK+FL9BaUo33jZzwd3drLt/twMZzfqwcI6W3b8Tm03D/8HAIa6
+	 heVkoGBoLl9AOLOpIReusjuDycxrcI2pWwQJCYCsI0Z3UwApbU+tfX9XbEi1prebcEwbE
+	 +GwOZZLNXVamMgVVKmZoDFBy0z16Wi94AtIwZsSWJJ5bC8sg7Yuu0w9Te4KDxH+lPaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Qjph4BUN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UbkPTj91;
+	arc=none smtp.remote-ip=91.218.175.199
+Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B147606A78A;
-	Tue,  3 Nov 2026 15:10:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08536606D2ED
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:10:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08536606D2ED
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Qjph4BUN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224FA1F00A02;
-	Tue,  3 Nov 2026 15:10:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793718634;
-	bh=y4ejFprHMn7fbA6AWJoEiEq8rfSRXpFulq4sNe2AGUA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Qjph4BUN/7Bx65go6uOjaS6ro8gpXeSXABxtg2sKX1STgEQbQocSdVe/GUvVSZBL6
-	 /WV94KXfhUMncqUJ+s8QUo9vlBuudYt5mH9DSWfyjvwA6FpjLONymuSiKLTWWo7H1j
-	 UweUoz3VZpQlfrR5Z1r0qnEjCKrgoPx5ReOz+1Lg=
-Date: Tue, 3 Nov 2026 07:10:31 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Hugh Dickins <hughd@google.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Alistair Popple
- <apopple@nvidia.com>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Baolin
- Wang <baolin.wang@linux.alibaba.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Brendan Jackman
- <brendan.jackman@linux.dev>, Byungchul Park <byungchul@sk.com>, Chengming
- Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, Christoph
- Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>, David Rientjes
- <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>, Dev Jain
- <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, Hao Li
- <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, Jann Horn
- <jannh@google.com>, Johannes Weiner <hannes@cmpxchg.org>, John Hubbard
- <jhubbard@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Kairui Song
- <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, Kiryl
- Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>, Muchun
- Song <muchun.song@linux.dev>, Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Nhat Pham <nphamcs@gmail.com>, Nick Piggin <npiggin@gmail.com>, Nico Pache
- <nico.pache@linux.dev>, Oscar Salvador <osalvador@suse.de>, Pedro Falcato
- <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>, Peter Zijlstra
- <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>, Rakie Kim
- <rakie.kim@sk.com>, Rik van Riel <riel@surriel.com>, Roman Gushchin
- <roman.gushchin@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Shakeel
- Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
- Tejun Heo <tj@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, Usama Arif
- <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, Will Deacon
- <will@kernel.org>, Xu Xin <xu.xin@linux.dev>, Ying Huang
- <ying.huang@linux.alibaba.com>, Youngjun Park <youngjun.park@lge.com>, Zi
- Yan <ziy@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>, Manfred Spraul
- <manfred@colorfullife.com>, Christian Brauner <brauner@kernel.org>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-Subject: Re: [PATCH 2/7] MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
-Message-Id: <20261103071031.803bcf7ef27349e5035625e3@linux-foundation.org>
-In-Reply-To: <b04d8d01-b42d-d948-b7b8-c360f8ec6002@google.com>
-References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
-	<20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
-	<b04d8d01-b42d-d948-b7b8-c360f8ec6002@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UbkPTj91
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5l77t2qq3L5LuFBcuy2fj7Ly2dABkuzVGXgG0cH9dIQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793718644; v=1; x=1794323444;
+ b=UbkPTj91uQeoBrTXtlO8oXMNemeWpw7UR3sGwP9qbCTHVpBJQuHtAZWT1LYODEQHlshd3I1E
+ Zj3mQrGeIp71s7MwA7g4UxWFiEDhkPv5JxsZNKIXcF222h2m4nJb7J6ROYxh1/AK7VXtS05FFgJ
+ PLdg+BCSwItMmMvEdO3j67Fs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 5936257d9543480e;
+	Tue, 03 Nov 2026 15:10:44 +0000
+X-Mizu-Trace-ID: 5936257d9543480e
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	david@kernel.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	linux-mm@kvack.org,
+	ying.huang@linux.alibaba.com,
+	Baoquan He <baoquan.he@linux.dev>,
+	willy@infradead.org,
+	youngjun.park@lge.com,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	kas@kernel.org,
+	baohua@kernel.org,
+	dev.jain@arm.com,
+	baolin.wang@linux.alibaba.com,
+	Nico Pache <nico.pache@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	ryan.roberts@arm.com,
+	Vlastimil Babka <vbabka@kernel.org>,
+	lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	nphamcs@gmail.com,
+	shikemeng@huaweicloud.com,
+	yosry@kernel.org,
+	qi.zheng@linux.dev,
+	luizcap@redhat.com,
+	kernel-team@meta.com
+Subject: Re: [PATCH v8 03/30] loongarch: mm: add PMD swap-exclusive helpers
+Date: Tue,  3 Nov 2026 07:10:35 -0800
+Message-ID: <20261103151037.1621401-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAAhV-H5yr0xqAUUKftz_RL-SCp02RdFB=aK0sP+uDDwXZPUmxA@mail.gmail.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,72 +95,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 3 Nov 2026 00:27:22 -0800 (PST) Hugh Dickins <hughd@google.com> wrote:
+On Fri, 2 Oct 2026 22:17:51 +0800 Huacai Chen <chenhuacai@kernel.org> wrote:
 
-> On Fri, 30 Oct 2026, David Hildenbrand (Arm) wrote:
+> Hi, Usama,
 > 
-> > I am not really the best shmem/tmpfs/memfd expert around, but it should
-> > be good enough to judge when something is ready to be picked up, to then
-> > pick it up. I'll have to heavily rely on Hugh and Baolin on judgment
-> > for the more involved and more controversial bits.
-> > 
-> > Rename "TMPFS (SHMEM FILESYSTEM)" to "MEMORY MANAGEMENT - SHARED MEMORY
-> > (SHMEM/TMPFS/MEMFD)" and move it accordingly. Add myself as a MAINTAINER
-> > so people know whom to CC.
+> On Fri, Oct 2, 2026 at 5:55 PM Usama Arif <usama.arif@linux.dev> wrote:
+> >
+> > Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
+> > swap round-trip, which makes PG_anon_exclusive have to survive in a swap
+> > PMD and not just in a swap PTE.
+> >
+> > A LoongArch swap PMD is the swap PTE value plus _PAGE_HUGE, and
+> > _PAGE_SWP_EXCLUSIVE sits outside both the type and the offset field, so the
+> > PMD helpers can use the same bit.
+> >
+> > Cc: Huacai Chen <chenhuacai@kernel.org>
+> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> > Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+> > ---
+> >  arch/loongarch/include/asm/pgtable.h | 19 +++++++++++++++++++
+> >  1 file changed, 19 insertions(+)
+> >
+> > diff --git a/arch/loongarch/include/asm/pgtable.h b/arch/loongarch/include/asm/pgtable.h
+> > index cf29a4c8ac593..87fecc3a51001 100644
+> > --- a/arch/loongarch/include/asm/pgtable.h
+> > +++ b/arch/loongarch/include/asm/pgtable.h
+> > @@ -351,6 +351,25 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+> >         return pte;
+> >  }
+> >
+> > +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+> > +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+> > +{
+> > +       pmd_val(pmd) |= _PAGE_SWP_EXCLUSIVE;
+> > +       return pmd;
+> > +}
+> > +
+> > +static inline bool pmd_swp_exclusive(pmd_t pmd)
+> > +{
+> > +       return pmd_val(pmd) & _PAGE_SWP_EXCLUSIVE;
+> > +}
+> > +
+> > +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+> > +{
+> > +       pmd_val(pmd) &= ~_PAGE_SWP_EXCLUSIVE;
+> > +       return pmd;
+> > +}
+> I think the order should be pmd_swp_exclusive, pmd_swp_mkexclusive and
+> pmd_swp_clear_exclusive. That looks more natural.
 > 
-> Thank you for taking this on, David. And thank you of course to the
-> unlisted Andrew Morton, who has been uncomplainingly filling in for
-> me year after year; and thank you to Baolin too.
+> The riscv version is already like this, but others are not.
+
+Done. The LoongArch helpers now use test/mk/clear. I also reordered
+s390's PMD helpers to match its adjacent PTE helpers. RISC-V and arm64
+already use test/mk/clear for their PMD helpers. Powerpc and x86 retain
+the order used by their adjacent PTE helpers.
+
 > 
-> "SHARED MEMORY": should ipc/shm.c be added to our list of files below,
-> as mm/memfd.c is? (Though both can also go off to hugetlbfs instead.)
-> Or do you prefer to regard ipc/shm.c more as a client of mm/shmem.c,
-> rather as drivers/gpu/drm is?
 > 
-> We don't often have to touch ipc/shm.c, and generally ipc/ is well cared
-> for by Manfred Spraul (but I couldn't see a block in MAINTAINERS for it).
-
-I actually have this queued in mm-nonmm-hotfixes-stable:
-
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: MAINTAINERS: add an IPC entry
-Date: Tue, 27 Oct 2026 21:09:52 -0700
-
-Add an entry covering ipc/ and its IPC and POSIX message queue selftests,
-with Andrew Morton as maintainer and Manfred Spraul and Davidlohr Bueso as
-reviewers.
-
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Davidlohr Bueso <dave@stgolabs.net>
-Acked-by: Manfred Spraul <manfred@colorfullife.com>
----
-
- MAINTAINERS |   10 ++++++++++
- 1 file changed, 10 insertions(+)
-
---- a/MAINTAINERS~maintainers-add-ipc-maintainers
-+++ a/MAINTAINERS
-@@ -14070,6 +14070,16 @@ S:	Maintained
- F:	io_uring/bpf-ops.*
- F:	io_uring/loop.*
- 
-+IPC
-+M:	Andrew Morton <akpm@linux-foundation.org>
-+R:	Manfred Spraul <manfred@colorfullife.com>
-+R:	Davidlohr Bueso <dave@stgolabs.net>
-+L:	linux-kernel@vger.kernel.org
-+S:	Maintained
-+F:	ipc/
-+F:	tools/testing/selftests/ipc/
-+F:	tools/testing/selftests/mqueue/
-+
- IPMI SUBSYSTEM
- M:	Corey Minyard <corey@minyard.net>
- L:	openipmi-developer@lists.sourceforge.net (moderated for non-subscribers)
-_
-
-
+> Huacai
+> 
+> > +#endif
+> > +
+> >  #define pte_none(pte)          (!(pte_val(pte) & ~_PAGE_GLOBAL))
+> >  #define pte_present(pte)       (pte_val(pte) & (_PAGE_PRESENT | _PAGE_PROTNONE))
+> >  #define pte_no_exec(pte)       (pte_val(pte) & _PAGE_NO_EXEC)
+> > --
+> > 2.53.0-Meta
+> >
+> 
