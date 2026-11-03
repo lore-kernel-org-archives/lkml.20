@@ -1,78 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670223;
-	b=2pe2nCNqS0cpEnFnnnCkSimdhqhxfjU7C2K6yVIiq5ZFqAzC3mSmgJVjAnRTcjgJBiIu
-	 4KWO1CeoV6WClfrb++IIlZnAOpBVgfSwmUvn2RMIaV2XsD7KCRHSCxXR+ahLiuv/coFEP
-	 tdR1uWdH6g3hLWdzVARw3cQqpXKY0n5Ks13muS/g8CUTJx73OcR3by2S/1DDCTYksKZhQ
-	 EAO5i17rsTG1eg/GRlh3wI25RCIde6JoDc4Okswh9f4PRkeGmFE6rDvez9S3luxIajZhH
-	 kpQiVedksVeL3+Pas8M3qvzTYmzE3AcxI5TiYYP88uDeUO6N1FI2dAKUCpKibH+RFsg==
+	t=1793670305;
+	b=ngxXqCjNx/b7gVrVBZWt9B2ztpTXWvKUT9954dciJ8zroGr6qnhhtx1MIWeoJBpPPsM4
+	 gWVbo+FTlLcrL/dtsJsxcpZDhPSCni3vKYv5XTuH7dkwZdQqhsmBlkpknq/jRm8MGARiv
+	 5lRuOQu1i2YjiP++OEaDdoTcnoDpzlkuqOOTOmZGQ1mjSLDh3qTMsRlwTLZftOwsDmfU9
+	 J0XyKz6YKythwZhwU5iad1Efbtz66kIsYlyavx1Jyug2idey9bajuNqQLw9fEAty7h/oH
+	 1Yo13Uk+pxEKZXcXYr1PvVBWrWSkjUycTY2qx5tLza2kNYoYwCzAzRkBZZ++oB7ngiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670223;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4kniJNifKCcuuGOg4oonNj+llyeJgvvjLzYbyLbb6wM=;
-	b=YeryRtHr7U8auVDRGTaL1jDkebtg/b97ZGdWM0D8GpkfNE2bM6ppkwTsqt/SddjNYheI
-	 S9YhE6pGykMpIEGZcoQS8VMfM9OGFP3ICUQMdAdRaAH2qgJDjHrJQ6pHsDirrnJBuglx+
-	 fU1+9gqz2oJUM2mHMQfkQxR4VT8gqw3UMU3x/ehEmYilS4T8EDLWF/dxSiAYE/VqU8IyU
-	 6LRdecwlA3NV/DALDsEaTMd+HNw/0K/t6Cb3uArXki/DfRdvn9I1FwS5GJKjx+riuYdB3
-	 OSXjJV7aGH/CSp0NIyhETWV+Cg3kyixxP4gQ+vzQhhT+7ngKk/3AmYNajWwSh+OM5fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670305;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NAL8h5fNjU6hYhdrPv5ujxCXwUQRFrAUW+j8KRIqdls=;
+	b=1HlL9fpO7Vn6CTDEa1SFcJp6fpJSE/Rh+0l87WmqdztYhT48wepjxwf0Y7fnETYvQg0b
+	 hNU3rmkaFkJgQbxLuDWeRAc66cgOV+pLdS2kR4gNEEu1sNFXWDb4xHD+birdu1k4W7RsH
+	 XsHqmmcgvhAfn2cTjjh6gIKNOlE3Kk8GkrY1a66PNgUj66DBB3uDmZ1DbXSoc7wFNu3Ve
+	 via4uYy5vAtZ98Cs/tmWiWM1R8/UW4P+vrfDwCDzGXLyljXHhffLxL8f7eEc3ukev3DX4
+	 amzO6uoBFtqAZwc0c7YSZevIC0WkOWeOHOYFo3CjVtkxf4+AO9Nx5BoJdm4vHM3nmnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F3yly/uT";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F643606A32E;
-	Tue,  3 Nov 2026 01:43:43 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=AMRZJQBy;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26F81606A327;
+	Tue,  3 Nov 2026 01:45:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26F81606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F3yly/uT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE1C1F000C1;
-	Tue,  3 Nov 2026 01:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793670223;
-	bh=4kniJNifKCcuuGOg4oonNj+llyeJgvvjLzYbyLbb6wM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F3yly/uT4qmFRgXh1ssn5lW3nMStihnIt1vuNOiyH/h1wLmci+mZmNQPnPKu1y9ML
-	 tOlNk2GfCS7IEHxT9jmQzA0sAqBfbZEht4LYUZxABS3IkMhvqzqyAPBK3qfKT+K3iT
-	 HHrKvYbLvX+9Pv2DhN5XHkzhow6YuiMoK7FuRbn1lmyoq+czheusOll0aQXuHki13P
-	 4NwJirF2GEYOLHRALbT85GFMiTAS+0EJrfaWyZUpV7rG+VCO8m8ZXIqFoQ5ZWIwcHz
-	 rnPTDRQNHBagZhjBB6O2QGy8KJHEDyCALkex//7zVRZvykjkCpKVqaeRPUCwsOtkia
-	 ux9vyx/UbUd/Q==
-From: SJ Park <sj@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: SJ Park <sj@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/8] mm: remove find_lock_page()
-Date: Mon,  2 Nov 2026 17:43:34 -0800
-Message-ID: <20261103014335.94889-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102-page-wrappers-v1-6-e7280bdb31f6@columbia.edu>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=AMRZJQBy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=AMRZJQByJhw4qT9Fx4IHq3sbGn1c2SVbqXj5hQxlz3A9rsenQpboD0uy1VVA12mZvNDLGu3Ubegki
+	 73aEBFDhm0Al1wTHQTbf7REVzBC75/iCk4cYVhfxxsc6+9ulyJ9zGQE+DAgahv+N8I0DWvk8fR3M7A
+	 t11OW4Bl5DlhbB9g=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86ae93c9b563-2d15a;
+	Tue, 03 Nov 2026 09:45:01 +0800 (CST)
+X-RM-TRANSID:2ee86ae93c9b563-2d15a
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae93c9a914-e4784;
+	Tue, 03 Nov 2026 09:45:00 +0800 (CST)
+X-RM-TRANSID:2ee96ae93c9a914-e4784
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: Kevin Cernekee <cernekee@gmail.com>,
+	Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] usb: gadget: udc: bcm63xx: Propagate iudma_init() error code
+Date: Tue,  3 Nov 2026 09:44:57 +0800
+Message-ID: <20261103014457.1255-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,21 +72,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, 02 Nov 2026 17:54:11 -0500 Tal Zussman <tz2294@columbia.edu> wrote:
+bcm63xx_init_udc_hw() calls iudma_init() and stores the return code
+in rc, but then returns 0 unconditionally.  When iudma_init() fails,
+the hardware has already been torn down by bcm63xx_uninit_udc_hw(),
+yet the probe believes initialization succeeded and goes on to
+register a gadget controller with non-functional IUDMA channels.
 
-> There are no callers left. Remove it. The name still appears in a
-> sample function graph trace in Documentation/trace/ftrace.rst, which
-> is recorded output and is left as it is.
+Return rc so the probe fails and reports the real error.
 
-Makes sense to me, the example could be updated later in my opinion.
+Fixes: 613065e53cb1 ("usb: gadget: bcm63xx UDC driver")
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+---
+ drivers/usb/gadget/udc/bcm63xx_udc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+diff --git a/drivers/usb/gadget/udc/bcm63xx_udc.c b/drivers/usb/gadget/udc/bcm63xx_udc.c
+index ba91b1ebb..250bb7685 100644
+--- a/drivers/usb/gadget/udc/bcm63xx_udc.c
++++ b/drivers/usb/gadget/udc/bcm63xx_udc.c
+@@ -1012,7 +1012,7 @@ static int bcm63xx_init_udc_hw(struct bcm63xx_udc *udc)
+ 	if (rc)
+ 		bcm63xx_uninit_udc_hw(udc);
+ 
+-	return 0;
++	return rc;
+ }
+ 
+ /***********************************************************************
 
-Reviewed-by: SJ Park <sj@kernel.org>
 
-
-Thanks,
-SJ
-
-[...]
