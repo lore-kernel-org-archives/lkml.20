@@ -1,45 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793733391;
-	b=dSE80+zCPOOADrZ8Mp40l5GcSKQeIs/j+GWE+DlUCrQ0u5Dag36uf0DQhwNXO7Itv11e
-	 PNSKNzH8G+kjmsK5ASfyjnicX6IzYDdBwuWPSJCPdKOnhY/UBho941DLmTGutSV1mx0AM
-	 TAshHZmI1nLwdJIe3G25Y1hHOSk2KpmNcAcxAAlx42dpyHeI/e7eDIbYleXM6TmI6YzMk
-	 nqsBI1sG5icpTlABEUhJtq2FGjTz8eYK4i7NVlz1RR2bMMIpe5WmFYAMqdWmXcdTBiwAC
-	 uXcjN7TtS8vlyAgijsgw1m1Usa/aA4Nhummrk/zlkimIcqzx+9tncI/zzJazZ+dzRGg==
+	t=1793733437;
+	b=hXURxIOkI5nTIcWS05CQ5Xprip0XgDIsdL75KRLatjkyri3eyum+kPHGlk98HWMAMu/m
+	 Rwmpuc2npxnHOy1VYdhu0v47WpgUcS8EdeEnKsMzx6rraOuz2mO+V6Lsoz+82LbJBf8C+
+	 J0GBpLP8x6Ia1ut13c4LVUhP17UwWQLchI6UpjaR2oQ5TDeBNRKmrxeQVSBSAqgv7+5I8
+	 DNIMufyuUuIshnPY4UieZVHo8mwtkKsQWQnYs8eW/9c5up6cfEyLkYGMGPabEAXOaNGqy
+	 8DvCBqkc1WErYglio8QNJ0m7I9qfv/MN/6gXjeXTNCC+mGfSxEBLKD+Y729YTlOKsFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793733391;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=ez3LREjVqWbtuu0R1Tu+Hqdkn2audXMfzoID2IZR4xo=;
-	b=nbfiFn7wpRQH0FrvZtf4WdqXhyHfz2Ib7vrXlk5m0A3pEDxa9I7vUQLUpeHgBDjs6YLp
-	 SRDEjNoqReVACnnG60a5A1y9pKXJu3FacgCT1XSjJmeQK7Ro1ayHMADXFwuhAEIJ24uL6
-	 vmSm8nyewyUj5rD3S0wzUqddr2DXIBh5vwYtUAnV4GgMGXr9EiKyyqKrS+lB+sgVUz0Af
-	 sOT05XaAR4xdUjXGfnXB+BChMdUrMNbszDo8NCWV6BeORxkoTy3BVvnoZkPDIqVaPi7Ec
-	 CZh3tA//cUCBu1Y1LXe6kAVvvtS8DbB6xoTMXOhOfBt71UWAiNYf5aXQ9iyEcK1nwbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793733437;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=XEpLQlM4niyRTTg5pX/GDc+5D2VROd0b+UsPN2wwGc0=;
+	b=FekZdMvGHq0oDDOW13DMBU3fi9XThFToo0Eq9cf22MZl8vzrQa+GRiOMT0ervjw2vOSh
+	 BmargEAypmwdsEk9SdqkpnSNfh32zRYjDCWq/4sQwSjugq3kGK6K4Gtz5n8IZbvieC/CY
+	 bOOnok1zVC6edfBTBN+HpqrWk0MER63JIbGn+QEEUTaeVUwPqCWRDfZv+H2cr9n7xqZl9
+	 Tw4o9EcWVX6uv+6NhIV+8gyGh7CNcXdSLf2qOZE1USoPI/a/D+SuYRUtScPkxqlKD/zdX
+	 4MYuuqKOfdbJVzDSMbW6pvvq1S581/0q5FaU+6mhGMenbL4/I3hIeLdWeM6GIIxOmAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UCnHBREx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=a6C9l+kq;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836C1606A31B;
-	Tue,  3 Nov 2026 19:16:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CCD606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:17:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CCD606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UCnHBREx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31ED1F000C1;
-	Tue,  3 Nov 2026 19:16:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793733391;
-	bh=ez3LREjVqWbtuu0R1Tu+Hqdkn2audXMfzoID2IZR4xo=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=UCnHBREx6K51wmLNE6LB68w9g2tOgu+8lMJxiApS+OIZGKlCnPJzV16a++Less2II
-	 CTIhoKRhFsGr1Dzb+Fj+AM6cjPRmJCTQsYu5vft8+QFApkgRbnHIaYLwmL7bD2IlJs
-	 52ClxnLnnioj1FgZ/syAEGOZn65k8XuJRSuD8miOv3npiGCtRbUsarTO3zs0IqZ56r
-	 lh6Vkj5VcbzpMbCxHac2srtMI5U3ycI0Qq0VNueWC8R7ODVo6xdNWygvHHtocgahTj
-	 wWagnV6Nj9lHDsjum8bsGQSJwLFIVuLuUsIekn2HCD8yP2+m2R62Cq7DLAwJUALTCT
-	 fvJVHxr8ecTng==
-Content-Type: multipart/mixed; boundary="===============2571936981127289922=="
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=a6C9l+kq
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=XEpLQlM4niyRTTg5pX/GDc+5D2VROd0b+UsPN2wwGc0=; t=1793733435; x=2109093435; 
+	b=a6C9l+kquQLJ3MGN7Pz/pjo1Ubq6ZvG+sDoUXZSB52XpqlGmjuZjQtmrh6JLV0XSQQ87v7BEY50
+	DFA54mZtp+RVxHJ7bjU36b8kCz+pKdhYMVDaVwFMSEzdjHhmilRj0pjstsrESeO78CgmG3sZ0p8rW
+	cDHdMPFEqjaDt+4oZfnP85VqWhr0esiBWz5/+hl588KHb+IIQxSJZfzxzygsr0/UwuB1Co0ELrkls
+	PYpLHZVWP/X+1FsSW5iMjOnq98FZ38N9q5C+RrewcBkNmZ821QEWlwRHpFK5KIYlaJUquiXT35lpe
+	vzS1TbbA0g2VSQZ959/tGk3yOY+bwM/bor7Q==;
+Received: from 186-249-149-105.shared.desktop.com.br ([186.249.149.105] helo=[127.0.1.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xOK0M-001Wjb-W9; Tue, 03 Nov 2026 20:17:11 +0100
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+Date: Tue, 03 Nov 2026 16:18:25 -0300
+Subject: [PATCH] nvme: reject completions for requests that are not in
+ flight
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,110 +59,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <228df6014515374d68917ecb8bf5d831f40843809ac3d93162aa7fd14b416744@mail.kernel.org>
-In-Reply-To: <20261103-bpf-rhtab-irqs-disabled-v1-1-9874d96a088c@columbia.edu>
-References: <20261103-bpf-rhtab-irqs-disabled-v1-1-9874d96a088c@columbia.edu>
-Subject: Re: [PATCH bpf] bpf: Fail rhtab inserts and deletes with IRQs disabled
-From: bot+bpf-ci@kernel.org
-To: mt4022@columbia.edu,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,yatsenko@meta.com
-Cc: eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,tz2294@columbia.edu,mt4022@columbia.edu,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue,  3 Nov 2026 19:16:30 +0000 (UTC)
-
---===============2571936981127289922==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-nvme-double-cmpl-uaf-blk-mq-v1-1-b10fea474423@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAIAz6moC/x3MQQqFIBAA0KvErBtIi/r8q0QL07GG1EopgujuS
+ cu3eTckikwJ/sUNkU5OvIYMURagZxUmQjbZICvZClFJDKcnNOsxOkLtN4eHsji6Bf2OVBv5s12
+ jjbKQhy2S5evb++F5Xjm4lo1tAAAA
+X-Change-ID: 20261102-nvme-double-cmpl-uaf-blk-mq-e3d28f74cdaf
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Chao Shi <coshi036@gmail.com>, kernel-dev@igalia.com, 
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Mauricio Faria de Oliveira <mfo@igalia.com>
+X-Mailer: b4 0.14.2
 
-> bpf: Fail rhtab inserts and deletes with IRQs disabled
+From: Chao Shi <coshi036@gmail.com>
 
-TL;DR: The irqs_disabled() check in rhtab delete and insert may return -EBUSY
-for every IRQs-off caller, such as sched_switch or perf programs, not just
-re-entry, breaking previously working users; the commit message's claim about
-other hash maps is also questioned.
+There are a few kernel crash reports from the Steam Deck where incorrect
+completions received by the nvme driver have a command id/tag associated
+with a freed request (rq->mq_hctx = NULL), dereferencing a NULL pointer.
 
-> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
-> --- a/kernel/bpf/hashtab.c
-> +++ b/kernel/bpf/hashtab.c
+  nvme_handle_cqe()
+  -> nvme_try_complete_req(req, ...)
+     -> blk_mq_complete_request_remote(req)
+        -> if ((rq->mq_hctx->nr_ctx == 1 &&   /* Oops! */
 
-[ ... ]
+Although the usual suspect is the nvme device firmware, one report shows
+incorrect completions also received by the ath11k wireless driver at the
+same time, which suggests the underlying issue might be something else.
 
-> @@ -3144,11 +3144,14 @@ static int rhtab_delete_elem(struct bpf_rhtab *rhtab, struct rhtab_elem *elem, v
->  	int err;
->  
->  	/*
-> -	 * disable_instrumentation() mitigates the deadlock for programs running in NMI context.
-> -	 * rhashtable locks bucket with local_irq_save(). Only NMI programs may reenter
-> -	 * rhashtable code, bpf_disable_instrumentation() disables programs running in NMI, except
-> -	 * raw tracepoints, which we don't have in rhashtable.
-> +	 * rhashtable takes its bucket bit locks with IRQs disabled and can't
-> +	 * detect re-entry. With IRQs already disabled this CPU may already
-> +	 * hold one, e.g., in NMI or in a program attached inside the resize
-> +	 * worker's locked section.
->  	 */
-> +	if (irqs_disabled())
-> +		return -EBUSY;
-> +
->  	bpf_disable_instrumentation();
+  [ 2585.223155] ath11k_pci 0000:03:00.0: tx completion for unknown msdu_id 0
+  [ 2585.223163] ath11k_pci 0000:03:00.0: tx completion for unknown msdu_id 0
+  ...
+  [ 2585.228077] nvme nvme0: request 0xec genctr mismatch (got 0x2 expected 0xa)
+  [ 2585.228079] nvme nvme0: invalid id 8428 completed on queue 3
+  [ 2585.228205] nvme nvme0: request 0xe2 genctr mismatch (got 0xe expected 0x2)
+  [ 2585.228208] nvme nvme0: invalid id 57570 completed on queue 3
+  ...
+  [ 2585.228726] BUG: kernel NULL pointer dereference, address: 00000000000000fe
+  ...
+  [ 2585.228752] RIP: 0010:blk_mq_complete_request_remote+0x1c/0x160
+  ...
+  [ 2585.228787] Call Trace:
+  [ 2585.228790]  <IRQ>
+  [ 2585.228828]  nvme_poll_cq+0x14b/0x300
+  [ 2585.228838]  nvme_irq+0x41/0x80
+  [ 2585.228845]  __handle_irq_event_percpu+0x4a/0x180
+  [ 2585.228850]  handle_irq_event+0x38/0x90
+  [ 2585.228853]  handle_edge_irq+0x8b/0x230
+  [ 2585.228858]  __common_interrupt+0x3e/0x90
+  [ 2585.228862]  common_interrupt+0x80/0xa0
+  [ 2585.228866]  </IRQ>
+  [ 2585.228868]  <TASK>
+  ...
 
-Does this irqs_disabled() check detect re-entry, or does it reject every
-delete made from any context that runs with IRQs off?
+However, even when the nvme device firmware is at fault and need an update,
+it is interesting for the kernel not to crash, so that it is even possible
+to run the firmware update where the issue happens frequently or early on,
+and while waiting for the update to be made available by the device vendor.
 
-Most of those contexts do not hold a bucket lock.  For example, a tp_btf
-program on sched_switch runs after __schedule() has called
-local_irq_disable() and taken the rq lock:
+The fix is to check that a request is actually in-flight before completing
+it. This has been previously reported and proposed by Chao Shi, found with
+fuzzing, but without further feedback since July. I happened to learn of it
+only after root-cause analysis and reaching a similar conclusion, checking
+for prior work/feedback, thus keeping them as Author/Signed-off-by, adding
+myself as Co-developed-by for the commit message and root cause analysis.
 
-  __schedule()
-    trace_sched_switch()
-      bpf program
-        bpf_map_delete_elem()
-          rhtab_map_delete_elem()
-            rhtab_delete_elem()
-              irqs_disabled() -> -EBUSY
+In Chao Shi's patch, there's been feedback/question of whether this should
+be done in blk-mq, as this is not specific to nvme. I'd say no, at first:
+- Some blk-mq calls for completion have no return value (e.g., completion
+  on other CPUs), which suggests maybe an API change and updates to many
+  callers, all for an edge case.
+- An alternative available currently might be blk_mq_ops.complete(), but
+  that is handled in the driver anyway, with risk of hitting an error in
+  blk-mq (like this) as the code changes, and seems semantically wrong,
+  i.e., completing a request that should not have been completed.
+- Keeping in mind a small fix for stable, for now, should this be merged.
+- But happy to take suggestions if blk-mq is indeed the way to go.
 
-The same applies to sched_wakeup and irq_handler_entry tracepoints,
-perf_event programs (which run from the PMU NMI or hrtimer hardirq),
-fentry/kprobe on functions that run with IRQs off, sched_ext callbacks
-under the rq lock, and code between bpf_local_irq_save() and
-bpf_local_irq_restore().
+This has been tested with a synthetic reproducer produced by an LLM.
 
-The verifier has no program type restriction for BPF_MAP_TYPE_RHASH, and
-these calls succeeded before this patch.  Would a guard that fires only on
-actual re-entry, such as a per-CPU or per-map marker set around the
-rhashtable locked sections, or a bounded trylock on the bucket lock, avoid
-the deadlock without breaking these users?
+Originally-by: Chao Shi <coshi036@gmail.com>
+Signed-off-by: Chao Shi <coshi036@gmail.com>
+Link: https://lore.kernel.org/linux-nvme/20260522153034.2168862-1-coshi036@gmail.com/
+Link: https://lore.kernel.org/linux-nvme/20260715005105.1115958-1-coshi036@gmail.com/
+Co-developed-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+---
+ drivers/nvme/host/nvme.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-The commit message says -EBUSY is returned "like the other hash maps do on
-re-entry".  Is that accurate?  htab_lock_bucket() uses
-raw_res_spin_lock_irqsave() and fails with -EDEADLK or -ETIMEDOUT only when
-rqspinlock detects a deadlock or timeout, not merely because IRQs are
-disabled.
-
-Also, 46730ee6e884 ("rhashtable: Use irq work for shrinking") moved the
-shrink kick to irq_work so that it may be called in NMI context.  With this
-check, __rhashtable_remove_fast_one() can no longer reach that
-irq_work_queue() call from NMI or with IRQs disabled via this map.
-
-[ ... ]
-
-> @@ -3261,6 +3264,10 @@ static long rhtab_map_update_elem(struct bpf_map *map, void *key, void *value, u
->  	if (atomic_read(&rhtab->ht.nelems) >= map->max_entries)
->  		return -E2BIG;
->  
-> +	/* see rhtab_delete_elem() */
-> +	if (irqs_disabled())
-> +		return -EBUSY;
-> +
-
-The same question applies here: this makes every insert of a new key fail
-with -EBUSY from any IRQs-off context, whether or not a bucket lock is held
-by the current CPU.
-
-[ ... ]
-
+diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+index 2d8f681079e85601a92624d196e77f1ba3ace34a..3ba0666da7be6a3de2e5f0fd50155af115b4e1f6 100644
+--- a/drivers/nvme/host/nvme.h
++++ b/drivers/nvme/host/nvme.h
+@@ -708,6 +708,11 @@ static inline struct request *nvme_find_rq(struct blk_mq_tags *tags,
+ 			tag, genctr, nvme_genctr_mask(nvme_req(rq)->genctr));
+ 		return NULL;
+ 	}
++	if (unlikely(blk_mq_rq_state(rq) != MQ_RQ_IN_FLIGHT)) {
++		dev_err(nvme_req(rq)->ctrl->device,
++			"completion for request %#x not in flight\n", tag);
++		return NULL;
++	}
+ 	return rq;
+ }
+ 
 
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-nvme-double-cmpl-uaf-blk-mq-e3d28f74cdaf
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41698986159
---===============2571936981127289922==--
+Best regards,
+-- 
+Mauricio Faria de Oliveira <mfo@igalia.com>
+
