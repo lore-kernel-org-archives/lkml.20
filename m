@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689134;
-	b=4IE0M9xbc8i1FCp+ecz1zrsQ5pOchtGSNuzYJ6ZMqhZuHw/3EWd1izfdLCWn2xKcCzU+
-	 qG5GGPw9APQYQx6JUh/7oZIDBupM7tBRZ0m16aCh9CMK53xb7n3X0fBGhE0LbgsC8gzEf
-	 UztAFQXkF3Rlk6PEgPMvrCGIrkSqVjymO49a5cxiN34lJ/2pSSBZT90LM1hppJcp6lzg5
-	 9O3AwMkDebYdzQmSq4M4J0bz8OlIiQnqpzhcs9qXp+3Aa9GpzLDwvxoOmzDCW/9DdHxiO
-	 AgqHqUCzwqh4Hp73Bvgcx1z2rGLQUp5lk1w27KAg/q4WAAcH+IkIZsR4e1mtBcf6bXg==
+	t=1793689374;
+	b=LBQjjaMZHoi19pAo6TWgiFkxQVnkz0LN/uVxQy9yJVCiNBrz5YuO/o85bZPr+wPyeMnd
+	 owX+0QHAyc8nztAMP67LK7jWDzF+Y2T6cKMI/DjnoaMLy7XaQ+o1SXSEEkCOZMsEy2L4n
+	 4Qr/Lwela1P41YqhJpVD7hcj7dBjIjUY2OCRiH5TwubDel8Atz1h+jW5UhtcGgIO6qEiO
+	 h+/J+Z/Oc2D7cecoU2EZWmOlXg2VZPpfZ492EbXNNrxocIJ1YeVVoxL3iUWkF9WD2qDiC
+	 k9Xkz4xIUf3AhJVJO4EOxCUJ4HWxgsU0QsFbbPqxiT16JERhjFmCO8sXDv7Ac2pHX0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689134;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=FbNwIIesd35gMyMCitT3Boc7Pz0ffUauO/QG4IAyeQ8=;
-	b=Btko0Nm9Cy2vDQRe/ZjNbmEYWF5sUBs+zQpK20ww4qdjDFyi7JQ9kj/0wn5CsjT65gyy
-	 1G9zrckNNOd5rfNknawLVSR1V3c+0PzaQ8o675C7eAXozd3YgcHbCDbp+hMlVPl9u3WV9
-	 ZRHROkCCvXeCYE0MiXNWaH1ay542c+P4FZK/FS6LW43MaA47wvLPlpZUakedXN3whksJ8
-	 c9isngnEn+kXhOJDRcPDLY7VjB6eK66PpwHAUJ08qiUTCIEAt5ADTzKuo84CW5OIsSAQR
-	 AMNUmGX9xWV+6r35YUZrbo5ZOpZSOJrTnnuoRfoC/YZ6BhlPiKyOzSrFghM5zh+HceQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689374;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+S+ywes3kNv+A4N1xLXPObOnn3wXaYCT7Uss5A1Oyco=;
+	b=26nuujK1vxXb9uz9Lv99p02nqbbvhVB/fVDY4CwzyQecSDnC+BgpomfYKHmGLEU33zzz
+	 Zr8MKZdqvNLTSqT6k3JE3BXGCRJ7xXeutWHLZRVJRhCWzn52/su4Wi+Wr4NZW6P6mZQDz
+	 mtH2Td2sTj88UPcmMo0vlyFjYFau08Mm99+wX5agiceLTtAALQf8DMU7yUccS5V+rNM4W
+	 9r6c6ckN2OwiVlkJlRevH6HeJnc8dB48xsPDESarLzJRIQrXx2SCocxpjZ0OkzJwYFaur
+	 T2wJJ3Hos6sqF5WGzqLuKPpwy0+RrdPb7vHnJLFJo4OZQTeqKpAmE5xjXWovNaUG3zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYYxCUm3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--robertpang.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VVcIHBxD;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0517606A330;
-	Tue,  3 Nov 2026 06:58:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0498606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:02:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0498606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--robertpang.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYYxCUm3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00CE51F00919;
-	Tue,  3 Nov 2026 06:58:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793689133;
-	bh=FbNwIIesd35gMyMCitT3Boc7Pz0ffUauO/QG4IAyeQ8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UYYxCUm32vPRI4rnUBdMiKrdFsWgyMkMumRWqL0BQ6gOFy33JSj6tUkRafXZoR7+r
-	 WgTaEBvhbDJe0LjC1tpxrgJMGCrUyvkW5k7OohFiWTIHo2prxlVssqjr670GnSYRWm
-	 uiFxRVLZCvRsBmkEZJb6RhtNWPuvI7Ut2mUk5eY2giIO+X1FG+dOipya14yLP/fU4c
-	 00qzA0QhMKgE9IWC9OUwe8T+FE4a9arkfIztNube36SRawhvHzP8V+0NnATczJaKa6
-	 74+4qwrqLwJSuUZODnITIwGHCUtdbuIjV1/fCl6EUSIau6T9kQlNhjtE3BVP9iNv2/
-	 XMrsQcZ8mb6OQ==
-Subject: Re: [PATCH net] tcp: ipv6: keep request pktopts alive until request
- destruction
-From: netdev-bot+sashiko@kernel.org
-To: x-professor@outlook.com
-Cc: netdev@vger.kernel.org, edumazet@kernel.org, ncardwell@google.com,
- kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, daniel@iogearbox.net, martin.lau@linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 03 Nov 2026 06:58:52 +0000
-Message-ID: <179368913254.488856.18385504892768875446@kernel.org>
-In-Reply-To: <82c31e4d5043f3dbd11b44177cfba779d335aae3.1793599929.git.x-professor@outlook.com>
-References: <82c31e4d5043f3dbd11b44177cfba779d335aae3.1793599929.git.x-professor@outlook.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VVcIHBxD
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso7183345eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:02:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793689373; x=1794294173; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+S+ywes3kNv+A4N1xLXPObOnn3wXaYCT7Uss5A1Oyco=;
+        b=VVcIHBxD//nuQdmmieTW1uI1xXR08YG1gV8GEGsa87EHCArCEmwiJWnsVcdwJXNhNR
+         k/mmg9VCEz5RSS2jCPNMzVEd6yb8Y0ouNKrs0RetxQmNfuEiRaTNcgspMvqFKRjQYj3V
+         k4dMw4bvFxzw0jplQ94jIgJYrDtv7kifaWpJg/SViiJ20Rov3jb6sUhoE5EYsgbBcn5w
+         HJA8153VvtimhGQ1Kxywx63tNLjKZQYFInJg+ShszNbAU+bo7LC9hdBKhNdhaj5SP9bp
+         93Z6iMf2AsCqh0ZyjNxLn5lLZ0Ojk34ZC9EnntRcvWFpmfYmNzJi5mt1eeCgliLNx1V4
+         +igg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793689373; x=1794294173;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+S+ywes3kNv+A4N1xLXPObOnn3wXaYCT7Uss5A1Oyco=;
+        b=QD8aV7HG6cDsuqxaJwULYob/NzUlqtiXDzyClUVCsLTtTAr9K5/kFrPWgvGELXG9sE
+         1CNGoaDnQ9FEPnSnDN4dFSKxUGYAMUNdEgLvXHZFvMEn/ndNcGApR/+zy1GsH6GG/VqS
+         /3hX0i8fMrGV2h1yJh/Ikh/ZE9ZbCPiyumY5g9U2rLc60UJ0r7QMrR7UfbZ/DnI16nLX
+         3fIkWPkMMiyxGjUpu6/hr8GhM6LKy3GrVJ5K1g63KFcg7kcU/P6hK1VA/s/lbbuIc17R
+         tLSboiWUbs/BwSY6No7V+qOYFY0cLNs09JEuPDSs62NFMDuZi1dZBOlpari7ZhAbXRrQ
+         KgTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwu6+vAX2bhL/UD05/3sCRdN15NS3wp9oRKCZOEDXIErNKj4idJb4TnPyo78UksNHViHftaYe8DZB2Yvzo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kCxEIPFrPmhDhSi26fvLSiNa+yZKfHDkAjMGEW1y8pqn/XStO
+	UvsX8RmjtxyBHeqxlHWadTei+DT5eS9LANoAITU2MnZxXFGmBqnsZfEpqA1ZKBMK7vRbZSRr6AQ
+	H/nqLWeqrE6+eZaEs3WDtOg==
+X-Received: from dycnl1.prod.google.com ([2002:a05:7300:d101:b0:35d:bc5b:d1b7])
+ (user=robertpang job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:3581:b0:360:b8b4:840a with SMTP id 5a478bee46e88-36a5eee0ee1mr10548686eec.39.1793689372535;
+ Mon, 02 Nov 2026 23:02:52 -0800 (PST)
+Date: Mon,  2 Nov 2026 23:01:22 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,198 +75,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
+Message-ID: <20261103070122.1208383-1-robertpang@google.com>
+Subject: [PATCH] bcache: allow more bucket reclaims during garbage collection
+From: Robert Pang <robertpang@google.com>
+To: colyli@fygo.io, kent.overstreet@linux.dev
+Cc: linux-bcache@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	robertpang@google.com, dongsheng.yang@easystack.cn, mingzhe.zou@easystack.cn
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+In patch a14a68b76954 ("bcache: allow allocator to invalidate bucket in gc"),
+reclaimable buckets are added to the free list for the bucket allocator
+at the start of a GC cycle.
 
-Critical: 1 · High: 0 (1) · Medium: 0 · Low: 0
+However, once these buckets are allocated, they are no longer marked as
+reclaimable until the GC cycle finishes. Under heavy loads and frequent cache
+updates, all reclaimable buckets can be exhausted before the GC ends, causing
+the allocator to wait and stalling incoming I/O.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Address this by allowing reclaimable buckets to be reclaimed during GC up to
+the number of generations left before BUCKET_GC_GEN_MAX.
 
-- [Critical] This patch adds a remote-triggerable use-after-free on the
-  IPv6 syncookie path.
+Signed-off-by: Robert Pang <robertpang@google.com>
+---
+ drivers/md/bcache/alloc.c  | 3 ++-
+ drivers/md/bcache/bcache.h | 2 +-
+ drivers/md/bcache/btree.c  | 5 +++--
+ 3 files changed, 6 insertions(+), 4 deletions(-)
 
-Pre-existing issues:
-- [High] The patch fixes the request-migration ownership race for
-  ireq->pktopts but leaves the same race open for the other request…
-
---
-
-tcp: ipv6: keep request pktopts alive until request destruction
-
-This patch removes the code in tcp_v6_syn_recv_sock() that dropped the
-request's ireq->pktopts reference when the child was created. It also
-makes inet_reqsk_clone() take its own skb reference for migrated requests,
-so every request now releases pktopts from tcp_v6_reqsk_destructor(). The
-aim is to close a use-after-free where a concurrent SYNACK retransmit
-reads ireq->pktopts after it has been freed.
-
-> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-> index 93b306d91b6dc..66f8ce25aa383 100644
-> --- a/net/ipv4/inet_connection_sock.c
-> +++ b/net/ipv4/inet_connection_sock.c
-> @@ -936,6 +936,11 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
->  		      req->rsk_ops->obj_size - offsetof(struct sock, sk_dontcopy_end),
->  		      /* alloc is larger than struct, see above */);
->  
-> +#if IS_ENABLED(CONFIG_IPV6)
-> +	if (inet_rsk(nreq)->pktopts)
-> +		skb_get(inet_rsk(nreq)->pktopts);
-> +#endif
-> +
->  	sk_node_init(&nreq_sk->sk_node);
->  	nreq_sk->sk_tx_queue_mapping = req_sk->sk_tx_queue_mapping;
->  #ifdef CONFIG_SOCK_RX_QUEUE_MAPPING
-> @@ -982,7 +987,6 @@ static void reqsk_migrate_reset(struct request_sock *req)
->  	req->saved_syn = NULL;
->  #if IS_ENABLED(CONFIG_IPV6)
->  	inet_rsk(req)->ipv6_opt = NULL;
-> -	inet_rsk(req)->pktopts = NULL;
->  #else
->  	inet_rsk(req)->ireq_opt = NULL;
->  #endif
-
-[Severity: High]
-This is a pre-existing issue, not one introduced by this patch. The same
-migration race still seems to be open for ireq->ipv6_opt, which is the
-other request field that tcp_v6_send_synack() reads.
-
-inet_reqsk_clone() copies the ipv6_opt pointer into nreq with memcpy. It
-takes no reference and makes no copy. reqsk_migrate_reset(oreq) then
-clears the pointer on the old request, which leaves nreq as the only
-owner. Both reqsk_timer_handler() and inet_csk_complete_hashdance() go
-through this path.
-
-Another CPU may still hold oreq. It found oreq through ehash, migrated it
-via reuseport_migrate_sock(), and then got a retransmitted SYN:
-
-tcp_check_req()
-  inet_rtx_syn_ack()
-    tcp_v6_send_synack()
-
-That CPU can be in:
-
-net/ipv6/tcp_ipv6.c:tcp_v6_send_synack() {
-    ...
-		rcu_read_lock();
-		opt = ireq->ipv6_opt;
-		if (!opt)
-			opt = rcu_dereference(np->opt);
-		err = ip6_xmit(sk, skb, fl6, skb->mark ? : READ_ONCE(sk->sk_mark),
-			       opt, tclass, READ_ONCE(sk->sk_priority));
-		rcu_read_unlock();
-    ...
-}
-
-Meanwhile nreq is released (after accept(), on listener close, or on
-expiry) and runs:
-
-static void tcp_v6_reqsk_destructor(struct request_sock *req)
-{
-	kfree(inet_rsk(req)->ipv6_opt);
-	consume_skb(inet_rsk(req)->pktopts);
-}
-
-This kfree() is not deferred through RCU, so the reader's rcu_read_lock()
-does not protect opt. Can ip6_xmit() then read a freed struct
-ipv6_txoptions while it pushes the extension headers?
-
-ipv6_opt is only non-NULL with CALIPSO labelling (calipso_req_setattr()).
-The race also needs SO_REUSEPORT, net.ipv4.tcp_migrate_req=1 and a
-listener that is closing.
-
-This patch already reworks pktopts ownership in inet_reqsk_clone() and
-reqsk_migrate_reset(). Should ipv6_opt be handled the same way there?
-
-> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-> index e006a30360eae..0b51cb4ad9604 100644
-> --- a/net/ipv6/tcp_ipv6.c
-> +++ b/net/ipv6/tcp_ipv6.c
-> @@ -1522,11 +1522,12 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
->  	if (*own_req) {
->  		tcp_move_syn(newtp, req);
->  
-> -		/* Clone pktoptions received with SYN, if we own the req */
-> +		/* Clone pktoptions received with SYN. Keep the request's
-> +		 * reference until the request is destroyed, as a concurrent
-> +		 * SYN retransmit may still read it.
-> +		 */
->  		if (ireq->pktopts) {
->  			newnp->pktoptions = skb_clone_and_charge_r(ireq->pktopts, newsk);
-> -			consume_skb(ireq->pktopts);
-> -			ireq->pktopts = NULL;
->  			if (newnp->pktoptions)
->  				tcp_v6_restore_cb(newnp->pktoptions);
->  		}
-
-[Severity: Critical]
-Does removing this consume_skb() create a use-after-free on the IPv6
-syncookie path?
-
-On that path ireq->pktopts does not hold the SYN. cookie_v6_check()
-stores the final ACK skb, which is still being processed, by bumping the
-refcount directly:
-
-net/ipv6/syncookies.c:cookie_v6_check() {
-    ...
-	if (ipv6_opt_accepted(sk, skb, &TCP_SKB_CB(skb)->header.h6) ||
-	    np->rxopt.bits.rxinfo || np->rxopt.bits.rxoinfo ||
-	    np->rxopt.bits.rxhlim || np->rxopt.bits.rxohlim) {
-		refcount_inc(&skb->users);
-		ireq->pktopts = skb;
-	}
-    ...
-}
-
-Before this patch, the consume_skb() above dropped skb->users back to 1
-before the child processed the skb.
-
-Now tcp_get_cookie_sock() calls inet_csk_reqsk_queue_add(sk, req, child).
-The request on the accept queue still points at the in-flight ACK, and
-skb->users is 2.
-
-The same skb is then passed to the child:
-
-tcp_v6_do_rcv()
-  tcp_child_process(sk, nsk, skb)
-    tcp_rcv_state_process()
-      tcp_data_queue()
-
-For a pure ACK, tcp_data_queue() frees the skb without checking
-skb->users:
-
-	if (TCP_SKB_CB(skb)->seq == TCP_SKB_CB(skb)->end_seq) {
-		__kfree_skb(skb);
-		return;
-	}
-
-The consume label in tcp_rcv_state_process() and tcp_collapse_one() also
-use __kfree_skb() in the same way.
-
-When the request is released later, either by reqsk_put() from accept()
-or by inet_csk_listen_stop(), the destructor runs:
-
-tcp_v6_reqsk_destructor()
-    consume_skb(inet_rsk(req)->pktopts);
-
-Wouldn't this decrement the refcount of, and possibly free again, an skb
-that has already been freed?
-
-The trigger needs a remote peer that gets syncookies sent (SYN queue
-overflow with the default tcp_syncookies=1, or tcp_syncookies=2) and then
-completes the handshake with a pure ACK. The only local requirement is a
-common IPv6 rx option on the listener, such as IPV6_RECVPKTINFO or
-IPV6_RECVHOPLIMIT.
-
-Syncookie requests are never hashed and never retransmit SYNACKs, so the
-race this patch fixes cannot happen for them. Could the cookie path keep
-dropping the request's pktopts reference here, or could cookie_v6_check()
-store a separate clone instead of the in-flight skb?
-
+diff --git a/drivers/md/bcache/alloc.c b/drivers/md/bcache/alloc.c
+index 3ec240ec685d..959d753e7cf6 100644
+--- a/drivers/md/bcache/alloc.c
++++ b/drivers/md/bcache/alloc.c
+@@ -141,7 +141,8 @@ void __bch_invalidate_one_bucket(struct cache *ca, struct bucket *b)
+ 	bch_inc_gen(ca, b);
+ 	b->prio = INITIAL_PRIO;
+ 	atomic_inc(&b->pin);
+-	b->reclaimable_in_gc = 0;
++	if (b->reclaimable_in_gc)
++		b->reclaimable_in_gc--;
+ }
+ 
+ static void bch_invalidate_one_bucket(struct cache *ca, struct bucket *b)
+diff --git a/drivers/md/bcache/bcache.h b/drivers/md/bcache/bcache.h
+index ec9ff9715081..daae5ac5ffbc 100644
+--- a/drivers/md/bcache/bcache.h
++++ b/drivers/md/bcache/bcache.h
+@@ -200,7 +200,7 @@ struct bucket {
+ 	uint8_t		gen;
+ 	uint8_t		last_gc; /* Most out of date gen in the btree */
+ 	uint16_t	gc_mark; /* Bitfield used by GC. See below for field */
+-	uint16_t	reclaimable_in_gc:1;
++	uint8_t		reclaimable_in_gc; /* no. of times reclaimable in GC */
+ };
+ 
+ /*
+diff --git a/drivers/md/bcache/btree.c b/drivers/md/bcache/btree.c
+index 27a129d47d0a..fc167868c814 100644
+--- a/drivers/md/bcache/btree.c
++++ b/drivers/md/bcache/btree.c
+@@ -1742,9 +1742,10 @@ static void btree_gc_start(struct cache_set *c)
+ 
+ 	ca = c->cache;
+ 	for_each_bucket(b, ca) {
+-		b->last_gc = b->gen;
+ 		if (bch_can_invalidate_bucket(ca, b))
+-			b->reclaimable_in_gc = 1;
++			b->reclaimable_in_gc =
++				BUCKET_GC_GEN_MAX - bucket_gc_gen(b);
++		b->last_gc = b->gen;
+ 		if (!atomic_read(&b->pin)) {
+ 			SET_GC_MARK(b, 0);
+ 			SET_GC_SECTORS_USED(b, 0);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/82c31e4d5043f3dbd11b44177cfba779d335aae3.1793599929.git.x-professor%40outlook.com
+2.56.0.398.g882cbad275-goog
+
