@@ -1,128 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793686448;
-	b=2qMA0ngUqY/Z55i/fz9xsCzFlaXoz1S65yIZB/CAxrBCyfFBRnrjsSsQ1MLl+BSn78iB
-	 /SPo5u7w6qBMHs15+xT3yaSNPe1vpPzgS1jcUMyi5Ibtr3/HAaEjjURTnhmEp24uM6ybA
-	 LDxj/LASVVKk7EeNsNb4kgkav7szR/K/XAEFG/TCflAF/WEBCH7TqRfObIY9jVvwYti00
-	 iK5hjRtX3+G9CqSka/NhWkXVpErLfmdkyvUxyvztv6jT0eejSN3weg+lwUkEEfF5a6mwA
-	 Kw3wtHy08bGPrdV2AbfVVfgk0B2rIGSrao3szVxC+UAtxSkUpD2fWjs5pTtHXExPQFQ==
+	t=1793686555;
+	b=nDbcg93BQo3lP/AZsG6IJLRRlWJu3ylrqVAr9bUK9ExzcmCO2t+3PJhmQCA0M1/sDCA+
+	 TZBwUVpJZvcQdNx5H+0/Po/BaWPHaSSYv/SZBvUtLQUwZSS2vkPe0yZPI5in5wVhAP+V8
+	 Gv+8pQXQ5r1sh9do9sEJwiRcf2m0ADma6jlrwOuokmX1FDIRdJOrFjW0Q3fi1IDt1TYsC
+	 tHMJUC7pyYmjY4i2E9nJdmb9B8dnsfCIUCozUNpaMhJLDWVzDQ9Uwm5WvVr9IoorjoZf8
+	 ubXgEC0IStl1YjQ2wYvOaEk+oCsTpyY/vVt8+mXrHpQlE9u5enFVWsEBVCV+zB7KsiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793686448;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Ozx3sL1vjM+KA5bfb4Sfs+2VwP+PC9ffPlclFzHQgaM=;
-	b=2Fx7CGmI8LWjUoaSTEXwZXzwn4qRcLELlEQeTJMVzB1os1pxJPGz33IthNsz5jYivYHj
-	 AjlLCVxt7PybW995qoXX9juH0jYnihTpK2joGSsvlSI5kF5dS/yQQ1ZZL5sUwjXhsa3H8
-	 N70KjoP7gqs/ekJhlz3FOB0HsDvsaP8kzf/Til6dliBLXIJsSoQq6SxVnFjLPSSSNqm4D
-	 kK1yAoHcjbLZMhO9hi6Rl7Q/xlVhOvTWzSk1OCYMf8wgSvaHk1N/WAgsK2W0pcCAEKE+i
-	 diZSmcBRR6RZnKJVC3Nw17p0+M2jy/l0lAy0rW9n51hISuGJtbxI0L8IT3bmGawFJfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793686555;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=D7f/7cfhMuxRUvMF2+7Ngeja0NaB7eB5cH8ZEWQf8hE=;
+	b=VjYWlcIQ2GCscdlceNP/2rJ19ZkZUKc620Rl1PgxDKJJnD0TSxJmSKHi8hp9INPU3fu4
+	 aBN7psTGRwRmcW6fx/O/GPbdGJ82V9ZA3CNStON9JNFueUPUZmYvXi2U/z3edtXux69wR
+	 t0R9qeRTIfr7RCy87tCYdnDQp26mG4BwIGHrftuo/Xbw2zcmvMKv+7Zn/6XfHm+lyh1zW
+	 s13w8sUVqr2BjhbTUantawNu/p2o9rkwhYvXZfnKnSco1L0qCVok1HvShrEAhFFDtDwMF
+	 037hX3dqsToxsDX8qoebeFW/rW/v0a39Lh72s/bR5jC8B9KC1EYGGoBuIbBCH9QeK6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c7WeFENB;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c0J5Gdww;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=asu.edu;
+	spf=pass smtp.mailfrom=asu.edu;
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=MV3oFS6a;
+	arc=none smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8197A606A332
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:14:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8197A606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2737606A32E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:15:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2737606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c7WeFENB;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c0J5Gdww
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31eBBK1397216
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 06:14:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Ozx3sL1vjM+
-	KA5bfb4Sfs+2VwP+PC9ffPlclFzHQgaM=; b=c7WeFENBSj+ToB28uUo6x+EOLkW
-	3o+qH53gHDMstf9MtEsMUm2EP4oy4FYPw76HHQpd6tLEHYjapYiKOxA+ZyiLGNNB
-	KS43/vlQg6IxMaGJSx8HJE8NY0HvToCfztnBiLrto9+PIrmBgIdUEHtpYwdo4nQr
-	Lh+QFeAiFV8qJpJ3kXU7/h04IJFMQIipLFgrwS4bc71At6/XTTCntqrIcG6ViHNp
-	ukTJQeKnOlgLc+hNJKvRBLY8XfJA83HZSNXsSRk5R1CLmoLPsR8hrkQM3RI3Ldw+
-	sqMIe364efptEjssdpC5nputuzoZ0MAbYWk3YW6ukoGFP5/GI2KgYbbEXsg==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq4v5h54b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:14:07 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1383723dfddso648012c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:14:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=MV3oFS6a
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-70bf1671c21so2201912eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:15:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793686447; x=1794291247; darn=vger.kernel.org;
+        d=asu.edu; s=google; t=1793686554; x=1794291354; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ozx3sL1vjM+KA5bfb4Sfs+2VwP+PC9ffPlclFzHQgaM=;
-        b=c0J5GdwwT9T/3FHZBmUTyRC1AJc7gyJIwEx5gFt8J4ocg/M8aJj4Gz2LySWfHM7xD0
-         pQFnCV0FkHv/gIq/XEfsqWL9xzhBNQZ98yncV5Mv5SAbTZP4IKpUlbLZAus54DIuOYxI
-         Ofgoun1iCD4qbOVseHMzBHMjSuXVbY/pt8GkvMJ3dNMqHdpE7Z6BA+2vtp8FBRDHuHYL
-         J/TVaT3UJ+uI1m8XYVLw7q9foz1tH0E8hLmhnTSHsu5ifiod0xhnIZZ0dvC+fuys6e+E
-         XA2XDFieQH9rRhArzS9bDTK3Jz4x4fHeG29iKd89BhTGN3i+7h/4/SeSi76pqL1YUYEf
-         IEww==
+        bh=D7f/7cfhMuxRUvMF2+7Ngeja0NaB7eB5cH8ZEWQf8hE=;
+        b=MV3oFS6aclww/vOUGkSg75ZDogvO0rW1ltFf+4scDJXC6mjqXc8vhFKIDv69KZ2b0Z
+         761VX9fhsM7iyQu2x/7V1Y6wZa1sXvqyQXeQWEAEzw0yDdm7a39tdDi3T9T9PDx8ypQY
+         9d75N0erAEtUBqVvm46uW0rWbTymVB81QdU1Z69wtnav+UPLGMeAyn4FiNrw9qT+H3SF
+         YI+0tNS7i/XCvF2gxK3hgufkGCRSUDOLoDxcakpHnD8MxHO5QpRfhjDvUox+Bw9URJsR
+         By4KzqhroIS4TEojYAFZVo0TxC1RiXwYbJMw6xws14d/zumiQFVscsdFqdFdh6iUsB/P
+         SPhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793686447; x=1794291247;
+        d=1e100.net; s=20260707; t=1793686554; x=1794291354;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ozx3sL1vjM+KA5bfb4Sfs+2VwP+PC9ffPlclFzHQgaM=;
-        b=oNWILFMn8Eeq7DireHuTZ6YJxj1AFzwXZWl+XKmPo/MCyZ2QFws+lltk5ScLcHYpXu
-         jgGeufgjB+RPIi/dvUYGrj/NlolVEhEzxTNQ2KPNc+wWAaRYHwnpGaUJXVSHbaq5gs6Y
-         OvandgAFupWZ7KXQIk6Ty2+sBiTqtt6oGqcJ3ibsJSL9K1mQMOTyS+VDUJRrqYZDdtrM
-         IP8lyWxdg/14dHvOvtJZwmzgaIinQ20G1I2Q4h5VQ7nLv2Q+D8C0KDCRL6KiJ4dtnbhn
-         dgka8TUQAstrXVTGhLPDhOGICmXanfs7iHkk/gsAF03Ua80j5sZzZwxITWx/jFo7cwJU
-         MYtw==
-X-Forwarded-Encrypted: i=1; AKwUvBwApL7aRNwlKSsw02r6HQ/LW4Yqu1y6cz3XvCWvwwJj790VN4nflu3PPWHxnBhH1t9hmnYWwAkTeOkrtIA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pejKLWgaaULmxfn1/dP/IhDM1KT9A2/0zc41M3ZG2CWxk5ZXa
-	/urn8KvBIer/l7tNNWz11r2KPsrIA0wgglagYt491uyVQXXT33wvwvH6/I9vfK/n1XthYfGeKHd
-	5K4UUODzP/AUPnIFkx0VgP+WYb1bbeDkvlaXFV2j8fX8sQ3WZ4uwqErmRB8kd0Rkxi2A=
-X-Gm-Gg: AYBFou2tFrqTuYH9lqeIjVn8mW1aGOjUuuTlXBeNyrXKd+BM6gS71SjWWQ/UUtVfHEX
-	xZfOtRXcR7j008cDafTKW+kTnT8J3yHLhLl/NvvSr8Qbh1K15bRQFtzT8BQ7/xfBJXeadmiMGo6
-	g4OdPjJMG3/f6PKyZOpN9csxAxS6C2DoNB+1eMrSzvDndv1SDJ49eTaObU4tCkEswDY7p+qjtt0
-	9r+ibIy50xbtE4amtz/42qWJrXc0o4P11oNZcDfqmCHGMb3YYrfBSoImPiHooPdFZkdAiV2Gkk3
-	SSOHteSPUqLyXOv4pzHmVfc37XbDsxWxKDP31KGptCY6iMgT/6BjAKfYrpZSX4UWslx+nXz8NRe
-	Owx5HLDknCJnS0T0eNkPZqzUoZy5wcH7ldIdoREk0FEdcsR+tfBbY7TxN5WZi/eO0LcRZUxO7eN
-	ho9msv+0KqyfWFUWRFNUR0nw==
-X-Received: by 2002:a05:701b:2086:10b0:14f:5cd:f286 with SMTP id a92af1059eb24-1ac5e31f780mr19304269c88.34.1793686446876;
-        Mon, 02 Nov 2026 22:14:06 -0800 (PST)
-X-Received: by 2002:a05:701b:2086:10b0:14f:5cd:f286 with SMTP id a92af1059eb24-1ac5e31f780mr19304228c88.34.1793686446281;
-        Mon, 02 Nov 2026 22:14:06 -0800 (PST)
-Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36c8d3277e3sm1947091eec.29.2026.11.02.22.14.05
+        bh=D7f/7cfhMuxRUvMF2+7Ngeja0NaB7eB5cH8ZEWQf8hE=;
+        b=fho82m381dhvK/bagBFkhj6XzKh8RC1MW3PGwa5SJNkpHhqjzDO8huZSM41qb6YBd9
+         8LX9B35Utc5qTD3mJBIBTWMeNQ9z1w09jtDUUABjRpnJrkbajeQFV/EU0ofwmrUOI8Jr
+         vY9XqPiyq+P4CKBVgH9hRystqeHd7YwOEeMGnwMerk+oa3+xX+IApsiPl9PuCDnyjDde
+         5c9GLSwykMjM45uVFjf+3rb4P9If2Kx//t7Rf/5dukxbwSeN+7UpO3GF4L2mAnmU4jbZ
+         gWyWXEWKruwwut4dGkN/NAJG0hmjmdW5R1Xl/tQKbk6NkkDu5LCXwlN4AMpW1e+PHPox
+         MWng==
+X-Forwarded-Encrypted: i=1; AKwUvBxxRPjwtucBsHC1uOmnaXJnr0pVApHnc9jEbXAKqtA0iAAe9NSHuA5rMoHGPn8W7G5sxB5e94Q+mo5UK/o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJyFD3TYqaD+lVe3aE2Nr0ZW5mfgnKHAFzfAyHEJ2my/bY9Zbe
+	3QI7Ezh0etPlvsNp7c+GySyW9a15gBikSZ15uq/E25dqaOwYqUxXizc/uMd7ZArm94CnIySHJKs
+	CDZiBBAZ1
+X-Gm-Gg: AYBFou3Vsu2+1IoDJzXsNIAWQ/FqXPkSWx1zrquXrrXZIPnTjSV+QB2/S9llaJPi9SE
+	nz6s5r26d9/Qn/R0k4YaKEVjSfIEqYeoagccMV6o7xdmtde/DSYEz0zCmSnMQtqrDnW5RJxIo3v
+	POmbV3CfmwXBgjmp0uWuDAms7g4jeHLf256XphN29EDBe3Bajcvy6CrO7TRy8q6IfB4W9aU3gFh
+	ISe1F8k3frBeCShbDsiDRwxqXrMn9yPBpO1stqmPq/OzsrLXW5qM5UDaz9LB0I1uxIAxQ9+r5B1
+	kZdCaHiY3hrFTktMzoTmg7XTCwvYia1oTOme3PvQEMAYPGKCSjpRDJbrUOCGrCsNbjk0n/zlOlu
+	6QUK5Wjp28k1I+JH+OzqathbPJUPWWKW97dacG3TYlyw3LSKc+jOYOQrhO6wk1iFRaR2X6FCWCU
+	o4LF0wo9Oxl84i+15vuGjoHhSWleyjhvgpN5IJtCE0tmbnFAEqoDKq9AKFeuHuFVGTEKLMonHT3
+	YnoXDdW7JhNhOX84gzJRTOACZ4fLRFiGoc20eg9U/Lttbx3Zj/uWFOrUzpanoZrheS8UVmqcdTb
+	lH1dcUrhoQCEokE7grh5kVq5WCvQDAYpwo9PT7qajw==
+X-Received: by 2002:a05:6214:ace:b0:91c:7a68:2ab3 with SMTP id 6a1803df08f44-91ca4bb34camr203741326d6.37.1793686233610;
+        Mon, 02 Nov 2026 22:10:33 -0800 (PST)
+Received: from localhost.localdomain ([2600:1011:b1ae:f075:aa26:e161:414d:7ec7])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca807d8fasm109173076d6.41.2026.11.02.22.10.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 22:14:05 -0800 (PST)
-From: Peter Chen <peter.chen@oss.qualcomm.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Johan Hovold <johan@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Udipto Goswami <udipto.goswami@oss.qualcomm.com>,
-        Jack Pham <jack.pham@oss.qualcomm.com>,
-        Pratham Pratap <pratham.pratap@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Prashanth K <prashanth.k@oss.qualcomm.com>,
-        Elson Serrao <elson.serrao@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Peter Chen <peter.chen@oss.qualcomm.com>
-Subject: [RFC PATCH 1/1] usb: dwc3: qcom: Keep wakeup option default off
-Date: Mon,  2 Nov 2026 22:14:01 -0800
-Message-ID: <20261103061401.2942139-2-peter.chen@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103061401.2942139-1-peter.chen@oss.qualcomm.com>
-References: <20261103061401.2942139-1-peter.chen@oss.qualcomm.com>
+        Mon, 02 Nov 2026 22:10:33 -0800 (PST)
+From: Siddharth Mishra <smish149@asu.edu>
+To: dsterba@suse.com
+Cc: wqu@suse.com,
+	boris@bur.io,
+	mason@kernel.org,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Siddharth Mishra <smish149@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/2] btrfs: tree-checker: reject extent owner ref without simple quota
+Date: Mon,  2 Nov 2026 23:10:21 -0700
+Message-ID: <20261103061021.2213691-3-smish149@asu.edu>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261103061021.2213691-1-smish149@asu.edu>
+References: <20261103061021.2213691-1-smish149@asu.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,89 +104,84 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: ZBx0XkXAHdM9xCTXeVCrQPm1w_Xaanru
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyNCBTYWx0ZWRfX14l8wfKyyiMy
- sN84BzI1/UA19SNKz8bbKiFmuPUIXC20he8OOPnzQ1JRZa4lWyJ/QAXNcZKn6137V8rDBn8gnH0
- HNTMvQmq+xIU6/1ljYvxifz9Zrrkhxw7BOJDpvhNp/cG2zCxoVs6HlWIsiNtD4FspiTfU1myPFA
- vf3MWBUQswbeqgEdihEobE7sVpea8OMRDtaCH7T0g3qYJ4o4e0Uea5Yp6AUpHLMPcyPaGMujCIo
- V7Ft9csGY3pRua0TwiWpNCYxg7RgkB0BCpRLVRHMyPHHliZyM+rWKhXjCfZvGjufO6sADuxOzDv
- RSJutd4EQdlC0/8UmNA7Lvr1uNiPBcMG4+uzrd+vWnLSmoA2cQ2UNb+QoeBGoWJqFfJ6zMBLfLg
- 4+APBHl57ii+d1zZXBl3wByYSOhT597m2Jhex1CZq1+0JWjjWXPp7LTU/0iCVlkJn7qyvLa97Na
- 7BeJawqVQP2OB7B+ATg==
-X-Proofpoint-GUID: ZBx0XkXAHdM9xCTXeVCrQPm1w_Xaanru
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyNCBTYWx0ZWRfXxyHTb8ppMxZ5
- cy1LlHOpokxtOUuv24uvPZoZcwnjRsGmOUFyV8EmqnlBpmK7ndvYTlq1o04aFBPqbqyn/m1xYJw
- 5Q6LowOFRyQb3qdz3/oo8gB6KWkIxhg=
-X-Authority-Analysis: v=2.4 cv=NeZzRGD4 c=1 sm=1 tr=0 ts=6ae97baf cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=UBq5q3rzQQf4y2_YTtcA:9 a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- adultscore=0 suspectscore=0 clxscore=1015 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030024
 
-The "wakeup-source" property, as described in
-Documentation/devicetree/bindings/power/wakeup-source.txt, only says
-that a device is capable of waking up the system. Whether wakeup is
-actually enabled is a policy decision, and drivers use
-device_may_wakeup() to decide whether to arm the hardware wakeup logic.
+[BUG]
+An extent item can contain an owner ref.  The owner ref is correct only
+when the super block has the SIMPLE_QUOTA bit.  If the bit is not set,
+check_extent_item() gives a WARN_ON() and then accepts the leaf :
 
-Currently dwc3-qcom calls device_init_wakeup(dev, true) when the
-property is present, so USB wakeup is enabled by default and users who
-do not want USB activity (e.g. connect/disconnect) to wake up the system
-may have to disable it through power/wakeup, otherwise, unexpected wakeup
-may happen.
+	case BTRFS_EXTENT_OWNER_REF_KEY:
+		WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
+		break;
 
-Having wakeup enabled by default also costs power. In host mode,
-when device_may_wakeup() is true, system suspend keeps the controller
-and PHYs powered (dwc3_core_exit() is skipped and the genpd is not
-powered off) so that the wakeup interrupts can fire, even on systems
-where USB is never used as a wakeup source and could be fully powered
-off.
+For all other incorrect inline refs, check_extent_item() returns
+-EUCLEAN.  After the tree-checker accepts the leaf, a free of the extent
+calls btrfs_get_extent_inline_ref_type().  This function ASSERT()s the
+SIMPLE_QUOTA bit.
 
-For USB controllers, keep the wakeup option default off and only mark
-the device as wakeup capable, so that the user decides which USB port
-is used as a system wakeup source. Users who need it can enable it with:
+On a kernel with CONFIG_BTRFS_ASSERT=y, a free of such an extent gives :
 
-  echo enabled > /sys/devices/.../<dwc3 device>/power/wakeup
+  WARNING: fs/btrfs/tree-checker.c:1782 at __btrfs_check_leaf
+  assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
+  in fs/btrfs/extent-tree.c:354
+  kernel BUG at fs/btrfs/extent-tree.c:354!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:btrfs_get_extent_inline_ref_type.cold
+  (fs/btrfs/extent-tree.c:354)
+  Call Trace:
+   lookup_inline_extent_backref (fs/btrfs/extent-tree.c:919)
+   lookup_extent_backref (fs/btrfs/extent-tree.c:1100)
+   __btrfs_free_extent.isra.0 (fs/btrfs/extent-tree.c:3319)
+   __btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2134)
+   btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2246)
+   btrfs_commit_transaction (fs/btrfs/transaction.c:2278)
+   ksys_sync (fs/sync.c:104)
 
-While at it, drop the local wakeup_source variable and use
-device_property_read_bool() like the other property reads in probe.
+Without CONFIG_BTRFS_ASSERT, the kernel gives only the WARN_ON().  Then
+btrfs continues to use the owner ref.
 
-Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
+[CAUSE]
+I made a crafted image : an owner ref, no SIMPLE_QUOTA bit, and no quota
+tree.  I removed the file of the extent.  At the next commit, btrfs
+frees the extent and gives the BUG above.
+
+For an owner ref without the SIMPLE_QUOTA bit, the tree-checker gives a
+WARN_ON() and keeps the leaf.  For all other inline ref types, it
+rejects the leaf.  Two sources can put owner refs without the
+SIMPLE_QUOTA bit on a disk : a damaged or crafted image, and a kernel
+without commit f2363e6fcc79 ("btrfs: fix transaction atomicity bug when
+enabling simple quotas").
+
+[FIX]
+Reject the leaf with -EUCLEAN, as for all other incorrect inline refs.
+Then btrfs finds the problem when it reads the leaf, and the ASSERT() is
+not reached.
+
+Link: https://syzkaller.appspot.com/bug?extid=d7d1fc7e21835ca19219
+Link: https://syzkaller.appspot.com/bug?extid=4983e68a6d77180bfe33
+Cc: stable@vger.kernel.org # 6.7+
+Signed-off-by: Siddharth Mishra <smish149@asu.edu>
 ---
- drivers/usb/dwc3/dwc3-qcom.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ fs/btrfs/tree-checker.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index 8116dc94c181..1451b5eaccce 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -653,7 +653,6 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 	struct resource		*r;
- 	int			ret;
- 	bool			ignore_pipe_clk;
--	bool			wakeup_source;
- 
- 	qcom = devm_kzalloc(&pdev->dev, sizeof(*qcom), GFP_KERNEL);
- 	if (!qcom)
-@@ -757,8 +756,8 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto remove_core;
- 
--	wakeup_source = of_property_read_bool(dev->of_node, "wakeup-source");
--	device_init_wakeup(&pdev->dev, wakeup_source);
-+	if (device_property_read_bool(dev, "wakeup-source"))
-+		device_set_wakeup_capable(dev, true);
- 
- 	qcom->is_suspended = false;
- 
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index bb86c30a2..f021ac14b 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -1779,7 +1779,11 @@ static int check_extent_item(struct extent_buffer *leaf,
+ 			inline_refs += btrfs_shared_data_ref_count(leaf, sref);
+ 			break;
+ 		case BTRFS_EXTENT_OWNER_REF_KEY:
+-			WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
++			if (unlikely(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA))) {
++				extent_err(leaf, slot,
++					   "extent owner ref without simple quota");
++				return -EUCLEAN;
++			}
+ 			break;
+ 		default:
+ 			extent_err(leaf, slot, "unknown inline ref type: %u",
 -- 
-2.43.0
+2.54.0
 
