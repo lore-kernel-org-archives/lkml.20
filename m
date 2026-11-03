@@ -1,96 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793693923;
-	b=zoOI6oBhPIIVrWUSpWxroUAEz69H0A1i0jsugwv6q8SZWsF0+wiPSgyq8c+kr11JDExY
-	 CJMHN4l14SomQAjmf0ubL925+DvZuKsFCDTFKHsL8pUy3asHm//kyrXyIcWEBRJmeuTLP
-	 ABWhJM3OdEJKRz9OZlIQu2haWXW5fAhlwxoCK+pkk6EA0QKQJWmn805HxXyX+EPCJUBCq
-	 cR2xfZPZSjjWhSOI9EeSF+LSLbhKpq/kGLoqzTrIlHaEREfjMyXo6BTY/2MV6pp4UNetj
-	 vFsx65z/8eTcabW1C6YblA1pqclVikk2vt7tMiEdCFac65y6qk2yk36IGJmI7HQWGsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693923;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1x/lI9NulMOsOkA9APYNVNt8I1sryCaBQizYfOuaPko=;
-	b=iz8rTIKYGwmmVlOsCy0zmzert9meCbHP3FoIshQnIoROUs+2eNnEr1XyguwIf214pCbV
-	 ybCUvUcI9YcwH6LgCTWWdbS8+CF3UTSsxuHR4NH+dR5riT3IB0fY4cfBcQqcF9evh9UwS
-	 5QceLVZG+RhTrPM/RGcLnjnvjpvVfFERGoaqg0b7bru2tC0kJBZFCF9neFalr2zML9QUf
-	 yMCKocALUHwMz0feB9vEne5AQ9lRxlLPgYmJDl2z34ij+Yzb5DvQAvAac64zsnCFUTCmC
-	 P6IkwUFc6whiV9ulWXOIZD6NeQUQsKbQSoOIcxLHYNZCXOVSQodpidudTmNinfDnczQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ke+2cvUZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.15
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010015.outbound.protection.outlook.com [52.101.61.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.236
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793693937;
+	b=dITUyVgPEaH1w6yCT1HysZb054f8N081dGnRLQhQkHbcCS7GCa/XnY0rcshcLyUTsxXW
+	 iwVl0eHXx2g9yjppdxneAa2mAR0YMt+bypMYV5P/xs/Sr9U4U8jzY8mVRaKn0bNheZqlq
+	 dwVderHAJUcaC+bf/BhZauCU0x0+1LxWhlIgKUnSjFtkSD/S+jx8Cyz/W2PT6LSU0JP+o
+	 XWDwBKwfcA6rbfdBfXJZgQK3S+Oi3r6viW9/s0iCGTZSh4l9A27Y5ORosjiFZqh4+4K1i
+	 urxcgbkJpWeLujgAhwicC91YCmdHCTthkdwlEZPJWG7p6XtbWqTw8nBVX0eubBclfEA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693937;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=q9qNvJLwCf7x1Jx3yj2W8Xx3AQDRF1mMWWisAr7uXyI=;
+	b=UqvlzXOVYUWkuFnkEVABRxxwNOHkU53P0PufgItDmX/gogivAhkyl4QbZtSLim2Bq0ns
+	 UiLHe7WwKTVaRhNVaAGxqwuTYxpl+dsd6pxLeGMjOXiRgcM3qK5zXmQLJNBr/qvgnljg4
+	 36T5t9D+OBqTPiReIfhA+Twmul2R32m8yAFBN/T48hJWqDER0vveG+Rg8rERN4IuzQ2mf
+	 SVPdkkbfTCn9M6KaPaYBrsPmLVaC5GtdyC5kb2j6QViWW70UOmQ8nn8oRJdzDk3dFjVJr
+	 03EJ28CP4V1VW2zHb7SZjFnwA40Xz2m+HIJ2HOQ8zlRHkXdHXllg6zb90HlBF8e/zxg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UzxEGwEX;
+	arc=none smtp.remote-ip=91.218.175.236
+Received: from mta0.migadu.com (out-236.mta0.migadu.com [91.218.175.236])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED9C606A324;
-	Tue,  3 Nov 2026 08:18:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CED9C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014DF606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:18:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 014DF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ke+2cvUZ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LgXckiBNrh/rSUABJZkl22OcjDROF3RLtP9TvSOpAI1svmzOzcuc5ksEnXDbCaU1x+w8yGxpKfMqNMEnlA2kdOAOJOaRSXHm4mMf9scLkYcVn5XbbMmSdG5bli7fyy5XLjKrEsyeSTloekV98SooZdXJEVOB7JmRqnhNezxcFSbcq8OoPTFq+F1czXo5m26IQaYUi1EIjXCRLrq3czA7f0Sq/tALtd8JSp68GQz2QqW9nCgeuDlV42g/hh/S/QlBsJ4xweVKkE1opKzDKEcocfToRUPdwD/VJ3+RmkIIUOw/4R17+RX45DQluCBdnuMSQG2HeZZoZ/jBTaj9QoIWXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1x/lI9NulMOsOkA9APYNVNt8I1sryCaBQizYfOuaPko=;
- b=EJjKGjx+Q8giMhiDlP3FZ3E/j3fGLdNiGHcgD1DAQAcLFMmSXmMKny2qP7vbgH79atvJPn3QufqOcxH3qkKBBXAll1dIkaelFb0TAwof0ksvcxUo9UoDjk3whKhVGxfpmejnvjpA0tyCgDYPWRB8HLmnrGAhysIe/jjcVYkUPRgc2nprmyMGjn0yc4ztUyc8LWOGq2BmXKc7VCFqYJk31ayyQrLg+rE7OkD60FB+5loUB07WbxQ2A14tjTXaqaSFBv/zCpWnwaTPbFuGbFGjmkTRPRKXd+Ek3SuOPDjsDHGT9cyL0ljqteGwYxv90wnW4CwjIQytxl+wVns2cTbs1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1x/lI9NulMOsOkA9APYNVNt8I1sryCaBQizYfOuaPko=;
- b=Ke+2cvUZGaK53907gym+PcKeCFLGkayJ35am+453JrHdZNnm/KpD4twjtLILD3oDZa05Vh7CGFgG1lJjmW6ppx7qfjsI12QweFQ1w17966gE5LhNdRJhDH4UMlehukNFsAQuzWG0+qNtnyqPl2Rj8jp3gt4NIlK9YWg523GWopQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB7520.namprd12.prod.outlook.com (2603:10b6:208:42f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 08:18:26 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 08:18:26 +0000
-Message-ID: <37102f95-d316-41b9-85c2-0f56051ff0a5@amd.com>
-Date: Tue, 3 Nov 2026 09:18:21 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Release input fences in the unwrap merge order
- test
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, phasta@kernel.org, sumit.semwal@linaro.org,
- linux-kernel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-References: <20261103064457.1056056-1-vulab@iscas.ac.cn>
- <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0358.namprd13.prod.outlook.com
- (2603:10b6:208:2c6::33) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UzxEGwEX
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8fFpOJ/BSEAomJCGeqs5M8Cl6EgDVyeQJlq5nmvCZ3I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793693934; v=1; x=1794298734;
+ b=UzxEGwEXoIKDUSf9lQ/R9fC8OypuUw5rx0KAZjmgkJO2LfE9KgvGVJzSEFFcwWHoXfDSIrzn
+ GfqxI1FFUtHaWX6rGiWwEbTGxisj2k7DvAh6viVd+EWfpxSq/+luHPzCYx8rmWr17IVYcrGhPkU
+ pM2/bjAQPC+EWnsZ955p4l4U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 129aeac7966a988c;
+	Tue, 03 Nov 2026 08:18:53 +0000
+X-Mizu-Trace-ID: 129aeac7966a988c
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	=?UTF-8?q?=E6=B4=9B?= <wanghai8081@gmail.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alan Maguire <alan.maguire@oracle.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2] libbpf: Fix stale raw data after btf__relocate()
+Date: Tue,  3 Nov 2026 16:18:35 +0800
+Message-ID: <20261103081836.381430-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,143 +76,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB7520:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea9c48d5-ff06-4926-c6d4-08df398308b7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|5023799004|4143699003|11063799006|56012099006|22082099003|18002099003|261102123227099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	88uF/k4YfScG+pEfhix2XDrMUa3UtBQAldjCYFcs3oAsLOGauWZqrkdEAjaa6k/Y2BYDW4LI4lJlkz4yuJiRkmKhd5rst26ieZX5LuWvCMfWGv6CTO2SroT2lytuOzaxPbiErLHlMgir6dmDGN8GVF1vVrSmMjetH0dnIGEWnaQ48M9Rg7r/ioZcD5poZjQ8Qip/aA94/ZyGogeBwbiXOPH2cUTis0brVyV0su1E5SMUH5ydHuVKmkmmAxfa/gNp7g+gjKuHGAwOZE9dDo924HJociqzsTb10oRs+lQzZ6btOxhc78hV52WiUm2TW8MehUOctIWWzW7k0srQBp3SBcJXoCaJZwlu35UJI8+pT4kvH+rvXsjSzX45vD14w3n/2wmEzQ8sgpM+DPDLXaYyZ9wkl1kjatz90XvRHZLpWyKpdoxVDYc1CxhyEzp5Gbv393y0g7vtui3xxWwPjkTzUkLuJUjQpTWbabTufzWptB/0IAlbcjd5yw1V/4sdpNBz2Er2YJoM4LxCHHPAoD2SPaGArJzMlIUpy8EFhzSrRXuGSVuNpYNiDS67ijdKOcimBFMq0Pu0a/A/jb6LzXQprCOxiSk+ZoCWz4HHKyGWXunyzFix4ssTtxbFnFLon3U9xDdPiiktsAoWGyYoBf5bsF27xh9WwJPgiDndEShOOsc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(5023799004)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TVczNDNmaUQ5bHhMZkpDbVo1R05RdS9Ebk9Sa3lDcmdVTlJCTzBVUDlTV0hz?=
- =?utf-8?B?SGtadlFjby82WW1ndFlGMmNCcko4cjBCVm1rT01vOGpIeUJhL1RSNVhScGMy?=
- =?utf-8?B?U1dHVGxkNDhrc1NQbi9iUWlZcGNhQW11NFVvSk44NE9yanBsS1BFQytheFly?=
- =?utf-8?B?bFNERGwzbG9mOGpRZFIrU2hqN0xvVCtTS25PckdCYVZzMEQ1REF3cUZsbE9L?=
- =?utf-8?B?ekk5Wnc4S0ZQN1puc0xZQUVZZ2dZdzZmVkNtZDVHKytUNXVtb0FtbVZPVTgy?=
- =?utf-8?B?SDYzaFRveENxM0xkM1c4dmk2SXc0d0hHWTlySE55UkxDcElrWnBzeGR3S1Rx?=
- =?utf-8?B?bURkOENnSUZrRWc2cGRzVEpoNjdQSkZZNEtPRVIxa0lLTkpsbXcxWDlLVHRy?=
- =?utf-8?B?aTBhVEF6S2c5YVNKcnJuQ3U1Vm9ENVR1bnBRblZCVEhFcTBLcmpOTkVFOEVZ?=
- =?utf-8?B?Vi9SWkp1V01aMEQwazREQms3QTlBdVZkbjhTWHU0dFU1QjBaQ0RTalVUT2FL?=
- =?utf-8?B?Q1lzSThIQ2tncCtmZUlGNFFDcUtuaHRNZUN3eVl4d00zbWNJL3NCNmNCK3RQ?=
- =?utf-8?B?engzL3hxTkVQcWJSTnplRFFTVDc4YTB1cW82UGdqWXhZbjR4emJmeE1GWmgx?=
- =?utf-8?B?TjdNT2NWYmNueDltNC8zRG92Mzkxd1c5ZWU0V2RQMGFJNGJ0bXFKR3JpQURW?=
- =?utf-8?B?K2thdWFoTlVxbDA5T1NjaHFrcXN0N1A4b1ZBZzVvUXBUSlg1R0tiWFZGY0RH?=
- =?utf-8?B?bWsxcUZTWW91b0s5aHJVaEJLZU5XTnYrdklPT0lqdFF2aFYzZmplVFBpL3lR?=
- =?utf-8?B?a1dPMVllQllNeG5ENTMrYk9TZE9vWjJiSXI0TWNnZXd6RnhZWjZzciszQmFK?=
- =?utf-8?B?M0cwWG93YmNIUGlBMnRSK0NPbFQrZ1RZaHJlSkhoUzJXNTBUTG5GSG03NkNj?=
- =?utf-8?B?dkpTd1BjWFdQekNKajlaL1JXVndWejFGK0ZXOEI3MldaQXBxNVJlUlBnMGxp?=
- =?utf-8?B?c1ZiSHZWazEwZUFaRUUxcWR4ajhKZ0NKeW9uL1Uvd2NVVk1FRlV3UktITkJS?=
- =?utf-8?B?dm5vK3licEdqTGlrVWx2a0pYQ1VkN09lSU0wL0Q5SXFuTDY4Rm9xL3dEWUJt?=
- =?utf-8?B?SEU2SHYwNWRhR3hjV3Z0Sm45bnk0dHgzUXJoVU5FcXdYTVB2Tmx6Z3E1YXlF?=
- =?utf-8?B?ZEFmRm9aajk4K05WaklsTm9SWmFYM1dpM0VhVGNBQ0Evc2VjbTZQK3p6L0NW?=
- =?utf-8?B?cFJVcS9ORXhYMmtodElxZ21sUFZ2REhIZjZ2SDZjcUNrSGZod0FveHYrUXMr?=
- =?utf-8?B?QS9hUlZWVDJVcmVmV3JDUFpoYnNLMmlCNGI5dm5Tbkh3bmNFQVljQWphWG94?=
- =?utf-8?B?b3N2a1NMZHkxZkkvSFhSbmUreDNkRnBKRzQwVktvVWFjWEZoU0dFRGU0QUFk?=
- =?utf-8?B?OXpGWXhyMjFIQ0dJeUpQampld2hNMDNrQUN1ZjcwdlREOXpFazR2c05vT2Jw?=
- =?utf-8?B?S011ZmNyM2NFRnoybFVON3pvcVhtTXVyUmVvMUFUazlYaUs2c3lUQkNwc3ho?=
- =?utf-8?B?N3lpQWJBcTJKZExESDBQUVNLdTE4Tmcra0Y4bUsxYzlNOG9qN3J6T0FYWlVu?=
- =?utf-8?B?bS96N1JhOGM1RnIvNmtCWEtBZlEzSmh4M3gvNG5Na3ZDOTArem9keHJTOWdB?=
- =?utf-8?B?VmxKNGxTK1k4YzQwbXlia0hRMktITU9zeFVSakpXb1FNdW50dmpkdWF0alU3?=
- =?utf-8?B?U1k4ODMrZk91RHExZnhKUUdTamdTVnNjc2JUbm1jSEJnWUpUcitzbDZwNkcv?=
- =?utf-8?B?eDJiOGdOVmtLdERzQjJnKzRmOVpTK1luL1F4NzYxMGFjdkRMYWtJbHRHQUhz?=
- =?utf-8?B?L0VEU3RzY2w0bkZndHhRb3ZWend4SmNHMVhiSTFBRGFJcU14d3U0ZW9HcjR5?=
- =?utf-8?B?YkZISmN6bGFFWGJaK2VqclZZbGt0RW92YmZnL1h0OS9HVktGNEJ5dzkwZmpo?=
- =?utf-8?B?NzA3ZnczNm4wbjRtL2pqYjRiK2dDV0Vxb3UzOHErNUVIaFJrbWxHSkZQdnZX?=
- =?utf-8?B?Uy9kTjJtcDdLc3VvUm1kVTV6WUJRaEIxU0NzVEpxYXhxOXpDUVdxNVJSUE9i?=
- =?utf-8?B?NnZPSXM4Zi9vajdCbGVpUDkxT0VnZmpjOW9maXFsaFk4NkFxZzliTGVldXdO?=
- =?utf-8?B?b1JpRGxrSCtUMXRsSytYazh0WjdsUFJYOE9WbGNSZy9wV0RNa0dnSGloOWNY?=
- =?utf-8?B?UktoSnkyR0ViaGFtR0hYUXY1UElDK2FMcHF0TWxBaTNjL2V3QVRZSFMrcHNX?=
- =?utf-8?Q?7ihPavzuGCh2BLIqAA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea9c48d5-ff06-4926-c6d4-08df398308b7
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 08:18:26.1000
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uVPUND940ovrVOkO9+EBH8HzHYAFX/nUyOF4BNWhADDDULsxeN0E+EfFCsgCgCG2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7520
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 11/3/26 08:27, Krzysztof Kozlowski wrote:
-> 
-> On Tue, 03 Nov 2026 06:44:57 +0000, Wentao Liang wrote:
->> The merge order test creates an array and a chain as inputs to
->> dma_fence_unwrap_merge(). The merge takes references to the underlying
->> fences but does not consume the input containers. The success path only
->> puts the merged result, leaking both the input array and the outer chain,
->> which owns the inner chain.
->>
->> Put the outer chain after checking the merged result and fall through to
->> the existing array cleanup on success as well as failure.
->>
->> The dma-buf-fence-unwrap KUnit suite passes all 11 tests under UML.
->>
+btf_relocate() rewrites type ids in place but doesn't drop the cached
+raw_data, so btf__raw_data() after btf__relocate() returns the old
+bytes with pre-relocation ids.
 
->> Fixes: b1cce631e61f ("dma-buf: add selftest for fence order after merge")
->> Cc: stable@vger.kernel.org
+Only modifiable BTF keeps raw_data as a cache. For read-only BTF, e.g.
+module BTF relocated in btf_parse_elf(), types_data points into
+raw_data and is already rewritten in place, so it must not be freed.
+Make btf_invalidate_raw_data() tell the two apart and call it from
+btf__relocate(). Also recompute named_start_id since start_id changes
+after relocation, like the kernel does.
 
-Completely agree to what Krzysztof wrote below, but additionally a <256 byte memory leak in a non-production unit test is not something I would consider relevant for backporting.
+Fixes: 19e00c897d50 ("libbpf: Split BTF relocation")
+Reported-by: 洛 <wanghai8081@gmail.com>
+Closes: https://lore.kernel.org/bpf/455f7257-25b9-4070-8313-42af8005b948@linux.dev/T/#t
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+v2:
+ - Free raw_data only for modifiable BTF and call btf_invalidate_raw_data()
+   from btf__relocate() instead of btf_ensure_modifiable(), per Alexei
+ - Recompute named_start_id after relocation
+ - Drop the selftest since it is contrived, as Alexei pointed out
+ - Target bpf-next
+v1: https://lore.kernel.org/bpf/20261101155615.324501-1-jiayuan.chen@linux.dev/
+---
+ tools/lib/bpf/btf.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-Unless Greg or Sasha have different opinions please don't automatically send everything with CC stable@vger.kernel.org.
-
-Regards,
-Christian.
-
->> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
->> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
->> ---
->>  drivers/dma-buf/st-dma-fence-unwrap.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
-> 
-> 
-> 
-> Multiple things here:
-> 1. Your team ignored completely previous feedback. Multiple times.
-> 
-> 2. You use multiple identities with this email, thus I doubt
->    that we speak with an actual person.
-> 
-> 3. Your bot does not even bother running checkpatch, right?
-> 
-> 4. Nothing of this was reproduced nor tested.
-> 
-> 5. Finally, the same feedback:
-> You sent multiple independent patches, to multiple independent
-> subsystems. The amount of these patches clearly suggest this was
-> AI generated and most likely not tested.
-> 
-> More importantly, you sent all this work without properly organizing
-> relevant patches into patchsets. This makes reviewing difficult
-> and might cause multiple reviewers to address the same issue.
-> Replying to the entire set is impossible and requires handling each
-> patch independently, instead of applying or discarding the set.
-> Maintainers also won't see the bigger picture of your work. Quite
-> worrying.
-> 
-> This is on the verge of hostile patch: bomb us with so many
-> contributions, we won't be able to handle them in efficient manner,
-> like responding ONCE to ask you to slow down.  Considering all this
-> is untested and LLM generated, I have even more doubts whether this
-> should be considered for review.
-> 
-> Please read kernel documentation BEFORE posting more work. It will
-> explain you how to identify subsystems, how to organize your work per
-> subsystem (so a patchset grouping multiple patches with a short cover
-> letter), how to document usage of LLM and what you should not do
-> if this was posted in a good faith.
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
-> 
-> 
+diff --git a/tools/lib/bpf/btf.c b/tools/lib/bpf/btf.c
+index d2ff6f5d6d5b..d67f78d76750 100644
+--- a/tools/lib/bpf/btf.c
++++ b/tools/lib/bpf/btf.c
+@@ -2033,7 +2033,8 @@ struct btf *btf__load_from_kernel_by_id(__u32 id)
+ 
+ static void btf_invalidate_raw_data(struct btf *btf)
+ {
+-	if (btf->raw_data)
++	/* types_data and strs_data of read-only BTF point into raw_data */
++	if (btf->raw_data && btf_is_modifiable(btf))
+ 		btf_free_raw_data(btf);
+ 	if (btf->raw_data_swapped) {
+ 		free(btf->raw_data_swapped);
+@@ -2099,11 +2100,11 @@ static int btf_ensure_modifiable(struct btf *btf)
+ 	if (!btf->base_btf && btf->hdr.str_len == 1)
+ 		btf->strs_deduped = true;
+ 
++	btf->modifiable = true;
++
+ 	/* invalidate raw_data representation */
+ 	btf_invalidate_raw_data(btf);
+ 
+-	btf->modifiable = true;
+-
+ 	return 0;
+ 
+ err_out:
+@@ -6642,8 +6643,12 @@ int btf__relocate(struct btf *btf, const struct btf *base_btf)
+ {
+ 	int err = btf_relocate(btf, base_btf, NULL, NULL);
+ 
+-	if (!err)
++	/* types are rewritten in place, some of them even on error */
++	btf_invalidate_raw_data(btf);
++	if (!err) {
+ 		btf->owns_base = false;
++		btf_check_sorted(btf);
++	}
+ 	return libbpf_err(err);
+ }
+ 
+-- 
+2.43.0
 
