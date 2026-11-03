@@ -1,63 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740193;
-	b=rjb1/Vj8vE4LwPdM0liTBSx7G+WdAUYvh+FVAnC/zQif54qt3jfyLFJ4irSUqmkWgSJQ
-	 Xpwb9iMyN9z0kuRE/svemXGPDVonXLaZRDu3dfIsRsbc1Hv7emSwm9zxMUfTmfciBE5Ai
-	 CKfU+js7VJYUXdnaPpQWzcwyapeN90meGKSxHWT8Y7PRRmwZdU87gvK9NCb77SIt07oAh
-	 AGsQ6Xzp7Wv5yF4H4Czitc3k1kCLB21UwGP1QUXL+WJJsXT1QcDkDTCGOi45vJUVs6TL2
-	 cgx1gLDmROgaqPNHclwLRZpKDIodmNkICvSKVPPs0xR5U762Hw+WaUP0uRPLZLW6Aug==
+	t=1793740188;
+	b=atTbXT7XMZcsSs9Q4XLzWy5PPQHJhD9SYKZhiBSI/DjmzYQsoDEkfI+5sdHbOo26xz+/
+	 l+gHwjAXI8AVYIxqx0NVNaK0nkgkGrvsh93SKMt/WZYlH7FBzzpGjNgRAAxuFk1m7T+V4
+	 WwONqGj7XtdcKWmgGoI/EYbcWiTFrwwn+8vjbdPNusoWK1ZN58062pNfXRY3NNtwLFI8A
+	 NIZXqnRGwESXyZgLEJDwXf/nEbinL5D6GF1uoFIv57343rvbU8VUVCH+cMqCIfx14sz9N
+	 N5s+8OKN0l/wYBn00btkwUbGR94VGAMdL/0H3UdtEiVvMiJpkp255n0NeWiobR1Zm3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740193;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=L8hrw8BTqeQMi8RBhrOpxHodTpU949C3/zsJFzvh1l0=;
-	b=D4f7d91eyHFLWi+L6oyx0LMe50TY6Lq9GAb/fRE10dmrz/KPtH60dY8Mrx+ZE9a7qXYk
-	 gZWSOCH4vUyOtvSuoTKdkMOhidJ3NUEh3N84fkMOvLm9zSgOjhoyj964q0O630loIRzpY
-	 Sr/9x6dTsBfquQDqgLrAl99vBcp/QrsCut6SUlmIv52Xn9it6+2c0DvswmF2+mxMzb5hv
-	 oQBYbRRi9UIlAhd2oRxwNNcCeMgOGuQMkQj1w22sXaHg9/HbKgk4k3d5W/7DurgLcvjtK
-	 r13iP+d40VdHE9l3L81VO8C02Rl0U/Gxh1nmH2uIWSAG3jeB0NkAsDbu8wC8Yyc9pRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740188;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:Date:MIME-Version:User-Agent:X-TM-AS-GCONF:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=pbuaBlkeDfILQZS3CoQ/rYggLvu4O1PZ8Fc4Ks8Xak8=;
+	b=Cb7fV74lOc0xelGESo2zqhAv0xCof142nBk1U//4Tooh79SXODKK9f/ONBhOmA9ULzti
+	 j9z5vZVH/4QG/n9qdIWdGKVF5Yyb/Gl5yKK50cRx3UPaDAKYEfp/elwJj9Wi7PbUfiNH5
+	 y5/Ew1NfVJDtbBDE5UNDnS8ZdKlDWU1stY3tTzSsw/ZZONbiBWKTTYkwnplqiWJvvd4H9
+	 67cA9NAEhrVv3LPYB24tcVwagqz8P8zSOrr43h6p3VlalNq3a1ocOC02SA6S569wUiKSb
+	 wrFFqXTEd2tKl+/CPklLwefArOv2HpMli26ocAQ8a2U9vMKr0boQ4/bzl2uRnujcDCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggZCicF8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="B0WSdO2/";
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B984606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:09:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385AA606A31B;
+	Tue,  3 Nov 2026 21:09:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 385AA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggZCicF8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFE9E1F0093A;
-	Tue,  3 Nov 2026 21:09:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793740193;
-	bh=L8hrw8BTqeQMi8RBhrOpxHodTpU949C3/zsJFzvh1l0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ggZCicF8qVpL2p8CxZxhAgqd1m6OOdaB8MzPqmx4LwwFXvXxihrS9pAiiTOE+8eXe
-	 zInNJAW+I11QJdjffta61+KcEDmfgXApxE6i7DF0WKHsIJfjR40/s2rxFrQFg3Qi+5
-	 sdJl0U4HRp6QVEFcEhfCo/MskkPWCJHWtoor0/9KNbs0AbN6utrpUkCSp5XrR5CB5C
-	 h8AkN/E+Tx84Zsyf969MZ36ySXkDFZ45zgPXzLKB7CRSvVQdkD0KEk4yfWDKdfMr2k
-	 Oi62dhKdRbdSiQtzUYol6Mf5Kr5iSWOhYyBd/Nd6bEOmCAKuFrBCvCe7RbraF6bJ/V
-	 6Q5Q9iB6PHuQA==
-Date: Tue, 3 Nov 2026 21:09:48 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com,
-	torvalds@linux-foundation.org, olof@lixom.net,
-	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
-	Boqun Feng <boqun@kernel.org>, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] riscv: build kernel atomics from LR/SC when Zaamo
- is disabled
-Message-ID: <20261103-distance-audio-9b6aac0b1b4b@spud>
-References: <20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com>
- <20261101-lrsc-only-v4-1-4e1d010463b3@mobileye.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=B0WSdO2/
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3IiQfv2834630;
+	Tue, 3 Nov 2026 21:09:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=pbuaBl
+	keDfILQZS3CoQ/rYggLvu4O1PZ8Fc4Ks8Xak8=; b=B0WSdO2/GwfsastNDjywbe
+	f4+paReq4rtccHar4FHnVGaAHToL4TJdYs0mOxD2vkrjuVVdj3rPvytzCvCHWWJH
+	b2N5PwbDHfMnt35qv5vcXGOmDmuca0CLV20LlwJtaBY/pvPLMQAjvZl8INgH8Uhd
+	SlTl9Z+vb6AFtXGP4xEvxqJCFneoLN4QrcSw7CX8+2fBdDEP9BSTtm7UyQSiKbYr
+	xDfC+ev8QdewNCNrGMjWutKzFAGpgNkBoxErkQsXM2QEmEgAzKJMTjX0GjAG5SdM
+	F/SdtDyNnMRHfABr1Cs5KOYh0Eg+eFjkOjsaLSBVwJRx6qBYtCshPgQZePX6lyOw
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7u3gfed-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 21:09:44 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3IaZEn2936191;
+	Tue, 3 Nov 2026 21:09:43 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqbqkbag1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 21:09:43 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A3L9fNw29754062
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 3 Nov 2026 21:09:42 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BC69758060;
+	Tue,  3 Nov 2026 21:09:41 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 252135805E;
+	Tue,  3 Nov 2026 21:09:39 +0000 (GMT)
+Received: from [9.87.159.144] (unknown [9.87.159.144])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  3 Nov 2026 21:09:38 +0000 (GMT)
+Message-ID: <15fbeb951c380ba6a200651d6ff69b783c96a375.camel@linux.ibm.com>
+Subject: Re: [PATCH v12 5/5] vfio-pci/zdev: Add VFIO FMB device features
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+To: Omar Elghoul <oelghoul@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, mjrosato@linux.ibm.com,
+        alifm@linux.ibm.com, farman@linux.ibm.com, gbayer@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com
+In-Reply-To: <20261103150114.68873-6-oelghoul@linux.ibm.com>
+References: <20261103150114.68873-1-oelghoul@linux.ibm.com>
+	 <20261103150114.68873-6-oelghoul@linux.ibm.com>
+Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 22:08:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,318 +154,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+2FX1BX//UlnZkwX"
-Content-Disposition: inline
-In-Reply-To: <20261101-lrsc-only-v4-1-4e1d010463b3@mobileye.com>
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=Zsp4uN7G c=1 sm=1 tr=0 ts=6aea4d98 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=r1p2_3pzAAAA:8 a=SplykyD-GKlIp8uzigcA:9 a=QEXdDO2ut3YA:10
+ a=r_pkcD-q9-ctt7trBg_g:22
+X-Proofpoint-ORIG-GUID: nVoEV-5N3W4ksAFyjZlZLV8JUI8ttfLR
+X-Proofpoint-GUID: nVoEV-5N3W4ksAFyjZlZLV8JUI8ttfLR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4MiBTYWx0ZWRfXweuaBvb1OtaO
+ p9QPnezyg/bEd6jDEMv8+A3YptcO4zgsxdj8HO19bS3AhZN6lzD2IMz7NjSWhCizXL3Et1ApFgg
+ Jpkh3G7ykl79Ja5f8UbWTtON7M0/BxhwwwydssW15ak274YVfHP0IWTDJxW4D/vP2yJpQ1T0XgA
+ iNqmf7l6HiXU2KozcaymBIszFWJI8IyZWokvxxqsnhbtj0H4FC0A5m18RWFu0X9/dDnRS3+x7bs
+ 9dui1Er0vYCv9HZmuCcVaHQy+icEZ9Pb8P1vPmPu1d8ysPNC4x1kMavR7ZCcUuaaUVr1B21I7xP
+ OUP9iYewazHJ6ZZkXUWO1xIaOqtQiRBFUwjzqehlsjY9pNVH8cAFu7KpsWI5lGylrq5p3/aYCu4
+ ImsmpXtTZevEemB25sEJrndpVmpFckwxlMIcvs8mNuglcXXkZkxzVf1zZ4jxTqMAjWsZvseJign
+ QA4GZM7MM14cyxAy0kQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4MiBTYWx0ZWRfX1dJlKpb+SyRn
+ KrPCrdEMY/KA+mvfJ5ZULNtpM5zMF3Z6nJe5OLSCVeKOEvJzdcclRbNrdEXgNTULlT89xdPay4G
+ OBnb3nTdE+doQo8/6ab93NCwWmeczQg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030082
 
---+2FX1BX//UlnZkwX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hey,
-
-Sorry about not noticing the v4, I had the v3 on my todo list for a few
-days and didn't check for an update.
-
-On Sun, Nov 01, 2026 at 02:51:39PM +0200, Vladimir Kondratiev wrote:
-> The A extension is Zaamo plus Zalrsc. MIPS P8700 implements only
-> Zalrsc, and its AMO instructions trap to SBI. A typical atomic is
-> about 40 cycles with LR/SC and about 600 cycles with an emulated AMO,
-> so keep the existing AMO sequences when the toolchain defines
-> __riscv_zaamo or __riscv_atomic, and use an LR/SC loop otherwise.
+On Tue, 2026-11-03 at 10:01 -0500, Omar Elghoul wrote:
+> Introduce new VFIO features for zPCI devices to provide FMB passthrough t=
+o
+> userspace.
 >=20
-> Add RISCV_ISA_ZAAMO and RISCV_ISA_ZALRSC. Both default on, and that
-> selection still passes "a" in -march. Zalrsc remains required because
-> cmpxchg and the conditional atomics are LR/SC sequences. Zaamo can be
-> turned off only with CONFIG_NONPORTABLE, and only when the compiler
-> accepts _zalrsc in -march. GCC 15.1 introduces that support. Older compil=
-ers keep Zaamo
-> enabled and -march keeps "a". An LR/SC-only build passes _zalrsc
-> instead of "a".
+> Allow the user to enable or disable the FMB using the SET-only feature
+> VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE. Likewise allow the user to read the
+> latest FMB using the GET-only feature VFIO_DEVICE_FEATURE_ZPCI_FMB_READ
+> in the case when the FMB is enabled.
 >=20
-> Suggested-by: Chao-ying Fu <cfu@wavecomp.com>
-> Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+> Acked-by: Alex Williamson <alex@shazbot.org>
 > ---
->  arch/riscv/Kconfig               | 32 +++++++++++++++++++++++
->  arch/riscv/Makefile              | 15 ++++++++---
->  arch/riscv/include/asm/atomic.h  | 56 ++++++++++++++++++++++++++++++++++=
-+++++-
->  arch/riscv/include/asm/bitops.h  | 51 ++++++++++++++++++++++++++++++++++=
-++
->  arch/riscv/include/asm/cmpxchg.h | 18 +++++++++++++
->  arch/riscv/include/asm/futex.h   | 53 ++++++++++++++++++++++++++++++++++=
-+++
->  arch/riscv/kernel/entry.S        |  9 +++++++
->  arch/riscv/kernel/head.S         | 14 ++++++++++
->  8 files changed, 243 insertions(+), 5 deletions(-)
+>  drivers/vfio/pci/vfio_pci_core.c |  4 ++
+>  drivers/vfio/pci/vfio_pci_priv.h | 18 +++++++++
+>  drivers/vfio/pci/vfio_pci_zdev.c | 64 ++++++++++++++++++++++++++++++++
+>  include/uapi/linux/vfio.h        | 30 +++++++++++++++
+>  4 files changed, 116 insertions(+)
 >=20
-> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> index 5874ca30f4f6..925963a61f62 100644
-> --- a/arch/riscv/Kconfig
-> +++ b/arch/riscv/Kconfig
-> @@ -730,6 +730,38 @@ config RISCV_ISA_ZACAS
-> =20
->  	  If you don't know what to do here, say Y.
-> =20
-> +config TOOLCHAIN_HAS_ZALRSC
-> +	bool
-> +	default y
-> +	depends on !64BIT || $(cc-option,-mabi=3Dlp64 -march=3Drv64im_zalrsc)
-> +	depends on !32BIT || $(cc-option,-mabi=3Dilp32 -march=3Drv32im_zalrsc)
+--- snip ---
 > +
-> +config RISCV_ISA_ZAAMO
-> +	bool "Zaamo extension support for AMO atomics" if NONPORTABLE && TOOLCH=
-AIN_HAS_ZALRSC
-
-Probably this option should be called something like
-TOOLCHAIN_HAS_ZALRSC_ZAAMO if you're going to use it like this, because
-it is confusing why ZALRSC gates a ZAAMO option.
-
-I'm curious actually, does every toolchain provide zalrsc and zaamo as a
-pair, or should you check for both here? I'd be surprised if there was a
-toolchain with one but not the other but worth checking to avoid some
-bizarre toolchain bug..
-
-| > The text here doesn't really make much sense, given it is default
-| > disabled as it depends on NONPORTABLE that is default disabled.
-| > If this is retained, it should be default n and the text reworded.
-|=20
-| Not exactly. RISCV_ISA_ZAAMO is visible if NONPORTABLE &&
-| TOOLCHAIN_HAS_ZALRSC (later was added in v4). Otherwise it is not
-| visible and set to "y". If one disables NONPORTABLE, RISCV_ISA_ZAAMO set
-| to "y" with no option to change it. Same for added in v4
-| TOOLCHAIN_HAS_ZALRSC
-
-Ah, right. But that kinda goes against how NONPORTABLE is meant to work
-since the default cannot run on all platforms? At that point, just get
-rid of NONPORTABLE?
-
-> +	default y
-> +	help
-> +	  Use AMO instructions for kernel atomic memory operations. When
-> +	  disabled, those operations are built from LR/SC and the kernel
-> +	  is compiled with zalrsc instead of the A extension.
+> +int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev, u3=
+2 flags,
+> +				   void __user *arg, size_t argsz)
+> +{
+> +	struct zpci_dev *zdev;
+> +	struct vfio_device_feature_zpci_fmb_read fmb_read;
+> +	struct zpci_fmb fmb_bounce;
+> +	int ret;
 > +
-> +	  Disable this only for a hart that implements Zalrsc but not
-> +	  Zaamo, such as the MIPS P8700, and only when the compiler accepts
-> +	  _zalrsc in -march. GCC 15.1 introduces that support. Without it this
-> +	  option stays enabled and -march keeps the A extension.
+> +	ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_GET, sizeo=
+f(fmb_read));
+> +	if (ret !=3D 1)
+> +		return ret;
 > +
-> +	  The resulting kernel cannot run on a hart without LR/SC.
+> +	zdev =3D to_zpci(vdev->pdev);
+> +	if (!zdev)
+> +		return -ENODEV;
 > +
-> +	  If you don't know what to do here, say Y.
+> +	if (copy_from_user(&fmb_read, arg, sizeof(fmb_read)))
+> +		return -EFAULT;
+> +	if (!fmb_read.data)
+> +		return -EINVAL;
 > +
-> +config RISCV_ISA_ZALRSC
-> +	def_bool y
-> +	help
-> +	  Zalrsc provides LR/SC. cmpxchg and the conditional atomics
-> +	  require it, so it is always enabled.
+> +	scoped_guard(mutex, &zdev->fmb_lock) {
+> +		if (!zdev->fmb_enabled)
+> +			return -ENOMSG;
 
-| > So why have a kconfig option for it then? It's pointless if always
-| > enabled.
-|=20
-| My logic when adding it:
-| There are 2 sets of extensions related defines: one is Kconfig ones,
-| CONFIG_RISCV_ISA_<ext>; and another one found in the
-| arch/riscv/include/asm/hwcap.h, RISCV_ISA_EXT_<ext>
-|=20
-| In the hwcap.h, there's already
-|=20
-| #define RISCV_ISA_EXT_ZAAMO		97
-| #define RISCV_ISA_EXT_ZALRSC		98
-|=20
-| added by commit 35173b666a16 (riscv: add parsing for Zaamo and Zalrsc
-| extensions, 2024-06-19)
-|=20
-| These 2 sets are logically coupled, and used in the BPF JUT code like
-|=20
-| #define rv_ext_enabled(ext) \
-| 	(IS_ENABLED(CONFIG_RISCV_ISA_##ext) &&
-| riscv_has_extension_likely(RISCV_ISA_EXT_##ext))
-|=20
-| So I thought if RISCV_ISA_EXT_ZALRSC exists although it is mandatory,
-| CONFIG_RISCV_ISA_ZALRSC counterpart should exist for the same reason.
-|=20
-| Do you suggest this is different case and it is worth to remove
-| CONFIG_RISCV_ISA_ZALRSC anyway?
+For those who were also wondering what would happen if the zdev has an
+FMB length too large for this kernel's version of struct zpci_fmb. In
+that case zpci_fmb_enable() fails the FMB enablement leaving zdev-
+>fmb_enabled false and then the check above also covers the memcpy()
+here even if user-space ignores that the FMB is not enabled.
 
-If this is the justification for it, then you need to provide this
-justification in your commit message - but if zalrsc is always enabled
-then there's no need for any code like that in the bpf jit in the first
-place, once more making this dead code that should be deleted?
-
+> +		memcpy(&fmb_bounce, zdev->fmb, zdev->fmb_length);
+> +	}
 > +
-> +config RISCV_ISA_A
-> +	def_bool RISCV_ISA_ZAAMO && RISCV_ISA_ZALRSC
+> +	if (copy_to_user(u64_to_user_ptr(fmb_read.data), &fmb_bounce, zdev->fmb=
+_length))
+> +		return -EFAULT;
 > +
->  config TOOLCHAIN_HAS_ZBB
->  	bool
->  	default y
-> diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
-> index 44f5a439741a..1b0a459a0f74 100644
-> --- a/arch/riscv/Makefile
-> +++ b/arch/riscv/Makefile
-> @@ -58,8 +58,9 @@ ifeq ($(CONFIG_SHADOW_CALL_STACK),y)
->  endif
-> =20
->  # ISA string setting
-> -riscv-march-$(CONFIG_ARCH_RV32I)	:=3D rv32ima
-> -riscv-march-$(CONFIG_ARCH_RV64I)	:=3D rv64ima
-> +riscv-march-$(CONFIG_ARCH_RV32I)	:=3D rv32im
-> +riscv-march-$(CONFIG_ARCH_RV64I)	:=3D rv64im
-> +riscv-march-$(CONFIG_RISCV_ISA_A)	:=3D $(riscv-march-y)a
->  riscv-march-$(CONFIG_FPU)		:=3D $(riscv-march-y)fd
->  riscv-march-$(CONFIG_RISCV_ISA_C)	:=3D $(riscv-march-y)c
->  riscv-march-$(CONFIG_RISCV_ISA_V)	:=3D $(riscv-march-y)v
-> @@ -75,9 +76,15 @@ else
->  riscv-march-$(CONFIG_TOOLCHAIN_NEEDS_EXPLICIT_ZICSR_ZIFENCEI) :=3D $(ris=
-cv-march-y)_zicsr_zifencei
->  endif
-> =20
-> -KBUILD_BASE_ISA =3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(=
-rv32ima|rv64ima)fd([^v_]*)v?/\1\2/')
-> +KBUILD_BASE_ISA =3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(=
-rv32ima?|rv64ima?)fd([^v_]*)v?/\1\2/')
->  export KBUILD_BASE_ISA
-> =20
-> +# Zaamo is off only when the compiler accepts _zalrsc in -march.
-
-I think the comment here is not quite right, it should be "can only be
-off", no?
-
-> +ifneq ($(CONFIG_RISCV_ISA_A),y)
-> +riscv-march-$(CONFIG_RISCV_ISA_ZAAMO) :=3D $(riscv-march-y)_zaamo
-
-Isn't this dead code? The logic for RISCV_ISA_A is:
-config RISCV_ISA_A
-	def_bool RISCV_ISA_ZAAMO && RISCV_ISA_ZALRSC
-but ZALRSC is always set, so RISCV_ISA_A is equivalent to
-RISCV_ISA_ZAAMO so there can't be a case where RISCV_ISA_A is not set
-but RISCV_ISA_ZAAMO is?
-
-> +riscv-march-$(CONFIG_RISCV_ISA_ZALRSC) :=3D $(riscv-march-y)_zalrsc
-
-And here, this is effectively just riscv-march-y, since if you get as
-far as here, it must be true.
-
-> +endif
-> +
->  # Remove F,D,V from isa string for all. Keep extensions between "fd" and=
- "v" by
->  # matching non-v and non-multi-letter extensions out with the filter ([^=
-v_]*)
->  KBUILD_CFLAGS +=3D $(KBUILD_BASE_ISA)
-> @@ -85,7 +92,7 @@ KBUILD_CFLAGS +=3D $(KBUILD_BASE_ISA)
->  KBUILD_AFLAGS +=3D -march=3D$(riscv-march-y)
-> =20
->  # For C code built with floating-point support, exclude V but keep F and=
- D.
-> -CC_FLAGS_FPU  :=3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(r=
-v32ima|rv64ima)([^v_]*)v?/\1\2/')
-> +CC_FLAGS_FPU  :=3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(r=
-v32ima?|rv64ima?)([^v_]*)v?/\1\2/')
-> =20
->  KBUILD_CFLAGS +=3D -mno-save-restore
-> =20
-> diff --git a/arch/riscv/include/asm/atomic.h b/arch/riscv/include/asm/ato=
-mic.h
-> index 616b8b332ac5..dc6a8c95c975 100644
-> --- a/arch/riscv/include/asm/atomic.h
-> +++ b/arch/riscv/include/asm/atomic.h
-> @@ -50,6 +50,7 @@ static __always_inline void arch_atomic64_set(atomic64_=
-t *v, s64 i)
->   * have the AQ or RL bits set.  These don't return anything, so there's =
-only
->   * one version to worry about.
->   */
-> +#if defined(__riscv_atomic) || defined(__riscv_zaamo)
-
-| > ...why are we making this a compiletime decision in the first place?
-| > Why can't this be an alternative, starting with the zalrsc stuff and
-| > moving to the better implementation if available?
-|=20
-| I started with alternatives approach, see
-| https://lore.kernel.org/all/20260114072552.731974-1-vladimir.kondratiev@m=
-obileye.com/
-| Then I converted it to the static compile-time decision following input
-| from Gary Guo that I think is valid, here:
-| https://lore.kernel.org/all/DFSQIY6WV4U7.3B3RY31KE739B@garyguo.net/
-
-
-Okay, that logic from Gary does make some sense. I'll accept that
-argument, but again this needs to be communicated in the commit message.
-
-| > Is there some zaamo code that gets generated automatically that we lose
-| > out on by always building the kernel with zalrsc instead of with all of=
- a?
-|=20
-| There's BPF JIT that emits AMO instructions, patch for this is not ready
-| yet. These AMO instructions will be emulated and work correctly but very
-| slowly.
-
-I think that needs to be part of this series. You're far too focused on
-your individual platform where the instructions work, rather than the
-holistic solution of lowering our minimum requirements so that platforms
-that do not have any AMO support work. The only way that it'd make sense
-to move forward with this without the bpf jit patch is if you disabled
-bpf entirely when RISCV_ISA_ZAAMO is disabled.
-
-> +#if defined(__riscv_atomic) || defined(__riscv_zaamo)
-
-Something else to note is that we do not use this pattern anywhere else
-in arch code as far as I know? We always use the RISC_ISA_WHATEVER
-config option to gate conditional stuff. Since RISCV_ISA_A is equivalent
-to RISCV_ISA_ZAAMO (unless I am mistaken there somehow) this just collapses
-to a single check?
-
->  #define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)		\
->  static __always_inline							\
->  void arch_atomic##prefix##_##op(c_type i, atomic##prefix##_t *v)	\
-> @@ -59,7 +60,25 @@ void arch_atomic##prefix##_##op(c_type i, atomic##pref=
-ix##_t *v)	\
->  		: "+A" (v->counter)					\
->  		: "r" (I)						\
->  		: "memory");						\
-> -}									\
+> +	return 0;
 > +}
-> +#elif defined(__riscv_zalrsc)
-> +#define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)		\
-> +static __always_inline							\
-> +void arch_atomic##prefix##_##op(c_type i, atomic##prefix##_t *v)	\
-> +{									\
-> +	register c_type ret, temp;					\
-> +	__asm__ __volatile__ (						\
-> +		"1:	lr." #asm_type " %1, %0\n"			\
-> +		"	" #asm_op " %2, %1, %3\n"			\
-> +		"	sc." #asm_type " %2, %2, %0\n"			\
-> +		"	bnez %2, 1b\n"					\
-> +		: "+A" (v->counter), "=3D&r" (ret), "=3D&r" (temp)		\
-> +		: "r" (I)						\
-> +		: "memory");						\
-> +}
-> +#else
-> +#error "Need AMO or LR/SC atomics"
 
-And this error is actually unreachable?
+Looks good, looking forward to having function measurement in KVM
+guests.
 
-(and so on in every other place that this pattern is repeated)
-
-Cheers,
-Conor.
-
-> +#endif
-
---+2FX1BX//UlnZkwX
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaupNmwAKCRB4tDGHoIJi
-0lWJAP47/7wo97SPKRn2JxsE8gcUN7h5rA05GC/OEt6LjOPMyAD9ETG5/W9W55Qa
-W+OuieCq72k6AUkvJ1n9DOwZIvFKtA0=
-=zFph
------END PGP SIGNATURE-----
-
---+2FX1BX//UlnZkwX--
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
