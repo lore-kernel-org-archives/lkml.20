@@ -1,101 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793714629;
-	b=QxBhLnSDcI4WbVuO7EET7s9XK3qx8OQ0Ot6Db1dC5QG4hyV+tmycHoecOEy9N8wZJ+4d
-	 kNWzazwFXrFO59Bf1doorlsoYdU1fjDwVeAZH6ND0rwdQL3bGzQ/wPxPY05Pp8OkoNDJI
-	 OedHtM1bPOBvcOjUJ1Zug6/70Jtf31trvdgLr1ZXij3+CKNZNEjiYj7KBO/sB0MfAz+qz
-	 bVcBT8JdO7+mF3KKpHblz8rmiUp9in8aTYLGQgR4odSnHwjDTLijXu+SQ4bbtq4ASsqOO
-	 yT57kQupG0keAKZRctvor8NLvlkIcBVnQa4rzr6K/W2SOZ6XtuX0rKgK6LlsFNCR96A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714629;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0mpQqPcx/wO2M/JeyOkuY7Hd6GV1/TOLmZZItrx8K9I=;
-	b=h9yTf/Fmb2tJo8l4pK3gzHofHxJs91RMFPK/guJ0pKUwRy83Te4MhZNHy4pf+p6SGW3o
-	 7nk8nRxAMwEoZZFF2XLMBlvg2zOcfBGM0WwSSB0+gmCX6vRkj4Y32CNeNJk64Ov78ogW4
-	 z6AvVRaQCnyqHMJGL9aoNaFyNOG46jWxY+H0BiQsK7u2lWsnyhZmj7tF3fwg5MLvAUVTi
-	 pl9lLiXYohbvSre569jnWMYIvbxd/91IgPc8AvRlzFHR1K6VYCny6OPCHvs32Wh4yEj07
-	 SR/m8Epgh+A0PHOLFlWvViweRwtDUYTDho5v/ORPAPtfwLOHwjA2T/yH5TiieTt2S8w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e4mZfUJ7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793714643;
+	b=pedlZLXFSPkewfkK3uH3+3LIE+0ZnvRDMrcHiWUY2/8TxZF/Mk9AC2jEIZS5rZmmYqY9
+	 b8kGRSy/naHJ5i4nbpDp2QZw8jMgMC3dEZHTlFEbj65iwzt8DU09KMzEZKvSYkOm4i99f
+	 xK6VIrwUszfcLsz8SBmXtPq4gZNbQwTwpOupVxOdq2t5zT76azf8SZ3Fm+hLs0kaNJO+F
+	 nuGIX5267EUI+6EcUDJkFP0IU0YYqwsITnXamAi1F9h26hrbFE87q5A2oS6Z9hBIfZTDF
+	 OYN6lHhlCCrA3E263GbypJWE+YdZ7vTxXkL0Hf3dC+fBo8Q77q6hjz252MJOLeB+T4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714643;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=m8eClOJBMhf72fJLFIoN+wxoKK/2oma6t1vRDNte5XY=;
+	b=S3ifXtBPw6QaZVzqA+rAGclcBu01J2Ny9Nv2WA0IargLpKy67x4HKMho6uzyKiL7ss2s
+	 Hv8wMD4DgVybHTT4qXHhQ1LnuS+8Bt8UbYUFI1lleIL5EOKM1ohHZjECqVvaFpIfcFt50
+	 3zGvi2EUKjoq+ixnXe6JAMoTH1VqKgdq3FOUf6qQe9CJe6sUcPMfgdJspqSFguKC+Pflg
+	 +zylZ48HOOQ8f+TFk4U9Pblrb9oW+xlhFcr+CUfbDvxLnY7SnUDx48LjRXIEgdDnljpHZ
+	 186jFK4kpYJyMI6zfHMUjZ1nWehTqxiFxYh/Ec57MGPI2ElFLl235LBxqvsTFt7s1uQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="Za/7n3lT";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F606071BD2
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:03:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F606071BD2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D31606EE9B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:04:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0D31606EE9B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e4mZfUJ7
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48afbd2c386so2477858f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:03:48 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793714627; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aK6sJGvKb7eVa5pjuSOX3p9FWKFmNS6wnx/BRLruPqAdVqaIU305C2gywR4qgZ1PQB
-         v3h/qeAAp50evKYd43oBnmRHT/Wj5BbxIb9NlwYMzI3xVdPHEe0VZTP4+ZY8dm65L0pk
-         nInI19qEhCxThWf6if9UmnOX1hzpQAT8HV6Ym5b5rEntdNVKOFxoflgHbC7iAc7GwepB
-         KhKQBcJpLHQrMjnXwazAh7r1grRu+5aab/KFKP+VDWwfuJaGQe740RYoeTLGvtcQYmIX
-         NqIgHOdAIcp/QqfjJ43yeuFL9XKRbjiBAW5D7XR+M3QE4FcXeu9e+GYsHsCYavVFvMV/
-         T1KQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0mpQqPcx/wO2M/JeyOkuY7Hd6GV1/TOLmZZItrx8K9I=;
-        fh=WJGZVXa4/O+RmYrUz+ev3CUHzJ7CkceAKiBx3QJOFaQ=;
-        b=cFE0On5QwogDqXjcf6GNOPVG/jrYGov2mOhSpudqZFwaJ1di4/dCejg1IcQ4m/tQkg
-         aVgsLh0UpHytojsqHVR1SNlsj9SxY8X81NkHBvTyqrYIUWmmj+TL6uC6GZ6CxjiK9VQ/
-         QKjYLBCCWH0MHcMgXDutOByBx1HFtouPLEMiehvN2NGnJsSeqxjt87ieFonbOt3CF1L9
-         g6Y4QBGt3AvIUVLc83cJ3KVBuHhAQKuEh0cqko1oJUO8B3qOGUbMyMUiXbeG2r72zkhv
-         G0Yj2eUBIga/NK8re2F+HovNaM3GOExMdYR2A7VCNE+04bBOHT6kpW8jDN024DRg8KdY
-         U03g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793714627; x=1794319427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0mpQqPcx/wO2M/JeyOkuY7Hd6GV1/TOLmZZItrx8K9I=;
-        b=e4mZfUJ7A7a8iaDoHeZNcPNu/+CUH+2+6ZCaJVcqzNhCbPI5HXDRpLYwVgTKzinAMp
-         vdlHKExM5IcuSQCBgk2KTnJVvIv1R9GryL8ma9Ew5xv8FlAio01SzeKcQcI5ji4ySfjd
-         jSAQAyoTxu6R1edo4NkOfXCd5hk0LfpQ9UnbrcN+HOK3kE3YbvHA5/uRDkWbLfV0gRIU
-         5DrrHuT9rGliqmLyXossXTnTkbfNtAmihKyCbbRr2GngOXttEFoJqiVEcT+2h1pav2Vr
-         dLeryfGKX0rhY2VHMKOafLTTQtNsVKEthvOe3etVFWOnyFbnWujkW8CXN2502xR4LYHA
-         Bang==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793714627; x=1794319427;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0mpQqPcx/wO2M/JeyOkuY7Hd6GV1/TOLmZZItrx8K9I=;
-        b=jCbQrYybL0AC4ogpxLxFBgjvnhLQulcYNJ3TXETS57VR826XBPz2+OQnKoQOXQP4Qv
-         R5IrbywqJWRg7bv0jGoL9TKd0iyKD+UV8Az8Y6XhfIP3FBfMFitD5FgpJx0aqiTeFc7x
-         yQ1UnZ7/Aajdq5O2G6ec1T3siZGwEj2PkM7z0wg0f6X2+R3MY2kuzbPz+Knu4AF4VySu
-         9OQyzeudzs6xW4wgnjjD0F5pJoPFxAzjc0z8X2mK7M2A0fb/VfKawA/IkOlH+CmNJEVh
-         V1mIAGAca6DhJCzo8moYvCS3ZqEXlRHiiJCP8/XT5J2GrqUqheGVaIsMQwWmtVNKKKV6
-         mzUA==
-X-Forwarded-Encrypted: i=1; AKwUvByV2wfxO0Mst/aBu8CHTfHFMVaptT6Sp9BgHUqLSRsccG5a9uQ34O2EINK3xh6xv1qFHGORk6GABLTBFW4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9a42fH0g4OcAZS7fLfKfPrDa5gDpQzlA2cYfjm6zAuyWc7OCSS
-	ObU/y5e83jAcc5bCCblvAbc9tokItxbY1qkGCgD4/qb32il5aBfpduoD2mlwaASaMBhVT7iQqv7
-	OtzTp/l0LYujEqyt2zCAWPYo9mhCRV2g=
-X-Gm-Gg: AYBFou1wTlMZaL7+B+1X9R7Iv/GcC8jTPeV57WUNtb2faw7uHKis/RaHj8k29qLoOMP
-	lrvU/YTo+yVrmT0NvqL769Oc6VwZgxX3NSbPHxrpaoO0lYNS+RplzEZmKSKY7jJ8BCerYkGU7C/
-	xCPBL3OlfJ5B+uKFmVXPUd8/wVA9GgklBSKRsgVMvQXAW/EHtjvyCj7oznuVYsnWTZkvv++PC/R
-	FN4cxlF5jVFbJs0rU2M/WaTXg1eD+4UMhM5N2S/WdrYCG82qOvR3qWxwUiUFuHQ+DP8WCKBF2sp
-	f8H4CUKU55T3Zd8z3mnsERv/AyY9hRszjAd7q2pChc+fKHebA6B4F0orOVEr05/pi+c4OpERqh5
-	lWSanEiyF5EjLuiOL9g9/r8xIQKZ/3Io6mxq0+VEVklH1603twbNgDgOFFLudalAIYmnY4y951Q
-	zZo7mYSSD6+dWZgxMGp7hTVniri7+8O/PEX0ayMv16AGPcQg6VnX1vosbx
-X-Received: by 2002:a05:600c:848c:b0:4a1:efd3:9862 with SMTP id
- 5b1f17b1804b1-4ac1765d977mr282488195e9.21.1793714622717; Tue, 03 Nov 2026
- 06:03:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Za/7n3lT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=m8eClOJBMhf72fJLFIoN+wxoKK/2oma6t1vRDNte5XY=; b=Za/7n3lTRA8pVSmUidbanNlX9x
+	Iw014mIR7m9/BRQz+JbV4bsTpB6wDNSwYNpb7uCmCv2lNjvePcVsAwCLhEXkOgn9rU/fZtWnuDnUH
+	agH2ubBdakyMqQMN4yapY/PONrLkZ8W/hgRtE4kSHrDzxUbs04/g0+PRIKB2mjKYauwY632PGp6wi
+	LBxEVS7OzeUfnkTKe3rqPCU95wu/LIHA2A7Vhgn03Zx467MuoZ0wCUSbHlmNcmaVHH1dmIOir4jB1
+	aERs5OK2VgSv1hdRTjEyF0ZuZCtp/sdhNesGA2xrCnKqK9xUJJmLyapSvWmsfqHuv03aL2Hk2DUeE
+	snKWEZLw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOF79-006zDA-0Z;
+	Tue, 03 Nov 2026 14:03:51 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 03 Nov 2026 06:01:56 -0800
+Subject: [PATCH v2] x86/sev: Fix kmemleak false positive for the RMP
+ segment descriptors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,183 +63,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102170911.3867389-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261102170911.3867389-1-Frank.Li@oss.nxp.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 3 Nov 2026 14:03:15 +0000
-X-Gm-Features: AclHuK9lTBNUFEhnmVUe-0bw9b56qg4kVZy5zFZ6xKayAE9tcP58fndIr_XiG0M
-Message-ID: <CA+V-a8t0bf_8hc1vd7c+OXBQfgBjp6EJjDALm8+myVYRNzy-Xw@mail.gmail.com>
-Subject: Re: [PATCH 1/1] iio: use dmaengine_desc_set_callback()
-To: Frank.Li@oss.nxp.com
-Cc: Eugen Hristev <ehristev@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Stepan Ionichev <sozdayvek@gmail.com>, 
-	Felix Gu <ustc.gu@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-	Shuvam Pandey <shuvampandey1@gmail.com>, Piyush Patle <piyushpatle228@gmail.com>, 
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Cheick Traore <cheick.traore-ext@st.com>, 
-	Giorgi Tchankvetadze <giorgitchankvetadze1997@gmail.com>, Vinod Koul <vkoul@kernel.org>, 
-	"Rob Herring (Arm)" <robh@kernel.org>, Shi Hao <i.shihao.999@gmail.com>, 
-	Kees Cook <kees+treewide@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
-	"open list:MICROCHIP SAMA5D2-COMPATIBLE ADC DRIVER" <linux-iio@vger.kernel.org>, 
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>, 
-	"open list:RENESAS RZ/T2H / RZ/N2H A/D DRIVER" <linux-renesas-soc@vger.kernel.org>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, imx@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-sev-rmp-kmemleak-v2-1-9c1ba28cf7c5@debian.org>
+X-B4-Tracking: v=1; b=H4sIAFPp6WoC/32NQQ6CMBBFr0Jm7Rg6xpq68h6GRQsDjAglLTYaw
+ t0F3Lt8yfvvzxA5CEe4ZjMEThLFDyvQIYOytUPDKNXKQDlppXLCyAlDP2LXc/9k22F+PhltbEm
+ KNKyzMXAt7z15L34cX+7B5bR1NqOVOPnw2T+T2rw/+aRQIevaETuj+WJuFTuxw9GHBoplWb7aq
+ r6VwwAAAA==
+X-Change-ID: 20261102-sev-rmp-kmemleak-053969ac2126
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Tom Lendacky <thomas.lendacky@amd.com>, 
+ Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>, 
+ Nikunj A Dadhania <nikunj@amd.com>
+Cc: linux-kernel@vger.kernel.org, catalin.marinas@arm.com, 
+ kernel-team@meta.com, Dave Hansen <dave.hansen@intel.com>, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2759; i=leitao@debian.org;
+ h=from:subject:message-id; bh=YHG4uUqHn2DGTtc2QvLc3aO/usHzyPX1g6bQeXU2Ulg=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6enDJqaMVrhrmo0JafUtxqMdtzftVX8bGyYgF
+ pB0/3MGgZSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaunpwwAKCRA1o5Of/Hh3
+ bedQD/41mawsP0+OSFDOhr4DOoTJOPymVdYgHhPtZ/Az/jHr4aMNwmNw/pw2AOu3KkJT3VR3kEz
+ 65XUJ1i0vT+JkmApeULbty9YgHy8FqmSvYOc2aRa8++adlSg9MEONpIBqx9ZwMJ8Mnlyj0p+mCM
+ aoo6wlpWU2iainDH1HQYSyOx5toFo+KuOLw0/AjzuEqueUPXuYykmGGXRbfVO9Gbs0y2tD9sBXY
+ Tp/+tk5IorIXsOJrqIRRQJN9M4rlDkq5ZzRMKQ4FQvyZ+5tS/OoKXCbXLGwP2jqbgEv/jm86Pd6
+ i1Au0YYxiQNBGDPFn1bhZHY+Xrf+pHEXxDua6IiC/08NifHWqZAO4hgGiwTO/rpRD0/N7Rp1n1d
+ q5i82hRHl0fVvbBRq7I6g72TyXYsBUHQL8BtMH2p1Ioc+UNFMmA7UPMPMm2dflfskLDqbNm4Nwa
+ 3Vuaa6+ql3pliycJrDdiP/ftRx9ood+36lEQrOtzf2KiwV+Vb9wtsbDXX1DrvZmLDEGtZcvfitL
+ 4sS5IURs6njxaMiBkM9ynZXRE61lMs9lKH4WbmZXo8RQAQadhfyTjd72wD5jeIz1tbC0ne3a6yQ
+ duUUjIWKWComhFFw6MrQKLvnNI08YqRX0qXllFBb6v9Ge+WH/qmZ2tUqDVs0vr0rTVxaqtuwrOv
+ gN0fKLhhV2EQUWg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Mon, Nov 2, 2026 at 8:55=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
->
-> From: Frank Li <Frank.Li@nxp.com>
->
-> Replace open-coded assignments to callback and callback_param fields
-> of struct dma_async_tx_descriptor with calls to the
-> dmaengine_desc_set_callback() helper.
->
-> No functional change intended. Prepare make to struct
-> dma_async_tx_descriptor private to the DMA engine.
->
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  drivers/iio/adc/at91-sama5d2_adc.c                 | 3 +--
->  drivers/iio/adc/nxp-sar-adc.c                      | 3 +--
->  drivers/iio/adc/rzt2h_adc.c                        | 3 +--
-For the T2H changes,
+kmemleak reports the RMP segment descriptor as leaked on SEV-SNP hosts:
 
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+  unreferenced object 0xff11000140e23b40 (size 32):
+    comm "swapper/0", pid 1, jiffies 4294680964
+    hex dump (first 32 bytes):
+      00 00 00 40 00 00 a0 ff 00 fc 05 04 00 00 00 00  ...@............
+      00 c0 5f 40 00 00 00 00 00 00 00 00 00 00 00 00  .._@............
+    backtrace (crc abf63fca):
+      __kmalloc_cache_noprof+0x2e2/0x650
+      alloc_rmp_segment_desc+0xdf/0x250
+      setup_contiguous_rmptable+0xb0/0xd0
+      setup_rmptable+0x13/0x60
+      snp_rmptable_init+0x45/0xd0
+      iommu_snp_enable+0x77/0xb0
+      state_next+0x184/0xed0
+      iommu_go_to_state+0x3a/0x90
+      pci_iommu_init+0x32/0x50
 
-Cheers,
-Prabhakar
+The descriptor is still in use: get_raw_rmpentry() reads it on every RMP
+lookup. Its only reference lives in rmp_segment_table[], and
+alloc_rmp_segment_table() takes that table from the page allocator.
+kmemleak does not scan page allocator memory, so it never sees the
+reference and reports the descriptor as leaked.
 
->  drivers/iio/adc/stm32-adc.c                        | 3 +--
->  drivers/iio/adc/stm32-dfsdm-adc.c                  | 3 +--
->  drivers/iio/adc/ti_am335x_adc.c                    | 3 +--
->  drivers/iio/buffer/industrialio-buffer-dmaengine.c | 3 +--
->  7 files changed, 7 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sa=
-ma5d2_adc.c
-> index 78081cbfde5e8..d479c9bc9b3e8 100644
-> --- a/drivers/iio/adc/at91-sama5d2_adc.c
-> +++ b/drivers/iio/adc/at91-sama5d2_adc.c
-> @@ -1240,8 +1240,7 @@ static int at91_adc_dma_start(struct iio_dev *indio=
-_dev)
->                 return -EBUSY;
->         }
->
-> -       desc->callback =3D at91_dma_buffer_done;
-> -       desc->callback_param =3D indio_dev;
-> +       dmaengine_desc_set_callback(desc, at91_dma_buffer_done, NULL, ind=
-io_dev);
->
->         cookie =3D dmaengine_submit(desc);
->         ret =3D dma_submit_error(cookie);
-> diff --git a/drivers/iio/adc/nxp-sar-adc.c b/drivers/iio/adc/nxp-sar-adc.=
-c
-> index 2f716a2f97b80..82d8d921b0293 100644
-> --- a/drivers/iio/adc/nxp-sar-adc.c
-> +++ b/drivers/iio/adc/nxp-sar-adc.c
-> @@ -696,8 +696,7 @@ static int nxp_sar_adc_start_cyclic_dma(struct iio_de=
-v *indio_dev)
->         if (!desc)
->                 return -EINVAL;
->
-> -       desc->callback =3D nxp_sar_adc_dma_cb;
-> -       desc->callback_param =3D indio_dev;
-> +       dmaengine_desc_set_callback(desc, nxp_sar_adc_dma_cb, NULL, indio=
-_dev);
->         info->cookie =3D dmaengine_submit(desc);
->         ret =3D dma_submit_error(info->cookie);
->         if (ret) {
-> diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
-> index 8ba7b0fde8a19..3e52b7d660dd3 100644
-> --- a/drivers/iio/adc/rzt2h_adc.c
-> +++ b/drivers/iio/adc/rzt2h_adc.c
-> @@ -394,8 +394,7 @@ static int rzt2h_adc_start_dma(struct iio_dev *indio_=
-dev)
->         if (!desc)
->                 return -EBUSY;
->
-> -       desc->callback =3D rzt2h_adc_dma_callback;
-> -       desc->callback_param =3D indio_dev;
-> +       dmaengine_desc_set_callback(desc, rzt2h_adc_dma_callback, NULL, i=
-ndio_dev);
->
->         cookie =3D dmaengine_submit(desc);
->         ret =3D dma_submit_error(cookie);
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 600f975f1d7b5..fa2a781e37777 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -1901,8 +1901,7 @@ static int stm32_adc_dma_start(struct iio_dev *indi=
-o_dev)
->         if (!desc)
->                 return -EBUSY;
->
-> -       desc->callback =3D stm32_adc_dma_buffer_done;
-> -       desc->callback_param =3D indio_dev;
-> +       dmaengine_desc_set_callback(desc, stm32_adc_dma_buffer_done, NULL=
-, indio_dev);
->
->         cookie =3D dmaengine_submit(desc);
->         ret =3D dma_submit_error(cookie);
-> diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-df=
-sdm-adc.c
-> index 674767da3ac37..f0239f5f30afe 100644
-> --- a/drivers/iio/adc/stm32-dfsdm-adc.c
-> +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-> @@ -1006,8 +1006,7 @@ static int stm32_dfsdm_adc_dma_start(struct iio_dev=
- *indio_dev)
->         if (!desc)
->                 return -EBUSY;
->
-> -       desc->callback =3D stm32_dfsdm_dma_buffer_done;
-> -       desc->callback_param =3D indio_dev;
-> +       dmaengine_desc_set_callback(desc, stm32_dfsdm_dma_buffer_done, NU=
-LL, indio_dev);
->
->         cookie =3D dmaengine_submit(desc);
->         ret =3D dma_submit_error(cookie);
-> diff --git a/drivers/iio/adc/ti_am335x_adc.c b/drivers/iio/adc/ti_am335x_=
-adc.c
-> index e53c839e87ef3..230f1c990317a 100644
-> --- a/drivers/iio/adc/ti_am335x_adc.c
-> +++ b/drivers/iio/adc/ti_am335x_adc.c
-> @@ -259,8 +259,7 @@ static int tiadc_start_dma(struct iio_dev *indio_dev)
->         if (!desc)
->                 return -EBUSY;
->
-> -       desc->callback =3D tiadc_dma_rx_complete;
-> -       desc->callback_param =3D indio_dev;
-> +       dmaengine_desc_set_callback(desc, tiadc_dma_rx_complete, NULL, in=
-dio_dev);
->
->         dma->cookie =3D dmaengine_submit(desc);
->
-> diff --git a/drivers/iio/buffer/industrialio-buffer-dmaengine.c b/drivers=
-/iio/buffer/industrialio-buffer-dmaengine.c
-> index b9f8b5b3aa6b6..7ecb9d875b8e8 100644
-> --- a/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-> +++ b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-> @@ -160,8 +160,7 @@ static int iio_dmaengine_buffer_submit_block(struct i=
-io_dma_buffer_queue *queue,
->                 return -ENOMEM;
->
->         if (!block->cyclic) {
-> -               desc->callback_result =3D iio_dmaengine_buffer_block_done=
-;
-> -               desc->callback_param =3D block;
-> +               dmaengine_desc_set_callback(desc, NULL, iio_dmaengine_buf=
-fer_block_done, block);
->         }
->
->         cookie =3D dmaengine_submit(desc);
-> --
-> 2.43.0
->
->
+Nothing requires the table to come from the page allocator, so allocate
+it with kzalloc(). kmemleak tracks and scans slab objects, so it now
+sees the descriptor pointers in the table.
+
+Fixes: 0f14af0d1d7d ("x86/sev: Treat the contiguous RMP table as a single RMP segment")
+Suggested-by: Dave Hansen <dave.hansen@intel.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+Changes in v2:
+- Allocate rmp_segment_table with kzalloc() instead of registering the
+  page with kmemleak (Dave Hansen)
+- Add the Fixes: and Suggested-by: tags
+- Link to v1: https://patch.msgid.link/20261102-sev-rmp-kmemleak-v1-1-e6fb2eb96e79@debian.org
+---
+ arch/x86/virt/svm/sev.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+index bd70c4d0b774a3..18141c93b6d7c8 100644
+--- a/arch/x86/virt/svm/sev.c
++++ b/arch/x86/virt/svm/sev.c
+@@ -361,7 +361,7 @@ static void __init free_rmp_segment_table(void)
+ 		kfree(desc);
+ 	}
+ 
+-	free_page((unsigned long)rmp_segment_table);
++	kfree(rmp_segment_table);
+ 
+ 	rmp_segment_table = NULL;
+ }
+@@ -369,14 +369,10 @@ static void __init free_rmp_segment_table(void)
+ /* Allocate the table used to index into the RMP segments */
+ static bool __init alloc_rmp_segment_table(void)
+ {
+-	struct page *page;
+-
+-	page = alloc_page(__GFP_ZERO);
+-	if (!page)
++	rmp_segment_table = kzalloc(RST_SIZE, GFP_KERNEL);
++	if (!rmp_segment_table)
+ 		return false;
+ 
+-	rmp_segment_table = page_address(page);
+-
+ 	return true;
+ }
+ 
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-sev-rmp-kmemleak-053969ac2126
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
