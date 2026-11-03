@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700330;
-	b=glpv0MQoYV0stFqHjIHDJNtLU6HzV4ikjjEVcdHIJKoMn+UnvjAEbeyYWoPDznziI3mF
-	 Tckt20YDBgCztJISII2hLIp7B0A0toLAWGs1Uf9tV7PjAtRiGOD+h8bwaOvoCDwI5DXDM
-	 ic2Wm8K1g7O2Z9qg2cB8PF2reZ6zwCpUdmfWLllo1/GJoWEkTppErod7z7dS/op4L19jh
-	 Yq2rCOmG+Di8YWyZNFbvRZzJwJzLBZZQDbn2fFC7Zah0jIQ+1HfANiLFBJ4OHzCu4smC5
-	 /rSVYvGsIkrd9qjeYmIKyprnfWmZKn4eBOzlSUiigogukEYZTBR59NPzAXsc86qg1iQ==
+	t=1793700337;
+	b=d5Rz3m7MGVNVomD8HglJvL7xJ+YJrncDb/iDd3EU0UslpDuHD2nUjm6F0bTyzrVH/xZ2
+	 yxRmCg299wkFiQjPA4mDIWSWRoZzX3bMOTvmSn5QV02FowPjvc/cFf+4BXQS2xBgNe5N9
+	 7VB2wcicrtZ0uE6wYbP8Fddg/bNsw//5N1gkQjZmW8Nq/vs4M4JeOOgMJFzywwpzwTpl8
+	 ea0chwYxGDmQ2enHRrOnDVOcL9/xlE1o0Yolm3XPxOCctnlHSUOkPZahlKGzAQwCxFQII
+	 qDfsmDsWizBG/Jl/uwTjryhY8hzCKjdaQPzRD8OZYICdn1s6XKCp0IUv3Z3fG/FWHAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700330;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=H+2BP087lEieKM2AjDiKXYcZb/aS702FUpveBjRyJh0=;
-	b=XqjxAhSsxUiXV2p7lFFqdwaIUx1KlwJYnn81Yw1eWa2rf7knCbfc8SZUDi/TBHMMBHxx
-	 BsmtQZHlyH01418Yttgn18PaERX4clnpHXnWyLMykQURInyILQF+gmC0B0LRHAcBnRhyE
-	 uzmWi3NdDAcfirvyTb+unMr+QEhfhzZo/6kWotlj7TODbPBh9N4a055tBwTW+YgIzDu+8
-	 MwpP7BNR5H7tzMBXmsfQl3/v06g2AuT5VlHwJFJYDZAtFSlNcuDJ24D+qf6IHgTzksU5j
-	 Bz5Q3DR+jRnlGtTUO+nuvzp4Sj+HlV0YCykzo7lG97cQWeU4jTAdOnWfDhnxRNYOFMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700337;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=pHILoWh8cXh4Ja4FuwvyiXCXnwvyYnbih+aBsUhTx5M=;
+	b=JnxRVp5u320dv+GQtEzu6+4JA68/wb54ogte6yUeRc96vWh9RQ8j3m4TIKZ6nUoFd7lF
+	 4ph2SjXemGAfQQXD81IpRZoXG/E+6yBgvRQLffoo2I2Q3XeEst/dKFMDdQRj0xF4KpXQt
+	 Pq8gaFaz+tcmK7FdbTK400TaAj9nwApOwNRETrNw1LB1QJmp0Iagi4TT6omIMky2z2QYu
+	 E2ocjS72hUT0vz93ItsCn4jtxwS3+QSMRacGVY5zZhcRQe245aCTAtbov7KESROMJ2Vn1
+	 zJJ5oglGI55NS5rnzepTMh0b44VKK5F6PXwOHQbKjMI5QOlhKtiCzf20QrHgihJVx3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b="2f/JvA6a";
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30B9606EE97;
-	Tue,  3 Nov 2026 10:05:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F30B9606EE97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=2f/JvA6a
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B850CA164C;
-	Tue, 03 Nov 2026 11:05:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1793700327; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=H+2BP087lEieKM2AjDiKXYcZb/aS702FUpveBjRyJh0=;
-	b=2f/JvA6aMTqaeKqjoCOHts+CmXu2qeDnEhy+JFTlx2hA7LlEHuLKK1In5XBI8Z+djFAeOO
-	+iCg9gr62dLE/OoCWh6DGjR+6piKuAVXDW/ffl7Jxr/bl84OBLaroQ2nrU1TlbuUKvdnDz
-	80yXNw/wfiU1dONOehgxOZ6Aw8peJKnkn9QG85yaYmyo2z3Cdc51UqdJQZj8adZpoc/tT1
-	KOTFZ3i9ZyU4YQ3EeUYUjIMw/OhmCfCbPHCj8csuTY+T2mH4N+ESqO+I/krPV42hCrP2uc
-	5gYCqDEZwJGiHBZqLcz8RZ7dUT0wVMso4FtCHjkRbp94C7zf4/JCqYuVrK2YJA==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Tue, 03 Nov 2026 11:04:57 +0100
-Subject: [PATCH net-next v6 3/9] net: bcmgenet: allow a continuation
- descriptor without the alignment pad
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F576085094;
+	Tue,  3 Nov 2026 10:05:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3F576085094
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACHkpPlselql3s7AA--.2932S2;
+	Tue, 03 Nov 2026 18:05:25 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: ixgbevf: drop the SA reference if secpath_set() fails
+Date: Tue,  3 Nov 2026 10:05:34 +0000
+Message-Id: <20261103100534.1310071-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,79 +59,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-nb-genet-mtu-nn-v2-v6-3-61d5631676e5@tipi-net.de>
-References: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
-In-Reply-To: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACHkpPlselql3s7AA--.2932S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrtw17Wr17tF4kGr13try3XFb_yoW8Jryfpa
+	n8CFyj9ryrXw4jga4DXa1kuF9akayxtrW5GryFkwnavwn8Ary5CFnYvrWj9ry0yrWrGF13
+	tr1jyFsxuwnxZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
+	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
+	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQAA2rpnOFgZgAAsz
 
-A frame longer than the packet ready threshold arrives in several
-descriptors, each with its own status block. Only the first one also
-carries the two alignment bytes. The length check assumes the pad is always
-there, so a continuation holding a single byte looks a byte too short and
-the whole frame is dropped.
+ixgbevf_ipsec_rx() takes a reference on the xfrm_state returned by
+ixgbevf_ipsec_find_rx_state(). On success that reference is handed over
+to the skb's security path, which releases it when the skb is freed.
+When secpath_set() cannot allocate the extension it returns NULL, but
+the function returns without releasing the xfrm_state, so the SA
+reference is leaked.
 
-Account for the pad on the first descriptor only.
+Put the reference before bailing out.
 
-The MTU cannot produce a frame past the threshold yet, so nothing hits this
-today. It is preparation for the larger MTU.
-
-Tested-by: Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Fixes: 0062e7cc955e ("ixgbevf: add VF IPsec offload code")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/intel/ixgbevf/ipsec.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index bed94f9a79450..9cb0cd7a9a216 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -53,7 +53,8 @@
+diff --git a/drivers/net/ethernet/intel/ixgbevf/ipsec.c b/drivers/net/ethernet/intel/ixgbevf/ipsec.c
+index 076fd0a24858..bf3fcab3bd57 100644
+--- a/drivers/net/ethernet/intel/ixgbevf/ipsec.c
++++ b/drivers/net/ethernet/intel/ixgbevf/ipsec.c
+@@ -596,8 +596,10 @@ void ixgbevf_ipsec_rx(struct ixgbevf_ring *rx_ring,
+ 		return;
  
- /* Page pool RX buffer layout:
-  * RSB(64) + pad(2) | frame data | skb_shared_info
-- * The HW writes the 64B RSB + 2B alignment padding before the frame.
-+ * The HW writes the 64B RSB before every descriptor of a frame. Only the
-+ * first one also gets the 2B alignment padding.
-  */
- #define GENET_RSB_PAD		(sizeof(struct status_64) + 2)
+ 	sp = secpath_set(skb);
+-	if (unlikely(!sp))
++	if (unlikely(!sp)) {
++		xfrm_state_put(xs);
+ 		return;
++	}
  
-@@ -2349,6 +2350,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 		unsigned int rx_offset, rx_size;
- 		struct status_64 *status;
- 		struct page *rx_page;
-+		unsigned int min_len;
- 		void *hard_start;
- 		__be16 rx_csum;
- 
-@@ -2385,8 +2387,12 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 			  __func__, p_index, ring->c_index,
- 			  ring->read_ptr, dma_length_status);
- 
-+		/* Only the first descriptor carries the alignment pad */
-+		min_len = dma_flag & DMA_SOP ? GENET_RSB_PAD
-+					     : sizeof(struct status_64);
-+
- 		/* Reject lengths that would underflow the SKB build path. */
--		if (unlikely(len > RX_BUF_LENGTH || len < GENET_RSB_PAD)) {
-+		if (unlikely(len > RX_BUF_LENGTH || len < min_len)) {
- 			netif_err(priv, rx_status, dev,
- 				  "invalid packet length %d\n", len);
- 			BCMGENET_STATS64_INC(stats, length_errors);
-
+ 	sp->xvec[sp->len++] = xs;
+ 	sp->olen++;
 -- 
-2.53.0
+2.34.1
 
