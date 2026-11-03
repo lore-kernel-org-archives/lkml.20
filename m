@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743074;
-	b=N4KKzjmmDcygn+rebfhp221rNHab0ZCEHDbjU88lNTE9MmQerJjrz1ESy/pZLrekUJwN
-	 p1ilQibbKMC8/O0qunWf7tVMnPK8GCE7uCjnpqSeVBas+d3OAsXJkCQskYUZKpXw/d8JZ
-	 RYBNCVER+HXM8AyUyvL6fWQM2y6EvbJ5A4w9MdcgZAQFkuP4FJGkV+6Gs3grZlj9paATv
-	 qCnFMq9xassYHfmxRdn3fnJ61H9CmrnMf8lvRLcIqa2q+JQ66CbaixnYNTfo9RkAWxjEQ
-	 QA/bEgupDa3zQJeu4qFE0z/yN40EGO7IAzqlItOQQFSKdZ0Ufzy+cJQOmFrfC6V1ung==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743074;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4H8eU6z2JR3iXPnaXPV2uTwunMPI539+3YmBBPsTqq8=;
-	b=BfmbxpvdBg+/n89aV8gRL5mbK6HbT/ke8DSKw1hG/Z4yAs0Op5pQxYxeH/P4XrjMTlps
-	 V5zQtcylusfp9ZoJ71/hCE8jzvqA5dO7WjDD5oLHklPgWWVmFK+ZNX6XT9mJk4A5wdLtb
-	 H6f8HP2+mA0cUR61FzCzD7S7woWphR9MFoY06PqVJbvmYyUjod+sq0wl4xC6bCn70TL4K
-	 aI3IMbx7sPdTYtneb5ZEVEfflQDtyhrzJ+5azTR+hCh7T3HXChVq13xOoyEX0LwNMS54q
-	 VaPNlGiTxqS4yuEsuRDixxskMFZ1d/8s8YUl+XM6KZQZdzN0DM61JylAud5aG7/9HVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NN4zXVrv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793743086;
+	b=M2TlK3I0AHIOPUbf5Ug6UMgFS75EFPxTpIL4mt87MrVwBGQi8BS7EjwDbByNyDIJHQsu
+	 GBiOqX+GIICORsLPMiOl4DR5gUIRQsCblmtOOknUivFSOSCANkIOCTh4zZ/Hj8rrY0Nn4
+	 K4lIcn7+pvJWan7US9gvBrDlOoPprCrR28bBVf1E6+aOyqHKGubf5PbYknXDJ+5bYpgQ/
+	 7qThCOQOivRM3szFF8XZLy9qil0MPXLKyuuJUy7lOF5VwqTQuxLtl+vPA0c5jFwtb2sSt
+	 okTeEbYwyQda7bGzJOZeMi8WyCwb4B2XnrLf0fY8gxlfJd5eyI+maHuugeRsucOFseQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743086;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=eXfhE46ByNVgLysQds+yI8htZlyiiFA2uPyig/gxm3w=;
+	b=fF7AWtCRvH3+cMVAUSgmpLXWsorfIvpEkpMqFAKvGGxY8QfWU0NTuKPSb4Px49O42Nrg
+	 7NzA2sLnx+rpprfbhlyRUEgmkbo4aueIYN5FH/v69LUc5Dq2HODQ1GzW9oh2/kR0ViqGM
+	 V+An1IC6em8fvreW2qO+Ekco1YHH8YvWaApejAl2Stza8ZUO/MvWOFAVh3u7Bffw7j3B0
+	 4+L5cZWWg7eK8mV4RTUVKpnXq1jTN/Ri2qmDZBssdl9wO5Rkrw0KfiFV1MhuCwp9dOgIS
+	 nSEkXk1bXZnqY3cqb/Wg4DREKMRtk2wna1x1DbXp6tXPjcLqA1cSl1uImmPrVAWwrsA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dwK6R528;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42186606A339
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:57:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62680606D802
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62680606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NN4zXVrv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0739B1F00A23
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:57:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793743074;
-	bh=4H8eU6z2JR3iXPnaXPV2uTwunMPI539+3YmBBPsTqq8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NN4zXVrv4HX75rNjDW8n2rGhpIdcwT226SOYEzZIJkf4wky///aAUqXsW/LNjWIkB
-	 +jqhBmbKEGHqpB/RfJ3IOme2x4Uro3Y6FFkYU7Lcb9k3EYVAL1RdZOfZBIO6UiCdmd
-	 KU9/YPoFAEbimG8yPTj0+ET9beRolcznhTqYs/aM+V+aZskkRu62idx1+KnN4AwSau
-	 1qKaj1M79st+FVG6mdkANAoRT1WY2ezZ902n3LEXe1SUMJ3M1nio7P61uGsrtysmqO
-	 t+l8RFDh+9jqGqOg9Z/Kt58ZxPm2v6e40EATAVtiGV3R2E35gTnJzuKbjPNba1LZpc
-	 +CFP4IuYefF8g==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso11536e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:57:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzeECSY3uk34GhnY/QBfahNNjPDdl8I8HlZBvhvKrhBUovMFgnndHHmeNWIuSRfrkjjQA3XT1BsQ9XzzHY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YbNwgeOHdtvdea+pG+Lg8hOpxlCbdEoQL9yEmjhLv48bQVN2i
-	uiKrZ+7L6/vm3S+GETCKWErNsSYi99DsJdnH6+3Y8bO96iAMo8LiVpiyoU5uh+VEgT7+ybNSWfZ
-	gwBSNgZdLqEZWLkF0h/xVY/b3IrrD7Ug=
-X-Received: by 2002:a05:6512:a94:b0:5bf:b246:87a2 with SMTP id
- 2adb3069b0e04-5bfd957b610mr4953868e87.10.1793743072116; Tue, 03 Nov 2026
- 13:57:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dwK6R528
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5383c97c8cfso29561cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:58:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793743085; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nzeQ6646TOj94zcJIZ+GywONBWf8qhqm4qttOtyRx32UiMXpGDsm5Wqa61tCa+DqVM
+         Akfxcz+SRQ0egVg9b0GCPU7XGY93ZURiLKkTKnrCCqkiWYKMBWSjyv/m4giPIyV9KGxl
+         biNLY47k4gyi9LTYnJ/iAQKrurr07US1naITzPyCiY7udpdZ/A6WRKi56ZaxnsIlreee
+         IW/aVjDCid0Mlm4Hq/Z7O2u2JIqDInrcCRUPmHtpwi9lN5jOOke3uHQkWRjj1YWnJ5Jz
+         5JuE4g5lQjZidzObC4WxqZrUh4JKedVAFnOpfK7w/tL/x59BY2hw1T7gWLc5ervByitj
+         vJ+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eXfhE46ByNVgLysQds+yI8htZlyiiFA2uPyig/gxm3w=;
+        fh=nF7IACXZ5rJhLt2S9tI5y+FHIPodbxb9HxNAKLlA6NE=;
+        b=AfrdoaJQXHmAl3eKLiOs5mR/GLGC7gdxA0pQfWYhzyxESNQGy2weJNEGQhfYc2Xauk
+         HMAGlZEht53KrBX8Dhzto07KWsdHyt1RuWYpP7Gs/VMlVeRvOtm1FFRB6f61LCuGvO3x
+         mFpn/sXGCN497R2yCggdQ7tciEwPxOmNdqifub/RBdkA5thaS/jzxqazz3A5Q6X9qd+A
+         tO6PN7f3eaLwX3lWbLXElNljpgm31DiHYVhlUqCfTvjke+GzfLiQ9dTf+EU5GCzqx/Li
+         Sjax9B0yCiVXIbEaJ4Irwm/Yf7CN3toX1rJH3E7MPStF8TdVQQO+UHnskxamyjpF9xFT
+         DQLA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793743085; x=1794347885; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eXfhE46ByNVgLysQds+yI8htZlyiiFA2uPyig/gxm3w=;
+        b=dwK6R528K3S39IyfjydsfTmiX9LFzcMgUu6nD/bXYJxrTqYBDETz4LHTEWG3NvhFdp
+         ftUx9Z11He8VAFPjJHRr5bojyw32mmnOTt8LYj+cpgAJa8HRcBJyGAYZUNLX/2nAnnIr
+         h1HsE3eB6LxLOi3YlXTAWu0P/8uJVQYMy8o3OUCN1dZrhQxMzeUZ3sVLJC/bIE1XYPZ/
+         otjku0JGSireL02eK0A5I6P6ovG/mxXK/0Kx8cWri/wVw+PHskU/xRs8cnTqDzWCJAXy
+         N8cMOqB1Txna/jVRUOWDzzwDmH6vTvYrkCiLU2AmRYB155PbWmiR26KDx32bY7K1AQkO
+         LjJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793743085; x=1794347885;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eXfhE46ByNVgLysQds+yI8htZlyiiFA2uPyig/gxm3w=;
+        b=LOA8Q1F3iKmDLm9CFBRNPptpf9L7horPs/+FYHNufsD5WR/tA4OcUSG0jxvRuOZ/+Y
+         0h3cq1tHLDT7Ao8fqzomTJajzBWTuIE34w93YThQNwhSkUWepGOD8Dw5ojhfBExWTssR
+         nWIjZEkkOW5hXjdKwcChhsINXjQLxcnGOJDzTDykfPDLvcJ41EOWxQZTA8wcnxtieiVw
+         vQn35NvQashp6X61wD4DYgIfChM3sNy1AHu/Ocy8S1rDroZWv4u50fbNOmKtXXGUKgSV
+         gydGuNQhTsKcd6PwBlo5A9DXay4QFqVo06CjFOdXLfQjirMaIHYbae/SACcAFhg8G4c/
+         iDsA==
+X-Forwarded-Encrypted: i=1; AKwUvBzHA6r834tYq9h4OCRxR+9GaerN37g4S5ZmVkMqUSry8gmHG3dwHuCy2k5+alWs5rLeevuCoGSpDUPx4mA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pdBwdceGw7FyAbFOqpu7blWu7FLCaBxbJX4yil3D3gDWxmOYf
+	M9USueC9WoZgmh8VPDKCZUzUA0YBmRMjc16K23AzefH5E9Qq5kiQ0uRREBM6aDdnd/fY/19lv08
+	YYdFQuo5ieFmJvuChYmkQk2OLVu+uiIMuKtVyxltb
+X-Gm-Gg: AYBFou1scNb3wKAQBntrl3eaC36Pt8VU5vVzf7bVlxq34WLOxzLXAZrV73hP5EwbAF5
+	VxM/dDYGeuywgRMXR39NpofBoW1lQe6+NVfbdZdVT5Ow+SssXg11FENYzHXFIZ6iuTxsvdRl6sz
+	roCo5KUl2OhGdtVtKyU7LfmuaBSWxGJk65sPCinMKcTZ6xls62Idh0RyGAO+ibT6cAx9AI5iNPq
+	mtRIoxVCUryvVzb0l//D4oOG92P7UbUIB+00p/X+b9SBcorjYzWfsN/oE8bQX5lzE3NmY48eeSj
+	lqot236+1TgKC14HD+dGyfnfcv7do0rHA2L/k8NpSD62YtYNluYTnF3iGjwLBs+ZNX6DYa9UFeK
+	X8LdowBwqEK1/6Y++lUzgf4ily4k6oyd7KAV0fbZX/EHulEYSjlC8MTBSmZG+MpPl2A==
+X-Received: by 2002:a05:622a:250c:b0:534:313:9b4e with SMTP id
+ d75a77b69052e-54b2beaaf4amr4792951cf.5.1793743084531; Tue, 03 Nov 2026
+ 13:58:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,72 +104,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102135330.2493332-1-robh@kernel.org>
-In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 3 Nov 2026 22:57:39 +0100
-X-Gmail-Original-Message-ID: <CAD++jLm10TL4FkkyhvyF-CKNREA-mOSjbR5zKUisC_Wx1-nqgg@mail.gmail.com>
-X-Gm-Features: AclHuK-xZTzLWXlPWAOCiWHBj5C4K-MSmY2Fnjjj517UPimoWDCn2vjwhrapfPU
-Message-ID: <CAD++jLm10TL4FkkyhvyF-CKNREA-mOSjbR5zKUisC_Wx1-nqgg@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
-	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, Jiri Pirko <jiri@resnulli.us>, 
-	Ivan Vecera <ivecera@redhat.com>, Benson Leung <bleung@chromium.org>, 
-	Guenter Roeck <groeck@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan <olivier.moysan@foss.st.com>, 
-	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
-	Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Chunyan Zhang <zhang.lyra@gmail.com>, Paul Kocialkowski <paul.kocialkowski@bootlin.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Chanh Nguyen <chanh@os.amperecomputing.com>, 
-	Alistair Francis <alistair@alistair23.me>, Julius Werner <jwerner@chromium.org>, 
-	Paul Cercueil <paul@crapouillou.net>, Dmitry Osipenko <digetx@gmail.com>, 
-	Florian Fainelli <f.fainelli@gmail.com>, Thierry Reding <thierry.reding@gmail.com>, 
-	Ray Jui <ray.jui@broadcom.com>, Scott Branden <scott.branden@broadcom.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, chrome-platform@lists.linux.dev, 
-	linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-sound@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
+References: <20261103070122.1208383-1-robertpang@google.com>
+In-Reply-To: <20261103070122.1208383-1-robertpang@google.com>
+From: Robert Pang <robertpang@google.com>
+Date: Tue, 3 Nov 2026 13:57:53 -0800
+X-Gm-Features: AclHuK_s85z0JpxqehQwdC_3u-Z0zzJP76eAsxlJmBPLxwKxztS9OJIUR-ZEAB0
+Message-ID: <CAJhEC04+1tu_vGVNfc0TicEb9T2wPpFPLqmQRqX0G_k7M3sBwQ@mail.gmail.com>
+Subject: Re: [PATCH] bcache: allow more bucket reclaims during garbage collection
+To: colyli@fygo.io, kent.overstreet@linux.dev
+Cc: linux-bcache@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dongsheng.yang@easystack.cn, mingzhe.zou@easystack.cn
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 2:53=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org> =
-wrote:
-
-> Unit-addresses by default (and most commonly) are hexadecimal. There's a
-> number of cases using decimal patterns. Fix all of them, limiting the
-> pattern to match the 'reg' limits if there are any.
+On Mon, Nov 2, 2026 at 11:02=E2=80=AFPM Robert Pang <robertpang@google.com>=
+ wrote:
 >
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> In patch a14a68b76954 ("bcache: allow allocator to invalidate bucket in g=
+c"),
+> reclaimable buckets are added to the free list for the bucket allocator
+> at the start of a GC cycle.
+>
+> However, once these buckets are allocated, they are no longer marked as
+> reclaimable until the GC cycle finishes. Under heavy loads and frequent c=
+ache
+> updates, all reclaimable buckets can be exhausted before the GC ends, cau=
+sing
+> the allocator to wait and stalling incoming I/O.
+>
+> Address this by allowing reclaimable buckets to be reclaimed during GC up=
+ to
+> the number of generations left before BUCKET_GC_GEN_MAX.
+>
+> Signed-off-by: Robert Pang <robertpang@google.com>
+> ---
+>  drivers/md/bcache/alloc.c  | 3 ++-
+>  drivers/md/bcache/bcache.h | 2 +-
+>  drivers/md/bcache/btree.c  | 5 +++--
+>  3 files changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/md/bcache/alloc.c b/drivers/md/bcache/alloc.c
+> index 3ec240ec685d..959d753e7cf6 100644
+> --- a/drivers/md/bcache/alloc.c
+> +++ b/drivers/md/bcache/alloc.c
+> @@ -141,7 +141,8 @@ void __bch_invalidate_one_bucket(struct cache *ca, st=
+ruct bucket *b)
+>         bch_inc_gen(ca, b);
+>         b->prio =3D INITIAL_PRIO;
+>         atomic_inc(&b->pin);
+> -       b->reclaimable_in_gc =3D 0;
+> +       if (b->reclaimable_in_gc)
+> +               b->reclaimable_in_gc--;
+>  }
+>
+>  static void bch_invalidate_one_bucket(struct cache *ca, struct bucket *b=
+)
+> diff --git a/drivers/md/bcache/bcache.h b/drivers/md/bcache/bcache.h
+> index ec9ff9715081..daae5ac5ffbc 100644
+> --- a/drivers/md/bcache/bcache.h
+> +++ b/drivers/md/bcache/bcache.h
+> @@ -200,7 +200,7 @@ struct bucket {
+>         uint8_t         gen;
+>         uint8_t         last_gc; /* Most out of date gen in the btree */
+>         uint16_t        gc_mark; /* Bitfield used by GC. See below for fi=
+eld */
+> -       uint16_t        reclaimable_in_gc:1;
+> +       uint8_t         reclaimable_in_gc; /* no. of times reclaimable in=
+ GC */
+>  };
+>
+>  /*
+> diff --git a/drivers/md/bcache/btree.c b/drivers/md/bcache/btree.c
+> index 27a129d47d0a..fc167868c814 100644
+> --- a/drivers/md/bcache/btree.c
+> +++ b/drivers/md/bcache/btree.c
+> @@ -1742,9 +1742,10 @@ static void btree_gc_start(struct cache_set *c)
+>
+>         ca =3D c->cache;
+>         for_each_bucket(b, ca) {
+> -               b->last_gc =3D b->gen;
+>                 if (bch_can_invalidate_bucket(ca, b))
+> -                       b->reclaimable_in_gc =3D 1;
+> +                       b->reclaimable_in_gc =3D
+> +                               BUCKET_GC_GEN_MAX - bucket_gc_gen(b);
+> +               b->last_gc =3D b->gen;
+>                 if (!atomic_read(&b->pin)) {
+>                         SET_GC_MARK(b, 0);
+>                         SET_GC_SECTORS_USED(b, 0);
+> --
+> 2.56.0.398.g882cbad275-goog
+>
 
-Acked-by: Linus Walleij <linusw@kernel.org>
+Hi all,
 
-Yours,
-Linus Walleij
+To provide some additional context on this patch:
+
+  - This commit fixes a recurrence of the I/O stall issue [1]
+originally addressed by commit a14a68b76954 ("bcache: allow allocator
+to invalidate bucket in gc").
+  - The recurrence stems from commit 009073806fbc ("bcache: reduce gc
+latency by processing less nodes and sleep less time"), which
+introduces longer GC pauses (100 ms) to reduce front IO tail latency
+during GC.
+  - Due to the longer GC runtime, commit a14a68b76954 becomes
+ineffective under heavy cache updates because reclaimable buckets are
+rapidly exhausted when each bucket is limited to a single reclaim.
+  - This patch extends commit a14a68b76954 to allow buckets to be
+reclaimed multiple times, bounded by the BUCKET_GC_GEN_MAX safety
+range.
+
+Best regards
+Robert Pang
+
+[1] https://lore.kernel.org/linux-bcache/1599736884-5479-1-git-send-email-d=
+ongsheng.yang@easystack.cn/
