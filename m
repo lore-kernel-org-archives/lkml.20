@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732462;
-	b=4kdhRAVhzmtDa/vdRNXaFGkuFpa1vZbwhTnbVZWqvAgatZXX6kQIYA/U/uEQE5MxOikT
-	 HMNB6kTyAFJjP3PYFKrGQSqCGp6LANqgPxp0Fc0YNt3HHwhE3YV+3T4Tkcur54IdH6gUX
-	 JBmNP4lSvkqM86w5IXRKNV/i9zR3YRoxPnOP0fDfckzRQ9oiasCJm0uhNfLh+PCLlBGQi
-	 oHDGqoGAAI7JWGe23eP9prqJ97mv8Dx+iYXZnQFgnJ61vtMso8PhTNiXMvYdk/AEceTFp
-	 TXzrPRiFQZELhI7jCs3rTdQku88DFas54RdFYhpYbMsKNDqPjxi5550k1APz0oRJ/0Q==
+	t=1793732485;
+	b=gUdM/aK8MUsDpBdmOYdcO05tOvSY0DuFErxBbgUkjQuTBEMzVTezXzYZo30MJMpDjfdR
+	 kupwbFh53Rz2UvTtZUhFCdhOZ49IsTHPR1p24vHqIKbZLNMLw9Yh6AxyRNoL52kwzwN/S
+	 1UOwhGnPWGDwmOJBYsEivatMiLEYNC5wPZQE963tB2VTdBAL7clp9MKSKQMWdJ1C4YCSE
+	 AmqhdDo+4Rc0w+H7H5N1xFbfZjIGPWt8+CmR4qUgLKjXBL4nP6db4oTL/vhqZKSC3U4hh
+	 JKDremcK9V8O/izOqDwtzZyocmRtAJdZqIqtyYVpDtUhZN0iEE1uDLEWwZ/WH+XMfCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732462;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=/Wb2hWe4KA32hKCHvZDkI6uBk6DsPpr/yrXxExmyUpw=;
-	b=M3Oc4c1xFNV9N7EMCO7rpJrN9ABapundJlGgGG1djEhYb16dvXbvxhP9DPcmnXxFuZR5
-	 q2H3s2JxugUBxkChaBl1Y1WjUITfFAxJUP+xAmDxZmZR0RWncRnOTPAmQ9q3FkiYeLm1V
-	 YickeNEj0nzE2dQDibcIJqQeyJOFGSOqjpL8STnZS22/TyHWFBHVL3/ZuGtMTXWTskbfY
-	 zydwmpOZnBGhYz52bWTvZLtjyaZFKJjIn5Ic2QA3EObIOFhjo+DKsd5qasWBHMv+Xq9o4
-	 3BR0pq69qjQhLcib32KNRIwrU8Hm9NxgAvTAmaesn4O1ZbmLEquRO819KTm1SSfMD8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732485;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=NSuyTmjniSWOejfY3uajWqbb5139rRgHsE5HWygA6Uw=;
+	b=rgRAfu5Vulmp53ea2PuWZc3B3TATtLbNNKDP+ItZDQhTqXdj9fiwhZ/OFLoEgSMTvhxq
+	 Zy1jGirVnGcq2akXev/LrIqb2Se971x1jQ4hyK4kxdYF5MD19Umkvhpg4jcjRDRX3Wdc2
+	 zrrHxXZ19C8mceUwknOEysgk7gAra0JNwkuhKcspzhUzJB1tsA3PE7KPCU38bdPWBV7rP
+	 UwUZRc783iQLMci5nBUDHmX1I2zIqoYt+/T+6bFC5UFStcVIe/xmE+Iftch3kIqy0vQvI
+	 Ll+Lp4NhIk4Y8f5dUejmXJQ4czLuZ2GDdwPT+lWqpzCWs3nww3G9bkK4Kje048LVo7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XkBGcSmq;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB0A606D806;
-	Tue,  3 Nov 2026 19:01:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEB0A606D806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJyZy1wZ8z5B13X;
-	Wed, 04 Nov 2026 03:00:58 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6A3J0n7R079058;
-	Wed, 4 Nov 2026 03:00:49 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 4 Nov 2026 03:00:52 +0800 (CST)
-X-Zmail-TransId: 2afa6aea2f6405e-d45a2
-X-Mailer: Zmail v1.0
-Message-ID: <20261104030052059PG6LDNeanA7C3vQaZAOff@zte.com.cn>
-In-Reply-To: <4f38227c-a524-4d42-a3e4-ad0157939b41@acm.org>
-References: 20261103185229490gmhePBF5_11x_thf4X-Rw@zte.com.cn,4f38227c-a524-4d42-a3e4-ad0157939b41@acm.org
-Date: Wed, 4 Nov 2026 03:00:52 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4115606A328
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4115606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XkBGcSmq
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id CF67CC49F4B;
+	Tue,  3 Nov 2026 19:02:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 330956046C;
+	Tue,  3 Nov 2026 19:01:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AAB47103290E8;
+	Tue,  3 Nov 2026 20:01:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793732478; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=NSuyTmjniSWOejfY3uajWqbb5139rRgHsE5HWygA6Uw=;
+	b=XkBGcSmqFZvfwl52qeYrnL6utSSl/uLAqSp6mk3uMMSkoOIuoDz2IVUcxxAAs7mj5Yzq0g
+	FT+wnxxv7cnbuV4c7qbLpbD6PmRJvAnr1xhxEYvvV+nRsc54RbalVDE/n/zoUqCEl5Tvgq
+	kWILRETvf3z7HndMoPf49wumcjc4wDt1yIn8QKTm3vPxer/U8bUEh215wE1qVfVR/UnzEY
+	cXXvmdmMkd9I8Ce19ZXEUBAabeMdjq16qf0GQj5g4LASm0r+KJ5HMYU6TFfDOaLYfdfOtI
+	XN3THCCCDRQkS2vs5vJBVnUkxsJAFTaUoTgkmu1PnJDaEi5zqi7gAKU3ASoUXA==
+Message-ID: <5d71380c-9549-4563-9caf-df0784c77516@bootlin.com>
+Date: Tue, 3 Nov 2026 20:01:15 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,44 +61,116 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <bvanassche@acm.org>
-Cc: <martin.petersen@oracle.com>, <alim.akhtar@samsung.com>,
-        <james.bottomley@hansenpartnership.com>, <peter.griffin@linaro.org>,
-        <beanhuo@micron.com>, <stanleyjhu@google.com>,
-        <linux-scsi@vger.kernel.org>, <linux-samsung-soc@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCAwLzJdIHNjc2k6IHVmczogZml4IGFuIFJQTUIgdGVhcmRvd24gY3ljbGUgYW5kIGEgc2hpZnQgVUI=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A3J0n7R079058
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 03:00:58 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEA2F6A.000/4jJyZy1wZ8z5B13X
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2 4/5] net: mvneta: unwind a failed mqprio setup
+To: Josef Schlehofer <pepe.schlehofer@gmail.com>, netdev@vger.kernel.org
+Cc: marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, w@1wt.eu,
+ linux-kernel@vger.kernel.org
+References: <20261103125021.70845-1-pepe.schlehofer@gmail.com>
+ <20261103125021.70845-5-pepe.schlehofer@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261103125021.70845-5-pepe.schlehofer@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/3/26 09:51, Bart Van Assche wrote:
-> This series no longer applies. Please rebase it on top of Martin's
-> for-next branch.
+Hi,
 
-Done, thanks.  The problem was the base-commit: v1 was generated against
-linux-next next-20261030 (7649ba73f9e7), which is not an ancestor of
-for-next, so b4 refused to apply it.
+On 11/3/26 13:50, Josef Schlehofer wrote:
+> A failed mqprio offload setup leaves part of its configuration in the
+> hardware. For example, when one max_rate is not a multiple of
+> 10 kbit/s, the command fails but the TX queues set up before it stay
+> rate limited.
+> 
+> mvneta_setup_mqprio() returns on an invalid queue range or rate after
+> it has already mapped RX queues, switched the rate limit mode and set
+> the rates of some TX queues. The qdisc then fails to attach and the
+> driver is not called again, so nothing removes them.
+> 
+> Undo the RX queue mapping, the rate limits and the traffic classes
+> when the setup fails.
+> 
+> Tested on a Turris Omnia (Armada 385). After mqprio failed on a
+> max_rate of 10001kbit, TX queues 0-3 stayed limited to 10 Mbit/s and
+> the VLAN priority map stayed set. With this patch neither is left
+> behind.
+> 
+> Fixes: e9f7099d0730 ("net: mvneta: Allow having more than one queue per TC")
+> Fixes: 2551dc9e398c ("net: mvneta: Add TC traffic shaping offload")
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 
-I rebased both patches onto for-next (v7.4-rc1, 6628e7d4c6b2) and resent
-them as v2:
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-  https://lore.kernel.org/all/202611040259247915t_cYYK0k5pPbEqfdTAQu@zte.com.cn/
+Maxime
 
-The hunks are unchanged.  While testing patch 1 I also confirmed that the
-teardown path only becomes reachable once the "scsi: ufs: rpmb: register
-and unregister the ufs_rpmb bus" patch lands: without it device_register()
-fails with -EINVAL.  On top of that patch, a synthetic hba on QEMU shows
-the rpmb0 class device surviving ufs_rpmb_remove() before the fix and
-disappearing after it.
+> ---
+>  drivers/net/ethernet/marvell/mvneta.c | 28 +++++++++++++++++++--------
+>  1 file changed, 20 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
+> index 75d46349df37..d3a6bf8f383e 100644
+> --- a/drivers/net/ethernet/marvell/mvneta.c
+> +++ b/drivers/net/ethernet/marvell/mvneta.c
+> @@ -5299,8 +5299,10 @@ static int mvneta_setup_mqprio(struct net_device *dev,
+>  		for (rxq = mqprio->qopt.offset[tc];
+>  		     rxq < mqprio->qopt.count[tc] + mqprio->qopt.offset[tc];
+>  		     rxq++) {
+> -			if (rxq >= rxq_number)
+> -				return -EINVAL;
+> +			if (rxq >= rxq_number) {
+> +				ret = -EINVAL;
+> +				goto err;
+> +			}
+>  
+>  			mvneta_map_vlan_prio_to_rxq(pp, tc, rxq);
+>  		}
+> @@ -5311,29 +5313,39 @@ static int mvneta_setup_mqprio(struct net_device *dev,
+>  		return 0;
+>  	}
+>  
+> -	if (mqprio->qopt.num_tc > txq_number)
+> -		return -EINVAL;
+> +	if (mqprio->qopt.num_tc > txq_number) {
+> +		ret = -EINVAL;
+> +		goto err;
+> +	}
+>  
+>  	ret = mvneta_enable_per_queue_rate_limit(pp);
+>  	if (ret)
+> -		return ret;
+> +		goto err;
+>  
+>  	for (tc = 0; tc < mqprio->qopt.num_tc; tc++) {
+>  		for (txq = mqprio->qopt.offset[tc];
+>  		     txq < mqprio->qopt.count[tc] + mqprio->qopt.offset[tc];
+>  		     txq++) {
+> -			if (txq >= txq_number)
+> -				return -EINVAL;
+> +			if (txq >= txq_number) {
+> +				ret = -EINVAL;
+> +				goto err;
+> +			}
+>  
+>  			ret = mvneta_setup_queue_rates(pp, txq,
+>  						       mqprio->min_rate[tc],
+>  						       mqprio->max_rate[tc]);
+>  			if (ret)
+> -				return ret;
+> +				goto err;
+>  		}
+>  	}
+>  
+>  	return 0;
+> +
+> +err:
+> +	mvneta_clear_rx_prio_map(pp);
+> +	mvneta_disable_per_queue_rate_limit(pp);
+> +	netdev_reset_tc(dev);
+> +	return ret;
+>  }
+>  
+>  static int mvneta_setup_tc(struct net_device *dev, enum tc_setup_type type,
 
-Thanks,
-Shao
