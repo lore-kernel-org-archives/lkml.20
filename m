@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700332;
-	b=COmJs2H8RuqoDSM2yMcxa7NThnyIR3h5zGLPtoBP3efcDvZY3uZegtUL+m1JphckLwpg
-	 2GhYTNZa7dDExYQGdAxQtWF6DNojTwBcCfGKs+WeRhAmM477oeHMxx25Bj29dW1eeCddA
-	 9nIUHfxKC8XMum2VphETOzoruQfsg3UwT+qzkzrcEMGUKMfos1ZQwo8++LeROXpoSfcIu
-	 ZCZiLyG0UFdb52G7I6wAfDa2QAppSQvF38dl15pG6xmdUe+jBbyLmkuIOteC2aHtQsyIg
-	 XC4unKkcRgF2cdnxoDRzRWZw21UKML5nAs3L2jAzW7+k+njwU93cjqlaRBJ9Hb22cGQ==
+	t=1793700338;
+	b=NJEiRCC/MvH5queNgw5dn0uhcJNv0rQm1RGMsK+bVDzOzi8bk+/xNeC+AwZRhn+cosZo
+	 /YE41SRhwUJlNwmhvba1vRNTEYQVZK2EwFs3fnlcE9MeVezxeduQsQ1WuO5xaf+ecQY2C
+	 hZbZ6OozL+6CbQgs/6GNg9Qw7DaK4+VgGLbtsr1GR7hNAWZTr6uXiESVYixKZ+cLJyqFh
+	 8pXOFXspOwX9xN1TZvQE/H2xRVLt+/m4dwUUYUUcQL6Dg7k0EVSSs7QCBksUk6drGHIjD
+	 RL2k8UPEZytag9UzNRqqhClgFE12S3Mi1dNoD5T2ElNI5AGyAqJWartkGnR5fplJDBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700332;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700338;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=rZ9WlIoFMrK8NZbiJMk1yzq1Nay459FdXX6Lq4xdVxo=;
-	b=rOof5o8Kzq1nA9XrQu8nzDGy8y1GL64xy0sr8FX68YqTLTi+APMkbBnwooN2gjLP/xh8
-	 oSRC3s2nTu2ws5eEjuoeyBXyOdRD1drFAz3xlZLDuuyHpY69sTlxfgPfSPHAO+OBoYWkL
-	 CQB6MFCpKGQmriXvmms3g5OqhVFPDB7QGlUudnnJv+kp1ZOQXfdTANVJi6pCsbNLWeQ4G
-	 i+a8bBvHS3MYmrCCZgqTzKG801MtG91RJmCUSRKieJRhX2O0/OTjhaKOB7CXn6CccT4B+
-	 LVdjkaXvGUYVuW0psPx0POVk2I5BLP1F8CxJFffjM5DRdqwIHX3JB1GjTCftgq6iAmw==
+	bh=Oh/m/hg+bzvxxYBT2T2fdKMkhIaukkQ/MVnjb8MgjsY=;
+	b=m1jb2XQh6dInPRqDc88B94FlOO8IJhWZ6RXqdkrnrkpvwoqb0FuibbYMm+aJX4DS9T/O
+	 t2rAYfqLWkyub09wIfck5FV6ub9xnG13MHa2ItLuoDkd6v01xKjmtuGrBdafA6ah1tF9T
+	 n9WCRjFMx+eQtiAVUQU55YTe7EXfXl+692oXTbWNBFMHBt1uc77t78IHzirmIzBlJiiqB
+	 lV5N4q1Re7XME5tDEguS3kKtT9BxcmemCQ5Gas6mj8fuRXraeykfNxRvi0q/1TL0bztkR
+	 1oDk/OmY+5s0jRa3As+JGcxc5v6gHtELls+oGYE+EtBPrJmZ3/RjdiJDwLUddjTpBkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,30 +25,32 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EABC606FAED;
-	Tue,  3 Nov 2026 10:05:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EABC606FAED
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB3C60850B3;
+	Tue,  3 Nov 2026 10:05:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDB3C60850B3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAA3QpPhselqcXs7AA--.2857S2;
-	Tue, 03 Nov 2026 18:05:21 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowACnt5jnselqoXs7AA--.2514S2;
+	Tue, 03 Nov 2026 18:05:27 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+To: Sunil Goutham <sgoutham@marvell.com>,
+	Geetha sowjanya <gakula@marvell.com>,
+	Ratheesh Kannoth <rkannoth@marvell.com>,
+	Subbaraya Sundeep <sbhatta@marvell.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] ice: release the VF reference in the switchdev trust path
-Date: Tue,  3 Nov 2026 10:05:30 +0000
-Message-Id: <20261103100530.1309907-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: octeontx2-pf: drop the TC mark reference when adding a flow fails
+Date: Tue,  3 Nov 2026 10:05:36 +0000
+Message-Id: <20261103100536.1310108-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,54 +62,87 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAA3QpPhselqcXs7AA--.2857S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Gw1rKr43WFykJF4kuF4DJwb_yoWkKFb_Ww
-	43Zr93Xr4UuFnY9w4Fkr13u3s29FyDWasYya9Fy393G347Cr17CrykWrnxXr4IgFZ7uFyD
-	Zw1a9FWSy3WYgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbaxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8Jw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgIAA2rpnIRi4AABsf
+X-CM-TRANSID:rQCowACnt5jnselqoXs7AA--.2514S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4UWw15uFy7JF4fAF4kXrb_yoW5JrW3pr
+	48u3429F1rAr17Wrn7Ja15Ary5Gw4jqFy5Gay8Cw1Sgw13Arn7Za4DK3y09348KrZ3Ga9I
+	qFyjyws5Ca1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
+	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
+	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIBiCQAAss
 
-ice_set_vf_trust() takes a reference on the VF with ice_get_vf_by_id()
-and then rejects the request when the PF is in switchdev mode without
-dropping that reference.
+otx2_tc_parse_actions() increments flow_cfg->mark_flows when it finds a
+FLOW_ACTION_MARK action. The reference is meant to be dropped again by
+otx2_tc_del_flow() when the flow is removed, so a flow that fails to
+install after its actions were parsed leaks it: the checks for the MCAM
+entry, the insertion into the flow list, the mailbox allocation and the
+mailbox reply all free the new flow node without touching the counter.
+The same happens when parsing the actions itself fails after the mark
+action was processed.
 
-Return through the existing out_put_vf label so the VF reference is
-released on this path too.
+Release the reference on the error paths of otx2_tc_add_flow(), using
+the match id of the parsed request to tell whether it was taken.
 
-Fixes: 1281b7459657 ("ice: Forbid trusted VFs in switchdev mode")
+Fixes: 6a57f091622a ("octeontx2-pf: Add support for offload tc with skbedit mark action")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/intel/ice/ice_sriov.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
-index c49f48b5ae38..90bf1becbc3d 100644
---- a/drivers/net/ethernet/intel/ice/ice_sriov.c
-+++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
-@@ -1400,7 +1400,8 @@ int ice_set_vf_trust(struct net_device *netdev, int vf_id, bool trusted)
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
+index dee38d5c7f65..c3726d9f455a 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
+@@ -1237,6 +1237,13 @@ static int otx2_tc_del_flow(struct otx2_nic *nic,
+ 	return 0;
+ }
  
- 	if (ice_is_eswitch_mode_switchdev(pf)) {
- 		dev_info(ice_pf_to_dev(pf), "Trusted VF is forbidden in switchdev mode\n");
--		return -EOPNOTSUPP;
-+		ret = -EOPNOTSUPP;
-+		goto out_put_vf;
++static void otx2_tc_put_mark_flow(struct otx2_nic *nic,
++				  struct npc_install_flow_req *req)
++{
++	if (req->match_id)
++		refcount_dec(&nic->flow_cfg->mark_flows);
++}
++
+ static int otx2_tc_add_flow(struct otx2_nic *nic,
+ 			    struct flow_cls_offload *tc_flow_cmd)
+ {
+@@ -1273,6 +1280,7 @@ static int otx2_tc_add_flow(struct otx2_nic *nic,
+ 
+ 	rc = otx2_tc_prepare_flow(nic, new_node, tc_flow_cmd, &dummy);
+ 	if (rc) {
++		otx2_tc_put_mark_flow(nic, &dummy);
+ 		kfree_rcu(new_node, rcu);
+ 		return rc;
  	}
+@@ -1287,6 +1295,7 @@ static int otx2_tc_add_flow(struct otx2_nic *nic,
+ 		if (rc) {
+ 			NL_SET_ERR_MSG_MOD(extack,
+ 					   "MCAM rule allocation failed");
++			otx2_tc_put_mark_flow(nic, &dummy);
+ 			kfree_rcu(new_node, rcu);
+ 			return rc;
+ 		}
+@@ -1331,6 +1340,7 @@ static int otx2_tc_add_flow(struct otx2_nic *nic,
+ 	return 0;
  
- 	ret = ice_check_vf_ready_for_cfg(vf);
+ free_leaf:
++	otx2_tc_put_mark_flow(nic, &dummy);
+ 	if (is_cn20k(nic->pdev))
+ 		cn20k_tc_free_mcam_entry(nic, new_node->entry);
+ 	otx2_tc_del_from_flow_list(flow_cfg, new_node);
 -- 
 2.34.1
 
