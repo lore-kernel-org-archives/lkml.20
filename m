@@ -1,121 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793706294;
-	b=MuCnAiE6JwAyFpQz37b8VwAt6q0tLOtDmBK43s0z9UtvdjhqtVsVyCHFRCrmV3ItzeoQ
-	 pUiDsu+IWNdrYJs59wgaZYRG4bPN8q4VLr5OC4KZozxwf95jTODAO3nyjeKIuVSodpYRH
-	 kdhlw89SauuIR7Riteqx5uQyLAWr8CG5F1YB1tQKJHSh1IgJC5jISigyJDcu8dywCfzFo
-	 wXT1PRi8yBnqafwHRB8b3s0WYPi5SPCc06rnCRpV2D0I5AyLx/0nes7+fC3t+rOztyP0U
-	 HLXaVHAtep8yin3pCl9eo80RPlzO+2J33DwiqB1Yl5r+FXwD/Wa9yH8pMtLt7ZOLNvQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706294;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RuFn4W6phgVUBUCM7NSjX2wTX8POdULpQTYDzkp30Zk=;
-	b=hMRvMmGIRxKFsCZ/uaQrJY1DXnLH9jraDKloy18trJft9M6HPjF4ac3L7935KGw2pFEM
-	 vOe2b5CTJUurkO0lWSJHmR62hO/Mgglw2mf6lq7RCWkmDKlaohWoLvAdP/a3n4WpahMks
-	 yNcJCUyH/UqQBYkfSMOAaBID8N+AcVePpbLU+OLT1mbBeSVTQnT1MCBvU9KCNDFAiSxD8
-	 cjGbqO8kB0KgPFvA0e6arMvyRjW5jz7C/4gaqShUoQ3/tMpmXAz5DVvUesCQCGMm7RDii
-	 rY/KbC12iLaj+Ggx3WSDXhObpj6kj37SdiU0PZikejAhzE+my5i6dvEbUDDH68cNTmg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hM584ALV;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="rzKvdq/3";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793706303;
+	b=2OjPuVM8eyZiZAaRaA3wkK+aj+MRn93/3IeoIcPpc13ILroiHPj3dOzlaqtD5+P59mGK
+	 rJvgLrUO2fVGGPLRAs57kmd8BHSbFWx1rD1sL6AklUuhGXl8Nc6jw7+ovhpGxMl7mmDC6
+	 WNLhuAln+qm0oL4Mq7uc9XTtpuhQbCcvzDvvW3K2pp1RJwyda0J7t62bjfTuuOYR8gD8Z
+	 hCMiKTMpgtz7i3h1icRjGogciB0wMF31OjxE/GCxAuJLxMx1KAMn7QvhDasc7gOoZODTt
+	 Wpe9yv73GRIk24651b/Ll8fr/lZW8f9Hv+1t91LGIOwjVse3HfJzUTodE/VR2OaNh0A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706303;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=wPT08thmwzscXCqobTlnpl0ujnuiyp9w2Kh7Oa5VAsw=;
+	b=2Bu29Z8zcCiuNpnpzUxvTSoE+VT5ZOVLjHYWVQdTSEz9IqPv2s4aVMWG8LoNgnXISQLc
+	 UxyecAueo0KOAutCD/Wuv0fq+Te1pxtrf0FlzySQABAQo4VNmvXOn2tENtaAkHSgDz4NW
+	 yMj12xFr3aIqEOs9DJClHcqi+AshLU4ic0pJ5s96x9ndG3xTOPN1e4/qy1lwUI0f/wZWF
+	 /IY3ADTsluVlHTXOXZBeQfYqOYkx5J4HbUXRAqyRnT6bIfwD+LdLMqU9WIG7KaxREbAku
+	 Rfuh5HTj54NcxSq6KapLNpc3La/n44lVqMBOZeFKDSjU7DEaqK21RRYBAeZXqJEszBg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=smail.nju.edu.cn;
+	spf=pass smtp.mailfrom=smail.nju.edu.cn;
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=JECCWLns;
+	arc=none smtp.remote-ip=54.92.39.34
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AE4606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13AE4606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAFF606D818;
+	Tue,  3 Nov 2026 11:45:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BAFF606D818
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hM584ALV;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=rzKvdq/3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793706293;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RuFn4W6phgVUBUCM7NSjX2wTX8POdULpQTYDzkp30Zk=;
-	b=hM584ALVaV7Ge7WiODzliJrdcDf9XNjajIJtEpIjKEaLh0ZiQj+GSN7cCLF9VUxTT7DfoB
-	tvU1EiENVJ8ILqeyqsKkOxby1KVZRIQYx2mFKtICBeZBGfE4cYKPcC2FI6JgChkCFzsxBw
-	kScnsYdG+RFrmU0EjLcI8sv+KGZC6yY=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-231-P8nWli0nMWq1GucaCqg0ug-1; Tue, 03 Nov 2026 06:44:50 -0500
-X-MC-Unique: P8nWli0nMWq1GucaCqg0ug-1
-X-Mimecast-MFC-AGG-ID: P8nWli0nMWq1GucaCqg0ug_1793706290
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8b0e878f574so10364437b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:44:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793706290; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MnknOedEVzqpio1RJKIEIcsA9a69LGVEx/XUWLuLk70Y77Lblx3cxy+4nZAvcFezxt
-         gnEjiQGCpcEJBULVaBDXolzKRfE9QFXZfpU0NnLXzUtvlVRL7Z1bUGBbZFzwEZTfCSn7
-         cTmSrzL/HsNTG0pN4Q8UfhNwfrkqZjcUh5fomUKFlAnBYbm12sH7lN/cf4PqeTUYxGlx
-         BUtlMVxgb5wlHJ0L4nR2LupLr++lI/xuMniHQ+iDxNug0MVkNTjNRsI7hNz9dAccPS5C
-         1j6eJHr7rvKEEmH0TQe1itXnmpftMiAx+Yqkq9nTsqqC8at2TimXGpPRshxSetUctfOD
-         1Akw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RuFn4W6phgVUBUCM7NSjX2wTX8POdULpQTYDzkp30Zk=;
-        fh=/vnW5DcGAlZSgco0KPAT0myDipftgBSa7eXDFrfyMeM=;
-        b=LBoEj6I5Tdxuwn9txK0EFHnS4/8vkJqYHGjeY2K7yFApui2z/rys6q1a5xKoID8dvZ
-         cuagftcqK5P4daUqMbLL9cw2HnjdvDMtk5k2DRNctSaREDjpUufdDrW42ijWaf+Dc+h7
-         3R3m+1mA6kODdwvsw/MsokYj4lmOAoJZyFIW8fjkdaNn/hoB73MvtogB/kFjayov/sRT
-         6FklScP+LSMc2aVkmM+ghup1dYo7XR1V8tTXGP28ZIlQbTZm59UUvlQfRbm22OeKsWJ+
-         jOwBhboVbrU/bbnga0LcP46xNPv/LQYV7x5Qs5QnnWPoZB7BQj7zqPR9Oq34eb+NnwfT
-         BAbg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793706290; x=1794311090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RuFn4W6phgVUBUCM7NSjX2wTX8POdULpQTYDzkp30Zk=;
-        b=rzKvdq/3UhGvBHJJRvX8KvQ0VtQJmH7erJMyZvJ7XJdQz8mPEG7k+GVn6vm+TuUgdJ
-         hVdQJKyrtl62BRxyJ1JZVUxXz9lB/Ax/8xI97PhX9GzKK2SFmiYJRv+g/2x9urFLc+3n
-         tVsjk9DKtfvIqfSi6fv4yW6xMeSV20Z2lg5zXzMaek9jHaOKoSbZZMgPqgYJzIYtTQop
-         8QhAcRWZnKv/1aIAqkvXwE/MafeEtdSsY7SraBss8pOccFCZ73BlquYQtT55WIAk16yQ
-         PBfDIUTdTfKDtWfMXPVr2uqzK3QaL7SCvxWVANpMFMFe9ygfB42wLtkJxF6DMklnUzLR
-         hcwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793706290; x=1794311090;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RuFn4W6phgVUBUCM7NSjX2wTX8POdULpQTYDzkp30Zk=;
-        b=Vfx22qbCMgNuOawPIiLZ63WPfbyDQu7DPyJutvrVCEd5imUMjjnffsaPZKieIS/Zlw
-         amqJL8G3pouCALPyPleyCsuVQ1e6kHQoQ8vK7+XvG54iu8tKfXuYdUsjPYz8rU1sM5mG
-         FV5lfpA+OxVPHW4vrW2b5O844VMpCSMYPWM7fN0689f9TmIA40KTy0RxOzlCrCZCe7om
-         cqT5/3+vhXmukEQLgdD4hj4/8l5OiJbvEAk5uetv/PHb6n0/u7tH7PzMdarEIdL1NnEo
-         Gfr9HL/uNtHvznuc7v7OpuZmLiObJNvzdxa/bY+1IveYi2G14hd5uwGvgEY5jH5hWMgb
-         Ig3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwqwTDTrtctWxpc8JZJyqdTbGes6p0hHZAvncksainMV3X7GTgcsVW2P0kdYpEYvia/KJ3h6Zr+EyM2nME=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++dpHa1MdLkO6A5+AUreSo5yRDXSpIPXefFWPNgYjjfXE4hIUG
-	/fNxYNcRTls6YF8aJuWEHGityp2ceDXuI+LFyjsqRP/UEhql2n4sXAaihbGNWXiMU+iGQOr00rc
-	ZZa8fMEezrFpoTG6G6HgzFGSYqDZsg5+tjUszVoP/bVrSKhmqf3Brc6QAJB/MTb1heSHyQsUOrT
-	p0CzshBRAnOvc+bPRh+J7KjXu2LXYmaopv/lpz1qwC
-X-Gm-Gg: AYBFou1EhC7G/HXMHEBBl34HAKrTWpOA8jQCD+QA10479qdqCHns0IkZVdPfcQx0D43
-	EwYatnKBCAc3SFqiMT1FtKiL/mcDowm0MQBntdB8vKWoev/nw5pgSuGXMQtWVO6qRgWdYDmltle
-	i9Y0ObfmWeLHLnro1XHz0l4NIFe78WlQ462uPSviMH+/B2S2vd6lkBqqtELvq7dpJuHch9JusCf
-	6j66FONO3jo1e+iaKIDlYHJ7jVOhVHmF7NNSLl7B/mNqsW8swtUrTEnFCk=
-X-Received: by 2002:a05:690c:6609:b0:8b0:bc8e:9d75 with SMTP id 00721157ae682-8b2b6756fb4mr93647177b3.22.1793706290273;
-        Tue, 03 Nov 2026 03:44:50 -0800 (PST)
-X-Received: by 2002:a05:690c:6609:b0:8b0:bc8e:9d75 with SMTP id
- 00721157ae682-8b2b6756fb4mr93647097b3.22.1793706289728; Tue, 03 Nov 2026
- 03:44:49 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=JECCWLns
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1793706072;
+	bh=wPT08thmwzscXCqobTlnpl0ujnuiyp9w2Kh7Oa5VAsw=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=JECCWLns0c85GYQygxijd4Kb4hJDMC1gFpBfhTt26QAcI2ycdhwEGAB8JcUR3mEYM
+	 8kFT5yF+2l9g2M5PxqzmdOEmd/0odC3xrA33E1T0Iidh5kLq7yIMTxgRv/AXX1Seq+
+	 Q8kVZ6JBHpLwIRj+FmamsAkpGKAzU6GK8eG8hgzY=
+X-QQ-mid: zesmtpip4t1793706071t7df616d2
+X-QQ-Originating-IP: YQ06AG7Nz8u6dMNsigInxc0UsGo452kvNDmllCue7T4=
+Received: from workstation-Precision-7920-Towe ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 03 Nov 2026 19:41:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8851204744377218603
+From: Kang Chen <k.chen@smail.nju.edu.cn>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+	Matthew Garrett <mjg@redhat.com>,
+	Dave Jones <davej@redhat.com>,
+	Thomas Renninger <trenn@suse.de>,
+	Naga Chumbalkar <nagananda.chumbalkar@hp.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] cpufreq: pcc-cpufreq: validate the ACPI interface data
+Date: Tue,  3 Nov 2026 19:41:09 +0800
+Message-Id: <20261103114109.74400-1-k.chen@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,111 +70,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260910123903.1717-1-lirongqing@baidu.com> <CAAf7B_M=tfyL33WGkxSX68FwPaRRRBcASVx92EGwPMXaFtUdzQ@mail.gmail.com>
- <fe5e4fb1b68d4203812e253d722cbe69@baidu.com> <CAJaqyWc6OzMF2yvrSjOfRE8g4-Y=JD50iq42zPuXWKjb00FdCg@mail.gmail.com>
- <20261103044056-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20261103044056-mutt-send-email-mst@kernel.org>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Tue, 3 Nov 2026 12:44:12 +0100
-X-Gm-Features: AclHuK-F8To7UGQU7Iu1DNSDfs2cRh-mK5wzoN11M5svVnnNyzaiwQ7PTsM9EcE
-Message-ID: <CAJaqyWdVpXPU=JpgsqrdAvjwdx+L_aUxUJpp4DmjHjWNiTCCZw@mail.gmail.com>
-Subject: =?UTF-8?B?UmU6IFvlpJbpg6jpgq7ku7ZdIFJlOiBbUEFUQ0hdIHZpcnRpb19yaW5nOiByZXNldCBJTg==?=
-	=?UTF-8?B?X09SREVSIHN0YXRlIGluIHZpcnRxdWV1ZV9pbml0KCk=?=
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "Li,Rongqing" <lirongqing@baidu.com>, Jason Wang <jasowangio@gmail.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
-	"virtualization@lists.linux.dev" <virtualization@lists.linux.dev>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: NvH2zBBgt3uTycSlvtz0OSpS0J1yrNy4NkzAzgdvAS45glXupgZ/stlj
+	gbOkZQYanHJ8+Az1OtANh74l7XnUdCwxZUknCVeI9ReUgHhw+/HUaWuB0wNzro5qrIk59ad
+	rqqpQmstLW9KGAn1ZsBlOCadhK2AVOcwVMojkFsrf2VTJpQy8ZfDhCp9pT0Cw6P5XTV55Ww
+	nI/bs7cazM/BuhzivzTVu4fJICQ1+f8mpZqgMw2uDeZRqs0cdqNKgAUeexb4is9PRlBpD2P
+	KM27SQq8m5Pjoa/Ya/OVC1KGkxB8nMq7II24WFshlbAmjd/5KhLLGmHqpKL8WSBF1izoI34
+	VHmht6Fz/oJkc9yB6H+Sj7pjpi2Xybb1e41GdQKdEXEzB1JuZRFISIADibXZUCHPdIkYS9n
+	qbvy0GG3zelRfOm9uk/PTQuP9XbebG+q1pTJglTOocjtkorYeIv+ZP0WPl+8qxsLo+jNYPF
+	w+88VJ/fWLRvq/qSOsIMrpwg/uS2gNde+n3F3sLPQiIf1j3LpP3+d9cjfMLC0k1sG7jsdW0
+	r+iBbGXwX8wU0c5mCBNyFNtbbI4xkPjxvsv8lOJwv24eL+ngcZKMKN2NjW0C08XOb3HZF1B
+	3vIhgVHWkr67udu3qia+El/Ph4CT3oBVjXKGKZB+OWjCF9yX6XoINaXUkfCSdVXQ685hfIi
+	9CwUqwvzM1UMGtiCcRVmdJrH84K57rgUSQJxfJWd15wfRXZ/RadsLlninYRbldmJMQjQ9Xz
+	zp98yIyvf6YyyRYTbcd+C62DDaAUVY5o2sBNiBfUm3pmS9O3aNaQLBRgax0Aotanhn2wZJI
+	5sxbuTs1uCRD08Qr4UmJshxRPm7PWjEozGWUu2azndfvZzON3FlOkfMmHwKgmJmeKw6uZQ7
+	Ydl6KUnLK6qv1z+RRG5PwlXAtjVoQgNKYltmoD0d/HJnG6eSr1mJIarF+/zV3sreN65EnM2
+	1V5VE3+4EyYiE9LYK7MB5ZJbHS5T89DyaQNzI1PYDRQlZD1RLpue2ghYoyXejBHq/Hx+hoh
+	FsS1bZYjlOAbIhbDSB/hva/xKTarC4wXHHeXbJStOh/M54s/VB
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Tue, Nov 3, 2026 at 10:41=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com>=
- wrote:
->
-> On Tue, Nov 03, 2026 at 10:36:26AM +0100, Eugenio Perez Martin wrote:
-> > On Fri, Sep 11, 2026 at 8:05=E2=80=AFAM Li,Rongqing <lirongqing@baidu.c=
-om> wrote:
-> > >
-> > > > >
-> > > > > The IN_ORDER feature uses additional software state to track the =
-next
-> > > > > available descriptor and in-flight descriptor batches.
-> > > > >
-> > > > > virtqueue_init() resets the common virtqueue state, but free_head=
- and
-> > > > > batch_last.id are initialized only when the virtqueue is created.=
- When
-> > > > > an IN_ORDER virtqueue is reset, these fields can retain state fro=
-m the
-> > > > > previous queue instance.
-> > > > >
-> > > > > Reset free_head and invalidate batch_last when initializing an
-> > > > > IN_ORDER virtqueue. Keep this in virtqueue_init() so the state is
-> > > > > initialized consistently for both newly created and reset virtque=
-ues.
-> > > > >
-> > > > > Fixes: f6a15d854986 ("virtio_ring: add in order support")
-> > > >
-> > > > I think this is needed for -stable.
-> > > >
-> > > > > Signed-off-by: Li RongQing <lirongqing@baidu.com>
-> > > > > ---
-> > > > >  drivers/virtio/virtio_ring.c | 5 +++++
-> > > > >  1 file changed, 5 insertions(+)
-> > > > >
-> > > > > diff --git a/drivers/virtio/virtio_ring.c
-> > > > > b/drivers/virtio/virtio_ring.c index db678f5..d0dc464 100644
-> > > > > --- a/drivers/virtio/virtio_ring.c
-> > > > > +++ b/drivers/virtio/virtio_ring.c
-> > > > > @@ -559,6 +559,11 @@ static void virtqueue_init(struct vring_virt=
-queue *vq,
-> > > > u32 num)
-> > > > >         vq->in_use =3D false;
-> > > > >         vq->last_add_time_valid =3D false;  #endif
-> > > > > +
-> > > > > +       if (virtqueue_is_in_order(vq)) {
-> > > > > +               vq->free_head =3D 0;
-> > > > > +               vq->batch_last.id =3D UINT_MAX;
-> > > > > +       }
-> > > >
-> > > > I would try to reuse or refactor virtqueue_vring_attach_split() to =
-reduce code
-> > > > duplication.
-> > > >
-> > > > Btw have you checked Qemu shadow virtqueue as it might suffer from =
-the same
-> > > > issue.
-> > > >
-> > >
-> > > I checked QEMU's shadow virtqueue implementation. batch_last is reini=
-tialized in vhost_svq_start(),
-> > > but free_head is not. Since the SVQ object can be reused across stop/=
-start, free_head may retain stale
-> > > state. So a corresponding fix should be needed
-> > >
-> > > void vhost_svq_start(VhostShadowVirtqueue *svq, VirtIODevice *vdev,
-> > >                       VirtQueue *vq, VhostIOVATree *iova_tree)
-> > >  {
-> > >      ...
-> > >      svq->shadow_avail_idx =3D 0;
-> > >      svq->shadow_used_idx =3D 0;
-> > > +    svq->free_head =3D 0;
-> > >      memset(&svq->batch_last, 0, sizeof(svq->batch_last));
-> > >      svq->last_used =3D 0;
-> > >      svq->last_used_idx =3D 0;
-> > >
-> >
-> > I'll ack this patch if it is sent to the QEMU mailing list, but the
-> > guest is not able to reset a virtqueue without deallocating it
->
-> what would "deallocating" mean here? who's doing the deallocating?
->
+pcc_get_offset() reads elements[0] and elements[1] from the PCCP
+package without checking that the package has two elements.  A
+zero-length package dereferences elements[0] out of bounds, and a
+one-element package reads elements[1] out of bounds.
 
-I meant that QEMU free the shadow virtqueue members on vring stop, but
-I was wrong about free_head. What QEMU actually free is each
-descriptor state (and the queue itself), as it could be resized on
-each reset. free_head member should be set to 0 too. Li RongQing,
-would you mind sending a patch to the QEMU mailing list with that?
+It also uses the returned 64-bit values as byte offsets into the
+ioremap()ed PCCH region after truncating them to u32, without checking
+the mapping size.  A firmware-provided PCCP method can therefore make
+the driver clear or program an address outside the mapping.
 
-Thanks!
+The PCCH and _OSC replies have the same problem: pcc_cpufreq_evaluate()
+reads elements[0..3] of the PCCH package and casts its two buffer
+elements without checking the package count or the buffer lengths, and
+pcc_cpufreq_do_osc() reads two u32 values from an _OSC buffer without
+checking that it is at least eight bytes long.  A short or malformed
+reply makes the driver read past the ACPI allocation.
+
+Require a two-element PCCP package, keep the offsets in u64 while
+validating them against the mapping size, and only then store the u32
+values.  Also validate the PCCH package count, the two resource buffer
+lengths, the minimum PCCH mapping size, and the _OSC buffer length.
+
+Fixes: 0f1d683fb35d ("[CPUFREQ] Processor Clocking Control interface driver")
+Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+---
+ drivers/cpufreq/pcc-cpufreq.c | 45 ++++++++++++++++++++++++++++-------
+ 1 file changed, 37 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/cpufreq/pcc-cpufreq.c b/drivers/cpufreq/pcc-cpufreq.c
+index 83e6f73dc9a4..c7c65104fc09 100644
+--- a/drivers/cpufreq/pcc-cpufreq.c
++++ b/drivers/cpufreq/pcc-cpufreq.c
+@@ -92,6 +92,7 @@ struct pcc_header {
+ 
+ static void __iomem *pcch_virt_addr;
+ static struct pcc_header __iomem *pcch_hdr;
++static u64 pcch_size;
+ 
+ static DEFINE_SPINLOCK(pcc_lock);
+ 
+@@ -136,6 +137,7 @@ static inline void pcc_clear_mapping(void)
+ 	if (pcch_virt_addr)
+ 		iounmap(pcch_virt_addr);
+ 	pcch_virt_addr = NULL;
++	pcch_size = 0;
+ }
+ 
+ static unsigned int pcc_get_freq(unsigned int cpu)
+@@ -253,6 +255,7 @@ static int pcc_get_offset(int cpu)
+ 	union acpi_object *pccp, *offset;
+ 	struct pcc_cpu *pcc_cpu_data;
+ 	struct acpi_processor *pr;
++	u64 input_offset, output_offset;
+ 	int ret = 0;
+ 
+ 	pr = per_cpu(processors, cpu);
+@@ -266,7 +269,8 @@ static int pcc_get_offset(int cpu)
+ 		return -ENODEV;
+ 
+ 	pccp = buffer.pointer;
+-	if (!pccp || pccp->type != ACPI_TYPE_PACKAGE) {
++	if (!pccp || pccp->type != ACPI_TYPE_PACKAGE ||
++	    pccp->package.count < 2) {
+ 		ret = -ENODEV;
+ 		goto out_free;
+ 	}
+@@ -277,7 +281,7 @@ static int pcc_get_offset(int cpu)
+ 		goto out_free;
+ 	}
+ 
+-	pcc_cpu_data->input_offset = offset->integer.value;
++	input_offset = offset->integer.value;
+ 
+ 	offset = &(pccp->package.elements[1]);
+ 	if (!offset || offset->type != ACPI_TYPE_INTEGER) {
+@@ -285,7 +289,21 @@ static int pcc_get_offset(int cpu)
+ 		goto out_free;
+ 	}
+ 
+-	pcc_cpu_data->output_offset = offset->integer.value;
++	output_offset = offset->integer.value;
++
++	/*
++	 * The offsets are used as byte displacements into the PCCH mapping.
++	 * Check them against its size before truncating them to u32.
++	 */
++	if (input_offset > U32_MAX || output_offset > U32_MAX ||
++	    input_offset + BUF_SZ > pcch_size ||
++	    output_offset + BUF_SZ > pcch_size) {
++		ret = -ENODEV;
++		goto out_free;
++	}
++
++	pcc_cpu_data->input_offset = input_offset;
++	pcc_cpu_data->output_offset = output_offset;
+ 
+ 	memset_io((pcch_virt_addr + pcc_cpu_data->input_offset), 0, BUF_SZ);
+ 	memset_io((pcch_virt_addr + pcc_cpu_data->output_offset), 0, BUF_SZ);
+@@ -334,7 +352,8 @@ static int __init pcc_cpufreq_do_osc(acpi_handle *handle)
+ 		return -ENODEV;
+ 
+ 	out_obj = output.pointer;
+-	if (out_obj->type != ACPI_TYPE_BUFFER) {
++	if (!out_obj || out_obj->type != ACPI_TYPE_BUFFER ||
++	    out_obj->buffer.length < 2 * sizeof(u32)) {
+ 		ret = -ENODEV;
+ 		goto out_free;
+ 	}
+@@ -365,7 +384,8 @@ static int __init pcc_cpufreq_do_osc(acpi_handle *handle)
+ 		return -ENODEV;
+ 
+ 	out_obj = output.pointer;
+-	if (out_obj->type != ACPI_TYPE_BUFFER) {
++	if (!out_obj || out_obj->type != ACPI_TYPE_BUFFER ||
++	    out_obj->buffer.length < 2 * sizeof(u32)) {
+ 		ret = -ENODEV;
+ 		goto out_free;
+ 	}
+@@ -418,13 +438,15 @@ static int __init pcc_cpufreq_evaluate(void)
+ 		return -ENODEV;
+ 
+ 	out_obj = output.pointer;
+-	if (out_obj->type != ACPI_TYPE_PACKAGE) {
++	if (!out_obj || out_obj->type != ACPI_TYPE_PACKAGE ||
++	    out_obj->package.count < 4) {
+ 		ret = -ENODEV;
+ 		goto out_free;
+ 	}
+ 
+ 	member = &out_obj->package.elements[0];
+-	if (member->type != ACPI_TYPE_BUFFER) {
++	if (member->type != ACPI_TYPE_BUFFER ||
++	    member->buffer.length < sizeof(struct pcc_memory_resource)) {
+ 		ret = -ENODEV;
+ 		goto out_free;
+ 	}
+@@ -448,6 +470,11 @@ static int __init pcc_cpufreq_evaluate(void)
+ 		goto out_free;
+ 	}
+ 
++	if (mem_resource->address_length < sizeof(struct pcc_header)) {
++		ret = -ENODEV;
++		goto out_free;
++	}
++
+ 	pcch_virt_addr = ioremap(mem_resource->minimum,
+ 					mem_resource->address_length);
+ 	if (pcch_virt_addr == NULL) {
+@@ -455,6 +482,7 @@ static int __init pcc_cpufreq_evaluate(void)
+ 		ret = -ENOMEM;
+ 		goto out_free;
+ 	}
++	pcch_size = mem_resource->address_length;
+ 	pcch_hdr = pcch_virt_addr;
+ 
+ 	pr_debug("probe: PCCH header (virtual) addr: 0x%p\n", pcch_hdr);
+@@ -480,7 +508,8 @@ static int __init pcc_cpufreq_evaluate(void)
+ 		ioread32(&pcch_hdr->minimum_frequency));
+ 
+ 	member = &out_obj->package.elements[1];
+-	if (member->type != ACPI_TYPE_BUFFER) {
++	if (member->type != ACPI_TYPE_BUFFER ||
++	    member->buffer.length < sizeof(struct pcc_register_resource)) {
+ 		ret = -ENODEV;
+ 		goto pcch_free;
+ 	}
+-- 
+2.34.1
 
