@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693395;
-	b=xkgHeJinaXs5m4OmC421vLXFpSzH1scA0jDnJK5nKWim5b/jtHrj7nOPFHEkX2uJ5D4b
-	 Mc/UUjYy9j3cnAasId+DIJyh/LnXYgR5tPpIz49dGuimAG4URXRCwNjMYbUi5kr/NvA7s
-	 l5/UdNQQUNgclw9Fqvwa1lWfYsZteu9DI+vq1YLNDlcV4hoT+mw6yZ97bKlGBu8pQE610
-	 XohuwQqrUlhXPcsOgDIjc4jEFABhedYIQ0gPX8btDl/Vpu2YdkqvKR9MtESv9qVtyPmMd
-	 eOZt5eOjOTeceLpeOu5NbyChvQiufZO9AGXx2coOdeyxZL4pb6TBp9L5kMwsMjGD/Og==
+	t=1793693392;
+	b=u1evOw4crra/Wj+DjaBWg/zJ5OdEkrAsQnWd9kagNleFvceUyeDwzSkwAGlNkr05pFmm
+	 Q6SocksCI5yJ5/tM9n0DGdfclGBx/rYrNliIyh8/LLmJLluS2IbnhtN5RRrpt/iA3Uygj
+	 emLlkGC7EVEZETFewa9+//k37sHf7iza1WvmiYoTOHIf3rN3ih1z7cGvZZif/N56CyzSo
+	 xIMjScreYn7qQFvHeLgVBsFSlDNpFdFieWHINBBVR43MnL9dzHhsWZC7XZareIwdZuMOB
+	 PRWCxQ/w/hxJBcUbqaFz5MwvZrhs2780njAEs1paMf/iL4CCHssKzeDZjXcs2UYfJjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693395;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693392;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=c+UFJzAgy7f7fNDFNYwbu485X1uKYlUTNzJPVdBiORs=;
-	b=OQU9JJMBUknnP/Bo0bkrA84JGtmueO+YhNSkqC0KFIk8pYYJyORIBHnRp+C+y5RBmiSg
-	 4fdSECmiCl3VDUEGfbmR+AuJReeGyneFrBhrqyRdCLWyFabrute/WQ3+0g9L3a5oKibxC
-	 JeFlOPBdnV5ZK1C/idrTP20CN4NdOJDM1Lfel46tIN+9yKUjM1pgGxX+M5uxXip88UaXX
-	 fdWy+he2/d1zWzIZVXUK/R0Xa+FAzmRr5BktfYmZDxZXpqXw0zdc/3xCMLsYXDteainYc
-	 hDSU+PQADq8wlesnf3D/6b0+G87Vk8aAzgSYMf4MfLExU1oZfWZn46bbOZ0COhIHiPA==
+	bh=o3gZPUQLWwPhGV6D4A+78sPcL2sUrR6F9w4Qn0I0nOg=;
+	b=iWtkaDqKG2EApOJJRapC8Nm7XAjoeEaxEuBC7epcNjPK/0ebbC39Ioy4LH1u5MshhZu5
+	 JWLLpp6Uzp+JEGjW4yKceZKEeHD3E8eNOJ2nQNcPh+yfAMd9B+ef46LAQjJehir1JEcTl
+	 5M1+MUItPCC2LNLMk7LO2ENaO4d+a/KYRb+tsKC/2ARPgUr3HYlcfmOUswKsXW4Qyy6rS
+	 K9eJtvMF+Nty+iQJhOKsNMXh2R218EB0fr6y+dSzLxGoQs+8GAwQYq4NowC5ubGiorquq
+	 elYiLUUpRsmO4ZHkoTumxy9UPFKAWlPemIYl3g4ey2HPeB3EHY9ZeObCpWDkhk6B6+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tQ3Zai7c;
-	arc=none smtp.remote-ip=115.124.30.118
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=iiG8CCqB;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEC6606D816;
-	Tue,  3 Nov 2026 08:09:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EEC6606D816
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59328606A324;
+	Tue,  3 Nov 2026 08:09:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59328606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tQ3Zai7c
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=iiG8CCqB
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1793693384; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=c+UFJzAgy7f7fNDFNYwbu485X1uKYlUTNzJPVdBiORs=;
-	b=tQ3Zai7cuqu4WYgwoDNIyPKmX3fOXpq5cClXbNh9O1rJse5c1uz7Lg5B/1k18od18QPik+vxeLAY7ZRSNbqR6CqsyFp5pHMixfrTRDTsZ1keYbjNGuTc0jjfcQXKw68vfthaM9OVFCQTOKH52bcwZrd0mZFCZVEaCafGEmprjT8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XE27L1F_1793693382;
-Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XE27L1F_1793693382 cluster:ay36)
+	t=1793693381; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=o3gZPUQLWwPhGV6D4A+78sPcL2sUrR6F9w4Qn0I0nOg=;
+	b=iiG8CCqBa/RrPbbDC6xfxjAXrR/xIXBquz/CjKjtOdTcuOS56kKcqjxymuNzcQR+/v3OLS/XX4fj6/85TdZiiTTNlbvcQqSvnMgu7EDNRUC3YgykClcDbF3cI5OO4xsS9bJwmhE7oWjnnAEGGzqr0d3K5vzdonQBXhZ5OhptIQM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R931e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XE27L.Y_1793693380;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XE27L.Y_1793693380 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 16:09:43 +0800
+          Tue, 03 Nov 2026 16:09:40 +0800
 From: Chen Pei <cp0613@linux.alibaba.com>
 To: pjw@kernel.org,
 	palmer@dabbelt.com,
@@ -57,9 +57,9 @@ Cc: guoren@kernel.org,
 	linux-mm@kvack.org,
 	linux-kselftest@vger.kernel.org,
 	kexec@lists.infradead.org
-Subject: [PATCH v2 4/5] selftests: kho: Add riscv support
-Date: Tue,  3 Nov 2026 16:09:25 +0800
-Message-ID: <20261103080926.2079-5-cp0613@linux.alibaba.com>
+Subject: [PATCH v2 1/5] kho: Do not translate the handover FDT address in is_kho_boot()
+Date: Tue,  3 Nov 2026 16:09:22 +0800
+Message-ID: <20261103080926.2079-2-cp0613@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261103080926.2079-1-cp0613@linux.alibaba.com>
 References: <20261103080926.2079-1-cp0613@linux.alibaba.com>
@@ -74,69 +74,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Teach the KHO vmtest runner about riscv64: map the target to ARCH
-riscv and describe the QEMU virt machine, the kernel image and its
-console -- a 16550A port probed from the device tree on virt, hence
-the SERIAL_8250{,_CONSOLE} and SERIAL_OF_PLATFORM symbols.  Also
-select CONFIG_SPARSEMEM_MANUAL: the runner requires
-CONFIG_DEFERRED_STRUCT_PAGE_INIT, which depends on SPARSEMEM, while
-riscv falls back to FLATMEM (no ARCH_SPARSEMEM_DEFAULT), so without
-it the test would just be skipped.
+is_kho_boot() only has to say whether a handover FDT was recorded, but
+it asks kho_get_fdt() for one and so converts kho_in.fdt_phys with
+phys_to_virt() just to throw the pointer away. Both callers use it as a
+boolean and never dereference the result.
 
+On riscv64 that conversion is not valid yet when efi_init() reaches it:
+setup_vm() leaves kernel_map.va_pa_offset at 0 and setup_bootmem()
+assigns it later, so a handover boot that came through UEFI panics in
+linear_mapping_pa_to_va(). Only debug builds fail -- without
+CONFIG_DEBUG_VIRTUAL __va() degenerates to "phys + 0" and the boolean
+stays correct -- but the panic also goes unnoticed without an earlycon.
+
+Check the physical address instead. Nothing needs the translation, and
+architectures stay free to bring their linear mapping up whenever they
+like.
+
+Fixes: d6d511639185 ("kexec: introduce is_kho_boot()")
 Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
 ---
 
-Test: qemu-system-riscv64 (virt, -cpu max, TCG), in-tree runner
-"tools/testing/selftests/kho/vmtest.sh -t riscv64" (boots the Image
-and kexec'es into the same Image).
+Tested on qemu-system-riscv64 (virt, -cpu max, TCG): edk2
+RISCV_VIRT_CODE.fd/VARS.fd on pflash with OpenSBI fw_dynamic.bin below
+it, and a GPT disk holding an ESP with grub plus the kernel and an ext4
+partition as rootfs.  Kernel config is riscv defconfig plus
+DEBUG_KERNEL, DEBUG_VIRTUAL, KEXEC_FILE, KEXEC_HANDOVER and the kho
+selftest fragment; the outgoing kernel gets "kho=on" and the kho
+selftest init does kexec_file_load() followed by reboot(RB_KEXEC).
+
+Before, the first handover panics.  earlycon= is needed to see it: the
+BUG precedes console registration, so without an earlycon the machine
+goes silent right after kexec.
 
   KHO: found kexec handover data.
-  KHO: exec from: 7.4.0-rc1-next-20261102-00005-gfca49e548231 (count 1)
-  test_kho: KHO restore succeeded
-  ok 1 KHO succeeded
-  # Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
+  efi: EFI v2.7 by EDK II
+  kernel BUG at arch/riscv/mm/physaddr.c:47!
+  epc : linear_mapping_pa_to_va+0x1c/0x1e
+   ra : is_kho_boot+0x18/0x28
 
- tools/testing/selftests/kho/riscv.conf | 9 +++++++++
- tools/testing/selftests/kho/vmtest.sh  | 3 ++-
- 2 files changed, 11 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/kho/riscv.conf
+After, the same setup keeps handing over until the window closes, 29
+consecutive boots and no BUG.
 
-diff --git a/tools/testing/selftests/kho/riscv.conf b/tools/testing/selftests/kho/riscv.conf
-new file mode 100644
-index 000000000000..ec2a46cd45d5
---- /dev/null
-+++ b/tools/testing/selftests/kho/riscv.conf
-@@ -0,0 +1,9 @@
-+QEMU_CMD="qemu-system-riscv64 -M virt -cpu max"
-+QEMU_KCONFIG="
-+CONFIG_SERIAL_8250=y
-+CONFIG_SERIAL_8250_CONSOLE=y
-+CONFIG_SERIAL_OF_PLATFORM=y
-+CONFIG_SPARSEMEM_MANUAL=y
-+"
-+KERNEL_IMAGE="Image"
-+KERNEL_CMDLINE="console=ttyS0"
-diff --git a/tools/testing/selftests/kho/vmtest.sh b/tools/testing/selftests/kho/vmtest.sh
-index 1e86ffcc3a79..56cac6ae3cf9 100755
---- a/tools/testing/selftests/kho/vmtest.sh
-+++ b/tools/testing/selftests/kho/vmtest.sh
-@@ -21,7 +21,7 @@ Options:
- 	-d)	path to the kernel build directory
- 	-j)	number of jobs for compilation, similar to -j in make
- 	-t)	run test for target_arch, requires CROSS_COMPILE set
--		supported targets: aarch64, x86_64
-+		supported targets: aarch64, x86_64, riscv64
- 	-h)	display this help
- EOF
+  KHO: found kexec handover data.
+  KHO: exec from: 7.4.0-rc1-next-20261102-00005-gfca49e548231 (count 29)
+
+ kernel/liveupdate/kexec_handover.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index 6f1f55fe3181..6ab181de345c 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -1643,7 +1643,7 @@ EXPORT_SYMBOL_GPL(kho_restore_free);
+  */
+ bool is_kho_boot(void)
+ {
+-	return !!kho_get_fdt();
++	return kho_in.fdt_phys != 0;
  }
-@@ -127,6 +127,7 @@ function target_to_arch() {
- 	case $target in
- 	     aarch64) echo "arm64" ;;
- 	     x86_64) echo "x86" ;;
-+	     riscv64) echo "riscv" ;;
- 	     *) skip "architecture $target is not supported"
- 	esac
- }
+ EXPORT_SYMBOL_GPL(is_kho_boot);
+ 
 -- 
 2.50.1
 
