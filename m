@@ -1,115 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.6
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793727479;
-	b=qdwTZILMpQPCexMfmDQmha7E6Ft/Z+NzZxGZVNki8Rpw1E2MUrtMT/QS63SxSWMb4DAc
-	 gWKOcKM9CX5nMDH+jUQQqKwQZs7bvBNs4utvAcFkR9X+4/9BPQ/toJggc8TxMRoGta3FO
-	 /WKOpJdqFgjsb0Sdtg9MuJUH70S9AYLn0pYKrHNGXEwHH+5m7kA7lg7yry2KtxWRKyZ2K
-	 WOxVYsdwqXaIam45px8amHpJui06d3ZjKDOcB4pBgUXWGHcvcRIbq5645nGMYGHhl9Fpv
-	 p7dWEFbYoog+Gjwla4V/GRAd+zWlSbvQhN/ZMOdNlM6cG8k1KXmdKWDdmjJDHuRV7Sg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793727479;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=i43QKafOz1PWWQERC8n1Cv+ufMVMze6Rma/7HGXWp+Q=;
-	b=dbUmpc13gBpp6A8cZfqa6DTCS6R9poEXFn1N8L6yRKmfyWjV1HMJEye30iw1oPwVr0eV
-	 MiFh6h5yjMKHWs0n8fn4O8swMwKbjU/gS7PTBRJ1HUtFvU8bVp3aON/VgewOUm4U0lwX3
-	 o9LJ8XRaoCNEsxZQQDXZ2ejUQG5DHjsOyVpIfqwDs6kiIZIczxyDF4HQKH4vvQ8XomR71
-	 dMQGKydmQco4XcCwIPressdYKhWk33XBfO7mfOcgqLuuWDANkm4xYYCkvCLaUlvi3KURc
-	 /S3+fYGSCR7k2r4b7n4dm6wgpKNpcHZdiuqXtWEBouWvJqP46ya1RaGH43lkJr96c3A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eby5NgVd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.6
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013006.outbound.protection.outlook.com [40.93.201.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793727515;
+	b=NHB48rTHMXSvrWbBGIA/SfjGrHt8Z6+xvch5HJTZKI5xR/1pUUA8KTEb3qk6IIAl78EO
+	 uTFHEU4Pl9fcoJCmwUVPXvediaqelAF0cHEDVMzCEBFQemP81V9N0oD1PSgfl1Rzu7D2b
+	 TwdiPTE6g/Hzzjcvtw6xintDO/ig+QvPPE53wsL4T0J48qyA3Nalzaw5DcH0L0KNyV16G
+	 PyUi9rCs0UA8oXMFlWBFj/7+Jsr0tqYOEcpct47//4LitSK18QcsuBsQtwineiFBXpwl7
+	 Kvkszv8HgeH+iM+nyKckDT3HEJhB/aMBI9Uep+l8dw23IGcIhmreeQFZ1ZYv6mJjyjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793727515;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=uMAvHJZEF1Q8OY3SKDQ7nLHVkkIo5TZ9PtucqHYyY2Y=;
+	b=Zo2iqjtA4tyeX7UYoYCdV9zOpV5JKsn4b8Ti8korM73g25z7bmgbkx4oMYwkNNXZUFNA
+	 GfAe8etReIZ2jQGp+Cgr2CPmFQJJmfqZCLHNTkHjg0GmTdKJUW6EN/O2NRz631HXlhYY7
+	 77YkkyvzcuyKOA1daV/8xjWyXyBOakpXVmE0bomAfabUUYc7SVNRQuRdla0HWDaDDFJEB
+	 0Mpz91oTVU6ZITBkgVvIUvFsZ3szvo2u0nJTnsk5BdkN7NHPyKTlLMqvMDrAHiL5+HqMC
+	 ryQXjppL2GsfKhXsDzKfbgusYKHA0Qw/sW7w2waeGRdnpApSvAQhJ0PTsGgKpFOK14A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=DFytPb35;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D088606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:37:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D088606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29F8606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D29F8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eby5NgVd
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KHgXgi1YvHstlv+6WrV+DSI/ADnxC6MkZpWFZWlf65YP9Qd1OZISaoKFJ1Ahl5sx5HQPTZNV70D8+uiRyqHs21fdr18ImtRkb68rlkOmkluyOYSTjI3YfRTMEE1BWzMHV1mAZ9gW1DxCDxKKLPgLQnR0mZhE35knwLsk5RvP3SIDsedV5685jb0SNfzD18Y+QrWEQkO926BR/G6ddNkK/J/t5ZnNdOPIfL5Ps02vDYFhs2RgsgJyJ9vwBP6tGiWzTcBxo5zk5HzmABIkKwrbr1ZQznDx6bIjizmUiWoEHTiUfv00bpk+sLuTmNQFEut5+XHmmhGM3ZZ5l/12eEdwZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i43QKafOz1PWWQERC8n1Cv+ufMVMze6Rma/7HGXWp+Q=;
- b=XSYFqnz5I7TNfiblXsYMT78RNgF4mX93rIOYsKc1xOihTIgdpuGmUfLLBxOlFftg6q3ZTBpZIOrpaBkA0lzug0SaoKB/UW994272UN/dnAfBe5jINEj4fJMUpLrVabHrBQ/9MCO+P7IXD9W0Z67Vj5vgmhObMMLd0NelrJfNcl461OQWenBWyNz1KyN5+Q3Dtci0Wi7jN6hW8cqHyQSHgeIvlnzJhF3rMGmM1CHLMCUL3DLUzOgk9uPc3hyNLT9QXgmBXQJLaMlnnUIq/Y2QbsCLwyTY6z2Iwxk7SyakfQ7MxtY9E/tzQ3SlTrdrsjxnX5XbACRQZnOjbkoBw6zaZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=intel.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i43QKafOz1PWWQERC8n1Cv+ufMVMze6Rma/7HGXWp+Q=;
- b=eby5NgVdS8KZ9tHsty1JZaCm8Bi8XAfbbx5tNab+wQzxT9+Ijt3gNL1yzi4biblN9VtUku+nP1dA2TuDnMQsv2PMCPEwSC+4qSXWdaWQ/mvFzMK8GrbZXBpQxNkMBkZZu5g9LMG/xNc/zk85ZYYe8bVZ0ozmHQHIs4KJkUKXF8AtqQWoyEq530IgrBXeXiAbBYa62CzlNzJDs4scBHuHy/DWqfLfrJqWYQRBzYuYLxz6Lw8PQeF0wrs5GUfGea9D0cWt7s/i5853BSyHto9mOaMOyvXDeSZMDhSB34N128NEd15BorojR3Yuzk43gFEtIe/ELiVyBZLZBtCdyo1YDQ==
-Received: from CH0PR03CA0038.namprd03.prod.outlook.com (2603:10b6:610:b3::13)
- by SJ0PR12MB6856.namprd12.prod.outlook.com (2603:10b6:a03:47f::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 17:37:48 +0000
-Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
- (2603:10b6:610:b3:cafe::3) by CH0PR03CA0038.outlook.office365.com
- (2603:10b6:610:b3::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 17:37:47 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 17:37:47 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
- 2026 09:37:26 -0800
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
- 2026 09:37:25 -0800
-Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 3 Nov 2026 09:37:22 -0800
-Date: Tue, 3 Nov 2026 09:37:20 -0800
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Yi Liu <yi.l.liu@intel.com>
-CC: <joro@8bytes.org>, Lu Baolu <baolu.lu@linux.intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, Will Deacon <will@kernel.org>, Robin Murphy
-	<robin.murphy@arm.com>, Jean-Philippe Brucker <jpb@kernel.org>, "Jason
- Gunthorpe" <jgg@nvidia.com>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 5/5] iommu: Reject a same-domain replace in the attach
- handle APIs
-Message-ID: <auob0IV+h0aiW8u2@nvidia.com>
-References: <cover.1793602084.git.nicolinc@nvidia.com>
- <b7dd43ba78b7342a2e0356870502746a8b7f34aa.1793602084.git.nicolinc@nvidia.com>
- <68570abd-f619-4d9d-a7af-d2acf1f9aad3@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=DFytPb35
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793727509; bh=uMAvHJZEF1Q8OY3SKDQ7nLHVkkIo5TZ9PtucqHYyY2Y=;
+	h=From:To:Cc:Subject:Date;
+	b=DFytPb35o4BdENqymacpB6ptG1gueeY2LTznSaEQHJKen7UF5tuJv7gyrvlygkmRd
+	 XysE5fzvMAjIvxXLfpcbVWtvUG18/BlW0wrwUY4G2K7vyxTvcxA7lg6XkCOGYSVyCT
+	 PHfewtma28AGT6YgRjC1nYybl6znnBu86uy1akP4=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 99B26A55; Wed, 04 Nov 2026 01:38:27 +0800
+X-QQ-mid: xmsmtpt1793727507ta37495vl
+Message-ID: <tencent_564F695449AAF937D088B9D394E942549106@qq.com>
+X-QQ-XMAILINFO: MgvAHZ+V1260JHN4yO1jxt63D0Xj1QAlFw/fZCdDQprJDSxEPVzlZ4WG3pBU2I
+	 INag+a/+55KNCpx+1KW0rIkz46GsyuUWQOJzCJcgLj+/oEFLmSu1sYMWUGwH61J0TSqGsWxV6x6e
+	 ARg8r7KY/kk876JZwR9WSd8wktwXAWZh2gko2HUhmsxBL8R1ORrFxUr/TVuk+CvTu8Jfzg3Hc9bn
+	 OQPY0s8WBXmdG14lamMXOIVYHzwB6ycnmsUwyMjcTVU1y48moYpk983QbxOcXguRk3IXlDqGbJl2
+	 f1asC0VYrcWMZ4sNfvdgtlkomDc0i61BcODdCxsdeBxnfspFORZWeELSTDvqCJtwhzPPqd3BJ1yH
+	 rfUhmIhRiUFbMg0kjdT8zXi9jsoIUEO16Ug1a/+W0KR91xS5aW6X6W3MySsWFncGYWWUG/DMmAbW
+	 mVHrXz2P4l+f0E9Zd/u6mQwRxILSNrHsEw38QxQfVNybF320gbHK2EIbjT2DXuuMR0yC/nUw082b
+	 EXnnQqjuOTHKrbvyK1lP1ROdeJw43aBddFv6/RGHf+4D7gIQrHv32BJvbrLUhVoH+W77gcE4/b1H
+	 ptVyWbhVpmYwhZdobJgzfXp5UFg9OC/Petb7TATklqL0omHRi7tjROJ00TZYz70EoVY5h0/iWK13
+	 gB9TpMChFPa0Xb+Tytr30J7SFvfzUo0YpJwrvrh6WK6Lw/gSckPta/onDmxd2ltpj/d9giGvZ5to
+	 v6VBInl5yLgLDlTXtxTD3jsLvbPm2keSPN4mAPzX/KQTLVPmG954E5UHGZkv/oa5PIs4w7YpacdE
+	 jEtkp9B6oDZ11qJ5QyNXj8ucQ43rMaAm4dIocjJA8Cvx1qYAZXZkdrsTkSrfGtAXuwqYtK/ZHwit
+	 Hxvj+pLRFfen+XrY5jhOJy4p7+zrDtdp5HiIt82KwanRrj361K6lpV7Rd/MNUCwN2GCHd9LSymom
+	 sxtx99HB1yfS1/izv7HV+7w1LFn1C+41SBs7VBZadC1MdjXzxvs6EaipU7n/NbzsSmU9GwXxYdDU
+	 QoxU9h6zwx9r56VmoN4QwFk44lAZxahzy8aoTjqw==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: Chao Yu <chao@kernel.org>, linux-f2fs-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: f2fs: missing cross-check between NAT entry ino and recovered node
+ footer ino in do_recover_data() - kernel BUG at mount with
+ CONFIG_F2FS_CHECK_FS
+X-OQ-MSGID: <c16-f2fs-nat-ino-mismatch-20261103@qq.com>
+Date: Tue, 03 Nov 2026 14:00:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,60 +79,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <68570abd-f619-4d9d-a7af-d2acf1f9aad3@intel.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|SJ0PR12MB6856:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06ff8705-180a-4ad4-eee1-08df39d12d2a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006|261021135927099003|261022105027099003|261026121527099003|261028144727099003|261102130727099003|261026140227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	zrjI5gFC6c9/rctCHHh0HiB6TxGN7SWYSF0eiQul0NVRYV7mp3Q+faqljdjusg8HM9px/ne8u6srOjt749baUj9deTPMxLxwqT6XaLwaCdtOed/5/Tfe0GxegHAbW+mPGNZ8+vKPpfgo2CuD7aH4OypqqEBCFOiME0OXF8EREQ8+ec6VyEu2y6KrBGRIPLZ5yxZWLOYxGFFqOG/Tjsc9RhKqOgQALrONZa64OCUcl48ORrtcbzWZGnF6FN+wa6ZJUYNacfTVFudInwAV+Q8FtWZR0w3c08HvmlKBxQka7HOtB/XkRQs5lzBU1HFe/r1y2x4uQZABVMy8zdnuqLbrF0W5s1MmxjfHmjeFZAbwP37F2ZOIHBn8lb5UoS/KsmG43I+OdtR116dx8QmGpzKPqcFaGfdhtUhZ8TDCHJjnzDjMON/eaAy5zpfHvil0v5d24oHfvPl5/kuF4nczi2QZ0/QT+U6fs5sSpgPkl5ruDgD/d3InpeqLACATbGjIZKQ+3/GoKbDi8hGO8SRsyRzBRzlhczyQlXasj8ETOqUxf1EnHLnV2U4Omm764P024/xHOHneiN1HnPqJj2FCbyDPW158etKhFWFBu4DsRV6ulOVF2kSNnzOf2gTONTVnL0iBKJO63rGLHZflw1convdGsQv2pAKfOPfkiBNsvn84jQQF6EWEmfH100fI3mnh4sDMuwAr/vb9d/JbvG+9O7i91w==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261021135927099003)(261022105027099003)(261026121527099003)(261028144727099003)(261102130727099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HpL2DZkPEcMp5lJcVkEu8U4o0iFRV7/tdTwfVhEYvmz1TSGdpMGMPwVPmBwnoPrbYZzH2ZlI4qfJl28qnTpnx9OiThko+/USOWFk/kyCyih+C4xRc6Mu+qGgr01NRQ/ijoSDvB+5F9WoYDvgUxaZnZiAYtxbXlOQQqIgTfIBlM9DGdb2scaKNFF3aqD6xzJMVDpuv/VgmRsA4JilMmcQ/fxImh55VKyy27aC/W9hkjcqci5NKwmLvMaPaf2l3wxtx76EbhXEXqC6CI6BgpXy7aJrHDqv8QUlF6wKhPMt1LHeC4CZDTTGky312js5zCocdqfSYJ9SWAy0Ffeasz9+qusWZoLhLrZbtqSlj39wjBzC7a2dW12bRfO6tF8XOr9XIbJntl0UgWdNDlvd9Mf8xCdPsohdogk89eU3304yrhzFJ5ZWndF8+u3c15Wq4c5I
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 17:37:47.7526
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06ff8705-180a-4ad4-eee1-08df39d12d2a
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000013F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6856
 
-On Tue, Nov 03, 2026 at 07:59:52PM +0800, Yi Liu wrote:
-> On 11/2/26 15:04, Nicolin Chen wrote:
-> > @@ -3716,6 +3716,10 @@ EXPORT_SYMBOL_GPL(iommu_attach_device_pasid);
-> >    * Caller should always provide a new handle to avoid race with the paths
-> >    * that have lockless reference to handle if it intends to pass a valid handle.
-> >    *
-> > + * The @domain must not be the domain currently attached to the @pasid. Such a
-> > + * same-domain replace would skip the driver callback flushing pending faults.
-> > + * Then, those faults could use the old handle after the caller frees it.
-> > + *
-> 
-> 
-> Not a native speaker, but this reads a bit ambiguous to me:
-> 
-> I parsed the last sentence as describing intended/acceptable behavior
-> rather than the hazard being guarded against - "Then, ... could use"
-> reads like a neutral continuation rather than a warning. Might be worth
-> making the use-after-free explicit, e.g.:
-> 
-> A same-domain replace would skip the driver callback that flushes
-> pending faults - this is a use-after-free hazard: a fault still holding
-> the old handle could dereference it after the caller frees it.
+Hi,
 
-OK. I will respin a v3.
+Mounting a crafted f2fs image ends in a kernel BUG during fsync data
+recovery, before any syscall beyond mount():
 
-Nicolin
+  F2FS-fs (vda): f2fs_recover_fsync_data: recovery fsync data, check_only: 0
+  F2FS-fs (vda): do_recover_data: start to recover dnode
+  kernel BUG at fs/f2fs/recovery.c:696!
+  RIP: 0010:f2fs_recover_fsync_data+0x7ce6/0x9730
+  Kernel panic - not syncing: Fatal exception
+
+The BUG is the f2fs_bug_on() at fs/f2fs/recovery.c:698:
+
+  err =3D f2fs_get_node_info(sbi, dn.nid, &ni, false);
+  if (err)
+          goto err;
+
+  f2fs_bug_on(sbi, ni.ino !=3D ino_of_node(sbi, entry));
+
+ni.ino comes from the NAT, ino_of_node() from the node page footer being
+recovered. The two values are read from independent on-disk structures
+and nothing on the way to the assertion cross-checks them:
+
+  f2fs_get_node_info()    validates only the blk_addr range
+  __get_node_page()       validates nid =3D=3D footer.nid only
+  do_read_inode()         no ino cross-check either
+
+So a NAT entry whose ino disagrees with the footer ino of the node the
+NAT points at reaches the assertion, which is BUG_ON() under
+CONFIG_F2FS_CHECK_FS.
+
+## The two configurations behave differently
+
+Under CONFIG_F2FS_CHECK_FS this is a kernel BUG at mount time. Without
+it, f2fs_bug_on() degrades to WARN_ON(1) plus SBI_NEED_FSCK, and
+do_recover_data() then proceeds to
+
+  fill_node_footer(sbi, dn.node_entry, dn.nid, ni.ino, ...);
+
+at recovery.c:790 - the NAT's wrong ino is written into the recovered
+node's footer. On a production configuration the same input does not
+crash; it silently stamps inconsistent metadata into the node page.
+The missing cross-check is identical in both configurations.
+
+## The ofs_of_node case was already fixed; the ino case was not
+
+In 2018, a crafted image triggering do_recover_data() through an
+inconsistent ofs_of_node was reported (bugzilla 203227) and fixed by
+22d61e286e2d ("f2fs: fix to avoid panic in do_recover_data()"): the
+ofs mismatch is handled today by the f2fs_warn() + -EFSCORRUPTED +
+ERROR_INCONSISTENT_FOOTER path directly below this assertion.
+
+The ino mismatch at the line above it was left as f2fs_bug_on(). It is
+the same class of inconsistency, read from the same kind of
+independently crafted on-disk state, in the same function, and it still
+takes the whole kernel down.
+
+f2fs_sanity_check_node_footer() (node.c:1545) added later checks
+nid and the inode/xattr type combination, but not ino either.
+
+## Suggested fix
+
+Treat the ino mismatch the same way the ofs mismatch next to it is
+already treated:
+
+  -       f2fs_bug_on(sbi, ni.ino !=3D ino_of_node(sbi, entry));
+  +       if (ni.ino !=3D ino_of_node(sbi, entry)) {
+  +               f2fs_warn(sbi, "Inconsistent ino_of_node, ino:%llu, nid:%lu=
+, %u",
+  +                         inode->i_ino, dn.nid, ino_of_node(sbi, entry));
+  +               err =3D -EFSCORRUPTED;
+  +               f2fs_handle_error(sbi, ERROR_INCONSISTENT_FOOTER);
+  +               goto err;
+  +       }
+
+Notes on reproduction that matter: the crafted state needs the
+checkpoint version raised and the checkpoint checksums recomputed on
+both copies (is_recoverable_dnode() requires the footer cp_ver to match),
+and the NAT journal entry has to be updated rather than the NAT page
+copies alone, since the journal takes precedence during lookup.
+
+The reproducer (image builder, forged checkpoint/NAT builder, ready-made
+image, crash log) is available on request.
+
+Tested on 7.3.0 with CONFIG_F2FS_CHECK_FS=3Dy, deterministic 3/3; the
+assertion and the surrounding recovery path are unchanged in current
+mainline.
+
+Thanks,
+Guikun Yang
+
