@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793702549;
-	b=CVxDmGS9Ajyv8GSU19gJ0+7aA07Lj3P7/19xVaPZvL5ib3owiI20P8gRhpQjzBlFSuhs
-	 m++TdQ7iOuOTSNiUPVoif/uYi/3e7k2gnoS9HyYnZ72g4R8G4D5ijjadrnHN2D04PE1n+
-	 6sjU/2hbiiLUrnCgx9t0y4/YL3vqS1ZhZLiLFChnVlqLY84LRJPmSESbfEVijMi0erwBg
-	 l23AYjl0kK3hqvB3b0rXMs8ELzrHsoTJ7Wg0o0WWwx8XSokKugFnZ5uXRNpw5VSQQpb7k
-	 PrC5NcyRdperf5FWm3UeocV5/1NtjIBmM0G0IAhyBkue2c8ElrQx5PX3Ow+3+cIjF+g==
+	b=gfHU3em28/pvukxfklzvQoUD6YsZMY5giA/3QH/CT2jPd5MFburM2frkKNvCZbT7KkVB
+	 A4va0sKOww1k7QIWl4p4I1Zqj6ogCxyZ4ecGiu+MZ8DUihGxN/iysbEliuXqCDnCamORu
+	 fGi91myaFVBEBPM3xSq6q19sGud52zlyjKLCnMHvbqYb61MZks3/yBNlSjAJvydZ8zKeu
+	 K0xmdzSU8tWIFCod5iUnmXIPf5Le9+j+YxOjxxSXcX/Ka6Ac8m1ssfs7Zjiku9yGpRL52
+	 6eOJiVt4UZRJTGfsDLb6sXXUU+NtP7lAqhc+LQhFAWRW9qDj0m6t/Wi4ApAwYUuP17g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793702549;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=d7jU0eXCbkNhSLkTaZJUyYuvXfwJizUYTCCD6ZuG3PE=;
-	b=JXxUshubDpAor6uQQF31M3tKHUi2mQ5SLyPdZz6pJTaIsefMiVcTtz2sgmYZZpO7+WzA
-	 jWXgIy4U7tT95lKpBr2Pf1SMNS89yD1pZS83eqIJ6IEpyT2sCOUdnScUqBWNv1f+tyh8k
-	 r5Lp+HkSm81R4vVX3XXDOIyoYBD+JBIhRUUYTM/DzIERbKiVrcoGi+2kLc8MG6tAfvHXh
-	 CUT0+aYenAWc1afUkAhfnaWUuGa8ItExMdLkdM18zaqs8dhTV8P0GJZTjc/R3r+b4/2Vq
-	 w+TExfehltJUWSzNnRAS1SmFJhmZ7dvV62WWx/1IbO8am5cSRTDAMmzbRkcK2Q04VXQ==
+	bh=GRTj+bMCLTRfP6oBh8/ntORla+AQfg5mUpWuW2EaPZI=;
+	b=PyJ0gtBOmXz1jnPlJ1Moa+mA0wxqyMv2pf5UDdUu04eg6gX7SVBTfzMhV+row1gF76pa
+	 TEHyvGJxZRk+qAR/fsrRhLG0+9aBeBPA+djghIUMJN3sChDxIZpfvcAd9BHj4Oe9GrdzW
+	 kRxfCMIedgrXQCKfnsLqBN36otzGMXPpDXnEQtuT+NFPODPEd56QaVEsOBjOMfB6MWwnA
+	 48sZgOWk2GrjXLppMWbljyUMiUoz/j5NC+JRNT7x2y8708HMzdMroXhcTFcAvnj3HkELs
+	 awEzsS5JoBEz0mmgad/RY13OFWcuh+xxFOnjZqARtbVkzsgOkkgJ/O9ioDp7zXu3keg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,14 +25,14 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0833F606EDA5;
-	Tue,  3 Nov 2026 10:42:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0833F606EDA5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9B4606EDAE;
+	Tue,  3 Nov 2026 10:42:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D9B4606EDAE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABXaJmRuulqZsg7AA--.2863S2;
-	Tue, 03 Nov 2026 18:42:25 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAC3wJGSuulqbsg7AA--.2801S2;
+	Tue, 03 Nov 2026 18:42:26 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>,
 	Saravana Kannan <saravanak@kernel.org>
@@ -40,9 +40,9 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] of: unittest: fix node leak in of_dma_get_max_cpu_address test
-Date: Tue,  3 Nov 2026 10:42:34 +0000
-Message-Id: <20261103104234.1373570-1-vulab@iscas.ac.cn>
+Subject: [PATCH] of: unittest: fix node leak in phandle remapping test
+Date: Tue,  3 Nov 2026 10:42:35 +0000
+Message-Id: <20261103104235.1373591-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,52 +54,64 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABXaJmRuulqZsg7AA--.2863S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZFyxXr18Zw1kXw4rKrW8Crg_yoWkJFX_WF
-	9rZr9xGrWkCF1DWw1fXr13ZFnIva4jqr4kWr1jyr9a939ayF17Jr1S9wn5Awn8Zw4avF9x
-	Kw1Du3409rnrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbxxFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
-	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUrv
-	38UUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggAA2rpnIR9AwADsr
+X-CM-TRANSID:rQCowAC3wJGSuulqbsg7AA--.2801S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4kWF1rJr47ZFy3Kr4DArb_yoW8Jw4rpF
+	WSq3Z09Fy5GF4xtr48Zryjvayak347JrWfGFyYk3ZFvws8Ja4jq3srWay5Wr1DZFZ5X3WY
+	y348tF4UWF1jyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv014x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWx
+	JVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VU1
+	YsjUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggAA2rpnIR93AAAs3
 
-of_find_node_by_path() returns a device_node with its reference count
-incremented. of_unittest_dma_get_max_cpu_address() passes the node to
-of_dma_get_max_cpu_address(), which does not consume the reference, and
-then returns without dropping it.
+of_unittest_parse_phandle_with_args_map() obtains a reference on the
+consumer node with of_find_node_by_path() and never releases it, not
+even on the normal exit path. The error path taken when one of the
+provider lookups fails also leaks the provider references acquired by
+the preceding iterations.
 
-Release the reference after the check.
+Drop both sets of references.
 
-Fixes: 07d13a1d6120 ("of: unittest: Add test for of_dma_get_max_cpu_address()")
+Fixes: 357aa4b61c82 ("of: unittest: Add phandle remapping test")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/of/unittest.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/of/unittest.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index d2f5c7ef3178..8133c954d335 100644
+index 8133c954d335..a6ac58b4d883 100644
 --- a/drivers/of/unittest.c
 +++ b/drivers/of/unittest.c
-@@ -1145,6 +1145,7 @@ static void __init of_unittest_dma_get_max_cpu_address(void)
- 	unittest(cpu_addr == 0x4fffffff,
- 		 "of_dma_get_max_cpu_address: wrong CPU addr %pad (expecting %x)\n",
- 		 &cpu_addr, 0x4fffffff);
+@@ -581,6 +581,9 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
+ 	for (i = 0; i < ARRAY_SIZE(p); ++i) {
+ 		if (!p[i]) {
+ 			pr_err("missing testcase data\n");
++			while (i > 0)
++				of_node_put(p[--i]);
++			of_node_put(np);
+ 			return;
+ 		}
+ 		prefs[i] = OF_KREF_READ(p[i]);
+@@ -711,6 +714,8 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
+ 			 i, prefs[i], OF_KREF_READ(p[i]));
+ 		of_node_put(p[i]);
+ 	}
++
 +	of_node_put(np);
  }
  
- static void __init of_unittest_dma_ranges_one(const char *path,
+ static void __init of_unittest_property_string(void)
 -- 
 2.34.1
 
