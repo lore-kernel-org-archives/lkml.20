@@ -1,74 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793681343;
-	b=Ko4vJDPAplGgRyP4ne36zm6VJq8vMtXCXjgkPrL1/9j5I0f8QC4DEeHuyNMurHKTg5ES
-	 OyvBDjV2a3XMcRzAHOz1/Q9S2ZGmWBSj6ycpt5lsdxGj0EAYy8rDJAxYh68d7D4ixWDI2
-	 pc9ZsIZVTP70XzzuzeuFYBSfX+mp7+VxHaCjaxVJeWe5l7Z56SWwenSZi40SJlfqNG9hP
-	 +d4gB/WL+zlkorzvSkmeyKCW9balOnRklGCLc4I4Y4exOySNPiVxSIM5GNaMwPHJv16uE
-	 mAyyYfqKRq9f5uhx7rezrxhYB4r+GL3CcWkoITm4P8cRZV5pigZOn+2qwSiNHDeTlHw==
+	t=1793681351;
+	b=s6nXqKCQcnurGdoJLZ86YD3SM4x32suEHhfFxYtHCO0qJqlBn+Wwil2Orm5VWFVVHUoj
+	 L/S9xckaql6OZc/+h7qPlANYmzS8aMRmrl9aRo8dWVX3cP/M4BlCWzEu8JuY4o/5mJscy
+	 CN1Z9wSjHJ64EHi4OQHcngwfAw+ocABUDG6jvUuHLCqur2lzZiFVQ1P5LDDjH7cZxO5T1
+	 pivyKwaU1phpOmpcQ4ygbJ5zAWutTqR/3o3yyjGxhleg4kc/8XZjWoziePoNlpoK9+NtB
+	 3YTyLTUq+4ZkDsG0OAZhpzl4zqjXOEjGR1g0P7FTVyj1/srl2KqpcojdwAmrA8G5Ajg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793681343;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=xpPM8d6E2sOmuORX+oJQ/3Yb6xz98T79nukjUCv60w0=;
-	b=tl9Wb1F5ZHHQRtCxoHKw4PG9iJRWam5zXJtYxtzn14S2LSR1ZqDB4zEaZG6QPq7OJQWr
-	 qFfKUvfsJ8O/mYP8PPvQIbq3sBB8DHmrBeXTBdYlVxXpFtJm8ypuyh/EOiCMMzg6Nm1nH
-	 wl5nEW0O52gasEiPubx5mMcHBM91u+qekBzHfzG0IW1BZINz6m8EU3vh01WN90vqpzE66
-	 1yP/pVCN9dHYgvSDOZp0pResxpEjk1qvyIbygHcDoySIycyr6ce0379Uoz6eLB1CPXmPJ
-	 Wrh+XIrbzGYwTzzflzQUaVNgpiXsMkXZGWh/ztf8fl0J2N4qg/BAVZ8K/1zL32qySmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793681351;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=xI4gvJjOAmwGjJ10E+KfBxUOX/8swyX/L3aQALDRl8g=;
+	b=zp3trn/xaJe4okBIGa/ptDjzaDGUejOdx2ZXrOOmmbkqdrYBt9OwxxqfCMjgEVgHdg2m
+	 /AWzLbEBv+wsKE7oRY2mE6UefaQr8w0SWY+r7IsGIaW71vcECg8FbdGiMnXq0hBDY5XSV
+	 UjzrHCmDLw1dE3ikuYWz11x3PETmz/691/9sYCaurx0oQsQw0SppzHkCptcsg5Uifidkt
+	 U5FT3+rIPP2X7eTIFx+j2X1cq9EU0MI0FGHHo00Zzk7TUWVGv0qit5kpY1zPcfnIChkrn
+	 byIy3tEsGLHaFAry53OBXZrW5AuJAsRcTWi+X9eiz5jFVsn6WLIXk197JxQ/HeSX8Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=N3yb8+oy;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZZknBHZP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FvJOAyTO;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86782606A33B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:49:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86782606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429E2606A330
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:49:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 429E2606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=N3yb8+oy
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b07b06027eso642459a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:49:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZZknBHZP;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FvJOAyTO
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A34hBZg750963
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 04:49:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=xI4gvJjOAmw
+	GjJ10E+KfBxUOX/8swyX/L3aQALDRl8g=; b=ZZknBHZPGA8j3sdVFQeyjONlyiw
+	d6E2V4CHledeLpedsobCLLn+5xLVABkY+i2i3VsvbnSr6LllGYNGm50kqgFzMtLO
+	TzJhTK8I8luT2QaN/+cr8yO9MfXDvEUuf4v+KiEl1p1TZNzhxj0Fnyj7pHKfSpgd
+	n0fbmBqQ5TdELJ1HtAxwA/zo8OVQbnUtmbkJNtC4m5GU6HmcaG6nTcTAHBT0X5do
+	3S5eON3t8AjRYoN/yEb54iDRrz9l89vlQkNCGhRR0aEhllJJsOZfBwYhPY3sY4lp
+	6GpJBIME20ima80f9kHAL9uh0dluepPWaByVXqF+fJMZguvdWkVbcmo6l5Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq8u5g0ku-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:49:09 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f20addba1so670986385a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:49:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793681342; x=1794286142; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xpPM8d6E2sOmuORX+oJQ/3Yb6xz98T79nukjUCv60w0=;
-        b=N3yb8+oyTXT5JmTpHZoNiyTZDZyViCCgxID1pC+ipOJlnaGTUES+eSgUktKLb6Ed7b
-         Bcu40a285vRAYe+p0EBWCbP8XOr475B2EH6Djl7GLJoYXUYnOak+Qc41B04TBNPlJ1Xj
-         X0k4g0c4ECEzScqGR83aMPTeecbGzdCJtSuye0sSmqp+B1QYQGfE8KuLEACn5EFeVu7A
-         tuZkJhYU0SxS6gn3VJyUrE8wull93UwkmYHM4kAEcOcASepeCgbX6ZkGeZvN1IehLwT2
-         mtm8P5HrSKgfxu5TUUyUX/2Dumh0mQK5nuXUhHLDdzDO0Kg08OWhWmCOcRAcA9OmrKVk
-         W7+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793681342; x=1794286142;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1793681348; x=1794286148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xpPM8d6E2sOmuORX+oJQ/3Yb6xz98T79nukjUCv60w0=;
-        b=OMP9kA4tmrx1bdgqU2Dfczwz5yjKxJJdLfqB/vQyaYbiuF7SpJg7eduH/IbQ8qUb02
-         6q86EhWz/Wlklk/hPdX6lI1pgZbvNHt8If2+j4P0pcFWZei1qCY5i1kzNGqrCB3FKXIe
-         bS6yoMypZKqz/ZPbUyVBfS367q4/T0AAoITe3ZRp8lR/qtHQ21HJ0HCWvTBOyJ9ltaCb
-         vfPPt5xgbkAZ5GMO2/zVg+hTFy+naMAfAcZrCWSOsf504uNe1OzKGIcUGskJ0hQQyGRt
-         cMFNJkrtBErJlUHxs5C5MFMYSgWLRnunHXob4FtJ4pn2trwi/Q67X2IVPHamJvWmWcq0
-         ZjjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzaLzWXp32DoVCIpTZ+k7EHo6HaDnTBTJJG6IYWh09qaNi3oq9MFY7fU5aCSYHMBjfvQjQwc6txeXfqEg0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Xm4YTEORIrlPU72ccyI0rC8IF4cTIrKvHwW4Q5/98KZ5o1bre
-	NEK91Ks0oNphyxuIenkuxA5+08S6AZXhf+lkfEHW1PEk4GUeVSUu/YNwSq4xBX4n+50cm0EkrH6
-	SNK/oVA==
-X-Received: from pgbj23-n1.prod.google.com ([2002:a05:6a02:61d7:10b0:ccf:d903:c14c])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2d8b:b0:3ab:c80:9370
- with SMTP id 98e67ed59e1d1-3ae89724ae3mr8703357a91.20.1793681341720; Mon, 02
- Nov 2026 20:49:01 -0800 (PST)
-Date: Tue, 3 Nov 2026 04:49:01 +0000
-In-Reply-To: <20261031113330.45704-2-vitaly.zuevsky@gcore.com>
+        bh=xI4gvJjOAmwGjJ10E+KfBxUOX/8swyX/L3aQALDRl8g=;
+        b=FvJOAyTOD6yEXIRKrjsV0ardFYZ5cLElC0jjV8ZURfJbVZeezbXxIkszzwNjHME58N
+         XhOEitGCgPh6aU40y1uYPTn0JbmgkMqzTo1tF2TFF0z0hHcq2LbG7d5nM9FoZdyfbklk
+         KXJ9FdZSR676DMpVF+Fovn6dBVEXG3jzcHbROxrWrzWwhDGfdBolgUe9O+zGPI8y8j7C
+         Z/mrUDuXj5jitWXDvF582bU/671XMPemcbpmK5sZRZrxZpJS+f/2KBu73ZaQ9XTNJrJM
+         mFOKkUVbBIVMiMdE/W0+bEQOUB8ou8MMeI/P+4QN0ovqsLcaEbEHJdJ7Z/PQIIVBYTf8
+         Jurg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793681348; x=1794286148;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xI4gvJjOAmwGjJ10E+KfBxUOX/8swyX/L3aQALDRl8g=;
+        b=Vtd0YaMaVQy/GKG1qu1ZElSewbWGGjmjO155XDc1RcbOP0/0dLnJ7sVw5P8BoHfArQ
+         3ejW545p+ib9K+JERK1gEIMbrahcqDqAKjwBFrkeeqtFTrlPlvTYtSnCOlAu/+jaZ7rW
+         KbmY7u7rT8EYs8J3MRkNJSjbaRh/LMCi+LQF/qUmlB4uoK3wSJ+j97PhYchHIsAoVgh8
+         bhXx8rAEaRf0EZ5etjWd42Gcw6khVUo3tcA60hxvWS2Bu6y/OrInpILbrmJAxFwoYDu/
+         tZghsvhBM8Kup/wDBdu9KyBGf9oNZr39Wj1niYWNLBRmBo20ALnyloePkwes/W37v1Kj
+         f2SQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxvO+bGuPUs1jlatNoVYyROAvg8HDhgAKP2kBxhRRC5yJy4YDrkCT+5M72MJNEnT41UPY5MhclpDVbibK4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+a43hNJ1DrA3LiRcnB0pQSGjIGUixLEiCb4tY5FX43t053AYr8
+	QfumqFfr1A6cwCjriskwl84t+YnhYk4sCC2YWRwmpg+j+0JYlLKziXPf4OkB1aPlG87MvF8t/VC
+	D9JyrCJmzx6lVIZE7O2IoN+xKvovcIyoqbtTHIY7tZ35sQZPT5bcGXQMx7ghNEKrQFKA=
+X-Gm-Gg: AYBFou2s+VufaQTtskYQjGA5Ue01Sb8BlLOz3Tx29mV4pKub+5gihn+HMkPyl8QE4It
+	rTGOjTysTPyUMS2ZqikcQwNOgHpOzqu/gQjwGx8w0f6j1LT+YFYHvNov0NFRYqvg2iyu3sjXNdT
+	2/vm51zTNM9W3VjdDa4hh03nXPHOv5UUSaKrdagBrczpL9dpgpTEqh3q5FemD88XAHYyDJlrr8t
+	b3Jdc8/n0A5NhxYjJERf0vKcd4tnhL4Mk1SxgD5pdyrCpbu/QH88hDjcd23oKHfRmdOrj+f2CrG
+	IxfmPA3ED7NG3GnBqb8LbPPVZdfE5YWZSW5ai/rTacX8ZFY4NxLD4ag5bxQHK9BKMxUpVjXI/zb
+	riY27RjN+YxCqLkdbouQuNWw22pEqs8VskuosMJlsiQl6fSpD/WXfoKzS0+bTyMq752LkTPBnYB
+	zC
+X-Received: by 2002:a05:620a:a905:b0:945:b9c8:de5a with SMTP id af79cd13be357-945b9c8dedbmr587929885a.20.1793681348147;
+        Mon, 02 Nov 2026 20:49:08 -0800 (PST)
+X-Received: by 2002:a05:620a:a905:b0:945:b9c8:de5a with SMTP id af79cd13be357-945b9c8dedbmr587928685a.20.1793681347600;
+        Mon, 02 Nov 2026 20:49:07 -0800 (PST)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:8b9e:7797:dd05:11cb])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a879fb29sm25685445e9.4.2026.11.02.20.49.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 20:49:06 -0800 (PST)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: rafael@kernel.org
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-rockchip@lists.infradead.org, linux-kselftest@vger.kernel.org
+Subject: [PATCH v5 4/6] powercap: dtpm: Use generic powercap hierarchy helpers
+Date: Tue,  3 Nov 2026 05:48:18 +0100
+Message-ID: <bded992091c92baa7246b939f266297f99c8942b.1793666444.git.daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1793666444.git.daniel.lezcano@oss.qualcomm.com>
+References: <cover.1793666444.git.daniel.lezcano@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,232 +123,693 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261031113330.45704-1-vitaly.zuevsky@gcore.com> <20261031113330.45704-2-vitaly.zuevsky@gcore.com>
-Message-ID: <aulmWD9VUXcwgp6h@google.com>
-Subject: Re: [RFC PATCH net-next v1 1/2] net: add SO_NO_RFS to exclude a
- socket from RFS and aRFS
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Vitaly Zuevsky <vitaly.zuevsky@gcore.com>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Richard Henderson <richard.henderson@linaro.org>, Matt Turner <mattst88@gmail.com>, 
-	Magnus Lindholm <linmag7@gmail.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
-	Andreas Larsson <andreas@gaisler.com>, Willem de Bruijn <willemb@google.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Christian Brauner <brauner@kernel.org>, Andrew Halaney <andrew@amutable.com>, 
-	Jori Koolstra <jkoolstra@xs4all.nl>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
-	Tariq Toukan <tariqt@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, 
-	Chuang Wang <nashuiliang@gmail.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-arch@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 7pQsklzGHGVkqnDzatGXRZBQWhf6c2Mq
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAxOCBTYWx0ZWRfX76dBQzZKXqSY
+ 2o4tgX0BZTpj33fheCejzbje4i2wkh003gGNlz/JACO8FUWKzcYVdxp46Cx0jMctVfRvE2c2Mkr
+ DBJsUgwSu2DEFms4gIx9ctjePZqB01U=
+X-Authority-Analysis: v=2.4 cv=RZ0FmFtv c=1 sm=1 tr=0 ts=6ae967c5 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=PNS_9xEdTJF3v_BdtpwA:9
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: 7pQsklzGHGVkqnDzatGXRZBQWhf6c2Mq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxOCBTYWx0ZWRfX7siN1rGP0y5I
+ JLfuACgC7GxefKxlADaSrDx0joqq5J1gRh+Snfqzl9DnBlJcdF7XfEmfd6mVaEWbtkRD1uOotf+
+ p8IqIs1twK2eLTDm/uIqgy10n5/VJcYhyLwgqOnQ62ba8ek02e9CcsKjz7NaZ4DZdieE10uqG47
+ XRQmwzSmOnvEzaaejym7gXkJM4liKVusydEOcpRqRx2k5FB8BshMnfdikVOWSml5e98SEFIadGs
+ Us/dNsSpiiVYWRIgiIXgvW9P0bnQnUyOldIuzwQvepIg4PJvpxBWOSNOEwoiBmHakovoYtuhlxm
+ sqJihg6WVB5KK7yOAUwegGCoff6+wMv8lLq6z/cTUkIZbLIedzx4L2pEF6affCoqHTV/WqTFsU/
+ bEjBQyHBfFqXZbLLbM3h3d9OJRIW3hVmEmb1vk+bk+CsueUDo0B9/FOhCmEPMXejEqrRE5YYqJk
+ K5VKMfo9iI8GK0ItakA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 phishscore=0 suspectscore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030018
 
-On Sat, 31 Oct 2026 11:33:29 +0000, Vitaly Zuevsky wrote:
-> RFS and accelerated RFS are enabled per host and per rx queue, but
-> whether steering helps is a property of the flow. A host that carries
-> a few long-lived flows which benefit from steering alongside a large
-> churn of short-lived flows has no way to express that today.
+DTPM implements its own hierarchy creation and destruction logic while
+the powercap core now provides generic helpers for this purpose.
 
-FWIW, we have the exact same option in our kernel since 2019,
-it was named SO_BYPASS_RFS with skc_bypass_rfs:1.
+Convert DTPM to use the generic powercap hierarchy infrastructure.
+Duplicate the platform hierarchy before creating it, and use
+powercap_hierarchy_create() and powercap_hierarchy_destroy() to manage
+the DTPM zones.
 
+Add DTPM callbacks to create and destroy the zones associated with each
+powercap hierarchy node. Adapt the CPU and devfreq backends to return
+the created DTPM instance and use the node name provided by the
+hierarchy.
 
-> 
-> Add a boolean socket option, SO_NO_RFS. When set, sock_rps_record_flow()
-> does not record the socket in rps_sock_flow_table, so get_rps_cpu()
-> finds no match and neither software RFS nor ndo_rx_flow_steer() acts
-> on the flow; it stays on the CPU chosen by RSS or RPS.
-> 
-> The option is kept in sk_flags so that sk_clone_lock() copies it to
+Convert the Rockchip RK3399 description to struct powercap_hierarchy
+and keep the device tree path as DTPM-specific node data.
 
-I posted this so that you don't need to access to cold cacheline.
-https://lore.kernel.org/netdev/20261103044213.1336347-1-kuniyu@google.com/T/#u
+This removes the DTPM-specific hierarchy traversal and destruction code
+and leaves the hierarchy management to the powercap core.
 
+Preserve best-effort creation: an unavailable backend returns NULL to
+skip its branch, and setup failures are warned about and skipped rather
+than rolling back independent zones. Invalid node descriptors remain
+fatal. Reject a DT node with a NULL path before calling
+of_find_node_by_path(), treating it as an invalid descriptor rather
+than an unavailable backend.
 
-> accepted children: setting it on a listening socket excludes every
-> connection accepted from it, while sockets the same process connects
-> itself remain eligible.
-> 
-> sock_rps_delete_flow() is skipped as well, because a socket that never
-> recorded itself must not clear a table slot that may belong to another
-> flow.
-> 
-> The test sits after the TCP_ESTABLISHED check and inside the
-> rfs_needed static branch, so hosts without RFS pay nothing and hosts
-> with RFS pay one test_bit() on a cache line tcp_recvmsg() already
-> touches.
-> 
-> Signed-off-by: Vitaly Zuevsky <vitaly.zuevsky@gcore.com>
-> ---
->  arch/alpha/include/uapi/asm/socket.h  |  2 ++
->  arch/mips/include/uapi/asm/socket.h   |  2 ++
->  arch/parisc/include/uapi/asm/socket.h |  2 ++
->  arch/sparc/include/uapi/asm/socket.h  |  2 ++
->  include/net/rps.h                     | 13 +++++++++++++
->  include/net/sock.h                    |  1 +
->  include/uapi/asm-generic/socket.h     |  2 ++
->  net/core/sock.c                       |  8 ++++++++
->  8 files changed, 32 insertions(+)
-> 
-> diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
-> index 5d3524c26b2b..256d37f5b9b0 100644
-> --- a/arch/alpha/include/uapi/asm/socket.h
-> +++ b/arch/alpha/include/uapi/asm/socket.h
-> @@ -161,6 +161,8 @@
->  
->  #define SO_PEERPIDFD_THREAD    87
->  
-> +#define SO_NO_RFS              88
-> +
->  #if !defined(__KERNEL__)
->  
->  #if __BITS_PER_LONG == 64
-> diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
-> index 245a43f52fb1..5b477de463a3 100644
-> --- a/arch/mips/include/uapi/asm/socket.h
-> +++ b/arch/mips/include/uapi/asm/socket.h
-> @@ -172,6 +172,8 @@
->  
->  #define SO_PEERPIDFD_THREAD    87
->  
-> +#define SO_NO_RFS              88
-> +
->  #if !defined(__KERNEL__)
->  
->  #if __BITS_PER_LONG == 64
-> diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
-> index f23710e1c671..b3a4cc2cbc50 100644
-> --- a/arch/parisc/include/uapi/asm/socket.h
-> +++ b/arch/parisc/include/uapi/asm/socket.h
-> @@ -153,6 +153,8 @@
->  
->  #define SO_PEERPIDFD_THREAD	0x4055
->  
-> +#define SO_NO_RFS		0x4056
-> +
->  #if !defined(__KERNEL__)
->  
->  #if __BITS_PER_LONG == 64
-> diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
-> index b35b25bdefc2..ba5ed7942570 100644
-> --- a/arch/sparc/include/uapi/asm/socket.h
-> +++ b/arch/sparc/include/uapi/asm/socket.h
-> @@ -154,6 +154,8 @@
->  
->  #define SO_PEERPIDFD_THREAD      0x0060
->  
-> +#define SO_NO_RFS                0x0061
-> +
->  #if !defined(__KERNEL__)
->  
->  
-> diff --git a/include/net/rps.h b/include/net/rps.h
-> index e33c6a2fa8bb..5afa48868236 100644
-> --- a/include/net/rps.h
-> +++ b/include/net/rps.h
-> @@ -98,6 +98,13 @@ static inline void _sock_rps_record_flow(const struct sock *sk)
->  	 * [1] : sk_state and sk_prot are in the same cache line.
->  	 */
->  	if (sk->sk_state == TCP_ESTABLISHED) {
-> +		/* SO_NO_RFS: application asked us to never steer this flow.
-> +		 * Tested after sk_state so the common case stays on one
-> +		 * cache line.
-> +		 */
-> +		if (unlikely(sock_flag(sk, SOCK_NO_RFS)))
+When the representative CPU is offline, find an active policy through an
+online sibling whose related_cpus mask contains it. Hold the CPU hotplug
+read lock during selection and setup, and initialize the zone through the
+policy's active CPU while keeping the hierarchy-provided name. An entirely
+offline policy still has no active CPU to initialize through.
 
-Move this to just after rfs_is_needed().
+Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+---
+Changes in v5 (since v4):
+- Reject a NULL DT node path with -EINVAL before invoking
+  dtpm_setup_dt(), as suggested by Lukasz Luba.
+- Document that a missing path is an invalid hierarchy descriptor.
 
-With skc_bypss_rfs in the hot bit, access to it and skc_state
-adds no cost.
+Changes in v4 (since v3):
+- Rebase on v7.3; no code or commit-description changes.
 
+Changes in v3 (since v2):
+- Rebase on v7.3-rc7.
+- Preserve best-effort branch creation using the generic NULL result.
+- Find an online policy sibling for offline CPU representatives and
+  protect policy selection and setup against CPU hotplug.
+- Keep generic API behavior and documentation in patch 1.
+- Fix __initdata placement; match-table indentation is handled in patch 3.
+- Name setup callback arguments and remove whitespace-only lines.
+- Update the description.
 
-> +			return;
-> +
->  		/* This READ_ONCE() is paired with the WRITE_ONCE()
->  		 * from sock_rps_save_rxhash() and sock_rps_reset_rxhash().
->  		 */
-> @@ -111,6 +118,12 @@ static inline void _sock_rps_delete_flow(const struct sock *sk)
->  	rps_tag_ptr tag_ptr;
->  	u32 hash, index;
->  
-> +	/* Never recorded, so never clear a slot that may belong to
-> +	 * another flow.
-> +	 */
-> +	if (sock_flag(sk, SOCK_NO_RFS))
-> +		return;
+ drivers/powercap/dtpm.c         | 180 +++++++++++++++-----------------
+ drivers/powercap/dtpm_cpu.c     |  62 ++++++++---
+ drivers/powercap/dtpm_devfreq.c |  22 ++--
+ drivers/soc/rockchip/dtpm.c     |  67 +++++++++---
+ include/linux/dtpm.h            |   6 +-
+ 5 files changed, 198 insertions(+), 139 deletions(-)
 
-Same.
+diff --git a/drivers/powercap/dtpm.c b/drivers/powercap/dtpm.c
+index b7a65e543f19..da5795b0f3ff 100644
+--- a/drivers/powercap/dtpm.c
++++ b/drivers/powercap/dtpm.c
+@@ -35,6 +35,7 @@ static const char *constraint_name[] = {
+ 
+ static DEFINE_MUTEX(dtpm_lock);
+ static struct powercap_control_type *pct;
++static struct powercap_hierarchy *dtpm_hierarchy;
+ static struct dtpm *root;
+ 
+ static int get_time_window_us(struct powercap_zone *pcz, int cid, u64 *window)
+@@ -191,7 +192,7 @@ static int get_power_limit_uw(struct powercap_zone *pcz,
+ 			      int cid, u64 *power_limit)
+ {
+ 	*power_limit = to_dtpm(pcz)->power_limit;
+-	
++
+ 	return 0;
+ }
+ 
+@@ -412,8 +413,7 @@ int dtpm_register(const char *name, struct dtpm *dtpm, struct dtpm *parent)
+ 	return 0;
+ }
+ 
+-static struct dtpm *dtpm_setup_virtual(const struct dtpm_node *hierarchy,
+-				       struct dtpm *parent)
++static struct dtpm *dtpm_setup_virtual(const char *name, struct dtpm *parent)
+ {
+ 	struct dtpm *dtpm;
+ 	int ret;
+@@ -423,10 +423,9 @@ static struct dtpm *dtpm_setup_virtual(const struct dtpm_node *hierarchy,
+ 		return ERR_PTR(-ENOMEM);
+ 	dtpm_init(dtpm, NULL);
+ 
+-	ret = dtpm_register(hierarchy->name, dtpm, parent);
++	ret = dtpm_register(name, dtpm, parent);
+ 	if (ret) {
+-		pr_err("Failed to register dtpm node '%s': %d\n",
+-		       hierarchy->name, ret);
++		pr_err("Failed to register dtpm node '%s': %d\n", name, ret);
+ 		kfree(dtpm);
+ 		return ERR_PTR(ret);
+ 	}
+@@ -434,90 +433,91 @@ static struct dtpm *dtpm_setup_virtual(const struct dtpm_node *hierarchy,
+ 	return dtpm;
+ }
+ 
+-static struct dtpm *dtpm_setup_dt(const struct dtpm_node *hierarchy,
++static struct dtpm *dtpm_setup_dt(const char *name, const char *path,
+ 				  struct dtpm *parent)
+ {
+ 	struct device_node *np;
+-	int i, ret;
++	struct dtpm *dtpm = NULL;
++	int i;
+ 
+-	np = of_find_node_by_path(hierarchy->name);
++	np = of_find_node_by_path(path);
+ 	if (!np) {
+-		pr_err("Failed to find '%s'\n", hierarchy->name);
++		pr_err("Failed to find '%s'\n", path);
+ 		return ERR_PTR(-ENXIO);
+ 	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(dtpm_subsys); i++) {
++		struct dtpm *tmp;
+ 
+ 		if (!dtpm_subsys[i]->setup)
+ 			continue;
+ 
+-		ret = dtpm_subsys[i]->setup(parent, np);
+-		if (ret) {
+-			pr_err("Failed to setup '%s': %d\n", dtpm_subsys[i]->name, ret);
+-			of_node_put(np);
+-			return ERR_PTR(ret);
++		tmp = dtpm_subsys[i]->setup(parent, np, name);
++		if (IS_ERR(tmp)) {
++			pr_err("Failed to setup '%s': %ld\n",
++			       dtpm_subsys[i]->name, PTR_ERR(tmp));
++			dtpm = tmp;
++			break;
++		}
++
++		if (tmp) {
++			dtpm = tmp;
++			break;
+ 		}
+ 	}
+ 
+ 	of_node_put(np);
+ 
+-	/*
+-	 * By returning a NULL pointer, we let know the caller there
+-	 * is no child for us as we are a leaf of the tree
+-	 */
+-	return NULL;
++	return dtpm;
+ }
+ 
+-typedef struct dtpm * (*dtpm_node_callback_t)(const struct dtpm_node *, struct dtpm *);
+-
+-static dtpm_node_callback_t dtpm_node_callback[] = {
+-	[DTPM_NODE_VIRTUAL] = dtpm_setup_virtual,
+-	[DTPM_NODE_DT] = dtpm_setup_dt,
+-};
+-
+-static int dtpm_for_each_child(const struct dtpm_node *hierarchy,
+-			       const struct dtpm_node *it, struct dtpm *parent)
++static struct powercap_zone *
++dtpm_node_create(struct powercap_control_type *pct, const char *name,
++		 void *data, struct powercap_zone *parent)
+ {
++	struct dtpm_node *node = data;
++	struct dtpm *dtpm_parent = parent ? to_dtpm(parent) : NULL;
+ 	struct dtpm *dtpm;
+-	int i, ret;
+ 
+-	for (i = 0; hierarchy[i].name; i++) {
++	if (!node)
++		return ERR_PTR(-EINVAL);
++
++	switch (node->type) {
++	case DTPM_NODE_VIRTUAL:
++		dtpm = dtpm_setup_virtual(name, dtpm_parent);
++		break;
++	case DTPM_NODE_DT:
++		if (!node->path)
++			return ERR_PTR(-EINVAL);
++
++		dtpm = dtpm_setup_dt(name, node->path, dtpm_parent);
++		break;
++	default:
++		return ERR_PTR(-EINVAL);
++	}
+ 
+-		if (hierarchy[i].parent != it)
+-			continue;
++	/* An unavailable backend must not prevent independent branches. */
++	if (IS_ERR(dtpm)) {
++		pr_warn("Failed to create '%s' in the hierarchy: %ld\n",
++			name, PTR_ERR(dtpm));
++		return NULL;
++	}
+ 
+-		dtpm = dtpm_node_callback[hierarchy[i].type](&hierarchy[i], parent);
++	if (!dtpm)
++		return NULL;
+ 
+-		/*
+-		 * A NULL pointer means there is no children, hence we
+-		 * continue without going deeper in the recursivity.
+-		 */
+-		if (!dtpm)
+-			continue;
++	return &dtpm->zone;
++}
+ 
+-		/*
+-		 * There are multiple reasons why the callback could
+-		 * fail. The generic glue is abstracting the backend
+-		 * and therefore it is not possible to report back or
+-		 * take a decision based on the error.  In any case,
+-		 * if this call fails, it is not critical in the
+-		 * hierarchy creation, we can assume the underlying
+-		 * service is not found, so we continue without this
+-		 * branch in the tree but with a warning to log the
+-		 * information the node was not created.
+-		 */
+-		if (IS_ERR(dtpm)) {
+-			pr_warn("Failed to create '%s' in the hierarchy\n",
+-				hierarchy[i].name);
+-			continue;
+-		}
++static void dtpm_node_destroy(struct powercap_control_type *pct,
++			      struct powercap_zone *zone, void *data)
++{
++	struct dtpm *dtpm = to_dtpm(zone);
+ 
+-		ret = dtpm_for_each_child(hierarchy, &hierarchy[i], dtpm);
+-		if (ret)
+-			return ret;
+-	}
++	if (dtpm == root)
++		root = NULL;
+ 
+-	return 0;
++	dtpm_unregister(dtpm);
+ }
+ 
+ /**
+@@ -528,27 +528,16 @@ static int dtpm_for_each_child(const struct dtpm_node *hierarchy,
+  * description of the different node in the hierarchy. It creates the
+  * tree in the sysfs filesystem under the powercap dtpm entry.
+  *
+- * The expected tree has the format:
+- *
+- * struct dtpm_node hierarchy[] = {
+- *	[0] { .name = "topmost", type =  DTPM_NODE_VIRTUAL },
+- *	[1] { .name = "package", .type = DTPM_NODE_VIRTUAL, .parent = &hierarchy[0] },
+- *	[2] { .name = "/cpus/cpu0", .type = DTPM_NODE_DT, .parent = &hierarchy[1] },
+- *	[3] { .name = "/cpus/cpu1", .type = DTPM_NODE_DT, .parent = &hierarchy[1] },
+- *	[4] { .name = "/cpus/cpu2", .type = DTPM_NODE_DT, .parent = &hierarchy[1] },
+- *	[5] { .name = "/cpus/cpu3", .type = DTPM_NODE_DT, .parent = &hierarchy[1] },
+- *	[6] { }
+- * };
+- *
+- * The last element is always an empty one and marks the end of the
+- * array.
++ * The platform description is a struct powercap_hierarchy. The private
++ * data associated with each powercap node describes how DTPM creates the
++ * corresponding zone.
+  *
+  * Return: zero on success, a negative value in case of error. Errors
+  * are reported back from the underlying functions.
+  */
+ int dtpm_create_hierarchy(struct of_device_id *dtpm_match_table)
+ {
+-	const struct dtpm_node *hierarchy;
++	const struct powercap_hierarchy *hierarchy;
+ 	int i, ret;
+ 
+ 	mutex_lock(&dtpm_lock);
+@@ -571,10 +560,18 @@ int dtpm_create_hierarchy(struct of_device_id *dtpm_match_table)
+ 		goto out_err;
+ 	}
+ 
+-	ret = dtpm_for_each_child(hierarchy, NULL, NULL);
+-	if (ret)
++	dtpm_hierarchy = powercap_hierarchy_dup(hierarchy);
++	if (IS_ERR(dtpm_hierarchy)) {
++		ret = PTR_ERR(dtpm_hierarchy);
++		dtpm_hierarchy = NULL;
+ 		goto out_err;
+-	
++	}
++
++	ret = powercap_hierarchy_create(pct, dtpm_hierarchy,
++				dtpm_node_create, dtpm_node_destroy);
++	if (ret)
++		goto out_free_hierarchy;
++
+ 	for (i = 0; i < ARRAY_SIZE(dtpm_subsys); i++) {
+ 
+ 		if (!dtpm_subsys[i]->init)
+@@ -590,31 +587,20 @@ int dtpm_create_hierarchy(struct of_device_id *dtpm_match_table)
+ 
+ 	return 0;
+ 
++out_free_hierarchy:
++	powercap_hierarchy_free(dtpm_hierarchy);
++	dtpm_hierarchy = NULL;
+ out_err:
+ 	powercap_unregister_control_type(pct);
+ out_pct:
+ 	pct = NULL;
+ out_unlock:
+ 	mutex_unlock(&dtpm_lock);
+-	
++
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(dtpm_create_hierarchy);
+ 
+-static void __dtpm_destroy_hierarchy(struct dtpm *dtpm)
+-{
+-	struct dtpm *child, *aux;
+-
+-	list_for_each_entry_safe(child, aux, &dtpm->children, sibling)
+-		__dtpm_destroy_hierarchy(child);
+-
+-	/*
+-	 * At this point, we know all children were removed from the
+-	 * recursive call before
+-	 */
+-	dtpm_unregister(dtpm);
+-}
+-
+ void dtpm_destroy_hierarchy(void)
+ {
+ 	int i;
+@@ -624,8 +610,8 @@ void dtpm_destroy_hierarchy(void)
+ 	if (!pct)
+ 		goto out_unlock;
+ 
+-	__dtpm_destroy_hierarchy(root);
+-	
++	powercap_hierarchy_destroy(pct, dtpm_hierarchy, dtpm_node_destroy);
++
+ 
+ 	for (i = 0; i < ARRAY_SIZE(dtpm_subsys); i++) {
+ 
+@@ -635,8 +621,10 @@ void dtpm_destroy_hierarchy(void)
+ 		dtpm_subsys[i]->exit();
+ 	}
+ 
++	powercap_hierarchy_free(dtpm_hierarchy);
+ 	powercap_unregister_control_type(pct);
+ 
++	dtpm_hierarchy = NULL;
+ 	pct = NULL;
+ 
+ 	root = NULL;
+diff --git a/drivers/powercap/dtpm_cpu.c b/drivers/powercap/dtpm_cpu.c
+index 21355db6419d..ccfc97e96e66 100644
+--- a/drivers/powercap/dtpm_cpu.c
++++ b/drivers/powercap/dtpm_cpu.c
+@@ -16,6 +16,7 @@
+  */
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
++#include <linux/cpu.h>
+ #include <linux/cpumask.h>
+ #include <linux/cpufreq.h>
+ #include <linux/cpuhotplug.h>
+@@ -189,22 +190,53 @@ static int cpuhp_dtpm_cpu_online(unsigned int cpu)
+ 	return 0;
+ }
+ 
+-static int __dtpm_cpu_setup(int cpu, struct dtpm *parent)
++/*
++ * A hierarchy node identifies a policy through one of its related CPUs,
++ * which need not be online. Find an active policy through an online sibling
++ * when necessary. The caller must hold cpus_read_lock() and release the
++ * returned policy with cpufreq_cpu_put().
++ */
++static struct cpufreq_policy *dtpm_cpu_get_policy(unsigned int cpu)
++{
++	struct cpufreq_policy *policy;
++	unsigned int sibling;
++
++	policy = cpufreq_cpu_get(cpu);
++	if (policy)
++		return policy;
++
++	/* The hierarchy's representative CPU may be offline. */
++	for_each_online_cpu(sibling) {
++		policy = cpufreq_cpu_get(sibling);
++		if (!policy)
++			continue;
++
++		if (cpumask_test_cpu(cpu, policy->related_cpus))
++			return policy;
++
++		cpufreq_cpu_put(policy);
++	}
++
++	return NULL;
++}
++
++static struct dtpm *__dtpm_cpu_setup(int cpu, struct dtpm *parent, const char *name)
+ {
+ 	struct dtpm_cpu *dtpm_cpu;
+ 	struct cpufreq_policy *policy;
+ 	struct em_perf_state *table;
+ 	struct em_perf_domain *pd;
+-	char name[CPUFREQ_NAME_LEN];
+-	int ret = -ENOMEM;
++	int ret;
+ 
+ 	dtpm_cpu = per_cpu(dtpm_per_cpu, cpu);
+ 	if (dtpm_cpu)
+-		return 0;
++		return NULL;
+ 
+-	policy = cpufreq_cpu_get(cpu);
++	policy = dtpm_cpu_get_policy(cpu);
+ 	if (!policy)
+-		return 0;
++		return NULL;
++
++	cpu = policy->cpu;
+ 
+ 	pd = em_cpu_get(cpu);
+ 	if (!pd || em_is_artificial(pd)) {
+@@ -224,8 +256,6 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *parent)
+ 	for_each_cpu(cpu, policy->related_cpus)
+ 		per_cpu(dtpm_per_cpu, cpu) = dtpm_cpu;
+ 
+-	snprintf(name, sizeof(name), "cpu%d-cpufreq", dtpm_cpu->cpu);
+-
+ 	ret = dtpm_register(name, &dtpm_cpu->dtpm, parent);
+ 	if (ret)
+ 		goto out_kfree_dtpm_cpu;
+@@ -240,7 +270,7 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *parent)
+ 		goto out_dtpm_unregister;
+ 
+ 	cpufreq_cpu_put(policy);
+-	return 0;
++	return &dtpm_cpu->dtpm;
+ 
+ out_dtpm_unregister:
+ 	dtpm_unregister(&dtpm_cpu->dtpm);
+@@ -253,18 +283,24 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *parent)
+ 
+ release_policy:
+ 	cpufreq_cpu_put(policy);
+-	return ret;
++	return ERR_PTR(ret);
+ }
+ 
+-static int dtpm_cpu_setup(struct dtpm *dtpm, struct device_node *np)
++static struct dtpm *dtpm_cpu_setup(struct dtpm *dtpm, struct device_node *np,
++				   const char *name)
+ {
++	struct dtpm *node;
+ 	int cpu;
+ 
+ 	cpu = of_cpu_node_to_id(np);
+ 	if (cpu < 0)
+-		return 0;
++		return NULL;
++
++	cpus_read_lock();
++	node = __dtpm_cpu_setup(cpu, dtpm, name);
++	cpus_read_unlock();
+ 
+-	return __dtpm_cpu_setup(cpu, dtpm);
++	return node;
+ }
+ 
+ static int dtpm_cpu_init(void)
+diff --git a/drivers/powercap/dtpm_devfreq.c b/drivers/powercap/dtpm_devfreq.c
+index fa71285dee60..a783601fe74e 100644
+--- a/drivers/powercap/dtpm_devfreq.c
++++ b/drivers/powercap/dtpm_devfreq.c
+@@ -144,7 +144,8 @@ static struct dtpm_ops dtpm_ops = {
+ 	.release = pd_release,
+ };
+ 
+-static int __dtpm_devfreq_setup(struct devfreq *devfreq, struct dtpm *parent)
++static struct dtpm *__dtpm_devfreq_setup(struct devfreq *devfreq,
++					 struct dtpm *parent, const char *name)
+ {
+ 	struct device *dev = devfreq->dev.parent;
+ 	struct dtpm_devfreq *dtpm_devfreq;
+@@ -156,23 +157,23 @@ static int __dtpm_devfreq_setup(struct devfreq *devfreq, struct dtpm *parent)
+ 		ret = dev_pm_opp_of_register_em(dev, NULL);
+ 		if (ret) {
+ 			pr_err("No energy model available for '%s'\n", dev_name(dev));
+-			return -EINVAL;
++			return ERR_PTR(-EINVAL);
+ 		}
+ 	}
+ 
+ 	dtpm_devfreq = kzalloc_obj(*dtpm_devfreq);
+ 	if (!dtpm_devfreq)
+-		return -ENOMEM;
++		return ERR_PTR(-ENOMEM);
+ 
+ 	dtpm_init(&dtpm_devfreq->dtpm, &dtpm_ops);
+ 
+ 	dtpm_devfreq->devfreq = devfreq;
+ 
+-	ret = dtpm_register(dev_name(dev), &dtpm_devfreq->dtpm, parent);
++	ret = dtpm_register(name, &dtpm_devfreq->dtpm, parent);
+ 	if (ret) {
+ 		pr_err("Failed to register '%s': %d\n", dev_name(dev), ret);
+ 		kfree(dtpm_devfreq);
+-		return ret;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	ret = dev_pm_qos_add_request(dev, &dtpm_devfreq->qos_req,
+@@ -185,23 +186,24 @@ static int __dtpm_devfreq_setup(struct devfreq *devfreq, struct dtpm *parent)
+ 
+ 	dtpm_update_power(&dtpm_devfreq->dtpm);
+ 
+-	return 0;
++	return &dtpm_devfreq->dtpm;
+ 
+ out_dtpm_unregister:
+ 	dtpm_unregister(&dtpm_devfreq->dtpm);
+ 
+-	return ret;
++	return ERR_PTR(ret);
+ }
+ 
+-static int dtpm_devfreq_setup(struct dtpm *dtpm, struct device_node *np)
++static struct dtpm *dtpm_devfreq_setup(struct dtpm *dtpm, struct device_node *np,
++				       const char *name)
+ {
+ 	struct devfreq *devfreq;
+ 
+ 	devfreq = devfreq_get_devfreq_by_node(np);
+ 	if (IS_ERR(devfreq))
+-		return 0;
++		return NULL;
+ 
+-	return __dtpm_devfreq_setup(devfreq, dtpm);
++	return __dtpm_devfreq_setup(devfreq, dtpm, name);
+ }
+ 
+ struct dtpm_subsys_ops dtpm_devfreq_ops = {
+diff --git a/drivers/soc/rockchip/dtpm.c b/drivers/soc/rockchip/dtpm.c
+index e71f315fbb6b..222d9098cc98 100644
+--- a/drivers/soc/rockchip/dtpm.c
++++ b/drivers/soc/rockchip/dtpm.c
+@@ -11,26 +11,59 @@
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+ 
+-static struct dtpm_node __initdata rk3399_hierarchy[] = {
+-	[0] = { .name = "rk3399",
+-		.type = DTPM_NODE_VIRTUAL },
+-	[1] = { .name = "package",
+-		.type = DTPM_NODE_VIRTUAL,
+-		.parent = &rk3399_hierarchy[0] },
+-	[2] = { .name = "/cpus/cpu@0",
+-		.type = DTPM_NODE_DT,
+-		.parent = &rk3399_hierarchy[1] },
+-	[3] = { .name = "/cpus/cpu@100",
+-		.type = DTPM_NODE_DT,
+-		.parent = &rk3399_hierarchy[1] },
+-	[4] = { .name = "/gpu@ff9a0000",
+-		.type = DTPM_NODE_DT,
+-		.parent = &rk3399_hierarchy[1] },
+-	[5] = { /* sentinel */ }
++static struct dtpm_node rk3399_virtual = {
++	.type = DTPM_NODE_VIRTUAL,
++};
++
++static struct dtpm_node rk3399_cpu0 = {
++	.type = DTPM_NODE_DT,
++	.path = "/cpus/cpu@0",
++};
++
++static struct dtpm_node rk3399_cpu4 = {
++	.type = DTPM_NODE_DT,
++	.path = "/cpus/cpu@100",
++};
++
++static struct dtpm_node rk3399_gpu = {
++	.type = DTPM_NODE_DT,
++	.path = "/gpu@ff9a0000",
++};
++
++static struct powercap_node rk3399_nodes[] __initdata = {
++	[0] = {
++		.name = "rk3399",
++		.data = &rk3399_virtual,
++	},
++	[1] = {
++		.name = "package",
++		.parent = &rk3399_nodes[0],
++		.data = &rk3399_virtual,
++	},
++	[2] = {
++		.name = "cpu0-cpufreq",
++		.parent = &rk3399_nodes[1],
++		.data = &rk3399_cpu0,
++	},
++	[3] = {
++		.name = "cpu4-cpufreq",
++		.parent = &rk3399_nodes[1],
++		.data = &rk3399_cpu4,
++	},
++	[4] = {
++		.name = "ff9a0000.gpu",
++		.parent = &rk3399_nodes[1],
++		.data = &rk3399_gpu,
++	},
++};
++
++static struct powercap_hierarchy rk3399_hierarchy __initdata = {
++	.nodes = rk3399_nodes,
++	.nr_nodes = ARRAY_SIZE(rk3399_nodes),
+ };
+ 
+ static struct of_device_id __initdata rockchip_dtpm_match_table[] = {
+-	{ .compatible = "rockchip,rk3399", .data = rk3399_hierarchy },
++	{ .compatible = "rockchip,rk3399", .data = &rk3399_hierarchy },
+ 	{},
+ };
+ 
+diff --git a/include/linux/dtpm.h b/include/linux/dtpm.h
+index a4a13514b730..79a34d5923f4 100644
+--- a/include/linux/dtpm.h
++++ b/include/linux/dtpm.h
+@@ -38,7 +38,8 @@ struct dtpm_subsys_ops {
+ 	const char *name;
+ 	int (*init)(void);
+ 	void (*exit)(void);
+-	int (*setup)(struct dtpm *, struct device_node *);
++	struct dtpm *(*setup)(struct dtpm *parent, struct device_node *np,
++			      const char *name);
+ };
+ 
+ enum DTPM_NODE_TYPE {
+@@ -48,8 +49,7 @@ enum DTPM_NODE_TYPE {
+ 
+ struct dtpm_node {
+ 	enum DTPM_NODE_TYPE type;
+-	const char *name;
+-	struct dtpm_node *parent;
++	const char *path;
+ };
+ 
+ static inline struct dtpm *to_dtpm(struct powercap_zone *zone)
+-- 
+2.43.0
 
-
-> +
->  	hash = READ_ONCE(sk->sk_rxhash);
->  	if (!hash)
->  		return;
-> diff --git a/include/net/sock.h b/include/net/sock.h
-> index 173b37b2b8bb..4472dc4ed28e 100644
-> --- a/include/net/sock.h
-> +++ b/include/net/sock.h
-> @@ -1024,6 +1024,7 @@ enum sock_flags {
->  	SOCK_RCVMARK, /* Receive SO_MARK  ancillary data with packet */
->  	SOCK_RCVPRIORITY, /* Receive SO_PRIORITY ancillary data with packet */
->  	SOCK_TIMESTAMPING_ANY, /* Copy of sk_tsflags & TSFLAGS_ANY */
-> +	SOCK_NO_RFS, /* SO_NO_RFS: never record this flow for RFS/aRFS */
->  };
->  
->  #define SK_FLAGS_TIMESTAMP ((1UL << SOCK_TIMESTAMP) | (1UL << SOCK_TIMESTAMPING_RX_SOFTWARE))
-> diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
-> index 56fed7ab27ab..9bf415b0d470 100644
-> --- a/include/uapi/asm-generic/socket.h
-> +++ b/include/uapi/asm-generic/socket.h
-> @@ -156,6 +156,8 @@
->  
->  #define SO_PEERPIDFD_THREAD	87
->  
-> +#define SO_NO_RFS		88
-> +
->  #if !defined(__KERNEL__)
->  
->  #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
-> diff --git a/net/core/sock.c b/net/core/sock.c
-> index e7405be8941f..02b8cc4bc1c4 100644
-> --- a/net/core/sock.c
-> +++ b/net/core/sock.c
-> @@ -1597,6 +1597,10 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
->  		reuseport_update_incoming_cpu(sk, val);
->  		break;
->  
-> +	case SO_NO_RFS:
-> +		sock_valbool_flag(sk, SOCK_NO_RFS, valbool);
-> +		break;
-
-Guard this with CONFIG_RPS.
-
-
-> +
->  	case SO_CNX_ADVICE:
->  		if (val == 1)
->  			dst_negative_advice(sk);
-> @@ -2118,6 +2122,10 @@ int sk_getsockopt(struct sock *sk, int level, int optname,
->  		v.val = READ_ONCE(sk->sk_incoming_cpu);
->  		break;
->  
-> +	case SO_NO_RFS:
-> +		v.val = sock_flag(sk, SOCK_NO_RFS);
-> +		break;
-
-Same here.
-
-
-> +
->  	case SO_MEMINFO:
->  	{
->  		u32 meminfo[SK_MEMINFO_VARS];
-> 
-> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-> -- 
-> 2.34.1
-> 
