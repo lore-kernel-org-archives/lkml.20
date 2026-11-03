@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793701733;
-	b=B/Sr7Ty0V+BnNlhsy0KgGysMc4I5MOdjLWrVAa0C5ACu6ngHgwypZ4m09JKjKlvWF4EY
-	 Zdmg3fSVlfgxgd+PSW50BPvYxrCk3C+0SRz5TdUcw2x//uf15Jeg1Hv9KUeczkizaR0yI
-	 eZurHnWCSb9dwISHnzfpA8eq/o4e4RjxVKE75THVpLhYA+Yk1JUxhZSY4YS6nLmBg8Vg9
-	 f099Ui/uywPjQLF4m4xDeTuCHHoBAU5aMItqcBNmNnhFhwUGhyvkaqENNn6xqgY5x+CDM
-	 x5ar13+YLZ2lTy+kFLiSvt67uqZzEJblGti9s2qq/vmyYEbJg8MUfUu9zCWhhgANX0A==
+	b=HZn5pl/f+bDl/dDp0HwdcsN0auMCoCpPmcGRZ7K0SL2Ibjw/DH/cJj+VcrxWYR6EUxT7
+	 Poz+t5MyhjYI/S6FgNGBCioBLZtkvBUAs2yLaxfRlRhM+xLc5hCzTNy1nLsp7TN5JHCXT
+	 e6FQn985xYcxCOGT2JGsHes0WblAZf5oYY7z6y8X6RZ1TArAbr/P7bFKNsWMUOFKpKjt8
+	 ZbQvz7zUL4YLdckYF8M+xj8eKZr3LITsFD6DYrWAHVVTXErLaFSaeTShcHsOs3Mki0vUF
+	 7rJEF9lBBPnwjP9hhh4ZCtYKfflmZ3YkI16zOSij/JtrzRbW5bdsdcahYaNmvLxu5Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793701733;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=lS8HPnWp/ZiXusc6VF2DVeURTql02ont/sKJfBhomm8=;
-	b=hvKevJ3RsSS0f9ARMvRy8FFPAbQ2k0dCLnHopl0zs9o30yHQZmbQfDBqyI0zwFnr2k6S
-	 4/q7X9JNXtn2nt5/3PD1et0xyfdRMNGqeorhLbaTMNExNU33nJIWcH5YK13qf+hfqlMo/
-	 u4mDNvFAb9JPRLQqbU4lcJymsKV8wNX9AA43B+r+hBUFM1V2bjwYsltRgx9iRe96QUA9v
-	 BwSqQPLtHk6feSAkXyd6v/0w5vDBRoNknCaBqqXn8qOiqRptWYlgvUZrqunZmz1LZ0xAk
-	 EuakKLnEKmX/nm3OSynKqA7TFHHyhalo+pYSmcoPlDYOKPL48bfAOpAlQ+rorkDui2g==
+	bh=FYvry7uZeC7rUlWGCCoWDZjRpJGvUxoi5hCCAR3kSVo=;
+	b=VdCkLOc9Ppk5pl+F5CxcRGtbN0+6y4b/IwKqnjQGxx9VxLj9mpbM9VVY9Tmneaa2JQwt
+	 DvaF2BRaobqhPhTg9bH3kigVElXwhbEoAy1AsV5e0UsmmcxyM/ecjJ+3Q/fk5J7Z+Rtil
+	 W4mxdRpHnfZ3CQw4AzcyQscypYJ6Ry6Hl7oUynH/lmbtJqHHq2oNvMsU4h+eNCg+LJdrb
+	 JMOvhmis1n/Xnb1kFzTwVg9AaFzGVGXVP5bi2pC04DC/XRUEeoDAgE8eCMGPvuh4cVLPy
+	 xbpzLDFA9OyOwoj6UcXeeT9Gr/C6TZytN2peivEXYgmx1GbpMxjz+qqkp7zeliO9Evw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,24 +25,29 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9818760A5BC2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5C460A5BC4;
 	Tue,  3 Nov 2026 10:28:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9818760A5BC2
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE5C460A5BC4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAnOJlit+lqxqk7AA--.3070S2;
-	Tue, 03 Nov 2026 18:28:50 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAAnN5hct+lqiqk7AA--.49099S2;
+	Tue, 03 Nov 2026 18:28:44 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
+To: Vladimir Oltean <vladimir.oltean@nxp.com>,
+	UNGLinuxDriver@microchip.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: ath11k: release the rproc reference on teardown
-Date: Tue,  3 Nov 2026 10:28:59 +0000
-Message-Id: <20261103102859.1340835-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: mscc: ocelot: release the mirror reference on policer failure
+Date: Tue,  3 Nov 2026 10:28:53 +0000
+Message-Id: <20261103102853.1340556-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,82 +59,57 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAnOJlit+lqxqk7AA--.3070S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrW8XF43Cw17Xr4rJr45Awb_yoW8trW7pF
-	Z7W3yDKFZ8Ca1xtw4kXr48Z3WxZ3W3t3y3WrW3K3s3ZwnxJFyUt3W5XFyjqryYkry8GF1a
-	vFWay3yUuFyqy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowAAnN5hct+lqiqk7AA--.49099S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tFWxCw4xCrykWF4DKFyrXrb_yoW8Gr1rpa
+	1jka4DCryDXF4rG3WDXw4vvas0krW2g3yj9Fy8AwsxZ3s8Gr98GanrtFWjqryqkFWjkrsa
+	vr4qyw47A3Z8Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWx
-	JVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VU1
-	YsjUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQAA2rpnIByMgAAsB
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
+	BIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUAA2rpnIByEAAAsi
 
-ath11k_core_get_rproc() looks up the target remoteproc with
-rproc_get_by_phandle(), which takes a device reference and a reference on
-the remoteproc driver's module.  The resulting pointer is stored in
-ab_ahb->tgt_rproc and never released: ath11k_ahb_free_resources() only
-tears down the firmware resources, and the probe error paths after the
-lookup jump to err_core_free without dropping the reference either.
-rproc_shutdown() does not release it, it only drops the power reference.
+ocelot_vcap_filter_add_aux_resources() takes a reference on the mirror
+before setting up the policer. If ocelot_vcap_policer_add() fails, the
+function returns without dropping that reference. The filter is not
+added to the block, so the filter deletion path never releases it.
 
-Release the reference when the AHB resources are freed and on the probe
-error path, so that repeated bind/unbind cycles no longer accumulate
-remoteproc references and the remoteproc module can be unloaded again.
+Drop the mirror reference on the policer failure path.
 
-Fixes: ba929d6fe31a ("ath11k: Remove rproc references from common core layer")
+Fixes: f2a0e216bee5 ("net: mscc: ocelot: offload per-flow mirroring using tc-mirred and VCAP IS2")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/wireless/ath/ath11k/ahb.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/net/ethernet/mscc/ocelot_vcap.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index 27d01411b6e9..cc93ca22d3ff 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.c
-+++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -852,6 +852,16 @@ static int ath11k_core_get_rproc(struct ath11k_base *ab)
+diff --git a/drivers/net/ethernet/mscc/ocelot_vcap.c b/drivers/net/ethernet/mscc/ocelot_vcap.c
+index 25e533e91d71..c479af2a423f 100644
+--- a/drivers/net/ethernet/mscc/ocelot_vcap.c
++++ b/drivers/net/ethernet/mscc/ocelot_vcap.c
+@@ -970,8 +970,11 @@ ocelot_vcap_filter_add_aux_resources(struct ocelot *ocelot,
+ 	if (filter->block_id == VCAP_IS2 && filter->action.police_ena) {
+ 		ret = ocelot_vcap_policer_add(ocelot, filter->action.pol_ix,
+ 					      &filter->action.pol);
+-		if (ret)
++		if (ret) {
++			if (filter->action.mirror_ena)
++				ocelot_mirror_put(ocelot);
+ 			return ret;
++		}
+ 	}
+ 
  	return 0;
- }
- 
-+static void ath11k_core_put_rproc(struct ath11k_base *ab)
-+{
-+	struct ath11k_ahb *ab_ahb = ath11k_ahb_priv(ab);
-+
-+	if (ab_ahb->tgt_rproc) {
-+		rproc_put(ab_ahb->tgt_rproc);
-+		ab_ahb->tgt_rproc = NULL;
-+	}
-+}
-+
- static int ath11k_ahb_setup_msi_resources(struct ath11k_base *ab)
- {
- 	struct platform_device *pdev = ab->pdev;
-@@ -1262,6 +1272,7 @@ static int ath11k_ahb_probe(struct platform_device *pdev)
- 	ath11k_ahb_ce_unmap(ab);
- 
- err_core_free:
-+	ath11k_core_put_rproc(ab);
- 	ath11k_core_free(ab);
- 	platform_set_drvdata(pdev, NULL);
- 
-@@ -1295,6 +1306,7 @@ static void ath11k_ahb_free_resources(struct ath11k_base *ab)
- 	ath11k_ce_free_pipes(ab);
- 	ath11k_ahb_ce_unmap(ab);
- 
-+	ath11k_core_put_rproc(ab);
- 	ath11k_core_free(ab);
- 	platform_set_drvdata(pdev, NULL);
- }
 -- 
 2.34.1
 
