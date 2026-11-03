@@ -1,52 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704255;
-	b=ealNev3pRJmrEz4LOTxfXB2SoFoZzu0mu0KIUpDrXgAPfUCX+WgxZw6CkKpch45osB0g
-	 d89UkuL6U2hyb37GxELVhOgeo8Wm6omVzesWMZeiiouzQ1fcBdCXrfD8vB8onf3E2mDY4
-	 V1o+5dwaJo30KtY6xpwRXngvP/lbFACg/JJM728lQZXk4DwsJB1Ob/WF2iEOF69LfiBdR
-	 /jeTDlFfG/ISQ/vsu0924jIaLZNJSeMYSVCoELM+UfJV0pPChsEPE9ld2hwp0UojryaJI
-	 4HQ8+TYRxoYo1mMmdqQr7wsfnRzIIsqDOkRz3+mUNHO+Q/JY+z94IpoeMU9sD1mWWHg==
+	t=1793704269;
+	b=HlU1T2EqtIhSY0Ww0367aWJ5Dih9R0JmkWHOekRpRqH/Xcl9VpVSNvACAIa2SlZ9EA8V
+	 pq0yscNZucZmDv93vkybg16sP/7yHHQnA9+dT1ClXLb6Pef+UADvduS1tUGM+z6UAUQUa
+	 BHpTh9ZRsHX13hBEvTuWE3LJWhp9pyDbe+TCL/RGRcMizC6r4Zmm+YJ36aTINLoZZSRS6
+	 v00/XGwUJILzWu4Wndf7kFsyifAzxuWMasvjoTNCAonq7vaHOL5+T64ba6p5nuGtfZOq5
+	 JaVvp9jT9uOt0DUpIVFaUJTOtSEwGMbxZq4/hDqZdnaS5lnwY/aEo+SrXk5yw70ONZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704255;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704269;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/pg0XXHZscRJVa2E7zhHFbdQCZ7KHQ6g29HtpeDbe0w=;
-	b=DZ4UsyolxkYQZPrZSbk3FZu/B68JkFDh5eI9kG9HLpAgZxU7O8neI7TYrIALduLxbQFQ
-	 sMvIKr7QH0H5FUXXse853gEA+AisUTrZc3o2P5PseLHysFxuLoPqjtpwGecv2hFwBl9n4
-	 BCM/Nxk+xScdJsPgW6bCQ7gqACOVGTudcvsNx3xvKr91t4K/0xP4BTyis3g6nRwRVYD7x
-	 IEVInVN0BbMmPjBQDUeQLDzueINA27GLiCHOaDZzndgktM3Ii9BeBD4jN2N/3txxkkidX
-	 aP4kt2HH5c7JTwhtjegbTvuE4RNW6G6DcdSy40nDjMXS/AuoB7BbYKyvIuBrq1uLl1g==
+	bh=FpQlMQJewUjSCH03T+lvF2s4ZsB+JiwT2xWSf8S5qH0=;
+	b=ks1ltPOkMhzqDRl+QPqb6wzo/iSHEUa4UPgMZeWHBQ7XT5cl3OuRAzzLhi7ILlzx5DJ7
+	 /8OdMCd7dG0ZbK+sxHPVzEJD2U+OS+JfbqTJLPwTvCzsl8U1BRuza4dKoXJSETaK3wpfe
+	 N0kCRDM8g+CiRom9+hmOAm9d0lmU5NKStNOnvk3LeP6grstOAlcOOs4fri/jvvDpLCDy2
+	 I2HaQwMTXTizJnoCN7mXzhlCUk4JSuzn05oUNd5si902oi0kTm5Zd5zwFttuSGIaL+Xyd
+	 yXgG2hLw2Q2p6T31junpQV47akM+vQeKFMAq2wTWZDvnieBRR55k00GnX7shr5g+4pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOo0edod;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zvv5nbwW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B45606F7F0;
-	Tue,  3 Nov 2026 11:10:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E8F60A5BC3;
+	Tue,  3 Nov 2026 11:11:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOo0edod
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44351F00A16;
-	Tue,  3 Nov 2026 11:10:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zvv5nbwW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC181F00A02;
+	Tue,  3 Nov 2026 11:11:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704254;
-	bh=/pg0XXHZscRJVa2E7zhHFbdQCZ7KHQ6g29HtpeDbe0w=;
+	s=k20260515; t=1793704269;
+	bh=FpQlMQJewUjSCH03T+lvF2s4ZsB+JiwT2xWSf8S5qH0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DOo0edod+NpniumTKGzUqE405H/LrT2mPZzUMpVsrVCDRuUxwO7+M0oC1ghzTi44F
-	 bR4kgVp1NJHyCM+bwqQ1UbRA6YtUZsDt5WCz8IDcGQu9dhDG9+1AcMCZ3Se22S/bWY
-	 PnZrM0TneTHyzePiMybL9jJBIY4OBWLO54gd/mnWjZ2AWxpqq0tHOdizMDXGL2tqiC
-	 zQYOtINtIYphmmvs6akZdMODtZT4K1HGdkDPkECns/876cv0/KL7uF7wDHAjI59RR7
-	 TVp8DjCdR6MU2gybor6wEzaDFvYxwDYyPDYG5OEv4vPC6NuTgs7X6Kq8PmdDgaFf+1
-	 zBMkT13VT2sAg==
-Date: Tue, 3 Nov 2026 12:10:51 +0100
+	b=Zvv5nbwWsLGPZp4Xywj7dxPso9Zy0Ne1ukAjQZIEgJWgEVRMqmop5Xxuj4przbrEs
+	 EW1Rgi27HGxlCMg9b9tYc1YSQIf7O6H8UxInj7eYhnqJlCSFr4eFzeld81QvcLEp1I
+	 x7WSAvomCJy3JcborHWX1g2jmGN+FnBdvzI+OxnzugZAlMcd+Wn+soMWK4H95AZNcN
+	 puFaMaLvgJwfRIzQw63jxRdfoavLXgjGG/WGkgo+y0SECuBpxtRsb+rQJqCg44Ybj5
+	 JxZ7lXUPQ1JE2VJSCB7bAiiD0aGFwEWZbHmpnyJ0mQwR7YW5o7g13DEpZDB/1VEJEH
+	 4XA3/eGRdJ0tQ==
+Date: Tue, 3 Nov 2026 12:11:06 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, ath11k@lists.infradead.org, 
-	linux-wireless@vger.kernel.org, Jeff Johnson <jjohnson@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: ath11k: release the rproc reference on teardown
-Message-ID: <20261103-loyal-carrot-vole-8e4ee4@quoll>
-References: <20261103102859.1340835-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
+	Bryan Whitehead <bryan.whitehead@microchip.com>, "David S. Miller" <davem@davemloft.net>, 
+	linux-kernel@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, UNGLinuxDriver@microchip.com, 
+	netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: Re: [PATCH] net: lan743x: disconnect the PHY when PTP setup fails
+Message-ID: <20261103-vengeful-magnificent-sheep-ab33f8@quoll>
+References: <20261103102852.1340530-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,29 +61,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102859.1340835-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102852.1340530-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:28:59 +0000, Wentao Liang wrote:
-> ath11k_core_get_rproc() looks up the target remoteproc with
-> rproc_get_by_phandle(), which takes a device reference and a reference on
-> the remoteproc driver's module.  The resulting pointer is stored in
-> ab_ahb->tgt_rproc and never released: ath11k_ahb_free_resources() only
-> tears down the firmware resources, and the probe error paths after the
-> lookup jump to err_core_free without dropping the reference either.
-> rproc_shutdown() does not release it, it only drops the power reference.
+On Tue, 03 Nov 2026 10:28:52 +0000, Wentao Liang wrote:
+> lan743x_netdev_open() connects the PHY before opening PTP, but if
+> lan743x_ptp_open() fails it jumps to close_mac, which skips
+> lan743x_phylink_disconnect(). The reference taken by
+> phylink_connect_phy() is then never released, and the PHY stays
+> attached to the phylink instance.
 > 
-> Release the reference when the AHB resources are freed and on the probe
-> error path, so that repeated bind/unbind cycles no longer accumulate
-> remoteproc references and the remoteproc module can be unloaded again.
+> Add a close_phylink label in front of the phylink disconnect, as the
+> pre-phylink conversion code did with close_phy, and use it on the
+> lan743x_ptp_open() failure path.
 > 
-> Fixes: ba929d6fe31a ("ath11k: Remove rproc references from common core layer")
+> Fixes: a5f199a8d8a0 ("net: lan743x: Migrate phylib to phylink")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/wireless/ath/ath11k/ahb.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
+>  drivers/net/ethernet/microchip/lan743x_main.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
 
 Multiple things here:
