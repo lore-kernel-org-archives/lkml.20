@@ -1,53 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711016;
-	b=OQArUklV9X3CEls1pCRi6Pof/9kmPvzMydtkj+XU4Rf4eDc/4OMfzs7RLkk/WtEcceji
-	 LgXCM/qPr5EZIckZlhTAq5DqjcGYQOoW70b2/8Qn8ejIHxY4A9JR6dfpJg7OwHV8Mkneb
-	 bdbuuEoUNldClIObKZTm+JfKJSz3kwlhdK4iw5b8DZlDQEof67fLZOvR4L0BkOGXwInnE
-	 uNW/0doQwwhnkBoqqdUeb1Vwqdvhff76Mw01DIBS42myFi6hvfam0xURaCuJjw3Xc7EO1
-	 lSQe4xTv05vrsFTlCReoaE2y9T16int67T44xe5F1zmksF4QDG3g/f978WaFhC6yegQ==
+	t=1793711063;
+	b=Bcti8V4mUNEdSSrXgbFQbwXf6AJS5h3njBFTY96CJA2cMScOP1KV8wTF8Go9RhUweohf
+	 /8kP798lMZU5WOvUyC1hubASMsydVKaupdyK8AjfzZOHII8w/xfsBOiLRvzh8znyyzf7X
+	 rhxae2SkrhhMXRNMafUSgrrqCmgKrPyWEXIdqyuj80L1NQSpSNOtiZN0DCmcgjSEGMaz6
+	 ZTxnldxuItKdkR4/Dypb6P83mB+Wwjcy8fEhnqTtwqeCgKEvV3MgZKEHcBBn9qyPC3GaW
+	 rAGO2S5YalG1t2qjlfTm60iPa88MdiCVI8RQyKWamzXdwCKiz8SaYVJyTyBMkR2k8HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711016;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0P+ytSK0bOW8b158bPuMgr0LCfs97gULxxvFrsgq9Wc=;
-	b=wf6LyI4S1yvCTu8RHQoBjtC+14l4K3I3Jir10y6krr8bLgCrul0rsXgI121NX+p3CWnc
-	 typLoiqY+vxdK/FgVrfywcHvCMF4mh+B07xg/YhmD+2EjEi1iWmHOo0v9gD3kbb4NKuW8
-	 5Bc8J69goJ/XrvNhw2WfVHaSAeJZuJ4iXA4CJsTvAwlHVsVFl9CHoL/CCtz7TicL5RqBc
-	 DangsWa2cdGGglG+H/LV+hTwiKM4wrvqTrbkOjZXEbh/1ETpOKtdJyKMTOpwHSFRJSw1c
-	 MDJBnHrQ7dUqQTpLvQIoIXcPGGNfXaDGGpebcAlsiBKS5rCI0YMMXepQLYM9PU5oCJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711063;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hrz0HS4K+HZzYid2snb5+IR7NFz1RNPakoEoaqHrluY=;
+	b=2EeWIN5Q96vWH0xerYEV3ZPWxEt5lySjH63aIlAoxMhRGSRknCzt094HP4eApK4M98vP
+	 qWaRvixfB7Nhfz3sn/hb5ZJujlTQ5G4Qc3EQ08TV7aJ4JqKQZo4Mf/YbmwTvS8TG9XPiR
+	 rW+02lcTTMMiDM/GRkr5oFvhsCsFdTvpuGRBcs5Nrg4T6lfHba4bPMRIISosW2OznUwaN
+	 pKMHXeV43iIlQWOZqO7uzDKPf5JzRtplzjM+b0GWwi4UcV9c9Q2RHGOvsnORH9wznrPr1
+	 1ZBiHQKVgdL3tw3ECcIJswSKT4uw89s6pxd7632f96T7TqjV/y/vMplQrYNfbVoXCPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=dmcrOp8T;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jfTU9IJ5;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3250606A324;
-	Tue,  3 Nov 2026 13:03:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3250606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50AF606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:04:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B50AF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=dmcrOp8T
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=0P+ytSK0bOW8b158bPuMgr0LCfs97gULxxvFrsgq9Wc=; t=1793711013; x=2109071013; 
-	b=dmcrOp8TA3J/XsF6LBhqxZp6Zmp5phaf5KUuNbbbCTnHWSejPqerAhUSqmhehK8r5bJUFqEfC1T
-	Z+FllVAwBABaZw/5YS073xy4ga2l07uRGA48eZP8HMhfPDdA3zQxDEbhrScJ1IR9S2dT+LY/s/78p
-	xunRy03tI0JpxjxQWGK/FJTQmvjx7omUvjGRYVkwhlQgi/ClYUVAOe3nayVcKrceCUST7XUpxdqxz
-	066ySTHV5E530equUjV+4pPeW7BaSaAZHyxwARbGFt8rvZH5NQQyuXzZepKKAfumnSN+DlMiP8GVL
-	OQ9WKjOoddQIO8lolju4xVyhdN1b0tMXy1SA==;
-Received: from [177.172.122.137] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xOEAb-001Ea8-LM; Tue, 03 Nov 2026 14:03:21 +0100
-Message-ID: <8b8f7eee-96bb-432e-aab0-a76ec727a60f@igalia.com>
-Date: Tue, 3 Nov 2026 10:03:27 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jfTU9IJ5
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso1437358a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:04:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793711062; x=1794315862; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hrz0HS4K+HZzYid2snb5+IR7NFz1RNPakoEoaqHrluY=;
+        b=jfTU9IJ535MeUG8o1iDTqc4DK8Z+RI6JLIR91BZ6dNkfDjOEsh7Yn2H5gw2hAtNGnO
+         LjYDgB4JN9AKz1vM/Djlmqjj1aCSXQ9p5+1nTv5AHMlcEiOVkAkj2WrOdztnCeJv5jL4
+         psh0Jq2Y3d6WFJWMqYsfYBxWC6RLVxLjAje4n8Z9FurJ79WxOyAaqUpLJeey0OcNK536
+         OMvOmOBKpjrz3QrWzEokuX0VzYZiAUoPa997R1esVqRRdGxFmhp/cK2QVkHWd98Ke6jZ
+         1ElEeY4tYKq47GH7Zl6+DJ4Ogs9YpiS4Y1ARqR2Kb81fhNPY2nRczTVkwO1el8E3CkMD
+         Fg1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793711062; x=1794315862;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hrz0HS4K+HZzYid2snb5+IR7NFz1RNPakoEoaqHrluY=;
+        b=jg7KdXXh1XNJWXQeU2BR6vlrBUQnu2UQy0hKXjuKZi1UpJ6Jq3ywKlXi/cBv3kC4Nc
+         NfAklzX3ELrfQ7YNQIerf8yqiHHiCv3M8JffQwYV+YhhQfy1AcADpnlBkUUopNgTDYGR
+         t6g9DMqqyhJ5RWGlBENf1fomxYqMK/RqoxyU8hxVoUjJusGVllBoy/CpcMr9Jkg/CEJ8
+         fYj7hzKjUVBC8Qv1os/7BJIbKjQDJ2j/MtNvlKtcJfw031/ZuvR8YKp+dQYntGApplwi
+         m1jfDXsWNkzcquzJ7ApxNjVU5TV75WYy9q9Uceblxpoy4RNj0KSYQYrhAOKg+c7OIKL2
+         +s2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzp+8cYPN+kqtBVed3xTuOrIpvjNy3xNgHtrNfjfgRorifjFo1M4MZAaN9TgW//90WwEs5XMJY2R9FzU6Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wepKv9SOVcrlFSf9K3ep8u886rl6p/nuCO/lGhG/GtklncHDU
+	Fik6wKwMblcPeAPvpgp4KJbPQWoiPVtJXGY5vndjslzg2t2UZ0mdc+/d0tCfNs/vDAk=
+X-Gm-Gg: AYBFou2yg7kWurbLkVlE4ZlQeP3zYoyygE1EpBeFcs5ZH0RfW9On8t9KtSPj94QUFEc
+	OAAgxndvZZEuIiEy97SLYjoGpl6a+H8DQlZZW+CwrE0FYe8E5RUmmqEp0D30PQeHZCwLfY2oiAq
+	4cHwOWdmwYXPJAcoBGVjQOxEf0QQBAaPfOLIJCctQtmQBjg3rm92JHuerglUmXdnrJ8i80n523t
+	EJUEIHWfCHa6Qczp0OIg1LycvdvJL4Lr/s452EF802VSkbJKCeE6YVby+UXEpz+8bLzr3PPv8ub
+	p6IA8DepfbgExR7LsLWpD1qdt5x6Dy4haMiF8DMzppbGpzmZFlM4qiYnPrH8Vp9WmzgNbIQ6Xgi
+	w1ssRWfeeKXOhZx84TOYATBAAXGBAbhVuOFjnMNX4GohdWMATZ8WAYS+v26xnAoYa/ECGti4axD
+	kRuDnoJIprtYNBW60+0ryqCT0jGqshW72yPZ2uQGXn79l0lxTZMFYu5764bRk6wdgfcRnBxJrke
+	H98BOjHKuB39iOdI2V3l0GX6RSM2zJuUc/CgnULpr+qCflkwbvJ+oRsjU9OY+EfL85GCDVLO0Q4
+	Ngq3Xu45tE/V0hUTNsYdpnWZUsG2JVnUCMBgb53hUVQ51eNt2V7GmHAw/ob5eAdsjWw3/9nD+vC
+	3n34JfxLAreW9tza8y7sjig0+03nWjZ3vuNGaCA==
+X-Received: by 2002:a17:90b:3d8a:b0:3ab:9f89:e1b3 with SMTP id 98e67ed59e1d1-3ae89764eb6mr10599503a91.40.1793711062055;
+        Tue, 03 Nov 2026 05:04:22 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:2da3:4696:4c5e:89c1])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b08759344dsm2265061a91.13.2026.11.03.05.04.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:04:21 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Sagi Grimberg <sagi@grimberg.me>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: Re: [PATCH v4 0/3] IB/isert: fix the device removal use-after-free
+Date: Tue,  3 Nov 2026 22:04:12 +0900
+Message-ID: <20261103130412.1530793-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261103032924.1073138-1-yhlee@isslab.korea.ac.kr>
+References: <20261103032924.1073138-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,34 +105,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/futex: load atomic values before harness
- comparisons
-To: Sasha Levin <sashal@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Darren Hart
- <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Nathan Chancellor <nathan@kernel.org>, Shuah Khan <shuah@kernel.org>,
- llvm@lists.linux.dev, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261014200147.1364987-1-sashal@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20261014200147.1364987-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Em 14/10/2026 17:01, Sasha Levin escreveu:
-> Clang 21 rejects the harness comparison because typeof(*futex) preserves
-> the atomic qualification. Load the value explicitly in the three affected
-> assertions so the harness compares unsigned integers. Atomic access and
-> its existing sequentially consistent ordering are preserved.
-> 
-> The baseline produces three invalid-operands errors. The complete futex
-> suite builds with Clang 21 and GCC 14 after the change.
-> 
-> Fixes: 608323bf7bb8 ("selftests: futex: Add tests for robust release operations")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+This series is superseded by v5:
 
-Reviewed-by: André Almeida <andrealmeid@igalia.com>
-
+  https://lore.kernel.org/r/20261103125955.1530355-1-yhlee@isslab.korea.ac.kr
