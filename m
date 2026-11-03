@@ -1,82 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730664;
-	b=q8i5g1XiTuGFd3WsAQ6/bw9S5PDJI51/bfyBXVM663WEdVqJjgWjB0DSlt73qqE47g36
-	 hAywlktHB/N5rO+f8+NVl7/AO7uk0aCoL4bFbPoQ6VeeaR9CYEOOBX+6vg+PBMHJm8CZY
-	 nwth0E1625y+FKvCUpxxG7ctxgTMYHx8kF/7vaIrBDiHmRBqKQNJ9bdPFBu1M5Y9y2USf
-	 wmTzX5ZvPn/wsWW3NuEE0ZOaT2NFm6jtZGwvlmjqAHdzr1maoABDlhUXqpcVkRpuRrE6C
-	 9N+xjka0urswE+7PQNvz1LG2uHtvZEWa0oVBD6mHJb720QGLqqjUnndJBvq5FzvWc9Q==
+	t=1793730694;
+	b=X64emhsmCcdPLKYSn3I0C/ghydZ6wu7Z5SQw9RWz9SWbCTctk/TOhSvdXl4PXVG4pj85
+	 p0yYP027n+vkAxG8SjPJcgVq2O7+gCFXZ1XRBAFdLfzdQ8OAW1tUFg9y7NelPEh0Z6zaG
+	 3tlYtgRAxKguv8XsIYAqVFpprPZ7f2gbPn+uLC40C9XJbc5GaO1zWmhWqbJ+kcuNW1cB7
+	 5RJElPfBTTvifH8gaNkxcYLUqC6YpjsrmXzsdzgkTph8P9Ib50s3JKoqtIo9vmcAatJS1
+	 6ASSZDpVjTDBpOq2RGFCfMxsU26YPWGCsJr9XobTQ1b4EfjpgNVD29mULt2tzN50aqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730664;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=LYA6yi5NMLYhekD/8gFnXEyoXnXXWPArMhhtuI60vcc=;
-	b=C+PQu7Udm7pMoj87JScmMrAbkJIEYodQYdSm7DN3kVk7GT3VjmgzqqT8d/0bQ+8fwGON
-	 6aOvcJ6+F3WRzCGPyyvPXqg+DfVteqAdYaJd5vOHNyRZ/jRyCt5rDN1GGVyhpkkU5xXxy
-	 16cb0geLTnUaHAOC3vVFWL//neaQYZY0j/5kn2EjGRsyAor1hFvCGT/4K7MQwUP0kILGa
-	 YMrfckJcemZNm3ZtLSW2zVhg/EyJE4BLkV/ulzkQkIdUZ8+rMxIU1BWioTpWoi6BmplBt
-	 rjjGi1v0RsZ9n+4IFAzFhaUSV9fIk8btvi9/MzfFWaycMBLqgRMRcLjtUixG5e1JKKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730694;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=jbU+wfPnPFIh6lU3pnI3zzPid1+8Ib7N5XiDr9+QpkQ=;
+	b=PxKeXSzzZraVi3byfhImbdFyXPbMBJn3x1MTh//TbeptJdxJZYFHeIJ7dXvxx3wnsY1K
+	 Gdl9eJKwBnYeiNhCGLsUbAguo23K+dalMI/cHrm3G0qBXf7X1Gx1VrnzCmCtjlcDy8IO0
+	 bmfj3wLBIO456SAMyDrAaI3cZT3HMxhZhUpMbITpMW73mIGKEmW7cqpH4GToYI+R/Y9k6
+	 09MH7ft1yAn2HDNmgWHmBFsrZTPYSmfLt3QaLpeJIDOtRXtn0rYvbpE0j3WFcHymH0Yr7
+	 TRWG8/Mps9+Z9gul6MpEE6ahjkNmANdA65kwGu/mEMOXNto+M+z0eOG9n93OdyxpMNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MCXN0tf+;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSLxeaC+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7772606D817
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:31:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7772606D817
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1FE606A324;
+	Tue,  3 Nov 2026 18:31:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MCXN0tf+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793730663; x=1825266663;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=Ycgz008Gvth+ctSBnLKeTPtI9lm/efL5I0aLC6JWCfI=;
-  b=MCXN0tf+qj1zhvudpaLgRyNRGd8uABVX0LYVFoga1g2eTdtKT0WiRQRG
-   BavNaZ78VfZn8OR9FDsvnkDIYLU/An8H2LugYSwpsmOuSq9YcqO+yiGCQ
-   WIhv/HAMcDyTuZqhRuOZpwS7zF9iUD7j84UF4ZrKsRH8yWV+Ht+EctCV+
-   krwzSwpMn9EiAkMXoUL38ji1a5jZp+HsGHqbqhX/KE8qFavXrf4oS6yEP
-   /9Jyv/6dpiTbogFoI8Tm1hGoH7j9mYSIsIviZIf6Etnwx+ayaxk/G249x
-   N2kPgywJk3aCcpCYi0MDyw9VLMNf2OnEk1My/3dILEu2ckOdljGoh8Dtp
-   A==;
-X-CSE-ConnectionGUID: liovQxZXSVmKus9XDX9WLA==
-X-CSE-MsgGUID: hX5eX683SViirp8nkRrfng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2348907"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2348907"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:31:00 -0800
-X-CSE-ConnectionGUID: U0HIhJN6SIWBHxmPIlarMQ==
-X-CSE-MsgGUID: 8xBk0smZSUCRFOmt+IGdYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6494317"
-Received: from unknown (HELO [10.241.242.209]) ([10.241.242.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:31:01 -0800
-Message-ID: <fb4a9d54488c92206c0f983f7cc230d71db3b192.camel@linux.intel.com>
-Subject: Re: [PATCH] sched/cache: Don't use fits_capacity() to compare
- thread and CPU counts
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, peterz@infradead.org, 
-	mingo@kernel.org
-Cc: qyousef@layalina.io, yu.c.chen@intel.com, vincent.guittot@linaro.org, 
-	juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-Date: Tue, 03 Nov 2026 10:30:59 -0800
-In-Reply-To: <20261102021536.1026143-1-zhanxusheng1024@gmail.com>
-References: <20261102021536.1026143-1-zhanxusheng1024@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSLxeaC+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740FF1F000C1;
+	Tue,  3 Nov 2026 18:31:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793730693;
+	bh=jbU+wfPnPFIh6lU3pnI3zzPid1+8Ib7N5XiDr9+QpkQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nSLxeaC+0k0qqm/z6aBhDoxwlCX6ThGf5pYYsanb1WX5thiEb8Z3DtLF75GxsW/O5
+	 GMZC0aJl7GJbnrQLRX1qmH3bLGpJhgxDDVEhPbajvei1ZmVZkZZuKQzsXclDvS3FLz
+	 JqDgzwsqEUqFc+JbYH9Jkshn6+yY178WxD/xHneQaYDS5r/n+JnUy1w6odyVUa4STI
+	 QwQAZn8yXcGME+v83nj3qlGT6VVMYmnc3AQP3FswYICcENEKw201/R2MXLFwQheg7+
+	 pBh/mDCkGKGk4YhBLJSsePnm6voVwlDUGi2Rh7gymWPjmN3vqh/ipKu1A8THywHHi1
+	 /6f51GaJd9vlQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xOJIB-0000000AeGq-2TYK;
+	Tue, 03 Nov 2026 18:31:31 +0000
+Date: Tue, 03 Nov 2026 18:31:31 +0000
+Message-ID: <864idx3gxo.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Andreas Grapentin <gra@linux.ibm.com>
+Cc: Steffen Eiden <seiden@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	kvm@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] KVM: s390: arm64: Fixes for arm64 KVM support
+In-Reply-To: <20261103-s390_arm64_kvm_fixups-v1-0-21c36fedd878@linux.ibm.com>
+References: <20261103-s390_arm64_kvm_fixups-v1-0-21c36fedd878@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,91 +77,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: gra@linux.ibm.com, seiden@linux.ibm.com, borntraeger@linux.ibm.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com, svens@linux.ibm.com, kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, 2026-11-02 at 10:15 +0800, Zhan Xusheng wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
->=20
-> invalid_llc_nr() uses fits_capacity() to compare a thread count with a
-> CPU count, only for its 20% margin.  Qais's series changes
-> fits_capacity() to take a CPU number as its second argument, and this
-> call would then pass the CPU count as a CPU number without a warning.
->=20
-> Give the check its own helper.  x * 5 < y * 4 is the same comparison as
-> x * 1280 < y * 1024, so there is no functional change.
->=20
-> Link: https://lore.kernel.org/all/20260504020003.71306-5-qyousef@layalina=
-.io/
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+On Tue, 03 Nov 2026 16:37:01 +0000,
+Andreas Grapentin <gra@linux.ibm.com> wrote:
+> 
+> Some fixups for the previous series that introduced arm64 KVM support on
+> s390. Forward-declare enum vcpu_sysreg because we are definitely going
+> to need that, then make the module naming consistent and iron out an
+> inconsistency in the definition of vcpu->arch.pause between s390 and
+> native arm64 KVM.
+
+It's an interesting one. Obviously, this wasn't caught by building the
+upstream code. I guess this triggered with the rest of the patches?
+
+> 
+> No functional changes intended on either arm64 or s390.
+> 
+> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
 > ---
-> This keeps the 20% margin.  Qais would rather not add hardcoded
-> margins, and llc_aggr_tolerance already scales the LLC size here, so
-> the margin could go, but that changes when a process stops being
-> aggregated.  Tim, Chen Yu, would you drop it?
+> Andreas Grapentin (2):
+>       KVM: s390: arm64: Declare enum vcpu_sysreg
+>       KVM: s390: arm64: Fix kvm_arm64 module naming consistency
+> 
+> Steffen Eiden (1):
+>       KVM: s390: arm64: Turn vcpu->arch.pause into a counter
+> 
+>  arch/s390/include/asm/kvm_host_arm64.h |  8 ++++----
+>  arch/s390/kvm/arm64/Makefile           | 12 ++++++------
+>  2 files changed, 10 insertions(+), 10 deletions(-)
 
+Looks all reasonable to me.
 
-Xusheng,
+Acked-by: Marc Zyngier <maz@kernel.org>
 
-We tune the system based on a default llc_aggr_tolerance of 1,
-where the number of running threads is 80% of the number of cores,
-to prevent over-subscription which could lead to regressions.
+	M.
 
-This 80% factor is leaning on the conservative side to prevent
-regressions for workloads where cache aware scheduling may
-not help on multi-threaded process with little shared data.
-
-We set the llc_aggr_tolerance as a default of 1 for more intuitive
-tuning.  It varies from=C2=A0
-
-0 (no aggregation),=C2=A0
-1 (default with conservative aggregation)
-100 (always aggregate)
-
-Hope that makes sense.
-
-Otherwise, the patch looks good to me.
-
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-
-Tim
-
->=20
->  kernel/sched/fair.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->=20
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index cfc982205b98..dfd6528d18ee 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -1469,6 +1469,12 @@ static bool exceed_llc_capacity(struct sched_cache=
-_group *grp, int cpu)
->  	return false;
->  }
-> =20
-> +/* Are the running threads (in SMT siblings) below ~80% of the LLC's CPU=
-s? */
-> +static inline bool fits_llc_nr(u64 nr_threads, unsigned int nr_cpus)
-> +{
-> +	return nr_threads * 5 < (u64)nr_cpus * 4;
-> +}
-> +
->  static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_st=
-ruct *p,
->  			   int cpu)
->  {
-> @@ -1485,8 +1491,8 @@ static bool invalid_llc_nr(struct sched_cache_group=
- *grp, struct task_struct *p,
->  	if (scale =3D=3D INT_MAX)
->  		return false;
-> =20
-> -	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_thr=
-eads),
-> -			(scale * per_cpu(sd_llc_size, cpu)));
-> +	return !fits_llc_nr(READ_ONCE(grp->nr_running_avg) * cpu_smt_num_thread=
-s,
-> +			    scale * per_cpu(sd_llc_size, cpu));
->  }
-> =20
->  /*
->=20
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+-- 
+Without deviation from the norm, progress is not possible.
