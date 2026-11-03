@@ -1,80 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793739038;
-	b=bLet2oazTa0bXrGBcy63EmpFV/+zhe4jf11o4jDq6Svhp5Bee9A877D2dyXq2aWiHuHB
-	 SiOJBwGpb/JMNOMAslnPKjuvTK0/jclS/+GULQjYG9szN+6+Ylp9w95PDtzfD4q+klptw
-	 0vokvsAPQkOGHRSFUQXU4MxpXgEK+AFp+lF3I2ipWsRSOZnyFLKizdE5T0iX8p5fyDMi5
-	 Tm/iNpdycc4EgKltHnGvMrBbsZz/1wr3QrV9GONMlVb4h3sqwPFI3OqL6N+iPVrE+AYXl
-	 rOgMzwebfwjaA+XAh9wX8xiQ14yKC2e0mLNn+AaRZTNMp4YNEKXoTO9Dk51yOflQDkg==
+	t=1793739093;
+	b=Y392jxThhgrf2/06ZTD1hsf2lh5ol5h3uzZowfPnH6N8uBXvXXxj1MJJPnRjRz5b8+fe
+	 /fNwCx+lKXcpEg2oqzO4br4XVuJs7C12Yk4+RS5KtJdOTyMQXb41h/fXhUFib/q1jeQPW
+	 mp6ooSQsuTgNXlC9BNltAFHUAujiOG5br4SgnkWGqgx+/2D556mBK880zi/QCXIsPqt6p
+	 wJPlF03YUOr5CO7YhLs09kk8N6s0IZoAGJ9zFv4bnYeLImN70zIBL/wMHbrRZmh/CEcCN
+	 BIT8oE3mIrTrazC2Lbf9VZ9qrbRT9/+A94uxG0MMyWUL4gDU/GkLdolv2iHEnHWaNOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739038;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:X-Patch-Reply:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739093;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=QACbzjj4ObeQbuqI2hJvuEcx06fQf+krQtbSCsJZb0k=;
-	b=XpApU/nqek0Y5CPxZ9adX2WZC4dywqkCcRBLDVgS0U+ZELOIBIvj6O2arfN0D/xTkww4
-	 3yyvQMQ1IztIP8WXm5ZPhUMnpY2WL42hwgYy0SxXKAdEdhyYSfzhrgEJMnbs6BqLEWAP3
-	 LlR7/D5JY8st+tyqq/WqMR3RfdkV71QoEpYhbd8LYb7emFKux4RGeyTbAUNo1mKYqyk+I
-	 44LL/rXKI+qZhMTbC8Ix+y2nIoGJNgq5Wvdl0zck3iXBePdM1a98jzmjSgktIzSg3Rlpg
-	 NGpUT+4FJ0ecZHA5VYIsSixnpmvmIevpUWBg09WCG4vIaOdItsTOYqbWMnpAHY+HLKg==
+	bh=ImfCTvx9zEM0hCgk0rF4q02G78x6VIbWM4Sk8YP8Ob0=;
+	b=3mJvC8AMMMkNUjxwW3UuxdhbDvCi6/dZDjsUQuCR4fG6su+vpAj+iMG0rmZMb/8Zc3dx
+	 1Nvy7rCASVE5hkD3b6gyqt4j/kZHwsYdlA/9pERI3dT3917d04xcWDa0VKLP8mDsUvrmT
+	 foreV0jEPcWW7hJIu5GyN1KkOouXq1JewxYDeoBC6iGMkVU6ODLBZ1Ve1hPho3lOr/CJK
+	 0i6IQcCOA/c6saQhEDq1CQgbdPcd/3A2SQBwPL0jRa8wl8blsh2BzZLvKbsu57Ci2JI/e
+	 YeSbSfsPCEK6cl7yqS6MGfNUE83saoFp8XIyeT47PvNpGDXW4tt7yka5sdFhowBxEGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6tpNY9S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="10zhzj/c";
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB59B606A324;
-	Tue,  3 Nov 2026 20:50:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD0F606A324;
+	Tue,  3 Nov 2026 20:51:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCD0F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6tpNY9S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5971F00A18;
-	Tue,  3 Nov 2026 20:50:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793739037;
-	bh=QACbzjj4ObeQbuqI2hJvuEcx06fQf+krQtbSCsJZb0k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b6tpNY9SjUxExsTeEVkXslwJk+qSf6s3N9FRFYTRE2xZuEn3QCQLRfsDdU9kutrv6
-	 yb+fOmwAyHderbawOjBDVsCxafa40RDj35JilqYKK4YdBk2llO2de3WrU48uEO111q
-	 vCN7a9McqtEg0aDrZpjVb656TXxKjtySsHyIp3uO82OY+oJu4JTijQClbweGllfKVl
-	 FJPP9Kf9ilbi6RCOWvwVNEl3vDSD/kfQVDk/LS3jeag58ftovEc5ARA1tSeZIAMGI9
-	 1rs1yRkBnpr+ys7gOvtL0TlpDuHg4++ZUBJQPEM84m9A9S/uv0cpj1ZFosA72qozs2
-	 legeE0ukalxAw==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Timur Tabi <ttabi@nvidia.com>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: (subset) [PATCH v5 0/7] gpu: nova-core: add NVKV codec
-Date: Tue,  3 Nov 2026 21:50:29 +0100
-Message-ID: <20261103205029.4026128-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028-b4-nvkv-v5-0-ef78909b513e@nvidia.com>
-References: <20261028-b4-nvkv-v5-0-ef78909b513e@nvidia.com>
-X-Patch-Reply: applied
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=10zhzj/c
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jK12X1QzGz1XM30j;
+	Tue,  3 Nov 2026 20:51:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793739090; x=1796331091; bh=ImfCTvx9zEM0hCgk0rF4q02G
+	78x6VIbWM4Sk8YP8Ob0=; b=10zhzj/cEmoTYtBDFc+VkMpDCeZJyLXhcYMLX5Sc
+	Auh8TSc0cEPz0TJ1NPb8iFqEZTZmQUh5hsfbDDGNnqsdP0rFPMa3TIkqM4jRUNhD
+	wDmhUNk+H3joOIu7TDmps2jIf+IxlV5el89pdmbPB05pAED9no28ZlKZ41a7rM1K
+	4Ur7M2aQnxyHEh00NeNSVlQrQ7S9aPD5L2GXJDuwrK1lhDtQYfcesxZEo6nDDbtV
+	g7L71EMfofKkEzDinYelDFrTHmsqRWbdfhI3+sAWnTfIAQoKogrkQdtet3CMabh/
+	zH+xhaIt16DSEP+nreCD5dV4y7Yt7k7u8K/2qLxYGbJU6Q==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id t_SHQYvpfgLy; Tue,  3 Nov 2026 20:51:30 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jK12T68Y1z1XM30h;
+	Tue,  3 Nov 2026 20:51:29 +0000 (UTC)
+Message-ID: <ca5e40fc-125c-439c-af28-a277d12a6df7@acm.org>
+Date: Tue, 3 Nov 2026 12:51:29 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,32 +70,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when
+ already active
+To: Brian Norris <briannorris@chromium.org>
+Cc: Stanley Jhu <stanleyjhu@google.com>, Jens Axboe <axboe@kernel.dk>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Praveen Talari <praveen.talari@oss.qualcomm.com>,
+ Alan Stern <stern@rowland.harvard.edu>, linux-block@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261029040001.2100001-1-stanleyjhu@google.com>
+ <8125a75a-ea47-49f8-90e4-7f7c83db90e2@acm.org> <auo6tLmH0R4_TRG6@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <auo6tLmH0R4_TRG6@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 28 Oct 2026 11:20:59 +0900, Eliot Courtney wrote:
-> [PATCH v5 0/7] gpu: nova-core: add NVKV codec
+On 11/3/26 11:49 AM, Brian Norris wrote:
+> Pardon me if I'm misreading/misunderstanding, but I believe your
+> suggestion is essentially to unwind the quoted commit 6e1fcab00a23,
+> which might reintroduce a deadlock.
 
-Applied, thanks!
+Hmm ... I think that you are right. Let me take another look at this
+patch.
 
-  Branch: drm-rust-next
-  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
-
-[3/7] gpu: nova-core: add NVKV encoder
-      commit: 440b82a79574
-[4/7] gpu: nova-core: add NVKV decoder
-      commit: 9898bacda71c
-[5/7] gpu: nova-core: add NVKV typed encoding
-      commit: 75e32e6e3573
-[6/7] gpu: nova-core: add NVKV typed decoding
-      commit: 434b46a415fc
-[7/7] gpu: nova-core: add NVKV GSP_INIT schemas
-      commit: 41871f4ddf71
-
-      [ Fix minor merge conflict. - Danilo ]
-
-The patches will appear in the next linux-next integration (typically within 24
-hours on weekdays).
-
-The patches are queued up for the upcoming merge window for the next major
-kernel release.
+Bart.
