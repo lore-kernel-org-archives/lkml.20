@@ -1,84 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700533;
-	b=GrFOdSvBYLBLKZfzdhSCwecys3RQdt2eIxMSgYMDdzODIiQMnG8OnRobCS/3urCz+pOq
-	 MTR6QbTFPAkefZagQuBQCoHDlgXKOyL5HXEerzCynYNJLNd8FSUNOQMj3RIYu/Rz9qME+
-	 zcyavDE3jYoUsIR66xdC8fQtD7TfgfYrFDxJ8fxs8+tHRtnQCEjD/8gFZbvP8ezjehx3C
-	 vHUvwuvEf21cFpcZryb31T26lCakhVhPP/CvEOXb33qsdo6gCIzqeiW43v64ZXPw8GzKL
-	 EuAcQy/Xn7T+HqDkGYSwJbeFBRuqUF2yywLldrRZMU/vvCfEke2rzk70S9IFd1z2yYA==
+	t=1793700557;
+	b=JLhoCU52C0qLVFnffq1aBdvU1SNaWI17DuLc2R3a7lo3bUej4njvghwCFn+opexX5ocK
+	 Vsky0ygg/5FK2T2VAzYpTwpmCnuyJpXyNyCJCwj8t5G0a8RYDTTnZmuSD7XjbEyq2448i
+	 k29mv1u5+bL3Agr9cX4I3g3TDS7wdJovlrkdO5ovkgIKlVw940YuQKKTGsLsCf8E5aybx
+	 Y4oJBb5ha0ThfSyTTv0KHTbLQ5CQpsJKcelCEEthEVQWsdL7t6vG26aB602vD7I0jWi4W
+	 xxdgEHmMx97daXgbgIJx1GeZDYQJG4v5+3X6e3YQc4uaS90r6yUYdVicvPO8HxLDkig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700533;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=8KzZPmQWKpFfwedrWal3j0q/tss3h22tq9Xd8BFMIiM=;
-	b=efoesbHx1W0CdZhVkG0f7a3eqCQQyLoEPInRcyyT6K9Howp6nQQVZ2s3Y1RFsrYxLGaY
-	 VxaKsSrEkscgHH7dWPxuMWjwzRSrJVqxtT3bITWU+tPmfIloZnxKTeUmPCEDW627R4a9y
-	 o8cZ8awk8jn9MrcHKEYSnAMBUFbZ60Bi1DWXN+M5pxyRCKEiej4GgoknKlp9b6fdzj4sQ
-	 PPP+s2+ZiEH0b8SPMYDpU6nIvWE1NBUfTlC8vU51p9BomNCKIJQ3CbjTBGgn+4ToQrS8x
-	 SclWPbd1hhon72Xd+QXHLZm5seAOsYAZUOyDqvGJHVZteoxW2hipPtsLcAKKUUjnMkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700557;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=U/bvt9tHArsPjK/AMxnO8kJLy2L+ZZT5uXIMir2nYL6NC+q0a6Mr3Nzc0FJ3UqgRKLhJ
+	 3CZe4iPAVbIWK0dZXkieMBYeVKXiuYrp9SMivovH3pc7GXQeO3rtMNposwAkbqDdDgCPB
+	 NzmDvRuDQgPLjnU7Cm/J7JFVYmvaeFzgg7vCYoJTnBbSzNVeSMvmC/0VLLs2uFgrRKF9I
+	 ton06nLuOVNRweascXbWvlECLQkwvKk88xVpNoYtP/5iafH4vAEuptU9W23QgzMtLm53l
+	 dJOZ43GgSGZQefRrn/OOv9ygTgnQ0fbwslH7FhGM4O6UPu4pgznyo/4NrN7vA1TvWOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPJUJHpc;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dK5ysXRL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65702606A817;
-	Tue,  3 Nov 2026 10:08:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65702606A817
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F96606A329;
+	Tue,  3 Nov 2026 10:09:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPJUJHpc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793700532; x=1825236532;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=kWj2t1Xhllg559lUzgTByeT5Aew6Be5zNCiU7VYPYLI=;
-  b=OPJUJHpcIOY1zVhZgKvBAOrUFmNK7H2iAcY0XoyTLNqRLecdHesWg2aQ
-   sHhflJGcQ6QOFrMvNgIVkaQGWXA4gaiCZOBvspiO0ipFXCBxEjE2t2YD8
-   +ICixfcyOZi6Z5g3xbnPKh9v7itxvi8tOfHYOgQKmWNjC7XUC52BNGS17
-   ZkL/uJ1IMP7gTTcWb3jiwmLOHXv/0LGVbrWl7JkD5n9uvh+UFnrT77Le3
-   j6tRKkPpE0AMfvgnW5v7f3bG9vvsvU4B0Jc0/ojPlnXVqVrtxyrzW9BSn
-   3akIjEQztithiocy/63KhwRP0zYPTtzVxrvXfxxRU4w7ny5VonQRpI9EN
-   A==;
-X-CSE-ConnectionGUID: 38Z3G1d7QjuUNtH6lxE9BQ==
-X-CSE-MsgGUID: +pl1lDYJS9qz1XgAFXUrCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2309018"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2309018"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:08:51 -0800
-X-CSE-ConnectionGUID: X8d6gXcVSNu49kSHU0duXQ==
-X-CSE-MsgGUID: h1JahsWBQu6jcpYKNxKbtQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6243167"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:08:48 -0800
-Date: Tue, 3 Nov 2026 12:08:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, amitrkcian2002@gmail.com
-Subject: Re: [PATCH 2/6] iio: adc: versal-sysmon: validate temperature
- hysteresis
-Message-ID: <aumyreagvU6zewKI@ashevche-desk.local>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
- <20261102122112.1723130-3-amit.kumar-mahapatra@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dK5ysXRL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17B61F000C1;
+	Tue,  3 Nov 2026 10:09:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793700557;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dK5ysXRLSs2l9Al26B3OFhqdJnetNtDSqftUDxIfaUXc0aZo0p8F2CkOLVE/B2fEw
+	 LCXVt17VdlFsYuP0f3T1Y8YRh2GPpkdgAairWHfkVrzzZQCuplcKk/NStnlkcoSbWt
+	 KlBspdmOVRAZEHepqGL5CXHxXa/zROUxOHDB7vPohlVoS5QyOyI8fxKj6/rVRN+int
+	 ZbGR8XWJOKBR4+sR9rS8q6pQY3FkHnfLzlQXpV6HriEjtJnf+A+eDnmxPu1eEYjAVb
+	 lzMvuEcU+N6cXl5/tbMfO1ACNo++6zIs3t728vxLc8MEHhlGdpvxcNvw6Pow4A1UeO
+	 AGUU+1+q3BOPg==
+From: netdev-bot+sinfo@kernel.org
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH] net: dsa: loop: release netdev reference on registration failure
+Date: Tue, 03 Nov 2026 10:09:16 +0000
+Message-ID: <179370055636.488859.9185478445821067801@kernel.org>
+In-Reply-To: <20261103100529.1309887-1-vulab@iscas.ac.cn>
+References: <20261103100529.1309887-1-vulab@iscas.ac.cn>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,35 +64,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102122112.1723130-3-amit.kumar-mahapatra@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 02, 2026 at 05:51:08PM +0530, Amit Kumar Mahapatra wrote:
-> The hysteresis written through sysfs is only checked for being negative.
-> A large value makes upper_mc - hysteresis in sysmon_update_temp_lower()
-> overflow before it is clamped. Reject values above the full Q8.7 span of
-> 511992 millicelsius, and name the Q8.7 temperature limits so that the
-> span and the existing range checks share one definition.
-> 
-> The cached hysteresis is seeded at probe from the threshold registers
-> without checking that the lower threshold is not above the upper one.
-> Treat that case as zero hysteresis, as negative values are rejected on
-> the write path.
+Hi!
 
-...
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
->  	sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
->  	sysmon_q8p7_to_millicelsius(lower_reg, &lower_mc);
-> -	*hysteresis = upper_mc - lower_mc;
-> +	*hysteresis = max(upper_mc - lower_mc, 0);
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-But you can use abs_diff() and let it make the problem of the supplier.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
