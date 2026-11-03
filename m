@@ -1,47 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724938;
-	b=KrNZt1//9HmScavs5MwtIBeRbURXazsgsYecyqoE4O1kRSy4PDwSthPPjAMcsHI9eB7r
-	 ggY4/gUlIIIrhZVVgbGwrZ6YedFEpXrVGMGDf0/Cub/ndb7mxCYfoBRyUzFamIxZmZ/vI
-	 EnSzbayrKGfwWQMSHYvtlqsqLGs0Pmm2RzhIR83esliqL7IA8cKHhYYdca89DLcCrWScA
-	 US6iWYjZgM00R5R4tsh/EDwx7vqlAYwoAVGUGB91wLMXaxqUgDtoVNf7bqJ7m2pSKbIXc
-	 0o7iHUyKhWQLF3+hIpG1U/O4Dml7RTvVHdcOAkwg7wDanBVCe3jOuiJv8wuA9i93IXA==
+	t=1793724958;
+	b=5ErIYrgE1IY2x+7ydvYzUI3Zn5VpgqP9sxGvz6W9WftchYmrXj1oz1AyThHy5Cvyx/q0
+	 TZiSc/6rvmUtiGDz+fzWBNBOT9Aj3ipdtDLIHskl6cFbIxJDjkkdCg7UYG8Jzz5JIoSRN
+	 Q+nHVbMH6WcBiYEKIoZPgXL04qk2hz4cu/GJrkiq25EQaZd5bJ8W7aZv7MUjg1NC32PRc
+	 P+kxAQKxTKDYLBBQQBmRlhNiWx+WJiWPoNjcDh9Ptg7uXOUn0b97rdJ+mjLbOkWIAshwk
+	 I5PlPRyJ8o2TEp58I1KRzmEWdTrqStbmBuyfH2FBsX8clZ01ZJX9OUz0pBL3P0APpIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724938;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8YfZexZ1JYycRhSHeLVRER/xerbsZZLglZfGs4x8Tlc=;
-	b=nISMjyJVVY5fGj6uxovdQRlCJzH0+SStQgKf7+cyJQdwLbxEHPezm63dtfnGOmrPZryy
-	 YY9pnPo1wppNpwwU3wx1TapmCnt7Uz4HqtSfbG9NPK9q0WthU/AbMJGun4zbQtrhI4z3H
-	 Nm9iqhH07BgkRrEKSG142eWjepOezTpT3eC4cRI2NAhFgHJH3ydQj/W/LjFqN0X5LYs0q
-	 c//G+3RdsGmU8kWo20LQTUc1gQyoxMDwCcVXIuyZEGLP+DIV7ubvkiPR/BvjU1urSECEu
-	 tyfwW60BKjGakGf5d/egl9sFdAby5qvhpEROnpmCThIhVzpPrJdixDM/lVfiQfubBPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724958;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Dx0fQ9jWsbJGGEfFlztRkY1SCts3dYp3DMV0/n4sk/0=;
+	b=2kqgykEUv8I3hrmRnkbsi6QpMKvq1NYjmFXHIOPnSaU1LzJ6xPyjDYCIZM9CJJuAhVQj
+	 nvVaNqpu4kVOI7BRepHXCnNbuoY/KX3ppyk7HPa0w7USwhsG8RHR7wqL28+htFjZcU/6r
+	 DFCBKw5NTP+3W94GkXcXmM2QAPQ4F1TtKOh/Xf7AmEGTGBmMVNGgSNeFl7uIhjlf5oRMp
+	 T4fu2r16b3cJBfkq3/R9klMnYopzqsKeLGw42kzXIvzKOKc9BbqhLl/Dcm0PmDT8GARrY
+	 2359XNCxYENtU1OUbktaxI0Bz7tN9m0+iSX8YQISqAtQfXrWHUhF0LYAxSGr2jNhnKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c/ne9JZ6";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z920EnPC;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF35606D801
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:55:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DDE606A336
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:55:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3DDE606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c/ne9JZ6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFBB31F000C1;
-	Tue,  3 Nov 2026 16:55:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793724938;
-	bh=8YfZexZ1JYycRhSHeLVRER/xerbsZZLglZfGs4x8Tlc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=c/ne9JZ6JImyHkQVNBrOmaYf+pq+Dc1L6hkV9Qvgb32JqmLL0tRIDfheyHQhKFhs3
-	 xyHUpt33FhRGfUfyCa41jUM7K2bxIyoRC5v4Nj59XUeHVV+Stx+rJp8mdULx9o8kvw
-	 a1ejku2NyW6yatQu+Z4RkgSC5cDLvCJogCYZG+93FViEbPrajbY5yn6GVgkBlHWBoq
-	 2WU0Uiv0j9MJM1AHQFEeY7H2wmGjLn/K5CnazWecRhrDSus5D9Ao/7inwU5qIXD+Ys
-	 dSrrchgTP6ND/xS7zRF/gshnxLsm5zcmWVKybEWmcJ1vKUKvQn+kUnmQO0cvWk/5vU
-	 lCEgEzWsUgWaA==
-Message-ID: <1affac11-da98-40b3-8cc2-6e8374b5ab69@kernel.org>
-Date: Tue, 3 Nov 2026 17:55:31 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z920EnPC
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso36096055e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:55:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793724956; x=1794329756; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dx0fQ9jWsbJGGEfFlztRkY1SCts3dYp3DMV0/n4sk/0=;
+        b=z920EnPCDnXnUS73ipITtZNX/YHqpZa0drLuvN0rSPm7+jJyQ2fp1Ei404814Vumuv
+         o9lM1qdTr5rQc5+7Y/BApDoQZo0Nn2/tFgCV8cIqGBoEZl1PoHMX2m6xz1puawvkpFID
+         /fOjaKp4rz2UehtNfnd5s++vuhjZX8RO0PBLrfU811mWZZZlsqy+QmWUmoasOTeJEskF
+         d4lujM9f8yNwUYU4kDWcYHqiXn7hH5XhHk2KBL7D0oh2FGRBJaw389zcIjy3a/bgKL2g
+         Mje31JrrxgfnG8VzL/WfyhYSiPL42fOUMLzes8zT5r3ct07qSCKg4lWrlOZyozQpaRuZ
+         a84Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793724956; x=1794329756;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dx0fQ9jWsbJGGEfFlztRkY1SCts3dYp3DMV0/n4sk/0=;
+        b=sgGS/k6TTmu7r+wGUHQXZyrYP+sScE3v0mUYCgBHeZBvebnFpPiiOjZo++g5pxDHbS
+         jbN2x34B/xpkZGJsUA+roCthokAZ+m7ixQP9ntJ60raOzSVeRvknPNem2FCGeTshN80Y
+         LehdEgM/KPY51GvkQOd2ZryhLNKqOMMZTzSH0qf1mrMsOgaVvdOZU/c2DCf1gGgPAsmF
+         csQPn44RSmuJeWqiGnXpSGc/cAmuxlxZKS6CIBgKzgpRiSBKDonmEeYv4uflStxvdoO0
+         dS4GyrximJ8r3vl03H1831tlkbrHOopMG0GC7rid5c7sMYmTfVHm7WfoF7NDbtmWu/PT
+         9X9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwjftI+9wwB1Pv2MLdt+DEC/is1QRpjeGyzNGDlKDZng0R2HpumIbet75XiIxcdpT5cA2AVZ55dvSL0i04=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nGusrE5BVlO4PZvxb0RVsIPfaI7E1JmXJLZonHmbfxEKQ4+4N
+	jDE8AsWTtu2cnlCQHS1NHPnxcca7lUXx1NeqeYYWi0M6eVFUQg4bLK1I
+X-Gm-Gg: AYBFou24X4HAHk8OXfg7hgHo9gZ0qX4GQko+Ro8T5ozEJLziNFtwknjASYpiJMbetaz
+	XQaxr4Q1jY3PSR62oE0CyEutWgcHDsgwtOFG2oGKwdxUanhIKcgxjgtmjlhLPlOMTbr8Cxa4fFt
+	wDzn/6xajAowOY5EDk7Xo7MRxWPaln3Z39nLzJQ8FHG92UZ6IrwCY5cn9UbFz+QgmGexKnRV65J
+	cVtUOsoaM2CqovZO5MAzqM8/YrVQ3NkmNuHF0jnWR0DDXTRmfGgpEWp9fAkucfiVKFsC3KCCV1y
+	ZRGV7lB1PpEqY6ZPGnoBNsX3WmvflY/xbHvYVRr00keZaYCH/vlSFyQbEeGf/Hv52y+R6IefI2U
+	sLONHAbo5F7bxM2n8udkCW8XeeblfxSgWbsAqNajC+mlQQ2NhWA2vvibHOEjVjRtYm7BGjpoeAm
+	v0gjV2bZsesCOD2oJBoj2UfYJymMCmDkklMHmPObSokKa6MNokHm1PW/ZM61S3dvN35CHb0iDYO
+	FIdxIc+DdPnBYihSxt+7pFzzs4UMs99SXTFF0PK1VKsjYGac4bJF6FBB3Kp6N6X8CjdeT08OFVz
+	Q6QgR/M4FP4kihp3KaA5DRINthhuKP+LuP9dL9Ejk5/OSIlAr9HiO916fRTt+VSm9gVvJATukEy
+	LTbVj+89whylG9SFJvSG3oC0=
+X-Received: by 2002:a05:600c:870f:b0:4a2:1196:db0e with SMTP id 5b1f17b1804b1-4ac1899348bmr289523635e9.30.1793724956048;
+        Tue, 03 Nov 2026 08:55:56 -0800 (PST)
+Received: from andreayoga.wind3.hub ([31.189.68.219])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm239726215e9.1.2026.11.03.08.55.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 08:55:55 -0800 (PST)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: kpsingh@kernel.org,
+	matt@bobrowski.net,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	sdf@fomichev.me,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2] bpf, lsm: Fix cgroup shim selection for socket hooks
+Date: Tue,  3 Nov 2026 17:55:40 +0100
+Message-ID: <20261103165541.291744-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,117 +109,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] mm/gup: batch contiguous same-folio PTEs into one
- refcount grab
-To: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org,
- Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe
- <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Suren Baghdasaryan <surenb@google.com>,
- Yuan-Hao Hsu <aa9736195201@gmail.com>, Christoph Hellwig
- <hch@infradead.org>, linux-mm@kvack.org
-References: <20261102193026.3860700-1-riel@surriel.com>
- <20261102193026.3860700-9-riel@surriel.com>
- <fa017227-448b-468f-9797-33c02854f018@kernel.org>
- <9d1572bd5e868d3c9d953aa5fae81967cc81ba55.camel@surriel.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <9d1572bd5e868d3c9d953aa5fae81967cc81ba55.camel@surriel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/3/26 17:42, Rik van Riel wrote:
-> On Tue, 2026-11-03 at 09:35 +0100, David Hildenbrand (Arm) wrote:
->> On 11/2/26 20:30, Rik van Riel wrote:
->>>
->>> +/*
->>> + * Return how many PTEs map consecutive pages of the same folio
->>> and can be
->>> + * committed as one run. Always at least 1.
->>> + *
->>> + * The write-fault and unshare checks in gup_lookup_pte() are per
->>> PTE, but a
->>> + * writable run needs no repeat: a writable anon page is
->>> exclusive. A read-only
->>> + * run under FOLL_WRITE or FOLL_PIN does need the per-page check,
->>> so it stays
->>> + * one page at a time.
->>
->> That's a clear indication that this needs more work.
->>
->> I'll try to get to it soon and see how it could be done in a cleaner
->> way, likely
->> it should be based on top of the gup-fast series where we will have
->> helpers to
->> check for required unsharing of multiple PTEs.
-> 
-> I'm all for sharing the same helpers.
-> 
-> How would you like to sequence things?
-> 
-> Do you prefer to merge both series separately,
-> and then get a follow-up series that merges
-> the helper functions?
-> 
-> Would you like Yeoreum Yun and me to combine
-> the series, merge the helper functions beforehand,
-> and then send you one larger, combined series?
-> 
-> I have spent enough time in gup.c that I would
-> be happy to get rid of some more of that code.
+bpf_lsm_find_cgroup_shim() picks the shim that runs a BPF_LSM_CGROUP
+program from the first argument of the attached hook. It compares
+args[0].type, the BTF id of the argument's pointer type, against
+btf_sock_ids[], which holds the struct ids of struct socket and struct
+sock. A pointer id is never equal to a struct id, so neither branch is
+taken and every cgroup LSM program runs through
+__cgroup_bpf_run_lsm_current().
 
-My plan is to get the small series for gup-fast ready, stage that, and then
-build on top of it.
+Socket and sock hooks therefore run against task_dfl_cgroup(current)
+instead of the socket's cgroup. When a socket is used from a cgroup other
+than the one that created it, the caller's cgroup policy is applied instead
+of the socket's, and __cgroup_bpf_run_lsm_socket() and
+__cgroup_bpf_run_lsm_sock() are dead code.
 
-By then I should have been able to dig through most of your series. The cleanups
-can stay part of this series.
+Resolve the argument's pointee with btf_type_resolve_ptr() and compare that
+id against btf_sock_ids[].
 
+Two socket hooks are not always called with a usable socket:
+ip_cmsg_recv_security() passes a NULL socket to socket_getpeersec_dgram,
+and sock_create_lite() calls socket_post_create before sock->sk is set.
+Add both to bpf_lsm_current_hooks, so that their cgroup does not depend on
+the caller.
+
+socket_post_create is unchanged when called from __sock_create(), where
+the current task allocates the sk and gives it its cgroup.
+socket_getpeersec_dgram keeps the current cgroup, as today. The other
+socket hooks always get a socket with an sk, and the sock hooks a non-NULL
+sk.
+
+Existing BPF_LSM_CGROUP users will see a behavior change. The other socket
+and sock hooks now run the socket's cgroup programs, as described in
+commit 69fd337a975c ("bpf: per-cgroup lsm flavor"). Hooks that can run in
+softirq, such as socket_sock_rcv_skb, inet_conn_request and sk_getsecid,
+no longer depend on which task was interrupted.
+
+The bug was found with the help of an LLM.
+
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+---
+v2:
+- Add socket_post_create and socket_getpeersec_dgram to
+  bpf_lsm_current_hooks instead of falling back to the current cgroup in
+  __cgroup_bpf_run_lsm_socket() (Alexei)
+- Drop Fixes: and Cc: stable, target bpf-next (Alexei)
+
+v1: https://lore.kernel.org/bpf/20261102152913.366237-1-parri.andrea@gmail.com/
+
+ kernel/bpf/bpf_lsm.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
+index f58dce888ff4a..485e8fe8524c8 100644
+--- a/kernel/bpf/bpf_lsm.c
++++ b/kernel/bpf/bpf_lsm.c
+@@ -66,6 +66,10 @@ BTF_SET_START(bpf_lsm_current_hooks)
+ #ifdef CONFIG_SECURITY_NETWORK
+ BTF_ID(func, bpf_lsm_sk_alloc_security)
+ BTF_ID(func, bpf_lsm_sk_free_security)
++/* sock->sk is NULL in sock_create_lite() */
++BTF_ID(func, bpf_lsm_socket_post_create)
++/* sock is NULL in ip_cmsg_recv_security() */
++BTF_ID(func, bpf_lsm_socket_getpeersec_dgram)
+ #endif
+ BTF_SET_END(bpf_lsm_current_hooks)
+ 
+@@ -95,6 +99,7 @@ void bpf_lsm_find_cgroup_shim(const struct bpf_prog *prog,
+ 			     bpf_func_t *bpf_func)
+ {
+ 	const struct btf_param *args __maybe_unused;
++	u32 id __maybe_unused = 0;
+ 
+ 	if (btf_type_vlen(prog->aux->attach_func_proto) < 1 ||
+ 	    btf_id_set_contains(&bpf_lsm_current_hooks,
+@@ -105,10 +110,12 @@ void bpf_lsm_find_cgroup_shim(const struct bpf_prog *prog,
+ 
+ #ifdef CONFIG_NET
+ 	args = btf_params(prog->aux->attach_func_proto);
++	/* args[0].type is the id of the pointer. btf_sock_ids[] has structs. */
++	btf_type_resolve_ptr(prog->aux->attach_btf, args[0].type, &id);
+ 
+-	if (args[0].type == btf_sock_ids[BTF_SOCK_TYPE_SOCKET])
++	if (id == btf_sock_ids[BTF_SOCK_TYPE_SOCKET])
+ 		*bpf_func = __cgroup_bpf_run_lsm_socket;
+-	else if (args[0].type == btf_sock_ids[BTF_SOCK_TYPE_SOCK])
++	else if (id == btf_sock_ids[BTF_SOCK_TYPE_SOCK])
+ 		*bpf_func = __cgroup_bpf_run_lsm_sock;
+ 	else
+ #endif
 -- 
-Cheers,
+2.53.0
 
-David
