@@ -1,74 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738850;
-	b=4SM92F9yarmKg5VM6u9v1HK8+pgtvTJ7mVFo9hcQspQPflEzR0b8Iafm5j59CIhiHOIe
-	 8GGL3dJ6pmQFyAU7aBVkA1kBlmC6O3BtVhB9ogWjN0F91iG8WqLADsA3A6wSK7T79dUBh
-	 YxI2cXJCqT211Vtbw6BC/5GWJZcXBicxQrkWLuOUv4NrzLMbwFNqPEV+7PMzeyav8rrLA
-	 zU0bM3cPTkJGKOZCh652Xd/HluSEuvhN64lTQ87r3+2QY3Tswf3V9VNurWuBxVJAFSW6X
-	 mqzLuOnWMqjNjXs2f7I5ov5lcVGI6Sy/uBW7Gjyq3oNCcZek45jFH+aGix23kia/EZw==
+	t=1793738854;
+	b=DJaLghgvadyJiRlxh6MbaCLjTyB+AFkT92J2fKuKMySoEcrH6Io2BwnhM0HvulGF5/UZ
+	 L26O+/S4dNoiSC+WzFVpqSXkQxysPSlTU1yk5SV9UonZdeQf0p/hxSL4sU1fRqrGY/U7D
+	 DT8xLEWd/Fv3n3y+DHUWpmn9XRCcsylhI7RXnlpou2Cl/6S7lVBBcSCsKeS7UMJ6RoUrZ
+	 M9bBbCtJhIKVkqvro/8PjDoLCJRM5wcn6mCr4WHAEP9A1zIFrzD2pWAg+zGXl2w1rCHCF
+	 wg91CMQZabdvBv6cqT5OWoUSP2K46E+jixZ2c1InOBI48Cc2bjnOOBAmpZhWKqZzZow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738850;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WA4JldT6jZkiRqUOUhymd9+bMbgaai5DPTFvHOVFxkY=;
-	b=Qn5mIq53Zv5l+UvWGCZIwMdvweISPZamN04qnVrd6lC56+DYIYQooWSlDhyDSe0X+rfy
-	 0PU4dHD2lBTnmYzmdfRoGiQ+HGuujLIjQlnRnehkm0eIvogjhOcGYRXQ/3qyq5xQcX7/u
-	 EtVl7Sq8a+OFXYkd6pAHQljB2aIQ8UoK6Wcp86Rwn5We4/ItexRqg0R7EQYEt8sDRMeCB
-	 MRIeVEJLA/COh/Jle8itlIW2ViJhH2sR9Cv1wrpzgRTYS2F/X8YljuphOGuAKI7q8rSpg
-	 FE79rSje6yym9fqdUoq5Qd4ETWVnS9g0BYXVw7gPmJARfeFi3AmFVFMJlmupDiqUz2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738854;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:X-Patch-Reply:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CtgBDanjsD9iD2RTvWfEtW3CqZKYJo5b1NZUqI+Cpjg=;
+	b=2U4ETlXnZyTnATAhJk9UXQS75VbgcERXdOUBGumT4noVvZyxhoHqFOEWV8GwZZAF7Pm4
+	 JHk89e80Cy12uZFEYQQbfWUSc58KK4EeWM19duLdSndDksqv2DgrOnjL9qefpBv88Zb7U
+	 G+QPTDkjVbFnDNGtlJ1YvaUDn7NjTIlmeAzaTNN152C1u+Raqr0tMIibM0WDOeQrmrvMc
+	 MwWJuglZwQQvx7VJkUJEN//x9Q0f1nncvO8NR4X+KhdSDqfG/1ukMesoXDtpYAlVVHzts
+	 1dlsiYRdbB2aGZCJzTmmDOn5PBVI+OyHJkIRJwiMUkulQUfEq+IUs4Jvr5wAtRKWZdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZ5aB4fV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2J2pWY0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACCE606A332;
-	Tue,  3 Nov 2026 20:47:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E301A606A324;
+	Tue,  3 Nov 2026 20:47:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZ5aB4fV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219691F0093A;
-	Tue,  3 Nov 2026 20:47:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2J2pWY0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D2A1F00A15;
+	Tue,  3 Nov 2026 20:47:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793738850;
-	bh=WA4JldT6jZkiRqUOUhymd9+bMbgaai5DPTFvHOVFxkY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MZ5aB4fVto6FbxRg77AGVx0jiXNVhH38K6sxyQ4CgLc3S9lJLQH7InuTEYv8lfOaf
-	 5uoad99J7Yo66MZORzU1SueYppREaWAp7DnLjMArd/bw7llqmgjA7QeRkN0TecqOjw
-	 mgPYGDAwQqwyEL4ByoiIyUJS5Ynf7UPLyKjtpGQBMTUIJCZtNDazrMWwmoLIPejkIK
-	 R4yBtwITyXNn68MPxARx6qpkmGIeYtFfjYSs2zxU7gR3nB0yXltF941REAJYSVQAZs
-	 JOShTK4Swr6Tw/lPkD7UPNQLTdL9bwzUWCtu2lgQU5SbFGQKMkCODHWkdfiTaQncQD
-	 tHuce+fkMYTgw==
-Date: Wed, 4 Nov 2026 07:47:09 +1100
-From: Dave Chinner <dgc@kernel.org>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
-	brauner@kernel.org, cmllamas@google.com, aliceryhl@google.com,
-	nat@pixelcluster.dev, arunpravin.paneerselvam@amd.com,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
-	viro@zeniv.linux.org.uk, agruenba@redhat.com, trondmy@kernel.org,
-	anna@kernel.org, cel@kernel.org, jlayton@kernel.org, cem@kernel.org,
-	akpm@linux-foundation.org, david@fromorbit.com, david@kernel.org,
-	hughd@google.com, hannes@cmpxchg.org, yosry@kernel.org,
-	nphamcs@gmail.com, matthew.auld@intel.com, matthew.brost@intel.com,
-	thomas.hellstrom@linux.intel.com, jack@suse.cz, neil@brown.name,
-	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
-	qi.zheng@linux.dev, roman.gushchin@linux.dev, muchun.song@linux.dev,
-	ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
-	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
-	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
-	kas@kernel.org, mhocko@kernel.org, shakeel.butt@linux.dev,
-	ljs@kernel.org, kasong@tencent.com, axelrasmussen@google.com,
-	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
-	chengming.zhou@linux.dev, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
-	gfs2@lists.linux.dev, linux-nfs@vger.kernel.org,
-	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
-	Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: Re: [PATCH] mm/list_lru: Account node removals in isolation helpers
-Message-ID: <aupITfr9pBKPrU20@dread>
-References: <20261103045053.59548-1-kaitao.cheng@linux.dev>
+	s=k20260515; t=1793738853;
+	bh=CtgBDanjsD9iD2RTvWfEtW3CqZKYJo5b1NZUqI+Cpjg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=M2J2pWY0jhbLhVM9FKDXDNvfvUxC+w3Tq8ilF1TOQBv9TrwR06l6H5Oa83KooXn3y
+	 2ccw7HSm4bfh47+EFNp1Sm4wf7/rztr9T5G7GOg0slVOD3ipBWd+1+8f9T7qpp19en
+	 sZQt9xseIc5xALm/qY2ryr3sO55PUJwNu0KW4dCz0M5TpBQ4Bp5OfsjdUS2cq+r+JN
+	 hDsbbPJAQzjLra2VMqYrmEwMhBLuHRQyirk0kJMjn9I4tEZC00kOMPr1wj8k8a/l4X
+	 vnbUZxh1xr3ousr5v7LalHg6BMxp0j25DVOolg9IqzDCD2ytix14M78ewnR9iVzW3g
+	 2JStyPXV7aSDg==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Timur Tabi <ttabi@nvidia.com>,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: (subset) [PATCH v5 0/7] gpu: nova-core: add NVKV codec
+Date: Tue,  3 Nov 2026 21:47:25 +0100
+Message-ID: <20261103204725.4021673-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028-b4-nvkv-v5-0-ef78909b513e@nvidia.com>
+References: <20261028-b4-nvkv-v5-0-ef78909b513e@nvidia.com>
+X-Patch-Reply: applied
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,84 +84,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103045053.59548-1-kaitao.cheng@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 12:50:53PM +0800, Kaitao Cheng wrote:
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
-> 
-> Successful writeback calls zswap_entry_free(), which removes the entry
-> from the LRU and decrements both the sublist and node item counts.
-> shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
-> to decrement the node count again.
-> 
-> The affected call path before this change is:
-> 
->   __list_lru_walk_one()
->     shrink_memcg_cb()
->       zswap_writeback_entry()
->         zswap_entry_free()
->           zswap_lru_del()
->             list_lru_del()
->               __list_lru_del()
->                 atomic_long_dec()  /* first node count decrement */
->       return LRU_REMOVED_RETRY
->     atomic_long_dec()              /* second node count decrement */
+On Wed, 28 Oct 2026 11:20:59 +0900, Eliot Courtney wrote:
+> [PATCH v5 0/7] gpu: nova-core: add NVKV codec
 
-That's a bug in the zswap code. You shouldn't be calling
-list_lru_del() from __list_lru_walk_one() context.
+Applied, thanks!
 
-Walker callbacks are supposed to use list_lru_isolate() or
-list_lru_isolate_move() to remove the item from the LRU under the
-lru lock. i.e. the walk and remove are a single atomic operation,
-accounted by the walker infrastructure.
+  Branch: alloc-next
+  Tree:   git@github.com:Rust-for-Linux/linux.git
 
-LRU_REMOVED_RETRY is for walkers that need to do work -after- the
-item has been removed from the LRU (e.g. reclaim work that can't run
-under the lru lock). i.e. the pattern for the callback code is
-remove-unlock-reclaim-LRU_REMOVED_RETRY.
+[1/7] rust: alloc: add Vec::try_push_init and Vec::push_init
+      commit: 55f9b4727cbb
+[2/7] rust: alloc: add ArrayVec
+      commit: a2a82cbb7334
 
-What the zswap code is doing is
-unlock-reclaim-lock-remove-unlock-LRU_REMOVED_RETRY. That's
-problematic, as we can have concurrent walkers, and so it's possible
-that two shrinker invocations try to remove the same item at the
-same time....
+The patches will appear in the next linux-next integration (typically within 24
+hours on weekdays).
 
-.... oh, what a nasty hack.
-
-The zswap code is doing a list_move_tail() on the LRU object to
-rotate it to the end of the LRU list before dropping the LRU lock,
-in the hope that a concurrent scanner won't trip over it. That 
-doesn't fix anything...
-
-> During the mailing list discussion, Johannes Weiner suggested making
-> users of the isolation interface responsible for maintaining the item
-> counts, rather than having the walker decrement the node count based
-> on the callback's return value.
-
-urk. How is smearing the LRU NUMA abstraction into all the isolation
-interfaces an improvement?
-
-It seems to me that that this LRU hacking is all because of this:
-
-         * 2. Usually, objects are taken off the LRU for reclaim. In
-         *    this case this isn't possible, because if reclaim fails
-         *    for whatever reason, we have no means of knowing if the
-         *    entry is alive to put it back on the LRU.
-
-And so to work around this inability of zswap to handle failure
-sanely, the LRU list the reclaim code is being abused. And now the
-abuse of the lru list code is triggering problems with the LRU
-infrastructure, the suggestion is to push internal LRU structures
-into all LRU list walkers to allow racy (and IMO broken) walker
-behaviour?
-
-I'd much prefer the zswap code get fixed than to have to modify a
-dozen other subsystems to enable zswap to work around broken reclaim
-code...
-
--Dave.
--- 
-Dave Chinner
-dgc@kernel.org
+The patches are queued up for the upcoming merge window for the next major
+kernel release.
