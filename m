@@ -1,130 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690162;
-	b=pqag5lkyS/yZmt+7mAJEW9KZ6hk+Zm+pwAFcLnMg+CD2m2OFck6JOuhlusoAbGACybxK
-	 wRO0QwIpGoMklaFPZPr1FohNppToxxV0HGDB6+XoM62FuwUiQpUlYjb+Dl7Olp8Kjf0WM
-	 0DI6lLGqZmNZRO4H0VJn6a4z4nsKvp3Dc2AVt9j8rGlQFOnlws7mlEOYij2VAM1xryhAc
-	 6Mc9PPy0jjbUSIHPWqVQVbJX6QhUMDlXeV/zu9TaK33YdpzOubtdsQD6PGM+4WVGr0MbK
-	 ziboyIB1o0N5tEXE1owdIBHw+gssbizH/RUkc0Tcgj473G406RQdLoJi3gfCOJWVAZg==
+	t=1793690215;
+	b=GTRuVWJl68xg+h01ZHAEEXchqeP+q9KbwvWJ3D10flmVYtBTj+KEj2NsKUN7IS2Z1Z4r
+	 CR/QAOOCrRVzMcrYmJ22nTKLRZ5GEAg/4u1x3SAszQF3QpG1l+k10IoBnE2/ovAsdZ9EW
+	 wGi1MOI5cGiV/OnjgYXkJBtxCbT7CCttGTCp5rYwCig1aE07BeLw067NsQWFLCVEs2Op9
+	 FRQayfl2ryF4igyY5koNKEUg2sKuM3ZYWOL21zY0Jgs7ojW14uj+eyJs3HqA3P0hIOUE5
+	 nW6ox90opxXzKgQJDjaOjwEyNZ2rXmsd17cH7Xhu1Q+eIKPzi8NFi1RNPyHAT+yixHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690162;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=q4y6B1icyNzjJObRP5v2+iWtsvF0W+PG7Ux6Z6hjgbY=;
-	b=gGPi0W5b6kNFWTUYhOgw3ytG5a2nQ14vt6tIuRmyRQ0fC10iriQITVRZfM3Y9EXnxPgE
-	 fvE9Wn7x/1keqqR6v7O/zRE//3D+RlfiOaRWCL1AEcrYVmmcTEBiGtjhc2LBu7aSIkORI
-	 jcO0iHnLsGuB0y+YLVDRhQVqYBjm82lsVyjL8B4PGcxlXbL40RT4J9a90R4KEBVUwA+iy
-	 rU8kbAtjlTW6aaH1YOY3elig8MtF9I1pvdyChIY0WRi3t0vdW5HznTRkTK+I1GK/JHmEW
-	 Tzh4nDKfOJIyXs1FJt9q0u5YopyG4La3vPp4OCrm7e8NiAskr+kr9X8ubzd1oMD+H8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690215;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Taq3TN1TspoSEDGf5Bcuf48IU/BFZ1ywMHPrwJaGDAk=;
+	b=sPVpR7eYLARPIpXTr5bNUW17O05+zNpQYap06dai1zC3RZ8RBXNjLsjTI9Vj8SqiN+BG
+	 YzqBHWntflPByUHbNtghwBwg8GUJA7sA2DpeG0G/roxL3d4Sac/pgPXGJ+vGbKaNX/pFY
+	 micecbKtb4TICBBsvYfCU+4pXCj657WkxpTnPBJeVFwkcIpoXpGsHjRK7YRaSfYCkugfe
+	 3hDcMFgPUyJoR+WiHbgngvjWHlUD43xrjvwmFaPBTsxs/2KkfUDQkWTebvSg/RIIJle9i
+	 fsBAUzbBFGOaI+eo6y1aeii0flwFxU1p+qMS8WSXheDRcxi45QdcfZRIxPJ2RSTsIYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=A45+5ywo;
-	arc=none smtp.remote-ip=209.85.215.228
-Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g1iW3E7G;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iuLwt+uG;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E560606A336
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:16:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E560606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45187606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:16:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45187606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=A45+5ywo
-Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cd8ba7c2694so1247087a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:16:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793690161; x=1794294961;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q4y6B1icyNzjJObRP5v2+iWtsvF0W+PG7Ux6Z6hjgbY=;
-        b=nN6flvzY4vtK3EIq5EJHDa1F3CJrPefwlXI8vi97yx+glM9UkPfIyI1ZxjIKYq4KOx
-         ppm9n11uXTeE6/t/mO5QHD5JLJOTtp8BB0KGrg9nChBB7pH9cpZ6PfIdRS7xX2cMjLHe
-         4Ro/HISod/mN6RiZvBczyrToI8E42kbt9hmgMOjwscqZ6rtFCooKFCwjLI+JjvzDrytH
-         aOJq44tfsRnfBG0044jD6/X3fxhooct798yKeZq8tgUiHUA9VX8n40X8eM07hk9I0Qxw
-         ld66+oM5kXd8+SlEEvpZcDWWvZTLGKwEroHXlC77I7JYn/I/FxrvtNyZiimgxFQsKXK4
-         AgEg==
-X-Forwarded-Encrypted: i=1; AKwUvBx3pGwaCpXt1DEIY2D/pYDUpPYGt1pVB0cB6kaMeaIx91nS5On0X1Vyn1QKvIkYVfs81HPukaNovK9kjxA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HNwdyJ9pk8ROFhOJIZyTcF5lMXbiNk+lv/yfYlAEta32Uednj
-	xYlvtqanY0pPLB9ua2Ia1xJx4Y71DNv2yCEbqs0KaHaXtMOlW1QJhpPRD8B17hd5obz1FUJr1WC
-	m2xkK4NzEsCE7loLxDH0B783kkv0Kzofg5LwdvgBwLDSpKlPtWC5ZITTsesNj53RwXkGQeKO6sN
-	vrVMPiEUdBvuTtnuQYDnt3pah+dKkfwChg12H3bPkoTu2RHyQOZVZZPVtqBm88JAbF0trM1elhm
-	xCXrH/IMZDh5Kc8
-X-Gm-Gg: AYBFou1wiruDeTzQd44nM9nPK3035d7aCIFSUi/feCf5oaPeXeYR6MxOlxlgv6kYnD/
-	0WIh8tpcwUMPIJQ46Sb0Ptlt4ua/I8dYLdI0rTQcQvF872OXkajZk8Z4214Hd3OqJEs3vk2ELVD
-	1lZw8FSXDgQwMDtR+y3OoocHF9pUNNvaQiA88FVgImQvSi6SWHB5FvBN5DJNnBtHPVT9fD48aPI
-	gQOIZLQrq/J93I3kcRsW+XPvyUqjP5O5RJ4RUB4G5SbumMQiqafEsNJn8f9uUE2I8nUSV26bPLL
-	Nqgu1j2LB+L2JNgqe2+tLA5F8ZEULOCpuuhmCE2vifJ2m73fvcQSa1pzgBrico3MlpoRASR7v3l
-	5LJXNQbNgzeq50FKC8JedF40JwFXlxqczCstNszEmXRkwnGi3C4h4OTq6K6io/XhX1vHjRvD++U
-	/Y+cooz9wBIvs5taxrGelygfJUFdnhAgvd
-X-Received: by 2002:a17:90b:3b51:b0:39e:6795:f7da with SMTP id 98e67ed59e1d1-3ae897c7d22mr10357245a91.19.1793690160872;
-        Mon, 02 Nov 2026 23:16:00 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae85cb7888sm3891600a91.0.2026.11.02.23.16.00
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 02 Nov 2026 23:16:00 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9440b27c1feso666546985a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:15:59 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g1iW3E7G;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iuLwt+uG
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31eUdI1431440
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 07:16:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Taq3TN1TspoSEDGf5Bcuf48IU/BFZ1ywMHPrwJaGDAk=; b=g1iW3E7GKjPr3eNt
+	LN+tNDXulBukG8EKB4ZVWnZ0x506HBNa3ApWtTRfWjiRaSchW+k9mzWcGoVBnUcW
+	TC2XVnRh3MoB4NUy7JS1m+B65Ha1YMZPIQS5e+ZWGHvTcvfeApIDM90b74TAg55V
+	0nBI8VvwLPnY2ppBFQxkmJ1QsVAgu7slLZfwpn9ReA+R0RVq84O+HBA15g83AWfM
+	Na41+/UI41q6wZqf4Qzszhubh4n/ulPxeGT0SdLwhXF603N/t0eflHPYKWZgwzNz
+	QZpS8AKTlR0liOHhCPi8mNvQIAhssXOVFjfP4uPuogO4x7K4dNc47fFqwGT0KQXY
+	kRXcBQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq0872ff3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:16:52 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36a3451ea93so6021004eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:16:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793690159; x=1794294959; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1793690212; x=1794295012; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Taq3TN1TspoSEDGf5Bcuf48IU/BFZ1ywMHPrwJaGDAk=;
+        b=iuLwt+uGf0wPQQov4LyIssAD7B2yz6SOdDbUDHgobxsnYirOyHEdIRvijSPx6PkStf
+         GJcDfpG5kByBl/cKSyXD4FaxmCAOwpnrvhqgsw8rSdSnKTmGLHBZEBdPYAgcO3nofh2M
+         ZBK+/j0X463D8NNsuC/yFylV/KtQqJfgqZj+DMypz5VsbWOujSewJA/vUOLBnbw+tB4s
+         +4YZVQVXDgPI9SbomItS58xJqXHhjTO7iPbdPyLq3Wvv4KZ0NCkYuZNNua0NLCZ8t4Bc
+         WuGccgG/9N5H14eBnTUZnw1M5Iv6EHyN4ofeLR8nYtPzSzn875bi6cT2EDN0BM79SUmE
+         hpXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793690212; x=1794295012;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=q4y6B1icyNzjJObRP5v2+iWtsvF0W+PG7Ux6Z6hjgbY=;
-        b=A45+5ywoXTZRLU4JwM4rtFIdd+2mO4qYrr8urLpMxMip2Zwrwmqn5EALQhtmzeyKPK
-         Xb351tL+k793ijaRdL6ULIO/HuHxixyGOrxyPNprecb2GwO3wCll2okIogICJFRoirg3
-         /GTwNx8Wos+gSNGJtlrywlSbVw+YJeOF0vArA=
-X-Forwarded-Encrypted: i=1; AKwUvBwAphpoeSlniyFHZifj5Pl9sYYdxVeq3M9iLjsUY22q68eNGphvskhalhTS7nBMwSmssRwBxvGjtyENoKY=@vger.kernel.org
-X-Received: by 2002:a05:620a:2687:b0:943:b019:f011 with SMTP id af79cd13be357-94421719dd1mr1970191185a.28.1793690159399;
-        Mon, 02 Nov 2026 23:15:59 -0800 (PST)
-X-Received: by 2002:a05:620a:2687:b0:943:b019:f011 with SMTP id af79cd13be357-94421719dd1mr1970188385a.28.1793690158920;
-        Mon, 02 Nov 2026 23:15:58 -0800 (PST)
-Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9442581b2d2sm1018334585a.15.2026.11.02.23.15.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 23:15:52 -0800 (PST)
-From: Zack Rusin <zack.rusin@broadcom.com>
-To: Borislav Petkov <bp@alien8.de>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	x86@kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	virtualization@lists.linux.dev,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	Zack Rusin <zack.rusin@broadcom.com>
-Subject: [PATCH v3 3/3] x86/cpufeatures: Remove unused VMware hypercall feature bits
-Date: Tue,  3 Nov 2026 02:14:58 -0500
-Message-ID: <c8e57b19d95fd8ffbfd13e7ab1c1ade551b1bd7b.1793685318.git.zack.rusin@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1793685318.git.zack.rusin@broadcom.com>
-References: <cover.1793685318.git.zack.rusin@broadcom.com>
+        bh=Taq3TN1TspoSEDGf5Bcuf48IU/BFZ1ywMHPrwJaGDAk=;
+        b=gj58dZSx5V0wFBIfejm+wO+SAiYTPbclwjifREbWbICUEmBt48HostmE9NJ1bjfSs9
+         UOPMR6Yp5LXEq53V9bbW7M9zbBdinImBvcFdkbHwF9s7/R/r07FayOd7YiLgIes290nT
+         CsE91627mh9MV1U/GE/Tdz2hcVdA8GmtxDOCcuI+iHmRuFQHIaghlURdiT/kxGkBc0ua
+         UgcQQjS+PBIqfoP+qMjzYyPjIxx9ZMwJcxbmNYk8mTmiXe8A+bPTlc3HHtTUx7L7zhQf
+         jR8l+ADRarQq7icAQYjolRZft5f5zJVsqjXIiI4LG3NytymKR1oOYigF3VD22Y6hFzkP
+         fJNg==
+X-Forwarded-Encrypted: i=1; AKwUvBxeFb+YwtOtgUpoOPT8/zPolts79oW2J+Chwd7o9TKEE7VPbzBmugzXOjWR/36/cRgVSxsrlZTbWSj4KiE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8DubFGLOWIJ5CVHjmSuzHsPNLhqNpzlfTsa3pWZLCtcjy5Uyw
+	5qQazka5KFCLqKC9kD0zZPZMfQlz+bvbzY3G3XDW2tDQlUs19dDwo/pdB+Yrfwfna9owSiDlRvq
+	bjnmPI0kvY4CKWJ1ZW61bWnkee+IYf/aW8OZqIlL4ayYaY+3k8N03A0dY68WdWgwJ9Z8=
+X-Gm-Gg: AYBFou3TmFG3soXhLkiPYgNIoYz+YqZB5IgwsB02mpCoZZnh4mNQRcPJck9JQaU2rjE
+	jdwXJTJ5llC//33tpg5vRqCSPMZSfE5aPZu1+e728THRVxrVi/II6zbmknkRoyjY/4d5u47wlZM
+	KaEhHxOOdUcWAYVZHOaO7TpbvT2KpgyQRJKsEwxYTDUQtA7kSoEKiWTAYN0uQyN9TaPXSdSunT/
+	b98MM2WJFJvuahW8f9ObAcK1wAMCQ3Rrm5HImSR4GplWOhGgoPVhOe2/sW/cKKr10UR5R/iJf0Q
+	yZGBj4kSbQKyxWCz5NL8pCG9GQ6Iq17isYgd3Nq57D4tGELtlCXXF7Yx3/YYrOtNnqmJNpNB3X7
+	KWAyS1/bagipoG5dB32CVpTUHaWAdefybQRbg7HGkAjDRmpah7fX0d3deVTz6mhc9bIK4j7Ka5Z
+	7j6ONW9AaFVQ5YGSpmJ3PgKA==
+X-Received: by 2002:a05:7300:c00c:20b0:351:7e5d:2de9 with SMTP id 5a478bee46e88-36a422039cdmr21436006eec.1.1793690211761;
+        Mon, 02 Nov 2026 23:16:51 -0800 (PST)
+X-Received: by 2002:a05:7300:c00c:20b0:351:7e5d:2de9 with SMTP id 5a478bee46e88-36a422039cdmr21435955eec.1.1793690210965;
+        Mon, 02 Nov 2026 23:16:50 -0800 (PST)
+Received: from [10.110.67.148] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428aed76sm46180615eec.9.2026.11.02.23.16.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 23:16:50 -0800 (PST)
+Message-ID: <738c61fa-0397-4faa-acae-e9b42f901d1d@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 15:16:45 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,50 +116,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PM: EM: Rank boost and non-boost frequencies separately
+To: Lukasz Luba <lukasz.luba@arm.com>
+Cc: "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+        Matthias Kaehlcke <mka@chromium.org>,
+        Vincent Donnefort <vincent.donnefort@arm.com>,
+        Len Brown <lenb@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+        "Rafael J . Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, xin.liu@oss.qualcomm.com,
+        aiqun.yu@oss.qualcomm.com, tengfei.fan@oss.qualcomm.com,
+        tingwei.zhang@oss.qualcomm.com, Pavel Machek <pavel@kernel.org>
+References: <20261030-em-rank-boost-separately-v1-1-238a6b2bb888@oss.qualcomm.com>
+ <3ed2a68b-d066-4a3a-b3ed-30a5ca00ae38@arm.com>
+Content-Language: en-US
+From: Guo Chen <guo.chen@oss.qualcomm.com>
+In-Reply-To: <3ed2a68b-d066-4a3a-b3ed-30a5ca00ae38@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyOCBTYWx0ZWRfX77P6hFOSI092
+ 8kWfOalgas6gimX9m0uX8necTiuKRTjVi3qZDLafKCavCoxIGzY0fWnI79f6TN09ctJcDdA5rcB
+ hl8zm6qF3CJuR2i9X0OibCGj/kXCQt4=
+X-Authority-Analysis: v=2.4 cv=K9m3jCWI c=1 sm=1 tr=0 ts=6ae98a65 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=mce2Jbv03V5EqRZ6POQA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyOCBTYWx0ZWRfX2zfoWGACuE61
+ 8rOtNvlmZNJ5ZaftkJx1JuJP92LjS5/QtuGKUqcwhVKxSfjvk6mTx5ckRo9sLGzJZfMqHOAtii6
+ 6HuRFF0fICbCpEyXVvtNMP1jZWGq7YHV8qJXU75AsxGiPFZ0xuUSZkoPoIGM6EeQhHeQLRDi2NA
+ DA+0KDjrAvmw0Qo6x2TcDDPneQ3O0HU+q1BQ36vO04Fosh/Ni+uYZZ0Dug5n942tELjhkhAd2rI
+ l69NbWyNIz/HI5sBqwjlnZxHJNzOGSwO4IrWzaJuFnlX+1O4d5bAzxzOx+6tNI+p0f8jfWyr8az
+ ZTaospHMJJouzzwHKOPVsdyWIQPBhXMxZ8nmXu9C4UvzjtlbDYSWFgCvOiQ5oDooKySPT7clPzb
+ CTT+RdgdndJDeZwiFcQTA9KL2YLZs+5GLj7gYX4rNyIpy7cw6UzC9OEH5PxYbQcxS00w0NtbEgY
+ cJxKXeDtct7Y9A8vUCg==
+X-Proofpoint-ORIG-GUID: VDCzPhh8ye1mpKwzR9MEBvjqDTwA1tAe
+X-Proofpoint-GUID: VDCzPhh8ye1mpKwzR9MEBvjqDTwA1tAe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 adultscore=0 spamscore=0 suspectscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030028
 
-The static-call conversion removed the alternative instruction templates
-that used X86_FEATURE_VMCALL and X86_FEATURE_VMW_VMMCALL. Their remaining
-users only force the bits during VMware setup; no code tests either bit.
 
-Remove the forced capabilities and mark both positions free in the kernel
-header. Neither feature has a cpuinfo name, so this changes no
-userspace-visible flag.
+On 11/2/2026 11:28 PM, Lukasz Luba wrote:
+>
+>
+> On 10/30/26 08:10, Guo Chen wrote:
+>> em_compute_costs() ranks all the frequencies of the table, boost ones
+>> included. A non-boost frequency can be marked inefficient only because
+>> a faster boost frequency has a lower or equal cost, e.g.
+>>
+>>    3.9 GHz  4.0 GHz (cost C)  4.1 GHz (boost, cost C)
+>>
+>> With boost disabled 4.1 GHz cannot be selected, but 4.0 GHz is still
+>> skipped by governors rounding down to efficient frequencies (e.g.
+>> ondemand with CPUFREQ_RELATION_HE), which land on 3.9 GHz instead of
+>> the best selectable frequency. Several frequencies can be affected.
+>>
+>> Rank boost and non-boost frequencies separately in em_compute_costs(),
+>> using the highest non-boost frequency of the CPUFreq table, returned by
+>> the new helper cpufreq_table_max_nonboost_freq(), as the boundary.
+>>
+>> Fixes: c8ed99533dbc ("PM: EM: Mark inefficient states")
+>> Signed-off-by: Guo Chen <guo.chen@oss.qualcomm.com>
+>> ---
+>>   include/linux/cpufreq.h     | 24 ++++++++++++++++++++++++
+>>   kernel/power/energy_model.c | 15 +++++++++++++++
+>>   2 files changed, 39 insertions(+)
+>>
+>> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+>> index d3d0d9d02aa4..c93316141a11 100644
+>> --- a/include/linux/cpufreq.h
+>> +++ b/include/linux/cpufreq.h
+>> @@ -1155,6 +1155,24 @@ cpufreq_table_set_inefficient(struct 
+>> cpufreq_policy *policy,
+>>       return -EINVAL;
+>>   }
+>>   +static inline unsigned int
+>> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
+>> +{
+>> +    struct cpufreq_frequency_table *pos;
+>> +    unsigned int max = 0;
+>> +
+>> +    if (!policy->freq_table)
+>> +        return 0;
+>> +
+>> +    /* The table may be unsorted, scan all of it for the highest 
+>> one. */
+>> +    cpufreq_for_each_valid_entry(pos, policy->freq_table) {
+>> +        if (!(pos->flags & CPUFREQ_BOOST_FREQ) && pos->frequency > max)
+>> +            max = pos->frequency;
+>> +    }
+>> +
+>> +    return max;
+>> +}
+>> +
+>>   static inline int parse_perf_domain(int cpu, const char *list_name,
+>>                       const char *cell_name,
+>>                       struct of_phandle_args *args)
+>> @@ -1219,6 +1237,12 @@ cpufreq_table_set_inefficient(struct 
+>> cpufreq_policy *policy,
+>>       return -EINVAL;
+>>   }
+>>   +static inline unsigned int
+>> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
+>> +{
+>> +    return 0;
+>> +}
+>> +
+>>   static inline int of_perf_domain_get_sharing_cpumask(int pcpu, 
+>> const char *list_name,
+>>                                const char *cell_name, struct cpumask 
+>> *cpumask,
+>>                                struct of_phandle_args *pargs)
+>> diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
+>> index d19a65461ae8..253c53ca6a74 100644
+>> --- a/kernel/power/energy_model.c
+>> +++ b/kernel/power/energy_model.c
+>> @@ -255,15 +255,30 @@ static int em_compute_costs(struct device *dev, 
+>> struct em_perf_state *table,
+>>                   unsigned long flags)
+>>   {
+>>       unsigned long prev_cost = ULONG_MAX;
+>> +    struct cpufreq_policy *policy;
+>> +    unsigned int max_nonboost = 0;
+>> +    bool prev_boost = false;
+>>       int i, ret;
+>>         /* This is needed only for CPUs and EAS skip other devices */
+>>       if (!_is_cpu_device(dev))
+>>           return 0;
+>>   +    policy = cpufreq_cpu_get(dev->id);
+>> +    if (policy) {
+>> +        max_nonboost = cpufreq_table_max_nonboost_freq(policy);
+>> +        cpufreq_cpu_put(policy);
+>> +    }
+>> +
+>>       /* Compute the cost of each performance state. */
+>>       for (i = nr_states - 1; i >= 0; i--) {
+>>           unsigned long power_res, cost;
+>> +        bool boost = table[i].frequency > max_nonboost;
+>> +
+>> +        if (boost != prev_boost) {
+>
+> We expect in EM fwk that the frequencies are sorted ascending
+> and we return error during setup if the driver callback fails
+> to provide that.
+> Therefore, in this code we don't have to deal with random
+> 'boost' labels with gaps between.
+>
+Hi Lukasz,
 
-Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
----
- arch/x86/include/asm/cpufeatures.h | 4 ++--
- arch/x86/kernel/cpu/vmware.c       | 4 ----
- 2 files changed, 2 insertions(+), 6 deletions(-)
+Thanks for the review.
 
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index 61930f0d4578..b7633930020f 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -233,8 +233,8 @@
- #define X86_FEATURE_VMMCALL		( 8*32+15) /* "vmmcall" Prefer VMMCALL to VMCALL */
- #define X86_FEATURE_XENPV		( 8*32+16) /* Xen paravirtual guest */
- #define X86_FEATURE_EPT_AD		( 8*32+17) /* "ept_ad" Intel Extended Page Table access-dirty bit */
--#define X86_FEATURE_VMCALL		( 8*32+18) /* Hypervisor supports the VMCALL instruction */
--#define X86_FEATURE_VMW_VMMCALL		( 8*32+19) /* VMware prefers VMMCALL hypercall instruction */
-+// free: was #define X86_FEATURE_VMCALL ( 8*32+18) /* Hypervisor supports VMCALL */
-+// free: was #define X86_FEATURE_VMW_VMMCALL ( 8*32+19) /* VMware prefers VMMCALL */
- // free: was #define X86_FEATURE_PVUNLOCK               ( 8*32+20) /* PV unlock function */
- #define X86_FEATURE_VCPUPREEMPT		( 8*32+21) /* PV vcpu_is_preempted function */
- #define X86_FEATURE_TDX_GUEST		( 8*32+22) /* "tdx_guest" Intel Trust Domain Extensions Guest */
-diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
-index 6719c009f237..b5c1610ff408 100644
---- a/arch/x86/kernel/cpu/vmware.c
-+++ b/arch/x86/kernel/cpu/vmware.c
-@@ -492,10 +492,6 @@ static void __init vmware_set_capabilities(void)
- 	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
- 	if (vmware_tsc_khz)
- 		setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
--	if (vmware_hypercall_mode == CPUID_VMWARE_FEATURES_ECX_VMCALL)
--		setup_force_cpu_cap(X86_FEATURE_VMCALL);
--	else if (vmware_hypercall_mode == CPUID_VMWARE_FEATURES_ECX_VMMCALL)
--		setup_force_cpu_cap(X86_FEATURE_VMW_VMMCALL);
- }
- 
- static unsigned long
+You are right. The boundary is derived from the highest non-boost
+frequency, so with an ascending table the boost states always form a
+contiguous top segment, and prev_boost is redundant.
+
+> Let's make all OPPs which are 'boost' equally possible
+> to reach (at least in theory), so label them as
+> 'efficient'. I think this is fair in 'boosting' case scenario
+> and energy has not that importance in it.
+>
+> So simply something like, would be enough IMHO:
+>
+> if (boost)
+>     prev_cost = ULONG_MAX;
+>
+Agreed, this is simpler and gives the same result for the non-boost
+states. Boost states are no longer compared with each other, which is
+also a sensible semantic. I will drop prev_boost and use the above in v2.
+
+Thanks,
+Guo
+>
+>> +            prev_boost = boost;
+>> +            prev_cost = ULONG_MAX;
+>> +        }
+>>             if ((flags & EM_PERF_DOMAIN_ARTIFICIAL) && cb->get_cost) {
+>>               ret = cb->get_cost(dev, table[i].frequency, &cost);
+>>
+>> ---
+>> base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+>> base-tree: 
+>> git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+>> change-id: 20261029-em-rank-boost-separately-a7e7c7d78058
+>>
+>> Best regards,
+>> -- 
+>> Guo Chen <guo.chen@oss.qualcomm.com>
+>
