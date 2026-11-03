@@ -1,63 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793667590;
-	b=SX2Ia86wXSmC8lIAm9Dzlj6gO3qsTTcSC57BPnzrgiiX+cThZIkJf1LRSOnOOsXxFjtq
-	 A8zQWZuxlrug54LesybmpoFO00cOgqrH8iuo1QojptAmFb0na9m3aemow7RxDTYUdXipN
-	 U7lLy3x2h6D0Oflc+i3PB2tHnEYVyLQR6bXhw8c0NbaDIdw4E5nQuL7a13/EcM1V44JJt
-	 t66vmnRE1jVtmu0K40U8kFAaLynDcf6Ma8uHXoM3LBWwk+SiN2jdjVh/ZpYsDt4XKr4wC
-	 EkczHAEiYUNRE8Vowu39wUDmg8Mq76VOsmBFFIJR6mWY6P7id+JSyPSInzJDEgyMRuw==
+	t=1793667587;
+	b=Te+T2qrW5xpYNnGZ2Vhf5kZf7cN4zoFklXa//W0Gio6cZsZCKMp0u6NvrZeedUpOgsHV
+	 fzrC0ymc35x5iLqVeb4WZKlw7PPj5xNVNBfSLGCddUXcZEtULwJjd3lobvwoqxrbo9PxD
+	 NV7uLXi0AbvAxggzh4dva1LS72b4yvQOHvu3b0aE7Mt1bSqGDLygQCFYC+jn2yv6yfw1M
+	 ay2SxqYU4ffaTlOls3B2rjnFr6RWo0GigzYfo8jOf0LOF6mTNIHrqLL34uw8ehJNtSM7P
+	 R/7CVd5EFpauXCNMjr/04aKvaQtelAw6Ps+WDwqO2gDAvLzh1CchbZl7RPBjiAThnNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667590;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eAIEk27vq7SBMU3eK04a7ELsfUgkQKJdZcdW3LgEO4Y=;
-	b=suiSAv+hDV8XRQhHlYpGsLDEkZwa6P59nG3g55vnyclZErIfVh1b9swdvhhEucEf8Ese
-	 Vy2+ItgV18n7pb+5XRImj5cImBblWqrdtVy5s8uPzWDmclWHVNy8eIx/00+xDZD14bnwr
-	 7z0HG+euJ2w3sD+Nw8qiO0mxoB1umU9LyLV5dtUzPazU7haIRPaZirArmdMGsPEtVyRbj
-	 n/tyy8Md8WcRcWgS1b8QVMtP6wsRB7PC+mZG4oToowHJoTWvGAI2zXPlGx+dG0KxOgsRb
-	 wVq2kZbEIiFesKafwlU5Ci2D6LiMmqXW3s9M/Zhdf+zvd1W5Sv77gJA2Lq1QxiUhZ1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667587;
+	h=DMARC-Filter:Received:Received:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Rspamd-Server:X-Session-Marker:
+	 X-Session-ID:X-HE-Tag:X-HE-Meta;
+	bh=G6Rv/71RK5koHmtnnOxQb3SYVS/u069P90N9ZnE91N0=;
+	b=5SSVBbew+TcBdRZWNlGCMphBXuHpzn5la22QLXPvRVxD2/Zyzn1bO63Uko5R5ediwrXJ
+	 F/cxqBqdtYR4nNxMNja2hQE1+HbXTLaOrJHOHMVGVY8ii+haw+jAJ4su9WVBRQt5wLg5N
+	 YKKllvF8iXBDOVcubY+OTLBNC2qIDxjpl5lM0x1zQ0J1wv2WalbDlUbCfkKoMrbLzXxVg
+	 mNLuIYi9on3MaSaQ7gc0uqFjB4uJWttFXwQce0cdiMshr9dbtDeFJ/XXt/d5BlYyewDFL
+	 MQGSW2VzmB0GyZiiJNuYZb73AA0enZDL/rQQ9bQRoi8SwFYyulrITgNrFTfQ8Hf8BXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILFSQTAa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=groves.net;
+	spf=pass smtp.mailfrom=groves.net;
+	arc=none smtp.remote-ip=216.40.44.14
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C0E606D807;
-	Tue,  3 Nov 2026 00:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILFSQTAa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E02F1F0093A;
-	Tue,  3 Nov 2026 00:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793667589;
-	bh=eAIEk27vq7SBMU3eK04a7ELsfUgkQKJdZcdW3LgEO4Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ILFSQTAaF6kJrx/TYSoWIT/QtO9KF/QFp2Zk8INMjPaYjb2f+UqWTET9sOtVdHKdQ
-	 m8TZi2CIjLtn+FhaonI+i17T/s7K09H8tj71lT+I1Mq3hA7A692+pBT5oRytXct5YY
-	 +wZT6hXli590DAaPdla5HkprTqm1LdFV9J/4G8f/Z1Cra8pCKyh3FAy76gQiJixkTC
-	 vR7if78QAz+tbYCvCeLfpWujf713hFllfnpeAD+d2ndXzjnASNLxfqQHMkQrXGyzTz
-	 etgyoOVKLJMp/HIZnuT6wIqfKl1fpgCA/WuaZPueIUHxZdNsB5uoReJXdCKgwt+uWx
-	 6Jx/1Qz/yrgxQ==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Aveline Noir <jm5905938@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	SJ Park <sj@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v2 3/8] Docs/admin-guide/mm/damon/usage: fix grammar
-Date: Mon,  2 Nov 2026 16:59:33 -0800
-Message-ID: <20261103005940.91432-4-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103005940.91432-1-sj@kernel.org>
-References: <20261103005940.91432-1-sj@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7FC606A324;
+	Tue,  3 Nov 2026 00:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C7FC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=groves.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=groves.net
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id 5BB8C1401C1;
+	Tue,  3 Nov 2026 00:59:39 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: john@groves.net) by omf04.hostedemail.com (Postfix) with ESMTPA id 6F79420024;
+	Tue,  3 Nov 2026 00:59:37 +0000 (UTC)
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfauth.phl.internal (Postfix) with ESMTP id ED3CEF40066;
+	Mon,  2 Nov 2026 19:59:36 -0500 (EST)
+Received: from phl-imap-02 ([10.202.2.81])
+  by phl-compute-09.internal (MEProxy); Mon, 02 Nov 2026 19:59:36 -0500
+X-ME-Sender: <xms:-DHpahttLsgo-O9LyRnTMyYg8OOCyrR3pmllmRf0Hq0xoUpxc8-65A>
+    <xme:-DHpalSKPczzavif0J17t-PbwkXHInKEhMsWhL6255WyOgK8Edcwgivkew44VEd51
+    n_aZvX2apjg4HaEot2YixfEXRDNTh7cFqfa_vBXg71MXgo4-KCYVV2R>
+X-ME-Proxy-Cause: dmFkZTG4ZL5up0UnMPo6b6IWOllL5Oy/VFhuJdZlan9+353xhOnGA4qXvG4k7Wquz+vOiW
+    LJnk4kJCnIgTcfnHpFSpI1rJQL8749tASHR5iZ2a0kCIBoJcM0W0LOfofsp6qtawBEF0By
+    OtljbVcCImpCgBZtGS/cgexFW/DNAncaQyrQHcw7ZQuqMvFH8Mo8L9j7Ei5Uq2k5QPQ0lG
+    G0nBf9gwdZxGPFSoTOZQ8heirm6tt4T/vi0NwC8IYqyzo8M4CpF/sfHYRAPcYRT9AiWYyB
+    bnqqTM3tqttT9xNtdZDjumisqXV9aItq2O+VPJNgxG7MjmDMtgJFncjMXP/jUIfo84vsZP
+    Sujev+lKEf1h6ZIeAmnw7/E3zBJM26AMnc7vrLeJs+EmkI8ZC01uFU4q47FRdQHUzsCIFJ
+    ayGr0+bZLowvNL4rMRF/qz2JRRjLi2cN8nKlFV2vtyXr7Jdj7Vm6aGTnM9O/A9SIAFpFQU
+    U/K1tRUIeqb1GMWF36zDadocI/88N9kEgnyYPfASVPARu4idUzIKgKWuZPv0GcQG+qs0An
+    ImOK5x1QGy0adLvz4pB0l2S921cPf6ZpMoXE6BaAglTWn+AEER3Szx0uFrol1BTgibErlj
+    33sE7NWPC3gyytLTjSTw8ef4TvlDHHJ1RRWnpCohsoXrHzo1QaNjbsi6pszQ
+X-ME-Proxy: <xmx:-DHpajQUV2WJTQZXgfypECLGJ6AcoJlARUNwPPm4PfIEC1Y4rzxaWg>
+    <xmx:-DHpanBW-Bg9tMfcv_h_tl65ko8AuR0SV65UacSvANVYkVy18iWa_w>
+    <xmx:-DHparFJ6Xn5B8w3_WppmLMpi3cQJLB3-qu9wBricBlFxRfNNX-iYA>
+    <xmx:-DHpapDUZHzuy9YULnLuxGh9SBJBW_zjpR_Xy_NJbRt0RzXxQvTgQQ>
+    <xmx:-DHparW1XKrqfvlDUZFWEdJsaCSdo-Tlqr4fQIl_KU7jkwohifDElM0l>
+Feedback-ID: i3a164872:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id C2A75700065; Mon,  2 Nov 2026 19:59:36 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,129 +74,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Mon, 02 Nov 2026 18:59:16 -0600
+From: "John Groves" <john@groves.net>
+To: "Joas Antonio dos Santos" <joasantonio108@gmail.com>,
+ "Miklos Szeredi" <miklos@szeredi.hu>
+Cc: "Miklos Szeredi" <mszeredi@redhat.com>,
+ "fuse-devel@lists.linux.dev" <fuse-devel@lists.linux.dev>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Message-Id: <069bdfb7-2bad-47d4-ae43-d3d50a63b816@app.fastmail.com>
+In-Reply-To: <179346145958.61208.701521796030924197@gmail.com>
+References: <179346145958.61208.701521796030924197@gmail.com>
+Subject: Re: [PATCH] fuse: refuse FUSE_NOTIFY_STORE for DAX inodes
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 6F79420024
+X-Stat-Signature: jxfrrcn9qtzxrk9pqk51438wr5rmo4gp
+X-Rspamd-Server: rspamout08
+X-Session-Marker: 6A6F686E4067726F7665732E6E6574
+X-Session-ID: U2FsdGVkX1+uPrMiW9M2xl4Azk1RV1LatNDq3wjJW4w=
+X-HE-Tag: 1793667577-708489
+X-HE-Meta: U2FsdGVkX1/enDX7YLiwcBSjp9OFMJrxcBhxOcz90MsEsrBlp5pHm5UBECEjDQOOixxzTThtBc7YfznDf8VITttnWHsqlhKEz9lCz4/bcnOmorqqr0ezh+bD7G0a9HlflCsbEygTjwJB/vrQZzGSLQfAPJiXnyHszYumd3UVp3tcZRtfmh5TBTzEsH271+1UzdJdhyVvo95knKxEjYImAoobD0OTgmCc0yYIXcQ4y6vIfXmL62vUqul7C3m7gM9SSa2iqqOxQLvBRw0/oWDpx6DZt1sjpmiZAm4gv5z9MUAmr2uUNmX5KT6mgduLM6zedI4z5qtHBUbkcYfFiSgoR0lqL4VZf5+ipDVnapKBNr7GJRBvOHlh8+M1X7RVgZ9MxUOyFPtF+tYh1v+vTvXfLg==
 
-From: Aveline Noir <jm5905938@gmail.com>
 
-Fix a handful of grammar mistakes in the usage doc, mostly
-subject-verb agreement and a missing or extra "be".  Also turn "Below
-commands applies" into "The commands below apply", which I think reads
-better.  Rewrap where the lines got too long.
 
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
- Documentation/admin-guide/mm/damon/usage.rst | 31 ++++++++++----------
- 1 file changed, 16 insertions(+), 15 deletions(-)
+On Sat, Oct 31, 2026, at 10:44 AM, Joas Antonio dos Santos wrote:
+> Since commit 2fbe4586cff3 ("fuse: add support for opening dax device as
+> backing"), a regular file is marked S_DAX whenever the server sets
+> FUSE_ATTR_DAX in the attributes. This does not depend on any INIT flag,
+> so any FUSE server can do it, including an unprivileged one.
+> 
+> fuse_notify_store() does not check for this. It adds ordinary page cache
+> folios to the mapping of such an inode with filemap_grab_folio(), while
+> the DAX code expects that mapping to hold only DAX entries. When the
+> inode is evicted, fuse_evict_inode() calls dax_break_layout_final(), and
+> dax_layout_busy_page_range() hits WARN_ON_ONCE(!xa_is_value(entry)):
+> 
+>   WARNING: fs/dax.c:825 at dax_layout_busy_page_range+0x394/0x4dc
+>   CPU: 0 UID: 65534 PID: 93 Comm: fusedax
+>   Call trace:
+>    dax_layout_busy_page_range+0x394/0x4dc (P)
+>    dax_break_layout_final+0x104/0x278
+>    fuse_evict_inode+0x2cc/0x57c
+>    evict+0x2b4/0x748
+>    iput.part.0+0x51c/0x964
+>    ...
+>    fuse_kill_sb_anon+0x170/0x268
+>    deactivate_locked_super+0x98/0x11c
+> 
+> With panic_on_warn set, this lets an unprivileged FUSE server panic the
+> machine.
+> 
+> DAX mappings do not hold page cache folios, so storing data into one has
+> no use. Return -EINVAL, as is already done for files that are not
+> regular. This also covers virtiofs DAX inodes.
+> 
+> Reproduced on current mainline (arm64, CONFIG_FS_DAX=y) with a FUSE
+> server running as uid 65534 in a new user and mount namespace, answering
+> INIT with no flags, LOOKUP with FUSE_ATTR_DAX on a regular file, then
+> sending FUSE_NOTIFY_STORE for it and unmounting. Before: the WARN above,
+> and a panic with panic_on_warn=1. After: FUSE_NOTIFY_STORE fails with
+> EINVAL and nothing is logged. FUSE_NOTIFY_STORE on a regular inode
+> without FUSE_ATTR_DAX still works.
+> 
+> Found by code review of the DAX backing changes and confirmed with the
+> reproducer above.
+> 
+> Fixes: 2fbe4586cff3 ("fuse: add support for opening dax device as backing")
+> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-diff --git a/Documentation/admin-guide/mm/damon/usage.rst b/Documentation/admin-guide/mm/damon/usage.rst
-index bd687d89ea4c0..cc7465251bb6f 100644
---- a/Documentation/admin-guide/mm/damon/usage.rst
-+++ b/Documentation/admin-guide/mm/damon/usage.rst
-@@ -23,7 +23,7 @@ DAMON provides below interfaces for different users.
-   want more optimized use of DAMON.  Using this, users can use DAMON’s major
-   features by reading from and writing to special sysfs files.  Therefore,
-   you can write and use your personalized DAMON sysfs wrapper programs that
--  reads/writes the sysfs files instead of you.  The `DAMON user space tool
-+  read/write the sysfs files instead of you.  The `DAMON user space tool
-   <https://github.com/damonitor/damo>`_ is one example of such programs.
- - *Kernel Space Programming Interface.*
-   :doc:`This </mm/damon/api>` is for kernel space programmers.  Using this,
-@@ -155,7 +155,7 @@ Users can write below commands for the kdamond to the ``state`` file.
- - ``on``: Start running.
- - ``off``: Stop running.
- - ``commit``: Read the user inputs in the sysfs files except ``state`` file
--  again.  Monitoring :ref:`target region <sysfs_regions>` inputs are also be
-+  again.  Monitoring :ref:`target region <sysfs_regions>` inputs are also
-   ignored if no target region is specified.
- - ``update_tuned_intervals``: Update the contents of ``sample_us`` and
-   ``aggr_us`` files of the kdamond with the auto-tuning applied ``sampling
-@@ -250,7 +250,7 @@ writing to and reading from the files.
- 
- Under ``nr_regions`` directory, two files for the lower-bound and upper-bound
- of DAMON's monitoring regions (``min`` and ``max``, respectively), which
--controls the monitoring overhead, exist.  You can set and get the values by
-+control the monitoring overhead, exist.  You can set and get the values by
- writing to and reading from the files.
- 
- For more details about the intervals and monitoring regions range, please refer
-@@ -268,7 +268,7 @@ Under the directory, four files for the auto-tuning control, namely
- Please refer to  the :ref:`design document of the feature
- <damon_design_monitoring_intervals_autotuning>` for the internal of the tuning
- mechanism.  Reading and writing the four files under ``intervals_goal``
--directory shows and updates the tuning parameters that described in the
-+directory shows and updates the tuning parameters that are described in the
- :ref:`design doc <damon_design_monitoring_intervals_autotuning>` with the same
- names.  The tuning starts with the user-set ``sample_us`` and ``aggr_us``.  The
- tuning-applied current values of the two intervals can be read from the
-@@ -496,8 +496,8 @@ Among the multiple feedback, the best one is used.
- Each goal directory contains six files, namely ``target_metric``,
- ``complement``, ``target_value``, ``current_value``, ``nid``, and ``path``.
- Users can set and get the six parameters for the quota auto-tuning goals that
--specified on the :ref:`design doc <damon_design_damos_quotas_auto_tuning>` by
--writing to and reading from each of the files.  Because the kernel does not
-+are specified on the :ref:`design doc <damon_design_damos_quotas_auto_tuning>`
-+by writing to and reading from each of the files.  Because the kernel does not
- update ``current_value``, reading it only makes sense when ``target_metric`` is
- ``user_input``.  Note that users should further write
- ``commit_schemes_quota_goals`` to the ``state`` file of the :ref:`kdamond
-@@ -535,8 +535,9 @@ DAMON-based operation scheme.
- ``core_filters`` and ``ops_filters`` directories are for the filters handled by
- the DAMON core layer and operations set layer, respectively.  ``filters``
- directory can be used for installing filters regardless of their handled
--layers.  Filters that requested by ``core_filters`` and ``ops_filters`` will be
--installed before those of ``filters``.  All three directories have same files.
-+layers.  Filters that are requested by ``core_filters`` and ``ops_filters`` will
-+be installed before those of ``filters``.  All three directories have same
-+files.
- 
- Use of ``filters`` directory can make filters evaluation orders confusing to
- expect.  For this reason, ``filters`` directory is deprecated.  It is still
-@@ -612,16 +613,16 @@ Users can write and read the identifier of the destination to ``id`` file.
- For ``DAMOS_MIGRATE_{HOT,COLD}`` actions, the migrate destination node's node
- id should be written to ``id`` file.  Users can write and read the weight of
- the destination among the given destinations to the ``weight`` file.  The
--weight can be an arbitrary integer.  When DAMOS apply the action to each entity
--of the memory region, it will select the destination of the action based on the
--relative weights of the destinations.
-+weight can be an arbitrary integer.  When DAMOS applies the action to each
-+entity of the memory region, it will select the destination of the action based
-+on the relative weights of the destinations.
- 
- .. _sysfs_schemes_stats:
- 
- schemes/<N>/stats/
- ------------------
- 
--DAMON counts statistics for each scheme.  This statistics can be used for
-+DAMON counts statistics for each scheme.  These statistics can be used for
- online analysis or tuning of the schemes.  Refer to :ref:`design doc
- <damon_design_damos_stat>` for more details about the stats.
- 
-@@ -680,15 +681,15 @@ tried_regions/<N>/probes/
- -------------------------
- 
- In each region directory, one directory (``probes``) also exists.  In the
--directory, subdirectories named ``0`` to ``N-1`` exists.  ``N`` is the number
--of installed probes.  In each number-named directory, a file (``hits``) exist.
-+directory, subdirectories named ``0`` to ``N-1`` exist.  ``N`` is the number
-+of installed probes.  In each number-named directory, a file (``hits``) exists.
- Reading the file shows the number of data attributes monitoring probe-hit
- positive samples of the region.
- 
- Example
- ~~~~~~~
- 
--Below commands applies a scheme saying "If a memory region of size in [4KiB,
-+The commands below apply a scheme saying "If a memory region of size in [4KiB,
- 8KiB] is showing accesses per aggregate interval in [0, 5] for aggregate
- interval in [10, 20], page out the region.  For the paging out, use only up to
- 10ms per second, and also don't page out more than 1GiB per second.  Under the
--- 
-2.47.3
+LGTM
+
+Reviewed-by: John Groves <john@groves.net>
+
+> ---
+> Tool-use note: the code review that found this and the reproducer were
+> prepared with help from an LLM-based assistant; I reviewed the change
+> and built and ran the tests myself. Reproducer available on request.
+> 
+> fs/fuse/notify.c | 5 +++++
+> 1 file changed, 5 insertions(+)
+> 
+> diff --git a/fs/fuse/notify.c b/fs/fuse/notify.c
+> index 984e4945e..938440474 100644
+> --- a/fs/fuse/notify.c
+> +++ b/fs/fuse/notify.c
+> @@ -167,6 +167,11 @@ static int fuse_notify_store(struct fuse_conn *fc, unsigned int size,
+> err = -EINVAL;
+> goto out_iput;
+> }
+> + /* DAX mappings do not hold page cache folios */
+> + if (IS_DAX(inode)) {
+> + err = -EINVAL;
+> + goto out_iput;
+> + }
+>  
+> mapping = inode->i_mapping;
+> file_size = i_size_read(inode);
+> -- 
+> 2.43.0
+> 
+> 
