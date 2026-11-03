@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740241;
-	b=s+lfr4auLAiYcAVRX1qigaqmy57T5DZGY6nv4VagI+cVDt7Yvyvp/mK+cmjpZeKC6dUB
-	 3sVLoJo7bNh947fiMLwUlQiF4NtVcW2Sk51BBDs36g4O1guWxT0arprAg4q94eQ9yrIJV
-	 ws7heQV83lotA7AtKQYc0/xRPjDE6LoVxEtg8ev66mwxU67+fK2Eheez+XKzqRiARXf1R
-	 il//BuI/uuOO7FnqjYzYa2XaR+68OoEw/0ErHnn+JG2OIGYAAGWiowbMBrN0on8/P4XR3
-	 P7zu0+SVaZwV/SgvRh/lBL1fJ/PCKO3iV12g3IvZbcFXP6fGXmBxA/qVjU1RKgCO8wQ==
+	t=1793740240;
+	b=C25JyB2cii/hmoD1ymatIQKegcLNQd6gJOFfXb+FZHYIbEif/iLUx0cBTkhDLtx33sZQ
+	 ZZG/BtTvma6U9q6W/rC1xrMP/cDL9t9IcyHv+/4GR0YiRiVT0Xo8q/3EV7bHONsZbDeap
+	 zQvN0mBlBYf/TmKYmRtncfhM2eIWlEB83CVfZvh7rRNt1taUuxGywWjJ7HO2hTJI+hceq
+	 0k0vHZf/vDYzWxTQzEV2x9hf+oWmZrHaP/C4VmwlpXwz5KdXU/BMm5hbrmCGqyzkb5qOc
+	 bX5axOBn71r3Wd6MQorucmkrNcZVcAkNdJivjvx8DkrPbL5jpCnbT89yWxYvfpdDEjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740241;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740240;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=kzzs5voJ/2XMZZYDH2tlAPLtXKMaRp+mqcY1ScX0xYg=;
-	b=zixgOndznMfW4S33uAlIPHm5KXuM2kcYaA4zKVGU60R0CKkh4jlNacuZVtuOPQC6CdEG
-	 J0P+4mPWtlXONX3u7ylLMi5gzb5/v5AcnZ/1FbXkvnTG6A+AvjiKMdZQuHvidGgrVTaIC
-	 72V/A9ASQKWbDhjA/5cMKVlGthglEsiI60EqkCidb4iJrj8084YO/qIXfDxJf0zjcRLt2
-	 DFYt8LvZoy9x6J8mo4cDi0ByWNXKtry69UfKfNwsZGdvUrZtROp4pRq72eEOTCPhQMvRM
-	 o/yBUi3Qu8fTEV9SE8WzqaeMpeR39x6t1SU5ruBs55e6+S7Mno8835SiAqp/wDsJglg==
+	bh=oibzb0WyOnXCVqHk/JQbkuYKg2Gn7hJGWFHttlYByP8=;
+	b=Eoovg5GoYY5QHRWOMj3FK0Kec6ZuGU3syVHP9yuc7O7ZcjZmxEHnG4k8ZIK+BJwU4epB
+	 gF3OkhmG1in/4qgOoIRVImHXcrvLfLYpARbLIkBh8WR/Rk/bggabv+AfaOaDKNCTrt5EZ
+	 0GlDr80qYQXk7mZvJaFvXTZo705pYaMQSSzaUAzG8Elzdn1yBZTx+3OMb/wT8Bl1gP4E8
+	 QOknFvsiCO3MOA4TFdcYBJGnvbZmNNts80+6NRBirDVz/uhfuFN3ZYhlf+6rkz4g7xGaV
+	 cGudUii7L6eYj8Di9azBq2tHDBsfsO80MNljKl+ZufPvO994LL/bj1soyuRAkh0oxJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=purestorage.com;
 	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eOTWrUhF;
-	arc=none smtp.remote-ip=209.85.128.99
-Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com [209.85.128.99])
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=OLEqYr5p;
+	arc=none smtp.remote-ip=209.85.128.97
+Received: from mail-wm1-f97.google.com (mail-wm1-f97.google.com [209.85.128.97])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6409B606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:10:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6409B606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16316606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:10:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16316606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eOTWrUhF
-Received: by mail-wm1-f99.google.com with SMTP id 5b1f17b1804b1-4a59ffacb51so6726265e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:10:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=OLEqYr5p
+Received: by mail-wm1-f97.google.com with SMTP id 5b1f17b1804b1-4a610c7e61cso7019585e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:10:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793740239; x=1794345039; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1793740238; x=1794345038; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kzzs5voJ/2XMZZYDH2tlAPLtXKMaRp+mqcY1ScX0xYg=;
-        b=eOTWrUhFUtjRWxeqL3PaSxcNBti0f689lXJbcyGVFEy10UyO5mfPtwGmCEy8x6eK5Y
-         Dj+8Zie0klgzeXObU77zrgUM7qMz23kkN9cg5lUCm/v/fwANokl4XYsNY0cCgUZ/NFJi
-         scOJdL5JUGzWK4Y4zuop4RIqvXO62GgBIuGeHRsHnru1zLVdv0erMBgd8OY3lu1va35k
-         pBNNkeYe7ac+eUq2cz7lp4hpEa7FP0LreaCfNxgdN0USMGyoGxIxVDwPdtcOnovJvUzH
-         uc6qs65OXBD7NmRDDuRkW+83VVJs4+LaeQod78Op8qe9kdvw6Ur/utCnHqaKzDcKfogm
-         tdcA==
+        bh=oibzb0WyOnXCVqHk/JQbkuYKg2Gn7hJGWFHttlYByP8=;
+        b=OLEqYr5pikrldqmuRgbA7Tw+OjqWnFMUBnyP6Q6zxezEjz4ElLaXgBitayQTfX0mpW
+         ZDuchmLJjtrzC/EnOU7o6WGvr7u2BFC9VK72vqItAFiqoxLheVWSyOZBcsJ4+IYCpayL
+         kc6BgkvrKWU4RZeLM0jrem84B6EKNHkEMdNiG4g+GuA13bOYm0M45/SWQeMHhG55TKS8
+         2HZIGBn1nrUfvdgFwl8QMb4NtkDSXmlbaRwAPJzpwOiVs48vedSM4zRKm7oYeUpwrQmA
+         Anv1towlYXo1ypwCsBxpSsRQ0ncrPh8PdfUxr62O5uau19HzmwYtugS0PTj1RaneMnDc
+         xELg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793740239; x=1794345039;
+        d=1e100.net; s=20260707; t=1793740238; x=1794345038;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kzzs5voJ/2XMZZYDH2tlAPLtXKMaRp+mqcY1ScX0xYg=;
-        b=bbrftVGJyQCrlbBO5tPaVGxYiedp7HhdFDSmQ7b7UB5k2ZszyWsxBHrKxIhqmISpk4
-         fEQmhi0Q0iEvorrN+DuDV3gQfQXs5B0uTFFgVImd045k00KLYNCuO7EcK0ayTS0bvXq7
-         GTf80WjJHySQZ2xq10fhS9J4rz5YyD8oGwxvV8af+eQtwX7Ya6aPwwzmanICFqOaKee5
-         iTNAWjs84WcJEgySy3YhpKgxAa3uhdC0fyPcoVJlPVSIMMOseqOaMguiBzAXD207XKvH
-         QXhGOjKGdIctlXIEwGZtcQVeuyrjLh9IFvXJehVe9ITXhuxJ/76yVVAjH1GuP9TFcjNw
-         QnZw==
-X-Forwarded-Encrypted: i=1; AKwUvBzd3cc8a5N93kVAM4D+QyTcnb5nEG/q6BdH2tKMPR2iegTrxkvtqHsfMYGbitvKRQJy3Jen7sh+X8EmCGE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yYX4vH632EWtDun84VhFVSOxD10gT48VELBYx8mJuUQJO2WEd
-	zFydLw0rkCLkieqaChUGu+lzFSmz1juhJ8MDj2NZNiugtS0zzOMbefb1e04DvprcN1iGrHOxw2C
-	MefPO1dqE+drs7Xfa99hQWkgWEjHlsOuZqJKZ
-X-Gm-Gg: AYBFou03QG8yR1oeSpqcLYxtx0U812CB9igSThFQwrWn/ZxuhFbhkM/wWVgAY4lLtJm
-	0RkvYt1sIGq2ydq3t7dFqlDmJ3zCGkdt9/2GOR3zh0iLhDkybrd7gtaVsAV3Xfh2R++xK+gcLrz
-	ucSOKqVeTShz06PxfvaeJ50LbSOdsy5RVR3ejAzDLWhdDgR9fr0nNrGFFlhsQe6iA/V6l3rQp5Q
-	HhcZKo+NHV29ZJmQxPneoe0LF3PSenvzVBPYhrC1/9j+vcz+/LtP0zRSAbdnOVifP2gup23g8kl
-	FguXvlaWAsJXt0LD49Ucnce1pCLDsYQZjyZjSbVzJVj6wAc5yQPjmrm6vGZZFuEa6ipktElKkTh
-	i6AEfpAqjmU7SK8HBKIhb+VWSVPsuymQx
-X-Received: by 2002:a7b:ce0d:0:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4ac177538c5mr250973555e9.1.1793740238772;
+        bh=oibzb0WyOnXCVqHk/JQbkuYKg2Gn7hJGWFHttlYByP8=;
+        b=r0zo/gzO0nvqrp2iixt9FpIQVulh1q2wRgDAqavmbLdPFYPGa9RXqFGvO/PZg6OHZ8
+         n2Kpz/tL7Mh74lke0vkiefRrL8I4Kd+jaBGij45mOxonucTJ5Ra6b0KXO9RNkSHdTX4d
+         RjbzOQ1VTCDmhkDQ0RPkiO8YJSCTpTHpVwiwgDpjOw2KBeINBH/yYz8PyVXkfb3z2YAM
+         +wcYmkUixBIXj7EdRgKwtJhTIT4YPfoYvSEu1Sy9PNwE5iNNCetIbuHz7yCQWtnOxipo
+         1yMm3XFiBMGN38YoJElESnHAHxbO+Bsi0x8BpXUvOQLJgIaM9xreBRd/n/QIUQ1GF0Zf
+         nJrw==
+X-Forwarded-Encrypted: i=1; AKwUvByR+LzdMY9RDxBkGkEiPuW7mJMdvkV8uPXDTmEmKmE/3lN9EHkBQQvETFVkg1cRnO9mKXwy/aEfBp9oMRk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xIpw8nLSTQ5BusoDdmcd4UxTtwUhd5BQGLrnxDvw8Eb5D3jDB
+	qmAs/QjvN8VJEhn4byXhRLnDPDMiy8SFomfYTtU8CTm0bnvVD6eePGI8U/dpAw4C4Qj1tUcfG9v
+	pdke8ihtYlWsiAP+iYdQVnXMcZUIfXgv/YcNSCK1Xgu6LMMy16DF7
+X-Gm-Gg: AYBFou05MXJhWNfId4yWiW60HU9v7yUsdmLl6QHaoBq+WcjXbRWkNFExO1TPl/YG+Fw
+	Ny5JE8sHJCvTkEEZY6Z2MmXw+8s7EfHtKJcRiA6VN2GSomZmAOA3pwQSaOlGo9B25y3/Wb2emfh
+	Ds6ndy0f+dE27TfFsZbLZ2AS/6mfLS1mlLG2aY5UuV0Q4CtfDyNsOcobWS2C+ajGP2nVwtL/77E
+	W3tvhlgU0f4RjMKIJf4QKgxb0lPZ1VwXVg7D48IeR6XoUrZ1vZiHBXIftDbAlBmmAx+IDIlZLwV
+	onfN2gkupnixhy9opaXjJM7u7NH2uxyYsH8cmLeiRXQVxTKM7ijTWukGeLNQUhVGnmE4yVhPlae
+	NYU5x8YOcGlu+fAP09w==
+X-Received: by 2002:a7b:ce0d:0:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4ac177538c5mr250973225e9.1.1793740238406;
         Tue, 03 Nov 2026 13:10:38 -0800 (PST)
-Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.129])
-        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-4b2b00ce407sm7997295e9.0.2026.11.03.13.10.38
+Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
+        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-4b412a71624sm221415e9.2.2026.11.03.13.10.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 03 Nov 2026 13:10:38 -0800 (PST)
 X-Relaying-Domain: purestorage.com
 Received: from dev-csander.dev.purestorage.com (dev-csander.dev.purestorage.com [IPv6:2620:125:9025:23::204])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 5BF554395A;
-	Tue,  3 Nov 2026 14:10:37 -0700 (MST)
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id E300F43622;
+	Tue,  3 Nov 2026 14:10:36 -0700 (MST)
 Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
-	id 59A8AE40437; Tue,  3 Nov 2026 14:10:37 -0700 (MST)
+	id E08F8E40437; Tue,  3 Nov 2026 14:10:36 -0700 (MST)
 From: Caleb Sander Mateos <csander@purestorage.com>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: io-uring@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Caleb Sander Mateos <csander@purestorage.com>
-Subject: [PATCH 4/4] io_uring/futex: avoid ifd NULL check in io_futex_wait()
-Date: Tue,  3 Nov 2026 14:10:31 -0700
-Message-ID: <20261103211031.592745-5-csander@purestorage.com>
+Subject: [PATCH 2/4] io_uring/alloc_cache: mark cache success paths as likely
+Date: Tue,  3 Nov 2026 14:10:29 -0700
+Message-ID: <20261103211031.592745-3-csander@purestorage.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103211031.592745-1-csander@purestorage.com>
 References: <20261103211031.592745-1-csander@purestorage.com>
@@ -105,57 +105,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There are two paths that hit the done_unlock label in io_futex_wait():
-the ENOMEM error path allocating ifd (via goto done_unlock) and the
-futex_wait_setup() error path (via a fallthrough). In the ENOMEM path,
-ifd is always NULL; in the futex_wait_setup() error path, it's always
-non-NULL. Move the done_unlock label so the goto skips the ifd freeing
-and the success path can free it unconditionally. This also avoids the
-need to initialize ifd before the io_cache_alloc() call, as it's only
-used if io_cache_alloc() succeeds.
+The point of a struct io_alloc_cache is to serve allocations from the
+cache to avoid a call to kmalloc(). Only very high queue depth workloads
+require more concurrent allocations than the fixed-size io_alloc_caches
+can provide. So mark the success paths in io_alloc_cache_get() and
+io_alloc_cache_put() as likely.
 
 Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
 ---
- io_uring/futex.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ io_uring/alloc_cache.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/io_uring/futex.c b/io_uring/futex.c
-index 9c7d384bab9b..e0cb815fd37a 100644
---- a/io_uring/futex.c
-+++ b/io_uring/futex.c
-@@ -317,11 +317,11 @@ int io_futexv_wait(struct io_kiocb *req, unsigned int issue_flags)
+diff --git a/io_uring/alloc_cache.h b/io_uring/alloc_cache.h
+index 962b6e2d04cc..aa007b380f1b 100644
+--- a/io_uring/alloc_cache.h
++++ b/io_uring/alloc_cache.h
+@@ -19,22 +19,22 @@ bool io_alloc_cache_init(struct io_alloc_cache *cache,
+ void *io_cache_alloc_new(struct io_alloc_cache *cache, gfp_t gfp);
  
- int io_futex_wait(struct io_kiocb *req, unsigned int issue_flags)
+ static inline bool io_alloc_cache_put(struct io_alloc_cache *cache,
+ 				      void *entry)
  {
- 	struct io_futex *iof = io_kiocb_to_cmd(req, struct io_futex);
- 	struct io_ring_ctx *ctx = req->ctx;
--	struct io_futex_data *ifd = NULL;
-+	struct io_futex_data *ifd;
- 	int ret;
- 
- 	if (!iof->futex_mask) {
- 		ret = -EINVAL;
- 		goto done;
-@@ -349,16 +349,14 @@ int io_futex_wait(struct io_kiocb *req, unsigned int issue_flags)
- 		io_ring_submit_unlock(ctx, issue_flags);
- 
- 		return IOU_ISSUE_SKIP_COMPLETE;
+-	if (cache->nr_cached < cache->max_cached) {
++	if (likely(cache->nr_cached < cache->max_cached)) {
+ 		if (!kasan_mempool_poison_object(entry))
+ 			return false;
+ 		cache->entries[cache->nr_cached++] = entry;
+ 		return true;
  	}
+ 	return false;
+ }
  
-+	/* As in io_futex_complete(), or failed arms would drain it. */
-+	io_cache_free(&ctx->futex_cache, ifd);
-+	io_req_async_data_clear(req, 0);
- done_unlock:
--	if (ifd) {
--		/* As in io_futex_complete(), or failed arms would drain it. */
--		io_cache_free(&ctx->futex_cache, ifd);
--		io_req_async_data_clear(req, 0);
--	}
- 	io_ring_submit_unlock(ctx, issue_flags);
- done:
- 	if (ret < 0)
- 		req_set_fail(req);
- 	io_req_set_res(req, ret, 0);
+ static inline void *io_alloc_cache_get(struct io_alloc_cache *cache)
+ {
+-	if (cache->nr_cached) {
++	if (likely(cache->nr_cached)) {
+ 		void *entry = cache->entries[--cache->nr_cached];
+ 
+ 		/*
+ 		 * If KASAN is enabled, always clear the initial bytes that
+ 		 * must be zeroed post alloc, in case any of them overlap
 -- 
 2.56.0
 
