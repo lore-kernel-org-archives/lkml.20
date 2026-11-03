@@ -1,85 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696008;
-	b=cqhSKvobxzl+B8Jd0IDvLSbos62NvnXdpml7ChDoVTx4XxrSlKT88+mwGJapZrujWhC8
-	 L0MObp4tc6qYrfQpYsFPI17SNjhtjr55eC1fl5YOuk4pWts8wM79rWlD98tTsMpKTT75R
-	 UDSmnaWsJhTINCAZSm6mvYr18J0d6EWQ4ZuYkkjP9VRhM59EnE2WAymNh+p+Kf5Q46Q62
-	 tTMip88x9YDKiOCU/CJRWFBw/wO9a5SefIEuJ+U+dRlxBcS4P/fSbaYAyKhXoqDTOAe70
-	 r46YgphBybDvRYyTHJe+6od6S9nwcZycMLBoxOKkc1zIiV7iCn1Vx+V91m2mHrKViUw==
+	t=1793696022;
+	b=3pEY9JGT445/Z4c+Y46GCt6ZPZ+cKDJrV/3rOSHo9v+7a4bBsvwHeCVjk7WqdBHAb6HJ
+	 jC96tZZgD3yzUEQ0RfFIsjIh/pjz695XDl0R256pbnnr6DX7BmsT4+udk1vrYzsaHVnrj
+	 8QgHonU6ZZ3Iw0RIXQBUxHI5PGbGalmMTBizAhOSMSiokNiwJpp7+DOqEB7Oxw13KNjQK
+	 jNQ73IGez0qt+WGXvdPI2gv9IOFCK5aEt/A/ErX44olCle/W3cHibxwGNd2Silz9q/KEx
+	 EoWX0l/30F8MnOZbcediUG0HB4YC3Mjimyclp9H4ss26tSNt47DfmiSHX7XzadFGkrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696008;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EcSoxxnJMuvLP1xQ1FTzrMC+CsvkWlzyYnlR9skwhbc=;
-	b=uXx4SHyaX8PFob0f4+hfPRopLTTvKkfsujNcBGDwYU8UCR5SxZ9WcEPQXuDuychMnqNK
-	 58CsD7A9TNcV7n7m/y6V/WPE6pZ7HkzvvvvJrC5H14upmwKrMROS/01qaa0i4yAazvMhe
-	 6/IoLZ49l/vFucqrbvQg0tjyaCcnWYsC9I0XVicSPgl8dKAngzecePLYlLBkCiaHNqXtE
-	 c+b4EP0X8IXTXhnRKS+ksDK6G+hzL5ELQjEPczhLM+B/1jkuhIh/GWmXyfeq5FDGpH9A4
-	 aGz4ccX1Mz9aPy7lVJu8/bKm1ItASK+GfMjCqKqnkp3HNECCt//AmjUYUxWhgRZJjnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696022;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=cYVEhmFXBYWgKUnLGpmzVsxJ6ulxA2Owk59YswCIlXg=;
+	b=iTtIoOTcJ29wE5RdbwFaiD4B9eaaLikcY6zPoZ7xcfmk7aDSQxLE7GRCmeB40x1BewAy
+	 ndqIrNwQPy8HsP0f/gsOrxCYlavJ33gh1OzcMX7pig+Q7FwgymkAJJUbrrZXLDXCrwPIw
+	 RMU7u2HlgF/wp9FfuKYD2oguMuoOoZyTltaVGLSAaHplofEaS+Finwz+jB+eVomOPUV1e
+	 Jqlt6hDzZ2rLgdG3+A56PTiF0IXz2eKvQECFd8rs5MIXhR79hzikDbqm3j1Qtdc4tMwb/
+	 l7KQ+twiGdkRJotOakV0nvRvwdwLCCjK2Vb9ZCQvaL/i6q4WqjSEknmmypm4XVhg0GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWZQdAmA;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LmcrwUS9;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6798606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:53:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6798606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF45606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:53:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EF45606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWZQdAmA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793696007; x=1825232007;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=p622XnqmTxgrIzjfBothae0z/U5tiui9rdZzVBu4Is4=;
-  b=kWZQdAmAHWviGIfFlDM3zas+iVKaoD6CJckzrrrj0kNyG7Bvt4xGap5x
-   0YaW3AFjosPoa+ryY8ZxKzeKxNl+ykVAf9XxAVku7WWsT5LM7/o2K2wj0
-   DM7s0JJRGYfyCgdkh5Tk0UrtYWjCsV9UstJfhvR3KGW6k/w7+91A0nY/W
-   SFImqHkmuMVSNALy8UH/F71x5kuBmeOUWsN6i/ImgZC8NWzz8NN7xcSBk
-   JB/vd8P3T5iV5CHWXzDsmYIoftKO3wEfkO9rYJtZ/5RjMRtGgF2aF90Rw
-   K6W0B2igXls0LSWnhYwr5mrEO8i5fYU3hLyPiyVlgCIZ++Kjxax0RBZBK
-   Q==;
-X-CSE-ConnectionGUID: Cb/6JbaPRk6/zm2IijAGEg==
-X-CSE-MsgGUID: pxwRNFtiR72I39r5RTLjUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2439716"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2439716"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 00:53:07 -0800
-X-CSE-ConnectionGUID: WZiypFdLTL2ooUY+g3QchA==
-X-CSE-MsgGUID: aMbtfmTWR4S2MGK4pGQEuA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6255554"
-Received: from yufei-inspiron-3910.sh.intel.com ([10.239.92.97])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 00:53:05 -0800
-From: "Yu, Fei" <fei.yu@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	David Airlie <airlied@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	Hui Peng <benquike@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com,
-	Fei Yu <fei.yu@intel.com>
-Subject: [PATCH v2] drm/virtio: Put GEM objects when dropping a vbuf without queueing it
-Date: Tue,  3 Nov 2026 16:53:14 +0800
-Message-ID: <20261103085314.3102802-1-fei.yu@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
-References: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LmcrwUS9
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so5370715e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:53:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793696020; x=1794300820; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cYVEhmFXBYWgKUnLGpmzVsxJ6ulxA2Owk59YswCIlXg=;
+        b=LmcrwUS9/1cu1tozsQPjqLJp6CthGNXRle53fDkzSFEZWAEAl5surhpdZJFI0/RUV+
+         np9Heklw+O8lXZXJQQzRDOTus09Pp293/kB+yQR3AppJrQdrNZy4504Yd7N/7PUCMnrv
+         0GWOdJIgqrN5zJOp+3sy+FUTKPRmtZMNOsryYQcTn9AYaAqBJ9y/913OCAKeCEtLy6jR
+         1wUcwwhCwHo6TN+K+8NMQf01kxfqZpoI7kVWTbILaePIcnyvAZ7+5GavNKriGWZ5Z/ZG
+         HEnMN91m++0UuOwrnuI+ub+f1clB/VFgKu3R2qMabmR7pf9mYduTURaw9r12Fb3JmNWb
+         FwVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793696020; x=1794300820;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cYVEhmFXBYWgKUnLGpmzVsxJ6ulxA2Owk59YswCIlXg=;
+        b=FEmhq8rQgTLdR+3TQRjHL4kKE1Ty6g8Ih7qKXMvauhevxaDONcQCGuwGE6fh6hpnya
+         V55BBRUGCoER5DWECGHZVzg12K+UC1Uq+tsh/B/5eAyifXPgJn5cmFbGp5+JywI8aI4j
+         x/UDUwyaV0JgXAulESsFInA2dXlA9GkYVktetIZTKJBGualgSKIM1uMqVSO61lcI/ztH
+         xXvEG6IBn7kDpVHHR3SZVGXULvy/qoFjaxYfg66Mpcm96cJwAXY8bnlcyOqqChkGHL4+
+         wuhw7gfYmA8vvuz+1iWPtEBz0XOhPsqCTlu4DaeJEmwPqi8k2NK4Uaokl6/VLFhx/cb9
+         4+wg==
+X-Forwarded-Encrypted: i=1; AKwUvBxcWO5e0rCupTIdmD5DxlJM4TjsQUsMNmdVWSM1ly6nGWYYGlGbmhLx9Lb081MmDHS91+6e3umD6J4E9B8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LeyhIiCeH4nSfvqQ741k44b9UMg/GpaI+am5DXkhJXR0Ti9F5
+	JjK+qK2udLK2cLTbMd9lSYVUleg0mDzHS2Uoib/Ezg8plzfDI7zRkFhnBDH2k0bfYWY=
+X-Gm-Gg: AYBFou3+z/J2G9I03HNhNqSQQ0zc49YDl/TvbtM8eWG13cACNGtQCbrbmwdVn531xjQ
+	pBwd57ilBs4lFwy+u+9Z6/Zfb07LOuGBoHzBFSw0DGCk5iJyD1qU+DZ0d3gnXstN2b/c9TSqw1u
+	VzMnkZblUBc+L9hkgsx4+kbAd4LagohYBKPmIFycIoE33aAIhNdCfKlPlQkV7+7JCl0mzSBqZ9F
+	X9svf6RYC6hBj+tkt4qRfG97bZhoDiSzfhvKDftGkBdqotNz4lCHT6UJedAGumIggIw9aSXBHq1
+	xQxZULIvJNhnszJw7ixy/EcKgdWDvWTyMqruPpxaRZ7aOAJuO7c5cfLs+Yn1LU0HcWCfO8RKXYX
+	aJQttwLhrcxtaGZJcOlNGhv8WbXWCRe7wD7afw5vEuLvabvSaIpvuwh6b5Nfub7TUvBR5nLTxTi
+	nzgWC078x1XD74qZaSv6id+lmppYuIGRZIuBiL9t2Y7B058awAfKxe8vQ5iSvnwShZ1yBiLNW/h
+	U+ve+M3qozTfRz3E7h37SLwaSMXlyHAWaiErDQw8bRLyUh0vsILOgtUp7aAI7YRlLKuM4VXkptH
+	p1PDewxpEawXBO3u1sQ/GCyeb3l3u26yivyhuwW820iwg7rmEoeYFMJ0nazIweedEOY74a8jtFN
+	2rvz2YHBIAMmV1suvtmx3iPwRS1yU
+X-Received: by 2002:a05:600c:2541:b0:4a5:9224:fa10 with SMTP id 5b1f17b1804b1-4aa8b060adcmr301144395e9.18.1793696020400;
+        Tue, 03 Nov 2026 00:53:40 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:95a2:4869:9f46:45f0? ([2a01:e0a:106d:1080:95a2:4869:9f46:45f0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728ddsm23606102f8f.9.2026.11.03.00.53.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 00:53:40 -0800 (PST)
+Message-ID: <2fdcea84-8b95-4ec1-af62-07e1803cb418@linaro.org>
+Date: Tue, 3 Nov 2026 09:53:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,143 +93,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH re-send] drm/meson: add support for higher bandwidth HDMI
+ DTDs
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de
+References: <20261102212843.1213021-1-martin.blumenstingl@googlemail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261102212843.1213021-1-martin.blumenstingl@googlemail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+On 11/2/26 22:28, Martin Blumenstingl wrote:
+> There's a report from a user with a DELL U3415W monitor and a Khadas
+> VIM3 stating that 3440x1440@50Hz works but 3440x1440@60Hz doesn't.
+> edid-decode Detailed Timing Descriptor (DTD) extract of that mode:
+>    DTD 1:  3440x1440   59.972616 Hz  43:18    88.819 kHz    319.750000 MHz
+>                 Hfront   80 Hsync  32 Hback   48 Hpol P
+>                 Vfront   28 Vsync  10 Vback    3 Vpol N
+> 
+> Those high clock rates are currently not supported by the meson_vclk
+> code as it limits the PLL OD (output divider) to a minimum of 2. The
+> formula to calculate the clock internally is (ignoring fractional
+> dividers):
+>    319.750MHz * 10 * od = 24MHz * m
+> 
+> With od = 2 this results in m = 266, which is outside the supported
+> range of the PLL on G12A SoCs (the driver limits m to 106..247).
+> Using od = 2 results in m = 133, which is supported.
+> 
+> Allow the driver to pick OD = 1 to gain support for modes such as
+> 3440x1440@60Hz.
+> 
+> Link: https://forum.khadas.com/t/can-not-set-display-resolution-to-3440x1440-for-dell-monitor/26271/12
+> Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+> ---
+> Re-send of [0] which seems to have slipped through.
+> 
+> 
+> [0] https://lore.kernel.org/linux-amlogic/20260109204836.790096-1-martin.blumenstingl@googlemail.com/
+> 
+> 
+>   drivers/gpu/drm/meson/meson_vclk.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/meson/meson_vclk.c b/drivers/gpu/drm/meson/meson_vclk.c
+> index dfe0c28a0f05..c0be0b7655bf 100644
+> --- a/drivers/gpu/drm/meson/meson_vclk.c
+> +++ b/drivers/gpu/drm/meson/meson_vclk.c
+> @@ -700,8 +700,8 @@ static bool meson_hdmi_pll_find_params(struct meson_drm *priv,
+>   				       unsigned int *frac,
+>   				       unsigned int *od)
+>   {
+> -	/* Cycle from /16 to /2 */
+> -	for (*od = 16 ; *od > 1 ; *od >>= 1) {
+> +	/* Cycle from /16 to /1 */
+> +	for (*od = 16 ; *od > 0 ; *od >>= 1) {
+>   		*m = meson_hdmi_pll_get_m(priv, freq * *od);
+>   		if (!*m)
+>   			continue;
+> @@ -750,7 +750,7 @@ static void meson_hdmi_pll_generic_set(struct meson_drm *priv,
+>   		/* OD2 goes to the PHY, and needs to be *10, so keep OD3=1 */
+>   		od3 = 1;
+>   		if (od < 4) {
+> -			od1 = 2;
+> +			od1 = od;
+>   			od2 = 1;
+>   		} else {
+>   			od2 = od / 4;
 
-virtio_gpu_queue_ctrl_sgs() drops the command when drm_dev_enter()
-fails or when vqs_released is set during device removal. It unlocks the
-reservations and frees the vbuf, but never releases the GEM object
-references that the caller transferred in vbuf->objs. Those references
-are normally dropped by the dequeue worker once the host completes the
-command, which never happens for a command that was not queued.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-If a framebuffer flush or transfer (e.g. the fbdev damage worker) races
-with device removal, the GEM object backing the buffer keeps a stale
-reference and is never freed. GEM objects do not hold a reference on the
-drm_device, so the device is still released, with the object's node left
-in the vma offset manager:
-
-  Memory manager not clean during takedown.
-  WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown+0x62/0x280
-  Call Trace:
-   drm_managed_release+0x1bb/0x540 drivers/gpu/drm/drm_managed.c:75
-   drm_dev_release drivers/gpu/drm/drm_drv.c:924 [inline]
-   drm_dev_put+0x1f/0x30 drivers/gpu/drm/drm_drv.c:957
-   virtio_dev_remove+0xb8/0x170 drivers/virtio/virtio.c:375
-   ...
-   virtio_pci_remove+0x7c/0x110 drivers/virtio/virtio_pci_common.c:760
-   ...
-   remove_store+0x123/0x140 drivers/pci/pci-sysfs.c:524
-
-The vmalloc_to_sgt() failure path in virtio_gpu_queue_fenced_ctrl_buffer()
-has the same problem, and additionally leaks the vbuf itself.
-
-Add a helper that releases a vbuf which was never added to the
-virtqueue, including the object references it owns, and use it on all
-three early-exit paths. None of the callers touches the object array
-after handing it to the queue functions, so this cannot double-put.
-
-Fixes: b1df3a2b24a9 ("drm/virtio: add drm_driver.release callback.")
-Fixes: a46991b334f6 ("drm/virtio: abort virtqueue wait on device removal to avoid hung task")
-Fixes: e1218b8c0cc1 ("drm/virtio: Use vmalloc for command buffer allocations.")
-Reported-by: syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
-Link: https://lore.kernel.org/all/20260927040655.14531-1-ngocthang2710.1999@gmail.com/
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-[fei.yu: also handle the vmalloc_to_sgt() failure path, pass the fence
- to the helper instead of a bool, fix the Fixes tags]
-Signed-off-by: Fei Yu <fei.yu@intel.com>
----
-Testing: syzbot C reproducer (PCI remove/rescan loop) for 120s in QEMU
-with fbcon on virtio-gpu: v7.4-rc1 printed "Memory manager not clean
-during takedown" in 377 of 441 cycles (kmemleak: 4040 objects); with
-this patch, 487 cycles, no warning, no kmemleak report.
-
-v2 (Fei Yu, Nguyen's v1 got no review for weeks):
- - also handle the vmalloc_to_sgt() failure path in
-   virtio_gpu_queue_fenced_ctrl_buffer(), which leaked the vbuf as well
- - pass the fence to virtio_gpu_drop_vbuf() instead of a bool
- - replace the Fixes tag: b7170f9457f2 only changed the return type;
-   point at the commits that added the three early-exit paths
-
-v1: https://lore.kernel.org/all/20260927040655.14531-1-ngocthang2710.1999@gmail.com/
-
-Note: Hui Peng's "drm/virtio: fix vbuf->objs double-free, fence NULL
-deref, and sgt error path" [1] touches the same paths (by moving the put
-into free_vbuf()) and conflicts with this patch.
-
-[1] https://lore.kernel.org/all/20260919223440.3884176-1-benquike@gmail.com/
-
- drivers/gpu/drm/virtio/virtgpu_vq.c | 30 +++++++++++++++++++++--------
- 1 file changed, 22 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index d99fb9e32..21271966b 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -208,6 +208,25 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
- 	kmem_cache_free(vgdev->vbufs, vbuf);
- }
- 
-+/*
-+ * Free a vbuf that never made it into the virtqueue.  The caller handed
-+ * over the references in vbuf->objs, which would otherwise have been
-+ * dropped by the dequeue worker once the host completed the command, so
-+ * release them here.  If a fence was passed, the reservations are still
-+ * locked and must be unlocked first.
-+ */
-+static void virtio_gpu_drop_vbuf(struct virtio_gpu_device *vgdev,
-+				 struct virtio_gpu_vbuffer *vbuf,
-+				 struct virtio_gpu_fence *fence)
-+{
-+	if (vbuf->objs) {
-+		if (fence)
-+			virtio_gpu_array_unlock_resv(vbuf->objs);
-+		virtio_gpu_array_put_free(vbuf->objs);
-+	}
-+	free_vbuf(vgdev, vbuf);
-+}
-+
- void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
- {
- 	struct virtio_gpu_vbuffer *vbuf;
-@@ -437,9 +456,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
- 	int ret, idx;
- 
- 	if (!drm_dev_enter(vgdev->ddev, &idx)) {
--		if (fence && vbuf->objs)
--			virtio_gpu_array_unlock_resv(vbuf->objs);
--		free_vbuf(vgdev, vbuf);
-+		virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
- 		return -ENODEV;
- 	}
- 
-@@ -459,9 +476,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
- 		 * synchronize_srcu() wait in drm_dev_unplug().
- 		 */
- 		if (vgdev->vqs_released) {
--			if (fence && vbuf->objs)
--				virtio_gpu_array_unlock_resv(vbuf->objs);
--			free_vbuf(vgdev, vbuf);
-+			virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
- 			drm_dev_exit(idx);
- 			return -ENODEV;
- 		}
-@@ -542,8 +557,7 @@ static int virtio_gpu_queue_fenced_ctrl_buffer(struct virtio_gpu_device *vgdev,
- 			sgt = vmalloc_to_sgt(vbuf->data_buf, vbuf->data_size,
- 					     &sg_ents);
- 			if (!sgt) {
--				if (fence && vbuf->objs)
--					virtio_gpu_array_unlock_resv(vbuf->objs);
-+				virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
- 				return -ENOMEM;
- 			}
- 
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-prerequisite-patch-id: aa41f7089456b709927a2d1d5480fdc2f0f2ec76
-prerequisite-patch-id: 78c30e7ee8bc1e8d2c9e0626e8988a021d61b3bc
--- 
-2.43.0
-
+Thanks,
+Neil
