@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793676865;
-	b=ccuhOSAyIcghOSg3m2OhFvLcMOcesNeYUZ1X07s5CSC51qBuSXHrKY1buAU1FvRKLiUH
-	 TdlYYdiXX2x8EaxbZbIIpRxE0vTpeeEFgdacHzlkUXRtbiA7dhpK6WzOVhWlBfJOnKnMB
-	 JbzmoKPI6r0TU0FsDSvtkqm61WNBMjdwVL6lF6Pm8d6dvLlXHnVCwdnmL7Ee3WJJwnLhH
-	 BVSbCb/4uLVj12rSQMM0KRU+yLUSL9exMNskPYkTjSrNncRbuVdRyZ4lkcp7ad0PSC4LD
-	 XOtt4lwoyk35BVfoTV313b8RdCDXsn6yZZ6fwY2DAo5fBTlMGhz7wqjQVZTe5Wi5Ikw==
+	t=1793676882;
+	b=MIOid6vFooZH0UIk7rebcBnzo4YR01aShTipfL4cOx4R5UIBYFll3J+DfGJkU/KZYL2U
+	 Zjc2+kAY7UVV8jDWnEuZt/M6qRWXAtzmgOTpFPRGPmpWDARQJhOvwNQABOuNeNC55GtbN
+	 okf1QFO1MKxbq1wO/pGsBAiNMbzqLaICua1uG5DHmjF3nJe2XJRfXUrOhOi4XqafxsVWA
+	 ZGRfUFRI82KI4BqBvzi1VbySMzYenM5WPVuLH5g/ZuNF7UhIUSJDZMcBIFJNHC91jCJg9
+	 5QIeofWJKOlbWtSGw1DiZyoMrdMCPud6oOg09Q3Ir5wl8WSO3dOZ+kyxOAnIYCym5ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793676865;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793676882;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=mwU+A6308ip2iXwKodsHaokt6SloRiTa7TXQScnGfWM=;
-	b=zvC9P9T/Olm44mBTTfEMu9sNeImFfTGifXgMST6jm28cyGgpQd/PKCk1UGO0sS8JlJla
-	 CHqB4dzaywcxvwFDt5Ic+3AsIW7Wk5hXJRfRhXkbmJmeXChq5UwKV+tEBlMQ6y57RLpuQ
-	 NyOjRXYKu5v4DUvxNTAIN9ZisCqKtnxH9rZzcTvhD3JpA2CpBoZk/H+cePCLr4fiUX8xr
-	 W2GrshIQ30JRd4A3CtnNFNfryQ7AjRjC9iIuMF1kfCrkYz8r4zNs95FCfJhdd4n0eYxN/
-	 F1a89aBOj+kP8kLSOiXoh+I2SwrrQaS9IaOC5ICOnN9wdkyXxdsIgXgn9b7EW4HHUYw==
+	bh=13EGJjruJLP4hRxeg5Zs7XI3rKWGtad3Ql0J3Te1tx0=;
+	b=EoLHcQiJhKSTI1Y/c1bXnm0hhmKbEEGyLcenKQBRvdkDywSuVMr/iUCBBMLXPrFOx8kJ
+	 y5xsbhXPHxE/xDq5VxpuS0gl63m5J2cwpFLKuYEd8s56CQY8F878xbhVdFe8hYQdO7dx5
+	 JZvxG8nH8tnGGuEb83UWYKh42IceHBOHiZ3fEXIbOBQ+Q9J5VUe15sawtiVPop9MMUkoq
+	 JH7ircD41ibGPeU5575wDAUiWWTeFVqHLn0VYuu6UnzEvWlPhg6SgMm0sjNacKiTHogB0
+	 TnO95eNxcEojV76ZmGCTTPDMNCVZJvoq5RA5dFlUOmfwg7gNtbW8hMc6q9eecw+NXMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=jclark.com;
 	spf=pass smtp.mailfrom=jclark.com;
-	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kFs3+pAc;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=quTlDtbz;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00179606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:34:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00179606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37608606D810
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:34:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37608606D810
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kFs3+pAc
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso1517132a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:34:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=quTlDtbz
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso1646197a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:34:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793676863; x=1794281663; darn=vger.kernel.org;
+        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793676867; x=1794281667; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mwU+A6308ip2iXwKodsHaokt6SloRiTa7TXQScnGfWM=;
-        b=kFs3+pAcB2asJWia3nXl4sSrY/b/Ui7HgpSzZneznbPnWtV6Mq9e5Nv6abO3BjNH80
-         A0w5Ur4yLCOq9nLaDLNxez3qjItS5VkTubjlUfhhA2mxe8LUvFkIYJZH9Q+FHvedA0a8
-         ZTEQx9yRXePLVOJ8X1rO1e7nCQUI3QqPJfgwI2sjD1JmiKeTB7YyVweGL2QUM+Qj+LBu
-         oqmBTywQZo6ayf1POIANGkd6CslqT5/YZVc1LZE3NMPnsUdt57j5pf2Dlg30PUFZyA8G
-         PTu/nNLm8iYQHzF38Qc9xo4mMWSwtMfQ+gYTikU2HQrx2wieSsI2NkdOPUJSLtokYy90
-         PX2w==
+        bh=13EGJjruJLP4hRxeg5Zs7XI3rKWGtad3Ql0J3Te1tx0=;
+        b=quTlDtbzm4q1iOIfO+djbcYiWJZwil2quq8TB3rgkUV95KuhPqM+uKvH5v4ENeZYVu
+         UNMIQfpiCSsT9qiWArEXuXj/QcbYPs3EqaHt9NIzY1pOwjXLd5Kox+G8cT/R2iJ3qMHv
+         F7gaoz/5D5Wn5Rxzf9IyBUcdu6lCwOyC2OQrBUrjK/s9fQusmO5tS7x9claHrDjlKQgE
+         W5C7s62JMOAkQA8Vc06a2Nki/6NJaNpyi66Awx/0hORadx3g65266pGnoSuxTIOh+ej7
+         o1JPXzL23jAFKiErof0AECbD24H6DaqiKf2mmOUPJFsrOccUd4KrdKpJQq3y1PwdvnpP
+         XYIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793676863; x=1794281663;
+        d=1e100.net; s=20260707; t=1793676867; x=1794281667;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mwU+A6308ip2iXwKodsHaokt6SloRiTa7TXQScnGfWM=;
-        b=p5JUKYkkIhf4HwtkaBlU+pIrFtiaBHXuXXI3wnVwjWA/JgCe2qkKce8823f5Mnpv3i
-         +EE2KOmGEpjCEtVKFRzhTsG8nPDdJDNKFSoE3RJZzc8gWzYVK6Z+EpGVR7Pj4e5YNyxn
-         c8hkhKEs7iYY4w0IMdmUIeKczhmOlHz3z4+ghGNzhQfveXlH9AAWHHXdh0UAQB/kVNAm
-         G1Z9kxu0QbOsPz4IESo+LreiY+q1Ryydt2nj3gsVRRM4hikCpCCYc0PAWAt+sklMHz7U
-         lW4SyilXjs/U8I2DX9ajIZGgy9LglnX9vBO9zkUzpom/EIJNbMTo+eGfEiGG+nvEHEp3
-         2k0g==
-X-Forwarded-Encrypted: i=1; AKwUvBwtYUWkjCndkn7D6gpF8Pr/aeVGQ07shqomq7qQNAFfSb9QiqmgXl5kzO5/X0UgxKRsUFFjGCspuLkm1jk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xj+Xofo3+S5ScnyNr8lqCSojt0lcZuAbsiU0rMCwU3N4Y1G3X
-	PLIckXONIyptOlsoL4K8VZS4v2Nwm3ksLsyaSaxkjZrUtxa2VbsjnBvw1rP1Xpafow==
-X-Gm-Gg: AYBFou2HwZgOUj71yroSZCViDdudj7iW513OMIBmND69Eyy2iFCWBoQtBwd45ESuHhR
-	itx25MVIwwPKumUXZqss5BdRmpvWf7fLMpvImDWdk/LuJKwRBW9VKRyk16BehOvzMjIeJgJQ8vp
-	oZsigOb83k6ipp5PD8MHMr2BX2Tc+dzs38V2XYbND+eTeXC4a6QSK8HJ+0/PaXdcOLd91Px6NE3
-	tW3a5feVW5M/oJNqcGd8odgwPqBqw5wrT4hkz3pm68Bfx7OpIxX7Wz9NGFrO3q7kx250bi+V/rJ
-	GfQpdV2Hk6ei/AXc284TiTz3+kG57yYLIzgalSFMZcKYKJu/h9XOQ6KLX7Eu154HmZa1Dz4IAyv
-	kebs+FP0JC8TCw04t9e+wcB9XX6rbuTo+w04RR1dwbK8PiuEtxF70251+RsHk+K/IV5OuMW/6AQ
-	nQPbiQwDZRn2svnCGUfUJyOf4JPzTCymWLJy3uy9D3fsxdNcJ9nUuOBfREuROEkivPsTtI5klRm
-	rgh20QV7AYycmb3U8FyLjLS6o6FAOKvaeqjxXgcUrlSrCqvxSKWwB6fNG864hE1kRvYeTm2BtjL
-	kPkdgAZJn45wam/VSPCmcTxIOhlzyonLSOfF3IJnweFWSa/PMJxHRp2qtAnlLMmSJS/Ek0I9ziv
-	xRz9tdb7kKTHtUgN+zQ==
-X-Received: by 2002:a17:90b:518c:b0:3ae:2961:14d5 with SMTP id 98e67ed59e1d1-3ae8979807emr9012242a91.42.1793676863114;
-        Mon, 02 Nov 2026 19:34:23 -0800 (PST)
+        bh=13EGJjruJLP4hRxeg5Zs7XI3rKWGtad3Ql0J3Te1tx0=;
+        b=vl3HGEKKZjKYVacj9Xymp/m1LjAnX3Y0F+MEsyWtfH6OP7KYAMzLOKzngNxaLTOztO
+         j9ZxOePDm4Mx7ZO8mBoOjDVDP/pSTKar4PG/w0wgD9t8ykS3eJ47u62rtYVG9fWaN8qq
+         fPLzcLH1b82cTeVkeuzjT9Rmn8lhvCpx2XZ53GDQIC8SpBRv+k8IPKgve5SXOSMNC6C8
+         +SddBSK74LijpWmY2zAuTWeASEMJTD9Y++iyxvRL2qUIKvweDC00FrlrvuD/hXmKM1uJ
+         SemYwbf9ipqjEFFqujf1UC/SilgCBaDcKTo4Q3MZUBk5TjfmyrUMkimvBmFy0lp+guVB
+         bn6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy3jqpfZ+mPEybvsmdVU2/oN7KKq0Dp9PVSEoYlJsNh5o07AsmRYAV4YPh+StVaQFIGIBNLI59g8F4P+Bs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FMZBKsvap7Z9/VYnEJxfW0YEZFozTgjxFtL3iacpNfDMxmY+s
+	kSVJecnQVnfSID3jjIqAuDO46JjKBbmEnbeeExKPguw74ai0aLfrnf4vEpWnTa1vmg==
+X-Gm-Gg: AYBFou3cbF8H7AhvH3xdAr7gvcpIwubZN82eUOlPBvVrtjNv5E1zYYTwooC5G+qaYcD
+	jFsP4wxM3No0ywy+enVADlXAC/ubdl952u+HAVw7sg6fj+jX8joXOaAoOK+0j9dnCXAdbivPuO+
+	3Ye2BrJBkFL1drqZNEwjev5Y3OQgzWPFxalXJP128hdFw4quDzNV5VCPTI4rDUxoOj1m8f8nxcn
+	vqH+ObLRl1snACqxVU7hHkA+uaFxZFog1L5u4AxuuBb3RsaYk6XklbZn9YBNs5d81Py9M1JnKDQ
+	BRsMowbfjfzUEiOJAk6wcqQL+Re+V7reWA+UJySYjGwwCJG0Edc6ovR49VbUzemhsk1W272V42s
+	Ml8sApaeddZZIUmfNeoNyB+bmRE6CVCDQfKevGyukItI3UVKLv0dpjjiniN0cYoaTEviD5iRM44
+	kMfygZ+BnHdrTM8JpEpEVsTKXDaGSJ5hNamQRiUhpVFpaUckLqQiGs7jOFtYRBuMt32ul7MtkLz
+	7wQjTj6AihwuWKAIoZujI0SlO5BMmrocJ4AYRuhzIYFmIfLyTt5HgD0O3aViuYIZdOdbO9/Slmy
+	uqEdU+j33VvWF0tQPpsxpvcxO/n7PszWk+fYQiXbWLHhIsoUWz12fptS/O3UXd5Ve/gf8cVp+89
+	5koIMjHfLoUxsp8qLk92hFqfLSY66F4CMXIVvyNje
+X-Received: by 2002:a17:90b:1b08:b0:3ab:884b:65ab with SMTP id 98e67ed59e1d1-3ae89857dadmr9823238a91.55.1793676867490;
+        Mon, 02 Nov 2026 19:34:27 -0800 (PST)
 Received: from cantal.lan ([58.136.77.237])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c29e619sm1965566a91.0.2026.11.02.19.34.19
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c29e619sm1965566a91.0.2026.11.02.19.34.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 19:34:22 -0800 (PST)
+        Mon, 02 Nov 2026 19:34:27 -0800 (PST)
 From: James Clark <jjc@jclark.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Alan Stern <stern@rowland.harvard.edu>
@@ -93,9 +93,9 @@ Cc: Johan Hovold <johan@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-gpio@vger.kernel.org,
 	regressions@lists.linux.dev
-Subject: [PATCH v3 1/2] usb: core: clean up before handing a device to the generic driver
-Date: Tue,  3 Nov 2026 10:34:12 +0700
-Message-ID: <74b3f919f214a8ece24161a2c904d8a5744b703e.1793669297.git.jjc@jclark.com>
+Subject: [PATCH v3 2/2] usb: core: add a pre_probe callback for device drivers that may defer
+Date: Tue,  3 Nov 2026 10:34:13 +0700
+Message-ID: <e96b91c85945237ca455869bf4d5a1e177358b54.1793669297.git.jjc@jclark.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793669297.git.jjc@jclark.com>
 References: <cover.1793669297.git.jjc@jclark.com>
@@ -110,58 +110,212 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a USB device driver's probe returns -ENODEV, usb_probe_device()
-hands the device to the generic driver. It does not first undo what it
-did before calling the probe. This causes two problems.
+On a BeagleY-AI with BeagleBoard's device tree, kernels since commit
+f918e3804498 ("arm64: enable HAVE_SHARED_GPIOS for all ARM64 platforms")
+no longer boot to a usable system. The log repeats "hub 1-1:1.0: USB hub
+found" for the on-board TUSB8041 hub every few milliseconds, with no USB
+disconnect in between. The flood of uevents stalls udev and the boot ends
+in emergency mode. Reverting that commit makes the board boot normally
+again.
 
-First, if the driver sets generic_subclass, the generic probe has
-already run. It configured the device and sent a USB_DEVICE_ADD
-notification. The generic driver then does both again. Notifier users
-such as the usbport LED trigger see two USB_DEVICE_ADDs with no
-USB_DEVICE_REMOVE in between.
+Both peer hub nodes in this device tree carry the same reset-gpios, so
+the GPIO is now a shared one, and with CONFIG_GPIO_SHARED_PROXY=m (the
+default) the hub's platform probe is legitimately deferred until udev has
+loaded that module. The bootloader leaves the hub running, so the USB
+core enumerates it long before, and the USB device probe finds the
+platform device without driver data.
 
-Second, if the driver does not set supports_autosuspend, a runtime PM
-reference was taken before the probe. Nothing drops it, so the device
-can never be runtime suspended.
+At that point, onboard_dev_usbdev_probe() returns -EPROBE_DEFER. This is
+what causes the problem. The driver has generic_subclass set, so
+usb_probe_device() has already run the generic probe, which configured
+the device and bound the interface drivers. Each binding is a
+deferred-probe trigger, and the driver core re-triggers when a trigger
+happened during a probe that then deferred. So the device is re-probed
+straight away, reconfigured, its interfaces bound again, and so on for
+as long as the platform device remains unbound. A probe must not defer
+after it has registered child devices, and with generic_subclass the
+driver's probe has no way to defer before that. This is not specific to
+shared GPIOs: it happens whenever the platform probe is deferred, and
+briefly whenever onboard_usb_dev is a module.
 
-Clean up before handing the device over, in the same way as
-usb_unbind_device() does when a driver is unbound: first, for a driver
-that sets generic_subclass, call usb_generic_driver_disconnect();
-second, for a driver that does not set supports_autosuspend, drop the
-runtime PM reference with usb_autosuspend_device().
+Add a pre_probe callback to struct usb_device_driver, called before the
+generic probe, so that a driver that may have to defer can do so before
+the device is configured. -EPROBE_DEFER from it ends the probe with
+nothing done. Any other error is handled as if probe() had returned it,
+once the generic probe has run, so the -ENODEV fallback to the generic
+driver works as before. Make onboard_usb_dev's USB device probe a
+pre_probe; it does not need the device to be configured.
 
-This leaves one limitation. Until the generic driver binds, the device
-has no driver. If it is runtime suspended in that time, it can't be
-resumed. This is transient: the generic driver resumes the device when
-it binds.
+A device whose driver defers from pre_probe stays unconfigured until the
+probe succeeds, and for good if it never does, e.g. an onboard hub whose
+platform driver fails to probe. Before, such a device worked while being
+re-probed. On the BeagleY-AI the hub is unconfigured for the few seconds
+until gpio-shared-proxy has loaded and the platform driver has probed,
+which resets it anyway; the board then boots normally with that commit
+in place.
 
-This change does not alter what happens when the probe fails with any
-other error. The device stays configured, so its interfaces keep
-working. It keeps the runtime PM reference, because a device without a
-driver can't be resumed. Its USB_DEVICE_ADD stays unpaired, because
-sending USB_DEVICE_REMOVE would mean unconfiguring the device.
-
-Fixes: 88b7381a939d ("USB: Select better matching USB drivers when available")
+Fixes: 8bc063641ceb ("usb: misc: Add onboard_usb_hub driver")
+Suggested-by: Johan Hovold <johan@kernel.org>
 Signed-off-by: James Clark <jjc@jclark.com>
 ---
- drivers/usb/core/driver.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/usb/core/driver.c          | 38 ++++++++++++++++++++++++++----
+ drivers/usb/misc/onboard_usb_dev.c | 15 ++++++------
+ include/linux/usb.h                | 14 +++++++++++
+ 3 files changed, 55 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
-index d3a61ebc6afb..9b8cd0e4219e 100644
+index 9b8cd0e4219e..137b53beb236 100644
 --- a/drivers/usb/core/driver.c
 +++ b/drivers/usb/core/driver.c
-@@ -295,6 +295,10 @@ static int usb_probe_device(struct device *dev)
+@@ -249,24 +249,41 @@ static int usb_probe_device(struct device *dev)
+ {
+ 	struct usb_device_driver *udriver = to_usb_device_driver(dev->driver);
+ 	struct usb_device *udev = to_usb_device(dev);
+-	int error = 0;
++	int error = 0, pre_error = 0;
+ 
+ 	dev_dbg(dev, "%s\n", __func__);
+ 
+ 	/* TODO: Add real matching code */
+ 
++	/*
++	 * Give the driver a chance to defer before anything is done to the
++	 * device. The generic probe below binds the interface drivers, and
++	 * each binding triggers deferred probing, so a probe that deferred
++	 * after it would be retried straight away and the device re-probed
++	 * in a loop.
++	 *
++	 * Any other error from pre_probe() is not acted on until the generic
++	 * probe has run, so that the -ENODEV fallback below works as it does
++	 * for probe().
++	 */
++	if (udriver->pre_probe) {
++		pre_error = udriver->pre_probe(udev);
++		if (pre_error == -EPROBE_DEFER)
++			return pre_error;
++	}
++
+ 	/* The device should always appear to be in use
+ 	 * unless the driver supports autosuspend.
+ 	 */
+ 	if (!udriver->supports_autosuspend)
+ 		error = usb_autoresume_device(udev);
+ 	if (error)
+-		return error;
++		goto err_pre_probe;
+ 
+ 	if (udriver->generic_subclass)
+ 		error = usb_generic_driver_probe(udev);
+ 	if (error)
+-		return error;
++		goto err_pre_probe;
+ 
+ 	/* Probe the USB device with the driver in hand, but only
+ 	 * defer to a generic driver in case the current USB
+@@ -289,7 +306,9 @@ static int usb_probe_device(struct device *dev)
+ 	 * specialised device drivers prior to setting the
+ 	 * use_generic_driver bit.
+ 	 */
+-	if (udriver->probe)
++	if (pre_error)
++		error = pre_error;
++	else if (udriver->probe)
+ 		error = udriver->probe(udev);
+ 	else if (!udriver->generic_subclass)
  		error = -EINVAL;
- 	if (error == -ENODEV && udriver != &usb_generic_driver &&
- 	    (udriver->id_table || udriver->match)) {
-+		if (udriver->generic_subclass)
-+			usb_generic_driver_disconnect(udev);
-+		if (!udriver->supports_autosuspend)
-+			usb_autosuspend_device(udev);
+@@ -300,8 +319,17 @@ static int usb_probe_device(struct device *dev)
+ 		if (!udriver->supports_autosuspend)
+ 			usb_autosuspend_device(udev);
  		udev->use_generic_driver = 1;
- 		return -EPROBE_DEFER;
+-		return -EPROBE_DEFER;
++		error = -EPROBE_DEFER;
  	}
++	if (error)
++		goto err_pre_probe;
++
++	return 0;
++
++err_pre_probe:
++	/* The driver core doesn't call disconnect() for a failed probe. */
++	if (udriver->pre_probe && !pre_error && udriver->disconnect)
++		udriver->disconnect(udev);
+ 	return error;
+ }
+ 
+diff --git a/drivers/usb/misc/onboard_usb_dev.c b/drivers/usb/misc/onboard_usb_dev.c
+index c60406240416..33653d8f76d7 100644
+--- a/drivers/usb/misc/onboard_usb_dev.c
++++ b/drivers/usb/misc/onboard_usb_dev.c
+@@ -606,13 +606,14 @@ static struct onboard_dev *_find_onboard_dev(struct device *dev)
+ 
+ 	/*
+ 	 * The presence of drvdata indicates that the platform driver finished
+-	 * probing. This handles the case where (conceivably) we could be
+-	 * running at the exact same time as the platform driver's probe. If
+-	 * we detect the race we request probe deferral and we'll come back and
+-	 * try again.
++	 * probing. Without it, e.g. because the platform driver's probe was
++	 * deferred or is running right now, request probe deferral and we'll
++	 * come back and try again. This is allowed because we run from
++	 * pre_probe(), before the USB core has configured the device.
+ 	 */
+ 	if (!onboard_dev)
+-		return ERR_PTR(-EPROBE_DEFER);
++		return ERR_PTR(dev_err_probe(dev, -EPROBE_DEFER,
++					     "platform device not bound\n"));
+ 
+ 	return onboard_dev;
+ }
+@@ -623,7 +624,7 @@ static bool onboard_dev_usbdev_match(struct usb_device *udev)
+ 	return !!udev->dev.of_node;
+ }
+ 
+-static int onboard_dev_usbdev_probe(struct usb_device *udev)
++static int onboard_dev_usbdev_pre_probe(struct usb_device *udev)
+ {
+ 	struct device *dev = &udev->dev;
+ 	struct onboard_dev *onboard_dev;
+@@ -695,7 +696,7 @@ MODULE_DEVICE_TABLE(usb, onboard_dev_id_table);
+ static struct usb_device_driver onboard_dev_usbdev_driver = {
+ 	.name = "onboard-usb-dev",
+ 	.match = onboard_dev_usbdev_match,
+-	.probe = onboard_dev_usbdev_probe,
++	.pre_probe = onboard_dev_usbdev_pre_probe,
+ 	.disconnect = onboard_dev_usbdev_disconnect,
+ 	.generic_subclass = 1,
+ 	.supports_autosuspend =	1,
+diff --git a/include/linux/usb.h b/include/linux/usb.h
+index 825f03b29067..6e07d485d49a 100644
+--- a/include/linux/usb.h
++++ b/include/linux/usb.h
+@@ -1280,6 +1280,19 @@ struct usb_driver {
+  * @name: The driver name should be unique among USB drivers,
+  *	and should normally be the same as the module name.
+  * @match: If set, used for better device/driver matching.
++ * @pre_probe: If set, called first, before the device is resumed or
++ *	configured (the generic USB driver's probe runs after it when
++ *	@generic_subclass is set, then @probe), so it must not access the
++ *	device. A driver that may have to defer probing must do so from here
++ *	by returning -EPROBE_DEFER, not from @probe: by then the generic probe
++ *	has bound the interface drivers, and each binding triggers deferred
++ *	probing, so the device would be re-probed in a loop. Returning
++ *	-EPROBE_DEFER ends the probe with the device left as it was, so the
++ *	device stays unconfigured until the probe succeeds. Any other error is
++ *	handled as if @probe had returned it, once the generic probe has run,
++ *	and @probe is then not called. If @pre_probe succeeds and a later step
++ *	of the probe fails, @disconnect is called to undo it, so a driver with
++ *	both callbacks must make @disconnect cope with a failed @probe.
+  * @probe: Called to see if the driver is willing to manage a particular
+  *	device.  If it is, probe returns zero and uses dev_set_drvdata()
+  *	to associate driver-specific data with the device.  If unwilling
+@@ -1309,6 +1322,7 @@ struct usb_device_driver {
+ 	const char *name;
+ 
+ 	bool (*match) (struct usb_device *udev);
++	int (*pre_probe) (struct usb_device *udev);
+ 	int (*probe) (struct usb_device *udev);
+ 	void (*disconnect) (struct usb_device *udev);
+ 
 -- 
 2.56.0
 
