@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749617;
-	b=aIpN+YcbkZJxe9J3PvDCxC6m3hK66zpGZ/JIX87VBdT3nVUbr35yTCV2qpt53svWrZSg
-	 vshDQ98eL4aO1qqfRnUT5Qx8s6I5zRwkaPJKqLSJlvdQP/yuCe+lAZoz7pLFjw0YXC40k
-	 Y2K8Te661CyJ328wOxY3sxWrSYQRi7BcDSXWa6NMxJkfrRwqKG0hX6jCZSeSRSIlaHr1R
-	 QxOqlMPU/TYsg1kicmmpoUXrqzY0SCaPJfh0Z477t3LxViPyS0Pc0GMkwHUzHus0gZATf
-	 +XHZtpu6VnYOuYaUNRsCnI5JFXilXg/5O3v6HWIEGpPJR/P6BLd/JPX7dcU0Oj56ulw==
+	t=1793749600;
+	b=tZ+V+638LzbFGiLhSOmEXn+CBu0kfm985mpwiu9M99W2hQl0sRamwNktWzrmhqU/kM4k
+	 GJ6Pz2Q7yvn2chlu+x3JzbUbfBD+RktsAKAFcRdWB4xS4O+2gey9pjmi6CumkZUli9gLj
+	 Vr9NA7G96B1DRGKqEoausVGy0lrGlXR/vCHPiPl8Z/F+WNPypojHFOtqJbE55dHZx4Hei
+	 d1i2pCWqYlZORLLS5pfPE0e7fPUsfbG8Zpzh8jk2wkFXsVdNE3w7m5D8ojufdtJkIv5R9
+	 gPVdo6pJiOKu1Dy6qTW11OJpoU7hjcDFEKYwEp/22G42lpLr2AJp99P68k/BsCR375w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749617;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749600;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=iUbENOe0+ZyGJ7lO4/Mfds7NTa8dcwMT09NdCLq1Cs8=;
-	b=S5Cw2tYE3Nh0+9/IOoxAYG6mW2Os4ydD7d3CRb5dLt9IB4eph243kAUsIBYaxPvA3MyC
-	 8Lxt3A/iA4Hbm8Ta/S61tffiN/dt0pNcr7Ch1YKVLHpZ/JvUXX2XE0gYaxnYV/Xr1frxT
-	 i2kQEVP8k99grrDDqxUrUdnlz+2JP1j6YvInYhfoQK0Y99uahw0cwDBMc/1ddC+RxPMKQ
-	 CXi7Mff5o4B0mPWYug/aY0s8Xd+mQv4erRU48MGoOZ/PfEXEapjEVehO0uK3xSFYMDrx3
-	 63jkfBF4iXlMkQR7gOOUgkXOvItn0Wl1r4+yGp4lndQ9zCFVVmqjDqUPnpJRyoJOEgw==
+	bh=GEWu8PuLG2Ft+HArhhXScagBJNxG2RL6FgTVaDjHZhk=;
+	b=GDHtDp1LE/k953P+k6Ryvo59yDEFaIdtvIHWQBLDbFmtZ+XN3Dek4Skd3izELKfUgIP0
+	 zRCop0VsdDt5d3ikCPDSDzggLPzDOGrIdcFDDec5L/axQuXiMlnvPTpe/mrChet8RLDmz
+	 89vkWywAjZbl4lObBJp8gwzd+EJ0thHtK7vH34Z5n6ikl1HuxvQ6nusvWYRFAnVWFdOH2
+	 flqhUeWfZRYDJxxpW37KenOg2znQDadG7I4R+uI3noTdutZzEOtw5fKxjIzrxnTe6cdCy
+	 Qkwm0fFaqpdw8EK7vB/E48JfNsMuIKrskvO72waR3FqyyNFsbKiRI39nzl6cUEgF1hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mXo3IAJW;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jGsVrHO5;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF0A606A339
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFF0A606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C1B60A2633
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C1B60A2633
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mXo3IAJW
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b20a4b5f2bso241399c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jGsVrHO5
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a06da65d92so108286b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793749616; x=1794354416; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793749599; x=1794354399; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iUbENOe0+ZyGJ7lO4/Mfds7NTa8dcwMT09NdCLq1Cs8=;
-        b=mXo3IAJWWW63P8MuW/7c50/agUwggJzJPE0jOXIEmgw8bhYwrxVbUv8OQCdo7oc50D
-         Uog+xlDUV9T+lZA7Riv6kqWrzPONerBMJ+1C1CSl5xNO7zVnisumjOmYot6H88AQg+1D
-         LwkuvWEMr95OHt7Q1Z9fMIpXOjy1+xrtTwCS0z/nMP5zyWZuwZee1/vOs2KwHQUkUkBv
-         0mBZVuussytWvFssVxWS3DhvJzaUxi5Y+dSG8ZN2qUWH7dIlBerFIXxec6gtYiJ4WgW2
-         Zx855knIaGZX4nlloxviIk1KupfMiToKGuB1hxPEH4gLRR7uM3JDcAX0Mv4FmaclFEhd
-         Wuzw==
+        bh=GEWu8PuLG2Ft+HArhhXScagBJNxG2RL6FgTVaDjHZhk=;
+        b=jGsVrHO5mutMjbg0ex0Peck4cKCqIp0BDU//tC0s/6MxmPiKoMM++muYqnuh3EkpGk
+         3yWRyCkEPBkHBdUwdolSYNKLU9P4R5ziJBwxJN/UvqvQHrmaMbNqho9bh7ohuu3WjpRE
+         swtdhmY5WXZMAuddfJfLLctsg07PBZRI0kL7by1NSUgnE36F5xynX5xfREz8nP5xYh6+
+         nHmECDH5gl405sM+dRYwSvJrHZ4HY8bVKdEykctyTPp4t0N0qHCUxQmiBW1ygmR9enFz
+         frURwBcvxtUmruWuQKQKo06P9MyhmQfYuPrWoszzfcMuThb1Nz3c4ZAbPjzT4QYUalHS
+         b2FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793749616; x=1794354416;
+        d=1e100.net; s=20260707; t=1793749599; x=1794354399;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iUbENOe0+ZyGJ7lO4/Mfds7NTa8dcwMT09NdCLq1Cs8=;
-        b=DImy9IL3LZ+QO5eitDPf++KpYVKJZ2cU8z7BOfWEoyQOxUM6ZfxxoMgDQdFcRDb500
-         H3DgzSmIMp1ryjnr5ZL4RE0Nj+7zaj75HkReWwB+H3QSLYsXiHLNvszpozUtsEanSK1z
-         Jk/02/cvN0gzNXQURQYgpPhkeMS1+bB6jiCdJ5pE6+tMVlEae9HmEeGmnBJeIJPMWdYm
-         UyN6gCibiqOBwaqONWDw53ConYkR8h7xqU69HvUTwyN1DQ+7Mbgg/BEGsRSJypexL32F
-         Sf+Ktf7RS8n0IwLX6Pz3RxrKUcxd1Uy+KCKP8DCD+oiWwR4G/PbRPrLe1f+4FdAaIRBL
-         0YEg==
-X-Gm-Message-State: APuU4Z/szvn410WnH9pPbob/CggrtHwjzAkqT2QhdiMmVWXId91ac9bS
-	hrDXK9eZWQrQWJRK5Rtppf5ZYX0WiKiesZ8sqNq8IKt8nqu6hdjePd8MA1PEe8mGIEiW1buvvbh
-	IEzklpuNOlg==
-X-Received: from dlbur23.prod.google.com ([2002:a05:7022:ea57:b0:185:5973:326c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:b059:10b0:16a:8ffd:4977
- with SMTP id a92af1059eb24-1ac5e322661mr21999448c88.17.1793749615550; Tue, 03
- Nov 2026 15:46:55 -0800 (PST)
-Date: Tue,  3 Nov 2026 15:44:57 -0800
+        bh=GEWu8PuLG2Ft+HArhhXScagBJNxG2RL6FgTVaDjHZhk=;
+        b=cm5h0++UYsRxzsyPtzL2+cEEQsZcslZbaOjNU3z11O9VbrycZ8LIMEf2N7j/EwAC70
+         K3uN9oRCo+2/OhcS6VYaNDacENYVY1tDSQ4OeaPlSwjAiPiuc4DychZKQgvFVNnsXvNV
+         HwdMM/4cZHg44jWAwS3Oiz265ZKAH0YziniTeToDphoSi8Xr5V1U76Z/6iYT4bgUJy3b
+         jRuHq7FtHZN3RAh4klvqlgS+xuw/D6UlvNZY1KCfDTkua+EyrcgSqabsKPbE6O1angNt
+         l1NMLEOMRUsWMlgVhO0jel64XW2lLbr8og/tVFWkAgk2fVOgf6Gt498AvsBz3AbFShnI
+         +c8w==
+X-Gm-Message-State: APuU4Z8ZNkD95VLk3nL9sG36GQHJkifpyh+iEpwprlwITB9u7Uioio3A
+	C2wrjXejwxXWIhhQ+QG2zoXigWN8V7oz0xxRafYzfSFN6IG4M35vBbldpgoN9Vy04Ueh0oFQq7g
+	/s9FAF2yLfg==
+X-Received: from pfeu3-n1.prod.google.com ([2002:a05:6a00:c0c3:10b0:89e:65fd:e92])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4189:b0:8a0:3ed7:93a9
+ with SMTP id d2e1a72fcca58-8a9bffd2b12mr11644180b3a.46.1793749598214; Tue, 03
+ Nov 2026 15:46:38 -0800 (PST)
+Date: Tue,  3 Nov 2026 15:44:50 -0800
 In-Reply-To: <20261103234502.1008382-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,8 +79,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261103234502.1008382-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103234502.1008382-42-irogers@google.com>
-Subject: [PATCH v1 41/41] perf test: Add perf sysinfo shell test
+Message-ID: <20261103234502.1008382-35-irogers@google.com>
+Subject: [PATCH v1 34/41] perf pmu: Probe user and interrupt sample register masks
 From: Ian Rogers <irogers@google.com>
 To: linux-perf-users@vger.kernel.org, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -95,105 +95,332 @@ Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add a shell test exercising default 'perf sysinfo' summary output,
-'--pmus' per-PMU output, '-j' JSON validation, PMU glob filtering, and
-'-i perf.data' inspection.
+Extend perf_pmu__probe() with probe_pmu_regs_one() to probe supported
+register sampling masks for PERF_SAMPLE_REGS_USER and
+PERF_SAMPLE_REGS_INTR when supported by the PMU.
+
+Test the architecture's base general-purpose register mask as a batch
+before falling back to per-register probing if needed, and on hardware
+PMUs also probe extended GPRs (such as x86 APX R16-R31 and CET SSP) and
+SIMD vector/predicate register classes via PERF_SAMPLE_REGS_ABI_SIMD.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/tests/shell/sysinfo.sh | 83 +++++++++++++++++++++++++++++++
- 1 file changed, 83 insertions(+)
- create mode 100755 tools/perf/tests/shell/sysinfo.sh
+ tools/perf/util/pmu.c | 249 ++++++++++++++++++++++++++++++++++++++++++
+ tools/perf/util/pmu.h |  28 +++++
+ 2 files changed, 277 insertions(+)
 
-diff --git a/tools/perf/tests/shell/sysinfo.sh b/tools/perf/tests/shell/sysinfo.sh
-new file mode 100755
-index 000000000000..59091b4d750d
---- /dev/null
-+++ b/tools/perf/tests/shell/sysinfo.sh
-@@ -0,0 +1,83 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# perf sysinfo tests
+diff --git a/tools/perf/util/pmu.c b/tools/perf/util/pmu.c
+index 3585147c5242..9179231aa7d5 100644
+--- a/tools/perf/util/pmu.c
++++ b/tools/perf/util/pmu.c
+@@ -3386,6 +3386,237 @@ static void probe_sample_types(struct perf_pmu *pmu,
+ 	pmu->probed.can_weight = !!(pmu->probed.sample_types & PERF_SAMPLE_WEIGHT);
+ }
+ 
++/*
++ * Probe supported general-purpose, extended GPR, and SIMD vector/predicate
++ * register sampling masks for either PERF_SAMPLE_REGS_USER (!@intr) or
++ * PERF_SAMPLE_REGS_INTR (@intr).
++ */
++static void probe_pmu_regs_one(const struct perf_pmu *pmu,
++			       const struct perf_event_attr *base_attr,
++			       pid_t pid, int cpu, unsigned long flags,
++			       int max_precise, bool intr,
++			       u64 *out_mask, int *out_abi,
++			       u64 *out_simd_mask, u64 *out_pred_mask)
++{
++	int dummy_abi = -1;
++	u64 gpr_mask = intr ? perf_intr_reg_mask(EM_HOST, &dummy_abi) :
++			      perf_user_reg_mask(EM_HOST, &dummy_abi);
++	u64 sample_type = intr ? PERF_SAMPLE_REGS_INTR : PERF_SAMPLE_REGS_USER;
++	u64 mask = 0;
++	int abi = 0;
++	struct perf_event_attr attr = *base_attr;
++	int fd;
 +
-+set -e
++	attr.disabled = 1;
++	attr.sample_period = base_attr->sample_period ?: 10000;
++	attr.sample_type = sample_type;
 +
-+shelldir=$(dirname "$0")
-+. "${shelldir}"/lib/setup_python.sh
++	if (gpr_mask) {
++		if (intr)
++			attr.sample_regs_intr = gpr_mask;
++		else
++			attr.sample_regs_user = gpr_mask;
 +
-+sysinfo_output=""
-+perf_data=""
++		fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
++		if (fd >= 0) {
++			close(fd);
++			mask |= gpr_mask;
++		} else {
++			for (int b = 0; b < 64; b++) {
++				if (!(gpr_mask & BIT_ULL(b)))
++					continue;
++				if (intr)
++					attr.sample_regs_intr = BIT_ULL(b);
++				else
++					attr.sample_regs_user = BIT_ULL(b);
++				fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
++				if (fd >= 0) {
++					close(fd);
++					mask |= BIT_ULL(b);
++				}
++			}
++		}
++	}
 +
-+cleanup() {
-+  rm -f "${sysinfo_output}" "${perf_data}" ${perf_data:+"${perf_data}.old"}
-+  trap - EXIT TERM INT
++	if (perf_pmu__is_software(pmu)) {
++		*out_mask = mask;
++		*out_abi = abi;
++		return;
++	}
++
++	/*
++	 * Probe extended GPRs outside the base GPR mask when the host ABI
++	 * supports PERF_SAMPLE_REGS_ABI_SIMD (e.g. APX R16-R31 and CET SSP).
++	 * Note: perf_pmu__probe() actively probes the running host kernel via
++	 * perf_event_open(), so EM_HOST is used intentionally here.
++	 */
++	{
++		int host_abi = 0;
++		u64 host_mask = intr ? perf_intr_reg_mask(EM_HOST, &host_abi) :
++				       perf_user_reg_mask(EM_HOST, &host_abi);
++		u64 ext_gpr_mask = host_mask & ~gpr_mask;
++
++		if ((host_abi & PERF_SAMPLE_REGS_ABI_SIMD) && ext_gpr_mask) {
++			struct perf_event_attr e_attr = *base_attr;
++			bool ext_batch_ok = false;
++
++			e_attr.size = sizeof(e_attr);
++			e_attr.disabled = 1;
++			e_attr.sample_period = base_attr->sample_period ?: 10000;
++			e_attr.sample_type = sample_type;
++			e_attr.sample_simd_regs_enabled = 1;
++			if (intr)
++				e_attr.sample_regs_intr = ext_gpr_mask;
++			else
++				e_attr.sample_regs_user = ext_gpr_mask;
++
++			fd = sys_perf_event_open(&e_attr, pid, cpu, -1, flags);
++			if (fd < 0 && intr && max_precise > 0) {
++				e_attr.precise_ip = 1;
++				fd = sys_perf_event_open(&e_attr, pid, cpu, -1, flags);
++			}
++			if (fd >= 0) {
++				close(fd);
++				mask |= ext_gpr_mask;
++				abi |= PERF_SAMPLE_REGS_ABI_SIMD;
++				ext_batch_ok = true;
++			}
++
++			if (!ext_batch_ok) {
++				for (int b = 0; b < 64; b++) {
++					if (!(ext_gpr_mask & BIT_ULL(b)))
++						continue;
++					e_attr.precise_ip = base_attr->precise_ip;
++					if (intr)
++						e_attr.sample_regs_intr = BIT_ULL(b);
++					else
++						e_attr.sample_regs_user = BIT_ULL(b);
++					fd = sys_perf_event_open(&e_attr, pid, cpu, -1, flags);
++					if (fd < 0 && intr && max_precise > 0) {
++						e_attr.precise_ip = 1;
++						fd = sys_perf_event_open(&e_attr, pid, cpu, -1,
++									 flags);
++					}
++					if (fd >= 0) {
++						close(fd);
++						mask |= BIT_ULL(b);
++						abi |= PERF_SAMPLE_REGS_ABI_SIMD;
++					}
++				}
++			}
++		}
++	}
++
++	for (int is_pred = 0; is_pred <= 1; is_pred++) {
++		bool pred = is_pred != 0;
++		u64 class_mask = intr ?
++			perf_intr_simd_reg_class_mask(EM_HOST, pred) :
++			perf_user_simd_reg_class_mask(EM_HOST, pred);
++		u64 supported_classes = 0;
++
++		for (int reg_c = 0; reg_c < 64; reg_c++) {
++			struct perf_event_attr s_attr = *base_attr;
++			u16 qwords = 0;
++			u64 bitmap;
++
++			if (!(class_mask & BIT_ULL(reg_c)))
++				continue;
++			bitmap = intr ?
++				perf_intr_simd_reg_class_bitmap_qwords(EM_HOST, reg_c,
++								       &qwords, pred) :
++				perf_user_simd_reg_class_bitmap_qwords(EM_HOST, reg_c,
++								       &qwords, pred);
++			if (!bitmap || !qwords)
++				continue;
++
++			s_attr.size = sizeof(s_attr);
++			s_attr.disabled = 1;
++			s_attr.sample_period = base_attr->sample_period ?: 10000;
++			s_attr.sample_type = sample_type;
++			s_attr.sample_simd_regs_enabled = 1;
++			if (pred) {
++				s_attr.sample_simd_pred_reg_qwords = qwords;
++				if (intr)
++					s_attr.sample_simd_pred_reg_intr = bitmap;
++				else
++					s_attr.sample_simd_pred_reg_user = bitmap;
++			} else {
++				s_attr.sample_simd_vec_reg_qwords = qwords;
++				if (intr)
++					s_attr.sample_simd_vec_reg_intr = bitmap;
++				else
++					s_attr.sample_simd_vec_reg_user = bitmap;
++			}
++
++			fd = sys_perf_event_open(&s_attr, pid, cpu, -1, flags);
++			if (fd < 0 && intr && max_precise > 0) {
++				s_attr.precise_ip = 1;
++				fd = sys_perf_event_open(&s_attr, pid, cpu, -1, flags);
++			}
++			if (fd >= 0) {
++				close(fd);
++				supported_classes |= BIT_ULL(reg_c);
++				abi |= PERF_SAMPLE_REGS_ABI_SIMD;
++			}
++		}
++
++		if (pred)
++			*out_pred_mask = supported_classes;
++		else
++			*out_simd_mask = supported_classes;
++	}
++
++	if (!(abi & PERF_SAMPLE_REGS_ABI_SIMD)) {
++		u64 ext_mask = GENMASK_ULL(63, 32) & ~gpr_mask;
++		struct perf_event_attr x_attr = *base_attr;
++		bool batch_ok = false;
++
++		x_attr.disabled = 1;
++		x_attr.sample_period = base_attr->sample_period ?: 10000;
++		x_attr.sample_type = sample_type;
++		if (intr && max_precise > 0)
++			x_attr.precise_ip = 1;
++
++		if (ext_mask) {
++			if (intr)
++				x_attr.sample_regs_intr = ext_mask;
++			else
++				x_attr.sample_regs_user = ext_mask;
++
++			fd = sys_perf_event_open(&x_attr, pid, cpu, -1, flags);
++			if (fd >= 0) {
++				close(fd);
++				mask |= ext_mask;
++				batch_ok = true;
++			}
++		}
++
++		if (!batch_ok) {
++			for (int b = 0; b < 64; b++) {
++				const char *rname;
++
++				if (gpr_mask & BIT_ULL(b))
++					continue;
++				rname = perf_reg_name(b, EM_HOST, EF_HOST, 0);
++				if (!rname || !strcmp(rname, "unknown"))
++					continue;
++				if (intr)
++					x_attr.sample_regs_intr = BIT_ULL(b);
++				else
++					x_attr.sample_regs_user = BIT_ULL(b);
++				fd = sys_perf_event_open(&x_attr, pid, cpu, -1, flags);
++				if (fd >= 0) {
++					close(fd);
++					mask |= BIT_ULL(b);
++				}
++			}
++		}
++	}
++
++	*out_mask = mask;
++	*out_abi = abi;
 +}
 +
-+trap_cleanup() {
-+  cleanup
-+  exit 1
-+}
-+trap trap_cleanup EXIT TERM INT
+ /*
+  * Pack @value into the perf_event_attr config field named by the sysfs format
+  * @name of @pmu, e.g. "rdpmc" defined as "config1:1". Returns false if the
+@@ -3762,6 +3993,24 @@ static void __perf_pmu__probe(struct perf_pmu *pmu, int pmu_cpu)
+ 		}
+ 	}
+ 
++	/* 3b. User and interrupt register sampling masks */
++	if (pmu->probed.sample_types & PERF_SAMPLE_REGS_USER) {
++		probe_pmu_regs_one(pmu, &base_attr, pid, cpu, flags,
++				   pmu->probed.max_precise, /*intr=*/false,
++				   &pmu->probed.user_regs_mask,
++				   &pmu->probed.user_regs_abi,
++				   &pmu->probed.user_simd_mask,
++				   &pmu->probed.user_pred_mask);
++	}
++	if (pmu->probed.sample_types & PERF_SAMPLE_REGS_INTR) {
++		probe_pmu_regs_one(pmu, &base_attr, pid, cpu, flags,
++				   pmu->probed.max_precise, /*intr=*/true,
++				   &pmu->probed.intr_regs_mask,
++				   &pmu->probed.intr_regs_abi,
++				   &pmu->probed.intr_simd_mask,
++				   &pmu->probed.intr_pred_mask);
++	}
 +
-+sysinfo_output=$(mktemp /tmp/__perf_test.sysinfo_output.XXXXX)
-+perf_data=$(mktemp /tmp/__perf_test.sysinfo.perf.data.XXXXX)
-+
-+test_sysinfo_default() {
-+  echo "Default perf sysinfo output test"
-+  perf sysinfo -o "${sysinfo_output}"
-+  grep -q "^Summary:" "${sysinfo_output}"
-+  grep -q "System rating:" "${sysinfo_output}"
-+  perf sysinfo --pmus -o "${sysinfo_output}"
-+  grep -q "^software (" "${sysinfo_output}"
-+  grep -q "^Summary:" "${sysinfo_output}"
-+  echo "Default perf sysinfo output test [Success]"
-+}
-+
-+test_sysinfo_json() {
-+  echo "Json perf sysinfo output test"
-+  perf sysinfo -j -o "${sysinfo_output}"
-+  $PYTHON -m json.tool "${sysinfo_output}" /dev/null
-+  echo "Json perf sysinfo output test [Success]"
-+}
-+
-+test_sysinfo_filter() {
-+  echo "Filtered perf sysinfo output test"
-+  perf sysinfo -o "${sysinfo_output}" software
-+  grep -q "^software (" "${sysinfo_output}"
-+  if grep -q "Modes:.*sampling" "${sysinfo_output}"; then
-+    grep -q "Sample types:.*ip" "${sysinfo_output}"
-+    if grep -q "Sample types:.*regs_user" "${sysinfo_output}"; then
-+      grep -q "User registers:" "${sysinfo_output}"
-+    fi
-+    if grep -q "Sample types:.*regs_intr" "${sysinfo_output}"; then
-+      grep -q "Intr registers:" "${sysinfo_output}"
-+    fi
-+    grep -q "Features:.*leader_sampling" "${sysinfo_output}"
-+    grep -q "Features:.*sw_grouping" "${sysinfo_output}"
-+  fi
-+  echo "Filtered perf sysinfo output test [Success]"
-+}
-+
-+test_sysinfo_perf_data() {
-+  echo "perf.data perf sysinfo test"
-+  if ! perf record -e software/cpu-clock/u -o "${perf_data}" -- true 2>/dev/null; then
-+    echo "perf.data perf sysinfo test [Skipped: perf record failed]"
-+    return
-+  fi
-+  perf sysinfo -i "${perf_data}" -o "${sysinfo_output}"
-+  grep -q "^Summary:" "${sysinfo_output}"
-+  perf sysinfo --pmus -i "${perf_data}" -o "${sysinfo_output}"
-+  grep -q "software" "${sysinfo_output}"
-+  perf sysinfo -i "${perf_data}" -j -o "${sysinfo_output}"
-+  $PYTHON -m json.tool "${sysinfo_output}" /dev/null
-+  echo "perf.data perf sysinfo test [Success]"
-+}
-+
-+test_sysinfo_default
-+test_sysinfo_json
-+test_sysinfo_filter
-+test_sysinfo_perf_data
-+cleanup
-+exit 0
+ 	/* 4. Privilege / exclusion modifiers */
+ 	pmu->probed.exclude_user =
+ 		test_exclude_flag(&base_attr, pid, cpu, flags, PROBE_EXCLUDE_USER);
+diff --git a/tools/perf/util/pmu.h b/tools/perf/util/pmu.h
+index cacb8bc5198b..66ee3841872a 100644
+--- a/tools/perf/util/pmu.h
++++ b/tools/perf/util/pmu.h
+@@ -300,11 +300,39 @@ struct perf_pmu {
+ 		 * in a group counted simultaneously, without multiplexing.
+ 		 */
+ 		int max_gp_group_size;
++		/** @probed.user_regs_abi: ABI flags for user_regs_mask. */
++		int user_regs_abi;
++		/** @probed.intr_regs_abi: ABI flags for intr_regs_mask. */
++		int intr_regs_abi;
+ 		/**
+ 		 * @probed.sample_types: Bitmask of supported
+ 		 * enum perf_event_sample_format flags.
+ 		 */
+ 		u64 sample_types;
++		/** @probed.user_regs_mask: Bitmask of supported sample_regs_user registers. */
++		u64 user_regs_mask;
++		/** @probed.intr_regs_mask: Bitmask of supported sample_regs_intr registers. */
++		u64 intr_regs_mask;
++		/**
++		 * @probed.user_simd_mask: Bitmask of supported user SIMD vector
++		 * register classes.
++		 */
++		u64 user_simd_mask;
++		/**
++		 * @probed.user_pred_mask: Bitmask of supported user SIMD predicate
++		 * register classes.
++		 */
++		u64 user_pred_mask;
++		/**
++		 * @probed.intr_simd_mask: Bitmask of supported intr SIMD vector
++		 * register classes.
++		 */
++		u64 intr_simd_mask;
++		/**
++		 * @probed.intr_pred_mask: Bitmask of supported intr SIMD predicate
++		 * register classes.
++		 */
++		u64 intr_pred_mask;
+ 	} probed;
+ };
+ 
 -- 
 2.56.0.385.gac671c819a-goog
 
