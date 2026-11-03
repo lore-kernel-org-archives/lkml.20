@@ -1,86 +1,88 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793703570;
-	b=wRY0LiXTMcYeAyHU0Zvs6/eLZf7XojO17LxT++psZktE7Zbx9ePheVPLucQFFDwb15QV
-	 kaYh2+hnDJ9FVfeTe9ZASTA3+wl+quifpF2BPc7nG8Cg3ceNGU7SrLCGzunjrYsYyUHFt
-	 NQ42WriF8mA0bZDG2mgDRbL63roCyjk5FMq+lpvr6zd3xFs28RaT30B19KhoH2OZ5KKDB
-	 L01v8Te2m9pdsqL6xEYqxbZqrwtSH3ECh6XUHNg87cBier/6AFT22Xu+76+ie1RqRZxZD
-	 4AUx7wYAtlTqel3UABlhKBcpgFwS0KaBD8JaT/O+k2jdYYFJSN9Mt096EW18lUakcJg==
+	t=1793703568;
+	b=x0pVf9mSROZE2rOlnQSSzvrx2K6YKMcA9TbabE6B7NF3VVYPOHxdQ8jhBvUudi4ozaq3
+	 E6dhsauiRS68v7nBImpPHHz/RlGeSqfeO6SInBqtXWnHxnqW+AHrYVXmd4eE14BbKg21C
+	 Ye/kCeFZquiCiafewnpcyV5uJ/YlWZtfvgFdpv2Q0b1ZBISsO3dcxZION8NHca7xaPjdR
+	 XO0/jxxDyWCT3WpXu3XixxfJ8tqruD1ueLTzeGa0XV2WbsiVJk82TDZZgsUL9RBEVyovM
+	 pkHX/ZKDFhPKdhsVRE3ZPAlhCp7mbdlnj6LL99z8e6EnGc0f3GvaDOk3Wz4YTJg3QYQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703570;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703568;
 	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
 	 User-Agent:MIME-Version;
-	bh=HYpokslgUmrlnfncU3L/zsbF0VduaADvTVTWpX9Ts5s=;
-	b=0JisQMOJn/WShuMPaVJwrWARrVOix7DCbVINf/p5wIPauoK2Bk9EbUY0RFj22Rc+VcmT
-	 DQbRfreFqSb6hRCg8Nb9HajIvSGMnRAeXI1SOz90BBvroewGCfya+BXAXoqYvb3p/Zmt6
-	 CJgMxkcfS3j1wd4/tt8o3qLQsncRZAmSvd4HSeDP4De1XHJt4yliYXoUhzZjIKvgIHep8
-	 vJlkaJRAfidYnYsDYBZGNZttqceKhXwObxPt4NN7UdMI5y98a63ATYKVIjWNIHO4YML6R
-	 STrnC6dZ1ywL2CKDwNeczZaohqBi1YpQuujqU/r9aRVngWBOMXNZyS1qQliR8Kx9CnQ==
+	bh=6b2TVz5RBdMTmkdnd0+DdIVBECbziA2iv145pJZ1Voo=;
+	b=bKbak+Iro2/95fYnpTCnC/nHIVelIq2mOCsI/DMmCT1q313oexnsNa5wn1fojnQ5LaTY
+	 7SKebRriFOWCrt8zbW78WBWPihFeXovvmhhcKiJ8EF7OYwMAHB0+dHZhXXZpZ9DtDQbnG
+	 x7YNjgFzI4L3Ajno94yYJNolG0rSSP2jY//5JjUPV2jCLxxmt3zryAoVzAyDvpMiKCF69
+	 PTLTad9c78pLqK6WKvz44LXs+fvqc+SqilKhvFYJro9riK9rzEULoHapl3Mm1jyohg38a
+	 +JceCP3BfrB01rV/ZUIOee8ztBtujFqaHOI+mHoJSc9EzRRAUpF9YqycO++DjiDO7kg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Aadq76Ib;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZCZJ+fI7;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3102D606FAE1;
-	Tue,  3 Nov 2026 10:59:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3102D606FAE1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486C3606FACB;
+	Tue,  3 Nov 2026 10:59:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 486C3606FACB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Aadq76Ib
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZCZJ+fI7
 Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
 	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 20042202806;
-	Tue, 03 Nov 2026 11:59:27 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 771D220103C;
+	Tue, 03 Nov 2026 11:59:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793703567;
+	s=20260414; t=1793703565;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HYpokslgUmrlnfncU3L/zsbF0VduaADvTVTWpX9Ts5s=;
-	b=Aadq76IbqcmCqFO3Xl3Zl7G6rHCjOEMcq3OCZqjWiNwHifsU01lYWQqJi7gtzgH7e7s01/
-	X5GX06kUJvmBjz1sA8xrqJEmKfp7bXJmK8YBBSF3C7sO0xUViU9CJdLOUpkVgGT/8SKL/0
-	lLKDFt7kswKOQGIrVzvUj5Ilik1RPpIftg30I+1FveeYJ6TkNjQNM1P2+IfuCsKdhsZxsU
-	dZ8f7pEiLT1nTCagZIqaMsIaagznoisklxvltLH8FW2sWMHaOUXr5JFPEB3X/BPtxnTPBH
-	5nFYbVvqdjNJkjdqwLfj/vOK5s9islXy1RWKhe6HLLIjTE4fy/Jwiwj3n6iNKQ==
+	bh=6b2TVz5RBdMTmkdnd0+DdIVBECbziA2iv145pJZ1Voo=;
+	b=ZCZJ+fI7f/VO1TopNf3JRW/u2mE25GBHZNgWHLCWWQwyRf2LAChiJOhS3IL3abLErXZw/t
+	sEqoW8lgtIN9JgPX0B9bwWEDYA1omA3HC+x3qoQBHtPXPaBcK+HnY6Hbu4BY3kXmZW3/D5
+	79D1lDTlDVDudWBJThk+6kgcIoN+5dQ0EWM6w4xnTQOEitxCiz902XouEDZU7LgBqwhqxE
+	05NZz+jTpG9xi6IwF+NQfmg4rurtmOFBEK0xbnXrWX3w3iZ50HyYK0Cu6djRUf+sun4Yiw
+	NzbVvXoDXpF7q7ABo2YCvYk50o3tPZ5WGEwPkLO2KSJKsPUCRYB11k0LUtAsaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793703567;
+	s=20260414; t=1793703565;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HYpokslgUmrlnfncU3L/zsbF0VduaADvTVTWpX9Ts5s=;
-	b=CrT3xe6idt+GQHJkdGerOBD7jKAzLMWyQ09TK64Va6/Uks2azMFw29nkPPMh+FhKT2BZo9
-	7rG2v4FJZC7p8pgUkf5dprY2QGcLc0470gF/gyjUaq3iS1CR9cu5ftolz38ecZtRH23+zf
-	UCqT7xP8a39I4Z0ESqHOhkW7p8sJPhgE2NUXIhZkqaGoa3T7mqfSRKYi3lq+tpS/tDxZCH
-	/4PHm0y+zCS7Ur1JKYLWX+GmIOmADr44lgneKlzeEW+KqVXiTL2jImDVAqZkMyJnkF7dU/
-	zl6XWDKddDsxpu0LvIHQ4xfWB3/F1QxFCho18qbki+GFAsYdGrKodC4zF+GcRQ==
+	bh=6b2TVz5RBdMTmkdnd0+DdIVBECbziA2iv145pJZ1Voo=;
+	b=Aa+CYFkVPNRTO2wPfmTA19Uryvuya293TvNsuXefwpnDtChb/3qiuxYezASP/lnRmUgA9O
+	9UMLAWmOPrrZneaiR+ZU5Yjo4Z724IxclK7n6vXPi8W3rOIHSwcOhCb6XyFf6UwQp1iOBB
+	vbQRHCPhogjlC2+2WC1k9i+dPNGk5wN3zx0iRPVJuS3dc9W6aCPEugFN17EVEqccO92NHX
+	+CreZkd7UQU+t1nOHws+hPNnmeARK9FD/MWtGjDY1N6zhkQ3w2tn9/i2i+FwV/ECzViBAO
+	eCDhctfk8EipdHIknkCr026moY3eRvAXPlnsbVzWcDM1r0Np/GMh3H9VJoOU7g==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793703567; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793703565; a=rsa-sha256;
 	cv=none;
-	b=Rc4ElyTcHQHzzCa23Y4ZZFf0kHWk9XxEJxDqMzfdnAjMQp7SgdRKfBnO9eleQC6TGlkro8
-	SQnOxY8HrlYUDcHu4JgCBM4InflRXupFPE5rF8a6ZCcipmF0qviNPe4eZyDHYwU5xOBnx6
-	J4coPZI4vC6vyUBdm+xR8lnvfECW3rcZoesUogbInFxarxn/4mV3tMTyIi8rTnIBUUqwS8
-	81thafDukchckSBiQsYTGty77NuX9Q2aD4TD1zZR5AGV6BP9dUxO8X7FkYI3hL92lCROWi
-	D2E+pv+qM2E+2oG3kryrnmgGhwTeJd5s1/j2k7ZXNV1pv8S05o3+QBmFf4ZSwg==
-Message-ID: <0525fec32cd3c35768585c57bcfbc4a7bb2a569d.camel@pengutronix.de>
-Subject: Re: [PATCH] reset: scmi: Set the device for the reset controller
+	b=GrDTaT9qYC7XXPLYVBFmUIbVppj0VVtTIuWcxsIv6OlbI9KmoP0b/56JR6QTbHJ5DaABkY
+	1y7w4z+qhdNiUmIxWkUIv7oe1pJTDVqlnqkZRm0VDV6Xabdfo0iT4WvBIecutBwp4qQNY4
+	LhwE6K9ikmmb8S/feQ6I5Xp6Z8SghNX3J83bwGsmLulGkowJlBfrdVQ3dbJdCLJRGbf1G0
+	ui/+YOcf0gbcPIxWHsG7fOf6WYmz1MTAUsAH1cxwwW6Yuf2Lxnj0u7MU5KH/ZVEyIlzxB5
+	k1AmxMYzqnMytdFV44ZXX0402vI7n3X+n6+1f2E+1b/q2ZAyUyJ4NuHJhvNT1w==
+Message-ID: <3b2e95430efce4822b232f5ba4a5007574de216d.camel@pengutronix.de>
+Subject: Re: [PATCH v3 0/3] Apple SoC CIO (USB4/Thunderbolt) reset controller
 From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Sudeep Holla
-	 <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>
-Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 11:59:27 +0100
-In-Reply-To: <20261002084142.1570378-1-hayashi.kunihiko@socionext.com>
-References: <20261002084142.1570378-1-hayashi.kunihiko@socionext.com>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, Neal Gompa
+	 <neal@gompa.dev>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Joshua Peisach <jpeisach@ubuntu.com>, asahi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Date: Tue, 03 Nov 2026 11:59:25 +0100
+In-Reply-To: <20261003-b4-cio-reset-v3-0-e605f9e5c8a4@kernel.org>
+References: <20261003-b4-cio-reset-v3-0-e605f9e5c8a4@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-0+deb13u1 
@@ -94,21 +96,26 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-On Fr, 2026-10-02 at 17:41 +0900, Kunihiko Hayashi wrote:
-> SCMI reset driver does not set rcdev.dev when registering its reset
-> controller.
+On Sa, 2026-10-03 at 22:50 +0200, Sven Peter wrote:
+> Hi,
 >=20
-> If rcdev.of_node is not available, the reset core tries to obtain
-> the firmware node from rcdev.dev. However, rcdev.dev is also NULL,
-> causing a NULL pointer dereference.
+> The CIO blocks used for USB4/Thunderbolt on Apple Silicon SoCs have a
+> reset inside the power manager that has to be deasserted before their
+> co-processor can be booted. On t8103 and t8112 each port comes with a
+> dedicated register page while t600x and t602x use a single register
+> with one request bit per port shared by all ports of a die in the
+> middle of the PMGR MMIO region.
 >=20
 > [...]
 
-Applied to reset/fixes, thanks!
+Partially applied to reset/test, thanks!
 
-[1/1] reset: scmi: Set the device for the reset controller
+[1/3] dt-bindings: reset: Add Apple SoC CIO reset
       https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3De3e068a457ce
+?id=3D5b428d8ecf10
+[2/3] reset: Add Apple SoC CIO reset driver
+      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
+?id=3D6547df06b982
 
 regards
 Philipp
