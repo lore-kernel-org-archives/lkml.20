@@ -1,67 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793671594;
-	b=3ZU74XmDi/OSslSmZDeoD1TQ6XCgEiVo96lgbzzO2jjke3eQF+rkTyQjZQ8JIOVPqB9r
-	 a79vTpI85Kw5U87NqiMppRGolhm2PnWure+GXmZirEpTrvpXZEEbUC09WEPHqqw28UmwE
-	 2puVVF+ihsWh3cJjUTRN6C4+b7Z1YfFCmzeHVZoBZVhjT5PG5LpRtoAkCfQe+fM1JkIBj
-	 76GSQzJxmlONSdfnDyIkh4EswzJ41Ht4PYbSwuCzczoGx7vb8KMUw+QNYO/2tlm3CRaR2
-	 OF54dOu6dqORsrHf7VAVYVWgSSQc6oq+oQNWFAAzrlWsthIWcu2DvbSG3Beo6+bPNfQ==
+	t=1793671600;
+	b=cBlAlHEyKIs7fgtByLaubMSE51NnveGXPuV0r0Lxdtm00dzs9sY0PYfvl4Covug81U2B
+	 ZomqSzVnfKUss6wnImzX+l53HFr+wEmnol/BgcFhy9RRe5m7qr0tkDRHvznSX5+cfpPPB
+	 /qz1W4gXIMSVvgqzJ5h0H6IaIAcdea+MxsrM1QxjyFKHsyWB6NYqOMt6MqFa+IH7599qr
+	 UUycsJYBaA5oSTJ36ZnmAaBIZjU/BATrjXZAAmAYvDNpGszQlA9+5G6VWma5+tl8+ehQp
+	 qKynNJdgtaX0zov6gZoTdI2OlKMKTY4pB8AxiFzsoDw7G7NJsUMc21dWGXoTkXcRWSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793671594;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=v4u4F2x/nKEXI6K51t5Y4udoO7BBBbN73aqid42YOZ0=;
-	b=0PRL6rvCOAqrL7+RDJmIxZtxeU6UqQFxAnxC/CVbW1NiiSgXYPdM2dIkrzu9Z5l1BMJ+
-	 FZhVab0Jdjp3Ir2gWW21Tmj0SS83gCQ83UI4rZ560nz5kzw5tkroYNCQfcEhTLVRuBb/H
-	 Emg3KFyUmgqAaiFAWrVQ3nVOOjTVKvSm1HZzk3IzjrkqwlPmJvr4KNyx1QfhWAaL4b4Lt
-	 W1d53o/sMC4uYPMEgtZdjuRKpRxrXjgO0e4uURdpVHafMXG8iGAAaKCIRICmK6NEOuJaY
-	 lb64RRHILwugzxGY5sJRk0jS9Ie8ZWP0H3eOwQxrC0nXAvzVrzD/oHLnsKetcVynuxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793671600;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=7edVmlDXqBmOKChW+ZBxMZA1iVKu3C6UNjM+2ZNf5wM=;
+	b=vznacGEzkuJQ4u7Hqe8shP4VDefOeWCpskfDB3BAYhFOqWIu0sSStTjPoe2MqeYQnNUa
+	 HoNFyNQ/+9F+XSqsbkSXt1UvzEY7DoHB2wm6/yP4ZDeuy8Xu3h+Cz67vzqxkswtyTFPHH
+	 3PAU4I1BWZaY7U/F7TCvUu0MGXds2E6adAtBwHIeMozCxp7hSOHoY9lKdV4ogbgOwdm7N
+	 /QNbq1+P8m8rIQGs5eTSpuQidFUDORJz9Pws6ZTfxhZE3M9eKCiTKXHX9IBpOfRRVXtBi
+	 Z/6UQXAmPyXgRJdFP+rt51Jqef1qkT1J8Rv1TBHRNbV1Uf53AhAImakjnPBPl43M6sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gNV88AdX;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=mAQ0+p5l;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE76606D820;
-	Tue,  3 Nov 2026 02:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EE76606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2D9606D805
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:06:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D2D9606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gNV88AdX
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=v4u4F2x/nKEXI6K51t5Y4udoO7BBBbN73aqid42YOZ0=;
-	b=gNV88AdXjFtCeALe7w+67uOqRnkXP0NvgdmDlFeVL0HFWsUtuSinEHD74eDZucPNHZhrkvcaM
-	TRCRsnQvW1kZBAPJf9ko6PpN1Ar4KreivOQg37LzxesmUP+wEfyNmwZnID/e5U00oQzS7uarW9L
-	+/BEAf0Uokr0K0Kp4jSR/+I=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jJX4D3Rshz12LdL;
-	Tue,  3 Nov 2026 10:06:20 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6472D40561;
-	Tue,  3 Nov 2026 10:06:20 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 3 Nov 2026 10:06:19 +0800
-Subject: Re: [PATCH 0/5] ubifs: harden validation of on-disk inode and node
- metadata
-To: <shao.mingyin@zte.com.cn>, <richard@nod.at>,
-	<linux-mtd@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <49cebc00-3827-e24c-3e0c-74ea6ca8c7e4@huawei.com>
-Date: Tue, 3 Nov 2026 10:06:18 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=mAQ0+p5l
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so6938231eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:06:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793671599; x=1794276399; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7edVmlDXqBmOKChW+ZBxMZA1iVKu3C6UNjM+2ZNf5wM=;
+        b=mAQ0+p5lGe83v747xCyqCS4N8Akjbdkj3F4Iz2/8iImspy/v52+UuU1pE1/Bf6MR50
+         E2qDfWgV7bzTU9JYVsGuVRf/bSzdw7SGqRzm0piGjvkzs5eN3BDwZTqZ3vUQsCyWwqzT
+         eKkyuVd25qAhw0WgVLwLZD9VIBXnP3Zi75qdU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793671599; x=1794276399;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7edVmlDXqBmOKChW+ZBxMZA1iVKu3C6UNjM+2ZNf5wM=;
+        b=k9g0TRJsTg9QxFHw1k9XoXqPf3ENmUrTM9LOkY7ig6yakngiCycygJfo/ZMvC9IKHN
+         savrkThDiWno5rsPbNGiwnJavDas1qPJNNXfViRUEW0rckQTDeT2Q0aP3n711MgY7eU4
+         Ayp9+QvAu2TFS+DJHV91LHXivrx6om8Kji6o9DRpSkvH+MCxO3SdQ0WHxek+C6o/GQ7w
+         hWxjCW3UUHYyOwzcKYF5NU6G9iiPUYzput31AMjUKpYHnmgBRI5qwsU4fszJQUf0Wv8M
+         4P8e33dm3v0LnlYWOGmZRhVCALB0n7Pj7Y8HFifQR2C4+KkZjJLxLF+8//NwzPb9KNle
+         1/PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwzJrvT2ECdEn2/9LxpwTICnWj+WllppDGey0WQVI3QanEVMvUI4U1bMbxWsD1tAnhtVszzYw2Sak/SxJ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWvfUtSPXJgpep29o5fESR/q4nOEMhGPmsSk2X8WE9fu4ZW5PF
+	vuOPuGG6GEKvu0jj2ABBrfw64JElrBgghO+VAxsFTPRHEIN62ymcKi3x89TG8KeUFQ==
+X-Gm-Gg: AYBFou3gSoDTwlCdMgonK6HlvsI07JR+ZUnriJuXuV+API2sHd6HAR07fx3LmDJgpxl
+	c5mdsgl0c6yLmP+KT0w+JxBdD00RD/9Ti0Te0cMYucOUOjF/o7MqEsO3p7mbXZL+QWdFlFjYAM6
+	aNlRBW2cPz6/k8CmzyCZv3oiNu/8elHdbdeJxnwcWy3xQX6Msd0APEubrqVsumvnFasZG5k9nwe
+	aZd5o+RynJQO0274IlsDC7xSEU5e0Avi7AFfI6GLyZaHAP2lSBz5J+4U05hB7AR+AV6QflueTKt
+	gcFzbUGIf0gGQs5xRR+yv7uCjkmaVHxQN0J9Tja2659XrHHHM88JCzz79Z6vvaDoSWmtwaUNwnF
+	WIkRFhVjKbzAfqV2ULL/EPiC3PmHXu3oj+RdNoPt4a6d3y9E/2p0UzQuKzcwWuCbR8EwJ7dPHRu
+	W7dOCxw+moeVpcMOamTIgRadCha84NEcC8jLlDKAMJpDqhvJ3lE3m33xwiGtT5j36i6cvJBlEH2
+	aA40OngBWTcB9NuFTowtbr1SYbfIMPxjaXSmctWb2dLYJ1QhCVpoE0BuWinBfWK/6NDOSuKdNhc
+	KQjtRPrXJxVRZB0McGmHRV0aARdDpjQgMuhFUj8J1KP0Rvmk3l6UI0hwl5W+6B2GoI0=
+X-Received: by 2002:a05:7023:a56:20b0:1b2:3742:828e with SMTP id a92af1059eb24-1b23742830emr3971156c88.3.1793671599060;
+        Mon, 02 Nov 2026 18:06:39 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:c57d:c93d:3543:aab5])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1ac19f4a04esm37837284c88.15.2026.11.02.18.06.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 18:06:38 -0800 (PST)
+Date: Mon, 2 Nov 2026 18:06:36 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 0/9] google: Add support for Laguna CPM
+Message-ID: <aulBrFWi54E6a7Br@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261028-armored-glistening-cheetah-6f3070@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,80 +108,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemo200011.china.huawei.com (7.152.185.179)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028-armored-glistening-cheetah-6f3070@quoll>
 
-在 2026/11/2 21:45, shao.mingyin@zte.com.cn 写道:
-> This series tightens the checks ubifs performs on the metadata it reads
-> from flash.  All five patches are about size and accounting fields that
-> are taken from the image and later used without a range check; an image
-> whose CRCs and node tags are intact can therefore drive the code into
-> state it never expects.
-> 
-> Patch 1 rejects inodes whose size does not fit the signed loff_t the size
-> is stored in.  A 64-bit value with the top bit set becomes negative and
-> passes the max_inode_sz check, and the read paths then do size arithmetic
-> with it, for example (i_size + UBIFS_BLOCK_SIZE - 1) >> UBIFS_BLOCK_SHIFT
-> in do_readpage() and (i_size - 1) >> PAGE_SHIFT in populate_page().
-> 
-> Patch 2 rejects xattr inodes whose i_size does not match data_len.  ubifs
-> keeps the two equal for attribute inodes, and ubifs_xattr_get() and
-> remove_xattr() assert on the invariant; with assert=read-only or
-> assert=panic a plain getxattr() or removexattr() turns the file system
-> read-only or panics the kernel.
-> 
-> Patch 3 checks the lower bound of the master node's highest_inum.  Today
-> only the upper bound is validated, so a value below UBIFS_FIRST_INO is
-> accepted and ubifs_new_inode() allocates numbers from the range reserved
-> for special inodes.  With highest_inum == 0 the first new inode gets
-> number 1, which is UBIFS_ROOT_INO and already in use, and the index ends
-> up with two inodes sharing a number.
-> 
-> Patch 4 validates inode and data node sizes during replay.  replay_bud()
-> trusts them, and ubifs_recover_size() may then extend an inode to a bogus
-> size.  The normal read paths already reject such nodes, and truncation
-> nodes are checked in replay_bud() as well; do the same here.  The data
-> node end offset is also computed in 64 bits so that a large block number
-> cannot wrap.
-> 
-> Patch 5 refuses xattr accounting that cannot be decremented.  On an image
-> whose counters are already zero or smaller than the entry being removed,
-> the unsigned counters wrap and ubifs_jnl_delete_xattr() writes the bogus
-> values back to flash; the next mount then rejects the inode because
-> xattr_names + xattr_cnt exceeds XATTR_LIST_MAX, so a single removexattr()
-> makes the image unmountable.
-> 
-> To keep the severity claims honest: mounting such an image needs
-> CAP_SYS_ADMIN in the mounting namespace (or access to the flash), so none
-> of these is a non-root attack.  Patch 2 only turns into read-only or panic
-> with the assert= option; the default action is to report.  Patch 5 is the
-> one with a persistent effect.  Patches 1-3 are mount-time validation,
-> patch 4 is in replay, patch 5 is runtime accounting.
-> 
-> The patches are independent, have no inter-patch dependencies and can be
-> applied in any order or as a subset.  All five carry Fixes: and
-> Cc: stable.
-> 
-> Testing: each patch applies to next-20261030, passes checkpatch.pl
-> --strict with 0 errors/0 warnings/0 checks, and fs/ubifs/ builds with
-> CONFIG_UBIFS_FS_AUTHENTICATION, CONFIG_UBIFS_FS_XATTR and
-> CONFIG_UBIFS_FS_SECURITY enabled and W=1 without new warnings.  I did not
-> mount crafted images: this machine has no mkfs.ubifs/ubi tools and no
-> mtdram or nandsim setup.  I can put together an image for any of the five
-> if a runtime check would help the review.
-> 
-Hi,
- From my perspective, I'm not really interested in the problem scenarios 
-triggered by malicious fs image, let Richard decide whether to merge it.
-This series does not seem to introduce any issues, there are two small 
-nits in patch 2&3.
+On Wed, Oct 28, 2026 at 02:24:35PM +0100, Krzysztof Kozlowski wrote:
+> Either you expect review or not. RFC means no.
 
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-> .
-> 
+OK, PATCH.
 
+> If that's patch, then at
+> the top level of cover letter, as the most important thing, you explain
+> the dependency and merging proposal of this.
+
+OK, I'll try to move it up. To be fair though, every change that has any
+dependency is clearly noted in its below-the-fold notes.
+
+> You combined here like 5
+> different subsystens...
+
+What do you recommend here? I believe the general principles of DT
+binding development suggest there should be a single binding doc for
+describing the "Central Power Manager" (and the services it supports).
+CPM supports functionality covered by many subsystems.
+
+While in theory, bindings can be written without corresponding software
+support (drivers), in practice it usually works out better to develop
+them together, to prove that the binding describes the hardware/firmware
+sufficiently.
+
+And even if the binding goes separately, I don't think I can 100% split
+the driver support by subsystem, as they all require the same underlying
+CPM helpers, and those helpers don't have much meaning without their
+clients. So some multi-subsystem work is still necessary IMO.
+
+So I don't really see how I can address your complaint. But I'm open to
+your ideas.
+
+Brian
