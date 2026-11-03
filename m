@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740240;
-	b=C25JyB2cii/hmoD1ymatIQKegcLNQd6gJOFfXb+FZHYIbEif/iLUx0cBTkhDLtx33sZQ
-	 ZZG/BtTvma6U9q6W/rC1xrMP/cDL9t9IcyHv+/4GR0YiRiVT0Xo8q/3EV7bHONsZbDeap
-	 zQvN0mBlBYf/TmKYmRtncfhM2eIWlEB83CVfZvh7rRNt1taUuxGywWjJ7HO2hTJI+hceq
-	 0k0vHZf/vDYzWxTQzEV2x9hf+oWmZrHaP/C4VmwlpXwz5KdXU/BMm5hbrmCGqyzkb5qOc
-	 bX5axOBn71r3Wd6MQorucmkrNcZVcAkNdJivjvx8DkrPbL5jpCnbT89yWxYvfpdDEjA==
+	t=1793740247;
+	b=U8mKA6tf3ohddIYf1qRM4U8N73vkaTD/0FHiEzVwOnM/zco+ShwjI6Q+BsMqv/f8Oz59
+	 cJ4/4ulTiPwy/dyqP8xU3o1IGf7A8dpgTqF+J8S46Xt2YYEdOEZP0qLG+ggZLDcLb+mXI
+	 YVJW2T2YShvQYsElWWeqBFgKaOAkvCunJfC+ooiJcK1yCRby3O7xQ1SmBe7aNw1eFvO2d
+	 Wd4/EWKaSiO/Nw7kbJ2WDy4OKkl6dl7Kl2Gf9vatrPT/FF1z6ypwBoW49yUEqGRoV7ibe
+	 MBr+Ki+CEQ+qgcOxMhMv3Miv+w2CMbLhB99cddi1R1SuV6jhCGcm6rPud8+wuboZ6CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740240;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740247;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=oibzb0WyOnXCVqHk/JQbkuYKg2Gn7hJGWFHttlYByP8=;
-	b=Eoovg5GoYY5QHRWOMj3FK0Kec6ZuGU3syVHP9yuc7O7ZcjZmxEHnG4k8ZIK+BJwU4epB
-	 gF3OkhmG1in/4qgOoIRVImHXcrvLfLYpARbLIkBh8WR/Rk/bggabv+AfaOaDKNCTrt5EZ
-	 0GlDr80qYQXk7mZvJaFvXTZo705pYaMQSSzaUAzG8Elzdn1yBZTx+3OMb/wT8Bl1gP4E8
-	 QOknFvsiCO3MOA4TFdcYBJGnvbZmNNts80+6NRBirDVz/uhfuFN3ZYhlf+6rkz4g7xGaV
-	 cGudUii7L6eYj8Di9azBq2tHDBsfsO80MNljKl+ZufPvO994LL/bj1soyuRAkh0oxJA==
+	bh=Z/c7thLq9Zvvx1dPeFeesBNXT/hr+K5ZVBzcsSspvNQ=;
+	b=CqaJEAxac5BNOxxfOUMOV1FXQVvVa31ldLWBTyCnDDNMFGoipu7h3I2q0wdTD0Mg3Qoc
+	 aevj8xIOHVdh+80iHEMDVx8LSkzSScRYrG0ZdB/xg65sk46cwy+qTCFcIOu1oLj2zLgVP
+	 vFRV0u2hvchOrgPsLYbDynSI2Setjwfg3apHYGWl4HW2+PWZcOE2jlVe7DrYIFSS62ztk
+	 Rm/9MloFmKjY6cni6lxoScL1PUoRtlm636/TAaqEoAo2/eSUwXS5xsYIA1v+jE2YGsmr2
+	 YwUt9HO1h68GuSR3S3u8rz6SsurFiYZurRPTdy9nFP9fnlRWZhTKvri25ENmqksrBKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=OLEqYr5p;
-	arc=none smtp.remote-ip=209.85.128.97
-Received: from mail-wm1-f97.google.com (mail-wm1-f97.google.com [209.85.128.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=GaXsA5OG;
+	arc=none smtp.remote-ip=109.224.244.18
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16316606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:10:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16316606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD554606D815;
+	Tue,  3 Nov 2026 21:10:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD554606D815
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=OLEqYr5p
-Received: by mail-wm1-f97.google.com with SMTP id 5b1f17b1804b1-4a610c7e61cso7019585e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:10:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793740238; x=1794345038; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oibzb0WyOnXCVqHk/JQbkuYKg2Gn7hJGWFHttlYByP8=;
-        b=OLEqYr5pikrldqmuRgbA7Tw+OjqWnFMUBnyP6Q6zxezEjz4ElLaXgBitayQTfX0mpW
-         ZDuchmLJjtrzC/EnOU7o6WGvr7u2BFC9VK72vqItAFiqoxLheVWSyOZBcsJ4+IYCpayL
-         kc6BgkvrKWU4RZeLM0jrem84B6EKNHkEMdNiG4g+GuA13bOYm0M45/SWQeMHhG55TKS8
-         2HZIGBn1nrUfvdgFwl8QMb4NtkDSXmlbaRwAPJzpwOiVs48vedSM4zRKm7oYeUpwrQmA
-         Anv1towlYXo1ypwCsBxpSsRQ0ncrPh8PdfUxr62O5uau19HzmwYtugS0PTj1RaneMnDc
-         xELg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793740238; x=1794345038;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oibzb0WyOnXCVqHk/JQbkuYKg2Gn7hJGWFHttlYByP8=;
-        b=r0zo/gzO0nvqrp2iixt9FpIQVulh1q2wRgDAqavmbLdPFYPGa9RXqFGvO/PZg6OHZ8
-         n2Kpz/tL7Mh74lke0vkiefRrL8I4Kd+jaBGij45mOxonucTJ5Ra6b0KXO9RNkSHdTX4d
-         RjbzOQ1VTCDmhkDQ0RPkiO8YJSCTpTHpVwiwgDpjOw2KBeINBH/yYz8PyVXkfb3z2YAM
-         +wcYmkUixBIXj7EdRgKwtJhTIT4YPfoYvSEu1Sy9PNwE5iNNCetIbuHz7yCQWtnOxipo
-         1yMm3XFiBMGN38YoJElESnHAHxbO+Bsi0x8BpXUvOQLJgIaM9xreBRd/n/QIUQ1GF0Zf
-         nJrw==
-X-Forwarded-Encrypted: i=1; AKwUvByR+LzdMY9RDxBkGkEiPuW7mJMdvkV8uPXDTmEmKmE/3lN9EHkBQQvETFVkg1cRnO9mKXwy/aEfBp9oMRk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xIpw8nLSTQ5BusoDdmcd4UxTtwUhd5BQGLrnxDvw8Eb5D3jDB
-	qmAs/QjvN8VJEhn4byXhRLnDPDMiy8SFomfYTtU8CTm0bnvVD6eePGI8U/dpAw4C4Qj1tUcfG9v
-	pdke8ihtYlWsiAP+iYdQVnXMcZUIfXgv/YcNSCK1Xgu6LMMy16DF7
-X-Gm-Gg: AYBFou05MXJhWNfId4yWiW60HU9v7yUsdmLl6QHaoBq+WcjXbRWkNFExO1TPl/YG+Fw
-	Ny5JE8sHJCvTkEEZY6Z2MmXw+8s7EfHtKJcRiA6VN2GSomZmAOA3pwQSaOlGo9B25y3/Wb2emfh
-	Ds6ndy0f+dE27TfFsZbLZ2AS/6mfLS1mlLG2aY5UuV0Q4CtfDyNsOcobWS2C+ajGP2nVwtL/77E
-	W3tvhlgU0f4RjMKIJf4QKgxb0lPZ1VwXVg7D48IeR6XoUrZ1vZiHBXIftDbAlBmmAx+IDIlZLwV
-	onfN2gkupnixhy9opaXjJM7u7NH2uxyYsH8cmLeiRXQVxTKM7ijTWukGeLNQUhVGnmE4yVhPlae
-	NYU5x8YOcGlu+fAP09w==
-X-Received: by 2002:a7b:ce0d:0:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4ac177538c5mr250973225e9.1.1793740238406;
-        Tue, 03 Nov 2026 13:10:38 -0800 (PST)
-Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-4b412a71624sm221415e9.2.2026.11.03.13.10.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:10:38 -0800 (PST)
-X-Relaying-Domain: purestorage.com
-Received: from dev-csander.dev.purestorage.com (dev-csander.dev.purestorage.com [IPv6:2620:125:9025:23::204])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id E300F43622;
-	Tue,  3 Nov 2026 14:10:36 -0700 (MST)
-Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
-	id E08F8E40437; Tue,  3 Nov 2026 14:10:36 -0700 (MST)
-From: Caleb Sander Mateos <csander@purestorage.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Caleb Sander Mateos <csander@purestorage.com>
-Subject: [PATCH 2/4] io_uring/alloc_cache: mark cache success paths as likely
-Date: Tue,  3 Nov 2026 14:10:29 -0700
-Message-ID: <20261103211031.592745-3-csander@purestorage.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103211031.592745-1-csander@purestorage.com>
-References: <20261103211031.592745-1-csander@purestorage.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=GaXsA5OG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793740241; x=1793999441;
+	bh=Z/c7thLq9Zvvx1dPeFeesBNXT/hr+K5ZVBzcsSspvNQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=GaXsA5OGU5wiRENEWAOMXxq8WpEqLEit3hmpXLgCtDIrQPddu4SJdoRoGLvEts485
+	 Ce/6Ho1jFG0hTjJ2q4sJgYjsKb7xvb96F9sFV4lByGbpPc9G8518CzSmBah+CiR9EC
+	 xAzEldhajKli+Hb6TDhbsmqQlFW5LlzxqMfAh96L9UwwBiAu9gjFcxYlsE5vy3Dmq4
+	 PprlM90WK3xC4RjP8bIkNVxjyCEHo/bh5Z0tZ3qACrBhjiY/91iFJU/UZcbxUKqiz7
+	 IDuPXDYx3U0RSXUGxbt+azEoMFJWr5kI+4+uTrt6coIShWMuzliR3rgKfAJwvwlrFa
+	 6QjDpoD4VBpKg==
+Date: Tue, 03 Nov 2026 21:10:36 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Valerii Sokolov <valerii.sokolov@pm.me>
+Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
+Subject: [PATCH v2 00/11] media: intel/ipu6: bounds, leak, and error handling fixes
+Message-ID: <20261103211031.1573726-1-valerii.sokolov@pm.me>
+Feedback-ID: 17117034:user:proton
+X-Pm-Message-ID: 172459e04e7abf2cb043cf682b98dbb185fb4691
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,48 +61,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The point of a struct io_alloc_cache is to serve allocations from the
-cache to avoid a call to kmalloc(). Only very high queue depth workloads
-require more concurrent allocations than the fixed-size io_alloc_caches
-can provide. So mark the success paths in io_alloc_cache_get() and
-io_alloc_cache_put() as likely.
+This series fixes bugs in the Intel IPU6 input system (ISYS), Buttress,
+DMA/MMU and firmware interface code:
 
-Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
----
- io_uring/alloc_cache.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ 1    Move the vb2_is_busy() check from VIDIOC_TRY_FMT to VIDIOC_S_FMT, so
+      TRY_FMT never returns -EBUSY and S_FMT can no longer overwrite
+      av->pix_fmt with an unvalidated format while buffers are allocated.
+ 2    Return firmware message buffers to the free pool when sending a
+      stream start or capture command fails.
+ 3    Bound the number of input and output pins in
+      ipu6_isys_fw_pin_cfg().
+ 4    Clamp the crop top offset in ipu6_isys_csi2_set_sel().
+ 5    Only call auxiliary device ISRs for interrupts that belong to them.
+ 6    Release the firmware context when ipu6_fw_com_open() fails.
+ 7-10 DMA/MMU fixes: an IOVA leak and a silently ignored mapping failure
+      in the scatterlist mapping helpers, a missing DMA unmap of the dummy
+      L2 page table, and a dev_err(NULL, ...).
+11    Log the correct frame sequence number on EOF (debug only).
 
-diff --git a/io_uring/alloc_cache.h b/io_uring/alloc_cache.h
-index 962b6e2d04cc..aa007b380f1b 100644
---- a/io_uring/alloc_cache.h
-+++ b/io_uring/alloc_cache.h
-@@ -19,22 +19,22 @@ bool io_alloc_cache_init(struct io_alloc_cache *cache,
- void *io_cache_alloc_new(struct io_alloc_cache *cache, gfp_t gfp);
- 
- static inline bool io_alloc_cache_put(struct io_alloc_cache *cache,
- 				      void *entry)
- {
--	if (cache->nr_cached < cache->max_cached) {
-+	if (likely(cache->nr_cached < cache->max_cached)) {
- 		if (!kasan_mempool_poison_object(entry))
- 			return false;
- 		cache->entries[cache->nr_cached++] = entry;
- 		return true;
- 	}
- 	return false;
- }
- 
- static inline void *io_alloc_cache_get(struct io_alloc_cache *cache)
- {
--	if (cache->nr_cached) {
-+	if (likely(cache->nr_cached)) {
- 		void *entry = cache->entries[--cache->nr_cached];
- 
- 		/*
- 		 * If KASAN is enabled, always clear the initial bytes that
- 		 * must be zeroed post alloc, in case any of them overlap
--- 
+Patches 1, 3, 4 and 8 are tagged for stable. The other fixes address
+bounded leaks or cosmetic issues.
+
+The IPU7 code recently added to this driver appears to have the same
+issues as patches 3 and 11 (ipu7_isys_fw_pin_cfg() and
+ipu7_isys_isr_one()). I have left those alone as I have no IPU7 hardware
+to test on.
+
+Testing: each patch was build-tested with W=3D1 on top of
+media-committers/next, and the series was runtime-tested on a Raptor
+Lake laptop (Lenovo ThinkPad X1 Carbon Gen 11, OV2740 sensor).
+
+Changes in v2:
+- Patch 8: Return the negative error code from ipu6_dma_map_sg() instead
+  of checking for 0 in ipu6_dma_map_sgtable() (Sakari Ailus). Omitted
+  Antti's Reviewed-by on this patch as the implementation changed.
+- Collected Reviewed-by from Antti Laakso on patches 1-7 and 9-11.
+- Link to v1:
+  https://lore.kernel.org/r/20261023195446.22578-1-valerii.sokolov@pm.me
+
+Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
+
+Valerii Sokolov (11):
+  media: intel/ipu6: move busy check to ipu6_isys_vidioc_s_fmt_vid_cap()
+  media: intel/ipu6: fix firmware message buffer leak on send failure
+  media: intel/ipu6: check pin bounds in ipu6_isys_fw_pin_cfg()
+  media: intel/ipu6: clamp crop top offset in ipu6_isys_csi2_set_sel()
+  media: intel/ipu6: check irq_status mask before calling subdevice ISR
+  media: intel/ipu6: clean up fwctx on ipu6_fw_com_open() failure
+  media: intel/ipu6: fix IOVA leak on first entry failure in
+    ipu6_dma_map_sg()
+  media: intel/ipu6: return an error from ipu6_dma_map_sg() on failure
+  media: intel/ipu6: unmap the dummy L2 page table in ipu6_mmu_destroy()
+  media: intel/ipu6: pass the device to dev_err() in ipu6_mmu_unmap()
+  media: intel/ipu6: fix EOF sequence logging in ipu6_isys_isr_one()
+
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c   |  3 ++-
+ drivers/media/pci/intel/ipu6/ipu6-dma.c        | 10 ++++++----
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c    | 10 ++++++++--
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c  |  2 ++
+ drivers/media/pci/intel/ipu6/ipu6-isys-queue.c |  4 +++-
+ drivers/media/pci/intel/ipu6/ipu6-isys-video.c |  7 ++++---
+ drivers/media/pci/intel/ipu6/ipu6-mmu.c        |  5 +++--
+ 7 files changed, 28 insertions(+), 13 deletions(-)
+
+
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+--=20
 2.56.0
+
 
