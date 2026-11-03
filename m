@@ -1,48 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706602;
-	b=WPgJNXegf0T24TdzriwAPdFKQ8QVOPfRL1fu0wHnh9WJAk/zPOL3nRmblCJjIf9sUCal
-	 34XZw0cDub5bn4yaWqApcoYHsIbfhv9WH8RscMnNGybPUVRjq14+Q2hAlSyEbHMPZqRur
-	 wGP5krD2yUXeMbUHuIFbILQqk0sTMyAa2JD126j7DLn/tGL6bq1XTzi4uC/IqAwH/tKTP
-	 qgJ3NHwn12Ef2uKYF43liXTAlOYSzmKb5DBWde30l/HtJup5k1Ru+EQYor8S6CDn26s0E
-	 B46W5+z7FFjdMn0PuiThUycve3RLB1f4GlfgkkvzIS1KtGA/W/JqQpZW+4ZLXmt4fSQ==
+	t=1793706609;
+	b=pNo8syGZ1Og/rTn4DuppeQxUFCxS8NbYgXuBryJkjb4gCqUb0wLcqMF+RQH6fdZGN+az
+	 AMPhKPAKVvvsoSc0wUvf+4sMnZXk1rYfK9B/ZsojOZdw63uiYZJLmzWiKkKf/9amsiXqN
+	 uEROQEPUBomoX9AA3dN0LCOv/0VQ0+zU0/xG64wwpWvF3JkvBASf0ltbPzNuSIi5+MMWM
+	 0LOAJ8QKh2bLUtSS+DK9VR6Vh39ZQ14/3zP/8Xx8pf59nSVtLgj6AxKAcjZvLURfgSfd5
+	 LSrw3wN1maXQEtg8s4JxBZrloBupEI30RCad/rIVnML1wZtzliVCdDTNF/Wzb8ypG2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706602;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=FfTQknGJpSI2GICiIF+kAXKtTCGL4b3ApztibrZw2ss=;
-	b=zNob/ore9WJKxtXc9EpL3J7hW4iKsigSQtwY8zCFPbQvuMl+QJ+JSYYZGvBiTjquaoBi
-	 mcMGNz7r78mRxakKPEnQovoFQRRVmV7TtydQh/gjo24sumgiwpguuzCjyReg1I9d38JYo
-	 LC/1USmjyniDD3oh1Y7cz3OW49vjxWsCPgnl2ns1XyZq5WDCV0Ez1UuCZd2GXjnoojgbO
-	 /azFFy2A77UwgIyEX7xv1B9vF3wTe3uhXwfEzvzHYsdHsY3OdN3BDzz0boFNKgQECFry+
-	 FiLqc03yB8k8JCymbFyRfauIdJXJ6mImWMUWvACaqg5Dd4LjwmNd3EOvctOPwljXUkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706609;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=21vYI0bQVUl3hCiSLmuD6Wo76ikPKRN+C6h2vCMSb/E=;
+	b=VRtUxdGx8WKgu1Dy4chhC3aOcfeXKrG8KxBJRNZGRuV3YCDG3K+XadMGIv/O56QfOWCh
+	 Xhsd9tdJw/Ix0N50l/p3oi+Il+fHWUzJMUJzpUcsMjWbSl6l2xqPxTf1Ew53kF2NdaRF8
+	 LfWhBq5/7LY3Mq8jFEIx8iyiM5hsIgneeYwtk4B42m2PqoM3K1yEI72rPotFUmHAXL9bN
+	 tqmemiZxauhG+7iam3nhhSc6TAFCJ6b7nr51JjNhh8/XONeG2Ie/bC8envpUb2LieHWji
+	 /fCBhPLPFaEjzZYH4ZI3/5BOX8LtoZ7iiKDMOHS7TxO65bdUn9DwGVbcOiB18Rf3SZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aqOPHRez;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTzqHn6U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67035606D83D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:50:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20CB606A32F;
+	Tue,  3 Nov 2026 11:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aqOPHRez
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5092D1F00A1E;
-	Tue,  3 Nov 2026 11:49:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTzqHn6U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF13B1F00A1E;
+	Tue,  3 Nov 2026 11:50:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793706602;
-	bh=FfTQknGJpSI2GICiIF+kAXKtTCGL4b3ApztibrZw2ss=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=aqOPHRez7HNXUMU/E7nN4gHuptx/8+GgRVpmK73me7CuY054WSzDoHjTdaG2VE3wu
-	 gB6Z/HAkRlwDuDx+TXxujjnY5IMaeFOjiO4WcpLDPm1YCnmg/pe7ZWM8i08/QtfwxF
-	 pATBtmHmzKNnSSlanHTVwJdRbk5VaPL/eQEoLxUMepXrl0zpeN2BIX5SUOOOjUjy0O
-	 NCHTBS4n7FB3nmGKoajrhIZfuIk4Qj3uZE2F1HvU2rUZ0rH56RTIikNDOkisk+NlJ5
-	 K2whdi0pPpiOygQkIKKIxKEQIM62Wks29qQWzH9gQ7aJJFvJsiuDyQSp5UFy8kIpjH
-	 e/bVcJVee77MQ==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Tue, 03 Nov 2026 13:49:50 +0200
-Subject: [PATCH 2/2] kho: fix bootmem sizing
+	s=k20260515; t=1793706608;
+	bh=21vYI0bQVUl3hCiSLmuD6Wo76ikPKRN+C6h2vCMSb/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NTzqHn6UV0XlvZnKXNpull1pI9vC844ALQF1QB7ewEHwqFQiUxyCsX1vR+MKE0t3r
+	 y935niEs67SECOk8icBrppwNaHDapOCSo4lYsI9LV+Jh3Jjn1Fwlw5SFMDjEPHbzYp
+	 fallXfTmScstELEyPZU/q8ctAZXnUDFYs9sHj8qV+GqrKukjw+ot07vYiWCmgQ0bde
+	 /zKZbJeHE3MHwOiOqL7ug13nzBn6nMhZdERc3wzWDlDmpxqSjOakD4fg1zI7oqzmYQ
+	 1DNre6XTfOXizmQ9gtggy3llNS+vRrnNSB9eSeoUwNO/nU0cXwmqZ45F445dV1Ead6
+	 28Saxt+cZEROA==
+Date: Tue, 3 Nov 2026 11:50:03 +0000
+From: Will Deacon <will@kernel.org>
+To: Wei Wang <wvw@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	wei.vince.wang@gmail.com
+Subject: Re: [PATCH] arm64: suspend: Save and restore TPIDR2_EL0 across CPU
+ suspend
+Message-ID: <aunKa8uBZJTCzVjd@willie-the-truck>
+References: <20261102234813.1069156-1-wvw@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,184 +62,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-kho-bootmem-sizing-v1-2-45aa74098f34@kernel.org>
-References: <20261103-kho-bootmem-sizing-v1-0-45aa74098f34@kernel.org>
-In-Reply-To: <20261103-kho-bootmem-sizing-v1-0-45aa74098f34@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>
-Cc: Alexander Graf <graf@amazon.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Chen Pei <cp0613@linux.alibaba.com>, George Guo <guodongtai@kylinos.cn>, 
- Kexin Liu <liukexin@kylinos.cn>, Sourabh Jain <sourabhjain@linux.ibm.com>, 
- kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-X-Mailer: b4 0.16.1-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102234813.1069156-1-wvw@google.com>
 
-Bootmem areas are sized from overlapping views of the memory reserved in
-memblock:
+On Mon, Nov 02, 2026 at 11:48:13PM +0000, Wei Wang wrote:
+> On systems with FEAT_SME, TPIDR2_EL0 is part of userspace thread state:
+> the AAPCS64 SME ABI uses it as the ZA lazy-save pointer, and the kernel
+> context-switches it eagerly in tls_thread_switch(). While a task is
+> running, the live register is the only copy of its value.
+> 
+> The architecture defines TPIDR2_EL0 as UNKNOWN after a warm reset, so
+> a CPU power-down through PSCI CPU_SUSPEND or SYSTEM_SUSPEND can lose it.
+> cpu_do_suspend() and cpu_do_resume() already preserve TPIDR_EL0 and
+> TPIDRRO_EL0, but not TPIDR2_EL0.
+> 
+> For CPU idle this is harmless: current is the idle task, and the next
+> context switch reloads TPIDR2_EL0 from next->thread.tpidr2_el0. For
+> suspend-to-RAM and hibernation, however, cpu_suspend() runs in the
+> context of the userspace task that wrote /sys/power/state, and that
+> task returns to EL0 with an UNKNOWN TPIDR2_EL0. On hardware where the
+> reset value is non-zero, the next SME ABI lazy-save check in that
+> thread faults. For example, bionic's fork() -> clone() ->
+> __arm_za_disable() -> __arm_tpidr2_save() loads from the garbage
+> pointer:
+> 
+>   # echo mem > /sys/power/state; true
+>   signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0xa3bad11bcaf72e93
+>       x16 a3bad11bcaf72e89
+>   #00 pc ... libc.so (__arm_tpidr2_save+24)
+>   #01 pc ... libc.so (__arm_za_disable+32)
+>   #02 pc ... libc.so (clone+480)
+>   #03 pc ... libc.so (fork+60)
+> 
+> Having firmware zero TPIDR2_EL0 on warm reset avoids the crash. It is
+> not enough on its own, though: a thread that enters the kernel with a
+> lazy save pending (TPIDR2_EL0 pointing at a valid TPIDR2 block) would
+> see TPIDR2_EL0 == 0 on return. It would then wrongly conclude that ZA
+> had been committed and restore stale data from its save buffer. The
+> kernel owns this state and must preserve it.
 
-* the global area is sized from all reserved memory, including memory
-  allocated on specific nodes, so on NUMA systems everything allocated
-  on a node is accounted in both the global area and the area of that
-  node.
-* per-node sizes are calculated after the lowmem and the global areas
-  are reserved. With CONFIG_NUMA=n all memblock regions belong to node 0,
-  so the lowmem and the global areas are accounted in the size of node 0
-  area and scaled once again.
+There's a lot of unnecessary (AI-generated?) detail in here. Please can
+you trim this down a bit? I don't think we care about the firmware part,
+the stuff about idle or the bionic crash. The bottom line is that we're
+not saving/restoring a live EL0 register across suspend/resume.
 
-As a result, bootmem is about twice bigger than it should be on NUMA
-systems and about four times bigger with CONFIG_NUMA=n. On small systems
-reservation of the bootmem may fail and then KHO gets disabled.
+> Save TPIDR2_EL0 in cpu_do_suspend() and restore it in cpu_do_resume()
+> when SME is present. Placing this in proc.S covers both cpu_suspend()
+> and hibernation. The new slot uses ctx_regs[14]; sp moves into what was
+> previously tail padding, so sizeof(struct cpu_suspend_ctx) stays 128
+> bytes. sp is only accessed through the CPU_CTX_SP asm-offset.
+> 
+> Fixes: a9d691585950 ("arm64/sme: Implement support for TPIDR2")
+> Signed-off-by: Wei Wang <wvw@google.com>
+> ---
+>  arch/arm64/include/asm/suspend.h | 2 +-
+>  arch/arm64/mm/proc.S             | 8 ++++++++
+>  2 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
+> index eb60c9735553..2cc5fb405769 100644
+> --- a/arch/arm64/include/asm/suspend.h
+> +++ b/arch/arm64/include/asm/suspend.h
+> @@ -2,7 +2,7 @@
+>  #ifndef __ASM_SUSPEND_H
+>  #define __ASM_SUSPEND_H
+>  
+> -#define NR_CTX_REGS 14
+> +#define NR_CTX_REGS 15
+>  #define NR_CALLEE_SAVED_REGS 12
+>  
+>  /*
+> diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+> index 7afbece885a3..c7b7fa6491c3 100644
+> --- a/arch/arm64/mm/proc.S
+> +++ b/arch/arm64/mm/proc.S
+> @@ -103,6 +103,10 @@ SYM_FUNC_START(cpu_do_suspend)
+>  alternative_if ARM64_HAS_TCR2
+>  	mrs	x2, REG_TCR2_EL1
+>  	str	x2, [x0, #104]
+> +alternative_else_nop_endif
+> +alternative_if ARM64_SME
+> +	mrs_s	x2, SYS_TPIDR2_EL0
+> +	str	x2, [x0, #112]
+>  alternative_else_nop_endif
+>  	ret
+>  SYM_FUNC_END(cpu_do_suspend)
+> @@ -142,6 +146,10 @@ alternative_if ARM64_HAS_TCR2
+>  	ldr	x2, [x0, #104]
+>  	msr	REG_TCR2_EL1, x2
+>  alternative_else_nop_endif
+> +alternative_if ARM64_SME
+> +	ldr	x2, [x0, #112]
+> +	msr_s	SYS_TPIDR2_EL0, x2
+> +alternative_else_nop_endif
 
-Make the areas cover separate parts of the reserved memory: the lowmem
-area covers allocations below ARCH_LOW_ADDRESS_LIMIT, per-node areas
-cover allocations above it on each node and the global area covers
-allocations that are not bound to any node. Calculate all sizes before
-reserving any of the areas.
+nit: We use msr and REG_* for TCR2, so it would be more consistent to do
+the same for TPIDR2_EL0 if the assembler is happy with it.
 
-With CONFIG_NUMA=n the global area becomes empty and it is not reserved.
+Otherwise, looks ok to me:
 
-Bootmem sizes in MiB in x86 QEMU VMs, before -> after:
+Acked-by: Will Deacon <will@kernel.org>
 
-                     CONFIG_NUMA=y     CONFIG_NUMA=n
-  1G,  1 node         176 ->   92       320 ->   80
-  4G,  1 node         508 ->  332      1264 ->  316
-  16G, 2 nodes       1268 ->  704      2944 ->  736
-  32G, 4 nodes       2296 -> 1224      5196 -> 1300
-  64G, 4 nodes       4344 -> 2248      9664 -> 2420
-
-Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
-Reported-by: Kexin Liu <liukexin@kylinos.cn>
-Reported-by: George Guo <guodongtai@kylinos.cn>
-Closes: https://lore.kernel.org/all/20260904025101.9959-1-dongtai.guo@linux.dev
-Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-Closes: https://lore.kernel.org/all/20260922131217.698809-1-sourabhjain@linux.ibm.com
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- kernel/liveupdate/kexec_handover.c | 83 ++++++++++++++++++++------------------
- 1 file changed, 44 insertions(+), 39 deletions(-)
-
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index f268c57413a7e..eaeb895bb7595 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -684,6 +684,7 @@ static unsigned int bootmem_scale __initdata = 200;
- static phys_addr_t bootmem_size_global __initdata;
- static phys_addr_t bootmem_size_pernode __initdata;
- static phys_addr_t bootmem_size_lowmem __initdata;
-+static phys_addr_t bootmem_size_node[MAX_NUMNODES] __initdata;
- 
- static int __init kho_parse_bootmem_size(char *p)
- {
-@@ -753,29 +754,48 @@ static int __init kho_parse_bootmem_size(char *p)
- }
- early_param("kho_bootmem", kho_parse_bootmem_size);
- 
-+static phys_addr_t __init reserved_mem_size(phys_addr_t limit, int nid)
-+{
-+	return memblock_reserved_kern_size(limit, nid) -
-+	       memblock_reserved_hugetlb_size(limit, nid);
-+}
-+
-+static phys_addr_t __init bootmem_scale_size(phys_addr_t size)
-+{
-+	return size * bootmem_scale / 100;
-+}
-+
-+/*
-+ * The lowmem area covers allocations below ARCH_LOW_ADDRESS_LIMIT, per-node
-+ * areas cover allocations above it on each node and the global area covers
-+ * allocations that are not bound to any node.
-+ *
-+ * All sizes must be calculated before any area is reserved, otherwise the
-+ * areas reserved first will be accounted in the sizes of the others.
-+ */
- static void __init bootmem_size_update(void)
- {
--	/*
--	 * If fixed sizes are not provided via command line, calculate them now.
--	 * Remove HugeTLB allocations from it because they never get allocated
--	 * from bootmem.
--	 */
-+	int nid;
-+
- 	if (bootmem_scale) {
--		phys_addr_t size;
--
--		size = memblock_reserved_kern_size(ARCH_LOW_ADDRESS_LIMIT,
--						   NUMA_NO_NODE);
--		size -= memblock_reserved_hugetlb_size(ARCH_LOW_ADDRESS_LIMIT,
--						       NUMA_NO_NODE);
--		size = size * bootmem_scale / 100;
--		bootmem_size_lowmem = size;
--
--		size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
--						   NUMA_NO_NODE);
--		size -= memblock_reserved_hugetlb_size(MEMBLOCK_ALLOC_ANYWHERE,
--						       NUMA_NO_NODE);
--		size = size * bootmem_scale / 100 - bootmem_size_lowmem;
--		bootmem_size_global = size;
-+		phys_addr_t lowmem, global, size;
-+
-+		lowmem = reserved_mem_size(ARCH_LOW_ADDRESS_LIMIT, NUMA_NO_NODE);
-+		global = reserved_mem_size(MEMBLOCK_ALLOC_ANYWHERE, NUMA_NO_NODE);
-+		global -= lowmem;
-+
-+		for_each_node_state(nid, N_MEMORY) {
-+			size = reserved_mem_size(MEMBLOCK_ALLOC_ANYWHERE, nid) -
-+			       reserved_mem_size(ARCH_LOW_ADDRESS_LIMIT, nid);
-+			bootmem_size_node[nid] = bootmem_scale_size(size);
-+			global -= size;
-+		}
-+
-+		bootmem_size_lowmem = bootmem_scale_size(lowmem);
-+		bootmem_size_global = bootmem_scale_size(global);
-+	} else {
-+		for_each_node_state(nid, N_MEMORY)
-+			bootmem_size_node[nid] = bootmem_size_pernode;
- 	}
- 
- 	/*
-@@ -784,24 +804,9 @@ static void __init bootmem_size_update(void)
- 	 */
- 	bootmem_size_lowmem = round_up(bootmem_size_lowmem, BOOTMEM_ALIGNMENT_BYTES);
- 	bootmem_size_global = round_up(bootmem_size_global, BOOTMEM_ALIGNMENT_BYTES);
--}
--
--static phys_addr_t __init bootmem_size_node(int nid)
--{
--	phys_addr_t size;
--
--	if (bootmem_scale) {
--		size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
--						   nid);
--		/* Do not count HugeTLB pages. */
--		size -= memblock_reserved_hugetlb_size(MEMBLOCK_ALLOC_ANYWHERE,
--						       nid);
--		size = size * bootmem_scale / 100;
--	} else {
--		size = bootmem_size_pernode;
--	}
--
--	return round_up(size, BOOTMEM_ALIGNMENT_BYTES);
-+	for_each_node_state(nid, N_MEMORY)
-+		bootmem_size_node[nid] = round_up(bootmem_size_node[nid],
-+						  BOOTMEM_ALIGNMENT_BYTES);
- }
- 
- bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
-@@ -891,7 +896,7 @@ static void __init kho_reserve_bootmem(void)
- 	 * memoryless nodes, as we can not allocate bootmem areas there.
- 	 */
- 	for_each_node_state(nid, N_MEMORY) {
--		if (kho_reserve_bootmem_area(&i, bootmem_size_node(nid),
-+		if (kho_reserve_bootmem_area(&i, bootmem_size_node[nid],
- 					     MEMBLOCK_ALLOC_ACCESSIBLE, nid)) {
- 			pr_err("Failed to reserve nid %d bootmem\n", nid);
- 			goto err_free_bootmem_areas;
-
--- 
-2.53.0
-
+Will
