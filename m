@@ -1,101 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793687693;
-	b=5IJaeJnJbwvfzvY1MKP/G9KkLgiTKz9ghN0w6TWjE0b3lLOOdXjTVcNpY3r6yPNXzZGm
-	 SZ5/ADUI1S6C8o0CGbk4OynMGXPUMXPmBfAAOSyc5Py9MbeFl0Kw30P6WTh2/wvaZOLzq
-	 e3DC+f0OOQ8S3VpgUShozwFBZUukTLJ0eJ+Pr8c7E1eZvBQBGb2vJrHdeK7boiNLeki4U
-	 rXD/8K81I7WGoBuX01YuWHd95hEpYyv0Xxl9JdcG5rjyKPgtjkWLLe4DnKqvG3aRZZYV9
-	 1nd7GV9yeA6kwCqcAH8XA8btTIH8P/L/hXqyAhh1euJTeM1irBAc023LXznEWWwFh5Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687693;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zuy7iE4mqn2QMmnQJ0ptREtP6KQtxo9H0vF5QikUpuU=;
-	b=d0d26dl1bJ+MY58usmxaDjx8qRoia2oJ9y8IrINQ/S3BvVhzHVUrlU9In8NbtIUX19Hx
-	 De56N1Z8rzr/6z9XPWRcErXm/cK/ic5uVpeKUmD8OFAsvzFRQEfITLd5WscdI2l/cYuQh
-	 8FKeSLzYDiRTjAwVTI4PDrfzbbyxV42UPH8F/W4hjTNentYgrrY5A1MfepiW/PWLL9mJD
-	 ZPDevDA30xgVGMOPn59AkRQY9Tx3tRejqBrmUfoSX9/MgpVXT6bx7Nck3QkQDs56YlSt3
-	 3OvtmTKVvNMSbxY3ebLjS2up82Nxqe/8ETbxP0Rkk8ERU3LDwkmymI3JRWDfNAXe7JA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cXXAYNow;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.35
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011035.outbound.protection.outlook.com [40.93.194.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793687709;
+	b=2nNu9pch/MJaxPm8+LQ3bghclmTcYd07A66G3Zi8IIUR2J7epCId8Y/hg1o7pZISSF5z
+	 H5wHtbxl5zSZWgS0b12CVyXpqPIOFtHT9xXhzt3eKwqse85i0QQqqyRERVQ47DT4RjpxO
+	 zr3lGLUsMV9oF2wsGc007Hvn6k6PrV76k/S+q98NIEKewExQYzaOJtO9n9aLAcpgZyGrv
+	 OEE73ov7yHrtrLIOFYV+HZ7/y9s3jyAmc2suoaNO7wwFuO9SwklLZt2oe2rSlhJStcE4T
+	 fui5f4KK9nvxvv75Gz7pNtIWyN5MOLhDfqiEfQ3O9UoNQ1ndqFzBqD4j9r/Z5vJFvwQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687709;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=yAZOZJs9KcIFFtegfeWb7c/pQrDj/UhaRfTWHv2xopY=;
+	b=FIduf6glT0SaY0kTB4sqCUdMHAQ+cBHWEmWSuzRdHoMIygr5UgevlgtYKvpI1REEr+lu
+	 61pd+HrAzcdFx+VwOG736T1bvLBw6eFAsnoNEdBo73WRMHn32+nYj2/6AoFvrtxP0mBHr
+	 qy0VC+lThrxPNLU1kIrYKS2vXXThjAvmbJzpWEMeGQ47JrHsO5cqu8vqCUATDZ3XP78XT
+	 19kULm1UVxDEGBJ6qZU/atNJSkWQ2Se1llCki9QlPqys0u5xboQQ+4qamPRDyoGFO6dm/
+	 lZh2evKxe9f5y3EsiPnN+7EXXtZGWJElS2sVhbX9qmmnV+P4D44+gJWgZfpnmz21IxA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=U0z1YiP3;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E93A606A324;
-	Tue,  3 Nov 2026 06:34:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E93A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABC4606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:35:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ABC4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cXXAYNow
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p0o4x8jFDKszzGn5SbMzgyuqNRTqeYroj0gXdgPDL1lP+1HqtNxP3Pt2GfRlRfNB4cJ4jO7UQns2T5I2FCiwtJ1yFBHN3CWlXSqN6RtUMMacofK3PREMYUB7nx1msHqzz0dhPX4L3z/SyKNTsJYhYCYo+cEkN6QF21BeeWzD3jTUUwWSgLYqDrXbwDVL8A885tN2fXHNPe0WVsZh2wofi9sQliG/bKkfvNBLrZr/JevTEIGAMpK7XIiuIVr8IB3p1t2UIu14louyknilfi3EiiWuMvlq9uIid+LDiZ67Zjo7EkmSoTgSxGjiBn4rqcLUD+gcpr+d7n+++l2xR7rv/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zuy7iE4mqn2QMmnQJ0ptREtP6KQtxo9H0vF5QikUpuU=;
- b=wNkTN4QWspPHclsQDw3oPa0UrW/h5bMEzyaOIDjfowMGJGZEcTYVTN0iYVj1N9mNuMLTbkpbXhGEmVjpICUJna10Y1yX7sdtv8I7/MTAWhbh/WdNNFqd+eJcCDnExUnNYQeSYPbKzh1bnUDeFTXmS96qYDotCGOIQVQFSV82x0ScrQOcUwFiCsh9wiFD4zju9fejEIk2Kq/Nbj0diRN7+4+EsQhF6JzHlC5VwVLmIuOet0cVXRp+1TNx0SYMed2gMIchjXCmJiJnzmz/bdtc0M+Ftgj8h9bGhcm5uNr93OFaWh47AD/QT6WLj6nN/ArX3Az2n2nitVE/sDt4J1Vo6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zuy7iE4mqn2QMmnQJ0ptREtP6KQtxo9H0vF5QikUpuU=;
- b=cXXAYNowsusSgeCper1uKYD5suJ2HiSt6AsusEnyRy9axb+8sHaDT1YgJed4nicvptj7M+DT6UqAYSG85YnzS6MSG19OEDZ73peVB9+hVIhTr3i+Ejr874KU3ClbiYA8fZy/0q8+7hStr6APAAfozD6GoZ1o5rHWfd8KeliBz0g=
-Received: from BLAP220CA0019.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::24)
- by MN0PR12MB6032.namprd12.prod.outlook.com (2603:10b6:208:3cc::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 06:34:47 +0000
-Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
- (2603:10b6:208:32c:cafe::3) by BLAP220CA0019.outlook.office365.com
- (2603:10b6:208:32c::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.11 via Frontend Transport; Tue, 3
- Nov 2026 06:34:47 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.0 via Frontend Transport; Tue, 3 Nov 2026 06:34:47 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 00:34:46 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 00:34:46 -0600
-Received: from [10.136.40.220] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 00:34:43 -0600
-Message-ID: <01f62170-f626-4252-81ad-d225442f1969@amd.com>
-Date: Tue, 3 Nov 2026 12:04:42 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=U0z1YiP3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793687702; bh=yAZOZJs9KcIFFtegfeWb7c/pQrDj/UhaRfTWHv2xopY=;
+	h=From:To:Cc:Subject:Date;
+	b=U0z1YiP3+zQEbzpsdILd7lN9lKliz38qZomj5oti0jgH409LhjksVx/lW1hv09sn3
+	 aMfe5Ii72WIGtWeApJ6mkw8Ite+qTpl4xe6rLxXkJ32hTvuTXzxUo076PbgLti51wL
+	 dEToCdTUBK9ZREfLMETTHg8ON9CstNLe/Y0y7LTg=
+Received: from [172.18.4.77] ([61.136.26.103])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 8C007267; Tue, 03 Nov 2026 14:35:00 +0800
+X-QQ-mid: xmsmtpt1793687700tfraguhhw
+Message-ID: <tencent_B367A2067C2EA3845289BED747449C264D09@qq.com>
+X-QQ-XMAILINFO: NI6TJc3opC6F7/qwgER8n2ajpIziUYrbt6OBeYaBbDkrO1CtCBgNYItxZoygtg
+	 IhX2seLS5oPW6AKdB+KhI85MkHwjkrqYIZzQIv84qtgseD62H6H9pLQKmT/ElNGM2ZdbXpTuHKmi
+	 GLOYcQMgb3N5vERuK3MgZLICHqY0EL4qQ1HKEXEyWNBI8kvgNnw/6BMbigty8ztQCNMeB3CvCS4a
+	 IsY9W95PpJQum8qbYVq9wVz3TiwqjL4mszEpPmG/quEQP3SFccClbY3NXN7io7a2wy3aE+cn18UQ
+	 /y8EkALmVSBfxk9OA9ChVAiuNHGoypjrTk2EAxRRaLOsU2AvAtByw0UmlQpju3jhI/5VI9jcv6xn
+	 1QhAFTef2EKADWIwsYtoXxa8aO5SEsH/YWNpE/+jPy/rLSZrbHjjMy/BPrDNlTVGU2Y4cJz349UJ
+	 yokZbCHATwdhYNiG8UUmwrL9iOPrwFsfnMoptArTwiYfI4g2E5eKs7kPHynQw+yHqoE1nG7pyI3h
+	 rKubWpAQQufzTZQ76xOh3qUYFSu1u5axeruo4Pbq87dIzYCQYL9/+QqI6xu64CgAWqgarO3pFL+x
+	 bv1/91JRaS5CMpqWIq1BsYWXMR3p0o1q0QtrPRu+PO/MYkloZ/1hxJRf3N84mbcmD4/oopRyQSKx
+	 5vVXHdohEocq4L4wSnV+ZUdtGyhfmuYxlXnNhpXZd31yMjcKsUdkNcqzSqnIzjrjcW3z9huWCgt7
+	 hOTdsSuprZdG1f6kXe/p8C6qoav/ZycVquJ2rgYxESnHBMpUO0qiCYKOP4U60CMjdbJTb9eBBRM7
+	 J9Akn5Y27+7C4POpr+CMAo90nP8VfIleWad9hcXWepF22YdiA+MeP19dv8pPAepCYFkLT3tU1HEs
+	 HFuT4iLq89P5KwG4OMBR7mB4RRA6oYLr5gFxjJ9gODY58fh+Y1KBBwaUtgzqT0hrXWmHdY2WVLox
+	 S6apXKCYTVHW2xflnYNIqxZQgD+gbRc3IUvTkSH12a/yJLItKdclU9wv/dS6S2+DnKk6f7eM4uKO
+	 XZDzjNDRI4rsLA/XRe1rBE6HU3o8KQqhbuXFFo6w==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [Bug report] gfs2: unvalidated lf_depth causes shift-out-of-bounds in
+ dir_e_read, dir_split_leaf and gfs2_dir_exhash_dealloc
+X-OQ-MSGID: <c12-gfs2-lf-depth-shift-20261103@qq.com>
+Date: Tue, 03 Nov 2026 10:00:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,200 +77,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/5] selftests/resctrl: Add support for MBM and MBA
- tests on AMD
-To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
-	<babu.moger@amd.com>, <shuah@kernel.org>
-CC: <Dave.Martin@arm.com>, <james.morse@arm.com>, <peternewman@google.com>,
-	<eranian@google.com>, <tan.shaopeng@fujitsu.com>,
-	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<x86@kernel.org>
-References: <20261022132517.46805-1-swapnil.sapkal@amd.com>
- <20261022132517.46805-4-swapnil.sapkal@amd.com>
- <c57f0d76-8fa7-443c-8ba4-2a18eb0ba7fc@intel.com>
-Content-Language: en-GB
-From: Swapnil Sapkal <swapnil.sapkal@amd.com>
-In-Reply-To: <c57f0d76-8fa7-443c-8ba4-2a18eb0ba7fc@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|MN0PR12MB6032:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d6f2227-4a5c-4352-b9b6-08df39748e34
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|23010399003|1800799024|6133799003|10067099003|18002099003|261102123227099003|22082099003|3023799007|56012099006|4143699003|261026121527099003|11063799006|261022075727099003|261022105027099003|261021121427099003|261009223027099003|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	ZfOlvml9QCPQWM6t4EhD3p8BsaXjOWcPC7rYP5x4ri/O2cp7Ry7TrhZPuGjYizxy5aqgLjdht9j6/slEQjqNyQ+3VvX1BbITExL869Sjt03iV/F/QoV9CGRN4nmYSD5aBBtm8lS/WAWlUSq4mG2D5GZC0uYTVgSqxRZU7OssPBUuxtLfPyJCZeAg1Z9RZEfWuQonYg8nA1aivGYqd8vy7nMz9UtT6Xcxhmi3K+hgQNx4FYsFLzRNigKSwDQfKouuwrOAOBsmuAY6QHAhywW8mXULBS1KclQBc3c9UKO0MgSHQnqq0m28vDnNx7XblehScjdIfKUtsSwWISuMU2eztxX9MD0/iY8YEiamUFzV250d3edzfZ7/MC2FmE6rACSNZUQ/n0/dJXVOunDv/f8oVWt4jvTIzdZ1lAtVKK4+4iMh+Rat/FJx63ku3HHV8JSA1eqVRH2vzurlOVnOEohAr3kPguTzzEq/gvazk0U7DgogqLPY5Dy126VkO0VS2caOhr1kn/2Png/Daig5VVTLmARmx29eeO/JJJHX0iCOdquQrme9FXXiznxaGXxDkSItbYuf7SwY7mCSmVQFAFFaTouUoxr/cWuHuXSYK3/deHqu37eHAJ0AGJO/v53ryY0UCngx8YJH7o35KnIbWcFm5E+g6Lbl2UmY0Tzh1cYu6ShfRB2FbW4e+qRMdle0dhe9/KhisBUkS5zi50wxoViAcA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(18002099003)(261102123227099003)(22082099003)(3023799007)(56012099006)(4143699003)(261026121527099003)(11063799006)(261022075727099003)(261022105027099003)(261021121427099003)(261009223027099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sfu7YG4JAvpdPR9iuakchx5vrp1xU4DQTQlEL7UWDIEAxzufkYx8oEALzwt8dJbZ+2ArI+7D+RZ1E8o/A+R1/E1+Alr1XRzXVoeNQDAZTevKaMP8sseGF+e1A2Jd42BziY5+qUozoR0N/iTnfJ+SvzgF4dW49HPtt8+zMYOWRu9K0z6ev6qIBTw/ZmIwT4HT1OU6+EXzLH8GIUfPdMDoLAmKAX+o1P/ZtsyjyaN2suMRls2gAPA6DVjJ9ItWmLK70kPvJ6bK1oztoOsD4wAIlO3+73LnQeoqPQxlpv/AXqLGxf9OVpt46Vzy27PCcY6DhEkW5S+KFZaJOq1mNBvyYFPnF+Xqdi+0xU6Y9VyXRgDB89yUCgzGz6+pfd7Gzgi9W3uDJTfpqtdJE12RfYOq8MZ43suCKqCHwVZnOudAAYa4GR7rUZcWHrbQK9kyJSIj
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:34:47.4268
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d6f2227-4a5c-4352-b9b6-08df39748e34
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B36E.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6032
 
-Hi Reinette,
+Hi,
 
-On 29-10-2026 00:11, Reinette Chatre wrote:
-> Hi Swapnil,
-> 
-> 
->> diff --git a/tools/testing/selftests/resctrl/resctrl_val.c b/tools/testing/selftests/resctrl/resctrl_val.c
->> index fdbbe2155cea..38cf58c41be1 100644
->> --- a/tools/testing/selftests/resctrl/resctrl_val.c
->> +++ b/tools/testing/selftests/resctrl/resctrl_val.c
-> 
-> 
->> @@ -233,6 +277,7 @@ static int read_from_mc_dir(char *mc_dir)
->>    */
->>   static int enumerate_mcs(void)
->>   {
->> +	int (*read_mc_dir)(char *mc_dir);
-> 
-> Could this be named read_from_mc_dir to avoid the unnecessary churn?
-> 
+Mounting a gfs2 image whose leaf blocks carry an lf_depth larger than the
+inode's i_depth triggers an undefined shift in three places. i_depth is
+validated when the dinode is read; lf_depth is never compared against it.
 
-Sure, will update.
+  fs/gfs2/dir.c:1560  dir_e_read()
+      len = BIT(dip->i_depth - depth);        /* depth = lf->lf_depth */
 
->>   	char mc_dir[512], *temp;
->>   	struct dirent *ep;
->>   	char *sysfs_name;
->> @@ -241,6 +286,10 @@ static int enumerate_mcs(void)
->>   
->>   	if (get_vendor() == ARCH_INTEL) {
->>   		sysfs_name = UNCORE_IMC;
->> +		read_mc_dir = read_from_intel_mc_dir;
->> +	} else if (get_vendor() == ARCH_AMD) {
->> +		sysfs_name = AMD_UMC;
->> +		read_mc_dir = read_from_amd_mc_dir;
->>   	} else {
->>   		ksft_print_msg("Unsupported vendor\n");
->>   		return -1;
-> 
-> ...
-> 
->    		}
->> @@ -335,15 +387,40 @@ static void perf_close_mc_read_mem_bw(void)
->>   static int perf_open_mc_read_mem_bw(int cpu_no)
->>   {
->>   	struct mc_counter_config *mc_counter;
->> -	int ret;
->> +	int ret, opened = 0;
->>   
->>   	list_for_each_entry(mc_counter, &mc_counters_list, entry)
->>   		mc_counter->fd = -1;
->>   
->>   	list_for_each_entry(mc_counter, &mc_counters_list, entry) {
->>   		ret = open_perf_read_event(cpu_no, mc_counter);
->> -		if (ret)
->> -			goto close_fds;
->> +		if (!ret) {
->> +			opened++;
->> +			continue;
->> +		}
->> +
->> +		/*
->> +		 * On AMD each memory controller (UMC) has its own PMU that is
->> +		 * tied to a specific NUMA node, unlike Intel where opening an
->> +		 * iMC event on the benchmark CPU always resolves to the local
->> +		 * memory controllers. A UMC PMU can only be opened from a CPU
->> +		 * that belongs to the same node and returns -ENODEV otherwise.
->> +		 * The benchmark runs on a single CPU, so skip the UMCs that
->> +		 * belong to remote nodes and measure only the memory
->> +		 * controllers local to the benchmark. This matches what
->> +		 * mbm_local_bytes accounts for on the resctrl side.
->> +		 */
->> +		if (ret == -ENODEV && get_vendor() == ARCH_AMD)
->> +			continue;
->> +
->> +		ksft_print_msg("Error opening memory bandwidth performance counter: %s\n",
->> +			       strerror(-ret));
->> +		goto close_fds;
->> +	}
->> +
->> +	if (!opened) {
->> +		ksft_print_msg("Could not open any memory controller counters\n");
->> +		goto close_fds;
->>   	}
-> 
-> As the comment above highlights, the test runs on a single CPU. It is thus not
-> possible for the test to change which MC it needs to obtain data from.
-> perf_open_mc_read_mem_bw() is called several times during the test run and
-> repeated attempts at accessing MC that are known to fail is unnecessary.
-> Considering that -ENODEV can be relied on to indicate that the MC is not
-> valid for the test run, could it instead be used to drop that MC from
-> mc_counters_list? This will avoid the subsequent unnecessary attempts at
-> accessing these MC and also simplify the users that walk mc_counters_list
-> during the test run since they can continue to rely on all MC being valid
-> without needing to keep checking if the fd is valid.
-> 
+  fs/gfs2/dir.c:1050  dir_split_leaf()
+      if (dip->i_depth == be16_to_cpu(oleaf->lf_depth))   /* equality only */
+      ...
+      len = BIT(dip->i_depth - be16_to_cpu(oleaf->lf_depth));
+      half_len = len >> 1;
+      if (!half_len)                     /* checked after the shift */
 
-This is good approach which reduces the number of times we are iterating 
-full mc_counters_list. Thanks for the suggestion.
+  fs/gfs2/dir.c:2137  gfs2_dir_exhash_dealloc()
+      len = BIT(dip->i_depth - be16_to_cpu(leaf->lf_depth));
 
-> I suggest switching the list_for_each_entry() to list_for_each_entry_safe()
-> and drop the MC's from the list on ENODEV. This also eliminates the need for the
-> "opened" tracking that can be replaced with a list_empty(&mc_counters_list).
-> 
+Observed with a 4K-block image (mkfs.gfs2 -J 8) whose root directory was
+grown to exhash with 400 long-named files, i_depth 8, 16 leaf blocks at
+lf_depth 3. After a clean umount, lf_depth in every LF block (block offset
++24) is raised by 12, then the image is mounted and getdents64() issued:
 
-I will update accordingly.
+  UBSAN: shift-out-of-bounds in fs/gfs2/dir.c:1557:9
+  shift exponent 4294967289 is too large for 64-bit type 'long unsigned int'
+  Kernel panic - not syncing: UBSAN: panic_on_warn set ...
 
->>   
->>   	return 0;
->> @@ -363,14 +440,20 @@ static void do_mc_read_mem_bw_test(void)
->>   {
->>   	struct mc_counter_config *mc_counter;
->>   
->> -	list_for_each_entry(mc_counter, &mc_counters_list, entry)
->> +	list_for_each_entry(mc_counter, &mc_counters_list, entry) {
->> +		if (mc_counter->fd == -1)
->> +			continue;
->>   		read_mem_bw_ioctl_perf_event_ioc_reset_enable(mc_counter);
->> +	}
->>   
->>   	sleep(1);
->>   
->>   	/* Stop counters after a second to get results. */
->> -	list_for_each_entry(mc_counter, &mc_counters_list, entry)
->> +	list_for_each_entry(mc_counter, &mc_counters_list, entry) {
->> +		if (mc_counter->fd == -1)
->> +			continue;
->>   		read_mem_bw_ioctl_perf_event_ioc_disable(mc_counter);
->> +	}
->>   }
->>   
->>   /*
->> @@ -395,6 +478,10 @@ static int get_read_mem_bw_mc(float *bw_mc)
->>   	list_for_each_entry(r, &mc_counters_list, entry) {
->>   		struct membw_read_format measurement;
->>   
->> +		/* Skip memory controllers that were not opened (remote node). */
->> +		if (r->fd == -1)
->> +			continue;
->> +
->>   		if (read(r->fd, &measurement, sizeof(measurement)) == -1) {
->>   			ksft_perror("Couldn't get read bandwidth through MC");
->>   			return -1;
-> 
-> With unusable MC dropped from mc_counters_list all the above fd checks are
-> unnecessary.
-> 
+4294967289 is (unsigned)(8 - 15). Changing the lf_depth delta changes the
+exponent by the same amount, so the chain is unambiguous.
 
-Ack.
+One detail worth noting: BIT() yields unsigned long and the destination in
+all three functions is u32, so the truncated len is 0. In dir_e_read()
+that makes index = (index & ~(len - 1)) + len evaluate to 0 while
+index < hsize is still true; in gfs2_dir_exhash_dealloc() next_index also
+stays 0. I have not measured the behaviour with panic_on_warn disabled.
 
-> Reinette
---
-Thanks and Regards,
-Swapnil
+gfs2 metadata blocks carry no checksum, so the image is built with
+mkfs.gfs2 plus direct edits at two fixed offsets and needs no checksum
+recomputation. A single forged image reaches all three sites depending on
+the operation performed afterwards: getdents64() for dir_e_read, creating
+an entry in a full leaf for dir_split_leaf, and rmdir of an emptied exhash
+directory for gfs2_dir_exhash_dealloc (gfs2_dir_del() decrements
+lf_entries but leaves GFS2_DIF_EXHASH and the leaves in place, and
+evict_unlinked_inode() calls gfs2_dir_exhash_dealloc() when the flag is
+still set).
+
+All three sites obtain their buffer through get_leaf(), which has the
+directory inode at hand, so one check there covers them. After the
+existing gfs2_metatype_check(), when no error was returned:
+
+  struct gfs2_leaf *lf = (struct gfs2_leaf *)(*bhp)->b_data;
+
+  if (be16_to_cpu(lf->lf_depth) > dip->i_depth) {
+          gfs2_consist_inode(dip);
+          error = -EIO;
+  }
+
+lf_depth <= i_depth holds for every directory built by the kernel:
+dir_split_leaf() returns early when the two are equal, so a leaf is never
+given a depth above the inode's.
+
+The reproducer (image builder, VM harness, crash log) is available on
+request.
+
+Thanks,
+Guikun Yang
+
