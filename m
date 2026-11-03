@@ -1,23 +1,21 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.108
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793701391;
-	b=OYR32lbp79qU5128+YX3z9gpr5fVTSFNIBPUy6b28F1L56Vl9+5Qig+2bT/m/gbFZTwZ
-	 4dVmu9ciPaEBSNGYtCO8LBUAhBh5gEgwMm73FYxMlkIaHLGkCLkWqUxswh/dXP3Uz8xLh
-	 MvG/8CpiYzDASB+y1NshiZOqhoUW31FWqbsblSKgGa5UCf/9lcKkE7E3jgxaRkX9ZECDL
-	 XJzvu5ZyOpRDlFCIbSH/CaSI2vx6SO79p7qzNLKUwQZrbHqw0uVEit94luQ63ot81zV0A
-	 7J5W9L3XuWPuDvnsYEFU/lMCSny6xIIuK9aFeWtBfI/W+UsA8WEsz6UVOVYU+of/PFw==
+	t=1793701384;
+	b=d+EsqZAvMCDbvUx82nZSbbE07gX5yTRDluW7S01UjqkUTuTT0OOcELWKDc1RzxdAvIH1
+	 D70xy26To3vU/0e8YPr8PGFmseX6xrcqKV26ROHL46wf8lvSpBq9/hkUEQYjjsBeekJm5
+	 vO6cMTbSqSPDv6SRZa/V2oZ6GU0npWMoIfkrIADlth4P3ITbITLlKjXriZCYUICIfe8+C
+	 pjdZAgSCORJt8OQFYjP76wlvlj3X7H6PNZIy/XcZ6GD/rYyn0pSA1F3fUaThLOfYznGAO
+	 7b3njWtpcRSueZ8HfVtWjni3WSCLuAI8/CyIsNfdrOeql6apvGiNAwmNvgY++YRpcGw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701391;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701384;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -25,74 +23,67 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=efHJ8Ljho04EmFQ9aTe7E8p68ch616tIGNIIvcLgrDI=;
-	b=S5+7zMnUHftU2pRqyUktlJWX3BuZ+aOYaxFxQ/lh1iw5ZdtnxAXZjqpEQ9tvDELJ9rUV
-	 oJPBE/M2NX/zVUsrCCVlOA/gb37ydL7LOkttVahKh2vBn5aQcVSmtadjo7Lo+iVq3hSzO
-	 92RyMcT+T9+hw7l9PSeaeQq04+TxQ6Tfk/aEkdqH7028Ql0Yygwg0Jig5FTWwsiT4JI7V
-	 OziHuSpJacnvsaeWUQxJEnEwTJ8UMzjseoF8xxZI7dCEWbWUDNHWJ1++gQgrJtO3/lDix
-	 9LMb9nF3UPB1gZmSn8Iwb89XgN+rOOPMfseCCgm6lnrTAd9zV3o/VxkhEK80lejK7KQ==
+	bh=76F6HtKyTxkIGGLBbMqWXG0fWxtsEewzbCna4myQQaw=;
+	b=Lq5gLY/YoY3GJ4LhrNHyXxB8xtjqcvrYe6X3PZMTJiLBOMniUip5wLIKpVjV7VV/GmVz
+	 W+rH8CoJ8MERG82yPaBNewc8YobrUMsT0zizfNU9HM+TRmvvbL+WZRCe3s3ZnI7zy9ZrG
+	 5vjJI9eTYtbTGbTgHLFAh9NtVZDNYOukGTdtOSeWIJ0jbHE/CEoPhldwfDpVGfrOk3ObO
+	 NHVs3fEEOykab2LEho+QWhL68GC1GWMwyvvjC0EDOWCcmoVNGW3Ul7sI2v6fmyeHjnQ4O
+	 NRtpH0wpI7WGRn4iWx5Y/gZkFGgjxXNZZIRL+EWQShvTeWBuj5E/a7ju5OYUwZ1MmIQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=lbqbuhlS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.1
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013001.outbound.protection.outlook.com [40.93.201.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=starfivetech.com;
+	spf=pass smtp.mailfrom=starfivetech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.108
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2108.outbound.protection.partner.outlook.cn [139.219.17.108])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB14F60A2636;
-	Tue,  3 Nov 2026 10:23:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB14F60A2636
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=lbqbuhlS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RYrO/qWBvMQ7oGDQc6OISUSPQOTDcBpqaVRO3KNTYZ09i7lxhxlnOzjlW5zoW3hbCuAwBjK1rKPw8ll0n0AJKeoCRana7rOQelS4Oz4tULauyIasyZ5EVt9V5Xp15f5bHShj5UUXSsLMsPwDpdF2Fl7MQQmdVDJ/iKIiECpu6wR3ZdugNVJ9H6HS//A3FldCxJnX6nY0vsWaJOlqx1URz9ilkCUA099vtJ6muZC/erAfZxSx551BHqv/wA57AzL8wOKopuEXhp6Zg1XLRZsnBNnm8l7f58Sby4sUXkuzokNrI18yH+kRcwerSAH/FmHYsEiauLMThcyN0weLiHaapg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CE0606FAE6;
+	Tue,  3 Nov 2026 10:23:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CE0606FAE6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hZGc2eyjK/l9WRxQwWzLhL8c7Ov5+Eo5MjEQovbCKUZq/iEhHSgSaD+cK5nbx8fFunwr1cr420d0jCKSjHhXXfXqgaycjCKmWKSJIsKyhs39vGudpBgWKNkWFWL6UTr959kaTnMJ3wO5KZZcZrZLadFC0sNh15k/hZh+0QfDixTqK30C+SbkYiqu5cqEQJ7AvP5r9KY31DIJKzRxI4cw5p99MmtsuEfEoWLTcEXk8YaEZIwOvqDvqwTElQhNvO+6BgYopToSPxflKXX9MEGHtvQ2P92DFwC8W99aSaz7tTmUpnazYgMx7VG9kXzqqoXatQx9LXeFm0v5FgT0ZodGjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=efHJ8Ljho04EmFQ9aTe7E8p68ch616tIGNIIvcLgrDI=;
- b=LLtm8NtsXgNJHVFFbI1d+3KqE5vV8BSlLk1xV4Ar/P6G0PXwTGoBqs/cVAel3ESOMCxCgbfg+ukcKmn0ZORXnEmIfAJ9sakeaiF50NyS+j4D8Yi2GJ9J4xpzfN3H0iCiMmtqvFAuSLUmhHvVdgCyp2QAgBFln/VctUHj5JV1W45b/sIwxuxPZyhCQhOpaymq+u+vSyuVrGBPJQk8PTtBetEeTSISwNDZqf/7L1ToUJnaMqZluyxlc6fF58sYpK+0sogpyYE1FbESI7IWNQUq3k7CebzejtRhtJWHQoPznHumii6nkpexiE9LelbGfhJFXYVpZPRocktZateWT28/cg==
+ bh=76F6HtKyTxkIGGLBbMqWXG0fWxtsEewzbCna4myQQaw=;
+ b=HOEwONp+h6iqEaZpaHdQjCOpHRvhcJFlfUmF8OwhGL1Jg4NwSvZmTs5p1GhRPBeQIGxwwwaWIsDcyH1d75hZcJxtg9JkUd+w4BOQ354YoUEkCTpiIMx2elXYHS4Dbza2vmp16Fhy1wzdp65lb4fZnOUUYvl2uw8IkzeJ2RcyjHlBqd5CorQfPpRFV6oM3kyxtMmhT8WcVyFvPPa/9HVNUEaGuYVxTSin9Ao1QLo03bltTua6x+7gogCNPaXPP9LjnS01y/geoa+IcXOcl3UB9ZBpn2qSGWG6XLIRE4lFXao4SIhjh0KoYgK9x1DD/M3BJANJfZ2bhkbtjGYvGHJjBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=efHJ8Ljho04EmFQ9aTe7E8p68ch616tIGNIIvcLgrDI=;
- b=lbqbuhlS5cXGJmxKgKU7iyAbhets9ok+OONpOmiS5Mb8pERq23QmVnPuLbgIPbwRvIpR5KagYHnG8GOU8DOI5vu1+D9zOKP6JTRmUIgFTV3ME8/ZJvBAjxH+4O76kIV+dPFOpywxg0Zev1PNDtGwejJz0vXLgyeWPcHfxw2WUP8bz/qRn0DfWlasMn81WWoB6Bb2IOvk4OW8d3eiSkDOtAoaHQDEhdu+ZRmeGa6z27to7SVMUaBaZTFbmh7eh1R6bTh5GGxt+gPCT6ysuguGgBB8GJFDrZehCAt136ETB0eyvtmj3gX0RNv2gy2Dzeglf0Jj3V2uQ2Q/dbRK9qxUyw==
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by MW3PR12MB4475.namprd12.prod.outlook.com (2603:10b6:303:55::24) with
- Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1329.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 10:23:06 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 10:23:06 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 03 Nov 2026 19:22:44 +0900
-Subject: [PATCH 6/7] gpu: nova-core: falcon: allow DMA transfers to read
- from a framebuffer address
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-r000-fw-v1-6-e3d38fc130e3@nvidia.com>
-References: <20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com>
-In-Reply-To: <20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P286CA0137.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:37f::11) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ 2026 10:22:47 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0569.011; Tue, 3 Nov 2026 10:22:47 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v1 RESEND 2/8] pinctrl: starfive: Add StarFive JHB100 adc0 controller driver
+Date: Tue,  3 Nov 2026 02:22:30 -0800
+Message-Id: <20261103102236.96872-3-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261103102236.96872-1-changhuang.liang@starfivetech.com>
+References: <20261103102236.96872-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJXPR01CA0066.CHNPR01.prod.partner.outlook.cn (10.43.33.33)
+ To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn (10.2.3.102)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,194 +94,198 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MW3PR12MB4475:EE_
-X-MS-Office365-Filtering-Correlation-Id: 071dd773-6b4d-4309-0fac-08df3994730b
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4408287b-dc11-4640-c935-08df399467e2
 X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|366016|1800799024|376014|261021123027099003|261022115727099003|261021121427099003|261009223027099003|261102123227099003|261022075727099003|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|52116014|376014|366016|1800799024|23010399003|6133799003|10067099003|261102123227099003|22082099003|18002099003|3023799007|38350700014|56012099006|5023799004|261022075727099003|261026121527099003|261026140227099003|261021121427099003|261022105027099003|261009223027099003|261028144727099003;
 X-Microsoft-Antispam-Message-Info:
-	bCaM7AoEDCCEAeEkAqCGtiFM4QBVD+djDpIMsaOjpfaqg1YoCWxnnsu2DWrbMJjUr094BsvyJrewinP9Sja1a6cmFvrEXKl3LCc4KwK2EZy0EAT+8aPu16+Tg8alxNZwUeH47V5V6pJ0SrF25MgYul/mVKiamy5TydcfJ91N00O2eyaZTt8AqVMKCu3tv6nWxuGzPOSp+VtpUuvvESTObZCi85rJ9GVJuNaNLPydi+lcFp/niGjKvt3iIpZVNC7trlx4SSijVOQBshypoT9YVlBZQju3i2WD0lzzM1HCN9CmcJlQoBJ+CGHiUIpJkR98elcK7JyQyqCmM588z1ldJt45swKhRgohxmFr+m4Iy6XEyIuKNv1WStOpi9N+30ya9R0HOAbhgvpedALjsZXW4vQYewKY7MVW38MI5nzpd2daLYa5WUuaWfYFscK5xAnvZ1GKYgnZfXERhAfKIrmMdThBbbIvJXqLbX1ylP40S1itsoWhGxzbPsmE4Ha17FC0DJBPOO2Yl8B+xJkvF0SYvg2IvkXmck1vvW6GcjNS6Zfg9ovTxDTnB+zOBAqpulecAmrSBv6C5l27KLLsVWZyCAsuAuUT/LcXkJWkkATtxR/lh9W19QdC9jeBWoHgX/02niXgNrN2eosQowZG/pJvPnnnTusGCIvjMVrBMum+8tA=
+	+CbtTv8Dxa9V/q0uxe45WvZL+EwcP91UTkjxnswum0ecUIRug3alSeEWHxT1luCQNEB96UN1I+G8s5A09DU6otHYtui2Llw6NFJzgAQFiRl58MLqORPO9lWzTgV8Bl1CZHiQURKAR3bYm5A8w33WWtCdpfAc4Cb7Y1cXRUTlvK7iLxHQAq4Xbl5/5XZwLQBKvop3iXbF8NrhazY0gwGSxRKdFasP5KGSbUAs1zts4we0c/WMEFloFfZW+6ziu8/KTP+QzjwKTVnjygheyAdFgPzEWfdaRoRQPpNlfABp3U6n36h1iRrZAP29M/XNj7lJxBplqZXmVNsOKxK5r/8zia1PgZWDKUDjDT85qYmMNFK8pcQnWHJFHIxDr4WU/vfRkq0ro4CHCobHltGdxSY/FRSYMOhQmMgv1CDgT5kL/zWHoIcB/5tC3fleM9jram8jTDtp+u6SotwKRTUy6YsXmkpoUMhkSbNohVze7xPOGcb2FsVyz0L2TLhJ4ybeGtVDGxqRCWF5nvZTXM7npJBfnbTMX1Tv5RQQGbvPmoNa1PiZZrTRdYzGTTsTXkdyG6sm
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(366016)(1800799024)(376014)(261021123027099003)(261022115727099003)(261021121427099003)(261009223027099003)(261102123227099003)(261022075727099003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(261102123227099003)(22082099003)(18002099003)(3023799007)(38350700014)(56012099006)(5023799004)(261022075727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022105027099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WkUxbmY2RVlRM3c5YzZVbWFlcWJPTVEyR3JtWTZ4T0lnVlh2aWVuQ3FnZmZa?=
- =?utf-8?B?Nll6YzdNb1k0d0d5QmM2NFZFRk9pWmdodkJ1Yng2Ukx5TnJSN2dHanV6cTc5?=
- =?utf-8?B?dklud1hEWTJVQkdPMVlTbzVIV2lNTGtnNGFxMDdYUVRxaGRQcDJNRnBTL1d0?=
- =?utf-8?B?QXJFaFFRMS9aKzdxWEpUWTNqQk9PdzgwNE1nbEM4dXpLbXFPekVyYU1HdzFR?=
- =?utf-8?B?cVoyRHg1cTNVMmNNZG1MZVdSWHA1WVQvUnNRTnRaQ3FXWGs5c3lEVnhsckhp?=
- =?utf-8?B?a1g2YkRraFdKL0xnalIzOE4rR3kxMGRYZC82M0Q4L0QvTUxDWGhOOWVWaUFI?=
- =?utf-8?B?OVRqU29pZnhXTjRzZjFleDd0QUVEVk9CUXBvN1ArWkVZRk50WkFIOGRoNHJC?=
- =?utf-8?B?OFZnU1FWVHdEc0k2Qi9SVi93VHF6NDUrTWYyZVFsWVp3bC9oZU9NcWNMMWtX?=
- =?utf-8?B?RnhlZ2RZZ3U3MkhiMmVWL3BqRUJhOFdRWk92RkxnSHZKZ1c0MW5xdk5DdVBM?=
- =?utf-8?B?UGdhVW1YZ25UVlhQUEIwL3pWUUJJQkpscm9md3ZncFgra3FPdVBxVWtQUHlu?=
- =?utf-8?B?SnJPemlYT29RbkorOVE0S0FhZkhOSVc0dEI1SE9NS1A5QWJSTnpVUDQ2bU41?=
- =?utf-8?B?VUNCK3NJOW5OMTZSRDBZRVpJRGhNOEsxdGlMbmVKVFRIY3VtYzZIcjJXdksw?=
- =?utf-8?B?SUM1eVlSS05VMkgyK0ZENVBDS1dtUXNiT1k4RVNCVCs0NzU2MG5wdHBJT090?=
- =?utf-8?B?UFprWGZCcit1a21UWk0vMnUrU1BQNGV5VEpjTkIvTThzakpsOGNpV1hvTjh5?=
- =?utf-8?B?ek5BMG1UT2dFczhSVVdsZmZQRU95RTlobHFsVjUveHNtVlBwbWZvRGRSNmtR?=
- =?utf-8?B?cFFHSlFtMG5veTJhZXk4dkdZQWhRZzFiK0dhUmI0ZjRNNUNGeVJseWZYWVBk?=
- =?utf-8?B?LzNUL2J4Q3NOMnhNRGwxWituTjFyM3NPZ0VLc0YweFBBWWhkOGNyeC96THJK?=
- =?utf-8?B?OFQzZTNsZlRqZG1QOXR2WHN3QXNzUGtXRmRqTFVxZFVjZC9NY0Ztc3JLVmJX?=
- =?utf-8?B?aEJZTGoyYXQ0UTZJcVlRbXZPcVMyZXAyVS9vQ3plZEJaSjZqdUY2b0FyY0VN?=
- =?utf-8?B?NjBUalRmK3hYT016aXRncnVmS1NIZjBHaWJ2VzBWSUk0VnZHcGdCOTB0UFRS?=
- =?utf-8?B?bllwRkRXYjcwZG80U1BkQmM2cTBZanh3U3EyR1JLdXMvNFJ3RmREdXZvUXRq?=
- =?utf-8?B?ZG1lZDZrVmo0T0ZZRFNCRC8zMkJ2S0IwUmNCM0c2N2sySmFYbng5Rk1vaDMr?=
- =?utf-8?B?aXJsUGExdjhyVDlQU3ZrOXgzYW5iZUczY1BZZUxTSno4dDJPZHFTS2JWL3lG?=
- =?utf-8?B?eTVEdktIYjRYME1vY0xmSEJJWjRrL3AzR0lTZ1IvS3gxSWIrNlVFSWRkN2VJ?=
- =?utf-8?B?N05URlJmQVZGT2EwR003aWNUZGlpcFpDVjhwUFdJRkxyMmlGY1V0ZGl1Qllj?=
- =?utf-8?B?Z2R3VkJnbVFTVjJZUmhSYXN4STlpRytIKzM1TDBxU0pDWFdlbXhFL0dmRmJ6?=
- =?utf-8?B?a2MvZis3enM1czRvWDcrMHpoTHc5TDl2QXlXSW5yd0VMaXFmSHlTRy9vYnVL?=
- =?utf-8?B?dXpaUk84ZmZjbTM4TnI3aDNRbjNPOHFvekU4NDQ1eHpMMERBS2lPclJNZDli?=
- =?utf-8?B?SFQvTVFZZzk2MXF4WjFnbHA2c01rR3JRZnBpNEozTHJRT1JLWEJHaXowd3NM?=
- =?utf-8?B?NUJVRUZLdVMvZE91eXFxcmNYWnZlOVBORnFxS0xGaGZrcW9ER082eVhnMFdQ?=
- =?utf-8?B?WXVDRkJhaHcwZlFNQVZaTE0yOHgzR3UyZlU1Q3crUmM0anFIeXp6K1FSY2Jk?=
- =?utf-8?B?TTZTbGx3WG83OXZMQmx0aEMxd3dGeGJENk14ZTRSbE8zRjJwbmxIMkdKbTNN?=
- =?utf-8?B?ZzJTU05vODhQZEVaMXh4NHc2RHNxWjdYNzAvbGQ5WUxiektHYzZZZ0NUZVhq?=
- =?utf-8?B?VVNNdzVIYXo2ZDR2cUVhbWtYS2srSTNVcktJUlBPa1ZWOE9DU3ZKNnBiMVFu?=
- =?utf-8?B?YzhyV3BobFkyeG4yOENFL1NTSk11b3pnK0RZYzlWRnVvd2xsb1JmRXVJRmVS?=
- =?utf-8?B?RTFRMHBVcGo4S1RTTmQwRXF1Smx2YUhqKzl2dG5HSmFER3VBOGwzNDAyb2Rx?=
- =?utf-8?B?dHJzakZQdWY1bDlLekkrcEFtRU0ySGhQZWtHaitEVWVkUm5zdXZ5U04zcVRK?=
- =?utf-8?B?SVU1Vm9wQythQkpUQTNwa2pEYTcyRVNTUDRZRTR5TG1pLytwN0Y5cWlxWFUz?=
- =?utf-8?B?eVR5UEhJS0ZBZi8rbjRTZHBnZWVFaVA4QTk1UWNiYTk3Q2lUdHp3WW1FUTBF?=
- =?utf-8?Q?m395Tfz0kyCAxhe3bVj3PS+LHt2DdfZs3Jj/45qngSNdt?=
-X-MS-Exchange-AntiSpam-MessageData-1: vn4gRGGZWJ0azw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 071dd773-6b4d-4309-0fac-08df3994730b
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+	=?us-ascii?Q?UXxv8EepvL297taX5GrX+mIzvo1YQoqb1WbGX9Yo92Y+ncfGKJLPUD3ME/d5?=
+ =?us-ascii?Q?2RxCJy4fvthIHRzz1xOiPWR2AkBBSgxtlP2a5ghPOYf7yA6SA2L43h3PzUaw?=
+ =?us-ascii?Q?bO6dJSDz8B7uAQjbtPnbPgYMia5XKsZszNAGS1dNjS8K6wwQ5P23mEFliPIK?=
+ =?us-ascii?Q?EndDTQH1XUEvtN3BR4raE3LYzjvJw8VCoXfUDpXzoLYD5xWtzrKVQQNSG6V0?=
+ =?us-ascii?Q?ds1cXs9+08Luf5lc6gbyAwIUM1wQyXvXi8uCcM5kmZ1nzv/gprK+1PhUlJLI?=
+ =?us-ascii?Q?mEZAAiTCzRDLBoNwFn/XTRxyDJkRrCML9VZCt6Jrmy75HaM+Kaog2FT4JuMS?=
+ =?us-ascii?Q?Lz1KVT+RNTMRZ5lZdhokb6vDhd9nC3Lsq5bxkdRky5VhtOUVeLBIzBMm4nMN?=
+ =?us-ascii?Q?eekUUAJaTiBK+Mm5p9s0j+7Uo82KuHCwkmFH6QRyxVLhvrQs38CkW3wa2Qze?=
+ =?us-ascii?Q?vN2F3klmfhTUrg7xgLsO30uqSfPDRpEz3qDjqiSJeogaiG6LSbwWLmSLlOy/?=
+ =?us-ascii?Q?ZRCayz+1Ny2csyTZyFcslGhSFOBEuNr7Rnw4/ttlpkH9KlKFmsow8t1kFPGk?=
+ =?us-ascii?Q?z6M6jLUhYZBHxrhWEH73nDC6VrX+vj75MweKSi5yeSq5ZbjwFZS6lR8xb2wV?=
+ =?us-ascii?Q?YjpakMYNbrudTih/eOnbfeJMwQpVvGQhhy9jvmBz006hjTaiccUWbVkCmajD?=
+ =?us-ascii?Q?YW0xWa7gXrjRt9VJy5BOs9K9PIY/wGU9F9RTVsgl6Hdd0uNmO5pT46zR+eQJ?=
+ =?us-ascii?Q?JGiBMsJv2Lk9XHPaM37+XgTGxVhN5rfGIQ06ZwniZivg0deU+x+Fk6i2zT2G?=
+ =?us-ascii?Q?5m23Rnd3vNJIqFZ46L/mnKYCjLhXquup/QBtxy60FcjCsI2kgz27DUDBBc3v?=
+ =?us-ascii?Q?VgIJ9EqW4WmLpiAtNtQ4u2/za+xsFl8OD1ZwTeDIspG0cUDY+E/eNCDrzPbk?=
+ =?us-ascii?Q?t1ByiYbK0PQGEz2cgyvBrJXL1vd6b21tkt3t/9mjW4A+tsafrt5/d7U0JjPi?=
+ =?us-ascii?Q?HPjMyV8pZok5QsB+XQEePkJRStEr4xZTP6Rrz9PM6nsoSdQsZKy0eTjTVX6Q?=
+ =?us-ascii?Q?qtbnHunPF9fRCoK2ecSshXoVS+xm6jZRLfG3V9KV9xMdi4wq/liChG4kOa57?=
+ =?us-ascii?Q?Xp+wpdWPDwd5g+FvvdL2BC0ZU0Dm1BZwr40Tu+QqID6qWT2w+HmG6XNc/9RJ?=
+ =?us-ascii?Q?mO6AWSGuyUS3lIo0ugpPpBc7Iseen9azCoMxW5mrltE4g/iy+zDtRzd2Hq+M?=
+ =?us-ascii?Q?XnAJwHQwtG/O6hbJ01yrP5pSw37eFt6uA2wLqqg95HxngxILJAtJLD/rgfYV?=
+ =?us-ascii?Q?mx1i2Dw0At5MiajWtT9EbhrmfgvDqwo1lcnTv0nHMA7YR/1snDNmzgwZm/j4?=
+ =?us-ascii?Q?uwLbEIUgm2qk8rT9C76Trt6dUv+6IuHF5WGxDu3VZa0YjmKok/ypwFgKXd0I?=
+ =?us-ascii?Q?VwY+p2cS1LLmKmVSkcOhgicev/OUkMg2xw2f0yMteBPqyUqmcM/0L4/Vdseq?=
+ =?us-ascii?Q?H7lfKGEdhrUUVpb7/xWPBHeDxzMJIytXqL0HmrFBZAWiqOjFfPDrH2TvKwY3?=
+ =?us-ascii?Q?n1Y7zI1MYQ3JFWeEzUb4WeJFpSPIlwFbSByq8NphJodlbgrTNIYQf4mzAbDR?=
+ =?us-ascii?Q?DkeycmsJ0/foao4zvJqYaCer0KGjtMb9tpPAoGbbY3rJZGryo7WXq6Svaa1+?=
+ =?us-ascii?Q?efQVW+6Vi0HminfC4aztqbiXMQhslCtCJKtsCg0oE1Bv6IY3lDF8s6LC0h3J?=
+ =?us-ascii?Q?DZSUxjQ/BuGKzGHSQgiEOYy2TfaxQqA4aa80YSFNx/0Ych26h2OZ?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4408287b-dc11-4640-c935-08df399467e2
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:23:05.9615
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:22:47.2105
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ot+UQuj4KsiAD+aogOArKJTn6q8tmByboj8BH1lfR4ClJTqhupId5umUo31iobtU9VrnsfsZjNbYU6JIU+qfCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4475
+X-MS-Exchange-CrossTenant-UserPrincipalName: ysFpHPZYIZZBW/KbhLpuv/2OtHF/CyM8fnT85/3ZmjPPxwbg6MIdpsLm4qYylGtW2IiJ21PksJ67unjea8gz0dVPnwhCWTD/oLAxE9EY3LOkiECsg66Ijr6hcAmRSeuc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1329
 
-The r000 boot protocol has a load-and-execute event in which GSP-RM asks
-the driver to load a Heavy-Secured binary from framebuffer memory into
-the GSP falcon's memory by DMA in order to run it.
+Add pinctrl driver for StarFive JHB100 SoC ADC-0(adc0) pinctrl
+controller.
 
-Nova-core's falcon DMA loading method currently only supports loading
-from a DMA object that the driver had allocated, so there is no way to
-copy an image from framebuffer memory that an event supplied.
-
-Address this by making the source of a falcon DMA transfer an enum,
-which can be either a DMA object, or a GPU framebuffer address.
-
-The framebuffer address source has no user yet, but will be used by the
-r000 boot protocol.
-
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+Co-developed-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Signed-off-by: Alex Soo <yuklin.soo@starfivetech.com>
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 ---
- drivers/gpu/nova-core/falcon.rs | 65 +++++++++++++++++++++++++++++------------
- 1 file changed, 46 insertions(+), 19 deletions(-)
+ drivers/pinctrl/starfive/Kconfig              | 11 +++
+ drivers/pinctrl/starfive/Makefile             |  1 +
+ .../starfive/pinctrl-starfive-jhb100-adc0.c   | 85 +++++++++++++++++++
+ 3 files changed, 97 insertions(+)
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-adc0.c
 
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index f48f2eabab0f..fb43d0ed2821 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -136,6 +136,15 @@ pub(crate) enum FalconMem {
-     Dmem { tag: bool },
- }
+diff --git a/drivers/pinctrl/starfive/Kconfig b/drivers/pinctrl/starfive/Kconfig
+index 7ff506a15dd8..1622cc73d9ae 100644
+--- a/drivers/pinctrl/starfive/Kconfig
++++ b/drivers/pinctrl/starfive/Kconfig
+@@ -54,6 +54,17 @@ config PINCTRL_STARFIVE_JHB100
+ 	select GPIOLIB
+ 	select GPIOLIB_IRQCHIP
  
-+/// Where a falcon DMA transfer reads from.
-+pub(crate) enum FalconDmaSource<'a> {
-+    /// A DMA object in system memory.
-+    Sysmem(&'a Coherent<'a, [u8]>),
-+    /// GPU framebuffer memory at physical address `base`.
-+    #[expect(dead_code)]
-+    Framebuffer { base: u64 },
-+}
++config PINCTRL_STARFIVE_JHB100_ADC0
++	tristate "StarFive JHB100 SoC ADC-0 pinctrl and GPIO driver"
++	depends on ARCH_STARFIVE || COMPILE_TEST
++	select PINCTRL_STARFIVE_JHB100
++	default m if ARCH_STARFIVE
++	help
++	  Say yes here to support ADC-0 pin control on the StarFive JHB100 SoC.
++	  This also provides an interface to the GPIO pins not used by other
++	  peripherals supporting inputs, outputs, configuring pull-up/pull-down
++	  and interrupts on input changes.
 +
- bounded_enum! {
-     /// Defines the Framebuffer Interface (FBIF) aperture type.
-     /// This determines the memory type for external memory access during a DMA transfer, which is
-@@ -510,13 +519,11 @@ pub(crate) fn pio_load<F: FalconFirmware<Target = E> + FalconPioLoadable>(
-         Ok(())
-     }
+ config PINCTRL_STARFIVE_JHB100_PER0
+ 	tristate "StarFive JHB100 SoC Peripheral-0 pinctrl and GPIO driver"
+ 	depends on ARCH_STARFIVE || COMPILE_TEST
+diff --git a/drivers/pinctrl/starfive/Makefile b/drivers/pinctrl/starfive/Makefile
+index 351fce524fec..1113e73657d7 100644
+--- a/drivers/pinctrl/starfive/Makefile
++++ b/drivers/pinctrl/starfive/Makefile
+@@ -7,6 +7,7 @@ obj-$(CONFIG_PINCTRL_STARFIVE_JH7110_SYS)	+= pinctrl-starfive-jh7110-sys.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JH7110_AON)	+= pinctrl-starfive-jh7110-aon.o
  
--    /// Perform a DMA write according to `load_offsets` from `dma_obj` into the falcon's
-+    /// Perform a DMA write according to `load_offsets` from `src` into the falcon's
-     /// `target_mem`.
--    ///
--    /// `sec` is set if the loaded firmware is expected to run in secure mode.
-     fn dma_wr(
-         &self,
--        dma_obj: &Coherent<'_, [u8]>,
-+        src: FalconDmaSource<'_>,
-         target_mem: FalconMem,
-         load_offsets: FalconDmaLoadTarget,
-     ) -> Result {
-@@ -529,21 +536,37 @@ fn dma_wr(
-         // For IMEM, we want to use the start offset as a virtual address tag for each page, since
-         // code addresses in the firmware (and the boot vector) are virtual.
-         //
--        // For DMEM, the start offset is folded into the DMA address.
--        let (src_start, dma_start, tag_dmem) = match target_mem {
--            FalconMem::ImemSecure | FalconMem::ImemNonSecure => (load_offsets.src_start, 0, false),
--            FalconMem::Dmem { tag } => (0, usize::from_safe_cast(load_offsets.src_start), tag),
--        };
-+        // For DMEM in a DMA object, the start offset is folded into the DMA address. For DMEM at a
-+        // framebuffer address, the DMA engine adds it to the address.
-+        let (src_start, dma_address, tag_dmem) = match src {
-+            FalconDmaSource::Sysmem(dma_obj) => {
-+                let (src_start, dma_start, tag_dmem) = match target_mem {
-+                    FalconMem::ImemSecure | FalconMem::ImemNonSecure => {
-+                        (load_offsets.src_start, 0, false)
-+                    }
-+                    FalconMem::Dmem { tag } => {
-+                        (0, usize::from_safe_cast(load_offsets.src_start), tag)
-+                    }
-+                };
- 
--        let dma_address = {
--            // Upper limit of transfer is `(num_transfers * DMA_LEN) + load_offsets.src_start`.
--            let dma_end = num_transfers
--                .checked_mul(DMA_LEN)
--                .and_then(|size| size.checked_add(load_offsets.src_start))
--                .map(usize::from_safe_cast)
--                .ok_or(EOVERFLOW)?;
-+                // Upper limit of transfer is `(num_transfers * DMA_LEN) + load_offsets.src_start`.
-+                let dma_end = num_transfers
-+                    .checked_mul(DMA_LEN)
-+                    .and_then(|size| size.checked_add(load_offsets.src_start))
-+                    .map(usize::from_safe_cast)
-+                    .ok_or(EOVERFLOW)?;
- 
--            io_project!(dma_obj, [try: dma_start..dma_end]).dma_address()
-+                (
-+                    src_start,
-+                    io_project!(dma_obj, [try: dma_start..dma_end]).dma_address(),
-+                    tag_dmem,
-+                )
-+            }
-+            FalconDmaSource::Framebuffer { base } => (
-+                load_offsets.src_start,
-+                base,
-+                matches!(target_mem, FalconMem::Dmem { tag: true }),
-+            ),
-         };
- 
-         if dma_address % DmaAddress::from(DMA_LEN) > 0 {
-@@ -626,9 +649,13 @@ fn dma_load<F: FalconFirmware<Target = E> + FalconDmaLoadable>(&self, fw: &F) ->
-                     .with_mem_type(FalconFbifMemType::Physical)
-             });
- 
--        self.dma_wr(&dma_obj, FalconMem::ImemSecure, fw.imem_sec_load_params())?;
-         self.dma_wr(
--            &dma_obj,
-+            FalconDmaSource::Sysmem(&dma_obj),
-+            FalconMem::ImemSecure,
-+            fw.imem_sec_load_params(),
-+        )?;
-+        self.dma_wr(
-+            FalconDmaSource::Sysmem(&dma_obj),
-             FalconMem::Dmem { tag: false },
-             fw.dmem_load_params(),
-         )?;
-
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100)		+= pinctrl-starfive-jhb100.o
++obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_ADC0)	+= pinctrl-starfive-jhb100-adc0.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER0)	+= pinctrl-starfive-jhb100-per0.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER1)	+= pinctrl-starfive-jhb100-per1.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER2)	+= pinctrl-starfive-jhb100-per2.o
+diff --git a/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-adc0.c b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-adc0.c
+new file mode 100644
+index 000000000000..8aaa4fca52e6
+--- /dev/null
++++ b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-adc0.c
+@@ -0,0 +1,85 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Pinctrl / GPIO driver for StarFive JHB100 SoC ADC-0 domain
++ *
++ * Copyright (C) 2024 StarFive Technology Co., Ltd.
++ * Author: Alex Soo <yuklin.soo@starfivetech.com>
++ *
++ */
++
++#include <linux/platform_device.h>
++
++#include "pinctrl-starfive-jhb100.h"
++
++static const struct jhb100_pin_layout_desc jhb100_adc0_pl_desc[] = {
++	{ .pin_start = 0, .pin_cnt = 8, .name = "gpio", .gpio_func_sel = 0 },
++	{ 0xff },
++};
++
++static const struct config_reg_layout_desc jhb100_adc0_pinctrl_crl_desc[] = {
++	{
++		.pin_start					= 0,
++		.pin_cnt					= 8,
++		.fields[PAD_CFG_DRIVE_STRENGTH_3BIT]		= { .shift = 0, .width = 3 },
++		.fields[PAD_CFG_INPUT_ENABLE]			= { .shift = 3, .width = 1 },
++		.fields[PAD_CFG_PULL_DOWN]			= { .shift = 4, .width = 1 },
++		.fields[PAD_CFG_PULL_UP]			= { .shift = 5, .width = 1 },
++		.fields[PAD_CFG_SLEW_RATE]			= { .shift = 6, .width = 1 },
++		.fields[PAD_CFG_SCHMITT_TRIGGER_SELECT]		= { .shift = 7, .width = 1 },
++		.fields[PAD_CFG_DEBOUNCE_WIDTH]			= { .shift = 15, .width = 17 },
++	},
++	{ 0xff },
++};
++
++static const struct starfive_pinctrl_regs jhb100_adc0_pinctrl_regs = {
++	.func_sel		= { .reg = 0x2c, .width_per_pin = 2 },
++	.config			= 0x00,
++	.output			= 0x20,
++	.output_en		= 0x24,
++	.gpio_status		= 0x28,
++	.irq_en			= 0x30,
++	.irq_status		= 0x34,
++	.irq_clr		= 0x38,
++	.irq_trigger		= 0x3c,
++	.irq_level		= 0x40,
++	.irq_both_edge		= 0x44,
++	.irq_edge		= 0x48,
++};
++
++static const struct jhb100_pinctrl_func_maps jhb100_func_maps_adc0[] = {
++	{ .func = "adc",		.val = 1 },
++	{ .func = "gpio",		.val = 0 },
++	{ .func = "host0_port80",	.val = 3 },
++	{ .func = "smbalert",		.val = 2 },
++};
++
++static const struct jhb100_pinctrl_domain_info jhb100_adc0_pinctrl_info = {
++	.name			= "jhb100-adc0",
++	.pl_desc		= jhb100_adc0_pl_desc,
++	.crl_desc		= jhb100_adc0_pinctrl_crl_desc,
++	.regs			= &jhb100_adc0_pinctrl_regs,
++	.fmaps			= jhb100_func_maps_adc0,
++	.num_maps		= ARRAY_SIZE(jhb100_func_maps_adc0),
++};
++
++static const struct of_device_id jhb100_adc0_pinctrl_of_match[] = {
++	{
++		.compatible = "starfive,jhb100-adc0-pinctrl",
++		.data = &jhb100_adc0_pinctrl_info,
++	},
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, jhb100_adc0_pinctrl_of_match);
++
++static struct platform_driver jhb100_adc0_pinctrl_driver = {
++	.probe = jhb100_pinctrl_probe,
++	.driver = {
++		.name = "starfive-jhb100-adc0-pinctrl",
++		.of_match_table = jhb100_adc0_pinctrl_of_match,
++	},
++};
++module_platform_driver(jhb100_adc0_pinctrl_driver);
++
++MODULE_DESCRIPTION("Pinctrl driver for StarFive JHB100 SoC ADC-0 domain");
++MODULE_AUTHOR("Alex Soo <yuklin.soo@starfivetech.com>");
++MODULE_LICENSE("GPL");
 -- 
-2.56.0
+2.25.1
 
