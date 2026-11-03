@@ -1,47 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692669;
-	b=5LrNcMJA2F5cqm6Q3C0hz51STLHK+IhGDeeYhZ2eEdj7N83zM4F3I0dpterkRA8NYopW
-	 6IDp77ppJUTrBIXGm78VZOX0o3eWhsjJ7r1d/+mOLimAFapZhs3r6SIkg52hwxyBJ2HQh
-	 FEi9rJ9d1xZVjV6Fxh6n32cKICzswU2Wsnp3gh5SMzQbzYpMefOykydk6xzQ9lzjVrBDR
-	 CGxtWkZAsyuhOzsJGKYneiL3SYIALfb6Zj/vt4gQDT0QnTbk1vRhUcNxytQRsar8mfuFe
-	 mEDAxGGYj5S1lRxrJWLxAosArf6FvD5JahlueBSAXnvCCtsNPc9u6YaJUZUZVWcMoFA==
+	t=1793692679;
+	b=vEVNYkK0Avf259pMJkS39HQc8YE1H7ATtKqebUps3cygao5TuWYR//QvsByHrJU2msjm
+	 4oPkz3eIChUxWWt+m2Wi1L01jHK622BQcPk/QO4+V3fa7c3rZtG3mdaVyt3kA82hIPFl+
+	 foXm4OTwlai5D1UllWPJj+de3oeCrwfqnLD/hrrVoVWwyYWMZl18NkInhMKcHqUmKDcRP
+	 Zdohn2bdleX9E0ajwloEP5Yg+Oo4l3Lubpa0aS8e5TYZ6CfXhBMOyzJPulimcgsMarelS
+	 v1+5M630mrFHe/Ityl7krZWwbGIh6Mv5gjJGbtUAf7N/c/VBTKkNySUttS4mhg+1Ljw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692669;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rJQLd3VOK3FZhENCM8D/t0DZtET0O4ORpZWDG+n9uQY=;
-	b=AJJp0td+BvVg79gZ49OL/yOYU0M1UyoYht2GJ4B8jJpOJp+WBznQB+qYL0kuyYGnXEY/
-	 9n/IeUaV0a2CAW/jfxTjLAkCknwW/j/Obm45du8/nI92mm7RR3VKVcPnuwlvj4Hpal5IG
-	 +c0Av+cN3fetUQlER1ZePFRim99Bwv3wOVGyCXcZMNJkRWI/7jTONnSSA3TJn6ntMle2L
-	 /2Ia1S8/ujo+OW7+D5WW21iV0BbkUucroIoJGPgePBIjQvbtNLmdUp00rLLJwtPEtX+dE
-	 4hMTT2sAIEpBstc7Z7bkHqvFypsB4jkdWLCONkazfTMBqRPiwj7XcxCYu8GDXTW5HwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692679;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=mjB1FUwUtT5QGUCuwrBFNie1AYnLTotMNeb6EtwPTNY=;
+	b=jB+5w6kXD93TyA3nwXmBD47rtYGNUmqLCp64PEikTQjvkjaobvSBYMrHP6K9T88HwV0t
+	 6ro9n7KrxgHlV6UyfrYIapXRzTfpASwSF8gx7oqsPNRUAivvSLdA2b52OTEEpTtE+TrXJ
+	 QRB05o7Y0ibnAoQOLGvclIElKtM0FS/OSU8Z+fwuv5dsoEFK+vi4KE4KYo+KfiwMgVwsG
+	 qaPi0osCZzZx+f6cXUxk0e9aDXzKkfSOuTbKUFluOt4/W9xbU2q5S+DoMkJDEWCh2is55
+	 JflG6KshMv4BUSJz5VFIQ2/4PbG++fzTD5H4vxweG8lAG3YUxJba3owF8/Ld9sby80g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJ9QnrTf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2592C606A324;
-	Tue,  3 Nov 2026 07:57:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJ9QnrTf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F36A1F000C1;
-	Tue,  3 Nov 2026 07:57:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793692668;
-	bh=rJQLd3VOK3FZhENCM8D/t0DZtET0O4ORpZWDG+n9uQY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TJ9QnrTfbo/UeTq5oGknUx4stta7TmKqMiWIVL97e2xhYNM2Ke1SEAfqKUTf1Lf2U
-	 6JlctJEa1VCEqRNgtTuELapT/qmz4mugxiTg1CVrYOQlFLJ3sjAQAO/7ruE4pX1XZt
-	 asRKKmwXBthZTCuQpKh0xFs4JzS2QnKIIbZ330BH+P8vXtbQkTt3dCw8Kw/RwxC99M
-	 wVlW8iebhJUZMCJY7W3D48Qgn5+UnvoTdzfuXWCS0EXxwux7yMaE/PEqnLPnwMhQxi
-	 uxabVzjB/2hMRbKMH5Ds1wxKgFwxvDuLxYTH/AcLlvdmLB6XZVmDYIoji1gphWNA2X
-	 Rndou7otc+iqQ==
-Message-ID: <34e16c38-2150-4d88-be97-105b0f81f03c@kernel.org>
-Date: Tue, 3 Nov 2026 08:57:43 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48799606A324;
+	Tue,  3 Nov 2026 07:57:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48799606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAB3h5j9k+lqwCY6AA--.1005S2;
+	Tue, 03 Nov 2026 15:57:49 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: xji@analogixsemi.com,
+	windhl@126.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/bridge: anx7625: Release the MIPI host node at teardown
+Date: Tue,  3 Nov 2026 07:57:58 +0000
+Message-Id: <20261103075758.1119919-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,89 +56,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] virtio-mem: only mark the device ready in kdump mode
- with vmcore support
-To: Yuho Choi <oss.patchbox@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowangio@gmail.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261102203518.436327-2-oss.patchbox@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261102203518.436327-2-oss.patchbox@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAB3h5j9k+lqwCY6AA--.1005S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr4UtrWDWrW8tFy3XF4xWFg_yoW8uFy7pF
+	4UKFW5Xr1kAF1xKws7ZF4DZr90v392grWfG3s7twna93sYya4DJrWqvFyrXas0kFyrJF15
+	tr4UtF9xZa1jvr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	tVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4U
+	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU7nmRUU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpWfXQggABsk
 
-On 11/2/26 21:35, Yuho Choi wrote:
-> virtio_mem_init_kdump() marks the device DRIVER_OK before it checks for
-> CONFIG_PROC_VMCORE. Without vmcore support it then fails with -EBUSY,
-> and virtio_mem_probe() deletes the virtqueue on that error path without
-> resetting the device first. The device is left with DRIVER_OK set and a
-> queue that points at freed memory. Nothing has been queued at that
-> point, so the device has nothing to process, but the driver should not
-> leave a device it is giving up on marked ready.
-> 
-> Before commit a9403425b3cf ("virtio-mem: mark device ready before
-> registering callbacks in kdump mode"), virtio_mem_probe() called
-> virtio_device_ready() only after virtio_mem_init() had succeeded, so this
-> path never exposed a ready device.
-> 
-> Move virtio_device_ready() into the CONFIG_PROC_VMCORE branch, right
-> before the vmcore callbacks that need it are registered, so the -EBUSY
-> path never sets DRIVER_OK.
-> 
-> Fixes: a9403425b3cf ("virtio-mem: mark device ready before registering callbacks in kdump mode")
-> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
-> ---
+anx7625_parse_dt() obtains a reference to the MIPI host node and keeps
+it in the platform data for DSI host lookup. Neither the probe failure
+paths nor device removal release this reference.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+The existing put before looking up the node only releases a previously
+stored value. The platform data is freshly allocated for each probe, so
+that does not release the reference acquired by the current probe.
 
+Register a managed action to put the node when probe fails or the device
+is removed. Drop the put of the initially empty platform data field.
+
+Fixes: 8bdfc5dae4e3 ("drm/bridge: anx7625: Add anx7625 MIPI DSI/DPI to DP")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/bridge/analogix/anx7625.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+index c3af88e14f8b..3ee22f5f7bc2 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.c
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+@@ -1841,6 +1841,11 @@ static int anx7625_get_swing_setting(struct device *dev,
+ 	return 0;
+ }
+ 
++static void anx7625_put_mipi_host_node(void *data)
++{
++	of_node_put(data);
++}
++
+ static int anx7625_parse_dt(struct device *dev,
+ 			    struct anx7625_platform_data *pdata)
+ {
+@@ -1850,7 +1855,6 @@ static int anx7625_parse_dt(struct device *dev,
+ 	anx7625_get_swing_setting(dev, pdata);
+ 
+ 	pdata->is_dpi = 0; /* default dsi mode */
+-	of_node_put(pdata->mipi_host_node);
+ 	pdata->mipi_host_node = of_graph_get_remote_node(np, 0, 0);
+ 	if (!pdata->mipi_host_node) {
+ 		DRM_DEV_ERROR(dev, "fail to get internal panel.\n");
+@@ -1883,7 +1887,8 @@ static int anx7625_parse_dt(struct device *dev,
+ 	if (of_property_read_bool(np, "analogix,audio-enable"))
+ 		pdata->audio_en = 1;
+ 
+-	return 0;
++	return devm_add_action_or_reset(dev, anx7625_put_mipi_host_node,
++				       pdata->mipi_host_node);
+ }
+ 
+ static int anx7625_parse_dt_panel(struct device *dev,
 -- 
-Cheers,
+2.34.1
 
-David
