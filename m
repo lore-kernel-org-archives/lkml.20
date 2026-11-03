@@ -1,49 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706463;
-	b=Vw7Mzgp2jEhcM+4KK0xR3vhV/+zIj8xE84YbnaSlJAcHnRsMn5PuslEW1szg1fREkTVt
-	 3/wDTF92leuVO4dcUDXHmIFqdgnXvthulHM73Iao4H3IMAmEUIN/vfC2EELFAtkRMlwch
-	 rpGQncEqVqFkbN6GmxJJG9Cmsscb8D1G/A7mmtbxt17lFsLWbRxC8kNahlCEDcDV9yYYO
-	 hOTBTpGnxNgyEOM9cRmiMrLfS5lzOWmBFaZ3KObq2QPWrcJM7YWO3tOs/NpJyVvRuPSWG
-	 sAo3wwWcTwT0ItG1Pnj3zwDHzQjx1SFhCnGVbbgJHiLCPfjGHYqIP3HPb36TeYmOChw==
+	t=1793706465;
+	b=IinFw4BxOYmpcKJqiLMxx6RI5oYFRdJRWJbXjIMfSlcTvXsTyvXDbntwEfXtEAMq2CQH
+	 ERZTbc/y9Vqga/d2IXuyVZcx6EIpjdYx8bGA+ISdA6h8BAZ9L6De+YcgxlYTsYjyg4jdh
+	 FJJaYJJYCXpE5udcsP4hGOYvUTnxLM/WHWLq/pbBgc4mFQkR5XfV6uG1lHqEKbaHWb+gU
+	 mG1ks/37d+QYve3CEh04R4ucys8aiiVE10XOgoH4CMrC1oQPOymD9GBr6TNGcvIHOiuDi
+	 9RthQCeaFES0Ja9ejZclKYC2lnlpICFBm1WWisrxHVjInr54DZRh1RVrI24cUGd4K4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706463;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=YJMeRkCmn9gDBAVzQVXW/T4MGrrHZj9tyHFg1Pygn9A=;
-	b=fxH3YbUcvuXMXoI/xHGo7p8Jzlxy4K0im5wCeKfyLBTYBu7Ojw1QGfGh3X10Q0VvDwMF
-	 c8A0bK774Ha2+njXN74gBREw0FyNOQ8tmEI8Ox31zThoHvD6ChcgbCPhzif2bMk6nh5pi
-	 IG6ZCjpSuSzM0EzRmFf7nkZHQl9SYv9LxnbeuB6i4L4esB/QpTncszKvsvny1FCwVjm6x
-	 xWO5UfyIMVlRyxcHu9gF0GIc/emzy2utcqZyIJL3EbnCZUg/VNd9hYS4pahNbGYzouxvk
-	 R8d7GGr1WH6H8glac7xJfEyBvry3h7/rkUEiYAQSp6LjhyLsvZRW+sjodd5hByghgPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706465;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=XlQrV0jM2I1Oz+09ckZcYX5LumOapOvmzWdHtr6kyFY=;
+	b=N+ZyG5RZM5mhefoauvmPHZTP2tzbc7mzJZW0cxGLkGiVTNrsxDGBxU0+tHXsGl7IjfzW
+	 fWocXh7Yo3J2QI6TBmXs0v8HaNIs0wACKH5YOKKE2y8SlzDSbwVXcLRRLFQBKxJvqIxzd
+	 1TTYfCxvOYz+vtM4QdAB0x3SDs4BdsyI9IDxf5fOi2JhgoIqFQzndx1FiZjuOaPyX6WIj
+	 BB7IfzD9CEcDqQuaAcrqOBq3st7WzP0qIzJ2ybtbMXUZ3hIR4hoshSGF8Psg5LrKDtU0q
+	 8npmUlSximBomLWulm7XR/L1uYgflQCes3+Zp7FFug428hbsTBRV/OuMzvU8jJY8Z4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VzHG9OPV;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31EDD606D804;
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=QuNOhR+N;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2936D606D803;
 	Tue,  3 Nov 2026 11:47:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31EDD606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2936D606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VzHG9OPV
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 12C581576;
-	Tue,  3 Nov 2026 03:47:39 -0800 (PST)
-Received: from [10.57.66.79] (unknown [10.57.66.79])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2825D3F632;
-	Tue,  3 Nov 2026 03:47:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793706462; bh=zSgYiWzcO24ysSZVXSXH948NdVzqg3BzhoQrCEIVTso=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VzHG9OPVGljGbtk8/efCtKN+jXXjyAuI9shD1Hi8lG9XoKy/j+wZrORgQYX3SWvdH
-	 TbbrdwV0WQUSkvcAtUMG6jZasRllCf8il54W8y5TJkprOXoSJzMc9YGDLV6rX2V7Dt
-	 djZpfn3ciOcg5sMuhjPPTBIf3cbJgogUR7N4zkIU=
-Message-ID: <f2cb2959-f56d-414c-b4a5-c0656a44f57d@arm.com>
-Date: Tue, 3 Nov 2026 11:47:36 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=QuNOhR+N
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=QuNOhR+Nh6fKqbTjrnE0zQRx6dNwmWFlVjrfJkZoJl9k2O1k7SMo5y8cZ5EhwUodVoaqpON43jke8
+	 htLN3i3fYfAnxkuTxSejwOuQhRlb+P0MVUUmbkKD1n0f4KIjOINuaBGIDGQgut15zFXvv/9jN2ZPEO
+	 IyqdiM9IAi23ZapY=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96ae9c9d3f51-99e37;
+	Tue, 03 Nov 2026 19:47:33 +0800 (CST)
+X-RM-TRANSID:2ee96ae9c9d3f51-99e37
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from dsh.local (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16ae9c9d40d8-f93b9;
+	Tue, 03 Nov 2026 19:47:33 +0800 (CST)
+X-RM-TRANSID:2ee16ae9c9d40d8-f93b9
+From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: alexandru.tachici@analog.com, linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: ethernet: adi: adin1110: mask the RX IRQ of the port being stopped
+Date: Tue, 03 Nov 2026 19:47:33 +0800
+Message-ID: <20261103-adin1110-net-stop-1-yuehongwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,111 +65,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/11] KVM: arm64: CCA: Check for LPA2 support and SHA-256
-Content-Language: en-GB
-To: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
- <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
- Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>
-References: <20261102141304.126883-1-steven.price@arm.com>
- <20261102141304.126883-5-steven.price@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261102141304.126883-5-steven.price@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: git-send-email 2.43.0
 
-Hi Steven
+adin1110_net_stop() programs the RX-ready interrupt mask of the wrong
+port: it uses ADIN2111_RX_RDY_IRQ (the second port's bit) when stopping
+port 0 and ADIN1110_RX_RDY_IRQ (the first port's bit) when stopping
+port 1, while adin1110_port_rx_ready() uses the opposite mapping, port 0
+-> ADIN1110_RX_RDY and port 1 -> ADIN2111_P2_RX_RDY.
 
-On 02/11/2026 14:12, Steven Price wrote:
-> If KVM has enabled LPA2 support then check that the RMM also supports
-> it. If there is a mismatch then disable support for realm guests as the
-> VMM may attempt to create a guest which is incompatible with the RMM.
-> 
-> Also check for SHA-256 support in the RMM as to begin with we only
-> support SHA-256 based measurements. This can be relaxed in the future.
+The port being stopped therefore keeps its own RX interrupt enabled
+while the peer's is masked.  On ADIN2111 that stalls RX on the peer port;
+on ADIN1110 the RX interrupt is never masked at all.  As the interrupt is
+level triggered and adin1110_read_frames() skips the FIFO while
+netif_oper_up() is false, the stopped port also keeps re-raising its
+interrupt with nobody draining the FIFO.
 
+Swap the two bits so the port being stopped masks its own interrupt.
 
-This could be merged with the patch 3.
+Fixes: bc93e19d088b ("net: ethernet: adi: Add ADIN1110 support")
+Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+---
+ drivers/net/ethernet/adi/adin1110.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-> 
-> Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Steven Price <steven.price@arm.com>
+diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
+index 53fac3d..abdc160 100644
+--- a/drivers/net/ethernet/adi/adin1110.c
++++ b/drivers/net/ethernet/adi/adin1110.c
+@@ -945,7 +945,7 @@ static int adin1110_net_stop(struct net_device *net_dev)
+ 	u32 mask;
+ 	int ret;
+ 
+-	mask = !port_priv->nr ? ADIN2111_RX_RDY_IRQ : ADIN1110_RX_RDY_IRQ;
++	mask = !port_priv->nr ? ADIN1110_RX_RDY_IRQ : ADIN2111_RX_RDY_IRQ;
+ 
+ 	/* Disable RX RDY IRQs */
+ 	mutex_lock(&priv->lock);
+-- 
+2.43.0
 
 
-> ---
->   arch/arm64/kvm/rmi.c | 25 +++++++++++++++++++++++++
->   1 file changed, 25 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
-> index 9d118768550d..5b07beff8bc9 100644
-> --- a/arch/arm64/kvm/rmi.c
-> +++ b/arch/arm64/kvm/rmi.c
-> @@ -6,8 +6,30 @@
->   #include <linux/arm-rmi-cmds.h>
->   #include <linux/kvm_host.h>
->   
-> +#include <asm/kvm_pgtable.h>
->   #include <asm/virt.h>
->   
-> +static bool rmi_has_feature(int reg, unsigned long feature)
-> +{
-> +	return !!u64_get_bits(rmi_feat_reg(reg), feature);
-> +}
-> +
-
-minor nit: Do we see this useful for others (e.g., DA) ? May be we could
-move this to the include/linux/arm-rmi-cmds.h ?
-
-May be we could even make the above a macro, something like
-
-
-#define rmi_has_feature(reg, feat)
-	u64_get_bits(rmi_feat_reg(reg), RMI_FEATURE_REGISTER_#reg _#feat)
-
-
-
-Cheers
-Suzuki
-
-> +static int rmm_check_features(void)
-> +{
-> +	if (kvm_lpa2_is_enabled() &&
-> +	    !rmi_has_feature(0, RMI_FEATURE_REGISTER_0_LPA2)) {
-> +		kvm_err("RMM doesn't support LPA2\n");
-> +		return -ENXIO;
-> +	}
-> +
-> +	if (!rmi_has_feature(1, RMI_FEATURE_REGISTER_1_HASH_SHA_256)) {
-> +		kvm_err("RMM doesn't support SHA-256 measurements\n");
-> +		return -ENXIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   void kvm_init_rmi(void)
->   {
->   	if (kvm_get_mode() != KVM_MODE_RMM)
-> @@ -16,5 +38,8 @@ void kvm_init_rmi(void)
->   	if (!is_rmi_available())
->   		return;
->   
-> +	if (rmm_check_features())
-> +		return;
-> +
->   	/* Future patch will enable static branch kvm_rmi_is_available */
->   }
 
