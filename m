@@ -1,97 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692353;
-	b=C37grSQHF8FOhBPvycrYZd9Qq8cIhHZPtvKAgJIhIV2TSnnN9bc7mj+7+1aGOSkQkwBV
-	 jzQJFzlUblQtWOfF3gh+w3tBdqlRLwb5MftOTumSvJQVU1rJvBGZ1xRcYVotYcpdbtP2O
-	 gLZp6iF8l20NKgsLTSy9EoI+4/letyqQLrs80gvPg58m5+T6+kFX71UBJ40yNlIDKePvv
-	 20ZAM1zCRZ6EKrRF8HYab+kvgFVWKShoyvghdnAlmbthY8gHRqVPfBrtZfh4dvMMg628Q
-	 qkNGqSDwYJ0DtceWRDhVb2b7+XMH1Nm6MsDNzYRgMkF3SGvzjf/MGtKGXVCMTW0SiJg==
+	t=1793692374;
+	b=J3bjZvQbGENkUVGJzgFMblK6P8u/pnIi2+kkEFsYQwnswgbRebHErnPmt9mGEiWdcxGW
+	 Lhqy9r7ypr5i8YglpVstLAS4XoWaWjpaFoDL6fv+nd6IDb2oEDe6vNGidTuXduG3MJzqC
+	 V304k3dhBLZ2etYLPlTlfXyJmg2Lme1sH28iAfcOZpgGp4iesTR9gtC42aSkKGILHtc33
+	 KiZM6H5BJQcs/j7+IJD6+jW+/MhhBXbieuS7j2E9ohvBye0ba0hKG0sDgi55Z0kErRL68
+	 bpzrvjKpaIjcsda1TuW5kZQH86bvp07CXcarb5jkrTIL6wEwk5x+/i0TjqeGMk69DhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692353;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=6R7CNAZpahPnRPALzexY2OH6fEkMajMjI2gkDqsBlDU=;
-	b=UxKXOTCixX/niaZFBaeH7hsNADHpy0jEk+5nWCso+zq2LkJPV+ReJvc+7Tb9kWe/2S4b
-	 opS/1J2btcWFuDmXHFdli4wjkTsUyBXXg7vL4FgkLOdOafFSr0jZ7gWA46FhpfOD2kwjT
-	 dK2lOSgCzKqKOTjsUuccJGmDSKbiURx62LMf5o3GtBoVhzGF2EyEwoQ+mWdkWhvKWKlzs
-	 29rjwf8hgCEg+QCZe47MaqApSr/bbJylJ/YZEPOn4ZrP2kh74AMQnluIFgAnSSvB/cmuj
-	 gFz5np6H0ThupXI17/L4d0vP276xts3H8mvvfaZyy7MdA4n/LNF7C8pWKuX2XurDvPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692374;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=kK+jdKNcJcWw9kFnkQjeWeFtjnujW3GF44sBiacgmG0=;
+	b=QiIyjphFBGdtxr7sPIqS9CSJOlqr9EDd9lIKPYnooL2Xsb2sXUE7Uj7rvcCfw4iBsjyr
+	 jq4j/GTuCY2kS+qNQm54PHFGQbfriuUkeuLZ6RP/L166m/App78a4AaBFsWwix6bSFl73
+	 ayq4GWKCUGx/oQuxS2M3oGSVFhI3XrqS84YYdjNgAg7jHa27HHyUBj8bPCgzmdVq313d8
+	 ybFuwXI2BsOgm0UuW/3DBpheKJoVy73H/Yduw+Vk6kGWoKL4AFaITaEHhvO4SO8RT7W4J
+	 /p9ZYuXdSkWRVuEnGWYrWWMoJ27IZS+mCAIVvoPgliKMxgl267dBFLhRzzQEa75SdtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jwFFhm2t;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36117606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:52:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36117606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jwFFhm2t
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so25472175e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:52:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793692346; x=1794297146; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6R7CNAZpahPnRPALzexY2OH6fEkMajMjI2gkDqsBlDU=;
-        b=jwFFhm2tuc1+z5jLnk8sYRGl0PF0y6/Ww1TdQrFosY/eeNTOr0xylurNbVeVQLNlZv
-         2CZu1AuVJjMeshKnvR6pMhS9fGTwvqZdnEbDID7huggt7Txf27tIREa0kZIJ6KbvPXyD
-         I/+GUlkENCStsCbpiDiekWaOA00Dfz4TgKC7KHzjsdPAycZ9fMIJNkao+YHjzSTAH+PU
-         +3gPOww4J5ryq6pbu4zJwbp22ZnGrrE4NursYmlPurU6VQIF12FJModxPj9Q4Y+ohyOe
-         puhN+lDJptO1YJBC9+qc3iDZ/1/5lK40wJz1wHBHQgTDaOpE5SOJZtoUR9po9K1bOva9
-         83PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793692346; x=1794297146;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6R7CNAZpahPnRPALzexY2OH6fEkMajMjI2gkDqsBlDU=;
-        b=KwAZNNFqFMEljGcquUtc/AwvK/12OQDa66NuQPmeeH3kEH6i0fnA9cZHdvVR1rMl7R
-         twyh7spJkY3cle2VGlzWqXMGkY5QJP9p2jhknMik2zotSx8aC9rtienGlo5WbLi7cI4M
-         x+KXEBxpXnd3APW7eu+iQt4LRyTmwo9jqn10u6GtFogSznr83I5cnSsansqH3+YNJLNA
-         UM6k8/7/5B7HaG32V6F2E/hsXLqn5G5/w7KNg4/+cNf6Pl5tpljAzwLbtRMliRa2YXBW
-         vme/AIbii7LYkR3b8HlF+riSs9K9xm9SmDRzV8s0ZqYe82wEolfanRTLDC3MAIGlrwNe
-         Ojtw==
-X-Forwarded-Encrypted: i=1; AKwUvBzgZ7zVxw72ec1KLx86JpOL/G7R0KVBPUl+DUBZBRg7OzT6t/qOG8utE885G97fRqrzZGkUoJqMVHs7N+I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3zHHrUh4Of5VsxIa4w9CA3a5nl5I0GfT10Zerx+jwmNfgM/gk
-	KTJv5nodc5lYeIXykroQBSJti9XhAlb5SqiDi1qz1b084cg8Z7QGT/AG
-X-Gm-Gg: AYBFou1flDGt7In8yEsXibTIlfB0ex5jdosQ8wm1naTnRt7WI65yEBJeEGLzuS4SUbu
-	VmrGgr21BH1GvubWx8hDVBIoYL+KYDUJjQmSoWhFAhepzepeTw3r1ZC9vB4f5giqG32CJvfjz9O
-	K9C5ZzHRAyv9xjYX7kLKBdPbWEUdyH65QIIt7sJ2YhvpDpCZJK1hKQqYm2YytkcuIo2ZLryU6MV
-	xZtA1rP4M5jNGFtxCasHkygK83eNQBWcwJ6eKsyPAv9bEGpTt1IEPdke5HZX7ebgFtEf/c+TuWS
-	ywTclL4OKA9Yhvkw9o3e8e3j5bfO4tM7IUSjzD/sm1Fct7U/qV01zHTxjuzv4XedJu+AP5GyDRd
-	LU3r3Ov6wTiXUGu+faPuFL4xdtGYVr6fQ6vQJ0kX2+7BtEHdwFoLpMtYyVwhHLwSD10nWOUNKOp
-	sWHkA1DlnkIy2fJMVDksfWGkkr9U5OUdNZsolobAQK443QZBwnBpNWaU8/uaA3cT5EGzEHzIq2C
-	QolSieqw6lgqlhKlOm4mg8PSpBV87FLxcXTxYsZ4tDFDag5fdeCK7LNguOOHk35/X4sxvVDuj2l
-	ho+61isuz4cELLqCMwExzZ9q/hNMmID+V8pZjPfSUh5KwL3zh4p8GcoqDh/Hh7AcKl4jZKCxog0
-	SkG70iodMZxasrapp6Bjez94KfG3ZjRepiBG0ZbVztFxrCe0yEW6v2l/HxS8al1Q7ZQ8nArHIl5
-	izwg9OUazTd/M=
-X-Received: by 2002:a05:600c:4e49:b0:4a4:6fdb:cc42 with SMTP id 5b1f17b1804b1-4ac17b2c38bmr299232835e9.11.1793692346478;
-        Mon, 02 Nov 2026 23:52:26 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aa953d35sm37915295e9.9.2026.11.02.23.52.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 23:52:25 -0800 (PST)
-Date: Tue, 3 Nov 2026 10:52:22 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Eric LI <eric.lee0305@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: fix space prohibited before that close
- parenthesis
-Message-ID: <aumStg3EuhPbWkZu@stanley.mountain>
-References: <20261031042315.1122699-1-eric.lee0305@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4287B606A324;
+	Tue,  3 Nov 2026 07:52:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4287B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACXaZrOkulqLBs6AA--.62913S2;
+	Tue, 03 Nov 2026 15:52:46 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: ayush.sawal@chelsio.com,
+	herbert@gondor.apana.org.au
+Cc: davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: chcr - Balance inflight count on invalid RFC4106 AAD length
+Date: Tue,  3 Nov 2026 07:52:55 +0000
+Message-Id: <20261103075255.1114171-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,20 +54,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031042315.1122699-1-eric.lee0305@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXaZrOkulqLBs6AA--.62913S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7GF13Cry5XrykAr4ftFyDtrb_yoW8JF13pr
+	Z0yFyFk3s8Jr1fGrn7tws5uFy3u39xZFWfKrs8tw40vwn8JFyxAw4v9a40vr1fJr1kGrZF
+	vws7AF9xu3WDWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU1pnQU
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQAA2rpWwrOjgAAsZ
 
-I'm going to Ack this patch.  The other patches to silence this warning
-introduced weird no-op macros but I feel like this patch does the right
-thing.
+chcr_aead_op() increments the device inflight counter before checking
+the RFC4106 associated data length. If the length is invalid, it returns
+-EINVAL without submitting a request or decrementing the counter. No
+completion can balance that increment, so device teardown keeps seeing
+an outstanding request.
 
-Reviewed-by: Dan Carpenter <error27@gmail.com>
+Decrement the counter before returning from this validation failure,
+matching the other synchronous error exits after chcr_inc_wrcount().
 
-I don't really care if the patch gets merged or not, but in your heart
-you will know that I approved it and hopefully that counts for
-something.  :P
+Fixes: d91a3159e8d9 ("Crypto/chcr: fix gcm-aes and rfc4106-gcm failed tests")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/crypto/chelsio/chcr_algo.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-regards,
-dan carpenter
+diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
+index fd4720fa50a9..ac4e40d5292c 100644
+--- a/drivers/crypto/chelsio/chcr_algo.c
++++ b/drivers/crypto/chelsio/chcr_algo.c
+@@ -3651,6 +3651,7 @@ static int chcr_aead_op(struct aead_request *req,
+ 	    crypto_ipsec_check_assoclen(req->assoclen) != 0) {
+ 		pr_err("RFC4106: Invalid value of assoclen %d\n",
+ 		       req->assoclen);
++		chcr_dec_wrcount(cdev);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.34.1
 
