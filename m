@@ -1,119 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793744445;
-	b=ddD5SK59MMPRW/gQ3RVXdinc4mVILAbHYANaYaoUoslj/A5GRsVG9/luOHS3zDzAzHcj
-	 gLrm6GsXEaxaWtt6cTBNObv3g3su04hzcBooQve1T7Lg9A+oN15YQCaLXwDQzwOqV0Mak
-	 NQtNdRILa4q6/U1BHRYN+tAhe/o1C/tk4ojglutpsq+NjZdqV3JaosODdo7xSVPxvod9o
-	 j12Chucs1wr2IqVVt78tF5cl5bfDpPE3jyOFljFtt528OMGKJA2ccAmuETvJwrAHZJUoo
-	 b7F8Inm0zsfEORfzY/sottKA1fZJ64/9PR64L4GOlJpY3+EJM782F/eHmCVgpxMAiuQ==
+	t=1793744543;
+	b=tba6xZhvz4vkErsF4koT3I1k4cmZIxNaZ9LoWmAyNW2DCKWV+6wPVPA2puwXYw3Z9bw3
+	 QrMGtdTMVsJ5wKmspOat7+lj0J3/tg1PDzJy3KbJdrkQydga54m9rjWi3DVUMpTR3QBfV
+	 g8mpKXTEW0YHrDk3y4o2WW+u+wKDG0qWj9j/YoBofk+bdh2sRyNs+XTm5NbRBbJwMWwOD
+	 dP0mc+R3hwq2Pp04cTShIpfP7wBMEZC3cqSDoMgiW742S/9EbH3P//zDUCS3+TKzydD6k
+	 oc+rjMZOS/rJwXTB9UJZ/V/0v031wFp13TJWZdlN55rMsgP431//DWEZ1/Kz1QILTwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793744445;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=OqOh2QjnH5nqEhUIXpQWCnON/bvvbA6ymt53jFtBxJ4=;
-	b=rvdlU9Gii0Tl1h2ey6VOjdX0iiYcm9QEOCkXA5HEgx12msIFH3FKnIEji9xzsEbqPMKn
-	 Mvyn+Q0QXylWOL+SfOpYdZvliwoEPctN8R/PJ2azHnyy7LrUdbj79AowMqQb2loEHUvqZ
-	 hzeCK58eKOnCSgi6Tncn9BqcPHj/0tgrfC+LQtyPzfoAPR9PPWJGKNSAS2Xow1BULQWiZ
-	 5PJS15pqQXSnBnzGzwDH0nHmkW2MqRITi1UAs/FwZEt2g9U0U1taEpc8WD1AsFBxTJfmK
-	 cnzikaYadfx0wY7v3yu6OBl1SGuSOMFEa6iHQNeAbsugFvY49PnLKj6/WTqc3UqGUbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793744543;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=CRWgZbYbB+R5eRm2kScWUYQeRJH/ra2dV8Rl01TkDxc=;
+	b=SVSB3oxEiOFLpctaInykRYgdbV84gmwmi1E2NvbJon53V8Q60aZ95EtTt1ABjktjubiZ
+	 1RTwWLFdotLPn/m09FneJxKD9YpjgAktWzb6rvbRbvl1gisEA3Uf4CCTrCsoUkFewox7g
+	 USDmWW3NEREVQUk7KtE1iNh/KvCMj7V9gVR3zqEonivbNgxCb4RucrIQaTQEPCy2+ATBj
+	 5kWsXpVJtTJuGyCWc9IlUItoztSkFrG+dDV1Z4DCf8IqPZSHh8Ffbakv3eEdvY5EyZ5tK
+	 fxO8PpdrswoRkF0ms/ZJKxI9mHGu4KPYiSUrxaKndZB65WXdAfJTOpC+ScBDBfo26hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=F2SXbRM7;
-	arc=none smtp.remote-ip=209.85.222.169
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cw3vMvX4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF11606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:20:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF11606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98753606A31B;
+	Tue,  3 Nov 2026 22:22:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=F2SXbRM7
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f22a8515eso11083485a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:20:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793744444; x=1794349244; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OqOh2QjnH5nqEhUIXpQWCnON/bvvbA6ymt53jFtBxJ4=;
-        b=F2SXbRM7Mn8fUJuu2AkM5jd8JLrEDXWGhjEit4QqcWFCQkn/3FMFa85CVF7eUeUbgu
-         1M5mEXzE3dMfNVckZhosJjpsOJgMkneVzRLye65k6Pu3HQrUQ+b2j/mwozL4J04BFnMO
-         g12rc224skqk4QJsNsVfxYqr4zHfkSGrXkvwbHl/lOfL+4MzokBrpEJ+32LMkbmLKRY5
-         CnZwy3LMQ4Kg3wnPnp6zLDHkdn0dnbs3eVarh8n0BGXg65Oof36nNHTakJBLMiYJqHN/
-         UFO8Be8fsvdaGhUDJd8KCO9+vk//EtXtnLaQBhn9L0omAjqxO/IiGuWizLkUN1S0OeCF
-         jsYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793744444; x=1794349244;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OqOh2QjnH5nqEhUIXpQWCnON/bvvbA6ymt53jFtBxJ4=;
-        b=2R4yUORkFSpzOp8w73QKoGKwXhfG89POhJ/o2DjE7/5LUYHBBRCu4GdZZZBz4US8St
-         0KoSuGUWLb1zt6cAyDeLR2Q9LeOtjNJGvnegyjNWxvlaV9ezhoH7FelHxhsGEnBNAjMd
-         1mzgwgqYuAbSZsysrs+R3KlHGHV43QZHnR3ByHzS0f/0myxySJWI4BJq1D4KEeN2Tyn9
-         LxHXWMQIsw6Ju9krrhRgsNCSJKDU6zuNM1Qx8qPMsNM6bUwhSrvDpzGGZjzOHRlq5BCl
-         8d7am5nCqLfFTUh8/yCuhtLD2nnADQPZbLJtZmfAj859zkOCw/u2qGZN2Z9fztHqAqh1
-         2jRA==
-X-Forwarded-Encrypted: i=1; AKwUvBzV5IqbHvlFs6C7xdZhqvMTQFATuODH4NKlk/TJdFCZ9i3lzlB9f5+IwDqv4WZlDeZ3sjSr5nUclvIQiDA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9D3BYnVdyPbvE4UoAGjY82lsLsELol3FbZKcQ6ogK0HGowGJMP
-	yzs5jRuAV9PwgLSFJ5fZNjawOe7HmDobUzoCvCd7YP8KN5dTap7dca7soJ3ChKdblLw=
-X-Gm-Gg: AYBFou2gM1vFzOEUsuFC8VCGn8+vVR6+XlausJ2yfmFoJTJ9SmIlifjQAFgKZkOgrQd
-	wK9MS5RZGoVOnwB36hJsl3ZpPM4WeJ8x5fFzDYugcvc8YJcPUeyXG7OKSVfyTjoY1WjftDLjHWB
-	8OANCvDqlBWMAL7Ti5YI9qPJsEb2wo0+Sky+GvYfR8rNUC/EiJObWeMAzqiRz2qE5I4xTXTnNua
-	DDOit3lidV1IoF5rQpAKnOzWt5TodwSHI/HmuIWMs+bgelBArn+ojaa3pRukPA6znu8XA5Je3qu
-	rOjUG24CNKV5IXo1iLWy0SKjtyz7HkHwnX9e0+099rxdTtcNlS1yuZJigNS6IAan1GxNsXvpWcJ
-	Sq/ppQimmjsarRCbPSasNX9L/SWNv2FdF+kZBz0laqCm3O03BBrAsS0gFbbss4pUwfpErmvrJ6K
-	OYX4iz3dgwSB8Wy4LguYPpxRxfODE9pXBa+LdWraUotqnV/bSOtpjiITmpj+m9A7n0Bo0L4BLwz
-	QVwLCBBtrWZo1LQ5/xUedoQm5RzVpwtrA01YC2dpbX0wt1zKTxDyBEahsm392lOynqzSiNHKeXi
-	a6eqaI3J+N8Z4J0ajEQBhZn666vKmXx0ukOwwY2Rb1gPA1BeePQSrlo=
-X-Received: by 2002:a05:620a:2987:b0:93e:a8c5:132f with SMTP id af79cd13be357-94421744f15mr2434867585a.29.1793744443800;
-        Tue, 03 Nov 2026 14:20:43 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:bf53::5ac? ([2606:6d00:11:bf53::5ac])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d488d41csm39923185a.38.2026.11.03.14.20.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:20:43 -0800 (PST)
-Message-ID: <456a7ad925afe7caf52d39ff300089c8ec79e4e8.camel@ndufresne.ca>
-Subject: Re: [PATCH 2/5] media: iris: allow larger capture buffer pools on
- HFI gen2
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Xilin Wu <sophon@radxa.com>, Vikash Garodia	
- <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
- <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,  Bryan O'Donoghue	 <bod@kernel.org>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	 <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bryan O'Donoghue
- <bryan.odonoghue@linaro.org>, 	dragon@radxa.com, Chris Obbard
- <chris.obbard@oss.qualcomm.com>, Deepak Sikri	 <sikrid@qti.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,  Loic Minier
- <loic.minier@oss.qualcomm.com>, Jason Pettit <jason.pettit@oss.qualcomm.com>
-Date: Tue, 03 Nov 2026 17:20:41 -0500
-In-Reply-To: <20261029-iris-va-fixes-v1-2-44a2783f782b@radxa.com>
-References: <20261029-iris-va-fixes-v1-0-44a2783f782b@radxa.com>
-	 <20261029-iris-va-fixes-v1-2-44a2783f782b@radxa.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-0KaBDc6xtZ7L+h2NjFYv"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cw3vMvX4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 096411F000C1;
+	Tue,  3 Nov 2026 22:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793744543;
+	bh=CRWgZbYbB+R5eRm2kScWUYQeRJH/ra2dV8Rl01TkDxc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Cw3vMvX4K1PsJOxdCD1G/M9XXxL7yKdwKvvcRNi8GmhlC8SfegP+HGGeLMMI9RzFf
+	 At7z4j28Y5DZETtoEgbmcQ6+ZHFR0G2Pw5nZaI51FeDy5FoZL8rZ+hAO5kmB41rFvB
+	 Hno0lU9278DO0wpVyIe2TIjDUImXbMtvbMmdynzu9+JCrEJxR+aFI9zBKzZznewLzx
+	 VBEjvpn0zZ6V0JDw7PCFFXvEkpAqxuhQc3qNjdCm/G8+IZijJcwtm2kdL68RbfFyWV
+	 2D+FEGwE0gcgFnu4kZmXElsRVC0sjksMX58HqTEKJeTWeYOf08Ui/dOUgZMXin3I9v
+	 wHdchv30dw/dQ==
+Message-ID: <759f9072-02df-4862-a563-7d537bf4ea63@kernel.org>
+Date: Wed, 4 Nov 2026 07:22:20 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,57 +51,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] dm zoned: back off when reclaim cannot make
+ progress
+To: Kyrylo Biryuk <illofspeed@gmail.com>, dm-devel@lists.linux.dev
+Cc: mpatocka@redhat.com, snitzer@kernel.org, agk@redhat.com,
+ bmarzins@redhat.com, hare@kernel.org, hare@suse.de,
+ linux-kernel@vger.kernel.org
+References: <20261103220438.510609-1-illofspeed@gmail.com>
+ <20261103220438.510609-2-illofspeed@gmail.com>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20261103220438.510609-2-illofspeed@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 11/4/26 07:04, Kyrylo Biryuk wrote:
+> When a reclaim pass cannot make progress, dmz_reclaim_work() still ends
+> with dmz_schedule_reclaim(). If the target is idle, dmz_should_reclaim()
+> keeps returning true, the work is queued again with no delay and the
+> worker spins on the same failing pass. This patch handles two such
+> cases:
+> 
+>   - dmz_do_reclaim() fails with -ENOSPC because no free zone is
+>     available to copy the data into, for example on a target without
+>     cache zones that has no free sequential zone left. The next patch
+>     also makes this the expected result when an idle target with cache
+>     zones has random zones but no free sequential zone.
+>   - dmz_do_reclaim() finds no zone it can lock for reclaim and returns
+>     -EBUSY. Since commit 90a9b8693f1b ("dm zoned: reclaim random zones
+>     when idle"), dmz_should_reclaim() returns true on an idle target
+>     whenever the total number of random (and cache) zones is non-zero,
+>     whether or not any of them holds data. Each pass then also runs
+>     dmz_check_dev(), which checks every device for media events (a TEST
+>     UNIT READY on SCSI disks).
+> 
+> The -EBUSY loop lasts as long as the target stays idle; it ends when a
+> pass finishes while the target is busy and has enough free zones. On
+> three 27 TB host-managed SATA drives used as md RAID5 members (7.2.10
+> with the module built out of tree, all random zones free, target idle
+> for 300 seconds, kprobes attached, two other drives on the controller
+> being zero-filled), each member's SCSI device counted about 108,000
+> requests per second with the stock module and the system used about
+> 915 s of CPU time, against about 46 s with this series. libata completes
+> TEST UNIT READY in software, so these counters do not measure commands
+> sent to the drives; the cost is CPU time.
+> 
+> When a pass fails with -ENOSPC or -EBUSY, retrying at once is unlikely
+> to make progress: re-arm the idle poll instead, so that reclaim is
+> retried after DMZ_IDLE_PERIOD unless a zone allocation or a "reclaim"
+> message queues it earlier. On a busy target, zone allocations can
+> restart reclaim immediately when free space is low enough to require
+> reclaim. Re-arming also keeps the poll running after a complete idle
+> drain. The poll can still stop after a pass that ends while reclaim is
+> not needed; that is unchanged.
+> 
+> Skip the device check for these two results: they normally mean that
+> there is no zone to copy into or no zone to reclaim, not that a device
+> failed, and the I/O paths check the devices themselves. Use
+> queue_delayed_work() so that work an allocation has already queued is
+> not postponed.
+> 
+> A pass that fails with an I/O error, for example on an unreadable block
+> of a device that stays online, is still retried at once while the
+> target is idle; this patch does not change that.
+> 
+> Tested on 7.4-rc1 with this patch and the next one, on three emulated
+> host-managed drives (scsi_debug, 1 GiB, 32 MiB zones) each under
+> dm-zoned as md RAID5 members, all random zones free and the target idle
+> for 300 seconds. With the stock module each member's SCSI device counted
+> about 70.2 million requests and the reclaim workers used 726 s of CPU.
+> With this series: 75 requests per member, 30 passes per worker (one per
+> DMZ_IDLE_PERIOD) and 0.08 s of CPU. Data written during the tests read
+> back with matching checksums, and no kernel warnings were logged.
+> 
+> Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
+> Fixes: 90a9b8693f1b ("dm zoned: reclaim random zones when idle")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
 
---=-0KaBDc6xtZ7L+h2NjFYv
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Looks good.
 
-Le jeudi 29 octobre 2026 =C3=A0 11:58 +0800, Xilin Wu a =C3=A9crit=C2=A0:
-> VLC with VA-API frame threading can require more than the default vb2
-> limit of 32 CAPTURE buffers.
->=20
-> Raise the HFI gen2 decoder CAPTURE queue limit to 64 buffers.
->=20
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_vidc.c | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media=
-/platform/qcom/iris/iris_vidc.c
-> index 05aab6e3005d..8c96b007b391 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-> @@ -140,6 +140,9 @@ iris_m2m_queue_init(void *priv, struct vb2_queue *src=
-_vq, struct vb2_queue *dst_
->  	dst_vq->drv_priv =3D inst;
->  	dst_vq->buf_struct_size =3D sizeof(struct iris_buffer);
->  	dst_vq->min_reqbufs_allocation =3D MIN_BUFFERS;
-> +	if (inst->domain =3D=3D DECODER &&
-> +	    inst->core->iris_firmware_data =3D=3D &iris_hfi_gen2_data)
-> +		dst_vq->max_num_buffers =3D DEFAULT_MAX_HOST_BUF_COUNT;
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
-Why is this limited to decoders? Also, why not move the max into the firmwa=
-re
-data, so this code path can stay idiomatic.
-
-Nicolas
-
->  	dst_vq->dev =3D inst->core->dev;
->  	dst_vq->lock =3D &inst->ctx_q_lock;
-> =20
-
---=-0KaBDc6xtZ7L+h2NjFYv
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaupeOgAKCRDZQZRRKWBy
-9NGUAP0fC+HgIUz6Yzta6e9e0/oLBqp87VokMecAXd3ZQ7RlbAD+MZPNNWQ9iSpb
-4T9b1oJD4rvhHyJ7DFX/pGRV+UAomAE=
-=kY4J
------END PGP SIGNATURE-----
-
---=-0KaBDc6xtZ7L+h2NjFYv--
+-- 
+Damien Le Moal
+Western Digital Research
