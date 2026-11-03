@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724131;
-	b=JvFSAi8yd0XV+txOhr8gAlL2eki5PDn0kjKBV4060d98h9p9E0TLiZsE/FUkv4CZcuPd
-	 m1YpbYY0o1x4H9CuCv0J6y7EV2S4wQ0paiGrsfsTXwXKBuQb+aB3xzAJUyEygEv0Cy4cb
-	 xo2386FAmfnmV0ZWDzyPvdE6KfXfUX6JcY03rqf7y2mwU6QZ7v3KOq4Y8aEs1bALt+pN6
-	 Mogv+Lc/C+MiMX6I4qQnDrMlz4LGAsQtArGl/t2bxMp00+pMcONJppR16MeAlCe6RjHkd
-	 G6RNHEEhU7n7fczQmATQp0hH/D4lzCScxnbaWRDncXY9AuXJ/TbRaOn9tx/UfZ9x35A==
+	t=1793724130;
+	b=n3X25B9Ppv94UPQi3bmuZowMdAWT+faz8ue1Ppfy8BtEAr+6P4VY3gqq+69o1DMt+MF6
+	 jmfPhjzBDxCaUErQGE6mDPaiVxVpf4yYoWmDWyv8UHrZseSCKlD0FN4A2k1WCCmpz+OYn
+	 FbZ941NZVKHFEi/v5Beyo5rnwRjIP7n+25btvoyz2wZNLQH7cYmtLexD41q/kSU/P4O4k
+	 yAhzwn5AO11ubm/hPNbeqLAuiaheRt6qUBD7qzTNcBwRZmKpTorbaZtBYqgMMNQwZJW8x
+	 9G1Zwq9l2oYhucVLNxi8u0NK/WWby2NbJ06Mn7ITVZyRmevlXBwTZLxS+HjYFLm1gRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724131;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=zWuqlHAl8EMnuJQa3Ip4uIbks17jqw9fAtZiwgz0frc=;
-	b=SoKNXFgNV2t8lCK2J5jAXl8Ii35M/1zW4SPUgaWdfJAkfiN3nE/YX86puHsZ1TSAceAe
-	 WKkGCJH3QSTBpVyD7jBhXfGsR+xQ4X0ghxqVgsb9EgVuKyYqvWIPbFvDNFfmBEcGeC+DI
-	 b+uRnL8j3Ftmvs4fUJvVjPoBq/Ka6mHbxnu/xtXqgxS4dM/oVWQmFyrkhZx3pU1/7IFg8
-	 MKGvZWCTEIXYDvKQVWrE53pP3pFJ4SfFktPmZ2IF7nBs32sruTMXNgnR3umuJp9o9Gizk
-	 BzUbXJJKp5+5CIBgNt1SDPMoNUjp2vtgaFqgPCfmrXrpxfsWahpDiDeWlvMVa5qRoWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724130;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=+KBTYiCTGi2sfHFb+ylNKvCOHc/5SD8paEIRVfvfyPA=;
+	b=mqdMD6za8LaqUpV1b09MWuLtp6HiIh9sEs8o90m9FDJ10XKXM4CrNcIL+UQntzMgEmyJ
+	 HjOK26IgK3AtFQ+HsE7qWsbNij8PMmQcARfa8jG9YIwSBGM1OFVQo3Pgnk2WofLpDztZa
+	 Lws7Cq+lR9LzVAurc0p+PXfklY85LXpZ6auAyKIx7/hGh4fqhIFTf898iVKfGOcpSjllm
+	 OF1rDX57bVZ52JynAC3FqH36uVCdRRBoKtqyDeNAcBKWUYL5R5hERkqRKr5YUFq97jvVs
+	 v6hSd2bkcSGnVgJL0kjtianz8pAk5vqaJBilBXs4aH8tGbTt3UdPP3bX3ce+sjnEiDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=daylightlinux.ch;
-	spf=none smtp.mailfrom=daylightlinux.ch;
-	arc=none smtp.remote-ip=83.166.143.175
-Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
+	dmarc=pass header.from=surriel.com;
+	spf=pass smtp.mailfrom=surriel.com;
+	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=cITr+3C2;
+	arc=none smtp.remote-ip=96.67.55.147
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E93360A3828
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF7C60A3821
 	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:42:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E93360A3828
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daylightlinux.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=daylightlinux.ch
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJvVg48mGzDtG
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:42:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daylightlinux.ch;
-	s=20261016; t=1793724123;
-	bh=zWuqlHAl8EMnuJQa3Ip4uIbks17jqw9fAtZiwgz0frc=;
-	h=From:To:Cc:Subject:Date:From;
-	b=DVscUd7l/Zl/PrN8J0SxWcnSHVAw7YUOXxT7pwULFJSp1E3Duv15kR1H2IAxTXV22
-	 7VwTadnqvPh9vIXu0W6PolaPyH16fQODrOgRlBOomr2JeUMq1MynFtIcPysrhqTbyz
-	 QdeDlFCJPdXemewEP4w3ZDi6l3iRV/EG4eJKzkjKuHI1Npj0Oxo9g45fC3V1+3HVPI
-	 OORG4O6BdfBcb/+GQHR/GMNphB/M3iR4cknf8NdaSeukkP6LzaUYBsm8LEPfHKn3H+
-	 v/A9PzsR/K3KmWivOBeiFKrXOU4ssyXfdWvX70wbXNeRHqr1dsomIMcbf2p1Nvmq+9
-	 omw1VQYEF8qlQ==
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJvVf6lyJzvpd;
-	Tue,  3 Nov 2026 17:42:02 +0100 (CET)
-Received: from unknown by raspberrypi with local (Exim 4.96)
-	(envelope-from <info@daylightlinux.ch>)
-	id 1xOHaE-00FDbV-1g;
-	Tue, 03 Nov 2026 17:42:02 +0100
-From: Hamdy Abou El Anein <info@daylightlinux.ch>
-To: sashal@kernel.org
-Cc: hamdy.aea@protonmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] scripts: git-resolve: ignore non-commit objects
-Date: Tue,  3 Nov 2026 17:42:02 +0100
-Message-ID: <20261103164202.129624-1-info@daylightlinux.ch>
-X-Mailer: git-send-email 2.56.0
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DF7C60A3821
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=cITr+3C2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=+KBTYiCTGi2sfHFb+ylNKvCOHc/5SD8paEIRVfvfyPA=; b=cITr+3
+	C2MeIecJ/GpGBDjLBPpEl0hTxQgHVowYX59sIFLnQC0arsUPQt3PkxoUtuGut+r1X9e0JaBJ1zyJF
+	Kkf/BTm/rUNl5y/wgy85Fb0mHm+PG4Sj25eTy3xbXfnjE3T4T1MDMP2+uJdpnkGKklkiC9JJ7xMEz
+	xPaCrvem51fKdX2lxrgwxf49ZzU7zq1CZE7+t8mqOt2IWoluWYyUjU4bonTY+zUEc7q/3lUYyuudP
+	27kyxe4SPuD0p06Tzdc2GiWTcHIad3xEV7iW97pBWjHqKhk1lKIvLCFawqvc0c5A04OEyPPQGzZAH
+	X1U5Ru73/2ytyNnRLGMmoQoFfnyA==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xOHaF-00000001jlZ-1oMy;
+	Tue, 03 Nov 2026 16:42:03 +0000
+Message-ID: <9d1572bd5e868d3c9d953aa5fae81967cc81ba55.camel@surriel.com>
+Subject: Re: [PATCH 8/8] mm/gup: batch contiguous same-folio PTEs into one
+ refcount grab
+From: Rik van Riel <riel@surriel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	linux-kernel@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe
+ <jgg@ziepe.ca>,  John Hubbard <jhubbard@nvidia.com>, Peter Xu
+ <peterx@redhat.com>, Suren Baghdasaryan <surenb@google.com>,  Yuan-Hao Hsu
+ <aa9736195201@gmail.com>, Christoph Hellwig <hch@infradead.org>,
+ linux-mm@kvack.org
+Date: Tue, 03 Nov 2026 11:42:03 -0500
+In-Reply-To: <fa017227-448b-468f-9797-33c02854f018@kernel.org>
+References: <20261102193026.3860700-1-riel@surriel.com>
+	 <20261102193026.3860700-9-riel@surriel.com>
+	 <fa017227-448b-468f-9797-33c02854f018@kernel.org>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,42 +101,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 
-From: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
+On Tue, 2026-11-03 at 09:35 +0100, David Hildenbrand (Arm) wrote:
+> On 11/2/26 20:30, Rik van Riel wrote:
+> >=20
+> > +/*
+> > + * Return how many PTEs map consecutive pages of the same folio
+> > and can be
+> > + * committed as one run. Always at least 1.
+> > + *
+> > + * The write-fault and unshare checks in gup_lookup_pte() are per
+> > PTE, but a
+> > + * writable run needs no repeat: a writable anon page is
+> > exclusive. A read-only
+> > + * run under FOLL_WRITE or FOLL_PIN does need the per-page check,
+> > so it stays
+> > + * one page at a time.
+>=20
+> That's a clear indication that this needs more work.
+>=20
+> I'll try to get to it soon and see how it could be done in a cleaner
+> way, likely
+> it should be based on top of the gup-fast series where we will have
+> helpers to
+> check for required unsharing of multiple PTEs.
 
-git rev-parse --disambiguate lists objects of every type. A unique blob
-or tree prefix is therefore returned successfully as a commit ID. Such
-an ID cannot be used as a commit reference or Fixes tag.
+I'm all for sharing the same helpers.
 
-Filter the candidates by object type before deciding whether the prefix
-is unique or looking up its subject.
+How would you like to sequence things?
 
-Tested in a temporary Git repository: a real commit prefix resolves to
-its full ID, while a stored blob prefix is rejected with no output.
+Do you prefer to merge both series separately,
+and then get a follow-up series that merges
+the helper functions?
 
-AI assistance: ChatGPT/Codex identified the issue and prepared the
-change, commit message and executable regression tests.
+Would you like Yeoreum Yun and me to combine
+the series, merge the helper functions beforehand,
+and then send you one larger, combined series?
 
-Fixes: 7ae52a3d7f51 ("scripts: Add git-resolve tool for full SHA-1 resolution")
-Signed-off-by: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
----
- scripts/git-resolve.sh | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+I have spent enough time in gup.c that I would
+be happy to get rid of some more of that code.
 
-diff --git a/scripts/git-resolve.sh b/scripts/git-resolve.sh
-index e9b5940c0f2..0be8838cd13 100755
---- a/scripts/git-resolve.sh
-+++ b/scripts/git-resolve.sh
-@@ -49,7 +49,9 @@ git_resolve_commit() {
- 
- 	# Get all possible matching commit IDs
- 	local matches
--	readarray -t matches < <(git rev-parse --disambiguate="$commit_id" 2>/dev/null)
-+	readarray -t matches < <(git rev-parse --disambiguate="$commit_id" 2>/dev/null |
-+		git cat-file --batch-check='%(objectname) %(objecttype)' |
-+		awk '$2 == "commit" { print $1 }')
- 
- 	# Return immediately if we have exactly one match
- 	if [ ${#matches[@]} -eq 1 ]; then
+--=20
+All Rights Reversed.
