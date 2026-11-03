@@ -1,69 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703215;
-	b=wtEOFZZHq2y8uDyrP/ZCAyOkTEPGALV5ky7G6j1Wli6RwISgpu79uUtjYgS4Iw/2k6VP
-	 VcsuJEzfPdrAwjC00ZrunAyhtQZWF1yyQ8F8NyHOdKfddmFDjQKCUAPdlU+eaDzxlCGyk
-	 yjrqP+vFMGOcnGXdjN2Ngytd/um9rT/JHwdcXNQiKaEearrQXCgNXkEXZLKrgjAbABmM7
-	 Ur0UbK2tqh3qiCbbgpfZa3bFoGzpI1/DdVz9dsk7erixKb9mvcb7etAlAv1wA4NmKYzko
-	 H9DBcVpoVBU7kc9ROMmS9ubffTDBAFS/Wd2ImcEp5oNjk/nCHyGKHxSxLfypj5CMAJA==
+	t=1793703231;
+	b=pYdtYNClYdKRGtBGUrrVzH94cAc/hwDb8tfWkUoLMQ4Vg4e1SDV34q1pdqFrQsxhNdzy
+	 VD6NIlF+UvkmchWjl9vx+vGnUcSLny2jf4FbHRs6s2qwCTzw+iszPZUyS3lT+SEC1k2nh
+	 zK4D1Rh3kUknCaabRHwo1Fa3rrUPzJ/LfaW+E1/rVOiBGk+5Vt0Vs5lQ43c0hVIKbXlz2
+	 rca8Vmk5Xu2tSJSgPvxBtb7w1y4X4n8z/QxgdXOOWSZ7T3bILMV2j/agu9x6EU9VIxBRY
+	 j0OKaIvXNbj8hXnAYFCm3WMde8RqFBDhvZJ9Yv2c9uHCNJfU/K8Dh/ljMIaHN5Pq+sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703215;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GCIbW4AET6O9pHrHj88pZoYl+AaYbhYxFMRR7dhKfCA=;
-	b=pfVYXQVD/+bAGnQtUV5HATsV7j2g9o2ue+Zebh6HAidTNjKtu2qtScDsn6bZb7KFkkT1
-	 xPFGq7qxpBa+C9Raw2LuAcM72Xi4adQPwRHAlki7spqT2e+I8uga0eeOoLtJD7QQV9OVc
-	 8iHMIObAyvFBq9QHdqv55/iDRGhxDbU03HVqEWvnY3ETpvwp49YOWClJpx1gU/HmcFAd/
-	 pkpFoXjhy63PKRoX8nH1OcWAHK6czd3w1O0H5uEQRrmR6fhyy3ph83mvzNSSP3TYlOTPJ
-	 7oMMDoWxkkWiqsWNPY9oaLx/WuMVZcW/o04ukodCig3G+w5Q9Zb4XSuR2fD99evjlSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703231;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=lUa5DhZx9WKWQsHa9sNTQT9uSwjaE9ND4ZF6lWuR460=;
+	b=UT9Njkf3Nd/VdKKplG/Ep2a5zRG7ApdewXKgWxDvLr6jWQXSlg6Th1uxp+Qurcf0ZakR
+	 ykaqgQG2OgSFcoW9Q+VmuScQk5GwHESJQbm7h4jh14f1nu7/isTvPso6SfmCS9mzgWvKb
+	 bEywbwJndvVeXvNYTrml90WITtoA2Xu3MjYcp8sd9FnIPk2JKnmYPDpGv1QADOIdveSap
+	 Jx/CB3HPpdpvYUJkogM6bihP/qWg5jlMJ6xxpQ1lI0WfCqP4aLehCOU9/qf24RmEExPBg
+	 xpy6bqoWSPB7vLfBtP6aR8BvsfLiPdDwJHB36J64KsHDk+s271cvE+LGsKR72kXb1/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=TnJyo6wH;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1501606BFB9;
-	Tue,  3 Nov 2026 10:53:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1501606BFB9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=TnJyo6wH
-Received: from francesco-nb.corp.toradex.com (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id EDAB31FAA9;
-	Tue,  3 Nov 2026 11:53:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1793703212;
-	bh=GCIbW4AET6O9pHrHj88pZoYl+AaYbhYxFMRR7dhKfCA=; h=From:To:Subject;
-	b=TnJyo6wHB+76RU5WT4Gr7kcG1+PoR2E9GbCb2YV9yvq3IXpZPmkII2NmckgIMqP4z
-	 h2qU2Z2SGJcYyPLR6If69zyf5yrt6VTzZbQ7WQIzwy6rJdXTQ46YDuqKQiBdubEg7/
-	 /c4oia7XCFLK9wasbrRe37PRNCeAPn2+pzirg0Ix22NrHuxgE6zKsm0J/oVP6E/a14
-	 sWnGHSSB+hZPPw1BDvv5NYjNp12c4xjVZNlQvFovU7emhcoeDM8dMuQg+8owilYyhB
-	 E83BqO9ov3zPk6GWGjifjzpn6CZwfrJ0OC1/TPADcp2N0OyyfWJlHAU6IgH5BL7Xth
-	 D0ZqzG3bzrb8w==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/2] arm64: dts: freescale: imx95-aquila-dev: Keep DP_PWR always enabled
-Date: Tue,  3 Nov 2026 11:53:15 +0100
-Message-ID: <20261103105323.2394012-2-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103105323.2394012-1-francesco@dolcini.it>
-References: <20261103105323.2394012-1-francesco@dolcini.it>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B96606A823
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:53:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B96606A823
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJlmr5sBxz5B103;
+	Tue, 03 Nov 2026 18:53:48 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 6A3ArdXh088366;
+	Tue, 3 Nov 2026 18:53:39 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Tue, 3 Nov 2026 18:53:42 +0800 (CST)
+X-Zmail-TransId: 2afa6ae9bd3694e-b20b3
+X-Mailer: Zmail v1.0
+Message-ID: <20261103185342600lmk67Fuw_xX7_kWvJgP-j@zte.com.cn>
+Date: Tue, 3 Nov 2026 18:53:42 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,35 +56,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>,
+        <bmarzins@redhat.com>, <dm-devel@lists.linux.dev>
+Cc: <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBkbSBsb2cgdXNlcnNwYWNlOiBkcm9wIHRoZSBkZXZpY2UgcmVmZXJlbmNlIG9uIGVycm9y?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A3ArdXh088366
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Tue, 03 Nov 2026 18:53:48 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE9BD3C.000/4jJlmr5sBxz5B103
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+userspace_ctr() takes a reference on the log device with
+dm_get_device().  When the integrated-flush workqueue allocation fails it
+jumps to the shared error path, which frees the log context without
+dropping that reference, so the device stays busy and cannot be removed.
 
-DP_PWR on the DisplayPort connector powers active DP cables and
-adapters, which do not work without it. Keep it always enabled, and mark
-it boot-on so that the firmware, e.g. U-Boot, enables it at boot,
-whether or not a display driver is available.
+userspace_dtr() drops the reference correctly; do the same here.
 
-Fixes: d5c082ba23db ("arm64: dts: freescale: add Aquila iMX95 support")
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Fixes: 5066a4df1f42 ("dm log userspace: allow mark requests to piggyback on flush requests")
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
- arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts b/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
-index 7698ef44095c..cfe90831447a 100644
---- a/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
-@@ -48,6 +48,8 @@ reg_dp_3p3v: regulator-dp-3p3v {
- 		/* Aquila GPIO_21_DP */
- 		gpios = <&gpio3 21 GPIO_ACTIVE_HIGH>;
- 		enable-active-high;
-+		regulator-always-on;
-+		regulator-boot-on;
- 		regulator-max-microvolt = <3300000>;
- 		regulator-min-microvolt = <3300000>;
- 		regulator-name = "DP_3V3";
--- 
-2.47.3
-
+diff --git a/drivers/md/dm-log-userspace-base.c b/drivers/md/dm-log-userspace-base.c
+index 3ca35aa4e057..267ae428dde4 100644
+--- a/drivers/md/dm-log-userspace-base.c
++++ b/drivers/md/dm-log-userspace-base.c
+@@ -315,6 +315,8 @@ static int userspace_ctr(struct dm_dirty_log *log, struct dm_target *ti,
+ out:
+ 	kfree(devices_rdata);
+ 	if (r) {
++		if (lc->log_dev)
++			dm_put_device(lc->ti, lc->log_dev);
+ 		mempool_exit(&lc->flush_entry_pool);
+ 		kfree(lc);
+ 		kfree(ctr_str);
