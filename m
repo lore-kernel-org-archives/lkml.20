@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690830;
-	b=LIzQQFXY+DrKpoM+1PxAmXJwfPv1coGCP/xn+YLd0UqWrfzwLQ1SsfJv97OtXRnaoRTV
-	 uirDMsZPoX51X+vdxHATWAOcg+Ekv8Nrvd9wfRuGogU6wsZPCrDnNeUKe+Pi9OL0wc3q+
-	 ZOr/YXAYCb/FrA4BtkLcLr01qNv8BBlYp0zqUflZ3Sdicor14RGaarQZi7H6sH5GWpg6R
-	 s5vyEjOtRSpzZkLE0yzS5H+QNNlBVW5CxCXwdXzIYEuoUUXBxm65ESQce/YfvDVMz0EaI
-	 bPfYdg2t/EW3HcYRZwjvvxP7dhoNBgxx22l18vJ8nKM5SYO77VcGsoWIBesQdExUJ7Q==
+	t=1793690839;
+	b=YiX+WkL+AiM4jOpUBr7sTqe76jzvciWocmNmFQrGUHN9DV2oGmO3wrJhzMxZH5WQRmsJ
+	 0fRYPA9bulxDwyUu5/47UpSHFTW+yjAasgMhLfuhWucE3b0aATgmcD2Cm+IJAXR2AST+u
+	 IWLOc9l3T9wwmP0WD3FZOf5BwmYsd9I0vrT2X09lmkGiyxOti6ij06iMqAoMketG2twAH
+	 ByDT37YlCxkL8klnlEaqX3wNaW8F5xZ/nRrGEZY93y53dTOrTe1RsAxbJTHw6j0+NzIKK
+	 AqKnGxiH08MznwN/J2NwEJXcxFnrLJWf3ySTcysjvt4RolJOPpZP5RIVhTMRziu/0ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690830;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690839;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qBkNWuQjMxbzb8GowBbFRJH6mDDvu8/YycY80DV4sxg=;
-	b=uCqVHN7lZbrXBHnfXjXiocEvOnqGPVbyiKw0ojUQCw8BwBcaIoXutMoWD76wD9UauFr7
-	 TCLCr37UItT+xjMKa/v3ETJ+X1s3/fI6J5U3PHULg4nIvhU+E5bLA4s62Tcf/sTMRY0WZ
-	 IAQ/4OJRpPM75IggjVwkEJ5tJw0C26SBh1ZuclJ6s1DBQf3jwVFVGTGYZH7AJ98KNx3eL
-	 Jl5hQaUOQVWLOUCJaEfV+MMe078oMd01olls1yKAq8g4lRNGuXcr7fORqy9d2rQxFHy4J
-	 /eiEssIHJDN6GQ7/7UJuqhRVqFQex0kRXEC5IHN64NyBoI+y2DecCqYhsPWY4jN+/qw==
+	bh=B+eNvJhfvNdmdTeUsMCHHrwmrIHwL9fR5Evuw6xT+Uc=;
+	b=ZOkjyVE1S/sy4Dm/YZwUMrBJJ3GFXIAkpsVNjwvnGUhMzL9IQTSlk3/BWgqxPV9mukhV
+	 orY1W2gEZQjXmnST6BlpucbGwjyGPmMa2YSNSI2O6GAVHQ2F9leRIOIGuZ4hBGbxwHjdJ
+	 sN0vT6W/zdOlF7KLlhtVzJTHpfiS1V+8eVyXT2Jl/Q7thWU+jbSjGBS7dxD8LcvY7aJYN
+	 J7AABgTIhmFOxugeOKH86FFeUF9ESMgRai25luLwo9bQePppYNEgqUDwFPf4i7S4s1/oq
+	 s0SQZ1p/43NsZw6K8Tuq3VbjPa00OL5ULlQtt/cpvhrLhPeKboNtQ9cEMxkMUsFjLMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbp3AaRE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MoHr1mwF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C67606D813;
-	Tue,  3 Nov 2026 07:27:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91C8606A32D;
+	Tue,  3 Nov 2026 07:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbp3AaRE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618EC1F00919;
-	Tue,  3 Nov 2026 07:27:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MoHr1mwF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4F11F000C1;
+	Tue,  3 Nov 2026 07:27:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690830;
-	bh=qBkNWuQjMxbzb8GowBbFRJH6mDDvu8/YycY80DV4sxg=;
+	s=k20260515; t=1793690838;
+	bh=B+eNvJhfvNdmdTeUsMCHHrwmrIHwL9fR5Evuw6xT+Uc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mbp3AaREA+dLIfDpOdOXAGyEEA626RN4qLobmzleU2aNSNM8/td25Nk8pMOCoctTr
-	 jMYzKWgtxYkeWB2zS4y34iOmaLVOlYna9L5JnyPf1Bol4+gECftZJhKqJ7xOKtFHiN
-	 p0r00AkQFS5639OZM3rtdgjKV0z5vgOn6xQ7eOmI2k/JAg+1XHR8t20ihuh1HCYzsf
-	 aVHklt2yyd34Vhi+xXnafR0gRb1QJavkbn8D/dSBJBBzYb1GR929qrC+ohqBfcMQBf
-	 T1yFgRQK2gTjn31ot/vydkN/h3FAPrZRCkbSmBybSk2tp6Zpu/usET66v+b+9+aw3w
-	 csJhG2pw1nNiQ==
-Date: Tue, 3 Nov 2026 08:27:07 +0100
+	b=MoHr1mwFRaq2TGTAMRbam63GEuqHqbo+I2LWYGT6pUYj6BuDfaV3ulaxquM+bAq77
+	 mhBDDBoifZ3lyzqH/vANyzXSIQB5sTO9UccxhwPJJIoJsezz/XsgK8tayls3V96V2y
+	 eQgQ6DtjKF/AfNjgxk74suBCwQCQxhSZ59msSmdxzU7NMO0PGVolMwsUGJXExgTPmS
+	 aNMoBC79xULgyscGBXL6zr3H09PNSZBhzK0twvGxj5GH8ektlvwra0FaK3Po+jP4Ob
+	 utcI8knwtOym8JYUaiaclegpS7Dl62copYGH8j8WoEIEAbUc/z3vfa40Bx8FyXPdKW
+	 HPGgwfeoIrrdQ==
+Date: Tue, 3 Nov 2026 08:27:16 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org, 
-	linux-media@vger.kernel.org, stable@vger.kernel.org, christian.koenig@amd.com, 
-	phasta@kernel.org, sumit.semwal@linaro.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: Release input fences in the unwrap merge order
- test
-Message-ID: <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
-References: <20261103064457.1056056-1-vulab@iscas.ac.cn>
+Cc: hsweeten@visionengravers.com, stable@vger.kernel.org, 
+	abbotti@mev.co.uk, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] comedi: comedi_bond: Track opened devices independently
+ of subdevices
+Message-ID: <20261103-stimulating-malkoha-of-popularity-a9d0e3@quoll>
+References: <20261103063301.1025860-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,28 +59,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103064457.1056056-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103063301.1025860-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 06:44:57 +0000, Wentao Liang wrote:
-> The merge order test creates an array and a chain as inputs to
-> dma_fence_unwrap_merge(). The merge takes references to the underlying
-> fences but does not consume the input containers. The success path only
-> puts the merged result, leaking both the input array and the outer chain,
-> which owns the inner chain.
+On Tue, 03 Nov 2026 06:33:01 +0000, Wentao Liang wrote:
+> bonding_detach() closes devices by walking the bonded subdevice array.
+> If a device has no digital I/O subdevices, do_dev_config() never adds it
+> to that array. Its open reference is then lost. The same happens if
+> configuration fails before the first subdevice entry for a device has
+> been added, for example when allocating that entry fails.
 > 
-> Put the outer chain after checking the merged result and fall through to
-> the existing array cleanup on success as well as failure.
+> Keep the device returned by each successful comedi_open_from() in a
+> separate array indexed by the configuration option. Close those devices
+> on detach, including attach failure cleanup. This also removes the need
+> to deduplicate closes for devices with multiple bonded subdevices.
 > 
-> The dma-buf-fence-unwrap KUnit suite passes all 11 tests under UML.
-> 
-> Fixes: b1cce631e61f ("dma-buf: add selftest for fence order after merge")
+> Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/dma-buf/st-dma-fence-unwrap.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/comedi/drivers/comedi_bond.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
 > 
 
 
