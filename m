@@ -1,80 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.184.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.158.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793748648;
-	b=F1yhntzBAs9wUHwo9N6RRRE4Vf8TvS5EuOwqAsARmL8DBZaewd05BUctGfPS/qVCzy5c
-	 QV0rSxc9doTCdKr1khcgz9PF0N8MVc3j/kBbAjjvXnA52GHWTml6qk0t+ZD/RVmSDVCEU
-	 UjG3P10YyI3dZfY2+EdBz3YDDK2SQCpo43M1k3K5NeJQF3N2pHmy0CXDiRkGegaJoJeLm
-	 C84qvNzWJMuG+XZGGuzN5KBiHtgqYBML71W5zCcBDueZhVx8/zK+XxWf6vimIl17EiKAl
-	 QEGbvhiAeLFpqyNUIXJsgEEMX+tD488qa+rLhBMAd89Ch2s/3tYgVY7urPPrmcIDSQw==
+	t=1793748669;
+	b=h2XkVFepdlXudMR8zZiUxcRmhC4coWhqL8h5R4S8pegoJa8a6pi/RkTWNU41kpgs3+Dc
+	 wX8m0wt0NOGh9jEwfj8X+FjvpIGUEJRhniqDRWb+leMEIcn4A4h/4ywSmqJ9E0TfoucKJ
+	 9GFGHt9sB5af5phymNO4N+uFWdFsKi+GoQhdn5+NbHzsg+IKNbPCuez+EzX36fFlPrH+R
+	 odBaCX7/W3QK1Sm5wU+ov9uybncnZlakylXJqHo3p2Xia0zbx1TWg+qP9fD0s1VYCPAKR
+	 PVMmRI6FjizIHlqmnYGfNaq2IWzNALznSBDhEhLbqL6J5ZIOZUpcHYG/DZFkBwCq6EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793748648;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=XulaMqhaIJQj8f0Zp29lsV3BUZPbsqDC2lICaWW4GW4=;
-	b=Xa0z+1TdE2fN6XtWaPrp8wx3NctDyCLYuK/YuOUztLCxkvQcQKNosQcw0NhHo8ib7r1g
-	 IaLJvaDatVeAcXaSfescdrvFqQ7CYMQlk5ERKiaAvsXRny1R8GarMVcO9Ga+2iig/XVhW
-	 keKQgI6INNH9lKqZ8O2rNUXBFnWWGNbdPRSzLs1aLa9aMONxwvv/xukijtCKvcfxWzXV/
-	 WhSw9CKqc6oFDuQ/uL/3Y5sDsxr8Sa3+1hvZp6A/5JMYVBaU9qRIlWznWEQEj53GqwxFK
-	 K1FSw7HBNEFDPUsunLvkxrUQcKSj++oNRZJpyPXRq/uzABqDau3zcC21ilGSvIIjWDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793748669;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
+	bh=mna4ORi+owLI1BGyRDM/21KvK3qpOVD7bVfjiAzn2yM=;
+	b=ICE5O8KN6h9c9m5ap6s9jGsXvoASY0VeffVbvRD4J0cpDTLatdkLCdGFwYtR6k7FzWcj
+	 AbW9irLLxp6/psxXkOzsFMs3F4bNJuAclKBI2mlWWTSM6s3Zahkeg9bdhV1OwNsoEV+Cn
+	 AdxV7p0Ak0CLFKxwPEBch89BB+z51uCJsQzSsYIqyYPfSbEMZKtiiNnrBJKh8wX3Qf+eV
+	 o8hZnEFpCEiofbmZtD2GoBiN6nTIYNWUXsg6JLnzuoTWqjHwALBR5NCnKzj1Pezzef5As
+	 ZShYOXDyHnQL58zzmhp4SjRsfGx1UT1TWlgNz0JEq6T3mecwAeHmzelZnlwqag0LlNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=arW3gj7q;
-	arc=none smtp.remote-ip=66.163.184.147
-Received: from sonic309-21.consmr.mail.ne1.yahoo.com (sonic309-21.consmr.mail.ne1.yahoo.com [66.163.184.147])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mythread.it;
+	spf=pass smtp.mailfrom=mythread.it;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=RZ78zfY8;
+	arc=none smtp.remote-ip=62.149.158.101
+Received: from smtpcmd02101.aruba.it (smtpcmd02101.aruba.it [62.149.158.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5C8606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:30:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA5C8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12D0606A33A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:31:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B12D0606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=arW3gj7q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793748646; bh=XulaMqhaIJQj8f0Zp29lsV3BUZPbsqDC2lICaWW4GW4=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=arW3gj7qLrzS50/yboOWLYYk+U/K2l+xdC9IgstEtEfrjEQal4emfA1EVeZFHTyIcGYKXeyUTOMnSww7CziV1KQjRzv6RLrkwK/HObwNmFHYi8+7CtVQllkDcBGp4QaPUkYgUFvchgytVX6MlzMFZA5K3Un8PQfhBL8fRzTZ0frWQBypTKzWQoMrqDqmfV2uqwt5l8BBU7dNO/8II6vMhatRvrzo2g55YxdTmwhYrbT3jxUfqjPzJrWO6Tm662PooB7iQXH4+pWpMCHW9WjQ3/h4iFYK7KWoyBSNnwh2YpQkoC6gdxvohpL77YeGLeSAUSV7Z7Kzfqmw2wKDP2+05w==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793748646; bh=YCTvHRf+5vIOZErehm/RKYZsVSeq9tJfleU/cXe1dze=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=qyR31RHNCsTvswMvZWQr/lTHQ286COCsS+QXd83ynD5mRXuiW39f+UHNf7IyVd4dPCXqjr6OLl6NL2rGOh0t+ZStt727k8G2PNESt2N9z4ABNBdJfOjjMw/UO96VUE3ZG0NGrhYveusvHnjU1lucX3r6ZO2HY+Bytptx2PB8ooO9zsrQdKn9zfh4peziE5w/B3Rp0ajRehQaIHsO3OLsZBgyL9IhynWWkXAww5DcY0ZgSG2BwpGNX2dKNe7FAadM/QcGPCJG2bWbZhchsYcIyIH/ld5Pb4z/QF2mX075EETrOVhI2/tv/hj6PMtQLH9ToykxQOrUN0yAIxun6LGBGw==
-X-YMail-OSG: e8AlyQMVM1lAdu.bZY8NdCM4oAQ1W3MdVSBOBJYNywryU_gnHIClDTi9qnFFdxb
- D5ciVZ0h5QQ26QZ8J85Hdo4v7lp.AH6vjcRHsNa9._PwZ4f7xUsk4sWv6_dvl.eiFexQc4nm5gHM
- ES5lGeffqlkQ6yLd4o2a3tTNAuo2ADBIjrqGQnym.D_WrYM8iadt0WJlKLjB9HrjlwYKAQvKiObR
- dwsWhatC3pZNW9ex..K6WgSn49bSiRT1lfmvIWeXLE7y7x_7ZuLH4yW5S4XTWgOgikpFCtxIWo_9
- cpyGrsaazQRp2RRLnUSZ31oU8IkmSgLIH9YbaQXX6l5nmq69IrBWrWghYnGTT3qDaJA.A0hsiGET
- IofXJmVG6eYo5ClK_GnNhXrWiuEvs8HvSUmgMI8pnO5bCGUOWtoY3NoEHMwC6tg8NJHuun8zkSgJ
- iQ4QzLO0O_qVxb4vg9UwYDa1v3KkYtmot_8JAWtlQrK3atJeGlSeyM9cZCXjbOBMpc1F0yZploo0
- UmV.6_T2nwO1ARfm18fVWSCBkOdwWOiS5jUdqw41VD3NrKwPGIXDCZyHF3kw.re48t.yF35FtFbk
- o2hPohNfet0dGSg6UPjbugfTk5WUCCeEFXdYBzqWm80uo8nSrPa5d_ThcD_Fe3sekGPV_SypyQjj
- OvUxWeBeEID1YXc8Yp4QVdeFmTpDRxUhwrVtIdHElWwikh03o04JmXrPguQZuArBe6XVT00ZzVGY
- gikZHlTP9jl2A2wX6uXgqOH0P40LwarxDlQBFEHXTG7eZ_zH5LptCYppuF57wsrx4Ab14x2SJhsU
- QWgbfXfNaIbAjTlLVOX4.A_bHOACCMUXZz2FXXTA7scEIC0TceuccTX4EzHyFChycLfypNVlUc9E
- kSLApebH1xV7Y7qdBlS5lkaxS6gmH9A_K1kVaueDLu6lsSqrR2IjgTX3X8s2FlIMPI5EuHjJSHdy
- vwNEFaPLj5h1RKh2a7vf5mw.X2bUsHyF_qTLlsB1z4P.uM03cEsvM1WaXnT0YVrDqVgY1gaNvq.j
- K8xBzexxZGeDoaXsptlK1BTa3sUyI87e0yQ_FgMbp0qDNIH5Q7myxyLHMgLfrLyUg196l5bpaZnm
- IAM1h_QPqd0h1Lyh6TDXPxQR3fABhRTTD67iVDqkiz_941myK04qPkuXbFNNmD.Kqy.6HtA6jwFP
- 7wAFxRwNoD4IG7xv6zcZlfGHo7Xyi5ssKM5xrMkJvCq1ctnCqKfk5oiMlKyz5Nwz1zJNUOOewYi0
- a4Tm14PZOue2rIKSnOv7NKs3x2S7kZALS1w3MQMav.U.i.opGpsCi8Nty.YdbRdV4XHsCDfPGsIT
- 4Ap01qMvM.32idDXvpfZOTJxlrxmjGQCY_.to3tBm3.aIYx.jN5tTEtadXhNGtBidT8nwyq_BneY
- C_ZGXX9CX3QAJHsabnlhoyz7fv15LALcQ90CCg2GO5VrkCI4S726txnKCPgbGw_WxrL5Ngsa.AdD
- Lh7JAGVqxz.jrEDYF6_fDRYQnUsENuGFm.4yOQfNn2sKS38umJPgXwZqPPW6.Q0asQIa3xjRJ4Pw
- JzCEIVgNaRN2S49MwrmftnGULq3GvU6IaFKcrb6yj7ZVNjUZKWYbbdJFB3.1LiX5QPYvWs.ikuf2
- fumS.avw7LN0l0h9QFgksjZBPhUid4ZMvNHRbIlEm16rTjwHNvwgEGHzZoyC4FYJmTMB.Z.7ewjt
- aPFX5.84om3qvEBHFCfuZDc9Dq6qdYJS8mfmKCdTR64Jjwp8ScqpUfzqR5wXkVqNXkWpY54Bxm.v
- W_y5kXWbLYjQCq9fFVVIaxIlUossaSnZjVLu83bzAhy.Kr.XNZF8Nwwl3HY7289fd3GVdb27GYV2
- DcvKlvsLFIQKTJ7Pb6IpLUG.XkoMfIfM3Vj1eTIbT4yE_boo.YenvrgtX78kqUPboq2aMilf55W9
- i8dVJm9mk9WX.CF1C50e1blSgyCKmVkXfKtcGMNGMOjd8NKTDmM6tp44ogAMSIPeWnrqsEIUicKo
- _1a9aolJggWHCP9ORtlVJdojlSAYsk2y2N6RzY1SOR.uSgQPUdiq.G759Jyl9x9T7B02CeqO75yD
- C2Qypm75MVt4wPb5mdweWkU.bCeC4z9kDtPGihaoLtQkO2XuxbDGhx4ReIftrqa7HhvwxOxgHBvj
- FG3.OtCX3gI_QjE65NQ3iWv3jHxOqSX3DChvadNLGjMIsWelasNQTtBj2Jd7cGBNJxQvVWtbzv9A
- .7egkya4cv9s7L8neDkVU1AGiUbbM136pjQgcg.p7wY8K9WMu64XIpFjsOA.ckAAG2hnlwm0Rflm
- BizctBhDbv7oW_d3WsGcxl071hzBz5kc9.Xcd2tm7OQ--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: e338d4d3-9105-46f7-812e-f8d4e5447cdd
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic309.consmr.mail.ne1.yahoo.com with HTTP; Tue, 3 Nov 2026 23:30:46 +0000
-Received: by hermes--production-ir2-5dd9bf4598-nf4w7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID a458d3b81521437e90e34e44d6b70ede;
-          Tue, 03 Nov 2026 23:30:40 +0000 (UTC)
-Message-ID: <1ca057be-3757-43c5-a9b2-25828e996055@yahoo.com>
-Date: Wed, 4 Nov 2026 00:30:37 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=RZ78zfY8
+Received: from [192.168.1.237] ([94.34.125.0])
+	by Aruba SMTP with ESMTPSA
+	id ONxyxz48a7fl5ONxzxPxAw; Wed, 04 Nov 2026 00:31:00 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
+	t=1793748660; bh=BwkSZj83NHWoZcKFqMbVafeRJxhtdEAtmxvZ9EWX3nI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:To;
+	b=RZ78zfY862YzpihGebqeiMI/S28WnBx1EHRU6XNDemKbkJgx6QAt2A5nj58A/jYpZ
+	 02pP+zjpQ+ys1ePjw6gpglSgYhiYXvDOVtEaNrEwETY1DcFDoIz7fQQgrP9F+hZ9Eu
+	 oGif3XGfXR64SUNuobk4XdIG24x36siQtioFgch28owmTFydsSC5paIF3EqofGqrMt
+	 ppVJ2e3o2PVq9o4veMeyvcyGhhB4UdP9lnvvlDMriTP26VaYP+lYFzuB79LgPft//z
+	 ZK5Ldqnxgi6yOMRKIq5WVRcviIBW2Tfje13mR2o+6wfDDDUlfF6/av04JLDNwt5tN6
+	 b4qGmeB6g1TQg==
+From: Alessio Ferri <alessio.ferri@mythread.it>
+Date: Wed, 04 Nov 2026 00:31:00 +0100
+Subject: [PATCH v3 4/5] bcma: add host driver for the BCM6362 integrated
+ WLAN backplane
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,161 +58,595 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v8 04/11] net: dsa: realtek: rtl8365mb: set RGMII
- mode for family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <08611959-c555-46d9-8e7e-20b85d0c4056@yahoo.com>
-Content-Language: pl
-In-Reply-To: <08611959-c555-46d9-8e7e-20b85d0c4056@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26871 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Message-Id: <20261104-bcm6362-wlan-v3-4-e46562b2ac12@mythread.it>
+References: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
+In-Reply-To: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Jonas Gorski <jonas.gorski@gmail.com>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ Alessio Ferri <alessio.ferri@mythread.it>
+X-Mailer: b4 0.14.3
+X-CMAE-Envelope: MS4xfLWDrBDUKvvhcNNe9MMO0HHIKMwYxompXOafOIBhlEtPIIoWvXCyQZSvHbSGmqYsCoxWMu77D9cHuBts6PkZeg2NMtJDqit0VXJtAKyLZjyDc1LM2idc
+ By/Jz97ZNjXcC0iIjzIKOlZ++Pztx5tqSfClusgSLQyv30iyrVuM1pZdhu3Dshsbe4ttlJhircL4ddxNP0UuJJoQZc9HilLoAvRyww1l9wFbPzrYoNAkBnbU
+ ijQAiCyeszbonI494NAx4t1Ggj84iN8+jOeNU8GOd61qawXy6wCfWumfwcdcEtVNIt0UJgKXHboDauorpLj2u+nZpa7iqZk4P3kxtRfbqYV2WI8MRGstcPPn
+ 6tVekLknANu7k2KXavtreOIrg1YMsv4jR24IhtiVXlFXLjMP+XTURiqgKbiG0EdlRQJ/fP44a3z98qnh8gt/tSoH+7FAzVn672JlKKuXn0nKf0P3NBYpTwc4
+ 3FKqirdLleoaZ8wx9J7LLVH3IZYK7YZsuvmOnKffFExpSirs47VUjOHYk7G6Ik8uP33usAiQ6XN703sh++mSib43ZIFk2/cTEWf94pXUpHCzUitLg4JNolPr
+ XqxAPp0g1a8qm8BlySKKnjLg2dAQtEELcG0diqtMy663EEXJ0sGJVTYoG4raI2ThnbK0QGxq9HOplk8T0vlyH/thdgw/m55BGXawmMc8PUwqyg==
 
-On family D, RGMII on extension interface 1 needs two things that the
-other families do not: the EXT1 RGMII TX clock delay field in
-EXT_TXC_DLY (0x13f9, bits [5:3]) must be cleared, and the pin mux in
-the top-level configuration register must be set up.
+The BCM6362 integrates a WLAN macro on a dedicated bcma backplane.
+CFE leaves the macro clock gated and in reset, the backplane is
+a big-endian peripheral, and none of the cores has a wrapper:
+gating and reset of ChipCommon and of the 802.11 core go through
+per-core control registers in a separate WLAN control block.
 
-The vendor RGMII setup for EXT1 clears the RGMII field of EXT_TXC_DLY
-(0x13f9, bits [5:3]) in addition to programming TXDELAY in RGMXF.
-Do the same. The init jam table writes 0x0090 to this register, which
-leaves the field at 2, so without the clear an extra TX delay would be
-applied on top of tx-internal-delay-ps. Clearing it makes
-tx-internal-delay-ps the only source of TX delay.
+Add a host driver for it that:
 
-If the internal MAC4 block occupies extension 1, do not advertise RGMII
-for port 7 in phylink_get_caps(), so the configuration is refused before
-any EXT1 register is touched. This mirrors the vendor RTL8367D API, which
-returns an error for RGMII on port 7 when UTP port 4 uses the RGMII
-interface. The driver logs a warning naming the conflict. When MAC4 does
-not own the pins, bind the RGMII/MII pins to MAC7. SerDes 1, which shares
-the pins, is always disabled. The TX delay field, the pin mux and the
-SerDes 1 disable are all programmed before RGMII is selected, so the
-shared pins are never driven by RGMII and SerDes 1 at the same time.
+  - maps the ChipCommon and WLAN control register blocks;
+  - enables the clock, cycles the WLAN and WLAN UBUS resets and runs the
+    macro enable sequence bcma touches the backplane;
+  - provides big-endian register and block I/O ops;
+  - emulates BCMA_IOCTL, BCMA_IOST, BCMA_RESET_CTL and BCMA_RESET_ST
+    on top of the per-core control registers. The PHY bits of
+    BCMA_IOST report what b43 needs to hear;
+  - sets the big_endian and wrapperless bus flags before scanning.
 
-The family D branch is not reachable until the chip table entry is
-added in the last patch.
+As for the PCI and generic SoC hosts, the driver is linked into
+bcma.ko and registered from bcma_modinit().
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Add a MAINTAINERS entry for the driver and its binding.
+
+The 802.11 core (rev 0x16) is handled by b43 once a SPROM is
+available; on this SoC it is not stored on the chip and has to be
+provided. In openwrt i use 6362-sprom plus fixups.
+
+Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
- drivers/net/dsa/realtek/rtl8365mb_main.c | 70 +++++++++++++++++++++++-
- 1 file changed, 68 insertions(+), 2 deletions(-)
+ MAINTAINERS                     |   7 +
+ drivers/bcma/Kconfig            |  12 ++
+ drivers/bcma/Makefile           |   1 +
+ drivers/bcma/bcma_private.h     |  15 ++
+ drivers/bcma/host_soc_bcm6362.c | 419 ++++++++++++++++++++++++++++++++++++++++
+ drivers/bcma/main.c             |   6 +
+ 6 files changed, 460 insertions(+)
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index bed29b4..d8f406c 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -332,6 +332,12 @@
- #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
- #define RTL8365MB_SDS_OPTION_REG		0x13C1
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f53047aa8d3c..00d964829db5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5235,6 +5235,13 @@ S:	Maintained
+ F:	arch/arm/boot/dts/broadcom/bcm47189*
+ F:	arch/arm/boot/dts/broadcom/bcm53573*
  
-+#define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
-+/* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
-+ * 5-bit mode fields.
++BROADCOM BCM6362 WLAN BCMA HOST DRIVER
++M:	Alessio Ferri <alessio.ferri@mythread.it>
++L:	linux-wireless@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
++F:	drivers/bcma/host_soc_bcm6362.c
++
+ BROADCOM BCM63XX/BCM33XX UDC DRIVER
+ M:	Kevin Cernekee <cernekee@gmail.com>
+ L:	linux-usb@vger.kernel.org
+diff --git a/drivers/bcma/Kconfig b/drivers/bcma/Kconfig
+index b9558ff20830..ef0c461bdf90 100644
+--- a/drivers/bcma/Kconfig
++++ b/drivers/bcma/Kconfig
+@@ -38,6 +38,18 @@ config BCMA_HOST_SOC
+ 
+ 	  If unsure, say N
+ 
++config BCMA_HOST_SOC_BCM6362
++	bool "Support for the BCM6362 integrated WLAN backplane"
++	depends on BMIPS_GENERIC || COMPILE_TEST
++	depends on OF
++	help
++	  Host driver for the bcma backplane of the WLAN macro
++	  integrated in the Broadcom BCM6362 SoC. It powers the macro on
++	  and lets bcma enumerate the backplane, so that the 802.11 core
++	  can be driven by b43.
++
++	  If unsure, say N
++
+ config BCMA_DRIVER_PCI
+ 	bool "BCMA Broadcom PCI core driver"
+ 	depends on PCI
+diff --git a/drivers/bcma/Makefile b/drivers/bcma/Makefile
+index f8c37de35da2..3ff93990ecbb 100644
+--- a/drivers/bcma/Makefile
++++ b/drivers/bcma/Makefile
+@@ -13,6 +13,7 @@ bcma-$(CONFIG_BCMA_DRIVER_GMAC_CMN)	+= driver_gmac_cmn.o
+ bcma-$(CONFIG_BCMA_DRIVER_GPIO)		+= driver_gpio.o
+ bcma-$(CONFIG_BCMA_HOST_PCI)		+= host_pci.o
+ bcma-$(CONFIG_BCMA_HOST_SOC)		+= host_soc.o
++bcma-$(CONFIG_BCMA_HOST_SOC_BCM6362)	+= host_soc_bcm6362.o
+ obj-$(CONFIG_BCMA)			+= bcma.o
+ 
+ ccflags-$(CONFIG_BCMA_DEBUG)		:= -DDEBUG
+diff --git a/drivers/bcma/bcma_private.h b/drivers/bcma/bcma_private.h
+index 6eded32d1aac..931a0ca0aea3 100644
+--- a/drivers/bcma/bcma_private.h
++++ b/drivers/bcma/bcma_private.h
+@@ -118,6 +118,21 @@ static inline void __exit bcma_host_soc_unregister_driver(void)
+ }
+ #endif /* CONFIG_BCMA_HOST_SOC && CONFIG_OF */
+ 
++/* host_soc_bcm6362.c */
++#ifdef CONFIG_BCMA_HOST_SOC_BCM6362
++int __init bcma_host_soc_bcm6362_register_driver(void);
++void __exit bcma_host_soc_bcm6362_unregister_driver(void);
++#else
++static inline int __init bcma_host_soc_bcm6362_register_driver(void)
++{
++	return 0;
++}
++
++static inline void __exit bcma_host_soc_bcm6362_unregister_driver(void)
++{
++}
++#endif /* CONFIG_BCMA_HOST_SOC_BCM6362 */
++
+ /* driver_pci.c */
+ #ifdef CONFIG_BCMA_DRIVER_PCI
+ u32 bcma_pcie_read(struct bcma_drv_pci *pc, u32 address);
+diff --git a/drivers/bcma/host_soc_bcm6362.c b/drivers/bcma/host_soc_bcm6362.c
+new file mode 100644
+index 000000000000..5a4fa6a63411
+--- /dev/null
++++ b/drivers/bcma/host_soc_bcm6362.c
+@@ -0,0 +1,419 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Broadcom BCM6362 integrated WLAN backplane host driver
++ *
++ * The backplane is a big-endian peripheral. Its cores have no DMP
++ * wrappers: the agent registers of ChipCommon and of the 802.11 core
++ * are emulated on top of the per-core control registers of the WLAN
++ * control block.
 + */
-+#define RTL8365MB_D_PORT_SDS_MODE_DISABLE		0x1f
 +
- /* Embedded DW8051 microcontroller control registers. The microcontroller
-  * can run firmware to manage the SerDes link, but this driver keeps it in
-  * reset and disabled: phylink already performs the link management that
-@@ -465,6 +471,20 @@
- #define   RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK		GENMASK(5, 4)
- #define   RTL8365MB_PORT_MISC_CFG_CONGESTION_SUSTAIN_TIME_MASK	GENMASK(3, 0)
- 
-+/* EXT_TXC_DLY holds a 3-bit TX clock delay per external interface, for
-+ * RGMII ([2:0] EXT0, [5:3] EXT1, [8:6] EXT2) and separately for GMII.
-+ * Only the EXT1 RGMII field is used here, and it is cleared in RGMII
-+ * mode so that tx-internal-delay-ps is the only TX delay applied.
++#include <linux/bits.h>
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/io.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/reset.h>
++#include <linux/slab.h>
++
++#include <linux/bcma/bcma.h>
++
++#include "bcma_private.h"
++
++#define BCM6362_WLAN_MISC			0x00
++#define  BCM6362_WLAN_MISC_FORCE_CLK_ON		BIT(2)
++#define  BCM6362_WLAN_MISC_MACRO_DISABLE	BIT(1)
++#define  BCM6362_WLAN_MISC_MACRO_SOFT_RESET	BIT(0)
++#define BCM6362_WLAN_CC_CONTROL			0x08
++#define BCM6362_WLAN_MAC_CONTROL		0x10
++#define BCM6362_WLAN_CC_ID_A			0x18
++#define BCM6362_WLAN_MAC_ID_A			0x24
++
++/*
++ * Per-core control register layout: BCMA_IOCTL in the low 16 bits,
++ * BCMA_RESET_CTL_RESET in bit 16.
 + */
-+#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
-+#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
++#define BCM6362_WLAN_CTL_IOCTL			GENMASK(15, 0)
++#define BCM6362_WLAN_CTL_RESET			BIT(16)
 +
-+#define RTL8365MB_D_REG_TOP_CON0				0x1d70
-+#define   RTL8365MB_D_MAC7_SEL_EXT1_MASK			BIT(13)
-+#define   RTL8365MB_D_MAC4_SEL_EXT1_MASK			BIT(12)
++#define BCM6362_WLAN_IOST_2G_PHY		BIT(0)
++#define BCM6362_WLAN_IOST_5G_PHY		BIT(1)
 +
-+#define RTL8365MB_D_REG_SDS1_MISC0				0x1d78
++struct bcma_host_soc_bcm6362 {
++	struct bcma_bus		bus;
++	void __iomem		*wlan_ctrl;
++	struct clk		*clk;
++	struct reset_control	*rst_wlan;
++	struct reset_control	*rst_wlan_ubus;
++};
 +
- /**
-  * enum rtl8365mb_vlan_egress_mode - port VLAN egress mode
-  * @RTL8365MB_VLAN_EGRESS_MODE_ORIGINAL: follow untag mask in VLAN4k table entry
-@@ -1261,6 +1281,32 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
- 	if (ret)
- 		return ret;
- 
-+	if (rtl8365mb_is_d(priv) && extint->id == 1) {
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_EXT_TXC_DLY,
-+					 RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK, 0);
-+		if (ret)
-+			return ret;
++static struct bcma_host_soc_bcm6362 *to_bcm6362(struct bcma_bus *bus)
++{
++	return container_of(bus, struct bcma_host_soc_bcm6362, bus);
++}
 +
-+		/* Bind the RGMII/MII pins to MAC7. MAC4 does not own them:
-+		 * RGMII is not advertised otherwise, see
-+		 * rtl8365mb_phylink_get_caps().
-+		 */
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_TOP_CON0,
-+					 RTL8365MB_D_MAC7_SEL_EXT1_MASK,
-+					 RTL8365MB_D_MAC7_SEL_EXT1_MASK);
-+		if (ret)
-+			return ret;
++static u8 bcma_host_soc_bcm6362_read8(struct bcma_device *core, u16 offset)
++{
++	return readb(core->io_addr + offset);
++}
 +
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_SDS1_MISC0,
-+					 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK,
-+					 RTL8365MB_D_PORT_SDS_MODE_DISABLE);
-+		if (ret)
-+			return ret;
-+	}
++static u16 bcma_host_soc_bcm6362_read16(struct bcma_device *core, u16 offset)
++{
++	return ioread16be(core->io_addr + offset);
++}
 +
- 	ret = regmap_update_bits(
- 		priv->map, RTL8365MB_DIGITAL_INTERFACE_SELECT_REG(extint->id),
- 		RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_MASK(extint->id),
-@@ -1773,6 +1819,8 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
- 		rtl8365mb_get_port_extint(ds->priv, port);
- 	struct realtek_priv *priv = ds->priv;
- 	struct rtl8365mb *mb = priv->chip_data;
-+	u32 data;
-+	int ret;
- 
- 	config->mac_capabilities = MAC_SYM_PAUSE | MAC_ASYM_PAUSE |
- 				   MAC_10 | MAC_100 | MAC_1000FD;
-@@ -1802,8 +1850,26 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
- 	 * which remain unimplemented.
- 	 */
- 
--	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII)
--		phy_interface_set_rgmii(config->supported_interfaces);
-+	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII) {
-+		/* On family D the EXT1 pins are shared with MAC4 (UTP port 4).
-+		 * If MAC4 owns them, RGMII on this port cannot work.
-+		 */
-+		if (rtl8365mb_is_d(priv) && extint->id == 1) {
-+			ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, &data);
-+			if (ret)
-+				dev_warn(priv->dev,
-+					 "failed to read TOP_CON0, RGMII on port %d disabled: %pe\n",
-+					 port, ERR_PTR(ret));
-+			else if (data & RTL8365MB_D_MAC4_SEL_EXT1_MASK)
-+				dev_warn(priv->dev,
-+					 "port %d: EXT1 is owned by MAC4, RGMII disabled\n",
-+					 port);
-+			else
-+				phy_interface_set_rgmii(config->supported_interfaces);
-+		} else {
-+			phy_interface_set_rgmii(config->supported_interfaces);
++static u32 bcma_host_soc_bcm6362_read32(struct bcma_device *core, u16 offset)
++{
++	return ioread32be(core->io_addr + offset);
++}
++
++static void bcma_host_soc_bcm6362_write8(struct bcma_device *core, u16 offset,
++					 u8 value)
++{
++	writeb(value, core->io_addr + offset);
++}
++
++static void bcma_host_soc_bcm6362_write16(struct bcma_device *core, u16 offset,
++					  u16 value)
++{
++	iowrite16be(value, core->io_addr + offset);
++}
++
++static void bcma_host_soc_bcm6362_write32(struct bcma_device *core, u16 offset,
++					  u32 value)
++{
++	iowrite32be(value, core->io_addr + offset);
++}
++
++#ifdef CONFIG_BCMA_BLOCKIO
++/* Buffers are kept in bus byte order, so copy them without swapping. */
++static void bcma_host_soc_bcm6362_block_read(struct bcma_device *core,
++					     void *buffer, size_t count,
++					     u16 offset, u8 reg_width)
++{
++	void __iomem *addr = core->io_addr + offset;
++
++	switch (reg_width) {
++	case sizeof(u8): {
++		u8 *buf = buffer;
++
++		while (count) {
++			*buf = __raw_readb(addr);
++			buf++;
++			count--;
 +		}
++		break;
 +	}
- 
- 	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_SGMII &&
- 	    mb->sds_supported)
++	case sizeof(u16): {
++		__be16 *buf = buffer;
++
++		WARN_ON(count & 1);
++		while (count) {
++			*buf = (__force __be16)__raw_readw(addr);
++			buf++;
++			count -= 2;
++		}
++		break;
++	}
++	case sizeof(u32): {
++		__be32 *buf = buffer;
++
++		WARN_ON(count & 3);
++		while (count) {
++			*buf = (__force __be32)__raw_readl(addr);
++			buf++;
++			count -= 4;
++		}
++		break;
++	}
++	default:
++		WARN_ON(1);
++	}
++}
++
++static void bcma_host_soc_bcm6362_block_write(struct bcma_device *core,
++					      const void *buffer, size_t count,
++					      u16 offset, u8 reg_width)
++{
++	void __iomem *addr = core->io_addr + offset;
++
++	switch (reg_width) {
++	case sizeof(u8): {
++		const u8 *buf = buffer;
++
++		while (count) {
++			__raw_writeb(*buf, addr);
++			buf++;
++			count--;
++		}
++		break;
++	}
++	case sizeof(u16): {
++		const __be16 *buf = buffer;
++
++		WARN_ON(count & 1);
++		while (count) {
++			__raw_writew((__force u16)*buf, addr);
++			buf++;
++			count -= 2;
++		}
++		break;
++	}
++	case sizeof(u32): {
++		const __be32 *buf = buffer;
++
++		WARN_ON(count & 3);
++		while (count) {
++			__raw_writel((__force u32)*buf, addr);
++			buf++;
++			count -= 4;
++		}
++		break;
++	}
++	default:
++		WARN_ON(1);
++	}
++}
++#endif /* CONFIG_BCMA_BLOCKIO */
++
++static void __iomem *bcma_host_soc_bcm6362_ctl_reg(struct bcma_device *core)
++{
++	struct bcma_host_soc_bcm6362 *host = to_bcm6362(core->bus);
++
++	switch (core->id.id) {
++	case BCMA_CORE_CHIPCOMMON:
++		return host->wlan_ctrl + BCM6362_WLAN_CC_CONTROL;
++	case BCMA_CORE_80211:
++		return host->wlan_ctrl + BCM6362_WLAN_MAC_CONTROL;
++	default:
++		return NULL;
++	}
++}
++
++static u32 bcma_host_soc_bcm6362_aread32(struct bcma_device *core, u16 offset)
++{
++	void __iomem *ctl = bcma_host_soc_bcm6362_ctl_reg(core);
++
++	switch (offset) {
++	case BCMA_IOCTL:
++		if (!ctl)
++			return BCMA_IOCTL_CLK;
++		return ioread32be(ctl) & BCM6362_WLAN_CTL_IOCTL;
++	case BCMA_IOST:
++		/*
++		 * The core bits of MacStatus do not reflect the PHY while
++		 * the 802.11 core is held in reset, so report what the
++		 * macro supports: a dual-band PHY and 64-bit DMA. The bands
++		 * actually usable depend on the board antennas.
++		 */
++		if (core->id.id == BCMA_CORE_80211)
++			return BCM6362_WLAN_IOST_2G_PHY |
++			       BCM6362_WLAN_IOST_5G_PHY | BCMA_IOST_DMA64;
++		return 0;
++	case BCMA_RESET_CTL:
++		if (ctl && (ioread32be(ctl) & BCM6362_WLAN_CTL_RESET))
++			return BCMA_RESET_CTL_RESET;
++		return 0;
++	case BCMA_RESET_ST:
++		return 0;
++	default:
++		dev_warn_once(core->bus->dev,
++			      "core 0x%03x: unhandled agent read at 0x%03x\n",
++			      core->id.id, offset);
++		return 0;
++	}
++}
++
++static void bcma_host_soc_bcm6362_awrite32(struct bcma_device *core, u16 offset,
++					   u32 value)
++{
++	void __iomem *ctl = bcma_host_soc_bcm6362_ctl_reg(core);
++	u32 val;
++
++	if (!ctl)
++		goto unhandled;
++
++	switch (offset) {
++	case BCMA_IOCTL:
++		val = ioread32be(ctl) & BCM6362_WLAN_CTL_RESET;
++		val |= value & BCM6362_WLAN_CTL_IOCTL;
++		iowrite32be(val, ctl);
++		return;
++	case BCMA_RESET_CTL:
++		val = ioread32be(ctl);
++		if (value & BCMA_RESET_CTL_RESET)
++			val |= BCM6362_WLAN_CTL_RESET;
++		else
++			val &= ~BCM6362_WLAN_CTL_RESET;
++		iowrite32be(val, ctl);
++		return;
++	}
++
++unhandled:
++	dev_warn_once(core->bus->dev,
++		      "core 0x%03x: unhandled agent write 0x%08x at 0x%03x\n",
++		      core->id.id, value, offset);
++}
++
++static const struct bcma_host_ops bcma_host_soc_bcm6362_ops = {
++	.read8		= bcma_host_soc_bcm6362_read8,
++	.read16		= bcma_host_soc_bcm6362_read16,
++	.read32		= bcma_host_soc_bcm6362_read32,
++	.write8		= bcma_host_soc_bcm6362_write8,
++	.write16	= bcma_host_soc_bcm6362_write16,
++	.write32	= bcma_host_soc_bcm6362_write32,
++#ifdef CONFIG_BCMA_BLOCKIO
++	.block_read	= bcma_host_soc_bcm6362_block_read,
++	.block_write	= bcma_host_soc_bcm6362_block_write,
++#endif
++	.aread32	= bcma_host_soc_bcm6362_aread32,
++	.awrite32	= bcma_host_soc_bcm6362_awrite32,
++};
++
++/*
++ * Macro enable sequence from the Broadcom board support code: with the
++ * clock forced on and the macro in soft reset, enable the 802.11 core
++ * clock with force gated clock set, then release the soft reset and the
++ * forces.
++ */
++static int bcma_host_soc_bcm6362_power_on(struct bcma_host_soc_bcm6362 *host)
++{
++	void __iomem *base = host->wlan_ctrl;
++	int err;
++
++	err = clk_prepare_enable(host->clk);
++	if (err)
++		return err;
++	fsleep(10000);
++
++	reset_control_assert(host->rst_wlan_ubus);
++	reset_control_assert(host->rst_wlan);
++	fsleep(1000);
++	reset_control_deassert(host->rst_wlan_ubus);
++	reset_control_deassert(host->rst_wlan);
++	fsleep(1000);
++
++	iowrite32be(BCM6362_WLAN_MISC_FORCE_CLK_ON |
++		    BCM6362_WLAN_MISC_MACRO_SOFT_RESET,
++		    base + BCM6362_WLAN_MISC);
++	fsleep(1000);
++
++	iowrite32be(BCMA_IOCTL_FGC | BCMA_IOCTL_CLK,
++		    base + BCM6362_WLAN_MAC_CONTROL);
++	iowrite32be(BCM6362_WLAN_MISC_FORCE_CLK_ON, base + BCM6362_WLAN_MISC);
++	iowrite32be(0, base + BCM6362_WLAN_MISC);
++	iowrite32be(BCMA_IOCTL_CLK, base + BCM6362_WLAN_MAC_CONTROL);
++
++	dev_dbg(host->bus.dev, "CC ID A 0x%08x, MAC ID A 0x%08x\n",
++		ioread32be(base + BCM6362_WLAN_CC_ID_A),
++		ioread32be(base + BCM6362_WLAN_MAC_ID_A));
++
++	return 0;
++}
++
++static void bcma_host_soc_bcm6362_power_off(struct bcma_host_soc_bcm6362 *host)
++{
++	void __iomem *base = host->wlan_ctrl;
++
++	iowrite32be(0, base + BCM6362_WLAN_MAC_CONTROL);
++	iowrite32be(BCM6362_WLAN_MISC_MACRO_DISABLE |
++		    BCM6362_WLAN_MISC_MACRO_SOFT_RESET,
++		    base + BCM6362_WLAN_MISC);
++	reset_control_assert(host->rst_wlan);
++	reset_control_assert(host->rst_wlan_ubus);
++	clk_disable_unprepare(host->clk);
++}
++
++static int bcma_host_soc_bcm6362_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct bcma_host_soc_bcm6362 *host;
++	struct bcma_bus *bus;
++	int err;
++
++	host = devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
++	if (!host)
++		return -ENOMEM;
++
++	bus = &host->bus;
++	bus->dev = dev;
++
++	bus->mmio = devm_platform_ioremap_resource_byname(pdev, "chipcommon");
++	if (IS_ERR(bus->mmio))
++		return PTR_ERR(bus->mmio);
++
++	host->wlan_ctrl = devm_platform_ioremap_resource_byname(pdev, "wlan-ctrl");
++	if (IS_ERR(host->wlan_ctrl))
++		return PTR_ERR(host->wlan_ctrl);
++
++	host->clk = devm_clk_get(dev, NULL);
++	if (IS_ERR(host->clk))
++		return dev_err_probe(dev, PTR_ERR(host->clk),
++				     "failed to get clock\n");
++
++	host->rst_wlan = devm_reset_control_get_exclusive(dev, "wlan");
++	if (IS_ERR(host->rst_wlan))
++		return dev_err_probe(dev, PTR_ERR(host->rst_wlan),
++				     "failed to get wlan reset\n");
++
++	host->rst_wlan_ubus = devm_reset_control_get_exclusive(dev, "wlan-ubus");
++	if (IS_ERR(host->rst_wlan_ubus))
++		return dev_err_probe(dev, PTR_ERR(host->rst_wlan_ubus),
++				     "failed to get wlan-ubus reset\n");
++
++	err = bcma_host_soc_bcm6362_power_on(host);
++	if (err)
++		return dev_err_probe(dev, err, "failed to enable clock\n");
++
++	bus->hosttype = BCMA_HOSTTYPE_SOC;
++	bus->ops = &bcma_host_soc_bcm6362_ops;
++	bus->big_endian = true;
++	bus->wrapperless = true;
++
++	bcma_init_bus(bus);
++
++	err = bcma_bus_register(bus);
++	if (err) {
++		bcma_host_soc_bcm6362_power_off(host);
++		return err;
++	}
++
++	platform_set_drvdata(pdev, host);
++
++	return 0;
++}
++
++static void bcma_host_soc_bcm6362_remove(struct platform_device *pdev)
++{
++	struct bcma_host_soc_bcm6362 *host = platform_get_drvdata(pdev);
++
++	bcma_bus_unregister(&host->bus);
++	bcma_host_soc_bcm6362_power_off(host);
++}
++
++static const struct of_device_id bcma_host_soc_bcm6362_of_match[] = {
++	{ .compatible = "brcm,bcm6362-wlan-bus-axi" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, bcma_host_soc_bcm6362_of_match);
++
++static struct platform_driver bcma_host_soc_bcm6362_driver = {
++	.driver = {
++		.name = "bcma-host-soc-bcm6362",
++		.of_match_table = bcma_host_soc_bcm6362_of_match,
++	},
++	.probe		= bcma_host_soc_bcm6362_probe,
++	.remove		= bcma_host_soc_bcm6362_remove,
++};
++
++int __init bcma_host_soc_bcm6362_register_driver(void)
++{
++	return platform_driver_register(&bcma_host_soc_bcm6362_driver);
++}
++
++void __exit bcma_host_soc_bcm6362_unregister_driver(void)
++{
++	platform_driver_unregister(&bcma_host_soc_bcm6362_driver);
++}
+diff --git a/drivers/bcma/main.c b/drivers/bcma/main.c
+index 72f045e6ed51..4ccc9fb98f61 100644
+--- a/drivers/bcma/main.c
++++ b/drivers/bcma/main.c
+@@ -682,6 +682,11 @@ static int __init bcma_modinit(void)
+ 		pr_err("SoC host initialization failed\n");
+ 		err = 0;
+ 	}
++	err = bcma_host_soc_bcm6362_register_driver();
++	if (err) {
++		pr_err("BCM6362 WLAN host initialization failed\n");
++		err = 0;
++	}
+ #ifdef CONFIG_BCMA_HOST_PCI
+ 	err = bcma_host_pci_init();
+ 	if (err) {
+@@ -699,6 +704,7 @@ static void __exit bcma_modexit(void)
+ #ifdef CONFIG_BCMA_HOST_PCI
+ 	bcma_host_pci_exit();
+ #endif
++	bcma_host_soc_bcm6362_unregister_driver();
+ 	bcma_host_soc_unregister_driver();
+ 	bus_unregister(&bcma_bus_type);
+ }
+
 -- 
-2.53.0
+2.56.0
 
