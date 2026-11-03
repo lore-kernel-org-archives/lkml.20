@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793668702;
-	b=acMXSJjLeE0QdD3xNdsJPyJC2IY2n5BJVO6W8rb6s32Ny4kIlsrp+zCF52S16X2ubaHq
-	 lqZ1IXgHNIwl5qy64CC+2pmvMM7/E4siGrtj+TS1gKhE73PkGBOwSALzu0y6UXprHyEy1
-	 VZKwNjvMyDPcW5KV6QlQBRgsLRWpaL2f03bitJSeLQZGXdLXbbWEsRIcmueAOCQO9kfcj
-	 Uiw5sUi9sAOyE09hsBBINVjVk8OaZDCa/p5WdyS0ei992+f1rhzjy8qurkypL/F2XTjNF
-	 OoS908dbg4vsLJQFi7NpnaT+dd0/39tY4Znj1Ejaab03i1bhXbVlFvVHNfcsW6SqwmA==
+	t=1793668730;
+	b=RhC24iQe99/RTWtomOPl7dSCALggk2NVK9H9YJNWDraYTPXpXx6+/eVRm/5di0iPpv+f
+	 NW2rE11UHRiDn929TGg/NYP2+IV4yRMT8xNFt6i0ljVem/g/VLqCmIEkE1jbSRFBOWcJM
+	 BoN7CP1scxQtCJp7MoKdQ6YW1Gf7TwjDqSVsxRyRG81kWAPlbictY0mmqskCFRBdmUxlp
+	 k5+qVS1AZuWdZ3X5yABy5+9BtpymfNishIgbKJ5bVKXTZSpoF6zmYfk1PD/EjFkAzgiEZ
+	 +bmhe8W4funYbsNTxZBezAAxn4F+psS9BavhTF7QZiqZKJvmZqsJ+v+fyesVqnFHUcg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793668702;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793668730;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KTYlUBf0wD5xIYqHc70GJMPslPEvwEHVySo2mabcF+A=;
-	b=yt/dobprcLwtvshreXHGx3EdYE6AUyYfhQP9emCKZqmwe6nR5bNm9xMCxjA5rvcKAfCR
-	 jiokyePLFa/jmV0O0hJmzoU1v8D2R5Vws6qAR3iClBTHN0K/EoDc1w9DCtEUP6lFokXxM
-	 c82/qpUIxGrxio+WJ+qSgoXh/vwwlPLKAp9/gB1tmZs39ooiOOBQ5fa3pLz+jwYHZX62B
-	 gm4nTtkFAV8Brpqa/is2/57oX2d6RU+Uhv4chq5RHqjlEnLVQsy9KJteQB935H/K3IoNW
-	 Xje4H9cuq0OEnwEbYtE5nX8yM9/MMUmJihrmlCW30ZaveH/bao8wEFB7/Be9tIV5VlQ==
+	bh=sT+iwkyUHg13Sji7Ja6rjIl95rvdOCDirpcyZggID1c=;
+	b=sjQObw5/6e0SYqLRS3Rq4bTpxFxj2qfffYf4nVJDMu/Q1jWmTMatsOCnk2Ga50R88Uh/
+	 RBuhz4ujkhyJSvUsussVUSOEcUtJe1L808qYdOpdi9Ptvwv/kFUrNfPVd5VCRKMZOMHj5
+	 ZJ53oTIX6pTMIjEvfTSjstI8/Mmz6QEX58sOg9bY73NSHnTM7JMyBWhIxrQkLqBR89MUC
+	 27pFzmXaXPFXl7V83+aI1Vg5SaEjBMLoau+J/zaTRL8x3L8ZSJG9EVt1oBpSJMoiQJS7F
+	 UvqX5ixztkAib0KjZSts22z9NFhItgX7ktzjlQrN8nsmIr7XOvMqxkWSRdph99r9s7Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I1WfL4yt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.47
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oq4CYFX1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D525606A336
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:18:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D525606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9AB606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:18:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D9AB606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I1WfL4yt
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-70bf1671c21so2118730eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:18:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793668701; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oq4CYFX1
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b09e07e149so29644797b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:18:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793668729; cv=none;
         d=google.com; s=arc-20260327;
-        b=SHsd+ZjZXUcR/YoRAVNDulvYgbOcaszz3fA9AWZDxCOy838hg8K8auKe1xo6hWv69V
-         NLftrmdP13zwp9XW1dI7IJFdFUq+eFPnL5LEjsAgC6AWA03ZuUpvkT/yYigu34aM7KSW
-         o6ObF0yGGknko7uVsb/fLXHC3w9/7sKVMWO154PiBJeZUdwMMH/rOGERoxsIS7aNkm5Y
-         i80Wbra6FMQQ0nbOfuvMFhheyzDYvEcaRPW59CVH4TpEsuUftrH+lc/6DWOcBk3F3cKf
-         DWLxOYuC3X55D8m0AkI3//XAIUrhwvn44ddzS0tSy78ojulsEZmQKereLRcXAKjnPPcN
-         Stcg==
+        b=Tn2tIm+jEu6a4DSitmkj0FU1r0j+7VobMZWKdpEVu8w8IgjvfzE+l0RlLRZklZBem6
+         uUvu/xyuWOudHRAfzFk9EbqjPHTiLEHKtsuZQQLXRO693LgSCDwvNd0nfvBIgpENp8tG
+         EdBD6WclH5+7dp1wkTsJ21ZY3TmoAeuSrrzyKr9MR6ccP0xda7ftLGhgr3KiUiUCz9fa
+         eHjRzER6VZ+hE7m+Tye6WrY5mmxJijsT6LH2uB5GUIG/9oStDHAfCqfcUXhtJaMIc0Ox
+         +iYwMK+4rCGwjvqioD+KM2eEmrzw8OPJUjOyKEax0nM/o5DZsfqCJZxGwmRtliT4A9KS
+         Op3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=KTYlUBf0wD5xIYqHc70GJMPslPEvwEHVySo2mabcF+A=;
-        fh=FhgJ89aURNLy6JDQ8dQtDhsQlWZQB3RiAU/9x1kKKdc=;
-        b=YWVMiXz35LPbyMGjmXpaopGtCPubYO1MFcZ9LWARUP+JgeK8qhZyWz5ljuduQpVsqj
-         YUNWMnvaink6fQIl4pJXS8sG3iIuWwtUeT4ws4T10ZDfnNoOBxP8Fl3rBJqS3HqB4A35
-         SwH2G1o7g0TWUMxu2nUoQfvfhKEZuMF9RCvllGc8OP9IFq1h1r/dQ7ihmfZZcqrbKDpD
-         ETIrImFkgxRVkNUnuh+RhZC+ZdfKuJBilQvVPZP0sRl/EBPy22rg0AqCEwv68B8Ey7BA
-         0FH21tBXk0O2wWbycRHV7mi0y0la9ljKRKaQUSQQve3ojJVzsvoPdUauS1eNoUI/NF0I
-         LxQg==;
+        bh=sT+iwkyUHg13Sji7Ja6rjIl95rvdOCDirpcyZggID1c=;
+        fh=OuhV1JkAZwxgwNjzcJ2rTJfO77miRSYJCmR1kLdoPBM=;
+        b=BWxf3I3L1NhQWBTr4KO/WEnf0JLkwCS2jN4axmKoa148ucFUGDK4Kb0oJByy5HXfer
+         I8yUyv0ArcRTSALfNT2I/R85bKiyyZ1UcfjV6fbKbQwXuv2npCEwD/v/sHNGNPX/HZRZ
+         qC3Q8mv7VpborwpqBAE+/gOLNUHTLN+g1Jz3npIfkXUUdXQ28zKZVa8ctalGxhxVYohe
+         ALpaGRfLKD6VUB77+Rz4xyAoxSUR6dgqNYHN7qAHzkjFFQBNVCuEQIIVIzjrlZ/QPIY5
+         vKp2BTTbrqls+aWPhienIfNVaLpwxwcE4LyK7gDdgEKQVJHSvDI4l1k5eEclbXxkg9RB
+         9HqA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793668701; x=1794273501; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793668729; x=1794273529; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KTYlUBf0wD5xIYqHc70GJMPslPEvwEHVySo2mabcF+A=;
-        b=I1WfL4ytP5PwbzDUaDvhqTkiaecS8GMOSCsuVNPCh06MuqdZ+b7BOGUKAZbfKz1lSU
-         wqX8fJ48xHBAONej7ozo6kBZKTLlNrLr8aas5cjA8BudBs5GMxHsnDcRjRDyApYpAEjo
-         n+o240w44flUBkfZ+ktLhThtKC1PJxjZ9ySj06qfR+VkBHmQ11X4nbklIS+69YVc2DML
-         F+xSOg3IaLSr7VIEkciA9A9XC+/K/cGYLw+rQneE4NkgEBHAmm61spfbMgtCWqR9NJap
-         NhSL44sl06D0HZG7cey1m6RmDT7N+aD+hu1jFVMrWq1O3szS5l8jl460/RaWEW2p16dI
-         HpeQ==
+        bh=sT+iwkyUHg13Sji7Ja6rjIl95rvdOCDirpcyZggID1c=;
+        b=oq4CYFX1+HofICn9wiVdLbtZyUK0/oHaJg0cj8uuonBwEy60SIZBgFL8Y1JavMIacN
+         ZEuFHb5wRYyPuqVW03gP2XFy+D9nP+TYMAFWNYzsKyMffGYQokvNfmwVNg4PgUruJw+S
+         WTvXijOrviUUSt38Ihg2NBkDwaI1Lw4tkyIiHhZZxELVB6ZajU+RuMIqjN5EaNFlVTxS
+         7hZvaMsnwjRWa0kKXsMseTllzSF/pqUMKS0UixgGLJUh9GFVYzvTaQ1C73YWif1jyuzq
+         zRQC6oSY3hifAMiG1/JzLJ/oDEc+hKEr04iJZKa/jy+FtBHNZYu3DdGPy/9j8UC6HS5d
+         +GMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793668701; x=1794273501;
+        d=1e100.net; s=20260707; t=1793668729; x=1794273529;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KTYlUBf0wD5xIYqHc70GJMPslPEvwEHVySo2mabcF+A=;
-        b=evcYdNMraXp1jrFLikFclm7m7c8sXrnrgOphmSxnkr3X6LPcDCzOc7vJlpHBlXWGLk
-         xcoVuLpn6oC3DwhtGpE6F9FIw6vCfV47rMwSXyJxZy6uJ0t0y0n2UOa1WpNRjZvK336G
-         bfiOWuAa48D82VQn8ZAk2/eP6w7bhmmJJLQWEhwdHCQqgnyulWYGHjeTj5NhCIdZeIJE
-         RFFasoDR+X36iFdK0oRbtordLDKgt0vRm24olY7hM2HQm4wfyLeypYuwaEDeSjoKcCPL
-         QZZAKfTSTizkgUhneXVf8bD7rOqtJNMhxn2B72OGcSxCZNtQ71l4qbWSpK1+e6suDmfJ
-         c5JQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxrc8syrKPxvyvBkVZd7MiI3nCeqeC0vecKlOww/JjHJIYv1fJ6DrF+KoKQOqKXU/jb8Ra33ZV+ZDXuppY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImYmKbgOpAAm03f4fFug5RUS2dGqlKvS9WlZTLTcLyS56oxhJY
-	3aup6fsHridTF7/IY3EQESlSh8qbhCOmwKUpcj+pDrKQp7Hu37y2WYQoZYPjLu6uX+toC177jsE
-	2fuOUk3P1tyKK2iaB9OPYe3y1+8E8M24=
-X-Gm-Gg: AYBFou1lc5/GWGOQZB0VniYbHy/yn0KHOHkpZKDQcYCRpy2vnQmYuUo0ySM/j9fx0vX
-	aQvEr5/DNYhsRSGBIfw7VRC0K14QABlm5r8Dn+3jpb2OPpIWMBjUk9ZG0Klit0MsUw3vN3lPgiV
-	growgEFuJGB7CAsJ1YYeaGAq+Vy24kNiGPqXhAn+5Nm813ONM3gf4aMQqHOLn/Hpuf1oFpCCe/d
-	QqiTK5ln294cJx8IAdr935mw36e0XC+Vw71SNuH91bj/IcD1nZWxNmg/jEuJX1DI/g4GOrSGpK/
-	nIWis8y5undUzREN9TOfem5vHjibPACepDqQoImDKIYFh7lQ6c6Fc0TYedrj8dRLJFwUBkYbnUx
-	0/acrF2r4mVLKqtCxuJmMjKsC/Zad42CugFj5a+Y=
-X-Received: by 2002:a05:6820:168e:b0:713:e3f5:251e with SMTP id
- 006d021491bc7-714f29ba27emr6218018eaf.48.1793668700964; Mon, 02 Nov 2026
- 17:18:20 -0800 (PST)
+        bh=sT+iwkyUHg13Sji7Ja6rjIl95rvdOCDirpcyZggID1c=;
+        b=2oit6T3p9dZz7usZEPU5OKgbCPVED/x74pYJOUj3Ld6QLYIctjoSsiay6bbCGAg/X0
+         Q1M/+Wk3d3xe513qkDNZc+m7hHqq/KFRYTJpouoQ9ewX4yFK2h/vMzK3510ZyxNIGGEm
+         /6Q1O19mo9fOiK/6Tza55fwWQxup4pHhRlrkWa4cYkHuNsuvapjlWvWuGvcScMqwlDat
+         Dn5XY2jGGoiQEwKmC6fTI/Qlb/FBFUsQSWfCHfydXRaGYd9kdde5szVJUSQ2W1RafSJI
+         3uxZtZPZm8G96nhntfHJN7LYgob+f+NkOODYl2WMrW2nID59d+sY7D1eh1qe5hjcPBA4
+         AsHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx58eB/tEQg0X5e1i8Wo3bxgrXLS1Z22bD6/RiDp/tLfnfvUGJImteLOR5QayfyVDRjUksmp7rubAziuUE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VusdfQeSzcJZdE+gWi43FufvYEcP+K1oi6b/e68xZTr7/f2k8
+	acBAMqamWTYCnAg8wCBIAJEYayJj12rv3xLb1wI6bnPNg3JrmccWopCXzqpnBHfftN+VYXWSFEU
+	/8sRX84TMaaM+BRbJ64nhVmQamctdtuw=
+X-Gm-Gg: AYBFou0+ABiRCE3jbrxbwpnkSrYAFqoPOc+82twOzlhQK7BThDqk8NMbzCcjcYiFcCf
+	pLW/+u8pfuo5dz7yBCoJ9xIB+9Vl5sxGpqc1+9B1CjOWLlXQlmRaRw05s9S4F5RFoVH5RQaACTY
+	u6UGAW3JOdyi4vwkIy7gUUO25rz+XrylV1321ZFTkwcAlkx4eEbnfTEmFCjXcmZKUusyF0FBywF
+	YUHkYmM0byLvG0nQ/54OFQ7ePXbRZu0o+ph0Ap7zAcqx6JHoOfxFhmMJoEFZJx90U8wHoi2gu9F
+	IPC5g9frFhhzp589R20/95RfIBNoXGGcaQcQXtgK04XESTyu+M4mcCfPqPd5bt1kkKm3a1gkiLB
+	j5ROByEbPZgpUn2njKm7G4ERbO2O0fQouPoPzkxbcE+Q2JJpt2W1ttHgWPwJgwvqSuyZsgdZUgH
+	hDtbhNUn/g+RL/BfbOAIjwn86uadX9IOhvW7uNKi9FOxVXR/EhLKbZa1b6kQacSybkhYorSHAFk
+	Wi0CVc=
+X-Received: by 2002:a05:690c:e147:10b0:8b1:567c:e7ae with SMTP id
+ 00721157ae682-8b2b67233f6mr47961067b3.47.1793668729285; Mon, 02 Nov 2026
+ 17:18:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,185 +106,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029033106.7374-1-ki.chiang65@gmail.com> <7c254ab7-579e-4c17-80fb-596e6fdd29a9@kernel.org>
-In-Reply-To: <7c254ab7-579e-4c17-80fb-596e6fdd29a9@kernel.org>
-From: Kuangyi Chiang <ki.chiang65@gmail.com>
-Date: Tue, 3 Nov 2026 09:18:13 +0800
-X-Gm-Features: AclHuK-xERevdyIuOmPpPuK18g64qqPWLytPJ62nx5z0uR0oy9As2XqZ8575ib0
-Message-ID: <CAHN5xi1_T=C1v=hDqoHxLtc9uuZO5Evsv2hS2-ZSGd3_mo=qSA@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: Add UVC_QUIRK_CTL_MSG_DELAY_1M for HIK camera
-To: Hans de Goede <hansg@kernel.org>
-Cc: laurent.pinchart@ideasonboard.com, mchehab@kernel.org, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261026202313.63122-1-sidchintamaneni@gmail.com>
+ <20261026202313.63122-3-sidchintamaneni@gmail.com> <CAGsJ_4zGmtvOApjFH_-V9z_zNWWQnrBX9q0_iWtbqzENCetfgw@mail.gmail.com>
+ <CAE5sdEhVfFuiYySA0cNPTV6FjY3wnwccfLR7HA9vhVOF7DH+_g@mail.gmail.com> <CAGsJ_4wHywBK9iYAzH8DY2KMFO-9oGa0f9N8aLUtzNNv6j3C5g@mail.gmail.com>
+In-Reply-To: <CAGsJ_4wHywBK9iYAzH8DY2KMFO-9oGa0f9N8aLUtzNNv6j3C5g@mail.gmail.com>
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Date: Mon, 2 Nov 2026 17:18:37 -0800
+X-Gm-Features: AclHuK8YPGhiAk2Gjr5YusW-Wxb9ms2GlXj1s1TmR61RHXjCn8KMInnrW2kxE7o
+Message-ID: <CAE5sdEjnhXK9jL03grhro-_jKWnd0rCFn_pN6SrFNzt8yngCLQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: remove get_lruvec()
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
+	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	apais@microsoft.com, rlmenge@gmail.com, 
+	Hardik Garg <hargar@linux.microsoft.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-Thanks for the review.
-
-Hans de Goede <hansg@kernel.org> =E6=96=BC 2026=E5=B9=B410=E6=9C=8829=E6=97=
-=A5=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=888:46=E5=AF=AB=E9=81=93=EF=BC=9A
+On Mon, 2 Nov 2026 at 16:20, Barry Song <baohua@kernel.org> wrote:
 >
-> Hi,
->
-> On 29-Oct-26 4:31 AM, Kuangyi Chiang wrote:
-> > UVC control requests issued when preparing a video stream sometimes
-> > time out on the HIK 1080P Camera (2bdf:0280):
+> On Tue, Nov 3, 2026 at 7:35=E2=80=AFAM Siddharth Chintamaneni
+> <sidchintamaneni@gmail.com> wrote:
 > >
-> > [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0=
-280)
-> > [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 2=
-6).
-> > [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110=
- (exp. 26).
-> > [   58.592967] uvcvideo: Failed to initialize the device (-5).
+> > On Mon, 2 Nov 2026 at 14:56, Barry Song <baohua@kernel.org> wrote:
+> > >
+> > > On Tue, Oct 27, 2026 at 4:23=E2=80=AFAM Siddharth Chintamaneni
+> > > <sidchintamaneni@gmail.com> wrote:
+> > > >
+> > > > get_lruvec() was originally introduced in commit ec1c86b25f4b ("mm:
+> > > > multi-gen LRU: groundwork") to guard against NULL NODE_DATA(nid) on
+> > > > uninitialized NUMA nodes (`return pgdat ? &pgdat->__lruvec : NULL;`=
+).
+> > > > After commit 09f49dca570a ("mm: handle uninitialized numa nodes
+> > > > gracefully") and commit 931b6a8b36a2 ("mm: multi-gen LRU: remove NU=
+LL
+> > > > checks on NODE_DATA()"), that NULL check was removed, leaving
+> > > > get_lruvec() as a thin wrapper around mem_cgroup_lruvec().
+> > > >
+> > > > Remove get_lruvec() and call mem_cgroup_lruvec() directly at all ca=
+ll
+> > > > sites.
+> > > >
+> > > > Suggested-by: Barry Song <baohua@kernel.org>
+> > > > Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> > > > Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> > > > Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
+> > > > ---
+> > >
+> > > It's great to see the MGLRU-specific get_lruvec() gone. Thanks!
+> > > Hopefully, we can get rid of more MGLRU-specific code,
+> > > such as get_swappiness().
+> > >
 > >
-> > Adding a 1ms delay after each control message avoids the issue.
-> >
-> > Introduce UVC_QUIRK_CTL_MSG_DELAY_1M for this device.
-> >
-> > Signed-off-by: Kuangyi Chiang <ki.chiang65@gmail.com>
+> > I just looked into removing get_swappiness() in favor of its LRU varian=
+t
+> > (sc_swappiness()). Do you mean moving the additional conditionals
+> > directly into the callsites?
 >
-> Is this a USB-2.0 camera connected to a XHCI controller ?
+> Nop. In MGLRU, swappiness has values: 0, 1=E2=80=93200,
+> and 201.
 >
-> And if yes, how old is this camera model ?
-
-Yes, it's a USB 2.0 high-speed camera connected to an xHCI
-controller.
-
-It's an entry-level 1080p USB webcam from Hikvision that has
-been available for several years.
-
-The enumeration log is shown below:
-
-[  421.245199] usb 5-3: new high-speed USB device number 2 using xhci_hcd
-[  421.368603] usb 5-3: New USB device found, idVendor=3D2bdf,
-idProduct=3D0280, bcdDevice=3D13.00
-[  421.372056] usb 5-3: New USB device strings: Mfr=3D1, Product=3D2, Seria=
-lNumber=3D3
-[  421.372064] usb 5-3: Product: HIK 1080P Camera
-[  421.372069] usb 5-3: Manufacturer: 04004000_P040200_SN0002
-[  421.372072] usb 5-3: SerialNumber: 04004000_P040200_SN0002
-
-So far, we have reproduced the issue with these xHCI hosts:
-
-ASMedia ASM1142 (1b21:1242)
-Etron EJ168 (1b6f:7023)
-Etron EJ188 (1b6f:7052)
-Intel xHCI (8086:8d31)
-
+> With swappiness=3D0, MGLRU only reclaims file pages and
+> doesn't care about the hotness of anon pages.
 >
-> The reason why I'm asking this is because the EHCI USB-2.0 controller
-> interface causes a natural delay between consecutive ctrl commands queued
-> one by one till the start of the next USB frrame, so they get spaced
-> 1 ms apart.
+> With swappiness=3D201, MGLRU only reclaims anon pages and
+> doesn't care about the hotness of file pages.
 >
-> Where as the modern XHCI controller interface will put these back-to-back
-> on the USB bus. We've seen some issues with (older) USB devices before wh=
-ere
-> they needed some delay because they were originally only validated with
-> EHCI controllers and the hw/ff assumes it will get some "breathing space"
-> between control messages.
-
-Thanks for the explanation. That makes sense.
-
-The camera works with the EHCI host we tested without any
-additional delay.
-
-We haven't observed this issue during device enumeration.
-
-In our tests, adding a 1 ms delay to both the UAC and UVC
-control request paths prevented the timeouts.
-
-When the delay was added to only one driver, we still observed
-control transfer timeouts (-110) in the other driver.
-
-We also submitted a similar patch for the USB audio driver,
-using the existing QUIRK_FLAG_CTL_MSG_DELAY_1M:
-
-https://lore.kernel.org/linux-sound/20261029032856.7100-1-ki.chiang65@gmail=
-.com/T/#u
-
-Regards,
-Kuangyi
-
+> In both cases, we allow cold/hot inversions in
+> inc_min_seq(), which can help reduce CPU usage:
 >
-> Regards,
+> static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+> {
 >
-> Hans
+>         /* For file type, skip the check if swappiness is anon only */
+>         if (type && (swappiness =3D=3D SWAPPINESS_ANON_ONLY))
+>                 goto done;
 >
+>         /* For anon type, skip the check if swappiness is zero (file only=
+) */
+>         if (!type && !swappiness)
+>                 goto done;
+>        ...
+> }
 >
+
+Interesting!
+
+> Then we could have cases where swappiness is 1 ~ 200, but
+> we still cannot reclaim anon due to:
 >
-> > ---
-> >  drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
-> >  drivers/media/usb/uvc/uvc_video.c  | 10 ++++++++--
-> >  drivers/media/usb/uvc/uvcvideo.h   |  1 +
-> >  3 files changed, 18 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc=
-/uvc_driver.c
-> > index e289cc7..c720d75 100644
-> > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > @@ -3162,6 +3162,15 @@ static const struct usb_device_id uvc_ids[] =3D =
-{
-> >         .bInterfaceSubClass   =3D 1,
-> >         .bInterfaceProtocol   =3D 0,
-> >         .driver_info          =3D UVC_INFO_QUIRK(UVC_QUIRK_FORCE_BPP) }=
-,
-> > +     /* HIK 1080P Camera */
-> > +     { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
-> > +                             | USB_DEVICE_ID_MATCH_INT_INFO,
-> > +       .idVendor             =3D 0x2bdf,
-> > +       .idProduct            =3D 0x0280,
-> > +       .bInterfaceClass      =3D USB_CLASS_VIDEO,
-> > +       .bInterfaceSubClass   =3D 1,
-> > +       .bInterfaceProtocol   =3D 0,
-> > +       .driver_info          =3D UVC_INFO_QUIRK(UVC_QUIRK_CTL_MSG_DELA=
-Y_1M) },
-> >       /* Insta360 Link */
-> >       { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
-> >                               | USB_DEVICE_ID_MATCH_INT_INFO,
-> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/=
-uvc_video.c
-> > index fc3536a..4667f86 100644
-> > --- a/drivers/media/usb/uvc/uvc_video.c
-> > +++ b/drivers/media/usb/uvc/uvc_video.c
-> > @@ -35,13 +35,19 @@ static int __uvc_query_ctrl(struct uvc_device *dev,=
- u8 query, u8 unit,
-> >  {
-> >       u8 type =3D USB_TYPE_CLASS | USB_RECIP_INTERFACE;
-> >       unsigned int pipe;
-> > +     int ret;
-> >
-> >       pipe =3D (query & 0x80) ? usb_rcvctrlpipe(dev->udev, 0)
-> >                             : usb_sndctrlpipe(dev->udev, 0);
-> >       type |=3D (query & 0x80) ? USB_DIR_IN : USB_DIR_OUT;
-> >
-> > -     return usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> > -                     unit << 8 | intfnum, data, size, timeout);
-> > +     ret =3D usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> > +                           unit << 8 | intfnum, data, size, timeout);
-> > +
-> > +     if (dev->quirks & UVC_QUIRK_CTL_MSG_DELAY_1M)
-> > +             usleep_range(1000, 2000);
-> > +
-> > +     return ret;
-> >  }
-> >
-> >  static const char *uvc_query_name(u8 query)
-> > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/u=
-vcvideo.h
-> > index b6bcee4..1426d14 100644
-> > --- a/drivers/media/usb/uvc/uvcvideo.h
-> > +++ b/drivers/media/usb/uvc/uvcvideo.h
-> > @@ -81,6 +81,7 @@
-> >  #define UVC_QUIRK_INVALID_DEVICE_SOF 0x00010000
-> >  #define UVC_QUIRK_MJPEG_NO_EOF               0x00020000
-> >  #define UVC_QUIRK_MSXU_META          0x00040000
-> > +#define UVC_QUIRK_CTL_MSG_DELAY_1M   0x00080000
-> >
-> >  /* Format flags */
-> >  #define UVC_FMT_FLAG_COMPRESSED              0x00000001
+> 1. Swap is full, or the memcg's swap quota is exhausted.
 >
+> 2. The allocation uses GFP_NOIO, but the swap cache is low
+> [1].
+>
+> So right now, we have to hack get_swappiness() to return 0
+> to ensure that reclaim only happens on file pages, or we at
+> least need to hack reclamation path to use swappiness=3D0.
+>
+> This is quite bad, as it can cause cold/hot inversions for
+> anon pages. I believe this is already a bug in the current
+> get_swappiness() implementation when swap is full.
+>
+> Ideally, swappiness values from 1 to 200 and the reclaimable
+> type should be orthogonal; they should not be coupled.
+>
+> In other words, we shouldn't need to force swappiness=3D0 to
+> reclaim only file pages. If swappiness is set to 60, it
+> should remain 60 across all MGLRU reclaim paths. The
+> reclaimable type should be handled separately, without
+> forcing swappiness to 0 and introducing confusion and bugs.
+>
+
+This is more involved than I initially thought. Let me play around
+with it a bit and come back.
+If you have any suggestions with experiments that I could run to get a
+good understanding on this problem, let me know.
+
+> [1] https://lore.kernel.org/linux-mm/179248830836.1744016.842421781128661=
+6919.noio-mglru-rfc-v2@bytedance.com/
+>
+> Best,
+> Barry
