@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687738;
-	b=cx1SIno3pW96wkJRSyzLLRpofYUslw7Hypwbx3WQQhlRWEcKi0gNwFOMUJG5DDc7tQKz
-	 doruoSD389JXV6Csy0MSaFz89x9sNExVdqnF7hZFeH37kwwsdGgdDzfqjGc1FiLs0crwo
-	 znggJKz8lbWZhJYYOdYf7KVIPQbXBsZHGMr/YDuUSFLbtdkjclKyuW0L4tX6J31QKzmPa
-	 6Mbem8gzKJdZtB0Nhw0WH2JnlSXa79S7VDIZflIxipIn7jwveMAzJURMT3qqO7CXFJhZo
-	 TYooDEBR3BqAIrmf2XLFs+o4QSsh1nv35Y+s5HG6Nkug+DSR45cvbjUYabEtx9BjKEQ==
+	t=1793687764;
+	b=sbsH35MAD80PqwbBV0h+E/6P2RrSiWMJvlADyILtHTeJUrwbWgEHS+53J76uLxNrRa9v
+	 cZe5uXLjsBS31W2iswo9oKFAaYW2X+RUqFmXtIci6KEmqtbURJLYOWxUZEr7gGHP/B+/N
+	 tGMHoC8O7QtgLL3zsMOIX3RyibryN+uqAEnuINXUQv4ymHCqUdUJHGOcMbGIeVYuSZnOd
+	 e3GKQEnJwaBUSkx84ZNM3EZgG7cGa1yKZDf9Mn3J0ql715PfCGvPPWdHrwc9W6ztjO2jN
+	 7c09MxA3lAOkmdKzoP+G4+G/8+zZHeWxAagO9bLPVd6OEETfsU9UZLZMCzcuJzUoXuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687738;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
-	bh=4dMx8oyOcsvpKZmeDA9XB9ac9xFIUPa8LzVWlB1uze0=;
-	b=3cesduwIbuOGPeMbIgxoxX5ZFZTHqWDgdJFFki/pQDAWIx5vwU5qYHy5UWREkBxKE1E3
-	 sr1AOMxokNEA2bcXRrizcK4O1yweRt3HGF6vK4Bsow+aHgomHCzlaUTtfB0Km4Jhtk0Z7
-	 Rdj2SuVBvitftTEM3M2+BMQugHp/dqdQcfQwJH4l3MWhcIY5aa780yj6TKt9JzXYqFlHh
-	 9HKofQHZJmtF7/wLEPehL84Wg1lIzyyQJOIHpc6PjRNNbig8P0ZlbhBefnqpsvzYj+2GP
-	 1cAIEU0Qg+aVnVltVRfAiEE0M47ba0BSBcnvC5cUE9bFpTV424N/m42TSHkjzgOTDkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687764;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=0bnxT/GaODOLw9buJdXMz007PkKtmbGsQ3QJymSQxXg=;
+	b=Fz4ennLExkHX5fWp7rYaBj5BdXInkLjRB14FTLl+cQKp4/AFqznCPRAoMlwTAE3sHmO8
+	 uFGjbvvR3EGpeRaiwv7rDEwSO+GJBYmvjiThXESSBYxZ7PGXltx/0rt9N8G74AAgA0veW
+	 sleiwf9+Prt9doMJvfU/Sde6WUlDyDKRhHjD8mVYqj1prtRqGXu4GJHzA/sMESUzvrwHr
+	 81iLNoap4j5fMywBkivqJgKadC980viEJhGUI+IADeFTWeYA7wkPhu3nzNh/OT39Fwbfv
+	 7JgxxDQmztDCRB4qnc4npBLVfiFrvxU/YC5otHvjcOTD2p1TtlcVYKE2+cNPCZPh4iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=C5cyDqhH;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C548B606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:35:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C548B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=C5cyDqhH
-Received: from linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net (linux.microsoft.com [13.77.154.182])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 2C2A520B7166;
-	Mon,  2 Nov 2026 22:35:16 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2C2A520B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793687716;
-	bh=4dMx8oyOcsvpKZmeDA9XB9ac9xFIUPa8LzVWlB1uze0=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=C5cyDqhHIsCzTiuaHaq1svaWIigxtCUNFwtyf3xrRWLVfHaPzEuC+kkRVWp4/b4hX
-	 U9tpDMG1ocmExkay0nGn+XuYmo9Lf74YcXSQdJ5SADB409yr9l9X/VGQnUm8ecn/rI
-	 fm0s96BJYEu85+5MNVjg6ExXjFQkkrOXzGZIgOoE=
-From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
-To: ptsm@linux.microsoft.com,
-	tgopinath@linux.microsoft.com,
-	ssengar@linux.microsoft.com,
-	srivatsa@csail.mit.edu,
-	michal.simek@amd.com,
-	rajan.vaja@xilinx.com,
-	tejas.patel@xilinx.com,
-	abhyuday.godhasara@xilinx.com,
-	gregkh@linuxfoundation.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] soc: xilinx: Fix event manager CPU hotplug state cleanup
-Date: Mon,  2 Nov 2026 22:35:15 -0800
-Message-ID: <20261103063515.679043-1-ptsm@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261103062051.676519-1-ptsm@linux.microsoft.com>
-References: <20261103062051.676519-1-ptsm@linux.microsoft.com>
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA803606A324;
+	Tue,  3 Nov 2026 06:36:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA803606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3xZbQgOlqnWs5AA--.93S2;
+	Tue, 03 Nov 2026 14:36:00 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: rafael@kernel.org,
+	viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] cpufreq: mediatek: Release DVFS resources when removing the driver
+Date: Tue,  3 Nov 2026 06:36:09 +0000
+Message-Id: <20261103063609.1028187-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,75 +54,71 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3xZbQgOlqnWs5AA--.93S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZrWxtFy5AF17Xr43CF15urg_yoW8AF13pF
+	s8XrWYkrWrJFsrKa1xCw4UCasYy3Z7u3yYgr13Gw1Fqw13JF15Xa4UWayUArZ0krWkGr4q
+	yr1jga47uFWkAFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjiL05
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIAA2rpWtl8QwAAs5
 
-On driver removal, the event manager removes the CPUHP_AP_ONLINE_DYN
-CPU hotplug state instead of the its actual state. This can leave the
-event manager callbacks dangling. Use the actual CPU hotplug state
-during driver removal.
+mtk_cpufreq_probe() registers the cpufreq driver and retains clocks,
+regulators, OPP tables and OPP notifiers in dvfs_info_list. There is no
+platform remove callback to undo this on device unbind or module unload.
+The devm-allocated DVFS information is freed while the list and cpufreq
+driver still refer to it, in addition to leaking the retained resources.
 
-Hotplug registration failures are also ignored, allowing probe to
-succeed without the callbacks needed to enable event interrupts on
-CPUs brought online later.
+Unregister the cpufreq driver before releasing the DVFS resources and
+removing their entries from the list, as in the probe failure path.
 
-Fixes: c7fdb2404f66 ("drivers: soc: xilinx: add xilinx event management driver")
-Signed-off-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+Fixes: 89b56047f6f9 ("cpufreq: mt8173: Move resources allocation into ->probe()")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/soc/xilinx/xlnx_event_manager.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/cpufreq/mediatek-cpufreq.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/soc/xilinx/xlnx_event_manager.c b/drivers/soc/xilinx/xlnx_event_manager.c
-index f733dc42b3b1..2d8bfeab4190 100644
---- a/drivers/soc/xilinx/xlnx_event_manager.c
-+++ b/drivers/soc/xilinx/xlnx_event_manager.c
-@@ -24,6 +24,7 @@ static DEFINE_PER_CPU_READ_MOSTLY(int, dummy_cpu_number);
+diff --git a/drivers/cpufreq/mediatek-cpufreq.c b/drivers/cpufreq/mediatek-cpufreq.c
+index f9b1eca176eb..5776310d96c0 100644
+--- a/drivers/cpufreq/mediatek-cpufreq.c
++++ b/drivers/cpufreq/mediatek-cpufreq.c
+@@ -677,11 +677,24 @@ static int mtk_cpufreq_probe(struct platform_device *pdev)
+ 	return ret;
+ }
  
- static int virq_sgi;
- static int event_manager_availability = -EACCES;
-+static enum cpuhp_state hp_state;
- 
- /* SGI number used for Event management driver */
- #define XLNX_EVENT_SGI_NUM	(15)
-@@ -625,8 +626,6 @@ static int xlnx_event_init_sgi(struct platform_device *pdev)
- 
- static void xlnx_event_cleanup_sgi(struct platform_device *pdev)
- {
--	cpuhp_remove_state(CPUHP_AP_ONLINE_DYN);
--
- 	on_each_cpu(xlnx_disable_percpu_irq, NULL, 1);
- 
- 	irq_clear_status_flags(virq_sgi, IRQ_PER_CPU);
-@@ -660,8 +659,13 @@ static int xlnx_event_manager_probe(struct platform_device *pdev)
- 	}
- 
- 	/* Setup function for the CPU hot-plug cases */
--	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "soc/event:starting",
--			  xlnx_event_cpuhp_start, xlnx_event_cpuhp_down);
-+	hp_state = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-+			"soc/event:starting", xlnx_event_cpuhp_start,
-+			xlnx_event_cpuhp_down);
-+	if (hp_state < 0) {
-+		xlnx_event_cleanup_sgi(pdev);
-+		return hp_state;
++static void mtk_cpufreq_remove(struct platform_device *pdev)
++{
++	struct mtk_cpu_dvfs_info *info, *tmp;
++
++	cpufreq_unregister_driver(&mtk_cpufreq_driver);
++
++	list_for_each_entry_safe(info, tmp, &dvfs_info_list, list_head) {
++		mtk_cpu_dvfs_info_release(info);
++		list_del(&info->list_head);
 +	}
++}
++
+ static struct platform_driver mtk_cpufreq_platdrv = {
+ 	.driver = {
+ 		.name	= "mtk-cpufreq",
+ 	},
+ 	.probe		= mtk_cpufreq_probe,
++	.remove		= mtk_cpufreq_remove,
+ };
  
- 	ret = zynqmp_pm_register_sgi(sgi_num, 0);
- 	if (ret) {
-@@ -670,6 +674,7 @@ static int xlnx_event_manager_probe(struct platform_device *pdev)
- 		else
- 			dev_err(&pdev->dev, "SGI %d registration failed, err %d\n", sgi_num, ret);
- 
-+		cpuhp_remove_state(hp_state);
- 		xlnx_event_cleanup_sgi(pdev);
- 		return ret;
- 	}
-@@ -704,6 +709,7 @@ static void xlnx_event_manager_remove(struct platform_device *pdev)
- 	if (ret)
- 		dev_err(&pdev->dev, "SGI unregistration over TF-A failed with %d\n", ret);
- 
-+	cpuhp_remove_state(hp_state);
- 	xlnx_event_cleanup_sgi(pdev);
- 
- 	event_manager_availability = -EACCES;
+ static const struct mtk_cpufreq_platform_data mt2701_platform_data = {
 -- 
-2.49.0
+2.34.1
 
