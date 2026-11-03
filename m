@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699470;
-	b=qj7y/QDD+c/4Z2vJ+Fz1Bu2fB8IPfoPuXRTQUVyvcJLor0WSmfM32F73ADP6YVk5MIIv
-	 5TBvmFZyIarnCr5TQ80C7NwYi61ZCWgzmRR/0cEKETLQwfQ84L3VSgg6N36M2fBgoYN/k
-	 1PzvodxqQunMNS0vb3qt3jwpmPOTQobjauKAjlp98l3DRPraR2HGxaDNg82YGCqZS2iok
-	 7zCtsZFZiS2pu17CjA8vcZwRmQCGfepxndTOOVqzslzRSSqbVBJby0JeqdeS721xDe+m+
-	 eP/Q8/SpIwgqoCe3ekE8UeejKSy0YTgeDc6M5DPfyTNeo+mn7Sgf3A20dhjIxL+rU0w==
+	t=1793699461;
+	b=ERqEhhj7skJrSOFkCftbIwlz9s1nSL2fHbcqmS+GIKauXgL9aahTFzXvDxLFbO4ibpWZ
+	 LE4KtcMtvZP/Y06+O3tmD3z1eWp8qVDwN6SxCfpl1/oe3bYVbpn1g+lDYIDuKmpQOOXwZ
+	 WNN9155CIBWLXIiF/iS6XMFO/q2KL11pZl3hcUsJuOyqfLvYpA596yaU1gJ0d6IEytAj5
+	 UvSZI6iR/c2m5pW5Gw/GsG2Ajkfk6t++XBeKNezLlTy3/OJqz2gsMKshpnvkHCVcf+kgC
+	 HDUzu8gvQHclOE3dUWQoWKibOtwHUNguOCNG/4IIllW51G0yz2VK3zbK33P2p+rWJiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699470;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699461;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=n0izxb44Tb6ZcYT/2j2uerBqWsRV3gsMQEbz08hfe1U=;
-	b=dA04t7HIhVmfosJqPVf/PCsdN+oQRgF9kKkWYlpAdxE41zBOkw5F8aqwMC2bwdLNBEZx
-	 Mi6oDvsYdeRpKyfNT0RhmcYHd+vbiKulBT0Dtdov4SHM/Z527aUZUfoibOZz7tNv22Tli
-	 CqqlFZS6Ecg5EHoUOsX2Hgqyz9KIIQfAfVFsqG5SuncdW2N/csg55au7mlq7BWRpODOCi
-	 9SGWGVgEyqMqvNwUzzgkOW5O7FGCXvWePF3e+x+Z4osjNGCQU44tzqcInwnPkxdJQqE14
-	 RYf8epARq4ZatNBQ3O6ADXxTDG3DLp/8GxmeMAsKBkVDUF1tcqM4r25N8nxWzAWejbw==
+	bh=6HeAXp7yX1tk/C25b06NP0zuPlHPPh/+Hik7J1wwkx4=;
+	b=izNmGXboa+T0vBVyXUN2rxgk+6zsCjpkyqsU3vic3rwpk20WEMwZ7sAqSBEoc4bEgFXC
+	 ZZ/7HJyKBabePxPwbEADpiiB3Cqvi9Ajfhq17fGCXrORkdZpvegWK3PLi7RT4kl9Rgvpn
+	 +HnEj/h37ce9HAJnfKp76Mboxzg0yzmBFPxGtJWB78Msb31u+pjM0DGpUGMVryJuBJFA6
+	 8vNx46iHh/m0nQjBKl6dHBs7y6+X16ZHHmsZkF0beqJ1aPDCo6rPnm2JIVtGMNmYphx1Y
+	 CYh1yQyWRU2jL4GrKy02+3QN12sevTXuRPc8wH6MBng4zfUix2kucRQUDiKT5ZP0Icw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=karaolidis.com;
 	spf=pass smtp.mailfrom=karaolidis.com;
-	dkim=pass header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=bGzRCBgO;
-	arc=none smtp.remote-ip=79.135.106.111
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+	dkim=pass header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=gTIswOwx;
+	arc=none smtp.remote-ip=109.224.244.108
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8F9606EEA0;
-	Tue,  3 Nov 2026 09:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA8F9606EEA0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02C4606A332;
+	Tue,  3 Nov 2026 09:51:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E02C4606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=bGzRCBgO
+	dkim=pass (2048-bit key, unprotected) header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=gTIswOwx
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
-	s=protonmail3; t=1793699467; x=1793958667;
-	bh=n0izxb44Tb6ZcYT/2j2uerBqWsRV3gsMQEbz08hfe1U=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=bGzRCBgOlGl5IkST58KNWO+zPtfNt+7yge+PMnNmyp58ZbihcR7YHE6zzpx0SlCWq
-	 J7Fa0nBUotb8bCFPpXUUmiNxFGuTjQ/LHTRznfPkRv+afoKVWACHGu22DMF6j8nOj1
-	 U2IsemJvbIjDJOuy692hNoF7RdBjfdf83ua4pwjtaRXEXMMbo6SbRcJ8anOgtXqCIg
-	 Wn2CTB3yp4rYKNICepkdZGT17tSFDoaGbhduEVijzmNCBGyS7/dlfZxBhcF8+v8NCl
-	 mVj7xZOSzl5Qhep4W60Rk46CYZacE+QWeTPpxJqJPLUqftQlKeJLV21rj9vb5KYekK
-	 3fxJxgJ2fzblw==
-X-Pm-Submission-Id: 4jJkNR5Ckxz2ScjL
+	s=protonmail3; t=1793699458; x=1793958658;
+	bh=6HeAXp7yX1tk/C25b06NP0zuPlHPPh/+Hik7J1wwkx4=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=gTIswOwxYUKlWxErWTokOEKDObVzE4bKBY/CclpMYDcrnQpos3B4Chm/GAQYdO9ne
+	 NCFU0Nm/1acbnYIthTxWyYkezlUio/rHrN/azR3xwQEZMaNqLXJKpWBSme9JxsDdaw
+	 V0dbE/uGxqH3/S0wBEoxxPbZ0B2UmuqECjGzQDAu1v3bON1zqqm620nPTnzvUJdFs+
+	 Of5brxqy7L/afeq3PfYPi+apdJYg++v6cjNoxjdvstDhJp7WM0AUweiwEXIQhxYuH8
+	 43h9QzoQUBw0aYisHyXYYPyh8zDBRKigXj4AzQM9r4xH396hHJH7F+YiC6LKeX3nIc
+	 kGnJU8S/ELKsQ==
+X-Pm-Submission-Id: 4jJkN811Fsz2Scj6
 From: Nikolaos Karaolidis <nick@karaolidis.com>
-Date: Tue, 03 Nov 2026 09:50:11 +0000
-Subject: [PATCH RFC 5/6] virtio-mem: support memmap_on_memory in Sub Block
- Mode
+Subject: [PATCH RFC 0/6] virtio-mem: support memmap_on_memory
+Date: Tue, 03 Nov 2026 09:50:06 +0000
+Message-Id: <20261103-virtio-mem-memmap-v1-0-308ae1da6240@karaolidis.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,9 +61,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-virtio-mem-memmap-v1-5-308ae1da6240@karaolidis.com>
-References: <20261103-virtio-mem-memmap-v1-0-308ae1da6240@karaolidis.com>
-In-Reply-To: <20261103-virtio-mem-memmap-v1-0-308ae1da6240@karaolidis.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNj3bLMopLMfN3c1FwQzk0s0E0zTk02N7YwMjc3SlEC6isoSk3LrAC
+ bGa0U5OasFAsRLC5NykpNLgGZplRbCwC08b65egAAAA==
+X-Change-ID: 20261103-virtio-mem-memmap-f3ec7382772d
 To: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
@@ -80,405 +81,102 @@ Cc: Oscar Salvador <osalvador@suse.de>,
  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-cxl@vger.kernel.org, Nikolaos Karaolidis <nick@karaolidis.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15005; i=nick@karaolidis.com;
- h=from:subject:message-id; bh=ejrHoLip2+a2DhjDlP0E189C2WOueH28ndxahaQkQS4=;
- b=owJ4nAFtApL9kA0DAAoB2mjImL9M9YgByyZiAGrprncgYfC2UCVe2FE4WXCcdYs683Ums3Q3S
- cYuR4R2gqJLd4kCMwQAAQoAHRYhBLMZG7EWqsMYjymWX9poyJi/TPWIBQJq6a53AAoJENpoyJi/
- TPWISN4QAJzesyJhDnDc6VDGOH9jOc5bVhaRWDYchodEYnO8XTEbwEwCQesF1pbZPdLhiKU2qpw
- Vp01AbwCZA62v8Gq09c8SBS3sIngOUtCTmm3BeRVIIA9AMS44O2OniRuditWsI3Ey+Qi7FIuaUw
- O0MRjqNMyz0dy6jRb7+9hhreC4ydlRV4O7rfgtRyD6WAaI5ExnN0QPIgwrKfigLE2ggEp5o5hP3
- tfkPnrnl90XTaWQm1JacQWRmS9NcACBzrsWQTcjvFLtBsBJOjrkZNW7ftTQZ9Ex5VGxAFLPKHb6
- SBEmTOmYn2aXJKqKLy6Cxcwqqn6PrjH0U4jr9F4K4nJuoCIH8uZye68DnWwqFlZHYj+X1dr6MNu
- GdpsRHB5yf8hAsKAQvL4eJWSe1jpUEIwxfj/0uIe0KaZ9RSvGqWh/NH539X/WFtZ+B97m0MzTgc
- 05fDwQPgMoR4LXeC+vHLfaGcTuD1MyDyZzKZRQNzYrbqP4gLMBzKYB3dV9wSGekfXDDD1w+UdPC
- I5rdrZGUXOY1J0s27r0zZZMLQP9AL9unUj2zCCq4Rlwrm+7NSUJYeTdU/eibjvama1gW7bkZ1YU
- cxAfCzZawq2e9N5yFXzIhoSdlW8vvt/NuSP8HWYzH5T2ciPqhDCfEHITvaNDsUQXfnmpCU67Id8
- j8dcp85oj3qdApYYO/T8fyQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3925; i=nick@karaolidis.com;
+ h=from:subject:message-id; bh=NNPpcglNLpTNsJShxSz++7ZYM10avVud+ofnAjWB9aY=;
+ b=owJ4nAFtApL9kA0DAAoB2mjImL9M9YgByyZiAGrprndObZ4nJcHkyOGnR8X98GzRHnZPY00og
+ 5ZdyhePWdMUsIkCMwQAAQoAHRYhBLMZG7EWqsMYjymWX9poyJi/TPWIBQJq6a53AAoJENpoyJi/
+ TPWIl/cQAOEJLHdPO99uWz96izDeMCElaiPsorxDa1dY2D7aoG+gVGFyjbiVLoPG9ccyV1X8GgC
+ 87APtvVTOGWAICVzNMI0UPWriIepArKYeYAc4lBS+3NAYLHRT4/MLnOtyM3+L8309oIOtWqqGar
+ STGxvYP4Mu/EjXRXgFqg6x88Yps/JzPTJX6kKzl7djrtOi/e29OebonxeqcTSnaDQVgKERsH4+e
+ idJTNqaGL+oCQMJFGD6xzdqeNOoMJF0SnhSS6okBcXzUOhJq0LUUYMIW5Y2XU26bZ9sgw2fTEPv
+ ILJ9/LI0xqeNBobSe3mYGTqv87IWSHaHiM/Y3Ua7sKQ11xvuGB0B9gzRTEh+A/hoQa96hLsXuTo
+ 6satoUNqNKdss39D/7karpqARuukEM0TJowUmDXgcpDyRa0TbaTL2yuORmsZrSJWvdyaAPMYSyX
+ 7nozNOBTetb1iZoBDllZqEGy4SLiJzqbweJMPAR44VrLXUQsqgKPDuSjWZw5Bd0DWprJcMABQBJ
+ PATSor2IAhktB3UF9AoNqLs3PO9hWpzb7/8Fmkkp1oIMHpdtcVal1e3uR7VduKLW9QmJFZUB/Qe
+ zz++rHq/JxPYPxJb9tDy9nR8zT9oQg6P7r/CyBFWdyUCitOiOeSrPA5kJ/mxLafm00ve7nFBY92
+ vwP46+z4AtqoCW2pzw+clRg==
 X-Developer-Key: i=nick@karaolidis.com; a=openpgp;
  fpr=B3191BB116AAC3188F29965FDA68C898BF4CF588
 
-Forcing Big Block Mode to get a self-hosted memmap would raise the
-plug/unplug granularity from 2 MiB to 128 MiB on x86-64.
+virtio-mem adds memory without MHP_MEMMAP_ON_MEMORY. With the memory
+onlined to ZONE_MOVABLE, a VM that grows to many times its boot size
+can run short of unmovable memory. I ran into this while working on
+a guest-initiated memory negotiation project.
 
-A self-hosted memmap is written when the memory block is added and
-never reaches the buddy, so the subblocks containing it ("memmap
-subblocks") cannot be fake-offlined and must stay plugged while the
-memory block is added.
+David wrote last year that memmap_on_memory support for virtio-mem had
+not been worth the effort, because virtio-mem adds memory in small
+blocks [1]. Each block is small, yes, but the memmap adds up when
+scaling to many blocks.
 
-Only support a memmap that spans complete subblocks, so that the memmap
-subblocks never provide memory to Linux. That is the case if the
-subblock size is not larger than the memmap, as with the 2 MiB default
-device block size of QEMU on x86-64. Otherwise, for example with 4 MiB
-device blocks, or with 32 MiB device blocks for a 4 KiB arm64 guest on
-a 16 KiB host, warn and continue without memmap_on_memory; force_bbm
-can be used instead.
+This picks up Hui Zhu's RFC from 2021 [2] and follows David's review of
+it [3][4]:
 
-Handle the memmap subblocks as part of every added memory block:
+1. Big Block Mode first (patch 3). Since commit 6b8f0798b85a
+   ("mm/memory_hotplug: split memmap_on_memory requests across
+   memblocks"), the core uses one altmap per memory block, so this also
+   works for big blocks spanning several memory blocks.
 
-* Plug them together with the first other subblocks before adding the
-  memory block. If no more than the memmap subblocks remain to be
-  plugged, stop short of the requested size.
+2. alloc_contig_range() with pageblock granularity, so subblocks can be
+   2 MiB: done since v5.19 (Zi Yan's series, 448b8ec3bf11).
 
-* Skip them when unplugging from an added memory block.
+3. Sub Block Mode only if the memmap spans complete subblocks (patch 5).
+   With larger device blocks, the driver warns and continues without
+   memmap_on_memory, as David suggested in 2023 [5].
 
-* Once all other subblocks are unplugged, remove the memory block and
-  unplug its memmap subblocks, even if that unplugs more than requested.
-  If that fails, keep the memory block in VIRTIO_MEM_SBM_MB_PLUGGED and
-  let virtio_mem_cleanup_pending_mb() retry.
+The other review points on [2]:
 
-The plugged size therefore never stays above the requested size because
-of the memmap, but can stay below it by up to the memmap subblocks of
-one memory block. Adding or keeping a memory block only for its memmap
-subblocks would provide no memory.
+- Plugging more than requested: if no more than the memmap subblocks
+  remain to be plugged, the driver stops short of the requested size, so
+  this doesn't happen.
+- Error handling: if unplugging the memmap subblocks of a removed memory
+  block fails, the block is left in VIRTIO_MEM_SBM_MB_PLUGGED and
+  virtio_mem_cleanup_pending_mb() retries.
 
-The memmap subblocks count towards the plugged size of the device, so a
-fully plugged 128 MiB memory block adds 126 MiB to MemTotal.
+Georgi, Cc'ing you as you mentioned out-of-tree virtio-mem patches that
+use memmap_on_memory [6].
 
-In a 2 GiB x86-64 guest onlining to ZONE_MOVABLE, plugging 4 GiB took
-about 64 MiB from the kernel zones without virtio_mem.memmap_on_memory
-and less than 1 MiB with it.
+Tested in QEMU/KVM (x86-64 guests) on v7.3: 128 MiB, 1 GiB
+and 2 GiB memory blocks; device block sizes 2 MiB to 1 GiB;
+ZONE_MOVABLE, kernel zones and offline blocks; force_bbm;
+memory_hotplug.memmap_on_memory=force on a kernel without THP;
+grow/fill/unplug cycles with memory held during unplug; 600
+offline/online cycles from user space; random resizing under a memory
+hog; injected failures when unplugging memmap subblocks; the
+memory-hotplug selftest; virtio-mem as a module, reloaded. Also with
+KASAN, lockdep, and DEBUG_VM. Built for x86-64, and the changed files
+for arm64, riscv, and s390.
 
-Assisted-by: LLM
+An LLM was used to review the series against the core, write the test
+harness, and draft the cover letter and changelogs. I have reviewed all
+of it.
+
+[1] https://lore.kernel.org/all/1efcb368-fcdf-4bdd-8b94-a705b7806bc2@redhat.com/
+[2] https://lore.kernel.org/all/20210623115839.3524-1-teawater@gmail.com/
+[3] https://lore.kernel.org/all/CADFyXm7Ky+S2gq5ht2h_tX9bLsoOSuctCkG==VYAH0uUHGp+QQ@mail.gmail.com/
+[4] https://lore.kernel.org/all/bc36b6fe-0d1a-6fe2-e8f3-49bbcaebcf41@redhat.com/
+[5] https://lore.kernel.org/all/1bf30145-22a5-cc46-e583-25053460b105@redhat.com/
+[6] https://lore.kernel.org/all/fb932d7f-0ba7-415d-ab36-e948d2bbb537@oss.qualcomm.com/
+
 Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
 ---
- drivers/virtio/virtio_mem.c | 152 ++++++++++++++++++++++++++++++++------------
- 1 file changed, 112 insertions(+), 40 deletions(-)
+Nikolaos Karaolidis (6):
+      mm/memory_hotplug: add and export mhp_memmap_on_memory_nr_pages()
+      virtio-mem: prepare memory notifier for a self-hosted memmap
+      virtio-mem: support memmap_on_memory in Big Block Mode
+      virtio-mem: move virtio_mem_sbm_try_remove_unplugged_mb()
+      virtio-mem: support memmap_on_memory in Sub Block Mode
+      Documentation/admin-guide/mm: document virtio-mem memmap_on_memory
 
-diff --git a/drivers/virtio/virtio_mem.c b/drivers/virtio/virtio_mem.c
-index 688c178c760f..d6623f67b76b 100644
---- a/drivers/virtio/virtio_mem.c
-+++ b/drivers/virtio/virtio_mem.c
-@@ -54,6 +54,11 @@ MODULE_PARM_DESC(memmap_on_memory,
-  *   Subblocks within a Linux memory block might either be plugged or unplugged.
-  *   Memory is added/removed to Linux MM in Linux memory block granularity.
-  *
-+ *   With memmap_on_memory, the first subblock(s) of a Linux memory block
-+ *   host its memmap ("memmap subblocks"). They stay plugged while the Linux
-+ *   memory block is added to Linux, which requires at least one other plugged
-+ *   subblock. "Fully plugged" and "partially plugged" below include them.
-+ *
-  * * Big Block Mode (BBM): A Big Block (BB) spans 1..X Linux memory blocks.
-  *   Memory is added/removed to Linux MM in Big Block granularity.
-  *
-@@ -72,7 +77,10 @@ MODULE_PARM_DESC(memmap_on_memory,
- enum virtio_mem_sbm_mb_state {
- 	/* Unplugged, not added to Linux. Can be reused later. */
- 	VIRTIO_MEM_SBM_MB_UNUSED = 0,
--	/* (Partially) plugged, not added to Linux. Error on add_memory(). */
-+	/*
-+	 * (Partially) plugged, not added to Linux. Error on add_memory() or on
-+	 * unplugging the memmap subblocks after removing it.
-+	 */
- 	VIRTIO_MEM_SBM_MB_PLUGGED,
- 	/* Fully plugged, fully added to Linux, offline. */
- 	VIRTIO_MEM_SBM_MB_OFFLINE,
-@@ -179,6 +187,8 @@ struct virtio_mem {
- 			uint64_t sb_size;
- 			/* The number of subblocks per Linux memory block. */
- 			uint32_t sbs_per_mb;
-+			/* The number of memmap subblocks per memory block. */
-+			u32 memmap_sbs;
- 
- 			/*
- 			 * Some of the Linux memory blocks tracked as "partially
-@@ -1567,15 +1577,16 @@ static int virtio_mem_bbm_plug_bb(struct virtio_mem *vm, unsigned long bb_id)
- 
- /*
-  * Unplug the desired number of plugged subblocks of a offline or not-added
-- * memory block. Will fail if any subblock cannot get unplugged (instead of
-- * skipping it).
-+ * memory block, ignoring the subblocks below @first_sb. Will fail if any
-+ * subblock cannot get unplugged (instead of skipping it).
-  *
-  * Will not modify the state of the memory block.
-  *
-  * Note: can fail after some subblocks were unplugged.
-  */
- static int virtio_mem_sbm_unplug_any_sb_raw(struct virtio_mem *vm,
--					    unsigned long mb_id, uint64_t *nb_sb)
-+					    unsigned long mb_id, int first_sb,
-+					    uint64_t *nb_sb)
- {
- 	int sb_id, count;
- 	int rc;
-@@ -1583,14 +1594,14 @@ static int virtio_mem_sbm_unplug_any_sb_raw(struct virtio_mem *vm,
- 	sb_id = vm->sbm.sbs_per_mb - 1;
- 	while (*nb_sb) {
- 		/* Find the next candidate subblock */
--		while (sb_id >= 0 &&
-+		while (sb_id >= first_sb &&
- 		       virtio_mem_sbm_test_sb_unplugged(vm, mb_id, sb_id, 1))
- 			sb_id--;
--		if (sb_id < 0)
-+		if (sb_id < first_sb)
- 			break;
- 		/* Try to unplug multiple subblocks at a time */
- 		count = 1;
--		while (count < *nb_sb && sb_id > 0 &&
-+		while (count < *nb_sb && sb_id > first_sb &&
- 		       virtio_mem_sbm_test_sb_plugged(vm, mb_id, sb_id - 1, 1)) {
- 			count++;
- 			sb_id--;
-@@ -1607,7 +1618,7 @@ static int virtio_mem_sbm_unplug_any_sb_raw(struct virtio_mem *vm,
- }
- 
- /*
-- * Unplug all plugged subblocks of an offline or not-added memory block.
-+ * Unplug all plugged subblocks of a not-added memory block.
-  *
-  * Will not modify the state of the memory block.
-  *
-@@ -1617,35 +1628,65 @@ static int virtio_mem_sbm_unplug_mb(struct virtio_mem *vm, unsigned long mb_id)
- {
- 	uint64_t nb_sb = vm->sbm.sbs_per_mb;
- 
--	return virtio_mem_sbm_unplug_any_sb_raw(vm, mb_id, &nb_sb);
-+	return virtio_mem_sbm_unplug_any_sb_raw(vm, mb_id, 0, &nb_sb);
-+}
-+
-+/*
-+ * Unplug the memmap subblocks of a memory block removed from Linux and mark it
-+ * unused. The memmap subblocks are deducted from @nb_sb (clamped), even if
-+ * unplugging them fails. On error, the memory block stays
-+ * VIRTIO_MEM_SBM_MB_PLUGGED and virtio_mem_cleanup_pending_mb() retries.
-+ *
-+ * Will modify the state of the memory block.
-+ */
-+static int virtio_mem_sbm_finish_remove_mb(struct virtio_mem *vm,
-+					   unsigned long mb_id, uint64_t *nb_sb)
-+{
-+	const int count = vm->sbm.memmap_sbs;
-+	int rc;
-+
-+	if (count) {
-+		if (nb_sb)
-+			*nb_sb -= min_t(uint64_t, *nb_sb, count);
-+		virtio_mem_sbm_set_mb_state(vm, mb_id,
-+					    VIRTIO_MEM_SBM_MB_PLUGGED);
-+		rc = virtio_mem_sbm_unplug_sb(vm, mb_id, 0, count);
-+		if (rc)
-+			return rc;
-+	}
-+	virtio_mem_sbm_set_mb_state(vm, mb_id, VIRTIO_MEM_SBM_MB_UNUSED);
-+	return 0;
- }
- 
- /*
-- * Try (offlining and) removing memory from Linux in case all subblocks are
-- * unplugged. Can be called on online and offline memory blocks.
-+ * Try (offlining and) removing memory from Linux in case all subblocks except
-+ * the memmap subblocks are unplugged. Can be called on online and offline
-+ * memory blocks.
-  *
-  * May modify the state of memory blocks in virtio-mem.
-  */
- static int virtio_mem_sbm_try_remove_unplugged_mb(struct virtio_mem *vm,
--						  unsigned long mb_id)
-+						  unsigned long mb_id,
-+						  uint64_t *nb_sb)
- {
-+	const int first_sb = vm->sbm.memmap_sbs;
- 	int rc;
- 
- 	/*
- 	 * Once all subblocks of a memory block were unplugged, offline and
--	 * remove it.
-+	 * remove it. The memmap subblocks alone provide no memory to Linux.
- 	 */
--	if (!virtio_mem_sbm_test_sb_unplugged(vm, mb_id, 0, vm->sbm.sbs_per_mb))
-+	if (!virtio_mem_sbm_test_sb_unplugged(vm, mb_id, first_sb,
-+					      vm->sbm.sbs_per_mb - first_sb))
- 		return 0;
- 
- 	/* offline_and_remove_memory() works for online and offline memory. */
- 	mutex_unlock(&vm->hotplug_mutex);
- 	rc = virtio_mem_sbm_offline_and_remove_mb(vm, mb_id);
- 	mutex_lock(&vm->hotplug_mutex);
--	if (!rc)
--		virtio_mem_sbm_set_mb_state(vm, mb_id,
--					    VIRTIO_MEM_SBM_MB_UNUSED);
--	return rc;
-+	if (rc)
-+		return rc;
-+	return virtio_mem_sbm_finish_remove_mb(vm, mb_id, nb_sb);
- }
- 
- /*
-@@ -1686,7 +1727,7 @@ static int virtio_mem_sbm_plug_and_add_mb(struct virtio_mem *vm,
- 	const int count = min_t(int, *nb_sb, vm->sbm.sbs_per_mb);
- 	int rc;
- 
--	if (WARN_ON_ONCE(!count))
-+	if (WARN_ON_ONCE(count <= vm->sbm.memmap_sbs))
- 		return -EINVAL;
- 
- 	/*
-@@ -1806,6 +1847,9 @@ static int virtio_mem_sbm_plug_request(struct virtio_mem *vm, uint64_t diff)
- 
- 	/* Try to plug and add unused blocks */
- 	virtio_mem_sbm_for_each_mb(vm, mb_id, VIRTIO_MEM_SBM_MB_UNUSED) {
-+		/* Don't add a memory block just for its memmap subblocks. */
-+		if (nb_sb <= vm->sbm.memmap_sbs)
-+			return 0;
- 		if (!virtio_mem_could_add_memory(vm, memory_block_size_bytes()))
- 			return -ENOSPC;
- 
-@@ -1817,6 +1861,8 @@ static int virtio_mem_sbm_plug_request(struct virtio_mem *vm, uint64_t diff)
- 
- 	/* Try to prepare, plug and add new blocks */
- 	while (nb_sb) {
-+		if (nb_sb <= vm->sbm.memmap_sbs)
-+			return 0;
- 		if (!virtio_mem_could_add_memory(vm, memory_block_size_bytes()))
- 			return -ENOSPC;
- 
-@@ -1954,9 +2000,10 @@ static int virtio_mem_sbm_unplug_any_sb_offline(struct virtio_mem *vm,
- 						unsigned long mb_id,
- 						uint64_t *nb_sb)
- {
-+	const int first_sb = vm->sbm.memmap_sbs;
- 	int rc;
- 
--	rc = virtio_mem_sbm_unplug_any_sb_raw(vm, mb_id, nb_sb);
-+	rc = virtio_mem_sbm_unplug_any_sb_raw(vm, mb_id, first_sb, nb_sb);
- 
- 	/* some subblocks might have been unplugged even on failure */
- 	if (!virtio_mem_sbm_test_sb_plugged(vm, mb_id, 0, vm->sbm.sbs_per_mb))
-@@ -1965,20 +2012,25 @@ static int virtio_mem_sbm_unplug_any_sb_offline(struct virtio_mem *vm,
- 	if (rc)
- 		return rc;
- 
--	if (virtio_mem_sbm_test_sb_unplugged(vm, mb_id, 0, vm->sbm.sbs_per_mb)) {
-+	if (virtio_mem_sbm_test_sb_unplugged(vm, mb_id, first_sb,
-+					     vm->sbm.sbs_per_mb - first_sb)) {
- 		/*
- 		 * Remove the block from Linux - this should never fail.
- 		 * Hinder the block from getting onlined by marking it
--		 * unplugged. Temporarily drop the mutex, so
--		 * any pending GOING_ONLINE requests can be serviced/rejected.
-+		 * unplugged (or plugged, if memmap subblocks remain).
-+		 * Temporarily drop the mutex, so any pending GOING_ONLINE
-+		 * requests can be serviced/rejected.
- 		 */
--		virtio_mem_sbm_set_mb_state(vm, mb_id,
-+		virtio_mem_sbm_set_mb_state(vm, mb_id, first_sb ?
-+					    VIRTIO_MEM_SBM_MB_PLUGGED :
- 					    VIRTIO_MEM_SBM_MB_UNUSED);
- 
- 		mutex_unlock(&vm->hotplug_mutex);
- 		rc = virtio_mem_sbm_remove_mb(vm, mb_id);
- 		BUG_ON(rc);
- 		mutex_lock(&vm->hotplug_mutex);
-+
-+		return virtio_mem_sbm_finish_remove_mb(vm, mb_id, nb_sb);
- 	}
- 	return 0;
- }
-@@ -2040,27 +2092,33 @@ static int virtio_mem_sbm_unplug_any_sb_online(struct virtio_mem *vm,
- 					       unsigned long mb_id,
- 					       uint64_t *nb_sb)
- {
-+	const int first_sb = vm->sbm.memmap_sbs;
-+	const int count = vm->sbm.sbs_per_mb - first_sb;
- 	int rc, sb_id;
- 
--	/* If possible, try to unplug the complete block in one shot. */
--	if (*nb_sb >= vm->sbm.sbs_per_mb &&
--	    virtio_mem_sbm_test_sb_plugged(vm, mb_id, 0, vm->sbm.sbs_per_mb)) {
--		rc = virtio_mem_sbm_unplug_sb_online(vm, mb_id, 0,
--						     vm->sbm.sbs_per_mb);
-+	/*
-+	 * If possible, try to unplug the complete block (except the memmap
-+	 * subblocks) in one shot.
-+	 */
-+	if (*nb_sb >= count &&
-+	    virtio_mem_sbm_test_sb_plugged(vm, mb_id, first_sb, count)) {
-+		rc = virtio_mem_sbm_unplug_sb_online(vm, mb_id, first_sb,
-+						     count);
- 		if (!rc) {
--			*nb_sb -= vm->sbm.sbs_per_mb;
-+			*nb_sb -= count;
- 			goto unplugged;
- 		} else if (rc != -EBUSY)
- 			return rc;
- 	}
- 
- 	/* Fallback to single subblocks. */
--	for (sb_id = vm->sbm.sbs_per_mb - 1; sb_id >= 0 && *nb_sb; sb_id--) {
-+	for (sb_id = vm->sbm.sbs_per_mb - 1; sb_id >= first_sb && *nb_sb;
-+	     sb_id--) {
- 		/* Find the next candidate subblock */
--		while (sb_id >= 0 &&
-+		while (sb_id >= first_sb &&
- 		       !virtio_mem_sbm_test_sb_plugged(vm, mb_id, sb_id, 1))
- 			sb_id--;
--		if (sb_id < 0)
-+		if (sb_id < first_sb)
- 			break;
- 
- 		rc = virtio_mem_sbm_unplug_sb_online(vm, mb_id, sb_id, 1);
-@@ -2072,7 +2130,7 @@ static int virtio_mem_sbm_unplug_any_sb_online(struct virtio_mem *vm,
- 	}
- 
- unplugged:
--	rc = virtio_mem_sbm_try_remove_unplugged_mb(vm, mb_id);
-+	rc = virtio_mem_sbm_try_remove_unplugged_mb(vm, mb_id, nb_sb);
- 	if (rc)
- 		vm->sbm.have_unplugged_mb = 1;
- 	/* Ignore errors, this is not critical. We'll retry later. */
-@@ -2389,11 +2447,11 @@ static int virtio_mem_cleanup_pending_mb(struct virtio_mem *vm)
- 
- 	mutex_lock(&vm->hotplug_mutex);
- 	virtio_mem_sbm_for_each_mb(vm, id, VIRTIO_MEM_SBM_MB_MOVABLE_PARTIAL)
--		rc |= virtio_mem_sbm_try_remove_unplugged_mb(vm, id);
-+		rc |= virtio_mem_sbm_try_remove_unplugged_mb(vm, id, NULL);
- 	virtio_mem_sbm_for_each_mb(vm, id, VIRTIO_MEM_SBM_MB_KERNEL_PARTIAL)
--		rc |= virtio_mem_sbm_try_remove_unplugged_mb(vm, id);
-+		rc |= virtio_mem_sbm_try_remove_unplugged_mb(vm, id, NULL);
- 	virtio_mem_sbm_for_each_mb(vm, id, VIRTIO_MEM_SBM_MB_OFFLINE_PARTIAL)
--		rc |= virtio_mem_sbm_try_remove_unplugged_mb(vm, id);
-+		rc |= virtio_mem_sbm_try_remove_unplugged_mb(vm, id, NULL);
- 	mutex_unlock(&vm->hotplug_mutex);
- 
- 	if (rc)
-@@ -2642,12 +2700,23 @@ static int virtio_mem_init_hotplug(struct virtio_mem *vm)
- 	/* All memory blocks of a device must agree, decide once. */
- 	if (memmap_on_memory) {
- 		vm->memmap_pages = mhp_memmap_on_memory_nr_pages();
--		if (!vm->memmap_pages) {
-+		if (!vm->memmap_pages)
- 			dev_warn(&vm->vdev->dev,
- 				 "memmap_on_memory is disabled or not supported by the core, ignoring\n");
--		} else if (vm->in_sbm) {
-+	}
-+	/*
-+	 * In SBM, only support a memmap that spans complete subblocks: the
-+	 * memmap subblocks then never provide memory to Linux. As the core
-+	 * keeps at least one pageblock of each memory block for the buddy,
-+	 * at least one other subblock remains.
-+	 */
-+	if (vm->memmap_pages && vm->in_sbm) {
-+		if (IS_ALIGNED(PFN_PHYS(vm->memmap_pages), vm->sbm.sb_size)) {
-+			vm->sbm.memmap_sbs = PFN_PHYS(vm->memmap_pages) /
-+					     vm->sbm.sb_size;
-+		} else {
- 			dev_warn(&vm->vdev->dev,
--				 "memmap_on_memory is only supported in BBM, ignoring\n");
-+				 "memmap_on_memory requires the memmap to span complete subblocks, ignoring; consider force_bbm\n");
- 			vm->memmap_pages = 0;
- 		}
- 	}
-@@ -2663,6 +2732,9 @@ static int virtio_mem_init_hotplug(struct virtio_mem *vm)
- 	if (vm->memmap_pages)
- 		dev_info(&vm->vdev->dev, "memmap on memory: 0x%llx bytes per memory block",
- 			 (unsigned long long)PFN_PHYS(vm->memmap_pages));
-+	if (vm->in_sbm && vm->sbm.memmap_sbs)
-+		dev_info(&vm->vdev->dev, "memmap subblocks per memory block: %u",
-+			 vm->sbm.memmap_sbs);
- 
- 	/* create the parent resource for all memory */
- 	rc = virtio_mem_create_resource(vm);
+ Documentation/admin-guide/mm/memory-hotplug.rst |  18 ++
+ drivers/virtio/virtio_mem.c                     | 268 +++++++++++++++++-------
+ include/linux/memory_hotplug.h                  |   6 +
+ mm/memory_hotplug.c                             |  15 ++
+ 4 files changed, 236 insertions(+), 71 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261103-virtio-mem-memmap-f3ec7382772d
 
--- 
-2.55.0
+Best regards,
+--  
+Nikolaos Karaolidis <nick@karaolidis.com>
 
