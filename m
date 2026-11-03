@@ -1,88 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712263;
-	b=JIJoiZtM6qr1k1rcdNPPW76ooKgYUSF+px37ChFZbN+wboZpR4g0wjWgkpU3EfuwCp4k
-	 CCp3sGlvFsgr9NTIfWT3B9/7Um2Kdy52jxtFypP4wE04fLhKD+jGdPwsaz/l6tIEh1tA2
-	 E+sLqermcFa3qf2yZqcALSapBiRRib+hw/l8NB6qL48m7JU9LhyHuadkUCD4Nc9jc22GG
-	 jI/d+Dm4eVvVyE+0zzvOkTbG2XngR2RX7YdOxCOFSbnHsRW3oiBIHCq90cSOzKBqBuzdT
-	 TNmsRNi4sqK8VgYMiwSLqNxFOCqCZQJxLnRVf3SzYzDN9kkwtQwSjvmfckYLWz8exWw==
+	t=1793712318;
+	b=Pt9h9Bblc4nlSR00cyjuUMSM85C8Y/DgXv06LjUOL4wovGVJB+GJcoYPBgm4+aWyaVc2
+	 91XbaR1OKd2T0SohBTjkYPj6sJctk2nu1PUJ0XkWpjWVaqWwdnieGkuC3LXmOaX2+JVIo
+	 3zO9dP0bY3GW9OvwY8zbqaUHG0ne6IsPQ58o/yq3JVsHCMdml5ABiFwjZuVJjfuYale0Q
+	 hyBYLjjK25ZD3BXXpZTbJ/nMw85faPYEuFnkbik1/oCVNYsCfB3n1C/P+nYaUTFhoiMgm
+	 xeTehV0lHH1IG6QtjqLPY440AdPjzm+E09J12C23Zeu92wSEXSUrH0ITJHdUQpXoglA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712263;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=2j0GMs1294BoS0QgCrjSsNNwFi17Dnm1SAfspQeLyKw=;
-	b=1TzONjB+lz0NYQZP7uxaWYCfsJQs5sjr/OsNr2upZuTuEgLtUj8FzZY2px3SZzkDoQ9L
-	 4t7PV8UOPh8MaYZG951UoNmEmPtiV+dBdiN7ZUTcUZi59viwT5nM1pTReRj7afbxeKkzL
-	 CorwQl3dWuko0duetTwqdeKUaonG9Ehq3C1/ZEe9O37qPn9It316pIPqFyfWAYs6Pm/wJ
-	 Sjetzpbof5zCMkRuswr2lTBNBnIbTQsxAY8jo3rbqRKWjBiE7UBzDZZ1oNoPBxtpKFZud
-	 Zl/njMR3f4h7AlieqgkbMrQF26UPmpsTL+eRrNye28gDSc1thcZOn9nYczifCUjVvEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712318;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
+	b=VqWhvRvAtQp8IvSoZKvm221iGPH9tsWAQxdeLf8XR7EGIYcwgJ3WhyWSubvwAeKIx9G7
+	 7KroKmcdCkDF+2dMP8KLCXCvUgnTRAW54eSzSVMZjCYPbWfwl64EKO/W6iG/uoAMr1zyY
+	 MoPYNHReC97szpltIEA4tuSNBIZGJmO43cNyKwynE2sBES1YZHa6p/3gJP/RGDB/q7Ukp
+	 2Hz2RQz7gCJEe9Xh3fVh0VjiYPn3Kb/BF4fQDPvNVUt6rBnpcexcLrEmEzHfjmhU5rP3q
+	 MWNVJ5P/2q8mXvIuwdmSyR1D711AmoXY9OBSQUtUi5BHNMPodpCcqlqL7ZS3UsmsEfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ftOEIgad;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=jDIYE2Wy;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6S6FpgMY;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=jDIYE2Wy;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6S6FpgMY;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388AE606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:24:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 388AE606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F7D606A330
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:25:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9F7D606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ftOEIgad
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so33384805e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:24:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793712261; x=1794317061; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2j0GMs1294BoS0QgCrjSsNNwFi17Dnm1SAfspQeLyKw=;
-        b=ftOEIgadY8W0LAJnkXXgN0QtEq3/FP+QPVbndYenNNSBW9T1qhi8kSL3zwCjBwffS/
-         a5aQGC/hg7bNcK/3BQh47VdySgCybacc032j9tUvbAGA8w9I9jN9qaMqjvIXgtVeaUpf
-         yw0zXUu3X6yc4my7Ltu54Yde+oSBvHwUIAhp7ehOavw4DQZwgrj5l9KT7Atg/SwrAZq5
-         Eah8hgcrQeFbzk6RK7x6mHX9Fk+Q6L6UNNOsGZgqN1t1HwWAGzVVuAVYd4QxBqgd5ru9
-         1WBT9BL8kLOtpOrlWljRUr/59Wc5gztLPIcSORMVove8sgs7ete+Y9jrcCFPIqhBuKrQ
-         dPQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793712261; x=1794317061;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=2j0GMs1294BoS0QgCrjSsNNwFi17Dnm1SAfspQeLyKw=;
-        b=xzaqwTgcWEHObFl05Sc5ljxVCQpKp3B/tUOagHnznncFCC6KLR6YrP3TIVHDwidIX5
-         RM+Pj+gehk5VUTu9sw4thdDRtJldavj2mfPG5pJKq8JPc5vulP/yNjXXUNGB9nr+XFKk
-         AqhP9hqrX11sNEpUdV+7OGNLNdhO0pmc/ybmDd2ujFY8hnUCPNA6/7rNMaJ+yJudCLqh
-         MVQVXznJj6Kq3ajrTgGaM0rFtdgscxCSLkSqWy3TVJSZYqj9dcPMKCXsIEdgmWJiOV4X
-         EYwoa5jHe84uQemq05/ALEgRARnIe8Eb4jmYU+JRptd8Ft3BZ/dDeDGK10d/r+6wiAV8
-         J9fA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8CGmRpXHVxgxAmKUIY4ovR6N5OKyvJusW5J7COCVBvXHPE9MBD05twrCN3Q6mUHqd0xHixVxiRnTN+kg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tqoEBjylHdJwKp11qEbFbUtDVJrkBDw/f1eve0Xh8l8NKDtkY
-	xWYBcMk5rj+EX0M6kl6/DVV7Hj40dX1C3p8JHCgYQFEXiWEdxFU3jONNi69ryENgwkpGQ20tP13
-	YgIbe
-X-Gm-Gg: AYBFou3woQ8NXe2hESR8ewtU1VjTphBOdC7C5y3X9XdDALqDkVrIocI0b0NXXI1bVLO
-	hLyZgiy643iMmCIw6+YPABPu+pxlyWt4cqqTp/2ZgOfeWziuXsI6m2pZbltKDRqmVXENVCaEXZ6
-	YSVEdsdQFtic9vWvbPrQnxPder0Tj5hsbRBj5ULd72Emy/DKtGICJSH9tavTPikEZj6lOKy/2Ow
-	gxOMJjmZJNX/WDfOwf1Nok+Hp6Pl+d6Ougd/tlBN/ieFN360Bl56+bijdYEqE/mw9dnpfc4Lv5k
-	4OW1cp2auHvEB/uOSg3UfPDmXUZdVcihUDwBWzbZc4p1edmqUrwf/EsXppUMnwt+TKIM9ZgOq9H
-	uUlHVaEXR5rkxTZg343AZe1fZvGZBgL+VKZD6aEm203gHkEfOjdyVaFu7Ct9JG0qoj8b7hHfrCk
-	7uMuP429S5BdkLYzBbXiygnWErgsX/QRI1JRRAGk/b2lQNBs8OywxqzLPNpkUwETtGf7V5ZescX
-	DZBw3w0ZCDMljJEfKQ0L/0pirxecmrVXYvN65+4IgENkxNdVv+dTP4zcH+HoYFReJ3Ll+cbe4I7
-	Dm8ebdcqxNuTWVh1SbqOBB4GYQ==
-X-Received: by 2002:a05:600d:a:b0:4ac:aae6:6400 with SMTP id 5b1f17b1804b1-4acaae665a6mr224247265e9.13.1793712260624;
-        Tue, 03 Nov 2026 05:24:20 -0800 (PST)
-Received: from localhost ([2001:4090:a244:81d0:2c16:1c4d:8a04:e0bf])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8011csm28284449f8f.31.2026.11.03.05.24.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 05:24:19 -0800 (PST)
-From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Date: Tue, 03 Nov 2026 14:24:03 +0100
-Subject: [PATCH] bus: ti-sysc: Don't reserve the system timers on AM33xx
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=jDIYE2Wy;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6S6FpgMY;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=jDIYE2Wy;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6S6FpgMY
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A28131F7BC;
+	Tue,  3 Nov 2026 13:25:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793712308; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
+	b=jDIYE2WyfEg34pmcsp5C7MlEr/x+GVmfAFm124V/oYwJ3GZpUmKp5C3a7qk9I2aymIgWT8
+	d7pedixGoDB+KB4mNQofMO4sbv+P7kdmDLfXjTSjqMFczzKffj1AcfI8jzZgw+F9+g4WzE
+	Z6ZrRFvGKoLbi/58D705kL7qyyZZA64=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793712308;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
+	b=6S6FpgMYG3bx+g6WkrUiadtUXmTWKgKMyBaO1W+ddpp4yaxoQru2A8S5vIn2xOpcfE9TOm
+	KakV7dD4y4YfxLDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793712308; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
+	b=jDIYE2WyfEg34pmcsp5C7MlEr/x+GVmfAFm124V/oYwJ3GZpUmKp5C3a7qk9I2aymIgWT8
+	d7pedixGoDB+KB4mNQofMO4sbv+P7kdmDLfXjTSjqMFczzKffj1AcfI8jzZgw+F9+g4WzE
+	Z6ZrRFvGKoLbi/58D705kL7qyyZZA64=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793712308;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
+	b=6S6FpgMYG3bx+g6WkrUiadtUXmTWKgKMyBaO1W+ddpp4yaxoQru2A8S5vIn2xOpcfE9TOm
+	KakV7dD4y4YfxLDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 772411350A;
+	Tue,  3 Nov 2026 13:25:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id hhHQFLTg6WqLPAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 03 Nov 2026 13:25:08 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 08FB9B272; Tue, 03 Nov 2026 14:25:08 +0100 (CET)
+Date: Tue, 3 Nov 2026 14:25:07 +0100
+From: Jan Kara <jack@suse.cz>
+To: koraynilay <koray.fra@gmail.com>
+Cc: David Sterba <dsterba@suse.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	Chris Mason <mason@kernel.org>, Jan Kara <jack@suse.cz>, "Darrick J . Wong" <djwong@kernel.org>, 
+	Sean Smith <defendthedisabled@gmail.com>, Andrey Albershteyn <aalbersh@kernel.org>, 
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] add provenance time (ptime)
+Message-ID: <upe7qvhod63zd724s7uiql6kanqyrcwplodoavcvqjt35vd4ee@s3iglizxejlr>
+References: <20261027220532.736352-1-koray.fra@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,103 +112,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAHLg6WoC/yXMwQ6CMAwA0F8hPdtkWyMEf8V4wFK0RmBZB9EQ/
- t2px3d5G5gkFYNTtUGSVU3nqcAfKuB7N90EtS+G4ELtHTlcGyTMc1TGbiQ6PuOIWdHexuhpcMG
- 33PZ1A2WISQZ9/fbz5W9brg/h/C1h3z+Ok8lJfwAAAA==
-X-Change-ID: 20261030-v7-3-topic-am335lpm-ti-sysc-13f0219c9d67
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Matthias Schiffer <matthias.schiffer@tq-group.com>
-Cc: linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
- "Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org, 
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2495; i=msp@baylibre.com;
- h=from:subject:message-id; bh=nVuwYE9m11lYdl/oeJjVyknAejqd1mpWoS0UcE2QfJg=;
- b=owGbwMvMwCXWejAsc4KoVzDjabUkhqyXD6oj9lVMmdu1+oNC/u7HTrncbqHN86yzeVlXTFx1N
- 7Tw8BuRjlIWBjEuBlkxRZbOxNC0//I7jyUvWrYZZg4rE8gQBi5OAZjIupeMDEsCTvq8DVS79WtF
- ttxF1gnM3y9IG965VbyeTckmdpFD7VuG/35rWZ/e5Nkfk7Ew/fhVSy4ZlpqNq4/MfdG35aGPeBl
- 3KR8A
-X-Developer-Key: i=msp@baylibre.com; a=openpgp;
- fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027220532.736352-1-koray.fra@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,zeniv.linux.org.uk,kernel.org,suse.cz,gmail.com,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.30
 
-Commit
-    3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
-introduced handling of am33 SoC timers that are already active as
-reserved. During probe this means the clocks are enabled and a reference
-is kept.
+On Tue 27-10-26 23:05:30, koraynilay wrote:
+> This is an initial implementation of a new timestamp to indicate the
+> time when a file/directory was initially created.
+> 
+> This patch series takes inspiration from the one by Sean Smith
+> <defendthedisabled@gmail.com> [1], but using
+> file_setattr()/file_getattr() as suggested by Darrick J. Wong
+> <djwong@kernel.org> in [2].
+> 
+> The semantics of this new timestamp should be at least these:
+> - it should be the same as btime on a newly created file
+> - it's user-settable, so it can be preserved for backups, filesystem
+>   conversions, archives and any similar operation
+> - it should be preserved every time mtime gets preserved
+> 
+> and the correspondence with the other timestamps is as follows:
+> 
+> ctime <-> btime
+> mtime <-> ptime
 
-On AM33xx deep sleep is entered by the PM coprocessor which
-requires the PER power domain to be idle. The system timer driver
-disables the clock during suspend but the additional reference held by
-ti-sysc leads to the PER power domain not being idle:
+One thing I miss in this series is an explanation what this new timestamp is
+good for. Because frankly, I don't miss such timestamp as a Linux user :).
 
-    pm33xx pm33xx: PM: Could not transition all powerdomains to target state
+								Honza
 
-The reserved status is only needed where the
-gpt12 system timer must be kept from idling, see commit
-    3ff340e24c9d ("bus: ti-sysc: Fix gpt12 system timer issue with reserved status")
-
-The timer configuration in the devicetree is the same on all SoCs, so
-there is no reason to reserve the timers on AM33xx.
-
-Return -ENODEV for the system timers on all other SoCs. Like -EBUSY it
-stops the probe but the driver core doesn't report it as failure.
-
-Fixes: 3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
-Cc: stable@vger.kernel.org
-Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
----
- drivers/bus/ti-sysc.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/drivers/bus/ti-sysc.c b/drivers/bus/ti-sysc.c
-index e118b900c9ac..922a90d4c5a3 100644
---- a/drivers/bus/ti-sysc.c
-+++ b/drivers/bus/ti-sysc.c
-@@ -48,7 +48,6 @@ enum sysc_soc {
- 	SOC_UNKNOWN,
- 	SOC_2420,
- 	SOC_2430,
--	SOC_AM33,
- 	SOC_3430,
- 	SOC_AM35,
- 	SOC_3630,
-@@ -2917,7 +2916,6 @@ static void ti_sysc_idle(struct work_struct *work)
- static const struct soc_device_attribute sysc_soc_match[] = {
- 	SOC_FLAG("OMAP242*", SOC_2420),
- 	SOC_FLAG("OMAP243*", SOC_2430),
--	SOC_FLAG("AM33*", SOC_AM33),
- 	SOC_FLAG("AM35*", SOC_AM35),
- 	SOC_FLAG("OMAP3[45]*", SOC_3430),
- 	SOC_FLAG("OMAP3[67]*", SOC_3630),
-@@ -3124,13 +3122,12 @@ static int sysc_check_active_timer(struct sysc *ddata)
- 	 * A to B4 at some point.
- 	 */
- 	switch (sysc_soc->soc) {
--	case SOC_AM33:
- 	case SOC_3430:
- 	case SOC_AM35:
- 		error = -ENXIO;
- 		break;
- 	default:
--		error = -EBUSY;
-+		error = -ENODEV;
- 	}
- 
- 	if ((ddata->cfg.quirks & SYSC_QUIRK_NO_RESET_ON_INIT) &&
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261030-v7-3-topic-am335lpm-ti-sysc-13f0219c9d67
-
-Best regards,
---  
-Markus Schneider-Pargmann (TI) <msp@baylibre.com>
-
+> 
+> Examples:
+> 1) a .zsh_history file created in 2019, then after a few years the user
+>    decides to switch to another filesystem, copying the .zsh_history to
+>    the new home, in that case btime would have the timestamp of the copy
+>    and ptime would have the 2019 timestamp (just like mtime would have
+>    been preserved)
+> 2) a symlink created in 2020 from the home directory to a /path going
+>    through the same process as the .zsh_history, in this case it would
+>    also make sense to sync the ptime to the 2020 timestamp instead of
+>    keeping only the btime (so the inode creation time).
+> 
+> The proof-of-concept code (for testing) for stat(1) and cp(1) is
+> available at https://github.com/koraynilay/coreutils (master branch)
+> (Note: these coreutils code changes are a prototype and won't be
+> submitted upstream as-is, but they work as expected in simple stat and
+> cp -a/--preserve=ptime tests)
+> 
+> Lastly, the name "provenance" and "ptime" are not final, I personally
+> don't have a strong opinion on any name, but while testing with stat(1)
+> I noticed that "Provenance" is definitely too long for the normal
+> output, so another option which would fit well is "Origin time",
+> abbreviated as "ntime" (OrigiN time) and not as "otime", as that would
+> conflict with btrfs' internal naming and create confusion.
+> 
+> Thanks.
+> 
+> [1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabled@gmail.com
+> [2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
+> 
+> koraynilay (2):
+>   vfs: add provenance time (ptime)
+>   btrfs: add provenance time (ptime)
+> 
+>  fs/btrfs/btrfs_inode.h          |  4 ++++
+>  fs/btrfs/delayed-inode.c        |  6 ++++++
+>  fs/btrfs/inode.c                | 17 ++++++++++++++++-
+>  fs/btrfs/ioctl.c                | 12 +++++++++++-
+>  fs/btrfs/print-tree.c           |  1 +
+>  fs/btrfs/tree-log.c             |  3 +++
+>  fs/file_attr.c                  | 24 ++++++++++++++++++++++--
+>  fs/stat.c                       |  2 ++
+>  include/linux/fileattr.h        | 27 ++++++++++++++++++++++++---
+>  include/linux/stat.h            |  1 +
+>  include/uapi/linux/btrfs_tree.h |  3 ++-
+>  include/uapi/linux/fs.h         |  8 +++++++-
+>  include/uapi/linux/stat.h       |  7 ++++++-
+>  13 files changed, 105 insertions(+), 10 deletions(-)
+> 
+> 
+> base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+> -- 
+> 2.56.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
