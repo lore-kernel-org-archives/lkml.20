@@ -1,54 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700333;
-	b=Ls3vBXyDc7C1MQl5q2feJpPZszibe9OU06GdYu3HAZUYiIpMn8OsrlRdV8x+0fQ/fSiq
-	 MR4ao8AvpvPtTkKi09Anr25Jho1rCBicu1iSJmpcyx8nEigLdN/J2fz6EUcF3x6onBNGC
-	 A9BO7IN8vodtt5G8PV8MBRWnH205+Wtaunklazx62ZF2e/USwerriC+BIhfd5kzWYYn3J
-	 zxjlLDRffF9pf/kZ2Irj8oCfJ1Q9KsXgaopYx2HWySIXH8rxZmWu8iqjj3UkFqhjUKnIV
-	 T6AgVHt9ahmdXEKgFylQ/gy1KyFSNWZxpQQqCn7jLlQ2Z6aXqky9OGXserSrzF68rhQ==
+	t=1793700332;
+	b=ZQiaE6W1qbdWATwX3SzAjW81XzAKrlF/MguDlV9rpQOWQwrnRD86qZPaAhvGsX5Uj4ow
+	 zuItu2grmZlnIKRp6s+JOeM/fmg2i70XA1RLFeKCXbGlPkwgpiYdWRekdM1EJ+JAG7fYv
+	 P8OHJXPPT/30G8CCZCl5WlR5QtSCIXWi1gOMmH4sakl9Yr2yjVVUCXXDbqC7S3zftnBbl
+	 laMatZpO58Sg8w9Pol/oXxGyBB8jO+lIJOYr1Ney4EjQJx81B8p0UCor6JV6kgFK5wRjw
+	 NGAOOBuVxk2OIc9I7ra0VFr4bXfwgVN1q5zUG1Bv/bBIkmA28ubNsDmkOg+h0SqAWlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700333;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=QOV6iXIR9HWxd6BHvNJPwEHxe6mebIHW4m8dslcwXZk=;
-	b=22yGud0z5bitoEdJ85/zvzhsilT/fCjNCw19n0HLWWfbTztORYZZdkZktp3vjbDsSRDq
-	 GUdcdhmEMGkQ0Z8NQU103HF3aYBLwFe25kbkcj0N8Y9ZGkvAa0A4P36XtjNwmBciBh64v
-	 TBk9L2VN2oN7VQtP71vEHZSXvVOspNpk2iWgvNK83fkZpooga05wzncmGajcX0/fmCqk1
-	 bKs9xKNGU5T5WvPmMBn+mbwY1FUHbLdvccXt9/rgAJMGcvhZOEDrhCNXPrqU4BB/efLxK
-	 xUMyJiOdRumKIw0FnZPU7wByssZlpjhDZidmM6xWtLIacU2cilMbQqun/3bcLQWwrNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700332;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=crorAxXvnKsE7T5XLx1xJ9nM/l4kKcvMxg6tXRH0Qrk=;
+	b=nv7oyp8KeO9vh1ipbftcmZbOw64h9ctOjorE5Kkd3/absZFSmR+HnC1YZUc4vkY5tNYf
+	 w8+FIphTUUsTtdXRp6oFW8K5v/lDgDa9iAJyKu1k6iEXePsXa+COkxkbzGduFt/J6tYL4
+	 7AP1RUoV9QD0rvfuxKiMTUrmyUtKdA5TujujCyoK02a09PSefvALQcAbbvCaFHiP+PK0D
+	 7VcDeXpC88zx3+0ZeQ4dMQWfsEsHSEbfynb71It45Uw4RP/s1qX3bnkRAb/lcY6U5Bn3u
+	 uUh+oDXiNtpiUQ3tgUUbc7XvrGEUxBFsWOXxn8Mo/7OK7tomWC326fhoLYTkqVFDxFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=497tw1HG;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B286082BC1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F55606A827;
 	Tue,  3 Nov 2026 10:05:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75B286082BC1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABHWJnkselqi3s7AA--.2886S2;
-	Tue, 03 Nov 2026 18:05:24 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: hns3: destroy the page pool if RX buffer allocation fails
-Date: Tue,  3 Nov 2026 10:05:33 +0000
-Message-Id: <20261103100533.1310018-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33F55606A827
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=497tw1HG
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 08C1FA1651;
+	Tue, 03 Nov 2026 11:05:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1793700330; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=crorAxXvnKsE7T5XLx1xJ9nM/l4kKcvMxg6tXRH0Qrk=;
+	b=497tw1HG5tTvPHnKBcyLAHMQUIaLSVTHFgVkIHqnaFIwgR8ebbEXDhdlkHxi9jPN9+84an
+	MBs6izTJyvlsQE7oAqluFd6srtrXEWr4Hcv+k2HiZkutjMEYEZLWombC3ZvWGujIpCjald
+	x4vXIYF396TC1SxAQU4EBuylC3oErp1wJXfRnchjOwei0V/WQBE03v+VLFSSuhLAq3vESz
+	3w6hmPaeTNAfakkI8AyzxR57uoqJQlr6byagRjp3qPEC94AiQvL1bNf3wmHGwMGyIKG4vH
+	8Wwl/xstxV2OAAiPzPvcf0HCIsXFK2kn4QN53VTt1prcIsA+vLp9Hw/iZMVssw==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Tue, 03 Nov 2026 11:05:02 +0100
+Subject: [PATCH net-next v6 8/9] net: bcmgenet: allow the MTU to be changed
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,60 +56,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABHWJnkselqi3s7AA--.2886S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFWUCF17Xw1UXw47XF47Jwb_yoW8XryDpF
-	4YgayUAFZxZr1xGan7Ga1qkry5Za1ftrW8W34rZ3WfZws0kFWFqF98Xr1rJr1DGFZ7WF1a
-	qrs5Z3s7WFn8Ca7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
-	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
-	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgQAA2rpnIRi6wAAsT
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-nb-genet-mtu-nn-v2-v6-8-61d5631676e5@tipi-net.de>
+References: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
+In-Reply-To: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
+To: Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-hns3_alloc_ring_memory() creates the page pool and then fills the RX
-ring with buffers from it. If filling the ring fails, the error path
-only frees the descriptors and the descriptor callbacks, so the page
-pool created a moment earlier is leaked.
+The driver never sets dev->max_mtu, so the MTU is stuck at ETH_DATA_LEN.
 
-The page pool is normally destroyed by hns3_fini_ring(), but
-hns3_init_all_ring() only cleans up the rings that were set up before
-the failing one, so the pool of the failing ring is never released.
+One descriptor reaches as far as the packet ready threshold, so derive the
+maximum from it. The threshold registers are 8 bit in units of 16 bytes and
+want a multiple of the 256 byte burst size. A descriptor is one page and
+also holds skb_shared_info behind the frame. On 4K pages the page is the
+tighter limit and leaves 3564 bytes. That includes room for a VLAN tag so a
+VLAN interface can run at the parent MTU. The MAC accepts a little more
+than one descriptor holds, so a double tagged frame at that maximum is
+dropped as fragmented until a later patch reassembles those.
 
-Destroy the page pool on the buffer allocation failure path too.
+The PHY keeps running across the change so the link stays up, with its
+lock held so that a link event cannot enable the MAC while the registers
+change. Two MTUs at or below ETH_DATA_LEN derive the same values, so a
+change between them needs no restart at all.
 
-Fixes: 93188e9642c3 ("net: hns3: support skb's frag page recycling based on page pool")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Only a DMA that refuses to halt still takes the interface down, nothing is
+left to run on then.
+
+Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Link: https://github.com/raspberrypi/linux/issues/5561
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- drivers/net/ethernet/hisilicon/hns3/hns3_enet.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 88 ++++++++++++++++++++++++++
+ 1 file changed, 88 insertions(+)
 
-diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-index 47788be64be6..fe339ddc6379 100644
---- a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-+++ b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-@@ -5073,6 +5073,10 @@ static int hns3_alloc_ring_memory(struct hns3_enet_ring *ring)
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index f6ed15bb1a91c..e42de63fac14d 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -84,6 +84,12 @@
+ 				      ENET_THLD_MAX * ENET_THLD_UNIT, \
+ 				      ENET_THLD_PAGE_LEN)
  
- out_with_desc:
- 	hns3_free_desc(ring);
-+	if (ring->page_pool) {
-+		page_pool_destroy(ring->page_pool);
-+		ring->page_pool = NULL;
++/* Largest MTU that fits one descriptor, with room for a VLAN tag so a VLAN
++ * interface can use the parent MTU.
++ */
++#define ENET_MAX_MTU		(ENET_THLD_MAX_LEN - GENET_RBUF_ALIGN - \
++				 ETH_HLEN - VLAN_HLEN)
++
+ /* Tx/Rx DMA register offset, skip 256 descriptors */
+ #define WORDS_PER_BD(p)		(p->hw_params->words_per_bd)
+ #define DMA_DESC_SIZE		(WORDS_PER_BD(priv) * sizeof(u32))
+@@ -3965,6 +3971,81 @@ static int bcmgenet_change_carrier(struct net_device *dev, bool new_carrier)
+ 	return 0;
+ }
+ 
++static int bcmgenet_change_mtu(struct net_device *dev, int new_mtu)
++{
++	struct bcmgenet_priv *priv = netdev_priv(dev);
++	unsigned int old_mtu = dev->mtu;
++	struct bcmgenet_dma_set set;
++	int ret;
++
++	/* Below ETH_DATA_LEN everything is floored, so there is nothing to
++	 * reprogram. Same when a failed resume left the datapath down.
++	 */
++	if (!netif_running(dev) || !priv->tx_cbs ||
++	    max_t(unsigned int, old_mtu, ETH_DATA_LEN) ==
++	    max_t(unsigned int, new_mtu, ETH_DATA_LEN)) {
++		WRITE_ONCE(dev->mtu, new_mtu);
++		priv->rx_buf_len = bcmgenet_rx_buf_len(new_mtu);
++		return 0;
 +	}
- out_with_desc_cb:
- 	devm_kfree(ring_to_dev(ring), ring->desc_cb);
- 	ring->desc_cb = NULL;
++
++	ret = bcmgenet_alloc_dma(priv, bcmgenet_rx_buf_len(new_mtu), &set);
++	if (ret)
++		return ret;
++
++	/* The watchdog trips on an idle queue once the rings are gone */
++	netif_device_detach(dev);
++
++	/* The PHY stays up, hold its lock. A link event would otherwise take
++	 * the MAC out of reset and enable it mid rewrite.
++	 */
++	mutex_lock(&dev->phydev->lock);
++	bcmgenet_netif_stop(dev, false);
++
++	WRITE_ONCE(dev->mtu, new_mtu);
++	priv->rx_buf_len = bcmgenet_rx_buf_len(new_mtu);
++	bcmgenet_set_mtu_regs(priv, new_mtu);
++
++	ret = bcmgenet_init_dma(priv, true, &set);
++	if (ret) {
++		/* Take it down here, or close and suspend tear it down twice */
++		netdev_err(dev, "failed to initialize DMA, closing\n");
++		WRITE_ONCE(dev->mtu, old_mtu);
++		priv->rx_buf_len = bcmgenet_rx_buf_len(old_mtu);
++		mutex_unlock(&dev->phydev->lock);
++		netif_close(dev);
++
++		/* __dev_open() refuses a detached device */
++		netif_device_attach(dev);
++		return ret;
++	}
++
++	bcmgenet_hfb_restore(priv);
++	bcmgenet_netif_start(dev, false);
++	mutex_unlock(&dev->phydev->lock);
++
++	/* bcmgenet_netif_start() only restores the link interrupt */
++	if (bcmgenet_has_mdio_intr(priv))
++		bcmgenet_intrl2_0_writel(priv, UMAC_IRQ_MDIO_EVENT,
++					 INTRL2_CPU_MASK_CLEAR);
++
++	/* Interrupts were off, so a latched link event is lost. Internal PHYs
++	 * on v1-v4 are not polled either.
++	 */
++	phy_mac_interrupt(dev->phydev);
++
++	netif_device_attach(dev);
++
++	/* Filter updates that came in while the device was detached got
++	 * dropped. An IPv6 join does not hold RTNL.
++	 */
++	netif_addr_lock_bh(dev);
++	bcmgenet_set_rx_mode(dev);
++	netif_addr_unlock_bh(dev);
++
++	return 0;
++}
++
+ static const struct net_device_ops bcmgenet_netdev_ops = {
+ 	.ndo_open		= bcmgenet_open,
+ 	.ndo_stop		= bcmgenet_close,
+@@ -3976,6 +4057,7 @@ static const struct net_device_ops bcmgenet_netdev_ops = {
+ 	.ndo_set_features	= bcmgenet_set_features,
+ 	.ndo_get_stats64	= bcmgenet_get_stats64,
+ 	.ndo_change_carrier	= bcmgenet_change_carrier,
++	.ndo_change_mtu		= bcmgenet_change_mtu,
+ };
+ 
+ /* GENET hardware parameters/characteristics */
+@@ -4329,8 +4411,14 @@ static int bcmgenet_probe(struct platform_device *pdev)
+ 	/* Mii wait queue */
+ 	init_waitqueue_head(&priv->wq);
+ 	bcmgenet_hfb_init(priv);
++
+ 	priv->rx_buf_len = bcmgenet_rx_buf_len(dev->mtu);
+ 	priv->tx_thld_len = bcmgenet_tx_pkt_rdy_thld(dev->mtu) * ENET_THLD_UNIT;
++
++	/* v1 cannot program the thresholds, so it stays at the default MTU */
++	if (!GENET_IS_V1(priv))
++		dev->max_mtu = ENET_MAX_MTU;
++
+ 	INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
+ 
+ 	priv->clk_wol = devm_clk_get_optional(&priv->pdev->dev, "enet-wol");
+
 -- 
-2.34.1
+2.53.0
 
