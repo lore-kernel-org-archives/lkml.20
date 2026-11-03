@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700339;
-	b=3FcP6OTN1WkwOmCjjOMrndVoZvcYnDp5xIVNpSz/H2aIs8Mxw4HPIGEcqp/76KLZmH9P
-	 wwEuDjBN7avnt0UkG6P8IEq5EIr/6dybf9NAGYjCWMK4z5Vdnu2Vaja+trPbgQARaWbtG
-	 R0UAguCcVhai1XixRM9cfIvgBH48WE48r9yuhlRrUDEgGa+rVywXuVs7dtzWpswwfk237
-	 KeeLfCiN0ZhyrWwBBy3W/DOvbs+WMGHAp33/ETafRy2SVDcJg3RbdlO1ybZdcMq37JWaP
-	 x2Vxg+0z0XoPNW3m7vg+3EL9dq2lCA3rdneVAff54n3E32fbZ2hfrmKRG4Zhn1iNw+w==
+	t=1793700329;
+	b=UQ1iQOHoGkNGfSGgfdjStIaQaql60loeD5AxAx2Xr9B5/tGhmTY+hiyLHQCXiLDYM4Xi
+	 UQb/Ovb2un34eGWgJSxVy4pmkqqcSgrjT0GndWmaMVwwq1eacUsVJ0Q/KNmxV5v65Gxar
+	 Qr4pyDT+Rzc4mDxixjncXCpS10ypf8b9ARnKwCO6OnHghxIbsZDmp0OjGlS1fkiDTGLNQ
+	 zeDDXg5qRQ8I5k/MIeLK88qzptkAIEkkobz4EbboHe9Q7AXOaZL75Bl9Du9lIRS7rnl9u
+	 OnjbtCNMx6OwvcVyr8pDwWaWoKijL3UJOBMGdP5RvfWXXWi4CINysu4DnNdmMf2+wbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700339;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=gJbduYY+2MLz7vY8LSMtIk42i7cqHj5q97uCgEORjb8=;
-	b=v7BEwnt7Z4uE5wQJ6m8Zv+T06H+u/KEKoPkD6Hw01RDJAHJ72YhheXlt1bAiSz3Jm/hg
-	 VJ43tBE7g4LyGiQtow8O8snu3Ac2dLBiElhFByZ6f4xgcFM275RpWZ2WOr2iPf3oOgO6L
-	 jJ11dJt9vdS7IMg2j/BUtJ/Rp5UX05SMvRZJN44I5EPxKjLkulnqFn6OpJ3zhgqWs89Ne
-	 qYfwSt5U7MG9g/O3kfQ3Po6OOdlDkUHR8UpadqcRpOdDVqt3xDJmeeCrNPHygXmT7O9vI
-	 Rg4FOfxT4xUrEmCI3b2Qo6PhqX+16E9dlrs4Fdhlm0cvCFnrMtlo7NLq1PkERTqDQ4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700329;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=EH6JpSgGDXBr8/oXh3P2IsoFFMPzZqzgjTRZpHrhex4=;
+	b=M0abwTe1erlDeC2LQSMRzffjER3yMUZ2qQQ+09y9yR/yS9nBnpnqbKvYFtmu3w2ibnKC
+	 YxZkfu2mc9UjuWhcg/mo1KDZuenh5Z/nDTWwt3Edx9fuvr+RllPoV8qHzEM0jqYsu438c
+	 bS2jdAP6Qc8j/DubiDARwoVlkSHp7mepgVYdLP4pD18p8zWF+OwiAue9z/XL9tSLYTCNs
+	 o70KqvNbJwph7vY3cgRQruud73Gd6Lf+n1Ikf4pE3phq/CGnvtuo9XiRQXDPLX1Nmsl8n
+	 XDAOKbwDdGgjYGAQ8YjTIIWyJBqbXMgWfRKjWAB1f1/XTZ3Gdj3/+7J3UpkeuscJ0Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ii52fmhG;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D3460A381C;
-	Tue,  3 Nov 2026 10:05:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30D3460A381C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAXIZLmselqnXs7AA--.2519S2;
-	Tue, 03 Nov 2026 18:05:26 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Marcin Wojtas <marcin.s.wojtas@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: mvpp2: free pending TX timestamp skbs when the port is stopped
-Date: Tue,  3 Nov 2026 10:05:35 +0000
-Message-Id: <20261103100535.1310088-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742B9606EE8D;
+	Tue,  3 Nov 2026 10:05:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 742B9606EE8D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ii52fmhG
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 274EDA164B;
+	Tue, 03 Nov 2026 11:05:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1793700326; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=EH6JpSgGDXBr8/oXh3P2IsoFFMPzZqzgjTRZpHrhex4=;
+	b=ii52fmhGSNa/j1032VrLfvmJ4QL8jnv3eiPnliHEmMynKIIAOTGJ5IozJDXQ/h2eVD4uAR
+	4uU579eohlQOeYEBp54jLzKFUixGmO5kUwbVydOxMVPcFl2FbaLqDbNmVVtLoN39teQ/9y
+	nLo2YkcFz6OaNpyn8qw9CbP5be2bkCZQLDnqTq6b2oMbqdi/mMl4IiGUD4w48Zt7sQ1Ygh
+	rGRDdMRz9ioyrVGGyhVciycgLgp7UdRDDmo81jduOe3D0v+0spiQcGmDFfXxPgaO0Vqvze
+	YPfWYYFFmqFnw57FV+uPLC+pFZx9KN9ApQ0KPdcBh9dFRLVyeTix+DlBalHM4g==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Tue, 03 Nov 2026 11:04:56 +0100
+Subject: [PATCH net-next v6 2/9] net: bcmgenet: let the caller decide
+ whether to start the PHY
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,79 +57,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAXIZLmselqnXs7AA--.2519S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KrW3ArW5ZryxGr4fZrW7CFg_yoW8urW7pF
-	WjyryYyFWkXF47Z347Wa1jyr1Fqw1xtF43GFWIk34Yq347Grykur409a90vFW8JrWkXry7
-	AF4xKFsrGr4DXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
-	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
-	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpnOFgbAAAs8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-nb-genet-mtu-nn-v2-v6-2-61d5631676e5@tipi-net.de>
+References: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
+In-Reply-To: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
+To: Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-mvpp2_tx_hw_tstamp() takes an extra reference on skbs that need a TX
-timestamp and stores them in port->tx_hwtstamp_queue[]. The reference is
-dropped by mvpp2_isr_handle_ptp_queue() when the hardware reports the
-timestamp. Nothing drains the queues when the port is stopped, so skbs
-still waiting for a timestamp keep their reference until their queue
-slot is reused, and are leaked for good when the port is removed.
+bcmgenet_netif_stop() already takes stop_phy, bcmgenet_netif_start() does
+not. The MTU change in a later patch leaves the PHY running while the
+datapath goes down and comes back, and phy_start() expects a stopped PHY.
 
-Free the queued skbs in mvpp2_stop(), after the interrupts have been
-released.
+Add the same parameter to the start side.
 
-Fixes: f5015a594c50 ("net: mvpp2: ptp: add support for transmit timestamping")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+No functional change.
+
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-index 317af54369cf..fc020b8c8830 100644
---- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-+++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-@@ -3419,6 +3419,22 @@ static void mvpp2_isr_handle_ptp(struct mvpp2_port *port)
- 		mvpp2_isr_handle_ptp_queue(port, 1);
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index f28b32f62a7c6..bed94f9a79450 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -3374,7 +3374,7 @@ static void bcmgenet_get_hw_addr(struct bcmgenet_priv *priv,
+ 	put_unaligned_be16(addr_tmp, &addr[4]);
  }
  
-+static void mvpp2_tx_hwtstamp_flush(struct mvpp2_port *port)
-+{
-+	struct mvpp2_hwtstamp_queue *queue;
-+	int nq, i;
-+
-+	for (nq = 0; nq < ARRAY_SIZE(port->tx_hwtstamp_queue); nq++) {
-+		queue = &port->tx_hwtstamp_queue[nq];
-+		for (i = 0; i < ARRAY_SIZE(queue->skb); i++) {
-+			if (!queue->skb[i])
-+				continue;
-+			dev_kfree_skb_any(queue->skb[i]);
-+			queue->skb[i] = NULL;
-+		}
-+	}
-+}
-+
- static void mvpp2_isr_handle_link(struct mvpp2_port *port,
- 				  struct phylink_pcs *pcs, bool link)
+-static void bcmgenet_netif_start(struct net_device *dev)
++static void bcmgenet_netif_start(struct net_device *dev, bool start_phy)
  {
-@@ -4914,6 +4930,7 @@ static int mvpp2_stop(struct net_device *dev)
- 		free_irq(port->port_irq, port);
+ 	struct bcmgenet_priv *priv = netdev_priv(dev);
  
- 	mvpp2_irqs_deinit(port);
-+	mvpp2_tx_hwtstamp_flush(port);
- 	if (!port->has_tx_irqs) {
- 		for (thread = 0; thread < port->priv->nthreads; thread++) {
- 			port_pcpu = per_cpu_ptr(port->pcpu, thread);
+@@ -3391,7 +3391,8 @@ static void bcmgenet_netif_start(struct net_device *dev)
+ 	/* Monitor link interrupts now */
+ 	bcmgenet_link_intr_enable(priv);
+ 
+-	phy_start(dev->phydev);
++	if (start_phy)
++		phy_start(dev->phydev);
+ }
+ 
+ static int bcmgenet_open(struct net_device *dev)
+@@ -3454,7 +3455,7 @@ static int bcmgenet_open(struct net_device *dev)
+ 
+ 	bcmgenet_phy_pause_set(dev, priv->rx_pause, priv->tx_pause);
+ 
+-	bcmgenet_netif_start(dev);
++	bcmgenet_netif_start(dev, true);
+ 
+ 	netif_tx_start_all_queues(dev);
+ 
+@@ -4353,7 +4354,7 @@ static int bcmgenet_resume(struct device *d)
+ 	if (!device_may_wakeup(d))
+ 		phy_resume(dev->phydev);
+ 
+-	bcmgenet_netif_start(dev);
++	bcmgenet_netif_start(dev, true);
+ 
+ 	netif_device_attach(dev);
+ 
+
 -- 
-2.34.1
+2.53.0
 
