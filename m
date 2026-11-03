@@ -1,63 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.143
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712671;
-	b=46c0R+dvLkyONHK92ZZd4d3dsSJF613X8tW6snAzhnj/oPitJLEsZC4YkRC/rXxwf8yl
-	 +wQe3uMN8waCSUCGhCvVNvP9EDsno7QBc8rlLhyjIV2Pa35naCTj/FNFqndHQcKhaQz9T
-	 XN0wmXK1l+UaIGe/7t3D65Dlenr96ty2SCBwR62LAh8Ov8XY2CbdNDyIM+L2eUuWRtmzl
-	 KFJ+BkUizETTUqAt10Bd1FlSZHHll4pm4uAFJoCYSD8Y6EHDnJ9GINxTZIRwjoOIznM7i
-	 LvgekiJAG8bUV727jHbVb+M28aRhQQ2ppfk+gz0ilm5HNq8S95MD6ccHEM1A/JhTqLA==
+	t=1793712670;
+	b=EN3BY6hNhB5Dj7I1ESLST58qJkk4ZzhlQ0DXvGryMibjjf5mk4OASaCW7STRL2iLiufQ
+	 BLf9iXUeRWDAp5IkwlMGzpLmlCE908MRNngdJQDSFk3eDHNoqm7M7MBd0QXsT2Hyl3Gee
+	 hvuj4LPcezOtHLNUoruDPsqtuYtU7gTtss7rhT9OBBKu4MKFMRgGWMEqgyRGCmYzxygZC
+	 TxQ5WeUKX9gm6vTXFLr40CW3Dt63xddfjidicqAMrxmBblScE9+QKyalpR6gVbdJyBZys
+	 tFcR1ZJeJqWkClAu29UvA6uwn1eUBTVZUoOEvUJicjpevNRwv6+fm+lGPfUsKY43KYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712671;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Developer-Signature:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712670;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=w8qel/wteSKBA8Y2Csz0JYEKe3WCB939OUqwMmJuaG4=;
-	b=IEsCFR2kbKVuFXuOodXgdQoVNO1qcVcoTI8uan5MpKSuM1dnKz1e4qqBoWmm8RDGRknE
-	 O1Az2fP+YN5ufwCSslX+Yrx5y/Pg3SYaHhtQ52B/vYmgZk9g/UMw9Y06MY86CuAp43Y0r
-	 Duo2PMV4jgG1ZUf9fKpZeL7BehHMyDg8TEAYwAGykYlIqraUA8fpDq+EAXqcVrHJR0YpY
-	 7fwbhXLz9hGss13yoiKrE6eCPuRD1pz6W0jD+pWzpslqGfU7CCrnGkTkNuOhb1x38+B9v
-	 ypHEDy9jFjsQKrQcffDIp5Q6FltzC2ozlOX6d6u6fTuL+qP4/wudKbKM3sZZ/rtXYAw==
+	bh=9RF5bmgBFOvuDjB0XV04CAil3nzrHImYSkW40EAqvfg=;
+	b=am0xCJQUpSqrbT0Vx2X8z3o7YpbtcWcIdGN2yaRsThhY2/ryXU28UuIZo6o13Osg7O6h
+	 anF1t+F+Xy0/b4kspD+ZQ52DbTKnTQs3vrWWaYFuKaCfdjbFc7HOGko30iOdx9E1oJzje
+	 3dd5yLSBZ6NNnZyP561VJcpfheLFInFXHqiyHg5DudS0Ko4uBUAnWQn0sBns6Di9Jerd5
+	 UfGnIdnZKfsJ9trYoeVYYzkcupVtL9LzjZYs86febsRTAJ/Gi74znW8Gr3wnXCyqKzIsN
+	 5PGSXbN6HsKnvCo1c26BQMy99bgVmvkcrnE290KCxXiLpp+8KP3dcKvPZxRY0amv8Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=siemens-energy.com;
 	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
-	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=uspOWiSV;
-	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=GOA+GpFi;
-	arc=none smtp.remote-ip=185.136.65.143
-Received: from mta-65-143.flowmailer.net (mta-65-143.flowmailer.net [185.136.65.143])
+	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=bGNJSwUh;
+	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=mmXSvCqV;
+	arc=none smtp.remote-ip=185.136.65.144
+Received: from mta-65-144.flowmailer.net (mta-65-144.flowmailer.net [185.136.65.144])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3C2606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:31:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F3C2606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0636F606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:31:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0636F606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=uspOWiSV;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=GOA+GpFi
-Received: by mta-65-143.flowmailer.net with ESMTPSA id 202611031331010586b318060019fd37
+	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=bGNJSwUh;
+	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=mmXSvCqV
+Received: by mta-65-144.flowmailer.net with ESMTPSA id 20261103133100451450b8170019fdc0
         for <linux-kernel@vger.kernel.org>;
-        Tue, 03 Nov 2026 14:31:01 +0100
+        Tue, 03 Nov 2026 14:31:00 +0100
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
  d=flowmailer.net;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=w8qel/wteSKBA8Y2Csz0JYEKe3WCB939OUqwMmJuaG4=;
- b=uspOWiSV86kPUnbI0IjgW+FOAZmH0zwgoOXZWLe8Kx3JG1aD2hYxsW8B9y3ILIPLxFJevT
- v7Ri85MAqedvr8n5cS5OljJfXmKheCHDx+sUapN9aZiedHLn+pIDWzAuqxh5xCdsBwaxM5Z6
- elNnlKDEMbh2bKaLtITprhsj0XKjk=;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:Date:Message-ID:MIME-Version;
+ bh=9RF5bmgBFOvuDjB0XV04CAil3nzrHImYSkW40EAqvfg=;
+ b=bGNJSwUhULT3laE4eNVB0pAKgfmRugkOql03vw9sM9wBtdLyQzmXUwpm5i4n8gnl2Rc/qG
+ Gobh6e/GuziH0wibbO9SDq/NFrHfnEstjXQD0LlBbt4wNeUjNrbMns9vROcsTDVrUbw+z484
+ 2n6QiqpgUZzgPof5zzwRpVWfKxgeA=;
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
  d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=w8qel/wteSKBA8Y2Csz0JYEKe3WCB939OUqwMmJuaG4=;
- b=GOA+GpFiZskBk/v+f3pCiOQEfa8NZefh1BmjCeu9mARReDnYKAobrwUSdQgJSYhzVd5Ovg
- xfOOWz/1w1rfsOaKLSUIpjPVWFN+xMy3c1KG4EhPyjmjVn8nV8ukO9rb+6fkHDXdDbOz+dSB
- XP5BRPm5tolkHfBaW6gQ2tmJY+cJO5HtpvBPE3rBSUrNTjTWN2IsWXblSc8Jxj7tUdXpiTAu
- GDrkUcONItdAGtWMkD12u/EG8czVjg3MULY8jzuHIb4Tgela9tSc9wPgeoOVpDwc96ga3vJC
- cNLJZzQdwjAqpyVIoZTLdx6hOoDndfvw9ZceaO/t2eb6eoCv1raRoYwg==;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:Date:Message-ID:MIME-Version;
+ bh=9RF5bmgBFOvuDjB0XV04CAil3nzrHImYSkW40EAqvfg=;
+ b=mmXSvCqVUXKCCmxP3fxdc+24N12DyzfSKXH4o9xkMrJYzHODEnGYniLCJkxPaBKSsH/yEu
+ aZruTJXYJYp974a+GmGI+W0zwwZowYVqqiaD/acDREbwjRSZrEPFUO6k4ByR92tuE5jvcpWj
+ Oj1ZriXA/5AZeZY6iJgFbY7E2PtgBsX7yBYmX6iLqkmNNnIdCNPntv3LIcRwbLhdWvSlUJCH
+ VEd14cZYC8z2v3yOe+FwFDkddUWDTW9kAaOcGNuoLvk1OfqzlLZda1ik7jzdnMQb+E9LViBB
+ RNh//0jcu44E0WxDK6Hw3iNVph0WEcCAqKQTIhPrMWv6+PMpVEx7Wumg==;
 From: Simon Schuster <schuster.simon@siemens-energy.com>
-Date: Tue, 03 Nov 2026 14:30:30 +0100
-Subject: [PATCH v2 3/3] nios2: Drop usage of libgcc in favour of
- GENERIC_LIB_*
+Subject: [PATCH v2 0/3] lib: Add software mul/div helpers and use them from
+ nios2
+Date: Tue, 03 Nov 2026 14:30:27 +0100
+Message-Id: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,110 +70,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-nios2-remove-usage-of-libgcc-v2-3-5fabbedc49ec@siemens-energy.com>
-References: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
-In-Reply-To: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
+X-B4-Tracking: v=1; b=H4sIAPPh6WoC/42NQQrCMBBFr1Jm7UiSlqCuvId0EZNpO2ATyWiwl
+ N7d2BO4fI/P+ysIZSaBS7NCpsLCKVYwhwb85OJIyKEyGGWsVq3CyEkMZppTIXyLq4s04IPvo/d
+ o23AOanAuWAM18cw08GfP3/rKE8sr5WV/K/pn/wwXjQo7ajvtrVUnQ1dhmikKUqQ8LkefZui3b
+ fsCEquxh9EAAAA=
+X-Change-ID: 20261030-nios2-remove-usage-of-libgcc-63d9d0faad62
 To: Dinh Nguyen <dinguyen@kernel.org>, 
  Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>
 Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org, 
  Vineet Gupta <vgupta@kernel.org>, 
  Simon Schuster <schuster.simon@siemens-energy.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793712660; l=2862;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793712660; l=3078;
  i=schuster.simon@siemens-energy.com; s=20250818; h=from:subject:message-id;
- bh=pqnQU90Jw18vgjAqiX0T/om0dd6mDCy1Dhi5wCIDqHE=;
- b=eatkO2cSru5s8EHv+4bQ04KislttktGTOdc6ei1mPnWs7TmFLQ36MHNW/oJ9Inf4zax493Qjt
- s65NMKXCENwCxTHCedYwaQYbAl0B+0FDZJZG9U1CtvMTmrVSYmafUTO
+ bh=W8xwPsjIABokCDuT4eVFZpTy4WRFjbZQjhH29zd7Mq4=;
+ b=x95hPakuWHzajV5vrydAo6xUVBfCnt26Na08yWUu1Fy+NDP6SwMmZwZxZlWaoi6/hK3lo7FkN
+ v5mZuwGm0OdCKvkvqQS53xXQ60rLS1nMYO0JgRSJJMn2cz1kSbLMV5L
 X-Developer-Key: i=schuster.simon@siemens-energy.com; a=ed25519;
  pk=PUhOMiSp43aSeRE1H41KApxYOluamBFFiMfKlBjocvo=
 
-From: Dinh Nguyen <dinguyen@kernel.org>
+Recently, there have been linking failures on nios2 regarding libgcc
+symbols that we reexport to modules (in particular __mulsi3 [0], and
+__divsi3_table [1]).
 
-Use the kernel's runtime support for lshrdi3, ashldi3, ashrdi3, muldi3,
-and ucmpdi2, mulsi3, divsi3, udivsi3, modsi3, and umodsi3.
+In the resulting discussion, Arnd suggested [2] dropping the libgcc
+dependency altogether, as -- while specific functions might be fine --
+libgcc does not expect to run in a kernel-like freestanding environment.
 
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-Co-developed-by: Simon Schuster <schuster.simon@siemens-energy.com>
+To this end, Dinh Nguyen was kind enough to locate and extract
+GPLv2-compliant versions of the software mul/div/mod functions required
+by nios2 gcc and integrate them into the kernel. As Arnd also suggested
+[3] that these might be helpful to other smaller architectures (such as
+arc or openrisc), I've further extracted them to lib/ with corresponding
+CONFIG_GENERIC_LIB_* options that allow selectively enabling and
+exporting these as required.
+
+The patch series compiles mostly^4 fine in a nios2 allyesconfig
+without modpost errors; a quick boot test on a regular build also
+completed successfully.
+
+Best regards,
+Simon
+
+0: https://lore.kernel.org/lkml/20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de/
+1: https://lore.kernel.org/lkml/20261026234452.1086974-1-sashal@kernel.org/
+2: https://lore.kernel.org/lkml/686f4ca2-0fb6-4a73-9cdb-0edcccafdd62@app.fastmail.com/
+3: https://lore.kernel.org/lkml/426c73b7-b4dc-4b68-9aa5-6145a13280bc@app.fastmail.com/
+4: There seems to be an unrelated issue in linux-next regarding
+   CONFIG_PNFS_BLOCK. Furthermore -Wno-attribute-alias
+   -Wno-missing-prototypes -Wno-missing-declarations and
+   -Wno-unused-function were required due to unrelated Werror-related
+   compilation issues; but as this series concerns compiler intrinsics
+   that are never explicitly referenced in code and it links fine this
+   seems acceptable to me.
+
 Signed-off-by: Simon Schuster <schuster.simon@siemens-energy.com>
 ---
- arch/nios2/Kconfig              | 10 ++++++++++
- arch/nios2/Makefile             |  4 +---
- arch/nios2/kernel/nios2_ksyms.c | 22 ----------------------
- 3 files changed, 11 insertions(+), 25 deletions(-)
+Changes in v2:
+- Reorganised to directly add to lib/* skipping arch/nios2/lib/math.c
+- Dropped __gcc_bcmp as it is not actually needed
+- Link to v1: https://lore.kernel.org/r/20261030-nios2-remove-usage-of-libgcc-v1-0-4e341c66082e@siemens-energy.com
 
-diff --git a/arch/nios2/Kconfig b/arch/nios2/Kconfig
-index 9c0e6eaeb005c..3082444b2b487 100644
---- a/arch/nios2/Kconfig
-+++ b/arch/nios2/Kconfig
-@@ -14,6 +14,16 @@ config NIOS2
- 	select GENERIC_CPU_DEVICES
- 	select GENERIC_IRQ_PROBE
- 	select GENERIC_IRQ_SHOW
-+	select GENERIC_LIB_LSHRDI3
-+	select GENERIC_LIB_ASHLDI3
-+	select GENERIC_LIB_ASHRDI3
-+	select GENERIC_LIB_MULDI3
-+	select GENERIC_LIB_UCMPDI2
-+	select GENERIC_LIB_DIVSI3
-+	select GENERIC_LIB_MODSI3
-+	select GENERIC_LIB_UDIVSI3
-+	select GENERIC_LIB_UMODSI3
-+	select GENERIC_LIB_MULSI3
- 	select HAVE_ARCH_TRACEHOOK
- 	select HAVE_ARCH_KGDB
- 	select HAVE_PAGE_SIZE_4KB
-diff --git a/arch/nios2/Makefile b/arch/nios2/Makefile
-index f1ff4ce0f1a2c..173588c31abf9 100644
---- a/arch/nios2/Makefile
-+++ b/arch/nios2/Makefile
-@@ -19,8 +19,6 @@ UTS_SYSNAME = Linux
- 
- export MMU
- 
--LIBGCC         := $(shell $(CC) $(KBUILD_CFLAGS) $(KCFLAGS) -print-libgcc-file-name)
--
- KBUILD_AFLAGS += -march=r$(CONFIG_NIOS2_ARCH_REVISION)
- 
- KBUILD_CFLAGS += -pipe -D__linux__ -D__ELF__
-@@ -37,7 +35,7 @@ KBUILD_CFLAGS += -DUTS_SYSNAME=\"$(UTS_SYSNAME)\"
- KBUILD_CFLAGS += -fno-builtin
- KBUILD_CFLAGS += -G 0
- 
--libs-y		+= arch/nios2/lib/ $(LIBGCC)
-+libs-y		+= arch/nios2/lib/
- 
- INSTALL_PATH ?= /tftpboot
- nios2-boot := arch/$(ARCH)/boot
-diff --git a/arch/nios2/kernel/nios2_ksyms.c b/arch/nios2/kernel/nios2_ksyms.c
-index e8710a269b398..351664e236fac 100644
---- a/arch/nios2/kernel/nios2_ksyms.c
-+++ b/arch/nios2/kernel/nios2_ksyms.c
-@@ -21,25 +21,3 @@ EXPORT_SYMBOL(memmove);
- /* memory management */
- 
- EXPORT_SYMBOL(flush_icache_range);
--
--/*
-- * libgcc functions - functions that are used internally by the
-- * compiler...  (prototypes are not correct though, but that
-- * doesn't really matter since they're not versioned).
-- */
--#define DECLARE_EXPORT(name)	extern void name(void); EXPORT_SYMBOL(name)
--
--DECLARE_EXPORT(__gcc_bcmp);
--DECLARE_EXPORT(__divsi3);
--DECLARE_EXPORT(__moddi3);
--DECLARE_EXPORT(__modsi3);
--DECLARE_EXPORT(__udivmoddi4);
--DECLARE_EXPORT(__udivsi3);
--DECLARE_EXPORT(__umoddi3);
--DECLARE_EXPORT(__umodsi3);
--DECLARE_EXPORT(__muldi3);
--DECLARE_EXPORT(__mulsi3);
--DECLARE_EXPORT(__ucmpdi2);
--DECLARE_EXPORT(__lshrdi3);
--DECLARE_EXPORT(__ashldi3);
--DECLARE_EXPORT(__ashrdi3);
+---
+Dinh Nguyen (2):
+      lib: extract 32bit mul/div helpers from nios2 into GENERIC_LIB
+      nios2: Drop usage of libgcc in favour of GENERIC_LIB_*
 
+Simon Schuster (1):
+      nios2: export __divsi3_table
+
+ arch/nios2/Kconfig              | 10 +++++
+ arch/nios2/Makefile             |  4 +-
+ arch/nios2/kernel/nios2_ksyms.c | 22 ----------
+ arch/nios2/lib/Makefile         |  1 +
+ arch/nios2/lib/math.c           | 24 +++++++++++
+ include/linux/libgcc.h          | 10 +++++
+ lib/Kconfig                     | 15 +++++++
+ lib/Makefile                    | 10 +++++
+ lib/divmod.c                    | 94 +++++++++++++++++++++++++++++++++++++++++
+ lib/mulsi3.c                    | 24 +++++++++++
+ 10 files changed, 189 insertions(+), 25 deletions(-)
+---
+base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
+change-id: 20261030-nios2-remove-usage-of-libgcc-63d9d0faad62
+
+Best regards,
 -- 
-2.39.5
+Simon Schuster <schuster.simon@siemens-energy.com>
 
