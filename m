@@ -1,104 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.58
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793718887;
-	b=HUJd0te5ghbjMhqFU5RcYHNIcuS+JV7avjQoX9QCd/fGU2XHS8kt5GKd0D1xsF4sKaix
-	 5QSsUZMTteOoXxAnJ+6/ISZR/7eTwbYJMruUACoIbIG/OBY4K4Ei0LNtqSEFZMqNOxPN4
-	 k4vQTcmhSbQlbvBGcC9mgmqZJ44/mGGWFWZqgtNPHPrmA6WMFwWtfd+bcLH4TyRdY1SBl
-	 9Uadz4XElEtgfMRjBiuDekv4gFAP35R4ujH0C2cmyDbtRWzsYCur21tLP3K999P79+vti
-	 vNJbIx5ufKt86tml92nrcYEb7WFXcTC7PjptRBFjBQ1Bepto0h2LVWzGpcvWH0xseJg==
+	t=1793718890;
+	b=23CbtmXyv45VZ1T42vcA0sCEtAcCawmM2GggUbBvPTT2/BbOPVaTIYSNYLpuGzL61tgN
+	 P14WyCAiU1ELTNPi2KnfWqS8T0ybwikgyAf8uVALuYRFB7inD4AEq7XwgImJIS7U5i7u1
+	 8MVoT9UCrC5wJfn0G0Lzv9uCcqjfPBRmnvGE9HLRoZ/ZETLy5FImlUk4vcre2bVM4XJV8
+	 iZBVWUgG2qIpTLnQoi9ZfcZfsUX//xJnuJk4vgiela5MhE+NT7PX2CXSlNnaQwqfqT97d
+	 j4eQ4uXGR99zM0L35TWT/VxfgAMblMja/3wDOIEOz6Ftsp3IDsCXQViZReiQYqWmGmA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718887;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=lBAimrTSGOcfjqkodrb+ZeB8WdoV0Ux+HNSAqP3SoUY=;
-	b=j1Vm1P/WfMAnUmbHLFezl2xa6S/SCPMYgIQC8DMiSbb/zPGbh48Hy/vxvO5X57XbukgG
-	 cyAN2OtkeFqXmk3qV/62QdMzBmyi+0oBCHgxQpThYqzKfY6U7JrUL9rn1tsRg4+SR3I8I
-	 XLw2RvpaH+rc5J0wiwlvOXJb3RscciHEYtUjZ6cpNa8uvXf9CfCExo3rLAjds4kX9BkLW
-	 Gu+FiYGhktzbFzxWRT5ICUDc0SfBlKlFoydntXSJpayC+p0bQq+lqVmUY741FVeoX6eVb
-	 25KARDxknOBPoRfgmkuCr0VKN8uumtMdljLlBY9kuvpLCbyBKsqQdRw6dLkC8Lljj5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718890;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=QDUu0ipWkEkr2evKB+VQexo3kZhP7laIpcWU434jcM4=;
+	b=mQUdQB0kQ59i1bgwxqnf891vmaTO7sXZelZ8WyvF0D1lhL44PHBcfelOXTjMZQ1/gPuN
+	 pfE9ZppWy2W82LtWDyIvaKYHXqbGQQVE/6QrUqyQkaiDr39QjShla64DsR8YnMK+0D4bV
+	 FeCAdnvqk/28QaxBo3hjhJqV/uiqDwYWz9so9OxL9E1ADk8edUi4jTOEFScCZ47qcF+b3
+	 +MO7XeNg0w6S8+oJyiSia+XEkIf8CTSb/cJx/1SQf4DMmXnX48Zv9/pg170CqTtBAfo+H
+	 QvbiGzI7Tlg0jegN80fpl05PpiXDAyVR6bHQ8U5bkSitRv/QI47Moo/ZEW2Bu28k9jQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oOIv6eht;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.58
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013058.outbound.protection.outlook.com [52.101.83.58])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iAw1L019;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2A7606A7B8;
-	Tue,  3 Nov 2026 15:14:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C2A7606A7B8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DED7606EE8D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:14:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DED7606EE8D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oOIv6eht
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ALnlX+N2Ava2fs8IIvRK7i+2p2KI/yGUbqHA28+5yrFukRHWQHehi2QJwpil757z0kVPtfRUYqlOVvgB4xgVR2Ry1EbJ0sJK/HbN8P83wEs42nYzKV0r85XGgBqAIYVZeyXi+6qE8NlNEmFCOw+oJbNcwaS8ezAQ6BKepZRzfhoe3JxKWGuJeiw1hLC3mk87RcdZdobwXHFELvsSmkF/YbvuecvWyUSDP10j7GaWFoQe86jKOMs3db9CF2qaNbH0Vo+wJsTR8wOHsuFzDRLurQR1jNL6eH79ynMnwLHF/iJlvg7TAtNcG94VYVS0DFpR49XUs9Fe5cYnyYA4DmPybg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lBAimrTSGOcfjqkodrb+ZeB8WdoV0Ux+HNSAqP3SoUY=;
- b=YN/69+hqIJjEpPOoOMZfL1vlaiopSUgHr1f5YG5deb3IFdOl85Y+4EURutYDPUYTna7jxM/mVwitMQoyQC0wVzDKlC06HCQU1gvU2jH0blDH2cJLaqOscTFnMzA5jVM+EWsdqp2Vh6W1AYDilfGBMPD6qKuzry7wl7SPkq5fvBsTT+T5/x2eJNWgyeyFvmtZ2Nag685qmKzYamE9Vy+XU1D0IX/IyvnDPYXApguoKSfBD7UXBCEgepjDZfamFyI/AvlSJoLy9fvQxNMXqzBsw3k9jSfN629tfTGd0PDZzzWq2qdpZcgNpIFMyWqqYtMWTSXEds6WKE+DEWmIUxfU5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lBAimrTSGOcfjqkodrb+ZeB8WdoV0Ux+HNSAqP3SoUY=;
- b=oOIv6ehtDg27Cd+UhMs2ToC87EjXjuW35+Pt0VgqG0DE+BYzHfgH8XlBzkEFWqSi7XS6c4eR08TLOLew9fZcVSZrMGkzPTednGN+gyEjKi1Xe/9IOWl1h95rVWvGDJu6xt2C5DwKlG8tGZ8L7+vJ71JrxP58h/CR6kQu2qJEjEvrx56BZ71tOv+JKZ1akSRnWeVv9QJAiUPl59LE/0178rwgEeSUOPGc2IiT599cuxEwMJeRp9cTK4gqLxvO2oF8fTKQkwmnPCwPKgL/GXGcl/h1i87Pjqn7Pnx/dnyHAvTRFHP7RVdZrd2iJrJrEHhk6oj7OQBDIkbEXkX7ZU3x1w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AS8PR04MB9062.eurprd04.prod.outlook.com (2603:10a6:20b:445::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 15:14:42 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 15:14:41 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Tue, 03 Nov 2026 23:19:01 +0800
-Subject: [PATCH v4 4/7] dmaengine: move channel devices to the DMA channel
- bus
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-edma-iommu-v3-v4-4-470415d418c5@Example.Com>
-References: <20261103-edma-iommu-v3-v4-0-470415d418c5@Example.Com>
-In-Reply-To: <20261103-edma-iommu-v3-v4-0-470415d418c5@Example.Com>
-To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Jon Hunter <jonathanh@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, 
- Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev, 
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- iommu@lists.linux.dev, linux-tegra@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.16-dev-7bc12
-X-ClientProxiedBy: SI2P153CA0031.APCP153.PROD.OUTLOOK.COM (2603:1096:4:190::7)
- To AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iAw1L019
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so6198458a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:14:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793718888; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oJQoO1ejJobL4jdGT3dkjIkgzaznj2nro1bB/fDkan6cLKF8b17ZNJO7oY8ROoYWBe
+         fmvRyHc1BbInY7fnyx9/nuwcKSPnmj3tKg3abBPMKnd+G8A9jZH7DwsE6fKULobY/ytP
+         GX6/3k3b2eLkUi23fD/jWPI/6nzOdQwW20ZELWfFPBWQjLA7gTben9aHXI10jGEcmIZ/
+         nHfvBFJq+O1vtP3kTPQfWmgPCv+E+01DqILL/dtyIiSOsNeq6h6d4VxhGX0qwl7j20ue
+         0uZ7svKzhnVK/kKJNEvpXY9EwG/hd6Ac7S0MLGcXrgWz1m2DfBxKx3mUDMkVMtzHp6UN
+         p3zQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QDUu0ipWkEkr2evKB+VQexo3kZhP7laIpcWU434jcM4=;
+        fh=LDyU4hpMlHDzZIulbesIsjcnk9HKPENkff/riJOxYA0=;
+        b=AQlpDFNyeVb7Efkp1E5f9uuhBYlhcbQ0NEFhzbA4DFsX7uwu/3nHSEK467/NBGWZHP
+         8G0fWTLA4KdPc0CSbcx0yh88cUTdNL8nNNpY/VpodD1aMpzJIywa4vU1tSf4wPbjAjOR
+         0V8cT/yEe8JV8ZlcegeDvnh7rIPCBILhUqwfgNiMO64mGspaL39jFXuxAWHEqAqKjp5V
+         /sVJL3pdIq4/iKan2hBiHNHqME1HFRmCFSx4nOGSUm3rX2pqsuX7u97q9ePU1HNh9OEq
+         Okm728s4IsIKRCzmJm0a47NEjfJfh1AmaOpfyyI2EcAz1ttGqhotPFwUcsbarld9SqMJ
+         n00w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793718888; x=1794323688; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QDUu0ipWkEkr2evKB+VQexo3kZhP7laIpcWU434jcM4=;
+        b=iAw1L019pbEECqKdWoucVoYt8cFM0CJimSPA3rGm9rZtMZpD0LGCCG5hkH3c1GOMpf
+         IspJYDJNQRBAf5O6qxCrg24PZgTtDkgCcJNc+Te/FaLgF/P2D2ygdPGcLtFbCUaY0gnX
+         nmK4XIqfh/wBKe13PTQ3kpyVHbCepAgmJlXpEqP8L3+CnEReQhrjzuddQkWkPc8aT2Ew
+         WXWATOtMwvJL4pflCNbceNHwqDeFvIKJFx0h/Vg6B5F579r0iqYdPkfD5EDX+IkmrfUS
+         8lO3wA9EaUVodg+Hln22pbunmgEx1YJidGyr6Qo2rLI9Snk3VNHTBqzw5kVIPPr31SEA
+         cHng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793718888; x=1794323688;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QDUu0ipWkEkr2evKB+VQexo3kZhP7laIpcWU434jcM4=;
+        b=hEzWjSMcvcg6TXJscwtKCZ0qa5PKafmFZmFRTkXd+DUookF0rRtB5FrLKTclUjyong
+         BhM41hactRtuWW3PSnzJfRaLuMKcwgFVp/6s0MyBXMritMNXX0rMQ5OBi8AdO5FPi1Cu
+         VG8NeoOzO2XmhAZwMn+vTr9VEG2E+V2sRyNiN/CEGxXZ5K95p0YAB5uhRW6zyWeQnYeZ
+         h74HJf0wVogWa7fOq/eWwi2ZvQACFNXAZyBqIx9/T0DVa9Q6ykmFuRfUDOr9E4N6/2Ak
+         jo1JFSLpISlzRTXWeyTzecfNdBADB7tmkBhwYjiabS+IsfzKPvA96W04pFwQ0WltiZzK
+         IoWA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJi25mKmY90Q2pAySkTbRUdbalFqSOslYnUMX10YRSeuAbhBJaDxCjOQQN8lIEr83A7HTinQxKUJHT9Ks=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VmdGwXVpVP0prG3IlYS5jfvwbgLB99FNsoKUYS7uG8EVpg0Ea
+	L5jbdCOMBXJswlmp7em6OqgGedg9bmYNFuG7apU75x3CVHtcX7JI1kaaYBWshz01Vj36GaON32x
+	sjW38mlZJ1ClEmHp5TG/u08igDyCGJqM=
+X-Gm-Gg: AYBFou1E/l55siiUrfSIcJL5ZtECGaJStxriuMAkQ0rklKbAXSfKBZycaqK+Pe8AmuS
+	ALsuhcuVRxr0yGVA1HWsBrWS5RO18MrutPrj2PnUYpPmr8o8Wk/NZuo6uQpLOj0RuMpfSx2nPtL
+	wDHxUc7VqXb0dFpwnk39jaYWdsOUh+aPAP1Q9JWbCjjiqtrVU5eZif5zOyZ8KJ0st7JxNt+AMoK
+	+WibbSoEAYVJ9do3TUkrKNLMoU7CUzGG9SG95xBXpu7WS/Noj23HHq3les4nUvPTjVx40XlifA+
+	opGi4P/Pq35XT51PFi0RUuBoqw7B2JPVggygf2p0QyAqeDjKcaw5C5FYyPuC8h+Hj6nqPJka1h1
+	79HjduBu8lrExhLdPD6+Xq2iDglZx9gYSVe4bWbJ/iWVqmzq6iljEKtO9GNV4LmT6xvaS3tM=
+X-Received: by 2002:aa7:d309:0:b0:6b3:f094:8ced with SMTP id
+ 4fb4d7f45d1cf-6b4d4683a29mr7344511a12.21.1793718887787; Tue, 03 Nov 2026
+ 07:14:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,194 +104,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS8PR04MB9062:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d16b182-cb64-471f-a54d-08df39bd2f44
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|19092799006|921020|11063799006|56012099006|261009223027099003|261022075727099003|261022105027099003|261102123227099003|261021123027099003|261021121427099003|261028144727099003|261026140227099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	CUi58d0Q4oUm5m+rjMXg36MwYtG8/vkIOxQmp6i3qRe+4kE33A2YS3+V/meImDrW4cl+H4VZhGwqwikpT/isLbMtyDxjfIO7JJzytCnMa8PIvNsHrc21iR3VlJwpSMDuvIfDC7Va9Dk6RbT4afcsYqd+PWurr6xTUT7bheosIV08C3+bIogntjZnQBOn05WYQtWErsu2QBtzTG6oAURmRZ1hZhzZ9ywRRaAi7L80b8RQrgRjzK5H2XqH0aCk5fUENmdcZfTJgE7+ympR5P6EQoVcJ/CxsU8yeB86sKcNGDg/qZfe3JigihjAsOR4sntFGwoIQgbF0BAoitb63ZS86Tp5a52i8SOTjuNzI/TuxaJfVGxEvLZ4Pw12Ez2VULHpRoDTFYPllPS3grYz0LTRzKPqPYhDl0APfA6tABb/lBVjLSc4lv6plRbrLbs3JcJ8HWBRixWjtxqwQmmq6isdsMqJb7Kz9BdS8cN41w6C1JKQLuQd9TbyS4d0CPahuCMYcofx/zMiS2Q4PPYQbOv638du1Az0/1NIPTOqRkJGTPhiYGB9++RmrQt/MYFG/5mgtPUIuFUHIlnDhFCtWkLKNbOOctH+uk3weHzZ2PMf20OYeJnpmlKPqLbzS50W43eACcP+E8hUu33NBXa8GfN/RQZpn+Wjw6S+htLkcg+cNRiWkWQZo1XnmtlCoQ8BhVArqLqMNFoOhoH/GCNYZziGWQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(19092799006)(921020)(11063799006)(56012099006)(261009223027099003)(261022075727099003)(261022105027099003)(261102123227099003)(261021123027099003)(261021121427099003)(261028144727099003)(261026140227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cHRUUnZyWDNSUFZFb01tU2lKSTQyQlJsQitTTWtxUWV4ZmFOb040YTFQOW1W?=
- =?utf-8?B?cUtDSmpOanpjdGtYdWRRUHJ1QWpYa1kwRzZURVpwS05qSXRXc3JpaUg1RTE2?=
- =?utf-8?B?Z0JhWnQrTEp0b0U5a3FYVXEzNmxiOXZpN1lWSmFXd3NiT0hVTWltYzBIaHZL?=
- =?utf-8?B?cDQ1a2NuU1dGUnNLcWExS2VORGRZejdGbEQza1F5OUJMTzYrN2QxUUtldm5D?=
- =?utf-8?B?ckdlNEp2QmllVFpiZi9WU1BtTUV5M1pGSkxEWjFkVHlWYVFCaitEUE5TQzF1?=
- =?utf-8?B?SGJBR0srZ3FHWEwvbmg2VXVNRllWK1RCUkxYTVBSZjdGZEpEZm9kVVA0TUdO?=
- =?utf-8?B?NHdSTUVYTTNLS2FmcmRsbktPZzNISmJvbkJMUWZRcVVxaWpLcm5vOE9ZVDZj?=
- =?utf-8?B?RTAyRTdDaUYrMCtibmdmaGUvbkRKMVJWZlg3V093Q0FsdFlIRUhaODFBK3pz?=
- =?utf-8?B?ekE5VlJpRUVWcExVOW00MU5KZThmMENjOFlwVHhOZ0NuU2VUY01xcDZZazdS?=
- =?utf-8?B?cnVBNXNKYmNUekNKSHVvN1JmSjhmSC9wcXV6ald3bGYybXltUmpzQWlZTXBZ?=
- =?utf-8?B?cHRnWjJVanJPZDdKdFhqL3JWY1hVOW5SdGdRVGJtbTVZS1FLNkhlaU04elVh?=
- =?utf-8?B?NG9sUWdSaDE2SFJVQnRKd05xcDJyYkxTRm5lbC9hR2lZcTM4b2J3NlJneFFD?=
- =?utf-8?B?bkM3cFdUSWpWVVRqd3FjZ0lia21KeFZDM0phcmJMVWhFYkpIQVZDQWxNWVZv?=
- =?utf-8?B?dDYyc3lHSDNHdXVpZ0c0cGdoczAraU95OWw4WThGTlhWckl4YlhYTjhkZVFC?=
- =?utf-8?B?M1pqVDZJeXMybFk5aTN3c2VRckErYjJucEQ4Tjc1dTRJelE2bkRFczhxVXdp?=
- =?utf-8?B?STJZd21oTjlFaUVnNXI0SGJFdXlnbTg1REJka2taWGdrVU5Sa3hnbVdIV2s5?=
- =?utf-8?B?Wm5hMTdlYzB3VUFoSjlHMzJ2NmtwSkg3MnJiODNWUUR1VC9sY0VhSDdzWTQw?=
- =?utf-8?B?eHYyNUxVS1plaGNMeTZqdmR1aVFTY3B4enZWaWd3RnZSNmgrS2tRSnh1MDIw?=
- =?utf-8?B?VE1tdEpBQVdEQTN1WkxqNzVOWm5yVm5EMmU2NzI0NW5SZnVybVNObHdESlFB?=
- =?utf-8?B?QVZuRVQ0RmJJZDBrZ1Q1MG1yMGdHQm9jR3psczFvRFVSRExBRlBJa212bzFR?=
- =?utf-8?B?RlZJUm1WcGRET3RsdkJId3JaT1BhWUlYRzJBTldxNnJLYkN6M1oycFZTb2Ez?=
- =?utf-8?B?eUhXQXFscEtQZjFFcmZ2NCtNdmNOaFBIcElWVCttN05TSHEvczlaOUZkdkwy?=
- =?utf-8?B?ZU9uajNhUUQ4d1FXcWE0R0tCVW5YdVNxVVNtcDM2aWZCaDBhUGRqQUNuTlVN?=
- =?utf-8?B?WGxZSHhKNU1SMTlkcU9teTViVCttNHdzcTRpOVRBc3VNRTJrcFdkdTNXR3d1?=
- =?utf-8?B?TmhYc1dnRytrYUx2cmhBdGh5dTNtNkZYVkVzeEVLMDduRHdReUJrQWJaY24z?=
- =?utf-8?B?Q2E2NzhHK0NiSXUwOXN6MUEzU3J5bmlQZ1FWM0F2dnV0OXZURWdWV0hWNEx6?=
- =?utf-8?B?aUFWYllEb3oxSDIzamNBZFprRG5Ca2oybFZRY1U5TzBCYTdSZ1ZDWXNpcGs2?=
- =?utf-8?B?VFQ5YWVJbDRMclRTYnNYamRpdzRrTTg2WmFEcll1eHd5Um14ZDdveUlVNmY4?=
- =?utf-8?B?d2RRcHI1aHhHajV2UnNFdHVxNmpSMDBVNHc4NnVpYjg2RXNoeGpmSzJ0Wmxl?=
- =?utf-8?B?M0JMeG9wNDZxUEEvYlk5bDZYRmwzMEJUTEtHTDlnRCsxZGxTZDRieEZWcnRM?=
- =?utf-8?B?WVZOM2luSzZwMGhoMFFydktJOFhoMk1RT2lQdGluZXNlWWd2cFArN3dYRG5S?=
- =?utf-8?B?ZXFVNmYwSkloZXo0QVRXS2FzUnZBeUZGNnJoNkd2SGZvN1lZekhDOEc4WGZJ?=
- =?utf-8?B?UFhjVy8xWS9sTkt1bllJYjRKNlZ0dlJKS1BTRTk5OElKdkdmZ054VVZDS21r?=
- =?utf-8?B?ZjliRkRlQm90M2laMTVUVUVIWkE4S0t0cFNyQTEvNWlCakt0OUFmWEtmUWxy?=
- =?utf-8?B?RlF6WDZ1TzFDNERDa3NkTG41WDdNdDNTVC82M0lVem50SXhaRktPK0xsV0R0?=
- =?utf-8?B?VlUwWWZkbXFRV0IvZGRSZUdJTWRQSU1tRkl4clhwVGlzWGlLQWRiYzZId09Y?=
- =?utf-8?B?aXFleG0xMTlnbnZyK1dJaDMyY2hGQXovUXJObHI5dUd4by9USFErWVVPSk1L?=
- =?utf-8?B?dk96K3JBUHRyek1tN2tncWZhcFhET2hYbUx4UVc4RzRDYTBaY0p5OTE0OUdE?=
- =?utf-8?B?MFM0bnBsa3AyNkpad2sxYzVOM1VSaVgxY2RrZzFLK3lRZWdGMEE0STFpNGxo?=
- =?utf-8?Q?ddqbR2eMdjtRKlvX0V9Iusn4lN76rNR2SDMR9?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d16b182-cb64-471f-a54d-08df39bd2f44
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 15:14:41.5897
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: btAxy55z9klrdsIsJbkVZV8G6W/DKTcMHGMku8X1HeRqZ9pL6+Vf0IEO/WdAAzXd1aC4em3j7RNSVs5zoDWbpOuLqbM/jcFbobynd2mwLxjKahBk+bAcvY/PwpREzcsM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9062
+References: <20261101015551.786044-1-koray.fra@gmail.com> <20261101015551.786044-2-koray.fra@gmail.com>
+ <CAOQ4uxiuJ=eZu28FZAUz3rpqPKqCimPxJucOnYYuBowvD09_Cw@mail.gmail.com> <DMLJ5DR2A4KZ.28U8XSZ0KFJTG@gmail.com>
+In-Reply-To: <DMLJ5DR2A4KZ.28U8XSZ0KFJTG@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Tue, 3 Nov 2026 16:14:35 +0100
+X-Gm-Features: AclHuK-EjP75rU69csZK2uVzxHspULIwEcPYYUtLw5t3M157ApaMB9lhTx9MQvw
+Message-ID: <CAOQ4uxiTS-QT7y1avNSasJSffkt2uRNkdrb2_GrK7kJ82-MoXw@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 1/5] vfs: add provenance time (ptime)
+To: koraynilay <koray.fra@gmail.com>
+Cc: David Sterba <dsterba@suse.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Namjae Jeon <linkinjeon@kernel.org>, 
+	Sungjong Seo <sj1557.seo@samsung.com>, 
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, Chris Mason <mason@kernel.org>, 
+	Jan Kara <jack@suse.cz>, Yuezhang Mo <yuezhang.mo@sony.com>, Chuck Lever <cel@kernel.org>, 
+	"Darrick J . Wong" <djwong@kernel.org>, Sean Smith <defendthedisabled@gmail.com>, 
+	Andrey Albershteyn <aalbersh@kernel.org>, Pedro Falcato <pfalcato@suse.de>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, exfat@lists.linux.dev, ntfs3@lists.linux.dev, 
+	linux-api@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Peng Fan <peng.fan@nxp.com>
+On Tue, Nov 3, 2026 at 12:13=E2=80=AFPM koraynilay <koray.fra@gmail.com> wr=
+ote:
+>
+> On Mon Nov 2, 2026 at 3:00 PM CET, Amir Goldstein wrote:
+> > On Sun, Nov 1, 2026 at 2:57=E2=80=AFAM koraynilay <koray.fra@gmail.com>=
+ wrote:
+> >>
+> >> Add provenance time (ptime), indicating the time when a file or
+> >> directory was created. This is user-settable via file_setattr() and
+> >> retrievable via statx(2) (using STATX_PTIME) or file_getattr().
+> >>
+> >> The semantics of when to preserve this new timestamp are the same as
+> >> mtime, the idea being that there is a correspondence like this:
+> >>
+> >> ctime <-> btime
+> >> mtime <-> ptime
+> >>
+> >> so every operation (copying, moving, ...) that currently preserves mti=
+me
+> >> should also preserve ptime.
+> >>
+> >> Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
+> >> FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
+> >> xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr() =
+to
+> >> allow ptime to be used with the file_setattr()/file_getattr() syscalls=
+.
+> >>
+> >> [ This is a re-implementation of the initial patch[1] by Sean Smith
+> >>   <defendthedisabled@gmail.com>, following the advice[2] from Darrick =
+J.
+> >>   Wong <djwong@kernel.org> of using file_setattr() instead of updating
+> >>   utimensat() ]
+> >>
+> >> [1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabled@g=
+mail.com
+> >> [2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
+> >>
+> >> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.4.7
+> >> Signed-off-by: koraynilay <koray.fra@gmail.com>
+> >> ---
+> >>  fs/file_attr.c            | 33 +++++++++++++++++++++++++++++++--
+> >>  fs/stat.c                 |  2 ++
+> >>  include/linux/fileattr.h  |  5 +++++
+> >>  include/linux/stat.h      |  1 +
+> >>  include/uapi/linux/fs.h   |  8 +++++++-
+> >>  include/uapi/linux/stat.h |  7 ++++++-
+> >>  6 files changed, 52 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/fs/file_attr.c b/fs/file_attr.c
+> >> index 833e03810b24..c0645cb22bf3 100644
+> >> --- a/fs/file_attr.c
+> >> +++ b/fs/file_attr.c
+> >> @@ -102,7 +102,7 @@ EXPORT_SYMBOL(vfs_fileattr_get);
+> >>  static void fileattr_to_file_attr(const struct file_kattr *fa,
+> >>                                   struct file_attr *fattr)
+> >>  {
+> >> -       __u32 mask =3D FS_XFLAGS_MASK;
+> >> +       __u32 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
+> >>
+> >>         memset(fattr, 0, sizeof(struct file_attr));
+> >>         fattr->fa_xflags =3D fa->fsx_xflags & mask;
+> >> @@ -110,6 +110,8 @@ static void fileattr_to_file_attr(const struct fil=
+e_kattr *fa,
+> >>         fattr->fa_nextents =3D fa->fsx_nextents;
+> >>         fattr->fa_projid =3D fa->fsx_projid;
+> >>         fattr->fa_cowextsize =3D fa->fsx_cowextsize;
+> >> +       fattr->fa_ptime_sec =3D fa->fsx_ptime.tv_sec;
+> >> +       fattr->fa_ptime_nsec =3D fa->fsx_ptime.tv_nsec;
+> >>  }
+> >>
+> >>  /**
+> >> @@ -141,15 +143,20 @@ EXPORT_SYMBOL(copy_fsxattr_to_user);
+> >>  static int file_attr_to_fileattr(const struct file_attr *fattr,
+> >>                                  struct file_kattr *fa)
+> >>  {
+> >> -       __u64 mask =3D FS_XFLAGS_MASK;
+> >> +       __u64 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
+> >
+> > That is not the correct way to extend this API.
+> > This fixed mask was added as a placeholder for
+> > "We intend to add support for more xflags to selective filesystems":
+> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-2-amir73il=
+@gmail.com/
+> >
+> > Please see this POC patch for filesystems to publish their supported
+> > xflags mask:
+> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-3-amir73il=
+@gmail.com/
+>
+> Thanks, I did not think of adding a dynamic mask like that, I will look
+> into it and implement it for v4.
+>
+> > This will allow callers of file_getattr() to know if the filesystem
+> > supports ptime
+> > without trying to set it and failing.
+>
+> So after adding fsx_xflags_mask to file_kattr, every filesystem would
+> populate fsx_xflags_mask with all the returned (=3D=3D supported) FS_XFLA=
+G_*
+> in their own specific .fileattr_get, correct?
 
-Register each dma_chan_dev on dma_chan_bus_type before device_register()
-and make it a bus device instead of a class device. Setting the bus
-before registration lets bus_add_device() take the bus subsystem
-reference, so the matching bus_remove_device() calls drop references that
-were actually acquired. Attach dma_dev_groups to the bus and set the
-device release callback directly.
+Not all filesystems. Just the ones that wish to extend the constant
+legacy FS_XFLAGS_MASK.
+So just the ones that you change to support XFLAGS_PTIME
 
-Keep the existing /sys/class/dma interface by registering a class_compat
-named "dma" and creating a link for each channel device. The channel
-devices now live on the DMA bus, while /sys/class/dma/dmaNchanM remains
-available to userspace. The uevent subsystem name stays "dma" because
-the bus has the same name as the old class.
-
-Remove the post-registration dev->bus assignment from the Tegra GPC DMA
-driver. Leaving it in place would overwrite the bus selected by the DMA
-engine core and reintroduce the reference imbalance.
-
-The DMA channel bus match callback never matches, so no driver can bind
-to these channel devices.
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/dma/dmaengine.c        | 27 +++++++++++++++++----------
- drivers/dma/tegra186-gpc-dma.c |  1 -
- 2 files changed, 17 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-index 3a297f2754915..fa6ebcf63af65 100644
---- a/drivers/dma/dmaengine.c
-+++ b/drivers/dma/dmaengine.c
-@@ -239,11 +239,7 @@ static void chan_dev_release(struct device *dev)
- 	kfree(chan_dev);
- }
- 
--static struct class dma_devclass = {
--	.name		= "dma",
--	.dev_groups	= dma_dev_groups,
--	.dev_release	= chan_dev_release,
--};
-+static struct class_compat *dma_chan_class;
- 
- /* --- client and device registration --- */
- 
-@@ -1115,8 +1111,9 @@ static int __dma_async_device_channel_register(struct dma_device *device,
- 		goto err_free_dev;
- 	}
- 
--	dmaengine_chan_dev(chan)->class = &dma_devclass;
- 	dmaengine_chan_dev(chan)->parent = device->dev;
-+	dmaengine_chan_dev(chan)->bus = &dma_chan_bus_type;
-+	dmaengine_chan_dev(chan)->release = chan_dev_release;
- 	chan->chan_dev->chan = chan;
- 	chan->chan_dev->dev_id = device->dev_id;
- 	spin_lock_init(&chan->lock);
-@@ -1128,6 +1125,11 @@ static int __dma_async_device_channel_register(struct dma_device *device,
- 	rc = device_register(dmaengine_chan_dev(chan));
- 	if (rc)
- 		goto err_out_ida;
-+
-+	rc = class_compat_create_link(dma_chan_class, dmaengine_chan_dev(chan));
-+	if (rc)
-+		dev_warn(device->dev, "Failed to create compatibility class link\n");
-+
- 	chan->client_count = 0;
- 	device->chancnt++;
- 
-@@ -1172,6 +1174,7 @@ static void __dma_async_device_channel_unregister(struct dma_device *device,
- 	chan->chan_dev->chan = NULL;
- 	mutex_unlock(&dma_list_mutex);
- 	ida_free(&device->chan_ida, chan->chan_id);
-+	class_compat_remove_link(dma_chan_class, dmaengine_chan_dev(chan));
- 	device_unregister(dmaengine_chan_dev(chan));
- 	free_percpu(chan->local);
- }
-@@ -1306,6 +1309,7 @@ int dma_async_device_register(struct dma_device *device)
- 		mutex_lock(&dma_list_mutex);
- 		chan->chan_dev->chan = NULL;
- 		mutex_unlock(&dma_list_mutex);
-+		class_compat_remove_link(dma_chan_class, dmaengine_chan_dev(chan));
- 		device_unregister(dmaengine_chan_dev(chan));
- 		free_percpu(chan->local);
- 	}
-@@ -1650,8 +1654,9 @@ static int dma_chan_bus_match(struct device *dev,
- }
- 
- const struct bus_type dma_chan_bus_type = {
--	.name  = "dma",
--	.match = dma_chan_bus_match,
-+	.name		= "dma",
-+	.match		= dma_chan_bus_match,
-+	.dev_groups	= dma_dev_groups,
- };
- 
- static int __init dma_bus_init(void)
-@@ -1665,9 +1670,11 @@ static int __init dma_bus_init(void)
- 	if (err)
- 		goto err_destroy_unmap_pool;
- 
--	err = class_register(&dma_devclass);
--	if (err)
-+	dma_chan_class = class_compat_register("dma");
-+	if (!dma_chan_class) {
-+		err = -ENOMEM;
- 		goto err_unregister_bus;
-+	}
- 
- 	dmaengine_debugfs_init();
- 	return 0;
-diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
-index e76c58f213d84..71a935d873868 100644
---- a/drivers/dma/tegra186-gpc-dma.c
-+++ b/drivers/dma/tegra186-gpc-dma.c
-@@ -1541,7 +1541,6 @@ static int tegra_dma_probe(struct platform_device *pdev)
- 		tdc = to_tegra_dma_chan(chan);
- 
- 		if (use_iommu_map) {
--			chdev->bus = pdev->dev.bus;
- 			dma_coerce_mask_and_coherent(chdev, DMA_BIT_MASK(cdata->addr_bits));
- 
- 			ret = of_dma_configure_id(chdev, pdev->dev.of_node,
-
--- 
-2.34.1
-
+Thanks,
+Amir.
