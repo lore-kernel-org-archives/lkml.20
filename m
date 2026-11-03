@@ -1,86 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793668088;
-	b=h44QN81oxOJcTaPIb8BhZJMuLam+ZwIb+vtgNRVY1bajxw9TRQ5ICIILnDs4BSJ/F67d
-	 nGWhUKtkQV6drFhzYFF1wT1GbSGVjGIOz4vH2yBjn1lT3LP01JHUZlt2fiFQc4qodTvQZ
-	 IzAkCqTA7BQmTPYiO3ackh0ylGhOYN0Jv9K3ov9LFD55StFKARVYsdBwhyBphe1FKs1+V
-	 khhz8LbHzptJ2tqYdoh3Nb/UUHIyVzoLvjTOyJYiiNrv+Ljm6wbmkceJHaSEN6LRDvRPA
-	 w7l0Es754vpnlm0ocMio/0UjmQ+Uv0oXmfqW3NuV0PsiCgZbJQl8grhsCGdGAbBZjGw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793668088;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793668135;
+	b=xVCRaKmnQnIP22XKPbvUxXH4f8woaWLuJ5A3pOBGWqMRZl93MWVN3gdyx4I2okc+ylap
+	 KG/AOP6kLV6sfEydQPm9i4kJDHcA9i65tsSNdOL+cC+vkVn/lPasWA8p+WzWner2Fkwto
+	 ZupWNfgvhdUKmhov+3/M+J4sb36ZedC+qzh1FcaOC2PJ03H/nMd8JL+JVutUYxRGb5r7m
+	 3ao4ALOv8sFH2QPebSla6SdcX26fELZygACKu6b7S1YWnYT5t4TzNRT7IehJQf5boJBRd
+	 oDXuyJBZTO4gVQQbIubqLRNUh28FI6oUy2tGgY2lZD+pxksDvuWeelKRxISRjZ2tAfQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793668135;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=sCXed0bTTCV8P2hA4MxIlPH5p5mePGAlnGMC3T5qO04=;
-	b=xOjJDVOytRfz8DY7AjcnSJsnN78OoG2ru8Ark8HMrbH6MtBNNJSIentVcPAwCasNS/f+
-	 W5ztCz56IcqGiGBca7EnyxUsedVr5Dy3RNgclX5rZjuJeIcdbTf5r+HYc2el/n8XtuSrE
-	 Ru/X0oQI35g2RPRc0ykCgS62EhRfTHSbwlgRJauFLD6C20g+p76GQrCRKnZJly3Xhv1zt
-	 5WTpB3eFwNg5alTg4AZX1kihidrk4GA4lY5mxT1jGrGUFCJDWBWhmJVAcVBPS0b6pWyOP
-	 PTFEWDgFpFDRQrb+A81LRi/peNiB1XhWTbW4vg0LQgw2t19Ou51jbYRD6YERPsKRFgA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Us9uyqDvvriV3s06O4jeqZld0pMlKcDJ7sK+x+EI1fU=;
+	b=EYzcVK29pThQ9WpZ/AF3hKvxCqILcs10J5U9by5zOk4Lz7uVPXyjetfe+KJB/INSlM7H
+	 oahrEqbcMpL84MKYCZZm166Nk8HSWnGoVPdJTCC+UOJNkbKNdxbbMUpJ3XATRm7kKiZko
+	 iGXI15fBDhDGWNof7KRoOqz7iCee73US1QL9nQofBN8Ikls4Uig7QoZPdbxCPKZtDYGYh
+	 ZH61a4Tg1KYo25bfvOkIz/kTCOekabXy9940hFg6r10eSPCRppi2oCiVopDGoPyWOa5IU
+	 sIftd8eNBqSZ3a8KOkynXluQMCZSjLbYdrW1pEhYEqXyOMWEVKh+2Jcv/ataMPaVlSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CwPjtRkC;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dgrkeaN9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.51
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602F0606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 602F0606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBC2606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:08:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFBC2606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CwPjtRkC
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a2761c69fbso5917108c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:08:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dgrkeaN9
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-71528ede7b1so834858eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:08:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793668134; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sTVpxk9KDdRF48gVjlPugooV+f0I+ghCqK9PjRZzpTYV2Zmslaykm4gYJJAGnbdlAl
+         7DxDz6qtKIYeliQ9FCjCmseJGmudNEXh7kPfAweI+T4tzTQQZbnjcUrRp7P55ec1uZdw
+         6xyGDWbk87PW0A9Nlnj7L+tCCVcvrun9/jhIyeu58lmxb4ewPGQamfGb5/VJsSsrWmNE
+         5+QZSVHP6Q/Ox4ozsTyd9T0xwkElXVgqHtJLpYOupC5rlsWzy5x9imEclL4iY+aeXLaA
+         93C435p5QcF+1CLAI1t8X0TGmp3CmKgPBaX3v0qf+6Ujv+AQRvD4OHWbel9NQHpyOKB8
+         nfrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Us9uyqDvvriV3s06O4jeqZld0pMlKcDJ7sK+x+EI1fU=;
+        fh=HkzzJvZTuh0J2CxS/D/wfPWq9BCD8DpAU/mHAaqusfM=;
+        b=VFbFxtkcSLhN2YBsGDTvHuNorUGwFcSct2lxI2/WWts3GMVfhdjwbHwhAlKYH2y65u
+         FcLwm+pPOja6lWJzmq/TTDa8DSw2439rgUK6SgPwE4r2NfQqoArcfTQYkas+eDgSQWm7
+         XN+KNPdWFvOCVgaiI/bhHOm+jiSC10O0EaDzIgCh41E3NApIYtSWC5mefZ7HE7Ax9/RB
+         Z7rV6Otd7Ot0c7NGUWad5rWYQ8wEHrrD96cQ16yWdt9XwHBKkpOf8HcN8KMUJO59UlFc
+         YNHnG/Va4acdrzIJXHK615p/3FIedBN/0q8dQYhpDYDeYB3wanrTeWR1RUjy3syIdzSr
+         vXdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793668087; x=1794272887; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=sCXed0bTTCV8P2hA4MxIlPH5p5mePGAlnGMC3T5qO04=;
-        b=CwPjtRkCE6Ax6PVapAd5/LPmvl5NxKj4Trrc4w3aBkA8ZPVd4BDdhiy/Xqx/gGaC+a
-         HeuEYxgQQR2MCzUdm8H/u3bhUPxfNlK/ryt2dqpO9+J8gkIM0PkWkW4yqX47ZqLcZhEm
-         L20ve+bBytciCdp1nm2FVya8bGOAAhr/66cKOA3pqqwhmC+BWrc1PD5NHCPidXiSGJqv
-         3Uzan+oIPkOCtJfSe5vNY2jvKYTEVOk034pZdOY6LQR5AgVUxOB+OwI2wKLNxXPYYAN5
-         1n6LHG4SHNYUc5bCV+EF3wbMeUu59ot1+mj+bi5xyMewVOQLF/27kRYuFaKKZaFG9dkl
-         JWXg==
+        d=gmail.com; s=20260707; t=1793668134; x=1794272934; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Us9uyqDvvriV3s06O4jeqZld0pMlKcDJ7sK+x+EI1fU=;
+        b=dgrkeaN903ttE5BpyfZfJV7eZg9gliEDCuodyKrf+jXIz3kfY2bQXMbBcLK2ofGuAH
+         I0OJmL2xexNiKcD1jIEWU13bTUzrjBOnAYE1iDYceobXb6bbvhujZWev1mnF9o7IZ8e8
+         bKlmYAx9Hvp8C5LrI+ZTj/zfADRWXDVCJExPZn8b3kXrUpemDvjRqGRbZxOxZYcDgE43
+         ViR1wcGVcwb57ipIFN4x5Tn/CRIX/63GsLJ3xKeISxnvmWLaZPTM9khHm2eaLN8gd9a/
+         lpG1mqDa73+ibRN5CnUkDiBEsekXR7L2Xy4Nuh863n/2ZKMCDZCVc96TGnGxbrTS7ib0
+         nLsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793668087; x=1794272887;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=sCXed0bTTCV8P2hA4MxIlPH5p5mePGAlnGMC3T5qO04=;
-        b=I03U3hCpJ2aptujpCy79xCHSv930RKzGLnqODblbWMYPq3xlp/fXm9tUfmbG5PsNWi
-         /uFseGl/fauCvsdIiHZYlOlzBFd9MXFYBrF+BcpgEsc36wPKDcrMgTdRQu0MAmEjA+os
-         RHagxWQHrN/EOVbIiwZHixY8S/bRZP7l603z/Y2Mq3kBBcp/qxFrph7p8h9L8IB7Ijei
-         SxO2npcfcCaUT0vV0LzcaAb4UhJjhyKyYYwIRvhwWLZJsYl7aFfblypbkcgG7ouUKbtA
-         P2U7UOQG9Nh53Q2Z7Z5AJwFEIbSImUB0RLTXaP/EWYoM4T+c6g2IezBTbiH62Dl+ge14
-         oIWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzMBljMsMDji64fvQbo2DkxnN1O9i01sebHEQ1IfIDVIgoTfhwTHMgoO5TUroA0/rnWKpOuOMl4yDExK2M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvoDjvr/9qSj5p0ljQqWHpTOPE0Jf3Vwl7ChdhwOsqn2vxMt/x
-	A7jkZtaM7t67kpdPwpT/1X6nAliI+GsOLWzBcogd6ZuG1IyBN5Odj4vg
-X-Gm-Gg: AYBFou0K603TCtVYU9OtELsDhx8U3xPpxPLrAxoMOk7AsOdK3qsWjIJ68zv+Zf8QWEv
-	ZvTZ6BmIvvzCi8ogupkhME/WFEaAm1g9VHOodKL5YI/uykMV1LifSscZ9HgsS6v3XeZfVOQoC6f
-	M2vEAH+Jl3hOw8Zt75OieWr+jwHWnz54jazSg+SxuL3dxCeRusNQi0MGtBlhzsplp1+lWIBcHWc
-	m6HR1KBCz0fwvkYVfYF8HdSzXHsVhUDcwlVZU6e6Q/iddhvDRAd/tyEdychbwQUvD3msNsUwb+b
-	2To2J/xB1u+/URlYa5+c92rhvuKnaPoP75jvNIJ5l5Em7Ov/F8V3vPwOSkDg3C018ClDIZsZfXd
-	3y+aePSyvP59tXKIk157G2Pa6U9ZUG51BMJozvMSjhRHth0tuIgiCPXkdb18yP0SIQ6WlskH8nQ
-	x8uj/sdCC1c2gG1y923n5bloNUoxwphslLsHrRYNJMbwdo9Mtj2GAVdViptla5bdbrzd8UjwZgV
-	fKC6zGyNza6DDcmlRcKYcfx6Sq09epI4hGeyw+rThhB0nK77GwGRCz7FFU4i4z1YJi6JxS6BsXe
-	Mdc/Rh8xRknqVd6KIAq9vceap2nK
-X-Received: by 2002:a05:7022:f116:b0:187:7514:47f4 with SMTP id a92af1059eb24-1ac5d1cec2amr15160722c88.46.1793668087325;
-        Mon, 02 Nov 2026 17:08:07 -0800 (PST)
-Received: from [127.0.1.1] ([169.211.140.146])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcd6f1sm36500389c88.20.2026.11.02.17.08.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 17:08:06 -0800 (PST)
-From: Kwanghoon Son <asdfkwang@gmail.com>
-Date: Mon, 02 Nov 2026 20:07:43 -0500
-Subject: [PATCH v2] rust: io: mem: Fix exclusive MMIO region requests
+        d=1e100.net; s=20260707; t=1793668134; x=1794272934;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Us9uyqDvvriV3s06O4jeqZld0pMlKcDJ7sK+x+EI1fU=;
+        b=DqiLY7WA5xMsn61YTsJFaEnC+woa1hjzeuP9jPxGM9AHcdcNTlK8xIPt2pD9ww+tok
+         PmIg/EjchzLGMt+W+xaSCa9U93/mrC0EyvbM9lvLOdcaN9K/KN3ExnAb67fpfHoGGlLp
+         x+luI/gmNcdaqj4zpiE7l8EYD7GJ9k1nDszN1y6D/seKqJ2gORp8SUnA2aY1X2dVq35r
+         9ccJn55MhXaxpUWKkdjJOmZG6vbYMpsDILSKhsyIpjbhrTtgnKbBYyI4Fc4DSzMIlnmm
+         WBnElYk0deOoqSqwU0E+1JUwKQU3Ma5wb1ij8XDXbWYsJTAitjMWXUnwDg1VIzfAnwQD
+         rYdg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDM+K2QMttzAX/RZXf2rc/+KaYGoXY5ZynsHU2TeG0SdVi1Djlr39PR+FT3s6D8vIlj52qca0Z6OFUTHQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzkqS+NjuJ8I0cnTh28hkqPp9CZW4SX33128CjJL5AYobmjt3+
+	qdsiz4FInFO0piMh7fyrEEyzUOOwmM69aaOmwI72Xgs09XVlNJ7OTM1vWU+MjgV6MNcLfujEtjl
+	+deW6LlxQucTZ9Ov6aotpNCflviB5EnE=
+X-Gm-Gg: AYBFou3Mdn+3SQm/ow5jHztXifZkx1ZyoUhN4IcgmPPX2UAyYpif5lE/h+1bL4t83DN
+	jAG6AyHW8l8BkBhh65rb86fgx013ArQTfYHA8wfWNUgv8LzE6mGH1t9tofrZDqBsDe6lnIgeT9V
+	4hh7XUKLyBmLf2z8aMrnuhcEnEouo1802n5pfYOtaZA+07HgdjNMjuRvCLadgE9p9Yjiy7J0MWH
+	sy+zX86zWh+5lukpDakv4o7gqVOcdXN7uMD/YcPK0iNgj+Zl0yDRHbHzfjC9RftkDQPf9dmdIZ/
+	J8sCEtb1xtwLlSXbn3ayip13jss8tNPZ3TPT99aSXLvltHCyChE3MBVjLjnvc2BP3ipjt75I7sq
+	ia3IMs1F6TQXUgtqdNTWByNErSCl2FqTasRkdQRa+luiKQfWPIC/fBSua5RNv
+X-Received: by 2002:a05:6820:a65e:20b0:702:dd8d:3167 with SMTP id
+ 006d021491bc7-714f2a0b974mr4624732eaf.53.1793668133765; Mon, 02 Nov 2026
+ 17:08:53 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,110 +104,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-b4-rust-iomem-origin-master-fix-v2-1-1428247a94d6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAN4z6WoC/42NTQ6CMBBGr0Jm7Rja8Kcr72FYFJyWSSwlUyQa0
- rtbOYH5Vu9bvLdDJGGKcC12ENo4cpgz6FMB42RmR8iPzKBL3ahStzhUKK+4IgdPHoOw4xm9iSs
- JWn5j19VWkdFVZQfIlkUo30fh3meeOK5BPkdwU7/3f/emMK/RqjakLq2xN+cNP89j8NCnlL6JN
- g7wzgAAAA==
-X-Change-ID: 20261027-b4-rust-iomem-origin-master-fix-885f1ea244fb
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Kwanghoon Son <asdfkwang@gmail.com>
-X-Mailer: b4 0.14.2
+References: <20261029033106.7374-1-ki.chiang65@gmail.com> <20261029085610.GC2673734@killaraus.ideasonboard.com>
+In-Reply-To: <20261029085610.GC2673734@killaraus.ideasonboard.com>
+From: Kuangyi Chiang <ki.chiang65@gmail.com>
+Date: Tue, 3 Nov 2026 09:08:45 +0800
+X-Gm-Features: AclHuK__Z4IbWBemCKllUOBlE45796QmTyXwO65UFmWddNfrWR2s7z8p7hWvah0
+Message-ID: <CAHN5xi0-=24_xzXWP9RwfogiRdtF9poWk=eYi+7JPQfXMUxxyQ@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Add UVC_QUIRK_CTL_MSG_DELAY_1M for HIK camera
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-C's request_mem_region() reserves MMIO in the global resource tree.
-Rust's ExclusiveIoMem reserves it under the device's resource instead,
-so the global tree may not see the reservation.
+Hi,
 
-Request the region from iomem_resource, matching request_mem_region()
-and the existing release_mem_region() call.
+Thanks for the review.
 
-Fixes: 1d0d4b28513b ("rust: io: mem: add a generic iomem abstraction")
+Laurent Pinchart <laurent.pinchart@ideasonboard.com> =E6=96=BC 2026=E5=B9=
+=B410=E6=9C=8829=E6=97=A5=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=884:56=E5=AF=AB=
+=E9=81=93=EF=BC=9A
+>
+> On Thu, Oct 29, 2026 at 11:31:06AM +0800, Kuangyi Chiang wrote:
+> > UVC control requests issued when preparing a video stream sometimes
+> > time out on the HIK 1080P Camera (2bdf:0280):
+> >
+> > [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0=
+280)
+> > [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 2=
+6).
+> > [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110=
+ (exp. 26).
+> > [   58.592967] uvcvideo: Failed to initialize the device (-5).
+> >
+> > Adding a 1ms delay after each control message avoids the issue.
+> >
+> > Introduce UVC_QUIRK_CTL_MSG_DELAY_1M for this device.
+>
+> We don't add random delays. This needs a root cause analysis.
 
-Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
----
-The bug can be reproduced with QEMU arm64 virt's existing DT node
-(CONFIG_FW_CFG_SYSFS=n):
+We captured USB traces using a protocol analyzer and observed
+different behavior between the failing and successful cases.
 
-    fw-cfg@9020000 {
-        compatible = "qemu,fw-cfg-mmio";
-        reg = <0 0x09020000 0 0x18>;
-    };
+In the failing case, the device ACKed the DATA stage but kept
+NAKing the STATUS stage until the transfer timed out.
 
-A small Rust platform driver matches this node. Its probe maps the
-resource and returns the mapping as driver data (excerpt):
+In the successful case, the device initially NAKed the DATA stage,
+then ACKed it, and the STATUS stage completed successfully.
 
-    let io = pdev.io_request_by_index(0).ok_or(ENODEV)?
-        .iomap_exclusive()?
-        .into_devres()?;
+The patch adds a delay after usb_control_msg() returns, before
+the next UVC control request.
 
-Unbind and bind that driver again:
+Although this delay prevented the timeouts in our tests,
+we haven't identified the root cause yet.
 
-    cd /sys/bus/platform/drivers/mmio_repro
-    echo 9020000.fw-cfg > unbind
-    echo 9020000.fw-cfg > bind
+We agree that a root cause analysis is needed.
+Do you have any suggestions on what else we should investigate?
 
-Before the fix, unbind prints "Trying to free nonexistent resource"
-and bind fails with EBUSY.
----
-Changes in v2:
-- Guard Resource::iomem() with CONFIG_HAS_IOMEM to match its only
-  caller and avoid a dead_code warning when I/O memory support is
-  disabled.
-- Rebase onto 6628e7d4c6b2.
-- Link to v1: https://lore.kernel.org/r/20261027-b4-rust-iomem-origin-master-fix-v1-1-16215ae197af@gmail.com
----
- rust/kernel/io/mem.rs      | 2 +-
- rust/kernel/io/resource.rs | 7 +++++++
- 2 files changed, 8 insertions(+), 1 deletion(-)
+Regards,
+Kuangyi
 
-diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
-index 32a919099dcda79bc4b795a8a1c5f553c989b9b7..80da665821c036257900c6ea45b9419cb573c187 100644
---- a/rust/kernel/io/mem.rs
-+++ b/rust/kernel/io/mem.rs
-@@ -196,7 +196,7 @@ fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
-         let size = resource.size();
-         let name = resource.name().unwrap_or_default();
- 
--        let region = resource
-+        let region = Resource::iomem()
-             .request_region(
-                 start,
-                 size,
-diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
-index 758ce62b3cce33c14e1e4c56a793af0e00657aa6..d61ad63428679a87b26a79c5ce822c5976a8b82f 100644
---- a/rust/kernel/io/resource.rs
-+++ b/rust/kernel/io/resource.rs
-@@ -79,6 +79,13 @@ unsafe impl Sync for Region {}
- pub struct Resource(Opaque<bindings::resource>);
- 
- impl Resource {
-+    /// Returns the global I/O memory resource root.
-+    #[cfg(CONFIG_HAS_IOMEM)]
-+    pub(crate) fn iomem() -> &'static Self {
-+        // SAFETY: iomem_resource is permanent; C serializes resource-tree updates.
-+        unsafe { Self::from_raw(&raw mut bindings::iomem_resource) }
-+    }
-+
-     /// Creates a reference to a [`Resource`] from a valid pointer.
-     ///
-     /// # Safety
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261027-b4-rust-iomem-origin-master-fix-885f1ea244fb
-
-Best regards,
--- 
-Kwanghoon Son <asdfkwang@gmail.com>
-
+>
+> > Signed-off-by: Kuangyi Chiang <ki.chiang65@gmail.com>
+> > ---
+> >  drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
+> >  drivers/media/usb/uvc/uvc_video.c  | 10 ++++++++--
+> >  drivers/media/usb/uvc/uvcvideo.h   |  1 +
+> >  3 files changed, 18 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc=
+/uvc_driver.c
+> > index e289cc7..c720d75 100644
+> > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > @@ -3162,6 +3162,15 @@ static const struct usb_device_id uvc_ids[] =3D =
+{
+> >         .bInterfaceSubClass   =3D 1,
+> >         .bInterfaceProtocol   =3D 0,
+> >         .driver_info          =3D UVC_INFO_QUIRK(UVC_QUIRK_FORCE_BPP) }=
+,
+> > +     /* HIK 1080P Camera */
+> > +     { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
+> > +                             | USB_DEVICE_ID_MATCH_INT_INFO,
+> > +       .idVendor             =3D 0x2bdf,
+> > +       .idProduct            =3D 0x0280,
+> > +       .bInterfaceClass      =3D USB_CLASS_VIDEO,
+> > +       .bInterfaceSubClass   =3D 1,
+> > +       .bInterfaceProtocol   =3D 0,
+> > +       .driver_info          =3D UVC_INFO_QUIRK(UVC_QUIRK_CTL_MSG_DELA=
+Y_1M) },
+> >       /* Insta360 Link */
+> >       { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
+> >                               | USB_DEVICE_ID_MATCH_INT_INFO,
+> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/=
+uvc_video.c
+> > index fc3536a..4667f86 100644
+> > --- a/drivers/media/usb/uvc/uvc_video.c
+> > +++ b/drivers/media/usb/uvc/uvc_video.c
+> > @@ -35,13 +35,19 @@ static int __uvc_query_ctrl(struct uvc_device *dev,=
+ u8 query, u8 unit,
+> >  {
+> >       u8 type =3D USB_TYPE_CLASS | USB_RECIP_INTERFACE;
+> >       unsigned int pipe;
+> > +     int ret;
+> >
+> >       pipe =3D (query & 0x80) ? usb_rcvctrlpipe(dev->udev, 0)
+> >                             : usb_sndctrlpipe(dev->udev, 0);
+> >       type |=3D (query & 0x80) ? USB_DIR_IN : USB_DIR_OUT;
+> >
+> > -     return usb_control_msg(dev->udev, pipe, query, type, cs << 8,
+> > -                     unit << 8 | intfnum, data, size, timeout);
+> > +     ret =3D usb_control_msg(dev->udev, pipe, query, type, cs << 8,
+> > +                           unit << 8 | intfnum, data, size, timeout);
+> > +
+> > +     if (dev->quirks & UVC_QUIRK_CTL_MSG_DELAY_1M)
+> > +             usleep_range(1000, 2000);
+> > +
+> > +     return ret;
+> >  }
+> >
+> >  static const char *uvc_query_name(u8 query)
+> > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/u=
+vcvideo.h
+> > index b6bcee4..1426d14 100644
+> > --- a/drivers/media/usb/uvc/uvcvideo.h
+> > +++ b/drivers/media/usb/uvc/uvcvideo.h
+> > @@ -81,6 +81,7 @@
+> >  #define UVC_QUIRK_INVALID_DEVICE_SOF 0x00010000
+> >  #define UVC_QUIRK_MJPEG_NO_EOF               0x00020000
+> >  #define UVC_QUIRK_MSXU_META          0x00040000
+> > +#define UVC_QUIRK_CTL_MSG_DELAY_1M   0x00080000
+> >
+> >  /* Format flags */
+> >  #define UVC_FMT_FLAG_COMPRESSED              0x00000001
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
