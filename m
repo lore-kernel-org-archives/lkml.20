@@ -1,62 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.121.32.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.121.32.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714962;
-	b=P7CIJ+b1uaEi0uvCKmn17Rb5Z3Rx0qQIyaQ1F5Rw78GhV5ySgi4NXtzPMAURhOSkCsDs
-	 Q96tyJ4B1aXj9Le1/+PJWtDsRCB5xLq99R5A1c++HC0nTf5T+kpubcwly46/UyfKSiGBs
-	 8sand5vmhDIEHoXeKLa5Bt3+rId5rcjn5Ky26NljPLdep6PeM1t9QwwPZilt40e7LXUyN
-	 CHL8oMQGbDHy6KaLA6C+9FO1rEwEVk/RdNffDTfyfzTpw8v+XF8Kyjhes6REsuGn9+I5t
-	 179dGsBqvQ8wz8ZMtIu15xD9wKcGYGpNnAhusPGN5mmV/5Ptm0cJz6VDRwjjEPt+ZVQ==
+	t=1793714963;
+	b=wo2S1q9dw+ahpXJPmpiRt4O42datuRvQEtRBFamBdrH9n/AIp2GKi8mBfh8sHdrED+4h
+	 Ne1pIdTJWEnYo/+vkTgg91b8mdXQ3vdDzuegyMDXUPTc518P97CAZCFQ+DJixZ1gRFfEg
+	 f9uncu8XuXfVyVm2/xNNCVvG4Jp0sJx9aihM8lDKzlJlX1/MWw+XW8IhiazgJhiYHNhZd
+	 lIRnx3/T50MFz2kyoLtPfB+Zi0GZu7FbATaHykh+aK7dYqdNkfKe1f1M+rKHdV0rvhlAv
+	 PFex0w0zH8Z2uw+qxuTPKLogOqk1g3U8g7Aia2BJJtaFKMLIdQ/vW/h1gZistnO/2rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714962;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714963;
 	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
 	 DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Tjci9FahsWXbvTAjNSulqZBWW3Q1JTvC7kQWPLK/tWs=;
-	b=PmzbreTmfC3695PX4DUxewy68T9EDgSZw0HfpfmndUDRng/FK8NHAokepczd5HFWP23p
-	 e7bfS9/q0qeE8a1nCif4tfKQB0kOSYf9tRN+5CDbZVjaL9/rY4xZKDkCUd1juN3s5NPiw
-	 IPmfz5hZsc4ubCnBZlxyWkK4HfTp8E9adnx+9IFkV8Jqq+FZKCxs6HKgXMh15Ty/LcmEk
-	 nZvYDdIR3xWMS6xqG1Ax1Weyw1t/vV67iUOrifs68OTdNVQNOavj9PBffsJpdVhRQDLV2
-	 H4xm2wjG71s7KYcUDy1wyVMf09QrvDYwUnwDw6UvdiEBpAyR1PfZCw34bwAhl6LE5xA==
+	bh=pAU6lY1mmWFrbMj2mA1SlbUUOB4e4rqx9wfmZ1QBWLA=;
+	b=grdk6C5mKHViRoip5c84sHahJQwI1iP1X7Pp2hkcSuI/wJMe1eh/kj16C7WYmToDks21
+	 2g/cCHpUC8DGNW2WX+UqNlaSpBPIU1Ke8uN2KgP9bmrGVYBlGxa1ydVzHDl6AtjaWVLWu
+	 H+ZKK4epqYuLdcoRYWaVEY0EfdWBRjK0H1L1DBNt11yYd8mgP7OYOPY9BReJQIKMzMqQW
+	 OwizC+XLLS4TrDFYDE6HHI+g1pQIARTPCMwIsFmWo+PtxauwrWFUxOB7mL+qsK86X2Qi4
+	 hkSxJPUq/FFfpBIVZ0JWYrBoNRhNWNLuXBMjj7Ov37RWwf/o5reRrEJEHDVoE56ppGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nxp.com;
 	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=nselector2 header.b=GiV3bdZb;
-	arc=none smtp.remote-ip=92.121.32.55
-Received: from inva130.nxp.com (inva130.nxp.com [92.121.32.55])
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=nselector2 header.b=PQb0tKqk;
+	arc=none smtp.remote-ip=92.121.32.54
+Received: from inva129.nxp.com (inva129.nxp.com [92.121.32.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA9A606A333;
-	Tue,  3 Nov 2026 14:09:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DA9A606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8E6606A337;
+	Tue,  3 Nov 2026 14:09:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B8E6606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=nselector2 header.b=GiV3bdZb
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=nselector2 header.b=PQb0tKqk
 Received: from localhost (localhost [127.0.0.1])
-	by inva130.nxp.com (Postfix) with ESMTP id AF2966000791;
-	Tue,  3 Nov 2026 15:09:15 +0100 (CET)
+	by inva129.nxp.com (Postfix) with ESMTP id 6AB996000295;
+	Tue,  3 Nov 2026 15:09:16 +0100 (CET)
 X-Virus-Scanned: amavis at nxp.com
-Received: from inva130.nxp.com ([127.0.0.1])
- by localhost (inva130.nxp.com [127.0.0.1]) (amavis, port 10024) with ESMTP
- id GunDit03yl-B; Tue,  3 Nov 2026 15:09:15 +0100 (CET)
+Received: from inva129.nxp.com ([127.0.0.1])
+ by localhost (inva129.nxp.com [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id ic6YV_2UnzoN; Tue,  3 Nov 2026 15:09:15 +0100 (CET)
 Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
-	by inva130.nxp.com (Postfix) with ESMTP id E4C0B6000789;
-	Tue,  3 Nov 2026 15:09:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 inva130.nxp.com E4C0B6000789
+	by inva129.nxp.com (Postfix) with ESMTP id D74DE600028F;
+	Tue,  3 Nov 2026 15:09:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 inva129.nxp.com D74DE600028F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com;
-	s=nselector2; t=1793714954;
-	bh=Tjci9FahsWXbvTAjNSulqZBWW3Q1JTvC7kQWPLK/tWs=;
+	s=nselector2; t=1793714955;
+	bh=pAU6lY1mmWFrbMj2mA1SlbUUOB4e4rqx9wfmZ1QBWLA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GiV3bdZbWQ6szSJIM7wqBdiGsK2OoJ+IcmxP3BFVgS2+HG6Yead80qN0LqFBZy49y
-	 NNhDpDVHAN81Ee+0vI2UCXsZcNi02NqlzL8L1DLr3ozU9C/xL0fUfGJrH0Ua50gKSk
-	 ymCl+oqnc9y8OCPaemPQiuFLJFFCQum2T/mKtdE61rmTJfuSu/hsEhtA57PnWfRAH7
-	 oJdcBfi7cGF5FqHcT8fUmi76RI/NmDfINXwwYQq+voX5UQKG1tTRCFQHRVZfdl8tUk
-	 vldPLvwh/gC++ttsJyFmU/KxwTzcIALRROG8cyAoY9Ju+lb/E6PAkpIjzeX8zC0w8J
-	 8sF1RdgVIkrpg==
+	b=PQb0tKqkU0tWI7cEKn34hUThcwU1ZZtJpJzeauhGlZ7WYxkQC9sPN/LlBROUISzgx
+	 9WPGoOWIXFCP6AFDCz6JBkawzrgooM1b8XltbgFxgLUnkv1SquUXPuhmFvzF9s1uW9
+	 XFc5dNOAkuWWQIieUnzqp3KhomEMFrLZLnxBi0C8hiVqx3BMhdNn7WyxZhS8/hCsGh
+	 V7MGpazSdX4X1cSMemNXqgKPDOld99DLRAL0dCK6Av8IRVx49axWvamHEjC68kOe2h
+	 2d6bxYWksImYAoxC1gSuz2n1SMmrFervn0JHqZNEA2zj9dTalGt0qbIqfGUoF0Tig/
+	 w9uiZi56/YcNw==
 Received: from lsv15141.swis.ro-buh01.nxp.com (lsv15141.swis.ro-buh01.nxp.com [10.162.246.138])
-	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 0376A202AF;
-	Tue,  3 Nov 2026 15:09:13 +0100 (CET)
+	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 1B32A202AF;
+	Tue,  3 Nov 2026 15:09:15 +0100 (CET)
 From: Claudiu Manoil <claudiu.manoil@nxp.com>
 To: netdev@vger.kernel.org
 Cc: s32@nxp.com,
@@ -68,15 +68,11 @@ Cc: s32@nxp.com,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
 	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH net-next v3 1/5] net: enetc: Add pseudo-MAC support for ENETCv4 Ports via a fixed-link node
-Date: Tue,  3 Nov 2026 16:09:07 +0200
-Message-Id: <5a135fdb2f4de0ee90f4c7e691fff34ccab29354.1793712309.git.claudiu.manoil@nxp.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3 2/5] net: enetc: Enable probing of version 4.4 devices
+Date: Tue,  3 Nov 2026 16:09:08 +0200
+Message-Id: <bf8effe9a06ba569b5e5a36cc1d1982b2e3fff53.1793712309.git.claudiu.manoil@nxp.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1793712309.git.claudiu.manoil@nxp.com>
 References: <cover.1793712309.git.claudiu.manoil@nxp.com>
@@ -91,330 +87,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ENETCv4 has special internal links when connected to the on-chip NETC
-switch via internal switch ports, called pseudo-MAC links. These
-pseudo-MACs are proprietary, they don't implement any standard IEEE
-interface (like MII), and can be modeled as fixed links with the link
-speed determined at boot time by the Port PCR[PSPEED] register
-configuration.
+The ENETC v4.4 devices are present on S32N79 SoCs and feature only
+Pseudo-MAC ENETC ports, whose PFs use either the 0xe101 or the 0xe110
+PCI device ID, and the VFs answer to the usual device ID of 0xef00.
 
-We also need to be able to probe the ENETCv4 Ports featuring pseudo-MACs
-as pure PCI devices, i.e. without any "ethernet" DT node representation.
-The typical use case for this consists in a board with NETC connected
-via PCI to another host which probes the ENETC. Note that in this
-scenario, the pseudo-MAC ENETCs are connected internally to a NETC
-switch that is not owned by Linux.
-
-Since such a port has no "ethernet" DT node, its fixed link has to be
-synthesized at probe time. Build the fixed-link subnode directly in C
-with an of_changeset: of_changeset_create_node() adds a "fixed-link"
-node onto the port's own OF node, and of_changeset_add_prop_*() populate
-its "speed" and "full-duplex" properties. The changeset is applied with
-of_changeset_apply(), so the fixed-link node is spliced onto the ENETC
-netdev's fwnode exactly as if it had come from static DT, and phylink
-picks it up through dev_fwnode().
-
-The operating speed written into the node is read from PCR[PSPEED] at
-probe time and mapped to a phylink-supported value, so the fixed link
-reflects the actual boot-time configuration, as long as it's a phylink
-supported value. Otherwise, PCR[PSPEED] will be updated to the closest
-rounded down supported value.
-
-The pseudo-MAC path is selected when the port has no OF node, or when it
-only has the empty PCI-synthesized node (OF_DYNAMIC), which carries no
-fixed-link description. Ports described by static DT take the regular
-of_get_phy_mode() path instead.
-
-The changeset is reverted and destroyed on teardown and on the probe
-error unwind. The node-less pseudo-MAC path has a runtime dependency on
-CONFIG_PCI_DYNAMIC_OF_NODES: that is what makes the PCI core synthesize
-the per-function OF node (of_pci_make_dev_node()) that the fixed-link
-node is attached onto. This is intentionally not a hard Kconfig
-dependency, since the ENETC4 driver also serves regular ports described
-by static DT; when PCI_DYNAMIC_OF_NODES is absent the PCI function has no
-of_node and the pseudo-MAC probe path fails gracefully with a clear
--ENODEV error.
+While the ENETC PF instances are usually designated by the 0xe101 ID,
+in newer IP versions the 0xe110 ID was introduced to indicate the
+power-on reset default NETC switch management interface. These IDs
+do not indicate any functional difference between the designated
+ENETC instances, and can be interchanged and re-assigned at boot time
+(i.e. from firmware).
 
 Signed-off-by: Claudiu Manoil <claudiu.manoil@nxp.com>
 ---
 v3:
- - Fixed the CONFIG_OF_DYNAMIC dependency.
- - Refactored enetc4_add_ppm_fixed_link(), as per Wei's feedback.
- - Improved the commit message.
+ - Added sysclk_freq info for the v4.4 ENETC devices.
 
 v2:
- - Switched from a DT overlay blob (of_overlay_fdt_apply() + a .dtso
-   compiled to .dtbo) to of_changeset_create_node(), per review
-   feedback. Drops the embedded overlay externs, the Makefile .dtbo
-   wrapping, and the OF_OVERLAY Kconfig dependency.
- - Baked the operating speed directly into the changeset-created
-   fixed-link node (read once from PCR[PSPEED] at probe time); the
-   phylink get_fixed_state callback is no longer needed and was removed.
+ - Described why there are two ENETC PF IDs in the commit message, as per
+   review.
 
- drivers/net/ethernet/freescale/enetc/Kconfig  |   1 +
- .../net/ethernet/freescale/enetc/enetc4_pf.c  | 109 +++++++++++++++++-
- .../net/ethernet/freescale/enetc/enetc_pf.h   |   2 +
- .../freescale/enetc/enetc_pf_common.c         |  41 ++++++-
- .../freescale/enetc/enetc_pf_common.h         |   1 +
- 5 files changed, 145 insertions(+), 9 deletions(-)
+ drivers/net/ethernet/freescale/enetc/enetc.c  | 26 +++++++++++++++++++
+ .../net/ethernet/freescale/enetc/enetc_hw.h   |  4 ++-
+ 2 files changed, 29 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/freescale/enetc/Kconfig b/drivers/net/ethernet/freescale/enetc/Kconfig
-index f425f82a6213a..c51d07db2c869 100644
---- a/drivers/net/ethernet/freescale/enetc/Kconfig
-+++ b/drivers/net/ethernet/freescale/enetc/Kconfig
-@@ -55,6 +55,7 @@ config NXP_ENETC4
- 	select NXP_NTMP
- 	select PHYLINK
- 	select DIMLIB
-+	select OF_DYNAMIC
- 	help
- 	  This driver supports NXP ENETC devices with major revision 4. ENETC is
- 	  as the NIC functionality in NETC, it supports virtualization/isolation
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc4_pf.c b/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-index 71c971618388b..b7e7201e6a71a 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-@@ -1,8 +1,9 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
--/* Copyright 2024 NXP */
-+/* Copyright 2024, 2026 NXP */
- 
- #include <linux/clk.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/of_net.h>
- #include <linux/of_platform.h>
- #include <linux/unaligned.h>
-@@ -932,6 +933,14 @@ static void enetc4_pl_mac_link_down(struct phylink_config *config,
- 	enetc4_mac_tx_graceful_stop(pf);
- }
- 
-+static void enetc4_get_pcr_speed(struct enetc_hw *hw, int *speed)
-+{
-+	u32 val = enetc_port_rd(hw, ENETC4_PCR);
-+	int pspeed = FIELD_GET(PCR_PSPEED, val);
-+
-+	*speed = (pspeed + 1) * 10;
-+}
-+
- static const struct phylink_mac_ops enetc_pl_mac_ops = {
- 	.mac_select_pcs = enetc4_pl_mac_select_pcs,
- 	.mac_config = enetc4_pl_mac_config,
-@@ -946,23 +955,108 @@ static void enetc4_pci_remove(void *data)
- 	enetc_pci_remove(pdev);
- }
- 
-+static void enetc4_put_ppm_fixed_link(struct enetc_pf *pf)
-+{
-+	if (!pf->ppm_ocs)
-+		return;
-+
-+	of_changeset_revert(pf->ppm_ocs);
-+	of_changeset_destroy(pf->ppm_ocs);
-+	kfree(pf->ppm_ocs);
-+	pf->ppm_ocs = NULL;
-+}
-+
-+/* Pseudo-MAC ports have no real PHY; the link is fixed, with the operating
-+ * speed set at probe time from PCR[PSPEED]. Describe this with a fixed-link
-+ * subnode synthesized at runtime onto the port's own OF node, so phylink
-+ * picks it up through dev_fwnode() exactly as if it came from static DT.
-+ */
-+static int enetc4_add_ppm_fixed_link(struct enetc_pf *pf,
-+				     struct device_node *np)
-+{
-+	struct device_node *fixed_link;
-+	struct of_changeset *ocs;
-+	int speed, err;
-+
-+	enetc4_get_pcr_speed(&pf->si->hw, &speed);
-+	speed = enetc_phylink_match_pseudo_mac_speed(speed);
-+
-+	ocs = kzalloc_obj(*ocs);
-+	if (!ocs)
-+		return -ENOMEM;
-+
-+	of_changeset_init(ocs);
-+
-+	fixed_link = of_changeset_create_node(ocs, np, "fixed-link");
-+	if (!fixed_link) {
-+		err = -ENOMEM;
-+		goto err_destroy;
-+	}
-+
-+	err = of_changeset_add_prop_u32(ocs, fixed_link, "speed", speed);
-+	if (err)
-+		goto err_put_node;
-+
-+	err = of_changeset_add_prop_bool(ocs, fixed_link, "full-duplex");
-+	if (err)
-+		goto err_put_node;
-+
-+	err = of_changeset_apply(ocs);
-+	if (err)
-+		goto err_put_node;
-+
-+	of_node_put(fixed_link);
-+	pf->ppm_ocs = ocs;
-+
-+	return 0;
-+
-+err_put_node:
-+	of_node_put(fixed_link);
-+err_destroy:
-+	of_changeset_destroy(ocs);
-+	kfree(ocs);
-+
-+	return err;
-+}
-+
- static int enetc4_link_init(struct enetc_ndev_priv *priv,
- 			    struct device_node *node)
- {
-+	bool dynamic = node && of_node_check_flag(node, OF_DYNAMIC);
- 	struct enetc_pf *pf = enetc_si_priv(priv->si);
- 	struct device *dev = priv->dev;
- 	int err;
- 
--	err = of_get_phy_mode(node, &pf->if_mode);
--	if (err) {
--		dev_err(dev, "Failed to get PHY mode\n");
--		return err;
-+	/* Pseudo-MAC ENETCs are described by a runtime-synthesized fixed-link
-+	 * node rather than static DT. This covers both a missing OF node and a
-+	 * PCI-synthesized (OF_DYNAMIC) node, which is an empty node created
-+	 * by the PCI core and thus carries no fixed-link description.
-+	 */
-+	if (enetc_is_pseudo_mac(priv->si) && (!node || dynamic)) {
-+		pf->if_mode = PHY_INTERFACE_MODE_INTERNAL;
-+
-+		if (!node) {
-+			dev_err(dev, "Missing of_node for Pseudo-MAC port\n");
-+			return -ENODEV;
-+		}
-+
-+		err = enetc4_add_ppm_fixed_link(pf, node);
-+		if (err) {
-+			dev_err(dev, "Failed to add fixed-link node\n");
-+			return err;
-+		}
-+	} else {
-+		err = of_get_phy_mode(node, &pf->if_mode);
-+		if (err) {
-+			dev_err(dev, "Failed to get PHY mode\n");
-+			return err;
-+		}
- 	}
- 
- 	err = enetc_mdiobus_create(pf, node);
- 	if (err) {
- 		dev_err(dev, "Failed to create MDIO bus\n");
--		return err;
-+		goto err_mdiobus_create;
- 	}
- 
- 	err = enetc_phylink_create(priv, node, &enetc_pl_mac_ops);
-@@ -975,6 +1069,8 @@ static int enetc4_link_init(struct enetc_ndev_priv *priv,
- 
- err_phylink_create:
- 	enetc_mdiobus_destroy(pf);
-+err_mdiobus_create:
-+	enetc4_put_ppm_fixed_link(pf);
- 
- 	return err;
- }
-@@ -985,6 +1081,7 @@ static void enetc4_link_deinit(struct enetc_ndev_priv *priv)
- 
- 	enetc_phylink_destroy(priv);
- 	enetc_mdiobus_destroy(pf);
-+	enetc4_put_ppm_fixed_link(pf);
- }
- 
- static void enetc4_pf_link_status_task(struct work_struct *work)
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf.h b/drivers/net/ethernet/freescale/enetc/enetc_pf.h
-index 1f92d16d8ca81..ab11e40cfdbbb 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pf.h
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pf.h
-@@ -67,6 +67,8 @@ struct enetc_pf {
- 	bool sriov_enabled;
- 	bool link_up;
- 	u16 link_status_ms_mask;
-+
-+	struct of_changeset *ppm_ocs; /* pseudo-MAC fixed-link changeset */
+diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
+index c6571b5cc8425..b989823859ff2 100644
+--- a/drivers/net/ethernet/freescale/enetc/enetc.c
++++ b/drivers/net/ethernet/freescale/enetc/enetc.c
+@@ -3832,6 +3832,20 @@ static const struct enetc_drvdata enetc4_vf_data = {
+ 	.eth_ops = &enetc_vf_ethtool_ops,
  };
  
- #define phylink_to_enetc_pf(config) \
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-index 8206884294a47..3ba46c3a7670b 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-@@ -436,6 +436,43 @@ void enetc_mdiobus_destroy(struct enetc_pf *pf)
- }
- EXPORT_SYMBOL_GPL(enetc_mdiobus_destroy);
- 
-+static struct {
-+	unsigned long mac_cap;
-+	int speed; /* descending order sorted  */
-+} enetc_phylink_pseudo_mac_caps[] = {
-+	{ MAC_25000FD,  SPEED_25000 },
-+	{ MAC_20000FD,  SPEED_20000 },
-+	{ MAC_10000FD,  SPEED_10000 },
-+	{ MAC_5000FD,   SPEED_5000  },
-+	{ MAC_2500FD,   SPEED_2500  },
-+	{ MAC_1000FD,   SPEED_1000  },
-+	{ MAC_100FD,    SPEED_100   },
-+	{ MAC_10FD,     SPEED_10    },
++static const struct enetc_drvdata enetc4_s32n79_ppm_data = {
++	.sysclk_freq = ENETC_CLK_500M,
++	.tx_csum = true,
++	.max_frags = ENETC4_MAX_SKB_FRAGS,
++	.eth_ops = &enetc4_ppm_ethtool_ops,
 +};
 +
-+static unsigned long enetc_phylink_get_pseudo_mac_caps(void)
-+{
-+	unsigned long mac_caps = 0;
-+	int i;
++static const struct enetc_drvdata enetc4_s32n79_vf_data = {
++	.sysclk_freq = ENETC_CLK_500M,
++	.tx_csum = true,
++	.max_frags = ENETC4_MAX_SKB_FRAGS,
++	.eth_ops = &enetc_vf_ethtool_ops,
++};
 +
-+	for (i = 0; i < ARRAY_SIZE(enetc_phylink_pseudo_mac_caps); i++)
-+		mac_caps |= enetc_phylink_pseudo_mac_caps[i].mac_cap;
-+
-+	return mac_caps;
-+}
-+
-+int enetc_phylink_match_pseudo_mac_speed(int speed)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(enetc_phylink_pseudo_mac_caps); i++)
-+		if (enetc_phylink_pseudo_mac_caps[i].speed <= speed)
-+			return enetc_phylink_pseudo_mac_caps[i].speed;
-+
-+	return SPEED_UNKNOWN;
-+}
-+EXPORT_SYMBOL_GPL(enetc_phylink_match_pseudo_mac_speed);
-+
- int enetc_phylink_create(struct enetc_ndev_priv *priv, struct device_node *node,
- 			 const struct phylink_mac_ops *ops)
+ static const struct enetc_platform_info enetc_info[] = {
+ 	{ .revision = ENETC_REV_1_0,
+ 	  .dev_id = ENETC_DEV_ID_PF,
+@@ -3862,6 +3876,18 @@ static const struct enetc_platform_info enetc_info[] = {
+ 	  .dev_id = NXP_ENETC_VF_DEV_ID,
+ 	  .data = &enetc4_vf_data,
+ 	},
++	{ .revision = ENETC_REV_4_4,
++	  .dev_id = NXP_ENETC_PPM_DEV_ID,
++	  .data = &enetc4_s32n79_ppm_data,
++	},
++	{ .revision = ENETC_REV_4_4,
++	  .dev_id = NXP_ENETC_PF_DEV_ID,
++	  .data = &enetc4_s32n79_ppm_data,
++	},
++	{ .revision = ENETC_REV_4_4,
++	  .dev_id = NXP_ENETC_VF_DEV_ID,
++	  .data = &enetc4_s32n79_vf_data,
++	},
+ };
+ 
+ int enetc_get_driver_data(struct enetc_si *si)
+diff --git a/drivers/net/ethernet/freescale/enetc/enetc_hw.h b/drivers/net/ethernet/freescale/enetc/enetc_hw.h
+index 2c9d9042eb0bb..8e6a9d366d404 100644
+--- a/drivers/net/ethernet/freescale/enetc/enetc_hw.h
++++ b/drivers/net/ethernet/freescale/enetc/enetc_hw.h
+@@ -414,6 +414,7 @@ enum enetc_bdr_type {TX, RX};
+ #define ENETC_REV_1_0		0x0100
+ #define ENETC_REV_4_1		0X0401
+ #define ENETC_REV_4_3		0x0403
++#define ENETC_REV_4_4		0x0404
+ 
+ #define ENETC_G_EIPBRR1		0x0bfc
+ #define ENETC_G_EPFBLPR(n)	(0xd00 + 4 * (n))
+@@ -1048,8 +1049,9 @@ struct enetc_cbd {
+ 	u8 status_flags;
+ };
+ 
+-#define ENETC_CLK_400M		400000000ULL
+ #define ENETC_CLK_333M		333000000ULL
++#define ENETC_CLK_400M		400000000ULL
++#define ENETC_CLK_500M		500000000ULL
+ 
+ static inline u32 enetc_cycles_to_usecs(u32 cycles, u64 clk_freq)
  {
-@@ -471,9 +508,7 @@ int enetc_phylink_create(struct enetc_ndev_priv *priv, struct device_node *node,
- 
- 		phy_interface_set_rgmii(pf->phylink_config.supported_interfaces);
- 	} else {
--		mac_caps |= MAC_10FD | MAC_100FD | MAC_1000FD | MAC_2500FD |
--			    MAC_5000FD | MAC_10000FD | MAC_20000FD |
--			    MAC_25000FD;
-+		mac_caps |= enetc_phylink_get_pseudo_mac_caps();
- 	}
- 
- 	pf->phylink_config.mac_capabilities = mac_caps;
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.h b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.h
-index c9eed879d5a3f..aede1aad63621 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.h
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.h
-@@ -13,6 +13,7 @@ void enetc_mdiobus_destroy(struct enetc_pf *pf);
- int enetc_phylink_create(struct enetc_ndev_priv *priv, struct device_node *node,
- 			 const struct phylink_mac_ops *ops);
- void enetc_phylink_destroy(struct enetc_ndev_priv *priv);
-+int enetc_phylink_match_pseudo_mac_speed(int speed);
- void enetc_set_default_rss_key(struct enetc_pf *pf);
- int enetc_vlan_rx_add_vid(struct net_device *ndev, __be16 prot, u16 vid);
- int enetc_vlan_rx_del_vid(struct net_device *ndev, __be16 prot, u16 vid);
 -- 
 2.34.1
 
