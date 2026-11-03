@@ -1,82 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702932;
-	b=IUGSRyB7jLS0MzkV0jPJFai4fR+RhyhYvR1CngNrVPPcckkSKKeu6Cm1g3UtRbbxWi40
-	 uKXohgM8NZ+EYQMl8C5+XKJqOiRRiOY5jDeJtMuji1zKZZoE0kOjgCTWDBDzV0EjokrQZ
-	 jtEvW1TfOuGDabjb3gFirt4X1Vp1WWKz27jUvxQgUPEo6QucNHMfoCmkQ8xRNoXoBR7JG
-	 0ZhloIRuIv8yWzd4LYjujH/AjMstwZBtTLl5kOqmH9yw1C0TNxYAEU/66nJKMtqFnqEe1
-	 zChzF42/x8hjblyfj/VpMrPpJtYrNyyEoBwyTzfZ8/KyjlLNM6R2j07kIfHZPdOkArQ==
+	t=1793702951;
+	b=zwuUohLFgN3OL7Djq9gQty+vpwKStlIRQnXoSI9n424MxcqxiIB9Y+wu6ckj+nT2CgUE
+	 WSVxakDc/N0kcHZrv+WLocU6FLwgH17O55rCLHVqko+LIrBbnT0QbcrPod8DryQUlrmda
+	 FQT/t0goxnP+tn6AoAtthnD7OWlb+w8biofAdcf8S7ju6B67ZLxiYQ5dntc//5mlnxUXL
+	 +1ekBko6vRTG7gDp0hhpj739PWwbIHlLIt7Yz7cPrb4xYSm4wIabEZvDbosLqKXqNhgR1
+	 L9KdA9LjHSY8MW79IsOw3DtFgYhxC/o0mmGFrjArWUljUmo8P7HYU6zj03HRZ3nrS9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702932;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=50pkaCz8b4z8jaQs9WghlsSPJli4Zqrxz0vpX2mV8AQ=;
-	b=iy+rrkDxX/71/xqtsyJp35/rANs06UPrcZW2gTVPZwB8zzJyGVLajNDpnpFOAmanVLXM
-	 TtyjuYpRLLEtMDwTiXc5oyRKLD3XMApldVfNlV87e0s7MMnl3zwRWSo3m9FROj/xOh+p+
-	 EcGEOi5ZkifkCmI/6to9c2VUODK88D1B2OtD+RIyl/IgmBtWZH2uQibysDDpdjfnm282K
-	 lIpgQNqdKw3Lqdeqp8FFfixbM8XDVUOYOjTYSEBvYyzGQS4PIKg9SxrM21lnJZq6Ern6H
-	 toAprDT0RutRQzNA0wW0Nt24UsIb9J0opmMuW6SIAmMcvlmTAA88WZKFoi5Ak5HwX3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702951;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=x3jybUZUjli2SkdPvv0VvHSWCQMmhs4hSkS0vW9Fq+w=;
+	b=WyIVUu/LbhUYI5kAMCYL1q5GOg/vUsFO+3t40POgNhvV77yIiClFtDtu2Ep5pAia8BYX
+	 4O0UZ2RFq8OhtxMfnPdF4R9Q2nfpnqM+V669U9ILMvKTY+hbIAQYdTe+/K1fAWWVa6r4T
+	 NXYcqIRqdq5LMh635HRTj8EfhqEzaNxPdQIob4nIR+BGvtQuXqNt1QM6zHUYacpwaTs4P
+	 KHGMCnSiUufQBE8Xx5I+FRRg5hWvPzkGOAtixUuoThjsyj13SFvIh2GFTZcRrM2Mt6epd
+	 tHHurgWtl6UXb89svS8wTtggABMZ2vjLFk0xBCnqXH2C7IA9/c+aIQAEgeVx2IA44cA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BVv1oYgp;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeV2jRvk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594B0606A332;
-	Tue,  3 Nov 2026 10:48:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 594B0606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE89F606FAE3;
+	Tue,  3 Nov 2026 10:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BVv1oYgp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793702932; x=1825238932;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mv7pmrDh8sYJR4u7eLjn9aGpW2b0JTNwn14X6yW880U=;
-  b=BVv1oYgpsvTKPJfvNiLo0h+3cb85RKp9wmxX9H/yYD3d3tax1JBzb+yc
-   KtKQwGsINwDqqcAuBb3pOI4oD6HdczTyQhZMVZ8sUzD+0CDPxy0nLcV91
-   ybSnMqh+TNzf+9w5YuRew/pSMfb1eOG9fpVZiyGsRmYA/3GtHoeSBXWRR
-   pv5CUb84jTJA5vd9IK2bQUtvsqTUgMkUU2AAU4suimkS/fVx+2vJrcGnk
-   UBYEocbPnvoj1tmWJgvT3DrL5Iehr917I8tQT90wtsAYrR9odcRB6iA5Z
-   xP1yccyMNZ54++mF/xCU4J1PK9f6fy5y7lf7xvTCFJRUDel2o40cDYeDc
-   g==;
-X-CSE-ConnectionGUID: p3l42IIRTz2/W+l7URI9qQ==
-X-CSE-MsgGUID: 2zZckBp0T3GfLhwfYnPUng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2326282"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2326282"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:48:51 -0800
-X-CSE-ConnectionGUID: wSPmumnPQXWrk1dPpk4ksw==
-X-CSE-MsgGUID: 7RKJ6rh8RU24Fxi0vH6O/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6221460"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:48:48 -0800
-Date: Tue, 3 Nov 2026 12:48:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Kent Gibson <warthog618@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5 1/7] gpiolib: wait for pending label frees before
- cleaning up desc_srcu
-Message-ID: <aum8DRhBqCOiEUsj@ashevche-desk.local>
-References: <20261103-gpiolib-chip-removal-v5-0-aambrozewicz@nvidia.com>
- <20261103-gpiolib-chip-removal-v5-1-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeV2jRvk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9B31F000C1;
+	Tue,  3 Nov 2026 10:49:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793702950;
+	bh=x3jybUZUjli2SkdPvv0VvHSWCQMmhs4hSkS0vW9Fq+w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EeV2jRvkMNGFnMwNJQSil8aFaPnCkKT2tIw0ZU+QpTC9eGsW2oWIG9dDmSuC7HmsV
+	 jJ9xZMzGAYi7NxibwLTbhmrV+7ldV7X1PBnxlGB7pEshYdPyic0kRRWUG/hz4W7ZB8
+	 SG7FDhOsIP914u2JGK/dX1St3+LrMmGlAtx5pqKDjwx8fZhfiueHvabpffkv6tcFBI
+	 JXjq6aStNJ6z/j2GxyJJAnedpYt7sIGA/5dttGuw0YNgMVpERAnUlJYtMPQeviuLBZ
+	 HkwVbfB5zZuZvX/IPM3pCaSKqKZ7xlEbg3l9+sMvnpqweDyy1Va2u0MPFh3K7SIoQM
+	 32eqYDnVKj3Hw==
+Date: Tue, 3 Nov 2026 11:49:07 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Adam Azuddin <azuddinadam@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch, 
+	andersson@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+Message-ID: <20261103-zippy-quantum-bat-98b5ed@quoll>
+References: <20261030083737.47188-1-azuddinadam@gmail.com>
+ <20261030083737.47188-2-azuddinadam@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,45 +61,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103-gpiolib-chip-removal-v5-1-aambrozewicz@nvidia.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261030083737.47188-2-azuddinadam@gmail.com>
 
-On Tue, Nov 03, 2026 at 12:32:34PM +0200, Adrian Ambrozewicz wrote:
-> desc_set_label() frees the old label with call_srcu() on
-> gdev->desc_srcu, and gpiodev_release() calls synchronize_srcu() before
-> cleanup_srcu_struct(). synchronize_srcu() waits for a grace period, not
-> for queued callbacks. Once the srcu_struct uses per-CPU callback lists,
-> a label freed by gpiochip_free_hogs() can still be pending, and
-> cleanup_srcu_struct() warns:
+On Fri, Oct 30, 2026 at 04:37:35PM +0800, Adam Azuddin wrote:
+> The RA8875 is an SPI-connected TFT display controller by RAiO
+> Technology Inc. It supports display resolutions of up to 800x480.
 > 
->   WARNING: kernel/rcu/srcutree.c:706 at cleanup_srcu_struct+0x239/0x330, CPU#0: init/1
->   Call Trace:
->    gpiodev_release
->    device_release
->    kobject_put
->    devres_release_all
->    device_release_driver_internal
->    platform_device_unregister
->    gpio_sim_device_deactivate
-> 
-> Use srcu_barrier(), which waits for them.
-> 
-> Reproduced with a hogged gpio-sim line, setting the chip live and back
-> on a 4-CPU guest with srcutree.convert_to_big=1: it warns within 60
-> cycles; with this change, 1000 cycles pass.
-
-...
-
 > Assisted-by: LLM
 
-This tag is obsoleted. Instead explain under '---' how AI has been used to
-generate this contribution.
+You can drop this.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
+> ---
+>  .../bindings/display/panel/raio,ra8875.yaml   | 87 +++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+>  2 files changed, 89 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+> new file mode 100644
+> index 000000000000..661398bda0ee
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/raio,ra8875.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: RAiO RA8875 Display Controller
+> +
+> +maintainers:
+> +  - Adam Azuddin <azuddinadam@gmail.com>
+> +
+> +description:
+> +  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
+> +  It can be connected to the host via 8080/6800 parallel interface,
+> +  SPI or I2C.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: raio,ra8875
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply:
+> +    description:
+> +      3.3 V supply for the IO pins, the oscillator IO pins, the ADC pins
+> +      and the internal LDO. The 1.8 V core rail is generated internally.
+> +
+> +  reset-gpios:
+> +    description:
+> +      GPIO connected to the active-low RST# pin. Optional, since the board
+> +      may instead use an RC reset circuit.
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    description:
+> +      INT# pin, active low. Signals RA8875 interrupt events such as touch
+> +      panel, key scan, DMA, BTE and font access completion. Optional, since
+> +      the host can poll the interrupt status register instead.
 
+Last sentence is not correct. What driver can do is here less relevant.
+Question is whether hardware datasheet allows interrupt being not
+connected.
+
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - display-timings
+> +  - vdd-supply
+
+Best regards,
+Krzysztof
 
