@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708389;
-	b=w6wEEPdJYIHjI3vI5uatr/Pg7n9DJPEDDMH/WHDlYjzKOUzaTYOB2ckWl6hE9IOf1uWN
-	 1fvQqsOW5cQn+hzyVz9sEb0M31B8ygTqqXTachJmgQY4yyU4po5OiPkXq9kw+HiJicvCE
-	 MfjnWvwIXCzKPrgCm0GCSOv5HtRjgEg/2/cO/SPDMeKsDkkEehmy38EqWNGPwuJZNRnhA
-	 WaoFTq56KWt+r4W6CtfqVD4otqICm2u9VPNqxSYVq4ArMx7r9TIzK5jZL+LS1OsCA2Pmx
-	 EjHTa3B9nZP36riFGl37i3obYGuJtpxhWik/oK8rplSXrM5hpM8CzUp+9S+OozQaQ4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708389;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=POwmkuKuZt+3esNskzrXPk+zZUe1C1spyDLFbmW5YFo=;
-	b=Uxv+5jyaTY704SO4jOMeDWSRTrw3dTf5ZXBSHaGW6MLphdu8V1cbPQ1hoyKHIPlsiW+p
-	 Zh0IvD9HXP+Z9ehYBUI4VYRA7ClpDdsJOheVqwcesuRc6pXs9JK/sOJhMEI4AoboLADS0
-	 1cYsjoi2053zuaj4+t4e06ybNE7RNoaNlkoKjW3g8ShLBC9ci9nSAxVf9p99MoQtugfDv
-	 ilnHVmwUNtw/pgFQDvR4V1Ct/sRNtWDr76P/aMzk2VfVNqyRzT+BqTjqGwftopNxWDfTs
-	 G+Tva6bEnvspiYo2SpRmDcW+PpihZZaJscFxy+Y1kOZSt4B7Mqkul4IvqHFOFg/ZQeg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVqTLxYV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793708408;
+	b=aNrqp4nx5MEIXHRpod/POh4xaA7syJL29J9NWvkdGK+neGG1/LbZnuRnRVZHmQHEdqfX
+	 iDDhYHgTJ1d2bbbEW0WkwlWps5OoxNA1RDI2dQ/p3K2HJFO9YmhKvTIzM4N5e++WGRF1N
+	 2krSKDmy9OjKbQAhoYEwlPwqFmcSKzRkuB05PriOy/OkiLXQN+4cwXoZoo9b5o0U58h1Z
+	 yo7wyOG4jYMfL7pnM1G0XoocSW0z0aZRcsOt/nv9nGf0cMCRi5CzZgetQHXKd1sJjSxXv
+	 F98A2pWQF+Nlrn3DbNeYQN8KCeR2U6aPWRh88a4r6E5rxy6RijqxUFEwfZVvfsFOsxg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708408;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=3CD88GfA2FxXgHDjjooA1xyO//Rj+QTFMj4P2VOKKgE=;
+	b=cDRz2cn/T/FvuWk3fQZpemcp8YdLZTG/lyOSEppi9ur2zdcRURs2KVax/aAIfBYhugzT
+	 Jr4Pn1FCXH+NFpnYQepjnfA2dldrso9pD1HYdnVYIwir8I1sVD/1SHIlOO2gmRKkJiDSI
+	 tn12Ch88jO1In4qpPtGdx4caBoxAYjiF8FHMA8YrXW7Ubkgx869zYnOYXmBqvszaqcvCr
+	 AvtCIlhofFORN1eD9wZE1dqueT512UVRk4ZUGcjB58euame0JVbleDUN06AcqkHBOXsuO
+	 7ezXp6xgJf3PVrK8nWyAgQ7nCxd0FHd2vp0/UZvG4YkFBrnS1dbwlZ6NC36xuVvP4og==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pSRjP4PL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3330606A326;
-	Tue,  3 Nov 2026 12:19:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DA0606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:20:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0DA0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVqTLxYV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6A61F000C1;
-	Tue,  3 Nov 2026 12:19:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793708388;
-	bh=POwmkuKuZt+3esNskzrXPk+zZUe1C1spyDLFbmW5YFo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FVqTLxYVXhhvCCs2K2udWe77IUJZaW0gxJnll2Ek6FOW9d1ANmypr4R2AGUDKTDeC
-	 lWECtjLWqnLaEg4nmB6O3KBAo5ebBLR31GoOZIA2w+7w2aR3GdyO7yFmBdZ/K+9ENs
-	 X7FhxdrBT08pErwLMOeuG8N9SNU3YaTtIyeYshqcEaRdxvtiUstEhjeeaUekosmuQ0
-	 11EL/aJJP4nMIn5l8c76xspxRK4LUULIVZiDWqcZG8pmY+WMEb2oLmQTR3BIJwni43
-	 DfTSUxE3CDPox/gEvZxnLpHWSsYTdAySbrQ474RXMygfzLeGZRwV+PKFWBMgtugBvo
-	 oeTev71XIJEwQ==
-Message-ID: <7f3e822e-3749-41c5-8390-e6d74b203927@kernel.org>
-Date: Tue, 3 Nov 2026 12:19:45 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pSRjP4PL
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15dd124bbe7so5794096c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:20:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793708407; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZdTjY4Z2rRxnFZD0RnRajLPm4tArShf082p27ezhCw1x/AplzJoSNzzN74Z87BNS5d
+         6hPJVHziTsq/E/Kdo90PO9IankbEfotmQVgp/n6thqlXRu7crx9z2n/cQm0gxDl0RwYB
+         kj0QuxvhsI6dF+F/cFyhnbB6RNVNrcvCxbaq5/JvqaI/UpaPsGAwWQUAstzD0hiFQLNr
+         GdnrScwXdig0KVBM0gk+SHBoXbJe9KWLF9fGqoB1DLFHEdX84Wtut6SbH6FSm/Zlsxsw
+         IZHLGDQ+IBmLuit8KGUUyFKKgHry/ku2wsZoHkwFap8evGnyUhrq1RfhVyy0JJdUlXOE
+         cbEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=3CD88GfA2FxXgHDjjooA1xyO//Rj+QTFMj4P2VOKKgE=;
+        fh=PTKc6CFPE3jNtB+simRtjM32MHO5d6WBZ+2UZgbon7s=;
+        b=eD8PBye0oGNEqgsRezZ1O/+EgSLDaMre2kUhRCNX1HAw9h6MoTzCWchJfOi7Htlo+/
+         ZjwthXPIBg+p67Ss6iVU/JNMwFgBOeoDEXbLo1vVbGb+SwzsI55IeBsrj/5ApiK4j7Up
+         XirXvxO0ON7tkhtfQXag+7N8QOHKnPlgwXLSWwzdmyKzj3TnTQfPeaKummgVrFIcqAMk
+         nR1DYPQuFOgAvFd0m7xFpj07flAbGa/b2p6BSKbzzTlypGgevWHhUpUduTTkZVQqrBMG
+         4Z1xpJL/u724gHUNRIY0NgnuJwertOhk1UAusEL9qFD1XZoSjKChRPsZ7YXIJLcZq4sq
+         TZYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793708407; x=1794313207; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3CD88GfA2FxXgHDjjooA1xyO//Rj+QTFMj4P2VOKKgE=;
+        b=pSRjP4PLoRS0PmDKYAVuAV829EIsKJYBepMU76dm/CZVN/r06GnuUDuwnL6qZe513k
+         frWZRVo4f9wEwKy1ojJ0gfU61QMhqo+xsw0Ybd8aTPry4MYlv0nBbQF7NKJ+zhMxTO4T
+         MXk8cntUGT0C5JmGX7nnlmb2LpJ0T68a9xs9tJkoasn1YjbcORHzxTHC4MJNoN4kDbIH
+         Dd+nnkC/Qwh9dPb010By8tJs85jx9dDRnkrQrOTuLUy/TmCe6/2bQ6Qyjfpj7fBHSX8K
+         Da4dnfX3h/XMaX8JQ+TmF8iM7MvC7n8dGPGq1OHHReqDGaqzhCE2Zj1V+nT9bVbdyW3H
+         IJeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793708407; x=1794313207;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3CD88GfA2FxXgHDjjooA1xyO//Rj+QTFMj4P2VOKKgE=;
+        b=UZeXjxMm0gVjY3W8Ap4hrHm60eZriCARUZN8ZDczEAy5CS0WGsiCT3OTqveL05ijEL
+         CuiHllUjW3G34mm8MlE725QACAVM7Zgnm9UPk5nJJ2m78Q4R/cl3gO5YfYsZl7vh3VUT
+         Dpcdy6rszHz6fNz2h7L63qurqMME11f58fXgmZ/ZqupCrpVN6R1ty98gxI5E0OlaiFjc
+         ZSlBwSNxEm1M8z7fW2SkVwPahjquabdJibrBDiYcrxa0VQQOmryxL+8ZfMn2I0qZeU/c
+         XMmgd7FWftzEPsUkwTaN77GZ5E96N7uyuS5oSziRp2/0+QTTXW9hNtxVaa+OVC0dMzAO
+         0+Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBzWaBY1qeqRHF6g6mfk4W73IXtEPaoMVwb70Tkoh+CggEu+kke7NMEae8sPce1Gtl4TN6BUg7eUuU1z8dY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xq2cpLM6s20R/IXDXdaSdatlFBfYg99Frm9+dlHF3UsKV8oyF
+	wnFSxhfLL3jhI3NxZCTxwX6cNsQJb9BzFKN7lGPUMyKFviK7YYYO4X+cxf9ydLZF+m614mBPr85
+	V23rsVd0ynXKAFg5umbvRJ9otcxN3d6kBD3oAMZ7C
+X-Gm-Gg: AYBFou3Z1mC53ML+uO+KYpfBsLoYye1qoDJ2USC5sNMhJgZUeVHSfsBsu0Xczacx9/2
+	Hu7mDg5vMkG93zd6yPVV3pu7cLhogkGXQa/ge1QUo3kiX2dwxuDxVqAd9ALMCvJXmVcBbI8dXox
+	cXecPJSY3IQQuhyz4WZY58gdkEXqeOBH4whT33XXJqQKUFKYd7M44p/h/UeqfZrN7Q577jR8VOj
+	myoIMFR/WoRoFEoFvQEyzbCYonHXnpFdJLKFMQzzSPWghGK7Gbjih3OSt22/4CDXbFL5o7IofYM
+	yxowgxAlP/KpEa3mADLNT+wygC6vHwKSTUKkbX9z3d5xIQkSZF6U9dqC7qxwhwK4Q60AHvMoBya
+	Q1l6BCHtXfqVO8DiAxp8PcS6JfyionaLOeuurO1bxBuLP9/ImSfxR44suN28TWq0PNw==
+X-Received: by 2002:a05:7022:eb55:10b0:168:3243:c90c with SMTP id
+ a92af1059eb24-1ac59dd356cmr20818361c88.15.1793708405984; Tue, 03 Nov 2026
+ 04:20:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,124 +103,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/9] media: qcom: camss: Introduce SOF sequence
- tracking
-To: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>, bryan.odonoghue@linaro.org,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
- <20261102-v4l2-frame-sync-v2-2-25cbed7a772f@kernel.org>
- <MPrRsE5vvB26tbMAT443IrH7Zr_tyIPaFwvQfnZj5TJUaM5uN8MyHB6kU6Y7rW92Sy35A5GfNcv95YOt-4YUNw==@protonmail.internalid>
- <8196a664-f73b-4da1-aea0-0ea49676a4eb@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <8196a664-f73b-4da1-aea0-0ea49676a4eb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261103-stackdepot-full-warn-v1-1-41f1fc651b64@debian.org>
+In-Reply-To: <20261103-stackdepot-full-warn-v1-1-41f1fc651b64@debian.org>
+From: Marco Elver <elver@google.com>
+Date: Tue, 3 Nov 2026 13:19:29 +0100
+X-Gm-Features: AclHuK9s-1nuK7edLIAKwVSP9sH1OemeE-hzzY1kqIDXOO8vAkwzu4SL6CH2ltk
+Message-ID: <CANpmjNMfNm4HwDFV=WdfR4AS0affDzEn3Lx0=A38xx9igJb0hQ@mail.gmail.com>
+Subject: Re: [PATCH] stackdepot: don't WARN when the depot runs out of pools
+To: Breno Leitao <leitao@debian.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>, 
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+	Dmitry Vyukov <dvyukov@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	John Ogness <john.ogness@linutronix.de>, Petr Mladek <pmladek@suse.com>, kasan-dev@googlegroups.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 03/11/2026 07:11, Gjorgji Rosikopulos (Consultant) wrote:
->> +
->> +void csid_sof_event(struct csid_device *csid, unsigned int id)
->> +{
->> +	struct v4l2_event event = {
->> +		.type = V4L2_EVENT_FRAME_SYNC,
->> +		.id = id,
->> +		.u.frame_sync.frame_sequence =
->> +			atomic_inc_return(&csid->sof_seq[id]),
->> +	};
-> On first look this was looking strange because the id is used for the
-> control id events not for frame sync. But on second thought it may make
-> sense, but the question is how the userspace should interpret those ids?
-> As of today userspace does not have any info for the VC and csid internal
-> pipelines (so called lines). So with the current state of the code
-> the id is VC which makes sense becouse the SOF/EOF packets are recieved
-> based on VC. So i am thinking of two options:
+On Tue, 3 Nov 2026 at 12:01, Breno Leitao <leitao@debian.org> wrote:
+>
+> depot_init_pool() emits WARN_ONCE() when the depot runs out of pools.
+> It runs with the raw pool_lock held and IRQs disabled, and
+> stack_depot_save_flags() wraps that section in printk_deferred_enter()
+> so that it does not print to the consoles with the lock held.
+>
+> That deferral only applies to legacy consoles. ON nbcon WARN() puts the
+> CPU in emergency mode, and in emergency mode printk() flushes all
+> pending records to the nbcon consoles from the calling context. With
+> a slow serial console (pl011 is an nbcon console) and a backlog of
+> messages, that flush can outlast the hard lockup threshold, all of it
+> with pool_lock held and IRQs disabled, while every other CPU that needs
+> to save a new stack trace spins on pool_lock.
+>
+> This was hit on an arm64 host running a KASAN and kmemleak enabled
+> linux-next kernel under stress-ng:
+>
+>    Stack depot reached limit capacity
+>    WARNING: lib/stackdepot.c:302 at stack_depot_save_flags+0x6b0/0x6b8, CPU#56: stress-ng-dev/3466160
+>    smp: csd: Detected non-responsive CSD lock (#1) on CPU#66, waiting 5000000030 ns for CPU#19 do_nothing+0x0/0x18(0x0).
+>    smp: csd: Detected non-responsive CSD lock (#2) on CPU#4, waiting 5000000030 ns for CPU#61 ipi_mb+0x0/0x18(0x0).
+>    watchdog: CPU53: Watchdog detected hard LOCKUP on cpu 54
+>    Kernel panic - not syncing: Hard LOCKUP
+>
+> The rest of the WARN splat never made it to the log: CPU 56 was still
+> flushing the console backlog from the "WARNING:" line when the hard
+> lockup detector fired.
+>
+> Running out of depot space is an expected condition under heavy debug
+> load, not a kernel bug, so report it with pr_warn_once() instead.
+>
+> At normal priority the nbcon consoles are printed by the printer
+> threads, and the legacy consoles honour printk_deferred.
+>
+> This also keeps a full depot from crashing machines running with
+> panic_on_warn.
+>
+> Fixes: cd11016e5f52 ("mm, kasan: stackdepot implementation. Enable stackdepot for SLAB")
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-The id is not the VC its the CSID:id/port/line-number. VCs don't change 
-what this means; its the SOF event as seen by the CSI decoder - inside 
-of which there may be multiple VC:DT combos.
+Reviewed-by: Marco Elver <elver@google.com>
 
-This is also the case for PIX which is just another CSID 
-port/id/line-number.
-
-> 
-> 1. Move SOF event in vfe (rdi/pix sub-devs) we have per line sub-device
->     and will be well known to userspace for which line is reported.
-> 
-> 2. Add and propose extension of videodev2 documentation that
->     id of frame_sync event types represents SOF per virtual channel.
-> 
-> Personally i votoe for (1) because it will well fit with stream-api
-> support and usespace will have clear understanding of the SOF to which
-> stream belongs.
-
-You know from the media graph which CSID drives which VFE:output so it 
-is 100% possible to know which CSID:SOF relates to which VFE always. 
-CSID::SOF is a hardware description of what the CSID decoder sees. I 
-don't support mis-reporting it as a VFE event TBH.
-
-More than that though, there is in-fact a VFE specific SOF/EOF and EPOCH 
-event but these require the CSID feeding a frame into the VFE pipeline 
-and the VFE moving through its own state-machine to process that frame.
-
-So they are separate signals and separate logical events representing 
-different things with different timings in hardware, meaning different 
-things to userspace.
-
-CSID:SOF is the thing you want to trigger off of if you are for example 
-trying to align an IMU timestamp, not VFE SOF.
-
-Feel free to propose VFE:SOF/EOF if it makes sense for VCs - I don't 
-think I have a clear picture of what you want to do there - interested 
-though.
-
----
-bod
+> ---
+>  lib/stackdepot.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+> index 90c52f2e0d3f42..dea6338f73c1cd 100644
+> --- a/lib/stackdepot.c
+> +++ b/lib/stackdepot.c
+> @@ -299,7 +299,7 @@ static bool depot_init_pool(void **prealloc)
+>                 /* Bail out if we reached the pool limit. */
+>                 WARN_ON_ONCE(pools_num > stack_max_pools); /* should never happen */
+>                 WARN_ON_ONCE(!new_pool); /* to avoid unnecessary pre-allocation */
+> -               WARN_ONCE(1, "Stack depot reached limit capacity");
+> +               pr_warn_once("Stack depot reached limit capacity\n");
+>                 return false;
+>         }
+>
+>
+> ---
+> base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
+> change-id: 20261103-stackdepot-full-warn-b29a9d89f1a5
+>
+> Best regards,
+> --
+> Breno Leitao <leitao@debian.org>
+>
