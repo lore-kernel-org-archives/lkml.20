@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700329;
-	b=UQ1iQOHoGkNGfSGgfdjStIaQaql60loeD5AxAx2Xr9B5/tGhmTY+hiyLHQCXiLDYM4Xi
-	 UQb/Ovb2un34eGWgJSxVy4pmkqqcSgrjT0GndWmaMVwwq1eacUsVJ0Q/KNmxV5v65Gxar
-	 Qr4pyDT+Rzc4mDxixjncXCpS10ypf8b9ARnKwCO6OnHghxIbsZDmp0OjGlS1fkiDTGLNQ
-	 zeDDXg5qRQ8I5k/MIeLK88qzptkAIEkkobz4EbboHe9Q7AXOaZL75Bl9Du9lIRS7rnl9u
-	 OnjbtCNMx6OwvcVyr8pDwWaWoKijL3UJOBMGdP5RvfWXXWi4CINysu4DnNdmMf2+wbw==
+	t=1793700332;
+	b=hFKjrcSUjvLXQ/+lSB79+DGZANQT7a5Wh8pFi50ri8cuhvdtTXQB3yx5MLnuBrFxbxj7
+	 7vybdLYMGGpZUD0XrBerUJnXQ/qlXjxy0PihTOsiV8Io7UMTtJFqAyUcJoe6Ji+I1Nzvh
+	 RJz4Mo0EZ3kYKig8FZ1UM5HvEZuX+Uhyex/hIXepwFWcXvNOpJW4JAYKa9tSXjXjSwDG4
+	 EjRzt3MZbAPnEA0TcXfymo0cMFXsROhXgv2uoLdk+KAsuphNhJYkwXJP2nsaBPwjgjXD+
+	 ZGK6qsXK4KtmzvJIyZFrnBHeBCQrsrs6rRZ0ZJBt6qZgRSW4Uqn6E70a7ZFJfpgX0eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700329;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=EH6JpSgGDXBr8/oXh3P2IsoFFMPzZqzgjTRZpHrhex4=;
-	b=M0abwTe1erlDeC2LQSMRzffjER3yMUZ2qQQ+09y9yR/yS9nBnpnqbKvYFtmu3w2ibnKC
-	 YxZkfu2mc9UjuWhcg/mo1KDZuenh5Z/nDTWwt3Edx9fuvr+RllPoV8qHzEM0jqYsu438c
-	 bS2jdAP6Qc8j/DubiDARwoVlkSHp7mepgVYdLP4pD18p8zWF+OwiAue9z/XL9tSLYTCNs
-	 o70KqvNbJwph7vY3cgRQruud73Gd6Lf+n1Ikf4pE3phq/CGnvtuo9XiRQXDPLX1Nmsl8n
-	 XDAOKbwDdGgjYGAQ8YjTIIWyJBqbXMgWfRKjWAB1f1/XTZ3Gdj3/+7J3UpkeuscJ0Xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700332;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=sRbk87T9rxWEhDMNcgmmhJRNN8Ks9wCYvg7KwsBX3Lg=;
+	b=eRzUhZItIyD5CAnLS/rYKCEaEr3YDcE/m2Uk5CHHVO06+ML6tOv+VDitOQPeofOHwk6o
+	 nQMmu91kHaR/fChpOBc7PtukLInTffWJxgPs3I4ulD7qgyJzcqu9Lj4PT4YG5YfKaniXv
+	 qTqCOTF0P3BmUlxVVGY8r1zAvie5JcK2oB0ZVUOEY7yK9DaOSl7c0KpOUw8YJXgx5gBaK
+	 OS3u9Vt2AlBvI202RQQeHdYi0gnpBiJchgqAcBc2aflJn+4OGY/Ym9rq0MAOGEQOaMLtJ
+	 Na23wT2mC0AGFiLbpqr9lnINi1TO/Au5O/aIxtdy/LwL7+eIoBk88wCUAS+C7fbo8gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ii52fmhG;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742B9606EE8D;
-	Tue,  3 Nov 2026 10:05:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 742B9606EE8D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ii52fmhG
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 274EDA164B;
-	Tue, 03 Nov 2026 11:05:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1793700326; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=EH6JpSgGDXBr8/oXh3P2IsoFFMPzZqzgjTRZpHrhex4=;
-	b=ii52fmhGSNa/j1032VrLfvmJ4QL8jnv3eiPnliHEmMynKIIAOTGJ5IozJDXQ/h2eVD4uAR
-	4uU579eohlQOeYEBp54jLzKFUixGmO5kUwbVydOxMVPcFl2FbaLqDbNmVVtLoN39teQ/9y
-	nLo2YkcFz6OaNpyn8qw9CbP5be2bkCZQLDnqTq6b2oMbqdi/mMl4IiGUD4w48Zt7sQ1Ygh
-	rGRDdMRz9ioyrVGGyhVciycgLgp7UdRDDmo81jduOe3D0v+0spiQcGmDFfXxPgaO0Vqvze
-	YPfWYYFFmqFnw57FV+uPLC+pFZx9KN9ApQ0KPdcBh9dFRLVyeTix+DlBalHM4g==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Tue, 03 Nov 2026 11:04:56 +0100
-Subject: [PATCH net-next v6 2/9] net: bcmgenet: let the caller decide
- whether to start the PHY
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4CC606FAE8;
+	Tue,  3 Nov 2026 10:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4CC606FAE8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3wZLiselqeXs7AA--.2808S2;
+	Tue, 03 Nov 2026 18:05:22 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Woojung Huh <woojung.huh@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: dsa: microchip: drop the parent MDIO bus reference
+Date: Tue,  3 Nov 2026 10:05:31 +0000
+Message-Id: <20261103100531.1309946-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,79 +59,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-nb-genet-mtu-nn-v2-v6-2-61d5631676e5@tipi-net.de>
-References: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
-In-Reply-To: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3wZLiselqeXs7AA--.2808S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF1UAFW7Wr1UKr4xJF43ZFb_yoW8CF4kpa
+	yDuFyYvr4UGFy7ua1kZwnrZFyYgrsayr43GrWFk392gr95GryjkFyxta47ZFW5Kw4rC342
+	vFs8tFyUCryDA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
+	IYCTnIWIevJa73UjIFyTuYvjfU7nmRUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAAA2rpnOFgVQABsF
 
-bcmgenet_netif_stop() already takes stop_phy, bcmgenet_netif_start() does
-not. The MTU change in a later patch leaves the PHY running while the
-datapath goes down and comes back, and phy_start() expects a stopped PHY.
+ksz_mdio_register() obtains the parent MDIO bus with of_mdio_find_bus(),
+which takes a reference on the embedded struct device, and stores it in
+dev->parent_mdio_bus for the side MDIO accessors.  Nothing ever drops
+that reference, so it is leaked on the probe error paths and when the
+switch device is torn down.
 
-Add the same parameter to the start side.
+Register a devres action to put the device when the DSA switch device
+is released.  The child MDIO bus is unregistered before the action
+runs, so the parent bus stays valid for the whole lifetime of the
+switch.
 
-No functional change.
-
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Fixes: 9afaf0eec2ab ("net: dsa: microchip: Refactor MDIO handling for side MDIO access")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/net/dsa/microchip/ksz_common.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index f28b32f62a7c6..bed94f9a79450 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -3374,7 +3374,7 @@ static void bcmgenet_get_hw_addr(struct bcmgenet_priv *priv,
- 	put_unaligned_be16(addr_tmp, &addr[4]);
+diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
+index 767c8fe8e819..ddd821fa0d3e 100644
+--- a/drivers/net/dsa/microchip/ksz_common.c
++++ b/drivers/net/dsa/microchip/ksz_common.c
+@@ -2392,6 +2392,17 @@ int ksz_parse_dt_phy_config(struct ksz_device *dev, struct mii_bus *bus,
+ 	return 0;
  }
  
--static void bcmgenet_netif_start(struct net_device *dev)
-+static void bcmgenet_netif_start(struct net_device *dev, bool start_phy)
- {
- 	struct bcmgenet_priv *priv = netdev_priv(dev);
++/**
++ * ksz_mdio_put_parent_bus - Drop the reference on a parent MDIO bus
++ * @data: mii_bus obtained from of_mdio_find_bus()
++ */
++static void ksz_mdio_put_parent_bus(void *data)
++{
++	struct mii_bus *bus = data;
++
++	put_device(&bus->dev);
++}
++
+ /**
+  * ksz_mdio_register - Register and configure the MDIO bus for the KSZ device.
+  * @dev: Pointer to the KSZ device structure.
+@@ -2431,6 +2442,12 @@ int ksz_mdio_register(struct ksz_device *dev)
+ 			goto put_mdio_node;
+ 		}
  
-@@ -3391,7 +3391,8 @@ static void bcmgenet_netif_start(struct net_device *dev)
- 	/* Monitor link interrupts now */
- 	bcmgenet_link_intr_enable(priv);
++		ret = devm_add_action_or_reset(ds->dev,
++					       ksz_mdio_put_parent_bus,
++					       parent_bus);
++		if (ret)
++			goto put_mdio_node;
++
+ 		dev->parent_mdio_bus = parent_bus;
+ 	}
  
--	phy_start(dev->phydev);
-+	if (start_phy)
-+		phy_start(dev->phydev);
- }
- 
- static int bcmgenet_open(struct net_device *dev)
-@@ -3454,7 +3455,7 @@ static int bcmgenet_open(struct net_device *dev)
- 
- 	bcmgenet_phy_pause_set(dev, priv->rx_pause, priv->tx_pause);
- 
--	bcmgenet_netif_start(dev);
-+	bcmgenet_netif_start(dev, true);
- 
- 	netif_tx_start_all_queues(dev);
- 
-@@ -4353,7 +4354,7 @@ static int bcmgenet_resume(struct device *d)
- 	if (!device_may_wakeup(d))
- 		phy_resume(dev->phydev);
- 
--	bcmgenet_netif_start(dev);
-+	bcmgenet_netif_start(dev, true);
- 
- 	netif_device_attach(dev);
- 
-
 -- 
-2.53.0
+2.34.1
 
