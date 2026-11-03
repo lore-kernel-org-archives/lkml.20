@@ -1,72 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672122;
-	b=BWhN2ss2R3DuFhymfEsTJiGtaFljEqL91Rrdq9Y/1eLSUS3bnXk/JkVycSehIS6UrI7d
-	 uaibNRDQ1tPu/AhlJyEulleCGYHYJK+mpqOgn38nh4N2oFPyj2YEBHgCPs9xIpaOm/1hO
-	 krwse/s1gyMMVI86d5WDORY+ntPgYavQ/5Ztx62Rw7o04CcTDqTacC1mBGSevmiAEtDLV
-	 s+wpcwCM/X+3uabEfh1s1X8huk2P/DLP9bxs4/II1jig3K3nZ1Ibn1Ld8sfiCYuAgqLrW
-	 AqvX1j+uc0ZIuzlAZDeOjI8qXAgafI0NuDuVZVSecrCvSFUCdMo1rZmMHzDqJwygpqA==
+	t=1793672160;
+	b=MFyX/onwd3OfvidL7iaj7klm6v0xGxZshm+twdPc8JoF9EnJPBVuB270xSHeDsFrK2V0
+	 EhAMwxw2KUCGJEmTH2Ndwfc22NZhfH+YTLSxD7nUTGyeTlww/584egi70+/iCIdsm1OMl
+	 FULf3iR5FlJhTyWr7w9j7gW7SziVCccG9pi20+NrvKnlxajG70lypYbPry3n0E070LG9o
+	 0lKFLpoBtqWvlfZeWc/huqbKpKpToRN428UvAUveQjDiH/h2/wJYUh02P6vdm+TiI8B2p
+	 zXKIjQLMexk25XinhoTVwbj8iFgZ+cFsBREfm5EL5aJsX4w1AKY6AQX+I4SqH7e7NGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672122;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=swMBrZuLYQl7RYBGcyFALBP5NnR05K4Y76My6FBJtU0=;
-	b=myxRaLv8iRRLlqt3Za4EOeOg5WGUiaEziyIIFGX6mJ5R+ziW7+wP2tSYgRw7yiB8GBjc
-	 AxTLe/YQfNbSy6eyT+ZXzqzp1ss0rbuUtj2MyqogpwLfEcXazVzkqdOJI7bYYVHoRFPpq
-	 W9SfmfUATEMA5SYRupB6MdfxP3FZANQiuRqspVpBTXKLvwjzLbogZIrREDI2VAMFD19Nz
-	 cLLt2NvMUQcmGj5XwjTLJ19OD7b5YW5Oxco259tgH8j+76RC2Arjs/ywOlM7BuXRxE3DU
-	 n7oKr5NwzdFqoampwbL9hO4xqz536GnTNxOJXjZ25F/e26o32/MZ9pAUdeKkYkSLkug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672160;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=h2jSleEyCdCf1WyjqdW65FR18D28p9mvgGWHAtd6NJ4=;
+	b=RMEwTWiZy31ZC+uqZESG/M7pDFfPwEcePwAnfWGQoT0aKlkYiAlPnIGK1cVAobH6SKmN
+	 2VgPywmKrb2o87dIjtvA2nhDTE87CMKZiFBWMRtcXnxhIBgjrdlmUih9t+j2yQnupcYlH
+	 dyxt9QHCXAag2b93SIaOBk8j35s3mnYzIF4zdKzJjKrI0iY6xKkvDcLTSXPFxITxq9Nk9
+	 fqg6vMsn7NEHWRjWpeutTTSBM0+0GNOOp8bf7hsN8RJ9hjAU8GrpWF6itM1I1Mhe+X8PG
+	 HagueuGr9aTGD+SUk02YqmrHRGeHUhJgLJyg8Q9q8SdUz1JTgTvgT/dTtTXzkU8Ej1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lX4qJf0e;
-	arc=none smtp.remote-ip=91.218.175.74
-Received: from mta0.migadu.com (out-74.mta0.migadu.com [91.218.175.74])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="aYo/SUJZ";
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19953606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:15:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19953606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5568A606A32D;
+	Tue,  3 Nov 2026 02:15:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5568A606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lX4qJf0e
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Z4q8r55MMjPLd9lBbgy0/F1GPB2LJsVrIvS8JZYXVIM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793672119; v=1; x=1794276919;
- b=lX4qJf0evWkWo2H1GzdHljzs7DptE1ZYrRbf8XisV/6XjG1cxnHYRhmmVUWcCY8tKdmyuoP2
- C/LAmXc7JadQV4BZR++4X9gTsqc8mVhmW9xcw7rlz8NHNS85TPF1wyRIM1FfbDU8M0Hgj+oor4L
- ZfC4OZaZ+0qyvGEzfhUwqhWY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 635985c26460c19e;
-	Tue, 03 Nov 2026 02:15:16 +0000
-X-Mizu-Trace-ID: 635985c26460c19e
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 3 Nov 2026 10:15:03 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>, Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
-	David Lebrun <david.lebrun@uclouvain.be>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Mathieu Xhonneux <m.xhonneux@gmail.com>,
-	David Lebrun <dlebrun@google.com>,
-	Stefano Salsano <stefano.salsano@uniroma2.it>,
-	Andrea Mayer <andrea@common-net.org>
-Subject: Re: [PATCH net 3/6] seg6: update skb checksum when SRv6 behaviors
- advance to the next SID
-Message-ID: <aulA09qBNtIxJq7S@fedora>
-References: <20261031225033.64-1-andrea.mayer@uniroma2.it>
- <20261031225033.64-4-andrea.mayer@uniroma2.it>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aYo/SUJZ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=h2jSleEyCdCf1WyjqdW65FR18D28p9mvgGWHAtd6NJ4=;
+	b=aYo/SUJZ/pwFqsMNlQd3WzocHdxLHqoQEchORj0CGyFU1Ue3rmBNFwDvIJmiCUEfnf/mb6YD5
+	ht9zqhYhRPllvZcACkCnvmfsavAao3ySdhTvNkzM1Dp/c2TYQ7MhFZW4nHyQXGhUhr1CYFUl6vO
+	jgAfqZQXzUYpOVrwF00FabM=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jJXH62d8pzmV76;
+	Tue,  3 Nov 2026 10:15:46 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 47D3640572;
+	Tue,  3 Nov 2026 10:15:56 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 3 Nov
+ 2026 10:15:55 +0800
+Message-ID: <3d2968f2-5171-4558-92a3-41cab745d282@huawei.com>
+Date: Tue, 3 Nov 2026 10:15:54 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,110 +62,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031225033.64-4-andrea.mayer@uniroma2.it>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] docs: sched-preemption: Fix the list of
+ runtime-selectable models
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<clrkwllms@kernel.org>, <rostedt@goodmis.org>, <rppt@kernel.org>,
+	<arnd@arndb.de>, <bp@alien8.de>, <kmehltretter@gmail.com>,
+	<dapeng1.mi@linux.intel.com>, <elver@google.com>, <enelsonmoore@gmail.com>,
+	<jlayton@kernel.org>, <quchaosheng000406@163.com>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>
+References: <20261028024333.795917-1-ruanjinjie@huawei.com>
+ <20261028024333.795917-3-ruanjinjie@huawei.com>
+ <20261102133424.rJTJIkFX@linutronix.de>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261102133424.rJTJIkFX@linutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hi Andrea,
-On Sat, Oct 31, 2026 at 11:50:30PM +0100, Andrea Mayer wrote:
-> advance_nextseg() decrements Segments Left and writes the next segment into
-> the destination address, and seg6_next_csid_advance_arg() advances the
-> NEXT-C-SID argument in the destination address.
-> With CHECKSUM_COMPLETE, neither updates skb->csum for these changes. The
-> stale skb->csum is read when the packet is delivered on the same node, e.g.
-> through End.B6.Encaps towards a local End.DT6 SID.
-> As a consequence, when skb->csum is computed in software, for instance by
-> conntrack, UDP can drop the packet as a checksum error. With skb->csum
-> computed by the device, TCP can instead log a "hw csum failure", as if the
-> device had computed a wrong skb->csum.
-> 
-> Update skb->csum in both functions with update_csum_diff16() for the
-> destination address. advance_nextseg() also uses update_csum_diff4() for
-> Segments Left.
-> 
-> Depends on patch "seg6: fix skb checksum update helpers".
-> 
-> Found by manual code inspection while working on
-> commit 8ae3f4067ba4 ("seg6: ensure packet data is writable before modifying
-> SRH and IPv6 DA"), and reproduced in a VM without kernel changes or error
-> injection. A following commit adds a selftest that reproduces the problem
-> with a tc ct action. With this patch, the selftest passes for the
-> End.B6.Encaps and next-csid paths. Also tested against the srv6 selftests,
-> and with a ConnectX-6 Lx NIC (mlx5) that provides CHECKSUM_COMPLETE.
-> 
-> Fixes: 140f04c33bbc ("ipv6: sr: implement several seg6local actions")
-> Fixes: 848f3c0d4769 ("seg6: add NEXT-C-SID support for SRv6 End behavior")
-> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-> ---
->  net/ipv6/seg6_local.c | 18 +++++++++++++++++-
->  1 file changed, 17 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> index 0c3d1be7f129..57a82477ce3f 100644
-> --- a/net/ipv6/seg6_local.c
-> +++ b/net/ipv6/seg6_local.c
-> @@ -291,7 +291,9 @@ static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
->  					   struct ipv6_sr_hdr *srh,
->  					   enum skb_drop_reason *reason)
->  {
-> +	struct in6_addr *daddr;
->  	struct in6_addr *addr;
-> +	__be32 old;
->  	int srhoff;
->  	int wlen;
->  
-> @@ -309,10 +311,19 @@ static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
->  
->  	/* skb_ensure_writable() may change skb pointers; evaluate srh again */
->  	srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
-> +	daddr = &ipv6_hdr(skb)->daddr;
-> +	/* nexthdr, hdrlen, type and segments_left */
-> +	old = *(__be32 *)srh;
->  
->  	srh->segments_left--;
->  	addr = srh->segments + srh->segments_left;
-> -	ipv6_hdr(skb)->daddr = *addr;
-> +
-> +	if (skb->ip_summed == CHECKSUM_COMPLETE) {
-> +		update_csum_diff4(skb, old, *(__be32 *)srh);
-> +		update_csum_diff16(skb, (__be32 *)daddr, (__be32 *)addr);
-> +	}
-> +
-> +	*daddr = *addr;
 
-Nit: we can re-use seg6_update_csum() if the transport header set correctly.
-But that function is static and we need adjust header files.
-So the current change looks good for me.
 
->  
->  	return srh;
->  }
-> @@ -427,11 +438,13 @@ seg6_next_csid_advance_arg(struct sk_buff *skb,
->  	__u8 fnc_octects = seg6_flv_lcnode_func_octects(finfo);
->  	__u8 blk_octects = seg6_flv_lcblock_octects(finfo);
->  	struct in6_addr *addr;
-> +	struct in6_addr old;
->  
->  	if (unlikely(skb_ensure_writable(skb, sizeof(struct ipv6hdr))))
->  		return SKB_DROP_REASON_NOMEM;
->  
->  	addr = &ipv6_hdr(skb)->daddr;
-> +	old = *addr;
->  
->  	/* advance DA.Argument */
->  	memmove(&addr->s6_addr[blk_octects],
-> @@ -440,6 +453,9 @@ seg6_next_csid_advance_arg(struct sk_buff *skb,
->  
->  	memset(&addr->s6_addr[16 - fnc_octects], 0x00, fnc_octects);
->  
-> +	if (skb->ip_summed == CHECKSUM_COMPLETE)
-> +		update_csum_diff16(skb, (__be32 *)&old, (__be32 *)addr);
-> +
->  	return SKB_NOT_DROPPED_YET;
->  }
->  
-> -- 
-> 2.43.0
+在 2026/11/2 21:34, Sebastian Andrzej Siewior 写道:
+> On 2026-10-28 10:43:33 [+0800], Jinjie Ruan wrote:
+>> --- a/Documentation/scheduler/sched-preemption.rst
+>> +++ b/Documentation/scheduler/sched-preemption.rst
+>> @@ -20,9 +20,6 @@ change.
+>>  The models selectable at runtime are:
+>>  
+>>  	=========	====================================================
+>> -	none		No preemption of kernel code other than at explicit
+>> -			``cond_resched()`` / blocking points.
+>> -	voluntary	As ``none``, plus ``might_sleep()`` sites.
+>>  	full		Any section that is not explicitly preempt disabled
+>>  			may be preempted at any time.
+>>  	lazy		As ``full``, except that the scheduling request is
 > 
+> This is fine.
+> 
+>> @@ -31,10 +28,12 @@ The models selectable at runtime are:
+>>  			apply to real-time tasks.
+>>  	=========	====================================================
+>>  
+>> -Not every model is available on every kernel.  An architecture that provides
+>> -lazy-preempt support offers only ``full`` and ``lazy``, and ``none`` and
+>> -``voluntary`` are rejected there.  A PREEMPT_RT kernel always offers ``full``,
+>> -and ``lazy`` as well if the architecture provides it.
+>> +CONFIG_PREEMPT_DYNAMIC depends on CONFIG_ARCH_HAS_PREEMPT_LAZY, so ``none``
+>> +and ``voluntary`` are never selectable at runtime; passing either is
+>> +rejected with "Dynamic Preempt: unsupported mode".  The two models are only
+>> +left as build-time choices on architectures without lazy-preempt support.
+>> +A PREEMPT_RT kernel always offers ``full``, and ``lazy`` as well if the
+>> +architecture provides it.
+> 
+> What about:
+>  Not every model is available on every kernel.  An architecture that provides
+>  preemption support supports ``full``. If additionally lazy-preempt is
+>  supported then the choice ``lazy`` becomes available. An architecture
+>  without preemption support can not enable CONFIG_PREEMPT_DYNAMIC. On
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Hi Sebastian,
+
+There seems to be an issue with this sentence: PREEMPT_DYNAMIC depends
+on ARCH_HAS_PREEMPT_LAZY, not “preemption support.”
+
+What about:
+
+Not every model is available on every kernel.  A kernel built with
+CONFIG_PREEMPT_DYNAMIC offers only ``full`` and ``lazy``; ``none`` and
+``voluntary`` can only be chosen at build time, on architectures where
+they are available.  A PREEMPT_RT kernel always offers ``full``, and
+``lazy`` as well if the architecture provides it.
+
+
+>  such an architecture the preemption model can only be selected at
+>  compile time. 
+> 
+> Sebastian
+
+-- 
+Best regards,
+Jinjie
+
