@@ -1,53 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694930;
-	b=xbRt4daAmwPTNyuV5ev5LcFueaE10ZPh6Ws58DkuUdbo+ge9++6GEoufa/qDASGGhTpc
-	 4bY1u0C/SEWbU+nFVRIofhsrAN3Zsp8iizWOA5xsYlH1yQwdkRxJkyZzPlI01AM2BhicH
-	 lF0/0kkMJ27nijdKxidgnOuaOI2+X6g1lVvCglUrKO4DU3UF7taWXc1+BKO106Gw2C2He
-	 7YOskJxPgE13B8Z7yzDAezH5qtPH0QB7xjwL2cgDplepm8hddYD2zHdSOD1o7giLqCvHp
-	 6goDrebgiIxfufSa7RSGOh9PS5B3kyC18uAgRdsccbdhuipehHBjakCzIO70P9m29QQ==
+	t=1793694932;
+	b=fQrZPfULn2j1ovImBrciH9LtmkqsY1ZsUjQVzJxMvgIe7g8i+XInBxioeExP8XnUgu0C
+	 yt5z+CY05m7E9WyvcYkoBgh9VJeelFpmevK9337RxhstsKleWR+MNcBWYSCcpV6j+OiKX
+	 5GTm2O1uXn1m72mRE+fTPVkYSrEhmw/Cj+AME1KxVgsMlg8cDSxSjrfOsRvBYHTlPWU+c
+	 J1mi0XTQWi3Sg7UrEUWf9dzgd5fBV46li/yrfzEXZbdJfEFlMMSulwbR1Eu7pwruZaAV5
+	 Rr7TgFZB4I1V+lsIc5xKeBIITYugPSdmi69xMTh/j+VM0fnonYyi8KiMHwoqlstr5VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694930;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=/++6gQgv4rDBRyHw0HFXknbo6zEY8ME7pabSVyOedNw=;
-	b=r2JfvndCYhfTyPbuDzM9GLEA8u1FTMMsZjgsn2zwa0T5prrJK5sTl/2WS4i1g3FYSfPa
-	 YcR15HZs1pucWokUfaovJxjxgUxPZMshg4IUkzclEwJozPKrehJdF/top0iiw1uUzTpMg
-	 9pPREpfVihFsytrT0/SDfIBm9Yz5ay7SZAlNilBdIPurTC9uzXoN93x/M8zoUJYGiv+5o
-	 lQAbTnqKMi0ENOX9PfEFJ65Z1hw236BPKqnCy92MatpaSkmoMieHEBKmZ/w8mSl3YFM9Y
-	 YGawejgkDNHEDCqRx8Q+MD9mh4IK7eog/57H1UNZpsGDMjSokkzppHhjFkF4KAKXhgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694932;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=WtLDQNeDogoEZy8VqwmMu80kkbHazW0uml5D/A0dqsE=;
+	b=tfHLwoPMUuMThPh1V5eC2jD/P5jK/r+qEuORz9+fRf8TbLo6ITqFzu/mlMjjsOgSrfhV
+	 jlC3KU25KeZiz7fnYqoc1z2j1tiCA5nuZ+FEorLObn5nQpvT/FNbgJZKP3w7PLDI211bt
+	 isZ2sMHo5sdMcRWfxlOeVwPwBLPuq5xwn3J74SOR5YMIS+Wmlf1Wf4BH3NgMgRQG4Vvsp
+	 NkqBZ6td6C7S/moFIP+gWGPuWEOaPxHR9QMxF97UxqiKMWTvmAf4wRayiHAKesrmIqt2Q
+	 g5TFdKUZtGFqBNWbh7oF1eUBz/QKLahdCUA5iVysbE2UBoPSPaqZsQFeJnX3WUCYc6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGc2rdW9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D19606A32D;
-	Tue,  3 Nov 2026 08:35:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0D19606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3wJHMnOlqqII6AA--.1383S2;
-	Tue, 03 Nov 2026 16:35:24 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: tiffany.lin@mediatek.com,
-	andrew-ct.chen@mediatek.com,
-	yunfei.dong@mediatek.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: mediatek: vcodec: Free encoder controls when setup fails
-Date: Tue,  3 Nov 2026 08:35:33 +0000
-Message-Id: <20261103083533.1176842-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEB0606D82C;
+	Tue,  3 Nov 2026 08:35:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGc2rdW9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0F961F00A1A;
+	Tue,  3 Nov 2026 08:35:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793694931;
+	bh=WtLDQNeDogoEZy8VqwmMu80kkbHazW0uml5D/A0dqsE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gGc2rdW94xM36KoC6xgtpfh7Js0emN9AvZwCb5wnUR5DoAaUNlYav9YOq4gvBJ6rp
+	 prcXRznN3YQWdr305TuXYsR1+dOZ82olvCCYuPkiWwfwDsHHVpaU0pUAq7PT8gIlFx
+	 l/Whi1/4h/KxZAJXta8YJ25jCzLAEnzMj3lQ8cPQPS+xeRr+SRI8d3n5uc8k9Ry+Hx
+	 B3iz//U/i7JAnR5NlBhB8qNYXo6MwwUNcz4YfveejPVCf0fbbPFnKAKyowHux0mCt+
+	 gRzm5Gwj042rC3vXZbZ5xNNd094BtZOccNWhykB2bEQ0H28MjQPGgU2MkbaG0oyjpN
+	 zTiwesgLuYEfA==
+Date: Tue, 3 Nov 2026 08:35:23 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/8] mm: remove find_get_page_flags()
+Message-ID: <aumcutKJoj2EoE-J@gremlin>
+References: <20261102-page-wrappers-v1-0-e7280bdb31f6@columbia.edu>
+ <20261102-page-wrappers-v1-5-e7280bdb31f6@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,63 +66,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3wJHMnOlqqII6AA--.1383S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFy3Ar1kXr43Xr48Jw45Awb_yoW8Cr18pF
-	yxKrW2ya4UJFs0vF48Aa18ua4YkFWfWryxGan0v34xA3sxXr4xXryIva4fZFZ7GrWDKa45
-	XrnFv34xWr4jvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMAA2rpWwr-jAAAst
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-page-wrappers-v1-5-e7280bdb31f6@columbia.edu>
 
-mtk_vcodec_enc_ctrls_setup() can fail after creating some controls. On
-that error, fops_vcodec_open() jumps past the control handler cleanup and
-frees the context, leaking the handler's controls and allocation.
+On Mon, Nov 02, 2026 at 05:54:10PM -0500, Tal Zussman wrote:
+> There are no callers left. Remove it.
+>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Use the same control handler cleanup as the later m2m context creation
-failure, and remove the now-unused label. No m2m context is released on
-this path because its initialization has not been attempted yet.
+LGTM
 
-Fixes: 4e855a6efa54 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video Encoder Driver")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- .../platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c      | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-index 4e4541b2fc8e..dd47feea6acd 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-@@ -140,7 +140,7 @@ static int fops_vcodec_open(struct file *file)
- 	ret = mtk_vcodec_enc_ctrls_setup(ctx);
- 	if (ret) {
- 		mtk_v4l2_venc_err(ctx, "Failed to setup controls() (%d)", ret);
--		goto err_ctrls_setup;
-+		goto err_m2m_ctx_init;
- 	}
- 	ctx->m2m_ctx = v4l2_m2m_ctx_init(dev->m2m_dev_enc, ctx,
- 					 &mtk_vcodec_enc_queue_init);
-@@ -191,7 +191,6 @@ static int fops_vcodec_open(struct file *file)
- 	v4l2_m2m_ctx_release(ctx->m2m_ctx);
- err_m2m_ctx_init:
- 	v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
--err_ctrls_setup:
- 	v4l2_fh_del(&ctx->fh, file);
- 	v4l2_fh_exit(&ctx->fh);
- 	kfree(ctx);
--- 
-2.34.1
+> ---
+>  include/linux/pagemap.h | 6 ------
+>  1 file changed, 6 deletions(-)
+>
+> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+> index 37b7786350c5..00e32f96b459 100644
+> --- a/include/linux/pagemap.h
+> +++ b/include/linux/pagemap.h
+> @@ -846,12 +846,6 @@ static inline struct page *find_get_page(struct address_space *mapping,
+>  	return pagecache_get_page(mapping, offset, 0, 0);
+>  }
+>
+> -static inline struct page *find_get_page_flags(struct address_space *mapping,
+> -					pgoff_t offset, fgf_t fgp_flags)
+> -{
+> -	return pagecache_get_page(mapping, offset, fgp_flags, 0);
+> -}
+> -
+>  /**
+>   * find_lock_page - locate, pin and lock a pagecache page
+>   * @mapping: the address_space to search
+>
+> --
+> 2.39.5
+>
 
+--
+Cheers, Lorenzo
