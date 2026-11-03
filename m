@@ -1,49 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793686128;
-	b=ZmxkS5E5SQrNyxpcOpBNq12BsbWg0pV2gsjh/694W7AaEBu8QCWeRsd6dURVnbOG/gyI
-	 19c4Foeac+foFpN8Um04Y+JwsSpNFPAlNsqfXmoo1pCD43thn2zCTtk5N1Pq09rFhNwGY
-	 rjmJ1wn/S4feUwujTiWLF3sZkqwgoUwoo28rHb1Uz8h8FS23akEzohDqDjxIT1wLJ6ZVW
-	 iainC0X70Bc+z+bIbIUMcy3uKCdcxLEt9mI/R5TPARbjaXK+G2E4Kb+UZgSF9kCDuhg7B
-	 0bs7a3IYu/xdPDRCuute9CUkudFGFmXB636Mnsz3FHeFdTzueD4SCkM5MCcgqHhElXg==
+	t=1793686232;
+	b=frZczcU8hLg94BylAtEXErflGx2EYJRLdUCU5RT+Yhbt//Z5Fm/4ItAIMlBGqvoh2cgi
+	 4jihJeVqkK3hefC0JbeWARfnuiwz/fjvlec4uKbOa5QlETQ5ukjXvmtncZPCbyILvfKEQ
+	 9KIF7JcsLFTrByJUsaVGvBTXw7i0MLlo7q6BFTVAWLkQvArjZipfWz4riuM9VKGJ3iB1T
+	 D5dGIgpPd6IzM1VbuUCMWlvtVzM7EwkDnSVglo1olPiAQpWQyeii3sDi8kl0jmKUkCWQ7
+	 EknVUaBaGOu6jq/HoBHmfe9bi3iXIwz0Iv86md3AGdtLRYl2zML0XGt13KHeAQK21EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793686128;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=L6ho8vIeYjjJPXFr89E6+1FFlHcZOfNw8htX3591WFU=;
-	b=EmTzB8fDinseEbXqbFbk9jxug6ukDmXDrKFrd6AVD010cFN2jsfyKyAF6Q0vMuY9Rvlw
-	 xvMwC0h+yhevXTcY/N3bQVvt2VRZV4Kbgt5T/6yzSd23zdEEKXBLrMqRLkWkLT2LqZBs0
-	 LVgucjhnYPc7oAb11Ahr9btaxHbZKBFxB59T/fxokKcmAtuWdDE7vGLtA9aD8w8qtow/x
-	 JHC6B8nepQZ8FkjCGpfLXHGL1j8V6b66xB/lsKiPmAkQH6naTY2nJ5ZyoFUcYbAL2RyqB
-	 nXpJMxZGwkTFOQVvHcYY6+O8Myht9F5xC4uTur2POsQHhRpP7jRA4wqGoIr7FcG0Ryg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793686232;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EROaWjdO6oYboqJP5qDVlNq8HvD3vjgSVaQkzFo8u90=;
+	b=FSIwtp1gWxzOYDaGjfjisJahAn3OQT4UGzVZJ93oEKo1rjsEC2qSuSA/lfgoYGWqRlmA
+	 wuBKLldrh3MJgY6QdMjEYBoM3w1CJD1BX8CvwkoimQsPzvjRsv7v1zsXkz9hmbaqTvRco
+	 dMK37hkEMBlmVn5TV8iEo9yRc/x09CEQlM6dlVoE1D+5e2U3ILt10NQD8b3SaJrAvR8T3
+	 P4kRQsKtFTerxKvGqjv8EueuexX9iVTb8HaQn16wDE/OHTQIb2zyAcs+jfNh5Pg/hPSHG
+	 z9UE3pVtdtEdRRCquA0Fj12DVtw5bGTPAY8UyMXKedmPkpVZuA/Ua4GfTpnG2y2kZIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EXxUngDJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=asu.edu;
+	spf=pass smtp.mailfrom=asu.edu;
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=LzSRVlfL;
+	arc=none smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482E0606A324;
-	Tue,  3 Nov 2026 06:08:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C690606A333
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:10:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C690606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EXxUngDJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D71B1F000C1;
-	Tue,  3 Nov 2026 06:08:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793686127;
-	bh=L6ho8vIeYjjJPXFr89E6+1FFlHcZOfNw8htX3591WFU=;
-	h=From:Date:Subject:To:Cc;
-	b=EXxUngDJyvmP2yr16wdsWixP/SaWR65lfmiulCYkKQ0Yt40sgdHOTYioRjzxMO7Fi
-	 PiXzmhkjfTPlMsbfATOmVl0PTT9BtdJC7BgPBKGHYhK+3iJ4+c+6dA97kQR5UOYIsY
-	 Ec866l7ypWCMNfKzYjYW+Xw6VTBuePmCIPIBPo4SAKqyci+F3swh2TSNeu5Dif9hNR
-	 uTBNAnn4iHdXbZxe+NLd0ES79dr5FQX7KIjB4y6Ftk0qy7NvrtPl8KNT5zy37hR34l
-	 SDIODALxAGPBt1zkqrrWJ4d583HzwW5/iFsJhs/fY9ob9g9JPIRvZrCfUFjRrzGgMK
-	 sk9x8IdURC1/w==
-From: Mario Limonciello <superm1@kernel.org>
-Date: Tue, 03 Nov 2026 00:08:43 -0600
-Subject: [PATCH v3] USB: hub: call ACPI _PRR reset during port power-cycle
- on enumeration failure
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=LzSRVlfL
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53381e53b80so42666341cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:10:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1793686231; x=1794291031; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EROaWjdO6oYboqJP5qDVlNq8HvD3vjgSVaQkzFo8u90=;
+        b=LzSRVlfLP02uU5/OGyMmh7EMgSSCvlUlAHpyAIrdp6PgekhyJ4SLqtwBm+Tu7XWkXq
+         Wn/9PEqz1enAH5uBbk+LjvkM9YMRSgdOkh7N1G+ktJIYVP3bC6yG65ntwZe9R7SPCN2V
+         8phR+NPCSn5LVpqxONSOL19z4PUzXeRcvj4CgJ56gE/f6cpELDOaX3ehKBw3IYRzLyZz
+         Xl9CF1Gj1vF49f0kEadKzr93Rv7KMGqbZy1ZrnAeuPk5ieXkdIVcYV9h/03zJnrz1K8D
+         RxUorEqH/VjbK7TA23miHWIeN9ZEvZCtgWuU59J3HeE4httG8GAZ9INTfyxOAxZKH96m
+         nn4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793686231; x=1794291031;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EROaWjdO6oYboqJP5qDVlNq8HvD3vjgSVaQkzFo8u90=;
+        b=yVoxBqe3km33PgMaJpMwjZPsUXnTH7nkRK5ilAVhFpNY62wtgZK3LnaEY4dEKQ1hIH
+         cQWs+c5GNN8mqC1tG+rlZ+0w5mIZMSJqpMNBYmo+zl10dPtPpaoDA6nI9WjrJS9g9hzw
+         M5H+xIKJlqiIaVMiRjyfDtNDzEARpa9wzLDuIC42QXgJS+LCaeS0sOQxGccyxvqh2FF+
+         nU5nsWwKpiC2g6VmL42V23S3McUlOG12Bwz/cxhcs7GlZchZmtxeTexBcvqUW9Ayklj+
+         e89AgFdc5A8fVT87DuUQxU3HfSWQ6arOUXu2OVevywOmGOn84dEAHodtifTf4eVgGh58
+         yR9g==
+X-Forwarded-Encrypted: i=1; AKwUvBw/UKkco7fUc4KOFFjOKfu0X6YZL01l6sEY56SQbgWlS5p82iemUAq95B9bGVx76J1EuRWLcCP226k/PHY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NpNN6RBNUfnq2zS8dQ71AeootwrfVH8+Sa+y/0IBaB9hRmh1e
+	2jegy+UaZx3zzU1dkKhhdtcDtZTI58xBLiit9w52TeU+CSWcixKcHJO0IdnMCPjyNw==
+X-Gm-Gg: AYBFou0J+l3QOYfohFwXuYKfBaFzi7W+Aopc9Z6qyLoiUOhpPyb2j0DX1UcnxcvVUEd
+	0EnTptgn4OxqkPXv73f9gvuKBLs8AU3m1EPZ01eBs2j69Uc7pBZq14aYFGXF7zQxt8Xw9IeeUWJ
+	w0fsSVDrhK66PnBcJNM6kgB9QzVsVuRCzOGBBqPViChO0EHZGx1kHgPQ4jlA3RQ32jizSn3Eifj
+	aqwe2ei3uLAGLmNooYlWDL/Z3OFGQObdMYDnen4PKxE7lvKuwN5Aylx+c4d3LGZEl0zFxXgeqvd
+	/n9pg4gtRoDXOhJ6eE1KCqwCfdablLK1/jFSAWae3hWJjLpINID1LKJGPlDblrI035pNOu1rrvZ
+	7QbT40c2lphJFrQFmWH+fjAlKIydtDA3ybjZDhaIH1UDe695BjAdsA1RHE4XL6tVukiISpthOCN
+	a2BPzGfnXSLugAC4dFro3TNrMDLsOq3mYGrIRHe5S7ySDHaHYt0YfoFnE7uw89Yd7U5ISHc+v7y
+	axzCaTmSSaFoOOO25myE47fbR+hUgLkIW4VJHSH+GArZI9m06PNvn0zcY5J/tTGx4dZYFDK0k43
+	NoCXF1sJFrRGtAddPy3pKcN38ATecxCpGrORCY0nXg==
+X-Received: by 2002:a05:622a:1f90:b0:536:6378:c804 with SMTP id d75a77b69052e-542b83f7efamr173986521cf.73.1793686231189;
+        Mon, 02 Nov 2026 22:10:31 -0800 (PST)
+Received: from localhost.localdomain ([2600:1011:b1ae:f075:aa26:e161:414d:7ec7])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca807d8fasm109173076d6.41.2026.11.02.22.10.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 22:10:30 -0800 (PST)
+From: Siddharth Mishra <smish149@asu.edu>
+To: dsterba@suse.com
+Cc: wqu@suse.com,
+	boris@bur.io,
+	mason@kernel.org,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Siddharth Mishra <smish149@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] btrfs: tree-checker: validate qgroup status item
+Date: Mon,  2 Nov 2026 23:10:20 -0700
+Message-ID: <20261103061021.2213691-2-smish149@asu.edu>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261103061021.2213691-1-smish149@asu.edu>
+References: <20261103061021.2213691-1-smish149@asu.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,222 +102,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260706080117.3754550-1-v3-1-0e3069228fe9@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ7CMAwAwK9UnknktKRBTPwDdTDGgKEkKKEIq
- erfCTDecjMUySoFts0MWV5aNMWKbtUAXyiexeixGlpsewzY4wadC7YLfu09GmeIZaRob5R2TDF
- FZRotpzvU4ZHlpO/fvh/+LtPhKvz8lrAsH0iuGmV/AAAA
-X-Change-ID: 20260706080117.3754550-1-acelan.kao@canonical.com
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- linux-acpi@vger.kernel.org, 
- "Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>, 
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-X-Mailer: b4 0.16.0
 
-Some USB-connected devices (e.g. MT7925 Bluetooth on Dell laptops) expose
-their hardware reset line via an ACPI Power Resource for Reset (_PRR)
-rather than relying solely on VBUS cycling for recovery.  When the reset
-GPIO gets stuck low the device stops responding on USB; a VBUS power-cycle
-alone cannot recover it because the chip remains in reset regardless of
-VBUS state.
+[BUG]
+An image can have a status item with SIMPLE_MODE and a super block
+without the SIMPLE_QUOTA bit.  On a kernel with CONFIG_BTRFS_ASSERT=y,
+the mount of this image causes a BUG :
 
-Add usb_acpi_port_prr_reset() in usb-acpi.c that, given a hub device and
-one-based port number, looks up the port's ACPI companion handle, evaluates
-_PRR to obtain the power-resource reference, and then calls _RST on that
-reference to toggle the reset line.  The function is a no-op if the port
-has no ACPI handle or no _PRR method, so it is safe to call unconditionally
-for every port.
+  assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
+  in fs/btrfs/qgroup.c:411
+  kernel BUG at fs/btrfs/qgroup.c:411!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:btrfs_read_qgroup_config.cold (fs/btrfs/qgroup.c:411)
+  Call Trace:
+   open_ctree (fs/btrfs/disk-io.c:3789)
+   btrfs_get_tree.cold (fs/btrfs/super.c:2133)
+   vfs_get_tree (fs/super.c:1943)
+   fc_mount (fs/namespace.c:1282)
+   path_mount (fs/namespace.c:4337)
+   __x64_sys_mount (fs/namespace.c:4542)
 
-Wire it into hub_port_connect() during the mid-retry VBUS power-cycle
-(at (PORT_INIT_TRIES-1)/2 iterations), calling usb_acpi_port_prr_reset()
-*after* VBUS goes off and *before* VBUS comes back on.  The ordering is
-critical: on the tested hardware the ACPI _RST method (MBTR._RST) drives
-BT_RST low for 200 ms then high again.  If _RST is called after VBUS is
-already restored the GPIO pulse races with device enumeration starting on
-the live bus; the device begins asserting USB signals while still held in
-reset and enumeration fails.  Performing the reset while the port is
-de-powered ensures the GPIO pulse completes fully before the device is
-given power and time to initialise.
+Without CONFIG_BTRFS_ASSERT, the mount is successful in simple quota
+mode.  The first data write then adds an owner ref.  The write-time
+tree-checker sees the owner ref without the SIMPLE_QUOTA bit and gives
+a WARN_ON() (tree-checker.c:1782).
 
-After VBUS is restored, add an msleep(100) conditional on _PRR._RST having
-succeeded.  USB 2.0 spec §7.1.7.3 (Fig. 7-29) mandates a minimum of 100 ms
-between VBUS power-on and the first reset signalling for power settling.
-On root hubs, hub_power_on_good_delay() returns bPwrOn2PwrGood * 2 with
-no minimum floor; on the tested xHCI root hub bPwrOn2PwrGood = 10, yielding
-only 20 ms — well below the spec minimum.  (External hubs already enforce
-a 100 ms minimum via hub_power_on_good_delay().)  When _PRR._RST has been
-exercised the device must also complete its full power-on sequence (GPIO
-de-assertion, internal oscillator start, firmware load) before USB
-enumeration begins.  The 100 ms sleep enforces the spec minimum and gives
-the device adequate settling time.
+[CAUSE]
+The super block does not have the SIMPLE_QUOTA bit, but the status item
+has SIMPLE_MODE :
 
-Tested on a Dell laptop with MT7925 Bluetooth (idVendor=0489,
-idProduct=e139) whose BT_RST GPIO was stuck low.  With this fix the
-device recovers autonomously at boot without requiring a G3
-(mechanical power-off) cycle.  The relevant dmesg sequence:
+  incompat_flags  0x361
+                  ( MIXED_BACKREF |
+                    BIG_METADATA |
+                    EXTENDED_IREF |
+                    SKINNY_METADATA |
+                    NO_HOLES )
 
-  [    1.448491] usb 3-10: new high-speed USB device number 4 using xhci_hcd
-  [    6.813942] usb 3-10: device descriptor read/64, error -110
-  [   22.685978] usb 3-10: device descriptor read/64, error -110
-  [   22.901715] usb 3-10: new high-speed USB device number 5 using xhci_hcd
-  [   28.317963] usb 3-10: device descriptor read/64, error -110
-  [   44.189949] usb 3-10: device descriptor read/64, error -110
-  [   44.294065] usb usb3-port10: attempt power cycle
-  [   44.872709] usb 3-10: new high-speed USB device number 6 using xhci_hcd
-  [   44.888293] usb 3-10: New USB device found, idVendor=0489, idProduct=e139, bcdDevice= 1.00
-  [   44.888318] usb 3-10: Manufacturer: MediaTek Inc.
+  item 0 key (0 QGROUP_STATUS 0) itemoff 16243 itemsize 40
+          version 1 generation 12 flags ON|SIMPLE_MODE scan 0
+                                           ^^^^^^^^^^^
 
-Signed-off-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Link: https://patch.msgid.link/20260706080117.3754550-1-acelan.kao@canonical.com
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+The tree-checker does not examine the status item.
+btrfs_read_qgroup_config() reads the flags of the status item.  For
+SIMPLE_MODE, it calls qgroup_read_enable_gen().  This function ASSERT()s
+that the SIMPLE_QUOTA bit is set and that the item contains enable_gen.
+Since commit f2363e6fcc79, the kernel does not write SIMPLE_MODE without
+the SIMPLE_QUOTA bit.  Thus only a damaged or crafted image has this
+state.
+
+[FIX]
+Add a tree-checker rule for the status item :
+- The item must contain the four members of all versions : version,
+  generation, flags and rescan.
+- With SIMPLE_MODE, the super block must have the SIMPLE_QUOTA bit, and
+  the item must also contain enable_gen.
+If a rule fails, the tree-checker rejects the leaf with -EUCLEAN.  Then
+btrfs_read_roots() cannot read the quota root.  It ignores the error, as
+before, and btrfs mounts the filesystem without quotas.
+
+Cc: stable@vger.kernel.org # 6.7+
+Signed-off-by: Siddharth Mishra <smish149@asu.edu>
 ---
-This was sent last cycle but got no feedback except for my review comment.
-I think we should bring it forward this cycle.
+ fs/btrfs/tree-checker.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-Changes from v2:
-* Rebase on 7.4-rc1
-* Link to v2: https://lore.kernel.org/linux-usb/20260706080117.3754550-1-acelan.kao@canonical.com/
----
- drivers/usb/core/hub.c      | 14 ++++++++++
- drivers/usb/core/usb-acpi.c | 68 +++++++++++++++++++++++++++++++++++++++++++++
- drivers/usb/core/usb.h      |  3 ++
- 3 files changed, 85 insertions(+)
-
-diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 199d3f535a891..72da7aea94cc4 100644
---- a/drivers/usb/core/hub.c
-+++ b/drivers/usb/core/hub.c
-@@ -5621,11 +5621,25 @@ static void hub_port_connect(struct usb_hub *hub, int port1, u16 portstatus,
- 
- 		/* When halfway through our retry count, power-cycle the port */
- 		if (i == (PORT_INIT_TRIES - 1) / 2) {
-+			int prr_reset;
-+
- 			dev_info(&port_dev->dev, "attempt power cycle\n");
- 			usb_hub_set_port_power(hdev, hub, port1, false);
- 			msleep(2 * hub_power_on_good_delay(hub));
-+			prr_reset = usb_acpi_port_prr_reset(hdev, port1);
- 			usb_hub_set_port_power(hdev, hub, port1, true);
- 			msleep(hub_power_on_good_delay(hub));
-+			/*
-+			 * USB 2.0 spec §7.1.7.3 requires at least 100 ms
-+			 * between VBUS power-on and the first reset for power
-+			 * settling.  hub_power_on_good_delay() on an xHCI root
-+			 * hub returns bPwrOn2PwrGood * 2 with no minimum floor,
-+			 * which can be as little as 20 ms.  When _PRR _RST was
-+			 * also exercised the device must complete its power-on
-+			 * sequence before enumeration; enforce the spec minimum.
-+			 */
-+			if (prr_reset == 0)
-+				msleep(100);
- 		}
- 	}
- 	if (hub->hdev->parent ||
-diff --git a/drivers/usb/core/usb-acpi.c b/drivers/usb/core/usb-acpi.c
-index 489dbdc96f94a..bb1b5e8cdc15e 100644
---- a/drivers/usb/core/usb-acpi.c
-+++ b/drivers/usb/core/usb-acpi.c
-@@ -142,6 +142,74 @@ int usb_acpi_set_power_state(struct usb_device *hdev, int index, bool enable)
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index 61ea8f42c..bb86c30a2 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -2083,6 +2083,36 @@ static int check_raid_stripe_extent(const struct extent_buffer *leaf,
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(usb_acpi_set_power_state);
  
-+/**
-+ * usb_acpi_port_prr_reset - issue an ACPI _PRR reset on a hub port
-+ * @hdev: USB device belonging to the usb hub
-+ * @port1: port number (one-based)
-+ *
-+ * Some devices expose their hardware reset line via an ACPI Power Resource for
-+ * Reset (_PRR).  When such a device fails to enumerate (e.g. because the reset
-+ * GPIO is stuck low), the USB power-cycle alone is not enough; the firmware
-+ * reset path must also be exercised.
-+ *
-+ * This function evaluates _PRR on the port's ACPI companion to obtain the
-+ * power-resource reference and then calls _RST on that resource to toggle the
-+ * reset line.  It is intended to be called alongside the mid-retry VBUS
-+ * power-cycle already performed by hub_port_connect().
-+ *
-+ * Returns 0 on success, -ENODEV if the port has no ACPI handle or no _PRR
-+ * method, or a negative error code on failure.
-+ */
-+int usb_acpi_port_prr_reset(struct usb_device *hdev, int port1)
++static int check_qgroup_status_item(const struct extent_buffer *leaf, int slot)
 +{
-+	acpi_handle port_handle;
-+	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
-+	union acpi_object *pkg, *ref;
-+	acpi_status status;
-+	int ret = 0;
++	const u32 item_size = btrfs_item_size(leaf, slot);
++	const u32 min_size = offsetof(struct btrfs_qgroup_status_item, enable_gen);
++	struct btrfs_qgroup_status_item *ptr;
 +
-+	port_handle = usb_get_hub_port_acpi_handle(hdev, port1);
-+	if (!port_handle)
-+		return -ENODEV;
-+
-+	if (!acpi_has_method(port_handle, "_PRR"))
-+		return -ENODEV;
-+
-+	status = acpi_evaluate_object(port_handle, "_PRR", NULL, &buffer);
-+	if (ACPI_FAILURE(status)) {
-+		dev_dbg(&hdev->dev, "port%d: _PRR evaluation failed: %s\n",
-+			port1, acpi_format_exception(status));
-+		return -ENODEV;
++	if (unlikely(item_size < min_size)) {
++		generic_err(leaf, slot,
++		"invalid qgroup status item size, have %u expect at least %u",
++			    item_size, min_size);
++		return -EUCLEAN;
 +	}
++	ptr = btrfs_item_ptr(leaf, slot, struct btrfs_qgroup_status_item);
++	if (!(btrfs_qgroup_status_flags(leaf, ptr) & BTRFS_QGROUP_STATUS_FLAG_SIMPLE_MODE))
++		return 0;
 +
-+	pkg = buffer.pointer;
-+	if (!pkg || pkg->type != ACPI_TYPE_PACKAGE || pkg->package.count != 1) {
-+		dev_dbg(&hdev->dev, "port%d: _PRR returned unexpected object\n",
-+			port1);
-+		ret = -EINVAL;
-+		goto out;
++	if (unlikely(!btrfs_fs_incompat(leaf->fs_info, SIMPLE_QUOTA))) {
++		generic_err(leaf, slot,
++	"qgroup status item has SIMPLE_MODE but SIMPLE_QUOTA incompat bit unset");
++		return -EUCLEAN;
 +	}
-+
-+	ref = &pkg->package.elements[0];
-+	if (ref->type != ACPI_TYPE_LOCAL_REFERENCE || !ref->reference.handle) {
-+		dev_dbg(&hdev->dev, "port%d: _PRR element is not a reference\n",
-+			port1);
-+		ret = -EINVAL;
-+		goto out;
++	if (unlikely(item_size < sizeof(*ptr))) {
++		generic_err(leaf, slot,
++	"invalid qgroup status item size for simple quota, have %u expect at least %zu",
++			    item_size, sizeof(*ptr));
++		return -EUCLEAN;
 +	}
-+
-+	status = acpi_evaluate_object(ref->reference.handle, "_RST", NULL, NULL);
-+	if (ACPI_FAILURE(status)) {
-+		dev_dbg(&hdev->dev, "port%d: _RST evaluation failed: %s\n",
-+			port1, acpi_format_exception(status));
-+		ret = -EIO;
-+	}
-+
-+out:
-+	kfree(buffer.pointer);
-+	return ret;
++	return 0;
 +}
 +
- /**
-  * usb_acpi_add_usb4_devlink - add device link to USB4 Host Interface for tunneled USB3 devices
-  *
-diff --git a/drivers/usb/core/usb.h b/drivers/usb/core/usb.h
-index a9b37aeb515be..4d3dc3bd881b2 100644
---- a/drivers/usb/core/usb.h
-+++ b/drivers/usb/core/usb.h
-@@ -211,7 +211,10 @@ extern int usb_acpi_register(void);
- extern void usb_acpi_unregister(void);
- extern acpi_handle usb_get_hub_port_acpi_handle(struct usb_device *hdev,
- 	int port1);
-+extern int usb_acpi_port_prr_reset(struct usb_device *hdev, int port1);
- #else
- static inline int usb_acpi_register(void) { return 0; };
- static inline void usb_acpi_unregister(void) { };
-+static inline int usb_acpi_port_prr_reset(struct usb_device *hdev,
-+					  int port1) { return -ENODEV; }
- #endif
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20260706080117.3754550-1-acelan.kao@canonical.com
-
-Best regards,
---  
-Mario Limonciello <superm1@kernel.org>
+ static int check_remap_key(const struct extent_buffer *leaf,
+ 			   const struct btrfs_key *key, int slot)
+ {
+@@ -2475,6 +2505,9 @@ static enum btrfs_tree_block_status check_leaf_item(struct extent_buffer *leaf,
+ 	case BTRFS_FREE_SPACE_BITMAP_KEY:
+ 		ret = check_free_space_bitmap(leaf, key, slot, prev_key);
+ 		break;
++	case BTRFS_QGROUP_STATUS_KEY:
++		ret = check_qgroup_status_item(leaf, slot);
++		break;
+ 	case BTRFS_IDENTITY_REMAP_KEY:
+ 	case BTRFS_REMAP_KEY:
+ 	case BTRFS_REMAP_BACKREF_KEY:
+-- 
+2.54.0
 
