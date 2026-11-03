@@ -1,88 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728793;
-	b=fS8y/2GS6MOsmZMRroHDJ7lxfyJ5JQaKdvfcvPrRfn3RUvwWitronAywebNR62tdMApi
-	 gwSOCS9KhDJVrMOS5utgf+4Onfoc9kHR8GXdCYPcGNostFIXFlzIM8E5OlntXEECOgdU1
-	 KtbX5FP1Y0RQ4bzMEJejrOLPS0sAl7pjNkvq5Q7kWMJr0vLSkIbCPDoVLT2ymkjn0utVO
-	 9LWvUrgG6aZ3KXpC/wi1vcPzYYQNOQ5EeyHJKmQ0kJkhAYi5UDTj/MxRvqxISr5IFDSl4
-	 9CzmWJFLGqzK6/Ogvw1psIWZWTCWs8hs/ZYmwKoowINY/ee5yxr+Bq/7UQTpWAunnoA==
+	t=1793728795;
+	b=a2o3aP1CVwosVzl5SvXD0jP75CDdUNBM6C/nzRzFqt4HILU0HcpEMYbcaklrZnU5/Ur8
+	 dHcmJBfwaimWyIgbA/eAWFAyeiisCJ0vQXqpfikKPKsjmJYAABL4z171W/AYoKQ5raPcN
+	 MArrj/tu5ZZZ+9Fdri60X3JXvJu51miObJ5vUfU0hj9vHedjOg3LRU9vxEq+jhsmjZVKS
+	 V4FcIQtnRJlaQV40RlDqdzAnb3nLPUhbJXt2MLqZK5mNOnyf6BtZPz+Ts9BuIPDJ2896o
+	 W4F9iKkA9v6aopCRVyTSC8wmqx/vDQFJ4jjtggTxPbltzoN09VkwbE+iaNIX33kUojw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728793;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728795;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2F2lIdK086BENYIYPQD2Q2okdf2dHEkNd/6V9465bEA=;
-	b=44qogC28ocKYCcJVw3bPeVquyHahY2c5TLuLX9XFgDbyOjsnZo7Ifd82CLEX1w54iF5H
-	 Ee6hnbahME2lNcTb8qr1Cp+y3n2ogIiH/5VNGI8oqAdNGDB60xa8kPKE6mt2mhQXyK5r9
-	 ZpY2WozUaGbKHr5q/jQEZXL8rhfZzbWL8I3j8j/5Y9husL255I7cTh2DIrk1hHGlZBelN
-	 IsmGW+FoCvuCR8sJuUMd7MDilNJJtVKzpsbDxdyeKq64WGlLb/liPLS7bi/DmcJBdYFks
-	 YiqFCADcbUa9rd49if3vXr4nLPV2egluaXAn0eOex/NNi8HgGv185XCcRwNOGJLzZbw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=FPwct+1U9T6oyA5Ruuz5LB/HvShMdpdhhsQD4HMVAhg=;
+	b=cPcGlN9oS0UXOx0Ul1Dd50M1l3xg4RDsSbSzhggrcznCKU12vhJRm4lrLGMKCCPPml+C
+	 WHzZU9wMEOBWKPZ/SUs3skzKxln6aMA2c6Cno0ODD6D2LoA8v1Vnvv00utsFbvPnMd0JO
+	 TWomCnuKjPlwDNgtiJzG6qDo//uS3me0kMVYS3Rc/v+Q8PrVRcZBwnzKQ260/TStukh44
+	 k0N9McADKtaY01UxHOphobYlnUitt7AiPjNaTm9Xw0sWl0yVfvsOdjpT4+HeS9fbEOmhV
+	 Yb19AQF7voRCEf/C67OYsWCvb1g0l4ALACAKqX+07hd/Yj+yqSxJTlYxVt74j/j0nHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TCjz6mkB;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--wvw.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oKWTE9wx;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC69606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DC69606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA116606D801
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:59:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA116606D801
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wvw.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TCjz6mkB
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-14394530ec6so5957340c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:59:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oKWTE9wx
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ac77c3ff6aso5041134a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:59:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793728792; x=1794333592; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2F2lIdK086BENYIYPQD2Q2okdf2dHEkNd/6V9465bEA=;
-        b=TCjz6mkBL99yj7gcdlCxhkwe/S1344iWFLlicIpOOL8sh5AZPdcffvifLfg7haM9pE
-         zST8Mq20JhE4GJsoCQm3Hwz8nuKlSI46LWNjKkhhLnLHo70247g6nrlv1k7bM1ysBw7Y
-         ZqLAIsi9gkq6nv1jr34z/oW128mpWH0hWG5frvuyXcVCEspkykU7rWa13cfbPUyEsPge
-         JqVpeLojl3l4YjD9R+CPkz42fMdWKiZpONPHyU4iryYbge7Rzow2PCCVWBkz54rXMgnY
-         PLg2ce51LXdHBAN6WX80jHcpLsHMucqmRZILe2gC4Oq+Qt/W7PxCCuXq4uBFr6XJdMz+
-         FHaQ==
+        d=google.com; s=20260707; t=1793728794; x=1794333594; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FPwct+1U9T6oyA5Ruuz5LB/HvShMdpdhhsQD4HMVAhg=;
+        b=oKWTE9wxvvkr6zCRmGOi7MD8BifRNWWeKWlQl288hGhFeyWHixUsNw7NTaikjfsx+E
+         fl/68xwPzPUk2e/UEBmVVs41KowLq0QtKlvhIc47QqPmeD0M1otau9oULB6BOFOgWXIu
+         5aVDEyLHY+EYQ0QJKkPWr1Ja0np0kBEm1xdQKdlv295PWhkpy4fDI/snUTgmU7qN0epA
+         4wbVCoPw/xuYj/dhulM1DJVJxN3lD3yr16y0rwkMyt+0EaHFjkF5fr1M91lTR+AHIsda
+         xaTQtNbiTAHCX4YmdvieCD8sC52zOSmqojGRDrTuu6Z4YmnDC4wgjuZ9AUqzWcUPF740
+         OhgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793728792; x=1794333592;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2F2lIdK086BENYIYPQD2Q2okdf2dHEkNd/6V9465bEA=;
-        b=PxRfeqmodVyPtLUGHpNkjmBZyx7Oye4t6XXwIySfQ4ku/ZM2a7dr+04bU5XQ7E+dYP
-         SjbJobCqn0uXk1OpEYnrHmrIjEVogl80WS8tfkLoYfvHZrxVeWUXc3zdlgtuPOeAcPXN
-         a9ce7yZcFTT8BwfbP1Mn41qCMvBKUgt0+2xg5Ec88sUnMD0M8zd0gXKzwdo7aCo478kL
-         hRlLwc8J2Jioy7O3B2yE09O87Lo3hJ9h9vQ6/U9X9woTl1kNDWpGs21++4+H5JzI0LSn
-         epdpgj8WhMeXhmxYMl6Sj0iu8V9qL4ti6jO/xS7MvY6EuCP893a4cZSgU5TB7rrgVS+R
-         cShg==
-X-Forwarded-Encrypted: i=1; AKwUvBzqKGEGsYheWz8CWugG7eWhT1lT10y3eU/xgj8BWZMtMJBNW/CbsMiTn4MEwex79ST4XzW9ETlX01y+uRA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+v5n7ZARdkFg8Z43u34khCMz/tpBWwEHFEFptiNWIaqtf9b947
-	pXm5I9+93R4zaFWoO4pm61u5vOnW1Bghb6Ht2IFN260bFUC/1YlXYJ9UDaOkeQ==
-X-Gm-Gg: AYBFou1W8+mZ4HwRufQbD1POpdKAyBoBLQ47eUHSaxZkBjMYdGmmpF+nIuLANYD9mXV
-	RphwYD23Ii6jNprnQedWHgNiDN7eiLZLg9S526tKYKnH0QTuUyqOezLwOFM0BaLWJr4jGlg0QrD
-	8dSPrXG+B4Uzvqq+MwKoOtKgahnZiHGMKr0Bxjci2HaqXjnGWPEbW3LwJ0QPBVH+2sYqms4SDj3
-	U4616sm6djIhrfUjcAUGwlCTgG+a2DkeGiJp17e8IgPbcLrdj0DN30rmocVDAmm+FpwP8FZtXLA
-	nQPl4E5HwVV2/mcyizam9+Ghy6BbtKuDcFrDyPIj21bcroe2S72o6Pwj25Hp++Pw/aY6iHlhiCj
-	2g6VUKCasSrA1s8Yu0CF40UXv0MMxVGb2mztBbqKlFpxijqCzs5h0pFw/nTj543SH+HmVEE1vaC
-	hKsWxqEo3ywwprp9IlOwv5dZjXNwO3h0SXu6Hv0LW7SxHC/3Vyufv6U/5+m0nd8fVWH6+THs9Dd
-	yrQH2IYwr6W4rdiwd72ea7dlT7fUddOo6i/944jQshYyDDRoP+MSPELdGIO6xtqOJnSXfYwAD4d
-	+JMWFoeBSw/h5rkkym3fMCUBwCuaM0dD1ptBf1TgCWpMColZpc7kX7PuEQ+/+/ES0Q==
-X-Received: by 2002:a05:701b:420c:20b0:194:f017:5a01 with SMTP id a92af1059eb24-1ac5fc0d363mr20693907c88.42.1793728791460;
-        Tue, 03 Nov 2026 09:59:51 -0800 (PST)
-Received: from ?IPV6:2620:10d:c085:21c1::14ac? ([2620:10d:c090:400::5:e3cc])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c65194sm427461c88.19.2026.11.03.09.59.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 09:59:51 -0800 (PST)
-Message-ID: <cf4b221c-cf4b-414f-b087-815848c85b2e@gmail.com>
-Date: Tue, 3 Nov 2026 09:59:49 -0800
+        d=1e100.net; s=20260707; t=1793728794; x=1794333594;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FPwct+1U9T6oyA5Ruuz5LB/HvShMdpdhhsQD4HMVAhg=;
+        b=PiyAK8r5Iub3N6T7Fw4U73EBWmIfUMzzBoIZVuidR8J6gANI/o5/dd5lQlpNfhiFp9
+         faImitCX/0E0+QplUK0lcJIufGoa0GQJvBM0/bnTws8RpKb7lmJOxCTda3zUbVAhVKEl
+         X+N+Bxm5ytRHdu5WqhFdwxz2gfYrD12PcHh/JCmIlUU9xvl/YgwebdElEAGDfi3qd6oA
+         0Z7+cpNWruEci4koee92SAWoVrqdzDKkv9tNsHfC/vK9pLD+qSXhiAtNIjWn92Fw25FR
+         qlJfSMTCbvp/uPjkrNwK+TOAbrTofPhvNS7vNc7rGDe0x7P2AFntK/+76kVUxxsdGsNQ
+         lGSg==
+X-Forwarded-Encrypted: i=1; AKwUvByc+0rblmpZFAAF62zpgGjbUupMarirOLfQHaiQo1ZW/buqVXvVeyHJXaAcS3Tn7gowuCADF8PtQ9qr6nU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jau0D/zNolwAWtrdLlJ9kP1XDK3aDenhKlHpdPCInqytMBjZm
+	wBw8qoYP/wC3eFMn/x8JYWtPmKSltGxyRjE3YMnYv08kg1gzda3MboNyiuuhfNmMopPHOQ==
+X-Received: from pggs9.prod.google.com ([2002:a63:dc09:0:b0:ccb:62e:3f01])
+ (user=wvw job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b0d:b0:3ac:9e5e:d1a9
+ with SMTP id 98e67ed59e1d1-3ae897ec5b1mr11095151a91.20.1793728793847; Tue, 03
+ Nov 2026 09:59:53 -0800 (PST)
+Date: Tue,  3 Nov 2026 17:59:41 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,101 +74,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests: net: fix format warnings on 32-bit
- architectures
-To: Sasha Levin <sashal@kernel.org>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Jason Xing <kerneljasonxing@gmail.com>, netdev@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261103155503.534876-1-sashal@kernel.org>
-Content-Language: en-US
-From: Mohsin Bashir <mohsin.bashr@gmail.com>
-In-Reply-To: <20261103155503.534876-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261103175941.1349818-1-wvw@google.com>
+Subject: [PATCH v2] arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend
+From: Wei Wang <wvw@google.com>
+To: catalin.marinas@arm.com, will@kernel.org
+Cc: broonie@kernel.org, mark.rutland@arm.com, rafael@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, wei.vince.wang@gmail.com, 
+	stable@vger.kernel.org, Wei Wang <wvw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+TPIDR2_EL0 is a live EL0 register on systems with SME, but
+cpu_do_suspend()/cpu_do_resume() don't preserve it. Its value is
+UNKNOWN after a warm reset, so the task that initiates suspend can
+return to userspace with a corrupted TPIDR2_EL0.
 
+Save and restore it alongside TPIDR_EL0 and TPIDRRO_EL0. The new slot
+fits in existing padding, so sizeof(struct cpu_suspend_ctx) is
+unchanged.
 
-On 11/3/26 7:55 AM, Sasha Levin wrote:
-> On 32-bit architectures ssize_t is an int, tv_sec is a long long with a
-> 64-bit time_t, and uint64_t is not a size_t, so ipsec, txtimestamp and
-> the tcp_ao library warn when printing them with %ld, %lu and %zu:
-> 
->    txtimestamp.c:191:42: warning: format '%lu' expects argument of type 'long unsigned int', but argument 4 has type '__time64_t' {aka 'long long int'} [-Wformat=]
-> 
-> Print ssize_t with %zd, tv_sec as long long, and the net namespace
-> cookies with PRIu64 as the rest of ftrace-tcp.c already does. While at
-> it, print tv_nsec, a long, with %ld instead of %lu, and cast it to long,
-> as it is a long long on x32.
-> 
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-> Found with a 32-bit build of the selftests with a 64-bit time_t (gcc 16
-> and clang 21 with -m32 -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64);
-> KernelCI's 32-bit arm builds show the same warnings. The changed files
-> build without format warnings there now, and the x86_64 builds don't
-> change. The other selftests get the same kind of fix in separate
-> patches.
-> 
->   tools/testing/selftests/net/ipsec.c                 | 2 +-
->   tools/testing/selftests/net/tcp_ao/lib/ftrace-tcp.c | 2 +-
->   tools/testing/selftests/net/txtimestamp.c           | 9 +++++----
->   3 files changed, 7 insertions(+), 6 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/net/ipsec.c b/tools/testing/selftests/net/ipsec.c
-> index 89c32c354c008..ba8c36a93f176 100644
-> --- a/tools/testing/selftests/net/ipsec.c
-> +++ b/tools/testing/selftests/net/ipsec.c
-> @@ -2030,7 +2030,7 @@ static int __write_desc(int test_desc_fd, struct xfrm_desc *desc)
->   	if (ret == sizeof(*desc))
->   		return 0;
->   
-> -	pr_err("Writing test's desc failed %ld", ret);
-> +	pr_err("Writing test's desc failed %zd", ret);
->   
->   	return -1;
->   }
-> diff --git a/tools/testing/selftests/net/tcp_ao/lib/ftrace-tcp.c b/tools/testing/selftests/net/tcp_ao/lib/ftrace-tcp.c
-> index 27403f8750547..cd93ff8965dda 100644
-> --- a/tools/testing/selftests/net/tcp_ao/lib/ftrace-tcp.c
-> +++ b/tools/testing/selftests/net/tcp_ao/lib/ftrace-tcp.c
-> @@ -504,7 +504,7 @@ static int setup_tcp_trace_events(struct test_ftracer *tracer)
->   	size_t i;
->   	int ret;
->   
-> -	filter = test_sprintf("net_cookie == %zu || net_cookie == %zu",
-> +	filter = test_sprintf("net_cookie == %" PRIu64 " || net_cookie == %" PRIu64,
->   			      ns_cookie1, ns_cookie2);
->   	if (!filter)
->   		return -ENOMEM;
-> diff --git a/tools/testing/selftests/net/txtimestamp.c b/tools/testing/selftests/net/txtimestamp.c
-> index f7bdf30b78d9f..be1452d73b303 100644
-> --- a/tools/testing/selftests/net/txtimestamp.c
-> +++ b/tools/testing/selftests/net/txtimestamp.c
-> @@ -188,12 +188,13 @@ static void __print_timestamp(const char *name, struct timespec *cur,
->   		return;
->   
->   	if (cfg_print_nsec)
-> -		fprintf(stderr, "  %s: %lu s %lu ns (seq=%u, len=%u)",
-> -				name, cur->tv_sec, cur->tv_nsec,
-> +		fprintf(stderr, "  %s: %lld s %ld ns (seq=%u, len=%u)",
-> +				name, (long long)cur->tv_sec, (long)cur->tv_nsec,
->   				key, payload_len);
->   	else
-> -		fprintf(stderr, "  %s: %lu s %lu us (seq=%u, len=%u)",
-> -				name, cur->tv_sec, cur->tv_nsec / NSEC_PER_USEC,
-> +		fprintf(stderr, "  %s: %lld s %ld us (seq=%u, len=%u)",
-> +				name, (long long)cur->tv_sec,
-> +				(long)(cur->tv_nsec / NSEC_PER_USEC),
->   				key, payload_len);
->   
->   	if (cur != &ts_usr) {
+Fixes: a9d691585950 ("arm64/sme: Implement support for TPIDR2")
+Cc: stable@vger.kernel.org
+Acked-by: Will Deacon <will@kernel.org>
+Reviewed-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Wei Wang <wvw@google.com>
+---
+v2:
+ - Trim commit message (Will)
+ - Keep mrs_s/msr_s as TPIDR2_EL0 isn't in tools/sysreg yet (Catalin)
+ - Collect Acked-by/Reviewed-by tags
+v1: https://lore.kernel.org/r/20261102234813.1069156-1-wvw@google.com
 
-Reviewed-by: Mohsin Bashir <hmohsin@meta.com>
+ arch/arm64/include/asm/suspend.h | 2 +-
+ arch/arm64/mm/proc.S             | 8 ++++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
+index eb60c9735553..2cc5fb405769 100644
+--- a/arch/arm64/include/asm/suspend.h
++++ b/arch/arm64/include/asm/suspend.h
+@@ -2,7 +2,7 @@
+ #ifndef __ASM_SUSPEND_H
+ #define __ASM_SUSPEND_H
+ 
+-#define NR_CTX_REGS 14
++#define NR_CTX_REGS 15
+ #define NR_CALLEE_SAVED_REGS 12
+ 
+ /*
+diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+index 7afbece885a3..c7b7fa6491c3 100644
+--- a/arch/arm64/mm/proc.S
++++ b/arch/arm64/mm/proc.S
+@@ -103,6 +103,10 @@ SYM_FUNC_START(cpu_do_suspend)
+ alternative_if ARM64_HAS_TCR2
+ 	mrs	x2, REG_TCR2_EL1
+ 	str	x2, [x0, #104]
++alternative_else_nop_endif
++alternative_if ARM64_SME
++	mrs_s	x2, SYS_TPIDR2_EL0
++	str	x2, [x0, #112]
+ alternative_else_nop_endif
+ 	ret
+ SYM_FUNC_END(cpu_do_suspend)
+@@ -142,6 +146,10 @@ alternative_if ARM64_HAS_TCR2
+ 	ldr	x2, [x0, #104]
+ 	msr	REG_TCR2_EL1, x2
+ alternative_else_nop_endif
++alternative_if ARM64_SME
++	ldr	x2, [x0, #112]
++	msr_s	SYS_TPIDR2_EL0, x2
++alternative_else_nop_endif
+ 
+ 	msr	sctlr_el1, x12
+ 	set_this_cpu_offset x13
+-- 
+2.56.0.385.gac671c819a-goog
+
