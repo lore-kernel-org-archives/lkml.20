@@ -1,60 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723214;
-	b=ROIpJ7CFO/Dy0WPc89eCVOuAlG3zVBEUawfnYyNEAImB9KyDITW/w2g9zpPjggu+3rUt
-	 g8y+OzwDMikvFmpoOxL78Hy04zhTxSFFnSenPWWjMdF/06oWa/yAHQrV0IMlzQSEsDVE8
-	 2VhD9KuFYdT7GmyATNfp0Quv/8X/QvECbYxtglL3joEt98fTgnPPpjFJ4qFBgXwDttPh9
-	 9DcNIhc2pcuQzbcHlLY/mmViwARjknwWRlNWCqKaEZXqz8CNGTXabO63qdRXrEyr0lYxa
-	 C3TKHEw+SA0b72mUweArwWn23/LAOKyO4WXJ27zdBMTQMXdgZlqIaxEBju7S2McUEaA==
+	t=1793723262;
+	b=5GaozFeBppIiYGOrcByMVzIqTvCL6Lkqnstpb0ah8aXfe88bu4KozkGPnhVHU4sR77KH
+	 3jBRtaJABwFdmb8gJuIpfi/yeEP8sxs0wmqL9xy6P3h22FC97nbB5aWw7z16uFd/b6Al7
+	 qDNO7g24J2vXEkucYy3HRvU1osMd6GbCtr4HBEvHm9C8Nws4q7Ldg30eXCfrr/Vg+ZKDG
+	 yL15Ako+32Jnr06NBRfqHf81bVeAaMrVkh43nMwpJUVpQqbcyVkvRmOsIRSAeztV0thUU
+	 ZyUX/9nB80Jr0jTgaokFwPWuB1CUubGJGAtm1DGVGMDig2Uh3/um2I5ReJt7Izr9b8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723214;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=YVSDIrIIzR9VS4mWTO/q1Mp+Me/njugHvJ+exw7MsBc=;
-	b=NciIcofuuVOoAzhS48asdvIGTMJPDBRHQ19FXM//3Hwb07AGmtoQXzQpwQVuS7fKRSD4
-	 LMaJ9ym/lYgHSlouWtuJXuQpmPw2/seU5YR/izsJxJJJ8lACeqQrt5S4KZo7xVdRqDr4n
-	 XfOLAfUaXaayHcwkdH0uF//YwPC8X0+7I86LIyuyidQjFIlC8BunVRHh7TpNXqwOrzoRq
-	 jGLP18cN8oeO84S1If7kADwhg5G7h2Z7Q/Ys9Nf/fLuQgd44LZIEh79HeBZJibdDzazc+
-	 uwFwwXsAMvWb6pOY1MFo/jY9FYHxiedWZ9RY3yaGCeHy8rmZnD/hysRkuRXyYb9Qd/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723262;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bkPatPhoIRl80vpo0H3GcNW/Dj+ibBJMXucPTH/+R50=;
+	b=YMCq0S4XQW+mJvLsMVGIPSLQyAgGY9ZMFdo6Qt6rLpP1JCb+19uYWKJPsSQhKbjgR9QL
+	 HqwQuLVy8Ax0iQVRdyC0t7RPOIW4NOrAB/GrUr3N8s/qINgN0tofDKnzxyHfU53MAvbsZ
+	 ipASBMJpNG3a9xMfzIlwxJZqxHabt9nTOWqYyrH/N3hgJkDXksBzYCxLAdlcKtj0M8/vK
+	 qxUyXF0UeoifF8NbiPDGL14EhVzJkHvETar0DtqFdISpga7YY3CjjUZRSdxq78De2hDR/
+	 XaKR1oSZYYVa8sJv7KIaJ9YytWcTVYGPoKalIxdyFYo/rDgIxoVTJpNSs9+6QwVtf1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Vo2qH0rt;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uXPzpZWz;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89921606A331
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:26:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89921606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF803606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:27:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF803606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Vo2qH0rt
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261103162650euoutp02b026c2e57aa9050e8770ac306d15257b~klcGqsmcd2173021730euoutp02g
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:26:50 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261103162650euoutp02b026c2e57aa9050e8770ac306d15257b~klcGqsmcd2173021730euoutp02g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793723210;
-	bh=YVSDIrIIzR9VS4mWTO/q1Mp+Me/njugHvJ+exw7MsBc=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Vo2qH0rtUulQjTrvDSQeJ3FpQ5/0v4yjObZmApKDrtovCvqGFLsds5v4aD5h7yjGw
-	 wCypu29RbvmDDkS2f66RSUdwWk03EBJ1dibVH/lGC+fCL5SjE8eE49epyXQaLhhvqV
-	 doLOZNNKtAG8LABMwmRcRzAYnQajLB12K4sfollI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261103162649eucas1p2160b4c61bbe857eb702337e35ad8b2e8~klcFy-Wv13209832098eucas1p29;
-	Tue,  3 Nov 2026 16:26:49 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103162649eusmtip1b9257770e9aa42f127e639da49ee93ae~klcFXrMLm2977329773eusmtip1Q;
-	Tue,  3 Nov 2026 16:26:49 +0000 (GMT)
-Message-ID: <d495affe-2501-4a82-9798-aa4b279a0cba@samsung.com>
-Date: Tue, 3 Nov 2026 17:26:48 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uXPzpZWz
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso48989335e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:27:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793723260; x=1794328060; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bkPatPhoIRl80vpo0H3GcNW/Dj+ibBJMXucPTH/+R50=;
+        b=uXPzpZWzffhrN2p3XG1K6rb86QdFCBUWw84A8AySy3Vsn2IvDe+ZsqmaXkPNmaM6ru
+         ed5wLV3jfjr6od1dgjHUQH0StPfKGg400gEwRHR6SZfbalkq4EM6GiEYP9wZAeVcaX4l
+         fA3JnyowqwReGEUC7otkOWjTyBBuN7OV+SlNeEysFaEFlLCfQnaLPfLgJucr+EQjuBGf
+         HHFXHsdq2NgGppqlCM5gAffiwtA3u8dbSnmtyLFp2XXs4PaHHkDcdHdiagBoeeaR6a/+
+         +BYnZ1cdLe1iA99g3iRTvkvORjW936hH9mM4L4IYS5xMUptDZPuEARwFxE9BU3xnS/A2
+         cMzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793723260; x=1794328060;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bkPatPhoIRl80vpo0H3GcNW/Dj+ibBJMXucPTH/+R50=;
+        b=FV8NfXL3Pha0vxjywglhsQGKjFWrFGviVjM4ZKjptrsg0xn2CPSvQHFP8BWkGnBtLA
+         bSLjehPfOp3gj8BnNNoVsg+pUfCiBhlH7mI5ZmGLdF4vhoZcB4xB4A8Og9/hR3Hs931B
+         /SOoH0lWkj4SoJd3p6Cu3vYXHiQsHHKPTTTnmn9zvIdmBilJYtwl5itySzoSWeBZ2sIs
+         eyFP+JDEYKNZEnmgP9BJG6eXBEHWPx0n43pjQ12Xi0zqP/TkhGTUzrntAv8Bm0uTq/gK
+         a6PQz8kp4basg/2TJDm+qPltcYrS0GWqhuGwbwpiek9ogES/Hk5UV6+ux1Phvjzuq70N
+         nZ5g==
+X-Forwarded-Encrypted: i=1; AKwUvBydT/VdOpLY5UM9kUFri9IHZ7uZPVVxMizv3amdOStqeIYxL6+7+BRPl31IgdPgZY3w4s1gmYSnanY4oB8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mA3l8zcoZ3stHxXKJp+EcwFbaFKEK1ahbIOy6K9VUzVNvge0D
+	EZThcj2A28wma+KNtcBHdK4fk3MEfIq8gBtJZNN/sdxDZL7x99oAnYl2q7Yxew==
+X-Gm-Gg: AYBFou0ib8xs6jGf7gTx69uuv66ZLzJ3+MxwpXEuyE1APecz874jEptAct4h8f/EUFm
+	eupN0QiPEc0xTTWi576/jRSXPXUHtNiuGSdl0YU2nmZy+iQW1jQQht+ACH92IBTpZQd5ct90q4K
+	Btcj8kzbepNrj3Z86/dAC3eY6eUpCBpC9PPlvWE5UUee4wVc7n4odjQE/QLdkzSbM0Jp2np+4CZ
+	Uik9DO5CmgmSM+BR0KSIH4D54lbNkm2kKnKe5XMnywnCcQCTXAXOtQMm4SDJ3NFp79OU7RQyyVx
+	k8ePTkzWp/JsPBfU+1p4kGFZGPEUquzGuQrxF0Qa8Dy6Ya+KH1oMtMhX1H/qXSEaQAbpCbg77z2
+	/dSESRXhElQg7BY4N9UuXvNzp4VcWFaJcUeCOtI3qVIS4SbXBcT2+sNatYmBBQVjCAYx0aUHUcd
+	aybsYi9dPIfWJgMp5IMHGc38WRUDaOyYbV/W0EAOQj8MpZDY2b6qmWCdluUXs0rJS4YnUQ+1nOR
+	/R64SPJqaH9aeBEFg8Q47CW1vPbkR1QS3eb5Kt5biAJ5hd8i7dRFmwdRT8a1rZpibnsJbwKsOoN
+	mnyxvOv515mbgj8t/CwyQOt579rgylHWU2XqbHavhfNZQUdxAuUG6PK0H3uxcsE0IjPxf5O07dx
+	oKhfjr+HS8O7NQl1FhnoViyVuLg3Dt9pKGcI=
+X-Received: by 2002:a05:600c:524b:b0:4b2:612d:908c with SMTP id 5b1f17b1804b1-4b2612d90d4mr86724965e9.34.1793723259495;
+        Tue, 03 Nov 2026 08:27:39 -0800 (PST)
+Received: from gmail.com ([2a01:e11:1403:8620:297d:39b2:12a3:6322])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fbba47a32sm2983463f8f.1.2026.11.03.08.27.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 08:27:38 -0800 (PST)
+From: Paolo Pisati <p.pisati@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Guenter Roeck <linux@roeck-us.net>
+Subject: [PATCH] gpio-f7188x: Add support for NCT5104D
+Date: Tue,  3 Nov 2026 17:27:37 +0100
+Message-ID: <20261103162738.135836-1-p.pisati@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,246 +97,281 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 1/2] media: videobuf2: publish buffers in bufs_bitmap
- under mmap_lock
-To: Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa
-	<tfiga@chromium.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans
-	Verkuil <hverkuil@kernel.org>, Benjamin Gaignard
-	<benjamin.gaignard@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261103-vb2-mmap_lock-v2-1-054e11dcd013@chromium.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261103162649eucas1p2160b4c61bbe857eb702337e35ad8b2e8
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96
-X-EPHeader: CA
-X-CMS-RootMailID: 20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96
-References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
-	<CGME20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96@eucas1p1.samsung.com>
-	<20261103-vb2-mmap_lock-v2-1-054e11dcd013@chromium.org>
+Content-Transfer-Encoding: 8bit
 
-On 03.11.2026 11:56, Ricardo Ribalda wrote:
-> vb2_mmap() only takes q->mmap_lock, not the main queue lock (q->lock).
-> To keep vb2_mmap() safe, newly allocated buffers must not become visible
-> in vb2_get_buffer() until they are fully initialized and q->mmap_lock is
-> held.
->
-> Commit a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
-> started setting q->bufs_bitmap inside __vb2_queue_alloc() before buffer
-> memory is allocated and without holding q->mmap_lock. As a result:
->
-> - A concurrent mmap() can find a half-initialized buffer, and if buffer
->   allocation or .buf_init() fails, __vb2_queue_alloc() frees that buffer
->   without holding q->mmap_lock, causing a use-after-free in vb2_mmap().
-> - If fewer buffers are allocated than requested, they are already
->   counted as active in q->bufs_bitmap before .queue_setup() checks
->   whether the smaller count is acceptable.
->
-> Fix this by keeping new buffers only in q->bufs[] during allocation and
-> setting their bits in q->bufs_bitmap under q->mmap_lock once allocation
-> and .queue_setup() succeed, and let __vb2_queue_free() read q->bufs[]
-> directly when cleaning up unexposed buffers.
->
-> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+The Nuvoton NCT5104D is a Super I/O with four UARTs and 17 GPIO lines,
+found on PC Engines APU2 boards. Like the NCT6126D, it keeps its GPIOs
+in logical device 7, uses 1 for input in the direction register, and
+has a single data register and no Fintek vendor ID.
 
-One minor issue below, besides that is look fine.
+It differs from the NCT6126D in three ways:
+- the device ID carries the silicon revision in its low nibble, so
+  match 0xC452 (rev. B) and 0xC453 (rev. C); the NCT6102D and NCT6106D
+  report the same IDs and are untested
+- the output type sits in logical device 0x0F, one register per group,
+  with 1 for open drain
+- GP0x and GP1x share their pins with UART C and UART D (CR1C bits 3
+  and 2). Register a bank only when its pins are routed to GPIO and its
+  group is enabled in LD7 CR30, and log each skipped bank
 
-Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Only GP0x and GP1x are supported; GP67, the one line of group 6, is
+left out: its pin is not connected on the APU2.
 
+This replaces the out-of-tree gpio-nct5104d driver that PC Engines
+ships with the datasheet, which was posted once in 2017:
+https://github.com/tasanakorn/linux-gpio-nct5104d
+https://lore.kernel.org/r/77f71974-541e-7e06-d37d-c52b9623ed25@pignat.org
 
-> ---
->  drivers/media/common/videobuf2/videobuf2-core.c | 66 +++++++++++++++++++++----
->  include/media/videobuf2-core.h                  |  8 +--
->  2 files changed, 61 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-> index b0a6084f1757..70ef38c3d16a 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-core.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
-> @@ -431,6 +431,9 @@ static void init_buffer_cache_hints(struct vb2_queue *q, struct vb2_buffer *vb)
->   * @q:	pointer to &struct vb2_queue with videobuf2 queue.
->   * @vb:	pointer to &struct vb2_buffer to be added to the queue.
->   * @index: index where add vb2_buffer in the queue
-> + *
-> + * The buffer is stored in @q->bufs[] but remains invisible to vb2_get_buffer()
-> + * until published with vb2_queue_publish_buffers().
->   */
->  static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, unsigned int index)
->  {
-> @@ -439,7 +442,31 @@ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, uns
->  	q->bufs[index] = vb;
->  	vb->index = index;
->  	vb->vb2_queue = q;
-> -	set_bit(index, q->bufs_bitmap);
-> +}
-> +
-> +/**
-> + * vb2_queue_publish_buffers() - publish buffers staged by __vb2_queue_alloc()
-> + * @q:		pointer to &struct vb2_queue with videobuf2 queue.
-> + * @start:	index of the first buffer to publish.
-> + * @count:	number of buffers to publish.
-> + *
-> + * Set the @q->bufs_bitmap bits of the @count fully initialized buffers that
-> + * __vb2_queue_alloc() stored in @q->bufs[] starting at @start, which makes
-> + * them visible to vb2_get_buffer().
-> + */
-> +static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
-> +				      unsigned int count)
-> +{
-> +	unsigned int i;
-> +
-> +	lockdep_assert_held(&q->mmap_lock);
-> +
-> +	for (i = start; i < start + count; i++) {
-> +		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
-> +			    test_bit(i, q->bufs_bitmap)))
-> +			continue;
-> +		set_bit(i, q->bufs_bitmap);
-> +	}
->  }
->  
->  /**
-> @@ -460,6 +487,11 @@ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
->   * @first_index: index of the first created buffer, all newly allocated buffers
->   *		 have indices in the range [first_index..first_index+count-1]
->   *
-> + * The allocated buffers are stored in q->bufs[] but not published in
-> + * q->bufs_bitmap: the caller must either publish them with
-> + * vb2_queue_publish_buffers() or free them with __vb2_queue_free(), both under
-> + * q->mmap_lock.
-> + *
->   * Returns the number of buffers successfully allocated.
->   */
->  static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
-> @@ -562,7 +594,8 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
->  	struct vb2_buffer *vb;
->  
->  	for (i = start; i < start + count; i++) {
-> -		vb = vb2_get_buffer(q, i);
-> +		/* See __vb2_queue_free() for why vb2_get_buffer() isn't used */
-> +		vb = q->bufs[i];
->  		if (!vb)
->  			continue;
->  
-> @@ -580,6 +613,11 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
->   * __vb2_queue_free() - free @count buffers from @start index of the queue - video memory and
->   * related information, if no buffers are left return the queue to an
->   * uninitialized state. Might be called even if the queue has already been freed.
-> + *
-> + * Buffers are looked up directly in q->bufs[] instead of through
-> + * vb2_get_buffer() so that buffers staged by __vb2_queue_alloc() that were
-> + * never published in q->bufs_bitmap (because a later .queue_setup() call
-> + * rejected the allocated number of buffers) are freed as well.
->   */
->  static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned int count)
->  {
-> @@ -587,9 +625,13 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
->  
->  	lockdep_assert_held(&q->mmap_lock);
->  
-> +	/* q->bufs is NULL until vb2_core_allocated_buffers_storage() runs */
-> +	if (!q->bufs)
-> +		return;
-> +
->  	/* Call driver-provided cleanup function for each buffer, if provided */
->  	for (i = start; i < start + count; i++) {
-> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
-> +		struct vb2_buffer *vb = q->bufs[i];
->  
->  		if (vb && vb->planes[0].mem_priv)
->  			call_void_vb_qop(vb, buf_cleanup, vb);
-> @@ -624,7 +666,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
->  		q->cnt_unprepare_streaming = 0;
->  	}
->  	for (i = start; i < start + count; i++) {
-> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
-> +		struct vb2_buffer *vb = q->bufs[i];
->  		bool unbalanced;
->  
->  		if (!vb)
-> @@ -676,7 +718,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
->  
->  	/* Free vb2 buffers */
->  	for (i = start; i < start + count; i++) {
-> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
-> +		struct vb2_buffer *vb = q->bufs[i];
->  
->  		if (!vb)
->  			continue;
-> @@ -1000,14 +1042,16 @@ int vb2_core_reqbufs(struct vb2_queue *q, enum vb2_memory memory,
->  
->  	if (ret < 0) {
->  		/*
-> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
-> -		 * from already queued buffers and it will reset q->memory to
-> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
-> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
-> +		 * straight from q->bufs[] and resets q->memory to
->  		 * VB2_MEMORY_UNKNOWN.
->  		 */
->  		__vb2_queue_free(q, first_index, allocated_buffers);
->  		mutex_unlock(&q->mmap_lock);
->  		return ret;
->  	}
-> +	vb2_queue_publish_buffers(q, first_index, allocated_buffers);
->  	mutex_unlock(&q->mmap_lock);
->  
->  	/*
-> @@ -1125,14 +1169,16 @@ int vb2_core_create_bufs(struct vb2_queue *q, enum vb2_memory memory,
->  
->  	if (ret < 0) {
->  		/*
-> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
-> -		 * from already queued buffers and it will reset q->memory to
-> -		 * VB2_MEMORY_UNKNOWN.
-> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
-> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
-> +		 * straight from q->bufs[] and resets q->memory to
-> +		 * VB2_MEMORY_UNKNOWN if no buffers are left.
->  		 */
->  		__vb2_queue_free(q, *first_index, allocated_buffers);
->  		mutex_unlock(&q->mmap_lock);
->  		return -ENOMEM;
->  	}
-> +	vb2_queue_publish_buffers(q, *first_index, allocated_buffers);
->  	mutex_unlock(&q->mmap_lock);
->  
->  	/*
-> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-> index 4b4f4c15c53a..2e93e6985d5f 100644
-> --- a/include/media/videobuf2-core.h
-> +++ b/include/media/videobuf2-core.h
-> @@ -564,9 +564,11 @@ struct vb2_buf_ops {
->   * @mmap_lock:	private mutex used when buffers are allocated/freed/mmapped
->   * @memory:	current memory type used
->   * @dma_dir:	DMA mapping direction.
-> - * @bufs:	videobuf2 buffer structures. If it is non-NULL then
-> - *		bufs_bitmap is also non-NULL.
-> - * @bufs_bitmap: bitmap tracking whether each bufs[] entry is used
-> + * @bufs:	videobuf2 buffer structures. Must be accessed with
-> + *		vb2_get_buffer(), as an allocated buffer cannot be used
-> + *		until it is published.
+Tested push-pull and open-drain configurations on a PC Engines APU2,
+with UART C and D switched to GPIO in the firmware.
 
+The code is the author's; Claude (Opus 5.5 and Fable 5.1) reviewed it
+and drafted this changelog.
 
-"Drivers must access it through vb2_get_buffer()", otherwise You risk getting
-tons of poor-LLM generated patches fixing vb2-core to use vb2_get_buffer()
-instead of poking q->bufs[].
+Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
+---
+ drivers/gpio/Kconfig       |   2 +-
+ drivers/gpio/gpio-f7188x.c | 102 +++++++++++++++++++++++++++++++++----
+ 2 files changed, 92 insertions(+), 12 deletions(-)
 
-> + * @bufs_bitmap: bitmap tracking published buffers. Bits are set and cleared
-> + *		under @mmap_lock.
->   * @max_num_buffers: upper limit of number of allocated/used buffers.
->   *		     If set to 0 v4l2 core will change it VB2_MAX_FRAME
->   *		     for backward compatibility.
->
-Best regards
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index 55e4280029d8..7edc8a2d9262 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -1060,7 +1060,7 @@ config GPIO_F7188X
+ 	help
+ 	  This option enables support for GPIOs found on Fintek Super-I/O
+ 	  chips F71869, F71869A, F71882FG, F71889F and F81866.
+-	  As well as Nuvoton Super-I/O chip NCT6126D.
++	  As well as Nuvoton Super-I/O chips NCT6126D and NCT5104D.
+ 
+ 	  To compile this driver as a module, choose M here: the module will
+ 	  be called f7188x-gpio.
+diff --git a/drivers/gpio/gpio-f7188x.c b/drivers/gpio/gpio-f7188x.c
+index fb007b978729..7abbc3f86de7 100644
+--- a/drivers/gpio/gpio-f7188x.c
++++ b/drivers/gpio/gpio-f7188x.c
+@@ -23,6 +23,8 @@
+ #define SIO_LDSEL		0x07	/* Logical device select */
+ #define SIO_DEVID		0x20	/* Device ID (2 bytes) */
+ 
++#define SIO_ENABLE		0x30	/* Logical device enable */
++
+ #define SIO_UNLOCK_KEY		0x87	/* Key to enable Super-I/O */
+ #define SIO_LOCK_KEY		0xAA	/* Key to disable Super-I/O */
+ 
+@@ -50,8 +52,12 @@
+  */
+ #define SIO_NCT6126D_VER_A_ID		0xD283  /* NCT6126D version A chipset ID */
+ #define SIO_NCT6126D_VER_B_ID		0xD284  /* NCT6126D version B chipset ID */
++#define SIO_NCT5104D_VER_B_ID		0xC452  /* NCT5104D version B chipset ID */
++#define SIO_NCT5104D_VER_C_ID		0xC453  /* NCT5104D version C chipset ID */
+ 
+ #define SIO_LD_GPIO_NUVOTON	0x07	/* GPIO logical device */
++#define SIO_NCT5104D_LD_OUTMODE	0x0F	/* GPIO output mode logical device */
++#define SIO_NCT5104D_MFS	0x1C	/* Multi-function select */
+ 
+ 
+ enum chips {
+@@ -64,6 +70,7 @@ enum chips {
+ 	f81804,
+ 	f81865,
+ 	nct6126d,
++	nct5104d,
+ };
+ 
+ static const char * const f7188x_names[] = {
+@@ -76,6 +83,7 @@ static const char * const f7188x_names[] = {
+ 	"f81804",
+ 	"f81865",
+ 	"nct6126d",
++	"nct5104d",
+ };
+ 
+ struct f7188x_sio {
+@@ -188,9 +196,16 @@ static int f7188x_gpio_set_config(struct gpio_chip *chip, unsigned offset,
+ #define f7188x_gpio_data_in(base) ((base) + 2)
+ /* Output mode register (0:open drain 1:push-pull). */
+ #define f7188x_gpio_out_mode(base) ((base) + 3)
++/*
++ * NCT5104D output type register, in LD 0x0F (0:push-pull 1:open drain).
++ * LD7 spaces the groups 4 apart (E0, E4, F8); LD 0x0F uses one register
++ * per group (E0, E1, E6).
++ */
++#define nct5104d_gpio_out_mode(base) (0xE0 + ((base) - 0xE0) / 4)
+ 
+-#define f7188x_gpio_dir_invert(type)	((type) == nct6126d)
+-#define f7188x_gpio_data_single(type)	((type) == nct6126d)
++#define f7188x_is_nuvoton(type)		((type) == nct6126d || (type) == nct5104d)
++#define f7188x_gpio_dir_invert(type)	f7188x_is_nuvoton(type)
++#define f7188x_gpio_data_single(type)	f7188x_is_nuvoton(type)
+ 
+ static struct f7188x_gpio_bank f71869_gpio_bank[] = {
+ 	F7188X_GPIO_BANK(6, 0xF0, DRVNAME "-0"),
+@@ -287,6 +302,11 @@ static struct f7188x_gpio_bank nct6126d_gpio_bank[] = {
+ 	F7188X_GPIO_BANK(8, 0xFC, DRVNAME "-7"),
+ };
+ 
++static struct f7188x_gpio_bank nct5104d_gpio_bank[] = {
++	F7188X_GPIO_BANK(8, 0xE0, DRVNAME "-0"),
++	F7188X_GPIO_BANK(8, 0xE4, DRVNAME "-1"),
++};
++
+ static int f7188x_gpio_get_direction(struct gpio_chip *chip, unsigned offset)
+ {
+ 	int err;
+@@ -419,6 +439,36 @@ static int f7188x_gpio_set(struct gpio_chip *chip, unsigned int offset,
+ 	return 0;
+ }
+ 
++static void __f7188x_gpio_set_out_mode(struct f7188x_gpio_bank *bank,
++				       unsigned int offset, bool open_drain)
++{
++	struct f7188x_sio *sio = bank->data->sio;
++	u8 data;
++
++	superio_select(sio->addr, sio->device);
++	data = superio_inb(sio->addr, f7188x_gpio_out_mode(bank->regbase));
++	if (open_drain)
++		data &= ~BIT(offset);
++	else
++		data |= BIT(offset);
++	superio_outb(sio->addr, f7188x_gpio_out_mode(bank->regbase), data);
++}
++
++static void __nct5104d_gpio_set_out_mode(struct f7188x_gpio_bank *bank,
++					 unsigned int offset, bool open_drain)
++{
++	struct f7188x_sio *sio = bank->data->sio;
++	u8 data;
++
++	superio_select(sio->addr, SIO_NCT5104D_LD_OUTMODE);
++	data = superio_inb(sio->addr, nct5104d_gpio_out_mode(bank->regbase));
++	if (open_drain)
++		data |= BIT(offset);
++	else
++		data &= ~BIT(offset);
++	superio_outb(sio->addr, nct5104d_gpio_out_mode(bank->regbase), data);
++}
++
+ static int f7188x_gpio_set_config(struct gpio_chip *chip, unsigned offset,
+ 				  unsigned long config)
+ {
+@@ -426,23 +476,21 @@ static int f7188x_gpio_set_config(struct gpio_chip *chip, unsigned offset,
+ 	enum pin_config_param param = pinconf_to_config_param(config);
+ 	struct f7188x_gpio_bank *bank = gpiochip_get_data(chip);
+ 	struct f7188x_sio *sio = bank->data->sio;
+-	u8 data;
++	bool open_drain;
+ 
+ 	if (param != PIN_CONFIG_DRIVE_OPEN_DRAIN &&
+ 	    param != PIN_CONFIG_DRIVE_PUSH_PULL)
+ 		return -ENOTSUPP;
+ 
++	open_drain = param == PIN_CONFIG_DRIVE_OPEN_DRAIN;
+ 	err = superio_enter(sio->addr);
+ 	if (err)
+ 		return err;
+-	superio_select(sio->addr, sio->device);
+ 
+-	data = superio_inb(sio->addr, f7188x_gpio_out_mode(bank->regbase));
+-	if (param == PIN_CONFIG_DRIVE_OPEN_DRAIN)
+-		data &= ~BIT(offset);
++	if (sio->type == nct5104d)
++		__nct5104d_gpio_set_out_mode(bank, offset, open_drain);
+ 	else
+-		data |= BIT(offset);
+-	superio_outb(sio->addr, f7188x_gpio_out_mode(bank->regbase), data);
++		__f7188x_gpio_set_out_mode(bank, offset, open_drain);
+ 
+ 	superio_exit(sio->addr);
+ 	return 0;
+@@ -458,6 +506,7 @@ static int f7188x_gpio_probe(struct platform_device *pdev)
+ 	int i;
+ 	struct f7188x_sio *sio = dev_get_platdata(&pdev->dev);
+ 	struct f7188x_gpio_data *data;
++	bool nct5104d_bank_0 = true, nct5104d_bank_1 = true;
+ 
+ 	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+@@ -500,6 +549,10 @@ static int f7188x_gpio_probe(struct platform_device *pdev)
+ 		data->nr_bank = ARRAY_SIZE(nct6126d_gpio_bank);
+ 		data->bank = nct6126d_gpio_bank;
+ 		break;
++	case nct5104d:
++		data->nr_bank = ARRAY_SIZE(nct5104d_gpio_bank);
++		data->bank = nct5104d_gpio_bank;
++		break;
+ 	default:
+ 		return -ENODEV;
+ 	}
+@@ -507,6 +560,23 @@ static int f7188x_gpio_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, data);
+ 
++	if (sio->type == nct5104d) {
++		int cr1c, cr30;
++
++		err = superio_enter(sio->addr);
++		if (err)
++			return err;
++		cr1c = superio_inb(sio->addr, SIO_NCT5104D_MFS);
++		superio_select(sio->addr, sio->device);
++		cr30 = superio_inb(sio->addr, SIO_ENABLE);
++		superio_exit(sio->addr);
++
++		/* Bank 0: register it only if CR1C bit 3 (UART C) is clear and CR30 bit 0 is set */
++		nct5104d_bank_0 = !(cr1c & BIT(3)) && (cr30 & BIT(0));
++		/* Bank 1: register it only if CR1C bit 2 (UART D) is clear and CR30 bit 1 is set */
++		nct5104d_bank_1 = !(cr1c & BIT(2)) && (cr30 & BIT(1));
++	}
++
+ 	/* For each GPIO bank, register a GPIO chip. */
+ 	for (i = 0; i < data->nr_bank; i++) {
+ 		struct f7188x_gpio_bank *bank = &data->bank[i];
+@@ -514,6 +584,11 @@ static int f7188x_gpio_probe(struct platform_device *pdev)
+ 		bank->chip.parent = &pdev->dev;
+ 		bank->data = data;
+ 
++		if ((i == 0 && !nct5104d_bank_0) || (i == 1 && !nct5104d_bank_1)) {
++			dev_info(&pdev->dev, "NCT5104D: Skip registering GPIO bank %d\n", i);
++			continue;
++		}
++
+ 		err = devm_gpiochip_add_data(&pdev->dev, &bank->chip, bank);
+ 		if (err) {
+ 			dev_err(&pdev->dev,
+@@ -570,13 +645,18 @@ static int __init f7188x_find(int addr, struct f7188x_sio *sio)
+ 		sio->device = SIO_LD_GPIO_NUVOTON;
+ 		sio->type = nct6126d;
+ 		break;
++	case SIO_NCT5104D_VER_B_ID:
++	case SIO_NCT5104D_VER_C_ID:
++		sio->device = SIO_LD_GPIO_NUVOTON;
++		sio->type = nct5104d;
++		break;
+ 	default:
+ 		pr_info("Unsupported Fintek device 0x%04x\n", devid);
+ 		goto err;
+ 	}
+ 
+ 	/* double check manufacturer where possible */
+-	if (sio->type != nct6126d) {
++	if (!f7188x_is_nuvoton(sio->type)) {
+ 		manid = superio_inw(addr, SIO_FINTEK_MANID);
+ 		if (manid != SIO_FINTEK_ID) {
+ 			pr_debug("Not a Fintek device at 0x%08x\n", addr);
+@@ -588,7 +668,7 @@ static int __init f7188x_find(int addr, struct f7188x_sio *sio)
+ 	err = 0;
+ 
+ 	pr_info("Found %s at %#x\n", f7188x_names[sio->type], (unsigned int)addr);
+-	if (sio->type != nct6126d)
++	if (!f7188x_is_nuvoton(sio->type))
+ 		pr_info("   revision %d\n", superio_inb(addr, SIO_FINTEK_DEVREV));
+ 
+ err:
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.43.0
 
