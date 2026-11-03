@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793738110;
-	b=NccGgFczyKIXXyAfP4VODSur5ABo/z1LqbYY+khPi+bT7roVESmpveVpF4WpQtFYTYsO
-	 qKuUTKa/jRVgf9d1YXJL/+6RSExYfEEpYXRR/bCPsFz/bAanmVdXojlu1N0llo/8hm5wt
-	 +iFjcpTE8qnwbwemP+b+Gq/MQ/MdM0/GxSS1Lpyr0V70EZ6K4KvsUggVOFdoc/zSN6AjA
-	 SzYESUmOvy13h81ClWbAp9lHSba3kAUK8KvNZY5y0XALuXD5hSWp2dr0uLAdy+0xKI2ZA
-	 l2uJ1Fv131LFzTZrV1DO6p4uJiFBlqZ9r+6VsybL1UbLs3Vm4ZESsm84ggqRVmwlfiQ==
+	b=hKhpot77F8zfYIQlUoOW6+hKiCHEVdXyGHDPYei5bCu2C+tJsJBBWVZzZHxWM5k47Ujv
+	 e2WMSbevxHptoEFiiK0lTA7IeuhSgG2SviUaIKx3Utisr53Y4An0sxm3KRCEBasb3gRFW
+	 Z6s54NmlZZ23SePc+MR1niODF8RQzlwZmUT8e4SQcxGBJmzwjMHzElMG4fEKq5PNX19zW
+	 zIPZr7/FN7ZCyJWODMlgKdURsIFCgVTlfNkb6eG8Ip7P+qeOuD+bPxuesrEDEnMa1HWzq
+	 0taLwd8AoN29VuenKYrG868HgX4BrI+ont5q2Mr3ShKXR+3tLUKazXJOJ4UwU4JV9ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793738110;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
@@ -13,73 +13,72 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
 	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=+aadLIA3GPIeeFSZgpfHdaGRi1nlOlSeRKXWPRo2sBI=;
-	b=zLrEATk6upIwPCsqbv0z9u6s0M0v9rw+cqCS72ihkZxzsr1bUx4P5Ci4jNpOOJeWBE0G
-	 pTHE4V457ADouqjyUsYchYNDPvJ4k0fhWzTBFArluboC8zNwGZFzTx5Op06oB/Fbx8gWP
-	 EJ4qi0UTC5IDMqciAAhs+ezCIb3ZzdlF7cPgz6e4hDfy2EP4/aTDySbBVS3IAUk1zOCG3
-	 fz0xQCAHAAjkwXiZYgeyxCu4t3IknuWbIZmIrSuv8OKKrPKGTMb7uOJJMgo4gdBsHzn4+
-	 pccQCTv1Qmnawda/zWRr7XRB1y3IcPVHiaQCRgR0X/ZmTKFJQhLVlrFBLll7jPpWneQ==
+	bh=q9fnNuB1Wct/8OEoZPHjnr7HEm078IbGQ7GxgW+ue7k=;
+	b=nbc7zVk+/zMw3NtjtKL330hYGi9FldT98Sa9zAsDgxc+pyU7bLgBh2Rt2QsJht06JLQO
+	 8YnAknMPQuLNaxEmLIL2X628cccKgWRf4p7fbOkTTaS1z3PLdjvIyJr4XsQrjk8Dg7CL+
+	 b4Omyvf02O+QPMKOy/bAupud2A1MAeIaqtCln328vVrxLDqJ179v0AbFrVqqwX0uUOzTh
+	 +Zv3bTJA/LWNHAwVvomM8MIu+BI4nrVFU0ey4QTt37y+51xVME6ZBoOSW6WaXYTuuFhSP
+	 VneErHeJerRdsQ/Q2EZIn7JKwkh67U0W7Zex2q5jj+C7cypAHcSK10NL6KKIYMdiC5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=soleen.com;
 	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PwFGDYyp;
-	arc=none smtp.remote-ip=209.85.217.42
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=gz3R3zS+;
+	arc=none smtp.remote-ip=209.85.221.169
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E29606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:35:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69E29606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC577606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:35:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC577606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PwFGDYyp
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7ccb2ffe333so2795203137.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:35:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=gz3R3zS+
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5e948e56af3so1512067e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:35:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=soleen.com; s=google; t=1793738109; x=1794342909; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=+aadLIA3GPIeeFSZgpfHdaGRi1nlOlSeRKXWPRo2sBI=;
-        b=PwFGDYypTCj+Bijf5W8hJPUtwmL05ERK8ctWF6lqRVIr4DnGRFRiparen697cEDqn0
-         iXRt590euDQQLv2RUjW0OWe3f0qrizcAk5MFwkIenUop03URqKCrFHp7O0eZqRR32QOt
-         Qg3eTsW0c6R5VMOGu/FSrLUzjlcJaw079jejb6MggV+EgEzEaDTVaHzhJ3lT6+57BE6F
-         peb0U8CWZQCTX9jxktt0gV9YrLDpCu3Pxi3ckzMDEy0Fq4VaPL6SSCwWy0bHgBjyXYa4
-         qSlMI+H1eLrnquSSIuf+2A2DGxF1HUAN+gRuQ+AHnHJ90a2mLOkrRn8elPX2y0CETTHE
-         RYQQ==
+        bh=q9fnNuB1Wct/8OEoZPHjnr7HEm078IbGQ7GxgW+ue7k=;
+        b=gz3R3zS+wfqcCvUU2UbpHcg+EsPxlDILs3vJyPY1yPV8KluvKSeaO3gjDDCa2Pdbwl
+         g0nuQNzedWXMxkGyjwp+TgpRS2XQOCJBqXMXg8xiyNmO4c5zpUyZwAbhf35IuCjOphJ9
+         ZO3Uew+4rTnNBOMMGOtXj9RB3264llqqEfDwWhK1Mnsj1KOcuCOuAkIkz40dhSrXODWd
+         f8BSwBZuRotbmSRfU5ylg5xUDRx5BJ6vVr71tyvgSWfQv3DRy3cnc5esp3U64b2HjLhs
+         mrZH6ywWEqr7ag58nFqDG2ICp2gqzv8m1IlLdGIyX1V50g1ePtwJgO9hNM4jskGnZhwi
+         BEYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793738109; x=1794342909;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+aadLIA3GPIeeFSZgpfHdaGRi1nlOlSeRKXWPRo2sBI=;
-        b=MdIQKaCe7eF1ykkSxwSWhL0y4wSvyBhJEGllZ6p9VdMDY4cB2s6O67jZB4Q31ZNMec
-         Wxn9Z73E4B9PAcsQI70h6TQSM5mGHbDstm+W8ae3bVQP4WvrsdK34YqfjakseVAYgdQc
-         igMDSU6JLqT92Kp/uwqS6PUm2vdWtXcyIV9nIZysAbcOrGDTviy4rzy/a0friSnxiL4b
-         zT7GLned+6WA+oSXUrRLj8e2ibBvh7tGcf/9ObTk7Ne0ROOzFDbLBEbLpSkkcrsbkBSD
-         wCz9ipDFhGxFreyvnK6hCrZrETGWB1DwjQiEjVh+J8U9fGq9hhYIVXTXuLZrw9V2IykH
-         dS5A==
-X-Forwarded-Encrypted: i=1; AKwUvBzQ7XTD9jCbIapMBG+4hkDzKLBudnS5AKFih3ZQDLeLRPHVpUvRPd36o7mozcVylBfKjVUaSbmAq3Ju+yg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vyTODVT64eUwx44Yb0rlKnxDnL8R5PYBRzwFqglvld41hRFmI
-	XDdFEcB0ONQsxwxr0g4Y1vLZCu6U3BiYWn4q8nFn3phBqPjFHVyP9TauPfFxcefLOta6pdwsNRi
-	g5PpN
-X-Gm-Gg: AYBFou1I3S8mseVeGhrgD61bncj9+h7R0hWnDBbl4x7oNMwAaey46PGTJyARE8ESRR0
-	KzYpkZBN7BNeeCgO3KJ2peDTrtFcm1SxZPt931QvFIA4mfk5yYUgax715ctSuEz5aVAlBBEart3
-	TiIxTQEHvXfWGC4cwZuKB9l2+xOBXcB+luX9YnOz+MVj7Mp6gg/rx+2xJUTcFB8MxnVj39ssIHE
-	ersiH2owgmvkY0NXrftVtKBSx1UpwtN/b/6/BniyaCzUFWO0iAn4x5vGcHbaxiXneb7H5eTpzeY
-	9VXrGCxaRxdRfZNUjg3Gz9xXrmzbv07z1rYTb4xVyZAgdA+ooAlHW2nyEZ3yzFHSpdYiOq2VjqC
-	THhWTm2iSbgD9yJCIdrFTIAfaXR4S0nFlHD1saVigIdi+A3Ugw6hN2c+Wjythi++8sGjk5ykfkM
-	+mLCtqBDxcQ8DUR6ZT2n28qxEUcLY0SrYMM1JPQbbkzsSgILYq2GlmKlmhnu1xJRdmocjHnYidm
-	9aXjy3wr5VGMuSPjWkSb9VHNQ+eKvlTugTEJU+x+ozbITeRYUhjYSGKr14fYVeJZEWTV6aF//yQ
-	PjMoxseXVGePyz6TXiBT+WQAdQOo8qi60jEe482C5TlYzCc9+24vZTTVHQbhTcKUwZqS0Z/Mby/
-	HfFnryjFs9sdj/yEFI1dDQoeNsBqO4HHLcZWm7yKofEK/Fq0=
-X-Received: by 2002:a05:6102:fa0:b0:7b4:879c:bb76 with SMTP id ada2fe7eead31-7d072c45613mr6088445137.21.1793738109309;
-        Tue, 03 Nov 2026 12:35:09 -0800 (PST)
+        bh=q9fnNuB1Wct/8OEoZPHjnr7HEm078IbGQ7GxgW+ue7k=;
+        b=oZX3sEEdiz1z4GRGrVcn2+xc/GcaaAxA9jshUHIQER7InnL3BLm+2mHFCQUhuJ5jB8
+         eswN84OCPkxgoCBhpRwuqOIDKyYEobABKMVFYiQUuOtHizWXFDspsvLFOjSRN989+ENE
+         TDtPuEsvFYh0IAmLssy8AIa6ZKHqMk8G9nLhA8ZNIpa3fH9N+bsPl5m9DwxgjeHCLu6e
+         vxmNamjK6geeucNQd+BygXt+fWwMH+oBb17H9+zVMUbaqbofnQV9r/c0GBYki/NNKW59
+         5Ye0x+bUm4kmBd2R3M+fLFi4T6MZ0A5zKHjI4Q+nz3XsGCluMr5vjdOOjFdo6Kwwz89E
+         fj9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx4z8kYVffGJAjulEerMiaPwxBAxtb17oyCjgd0MzoR/fz2Uy0chE844xpdy6+hQOzLyyimCtCdKgaaubI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Rp8/Lc5Ag5NfYigtXdgoR9W75BUnuuFaIFXGADxlj17pIlpaN
+	yjNH6aIGYxMBMOl2n09RqkOpwN0+4FWYO3J0OaI9WeaJL2vckx/EFNWShL1nRCFZCPM=
+X-Gm-Gg: AYBFou2fhyAuJzGZLdy0bLzGUemoaohNeynO8vA5CHDJ4vSZtkpaxog6e2st8ziwHBH
+	0T/SbkGcmwiuN8GzEyVaeSDkCd6N4a+UDEILXG4ThOlTyRhrLF+TOGxutjOOUTOLV6YJn/QB4oB
+	FqmPHeIV/tG6TTlfDOMXXf1s9Y7Gpm7Yo+mGyC+lpvp5ac6U1Hg0PMRjyTkd+Gy8n9SAE8/oCS+
+	tgL8Sf1TLtRrwOrwlR7ZndJYNLPwXri7jrND0nniSWeBZsIPnCq3EeKsvy6Ans+fWvcgBZoi6Jb
+	pAWLhQ4bx4fhnxOL7QH9CnIIOPdY2HUs82z3eC96u/ZHE2+eHMpm2AVlzW3IhaipciyLDCpRicw
+	l0Htwp8ySkqYKQhw7Rra9qbiMDwi+DXwOXoR6oUmIL5/KE85Li6+HGJkU9GQToB0S4yWLhyCFDI
+	zksWoUnOTeCQqy7ANnyFAU8XfJf0bTFsRBW2uLFGgPqKtWPy1zq4lAzJauERIAE+84N37Mzl6yO
+	I7y/nzOMMVcgE64V8YenY5R4V0LqBQL/JdIMT5pbfnmrgVIX4vYHygsGAQdFr90M18vQKhC2jT6
+	G+tIfCAvQi6kxv+B/bCNwGeUzIWx8KEcqD2D62b9PTetK+khegTV8DB32bOeLueKDuuL/tg2FKx
+	bsfdZRBncneAaNav0E9jmQ9bZWtlwOkzoPny/7/Qh7iceS9szoKvX/4Aroh0sd0DOnU6Q
+X-Received: by 2002:a05:6102:689a:b0:7c3:7286:b7ea with SMTP id ada2fe7eead31-7d072c18c5fmr5571067137.17.1793738108579;
+        Tue, 03 Nov 2026 12:35:08 -0800 (PST)
 Received: from soleen.c.googlers.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-998d91d212bsm155984241.6.2026.11.03.12.35.08
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-998d91d212bsm155984241.6.2026.11.03.12.35.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 03 Nov 2026 12:35:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -93,144 +92,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] mm/memfd_luo: keep memfd frozen until finish
+Subject: Re: [PATCH 1/2] liveupdate: luo_file: allow keeping private_data
+ from retrieve until finish
 From: Pasha Tatashin <pasha.tatashin@soleen.com>
 To: Pratyush Yadav <pratyush@kernel.org>
 Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
  Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
  Samiullah Khawaja <skhawaja@google.com>, kexec@lists.infradead.org, 
  linux-kernel@vger.kernel.org, linux-mm@kvack.org
-In-Reply-To: <20261103181916.2462825-3-pratyush@kernel.org>
+In-Reply-To: <20261103181916.2462825-2-pratyush@kernel.org>
 References: <20261103181916.2462825-1-pratyush@kernel.org>
- <20261103181916.2462825-3-pratyush@kernel.org>
+ <20261103181916.2462825-2-pratyush@kernel.org>
 Date: Tue, 03 Nov 2026 15:35:04 -0500
-Message-Id: <179373810485.663454.3013535045194073890.b4-review@b4>
+Message-Id: <179373810485.663454.14095082591432581397.b4-review@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4103;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2169;
  i=pasha.tatashin@soleen.com; h=from:subject:message-id;
- bh=Q9ypSzsjws//mPEdnfoKVj2XLrGaTXlODYwHP6URKeI=;
- b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq6kV7gzwYxzNrt8ME5QZOVfBKCFWD7TcrD+6Y8
- XNUBOCAUIGJAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCaupFewAKCRC7dyhM23N6
- 3oOmD/45tsbGyvIfML7jhFB8SNoj9u0KhnedpAIpQwPtIW7BQkCU/VWLhvj6VtL0up9s07eAQb3
- X0G2UQD0u0r+KV3PffnvpmK3T7y+i2Q4vnJYb8UEeMuQBN4itfu+yFwFCxasz4skubWeoBcapZB
- JVHeuQL9rCZC+I8HL0SICEZCArUMYqWQ4gs5YLMwgb0+SI8TNTqIKuhgp+EL6mapJC2G7mp1l/d
- i80dMJBv4h0R+5nxX9TIKWZkDopl4CeHS6rNovT7htVgNiktIOAo/LvBiJ/Guag9NLwF+bdUk0K
- sKTTiGKm5Jcg5fkNhHrfwNdp+XAIb5Qx3OIGXfDy+4tH+as2CXTDIbR+cyXF7xVv0HCmxQL9hEE
- TEUdFej1A/CubkfpkVWuXldkQk1MngOiRcJ7saqYSjsNmJoN1FCYjLJHWMKCBlWbMeAlvgIbcf6
- P6lwko+CGQi1QvrDhK3v5TgKCkkdUJUsclABW64ciR/95j5dexoupov6Fmt4+kG+ZucpANvb5L+
- oZCOAUXQ2sqSRJHRv6qPK6ODHQ0GZIMoHBRqRA7Sq72ngSVaFqlTeAiNxfXN3q6LrT6pVnlaU9W
- v0+6Nd4cqgxNCJhp6rMst1eW+1nD+B71CoraCgtW4DCy79RDJIS6HmAdQjJTCRCJUKatPy0GwcM
- khpcHll+P8oHIEg==
+ bh=tHMyOi4C3Mnre2HB0bf7Ye3Kluqt8+S+aPWfRyB5xw8=;
+ b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq6kV7B7E4arxmHQz6//CViXirnIcDK3k6F+IF8
+ G2RMjjNCuaJAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCaupFewAKCRC7dyhM23N6
+ 3mpPEADHu6Ct3CLDFw8h+kmZSVru4v6jD1/kPyqBbFgPi31cJh1bTfQMXGCjDlEzSOivapKaQN2
+ 2v/pdI2q2vwigrPI/DlXzZeWXZPTB4XeUFZNYc9LOkOHGjIgA0kqQcQe5wvgxZv93gnSG7U5MCe
+ fNeJBdLPFe4VyDYlD8PPXmI8y32szJDuil5a9xrCoUKTnT0TicuuhdzsohzBIIa82svYrXJ2jhA
+ m8xLRbNbsGzvGBH90ZRBeaAmOCpk4VPmTTDROI/y/X+fqMbWkk+niFXnHSjDgH1ulybqaNifL+s
+ e0O2oS8tujnsw0bs/Ztt2yo4EvklFYYwbAgzPtbRvmo+pk9DIpqYb5kcERbmU0rB4zZvll2ARp+
+ JgRcXoU+h2FD0f6GZACwh7yKwiffUv00MwWqxAtPRjtDhVpbeS9cXRHX3RZ9EpFeJHcXSXDCJsN
+ VTrUwITg1oTg6nnzpJPVn+bVu60UYx8kd26BJSKbfiieN3W4xaEIl6vZs+cTm9R3RO8LbBX/8kJ
+ aJaXh7hl56jKrQ1mbIEePSvABtuiPTQA2ZvFaPa086+0VDvcpIvuF8Zr5zWTG3Ps0MnuJwj5t9O
+ GGbbagRNeTMAhWqjRv4qsStCFg6gcyAMeXHrjuvJUbQTIWRNHwzM+D+zUuhkLYZV8O4gETBtydR
+ X57ZvJBdSqeDlhw==
 X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
  fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
 
-> After a memfd is retrieved, it immediately goes back into "normal"
-> operation. The file comes back unfrozen, and its pages can migrate, it
-> can be truncated, and so on. If the memfd is depended on by something,
-> like iommufd, that can open a window for folios to move around before
-> the consumer can re-establish its references.
+> The private_data field of struct liveupdate_file_op_args lets file
+> handlers keep runtime state that is not preserved. It is set by
+> .preserve() and passed to the later outgoing callbacks, up to
+> .unpreserve(). But in the new kernel, nothing set by .retrieve() is
+> kept, and .can_finish() and .finish() always get a NULL private_data.
 > 
-> Finish is the conceptual point when a retrieved file can start to behave
-> as "normal". So take an extra reference on the folios and freeze the
-> memfd on retrieve until finish.
+> Handlers might need to keep runtime state from retrieve until finish.
+> For example, memfd will need to remember the folios it holds on to
+> until finish so it can release them there.
 > 
-> Suggested-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+> Save the private_data set by a successful .retrieve() in the luo_file,
+> and pass it to .can_finish() and .finish(). The handler must free it in
+> .finish().
+> 
 > Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-> Link: https://patch.msgid.link/20261103181916.2462825-3-pratyush@kernel.org
+> Link: https://patch.msgid.link/20261103181916.2462825-2-pratyush@kernel.org
 >
-> diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-> index 6b68220275eb..5abb9c0956af 100644
-> --- a/mm/memfd_luo.c
-> +++ b/mm/memfd_luo.c
-> @@ -55,6 +55,14 @@
->   *   Only seals known to this LUO version (see ``MEMFD_LUO_ALL_SEALS``) may
->   *   be present; preservation fails with ``-EOPNOTSUPP`` otherwise.
+> diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
+> index 63ea5417de84..21caff8a98a7 100644
+> --- a/include/linux/liveupdate.h
+> +++ b/include/linux/liveupdate.h
+> @@ -36,9 +36,11 @@ struct file;
+>   * @serialized_data:  The opaque u64 handle, preserve/prepare/freeze may update
+>   *                    this field.
+>   * @private_data:     Private data for the file used to hold runtime state that
+> - *                    is not preserved. Set by the handler's .preserve()
+> - *                    callback, and must be freed in the handler's
+> - *                    .unpreserve() callback.
+> + *                    is not preserved. For outgoing, set by the handler's
+> + *                    .preserve() callback, and must be freed in the handler's
+> + *                    .unpreserve() callback. For incoming, set by the handler's
+> + *                    .retrieve() callback on success, and must be freed in the
+> + *                    handler's .finish() callback.
 >   *
-> + * Restrictions
-> + * ============
-> + *
-> + * While a memfd is preserved, and after it is retrieved until the session is
-> + * finished, its size can't be changed and holes can't be punched in it.
-> + * Operations that would do so (``ftruncate()``, ``fallocate()``, writes past
-> + * the end of the file) fail.
-> + *
->   * Non-Preserved Properties
->   * ========================
->   *
-> @@ -383,33 +391,56 @@ static void memfd_luo_discard_folios(const struct memfd_luo_folio_ser *folios_se
->  	}
->  }
->  
-> +/* Drop the references retrieve() holds on the folios added to the file. */
-> +static void
-> +memfd_luo_put_retrieved_folios(const struct memfd_luo_folio_ser *folios_ser,
-> +			       u64 nr_folios)
-> +{
-> +	for (u64 i = 0; i < nr_folios; i++) {
-> +		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
-> +
-> +		if (pfolio->pfn)
-> +			folio_put(pfn_folio(pfolio->pfn));
-> +	}
-> +}
-> +
->  static void memfd_luo_finish(struct liveupdate_file_op_args *args)
->  {
->  	struct memfd_luo_folio_ser *folios_ser;
->  	struct memfd_luo_ser *ser;
->  
-> -	/*
-> -	 * If retrieve was successful, nothing to do. If it failed, retrieve()
-> -	 * already cleaned up everything it could. So nothing to do there
-> -	 * either. Only need to clean up when retrieve was not called.
-> -	 */
-> -	if (args->retrieve_status)
-> +	/* If retrieve failed, it already cleaned up everything it could. */
-> +	if (args->retrieve_status < 0)
->  		return;
->  
->  	ser = phys_to_virt(args->serialized_data);
->  	if (!ser)
->  		return;
->  
-> -	if (ser->nr_folios) {
-> -		folios_ser = kho_restore_vmalloc(&ser->folios);
-> -		if (!folios_ser)
-> -			goto out;
-> +	if (args->retrieve_status > 0) {
-> +		/*
-> +		 * Retrieve was successful, release the folios and unfreeze the
-> +		 * file so it can be used normally.
-> +		 */
-> +		struct inode *inode = file_inode(args->file);
-> +
-> +		folios_ser = args->private_data;
-> +
-> +		inode_lock(inode);
-> +		memfd_luo_put_retrieved_folios(folios_ser, ser->nr_folios);
-> +		shmem_freeze(inode, false);
-> +		inode_unlock(inode);
->  
-> -		memfd_luo_discard_folios(folios_ser, ser->nr_folios);
->  		vfree(folios_ser);
-> +	} else if (args->retrieve_status == 0 && ser->nr_folios) {
-> +		/* Retrieve was not called, discard the preserved folios. */
-> +		folios_ser = kho_restore_vmalloc(&ser->folios);
-> +		if (folios_ser) {
-> +			memfd_luo_discard_folios(folios_ser, ser->nr_folios);
-> +			vfree(folios_ser);
-> +		}
+>   * This structure bundles all parameters for the file operation callbacks.
+>   * The 'data' and 'file' fields are used for both input and output.
 
-Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com> 
+Please also update the stale: 'data' argument here.
 
-Side note (pre-existing, not an issue with this patch):
+With that,
 
-Initially, I wondered whether we should disallow auto-finishing an 
-unretrieved memfd, in case a preserved device still had this memory 
-mapped for DMA. However, if we reach this point, can_finish() has 
-already passed for every other FD in this session, which means any 
-possibly dependent FDs (e.g. iommufd/vfio) have already determined that 
-this FD was not needed to be retrieved for their states.
+Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 
 -- 
 Pasha
