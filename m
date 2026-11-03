@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793703215;
-	b=f3iMRDhjO7q3rXpxUd95mjJJtnpKQUTFD472r22u60v1/TUYI0WnaOyVr0+khXV7DHvb
-	 Nhh6HQYmrtMTQbHs8ohoTJEJGSKlley1G9I/Oa2muW2DQPWL2paJgB5AB53bVtBMQxERv
-	 FgHTjAFclEOcn0+gAeLP8X6ob6ZFKjpL7pNoXwRfTkXvM73AbXSf9Gjk26vKbnuNfrmHl
-	 zIFO+T57J8F79fdjVkQLt9SCHhqGqlwIwVbhn24FbnzTfqJtg1HiFE4Cuc77VKDqy+Ta2
-	 E5myFRJRS1fNrlcWXVMb84TklqVD7+QGfztJnzqnOBF3wOoapz2vIpDE75zoAoqqdKw==
+	b=wtEOFZZHq2y8uDyrP/ZCAyOkTEPGALV5ky7G6j1Wli6RwISgpu79uUtjYgS4Iw/2k6VP
+	 VcsuJEzfPdrAwjC00ZrunAyhtQZWF1yyQ8F8NyHOdKfddmFDjQKCUAPdlU+eaDzxlCGyk
+	 yjrqP+vFMGOcnGXdjN2Ngytd/um9rT/JHwdcXNQiKaEearrQXCgNXkEXZLKrgjAbABmM7
+	 Ur0UbK2tqh3qiCbbgpfZa3bFoGzpI1/DdVz9dsk7erixKb9mvcb7etAlAv1wA4NmKYzko
+	 H9DBcVpoVBU7kc9ROMmS9ubffTDBAFS/Wd2ImcEp5oNjk/nCHyGKHxSxLfypj5CMAJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793703215;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=PucKNmxJ8X9KZkuPjiBnnnSe7Sz0Xqekz5/GdiUHsVA=;
-	b=zo4Mabl0mZl8lkLuyUwrSy0bMew4aWCvSqJdtETHvlCHc84IAxx7MjGgFq94HFg5SHCq
-	 +CmelLczyuhZxyL5JfZUz/Oj8n9KEexzcUYA/N/tRVLUZjTLGI+3GiEoZdTxyUIPdb6Ra
-	 Adsl/1beLum+WEUBe7+RlEL6ZoArN3a3oaubkUfIbUufrTKedMy3sR2S9fcdsTH6OkLBU
-	 nlQnRbPpByL5VxxUGTHleu2q/gs7sVPBFfLXQnPNikU+kBKtVGf2nE8+UspxC6k/0a6gM
-	 zDxnTAC49+sD96R16CIRRzo4HRehiGnKmYnipPDZTGwWRFtwMhUx4LCrroj59lvzXog==
+	bh=GCIbW4AET6O9pHrHj88pZoYl+AaYbhYxFMRR7dhKfCA=;
+	b=pfVYXQVD/+bAGnQtUV5HATsV7j2g9o2ue+Zebh6HAidTNjKtu2qtScDsn6bZb7KFkkT1
+	 xPFGq7qxpBa+C9Raw2LuAcM72Xi4adQPwRHAlki7spqT2e+I8uga0eeOoLtJD7QQV9OVc
+	 8iHMIObAyvFBq9QHdqv55/iDRGhxDbU03HVqEWvnY3ETpvwp49YOWClJpx1gU/HmcFAd/
+	 pkpFoXjhy63PKRoX8nH1OcWAHK6czd3w1O0H5uEQRrmR6fhyy3ph83mvzNSSP3TYlOTPJ
+	 7oMMDoWxkkWiqsWNPY9oaLx/WuMVZcW/o04ukodCig3G+w5Q9Zb4XSuR2fD99evjlSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=dolcini.it;
 	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=WEP8wv3l;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=TnJyo6wH;
 	arc=none smtp.remote-ip=217.194.8.81
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F84606BFBE;
-	Tue,  3 Nov 2026 10:53:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88F84606BFBE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1501606BFB9;
+	Tue,  3 Nov 2026 10:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1501606BFB9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=WEP8wv3l
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=TnJyo6wH
 Received: from francesco-nb.corp.toradex.com (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id 8EEEE1FAF9;
-	Tue,  3 Nov 2026 11:53:32 +0100 (CET)
+	by mail11.truemail.it (Postfix) with ESMTPA id EDAB31FAA9;
+	Tue,  3 Nov 2026 11:53:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1793703213;
-	bh=PucKNmxJ8X9KZkuPjiBnnnSe7Sz0Xqekz5/GdiUHsVA=; h=From:To:Subject;
-	b=WEP8wv3lFTmygkOzEkmDHEBLmlgoIuB8rpg9pTv7+LCG4jMd3E0ULkGhcE1YntdjL
-	 chSHcvrlHCaTXqDCH8+9sLMwDaHOpX7pyMcniFinvcOEAXMnhkCbD8C443t2EiqWNh
-	 dNRijXurmNvW0K2sTKivo6UENcEXQw6Xl17LXCg5gm8o/7yiKA+a1EbuKcllsAePph
-	 RiMDPxiIQLLDCYt0zl6UjzsQQtDxkiIJAY/4qF2ienx+PziAhDHOlbxkBqfEF9r7ap
-	 5OTiLDPiFkgDPVOHrdOFjb4OE4lnSqAnZk9ZhrOBgbeksBrMQvv2+dJYo3hgK2NjPa
-	 wLP29x2mGG+0A==
+	s=default; t=1793703212;
+	bh=GCIbW4AET6O9pHrHj88pZoYl+AaYbhYxFMRR7dhKfCA=; h=From:To:Subject;
+	b=TnJyo6wHB+76RU5WT4Gr7kcG1+PoR2E9GbCb2YV9yvq3IXpZPmkII2NmckgIMqP4z
+	 h2qU2Z2SGJcYyPLR6If69zyf5yrt6VTzZbQ7WQIzwy6rJdXTQ46YDuqKQiBdubEg7/
+	 /c4oia7XCFLK9wasbrRe37PRNCeAPn2+pzirg0Ix22NrHuxgE6zKsm0J/oVP6E/a14
+	 sWnGHSSB+hZPPw1BDvv5NYjNp12c4xjVZNlQvFovU7emhcoeDM8dMuQg+8owilYyhB
+	 E83BqO9ov3zPk6GWGjifjzpn6CZwfrJ0OC1/TPADcp2N0OyyfWJlHAU6IgH5BL7Xth
+	 D0ZqzG3bzrb8w==
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -58,9 +58,9 @@ Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] arm64: dts: freescale: imx95-aquila-clover: Keep DP_PWR always enabled
-Date: Tue,  3 Nov 2026 11:53:16 +0100
-Message-ID: <20261103105323.2394012-3-francesco@dolcini.it>
+Subject: [PATCH v1 1/2] arm64: dts: freescale: imx95-aquila-dev: Keep DP_PWR always enabled
+Date: Tue,  3 Nov 2026 11:53:15 +0100
+Message-ID: <20261103105323.2394012-2-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261103105323.2394012-1-francesco@dolcini.it>
 References: <20261103105323.2394012-1-francesco@dolcini.it>
@@ -82,17 +82,17 @@ adapters, which do not work without it. Keep it always enabled, and mark
 it boot-on so that the firmware, e.g. U-Boot, enables it at boot,
 whether or not a display driver is available.
 
-Fixes: 3f519121e120 ("arm64: dts: freescale: imx95-aquila: Add Clover carrier board")
+Fixes: d5c082ba23db ("arm64: dts: freescale: add Aquila iMX95 support")
 Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts | 2 ++
+ arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
-index 07bf53240958..37fa107c6fec 100644
---- a/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
-@@ -41,6 +41,8 @@ reg_dp_3p3v: regulator-dp-3p3v {
+diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts b/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
+index 7698ef44095c..cfe90831447a 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
+@@ -48,6 +48,8 @@ reg_dp_3p3v: regulator-dp-3p3v {
  		/* Aquila GPIO_21_DP */
  		gpios = <&gpio3 21 GPIO_ACTIVE_HIGH>;
  		enable-active-high;
