@@ -1,53 +1,178 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730217;
-	b=gzbzMJ3g+a6v1x3BaM7d7q9VpUdre+wvSkmioM1PuxKHSX1mJTfvBvd3eTwbdOo2Bv5V
-	 UVByNw8eQ9GbduYJQMydAN8RqZvJbI2swWIDSoWnSkMBAZ/k/DpEbSYeUwmudFvua6xA2
-	 gbQuZWSpi1BCsvKY7uGtpnUZNrySO/zdFC4hPjCVSReMDIEPlPPRCgTL04jH0043/JdZG
-	 JeUUZU8rk+kePdPVxpr01LDz6eJmEufiJEm63Eqos4/KkM6wKW6JON8F9G46j9GTgx/qp
-	 +V0J2kCHN6t4KK6ViE0ERA+C0IV4FLYmIz+0ePQVen/rsZ4uvgpepZxVlIipz71vR/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730217;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bXmZNk+972G0TTja4YROKthFNbP5x92PvOnoGv0kIio=;
-	b=apPTN9Sb7zcia4i/hroBbQAWUiS1UXMy39p9bql28FeTq1Ow5PU8WdShx2e9Xn8VEsjA
-	 knPnKbT50+nibOQ3VhJ1vK75hpB2pM/NPjaTZiRK56CW1pAytePipOJxMiyCeE0S7nXAA
-	 WAPoS7aTwZlvRsRSEi9R9eES5xLwssJFGQRZ2jJ2sGhVbXq7vwhU9cuZoQpt1FrSx9KEY
-	 Ghof4Xgs/xjrW96xHCorKMG9G4oxY3NiK6LJm01PptmsW9EMtBsWNpgdHd970YK4vx8dE
-	 HBkSMB48xKSJE+qjhhNyF6dBcrm4TZuq2Sik9qXzEAevPexZMDrUBL2lrlLCwmT9ubQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4NOmA8a;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793730222;
+	b=PZuyDWf7khHnEhJwmfEMHTVUavP7HSjN2eQH7pAPJhXwOvk4wRg2tnU4U8AOgPp001vr
+	 WgYlBKhqgv440vXEMhbS0nSp/cT8CrE/YlqK8jdmQOEoG7kd0c7vbATNkEkzV1VbLSOlF
+	 OThvIyzppN8/o2rpt3Fzms4uapw/QJb2nn1Gx4MP7XDt5uoF0pDVWRzWIDI5y9aAl1t9f
+	 CoS7gvA7Olrs33+crKiQ53uNpXbfKcjWEJ07yGlwSrTpPnkiGk3FlepY7HW5gpcFIcn2z
+	 gTR7VW2ezgn/V3GGowkJAUQBY60dGnC1bdEe3pJ0X5tzLXfynHD/v8M8jZzk8r++A7w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730222;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=8eCJ+uAAMRphS5gHfXBf62HSUNTM9amJzIDpT3/q5nM=;
+	b=WYLM7LG1+RwCMbxaYleBcj7WBGyTaRzNp7dw+ycCSao8WI0NSbOjdesAV+l0Gi0/uXPt
+	 DcMGA+bm+SQbbmHUXeUsiH3ifdjL1gKwjIAaWkyHxXcKlTh+CA6yify1N79z1qXvslwOC
+	 a2xRH/n7zKjjaTLDLTrLL4kvJC4FT5Lcw6Nnhbo5IKA1koCd1LUpP0WV6s63pUojGjkPH
+	 dPZY/7V1WF7PfiqeapZQVu/1EvpNJr+eeNkod7gfUK7R3om+z5bPruMfDOIq6T6kvY90v
+	 XhMi6Wd6jSZsSIqYI4MdyV9MLJegYeXVUVQeqALW5Sx1F4tBC+PzQhajhLE18jzf3NA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dCDalqGw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D5D606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:23:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7501606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:23:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7501606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4NOmA8a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBD381F000C1;
-	Tue,  3 Nov 2026 18:23:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793730217;
-	bh=bXmZNk+972G0TTja4YROKthFNbP5x92PvOnoGv0kIio=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Z4NOmA8aK+t6ZSzSl2Un1lIstgLcn2m86t8T3aioZVlCroz4CTV/IzJP4ZokzL2Lk
-	 i8+8qYyZBBN4hhgJkm/ose5cQWJ8FZ4GpBWct7hHMA2wSuaE2yxKvz6yXOqlMCAncB
-	 pwnvW4xkeDon3dHmua7Szr9LVZU6klGu2rS7Ub0ov0lL74xatLe24xLPPKUxjZFmUB
-	 j5tE+8l9HXWY7v0kDgWFhy8ZPWkxq8kSvpS22PMa09h653QWmxEBmwxQUL22eTA57v
-	 iphd3fos7Y3q0IucUZyNaLbmAXYUnD/9u0p461Zj6UB1vVBky76AkVPvGLsfzDNRei
-	 g6s6BwDUOfpUA==
-Date: Tue, 3 Nov 2026 12:23:35 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Liao Xuan <liaoxuan@open-hieco.net>
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	default avatarZheng Tan <tanzheng@kylinos.cn>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Subject: Re: [PATCH 1/3] nvme: Add adaptive PCIe link rate switching function
-Message-ID: <20261103182335.GA1120570@bhelgaas>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dCDalqGw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793730221; x=1825266221;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=8eCJ+uAAMRphS5gHfXBf62HSUNTM9amJzIDpT3/q5nM=;
+  b=dCDalqGw+AXzrn/M8VWbOpHbna3TN3IhRcnxYRq+mNeA/W0EdvpdjivF
+   ktIfZAFBaXaf46y92l7Bw1HeB0VrC0+4dX59e19T/dPiklzeUndnoSbMj
+   rfKqPy98KHNmredLJYIfVwG3kUiDggUmeveYxO+aVEA2P/FMZOjQ3Z/EZ
+   /1hTmfXo7bCfRtUzmPXgFw9lfusrn1oD3QoF46h7XbX8u7D2cGolrTRAR
+   CSJOoSuNsyuHo53BfJE2H+2uo6r4mxILiLGQwTdtYyji7vZgHBdwUdMFC
+   Ulw29snmz/LawPd3tj2LIQoc0Z0pDdLhMEIEywaxXVmo0VCYtb5/GR/Jr
+   g==;
+X-CSE-ConnectionGUID: KkoENt22Rc+Hh8ckD6VMjg==
+X-CSE-MsgGUID: Ja4vFBGbRtGFvyeUwRecaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2476155"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2476155"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:23:36 -0800
+X-CSE-ConnectionGUID: KAsBFsrTRPebiCVFz8hKOw==
+X-CSE-MsgGUID: YHe1rYHKSs23noSOuaPBww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6621425"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:23:36 -0800
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 10:23:36 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 10:23:36 -0800
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.14) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 10:23:35 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w3sUEAQ7pTLBNxlXDgInAesbMUaXp1lGBhu5i6WVX+EYkKYuenPINmGL7wOYPk48rSFPzE7EYfS5st+GsdK2wVbFYzeexIioOLHWBsKAuwnDuEMJNtzDeBgKKm2X4ssK5QXi0v9gB2u1WNgsCkOGeHKg3/onG7UupFumAeDCpWIB8riQpTl46TPk8jlUQhvdIJ2aZsSzf9093rLwieCwFuhRP+KJm2rbyt8siYztn840G6YdU2fuI71+TUD2iO5g8m/SH1U49wyJdw0GAFlybRnnkVx6T6XDkuySxFpMQ6iBSsXM9a1qb6YJCco0sekjsTKoRo7Hsm0jAkS6PA31iQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8eCJ+uAAMRphS5gHfXBf62HSUNTM9amJzIDpT3/q5nM=;
+ b=Ou64iB4ljwAoj1darZWKAwPyayXLdVQN8mKY03E8Ti/xbBTBfFyIy+ng5CaaXv8oFfz1vrYZSuJP6dkH77NI4iSE1p1s2B4WNf+hynihkYWNm2DpOVpb9Hn0WTSJKK78nuX/K3C1ZwW4wxZcYwk1lMCPL62bLxCl38L3TMUxkbsfB1XrqjsrQW0zRDAYKyMbHRU0pp84MPtc2ODpwWq3xC61BAL12iO/p7rTLrmKNJMzhAvS9vGL7DJvMr6I3zYEYduHx3V+Wi0kikrIsQ/mxroEP11K7fPfWcjY0l2RQwJJFZ2m8Rb4zI5dQNWQ7oH3XSSqpDnnrok1Cs8Sq8HRow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH8PR11MB403433.namprd11.prod.outlook.com
+ (2603:10b6:610:32f::10) by IA1PR11MB6418.namprd11.prod.outlook.com
+ (2603:10b6:208:3aa::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 18:23:32 +0000
+Received: from CH8PR11MB403433.namprd11.prod.outlook.com
+ ([fe80::b087:96e4:50ea:b5de]) by CH8PR11MB403433.namprd11.prod.outlook.com
+ ([fe80::b087:96e4:50ea:b5de%4]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 18:23:32 +0000
+From: "Luck, Tony" <tony.luck@intel.com>
+To: "Chen, Yu C" <yu.c.chen@intel.com>
+CC: Fenghua Yu <fenghuay@nvidia.com>, "Chatre, Reinette"
+	<reinette.chatre@intel.com>, "Wieczor-Retman, Maciej"
+	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
+ Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>,
+	"x86@kernel.org" <x86@kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "patches@lists.linux.dev"
+	<patches@lists.linux.dev>
+Subject: RE: [RFC PATCH 6/8] arm,x86,fs/resctrl: Prepare for asymmetric caches
+Thread-Topic: [RFC PATCH 6/8] arm,x86,fs/resctrl: Prepare for asymmetric
+ caches
+Thread-Index: AQHdZZUHXVQvkN7mMkK5PWQeujo9U7cchY4AgAAvosA=
+Date: Tue, 3 Nov 2026 18:23:32 +0000
+Message-ID: <CH8PR11MB403433A347D1959387008CAE19FC692@CH8PR11MB403433.namprd11.prod.outlook.com>
+References: <20261026215718.16810-1-tony.luck@intel.com>
+ <20261026215718.16810-7-tony.luck@intel.com> <aun+Qt5iTECdwogN@chenyu-dev>
+In-Reply-To: <aun+Qt5iTECdwogN@chenyu-dev>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH8PR11MB403433:EE_|IA1PR11MB6418:EE_
+x-ms-office365-filtering-correlation-id: 46b14ade-afc9-4f08-2017-08df39d790f7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|22082099003|18002099003|56012099006|4143699003|261022105027099003|261026121527099003|11063799006|261028144727099003|261026140227099003|38070700021;
+x-microsoft-antispam-message-info: EAjc11xQyeDGjPe4+YVJrL1qhWbjFbgGCIsiy5TRfxOt2NbfWnl93+ywgwhTcjJ5ZBmpHUqURdbNE9OTI4hRiKCLDNGm+b3U5UQavU1lGv/lWkXhT+XfDNRyag0ag1POgtsUFnFM46GssanS36mHsoP5jlbmiK5gN+bKjeHNtaD9Hm41XneNLIgBbOLSBoyQux6YbIqfGunIY99VZjIA6kDrrtbMitk3ce1ysexVythzmsxDbLjGRmuDc+Z8OxYK0MKXs3RY2rv06Ue9Z33iQSdZLJebmbjVCCBfbIVNMv5454UzZdaMeGBR7ESJnN1agzFK5oN5kBJeI2hWrsCYc1fiRc9G8ceSNMOqkWBUApdOIxKYd3FdrCKw/8d5r7Dh1TxDQFPgzLxQpJv3/3elRZ6Is31y43769DwDanaA1+jBF7/dJEcSIqEMVVGugE+BBm3V7p3JFHiwDyDd+X7HBb+AMFpxV/eSaoxG+x3/YYLFttuK6I8fRg9c/blzimuCyTA3aPByIKpbWlTxGBjCvBKOPvwFmign4vD1DzC0y1DSd4ZTwowx4bBmKM32UfwbB8m0WqUVVtUrlwHVaPwDEYOIZaakts+1Vr41Y/SwjvlmBjQFJFRNi7tp5t3YIML5fiuKdS6m0/mziJxfDmV2Idlpy77QSXrDpnwz4J5maEQB345noIm6infPO62n0+WW9TEp+gJHgJufxDxhoLczb+JAwoUNyezzXTr6vPoysVo=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR11MB403433.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(261022105027099003)(261026121527099003)(11063799006)(261028144727099003)(261026140227099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2eArrEfjD9NjC6T318222WW5Ox/7P70xUBSWkmUh/vEdkbB8AunZxLlJ1SD8?=
+ =?us-ascii?Q?c0xzZNY9wMSQQTQtWHi4qKd31NdOLzjzjIpmx18kaF/94V49nNK656sDUKl1?=
+ =?us-ascii?Q?x41E9Wock3or3m22MFPDwqJ+Zm3Z2x0ZosyD/Ugqib+bHQFIpii5uXvlm/Tb?=
+ =?us-ascii?Q?TDd4s9qoLu6V2D3rN4vjnAwS4CeeOuigCHKpFAfMRb7ZHmbIUO0Oj8a0do0h?=
+ =?us-ascii?Q?iPJWdSy2cTHF1k1Tc/1ipenSOV126FwI8lG5Y/h7ol1B4UefP9pL9rP6tCY3?=
+ =?us-ascii?Q?V3PzCWdKPUkSpctWZukfvsyKzQAIk3b0/gg5j0n+iNZgBBWPm9QDbdJSNXzA?=
+ =?us-ascii?Q?3U7/NPdiJxvEfIIz6D4Udc5Hx+j8i5cxykILuTccBegIdt4zIaadr6IjZBM8?=
+ =?us-ascii?Q?Ju6mOSzYAjkrPXcjtuWRFtqWNjx78IKqq/V00jI1Rojd2mgfiAyxLulsmHKY?=
+ =?us-ascii?Q?2mTRijSpsTmMB2XOY877eK4tbwYud98TXKbsGRT581l20ga08OD0J/ad84+T?=
+ =?us-ascii?Q?sXRG2p8lFwyxmfwqo9qrVwxK8t4Chu1fYpsFYBtK+NpwOo/+Aow895o+81/j?=
+ =?us-ascii?Q?MESnqRXe3wwb3gyIdH/CJTL0IfOdjc6NiOTQmZ8xS66+ApYB2vAV7HPmcEF6?=
+ =?us-ascii?Q?TLSMWMC3CqHD/YGcHk1NrdutGK8ZMnHjynWXLiaL6x1QwNAO9KI78Z14sofR?=
+ =?us-ascii?Q?6detWJSjwvaHW50ApCsXYxfwqvXaI8NNrtHEaMusQfvsMIYYYDwbaEY6coFy?=
+ =?us-ascii?Q?qgZ2wnAYUJA8NXnpRmaf07cDgC04vrvOZJUmF43svN5BzId7p0yBBJTSFVQ6?=
+ =?us-ascii?Q?U5RMmkMuEv/0k4aG1Z/6jS4uD32eDpADH5XnhXPyT3DRaVdkUdt3P99erHI0?=
+ =?us-ascii?Q?524/ddSRlEeSGsvcGxKHrWKonlExggR48KnBsPoUyyzyAHxYgKiHEB7uLu83?=
+ =?us-ascii?Q?/7wTtXspRrZSEzzwR5W3t8l9mf9kJcrpqWz2dHlBl5F/gh5T//9+Khw4c+/5?=
+ =?us-ascii?Q?X/njwY2wjZPw1OxAU5emlULA44Y29DRp2dz7BjbMZ2NTakWd7mRdU6eQzWjD?=
+ =?us-ascii?Q?VwxT1EhI/4isc3UaRByt9dT7zWD0D5xUxqM7OdRBaPbS0ibMsdoDhgeQ780J?=
+ =?us-ascii?Q?l590iyyKyFTBPB5lmtC25GRRBaMm9KyQDEsiq1PQ9w2wCVT0/Bnv7tLiT3w1?=
+ =?us-ascii?Q?Lw0rxHd1cMKh529hbD82XYWzYqX3qHOybEPBUoDgAdv/9VFh6b7CfRGMHbKM?=
+ =?us-ascii?Q?khFyL+/NXKDOnXn1C0GxmJH99HfYz8Q38TACuvbred8kiTGdOwEHntKsksnZ?=
+ =?us-ascii?Q?ikHxVADy34I7d5svF8ryWdKuL9tDUQ2dq5FXdeBz4YC8re4FYAdZvfOo6XyY?=
+ =?us-ascii?Q?KnzrEWQsdCjLEGKA9fL4V8xJv5UktwX1gnRwVpw6Yywo55JcbFZsTfMW5lfl?=
+ =?us-ascii?Q?ZLS978qdaDri3Ad9EIMbESB3czUFn1je66fr88qCEH17pPw6T/r+tVkXGk9V?=
+ =?us-ascii?Q?/pUtb73WJzvlQGuE+msgpkabERlwgbrciRKvw+I3abWZuWPLZs/QWKS9cylx?=
+ =?us-ascii?Q?I5/FOWeOqWyWH+tkTBLxjjuRGAwjeEVMR8VISWPoF5beLTWmMFRfCnxpTq3e?=
+ =?us-ascii?Q?qoRN6xEImHTk7AxUGeqdLhh0wwZBI/XoA/FRfcThQsWanoHz7IwgbyKWpwNQ?=
+ =?us-ascii?Q?bYSkl0998iQsznmjaOwM03guOkakFwE+bqSI0ZaG+KouOf0F?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,571 +182,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <85a11a4085d04a2823c04059702630cf34abf6d4.1790134954.git.liaoxuan@open-hieco.net>
+X-Exchange-RoutingPolicyChecked: ShUeSjRa6JexgQb55GEJAknsErxZtgoX6k31WvRa8IbYUqIyp3GRFI/LkOf5XESiRXUkwm03aohvaWK46roZa5rHR/2yHIhGOMRCWRCyXIflUdQw8ipDChQQ7o7zqKTcTmMEuB868Z4exiNoM+xtA1czb1UCcUeHCjLxQ2UAwxwRWmZcdd8fHDtBa8k61SQLe1i1jpARQ49oyY6xiXIsKA2ZHDWahgZfItDBLtbF5gCLPZ7JIP51mSoqE/U+9TdnSEtA7WBH6+AWIwtnt4XJlwhDKz/GqIyU58a6J/cnR8HI52NAAi9kEtt8E+HNZ/tSuW1GUsgjCJUW8zH7lXD2Aw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR11MB403433.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46b14ade-afc9-4f08-2017-08df39d790f7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 18:23:32.2416
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: D3eQ8rA0OwatY/VgVVxRbviPkz/PnyjnnwWSZZ7M999DR2k5gM/T2nebTOGkfvSm7MOMT8ffAsvfWE7oA03clQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6418
+X-OriginatorOrg: intel.com
 
-[+cc Ilpo, bwctrl]
+> maybe we can let rdt_sync_ctrl_bitmap() receives the resctrl_ctrl from
+> domain_add_cpu_ctrl() then we don't need to iterate the controllers under
+> resource?=20
 
-On Tue, Nov 03, 2026 at 02:25:43PM +0800, Liao Xuan wrote:
-> Add support for dynamically adjusting the PCIe link rate of NVMe
-> devices based on I/O activity. The link is downgraded to a
-> configurable minimum rate during periods of low activity to save
-> power, and upgraded to the maximum supported rate as soon as the
-> workload exceeds a computed threshold, so that peak performance is
-> maintained under load.
-> 
-> The amount of transferred data is accumulated on the I/O submission
-> path and aggregated by a per-controller timer. The threshold is
-> derived from the bandwidth of the minimum and maximum rates such that
-> the extra time required to transfer the data at the minimum rate does
-> not exceed the estimated link retraining time.
-> 
-> The feature is currently only supported on Hygon platforms.
+Good point. Maybe not even worth having a helper function. I'll look at how
+much code I need inline.
 
-Why?
-
-> Signed-off-by: Liao Xuan <liaoxuan@open-hieco.net>
-> Signed-off-by: default avatarZheng Tan <tanzheng@kylinos.cn>
-> ---
->  drivers/nvme/host/Kconfig        |  10 +
->  drivers/nvme/host/Makefile       |   1 +
->  drivers/nvme/host/core.c         |   4 +
->  drivers/nvme/host/nvme.h         |  42 ++++
->  drivers/nvme/host/pci.c          |   4 +
->  drivers/nvme/host/speed_switch.c | 367 +++++++++++++++++++++++++++++++
->  drivers/pci/pcie/bwctrl.c        |   1 +
->  7 files changed, 429 insertions(+)
->  create mode 100644 drivers/nvme/host/speed_switch.c
-> 
-> diff --git a/drivers/nvme/host/Kconfig b/drivers/nvme/host/Kconfig
-> index 31974c7dd20c..098ec7abba66 100644
-> --- a/drivers/nvme/host/Kconfig
-> +++ b/drivers/nvme/host/Kconfig
-> @@ -134,3 +134,13 @@ config NVME_APPLE
->  
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called nvme-apple.
-> +
-> +config NVME_SPEED_SWITCH
-> +	bool "NVMe adaptive PCIe link rate switching"
-> +	depends on BLK_DEV_NVME && X86
-> +	help
-> +	  This provides support for dynamic PCIe link rate switching for NVMe
-> +	  devices. When enabled, the NVMe driver can dynamically adjust the
-> +	  PCIe link speed and width based on workload requirement.
-> +
-> +	  If unsure, say N.
-> diff --git a/drivers/nvme/host/Makefile b/drivers/nvme/host/Makefile
-> index 67563a69f7dc..02d0200fcc88 100644
-> --- a/drivers/nvme/host/Makefile
-> +++ b/drivers/nvme/host/Makefile
-> @@ -19,6 +19,7 @@ nvme-core-$(CONFIG_BLK_DEV_ZONED)	+= zns.o
->  nvme-core-$(CONFIG_FAULT_INJECTION_DEBUG_FS)	+= fault_inject.o
->  nvme-core-$(CONFIG_NVME_HWMON)		+= hwmon.o
->  nvme-core-$(CONFIG_NVME_HOST_AUTH)	+= auth.o
-> +nvme-core-$(CONFIG_NVME_SPEED_SWITCH)	+= speed_switch.o
->  
->  nvme-y					+= pci.o
->  
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index beea23d04a70..85e0bfc4d7aa 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -4679,6 +4679,7 @@ static void nvme_scan_work(struct work_struct *work)
->  		/* Re-read the ANA log page to not miss updates */
->  		queue_work(nvme_wq, &ctrl->ana_work);
->  #endif
-> +	nvme_speed_switch_start(ctrl);
->  }
->  
->  /*
-> @@ -5103,6 +5104,7 @@ EXPORT_SYMBOL_GPL(nvme_remove_io_tag_set);
->  
->  void nvme_stop_ctrl(struct nvme_ctrl *ctrl)
->  {
-> +	nvme_speed_switch_exit(ctrl);
->  	nvme_mpath_stop(ctrl);
->  	nvme_auth_stop(ctrl);
->  	nvme_stop_failfast_work(ctrl);
-> @@ -5318,6 +5320,8 @@ int nvme_add_ctrl(struct nvme_ctrl *ctrl)
->  	nvme_fault_inject_init(&ctrl->fault_inject, dev_name(ctrl->device));
->  	nvme_get_ctrl(ctrl);
->  
-> +	nvme_speed_switch_init(ctrl);
-> +
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(nvme_add_ctrl);
-> diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-> index 2cff9fcbf740..0f27c73a99ee 100644
-> --- a/drivers/nvme/host/nvme.h
-> +++ b/drivers/nvme/host/nvme.h
-> @@ -339,6 +339,33 @@ enum nvme_ctrl_flags {
->  	NVME_CTRL_FROZEN		= 6,
->  };
->  
-> +#ifdef CONFIG_NVME_SPEED_SWITCH
-> +struct nvme_speed_switch_stats {
-> +	u64 read_bytes;
-> +	u64 write_bytes;
-> +};
-> +
-> +struct nvme_speed_switch {
-> +	bool initialized;
-> +	bool enabled;
-> +	u8 max_speed;
-> +	u8 cur_speed;
-> +	u8 target_speed;
-> +	u8 min_speed;
-> +	u32 monitor_interval;	/* ms */
-> +	u32 threshold;		/* KB */
-> +	struct timer_list timer;
-> +	struct work_struct work;
-> +	struct nvme_speed_switch_stats __percpu *stats;
-> +	atomic_t timer_active;
-> +};
-> +
-> +enum nvme_speed_timer_state {
-> +	NVME_SPEED_TIMER_INACTIVE,
-> +	NVME_SPEED_TIMER_ACTIVE,
-> +};
-> +#endif
-> +
->  struct nvme_ctrl {
->  	bool comp_seen;
->  	bool identified;
-> @@ -481,8 +508,23 @@ struct nvme_ctrl {
->  	enum nvme_dctype dctype;
->  
->  	u16			awupf; /* 0's based value. */
-> +#ifdef CONFIG_NVME_SPEED_SWITCH
-> +	struct nvme_speed_switch speed_switch;
-> +#endif
->  };
->  
-> +#ifdef CONFIG_NVME_SPEED_SWITCH
-> +void nvme_update_io_stats(struct nvme_ctrl *ctrl, struct request *req);
-> +void nvme_speed_switch_start(struct nvme_ctrl *ctrl);
-> +void nvme_speed_switch_init(struct nvme_ctrl *ctrl);
-> +void nvme_speed_switch_exit(struct nvme_ctrl *ctrl);
-> +#else
-> +static inline void nvme_update_io_stats(struct nvme_ctrl *ctrl, struct request *req) {}
-> +static inline void nvme_speed_switch_start(struct nvme_ctrl *ctrl) {}
-> +static inline void nvme_speed_switch_init(struct nvme_ctrl *ctrl) {}
-> +static inline void nvme_speed_switch_exit(struct nvme_ctrl *ctrl) {}
-> +#endif
-> +
->  static inline enum nvme_ctrl_state nvme_ctrl_state(struct nvme_ctrl *ctrl)
->  {
->  	return READ_ONCE(ctrl->state);
-> diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-> index 5440cf18b55b..dfba03409dc0 100644
-> --- a/drivers/nvme/host/pci.c
-> +++ b/drivers/nvme/host/pci.c
-> @@ -1461,6 +1461,9 @@ static blk_status_t nvme_queue_rq(struct blk_mq_hw_ctx *hctx,
->  	ret = nvme_prep_rq(req);
->  	if (unlikely(ret))
->  		return ret;
-> +
-> +	nvme_update_io_stats(&dev->ctrl, req);
-> +
->  	spin_lock(&nvmeq->sq_lock);
->  	nvme_sq_copy_cmd(nvmeq, &iod->cmd);
->  	nvme_write_sq_db(nvmeq, bd->last);
-> @@ -1479,6 +1482,7 @@ static void nvme_submit_cmds(struct nvme_queue *nvmeq, struct rq_list *rqlist)
->  	while ((req = rq_list_pop(rqlist))) {
->  		struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
->  
-> +		nvme_update_io_stats(&nvmeq->dev->ctrl, req);
->  		nvme_sq_copy_cmd(nvmeq, &iod->cmd);
->  	}
->  	nvme_write_sq_db(nvmeq, true);
-> diff --git a/drivers/nvme/host/speed_switch.c b/drivers/nvme/host/speed_switch.c
-> new file mode 100644
-> index 000000000000..0a828d04885b
-> --- /dev/null
-> +++ b/drivers/nvme/host/speed_switch.c
-> @@ -0,0 +1,367 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * NVMe link speed switch driver
-> + *
-> + * Adjusts the PCIe link rate of NVMe devices dynamically based on the I/O
-> + * workload: the link is downgraded to a configurable minimum rate during
-> + * periods of low activity to save power, and upgraded to the maximum
-> + * supported rate as soon as the workload requires it.
-> + *
-> + * Copyright (c) 2026 Chengdu Haiguang IC Design Co., Ltd.
-> + * Copyright (C) 2026 Kylin Software Co., Ltd.
-> + *
-> + */
-> +
-> +#include <linux/blk-mq.h>
-> +#include <linux/math64.h>
-> +#include <linux/pci.h>
-> +#include <linux/percpu.h>
-> +#include <linux/processor.h>
-> +
-> +#include "nvme.h"
-> +
-> +/*
-> + * PCIe link bandwidth in KB/s for each generation (rows, Gen1..Gen5) and
-> + * lane width (columns, x1..x16).  The table is used to derive the I/O
-> + * threshold exceed/below which the link can be upgraded/downgraded.
-> + */
-> +static const u32 nvme_speed_table[][5] = {
-> +	{  312,  625, 1250, 2500, 5000 },   /* Gen1 */
-> +	{  625, 1250, 2500, 5000, 10000 },  /* Gen2 */
-> +	{ 1000, 2000, 4000, 8000, 16000 },  /* Gen3 */
-> +	{ 2000, 4000, 8000, 16000, 32000 }, /* Gen4 */
-> +	{ 4000, 8000, 16000, 32000, 64000 },/* Gen5 */
-> +};
-> +
-> +static int nvme_bandwidth_index(enum pcie_link_width width)
-> +{
-> +	switch (width) {
-> +	case PCIE_LNK_X1:
-> +		return 0;
-> +	case PCIE_LNK_X2:
-> +		return 1;
-> +	case PCIE_LNK_X4:
-> +		return 2;
-> +	case PCIE_LNK_X8:
-> +		return 3;
-> +	case PCIE_LNK_X16:
-> +		return 4;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +/*
-> + * Read the maximum supported link rate of the upstream port from the Link
-> + * Capability register.
-> + */
-> +static int nvme_get_max_link_speed(struct pci_dev *pdev)
-> +{
-> +	u16 linkcap;
-> +
-> +	pcie_capability_read_word(pdev, PCI_EXP_LNKCAP, &linkcap);
-> +	return linkcap & PCI_EXP_LNKCAP_SLS;
-> +}
-> +
-> +static enum pci_bus_speed nvme_speed_to_bus_speed(u8 gen)
-> +{
-> +	return gen + PCIE_SPEED_2_5GT - 1;
-> +}
-> +
-> +/*
-> + * Work item that actually changes the link rate.  The queues are frozen
-> + * before retraining to quiesce I/O and resumed once the switch completed.
-> + */
-> +static void nvme_speed_switch_work(struct work_struct *work)
-> +{
-> +	struct nvme_speed_switch *sw = container_of(work, struct nvme_speed_switch, work);
-> +	struct nvme_ctrl *ctrl = container_of(sw, struct nvme_ctrl, speed_switch);
-> +	struct pci_dev *pdev = to_pci_dev(ctrl->dev);
-> +	struct pci_dev *bridge = pdev->bus->self;
-> +	u8 cur_speed = READ_ONCE(sw->cur_speed);
-> +	int ret;
-> +
-> +	if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE)
-> +		return;
-> +
-> +	/* Freeze I/O to avoid timeouts during link retraining. */
-> +	nvme_start_freeze(ctrl);
-> +	nvme_wait_freeze(ctrl);
-> +
-> +	ret = pcie_set_target_speed(bridge, nvme_speed_to_bus_speed(sw->target_speed),
-> +				    true);
-> +	if (ret) {
-> +		dev_warn(ctrl->device,
-> +			 "failed to set target rate Gen%u (%d), trying rollback to Gen%u\n",
-> +			 sw->target_speed, ret, cur_speed);
-> +		ret = pcie_set_target_speed(bridge, nvme_speed_to_bus_speed(cur_speed),
-> +					    true);
-> +		if (ret) {
-> +			dev_err(ctrl->device,
-> +				"rollback to Gen%u failed (%d), disabling speed switch\n",
-> +				cur_speed, ret);
-> +			WRITE_ONCE(sw->enabled, false);
-> +			nvme_unfreeze(ctrl);
-> +			return;
-> +		}
-> +	} else {
-> +		WRITE_ONCE(sw->cur_speed, sw->target_speed);
-> +	}
-> +
-> +	nvme_unfreeze(ctrl);
-> +	dev_dbg(ctrl->device, "link rate changed to Gen%u\n",
-> +		READ_ONCE(sw->cur_speed));
-> +}
-> +
-> +/*
-> + * Compute the I/O threshold (in KB) for a monitoring window.
-> + *
-> + * The threshold is derived from the following constraint: for the link
-> + * speed to be upgraded, the transfer time of the data at the minimum
-> + * speed must be greater than the sum of the transfer time at maximum
-> + * speed and the link retraining time (100us):
-> + *
-> + *	data / min_bw >= data / max_bw + 100us
-> + *
-> + * which yields data <= min_bw * max_bw * 0.1ms / (max_bw - min_bw).
-> + * The bandwidths are taken from the link capability of the upstream port
-> + * and the link width capability of the device.
-> + */
-> +static u32 nvme_calc_speed_threshold(struct nvme_speed_switch *sw,
-> +				     enum pcie_link_width max_width)
-> +{
-> +	struct nvme_ctrl *ctrl = container_of(sw, struct nvme_ctrl, speed_switch);
-> +	u64 min_bw, max_bw, x, y;
-> +	int bw_idx, min_gen = sw->min_speed, max_gen = sw->max_speed;
-> +	u32 threshold;
-> +
-> +	if (min_gen < 1 || min_gen > 5 || max_gen < 1 || max_gen > 5) {
-> +		dev_warn(ctrl->device,
-> +			 "invalid link rate range for threshold: min=Gen%d, max=Gen%d\n",
-> +			 min_gen, max_gen);
-> +		return 0;
-> +	}
-> +
-> +	bw_idx = nvme_bandwidth_index(max_width);
-> +	if (bw_idx < 0) {
-> +		dev_warn(ctrl->device,
-> +			 "unsupported link width (%d) for threshold calculation\n",
-> +			 max_width);
-> +		return 0;
-> +	}
-> +
-> +	min_bw = nvme_speed_table[min_gen - 1][bw_idx];
-> +	max_bw = nvme_speed_table[max_gen - 1][bw_idx];
-> +	if (min_bw >= max_bw) {
-> +		dev_warn(ctrl->device,
-> +			 "invalid bandwidth for threshold: min=%llu KB/s, max=%llu KB/s\n",
-> +			 min_bw, max_bw);
-> +		return 0;
-> +	}
-> +
-> +	x = min_bw * max_bw;
-> +	y = 10ULL * (max_bw - min_bw);
-> +	threshold = div64_u64(x + (y >> 1), y);
-> +
-> +	dev_dbg(ctrl->device,
-> +		"I/O threshold: %u KB (min=Gen%d, max=Gen%d, width=x%d)\n",
-> +		threshold, min_gen, max_gen, max_width);
-> +	return threshold;
-> +}
-> +
-> +/* Called on the I/O submission path to accumulate the transferred bytes. */
-> +void nvme_update_io_stats(struct nvme_ctrl *ctrl, struct request *req)
-> +{
-> +	struct nvme_speed_switch *sw = &ctrl->speed_switch;
-> +	struct nvme_speed_switch_stats *stat;
-> +	enum req_op op = req_op(req);
-> +	unsigned int bytes = blk_rq_bytes(req);
-> +
-> +	if (!READ_ONCE(sw->enabled))
-> +		return;
-> +
-> +	if (op != REQ_OP_READ && op != REQ_OP_WRITE)
-> +		return;
-> +
-> +	if (!sw->stats) {
-> +		dev_dbg(ctrl->device, "I/O statistics not allocated, skip accounting\n");
-> +		return;
-> +	}
-> +
-> +	stat = get_cpu_ptr(sw->stats);
-> +	if (op == REQ_OP_READ)
-> +		stat->read_bytes += bytes;
-> +	else
-> +		stat->write_bytes += bytes;
-> +	put_cpu_ptr(sw->stats);
-> +
-> +	if (atomic_cmpxchg(&sw->timer_active, NVME_SPEED_TIMER_INACTIVE,
-> +			   NVME_SPEED_TIMER_ACTIVE) != NVME_SPEED_TIMER_INACTIVE)
-> +		return;
-> +
-> +	/* First I/O of the activity period: compute the threshold and arm the timer. */
-> +	WRITE_ONCE(sw->threshold, nvme_calc_speed_threshold(sw,
-> +					pcie_get_width_cap(to_pci_dev(ctrl->dev))));
-> +	if (!READ_ONCE(sw->threshold)) {
-> +		dev_warn(ctrl->device,
-> +			 "failed to compute speed switch threshold, keeping current rate\n");
-> +		atomic_set(&sw->timer_active, NVME_SPEED_TIMER_INACTIVE);
-> +		return;
-> +	}
-> +	mod_timer(&sw->timer, jiffies + msecs_to_jiffies(READ_ONCE(sw->monitor_interval)));
-> +}
-> +EXPORT_SYMBOL_GPL(nvme_update_io_stats);
-> +
-> +static void nvme_clear_io_stats(struct nvme_speed_switch *sw)
-> +{
-> +	int cpu;
-> +
-> +	for_each_possible_cpu(cpu) {
-> +		struct nvme_speed_switch_stats *stat = per_cpu_ptr(sw->stats, cpu);
-> +
-> +		stat->read_bytes = 0;
-> +		stat->write_bytes = 0;
-> +	}
-> +}
-> +
-> +/*
-> + * Aggregate the per-CPU I/O counters of the last monitoring window and
-> + * decide the target rate: the maximum rate if the window exceeded the
-> + * threshold, the minimum rate otherwise.
-> + */
-> +static int nvme_check_io_and_decide_speed(struct nvme_speed_switch *sw)
-> +{
-> +	struct nvme_ctrl *ctrl = container_of(sw, struct nvme_ctrl, speed_switch);
-> +	u64 read_bytes = 0, write_bytes = 0;
-> +	unsigned long read_kb, write_kb;
-> +	int cpu;
-> +
-> +	for_each_possible_cpu(cpu) {
-> +		struct nvme_speed_switch_stats *stat = per_cpu_ptr(sw->stats, cpu);
-> +
-> +		read_bytes += stat->read_bytes;
-> +		write_bytes += stat->write_bytes;
-> +		stat->read_bytes = 0;
-> +		stat->write_bytes = 0;
-> +	}
-> +
-> +	read_kb = read_bytes / 1024;
-> +	write_kb = write_bytes / 1024;
-> +	dev_dbg(ctrl->device,
-> +		"I/O in window: read=%lu KB, write=%lu KB, threshold=%u KB\n",
-> +		read_kb, write_kb, READ_ONCE(sw->threshold));
-> +
-> +	if (read_kb >= sw->threshold || write_kb >= sw->threshold)
-> +		return sw->max_speed;
-> +	return sw->min_speed;
-> +}
-> +
-> +static void nvme_speed_switch_timer_fn(struct timer_list *t)
-> +{
-> +	struct nvme_speed_switch *sw = container_of(t, struct nvme_speed_switch, timer);
-> +
-> +	if (!READ_ONCE(sw->enabled)) {
-> +		atomic_set(&sw->timer_active, NVME_SPEED_TIMER_INACTIVE);
-> +		return;
-> +	}
-> +
-> +	sw->target_speed = nvme_check_io_and_decide_speed(sw);
-> +	if (sw->target_speed != READ_ONCE(sw->cur_speed))
-> +		schedule_work(&sw->work);
-> +
-> +	mod_timer(t, jiffies + msecs_to_jiffies(READ_ONCE(sw->monitor_interval)));
-> +}
-> +
-> +static void nvme_speed_switch_params_init(struct nvme_speed_switch *sw)
-> +{
-> +	sw->monitor_interval = 100;
-> +	sw->min_speed = PCI_EXP_LNKSTA_CLS_2_5GB;
-> +}
-> +
-> +void nvme_speed_switch_init(struct nvme_ctrl *ctrl)
-> +{
-> +	struct nvme_speed_switch *sw = &ctrl->speed_switch;
-> +	struct pci_dev *pdev;
-> +	int max_speed;
-> +
-> +	if (boot_cpu_data.x86_vendor != X86_VENDOR_HYGON) {
-> +		dev_dbg(ctrl->device,
-> +			"link rate switching is only supported on Hygon platforms\n");
-> +		return;
-> +	}
-> +
-> +	if (!dev_is_pci(ctrl->dev)) {
-> +		dev_err(ctrl->device, "link rate switching requires a PCI device\n");
-> +		return;
-> +	}
-> +	pdev = to_pci_dev(ctrl->dev);
-> +	if (!pdev->bus->self) {
-> +		dev_err(ctrl->device,
-> +			"link rate switching requires a PCIe upstream port\n");
-> +		return;
-> +	}
-> +
-> +	nvme_speed_switch_params_init(sw);
-> +
-> +	max_speed = nvme_get_max_link_speed(pdev->bus->self);
-> +	if (max_speed <= sw->min_speed) {
-> +		dev_err(ctrl->device,
-> +			"invalid link rate range: min=Gen%u, max=Gen%d\n",
-> +			sw->min_speed, max_speed);
-> +		return;
-> +	}
-> +	sw->max_speed = max_speed;
-> +
-> +	sw->stats = alloc_percpu(struct nvme_speed_switch_stats);
-> +	if (!sw->stats) {
-> +		dev_err(ctrl->device, "failed to allocate per-CPU I/O statistics\n");
-> +		return;
-> +	}
-> +	nvme_clear_io_stats(sw);
-> +
-> +	WRITE_ONCE(sw->cur_speed, sw->max_speed);
-> +	WRITE_ONCE(sw->threshold, nvme_calc_speed_threshold(sw, pcie_get_width_cap(pdev)));
-> +	if (!READ_ONCE(sw->threshold)) {
-> +		dev_err(ctrl->device, "failed to compute speed switch threshold\n");
-> +		free_percpu(sw->stats);
-> +		sw->stats = NULL;
-> +		return;
-> +	}
-> +
-> +	INIT_WORK(&sw->work, nvme_speed_switch_work);
-> +	timer_setup(&sw->timer, nvme_speed_switch_timer_fn, 0);
-> +	atomic_set(&sw->timer_active, NVME_SPEED_TIMER_INACTIVE);
-> +	WRITE_ONCE(sw->enabled, true);
-> +	sw->initialized = true;
-> +
-> +	dev_info(ctrl->device,
-> +		 "NVMe link rate switching initialized (min Gen%u, max Gen%d)\n",
-> +		 sw->min_speed, sw->max_speed);
-> +}
-> +
-> +void nvme_speed_switch_start(struct nvme_ctrl *ctrl)
-> +{
-> +	struct nvme_speed_switch *sw = &ctrl->speed_switch;
-> +
-> +	if (!READ_ONCE(sw->enabled))
-> +		return;
-> +
-> +	atomic_set(&sw->timer_active, NVME_SPEED_TIMER_ACTIVE);
-> +	mod_timer(&sw->timer, jiffies + msecs_to_jiffies(READ_ONCE(sw->monitor_interval)));
-> +}
-> +
-> +void nvme_speed_switch_exit(struct nvme_ctrl *ctrl)
-> +{
-> +	struct nvme_speed_switch *sw = &ctrl->speed_switch;
-> +
-> +	if (!sw->initialized)
-> +		return;
-> +
-> +	sw->initialized = false;
-> +	WRITE_ONCE(sw->enabled, false);
-> +	timer_delete_sync(&sw->timer);
-> +	cancel_work_sync(&sw->work);
-> +
-> +	free_percpu(sw->stats);
-> +	sw->stats = NULL;
-> +}
-> diff --git a/drivers/pci/pcie/bwctrl.c b/drivers/pci/pcie/bwctrl.c
-> index d48021bfd844..4b28e26f9531 100644
-> --- a/drivers/pci/pcie/bwctrl.c
-> +++ b/drivers/pci/pcie/bwctrl.c
-> @@ -156,6 +156,7 @@ int pcie_set_target_speed(struct pci_dev *port, enum pci_bus_speed speed_req,
->  
->  	return ret;
->  }
-> +EXPORT_SYMBOL_GPL(pcie_set_target_speed);
->  
->  static void pcie_bwnotif_enable(struct pcie_device *srv)
->  {
-> -- 
-> 2.43.0
-> 
+-Tony
