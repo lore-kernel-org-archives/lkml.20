@@ -1,70 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793739273;
-	b=PnVbCZi8uWrZWMDROQe/RTN6KpifWK69yyRfvyOflPLvaLg68tHwXZmNg48sKRKoryJq
-	 gcxu0uLoEFict2Komr0NN0feFvRjglUODxgvttPhW+F1ums3xHn8yT48u5jHV7ScBMb5E
-	 Md9gWs0dTwjasTM8V/eFL/Rw8xHSgTXJA6cFWCnFiiPntBljCoVWLA2ufwia5lJckdHI8
-	 WZ1BlGSsrwdkdZXDsXBPcWzU2KIehww4Th12EspWLn3VtKULj/o5amrcjcu8pE+MWpyap
-	 uzPsMcPBUFmXPV7TjOGi/nUIjiPefmGfbphlQQFu/PXWWjMIx3HyTTeIWB/5OJMmt8Q==
+	t=1793739279;
+	b=0nEUJVusO+HhgJ/omWScYNTU0/PZi1+25ts+CP5vexkgKYqJNkPXtImii4JUaKMTAa7o
+	 F5ugrwFcBiqZ1hI4lGHZTS11NOR2lRsx4T6MUrkVJDcX5CHKeYfi5M/JYUoAvqXbF0fww
+	 MlICGSw/fi1OWGrW80tfrfHwjqFCiUwVwA0T73PkqvlNGQjuAL7kTuKhzKaXzGrp503VA
+	 XFPmK2OdzMprWnOSgS0bkpccrt47fWldEPxJx9pkIpaAOGCgqCGtl90rmpdhsCIidNeA8
+	 /UYN6dKEyKQBVn32TbXailfS8cFrBVZmXEVyYkuiD+04L1iSgyXHdbQAekZXtYEwYfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739273;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=8Ho6FbCuVdMOZJQsLojFcN39BdF0YIJt6AGIGtdVT9o=;
-	b=GWq6plPDY12SWXA6R/E6uQ0ueKJVToGeCNe9CwJtLYWeOuUeqi1AbWdVyXII23dEIkM0
-	 4Z7tlViWOjOUvu0R/BVPkuOJRKGjKqe4S7IK+qrZNVhsT3iK9cefewEyt+5zKCGDH6V0A
-	 2C44/u18U4PcRhSAqrNgKzj2S+AqOElpNnniSQx2hyxrUPWezBBKQdpPMxBQfmsVTf8V4
-	 zYNXrNjdKNRbPtnVaJ7YeGpMHBBzGXPgFDqz6nQbOCygaP93reIDaQzOfCKIq3b8sKIPr
-	 9ZZJShs1v2+B4NuTxLn56ln+Oi0i/MXNRBXnGCiopoJ5z1XaXtcsJcZjVSrjgS8lENQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739279;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=U9zXQB+7vAN4+u9CA5J+kHq3aVzM2suNNiiqveHIdmU=;
+	b=ch/wBg/U/FLkJqxPhz0MSgMDIp0/DJlnmhTYdr/C9lZYkPtWR9sLh8d9WClGC8BMe4It
+	 0y/G0Ozisw9iuh2fZTEPf1VZg1ocAeMfDdNRnnvGUlvF7v8AbQieyS4l9xQPLBhbd5S+d
+	 a9c+iQtcEs0vIiPncwAr710XGIWaq3z7wD11CkV06rIKtBuPWeStqIglFZfWplanDQfYe
+	 +O1wPa9SOrVZUtNTKFcznkxDGOxNfacfGs9dpCMf5dE3kia4EAVUERkh+68+ydeUXVm8z
+	 /T5vcSgISLeFE17sY5TltugWMmb4e06kgTf4RmgxEADI7cA+H17EfdStNAHlF/+R9nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=xlttvC8G;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=RC3QCQEp;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9688606A31B;
-	Tue,  3 Nov 2026 20:54:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9688606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE92606A32C;
+	Tue,  3 Nov 2026 20:54:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE92606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=xlttvC8G
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=8Ho6FbCuVdMOZJQsLojFcN39BdF0YIJt6AGIGtdVT9o=; b=xlttvC8GWMCBEpLpc3lr+RDLkV
-	MttWk7pgmEzN1/yGeMq6IyL6AsN1UxynuXhQ8vHt/t+rf2OUQ/5V1XESJ2XIrsiQo7E/CKWU8vuiX
-	8DGefDC5kJBwy6Rn7txkbFLU/kUmDtvzfB+CfE2bXcQrPE3Ezy7j4xdt+U3ROUIbfsuI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xOLWQ-00EAn0-3S; Tue, 03 Nov 2026 21:54:22 +0100
-Date: Tue, 3 Nov 2026 21:54:22 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ciprian Regus <ciprian.regus@analog.com>
-Subject: Re: [PATCH net-next 0/5] net: ethernet: adi: adin1110: Add OPEN
- Alliance TC6 support
-Message-ID: <52abc911-67ea-45e0-b494-91652ed62220@lunn.ch>
-References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=RC3QCQEp
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jK1661ZKHzlfwgG;
+	Tue,  3 Nov 2026 20:54:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793739276; x=1796331277; bh=U9zXQB+7vAN4+u9CA5J+kHq3
+	aVzM2suNNiiqveHIdmU=; b=RC3QCQEpaDjtm9JfU+Nued1GIc1zrvsBle9ZKDyb
+	7xCeR1G3dOs4ybGu3i3e6SBNo8KW4OckbwAejKIsFRplzxMhLVidEPMgFmffMLfQ
+	etYv+pxpzdK6CsGo4AEXwYWrVdBKqU7T8/MOx4uyfbW0G3FLTcARkbOApy/JfuPy
+	UgXA7TRjbtj9rz5QE300cYxQY3LT6XOkzNHnYFxhKaBTU72yY/NfPhKuL1zO5VUN
+	RUAHxW9uWmNN/XtL1m6IBN0cSue+THkKKnECwGbIw0g0rzd2x1jZi+H1Y2SJ1A1t
+	OO+4Hhqa4kHoQHCiG+eDYe/eb8nMYwU4YnuaTJ3hXbHDxg==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 6OudQalGJVzn; Tue,  3 Nov 2026 20:54:36 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jK16367HszlfwgF;
+	Tue,  3 Nov 2026 20:54:35 +0000 (UTC)
+Message-ID: <6e42537e-c7da-4b44-90bf-dc4cf30be6cf@acm.org>
+Date: Tue, 3 Nov 2026 12:54:35 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,15 +70,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when
+ already active
+To: Stanley Jhu <stanleyjhu@google.com>, Jens Axboe <axboe@kernel.dk>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+ Praveen Talari <praveen.talari@oss.qualcomm.com>,
+ Alan Stern <stern@rowland.harvard.edu>, linux-block@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261029040001.2100001-1-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261029040001.2100001-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> Open question: indirect MDIO is used automatically when STDCAP.DPRAC is
-> not set. Would you prefer an explicit quirk flag instead?
+On 10/29/26 12:08 AM, Stanley Jhu wrote:
+> @@ -153,7 +154,9 @@ void blk_pre_runtime_resume(struct request_queue *q)
+>   		return;
+>   
+>   	spin_lock_irq(&q->queue_lock);
+> -	q->rpm_status = RPM_RESUMING;
+> +	/* Keep RPM_ACTIVE if a prior failed resume reactivated the queue. */
+> +	if (q->rpm_status != RPM_ACTIVE)
+> +		q->rpm_status = RPM_RESUMING;
+>   	spin_unlock_irq(&q->queue_lock);
+>   }
+>   EXPORT_SYMBOL(blk_pre_runtime_resume);
 
-I would say the current code is correct. Lets assume vendors don't
-mess up and set STDCAP.DPRAC when they in fact don't support direct
-access, until a vendor does actually mess up. Then we can add a quirk.
 
-	Andrew
+Stanley, the analysis looks right to me. Could you make the invariant 
+explicit? Only move SUSPENDED -> RESUMING in blk_pre_runtime_resume(), 
+and only call blk_clear_pm_only() in blk_post_runtime_resume() if 
+old_status == RPM_RESUMING. Please also describe in the commit message 
+how this was tested. With those changes:
+
+Reviewed-by: Bart Van Assche bvanassche@acm.org
+
+Separately: since commit eef1d74bf88f, ufshcd_recover_pm_error() no 
+longer sees power.runtime_error after a resume failure. Its handling of 
+that case is probably dead code now.
+
+Thanks,
+
+Bart.
