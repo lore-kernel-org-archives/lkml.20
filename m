@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793732448;
-	b=ygQ/Sp+7eTddYuY7lHXwMQ4Hl+3BXX3JKVnpYSmbHgSd8O3tnjQh9HegGheltJVk6BKn
-	 CJIsTlbsdXYzIWEySqydDIHyDx1naOgONwpOo4apVxL1qGfkkXZo27oOdBHtTCdEfKey3
-	 vSpQKy7vOniO1NWJT9VHIJIklYyQINkBIUs79dAp3PsVmm5HFqrlnWkyGd9CgRpfOYyec
-	 pd+/ohI5kJrMrnEIlMt78gRx6CZlU5ef2F4+kOjk5mKOSwV6HwcF5IYRg+tll7/h9zyuc
-	 xuFfDjZNHbITys1X/gH66kxMKtOkDz6uQ74p9bmpcLxkMW7ig4HtSzQI/TCiFgUhEXA==
+	b=n1kg9hi/kHe0U6cIuN9Y2tq8o/hVkLz3vfcXG8OYI9HR13BDjenpODin0AYyWlnF1eO3
+	 H75HeaZTwX2F1xGDUDlflU78dIYoXygxcr7/visNACtzopgjogtSD9krFC1+GkBy/iBsA
+	 AqTNeA3WVXNKUvaFy/Ppx3AKc1E87U2/qclsaHfvVLRzGMlAHwwu6HT+WbbGKPO6usQrE
+	 UzwWe7Xq5rrZEAwjIivt1cci9brln/OvGM41xyo6RDnk/5TxaBibJxhhUpwnrn82BsFLY
+	 C4nqiVDMjboHJ2Y05lq91cuSV7HeEnhYQGaWurqpHNTsIVjmKcsGitslMQjLS3kXX7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793732448;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=v43KQxELq5KVjVHEsX2xWpBfKEZ8VSn5Gvbluy8mURs=;
-	b=WgDb+58dpkqG0i9YEsXgBZ7DZiSffuNbGDkNv4KZpv/ZjUlELc0wOXq7Dle4X4hoje9l
-	 dWb3R5gxO4nFbBsxiYAQnh5hm2sUFCvCWMauc6pPi2NsvK1Tz3kiSZJoxve8vZgtw+TcC
-	 tb5TGEQxQFlGqdFTCTc7O+fg7xdWuIFU1xP+uB1UHFAlu5/wXonTleZ5Zur2Vcx+r8X1E
-	 61f/i8gwsNyPHumxq/a0q1GyCpYZ4q1xEe92PLCcpx+OZFGmbY/omacJrBPvu51or5Gjc
-	 7fwnER9HtIfCayPQgzqUskv8Jlh8FBXQ8DJMDaCKG09TCyInGK9nIRZ14HMgByUug7A==
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=2oC3q4owt6QQjFjaIbeG0PucmyuouGz/Xr9PAnQ9+oA=;
+	b=XoiainHx1aldJSNONp5GEMyfha6G9gH6iaiASZLhhdE8r3hhA9GkFbNPJlquujviPCg8
+	 5vRuUeTaDAx4pLdt6vVrjaEmwqVSANhcOdAvA5XoxWkruTLbZqr1ZPvYmrPw7mNOjHpY3
+	 Sef5gvgMIVf6u4VE2Y6cLSFue/b2+l6NC7AZ7loo3nsXS+L6zqh+tC9bTKw/NPPLXp0vw
+	 PddtVYdSZla13EOMMGDk1LUJw68vtXG3BKZ30ko50Oa2GXXbljB9KrOBgSykKL16xshiJ
+	 e6MQ8TIk/I16Pzu0wFXB+ZRrE/BXEY1Oh4AAViD2bL0PXSXvPwR3WuP32AnO5isepHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SNZ498qP;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=uCYMZqn4;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CAF6606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:00:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CAF6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BB2606A331
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:00:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68BB2606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SNZ498qP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793732429; x=1825268429;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=uSbnyMu7zPfUwkMOnzRSRXvBzH7ND59gm+U4f8AT6Ts=;
-  b=SNZ498qPKKAl4TdBNAQTGzy0ckXXsZEEqDEsmPTEk6Z/Vj52Irq8xoEA
-   7mNe+idm+mDaxoXprEV3YF0hYCpFCek1oRa4ioi6XGPsi4XSg5SdLPHX3
-   WfkNlj14PmCTHZPXvUnK+4wIpMBQnnvXtQdjjUULJA6/OmLlrBCVheMXW
-   NpO7by57k8QcSLFhYKZILJQJ1iCLEbr0aFZWBjS795qsxpHZE44sIT2On
-   D6xToIs4wipzUBy+XdPpjp+bGd5+UXt2M45KWfkAchcCfzvDEN8HAXeOn
-   o56LHkPq6Nc2rs5MMh5AFpTmohaMx1iaB4ekIrp9Rme6EiUcV1fFv7p0F
-   Q==;
-X-CSE-ConnectionGUID: Ue2Ph3h6RtWpuvTUdWdP6Q==
-X-CSE-MsgGUID: oyk0eSVMScawrorFNWyjJw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2470734"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2470734"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 11:00:29 -0800
-X-CSE-ConnectionGUID: eNFCkQY/TKWLhsM53RGj4g==
-X-CSE-MsgGUID: 4fDu614yR5imfrONkh4GMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6837732"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.245.160]) ([10.245.245.160])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 11:00:25 -0800
-Message-ID: <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
-Date: Tue, 3 Nov 2026 19:00:24 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=uCYMZqn4
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id D19151A143C;
+	Tue,  3 Nov 2026 19:00:28 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 862E76046C;
+	Tue,  3 Nov 2026 19:00:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C052103290E8;
+	Tue,  3 Nov 2026 20:00:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793732423; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=2oC3q4owt6QQjFjaIbeG0PucmyuouGz/Xr9PAnQ9+oA=;
+	b=uCYMZqn4AL6vjtDHaUoftHDKcth+idJJPZlsDoExnI3doZT4swPYKAybPtEGvhLth1J2QP
+	X50mDvaTNWnKxaeqDNqHmV4/7WDpFdoHRMR4Va9rRqG4Zu2hmqz9YU1UFt+JCQIEHcVSmE
+	dI9cOv6W0A9+9DdL52/1vjiyu47nRnqK0LFWFAx0eJuKK6N6h9Zpdip2bZEsxKy9O7Sr4O
+	AL8V2YtpcTpU1DFY9KesTvyMXrNDqCsw/h2j6tJbasdvOh3n/mB57+XoTCWSPOBJTydSB4
+	vPYjWCnEZGE5ZtE8WMfkhZa0zVmZ5juOt/jLiIYU8JmBEgXK8iqqLdn5hFbX3A==
+Message-ID: <3ea92b81-1d08-4021-bd51-c96534e25b20@bootlin.com>
+Date: Tue, 3 Nov 2026 20:00:20 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,90 +63,71 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 28/33] drm/xe: Use IOVA-based DMA mapping for eligible
- tt BOs
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-29-matthew.brost@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260711025619.2540575-29-matthew.brost@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2 2/5] net: mvneta: fix the removal of the mqprio
+ offload
+To: Josef Schlehofer <pepe.schlehofer@gmail.com>, netdev@vger.kernel.org
+Cc: marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, w@1wt.eu,
+ linux-kernel@vger.kernel.org
+References: <20261103125021.70845-1-pepe.schlehofer@gmail.com>
+ <20261103125021.70845-3-pepe.schlehofer@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261103125021.70845-3-pepe.schlehofer@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/07/2026 03:56, Matthew Brost wrote:
-> Add support for mapping a ttm_tt's pages using the IOVA-based DMA API
-> (dma_iova_try_alloc()/link()/sync()/unlink()/free()) as an alternative
-> to the scatter-gather list. An IOVA mapping is a single contiguous DMA
-> range, which is cheaper to walk and program than an sg list.
-> 
-> Whether the IOVA API can be used depends on the IOMMU mode, so the
-> decision is made once per tt at xe_ttm_tt_create() time and recorded in
-> struct xe_ttm_tt::use_iova. To keep the scope limited, only device BOs
-> that are not GGTT-mapped are eligible: dma-buf imports manage their own
-> mapping and GGTT bindings are programmed directly from the sg list.
-> dma_iova_try_alloc() may still fail, in which case the tt transparently
-> falls back to the sg list, which remains the default.
-> 
-> The IOVA reservation is allocated at tt creation and freed at tt
-> destroy. xe_tt_map_iova() links the tt pages (coalescing physically
-> contiguous runs) and syncs the IOTLB; xe_tt_unmap_iova() unlinks them
-> but keeps the reservation so the tt can be remapped without
-> re-allocating IOVA space. xe_tt_map()/xe_tt_unmap() dispatch between the
-> IOVA and sg backends, and xe_bo_dma_unmap_pinned() learns about the IOVA
-> case.
-> 
-> Consumers that walked the sg list via xe_res_first_sg(xe_bo_sg()) now go
-> through the new xe_res_first_tt() helper, which initializes either an
-> IOVA cursor (xe_res_first_iova()) or an sg cursor depending on the tt's
-> mapping mode.
-> 
-> Cc: Carlos Santa <carlos.santa@intel.com>
-> Cc: Ryan Neph <ryanneph@google.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Assisted-by: GitHub_Copilot:claude-opus-4.8
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Hi,
 
+On 11/3/26 13:50, Josef Schlehofer wrote:
+> Deleting an offloaded mqprio qdisc leaves its traffic classes and
+> per-queue rate limits in place.
+> 
+> mqprio_disable_offload() passes an all-zero configuration, so qopt.hw
+> is 0 and mvneta_setup_mqprio() returns before it reaches the teardown
+> code.
+> 
+> Check qopt.hw only when traffic classes are set up.
+> 
+> A replacement qdisc is set up before the old one is torn down.
+> Replacing an offloaded mqprio qdisc with another mqprio under a new
+> handle therefore loses the new configuration, as with software mqprio.
+> 
+> Tested on a Turris Omnia (Armada 385) with 10 Mbit/s limits on a
+> 100 Mbit/s link. After the qdisc was deleted, only TX queues 0-3 were
+> used and the link carried 19 Mbit/s. With this patch and the previous
+> one, the queues above 3 are used again and the link reaches 94 Mbit/s.
+> 
+> Fixes: e7ca75fe6662 ("net: mvneta: Don't force-set the offloading flag")
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 
-<snip>
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
->   static void xe_ttm_tt_destroy(struct ttm_device *ttm_dev, struct ttm_tt *tt)
->   {
-> +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+Maxime
+
+> ---
+>  drivers/net/ethernet/marvell/mvneta.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
+> index 9b9efac2846e..79711a117c39 100644
+> --- a/drivers/net/ethernet/marvell/mvneta.c
+> +++ b/drivers/net/ethernet/marvell/mvneta.c
+> @@ -5251,11 +5251,12 @@ static int mvneta_setup_mqprio(struct net_device *dev,
+>  	int rxq, txq, tc, ret;
+>  	u8 num_tc;
+>  
+> -	if (mqprio->qopt.hw != TC_MQPRIO_HW_OFFLOAD_TCS)
+> -		return 0;
+> -
+>  	num_tc = mqprio->qopt.num_tc;
+>  
+> +	/* On removal the qdisc passes an all-zero qopt, with hw 0 */
+> +	if (num_tc && mqprio->qopt.hw != TC_MQPRIO_HW_OFFLOAD_TCS)
+> +		return 0;
 > +
-> +	/*
-> +	 * Release the IOVA reservation made in xe_ttm_tt_create(). The pages
-> +	 * must already have been unlinked by xe_tt_unmap().
-> +	 */
-> +	if (xe_tt->use_iova) {
-> +		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
-> +
-> +		xe_assert(xe, !xe_tt->iova_linked);
-> +		dma_iova_free(xe->drm.dev, &xe_tt->iova);
+>  	if (num_tc > rxq_number)
+>  		return -EINVAL;
+>  
 
-Do we know if this is allowed? I think there is 
-xe_bo_pci_dev_remove_all() which requires that evict_all will correctly 
-tear down iommu mappings on stuff like pci unplug and I don't think 
-tt_destroy is called in that flow? Does having the iova here cause 
-issues? Also, for VRAM flow I think there is a tt_create() via pipeline 
-gutting which will now create a new iova?
-
-Aside from that, maybe we can land 27/28 as standalone?
