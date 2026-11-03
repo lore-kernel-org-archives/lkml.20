@@ -1,59 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696699;
-	b=Mo4tphn1uOUEnHnOTxdb+vuDpbWeVAWajGon1rd6TLZlwqu1hMy1fJY/hrjXriA7vIX2
-	 /qYURJ0sMAkg2S1A+9a0dvAEZBFiu/vrqT9BrUCQesSOYZYs582IOcrJT1C4+nM3P/2Iw
-	 u85zl5iwyucWpY+MevImgmBc2H5nOPlYchbXyx+vePz21Ryk4HglxcdgLh121YiDnX4Vi
-	 zjF9cdbAeO/FX3w7TCbExnUN0ViPdaXbFm4B7poVCTxDiFETB/RqDBflsQWCWSdDEKT/o
-	 RpRQ+TFgWRe3hS7GUPCU0kRLr/kks+BvjRBL/Zt/BlomPeKxhjszzoxwLXFhhQl/f0A==
+	t=1793696710;
+	b=5iCDzPPyUUuwV6A0sQi3BtsON/p5wT7m2sGClNPkaVCtNmp9nI9xGFahOxXL7SL0C15l
+	 mJqgr7WA3oqaIQiMH0SsUemOVSLjlK4GHIX4g4tGVugBDOg83W8RWZ6QrrG+q+GGBtiSM
+	 q/ZVsGrjrDfLOKUld8wWhhaNs6+23/62sxBqguYPTabOylxoL6F8qAjsEIgiLYNJnOKQy
+	 Yw1Mae0aqmN8H8DZmSTOVWvUBbsyoOZ9KtQMGeU4rpYd9ADpt04PEAAdBlFcDAwgUSq89
+	 VPemtmY5Q9MJQPu5lxuMc7SxRMWIwsQxk5pJMoH3KNay18bcep07B5e6VtvE39GLgog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696699;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Uep79D5kNu//RXYzDoGxNrhrfRbJ7gQ1uroX53oA1Z0=;
-	b=khMf8vKk5dhRjeyzeUnJfXAiQEr0sSoukWEJcPxxsKHRG4WGfspDV6Btxb/kLc2m9dyN
-	 GJ/ewjny/+D9x5v+6qQzn8fP9aHGO5AJoIHN4fzFvM2eRy5nKkICKtgOYsWiwRqP5JNPi
-	 xyZwM/7sgREpIKSDYRZbO0gwRt5qOuWWHApo/ouqgA1t6IFZlsJIKoo+/0ZOPjT9rIqUi
-	 bzuShz+aPv+BY2PaOSfBMtY+r6TEZLieyrukAufYdcyAPflev38XBH+f2dZplFXTGeM3c
-	 t/Zs00kLkbp22BlnY4nbGS9tl+fAmQZq+ZPaeT00HKFOtCKQ/bc+6jrv2r9QjBQmrfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696710;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=ELsL0x7qBytlZgP42ggxXZDWX3Lx3FRVsRzrdJlITNU=;
+	b=gAwvouCftCTUvHaknzERjLeeEyA3ixs4T0dhjozaROo5Qfv0DwmHQb+ElPxzLJkwAp2y
+	 9oQuaDyESDIFleHBDgiLRJf/3BSwcq9MoWOm7HdnNGKrTC6GUwSeL9Jy79i4dPFAjxc7c
+	 9yjomGdjVwsJHyOwFPoKNzerWDMpmmon2CVF0CFrelC+PAew0x+RUUJN/0Yl+GKZClkTK
+	 7tJd1XbSpKclX9LYTLFiOFhXOCVsiIVom2X/WNqPtUXtIrC8xq57OadJgSZbDF9NdWxDh
+	 Wp4tNyJeDf+39mhge8CU3+KVVgQnhVhxwzblWUHFp+43QyXchR0leheqPE2dLInl6Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJ73DKS4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=D6LleYEk;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74222606A324;
-	Tue,  3 Nov 2026 09:04:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1371F606A327;
+	Tue,  3 Nov 2026 09:05:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1371F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJ73DKS4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB4D1F000C1;
-	Tue,  3 Nov 2026 09:04:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793696699;
-	bh=Uep79D5kNu//RXYzDoGxNrhrfRbJ7gQ1uroX53oA1Z0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bJ73DKS46ek+WdVFC8HFQgWqOccMsMHIYBl2WpUEm3NjUjVZbtKQQnKxFOm5I94R+
-	 XgsOfL/w5rzD8CTDxAP9svSzXstINCm4Yk0/ew4N76DiKXGQ+Mta4s8zZszj8Wbuv/
-	 nAbYSVDSSqqk8pFdPOGYDWiZpm6k2WjEUXWyObHrOGFDvxMDY4TKGPVbpVW8xjxtJl
-	 IK7CY4sEGlPQuQngKhY53e6Tse3++LmaGHOBEs7v6LMC9STowQ9jBkyYBts+PygrdG
-	 Zl9XkUtHQTxU1tBdMLcknVOefjQzMiq1ORqY5z+4agoQtWJ/CgZWsLf9AY7JnPgCt8
-	 U0C4QQwVeJs/A==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xOARs-00000006HFD-2BgC;
-	Tue, 03 Nov 2026 10:04:56 +0100
-Date: Tue, 3 Nov 2026 10:04:56 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Maritu Hone <marehone12@gmail.com>
-Cc: Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
-Subject: Re: [PATCH] staging: greybus: uart: fix heap buffer overflow in
- gb_tty->buffer
-Message-ID: <aumjuGK9yakMjsDd@hovoldconsulting.com>
-References: <20261102195332.19860-1-marehone12@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=D6LleYEk
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6EEDAA1643;
+	Tue, 03 Nov 2026 10:04:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1793696699; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=ELsL0x7qBytlZgP42ggxXZDWX3Lx3FRVsRzrdJlITNU=;
+	b=D6LleYEk8UR4/zsyHkwNJxtbFKPqhLNOuZdLo+PkIcQklWkBhyWie03oIH321xLsR96e87
+	XJ96XX6NwJM4FHqJNavDmgefmkiYd/eEHJ/r7gvXutlAMa/z0YsFsdaAWSHTJppSzxCigN
+	jIJWiRP3AXYsb1hD7H+ZhivpPphH8TaRn/KAduQuABL+GNoqk2WzH8V40HiIm9dTJqLnYU
+	UO0NIiPksUApshlc6T/YxcvAHzYBywV7j5EBAys77Ws374rlcfsfKTVvKwQVhRnyjoEaIB
+	VR7Q3NrKLVcKNXtMHSkvbWqVMkS/UYzdZECstP9akU/3GhNK0EI00aRX6tLAVg==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Tue, 03 Nov 2026 10:04:49 +0100
+Subject: [PATCH net v2] octeontx2-pf: fix XDP frames freed as skbs on
+ interface down
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,87 +56,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102195332.19860-1-marehone12@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-nb-otx2-xdp-cqe-cleanup-net-v2-1-5430545c9cbc@tipi-net.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Oyw6CMBBFf4XM2jHT8pC48j8MC2hHqTGltoVgC
+ P9ugb3Le+fk3FkgsDcc4Jot4HkywQw2BXnKQPWtfTIanTJIkpUgWaPtcIizxFk7VB9G9ebWjg4
+ tRyxrQbogFjonSAbn+WHm3X6HBEBzlGHsXqzi5t2w3oQ4+O/+wyR2+JjL6e/cJFDgRVCVl4oeJ
+ RW3aJzZTmfN0Kzr+gP8/kfT3wAAAA==
+X-Change-ID: 20261028-nb-otx2-xdp-cqe-cleanup-net-5810d40e1d30
+To: Sunil Goutham <sgoutham@marvell.com>, 
+ Geetha sowjanya <gakula@marvell.com>, 
+ Ratheesh Kannoth <rkannoth@marvell.com>, 
+ Subbaraya Sundeep <sbhatta@marvell.com>, 
+ Bharat Bhushan <bbhushan2@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Suman Ghosh <sumang@marvell.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, Daniel Machon <daniel.machon@microchip.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Nov 02, 2026 at 10:53:32PM +0300, Maritu Hone wrote:
-> gb_tty->buffer is allocated once in gb_uart_probe() and reused for
-> every outgoing chunk as the backing store for a
-> struct gb_uart_send_data_request:
-> 
-> 	struct gb_uart_send_data_request {
-> 		__le16	size;
-> 		__u8	data[];
-> 	} __packed;
-> 
-> In gb_uart_tx_write_work():
-> 
-> 	request = gb_tty->buffer;
-> 	...
-> 	send_size = gb_tty->buffer_payload_max;
-> 	if (send_size > gb_tty->credits)
-> 		send_size = gb_tty->credits;
-> 	send_size = kfifo_out_peek(&gb_tty->write_fifo,
-> 				   &request->data[0], send_size);
-> 
-> request->data starts 2 bytes (sizeof(request->size)) into
-> gb_tty->buffer, and up to buffer_payload_max bytes are written there
-> whenever enough data is queued and credits allow it. That needs
-> buffer_payload_max + sizeof(struct gb_uart_send_data_request) bytes
-> of backing storage, i.e. max_payload bytes.
-> 
-> gb_tty->buffer is allocated with only buffer_payload_max bytes:
-> 
-> 	gb_tty->buffer_payload_max = max_payload -
-> 			sizeof(struct gb_uart_send_data_request);
-> 	gb_tty->buffer = kzalloc(gb_tty->buffer_payload_max, GFP_KERNEL);
-> 
-> so a full-size write overruns the allocation by exactly
-> sizeof(struct gb_uart_send_data_request) (2) bytes, corrupting
-> whatever follows it on the heap.
-> 
-> Allocate max_payload bytes instead, which is exactly
-> sizeof(struct gb_uart_send_data_request) + buffer_payload_max, so the
-> buffer is large enough for the header and the full data payload it is
-> used to hold.
+On interface down, the TX completion cleanup also runs on the XDP
+queues, but treats the pending xdp_frames as skbs. Freeing them with
+dev_kfree_skb_any() corrupts page pool memory. AF_XDP TX completions
+in these queues were never reported to the socket either.
 
-I think the above is clear enough.
+This happens when XDP_TX or redirected packets are still in flight on
+ifdown, or when the XDP program is replaced.
 
-> Fixes: dd1c64ede97f ("greybus: uart: kmalloc for send_data once only")
+Fixes: 94c80f748873 ("octeontx2-pf: use xdp_return_frame() to free xdp buffers")
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+Pre-existing bug, flagged by the clashiko review of my ipsec transmit
+fixes for this driver [1], which seems reasonable (and fixable) to me.
 
-This should also go to stable:
+The other pre-existing findings there (e.g. the SA lifetime in
+cn10k_ipsec_del_state()) may be worth fixing too, but I'll leave those
+to the maintainers.
 
-Cc: stable@vger.kernel.org
+Compile-tested only, I have no octeontx2 hardware.
 
-> Signed-off-by: Maritu Hone <marehone12@gmail.com>
-> ---
->  drivers/staging/greybus/uart.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-> index e1b73db6a17c..7bbac2603726 100644
-> --- a/drivers/staging/greybus/uart.c
-> +++ b/drivers/staging/greybus/uart.c
-> @@ -842,7 +842,15 @@ static int gb_uart_probe(struct gbphy_device *gbphy_dev,
->  	gb_tty->buffer_payload_max = max_payload -
->  			sizeof(struct gb_uart_send_data_request);
->  
-> -	gb_tty->buffer = kzalloc(gb_tty->buffer_payload_max, GFP_KERNEL);
-> +	/*
-> +	 * gb_tty->buffer is reused in gb_uart_tx_write_work() as the
-> +	 * backing store for a struct gb_uart_send_data_request, whose
-> +	 * variable-length data[] field holds up to buffer_payload_max
-> +	 * bytes starting right after the struct's header. The allocation
-> +	 * therefore needs room for the header plus buffer_payload_max
-> +	 * bytes of data, i.e. max_payload bytes, not buffer_payload_max.
-> +	 */
+[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027-nb-otx2-ipsec-tx-fixes-net-v1-0-2114c4f10c36%40tipi-net.de
+---
+Changes in v2:
+- Report AF_XDP TX completions with xsk_tx_completed() (Daniel, sashiko)
+- Link to v1: https://patch.msgid.link/20261030-nb-otx2-xdp-cqe-cleanup-net-v1-1-710635c0f504@tipi-net.de
+---
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-LLMs like to add comments like this, but please remove it in a v2.
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
+index 90af9b9044aa0..b038bb1451949 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
+@@ -1332,6 +1332,7 @@ void otx2_cleanup_tx_cqes(struct otx2_nic *pfvf, struct otx2_cq_queue *cq)
+ 	struct nix_cqe_tx_s *cqe;
+ 	struct netdev_queue *txq;
+ 	int processed_cqe = 0;
++	int xsk_frames = 0;
+ 	struct sg_list *sg;
+ 	int qidx;
+ 
+@@ -1348,6 +1349,10 @@ void otx2_cleanup_tx_cqes(struct otx2_nic *pfvf, struct otx2_cq_queue *cq)
+ 
+ 		if (!cqe)
+ 			continue;
++		if (cq->cq_type == CQ_XDP) {
++			otx2_xdp_snd_pkt_handler(pfvf, sq, cqe, &xsk_frames);
++			continue;
++		}
+ 		sg = &sq->sg[cqe->comp.sqe_id];
+ 		skb = (struct sk_buff *)sg->skb;
+ 		if (skb) {
+@@ -1359,6 +1364,9 @@ void otx2_cleanup_tx_cqes(struct otx2_nic *pfvf, struct otx2_cq_queue *cq)
+ 		}
+ 	}
+ 
++	if (xsk_frames && sq->xsk_pool)
++		xsk_tx_completed(sq->xsk_pool, xsk_frames);
++
+ 	if (likely(tx_pkts)) {
+ 		if (qidx >= pfvf->hw.tx_queues)
+ 			qidx -= pfvf->hw.xdp_queues;
 
-> +	gb_tty->buffer = kzalloc(max_payload, GFP_KERNEL);
->  	if (!gb_tty->buffer) {
->  		retval = -ENOMEM;
->  		goto exit_put_port;
+---
+base-commit: c3e67bd82b9b9b1a5118f09a429ccefe2aab0741
+change-id: 20261028-nb-otx2-xdp-cqe-cleanup-net-5810d40e1d30
 
-Johan
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
+
