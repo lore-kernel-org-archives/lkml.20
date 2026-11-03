@@ -1,101 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793739734;
-	b=0XQCMqj5MXcvOVht9KtLGbTGIBXPTKUz4at/L0071/upH4phMzpIQ4jaGtDP+fE2lBfb
-	 lDDj4dCaEHpKP7dCNg0FbaeJhDUyxreWB7twGeJkDSLSs39qOENOxhFdHVWrT2u8YVFBT
-	 Ws+RfTPlQ19MCxnwwqR+ioLkyB7muHtB2ZxND9S/mR7cWgZaTLxaC1+uWk2smD4SLcByF
-	 5ACOPi0UGaqr4z2kjAOTGAoHZrL/lcZB5H7kNbsaq49GkL8MFSDTbbaDdxlV69j8yxI7K
-	 xwXSew8Yf0jgScr0PXmEVuLml/ym18JrFwMePOI0ECJwbrc2wZrIiYbscV9Jd9OnykA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739734;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=eLnVO73afvgaERjHXGPf5E6SbhMPv9R55TpDCQCEqgQ=;
-	b=vJysXfKGWbCUWGmfkeIujo+l/hCYt611cthtYHQMqv/sXGDR9c2VzVPWmSPh4W3k7jku
-	 cEeK/y9BMNSpbmGGpgw/UX9puOTy1yC8zDmi4ZAh5/Mr+3MM5r8mrHjVu0alChSgv52Ag
-	 kjTc0w+x9LYYJq+M9l+ChOaibS4F3wU6q2GBa31NNdXEqjMScN2DQH66EKH4dHO0vFlLs
-	 dQEn5Qs/PGX+zfGqSEBHsfNNB5TYRsSj8jHE3F4NNpgtHfKUQDtOpR/uMp8XAKs6NOXDr
-	 e/FsHD0ZuBo60KkcUXSN/qKULvfIgzBpATO+/YwLVSwNPumOclJ3H4OVdPAlP/6fBGQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4AnOV2W;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793739745;
+	b=cuHHnXlgZ+6x8flUd/M/XaDlHwOrBy12eCbgZBv4PRu5qqmsUyWZW7vEYD9KuhcOUiKH
+	 4Sq7KjANI8RLqTVk5h8bMhGQ+sdCyYYK6XkIsQktRMgCa5jGrLT6Kzp9/Ay9vPuHo4P/6
+	 DFt17oc+jgxYca7OYlBMo3BpaQQ3GzwTLIj0mCGx8DcEXmqaqI7fP171JC23RM1KhKwUL
+	 x9qJUVvs5Ssg00zcrBxEpGPegxCsZq8JbrkEJMOFFdvgH+a8sRDzj+ubsgiTWWxuD2VLq
+	 b2RAv1WXuodqDjhyXurp6l/+NDASFdkC0T1p8Fd5tH0H6btqWX9/F64q1chMI6mDdYA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739745;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=7L/kjnfMz9A0ktTU8C0Qq6Ox8RbkPb5fZACdQWXlPe0=;
+	b=tY/OgMXIIsmoHZaVhiIjbFhD67U0V8FvUUmeXEVuLj+PDdzJ889F/PBVL3YTSOAzEw2s
+	 wZ2hcXOEbOJ2hcPH7zZcYJ+9jZ+8YvXSAHmqOBjkbPPQWJqngJPozgvo/p7jp0tp+SCei
+	 WMebL8nkTLEp7QVe/aJzQCeW0MNhLQW4r/loSLokWYg3rk+KV4S8Fkr/oooMyJdTeol48
+	 QbJweR0uvF9Mfeity5hF2Bic2G7i3xVJchVfqLfR/gpiH8S3g2vFZ784oZoMbr8RL/1J0
+	 Fc3rlwMVVnh3Uxq84l/X3pjla/gteFbpYpMwaSpdwYS/8nJgLyc7Pu7YMm/7mYBCpYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JPiOdnnW;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UulFl8sP;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D134F606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:02:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D134F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83766606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:02:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83766606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4AnOV2W
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso43276295e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:02:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793739732; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sX4wBVt656OFnGdJ468rE6UVlqyqMuQQEE8JOE3hERAxV/vIW/1j4ZjSFRY0Pf3zcm
-         SJ1PTuI9EfP3kTZYGj16whHmkPHkpJIN+OQJsVd+U9ADieWi2Z9Fgm0MD2nakYgLwE0G
-         o36IpC3X5zgRpSDPCGvSYvgMFoBDEIuTC5luVgENZN38E0T+QlpFQDeJGElgSZcIuwEn
-         IPV2neqc+Jp1kMygtZtC5I8rd88vpJV57v81qHm0XmYhB5f5+lbbC2nowY+fZhSbZTOb
-         QhYtN4gmM19tDlYm4Be9KBjuf/XAzbqn6knV5u/6wuNYkLSUgHK0Sw8SDh00Yt2f8eOf
-         bJGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eLnVO73afvgaERjHXGPf5E6SbhMPv9R55TpDCQCEqgQ=;
-        fh=yLs43c9fSODJk65OpWjFmXAZT00qebi+mMUxq/pPac8=;
-        b=NPhRciwsCXyRL1iE8L7ko9ZBpbQYwX7hQ8biVhkZIZAQsev8SNGaiZpheQY5fRmlBd
-         qFEhvk2VhIEHp/wW/e3vBCEISW0k+Cvp56CKLfE5cZ3SdGPE0tjZE4ipkYS/NPmpKF84
-         EFbhFaOTQxZr7l5a62dbAq9//Nyx4Tcky11rKrrcmCfbgkboks7HBunYZ6wE32W8F3Fx
-         dYei5Mvkpzzz/cmBKAOXJ4DR5eA+veN41UcAlpEc+MEoO/Hgay4EMelVTGSzcP5VHOsn
-         5yiGrTPw5wwydwROxqw+aqbHQ+damdCm5BAXTo87kaYqoCNMkkRtVHbeQoSKlzW8HagN
-         gsNQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JPiOdnnW;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UulFl8sP
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3IpioV3153406
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 21:02:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7L/kjnfMz9A0ktTU8C0Qq6Ox8RbkPb5fZACdQWXlPe0=; b=JPiOdnnWfA+/xFyI
+	p2nW9Dn4LDsEyt3BDwjrQ74Imw4QivpB7aKbeapzNwoDLT1rxw4hZSWvcpO4G/qF
+	L7sHNxtHvRHpdjWixSxng+oz9IAB8A0nVsZo9Di62/gBEeuyBSsQHC2l3Kp/1qAy
+	V7CmWUbAz4Z+7QL22LsTq5xQdlc7Bnmxujh9oGJJWlWc4pkhfddiJ1VoygyHNpuF
+	E3GRBPcnnVY0z4E3889Mng3st8diHFzMIdGY156fyWcMZXT19U7pPWMiylP150p/
+	lZ8IMzEXN7qujPBVHaZ8vHfqubNZC7GvahSpiXxoF1f32u1990e7pRm+6X6OL/yP
+	miP+WA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8y0f15-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:02:24 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so9898493eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:02:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793739732; x=1794344532; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eLnVO73afvgaERjHXGPf5E6SbhMPv9R55TpDCQCEqgQ=;
-        b=n4AnOV2WwjJmlHVoT7mQkMmlllj/9Zg73CaYGeNHoYuI/301YzNlEoiIrZrz8D+r+H
-         ZoC01zubBN4x0NFq3MyXwSBhvWCg//iL3Kfqb2MDwbYl5P3ZfXQ+Ykt3Im2DzF+f6+0D
-         1dyt0NUDhINHAdmIjUDcPX7yntfDJuiYs9AFB2vX3gPQKasHR3Fcdr9Y5sQ64qnUnfvB
-         CqLr1+GywYFlea+8mowMJHft08d/3UTFrg8tz43QArT4eARDxta5jnPU9UWf2lWgMV/j
-         DFEoPf+yQQFas1fL2citqJk+pyfQ6QyFX7jhMaOaeVZ6Hlnb41xWWNLFRCA8XdHWpjAe
-         n13g==
+        d=oss.qualcomm.com; s=google; t=1793739744; x=1794344544; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=7L/kjnfMz9A0ktTU8C0Qq6Ox8RbkPb5fZACdQWXlPe0=;
+        b=UulFl8sPdK9zN/hp0PaOhh+OOznGX2woJsFn99fQ/0uu8tworRqHNH+uNvpLm/idyE
+         1m0ObdazIlqsFIwAyyZDqE/nOBtLJa+DeFws89xJifRAiU0EdbuQ8PPYKRwWvoo/cTN7
+         4gyty5zjAx/flI6ZcDLADkDlpf/G9RMmjpCekHclL0Y9wVWOHikLA9DlAoke90K3d738
+         ZD6pR/MH0M9AN0DWdKC2zRTHQCleH8AO+gwfVyCP3xmkc23aNks8wAjzUImvXBSmc1re
+         qkis2nGKkuAWL+2YdbAEX1U9tsekt36ar5sd4DWKAsXzHMSopRjmH3qkjpNNQy9A/Qg6
+         IWmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793739732; x=1794344532;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793739744; x=1794344544;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eLnVO73afvgaERjHXGPf5E6SbhMPv9R55TpDCQCEqgQ=;
-        b=MQT3ctnI7iC8h1eCz/nezqWyGfTlsImXe1tqJchRkD7t4UO0N4AhMbihcz2qYfaUOR
-         SnR4VYd2gaQJHzE/qeaFzYyL4wNt/vo2areW7gZalwATEC0LxEwoLysGheDKjdUl3Q0i
-         vdOfO+U+CYZxwlrlnEwuZwJSM76gk9Bn9/+zGC0WEbe4NHgvyL+2u9GbcCa8C+D2MyyQ
-         j0Ro9plYy2EsijvEMk/ry1chk5piGxvrlz81yOL0z6sH+YbrbdQCqSRLzph/iac+5WDQ
-         B7mydzrzZszycOCL8iiUdBjR3qG6y0vtbmGoXYXiKvJ1FkOqykGwehNHQNqqlr5EDU4g
-         GNSA==
-X-Forwarded-Encrypted: i=1; AKwUvBx62a24EGLbGzsNnik5tlbkdfEbucb7lvlNwEwN7Y9vLarK/G8D6nOL3NQO7HhDTurkgOwfRT/ogG64bPA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+o9zJBu12SYQULbmZDL82Ztn3ZgdUCOByf2KiHUea3xTA4g9Hq
-	SqWCKKqGCIQCezmSyLc5ZPIBdUZiPVsuyF1+f+BpgEK4fWrHHKR1Hte18zIdzYcy+EC2zuUtGDN
-	yS8xUVDhk7Lj2YH6bu0jG0i0KAMiQv7vdsyNq6MY=
-X-Gm-Gg: AYBFou2Qaeywg8bhX3DCRRVih4+ffihBwZmbRBHHL0GCuLjJ5p95YXrGWVikt2BtxNV
-	8Ww6hHNfDZhRlLaGx6IcqOeb+fUgOCLhZxpo82OzYqOf+MbJMjvTA8G/84BJPw8zYj0cgKt7duc
-	oSNK3n0izoiXWZzrfec6o5oA54J5GakfRwcVXPTjjm44dhsD1Dk1bNPkkAH5rYvowjZu8ET0e65
-	SXyA5Anm/LG8qmw6IMKjlvDs5BXXw0M7WDCHWnIFNJk+u7muOeaehCzfXaj0gFzwo5UWBVJm7Xa
-	kocGmx0NIUjNMt9JiFDTGo8MeL/YOFhdNbBfLTvKrShfLdDXlQS1u4TwImOltmQZKb61U7OxruK
-	EnVM6NLWHSodzEmKslel2n+CRx7ltfEWEmZeYFt451cs4SuTm0AamuQAbsVEunLD5Zp3EX6Oqdt
-	S7HiknnwE6gIx2b/5lKXiywI899YphaUBTW37af6DmQros0a681Ci4Kg==
-X-Received: by 2002:a05:6000:2dc7:b0:48f:88ad:7b75 with SMTP id
- ffacd0b85a97d-48f88ad7ed9mr6170165f8f.15.1793739731970; Tue, 03 Nov 2026
- 13:02:11 -0800 (PST)
+        bh=7L/kjnfMz9A0ktTU8C0Qq6Ox8RbkPb5fZACdQWXlPe0=;
+        b=YnpT0eegM8ouxwp9g6h2KTJsCPfdGHWJoJvL9L8dOuS11/42UdnZQhaUPvGqGpKhbk
+         nDbV9msPXYPFaOFoiDTIOSxeI2sSFW2mSkhUZ4PS1eF/YEpYIRGUlUbLyd+VPMkj/rV2
+         0rbxWnGd93elP7vjGOQQ8093wTdwoBUmcJ3gy+OA6i1Tfs9vaIfBYn071/BzGRY0UBDN
+         3ryTgsmjQ11cpNYJINIbGVFZmDqmCfF0YVvNr8eJHI8Y/fSsnMkzcUt0bQi4NuqBuGeT
+         J2J3ZROQl2SCsGseQJd1hpn48bhWYU+0I1Ec98RMgXmcqIhmCnDz7EuN1Uoyy4isXFWq
+         7RtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxs+y713cTP2gedmmv6gBS76AS1ae/yP425ezbVWjn22kbSlMIcQnBfBM3GT96437qotewYsEtQdDYuX+Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bY6I/5wMRCdQ+uzux46NVoarUcyl4UoztIbHG89C9lMdd1KC8
+	sWhUSwwPnwzvIUaAQDgQYLMgn4fJkQwPr8IpR3UhfOYxLNOWiaRe/UbawO8pGC8cXq+vk0eXxB3
+	iJYcqeMjYgovG4gvmzZ0N1m2K7IlJaRfy2kY+vhkK/l47M9GUIL+IzwvvmWIba2ztVoI=
+X-Gm-Gg: AYBFou2uv4Qv8kPZHy3wecHXPH2Dybfkd3Esdvls64ukXOtL4y8qvB5MbV+v05anLrR
+	b2jSyKnoqebVTo5LnKhrZj81FioTuLQAQLRoQoBDpiSOa3rvuNBDYriFgJZomWUGM9BP0YDwx8X
+	58iLxQ9yEBn2zBw1xV0tVp7Z9hqMaMf7QMINBZnmRrzopTCafi3U8v9dYi/jdse9wQlhQrA43OA
+	5KZAIKG2j6nYqnpB8elvjlIRsn2grQ1dmUEDQoZc5lHnRl4BifpaG5kUKwwTzpMYkWVR9F82raZ
+	v0luG32fszZ/hGP3alIANk4qfKZQRwlUM2p9KZ3kNR2G4SQW950IFNo0B8suRq+OwQkdx0ng1/a
+	ABpHM+Jh5dtMiDgfj89s/1pwdKz079Ks5mwJ0HOVdt57kIwtutt7QrHFM7XBlRW5tzYs5BPgFUx
+	uX/VSTJJAwe7cTKfpNqc1ghmGC+g==
+X-Received: by 2002:a05:701b:2094:20b0:187:efba:9ba2 with SMTP id a92af1059eb24-1ac5e8e1decmr22023728c88.44.1793739743611;
+        Tue, 03 Nov 2026 13:02:23 -0800 (PST)
+X-Received: by 2002:a05:701b:2094:20b0:187:efba:9ba2 with SMTP id a92af1059eb24-1ac5e8e1decmr22023667c88.44.1793739742820;
+        Tue, 03 Nov 2026 13:02:22 -0800 (PST)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2de58sm1260017c88.12.2026.11.03.13.02.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 13:02:22 -0800 (PST)
+Date: Tue, 3 Nov 2026 13:02:14 -0800
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, <joro@8bytes.org>,
+        Bjorn Helgaas
+ <bhelgaas@google.com>, Will Deacon <will@kernel.org>,
+        Robin Murphy
+ <robin.murphy@arm.com>, <rafael@kernel.org>,
+        Len Brown <lenb@kernel.org>, Joerg Roedel <joerg.roedel@amd.com>,
+        Kevin Tian <kevin.tian@intel.com>,
+        Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+        Dave Jiang
+ <dave.jiang@intel.com>, Dan Williams <djbw@kernel.org>,
+        <iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+        <linux-acpi@vger.kernel.org>, <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v1 2/5] PCI/CXL: Probe the underlying bus reset in
+ cxl_reset_bus_function()
+Message-ID: <20261103130214.00000b82@oss.qualcomm.com>
+In-Reply-To: <auorjXgbVPXZNHZL@nvidia.com>
+References: <cover.1793729707.git.nicolinc@nvidia.com>
+	<6c09d2f78d4bb9db7f49fa14a6550f5176721121.1793729707.git.nicolinc@nvidia.com>
+	<auorjXgbVPXZNHZL@nvidia.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,79 +136,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-swapin-large-unmapped-v2-1-87c70e597250@columbia.edu>
-In-Reply-To: <20261103-swapin-large-unmapped-v2-1-87c70e597250@columbia.edu>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Tue, 3 Nov 2026 14:02:00 -0700
-X-Gm-Features: AclHuK-dU-jDbeAA-AyxlAsBt3J5xyfKTDwVAoojWWH0SE7Uz8Xv3jSOSRyptrE
-Message-ID: <CAKEwX=Ow38Y9OK69Y+Eps7k_sdKdkLKuO=Lxn0xisVkuHVePLw@mail.gmail.com>
-Subject: Re: [PATCH v2] mm/swapfile: drop a large unmapped swap-in folio in unuse_pte()
-To: mt4022@columbia.edu
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: HS8uY8Btcr6EJXUuYinPzzZiE2Nxt9H2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4MyBTYWx0ZWRfX4FKthXOs1bsP
+ jXUeak7XafVPxdZnZrwtsyCiaEkuVYqJqOtjKxYsQdB+G6pMMe+QBKqLcN7ulWJJ2jhgVKw1SdB
+ UZRLF4GpLVZM3I1aeoVcs1DXEG0aoC6E1mMQHPfVLAg4CTGJSI1KAOoI2xO1amrQXUcskRsgczV
+ GFJU7Vy07vfupAW7Ql8wvZbagJB11UBYxeJwjXmPzikNyNwex15NeRYvAZ0vDD8mnp+ZF67dhPn
+ K6ACbJLvGbyk06RWe4pqI3SOgSxZ6hDrq0OvasYm14VtHBAkqK3ZaeH4VzyK9RrwwcSn4okcDnc
+ iCjf0JfoCnOmV1/aBUVa3pCClbUFLmiIUlNVJO2wYKQFYn0IgEOWtenEZmBxFVbLRDvG8/G/e3V
+ vZsYqGkj9IhtmsDxsWQCs5KZCgIs06IfdSPKYIpUghlMxAKB7k9ETu9TLKM3PnoNLJRdVcST/w6
+ TdwHRM2Gfs18rlJSjfw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4MyBTYWx0ZWRfX88aV+lEKwSzI
+ 9/hBMx339fMJ2Dqnq3oeO1ZxG/ocZcWy0tPj0paRjeub9A+zxgN/BRzvoneuBn7mDTZ1ilLSImF
+ vZwLOS82xPB7SgGkGLsBw3qsWHE9/9E=
+X-Proofpoint-ORIG-GUID: HS8uY8Btcr6EJXUuYinPzzZiE2Nxt9H2
+X-Authority-Analysis: v=2.4 cv=NP5AaE6g c=1 sm=1 tr=0 ts=6aea4be0 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=Ikd4Dj_1AAAA:8 a=EUspDBNiAAAA:8 a=Zdewuh5ThNVhPH2xqRoA:9
+ a=CjuIK1q_8ugA:10 a=O8hF6Hzn-FEA:10 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
+ phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030083
 
-On Tue, Nov 3, 2026 at 1:12=E2=80=AFPM Mani Tofigh via B4 Relay
-<devnull+mt4022.columbia.edu@kernel.org> wrote:
->
-> From: Mani Tofigh <mt4022@columbia.edu>
->
-> Since commit f1879e8a0c60 ("mm, swap: never bypass the swap cache even
-> for SWP_SYNCHRONOUS_IO"), a fault can read a swapped-out mTHP range into
-> one large folio in the swap cache.  The folio only becomes anon once
-> do_swap_page() maps all of it, so if the faulting PTE changes in the
-> meantime the folio stays in the swap cache while not being mapped or
-> anon:
->
->   Task A (fault)                       Task B
->   do_swap_page()
->     /* swaps in large folio F */
->                                        madvise(MADV_DONTNEED)
->                                          /* zaps the faulting PTE */
->     /* PTE changed (F not mapped) */
->
-> swapoff then maps it, which marks all of its pages as mapped and
-> exclusive, and the next fault on one of the other PTEs crashes in
-> do_swap_page():
->
->   [    6.424485] kernel BUG at mm/memory.c:5195!
->   [    6.424503] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->   [    6.427654] CPU: 0 UID: 0 PID: 67 Comm: swapmthp Tainted: G        W=
-            7.3.0-17087-gd865f2677c44 #1 PREEMPT
->   [    6.432665] RIP: 0010:do_swap_page+0x24eb/0x2fa0
->   [    6.451035] Call Trace:
->   [    6.451567]  <TASK>
->   [    6.453841]  __handle_mm_fault+0x13b5/0x3b40
->   [    6.458525]  handle_mm_fault+0x16f/0x480
->   [    6.461143]  do_user_addr_fault+0x312/0xa30
->   [    6.462044]  exc_page_fault+0x66/0xc0
->   [    6.462846]  asm_exc_page_fault+0x26/0x30
->   [    6.476708]  </TASK>
->
-> do_swap_page() already drops such a folio from the swap cache when it
-> can't map all of it.  We move that check into a helper and use it in
-> unuse_pte() too, so swapoff drops the folio and swaps the entries in
-> again as small folios.
->
-> Such a folio was never mapped, so it shouldn't be dirty.  If it is, the
-> helper warns and the folio stays in the swap cache.  unuse_pte() then
-> returns -EBUSY so swapoff fails instead of retrying forever.  With the
-> fix, the next fault doesn't crash anymore.
->
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it within about 1s.
->
-> Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_=
-SYNCHRONOUS_IO")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+On Tue, 3 Nov 2026 10:44:29 -0800
+Nicolin Chen <nicolinc@nvidia.com> wrote:
 
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> On Tue, Nov 03, 2026 at 10:33:43AM -0800, Nicolin Chen wrote:
+> > cxl_reset_bus_function() reports "supported" to a probe after checking only
+> > that the upstream bridge carries a CXL port DVSEC. The underlying bus reset
+> > can still be unavailable, e.g. on a bus shared with other devices, so both
+> > the reset_methods[] array and the reset_method sysfs node end up listing a
+> > "cxl_bus" that is guaranteed to fail with -ENOTTY when it is attempted.
+> > 
+> > Probe the underlying pci_dev_reset_slot_function() and then, if it is not
+> > applicable, pci_parent_bus_reset(). These are the same two checks that the
+> > actual reset runs, so a shared-bus CXL device no longer advertises a method
+> > that can never succeed.
+> > 
+> > Probing via pci_reset_bus_function() would not work: its cxl_sbr_masked()
+> > check rejects every CXL port with a masked SBR, while the do-reset path in
+> > this function unmasks the SBR before resetting. Such a port would wrongly
+> > probe as unsupported.
+> > 
+> > Move the port control register read above the probe branch as well, so that
+> > probe runs the same checks. That read asserts no reset, and a failure means
+> > the device cannot be reset this way, which is a probe-time answer.
+> > 
+> > Also pass an explicit PCI_RESET_DO_RESET at the do-reset call site, since
+> > probe is always false at that point.
+> > 
+> > Fixes: 53c49b6e6dd2e ("PCI/CXL: Add 'cxl_bus' reset method for devices below CXL Ports")
+> > Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>  
+> 
+> Ah, I missed Jonathan's review tag during the split:
+> https://lore.kernel.org/linux-iommu/20260926001311.7c4be583@jic23-hlaptop/
+> 
+> Jonathan, would you mind giving another review tag here? It's the
+> exact same patch that you reviewed. Sorry for the inconvenience.
+> 
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+> Nicolin
+
