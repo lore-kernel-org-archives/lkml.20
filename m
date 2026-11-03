@@ -1,47 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.244
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723295;
-	b=FtKw4IvA6LXe1UAh6m5MgCrTdg3a0PmyOFY2C7Iz537TTjQFQkNpsfJA1Bw0exJBlgqB
-	 7Y1O5iUuGokI1yA1xCUGgnU4LTiSB10iLOrQ0hXaIh0CZa59x1zxTvdG+tmzuo27wbz03
-	 CLdrEexWvUZJEiNEsveNy4kYSvNl3s1NZBtl7NM4ZbLqnii4oqOuneY+Tcc59E0SNVLi7
-	 wc46c3I41o9sgZi+o4rR1ZLeMvSvrR4rlt0S7EyT60M9NacvG9Uj79OvYKupVeDZ1PG8J
-	 Hj71M0qSTXshdqKYJ6MOfdXEwJHgOEm32GIhOQ8MHsEsNtrpWBilF2J19SwA5VlbyNw==
+	t=1793723304;
+	b=b7G5FAz0uoJCJC+Vg9IpYMi2ex0BhzQJQP0zSXqger0piB50ZBQz0re0GgXE1x5TpFYV
+	 9YLKFW2TC75QL0x725ykWeet2gcWQGR+YnvQBLP8AeGR/APz6YYlpaVA229aMTUj22aHC
+	 yJ1Rus6ndu+2FYbLokFX5GJutFaJw1J88zfMLu3XNf5Iup/88NXvnZR7A1GnfMBDVGGm1
+	 LpJLidPaAdbNHoP4Q/kKLhDVGWcb4X5d9PbVUWwmM3HNgDLsMst/kgcayZv2G3vCO2BFm
+	 Zx3PCSHJx8XIa6mql5PdL3OQJFsAMLayj31iDVrXdTnfPExYCwCjim7AxqjzmqcCbTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723295;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=VJDE2VaGlBqL1jKqnMs85FG086tb9WxrYjVRcaqG+3U=;
-	b=bbe7GuIWeDy5a6CaA/BmRJWAAxDJ0D4cZSdSSVtqTdb+9tgfQhKt7/CukuM+vvF/vjTE
-	 gy93+69nRJvHyHgz9Fgetgp5sbqFye9XlgHgNWCYDiS6bNt5HhvqiMx+I2FBdn9I0sgee
-	 AzKaETx8i00uQDRwG2jgEgmRwzEAq66bEG0gYbtqjW4TfK3mt/2a1WkXEj0Kb2aU6ODgT
-	 B1uRfl9mPpdGxzYsyC0cLGvKuCF9wXToEMCcI/TdbTexZkJxv8mR5aH5chUW10sY5kpzD
-	 XtrcB0Z0V65HAY0rACmafFzIJksegJwXy0JKnRqRXA7yB391ZpJYbB5uFBlOyHQkaBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723304;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=iPFbuhVhE1g4yui1cmP0KhQNdE0EYgL9kQOJwYevAeY=;
+	b=zvjvcWnhQU7PN0sMSyOWiIeT6hNpiFnHPLupBFYNRz0Cgg9g066t4lNxQU10vnJMYWGk
+	 hsxNlyMppcDBnVXZCdUYNGtpDV5TWa/gCa9+4h+7H12l9myXTu1wy4FAMHpi3i27x2HiJ
+	 dCf/ntzWgEVgPIQazxhUzy6wle15YVJNnxzHW/WTQf5Pj1tmJI1gjkOQZBlI1ou/51i8W
+	 i+CDVgPP8sFL26ltGZSafQs+1KelDXpOgeXVttqb9N1CVUi4003j4sWuSqyRna06Ns2ld
+	 ThjcAw7J6NuFkZDR07ePZcnnjMI+Fb62IaJSbzeV/bkYJisnWgKzjLPc5UJi7osf+EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkmOKoRN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r61v+7gr;
+	arc=none smtp.remote-ip=91.218.175.244
+Received: from mta0.migadu.com (out-244.mta0.migadu.com [91.218.175.244])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F40606A326;
-	Tue,  3 Nov 2026 16:28:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB18606A33B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BB18606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkmOKoRN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DA91F000C1;
-	Tue,  3 Nov 2026 16:28:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723295;
-	bh=VJDE2VaGlBqL1jKqnMs85FG086tb9WxrYjVRcaqG+3U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WkmOKoRNNL2pOzw7Uj84JOivX/pMLxbV5J7iZcjv1/TLSJ+utD3OCblyij3dq2Dnr
-	 9feC+UlQytWfYP33F3owi4g37dQdcmd9vvWoi0GkgtXJ2gZThsFzLwiE/xcNRxPQOr
-	 oItU+sxORR/jc77LGjAY4U774yWvwKFAbWVGltZBDKgJIg9pmWqpe2ED823z32RKMR
-	 PUdljHUhVvqfLqcQL0edLv+ihXNVvKHpv66dMe5ANpDK8Y7zx+O5m9kvao4/3gvvtj
-	 /QVFTqWDJuJDQ6hue9xe9d7OaJZuZmUvHvDD3uMotmu0OPT28Pui7It2ocZMK5Orab
-	 15HpJk0eh73+w==
-Message-ID: <5babb98b-7d6e-4f3a-b306-b40b30c4cdfa@kernel.org>
-Date: Tue, 3 Nov 2026 17:28:11 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r61v+7gr
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CUR3VrnT7Ns3nP5+yfIqfY8w9gLzlAPh5PghOBj2uBY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793723301; v=1; x=1794328101;
+ b=r61v+7grIVYVWqhS8Lm5pWahEWysBOpG/iKajA6oEOrSsfZPFp9nUNcj2+MbrPY4S2Surs20
+ fQqubmy5hKQRdJs5Ll161iaMm/TeSm/9Z2779HXuqyWMynZh507GzJZhpGwE5Bunzny/JGUyJxW
+ 8W6ZxUHGa6N3/BheQS+XoGL8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 463699d6cf500596;
+	Tue, 03 Nov 2026 16:28:21 +0000
+X-Mizu-Trace-ID: 463699d6cf500596
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bfca2a2af4so7838e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:28:16 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwwPVcU7nrc6DcXIscDXxJYIPeVuC1lTb35sxm745H8ZFpnl0a3Uy3tjTnv2v/+LrcrA26q+3AS0+dbzGU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Qfrzk+6Ldq88sk/XLEtNtU6A70lhyWNNpffODwrSYBxN3GLnL
+	jvVAMUqZXvhzQM7aWcB90NwGqGFKLS5aXDgIkAkBxHAELJ8dkxX13uMZRj5dRLhfJSelhJYMJyu
+	1W8/fjyUhZnkOUvvZZt0WSLNZqwR4xDlVe4LhjwuB
+X-Received: by 2002:a05:6512:3e0f:b0:5bf:d226:862e with SMTP id
+ 2adb3069b0e04-5bfefdaa5bamr205874e87.2.1793723295372; Tue, 03 Nov 2026
+ 08:28:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,121 +66,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: x86-android-tablets: fix codec teardown if
- poweroff handler setup fails
-To: Wentao Liang <vulab@iscas.ac.cn>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261103105544.1394559-1-vulab@iscas.ac.cn>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261103105544.1394559-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
+ <20261103084742.1302597-2-fuad.tabba@linux.dev> <aun1NJNtnOeSL4oc@google.com>
+ <CA+EHjTwCPHp_odMPJAJ8pfPtymtU5ia_RrH30DavFeiZqvhVAQ@mail.gmail.com> <865wyd3mqu.wl-maz@kernel.org>
+In-Reply-To: <865wyd3mqu.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 3 Nov 2026 16:27:39 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTxfQ5P+Q9jrGxr6A4CjtewetFE9apskj061iJQbtwAsyQ@mail.gmail.com>
+X-Gm-Features: AclHuK9bqtJuUq_-qqIlTFI2gjtDBN-F09-mdn7cW-n-Iv21GT3fzkXnYFOU20Q
+Message-ID: <CA+EHjTxfQ5P+Q9jrGxr6A4CjtewetFE9apskj061iJQbtwAsyQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] KVM: arm64: Don't walk the whole IPA space when
+ destroying a pKVM stage-2
+To: Marc Zyngier <maz@kernel.org>
+Cc: Vincent Donnefort <vdonnefort@google.com>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Raghavendra Rao Ananta <rananta@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+On Tue, 3 Nov 2026 at 16:26, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> > > > Fixes: 4ddfab5436b69 ("KVM: arm64: Reschedule as needed when destroying the stage-2 page-tables")
+> > >
+> > > Isn't it an optimisation?
+> >
+> > No, it fixes a regression: 4ddfab5436b6 replaced a single walk of the
+> > mapping tree with the 2^27 lookups, as described in the commit
+> > message.
+>
+> But that's a configuration that simply does not exist in HW.
+>
+> Therefore this isn't a fix, this is an opportunistic optimisation that
+> may or may not become useful. So not a fix, no backporting.
 
-On 3-Nov-26 11:55 AM, Wentao Liang wrote:
-> lenovo_yoga_tab2_830_1050_init_codec() stores the codec device reference,
-> the pinctrl handle and the pin mappings in globals on success; they are
-> only released by lenovo_yoga_tab2_830_1050_exit(). If the
-> register_sys_off_handler() call which follows it fails, the init callback
-> returns an error before the exit callback has been registered with the
-> framework, so the codec device reference and the other resources are
-> never released.
-> 
-> Factor the codec teardown out into a helper and call it from the error
-> path of both init callbacks.
-> 
-> Fixes: 4ce8f4c2027d ("platform/x86: x86-android-tablets: Fix Lenovo Yoga Tablet 2 830/1050 poweroff again")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  .../platform/x86/x86-android-tablets/lenovo.c | 27 +++++++++++++------
->  1 file changed, 19 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/x86-android-tablets/lenovo.c b/drivers/platform/x86/x86-android-tablets/lenovo.c
-> index 52d96ae89078..294986f84ce8 100644
-> --- a/drivers/platform/x86/x86-android-tablets/lenovo.c
-> +++ b/drivers/platform/x86/x86-android-tablets/lenovo.c
-> @@ -548,6 +548,14 @@ static int __init lenovo_yoga_tab2_830_1050_init_codec(void)
->  	return ret;
->  }
->  
-> +static void lenovo_yoga_tab2_830_1050_exit_codec(void)
-> +{
-> +	device_remove_software_node(lenovo_yoga_tab2_830_1050_codec_dev);
-> +	pinctrl_put(lenovo_yoga_tab2_830_1050_codec_pinctrl);
-> +	pinctrl_unregister_mappings(&lenovo_yoga_tab2_830_1050_codec_pinctrl_map);
-> +	put_device(lenovo_yoga_tab2_830_1050_codec_dev);
-> +}
-> +
->  /*
->   * These tablet's DSDT does not set acpi_gbl_reduced_hardware, so acpi_power_off()
->   * gets used as pm_power_off handler. This causes "poweroff" on these tablets
-> @@ -578,8 +586,11 @@ static int __init lenovo_yoga_tab2_830_1050_init(struct device *dev)
->  	lenovo_yoga_tab2_830_1050_sys_off_handler =
->  		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF, SYS_OFF_PRIO_FIRMWARE + 1,
->  					 lenovo_yoga_tab2_830_1050_power_off, NULL);
-> -	if (IS_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler))
-> -		return PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
-> +	if (IS_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler)) {
-> +		ret = PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
-> +		lenovo_yoga_tab2_830_1050_exit_codec();
-> +		return ret;
-> +	}
+I'll drop the tag then.
 
-lenovo_yoga_tab2_830_1050_exit_codec() does not touch lenovo_yoga_tab2_830_1050_sys_off_handler,
-so there is no reason to store the error-code in ret before calling it.
+Cheers,
+/fuad
 
-Please just keep this line:
-
-		return PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
-
-as-is.
-
-
->  
->  	return 0;
->  }
-> @@ -588,10 +599,7 @@ static void lenovo_yoga_tab2_830_1050_exit(void)
->  {
->  	unregister_sys_off_handler(lenovo_yoga_tab2_830_1050_sys_off_handler);
->  
-> -	device_remove_software_node(lenovo_yoga_tab2_830_1050_codec_dev);
-> -	pinctrl_put(lenovo_yoga_tab2_830_1050_codec_pinctrl);
-> -	pinctrl_unregister_mappings(&lenovo_yoga_tab2_830_1050_codec_pinctrl_map);
-> -	put_device(lenovo_yoga_tab2_830_1050_codec_dev);
-> +	lenovo_yoga_tab2_830_1050_exit_codec();
-
-Please also remove the empty line which was there to group all the codec
-cleanup calls together which now no longer is necessary.
-
->  }
->  
->  /*
-> @@ -776,8 +784,11 @@ static int __init lenovo_yoga_tab2_1380_init(struct device *dev)
->  	lenovo_yoga_tab2_830_1050_sys_off_handler =
->  		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF, SYS_OFF_PRIO_FIRMWARE + 1,
->  					 lenovo_yoga_tab2_830_1050_power_off, NULL);
-> -	if (IS_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler))
-> -		return PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
-> +	if (IS_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler)) {
-> +		ret = PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
-> +		lenovo_yoga_tab2_830_1050_exit_codec();
-> +		return ret;
-> +	}
-
-Same as above, please keep this line:
-
-		return PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
-
-as-is.
-
-Regards,
-
-Hans
-
+>         M.
+>
+> --
+> Without deviation from the norm, progress is not possible.
