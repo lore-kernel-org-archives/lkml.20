@@ -1,101 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793673580;
-	b=gWs/EG9Hps0Z7okR7186lTXY/Ha51vr1oY2fudYT/n2gk06up5L8mZXvRN3ywENADbNX
-	 nD+NgoWHG/qROffeh8oTU+ENa4p/ByJuvJK9sCqT/qrIMX7hRzEeImAZvHPFnX52SdWy3
-	 m5HFoIrz5PAk6k8GlAQngOVcVh+pjBimFeb9jGntx3EcCy7dQ7JsRfcdLHEDIruakKTw/
-	 xZ3tHcdzVOm4/Iys+8LfjpkTtoF+Zu1Mxb/n1vB7zCndnr/QbkOas2Fi1F7TuP0PW2VhX
-	 edWx+ooNQLHsqU+szZcYb6h/t86rAkqjUzaw5xNJGJ3lc4lRBVossr49QPYS5HVgfow==
+	t=1793673798;
+	b=HjPau8uZLtt49WxgKFbNSrdCf2j4A4YIfKD2pIza9scd/9aKh58mvldADsOzXIu4Cn1a
+	 RXcdnOtZL2omSG/WbrI9omkJ4mgnqV4Qi+bJAaA88YfKkfDgW4lAhGGWYTk2oe6Os6K3N
+	 6RCbLeNlCEcc2R2Tv7xkZFwusXIdT/xWbz+WrYKyA1pSdtlfYKnQ/8tF9+/PLrey4lwTs
+	 kygcAKI7Qp8rjUhLHaCZj7dpqbyAfeN47mCfn0bgQJlJpRBn93wHERnV9vw30taqkLpHf
+	 utN3kEi+PO9vQZ9ZLPbVZ5G99efhXZYf/+gEfKdNWEXQkC5jqQMbC65juJX6pzPMbvg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673580;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=JPmRQEzRAbrnbM6+BcnhKNmUts6BwBXXlxEibCWSAHw=;
-	b=DPg/LiZbx93Jjf3HsLERKKrg4e17cpMyCcPbqYnaoHFIa1WvLlVXxNvkODfrdUO1zZ/B
-	 PFcC/tfd8+4r3ajbq2yhaVm5ed70HkWVroUferBy/KqXpVMeh72BgIduyK73riVe254jO
-	 ExuHZ/PtGD1dbeW4ScKPmnIwqlm26iOga5sViCDisbaH4iInsU0Dpdcwf8sBbyKOq0PNB
-	 e/l+qeq2uJMmkXkRzoGy/qVCfZIQ+23+N65pLFfbOKRYJm8s+uKpz10ouDAgoq7Oo6P6k
-	 UCFdlrZtZVYsulZUGvjQQCxeipNSlfs+od+Q3uE0TuF7z7x0O5Uj86t8wjN7uPaShug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673798;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Feedback-ID:X-Zoho-CM-AccountID:X-ZohoMailClient;
+	bh=Ac9wcqw0N1NdkwYzXlPFIvlGhWFuWiTfi/PMncvpwfQ=;
+	b=EjbjG+vEtn6cNyu1ddi/szFFLzHCRQu7z/+BWPYNF21Zpm61WLA3+5X5E0yg022qejfl
+	 Sp3UPsWp7uQ0spYbWg1Thg89EAuojx16RpjYuL+junMLWTNmwJm6rwByS3N2R2k+XP3Dv
+	 I++mc4iFa2YiS1IRvVlTdub3JX67L3vBjaJ/HWetedoOrzdVZDFwTxvv3or0a8ZBqHBoJ
+	 1s3OvNn9ayyo/3OM9jdtqC8nsk7QAi3cefY9wbdy9QN/vJI3J4aRxvK70lQW94ivHiyBo
+	 cnZM33fcRj0NTIPKBMwdBGA1li7wI0P4fFN9iWYOisEdB1hVQ+uNu/6ZW0aK29qXSqg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="uSaQ4/sX";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.179
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=zohomail.com;
+	spf=pass smtp.mailfrom=zohomail.com;
+	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=XbHmqVRR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
+Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCA8606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:39:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CCA8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 383CA606A324;
+	Tue,  3 Nov 2026 02:43:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 383CA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uSaQ4/sX
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-945ae2daa68so30117985a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:39:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793673579; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kYyJS8lNkgXVFCZ668vCS3Gc+itm/xbnrFP540kO/tJg6O2FpcEVT86g2HbBblbTCY
-         3AXJ0yG62yOiCMNnA7Adm3FTIvn/Y8KVX3+PVxoY6Uinolcn05YOW0EN1Vco2gt3L0Li
-         AXIoFeA1w/sRENPeyp4NMMbBpFYsPY4OaV0ddFqCMpUN9X5Qt/PBv1rPAxKR6vcmlsKy
-         C0s0uwhNgLDJ9Yg++roLtcURpuQLvY20Psr+fbIvvP/OyRITpGyReNDug6U0i4vdAsk2
-         t6jUwJSQ6Iv15DvRjv+NxHSnPmXdcD2pbMZ9CWgMhF+4Iw0yI7UHcrolEqbbu8npdz9F
-         PWaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=JPmRQEzRAbrnbM6+BcnhKNmUts6BwBXXlxEibCWSAHw=;
-        fh=OxvBf19WHwkkg50P1/ByXT8QbX/eckmz9ZoyJ9C4QAk=;
-        b=JLYNa0Lt+I5SvPDLuzU3Zz1muu9Jie0sUCcAEP/ZU6+iSpZwv/GnGrsO4afu9zmoeV
-         KoPbVweotE7389lnhcILcPDDLTLEiK0ZCFRaUkqfrqUtBbtG6UHwdrLHL47MSYGlGswH
-         H1ZmI91rY2UOMdkpqlh0VuHBf7Jm1oPY42s9EQbkf4WeOPbavPuXv3Vg5TwNij82WPfx
-         xGcVeVtqrwC0TMScc5eqM8acgZ1cqb6XdUCOupXrpZ33uLY1ubTzKkY0extOGQEogY/L
-         mqTfXid5wAkRFjqkC6vS0VpiapwS3OsvIBC6NZOA+nHKhsnQoeHvqymhIyDmMi4gTBt1
-         M8Iw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793673579; x=1794278379; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JPmRQEzRAbrnbM6+BcnhKNmUts6BwBXXlxEibCWSAHw=;
-        b=uSaQ4/sXbn+eSWHPoNWOtoU3apYu14w71Bk1TNrxutVrmfIhd2P4m688uUt0AD6H3x
-         lGEwtpmzl1bIKQsq0KwANdF36Z0mDBSLZc2XrblkfOPugo17d5ilrmSJah2RkSkx5c1D
-         jvY3OsRMaQ3onUhivINMDwJZ+YDFk6zvAPN6xhfAiNg5gv6KiMJqvEKUeXffl0WU6/d9
-         droHCOYlYiWjvdF3thYbpl/sodn7Ki+TcvrOhBEeu2QXsSLfgqICS/fuRZJiQIDCtSD6
-         PDUXlZFt0I5CSDToEfsqwaHrm6aJ4UU1WzVs/mke7qaDsTlNKNMngwcjyxcIuBHj7NZY
-         aaDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793673579; x=1794278379;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JPmRQEzRAbrnbM6+BcnhKNmUts6BwBXXlxEibCWSAHw=;
-        b=aioyVNhZlkVNB2YLfFNgcpdL+1GN7yr+8jqCD3v7tkowONtRx27T2IHCPHTaAe+2Pm
-         xMY1BuW6RciaBiukczQJjSqmZ7TKPG4lUqvopdMsp4E6Wpi3ryG5iw4avkUKZXszDSJu
-         zRGNCTj9LqBNEB4DkY07x2KlW43z/R5jlOcxlC8yjAsQkzauEArHzup+rcF44ZBp+f7D
-         f/nZELO4m2ru36PiWQG9xH4K2SnPkxk13Fjpgy0tf+hyLZ4fKpDthpJOWVZ7vY3Dr9tN
-         PVxZE2q072K5qQ1Be5rw3iBm6CAtGyc2zT8HKvntOVXS7AS3SDojLzxmMVSY5l1F4g7t
-         LndQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLExDYd+V2U6hXU+y3a4Je2QpriRPCn8t8ni3WnnPK+lp3oU9aY1eCuLIOtiNISeemyYeB/KAC37zycl8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+o4+9ek3R62BKImx2ztM3Lx4DE061d5c6MGWxx+MucxTAA3MS
-	e7sefbF2R2j/JMRn4ehhzro2Yi2UxQvrhDlugQfvCfyxWD/0mhnWG4mBBqNTvCUKj/35rvVfSOH
-	3N2jaj+9bpzIsuQ/PrU7JxIVpzFTyBYA=
-X-Gm-Gg: AYBFou38YYqukRAjz9dRL5NqazcB34HSQpSnjmZ932qok8JvgvfLroR8oeuGhiTTPDS
-	JldUOxIaOOTc0knF8q8Z4JraomrwSqTM63/itzmsAZ4fnI93aIs9Xd80cKSkbfDw1ak+uJS3506
-	oneD2ObFwoH8o2V+q5b7Px2fK/iQHuARF5yk/7pfxrDVlz9D/O1/8lRYV3rluIs7C7q/JBg678A
-	lP1po4pN6SQizoRqds3Z3/ExlcvZVQZ7OxPlkeKVIHlUAs9jntBfNIzlF4JbxiFvs3WYVgy8upX
-	LRgV31m1ey0xcOlLoWenjEJnQFvFofcIoqiE1mN8X01v0dODmWWMxTARIUq/BAFkQHJjErJU5Ki
-	uNLLOAc+xVLTWRqQuW3BHH67Rp3hVXd4djOFk1BWNzuguaG/0r4IqyuQgjOObLJHuZ1nZfMNQXy
-	+WbfDU3Eg4NfbcOsNxtcB83ohixMibstBSe6MW32v5f4aFN42shkEObjqEvFeiVLDXE8RcQfm1c
-	qqusBn76rx4nc4O/cR60njSRg==
-X-Received: by 2002:a05:620a:711b:b0:93f:2e81:2217 with SMTP id
- af79cd13be357-944133d6c9bmr2309888085a.36.1793673579229; Mon, 02 Nov 2026
- 18:39:39 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=XbHmqVRR
+ARC-Seal: i=1; a=rsa-sha256; t=1793673791; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=aI2Pj82xbTWNLdZazmGlyNQz6bu2C6H1VDam1L+lDPkWFBAXzKSH2BpG+uum9lmib6ouj5MZlY6YdxEUhfYVDA5OgNPmYCkdECQimI0EFFX+UbSnW87FSdI5sulHt1ELyYRepS1IuulnyI+M0z5avz6nfXRbDIIx2/hOu5KPzJY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793673791; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Ac9wcqw0N1NdkwYzXlPFIvlGhWFuWiTfi/PMncvpwfQ=; 
+	b=eTea5ku4ABZgzc9jHHJprLZMjYsO+QO9G70IkKa9wdFn83Q731HRJNXVswGN5tH5QwLSt9pCmHko4AHs5jkoTo8kuzLWpNVMlB4JGWx0pizBYQWqM5A99wT7EwTSLXjIpV9STQxjWNl12dud9sR/OAun/g91orWBEq9JPT+QsCI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: a=rsa-sha256; b=XbHmqVRRA42sG71WGnkE4Ki2vJYqX2FO33vMxxvlQWVKpUhETgYdzaLRqODvjnZ+dGUREdjoA3FWq+LV26SOV7yIpwSdmB+jjzxFNdQSp7hRy/rkg+ooCxh7Y/FfZwmDahyiQoFCsBzvczya/iMlETsCPNW+TvXK0Otmcszw1Ec=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=Ac9wcqw0N1NdkwYzXlPFIvlGhWFuWiTfi/PMncvpwfQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793673790038266.48729951782275;
+	Mon, 2 Nov 2026 18:43:10 -0800 (PST)
+From: Li Ming <ming.li@zohomail.com>
+To: dave@stgolabs.net,
+	jic23@kernel.org,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	vishal.l.verma@intel.com,
+	djbw@kernel.org,
+	iweiny@kernel.org,
+	icheng@nvidia.com
+Cc: linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] cxl/mbox: Return success for CXL_MBOX_CMD_RC_BACKGROUND
+Date: Tue,  3 Nov 2026 10:43:04 +0800
+Message-ID: <20261103024305.2333508-1-ming.li@zohomail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,34 +71,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028033127.82193-1-kmehltretter@gmail.com> <20261028033127.82193-13-kmehltretter@gmail.com>
-In-Reply-To: <20261028033127.82193-13-kmehltretter@gmail.com>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Mon, 2 Nov 2026 23:39:28 -0300
-X-Gm-Features: AclHuK_mYIzz4cZ8_ehKRxiRZ03pBcXNepnhJXq3gkymb86kIprbsq-E3-Zh6FE
-Message-ID: <CAMAsx6e0fF5mwfruaK7e=uHehVfjMP=Cy7jB_Z_e9aXTk-yZPQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 12/13] Documentation: entry: Describe the
- pre-counted hardirq lifecycle
-To: kmehltretter@gmail.com
-Cc: rostedt@goodmis.org, peterz@infradead.org, tglx@kernel.org, 
-	bigeasy@linutronix.de, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227da2b39c69005b22d0fb279a700002f8a14b11e10e28b14e236c5ad7a12f2e71dd325d86d575c42:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-On Wed, Oct 28, 2026 12:32 AM, Karl Mehltretter <kmehltretter@gmail.com> wrote:
->
-Hi Karl,
+In CXL subsystem, each mbox command hw return code is mapped to a
+corresponding errno value. Currently, CXL_MBOX_CMD_RC_BACKGROUND is
+mapped to -ENXIO.
 
-> Assisted-by: LLM
-> ---
+However, per Table-8-208 in CXL r4.0 section 8.2.9.4.5.1, a BACKGROUND
+HW return code indicates that the command has been accepted by the
+device and continues execution asynchronously. It does not indicate a
+command failure.
 
-Signed-off-by is missing. Is this an oversight? See
-Documentation/process/submitting-patches.rst.
+Return 0 instead of -ENXIO for CXL_MBOX_CMD_RC_BACKGROUND so that
+callers do not treat a successfully started background operation as an
+error.
 
-Also, "Assisted-by: LLM" was removed from the docs by 1e035297ffda.
-Maybe describe the tool use in the changelog instead, see
-Documentation/process/generated-content.rst?
+Fixes: 92fcc1abab09 ("cxl/mbox: Improve handling of mbox_cmd hw return codes")
+Signed-off-by: Li Ming <ming.li@zohomail.com>
+---
+v2:
+- Add a reference to the relevant spec section in the commit log.
+---
+ drivers/cxl/cxlmem.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Daniel
+diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+index c401e3a1af06..cc71d7a84cdc 100644
+--- a/drivers/cxl/cxlmem.h
++++ b/drivers/cxl/cxlmem.h
+@@ -160,7 +160,7 @@ static inline struct cxl_ep *cxl_ep_load(struct cxl_port *port,
+  */
+ #define CMD_CMD_RC_TABLE							\
+ 	C(SUCCESS, 0, NULL),							\
+-	C(BACKGROUND, -ENXIO, "background cmd started successfully"),           \
++	C(BACKGROUND, 0, "background cmd started successfully"),		\
+ 	C(INPUT, -ENXIO, "cmd input was invalid"),				\
+ 	C(UNSUPPORTED, -ENXIO, "cmd is not supported"),				\
+ 	C(INTERNAL, -ENXIO, "internal device error"),				\
+-- 
+2.43.0
+
