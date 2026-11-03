@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793744585;
-	b=cMs7DsCPs/ppVjPLYeAK0dP5ADlG29VUMLAHrRBnLkcnEg2qDrrTMt43SnMO1NqYAk0v
-	 fIF90niB2W0/131tCXTAc07byMoGy9Af+lVQ9BE0ZV3VxMu5HolJRtqU0V9Vb7TxQCs7K
-	 13v3/gVZ2WpQpaq1Q7kmlpUvgrYMtgzBXFV2ooaAO00+wtjsSl7CTBl0VUvk/jMrAV6la
-	 pW55crW0OefjkNCkhYY/TSTBZOFdTuJV2YTKJNsG4UG6vwi9IXF8GltTTUMfOuxy5wW59
-	 WkHJkjmtN1CeDuILfhl/r4kQV4Nw47XAi9aJlWVYwemdZNAcnU5jkTh8qAINmp7IPfA==
+	t=1793744596;
+	b=Z8vcwTCCQLw9IISntrOryh9+kpZHtMvmNsnAQ68wZqjGVnS9on0MI5p4k+ATljdtSC5b
+	 OE3EpXeO+xVBLlBwvqRVfnggDjtgHZIyfgj50zJBvOKaY+2S/cJ0FkyECUYNkkb/0cfKF
+	 1DYWjXz1OQY6XBUCVu2BRTlheYZqpqSiMGs9k+26bHTIhwtYAa2ZZEwraFj/DL+1f7ymi
+	 DBN5VYLwFt6xQdIlQdSQot9XJndgI7i8smxycvhmNGMiMUQjNkT6jOLFjhhkpf3vpYdoc
+	 glGuGHwY0PHFhvLEfwIBFbaPplnsHZeW7echTPRDVX9qAVxlIpBlL+njW2qCp23DEkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793744585;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793744596;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=THF8Gn9zKSMxI2CX7V8w53BXwvAHKb6Wu9y7FvwOfiw=;
-	b=pUpgzSZixk4q4PMMSmGgokDIZnp/H3Flp+KSps8QbayivA4oHt/U9PJOtzItVPFMH2UO
-	 ZoxI1fO0D98fsfUzFhJqxip9ayZPegFUXezqPLxjpdS15rdwvI6/YQtmtlFFt6YUuFtR8
-	 hZMeQsbVjl7Kv2VP/NY6RquObDylU7tQwZdRO9WMMXv9ShfMzaL7w+dmcio8KReqiSyYt
-	 VuUB3sXj00IIALYI6rw/INdjjejiZTf0b9NV/Gez56+SHktbNyBVRrHx/ua03TzQCu0Kp
-	 m6xBqV5UlGwboj7x/BneZmIujhOC43KgCTNQqasCknnUBnwy8p8V7PH7eIYnsGxP0yw==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=mtVdxBGNK8oHTFOTDJC4ciOsojwKNf2YHH+u+jkXh8g=;
+	b=JnCnsvYVgSmVijhnF/HFq6Mc2P4cR3FfbuxV7UH6KYK261MbuGjzm0A7O1rA6MsiUpDQ
+	 wfdYa4/Q7Z06dK4WZeIBR+Oy2Xj3m9BF2oWPu0pCZraGEhstzxto4/aF3TT5U+1Ft3PVo
+	 EKhALLfBTRFsDxh/T2Dzck1/Vya9Lc8QgiSwBXDo2YYRwCczYGNw0wRoW76jzLtIn43wb
+	 SwUpmT9tm7xPkPXTHJaZDlBvhDF9/gdsOz/87wXnkOjqczUrypG38ukx6xcMMmXuj3V/d
+	 5cv6Oc1rbLA0UX8ypj086tFw1e+JJM2Lq1IbXcfAGhClxZl8qanHYK81DMxwc5M3weA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="O/b1OBkU";
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WI9KvTyk;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC528606A330
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:23:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC528606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5245B606D810
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5245B606D810
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=O/b1OBkU
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso69854eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:23:04 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WI9KvTyk
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15943c9c005so312444c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:23:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793744584; x=1794349384; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=THF8Gn9zKSMxI2CX7V8w53BXwvAHKb6Wu9y7FvwOfiw=;
-        b=O/b1OBkUuusx7DQz9ovmSOPSSxAEV/QAEiEDArBnps+M9LDURrfuDVoWYz7K/VTeli
-         cE70AvCQX3EJPH5SJGyoosAKCOCG3NL8rTLrFsNGqscz2ut4PvM/DT4gr0LZZ9hmvLmO
-         kRVrkkfDGKX90/e7ioXLP8mqy7m70e9GE5+2c=
+        d=chromium.org; s=google; t=1793744595; x=1794349395; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mtVdxBGNK8oHTFOTDJC4ciOsojwKNf2YHH+u+jkXh8g=;
+        b=WI9KvTykKKOoDsf+ULZVClTlXCFT12vjawevA+tAVPFVxcjA1lb8GA6wFRQW4E1YAr
+         nJCH3oRGJdIu6cd4ZfETInJ2MLLkJd0O1DpjV+Ze4JrRG64qzaYEzNVSOJm+Jw6j0piB
+         C0T1yd1lHdmh5L3mfpTIiS8wzn1qQTQewEp4g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793744584; x=1794349384;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=THF8Gn9zKSMxI2CX7V8w53BXwvAHKb6Wu9y7FvwOfiw=;
-        b=TVMd3irDwfa/WHfr2vW9KKJ1Cv0O1rj5D5oELnhy14jIIXcsQuxUnbspeMvqlgHjoI
-         rfzspJQap32n715R4Cn2w+5pzgeRX289LO+cmvVQeC87V2Txi1S7HhrdngCuBmXacKzS
-         Ztu2xgEabyQWIoDfl7MKzyDg2rxZrep8ZvCsXF4NrL1F8y6eqboX9/Iij0LMzXdRb6gR
-         pWoDcz/3XN+yo5lEBH9elaUrTyf8DOCsv6diIdP7T3WvJUpVBcpwwik3VnluiMCeh5ks
-         FbNvLgX3ktYPxU+YNQBeEt8odgu4QknIIGWWDBLj8hJmrq3lo0ezAzajZZJGwHqd4t49
-         4y4A==
-X-Forwarded-Encrypted: i=1; AKwUvBwOxX5s9LwM+GiG8rCt7kheHlHRq8aKtnL8i+NTeIFjBQ3/OGaaQiKqQoCe/tA+Jw84q6aYyRDN1i/xUdo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qnZOg9c0v0DSaQpIfMQR+3X15Hbos4AstxG837TPFAypJobiL
-	b9E0MFHvyIUuwOquoizvOn43FbA4WE7OFm7S9+oREMR7xt6SKTUxBm28ynR/uGJQ0g==
-X-Gm-Gg: AYBFou0kpSYvSM67YPB/qmoUqGZTvElsPV5r5Gp34DitO6bheQTwl1v97QIUTa46vxl
-	YxrTeC4XBvYSGuxSzORPlmbztBEzm+/Fi9dLAmauQ5GLkSHsOk5tybsn33Lr8tCkgsZvHp0/DU+
-	eOTGHl3KamH9u6f9L2GRC+l20K0ZDVc33K2LQ5ZiOlz8M277KnpBbbU7/8u7O4iDTOCQCQRpGdz
-	9vaIIBxsDid+dvvAolXIulHocuxDAl/7zZFY05hxLs/CIl1cfU8BB0g90C7G4+Xwpv5iB/jzQiy
-	z1WqlwlA+tHp0sf5FckmG5q6nQspuA/ULWSmF/ib/MpGun7MwDt2o/sK/I/nknsRiWm3UqF1nzB
-	2WWLE6CaXjA/Ppt3NSBWYpjoUmc63M3gWRBDed50KwvKGJqYqrjCdrN+u7Gv+HgMBjUN/LefFGj
-	2euG4aVkzyJszMdSlBQJ8iCCrvDVLJbMEPr3BmBALAJc5gpv+luCYW6bxPjg3sLmrI+FDba//ZB
-	sL3JIq69uDECVSZOTlI5HhEa1RwAafyZ20eQwPHRFKco5jNcn5ssB/hu7o2LP0jain2mf+2LUwS
-	sgUh9MVj6rHGaN2rVzV5Yx6uPA0t7TKaS2h/ozwLvHBG/netc0AAlO3Q+8hI8JkOzp7Jra1t4KB
-	UYR1thRh1GA6avg==
-X-Received: by 2002:a05:693c:69c9:b0:36a:13df:749d with SMTP id 5a478bee46e88-36a423b3dffmr18134134eec.24.1793744583878;
-        Tue, 03 Nov 2026 14:23:03 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793744595; x=1794349395;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mtVdxBGNK8oHTFOTDJC4ciOsojwKNf2YHH+u+jkXh8g=;
+        b=zE29Z3tf2Jd/b2kf25Af6lk3zxG/6qjlU5eAzXlIjzjGNav49MStuGT7Jlb0c2btcg
+         gpUMQPEKVgQveZDUj9CvKscitgstj4NL4DQLQOJqArw415FcJ//+7XC7EWXcnpQBXZvc
+         5fsr8DokdZF/K/nI1RbjlO1eBJnjgzPmZhIwleMCGWU3nl1pR1eTd8Jjw2Q/hyAw/uAH
+         dBKcLPjZcxgUaUeuRsRzboAEyQ3nYsSNlquKpgVX22ZMHv1leTF2ruq2TzMU2/3t1Nq2
+         DynPAhtt6A3mjyp6Dkg/cosVhKq3Y+K++oU9nbYDSJlKZffStQ+4HIOhlG01MTaQOgyZ
+         ruBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz3noSKfzMwlVCXXrjbi7v73QptLE797+AFeq292JNypphkNheLUUoKtQHVs+0Kx3FBLTT7/qDz0LMgSFM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hKrm8sFVpv5M8CdY4+eT3aoQGa9oGSbIL4da2Ke670ZANwyer
+	D5/3RF2IBvkJG4XYtXIdEcVzO4I64qCz4q2F9K6erPdnsJk4VfFtKVxjchvSC/uS2Q==
+X-Gm-Gg: AYBFou1ULFgYLA0kqj64eUNkEKFmI5s4/LhzRf1Bwab4Qnb9zOYXX2rGFydcN/ZqrId
+	SxsPVYqTDj5oOtDyPHclnKwrORzG+P+mNkNzDt+PFb7MPxJqOIu/xbLav9tiY9erF7thV95hX7P
+	JZGvJ/+jBv+JeW7oCA6OZhCwEH58AjJn3vX0yXH45NknoVCTVX1SggYoj1WCWXwuWDZ/ID2SOPk
+	VGA9NA7Th5AAk27z5X88rwVqpSHLFpExVosFK39X3usGrVQnciumO13TMeKtbdWazJF3nc/PjTW
+	1WMS+pFt+lu2f42n3IQHWiHZiQkVxwyrh3/CcZZRFCM+mpucU+efmE11PUYsle6Bqqfxpw26UwA
+	sChu1C5TdZcF9mj3RduXg7jk6fvI4/vkXnGnuTT9b53+b5Esv+i5DlfTGuSi5Tu0kvMVsnizAMK
+	CMJ0Y6EIS74sTjcCmDtibxX6v/5ND4vU5+9W7cFOhodf8N+2rWAXD8IWzWztDd5RwqvzV46Nw6U
+	h5OjWo4IAtUzSHlmY04LojUyxcKFOY0QeAKpf99MqHoVC2MJnB3foJQvieauAfsrcBGtYd7WOmS
+	5Okza/UFgtJRLutnS+iGqeHiwjPa79KprSXb36IOzg8wCeasvut6UaacW3A9+Q0BPtPR
+X-Received: by 2002:a05:7022:e27:b0:14d:cb67:afc4 with SMTP id a92af1059eb24-1ac5e8e1e4bmr29270005c88.41.1793744595232;
+        Tue, 03 Nov 2026 14:23:15 -0800 (PST)
 Received: from localhost ([2a00:79e0:2e7c:8:ab71:b3df:693a:fbf2])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-36ca38a67edsm988222eec.8.2026.11.03.14.23.01
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b245b8822fsm2254589c88.2.2026.11.03.14.23.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 14:23:02 -0800 (PST)
+        Tue, 03 Nov 2026 14:23:14 -0800 (PST)
 From: Brian Norris <briannorris@chromium.org>
 To: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Fabrice Gasnier <fabrice.gasnier@st.com>,
@@ -90,10 +90,12 @@ Cc: Fabrice Gasnier <fabrice.gasnier@st.com>,
 	Alexandre Torgue <alexandre.torgue@foss.st.com>,
 	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH v2 1/5] PM: runtime: Only queue an idle check for RPM-linked suppliers (part 2)
-Date: Tue,  3 Nov 2026 14:14:39 -0800
-Message-ID: <20261103141442.v2.1.If69ddc515c2e9fd4338441e87688b9d690d2ef36@changeid>
+	Brian Norris <briannorris@chromium.org>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH v2 5/5] iio: adc: stm32-adc: Drop runtime_idle()
+Date: Tue,  3 Nov 2026 14:14:43 -0800
+Message-ID: <20261103141442.v2.5.Ica1e32ae51d7975844386684d2b6a097f3ca9122@changeid>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 In-Reply-To: <20261103221717.3840215-1-briannorris@chromium.org>
 References: <20261103221717.3840215-1-briannorris@chromium.org>
@@ -106,38 +108,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit be5755f023e7 ("PM: runtime: Only queue an idle check for
-RPM-linked suppliers") was incomplete. There are two other cases where
-we perform idle checks on non-DL_FLAG_PM_RUNTIME suppliers -- in
-pm_runtime_set_suspended(), and in cases where we failed to resume
-suppliers.
+This runtime_idle() implementation was added in commit c537d3457542 ("iio:
+adc: stm32-adc: fix runtime autosuspend delay when slow polling"), to work
+around a suboptimal behavior in the runtime PM core. It should no longer
+be necessary as of "PM: runtime: Propagate last_busy from dependent to
+dependency".
 
-Fixes: 5244f5e2d801 ("PM: runtime: Defer suspending suppliers")
 Signed-off-by: Brian Norris <briannorris@chromium.org>
+Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
-Noticed while touching this function in subsequent work.
+I do not have these devices to test. I have tested other drivers, and I've
+verified this behavior in unit tests as well.
 
 (no changes since v1)
 
- drivers/base/power/runtime.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/iio/adc/stm32-adc-core.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
-index 304a2b123420..9d3508d9b4a2 100644
---- a/drivers/base/power/runtime.c
-+++ b/drivers/base/power/runtime.c
-@@ -343,6 +343,9 @@ static void __rpm_put_suppliers(struct device *dev, bool try_to_suspend)
+diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+index c409edd3a827..0193db7a2a7f 100644
+--- a/drivers/iio/adc/stm32-adc-core.c
++++ b/drivers/iio/adc/stm32-adc-core.c
+@@ -873,17 +873,10 @@ static int stm32_adc_core_runtime_resume(struct device *dev)
+ 	return stm32_adc_core_hw_start(dev);
+ }
  
- 	list_for_each_entry_rcu(link, &dev->links.suppliers, c_node,
- 				device_links_read_lock_held()) {
-+		if (!device_link_test(link, DL_FLAG_PM_RUNTIME))
-+			continue;
-+
- 		pm_runtime_release_supplier(link);
- 		if (try_to_suspend)
- 			pm_request_idle(link->supplier);
+-static int stm32_adc_core_runtime_idle(struct device *dev)
+-{
+-	pm_runtime_mark_last_busy(dev);
+-
+-	return 0;
+-}
+-
+ static DEFINE_RUNTIME_DEV_PM_OPS(stm32_adc_core_pm_ops,
+ 				stm32_adc_core_runtime_suspend,
+ 				stm32_adc_core_runtime_resume,
+-				stm32_adc_core_runtime_idle);
++				NULL);
+ 
+ static const struct stm32_adc_priv_cfg stm32f4_adc_priv_cfg = {
+ 	.regs = &stm32f4_adc_common_regs,
 -- 
 2.56.0.398.g882cbad275-goog
 
