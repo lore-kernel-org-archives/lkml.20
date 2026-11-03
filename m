@@ -1,76 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.71.154.88
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698709;
-	b=ZQ6amf9Qn1Df5lvItuQaPx2BSWOqUrskwefjk+PyY7C0fIAnL2vqxhlpwt+qLFP765uw
-	 65WUNFt2P4dUpvnia/R8BNg2Mp9mO2Peq5PF3Iy8yN3lO8M0EWPZmVrwMeEm6mLzKY9TV
-	 gz4zTa7gPFiPfSH6OE1IMRjsjz1SceUbPanL6Ws7eoPuqVVJ0FvhbfN7BXrQEeAfuUVRf
-	 xApNdw7WL61RqZ4cX8znMDZiK/DpinaNz8wdgFLOD+NkniXll3grSzL1remt3EnKWy7Eh
-	 azjr887Qr1/kVrknNUApFDtSemEVJJoo2aM1sLZyJJQVAmWZu1MgTS3/2TjgZshZv0Q==
+	t=1793698735;
+	b=tCRHxbfuxZxGcifrIFTjEYiNrM86MpkBcDuVzGcWvkRPYlVUKTu347ZyXwnAlERQXp+r
+	 8nFFFH/cQl2fuZuWmGZWfqyrfcLJYsm95qgps5TJlR2XFnm/lpbJjhZAwY+TQ8FYt+k/f
+	 3BLPZhGtmInXQrWhRJ88n29+gpdyyF0QNoPhTxNFRgQRzx2MU2LVB4hWv5CrIt3tN1rHb
+	 bKLTbrLmbSPJfZ5DpEVqwKrNDa5DIrpdj+nY1i38cu92bTRoh1ZiZCkHrZDi4H6FXDWdK
+	 e7nsIIi40ea7Gwq0qIaSZknGaAXO5zaGv3/Gsuj9SnfKdQkuqewGf9ry0BaM4vm2pzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698709;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
-	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=KVy14myF4mRZ5Al3DN/5JiuYBIeU6oA6zQbK4opNW+c=;
-	b=5PJG7nUv+4QDl4S6pTEy8V4kAWOq+0BUgb48VoxvPVQxrgoc/oo9v7qVh3x/MDva6C+k
-	 2l86jlaL/r9XaUvyFRVn/y05dGtJjFOpjaSMpYfrcXrOfF+2l5toYRLu6IksQruWbm2Sz
-	 chBn3TUeY2RfXlTLVM+O1QFOw/SuxOUOPxGQuVCj9Y24VDVb7Bm33awB70e8yixWEJ+Cd
-	 hu6GTAhenaOQP2WJajGAFRsuX9Cln58yECby91RQvydy+EZEWF/5nW4eN0AEyId2PGUNb
-	 W9FPUy83gRRId/iIk7Y/KP7zg+1WVuDGVQEPMMfbEgYNvlilJI8iZMMBVglrTU1dLvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698735;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:X-CSE-ConnectionGUID:X-CSE-MsgGUID:IronPort-SDR:Received:
+	 X-CSE-ConnectionGUID:X-CSE-MsgGUID:SanDiskIronportException:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Es+iUNXb2N93UImwfSO2oOUm0ra/6NQPCq5iI5VuFgY=;
+	b=D6PuayNA5mb7sDrSJ3At7MFmQ8VzR6oCe9QITd9QBqlSFLBIb9Oe+++X3MkB85g2RKDL
+	 n6KDLzadboVJaUwv11OjkU1IsjtKtHkKMwTMSbtKQTDoTIcC5O+unDccBWs6ClhgUuU2S
+	 fiGM13bii+CbgUvQmDGuOMWR+nWcKyRr554Ugn+pmGHmj0T5tfKX1cHYRy5NpCga027wH
+	 s7mqE80F90UaKCo12MVx2VFcoM+Z10kG7PYaM7dJcy0SaaXI7sEfDklOFVMDnhs+2p/IV
+	 UrolCFJ29VGXQTV4pvdHCSJOU3G8XFJOXyU08wvnWwRqvjz5jb4Cy4L0D7Tfk9JY6/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=py97u9mN;
-	arc=none smtp.remote-ip=203.254.224.33
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E6A606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:38:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E6A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	dmarc=pass header.from=sandisk.com;
+	spf=pass smtp.mailfrom=sandisk.com;
+	dkim=pass header.d=sandisk.com header.i=@sandisk.com header.a=rsa-sha256 header.s=dkimnew.sandisk.com header.b=DFmjdy2Q;
+	arc=none smtp.remote-ip=216.71.154.88
+Received: from esa.hc6817-7.iphmx.com (esa.hc6817-7.iphmx.com [216.71.154.88])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A53C1606A324;
+	Tue,  3 Nov 2026 09:38:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A53C1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sandisk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sandisk.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=py97u9mN
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261103093826epoutp03100839addd0f37b8776e31d5361b7447~kf3hSLXRG1688716887epoutp03D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:38:26 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261103093826epoutp03100839addd0f37b8776e31d5361b7447~kf3hSLXRG1688716887epoutp03D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793698706;
-	bh=KVy14myF4mRZ5Al3DN/5JiuYBIeU6oA6zQbK4opNW+c=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=py97u9mNO6VBk7vjbRqfBvdtYo6uc8imEA2TTAB4bpUWjdFjwam4Fo3DL531GCjkI
-	 9uXCHZBzdXlKzkpMHb6odhVmQ2V7ViRMySsluf9HJN2J6hXsmApQj8X/02ijGg7V5b
-	 oOne+pFeZ1pZ1+n7tB5OtGbHCCWk7NlN5YE6z8TA=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261103093826epcas2p255c10a6e087d5568f27af306550c57f0~kf3g-Pn670701907019epcas2p2V;
-	Tue,  3 Nov 2026 09:38:26 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.211]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4jJk5s4ybQz6B9m4; Tue,  3 Nov
-	2026 09:38:25 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261103093825epcas2p3d741e7c61c82ea89cbd63299b853732d~kf3gN0RcN2578925789epcas2p3U;
-	Tue,  3 Nov 2026 09:38:25 +0000 (GMT)
-Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103093825epsmtip1091e8620de6999e5bafe61133514c023~kf3gHwW5c0972309723epsmtip14;
-	Tue,  3 Nov 2026 09:38:25 +0000 (GMT)
-From: HOYOUNG SEO <hy50.seo@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bvanassche@acm.org, mkp@kernel.org, martin.petersen@oracle.com,
-	stanleyjhu@google.com, alim.akhtar@samsung.com, kwangwon.min@samsung.com,
-	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Subject: Re: [PATCH v3 0/2] scsi: ufs: core: Avoid redundant link recovery
- during system resume
-Date: Tue,  3 Nov 2026 18:33:58 +0900
-Message-Id: <20261103093358.1835628-1-hy50.seo@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1792989286.git.hy50.seo@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sandisk.com header.i=@sandisk.com header.a=rsa-sha256 header.s=dkimnew.sandisk.com header.b=DFmjdy2Q
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=sandisk.com; i=@sandisk.com; q=dns/txt;
+  s=dkimnew.sandisk.com; t=1793698734; x=1825234734;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=6gILW4913DJmhe6Xf2zy1YvOrI0lTdtkeeHEK4vy7j4=;
+  b=DFmjdy2Qbk72YHzWZLB8sYNaSqw+RAp2XMQE9VBPRK6BYkTEqYLfeUQf
+   cNyFKUn9apeVpmAW7k34PbD4rG4YhsaaBcQZ5jU6nx0afkm1jDa/n5iB9
+   ZZgn6gD8+TBVi6oRl2ErQ3nqjOKzaZmwNLO3zdfhDAxQXih2WTB94n3PG
+   voqIzvsZaEJBXQ9yaiEIoEOD6N0c5zj9uvNQQ1nrNLMYAYUHs+cAwocVB
+   Iq0TUI4yUxRMIeebht0U8fUmgU9TmF45KWHsqxmiyI+LTCZeR3eLW04Bq
+   gqtnzqceN9U7O1Frxm4vyLS+S2bQnw0uRWu8EMMSqe0ue1SsFYKEudl9p
+   g==;
+X-CSE-ConnectionGUID: N1bTh70GRK+punBLalyGAw==
+X-CSE-MsgGUID: TeQFgXW1Q62O82kX2t+5TQ==
+Received: from unknown (HELO uls-op-esaep03.corp.sandisk.com) ([129.253.192.43])
+  by ob1.hc6817-7.iphmx.com with ESMTP; 03 Nov 2026 01:38:48 -0800
+X-CSE-ConnectionGUID: 6XPYSXlnQ3GkBPsp5aRAJw==
+X-CSE-MsgGUID: CNK+0/lGTjG+j9BqRxRwFw==
+IronPort-SDR: 6ae9aba8_J3mApw+WszOCRAdBjOR5BVqsNJeAwf9wjdY4ATMp+lQjHJe
+ AZNDDLNqcb2J4CKrD2PQy9FOFSgBWx+J317EUow==
+Received: from unknown (HELO uls-op-esaip04.corp.sandisk.com) ([10.15.0.10])
+  by uls-op-esaep03.corp.sandisk.com with ESMTP; 03 Nov 2026 01:38:48 -0800
+X-CSE-ConnectionGUID: AqC0UPcGQtuzuCT5q0QjBw==
+X-CSE-MsgGUID: f0yvLvy8TYWlKwC8Ag5LTQ==
+SanDiskIronportException: Internal
+Received: from ulssdxvpxsnip.corp.sandisk.com (HELO WDAP-ez2C89klLd.corp.sandisk.com) ([10.9.34.160])
+  by uls-op-esaip04.corp.sandisk.com with ESMTP; 03 Nov 2026 01:38:44 -0800
+From: Arthur Simchaev <arthur.simchaev@sandisk.com>
+To: Daniel Gomez <da.gomez@kernel.org>
+Cc: Jens Axboe <axboe@kernel.dk>,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	Andres Freund <andres@anarazel.de>,
+	Pankaj Raghav <pankaj.raghav@linux.dev>,
+	GOST <gost.dev@samsung.com>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Avi.Shchislowski@sandisk.com,
+	Alex.Lemberg@sandisk.com
+Subject: Re: [PATCH RFC 0/2] Support for Multiple Atomicity Mode
+Date: Tue,  3 Nov 2026 11:38:39 +0200
+Message-ID: <20261103093839.203841-1-arthur.simchaev@sandisk.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260929-nvme-mam-v1-0-48dcbe79cece@samsung.com>
+References: <20260929-nvme-mam-v1-0-48dcbe79cece@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,40 +91,49 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261103093825epcas2p3d741e7c61c82ea89cbd63299b853732d
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261103093825epcas2p3d741e7c61c82ea89cbd63299b853732d
-References: <cover.1792989286.git.hy50.seo@samsung.com>
-	<CGME20261103093825epcas2p3d741e7c61c82ea89cbd63299b853732d@epcas2p3.samsung.com>
 
-Hi Bart, Peter, Stanley, Bean,
+On Tue, Sep 29, 2026 at 01:17:10PM +0200, Daniel Gomez wrote:
+> While I think this small feature is worth having (hence this RFC)
+> for users sending atomic write commands that are contiguous, the
+> question I'd also like to discuss really is how to also expose clear
+> MAM semantics to userspace for users who can send larger commands,
+> so they avoid syscall overhead [2] and splitting, and still get the
+> atomic guarantees in the LBA subranges. RWF_ATOMIC currently exposes
+> SAM semantics, but I think MAM may be confusing for users, as it's not
+> simply a larger atomic write but an atomic carrier. Thoughts? What can
+> work best to leverage MAM from userspace without conflicting with SAM?
 
-A gentle ping on this series. It fixes a small race during system
-resume: if a LINERESET is reported and the hibern8 exit fails in
-__ufshcd_wl_resume(), both ufshcd_err_handler() (through its early
-pm_op_in_progress path) and __ufshcd_wl_resume() call
-ufshcd_link_recovery(), and nothing serializes the two.
+Hi Daniel,
 
-  1/2 makes ufshcd_link_recovery() clear the saved errors the way
-      ufshcd_reset_and_restore() already does, so the error handler
-      does not act on errors that have already been recovered.
+I agree that RWF_ATOMIC should keep its current meaning: the whole write is
+untorn. Letting it accept larger writes on MAM devices would silently weaken
+that guarantee for existing users.
 
-  2/2 makes the error handler wait for host_sem instead of recovering
-      the link early when hba->is_sys_suspended is set. The early path
-      added by commit f966e02ae521 is kept for runtime PM, where
-      host_sem is not held.
+If we want userspace to send one large write with per-piece guarantees, I would
+keep RWF_ATOMIC unchanged and add a separate opt-in flag that describes the
+guarantee rather than the device mode, for example (names are placeholders):
 
-Since v2 only the commit message of 2/2 changed, following the Sashiko
-review. Sashiko did not report any issues on v3.
+  pwritev2(fd, iov, 1, pos, RWF_ATOMIC_CHUNKED);
 
-Any review or comment would be appreciated, especially on 2/2 and the
-system PM vs. runtime PM difference.
+  - statx reports a granule G (e.g. stx_atomic_write_chunk)
+  - the range is split at file offsets that are multiples of G
+  - each piece is untorn; nothing is guaranteed across pieces
 
-Thanks,
-Hoyoung
+If G is tied to atomic_write_unit_max, a G-aligned piece never crosses an atomic
+boundary, because the block layer already requires the boundary to be a power of
+two no smaller than unit_max. A SAM device could then implement the flag with
+one atomic bio per piece, and MAM would only be an optimisation underneath. Open
+questions would be the semantics of partial completion and errors, and how
+filesystems keep each piece mapped to one contiguous extent.
+
+Before adding a new flag, though: with this series your fio example (io_uring,
+iodepth_batch_submit=4) already sends four 16k RWF_ATOMIC writes as one 64k
+command, so a single large write would only save per-I/O work in the kernel, not
+device commands. I understand real MAM hardware may not be available, but that
+cost can be estimated without it, e.g. by comparing host CPU usage of a batch of
+small O_DIRECT writes against one large write of the same total size on any NVMe
+device. Even a relative number (e.g. % CPU per GB written) would show whether
+the remaining overhead justifies new uAPI.
+
+Regards,
+Arthur
