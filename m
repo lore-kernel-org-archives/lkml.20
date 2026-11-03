@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793673934;
-	b=0k3n+sPDBDf7lVsa52KWjJFuF/4sTgKGI62jG4DOYbpBOyFl2iFldScQjFwoUZ/pn0QQ
-	 uwiylD4NEEMpd+XY/2YULTLFvhgyPcYQF04T3ADFo1bHif1UOyHVA3z0fIZPArUDYY5Hp
-	 pZiDu+dZKDH2pQY4Lzv7EjRs7PikHt0ANNQdvxTCarJt60/ZsDtOufayrDrQw50TkKmub
-	 EofnNTLUV5O37/UgMBUiUb5vkc9nua7rQbbS+DSx+m+8Aa1SagOEuC/gd6aGPmw802amo
-	 PO+uUXdizuebJpaZMZdBvWfQXev6qGm9FcLvT6ipFr3MLilsf3ZXDExN9A3CMryZVkg==
+	t=1793673936;
+	b=WGrQT9NeE81kDRnduAObMm8avfUieVLkQNEH0aNXg0nlib8umZiOik4THG5p71gRPeZ3
+	 Uqw6wyUhOWVwN3TY5A/wbQGUamHsqFWplT8SBSsKQx7A6SQwd7qqOHHM8QGjxxOMFHECf
+	 bOQzoZpKUDxqsZMcvJQqtu+RhrRi/pinAvmPw8KMmRpLmju6VIqlEi7Scw3Fylxe6mp8w
+	 wZO6wnotiv3aH17orhmKfmeNh0qcD2lh5vl93H3+atKmNffKg/ADH/InVKTp81fpS9MKw
+	 stYOP0mClY7m2qLwe2+rVaxl63qZxJ6ep8LH+J9bG05Gu+7xkB+44MsIUaV8Q1m2DWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673934;
-	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=+zPkZYhf8I5YDOQlro5MWsg827UE/O2zX0lyYambHfE=;
-	b=s8/ceuBJqdEnoz6ahww0OE/OBdo5/LJ0IAL2j5TfdYQVY8rDJBT+02s4LI/CaxTP4smZ
-	 uM87TpraZSFshwqZTeyLZLWJR58VnFxfwpoaWOQqWaMyNfIjFlRKoaSZoHUwWfj4uidnH
-	 MNmcUQ/LcOs+Z/X7NjD8os/0ASUrYzsjimvipdDAGq1H6cV5MH+fk0NldvvkxlueMbJCR
-	 KboyynK3INZEIYNciNLgzkkl2gLbU+1JFknOfdYFIOGnY4jxTT6eENKnCnI417h2yRpAZ
-	 Zwy2ZJ+K0Vkn4S2MAWD6NzjZ5RwhCOnCOXKjTnHsK1fYbEumFaTscLpPjJiVPejJhLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673936;
+	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=60sIn705N//4nJlSER2bDtx2BvMPrluJneFVG1+nFIg=;
+	b=ZmmfQ/X3F0Tn3IwEt7kBmm97VyGYlA2wwmY72/t4tXNP+AtbYVcsXHJPPdTylyI0aZfG
+	 zm50fqd/nfM6wYXR0G3RhB4kl/HIyD51Yp9t750LdYjNYwR94mYQvHyyLe1P2DVzKtMj0
+	 XmIJ/Lknt0v0s5bdvRtDHwnaeFRmcjd90yi4TNsPiEMglfMA5bBPPB9h7urRV61UQruXD
+	 joCD08aq+iZ85px3XtDUNugQ88vxp7NR0yx64m7pokfaT8jTNh1G8/Qa4JeMWVkKmNv/p
+	 pObckqOaN0pPS0tUJKr7V/PVX0ELUJcDDrI49ZMYSj9bY3PPY6k4vHThKRuKgnszS5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.pku.edu.cn;
 	spf=pass smtp.mailfrom=stu.pku.edu.cn;
-	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=MpxhIAAP;
+	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=IjnWpgcu;
 	arc=none smtp.remote-ip=101.71.155.101
 Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB4C606A33A;
-	Tue,  3 Nov 2026 02:45:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EB4C606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E583C606D802;
+	Tue,  3 Nov 2026 02:45:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E583C606D802
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=MpxhIAAP
+	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=IjnWpgcu
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [IPV6:2409:8a00:3c11:dbc0:2581:8e:ca0f:59ab])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 534316a40;
-	Tue, 3 Nov 2026 10:45:24 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 534316a43;
+	Tue, 3 Nov 2026 10:45:26 +0800 (GMT+08:00)
 From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-To: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Beau Belgrave <beaub@linux.microsoft.com>, linux-kernel@vger.kernel.org
+To: Paulo Alcantara <pc@manguebit.org>, linux-cifs@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+ Bharath SM <bharathsm@microsoft.com>, Steve French <sfrench@us.ibm.com>,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
 Date: Tue, 03 Nov 2026 10:45:19 +0800
-Message-ID: <179367391951.8187.3972850166052361363@stu.pku.edu.cn>
-Subject: [PATCH v2 2/2] tracing/user_events: reject overflowing field offsets
-In-Reply-To: <179367391951.8187.1770217673912340635@stu.pku.edu.cn>
-References: <179367391951.8187.1770217673912340635@stu.pku.edu.cn>
+Message-ID: <179367391951.8187.8527449085887136856@stu.pku.edu.cn>
+Subject: [PATCH RESEND] cifs: bound invalid NTLMSSP signature diagnostic
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -57,80 +57,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-HM-Tid: 0aa19f4c10e303a2kunm153cdd6b10a863
+X-HM-Tid: 0aa19f4c15e803a2kunm153cdd6b10a86d
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSE1OVklISEJCS0pLGh5KTVYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQksfVk1KTh8YTx5OSUwfS1YeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMaS0tBSBhKSkEfGRhLQUlOQ0pBQx5BGBpLHUFOQh
 	oZWVdZFhoPEhUdFFlBWU9LSFVKS0hKTE1DVUpLS1VKQktLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=MpxhIAAPPye3I7+bilO1dGjODztgEe3IyL4yTxG2CL5/BKg5xo3OTRL/PqnAxBmQe1gTP7CM5Rl1CywHNX5Zf40IX0HIaegM2KplWEn1oXCTb1oiitFMi2M7tWAzond8cDSK+cAhTg5LiIMp8S6yx3ri/2z3suHB0sfcaEX/Jgc=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
-	bh=+zPkZYhf8I5YDOQlro5MWsg827UE/O2zX0lyYambHfE=;
+	b=IjnWpgcuabcnngov4hk4t6QNYu2DdHrh2LiVh/N8+92WBwbfI0Gcsa+9/htYlC3YXvIym1cAAN9xtdL8K/UpJ9V4Ysfa2qJZpswm/+uqbdH86ODJf0rtQG/J+vfT/JgUSAIB/4VZDgm0llsawQn2dpbgId6fI1JBrH7LaFM9HZU=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=60sIn705N//4nJlSER2bDtx2BvMPrluJneFVG1+nFIg=;
 	h=date:mime-version:subject:message-id:from;
 
-user_event_parse_field() accepts large structure sizes but accumulates
-field offsets in a u32 before storing them in signed int fields.  A
-declaration can wrap the recorded minimum event size while a fixed-width
-field retains an offset outside the accepted record.  A short write is
-then accepted and a field filter reads beyond the event buffer.
+The NTLMSSP Signature field is an eight-byte binary value and need not be
+NUL-terminated. decode_ntlmssp_challenge() prints it with %s on the
+signature-mismatch path, so the diagnostic can continue beyond the received
+blob until it encounters a zero byte.
 
 KASAN reports:
 
-  BUG: KASAN: slab-use-after-free in filter_match_preds
-  Read of size 8
-  filter_match_preds
-  trace_event_buffer_commit
-  user_event_ftrace
-  user_events_write_core
+  BUG: KASAN: slab-out-of-bounds in string
+  Read of size 1
+  string
+  vsnprintf
+  _printk
+  decode_ntlmssp_challenge
 
-Parse an explicit structure size into a u32, reject values greater than
-INT_MAX before converting them to int, and use checked addition for the
-resulting field offset.  This prevents both signed conversion and offset
-overflow from bypassing the downstream bounds checks.
+Print the fixed-width field with the bounded hexadecimal format.
 
-Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into ftrace")
+The patched kernel reaches the invalid-signature path and returns -EINVAL
+without a KASAN report.
+
+Fixes: 0b3cc858003b ("[CIFS] NTLMSSP reenabled after move from connect.c to sess.c")
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
 ---
- kernel/trace/trace_events_user.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ fs/smb/client/sess.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index 85938b45b7618..04eef4865490b 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -1207,6 +1207,7 @@ static int user_event_parse_field(char *field, struct user_event *user,
- {
- 	char *part, *type, *name;
- 	u32 depth = 0, saved_offset = *offset;
-+	u32 new_offset, struct_size;
- 	int len, size = -EINVAL;
- 	bool is_struct = false;
+diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
+index c1fc90726e2d1..00c9c99c6701a 100644
+--- a/fs/smb/client/sess.c
++++ b/fs/smb/client/sess.c
+@@ -666,7 +666,7 @@ int decode_ntlmssp_challenge(char *bcc_ptr, int blob_len,
+ 	}
  
-@@ -1267,8 +1268,11 @@ static int user_event_parse_field(char *field, struct user_event *user,
- 			if (!is_struct)
- 				return -EINVAL;
- 
--			if (kstrtou32(part, 10, &size))
-+			if (kstrtou32(part, 10, &struct_size))
- 				return -EINVAL;
-+			if (struct_size > INT_MAX)
-+				return -E2BIG;
-+			size = struct_size;
- 			break;
- 		default:
- 			return -EINVAL;
-@@ -1287,7 +1291,11 @@ static int user_event_parse_field(char *field, struct user_event *user,
- 	if (size < 0)
- 		return size;
- 
--	*offset = saved_offset + size;
-+	if (check_add_overflow(saved_offset, (u32)size, &new_offset) ||
-+	    new_offset > INT_MAX)
-+		return -E2BIG;
-+
-+	*offset = new_offset;
- 
- 	return user_event_add_field(user, type, name, saved_offset, size,
- 				    type[0] != 'u', FILTER_OTHER);
+ 	if (memcmp(pblob->Signature, "NTLMSSP", 8)) {
+-		cifs_dbg(VFS, "blob signature incorrect %s\n",
++		cifs_dbg(VFS, "blob signature incorrect %8phN\n",
+ 			 pblob->Signature);
+ 		return -EINVAL;
+ 	}
 -- 
 2.39.5 (Apple Git-154)
