@@ -1,97 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715064;
-	b=uS9S6flwiRYDiUe59sF4DyUtGEoJZJYhgiTb1d7uLRGaQsdLy+2b7j6uu7kEGSpMSUqT
-	 tgTEtFTgpXHKX+/9jyfWQOx6nq1nv5YaJgitJFraTa9GqszxqR6XRSzk1t6cH1N2X+PUA
-	 CgPUbLrTiooLe5U4fGG2svgmMmx/I5RenBdgL11m8KGq1Sn5/yK92M7aWNMBg568CbGjU
-	 nfr+Fr8T0+sYgk42kCOTk6GS0NBWvotGMDrJRK3uoYX92ahFJGismWNaFzwYg/Ab79IGL
-	 k5uQYJ1IeaQTQUCfqBtfCO+ibfo2P2nSICNqSzkwhyGY82hguUWNQ15iGWPftISZdsw==
+	t=1793715085;
+	b=rMEdOuDLtClkfBbtKANGo2il7gW9RmGktnh1kK+hjXqB2G4uF0HsVoAOZ1fyPupK+6OO
+	 cFiluQ8e+BBEtXk0vDbTQCha+oTDfrJQSuDIbSP0VRGP+PVA421TsfQoDruLBA1XwPXK7
+	 iYJ2wzeYdOflygru7cOmGlc+PcAYg03PMyQDqDghdL16+OX7StWV5x1mWtLnXLFdITevQ
+	 k+steoMxN741JGDLFl2uVEthH5d+pm1W6sZ7Y4SSJTFMTbYkph5O2Ysj3I9fQo/dV9w56
+	 SL5Z2k8Fno0T0Lxm9AJ2Oq8dgUfcg1T03GMn6cOsvS9MRYTRjM3OK0tGnZ9iSeQQDKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715064;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=ZenQCEo5AsVMWUXOpth4eQIpq69oE3D6EXJwyyUJZMc=;
-	b=eWN+2QD/cP2MD4HIKxzPzHJ+u27dMVducAfv6QBSMjtUuacFsVnQspbcm0VrKeriHf79
-	 J1fx/68PyKShuigvlpGbVCnpjReeDMaIpXZEgYlvGUDCvzG4FAqOTD1UJdP56ttovc1Wi
-	 8pOAUa0G+AqQsaY1eOaPSDmaCMQjcN+7HA6vFJOB9UuaX6NxtIbd+Uycl+oTt/pJJ/avw
-	 aAKeoZ6CMAX1fpOjgB1Uwd+jtbXTQL0bXVk19x10xyXUKHMcIQ3uXvnuP+dTLc1XD253F
-	 EeGiHSTbTWwQYxIM35Gn8Zh06qPFiSc+5stSiVtL2l3ehmhNh8iNQJaJsMfvH1QojJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715085;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=7bHBNa7IZPQ1QbCFBKTfyhdykfY5GVXRYYu9fxpW6k0=;
+	b=YChtjxaiVoq5CozgGivx3+IAf5uTPoOPTavxb1r7tGfF0HhOUfJ4ee2msazFesfkWTG7
+	 +EU8ALFP3q7zHHtxn3sEvn1IlD9LEf5AuCI3vUq1i8E57U7bOKo5ZE4pID6XHqka65UY3
+	 efhvd+8wIXNKqWFSkqWfT15BIUHlP1FVMVUa1puBuc898OXbOS87E1RF9KxtSC6Osgujj
+	 AbPlHiHyaOuzxqiH02UBdcshGd/SUgwGglsgsOVKTBMfpxj/IveN78L0LETO9tyMzGfri
+	 +qeX5oEBw/0H9g7D2WREI/y45D/I9ZzdH/Wy7cABt7XymExcTLP1n/Nk/aoyYeSGKsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VAQn8dM5;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEEF606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FEEF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NkZkFeO0;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E84E606A326;
+	Tue,  3 Nov 2026 14:11:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E84E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VAQn8dM5
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so35989965e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:11:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793715062; x=1794319862; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZenQCEo5AsVMWUXOpth4eQIpq69oE3D6EXJwyyUJZMc=;
-        b=VAQn8dM5nSnW0NdbGGU4rdqxR42DExYanqkdDwJWwC5TS+xaesLbGXFiJN3ARYzx80
-         un0Iz7VSigkaKDr3D4J6WtmfS2MxAsFBBFj7xk2NEHnIoB2rkJzYahnBjBvriUdiM+4v
-         hTEkQYK/QHJ5Pyud3eiyr8H2V+1EDwicj3G/OSsbhDdxGu3fJP2eSl0H2rR8/tEe/Jxl
-         E6NMM+rzXwHlcb1TpQi+CoSe9DkdS9rC0iKeZy26rxMVBTZdPLZX49q5/iVQH7OtlIRv
-         jCD7KSakypUEn8Jzf3DtaJOpQwqnVXGG5sleDYByz1Filidc/6gAGj//U0aaIuyIosDJ
-         W5yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793715062; x=1794319862;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZenQCEo5AsVMWUXOpth4eQIpq69oE3D6EXJwyyUJZMc=;
-        b=R5Gl4Vc8Nd5rmZIDRoy1gYSi/6Isc2vQsCSdtf8EAMZIFLGU5w9Q4Cl8jmxzYA55aE
-         3zlKnqZEcU1xbHgwjnpUb/Mj0L7dDlWWN/kH+ytsqyFPw6BaPYvlk5w8iJ/GN8+xculy
-         ewBN6tecOwf3BgH9c0TB73yJIkeZqq+qRIX+8gFnbvNKckALmAbmdguBfvvmayaokxhf
-         Ly27abGiol3vzILbGzG0czCe+6uYY5AZVtiff31hpB/fq/Cy8Y7nr3OG/b6z6k+pk1Gj
-         Hy0ZsHykNRjXN9YByzDT937eLeh2H4hc6X4K8bhTKdJPc3dOcZ7RnIdmmTwCnCSCpWlV
-         Y0Aw==
-X-Gm-Message-State: APuU4Z+TZEga2mvyT+lPZyET9TBCxdtgQrhxXo1cWBLTWlYOfMDmBDwH
-	XB4AzbLP9GAqDMOPufLhS+WeJHzDCLkym0PO8C0gfdpAJUt3ymsOzW73B968PjEvKWo=
-X-Gm-Gg: AYBFou1dVowVkLRKPtcmKyI/DKCbm9c/SCxgfei4GNJeb+69TTsHZX6IkafPU2VzMq8
-	CCJIPXmgANOnE/Ff0cIToz97ypzZYkuezCRTL+aLki2GLGhRILq3BZPurl3hSJaDwbwjf+zm7EO
-	NVYFpXBXvgvK/9G0IXoFCnWeHviI40QBpUs3BRhm6+KvOvkFZZrdp1FmROrvqJz2HzRdFy2rm7R
-	I6bLYu235jrrgQlK3+fSafn5eC4PmwBEfEsKxjT8HBvtkAHQouh4QnN+3dYy+YdoHs5raBWgpoK
-	h4VZdSLr9nUjAuKTyCyDeb45yUjECeaGFtMmG4hKngDhefkkjUgXhZasO9QEA/LRK01cr+Kqtg5
-	qpSVSZ1y4jVffyapDQU+BDEPDwj+N96ZEZYRlPU2xSIfQaXMz9DilYUk/ruF9+SeEk2YCIAMIhZ
-	DmsH/EXIi+rG1ojBMb3iTaTCdkMbW12h9ogsNKX9Rm3UeTbSp+FfVCr4so/r8LS00+NrPljZKah
-	fGJGeokWhP/cgSQuiz/wcimnvRivA1BYkwtLM1uiZYqIyG39HLQyG7Kim8jQjxnZizyWYtHBVTF
-	KdraYu2fUy8oYV1CJIaKmmjyYWOhtUeAX1mb08Hk/RlT1VwqUNo=
-X-Received: by 2002:a05:600c:3556:b0:4a7:6bc7:f778 with SMTP id 5b1f17b1804b1-4ac1932a355mr284608655e9.30.1793715062277;
-        Tue, 03 Nov 2026 06:11:02 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80eb1sm26842325f8f.34.2026.11.03.06.11.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:11:01 -0800 (PST)
-Date: Tue, 3 Nov 2026 15:10:59 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Kees Cook <kees@kernel.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tycho Andersen <tycho@tycho.pizza>,
-	Namhyung Kim <namhyung@kernel.org>
-Subject: Re: [PATCH v5 0/2] vsprintf: Don't leak pointers
-Message-ID: <aunrc5atzlyf0TM9@pathway.suse.cz>
-References: <20261023-vsprintf_kallsym-v5-0-57ff92187c1d@linutronix.de>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NkZkFeO0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9EF121595;
+	Tue,  3 Nov 2026 06:11:20 -0800 (PST)
+Received: from [10.0.130.179] (e127648.arm.com [10.0.130.179])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1BE533F628;
+	Tue,  3 Nov 2026 06:11:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793715083; bh=cTUlnYaVdFBoAxYfMF7MJUgAAOnfL0oBeTH+bYjAzpo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NkZkFeO0akRyTLNwYpkc05k85/oIyVY2rwFujd390pAi7PECXbGlDwkToLNBJmCnF
+	 ewONmP+x4adwpIZSqpvC1/D6wUTZXdAYjTWi0lcfbX1tn5AxKA+qze94Qkhq4D1J/p
+	 p0F3565Dn4xqLrgUvq3gn7mJatuVqxRGiK5i6u58=
+Message-ID: <f326f2c5-9012-41bf-a8da-b2fd9698b9fa@arm.com>
+Date: Tue, 3 Nov 2026 14:11:18 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,66 +53,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261023-vsprintf_kallsym-v5-0-57ff92187c1d@linutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/5] cpufreq: CPPC: Preserve OSPM-set registers across
+ hotplug and unload
+To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
+ viresh.kumar@linaro.org, pierre.gondois@arm.com, ionela.voinescu@arm.com,
+ zhenglifeng1@huawei.com, zhanjie9@hisilicon.com, lenb@kernel.org,
+ ray.huang@amd.com, mario.limonciello@amd.com, perry.yuan@amd.com,
+ kprateek.nayak@amd.com, maciej.wieczor-retman@intel.com,
+ pawel.chmielewski@intel.com, linux-pm@vger.kernel.org,
+ linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Cc: linux-tegra@vger.kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
+ vsethi@nvidia.com, ksitaraman@nvidia.com, sanjayc@nvidia.com,
+ mochs@nvidia.com, bbasu@nvidia.com
+References: <20261030092416.1993889-1-sumitg@nvidia.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261030092416.1993889-1-sumitg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri 2026-10-23 18:46:22, Sebastian Andrzej Siewior wrote:
-> It is possible to leak pointers via %ps without KALLSYMS enabled.
-> With KALLSYMS pointers can be leaked if they can not be resolved.
+On 10/30/26 09:24, Sumit Gupta wrote:
+> This series preserves the OSPM-set CPPC registers (Energy Performance
+> Preference, Autonomous Activity Window, Autonomous Selection - set via
+> sysfs) across CPU hotplug and suspend/resume. On driver unload, it puts
+> back the values they had before the driver loaded.
 > 
-> The tiny series has two patches, one for each issue.
-> I do follow the %p format instead of printing "(unknown)" since I care
-> more about getting it out of the way than the actual content (as long as
-> it is not the leaked pointer). Last time the discussion added the h:
-> prefix to a hashed pointer to identify it as such. I would like to keep
-> this part out of the series since there are few users that expect a
-> certain pointer width and adding two extra characters would break that
-> (we could strip the two 0 on 64bit but again, not related to this
-> problem here).
+> To do this, it keeps the CPPC cpufreq policy alive across CPU hotplug.
+> It also orders the performance-control writes in cppc_set_perf(), so
+> that restoring them after a platform reset never sends an invalid
+> request.
 > 
-> v4…v5: https://patch.msgid.link/20261019-vsprintf_kallsym-v4-0-ffd3c012d00c@linutronix.de
->  - Use %p instead snprintf_default_pointer(). This might recurse back to
->    vsnprintf() if used by '%ps' but it already did so. Suggested by Petr
->    Mladek.
+> Without online()/offline() callbacks, the core tears a policy down when
+> its last CPU goes offline and rebuilds it on the way back, re-reading the
+> CPPC capabilities each time. The values written to these registers can
+> be lost:
 > 
-> v3…v4: https://patch.msgid.link/20261015-vsprintf_kallsym-v3-0-c175c27f38b7@linutronix.de
->  - In symbol_string(), !CONFIG_KALLSYMS case, use the 'value' argument
->    instead 'ptr' to consider the '%pR' case. Noticed by lkp@intel.com.
->  - The kerneldoc for snprintf_default_pointer() must describe the 'len'
->    argument instead the not existing 'size'. Noticed by lkp@intel.com.
->  - sashiko noticed that the string isn't properly terminated if the
->    input buffer is too small.
+>  - Across CPU hotplug or suspend/resume: the platform may reset them
+>    while the CPU is offline or suspended.
+>  - On driver unload: the driver-written value is left in the register
+>    instead of returning to its pre-driver state.
 > 
-> v2…v3: https://lore.kernel.org/all/20260821152614.2202196-1-bigeasy@linutronix.de/
->  - Instead of "(unknown)" the hashed pointer is printed. This follows
->    the generic %p flow.
->  - In v2 I argued that it is better so print the actual pointer instead
->    hiding it for post-mortem analysis. After looking at some backtraces
->    with invalid pointers (not part of the kernel image) I realised the
->    the PC is already part of the register dump. There I changed it back
->    to what %p would do if it can't resolve a pointer. Again, following
->    %p flow so it can be overridden at boot.
+> Handle these with:
 > 
-> v1…v2: https://lore.kernel.org/all/20260814144854.746840-1-bigeasy@linutronix.de/
->  - For %ps and !KALLSYMS no_hash_pointers is used to decide if the
->    pointer should be written or not. This aligns with the %p policy.
->  - For %ps and KALLSYMS, unresolved pointer continue to be leaked. It
->    has been pointed out it might be useful to see them in backtraces/
->    crashes if the return address became invalid.
+>  - Patch 1: orders the Desired, MIN and MAX writes in cppc_set_perf(), so
+>    that the platform never sees an invalid request. Christian proposed
+>    it in [7], and this version adds fixes found in testing.
+>  - Patch 2: adds online()/offline() callbacks so the core keeps policy
+>    alive across CPU hotplug instead of tearing it down and rebuilding it.
+>  - Patch 3: makes the autonomous selection register helpers take a u64.
+>  - Patch 4: saves each register's firmware value at init() and each
+>    successful sysfs write as the requested value. offline() restores the
+>    firmware values, and online() reapplies the requested values.
+>  - Patch 5: extends the same restore and reapply to system
+>    suspend/resume.
 > 
-> ---
-> Sebastian Andrzej Siewior (2):
->       vsprintf: Don't leak pointers for %ps without KALLSYMS enabled
->       kallsyms: Don't leak pointers for unresolved symbols
+> v6[6] -> v7:
+>  - Patch 1:
+>    - clamp Desired into MIN and MAX instead of rejecting it. (Sashiko)
+>    - store_auto_select() updates its cache only on success. (Sashiko)
+>  - Patch 2:
+>    - exit() only frees the driver data. (Sashiko)
+>    - online() continues if enabling CPPC fails, as init() does.
+>  - Patch 4:
+>    - save the requested value on each successful sysfs write, instead
+>      of reading it in offline(). (Christian, Rafael [8])
+>    - init() fails if a firmware value cannot be read. (Christian)
+>    - split the auto_act_window store from perf_limited.
+>  - Patch 5:
+>    - suspend() no longer reads and saves the registers.
 > 
->  kernel/kallsyms.c | 2 +-
->  lib/vsprintf.c    | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> Christian Loehle (1):
+>   ACPI: CPPC: Order performance-control updates
+> 
+> Sumit Gupta (4):
+>   cpufreq: CPPC: Keep the policy across CPU hotplug
+>   ACPI: CPPC: Make autonomous selection helpers take a u64
+>   cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
+>   cpufreq: CPPC: Preserve OSPM-set registers across suspend/resume
+> 
+>  drivers/acpi/cppc_acpi.c       | 318 +++++++++++++++-----
+>  drivers/cpufreq/amd-pstate.c   |   2 +-
+>  drivers/cpufreq/cppc_cpufreq.c | 530 ++++++++++++++++++++++++++++++---
+>  include/acpi/cppc_acpi.h       |   9 +-
+>  4 files changed, 729 insertions(+), 130 deletions(-)
+> 
+> [1] v1: https://lore.kernel.org/lkml/20260623095403.3407436-1-sumitg@nvidia.com/
+> [2] v2: https://lore.kernel.org/lkml/20260716153820.2007095-1-sumitg@nvidia.com/
+> [3] v3: https://lore.kernel.org/lkml/20260724215937.3368276-1-sumitg@nvidia.com/
+> [4] v4: https://lore.kernel.org/lkml/20260806200857.601152-1-sumitg@nvidia.com/
+> [5] v5: https://lore.kernel.org/lkml/20260916103820.1760297-1-sumitg@nvidia.com/
+> [6] v6: https://lore.kernel.org/lkml/20261020121846.691218-1-sumitg@nvidia.com/
+> [7] https://lore.kernel.org/lkml/1be30b2b-e1e5-41ed-a0dc-0dd5ad3c47cd@arm.com/
+> [8] https://lore.kernel.org/linux-pm/CAJZ5v0iXip_5Ywk3EkrGL_u2w_hOcGKA1XvrubLPb3diWHx5Lw@mail.gmail.com/
+> 
 
-JFYI, the patchset has been committed into printk/linux.git,
-branch for-7.5-vsprintf-kallsyms.
-
-Best Regards,
-Petr
+My testing setup is far from perfect, but let's hope good enough:
+Tested on Orion O6, AmpereOne and Blackview Ryzen 5 7430U (for ACPI-CPPC only):
+- native and emulated CPPC hotplug, both auto-select modes
+- S3 on Blackview and s2idle on AmpereOne
+- amd-pstate active/passive/guided on Blackview.
+Didn't observe any violations in restore order with both native register and
+fake support (which silently drops requests before the register write).
+Tested-by: Christian Loehle <christian.loehle@arm.com>
