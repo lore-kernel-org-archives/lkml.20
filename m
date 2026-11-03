@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793747449;
-	b=VdFzAvhXUE0SpqfF3/FCN1IOGsPNDMV1riTgcITajVgLfprgwjwZTud4wcXOAheQZVIE
-	 C26quAwiimUEvK7LwpLYzCnqV3N6cNU3Phk+WniAv9n3dXRyQbgeFm7tPtUWkSCzN3yoB
-	 cU3heITGxjQYOr8juCFvW1qXhRNfoD4TXuYIXo5LkrUpyw2pEbob18tTrF39feIzcdfF9
-	 MM42u5AjISEHpfFAnFVWYPXV41mkMMdh84QsH3ImR4VAGGc19DcwIk/3pE9hxT9+nX03/
-	 IEJv9lMdWAVo6+abHO3vUXuAveZCmIP9790+1wBdESlT6fVFL5mA5Jy4SyOMlRTTbqw==
+	t=1793747462;
+	b=0sLQ6B1Khvd3cyK+bPyDanwEJj22gSQ3lI6q0WsV8dEIVlDMZ6CubYLXKG7v6xvYJ2I5
+	 nn5rYA+c5UjKsvcLZPmPQCQ0wBJAgCkfLOHohSS8AdOZtaWDHkiFjufgvaBkjMztHp8Wx
+	 6EnkDP1wd5bwo1yWsU/xELkSbIeCcXqTHj4ItSFImzzxpiuF7NKcVYHGhKAzVBsgGZ/gM
+	 n8SYuxiB7cLdihRFJoxqNOFULdtfiFx9ux6nKtejZnCdhrdklM0hKDp+896s+VWi+oj2w
+	 FCxajbFy1wxPit8naaaDEzxcx6R/RFH7dPHnMe/V/yQt7PttjHyGaecjZWe2Ly29EIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793747449;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793747462;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cxbutWg6i4wFHRwhf3YnsjzOn2o6h0xhLHPzCcEB5ls=;
-	b=St8hErC6+Aeh7e6a1aBcpPJ/lhax97Q6FcarBe54ccKZO+LtZJn6h3YQVqTB++qqMYdj
-	 QRqTMIlZlszaJ0h79aH/W/+LEDdHR32VqtMKRy53Jz4fVLJWcwxiP/eVQwwpIruAY/vNO
-	 W7zO/UZ1evRBqWqfPuGCgqyZrKlPQnxmwB/KEC+kuK0lzVeAKfUSLFKVpsA62ExWAuA5t
-	 hn18bsg7pfpf4hKTxz3yu7ULlc/kJDPq/IbJvIqaOhrzLbkSsfdLOtSfoCy0L7Br64wlO
-	 iUFIsVfQlui5OA4PUXfIT/Olj32K02ZHmx41CdAMY5CAWZiqyzqWyYxhIIiAjlBpWQQ==
+	bh=d4vGSbGLP5QmQjtMYL4YtbBW4RNR7njSMHoefQg68F8=;
+	b=I0/3x/suey5ctSpzUIwJg6E469iZMDKzP5R4xcJph3eADH6DsdnvLZEpKM4W2wFtEcql
+	 g7/zaOCVCHYvZBoqsaWgoRu9gaBMF6B0IbQaqQRsD1klB5pr4xrYGTYq+5nPkl+rgNkB8
+	 ZnWPK9hC2GK19tmtxuFnvb+EirIASL15m71mJqcRoVFwDTXfywuAsFHoWfDgJ1hletie3
+	 0QxgrSH6C/oVGEhsHPcQUPK1rSgN9oDdOmqJPWYVdMxJoyJ0DzVGwX49nNiQPcjLSLSdL
+	 XE6kJ//q1eYpEH0CnWWQhHct6OQE2gkx+qBocIeUnJu2Wz9b7PIX6OZw/tFUQkdCOEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eYoyLFzV;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=u+o0mys5;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76E19606A336;
-	Tue,  3 Nov 2026 23:10:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76E19606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 22AEE606D80C;
+	Tue,  3 Nov 2026 23:11:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22AEE606D80C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eYoyLFzV
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=u+o0mys5
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CABF91595;
-	Tue,  3 Nov 2026 15:10:39 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5C1661650;
+	Tue,  3 Nov 2026 15:10:58 -0800 (PST)
 Received: from e121740.manchester.arm.com (e121740.arm.com [10.33.8.69])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 44E503F673;
-	Tue,  3 Nov 2026 15:10:40 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C9AA13F673;
+	Tue,  3 Nov 2026 15:10:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793747442; bh=TODup+TmFI2DvvVOjdOpUsqzDIAgZx/aSSgK9KNsxJ4=;
+	t=1793747461; bh=gtZfVqpym8AznIcNX4e0EWJGiRVBh8hgiCGZKcj+Omg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=eYoyLFzVBjv8j5J3E0iZYWe8QzeWpJt9Em94PXylht4fNp2h3uoqQKvDTyZ9jgujG
-	 IyQzcPM3VsQfZLtlEAgei5ik5Y8QWAGu2cBhPDvRgNwHaSQ+G6jI59w54+uo2CqH1A
-	 ydTMghgljRQ5NJZ5KEC4nLfyW7n63Ho11otMXSTA=
+	b=u+o0mys5UwYS+xRie1FMPV+oD6wW76RtE1TXoQAw+3f3IGY4J28zZLui5+bRPf8PY
+	 +t6DnvQuCMma9aR1Av/fP9VrzF0WYZva5tcG3w2a4/ABnzSqtCZd/FfahO0sIeUItx
+	 wpNeLNIu90nYw2pGNEokKq+Q3ncRTHNgSmqhlnU4=
 From: Philip Radford <philip.radford@arm.com>
 To: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
@@ -59,9 +59,9 @@ Cc: sudeep.holla@arm.com,
 	d-gole@ti.com,
 	souvik.chakravarty@arm.com,
 	Philip Radford <philip.radford@arm.com>
-Subject: [PATCH v10 07/13] firmware: arm_scmi: Extend powercap report to include MAI
-Date: Tue,  3 Nov 2026 23:10:01 +0000
-Message-Id: <20261103231007.537082-8-philip.radford@arm.com>
+Subject: [PATCH v10 13/13] powercap: arm_scmi: Synthetic zone enable/disable
+Date: Tue,  3 Nov 2026 23:10:07 +0000
+Message-Id: <20261103231007.537082-14-philip.radford@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261103231007.537082-1-philip.radford@arm.com>
 References: <20261103231007.537082-1-philip.radford@arm.com>
@@ -76,105 +76,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extend scmi_powercap_meas_changed_report to include MAI change
-notifications.
+The synthetic instance root contols the same set of top-level SCMI domains
+already handled by the control-type enable/disable helpers previously
+introduced.
+
+Add synthetic zone enabled attribute to the existing per-instance helpers
+instead of duplicating the enable-state tracking and rollback logic.
 
 Signed-off-by: Philip Radford <philip.radford@arm.com>
 ---
- drivers/firmware/arm_scmi/powercap.c | 28 +++++++++++++++-------------
- include/linux/scmi_protocol.h        |  1 +
- 2 files changed, 16 insertions(+), 13 deletions(-)
+V9->V10
+- add synthetic-root enable helper with per-zone state snapshot and roolback
+- abort synthetic-root enables writes if any root child zone is not configurable
+- restore each changed child zone to its previous state on failure
+---
+ drivers/powercap/arm_scmi_powercap.c | 104 +++++++++++++++++++++++++++
+ 1 file changed, 104 insertions(+)
 
-diff --git a/drivers/firmware/arm_scmi/powercap.c b/drivers/firmware/arm_scmi/powercap.c
-index bcfc2d8c5abb..530e42e6a1fd 100644
---- a/drivers/firmware/arm_scmi/powercap.c
-+++ b/drivers/firmware/arm_scmi/powercap.c
-@@ -11,6 +11,7 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/scmi_protocol.h>
-+#include <linux/stddef.h>
+diff --git a/drivers/powercap/arm_scmi_powercap.c b/drivers/powercap/arm_scmi_powercap.c
+index d0255fd42007..0e86ad605189 100644
+--- a/drivers/powercap/arm_scmi_powercap.c
++++ b/drivers/powercap/arm_scmi_powercap.c
+@@ -489,10 +489,114 @@ static int instance_root_get_constraint(struct powercap_zone *pz, int cid, u64 *
+ 	return -EOPNOTSUPP;
+ }
  
- #include <trace/events/scmi.h>
- 
-@@ -21,6 +22,8 @@
- #define SCMI_PROTOCOL_SUPPORTED_VERSION		0x30000
- 
- #define CPL0	0
-+#define SZ_V3 (sizeof(struct scmi_powercap_meas_changed_notify_payld))
-+#define SZ_V2 (SZ_V3 - sizeof(__le32))
- 
- enum scmi_powercap_protocol_cmd {
- 	POWERCAP_DOMAIN_ATTRIBUTES = 0x3,
-@@ -164,6 +167,7 @@ struct scmi_powercap_meas_changed_notify_payld {
- 	__le32 agent_id;
- 	__le32 domain_id;
- 	__le32 power;
-+	__le32 mai;
- };
- 
- struct scmi_msg_powercap_cpc {
-@@ -1271,24 +1275,18 @@ static int scmi_powercap_notify(const struct scmi_protocol_handle *ph,
- 		struct scmi_msg_powercap_notify_thresh *notify;
- 
- 		/*
--		 * Note that we have to pick the most recently configured
--		 * thresholds to build a proper POWERCAP_MEASUREMENTS_NOTIFY
--		 * enable request and we fail, complaining, if no thresholds
--		 * were ever set, since this is an indication the API has been
--		 * used wrongly.
-+		 * Build the POWERCAP_MEASUREMENTS_NOTIFY enable request using the
-+		 * most recently configured thresholds.
-+		 *
-+		 * The absence of thresholds is not considered an error:
-+		 * notifications can still be generated to report MAI changes, even
-+		 * when low and high are set to zero.
- 		 */
- 		ret = scmi_powercap_measurements_threshold_get(ph, domain,
- 							       &low, &high);
- 		if (ret)
- 			return ret;
- 
--		if (enable && !low && !high) {
--			dev_err(ph->dev,
--				"Invalid Measurements Notify thresholds: %u/%u\n",
--				low, high);
--			return -EINVAL;
--		}
--
- 		ret = ph->xops->xfer_get_init(ph, message_id,
- 					      sizeof(*notify), 0, &t);
- 		if (ret)
-@@ -1406,13 +1404,17 @@ scmi_powercap_fill_custom_report(const struct scmi_protocol_handle *ph,
- 		const struct scmi_powercap_meas_changed_notify_payld *p = payld;
- 		struct scmi_powercap_meas_changed_report *r = report;
- 
--		if (sizeof(*p) != payld_sz)
-+		if (payld_sz != SZ_V2 && payld_sz != SZ_V3)
- 			break;
- 
- 		r->timestamp = timestamp;
- 		r->agent_id = le32_to_cpu(p->agent_id);
- 		r->domain_id = le32_to_cpu(p->domain_id);
- 		r->power = le32_to_cpu(p->power);
-+		r->mai = 0;
-+		if (payld_sz == SZ_V3 && PROTOCOL_REV_MAJOR(ph->version) >= 0x3)
-+			r->mai = le32_to_cpu(p->mai);
++static int scmi_powercap_set_root_children_enable_state(struct scmi_powercap_root *pr,
++							bool mode)
++{
++	struct scmi_powercap_zone_state *states;
++	struct scmi_powercap_zone *spz;
++	int num_zones = 0, nr_states = 0;
++	int i, ret = 0;
 +
- 		*src_id = r->domain_id;
- 		rep = r;
- 		break;
-diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
-index e41e972c7e4f..085ca1a1e3a7 100644
---- a/include/linux/scmi_protocol.h
-+++ b/include/linux/scmi_protocol.h
-@@ -1138,5 +1138,6 @@ struct scmi_powercap_meas_changed_report {
- 	unsigned int	agent_id;
- 	unsigned int	domain_id;
- 	unsigned int	power;
-+	unsigned int	mai;
++	for (i = 0; i < pr->num_zones; i++) {
++		spz = &pr->spzones[i];
++
++		if (scmi_powercap_is_control_type_child(spz))
++			num_zones++;
++	}
++
++	states = kcalloc(num_zones, sizeof(*states), GFP_KERNEL);
++	if (!states)
++		return -ENOMEM;
++
++	for (i = 0; i < pr->num_zones; i++) {
++		spz = &pr->spzones[i];
++
++		if (!scmi_powercap_is_control_type_child(spz))
++			continue;
++
++		if (!spz->info->cpli[0].cap_config) {
++			ret = -EOPNOTSUPP;
++			goto out_free;
++		}
++
++		states[nr_states].spz = spz;
++
++		ret = powercap_ops->cap_enable_get(spz->ph, spz->info->id,
++			&states[nr_states].prev_enabled);
++
++		if (ret)
++			goto out_free;
++
++		nr_states++;
++	}
++
++	for (i = 0; i < nr_states; i++) {
++		spz = states[i].spz;
++
++		if (states[i].prev_enabled == mode)
++			continue;
++
++		ret = powercap_ops->cap_enable_set(spz->ph, spz->info->id, mode);
++		if (ret)
++			goto revert;
++
++		states[i].changed = true;
++	}
++
++	pr->enabled = mode;
++	goto out_free;
++
++revert:
++	while (i--) {
++		spz = states[i].spz;
++
++		if (!states[i].changed)
++			continue;
++
++		powercap_ops->cap_enable_set(spz->ph, spz->info->id,
++			states[i].prev_enabled);
++	}
++
++out_free:
++	kfree(states);
++	return ret;
++}
++
++static int instance_root_set_enable(struct powercap_zone *pz, bool mode)
++{
++	struct scmi_powercap_root *pr = to_scmi_powercap_root(pz);
++	int ret;
++
++	mutex_lock(&scmi_powercap_roots_lock);
++	ret = scmi_powercap_set_root_children_enable_state(pr, mode);
++	mutex_unlock(&scmi_powercap_roots_lock);
++
++	return ret;
++}
++
++static int instance_root_get_enable(struct powercap_zone *pz, bool *mode)
++{
++	struct scmi_powercap_root *pr = to_scmi_powercap_root(pz);
++	int ret;
++
++	if (!mode)
++		return -EINVAL;
++
++	mutex_lock(&scmi_powercap_roots_lock);
++	ret = scmi_powercap_read_root_children_enable_state(pr, mode);
++	if (!ret)
++		pr->enabled = *mode;
++	mutex_unlock(&scmi_powercap_roots_lock);
++
++	return ret;
++}
++
+ static const struct powercap_zone_ops instance_root_ops = {
+ 	.get_max_power_range_uw = scmi_powercap_get_max_power_range_uw,
+ 	.get_power_uw = instance_root_get_power_uw,
+ 	.release = instance_root_release,
++	.set_enable = instance_root_set_enable,
++	.get_enable = instance_root_get_enable,
  };
- #endif /* _LINUX_SCMI_PROTOCOL_H */
+ 
+ static const struct powercap_zone_constraint_ops instance_root_const_ops = {
 -- 
 2.34.1
 
