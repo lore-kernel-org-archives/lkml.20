@@ -1,54 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793701731;
-	b=qxbbQiOga3qiJLfhoAotsSd75d1uIyqRDIpKREvuZ0EH1On10DYyfpzfP0DaUIUfZdzW
-	 HJOjlYNxctN+ojVJBUQSmfL+LmzII4fQwb0FE8TR65L/FX2x59qPXaW122sWaoD7MuXBM
-	 pKb/qYGeO6ZChNPQbIKdCdY9GjqE9+ZGjyw4ykGXs2DvcX3ZHt3sO+u1xHNJgGAXDuWi9
-	 g1rSoD/UYPlm73K0/3HYP7bc1vNwn4JyA53rPGThrVJFX9uBZbBsb9+jQWIOvMhv5pyE3
-	 Fq+N5Hdl8M9EyA7gwsniuhxHDrauwOjXBnSoXpXmf5h4x6dkiSdNROv+jNz7U/Y2y9A==
+	b=toCP3L2hxzvgoVHYPIJ2Ljtsn//ERGNPsvO781yXYsQy0dR3PkIY04E8h9F9Aa6P5Te1
+	 uElqNixAuhedl5qezm4M/xfyP5GkRd1+u0g8rlOMqEZgsdADG1S7K2jQmw+jQy8WyXALh
+	 GP/3U2KfpH3b+Hq2RWjJb63w/NHCUo/ZRmzG2984xpP3pusBuirmMwfgyCz1uK8xrdknK
+	 pQ2lSEUBPiR2CS5rMWSte5BHrJOeJO9LlMhKAJGdWnHqjHHwSXdq19ehKbKbmizjGBx0D
+	 QdA3o739yCR+u98QqSv6CwSu4+K+Ois5rFMTVUkHSCahCb+AUkHAERToF69p7zAZehQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793701731;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=WZe/cJSWqnrm7Mkn1udaI2hF9uB4SYoqxNBqVm8ues4=;
-	b=bDPbnvrdysxbpIXgU8X68QvUvHhHXkgV0hLfo8T9/tMI1KYntcbhdzWEZ/Zl577We0Wm
-	 8KeV46MAWjZBuOGKpNG2I8OfMUl1Miwm/TDWeXDbyxrJ4dKBIBMJ+eed4SPNvaYc0Uwx1
-	 /OaFQW/JHAozm6A+kf1eD0NlMg9g6HtOfuRQRGmZMshtabYjdPENG2CIX0UjB2E65RNj6
-	 2JyownvMjauYkg67T/BTwbEZ8Ctxiy1C9kBeAipH5F0u/yNSRzdzBX9oMZBMjs0SwUG5M
-	 iJWIWc+foIiUFa0JCqMdKhhYT3xmQ0qf6yzDRXE+DRmBtaBzMtDYor6Uyww7Bo8P7Vw==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1bfQdtMJVeOry4zlZR5idJ3ioLg9CkbsmK6ATlbqUPI=;
+	b=tgVOqYdxHuRbqcmxdAtHOpLl0YvjDQn9A7q9BeYEfOo/9sXIyHlnfN/TqEXJP7VcqYpe
+	 QmjddJXbdXr+gn1uwK+XcTE5E4Tf/8Mu/D+Ic4HmOQqOD7X/JtkKCtzDmTRLkpz64SCL1
+	 cPfKe/zHzc6BA4iX2CBsnRpGr1vP9id+11uwhSDbCE4c0c7cLeMdqAAzBVefh6z9pj+A3
+	 pR7kuYd5Dh6qWLcIu+qvi+mfrTg1SqRHqDMJfBvaRAAQK2N7D5RM2oWWhTdWVVlcYQR4i
+	 84Ip49rakIYfXNJidQJBp+vm7+5Tq9DKts0BIuWrmoL4D8assCz44sZdzVj/4WfXkeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TODm00G4;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A2B6082BF2;
-	Tue,  3 Nov 2026 10:28:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79A2B6082BF2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACHkpNbt+lqgak7AA--.3160S2;
-	Tue, 03 Nov 2026 18:28:44 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Bryan Whitehead <bryan.whitehead@microchip.com>,
-	UNGLinuxDriver@microchip.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D1A60A3808
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:28:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84D1A60A3808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TODm00G4
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e0d1da913so413158f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:28:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793701730; x=1794306530; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1bfQdtMJVeOry4zlZR5idJ3ioLg9CkbsmK6ATlbqUPI=;
+        b=TODm00G4alr+z6BRhGlXx23IP7ZkEySO4RDAWd9wJPUOJdQ+5XL5h85th+krrWPMG2
+         IkZxdhEE7wtgBbVPP0IHNFQyOYyhKyebMse9y0a1NjBxsQ+h6DcNpx0rUEC3mQ+m3uKh
+         2sDD9kRVd3Qt7T7N13G2/je82bUBAON4lr4ZPs35pSt5TxPpqDW6MouZB2AzlUE+Falx
+         p9zDwTwgNr1OjkKkUu734GIls2xhy091V9lioaaEdan7IG3bULNODc2vQuWWfnhS2a58
+         Q7ZG05vb+HVnuynmuork9rlBxM1tzwi6Bf7W1nAuTrrCQdTFzLC1m8Ezql8+Hx6ZZPza
+         ZbIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793701730; x=1794306530;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1bfQdtMJVeOry4zlZR5idJ3ioLg9CkbsmK6ATlbqUPI=;
+        b=f0XqS/G30ceqH4JcrIi7OispPVGQ1P+oANN4xT8Jfc7JBEKXCfhp4ex8Vfq95tc/wl
+         jdJx0wn+SwhQc0ILHOdyHQUw5h4afPihJzUvxJnEuH21WuvOWwvMcfubafqDJh7QB1mU
+         CLoVLuEdZb+cMvOmtvUNvysYt62dReNLBHkLcC0wMVngMMSIAFn3H3C+hpx9ob5EX03U
+         0+suBQu/qj5Xvl7nXSBRq5bMy6tlZwCgwJU3z/bWHK5GL4bWlmg9yFvd0V3+RnzWMmer
+         8+hbUKr948aNfKvQpr1FY7EOveJ8tdfODOF1Icfbh1nLu8ch7OjklK3D9V0/Lp+ch8Sf
+         VB5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxc5hdZ19BTeMuCnUuQaYeIsGwA2iMcY4BCAZVR+00dCfRI7hM9ZFbibFNfVUIRO3IdmFDaaBdnwnSCU7M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6z1QJA6di9dz0rXfG0nj7n23+lJ1HjI4GQMrDJ0au1PsQwZRX
+	9uAkcKyxcfe5L7YqoOsJg8af96Saj4/pOrJ4xolXMHdokT2qOdfvZX5o
+X-Gm-Gg: AYBFou21l9XJezUi3iRbc2oPTfbMpVeWgWqg6M+420UnGDzCSnLsYQmh5fIxYbmekoI
+	91Sp38ZfXD1E4CPKgfFByQ5EouMh9rzkKTEr2yOvxF7unQPYPncyTDEfkcb/+yBL37RZ9ZnuGv0
+	O0Vj15NLrsPW3gBAhFi+1aBtCMkMXyZBhEwW+KZX2HwV2pXbZjmeMisu/b9qg5mdv1uTKoe6j2v
+	3P/mA3NABUOvK5REh9kv93/Wg9VmpHFIzNOrsaixCS4V+/fWxsTKEuVcx0mW7llI4EfBCl3t2qj
+	PUxJmlRBGT18EkqeHG7SjoM3ywXGbZFBViLY2nal/+iaYP05xtC+jGwELwORpkzq3GSBc/RKxpv
+	FBIs44diLaHMaDP7Dhp8Zk/FtUD2suSVNFygG/idcpDe8zHf4zJCsAjfRV4p70W7CF+Z+pDiNVq
+	F4PzimFMJ/7r8HqgVFI0hYbCce1t2yhAx2CEUxSeFl9O6qMDeF0VC3YoIiZx7cyJ/Apf+nit+lG
+	Ieb0xPz+cZnQInf1WyLB7kzVDRBuVTW25WuVxRjw2t5j6L2dqJz/s4SvVX/quRAVyS6k+QNRdy4
+	Abx7VDCq2ntRfg==
+X-Received: by 2002:a05:6000:98b:b0:48e:3484:8af2 with SMTP id ffacd0b85a97d-48e64d10510mr37075329f8f.31.1793701729728;
+        Tue, 03 Nov 2026 02:28:49 -0800 (PST)
+Received: from nobara ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b7815fsm24941003f8f.22.2026.11.03.02.28.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 02:28:48 -0800 (PST)
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Peter Xu <peterx@redhat.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	linux-kselftest@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: lan743x: disconnect the PHY when PTP setup fails
-Date: Tue,  3 Nov 2026 10:28:52 +0000
-Message-Id: <20261103102852.1340530-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH v3 1/2] mm/userfaultfd: recheck WP registration in the hugetlb UFFDIO_COPY retry
+Date: Tue,  3 Nov 2026 11:28:35 +0100
+Message-ID: <20261103102840.68903-2-azpijr@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103102840.68903-1-azpijr@gmail.com>
+References: <20261103102840.68903-1-azpijr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,65 +112,50 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACHkpNbt+lqgak7AA--.3160S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ur4xZw4rZF15Kry8trW5KFg_yoW8XFW5pa
-	yUXFWDur1UAr17XaykG3WkKr15Ka97tr9rKF4DK3yrWry5Xr1xWw4xC3y3ZFyUJrZ5ZwsF
-	qr9ru347AFnxCwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
-	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
-	BIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpnOFw8gABsz
 
-lan743x_netdev_open() connects the PHY before opening PTP, but if
-lan743x_ptp_open() fails it jumps to close_mac, which skips
-lan743x_phylink_disconnect(). The reference taken by
-phylink_connect_phy() is then never released, and the PHY stays
-attached to the phylink instance.
+mfill_atomic_hugetlb() drops its locks to copy the source page with page
+faults enabled and then looks the VMA up again. The retry doesn't check
+that the VMA is still registered for WP, so if the range is re-registered
+without WP in that window, a UFFDIO_COPY_MODE_WP copy installs a uffd-wp
+PTE in a VMA without VM_UFFD_WP.
 
-Add a close_phylink label in front of the phylink disconnect, as the
-pre-phylink conversion code did with close_phy, and use it on the
-lan743x_ptp_open() failure path.
+Recheck VM_UFFD_WP for UFFDIO_COPY_MODE_WP copies after looking the VMA
+up again, and fail with -EINVAL if it is gone.
 
-Fixes: a5f199a8d8a0 ("net: lan743x: Migrate phylib to phylink")
+Fixes: 6041c6917903 ("mm/hugetlb: take care of UFFDIO_COPY_MODE_WP")
 Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 ---
- drivers/net/ethernet/microchip/lan743x_main.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Changes in v3:
+- none
 
-diff --git a/drivers/net/ethernet/microchip/lan743x_main.c b/drivers/net/ethernet/microchip/lan743x_main.c
-index 82d3ec20ba25..390aec639c71 100644
---- a/drivers/net/ethernet/microchip/lan743x_main.c
-+++ b/drivers/net/ethernet/microchip/lan743x_main.c
-@@ -3331,7 +3331,7 @@ static int lan743x_netdev_open(struct net_device *netdev)
+Changes in v2:
+- drop the leftover sentence and the non-hugetlb reference from the
+  commit message
+- add Mike's Reviewed-by
+
+v2: https://lore.kernel.org/20261102081140.201987-2-azpijr@gmail.com
+v1: https://lore.kernel.org/20261029221129.89068-2-azpijr@gmail.com
+
+ mm/userfaultfd.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index f33ccedfecd2..6321bb82c1ef 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -810,6 +810,10 @@ static __always_inline ssize_t mfill_atomic_hugetlb(
+ 		if (vma_hpagesize != vma_kernel_pagesize(dst_vma))
+ 			goto out_unlock_vma;
  
- 	ret = lan743x_ptp_open(adapter);
- 	if (ret)
--		goto close_mac;
-+		goto close_phylink;
- 
- 	lan743x_rfe_open(adapter);
- 
-@@ -3374,6 +3374,8 @@ static int lan743x_netdev_open(struct net_device *netdev)
- 			lan743x_rx_close(&adapter->rx[index]);
- 	}
- 	lan743x_ptp_close(adapter);
++		/* The range may have been re-registered without WP meanwhile. */
++		if ((flags & MFILL_ATOMIC_WP) && !(dst_vma->vm_flags & VM_UFFD_WP))
++			goto out_unlock_vma;
 +
-+close_phylink:
- 	if (adapter->phylink)
- 		lan743x_phylink_disconnect(adapter);
- 
+ 		/*
+ 		 * If memory mappings are changing because of non-cooperative
+ 		 * operation (e.g. mremap) running in parallel, bail out and
 -- 
-2.34.1
+2.56.0
 
