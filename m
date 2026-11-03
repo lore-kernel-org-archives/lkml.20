@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702467;
-	b=GjsLBHyThNl2H1tPY95zYC2VKlHAU4Sr++qqf9Suzj+8+ZwqvH7LNlgviknHfy4SByZn
-	 TAchcUxFjKrP2k1Z8ybic4jw72tdQcrtdN+SUNBgtPUuWBV+ueCQfrhk3ePduDvkNurTU
-	 ZH5BC14cgoLfjDHodGNbZ2oC1D9mCylTKH7lqNh/v58abxlqWIDqZAJaTnQ2aw71ho+q8
-	 VuqwjpVSLvsSI8GvnnvSL+wEwwD6HyGyKJ5vwfDYDZGE8ap+/fKMuj17Y9LFvgx/RgpvQ
-	 w0qWOjHVUt1NQ4FKO9DbU0R71yDkoZlirF9rVpqkbEPmA7LSplsrV/cK13Ni2op4vzQ==
+	t=1793702459;
+	b=YdL3mXuZa9obfzCvx6FhimxWq5iiNwH8s1MfYKNd1zfHgWY2qBmOcRL1yRmDxg4BZG07
+	 c3kN48LTyrbDuoCLUEbyaJJkLE7ihDmmU9dwHGlao2QEYMYq8L6+sPqOG0JL37RiDj+4N
+	 eRScWaws8SZ500dtweKgpFbgKKBISRERMkCevR8Nc4oaW5ZkPFoc+oeNNugNmDF0be8a4
+	 Np+guoRQtmM8nm5mIFKEzp2gKoNqPds80TpOYqsxVXFhcKrxV2BmDi5nFJCNzOOfkKkck
+	 sGAhjGcrWBNgC4BeCwhsbVjr15o2+78RBMxYymcR+lAtB6TTrG0MXpfd4msouFPC/ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702467;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702459;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8nIUAdKhQOdU5bD0Ebix2Rj1z+5vhf3MK7JazPI6O1M=;
-	b=vONFboX61U4bAEy//3Png6tov+yVjEn+NXmkAvv4vfUUYslQTyosT1RDMfrKlu2LaHrx
-	 rvvCB71G784CyRLIRmKWnDojVyoRGwibeBe3fI6kwHaKrfV6xhLVyr2OuDJcl1T6lGF3+
-	 LwkO970YePX8Z73m66UN+iFCZuocbK9j1zqBFRKucHUCT/Fa+/KMOVXRoiV37LVk5Kln4
-	 tSIM7g+0KUxI3sMg0nMT0Q1+E262HU6KOqQuQhOitLHwUz7ikP3YetCN2KUr02DsF1aHf
-	 JPIh1wEcjk1953QOull9QDPRt1BVL1k63zf83RefMryXqNFXNb/5uqylhl34Y/uLp9Q==
+	bh=iD8MUsnfG+gwEr4piWPtvFiUZsvtNz+QmKslAm5U2v0=;
+	b=EZSFyYJiqkhafHw9tydVE1C8UcFzpvfIKxdD6rUIR2gUieqqcFaV39K6PvsjBu3HPKoZ
+	 0QWc8ZOd7OxD6Yh6nnGxXQ19AAm4VITRY5w2ScwnBkVhtkU3U+TRyYAcLIzPeHrzd8igJ
+	 OQL/HZhGcVWMJN6JBD3i6kxctqCqmDRbEPkN9wcoRuOqk3hq7brH7XjQw/BpYLU0qXa5T
+	 6SzVDatsLshSY2Q4ZXBpc+4GhV1dtBceO3kiiobMqcV5RRMZ7Xu6uieY20+16i49It6N7
+	 xj2SoWZSr1fD4/EWU9jUKTt1wPEElgbm5zvek2ZuW4tSYv6FoIp7Qm8cQ1HqhK8nsEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEKbJfYv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hf7vFOQQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954526078F3B;
-	Tue,  3 Nov 2026 10:41:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E4F60784B4;
+	Tue,  3 Nov 2026 10:40:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEKbJfYv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE49D1F00A02;
-	Tue,  3 Nov 2026 10:41:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hf7vFOQQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963081F0093A;
+	Tue,  3 Nov 2026 10:40:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702467;
-	bh=8nIUAdKhQOdU5bD0Ebix2Rj1z+5vhf3MK7JazPI6O1M=;
+	s=k20260515; t=1793702459;
+	bh=iD8MUsnfG+gwEr4piWPtvFiUZsvtNz+QmKslAm5U2v0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PEKbJfYv0gQXOfZZKZgDdS0Xx5ADDeTDUQg46LyAXCi0aBZAYa7GhmO8hOkC2p7dX
-	 5C5O0j+rfTmjTlXSr7QRAbOfu66F7Zt5wmSxzn9iKBGyMF+cYY8EY908q3tScIltod
-	 xbwED2+h5Nabfceq8hjmD8tX7hbXgGTQ6xpLjyhoQspuZOualCNlVQUGUJnlUAJgN7
-	 wVgydqMcQrAUDYOyENhucAc1Yx18K84Rgxf/0Fb3YkNtl8vuuEz8Ni10yW72bdTZcP
-	 xa1VYJMczhbO9NvGFetMUgUxMrSgYJX63gogW+TdRO017GJeoLBXlBkqF1UcNgPTlK
-	 YRC2gUD2q8XPA==
-Date: Tue, 3 Nov 2026 11:41:05 +0100
+	b=hf7vFOQQ/d3CxJjXaTd4dJWmgKR9Frd7SHMnNvxpReYxf0Ps3shQxk644fYm8rMoO
+	 W8NgG25Rkve1DLxCJce8dJ3GHJP/kb4s/3mqBlPeRLZZ55XAoSDL2zNYlrhM/hqrtS
+	 RJcEpQU82Aoht3jeSs391paDKABAC+cCPDb6R+ecIYpL50V/bRXujKeXANOFamrggD
+	 8O2SIZtAqSLyTDXC82D7vWkVg4L7I/RKOYVV0lFUZr07m0v3H108gbU9sLouBZJPF/
+	 EOyVyBzFJatdVMU9z1S4JhhrN6GHGaSm081XBTgnlLvtTY4x5AvIW2niCMdYlvX8t7
+	 vV1z6OSPFZalw==
+Date: Tue, 3 Nov 2026 11:40:56 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, ath11k@lists.infradead.org, 
-	stable@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	Jeff Johnson <jjohnson@kernel.org>
-Subject: Re: [PATCH] wifi: ath11k: release the rproc reference on teardown
-Message-ID: <20261103-complex-kickass-reindeer-f5a0fd@quoll>
-References: <20261103102859.1340835-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, Jeff Johnson <jjohnson@kernel.org>, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, ath11k@lists.infradead.org
+Subject: Re: [PATCH RESEND] wifi: ath11k: release the rproc reference on
+ teardown
+Message-ID: <20261103-tidy-mustard-moth-d5c3bd@quoll>
+References: <20261103102915.1341148-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,10 +59,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102859.1340835-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102915.1341148-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:28:59 +0000, Wentao Liang wrote:
+On Tue, 03 Nov 2026 10:29:15 +0000, Wentao Liang wrote:
 > ath11k_core_get_rproc() looks up the target remoteproc with
 > rproc_get_by_phandle(), which takes a device reference and a reference on
 > the remoteproc driver's module.  The resulting pointer is stored in
