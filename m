@@ -1,49 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694499;
-	b=HuzjlCmJK5OtLeusPatMHkKOHvyvE3rBgq442+hA7VOGOaHhi7X0E3tADY76VnEsxwoL
-	 jrq3yYcSImaxlt4u2ORvQkDFtZ+RTJ1zPmeDGZtDqjMvDQmpfCveGHyqGK8a0V7LwVDUH
-	 0po5R36GKaa6A7tLD1HrqWXE0MuAXA0+U0GFiiYdx3Cu5VnuW3RpzSu8xODXNYDlFUdN6
-	 aVti1ikBCKrgio6noDQ4nP0ztTP1LDHZHBiKgbI2zmiKIxL5B8if0xBlEKzSn/5iNnQXW
-	 QVntEdfc9kaQcGrlUUxAIoMPE+X6IQZKaPpmy0d7DwGqe6Fsrf/ZnrpxZZgTXufv7cg==
+	t=1793694505;
+	b=zAtDN8gKMW1rzjth4eYPcJbwoBtN3ufU7uCHkrS1pfIeKe09BDXdg+mDUBDEKhcHMnaW
+	 QASfl1/87VuWiOrQZ4W6/RYbnMJibeXspnrw6a5kTxUMVJGWR0zFU0Y45tJXz223AsZOV
+	 vUdYbRqrIuWFJ8BCF+hUR91Y+C8x7R6oN8kuICW2396Sd3dVoY3/zh46p5Q25biRnBPj3
+	 WvQ2tsLa4bZuFqpEVjtIIcp1Qe82FHgAh2bP2YIdssUY0R+hCZAVlTfK/eZVjPL2JqPpO
+	 LFszvNjDZMek7ZzHmD5rz2+pQf2Hd/XFks2yWPGyFBvzTzqI1TvvAq0oyiXtqGSCJoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694499;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=HsU7vqGV4zKcR0xzOlLwVFOnYeenz76WhiQbmAur/gw=;
-	b=HuqCnkhNHfJKB1H0ThzFMvCi4Zi33N9rpouUenjlfREZd1HvGgm/vIW/adJ3SiVQ0Qs7
-	 GnId1QP4KuQSwwd++CZF/F5FGh8YJCehuvlB6hy4Xc032DYfoXoLCKoa6JU5izd31wMjY
-	 hn0CS3QI2b9y3QPcZGiikfe+8tgkgIdGj94XUvaCK1yYt9tUpRnP87yfmZ6QWeEy1LXGM
-	 rRSD2AZwdakGB4c+UCpYZzy76xkRQTnEVDa2U+7c6uGk/6M3b3pzK3Y0yEYRr8mEt7gMC
-	 NUvdkWRV5+ua39zpBcc3uljBb9e9jGJZGU2Gf4ZIxbhALUx3AY4G4NKPM/XAMiygAfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694505;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=ccaBHmNOBylABzTNvO6o57PE08cHTPQ4Sprujz7kZ4E=;
+	b=5X1jSfbKWjgB/gjsqYjnI+4013CLXM4qyMMPelpCeEUrTMnsvY0IdIorUFaGAE8+7lxp
+	 KJwtObZcKin0Un2dNtY66x1Z6C4FKrc8wUTkIQ579qc6QVJwLEJm46cTSj/9ye21VzkVO
+	 kjmtwZkoM6G+FBR50mrLAG/9nw5Snb1X511TocZXiVq63GQptGNyzuN5U1RdCCMAYPzwv
+	 L2ZSnBhxTrSrQ7MoHaAWTB/gi+wIPYXuVpHG81L8b8u3NYtOOd/WuWBeIsY8DYMb0akiY
+	 iP9IQRfYFCl52juk0Igc9H99ZhGp1hOLOAAmm/HEYpEhh7SOJJmHTtBlMnK4PJ0VXWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VF/MjO4V";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=B+BYYSiS;
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A0A606A32F;
-	Tue,  3 Nov 2026 08:28:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F50606A330
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5F50606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VF/MjO4V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39CFE1F000C1;
-	Tue,  3 Nov 2026 08:28:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694499;
-	bh=HsU7vqGV4zKcR0xzOlLwVFOnYeenz76WhiQbmAur/gw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VF/MjO4VQPvJbsTdhSxc+0MJKdEjqryzjEgdG8c2adRvAchbzj5B6ai2szK1F0ydG
-	 fSVHNNpyc2vnrnSA8VgFKqrGPdZrvDx26NdErWFk9Y6AMZuIVO1Isv//oVlnqMGOni
-	 743VRFXyiPfI2emKzuq1EembdYHF4SMK8rXNk9REST+nP7DcdN5mGn8mBSG0PXIpI7
-	 NS1QiUP6OTbLE+6hAACDbGLLh5HhBIusmIH9WEw5Y822H6nQab357khV+fFyrSZfcO
-	 Z650piC8n7ilYLr+HgcXrWTNpGftz7Q8xnXKPWXWvdeq8wOLOLQt3yetgeb0DGoa9Y
-	 +kmgG85TDbckg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 03 Nov 2026 08:27:43 +0000
-Subject: [PATCH 2/5] mm/khugepaged: scan mm's more efficiently under
- mmap_lock contention
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=B+BYYSiS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793694493; bh=ccaBHmNOBylABzTNvO6o57PE08cHTPQ4Sprujz7kZ4E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=B+BYYSiSH8n5ZXEpEJ4I9UrUPB+la2WRlTqHsJU5TQQ/Jdsoa9lQAhtTJtd8Jx/r1
+	 UOIKiTxe2pm8BeT7fRXSjy5kq/l5VzkMHxKdCF1drsGej1yCav61QBulFdYolAtqzw
+	 3f/9zaEBoVQhZLv8bJBxbx3jp7rz/gVPJ1DMZ544=
+Received: from [127.0.0.1] ([113.208.112.234])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 708B0834; Tue, 03 Nov 2026 16:28:08 +0800
+X-QQ-mid: xmsmtpt1793694488ti4vuixks
+Message-ID: <tencent_9E9A8D222CA35E50E674E9FF795FD9BB8108@qq.com>
+X-QQ-XMAILINFO: Od8VqZhFMB3N8AuApW7GrMug056ld6ShSmPZ/kHxoW5NhlI3NTUI31a17l/1sD
+	 Tm6fU/JBYIwFtTtjmEJe0HHBraWDBrT0hQceYDc8jGLSDfPAFL0FYGMNphWgeNS9VJ3+YXcMqqN2
+	 d4sawoqSdtFPtsUFVSLvuzme58DY70RAm8wAVJhCx29Zxjda9Rpglf30qnv4qkQqWXNnubeLFpfF
+	 HhigE3yE0+vvkfksApnIHrJGyrLIV4/e6ubGOGjoe6yTFgk8aQ+Q64aj8YeQTco3hVhl0jCkbhMv
+	 JVvmNMefK4Xl+JkpFEIxmfwFjO/uCmKVFqvFFs58t1MgBvOUfq7N1Mesy1vWwgXiNyJGwpffDRZa
+	 qS9BGv7vu6y4x5J+sAB4S1OajTFn+LleF6LPEuq4r0F+/zfa7rkuJkVp2crjrD3pTU9BTtIuomYD
+	 vow+7i6P3Sm6ZNP59OsZn7XANUINIGCOPWYWGKysfwECZX6OpW48+INnrntMOcIb23n9bbH6Ktcr
+	 9ymcCUb2yl+AKx0zp7BXdX2Fu6exvD0jIzvb5hMt6Edwg2jhqC/JPI6g2zsuuv9w8Szlt8vJpm4e
+	 7EM5e0XlQgdFDTzyJnkgd7pemlG9kCvXJNCGragLP6gf7nAXvmsRqJgAy1vlVKpQrBm99l8krVDZ
+	 GRgpAK3ULhBhoZDwu2qgI67Mcs64MreoGbn+gZXgSrAxo3KqusXomcVKnoQWdT3sfezs0RD7SUFF
+	 OndsAgSLK3UR3cdvqS0EDnsJZEGbTJuTiGO6RbqFDRpSy0WM76BODiDKkDbjS4YWBiiG8kfKy6YI
+	 2R6oYK4lEGd1BxY5P3OGwxWRY4kNb+cgMG/l5NsixHEgFkwDSs/aOPNJAbzSqBDfA72leJXasoEM
+	 VUduH8EU6LhPYHtRdCIB3SB0QHp096EFRB/x3AklPbZa5//VUIp7UqrCPGCn9tcD9UQUG6AtEAAb
+	 Ngv9/9MAomS5d/tp8qilcHmlAIZJh8oZKT8DqVBwSt1qKKTkbPsUTdT1G0LFXWKyq88TR4RUIJQA
+	 lnDrsSw0J3JWnyksPCTMKyzz6o+pKX0caIDhJD3eblcSMilCfhbNLap7Rpd1LHb0Y9BirxNwAo6G
+	 YWX03F
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Jie Du <806144828@qq.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Balbir Singh <bsingharora@gmail.com>, Yang Yang <yang.yang29@zte.com.cn>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
+Subject: [PATCH] delayacct: Record blkio start on the correct task
+Date: Tue, 03 Nov 2026 16:28:08 +0800
+X-OQ-MSGID: <179369448878.1064782.155011004967499826@qq.com>
+In-Reply-To: <tencent_6CFB6E9B26A308DC2800D4059DF93FEC9706@qq.com>
+References: <tencent_6CFB6E9B26A308DC2800D4059DF93FEC9706@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,236 +87,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-khugepaged-latency-fix-v1-2-a07ab16ac860@kernel.org>
-References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
-In-Reply-To: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
-To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Waiman Long <longman@redhat.com>, Suren Baghdasaryan <surenb@google.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Yonghong Song <yonghong.song@linux.dev>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7639; i=ljs@kernel.org;
- h=from:subject:message-id; bh=yteJ6h2vAGTeR9YuoTU+OYu1yFPwDvdCdviaFPqbXdY=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJezuYREzpS9OrdvJnedorlXxYEP3p7cXKavs19xgtHX
- ymbzpsY3VHKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJ+Bxh+B96YM/zujiFo7od
- s3vnZaacfMn4z3GN0JpfBystCiI/Pehj+GcWkNHOfHSKpmt4oHt2uq4Lg/2ExQWnjz9+HLHA8Wr
- GZk4A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Ostensibly khugepaged collapse traverses eligible mm's, scanning up to
-/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan eligible pages
-at a time, sleeping for /sys/.../scan_sleep_millisecs between each
-traversal.
+__block_task() calls delayacct_blkio_start(), which stamps
+current->delays->blkio_start. That is only correct when the task being
+blocked is current, as it is when __schedule() blocks prev.
 
-mm's are scanned in collapse_scan_mm_slot() under the mmap read lock,
-obtained using mmap_read_trylock(), skipping the mm if there is lock
-contention, and dropping the lock before allocation.
+With DELAY_DEQUEUE, a task that blocks while not eligible stays on the
+runqueue as sched_delayed. If it gets picked before it is woken,
+pick_next_entity() dequeues it and __block_task() runs on behalf of
+whatever task is scheduling on that CPU. Proxy execution can also block a
+task that is not current. In these cases blkio_start is written to
+current, and p keeps whatever blkio_start it had before: the start of an
+older sleep, or 0 for a thread that never blocked on I/O. When the I/O
+completes, ttwu() calls delayacct_blkio_end(p), which charges p with
+local_clock() - blkio_start. For a new thread that is the whole time
+since boot. current's own blkio_start, if it is sleeping on I/O itself,
+is moved forward at the same time.
 
-khugepaged will keep scanning the same mm until it is about to be torn
-down, prctl(PR_SET_THP_DISABLE) disables THP for it, mm->mmap_lock
-contention occurs, or all its VMAs have been scanned.
+This shows up as freshly created threads reporting days of block I/O
+delay through taskstats and field 42 (delayacct_blkio_ticks) of
+/proc/<pid>/stat, in steps of exactly the system uptime. Anything summing
+those numbers per cgroup or per host reports nonsense.
 
-When any of these occur, khugepaged doesn't keep track of where it left
-off, as the current address is tracked in
-khugepaged_scan.address (essentially a global value), which is reset.
+Pass the task down to delayacct_blkio_start(), like commit c96f5471ce7d
+("delayacct: Account blkio completion on the correct task") did for the
+completion side. __block_task() still sets blkio_start before it clears
+p->on_rq, so a concurrent ttwu() cannot reach delayacct_blkio_end(p)
+before the start is recorded.
 
-This is a problem when lock contention occurs, as when the mm is next
-scanned, it starts from address 0 again.
+Tested with a small reproducer that keeps one CPU busy with two spinning
+threads and keeps creating short-lived threads that spin for 2ms and then
+do O_DIRECT reads; a thread is counted as bad when its
+delayacct_blkio_ticks is larger than its age. Under QEMU (TCG, 2 vCPUs),
+4 rounds of 60s each, bad threads:
 
-If there's a lot of mmap_lock contention this can significantly slow down
-collapse later in the mm, since the /sys/.../pages_to_scan budget can run
-out before the end of the mm is reached.
+                      v7.4-rc1           v7.4-rc1 + this patch
+  DELAY_DEQUEUE       20 of 14718        0 of 19383
+  NO_DELAY_DEQUEUE     0 of 15766        0 of 20020
 
-The budget is incremented (as tracked in cc->progress) at a rate of 1 page
-per ineligible VMA, but the budget is only checked once eligible VMAs are
-encountered.
+Each of the 20 was charged roughly the uptime at that point.
 
-Then, it only takes the combined total of ineligible VMAs and eligible but
-non-collapsible pages to exceed the /sys/.../pages_to_scan budget for the
-rest of the mm to be skipped.
+On a 6.6-based distribution kernel that carries the EEVDF backport the
+same reproducer gives about 690 bad threads out of 2000 in 20s with
+DELAY_DEQUEUE and none with NO_DELAY_DEQUEUE.
 
-For a system with 4 KiB page size and default sysctl settings this only
-requires 4096 ineligible VMAs/uncollapsible pages to be skipped before this
-happens.
+The problem was investigated, and this patch and its reproducer were
+written, with help from an AI coding assistant (Claude). I have tested
+it as described above.
 
-Examples of eligible but uncollapsible ranges are those containing a large
-number of forked PTE entries (more than /sys/.../max_ptes_shared), swapped
-out PTE entries (more than /sys/.../max_ptes_swap) or none or zero-page PTE
-entries (more than /sys/.../max_ptes_none).
-
-The latter might seem unlikely to happen given /sys/.../max_ptes_none
-defaults to HPAGE_PMD_NR - 1 and CONFIG_PT_RECLAIM frees PTE page tables,
-however CONFIG_PT_RECLAIM only removes the page table if the zapped range
-spans at least a PMD size (see pte_table_reclaim_possible()).
-
-Thus, userland software that applies madvise(..., MADV_DONTNEED) across
-sub-PMD ranges can thwart this, which is quite feasible for memory
-allocators and GC heaps, for instance.
-
-Resolve the issue by simply tracking the last examined address in the
-khugepaged_mm_slot object, so when the mm is resumed, the scan starts from
-where it left off.
-
-Additionally, skip to the next candidate if a VMA cannot be collapsed.
-
-This issue was noticed during some work in which an mm was instantiated
-with a large number of small VMAs under significant mmap_lock contention,
-during which collapse was observed to take 10.8s. With this patch applied
-it took 3.6s to collapse the same mm.
-
-Also, while here, update a couple VM_BUG_ON()'s to VM_WARN_ON_ONCE()'s.
-
-This patch is also a pre-requisite for a later patch in this series.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
+Closes: https://lore.kernel.org/all/tencent_6CFB6E9B26A308DC2800D4059DF93FEC9706@qq.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Jie Du <806144828@qq.com>
 ---
- mm/khugepaged.c | 38 ++++++++++++++++++++------------------
- 1 file changed, 20 insertions(+), 18 deletions(-)
+Reproducer used above (gcc -O2 -pthread; run as
+./blkio-repro <file or block device of at least 64MB> [seconds]):
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index aad8797f8d5a..216c4b8d28c4 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -69,23 +69,23 @@ static struct kmem_cache *mm_slot_cache __ro_after_init;
- /**
-  * struct khugepaged_mm_slot - khugepaged information per mm that is being scanned
-  * @slot: hash lookup from mm to mm_slot
-+ * @address: the next address inside that to be scanned
-  */
- struct khugepaged_mm_slot {
- 	struct mm_slot slot;
-+	unsigned long address;
- };
- 
- /**
-  * struct khugepaged_scan - cursor for scanning
-  * @mm_head: the head of the mm list to scan
-  * @mm_slot: the current mm_slot we are scanning
-- * @address: the next address inside that to be scanned
-  *
-  * There is only the one khugepaged_scan instance of this cursor structure.
-  */
- struct khugepaged_scan {
- 	struct list_head mm_head;
- 	struct khugepaged_mm_slot *mm_slot;
--	unsigned long address;
- };
- 
- static struct khugepaged_scan khugepaged_scan = {
-@@ -2921,7 +2921,6 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 		slot = list_first_entry(&khugepaged_scan.mm_head,
- 				     struct mm_slot, mm_node);
- 		mm_slot = mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
--		khugepaged_scan.address = 0;
- 		khugepaged_scan.mm_slot = mm_slot;
- 	}
- 	spin_unlock(&khugepaged_mm_lock);
-@@ -2939,7 +2938,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 	if (unlikely(collapse_test_exit_or_disable(mm)))
- 		goto breakouterloop;
- 
--	vma_iter_init(&vmi, mm, khugepaged_scan.address);
-+	vma_iter_init(&vmi, mm, mm_slot->address);
- 	for_each_vma(vmi, vma) {
- 		unsigned long hstart, hend;
- 
-@@ -2948,38 +2947,38 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 			cc->progress++;
- 			break;
- 		}
--		if (!collapse_possible_orders(vma, vma->vm_flags,
--					      TVA_KHUGEPAGED)) {
-+		if (!collapse_possible_orders(vma, vma->vm_flags, TVA_KHUGEPAGED)) {
-+			/* Unable to collapse, skip to the next candidate. */
-+			mm_slot->address = ALIGN(vma->vm_end, HPAGE_PMD_SIZE);
- 			cc->progress++;
- 			continue;
- 		}
- 		hstart = ALIGN(vma->vm_start, HPAGE_PMD_SIZE);
- 		hend = ALIGN_DOWN(vma->vm_end, HPAGE_PMD_SIZE);
--		if (khugepaged_scan.address > hend) {
-+		if (mm_slot->address > hend) {
- 			cc->progress++;
- 			continue;
- 		}
--		if (khugepaged_scan.address < hstart)
--			khugepaged_scan.address = hstart;
--		VM_BUG_ON(khugepaged_scan.address & ~HPAGE_PMD_MASK);
-+		if (mm_slot->address < hstart)
-+			mm_slot->address = hstart;
-+		VM_WARN_ON_ONCE(mm_slot->address & ~HPAGE_PMD_MASK);
- 
--		while (khugepaged_scan.address < hend) {
-+		while (mm_slot->address < hend) {
- 			bool lock_dropped = false;
- 
- 			cond_resched();
- 			if (unlikely(collapse_test_exit_or_disable(mm)))
- 				goto breakouterloop;
- 
--			VM_WARN_ON_ONCE(khugepaged_scan.address < hstart ||
--				  khugepaged_scan.address + HPAGE_PMD_SIZE >
--				  hend);
-+			VM_WARN_ON_ONCE(mm_slot->address < hstart ||
-+					mm_slot->address + HPAGE_PMD_SIZE > hend);
- 
--			*result = collapse_single_pmd(khugepaged_scan.address,
-+			*result = collapse_single_pmd(mm_slot->address,
- 						      vma, &lock_dropped, cc);
- 			if (*result == SCAN_SUCCEED)
- 				khugepaged_pages_collapsed++;
- 			/* move to next address */
--			khugepaged_scan.address += HPAGE_PMD_SIZE;
-+			mm_slot->address += HPAGE_PMD_SIZE;
- 			if (lock_dropped)
- 				/*
- 				 * We released mmap_lock so break loop.  Note
-@@ -2993,12 +2992,16 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 				goto breakouterloop;
- 		}
- 	}
-+	/* Every VMA has been examined, so reset. */
-+	if (!vma)
-+		mm_slot->address = 0;
-+
- breakouterloop:
- 	mmap_read_unlock(mm); /* exit_mmap will destroy ptes after this */
- breakouterloop_mmap_lock:
- 
- 	spin_lock(&khugepaged_mm_lock);
--	VM_BUG_ON(khugepaged_scan.mm_slot != mm_slot);
-+	VM_WARN_ON_ONCE(khugepaged_scan.mm_slot != mm_slot);
- 	/*
- 	 * Release the current mm_slot if this mm is about to die, or
- 	 * if we scanned all vmas of this mm, or THP got disabled.
-@@ -3013,7 +3016,6 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 			slot = list_next_entry(slot, mm_node);
- 			khugepaged_scan.mm_slot =
- 				mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
--			khugepaged_scan.address = 0;
- 		} else {
- 			khugepaged_scan.mm_slot = NULL;
- 			khugepaged_full_scans++;
+// gcc -O2 -pthread -o blkio-repro blkio-repro.c
+// ./blkio-repro <file or block device, >= 64MB> [seconds]
+#define _GNU_SOURCE
+#include <fcntl.h>
+#include <pthread.h>
+#include <sched.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
 
--- 
-2.56.0
+static int fd;
+static volatile int stop;
+static unsigned long nr, bad;
+
+static double now(void)
+{
+	struct timespec ts;
+
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return ts.tv_sec + ts.tv_nsec / 1e9;
+}
+
+/* delayacct_blkio_ticks, field 42 of /proc/thread-self/stat */
+static unsigned long long blkio_ticks(void)
+{
+	char buf[1024], *p;
+	FILE *f = fopen("/proc/thread-self/stat", "r");
+	int i;
+
+	if (!f || !fgets(buf, sizeof(buf), f))
+		exit(1);
+	fclose(f);
+	p = strrchr(buf, ')') + 2;
+	for (i = 3; i < 42; i++)
+		p = strchr(p, ' ') + 1;
+	return strtoull(p, NULL, 10);
+}
+
+static void *hog(void *arg)
+{
+	while (!stop)
+		;
+	return NULL;
+}
+
+/* burn 2ms so we are not eligible, then block on synchronous reads */
+static void *worker(void *arg)
+{
+	unsigned int seed = (unsigned long)arg;
+	double born = now();
+	void *buf;
+	int i;
+
+	if (posix_memalign(&buf, 4096, 4096))
+		exit(1);
+	while (now() - born < 0.002)
+		;
+	for (i = 0; i < 8; i++)
+		if (pread(fd, buf, 4096, (rand_r(&seed) % 16384) * 4096L) != 4096)
+			exit(1);
+	if (blkio_ticks() > (now() - born) * sysconf(_SC_CLK_TCK) + 1)
+		bad++;
+	nr++;
+	free(buf);
+	return NULL;
+}
+
+int main(int argc, char **argv)
+{
+	double end = now() + (argc > 2 ? atoi(argv[2]) : 30);
+	pthread_t h[2], t;
+	unsigned long n = 0;
+	cpu_set_t set;
+
+	fd = open(argv[1], O_RDONLY | O_DIRECT);
+	if (fd < 0)
+		return 1;
+	/* everything on one CPU */
+	CPU_ZERO(&set);
+	CPU_SET(0, &set);
+	sched_setaffinity(0, sizeof(set), &set);
+	pthread_create(&h[0], NULL, hog, NULL);
+	pthread_create(&h[1], NULL, hog, NULL);
+	while (now() < end) {
+		pthread_create(&t, NULL, worker, (void *)++n);
+		pthread_join(t, NULL);
+	}
+	stop = 1;
+	printf("threads %lu, blkio delay longer than thread age: %lu\n", nr, bad);
+	return 0;
+}
+
+ include/linux/delayacct.h | 10 +++++-----
+ kernel/delayacct.c        |  8 ++++++--
+ kernel/sched/sched.h      |  2 +-
+ 3 files changed, 12 insertions(+), 8 deletions(-)
+
+diff --git a/include/linux/delayacct.h b/include/linux/delayacct.h
+index ecb06f16d2..4bb01a1f86 100644
+--- a/include/linux/delayacct.h
++++ b/include/linux/delayacct.h
+@@ -92,7 +92,7 @@ extern void delayacct_init(void);
+ 
+ extern void __delayacct_tsk_init(struct task_struct *);
+ extern void __delayacct_tsk_exit(struct task_struct *);
+-extern void __delayacct_blkio_start(void);
++void __delayacct_blkio_start(struct task_struct *p);
+ extern void __delayacct_blkio_end(struct task_struct *);
+ extern int delayacct_add_tsk(struct taskstats *, struct task_struct *);
+ extern __u64 __delayacct_blkio_ticks(struct task_struct *);
+@@ -126,13 +126,13 @@ static inline void delayacct_tsk_free(struct task_struct *tsk)
+ 	tsk->delays = NULL;
+ }
+ 
+-static inline void delayacct_blkio_start(void)
++static inline void delayacct_blkio_start(struct task_struct *p)
+ {
+ 	if (!static_branch_unlikely(&delayacct_key))
+ 		return;
+ 
+-	if (current->delays)
+-		__delayacct_blkio_start();
++	if (p->delays)
++		__delayacct_blkio_start(p);
+ }
+ 
+ static inline void delayacct_blkio_end(struct task_struct *p)
+@@ -257,7 +257,7 @@ static inline void delayacct_tsk_init(struct task_struct *tsk)
+ {}
+ static inline void delayacct_tsk_free(struct task_struct *tsk)
+ {}
+-static inline void delayacct_blkio_start(void)
++static inline void delayacct_blkio_start(struct task_struct *p)
+ {}
+ static inline void delayacct_blkio_end(struct task_struct *p)
+ {}
+diff --git a/kernel/delayacct.c b/kernel/delayacct.c
+index 479e860aff..1d735d58e1 100644
+--- a/kernel/delayacct.c
++++ b/kernel/delayacct.c
+@@ -126,9 +126,13 @@ static void delayacct_end(raw_spinlock_t *lock, u64 *start, u64 *total, u32 *cou
+ 	}
+ }
+ 
+-void __delayacct_blkio_start(void)
++/*
++ * @p is not necessarily current: a sched_delayed task can be blocked by
++ * another task picking it, see __block_task().
++ */
++void __delayacct_blkio_start(struct task_struct *p)
+ {
+-	current->delays->blkio_start = local_clock();
++	p->delays->blkio_start = local_clock();
+ }
+ 
+ /*
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 6c7c563352..4ca7eac523 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -3126,7 +3126,7 @@ static inline void __block_task(struct rq *rq, struct task_struct *p)
+ 
+ 	if (p->in_iowait) {
+ 		atomic_inc(&rq->nr_iowait);
+-		delayacct_blkio_start();
++		delayacct_blkio_start(p);
+ 	}
+ 
+ 	ASSERT_EXCLUSIVE_WRITER(p->on_rq);
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 
