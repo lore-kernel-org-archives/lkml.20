@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694877;
-	b=2HTvzOTgn1FQQn13zTlhmZsp95ooetgwn2Ea66Eaa6s7ohDFzw5LlMuvDYwGupIkg0sF
-	 XRye7jOr+efS6B1D8MtlJAe6AoKvHLvxokjiCqjVGREORgGgelhdkumj5hsLk4z4n5rDV
-	 yjyOiqabIImCrPJCflyeJ0aq6kU6ntyqCOyDWBiGmMXgcuYqHOyh7/nbP7zkcUPLXJwVB
-	 0hek8jJw6x1up4CZIcTPXMUIbx7w1jePDgHXOVfcSSiMY4fDvHwnZVcxoKscYkbFZmhlf
-	 tLY9kgEbtF/QukcCC216125MA7bIz6xXTf0QntR/3YDMCvx3v/JO/nLxYEkj5qwZaGA==
+	t=1793694884;
+	b=hVwTQJ+ht1Hu0t4d+L6PPJ79TZZVDImVVIQuUMDz/lV5cvhNU7PNFyxooKef++6AU0wf
+	 TltFAde/owImSgPpjXxEBM5pZrm+zI1KYvBIvn7c8YxuslRODHSCOut0/sFWXuqSHsSmM
+	 tI06uZSvN9OT0JD8SMJ2/VZTboyJZOttpRNH7f1YzBkmWgXm+97VKCl2dj/u/6bbA02Wj
+	 YE5UjSGFzz8FqmEDkvGBs3Hsc3X5FtC3DD2E5rizvleLQiCzoPMB8El+xI9Qp/1MV1AYJ
+	 +zIW7iIB2q4A/42GnQk8ORQ8nyjvF7ixkJHkKAM4RrJ8ZqccCEeqmvdECD7SReY/dbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694877;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=o94uNRQqzrylUu01kiRSHaUQ5l5ZXHsTJxuqTtmUWsA=;
-	b=oNsh/X52zzJbJfQN5lpayceMPRq/dU8ucFvZ4x3/qp+cNgLpwZpOcAR3+pZ2mPIxI3jy
-	 oCZsgsY5y4uKthspFMlmo21bJi9hWx2Uf9W8KVJ+0YRvsuKFM9l9DpxkNyjSOvtC3bTA5
-	 4gem3tYvckeXla2qV2WNmen5xaZUhiASRp71cs3CyZTLjKc0qIU13h43CsUnPbH4oZFjk
-	 +Tgx2XDI9aR4xVeN1wW+5Keh9Mj0WBP9dkKN55V0tkOpyk064nx5SK6IO5OmxzCPIUFQU
-	 h321D7bvxJv6mGZcXxIzdRJLa8wJrcx/A4ludj9BQEPvsU2wVEleLrfyxRv9vXZM7qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694884;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=iXihXJUZiRcyhz06nhVB/zy3BWmg+wdNRE4618SH1bE=;
+	b=mFSZAWyrHiqA87w/xcY1DRLZAidDPfvE+plordBof8uzniSppLF3pvUMj+FFBrFK99Od
+	 OA0al8zq6T4ZuI3umXHtCqFDqbgN5YOL4ZCjRwTH7QYvTLQyxzFyJ662e1OF+rc7xXQRy
+	 8GBPyArCPPvh2XYnoYQQmaxcmFk1llwRyo54HZ5QgZQ/ZewqIdC/0JvwDxX3v5v++klxg
+	 wa+EEZImX5DcQYfWMSYOWrB6lmIb7Wef1WxCsv/NP+CvyWrNOS4Nz8neEBb1BUl/Hf3v/
+	 n7tFdb5rmu5tKtGOSlInOWHnlYY012mQZmbF7n0+zIztIK1V7CfldEVg5F/XXTa6z/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TLVy7iFt;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ULPGn0tr;
+	arc=none smtp.remote-ip=220.197.31.8
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3723A606A33D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:34:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3723A606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE9B606A33D;
+	Tue,  3 Nov 2026 08:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FE9B606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TLVy7iFt
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1931288f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:34:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793694874; x=1794299674; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=o94uNRQqzrylUu01kiRSHaUQ5l5ZXHsTJxuqTtmUWsA=;
-        b=TLVy7iFtFV1eosB1viqZ7kViXpvbRMjgrFtWB9Imq6n76wjr8s3iRUHWE8hgHwH7Gr
-         0KInipeNWTR08EjSERF8pBe1LkUAMlskiz3X0+LPzZHWD1VodvaOFpXD/XS36dPppxjU
-         EdiIuVK+VO4HJkL8KSHmDuftog2QHWddAXkE3Ed+Il3YJmrHhKr/mAO8DsoyZJlUakNL
-         4rxY/hQtmPfk36jSWuthX2k94iG9CN/Mho5dKMpxFLKqaIuEZzHldAH5jH+2JYLyUFMt
-         lmeeuZpbICNNFyG19S+eF5BPU+e+q0kgrq+2pfK3WorZgLrO1HemIDKFRt/Js6Ibxqlr
-         T3Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793694874; x=1794299674;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o94uNRQqzrylUu01kiRSHaUQ5l5ZXHsTJxuqTtmUWsA=;
-        b=xHeZ3x2nkALm0SnRg46+4yDwYWHalFysE3/VMRMtIpOvO3ZZdy606LMvvPuFNsYvi5
-         IiCBgHfUOAzV5PqY2PsE1wr6K8pE8uvNrbuU0qQyhMY3vJdfjEukYSRHD78u5eHR1EUR
-         TxQVS+tWekOhP1qExlRMksqYx1LbbejqNyFu0Hsea6VZPYdMXR0/z2frBP7EpJMO1qYG
-         oWJ1G/T8n2QqhatPYoCdmQq67wLnBwll2l/STQH7t3J67+u5Ew7vWNJhfCQeoL27d7MW
-         Va/rpo3t3UbjTtmmxSHQyOHxGC7qMzy9Rv8kJjScVVjBDR6O+oKI23t8puUMs86svecN
-         9xww==
-X-Forwarded-Encrypted: i=1; AKwUvBxEwP9MoeyVoePvhPIMwOXt/eE/Fcqv27YQqSliGoCSG8AiXhf8nbSAI1SJ3ljc5FGk+8atBQFpW7U7i9s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8PwKbJmMRWVFGyuTQl0Yo2sEwnH9VCjlfBSmwGgwgD5ALHP0Z
-	oGp0ccxGbDFbfrFjaAxvtZBbzGljjw3ZXmChHz4lXWlwJY01tZTgvkDdKfRpw0uylno=
-X-Gm-Gg: AYBFou3eelJEfRrcRSQQwNlGnokx08uRWBr/lXy7yGr2MdiXeb/OSett3H0e6WnLGlv
-	NSoA6q/lntugqp+ziH38x/spaf3BrnSr6tEpLIrc+ZdJcgUD3t4vASosiqzE6V1co9aym152ke6
-	AAWtjMLn0byxDA9gGTjyS817I7G07a+UCygRvqI6hAuFWYRZ5evgoj73P47RiWCXkKHS4FgDQ7V
-	t1hmX0yVCIalOP9DrSP4iNccxOmsqgPDft9RXIo9rR7NvYqxts2vrC2czMsg54OM2xbpfQC5NYZ
-	QCEEMXkKF2/aQdwzARM8EnxKPkH3NdNcFvYY/7XbMZeKkXX51bbc3u+YcvtlJEglyF/56dMK1Ui
-	lxAicTi3SIM4ia3+rNOtfUMGelKUfO8hIt5lD14Xm0mb7kdACGvL0MOVNF1tkARHFc8jiN6IBXj
-	Hwe7KfiRLdZXA1VQbrJ2+j/01e4ls0B9531IQcW/kB4v4XrjStiS1s9Os2/O3VnJ6qDfHajG4t4
-	GQSeyI5kXUo4W0ACzSqr79/oFnekYzerKeMbhwM69QCg+UUIcAm4+bCt7qoaPHXhfsd3Ju8ufKr
-	1St8C5SZbdgNBhwIdCiW+ZZt6jzyA9D91UiDRY0=
-X-Received: by 2002:a05:6000:2892:b0:48d:eb44:650c with SMTP id ffacd0b85a97d-48e6e309f40mr28006453f8f.40.1793694874669;
-        Tue, 03 Nov 2026 00:34:34 -0800 (PST)
-Received: from localhost (109-81-32-81.rct.o2.cz. [109.81.32.81])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8a7d1sm23718452f8f.38.2026.11.03.00.34.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:34:34 -0800 (PST)
-Date: Tue, 3 Nov 2026 09:34:33 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] memcg: force charges from reclaim before trying
- the limits
-Message-ID: <aumcmb9iBpovh97u@tiehlicka>
-References: <20261030205418.341214-1-shakeel.butt@linux.dev>
- <20261030205418.341214-3-shakeel.butt@linux.dev>
- <auhN7v127jwy-q-W@tiehlicka>
- <auli2Zlf1F0tyi4X@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ULPGn0tr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=iXihXJUZiRcyhz06nhVB/zy3BWmg+wdNRE4618SH1bE=;
+	b=ULPGn0trtEIuH1ItAI7Al8o1iBVxxYZzSH443PnwE1q6MvYpni6ltJNWr5vIlS
+	QclktdtFucemnvzVKMX+B0v3bxl12PIjvF93iSlaT1+K2lRZbrNdE2gROIZJrNiM
+	Ex16D8oszTa2SFOsEnzJZy8I3+dWrOWUsYqlcqcYBLcPc=
+Message-ID: <d02b00db-d916-412b-ad6c-21959c63c43a@126.com>
+Date: Tue, 3 Nov 2026 16:33:57 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,47 +51,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auli2Zlf1F0tyi4X@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] l2tp: fix use-after-free in l2tp_udp_encap_recv()
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, gnault@redhat.com, kuniyu@google.com,
+ michael.bommarito@gmail.com, alice.kernel@fastmail.im,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, xiaolinkui@kylinos.cn,
+ stable@vger.kernel.org
+References: <20261027063657.1359170-1-xiaolinkui@126.com>
+ <179340002340.3131.5823454250644987437@kernel.org>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <179340002340.3131.5823454250644987437@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3n7Z1nOlqrY+CCg--.63128S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZrWUGryrWFWrJrW8GF17KFg_yoW5GrW3pF
+	yxWF4DJr1vqrs7Zw4qy3WUXr1fGa1SkayrJa48CFy3Zws0g3ZaqrW2ya1Yvay3ur1vk3yj
+	ya10g3y8Jr4vkFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UajgsUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqBdZMGrpnHfAngAA3g
 
-On Mon 02-11-26 20:34:40, Shakeel Butt wrote:
-> On Mon, Nov 02, 2026 at 09:46:38AM +0100, Michal Hocko wrote:
-[...]
-> > @@ -2789,6 +2779,15 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
-> >  	if (do_memsw_account())
-> >  		page_counter_charge(&memcg->memsw, nr_pages);
-> >  
-> > +	/*
-> > +	 * If the allocation has to be enforced, don't forget to raise
-> > +	 * a MEMCG_MAX event.
-> > +	 */
-> > +	for (mem_over_limit = memcg; mem_over_limit;
-> > +	     mem_over_limit = parent_mem_cgroup(mem_over_limit))
-> > +		if (!mem_cgroup_margin(mem_over_limit))
-> 
-> Second, !mem_cgroup_margin() is true at usage == max, so a charge that fits
-> exactly raises an event (unlike today).
 
-True
 
-> 
-> > +			__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
-> 
-> Third, we definitely need a break here otherwise every ancestor at its limit gets
-> an event which does not happen today.
+On 2026/10/31 06:40, netdev-bot+sashiko@kernel.org wrote:
+ > - [Medium] The commit message describes a use-after-free that no code
+ >   path in the current tree can trigger.
+ >
+ > Can the backlog path described here actually be reached?
 
-This is a separate thing but shouldn't we actually raise the event on
-all levels that are over?
+Agreed -- it cannot.  pppol2tp_backlog_recv() is the only
+sk_backlog_rcv callback that calls l2tp_udp_encap_recv(), and nothing
+ever queues skbs on a PPPoL2TP socket's backlog: sk_add_backlog() is
+only reached from __sk_receive_skb(), tcp, sctp, tipc and x25, and the
+__sk_receive_skb() callers (pppoe, pptp, l2tp_ip, l2tp_ip6, phonet and
+vmci) all target their own socket families, never a PF_PPPOX /
+PX_PROTO_OL2TP socket.  pppol2tp_recv() delivers payload with
+sock_queue_rcv_skb(), which does not use the backlog either.
 
-> I want to keep my current version.
+ > The live entry point is the UDP encap hook set up in
+ > l2tp_tunnel_register():
+ >
+ > 	.encap_rcv = l2tp_udp_encap_recv,
 
-OK, fair enough. My intention was to have those two parts closer
-together but this is not something I would insist.
+Right.  That hook is only called from udp_queue_rcv_one_skb() and
+udpv6_queue_rcv_one_skb(), under the rcu_read_lock() taken in
+ip_local_deliver_finish() and ip6_input(), so the receive path always
+holds an RCU read-side reference.  Combined with the kfree_rcu() in
+l2tp_tunnel_free(), the tunnel memory cannot go away while it is being
+dereferenced, and a strict grace period still cannot end inside a
+read-side section, so CONFIG_RCU_STRICT_GRACE_PERIOD cannot expose it
+either.  The description of __release_sock() in my commit message was
+accurate in itself, but the path is unreachable, so presenting this as
+a reachable use-after-free was wrong.
 
-Acked-by: Michal Hocko <mhocko@sus.com>
-Thanks!
+ > The reordering itself looks correct as hardening. Would it be more
+ > accurate to describe it that way, and to drop or justify the
+ > Cc: stable tag, rather than present it as a reachable use-after-free?
 
--- 
-Michal Hocko
-SUSE Labs
+Agreed.  I will respin with the reorder described as hardening: it
+removes the dependency on every caller of l2tp_udp_encap_recv()
+holding an RCU read-side reference, which holds today but is fragile.
+The subject changes accordingly and I drop the backport tags, since
+there is no reachable bug to backport.
+
+ > Also, pppol2tp_backlog_recv() appears to be unreachable, and it passes a
+ > PPPoX sk to a function that expects a UDP tunnel socket. Could it be
+ > removed as part of a respin?
+
+Agreed that it is dead code.  Since it is a cleanup rather than a fix,
+I would rather not mix it into this series.  Its removal is already
+covered by Qingfang Deng's in-flight net-next series ("l2tp: ppp:
+remove unused backlog callback"), so I will leave it to that thread
+instead of posting a duplicate.
+
+pw-bot: cr
+
