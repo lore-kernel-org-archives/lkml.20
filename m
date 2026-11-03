@@ -1,89 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696169;
-	b=wUQEjxeWzmH777mfHsgTvmIvkAteX/UVGQtHcKDINixpXX+9D44UB4EoxFjpd1BVUY8a
-	 sXWElPlbZKpnJYsAoUVzLhR+MVeEV5L1V19PlWC8ENEgmVXMrIj5361yUZQW3oWdxIJJv
-	 aFut7jo9VU6+PrSXDcODFWXqb8K2muZbL49F7BxphgqjXj7+s963ZS7KvqA4M3VWpozjU
-	 YNN/Df1HoWaUA2Y+1XGPVjO9MRuIjq8HdeXaekwUeFMbR8jCBBt6pAlBRUC57fhDxfXXH
-	 rDv52PiID8KMQuVfT9ARuKkbzU4MtNSt5KrxxMR9N8Po7oy+Rhc2emdLvoa2rqoaR9g==
+	t=1793696191;
+	b=HJgAilUSZnJdG2rx7tbwYjV82k8znpfousKN7FpsVB+jLfvk58+WvW1gOxIbxcF9/0/n
+	 bAtT+zUvAjU226Yw0HHjifWxMtqbJSOwPPowDcV6IGgczTT9aYnsjBB/KfzpXWLnGauzv
+	 jM5s8RM0//i+rCFhBEDGEfy2UKH1uS6AcGsGHBxVXp/fE0/0cesoyK9QTVAhJVCCSFi8z
+	 4ip04TRXroulN5lxeXhx8rP31mzklmF5nxM2FXccTxbSLgY/N7WhcFnIHDxR3SVnD2Tyi
+	 X+R8Nwn+Hd7XEiCIzWPEeSiRbwLEEsDO+h0GjPe5A6koQHWxR9gvr+pDFe/2xIEUCgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696169;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0jyamYHXzSg2ziaLDwiS5/5BeZM4xaO8pbQEHrQdYGE=;
-	b=VCC9pHMbJA6lvMeqoVa8fT8W2waqvVOFzDa8VuamfOEKZjeGK19S5lo+neUVNjjwK0PT
-	 rvrK0kExKkM/+/ouI73QHhD5+/4pe+Qek4g+hPa+uCZ0PaCDH6WW1IVny3qwiU06nhV8q
-	 70P3Nm1MbnvxGxpcG3Pifs7K2CzoE4mE5vGi82irPyPcQ8H6et8IUC0U/GDAmFbbebF/V
-	 dphOC5f1OK23x3dVgZrOO1owBfyF2NLL5GmbKbQPfLBB+Hw8NqVj8J61pSZgUHYSFam05
-	 RKlnnitwZB3Qwp4/JZ0B6ADNJfAs4jPoVEdUkqhmOWfXsI2yK/Vl9oOVbbMlm6QaN4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696191;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0eq2D2jYQoQcNB0A0YEhxE5qSu++X2zrdL69lZRBaaY=;
+	b=u53TPdVG7NbuiqdRqe4wNOPjoW2odAL1F9kgWWhRRtoh4bAG+226MgqaIm8P8/nsvxsr
+	 BvTysVK91P3JFftdqxpyRlYCv6/eza49G4ePFNMd92rhO8u9xolDzwHV31P4jVjVISF9R
+	 ZODllLcyUIdfbnUbeOzHtpexBtYA2h5jMDoxB6MiJS2/gj36ccEJYrxDMtUYFV7q5RQe2
+	 buiLeBZPy11UVjPJBm/xiCkMT6PoQvrSbwRcIBEQFN+wJx306VWICaLDk0Z2iyui65DIu
+	 ZOCygFBZcbgS8ONi+y/yvfsjNvkhr1OMsUNuKIvrDiiQlTQHb5LMlrgqXqf2no0fByQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=f6U6NXOj;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I4iPZ1RG;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Q88fxJgs;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D837606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:56:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D837606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C61606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:56:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37C61606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=f6U6NXOj
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48df8fe8513so3351634f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:56:08 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I4iPZ1RG;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Q88fxJgs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793696190;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0eq2D2jYQoQcNB0A0YEhxE5qSu++X2zrdL69lZRBaaY=;
+	b=I4iPZ1RG2gTiwAT0DLwOylVMB7wodJ6mcvfcNE37oXUzzmsLDI1G6a06oGoFcKG3AiIHXv
+	1l3BWLfpli10jqtHVuIJvATy1G6PV7/AAjIxqxiUpWc3zuvQRUOo0HH9Jw5XwI5wm1+PrM
+	S+uvywORUEFZuvVBIr8TpE7ZjOjLCuE=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-22-QmsjHHdgNjee_Wjmfnfxog-1; Tue, 03 Nov 2026 03:56:28 -0500
+X-MC-Unique: QmsjHHdgNjee_Wjmfnfxog-1
+X-Mimecast-MFC-AGG-ID: QmsjHHdgNjee_Wjmfnfxog_1793696188
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a16dc2323cso33273985e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:56:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793696167; x=1794300967; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0jyamYHXzSg2ziaLDwiS5/5BeZM4xaO8pbQEHrQdYGE=;
-        b=f6U6NXOj6LpNXK2e4ZHQ7g+8deViShs8eUP1unXvI51aX1NR6sM+uV+0pCqmHDCSJ3
-         3mrT04WkCBGPylph3oGhRe/iBc3jI2SSIJLCVp7c85ELserS9+0wQIr7GcEC3cYbs3+8
-         jMSwBKRwOIeB5yVNpnR0Rq4s8efkk/tDbPbGjtI5R5/Zx1GAb4yxOvejsKDQWlvewUwl
-         qlVu7x1CRStJKSX4IZTbjxlvgtxCNuRcncCngzweSRVWHRarqZIoUpvlq8QfSYSWTjyO
-         DNSICeiSUVUlp8lDoEf/siV2mtbcEuly1Od109rCZe6gyOMVXAidKmR8NUiUnam01AhT
-         Xy/Q==
+        d=redhat.com; s=google; t=1793696187; x=1794300987; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0eq2D2jYQoQcNB0A0YEhxE5qSu++X2zrdL69lZRBaaY=;
+        b=Q88fxJgsJA4E0kXmoHEzxKAQVBFcDXBz+8OUN0wBDR7hK4A74Ax6t5CHgVkkcbx04l
+         Xs9gl9jYaRfreUu+5eUgCye9Y9J1iLGe40CWCuEfpAuNUcL+PpQ/omzGcO5fEbIMOhWe
+         L9lwis0Y4wZDcoYP4sShDhD23YKA8/vNYNp4Zzx5WcYjojwIrqc8gpaSPLo0aObyG1q7
+         f/6INvJRwP4snqIs5DJvi+XoMqeXoS4aDIkXyt+/xLRPLqxXypHGgF2Ue95s6Sbgx/rD
+         FlwZYuwkhFqIZCJbBKnKatPw6ks3c+/6E/RtInyRHtLttw534NOxp7UPOjMPn5kYyWzr
+         z7Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793696167; x=1794300967;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0jyamYHXzSg2ziaLDwiS5/5BeZM4xaO8pbQEHrQdYGE=;
-        b=qlxT5NArDax85n6Q0h6w5PKmqIg4eC3bATjmWZ1lDgrQZV35Fh7RrXMRhPozunfWn6
-         NAss2xucYMoI1krP7m338cepvDYaJMqHhrKykHUpQ4+abMq4NmmLQLfMw1OS61tSiujm
-         tjfPva2fs5giSQfu7XZ5Y499ThSJUMrH5vmvN2XxCfti+P/T2ZQ+f1ylh8XpVR+X/ey5
-         rWTlhp3gcOQhvBn+rlGBjAU076ndkVV+/07EIMzrMQUaIF6oSEsUYPUbIaZxPK8oxVh7
-         peOntq276BGHrYmmZZhxBF2zeW6etGwUITjBWCAkDC9sFq8kYXXh215KLKC7rlZztrGi
-         rd1A==
-X-Forwarded-Encrypted: i=1; AKwUvBx1SgX4FTrXqi9NZ3LWMtZf1Woegi+udfYeq52zCTPt80W39RBUAuRtzYvDarXfV852bp9/0aOygTtMhpI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6XblCSzFlVk5h4iGwPDrAtiLzfSgzrL+RqwBlYeCHsfdXUbIY
-	8hTGPLlK7Q98sC/ujFEZzK02T0TrjgYCLQGVg7Fnrrc/YhMgCwC5itdZm8tQ6Lnz7/4=
-X-Gm-Gg: AYBFou1pWJKXV8UL+mj+gzal3SVfY5YjuMeMEU7cVUil7pAx3KiBmfd9+A0bBcE5tI3
-	TDdG77p7zyP3Vt2MejUf5E57Fra7ewQ5MucBn4Iohxy8VlnJins9L+1tTHH9zG6hC91Om9gLImC
-	PaMlqFihKCCqLOzgmsggKAYCVsnUgQWDWnh6B2cXtuehD4nJwCBWtwLMRkCDX0/1Z2SCkcMk+Ve
-	LFhwuB4Epy2teFi96wgIkl0vlixMi05H1WNJfiBzHfm9fQnvp+ao4WI79USdO7q8uB387OWroGg
-	w9PthqtDdW4fXZXyn2WRRct91e3Bw/zahHnKvWsvbE/JbvoCm4YvWrTXZrxnIOCyfcWxg4FJ8Ve
-	sisqh1COqIeoclf7JnnhY5DP4u+mw/dkfSogJ+kmfZhXJrhWpShkGv514FsNduPp61bIW2fIL0V
-	tglZGFUpN0kgYposjXLCY5skOQzu9j4NBLU5BjJZD+PJgX0om6WRH/kO6ky+PSS3za3MVNd+CsV
-	tYimh+h1S32fWx0VamOgjBv/Pr126NbPgTJ34WcOFnWcPnZ6PjH5uWXmquke7qLHzF/kN6tbJ3H
-	D0Sjeh7YgW8SNUiXRW+rltps1WkIyEai51RoZFgx3/sNxjCv5m2tDuRVQcDusjMc84gWgM92HIl
-	t+H0DAs8V
-X-Received: by 2002:a05:6000:2504:b0:48e:5df9:1ec9 with SMTP id ffacd0b85a97d-48e6e500979mr30641989f8f.24.1793696167199;
-        Tue, 03 Nov 2026 00:56:07 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:95a2:4869:9f46:45f0? ([2a01:e0a:106d:1080:95a2:4869:9f46:45f0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e88876946sm4998576f8f.5.2026.11.03.00.56.06
+        d=1e100.net; s=20260707; t=1793696187; x=1794300987;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0eq2D2jYQoQcNB0A0YEhxE5qSu++X2zrdL69lZRBaaY=;
+        b=fyrjmHp2XFMAbiXIw2VUzQp6wOESZ833cZuQHI9U+Hs7vrGSHgXWeePlrhH4mFAQEU
+         D8eV2PMnhST2J2EbAEb40HhCoOjYrUlDxT2bImaHJEhilm7c74x2CkSkMPzQc437Yl1x
+         BYpjEZIhPwHksKGsgL9R13r+43QEHLbGL6Y5wUVbCS7PPJh6k4y+imjhhLF3R1X0JOJm
+         pbK8KKJK8f0q4zCRENly8vH4dcqE/03W9dcZQ0Y7+zQh5qVoL1pxOQOKVXwNojXTOr4q
+         9ZEjfNWK1X26qftAuiZphobjt2jqoCt+DUtYE68SyPUvMzoA8gjbf5OGhuxU2XMTZvuB
+         YoJA==
+X-Forwarded-Encrypted: i=1; AKwUvBzdKpSmQcl5tn9CjNjWcX3/ONPj9PVdFXyQ92uJOpcMv9OdvTSsGIB/h82kRevsdGt7y7t0HwDF4zADt8w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gAEg95uyW6EHpGl9+dEKVEMjCocVD5uRnInrxEsa687zrB25F
+	YsEHY1j7DGw+YHE7cE6itR2ZCu0OXmmbH2CS9KpS3MPolUSBYZKcMwhHXsFWOG3LrvKuJmGtaK7
+	RJsl9FT1gcRyPxzqMrOtxzw2KARKzl4oEwlh8aANxe/Dy1irB0cug6MBVflV96TBIgA==
+X-Gm-Gg: AYBFou05TpBAtbxutRBv33h2eQFhVouhgGxjkr3CiifevzYDSPM4HQqx4W1Cm7V6ixe
+	TXRz2tKHRVcwn3KuVMxj6itYeYJc7ddExY9vTiKG4p31uCBw6aFfjigLplIQcMSXMZtwTTvwMAv
+	YQOts9PWbR1xNP/UGjOqz0b3B8EwrjIe3MmtX33gB72lvbX+Ik3s/9fp33TGmXr4AKckWSM4LeR
+	2iHH3PrKodi+Ea2mSsbsNtcR2h67tELWdv9scIBrN+XXnW3HyV0I38q+CTMrVby+f3mXDZro51A
+	Iussqxps0WspJbUjny6X6kr6pK36V9MswNYAt/E98Y6s3q/tSkQXLAS5tXxh2qwkdYWF8J7aWBm
+	LYPozmeiVy8IaZ4x+ScF8fvSfaG2FKW7pJzwvDrpqw7LdDnzCZujvgHlfDjBaVUmKSVaoT4h0a3
+	JKuSIAVa2LW/90fAc0ehQM3RWCNx0lQ297qhui06O9Uog=
+X-Received: by 2002:a05:600c:34cf:b0:4a2:fe3:121b with SMTP id 5b1f17b1804b1-4ac18d68ba0mr257502005e9.28.1793696187584;
+        Tue, 03 Nov 2026 00:56:27 -0800 (PST)
+X-Received: by 2002:a05:600c:34cf:b0:4a2:fe3:121b with SMTP id 5b1f17b1804b1-4ac18d68ba0mr257501695e9.28.1793696187165;
+        Tue, 03 Nov 2026 00:56:27 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm433231295e9.1.2026.11.03.00.56.26
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 00:56:06 -0800 (PST)
-Message-ID: <c1c38ee8-5a7c-4b08-89c1-e1e27a2043d1@linaro.org>
-Date: Tue, 3 Nov 2026 09:56:06 +0100
+        Tue, 03 Nov 2026 00:56:26 -0800 (PST)
+Message-ID: <a2ad86f8-1e4c-48e6-8cd3-4c43d73dea3b@redhat.com>
+Date: Tue, 3 Nov 2026 09:56:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,82 +113,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/2] phy: amlogic: meson-g12a-usb2: add S4 support
-To: christian.koever-draxl@student.uibk.ac.at, khilman@baylibre.com,
- jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, vkoul@kernel.org,
- mani@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-References: <20261025192202.209045-1-christian.koever-draxl@student.uibk.ac.at>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261025192202.209045-1-christian.koever-draxl@student.uibk.ac.at>
+Subject: Re: [PATCH net v3 2/4] net: phy: as21xxx: fix read_status speed
+ handling
+To: netdev-bot+sashiko@kernel.org, ansuelsmth@gmail.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261028073024.25175-3-ansuelsmth@gmail.com>
+ <179335632134.3134.7804602022043442736@kernel.org>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <179335632134.3134.7804602022043442736@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 10/25/26 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
-> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+On 10/30/26 11:32, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 6 potential
+> issue(s) to consider.
 > 
-> The S4 USB2 PHY is the A1 design with different analog trims and an
-> extra disconnect threshold; without its PMA update bit the host sees no
-> root ports. Add a compatible and the S4 settings from the vendor driver.
+> Critical: 0 · High: 0 · Medium: 5 · Low: 1
 > 
-> Tested: both host ports enumerate keyboards, mice, hubs and storage.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> Tool use (Documentation/process/generated-content.rst):
-> This work was done with the help of an AI coding assistant, Claude
-> (Anthropic), used through Claude Code over many sessions. It did a large
-> part of the hands-on work: it read the vendor kernel and the firmware
-> interfaces, probed registers on the board, drafted the code and the
-> changelogs, and ran the builds, checkpatch, dt_binding_check and the
-> tests on the hardware. I directed the work, reviewed every change and
-> the final patches, and take responsibility for them. There is no single
-> prompt to quote; the sessions were of the form "find out why X fails on
-> this board, fix it, test it on the box".
-> 
-> Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
-> vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
-> 
-> Christian Stefan Kövér-Draxl (2):
->    dt-bindings: phy: amlogic,g12a-usb2-phy: add S4 compatible
->    phy: amlogic: meson-g12a-usb2: add S4 support
-> 
->   .../bindings/phy/amlogic,g12a-usb2-phy.yaml   |  1 +
->   drivers/phy/amlogic/phy-meson-g12a-usb2.c     | 65 ++++++++++++++-----
->   2 files changed, 49 insertions(+), 17 deletions(-)
-> 
-> 
-> base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+> - [Medium] With AUTONEG_DISABLE, as21xxx_read_status() no longer takes
+>    speed/duplex from the PHY.
+> - [Medium] In autoneg mode, as21xxx_read_status() now reads
+>    VEND1_SPEED_STATUS on every link-up, which is the PHY's own report of…
+> - [Medium] The new early `if (!phydev->link) return 0;` in
+>    as21xxx_read_status() (drivers/net/phy/as21xxx.c:732-733) makes the…
+> - [Medium] In forced mode (AUTONEG_DISABLE), phydev->speed/duplex hold
+>    the user's configuration.
+> - [Medium] net: phy: as21xxx: missed pause and <=1G speed in
+>    as21xxx_read_status()
+The above ones looks legit to me.
 
-Acked-by: Neil Armstrong <neil.armstrong@linaro.org>
+/P
 
-Thanks,
-Neil
