@@ -1,63 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706105;
-	b=HXMWT/8zPgGxlHybE77jMk1PEb396dwOSVHASlv8JS6rTH4uf0yS11C4YeNha6N4qLXc
-	 4ZZHYWcQarp4oP1S6b7AqTvakNHE7M5dfEi8cQk4x2Zr3PUJTj0CyJwcfBDXfyNlBfoq2
-	 SazLlSGccxg22PC59aRuxU4oga7x+9MZKzfR4O0tinDQiwspmXwXhhySQHcKfPZm+lWe8
-	 Aa1qcRLlqugXgsJNyJM5NM1CjVkJj/xuB08SCjZt6yscdDayi6Tq6vmY3QL0tsDvdye+j
-	 55p9drmlm77Y5/8ya2xMx+TP94+ziAN3yNLA/qwVGJU14zHvqnLd7Q1XclbN1rOhKFQ==
+	t=1793706109;
+	b=YIi6Z8eyHvu4yoRlr6WsjSAtSMBpmvZNUtjGdUd5rsrZOk2jW8sgSxIGAWSipsZ4AyIi
+	 aHZJLM/6zL/X5cHm3fBdhJCarD8iBUmSo+fMFV7MLB+jT4ROARge6DK/fXl999ZPiKWOE
+	 6KYZvbwFalIW8RsaBDZP0C7S7+XLXwglFCnm+pqtwBR+4W+lX1vCpLizt/uLCCqTRd2DT
+	 YWOqm4PlXgRoCf28n5JlBxp/p7yZb+2QqGx9uqIil8ee4IBnDXky8G9lASBYBTQu6ETj/
+	 n7n2qI2fGeOg51GAqUBRDWJBgcVuZa4ScQiF2Wo4JkT2bFI52VUTRwCNu6HdOCNgQwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706109;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
 	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=LcrJ+vMNoTjg4uRtGzESkteVkPhmfOtH+UHqc3pLZPc=;
-	b=KRNuE+EnwALh26hIfLFisIiEFrP6Ru89RWIaBOhFEYgEtUahRzlmfKiVaZuGpcvNDOZD
-	 +BwF0U9qQ2VZXC+e4nC19BhMLhUTz9yCVSElypdE4BTMIBE7vDHT9z4xDM4NIfKWxHjLv
-	 aFKr1m5CU+gtPNbk7cmCairJdPWFuKfCj7G9OQO7JaD1oM7k4w2uXH0OJZfPNBxwhR4CF
-	 7kv2AvsjA7k4xP1mshL2u3f4YMww6/sVbqLGO7pDsKJE2IpDn4D3HVpk3/oRnkzf/iCc5
-	 b0hFIlgsdBK+USoO6DEoaYHRxfla8GpT7TWQo7WkTeZHDsKexlHrgoaeMH0Rj6FYA8A==
+	bh=jjfU3ITG+1Ysae0i08XoA5rOkoEAvvwcgiCSL+a+RQ4=;
+	b=nmgVlxbd3p+ugZXgAEQWYE9HqChsnF0pXC8jB/z4V4i8oGx9cZ6CsQKe6CN0ieYm8EsL
+	 fbX3XuBpCOp66cZJMfHoilErkCOcah4FR810ELzzj87J9dUqOKwy+/Wlr/Gwo34yeC4X2
+	 Cq7Lhf7D4bSkWszzRo9UUcQKEmMa6arz2qkcABxKxheJ10lYTePQSHaTeHsED50qEm8S6
+	 spPaHePT9vrCGpiLW+m1Bl33XMJXQnOq8JTPVnZEiramiZiDR3+ymVxz+SkikgSF87Uze
+	 9jv/xXSEJcboc8kHLpzLCAK5knd9V/aCcOQzw8g/Wsbed61tCuVT384SxvbQL/YTDOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=smail.nju.edu.cn;
 	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=k98LtYpn;
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=PYuWLUIz;
+	arc=none smtp.remote-ip=18.194.254.142
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33072606D81C;
-	Tue,  3 Nov 2026 11:41:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33072606D81C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52A4606D838
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B52A4606D838
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=k98LtYpn
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=PYuWLUIz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1793706084;
-	bh=LcrJ+vMNoTjg4uRtGzESkteVkPhmfOtH+UHqc3pLZPc=;
+	s=iohv2404; t=1793706060;
+	bh=jjfU3ITG+1Ysae0i08XoA5rOkoEAvvwcgiCSL+a+RQ4=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=k98LtYpnWJbrX+oJoDZHmh6zFPGTnHvyARPy6KmTfYQQG31rhonvi6qiCJO/H6TsG
-	 VCqmoiWaY1JN15xSVjFI1JjYVjCaAl/GrZ99P9HgrrnoAlbkVTn5FGvYfabbR8FOrR
-	 b52exMIAMf2Bv9ODjbOgx+YX6d5p1COt9W8q3gzE=
-X-QQ-mid: zesmtpip4t1793706080t70eba3ef
-X-QQ-Originating-IP: +5hLSLUr4nMGZDSvY3IQk+ELRYhn41bK2RyuiEcRuGo=
+	b=PYuWLUIzxMiDAAvt1AgZQ0doYcrQQUxYsIfVWO1vzQH1m+2BbtHIBL7SITaRF2zlJ
+	 th/TcXHGXrmNfz5PPX0H22mzHdVILJa6ihb7DaNxCeHS3fktio0AksSsZet17Sdgxk
+	 gUBfqarxO7+bPq6PGHLr/TClDgi2DpiH91IoKqmU=
+X-QQ-mid: zesmtpip3t1793706055tf286fde0
+X-QQ-Originating-IP: qDU+okGXTubXWh454M3F6joKk3mhoSRF6jYFHwiqPck=
 Received: from workstation-Precision-7920-Towe ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 19:41:18 +0800 (CST)
+	id ; Tue, 03 Nov 2026 19:40:54 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14287579684144608040
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 15823312286614678572
 From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>,
-	Aaron Lu <aaron.lu@intel.com>,
-	Danny Baumann <dannybaumann@web.de>,
-	linux-acpi@vger.kernel.org,
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ACPI: video: reject out-of-range _BQC indexes
-Date: Tue,  3 Nov 2026 19:41:18 +0800
-Message-Id: <20261103114118.74782-1-k.chen@smail.nju.edu.cn>
+Subject: [PATCH] drm/radeon: reject invalid ATRM results
+Date: Tue,  3 Nov 2026 19:40:53 +0800
+Message-Id: <20261103114053.73761-1-k.chen@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,70 +72,61 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: MIB/1UGyXKa7XkhcLSzvPSildxfvFUQIdw87cUYGHbQpBYQW2HqeEQjG
-	rh2JOlBPPQLaTS03vYUXCHh1qiUaM50m19WXDofBKGtUXVaoJTm9/Q06vsNyWkCktbTsL8F
-	kVxoygnIzwIdxNB6IoQNZlDCpad7mfV31zL/FZMQEp3pSgqZeeMyjHaPFWPUWqwenih1Jh0
-	ilOtDa4sJv7ohAhZp77+MzaHniw7ATwFoA+hnCFwO06o3QniiLCvFqBduuJbRBBeGt9T9NC
-	038vVJn5bpAuaAZ/NfHBaw+fb6DG/X31F0M/6v0YI3v92gJbarHj8PlJQ+8zdAaoE3vqTeT
-	fISBKnFkGafQ4dy0cd1pnMz2zuifPI1JuTwgEzyx/Zu0T1BT36x224Ld8yVdA6FMz6VrGF1
-	9eAwPTG0onsHEA5RzUBbmb+1tU9v9Q6k9I/4U2cOw29y43nuNVp2g4O6lDZlEaPbo2RbeZt
-	tytOSGFpFgdda6DBFSSlOOCPMMhhChkBmIUPy6i/ESpAWT1idGs3mXu/xNRjSuDYbofdF57
-	m/xlcOTkzvfAU6AxDlpNzaxum0+OU695HoEH6DRmGKcIrTr0pqyXLDswKw+jalRfStmsGIa
-	zCLZ0QJLerUCs/5q09l8WtC6ddcLVHdgXrIRilfnoXgXMy0hJP0WMVgzmkKcRBjpN/sFkm5
-	AG9cjSz64W/jb9PQ6vOgj/nXKJRL4baHxyrDbOOL/95yB4v47AdVERqydiYmkzfqKAM7uWc
-	Ei0jHejwkTLMqzU6mUn+E4xx91ITmjlv5uBKDllFS6MtXzrfxFFs6HGnJmgttijsPYoSo6Q
-	VvATp1Fgi9L9iaI7l1e0IT5ojMjtQJ0iNjRrWQ6sOBJhQMkBCKl8EaE4YU/7roSpKPYsweG
-	U4gDApcriW4kpHgjZqWSC39KnBqB5YEzx0p1HK5lMxBs9FppW7OWldivLEiLR6nuGOkOSgX
-	ngl6ZyALVNrGaZEBLusHCbBVlexMB+659GWvFA9C8cffU5P06UjqiD8bh464k+0E38f1q61
-	d5RjKU16Rtd2wUHi9fPqLMsfpo/xTY0Kt1I92DldGwq4hKEU9EaWrt5AyVKmA=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: Nu98wWQiOS3A6jKSlsZhyW5ctN2VIsKQPBgt4YGFkm1Txtf4cn2hXZCO
+	sZPKvbcuo/JbiH++rrHjayaCvCriY3QXZls+w7E+K+sxS5bVtfuJ1y6sQnAiFs0fbNGH4/8
+	CeKjp/JfdcDff6d/hVpYLzcU1c5ROxfJEn+lq0gZgSuJn9U5wgOVchLJjk0cfls0wbUZ0Do
+	6gYFW5P2ZrUvD5cjgCK7Mw96wOFL/4+hobCooQaW6YXWeuGDSt384mOJbWyTGe7WUstQ0ma
+	N6lrWwVETIUEZAMjcSLExd6pRd621cRlNpbJ1k1vTqvH4x5Q6ZWAlsnH1uxmHgzJYj0LhRf
+	UCUcIWMA6mo6ZJltc2RDs7dyW1cweEMd3VErEgv+BioLNhedkqO7XuJBGfQSNsHsThNlNur
+	BOwODYr84GTYCzuj9z0Qb37rwF/dDr74OTq0RzWS4BO0RhiblBbBn8Bautv+aD7RYabm+KF
+	llcomKALw2ThnrTw/745j6SDsJB8fHHhanalUl7XuwXouQ82d2QY63cyhJtDqnrDyLwPU6r
+	tC5PyBBTwEKpk4n2ucomNu1gztrqW+IgBTL+oAI65pj6BUzB27AkADwdhgH5yWySr5olykj
+	VPNTfYLH7hDhITWHKo2b50KuGpQCOsPx21/zxt2NSjOJRwocLbDfOgIZMpdgdVlAUyPPWYr
+	eEtpW91fdnWJVcwOpCH0Z/OCIuOTy1hk3G9izT0WBCIAulsi4YejzSAmFniKuNHbFUNNsyY
+	k60bTYqa5A9D6NdCxKlm/NLZeI5kNzMrW7JvjIddlNGUfLsI02PhjiBTVQXLknaBEcKMlUj
+	SuXoCOAzS5Rx3jYFeYQmBodB+DxjnVSVLefttSiYQj0UfvOFrnj5HCEiuN4yNVh3sFHhYPu
+	BJjrbNfdC/Fvrytq5l+8qYApSIrY/KUROizDOxnODvToOYmgnxa0WgsCQUVmXF3Ol/ZextD
+	kVoLw68YOtnLFoVuZhs13WYy6WHKKbqpWj8FHYLZ1/ll7Oa8lwVVDE+q+90JPrWOKr9P3tI
+	Ja3VoggyDr/ptIiojc8R1QKSd8Z2QfRCS7z4wISw==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
 X-QQ-RECHKSPAM: 0
 
-acpi_video_bqc_value_to_level() indexes brightness->levels[] with the
-value returned by _BQC once the index quirk has been armed, but does
-not verify that the value is inside the array.  A firmware that behaves
-consistently during the quirk detection and then returns a large value
-can make the driver read out of bounds; the reversed branch also
-underflows before indexing.
+radeon_atrm_call() trusts the buffer returned by the ATRM method: it
+copies obj->buffer.length bytes into the VBIOS image without checking
+the object type or that the length fits in the requested chunk.  A
+firmware-provided ATRM method returning a non-buffer object or a buffer
+larger than the requested 4 KiB chunk can write beyond the 256 KiB
+VBIOS allocation.
 
-Return an invalid level when the index is out of range, so that the
-existing callers disable _BQC.  Also guard against a brightness table
-with no usable levels, and tighten the range check in the quirk
-detection before its reversed subtraction.
+Reject the response unless it is an ACPI buffer no larger than the
+requested chunk.  The only caller always requests ATRM_BIOS_PAGE-sized
+chunks inside the VBIOS allocation, so checking the returned length
+against len is sufficient.
 
-Fixes: 994fa63c5b12 ("ACPI / video: Fix applying indexed initial brightness value.")
+Fixes: c61e2775873f ("drm/radeon: split ATRM support out from the ATPX handler (v3)")
 Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 ---
- drivers/acpi/acpi_video.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_bios.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
-index 2a2822516665..44af7ffb9a81 100644
---- a/drivers/acpi/acpi_video.c
-+++ b/drivers/acpi/acpi_video.c
-@@ -533,6 +533,13 @@ acpi_video_bqc_value_to_level(struct acpi_video_device *device,
- 		 * items with special meaning (see enum acpi_video_level_idx),
- 		 * so we need to compensate for that by offsetting ourselves
- 		 */
-+		if (device->brightness->count <= ACPI_VIDEO_FIRST_LEVEL)
-+			return U64_MAX;
-+
-+		if (bqc_value >= device->brightness->count -
-+				 ACPI_VIDEO_FIRST_LEVEL)
-+			return U64_MAX;
-+
- 		if (device->brightness->flags._BCL_reversed)
- 			bqc_value = device->brightness->count -
- 				ACPI_VIDEO_FIRST_LEVEL - 1 - bqc_value;
-@@ -781,7 +788,7 @@ static int acpi_video_bqc_quirk(struct acpi_video_device *device,
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 1da6bf1c17ff..c23892470265 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -183,7 +183,12 @@ static int radeon_atrm_call(acpi_handle atrm_handle, uint8_t *bios,
+ 	}
  
- 	if (level != test_level) {
- 		/* buggy _BQC found, need to find out if it uses index */
--		if (level < br->count) {
-+		if (level < br->count - ACPI_VIDEO_FIRST_LEVEL) {
- 			if (br->flags._BCL_reversed)
- 				level = br->count - ACPI_VIDEO_FIRST_LEVEL - 1 - level;
- 			if (br->levels[level + ACPI_VIDEO_FIRST_LEVEL] == test_level)
+ 	obj = (union acpi_object *)buffer.pointer;
+-	memcpy(bios+offset, obj->buffer.pointer, obj->buffer.length);
++	if (!obj || obj->type != ACPI_TYPE_BUFFER || obj->buffer.length > len) {
++		kfree(buffer.pointer);
++		return -ENODEV;
++	}
++
++	memcpy(bios + offset, obj->buffer.pointer, obj->buffer.length);
+ 	len = obj->buffer.length;
+ 	kfree(buffer.pointer);
+ 	return len;
 -- 
 2.34.1
 
