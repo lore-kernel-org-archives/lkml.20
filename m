@@ -1,75 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725130;
-	b=nvrMtO3Q67bicckOK3SdA42WXjoEoiyeGM+pfGmWk6k5laLdnjdYhOkDCZlUuX8ZYn64
-	 tqdrF9GIFepvqg8N4exqjRMqRJnk0U//iQ+rNZlSvgvMN2KkPeyrYobWXCd2OyiebalKx
-	 ThNk6EfQmBqQoOqJU6rkkSKgx+4jO7anaIJr3vhYyxM2orCV51cZJ7gr7zyzZ+ASk4N4A
-	 Q0giSQ7CdrKoDJK8DxVcmlMOOugrwdj7PAKc2HK2FKy6jbTgsk4ff7VICbEMG070j1Nwj
-	 5FxM0gO8jabkhfBUZcS1OBPPhYdgzSgeyF7vkAt0jGhNCltqMDMJr/GWC3kzBbc00ag==
+	t=1793725167;
+	b=uKS9UH/sL4Y+vAredxFgyvjkg8Vhg9t7wkL5mnPjSIV5VT8KbIbd9IqdIKFq0hgJ318M
+	 6voqK7h1vv0aCUFsMmaRu6888pDbgab4Nvaj7lCH2aLad89tm9J6y8NuXfxbRNUmEgXVm
+	 MOxceYZLQZUvOITzuzHNdteYeAf8Q+n24hBTlMnD8aPDs0czFv1TfAafGQIAPJrZgr6S6
+	 FQcoix/tnqjrvK9zwVe4/bzKOYmHQwnUwbUM7AHXYpWVJxlU+B5VGdknawQ6pR/WvkrOG
+	 3FbQQp7ax4F3Ous8wXkftBfY4An45/6c5VZssqKDKWB7WVOzhzu6OJPiDiDIDeX+6ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725130;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725167;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZMykjE/7l/jsGdfR+n3nXl+yG8LC3pOXTPVPEB8YOmA=;
-	b=mhP4cXPAyXICWv3sgPfKLS/34agGYwl8UNQriQoSdNoLcrSOHHS73/6qoPTD0iRF3fiH
-	 3ybGSng7/QrGdapOONZ3hRDW+l4tkt0DRdMHKomLA+08J2+6ComZ+x/y2UcHfg8wN486j
-	 y5W2TR2zxelFgukJH91tNNjl/ygAcY1JXPGk9oyfwah9QY6IP4yBNgm7vmORo44ddaSEF
-	 9jEsRjgyNd/gCOQgc2g8W/OLynuhlQkAo/ROGkCaRMIjCJAxepD1fq54ixpSU3Mr77BQN
-	 alh+G80SsqsXugO8+e1kp4wMu7D0I+k9W3SBcM5qHY4apbmtHPUdjKXFx8akgkOpw3w==
+	bh=30fBqIUk44N3HdvXKXPWYu2PFlzNF8/RtKozuVD1mMQ=;
+	b=e7lLPL26T7b8RcZFfjXoL2MJznYlSXurBttnDyTSF7an9IoYeJyOqNV64jnfg8ZjLgbO
+	 MAXxuf/GU6Mk51tcwI7TbzqUvjO+rlRJbu8Vg8hYY5gtDxt/IaGl2nQGa4gxI4UZyDBD+
+	 uh9X/HVnMmNJqiKNaFUadnfPyVNKJlHY2bdBBMro97FjpdSgn2A3OtMe7FYs72KFl5A5+
+	 /hlOAxazq2pDgY1+K+QRpF7LZi2/qU9rup0qu5tDdIO6IYxJR+94fKDjL53H1cvh63XI0
+	 0qN1QNV+BSA4s0pvPpl7dW6zKgJAZ2CvJ2/RaakkOXn/dQMF+5f3TKDxNz9zcKvbedg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelriot.com;
-	spf=pass smtp.mailfrom=kernelriot.com;
-	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b="h69B8+/y";
-	arc=none smtp.remote-ip=74.208.142.49
-Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="EtIDaBg/";
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8FE606A332;
-	Tue,  3 Nov 2026 16:58:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB8FE606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelriot.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5517E606A33F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:59:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5517E606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=h69B8+/y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
-	s=kr2026; t=1793725122;
-	bh=kLOhx7Xp1VWwEDJ5YlOdluqX5Krp+Iu/TEbVQCaGCzc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:From;
-	b=h69B8+/yiPfxJltzpSCRsWhjrdhAv1T1htNv6JY8a6Fi7iWIr+n5mGw5eV5u4fhiZ
-	 U3rTaOac/nhkUE941dJOI5Wwa9vi68uz1fQUFg6tALuvD9cG6DFrDjXfjR3zb+65TP
-	 KyNroY/vhYWr0jIoX10WYzLdmlF/zDgX9VclOUAae32i1d6MNU0Vowj/Qeu1FJih1+
-	 mRpfEYu8m2RtOWbDrPWGCYTkVKDFqXVXsLu7WyIuWH/TBQnvgLbtHVVSfdl/fwxu2d
-	 SFMv1wqhU5fBsK1Qku6vTDyqz2lfTwH9ntoebpcxNXx+TA39XytP9M1PADd2RLuR3F
-	 +EwdBgYwNj9mg==
-Received: by mail.kernelriot.com (Postfix, from userid 995)
-	id C0587819E3; Tue,  3 Nov 2026 16:58:42 +0000 (UTC)
-From: Magnus Leatti <magnusleatti@kernelriot.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	thomas.petazzoni@bootlin.com,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EtIDaBg/
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso7361172eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:59:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793725166; x=1794329966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=30fBqIUk44N3HdvXKXPWYu2PFlzNF8/RtKozuVD1mMQ=;
+        b=EtIDaBg/4JeF3SEyd/fennYexa3s3b14Aso1mQwgf5ZC79pj9WSiR8/nd/DodHTQ3y
+         ujy3VkKnDw6ywAYO/MjUyvdKha7x7UsIF7DejTEN5evpHogOPCY+5U6niz9x0jtboYP9
+         UY02eyKVCeI9oSU0fPYeurN9MaX7M3rqyvwlQvOtfPf621UvSVHhi8WBhLgMpkLI+XeU
+         QWwK5D/c2GVwkrVOsFIYS/xERe+FfDSs4x1GRRfhOD/cGkJCW/+SEf8nLV0tCW0zWN2t
+         7IF+DVilcU8sYVm3rMYSsWOlwsoLVahFoLlpqU65V0HBYo9NeoFstKmn5X5MXd/9Xm+C
+         uezg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793725166; x=1794329966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=30fBqIUk44N3HdvXKXPWYu2PFlzNF8/RtKozuVD1mMQ=;
+        b=h7JWh97lGQY99PGy7uM+KDVJE3qzb5AZifdNpTXs7qXT9N6ktEwsubQk/jZHE5ycPm
+         zZRK9XF1JmRMVk2nU6GfFZux2pnqAChAEHWBxhHYwuzr+0zsOAIt2/Yz0vxXN4AMY/bh
+         bHLG9l5FwJ5sSbexoexobHe3dNxcOElwBBfNVc35HB5EhbMTLDernR1QEwjQYciQwZAg
+         NY3Z0viOuKh7AZ4HC6LPiv9JWf7NrUuf2pzpH/1ii814p8wALTp6+ZmKp+vUJysxyWDo
+         H5BLBe25/+nP/5RIc1SjjH66iTqLjCUUZ09+mjkUT4RG6TP/lpOzAWiRmuTcWfGO7RJm
+         T96Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwNcCRVj6EGwFkVSLFvtdsPDI4LwMvM6XlqWP1+sGdXilPuTikzwjsSYDoS1EQPNsxFbl6/l+oz6CZqh7A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+iouCyqvho6wmFK0WsCtkI898kmaqAZnE9FdY4olSz+iAQ+Eni
+	+2xg08wUYZGoPTdIscXszX0/WoxvP76VZmPWKVSoL5IORodRTrumSOHR
+X-Gm-Gg: AYBFou1JQc0flPqK7E2NKvzRNYdP+xsxNPhwdJbtvAtKgapZlzvgJRmcNt/45AGrk7A
+	DhCqxKL6SEZGq7tdL6Oyo6JQyg2jOfcnO3oCnnYXJEefLrvEmePJ7ciFXuE/SBfGvgJpTPNkG9t
+	scO0atTqDiAzdxoAYBfnLb4ecg/O4SMEhzHNiZ1HDyOH6WYJLnh2zAPsRtm/eifJBNnjm2c5mZ2
+	A4HhQABtNLgZeV8A2VPsWSUgqmdG+VcO+NHpQWW5k74ToJ1qrO7lKRy+5qW01hG+706PnRaEXSt
+	vZwgMBVaR3G4ab2/laYLHphl24KtrKJ9zQvu4Qky12vGmRGAVyvV16p5w2RfUqovQnpWZ885BEB
+	fswHu5zXYI6GN+uvjVDaXroZRiivdzWEJjvxQ4hjv21/Y9P0FwzvV6fUukUc/iP8sorNbxSFgSU
+	kTtUz/jgp81B281GUh61Co1OzEMf7USXmIwKieCQGiCT1EJ+2BNwF2K3Pim/CJkvLk1/39K8dcL
+	/m8Yw4UQDHa73esK4vk/wBXtIK2Lpyyz68+5toGGWwwennRze1EwvmfmvIPNZYJriCQDkO39Ae2
+	Gq0m8Cv1kUcOyOkQWuUnXQzb5MHCZuacIug93okB064qoT2TWiABK843/1NWofqNKVNnxJVWvr7
+	KDuj6/dfeBXHY+rOw6F0PTrkW6Bm2/PwLkpe9ClBKQfTAf1RMxt7Ua5zyZaV9xDxj4h+7wgBftC
+	6P
+X-Received: by 2002:a05:7301:4b0a:b0:369:9af5:7bc9 with SMTP id 5a478bee46e88-36a424199eamr20487749eec.23.1793725166155;
+        Tue, 03 Nov 2026 08:59:26 -0800 (PST)
+Received: from LAPTOP-97G9G880.domain.name ([106.222.203.148])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4239ca83sm9293247eec.0.2026.11.03.08.59.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 08:59:25 -0800 (PST)
+From: Karthikeyan KS <karthiproffesional@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Mike Christie <michael.christie@oracle.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
 	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net v2] net: stmmac: Clear DMA errors for multi-channel interrupts
-Date: Tue,  3 Nov 2026 13:58:08 -0300
-Message-ID: <20261103165808.72113-1-magnusleatti@kernelriot.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103125430.962715-1-maxime.chevallier@bootlin.com>
-References: <20261103125430.962715-1-maxime.chevallier@bootlin.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] vhost-scsi: use FOLL_PIN for DMA page pinning
+Date: Tue,  3 Nov 2026 16:59:17 +0000
+Message-ID: <20261103165917.148720-1-karthiproffesional@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,27 +106,198 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 11/3/26 13:54, Maxime Chevallier wrote:
-> The Multi-MSI interrupt handler doesn't clear the DMA error interrupts,
-> and this leads to interrupt storms when one of these interrupts starts
-> firing :
+vhost_scsi_map_to_sgl() takes references on guest buffer pages with
+iov_iter_get_pages2() (FOLL_GET) and then performs DMA to/from them.
+Per Documentation/core-api/pin_user_pages.rst (Case 1: Direct IO),
+pages that are the target of DMA must be pinned with FOLL_PIN instead.
+Only FOLL_PIN pins are visible to folio_maybe_dma_pinned(), which fork()
+uses to copy rather than COW-share anonymous pages under DMA, and only
+FOLL_PIN guarantees a pinned anonymous page is exclusive to the process,
+so a later write fault cannot replace it while DMA is in flight.
 
-Retested v2 on the YT6801, same setup as v1: net at cb284914e749, glue
-unmodified, so the MISC interrupt stays unmasked.
+Switch to iov_iter_extract_pages(), which pins user-backed iterators,
+and release the pages with unpin_user_page(). Kernel-backed iterators
+take neither a reference nor a pin, so track with
+iov_iter_extract_will_pin() whether an unpin is needed.
 
-4x 64-byte UDP RX flood for 10 s, same kernel:
+Cc: Jason Wang <jasowangio@gmail.com>
+Cc: Mike Christie <michael.christie@oracle.com>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Michael S. Tsirkin <mst@redhat.com>
+Cc: virtualization@lists.linux.dev
+Signed-off-by: Karthikeyan KS <karthiproffesional@gmail.com>
+---
+v1 -> v2:
+ - Rebased on vhost next. Sashiko reported that the revert loop in
+   vhost_scsi_map_to_sgl() leaks a page when the misaligned-I/O check
+   trips on the first page with a non-zero offset. That bug is older
+   than this patch (the loop leaked a put_page() reference) and is fixed
+   in vhost next by Jia Jia's 058fc59326af ("vhost-scsi: fix page
+   reference leak in misaligned I/O fallback"). On top of it, this patch
+   only calls unpin_user_page() instead of put_page() in that loop.
+ - Reworded the commit message to describe FOLL_GET and FOLL_PIN more
+   accurately.
 
-  without the patch: the MAC interrupt hits about 93k/s within 4 s,
-  stays at about 122k/s after the flood stops, and the machine stops
-  responding.
+Testing: in QEMU (fileio backend), a 1 MiB write at page offset 3840 is
+257 pages, more than BIO_MAX_VECS, so the misaligned-I/O check trips on
+the first page and dmesg shows the "vhost-scsi detected misaligned IO"
+warning. On v1 (before 058fc59326af) the nr_foll_pin_acquired and
+nr_foll_pin_released counters end at 257 and 256 for each such command;
+with v2 on vhost next they balance. Plain (256 pages) and T10-PI (260
+pages) writes balance too.
 
-  with v2: about 300/s during the flood, 0 after.
+v1:       https://lore.kernel.org/20261007163716.707102-1-karthiproffesional@gmail.com
+RESEND:   https://lore.kernel.org/20261020182640.2048506-1-karthiproffesional@gmail.com
+review:   https://lore.kernel.org/sashiko-outbox-180555@kernel.org
+leak fix: https://lore.kernel.org/20261023104035.6686-1-physicalmtea@gmail.com
 
-8x 64-byte UDP RX plus TCP TX for 30 s: about 25/s during, 0 after,
-with TX at 744 Mbit/s alongside.
+ drivers/vhost/scsi.c | 50 +++++++++++++++++++++++++++++++-------------
+ 1 file changed, 35 insertions(+), 15 deletions(-)
 
-The 4x flood also runs clean after link down/up, ring resize, an MTU
-change, a 100/1000 speed change and a module reload. Throughput is the
-same as with v1 (TCP RX 941, TCP TX 825 Mbit/s).
+diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
+index e44044449cef..8beeff06a7a7 100644
+--- a/drivers/vhost/scsi.c
++++ b/drivers/vhost/scsi.c
+@@ -115,6 +115,8 @@ struct vhost_scsi_cmd {
+ 	u32 tvc_sgl_count;
+ 	u32 tvc_prot_sgl_count;
+ 	u32 copied_iov:1;
++	u32 tvc_need_unpin:1;
++	u32 tvc_prot_need_unpin:1;
+ 	const void *read_iov;
+ 	struct iov_iter *read_iter;
+ 	struct scatterlist *sgl;
+@@ -463,8 +465,13 @@ static void vhost_scsi_release_cmd_res(struct se_cmd *se_cmd)
+ 
+ 			if (tv_cmd->copied_iov)
+ 				__free_page(page);
+-			else
+-				put_page(page);
++			else if (tv_cmd->tvc_need_unpin)
++				unpin_user_page(page);
++			/*
++			 * Else: iov_iter_extract_pages() took neither a ref
++			 * nor a pin on this page (ITER_KVEC/BVEC/etc), so
++			 * there is nothing to release here.
++			 */
+ 		}
+ 		kfree(tv_cmd->read_iter);
+ 		kfree(tv_cmd->read_iov);
+@@ -473,8 +480,8 @@ static void vhost_scsi_release_cmd_res(struct se_cmd *se_cmd)
+ 	if (tv_cmd->tvc_prot_sgl_count) {
+ 		for_each_sgtable_sg(&tv_cmd->prot_table, sg, i) {
+ 			page = sg_page(sg);
+-			if (page)
+-				put_page(page);
++			if (page && tv_cmd->tvc_prot_need_unpin)
++				unpin_user_page(page);
+ 		}
+ 		sg_free_table_chained(&tv_cmd->prot_table, vs->inline_sg_cnt);
+ 	}
+@@ -820,7 +827,8 @@ vhost_scsi_get_cmd(struct vhost_virtqueue *vq, u64 scsi_tag)
+ 
+ static void vhost_scsi_revert_map_iov_to_sgl(struct iov_iter *iter,
+ 					     struct scatterlist *curr,
+-					     struct scatterlist *end)
++					     struct scatterlist *end,
++					     bool need_unpin)
+ {
+ 	size_t revert_bytes = 0;
+ 	struct page *page;
+@@ -829,7 +837,8 @@ static void vhost_scsi_revert_map_iov_to_sgl(struct iov_iter *iter,
+ 		page = sg_page(curr);
+ 
+ 		if (page) {
+-			put_page(page);
++			if (need_unpin)
++				unpin_user_page(page);
+ 			revert_bytes += curr->length;
+ 		}
+ 		/* Clear so we can re-use it for the copy path */
+@@ -859,9 +868,9 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
+ 	size_t offset;
+ 	unsigned int n, npages = 0;
+ 
+-	bytes = iov_iter_get_pages2(iter, pages, LONG_MAX,
+-				VHOST_SCSI_PREALLOC_UPAGES, &offset);
+-	/* No pages were pinned */
++	bytes = iov_iter_extract_pages(iter, &pages, LONG_MAX,
++				       VHOST_SCSI_PREALLOC_UPAGES, 0, &offset);
++	/* No pages were extracted */
+ 	if (bytes <= 0)
+ 		return bytes < 0 ? bytes : -EFAULT;
+ 
+@@ -884,7 +893,7 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
+ 		    cmd->tvc_sgl_count > BIO_MAX_VECS) {
+ 			WARN_ONCE(true,
+ 				  "vhost-scsi detected misaligned IO. Performance may be degraded.");
+-			goto revert_iter_get_pages;
++			goto revert_iter_extract_pages;
+ 		}
+ 
+ 		sg_set_page(sg, pages[npages++], n, offset);
+@@ -896,8 +905,10 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
+ 	*sgl = sg;
+ 	return npages;
+ 
+-revert_iter_get_pages:
+-	vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg);
++revert_iter_extract_pages:
++	vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg,
++					 is_prot ? cmd->tvc_prot_need_unpin :
++						   cmd->tvc_need_unpin);
+ 
+ 	iov_iter_revert(iter, bytes);
+ 	/*
+@@ -907,7 +918,9 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
+ 	while (bytes) {
+ 		n = min_t(unsigned int, PAGE_SIZE - offset, bytes);
+ 
+-		put_page(pages[npages++]);
++		if (is_prot ? cmd->tvc_prot_need_unpin : cmd->tvc_need_unpin)
++			unpin_user_page(pages[npages]);
++		npages++;
+ 		bytes -= n;
+ 		offset = 0;
+ 	}
+@@ -983,6 +996,7 @@ vhost_scsi_copy_iov_to_sgl(struct vhost_scsi_cmd *cmd, struct iov_iter *iter,
+ 	}
+ 
+ 	cmd->copied_iov = 1;
++	cmd->tvc_need_unpin = 0;
+ 	return 0;
+ 
+ err:
+@@ -1007,11 +1021,17 @@ vhost_scsi_map_iov_to_sgl(struct vhost_scsi_cmd *cmd, struct iov_iter *iter,
+ 	struct scatterlist *sg = sg_table->sgl;
+ 	int ret;
+ 
++	if (is_prot)
++		cmd->tvc_prot_need_unpin = iov_iter_extract_will_pin(iter);
++	else
++		cmd->tvc_need_unpin = iov_iter_extract_will_pin(iter);
++
+ 	while (iov_iter_count(iter)) {
+ 		ret = vhost_scsi_map_to_sgl(cmd, iter, sg_table, &sg, is_prot);
+ 		if (ret < 0) {
+ 			vhost_scsi_revert_map_iov_to_sgl(iter, sg_table->sgl,
+-							 sg);
++					sg, is_prot ? cmd->tvc_prot_need_unpin :
++						      cmd->tvc_need_unpin);
+ 			return ret;
+ 		}
+ 	}
+@@ -1449,7 +1469,7 @@ vhost_scsi_handle_vq(struct vhost_scsi *vs, struct vhost_virtqueue *vq)
+ 		/*
+ 		 * If T10_PI header + payload is present, setup prot_iter values
+ 		 * and recalculate data_iter for vhost_scsi_mapal() mapping to
+-		 * host scatterlists via get_user_pages_fast().
++		 * host scatterlists via iov_iter_extract_pages().
+ 		 */
+ 		if (t10_pi) {
+ 			if (v_req_pi.pi_bytesout) {
 
-Tested-by: Magnus Leatti <magnusleatti@kernelriot.com>
+base-commit: 1a577f9402c1780cc1e663f48d5dd54c02051b09
+-- 
+2.43.0
+
