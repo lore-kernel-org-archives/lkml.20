@@ -1,101 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793714792;
-	b=qwdz0XvJSDjSfvLo6JCY7/plXi4sG1jvObu5JcqwjfFClk3IXMwuXnxtNAR4WySnl7W8
-	 rMgQI6aW+rkH27RbipIS7sH/jiAg3Lkr7PW1Bmr40Rx4pFziRVdLBghjVxI7kOeSvsWBz
-	 vm97eaPRyiDFVF2vR2AyKVrXMPPfYLyiMy9m3UI3MoSf/PQNQMEUukAOepX0wvfMGeCPO
-	 ogTrgjMy+Hh5+qqmbqRceRUJvWfqwyrBZ5kLV7wChPP75fbc6ouwEjzV4rURuB2VI6L88
-	 CnajcPcWrPgZI5cH7s7RlPWNjH8IkI0HeOX7lCbVAxc47pMRM3ja4pFrFRXHArdM+nw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714792;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rXy+hT+GwvN91RjiAPqGZZe7u+gyV8gNKc/Oopg1PG0=;
-	b=qO6tm7HbG6Y5+0IahDy09bxZt+GOX/O8Kc3zoFDYn7x0Sh2U14dQWcSa4TjI5T59E7L4
-	 G4SznuWo47XoH4SG75HMu8rbTui7fVfI8OcjSuUNOmIBqWWGXRpF53IaAKwrHTbrfl1EL
-	 SWvub1MNHZ5Onci0sl/jLxkELXSAX/j5rtbtWQwCg2MdJ0llO7iZ2ssw2MrAQ7pnH2hb6
-	 srZYbFImKrUbNzl6nU8/0IVKq5kYWEpbNjjYYGz1uuoXyut/y15OLcd+qFmAi51pWMLyu
-	 ipPVK/9rtINqpS7HML1QmoOZL5V+m/juDqOjXV4aPKxPulq2I4NiSBC4YbW1CPhRYFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MnhRH4q4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.32
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793714809;
+	b=nGVywZVrfqf6H5lhwPXwVC+dItMgkCXaamGeQ5QvnfkCU/3R4oLkNz8t0p7nNKG5qxS7
+	 aqPXVtYKlYAQ93qlZbAzEDvoreYwYp1D8R+xjf5XObZFFVj70DfTmWUkidvBf6S/1GYHA
+	 Rvw34izm6ZDVNDXc3TC0OfC10td07GIgKX0KYbSYVUhJjYpHxFsVY283e1ImpqEhD8vEN
+	 iWCnp8W0HtSnX/s43oRl3Vn1epnRif8AeeCuNzD2O13lOiDl8X4+NVXlhI2+/I8aqS/ve
+	 OLQ4HbJAOwRopbbpjFl6Vz6snlh8VLuWtN3RaOGhuqhx3BYXzVN6PUyO/7XAR7JYNsQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714809;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=t9xteX2xGuMkIJkhxfrkuc80ADp9/4k5b+edGPUq4fc=;
+	b=aavxD44BcKsVxYVHZ70xwuhbZFddV5iJJIffKkneGJBZWa2J8sRNowVDqkLahvaGUgOF
+	 CHTu3XFUZsFFhtYZjDD/6RC/SVQrBQBI50Ac2iW8tZLsVkyYfg+c4+91Q9P4xiruBaLzD
+	 Aq0HTYsVBPdrwEMDBapuDRJRkow4ldTSdgk2VDoxGS9F27uZmnJDzFptzhErb6j2AXHAG
+	 dd5P0nJuVGTmx16PUqe6V6tlLCEemLrTjAUH8E17WloQV1/bjtsmLaVWP8tpa11q599hS
+	 Ba5OKDgMhD+kr4qKfE3Buq/K7pPDStpvUNIiEYGxTMnBN8XSwzC6JorDCO5jPjnkC8Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=WbReQISJ;
+	arc=none smtp.remote-ip=44.202.169.32
+Received: from omta033.useast.a.cloudfilter.net (omta033.useast.a.cloudfilter.net [44.202.169.32])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC67F606EE93
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:06:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC67F606EE93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78499606EEB7
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:06:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78499606EEB7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MnhRH4q4
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-8470d7d430fso1516457a34.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:06:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793714791; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cMBCwdTALJi4nGeo/aFmoQDZzwZ0ZzNFwCXDCFCstop0qeA58U924p4bLPNMSJGJmn
-         qx2cp1fzPzziTBSEbbyfWXTinMZZfksj2HKzM55bVC/L2Q21AT4X5RDgADXr2DItoCqv
-         00gOH7carr/2eivTSRFTB1A1aWeoAqtCmaM/tYng7FI3XoBeT4dCor3mrwcgFiKf4JyV
-         lji+PoBxyIh2/qaLyBjyLCVVh6nHYaoMFDt7mVFLaaLAe5tNTM0jYEQgh6ym8Ih9A9px
-         gSbRqziLTuKuzIPk8pSvqWMq7lx4AvNb7cxQGYNqHU6XjoW+fMZhiUs/D/RIVfxZ9NMk
-         vobw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rXy+hT+GwvN91RjiAPqGZZe7u+gyV8gNKc/Oopg1PG0=;
-        fh=yxT/njflJEfCIilBJd5oiqT1uUMxfjJWwGJlf+4YdB0=;
-        b=TRhFN1950T2Q7V/Rc1MqSWRHAWzqlBP3HOY2dFLYygp59b8kYIiaLdsxRK3rPh1eWW
-         NGpq8xkvOpPo3GecP9t5HxIbnSxWehJRYnIGfSibM4mvliak7HyI5U1zaIyNwvWYkJj1
-         Bs6DLFBf4A7c/zkc9mawk8LtBmlqaIjhLFyTTLriCr/EPlgZwbD9+l8nHlKnkYJ8Aomo
-         nv/J981MGD5UCzh4dPDRqDs/jXJcDagBiZQAJIyvqxHeh/X+1Wi/T717oo7TklIX+MaF
-         dttZB4Am6y5cLn/nEd6DzX1gJ9wJ+y3dmGv8wZZa5n3fnBfh1jkLeRCr5IV72otzMYtL
-         rbfg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793714791; x=1794319591; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rXy+hT+GwvN91RjiAPqGZZe7u+gyV8gNKc/Oopg1PG0=;
-        b=MnhRH4q4kEx7MQV7Rveki/MdNDXRe1zt023+RsTRp9ZgP2RKoKBip9q3+52kK1z81+
-         J+SrpZbE3mPFTr97SFKGpBZHbx2vOHLztgUKJGNuDoCwkJa7yTfqOJL/+WbeeS/kj6Lf
-         pop1st7WFkcaMg7e7KhcGXiN9gl8ISnWW1X0PnpbWFA8dMnjYUZna+T2K78K7QTg0aXP
-         APg9pg4MSSJPUhy0peHKAU4G0leLOdzbGiCRXqtqerLqxYGt7OKn4L+jaiKAua+u6Ydn
-         tfKdonCTEocezY9or2iLYhuvlK+OaD36riqELJfDrgMaQKK93Ehu5Otc3QT1jmTtlhhY
-         3Wyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793714791; x=1794319591;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rXy+hT+GwvN91RjiAPqGZZe7u+gyV8gNKc/Oopg1PG0=;
-        b=R5jRqW+LWp+JMDj1B1HSVyklb9mYcDh9ujXSERWkb4FAMIKjEW5t1YII4OKmYFSUSv
-         u9BnqlQaCR8Vi6AwnqCySd86DRsyiV46/eaas/026eFDMYcR5MYEJE3E4oZaJK80eMaW
-         Tt+7YH1XjMArTYECPUYJsEOJ0TpgKHSgf6Bkhn4aQxiybedeBF+j8xmF6AE7TX1T8Q+L
-         YOCFL7C5Hknb1d0NxLYJvUle7jd5siRfNM6Mvd0UIfHG4Yoz9x6jjjxrXan2RQKrHSOp
-         2PoMM2YQuj0b5PxWSD9G3K2Ujmmbmiz6rqkw3ojN68W03sG3dx+2OWimXjWhnPi2+fq6
-         kl0g==
-X-Forwarded-Encrypted: i=1; AKwUvBwo/jpd6mMisD86WHSzUK8ltVf5wUFzHY0AxGUujprvJfJ9ZE9jc2dZEal6WOUZU14CVr65rNcDHlK3LY8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GSEi/JX6mI+ZDg4hYenJfLDb8XWFaSS4sqq/ULdT3uKOqZIGi
-	cEBZc/6zehbk9EFfnVrYWo1S8JNZITVUJWEI5VlYADZFd1rcMCWg0QlmcGtFx6P5NOrJFwfK69V
-	Rath2tSFby/Ie+p56eeAalxckUwDr3DI=
-X-Gm-Gg: AYBFou0K7IDRjxZxgUmzQk3ZVVmZo4RbAl8Tfcd9qEtJG/NABJLMudIlYmzBPtpcYlD
-	lPuca5ys40CfayfHqEvtG2YjS/CQN8o4jVU1+8NUfQ7CO6HpD3NBabyyt2Ei6LOIApgm5y2y2uD
-	P4YXNpRgQ/CA7czzEzXzWYWP1niLAPva6tkq5MERU86vzxLWR6TnDNAVMRpGklbOrFme3VYDjDO
-	E1HLPFLjHLuYIsj+Fp60wwCmFIRTSxYkygT2LohnJXykO+yZjhc3ODC0odH45z6zafMIdx7jigS
-	aTOLK/ryplbHLQZcQ3Ub+mKBx4+VdF6fDsEpqU/9eV0DkPocvpusGdnqRs1GqJZOeqLWKZcra67
-	DFg9pk32wGGgK0oo1MVlDxUHuqUHrffmhto0vhROktZY2Gu/0ZTFLL+Dncg4DvCPsZ/91U0DvNF
-	TGXZfv42jo9eJpAW6XSwZYWGrY/q0aJo7gZ0WN
-X-Received: by 2002:a05:6830:2647:b0:823:e626:2765 with SMTP id
- 46e09a7af769-85d36641a21mr9639694a34.31.1793714790698; Tue, 03 Nov 2026
- 06:06:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=WbReQISJ
+Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
+	by cmsmtp with ESMTPS
+	id ODTxxylRCPG7QOFA0x9kXg; Tue, 03 Nov 2026 14:06:48 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id OF9kxlaW2NBINOF9kxK0dn; Tue, 03 Nov 2026 14:06:33 +0000
+X-Authority-Analysis: v=2.4 cv=fvzcZE4f c=1 sm=1 tr=0 ts=6ae9ea78
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=FzxAIiGUqTgkHgvMK3YA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=t9xteX2xGuMkIJkhxfrkuc80ADp9/4k5b+edGPUq4fc=; b=WbReQISJVjZ9SKK4v8Lk919q/S
+	QTS26pV4lYlANCIoJX843UZDmeNC13XMJ7bB0Wqvu1IeqMZGLj5gPPTYFPogkSeumAPrkqdhz8JWM
+	LBpnM6UXBgskJ8KW5j6JAZg+Av9jqqE5HYXz6jjqepwYxCBr6t6I2+OPEbUUiw5dYY26ictnnczDR
+	er9Ur6IHHtxttRzzWkPTX5kgg2WNWpfc0BHUU8S+DnvyLW3c0EF54IayDnqoce1GmzP/i655QgJrp
+	tIy7l0Cl4IHGOaziz1OIFk8S/dLVOPMSI9ml6YfTtOCF52l10PVQG3kjzS+h5i4ptuLxI0Bcf3N2a
+	l7cITQMA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:52734 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xOF9j-00000002ZuZ-352a;
+	Tue, 03 Nov 2026 19:36:31 +0530
+Date: Tue, 3 Nov 2026 06:06:30 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Kevin Jia <kjia@nexthop.ai>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Subject: Re: [PATCH v3 2/2] hwmon: (fs1603) Add driver for TDK FS160x and
+ FS1006 uPOL converters
+Message-ID: <85bc9a12-9674-4fb0-9dc3-11ef8695599e@roeck-us.net>
+References: <20261030-fs1603-v3-0-6f8963a74def@nexthop.ai>
+ <20261030-fs1603-v3-2-6f8963a74def@nexthop.ai>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,41 +89,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103130131.4069212-7-sashal@kernel.org>
-In-Reply-To: <20261103130131.4069212-7-sashal@kernel.org>
-From: Ming Lei <tom.leiming@gmail.com>
-Date: Tue, 3 Nov 2026 08:06:18 -0600
-X-Gm-Features: AclHuK9jA1t6T_L1_qeaqjfhfdt4HQoTqtOL_ZuGwvDN3vPKQfefu2TCWCSIAkA
-Message-ID: <CACVXFVNhw7HP7SkR-1aokfOguBprsSdGBPtkZ-DyZssz4XaVAg@mail.gmail.com>
-Subject: Re: [PATCH v2] selftests/ublk: use the configured kernel UAPI headers
-To: Sasha Levin <sashal@kernel.org>
-Cc: Jens Axboe <axboe@kernel.dk>, Uday Shankar <ushankar@purestorage.com>, 
-	Shuah Khan <shuah@kernel.org>, linux-block@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-fs1603-v3-2-6f8963a74def@nexthop.ai>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xOF9j-00000002ZuZ-352a
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:52734
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 15
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfBcrTgOdOikw56i+wzxSL72l0juy/YILhEcEJjYgoFcrq6Cy+nuPkbUTQvXXLrk0fZaxXn4drPrNPOYcdocgFl5hd7s0qU7XR2jUTVWRyluHTz1dO8s3
+ Fjdf1zkRRzzxuakWttBwnjoypAq75FKtQLbbbBUNNEGHWwklcg9FcQmJcjs2yM0AvDtJ6Iji1n+e1n3my4NamBGdYLGI0kY5z+Hu70cGlBtxVVE3HUr0dRJv
 
-On Tue, Nov 3, 2026 at 7:01=E2=80=AFAM Sasha Levin <sashal@kernel.org> wrot=
-e:
->
-> With generated headers in an output directory, the hardcoded source-tree
-> include path falls through to distribution headers. New ublk flags and
-> structure members, including UBLK_F_IO_DESC_SIZE, are then missing.
->
-> Use KHDR_INCLUDES to consume the headers from the kernel under test, and
-> add the headers target as an order-only prerequisite of the ublk
-> programs, as nolibc-test does, so that a standalone build installs them
-> first. Baseline builds fail on the missing definitions; GCC 14 and Clang
-> 21 builds succeed with the output-directory headers and target liburing
-> development files available.
->
-> Fixes: e371b9d3368c ("selftests: ublk: kublk: fix include path")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-> Changes since v1:
-> - Rebased on v7.4-rc1. ublk_cancel_ready got its own rule next to
->   kublk in the meantime, no other changes.
+On Fri, Oct 30, 2026 at 08:35:38PM +0000, Kevin Jia wrote:
+> The TDK FS1603, FS1604, FS1606 and FS1006 are uPOL DC-DC converters with
+> an integrated inductor. They report input voltage, output voltage, output
+> current and temperature, plus over-voltage, over-current and
+> over-temperature status, over a proprietary I2C register map. They are
+> not PMBus devices, and their register numbers collide with PMBus command
+> codes: 0x21 is a status byte here where PMBus defines VOUT_COMMAND.
+> 
+> The parts have no ID register, and the FS1606-0600 and FS1606-2500
+> presets change how telemetry is encoded: the -2500 uses the 20mV steps
+> of the higher voltage parts, and the -0600 needs a current correction
+> derived from the IOUT_GAIN register and the output voltage. The model is
+> therefore taken from the device name or compatible.
+> 
+> The over-voltage and over-temperature protection thresholds are
+> reported as in1_crit and temp1_crit. The over-voltage threshold is a
+> percentage of the VOUT_SET target, so the driver reads VOUT_SET but
+> never writes it: VOUT_SET is a two-byte pair, and a partial write leaves
+> the part silently ignoring all register writes until its input power is
+> cycled. The driver is read-only.
+> 
+> Power good is not exposed. It also deasserts while the output is
+> disabled or soft-starting, so it would report a deliberately disabled
+> output as a fault.
+> 
+> On boards that raise the rail with a feedback divider, VOUT_SET holds
+> the feedback-pin target while the output voltage telemetry reports the
+> rail. The driver measures the divider ratio at probe from the output
+> voltage and the Fb register and scales the over-voltage threshold by
+> it, so in1_crit is in the same domain as in1_input. A part whose Fb
+> reads within four steps of the output keeps a ratio of one.
+> 
+> Co-developed-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> Signed-off-by: Kevin Jia <kjia@nexthop.ai>
 
-Reviewed-by: Ming Lei <tom.leiming@gmail.com>
+Applied.
 
 Thanks,
+Guenter
