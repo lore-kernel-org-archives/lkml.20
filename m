@@ -1,95 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711692;
-	b=LN/sT5My8cUhAZDipHi36r7CxfLHZsgu0PI02MRhNJIbbY56CodytAeMrta7jgaE9fuX
-	 OIZ91t/SEFAH92U/FckEyY4SFJfxsmCdTd8xkGGjfaSGHMxGvWHbQKX2WqtvoJn30DaLy
-	 lvRG04Qma2pjY60R/F4BCwBXgvujDCmnlrvwYTpRgOUkqrerdbp2cOm4Yy7euCSxKzq1L
-	 lNsVD5hm6xhesMqE4vpNKcin1jPQcmRv0sVnl75+KZXsVsm6dkXMGmtCOe7nWnFCONMey
-	 wCKSMnV9z0UZY+19wTzx7SwXrxIwd/LMV83z9ikM2q/QvvKXPdivOzh/KxiEQ8/BM7w==
+	t=1793711683;
+	b=0cVz3+R3TwppfUUpYf+slb1qBxzxTQ2P5ysesb8Sl/wtENuq4mJ9GhKkfzU4Kb+2tEhb
+	 uh9jGopP4FL2qxXP6fUoIQo/QCR4Zhp3RjSHgKJvG92/ShSaqTPJ7o6FTsCJKCUI64hp+
+	 WNTv6CWBPbOvE5yTTR3u/1IHznUtIoKgAwAVgM7cC7wqTXBp3pssSfWNwoCNZ/Oq3cTwg
+	 TvN+zPCARifyPfyq++8I1HILfGxSbyPaH1mM2LlRSRXf7CdLEU6yYKHM5EOTuOggcKeZR
+	 NMzI/fay/fQOjVP3fUHGXuenwcPg8fa3v4Mm6PKh8DGEVxz8lG+4hFcknk+qdbCYfsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711692;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/DdO+c8hhRiuk32rYy7zj2DQMaJ9+qPKp2MrlWUvMn4=;
-	b=gTB55KKNVD2IhURIsu8r85piVs76c6vIUZY6Wgqnsy+E+VwqmYvNpLQ7ZcD5255E6G+Q
-	 gLEzAsYRS9xljqLXct38JZFC48nZZvF9dBK92yv84wruEWXMGtU2LEoBLSBVGTxoFY8xg
-	 DTYQAxgTAZqj1Oe0B+JoQACOFpZk2p4Gm6dh6NcJqLlSZQIq+A+/kcLHMQfVZRBxnPpSc
-	 Iff4/HvxlB+W9CrOkmWpkM7mFCFkrhHSXKxpa/g9w2YDAS2Pq/xOkLONMl+oI3ETeRz+B
-	 BlQ3u2IONpwGPGonbRzFTtVfGpeHAHw3g5WDKz33gQXUdWaFId/W8WUxjgDWIDkJp6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711683;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rVMu4rtivE+4uT+wryolWoG5P/tne9KaZkuGtzcKWPs=;
+	b=vVGMMpOyXISGDxAvRd+6weDSZXA5XXSvWbXgWcnOw1qumAlp2/oVyZacdsw0O1EUPKX3
+	 GLk07KAcIc2ySTpG0v2kPBjQoDz57LAdt7c/cThAEEPNKyZR76SeOU/9vIL7WXTHy4xXI
+	 QZdvzK4iLe3ZU4UTXZmVMgAq8JL9p4bErWO9tt+LqkKIPeZLZWuTSQJKz14NBVFtihUB3
+	 IRvD1LHWQ8y0d2KqcI3falIfVx63tXFbeHbjFo3kiIxQsEsO/xE+9pyBOsA7z7aUCdLJv
+	 AYwyi4N46ZBritUslWLC+GFpGAbD3dw8JuWbgVvNsdd6rr8Gwqkk3NzwxuI8T7aAm/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=viVoHylw;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=aerYH+HI;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0E7606A332
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:14:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C0E7606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1481606A324;
+	Tue,  3 Nov 2026 13:14:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1481606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=viVoHylw
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-353804b591eso7190504eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:14:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793711691; x=1794316491; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/DdO+c8hhRiuk32rYy7zj2DQMaJ9+qPKp2MrlWUvMn4=;
-        b=viVoHylw3O2xFHrqITHTuVW143bD5XvorRJEgsNje3zvK778fq/JxiCAd0hYnQSmqK
-         cR9EDjemET3qN4azii+Cuk4YhfXECn+TXjGbPug1c2iObS7GKW6p8sHPMs8m+zcp/4wx
-         ndrdxflaa266irios+ucQKW4NSEhRJIaQ0dM/RDT+UjjziuDK8iNygd4SouqNNSki3Du
-         hwM5Z/OzPrRyG6JxKvq0qgUgESFKehUTkliaA4Kc8taBqCu4ttdXPKVA1KQ7P7nB5/hG
-         MYsNmBviZ9Jzzz6BBsPxlVs355pApxDzgadbKPJPWbKkve6pteZPTIQe6k8mBOyVmPuH
-         9y0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793711691; x=1794316491;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/DdO+c8hhRiuk32rYy7zj2DQMaJ9+qPKp2MrlWUvMn4=;
-        b=uhCghT3Khja7+AAxKg2Te4JSRiw62T8y51YNZgdqNrlLiQ+tZFH7ADVkbF+OzlKS9b
-         kE4hj/dHIB6GeJoUXaElNY1joj1M5zTVRPtNNUaEgx+vob4ASQ3y5mdrC91uwrZckQBW
-         XeyEqKJ7dFAeQ+t7KWLAxZ/O6lqt1nHYkzBlvWVFa2G18X9E47n5cBDNlL+A+G8XiG7t
-         D2CduJUenooLyS60kpDy2TWKihVnXr7/6NNYqJjCCgzvo63Be6RJcpKrhaDEE6cKjHg9
-         rWah34npu/AODAq0BnaaoezEiK2d/tY/SenStlSu/eVIJVxQADxbG1Du5e+1Q4WBKpDQ
-         26kg==
-X-Forwarded-Encrypted: i=1; AKwUvBwir3yvaHlLMhxc1c4AoRIoxiKWN37wiT9cJ9isYoFFv2qT+7UOY8bTCetDBM3FRdK+m3Qxoa7YKRdOio8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8m+PV7NXRE2fZBGx8c44d3wmSRP2YF8xipiN3nmK7n8gAy0o+T
-	N5swtHV158nMRduVCioMeowFy/KzBnGvZkX3X6SyOLnKSdVqXEJPYq2Z
-X-Gm-Gg: AYBFou1croL7msQ7SEcY+Wwr31h3jEnD+zzAErHVOvN70zlAnrJFdc/t0q9OipLg8mM
-	J9cxTyXcTjWeSuwBknvSXDAZX/6oEyavBfqxaal1x1CSg+06aeFoZd4ikht/W72IJbAF9voufKQ
-	HSoDed2k331ApokSzsT9XEocpX+iMpCEGNhAVROHJtXFB53tpipnMX6eGpJVEYGauhxHmuBD6AF
-	gaI8ESs2j0hArxCT7rF7eC3YIWLZbUIPEOVkcuJ0gFwTo+KcO7Pt+V0DRd2tut1IFrVpWlZJcF0
-	ZYdAtx3xXuJd5p0jvqEhiDIRfTmXlcoBfVRu9L0kJknjzTLRkjzvayvDx0iU9FGFEHxMyYyFbon
-	WJDnlDcQ2R0Qj4f/lFINdBEob0iYFblYQ6UHpfzUn2tu3+l/Ji8xCtCO/UQE88rEyaJZDwqqYpN
-	ub+T3X2dmYZ7f8Hsezbnm4h6t9z9VHVue/UNSrr4lpFoZ6F7CgjYs7gZLJtPy3OPmYCrXOHbHpB
-	Bl/NMckZRjER6zjnkxt7FOfLoxvC0eEUvk8L1PpdnhQ2lDApS2XdDQfZELUPne2dr8xmGYvr9Yh
-	JRB4Ecas7rCLyWYI0i1Lv+z3B20KEgVkfSQ7dCXT2NgwRHgn4zFwy90aIJvgpP1peg==
-X-Received: by 2002:a05:7301:db8a:b0:36a:279:c93f with SMTP id 5a478bee46e88-36a423fda77mr19551196eec.33.1793711690526;
-        Tue, 03 Nov 2026 05:14:50 -0800 (PST)
-Received: from arpith-debian ([2402:3a80:40d:48cf:34b0:c816:2853:c60c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a61a0csm55335792eec.22.2026.11.03.05.14.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 05:14:48 -0800 (PST)
-From: Arpith Alexander <arpith99@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Weibin Liu <liuwb@xiaopeng.com>,
-	linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arpith Alexander <arpith99@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: ljca: Don't require data in write replies
-Date: Tue,  3 Nov 2026 18:44:35 +0530
-Message-ID: <20261103131435.21838-1-arpith99@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=aerYH+HI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=rVMu4rtivE+4uT+wryolWoG5P/tne9KaZkuGtzcKWPs=; t=1793711681; x=2109071681; 
+	b=aerYH+HIKE6hoEYy253iqS7vKie5T5ZZBBTXtHO+JGU/H7IVAimBuCnVNtTbkgf/Nej6OLhEVOk
+	Yaz42wAC2TkkC2mLw0XMhJS7C7y0mhxmt2AK/S6sc/XipKjS70tVk+ciGHdq5ufxaEFr66s39FR0o
+	SKZUVS7Adm7Dkqik9PSAzCHrzU9GHUt3/0ZXKDleGjl7C5coX4h7gozjzhrUz/2bJYLF+Zq1EL6Qv
+	NeJxOhXDgOUhfbV5aI++wtGn9aw3oEE7bGRHhpV6r6FmuB1hWjhVE6QTZmlVtQF+Axx5NjLsLzdI/
+	FRlv6Fmsyejf0xvXX0WiT0ozV3JWhWanNzbg==;
+Received: from [58.29.145.179] (helo=[192.168.8.237])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xOELH-001F30-R0; Tue, 03 Nov 2026 14:14:24 +0100
+Message-ID: <bcf2e1c2-bc97-4d8e-a690-a1836a371033@igalia.com>
+Date: Tue, 3 Nov 2026 22:14:15 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,62 +57,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next 2/3] selftests/bpf: libarena: Cache the rbtree's
+ leftmost node and count
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, david.dai@linux.dev,
+ Gavin Guo <gavinguo@igalia.com>, bpf@vger.kernel.org,
+ sched-ext@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com
+References: <20261028060046.549097-1-changwoo@igalia.com>
+ <20261028060046.549097-3-changwoo@igalia.com>
+ <DMJGWV96Y5SV.33OTYFHFZQ1WT@gmail.com>
+From: Changwoo Min <changwoo@igalia.com>
+Content-Language: en-US, ko-KR, en-US-large, ko
+In-Reply-To: <DMJGWV96Y5SV.33OTYFHFZQ1WT@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Commit 0fe4573c822c ("spi: ljca: validate the response length before
-copying the data") made ljca_spi_read_write() reject any response whose
-payload, as announced by r_packet->len, is not contained in the data
-received.
+Hi Alexei,
 
-That is right for reads, but the adapter acknowledges a write with only
-the packet header: r_packet->len holds the number of bytes written and
-no payload follows. The reply is 2 bytes long, so
-"ret < sizeof(*r_packet) + r_packet->len" is true and every write fails
-with -EIO.
+Thanks for the review.
 
-Where the Intel Visual Sensing Controller (IVSC) is connected through
-the LJCA, as on the Dell XPS 13 9340, its initialisation fails and the
-camera behind it is lost:
+On 11/1/26 10:03 AM, Alexei Starovoitov wrote:
+> On Tue, Oct 27, 2026 at 11:00 PM Changwoo Min <changwoo@igalia.com> wrote:
+>>   struct rbtree {
+>> +	/* Writer fields, on a cache line of their own. */
+>>   	struct rbnode __arena *root;
+>>   	enum rbtree_alloc alloc;
+>>   	enum rbtree_insert_mode insert;
+>> +
+>> +	/*
+>> +	 * The leftmost node and the node count on their own cache line.
+>> +	 * The writer keeps them current, and readers may read them without
+>> +	 * the writer's lock (see rb_first() and friends).
+>> +	 */
+>> +	struct {
+>> +		struct rbnode __arena *first;
+>> +		uint64_t nr;
+>> +	} __attribute__((aligned(RB_CACHELINE_SIZE)));
+>>   };
+> 
+> That's 16 -> 128 bytes.
+> Without perf numbers it's a premature optimization.
 
-  spi_ljca usb_ljca.ljca-spi.0: transfer failed len: 256
-  vsc-tp spi-INTC10D0:00: SPI transfer failed: -5
-  intel_vsc intel_vsc: error -ENODEV: init hw failed
+You are right. I ran a scheduler-side task queue built on this rbtree
+(based on scx_lavd replacing its DSQs) on a 2-socket, 192-CPU EPYC
+machine (no hyperthreading) to compare the aligned vs. unaligned
+versions. The following are the results of the 10 runs.
 
-Only require the payload to be present when there is a receive buffer
-to copy it into. Write acks are still checked for a non-zero length that
-does not exceed the request.
+                                     aligned        unaligned
+   perf bench sched messaging (s)    0.51 +- 0.01   0.50 +- 0.01
+   perf bench sched pipe (us/op)     3.18 +- 0.04   3.19 +- 0.04
+   schbench full, wakeup p99 (us)    78.3 +- 5.7    79.5 +- 3.6
+   schbench full, RPS                44941 +- 124   44954 +- 86
+   schbench 2x over, RPS             45146 +- 101   45133 +- 141
 
-Fixes: 0fe4573c822c ("spi: ljca: validate the response length before copying the data")
-Cc: stable@vger.kernel.org # 6.8+
-Signed-off-by: Arpith Alexander <arpith99@gmail.com>
----
-Tested on a Dell XPS 13 9340: with this applied the IVSC initialises
-again and the camera works.
+There are no statistically meaningful differences so I will drop the
+alignment in v2.
 
-0fe4573c822c is tagged for stable but has not been backported yet, so
-it would be good to get this in before it is.
+> 
+>> +	ret = rbnode_remove(rbtree, node);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if (was_first)
+>> +		rb_set_first(rbtree, next);
+> 
+> In an RB_ALLOC tree rbnode_remove() frees the node and then rebalances
+> the tree. first points to the freed node all that time:
+> 
+>    CPU 0, holds the lock            CPU 1, no lock
+>    rb_pop()
+>      rb_node_remove()
+>        rbnode_remove()
+>          rb_node_free(node)
+>                                     rb_first_key()
+>                                       first = rbtree->first
+>                                       first->key    <- use after free
+>          rebalance
+>        rb_set_first(next)
+> 
+> buddy_free() poisons the node. A prog built with ASAN gets a report from
+> rb_first_key().
+> 
+> rb_erase_cached() moves rb_leftmost before rb_erase().
+> Should it be the same here?
+> Move rb_next() from patch 3 in front of this patch. Then at the top of
+> rb_node_remove():
+> 
+>    if (rbtree->first == node)
+>            rb_set_first(rbtree, rb_next(node));
+>    WRITE_ONCE(rbtree->nr, rbtree->nr - 1);
+> 
+> and no need for the wrapper, was_first and the rename to rbnode_remove().
+> 
 
- drivers/spi/spi-ljca.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Sure, I will move rb_next() before this patch and update first and
+nr at the top of rb_node_remove() in v2, as you suggested.
 
-diff --git a/drivers/spi/spi-ljca.c b/drivers/spi/spi-ljca.c
-index 8fd001610f67..b1babd43adda 100644
---- a/drivers/spi/spi-ljca.c
-+++ b/drivers/spi/spi-ljca.c
-@@ -109,8 +109,9 @@ static int ljca_spi_read_write(struct ljca_spi_dev *ljca_spi, const u8 *w_data,
- 	if (ret < sizeof(*r_packet))
- 		return -EIO;
- 
--	if (!r_packet->len || ret < sizeof(*r_packet) + r_packet->len ||
--	    r_packet->len > len)
-+	/* write acks carry no payload */
-+	if (!r_packet->len || r_packet->len > len ||
-+	    (r_data && ret < sizeof(*r_packet) + r_packet->len))
- 		return -EIO;
- 
- 	if (r_data)
+Regards,
+Changwoo Min
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.55.0
+> Patch 1 looks good.
+> 
+> pw-bot: cr
 
