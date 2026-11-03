@@ -1,78 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723369;
-	b=xn+1rhWORKhW/DjiQlcKO2rCUzXan9sXfDO00YWnYj87z7uGQ42/eK61zLkrGoLzAZPV
-	 bzjx8oyOAa12B1EOtP3tFMD1Re0rNNWMMpOnsHNKAPTLOFascg4f4OXbZDhaVEEy/x4BN
-	 e2pxbMf6IPAidpI38xpoAD2zcxKcE7SRUoLkTckI4kuk3xb8JaGTFZC4Jd6gQ87iAqS1C
-	 QeSNqNsIC8zzncXxa1OigJLih37qSwjAVuNZ14qpZ2pQRzwb5axGsG0gQUyuLBC9Wb70V
-	 2x04O4gc3tAR49vACI1rF91rXSrWaABKseRH90L4amxZDPZO/bXHkTGkyf8sEd7gP1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723369;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=YNY6h4Csi0xCblDGgiFLCrE5yAWsa766ysMezcggLVQ=;
-	b=JE0X4VYHFG3xpsHCsRpoYGZSPrPlvU1pSWZB82931jbyswV6S5nELFDVBuEcpUhKfbsk
-	 WNWv7R1VVRquRO4d0qAZdazsBzbXJmcoOhr7WMSk1cSj4cPp1oocGdz88oJ7cxrjBdyvp
-	 P0i08X3FPnKLx2K6s8AiguphvbdRldzoFIiI7BSbUolalvobeUpm+iXLPOgqV6jtFobLZ
-	 uXlA9Xrl2ircYtO5V6skBYOoQ0IYsBJzZicEk6qGEBkFI6a+GH2BXhaGQuvdkZHOt4u6O
-	 +ABxUBRk8xUkL8j8LEnDQL8wkB0zqZwAqHqn3RksvJ0lamsV9Cm0B1+f2WhK5oH9SUg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.175
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793723373;
+	b=iVBaLEXRazY93WPGr1UentlnqfqWLofcAinI4fjGTf2+EByOQdY002qrD0MnT9PLv9V8
+	 5+1vWAKnV2623wK8rSumsuU9N1+kUA81sOZm8kRvoaK9Bz7UYvTuMum7NA3J8WUcYJc6g
+	 lwgW77+N1AVMEWHAQBBCtZ4Qjij7+fFiNoA7dGfRwLFEKTF8XyVr81WDaMUvqgzH78LWm
+	 SWPvpJpUWgk0012L3YA2Wy62j7WJFq486MYDqBiWE+ben6B0p7jPBnVGLQI3tDzGgZSBU
+	 T9UszzV9dX3Ync3JUnu+D0rfJ5srbcm3U2TMqWi5MSXAvIxQaqd4giy1j34kjns9G/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723373;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=3im34LmcRYA+cSiE+sBGk7UdCBE4SoKxb7+/feltjdY=;
+	b=xrW4rLCEi1aHAST27v2Cl4R+/TrzFvqcMwjuxKKbkytc3e3PjzVuwbCe1NiSJmiegsI+
+	 s7GlVmoVpssqtyi8RO6kgkW40vU6IPoi93Oy15UzGqUPvy1T+lWFqjFsJHYWoyhR3kjlk
+	 o4/QI6ruv2ByIHZSGqT9gXHqPdeRvGHtxkWwS31srAZrbPKZt/svQKFauECG9w6Grd7g3
+	 R8wI1BcreKxlBUWfmYv1xzhyYwmVI95JZ8Mtj9ZsLmnAlYKwL3fp1yi3wbCtbF+VmWLrj
+	 EVf1HgTnKJ5Oehbl55qTnuNghqnsmaByX3LO7M+Lp5/MUxbbszyt/gmQoZQfZkiaNzg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oSQtlEHv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.33
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010033.outbound.protection.outlook.com [40.93.198.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30B8606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:29:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A30B8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b0f59a5fdaso40409037b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:29:28 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793723367; x=1794328167;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YNY6h4Csi0xCblDGgiFLCrE5yAWsa766ysMezcggLVQ=;
-        b=ee6B5TNHBQX+xx3H4qajgfcscclz6b/X/vDRrSyTck48A5WvkXSIWuEyqNuIsKPeh2
-         OZOvwuQ5sM+z0gr2/WUkpV9AOYh8Gqhj7GKNx/itAY8JLGLTNB5HUHZktXYSmqzISy7L
-         lHLv5BCBOERQPe4XTJ8zUsR39zxHQFEJgHtlGXg12HKOPExFMMXIRsCcj1MhxpleB7wc
-         HfO6mBC4dcXPb+Gw7mNLTp6VGTay+Wec7asdPsEmK2+vwKjx8wdesWPliRK2HASLjdDN
-         iVr8Okofy16B0+jkjMw1ubHWRLbmtSB6ldhD0RHp9pvPtssON94cfyAt8XHcKOMUNHPQ
-         cJTw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMV01sENfVYUfUifsjakcRItD75H0ry/vsWz515Dx7n7ZDRtv3+MgfEyrBtEJVcZdMPdz+NzT5u46m/9g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8QQE8jNYlH7ChwTIfSSwA9rRGvKjZtI+/7Mc8Pt45l4V4DLyQA
-	cHpOzLlSw/w+IFi9BNhfodCNRM8xP6RZAEB3HF9giZOvmc4EllIYJUGncoAw6DSg7T8=
-X-Gm-Gg: AYBFou1V6SHDT3TYAphS1z0wmS14RCJhw2wfFLOrtlL5gmD+C8TI/ObFZ0yXRrCgdWv
-	W6W2hok0vFNayZjN6eX0g5y0qU9hDgu+dc+WfFCL18WaFX/CzUxpM/mXg04axiYJPSJ2JUmiZJK
-	m0WDdsPWfU/bo9MG4EUtPzg79rk6fpijx7mBe2riSP4ItlW5HXXzRMpGV/hTz+qKI6KQxkpsl2S
-	8R6KozAgFpo8k2/mxCpHHuhg/4VRTlMzb+83Cy/SJQxsV1xKdBRO2yD5fuX9I685tV7fSiPeup2
-	sIVjD0bHFQXY+Zjfdmtllp6rAKKPCHIdvr5Frepzu5o0WNT1iyWBtIqzB6OBU6HiyW3vfhOGwV6
-	jqlafIlIJtXB8Fd/D+qTiSgaIQkRLbIkj0gKjPqp65PE9F/tiGqIjzFaowrim0W8X9wO0Z4AAwt
-	FaN0x4j/PphhztsKGw0I4sA9Hg8Ta2mnf2w7y/7/iuMaUobA7zpQnDq6prYXuQb54M39uPp/7eG
-	mRl1Euf+4KoXqqBSIVhkCbll7BL+DAHYBAgdc/0E2uqKqu7m/0ANjA2/ykelM+CCTIItqaiJ5xP
-	z871m3R3/loMxnFme1O+8MCuolRUaTJ7Meapm9qwoi7FzATCUUG1u+pzqqjBO6LufShyuAH34N4
-	4M47mqdTMa/gkJ4oPLg==
-X-Received: by 2002:a05:690c:f89:b0:8ac:db2b:ac45 with SMTP id 00721157ae682-8b2b6597c5fmr108780307b3.2.1793723367334;
-        Tue, 03 Nov 2026 08:29:27 -0800 (PST)
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com. [74.125.224.47])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b30992b101sm118937b3.18.2026.11.03.08.29.26
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 08:29:26 -0800 (PST)
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67be7b9abc8so257045d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:29:26 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxK2FuX9c1QVFNheRSnUaB/8vhK/0FgeQZUQJKnMwcfg5X5q1WdXwKuo3JRAwcnrZ5Oa5k/+q0JliuHt2M=@vger.kernel.org
-X-Received: by 2002:a05:690e:1c07:b0:676:8974:9795 with SMTP id
- 956f58d0204a3-67ba50e5d1emr10529834d50.92.1793723366247; Tue, 03 Nov 2026
- 08:29:26 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99524606A328;
+	Tue,  3 Nov 2026 16:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99524606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oSQtlEHv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iZ/CP4lF1yI/NWFk8EF6P4c9PHdgiz+tCW7wiRCgCL/ZapCGKfTBBgiKESCMVZV0rhNoctZ9rLvi2gWQoghhMhN4AsIKAwNPkWpnUACZDXmhkJZVzoNnuLjYtiIl4/SYx4lbDd8YA+wK8lJYVYBKgZCuQJNP5nBpvXPCk/7itbPikceVlgf6Xz9MWdKrzehAoD96LVNDdNZaDP9Rsiae05/XIOwlV3bfWzC0lNba1EV9rOX3Y7Hvawq+dFlRlB+f1oLWU5MgY9Yf2Z4rT7Q/yMJAwxzUCr7T1H+XLuYjt5/5f8kwtlVcnjdOBiL2MKt8HEE0/op+3WTRiW1+KWORMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3im34LmcRYA+cSiE+sBGk7UdCBE4SoKxb7+/feltjdY=;
+ b=vjInhPqiHu37AFiPgGAWMJF3Lnpn9GqtFMtwpHt2rMSSTJ2nyzPZ5rJJ1ZTHIV/yOS9wf46Ru9xiEU6iWnkQEn8/CRCdT85y8L0fMgAg0Zza/KvZPWluYzsFbJZXqbjmZKcNYxfTiW6eKJ89gK3XntCUsWiFQPxsng+S4tuEiY/Yo/N0wIabB8KSD9gBusYagekdTe1F3v5zXoMIMvP3MS57TQ73EIQeQqRCLsLR854UKg6IxhgHFQPxDyTFcdHFCLa/nOth8zOzvgPvD1EqjR+/878nsS8s+kba3UKqa23CX7Q9cvNzhN89hEG1+s5SwIBrrt/LP7Wx6O1zvc5/KA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3im34LmcRYA+cSiE+sBGk7UdCBE4SoKxb7+/feltjdY=;
+ b=oSQtlEHvSDAkssEUG0mB1C7bPYGWQy6IHpAsL07JYnQ4B+RfCTLPpm6LBq68+xztF8E6BNN4Tcdkr579kWjAJxb7Bc9ofiPjg+4UPIvLV6vOBAXn28io6sHjxf+p7a1E1y3fgOTwl6kFUz9dsvUqm5zjHPAjKKq8UfTAlPZuKgU=
+Received: from BY3PR05CA0045.namprd05.prod.outlook.com (2603:10b6:a03:39b::20)
+ by DS7PR12MB6189.namprd12.prod.outlook.com (2603:10b6:8:9a::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 16:25:19 +0000
+Received: from MW1PEPF00018894.namprd03.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::34) by BY3PR05CA0045.outlook.office365.com
+ (2603:10b6:a03:39b::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 16:25:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF00018894.mail.protection.outlook.com (10.167.249.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 16:25:19 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 10:25:08 -0600
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 3 Nov 2026 10:25:03 -0600
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <robh@kernel.org>, <saravanak@kernel.org>, <akpm@linux-foundation.org>,
+	<david@kernel.org>, <ljs@kernel.org>, <liam@infradead.org>,
+	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>,
+	<mhocko@suse.com>, <m.szyprowski@samsung.com>, <robin.murphy@arm.com>,
+	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <iommu@lists.linux.dev>, <kexec@lists.infradead.org>,
+	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Subject: [PATCH 4/4] mm/cma: drop the duplicate alignment check in rmem_cma_setup()
+Date: Tue, 3 Nov 2026 21:54:29 +0530
+Message-ID: <20261103162429.2053989-5-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.44.4
+In-Reply-To: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
+References: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,58 +114,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022200640.3101932-1-tanure@linux.com> <20261022200640.3101932-3-tanure@linux.com>
- <f8da1842-bdc0-4bf7-8f15-46b57a9eedc9@lunn.ch>
-In-Reply-To: <f8da1842-bdc0-4bf7-8f15-46b57a9eedc9@lunn.ch>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Tue, 3 Nov 2026 16:29:14 +0000
-X-Gmail-Original-Message-ID: <CAJX_Q+3hxekJn1FiDJjYqDoCFyczxzvCuQJwWQ1DbH_WXjihOQ@mail.gmail.com>
-X-Gm-Features: AclHuK9_PvSlgVJNQpbckdVoDA5-AvRndijSeKC1Bujpf2P-dAJH6DOiVyEau-s
-Message-ID: <CAJX_Q+3hxekJn1FiDJjYqDoCFyczxzvCuQJwWQ1DbH_WXjihOQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/7] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF00018894:EE_|DS7PR12MB6189:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1fe01bd-8512-4efa-6e98-08df39c70d3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|7416014|376014|1800799024|36860700016|261022105027099003|261021121427099003|261021123027099003|921020|261026140227099003|261028144727099003|11063799006|56012099006|22082099003|261102123227099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	epst9tIK9Nw6Flg9AL8MdPpXv18W7619t7mIdXDosX4vle939uBUjZQPbpfv6Frp+qD+7BSO0ddR+F5qjuMn5R6HqbNlydD1v5IyaZCJgu+OHE/CX9jTVYZ3jxuDQRsahnnI92oLV8Aq66ap7qtbyvnd8Zh6TgxcxDyxTtAte2UvOHfPKYMI6Gnrmd7rwWCn64nUsEfmseAUR8KMuZhfS6pjmlXVGodMGpXGjNS8ziVobmtH+p7z5QcSXauP/7b0QsjgEM8bIPJgXAzALFdN/Qh3nAdqQ6p+ksR12wJy1qFMDnuEdLAoHTYYzx05r+HI+aXwJPOoIItvwal79OmUkyZ8bFjc5Go330jXyh7auRShYZquN6WgDvAsU1ioBcauV+P8vEI+2P+NN13xKhfAhqrGsXs9VBfdw/AzmxyGSTuJH751ZUaVgAkfsEUgXZGvjrNZlt5qEH5CNU19+SG2Wyn7quM/9k/VH2WV69P+CiiElwvO9JvGz/29yf2K4JX4N71EqWfJjdw8RlCSSt1Ur5m/8MxPj7O5ktKe/CAqPzEUjUpXrJ6J2flVinnvIBIZ013Xs55GwMsxqZ4Jn0FgABKYPKAmKcjipsJgo3d4jGi27hgf9ZuWm4sxN7ZensiCIeFhQ+RlWnkNZlipqie9QzLNVGceVzf/dp1VWY/6bJsapXSybpSSPfuE+x19aaPZYII0JSSIKdeUpNwXuv5cmG4W+VZRVc3HxOtyv0f25CSEbSbeyLjlim6GbUZGP4pa
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(7416014)(376014)(1800799024)(36860700016)(261022105027099003)(261021121427099003)(261021123027099003)(921020)(261026140227099003)(261028144727099003)(11063799006)(56012099006)(22082099003)(261102123227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zDh0DEnEi7HvHxB5stq29M/5hR5i/o7prngSgh/2Y2vfy90PFxmh88zHzoepdI2Wf/ARuFGww7eKgAXs9pfM+mr+3kpzgdg8uEgqPOljg5MND0DVfhmLkSosCHj1SHtW2yfyp1774g9Nre5GS34XVJ8dK6x3mI+CFz4gkXGaqOtZP6wN/gPCxJ86BhnPcokwS/sG1GjKHXO9g/IUEPWCGYwuRvhz7i20S3E4O25aezr1QQAYjoaiY3Vhs8d+OW6Znrgshw9sBKhWD0p7B+1kK7zBpGknG1ZWOxtI1wp+mkDv1mmc6jij4pqxEuUzmN2ZS3DBRFJF5jvytu6ayRiOKnr7m6a74gwNHkXImHrMdqqcRFNiWwMx1g+LL3E++SPCTrKuAjM1F4olu5CHzo93UvX3Wdp8JcWKUfFt2DO9UstktkBF0eP+m5ztEx0M3bYd
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:25:19.2118
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1fe01bd-8512-4efa-6e98-08df39c70d3c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF00018894.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6189
 
-On Mon, Nov 2, 2026 at 1:27=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> > +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.y=
-aml.
-> > +        # The RX delay line of this glue is fine tuning in 200ps steps=
-,
-> > +        # added on top of what phy-mode describes. The TX side has no =
-fine
-> > +        # tuning: its only step is a quarter of the clock period, the =
-full
-> > +        # 2ns at 1Gbit/s, so the TX property is not accepted.
-> > +        tx-internal-delay-ps: false
-> > +
-> > +        rx-internal-delay-ps:
-> > +          enum: [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 200=
-0,
-> > +                 2200, 2400, 2600, 2800, 3000]
->
-> This is good, thanks.
->
-> > +
-> > +        amlogic,tx-delay-ns: false
-> > +        amlogic,rx-delay-ns: false
->
-> Maybe add a comment that these are deprecated in new SoCs favour of
-> the standard {rx|tx}-internal-delay-ps properties.
-Done in v5.
+cma_init_reserved_mem() already refuses a base or size that is not aligned
+to CMA_MIN_ALIGNMENT_BYTES, so the identical test in rmem_cma_setup() only
+repeats it one call earlier. Remove it and report the failure from
+cma_init_reserved_mem() instead, where the area name is available: the
+message now says which pool is misaligned, and every caller gets the
+diagnostic rather than just the device-tree path.
 
->
->     Andrew
->
+Suggested-by: Mike Rapoport <rppt@kernel.org>
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+---
+Changes since RFC:
+- New patch
+---
+ kernel/dma/contiguous.c | 5 -----
+ mm/cma.c                | 6 +++++-
+ 2 files changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index 90937dc7c627..14450cf0f832 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -552,11 +552,6 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (!IS_ALIGNED(rmem->base | rmem->size, CMA_MIN_ALIGNMENT_BYTES)) {
+-		pr_err("Reserved memory: incorrect alignment of CMA region\n");
+-		return -EINVAL;
+-	}
+-
+ 	ret = cma_init_reserved_mem(rmem->base, rmem->size, 0, rmem->name, &cma);
+ 	if (ret) {
+ 		pr_err("Reserved memory: unable to setup CMA region\n");
+diff --git a/mm/cma.c b/mm/cma.c
+index 3231a53161cd..68dea7070d69 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -326,8 +326,12 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
+ 	}
+ 
+ 	/* ensure minimal alignment required by mm core */
+-	if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES))
++	if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES)) {
++		pr_err("area %s (%pa, size %pa) is not aligned to %lu bytes\n",
++		       name ?: "(unnamed)", &base, &size,
++		       (unsigned long)CMA_MIN_ALIGNMENT_BYTES);
+ 		return -EINVAL;
++	}
+ 
+ 	ret = cma_new_area(name, size, order_per_bit, &cma);
+ 	if (ret != 0)
+-- 
+2.44.4
+
