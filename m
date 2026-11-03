@@ -1,109 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697381;
-	b=2CH57xS9TTL2Ya2QvFmLCfhqXIvdM2FDwFMX6MfzBck4kUlFAS6YUwMJbmdSP4eYjwNp
-	 TEWPUtjpEZKj3tuFShbcxQJXtAo4LxYjVIZ8jMf1AKWi2fS7asSK015nlpoRmCzPihy2B
-	 IRhjuUwsLRztnRFBPAvxfB8oVd2Ke/8b44iaz5AdcWat0o4R3jgKq4aRjW6BoM5CaGdcB
-	 IgeVz/Rgl8jaDLSJmnE9YQkAMXf9X1FGEX3Ctf+HnS9Gul5cwOGfx1Mw72OIw7LMPB/w8
-	 knGll9M53all6CYZQG5SRFSRGghy2MsjWAXyMm7V7T+nWRFHXCG/0eVwYsPbTf5x0GQ==
+	t=1793697369;
+	b=HhQGqnEMxupHzp3w15t2epK8vN7kZ4Vp8jAhZJhUTPHJA3NE/nSLrqkdMMUDq3Fl9lDN
+	 8znEOy4lw5tFF8R1Y9rkacuqIvsNzeUzDJprMZXQvQjo+kHFc92vmY+LJseuRAzalxf1e
+	 RCbsW1CmHkrkDaS4Of/gTfRgBYwCuIDqANQYewkNIiOfquoARpKYavNx7V4rcZxJF9Wbx
+	 wdqoNNe4TLJQZD4Cs4mdHi+2A1271ADURU7YM0V4mDTAKqFUg4o6hV1fJm6rIyMr7ywdk
+	 hSXiq7iz67dBF3uhd1eX27DfR8spHhWf4CYDfS8/6HxnKgBhZKLEGSEPk03Snj9N6Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697381;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697369;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8KH/UMSE6WEWuRloEtHlnOd9aZBURFFHz40IrIUPGbA=;
-	b=i+IwUF+QsuDn5hklD4FQOwdd1RGgmJnXw07FcZjsUabUXgt7YiDwXL11tsXHgcyU6pVD
-	 E3VJiLGq1/rcDhS+ba15eJlQExilFIiOwzd+JoqODStHsS8/v4xN4vATC2/G6dO/S4Lfe
-	 heNJzvqjCFqqBl9anTVfRSa37GqFbfl19yfxmIGcIAW6Hv6IC4VwIofxmdTqDeC35n6fn
-	 ZYNeZMbZEENZ0Lvnh1WnaXfo2TU3/f7CLrh0UheGP0POTD2ynN16BCx8Ci9Hm66qidxAq
-	 6fZe+rNAJYJD6bH0/ARVWYOLvMtKoPR5IJHfLcLPiQS6VwHIkKshDzYrN8/O7dwLrRg==
+	bh=pl3ngFE4BZhkAYH7ootOT4rmNGgs3H/HLtfaAhRIIhs=;
+	b=nc9cNliK19KzjCOD1mbFbKaH5WFs9H6FncvFPvYOaiRO4K0fYYCrLMvX1uQvGOXNNLZ0
+	 4GbX1zAvEByOZAAvyeR2YEOeR+oPgZszormT8fA9eRb6IcaySAZlNcXlmhbNjBoInW+Pc
+	 tJIBh35u2r7PsbI+bFiwTlX4NSBUeud1OoTUEYytGSYFsegtOt7lcCUJJF8f5+3PAYn28
+	 1ZYF8V0gPNqxW/hTnV/Uule+AkWv9Git8L9RtydVT/kQbu670NLxxfz2S1xRYhwLRWZ86
+	 v803qAMVYkjRFl3+r52XYA5gQ2d9jWgl6llcYiWNywTNhGW1Bg9k+Dmd2Yb0QWHVa/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=apiHITAi;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JfguixSq;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MZShlwe5;
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834E2606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:16:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 834E2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDF3606A32C;
+	Tue,  3 Nov 2026 09:16:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FDF3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=apiHITAi;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JfguixSq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793697379;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8KH/UMSE6WEWuRloEtHlnOd9aZBURFFHz40IrIUPGbA=;
-	b=apiHITAi/PIX8iDFwbvOx0CLoES7gUIgKZmGjhOBp1Z0HOEs6Fjr8Q3gauWooiSg+5iPIn
-	kDizAOeOAiDslwdUh05f9+eDOY2Khqo5mWuuyaoE6X9wY6y0R6djQTkaTe+jGfgy9cmgnm
-	s6znA3mG9nFnSG4edFiWvwUOHu7Gcxo=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-59-FijmhtzgM2efESK0ejr5vQ-1; Tue, 03 Nov 2026 04:16:18 -0500
-X-MC-Unique: FijmhtzgM2efESK0ejr5vQ-1
-X-Mimecast-MFC-AGG-ID: FijmhtzgM2efESK0ejr5vQ_1793697377
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a359b714f8so36543905e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:16:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793697377; x=1794302177; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8KH/UMSE6WEWuRloEtHlnOd9aZBURFFHz40IrIUPGbA=;
-        b=JfguixSqRu0b/OQ0ojH2zl9rAe6iH6XeTCU3kDv5cd8ABPkKOmt7ItpOslzQaCoPpQ
-         KctTQCRBs/r/wt2hlbQHvnsaseuXfWuXx8XXoDO383GRV5qaAX1yAif8CwSyfuFJx9gZ
-         OvPEzOzbJNcj0U+vHi5bCCJYT2AzvGmMZoJbX2cycZoc1MTAcJh4oC63vNqed2OQVAnx
-         JHpM2QiLpkRk93SThUoegCm7BmiiMg1QJfqm+V2OOzufIshtYi7fQyxeR4H86Mu3bSJB
-         UCnOFVtyCD3dUB0aBiBBlVtK3l5hDodfhGjVO1zGUlLK6KomOeGEUDAbuc4K0ypPt5ZD
-         aUDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793697377; x=1794302177;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8KH/UMSE6WEWuRloEtHlnOd9aZBURFFHz40IrIUPGbA=;
-        b=SnUhgRJ7H45iwS298BvWi0vvOhTiZCdUkrtjhhdPLmbhQwXwbdKaFzu/JqvCP1UKZT
-         Wwlshz5QqpGUDvP3+ony0/eD4IUei0TZcviaiSwVPYnlLinVfod0aCd3tFellcrj+j5T
-         8/lzkbCocMO9eeABx4Ak0ZIRlLMAK7xoMv2Loukw7FemlHauAmjyMlEY/FJ+1MzZ9zMU
-         4yTc9WE1fByuHmZ/F/67onsqThWX/lLK62OnZOnn4YnybUzJHJiMafqQPXjvl/RkhG4q
-         WglPyR3JeEkWT5UIuDtLw2zrToJj4bb5PRfHWAOuu0ZtKO8IidHHtHkLgHHEUFCEBRxp
-         KyPQ==
-X-Forwarded-Encrypted: i=1; AKwUvByzQUnFjd4kYFKcyUa851f4laJhhFTl6a/CkrjoWtmvjfFzc7/dzVaOl4fSvKrWoeDbaBOb2qu3hx+Dkn4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ix2oI7c35WvljPsq9EnHMjldaI6tK6A+iLRDkL+fcJBrTme32
-	150jZBqNq2baO7ctOZCjYHa+JT/+Vy3Pq6elHkip5gyFGziDlc7d8hUFOzDcQjDetbY+DEjfZf4
-	nN6JnckvIriG4MXsnwpWx7fERc3OiE69aZMK6JNG7/iQXpMzZrWzWRh0xgyg8C1gxrqFJT1/leA
-	==
-X-Gm-Gg: AYBFou19SU+uphzd0Jyr26+DrXBMfgF1VK3joa44Ap6c58SLhSh4KtJYijbA/UOQBDK
-	rgQdGSKaXRuIeul1iJuXA//KdjlJtilnA1jptfy6EGTJmPBkWY70AwZLIXy0LHTCczaeu6qATBA
-	2Gza+RFHIsnRi6k85NtfiPpKzOJFg5UgJoUV8iKMAvmfJUP3PcQ0qP+sc38d+7CXR054NBCo/0R
-	XGWbvXUyFxTIAafkJ445f49zZ2wJbxMerstD6qm5W1iBwY6TWulAyrHMNvEev6ZA+lwvH9rvSgG
-	kn+VARFFnjetfdEeuYG2e7m4+mrcXQFK3Bb+PmoH9nEdxjmi8aJuPFkDFo/6n1HaxJvJfjmBGE8
-	AFHE4PAQVR7GkBty1o+/QNiQMLfyzF40RfOsjsCDbS33aHv7ZEMSu/XVC4ovk9r1Hnn6bqplwx+
-	UJS1ckLP4HQAkRkdBmt2JIcDm65m55TXE7uImsNlGQqKA=
-X-Received: by 2002:a05:600c:3f14:b0:4a3:59ee:86b with SMTP id 5b1f17b1804b1-4ac14ec873emr276978625e9.4.1793697377164;
-        Tue, 03 Nov 2026 01:16:17 -0800 (PST)
-X-Received: by 2002:a05:600c:3f14:b0:4a3:59ee:86b with SMTP id 5b1f17b1804b1-4ac14ec873emr276978255e9.4.1793697376758;
-        Tue, 03 Nov 2026 01:16:16 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b7246fsm24262166f8f.19.2026.11.03.01.16.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 01:16:15 -0800 (PST)
-Message-ID: <3edcc63f-aed7-47fe-bee3-703c6becbbff@redhat.com>
-Date: Tue, 3 Nov 2026 10:16:14 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MZShlwe5
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793697359; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=pl3ngFE4BZhkAYH7ootOT4rmNGgs3H/HLtfaAhRIIhs=;
+	b=MZShlwe5fSv41JrmirE6gmOKU4OgZngx1CBB/TqX0oepf8SJJRNwN0zQQPykm39Ntbx6ocVVTVRQCpsaLf0BFmlJwPCS6ngYEGXs8geG8sn5o716jQj4J5FPjnQUWYrX+ozup010JKzWj9jj4ANlFRJjuu35zZQRhZbFuHn7kzw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XE2F58U_1793697358;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE2F58U_1793697358 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 17:15:59 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] smb: client: hold server ref while queueing reconnect work
+Date: Tue,  3 Nov 2026 17:15:57 +0800
+Message-Id: <20261103091558.2342761-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,126 +60,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 2/2] net: dsa: b53: Enable legacy IGMP snooping
- controls
-To: netdev-bot+sashiko@kernel.org, florian.fainelli@broadcom.com
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, linux@armlinux.org.uk, rmk+kernel@armlinux.org.uk,
- linux-kernel@vger.kernel.org
-References: <20261028235100.3892374-3-florian.fainelli@broadcom.com>
- <179357816089.3131.2008365378649919842@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <179357816089.3131.2008365378649919842@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 11/2/26 01:09, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 0 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The commit message says: 'These legacy classifiers have fixed
->    forwarding behavior, including query flooding which excludes the IMP…
-> 
-> --
-> 
-> net: dsa: b53: Enable legacy IGMP snooping controls
-> 
-> This enables the IP-layer IGMP classifier (bit 3 of the global management
-> configuration register) on BCM5325E, BCM5365, BCM5389, BCM5397/5398 and
-> BCM63xx, which were previously skipped in b53_enable_mcast_snooping(). On
-> BCM6318 and BCM63268 it also clears the IGMP redirection enable to select
-> snooping mode. BCM5325M and unidentified BCM5325 variants remain excluded.
-> 
->> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
->> index e54f6d4d1f7bb..957a1501d3f49 100644
->> --- a/drivers/net/dsa/b53/b53_common.c
->> +++ b/drivers/net/dsa/b53/b53_common.c
->> @@ -841,12 +841,29 @@ int b53_enable_mcast_snooping(struct b53_device *dev)
->>   	u16 val16;
->>   	u32 val;
->>   	int ret;
->> +	u8 val8;
->>   
->> -	/* Older switches use different IGMP controls, not HL_PRTC_CTRL. */
->> -	if (is5325(dev) || is5365(dev) || dev->chip_id == BCM5389_DEVICE_ID ||
->> -	    is5397_98(dev) || is63xx(dev))
->> +	/* BCM5325M snooping uses the mirroring engine instead. */
->> +	if (is5325(dev) && !is5325e(dev))
->>   		return 0;
->>   
->> +	/* Older switches classify IGMP in the global management register.
->> +	 * They do not provide the separate MLD controls of newer switches.
->> +	 */
->> +	if (is5325e(dev) || is5365(dev) ||
->> +	    dev->chip_id == BCM5389_DEVICE_ID || is5397_98(dev) || is63xx(dev)) {
->> +		ret = b53_read8(dev, B53_MGMT_PAGE, B53_GLOBAL_CONFIG, &val8);
->> +		if (ret)
->> +			return ret;
->> +
->> +		val8 |= GC_IGMP_IP_EN;
->> +		/* Disable the separate IGMP redirection mode on BCM6318/63268. */
->> +		if (is6318_268(dev))
->> +			val8 &= ~GC_IGMP_RED_EN_6318_268;
->> +
->> +		return b53_write8(dev, B53_MGMT_PAGE, B53_GLOBAL_CONFIG, val8);
->> +	}
-> 
-> [Severity: High]
-> The commit message says:
-> 
->    These legacy classifiers have fixed forwarding behavior, including
->    query flooding which excludes the IMP on BCM5397/5398 and BCM63xx.
-> 
-> The message describes this as fixed hardware behavior. Isn't it actually
-> something this patch turns on?
-> 
-> Before this change, b53_enable_mcast_snooping() returned early on
-> BCM5397/5398 and BCM63xx, so GC_IGMP_IP_EN stayed clear. IGMP general
-> queries to 01:00:5e:00:00:01 were then forwarded as ordinary multicast.
-> The IMP has PORT_CTRL_RX_MCST_EN set, and the bridge never installs MDB
-> entries for 224.0.0.x, so those queries reached the CPU.
-> 
-> This path now runs unconditionally at setup:
-> 
->    b53_setup()
->      b53_enable_mcast_snooping()
->        val8 |= GC_IGMP_IP_EN;
->        b53_write8(dev, B53_MGMT_PAGE, B53_GLOBAL_CONFIG, val8);
-> 
-> On BCM6318/63268, snooping mode is also selected explicitly. With that in
-> place, would queries from an external querier on any switch port stop
-> reaching the CPU on these chips?
-> 
-> If so, these cases look affected:
-> 
->    - the bridge can no longer learn multicast router ports or detect other
->      queriers from the queries it receives
-> 
->    - the host IGMP stack on br0, or on standalone user ports (for example
->      an igmpproxy upstream on a WAN port), never answers general queries,
->      so the upstream router would expire the host's memberships after the
->      group membership interval
-> 
->    - on standalone ports, where the port VLAN mask only allows the IMP, a
->      query flooded excluding the IMP would reach no port at all
-@Florian: could you please comment here? I'm unsure how much legit the above
-comment is.
+When query_server_interfaces() returns -EOPNOTSUPP on a secondary
+channel, smb2_reconnect() calls smb3_update_ses_channels() which for a
+channel runs cifs_chan_skip_or_disable().  That clears the channel's
+slot in the session and calls cifs_put_tcp_session(), which can drop
+the last reference of the channel and tear it down.
 
-Also this series is IMHO borderline for 'net' as it ends up enabling a feature
-that never worked. Would you consider it for net-next without fixes tags?
+smb2_reconnect() then falls through to skip_add_channels and queues
+reconnect work on that server, using a server that may already be
+freed.  The send path obtained the channel from cifs_pick_channel(),
+which does not take a reference, so the session's channel reference is
+the only one.
 
-In any case, if the AI comments is a false positive, no need to repost.
+Take our own reference on the channel before calling
+smb3_update_ses_channels() and drop it after the reconnect work has
+been queued, so the channel cannot be freed while it is still used.
 
-/P
+Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+ fs/smb/client/smb2pdu.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+index f85595136ef8a..8e53e9e02df6c 100644
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -253,6 +253,7 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
+ 	struct cifs_ses *ses;
+ 	int xid;
+ 	int rc = 0;
++	bool hold_server_ref = false;
+ 
+ 	/*
+ 	 * SMB2s NegProt, SessSetup, Logoff do not have tcon yet so
+@@ -470,6 +471,20 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
+ 			 * treat this as server not supporting multichannel
+ 			 */
+ 
++			/*
++			 * If server is a secondary channel,
++			 * cifs_chan_skip_or_disable() called below may
++			 * drop its last reference, so hold our own
++			 * reference until the reconnect work below has
++			 * been queued.
++			 */
++			spin_lock(&cifs_tcp_ses_lock);
++			if (server->srv_count) {
++				server->srv_count++;
++				hold_server_ref = true;
++			}
++			spin_unlock(&cifs_tcp_ses_lock);
++
+ 			rc = smb3_update_ses_channels(ses, server,
+ 						       from_reconnect,
+ 						       true /* disable_mchan */);
+@@ -498,6 +513,8 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
+ 
+ 	if (smb2_command != SMB2_INTERNAL_CMD)
+ 		cifs_queue_server_reconn(server);
++	if (hold_server_ref)
++		cifs_put_tcp_session(server, from_reconnect);
+ 
+ 	atomic_inc(&tconInfoReconnectCount);
+ out:
+-- 
+2.39.3
 
