@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793729942;
-	b=Okcz51E9fzV2s+IkVuEhCXWROEEaYnz0hPQtDt+sPAyimcF48zkTzQN1j7orRyVMb69G
-	 XiLZjZLcl4F5iAaZd7aB3xClL6qZNA+yRKu5JkY7eDDaeV9B1VcGZ1E538hOVKtGTvWdi
-	 JmZkSmi4HTNbwES4LPmtawcPGfzeRlbETMe+59M3gVE1MGcdcqRu2wU1tRY8ys2rE6zWt
-	 V6IDlfx6s7y/TAlDP4HOpwIiHvUFZY7qiI+lwIJxRi7qLTMBwqkqsbOyAXPGiMkPuVVca
-	 EDaIV1u6qZ7/kmN9O3sJHezLIh34dHu8Ok+5FNCbUst6OWJkARzh6MdovMjtdkn1tiQ==
+	t=1793729959;
+	b=orzpTcVanS2selAuS396wP0XgxIZXpifT/amj8e/+3znVpe6Zj07Y3Ak6IJeoV6y3fHm
+	 T4fZ0ILOwaiz/GKM00PRM9QlCq2euhKNUf1Kp9+tKz5xtaZ9Bi8j3mml3NDsjHJwk/ntj
+	 xeMUxsvcsqQoNJqsiN0q1nJhP/LfY0UGxLLdoYKZZLqwCiAuBuTAteVO9dv/J6OOyxHwl
+	 4ifFiXZcQPTPDG/G2QulBZ0CeAwnY6MbMQHD316CHeV7RtA5VaArdodsepqK9yVdE2DWO
+	 zfr+hjj2rk9KPFyiOKlsKbIaoPi3I+24vuv/tVEVe/zO0pWDiTiGeV3K1jYnvZPUyyw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729942;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729959;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IhcsKsF4c4Bor6ZjDZme0cgeE1Ch/I0WodiVCA7SelM=;
-	b=P4NXIHWaoRsIb1CLuIgg9Upm5vaaS6dQ60FAoWfR3QqEJXvIMW2xkKjpBmwl1VmtGcCb
-	 v77VZA+BGEn/0DuScybunu/s9qG3gpTLUYZVlpm0ju3QHUbQmmwtvXqJGgtvtoMCOB1D8
-	 B4OhrNbUY1O2KUDfqTfQYWCZwaDI7FtGizvxpOuwUyYrv2Q/iAllOVgOhCUd8J2wi9hlq
-	 /hOnh1P+V9CF843y360f9JoHO6GCDg4Kjv2RBtHb+nZPJTrGsvOAJql0S/Vix5bqJd2ye
-	 AIk+uHn1Hx4S+NZONvH9Zs+xcbcDCOIWibkaPH97sm3Tj9qxKbjRWQUe5ViKiWxaklg==
+	bh=b5Apdfbysx3UZszHr/cOZmvpYIko3amgTXRkBzLxPAo=;
+	b=HSW6N1m2F0bZud8/Bl5jut4QlaTwXzcH6CPfGG7CWOplwVfdaGZ+7W714C8+gXMhn8P5
+	 eCBzn4JJpYTcyJ6UWH4R3BLs5zdtHxujrkWFK3mY6AmtQ0JVZhE92XJuxNdG4KkyxW90a
+	 59qF59U3GsxAgQ3YtQr1vk0c/WrQT8HWVYucDDo8LhkCNphryVUl0ZVgj2T4xDWaztryg
+	 UCR8/C7M7ICkLvQjOlHUILEXpA7uvRtwOj2atujWih/yLgyb6F58AvfTx/9uNBEdgLPxe
+	 SGhJ86BrRmu/fRttBD8j7Y5xqVfD5t2JD0Qx024XISTHao+r2Woj2+6T2rmQfgnsYwg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByKGCdBK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4jNSPJF;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B78E606A328;
-	Tue,  3 Nov 2026 18:19:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE53606D824;
+	Tue,  3 Nov 2026 18:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByKGCdBK
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4jNSPJF
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793729942;
-	b=UxmtYHcH++KuSzSy0auBgxwHKEdqk0FWtQe9rwHW80190P3GCSRFhcmLGpQ40RUER2n0
-	 7lxPvJDzlNoft4PZS06EA5nm1pOKgxGbapqFPpuINQC64KLVKoUhrVJ6Q/ZXF3BK+lKom
-	 Pn8RRayw6K0GT7BTyPRtOkubiOfpFJcfym4H3PCSQ3SlOQEuXe8pSYWR8M8Npsh07YpP/
-	 14k8BHp5VEniDy+5fw6otkzagOka01BsGysj8gQwCWOKzbCPyz9JM0YmU5fFsP29Qcdy5
-	 AAIVwpM4dYonvTaBA2PqXP96XOR9/gKbcZ8J1fKwqjtxNnZjkCLWCt77CtiO3VWwGYw==
+	t=1793729958;
+	b=JxvyKQamrHKQPXL49Gzyc4SE4QS8P0ft+3apo/CIjxJgx2QjfRLC2/F4CrcsRRLIdBA2
+	 2gFbAdfiyeqbRCAnQ5/UALxweB+B8EOOgifU6teNNZ1PifEIEds6rnpx7+ND08eIGIgKd
+	 jvrZi5WMmPEr2tdu95n58kfb6WXFdsU4AS6gSM0W2Ba7cepqLPWoGv1EEtAV/uu/8IZ9w
+	 AqqucnDFrF1DtLgY4sIdguFafOlVmoOylbHpD0odouyIwR10jYU/AFG+71Npf5A2t8rgg
+	 GhvpRn6I9pzYwXh9e/VWGYHZqO1tGkFrtbv5+/iwW7iOfYr6D/6mQc/rkyhZiX8VPPg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793729942;
+	c=relaxed/relaxed; t=1793729958;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IhcsKsF4c4Bor6ZjDZme0cgeE1Ch/I0WodiVCA7SelM=;
-	b=Dx2xB5A2CxOaBwGAWm6cIyQaaM2r5w7O8J53GP/gy7xakO2psTej83Z+e8gBfDL30OGZ
-	 ZZUJgHe/tDgKNa2o1EtNhxKbDL5e5z2sdCRhx4hV7SMCcbqN5pb+9T+3PV6DBbueGe7rH
-	 zn2ITGvuMPlPMZI2A/GrKXDvR0bPGDlVzscXRRjuSDPEs0KiQCc7s2SCKyE0iCOUqIJ1c
-	 ct6mjWAUBs+nyDNeI1kwJb61R+aUdb4HMuuQEoGRKLNF286I0TpKo3MRRcKNekZbqvQMT
-	 Sq9bzbv4YbvKpN0ggVauP09wZb55YPiYp/P0kwu+7f26o/fvCfwqEbdJTbIsjHluK+A==
+	bh=b5Apdfbysx3UZszHr/cOZmvpYIko3amgTXRkBzLxPAo=;
+	b=MmpYhZC5Q77yGKD9VOg5/QJdw8SxKnqXFvffqaPdBsEn8UxcKWRsgSzZ+pjoyekmWZ/W
+	 7qR/MmUz/KWA7m9Dx3fXscHsvKFD2GQ7P7Uww37V7pQuaSTYOQhwA7/b/KXELOzwSyFfJ
+	 hYPeye6OHxDDDQJzq69ukXt/D96WqmVculNuX0v0PuPEvfVlGR7sBsKafls6jd9mlGqHL
+	 ciNCvy1Sox8dGrkkc5Il+HfqyBxHeo5JbEEaAyUCdyezdYeNHwpDwQdHQ8A7zJWSH53VD
+	 F1p4qM7VfsTkOozx/qmw1pIklackXpFH7pVT6DGYDT19xaQ5vPWmZyw7xfe03wsK5Jw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9BE2D1F000C1;
-	Tue,  3 Nov 2026 18:19:01 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6EE851F00A16;
+	Tue,  3 Nov 2026 18:19:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793729942;
-	bh=IhcsKsF4c4Bor6ZjDZme0cgeE1Ch/I0WodiVCA7SelM=;
+	s=k20260515; t=1793729958;
+	bh=b5Apdfbysx3UZszHr/cOZmvpYIko3amgTXRkBzLxPAo=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ByKGCdBKMXljtwAZqJi5rrb3qtF2/R7MVUIh2EI8Osf03XSxwhHjMLu7LYcqr421l
-	 gSgowfrxS5REw+1hN9gFdsCKX6AsA6S0O9Q2IfMsSZJqeRs9B24b1lL9bHh0l/+GrQ
-	 a+/uFHPgSWMx0ESjvukwUpJcW1j9wj/8qLqpxj4h+hs6ylQin4WyBx3CM35wz7mzTH
-	 PzJK5RLKB2LjaI6fC5eSRDow/+9jRRu6P84hV7ajNv6UJQRiSl1UzrWAOE1RttYZI1
-	 ozltsMuTixIPRjEVR1OupwlERBbCiskB08Ik4gjlgose7ZFRfFARzI8hvxjUy5/7Tb
-	 PAf/2tc/oFs/g==
+	b=i4jNSPJFaLkW6Ofqp75erX029EWCwKlZBxrBUNuHAbiNQBQXga5zcveb6BkWtqs/4
+	 WLM2ybrAELWc4RXN/ny12AkgKlfGxU1U8VNbk5x3rObXF51EChQWA9gU4TMSwKm8g2
+	 9Mlu6SSN5S7axdejTAZCH5NUu5Qq0q8OOXXHUqON04qqeKQmq3YjNUg1/QlmeoUpp4
+	 8QN74PKCcE+AcfZxXe3ieyT5+/Gd7b6dP9iP0k3+8vieS+6krmGoOSbrneGJWB2+06
+	 JJvYfUpPE3050B1zC9X8/F29O5kTvfGgsdqSxI6STuNUPuJEkoljtadjr6SwIs3VMn
+	 Ftf0MZvuYYMHw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0029346A51;
-	Tue,  3 Nov 2026 18:19:00 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 039ED46A69;
+	Tue,  3 Nov 2026 18:19:16 +0000 (UTC)
 From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 03 Nov 2026 13:19:01 -0500
-Subject: [PATCH] eventpoll: wake the next waiter when a woken waiter is
- killed
+Date: Tue, 03 Nov 2026 13:19:16 -0500
+Subject: [PATCH net] net: cancel napi->timer after the grace period in
+ netif_napi_del()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,23 +84,29 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-epoll-killed-waiter-v1-1-36e08c16b8a2@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqDMBRG4a3IHfdCorZCt1I6SPRXbw0qiS8Q9
- 260w29wzk4BXhDonezksUiQoY/Qj4TK1vQNWKpoSlX60lpljHFwjjtxDhWvRiZ4NrktapspPPO
- CYjl61LLd18/37zDbH8rpWtFxnFu4jhp3AAAA
-X-Change-ID: 20261103-epoll-killed-waiter-a4b7fb30e547
-To: Christian Brauner <brauner@kernel.org>, 
- Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Jan Kara <jack@suse.cz>, David Rientjes <rientjes@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
+Message-Id: <20261103-napi-timer-cancel-v1-1-55c631ad5286@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6W8swtJSqX4K+JhTTe6omtJogil/
+ 96oxxmYWVAkqxQcugVZ3lr0aQ38rkO8sl2EdGqM4MLee9eT8axU9SGZIluUOyV2HMYhTcPo0bo
+ 5S9LP73mEScXpL8vrfJNYvzes6waLWeTzegAAAA==
+X-Change-ID: 20261103-napi-timer-cancel-fa0a285fd581
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Martin Karsten <mkarsten@uwaterloo.ca>, Joe Damato <joe@dama.to>, 
+ Dragos Tatulea <dtatulea@nvidia.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Stanislav Fomichev <sdf.kernel@gmail.com>, 
+ Sridhar Samudrala <sridhar.samudrala@intel.com>, 
+ Cosmin Ratiu <cratiu@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
+ Wang Zhan <wang.zhan@smartx.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
  Mani Tofigh <mt4022@columbia.edu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793729940; l=2916;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793729955; l=5193;
  i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=E8yisygosXMPs5dY2TbIReZZXoa4ZP3lxybfZT/nZno=;
- b=aPmE12Nzr0ZXZzOHh4n1Njq5Crq6XBaG7njn8SMGIP/JOD/Z9dC6jXRYiGqBowMARDfU0qXSn
- 0Y0LS0MWt62BJgfbMUG/9E4thuifNVP9VcCUMfJ3FCiwqBw1O9hHd/d
+ bh=D3DRGuFE0EATDQVzQQV5RjgLb6ytoSbotejXuz5TFKc=;
+ b=ssRhd2VE5LU/8fFDf9oHRD8iJ0XKlAM1RWeKEnlFASOxuU6corXvDu0kFe6ZGsG7EEOSLCpRM
+ /EI/Db8vV0yCH1bPZEHjbW0a+Y5tEYG6c1CgdcmpBFzIh3UK5NqKwMz
 X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
  pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
 X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
@@ -111,74 +117,129 @@ Content-Transfer-Encoding: 7bit
 
 From: Mani Tofigh <mt4022@columbia.edu>
 
-Processes sharing an epoll instance can sleep forever while an event is
-ready.  An event wakes only one waiter, which then wakes the next one in
-ep_done_scan() if events are still ready.  Since commit c257a340ede0
-("fs, epoll: short circuit fetching events if thread has been killed"),
-ep_send_events() returns before the scan when the waiter has a fatal
-signal.  If the woken waiter is killed before it runs, nobody wakes the
-next one:
+A napi can be freed with its timer still queued.  napi_disable()
+cancels napi->timer, but napi_complete_done(), busy_poll_stop() and
+napi_suspend_irqs() start it without owning the napi and can do so
+right after the cancel.  netif_napi_del() only waits for that start to
+finish:
 
-  Task A                     Task B                 Task C
-  epoll_wait(ep, -1)         epoll_wait(ep, -1)
-                                                    write(efd)
-                                                      /* wakes A only */
-                                                    kill(A, SIGKILL)
-  ep_send_events()
-    return -EINTR
-      /* skips ep_done_scan() */
-                             /* still asleep */
+  Task A (epoll_wait)                  Task B (queue reset)
+  napi_suspend_irqs()
+    rcu_read_lock()
+    napi = napi_by_id(id)
+                                       napi_disable_locked(napi)
+                                         hrtimer_cancel(&napi->timer)
+                                         napi_hash_del(napi)
+                                       netif_napi_del_locked(napi)
+                                         synchronize_net()
+                                         /* waits for Task A */
+    hrtimer_start(&napi->timer)
+    rcu_read_unlock()
+                                       kfree(rq)
+                                         /* timer still queued */
 
-B then sleeps until another file on the instance becomes ready, if ever.
-This can hit eg a pre-fork server whose worker gets OOM killed.  Commit
-7fab29e35630 ("fs/epoll: restore waking from ep_done_scan()") fixed the
-same kind of hang when the wakeup in ep_done_scan() was removed.
+With netdevsim and debug objects:
 
-Keep the early return so that a dying task still doesn't take events
-nobody will see, but wake the next waiter there if events are ready, as
-ep_done_scan() would have.  With the fix, B gets the event.
+  [    3.073483] ODEBUG: free active (active state 0) object: 000000001504358f object type: hrtimer hint: napi_watchdog+0x0/0xa0
+  [    3.073515] WARNING: lib/debugobjects.c:629 at debug_print_object+0x1a4/0x3b0, CPU#0: napitimer/66
+  [    3.079603] CPU: 0 UID: 0 PID: 66 Comm: napitimer Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
+  [    3.084822] RIP: 0010:debug_print_object+0x1ae/0x3b0
+  ...
+  [    3.103822] Call Trace:
+  [    3.104408]  <TASK>
+  [    3.105933]  debug_check_no_obj_freed+0x496/0x5f0
+  [    3.109988]  kfree+0x33a/0x510
+  [    3.110715]  netdev_rx_queue_reconfig+0x357/0x580
+  [    3.111780]  netdev_rx_queue_restart+0x8f/0xc0
+  [    3.113924]  nsim_qreset_write+0x24d/0x350
+  [    3.117832]  full_proxy_write+0x109/0x1d0
+  [    3.118741]  vfs_write+0x1e3/0x1250
+  [    3.124758]  __x64_sys_pwrite64+0x18c/0x250
+  [    3.129645]  do_syscall_64+0xfb/0x590
+  [    3.131385]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Without debug objects, napi_watchdog() later runs on freed memory.
+
+After napi_disable() and a grace period none of the three can reach the
+napi anymore.  Two need SCHED, which napi_disable() keeps, and
+napi_suspend_irqs() needs the napi hash, which napi_disable() removed it
+from.  So cancel the timer again after the grace period that
+netif_napi_del() already waits for, and in free_netdev(), where
+unregister has already waited for one.  With the fix, debug objects
+don't report a freed active timer anymore.
 
 This bug was identified and confirmed with the help of a deterministic
 hypervisor currently under development.  The C reproducer below however
-hits it within about 2s.
+hits it within about 1s.
 
-Fixes: c257a340ede0 ("fs, epoll: short circuit fetching events if thread has been killed")
-Cc: stable@vger.kernel.org
+Fixes: 6f8b12d661d0 ("net: napi: add hard irqs deferral feature")
+Fixes: 3fcbecbdeb04 ("net: Add control functions for irq suspension")
+Fixes: 58e2330bd455 ("net: napi: Avoid gro timer misfiring at end of busypoll")
 Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/epollkill.c
----
- fs/eventpoll.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Drivers that call __netif_napi_del{,_locked}() and then their own
+synchronize_net() (eg netdevsim on close, veth, virtio_net, bnxt and
+gro_cells) need the same cancel.  I can send that separately.
 
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 7a32c70bf2ad..b959af04772c 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -2144,10 +2144,17 @@ static int ep_send_events(struct eventpoll *ep,
- 	/*
- 	 * Always short-circuit for fatal signals to allow threads to make a
- 	 * timely exit without the chance of finding more events available and
--	 * fetching repeatedly.
-+	 * fetching repeatedly. The wakeup that got us here may have been the
-+	 * only one for the events on ->rdllist, so pass it on to the next
-+	 * waiter, as ep_done_scan() would have.
- 	 */
--	if (fatal_signal_pending(current))
-+	if (fatal_signal_pending(current)) {
-+		spin_lock_irq(&ep->lock);
-+		if (!list_empty(&ep->rdllist))
-+			wake_up(&ep->wq);
-+		spin_unlock_irq(&ep->lock);
- 		return -EINTR;
-+	}
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/napitimer.c
+---
+ include/linux/netdevice.h | 9 +++++++++
+ net/core/dev.c            | 5 ++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 435be7880d7e..ad3685caf814 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -3013,8 +3013,13 @@ static inline void __netif_napi_del(struct napi_struct *napi)
  
- 	init_poll_funcptr(&pt, NULL);
+ static inline void netif_napi_del_locked(struct napi_struct *napi)
+ {
++	bool listed = test_bit(NAPI_STATE_LISTED, &napi->state);
++
+ 	__netif_napi_del_locked(napi);
+ 	synchronize_net();
++	/* napi->timer can be started until a grace period after napi_disable() */
++	if (listed)
++		hrtimer_cancel(&napi->timer);
+ }
  
+ /**
+@@ -3025,8 +3030,12 @@ static inline void netif_napi_del_locked(struct napi_struct *napi)
+  */
+ static inline void netif_napi_del(struct napi_struct *napi)
+ {
++	bool listed = test_bit(NAPI_STATE_LISTED, &napi->state);
++
+ 	__netif_napi_del(napi);
+ 	synchronize_net();
++	if (listed)
++		hrtimer_cancel(&napi->timer);
+ }
+ 
+ int netif_enable_cpu_rmap(struct net_device *dev, unsigned int num_irqs);
+diff --git a/net/core/dev.c b/net/core/dev.c
+index f32353b0467c..6d6384522a1b 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -12450,9 +12450,12 @@ static void netdev_napi_exit(struct net_device *dev)
+ 	if (!list_empty(&dev->napi_list)) {
+ 		struct napi_struct *p, *n;
+ 
++		/* unregister has waited for a grace period after napi_disable() */
+ 		netdev_lock(dev);
+-		list_for_each_entry_safe(p, n, &dev->napi_list, dev_list)
++		list_for_each_entry_safe(p, n, &dev->napi_list, dev_list) {
++			hrtimer_cancel(&p->timer);
+ 			__netif_napi_del_locked(p);
++		}
+ 		netdev_unlock(dev);
+ 
+ 		synchronize_net();
 
 ---
-base-commit: a522dd871024a0f065bfa7638afdb929607f58fc
-change-id: 20261103-epoll-killed-waiter-a4b7fb30e547
+base-commit: 647b81ddefc6364290e67bf33c89d54971f8995e
+change-id: 20261103-napi-timer-cancel-fa0a285fd581
 
 Best regards,
 --  
