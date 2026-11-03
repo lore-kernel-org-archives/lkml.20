@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.25.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793738041;
-	b=FObdV73Spn/lzdeXQ/vHw5PZToJ4splBaS6Caed+oP+QBq7VIp29QkOpFJRJ/NksviFB
-	 gr4iXF1ITfbPSEIj0rzX00Z7c04P0hZHgSalz0N+zhRLbG2yDq1XncSSmPnXhtJYxYwBG
-	 CMcJh1AWtDd+w7aHn70/H3cTKxokNdPCb8HHcrb+Ju0WYYghM70yaFf37dOhRpqsOlPrI
-	 4ahn1tnHqEWUnULOk1AHfDeq5UwmL+C3z6OIkm37vOENEoRSovXhIAUkrYXy4/Hss3B44
-	 m4eOesP0OxRtbxHbtafvyS+9fDBk0QZzUQ3BopkGz0/4om84vW2Fy7gGLFPKUjGv3kA==
+	b=O05wZPVHKdUdV+ZxYW3YdnC0NBX5qa+J7/U4JoSwqBHf5wKe3lzdQpKQ1B604RD91cN+
+	 BMLvVcHX2EQ8vtk4uBIk5XNaFQMVlOS33GM1R2heP4APjpCo+hVfXXaLvHexWqf8j8Qto
+	 FVF+BhMYHo0u/xyWX2M+3UnY3Pgm0Qp6k3XokzSuj0x+R62BCL+iipNKXaYwQzEO64E26
+	 Pz423jpbHwd0PcUs1Rrm4n1awjQH8fBBPHMq9VEgnI+fdiezkmUtDBlltt3Lt0ET/Qf5z
+	 lnVTdAqgOR2vzNy9OVN0m8l5vRQOY7IpIkcxjdNIbhSJFfhmEdJv3/+4PrEBSCiy4pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793738041;
 	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:
 	 DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=g4710mBwVYs967K4QgLDYfK9fIoxHjIzWDjvzQBbfyk=;
-	b=C4/BvQigaxBvwNJenf3ywAHULOI1eMDk3VNQNkS9b2BAa+UMdEP+nvhr2i+pgTc1h6Au
-	 upbQM/vQVhX/cXE75HsSHTt7ew6v3hK7UN7S74KLhcH6uZj+A+Gcg208aIB+0Honp+y73
-	 mQF9OdpYrKv+q60K9yxhMsaInpVCrFM9NoD21IPa1GA9XMCFy3poXGZEYU5WUEMjoJ+Uw
-	 BHhPScbHqoKPLZxUFpkBVZlGkHH4vayraYpE7V46YtWk/CzQbunXnXAGX1X5c3uTIVh5v
-	 iTze43en0eh3zCycEYxcNxrGCfNW4NuTg0gaxXm+s5RHVqs50StMhEMAGFn0Q3BYkng==
+	bh=IpTAQdRgdhCJhb1hvxDKWghah7aGv6NZyMkxYCZ92Rs=;
+	b=OHKRN1IytW4y0wvo/moQK1vaus/OodzgTTuFGczRvpCVXYW/c610gKtVUXMXLqtKG+xk
+	 ucGg4E7gDzO5S4jU/tOMnJDQMi4dxL6EHVJftCmee2489/+eA6WXd9mdgWFo2k48W3xYe
+	 ohDyAFPl43SGBTEAuYWql1nlKuV9duxJe7KIGnQWvVZd19vOFJr6TxXHwnEBmNuDPtTZS
+	 w5OV2c22gFmvqqNzD9mYzwMSLjZOoscajIVuLJZ+LQF1K2YjitGQKdg39GAawq49rM9EE
+	 laIJo5J7mfdRLiBq9doDujxQ8/eoepqt6Nf8/pXkXRKEFCv92wN8GDMdmj5oaiR0eog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rnplus.nl;
 	spf=pass smtp.mailfrom=rnplus.nl;
-	dkim=pass header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=yacQ7jHi;
+	dkim=pass header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=Jsn76HXz;
 	arc=none smtp.remote-ip=178.251.25.70
 Received: from mail.rnplus.nl (mail.rnplus.nl [178.251.25.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5A2606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99221606D805
 	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:33:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C5A2606A33D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99221606D805
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rnplus.nl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rnplus.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=yacQ7jHi
+	dkim=pass (1024-bit key, unprotected) header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=Jsn76HXz
 Received: from localhost (unknown [127.0.0.1])
-	by mail.rnplus.nl (Postfix) with ESMTP id 17A17379790
+	by mail.rnplus.nl (Postfix) with ESMTP id C1305379796
 	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:33:47 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at rnplus.nl
 Received: from mail.rnplus.nl ([127.0.0.1])
 	by localhost (mail.rnplus.nl [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id s2iO0sOkhTgT for <linux-kernel@vger.kernel.org>;
-	Tue,  3 Nov 2026 21:33:46 +0100 (CET)
+	with ESMTP id 6BJcyTyQwrOV for <linux-kernel@vger.kernel.org>;
+	Tue,  3 Nov 2026 21:33:47 +0100 (CET)
 Received: from E595 (unknown [185.10.157.158])
-	by mail.rnplus.nl (Postfix) with ESMTPSA id 3ADF337977E;
-	Tue,  3 Nov 2026 21:33:42 +0100 (CET)
+	by mail.rnplus.nl (Postfix) with ESMTPSA id A6BC737977F;
+	Tue,  3 Nov 2026 21:33:43 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=rnplus.nl; s=dkim;
-	t=1793738023; bh=KQcSAMUy4mMylL+vIJL0oe+1qrtpcizOgu4lI9jmLEg=;
+	t=1793738024; bh=a4vWSx9rLNvabRu3vIDBn7/4YymkwBrYWvlKnKwfxas=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=yacQ7jHivL8PsuyI1WDkxXn4tspokbJO8Hq5MtcItZEAOTmNgB1lrkVlGbx6LO1AR
-	 FesrC4ttYXhRIwoAuWxCphIVxLbh3f0SrnymVyqKgqj5MxP9h3mHDD4OnO5O0OvUOZ
-	 odp0g6diFx4d8oMPoy8OjDGfGHaSiClCLxww7k6I=
+	b=Jsn76HXzv4eFOOwgUbSQIOLIMAQKaYgXoVJs1tbb10Zi16awRA0nzypxAAuD7oPf5
+	 ErykmkbQDhlSf/z/v3DVS7gRqu0J7U3IRopvcx7d9Rmlkm3cXH5s5Of3IlzeiAKXBS
+	 LxB5ravxMejTgXwNveef187G1bdaVUpEVvS2l94Y=
 From: Renze Nicolai <renze@rnplus.nl>
 To: Joel Stanley <joel@jms.id.au>,
 	Andrew Jeffery <andrew@codeconstruct.com.au>
@@ -58,9 +58,9 @@ Cc: Renze Nicolai <renze@rnplus.nl>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-aspeed@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] ARM: dts: aspeed: x570d4u: Give unique names to MAC address nvmem cells
-Date: Tue,  3 Nov 2026 21:33:04 +0100
-Message-ID: <20261103203308.54789-4-renze@rnplus.nl>
+Subject: [PATCH 4/4] ARM: dts: aspeed: x570d4u: Add some GPIO line names
+Date: Tue,  3 Nov 2026 21:33:05 +0100
+Message-ID: <20261103203308.54789-5-renze@rnplus.nl>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103203308.54789-1-renze@rnplus.nl>
 References: <20261103203308.54789-1-renze@rnplus.nl>
@@ -75,35 +75,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The eth0 and eth1 MAC address cells in the eeprom's nvmem-layout were
-both named "macaddress" (differing only by unit address), so their
-NVMEM cell names collided once the unit address is stripped. Rename
-them to eth0_macaddress@3f80 and eth1_macaddress@3f88 to match their
-labels and make each cell uniquely addressable by name.
+Several GPIO lines used on the board had no gpio-line-names entry.
+Name the NMI button and control lines (GPIOA2/A3), the BIOS flash
+chip-select and LPC reset outputs (GPIOJ1/J3), and the hard
+power-off control line (GPIOAB3).
 
 Signed-off-by: Renze Nicolai <renze@rnplus.nl>
 ---
- arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts
-index 6e7e3e7ec101..fca14320829e 100644
+index fca14320829e..0089845a6f0b 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts
-@@ -233,11 +233,11 @@ nvmem-layout {
- 			#address-cells = <1>;
- 			#size-cells = <1>;
+@@ -79,7 +79,7 @@ iio-hwmon {
+ &gpio {
+ 	status = "okay";
+ 	gpio-line-names =
+-	/*  A */ "input-locatorled-n", "", "", "", "", "", "", "",
++	/*  A */ "input-locatorled-n", "", "button-nmi-n", "control-nmi-n", "", "", "", "",
+ 	/*  B */ "input-bios-post-cmplt-n", "", "", "", "", "", "", "",
+ 	/*  C */ "", "", "", "", "", "", "control-locatorbutton-n", "",
+ 	/*  D */ "button-power-n", "control-power-n", "button-reset-n",
+@@ -92,7 +92,7 @@ &gpio {
+ 	/*  H */ "", "", "", "", "input-mfg-mode-n", "",
+ 		 "led-heartbeat-n", "input-case-open-n",
+ 	/*  I */ "", "", "", "", "", "", "", "",
+-	/*  J */ "output-bmc-ready-n", "", "", "", "", "", "", "",
++	/*  J */ "output-bmc-ready-n", "output-bios-cs-n", "", "output-lpc-reset", "", "", "", "",
+ 	/*  K */ "", "", "", "", "", "", "", "",
+ 	/*  L */ "", "", "", "", "", "", "", "",
+ 	/*  M */ "", "", "", "", "", "", "", "",
+@@ -114,7 +114,7 @@ &gpio {
+ 		 "", "",
+ 	/* AA */ "input-cpu1-thermtrip-latch-n", "",
+ 		 "input-cpu1-prochot-n", "", "", "", "", "",
+-	/* AB */ "", "input-power-good", "", "", "", "", "", "",
++	/* AB */ "", "input-power-good", "", "control-hard-power-off", "", "", "", "",
+ 	/* AC */ "", "", "", "", "", "", "", "";
+ };
  
--			eth0_macaddress: macaddress@3f80 {
-+			eth0_macaddress: eth0_macaddress@3f80 {
- 				reg = <0x3f80 6>;
- 			};
- 
--			eth1_macaddress: macaddress@3f88 {
-+			eth1_macaddress: eth1_macaddress@3f88 {
- 				reg = <0x3f88 6>;
- 			};
- 		};
 -- 
 2.56.0
 
