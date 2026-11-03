@@ -1,59 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704282;
-	b=RE4ekBg1QbTKzsz0DiayZVUEs291190cNtWli+31Uo9jVNNsGA+9Nk6L7MQ1o9gCsNWF
-	 btxgrJ4OKbH5oZLDY/Y/bDF0k5DyezhyhuC09t24XKlncUGayTRPymYi/cRHvdmmYatmX
-	 fjYIbFEBXXBXNiZXUA1D31PkI8WhZ+JiE2U9ZqewFDlrIC7XiWz/IYmUmb2V2wYGD/AT1
-	 a1uZOYBMaokUR8jTT02y1M7g5j65xbPUfSBPgYCrd+VV8xrJ3GrYXF32rNCZKD/FnRYw1
-	 XQwFzecp/llweKPDlN7oBWvYpnRnPuUhejKDb7M5rlVXR/X+6pULu1BsROYz1P8msWg==
+	t=1793704312;
+	b=UtsWjY5I3H9Nl+czKwGAKXwQfKrEKe6u1sfn34Sbh+76JK9z5usfoR8wEKjJukrRYGMp
+	 w1qf0aywI0sL5r1/NYIOpCJ5hS97X1yYT6hbPhxAE6YcQHpijzXGWPgJgTX/+K+h8xuml
+	 03JgRFNFCFAtFXw0CrkB4pMlxxldsbd1S3+MVwv7VaS6ivnxyxqGWgwaRcXobfRGunt5y
+	 6eSwP48noF0mlFUVXq8NM39BFRDamXxHDdZNXjxqE1RKncm8lr4W+I3eEdnfKChJDerNH
+	 Zitz1EXRIX5OXmrc0WooXRmckS/PTKKAmUq9WsrhxuSKksYXL/fLcx+2ZYOyyoNHzuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704282;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=zsziOItZCdSqr6GfPwNxi2VUo0k/TNVIqc41ldRAkTY=;
-	b=2G4hnqK4hgZCN0PDGQh8A96oK9eYgkZEhidDa8NioXWCQB5LO4Zpp0pkSRKifYLUoBYi
-	 VYnfFdnIiv/b2d1dGkFbKk05uaysUN/k0xnVG4zHrnppZ/TV7jpYZvEtkZr6FxswxP8kF
-	 cM549jP/U0ypE3f7bL7FCq0RQAzqdseT81eOPsHjjigjR8JMKUuJom5PKPzpM5YXkb4KC
-	 dqKmk87KdNiiiW6qEuYr6Ubc2VObUIRkjwOs2Kcq/AAl0f50L5FtmsSFk7dLJWf8YnbAZ
-	 yu23L8t2MlrD80zikGzg2d+KmpE7jgHmu9olHOk9YN+HjAzfkoXvtEBu16vh3WG/p6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704312;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=DRSP5dNsS3mHl0mDMeYY/G8SJ9kad2UxpOHnBXBI684=;
+	b=QFHO/eiRfUapS/6J/5r+kXVVZpOj3eQqcNRz8iPVs2DUZR7f31kPFJXmAp1t21L1oEPP
+	 Ug4t61OWw6R/f8pqNtMZHEfl/HrZZYtx6v9PLj3Pk4fgAA/a0aqxwB8xChQQfY6c7asap
+	 Ouhx4Pi3jGOa7xprO4PvztEI0MLMGS97pi0CmktKl2Y3G5zJ2uzTIkXRA6j1br1GB+YQC
+	 CYwMLnMKlUVpE9zOG9Ub7Atwftb3Vh1D/mS3OWA1tFLp4uUcwiBIajywicqJjytVuxqZX
+	 3YeuQk+VXFg7lKskXp7igN+qUL+V43Y1NC4ZyEmKCk5hcwDig3DuK2xqudIuh3YguUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c6QbJhhB;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VoneIZrI;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA3A60A6F64;
-	Tue,  3 Nov 2026 11:11:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA3A60A6F64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA18606BF9A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:11:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDA18606BF9A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c6QbJhhB
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 7C9AA1A1430;
-	Tue,  3 Nov 2026 11:11:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 45F946046C;
-	Tue,  3 Nov 2026 11:11:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1D5BD103291E2;
-	Tue,  3 Nov 2026 12:11:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793704272; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=zsziOItZCdSqr6GfPwNxi2VUo0k/TNVIqc41ldRAkTY=;
-	b=c6QbJhhB/17tzhguxUqsFLfsfw40KcAv6lH5rx6NQ2CQhwMBL8cubmbt11eaK5uGgj0AEm
-	7Qy7mqgujE50XjsiLMuVh4/Z6srFzzj4PZrrIZTsHzovhNPNXQMVqwH0UrBn+NqDlQMBG5
-	/HYfFg79zW07+iNKPS4+Htbq2kEJocaSJhXRkX9BkqQqMeudyohdnGKJlSvL6jINzX3BT9
-	/n/V9tOnpUgmDH030lxPWxrNe2NjCJ4rda0GYkrgXLiJovEzM0r/QnGbIKspPCbh+CuKgn
-	yz+Xtuntby1D5aOygkdnHYwGjKjfpPdXTkrjv1/DudQ8wtdvLYcOWB0PPI5SHg==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 03 Nov 2026 12:10:57 +0100
-Subject: [PATCH 5.10.y v2] gpio: dwapb: mask/unmask IRQ when disable/enale
- it
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VoneIZrI
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2748899f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:11:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793704310; x=1794309110; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DRSP5dNsS3mHl0mDMeYY/G8SJ9kad2UxpOHnBXBI684=;
+        b=VoneIZrIjqDgDNQeYh6sNuFncCLUEz4sf+KffVyKU9JPgoaAuPHSaQJ09adwOf//iX
+         dvPKugxOP47c6kXcmwY5r0qNnfa1PcceKJqRdFG1U9/xtwkoanCLczpPiq9NZhE899qm
+         nMxXQHZGzkH1p2y4RHJoqNYuTsnWSndOXkBTdPwCT5qg39EMRe8IZPdo3kzQwBQJCDcA
+         3LfpVp6B5Ua4Z11wn3xESWu+CQgFscxaE1qWW/TT7qqd6/6bjqPDKYplAQ4kv4h1lv0R
+         mJAd5YRbV2vczxRExpaYmpDM8Xf1A63Sezd1/uA8XBs0oWDOVh9UDqn/mwXh6NR8xiUZ
+         2+Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793704310; x=1794309110;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DRSP5dNsS3mHl0mDMeYY/G8SJ9kad2UxpOHnBXBI684=;
+        b=OdRRQJMQ9Wa+1WhK+f4MMLK3GH3otpg2E+0BPi6yuJxUBItf4QAMavFdGq03haYH8D
+         e3llgJr0ArJXL4YYcOuCx1p0HzHanJb63xW45zngWygqyBMYBvuzGCULVeo0CUTQ06k3
+         t0+iYl5pbYtb73zaiWnLQbfferEDvT41xZTOykdriHmyQclhgpzxAxGcttTJ96L4xw7b
+         ljYR6LdE3siFTm3wdBmeRV6F2ta5+UxYFkg13ruGpMKiaSiQChiniSkruYuvfIqnCc7/
+         XuvOEUfn7+UsJtmV7z9/P+pYndEzZrRgA6XDfiTxeSOhij1yebLyifSmidvyDiSIuqcE
+         qATQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzIphvgXtBZYWuRW7IeDEnjLVMbsLyaQZNiViovyBiVjqrlIswmplTFzqNTN0xAVArRum35k0gzjckuvV4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+YwV3q3V1t884JDmHGoeKqTLr1EnKw/GC+3sa9e9UdzQE/bpd/
+	+XutoqGURcgyqeacAWWxsoDOYGgro8VhX5bozr/VrWD72HO/kooHyB/4QA+qmA1HouQ=
+X-Gm-Gg: AYBFou2QSYVYOF/z5gih+bNYIfMrWIAJqVw+/B89rpajC1qasi9sOBv2WBY2Fv6UktY
+	C209eAewhkfTDoFs80IQor5y3MVM268ucKMlGrUJvoQez5Ur3cQ9C7lpj/6W5f51x6FbfHPmA5N
+	LAkSZg2RhMFT+gPVv/pgBvdjbKvcXzhLp10nYx0ickb1aUG9ObjLEm/lGaWVElz1SFEV3By0C43
+	ZhT1o2ZsU/UqF61s3Bca6PiHi2elVrYlkXu0uwOJfGhmwJh2Y8XsqrYrzxjDsWYybFE7+ijcZw4
+	MQyBVsW21Ik04sD0QX6HXP5vMwY3+lLfJUKFucjuzNI9Vxt30N3zN08GnF6e9/M3F9DPGxgh9zA
+	3R7oJkL9gv/8AfEHO5x2rjLGSFZJd5CuSY2rlObcoqIaTT3TsUHaMuK0OrtHx6DcEBrgf3CkVEd
+	8/rzxIDwZPTFV5zG+Oz+xSJVPCA1unEE9+QjG2XdKLsTQ/oxf73f2EtehRMmVuxS0m1aEADh0Gb
+	454BGunWVaYOQtDQ9kA+D0YIqTIL1CTBxG/vJCyalW9wzAC01P+pyi78ZtHX4AZNITODMK8+JIS
+	/KE1Y3nMKWD+1pCjOL7pPcxTDbAMWvf9Vvz0ss9ze+aUiHj/abY=
+X-Received: by 2002:a05:6000:22c8:b0:48e:2c2f:59eb with SMTP id ffacd0b85a97d-48e6e303c74mr28712071f8f.12.1793704310107;
+        Tue, 03 Nov 2026 03:11:50 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78c10sm24062838f8f.25.2026.11.03.03.11.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 03:11:49 -0800 (PST)
+Date: Tue, 3 Nov 2026 12:11:47 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: John Ogness <john.ogness@linutronix.de>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Jonathan Corbet <corbet@lwn.net>, Naveen N Rao <naveen@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH 0/3] probes: Use trace_printk() in probe handlers
+Message-ID: <aunBcxXXNhXDd-U5@pathway.suse.cz>
+References: <179360345418.115681.193455787480210412.stgit@devnote2>
+ <20261102123408.0fb950bf@gandalf.local.home>
+ <871p9251ve.fsf@jogness.linutronix.de>
+ <undine-1793671566795563056-fb7169cffcc7ac3c@undined.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,122 +106,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-dwapb-fix-v2-1-9bd3785d1365@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBAFf4Xs2ZK2pCV48j8MB1q2skYpaStKC
- P9uwavHeZnMWyFiIIxwLlYIOFMkP2aQpwLs0I03ZNRnBsmlFoJXrH93k2GOPqwzqq61UrXTFrI
- /Bczz0bqCKgUvF2h/e3yZO9q0h3ZzoJh8WI7TWRz+n/4smGC2qdBJJ7lu1MV4nx40ltY/od227
- QvQFFGgvgAAAA==
-X-Change-ID: 20261103-dwapb-fix-ab5776557f6c
-To: stable@vger.kernel.org, Hoan Tran <hoan@os.amperecomputing.com>, 
- Serge Semin <fancer.lancer@gmail.com>, 
- Linus Walleij <linus.walleij@linaro.org>, 
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Alan Tull <atull@altera.com>, Jamie Iles <jamie@jamieiles.com>
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ralph Siemsen <ralph.siemsen@linaro.org>, 
- xiongxin <xiongxin@kylinos.cn>, stable@kernel.org, 
- Riwen Lu <luriwen@kylinos.cn>, Andy Shevchenko <andy@kernel.org>, 
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793704263; l=3409;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=IjodPtO+QNDMqV9Kndo+ZMbI8L2EGx8jZcDCaQ9m4nA=;
- b=//LghERc+BKoG7dfzTpz8B3hwV0YVfJyUhLSSmUSNlUU7A4kIF3f6SttLSpQyhh6SrINhMUNt
- dRoWjIxjxyxCAP25x5gC5DsMpGuq+0WQeNuDHudP3zrnBRC8JelGogu
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <undine-1793671566795563056-fb7169cffcc7ac3c@undined.local>
 
-From: xiongxin <xiongxin@kylinos.cn>
+On Tue 2026-11-03 11:06:06, Masami Hiramatsu (Google) wrote:
+> On Mon, 02 Nov 2026 23:07:41 +0106, John Ogness <john.ogness@linutronix.de> wrote:
+> > [ Cc'ing Petr Mladek ]
+> > 
+> > On 2026-11-02, Steven Rostedt <rostedt@goodmis.org> wrote:
+> > > [ Cc'ing John Ogness ]
+> > 
+> > Thanks.
+> > 
+> > >
+> > > On Mon,  2 Nov 2026 16:10:54 +0900
+> > > "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+> > >> Here are patches to update the probe sample code to use trace_printk
+> > >> instead of normal printk. Since the fprobe and kprobe/kretprobe handlers
+> > >> can be called from somewhere where console is locked, using printk() is
+> > >> basically unsafe. Only the unoptimized kprobe on x86 is safe because it
+> > >> is ran with NMI context (in this case, the kernel uses printk_deferred()
+> > >> automatically), but optimized kprobe/kretprobe/fprobe are not.
+> > >
+> > > I don't think printk() is unsafe in these situations anymore.
+> > 
+> > Since we still support legacy consoles, it is true that printk() is not
+> > safe in these contexts when a legacy console is registered.
+> > 
+> > However, the printk_deferred() variant _is_ safe from any context. Once
+> > we convert the legacy consoles (including boot consoles) to nbcon,
+> > printk_deferred() can become printk() and still be safe from any
+> > context.
+> 
+> Got it. But since printk_deferred() is not exposed to modules,
+> these sample modules can not use it. (printk_deferred_enter/exit()
+> are also not exposed.)
 
-commit 1cc3542c76acb5f59001e3e562eba672f1983355 upstream.
+We could export it if it would be useful for kprobes...
 
-In the hardware implementation of the I2C HID driver based on DesignWare
-GPIO IRQ chip, when the user continues to use the I2C HID device in the
-suspend process, the I2C HID interrupt will be masked after the resume
-process is finished.
+> > It is misfortunate to add documentation saying printk() is not safe,
+> > since the problem is converting the remaining legacy consoles. But we
+> > can cleanup all such documentation later once the legacy consoles are
+> > gone.
+> 
+> So, until it is done, this series is valid. Please let me know it.
+> After that version, I can revert these.
 
-This is because the disable_irq()/enable_irq() of the DesignWare GPIO
-driver does not synchronize the IRQ mask register state. In normal use
-of the I2C HID procedure, the GPIO IRQ irq_mask()/irq_unmask() functions
-are called in pairs. In case of an exception, i2c_hid_core_suspend()
-calls disable_irq() to disable the GPIO IRQ. With low probability, this
-causes irq_unmask() to not be called, which causes the GPIO IRQ to be
-masked and not unmasked in enable_irq(), raising an exception.
+I do not have strong opinion here.
 
-Add synchronization to the masked register state in the
-dwapb_irq_enable()/dwapb_irq_disable() function. mask the GPIO IRQ
-before disabling it. After enabling the GPIO IRQ, unmask the IRQ.
+It just looks to me that using trace_printk() everywhere is an
+overkill. It is true that printk() is not safe when probing some
+locations, e.g. where a console is locked. But these are locations
+where you could not use printk() even in the probed code.
 
-Fixes: 7779b3455697 ("gpio: add a driver for the Synopsys DesignWare APB GPIO block")
-Cc: stable@kernel.org
-Co-developed-by: Riwen Lu <luriwen@kylinos.cn>
-Signed-off-by: Riwen Lu <luriwen@kylinos.cn>
-Signed-off-by: xiongxin <xiongxin@kylinos.cn>
-Acked-by: Serge Semin <fancer.lancer@gmail.com>
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
-Changes in v2:
-- Fix typo
-- Link to v1: https://patch.msgid.link/20261103-dwapb-fix-v1-1-c93ef2f20695@bootlin.com
----
- drivers/gpio/gpio-dwapb.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+I believe that trace_printk() has a similar problem. You could
+not use it inside the code used by trace_printk() because
+it might cause an unbound recursion.
 
-diff --git a/drivers/gpio/gpio-dwapb.c b/drivers/gpio/gpio-dwapb.c
-index d6240ae0f87ca..51bed3adafc1f 100644
---- a/drivers/gpio/gpio-dwapb.c
-+++ b/drivers/gpio/gpio-dwapb.c
-@@ -282,13 +282,15 @@ static void dwapb_irq_enable(struct irq_data *d)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
- 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
- 	unsigned long flags;
- 	u32 val;
- 
- 	spin_lock_irqsave(&gc->bgpio_lock, flags);
--	val = dwapb_read(gpio, GPIO_INTEN);
--	val |= BIT(irqd_to_hwirq(d));
-+	val = dwapb_read(gpio, GPIO_INTEN) | BIT(hwirq);
- 	dwapb_write(gpio, GPIO_INTEN, val);
-+	val = dwapb_read(gpio, GPIO_INTMASK) & ~BIT(hwirq);
-+	dwapb_write(gpio, GPIO_INTMASK, val);
- 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
- }
- 
-@@ -296,12 +298,14 @@ static void dwapb_irq_disable(struct irq_data *d)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
- 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
- 	unsigned long flags;
- 	u32 val;
- 
- 	spin_lock_irqsave(&gc->bgpio_lock, flags);
--	val = dwapb_read(gpio, GPIO_INTEN);
--	val &= ~BIT(irqd_to_hwirq(d));
-+	val = dwapb_read(gpio, GPIO_INTMASK) | BIT(hwirq);
-+	dwapb_write(gpio, GPIO_INTMASK, val);
-+	val = dwapb_read(gpio, GPIO_INTEN) & ~BIT(hwirq);
- 	dwapb_write(gpio, GPIO_INTEN, val);
- 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
- }
+I agree that the scope of the code used by trace_printk() is
+smaller than the code used by console drivers. Also it is better
+located. And maybe, the recursion can be even detected and handled.
 
----
-base-commit: f23b568f7597f98a241454018a34361ce2523c05
-change-id: 20261103-dwapb-fix-ab5776557f6c
+But still, the point is that even trace_printk() is not a 100%
+safe cure. So, maybe, instead of proposing trace_printk() everywhere,
+it might be enough to propose it only for probing the printk/console
+related code. Well, I know that it involves also some less obvious
+areas, for example, irq_work, some timer and scheduler code.
 
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+That said, I do not want to block this patchset. It is solving
+some real problems...
 
+Best Regards,
+Petr
