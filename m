@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743484;
-	b=2cY/t/rrnIIy4kfb/jJtMagzZ0Qu4rgo8GEDdfR6oRF45chZl+MlsRZMMGonSYd3CtHu
-	 XIeDn7pazGuYiflAy5bjjemdj0YNj7qy3Rgzctt11t1dRQOCBZL/Ca3ubPvpGy5Qjivv+
-	 Lb/nEmV1y1jjzExIyFxhUeqtKt/EnnVvoITqUFJX/nggBgSj8S2UtHYViU3O2fQRza2M4
-	 9tg33wVwvCW5OK1VvUk1RBgmRU2lBEzvt1ZzvL3gJevM9OLKojzpY5jg+Rp5rl4HVh8BF
-	 RmQb9r2dZS3GTvnIYTa8fQADfFtz5yrssYBYqwRUUZ/Rwe+rJsiTdziLTS0hoff12Dw==
+	t=1793743482;
+	b=3KQKl/i85MrFFhAMlDzbM5ktKxBSM8F1kCk22Ore+DGkkH7E996rbjC1B5FEM1srQHjw
+	 W25Ssg6ftpH7r7VK2Fxj9VndBmIxmsfn6KJvZk6+bTIvjQg63YhANjUgCmwnmC+ggKMGd
+	 J+NqTauhD/R0Sb9jXsUMqj+vZ8bQdL8Xsomww5MB+R9hwl/Znll70eGCjKj2Pfbkyb4jU
+	 MEwp7jHPAX3ACzEd49Pntk4DwgRlHzLopc+vSqGio3rXnuIQZUn5brNh6vADRCSM3Tt9Z
+	 utqgvqscQCQ5yNqWBB/k9bW6V7aDeI56ot0AEoZ7XBblxXWLIx3yXUH0mfnB7Ap+ldg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743484;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743482;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=r4YfPovGw1xdQbc6iuyAAPONvKXoCo5XL7Z8YypY/D0=;
-	b=MN17CTd7+99BzQDYLT3Gbq95QTBFiRCjUCQeuWuIf81QllAdV6SahB5ijbyJ0s4ot9AU
-	 aIH+tyMzlv/g15SQN1yojpox0dZzK1p4L1CBN7EYV4XGz/D2WsPqCMmZ8D85/jnam5mBM
-	 +6v0DklFMJUwT4/rEZwPRDsFtPKXwZUJod2nMBZYY2RaLyqJVbUw7tJjv2K5zusZFzc62
-	 XBYIKG6/pl/1jMWPgvNEuR1Zrrw/mf5c4EyB1VjYw0AeuLthFMMCZZ9wXyju9pmyWVLlt
-	 k3q1CqpGvVmyV2GfZi/pghaVAnnVJw4mqfPpn2pj5s3mXaogm6nStuhtQ11/mP4mUhg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SmTMwpv1OD2XFRpOKXXdUL7roE1j9Y1IT5kBf1gh+/U=;
+	b=KccHajYx34OFra4LvBqFLqToKh6TM/uDrtAWnyElyryWxUx7hORd+pvG1a+cTBoNVX21
+	 tjLW7TEgdICQFEvmZrlG4WJ7MvFkH9oeX9dBpzV2GBR/44r8swqNxEzAu1IWTHGSYbFf8
+	 7rgWNUjdwz6+qD5NV8WRGgTiDOaDHILcC8d92+579KxiaVu3vHcDjBN2+TgGp1TV8Vij1
+	 IbWw9TrHqRtQz9HY0QLcfmBExZuIQI9CIdQiiSpMY7jHX9h+BXlJ57566nz7sCSgw6+VK
+	 4GBFJmyX8UdMS9pqUU5XGypuykrquIb6BuAxmR2oldA+XhVz7/DLJzMPANYPNu3WrCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XWhATtxK;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RxP77Fp7;
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A90606D803
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:04:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5A90606D803
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A6A606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:04:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A6A606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XWhATtxK
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c40f29667e6so13381866b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:04:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RxP77Fp7
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4682977f9aso10114866b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:04:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793743482; x=1794348282; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r4YfPovGw1xdQbc6iuyAAPONvKXoCo5XL7Z8YypY/D0=;
-        b=XWhATtxKCNB6qfxYvYk9g92VUmfGH7Dqpa80jgEgixmQvjGCZ4dK9LFCC9KDhPLVC6
-         THOqQtkcWI0VQ9dsXeuBb1q9zmzLJq/sSykxXKfIjqfRkG9XFI/1AjReC0OxaR/FhGh3
-         s6cj3AmYZNXQllvw4IDH9wPbsZquBmzEhk2lrEHHpSa1TOpWlkhV+4Jt0vBAKt+I3/zW
-         o9Kk8IOgFfPUFBRvNKhOhwNPq1HJvxzMViagw/6wOT3CL2iUOAEUXsqlDZglcpOwLrCQ
-         NVF8/wtZeFuhUyMH1tYNNKPAfMFFGvOJkeKyLRCegXJPzugIMSMuvX9eP8z6TZd76UJ1
-         I3kg==
+        d=gmail.com; s=20260707; t=1793743481; x=1794348281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SmTMwpv1OD2XFRpOKXXdUL7roE1j9Y1IT5kBf1gh+/U=;
+        b=RxP77Fp7gvmnpACHIJiraNzksHDeZFHro8vTJoTKCjkqbvzj9VFpB27KW3GDTF3tp4
+         KxVfQ632eD/w3Mx5MCvFI/rgTeQZoUAztcUELgXlQcgetx09eg+QRMhm0b9FZgj3DxCw
+         AN9lyTB/EYeVkErvS9Ynwq3PhH8vMmyWiPDfvQlHZVWdrtT3VQAr8wTtsjDQgS6Gb6Sj
+         Ppa6jG+4ztzMaWaVvxxeIloQyOMZlJZMoPEY/flzp2ABmKAr2dqvGMkBw8y9zI00xh1R
+         fWrIy/s2VaDO+faDvDiCk9PLQbtYHb7JSY/qmJkDqg2RnEIaE99bvXtxkZ+8uHl6EY4s
+         99Rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793743482; x=1794348282;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r4YfPovGw1xdQbc6iuyAAPONvKXoCo5XL7Z8YypY/D0=;
-        b=yB5jhMGjYH/cr27Xb7FYtF4CxwwKRpTGABlcLgUUjF+u5uRVEDVH6wnYYNlq6mfg+P
-         Ln8ynSkwza23Cb7zg7+yBLw1hVKC2EuMh/GV7thCTL5LPn482JWBJFyukrabBw+POgxG
-         Z47GC2G/P7pFBahtpOirxv+CCk036OLJtMzf/Mt3eDaHbyAQApQ2KDMcrSxB7tF027ep
-         5Xw2CEfXJgCT//DqAtB3qZHVL5NvwML3+qS7OPdHKKqjj9/AkaakFA6L98Z9TLcxSVgQ
-         rS6SJ5Yjk4PJd2XYNCN10phTDI76+6ITHM8/GhfBe8ATg/SPvhsz0xU2bQtLUcFl17Gb
-         PO3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzscjodAoEHhoa3g7msCqP0GmX+cN+T0dyjN2LLeA7UBlnA8DAnNGDz64dQsPa/k+lkJyCs8LrVXmY7vqo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Kc2W3sMwHzpd81AvR1GwAX3++KMf+qcCXNt/SheN3S5DFhAL8
-	3oRhM4hyuEQCcnNiVENGTOR0NHMMtz8wGHR63m/gOBpGwvuetLMbJg6x
-X-Gm-Gg: AYBFou3SbWOmlRk9Gc7oLkPU+XmcWen6XYWZ89rTJZhbAj2FhBeZr5NWnqyqdnP4wEC
-	7yCF6Q3OpaNzv0/NFYyuBtKcJh4AoT/Px0c/BciugnCOJJ37SjqtoZUQdXepXkFSWRAu35ZrVHM
-	/Rmjh1CAo8O9nmjQi2utkLqcORTmjXYKSu47gSeWdW7ywwr85MN1SxAizUP5MVISpR7wHjs6/sY
-	SgEd20z01BCfVW/hEbqSIA2E8NekYvoPbQfVFEYjf0usKOFk7ZcEJRCDWxmDskIOJkaxrXP7Z8j
-	DrKnJlMc8UR9yXWDU9hy9EMrNwBFjbML6TnXj418/HJQJom2e+W/RVCksyPgqQqC4QWrx5ZtSFK
-	dr5jH9U7QOAuyEU1f00PqkwP8VfYraS8Ktf8thi4YoHSjhjvH52ksmTV9/gKStLLW/F9M1/RnvT
-	usIUrz/DMyPoEDT68LsxBQXJ7+B2OU7QBn9lQQY6nTMUYCmVpRep4U56SXRBsLpbc2fwnZ6v8R7
-	CFYO1y6WSx6KZ8T9rhiyRZTKI9UsJiBCgm+vw/Ze5AUoOl+NOtSWgWd0yb1r3zjZivuCLhG09WU
-	4krwAFmochUvWOdp0rbA1mKRuZbKM7FZt6O6jos7LOnR8JcjApfBKYElOPL6N4pxXqKHlfsOaDV
-	6HpuQ
-X-Received: by 2002:a17:907:97c4:b0:c40:dead:7466 with SMTP id a640c23a62f3a-c4ca7a40202mr1202821466b.20.1793743481738;
-        Tue, 03 Nov 2026 14:04:41 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793743481; x=1794348281;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SmTMwpv1OD2XFRpOKXXdUL7roE1j9Y1IT5kBf1gh+/U=;
+        b=XpeQxuNzEInobfdtT6UbKCXg5y7elVvzfhgit1dPz7q2AgdGtaEbFtb0FbMWj4RUdk
+         xiDGEDMY1SdjmqXKXSWJfKL8X+SiabbNXrY1Zi8a6JBRm5Re42mWnwgQImwGVqNsPjfo
+         GEAjZMHcL3iUOffoyPveL5KuGjm3XX+TURS0k8LFMKRDQksrXzUu2YYIU5JlYAoNqANB
+         JgHAlg4MkshpE/0/6dJdS8qnd8cd6jHcFUktqD4OWUy/d077iJHao/Lpri7QaJ9EKBR8
+         QLSa5WskSfSCSKrvkEBmxN9gCEY95axxblLSyitXNzU1XRHBd4LGBYugJSyGWRlX92G9
+         jhOA==
+X-Forwarded-Encrypted: i=1; AKwUvBxoHR+n3ujKWvqHsLlv5or5scCoiYkKDrMp2PDiPGBMJoLFg/Dp8qjcI351ZBri9mDv++9rjkm4gHKcm1Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yj1xoUvznbbiVflOpJSklIepK93FYK/mIlz631J3p9VOiCRly
+	XyWCKQIBSqEO8uZqVr65sTijjky9TXUM8utrTiWtKbQia3p0AT9cxdN1
+X-Gm-Gg: AYBFou0frQov0dRYGXgDtqTfk2S93oiPcWPat1FkraW7EB+tdD1gTTyJ9qCYl533aDQ
+	Uryh73JLu4hgWTA7/jcFHMHqas2+QcgSiwnaGs8Zirwk1lPwKolfcshDsWJmR/jJ+EBaeZ/1zKq
+	35Z/9eBribuvFMKhUdnZL35aa+UYe6XXXDdwraTZqiJUBXUmK5DWxM9b8Oc2tOT0oMT0rfUNIaH
+	NoFIWMBbZMqIx4YMjTWzgShYHXBsiHcQNIyX+x9qLCVNK77o9XRVv98SBFVkJzxO3DSfJ+7X8UE
+	FS0BFZH9ouJOvdEj6nBXqmLF08TVXOrRwD6TSsA9jT768aWbms4WJinwJaB8tmPTGlzSOWBth0I
+	e5qd2Q+L90oxKzwG9tD7eg3RkAo54xczHCQXT71lv4kUki0YLUoakW7bSQwK+6Nc7Iq8pp+GAzR
+	gmruRB+8IshfKzXb9Br8tx1Al8v+ckre20XH9T3nGiljqje4PigEUm19YOuDweycsuDhvfmUqn9
+	3INqAUt7IijkgQYWJIEkBqujxJYfg0aWywEqpVzP3N5h2WiraTTe/WnipZkkoxJrAa7KVpAbeMy
+	NB9TXDpIw1OQJqYza63OuAyBJGriGPX9DNIpB3+KDxS4yC1HJ9ch93MwdYaJge0lImyTpvsrvbZ
+	Sc/I9Rg==
+X-Received: by 2002:a17:907:5c6:b0:c41:55b4:d88b with SMTP id a640c23a62f3a-c4ca7a9f7d5mr1183044366b.43.1793743480728;
+        Tue, 03 Nov 2026 14:04:40 -0800 (PST)
 Received: from localhost.localdomain (host-188-122-3-146.finemedia.com.pl. [188.122.3.146])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e424c34sm4574266b.13.2026.11.03.14.04.40
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e424c34sm4574266b.13.2026.11.03.14.04.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:04:41 -0800 (PST)
+        Tue, 03 Nov 2026 14:04:40 -0800 (PST)
 From: Kyrylo Biryuk <illofspeed@gmail.com>
 To: dm-devel@lists.linux.dev
 Cc: mpatocka@redhat.com,
@@ -89,12 +88,10 @@ Cc: mpatocka@redhat.com,
 	hare@kernel.org,
 	hare@suse.de,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 1/2] dm zoned: back off when reclaim cannot make progress
-Date: Tue,  3 Nov 2026 23:04:37 +0100
-Message-ID: <20261103220438.510609-2-illofspeed@gmail.com>
+Subject: [PATCH v7 0/2] dm zoned: fix idle reclaim busy loops
+Date: Tue,  3 Nov 2026 23:04:36 +0100
+Message-ID: <20261103220438.510609-1-illofspeed@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103220438.510609-1-illofspeed@gmail.com>
-References: <20261103220438.510609-1-illofspeed@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,93 +103,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a reclaim pass cannot make progress, dmz_reclaim_work() still ends
-with dmz_schedule_reclaim(). If the target is idle, dmz_should_reclaim()
-keeps returning true, the work is queued again with no delay and the
-worker spins on the same failing pass. This patch handles two such
-cases:
+Two dm-zoned reclaim fixes for the 7.4 cycle and stable, split from the
+earlier series as Mikulas asked after reverting v4 from dm-7.4: these
+two carry Fixes and Cc: stable; the third change, "dm zoned: keep
+polling for idle reclaim after a reclaim pass", will follow separately
+for 7.5 and depends on patch 1 of this series.
 
-  - dmz_do_reclaim() fails with -ENOSPC because no free zone is
-    available to copy the data into, for example on a target without
-    cache zones that has no free sequential zone left. The next patch
-    also makes this the expected result when an idle target with cache
-    zones has random zones but no free sequential zone.
-  - dmz_do_reclaim() finds no zone it can lock for reclaim and returns
-    -EBUSY. Since commit 90a9b8693f1b ("dm zoned: reclaim random zones
-    when idle"), dmz_should_reclaim() returns true on an idle target
-    whenever the total number of random (and cache) zones is non-zero,
-    whether or not any of them holds data. Each pass then also runs
-    dmz_check_dev(), which checks every device for media events (a TEST
-    UNIT READY on SCSI disks).
+1/2 stops dmz_reclaim_work() from rescheduling itself at once when a
+pass cannot make progress (-ENOSPC: no zone to copy into; -EBUSY: no
+zone to reclaim). On an idle target that retry ran without pause and
+called dmz_check_dev() on every pass. 2/2 stops idle reclaim from
+copying a random zone into another random zone, which frees nothing;
+its -ENOSPC result relies on the back-off from 1/2, so the order
+matters for backports too.
 
-The -EBUSY loop lasts as long as the target stays idle; it ends when a
-pass finishes while the target is busy and has enough free zones. On
-three 27 TB host-managed SATA drives used as md RAID5 members (7.2.10
-with the module built out of tree, all random zones free, target idle
-for 300 seconds, kprobes attached, two other drives on the controller
-being zero-filled), each member's SCSI device counted about 108,000
-requests per second with the stock module and the system used about
-915 s of CPU time, against about 46 s with this series. libata completes
-TEST UNIT READY in software, so these counters do not measure commands
-sent to the drives; the cost is CPU time.
+v5: https://lore.kernel.org/r/20261013145522.17499-1-illofspeed@gmail.com
+Mikulas's request:
+https://lore.kernel.org/r/b7e35437-de42-d078-e75a-1f08541eb725@redhat.com
+Damien on v5 4/4:
+https://lore.kernel.org/r/bf59b38e-635d-48b8-861f-e50961472e92@kernel.org
 
-When a pass fails with -ENOSPC or -EBUSY, retrying at once is unlikely
-to make progress: re-arm the idle poll instead, so that reclaim is
-retried after DMZ_IDLE_PERIOD unless a zone allocation or a "reclaim"
-message queues it earlier. On a busy target, zone allocations can
-restart reclaim immediately when free space is low enough to require
-reclaim. Re-arming also keeps the poll running after a complete idle
-drain. The poll can still stop after a pass that ends while reclaim is
-not needed; that is unchanged.
+Changes since v5 (posted on 2026-10-13; a v6 was prepared but never
+sent):
+- Rebased on 7.4-rc1 without conflicts; its dm-zoned sources are
+  identical to those of 7.3-rc7, on which v5 was based.
+- 1/2 (was "dm zoned: back off when reclaim finds no destination zone")
+  also takes the -EBUSY back-off from v5 4/4, as Damien asked ("This is
+  undoing what patch 1 does"), but not v5 4/4's dmz_should_reclaim()
+  change (idle reclaim only when a zone holds data). Without the
+  polling patch that change stopped the idle poll after a complete idle
+  drain, so later data was not reclaimed until the next allocation;
+  the back-off alone stops both loops. Hannes's and Damien's
+  Reviewed-by from v5 1/4 are dropped because the patch changed, as is
+  Hannes's later one on v3 1/3 (2026-10-21).
+- 2/2: code unchanged since v3; Damien's Reviewed-by kept, Hannes's
+  added from his reply to v3 2/3 (2026-10-21).
+- The polling patch is no longer part of this series (see above).
+  Hannes, your comment on v3 3/3 concerns code that v4 moved into
+  dmz_schedule_reclaim(), as Damien asked. The polling patch keeps that
+  form, which avoids one extra run of the work after a pass that leaves
+  reclaim not needed; if you prefer the unconditional reschedule,
+  please say so and I will change it.
+- The Assisted-by tags are gone, following commit 1e035297ffda ("docs:
+  remove Assisted-by references"); tool use is described below.
+- Commit messages: test results for exactly these patches on 7.4-rc1;
+  measured rates are SCSI request counts, not commands reaching the
+  drives.
 
-Skip the device check for these two results: they normally mean that
-there is no zone to copy into or no zone to reclaim, not that a device
-failed, and the I/O paths check the devices themselves. Use
-queue_delayed_work() so that work an allocation has already queued is
-not postponed.
+Tested on 7.4-rc1 with emulated host-managed drives (scsi_debug),
+RAM-backed: idle request rate and reclaim passes against the stock
+module (1/2), the random-to-random case on a two-device target (2/2),
+and checksums of all written data; details are in the commit messages.
+md/dm-zoned reassembly after target removal was also clean, and a target
+suspend and a "reclaim" message each landed during a copy with no hang
+or kernel warning.
 
-A pass that fails with an I/O error, for example on an unreadable block
-of a device that stays online, is still retried at once while the
-target is idle; this patch does not change that.
+Also tested on three 27 TB host-managed SATA drives, each a
+single-device dm-zoned target (998 random zones of 256 MiB) used as an
+md RAID5 member under dm-crypt and XFS, with the stock module and with
+both patches built out of tree for 7.2.10 (whose dm-zoned sources differ
+from 7.4-rc1 only in three places where 7.2.10 open-codes
+clear_and_wake_up_bit()). One run per module, kprobes attached
+throughout; the drives sit behind a SATA port multiplier on a Marvell
+88SE9235, and two other drives on the same controller were being
+zero-filled at about 218 MB/s each, which affects the absolute numbers:
+- idle for 300 s with all random zones free: stock, about 32.5 million
+  reclaim passes per worker, each with a TEST UNIT READY that libata
+  completes in software (about 108,000 SCSI requests per second per
+  member) and about 915 s of system CPU time across all CPUs; patched,
+  29-30 passes per worker, no dmz_check_dev() call, 58 requests per
+  member and about 46 s of system CPU time. Those passes issue no I/O:
+  the requests come with the target's periodic metadata flush;
+- 300 s of single-threaded random 4 KiB O_DIRECT overwrites spread over
+  1,100 chunks (more chunks than random zones), with dm-zoned's free
+  random zone percentage at or below 30 (at most 309 of 998 free) in
+  72-79% of the samples: 2,457 (stock) and 2,395 (patched) writes,
+  99th percentile latency 0.49 s and 0.48 s;
+- a target suspend with the array running, and removal of one
+  member's dm-zoned target after the array was stopped, each while
+  reclaim was copying a full zone (patched): each waited about 11 s
+  for the copy to end, with no hang or kernel warning (with stock,
+  reclaim on the member to be suspended had stopped after a busy pass,
+  so there was no copy to overlap; the stock removal also waited for
+  its copy);
+- sha256 of all written data, read back at the end of each run: no
+  mismatch; md parity checks of every stripe of the suspend/removal
+  test and of a random sample (about 4%) of the other written stripes:
+  no mismatch.
 
-Tested on 7.4-rc1 with this patch and the next one, on three emulated
-host-managed drives (scsi_debug, 1 GiB, 32 MiB zones) each under
-dm-zoned as md RAID5 members, all random zones free and the target idle
-for 300 seconds. With the stock module each member's SCSI device counted
-about 70.2 million requests and the reclaim workers used 726 s of CPU.
-With this series: 75 requests per member, 30 passes per worker (one per
-DMZ_IDLE_PERIOD) and 0.08 s of CPU. Data written during the tests read
-back with matching checksums, and no kernel warnings were logged.
+2/2's case does not arise on these single-device targets. As with the
+stock module, reclaim still stops after a pass that ends while the
+target is busy and reclaim is not needed (here: after a busy pass at
+31% free, no pass for 600 s); the polling patch addresses that.
 
-Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
-Fixes: 90a9b8693f1b ("dm zoned: reclaim random zones when idle")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
----
- drivers/md/dm-zoned-reclaim.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Not tested:
+- the back-off while the target is busy: in the overwrite test every
+  reclaim pass copied a zone, so no pass ended with -ENOSPC or -EBUSY;
+- the -ENOSPC back-off on a single-device target without cache zones
+  (found by code inspection) and recovery after a sequential zone is
+  freed (neither test setup could establish those states);
+- the effect of the cache-to-random fallback that 2/2 keeps: 6 such
+  copies completed while the two-device target was being filled, but
+  the test of its effect could not establish its starting state;
+- system reboot and shutdown; only stopping and reassembling the md
+  array and the dm-zoned targets was exercised;
+- stable kernels at run time, other than the 7.2.10 runs above. Both
+  patches apply with at most a 2-line offset to 7.3.1, 7.2.15, 6.18.60,
+  6.12.115, 6.6.161, 6.1.191, 5.15.224 and 5.10.273, and the dm-zoned
+  objects build there without warnings (x86-64 defconfig plus dm-zoned,
+  W=1).
 
-diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-index c041413c729..077a8a50197 100644
---- a/drivers/md/dm-zoned-reclaim.c
-+++ b/drivers/md/dm-zoned-reclaim.c
-@@ -537,6 +537,16 @@ static void dmz_reclaim_work(struct work_struct *work)
- 		dmz_nr_rnd_zones(zmd, zrc->dev_idx));
- 
- 	ret = dmz_do_reclaim(zrc);
-+	if (ret == -ENOSPC || ret == -EBUSY) {
-+		/*
-+		 * No zone to copy into (-ENOSPC) or no zone to reclaim
-+		 * (-EBUSY): retrying at once cannot make progress and would
-+		 * spin. Poll again after the idle period instead, without
-+		 * postponing work that an allocation has already queued.
-+		 */
-+		queue_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
-+		return;
-+	}
- 	if (ret && ret != -EINTR) {
- 		if (!dmz_check_dev(zmd))
- 			return;
+I used LLM coding assistants for root-cause analysis, drafts of the
+code and changelogs, the test harnesses and reviews. I reviewed the code
+and changed it where needed, and I am responsible for these patches.
+
+Kyrylo Biryuk (2):
+  dm zoned: back off when reclaim cannot make progress
+  dm zoned: do not reclaim a random zone into another random zone
+
+ drivers/md/dm-zoned-reclaim.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.43.0
 
