@@ -1,52 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793688953;
-	b=0X/54oJJndit/YpkYu2MCgt0C3GAFCWEOCndmCcheBJE4cdXCHtpIeg9HWoxg0BQRglP
-	 EtLVBOnAH6pjbkgAEA7xIpZrQ8q4pUC/OcMlU/ELuKwUDvjL+G9I62PjBqgXlg6CRgNw4
-	 h7Cka76FhJOrroz5K2ZYaJG8d7vRaV4Yt+u1WSRkdmrQuuOVSo61Dg3G7tBy6ryeZpeJw
-	 IBfeVUy9xTJDwrQsbU27z/BFLiF3sbMyku32utiTxah0O2MOp81sio8yEwSRhGs0AzlXr
-	 PBaDve6OMNtgP/OVRNpFG0qmG8m2QYl43aXUUcbdCsIbGSQdi2E+ZuR5xrb8wbEELUg==
+	t=1793688958;
+	b=khv5PPjUcrdGf8q5uy5mVx3sJvRP6HJbvg5FFR8H9cJKAR8+Enq0vcU9Eh00sxl8x9fy
+	 psfXfE1nCh4wEAKh9K+74L8BR29p+O0Zu1NRn07F9rDtMnS6TLb7VcNm2VKvF8b0UIn6A
+	 la2hNYc2ZigiWtn83keVklWVhVv+9Ew0hLD4QaguH8hY8TOC6qC2WA20kL39R2esCFkIO
+	 H13Ros/rU7fUzY9+YOqyGG+q9cY0g+8ikA1wd93zLSNPRNxkROSGpaOELTxMDBHtYyD7E
+	 KOSYLF3jK77z9v/KnKc36+Nz5/4ZIWHgT50/C9VYsuPRtwRAjJIDasDekPiOHdMvs8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793688953;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=oikgS2B6IGDcMc5ZobuaBxV9WkOq5/iIVZdtdr/KAqU=;
-	b=IRDvZ2s4klBCsmqrXAZRZXeraUdpymA+EIJXM/7zJBoFqOZ9yjCiLeGNj8DmqpH/g32E
-	 Hl90QSKvYCfIvnBlZpF9zJPUkH96JzFSMjpgRUrc6bgt91pvNYiFguOg/rgW0vhUS1JsS
-	 8kStFwW2a+ouTmQO0XB7kihXU1HTFdRdJlaDp5N3STnnYoB99ZGR+8htKg0YqIWRZSupv
-	 6i+c4R5oqWSyaQqiPi4vryiiHjWSmeGEmOmoLw13DL3kBx/nEaO62SdfW1UDnruqfM+rH
-	 +8dYbbL8p8uLgljd70/CXRD77QA+X1iqGegFqVXVWWZbN3PMqtU/7dBn/204+oeFszA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793688958;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=UuHC6yRfKUqHHpF0guB57cYayYzN0UM0YJkO/oRXObE=;
+	b=PXXqZt7YqBNm0Gb6W+BYjvAKhZf0TkZwKnWqoRcdE5nuY4xtDaqUuL37tMRB6ndJ4msl
+	 eoEZaNkJmuf+cDJ1HF/rs6+E3cFVe94tp/RKlvhO1cS04SWVZY8y/5K11fWh/aLVaV+c3
+	 7xXW0Ylpfr/dJMK9XCYs8k/fh3C9dXIgZOadxgz3kzw1RW/35wQIBFxewtNj3BgSNoOnu
+	 mYTmBezX2p4K2xJ4FhOcMbidNU/UTx3S4PJJ5FUgixAkuhq6z8aZWKUcPmuOOYPpT7+vU
+	 nZOZyWgoMZUNt5QjzVEEffhBgt4w45p2JQeFH2E0CiPiifiRFL0BC7ZI44wN7pSd1Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CB9606A324;
-	Tue,  3 Nov 2026 06:55:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37CB9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADH0JFxhelqyZE5AA--.4106S2;
-	Tue, 03 Nov 2026 14:55:45 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	rodrigo.vivi@intel.com
-Cc: tursulin@ursulin.net,
-	intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/selftests: Put GuC test contexts on early failures
-Date: Tue,  3 Nov 2026 06:55:54 +0000
-Message-Id: <20261103065554.1073445-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E846606A324;
+	Tue,  3 Nov 2026 06:55:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E846606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 3206B68AFE; Tue,  3 Nov 2026 07:55:53 +0100 (CET)
+Date: Tue, 3 Nov 2026 07:55:53 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Zizhi Wo <wozizhi@huaweicloud.com>
+Cc: Christoph Hellwig <hch@lst.de>, axboe@kernel.dk, bvanassche@acm.org,
+	yukuai@fygo.io, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, yangerkun@huawei.com,
+	chengzhihao1@huawei.com
+Subject: Re: [PATCH] block: partitions: reject GPT entries with
+ starting_lba > ending_lba
+Message-ID: <20261103065553.GA2779@lst.de>
+References: <20261102080442.3775061-1-wozizhi@huaweicloud.com> <20261103053418.GB1382@lst.de> <4851c5b8-7522-4ff8-b6e7-d69f5d9a7557@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,75 +50,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADH0JFxhelqyZE5AA--.4106S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KF4fKF1rZFy8WF13XFyUAwb_yoW8uF45pa
-	93Xa4YkFy5AF42q3W7Aa40qFy3K3W0vayxuw1kJw1kKw1UZasYqrySvayUJ34DCFZ7Wr1a
-	yF9Igry7WFy2yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
-	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUog
-	AwDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcAA2rpWmWOeAABsJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4851c5b8-7522-4ff8-b6e7-d69f5d9a7557@huaweicloud.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-intel_hang_guc() creates an intel_context before changing the heartbeat
-interval and initializing the spinner. If either operation fails, it
-jumps to err without dropping that context. intel_guc_fast_request()
-also skips the context put when spinner initialization fails.
+Ok.  Looks good then:
 
-Release the context on these failure paths. The existing put after
-igt_spinner_create_request() handles the later paths.
-
-Fixes: 69142c0a5f9a ("drm/i915/guc: Add selftest for a hung GuC")
-Fixes: 706785c19fe9 ("drm/i915/guc: Add a selftest for FAST_REQUEST errors")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/i915/gt/uc/selftest_guc.c           | 1 +
- drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c | 2 ++
- 2 files changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc.c
-index 63a75272924f..8ee4ccdb80cf 100644
---- a/drivers/gpu/drm/i915/gt/uc/selftest_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc.c
-@@ -333,6 +333,7 @@ static int intel_guc_fast_request(void *arg)
- 	ret = igt_spinner_init(&spin, engine->gt);
- 	if (ret) {
- 		gt_err(gt, "Failed to create spinner: %pe\n", ERR_PTR(ret));
-+		intel_context_put(ce);
- 		goto err_pm;
- 	}
- 	spinning = true;
-diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-index 83801c992488..a7c48941ead7 100644
---- a/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-+++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-@@ -65,12 +65,14 @@ static int intel_hang_guc(void *arg)
- 	ret = intel_engine_set_heartbeat(engine, BEAT_INTERVAL);
- 	if (ret) {
- 		gt_err(gt, "Failed to boost heartbeat interval: %pe\n", ERR_PTR(ret));
-+		intel_context_put(ce);
- 		goto err;
- 	}
- 
- 	ret = igt_spinner_init(&spin, engine->gt);
- 	if (ret) {
- 		gt_err(gt, "Failed to create spinner: %pe\n", ERR_PTR(ret));
-+		intel_context_put(ce);
- 		goto err;
- 	}
- 
--- 
-2.34.1
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
