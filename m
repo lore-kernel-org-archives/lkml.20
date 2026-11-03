@@ -1,102 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721965;
-	b=ELGlWhbdwtshtSfLpmKz6ml4yyITVBpNY/jd88lxU49vdFxmBLqmFIgMjSHZTdAkCCtz
-	 g2267+RKu881KG8ZAr5tpg9WUWJoAAZkm9xbB5wln/Q2QC8AMnrqxsCVnlKmKk64aisvA
-	 SSM5zB0ZK4xGBa9tB5bkUDzzdPawQkEjsWaKyRuLm4OdV2UTidz5OTWeXJm5eQ32pNntr
-	 6m3vz5RCKDY61TIyRaMTDUz3yDD2P3BrNWQJauhCqOzBUFsTNtm0wiGySrNJHDyNcCYRe
-	 KQVUoEfNHSFC2LiJ07pWwVSbCeTXQ+DKtOrx/PQUBGn3fnaA4GjWDuwxr1uXvI04CIg==
+	t=1793722048;
+	b=Lo+lSiKlF/Tce4rIhbFp4aljl6HRx7hKUk/EA4VvyiQ1sRWcLzwu6oKdKuhnmZ3o3Cxn
+	 2r1JC8T050JOjOvIVC+HU9YQMwfICU2UiApmopY8i+cLeDJVBJtdg7kGvQpMyKPbYtPWo
+	 7TSohyPUCN3Q4m+LIq899UFDMUEses9w3X2eTyo5snhPTsW/YT9bNu/sir4n+nYRiu75u
+	 e+GZf1F0P+dxhsylkfoEYGjbScbkE08tyF9AS4Lu106hQ8QaYP6/QInIG8YKWHWmX7u/z
+	 7Lh75xcRCwzbZckjTjkjmxEaQKotjV/QFKMFf+hR/9uxorD/GnzMCTH/7hUYgH0oxTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721965;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hSehECxM5OmeuNZLHLBGBNwYZB+YaKpkw0khTkFJZnw=;
-	b=L5mf92irb5G0DHrvS9emgIkjTSjYxuvhj2I+p55C+dxC8x6MkUHih+b//kzOpPE9b7yo
-	 WzScFGxtr2bwvrB9E+lo1EdcNbZ+VbVfHXxfSCufbPzkd5OnMBHOP6SHO/gUtom/ATdjg
-	 okY2zx5Gp4JD/ru1aiGTeOHUbReP1PdzYFFcwnJ3FalY9/PjZLx+DNcRpoJ89nDPQjBZ8
-	 DRAwadwaNhwr9nXKt5avGLpw9sDxXgd0dHRAwwCvcrhbC6p8VJOOfcGOzni+vnGYqaBi9
-	 G90WBkAAxwh6XyS1bYmLG8aW2i+056mjewa4rHR+0s3QBrT4EMltFNw0Mus8gRGyV4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722048;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Lurr83DY7RNGEQa9JPmFXFrFx43jfa0KXzqU4qll3xw=;
+	b=AUt9DIVvTHQN95aYbuR3P9hRBcRioKIn3NaROWjx7Vi9Nx7gCfc8pGO1xc0+S0jVVLOI
+	 SxLcHnUhTHOuhzKgKkF7u7DMdpLdZY4NjWQ4b9YurnDc5BFzFHvPcmqjmzKjHqmk7UdQP
+	 CDR1tBm56KoPZdJXCb92ntSJ+xKbnwrM3V9APhxDtr04wRYewCOAHqSv+/H02P5Qs6Zig
+	 oHrBhKiMgSRr7qUi3fnS4ffetJUAvWM0ldX6PScPndSC6kXF/pFDf/PNywipKUt9tQOVt
+	 7y0vao8Yhrq5G+ui0Vy1+gPaD2Lvgh/w4ephe78oV8yqfUZ3RBnU2WvGZVEJQrdbN5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jB6ot0V8;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CDF606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:06:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62CDF606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ek12x9Jr;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 66773606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:07:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66773606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jB6ot0V8
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-14fc585291cso3460209c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:06:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793721964; x=1794326764; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hSehECxM5OmeuNZLHLBGBNwYZB+YaKpkw0khTkFJZnw=;
-        b=jB6ot0V8stA9Z77PzXtFcwerR4qPDCNUa5RCM533Y3uc2rwm2WcNuVZAD9b4DMcnyn
-         7flcyKdTf9XXT4ChwLdFTNvaHd5ldHlYaoolloUG1BZd3PPSeoCB4yiZtW1vUInkcZx8
-         of5CijR3HY/CiDJpos2HDAjOAMnmULzKadjJgdAC7RKVHtPY+HM3ZZryvtHdWNmxy98V
-         bIgFsFNUEGy6ETRoAu3vebJMCI/cb0xq97gKWbIGSBpRQVAAPSLt4rHWnj4qz57vu85Z
-         /4EaOsNU2OI7wl9u8SXR0GIZak2dajErVGmn5cvn3WYuw2x667PfAdBqu8/K2GmON8hQ
-         dSQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793721964; x=1794326764;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hSehECxM5OmeuNZLHLBGBNwYZB+YaKpkw0khTkFJZnw=;
-        b=lVw8g2gRFuIuSk8weUO3v9ZpGSuaR/aeg1GpZzDLpgZmq7I7qUwy3tRNvjbZ9VaDPg
-         45SgsWs4+JP/tV7YQWMQhduxhGcoJ0BjgylNmsqSZMwP7l7YaE5CuJvzZMND9cjnbs8W
-         VTBskfDAV1sWjUgp6kdKvxeA2w1IffPkjt5CsuQRaMBEPgTAFK/5xMZ3PFkzL/z+jzUm
-         6opY/XS9wOYJBEiGrf07ek2FojPYA6Fg/IaaI73Dkaov25m/JID8muQ7VoiuBFUa/jJ9
-         pfhHYhkIY3dMW3w0Iz1d1ByRcm1vc7Ve0tEgYKQgSQmkh+dMt4+D9XzfFs838o1F9zxu
-         u5Kg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfg3w78nBBv4CUjZ7yDeD5/3wfQ0JF0BJmNt/6S2Uq9ro99jAJiLEyjKJNHlaaBwjdm2NqoxTic+2I37g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Zrojif5mrFJgzBExW5N9ITME69NKaq/Oi121wv7nnWirBrcIz
-	cmbM14l4l0kk8/Y8CUtwCgiBL2pt/EfKhCPwS0qET2IGuqNAHWhuNtw=
-X-Gm-Gg: AYBFou3gDaJTuuRYMRMgxf7AGPX+5zQMeT837tDE04aomt8+EC9LN06bLgmWhfTQrsK
-	lzkLIznM0IcbjcLZQ7UudMsWQdTumkGaKoyYIRqg0E5eCPDshBKV38VF8Xr+KIoWOVKGjqZ448H
-	35ZFgQi2ANf/gzmGi4eGBYL6sjvdLvH69mFiviR8cXXEJzOGkR2NU57GuisZVXNze6Fs6TGMcWT
-	XNmOJhjAstWz5Lzut+iHahrMhbYLYfHyhbk9WmY+rl8m3sH1tOze6biKMcDs8y02IBSmm7vNzyT
-	omrOw38ANzKRbp3TZ+9JTFClm4UeAC1cKCLxCCIOEl/TLaDfUTRvCbhzYu1qiN2X0yiheQPx7Bb
-	DK/vKZ8t1Sl6antcBGyRB2i4YYevFVE7EQvuX0jLLU+BScMxDycDNKSnbJiCMVkVoXg/pUDD6w2
-	b9sjHRDYyqJ8gf7tmdsKj4DiKYxRaR6FBUQu7FxcpOuwrrKdh+C/8ScIZnqAl3WhDSEMRm9O4aR
-	KArYvmq9xL4zPfT2Pg9wglQfQWzQbWjlwUcAwJt3cguvtN9dJ8+Ahc8RVC5uTUfffjf7mvGPYSt
-	r+lT2X1/DBCvekUejpypyoQ+nzP6eMcgASJMU2KmXaaWIx5JWTuFYT+u5sSwug==
-X-Received: by 2002:a05:7022:f20b:b0:136:c443:80e5 with SMTP id a92af1059eb24-1ac56d94b0amr21085882c88.6.1793721963966;
-        Tue, 03 Nov 2026 08:06:03 -0800 (PST)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([27.60.19.149])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1aed79b3dfcsm47910609c88.12.2026.11.03.08.05.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 08:06:03 -0800 (PST)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: alexdeucher@gmail.com
-Cc: airlied@gmail.com,
-	alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	atharvatiwarilinuxdev@gmail.com,
-	christian.koenig@amd.com,
-	dev@deq.rocks,
-	dri-devel@lists.freedesktop.org,
-	ed@aicharmers.com,
-	kenneth.feng@amd.com,
-	linux-kernel@vger.kernel.org,
-	simona@ffwll.ch
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-Date: Tue,  3 Nov 2026 11:05:53 -0500
-Message-ID: <20261103160553.1431-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
-References: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ek12x9Jr
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C33C1650;
+	Tue,  3 Nov 2026 08:07:23 -0800 (PST)
+Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 774093F628;
+	Tue,  3 Nov 2026 08:07:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793722046; bh=PVc5o0niP5HBPsCk9R8APTQWF1tcjeU1GcGP9Gzx5V8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ek12x9JrrlcTlhBaTGEaKcSuQkNgsDRJmN9hRSDjhphoNKVeNbKin9umpGZ/gh/up
+	 ViF8aaEDJkOcCRHnFjtYE/8SM2N0S7OkhQ0+6Hipc+DtuvZPe4qKRFl6MF8glw38zH
+	 a3KFNBjnO16m65vuyZIcZVHxm2CYHcTJNmMQ3VQc=
+Date: Tue, 3 Nov 2026 16:07:20 +0000
+From: Joey Gouly <joey.gouly@arm.com>
+To: Will Deacon <will@kernel.org>
+Cc: kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [PATCH] KVM: arm64: Use S1E1A when Stage-1 PIE is supported
+Message-ID: <auoGuA4VoOzciFTp@e143914.arm.com>
+References: <20261103133540.29566-1-will@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,20 +62,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103133540.29566-1-will@kernel.org>
 
-> I forgot to remove the pptable check.  Can you try a simplified
-> version of the patch?  I think all you need to do is delay the UCLK
-> DPM enablement until late_init.  Something like the attached patch.
+On Tue, Nov 03, 2026 at 01:35:39PM +0000, Will Deacon wrote:
+> On a system with stage-1 PIE, a guest can try to execute from an
+> execute-only mapping at stage-1 but trigger a permission fault at
+> stage-2 if the stage-2 mapping is execute-never.
 > 
-> Alex
+> In this case, the EL2 permission fault handler will attempt to translate
+> the faulting VA using an AT S1E1R operation, which will fail due to the
+> lack of read permission at stage-1. We will then return to the guest and
+> take the exact same fault the next time around.
+> 
+> Similarly to commit 55f4b215fb60 ("KVM: arm64: use `at s1e1a` for POE"),
+> use the S1E1A operation to bypass stage-1 permission checks when
+> obtaining the IPA for a stage-2 permission fault. Like FEAT_S1POE,
+> FEAT_S1PIE implies FEAT_ATS1A, so extend the existing AT invocation in
+> __translate_far_to_hpfar() to use the permission-bypassing variant when
+> S1PIE is implemented.
+> 
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Oliver Upton <oupton@kernel.org>
+> Cc: Fuad Tabba <fuad.tabba@linux.dev>
+> Cc: Joey Gouly <joey.gouly@arm.com>
+> Cc: Steffen Eiden <seiden@linux.ibm.com>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Signed-off-by: Will Deacon <will@kernel.org>
 
-Also, i've tested this patch with the 5K patch, the UCLK then just never
-gets initialized, so this patch is literally incompatible with 5K.
+This makes sense to me.
 
-And also if ur wondering, what patch am i talking about you can see it here:
-https://github.com/t2linux/linux-t2-patches/blob/main/7003-amdgpu-add-support-for-5K.patch
+Reviewed-by: Joey Gouly <joey.gouly@arm.com>
 
-I still need to make combine patch (otherwise bad tearing in gnome/mutter), and i need to
-enable 5K in EFI aswell to remove the shitty quirk to initialize display eariler than smu,
-And make it usable with simpledrm.
+Thanks,
+Joey
+
+> ---
+> 
+> I've been debugging an external report of a failure in Android related
+> to S1PIE. The symptoms match what I would expect from this issue and
+> this patch has been reported to fix the problem, but I don't have enough
+> information to know for sure that my analysis is correct. I've had to
+> piece things together based on partial information and bits of logs.
+> 
+>  arch/arm64/include/asm/cpufeature.h    | 5 +++++
+>  arch/arm64/kvm/hyp/include/hyp/fault.h | 5 +++--
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
+> index 4f04ad82ea34..f05ace660fa2 100644
+> --- a/arch/arm64/include/asm/cpufeature.h
+> +++ b/arch/arm64/include/asm/cpufeature.h
+> @@ -841,6 +841,11 @@ static inline bool system_supports_lpa2(void)
+>  	return cpus_have_final_cap(ARM64_HAS_LPA2);
+>  }
+>  
+> +static inline bool system_supports_pie(void)
+> +{
+> +	return alternative_has_cap_unlikely(ARM64_HAS_S1PIE);
+> +}
+> +
+>  static inline bool system_supports_poe(void)
+>  {
+>  	return alternative_has_cap_unlikely(ARM64_HAS_S1POE);
+> diff --git a/arch/arm64/kvm/hyp/include/hyp/fault.h b/arch/arm64/kvm/hyp/include/hyp/fault.h
+> index fc573fc767b0..741ea12be07d 100644
+> --- a/arch/arm64/kvm/hyp/include/hyp/fault.h
+> +++ b/arch/arm64/kvm/hyp/include/hyp/fault.h
+> @@ -38,8 +38,9 @@ static inline bool __translate_far_to_hpfar(u64 far, u64 *hpfar)
+>  	 * saved the guest context yet, and we may return early...
+>  	 */
+>  	par = read_sysreg_par();
+> -	ret = system_supports_poe() ? __kvm_at(OP_AT_S1E1A, far) :
+> -	                              __kvm_at(OP_AT_S1E1R, far);
+> +	ret = system_supports_poe() || system_supports_pie() ?
+> +		__kvm_at(OP_AT_S1E1A, far) :
+> +		__kvm_at(OP_AT_S1E1R, far);
+>  	if (!ret)
+>  		tmp = read_sysreg_par();
+>  	else
+> -- 
+> 2.56.0.385.gac671c819a-goog
+> 
