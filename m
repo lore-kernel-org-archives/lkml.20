@@ -1,76 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793684954;
-	b=2fuItnOBTjOZxx4h7OPcJbHw9Y9bnvWZ+V01GMXWf45x9mJl2eGCEc+rrlCiEDWcOswP
-	 wQBr99YSYc28hd6OZnFqzX7dTeCDje8mFwt/uo/4omFwFFR3DeO4uR7rzfqJOsRGm5/yY
-	 Q6ozzleQAaVDol2QVMH2r+5Vn1/g2IYH3fF6sEGJgmyhN/8QqtxmPjhUxCygQJDLGrnIL
-	 W+2NcXH5PN5ii6FyoOxQBeRXbzunmg/pPrGf7ASb73JkeuqJexhB7PYJFw0yGiYSxz36H
-	 i/a45VIImSltedeoJcTJiUwd2s1nI1fowhC0gw3ViOByO8Lwl4J1npxjVfmu+UdK+xQ==
+	t=1793684966;
+	b=4pVYQt1iGZFlHPNDUa7JUmfXT7DEdaWAtoa/joYpL1XYIFIpDVHhoQHaUydock34BlWO
+	 9Zkpwb1l2E1ngRxbI+179khdzxDhjM2sqz45AiAOMA1/KUahHy0G2jJkQ4SVKVEYMVXq6
+	 /T2wOr/Lu8Yn6TdFqHKPy0mwj6qfsnKu8dCcyV75xE7hSiz+d0SE0ToC3KxFtcoFe7wNY
+	 y99hiMJtRTUN4AeXaVqtmY+/7xZaXpSrjvArwo3bZAty/uhf+AgfvN9EjpeRFDuBtcKl0
+	 /Sp2NjMZFJ/yd5VWGTXMiXpEcj/FgIncbpibn9u3CPrz3hQWUquHSRfsH+wwKQ7BaSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793684954;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:In-Reply-To:References:
-	 Message-ID:Date:MIME-Version:Content-Type;
-	bh=SLyhkDh9JuWFxsRkyBCNBYa0D2q+FUx9Ee8ZaNKL5ng=;
-	b=fbXCMjjdCKX+pvJUuUo1ZAbc9srKrqhzJ3QI2PzF5iD4jJ2lz/KrodcJpZGf3M1EX0b1
-	 MBoTK5Bt09Zt8jGUS8o7uyLWZmSjFA2Pk0GgSPeiNjJdGKAkoO3/TYjN1D0f8OFQM3ZR3
-	 NMV9/aZVZiJ94QgFxIiNfnkvFFJKgPP35Q2swXrXcZHZks00oE97Glk9IkxhNnNyt0bdk
-	 5yIQYjv7WmD5rla4htUbPDkTO1ArAjbzX26VrPul9RdrLok1pNI/8ypLyVICVhjJhtv3E
-	 1OD//7JFRV+jnIaNicEYngy5W4oK+vYZDehSAzfU9yHmvsx1JtKA3GIxkw1090Ov3Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793684966;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=bd6fkGaRBJH7OZId4JGBgWiNTZUGs+o/K6nHFnVDFa8=;
+	b=xVMXpuBc0PlzsymGh1caJHs2VGFFC3q0XkqWUqhW2LWm3pA9orR92s2jalQNMdoyxu23
+	 dmDf13u5aVM5Zjc9t0rvGvTJSIVPbjSAHWVGCZUN+UP0kvg+ctfa0sGdBBDt6c676aDZD
+	 neofIBSdtzpfA2ZbPt6zfSq3W1ijhVcBxDKfWomZJJ1rUapaxupNEBFIF9aePpSfuq7Ql
+	 7QCgyvDdJ4UPTZJ13N6IkOC+9zkyb7y50AZafQk6PIN3BdAkQDnt9jEHaaWcOsGgSFr9h
+	 2geVdGAGXjpXWG2enxOoXLNX1K3GxvsMyhy5u+VLPjQyhNKEJyY6CpJdyIV9DGANSIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=fC2noAyf;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D54606A324;
-	Tue,  3 Nov 2026 05:49:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35D54606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=fC2noAyf
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A35mVYZ12773890, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793684911; bh=SLyhkDh9JuWFxsRkyBCNBYa0D2q+FUx9Ee8ZaNKL5ng=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=fC2noAyfzwmOIntdMM39cktwLO5h3WMr3StEKuKPq8667DGrpnAE6dCGQU7Qq5J8K
-	 CAL1vVW0NtTp7kWLqwBktOsoVyO5PjFJpPL7ahOD3KUYs7Z109Exz0d54X1mZ666DG
-	 583K5BSOcdDKdSp2eDy3+7i4y+eWGqS05eWLPhdfp0IRUHsEdW2Mt74pAf4+lxGDMW
-	 HZ3mBKOEqYah4O8pi7iLwlnIncEA6Nf6Hjdxvn9rJiE6tCRCELbFMNB9BCDoC/naU0
-	 1aGPluyInAwihW7nU+cnyW5eFOL5DdF7BVGqYK8hYdtosTq8XYOZTVrvWhyTt1Y9ZL
-	 wFn0B3j6fPP0g==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A35mVYZ12773890
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 13:48:31 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 13:48:31 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 13:48:28 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS03.realtek.com.tw
- (10.21.1.53) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 3 Nov 2026 13:48:23 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Ho Jie Feng <hjf3108@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: <linux-wireless@vger.kernel.org>, Ho Jie Feng <hjf3108@gmail.com>, "Luka
- Gejak" <luka.gejak@linux.dev>, Sascha Hauer <s.hauer@pengutronix.de>, "Hans
- Ulli Kroll" <linux@ulli-kroll.de>, Kalle Valo <kvalo@kernel.org>, neo_jou
-	<neo_jou@realtek.com>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH rtw-next v4] wifi: rtw88: usb: don't report the aggregation buffer as a frame
-In-Reply-To: <20261102033244.9330-1-hjf3108@gmail.com>
-References: <20261102033244.9330-1-hjf3108@gmail.com>
-Message-ID: <0e09718c-b73a-412f-bc80-f89cf1228474@RTKEXHMBS03.realtek.com.tw>
-Date: Tue, 3 Nov 2026 13:48:23 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E855606A32C;
+	Tue,  3 Nov 2026 05:49:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E855606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 4E1CA68AFE; Tue,  3 Nov 2026 06:49:22 +0100 (CET)
+Date: Tue, 3 Nov 2026 06:49:22 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: daejun7.park@samsung.com
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Dave Chinner <dgc@kernel.org>, Pankaj Raghav <p.raghav@samsung.com>,
+	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Sergey Bashirov <sergeybashirov@gmail.com>,
+	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v5 5/9] xfs: cap the block count of
+ xfs_iomap_write_direct() at one extent
+Message-ID: <20261103054922.GA1721@lst.de>
+References: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com> <20261029-xfs-pnfs-batch-v5-5-ef8d2eafb7fa@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,31 +55,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-xfs-pnfs-batch-v5-5-ef8d2eafb7fa@samsung.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-Ho Jie Feng <hjf3108@gmail.com> wrote:
-
-> When rtw_usb_tx_agg_skb() has more than one frame queued, it copies them
-> into a new buffer. That buffer was also handed to mac80211, as one
-> additional TX completion.
+On Thu, Oct 29, 2026 at 11:23:02AM +0900, Daejun Park via B4 Relay wrote:
+> From: Daejun Park <daejun7.park@samsung.com>
 > 
-> Report TX status only for the original frames, and free the aggregate
-> buffer without passing it to mac80211.
+> xfs_iomap_write_direct() reserves blocks for the whole count in an
+> unsigned int. For a pNFS layout the client chooses that count, and an
+> RW LAYOUTGET for 16 TiB wraps the reservation and shuts XFS down.
 > 
-> In the case the ieee80211_purge_tx_queue is called, the frame is
-> passed to ieee80211_report_used_skb. Since it fulfills none of the
-> conditions within the function, the frame is freed as normal without
-> a TX status in that case too
+> xfs_bmapi_write() maps at most XFS_MAX_BMBT_EXTLEN blocks here, so cap
+> the count at that. nfsd asks again for the rest. The other callers get
+> the same mapping as before.
 > 
-> Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
-> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+> Suggested-by: Darrick J. Wong <djwong@kernel.org>
+> Link: https://lore.kernel.org/r/20261008154017.GO2705364@frogsfrogsfrogs
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Link: https://lore.kernel.org/r/20261015060932.GD14035@lst.de
+> Suggested-by: Pankaj Raghav <p.raghav@samsung.com>
+> Link: https://lore.kernel.org/r/atoImJxtg70XcIjS@quentin
 
-1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+I think this is overdoing it a bit with the Link tags.
 
-62e69ef45567 wifi: rtw88: usb: don't report the aggregation buffer as a frame
+Otherwise looks good:
 
----
-https://github.com/pkshih/rtw.git
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
