@@ -1,55 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702450;
-	b=WZ+mQ9rJrJnPE2cZtJGVkx/wjGMwvW2HvW1NK0h3e0Mp9qDBbComjbN+r9aRjQPWoprW
-	 0t6XY4h81dVpj7yZcYJcPRqcZJQh1pM9fFz6gxrtbCNK1fCKLZPPkTxhtS4fMaBkEM9vX
-	 qzIDIIkG6RsueneErf++nq1uvct8PCfLfP0XovZWrP/NLHpPrO1ctvB+YhR5tCGTcGVOy
-	 BO7eJAGqRdW3B3JP8mwgLHsPuX+PWITGwPrJUTFWizybBfAPqxKhJ5xpb3Nz3MBYDAlLK
-	 cSN1t8e+9z0Wwa9VC8Qb4E0e/DvJuCra30NakD5VWT/GPpTnszca5fYTYtwLax2Y6HQ==
+	t=1793702521;
+	b=ZaLTSLYtiFnzagD3qQFMO34fNNbcSksAg/bMaGHBtWwjwQOzaU5K/n8lC6fwRIv5QieC
+	 YJtlGzVWI51pre9pBZr4FJV1A21LTiGuyukB8NPrZOCHFhyHgsb4Cr7Jsrj/me8RBpGG+
+	 JpOQS5l3VwoFxZ3KgFAOEr0X2Ch5t7OFmEseft3oBsGSxmA6Jk26CYoA/QSSLQt/hlwKm
+	 QMtLB2iREm+gQsUIz6juYoGd5X9CgDFgMESk65yc3LkraiYLWOWJRV3dZnaWVYincX7Ri
+	 1mSA8RcyWDPzlkaS3q/3SlSv9bqakzdXXW4WdRZYkIR/UiPo9kwSaz+WTy6sP2l3Kxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702450;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7cPNRbxb/LnDFsAuRuTFvSIWmpuJ575O0BiBLXgpNG0=;
-	b=3LiNGQXwjgWPp5ewVpCRV06FFjs11Zt5RRuWG59qppxgBy75ReBIMosDkWfm3HrCpnrZ
-	 8YNp92lRx1/zVI/IjZ/jfM6rJglIOqjOttr+rslDcgDrp9zBNls4a9iA1JUBwoJDczxbl
-	 2q/d6KcLeZyXLzYS8QVF5a0tEodmJxWVFeqxMY/5BcazSvvWTtg2jR8zKh8eRSNrXtzRh
-	 FS+sA0ZzpGEDIadPmOkj6IX2NnENEaUBymbpf9OabkqFrvIouP7QMgevxSnquY8W6bBN3
-	 u9Zb4hmvR7xSbA9ZRg/8fZV+0mPECB8Mof5pOuMRJKZC3OQyMdii5ji8Y6cWytZTnlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702521;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=wP/O8IukHJOBL3tN+2cJW0yWsYWUQ+Q8NGz6s00IHmg=;
+	b=Rw7COGDyM+44e7YfrI9GW0TK8xxndnGYNHLeCoxNh5J6QLFjCTR6UEMk3VJj84mX46oE
+	 HrO84WM/UW5QKNojvdCQcILh6HyOeyOBXG4H8ag2EtU4QNEdAKvDmvn2Ac8N/+E8lXu2y
+	 mJvEOV0nmguc8hbyUPpdBVk8KGwP7k10AMvANvsESGmDnb53/aENLp9x9fxuTmWhdzpb5
+	 fCY01JaRhzSK5Kzgm5rH3vKbHqoxUcVyUZ1f1lUlHY8X9E7w0PyObRSbcDoaOTa8Pn3VQ
+	 GIqODbRnyUYSh043wwFNF9+MKwxJy4YRc3kv5Nv48hu5ha5jvLRtiFsQMI1O0kEDzbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikqYXyWm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=rTkwzoiY;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C88606A820;
-	Tue,  3 Nov 2026 10:40:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE55606A823;
+	Tue,  3 Nov 2026 10:42:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BE55606A823
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikqYXyWm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0894A1F000C1;
-	Tue,  3 Nov 2026 10:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702449;
-	bh=7cPNRbxb/LnDFsAuRuTFvSIWmpuJ575O0BiBLXgpNG0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ikqYXyWmiVNGezDiwOm36/8kyY+VFgNVlAWXFCw0B0kR9QYG1J9Cp20Ckj2/RDlcv
-	 z53sV4uKoMSdJXez1cH1ynNPuSHzEGMvz+2nk7uqR4pDFizoKbQam37kIf/XfqJCLL
-	 YSaDBsn3gMa+wyUvdO9CmtN65xRpJ3ULe5mfhro6tZYzJ45XbscolFE9bL+TBZ0Z+P
-	 xR5IPu8xylfHIw2lZlmt9rciBC3JOBWHy3Yz9N0f5yUFaic+QTyShEgPMTwvVyp8MQ
-	 IlAcBLNT3CK7qHfVSzuN2TG1aX9BCa9gSH4HLEIDxU6u33NpkxdgVIyQCQJjVZ3wF0
-	 5gxle4rhnnScw==
-Date: Tue, 3 Nov 2026 11:40:46 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH] net: ethernet: sunplus: spl2sw: release the port node in
- probe
-Message-ID: <20261103-magnetic-fabulous-boa-c6fecd@quoll>
-References: <20261103102852.1340500-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=rTkwzoiY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=wP/O8IukHJOBL3tN+2cJW0yWsYWUQ+Q8NGz6s00IHmg=; b=rTkwzoiYqZlEfmzua7BVb7+Cwb
+	ev03kGiWw/4fgGGuk3kUzkZzyFMbubZOySczgWYqOySzgqlk9+JzcEWX1xgby87RfCalXJcDRYQ5p
+	MZ/RmZ+6hdUzBLzq1A4+5Ya78hfTer3zwfDAAzaxVKD0hwGp0XIVrmgUytmUldDmsPijjOEXVcai7
+	AYVaC/vPM2khzcPEbMkvGNpFRjh6UX0TCzGz/ApbVGkCwGQL3FCmQFrKL5OpQip/KPEhz526Rv/x/
+	w6IwZd6oYUAKSdgJoCV2H0TYNQpVW/knvT4L+cyiiD/5r1Bi+nlUGMm1yupFKk/C4cSnXCe2seU1f
+	OpNpl/yg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOBxn-006sNC-1D;
+	Tue, 03 Nov 2026 10:41:59 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 03 Nov 2026 02:37:46 -0800
+Subject: [PATCH net-next v4 1/5] netconsole: send the oops when oops_only
+ is set
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,69 +63,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103102852.1340500-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-netcons_ratelimit-v4-1-b554c27ba27a@debian.org>
+References: <20261103-netcons_ratelimit-v4-0-b554c27ba27a@debian.org>
+In-Reply-To: <20261103-netcons_ratelimit-v4-0-b554c27ba27a@debian.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Shuah Khan <shuah@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>, paulmck@kernel.org, 
+ gustavold@gmail.com, asantostc@gmail.com, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Breno Leitao <leitao@debian.org>, 
+ kernel-team@meta.com
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2865; i=leitao@debian.org;
+ h=from:subject:message-id; bh=u7vxqLs2/rKuvcNrK64iMGWJtslWiwS22UFEpFhL96c=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6bpqvm619FfG1cCtAmGdxXD4NBude3/FtjD2l
+ 9ZNMf7u1MmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaum6agAKCRA1o5Of/Hh3
+ balKD/4rlkZCoe7PG0nvt/ptwNv936k3w0jdZBvwXVtfmCHc0jtvde4qfuOSLwBVzsrpMFZwycL
+ pllK0t3udh7c0+Ofie+ywwrMQog9fGRa3H5fSEKWMNL3zR0BfRRCCT3f5zlsZ1+DZ2KY0U0cD14
+ DMjUFWXaajZmwR8Pgbd+jVstr0fty6uM5W2g/fy/xdM+Dm7IOgY69/MuPaY9wcqgO7rkz1qQxou
+ /IlRK7Z14wRPLEzC95hh46ky2QGt98aHHEladL86ultcR6+1Dom1NUXRhkls0g5peH1hT0a4mnS
+ nBII1WltlWW7co9vhI65ZPRc7eNMu9qqFpUi7yzJENudxQHUHbUD7M/hqxP4j5RlG/EZ9o9TUKl
+ nUmf3svERu9hXDl3TwWMUNQccVKU9bjqoGzZfYHi8AQwDOqWgN+Pa5UTVuCwtQox51iHuXj/89l
+ Foq69FoGdprj/eCSKay+20SkoIDYE6QgoOrt95xiMVGO4oF2B2dxTU8QBr6W3Tq57raLd40mu6b
+ F4WQBUdPYF1ZVTYE4n40N+2krUQnS7hA/se86yZC82sIFh8GAUOPKeQwwdO9b2QcSOcsTe9Y6Mj
+ nNX+92LZgOrB1LuRgGBAzf+gflb4l0GuXIN/lQQFQISwVDlMYNeHSrMVBQ8nOhm+M5wKavJ5NJH
+ S2ydW8HsJEzZVPg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
+A target running with oops_only=1 receives nothing when the kernel
+oopses, which is the one thing the option exists for. Only a panic
+still gets through.
 
-On Tue, 03 Nov 2026 10:28:52 +0000, Wentao Liang wrote:
-> spl2sw_get_eth_child_node() returns a device node reference obtained
-> from for_each_child_of_node(), so the caller must drop it with
-> of_node_put(). spl2sw_probe() never does, leaking one reference per
-> port on both the success and the error paths.
-> 
-> Drop the reference once the node is no longer needed and on the early
-> continue paths.
-> 
-> Fixes: fd3040b9394c ("net: ethernet: Add driver for Sunplus SP7021")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/net/ethernet/sunplus/spl2sw_driver.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
+netconsole_write() bails out unless oops_in_progress is set, and that
+flag is already gone by the time netconsole runs. netconsole is
+CON_NBCON_ATOMIC_UNSAFE, so console_is_usable() keeps it out of the
+emergency flush an oops prints in, and the records only leave the box
+once the printer thread runs.
 
+die() wakes that thread from oops_exit(), by which point
+bust_spinlocks(0) has cleared oops_in_progress again. TAINT_DIE is set
+in between, so test that as well, behind a helper.
 
+With oops_only=1 on a netdevsim target, an lkdtm EXCEPTION produces 44
+lines of oops. The receiver gets none of them before this change and
+all of them after it, while ordinary messages stay suppressed.
 
-Multiple things here:
-1. Your team ignored completely previous feedback. Multiple times.
+The taint never clears, so from the first oops on, an oops_only target
+sends everything instead of going quiet again. Sending the aftermath of
+a crash beats sending nothing.
 
-2. You use multiple identities with this email address, thus I doubt that we
-   speak with an actual person.
+Fixes: 7eab73b18630 ("netconsole: convert to NBCON console infrastructure")
+Reviewed-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ drivers/net/netconsole.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-3. Your bot does not even bother running checkpatch, right?
+diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
+index 267254f046de9a..6637b4a16b6c98 100644
+--- a/drivers/net/netconsole.c
++++ b/drivers/net/netconsole.c
+@@ -83,7 +83,8 @@ MODULE_PARM_DESC(netconsole, " netconsole=[src-port]@[src-ip]/[dev],[tgt-port]@<
+ 
+ static bool oops_only;
+ module_param(oops_only, bool, 0600);
+-MODULE_PARM_DESC(oops_only, "Only log oops messages");
++MODULE_PARM_DESC(oops_only,
++		 "Only log oops messages, everything once the kernel died");
+ 
+ #define NETCONSOLE_PARAM_TARGET_PREFIX "cmdline"
+ 
+@@ -96,6 +97,17 @@ static int __init option_setup(char *opt)
+ __setup("netconsole=", option_setup);
+ #endif	/* MODULE */
+ 
++/* The kernel is dying, or has died.
++ *
++ * oops_in_progress only spans the printing of the crash. netconsole is
++ * CON_NBCON_ATOMIC_UNSAFE, so the records reach the target later, from the
++ * printer thread, with the flag already cleared. TAINT_DIE outlives it.
++ */
++static bool netconsole_kernel_dying(void)
++{
++	return oops_in_progress || test_taint(TAINT_DIE);
++}
++
+ /* Linked list of all configured targets */
+ static LIST_HEAD(target_list);
+ /* target_cleanup_list is used to track targets that need to be cleaned outside
+@@ -2480,7 +2492,7 @@ static void netconsole_write(struct nbcon_write_context *wctxt, bool extended)
+ {
+ 	struct netconsole_target *nt;
+ 
+-	if (oops_only && !oops_in_progress)
++	if (oops_only && !netconsole_kernel_dying())
+ 		return;
+ 
+ 	list_for_each_entry(nt, &target_list, list) {
 
-4. Nothing of this was reproduced nor tested.
-
-5. Finally, the same feedback:
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
-
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
-
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
-
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem (so a patchset grouping multiple patches with a short cover
-letter), how to document the issue discovery method and what was
-or was not tested.
-
-Best regards,
-Krzysztof
-
-
-
+-- 
+2.53.0-Meta
 
