@@ -1,82 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.183.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730463;
-	b=zHpedLVdJABBQmKaJgdugcz13Keq0d6sgA5+AxmuVuD2nfxScn0Oub6CIht249knk6zx
-	 Rs6phB07xYseZS/yDULDLg4EUEAZQXv4eQDll4bG7uv9QvIBB/oSVXGtSqzEgGcws+/Mu
-	 KY+JM8ADhPz569Oqs/eY3KRDMC/TTLGqW/MUqVrCMudfy+L6VeXq4D+QxrG2I05GiVZLJ
-	 AkfRevGCkf9lZ2t8pUFIrTNQsRUzrciYLIbyvM7TekU2CN1abX7yAP071+8tp2u9XTo6l
-	 /Lz3tY3GHvirddTaD9fBbJzIuzhJs13d30rL0qBt0jab8dilpe+OWm43SVI7pZW/E1g==
+	t=1793730474;
+	b=y6kfB+2VyHExrGTxlQrpaWr8sbeb8SnFWWDTrXY0/RVUtVLbpEzSrLYZRGZdlFwb4zSc
+	 SAbbVTsASN+3WHcUkwq5mjoDLfv7q4iE5d8PfVqY7yvX2NfCnYqSlfG/e8fM4hBK1Qgsd
+	 FTNIQevsfyMvmlDC0zV0KhD3OGUhEYmYq39ippCWV5vMAMb3DaqGUyzaeUVI/P3VZjFFG
+	 5C4T0/gQ0kbjhpEbyBqTIs1UCtHVsZ6GBgNSGvJaXLDliva+DJIH3CVwC9qAcQtc0gcae
+	 oIQ+3SFCIQWs7XuqsuXyLTtqHg7WUNcbqwmS3bOyETJhW7ficdOP6SYMoGqbO43rKdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730463;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Reinject:X-Sony-BusinessRelay-GUID:
-	 X-Proofpoint-Virus-Version:X-Sony-EdgeRelay-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Sony-Outbound-GUID:X-Proofpoint-Virus-Version;
-	bh=sdxF3vkRtlH6rrQuqkWOSJfe3HheP2sbjXDou/moBMw=;
-	b=ZPZX1eVfiqVpf0A0LFzEhkUCiD2DcLEYI4llEBPTrHaTxGjxcfSQr9rKyDi3Rzx6B7OA
-	 Ncnyem84GpqW9WNCcJPAvDHK1OrrSMIXv0ykNrcafWf8C33VtVjdOKn0QPiEozP79XApk
-	 J+rW9CQMaLDe28iLB//FYFvnRsFQb2oD0+UWK+mk5fO1enG8hGn66zjsUUz2ZEJ1CvkvI
-	 mlYhBc1UIDXJ7NXlsfJTYm2v7DrND5Mi1e1fTtB8RtRNbAEvtoY2EhoLp0FMIPRmwEGjo
-	 6R8dP3Yq9O1W1NcRLGJBgTBQ45VuvwEfLfhDR3grOF2PpmYDE1WoP6XgqmjrcOnFGIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730474;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=2mcfvA7HTlPKCM+/9sf/LvHh4ZPDiuqX0+xFv1eaGJc=;
+	b=KDRwProsvQ4eD35/d2G321l2+SjU0pSU1P9sihhTX7HQfqNfZI4ysUmtMc8PkdiEkUmp
+	 csevuqYwXiuKOsfPwJGHY1BGvyYBtE7VEOHVfiz4BpAIcQgEtoN/hsGy3SAl1MNmH+AbE
+	 FljERuxrxXZInEITdYB3rwJ/NrCsTqU/Nal0P5YlT88FPhIFbVf2liRUMBwy7P3uhFBT0
+	 vZdzLNFccmYhFh/qDX6S/MCoisy3cFhhp0+sy5+J3Phv3GpwtPshs5XBkfSr/eqcq2PD3
+	 1CV1sbgXG552Cx1FcGDlz2pLBsbkmFrwADdkXBwOSLCmuf/HjpEmDENIotMS18okhQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sony.com;
-	spf=pass smtp.mailfrom=sony.com;
-	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=QD5+bzOm;
-	arc=none smtp.remote-ip=185.132.183.11
-Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=Uczmp88r;
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F488606A326;
-	Tue,  3 Nov 2026 18:27:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F488606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56787606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:27:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56787606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=QD5+bzOm
-Received: from pps.filterd (m0209329.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3HQJNq3732702;
-	Tue, 3 Nov 2026 18:27:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=p1; bh=sdxF3vkRtlH6rrQuqkWOSJfe3HheP
-	2sbjXDou/moBMw=; b=QD5+bzOmED7TVVOkv3bfNAaL1Lyexi6IdHUy1/Obyz8j/
-	TKDCdRoGxBOYFit72jvdx6QIpjLVerODNSY6w+vVIaRFCfBtW/xEnQDi6uPTwgDW
-	2EBh7AnKv7WkIKB2qDCVkgNEKmW6KjH8E04A24TK8Q4Ay5eZu2I+Hac1PL/vKXH+
-	gyGB8WBPmxexeAf1CQeIn/7xswD9rsTICu8cTTzKe9Bn6Vc7AG++JDMR82hw5PJK
-	TKldLuHFwn3zO7zCk9SxVGc9KAQcwpR+EbQEf7w/WJSorwhqPI+meeYvJOzZhG2k
-	FX53iXTTGb8WmaqWNb1Z1e1vYh7k20ceqS1eW18ZQ==
-Received: from sgppsea01v.sg.gdce.sony.com.sg ([121.100.43.225])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hn6yuv5jw-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Tue, 03 Nov 2026 18:27:25 +0000 (GMT)
-Received: from pps.filterd (SGPPSEA01v.sg.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 6A3HQGdr1554954;
-	Tue, 3 Nov 2026 18:27:24 GMT
-Received: from usculxsnt14v.am.sony.com ([146.215.230.38])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4hn9dgp3ng-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 18:27:23 +0000 (GMT)
-Received: from pps.filterd (usculxsnt14v.am.sony.com [127.0.0.1])
-	by usculxsnt14v.am.sony.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3HNvuZ020791;
-	Tue, 3 Nov 2026 10:27:21 -0800
-Received: from us842f57abef3e.ad.gaikai.biz ([10.10.10.214])
-	by usculxsnt14v.am.sony.com (PPS) with ESMTPS id 4hp1wap27r-1
-	(version=TLSv1.3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 10:27:21 -0800 (PST)
-From: Maciej Grochowski <Maciej.Grochowski@sony.com>
-To: bhelgaas@google.com, ilpo.jarvinen@linux.intel.com
-Cc: Maciej Grochowski <maciej.grochowski@sony.com>, linux-pci@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-        linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 0/2] PCI: Reserve resources for a delayed hotplug subtree
-Date: Tue,  3 Nov 2026 10:27:18 -0800
-Message-ID: <cover.1793724065.git.Maciej.Grochowski@sony.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=Uczmp88r
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b0dba37a7fso41939977b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:27:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1793730472; x=1794335272; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2mcfvA7HTlPKCM+/9sf/LvHh4ZPDiuqX0+xFv1eaGJc=;
+        b=Uczmp88rFlq2l0y4jSm+T5rjvSIp8atOhr9cIV+wkLMj0GM23jW38GeFVUSR48cRLT
+         aTqHzTLVCYOhaQUUxhXoB0HkTIslzRIHotLpoX+b5G7TpoTKqhqJeoN6pSP+JY4ArzA0
+         7rN3F2yE7FgH70Yz4AmFh9Yq8Hq8wvogQI4WwWTAKON/HTEH0l5WirOAJUsizeKXwH6p
+         cXGPsZz+gwfZha/2dUoqzeq+1rIFJZnT3LH6SY1LQ6kHOodjo2WnK/qGHMiZ9uzb/Xzu
+         8wXneaV+EjxBpunPIyqy3OGcgibVKZ3tsnpS1e6T1p/d0DDGz3cOh36YbpXYrj2kmNQR
+         JGyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793730472; x=1794335272;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2mcfvA7HTlPKCM+/9sf/LvHh4ZPDiuqX0+xFv1eaGJc=;
+        b=xKKBppR5OkkBVxWs0/QEVsrBgPqSKgBkMfbxGdioJvuqJIlXpIcKVgNgHN1ZdSmFYu
+         GSZ9+zwsREXC+phy3TF66dCiu5dOtDt3a4WzAVnkFruja0SYYD1RV6IqYYIfaNcfnQN9
+         1lW4XqIysJHK6m9jUTAn9aKik2sUR4u6kNDVFuajifZCQFfJIw2HfwDmY63Ndl5AsuYo
+         F65zBJyNQMDev4krxpAKg7tZ4A9n9nvgYoSw6fOCTJ62xZb6/iJJq9wruSS+RGkydEzU
+         qPmHYUxYuKD2VkudlxesWDxenv8k1BU6Zde88KSsDBlKw78NH0IraJcRCsuoJY66p19B
+         BU+w==
+X-Forwarded-Encrypted: i=1; AKwUvByaZ4QT6kN4BO7GgTTNJk6rHnXwyMevRKerpzCdgc2T+P684P8htLY7wghhxbyWyjm/BLXjPxTdZfjWB8I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99L96Mkgu5/v4uY3StrS81LNMMR/tK9FEpkdpv7Q55BhbXjYfM
+	Zmkj3KdqbqcJxIAI7RGCSimt3cnp4ruWY+dGgcGytA1xyiymLnGJDUMwofNIGkQeK/xo30MuRq+
+	3SJKb
+X-Gm-Gg: AYBFou2LRY6IIM5fOGA2vWgozcr6SI4FdG3MXrczVuMbV+qQhiid46uMSydzldNresm
+	EL3NAiNR1COQ3l4PBsGZnbryve56wcVMn0ty7PYVQqzIWUbCfmBuK70FEexczV7ORSCA5n75h1g
+	3btngP16S+GN2jXIcDc7WSV8PaTCwufvueTH7cVKEFKXXLEvevwVueMJkaoJV3oqfVz3adHpij/
+	UEWGvfhERLAQBju0EQIwROULzP1enWTnkioZIWYA3DYV7LrlpKrybRcHGHzoUmwiXOVOcJgemKB
+	5Lnz0wTdPqgyGJKWrcmhDn2TTtmbGknV/SuGUhxQ/UaT5b2JddKfbtNYC9QIyomuS4sWHAx/Oik
+	DW13OgbACMm0He460YEtntxUSNKaL8cC82+PHhriS51YdT4BfAhP54ettiDd6zZR++64vliWAfO
+	WxvGI9IHeLAWV6maCImjuAYLJzH5djsdMrVN1wd+FnwyTfctmEW2GwY3DdvXNoEgKpFycY3GQci
+	un4nN5zBUQPuu9CNL7pQJb3NIpxiewWOhC0Su5oVHPMfyZjetA9tBa5vjh0ReniIQkkXjw+hX8T
+	H8g0hzMcR0dpGvD3Lk4/shNjAeM=
+X-Received: by 2002:a05:690c:dd4:b0:8b0:a37a:b1d with SMTP id 00721157ae682-8b2b66fb17amr85926767b3.24.1793730472207;
+        Tue, 03 Nov 2026 10:27:52 -0800 (PST)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3097117b3sm2529557b3.1.2026.11.03.10.27.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 10:27:50 -0800 (PST)
+Date: Tue, 3 Nov 2026 13:27:48 -0500
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] mm/page_alloc: clear ->private of deferred free
+ pages
+Message-ID: <auonpJVJancOit_c@cmpxchg.org>
+References: <20261103-pgalloc-ai-hotfixes-v2-0-e0d2890ab74f@kernel.org>
+ <20261103-pgalloc-ai-hotfixes-v2-1-e0d2890ab74f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,129 +108,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Sony-BusinessRelay-GUID: n8R1i7_7tag7JQJy7yRClj9jIhQJA5l0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_04,2026-11-03_03,2025-10-01_01
-X-Sony-EdgeRelay-GUID: yxa6HItiFSCcnj6cZB3mQkX2G79Zvaba
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_04,2026-11-03_03,2025-10-01_01
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA3MyBTYWx0ZWRfX/hXndmwIkW9j
- HSgBSmW7g95/ujydGbGwn0XOVogqFrYMSphgZ5GzSKToYEAo+IGruq9/Vs8V5mi7uCxjRa3jy7y
- P2tsIMfa5hx+PVi2MgkQNEjYQjHPFxPOpcU+8hkpLd0mBjIV3X+5
-X-Proofpoint-GUID: U2siSd78_9m140BmhnK6PTLVN7X_RE1Q
-X-Proofpoint-ORIG-GUID: U2siSd78_9m140BmhnK6PTLVN7X_RE1Q
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA3MyBTYWx0ZWRfX+lOSdCPkSIl6
- +RyZ2782ucyq3x5JK3/xaloNJKK+rZSK96N6/OQr1viuYBC+tKXd3eU0l9sAK9eSPO6uYgO33sR
- jQ3DwRB17TfKi4SscdaReYdLhg7+vOztq/ZK/ROFHppAwYwqG9P01XEhiCIeVbgRorrkgKeq7AG
- diBt73WsyEVqwyISB7jBQJDhWHgC6HkAkCy9lt5a1MCOxET2A8uVFyrKN3RANxK1Y7DOIuhWIfW
- /NtyX2Zup11mp0OYaOqNikA8Zpyh+jPATs/pRAtMRrzkiQl0esBNpHsUO9Kll3J+/0+7uQv/C80
- DGMvknBe5pFLZUqMx/WYG5JG3x9lL+p45tevdWZdR4LRAwicC4CY42yaMOGxk7Kg79odFl3v8cZ
- Pv1mau4CFBmqCFEcsLjmEl17r9LPtIvnY/EYURxyktOX2phYsPvcuC+9lXm7b5CYi8kiqP9/BWV
- pyw/WVqrGRF8EdAvKCQ==
-X-Authority-Analysis: v=2.4 cv=T4YZ3PKQ c=1 sm=1 tr=0 ts=6aea278e cx=c_pps
- a=XNW8778QP6juiAqijDMnrw==:117 a=XNW8778QP6juiAqijDMnrw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=KAb5x4SsHD3PzxGk7EmX:22 a=pQehfwC0D4oxWvs5GOjV:22 a=VwQbUJbxAAAA:8
- a=z6gsHLkEAAAA:8 a=3NI1pkrnQhYOloL9CnEA:9 a=QEXdDO2ut3YA:10
-X-Sony-Outbound-GUID: U2siSd78_9m140BmhnK6PTLVN7X_RE1Q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_04,2026-11-03_03,2025-10-01_01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-pgalloc-ai-hotfixes-v2-1-e0d2890ab74f@kernel.org>
 
-From: Maciej Grochowski <maciej.grochowski@sony.com>
+On Tue, Nov 03, 2026 at 05:16:47PM +0100, Vlastimil Babka (SUSE) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> free_pages_nolock() and free_frozen_pages_nolock() put the page on
+> zone->trylock_free_pages if they get neither the pcp lock nor zone->lock.
+> add_page_to_zone_llist() keeps the order of the page in page->private.
+> The next free_one_page() which does get zone->lock passes these pages to
+> split_large_buddy() with ->private still set.
+> 
+> __free_one_page() writes ->private of the head of the resulting free page
+> only. If the deferred page is merged with its lower buddy, it becomes a
+> tail of that free page and keeps the order in ->private.
+> 
+> All other free pages which are not the head of a buddy have a ->private
+> of zero, and since commit 819bfbd47e49 ("mm/page_alloc: remove
+> set_page_private() in prep_compound_tail()") the allocator relies on it.
+> When the stale page is allocated again as a tail of a larger page:
+> 
+>  - prep_compound_tail() hits VM_WARN_ON_ONCE(tail->private);
+>  - with the page checks enabled, __free_pages_prepare() reports
+>    "BUG: Bad page state", "nonzero private", and leaks the whole page;
+>  - without them the value is seen by whoever uses that page next, e.g. as
+>    folio->private of a folio which is split off a large folio.
+> 
+> Only pages of an order above zero are affected. Those can be freed
+> through _nolock() by the stack depot (order 2) and by SLUB (a new slab
+> which cannot be added to the partial list by kmalloc_nolock()).
+> 
+> Clear ->private when the page is taken off the list.
+> 
+> Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
+> Cc: <stable@vger.kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-On a two-level Microchip PM50052 (Switchtec PFX) hierarchy, a hard reset
-of the top switch removes both switches from the PCI tree.  The top
-switch returns before the nested switch, so pciehp enumerates its five
-hotplug downstream ports while they are empty.  The port leading to the
-nested switch receives three bus numbers and a roughly 206 MiB
-prefetchable window.  When the nested switch appears, it needs eleven
-bus numbers and a 1 GiB-aligned 1032 MiB window for its NTB BARs.  The
-missing resources leave part of the hierarchy unusable and the nested
-switchtec function cannot bind.
-
-Switches from other vendors can encounter the same resource shortfall
-when a child appears after its parent hotplug port is numbered and
-sized, if the child's requirements exceed that allocation.
-
-V2 extends the existing pci=hpmmiosize, hpmmioprefsize and hpbussize
-parameters, as Ilpo suggested, instead of adding hpreserve. Patch 1
-requests a required memory window size and size-derived head alignment;
-patch 2 reserves bus numbers before the remainder is shared among sibling
-hotplug ports. The path form tolerates downstream bus renumbering. Bare
-values retain their existing global meaning.
-
-The v2 setting for the same port is:
-
-  pci=hpmmioprefsize=1032M@0000:80:01.1/00.0/03.0,hpbussize=11@0000:80:01.1/00.0/03.0
-
-A 1032 MiB minimum requests 1 GiB head alignment without a separate
-alignment option. Placement and parent resources still limit allocation;
-assigned firmware windows are kept.
-
-With v1 on a v7.3-rc2 based kernel and the hpreserve setting from the
-original post, we tested a cold boot, two top-switch hard resets and one
-nested-switch hard reset. After each reset, the nested port retained
-its eleven bus numbers and aligned 1032 MiB window, the 1 GiB NTB BAR was
-assigned, and both switchtec devices responded to MRPC. These are the
-previously reported v1 results; this rebased v2 tree has not been boot-tested.
-
-The failure affects our PCIe hotplug infrastructure. The two-level test
-shows that a per-bridge reservation can preserve one delayed subtree.
-With three or more switch layers returning at different times, this
-approach appears to need a reservation at each port sized while empty.
-Each ancestor must retain enough bus numbers and aligned memory for the
-eventual subtree. We have not tested that case.
-
-Consider three top-level switches, each feeding six second-level
-switches with eight NTB functions apiece. If the child links return late,
-that gives 18 selected bridge paths, plus any delayed ancestors. With
-separate memory-size and bus-count options, those paths normally appear
-in both lists: 36 value@path entries. The NTB BARs affect resources per
-bridge, not the entry count. Device-ID matching could shorten a homogeneous
-case, but risks reserving space on same-ID ports without delayed children.
-
-One possible extension, not implemented here, would let several explicit
-paths with identical requirements share a value in each option. Would
-that make a kernel command-line interface practical, or should firmware,
-platform data or a PCI core policy describe the expected resources? We
-welcome feedback on the interface and the underlying allocation problem,
-including required versus optional per-device memory sizes.
-
-Changes since v1:
-  - Reuse hpmmiosize, hpmmioprefsize and hpbussize, following Ilpo's feedback.
-  - Derive head alignment from the requested size instead of mmioprefalign.
-  - Apply the scoped bus minimum on the plain child-bus scan path too.
-  - Include small sizing/sharing safety corrections; keep the two-patch design.
-  - Drop self Tested-by trailers and rebase on PCI next.
-
-This revision passed W=1 PCI object builds at both patch boundaries on
-ARM64 and i386 PAE/64-bit resources, plus focused userspace source checks.
-The PCI sources emitted no warnings; one Darwin host-tool macro warning
-was recorded. These checks do not replace hardware or concurrency testing.
-
-Plain-rescan minima are now handled, but existing firmware ranges and
-retained-child optional spare remain limitations. The sibling-window
-allocator retry issue reported with v1 is outside this series. The
-separate bus-number overflow fixes overlap a scan guard and will require
-rebasing if both series are taken.
-
-v1: https://lore.kernel.org/linux-pci/20261002193111.51637-1-maciej.grochowski@sony.com/
-
-Maciej Grochowski (2):
-  PCI: Allow hpmmiosize and hpmmioprefsize for specific hotplug bridges
-  PCI: Allow hpbussize for specific hotplug bridges
-
- Documentation/admin-guide/kernel-parameters.txt | 41 +++++++++++
- drivers/pci/pci.c                               | 91 ++++++++++++++++++++++++-
- drivers/pci/pci.h                               |  3 +
- drivers/pci/probe.c                             | 87 ++++++++++++++++++++++-
- drivers/pci/setup-bus.c                         | 25 +++++++
- 5 files changed, 243 insertions(+), 4 deletions(-)
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
