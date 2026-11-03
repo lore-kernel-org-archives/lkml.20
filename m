@@ -1,68 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710726;
-	b=ue9YSUiS141pkbvrWeu3D7lwTk835F2p6506miRlpxAXmpXui4UMj4RXwlxyNIdgnGvj
-	 xJxcj6u5rSduEXwRM2dAp1b8B4BTGFPLyBTGbX8PfInTvZg56AHwaJBu2XnudiVh4iYTI
-	 bAuG7f5PoYHFkTDi/26XKJWpSvKBZRxEHsACiGzVohl1ZIox8lypPIrCkuFDSX/dWWoRq
-	 QyES4ViSjsTKVIefRW3wMilZgH0wN/4v45xX+q84tn+Zb3PkVBpR4zurTe7gEJFW3r3Zf
-	 ci4x6tdt7BVzOrn3IxYonM/n77XYDqSkrUJ0nKUGuUi3YoVbrB4xu0O2oNF9SVCJsWw==
+	t=1793710736;
+	b=VRQFVw3cAlBirMeQkeHYo3LMYxTUJ04uhuEHdbfL2jljn+VObZOB8Ds8LDhGeLMRcysB
+	 ovty6j1obQiG7EcPvxWQwz09c2CPIbtwL6JqCxG55+jFRnhN2TKNN4TEWZ284+dEKwUql
+	 r4m31eJioDvrVwzjoGHRHBza8J++ICkmg5IiRiH7HJPe+ExWL0vmRHvjd3OKKm+zEtSDT
+	 kjut5CSfjPrEUnfVAcTSh1G3jy6RH4ONDxCMrDtKxgFs1vUUPtaRJd9E3xPev7/urnktJ
+	 +qQ+rLdv3umrv0x185o/rlCS9WLKXlmbDlbKPN17FFIAhB5banxu45W20ffroByHEcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710726;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=reTAEG0KZVXlKg6D2ksRtzB/wcA7Ms/5NTtG+Sy2DVE=;
-	b=fNtwpfhSUlLqv3SbGcmGSy+ELdDvdGc8eIjaSVxJr3co8+TaYOm49MMRVMO/cS8XpUv6
-	 i8hDxEmcGAZQvt/Ai8UV3on6NoCK/XfIGEkTY4t6/XDikKWAVIflp8sGAhzDz2bMUvS2e
-	 FVELn6dRvE9YJvcahKte40DInY34Ez6zQ9NVvH+mgWFr8GZ0BkM+ELtQ227ctWSxv1ONm
-	 Kr8JgO5uXHz22VUSxKOt4gYbpJZFmeQq1V8nA3bYst6US2NZJeD9Z+E7Nr72qQA2UlumK
-	 XG+kc5zwZ2zVjvhvFR0YzJ3HZRud76J5rkhdWNkrf4UXFVXPqep7zLFVnj+0KqJaH1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710736;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=vKGX0/i3wC0V58dab4rJAfdJ/0V3Q5QkyS4WjlOpXCU=;
+	b=NbDSSxaqRS6yXeMwJux4k2me169d1W5KQOjLkDxz55gV6FNi4xSNnIBZFKEaxKll4F4A
+	 qUqcPh9XHGS3j9bPC+d0/bZ83F3+VOKPu9l8rE//JQ+jwyKY8S3lCsLrvSHVRsaIk1ctj
+	 yheXzS7ncWHMHB3SUbVbXJSAY8Pvvj41rcFnz759Osvv+9MAa3eYmg636q9y0yMxPmNT7
+	 8xjjZYkg9zuU5NjdGqMzBF5hPB7gwCMg424tYJwepvGRg742cyH5jZFfE/yr0PIdPFpNy
+	 DvQC/gCemmuBm3VYce5mYsr2yqPrRtU5f11RdABzAiU2X53HVuqjTsbaFYQzMmb7Dlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jH17li6p;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.93.112
+Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6ED3606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6ED3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jH17li6p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793710725; x=1825246725;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=WTMMGG2Ap1YgRjbL9EB4ZZ65jzebO1CgA6BdGP8UMYw=;
-  b=jH17li6p3vQklbs5WLY4pfB9v1XpQqMEzWKcoh+mV3vV6UbpS0MhqsAM
-   npevMsI6LZ4LKnHyqnzbSMMcT7uhCKLVm9VXv6twANmmMswS/gZiPlzzS
-   CDwr0ShWDuEXF6nTuP2hb/AIOAncMbYW5NHS9ZITHh1HWJTPunBTnK/+m
-   P0WHsDciusZ7ImDi5QzOT2NXHSyqKRcYbcZ28+EJho4SefFj/I+MSAcBp
-   B3Kn1VugQl38KFXfKqOfZCwbH+FQei09Mz/Cc7JF7s9D+zpFQXJy7cPbU
-   zi1udmLFjCh3FwxFbq5sATYWvLkhYgpGiUQfa2xeDjgLQ1uNS2emQY5C8
-   A==;
-X-CSE-ConnectionGUID: 17MMQoNjTISrxHns+n183Q==
-X-CSE-MsgGUID: UbAJuYP+QU2qX4lOETgt/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2462277"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2462277"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:58:44 -0800
-X-CSE-ConnectionGUID: u3AZ0cr2TruyzBmJUpA2tw==
-X-CSE-MsgGUID: CucWUwx/R0OUNzxUQkgnag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6438936"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.245.160]) ([10.245.245.160])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:58:41 -0800
-Message-ID: <3bc563bf-9692-4611-a85a-9e21d43373c9@intel.com>
-Date: Tue, 3 Nov 2026 12:58:39 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A789606A327;
+	Tue,  3 Nov 2026 12:58:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A789606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jJpXd4bjhz1yFm;
+	Tue,  3 Nov 2026 20:58:25 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 0867E4056E;
+	Tue,  3 Nov 2026 20:58:50 +0800 (CST)
+Received: from [10.67.111.192] (unknown [10.67.111.192])
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgBHfu2I2ulqezG5Cw--.9002S2;
+	Tue, 03 Nov 2026 20:58:49 +0800 (CST)
+Message-ID: <25a29a41-b14b-4a9c-9876-da1537be176b@huaweicloud.com>
+Date: Tue, 3 Nov 2026 20:58:48 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,337 +52,99 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 17/33] drm/xe: Add xe_migrate_copy_defrag() for on-GPU
- defrag copies
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-18-matthew.brost@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260711025619.2540575-18-matthew.brost@intel.com>
+Subject: Re: [PATCH bpf-next 3/5] bpf: Finalize the verifier log after the
+ runtime is selected
+Content-Language: en-US
+To: Qiliang Yuan <odys.yuan@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Luis Gerhorst
+ <luis.gerhorst@fau.de>, Henriette Herzog <henriette.herzog@rub.de>,
+ Anton Protopopov <a.s.protopopov@gmail.com>,
+ Hengqi Chen <hengqi.chen@gmail.com>, Shuah Khan <shuah@kernel.org>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261102-bpf-blind-nops-fixes-v1-0-844300e42cdb@gmail.com>
+ <20261102-bpf-blind-nops-fixes-v1-3-844300e42cdb@gmail.com>
+From: Xu Kuohai <xukuohai@huaweicloud.com>
+In-Reply-To: <20261102-bpf-blind-nops-fixes-v1-3-844300e42cdb@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgBHfu2I2ulqezG5Cw--.9002S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF4UAr1fCFyxJw15WFyUWrg_yoW8uw1rpa
+	yIganrtryvqw42kw12vF40yay5X3WFq3W3Ga9Yy34xur4IqrnIgrWUKa1agFy5tF9Ykw10
+	vF1293s7K34UurJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+	wI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUIa
+	0PDUUUU
+X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
 
-On 11/07/2026 03:56, Matthew Brost wrote:
-> Add xe_migrate_copy_defrag(), a copy helper for the upcoming page
-> defragmentation path where a single BO has its backing reallocated at a
-> more beneficial page order and its contents must be relocated from the
-> old pages to the new ones entirely on the GPU.
+On 11/2/2026 8:37 PM, Qiliang Yuan wrote:
+> bpf_check() finalizes the log, which reports its size in log_true_size,
+> and selects the runtime of the prog after that. For a prog of one
+> function, selecting the runtime blinds the constants.
 > 
-> The contents are relocated in up to two passes:
+> Blinding can log "insn %d cannot be patched due to 16-bit range". The
+> message lands in the buffer, but log_true_size doesn't count it: with a
+> stats-only log, log_true_size is 219 while the log takes 264 bytes. A
+> caller that sizes the buffer from log_true_size loses the message.
 > 
->   - Data pass (always): copy the data pages verbatim. The pages are
->     mapped without the compression PAT, so the (possibly compressed)
->     bytes are copied as-is rather than being decompressed and
->     recompressed, and no CCS aux copy is appended.
+> Finalize the log after __bpf_prog_select_runtime().
 > 
->   - CCS pass (need_ccs): copy the CCS aux (compression) state. Both the
->     old and new data pages are mapped with the compression PAT so the
->     copy engine accesses the aux state indirectly, issuing one
->     indirect -> indirect XY_CTRL_SURF_COPY_BLT; the data blit is skipped.
-
-
-Just to double check, there were no issues with this flow for a 
-compressed surface? Not 100% sure if reading from the src with 
-uncompressed PAT will zero out the CCS state (update to uncompressed 
-status), such that when you do the CCS pass it is already gone. Quite 
-sure it does that for a write, but I guess not for a read, so we are 
-fine here?
-
-> 
-> The two passes are issued separately because they require opposite
-> compression PAT settings on the data page mappings (cleared for the
-> verbatim data copy, set for the indirect CCS access), which a single
-> mapping cannot satisfy. Both passes run in order on the same migrate
-> queue and are captured by the returned fence.
-> 
-> The source pages are passed explicitly via an sg_table argument (the
-> old, still populated backing) since they no longer match the BO's
-> current backing. The boolean arguments to __xe_migrate_copy() are folded
-> into struct xe_migrate_copy_flags to keep the growing set of copy
-> variants readable.
-> 
-> Cc: Carlos Santa <carlos.santa@intel.com>
-> Cc: Ryan Neph <ryanneph@google.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Assisted-by: GitHub_Copilot:claude-opus-4.8
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Fixes: d9ef13f72711 ("bpf: Pass bpf_verifier_env to JIT")
+> Reported-by: Alexei Starovoitov <ast@kernel.org>
+> Closes: https://lore.kernel.org/bpf/DMKHZS5B5CNO.186F6YH1T6YU4@gmail.com/
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 > ---
->   drivers/gpu/drm/xe/xe_migrate.c | 136 ++++++++++++++++++++++++++++----
->   drivers/gpu/drm/xe/xe_migrate.h |   8 ++
->   2 files changed, 128 insertions(+), 16 deletions(-)
+>   kernel/bpf/verifier.c | 13 ++++++++-----
+>   1 file changed, 8 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migrate.c
-> index 92d5e81ceac2..305c6e1942fb 100644
-> --- a/drivers/gpu/drm/xe/xe_migrate.c
-> +++ b/drivers/gpu/drm/xe/xe_migrate.c
-> @@ -858,13 +858,39 @@ static u32 xe_migrate_ccs_copy(struct xe_migrate *m,
->   	return flush_flags;
->   }
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index 935b163f81e4b..974dc571eff05 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -24112,11 +24112,6 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
+>   	print_verification_stats(env);
+>   	env->prog->aux->verified_insns = env->insn_processed;
 >   
-> +/**
-> + * struct xe_migrate_copy_flags - Flags for __xe_migrate_copy()
-> + * @copy_only_ccs: Only copy the CCS aux state, aliasing the destination data
-> + * mapping to the source (used when the data pages are shared between src/dst).
-> + * @is_vram_resolve: Decompression (VRAM -> system) resolve; always uses the
-> + * compression PAT index for the data copy.
-> + * @defrag_ccs: Defrag move pass that migrates only the CCS aux state between
-> + * two distinct page sets (old @src_sg pages -> new pages). The data blit is
-> + * skipped (the data was copied by the @defrag_copy pass) and both the source
-> + * and destination data pages are mapped with the compression PAT so the aux
-> + * state is copied indirect -> indirect.
-> + * @defrag_copy: Defrag move pass that copies the data pages between two
-> + * distinct page sets (old @src_sg pages -> new pages) without touching the CCS
-> + * aux state. The data pages are mapped without the compression PAT so the
-> + * (possibly compressed) bytes are copied verbatim rather than being
-> + * decompressed and recompressed, and no CCS aux copy is appended; the aux
-> + * state is migrated separately by the @defrag_ccs pass. The two passes need
-> + * opposite compression PAT settings, which is why they cannot be combined.
-> + */
-> +struct xe_migrate_copy_flags {
-> +	u32 copy_only_ccs : 1;
-> +	u32 is_vram_resolve : 1;
-> +	u32 defrag_ccs : 1;
-> +	u32 defrag_copy : 1;
-> +};
-> +
->   static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
->   					   struct xe_bo *src_bo,
->   					   struct xe_bo *dst_bo,
->   					   struct ttm_resource *src,
->   					   struct ttm_resource *dst,
-> -					   bool copy_only_ccs,
-> -					   bool is_vram_resolve)
-> +					   struct sg_table *src_sg,
-> +					   struct xe_migrate_copy_flags flags)
->   {
->   	struct xe_gt *gt = m->tile->primary_gt;
->   	struct xe_device *xe = gt_to_xe(gt);
-> @@ -881,20 +907,29 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
->   	bool src_is_vram = mem_type_is_vram(src->mem_type);
->   	bool dst_is_vram = mem_type_is_vram(dst->mem_type);
->   	bool type_device = src_bo->ttm.type == ttm_bo_type_device;
-> -	bool needs_ccs_emit = type_device && xe_migrate_needs_ccs_emit(xe);
-> +	bool needs_ccs_emit = type_device && xe_migrate_needs_ccs_emit(xe) &&
-> +		!flags.defrag_copy;
->   	bool copy_ccs = xe_device_has_flat_ccs(xe) &&
-> -		xe_bo_needs_ccs_pages(src_bo) && xe_bo_needs_ccs_pages(dst_bo);
-> -	bool copy_system_ccs = copy_ccs && (!src_is_vram || !dst_is_vram);
-> +		xe_bo_needs_ccs_pages(src_bo) && xe_bo_needs_ccs_pages(dst_bo) &&
-> +		!flags.defrag_copy;
-> +	bool copy_system_ccs = copy_ccs && (!src_is_vram || !dst_is_vram) &&
-> +		!flags.defrag_ccs && !flags.defrag_copy;
+> -	/* preserve original error even if log finalization is successful */
+> -	err = bpf_log_attr_finalize(attr_log, &env->log);
+> -	if (err)
+> -		ret = err;
+> -
+>   	if (ret)
+>   		goto err_release_maps;
 >   
->   	/*
->   	 * For decompression operation, always use the compression PAT index.
->   	 * Otherwise, only use the compression PAT index for device memory
->   	 * when copying from VRAM to system memory.
->   	 */
-> -	bool use_comp_pat = is_vram_resolve || (type_device &&
-> +	bool use_comp_pat = flags.is_vram_resolve || (type_device &&
->   			    xe_device_has_flat_ccs(xe) &&
->   			    GRAPHICS_VER(xe) >= 20 && src_is_vram && !dst_is_vram);
+> @@ -24167,6 +24162,14 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
+>   	env->prog = __bpf_prog_select_runtime(env, env->prog, &ret);
 >   
+>   err_release_maps:
 > +	/*
-> +	 * The defrag CCS pass migrates the aux state from the old pages
-> +	 * (@src_sg) to the new pages with both sides accessed indirectly, so
-> +	 * keep both src_is_pltt and dst_is_pltt set (no direct staging side).
+> +	 * Finalize the log after the runtime is selected, which blinds the
+> +	 * constants of a prog of one function and can log an error. Preserve
+> +	 * the original error even if log finalization is successful.
 > +	 */
-> +
->   	/* Copying CCS between two different BOs is not supported yet. */
->   	if (XE_WARN_ON(copy_ccs && src_bo != dst_bo))
->   		return ERR_PTR(-EINVAL);
-> @@ -903,7 +938,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
->   		return ERR_PTR(-EINVAL);
->   
->   	if (!src_is_vram)
-> -		xe_res_first_sg(xe_bo_sg(src_bo), 0, size, &src_it);
-> +		xe_res_first_sg(src_sg ? src_sg : xe_bo_sg(src_bo), 0, size, &src_it);
->   	else
->   		xe_res_first(src, 0, size, &src_it);
->   	if (!dst_is_vram)
-> @@ -912,7 +947,8 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
->   		xe_res_first(dst, 0, size, &dst_it);
->   
->   	if (copy_system_ccs)
-> -		xe_res_first_sg(xe_bo_sg(src_bo), xe_bo_ccs_pages_start(src_bo),
-> +		xe_res_first_sg(src_sg ? src_sg : xe_bo_sg(src_bo),
-> +				xe_bo_ccs_pages_start(src_bo),
->   				PAGE_ALIGN(xe_device_ccs_bytes(xe, size)),
->   				&ccs_it);
->   
-> @@ -942,7 +978,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
->   		batch_size += pte_update_size(m, pte_flags, src, &src_it, &src_L0,
->   					      &src_L0_ofs, &src_L0_pt, 0, 0,
->   					      avail_pts);
-> -		if (copy_only_ccs) {
-> +		if (flags.copy_only_ccs) {
->   			dst_L0_ofs = src_L0_ofs;
->   		} else {
->   			pte_flags = dst_is_vram ? PTE_UPDATE_FLAG_IS_VRAM : 0;
-> @@ -963,7 +999,8 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
->   		}
->   
->   		/* Add copy commands size here */
-> -		batch_size += ((copy_only_ccs) ? 0 : emit_copy_cmd_len(xe)) +
-> +		batch_size += ((flags.copy_only_ccs || flags.defrag_ccs) ? 0 :
-> +			       emit_copy_cmd_len(xe)) +
->   			((needs_ccs_emit ? EMIT_COPY_CCS_DW : 0));
->   
->   		bb = xe_bb_new(gt, batch_size, usm);
-> @@ -975,13 +1012,15 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
->   		if (src_is_vram && xe_migrate_allow_identity(src_L0, &src_it))
->   			xe_res_next(&src_it, src_L0);
->   		else
-> -			emit_pte(m, bb, src_L0_pt, src_is_vram, copy_system_ccs || use_comp_pat,
-> +			emit_pte(m, bb, src_L0_pt, src_is_vram,
-> +				 copy_system_ccs || use_comp_pat || flags.defrag_ccs,
->   				 &src_it, src_L0, src);
->   
->   		if (dst_is_vram && xe_migrate_allow_identity(src_L0, &dst_it))
->   			xe_res_next(&dst_it, src_L0);
-> -		else if (!copy_only_ccs)
-> -			emit_pte(m, bb, dst_L0_pt, dst_is_vram, copy_system_ccs,
-> +		else if (!flags.copy_only_ccs)
-> +			emit_pte(m, bb, dst_L0_pt, dst_is_vram,
-> +				 copy_system_ccs || flags.defrag_ccs,
->   				 &dst_it, src_L0, dst);
->   
->   		if (copy_system_ccs)
-> @@ -990,7 +1029,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
->   		bb->cs[bb->len++] = MI_BATCH_BUFFER_END;
->   		update_idx = bb->len;
->   
-> -		if (!copy_only_ccs)
-> +		if (!flags.copy_only_ccs && !flags.defrag_ccs)
->   			emit_copy(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0, XE_PAGE_SIZE);
->   
->   		if (needs_ccs_emit)
-> @@ -1078,7 +1117,69 @@ struct dma_fence *xe_migrate_copy(struct xe_migrate *m,
->   				  struct ttm_resource *dst,
->   				  bool copy_only_ccs)
->   {
-> -	return __xe_migrate_copy(m, src_bo, dst_bo, src, dst, copy_only_ccs, false);
-> +	return __xe_migrate_copy(m, src_bo, dst_bo, src, dst, NULL,
-> +				 (struct xe_migrate_copy_flags) {
-> +					 .copy_only_ccs = copy_only_ccs,
-> +				 });
-> +}
-> +
-> +/**
-> + * xe_migrate_copy_defrag() - Migrate a BO's backing to a reallocated page set.
-> + * @m: The migration context.
-> + * @bo: The buffer object being defragmented. Both @src and @dst belong to @bo.
-> + * @src: The source TTM resource (the old backing).
-> + * @dst: The dst TTM resource (the freshly reallocated backing).
-> + * @src_sg: Scatter-gather table of the source (old) backing pages.
-> + * @need_ccs: Whether the BO has CCS aux state that must be migrated too.
-> + *
-> + * Used by the defrag path where a single BO has its backing reallocated at a
-> + * more beneficial page order. The contents are relocated from the old pages
-> + * (@src_sg) to the new pages (the BO's current backing) entirely on the GPU,
-> + * in up to two passes:
-> + *
-> + *  - Data pass (always): copy the data pages verbatim. The pages are mapped
-> + *    without the compression PAT, so the (possibly compressed) bytes are copied
-> + *    as-is rather than being decompressed and recompressed, and no CCS aux copy
-> + *    is appended.
-> + *
-> + *  - CCS pass (@need_ccs): copy the CCS aux (compression) state. Both the old
-> + *    and new data pages are mapped with the compression PAT so the copy engine
-> + *    accesses the aux state indirectly, issuing one indirect -> indirect
-> + *    XY_CTRL_SURF_COPY_BLT; the data blit is skipped.
-> + *
-> + * The two passes are issued separately because they require opposite
-> + * compression PAT settings on the data page mappings (cleared for the verbatim
-> + * data copy, set for the indirect CCS access), which a single mapping cannot
-> + * satisfy. Both passes run in order on the same migrate queue.
-> + *
-> + * Return: Pointer to a dma_fence representing the last copy batch, or an error
-> + * pointer on failure.
-> + */
-> +struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
-> +					 struct xe_bo *bo,
-> +					 struct ttm_resource *src,
-> +					 struct ttm_resource *dst,
-> +					 struct sg_table *src_sg,
-> +					 bool need_ccs)
-> +{
-> +	struct dma_fence *fence2, *fence =
-> +		__xe_migrate_copy(m, bo, bo, src, dst, src_sg,
-> +				  (struct xe_migrate_copy_flags) {
-> +					 .defrag_copy = true,
-> +					 });
-> +
-> +	if (IS_ERR(fence) || !need_ccs)
-> +		return fence;
-> +
-> +	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_sg,
-> +				   (struct xe_migrate_copy_flags) {
-> +				   .defrag_ccs = true,
-> +				   });
-> +	if (IS_ERR(fence2))
-> +		dma_fence_wait(fence, false);
-> +	dma_fence_put(fence);
-> +
-> +	return fence2;
->   }
->   
->   /**
-> @@ -1096,7 +1197,10 @@ struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
->   				     struct xe_bo *bo,
->   				     struct ttm_resource *res)
->   {
-> -	return __xe_migrate_copy(m, bo, bo, res, res, false, true);
-> +	return __xe_migrate_copy(m, bo, bo, res, res, NULL,
-> +				 (struct xe_migrate_copy_flags) {
-> +					 .is_vram_resolve = true,
-> +				 });
->   }
->   
->   /**
-> diff --git a/drivers/gpu/drm/xe/xe_migrate.h b/drivers/gpu/drm/xe/xe_migrate.h
-> index 965c45889c72..e4f996942a6d 100644
-> --- a/drivers/gpu/drm/xe/xe_migrate.h
-> +++ b/drivers/gpu/drm/xe/xe_migrate.h
-> @@ -11,6 +11,7 @@
->   struct dma_fence;
->   struct drm_pagemap_addr;
->   struct iosys_map;
-> +struct sg_table;
->   struct ttm_resource;
->   
->   struct xe_bo;
-> @@ -132,6 +133,13 @@ struct dma_fence *xe_migrate_copy(struct xe_migrate *m,
->   				  struct ttm_resource *dst,
->   				  bool copy_only_ccs);
->   
-> +struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
-> +					 struct xe_bo *bo,
-> +					 struct ttm_resource *src,
-> +					 struct ttm_resource *dst,
-> +					 struct sg_table *src_sg,
-> +					 bool need_ccs);
-> +
->   struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
->   				     struct xe_bo *bo,
->   				     struct ttm_resource *res);
+> +	err = bpf_log_attr_finalize(attr_log, &env->log);
+> +	if (err)
+> +		ret = err;
+>   	if (ret)
+>   		release_insn_arrays(env);
+>   	if (!env->prog->aux->used_maps)
+>
+Acked-by: Xu Kuohai <xukuohai@huawei.com>
 
