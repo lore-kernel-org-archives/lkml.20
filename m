@@ -1,112 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793665291;
-	b=ytXy/ZUhJsTAMMV37fzaBpRtysUGT1i/eHzpVI1T0IIjNTLd0VASia4uHOxMDfxlmyJ7
-	 AkldnQzMYCivdaCOSc+hYy7PHhTEm1vgTGozb4eQ7gYgiEajzolxfNBP4pX/f+7HfKSw9
-	 JjYGhpe3OZQYwmje70+kxn6GKrJYouK57mCFGv484L1F7f3h/PKmwac9zrCv35YEqnxjY
-	 y0Ai4OHZDytW1ZIH7tr8o8iujw3poGLOdrbDSvZJAziPSVEYIW2iLtddD/1s+2nnHryle
-	 qauvY/9LImqOTFFFvjJAnpmVyWVVG4E/RjqT361PIJophQKHWVBmqYTbA5C4uFGjpeA==
+	t=1793665330;
+	b=v3k0+0tECl+G0nXye3r5v9jv/tqHYzK/9EmlfBrZnbozvCPuGEuTcJrvCcoVAhhaCHEl
+	 JELjymYYA67BMPj9NvLSf9lQjIrZQNBz6zDXLLKE6hFwvr1kxnEvq7JDtPTYvyLhdKOOV
+	 K5uX4FRL8mFvZKI+4svPU+abFXqeTzJwhZK4YbbtEXqG3PNoDmeHyJy2VFW9js5XCLCnu
+	 WG6CRQ+YVIcA+6pJnoIBVB6/EJ5hMS8RzopGBbFdDS2eQWz8XzGMvWeBLS4N3bz64GpCo
+	 2Eu1XqJLvjgQBhh4DkXGF+0viNBp77ZPe/23HG/8LECOZ3a0a7NUxHuzpTGHOWe6CsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793665291;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=m1CYVddtSAfgtkCDt6VccjVuQkJ2y3YjAFo+UlGYC+M=;
-	b=HSkOuebotsiTu2mfdEUNKjBYi7q+JxcxyPWHYt2Iuti0ITGClmuVcaH3TN9SGGBkIczq
-	 2NwJNg8loTXypG/RYYUTzU/Vp5HtgSAqF62XUvaZ3/FIBM8reocLruj4SjAhOmR+sykFq
-	 Re9j8KjGpK+Uu3e5uWdfYfk3ibiGHEQKQAylfxgvEVX8IFBCL3mNQ1YQRNc++ntBIYfPA
-	 lpNA5TG1WGOPSolEOmXgIG/oL9TXWCtLHuHHOeysAN1ICznf/jy2uhUFpX+RXGtm2eKJE
-	 9zd27NZW3ZLeC5oVR59TPtqQVdqQbjtjc+5FO19D1S7DxCqZL+Njv/p4PanEXizpd0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793665330;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ms4XDZMnSqQNXRBptD+8uJemlJ6q80E7ne3Kjt0hDWI=;
+	b=uPLEs7HcgWGDws2XlpJ6p7+IQ2vhECNlH0yfEV1aOT9Ifp1zwgS9dOLG6tuvnp7zCKGL
+	 JI8sIyeAJQKdo8q9iXdO3gUdcfWdYKffIKr2a2pqbeS1R1XNIJneaXJpcu0ekEpj6054U
+	 raYeNUZUXsgx74dsICtMbUTelkKLe8e0sxVZQrOUIXwrQUnodalK3KcEUAcUCcaJ9OYbf
+	 SLwszIEHJjnOyh4BNjCZ2ozn35oiy+In4Ny5b4nhU1KqVC2Yq7Y437sXQ1Xb8k1G2iZ+R
+	 pxnLoCuCH6zRXRbUpREnEEdckOzEv0i4ZAoEzKLq0/Ev8Cnx5O/QlA9XVmS430gAZWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AAiMmWvz;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A29RzVuY;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="k0/QWBOc";
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD837606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:21:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD837606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20774606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:22:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20774606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AAiMmWvz;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A29RzVuY
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2N3S7r2074040
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 00:21:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	m1CYVddtSAfgtkCDt6VccjVuQkJ2y3YjAFo+UlGYC+M=; b=AAiMmWvzUkKHut6Q
-	ulNXTMSVgicCv1fNnSxRvXiJ6t+aFn74HFgqhOfd7c0gYb8q5CYSFoxDogS7yQlZ
-	dCnx7bq8U1H+Xf14+rKXEq6YZvw+5wgB+DWiVMNe7QJEhCPhDoHZLDHB/rlmDsEo
-	RbJZAxp0WaOXPCXdx8RrtTpaPrvDRwIhDrK1Kf9BDxkRiW5WQQlyPWw2gIHl9qLD
-	jdsxwWmMTA6am3+D6xjIr8JO8y9ycMeSJOSCW7MvcnXumccJvw8lMQ4vRxd/hHHz
-	ikGuDdxT9WaqTK7a54Hd+BP0oZ1J3TniDgWpHHSYOlrwrrw/hts31hri9KFLEu0U
-	Mvhu7w==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq3uy07tn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:21:29 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-15c16792146so2067393c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:21:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k0/QWBOc
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2eb5375cd68so19653625ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:22:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793665289; x=1794270089; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m1CYVddtSAfgtkCDt6VccjVuQkJ2y3YjAFo+UlGYC+M=;
-        b=A29RzVuYqO1WenXIJEkRiE/kDgO20z32vjxdpmfcI4o/MZPWVDnhH9dG4ScsafzguC
-         XY8pyY6R0J4V4dhG3eAsMvCsDRFJCkXz1yXtdpLFzh8lqzgXzwd0Z/dbqe+kf1G32g5w
-         T8yTOvgs05BeV1beBPkhcaCwhXXi71sZ9Y5Z1Ghy4tqrG1g97DuyviDaY2Qcz3KNcIeM
-         4dOkw3VfyIyjwoPYYgQ3aTYaJGglxidwO2ncPoHsw/5tgW1Q4Jf+zTAg2Q9WJ1SyestV
-         7XM166VNpXyrd2d+OTN3qyiSvaX2DRiLmEKPID8G8C9FkM0XkD1W2C/6b3fdhxKSr+Ho
-         Pohw==
+        d=google.com; s=20260707; t=1793665328; x=1794270128; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ms4XDZMnSqQNXRBptD+8uJemlJ6q80E7ne3Kjt0hDWI=;
+        b=k0/QWBOcuf+QAPDPU+q10D5QscGxJnJPXmbeliLWpeJsL3Y76vp1Xs8prEUppIq66n
+         QWKH5l5hfPRz6C6QyqIvLrXWdu5R9bhMWeNF9CeZuLvr+W2kN9vQ0Fcdp7zTZH3PES2d
+         029bPotLncFnhFd8XPuym1HxEO15IJeEAZ63c46w6lNBdGACJwZgoiPbIe72GDb57tiA
+         wGmAIVChM+UTkAenQjdzJx/ja3SW8LnD0d253Q0SvTt+uk+nYdJe6VCD2jcUr0kXUOex
+         92ulah9KDx0mUPu9rG//pIT1w2ZgeXIpW9CkVW3lKrUwoTv1xQwTgww2n6qO4ulq0rSy
+         m27Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793665289; x=1794270089;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m1CYVddtSAfgtkCDt6VccjVuQkJ2y3YjAFo+UlGYC+M=;
-        b=oBMD4oX14DpurHX28thyE40Kh5xaDvZ9WIX2+QMXRgJOeSZ4VJN2ZkT15roRWcn6rd
-         Qax677b8/UYgKeW5/zN4wVX3CV0cIdNU8LyBdINk9595LUKgBc16Avhl8EWG9c0FrPho
-         x0lBNH6BV/D4W06NJmZg2iF2ZZNUbCdLHUwJzLh+GusEGN8oTaBPdLTHCptXce8RLwxh
-         alQSwMkRi+kVXX+78gpv486lnfjUjfYhzY/T89lqhYUNa70Hq1yGnpEbdghp03O3is3e
-         B7iw2/WykomeEVPiUwKFyGUQDqXPipDG+92NmO2rSOj3I0xw2Meo1GH8GANOGUKFPHt0
-         gT+g==
-X-Forwarded-Encrypted: i=1; AKwUvBx4Ghzh1812GQO2uwKYtu5kswvg3fni4XkC/07Q1WsMzkNL4M7n6XGrKPNj1mR2ZJfSTjPAVX4W6We7y7s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsgiQDy0K0eEi/q3FsJ9P3AhdAH4Q4Mh7P4VkfhZXcNJSBN4Dq
-	UxK2v1QQkYXUeQK1TBoukqp47S+vh6Gj8P5KVx5IqWROjRBMKjqQAVrVIG/sc+8wHOFDKhjWqFr
-	F6aaJZh2ijPIoNnvjaaNLKCYjPzvBL4WWRi+cphEODOeUGgRsxd6OJOvWp418OWm/cr4=
-X-Gm-Gg: AYBFou3jq/G34cRX8Xj5NEiCn15OQuAZ8mjauyCWxkY9hzHTvqACSBzuOrcJsxTGE8X
-	er9plasbjSAQgTh2dfJkO3YUqDsRFyPlPBfQf5j6qWl7Z1NGM3lCAFA/ehghOv1L45bwNhi77DO
-	4AJfV+1sRNF18wrlUXh2mTTZt6Ttg55UiCqW0D8wydjqWHVMDzS0b1OKssmIEPiQKbtRtTbl5fj
-	6fp0IOg9M8p7gEqL6mq7yDfbYdgs1ivm6+pk1yqIO2JCJSZhuBj1tRJOeCQCnwnGYzxS2W6j3td
-	KhxS6XP2zRe+h4ma4mki/N6gucSR3nosQFeEI0Gi8VS1pIVbhuobNzP+G7i8gal+yT4xK/0AxNr
-	U7llisHOwtpuQqSpFdDf/ljrSI724cwVwKkgZoWsdBJsmIPaByvWMFtVK6LoU6g2sAQOKcn8rQP
-	+aA0/0tlPgtAE=
-X-Received: by 2002:a05:7022:ed09:b0:159:aa67:28c1 with SMTP id a92af1059eb24-1ac5c92da58mr16984819c88.20.1793665288355;
-        Mon, 02 Nov 2026 16:21:28 -0800 (PST)
-X-Received: by 2002:a05:7022:ed09:b0:159:aa67:28c1 with SMTP id a92af1059eb24-1ac5c92da58mr16984780c88.20.1793665287605;
-        Mon, 02 Nov 2026 16:21:27 -0800 (PST)
-Received: from [192.168.1.148] ([68.248.129.193])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm40121421eec.6.2026.11.02.16.21.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 16:21:27 -0800 (PST)
-Message-ID: <7005e138-6d5a-4c39-aef0-7200cf3bf911@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 16:21:26 -0800
+        d=1e100.net; s=20260707; t=1793665328; x=1794270128;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ms4XDZMnSqQNXRBptD+8uJemlJ6q80E7ne3Kjt0hDWI=;
+        b=AL9OcaplpjYBiA6/AmObKvtU2dT/KV8cicUPPUOJoYPd6kcHtSNWPcKXXDtcGFCpzi
+         q1AeBnwkZzpQHnGa8dR5WW9Cget21ZmwIu4V5RE52rIFOrmFrhJ2Ow9cn9gspNC4cTPL
+         FWXsWfg66rw7jhRWaMPEu7eY4gGbZJLMH8YYaDdMI2oMz71QHPzn1AU19bX8AsWvysWQ
+         tZkWz3O+kNXAcAIbNim0SuIzEFigedbOaaWmBoMkFJdi31u0vSCxZFWyFy5p2Y082nTc
+         fwKqvXaa/wLej+kicQTbvf290SM+mq/fUVvSgLUOnv9rAXwml5szz8QwzOz3YDWgS6Oz
+         +xZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxcu8EmtxcbM5Fz9vC95S6jHBkQM+Ic7u6wciR05s02pefkPSc/dBjyIi/4whDHUkrliiuaT0sGxFddrAw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/QKWMeWayYgH39gKAGhG2xWRNLODACB480FfDuU3oqLXWEJ0pw
+	xeCTZD6svU8Q5lVELRp0e8+X0f8kQU2VswhvIyDfMl4JJwj9yhS6CaHPBSH7JLFecTyhaD6s4mb
+	ynSaCxAVfID+H5Q==
+X-Received: from plsq24.prod.google.com ([2002:a17:902:bd98:b0:2e8:ea16:c701])
+ (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:903:3c6b:b0:2e9:7dda:7194 with SMTP id d9443c01a7336-2eb3642fea1mr98790465ad.11.1793665328190;
+ Mon, 02 Nov 2026 16:22:08 -0800 (PST)
+Date: Tue,  3 Nov 2026 00:22:00 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,91 +75,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net/stmmac/dwxgmac: Extend MTL/DMA support to 16
- queues
-To: Jakub Raczynski <j.raczynski@samsung.com>
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
-        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-        mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
-        netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, k.domagalski@samsung.com,
-        k.tegowski@samsung.com, cs0617.lee@samsung.com,
-        abhishek.chauhan@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-        sarosh.hasan@oss.qualcomm.com, hongmei.xu@oss.qualcomm.com
-References: <CGME20261016193835eucas1p128cb1712afce0314b1ecb65b0c0fc841@eucas1p1.samsung.com>
- <20261016193823.2711773-1-sagar.cheluvegowda@oss.qualcomm.com>
- <atXhR0sgdW84YxcQ@AMDC4622.eu.corp.samsungelectronics.net>
-Content-Language: en-US
-From: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
-In-Reply-To: <atXhR0sgdW84YxcQ@AMDC4622.eu.corp.samsungelectronics.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: CdXCSddxgxV_24-LOdH84gbRkpHIi3kn
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAwMSBTYWx0ZWRfX8XgHMyfvE/jF
- hrc7xAt6Iib6y+SEydnTnk/Lh/KpmwejYR/jZjkZsdTVRwilBGCq1ZpXp/QGsfRSyBvlP/Z4Lpk
- +ks0UA7+NRbg1e0iC7+ZhdYmV10iHds+NIxQBqU+1KZFf6b/QzsxsXPfPzquXEcageMg/jWzVhk
- /hj1g4v09LnuNgT0yyoUMpQzBIeWsikmNgzHin+ejEqIX0kC7+gIe1YNgdAEKs2pi+I0NIwk94O
- WPfW1I7oOoVAyfoJtGX5mU8OI2JEdygiUNuirOf6LC/dHo0slYWMnsk2FBtInykSvIzIx+5wx/y
- ebK4oWtsPiHVuldRdIgqIngpDyHdmFqaHPtv7YaOMsVqqaMrdauy+vPsAV8LF53mFo8GN22N04D
- 8s5ZwzSuj6HyMfpP62pp1Qp8xQfxy3rWHRRd3BtLZXorSay9fztQragF9ExcEVED32q+b8DbVsf
- M4fRj3pKj9CZGhs2huA==
-X-Authority-Analysis: v=2.4 cv=VoG2kO2n c=1 sm=1 tr=0 ts=6ae92909 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=djYDpCgIitZxdph7ACYjJA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=XF986EujfQmVbk2RL3gA:9 a=QEXdDO2ut3YA:10 a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-GUID: CdXCSddxgxV_24-LOdH84gbRkpHIi3kn
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAwMSBTYWx0ZWRfX3I7AC/Ir9+QJ
- DAUO5BMmiBnKZ7UDHMv51OqYW2759feB2CYFpbgnGYOd1UjggNDNFPiPgANPjh/uOg82rzfwZVt
- 6Z1th5bhQgzN8//yn+a9DMonJzkVlOs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_06,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 spamscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611030001
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261103002205.3348519-1-dmatlack@google.com>
+Subject: [PATCH v2 0/5] vfio: selftests: Automatically detect the IOMMU mode
+From: David Matlack <dmatlack@google.com>
+To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Cc: Alex Williamson <alex@shazbot.org>, David Matlack <dmatlack@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Jakub,
+This series makes the VFIO selftests library automatically detect which
+IOMMU mode to use, rather than hardcoding iommufd as the default, and
+makes tests skip, rather than fail, when the IOMMU mode they need is not
+available. This was suggested by Sean while reviewing the KVM selftest
+irq_test, which currently has to probe for the IOMMU mode itself [1].
 
-Apologies for the late reply, and thanks for the review.
+iommufd is an optional feature, and VFIO's iommufd support additionally
+requires CONFIG_VFIO_DEVICE_CDEV. On otherwise functional kernels that
+only support the legacy VFIO container, the VFIO selftests (and
+irq_test, when using a VFIO device) currently fail with an unhelpful
+assert:
 
-> - Does it work if macro MTL_MAX_{TX/RX}_QUEUES is not increased?
+  tools/testing/selftests/vfio/lib/iommu.c:448: Assertion Failure
 
-No. With the macros at 8, the DT parser clamps snps,{rx,tx}-queues-to-use
-to 8 and ignores the extra queue nodes, so queues 8-11 are never set up or
-mapped. The patch has no effect until the macros are raised. Our 12-queue
-testing was on a tree that also raises them, and my note under the "---"
-should have said so. You are right that it should not go out on its own.
+  Expression: iommu->iommufd > 0
+  Observed: 0xffffffffffffffff > 0
+  [errno: 2 - No such file or directory]
 
->   How does it look like in your hardware? 12 DMA and (8 or 12) TC's?
+Patch 1 makes iommu_init(NULL) pick the most preferred IOMMU mode that is
+available on the current system, and drops the global default_iommu_mode.
+iommu_modes[] is now ordered by preference: iommufd, vfio_type1v2_iommu,
+vfio_type1_iommu, iommufd_compat_type1v2, iommufd_compat_type1. A mode is
+considered available if its container (or /dev/iommu) can be opened and,
+for container modes, if VFIO_CHECK_EXTENSION reports support for the
+mode's IOMMU type. iommufd mode additionally requires VFIO device cdevs.
 
-The Nord hardware supports 16 queues, but only 12 are enabled in our SoC.
-It has 8 TCs, so DMA != TC here too.
+Patch 2 adds iommu_mode_is_available(), iommu_mode_unavailable_msg(),
+and SKIP_IF_IOMMU_MODE_UNAVAILABLE(), and uses them to skip tests when the
+IOMMU mode they need is not available. Tests skip via the kselftest
+harness's SKIP() rather than iommu_init() calling ksft_exit_skip(), since
+the latter produces malformed TAP output when called from within a
+harness test.
 
->
->   I agree with comment by Jakub Kicinski on my patchset 1/3 that I should have
->   implemented it better, but never finally did. Issue is, stmmac driver
->   assumes number of DMA = TC and uses {tx/rx}_queues_to_use everywhere.
->   So proper implementation would be spliting DMA count and TC count,
->   where both can be verified by stmmac_get_hw_features().
+Patch 3 makes the VFIO selftests library print the names of all known
+IOMMU modes when passed an unrecognized mode, and exposes the list via
+iommu_mode_names().
 
-Agreed. I went through your 1/3 against the databook. One point on flow
-control: XGMAC_Qx_TX_FLOW_CTRL(i) and the PSRQ(i) fields exist only for
-i = 0..7, since PFC is per 802.1Q priority, and 0x90..0x98 is RX_FLOW_CTRL /
-MAC_RxQ_Ctrl4/5. Bounding dwxgmac2_flow_ctrl() by numtc is therefore not the
-right limit: it happens to be correct for 8 TCs, but wrong where numtc < 8,
-and it should be a fixed 8 (the PSRQ window; MAC_RxQ_Ctrl5.PRQSO can shift
-that window).
-I will review the whole series thoroughly and pick it up after testing it
-internally on Nord. I will keep your authorship and sign-offs on the parts
-that come from your patches.
+Patch 4 converts irq_test to use the VFIO selftests library to pick the
+IOMMU mode, and drops its probe_iommu_type().
 
-Thanks,
-Sagar
+Patch 5 lists the known IOMMU modes in irq_test's help output.
+
+This series is based on vfio/next (vfio-v7.4-rc1).
+
+v2:
+ - Print the known IOMMU modes when passed an unrecognized mode (patch 3)
+   [Sean]
+ - Print a helpful message when irq_test skips because the IOMMU mode
+   is not available (patch 4) [Sean]
+ - List the known IOMMU modes in irq_test's help output (patch 5)
+ - Add iommu_mode_unavailable_msg() so that the VFIO selftests and
+   irq_test print the same message when skipping, including "No IOMMU
+   mode is available. Is VFIO (or IOMMUFD) loaded and enabled?" when no
+   IOMMU mode is available (patches 1, 2, and 4)
+
+v1: https://lore.kernel.org/kvm/20261029221710.1871112-1-dmatlack@google.com/
+
+[1] https://lore.kernel.org/kvm/aiIG2L_KdPwuxYA1@google.com/
+
+Testing
+-----------------------------------------------------------------------
+
+Tested in a QEMU VM with an emulated igb device behind an emulated Intel
+IOMMU, bound to vfio-pci, on a kernel with CONFIG_IOMMUFD=y,
+CONFIG_VFIO_DEVICE_CDEV=y, and CONFIG_VFIO_CONTAINER=y. To simulate
+kernels with fewer IOMMU modes available, /dev/iommu and /dev/vfio/vfio
+were deleted in the VM:
+
+ - All IOMMU modes available: All VFIO selftests pass. irq_test -d passes
+   using iommufd. irq_test -d -t bogus fails and lists the known modes.
+
+ - Only the legacy VFIO container available (/dev/iommu deleted): All
+   VFIO selftests pass, with the iommufd and iommufd_compat variants
+   skipped instead of failing. irq_test -d passes using
+   vfio_type1v2_iommu, and skips if -t iommufd is passed.
+
+ - No IOMMU mode available (/dev/iommu and /dev/vfio/vfio deleted):
+   vfio_pci_device_test, vfio_pci_driver_test, and irq_test -d all skip
+   with a message explaining why, and with well-formed TAP output.
+
+David Matlack (5):
+  vfio: selftests: Automatically detect the IOMMU mode in iommu_init()
+  vfio: selftests: Skip tests when the IOMMU mode is not available
+  vfio: selftests: Print the known IOMMU modes on an unrecognized mode
+  KVM: selftests: Use VFIO selftests library to pick IOMMU mode in
+    irq_test
+  KVM: selftests: List the known IOMMU modes in irq_test's help output
+
+ tools/testing/selftests/kvm/irq_test.c        |  23 +---
+ .../vfio/lib/include/libvfio/iommu.h          |  38 +++++-
+ tools/testing/selftests/vfio/lib/iommu.c      | 108 ++++++++++++++++--
+ .../vfio/vfio_dma_mapping_mmio_test.c         |   2 +
+ .../selftests/vfio/vfio_dma_mapping_test.c    |   4 +
+ .../vfio/vfio_pci_device_init_perf_test.c     |   2 +
+ .../selftests/vfio/vfio_pci_device_test.c     |   8 +-
+ .../selftests/vfio/vfio_pci_driver_test.c     |   9 +-
+ .../selftests/vfio/vfio_pci_sriov_uapi_test.c |   4 +
+ 9 files changed, 162 insertions(+), 36 deletions(-)
+
+
+base-commit: 076d7e989cb69f6ded7d60f2a080eb909930061b
+-- 
+2.56.0.385.gac671c819a-goog
 
