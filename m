@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743921;
-	b=ujBSmabirVImyuxlPEzDusgggzcu8kpnLB1B+O+OcTiEa8Tbqomu27jQSAo8cqq+827J
-	 USgkj5xg6FSWkajYa1zbs+aprmw8iqmE3G5ckkqqLzgN/8XBd/h8ZP1gjGbEq1tirLzm7
-	 Hxrbor59U8+4o6O7EIMqdjXWsxfYyBV7ilAPcuVTkzYdiNivchlIjZF8146xQSlMprIrd
-	 0iH0Ut0YILnaP1zGl8SSgMtFuTwMIlWd/YuvUfQk62cB3+L++S2Zy/bZhk0CUGrl1FO5B
-	 GPsvVMyBroI82Qv9KMBZGg6jiVj2YAqi8knTIdPkZDrPwiCbpMOHm5I2H6lP+P1QEgg==
+	t=1793743928;
+	b=0lIGJf+OFOGPotqeLP9AH4zwl0HwSryFECyYubxoWxo4swI8a1h2q9w6jzu9TOZh33TY
+	 QEHkZ8cC4xgsXd5ljheDn0lATNBZ7oXClStQvAvNp2pWs90pCerg3eskiS+O/mku5aTAi
+	 LRS8IK6Ei4TAmOAawfPbWy3NRNhI2T/YpJKdeIllIwBv25yEkJL8Y85cpbsBbTtgG7VbA
+	 1YFz5FDMy0vckx7ak475DSqVylG8015BdLot2S054Kk3r+nSrdl5nmfpBSpsUD9AnEeg/
+	 RwL4vy3a2MpC/bxc0Q6yN1lBbo5GkV5+YcJCuzE0X8JC0HBmtIXZMl4UsMg3GZrV/CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743921;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=29SzXOHsr+yvR7p3AWFo+7biT6KhIVmMTdjA19p8Fz4=;
-	b=WU4ydttYnnHnL7McKmfbyDcExrkJnUWIorXvK9YQRT3yTGK25Gpbng+Se/zsEQ9zdZsE
-	 Xa8DXQL7ydTDPne8q7fbhgfp7tNbxm36SYhWe6i4WMi+79aTz38g+NUmXGQNB6lO4ttP9
-	 vgPEyRDzGbPyinadBgPEl/FuMbs595KLXtkUTuFxvfZ1r5quCcCI5UqyCxi41l1YqCug2
-	 u8dhdYLDZfuoiryvqtJwNd0Rj9Fpn5EMW+bQIg4JkDBYc6R2hlxb1ImM/NLmR4I6tve68
-	 ZK4xQrHdP2BTKppsoNxYtHXf6yxwHq/NnJBzYtyRwLYBWJUqjSGYyjMJMvODDg29cYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743928;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zhleLxlgO/8KkinCeUWj94TJDi+jMt0bo+ONkONjbbs=;
+	b=qpN+sJzmXC9SqairBcICiJ3WFvXxuFw7qln9aqmOkIRdomgMCzatHQNAk+/Dq7U3DiJ+
+	 xpcI1xeQsEqpRMWn2+FhAKnVn0L+x0xQHbzZJmjoLwqaNClJZre9ySrF235nwfxbIfuYK
+	 W9/LlWaxm0tXh/EF/+4dSMvEfJR2+Lz1mTAvc1arj5stPrIcGlHL+p9FY9IM7JGlmMwaP
+	 G9oBx+Vs5JVZLpVIauBk5mHcv/6VYkmlhSHew0Zg1muf6j7jyCGrdt2floHgF2MfXElLS
+	 Ls3QxoSd0hf1L+GrMM1Kd/fmDuRR1TDyLZ/3XcSUwug2mZn2eT8q5VPB+6lQrlOAzaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kzQJuFPi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dNQaeexo;
+	arc=none smtp.remote-ip=209.85.222.179
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300AE606A31B;
-	Tue,  3 Nov 2026 22:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64807606A332
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:12:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64807606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kzQJuFPi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AA351F000C1;
-	Tue,  3 Nov 2026 22:12:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793743920;
-	bh=29SzXOHsr+yvR7p3AWFo+7biT6KhIVmMTdjA19p8Fz4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kzQJuFPi2ZJT+26e6jgDduZYCorll2vScQD+mdAuBdj9y6e9MfyRDBC4eohlLROYV
-	 uJ1pDmM5/hMz94gqlFnPeJNWT6dtqIB6bBgshwXluprgYlP29hyok0dgDE2KYFvA7F
-	 gdeCNQokAeceCyCvJ1XOBhgHIuIPD2ZHXdsZwIHoIo2suILrWSMMCpaVRIFqAj5abi
-	 qVAICJXbdY1zicQPeyNlzku34xgL6kg1aRWyDZICDNeb36c7u9THu2kwPzs3fUPdwr
-	 DNuNp1uteVsJy2p0rUqW9Rl43dT5aq3FK7WqhnOW7x3YU8d6Ly4kVVRYH3EHMD0Aoo
-	 rx5jszxyWM5yA==
-Date: Tue, 3 Nov 2026 14:11:58 -0800
-From: Eric Biggers <ebiggers@kernel.org>
-To: Chris Wiseman <chriswiseman@google.com>
-Cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>, dm-devel@lists.linux.dev,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Christoph Hellwig <hch@lst.de>, LongPing Wei <weilongping@oppo.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dm-verity: use bdev_rw_virt() in verity_recheck()
-Message-ID: <20261103221158.GB2281@quark>
-References: <18e49db5e159b72d.3137322e32332e3235332e313736.1d9cee.0000sendgmr@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dNQaeexo
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-930c0f9c1b1so12102785a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:12:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793743927; x=1794348727; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zhleLxlgO/8KkinCeUWj94TJDi+jMt0bo+ONkONjbbs=;
+        b=dNQaeexo070rGE4C/67h8WZNf6wxbBnzJmOcC528E3v+1GzJUyNnnBFGW4h6hMrHL/
+         9YGIZ1lILzlQG4oQsYxFCFML66YMizEVunqW3ESxUpYwqUusW2LzsEMkfJpl9m3wO4EX
+         aTN9DykuxDO4cPmqcPJm1J6EtKY+nmY5/UOFEYsw4tlESAmrffp444CWT+0l4Dg1qkc3
+         9k2qtypqc7jXlOqJu5vCvsHGoUTxZFd+IQ1aUfw15RNA0Etohudj3DLnTETyoG1ofF4x
+         3Kd32c7tTl/e7zsbAXSW78J5JRhZU4boOkyGaVMdl5r3FUBd3PI0NjU8R4zFitaRoB4F
+         z5QA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793743927; x=1794348727;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zhleLxlgO/8KkinCeUWj94TJDi+jMt0bo+ONkONjbbs=;
+        b=g0DYjN5SEAIctfGspCzMyTP2T7B2QaMch4dTnyTfOs+mI315fOUGh/K7/2bBrk6IMV
+         MN+YGIDUjz1/Qj+ZDGh4L0VAjxr1hDxgkSozSRipopxK5E4eZ8fkNNt4vzI0GqEbukcU
+         2Z7GsfCl2PcNRdiG+bf/W4a21ubbAoZmzhJstMGeO4MyLNBELzmlB3njOH6D27CfPKrc
+         sgSnnmwTeGnaJy5niqVbqKyJ+FtQn7A5x5aGLOL86p8s84hDwZn+czGjj+ElgzIt42VL
+         6DCUOOffVm9P/Lykt/HMqVm5gmG4tP/tPMbW3uOtsQqVJHHAvXwXFzwPUNta4/Ymb3OM
+         v5hg==
+X-Forwarded-Encrypted: i=1; AKwUvBwVivMSplA7/IuN0OA5328+REEyANbBfR4ORnmlEJ8FYvL+ciBoeu3JmouE8eUQ6AJepjQl3Y1RKxg+si8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DjkUKjggOtqkzaIh7huAnbnivNWjSTNYnTejvA5Aodowj9yf6
+	7KzEBd3EXlSUc3EofG2ja1g1JplTZQZ47dJy9c+2xHrYd6h+lcFj5TJaVdozHmf/U/kPUQ==
+X-Gm-Gg: AYBFou2WOmT8s+6EN0ehlGs9T3P074lmh86Ce9ydOBMOeUVI3nhh44mQR89W0HmjXdl
+	UGh2+wfPFLmU64zAxaNo4ErXNbOYILW2OLEnFn7f1vM2GCzbMLAffi/aWLAF5WJ3K0HPvTFvakb
+	DsN4JhR6kyFOIu3y4y4Bo0LwTn0OMhefpq6CnemHCCMJcHkvQcbn/+vktNvJ25Uz/r1vu5psnBb
+	mVsrX3FhorswsMq/rqUI3IlE/WNif+SKPF9JRNSBGdKKP9G9yzGgELaH7fTIheiD2xHGDtu1tLF
+	37sOboBX59U4UBHdQDhKzGYnGkWBgANhdtfRT1odJ1J7CKTo7/NMcIXCnyeLDCbHeD3UERX/BBI
+	o1uKLdTxt/u1upToChc2dGKGeoML4z0M04fklaNhktXBPuAXTEutaO5IkikszazkHpaEpfZugAQ
+	siKSbWQtbFPpC7MdyHPMWftugA3bcgibi0Fxh6lMmyYrAqpeGbCFpS3gZv70erHgKJ53by0aXsF
+	KbBLESHkcnrWPACzNnffVx/6frf0g+ccwMjD0isuVGkeOaPzujFr1BGudumH7BDOUAIVdNqzOGz
+	vYk6SON64OI2pnAFDFXtU9DrSNpXk819o8gJUXsSUMSG0KZxciOTBiEYpN5Lrs709RXVP714qgV
+	wgA6i8RC3Mkw5SAqYMKOFhpiJhcGC0GsZZ2I=
+X-Received: by 2002:a05:620a:2805:b0:93b:d79a:c463 with SMTP id af79cd13be357-944216db682mr2344562985a.59.1793743927168;
+        Tue, 03 Nov 2026 14:12:07 -0800 (PST)
+Received: from codespaces-be20d5.ynsnsb35uh3ubhr4tvarlepncd.bx.internal.cloudapp.net ([172.191.151.57])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4844be4sm39276485a.29.2026.11.03.14.12.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 14:12:06 -0800 (PST)
+From: Eileen Blessing Kabi <kabiblessing5@gmail.com>
+To: outreachy@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: linux-staging@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Eileen Blessing Kabi <kabiblessing5@gmail.com>
+Subject: [PATCH] staging: fbtft: fix spelling mistake "writte" -> "written"
+Date: Tue,  3 Nov 2026 22:11:41 +0000
+Message-ID: <20261103221142.45100-1-kabiblessing5@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,28 +100,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <18e49db5e159b72d.3137322e32332e3235332e313736.1d9cee.0000sendgmr@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 06:50:28PM +0000, Chris Wiseman wrote:
-> verity_ctr() creates a dedicated dm_io_client (v->io) for every
-> dm-verity target, but its only caller is verity_recheck(), which reads
-> a single data block into a page from v->recheck_pool after a hash
-> mismatch.  Because dm_io_client_create() preallocates a mempool of 16
-> bios and 16 biovec-max (4 KiB) vectors per target, each dm-verity
-> target permanently pins ~70 KiB of unreclaimable slab that a single-page
-> read never uses (~2.4 MiB across 35 targets on Android, or ~4.1 MiB
-> across 59 targets).
-> 
-> Replace dm_io() in verity_recheck() with bdev_rw_virt() and remove
-> v->io.  bdev_rw_virt() puts the bio and single bio_vec on the stack and
-> waits for completion, while keeping v->recheck_pool per-target.
-> 
-> Fixes: 9177f3c0dea6 ("dm-verity: recheck the hash after a failure")
-> Link: https://lore.kernel.org/dm-devel/20250423115013.4004577-1-weilongping@oppo.com/
-> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+Fix the spelling of "written" in the write_vmem() kernel-doc comment.
 
-Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+Found with codespell.
 
-- Eric
+Signed-off-by: Eileen Blessing Kabi <kabiblessing5@gmail.com>
+---
+ drivers/staging/fbtft/fb_st7789v.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/fbtft/fb_st7789v.c b/drivers/staging/fbtft/fb_st7789v.c
+index 861a15414..c4db681eb 100644
+--- a/drivers/staging/fbtft/fb_st7789v.c
++++ b/drivers/staging/fbtft/fb_st7789v.c
+@@ -221,7 +221,7 @@ static int init_display(struct fbtft_par *par)
+  * write_vmem() - write data to display.
+  * @par: FBTFT parameter object.
+  * @offset: offset from screen_buffer.
+- * @len: the length of data to be writte.
++ * @len: the length of data to be written.
+  *
+  * Return: 0 on success, or a negative error code otherwise.
+  */
+-- 
+2.56.0
+
