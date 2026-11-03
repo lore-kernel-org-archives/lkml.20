@@ -1,56 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793715148;
-	b=f4Ow5G3A550I0yz5TuoldU2WwB1rJ/odKvmYOHWCkNZwC6UmZjQzPqGNeFd47fXR6AGS
-	 bcKN7wzu3GdymiSTcByty+wg87Qot7SFUxWG1o/LVs2iPUSQ0Nt6DQx1gyhHjqe02F3Ep
-	 QXmkHHyOY0g0rY/DeBY9+EP5QNpamzz5joyIar4d4kzXxDCe3PdXT+r2hMXADS1ui+DVZ
-	 yWSpUUlEOUDLv0DqGIL2g6j2+PdyO1lV9JtMwZUtudFti2uBy3QXkL1iHW7YeILwoVChu
-	 G8eJB5Z1Z8inqLnhWDFCAacndAkiaEByqN2W6xUztfDn0ULuCRuazC96Rgpj0Hnc3bQ==
+	b=jrepdKO/yYA48JfPE58LzwdCV+gLfkNFdbHHY3kVhgYHIMnEPhhooPIsM3ikcnJQfdZC
+	 ChPTjT4v6UoutOvjKT/FG90ngsu1o6PxctjD/P8+mxGA8YgquAjKr7kES/tQd7LULmZlu
+	 tr/FwANsCKe7eFkEpm4LghkAYWXTzxDSSfYBi7bPrj6E4wjR99dcO7Y2avBrSiGoVpwOE
+	 9+Sbcpdt6Ac0pILyJ5Yp1vC05hEkQhR5S79N1FQfkQZW5jKa/7q71iL9CGcB+wf6mQAoS
+	 qlWIwr0bxKgKDe5BX7ozuoGnT3YCQDpzHkSY9F4bpa2BQRDPnxtRTgj5yxM10YZlHQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793715148;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jQiHQJYaf/EXsGdTe2p5klR92l65Zw/CdzHHYP7vMSc=;
-	b=2K6tkgZjzku22oEBDz7dCjy6JCqiPSXRwSc+Skq2MwECA/Rj6ZJUbV4a2qO/lPWjhFiH
-	 qvDWryxErbMlOxT89hbE5A0JsJUA742r4mHxezASKFgauVLJQx79h/GquhhcCBUlJU8g3
-	 smAqUzum1QC0w5xKbKaRKHtuCwrtXWOBvSE7gAdn6GeWtrl9HlpEC3M5qstQsUJ86xD6b
-	 Ditc680rzxcks70J8MXdTdTwjnO2lf28Nk60sIgz30cOEiH9cGZqMQe7lcp5KwYI6I6Ux
-	 VqNqz/tiK1QuHVlhh7ibCUTL5g5WlNgyylAqku8ONq8IcMTnaPoMCl1eAufPh1BKKbA==
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Eesf9lxozUdMnetwmPu754uA3KVkBfzDrE0eDVDJ2UA=;
+	b=qOA6eiifRPrWOIK3Adl3voHQDfOeRUmjj9nWoP5aKDLmgCVGMKZOV9F97/zPyxm45V7+
+	 h9SWJkmwgmhwjSfp6UoItWB64u/bMukCHPGccL2oqaraqK6HbIYV79l+i+NTi4CtavTXf
+	 r0POsk7ayoAYcMYOLAJIWfEKnPq4dQjnu5IxYJJjnRWkq7D7BUrlu+zg9qoUhKCTse49w
+	 XReP9t3yLPTsPKa/hTSkb05mCB/19y8NOP50A3JgVhWUrvTvgabaRLnY8S3Fpc7+uDSNP
+	 HAAxmWFkrLdVVq9rYxK11XyjU19j97ScTJbWuvg1zBFM4G/QW1Qc8DekOz5ZiLO3gKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3ia8tux;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ao9p2MRl;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87139606A331;
-	Tue,  3 Nov 2026 14:12:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FD3606A327;
+	Tue,  3 Nov 2026 14:12:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29FD3606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3ia8tux
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6087B1F00919;
-	Tue,  3 Nov 2026 14:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715148;
-	bh=jQiHQJYaf/EXsGdTe2p5klR92l65Zw/CdzHHYP7vMSc=;
-	h=From:To:Cc:Subject:Date;
-	b=f3ia8tuxNUn8HykJy+JcC1cAYNMS3x7aHQNJSahYmElxB9R7MSqPfI0Nu0A5epnk+
-	 mGDfgZH2ibEc/1zITs3pQhfg3/wHNUhkxIkNBiTBfWQIrBU5wXM+ACPXiR+pl72ZCd
-	 bXCv+r+kl95sz63pI145IJnP8kmwabDv60jmiOoU1l7yT6xwcaXXyk/1dl6A7cesXz
-	 BQMLqz6lqXp5duiYsiB21hFeKB9XcByJLVaXGQFephXVBN4q83Bwi/LI3kEHlRuRJA
-	 WlGJitWyV3BVE3P/3qwR/FIW2V62Izs3tq9PPv9VlGEo+ESVvbMqKtSqGqVnTMMTjp
-	 gDbc3a2QL7+Lg==
-From: Sasha Levin <sashal@kernel.org>
-To: Shuah Khan <shuah@kernel.org>
-Cc: Andrei Vagin <avagin@google.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/timens: print and parse time_t as long long
-Date: Tue,  3 Nov 2026 09:12:26 -0500
-Message-ID: <20261103141226.28507-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ao9p2MRl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793715147; x=1825251147;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AG9SejqizuSU9dqiGUfetYq9cDG0DMmqEfppslJdVyQ=;
+  b=ao9p2MRlVc+rEMMS7zGs4/BkK9K1gel2XDzq21nLsul8sQEv8xum1xiX
+   eqCZkA80LaNUjjG4+kBiyrYMmD4NDdtUe0CA/Kj7P5FEB3Q08WJmeCD53
+   Wb2zyiYn+YLIuDm+As+1kIJtXdMH2WCHvT38+PqnvPbz+8f6pGREOMJP/
+   R3DKO0VSxKoiKVTL2A6Psus5z81nRpqID8rDuB11dng5s/p3JLljDJ+PW
+   T3zh0nADi6oh8IlTBHdR/up1Q8ED7TPgmA4D7QwI7aHiB5JeUNm085dOX
+   KzCkTa2LIHABKPAo2NChA84vSx5LpsLgBAyt79ordxJNODxjipdlFuq6u
+   Q==;
+X-CSE-ConnectionGUID: Q6NQfskeQi+IjOdqTv+60w==
+X-CSE-MsgGUID: GFU0r7K/Q4OgiC+MYvdT6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2330219"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2330219"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:12:26 -0800
+X-CSE-ConnectionGUID: XVV0O7VQRoGkq64OU6944Q==
+X-CSE-MsgGUID: p799BbrCSLmxgZkZbDe1pA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6759732"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 03 Nov 2026 06:12:25 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xOFFO-00000000iou-2DnN;
+	Tue, 03 Nov 2026 14:12:22 +0000
+Date: Tue, 3 Nov 2026 22:11:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev,
+	Nicolas Saenz Julienne <nsaenz@amazon.com>
+Subject: Re: [PATCH 24/45] KVM: Introduce a generation number for memory
+ attributes
+Message-ID: <202611032129.t2hEI0s4-lkp@intel.com>
+References: <20261102174512.8903-8-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,221 +84,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102174512.8903-8-pbonzini@redhat.com>
 
-Several timens tests pass time_t values to printf-style functions with
-%ld or %lu, exec.c reads one with sscanf("%ld"), and exec.c and
-vfork_exec.c take the absolute value of a time_t difference with
-labs(). On 32-bit architectures where the C library uses a 64-bit
-time_t, such as armhf in Debian 13, time_t is a long long and every
-timens test fails to build with -Werror:
+Hi Paolo,
 
-  timens.h:72:48: error: format '%ld' expects argument of type 'long int', but argument 5 has type 'time_t' {aka 'long long int'} [-Werror=format=]
+kernel test robot noticed the following build errors:
 
-Clang also rejects the labs() calls with -Wabsolute-value.
+[auto build test ERROR on kvm/queue]
+[also build test ERROR on kvm/next linus/master next-20261030]
+[cannot apply to mst-vhost/linux-next kvm/linux-next v7.3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Cast the values to long long and print them with %lld, parse the exec
-argument into a long long, and use llabs() as timer.c and timerfd.c
-already do.
+url:    https://github.com/intel-lab-lkp/linux/commits/Paolo-Bonzini/KVM-nVMX-nSVM-check-unconditionally-whether-CR3-is-valid/20261102-124045
+base:   https://git.kernel.org/pub/scm/virt/kvm/kvm.git queue
+patch link:    https://lore.kernel.org/r/20261102174512.8903-8-pbonzini%40redhat.com
+patch subject: [PATCH 24/45] KVM: Introduce a generation number for memory attributes
+config: i386-randconfig-1010-20261103 (https://download.01.org/0day-ci/archive/20261103/202611032129.t2hEI0s4-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611032129.t2hEI0s4-lkp@intel.com/reproduce)
 
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-KernelCI hits this on every 32-bit arm kselftest build: all nine timens
-programs fail. Built the timens sources with gcc 16 and clang 21 for
-x86_64, for i386 and for i386 with _TIME_BITS=64 (the last one fails
-without this patch). exec, vfork_exec, clock_nanosleep and futex pass
-on x86_64 in a user namespace.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611032129.t2hEI0s4-lkp@intel.com/
 
- .../selftests/timens/clock_nanosleep.c        |  4 +--
- tools/testing/selftests/timens/exec.c         | 27 ++++++++++++-------
- tools/testing/selftests/timens/procfs.c       |  7 ++---
- tools/testing/selftests/timens/timens.c       | 16 ++++++-----
- tools/testing/selftests/timens/timens.h       |  3 ++-
- tools/testing/selftests/timens/vfork_exec.c   | 17 +++++++-----
- 6 files changed, 45 insertions(+), 29 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/tools/testing/selftests/timens/clock_nanosleep.c b/tools/testing/selftests/timens/clock_nanosleep.c
-index 5cc0010e85ff0..aeb1883e90f7c 100644
---- a/tools/testing/selftests/timens/clock_nanosleep.c
-+++ b/tools/testing/selftests/timens/clock_nanosleep.c
-@@ -102,8 +102,8 @@ static int run_test(int clockid, int abs)
- 	}
- 
- 	if (rem.tv_sec < 3300 || rem.tv_sec > 3900) {
--		pr_fail("clockid: %d abs: %d remain: %ld\n",
--			clockid, abs, rem.tv_sec);
-+		pr_fail("clockid: %d abs: %d remain: %lld\n",
-+			clockid, abs, (long long)rem.tv_sec);
- 		return 1;
- 	}
- 	ksft_test_result_pass("clockid: %d abs:%d\n", clockid, abs);
-diff --git a/tools/testing/selftests/timens/exec.c b/tools/testing/selftests/timens/exec.c
-index a644162d56fdc..7dcac5765e259 100644
---- a/tools/testing/selftests/timens/exec.c
-+++ b/tools/testing/selftests/timens/exec.c
-@@ -25,13 +25,17 @@ int main(int argc, char *argv[])
- 	pid_t pid;
- 
- 	if (argc > 1) {
--		if (sscanf(argv[1], "%ld", &now.tv_sec) != 1)
-+		long long sec;
-+
-+		if (sscanf(argv[1], "%lld", &sec) != 1)
- 			return pr_perror("sscanf");
-+		now.tv_sec = sec;
- 
- 		for (i = 0; i < 2; i++) {
- 			_gettime(CLOCK_MONOTONIC, &tst, i);
--			if (labs(tst.tv_sec - now.tv_sec) > 5)
--				return pr_fail("%ld %ld\n", now.tv_sec, tst.tv_sec);
-+			if (llabs(tst.tv_sec - now.tv_sec) > 5)
-+				return pr_fail("%lld %lld\n", (long long)now.tv_sec,
-+					       (long long)tst.tv_sec);
- 		}
- 		return 0;
- 	}
-@@ -52,9 +56,10 @@ int main(int argc, char *argv[])
- 
- 	for (i = 0; i < 2; i++) {
- 		_gettime(CLOCK_MONOTONIC, &tst, i);
--		if (labs(tst.tv_sec - now.tv_sec) > 5)
--			return pr_fail("%ld %ld\n",
--					now.tv_sec, tst.tv_sec);
-+		if (llabs(tst.tv_sec - now.tv_sec) > 5)
-+			return pr_fail("%lld %lld\n",
-+					(long long)now.tv_sec,
-+					(long long)tst.tv_sec);
- 	}
- 
- 	if (argc > 1)
-@@ -72,13 +77,15 @@ int main(int argc, char *argv[])
- 		/* Check that a child process is in the new timens. */
- 		for (i = 0; i < 2; i++) {
- 			_gettime(CLOCK_MONOTONIC, &tst, i);
--			if (labs(tst.tv_sec - now.tv_sec - OFFSET) > 5)
--				return pr_fail("%ld %ld\n",
--						now.tv_sec + OFFSET, tst.tv_sec);
-+			if (llabs(tst.tv_sec - now.tv_sec - OFFSET) > 5)
-+				return pr_fail("%lld %lld\n",
-+						(long long)now.tv_sec + OFFSET,
-+						(long long)tst.tv_sec);
- 		}
- 
- 		/* Check for proper vvar offsets after execve. */
--		snprintf(now_str, sizeof(now_str), "%ld", now.tv_sec + OFFSET);
-+		snprintf(now_str, sizeof(now_str), "%lld",
-+			 (long long)now.tv_sec + OFFSET);
- 		execve("/proc/self/exe", cargv, cenv);
- 		return pr_perror("execve");
- 	}
-diff --git a/tools/testing/selftests/timens/procfs.c b/tools/testing/selftests/timens/procfs.c
-index 0a9ff90ee69a9..ded9e0f51b394 100644
---- a/tools/testing/selftests/timens/procfs.c
-+++ b/tools/testing/selftests/timens/procfs.c
-@@ -138,9 +138,10 @@ static int check_uptime(void)
- 
- 	uptime_expected = uptime_old.tv_sec + TEN_DAYS_IN_SEC;
- 	if (fabs(difftime(uptime_new.tv_sec, uptime_expected)) > prec) {
--		pr_fail("uptime in /proc/uptime: old %ld, new %ld [%ld]",
--			uptime_old.tv_sec, uptime_new.tv_sec,
--			uptime_old.tv_sec + TEN_DAYS_IN_SEC);
-+		pr_fail("uptime in /proc/uptime: old %lld, new %lld [%lld]",
-+			(long long)uptime_old.tv_sec,
-+			(long long)uptime_new.tv_sec,
-+			(long long)uptime_old.tv_sec + TEN_DAYS_IN_SEC);
- 		return 1;
- 	}
- 
-diff --git a/tools/testing/selftests/timens/timens.c b/tools/testing/selftests/timens/timens.c
-index a9c0534ef8f67..f3cefacecd572 100644
---- a/tools/testing/selftests/timens/timens.c
-+++ b/tools/testing/selftests/timens/timens.c
-@@ -118,9 +118,11 @@ static int test_gettime(clockid_t clock_index, bool raw_syscall, time_t offset)
- 
- 	if (difftime(cur_ts.tv_sec, child_ts_new.tv_sec) < precision) {
- 		ksft_test_result_fail(
--			"Child's %s (%s) time has not changed: %lu -> %lu [%lu]\n",
--			clocks[clock_index].name, entry, parent_ts_old.tv_sec,
--			child_ts_new.tv_sec, cur_ts.tv_sec);
-+			"Child's %s (%s) time has not changed: %lld -> %lld [%lld]\n",
-+			clocks[clock_index].name, entry,
-+			(long long)parent_ts_old.tv_sec,
-+			(long long)child_ts_new.tv_sec,
-+			(long long)cur_ts.tv_sec);
- 		return -1;
- 	}
- 
-@@ -132,9 +134,11 @@ static int test_gettime(clockid_t clock_index, bool raw_syscall, time_t offset)
- 
- 	if (difftime(cur_ts.tv_sec, parent_ts_old.tv_sec) > DAY_IN_SEC) {
- 		ksft_test_result_fail(
--			"Parent's %s (%s) time has changed: %lu -> %lu [%lu]\n",
--			clocks[clock_index].name, entry, parent_ts_old.tv_sec,
--			child_ts_new.tv_sec, cur_ts.tv_sec);
-+			"Parent's %s (%s) time has changed: %lld -> %lld [%lld]\n",
-+			clocks[clock_index].name, entry,
-+			(long long)parent_ts_old.tv_sec,
-+			(long long)child_ts_new.tv_sec,
-+			(long long)cur_ts.tv_sec);
- 		/* Let's play nice and put it closer to original */
- 		clock_settime(clocks[clock_index].id, &cur_ts);
- 		return -1;
-diff --git a/tools/testing/selftests/timens/timens.h b/tools/testing/selftests/timens/timens.h
-index 7ca4b46ca61d0..fa9a60f75e39a 100644
---- a/tools/testing/selftests/timens/timens.h
-+++ b/tools/testing/selftests/timens/timens.h
-@@ -69,7 +69,8 @@ static inline int _settime(clockid_t clk_id, time_t offset)
- 	if (clk_id == CLOCK_MONOTONIC_COARSE || clk_id == CLOCK_MONOTONIC_RAW)
- 		clk_id = CLOCK_MONOTONIC;
- 
--	len = snprintf(buf, sizeof(buf), "%d %ld 0", clk_id, offset);
-+	len = snprintf(buf, sizeof(buf), "%d %lld 0", clk_id,
-+		       (long long)offset);
- 
- 	fd = open("/proc/self/timens_offsets", O_WRONLY);
- 	if (fd < 0)
-diff --git a/tools/testing/selftests/timens/vfork_exec.c b/tools/testing/selftests/timens/vfork_exec.c
-index b957e1a651243..42fa0dcdfdec4 100644
---- a/tools/testing/selftests/timens/vfork_exec.c
-+++ b/tools/testing/selftests/timens/vfork_exec.c
-@@ -32,9 +32,10 @@ static void *tcheck(void *_args)
- 
- 	for (i = 0; i < 2; i++) {
- 		_gettime(CLOCK_MONOTONIC, &tst, i);
--		if (labs(tst.tv_sec - now->tv_sec) > 5) {
--			pr_fail("%s: in-thread: unexpected value: %ld (%ld)\n",
--				args->tst_name, tst.tv_sec, now->tv_sec);
-+		if (llabs(tst.tv_sec - now->tv_sec) > 5) {
-+			pr_fail("%s: in-thread: unexpected value: %lld (%lld)\n",
-+				args->tst_name, (long long)tst.tv_sec,
-+				(long long)now->tv_sec);
- 			return (void *)1UL;
- 		}
- 	}
-@@ -64,9 +65,10 @@ static int check(char *tst_name, struct timespec *now)
- 
- 	for (i = 0; i < 2; i++) {
- 		_gettime(CLOCK_MONOTONIC, &tst, i);
--		if (labs(tst.tv_sec - now->tv_sec) > 5)
--			return pr_fail("%s: unexpected value: %ld (%ld)\n",
--					tst_name, tst.tv_sec, now->tv_sec);
-+		if (llabs(tst.tv_sec - now->tv_sec) > 5)
-+			return pr_fail("%s: unexpected value: %lld (%lld)\n",
-+					tst_name, (long long)tst.tv_sec,
-+					(long long)now->tv_sec);
- 	}
- 	if (check_in_thread(tst_name, now))
- 		return 1;
-@@ -118,7 +120,8 @@ int main(int argc, char *argv[])
- 		char *cenv[] = {NULL};
- 
- 		/* Check for proper vvar offsets after execve. */
--		snprintf(now_str, sizeof(now_str), "%ld", now.tv_sec + OFFSET);
-+		snprintf(now_str, sizeof(now_str), "%lld",
-+			 (long long)now.tv_sec + OFFSET);
- 		execve("/proc/self/exe", cargv, cenv);
- 		pr_perror("execve");
- 		_exit(1);
--- 
-2.53.0
+   In file included from <command-line>:
+   include/linux/kvm_host.h: In function 'kvm_mem_attributes_generation.isra':
+>> include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_523' declared with attribute error: Need native word sized stores/loads for atomicity.
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |                                             ^
+   include/linux/compiler_types.h:683:25: note: in definition of macro '__compiletime_assert'
+     683 |                         prefix ## suffix();                             \
+         |                         ^~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/linux/compiler_types.h:705:9: note: in expansion of macro 'compiletime_assert'
+     705 |         compiletime_assert(__native_word(t),                            \
+         |         ^~~~~~~~~~~~~~~~~~
+   arch/x86/include/asm/barrier.h:69:9: note: in expansion of macro 'compiletime_assert_atomic_type'
+      69 |         compiletime_assert_atomic_type(*p);                             \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/asm-generic/barrier.h:176:29: note: in expansion of macro '__smp_load_acquire'
+     176 | #define smp_load_acquire(p) __smp_load_acquire(p)
+         |                             ^~~~~~~~~~~~~~~~~~
+   include/linux/kvm_host.h:2640:16: note: in expansion of macro 'smp_load_acquire'
+    2640 |         return smp_load_acquire(&kvm->mem_attrs.generation);
+         |                ^~~~~~~~~~~~~~~~
+--
+   In file included from <command-line>:
+   include/linux/kvm_host.h: In function 'kvm_mem_attributes_generation.isra':
+>> include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_523' declared with attribute error: Need native word sized stores/loads for atomicity.
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |                                             ^
+   include/linux/compiler_types.h:683:25: note: in definition of macro '__compiletime_assert'
+     683 |                         prefix ## suffix();                             \
+         |                         ^~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/linux/compiler_types.h:705:9: note: in expansion of macro 'compiletime_assert'
+     705 |         compiletime_assert(__native_word(t),                            \
+         |         ^~~~~~~~~~~~~~~~~~
+   arch/x86/include/asm/barrier.h:69:9: note: in expansion of macro 'compiletime_assert_atomic_type'
+      69 |         compiletime_assert_atomic_type(*p);                             \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/asm-generic/barrier.h:176:29: note: in expansion of macro '__smp_load_acquire'
+     176 | #define smp_load_acquire(p) __smp_load_acquire(p)
+         |                             ^~~~~~~~~~~~~~~~~~
+   include/linux/kvm_host.h:2640:16: note: in expansion of macro 'smp_load_acquire'
+    2640 |         return smp_load_acquire(&kvm->mem_attrs.generation);
+         |                ^~~~~~~~~~~~~~~~
+   In function 'kvm_vm_ioctl_set_mem_attributes',
+       inlined from 'kvm_vm_ioctl' at arch/x86/kvm/../../../virt/kvm/kvm_main.c:5624:7:
+   include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_804' declared with attribute error: BUILD_BUG_ON failed: sizeof(attrs->attributes) != sizeof(unsigned long)
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |                                             ^
+   include/linux/compiler_types.h:683:25: note: in definition of macro '__compiletime_assert'
+     683 |                         prefix ## suffix();                             \
+         |                         ^~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+      40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:51:9: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      51 |         BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
+         |         ^~~~~~~~~~~~~~~~
+   arch/x86/kvm/../../../virt/kvm/kvm_main.c:2795:9: note: in expansion of macro 'BUILD_BUG_ON'
+    2795 |         BUILD_BUG_ON(sizeof(attrs->attributes) != sizeof(unsigned long));
+         |         ^~~~~~~~~~~~
 
+
+vim +/__compiletime_assert_523 +702 include/linux/compiler_types.h
+
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  688  
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  689  #define _compiletime_assert(condition, msg, prefix, suffix) \
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  690  	__compiletime_assert(condition, msg, prefix, suffix)
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  691  
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  692  /**
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  693   * compiletime_assert - break build and emit msg if condition is false
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  694   * @condition: a compile-time constant condition to check
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  695   * @msg:       a message to emit if condition is false
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  696   *
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  697   * In tradition of POSIX assert, this macro will break the build if the
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  698   * supplied condition is *false*, emitting the supplied error message if the
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  699   * compiler has support to do so.
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  700   */
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  701  #define compiletime_assert(condition, msg) \
+eb5c2d4b45e3d2d Will Deacon 2020-07-21 @702  	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  703  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
