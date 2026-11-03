@@ -1,49 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695385;
-	b=paTS3MiUcSKbMQvbnxyQT8hQIdOBnwBZLO6YumnUf4xLI2OSgkwsbl6fvD/eaQ6XrCRb
-	 TRcWLOeJ7Yz3M4ezuJnyPxwEoOJI1GJ4MFC6RErW2XdVKY9s7NVHymAJEoAIRtrij3uad
-	 vcWhl2Y8DVFtyVmlBOVa5KvSZsICNuzQALJw17I5ifd7foeTi7Fn/uyOwQvVN/aNhEPmA
-	 hiA1ZoBCep+LBWXHyUIXBdAf56fkCLkF2+sTbO1xAaoygf1UPKc9u15jC86uNCAi8V8IF
-	 3IgAOxdLDBidsM253ohqrQM7KJroCR7OACTsl361qnMjIo9hitAweEFXinElCDJ3hRA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695385;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=R3G95yWaf+sWcTEm63d9FXQfK/5a79F3ruZBzma63A8=;
-	b=yEfq3wLnrsFPcsstQdLGCvWfu7+0eqpQFx4iQn0NRmRjn1Wd3/jJHYfZjlFQY0gOo633
-	 eob1HNRtMr2kpOoun7S8henqq5B7QTa4XvM0nV4mPEo7kFLqOcC6lnHOJP5nwviDsnAx4
-	 mJ6F9Q80K9I3ZigBs5VmNQv85bgdpeXgaGBF+eHVX9Y+Ur+OPl0y6+yit77M25FNSKOvE
-	 H9YvEhFVaqHPmIwIMKq3moV7sMPSZePzkskfQyGBFYQ9YyZA22ACOIVaZ+zUKMvxbK9Zj
-	 UzljZ2F7ve6RIVRzylLz2/WmPWXoxTz+uPijPcxObwIuo5EVg5V9dCpew1vgt4+m6Ug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=DXJPWLzn;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7AF5D606A95E;
-	Tue,  3 Nov 2026 08:43:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AF5D606A95E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793695393;
+	b=QaNufCSjygr1T3JlBTYM29Ry+ovmYAa95aO96SH2UGGaBON5m8TxTw4FgB5B3Elzi/DQ
+	 Iwo1p4Av3EqeX3v6Wz7EOGcen9l0ECcMyxJIf1bXQgGoY18L+vITfyRMisR7yh6s2U0xL
+	 R8pFnwMPbeolz8JW7FQAmrMQT02Wa4VvbtUfcsqFOm4TKU1jZjjZpWeVmG+YflQBcZGwy
+	 2En7ig229AcJ/EKoMw4jBW8xbasDT1vzC9WdLqf8Gnm4IUJTCTsWhBraWG0pi/xZghEJP
+	 XbOw+G3Md4kckwguf6GIfKb3Rf6D4Th+Lp+7PvdJViE8MCfxLi/uzNfehvEWGUpxAWA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695393;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=ldn8Uwg6bIM1pXx42AqleDz0qwEhH4Gry8sXUgnKs6o=;
+	b=pMl+7sI06B64irs8Yc/TqerIQaVoWRqZ34WPbKlnoZXd9PSD0e+HNmbrwJzEYG40kAlh
+	 3+GwKb4U/ul1OoozIDH/wSlQvIPNkiHEoqf36r7UnuhCzkmpighKMU4+dbzVCcW7+BF/x
+	 dT/sqIek68UYNkt2xbfY3C19BSrQvgndxp9Jwq310ARlXQVlH9kEs6zvTVU677v2BVloR
+	 dtFxCG/1eDqMclUuRlk0/RflkKHx892IVYtcJMEnOVN5b1Lmxf3UKmpNiRn83QLTU0T5F
+	 veVNkTDwJRavtXmrnKYbl3toEnGEPFXTkd5GmmKInWRhVEtOZ+UEVkE1Affb48b3HVQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Kck2UP0Q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A67C606A95E;
+	Tue,  3 Nov 2026 08:43:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A67C606A95E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=DXJPWLzn
-Received: from [10.95.64.190] (unknown [4.194.122.136])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 87A4A20B7166;
-	Tue,  3 Nov 2026 00:42:47 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 87A4A20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793695370;
-	bh=R3G95yWaf+sWcTEm63d9FXQfK/5a79F3ruZBzma63A8=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=DXJPWLznZPYVXr3OmPYzZcQG1HlwtFfSG+/+kJHkWVF9KBIh8nLsRrdttdQlAdfcM
-	 YrcqZmod/F1py7b2yxaEtICrqh3jba6UjP71iSIv/9FQqSK+oTSNUQxFDEQ9t6OZYs
-	 G7sLeIYyi2a4f6h1I1R58pUHBgc2+6FMl+Ko4pxk=
-Message-ID: <e7eacfc8-7bf1-4dde-b62a-607a490fdd06@linux.microsoft.com>
-Date: Tue, 3 Nov 2026 14:12:59 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Kck2UP0Q
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 55CC12008B9;
+	Tue, 03 Nov 2026 09:43:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793695389;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ldn8Uwg6bIM1pXx42AqleDz0qwEhH4Gry8sXUgnKs6o=;
+	b=Kck2UP0QjPeBD+dXF2Jmn193MsuLvVO7FP7b/g5B1P/ObxtBifpJ1sSRm/iCx7CWCcTWSa
+	Chj0vkDcub1MJUasXIOKI8WxN6XHQxizt+E7EYVY/prE07p4ssus50V66Shkso25DXjbhh
+	oRv5YG7DHRLO6SxI89M1HuTLIqv1ettxLwOPgWVErl0+tUNN1EZNrb0zwHaeqU+6aKLMTk
+	BHfKkWVUKYymQmAzNnKEVQ96xgOynrHWMFpjr1UFG/Emj1yjqJHlG8NJCV7CIQUyi3TCR1
+	quzEqgEM6PZzo914SEptmqvDvbdArVUBVSbdxjAB+pWaucQJH2eE34z9oshutA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793695389;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ldn8Uwg6bIM1pXx42AqleDz0qwEhH4Gry8sXUgnKs6o=;
+	b=I1cGpfUEClaIOygpZTETCF7+eSpVpI0odhnZdCCMV7ICqkMFP3EwolT8HNfF3vJgaxqdrO
+	RU2+uJnrwDZhXqlwkDDWQWQ2CsA6EDO+QGb1SnJ1kP9pD9+LRBHzREa871JjdpfPwCXujz
+	wkP4S1j+3TaOmpUp551r9pQQnC4s6ieuDO22dwGX4L1sEpQjBNC1QAr1nVZdJR36PgnTLO
+	z4roXxOUBWv2gkwV0kBtyy5ip26ypAr6yWHIxke/GKQvemVeIc0WmyaidTEqmiXjqL3ftk
+	yqr/xmdK/vtTjUwNerI7bilfphluj+9hhdUguq59f4uu0C+8PmCKVbXpjlfTmA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793695389; a=rsa-sha256;
+	cv=none;
+	b=Qd5lw6fGwGDLiZqtNAFsg+uAqFjyk16IKa0DeuAXRInKqEou/lGpsk3vz2dNlCscxLhaBv
+	1LXADaF9n98nvDDqLdG5BplF5gwozT+iVMXOuKnKXsCI1HJSdNL5BCOp+MX2ll04+FY9mV
+	tIiipahdAl7LmJTxmxQK9bXbnXonQ0pNjw2/o16hZzatjFPRE+l5acUnEWgT1EVua8K/mr
+	Yo3y41cBycH3mHA1DB7FHxOE2VYh+u1TlxhjsZK6OZKgp/A8uDOuBaepAmonTmd3uFmUv5
+	wRUssR/6V7EutLYmQ9SO/XmgIINcGFAUuCxAp/K4DDCkwnOFyl0JmZF44AMdMg==
+Message-ID: <81dcaef70174ea7746bbc5a31777770717c14357.camel@pengutronix.de>
+Subject: Re: [PATCH v5 2/3] usb: cdns3: Add CIX Sky1 glue driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Hongliang Yang =?UTF-8?Q?=28=E6=9D=A8=E5=AE=8F=E4=BA=AE=29?=	
+ <hongliang.yang@cixtech.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,  Peter Chen <peter.chen@kernel.org>, Pawel
+ Laszczak <pawell@cadence.com>, Roger Quadros <rogerq@kernel.org>,  Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>,  Gary Yang
+ =?UTF-8?Q?=28=E6=9D=A8=E6=96=B0=E4=BC=9F=29?=	 <Gary.Yang@cixtech.com>,
+ Fugang Duan =?UTF-8?Q?=28=E6=AE=B5=E5=AF=8C=E5=88=9A=29?=	
+ <fugang.duan@cixtech.com>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org"
+	 <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org"
+	 <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	 <linux-kernel@vger.kernel.org>, cix-kernel-upstream
+	 <cix-kernel-upstream@cixtech.com>
+Date: Tue, 03 Nov 2026 09:43:09 +0100
+In-Reply-To: <20261103074929.1971195-3-hongliang.yang@cixtech.com>
+References: <20261103074929.1971195-1-hongliang.yang@cixtech.com>
+	 <20261103074929.1971195-3-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,122 +105,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] Documentation: hyperv: Update docs for PCI pass-thru
- device support
-To: mhklinux@outlook.com, haiyangz@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, linux-kernel@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20261101022257.52819-1-mhklinux@outlook.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20261101022257.52819-1-mhklinux@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-
-
-On 11/1/2026 7:52 AM, Michael Kelley wrote:
-> Add a section to the documentation describing the IRQ domain and IRQ chip
-> hierarchy that is created for virtual PCI devices, including the
-> differences on x86 and arm64, and the reasons for those differences.
-> 
-> In the context of the IRQ domain and chip hierarchies, describe how the
-> CPU selected for effective affinity is spread across CPUs in the affinity
-> masks. Again, account for the differences in x86 and arm64.
-> 
-> Finally, rework existing text on how MSI messages are composed. Provide
-> an expanded section on the overall approach that Hyper-V takes to MSI
-> messages. The section provides more context on the handling of MSI messages
-> in the Hyper-V vPCI driver, and why it is structured the way it is.
-> 
-> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+On Di, 2026-11-03 at 07:49 +0000, Hongliang Yang (=E6=9D=A8=E5=AE=8F=E4=BA=
+=AE) wrote:
+> Add a glue layer driver for the Cadence USBSSP controller integrated
+> in the CIX Sky1 SoC. The driver manages the controller clocks,
+> resets, and the mode strap controls located in the Sky1 S5 system
+> controller. The per-controller glue registers, the AXI bus attribute
+> configuration register and the controller status register, are mapped
+> directly through the reg property of the glue node.
+>=20
+> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
 > ---
+> v4 -> v5:
+> - No changes.
+>  drivers/usb/cdns3/Kconfig      |  13 +
+>  drivers/usb/cdns3/Makefile     |   1 +
+>  drivers/usb/cdns3/cdnsp-sky1.c | 716 +++++++++++++++++++++++++++++++++
+>  drivers/usb/cdns3/cdnsp-sky1.h | 128 ++++++
+>  4 files changed, 858 insertions(+)
+>  create mode 100644 drivers/usb/cdns3/cdnsp-sky1.c
+>  create mode 100644 drivers/usb/cdns3/cdnsp-sky1.h
+>=20
+[...]
+> diff --git a/drivers/usb/cdns3/cdnsp-sky1.c b/drivers/usb/cdns3/cdnsp-sky=
+1.c
+> new file mode 100644
+> index 000000000000..1f7870289a35
+> --- /dev/null
+> +++ b/drivers/usb/cdns3/cdnsp-sky1.c
+> @@ -0,0 +1,716 @@
+[...]
+> +static int cdnsp_sky1_probe(struct platform_device *pdev)
+> +{
+[...]
+> +       data->reset =3D devm_reset_control_get_exclusive(&pdev->dev, "cor=
+e");
+> +       if (IS_ERR(data->reset)) {
+> +               ret =3D PTR_ERR(data->reset);
+> +               dev_err(dev, "get reset error:%d\n", ret);
+> +               return ret;
 
-<snip>
+		return dev_err_probe(dev, PTR_ERR(data->reset),
+"...");
 
-> +MSI Messages
-> +------------
-> +In a typical guest on KVM, the VMM traps guest writes to a vPCI
-> +device's MSI/MSI-X registers/tables. The guest writes a virutal
-> +message (with a guest APIC address and a guest vector), and VMM
-> +emulation translates the message to program the physical device and
-> +physical device interrupt remapping (IR) tables on the guest's
-> +behalf. The guest never sees or handles the host-level MSI message.
-> +
-> +Hyper-V takes a different approach in which MSI/MSI-X register or
-> +table writes are not trapped. The guest writes the device's MSI/MSI-X
-> +registers/tables directly with a host-valid MSI message. The physical
-> +IOMMU and its remapping table are still owned by the host, so the
-> +guest must ask the host for the proper message.
-> +
+> +       }
+> +       data->preset =3D devm_reset_control_get_exclusive(&pdev->dev, "ap=
+b");
+> +       if (IS_ERR(data->preset)) {
+> +               ret =3D PTR_ERR(data->preset);
+> +               dev_err(dev, "get reset error:%d\n", ret);
+> +               return ret;
 
-Could we distinguish MSI-X table writes from MSI configuration-space
-writes here?
+Same as above.
 
-pci_write_msg_msi() programs the MSI address/data through
-pci_write_config_*(), which goes through the Hyper-V config-space
-access mechanism. As described in the existing "PCI Device Setup"
-and "PCI config space access in a CoCo VM" sections, those accesses
-trap to Hyper-V in normal VMs, or use explicit hypercalls in CoCo VMs.
-
-The distinction seems to be that Hyper-V requires the guest to obtain
-a host-valid MSI message explicitly over VMBus, rather than relying
-on interception of guest MSI programming to establish the interrupt
-mapping. That is separate from whether the programming accesses
-themselves are trapped. We should probably make that distinction instead
-of saying that both MSI and MSI-X writes are untrapped?
-
-> +The "asking" is done by the .irq_compose_msi_msg function for the
-> +"Hyper-V PCIe MSI" chip, which is hv_compose_msi_msg(). The
-> +implementation requires sending a VMBus message to the Hyper-V host
-> +and awaiting an interrupt indicating receipt of a reply message.
-> +Since .irq_compose_msi_msg can be called with IRQ spin locks held, it
-> +doesn't work to do the normal sleep until awakened by the interrupt.
-> +Instead hv_compose_msi_msg() must send the VMBus message, and
-> +poll for the completion message. As further complexity, the vPCI
-> +device could be ejected/rescinded while the polling is in progress,
-> +so this scenario must be detected as well. See comments in the code
-> +regarding this very tricky area. A synchronous hypercall to get the
-> +MSI message would be a much nicer interface, but the code makes do
-> +with what's available.
-> +
-> +Once the host-valid MSI message is obtained, the guest must treat it
-> +as a black-box that the guest does not interpret or modify. The only
-> +valid guest action is to write it to the MSI/MSI-X registers/tables
-> +using the .irq_chip_write_msi_msg function on the HV-PCI-MSIX-<PCIaddr>
-> +chip. That function is pci_msi_domain_write_msg(), which calls
-> +__pci_write_msi_msg().
-> +
-> +If the affinity of an IRQ changes, the steps must be
-> +repeated. A new host-valid MSI message is requested via the
-> +.irq_compose_msi_msg function and that message is written
-> +to the MSI/MSI-X registers using the .irq_chip_write_msi_msg
-> +function.
-
-I don't think ordinary affinity changes require a new MSI message,
-including with the companion arm64 spreading patch applied.
-
-hv_pcie_init_dev_msi_info() installs irq_chip_set_affinity_parent
-instead of the generic compose-and-write affinity handler.
-
-On arm64, the new hv_pci_arm64_set_affinity() selects a CPU and passes
-a single-CPU mask to the parent. gic_set_affinity() then updates the
-SPI's GICD_IROUTER and effective affinity, without recomposing or
-rewriting the device's MSI message.
-
-Similarly, on x86, the new CPU/vector is communicated through the
-Hyper-V unmask/retarget path using the existing MSI descriptor.
-
-Could this paragraph describe updating the routing of the existing
-message, rather than obtaining and programming a new one?
-
-Regards,
-Naman
-
-> +
->   DMA
->   ---
->   By default, Hyper-V pins all guest VM memory in the host
-
+regards
+Philipp
