@@ -1,113 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721118;
-	b=1Ph9uinZRH+s5r8fSf9cFGjhKCc6hZ89Bfd6q5tu44jBIaK3f7jULOJb71c5khPtGT1v
-	 octufFUHdAWOIM0g1OIPAn35nC7o/D75lgUVpWQJv68f3Ib2PNEmri1LK6yMXM8YWZ6n6
-	 sT0ISvxx+44cebuFBOvA5VdoXXBZLgFtnW7wNr1A2NnJXXOdUk/S4RKGj8gsVsFgPMs2f
-	 fZ/UcP1IIrFZSZ7tGD4BA1KeT0QGYefJnShkgsfeTk5YDEQGVq2LmYCUJjmx/X+qHK5QG
-	 WdJw9ZYi0FTC5w8UbLjZ/qrc8sv7FDjhwmnuD1r2nDDIUaZaz1ongZ81rwT2T+iesig==
+	t=1793721148;
+	b=XAaIxdUExBQFkQz6kwXc96j7R/Dw1cYEk+Dkv4D4bbFV++F6RmIaGikb1barDxpLQkke
+	 vsMqA6M3rSG9V5qsFjUlL05AW7RGT4YF5m40sc8JWB3ZQ+3nlXsafEuaZ+JilNxgmuwNq
+	 4CnozzQzEw9vOeyotgeKtW/CpUvYwqHbELHf9ZuIPhTyVWUUd6aRSW5ZTv9aYZ5giCjmN
+	 7g/YzWi5HD4HKBLtLmA3XFnt+y5GAiS8Fym1iKnt7q5VxtWIkzeTG1UjJXRnhTKwwKEJz
+	 rwoMIRKfrXSBYXAd2Xy2lUYZO8CZUKQKPCtxgAARfTLXCtnGAat9ZhFb7ZNE0z1L1NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721118;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=H71gfqYcryivhuQjqCzDbHCn1oc9iWNIE78g3IqBiAE=;
-	b=Aoi3dP+82RP1JekQgTyH6L+XIIlpc8oxlCRTmDO/q230mcP7ymW5j/EacNg38Sgx2fRQ
-	 49XghBaEFybefVs7gN3p79vndVQOJUXuu8BVpecg/nwk7ev4XcYwtCZEdydoAhRx63VCp
-	 uiOl96eWSUu/djB63QfD2cGEH0fjVOirnOgSHTJhbABeRuBOuK4smfbCEYfe5gSloH3++
-	 b+gudkYKBnbbO/+rOQEMcNv8PuhUlQgdvO/xYPUILdlKdrpC6pL+h4lZKPCC9H+vn5Kow
-	 OdfzyAukq4Hf1bwaqFJBQmXXZugN3Al4TRDndYUfG0pbWH7zKhrDB9bMV1F/XhYx3QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721148;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
+	 X-SA-Exim-Mail-From:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
+	 Subject:X-SA-Exim-Version:X-SA-Exim-Scanned;
+	bh=sapGo8wuSlP/+yPQLJLtIVkX7Rv6VkLDT+Njt79RXUU=;
+	b=xMqqmZmEguFj6UDy5rgetHdAxGoLtRpovb/eCelTCIDEFSklL7BvNGK4dKU/KmYkJ606
+	 mjXczEBoE5i5j5ynVd+QUqMdes7LJTgHkZxUS3g3uvFXdWCk7Nqy2BJIJzRQl6Hddy+hY
+	 /pjKMo2g0Qqe7+oLoG/qdWHOIvh80mH1Kwuk/toYKPTaRRCU8YgF1vkK/PwCXVpagmAhj
+	 eHwrvbZyD21OttXchJUtdyLIZrIFuwxRl+8mH4UDlXxD727DBTn0qSLnLMt6I+JGxZVKM
+	 5C0pEGJ+YlWmU7AJIcHPWTo51pqSj6oNj1281j8tGCOkfVbby5XJNo+GoxgZ3idIDtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ey4MhMEh;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=deltatee.com;
+	spf=pass smtp.mailfrom=deltatee.com;
+	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=C8LOc9Po;
+	arc=none smtp.remote-ip=204.191.154.188
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C01606D80A
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:51:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C01606D80A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4232606A32E;
+	Tue,  3 Nov 2026 15:52:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4232606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ey4MhMEh
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48bbb06e746so2167821f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:51:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793721117; x=1794325917; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H71gfqYcryivhuQjqCzDbHCn1oc9iWNIE78g3IqBiAE=;
-        b=ey4MhMEhJLG/7pgDAb5MNxYJcWkTt1QNfCLrq0lK2KbFrJtWdKv/V8mEbZF3qp3VOd
-         NPMpv84Eg3N8AkZtgIQlP0j9Q8pfs73XXnrEfl6ZrwPBJxS1LsjEID/65NeTfbD4Pqon
-         T1t1B6gZZZWEjrwuX+kdPRBUzo2q6uNaTBQrHkTB6ElumWDrcc9hnXCRksOsRAk4AfPk
-         A46w/8qmvUnZ2eGBYwxZYOhpkeuaElMkA9ravstpAz4qayu3hzxE/xf/7kr0sIKwLkG5
-         bqQEuKAHPKI1xx7cWbzbXMDL79fwhGMV9yKnXGM32Lrt1YzE622UJiKSBh8PAaetVksZ
-         mRIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793721117; x=1794325917;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H71gfqYcryivhuQjqCzDbHCn1oc9iWNIE78g3IqBiAE=;
-        b=JnacCduOkB3WCos23S2wyWT13/6h2XkHy4aW26cae/EiViWF0paWcUUFH37cANMKaF
-         o56BApvtKl4VPpvIQZpWOYrvcX8NbLc1dnyQFyQ/JHoLNseu5XRJSqk+9sk8YcqazYBj
-         hqrqMuTK1pEPLtUmRGXAIB3tPHIH3xpdJzx/VxRvDp8J9o4ZE3Fp7RarRO/hYTrx4zAK
-         wTVq8ZHBmR6tJB86O5DqvOENFsEXqs+dzeWU+bYVoPDo/W4HxzaiHGpBa04U1qI5+6U3
-         MYjrdjKAb5URy63wLzlDPo/rybZSjOu6CyzV+6Iiy2An1NMvluboVX0mCdlZy6VSU739
-         CNsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwbFGfioOeXUdLH/zkG/F8a+Vo0BrQlhNVOKxX8ol6+MWAleMTfLpdxK56LmdJMuKbPLNyhWjVIaI6XZ4M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Btp6A0lDiOXbQksEiIp5hZBpsV2dGY2+bW10lMSa9G7s4mUaB
-	wKEOxPA6LidGNQqgLWLlIM54KTpRPOoJqgn0SMSRZQvCFDJ4ch+e2C+u
-X-Gm-Gg: AYBFou34rtvmdZ3UgZ3jxh9SXCYjtAm7gnCZDYAdKBBqIUbx5yg6bBDiXpDsMouwKMx
-	oRHj3Hra6VwFNOFluu6LMJCkqe1hK/mmeMSbqpw1Ix8q7fHHsYz9wRGDNO/WG6+nGLOu2+2g31n
-	hEJZbxIRLexnC9oTxHoe0iJuirz8Pd1uA8G+ad250xoViAj/smLuOZ7xB2qZTF7QbQeNApm/7h7
-	Am4rFOmOGUkzmCMAPrOzT3HrZb/cKp2yNtTgRUA8hHFxfekBS01/smLCp9dCoU33n2C79Uu3chF
-	+hKEEo8mC4gCzl37uC3sGLRkfgT+wOabHShSev74/4lMT5PsoAP3I0T+wl4FhKUDk12mWmGtM8L
-	2Ys/p2y7vUDyuBnezNpqDdi3VCPs1JMCJpA7NSmhcyhKcLtk7JlNU3+eeqpzKYD2mTdRCrQQ1Yt
-	Ss9LcoxkuVDThSl7DyaFNIWOz9za0MkNpV4St0+Fnmk1zYmEPNwuyK6JoJDjTXHwtnDuXqu1Gfh
-	RRDUVx0WJEcnaF50POqWq94G6Tef5/c+UHwS5LN39ssZLqIyG2EdPpahyJ1m+rY1qDzTdliKj0R
-	qv3LCJvZHWOPs6ZQGWojAF710wmq/A7Q9X3dFciu497vCK8DlZ777xl7pR6cN96GdXgRUZ9X3e1
-	+8C2KvbtxRf1IXSvgx1tPeWkYmtigxdujr4NwSEOATi0gBjVhYReN
-X-Received: by 2002:a5d:4d82:0:b0:48b:a21:87f7 with SMTP id ffacd0b85a97d-48e6e4f4ff5mr23255855f8f.44.1793721116508;
-        Tue, 03 Nov 2026 07:51:56 -0800 (PST)
-Received: from Lord-Beerus.station ([93.66.71.207])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b964desm25680750f8f.46.2026.11.03.07.51.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 07:51:55 -0800 (PST)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=C8LOc9Po
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:MIME-Version:References:In-Reply-To:
+	Message-ID:Date:Cc:To:From:content-disposition;
+	bh=sapGo8wuSlP/+yPQLJLtIVkX7Rv6VkLDT+Njt79RXUU=; b=C8LOc9Po9beKjiXbxVWePUddN/
+	cVeUxwkURG0OFXnKXo26HJtXy07jEdoqxaHw/oICIVmH5p8LtpW1YniDwv89EYv1ieFRWaYZ+XG+n
+	VNh02GCbE5g3atqqbnhpMBGH5JVLOMYgLL0utJlDYilbsvjNANlZazocB8tSAfqIqSX6DOw34sBw8
+	xDCA2S6SQGH/7PacbYLAuATplSySjMAEcPZ2Ob6r55V0ArI80mFRIGyyHYzqybuNi2HRbCveGiZJw
+	Z0bG10fYqqtBGoSczASzniYK7FgsRTyTW+KxkdPjAyTBqC2ksuqsLRVku+eThKk4rqYOcpKBzMf8G
+	0N4HdsYA==;
+Received: from donard.priv.deltatee.com ([172.16.1.31])
+	by ale.deltatee.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1xOGoD-000000091Qs-44uu;
+	Tue, 03 Nov 2026 09:52:26 -0600
+Received: from logang by donard.priv.deltatee.com with local (Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1xOGns-00000001w7b-0oRi;
+	Tue, 03 Nov 2026 09:52:04 -0600
+From: Logan Gunthorpe <logang@deltatee.com>
+To: dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Cc: luan.r@variscite.com,
-	alifer.m@variscite.com,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peng Fan <peng.fan@nxp.com>,
-	Shitalkumar Gandhi <shital.gandhi45@gmail.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Johan Hovold <johan@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Fugang Duan <fugang.duan@nxp.com>
-Subject: [PATCH v1 2/3] serial: core: Allow drivers to enable TTY wakeup at registration
-Date: Tue,  3 Nov 2026 16:51:26 +0100
-Message-ID: <b73bdbabd8d8fba2a2ff5d8576261bda6d8b0b5c.1793719239.git.stefano.r@variscite.com>
+	Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.li@nxp.com>,
+	Logan Gunthorpe <logang@deltatee.com>
+Date: Tue,  3 Nov 2026 09:51:56 -0600
+Message-ID: <20261103155202.461725-2-logang@deltatee.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1793719239.git.stefano.r@variscite.com>
-References: <cover.1793719239.git.stefano.r@variscite.com>
+In-Reply-To: <20261103155202.461725-1-logang@deltatee.com>
+References: <20261103155202.461725-1-logang@deltatee.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,68 +75,102 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 172.16.1.31
+X-SA-Exim-Rcpt-To: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, vkoul@kernel.org, Frank.li@nxp.com, logang@deltatee.com
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: [PATCH 1/6] dmaengine: plx_dma: don't call pci_irq_vector() under rcu_read_lock()
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+plx_dma_free_chan_resources() calls pci_irq_vector() inside an RCU
+read-side section, but msi_domain_get_virq() takes the mutex that
+protects the device's MSI descriptors. Releasing a channel, for example
+at the end of a dmatest run, triggers:
 
-The serial core marks registered TTY devices as wakeup capable but leaves
-wakeup disabled. Drivers whose suspend path checks the TTY wakeup policy
-cannot enable that policy by initializing wakeup on the physical parent.
+  BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
+  ...
+  RCU nest depth: 1, expected: 0
+  Call Trace:
+   __mutex_lock+0x113/0x2350
+   msi_domain_get_virq+0x227/0x2f0
+   pci_irq_vector+0x9a/0xc0
+   plx_dma_free_chan_resources+0x178/0x58f [plx_dma]
+   dma_chan_put+0x157/0x380
+   dma_release_channel+0xac/0x2e0
 
-Add tty_wakeup_default to struct uart_port so a driver can request that
-the core enable wakeup when registering its TTY device. The field only
-sets the initial policy; userspace can still change power/wakeup.
+Store the IRQ number at probe time and use it everywhere
+pci_irq_vector() was called, so the teardown path no longer needs to
+look it up.
 
-Apply the setting only to the matching TTY device, leaving serdev wakeup
-policy unchanged. Drivers that do not set the field retain the existing
-default. Warn if enabling wakeup fails without preventing port use.
-
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+Fixes: c2dbcaa8c672 ("dmaengine: plx-dma: Implement hardware initialization and cleanup")
+Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
 ---
- drivers/tty/serial/serial_core.c | 8 ++++++++
- include/linux/serial_core.h      | 1 +
- 2 files changed, 9 insertions(+)
+ drivers/dma/plx_dma.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index c0deec0e6af4..aa18d0820060 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -3121,9 +3121,11 @@ static const struct attribute_group tty_dev_attr_group = {
-  */
- static int serial_core_add_one_port(struct uart_driver *drv, struct uart_port *uport)
+diff --git a/drivers/dma/plx_dma.c b/drivers/dma/plx_dma.c
+index 409898e92c32..0a7ad2473cb1 100644
+--- a/drivers/dma/plx_dma.c
++++ b/drivers/dma/plx_dma.c
+@@ -104,6 +104,7 @@ struct plx_dma_dev {
+ 	struct dma_device dma_dev;
+ 	struct dma_chan dma_chan;
+ 	struct pci_dev __rcu *pdev;
++	int irq;
+ 	void __iomem *bar;
+ 	struct tasklet_struct desc_task;
+ 
+@@ -452,7 +453,6 @@ static void plx_dma_free_chan_resources(struct dma_chan *chan)
  {
-+	struct uart_match match = { uport, drv };
- 	struct uart_state *state;
- 	struct tty_port *port;
- 	struct device *tty_dev;
-+	int ret;
+ 	struct plx_dma_dev *plxdev = chan_to_plx_dma_dev(chan);
+ 	size_t ring_sz = PLX_DMA_RING_COUNT * sizeof(*plxdev->hw_ring);
+-	struct pci_dev *pdev;
+ 	int irq = -1;
+ 	int i;
  
- 	if (uport->line >= drv->nr)
- 		return -EINVAL;
-@@ -3196,6 +3198,12 @@ static int serial_core_add_one_port(struct uart_driver *drv, struct uart_port *u
- 			uport->tty_groups);
- 	if (!IS_ERR(tty_dev)) {
- 		device_set_wakeup_capable(tty_dev, 1);
-+		/* Serdev clients manage their own wakeup policy. */
-+		if (uport->tty_wakeup_default && serial_match_port(tty_dev, &match)) {
-+			ret = device_set_wakeup_enable(tty_dev, true);
-+			if (ret)
-+				dev_warn(tty_dev, "Failed to enable wakeup: %d\n", ret);
-+		}
- 	} else {
- 		uport->flags |= UPF_DEAD;
- 		dev_err(uport->dev, "Cannot register tty device on line %u\n",
-diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
-index 4eeb8253752a..d5a0666d782f 100644
---- a/include/linux/serial_core.h
-+++ b/include/linux/serial_core.h
-@@ -573,6 +573,7 @@ struct uart_port {
+@@ -463,9 +463,8 @@ static void plx_dma_free_chan_resources(struct dma_chan *chan)
+ 	plx_dma_stop(plxdev);
  
- 	bool			hw_stopped;		/* sw-assisted CTS flow state */
- 	bool			cons_flow;		/* user specified console flow control */
-+	bool			tty_wakeup_default;	/* Enable TTY wakeup at registration */
- 	unsigned int		mctrl;			/* current modem ctrl settings */
- 	unsigned int		frame_time;		/* frame timing in ns */
- 	unsigned int		type;			/* port type */
+ 	rcu_read_lock();
+-	pdev = rcu_dereference(plxdev->pdev);
+-	if (pdev)
+-		irq = pci_irq_vector(pdev, 0);
++	if (rcu_dereference(plxdev->pdev))
++		irq = plxdev->irq;
+ 	rcu_read_unlock();
+ 
+ 	if (irq > 0)
+@@ -510,8 +509,9 @@ static int plx_dma_create(struct pci_dev *pdev)
+ 	RCU_INIT_POINTER(plxdev->pdev, pdev);
+ 	plxdev->bar = pcim_iomap_table(pdev)[0];
+ 
+-	rc = request_irq(pci_irq_vector(pdev, 0), plx_dma_isr, 0,
+-			 KBUILD_MODNAME, plxdev);
++	plxdev->irq = pci_irq_vector(pdev, 0);
++
++	rc = request_irq(plxdev->irq, plx_dma_isr, 0, KBUILD_MODNAME, plxdev);
+ 	if (rc)
+ 		goto free_plx;
+ 
+@@ -545,7 +545,7 @@ static int plx_dma_create(struct pci_dev *pdev)
+ 
+ put_device:
+ 	put_device(&pdev->dev);
+-	free_irq(pci_irq_vector(pdev, 0),  plxdev);
++	free_irq(plxdev->irq, plxdev);
+ free_plx:
+ 	kfree(plxdev);
+ 
+@@ -594,7 +594,7 @@ static void plx_dma_remove(struct pci_dev *pdev)
+ {
+ 	struct plx_dma_dev *plxdev = pci_get_drvdata(pdev);
+ 
+-	free_irq(pci_irq_vector(pdev, 0),  plxdev);
++	free_irq(plxdev->irq, plxdev);
+ 
+ 	rcu_assign_pointer(plxdev->pdev, NULL);
+ 	synchronize_rcu();
 -- 
 2.47.3
 
