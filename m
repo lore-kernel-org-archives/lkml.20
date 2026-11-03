@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721309;
-	b=BamjSip+7+RS4b7D78bxcHD34JsxMV9efVHsE9QzOJSD5zpCLThuIOaJxTvIdxkjTKp7
-	 DlQj2JZH6u2h5nE27+47vWN1GVzS/+NEIziYUd7XEDr/Fz3zlZXO6BhwUU8HzRxdisOsY
-	 BEb+coEowybvzS43Bfv97JSeh1u7zlxYXRLQQnV3Kr0kjI8TYNIIaY2DXEGvE4QNW2y3b
-	 EZlhpsKQbayWTV4HK0RVC4aT9pEj9CVSgS6aShH5MNq+iezq++yiUnukzc9VGAfivw0tz
-	 XNui7OHtOWji1GihfyKpknebYLqmGFXpgEDXvz56blaYd7eAE2OyvChtv2tfhOawJ9g==
+	t=1793721299;
+	b=dD/4sCg8lgv2EP6DvQ/B+aU6EkQN1feCZxXv3HxSY6LFVD5Lttb932kDEwnmmIaXzm8O
+	 6SSWD46OfeAe/1cHHUcrIM+blNz2l7dM9zunyp+jgzR3AzfFqE4ReFAk98J3qZQ+Y66wD
+	 o0WjlM1/t1oCHn6UPRsGL4zn+WHxhoaJSVML9Ar4iXkaBM5CNZ/UFvgJ6cCFEtEt/wTuP
+	 SH2nmn36kn00RLLRTif21Fa/Y2SKmpn3KgAiWtSdJHPDeE6dxgFch7eS1xVIe2KyCPm6c
+	 JTJefeIL2BsAvdyExzCf+uiiPVMsebfGPIEuW3oJg0bddeKFhZPjWQuAOD4iWKnskNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721299;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=yaC7RemHrCY0ZTmPbLRW/qDx17GtrNAPuzVu4bchE2s=;
-	b=yAcHH5N8SvjDFxpvfjaLahOIOgrP5xWPTliUe/vCn3HIagex08nQtutDiTes9Ifl+LhB
-	 xE+8t1K5+T9m9ADSE5zPjOWDpoAFFyQRBldgtZ7ry8Ayoi7XPlA77E5/maIrZbZd+ncdQ
-	 SNZQJqqJ5kpDyZZeplKIUScFYGn/INp/MofNi0rQSh3T6js95px7/JgxhkMO7R/PAO+Vd
-	 d1k1+3AUmrFpGmYUjRT5HrNQtG7a4VjNOTs7HZ8dclqe9Z4igLXFAtjU5WuE5ZpFxj6sO
-	 Ub1tVZ6EsregjaScTk5djkaoNQzhGN1Y9Q3h09nHzjn/XOwAPqWsRboHHnQuk5yWgzQ==
+	bh=O/jUknsydqahcxESJ7eAS0pyf88Dhlfftx821T6uSIU=;
+	b=CDamAV2aL03W9zkW/p7mVmD4LKrSAHGkFTuyyT/gwXW3kFSa76XtdbUJbh7HmEMbFCWn
+	 kubFm5xQe4abRV7azhXBDRty0RcM/VUHLRcuA9ZF54HLo2HllhyEr6xSNHWkm/WUDwql6
+	 9DQrUruh3e6d0K0auqExbxbTPB81YSV6dj5CSZSf62ropR/ISy6GDFZ1U8cFbeeNYbt99
+	 GzJTXNnJcXY3VFEBRk/z07sjFfM9ZHnT9OPBBrfWfwhgWWTas3PyQUb4u+KQ6spY2e7Ju
+	 uJbw8CCLbDlEhbasuWgGV2vsmSvmwWuGDFxcH8T+ShEMTs0MNK14Y96YKl/NxnIj/FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLXgIEv2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhJtAzid;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12F9606EEB6;
-	Tue,  3 Nov 2026 15:55:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20633606A33B;
+	Tue,  3 Nov 2026 15:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLXgIEv2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028791F00A28;
-	Tue,  3 Nov 2026 15:55:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhJtAzid
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E061F00A1B;
+	Tue,  3 Nov 2026 15:54:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793721308;
-	bh=yaC7RemHrCY0ZTmPbLRW/qDx17GtrNAPuzVu4bchE2s=;
+	s=k20260515; t=1793721298;
+	bh=O/jUknsydqahcxESJ7eAS0pyf88Dhlfftx821T6uSIU=;
 	h=From:To:Cc:Subject:Date;
-	b=hLXgIEv20wc45g5EP92/nbkUmcT8jSo/ey6cPa3pZL6+CRTUSwhTO3h+5/Jn2y3np
-	 AAxaBZXOgQ8M9HZzxQlw6kZlQMep09bYP3TA2dE8micrX78ffs+6OXswRW3A0SDOwh
-	 viU2bTDftxu5pJhWYV0iCTIaKRN778XFwJBGE2UHjs5Jz6Pch0qgzbhzlT1QsyxOTq
-	 /62GxXwMEMN4HC2ZXzruD4sLfM7JWvKnAqYPQlxwHQb1TdOl+oNQI1FA3YbVsJgOIh
-	 kz0z9Xo8+nhJe4hmWx7rRG7U+wB67m9UN12Vk0w0jcxNuKjPg3PjjtWwB57NYAA7GW
-	 ItouEshxcpb5w==
+	b=LhJtAzido5Pe5ihl8fxiEg46QKwuK908HCgwtjhnQbkDmIasZz64TkoKMXKOZc7Vn
+	 MVAK++JAzdBxFurU4SuzXMoPjb9T+tnjcwydP4JYn8gbc69NPI1RdCuf7r/ZWs0uHz
+	 XgsX9OZ31Z9J8E4ALLsUXmWaMIrkTBw63xoiL3gA4PveJp8SP/JSsJF7uQEqzXVQfb
+	 5UbMarVD9TOZumQt1rzIjkXEIRQYEjGf9mhjRddlNz2LB6wR1eOkek+74kdrmQ6m6d
+	 mftcY3B6zoyRkEQQzZ8WV5wcEmkIhUlzrCAC54SoU1wuHtc7Lfdti+mr8bAEIGhTYi
+	 EY9wt+vkIKuzQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Geliang Tang <geliang@kernel.org>,
-	Simon Horman <horms@kernel.org>,
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Tejun Heo <tj@kernel.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>,
 	Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org,
-	mptcp@lists.linux.dev,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests: mptcp: pm_nl_ctl: print sizeof() with %zu
-Date: Tue,  3 Nov 2026 10:55:06 -0500
-Message-ID: <20261103155506.534973-1-sashal@kernel.org>
+Subject: [PATCH] selftests/cgroup: read and write size_t with %zu in test_zswap
+Date: Tue,  3 Nov 2026 10:54:56 -0500
+Message-ID: <20261103155456.534684-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,10 +66,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 32-bit architectures size_t is an unsigned int, and printing
-sizeof(struct nlmsgerr) with %ld warns:
+On 32-bit architectures size_t is an unsigned int, and reading and
+writing it with %ld warns:
 
-  pm_nl_ctl.c:73:71: warning: format '%ld' expects argument of type 'long int', but argument 5 has type 'unsigned int' [-Wformat=]
+  test_zswap.c:34:29: warning: format '%ld' expects argument of type 'long int *', but argument 3 has type 'size_t *' {aka 'unsigned int *'} [-Wformat=]
 
 Use %zu.
 
@@ -84,22 +82,31 @@ build without format warnings there now, and the x86_64 builds don't
 change. The other selftests get the same kind of fix in separate
 patches.
 
- tools/testing/selftests/net/mptcp/pm_nl_ctl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/cgroup/test_zswap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/net/mptcp/pm_nl_ctl.c b/tools/testing/selftests/net/mptcp/pm_nl_ctl.c
-index 78180da1efcc5..36a6d39b31bbf 100644
---- a/tools/testing/selftests/net/mptcp/pm_nl_ctl.c
-+++ b/tools/testing/selftests/net/mptcp/pm_nl_ctl.c
-@@ -70,7 +70,7 @@ static int nl_error(struct nlmsghdr *nh)
- 	uint32_t off;
- 
- 	if (len < sizeof(struct nlmsgerr)) {
--		error(1, 0, "netlink error message truncated %d min %ld", len,
-+		error(1, 0, "netlink error message truncated %d min %zu", len,
- 		      sizeof(struct nlmsgerr));
+diff --git a/tools/testing/selftests/cgroup/test_zswap.c b/tools/testing/selftests/cgroup/test_zswap.c
+index d50acc1b83ac8..9b5769b417410 100644
+--- a/tools/testing/selftests/cgroup/test_zswap.c
++++ b/tools/testing/selftests/cgroup/test_zswap.c
+@@ -31,7 +31,7 @@ static int read_int(const char *path, size_t *value)
+ 	file = fopen(path, "r");
+ 	if (!file)
  		return -1;
- 	}
+-	if (fscanf(file, "%ld", value) != 1)
++	if (fscanf(file, "%zu", value) != 1)
+ 		ret = -1;
+ 	fclose(file);
+ 	return ret;
+@@ -45,7 +45,7 @@ static int set_min_free_kb(size_t value)
+ 	file = fopen("/proc/sys/vm/min_free_kbytes", "w");
+ 	if (!file)
+ 		return -1;
+-	ret = fprintf(file, "%ld\n", value);
++	ret = fprintf(file, "%zu\n", value);
+ 	fclose(file);
+ 	return ret;
+ }
 -- 
 2.53.0
 
