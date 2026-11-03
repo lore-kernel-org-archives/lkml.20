@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793726469;
-	b=Bae3aQUpdHPPixfuSIE6Qivzt/IdMGY/7iXHiYi1gXdST0g0Bun1tvnILFBXOesdLiAV
-	 mM4xYbrzzZTehj/YE1Y4yPwuQzugRC3nyfFxiBpM8Ej0uyFR/Vxjxr5drC4Risxt9rjMp
-	 52VDr7vDEjquwgTVo+lNIGtAo/UlC0N7F1MeY/rWjNFOZFYPdp8Nt0OY6PSbRnh/vsFjj
-	 PUNQDg7x51qE/msEJmZetHuYlvfptDbXVuvwxuupTYsZe7BTXsXoXl4kZXR/RWwiKkCXV
-	 vq2D6tJEjV6ofSUj6Nsm2vL+L7hT5x+FlRRBPyIRawnPmjP1JTLdyIbTw0vLy10meJQ==
+	t=1793726470;
+	b=Z42/RuWiXw4kQ/vQFC8aorg9m0uFBF00BwNV2QGzb+UVtX0bdqXEPau2HbMiengN53dF
+	 VqMUNeV41bh/TP/pxcS9acxijT4o/b4eLgnjD5/U+qCrr6J54UN4vOBP4jAtXYp26S4Qt
+	 X+hrVmUCFsDO6YoFd9u6ewu1z4C/VildQw4FkBlhT2yFePx1HfQMSP0nBKABDjWttXCFQ
+	 iKWoWg3ReX7z8uGJZBV0u6MBUVNScWM31sm+RaTKuNhRYLWHyh/2HvuDAcf779vLAELnB
+	 +sDHRdZkAEypg6Pdug8EaR3xwnYBBPFns6mLSXTiHJAPMOYfyctXJczQ6s8MqE+j4Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793726469;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793726470;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YRJWMzSGYlnaqtlrj8LCuixaQN8tH2t79cuf24+aN+Y=;
-	b=HUTEOzquVad+sh8Ud2S6sS+2Z5oiW+8pkIm8Kp78lnRvp8qReoB2mXXKN8rRDW0R+Nwk
-	 8iG3402E1r62yuOLx7jYfaeSYBFBjviPnCycH6MaXECJaYOnbwTC9rBHYMiFUBgUTmMEl
-	 eEHCtYlW+k6Y6wazjm1xALhQR0SRMjyfLgqzz2NkasuMAD4SJuBg013jE4dtdt9H2bKje
-	 kF4YZmVL2kpG34waPJ64ajDE35CRYC0DoF25TJZIUNLYG+r9Ma7XLmiPbwYLQ/I0873kz
-	 4Ir6KsuJqoB53dVFbmVsPPoxajOE8Z5uZhYY5dXPJW6tcgP7CF3xOjPyp2voSGwpi3A==
+	bh=roOiO3ldaNsjLxe0CYehd5v8rGn8f4LGIVU12eUR/M4=;
+	b=ebmRwaLRE4UZX6z7WOzpxsA21cynUYMejBWnOpUhF5cK4ykvwlApyJECAvgdBuxDqGRi
+	 1iMt/xtbeFTkPxW1Klj4NrtsYuNF6omB30EhUf4MkkuN9TZ4C3jXInfMJAzEve3J7CoAd
+	 g32SYyHQQjaAYfKwE/vbtppOcP+eJfi9V3x6qvTxN5YTu9WH6ePxQ+1pPiJROpDLrmHci
+	 V03eguszk6B2WiBPnBUk1FOytGOHon2rAPOtvInSKD7I9/8WiKqR2IlAgI65b7TLQa55d
+	 eUhlVVXLS0NyDIYPXtnNUitiPG38AeSNMP8UNxd/68WO0B34bqHlYEuoi1D70i2lg3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jwkYJ8wl;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TpUukxdp;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA89606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2270F606D80D
 	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:21:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FA89606A339
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2270F606D80D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jwkYJ8wl
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso29926025e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:21:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TpUukxdp
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so29816835e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:21:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793726467; x=1794331267; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793726468; x=1794331268; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YRJWMzSGYlnaqtlrj8LCuixaQN8tH2t79cuf24+aN+Y=;
-        b=jwkYJ8wlDlYG9o84FOcTQ4NQ6oscx4Dvo00D+pCChoyTRAs00KWzFbG2mOBrxhs/03
-         Gi297RrQ0KqFikF1nw53tV8us5skacalWaeRqECCNbGXoghnnkfEKnmK+JcX9MD2zEZf
-         pP9wc77uY2MWeq+bWpaWuBSBxur/6kuCrkcjkC3n56b3Ghscr7yhwxep0R/zQ3PfITPi
-         F8n/qq3F7B2hjNENhCzxM/dj70w63pyJJYZ0Yf0RU2DEzxgRmkLP5NFDhLd/+VDJwHbK
-         2ykswclurcheodT/plINbakI3TsEN5Z/kyyCZSBw+A6LOpKFNZsL9BXrSWUPoTBNjJbp
-         tulg==
+        bh=roOiO3ldaNsjLxe0CYehd5v8rGn8f4LGIVU12eUR/M4=;
+        b=TpUukxdpYG9assmBfrFi6axTBVe0+dFXxNmwZX1d7X+jav48mhN8CnCEJao7E1aP4W
+         USBKunWX0det+kHvEuGFSWSm85lB87LU4ju+qZvA6raej1Jymy8lJmihDqADTGiz8Jy2
+         fzLh4wEOHyPgx4RO+iJgQK63tG47iAZxN+KkjC1730rPonzcI+Tkx94wt4POeALJDiJr
+         WxKwvWwLkRvR66uD7qXOCd3kvAYRrUacUHnEp9xLue9W2JnL8EWKtFm80QO+btwwsfR8
+         IuzvDDX4YgeIvcBnqINQiCpYdABloPP97/aIVdl7SqsZX/w5i//jrrZIaJ2XLOYx5Z5J
+         DKuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793726467; x=1794331267;
+        d=1e100.net; s=20260707; t=1793726468; x=1794331268;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YRJWMzSGYlnaqtlrj8LCuixaQN8tH2t79cuf24+aN+Y=;
-        b=MwypBNLXZdSD4UrxP+ZcJdHbbz1EK88OfPrZwpT2BftqWeNB3ukuI2JDU3cJ3NSLRq
-         WG/ZgAIRoqGWZzAFbtrEBc0lPdf3gFytx5ghAgqqiBuMpvXGkgX7D45zuqoHJR5OrzkL
-         o2uswXrLUoWkMJlU6DUlWfOmFv88pr6Du3KFAjj5bwOIyL97y0w7kkc1sVEdpr1+Whuv
-         G0mgy5E+2MOvwFnDUGi5vk0zpWc1R0+xipvRGd5yq2tiaHJsxqTqAOnBU0FeiFEALOML
-         UIbZnIbtLGv94kU3s0DcNeKrR5E/hOHB5cFG768VZvuEAbGh0rmYMEIk+cUO80K9sSCh
-         iNwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxFhtu4LOJAVyC0gS0nJlXWXq0Vkw7JfNCY2O2cN4Lxte2kzcSvBNLRGD2/KTK6ybucC9ZaruzLVOlvGx0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/olFa2OieDSTiSajIjwaY4aSHrmxEhKfcIlK/qtM1dD+dNUpk7
-	208xZHPgNuf9hm1OGhi/02oFTloKvLyWJ/YfsVTs3jgP+9JxZMKEEPkF
-X-Gm-Gg: AYBFou0QqpQCFaUVzIxenmVpsfJhObQSAHkpQ4GPG5PnEX4FAxcjTIbpg2JsuOjtEXy
-	cT00jn4ivsOcFJXGqm3ZsazXOkUletwznDAUb6vtS/PJsggj9bTJW79ryoq+R8wShFNi4KS329Q
-	8/qeMfcoRhoDrORcWuys7sRoBw853NCmLOvKKPHbpWYBQs7B5X/DGlVk0x9fRz5mX/AG7hnrPSQ
-	8i5bCuKb5hFc1KxH4X5oXLvL3kPnLl1xADiiENh0p6R0muIlN4EFvM9vtwfb+F/MGFa/WEuj6gm
-	+zuctZKtw+AB4qAZMwQofRqB1nBWeDzpOchsve/M/0v/FBHRqouIUr4ZK2xJijveInfCT//PccN
-	iCVotoXLhNw0fdys8TFSZQPhMgspTS/J1j9h7iitmEH8+t2ojPnTQCFnun6F8oVX1WIODIx+83t
-	ucEn1iTYPHx6wjp7WI6FvSIkVWseWlkdUOlqflfIj2PQEEvdEFlxJvQ59GauWRrkZ9Wcpo5MhQq
-	kpoRctygu7Ya250PEYBj7dhwKdnPRfdcY5/LBRB0PWfI737Rhp1RFDqmju5ievuOiJEY9CV5sYW
-	/6CBx58RVD7HhXGaY0reoTeDA8iO8pKAU+mquW35FEOEh+akLJFVdR+Hon7Z6prU3EBAcFpWSC6
-	p7HmPuYPnNSafN1ZmqAir8a8INLlKlsi+vgk9Oys+n50F14W6Py5/weY4fUZBdg==
-X-Received: by 2002:a05:600c:871a:b0:4a7:d9b1:b684 with SMTP id 5b1f17b1804b1-4ac14ec7947mr322064755e9.2.1793726467464;
-        Tue, 03 Nov 2026 09:21:07 -0800 (PST)
+        bh=roOiO3ldaNsjLxe0CYehd5v8rGn8f4LGIVU12eUR/M4=;
+        b=maUbaTJ4idHSV9MFA0wVAMnXpzmsRCtgZ2sGNlHxm8TjhWJmbesbZYgQXZRo6xCUZs
+         A6+bvbodqtS166G7F5rE/ZOiJ1nr6jgN5o9dPNYUp1Z+rqyGvxjPKR5SdmrKM1kIfAel
+         Qv+PmGJoiO0ezyr3IOLqmr+4eVOptNmJD3V5vw2W3BQeVSj2e7aOgTGsLzbQ1+KOnrxK
+         rp9F008lWWZra4mLlWGdiocvNjE4lyZQ9NyKXzjU3K4VLNeku7NQm9SxWcqkv2D/CW/c
+         4rpouHFfDuQy+ZR9+JwJHs4ktgm8//uWCXEbzlpWHEzJOijINwZde1GycLZeXRqCAAH6
+         anXg==
+X-Forwarded-Encrypted: i=1; AKwUvBym/zW10f/W2xJys9kzcnuIhSwyTnhaGG7C1hI7RCQS2JrDz8xqixULLqBY2mDdUmScmR+h5PS/OKCg58I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8F1HXywBUakP6qq6tw0XP8jzQPSphHJFF8COkIqpmX3mZjIc/T
+	T1Lu2Z5soKGjBxftoKqPAWuZC+8nMAxl2bWqwcTsZd9LEjKHC9tDOpXM
+X-Gm-Gg: AYBFou3BNlGeMeRa0U6re2ldvuwSH+FK09Wogdpknfc3PnRfI6ZhsRW7oHm75gJY/Lj
+	FEgQY3fyZRnzVacCL/J/cFqArL+QNEsp3c5AKjL4i0x0QmDtLSnEue/zrJwgyHuC8vdpxf1PDM3
+	vjEebga3Ib79IFpjvYETzCvLdqXtDOanOd1mCZ8NRDKO/oYS4yG0lS9Upz/yp0iGwI03GfHBNTJ
+	57oHqjCYuQhOquCayqOnXM4y0uvW2Eqq0iVm0oBJqTLQ3omlyaoAgx47viAsJekysO4DjUMLEtV
+	CnLlCUkE7LlVFBlqFvSkf13z1Qbp2giqYUt7XyuCL3aW0L4OQusBuHp+vT4AmHgbI+OhsWlBiSz
+	dBNaNA6YfQ7R9y/VpTI6cskzYnlswxD6EBBnRsSkVDQlaJq0WhCCu2N+dj+Upx+I6HrmC3NtsXP
+	uo62DzQAkHQUECH4g9+hWC7yvo3/SIGjyVdsREs9Y/ybuMq7F+ZlPMKjWKBSKZuMl/hdQX06ADJ
+	FBYWlyc+sqqta8PVurnR7Na4yvOxw5SVRErOoJfMkRA0+qLkdQuOIQtZUQHLkXgA3qt7Xe0MG8v
+	95VHsDZTOxHPqHEX1BXEBxXF6k5cerLxgj5KUqkakDB/vJj1OgJ5BkORpvJs0DaafWf+hWi/tZ9
+	mcYK5lWlo0amS1S4v95CDNb5PzVJ31WIn75kgfQ4=
+X-Received: by 2002:a05:600c:811a:b0:4a6:b49f:9ae5 with SMTP id 5b1f17b1804b1-4ac18e5dac8mr287441665e9.34.1793726468458;
+        Tue, 03 Nov 2026 09:21:08 -0800 (PST)
 Received: from iku.lan ([2a00:23c8:254f:fd01:8b77:19e1:26f7:89f2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac08b72579sm8800675e9.2.2026.11.03.09.21.06
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac08b72579sm8800675e9.2.2026.11.03.09.21.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 03 Nov 2026 09:21:07 -0800 (PST)
 From: Prabhakar <prabhakar.csengg@gmail.com>
@@ -99,9 +99,9 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH 2/4] clk: renesas: rzv2h-cpg: Add validation hook to PLL parameter search
-Date: Tue,  3 Nov 2026 17:20:55 +0000
-Message-ID: <20261103172057.617203-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 3/4] drm: renesas: rz-du: mipi_dsi: Improve DSI PLL parameter selection and cache results
+Date: Tue,  3 Nov 2026 17:20:56 +0000
+Message-ID: <20261103172057.617203-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103172057.617203-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20261103172057.617203-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -118,171 +118,172 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-rzv2h_get_pll_pars() returns the candidate with the smallest frequency
-error, which can be unusable for callers whose constraints come from
-downstream PLLs, such as the MIPI DSI driver.
+Mode validation searched the divider table once, kept the best CPG match
+and only then checked the DSI PLL. A divider losing on CPG error alone
+was never tried against it, so reachable modes were rejected.
 
-Add rzv2h_cpg_get_pll_pars_validate(), which takes a callback and its
-context. The callback is invoked for every candidate in search order and
-the first one it accepts is returned, which is not necessarily the one
-with the smallest error. Rejected candidates are never returned, so
-false means none was accepted. rzv2h_get_pll_pars() becomes a wrapper
-passing a NULL validator, so its behaviour is unchanged.
+Evaluate each divider on its own and keep the one with the smallest DSI
+PLL error, handing it to the CPG via rzv2h_cpg_cache_pll_pars(). The
+search also takes the PLLDSI instance as an argument and records it,
+walking the instances described by the new num_limits field.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 ---
- drivers/clk/renesas/rzv2h-cpg-lib.c | 61 +++++++++++++++++++++++++----
- include/linux/clk/renesas.h         | 22 +++++++++++
- 2 files changed, 75 insertions(+), 8 deletions(-)
+ .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 87 ++++++++++++++-----
+ 1 file changed, 66 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/clk/renesas/rzv2h-cpg-lib.c b/drivers/clk/renesas/rzv2h-cpg-lib.c
-index 4b59bf60edb0..a49add2f2fc3 100644
---- a/drivers/clk/renesas/rzv2h-cpg-lib.c
-+++ b/drivers/clk/renesas/rzv2h-cpg-lib.c
-@@ -62,31 +62,47 @@ struct rzv2h_pll_div_pars rzv2h_cpg_get_cached_pll_pars(unsigned int dsi_instanc
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+index 5b257f5adf06..682bbb339bef 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+@@ -12,6 +12,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
++#include <linux/limits.h>
+ #include <linux/math.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+@@ -55,6 +56,7 @@ struct rzg2l_mipi_dsi_hw_info {
+ 		const struct rzv2h_pll_limits **limits;
+ 		const u8 *table;
+ 		const u8 table_size;
++		const u8 num_limits;
+ 	} cpg_plldsi;
+ 	const struct rzg2l_mipi_dsi_timings *dsi_global_timings;
+ 	unsigned int num_dsi_global_timings;
+@@ -69,7 +71,9 @@ struct rzg2l_mipi_dsi_hw_info {
+ 
+ struct rzv2h_dsi_mode_calc {
+ 	unsigned long mode_freq_khz;
++	unsigned int pll_instance;
+ 	struct rzv2h_pll_pars dsi_parameters;
++	struct rzv2h_pll_div_pars cpg_dsi_div_parameters;
+ };
+ 
+ struct rzg2l_mipi_dsi {
+@@ -671,43 +675,83 @@ static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_f
+ 	return 0;
  }
  
- /**
-- * rzv2h_cpg_get_pll_pars - Finds the best combination of PLL parameters
-- * for a given frequency.
-+ * rzv2h_cpg_get_pll_pars_validate - Finds a combination of PLL parameters
-+ * for a given frequency, optionally accepted by a validation callback.
-  *
-  * @limits: Pointer to the structure containing the limits for the PLL parameters
-- * @pars: Pointer to the structure where the best calculated PLL parameters values
-+ * @pars: Pointer to the structure where the calculated PLL parameters values
-  * will be stored
-  * @freq_millihz: Target output frequency in millihertz
-+ * @validator: Pointer to a structure containing a validation callback and
-+ * context, or NULL
-  *
-- * This function calculates the best set of PLL parameters (M, K, P, S) to achieve
-+ * This function calculates a set of PLL parameters (M, K, P, S) to achieve
-  * the desired frequency.
-  * There is no direct formula to calculate the PLL parameters, as it's an open
-  * system of equations, therefore this function uses an iterative approach to
-- * determine the best solution. The best solution is one that minimizes the error
-- * (desired frequency - actual frequency).
-+ * determine the solution.
-+ *
-+ * When validator is NULL, the function searches for the solution that minimizes
-+ * the error (desired frequency - actual frequency) and returns the best match.
-+ *
-+ * When validator is provided, the callback is invoked for every candidate in
-+ * search order and the first one it accepts is returned, even if it is not the
-+ * one with the smallest error. Candidates the callback rejects are never
-+ * returned, so false is returned when none is accepted. This allows additional
-+ * constraints beyond frequency matching to be satisfied (e.g., derived PLL
-+ * parameters must also meet certain criteria). The callback runs once per
-+ * candidate, so it must be cheap and must not sleep.
-  *
-  * Return: true if a valid set of parameters values is found, false otherwise.
-  */
--bool rzv2h_cpg_get_pll_pars(const struct rzv2h_pll_limits *limits,
--			    struct rzv2h_pll_pars *pars, u64 freq_millihz)
-+bool rzv2h_cpg_get_pll_pars_validate(const struct rzv2h_pll_limits *limits,
-+				     struct rzv2h_pll_pars *pars, u64 freq_millihz,
-+				     const struct rzv2h_pll_validator *validator)
+-static unsigned int rzv2h_dphy_mode_clk_check(struct rzg2l_mipi_dsi *dsi,
+-					      unsigned long mode_freq)
++static unsigned int rzv2h_dphy_check_instance(struct rzg2l_mipi_dsi *dsi,
++					      unsigned long mode_freq,
++					      unsigned int pll_instance)
  {
- 	unsigned long input_fref = limits->input_fref ?: (24 * MEGA);
- 	u64 fout_min_millihz = mul_u32_u32(limits->fout.min, MILLI);
- 	u64 fout_max_millihz = mul_u32_u32(limits->fout.max, MILLI);
- 	struct rzv2h_pll_pars p, best;
+ 	u64 hsfreq_millihz, mode_freq_hz, mode_freq_millihz;
++	struct rzv2h_pll_div_pars best_cpg_dsi_parameters;
+ 	struct rzv2h_pll_div_pars cpg_dsi_parameters;
++	struct rzv2h_pll_pars best_dsi_parameters;
+ 	struct rzv2h_pll_pars dsi_parameters;
++	bool found_valid_parameters = false;
+ 	bool parameters_found;
+-	unsigned int bpp;
++	unsigned int bpp, i;
  
-+	if (WARN_ON(validator && !validator->validate))
-+		return false;
++	best_dsi_parameters.error_millihz = S64_MAX;
+ 	bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
+ 	mode_freq_hz = mul_u32_u32(mode_freq, KILO);
+ 	mode_freq_millihz = mode_freq_hz * MILLI;
+-	parameters_found =
+-		rzv2h_get_pll_divs_pars(dsi->info->cpg_plldsi.limits[0],
+-					&cpg_dsi_parameters,
+-					dsi->info->cpg_plldsi.table,
+-					dsi->info->cpg_plldsi.table_size,
+-					mode_freq_millihz);
+-	if (!parameters_found)
+-		return MODE_CLOCK_RANGE;
+-
+-	hsfreq_millihz = DIV_ROUND_CLOSEST_ULL(cpg_dsi_parameters.div.freq_millihz * bpp,
+-					       dsi->lanes);
+-	parameters_found = rzv2h_get_pll_pars(&rzv2h_plldsi_div_limits,
+-					      &dsi_parameters, hsfreq_millihz);
+-	if (!parameters_found)
+-		return MODE_CLOCK_RANGE;
++	for (i = 0; i < dsi->info->cpg_plldsi.table_size; i++) {
++		parameters_found =
++			rzv2h_get_pll_divs_pars(dsi->info->cpg_plldsi.limits[pll_instance],
++						&cpg_dsi_parameters,
++						&dsi->info->cpg_plldsi.table[i], 1,
++						mode_freq_millihz);
++		if (!parameters_found)
++			continue;
 +
- 	if (freq_millihz > fout_max_millihz ||
- 	    freq_millihz < fout_min_millihz)
- 		return false;
-@@ -191,6 +207,15 @@ bool rzv2h_cpg_get_pll_pars(const struct rzv2h_pll_limits *limits,
- 				p.error_millihz = freq_millihz - output;
- 				p.freq_millihz = output;
++		hsfreq_millihz = DIV_ROUND_CLOSEST_ULL(cpg_dsi_parameters.div.freq_millihz * bpp,
++						       dsi->lanes);
++		parameters_found = rzv2h_get_pll_pars(&rzv2h_plldsi_div_limits,
++						      &dsi_parameters, hsfreq_millihz);
++		if (!parameters_found)
++			continue;
++
++		if (abs(dsi_parameters.error_millihz) >= 500)
++			continue;
++
++		if (abs(best_dsi_parameters.error_millihz) > abs(dsi_parameters.error_millihz)) {
++			best_cpg_dsi_parameters = cpg_dsi_parameters;
++			best_dsi_parameters = dsi_parameters;
++			found_valid_parameters = true;
++		}
++	}
  
-+				/* Take the first set the caller accepts */
-+				if (validator) {
-+					if (validator->validate(&p, validator->context)) {
-+						*pars = p;
-+						return true;
-+					}
-+					continue;
-+				}
-+
- 				/* If an exact match is found, return immediately */
- 				if (p.error_millihz == 0) {
- 					*pars = p;
-@@ -211,6 +236,26 @@ bool rzv2h_cpg_get_pll_pars(const struct rzv2h_pll_limits *limits,
- 	*pars = best;
- 	return true;
- }
-+EXPORT_SYMBOL_NS_GPL(rzv2h_cpg_get_pll_pars_validate, "RZV2H_CPG");
-+
-+/**
-+ * rzv2h_cpg_get_pll_pars - Finds the best combination of PLL parameters
-+ * for a given frequency.
-+ *
-+ * @limits: Pointer to the structure containing the limits for the PLL parameters
-+ * @pars: Pointer to the structure where the best calculated PLL parameters values
-+ * will be stored
-+ * @freq_millihz: Target output frequency in millihertz
-+ *
-+ * See rzv2h_cpg_get_pll_pars_validate() for more details.
-+ *
-+ * Return: true if a valid set of parameters values is found, false otherwise.
-+ */
-+bool rzv2h_cpg_get_pll_pars(const struct rzv2h_pll_limits *limits,
-+			    struct rzv2h_pll_pars *pars, u64 freq_millihz)
-+{
-+	return rzv2h_cpg_get_pll_pars_validate(limits, pars, freq_millihz, NULL);
-+}
- EXPORT_SYMBOL_NS_GPL(rzv2h_cpg_get_pll_pars, "RZV2H_CPG");
+-	if (abs(dsi_parameters.error_millihz) >= 500)
++	if (!found_valid_parameters)
+ 		return MODE_CLOCK_RANGE;
  
- /*
-diff --git a/include/linux/clk/renesas.h b/include/linux/clk/renesas.h
-index c1582ed9bf69..c846d926020c 100644
---- a/include/linux/clk/renesas.h
-+++ b/include/linux/clk/renesas.h
-@@ -192,10 +192,25 @@ struct rzv2h_pll_div_pars {
- 		.k = { .min = -32768, .max = 32767 },			\
- 	}								\
- 
-+/**
-+ * struct rzv2h_pll_validator - Callback structure for custom PLL parameter validation
-+ *
-+ * @validate: Validation function that checks if the computed PLL parameters are acceptable
-+ * @context: Opaque pointer to any data needed by the validation function
-+ */
-+struct rzv2h_pll_validator {
-+	bool (*validate)(const struct rzv2h_pll_pars *pars, void *context);
-+	void *context;
-+};
+-	memcpy(&dsi->mode_calc.dsi_parameters, &dsi_parameters, sizeof(dsi_parameters));
++	memcpy(&dsi->mode_calc.dsi_parameters, &best_dsi_parameters,
++	       sizeof(best_dsi_parameters));
++	memcpy(&dsi->mode_calc.cpg_dsi_div_parameters, &best_cpg_dsi_parameters,
++	       sizeof(best_cpg_dsi_parameters));
+ 	dsi->mode_calc.mode_freq_khz = mode_freq;
++	dsi->mode_calc.pll_instance = pll_instance;
 +
- #ifdef CONFIG_CLK_RZV2H_CPG_LIB
- bool rzv2h_cpg_get_pll_pars(const struct rzv2h_pll_limits *limits,
- 			    struct rzv2h_pll_pars *pars, u64 freq_millihz);
++	rzv2h_cpg_cache_pll_pars(best_cpg_dsi_parameters, pll_instance);
  
-+bool rzv2h_cpg_get_pll_pars_validate(const struct rzv2h_pll_limits *limits,
-+				     struct rzv2h_pll_pars *pars, u64 freq_millihz,
-+				     const struct rzv2h_pll_validator *validator);
-+
- bool rzv2h_cpg_get_pll_divs_pars(const struct rzv2h_pll_limits *limits,
- 				 struct rzv2h_pll_div_pars *pars,
- 				 const u8 *table, u8 table_size, u64 freq_millihz);
-@@ -210,6 +225,13 @@ static inline bool rzv2h_cpg_get_pll_pars(const struct rzv2h_pll_limits *limits,
- 	return false;
+ 	return MODE_OK;
  }
  
-+static inline bool rzv2h_cpg_get_pll_pars_validate(const struct rzv2h_pll_limits *limits,
-+						   struct rzv2h_pll_pars *pars, u64 freq_millihz,
-+						   const struct rzv2h_pll_validator *validator)
++static unsigned int rzv2h_dphy_mode_clk_check(struct rzg2l_mipi_dsi *dsi,
++					      unsigned long mode_freq)
 +{
-+	return false;
++	bool found = false;
++	unsigned int i;
++
++	/*
++	 * Check every instance instead of stopping at the first match, as
++	 * rzv2h_dphy_check_instance() hands the parameters it computes over to
++	 * the CPG, which needs them for whichever PLLDSI ends up feeding the
++	 * encoder.
++	 */
++	for (i = 0; i < dsi->info->cpg_plldsi.num_limits; i++)
++		if (rzv2h_dphy_check_instance(dsi, mode_freq, i) == MODE_OK)
++			found = true;
++
++	return found ? MODE_OK : MODE_CLOCK_RANGE;
 +}
 +
- static inline bool rzv2h_cpg_get_pll_divs_pars(const struct rzv2h_pll_limits *limits,
- 					       struct rzv2h_pll_div_pars *pars,
- 					       const u8 *table, u8 table_size,
+ static int rzv2h_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_freq,
+ 				u64 *hsfreq_millihz)
+ {
+@@ -715,7 +759,7 @@ static int rzv2h_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_f
+ 	unsigned long status;
+ 
+ 	if (dsi->mode_calc.mode_freq_khz != mode_freq) {
+-		status = rzv2h_dphy_mode_clk_check(dsi, mode_freq);
++		status = rzv2h_dphy_check_instance(dsi, mode_freq, 0);
+ 		if (status != MODE_OK) {
+ 			dev_err(dsi->dev, "No PLL parameters found for mode clk %lu\n",
+ 				mode_freq);
+@@ -1647,6 +1691,7 @@ static const struct rzg2l_mipi_dsi_hw_info rzv2h_mipi_dsi_info = {
+ 	.dphy_mode_clk_check = rzv2h_dphy_mode_clk_check,
+ 	.dphy_conf_clks = rzv2h_dphy_conf_clks,
+ 	.cpg_plldsi.limits = rzv2h_plldsi_limits,
++	.cpg_plldsi.num_limits = ARRAY_SIZE(rzv2h_plldsi_limits),
+ 	.cpg_plldsi.table = rzv2h_cpg_div_table,
+ 	.cpg_plldsi.table_size = ARRAY_SIZE(rzv2h_cpg_div_table),
+ 	.phy_reg_offset = 0x10000,
 -- 
 2.56.0
 
