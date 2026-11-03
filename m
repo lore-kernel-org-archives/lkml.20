@@ -1,95 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793673468;
-	b=4P4HLE44GQw5Ys6Pz501QQsRYhA06PerVLyx1txsLE8F1Bh3NSLtSQztkZhZ72XELzEH
-	 QKUA8N5WHG1vG9BnMvTb6f2Cl1MuMelOW0F+DN2KfxPhm3u/gZegFlRZHrlWA6a0VfIDP
-	 /1Aw+o3MaYqf4NVT6h0Jd55yjk+AKQQAi7FcxmaraEuzB6dgoRWDGl1ljBuYfvQ09GYyr
-	 1MrZIOBQlTeo+MuT0OkXDIJyzFh25sz2IsNMrKHGYZDV+JXLEiNzISxD/lpAPPq5ibTLs
-	 6NUiCVNrwUDrD2M/YbJWU/8+NwCeyfs3M3U734iHu+QDFINEtGBOcNZiGRI5B8NFB9A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673468;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793673466;
+	b=SMGTLojcFDA7RFHIzsyBP0VNbjIGlnvU1Je+p97ujnk98Cy/Gdg6Wl5D9c0bLvfo8cjH
+	 ozAM4Sxc7PXzx4Tjgz67ODXUEz5DkusHE9A4hn59ygg26VeWJRtm1IQFBp94ZcIguDkv3
+	 Utj+GQrAWvBf5wxFEKhXQPbrvXUrz3qxpMafSO+ieP4rPiRgEnr5NpFyx/UkEoS9R15ks
+	 UgGlM82Er+oC3N3PIx2Q7HNdtTnuccHCZRMqBwLs5jFfCwm6GImeS2ar+crnAvwAyr+Qo
+	 ev8lKgvCgpMWVfRjdGQ5CxsiHt+SpoMYR7rXnY96qq4g3qr4SdEEvAwHvzAPygJLeiA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673466;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KAx1cm6yWne+0gYptOITSpq6g181IgU4YzBAy/lnyOQ=;
-	b=bJvt4oOzS4sN5WJn1at1+ksQ1koyqCK/1jOX69sgc0oJNhsoS7DztUkUuin8HaMJDL1I
-	 zvblYQYzfGyiQqeHFvJ1aP9LB3g9pezgLZooOs6eLeqZ6gGYOuRE438+U1DTOXDVJA+wY
-	 3eyUFXi7F7rxeMyzwPlZrI2bcmYelcVIK4AUZ+yFLY6j7eiFl4/7cmNKjG0Wwd8AvgMef
-	 usKylATsXke0Hkg2QuWvS/hdpruCA/A2UokIRy6NqssS81fv0gl3rgz3Lo1ulTjTYh5x9
-	 t9fD7SkAbP1zurRzuVHD6dJoXReCn0SJHXhM6z7Cjiq8pB7dAQtr9v1N58zl2lKxF9Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=aEZiUdHtVe6n866bPKhnP+/zTxBd9R2ODjgeXi2Z0Tk=;
+	b=DL3F0TDMYicbuFUPlLuXOtfevVEFhcYVqp1Ad1UfIlPQllm5l6iMRETOkFbI0zs0umTu
+	 q5eVS30nF5KWaMHYqVFiUZ6X5NHxVvNQGPCKxq6wbS5eHPhjt8P/drhCeyBEls1LNOrOX
+	 4lSEWpAelUCxz7jo1LwEVAWj2ScDieKKi72n//DVrFtAwup80tEBilZ3oZ1oyLdVzbnat
+	 Ik5EBnEjfLh8YpE565KTYb8bfunBdXCkoGh+HaoJIqUCzmG7bY3E9i7iZg0kIdiinVSjk
+	 61CqeUTEhVdJOfppTusuuUdmhwPyXEOHDiAXTF2ICePPghRk/iZDACz1ZNvUioIRV1Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g080rFoP;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LCtrHkQk;
+	arc=fail smtp.remote-ip=209.85.160.170
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF400606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:37:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF400606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B82606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:37:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48B82606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g080rFoP
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ea0efd636dso33507035ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:37:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LCtrHkQk
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5366463571cso45847181cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:37:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793673465; cv=none;
+        d=google.com; s=arc-20260327;
+        b=itS/lOe8nQNYnd3ulvY/u7EF+N9v8my26AqLsFuo65qy84x5+ehwqCID6TyJQS3zGe
+         QzHJp0JXQz1QlRoK3adTymBpGgTF79GS0GgvOise0/D/BRUrdYm96CuQaSDZR+ISgD1o
+         aM25vmt2g4JXKXldoYYXCSd3GOSb1aMvcVxQni8nzsvcL2nXaS7SYsPsx9NyUS0mzUVX
+         vfcK2LsLBt8rwivIT/cJ6F0qxJzeXfM/DZiWxlGVdCMpaEvd1YaeFI4aU+a7WzBjrqLh
+         dpi9WZB4bX5of3fADgLJUWN3q9q4w0DETltOjMU+O3zJ4GZOhnQI+JlXMJeXG37e9FDO
+         /8wQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=aEZiUdHtVe6n866bPKhnP+/zTxBd9R2ODjgeXi2Z0Tk=;
+        fh=k+FDUqCBh5qJQLWSvMH2yuchI1386fzuvXFHJ1sXhx8=;
+        b=cJo3zGbpMx122n1Icxp09x+nBi23rYB9EMMoc6IblupSalFxrN6FyS7NWfy99cM8mx
+         23ZiCu+m3aAO9pYzH7EiufGZDlHNqiLikdd/ScTAcdXqpZTecxeYZLQO931GKVBIZQq1
+         5VpL2oa+T7NsZ18oVYMtHaA0iE/YShTJmF35eN/HDxNY9FYkCv2xYtpsUVgZnHWmxb9J
+         IOOdbc5aYtzagA0PLi2djJuKlw7N7OPds9zK3/HmbcI8UZ8JT815vCHASmB1J0pY1Kc8
+         nzmVIg2nQbcB23TNLjbd6a98Js+eIMSmgcb0isEvQJGe2Q1iUGI5JzCFBtOODDSQw0Rh
+         6h6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793673467; x=1794278267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KAx1cm6yWne+0gYptOITSpq6g181IgU4YzBAy/lnyOQ=;
-        b=g080rFoPDiAmYQkytqEN5TwRHCf/UNtmoe6wnN42uiWJqkW+IM6Z2klbo8F2JjzJmR
-         d8Sa6txmq5cmMlXTk4HZDZWrVJZyE/5/+qaVPs+m99dHpPFteJ1aYb6j7XrFM/VDzsbe
-         765upSnho6Blgg0osE9Zz5kZvqX+6gHUfzweOiqBjlb5Zgr4frFJdt8kWeAyH80RF/mE
-         +gwfVq7UB/Z6rsh/lM7yGRzf8tfiVi/xJNoPGqyD1wXlDV5Tarz/XGTMhvNnmz/ZS6CP
-         CnOJFFiZcSxkc9AvlEf4g4ugX6RvCPc+5Mfsd14aJnGWXjYTJUINUYeZRStnS2CwNToE
-         AnBg==
+        d=gmail.com; s=20260707; t=1793673465; x=1794278265; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aEZiUdHtVe6n866bPKhnP+/zTxBd9R2ODjgeXi2Z0Tk=;
+        b=LCtrHkQkks1Vc9cShisAjTrT1zXR6O1/JU2MG8G6pnGN/yPwb+XvlQRQiRBwZ9sd2T
+         8+v9RZTK8VR4nxCdjRI8QiDPCpy23JOPdjE9EqctaKL3g4DA86sdxjHQ+QS+VI+H27tD
+         Sj0Sq2KQtunKPPtGa+NHup2tIOfq5bLQRfPba2o9aoRgbbR03inxQmP5oIFYVz5VPLt9
+         n6FAtnnnIzWSkNsLDnOdAWwFPLFnGWpYaK6ejZwfVmvbqqt6gA4AQHahrXvg6hhPVyJz
+         iSaugX4vZ3NfTz9+SPDq16DDQ1uwDr8Pkj7iULljNJjQ9suBqYK4x+AfFzCDC725RwZ4
+         J8xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793673467; x=1794278267;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KAx1cm6yWne+0gYptOITSpq6g181IgU4YzBAy/lnyOQ=;
-        b=nrgDcVZlK7yum6FYpdx7cyLkBC8XVwqO+pcTI6rhx2lo+ZXtEaozp5Ab7VaJy/OJ0x
-         GjuDRouLi389T4R1MZ9NHdfFa54W35zcnX0qP0/PYLGEPt3x2alPM1RxraYX18GFoZmp
-         CkRTUfkX2jJGkpykXShGVHNZ+uka8kSiUJJKCdtwxuZJVhBHaXniH3ItGnJ0Q2ggtlm/
-         GmhEzp6U4nhTPPfNG7DwtIsZ6jEe3YmYgvsAABHkyT3JJpI6/RABpFxUVQlVf2SdSqyU
-         34jgTBvp8huhbiGzPyKD3lotr5A45ipq9G2MEGkv8XsctD5ViNPLy4j5A/7w4ow8qf1R
-         37UQ==
-X-Gm-Message-State: APuU4Z8fT6gnarTnZb2bE58gyR3RLEwQmpOn+j+anGxMGt9gibr9JDcj
-	zjzoWn6l1U/xPql79rAUniJPwGi7YF/cKq1T8ijOHFGzhQl0O5d/DF0Z
-X-Gm-Gg: AYBFou256c9aO/4pw4D0UXz0Luy/GWS7ycHSEvFkfWOhqNzckVGfbILQV5lBfe+Q+xt
-	umW0dnkFjUuKKMs4/MKYGByoMDmNUj+6T2jiUD3gvm8xUGL8RU7WQvmkg9NzjHpWOd71aIL9pgU
-	aOWCxNMOQo9e9+97iEhmUB6mF4HBpaooigg0dU8KHBUfOlKMZcMLXrpQzAU/wDrqqQIusXfmwN5
-	mzvW3W2mTjNZgMyJtAZq0WkDfNGz9E4RgIeXN0j0kEXBlUchVQLyWG5iYSls/WzLva7lAPbHtZp
-	gkGtFt8QB6hTIkXWtcYIQ0+APiwkTqTvtQWmF0Adof2qxDYHKBxBA1XDY1INwGyoyghY7YU6vJX
-	uA1UY5ViZ07kVRfqmPeRE1BDlkqX9ZFc/e4+Qq0s2guWtexYUNRZeOW6p6sjy/slSOpv80ABR6g
-	3QFnSPo0jFFCnvnecTj48BtKWLhHBlH5YmWOPwsL3/yEWSgBkWIlId72PaRgS2rykeaWPQ3LmQe
-	XUkOLYAMNt9PW/jdx/QHebQTaUGI7i24TB+UC5hYwBzVSnzC3vqpiOyo+bIDgDKNecAxcbfjXSn
-	eVakSbd2zRctOlHO49WoN7fC+pLrjkEOew==
-X-Received: by 2002:a17:902:fdad:b0:2e9:4175:3079 with SMTP id d9443c01a7336-2eb3649422bmr128568295ad.21.1793673467085;
-        Mon, 02 Nov 2026 18:37:47 -0800 (PST)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39298329sm33189015ad.61.2026.11.02.18.37.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 18:37:45 -0800 (PST)
-From: Ping Li <leeonion.muyu@gmail.com>
-To: ben.horgan@arm.com,
-	james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	reinette.chatre@intel.com,
-	fenghuay@nvidia.com
-Subject: Re: [PATCH] arm_mpam: Only program MATCH_PMG when the monitor supports it
-Date: Tue,  3 Nov 2026 10:37:42 +0800
-Message-Id: <20261103023742.2624994-1-leeonion.muyu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <912dbaa0-0fc0-46fb-819a-6594538b47cd@arm.com>
-References: <912dbaa0-0fc0-46fb-819a-6594538b47cd@arm.com>
+        d=1e100.net; s=20260707; t=1793673465; x=1794278265;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=aEZiUdHtVe6n866bPKhnP+/zTxBd9R2ODjgeXi2Z0Tk=;
+        b=khran8tSBoixTNDvmOKobHSQ/oM029DUCyWdB3WDa2mbWCIZYpDYfJbFqtjegqpClL
+         w5S+5Th98w2K8d43CXOVTxfQp0ri0qH9Yed7Z+tr1WwbKfKoKtGWzDzaxMJGXEW/SFRF
+         OamHx+VZivEeQW19Z1l6PagExaZUy8kYtL9LmoIXZCXCPpN917OIpBE1Ed94oQYGzu4x
+         yR2HNA4TXWPVgIgSpmHwwWwViV3oDLp5Wa3h3XYJmmkkEnCmlbGPHqb7Xx4vnmbXz/gb
+         1wsrkhpqPoemR4ReioTJ7sg4b28nqPvcmnoWtcy4VePUjSHlknVM2vEGrY+9Sm3w69dQ
+         S6rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjKFMK0Ul/GIMSOLsB7cv6Kercp7A4ksGLnALqqZ7xi2MYevIUQU7tl4HeKsutfToyxom19b0uR350eXo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JkDn9ERbcMzNmoWhCcTZeI+PH5IidKgOuNiXkCo7J0Zh1fSBI
+	4lW1Imuq1PDc0+0KZL6FH0DW9MmTQouvGqb08A4jMVEBcxif/OCgsxg4kMRFMJ/MfJIwGmRRI7g
+	XyoQjnJb7wdJpWAwarAxNaius7yOeO3Q=
+X-Gm-Gg: AYBFou1vYDr52ZCt3NczHtsTrioofC3kgzqr+1hx3qAT+9Ija6r4RN8PtwveOTCIXBj
+	3HeZNEJm9rCaShVTMM5Gw3MkY/zJefwWYv3NlD2hCGadkcVhHeCp5A9TQu4tWzGBIRiJ9GKiHHa
+	7r8jWJRQZVt9aMkeg9HdC/AX05xnsMSIU1ioz2S0nlFzEJfTcbtqcVOF/npCn+wKA/UquyvLx2c
+	SbawoiF31GUdwd0svixCd6a6MmBX/c+p4s2Sqcdt0SsIa0Xgutdda2wBiO90FUVrD9mqnOxVB2m
+	/dk8jNDqYZWyg7iWAbtDC+phWWUYJgdKOWlgRZNp3FObPChDXcgXv2tjvQOxCw49FhivOBI3F8X
+	qFvvgGYE2/VSIO0yxHKfLKneo3USkrBUcu3weDwlOmGUg3Vr4/OGWCpjazRymvk3Z8XUjDUh80p
+	bLKjl4oJePiCNnFNy7T/ReZoFLBFKu+rSSRjHye7TmJ8yyEVTdxYXbD1LwRp4syr7mC0JYEc4EH
+	dkb25BkwKIs6M/XLyWdycmdOcmgWGO5ydspmuap33RTspA=
+X-Received: by 2002:a05:622a:1b09:b0:533:a8fe:e430 with SMTP id
+ d75a77b69052e-542b6593777mr202082331cf.14.1793673465209; Mon, 02 Nov 2026
+ 18:37:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,25 +105,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261102150757.93058-1-sj@kernel.org> <20261102150757.93058-9-sj@kernel.org>
+In-Reply-To: <20261102150757.93058-9-sj@kernel.org>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Mon, 2 Nov 2026 23:37:34 -0300
+X-Gm-Features: AclHuK-Jg7-xraD80qWPaNaA0iIrhVFnMpsq1hNuG58d2LObr6cS1Stfw00xqhY
+Message-ID: <CAMAsx6epLXuUjaV3J0=SWAuLvajr4h58DTM9gL+LMmaCyjcxUg@mail.gmail.com>
+Subject: Re: [PATCH 8/9] Docs/admin-guide/mm/damon/lru_sort: fix grammar and stlye
+To: manuelebnerli@mailbox.org, sj@kernel.org
+Cc: corbet@lwn.net, rdunlap@infradead.org, skhan@linuxfoundation.org, 
+	damon@lists.linux.dev, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Ben,
+Hi Manuel,
 
-Sorry to bother you again. I was looking at how the driver derives
-mpam_pmg_max, and I think there is a similar blind spot:
+> Docs/admin-guide/mm/damon/lru_sort: fix grammar and stlye
 
-mpam_msc_hw_probe() folds every MSC's MPAMF_IDR.PMG_MAX into the
-global mpam_pmg_max, regardless of whether the MSC has any monitors.
+ "stlye" -> "style"?
 
-Concretely, on our platform the DSU has no monitors and reports
-PMG_MAX=1. Our memory controller MSC has monitors and currently
-reports PMG_MAX=0, but if we later add PMG support and report
-PMG_MAX=31, the global value would still be clamped to 1 by the DSU,
-and resctrl would only expose 2 RMIDs per CLOSID instead of 32.
+> Fix tenses. Split long sentences thereby imporove readability.
 
-Should the convergence only consider MSCs that have monitors?
-The PE-side value from MPAMIDR_EL1.PMG_MAX would still apply, as
-that is the maximum PMG the cores can tag traffic with.
+"imporove" -> "improve"
+
+> +suitable to be used as a trustworthy access pattern source. These situations
+> +including reclamation target page selection under sudden memory pressure.
+
+Shouldn't this be "These situations include"? As written it is a
+sentence fragment.
 
 Thanks,
-Ping
+Daniel
