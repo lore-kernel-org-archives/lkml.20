@@ -1,72 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743422;
-	b=zbh8F0hlvBH63HG1pPYx/Qs1VlY8T7F36mYf7seRXlIL0Y1IdOZx9Xg9iDn+hXa8mT54
-	 872ffq5+NwYKr9zj1EMYqApMCPBVN+rs6JXTCDLHD8qTTeDGx1aHAx0h3H0jMdQeFONyz
-	 HY6Wi1Jk61OD2WZ1Jevs9csY7Ndzr4Ds6leKiDLDeiDYTw3O2mIVJeP7ugJPsgPTYWNZz
-	 yYc/M+kmAO91XJLWI8XKU64FHKP5vmTagV5fL6kQeIMeed2hQJQR6q+Z4ve0faKaeDmuW
-	 205pH3IAo5us8nPJr0iEh2M2UoJKLqnNwgCNxkN0EDMZ7m4vzinzTHhWV/WGNY8Vnog==
+	t=1793743417;
+	b=n6LwcZHZb7iD7DTiFCAXa7VON8DUIFYaqfP1POBPz6UGSyDms5/actLt1bDbl7zEOP01
+	 2xyjpPjE3lprTpFLW2asoSawTsVnI+M8K2C/O4QUBGr0plChEQqnZcKjbbR3u4wUBM1iL
+	 KVpQDm2sLPu8wzhyhitUt4+pNbAUwMHx0owfCRHvLgLFDkKkYAwYS6ZlaX/RsNrpSK2yk
+	 Nid2+Ceurc/cI2gCAMjuZtx9rJElnl7yfR19QI6TaatWKjOdVkhSjl8OjNRjwYeIEeVwo
+	 ax6lGcDe6tqFOcB5UydeGRBYdfgPzV8zmNXp8ud0NhafgFPsz6rcU1s2rElbCntfmzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743422;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=lT95gwxqijZuWNZmAFyry0p0ILAiPcgM7CWPA1WXiYY=;
-	b=umSBxgUBLAUfViMD29/hAqksnsS5B42NTIMDqM3sTI0a/uNlG2CyG5+mh9FRWnd0eIup
-	 uKa+9Mb8dV7FvTWbYawbTtsvjJeQCpSw830yHH6odf2Elf+5gyxocIRH/u2Mk64Syw8IL
-	 7M9Ry5i0RSFChaHlW66wz0+HE9Wfis7vm6OOIwu1LDKEUW7VKwQoJ1+GfJKCzbVcs7Zlm
-	 FILSE8EsbqPl7v0CsI5b8nD0YX6gfLO2dZkm820f47kr76Pd+7XAspZOp0jVfS5a2vONk
-	 B2XXrxpsonEoDSm6Yvqon1ODhWpGooriwsu788WMctTVvhhOa6hrsimDdl8nh5RoUfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743417;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=F3cx05ZtubPDkSq0whu2ARJ3LjNuVkF9QXbZmD6nM9Q=;
+	b=5e/yX7mxEh2vvclUBfolSLIqxlI2gERvVmuVMEEmqCYsaDJutYp4XkIEvB+tPKFqdPhk
+	 sic2ubHWXtTe7kuKTzG5QWHU2naD7MIrCggdw1S26CjEQzOJ8UAjIv/AU9rsUIeF//V0U
+	 zCj9RvWQ9nCdoodUM0U8XJtoYjdq8Cd2g+kCF1E2lu/uo/GmHw6x58otGRPvaGTk3sM5u
+	 ng69XyejDNr1wC/eeDwuWf8277HX6njjza3EWPMSLF7F6OfuL58wgnDWR7uyPYo4MeL4M
+	 +9mmOZ2v6SWL6GSpoxRIRNKYWVZJStwnhWfZhfIp/vFGACGZxn7sv4t91q5Fzz2HIgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YrPHjkfQ;
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=jonasjelonek.de;
+	spf=pass smtp.mailfrom=jonasjelonek.de;
+	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=e7Sut6US;
+	arc=none smtp.remote-ip=212.227.126.134
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470C1606EE90
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:03:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 470C1606EE90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F1D606D83A;
+	Tue,  3 Nov 2026 22:03:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F1D606D83A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YrPHjkfQ
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1cdfb337eso62528a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:03:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793743420; x=1794348220; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lT95gwxqijZuWNZmAFyry0p0ILAiPcgM7CWPA1WXiYY=;
-        b=YrPHjkfQQh4ijubwBazdKI+yMwlkLJUg5TjWVSXFcp1YDbSKtWorLoUvwdNWd4YVHA
-         ror4GM67h5kJBzOor5OLrdVV5xOl+YsnuViIsfJT6nbleXHUAUIhcmma3wfOn2gyaQ5w
-         8MGGX5DEJD58BhkizxiB7w2Sp51vDUXFJ5Tx+oTQ7fd3tAYKAVBTLxFF9iioRgF2WiTw
-         9/RDrW+i7ay1RyvVUW1LkU8yrKh46TkN+8G+myBIT0Kg1cdlM/gLvGC8WJYsG9XtkvUo
-         tDbBZDkIUB3WvP7lSslMD+hVrzxs+PChef2VOMH/n7++b2Yiws6h26sYH24gE9oJitfL
-         5TVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793743420; x=1794348220;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lT95gwxqijZuWNZmAFyry0p0ILAiPcgM7CWPA1WXiYY=;
-        b=SNnEcPPLatM1mDg6VVFFpx0+1WonlPDMk9CRKlAGL2PrBPOA4TBNlNohy9GFwviCOL
-         BR2vyptManfSMoxYPpQfD4PWAugeK8A5/gKm1Mlq7yVm/qcwbW5tFEpag23x+ZI8uQs4
-         c9kHHlX3RBZiSsQHaom13M3oHJGoXCW0Ep9ME/rxAfb55D08l7Jmofcnvh+bzO4zAKP8
-         wXGHMdWScQ4rn5ND2LM6TI+uGQOUVwGHS27gkV1A5GbtwpY2StTTJ5iaPMT4+Io/9W+a
-         nSRsSHbvoQ9a5oUDFqKegw6BprP4OHg5XC6nRYnxyj1/g2/MX94JlMq6MRU6n1c0QUYQ
-         9GEA==
-X-Forwarded-Encrypted: i=1; AKwUvBznMXoUN5ul1S1LW5Qmf0bhg1IcZLfDSubX9Tj9nv/bQywEJ53ABpcHsMqB4eM0HLOpCyfSK9wQ8x3Yvns=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lZ32+I9Q54OgiI884Zo+7iBMDVM9RwkKRNoy/dvzLvFJIfSbf
-	n1Xbs8B7LOlC9qvt3fup/THT417DhGOjk5/Xxpc5kvKJFZtQaWaxtDw7q67F+R0qKRqi65LAgPP
-	bKrNzFvlyAjb/rQ==
-X-Received: from pgbdw19.prod.google.com ([2002:a05:6a02:4493:b0:cc9:f793:b980])
- (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:e397:b0:3b0:96ce:104f with SMTP id 98e67ed59e1d1-3b096ce1144mr146764a91.5.1793743420343;
- Tue, 03 Nov 2026 14:03:40 -0800 (PST)
-Date: Tue,  3 Nov 2026 22:03:37 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=e7Sut6US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
+	s=s1-ionos; t=1793743403; x=1794348203; i=jonas@jonasjelonek.de;
+	bh=F3cx05ZtubPDkSq0whu2ARJ3LjNuVkF9QXbZmD6nM9Q=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=e7Sut6USZD1c8g99dYDGXumu8OAPmEK+ug1tRcDXfWPWMo4ewwEplVha1VbK/sij
+	 6oUznZoD9Qdr+c8M/cVPkPV80FKaxY2UiqXxg4aJCQ3Y11nkCjdnGObwpCnBCN2X7
+	 1poXdTzqWjRhBny07GESFgWirT/E95ZqpSwnYHR7fCe8cfME7hwzAzDVZhbMiqP6Y
+	 lriYGc1GHoXRUwH7CFYDOCzX3GNa+J0rjCytQBgTtUcsfXI0um1gK/NAFmEcyYGbK
+	 ka0DwGHFA8J5RCO2SyEML8rQeSKMJxXT4Qc+NhZVaSPiUXH8wQSPEh2u0CVjJ0Pig
+	 erpjoWoqauutvSaFZw==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue010
+ [213.165.67.97]) with ESMTPSA (Nemesis) id 1M5wgF-1xQGHI1QVv-00EaSc; Tue, 03
+ Nov 2026 23:03:23 +0100
+From: Jonas Jelonek <jonas@jonasjelonek.de>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Sander Vanheule <sander@svanheule.net>,
+	Russell Senior <russell@personaltelco.net>,
+	Jonas Jelonek <jonas@jonasjelonek.de>
+Subject: [PATCH net-next 1/4] net: pse-pd: realtek-pse-mcu: ensure MCU does dynamic power management
+Date: Tue,  3 Nov 2026 22:03:09 +0000
+Message-ID: <20261103220312.860629-2-jonas@jonasjelonek.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103220312.860629-1-jonas@jonasjelonek.de>
+References: <20261103220312.860629-1-jonas@jonasjelonek.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,171 +81,171 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103220337.3578111-1-skhawaja@google.com>
-Subject: [PATCH v3] vfio: selftests: Remove libuuid dependency
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Alex Williamson <alex@shazbot.org>, David Matlack <dmatlack@google.com>
-Cc: Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Samiullah Khawaja <skhawaja@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:wvzMAiBJW6753VRCX+JjnmfJZs66fs+l/Bwt7UnHASnp2BUA1i+
+ FFuIMmkbgvHUwHUjrWzf3m2myDvGM2FmcdiIvuitFo+u4bsapi7RbKYZzZIrshaRWk5ELEv
+ qUmpdLCSbPpGPgMJ7ADmV3TW5q6dsENned+etzWZlYe44acji3il+Ui/8QhYY6exgZgCsBz
+ /KgbYHOaeIAcEFWD6bsYw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:s3TNunU2s8o=;o8yMxUUfeyCl8Ufj+YEzAjth2Hj
+ 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
 
-Replace libuuid with a minimal uuid_t and uuid_parse() in libvfio, and
-drop -luuid from the build. libvfio only uses libuuid to parse VF
-tokens, so pulling in an external library is not worth it.
+From: Russell Senior <russell@personaltelco.net>
 
-libuuid is often missing from cross-compilation sysroots, which causes
-the VFIO selftests to fail to link:
+The MCU may have any power management mode configuration by default
+but the driver should ensure that the MCU performs dynamic power
+management with priorities as advertised. On certain devices, the
+default MCU configuration ships with another default, possibly
+preventing any power delivery.
 
-  ld: cannot find -luuid: No such file or directory
+Select the mode before deasserting the hardware port gate, so a failure
+to establish the management policy does not ungate the ports.
 
-It also complicates building against glibc alternatives such as musl, see
-https://lore.kernel.org/kvm/c2f7e904-2646-4b01-864d-d185221c7f56@gmail.com/
+Signed-off-by: Russell Senior <russell@personaltelco.net>
+[jonas@jonasjelonek.de: adjust commit message, macro naming and comment;
+ change error handling and select the mode before ungating ports]
+Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
+=2D--
+ drivers/net/pse-pd/realtek-pse-mcu-core.c | 32 +++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-Reviewed-by: David Matlack <dmatlack@google.com>
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
----
-
-v3:
-- Reword the changelog and drop the testing note from it (David)
-- Move the libuuid comment to uuid.h and explain how it differs from
-  the kernel API (David)
-
-v2: https://lore.kernel.org/all/20261102200624.1570562-1-skhawaja@google.com/
-- Move the parser to lib/uuid.c and lib/include/libvfio/uuid.h (David)
-- Drop the vfio_ prefixes and add a uuid_t (David)
-- Mention musl in the commit message (David)
-
-v1: https://lore.kernel.org/all/20260925013110.3447626-1-skhawaja@google.com/
----
- .../selftests/vfio/lib/include/libvfio.h      |  1 +
- .../selftests/vfio/lib/include/libvfio/uuid.h | 16 +++++++
- tools/testing/selftests/vfio/lib/libvfio.mk   |  3 +-
- tools/testing/selftests/vfio/lib/uuid.c       | 42 +++++++++++++++++++
- .../selftests/vfio/lib/vfio_pci_device.c      |  2 -
- 5 files changed, 60 insertions(+), 4 deletions(-)
- create mode 100644 tools/testing/selftests/vfio/lib/include/libvfio/uuid.h
- create mode 100644 tools/testing/selftests/vfio/lib/uuid.c
-
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio.h b/tools/testing/selftests/vfio/lib/include/libvfio.h
-index 07862b470777..e9d513c3a08e 100644
---- a/tools/testing/selftests/vfio/lib/include/libvfio.h
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio.h
-@@ -6,6 +6,7 @@
- #include <libvfio/iommu.h>
- #include <libvfio/iova_allocator.h>
- #include <libvfio/sysfs.h>
-+#include <libvfio/uuid.h>
- #include <libvfio/vfio_pci_device.h>
- #include <libvfio/vfio_pci_driver.h>
- 
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/uuid.h b/tools/testing/selftests/vfio/lib/include/libvfio/uuid.h
-new file mode 100644
-index 000000000000..5c4ebe5ae3d3
---- /dev/null
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio/uuid.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_UUID_H
-+#define SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_UUID_H
+diff --git a/drivers/net/pse-pd/realtek-pse-mcu-core.c b/drivers/net/pse-p=
+d/realtek-pse-mcu-core.c
+index c70b09ca2012..f3fc67fe29d3 100644
+=2D-- a/drivers/net/pse-pd/realtek-pse-mcu-core.c
++++ b/drivers/net/pse-pd/realtek-pse-mcu-core.c
+@@ -68,10 +68,14 @@
+ /* Nominal PSE rail; 802.3at/bt operating range. */
+ #define RTPSE_MCU_PSE_VOLTAGE_UV		54000000
+=20
++/* RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE values */
++#define RTPSE_MCU_POWER_MGMT_DYNAMIC_PRIO	0x02	/* dynamic, with port prio=
+rity */
 +
-+/*
-+ * Minimal replacement for libuuid's uuid_t and uuid_parse(). These mirror
-+ * the libuuid API, not the kernel's: uuid_t is a byte array (not a struct)
-+ * and uuid_parse() fills it in place (it does not take a uuid_t pointer).
-+ */
-+#define UUID_SIZE	16
-+
-+typedef unsigned char uuid_t[UUID_SIZE];
-+
-+int uuid_parse(const char *in, uuid_t uu);
-+
-+#endif /* SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_UUID_H */
-diff --git a/tools/testing/selftests/vfio/lib/libvfio.mk b/tools/testing/selftests/vfio/lib/libvfio.mk
-index eff95828719e..d1d1b2b05af1 100644
---- a/tools/testing/selftests/vfio/lib/libvfio.mk
-+++ b/tools/testing/selftests/vfio/lib/libvfio.mk
-@@ -7,6 +7,7 @@ LIBVFIO_C := iommu.c
- LIBVFIO_C += iova_allocator.c
- LIBVFIO_C += libvfio.c
- LIBVFIO_C += sysfs.c
-+LIBVFIO_C += uuid.c
- LIBVFIO_C += vfio_pci_device.c
- LIBVFIO_C += vfio_pci_driver.c
- 
-@@ -30,8 +31,6 @@ $(LIBVFIO_O_DIRS):
- 
- CFLAGS += -I$(LIBVFIO_SRCDIR)/include
- 
--LDLIBS += -luuid
--
- $(LIBVFIO_O): $(LIBVFIO_OUTPUT)/%.o : $(LIBVFIO_SRCDIR)/%.c | $(LIBVFIO_O_DIRS)
- 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
- 
-diff --git a/tools/testing/selftests/vfio/lib/uuid.c b/tools/testing/selftests/vfio/lib/uuid.c
-new file mode 100644
-index 000000000000..906a5db70ce1
---- /dev/null
-+++ b/tools/testing/selftests/vfio/lib/uuid.c
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <string.h>
-+
-+#include <libvfio.h>
-+
-+#define UUID_STRING_LEN	36
-+
-+static int hexval(char c)
+ enum rtpse_mcu_cmd {
+ 	RTPSE_MCU_CMD_SET_GLOBAL_STATE,
+ 	RTPSE_MCU_CMD_GET_SYSTEM_INFO,
+ 	RTPSE_MCU_CMD_GET_EXT_CONFIG,
++	RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE,
+=20
+ 	RTPSE_MCU_CMD_PORT_ENABLE,
+ 	RTPSE_MCU_CMD_PORT_SET_POWER_LIMIT_TYPE,
+@@ -369,6 +373,26 @@ static int rtpse_mcu_set_global_state(struct rtpse_mc=
+u_ctrl *pse, bool enable)
+ 	return (resp.payload[0] =3D=3D 0x0) ? 0 : -EIO;
+ }
+=20
++static int rtpse_mcu_set_power_management_mode(struct rtpse_mcu_ctrl *pse=
+, u8 value)
 +{
-+	if (c >= '0' && c <= '9')
-+		return c - '0';
-+	if (c >= 'a' && c <= 'f')
-+		return c - 'a' + 10;
-+	if (c >= 'A' && c <= 'F')
-+		return c - 'A' + 10;
-+	return -1;
++	struct rtpse_mcu_msg req, resp;
++	const struct rtpse_mcu_opcode *opc;
++	int ret;
++
++	opc =3D &pse->dialect->opcode[RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE];
++	if (!opc->valid)
++		return -EOPNOTSUPP;
++
++	rtpse_mcu_msg_init(&req, opc->op);
++	req.payload[0] =3D value;
++
++	ret =3D rtpse_mcu_do_xfer(pse, &req, &resp);
++	if (ret)
++		return ret;
++
++	return (resp.payload[0] =3D=3D 0x0) ? 0 : -EIO;
 +}
 +
-+int uuid_parse(const char *in, uuid_t uu)
-+{
-+	const char *p = in;
-+	int i, hi, lo;
+ /* Port operations */
+=20
+ static int rtpse_mcu_port_get_status(struct rtpse_mcu_ctrl *pse, unsigned=
+ int port,
+@@ -826,6 +850,12 @@ int rtpse_mcu_register(struct rtpse_mcu_ctrl *pse)
+ 	if (ret)
+ 		return ret;
+=20
++	/* ensure the MCU does dynamic power management with priorities */
++	ret =3D rtpse_mcu_set_power_management_mode(pse, RTPSE_MCU_POWER_MGMT_DY=
+NAMIC_PRIO);
++	if (ret)
++		return dev_err_probe(pse->dev, ret,
++				     "failed to set power management mode\n");
 +
-+	if (strlen(in) != UUID_STRING_LEN)
-+		return -1;
-+
-+	for (i = 0; i < UUID_SIZE; i++) {
-+		if (i == 4 || i == 6 || i == 8 || i == 10) {
-+			if (*p++ != '-')
-+				return -1;
-+		}
-+
-+		hi = hexval(*p++);
-+		lo = hexval(*p++);
-+		if (hi < 0 || lo < 0)
-+			return -1;
-+
-+		uu[i] = (hi << 4) | lo;
-+	}
-+
-+	return 0;
-+}
-diff --git a/tools/testing/selftests/vfio/lib/vfio_pci_device.c b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-index 4063a0e2b3df..4ae6ac1f8ed8 100644
---- a/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-+++ b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-@@ -23,8 +23,6 @@
- #include <linux/types.h>
- #include <linux/vfio.h>
- 
--#include <uuid/uuid.h>
--
- #include "kselftest.h"
- #include <libvfio.h>
- 
-
-base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
--- 
-2.56.0.385.gac671c819a-goog
+ 	/*
+ 	 * Some boards gate all ports through a hardware line; deassert it only
+ 	 * after the MCU is confirmed, so a discover failure never ungates the
+@@ -944,6 +974,7 @@ static const struct rtpse_mcu_dialect rtpse_mcu_dialec=
+t_gen2 =3D {
+ 		[RTPSE_MCU_CMD_SET_GLOBAL_STATE]	=3D RTPSE_MCU_OP(0x00),
+ 		[RTPSE_MCU_CMD_GET_SYSTEM_INFO]		=3D RTPSE_MCU_OP(0x40),
+ 		[RTPSE_MCU_CMD_GET_EXT_CONFIG]		=3D RTPSE_MCU_OP(0x4a),
++		[RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE] =3D RTPSE_MCU_OP(0x10),
+=20
+ 		[RTPSE_MCU_CMD_PORT_ENABLE]		=3D RTPSE_MCU_OP(0x01),
+ 		[RTPSE_MCU_CMD_PORT_SET_POWER_LIMIT_TYPE] =3D RTPSE_MCU_OP(0x12),
+@@ -964,6 +995,7 @@ static const struct rtpse_mcu_dialect rtpse_mcu_dialec=
+t_gen1 =3D {
+ 	.opcode =3D {
+ 		[RTPSE_MCU_CMD_GET_SYSTEM_INFO]		=3D RTPSE_MCU_OP(0x20),
+ 		[RTPSE_MCU_CMD_GET_EXT_CONFIG]		=3D RTPSE_MCU_OP(0x2b),
++		[RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE] =3D RTPSE_MCU_OP(0x17),
+=20
+ 		[RTPSE_MCU_CMD_PORT_ENABLE]		=3D RTPSE_MCU_OP(0x00),
+ 		[RTPSE_MCU_CMD_PORT_SET_POWER_LIMIT_TYPE] =3D RTPSE_MCU_OP(0x15),
+=2D-=20
+2.53.0
 
