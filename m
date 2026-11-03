@@ -1,103 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793664287;
-	b=IHHeL8DqSi71E635mLFx3zAzirSUun94NZH3zo3uaJsYSfACVBmcCTsxys7KzllvdJos
-	 Tq3T9RI7gqmGznx2eKcKVPj3Ud6eKeWZZ7w7vzMfhg7peP3WBunldDir1rRxqeCqiPCYS
-	 v4SEeXwmiDm+Re8SVn1NBuTsuoX0hCTNILMIm/oS3Fu9Uu+azuKzOxiXT53DW691nKyzk
-	 y0s3R3423wP9C5sxAhw36uFX5jI2ep176bien4m3igcCtZ62yRyfqU6TEjsLEUevVhwb/
-	 lFo2Mutf/inVGuqusQ+8I+hzJCaH0987b/ps2G+NO2j064P5Kx3oGS1V56+G3Kf82tg==
+	t=1793664390;
+	b=BZAVsQeUxEvZKQ3mwuM2vGu8b0XXc4rPVyr+G22kf72tjYEPXbSsmfk8a3aaU8O+BEAP
+	 w/SWG7lXJrtnRb2HLSzTLWpWacZOwMbHFsjfCzcgnkzHvx1YXf6C8KvbKczKHZyxGOZBL
+	 ehhzt7WqcEKR6CQcacVc3smiBQ4L4JL9HwFOWLeitEu45+bEHXkh0DDE5VMpDbYRpDYz/
+	 vLGoSUfmJuUmy/Y0pqrMxizukYq3rgFs21/Z+gWbOnMUMmDgOzvGDP+ZeuaJndDKk1x9D
+	 7aHH3ES2j78sBbXdP2oTHQ0NJ7nh7v0tN1rYY5Xu5o4MCuyrSISlz6ZVmEGkRU4XuYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793664287;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YeGo5xYJrpnxNAew8vJ5guu9FtuzQOdSkjYnhG+rvTc=;
-	b=0YMswa5DNXMaGmN/z9NpikgDyLxBOoPeSA5USUdtwOdKS0Vu+m7IGABRmVt6ywYELAeR
-	 2ba8k9YMNC3oBEtRsImmhgFQwbJH8lI9amdM+fA7FAZLlNR+pQjLUFoTUdJv0sfgwuXTS
-	 6KZblatHLivAY1TGjtLa4QeQuvRNgW5JGltl2aDuQVU+JCfE8R2UoykjVQtgFCR8BOadw
-	 8SENA8OUc1rueVp6DREh9dtxNAQmBOVebMLKoylXfRBZkkZXf3XHyAr4QWIwIPtErhEnY
-	 udH8uovhK1yGk/gqWSJtEqWuv2wzitK7bsJpWTNftu8zAjfxHpoq7sXN1XeNgWabQLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793664390;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
+	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
+	bh=yyaofbO1LBA3jJXlLCq+QmfJxp+UmzYZ0d2Ds1aVJSs=;
+	b=bXgRVYBnF/oXCKmHys5i+s1cVEiWp6vHW2I2EX62X08PiNepeYLzh0leaLZED5OlI7Ts
+	 n5+B4fg6CvU8AOAYw8Mb0JkUqko1oqgolSP6uBhnQo5Tg2nB8GR9f4zvrhZcys7eE4I/o
+	 S6i9SEgj+uJjxCT3nBCcuWuvhJ0F/E1FdcHlyEnZEiJIMqfqHEBLtAaAw2EHdTGORXcje
+	 HS22er6UhffAAJnk1DybCo4Oxbfrx6sm6cJR+/o5zR6P/8hWrsKbfuHKk/Hw0hC02/KIG
+	 KbDNupctiiK0XSiNZpoPARmJ3JMCi4RSagSZvPjfEdgnVMY5NnRf4SOxug4TqCuSN2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AAp2WmZq;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ownmail.net;
+	spf=pass smtp.mailfrom=ownmail.net;
+	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=Jf5xPeAE;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=htfp+WoF;
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432D3606EE80
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:04:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 432D3606EE80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EBF4606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:06:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EBF4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AAp2WmZq
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9cf928dc9so764975ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:04:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793664287; x=1794269087; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YeGo5xYJrpnxNAew8vJ5guu9FtuzQOdSkjYnhG+rvTc=;
-        b=AAp2WmZqH4lFkiQxMuPQDFOnleVHB5UP8Z0ExbOAQOUg2Ktwk9r0z5zhWiZ+vH1L8c
-         O9gRQOAfoIPyyhtZ73n8FaRR5rwo+x1PzEf7SdnCorC9rr8/FKNaKI7kzH62MEqKLPIz
-         HQMmt7+vq+yvJ4Per09QL5/T+YzTFOtT+iIByB6GEkMQPJJPYQQU8B3XP8jZuh/IDTlk
-         pNcagp7Kb3nAHm10gAyDB/4VUsRUIOziIOqHVi/pO2VKRGOVkmMcHgNowQ3lNRi4MzM3
-         VKv42ry2krMBnGPEOyPyCbCdnBnuI7XvOTutKa8pZk331GEjWJXnk6WSWkn255kWcoXq
-         9s+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793664287; x=1794269087;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YeGo5xYJrpnxNAew8vJ5guu9FtuzQOdSkjYnhG+rvTc=;
-        b=mTERwB3ViydDu0e5Ttg8W+dVZToaUMYsy4V7l3FEAyNqR7U6fPccro+xKSPiHIbEZQ
-         TH05ddbL2UxtYcWY68OYDtde6qmkwYHna32A8LLfJV/jCnKPDOfQ5TjqR++L97FC7WWg
-         tWOYLn6ZCkjFAiTDV76cJMB24U9gvKHgfjPloh1wUMIQs9e+8hFU7wIt0cXhxc8pJzYm
-         34Moc+CBclNHwi++tMiz/OXd8NOGj57pZ2Q5mtYZuaxgkouQQLbuYKhc56ohCueLRJLj
-         t1rf4W4fHL+S0G8O0AkT/vVziJGBd4hI3XSBqvqpkI6Zfshm0/yl3+KMSabQcOwbPeIM
-         Yqjg==
-X-Forwarded-Encrypted: i=1; AKwUvBy2yGZVcanTH0rKeRTKfHCiDCBiBfCtpcbgud1tgbwPODcjZvwvNf8bNlXp53AqqyBs24g6jP5xRvKxT9M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+kDKFCqhnnwn29rF5mRiKMnxBOwoKxZAUxu5gHKzfoOPYl2mKl
-	am2fw1Il21YF3+eJRCVo8Oc/d8nu5Pn3D94Kl5KbYY5PAhSRCrD6L+HpGY1URA==
-X-Gm-Gg: AYBFou0MLkHDiOxzvVRiE5LTfv0wqM2l9YSSVo23GgIQB1c7Vs7PjXzK/qg/aNibp4d
-	cYigb8pdq81JHW+zxZb4TyVGAXAUEyiccLIhTtxDLVxAkpLz7ghoTlxLkIMCJss0Z3utHYJ53xa
-	Kj0avxU43VXfHOyyZo5im1xSaFa0EMURgzbnYiOxibM7uo7nAQeCIsqDYbfUmwzGi4kqr+LDiKQ
-	t1n/hDX8ObpFQrvh1qIFELpDSw8HsjJaXAcN6XRUQvhiMmYA8/FEmniJiAxxWYXBFkWMptAfcYv
-	ASx8HjbV3w3djV3UTJcOdwjy4yw+rW0CvdNswKVwv+C+LZ4X+OeFPHo97jk33K7vJjG3CFiMyuS
-	cvuTLU/yBgVhgh7rFfwM6Kt0MmGhCwNMIodsZdS7HzWgJwlabIex/tgQHjfdVIf9M1y3sx2VLlz
-	3HZaUZYxVvC3RQnCaje19g7FPbBHmNmoMmr7vmoQM0X+kQb+UDBVtyBVu/bz9nywD3ka2cJ9Ovr
-	ek8JyWqwsNIc+pgD8ewg80EdpSc1FQ5XiL3qtrhmrWAB6z3OTQP1jPi/VbDWjOfVEuwgIR/b3UY
-	6WQBO7IJqGVdITQRBCdd58xg0kpt8w8VyRaef04Y9hBS/vPb85DnzmRmSJekBT6JS1S5pIxvBOg
-	ZD+GgjjL+9bovuiIUF32LMkSOHVwUp5ltriljhmjXlTXNC/CsEcJGho7Ep7p01VpHbFca
-X-Received: by 2002:a17:90b:4a4d:b0:3a0:d7f2:5a58 with SMTP id 98e67ed59e1d1-3ae89542f3dmr6388084a91.3.1793664286684;
-        Mon, 02 Nov 2026 16:04:46 -0800 (PST)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c6b3493sm1339225a91.13.2026.11.02.16.04.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 02 Nov 2026 16:04:46 -0800 (PST)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.de,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v12 11/12] ALSA: virtio: prioritize staged capture period work
-Date: Tue,  3 Nov 2026 09:04:02 +0900
-Message-ID: <20261103000403.67106-12-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261103000403.67106-1-mynameisjune111@gmail.com>
-References: <20261103000403.67106-1-mynameisjune111@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=Jf5xPeAE;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=htfp+WoF
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 857B61D0017D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:06:28 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 02 Nov 2026 19:06:28 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
+	1793664388; x=1793750788; bh=yyaofbO1LBA3jJXlLCq+QmfJxp+UmzYZ0d2
+	Ds1aVJSs=; b=Jf5xPeAEATC99T1P4pJqixYKKUPabJwcd6BsY0D8BuTdxx3FMuQ
+	rRDXTiJE1q/vuAFA7LRPdylvH4xm/Xw5SylKFuYSqqsOZhDM2JArg6KhqXNtZ83+
+	kApsrl0tqFdjgS+dWZ9hhbb/Y+99iQOvhaPa7ph3LSpjRopBQS7fZCOtEtOB+cpp
+	jJqP+IQwZHr7QqWXQgGxj+V5vYBjFRKP47jXqPq5LgZzB2w8UgrTydlkp2Sjr/Aj
+	E3JblkDKImRGrLXj3UEZX3y/rk9z99g1nVIQDBKmotgO9puJJtlmEB83qhkSt4lJ
+	onOyxkwJOlzN49mIYkG2pqUUPreX3WM5opA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793664388; x=
+	1793750788; bh=yyaofbO1LBA3jJXlLCq+QmfJxp+UmzYZ0d2Ds1aVJSs=; b=h
+	tfp+WoF11SnDxt/Gxp5SpFFiAHk/VuEiwvrTDAVRHf5K18oqLiJGxhgpPWAcJBYy
+	rWmDo5uHnMU79+znHPqIYRXUXvX0rX2IzBapcnlLwzmEw/e4TFM1lmOHVMeEgaOR
+	+Ol2NOZ/pZ0DtP6nqnJV9kuIj1ZTApo58+z0m5v6mkfYbtwQOoOgIKUuupedfwU+
+	fRAY9NlxtduQ/+tSqotXTPEpPQzqGDKDzhhm2VCFfp3JHT+UlCIXZrJZthRT61la
+	rOrv4TxXSere4zEqxBVUcRszhe+pN+RLZQBeAvqzC6rc7lLFyIoIGpNeT1ZUeiem
+	7v8cXqA3oWrPxfSBorR5w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793664388; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Rx4UnJ/zyQOU/bZn6iPprB3VbeZsD2cpwTCAt36/gioaU7v
+	xsyHROpcFMzFU4R3roxFeEvyDF2pcz344rCroUn9glhGNxyzCsm4kvYDpyrkD8lG
+	KCjQrxhGFdVnLNRsNHkCWH6/ZDFullEB25FcqSPQ1BLGPiDRLhHQ1dkrvnk9sDJ6
+	0xRACpQ9VT3OMB+S1uj5xZRPWiTPQqP1zq4d+10tbLeDnnxgh1NBcDSslHWXCIHB
+	RL8NCAvf1a3nNJfBzvCYzlvjIUKIQgUlw22p6gjIy7RPgAn7vFyGjdp746EXjrje
+	zyYJ1/FxTusTXdtCrxRLE9xGFCr4XFmcoutzimA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,reply-to,
+	subject,to;
+Message-Instance: m=1; h=sha256:dklhOffOaQJTuxqDCFFWJLMt1T+v+cevOGkLkR7nowY=:/g0Zcv3T6QmHaJPUgUetWS/VnF75sGdG4jLoaFGbuBk=;
+X-ME-Sender: <xms:gyXpar6y8sFvZSCALH3z2pcuIY7rZFrk243v9oPB2HYMVvciaiba8g>
+    <xme:gyXpastWZkDW2p0NVXhE0FIEY8y8NaGmlZDUjCQiqnNwzmU18yxG0R-RnKOc2ywro
+    Qkrw904-C4flVQK6WSVMLutHlRP8fSwlmb7Als2VK6U32ws3cc>
+X-ME-Received: <xmr:gyXpan-UN0r7AD4287uuhbUwR2Z_b9ok-NZwjX-1VmO9nYkEJHzUcmtedjb-Q5yXPoKKez07BxZjlq-xnqG580AQ7XEejOY>
+X-ME-Proxy-Cause: dmFkZTGAvNPpkdBmLL2NbMWgsBGLNi9qwJiWELuyUZizI+Ie5naw16C56PCB1rX4OVGAZ+
+    hUyb0II0WxOKlOJkUSsLka6a7tiSTLIMdGbW69c300mKt/urXg/t6hVFeeHjOZlSrUn8y0
+    swt8/sXRYTw5aAMyuPorISsWjvLhgbdovRVnur1wAuuRxnLAujFzUzJ4mke9Da6TAJYsfa
+    7yKjNDkZxUNDALSib0WP6+HtVlL0TPxbhEMlfkEbCiwfiERk9p2ziyZVq+ZxrCMOKD/vEX
+    H60Lr0am98W3njnEPZgGpYRmtttxmzVx8DLhPXJgL6RMSBdeT04c0Qd3UFCpP3fWo0DSjs
+    9Fgvx/HTnpGI2AVde92OjJV0KLonWwdWOAenTMq7c1jRjIqI/vg9g0eclsYe503Wk3cmyw
+    m5a8gz0EVznJRtBI3f1F/WH6XIuUjq/+/saOz+Iqa7iCtAWudz7gdxiMTl1/AGczmF8ui+
+    zhr3yJIhzwwKZAlqB3MIGjEtqs7KZr43FJkuwQbdVDhyS+okfr5d0HPVdopwBZBVlWzIF4
+    yWuT1jB6ymswGkYNvniJJH2oU2prlxJOWrr8ecVBD0nRPYPFsVJatEP3haVIvPqBoqfApC
+    6SL6ARf72yD9HuqF4VAOUPBk+u4/XRZHXxUW4egBc4nQosnjfo89uCciYcPw
+X-ME-Proxy: <xmx:gyXpaulvJAZDSLB899qgG_-nVM_-s3bk1I4PV0gmj_VBi-tzWtlcgQ>
+    <xmx:gyXpavNHQWSiQroWrohRk6Mjt8ziRp0L_acssh-pWD23IBs2oWwSdw>
+    <xmx:gyXpalIyczRnoxuW6m-1J15YTjIF0OruFtjjBecfjrpKTgIyvljE5g>
+    <xmx:gyXpaiGXEpA5e0NwFCSQETs0yGkmrWMf3az7DPaPZsDU19sIakS72A>
+    <xmx:hCXpaqr4_fWw-r8VXrYMSR1vis0xnNCctoGZ2d3k4CzwsBdQPaDEuhV7>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 2 Nov 2026 19:06:23 -0500 (EST)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,32 +118,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: NeilBrown <neilb@ownmail.net>
+To: "Kal Cutter Conley" <kalcutterc@nvidia.com>
+Cc: "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
+ "Chuck Lever" <cel@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>, "David S. Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ "Kal Cutter Conley" <kalcutterc@nvidia.com>, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] sunrpc: fix lost wakeups when stopping service threads
+In-reply-to: <20261102225358.414367-1-kalcutterc@nvidia.com>
+References: <20261030130629.103716-1-kalcutterc@nvidia.com>
+  <20261102225358.414367-1-kalcutterc@nvidia.com>
+Date: Tue, 03 Nov 2026 11:06:19 +1100
+Message-id: <179366437930.1728055.15983070911544727032@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-Queue staged capture period notifications on system_highpri_wq through
-the common scheduling helper. This allows capture notifications to make
-progress when ordinary workqueue workers are delayed by CPU contention.
-Playback and ordinary capture keep schedule_work().
+On Tue, 03 Nov 2026, Kal Cutter Conley wrote:
+> Stopping NFS can leave rpc.nfsd 0 in an uninterruptible wait with
+> this stack:
+>=20
+>   svc_stop_kthreads [sunrpc]
+>   svc_set_num_threads [sunrpc]
+>   nfsd_svc [nfsd]
+>   write_threads [nfsd]
+>   nfsctl_transaction_write [nfsd]
+>=20
+> SP_NEED_VICTIM and SP_VICTIM_REMAINS remain set while all remaining
+> nfsd threads sleep in svc_recv() and none has RQ_VICTIM set.
+>=20
+> The stop request is published with unordered set_bit() operations.
+> svc_pool_wake_idle_thread() checks the idle list and task state before
+> calling wake_up_process(). If it sees an empty list or TASK_RUNNING,
+> it skips the wakeup and its memory barrier. The requester can therefore
+> miss a sleeping worker while that worker misses the stop request.
+>=20
+> Use smp_mb__after_atomic() after the flag updates in
+> svc_stop_kthreads() and svc_wake_up() to order work publication before
+> both lockless checks, even when no wakeup occurs. Pair with
+> set_current_state() and llist_add() in svc_thread_wait_for_work(), so
+> the worker observes the pending work or the requester observes the
+> idle worker and wakes it.
+>=20
+> Fixes: 60749cbe3d8a ("sunrpc: change sp_nrthreads from atomic_t to unsigned=
+ int.")
+> Signed-off-by: Kal Cutter Conley <kalcutterc@nvidia.com>
+> ---
+> Changes in v2:
+> - Move the barrier into svc_stop_kthreads() and svc_wake_up(), using
+>   smp_mb__after_atomic(). This avoids adding a redundant barrier on the
+>   transport enqueue path.
+>=20
+> v1: https://lore.kernel.org/r/20261030130629.103716-1-kalcutterc@nvidia.com
+>=20
+>  net/sunrpc/svc.c      | 7 +++++++
+>  net/sunrpc/svc_xprt.c | 5 +++++
+>  2 files changed, 12 insertions(+)
+>=20
+> diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+> index af8d87c1de83..76232774646c 100644
+> --- a/net/sunrpc/svc.c
+> +++ b/net/sunrpc/svc.c
+> @@ -29,6 +29,8 @@
+>  #include <linux/sunrpc/clnt.h>
+>  #include <linux/sunrpc/bc_xprt.h>
+> =20
+> +#include <asm/barrier.h>
 
-This preserves the existing priority proposal without mixing RESET or
-lifecycle changes into it. It provides no hard real-time deadline and
-cannot prevent a userspace reader from overrunning its buffer.
+I doubt this include is really needed, but I'm not sure that matters.
 
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+> +
+>  #include <trace/events/sunrpc.h>
+> =20
+>  #include "fail.h"
+> @@ -784,6 +786,11 @@ svc_stop_kthreads(struct svc_serv *serv, struct svc_po=
+ol *pool, int nrservs)
+>  	do {
+>  		set_bit(SP_VICTIM_REMAINS, &pool->sp_flags);
+>  		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
+> +		/*
+> +		 * Order flag updates before the idle list and task state checks.
+> +		 * Pairs with the barriers in svc_thread_wait_for_work().
+> +		 */
+> +		smp_mb__after_atomic();
+>  		svc_pool_wake_idle_thread(pool);
+>  		wait_on_bit(&pool->sp_flags, SP_VICTIM_REMAINS, TASK_IDLE);
+>  		nrservs++;
+> diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
+> index 076c624fe675..868e3da57b6c 100644
+> --- a/net/sunrpc/svc_xprt.c
+> +++ b/net/sunrpc/svc_xprt.c
+> @@ -632,6 +632,11 @@ void svc_wake_up(struct svc_serv *serv)
+>  	struct svc_pool *pool =3D &serv->sv_pools[0];
+> =20
+>  	set_bit(SP_TASK_PENDING, &pool->sp_flags);
+> +	/*
+> +	 * Order flag updates before the idle list and task state checks.
+> +	 * Pairs with the barriers in svc_thread_wait_for_work().
+> +	 */
+> +	smp_mb__after_atomic();
+>  	svc_pool_wake_idle_thread(pool);
 
----
-diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
---- a/sound/virtio/virtio_pcm.h
-+++ b/sound/virtio/virtio_pcm.h
-@@ -167,6 +167,10 @@
- static inline bool
- virtsnd_pcm_schedule_period_elapsed(struct virtio_pcm_substream *vss)
- {
-+	if (vss->direction == SNDRV_PCM_STREAM_CAPTURE &&
-+	    vss->capture_staging)
-+		return queue_work(system_highpri_wq, &vss->elapsed_period);
-+
- 	return schedule_work(&vss->elapsed_period);
- }
- 
+Reviewed-by: NeilBrown <neil@brown.name>
+
+Thanks,
+NeilBrown
+
+>  }
+>  EXPORT_SYMBOL_GPL(svc_wake_up);
+>=20
+> base-commit: 2d3259f652bb0f1d137ccabecac6763da05064ec
+> --=20
+> 2.53.0
+>=20
+>=20
+
