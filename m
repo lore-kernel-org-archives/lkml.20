@@ -1,60 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793667553;
-	b=oh6howqN0Vs24jfehvOjEBfQhFtzqRs7mFQ1YJZpBTtrJ83Ng9xpmT7P2Bmj9nWPkxrP
-	 551kjbZjnPM6F+mi3EAaI4CdBjsPVJfsbYzCamugCH70fg5DNY+/PNy93t1bRS0werXJZ
-	 P3Am0wbE7sSHxutnNZDVHkQgZm5dPxrL4CkR5OAUw3rmlGRpW8fq9dJBRe5sqqHOYFzrv
-	 pIGB1xIDnVIXjCMAOofjQLpCPAsquS2sen9WBSrJ4Lhvi/Ma+epkTyJSFqnNcS6B+5mmB
-	 iGzXHp3XThVAYzspW7hCqsNYiWHPruPcGcktxLG6CrcX7fDdL6n7rZ0KT3gy2OetqRw==
+	t=1793667589;
+	b=yOvhW655/7wWBnbVVv60685ys8s70U9HOFIfUEs/1Z3pmTAMb18CJKIGV9lF4ZtJW54B
+	 nT8wDsAvFC/7q1y25fKMlZJi20jhXFLF9XZ3qK1KXoiQEeUhkxiJiCr0ZxeGF2Dz1hs3R
+	 LbAzTgPQ5cizy1jHRl+8zDpyT8XT9ukO91cupgpoidlWAGcv5iEp/fg7SSbajG7t1Lgaj
+	 7j0ly4iQuYf9pV7NTwDvl96cC3f4A3H9q0L6FkHz8HIyXY77J+/PWI6UcM/w4gEZjSEs6
+	 J4QUyN4Ol50HE73ALBVoBMmrlLAtk/bcItm6NRl6lH6x8zTdMYKHlkYFXkxmNawbhlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667553;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uLjBAWx+16VRE7Lx5wES4v4itCOupvMVhVHaz6C9qsE=;
-	b=SEfC+H9869zXHKuywGCGjlPp/olz848JKN1XFYuOng5AN3H0ho9RLC4cBH6BBiOWNkVz
-	 kMRok8k5YcF3w7eppfN3YpehOGyM0Qu1I3c7/C373KBlyyfBjlVOpDNaokW/ENezLqxKz
-	 QTMBV1v7Wzd9nwk228f8M0jvUtlTl0ulDOB7xo8VUvIOOQ+0F/7DUqDHomeAkj90SBHYK
-	 PuQxwkP8+5fdsHxTOGK6dppL2eFMTJ+TuWli3CiAtukzCaP9LHm8bLlY0JiSHKvtfgcPw
-	 Cd/askEvjOxaC5QDSIXAxN1pBWXBEvA6HRUjf7+uU6JApSngWRaWQTHJErDjD0tpQ4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667589;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=YsqNsUR8tZ9cD/Ii/qDTf0zO0JWBiVUzSsKIvjwmL+I=;
+	b=F6OgAGJjwM3ZHH76TKSaDJmeLWl9PT7bL3OCp0nKqrzwCc+RBSAoc0h8IATUQeL+f8T6
+	 TgACiqlQzvV71sQ231561IW3XE0xez95pm823s8rsJnng36GDqRCSh2iqGWwndu4r5Xli
+	 Xn3s6x/FAFggk74c9aEOT3eOdDx9veTWGYw1l4K6qfwlI0DI13rE9oKX2qkFA7EElDikx
+	 0cQNJBiB6BcDPKmQD2Ay8H6eAKdueALbNlaGpVzPq+GoBYxj78pHXMA9bT05lp7OZHR5I
+	 +vq9o/rlJD1dIh+2mlVMQEQ7cxQoxpLV0ekN2fa+uKpScgWw0uepUnIORV5lfUuKDVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJQ5FkyD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l+we6k8K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F12606A326;
-	Tue,  3 Nov 2026 00:59:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7887E606A33B;
+	Tue,  3 Nov 2026 00:59:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJQ5FkyD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328A21F000C1;
-	Tue,  3 Nov 2026 00:59:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l+we6k8K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026D81F00A15;
+	Tue,  3 Nov 2026 00:59:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793667552;
-	bh=uLjBAWx+16VRE7Lx5wES4v4itCOupvMVhVHaz6C9qsE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PJQ5FkyDa9v9hz1rerNo7CCldg/vHMYUMM+I8fRwy2Rwzk+9oD/mJpSxf05tDLiPM
-	 Xtys0dzW+Jb+Ne/6tbZ3XTgjFT/bGNuQXx9uoAu1wwFRl/X4FHr0vUofXBlYPfgbXV
-	 QC3LZhAGDwr7CZAOZxeFITZaH1wyRRKLoLQl4+QHd4109Ro1/QGOWsJlrcMiS1K0jZ
-	 oDwIN3NnltSjiraUL39XJfyyfPu9iGOJenIHvsBekh2hDmsAIh8t05LDPj1ckQPm1s
-	 BzvKG/+liXLpZJo0STRD+/iWz6DEeLaoB4gEt73tEzwYBJ++mPnu6rXx1owHA5L+rM
-	 kCLaocupS48hQ==
-Date: Mon, 2 Nov 2026 16:59:11 -0800
-From: Wei Liu <wei.liu@kernel.org>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>,
-	Anirudh Rayabharam <anrayabh@linux.microsoft.com>,
-	Mukesh Rathor <mrathor@linux.microsoft.com>,
-	Nuno Das Neves <nunodasneves@linux.microsoft.com>,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/6] Drivers: hv: initialize partition table before
- device registration
-Message-ID: <20261103005911.GC1862133@liuwe-devbox-debian-v2.local>
-References: <20261028044828.96177-1-yaojiale02@163.com>
- <20261028044828.96177-4-yaojiale02@163.com>
+	s=k20260515; t=1793667589;
+	bh=YsqNsUR8tZ9cD/Ii/qDTf0zO0JWBiVUzSsKIvjwmL+I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l+we6k8KCmW4BkvQe7SPxXlCNhaiRWMXTgksJgucs0e/v4ivZNSqhFA/8kidd7f6M
+	 4li/y68cM1v9XNCcSH9KQIVy4HtIMYV1Y9Os/O2pZv4E/b/mIBBoOn5H6DZCTKEKhA
+	 lO03AJMI/43jsP2UkvOMY46hyDkJ5Ob8OEtfkEQA+cAzma8rzFuDIeRsjDPEoyPO5N
+	 l8gXJTOflG9u/8xcT11RVbcspDlCejlpp1cqpZDhbsk0NRdlz2enStKtTHT9x/rfPA
+	 snP31XQORX55zuNk9dsJMAnrbu/gQRar71FgzCAiDWFkKNukkHKaQKkptYhthadrlU
+	 a7sOrbmzvWY/g==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Aveline Noir <jm5905938@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	SJ Park <sj@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Manuel Ebner <manuelebnerli@mailbox.org>
+Subject: [PATCH v2 2/8] Docs/admin-guide/mm/damon/stat: fix pronoun agreement
+Date: Mon,  2 Nov 2026 16:59:32 -0800
+Message-ID: <20261103005940.91432-3-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103005940.91432-1-sj@kernel.org>
+References: <20261103005940.91432-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,55 +66,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028044828.96177-4-yaojiale02@163.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 12:48:23PM +0800, Jiale Yao wrote:
-> misc_register() exposes /dev/mshv before the partition hash table and
-> its lock are initialized. A partition ioctl racing module initialization
-> can therefore access the table through an uninitialized spinlock.
-> 
-> Initialize the partition table and lock before registering the misc
-> device.
-> 
-> Fixes: 621191d709b1 ("Drivers: hv: Introduce mshv_root module to expose /dev/mshv to VMMs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+From: Aveline Noir <jm5905938@gmail.com>
 
-If such races are really a problem, shouldn't the msic_register call be
-the last in the function?
+"converts it" refers to the access events, so I think it should be
+"them".  Rewrap the paragraph while at it.
 
-Wei
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Suggested-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+Reviewed-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ Documentation/admin-guide/mm/damon/stat.rst | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-> ---
->  drivers/hv/mshv_root_main.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/hv/mshv_root_main.c b/drivers/hv/mshv_root_main.c
-> index cc2cfce2aefd..ce26320035b6 100644
-> --- a/drivers/hv/mshv_root_main.c
-> +++ b/drivers/hv/mshv_root_main.c
-> @@ -2369,6 +2369,9 @@ static int __init mshv_parent_partition_init(void)
->  	if (hv_get_hypervisor_version(&version_info))
->  		return -ENODEV;
->  
-> +	spin_lock_init(&mshv_root.pt_ht_lock);
-> +	hash_init(mshv_root.pt_htable);
-> +
->  	ret = misc_register(&mshv_dev);
->  	if (ret)
->  		return ret;
-> @@ -2407,9 +2410,6 @@ static int __init mshv_parent_partition_init(void)
->  	if (ret)
->  		goto exit_debugfs;
->  
-> -	spin_lock_init(&mshv_root.pt_ht_lock);
-> -	hash_init(mshv_root.pt_htable);
-> -
->  	hv_setup_mshv_handler(mshv_isr);
->  
->  	return 0;
-> -- 
-> 2.34.1
-> 
+diff --git a/Documentation/admin-guide/mm/damon/stat.rst b/Documentation/admin-guide/mm/damon/stat.rst
+index 4a9db755a5265..7151ac118081d 100644
+--- a/Documentation/admin-guide/mm/damon/stat.rst
++++ b/Documentation/admin-guide/mm/damon/stat.rst
+@@ -41,8 +41,8 @@ enabled
+ 
+ Enable or disable DAMON_STAT.
+ 
+-You can enable DAMON_STAT by setting the value of this parameter as ``Y``.
+-Setting it as ``N`` disables DAMON_STAT.  The default value is set by
++You can enable DAMON_STAT by setting the value of this parameter to ``Y``.
++Setting it to ``N`` disables DAMON_STAT.  The default value is set by
+ ``CONFIG_DAMON_STAT_ENABLED_DEFAULT`` build config option.
+ 
+ Note that this module (damon_stat) cannot run simultaneously with other
+@@ -68,10 +68,10 @@ estimated_memory_bandwidth
+ Estimated memory bandwidth consumption (bytes per second) of the system.
+ 
+ DAMON_STAT reads observed access events on the current DAMON results snapshot
+-and converts it to memory bandwidth consumption estimation in bytes per second.
+-The resulting metric is exposed to user via this read-only parameter.  Because
+-DAMON uses sampling, this is only an estimation of the access intensity rather
+-than accurate memory bandwidth.
++and converts them to memory bandwidth consumption estimation in bytes per
++second.  The resulting metric is exposed to user via this read-only parameter.
++Because DAMON uses sampling, this is only an estimation of the access intensity
++rather than accurate memory bandwidth.
+ 
+ memory_idle_ms_percentiles
+ --------------------------
+-- 
+2.47.3
