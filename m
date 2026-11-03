@@ -1,69 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723390;
-	b=l10DcpP5y9L1BmGLaenNQlcsyzQBp5RxQ3F8Ov7qhrI4WKCKk7Nr1Uc6C67ujwNjxkDk
-	 7Vg9+bH6UpoeTlkRSlv35dd8YGi8xEK7yqsUL+8CB75/UjAbpMyHjjm1/2M7kqtzB6aM0
-	 gXFzw+Z197EQ37c2Aue3F6qC3hfwpMfIQGxpCLw6luoQqwlT4f0BbxX4/KnoU/veUWY4h
-	 Fs4hbuet7Zx60pHGNinne9UpER8Pdc10KUN2lfFueE1ewT1bIP/tEnxvqtWvky/sNQ+E2
-	 IozerENPHY5Ym/NiNi6gS9oLEbsZrSFl4ZIu2bFnoZ2Jr7LQFiWypAgWPiwFknuKDkQ==
+	t=1793723404;
+	b=rhTz7vDwxWi3/XnrEUvdov9XOodMeddgcgnbr11RCfBOCSm4I8CY+w+nYa8XT5SrmuT5
+	 zmmP70Z3JJzTtc7k0KqWgf1fBen3sCEQVH/XkD7ZYrR0nhAYePE30uYKjIH+LAr+pcRpG
+	 45R17F1dm1ArbM7dC64jKR95+tchiqCbDt01FR4N3cjwcBgmj/c7kMpzH5MxZQZbGudaw
+	 UCPPrVRlsgdnK+3jEr9D09xWiaX8135asbWC2Q5GPPOd7Ga0nkzJ+87FSCwDiENDfmpnj
+	 ZJ6m8AMyBTxow2ivfpdakoNSDV3DU4VxowLPQlj2gR2/WS3B7eWAzjvVpl2h6rnEAPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723390;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mWWFXq51a4tuEF3t5BzvXPZdY4SURX+chEeKKoBwNZQ=;
-	b=nsoZaC9Xf95LaV8pcIl15sOmV4LVljMMvfaHd2CTvzPTek4FiCh6+8E2BgEWQbuUlbSx
-	 LiSoAqp3zEr5IW5PlEGRAm73Z7LY0ub2LXZl8vSOlG1KRjl5zp1+t2W9WobIWU/m5ubD+
-	 WGbTKPPMKNGRjgKcHV43GMC9/Ec5PXci7pcmGUjnbsc5K22eHs3QGQe8CccsDavlaEYZn
-	 4zMhG114kBt8e17FFg/CZJw2gMb8AhO36WCpLm6UYnSy/bhCznnGGyLZHtcMsJwemALAl
-	 yEq4dWAvq1aR2quy3bI4RxxE59tH4u4BqXdj3etLnjUeNKbLv3LReqT6vmkGuOj22ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723404;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=5mB8ON6MEPW2r/RYWZ0r9GruKi5bPxioVzHjsVLGOro=;
+	b=iOgqZljtCDHYuxpHgQA74/pZmy0U9BWdlymQYBqh4ZFBM1p8WkJ0E9VEueRb0KCcKG/C
+	 F+o6QBY1gHbM2hDtr41+joDFDfPDfKVK4zkddfCJOQI2/2VhIzt1UNn2Fwlpwq14i3KQe
+	 7ugv9lUkw+a4dfWsM8IHSNOhff/ut8mkt8HTVBjhXVEL+f1p5dNv+kCk+BzHG8OcAk/Qt
+	 JWrU9mwLdKUc5JI/JJOrkmBdKyd6OwSe7nODKDfoEVyBcftc7uwna+aUbwmtll9tQP2DM
+	 LfHqnz+qGJrZ5xZB6smNv/12gFRzaT/tvAsuRO9d9DV2OEjYDAA6d95bRuRGuqbOLYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LUQY6JPS;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=surriel.com;
+	spf=pass smtp.mailfrom=surriel.com;
+	arc=none smtp.remote-ip=96.67.55.147
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90048606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:29:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90048606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LUQY6JPS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793723390; x=1825259390;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=714QTWIHzvPtjBpuIiHQjy5En0jo2MT/fx6yBd5vVO4=;
-  b=LUQY6JPS8R+AMNtA/PjcilV0vK90ll8A8B5cm+RvbM/SF03hNNUIztvU
-   +lRTul9ASf5SQzlNkmNP9vbaB4YG/amSiVsHMiqAZYlPwflV1xKtOE716
-   4nbUIGTOYgXP7PhpIfpHV9Ugre4Vv4rxuYQy0dqg6H3xOQxdWkb19NqBr
-   Euu0lXPXosrH4/QseNlcjOhL8RaungBzdaCB0uyhZ85ErPInjBxD56vHh
-   zBsPjgi3EjS79hrJ+6gTcu8gL9EKMnkjmkBC56wb/T/aNTChsedQ6X8IF
-   HTbsxWrfhqabI9uvsPHc+Lit0KZxeOc3eSRqN9kPeonK0HO7D1JLX5Ary
-   A==;
-X-CSE-ConnectionGUID: EaZCqEHERrmKyy2FV4+DUQ==
-X-CSE-MsgGUID: b3Y/28dkRbaLlpVeTxKBZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2546529"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2546529"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:29:49 -0800
-X-CSE-ConnectionGUID: RuQBG6ivSJeRp1R+xYbxhg==
-X-CSE-MsgGUID: wb79OYl6S2+vT8jlBp6pjA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="8312133"
-Received: from rchatre-mobl4.amr.corp.intel.com (HELO [10.125.109.226]) ([10.125.109.226])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:29:46 -0800
-Message-ID: <3bf3f477-a048-457b-8032-43d8d1451e9e@intel.com>
-Date: Tue, 3 Nov 2026 08:29:44 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FD7606A328
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8FD7606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=5mB8ON6MEPW2r/RYWZ0r9GruKi5bPxioVzHjsVLGOro=; b=L4PUEs
+	0TG94wF9l4r0t2PR4te8DQN3Qs2zQOXhW+syyIhDqUNzTOU+0mwkLauDtvDobzC24CywcQsFvTTAe
+	xBbY8m72E/cP9VWOkau4UD/FwU5E4QaHXYF/U8+jcpYqrdKfvQyf64A1STi09gabk5DG2UOfIpdEj
+	+VVWpHFEKP3C/xhD4RSxGfm+iuAemmFerV2kA3AUP7VLJZvsRSthl8Lvt//X4n9jUJc0gFkoJkZoj
+	J9flX3xagZfg1VxZGNlsZAk9L6ebar5/j2EB9XNWEa60YlaxGjJjCX8yyEPIoGqIjYESgcrkmNrrP
+	rgR9cepYwK5KBw0vIpeh919QBlng==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xOHOM-00000001jbx-2YuO;
+	Tue, 03 Nov 2026 16:29:46 +0000
+Message-ID: <3a7d12b52a5de61277842f2cca0dd90d42728135.camel@surriel.com>
+Subject: Re: [PATCH 1/8] mm/gup: break out gup_fill_pages() helper
+From: Rik van Riel <riel@surriel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe
+ <jgg@ziepe.ca>,  John Hubbard <jhubbard@nvidia.com>, Peter Xu
+ <peterx@redhat.com>, Suren Baghdasaryan <surenb@google.com>,  Yuan-Hao Hsu
+ <aa9736195201@gmail.com>, Christoph Hellwig <hch@infradead.org>,
+ linux-mm@kvack.org
+Date: Tue, 03 Nov 2026 11:29:45 -0500
+In-Reply-To: <df9c504e-e62a-40c0-a513-e8b8c758dd57@kernel.org>
+References: <20261102193026.3860700-1-riel@surriel.com>
+	 <20261102193026.3860700-2-riel@surriel.com>
+	 <df9c504e-e62a-40c0-a513-e8b8c758dd57@kernel.org>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,127 +97,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [linus:master] [atomic] 80047d84ee:
- WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
-To: Andrew Morton <akpm@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>
-Cc: kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev,
- lkp@intel.com, linux-kernel@vger.kernel.org,
- Finn Thain <fthain@linux-m68k.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, Sasha Levin <sashal@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- Ard Biesheuvel <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Boqun Feng <boqun.feng@gmail.com>,
- Daniel Borkman <daniel@iogearbox.net>, Dinh Nguyen <dinguyen@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>, Gary Guo <gary@garyguo.net>,
- Guo Ren <guoren@kernel.org>, Hao Luo <haoluo@google.com>,
- Jiri Olsa <jolsa@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Jonas Bonn <jonas@southpole.se>, KP Singh <kpsingh@kernel.org>,
- Marc Rutland <mark.rutland@arm.com>, Martin KaFai Lau
- <martin.lau@linux.dev>, Rich Felker <dalias@libc.org>,
- Song Liu <song@kernel.org>, Stafford Horne <shorne@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
- Will Deacon <will@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, david@kernel.org,
- liam@infradead.org, kas@kernel.org
-References: <202611022259.def3e086-lkp@intel.com>
- <20261103122647.GL1813469@noisy.programming.kicks-ass.net>
- <20261103074305.27bfc570fb81346860867bdc@linux-foundation.org>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20261103074305.27bfc570fb81346860867bdc@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/3/26 07:43, Andrew Morton wrote:
->> +typedef u64 __aligned(8)	pteval_t;
->> +typedef u64 __aligned(8)	pmdval_t;
->> +typedef u64 __aligned(8)	pudval_t;
->> +typedef u64 __aligned(8)	p4dval_t;
->> +typedef u64 __aligned(8)	pgdval_t;
->> +typedef u64 __aligned(8)	pgprotval_t;
->>  
-> (cc Dave)
-> 
-> fwiw this was discussed a couple of years ago but nothing really came
-> of it.
-> 
-> https://lore.kernel.org/20240401185451.6897208962d3fc47a12ffb5a@otheo.eu
+On Tue, 2026-11-03 at 09:43 +0100, David Hildenbrand (Arm) wrote:
+> On 11/2/26 20:30, Rik van Riel wrote:
+> > __get_user_pages() fills pages[] and flushes each page's caches in
+> > an
+> > open-coded loop.
+> >=20
+> > Move it into a gup_fill_pages() helper, which the
+> > follow_page_mask()
+> > call chain can then use to fill its own pages[] slots.
+> >=20
+> > No functional changes intended.
+> >=20
+> > Suggested-by: David Hildenbrand <david@kernel.org>
+> > Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> > Signed-off-by: Rik van Riel <riel@surriel.com>
+> > ---
+> > =C2=A0mm/gup.c | 27 ++++++++++++++++++---------
+> > =C2=A01 file changed, 18 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/mm/gup.c b/mm/gup.c
+> > index 7d43ce717b246..cdbe2ed3e6442 100644
+> > --- a/mm/gup.c
+> > +++ b/mm/gup.c
+> > @@ -633,6 +633,23 @@ static struct page *no_page_table(struct
+> > vm_area_struct *vma,
+> > =C2=A0	return NULL;
+> > =C2=A0}
+> > =C2=A0
+> > +static void gup_fill_pages(struct vm_area_struct *vma, unsigned
+> > long address,
+> > +		struct page *page, unsigned long nr, struct page
+> > **pages)
+>=20
+> unsigned long nr_pages ?
 
-Heh, same code. Same basic problem. Two different detectors firing.
+Will do. Thank you.
+>=20
+>=20
+> > +{
+> > +	unsigned long i;
+> > +
+> > +	if (!pages)
+> > +		return;
+>=20
+> Why is that check needed? Why should someone try filling something
+> that doesn't
+> exist?
 
-But I also kinda feel like shooting the messenger on this one. The
-warnings are presumably to help us with performance problems. This is
-old, legacy code that nobody cares about running fast. So they're not
-actually helpful here. I don't think it's the craziest thing, at least
-on x86_32, to just turn the warnings off.
+faultin_page_range() and populate_vma_page_range
+both call the GUP code with a NULL pages pointer.
 
-Also, if there are plans to get all the pmd_t's off the stack, maybe we
-should just manually align them for now. It wouldn't hurt to make the
-definitions uglier like:
+>=20
+> > +
+> > +	for (i =3D 0; i < nr; i++) {
+> > +		struct page *subpage =3D page + i;
+>=20
+> There is no such thing as a subpage as Willy keeps saying :)
+>=20
+> Why not reuse "page" ?
+>=20
+> 	for (i =3D 0; i < nr; i++, page++) {
 
- #define pxx_xchg64(_pxx, _ptr, _val) ({
-   _pxx##val_t *_p = (_pxx##val_t *)_ptr;
--  _pxx##val_t _o = *_p;
-+  _pxx##val_t _o __aligned(sizeof(_pxx##val_t)) = *_p;
-   do { } while (!try_cmpxchg64(_p, &_o, (_val)));
-	native_make_##_pxx(_o);
-   })
+Will do.
 
-or
+>=20
+> > +
+> > +		pages[i] =3D subpage;
+> > +		flush_anon_page(vma, subpage, address + i *
+> > PAGE_SIZE);
+> > +		flush_dcache_page(subpage);
+>=20
+> Now I wonder why GUP-fast doesn't need any of that. Likely because
+> architectures
+> that support GUP-fast don't need any such magic.
 
- static int vmemmap_split_pmd(pmd_t *pmd, struct page *head, ...
- {
--        pmd_t __pmd;
-+        pmd_t __pmd __aligned(sizeof(pmd_t));
+These cache flushes seem to be common on architectures
+with virtually indexed caches, where the cache needs=C2=A0
+to be flushed if the memory is accessed through a=C2=A0
+different virtual address than where userspace might
+have written data.
 
+On 32 bit ARM, MIPS, and sh, the kernel seems to
+implement an actual cache flush here, but also
+claims to support GUP-fast.
 
+I don't understand how that would possibly be safe,
+since the pages returned by GUP-fast could be
+accessed under a different cache alias than where
+userspace accesses the memory.
 
+I think one reason GUP-fast can get away without
+a dcache flush is that most of the callers take
+care of that, for example by using raw_copy_to_user()
+to copy data using the user's virtual address, which
+takes care of VIVT cache aliasing.
+
+Likewise, drivers that do zero-copy DMA into user
+memory will get the cache flushed on VIVT architectures
+inside dma_unmap().
+
+The dcache flush inside GUP covers rarer cases, where
+the kernel accesses memory at a different address than
+where userspace wrote to that memory.
+
+ cat /proc/<pid>/cmdline              KERNEL
+ ----                                 -------------------
+ read(buf=3DU)
+   -------------------------------->
+                                      get_mm_cmdline(mm, U):
+                                        access_remote_vm(mm, arg_start,
+                                          kbuf, len, FOLL_ANON):
+                                          get_user_page_vma_remote()
+                                          (slow GUP + its flushes)
+                                          kmap_local_folio(P)
+                                          memcpy(kbuf <- K)   // read
+                                          kunmap_local(K)
+                                        copy_to_user(U, kbuf) // write
+                                          through U itself
+ read buf at U
+   ------>
+            clean: the final write to U went
+            through U. Same line. No hazard.
+
+In this case, the dcache flush in slow GUP ensures
+that data written before the GUP is visible to the
+reader.
+
+In the write path, e.g. for PTRACE_POKE, __access_remote_vm
+flushes after the write has been done, so the other
+process will see the data on the next read.
+
+It looks like process_vm_writev() might be missing that
+cache flush after a write, though.
+
+However, now we have a situation where:
+1) Only a few oddball callers of GUP need the dcache flush, and
+2) Those need to do their OWN flush after a write, and
+3) The dcache flush is not needed for most other GUP callers.
+
+We could do two different things here to solve the
+asymmetry.
+
+Either we could add dcache flushing to=C2=A0
+unpin_user_pages_dirty_lock(), and make sure all
+the callers that need to call that function, or
+we could move the cache flushing to the GUP callers.
+
+Then we have KSM, which uses GUP, and which would like
+to see the latest page contents...
+
+>=20
+> Maybe we should in fact base this on the gup-fast batching series and
+> also use
+> the helper in there (passing vma=3DNULL)?
+
+I just moved this code out of __get_user_pages(),
+but if we can get rid of it completely by using
+a different helper, all the better.
+
+Which GUP-fast batching series are you talking
+about, here?
+
+In Yeoreum Yun's series, the batch filling seems=C2=A0
+to be done inline in gup_fast_pte_range(), and not
+in a helper:
+
+https://lore.kernel.org/all/20261102-refactor_gup_fast-v2-4-bc1ac018c834@ar=
+m.com/
+
+Should both paths be using the same gup_fill_pages()
+helper?
+
+The cache flushing part is broken out into its own
+helper function later in this series, so we could
+sequence those differently.
+
+--=20
+All Rights Reversed.
