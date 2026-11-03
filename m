@@ -1,83 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694505;
-	b=zAtDN8gKMW1rzjth4eYPcJbwoBtN3ufU7uCHkrS1pfIeKe09BDXdg+mDUBDEKhcHMnaW
-	 QASfl1/87VuWiOrQZ4W6/RYbnMJibeXspnrw6a5kTxUMVJGWR0zFU0Y45tJXz223AsZOV
-	 vUdYbRqrIuWFJ8BCF+hUR91Y+C8x7R6oN8kuICW2396Sd3dVoY3/zh46p5Q25biRnBPj3
-	 WvQ2tsLa4bZuFqpEVjtIIcp1Qe82FHgAh2bP2YIdssUY0R+hCZAVlTfK/eZVjPL2JqPpO
-	 LFszvNjDZMek7ZzHmD5rz2+pQf2Hd/XFks2yWPGyFBvzTzqI1TvvAq0oyiXtqGSCJoQ==
+	t=1793694507;
+	b=n9HETNRZVjRg1ihmCmITSYZ/EH0Y8L6w7k2fIGl0pe6WgksS7olm7u9QJ+5bUTFgNjHm
+	 MXCms8jr6TcMaMMPUiZYUA+jKSWuMN0MTzWDtJJBaFmAyhZnJCjx6rVv0r8VMNJUPLRNT
+	 ICQRvAlRd5vzg9nGqF94MLMuCGecp2J3wcdmxt6/sL0dsFuGRFPECVdscfPvyRkA5QPix
+	 mS0KBSwsOJH2iQWxNULHpKrRlHVtjPd++IJ/qVTEx7CTTj/EpI/+ed6Q7+P/N/VROpoeb
+	 w5adXt8PsuWCwo9ifflaz5QqEO9WlLOzMvh4ODARlnCKLBDuj3s0KVxb2nxEMZOgZJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694505;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=ccaBHmNOBylABzTNvO6o57PE08cHTPQ4Sprujz7kZ4E=;
-	b=5X1jSfbKWjgB/gjsqYjnI+4013CLXM4qyMMPelpCeEUrTMnsvY0IdIorUFaGAE8+7lxp
-	 KJwtObZcKin0Un2dNtY66x1Z6C4FKrc8wUTkIQ579qc6QVJwLEJm46cTSj/9ye21VzkVO
-	 kjmtwZkoM6G+FBR50mrLAG/9nw5Snb1X511TocZXiVq63GQptGNyzuN5U1RdCCMAYPzwv
-	 L2ZSnBhxTrSrQ7MoHaAWTB/gi+wIPYXuVpHG81L8b8u3NYtOOd/WuWBeIsY8DYMb0akiY
-	 iP9IQRfYFCl52juk0Igc9H99ZhGp1hOLOAAmm/HEYpEhh7SOJJmHTtBlMnK4PJ0VXWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694507;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=syysjtWhfrzlfEaldEsTM26pEEl0o8azDUYhhDNzYQk=;
+	b=DAYSkgEaroM6EYJ3mn17J0J1pQkxhkoL/bki/kmrdunwrzSCtMH1emUxEQzzS00XTUPi
+	 RXO6pnQsv7wHN2B5mkCxtWgQ7OVV0ugHdXVvflU5phf+YkR+h6eZNsOxqGpFK/6wavE2H
+	 ZLDKurZgdAJewT9SabUalYZQ2SIHw+ByUMKqbcvoWQDY8Rp3pN+6RE0Q14KWWVVFdBkSI
+	 nL9TD/TMYbw7no5rGM4FAUtKMv69ef4zv+ejoMrp/+GrjfjUX3gLo38IXP+kM/7UZkYB+
+	 cy9kzqJB065EHStuZmwhEqcP0HmsMrMx40Ir+4ZSIeTl7dudhqKS4NhoCg5iuCTXsng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=B+BYYSiS;
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lww+V+Uc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F50606A330
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:28:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5F50606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F0A606A337;
+	Tue,  3 Nov 2026 08:28:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=B+BYYSiS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793694493; bh=ccaBHmNOBylABzTNvO6o57PE08cHTPQ4Sprujz7kZ4E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B+BYYSiSH8n5ZXEpEJ4I9UrUPB+la2WRlTqHsJU5TQQ/Jdsoa9lQAhtTJtd8Jx/r1
-	 UOIKiTxe2pm8BeT7fRXSjy5kq/l5VzkMHxKdCF1drsGej1yCav61QBulFdYolAtqzw
-	 3f/9zaEBoVQhZLv8bJBxbx3jp7rz/gVPJ1DMZ544=
-Received: from [127.0.0.1] ([113.208.112.234])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 708B0834; Tue, 03 Nov 2026 16:28:08 +0800
-X-QQ-mid: xmsmtpt1793694488ti4vuixks
-Message-ID: <tencent_9E9A8D222CA35E50E674E9FF795FD9BB8108@qq.com>
-X-QQ-XMAILINFO: Od8VqZhFMB3N8AuApW7GrMug056ld6ShSmPZ/kHxoW5NhlI3NTUI31a17l/1sD
-	 Tm6fU/JBYIwFtTtjmEJe0HHBraWDBrT0hQceYDc8jGLSDfPAFL0FYGMNphWgeNS9VJ3+YXcMqqN2
-	 d4sawoqSdtFPtsUFVSLvuzme58DY70RAm8wAVJhCx29Zxjda9Rpglf30qnv4qkQqWXNnubeLFpfF
-	 HhigE3yE0+vvkfksApnIHrJGyrLIV4/e6ubGOGjoe6yTFgk8aQ+Q64aj8YeQTco3hVhl0jCkbhMv
-	 JVvmNMefK4Xl+JkpFEIxmfwFjO/uCmKVFqvFFs58t1MgBvOUfq7N1Mesy1vWwgXiNyJGwpffDRZa
-	 qS9BGv7vu6y4x5J+sAB4S1OajTFn+LleF6LPEuq4r0F+/zfa7rkuJkVp2crjrD3pTU9BTtIuomYD
-	 vow+7i6P3Sm6ZNP59OsZn7XANUINIGCOPWYWGKysfwECZX6OpW48+INnrntMOcIb23n9bbH6Ktcr
-	 9ymcCUb2yl+AKx0zp7BXdX2Fu6exvD0jIzvb5hMt6Edwg2jhqC/JPI6g2zsuuv9w8Szlt8vJpm4e
-	 7EM5e0XlQgdFDTzyJnkgd7pemlG9kCvXJNCGragLP6gf7nAXvmsRqJgAy1vlVKpQrBm99l8krVDZ
-	 GRgpAK3ULhBhoZDwu2qgI67Mcs64MreoGbn+gZXgSrAxo3KqusXomcVKnoQWdT3sfezs0RD7SUFF
-	 OndsAgSLK3UR3cdvqS0EDnsJZEGbTJuTiGO6RbqFDRpSy0WM76BODiDKkDbjS4YWBiiG8kfKy6YI
-	 2R6oYK4lEGd1BxY5P3OGwxWRY4kNb+cgMG/l5NsixHEgFkwDSs/aOPNJAbzSqBDfA72leJXasoEM
-	 VUduH8EU6LhPYHtRdCIB3SB0QHp096EFRB/x3AklPbZa5//VUIp7UqrCPGCn9tcD9UQUG6AtEAAb
-	 Ngv9/9MAomS5d/tp8qilcHmlAIZJh8oZKT8DqVBwSt1qKKTkbPsUTdT1G0LFXWKyq88TR4RUIJQA
-	 lnDrsSw0J3JWnyksPCTMKyzz6o+pKX0caIDhJD3eblcSMilCfhbNLap7Rpd1LHb0Y9BirxNwAo6G
-	 YWX03F
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Jie Du <806144828@qq.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Balbir Singh <bsingharora@gmail.com>, Yang Yang <yang.yang29@zte.com.cn>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
-Subject: [PATCH] delayacct: Record blkio start on the correct task
-Date: Tue, 03 Nov 2026 16:28:08 +0800
-X-OQ-MSGID: <179369448878.1064782.155011004967499826@qq.com>
-In-Reply-To: <tencent_6CFB6E9B26A308DC2800D4059DF93FEC9706@qq.com>
-References: <tencent_6CFB6E9B26A308DC2800D4059DF93FEC9706@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lww+V+Uc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83B2F1F00A15;
+	Tue,  3 Nov 2026 08:28:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793694506;
+	bh=syysjtWhfrzlfEaldEsTM26pEEl0o8azDUYhhDNzYQk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Lww+V+Uc0HnDEMnlaPNGK3FmZK2Wnvx+sTOFI0bhrUqedqS0E/A0WpmuXi/Dfb6X5
+	 bwKWFdt/R6ToGf3lwLiEyRLjZCzQcisgulT3d0c2vrmJNw7vKlhbX6QAiIIKcm6UEy
+	 Fa/xbMH2eLwCFtpeE6fDPW4ceKZeaWhv7vINA+DqB/1Gx+fTixflTB6NGWvcDWGNOB
+	 wHsTp6tH8WC46WwQ6qu+a5wSXNryqO6BX/EUINPYInua8QLpUDce6s+KNl3fnaDTOA
+	 nOBkdr4yc1IjgCHHU/FZP0CcI74qSbOppjVpZC5skjUQtdpo8rId3LS9ViUZmkR82p
+	 mV8vrx9PwAzTA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 03 Nov 2026 08:27:44 +0000
+Subject: [PATCH 3/5] locking/rwsem: add down_read[_killable]_nosteal()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,233 +52,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-khugepaged-latency-fix-v1-3-a07ab16ac860@kernel.org>
+References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
+In-Reply-To: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
+To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Waiman Long <longman@redhat.com>, Suren Baghdasaryan <surenb@google.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Yonghong Song <yonghong.song@linux.dev>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7465; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=xtvSRfFhxlbNSRroaUFE9M6KTB+D22EsX7i6cFBQZL0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJezub5/9PB9+MNEfPOmi3q32b+565bpTJjuYhysUMdp
+ +n9RX6rOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRlUmMDI8POjeq85rmRQn5
+ zgz7E3Ev91+B7sPupdEH2JvUc9bt+cTwv95OP7WoI2nxt1kMizfePH/WbM3nJu32fbecG7bVfbH
+ dywwA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-__block_task() calls delayacct_blkio_start(), which stamps
-current->delays->blkio_start. That is only correct when the task being
-blocked is current, as it is when __schedule() blocks prev.
+Since commit 1a728dff855a ("locking/rwsem: Enable reader optimistic lock
+stealing") a sleeping, queued writer whose handoff timeout hasn't expired
+can have its lock stolen by a read lock issued before a woken queued writer
+was able to acquire a lock.
 
-With DELAY_DEQUEUE, a task that blocks while not eligible stays on the
-runqueue as sched_delayed. If it gets picked before it is woken,
-pick_next_entity() dequeues it and __block_task() runs on behalf of
-whatever task is scheduling on that CPU. Proxy execution can also block a
-task that is not current. In these cases blkio_start is written to
-current, and p keeps whatever blkio_start it had before: the start of an
-older sleep, or 0 for a thread that never blocked on I/O. When the I/O
-completes, ttwu() calls delayacct_blkio_end(p), which charges p with
-local_clock() - blkio_start. For a new thread that is the whole time
-since boot. current's own blkio_start, if it is sleeping on I/O itself,
-is moved forward at the same time.
+To avoid write lock starvation, this is only permitted if no other read
+locks are held.
 
-This shows up as freshly created threads reporting days of block I/O
-delay through taskstats and field 42 (delayacct_blkio_ticks) of
-/proc/<pid>/stat, in steps of exactly the system uptime. Anything summing
-those numbers per cgroup or per host reports nonsense.
+However, this behaviour defeats the purpose of a reader periodically
+dropping the lock to allow writers in, as doing so only works if the write
+lock is acquired first, another read lock is held, or a queued writer's
+handoff timeout has expired.
 
-Pass the task down to delayacct_blkio_start(), like commit c96f5471ce7d
-("delayacct: Account blkio completion on the correct task") did for the
-completion side. __block_task() still sets blkio_start before it clears
-p->on_rq, so a concurrent ttwu() cannot reach delayacct_blkio_end(p)
-before the start is recorded.
+Provide a means of indicating this intent via down_read_nosteal() and
+down_read_killable_nosteal().
 
-Tested with a small reproducer that keeps one CPU busy with two spinning
-threads and keeps creating short-lived threads that spin for 2ms and then
-do O_DIRECT reads; a thread is counted as bad when its
-delayacct_blkio_ticks is larger than its age. Under QEMU (TCG, 2 vCPUs),
-4 rounds of 60s each, bad threads:
+Implement it by exposing a steal parameter to rwsem_down_read_slowpath(),
+update the starvation logic to modify this parameter and modify the steal
+branch to check it first.
 
-                      v7.4-rc1           v7.4-rc1 + this patch
-  DELAY_DEQUEUE       20 of 14718        0 of 19383
-  NO_DELAY_DEQUEUE     0 of 15766        0 of 20020
+Also drop the duplicated RWSEM_WRITER_LOCKED check and remove the
+goto as the steal condition makes this redundant.
 
-Each of the 20 was charged roughly the uptime at that point.
+Exposing this function is safe as it only makes the lock more pessimistic,
+so does not impact lock contention.
 
-On a 6.6-based distribution kernel that carries the EEVDF backport the
-same reproducer gives about 690 bad threads out of 2000 in 20s with
-DELAY_DEQUEUE and none with NO_DELAY_DEQUEUE.
-
-The problem was investigated, and this patch and its reproducer were
-written, with help from an AI coding assistant (Claude). I have tested
-it as described above.
-
-Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-Closes: https://lore.kernel.org/all/tencent_6CFB6E9B26A308DC2800D4059DF93FEC9706@qq.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Jie Du <806144828@qq.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
-Reproducer used above (gcc -O2 -pthread; run as
-./blkio-repro <file or block device of at least 64MB> [seconds]):
+ include/linux/rwsem.h  |  2 ++
+ kernel/locking/rwsem.c | 71 +++++++++++++++++++++++++++++++++++++++++---------
+ 2 files changed, 60 insertions(+), 13 deletions(-)
 
-// gcc -O2 -pthread -o blkio-repro blkio-repro.c
-// ./blkio-repro <file or block device, >= 64MB> [seconds]
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <pthread.h>
-#include <sched.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <unistd.h>
-
-static int fd;
-static volatile int stop;
-static unsigned long nr, bad;
-
-static double now(void)
-{
-	struct timespec ts;
-
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return ts.tv_sec + ts.tv_nsec / 1e9;
-}
-
-/* delayacct_blkio_ticks, field 42 of /proc/thread-self/stat */
-static unsigned long long blkio_ticks(void)
-{
-	char buf[1024], *p;
-	FILE *f = fopen("/proc/thread-self/stat", "r");
-	int i;
-
-	if (!f || !fgets(buf, sizeof(buf), f))
-		exit(1);
-	fclose(f);
-	p = strrchr(buf, ')') + 2;
-	for (i = 3; i < 42; i++)
-		p = strchr(p, ' ') + 1;
-	return strtoull(p, NULL, 10);
-}
-
-static void *hog(void *arg)
-{
-	while (!stop)
-		;
-	return NULL;
-}
-
-/* burn 2ms so we are not eligible, then block on synchronous reads */
-static void *worker(void *arg)
-{
-	unsigned int seed = (unsigned long)arg;
-	double born = now();
-	void *buf;
-	int i;
-
-	if (posix_memalign(&buf, 4096, 4096))
-		exit(1);
-	while (now() - born < 0.002)
-		;
-	for (i = 0; i < 8; i++)
-		if (pread(fd, buf, 4096, (rand_r(&seed) % 16384) * 4096L) != 4096)
-			exit(1);
-	if (blkio_ticks() > (now() - born) * sysconf(_SC_CLK_TCK) + 1)
-		bad++;
-	nr++;
-	free(buf);
-	return NULL;
-}
-
-int main(int argc, char **argv)
-{
-	double end = now() + (argc > 2 ? atoi(argv[2]) : 30);
-	pthread_t h[2], t;
-	unsigned long n = 0;
-	cpu_set_t set;
-
-	fd = open(argv[1], O_RDONLY | O_DIRECT);
-	if (fd < 0)
-		return 1;
-	/* everything on one CPU */
-	CPU_ZERO(&set);
-	CPU_SET(0, &set);
-	sched_setaffinity(0, sizeof(set), &set);
-	pthread_create(&h[0], NULL, hog, NULL);
-	pthread_create(&h[1], NULL, hog, NULL);
-	while (now() < end) {
-		pthread_create(&t, NULL, worker, (void *)++n);
-		pthread_join(t, NULL);
-	}
-	stop = 1;
-	printf("threads %lu, blkio delay longer than thread age: %lu\n", nr, bad);
-	return 0;
-}
-
- include/linux/delayacct.h | 10 +++++-----
- kernel/delayacct.c        |  8 ++++++--
- kernel/sched/sched.h      |  2 +-
- 3 files changed, 12 insertions(+), 8 deletions(-)
-
-diff --git a/include/linux/delayacct.h b/include/linux/delayacct.h
-index ecb06f16d2..4bb01a1f86 100644
---- a/include/linux/delayacct.h
-+++ b/include/linux/delayacct.h
-@@ -92,7 +92,7 @@ extern void delayacct_init(void);
- 
- extern void __delayacct_tsk_init(struct task_struct *);
- extern void __delayacct_tsk_exit(struct task_struct *);
--extern void __delayacct_blkio_start(void);
-+void __delayacct_blkio_start(struct task_struct *p);
- extern void __delayacct_blkio_end(struct task_struct *);
- extern int delayacct_add_tsk(struct taskstats *, struct task_struct *);
- extern __u64 __delayacct_blkio_ticks(struct task_struct *);
-@@ -126,13 +126,13 @@ static inline void delayacct_tsk_free(struct task_struct *tsk)
- 	tsk->delays = NULL;
- }
- 
--static inline void delayacct_blkio_start(void)
-+static inline void delayacct_blkio_start(struct task_struct *p)
- {
- 	if (!static_branch_unlikely(&delayacct_key))
- 		return;
- 
--	if (current->delays)
--		__delayacct_blkio_start();
-+	if (p->delays)
-+		__delayacct_blkio_start(p);
- }
- 
- static inline void delayacct_blkio_end(struct task_struct *p)
-@@ -257,7 +257,7 @@ static inline void delayacct_tsk_init(struct task_struct *tsk)
- {}
- static inline void delayacct_tsk_free(struct task_struct *tsk)
- {}
--static inline void delayacct_blkio_start(void)
-+static inline void delayacct_blkio_start(struct task_struct *p)
- {}
- static inline void delayacct_blkio_end(struct task_struct *p)
- {}
-diff --git a/kernel/delayacct.c b/kernel/delayacct.c
-index 479e860aff..1d735d58e1 100644
---- a/kernel/delayacct.c
-+++ b/kernel/delayacct.c
-@@ -126,9 +126,13 @@ static void delayacct_end(raw_spinlock_t *lock, u64 *start, u64 *total, u32 *cou
- 	}
- }
- 
--void __delayacct_blkio_start(void)
-+/*
-+ * @p is not necessarily current: a sched_delayed task can be blocked by
-+ * another task picking it, see __block_task().
-+ */
-+void __delayacct_blkio_start(struct task_struct *p)
- {
--	current->delays->blkio_start = local_clock();
-+	p->delays->blkio_start = local_clock();
- }
+diff --git a/include/linux/rwsem.h b/include/linux/rwsem.h
+index 6a1a7bae5f81..66ab6fad5e24 100644
+--- a/include/linux/rwsem.h
++++ b/include/linux/rwsem.h
+@@ -227,8 +227,10 @@ static inline void rwsem_assert_held_write(const struct rw_semaphore *sem)
+  * lock for reading
+  */
+ extern void down_read(struct rw_semaphore *sem) __acquires_shared(sem);
++void down_read_nosteal(struct rw_semaphore *sem) __acquires_shared(sem);
+ extern int __must_check down_read_interruptible(struct rw_semaphore *sem) __cond_acquires_shared(0, sem);
+ extern int __must_check down_read_killable(struct rw_semaphore *sem) __cond_acquires_shared(0, sem);
++int __must_check down_read_killable_nosteal(struct rw_semaphore *sem) __cond_acquires_shared(0, sem);
  
  /*
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c7c563352..4ca7eac523 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -3126,7 +3126,7 @@ static inline void __block_task(struct rq *rq, struct task_struct *p)
+  * trylock for reading -- returns 1 if successful, 0 if contention
+diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
+index b9c180ac1eee..75fa9fcdee91 100644
+--- a/kernel/locking/rwsem.c
++++ b/kernel/locking/rwsem.c
+@@ -1014,7 +1014,8 @@ static inline void rwsem_cond_wake_waiter(struct rw_semaphore *sem, long count,
+  * Wait for the read lock to be granted
+  */
+ static struct rw_semaphore __sched *
+-rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int state)
++rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int state,
++			 bool steal)
+ {
+ 	long adjustment = -RWSEM_READER_BIAS;
+ 	long rcnt = (count >> RWSEM_READER_SHIFT);
+@@ -1023,17 +1024,16 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int stat
  
- 	if (p->in_iowait) {
- 		atomic_inc(&rq->nr_iowait);
--		delayacct_blkio_start();
-+		delayacct_blkio_start(p);
+ 	/*
+ 	 * To prevent a constant stream of readers from starving a sleeping
+-	 * writer, don't attempt optimistic lock stealing if the lock is
+-	 * very likely owned by readers.
++	 * writer, only attempt optimistic lock stealing if the lock is
++	 * unlikely to be owned by readers.
+ 	 */
+-	if ((atomic_long_read(&sem->owner) & RWSEM_READER_OWNED) &&
+-	    (rcnt > 1) && !(count & RWSEM_WRITER_LOCKED))
+-		goto queue;
++	steal &= !(atomic_long_read(&sem->owner) & RWSEM_READER_OWNED) ||
++		rcnt <= 1;
+ 
+ 	/*
+ 	 * Reader optimistic lock stealing.
+ 	 */
+-	if (!(count & (RWSEM_WRITER_LOCKED | RWSEM_FLAG_HANDOFF))) {
++	if (steal && !(count & (RWSEM_WRITER_LOCKED | RWSEM_FLAG_HANDOFF))) {
+ 		rwsem_set_reader_owned(sem);
+ 		lockevent_inc(rwsem_rlock_steal);
+ 
+@@ -1052,7 +1052,6 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int stat
+ 		return sem;
  	}
  
- 	ASSERT_EXCLUSIVE_WRITER(p->on_rq);
+-queue:
+ 	waiter.task = current;
+ 	waiter.type = RWSEM_WAITING_FOR_READ;
+ 	waiter.timeout = jiffies + RWSEM_WAIT_TIMEOUT;
+@@ -1281,14 +1280,15 @@ static struct rw_semaphore *rwsem_downgrade_wake(struct rw_semaphore *sem)
+ /*
+  * lock for reading
+  */
+-static __always_inline int __down_read_common(struct rw_semaphore *sem, int state)
++static __always_inline int __down_read_common(struct rw_semaphore *sem, int state,
++					      bool steal)
+ {
+ 	int ret = 0;
+ 	long count;
+ 
+ 	preempt_disable();
+ 	if (!rwsem_read_trylock(sem, &count)) {
+-		if (IS_ERR(rwsem_down_read_slowpath(sem, count, state))) {
++		if (IS_ERR(rwsem_down_read_slowpath(sem, count, state, steal))) {
+ 			ret = -EINTR;
+ 			goto out;
+ 		}
+@@ -1301,17 +1301,27 @@ static __always_inline int __down_read_common(struct rw_semaphore *sem, int stat
+ 
+ static __always_inline void __down_read(struct rw_semaphore *sem)
+ {
+-	__down_read_common(sem, TASK_UNINTERRUPTIBLE);
++	__down_read_common(sem, TASK_UNINTERRUPTIBLE, true);
++}
++
++static __always_inline void __down_read_nosteal(struct rw_semaphore *sem)
++{
++	__down_read_common(sem, TASK_UNINTERRUPTIBLE, false);
+ }
+ 
+ static __always_inline int __down_read_interruptible(struct rw_semaphore *sem)
+ {
+-	return __down_read_common(sem, TASK_INTERRUPTIBLE);
++	return __down_read_common(sem, TASK_INTERRUPTIBLE, true);
+ }
+ 
+ static __always_inline int __down_read_killable(struct rw_semaphore *sem)
+ {
+-	return __down_read_common(sem, TASK_KILLABLE);
++	return __down_read_common(sem, TASK_KILLABLE, true);
++}
++
++static __always_inline int __down_read_killable_nosteal(struct rw_semaphore *sem)
++{
++	return __down_read_common(sem, TASK_KILLABLE, false);
+ }
+ 
+ static inline int __down_read_trylock(struct rw_semaphore *sem)
+@@ -1502,6 +1512,11 @@ static inline void __down_read(struct rw_semaphore *sem)
+ 	rwbase_read_lock(&sem->rwbase, TASK_UNINTERRUPTIBLE);
+ }
+ 
++static inline void __down_read_nosteal(struct rw_semaphore *sem)
++{
++	__down_read(sem);
++}
++
+ static inline int __down_read_interruptible(struct rw_semaphore *sem)
+ {
+ 	return rwbase_read_lock(&sem->rwbase, TASK_INTERRUPTIBLE);
+@@ -1512,6 +1527,11 @@ static inline int __down_read_killable(struct rw_semaphore *sem)
+ 	return rwbase_read_lock(&sem->rwbase, TASK_KILLABLE);
+ }
+ 
++static inline int __down_read_killable_nosteal(struct rw_semaphore *sem)
++{
++	return __down_read_killable(sem);
++}
++
+ static inline int __down_read_trylock(struct rw_semaphore *sem)
+ {
+ 	return rwbase_read_trylock(&sem->rwbase);
+@@ -1577,6 +1597,16 @@ void __sched down_read(struct rw_semaphore *sem)
+ }
+ EXPORT_SYMBOL(down_read);
+ 
++void __sched down_read_nosteal(struct rw_semaphore *sem)
++	__no_context_analysis
++{
++	might_sleep();
++	rwsem_acquire_read(&sem->dep_map, 0, 0, _RET_IP_);
++
++	LOCK_CONTENDED(sem, __down_read_trylock, __down_read_nosteal);
++}
++EXPORT_SYMBOL(down_read_nosteal);
++
+ int __sched down_read_interruptible(struct rw_semaphore *sem)
+ 	__no_context_analysis
+ {
+@@ -1607,6 +1637,21 @@ int __sched down_read_killable(struct rw_semaphore *sem)
+ }
+ EXPORT_SYMBOL(down_read_killable);
+ 
++int __sched down_read_killable_nosteal(struct rw_semaphore *sem)
++	__no_context_analysis
++{
++	might_sleep();
++	rwsem_acquire_read(&sem->dep_map, 0, 0, _RET_IP_);
++
++	if (LOCK_CONTENDED_RETURN(sem, __down_read_trylock, __down_read_killable_nosteal)) {
++		rwsem_release(&sem->dep_map, _RET_IP_);
++		return -EINTR;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(down_read_killable_nosteal);
++
+ /*
+  * trylock for reading -- returns 1 if successful, 0 if contention
+  */
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0
 
