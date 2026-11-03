@@ -1,102 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704658;
-	b=tY6NrZG4ZqR3bEZYU7K8WOd1duRoNXkAzLH0iFoKzhocGwGV7Zg36LMgabyfEXZUuEUM
-	 e3rECpOVKIcDqEwctohGwevhLYqZYNz/musNNpEn6YMCs5ftLBtwSH+lYdpPossAMePhZ
-	 JqOyRmJxy3H3rvOOxdAEK8BkJBrJ66mmSwbhYvbbi5dSr/TDe+6Ntpk/TcvPsdzXV62sA
-	 IZKZgLpt4LZZ+lOEbT0ad00sgiDqYVoS//wn7q6dIGR2WPl4P2mhC0HUgd176UJxSgno/
-	 Z+EhnVlMhxCtKgV4phc2CdauSCl7/csq66dJaWJzEcPDSTdjNuQTJqHNhbeVAY1gR+w==
+	t=1793704665;
+	b=dpZLqupzoK0z5EoqL1vg0M3BWxoXCtET0DE48DoIDxmkanChFLKwYJ3kcc87ulNSE6xv
+	 ne2YtPMhb4P+6p7O152v67oMBOZZC1NCdwJCawuE1+tR+eeCCG65kB0GdrO1orUlMFRCX
+	 yQHF9EksWlEV+FCHCnZNEiJmAFheCSDn1dfSpu0UpRXYWrjI8ne6XKz0fR8ByehgmB1lQ
+	 zmonpBydOLmLBL1XvQ9A/IoEqdyHwvfDDOZWMY0DIkqFmIC792qAevECncxn6ikNsdoi8
+	 PMahUI4+p/83D5CNPKJ5BgjEdNPcremOU1bOYmfeYd7DOug5ewn58zjduawwearmabw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704658;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rO8PyIeQTJjW9jZC3eDavQXhSeNQrxCH5KHGWPFOq/g=;
-	b=QTKmL4n8/yQPKI7fRethXWdI4G7vrVFT3E2i/XK6ikgupIXi96ugei4rMvsmgM6YlJ67
-	 a0jpO2FSYc+a6OIkmSDs0ubwpFTUulfGSB/PcfYQ5e64ue4KJyxWOJQeRgDZ44G4SJPxo
-	 9mg/GaYfGAeyv3KZbjojeykvTtkMcqSsUZ48mahIpfPOrz0ePGWAGlh94GbSm5fCRDj93
-	 3WCC1jkLOT3/RYfYlubL6lhlU1A1mrKUUKiMgzHemYdlpBstAJ0YXqxqSYiMp/iLgRGWS
-	 vMzi5X9DCj5yLvZzaX9H20IQgmb2n+gJX/rvEh5RMe2Z0EGoLcY6rUVxcLr1a3Wwg4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704665;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=EBO/bCkZUVwX4wNiyWd+6LkL6t+oxWYMxsCLdhnYOXY=;
+	b=cmhlhEGaL5nnebuWc2Yg73CAzCf/5M8044LXEOpFmkvKG8LRzGgE458NUSqShmWZ6rPn
+	 eXqR3uyiZidfm6dR+ObzOKOre/mv4Kd+0rPqTTRITvF9+Fk6Jahf2Wvj6e84Bomi0DDw7
+	 LZieELn/k6wZbA1z2DSoFnS9hZ0kY+AzKSZ/p0U1JYju34bf+zGJs3h6wHJ3aVnkNtmdf
+	 BYxA9NnlwxnXvEDAeky//Q5K6iQpf+6jZUZGnxRYC4YwxO4isKwV/BEuM32a815v69Kot
+	 WuDChwi8QLsn6sEUh774btKsJQD3AlPXJKSdsaEaiaccqtRWTvPz98CHi2K49qgSkYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pC00q7jq;
-	arc=none smtp.remote-ip=209.85.210.176
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9D3606C5B2
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:17:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F9D3606C5B2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=WO2sJTNA;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DA65606D80F;
+	Tue,  3 Nov 2026 11:17:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DA65606D80F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pC00q7jq
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a070b3f44aso1340445b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:17:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793704657; x=1794309457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rO8PyIeQTJjW9jZC3eDavQXhSeNQrxCH5KHGWPFOq/g=;
-        b=pC00q7jqqQBbxlVHA5rOT/XIHx7ltpNjFk+cCBir1T0pdSFH28M7qzyByjbn3UDjkD
-         QYtroc+dE6qSS+TgIQx1KpBMUpQ8N2fBm5I3HF17p+Mau2KDVYRlfXI81lMFGUXYu59Z
-         Xn5ASiRkjyc09137mQy1qDtuKMMK1CeufA7R8yVeWObx5WJy57dyIyABIg1PIbX4VXG7
-         jawfmjK8SEx5iKYjoRg3Kv1ydaRnyXNg0XrFoMkxeoNw7+frDKMvg3EYax9tzjAwVsC/
-         UNfZZFzf9SCSbjqY+loz1zg09jWsD2VRXpgfAMwuOPyXc8CeULVPtOpRQcuHseANL7/v
-         t+PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793704657; x=1794309457;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rO8PyIeQTJjW9jZC3eDavQXhSeNQrxCH5KHGWPFOq/g=;
-        b=IlFZkP3rxcE6KpA+1KKgiI2w1R0yf6RUoGYOoNHvVn4QHtyHo6KzM7tJPptt0z1rf2
-         EmwH7qfcRMxRCMeOFS6n9SfKr0aVHq4gU3bcpG5YjYb+s2CtVdI3aQtXs2Z//12V2eU+
-         /qy4u8PqAScZ8qP2O6NyN+Hnv90S6gSjbb8vwCpOo0xTN7enm21/L5KwwLgvQnDRxM/t
-         1IRYADpXDIXtjYtY4NwUwFs48w6ldbdLnx0gXTdWvjRpvDrEzo+f70ecct9iQ1TX2XJ4
-         TGuJOhskLFnLh3n+1h4OcZnpX7yIdJwczdRGR8TqfL81GTK7veB66QLg2nD+pv2LH8FF
-         lAmA==
-X-Forwarded-Encrypted: i=1; AKwUvBxHlUM/pJNT5mGYX11Drn2jIGFI4LFyT9LPMctCjJfoyvR6MBjjP7cHB4GTBqEiqxNA5r9Sq4eakrJpUAA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/bKWo1yHVOEp907W+O6FK+mOhYfbBbqZRYSDGsprvNniRQmIc
-	/4/48nl1twts8arpp+4RWTNrISJDA8VwUtuyhw/o+yeb50uB9kRkkgID
-X-Gm-Gg: AYBFou3Awg+s3JawXHgptVtUIf70/qmnRcqfHUY+2DUpJ06wuKMx751PvaE11M4k0AD
-	hu8r/rLF/H6hdd2NvgqAe0qiup4XUOmuAqzT7y6b/mdy+juZIvpcexO615AMwMrphMvPi2MK0P+
-	+xqNRXzjnK7XRczcKXyW30aHHaren/wuJ0sYUC03r/u+3zYPiXGJtVxlATSvJHqJcIgtdQI7UMI
-	/IczBu4aWF/+XBfwVo7pvIytRbrMf2p35MvRDv6jtOLwVAdv0Ys17dmMOKKzETjFb5JaPzNMEk6
-	U8TVa5VCov0ylJYOp9RQA2245wHZwPjZJcSnAp4UieOD0599Ly0RqlpVqW04I4YwBFCzlc5Wg+V
-	anu+neeOer0sD1Q9JC4oTj+0TCFxn8DEN4199ZQ9YEvsXZeNTc/pCYiFjmyq6CqzM5FgxO/WrMS
-	fjIdJ6C9NmEcXuqJnAdnVx46q+BwVXKoF6gwe2Q/42t38IP/9/KXihF2VCvgjlPyHDswgWcKK65
-	H18Z1kMq1PyMk1KndMqknzakj+aLIL/Hnq7mqzzueB6tSJ0ASbZSG/GPmv97NNguQeQ1vyIN19p
-	k96CorlG2ZNsxuMRsnzhozxMjRjmSF2DjTQhc/LO5CRmqwM2BDjeH9ypCFCjFCYBgf0u
-X-Received: by 2002:a05:6a21:3216:b0:3e2:ad49:b24f with SMTP id adf61e73a8af0-3e928e47524mr11186434637.68.1793704656472;
-        Tue, 03 Nov 2026 03:17:36 -0800 (PST)
-Received: from xiaolei-VMware-Virtual-Platform ([219.142.21.190])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aadaf82a66sm3065147b3a.56.2026.11.03.03.17.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 03:17:36 -0800 (PST)
-From: "Xiaolei Wang (Kaihong)" <xiaoleiwangxiaolei@gmail.com>
-To: sj@kernel.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	error27@gmail.com,
-	xiaoleiwangxiaolei@gmail.com
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: [PATCH] mm/damon/core: reject empty access pattern intervals on scheme commit
-Date: Tue,  3 Nov 2026 18:54:18 +0800
-Message-ID: <20261103105418.362459-1-xiaoleiwangxiaolei@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=WO2sJTNA
+Received: by linux.microsoft.com (Postfix, from userid 1186)
+	id 375F220B7167; Tue,  3 Nov 2026 03:17:29 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 375F220B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793704649;
+	bh=EBO/bCkZUVwX4wNiyWd+6LkL6t+oxWYMxsCLdhnYOXY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=WO2sJTNA8Nt2pZG3zVVSFmKZciOOP8fFLjiX8YfWtLVoeyNuMMpiRQ2R4aseSWaTo
+	 JmzUU5x1bZ33iRmt2LOPSU26pKWTa3xu5YATCl3TPQQL89WVN9HCtzBNcptisjHv9d
+	 VrQeRZVYL8HaBCPM6Hb8tjyXdPY36jXforYpZXUk=
+From: Konstantin Taranov <kotaranov@linux.microsoft.com>
+To: kotaranov@microsoft.com,
+	snsanghvi@microsoft.com,
+	longli@microsoft.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma-next v8 0/9] RDMA/mana_ib: Add kernel RC and fast registration support
+Date: Tue,  3 Nov 2026 03:17:20 -0800
+Message-ID: <20261103111729.729886-1-kotaranov@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,74 +62,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DAMOS schemes accept access pattern bounds with min > max (e.g.
-min_sz_region > max_sz_region).  No input path validates the bounds:
-damon_new_scheme() stores the pattern as is, and the sysfs ul_range
-stores are plain kstrtoul().
+From: Konstantin Taranov <kotaranov@microsoft.com>
 
-At runtime __damos_valid_target() evaluates "min <= x <= max" for each
-of the three pattern dimensions.  A reversed interval is an empty set,
-so every region fails the check and the scheme silently never matches
-anything: nr_tried stays zero forever while the kdamond keeps running
-normally.
+Add kernel RC QPs and fast-registration MRs to the MANA RDMA driver
+for kernel consumers such as NVMe/RDMA and NFS/RDMA.
 
-With such a reversed interval, damo starts normally (rc=0, kdamond
-state=on), but nr_tried and nr_applied stay zero forever and the target
-RSS does not drop.
+Implement QP creation and state management, work request posting,
+completion processing, and error handling. Use the RDMA core's generic
+queue drains for kernel RC QPs, with software-flush notification in the
+posting paths. Kernel RC QPs require extended-WQE and power-of-two-SQ
+hardware support.
 
-The same holds for the watermarks thresholds, which must be monotonic
-(low <= mid <= high).
+Previous revisions were tested with krping, NVMe/RDMA, and NFS/RDMA,
+including RC send and receive error recovery with krping and NVMe/RDMA.
 
-Validate the access pattern and watermarks at the beginning of
-damos_commit(), through which both new schemes (damo start) and online
-updates (damo tune) pass.
+The v7 series also passed 22 NVMe/fio profiles and 20 krping cases on
+two MANA VMs. Active-I/O resets and disconnects exercised generic SQ/RQ
+drains with softirq, workqueue, and direct-poll CQs. Tracing confirmed
+post-marker notifications and completion of all 200 captured drains.
 
-Fixes: 1f366e421c8f ("mm/damon/core: implement DAMON-based Operation Schemes (DAMOS)")
-Cc: stable@vger.kernel.org
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Signed-off-by: Xiaolei Wang (Kaihong) <xiaoleiwangxiaolei@gmail.com>
----
- mm/damon/core.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+v8:
+- Patch 06: Annotate rc_send.immediate and immediate_ext as __le32
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index eb1fcdabc007..865627bda240 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1566,10 +1566,29 @@ static struct damos *damon_nth_scheme(int n, struct damon_ctx *ctx)
- 	return NULL;
- }
- 
-+static int damos_validate_scheme(struct damos *s)
-+{
-+	struct damos_access_pattern *p = &s->pattern;
-+	struct damos_watermarks *wmarks = &s->wmarks;
-+
-+	if (p->min_sz_region > p->max_sz_region ||
-+	    p->min_nr_accesses > p->max_nr_accesses ||
-+	    p->min_age_region > p->max_age_region)
-+		return -EINVAL;
-+	if (wmarks->metric != DAMOS_WMARK_NONE &&
-+	    (wmarks->low > wmarks->mid || wmarks->mid > wmarks->high))
-+		return -EINVAL;
-+	return 0;
-+}
-+
- static int damos_commit(struct damos *dst, struct damos *src)
- {
- 	int err;
- 
-+	err = damos_validate_scheme(src);
-+	if (err)
-+		return err;
-+
- 	dst->pattern = src->pattern;
- 	dst->action = src->action;
- 	dst->apply_interval_us = src->apply_interval_us;
+v7:
+- Patch 09: Include GSI QPs in deferred ERR handling.
+- Patch 09: Complete software-flush setup even if the deferred firmware
+  ERR request fails. An error CQE guarantees whole-QP DMA shutdown for
+  all QP types.
+- Drop patch 10 to use the generic SQ/RQ drains for RC.
+
+v6:
+- Patch 08: Notify software flushes after posting to error-listed QPs.
+  Add reporting pending software flush for IB_CQ_REPORT_MISSED_EVENTS.
+- Patch 09: Check fenced WQEs on error cqes to prevent flushing completed WQEs.
+  Add mana_ib_cq_clean on QP reset to discard stale CQEs. QID 0 is an invalid
+  value for RNIC and safe dor discarding. Add error_pending flag to prevent
+  a deffered ERR request to error reset QPs.
+
+v5:
+- Patch 01: Reject max_num_sg above MANA_MAX_FMR_PAGES.
+- Patch 02: Validate kernel QP queue sizes and SGE limits to prevent
+  overflows. Ensure that queue size cannnot be 0.
+- Patch 06: Preserve fence flags on unsignaled WQEs. Check message
+  length and read sges before posting a wqe.
+- Patch 08: Remove the unused QP state field.
+
+v4:
+- Patch 01: Use an explicit 64-byte FMR MST alignment
+- Patch 02: Validate that the RNIC firmware reports at least two send
+  SGEs and subtract the reserved SGE only for RNIC-based mana_ib.
+- Patch 07: Add missing wqe_size to shadow wqe for SEND/Write, and
+  return a missed-event hint for cached CQEs when CQ is armed
+
+v3:
+- Patch 07: Mask arm_psn to 24 bits before ringing the doorbell.
+- Patch 08: Exclude userspace QPs from kernel software-state handling
+  and CQ error-list insertion, and unlink UC QPs during destruction.
+
+v2:
+- Patch 03: Validate fixed-WQE capacity for the header, OOB and SGEs.
+- Patch 04: Preserve UC QP modification support.
+- Patch 08: Skip software CQ notifications for direct-polling CQs.
+- Patch 09: Flush that ERR work during QP teardown.
+- Patch 10: Limit drain callbacks to RC QPs and avoid completion
+  callbacks for direct-polling CQs.
+
+Konstantin Taranov (9):
+  RDMA/mana_ib: Allocate and map fast-registration MRs
+  RDMA/mana: Create and destroy kernel RC QPs
+  net/mana: Extend GDMA encoding for new RDMA WQEs
+  RDMA/mana_ib: Maintain kernel RC QP state
+  RDMA/mana_ib: Post receive WRs on kernel RC QPs
+  RDMA/mana_ib: Post send and memory-management WRs on RC QPs
+  RDMA/mana_ib: Poll RC completions using PSN and FSN progress
+  RDMA/mana_ib: Flush and notify CQs when kernel QPs enter ERR
+  RDMA/mana_ib: Handle error CQEs for kernel QPs
+
+ drivers/infiniband/hw/mana/cq.c                 | 353 +++++++++++++++++--
+ drivers/infiniband/hw/mana/device.c             |   2 +
+ drivers/infiniband/hw/mana/main.c               |  15 +-
+ drivers/infiniband/hw/mana/mana_ib.h            | 139 +++++++-
+ drivers/infiniband/hw/mana/mr.c                 |  87 ++++-
+ drivers/infiniband/hw/mana/qp.c                 | 327 ++++++++++++++++--
+ drivers/infiniband/hw/mana/shadow_queue.h       |  22 ++
+ drivers/infiniband/hw/mana/wr.c                 | 433 +++++++++++++++++++++++-
+ drivers/net/ethernet/microsoft/mana/gdma_main.c |  55 ++-
+ include/net/mana/gdma.h                         |  38 ++-
+ 10 files changed, 1402 insertions(+), 69 deletions(-)
+
 -- 
-2.53.0
-
+2.43.0
