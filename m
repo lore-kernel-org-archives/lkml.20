@@ -1,67 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793711289;
-	b=NDOK1opO8EDeKJibVA6zNHJibFLRdAJwQsrWyLxvLB2gmpmSPMiG7O0CKobY8fQLbRyo
-	 Ojaw4AGw8zAyXskVSZRUYH4/GFKNzQ7SxPrK3zkSoolO1WtsyRbqs3JqM2ArAQMvKltvk
-	 APv4VlaLccXh8nqwdsk7UpahAHkzooBNoIne+GxSDIxlucKZmMW+IzpBmsgM8ghvv+j5i
-	 wVkt9lt4R7Vfx21LbMfAILbnKp5jKSkV4zCpBlCT7cUjDLGvSPJug6/6qRA4q/GUGAeu2
-	 cRrjbawut9XqAsCS21472gT90ALKXv6lfxQO4LpVxgYux3+Wyx5u1tLiiBZ21etgv1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=m9LS+o8AlJfgKoyswx5DISaOXnhEqdlVcY64GgqzW6dq6fCHpxfBFf8iXQseuII0SmpJ
+	 ELW2g1Poqq7TWGFq7dpz6b+hmpMOb01uYCH5sPoLR4UFs1F3gfs5SU97SRkUFyNuAtxaw
+	 KkOgyuiwR7iBCRvoxvdKq70TlkHcLkx/MffGin3YrG0Qi622nf+bYD/Bb2t/0zXDLOo6B
+	 amAZZvZSU584ghNH3eBioVZILgrxUbju+BqdwznQO7c9A93IcoDMQB3tOqlvzWO13zyak
+	 ldyLr06JPEyrtd00mpuIC8Xldnnn7wrpXx4lgqiOTOk70ePs0sAfl96r7GxuqpDdRGQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793711289;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
-	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=r7CooIw1Bi/0suNnLQLpMoBg0C8qxELygEKgmH6yELM=;
-	b=vxtL5rs6XEifQLF3ohDF6p9SK7istdy5HSoJySRfiG/356BH5szv2oCXUJIXxL3uxGMP
-	 CckDZIBtFWYwWdHc1u0XdwJYw/isqwp7YR7Td/tz3b/xzs5jTJTxGMtDJjzV0qCn7RjCq
-	 c/BrLKeSnztlZqyUvSvvSDICWbEaHzUuLlFhGayeDiqFWxqq362ArpvgbQS9AW595fUvK
-	 cfpcqDWaNoKyzVZ8hY/wD48a+e6jC9b89vSljIbt7Rl65TMKLpIF9rZdpkr1JTGWJPfXf
-	 ZIAJtqxFrcuXvHzsiGTa2g3paHO12ijylT0k1oeHbPnECwcPSGU/pwfpS51WD3rOcQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1fBCpV361Ghq70htxPInxWG74L4nJhRQLrY4+iilsEg=;
+	b=yJf/8bhh8kEmXG4HXBPVqADsHTuRGcS90oT3EXfxVvFdsiv0u8CFYaPxQs7yY5nxlW0N
+	 FtO9+z42PC+2/VSd9LTUMVjmc/SlRgxuHJMCUMipU6BrLKqCbqWS1JcBMHi9di5FaZgyG
+	 HDEvb6Rs9Nkg+7zn4dxlU+YiZFjVzwB9960/jL9o8JPC88qpDj0JzYFx3SwTMlKWyOat1
+	 sRLIJ2kPxgF5btLteWY2qYpGMTPDnNfXsXWcLgbPT8ehTWEGPNkZigmMjZkSQYDl2J1Iq
+	 lNKaPUepkmgQSYHb50WYjMQgyTo/UGF3aR9yYmn5wwd0Z5lgwC4JZN1BlOHgxpy1tfA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=df5WcpEj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.33
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010033.outbound.protection.outlook.com [52.101.69.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A209606A333;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7731D606D82A;
 	Tue,  3 Nov 2026 13:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A209606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJplj3nx2z55y2H;
-	Tue, 03 Nov 2026 21:08:01 +0800 (CST)
-Received: from szxl2zmapp07.zte.com.cn ([10.1.32.52])
-	by mse-fl1.zte.com.cn with SMTP id 6A3D7j5a004970;
-	Tue, 3 Nov 2026 21:07:45 +0800 (+08)
-	(envelope-from zhang.yanze@zte.com.cn)
-Received: from localhost.localdomain (unknown [192.168.6.15])
-	by smtp (Zmail) with SMTP;
-	Tue, 3 Nov 2026 21:07:49 +0800
-X-Zmail-TransId: 3e816ae9dca4029-7edfd
-X-Zmail-LocalSMTP: 1
-X-Zmail-RealSender: zhang.yanze@zte.com.cn
-From: Yanze Zhang <zhang.yanze@zte.com.cn>
-To: jgg@ziepe.ca, leon@kernel.org, julianbraha@gmail.com,
-        huangjunxian6@hisilicon.com, yanjun.zhu@linux.dev
-Cc: Markus.Elfring@web.de, lkp@intel.com, linux-kernel@vger.kernel.org,
-        linux-rdma@vger.kernel.org, wei.quan@zte.com.cn,
-        han.junyang@zte.com.cn, ran.ming@zte.com.cn, han.chengfei@zte.com.cn,
-        zhang.yanze@zte.com.cn
-Subject: [PATCH rdma v9 5/7] RDMA/zrdma: Implement device and port query operations
-Date: Tue,  3 Nov 2026 20:56:52 +0800
-Message-ID: <20261103125654.2707069-6-zhang.yanze@zte.com.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103125654.2707069-1-zhang.yanze@zte.com.cn>
-References: <20261103125654.2707069-1-zhang.yanze@zte.com.cn>
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7731D606D82A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=df5WcpEj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=brbPBZiCKj4qmCDOoeG9s8rjjOwmixMC5IepiXavsyWdMe9Z2YCTeqe0gShrTaVKQs0gmccs/D5YGE3XLZFk9a6UQaaeBwTMVj23lHZy6pFuhGlxhmTuEquPTKl1cb7KK7Yp0uQNPLOt2LrgGv1IuTLrOEr/D0bk/yo0bonEn6U2xfNWszHiHc7flqrQ+nt2QTeVrGZzIt6UdCIW1lew4Yo/Q4vFOG1Ic2Qm8U4oqZQnVaEZHiyX4NoVkk4H1Cp6ql2RljqXL9tCBN1AQklceIjqUYagKRKgxBMX8nEbuw2vnBlTyg9FxXEBc7fi/uLLMDckEYVDfSpkmG+pzG0gqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1fBCpV361Ghq70htxPInxWG74L4nJhRQLrY4+iilsEg=;
+ b=kHqz/Gl1IsNt+9rcA1DXqgRsalDQyJFk4StaT1+WR54z7uOmYsWjDRjJrokNIFScG8LaTha3zh+OBfYkHvI5OGPdTWhoErOiBC7M0EbKulvYawonbTczJzPBiSajgi61SwbDyZVdeUW3GEWCr/MPYQbeICVR3DRopxmP07eNEq1vYzl/uOmMYc6NZ4205+bbbHBVyFKs8LdV2e6o5iGJAJvaEpSWVDnUGR3jPMhADKOQ7nuj+diuzFsGelEUODovo0fc5vW9MBKDlTMZECfQ195DF/edwJLS3agVXhZXmTn/4KQiPTeUKGQ20ZQ8Z+cyOUv41eQPM62gkQ/MY/2EUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1fBCpV361Ghq70htxPInxWG74L4nJhRQLrY4+iilsEg=;
+ b=df5WcpEjnyBY3J5rXYwFF8h19AlMk6BxkJbMhKVzhg0NyLujwyM803Fjn9Jrccq81D5LWZjN93NFvokzl+30TdkCDaEZCk64IipNoBjs2v5BjvA6n08HFu865blUapVgrOOMLyTOJWnr9SMOmtnx7meXf7lR2jVdYe3d5GAy3dhgHvgYoT0C/jpVWqKC2zh9MaW2lA75DJw1GGTYOnBVP51hyQHg5UBhtit49jrBVvY8nfoBFNRAZs6tRVBgnetrRGGaEm1gTnDYxSjUaBqYTu0YzBBrCKcrLSsFRR3kntvIdiUIS+T6OSFtoSWbwq98SnIjMqTbc2/Yn1FNGeMoJw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10) by AS8PR04MB8007.eurprd04.prod.outlook.com
+ (2603:10a6:20b:2aa::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 13:08:04 +0000
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 13:08:04 +0000
+Message-ID: <68497fe2-c347-48c2-8faa-8c07924e8305@oss.nxp.com>
+Date: Tue, 3 Nov 2026 15:07:59 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/10] dt-bindings: ufs: Add NXP S32N79 UFS host
+ controller
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Pedro Sousa <pedrom.sousa@synopsys.com>, Joao Pinto
+ <Joao.Pinto@synopsys.com>, Hannes Reinicke <hare@suse.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, linux-scsi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
+ eballetb@redhat.com, echanude@redhat.com, Frank Li <Frank.Li@nxp.com>
+References: <20261024122533.3609180-1-larisa.grigore@oss.nxp.com>
+ <20261024122533.3609180-8-larisa.grigore@oss.nxp.com>
+ <20261026-beneficial-authentic-bonobo-a59b7c@quoll>
+Content-Language: en-US
+From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+In-Reply-To: <20261026-beneficial-authentic-bonobo-a59b7c@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4PR10CA0023.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d8::15) To GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,353 +116,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
-Content-Transfer-Encoding: 8bit
-X-MAIL:mse-fl1.zte.com.cn 6A3D7j5a004970
-X-TLS: YES
-X-ENVELOPE-SENDER: zhang.yanze@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Tue, 03 Nov 2026 21:08:01 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE9DCB1.000/4jJplj3nx2z55y2H
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|AS8PR04MB8007:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3853fa50-786a-4f16-d991-08df39ab7eaa
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|19092799006|376014|366016|1800799024|23010399003|10067099003|22082099003|261102123227099003|18002099003|3023799007|56012099006|4143699003|11063799006|261026140227099003|261026121527099003|261022075727099003|261021121427099003|261022105027099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+ wbyOEhaq4aM6zG/6f/6r04cdIN60dghCNowHtW8NBvmwmhCPs3RekcJtgzJIO7JhkAGZYFqPe20qV4gs1TzrabGmeV5lUaAU2w6fU1T6dQ4+bbQPfSgZ+hiorp06RlRrFxUWZfGl5XIddDBIqJcyvPjSENxw0XY8zoedJkc5ZrgUjQpA9aWNXTfrDc68sRodCU/e0eukCV1I7jTtV0jncrn+FBxvLgllKyisnGIdDI33FCVFJ9tfUNMGKI2TEfJ5cD+x5ZzCZLCoVBdP17pJLs5at5sIZN6lfqtyyieCWioPLqOTFM1haNQzIGO+JW/8JlJ8rk98C65r3uuZsL7z53zrFbBulQtRh8Oh6v2wKlVunVAOIWG31L9zoJDyIfLF1rExm7yuAgU1JA2FEeUeAqsYpIZ4lcDFMA0cqjoefJjwQ4247P6y9Io7tyNjdiCfOG3uN2j8NI/bdekuLPNPoCtaj6B8nS/lM3LeKpiQrt1RP3Gz4z6PmKleiuVv+EaeZIzATUspIZJEsZlRqcIrRI1w5u0ThuUfFd42K03aGRsjv953W/1xG84S4ifHZensa/Jgdzxe+3IVW9VoBFYafis/uVHK+Lo2UIt38k5g9ywfYqL99Y5hiaql5dXcbkAq
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(19092799006)(376014)(366016)(1800799024)(23010399003)(10067099003)(22082099003)(261102123227099003)(18002099003)(3023799007)(56012099006)(4143699003)(11063799006)(261026140227099003)(261026121527099003)(261022075727099003)(261021121427099003)(261022105027099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?cWQ5NG1HVnNoZm1WQ1UvQWhiVS81a2MxbitTS3NaNEdOKy9MWGFadVY0UGZG?=
+ =?utf-8?B?bDR3aGI4S0RHd0ZZQmYzSWl6WUpUS1A4YlR4KzFaSDlPMWZaUnZLZjM0M3lj?=
+ =?utf-8?B?Zis0SFJ0YmhRelgrQ2tYSTdFWTJocm5uYk14NktSZFdiMEhMMWNiTWQ0RW00?=
+ =?utf-8?B?SlN2aW1oczVYcDgwbjVTOHN4YUl0V3kyUGdKTVJWdUk2UUk4NEUzVUVCSndn?=
+ =?utf-8?B?UThpVDdpTW9XVDlLK2ZvZGNsRzc4UG5LRytNZG43RVBFZnRLMXY5ZVdzY1dW?=
+ =?utf-8?B?aFlhQjNWckJ6RWsrYzJHK0E5M2liMGpvc2M0dVJJUHo2NFRWR0lxVkRNU29G?=
+ =?utf-8?B?UHF0RDNuc2RVQjd1c0p5VnhmL0pZaC96TVFOODBxZnNNRjdCWlZMemxEWGtC?=
+ =?utf-8?B?SjZ3RUpieUZIUk5pMmVDZ2VSSHppL3YrWTBoMGNtci9UZTRkQzRTZlQ3QXl2?=
+ =?utf-8?B?T0xMUkw3a0htZDJaSFZSN0loaHlncEhlZ1RHRUpFMjRrZzdmRjRHT1d4c1hP?=
+ =?utf-8?B?UGFCNFg5ajhXQjliRDF2YmVxR09NYUpqOUx1WmFoUlhTeXN3bDRac09JcGwz?=
+ =?utf-8?B?YmI1b3V6VElVTWwrYTJnN3JTdnZ1dEFuRGVlRWI0UWZRaW00Vzh0RUdhbVlS?=
+ =?utf-8?B?ZGc5ZEZUNkZuUXY0UVM0R3kra1ZIYTBMMW1PTisyZzhYM0VOQkFORU1SdFp2?=
+ =?utf-8?B?UEx1Z1JkV3E0TUxWZ1l3NDZMR1kzSzlndXBHbitxMjREWFE1emlkdVVJK1Az?=
+ =?utf-8?B?SUFLS2M1QUJHMFFwQndjQUh3dmxRYnVKRzZPWWpQeUtETEFYa0twMU45QU1y?=
+ =?utf-8?B?ZkxMSmtEMjMxanNWRU1nb2xranIvVHpmcG5VWWRwNEFGWkZWTEJyOWxLNHZX?=
+ =?utf-8?B?U0tMMCs0Zk84bnZYM3hBc29uWXczMktMNHZWQmhqK1FwT1lhRS9Od3BBRHUy?=
+ =?utf-8?B?WWM4b0RkazlxS0U3UitVblhSaFNObTJUWWtEUkdTcXpPNUppdko2MmJmczJM?=
+ =?utf-8?B?blR6L1VjMEQ4NWtJZ0sxTmVVNWFtaVRDcWgwM0RBcHIvMVgzVTIzOTdRdGVU?=
+ =?utf-8?B?c0lDR29sOUFsK1ZHU2lqa2Q0ajdiZFZzNXl5c215T0tTcGNPbkhVZ09FOU9t?=
+ =?utf-8?B?MXQ5N215bm1reDY1b2cvRVVNTk50OC93K0gvVE9KWWhYUlVmaHYySlJtY0VQ?=
+ =?utf-8?B?MUtSSndQazV2aE1CUklXelNyZXVxclh1U3hNOTY2OC9adzIwbjFYQVZqSklp?=
+ =?utf-8?B?VlNOUm10RGEwb0pkdGVWbVRSekF4MFVIVU5xeDF5L2thdkdXN05HeVZBNmRZ?=
+ =?utf-8?B?ZlZnVFhMczdCRnBpeUVwTmtUTG82WVZnVUJuaGhxU0FlenpMaGtrM2dYeS8x?=
+ =?utf-8?B?SVJhcXJLdEhRdTNOYzNsY29XZ0FlaUxwUlVORGNlV0tpeENFVGFNWmEzMzQy?=
+ =?utf-8?B?UXZ6QVFmbzdROXlGUGFmRnNJQzB6cDBWL09UUHphMDdYSmxPdXQ1Y0VVSCto?=
+ =?utf-8?B?UjZ4ZnFaVTVsNnExYmhuM0ZONGptNlFTd1MwQ3FrZFZPeG9VdWxjQ09jRWZ5?=
+ =?utf-8?B?akpPSGh6QWJWMGtxWXcvNWYrdzI2c0g4VmF6UHAwbUVxdG0rV3VBMDZrTXZJ?=
+ =?utf-8?B?MVhzOHRnWTI4WTdDcG1FVU1OaU5xZ256L3JrOHpaM2p4Qk03bDEvM2ppZ1RC?=
+ =?utf-8?B?ZWNQbG05Y0o2SG1YamJla1dDMVRZZ3Z1MGVqMkFKNEVpSGpPd1BSWGRGQnIy?=
+ =?utf-8?B?RjlWOWo3SmFyUGRBdHFDanRUanNFWHphQUxZRExzblBKQjk5NDJVZnp1andZ?=
+ =?utf-8?B?dWt6U3JzandvYzRHUWlnNU1MRmhDdWRKblY0OEpoZ0l5VENHTWlnYlpMeDRs?=
+ =?utf-8?B?MFQ1SXV6ZmkxRjByT09QRVVqVlJiUkVEbVhicUZRYnRJays0SjN0N3prd3hN?=
+ =?utf-8?B?QTBpZXJjdTZlQURwNE1lemkveUtLVFZkekMrOXJxTlg3ZnlIWHJIRVJiODhu?=
+ =?utf-8?B?NGUyK0UwNlVVYktkdTN5aWVldHpUK0JwTzl3MGJsMnpxNGY2WTBGdzZIVEQy?=
+ =?utf-8?B?MmlPMWNmVGNMQW8yN3ZVTUM1VS9va0UzNjlBU2hvMFJFMzNuRWQ0K29qTW1r?=
+ =?utf-8?B?WE9PNkxWTWZHYTJSRERiR2FHNzJZb2VlT2lpY3pSeEVwekcxN3crb0MwME5O?=
+ =?utf-8?B?ODBGdXBCbFRTRTdnTVBDZkVjVkNKUmJ4NUNZb2lEQlVMMGlxRzd6OFJYTi9T?=
+ =?utf-8?B?Mnk1RFE3VDVtWU1wcTM1ZmJBYXZYQ2hoZWhyYTVUWDlvQ1paUzdNMjlnc0tF?=
+ =?utf-8?B?cGxBMU1CWGNzVm1OS2RZUWMzWU9oNEZycXlQYjVzSzQ3c2M2QS9TbGFqVzFT?=
+ =?utf-8?Q?27SwzsGphfe3tMdA=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3853fa50-786a-4f16-d991-08df39ab7eaa
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 13:08:03.9852
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AK2a5FUofBKA89s/Ce/Ak4uknvMeIQ+XFjKUmdwezJRS7VJR/zCEHl/hu6K2+OI3IVYSnVJTz37gnGURiK2i+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8007
 
-Add implementation for querying device attributes, port attributes,
-PKey, and link layer information. Also include firmware version string
-retrieval.
+On 10/26/2026 1:11 PM, Krzysztof Kozlowski wrote:
+> On Sat, Oct 24, 2026 at 02:25:30PM +0200, Larisa Grigore wrote:
+>> Document the UFS host controller on the NXP S32N79 SoC.
+>>
+>> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+>> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> 
+> How this could appear in v1?
+> 
+> Also, your SoB is the last one.
+> 
 
-The device attributes report the limits of the hardware, the vendor id
-and the firmware version, which is taken from the driver info of the
-network device. The port attributes report the state and the speed of
-the port, which is taken from the network device on every query. The
-immutable port information describes the RoCE encapsulation of the
-port.
+Apologies for the confusion. This was intended to be v9. I will send v10.
 
-Signed-off-by: Yanze Zhang <zhang.yanze@zte.com.cn>
----
- drivers/infiniband/hw/zrdma/zrdma_verbs.c | 300 ++++++++++++++++++++++
- 1 file changed, 300 insertions(+)
-
-diff --git a/drivers/infiniband/hw/zrdma/zrdma_verbs.c b/drivers/infiniband/hw/zrdma/zrdma_verbs.c
-index 84ee7be418139..b5322a8e129bb 100644
---- a/drivers/infiniband/hw/zrdma/zrdma_verbs.c
-+++ b/drivers/infiniband/hw/zrdma/zrdma_verbs.c
-@@ -7,11 +7,305 @@
- #include "zrdma_main.h"
- #include "zrdma_verbs.h"
- #include "zrdma_ctrl.h"
-+#include <linux/ctype.h>
-+#include <linux/etherdevice.h>
-+#include <linux/rtnetlink.h>
-+
-+/* Fetch the driver info for @zdev->netdev, or for its first lower device
-+ * when it is a bond. The lower device list is protected by rtnl_lock.
-+ *
-+ * The lock is taken unconditionally. rtnl_is_locked() only tells whether
-+ * some task holds the lock, not whether the current one does, so it must
-+ * not be used to decide that the lock can be skipped: skipping it would
-+ * walk the lower device list without its protection.
-+ *
-+ * The lock is needed for two reasons: the kernel requires it for the
-+ * traversal of the lower device list, and it keeps a slave from being
-+ * unlinked or unregistered while it is used. A reference on the device
-+ * would not be enough, because it does not keep the private data of the
-+ * driver of the slave alive during the unregistration.
-+ *
-+ * The callers run in process context, so taking the lock there cannot
-+ * sleep in atomic context. None of the callers holds the rtnl lock
-+ * itself: query_device() is called from the uverbs and from the
-+ * registration path, get_dev_fw_str() from the sysfs and from the
-+ * netlink path. The rtnl mutex is not recursive, so taking it here
-+ * cannot deadlock.
-+ */
-+static bool zxdh_get_drvinfo(struct zxdh_device *zdev,
-+			     struct ethtool_drvinfo *info)
-+{
-+	struct net_device *slave = NULL, *dev;
-+	struct list_head *iter;
-+	bool ret = true;
-+
-+	memset(info, 0, sizeof(*info));
-+
-+	if (!zdev->netdev)
-+		return false;
-+
-+	rtnl_lock();
-+
-+	/* Only the master of a bond has the slaves in its lower device
-+	 * list. A slave carries the bonding flag as well, but it has no
-+	 * lower devices of its own.
-+	 */
-+	if (netif_is_bond_master(zdev->netdev))
-+		netdev_for_each_lower_dev(zdev->netdev, slave, iter)
-+			break;
-+
-+	dev = slave ? slave : zdev->netdev;
-+	if (dev->ethtool_ops && dev->ethtool_ops->get_drvinfo)
-+		dev->ethtool_ops->get_drvinfo(dev, info);
-+	else
-+		ret = false;
-+
-+	rtnl_unlock();
-+
-+	return ret;
-+}
-+
-+static void extract_version(const char *input, char *output, size_t size)
-+{
-+	const char *v_start, *p;
-+	size_t len = 0;
-+	int dots = 0;
-+
-+	if (!output || !size)
-+		return;
-+
-+	*output = '\0';
-+
-+	if (!input)
-+		return;
-+
-+	/* The version is preceded by the model, e.g. "E310-V25.30.103.01".
-+	 * Skip the model, so that only the version itself is reported.
-+	 */
-+	v_start = input;
-+	for (p = input; *p; p++) {
-+		if (p[0] == '-' && p[1] == 'V' && isdigit((unsigned char)p[2])) {
-+			v_start = p + 2;
-+			break;
-+		}
-+	}
-+
-+	/* Cut the vendor suffix, if any, and keep at most four dot
-+	 * separated fields, which is what the fw_ver layout can hold.
-+	 */
-+	for (p = v_start; *p && *p != ' '; p++) {
-+		if (*p == '.' && ++dots == 4)
-+			break;
-+		if (len + 1 >= size)
-+			break;
-+		output[len++] = *p;
-+	}
-+
-+	output[len] = '\0';
-+}
-+
-+static int zxdh_query_device(struct ib_device *ibdev,
-+			     struct ib_device_attr *props,
-+			     struct ib_udata *udata)
-+{
-+	struct zxdh_device *zdev = to_zdev(ibdev);
-+	struct pci_dev *pcidev = zdev->rf->pcidev;
-+	unsigned int major, sub_major, minor, sub_minor;
-+	struct ethtool_drvinfo info;
-+	char extracted_version[32] = {};
-+	int err;
-+
-+	/* The driver has no device specific data to exchange. The core
-+	 * calls this without udata while the device is being registered,
-+	 * so udata is only inspected when it is there.
-+	 */
-+	err = ib_no_udata_io(udata);
-+	if (err)
-+		return err;
-+
-+	memset(props, 0, sizeof(*props));
-+
-+	if (zxdh_get_drvinfo(zdev, &info)) {
-+		extract_version(info.fw_version, extracted_version,
-+				 sizeof(extracted_version));
-+		if (sscanf(extracted_version, "%u.%u.%u.%u", &major,
-+			   &sub_major, &minor, &sub_minor) != 4) {
-+			major = 0;
-+			sub_major = 0;
-+			minor = 0;
-+			sub_minor = 0;
-+		}
-+	} else {
-+		major = 0;
-+		sub_major = 0;
-+		minor = 0;
-+		sub_minor = 0;
-+	}
-+
-+	addrconf_addr_eui48((u8 *)&props->sys_image_guid,
-+			    zdev->netdev->dev_addr);
-+	props->fw_ver = ((u64)(major & 0xffff) << 48 |
-+			 (u64)(sub_major & 0xffff) << 32 |
-+			 (u64)(minor & 0xffff) << 16 |
-+			 (u64)(sub_minor & 0xffff));
-+	/* Only the capabilities that the driver implements are reported.
-+	 * The memory management extensions need the advise_mr operation,
-+	 * the notification of the completion queue needs req_notify_cq and
-+	 * the RNR NAK generation needs the queue pair data path.
-+	 */
-+	props->device_cap_flags =
-+		IB_DEVICE_MEM_WINDOW | IB_DEVICE_SYS_IMAGE_GUID;
-+	props->vendor_id = pcidev->vendor;
-+	props->vendor_part_id = pcidev->device;
-+	props->hw_ver = pcidev->revision;
-+	props->page_size_cap = SZ_4K | SZ_2M | SZ_1G;
-+	props->max_mr_size = MAX_MR_SIZE;
-+	props->max_qp = MAX_QP;
-+	props->max_qp_wr = MAX_QP_WR;
-+	props->max_cq = MAX_CQ;
-+	props->max_cqe = MAX_CQE;
-+	props->max_mr = MAX_MR;
-+	props->max_mw = MAX_MW;
-+	props->max_pd = MAX_PD;
-+	props->max_send_sge = MAX_SEND_SGE;
-+	props->max_recv_sge = MAX_RECV_SGE;
-+	props->max_sge_rd = MAX_SGE_RD;
-+	props->max_qp_rd_atom = MAX_QP_RD_ATOM;
-+	props->max_res_rd_atom = MAX_RES_RD_ATOM;
-+	props->max_qp_init_rd_atom = MAX_QP_INIT_RD_ATOM;
-+	props->max_srq = MAX_SRQ;
-+	props->max_srq_wr = MAX_SRQ_WR;
-+	props->max_srq_sge = MAX_SRQ_SGE;
-+	props->local_ca_ack_delay = LOCAL_CA_ACK_DELAY;
-+	props->hca_core_clock = HCA_CORE_CLOCK;
-+	props->max_wq_type_rq = MAX_WQ_TYPE_RQ;
-+	if (rdma_protocol_roce(ibdev, rdma_start_port(ibdev))) {
-+		props->max_pkeys = ZXDH_PKEY_TBL_SZ;
-+		props->max_ah = MAX_AH;
-+		props->max_mcast_grp = 0;
-+		props->max_mcast_qp_attach = 0;
-+		props->max_total_mcast_qp_attach = 0;
-+	}
-+	props->max_fast_reg_page_list_len = MAX_FAST_REG_PAGE_LIST_LEN;
-+	props->cq_caps.max_cq_moderation_count = MAX_CQ_MODERATION_COUNT;
-+	props->cq_caps.max_cq_moderation_period = MAX_CQ_MODERATION_PERIOD;
-+	props->timestamp_mask = TIMESTAMP_MASK;
-+
-+	return 0;
-+}
-+
-+static int zxdh_query_port(struct ib_device *ibdev, u32 port,
-+			   struct ib_port_attr *props)
-+{
-+	struct zxdh_device *zdev = to_zdev(ibdev);
-+	struct net_device *netdev = zdev->netdev;
-+
-+	props->max_mtu = IB_MTU_4096;
-+	props->active_mtu = ib_mtu_int_to_enum(netdev->mtu - ZXDH_MTU_HEADER_RSV);
-+	props->lid = 0;
-+	props->lmc = 0;
-+	props->sm_lid = 0;
-+	props->sm_sl = 0;
-+	if (netif_carrier_ok(netdev) && netif_running(netdev)) {
-+		props->state = IB_PORT_ACTIVE;
-+		props->phys_state = IB_PORT_PHYS_STATE_LINK_UP;
-+	} else {
-+		props->state = IB_PORT_DOWN;
-+		props->phys_state = IB_PORT_PHYS_STATE_DISABLED;
-+	}
-+
-+	/* The link speed is read from the netdev on every query, so a
-+	 * link change is never reported with a stale value.
-+	 */
-+	if (ib_get_eth_speed(ibdev, port, &props->active_speed,
-+			     &props->active_width))
-+		pr_warn_ratelimited("zrdma: failed to get the port speed\n");
-+
-+	if (rdma_protocol_roce(ibdev, port)) {
-+		props->gid_tbl_len = ZXDH_GID_TBL_LEN;
-+		props->ip_gids = true;
-+		props->pkey_tbl_len = ZXDH_PKEY_TBL_SZ;
-+	} else {
-+		props->gid_tbl_len = 1;
-+	}
-+	props->max_msg_sz = MAX_MSG_SZ;
-+	props->qkey_viol_cntr = 0;
-+
-+	return 0;
-+}
-+
-+static enum rdma_link_layer zxdh_get_link_layer(struct ib_device *ibdev,
-+						u32 port_num)
-+{
-+	return IB_LINK_LAYER_ETHERNET;
-+}
-+
-+static int zxdh_query_pkey(struct ib_device *ibdev, u32 port, u16 index,
-+			   u16 *pkey)
-+{
-+	if (index >= ZXDH_PKEY_TBL_SZ)
-+		return -EINVAL;
-+
-+	*pkey = ZXDH_DEFAULT_PKEY;
-+	return 0;
-+}
-+
-+static int zxdh_roce_port_immutable(struct ib_device *ibdev, u32 port_num,
-+				    struct ib_port_immutable *immutable)
-+{
-+	/* The core passes a pointer to port_data[port_num].immutable, so
-+	 * the values are visible to rdma_protocol_roce() as soon as they
-+	 * are written here. They are filled in directly instead of asking
-+	 * zxdh_query_port(), because that helper is only meant for a
-+	 * device that is already registered.
-+	 */
-+	/* The management datagrams are not supported, so the MAD and the
-+	 * CM capability are not reported and the size of the management
-+	 * datagram is zero.
-+	 */
-+	immutable->core_cap_flags = RDMA_CORE_CAP_PROT_ROCE_UDP_ENCAP |
-+				    RDMA_CORE_CAP_PROT_ROCE;
-+	immutable->max_mad_size = 0;
-+	immutable->pkey_tbl_len = ZXDH_PKEY_TBL_SZ;
-+	immutable->gid_tbl_len = ZXDH_GID_TBL_LEN;
-+
-+	return 0;
-+}
-+
-+static void zxdh_get_dev_fw_str(struct ib_device *dev, char *str)
-+{
-+	struct zxdh_device *zdev = to_zdev(dev);
-+	struct ethtool_drvinfo info;
-+	char extracted_version[32];
-+
-+	strscpy(str, "N/A", IB_FW_VERSION_NAME_MAX);
-+
-+	if (!zxdh_get_drvinfo(zdev, &info))
-+		return;
-+
-+	extract_version(info.fw_version, extracted_version,
-+				 sizeof(extracted_version));
-+	/* Keep the placeholder when no version could be extracted. */
-+	if (extracted_version[0])
-+		strscpy(str, extracted_version, IB_FW_VERSION_NAME_MAX);
-+}
-+
-+static void zxdh_init_roce_device(struct zxdh_device *zdev)
-+{
-+	zdev->ibdev.node_type = RDMA_NODE_IB_CA;
-+	addrconf_addr_eui48((u8 *)&zdev->ibdev.node_guid,
-+			    zdev->netdev->dev_addr);
-+}
- 
- static int zxdh_init_rdma_device(struct zxdh_device *zdev)
- {
- 	struct pci_dev *pcidev = zdev->rf->pcidev;
- 
-+	if (zdev->roce_mode)
-+		zxdh_init_roce_device(zdev);
-+	else
-+		return -EPFNOSUPPORT;
-+
- 	zdev->ibdev.phys_port_cnt = 1;
- 	/* The core divides by num_comp_vectors in ib_cq_pool_get() and
- 	 * rejects every uverbs CQ creation when it is zero, so the count
-@@ -47,4 +341,10 @@ const struct ib_device_ops zxdh_dev_ops = {
- 	.owner = THIS_MODULE,
- 	.driver_id = RDMA_DRIVER_ZRDMA,
- 	.uverbs_abi_ver = ZXDH_ABI_VER,
-+	.query_device = zxdh_query_device,
-+	.query_port = zxdh_query_port,
-+	.query_pkey = zxdh_query_pkey,
-+	.get_link_layer = zxdh_get_link_layer,
-+	.get_port_immutable = zxdh_roce_port_immutable,
-+	.get_dev_fw_str = zxdh_get_dev_fw_str,
- };
--- 
-2.43.5
+Regards,
+Larisa
+>> ---
+>>   .../bindings/ufs/nxp,s32n79-ufshc.yaml        | 65 +++++++++++++++++++
+>>   1 file changed, 65 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml b/Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml
+>> new file mode 100644
+>> index 000000000000..14291c5506f1
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml
+>> @@ -0,0 +1,65 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/ufs/nxp,s32n79-ufshc.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: NXP S32N79 Universal Flash Storage (UFS) Controller
+>> +
+>> +maintainers:
+>> +  - Larisa Grigore <larisa.grigore@oss.nxp.com>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: nxp,s32n79-ufshc
+>> +
+>> +  reg:
+>> +    items:
+>> +      - description: UFS Host Controller registers
+>> +      - description: System Control Module registers
+>> +
+>> +  reg-names:
+>> +    items:
+>> +      - const: ufshc
+>> +      - const: scm
+>> +
+>> +  clocks:
+>> +    maxItems: 1
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: core
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - reg-names
+>> +  - clocks
+>> +  - clock-names
+>> +  - operating-points-v2
+>> +
+>> +allOf:
+>> +  - $ref: ufs-common.yaml
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    ufshc@4ac80000 {
+>> +        compatible = "nxp,s32n79-ufshc";
+>> +        reg = <0x4ac80000 0x1000>, <0x4ac40000 0x1000>;
+>> +        reg-names = "ufshc", "scm";
+>> +        interrupt-parent = <&irqsteer_coss>;
+>> +        interrupts = <211>;
+>> +        clocks = <&clks 0x92>;
+>> +        clock-names = "core";
+>> +        operating-points-v2 = <&ufs_opp_table>;
+>> +
+>> +        ufs_opp_table: opp-table {
+>> +            compatible = "operating-points-v2";
+>> +
+>> +            opp-0 {
+>> +                opp-hz = /bits/ 64 <0>;
+> 
+> Why is this empty?
+> 
+> 
+> Best regards,
+> Krzysztof
+> 
 
