@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793709029;
-	b=l6u1lLcqair3d/W2Q0KIR10wOPy14jlySQrTv2WHCrSy4or6gjq3KyiuiCb3EJZdADCz
-	 NAYJpf317R5SlD320IGjqGXi+uIApzcacOZNsVN3z5upq6kz//RS2H2E+6urQjx3aFjq8
-	 t7wXLo4a6a5G9LkzNHuDGLIQfWv8PiEXAASwYyfgDVhlfVjaRUt7KfOCIWzbC0XGZSxE5
-	 4QIFUViykxLkqTLo4hFbTL4pr/1fq9WqeENQjX4mYUKfzpssqnB4UzZ+odzdoCMSk0qq+
-	 hfwyoPDHpNrRleglOf1uEDfxdZ2qPT20deNheq7LsjvupwgOp1tjA0L+J4X8Ohf+EqQ==
+	t=1793709030;
+	b=1mi0iVXAX9lxKKGnoGC0FignB2WB/dFb5E3pohtbURhOdwQPAlL5RIqNDynKnk1ZO18r
+	 nKWM2iU8oKXMIvG28jM9WJrkUrzzGXklyN+pbo4K6oswSGGPPdLISFgYfmqqGfvcgO+8B
+	 8S9+g98R0LjkPxv7L2RwOE56k9ggEuTPfehfn25qAsZnbFOHBaxaKJ3r/JIdwiPhxjvJJ
+	 WV677KuZ7QZINPVlVYmDcCudht+PGvmm97sbrFi+e3DjxVonWWbb1+mfj2yiMpltgwLI2
+	 qUgcasFujvztmYMRz+mjQUBYLtZlncM/cgmQncyHv6V76Amv8oNyutOyQUGqVua/jXw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709029;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=uiy2IWbIYht/xXMfc1WYTA42qc7atdySFh081unjegw=;
-	b=TM17VMuLjJSiicCSyLsOLZb7QHR4TIQYnxBxM/LPzMSOmmkNAszhu5XZ+c2Vkoi/Fftf
-	 YBuBJdGUyP/hYJ53+8Z5Ta0cA2ovAMKh2sN5wCjyYXgLOA5xwiUbbTlUe3wAFPzhyzcUN
-	 2ffxD3LSSNebBScyiUKYQUqZPFjRqx/XDdQmu5CPtpwNQSLpMwen0cALRBh9DSgZzhGWh
-	 wTyRQg+3oJWhmg2DwUdevr+IbwpSZFHbRmmVvUQLxOtQI1Tf3NNhSpF3vnbn4jEIGOb0j
-	 m77RwD6I39dwJvaDGCT2cGOZ4cOhIorL6lKn70nTNpd75s2NfYbNOquN07eLkY0+oBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709030;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yzeyKJEvScW4ElzQC7+EqIjda3VMnu0vxJu1YSg6J4s=;
+	b=RRfU+F0naUjs2jkEjfVYzVbXoo17Kh3RPi7d3NL83T3PkiFUKoCxw/GDBa1tqV8Q3ppG
+	 4zncWr179pi/hj7aGnpjqKhqG2mc4lbS4GH9tbOrEDApCAt8Z0wOLZEXe6W4CrmdWLynO
+	 5QBDrISJoPZxiff/qt46IabBHsStPv8B9IE8Pc6JtS0tsUvzZAM2L0GRW642qge4TlOHB
+	 sFfPjcARwP13PLPxu/MJo7V4SVpyM6DcoyZkxw0RIR01lJJR+a6pqKigENY4pTABMqnCQ
+	 sraiJ5AEeIBQFMPPehi59ZXqOSWjvNsazbEBglj2rFNDWSLzoNazNA/jL5jktu1/TVQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YkYWkGfT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYY0zahh;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8741F606A328;
-	Tue,  3 Nov 2026 12:30:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B151606A330;
+	Tue,  3 Nov 2026 12:30:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YkYWkGfT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYY0zahh
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793709028;
-	b=OVaTr1bVfa+hIBNWnxpxxiODUhgI3hcUEZXeJW0ue8WvNPMwK3DzU0ngqNi7QatqhmGC
-	 //JMNCHV9/O8WWxOLp1f8CjZgNZUUIuPSy0err3p6EjQF6FAtIzPNK7l1tkedYThGxx/R
-	 VrDaWppvqjMvysukj+GZa1neLV40AVFNsT5axo6tZYGhohrUujvBM0WkMR12F9wc2iBPi
-	 uaCf3lw0Yp9gLJc7KcPKpIXH2yp5dd5q7ozCV5bbS9OZqIMkLR/aWwnVEyETnDANKk/A0
-	 B84lq9he2mnbJ9VLOs7m1BESx0OoYHOYnzd6H6OSyRIeleGBQnNXiLPy1Ax3Xm8BjEA==
+	t=1793709030;
+	b=y4T4AdhDCu6iiQv7tdc8wFaAN0H8FN0Bes6vIBi6w5mi0KxVrCDeARzHVP1UYz6DOVWx
+	 VmleRMgmo/lBAl7helPwJzZuL4Koi/S00hfhdl5RhmBQ2lCXHG40+JK/VodabGupzi0IK
+	 CW4jqQqxMjn0VHmJhzxmppwRx1Gs+BHo4xS5JOI3+9SdNol3foHurLJ/7ZeRvrfUFlbkZ
+	 uECbcUnAUNWZHIOOL90VQxfnlMUs3ogPU5Ok2yfRO6DLel7wBwfrlAD9ByDha8sHG48/6
+	 wFidle50x9F4vopA6/q9VVdB5OETPsmq0qSVCVq2tBGo23vwmAsHMzUvoHQ+SOfJfKQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793709028;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=uiy2IWbIYht/xXMfc1WYTA42qc7atdySFh081unjegw=;
-	b=RD2Lutt6YNhPcFwb2O6e1pRhU+ED82h9i9w3dmgWSalNav1C/1155FBgX1IxiiwBZd33
-	 oqPSrB2Tc+geIrGltviA0yFoFHo1r76eRm/nEIO+d4CDDNmJrvFcChsjO3nrSvmrYaG+U
-	 dPag700CnuIa5BR8NX3kIsMqeIHdU4DOghqp0FDvbxHd9t6MmXGHnJu4AVuQIo1az2HKq
-	 hNEUJckfufb2O+JmLDDpZwxGSQpcQWGfxbuJQ+uFJWdTwkVZxuE42Ypb7gp2C++tU/w8b
-	 VfLJKxrXwvmKm1QEimHCpQmVpaoPSbqAeH9TDVZW424Whk3zEz0zoZYLqBgaJEqFeLg==
+	c=relaxed/relaxed; t=1793709030;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yzeyKJEvScW4ElzQC7+EqIjda3VMnu0vxJu1YSg6J4s=;
+	b=oCt8qFFnJs5Xm/PRq4HTR/HCHUHrO+/CQXVkdcIvi6F1TIlWIva3Hi/ISkDwCIN8u1Y4
+	 wTDlEtC85j6hGQynDEz1cwhKwdHCSA/r8aYdkLP712NY/5ZjabLfyxqGi6pYK73zVUMXL
+	 HFGXFYW5sJG4jcg+TPm0TIxzcMLK+O1zARShU+dFsqjC4qsJsl6FMO3gUOwlOsPKJoeE1
+	 53ZU7UO/AMUkrkXMpOwLQw5p29Tcsjt7ORgAb1H/rPUuK/KvFRiuUw9qKfSpyqD8lTqjZ
+	 vQZ1CMZhHzpDCkPujkYH9AYA8P7XsV/OlTbL0RkRsnG8FtIMQfOi6yQy06avP1uYnnQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C147A1F00919;
-	Tue,  3 Nov 2026 12:30:25 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 732AB1F00A1B;
+	Tue,  3 Nov 2026 12:30:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793709028;
-	bh=uiy2IWbIYht/xXMfc1WYTA42qc7atdySFh081unjegw=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=YkYWkGfTlNep/NPdovh1Fmf7s4Q0hthSjUsXfW3m6lMjZcziRJQrHNRVjN7R+OySw
-	 ZEFH9FSWhguaZcTpVHOdwm9y1P/sB4N7WY/CqkD/OkUhR0SnBQHRAKN865KrxWELr2
-	 xXBh5FWkdl2cjai3z8U8HwrOhh1O36K6cB7/CgEFEoZa15Y+vay6X3GJE4x3g6v9Ba
-	 E5bgHLvDJzKBE8yzmZUoLAkD6y4FhJAYCc3b8jYhviy/akTOm8jfKaZOBdB2lPyrPw
-	 7JBEj5uKiWfXDtbmwRnoTxolAxeVDzLpkQGMpLbp54QeVHI6sR0yFNy73sLssBkFzT
-	 f31jxqpzTXfjQ==
+	s=k20260515; t=1793709030;
+	bh=yzeyKJEvScW4ElzQC7+EqIjda3VMnu0vxJu1YSg6J4s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=dYY0zahhVevs4afUB5p5L3mr2pSp4QKnvMcb0BjxCv3+x9l5jxFErzSL/+AEUSSix
+	 IJXxZ42tlvJ0KkPD240d6fB75znw9DiHJIJMDdDncb0qEEsMG2QpNOgEjpFtxNjKsU
+	 Xy57oVPoXY6t3tiB+mszFf+I+fB2Jl65rH0iUMJI7ndzkwLrvpLID8uHeDXeAuOAWy
+	 FwffrTbP8/Mqb7squ0kDGaM6ISzUpfc+aLYaxFBpQNyb+u63JOKoOXT/vafUAGjeqo
+	 98og9NLYpoFt5gVSSjbl3qgoCLA7ho1wtBIfJ9xBzTuI1tbhNluahuUU35a4QObG40
+	 unFf3pj4UwCyg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 198BB46924;
+	by lkml.kernel.org (Postfix) with ESMTP id AA1BB46948;
 	Tue,  3 Nov 2026 12:30:25 +0000 (UTC)
 From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
-Subject: [PATCH v8 00/14] can: peak_usb: fixes and input validation
- hardening
-Date: Tue, 03 Nov 2026 13:30:16 +0100
-Message-Id: <20261103-canfd_check_channel_idx-v8-0-4e8b2c0a8806@peak-system.fr>
+Date: Tue, 03 Nov 2026 13:30:26 +0100
+Subject: [PATCH v8 10/14] can: peak_usb: dump undecodable URBs once and
+ rate limit decode errors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,296 +84,267 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43R30rDMBQG8FcZubaSvz2NV76HSDlJTlycdqOpZ
- WP03U0nQsFWdvnBl98XkivL1CfK7Gl3ZT2NKadjV0LzsGN+j90bVSmUzCSXteAcKo9dDK3fkz+
- 0c6OjjzaFc4U6AAoURBBYOX3qKabzTX55/cn5y72TH2ZubuxTHo795TY9irn3u9Jsroyi4hVH5
- VwjoyZun0+Ehypf8kCfj7Fn89Qol5jdxmTBIjgAaaUFK1YxtcAk38ZUwUAHAd6gsZZWMX0npgv
- mogvUiNg4dKuYuRMzBcNaOmVcU0Pkq1i9xOQ2VhdMWACupRLGrL8ZLDD1z81g/gCvUUWMCn38g
- 03T9A09DaTFowIAAA==
-X-Change-ID: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+Message-Id: <20261103-canfd_check_channel_idx-v8-10-4e8b2c0a8806@peak-system.fr>
+References: <20261103-canfd_check_channel_idx-v8-0-4e8b2c0a8806@peak-system.fr>
+In-Reply-To: <20261103-canfd_check_channel_idx-v8-0-4e8b2c0a8806@peak-system.fr>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, 
  Vincent Mailhol <mailhol@kernel.org>, 
  Wolfgang Grandegger <wg@grandegger.com>, 
  =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
  Dan Carpenter <error27@gmail.com>, Lukas Magel <lukas.magel@posteo.net>
 Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tristan Madani <tristmd@gmail.com>, 
- =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
+ Tristan Madani <tristmd@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793709023; l=14727;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793709024; l=8030;
  i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
- bh=k+NR5ImJTVRqXMGym3u6ahofP6YI014Hth+JnpAgcdM=;
- b=YTJQNiZBxwR3ac+lFRKVewfK2hACVcC29DEkJ1ulhpbzoHLP2s+rjSq2zSsu82zgGK6Kqd10D
- jcKvlm6Pn+PDXoaITLeumJbH8uxZ33/emUoXDHsXF1ykkmYv4iHTmgO
+ bh=Y9OLOJORiCyS6rJxBFXyhFDzhdH7ugYnKhRkwMDPtvM=;
+ b=rxwBWpot0zA6HNdasofO0PDg8Ff/a35IbQ1cKXtsE/xDJZRoXwlsamVE4tJnuU1/oG0785iWL
+ cNmO5qsYnO1ANlX/ZrA+vE2+3XQ0RozjeQkpZMzupY1FP6zQv45TMPL
 X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
  pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
 X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
  with auth_id=1250
 X-Original-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
 Reply-To: s.grosjean@peak-system.fr
+Content-Transfer-Encoding: 8bit
 
-This series contains bug fixes and input validation improvements for
-the PEAK-System USB CAN drivers.
+From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-Patch 1 fixes CAN error frame generation, where CAN_ERR_CNT overwrote
-previously set CAN error flags.
+When the decoding of a received URB fails, peak_usb_read_bulk_callback()
+dumps the whole RX buffer to the kernel log. The buffer is allocated with
+kmalloc() and its size is the adapter RX buffer size (up to 2048 bytes),
+so the bytes beyond urb->actual_length are uninitialized memory or
+leftovers from previous transfers.
 
-Patch 2 adds bounds checks to the PCAN-USB RX parser, so that
-truncated or malformed records are rejected instead of being read
-beyond the received data.
+Moreover, the PCAN-USB Pro and PCAN-USB FD decoders already dump the
+received bytes themselves before returning the error, so the same URB is
+dumped twice. Neither these dumps nor the error messages printed by the
+decoders are rate limited, while a faulty or malicious device can make
+every transfer fail to decode, or carry unknown records.
 
-Patch 3 replaces the open-coded bitmask operations on the device state
-flags with bitops, which makes their updates atomic. Patches 4 and 7
-rely on it.
+Dump only the urb->actual_length bytes received, from
+peak_usb_read_bulk_callback() only, and rate limit this dump as well as
+the error messages the decoders print about the received data.
 
-Patch 4 validates the channel numbers received from PCAN-USB FD
-devices, rejects records for channels that are not set up, and stops
-RX on all channels before they are released, on disconnect as well as
-on probe failure.
+The dump and these messages are rate limited separately, so during a
+burst one of them may be printed without the other. Drop the trailing
+colon of the PCAN-USB Pro "got unsupported rec in usb msg" message,
+which announced a dump that may no longer follow it.
 
-Patch 5 fixes the RX parsing of self-received RTR frames with SRR set,
-which left the RX cursor one byte behind.
+The dumps and messages of the adapter decoders were pointed out by
+Sashiko AI review.
 
-Patches 6 and 7 fix related issues found while reviewing the above:
-the same channel slot check in the PCAN-USB Pro driver, and the netdevs
-being registered before their channels are initialized.
-
-Patches 8 and 9 add the missing validation of the data received from
-PCAN-USB Pro devices: the data length of the CAN frames, and the record
-count of the messages, which could make the decoders read past the
-received data.
-
-Patch 10 stops dumping stale RX buffer bytes on decode errors, dumps an
-undecodable URB only once, and rate limits the decode error messages.
-
-Patches 11 and 12 fix uninitialized data that could be returned to
-userspace as the CAN channel ID of the PCAN-USB and of the PCAN-USB
-Pro. Patches 13 and 14 stop sending uninitialized stack and heap bytes
-to the devices, in the PCAN-USB commands and in the restart commands of
-all the adapters.
-
+Fixes: bb4785551f64 ("can: usb: PEAK-System Technik USB adapters driver core")
+Assisted-by: LLM
+Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
 ---
-Changes in v8:
-- Drop v7 patches 2 ("can: peak_usb: add missing includes", by Marc)
-  and 3 ("can: peak_usb: sort ctrlmode_supported flags"), which are
-  cleanups, so that this series only carries fixes. None of the fixes
-  depends on them. I'll send them to linux-can-next once net-next
-  reopens, unless Marc prefers to apply his patch directly. The
-  remaining patches are renumbered: v7 patches 4 to 13 are now 2 to 11.
-- Patch 3 (was 5): kept in this series, since patches 4 and 7 rely on
-  the atomic state flag updates.
-- Patch 7 (was 9): commit message only: name the multi-channel
-  adapters that share the interface resources (PCAN-USB Pro FD and
-  PCAN-USB X6) instead of the single-channel PCAN-USB FD, and say that
-  the command buffer released on failure belongs to all the CAN FD
-  adapters.
-- Patch 10 (was 12): drop the trailing colon of the PCAN-USB Pro "got
-  unsupported rec in usb msg" message, since this message and the dump
-  of the URB are rate limited separately, and say so in the commit
-  message.
-  Found by Sashiko AI review on v7:
-  https://lore.kernel.org/r/179349933002.3127.4498885660427450789@kernel.org
-- New patch 12: pass the dev_num argument of the PCAN-USB Pro GETDEVID
-  record, which pcan_msg_add_rec() read with va_arg() without the
-  caller passing it, and which could be returned as the CAN channel ID.
-  Found by Sashiko AI review on v7:
-  https://lore.kernel.org/r/179349933109.3127.16204326690893554658@kernel.org
-- New patch 13: don't send uninitialized stack bytes to PCAN-USB
-  devices when setting the bitrate or the CAN channel ID. Pre-existing
-  issue found by Sashiko AI review on v7, same report as above.
-- New patch 14: allocate the buffer of the asynchronous restart
-  commands with kzalloc(), since none of the adapters fills the whole
-  part of it that is sent to the device. Pre-existing issue, found
-  while checking the other adapters for the issue fixed by patch 13.
-- Not changed, after review of v7:
-  - patch 4 (was 6): on probe failure, peak_usb_stop_rx() clears
-    CONNECTED before the failing channel is unregistered, so that its
-    ndo_stop() neither sends bus off nor turns off the calibration
-    messages. This path is only reached when sending bus off to this
-    channel has just failed, so these commands would most likely fail
-    as well, and patch 7 removes this call;
-  - asynchronous restart URBs not killed before free_candev():
-    pre-existing, left for the separate series announced in v6;
-  - pcan_usb_wait_rsp() checks neither the length nor the function of
-    the response: pre-existing, left for a later hardening series.
-- Tested on PCAN-USB Pro, PCAN-USB Pro FD, PCAN-USB FD and PCAN-USB on
-  the same bus, with the driver of this series built against v7.0,
-  checked with usbmon: probe; bitrate changes (250k/500k) and CAN
-  channel ID writes on PCAN-USB, which also re-enumerates the device;
-  CAN channel ID read and write with ethtool -e/-E on both PCAN-USB Pro
-  channels; about 40 bus-off/auto-restart cycles on all six channels;
-  hot unplug and re-plug of each adapter during TX/RX traffic with its
-  interfaces up; module removal with all the interfaces up. The new
-  error paths of the decoders were not exercised.
+ drivers/net/can/usb/peak_usb/pcan_usb.c      |  8 +++++---
+ drivers/net/can/usb/peak_usb/pcan_usb_core.c |  4 ++--
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c   | 27 ++++++++++++-------------
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c  | 30 ++++++++++++++--------------
+ 4 files changed, 35 insertions(+), 34 deletions(-)
 
-- Link to v7: https://lore.kernel.org/r/20261030-canfd_check_channel_idx-v7-0-fc4a3faf3acf@peak-system.fr
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+index 451d08421504..ff1921779065 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+@@ -637,7 +637,8 @@ static int pcan_usb_decode_status(struct pcan_usb_msg_context *mc,
+ 			return err;
+ 		break;
+ 	default:
+-		netdev_err(mc->netdev, "unexpected function %u\n", f);
++		if (net_ratelimit())
++			netdev_err(mc->netdev, "unexpected function %u\n", f);
+ 		break;
+ 	}
+ 
+@@ -776,8 +777,9 @@ static int pcan_usb_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 			urb->actual_length);
+ 
+ 	} else if (urb->actual_length > 0) {
+-		netdev_err(dev->netdev, "usb message length error (%u)\n",
+-			urb->actual_length);
++		if (net_ratelimit())
++			netdev_err(dev->netdev, "usb message length error (%u)\n",
++				   urb->actual_length);
+ 		err = -EINVAL;
+ 	}
+ 
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
+index e5198ec5c760..1d306160fa35 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
+@@ -266,10 +266,10 @@ static void peak_usb_read_bulk_callback(struct urb *urb)
+ 		/* handle these kinds of msgs only if _start callback called */
+ 		if (test_bit(PCAN_USB_STATE_STARTED, &dev->state)) {
+ 			err = dev->adapter->dev_decode_buf(dev, urb);
+-			if (err)
++			if (err && net_ratelimit())
+ 				pcan_dump_mem("received usb message",
+ 					      urb->transfer_buffer,
+-					      urb->transfer_buffer_length);
++					      urb->actual_length);
+ 		}
+ 	}
+ 
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+index a9f81fb12738..b9bf2fefbaff 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+@@ -796,15 +796,17 @@ static int pcan_usb_fd_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 
+ 		/* check if the record goes out of current packet */
+ 		if (rx_msg_size > msg_end - msg_ptr) {
+-			netdev_err(netdev,
+-				   "got frag rec: should inc usb rx buf sze\n");
++			if (net_ratelimit())
++				netdev_err(netdev,
++					   "got frag rec: should inc usb rx buf sze\n");
+ 			err = -EBADMSG;
+ 			break;
+ 		}
+ 
+ 		rx_msg_min_size = pcan_usb_fd_rx_msg_min_size(rx_msg_type);
+ 		if (rx_msg_size < rx_msg_min_size) {
+-			netdev_err(netdev, "got short rec\n");
++			if (net_ratelimit())
++				netdev_err(netdev, "got short rec\n");
+ 			err = -EBADMSG;
+ 			break;
+ 		}
+@@ -813,7 +815,7 @@ static int pcan_usb_fd_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 		case PUCAN_MSG_CAN_RX:
+ 			err = pcan_usb_fd_decode_canmsg(usb_if, rx_msg);
+ 			if (err < 0)
+-				goto fail;
++				return err;
+ 			break;
+ 
+ 		case PCAN_UFD_MSG_CALIBRATION:
+@@ -823,35 +825,32 @@ static int pcan_usb_fd_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 		case PUCAN_MSG_ERROR:
+ 			err = pcan_usb_fd_decode_error(usb_if, rx_msg);
+ 			if (err < 0)
+-				goto fail;
++				return err;
+ 			break;
+ 
+ 		case PUCAN_MSG_STATUS:
+ 			err = pcan_usb_fd_decode_status(usb_if, rx_msg);
+ 			if (err < 0)
+-				goto fail;
++				return err;
+ 			break;
+ 
+ 		case PCAN_UFD_MSG_OVERRUN:
+ 			err = pcan_usb_fd_decode_overrun(usb_if, rx_msg);
+ 			if (err < 0)
+-				goto fail;
++				return err;
+ 			break;
+ 
+ 		default:
+-			netdev_err(netdev,
+-				   "unhandled msg type 0x%02x (%d): ignored\n",
+-				   rx_msg_type, rx_msg_type);
++			if (net_ratelimit())
++				netdev_err(netdev,
++					   "unhandled msg type 0x%02x (%d): ignored\n",
++					   rx_msg_type, rx_msg_type);
+ 			break;
+ 		}
+ 
+ 		msg_ptr += rx_msg_size;
+ 	}
+ 
+-fail:
+-	if (err)
+-		pcan_dump_mem("received msg",
+-			      urb->transfer_buffer, urb->actual_length);
+ 	return err;
+ }
+ 
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+index 88d21806207b..840658723648 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+@@ -741,7 +741,9 @@ static int pcan_usb_pro_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 	rec_ptr = pcan_msg_init(&usb_msg, urb->transfer_buffer,
+ 					urb->actual_length);
+ 	if (!rec_ptr) {
+-		netdev_err(netdev, "bad msg hdr len %d\n", urb->actual_length);
++		if (net_ratelimit())
++			netdev_err(netdev, "bad msg hdr len %d\n",
++				   urb->actual_length);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -760,16 +762,18 @@ static int pcan_usb_pro_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 
+ 		sizeof_rec = pcan_usb_pro_sizeof_rec[pr->data_type];
+ 		if (!sizeof_rec) {
+-			netdev_err(netdev,
+-				   "got unsupported rec in usb msg:\n");
++			if (net_ratelimit())
++				netdev_err(netdev,
++					   "got unsupported rec in usb msg\n");
+ 			err = -ENOTSUPP;
+ 			break;
+ 		}
+ 
+ 		/* check if the record goes out of current packet */
+ 		if (rec_ptr + sizeof_rec > msg_end) {
+-			netdev_err(netdev,
+-				"got frag rec: should inc usb rx buf size\n");
++			if (net_ratelimit())
++				netdev_err(netdev,
++					   "got frag rec: should inc usb rx buf size\n");
+ 			err = -EBADMSG;
+ 			break;
+ 		}
+@@ -781,13 +785,13 @@ static int pcan_usb_pro_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 		case PCAN_USBPRO_RXRTR:
+ 			err = pcan_usb_pro_handle_canmsg(usb_if, &pr->rx_msg);
+ 			if (err < 0)
+-				goto fail;
++				return err;
+ 			break;
+ 
+ 		case PCAN_USBPRO_RXSTATUS:
+ 			err = pcan_usb_pro_handle_error(usb_if, &pr->rx_status);
+ 			if (err < 0)
+-				goto fail;
++				return err;
+ 			break;
+ 
+ 		case PCAN_USBPRO_RXTS:
+@@ -795,20 +799,16 @@ static int pcan_usb_pro_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 			break;
+ 
+ 		default:
+-			netdev_err(netdev,
+-				   "unhandled rec type 0x%02x (%d): ignored\n",
+-				   pr->data_type, pr->data_type);
++			if (net_ratelimit())
++				netdev_err(netdev,
++					   "unhandled rec type 0x%02x (%d): ignored\n",
++					   pr->data_type, pr->data_type);
+ 			break;
+ 		}
+ 
+ 		rec_ptr += sizeof_rec;
+ 	}
+ 
+-fail:
+-	if (err)
+-		pcan_dump_mem("received msg",
+-			      urb->transfer_buffer, urb->actual_length);
+-
+ 	return err;
+ }
+ 
 
-Changes in v7:
-- Patch 3: also sort the flags added to ctrlmode_supported at runtime
-  in pcan_usb_init().
-  Found by Sashiko AI review on v6:
-  https://lore.kernel.org/r/179281433115.3130.15136732593858786026@kernel.org
-- Patch 6: on probe failure, also stop RX on the channel being probed,
-  which may already be open at this point of the series, and not only on
-  its previous siblings, as the comment of peak_usb_stop_rx() says. The
-  remaining use-after-free on this path is pre-existing and fixed by
-  patch 9.
-  Found by Sashiko AI review on v6:
-  https://lore.kernel.org/r/179281433224.3130.6010222623227756144@kernel.org
-- Patch 9: don't log "can%d removed" for channels that were created but
-  never registered, when probing fails. Commit message: the RX of the
-  channels already registered is still stopped if registering a later
-  one fails.
-  Found by Sashiko AI review on v6:
-  https://lore.kernel.org/r/179281433446.3130.6290059781976829176@kernel.org
-- Patch 11: commit message only: describe what the old
-  pcan_usb_pro_wait_rsp() code could actually do (accept a truncated
-  response and return stale request bytes as the channel id), instead of
-  walking past the command buffer, which the current callers prevent.
-  Found by Sashiko AI review on v6:
-  https://lore.kernel.org/r/179281433565.3130.14307625292135673040@kernel.org
-- Patch 3: add the Assisted-by: tag.
-- Not changed, after review of v6:
-  - PCAN-USB restart timer not stopped before free_candev() (reported
-    on patch 9): this is fixed by Tristan Madani's patch, which is
-    independent of this series and applies on top of it:
-    https://lore.kernel.org/r/20261025210256.629830-1-tristan@talencesecurity.com
-  - patch 8: the pre-existing NULL usb_if dereference and use-after-free
-    on the probe error path are fixed by patch 9; a record for an unset
-    channel still stops the decoding of the URB, and can no longer
-    happen once patch 9 is applied, while patch 12 rate limits the dump;
-  - patches 6 and 9: bus-off not sent to a still attached device when
-    CONNECTED is cleared before unregister_candev() (probe failure with
-    an opened channel, unbind): pre-existing, left for the separate
-    series announced in v6, together with the netdev_err() messages of
-    the command helpers during probe.
-- Tested on PCAN-USB Pro FD, PCAN-USB Pro and PCAN-USB plugged on the
-  same hub, with the driver of this series built against v7.0: probe,
-  hot unplug and re-plug of the PCAN-USB Pro FD and of the PCAN-USB
-  with their interfaces up (one "removed" message per registered
-  channel), module removal with all the interfaces up. The probe error
-  path that skips the message for unregistered netdevs was not
-  exercised.
-- Link to v6: https://lore.kernel.org/r/20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr
-
-Changes in v6:
-- Patch 6: clear CONNECTED under RTNL in peak_usb_stop_rx(), so that it
-  is serialized with peak_usb_ndo_open(): no RX URB can be anchored but
-  not yet submitted when the RX anchors are poisoned, which made
-  usb_poison_anchored_urbs() busy-wait.
-  Found by Sashiko AI review on v5:
-  https://sashiko.dev/#/patchset/20261020-canfd_check_channel_idx-v5-0-a62b35b867f0@peak-system.fr?part=6
-- Patch 7: update rx_bytes together with rx_packets, once the SRR byte
-  has been checked, so that a frame dropped because this byte is
-  missing is not counted.
-  Found by Sashiko AI review on v5:
-  https://sashiko.dev/#/patchset/20261020-canfd_check_channel_idx-v5-0-a62b35b867f0@peak-system.fr?part=7
-- Patch 4: add Cc: stable, since patch 7, which is tagged for stable,
-  relies on the bounds check it adds.
-  Found by Sashiko AI review on v3:
-  https://lore.kernel.org/r/179262353124.3131.13235647451945152794@kernel.org
-- New patches 10 and 11: validate the data length of PCAN-USB Pro CAN
-  records, and don't read past the received message in the PCAN-USB Pro
-  decoders. Pre-existing issues found by Sashiko AI review on v3 to v5:
-  https://lore.kernel.org/r/179264019905.3131.17443314322038603114@kernel.org
-- Patch 12 (was 10): also remove the dumps done by the PCAN-USB Pro and
-  FD decoders, which dumped the same URB a second time without any rate
-  limit, and rate limit the decode error messages. New subject.
-  Found by Sashiko AI review on v3 to v5:
-  https://lore.kernel.org/r/179264020123.3131.12155600294986434879@kernel.org
-- New patch 13: don't return an uninitialized PCAN-USB CAN channel ID.
-  Pre-existing issue found by Sashiko AI review on v5:
-  https://lore.kernel.org/r/179264020017.3131.2617691177294766125@kernel.org
-- Patches 6 to 13: add the Assisted-by: tag, as required by
-  Documentation/process/coding-assistants.rst.
-- Not changed, after review:
-  - patch 8: a record for an unset channel still stops the decoding of
-    the URB, as the other malformed records do, and as in patch 6. This
-    can no longer happen once patch 9 is applied;
-  - PCAN-USB with CC_LEN8_DLC (reported on v3): checked on hardware
-    (firmware 8.6.1), the device puts DLC data bytes in the records with
-    a DLC of 9 to 15, so advancing the RX cursor by the DLC is correct;
-  - the other pre-existing issues reported on v5 (asynchronous restart
-    URBs and PCAN-USB restart timer not drained on disconnect, bus-off
-    not sent on unbind, driver-loaded state not cleared on probe
-    failure) will be addressed in a separate series;
-  - patch 9: the "can%d removed" message logged on probe failure, and
-    the netdev_err() messages of the command helpers during probe, are
-    left as they are: they are cosmetic, and will be dealt with in that
-    separate series.
-- Tested on PCAN-USB, PCAN-USB Pro and PCAN-USB Pro FD on the same bus:
-  probe, ethtool -e, reception of Classical CAN data and RTR frames of
-  all lengths, of len8_dlc frames, and of back-to-back bursts, module
-  removal with all the interfaces up, hot unplug of the PCAN-USB Pro and
-  of the PCAN-USB Pro FD during RX and TX traffic. The new error paths
-  of patches 10 to 13 were not exercised, since they need a malformed
-  device.
-- Link to v5: https://lore.kernel.org/r/20261020-canfd_check_channel_idx-v5-0-a62b35b867f0@peak-system.fr
-
-Changes in v5:
-- Register the netdevs only once all the channels of the interface are
-  initialized, since they share resources during the init of a sibling
-  (patch 9).
-- Link to v4: https://lore.kernel.org/r/20261020-canfd_check_channel_idx-v4-0-bfbde81f8bab@peak-system.fr
-
-Changes in v4:
-- Register the netdev only once the channel is initialized, instead of
-  only reordering unregister_candev() and dev_free() on probe failure
-  (patch 9).
-- Link to v3: https://lore.kernel.org/r/20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr
-
-Changes in v3:
-- Fix out-of-bounds read of the error counters in PCAN-USB bus events.
-- Harden channel handling in PCAN-USB FD: publish/read channel slots
-  with smp_store_release()/READ_ONCE(), clear them on teardown, stop RX
-  on all channels on disconnect and on the siblings on probe failure,
-  and reject ndo_open() once disconnected.
-- Fix RX cursor desync for self-received RTR frames with SRR.
-- Replace open-coded bitmask operations with bitops.
-- Add channel slot checks to PCAN-USB Pro.
-- Unregister the netdev before dev_free() on probe failure.
-- Only dump received bytes, rate limited, on decode error.
-- Link to v2: https://patch.msgid.link/20261009-canfd_check_channel_idx-v2-0-f7b772929791@peak-system.fr
-
-Changes in v2:
-- Kill all pending RX URBs before unregistering sibling netdevs.
-- Reject records targeting unavailable channels during device
-  initialization in rare corner cases involving malformed device
-  input.
-- Link to v1: https://patch.msgid.link/20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr
-
----
-Stefan Günther (1):
-      can: peak_usb: fix missing CAN_ERR_FLAG when reporting error counters
-
-Stéphane Grosjean (13):
-      can: peak_usb: harden PCAN-USB message validation
-      can: peak_usb: replace open-coded bitmask operations with bitops
-      can: peak_usb: harden channel handling in PCAN-USB FD
-      can: peak_usb: fix RX cursor desync for self-received RTR frames with SRR
-      can: peak_usb: reject records for unset channels in PCAN-USB Pro
-      can: peak_usb: register the netdevs only once all channels are set up
-      can: peak_usb: validate the data length of PCAN-USB Pro CAN records
-      can: peak_usb: don't read past the message in PCAN-USB Pro decoders
-      can: peak_usb: dump undecodable URBs once and rate limit decode errors
-      can: peak_usb: don't return an uninitialized PCAN-USB CAN channel ID
-      can: peak_usb: pass the dev_num argument of PCAN-USB Pro GETDEVID
-      can: peak_usb: don't send uninitialized stack bytes to PCAN-USB devices
-      can: peak_usb: don't send uninitialized heap bytes in restart commands
-
- drivers/net/can/usb/peak_usb/pcan_usb.c      |  67 +++++++++++------
- drivers/net/can/usb/peak_usb/pcan_usb_core.c | 107 +++++++++++++++++++--------
- drivers/net/can/usb/peak_usb/pcan_usb_core.h |  10 ++-
- drivers/net/can/usb/peak_usb/pcan_usb_fd.c   |  91 +++++++++++++++--------
- drivers/net/can/usb/peak_usb/pcan_usb_pro.c  |  85 ++++++++++++++-------
- 5 files changed, 248 insertions(+), 112 deletions(-)
----
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-change-id: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
-
-Best regards,
 -- 
-Stéphane Grosjean <s.grosjean@peak-system.fr>
+2.53.0
 
 
