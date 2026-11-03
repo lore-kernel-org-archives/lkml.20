@@ -1,70 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.105.74.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719024;
-	b=wZDc5r2Bkjs91CZbsH7t6vkBZTlUzp9nolQC75vS6KPXEmOfpNprKxQCdBtBtjxeXgS5
-	 UTyjYkhLuS2sK1oQkkzN0qYxbDUwyI76ol4qqPW6PKrUnO3M7/U+awZWj+58VZkwrpl2M
-	 seLcPRocCo0XAOrdbEEau28YDKslyTvqO2/f0Ht6DQk+q78iFZSqKlBTnRiWHPev0yjTR
-	 E13754GSU16cUt2HaHjGDFjHt+FcMlnQ1uPJXh/HTAzK1zX1l8XVeXNcqzz2oMgd+JABf
-	 Wh/BWDTUZmkyNspcksAXvXK1iJo5hIuubnLoq25pJ5ivK4cSKOqL/cQ0CANGeuN1NOQ==
+	t=1793719026;
+	b=qYymsqpw63ZwgavTicbml5/V2k8/qqfa6I3vRFevzDiKTnKlgDnnKwf09jN+VkeSp5A+
+	 zDng5urHo2+j/ISnwX8+aMRscCemOCxhj6FXrwUpIBLqVzGgPR9d+3ctbhNdYSljk/c2B
+	 YhBsSCxN4SetPzLCkqruPSokl4H0D+YnFBChievdE/t4oXx+DvsWuhd/uAg5nkiJE+htr
+	 tOwEBzTyR/pUv1gaAhSNjFEASwSg1kJCdPIBCebEmOX1Ijf266vCEfrwe421Eb3gwd76w
+	 JysVhIeiRWbHhl+u40s/6bPMGEQO5jRbA9Fn2VR6dt2AdP1fY7kWs8/njHUg+wG7QXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719024;
-	h=DMARC-Filter:Received:Received:Received:Received:X-OVh-ClientIp:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:x-ovh-tracer-id:X-VR-SPAMSTATE:
-	 X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=PFj2dQrzmKcwRNdxcPLwxaXC0ZJ3jZ+D5gGAYchiSRY=;
-	b=0UvUjWMyoliMlsCjI7ELMzRiF8uh2UJVVOIno4Ga+5sVo0yHLiEp1VFDaYNZ2uV1g5Li
-	 YCnZJsV8JsbF7L+ZSbflOcHvZhCI6odckcLJXe1tG3Y1kmgEHG3XGNzxJ1Rv2HUigsnap
-	 RY2SaB0q+oYotadkFBScs9m2x0HpmzpztX67HFHu5kDZrRbg5N1SFFObupQhPp+ZDsI+K
-	 CZ+NftU1ArFz1qz5TzqrljO/903rwmh67aKoAw+CsDiuZAqm9rHobMkcxJxllEzObt4F+
-	 6CvVXJyNxh8rdnmW0Wf5Aj3eVAMZ/P8wmLRKTdEAPXwWcNGfaJE4pyesmW5gLjOFjkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719026;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gZPyGNb7zpjaaj961jv5er4Nb77WoHldzauRxys7WyE=;
+	b=XHu+W89eLDE+wGu26ZtsnxvK/ml62MVL2W23/7N9zDUiA7IQmgQ/MKF2M3q1nwYUServ
+	 Y9B8Q5nN7OEopKUydKCbRbtpvLCDYnsZYU6BGXctBQI7PZhisljvkWh0p67b6Kgdw5g3K
+	 6XMruQXmdHnrqZjMmUQ2GbQccRQjsdi2o/QLUUwG3BY/nrkR6lGvwFZgwmET0asZai7My
+	 bPsBLEBTghfQj9v9jCIf6LgneRd96KxWH7GH3oKq3gRlvalepS3iuoJ/6Q5vp6eoE9Y3t
+	 l35Iasla0gZoxfkciK2v14emy49CH8Ae4VjFWRnQjQHqxR9sIKS8XO54vrvqh8u+Abg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=guillain.net;
-	spf=pass smtp.mailfrom=guillain.net;
-	dkim=pass header.d=guillain.net header.i=@guillain.net header.a=rsa-sha256 header.s=ovhmo31693-selector1 header.b=WdyctHnF;
-	arc=none smtp.remote-ip=46.105.74.135
-Received: from 4.mo528.mail-out.ovh.net (4.mo528.mail-out.ovh.net [46.105.74.135])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mW6b0k6t;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D89606A7BE
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:17:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2D89606A7BE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=guillain.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=guillain.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8A4606D2C6
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:17:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA8A4606D2C6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=guillain.net header.i=@guillain.net header.a=rsa-sha256 header.s=ovhmo31693-selector1 header.b=WdyctHnF
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
-	by mo528.mail-out.ovh.net (Postfix) with ESMTPS id 4jJscR1Bhjz5x5Y;
-	Tue,  3 Nov 2026 15:16:55 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
-        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <joro@8bytes.org>; Tue,  3 Nov 2026 15:16:55 +0000 (UTC)
-Received: from mta11.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.109.249.147])
-	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jJscR0C0Kz6MbQ;
-	Tue,  3 Nov 2026 15:16:55 +0000 (UTC)
-Received: from guillain.net (unknown [10.1.6.6])
-	(Authenticated sender: jean-christophe@guillain.net)
-	by mta11.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 04F519A206D;
-	Tue,  3 Nov 2026 15:16:53 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-104R005edef0976-17d7-43fe-a2ff-da6a2899532a,
-                    15838527D7D3E0897ACBD919E55849F771FD37B2) smtp.auth=jean-christophe@guillain.net
-X-OVh-ClientIp:78.202.160.126
-From: Jean-Christophe Guillain <jean-christophe@guillain.net>
-To: vasant.hegde@amd.com,
-	joro@8bytes.org
-Cc: suravee.suthikulpanit@amd.com,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jean-Christophe Guillain <jean-christophe@guillain.net>
-Subject: [PATCH] iommu/amd: Fix NULL pointer dereference for GPUs without upstream bridge
-Date: Tue,  3 Nov 2026 16:16:07 +0100
-Message-ID: <20261103151607.435642-1-jean-christophe@guillain.net>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <6a3cf464-6c1b-460a-9ee5-5468ded48e0a@amd.com>
-References: <6a3cf464-6c1b-460a-9ee5-5468ded48e0a@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mW6b0k6t
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e9d52f684fso42299665ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:17:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793719025; x=1794323825; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gZPyGNb7zpjaaj961jv5er4Nb77WoHldzauRxys7WyE=;
+        b=mW6b0k6tkcAmvwTsiyUyrFOG0yYgxbMyq/CyLo0GBeVGkS+weCWHMTorKB4Qjre1c7
+         PO0M2SjA5Sg21rXACBzADNYx3Q1wHocgyf2w1QU/jmNFDjP1hc9iHbstkkvCwf1DcJXX
+         MGvGihb0mOoIGRo7aHflVO0L9IbYmO/JjAwc1i+h79nYEYcGZq70VG9ydwyjXGJjuHCb
+         k3cTWif9RVMoLMyXIhBHMgEUoh0vm7o8L03BIUKfk9B7JKFdX/afmGGG4q2oFhEXOlbZ
+         wipwtdfJNgS9uX7yUDZkedGmdCzauAaxEIAu8NXAb55FFTKLBaNv+5O74Tr5CB7ydWsW
+         oq0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793719025; x=1794323825;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gZPyGNb7zpjaaj961jv5er4Nb77WoHldzauRxys7WyE=;
+        b=L3CDcamPI99NUhNMBZKJMHtZKQ7UtY4ZzVYgmq/R7Kwiqfh+FeLWD4U/6DZ40W76o/
+         LapG6fR/rYXgB2iV+ErD+ZnUnAarvQF6jPo7KEmtzly/4zKWKis741CkP4DhoF3qH8mE
+         9wwB5rFmVU189HpPTN/a43kM+LQ/OxExoAbdCG3i1a+x344xe0vS8Dms15AKUmqyTkjh
+         bbV3LEipQkvjqvHcszXAC15d4ifXQR2vGlwH902YpI9En26e/LGqu2g64Q9gwuiCemHF
+         r0oieyli1kB0eDUupgyBBKKNo4hKBBycauJ3TqXH+DuGrDGrOv4nDg7EZ7DEJQlhqr/m
+         dqXw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1Vy+q4QveWn+LrxGszhuXqIUPYnWBeL+6l9UY6pYcy1nP8AplWTNjrsz3b9pQi3zFNJHWaxAy8izEGtc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vrHZQgRjZvhWsORo4wfHPwgF8UlIKz60zQMVhhy7L8cuiCj+r
+	oLuZFjbhCN86+piMwWlpbxAo8XGEpMkoJm4dYM6RS2MXT11tOw3c1+yEToRwjjMJ2C49LTEtCy1
+	/eJR3fA==
+X-Received: from plsr11.prod.google.com ([2002:a17:902:be0b:b0:2ea:d63d:f2c5])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:22c3:b0:2e5:334f:f47e
+ with SMTP id d9443c01a7336-2eb36489c9bmr122626395ad.21.1793719024883; Tue, 03
+ Nov 2026 07:17:04 -0800 (PST)
+Date: Tue, 3 Nov 2026 07:17:04 -0800
+In-Reply-To: <CABgObfZ9mHj7Fsq7Z2S5vFy8R2Gkh2tHBATGJN2BpH=6Waks9w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,59 +79,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 18079419229820111676
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: dmFkZTFeYew5JbChkrWgEkAmZab79BS/XOqyPSLunAfjBSTH+VfubWg/VkJvf4f9hmgfC1+UtU+V0Et8lK/VNXY6i1PDh7MislYyK+1ym4KTklhkAv0xKn05BxfN4HIphIpBzEG4D2F9tjS1ySKVVOV723NB3vBxT32knQz7Vgj3aEdQw7nlaR9b2r1XklFSusZOEUOgQNd/27dpkNie/zyxOCh4X46bVmRepsRim2tNcEL7n34RVEvtL5BBWGzjmgLxddQztNW/TRjMjCApM0eT3ap2uU+T6NJc8MqjmSrdqyeBqARxuJfZKf2b3jZXKy6csqY6YL0sU6Ec2iAHaIZV86bNDTgfVhSqPa+fbpkE4kqjA5dVTeMmFHBriDwpxBRHsg2yk29CUG0lX9//7e5136Ra3sJQBjcZJJLXggt529RuyJ+jXxhwHCBbmgYdt3AzEEyJx1ES09vIbNxr/ntB1RXjw1xBdoBfQMQ2HBORa3A4Sr91QcNvEKXfmNJAbnZ2GFC8ZQoorWv5ZXFi19AxV/T7ZJgg2qxw3r2FZx9XJl5F+o4wg2WrCqcJyMzzbO8uSvobTndxCA3bXL23EEwJ/or4W9gozXy04/B3BpGNccduYMgyXig1J6AV+Z8iEyBPAl/CgrDQfZb1SIWxYHTMu8j3bwmk836EUk0DN80h5Yvlew
-DKIM-Signature: a=rsa-sha256; bh=PFj2dQrzmKcwRNdxcPLwxaXC0ZJ3jZ+D5gGAYchiSRY=;
- c=relaxed/relaxed; d=guillain.net; h=From; s=ovhmo31693-selector1;
- t=1793719015; v=1;
- b=WdyctHnF8L7913PRrClsrtqRNEYUPH2LcedEnGgyOiIaIsamSZIbK/MTuPDT1ag4qQJVqOYl
- LxG06CjTp3oUbYpr1YjOyoCgDgVzIKx5IKMqgy1njlI89BeYXbZpiL7ZSE1j90S7l6atiWcw5d6
- qh2mcrMwPVzxhSfqqOn7j4GDIgTIJwgfMqfTGXy0VRAgii+2eAOoOaEovRu5tv+ZI8XAX5+Wv5Y
- Ucwnp5QpNu3UqKNTyS10FuowaPfWZXHB+b340zF6WlFmLLIBg6tz/DjPVkoNKzROrVXaTBx2pvP
- 9t4kjvskfKpnL+n8lcqD5CA4Kvl65uL5krrM6Zz4D+K8Q==
+Mime-Version: 1.0
+References: <6adf2939.67317f00.38c4bc.00ae.GAE@google.com> <20261026224305.1254-1-hdanton@sina.com>
+ <auCucDdZb8mig7UZ@google.com> <auDvUyfzg6nLtVox@thinkstation>
+ <20261027163929.2bb28d5b@gandalf.local.home> <aujLx1FOc12E72rF@google.com> <CABgObfZ9mHj7Fsq7Z2S5vFy8R2Gkh2tHBATGJN2BpH=6Waks9w@mail.gmail.com>
+Message-ID: <aun68Iv_z6Xiz9mc@google.com>
+Subject: Re: [syzbot] [kvm?] WARNING: locking bug in __refill_objects_node
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Harry Yoo <harry@kernel.org>, 
+	Hillf Danton <hdanton@sina.com>, Boqun Feng <boqun@kernel.org>, 
+	syzbot <syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>, syzkaller-bugs@googlegroups.com, 
+	Vlastimil Babka <vbabka@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
+	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
+	linux-rt-devel@lists.linux.dev
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-pci_upstream_bridge() can return NULL for devices without an upstream
-bridge. The AMD GPU identity mapping quirk dereferences the returned
-pointer unconditionally, causing a kernel panic during boot.
+On Tue, Nov 03, 2026, Paolo Bonzini wrote:
+> On Mon, Nov 2, 2026 at 6:43=E2=80=AFPM Sean Christopherson <seanjc@google=
+.com> wrote:
+> > > If so, we need to make that a thread for RT kernels if you want to ca=
+ll
+> > > kzalloc_obj().
+> >
+> > Eww.  I can't imagine there's a sane usecase for memory overcommitting =
+a real-time
+> > guest.
+>=20
+> While I agree with the feeling, the dummy allocation path should be
+> mostly dead, because page fault should never (?) enable interrupts
+> before waiting:
+>=20
+> #PF interrupt gate
+>   exc_page_fault()
+>     kvm_handle_async_pf()
+>       __kvm_handle_async_pf()
+>         irqentry_enter()
+>         kvm_async_pf_task_wait_schedule()
+>           kvm_async_pf_queue_task() <- registers waiter
+>           prepare_to_swait_exclusive()
+>           local_irq_enable()
+>=20
+> The dummy allocation path is only reachable if it's an L1 hypervisor
+> that is getting an async page fault while L2 is running, because it
+> enables irq before the call to kvm_async_pf_task_wait_schedule(). I
+> think we can drop the dummy allocation for good, which would be even
+> better.
 
-Check the pointer before accessing the bridge vendor ID.
++1, I completely forgot what this code is doing (although that implies I ev=
+er
+knew in the first place...).
 
-This fixes a boot regression on a Lenovo system with an AMD PRO
-A10-9700E APU. The system now boots with AMD IOMMU enabled.
+> Whether you would still want to disable APF for RT kernels is up to you.
 
-Fixes: bf5bdfd1f8d4 ("iommu/amd: Force identity mode for selected GPUs only")
-
-Signed-off-by: Jean-Christophe Guillain <jean-christophe@guillain.net>
----
- drivers/iommu/amd/iommu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 960e1dc05ec6..75e98e2e9d83 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -3372,6 +3372,7 @@ static bool amd_iommu_is_attach_deferred(struct device *dev)
- 
- static bool quirks_force_identity_mapping(struct pci_dev *pdev)
- {
-+	struct pci_dev *bridge;
- 	int class = pdev->class >> 8;
- 
- 	/* AMD GPU vendor ID */
-@@ -3383,7 +3384,8 @@ static bool quirks_force_identity_mapping(struct pci_dev *pdev)
- 	    class != PCI_CLASS_DISPLAY_OTHER)
- 		return false;
- 
--	if (pci_upstream_bridge(pdev)->vendor == PCI_VENDOR_ID_ATI)
-+	bridge = pci_upstream_bridge(pdev);
-+	if (bridge && bridge->vendor == PCI_VENDOR_ID_ATI)
- 		return false;
- 
- 	/* It is the GPU in an APU, force identity domain */
--- 
-2.47.3
-
+Nah, on second thought there are use cases for async #PF other than memory
+overcommit.  Whether or not they coincide with PREEMPT_RT is debatable, but=
+ I
+don't think it makes sense to go looking for trouble.
