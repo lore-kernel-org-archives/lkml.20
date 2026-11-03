@@ -1,58 +1,137 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737252;
-	b=addtBbBDxsHYmeby6TiEpPZShjUMbAxgyFweBhOzRrty7FxanYkeO9BVCkVFgWh4p+EW
-	 b83R5llJ2W9SXP0otGW8TpLWm33TVsej3aImMcI+uefcWvZy8/neO6fVNsZBPvckTZc2G
-	 oIIwKJwoPut1gGSaucmZVS9/WdyZugFdf2vmAnpoFuszkFoEOGkzhmlSdsq3DLaPcfVxt
-	 7bhPtpRaMaqG9qqZjM6xzG9AVJ7whHUPnvweNG5MhBrE8/6R6SUNeOkQCEWfisfYTFSX+
-	 c+kGbNBLuiBV77j6GCjp/yN5dOtglak0u67WCYITFUtekvehkV8MjDP8gTU8DupZXlw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737252;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=sDo6TDFkQ9uSctLBPvuoBtBBuRJVFhbyIu0XzsnfNOE=;
-	b=YSdYxjKPQIAnDnHKsg1tMTnonb88ugx2h7CmBYUNcG/PWW+0QAJpj4ZDQoKCTrT4pr57
-	 fn2YIgeME0P6Rft9dEthRh/9JqDeTwvcyR1D5IrR0Gp8EBYdbGr0srMMX9zeGPa74RDHm
-	 KBPvHbmYG+09nog2couJXhN+LuZ3vkOzc7UHzHD3+6f73z22kTYUwn3paYlJghKz9rRVF
-	 cGQQkVKoWewSNyCrHXA0FosWkPCLNR06XMzJIjfvNqOxfOp/4ZYXBvD62P1BkRcZkuBKc
-	 qB6NnqQkJhaokrpK42fMT9MDBhDlvS0z6LQc7ygb/4ygaR/QMrGtB7O0mk8vWwWvvzg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iqV0/Y4y";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.14
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793737292;
+	b=SAhv/DR5XEVUY/Ug3GjV3lEiQy5dzSCNVIqKTQ/vsep63hnhsxYAMFcVhiWEm+mllVTQ
+	 HonLG0WmMbD0+CcD3o4nEeDDA1L66nqk65Q6aNu0a5axEQGhCD533AfznPhyU3BDfTrdz
+	 Kx3SPMTSqHNRtB9fa3RHsOHJLuQjZf1BmDm7wHZnFYfHdKE+YevLctt1JOKvPasPFLnv+
+	 VZEr/xj9kgeWSub1VouInTYFUYMwhGWBbigni0hWTNuNxSsIIzAs3gXt56gauyaeoosXi
+	 O93ZVGwqrLjyrmzJ9S+gQFKByi446c1S91bxG2V8RNlTUWaAacoFE7+8c7hDS5XJQVw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737292;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=QVVUvrE+OD3gk/wHsh2XvlXhSE3Ve8yRx6i6P+rWjkg=;
+	b=EA+q4wLf2XCRSCibnfKtmB6Hd81IRK+/WKsKt5Cjij4dd80nExB6SnmHXAIKv4of8WAW
+	 mVlMYpmb7B3ND68uCmEg37aDrC+03svZBmVKHsqPqK5/W1ftyCV9IRlDjeKIhaaxEk351
+	 /sGJV/nDkiTtYqROtqwQnuo+8kuu8S46bOsiptJMVGAJn9X3yHjmZRqjVhTEgivOaqWdd
+	 J+nMziLLRNIAgwa7et7SOyQgoiDnHWK8yQqNg0HYuzU5SRUQ9ngTwQ1wLU+ibjAvR7eS+
+	 FtqnXwLcizBBdbzMybbvHPvJ1AtSMg7EjBQeG3jqsSmFs+E1PUzoBgEHdvnz4i/z1tQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HdYBAd9r;
+	arc=fail smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59120606A324;
-	Tue,  3 Nov 2026 20:20:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48B5606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:21:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B48B5606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqV0/Y4y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667571F000C1;
-	Tue,  3 Nov 2026 20:20:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793737252;
-	bh=sDo6TDFkQ9uSctLBPvuoBtBBuRJVFhbyIu0XzsnfNOE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=iqV0/Y4yOOhqqN30gEsyj0UsLqtz3B6eNqLqbFkI6IpiCECIAWPEYYLaPInNpVr+z
-	 7/IIiRAKxzKPE9iBv8JNxKwHzLcKxWktsWgBZG/FurB3A5FT69Gl06TQN5M7+q+ZL6
-	 uMIhCcTEunW22ow9cvMa3B94SkUsUvKvdhLFT9rbI8oLpkV47GWpjF4DKmqUyQh82s
-	 x6VfP19jqdUnFwYrbueI8McuqdCLbk0RYF6yRHINgFiECmViS6lC/EpF/OjkXymT8y
-	 ytlxow1WTFuDRgSYK4tLy5eG/cG2Z+aP5AhLo5hlt3pEiMQ6W1hTYYLyPP3R6T6apT
-	 xtGfRdG/Vudxg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>, John
- Stultz <jstultz@google.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
- Srikanth Aithal <Srikanth.Aithal@amd.com>, Borislav Petkov <bp@alien8.de>,
- K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org,
- tz2294@columbia.edu, stable@vger.kernel.org, Mani Tofigh
- <mt4022@columbia.edu>
-Subject: Re: [PATCH] clocksource: Use the clocksource under test for the
- skew check timeout
-In-Reply-To: <20261102-clocksource-skew-timeout-v1-1-4ff412918591@columbia.edu>
-References: <20261102-clocksource-skew-timeout-v1-1-4ff412918591@columbia.edu>
-Date: Tue, 03 Nov 2026 21:20:49 +0100
-Message-ID: <878q39y8da.ffs@fw13>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HdYBAd9r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793737291; x=1825273291;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=rWQIXmwA7LdDgBNc8lH9PuQVB6M+cYJJPbXZWtJPOqM=;
+  b=HdYBAd9rPhcXYXqTo3kzhVwyrOzW34WoezawSPYr3o2o70EO2vl4mrmJ
+   rgEcHTOyCs3SdwHgXYn1K/aR67LpZaoB25qbqIRdU/sGKbOUdCDNrG0Nl
+   SFCsZeaYo8tBK/kAVjKT6yg906VxTy9xMGLXJi0+YjoE49CRU3UoXvYxt
+   zcHLDsOoeyFEefERx7x8LZ9qFrcic05izGCVxwikTO/hLUkTFO8rD7IKV
+   KxEAC6Bqkpi5RCDGDNr8rLUnb5uBXpNGGsZWS8EfNyXoZYi62KsA7EZ6M
+   JhremznmmiDDFZfYg9Cd4U8jHDGWLAE8I9bqAW0AurNUj2J6c5SwPzNFy
+   w==;
+X-CSE-ConnectionGUID: MlTl2iKNTJ6Q7eiz2KY1sQ==
+X-CSE-MsgGUID: Z73AgsurSISxJQN2WAeeTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2363518"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2363518"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 12:21:30 -0800
+X-CSE-ConnectionGUID: VVJhYKtVQYOUkHzGKPYpDg==
+X-CSE-MsgGUID: t20QKdQARlyEaLczZFf8fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6535353"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 12:21:30 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 12:21:29 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 12:21:29 -0800
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.7) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 12:21:29 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rp/pAIvk6LN8hkGKZiM7JuYbE47/2XWmuD+/Xzwnjj8OXFfcjhkaUHwWoRsKMJePO72+00n+z4rak4abyac1bNcGzLoYkEjQ7u4vFFY1PRh9aika3baOYJ0fK+bZsfI97O2vPCkS6VUggwpEliRnmRUv7tgtCB5/91Hb4u3I7LycKh6XBzE6wIQOfXDr+1WxnHxDMfS3M6zHCLYTZxZ6QjTS4s1JIOWwe7tQ0l/SJBZj21VvuKypdclpRwkHQ51JAFDsbql/dUeEaRLqWE1tAEJa1KSxxskbWjIpZLvoXh24jjZsIY0okQKQV4YuUekI15mvBVts6uvGBT2VtkPNaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jvPU7HVJuvMOlp69qafJmbALiI4lvm4EefP2tGPzRY8=;
+ b=dt66hGkHVCky88xKZGN9MacxQLSNokBA/zjL55DhYc2AZ5rezV3lKaL1Tpx3LX5jPRQ0tZ9wkJgRaDVHHfdF0MUFJmTCkVDDfXd1lC2iiWkAwr4mImeQ5iSbwrJwxEJrntgzoKbHlBJIIPFxASfYhFvSLvcmF1nQdVSCC0D8w1x+aokw6OOqAdwvI7CbhD5SnJ96fan9vrzQdXE6DEwff9xGSmM/i8DTNwwtN0AblIVDfnWOfdM/xTmw9ZXopccVE3zN7KNDS60+h9XSso8UAtX5LLvXTwIfxEjZfhMCmWKOXCHBer9Fa6QXO3K3Pb65uqMMrMIaexu+aVaWnqOoWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by MW4PR11MB5891.namprd11.prod.outlook.com (2603:10b6:303:169::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 20:21:19 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 20:21:19 +0000
+Date: Tue, 3 Nov 2026 12:21:17 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Matthew Auld <matthew.auld@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	<linux-kernel@vger.kernel.org>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+	<thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 28/33] drm/xe: Use IOVA-based DMA mapping for eligible
+ tt BOs
+Message-ID: <aupCPWQ7v5kyCpcW@gsse-cloud1.jf.intel.com>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-29-matthew.brost@intel.com>
+ <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
+X-ClientProxiedBy: MW4PR03CA0324.namprd03.prod.outlook.com
+ (2603:10b6:303:dd::29) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,135 +141,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|MW4PR11MB5891:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac95e4a4-5270-4ff5-d8b9-08df39e80531
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|261022075727099003|4143699003|11063799006|56012099006|261009223027099003|261021121427099003|261022105027099003|261022113327099003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: pFDXetJj7LAkg8e9lQ4gp9vP3iEtA8QtJQZ/2rYonMpvjRXNmJRKvgL32ro0euWad7da5itLvffEJDkBeAMn0k+QzXcWHKNAtL/RfbQhv/A1j+CGevmYw+f79sh91kfnLip2gdDIj04Vmk82fZQfLnlOUei50HCmb1L/gKKsNBnlFLqMJOoeqpgV7jlb3IsQiNan54CiWkSOdIZTqn9Pc/nsUQyhW+eLKBhE7UIa5x+8RqL8PRqqqq8UAmWTRf1yX12r74Epx9Ll4MnHjIC68HMXmPI9Zi5PwipFmsgoHnDtRO7ZcZ3JCkmexqQuKyv8vCjvh8YdyzDkNWM7EqIytYDwBAfOQiGcXEAHiBluhJVktNFdVklq0kvhxn+JnJkYseQyuyciarfSvP3PdKCeDUZmYzgixBuHx8aP2SVI3ARD1wmMo1DXQ6l78XyEwdYiOCmwAkQSRzTsFLVWOi7Dsp7/sfqKrUO4y9M91anyQdEggy17T+KjguNRl06PuhKxPzfGwaEA5SIMQsOGF7ryfzxgyY/fZ3NMl11G8ANjcODMLkRNu9KRphfrSBxrkjpb5hYDZikej6aA0o57t8oawDDWMHQGls9tTdVGGODcfP1kw2x+yCmPqRlNf6WIZyxKUSzHemvbUngKIyHd37SXe1krhf6EF7tFoHL0J/CzlO0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4787.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(261022075727099003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261021121427099003)(261022105027099003)(261022113327099003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?tUFDy4+S4jcIfxB+arnflxDTFpAEs7+wgn3mjCrl4vrOuJy6Ou3sGspiR0?=
+ =?iso-8859-1?Q?lGHui1CcTCiD8ye0lMjoADiDfzPtAvcOFiDpU+29XB6yp9FgamxdpDSayj?=
+ =?iso-8859-1?Q?CbUiSU9gzu2HYKgW+KTL1ndezvyhUze5A0S2/Y/uV+GOFOnXCn4Td417kd?=
+ =?iso-8859-1?Q?U9M8tG/fUxYsXK8KiNnIqlwGfZM0+coQ3rin5fO87uSve0wJiv9GG+tBFw?=
+ =?iso-8859-1?Q?iOcNN9D8RYDmaaAWLRaOhlKVH9Cm3UwXfN9TuVsTakKD1F4gI2e1Q9Ll7V?=
+ =?iso-8859-1?Q?5xqxx5teYBc4uc/z59Z5fJN6v/j+Yz5nWPNUl5qzGAZDj6YGUG5/Uim5SF?=
+ =?iso-8859-1?Q?vDg5vMdNgjhVkHcNBUOqZeumjQ0Juw86a5DYUJ8oFWXiATB4nq5iwNxwux?=
+ =?iso-8859-1?Q?7U8yxtZhqRWEObqANJvaTt4ag7gfI3BAA3JeTFKI6Ccv4+gO5ESk5ODHYU?=
+ =?iso-8859-1?Q?II57giY1R2o1QG8g6q/eGOmtbh6R/Iw01HsH3rTuYWsmn90iNZ+Wj+gK3n?=
+ =?iso-8859-1?Q?jqVyKJozVnQn3h4Fc569suEZi+Ag3s7nj9ZOT0S9rQrWPCKhMTI/I5KGN6?=
+ =?iso-8859-1?Q?Cx8N2rAKmX3p64+Hwio7teBbvn65vj3XvQfqJ343Z7aRL4VLwzbX5TUzM9?=
+ =?iso-8859-1?Q?ozt/Y/F9w+m5eQaotdc59kb51jYKovfZJdHwy1AJ2Pyh7m0Vj6vRit5WUb?=
+ =?iso-8859-1?Q?qfPI3ZtMN+2B33USNi9zWMIhGGygkKKsYrVt2BP2hxoQK+iEtn1yeyFjFL?=
+ =?iso-8859-1?Q?Ew51PAB6PHcIDoYpagxfBzayHrkOL3w0N2uA0fZCb4KOyOA72fUPnVMYe0?=
+ =?iso-8859-1?Q?9d/K4IxqgoyRFDNKFO5XiAs7c7YcAlhQU60wq7NvMWef4/G+EnzY7agUlA?=
+ =?iso-8859-1?Q?Bs5Y+978DB9ceJ/iEvlrmSd3kVIVb7Fd4GPFdAVkqkYBlNJqQe+lk8rGz6?=
+ =?iso-8859-1?Q?UAtoXfYlR6NuGtwLvEReOYbCVx+RUtvMPHCskBRqEK+p2MwNBNmJRs+V1/?=
+ =?iso-8859-1?Q?AtJP34KdHTMVW/ykpd0A4btGUA7gT6OYxprYZR126bCpi9vlr3aap5/ltX?=
+ =?iso-8859-1?Q?2SCSkRX7Z9VkFuzup0z9FOzEEAsr+xPXuWM0U2+oN2HYv7+0XLNBOJ+Lqy?=
+ =?iso-8859-1?Q?JGKkmHXtZrEssN0STPzIa4pyBmj6uKFxpfDJa9G7rC+B6Yd8GAm1WdtUqG?=
+ =?iso-8859-1?Q?BmbgOuAAMDM45Hs+d9unL4oqpLATYxzkUBan35WKArkHPF/9ORk4pu5kyQ?=
+ =?iso-8859-1?Q?98AOAwAvoH97h/Dizbeb2m6xMEMHwQ2TQ5Y75gFv/0SozNdLQVXVK0HSVy?=
+ =?iso-8859-1?Q?hABPcCmPWcp6L7Tv4jNCekJmj0i+57ByRWtYlVqwlGsyoRQVc5DpnKiQPs?=
+ =?iso-8859-1?Q?XczFmfTf69/SvEoh9z0souUyV10Pm+T5KUaoZh/1551OVbh4y9KRTgoHYc?=
+ =?iso-8859-1?Q?k8gt2IWrVvg1WNPpN7P6ZcRP+qe2o2kzMPYPxfoODyBtg9VdlAVOmh3Ly2?=
+ =?iso-8859-1?Q?V0LR2Cdz1pqDbCro7uBu1rHSOrMjWzF8toLPWBj6fdvwpTMzkRa7b9odzA?=
+ =?iso-8859-1?Q?P+TNJMpf/Mk+TuCbDG3HLhseQj6uBtogcYufOg9D/WLA6Si3JxlkVvChEF?=
+ =?iso-8859-1?Q?dl1VLaQ9qFdrq8EqMwth5IPmGyfyHteceejbkBuu4vbss0DDO7X7lvdNSv?=
+ =?iso-8859-1?Q?4OSlHPt/UsVluBnb8W15rEOoXh9qz8oj4BY2/RYLeN6ms4lNebPIa1au0B?=
+ =?iso-8859-1?Q?B7WzmjJVmX4h1+02LsJqTcNaFlvnnnPgwL/M8hoC0T/Lpp0aWDgkiJ5pwB?=
+ =?iso-8859-1?Q?Gf1mX1uSOg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: J4YfzPoDWBO01TZ009zPxylOZPKwSGQDsbmkP4cpKPVKjCtsEBHkaDdtKhujiWPQhxSXbrYlL3tVbzfzpkSpcJ6qlql5cL3TM2Pk9W/yTAe5LX1UgOI3L15VexYujrFZM8hW9oZfVYOMahl16pC+/7pUNNvzQS9BMTUpfecUQrKNs5leBG4d+CyMNQDjSnLNjz5A26EJyid252CXZH6rQFsEyp6unP1E971CBv/fwlRKAG5ot8Mb5QpuJHbqm30eMGJok8GIvjkb23MqSy/9/YGrMgXwLmeOP0LURIYITas9zbeswPQYolHPn/xLxwWgiyyU2U7QePVFmXoIHso75w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac95e4a4-5270-4ff5-d8b9-08df39e80531
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 20:21:19.3840
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A6uhkhsi4Z4g6HKwFlzqaOZf+wNVwTolylITo+OqIW8YovHvFPbwmNgY1pvdgBi+fRuEDoweePwM7U1aZgqbCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB5891
+X-OriginatorOrg: intel.com
 
-On Mon, Nov 02 2026 at 16:45, Mani Tofigh via wrote:
-> watchdog_check_skew() waits for the remote CPU with interrupts disabled
-> and gives up after a timeout measured with ktime_get_raw_fast_ns().
-> While the clocksource is still jiffies during boot (or with
-> clocksource=jiffies) that timeout can't expire, because only the boot
-> CPU's tick advances jiffies and that's the CPU spinning with interrupts
-> disabled.
->
-> The boot then hangs when the remote CPU can't answer, eg in the
-> stop_machine() of the switch away from jiffies:
->
->   CPU0                                  CPU1
->   multi_cpu_stop()                      multi_cpu_stop()
->                                           local_irq_disable()
->                                           /* waits for CPU0 */
->     <timer interrupt>
->       clocksource_watchdog()
->         /* sends CSD to CPU1 */
->         watchdog_check_skew()
->           /* waits for CPU1 forever */
->
-> Nothing gets printed.  With the hard lockup detector on in a KVM guest:
+On Tue, Nov 03, 2026 at 07:00:24PM +0000, Matthew Auld wrote:
+> On 11/07/2026 03:56, Matthew Brost wrote:
+> > Add support for mapping a ttm_tt's pages using the IOVA-based DMA API
+> > (dma_iova_try_alloc()/link()/sync()/unlink()/free()) as an alternative
+> > to the scatter-gather list. An IOVA mapping is a single contiguous DMA
+> > range, which is cheaper to walk and program than an sg list.
+> > 
+> > Whether the IOVA API can be used depends on the IOMMU mode, so the
+> > decision is made once per tt at xe_ttm_tt_create() time and recorded in
+> > struct xe_ttm_tt::use_iova. To keep the scope limited, only device BOs
+> > that are not GGTT-mapped are eligible: dma-buf imports manage their own
+> > mapping and GGTT bindings are programmed directly from the sg list.
+> > dma_iova_try_alloc() may still fail, in which case the tt transparently
+> > falls back to the sg list, which remains the default.
+> > 
+> > The IOVA reservation is allocated at tt creation and freed at tt
+> > destroy. xe_tt_map_iova() links the tt pages (coalescing physically
+> > contiguous runs) and syncs the IOTLB; xe_tt_unmap_iova() unlinks them
+> > but keeps the reservation so the tt can be remapped without
+> > re-allocating IOVA space. xe_tt_map()/xe_tt_unmap() dispatch between the
+> > IOVA and sg backends, and xe_bo_dma_unmap_pinned() learns about the IOVA
+> > case.
+> > 
+> > Consumers that walked the sg list via xe_res_first_sg(xe_bo_sg()) now go
+> > through the new xe_res_first_tt() helper, which initializes either an
+> > IOVA cursor (xe_res_first_iova()) or an sg cursor depending on the tt's
+> > mapping mode.
+> > 
+> > Cc: Carlos Santa <carlos.santa@intel.com>
+> > Cc: Ryan Neph <ryanneph@google.com>
+> > Cc: Christian Koenig <christian.koenig@amd.com>
+> > Cc: Huang Rui <ray.huang@amd.com>
+> > Cc: Matthew Auld <matthew.auld@intel.com>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Simona Vetter <simona@ffwll.ch>
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > Assisted-by: GitHub_Copilot:claude-opus-4.8
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> 
+> 
+> <snip>
+> 
+> >   static void xe_ttm_tt_destroy(struct ttm_device *ttm_dev, struct ttm_tt *tt)
+> >   {
+> > +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+> > +
+> > +	/*
+> > +	 * Release the IOVA reservation made in xe_ttm_tt_create(). The pages
+> > +	 * must already have been unlinked by xe_tt_unmap().
+> > +	 */
+> > +	if (xe_tt->use_iova) {
+> > +		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
+> > +
+> > +		xe_assert(xe, !xe_tt->iova_linked);
+> > +		dma_iova_free(xe->drm.dev, &xe_tt->iova);
+> 
+> Do we know if this is allowed? I think there is xe_bo_pci_dev_remove_all()
+> which requires that evict_all will correctly tear down iommu mappings on
+> stuff like pci unplug and I don't think tt_destroy is called in that flow?
 
-The above explanation is enough. No need for this backtrace.
+But unpopulate is called which unlinks / syncs (TLB flush for the IOVA).
 
-> Measure the timeout with the clocksource under test instead, which
-> keeps counting with interrupts disabled.  With the fix, the watchdog
-> gives up after the timeout and the boot goes on.  A 2-vCPU guest on one
-> host core hung in 4 of 150 boots without it, and it didn't hang at all
-> in 400 tests with the fix applied.
->
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it within about 80s on a kernel booted with clocksource=jiffies.
->
-> Fixes: 763aacf86f1b ("clocksource: Rewrite watchdog code completely")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
-> ---
-> Srikanth reported silent early boot hangs of large KVM guests that he
-> bisected to the same commit [1].  I think it's the same bug but it was
-> never confirmed.  Srikanth, would you mind giving this a try on your
-> setup?
+> Does having the iova here cause issues? Also, for VRAM flow I think there is
+> a tt_create() via pipeline gutting which will now create a new iova?
+> 
 
-Yes. I gave him a similar patch which simply uses sched_clock()
-instead. That solves the problem, but I was reluctant to post it due to
-the lack of explanation why this ends up in a situation which does not
-allow to make progress.
+Maybe we shuffle this around a bit so the iova alloc is tied to
+populate/unpopulate. It was been a while I forget exactly why I did this
+way.
 
-So your reproducer does:
+> Aside from that, maybe we can land 27/28 as standalone?
 
-  while true; do echo 0 >/sys/devices/system/cpu/cpu1/online; echo 1 >/sys/devices/system/cpu/cpu1/online; done
+Yes, let me extract these two into standalone patches today and
+reworking if needed.
 
-right?
-
-Unfortunately it does not reproduce here within a reasonable amount of
-time (still going strong after one hour...).
-
-But yes, your explanation makes sense and triggering it with the hotplug
-code is obviously a matter of probability.
-
-Though one thing I thought about before looking at your mail while
-reasoning over the possible causes of Srikanth's report and the possible
-consequences is that such a timeout might in the worst case result in a
-stale CPU state which is silently ignored. The consequence is that the
-watchdog wont run on a CPU with such state ever again.
-
-So something like the below delta patch on top of your fix (or the
-sched_clock()) variant might be appropriate.
-
-Can you and Srikanth please run that on top to validate that we don't
-end up with that?
-
-Thanks,
-
-        tglx
----
---- a/kernel/time/clocksource.c
-+++ b/kernel/time/clocksource.c
-@@ -250,6 +250,7 @@ enum wd_result {
- 	WD_FREQ_RESET,
- 	WD_FREQ_SKEWED,
- 	WD_CPU_TIMEOUT,
-+	WD_CPU_STALLED,
- 	WD_CPU_SKEWED,
- };
- 
-@@ -398,7 +399,7 @@ static void __watchdog_check_cpu_skew(st
- 
- 	wd = per_cpu_ptr(&watchdog_cpu_data, cpu);
- 	if (atomic_read(&wd->remote_inprogress) || wd_csd_locked(wd)) {
--		watchdog_data.result = WD_CPU_TIMEOUT;
-+		watchdog_data.result = WD_CPU_STALLED;
- 		return;
- 	}
- 
-@@ -590,11 +591,16 @@ static void watchdog_print_freq_skew(str
- 	pr_warn("Clocksource %20s interval: %16lluns\n", cs->name, watchdog_data.cs_delta);
- }
- 
--static void watchdog_handle_remote_timeout(struct clocksource *cs)
-+static void watchdog_print_remote_timeout(struct clocksource *cs)
- {
- 	pr_info_once("Watchdog remote CPU %u read timed out\n", watchdog_data.curr_cpu);
- }
- 
-+static void watchdog_print_remote_stall(struct clocksource *cs)
-+{
-+	pr_warn("Watchdog remote CPU %u stalled\n", watchdog_data.curr_cpu);
-+}
-+
- static void watchdog_print_remote_skew(struct clocksource *cs)
- {
- 	pr_warn("Marking clocksource %s unstable due to inter CPU skew\n", cs->name);
-@@ -635,9 +641,13 @@ static void watchdog_check_result(struct
- 
- 	case WD_CPU_TIMEOUT:
- 		/* Remote check timed out. Try again next cycle. */
--		watchdog_handle_remote_timeout(cs);
-+		watchdog_print_remote_timeout(cs);
- 		return;
- 
-+	case WD_CPU_STALLED:
-+		watchdog_print_remote_stall(cs);
-+		break;
-+
- 	case WD_CPU_SKEWED:
- 		watchdog_print_remote_skew(cs);
- 		break;
-
+Matt
