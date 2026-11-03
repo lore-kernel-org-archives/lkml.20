@@ -1,176 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793687138;
-	b=j9aqHpSKtgTXX3K5VrlF/xpgR3Pgc4mqGJstSZgMB37zI+9q0cQavU+rXMsdHllejuvq
-	 YHg2WWeMJbtA1msXuyetsQr49Q2TiLHd1HfuFJy4AA0cDkVgPX2Ur1YfcUbcb+eBS8ZhQ
-	 m/6G+SrNXsrL0EK/vuNWdrVs//+0ioWWW/a2XX7+D0Nwa3qvqtrHiFtKY1TAaHm+3wtZ/
-	 Svp+BaKPV/op5SpDhNaefFzguRlaUCYHqcNXnk8TNU+jLMRLAPmEmW1tOAwoGrFng2V+u
-	 madc3KVzB0+QCYpbmNNZ0omyvmWJpvsHMVogxqgTY4WaSWXUo9RxAsz343UwuLED3wA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687138;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=P8E6oknMIubMtbHkGoRD33rAm9mDfMTD9HYpAHe34Yc=;
-	b=LtqeQozHx7jhShkb4fsfp7sfxVJB2h+62L31zS6ONqPMlAEvN0gwDemurrOt2EZuRk0/
-	 vTa1/46fi9HODqD5mTm4hjkIVkVZqnvFny3KrTc1/QQ1aEDzaMxWQJkwTxG2LShCNPE4T
-	 hmz3I5UUUoAO+VnVIYkLSKlKdrAz7OCbHXqNl1Cj99+H/aHIK2D+c7fVFTzLmETYOmiW9
-	 K0eyZvCpkQsWkJd0oKyVgqZrveVY3HIsOJgHH6vw8UoulJ/jDTII4KbuXBsR4lfCCfiTV
-	 tFBnb6QsMJSgNFULDWsco6fNTqDUZHJaIxcHsYzQPG5HSVIgfPDMcLg186CzluD/Cgw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=btM81GRS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793687141;
+	b=LiqK/vfpBxn7U413FaT6fzEE+oA+DZKSpAKpn51uLzoKSC6rwMyy59cmQzooABFPfhdf
+	 /XQEvhBg28CkL2a3AU/gaIvdbShj68ZIghkiX+N+eVASiVRa8+zSUI0Lplk9Fpn1eEMEW
+	 b6Gwh325ykvY3/HqHYFYBK41CNQkJAbmhc5tr1ywuMm/b2FjlOOUunao6w6+P+E14cxSH
+	 1Z1iw5TZYwPba0aB8/RXYsyMj/yL/k3B4n7b9L/Y76WoaxBTFiKLs9uUkTPN5fXqoz9y9
+	 xaZP2AhYjM/JWw6Z4Yxl6OkCDS6rh3LN1YgXmeWsZVIOQ94T4CpGLkP00CswLlCWBjw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687141;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=;
+	b=eBeSFukNxTbL/Hi16SW5XE4rHlMB9chvy8mKCmiG+IMkoRw68dpLruDxxl5ToL+ht1sC
+	 Rx/BvXP5F8WHseFbKlA6dB7EvT2DXfxbSIVaUAiMX6RTdjGi/WGd3NRl7ur/w9kV/iGQq
+	 f6Lu0mav8zQXBD+Q6v97hBdBDROZQxXKAO6AHu8cbcv5bBQIbQwytYP89aXL05F7srSYM
+	 Rm/6DiHEPFW2CpfMDOSzz/2Ftxe4kNDBVYxXuQ2GAwwtrhLvoIjLYAfumap8gTdRfKan5
+	 WM5/WmGpTWKicBVLf5Lq5G/Q4kWdEi9b8+Uo6Oos43Eun0j/dYNf/f0WzZzbpOHVCpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NKTIlecT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WORAAsag;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C520C606A324;
-	Tue,  3 Nov 2026 06:25:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C520C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B153D606A338
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:25:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B153D606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=btM81GRS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793687136; x=1825223136;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=fecGrW9JwHUJThxLN8ShaFDwz9Z8aDKOZL1oGNV3uIE=;
-  b=btM81GRSxAcwrwCNR86mvt+bE65MBSLn6fHDjWgU/pASFwNRVarYoykv
-   FfpIVNeOTfuj6cGDTUjEmmZh3loGEkeTVQrsVk8ppeL98iHu1zz4yn0iK
-   jsbPFTlL4V6uYOygTRa+rWGoh1T0yWk+mrq81YrSBfNDguHPkltFnfzcB
-   X3a1Igk5yyX9aZKdf/hMuPOoafJAyeA+WH8BavjHTupq+2/36UR2seC11
-   KH+2OP4qOZPCoo1/Ypk7nzIQeaiHlZsGydDr1mls/c+MpUc97IYwuAvfx
-   o030bPyoTCKyY50wBUF6kr0wJXGKc0ZlNQbl6+1jY2hXF1YCX8FzEezNr
-   g==;
-X-CSE-ConnectionGUID: BMljAvsITACAnzN6edZQuA==
-X-CSE-MsgGUID: QQG+GX29R1+fdS7JKe8HNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2287211"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2287211"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 22:25:36 -0800
-X-CSE-ConnectionGUID: EaQo+BxMR0ifSvfYYKD2Sw==
-X-CSE-MsgGUID: FlsH4WNsT067mMbh3VvgYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6658427"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 22:25:35 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 22:25:34 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 22:25:34 -0800
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.46) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 22:25:34 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q3m+B5Zbnblr7JfY8b91YJkq5t7EoLz69TdTuFrhRelqKZEaPHDfIVbIs9yASJS0/zh9MFTYLtt4sG6DUrlnpZ9CJX0OlalKcbGqzO96PsQZvMRIf7w9zHPRNtIplpjw4sadjLCvWk6GLKMnR2okSp64QhRDbeAsrK0LXUQWQuc7d6bu1TEhh4h9bZfxUZaLc7NNrYBf7x6PfBr0unmKMdMvYDdYHoD7ok+/xUy1KNY0HpfeUs3NXQUlECdFpdWiIeRwAyncVs6+S4WFwYb3MNiNhtJ/ge2hgOw+E1aE+tPFpZ084igm1RDY4/C0hChZLcPyKFz28yxg8XJu2bPnSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P8E6oknMIubMtbHkGoRD33rAm9mDfMTD9HYpAHe34Yc=;
- b=zIpethaNAP0Lh/m1yg8ObsdcfdOCFmVeJh7WFoi2RdQ4cFKorMmyhmNXsNqYLatNFxgB+kCE4Wson6zAUw/n/MnzOuTB36sI8IyrLs/57fygLKhhAL05qoYMOEK/KNZqmXh54Ec/BY/zHWVEu50TbxI0IZshN0EMs6o3sX1YI1oZzhhrg4yOfcaf93AOeHWh6vSbx3ivptdLrzRwi3icAsaozlwCuhy9Lmjt8B6draUW4wQ7uZn3nfso1WwwVC8EC5fxWWuM+tKsV9hMQM+JdFiCDQwhxT3dvyC+tc7DLC1c0budQO0vH6ueqZe3ATqbRqvaHtRe89nCW5HBhxF1mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from MW4PR11MB6982.namprd11.prod.outlook.com (2603:10b6:303:228::10)
- by SA1PR11MB5923.namprd11.prod.outlook.com (2603:10b6:806:23a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Tue, 3 Nov
- 2026 06:25:26 +0000
-Received: from MW4PR11MB6982.namprd11.prod.outlook.com
- ([fe80::b676:829:5412:4afd]) by MW4PR11MB6982.namprd11.prod.outlook.com
- ([fe80::b676:829:5412:4afd%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 06:25:26 +0000
-From: "Guo, Wangyang" <wangyang.guo@intel.com>
-To: Vishal Badole <Vishal.Badole@amd.com>, "tglx@kernel.org"
-	<tglx@kernel.org>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-CC: "bp@alien8.de" <bp@alien8.de>, "Li, Tianyou" <tianyou.li@intel.com>,
-	"tim.c.chen@linux.intel.com" <tim.c.chen@linux.intel.com>, "Liang, Dan"
-	<dan.liang@intel.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH v6] lib/group_cpus: Snapshot cluster masks to keep
- grouping hotplug invariant
-Thread-Topic: [PATCH v6] lib/group_cpus: Snapshot cluster masks to keep
- grouping hotplug invariant
-Thread-Index: AQHdapk0nOjimPxSGE6ikHdvSS0VXrcb3ZrQ
-Date: Tue, 3 Nov 2026 06:25:26 +0000
-Message-ID: <MW4PR11MB698287F2EBAD1EE84171931592692@MW4PR11MB6982.namprd11.prod.outlook.com>
-References: <20261102070930.1803698-1-Vishal.Badole@amd.com>
-In-Reply-To: <20261102070930.1803698-1-Vishal.Badole@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR11MB6982:EE_|SA1PR11MB5923:EE_
-x-ms-office365-filtering-correlation-id: 723f503c-9fbb-42ce-b269-08df39733fb4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|18002099003|22082099003|38070700021|261028144727099003|261009223027099003|11063799006|261022075727099003|261026140227099003|261022105027099003|261026121527099003|56012099006;
-x-microsoft-antispam-message-info: 9CYiI7lH2D60sT0Xl2Y96D2mdO3NIwNYRZ8QDSPVjr+ycG5P2nzOFiTNwrj4TTIZJnYLKY2eeTDQMZaw2o0S902vRtqD8ahkCx0WEiEhC1hVDkEV0Np3relxJqJ830XufGrFaLLdm+h+bqTOtxjmfaCAVvSyLh6+fN0qlXKsBVFydsZGwJJeqLvFMlXCqfgQlMLKtHe73bWx5UTqMXgTyPksSJl4xptFX0ZoPHd4dLsHyZPDtFCO4kz352/bfuc9ZXIeNvVKSc6DHizDst3DhQF+5tftrkkBNcJB2UcpoEDu1cdl9nzY+Y/PniJ6VpqKj5PBQnm5T5bOLPZ3ZNxrhn2xAnM5fBuMrwwTdzujjMOXpdxhN/f5JqpZIB2Mu6J1hcAeLBDV8l+i8hTYy8W14nGdeTvXfZLVzVWM1duT8EUZjC8f566P85jfpKdN9HTf0b5KaPOHacYcKPE2xAL6nS3i6EY1iXXcPI1NG7Sux6WttBw3wdMwWJGgc0aX91JtR6XJ1qr606038HIXAY2vlpK5gIKbS26TTVqwkCyvU4+fvT63PnpWUWRhftoc0sK6NRfIWN844oQEYjDYJ42aDe2vSEWQFggABUcaj93PSzY+Alr1RWEG88d6w0oAWJHf4vlB/6dE8M8oiar6libuYrQGylD6DoB+PnYgDxLlvZOrbR8ozvfAHfeD40bkHLU2SQjDcf8u/X6wJeGYqf7Me0yxghd459CBlvh2eUkKZYs=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR11MB6982.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(18002099003)(22082099003)(38070700021)(261028144727099003)(261009223027099003)(11063799006)(261022075727099003)(261026140227099003)(261022105027099003)(261026121527099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/Chrj4wPHEQCfhSxe6udFMp5HodooTUDIMmhsANzoeScI80Rb/vFqURKnD3N?=
- =?us-ascii?Q?qf4nN9TJCpz3FRyiZ5Uxa0MwWRoecTln61K+UJ1xAEMOmmFFOqh3mNzlgzCG?=
- =?us-ascii?Q?tiR53Sv4HXqgl5c1OUX69sNyeit00TCKs8QYL0/Gr2kQeVjVuw3yTBTBkwl7?=
- =?us-ascii?Q?6PeYPRhSbX3EDp7FDMJDy08wtR5kftHi2Z8ZZwBk8DHRgmBr81RS/RWqio60?=
- =?us-ascii?Q?DGckGjdeUUVWwNXmSYKqNs22wvn3jL3Aa0bGImFr7fjhh3KyGv9vrlYnPyBS?=
- =?us-ascii?Q?jPWS6P0AO2tJbfwRlqlLdVC5g+XanUDpqsWlNXlB0pP9BLWCgxQDpvrHEG3W?=
- =?us-ascii?Q?CS93o4kEcCq87qcDqHPUbjwEtgC3EHqv/GNLM9gEy6qAnqFK7qm66uJR6/8O?=
- =?us-ascii?Q?Qu8UUS/l79w0H6ZCB+QiRs0hujKgNtI+aM105iPPrPBy+5pxM0td+6UixMeB?=
- =?us-ascii?Q?my88/MMiHJNUm+SPuewX1SmEPcv19OhsQObYrZx1gflFf9+QfUE20YiurJVT?=
- =?us-ascii?Q?urU3W/rOP3TSET22vpdTjyUgbYBypmKlFhiqAn3jygXHhmqeWP88PMJWthTl?=
- =?us-ascii?Q?WjGIwx+nmh9vrMz0swWXIrNxtDBO5Uei7O+F7iagzubOJeeERazWdzJEhskT?=
- =?us-ascii?Q?Y36+l0Leaep/0F37HkGsGQiUQxxtNWCbBYBWEW+PECgLHyhWrlMJJFgZLWMj?=
- =?us-ascii?Q?1LhKN98NlJl+rCxEi+4yiYVbHDcHkdvQSmUPv3XpwGQCjadkLApcEnJQk/4y?=
- =?us-ascii?Q?XZP2P89g2KxzX5IZjvZCWUHnOskBKPpkxApxKgKayhYKAZ+Z4xnzJTiZ6Bxm?=
- =?us-ascii?Q?TFlRbggyOBqIRqH5EO4RARF3Bu/Rc4MOIjMeKGrbCmokstF4QZYsiTjJNUQl?=
- =?us-ascii?Q?SwVK2LGsNZLEoRs7oO2OkpKOF4PeltfD5Nln8jVOi2PP1YFbTspotRAtQXmW?=
- =?us-ascii?Q?uDMJLfEpI8+klW1qFNfSIk3LIkWKKto44ecieRbtbxuvT4XSXe+UpvpqQ2SA?=
- =?us-ascii?Q?umfoMgBuXKU0yAAuhZHPPlwhXd+eFFf9oPtDmm5LsyefXAGB+IVDHAaWvrzH?=
- =?us-ascii?Q?dhBXuEyeG9hVd7ArDjL9qqF1X+aOFWaJWtOOAMckT9q+32osSmLL1t2upxfC?=
- =?us-ascii?Q?k647h2JYq4pew9709tF8f5EMFsK+VoQsXn77GKYQ7vGezCUw2V3ZDMyJbV3N?=
- =?us-ascii?Q?xFrG6acRWuaM2Kj3M+xv5XzeLOpATqbzT1Vq2iTL/NTKXaEBPsxewl4Z2L/N?=
- =?us-ascii?Q?druD3XvwUtTEljg6itxwz9tHbm1bCPdEOKbFxAzuodmAyn8f5bWe1WiggM13?=
- =?us-ascii?Q?sCyz9zelfi5uXdY/TQO5zxQydxewmd3PYtkgDFYd8+HGXzqkLKYbfSifLZ34?=
- =?us-ascii?Q?5YR5Mv5WQjaV4jJAH7zSMbmK5ZOKLaHOmIF19hf7fZ6eQucCqLTSXWTpW6NI?=
- =?us-ascii?Q?hJEJLSMVbgFRtJK44+n0LcYlfOSriea7Hy6XPAeUyv3Yhza8TeK1ux+q77VF?=
- =?us-ascii?Q?kp4+1Z4MUUV1BGEzndDVHjgjDx1GEWtXmfM3Z9PX2Bzg1MMNc2eDuPgzfl5C?=
- =?us-ascii?Q?srXfx9OgkM8j6eCABI4VjEa0Ww1Dz9QYIQ8Ua31pp1YX5HtdUgUpAPLPJhQ3?=
- =?us-ascii?Q?zG1qYT88kyjqlZqzYmEXRR4XnWUDROYyZfqNde680b5hbEyXwxcBP55HKR3K?=
- =?us-ascii?Q?JJnmTHLFBEUbh0xyicVr8bXBCXZmJQnY9GuEov7gZntOck/mnOzly60dpFjz?=
- =?us-ascii?Q?oQ5LfYOlvQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NKTIlecT;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WORAAsag
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31egYG4002679
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 06:25:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=; b=NKTIlecTkJkLQpyk
+	l1CuiHINKA6OWTGX514QCSm3j//VdQG6yjs1xM+tfYH0ge25EUSaxS9NrDMWXWit
+	68+W2GXucwhjmXqFm0mJNnBCdKHpqcMaBPO3lkns6EcBkqKV1pXZ0GiUu40lrfw1
+	F+WduvqnYBt/SASF3tibJeVM6+PhR6Q4LTNm3Q+qoVMSZXI6BYq6xCNe5VKKpZhA
+	U3avqe2sONtupM3eHOSRIGEFPMu3pJtMVhN4fQPM3G++JCU1HNONCq7aloO1unvX
+	XCLkXgDrRx099SnCG29tLDVDC/6bQmicNs8zc5R4jrs9eEQ//jYwh7xVvrg12Ivu
+	72E2EA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq07ej93u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:25:39 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ea63087d79so35601915ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:25:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793687139; x=1794291939; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=;
+        b=WORAAsagLLAZE33dKvZqoXvNybMdRp9WwZKdp64c2t8FgmHKtShJMXY4OGNxD6XaXi
+         W7wm2kl7wwPu/FjVLdzNJHeqmapGp6jur8/FQ0hFubnkHkx0vmFeDH/CwwfWaAs8qvdF
+         mkow1e5wqzolDZxFYt/QTCkvX4xOaano8PFP0hb14DDmYB5M7TbtN3LFCUkemA+YZI85
+         +2HNblVLNglvL4aYO48Yz2iliubksQz7DaRvX8ZlJA+7oxsvPdwrbJCGXg7rRuCnC2Bi
+         pDT2oFigRnxqDeZwoSzBV4ZAi1GFqlmJqk6GE3plvHT0czDOYNK4ZAqjsbfdZl0ZR6Zu
+         AYrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793687139; x=1794291939;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=;
+        b=BCyHVq8k+3zlVzBvwZTSMAyEdpaK//1dPczf6X4k1Mk272fPXbdJTd4ZoCJJY1aVQ3
+         mK0kEx8Y7ubky6/5S4pWfbBBWns8d+rHP6qqfY4Vb6pXt0gOF5rotQYpsZ/DtPDPV2OQ
+         i3dqjSrI6Bnzjbuy1RlLzQwyQv0mdtJmF3zU7Y6h6zzL4vVJlAU55Sapu9pAAmf8zWDZ
+         DqAqQKuQMj4JT8vsPtFVQ76hQeo781cYfUD0XsAaO67rB2agk+lYPPLiQrE0iWbQXojl
+         B0FOiIy9RmFnswF6ekHl+oy8f3d28hmsdGVBp5SW0ajxQ1X6AX2c1oQqWj2F6UKcsMJM
+         9ENw==
+X-Forwarded-Encrypted: i=1; AKwUvBxPYCn5Zou6Y5o/WDMn+/qs3BqMayyyiS4Wff523FLREFS7cC3GbqEEzCemNi0fEWDdT44Bp+k7KjlOtFk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yHTc9TqVOH4McXllbn4b9ATnHY5KMCL19l+ObfNWwJ9njQuuy
+	Q4HLlbFWOETnI+ssImKLgTocGKIFXaMOFrGZQLrFAcdFg21H6DuzGYswlRWK4ReRCjEKeH0nD3U
+	XUwgVzz9CJIUFopDBsDMy2hMa+FfuK45tWecQEuQEFQK9E0cd4K0Ugo9uiAcxGya4XXI=
+X-Gm-Gg: AYBFou19EG4+MVtks1XchJy1xWH7NS4nHQyIzc2Dk58NYPIi3FGFnGWYXplmAVf8L78
+	A5hKon4ACqP1IZlBtzm7YsYrEGqtrRDtsSMuHA9AYGzw8uriCJzjKD4UGAocr7smGXqfuoF+Nnk
+	KMSdbgQBJeyM1TcsqrhjFRWXOUx6NLBr0pJwM4cDwrsHIFZQUDPs1d1ABkIL5hY0v4kmluLn0YL
+	zwFz2lRrlo60cipxRYFPss31OJfXTQjVsPPHGYsPZxZ5amZYw5GSeYIwsuqZaqbKz0L7RPLpO5u
+	fTMpO+x/UyTyFIfFp9FuHNfd49W61V6EyIH5JoQeG/ZWxc1lLI41ZudRK19+uDGnMuv0DdTn5Wy
+	CNbSjYTa89iZ3KsDfnET89diGWpqr5x52o5gZGTnL2izR9tWwicXophsjbwMHjd3xnTpJqESCzH
+	U1lFc2
+X-Received: by 2002:a17:902:f545:b0:2e9:9f14:c44 with SMTP id d9443c01a7336-2eb364ddee2mr111958285ad.49.1793687138968;
+        Mon, 02 Nov 2026 22:25:38 -0800 (PST)
+X-Received: by 2002:a17:902:f545:b0:2e9:9f14:c44 with SMTP id d9443c01a7336-2eb364ddee2mr111958015ad.49.1793687138325;
+        Mon, 02 Nov 2026 22:25:38 -0800 (PST)
+Received: from [10.218.31.237] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3924c858sm36924505ad.35.2026.11.02.22.25.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 22:25:37 -0800 (PST)
+Message-ID: <e1ac9331-7a3c-4836-bd78-b67b60f918fb@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 11:55:29 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -180,81 +116,429 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: XXa+jYtwkC0F5Wkn4iy3i+3GHt2p/hELqCdCXHYyFyUhWpj226cr6T6G3RvGeSwp9wI7BE2KGANsTIGn6x3dec3ppFK73hbQJWud80GJfeGxGtnWATRja/KTvDFssz7Ds1LNIkewEb2nAsnPf9lG56xDzjSPO11HiUldMDIWRioZ56s5ZWkD300Vdr3TsXjGQ/laU7M86Vz3b4M6WzN7VWoHfnQGCXOMmNz9IEp9QtE5usB4YYksuwaA8WD+FDutTBkOkcOgrjbDSXMrKkClB0plWCJbMXfkTJgBNoFWR4tClvtNQz+rggl9MLBHT9jHuEwyKwFA6vXKVCO/t/RK0A==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6982.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 723f503c-9fbb-42ce-b269-08df39733fb4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 06:25:26.2457
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SIWA4sEHWsW0ubPknqzfwZzit/YwK2xskddrRap7ZoWRirrPe1n184aoTbdXDcGEx45nwUNbrqCEy+vACGN0kg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB5923
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 2/2] net: wwan: qcom_bam_dmux: Assign
+ restricted DMA pool to remote processor
+To: netdev-bot+sashiko@kernel.org
+Cc: stephan@gerhold.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+        kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, loic.poulain@oss.qualcomm.com,
+        ryazanov.s.a@gmail.com, johannes@sipsolutions.net, edumazet@kernel.org,
+        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        deepak.singh@oss.qualcomm.com
+References: <20261021-qcom-bam-dmux-vmid-ext-v3-2-cedd1f681102@oss.qualcomm.com>
+ <179292379960.3134.17105636011699871887@kernel.org>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <179292379960.3134.17105636011699871887@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyNSBTYWx0ZWRfX2k0OYe6u4ugD
+ z24SdRfakjP6Oonu3+rkrCKkZ0Ns2UdMg0khkZWeOBsCFtw9r4PQ8vKYNs+SXFtVA09oLH+LFuS
+ Rw+jOHj98NkPtkUisgvFJRbksh0iAovvzaD42KkxGeVEKlX//V8L8IqtdHECFg/XjTkg+SL329W
+ FQWmhvQ9jDzYuqusM43vlDczswxPlJnQxIyCZgVwkVcYQbuE7osQCRKk1TuTyVsMtMv9XDA+PAw
+ 5ER/3XupRJzcB8D1UJHR33XoYAjFOJIgminxOvD6YV9ZYQ5pg4amNiubTa/Rq1aZYCAzo23Ss1m
+ y71DAq0vbkqIEjRbI23b8X/P+32brafm/51A0Xsq8+H5h0Yp1sFjQyPVW/F4w0dT+fZPolh9sb4
+ zkxocXb86GZG3ofx6O1RAS48/+cdqDMjTv4pluv+/trtBeOGDMCjt6OAHKnTcqfIR5TMx+WO18w
+ 62nHUq3RILNZP8hs71A==
+X-Proofpoint-ORIG-GUID: dFI5KO28nf8J9CLEfbFWxv-NBzdl2rvH
+X-Proofpoint-GUID: dFI5KO28nf8J9CLEfbFWxv-NBzdl2rvH
+X-Authority-Analysis: v=2.4 cv=B/wsQ+tM c=1 sm=1 tr=0 ts=6ae97e64 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=70-S8w_-Z3ilBdKCbEIA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyNSBTYWx0ZWRfX0qLcpMC5bgHg
+ ISZ9SJ5biSX2FVW+x5huQFMuGiGZhQJqecaqb4BC9cceVlFir6f/rl95zT1AfwCX2u1fcH1WCk9
+ fpRqOwSqtmoO8TfXu0FXro3gFnnh4O4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030025
 
 
-Why not use original topology_sibling_cpumask(cpu) if snapshot not
-available?
-> -		siblmsk =3D topology_sibling_cpumask(cpu);
-> +		siblmsk =3D sibling_snapshot ? sibling_snapshot[cpu] : cpumask_of(cpu)=
-;
-
-
-> - * Return: true if success, false otherwise.
-> + * Return: 1 if successful, 0 if inapplicable, or -ENOMEM on allocation =
-failure.
->   */
-> -static bool __try_group_cluster_cpus(unsigned int ncpus,
-> +static int __try_group_cluster_cpus(unsigned int ncpus,
-
-If use ncluster as ret: >=3D 1 successful, 0 inapplicable, and -ENOMEM for
-error.
-the code should become simpler.
->  	ncluster =3D alloc_cluster_groups(ncpus, ngroups, node_cpumask, nmsk,
->  					&clusters, &cluster_groups);
+On 25-10-2026 03:53 pm, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 7 potential
+> issue(s) to consider.
 >
-> -	if (ncluster =3D=3D 0)
-> +	ret =3D ncluster;
-> +	if (ncluster <=3D 0)
->  		goto fail_no_clusters;
+> Critical: 0 · High: 0 (1) · Medium: 4 (1) · Low: 3
 >
->  	for (i =3D 0; i < ncluster; i++) {
-> @@ -392,12 +477,11 @@ static bool __try_group_cluster_cpus(unsigned int n=
-cpus,
->  		assign_cpus_to_groups(nc, nmsk, nv, masks, curgrp, last_grp);
->  	}
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 >
-> -	ret =3D true;
-> +	ret =3D 1;
->  	kfree(cluster_groups);
->  	kfree(clusters);
->   fail_no_clusters:
->  	free_cpumask_var(nmsk);
-> - fail_nmsk_alloc:
-              return ncluster;
->  	return ret;
->  }
+> - [Medium] The commit message says BAM descriptor FIFOs "must therefore
+>    be constrained" to the shared region, and that they are covered "when…
+> - [Medium] bam_dmux_assign_dma_pool() always passes `u64 src =
+>    BIT_ULL(QCOM_SCM_VMID_HLOS)` (line 777) to qcom_scm_assign_mem(), so…
+> - [Medium] In bam_dmux_remove(), `remote_suspended` decides whether the
+>    pool goes back to HLOS-only, and it can be wrong in two ways.
+> - [Medium] Once the restricted pool is assigned RW to the modem VMID,
+>    every RX buffer mapping copies uninitialized HLOS memory into memory…
+> - [Low] The patch changes the probe error path in bam_dmux_probe() for an
+>    irq_get_irqchip_state() failure.
+> - [Low] The binding and the driver disagree on which qcom,vmid values are
+>    valid.
+> - [Low] The driver and binding accept qcom,vmid values up to 63, and
+>    bam_dmux_reclaim_dma_pool() passes `src = BIT_ULL(HLOS) |…
+>
+> Pre-existing issues:
+> - [High] bam_dmux_remove() calls
+>    cancel_work_sync(&dmux->register_netdev_work) at line 964, before RX…
+> - [Medium] This problem wasn't introduced by this patch, but net_devices
+>    that registered successfully are unregistered and never freed.
+>
+> --
+>
+> net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
+>
+> When qcom,vmid is present in DT, this patch requires a restricted DMA pool
+> and uses SCM to assign the whole pool to both HLOS and the remote VMID. The
+> pool is reclaimed for HLOS on remove or on probe error cleanup, unless the
+> remote side did not drop its power vote. It also changes the
+> irq_get_irqchip_state() failure path in probe to call bam_dmux_remove().
+>
+>> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
+>> index cc6ace8d64371..fa3621224a56e 100644
+>> --- a/drivers/net/wwan/qcom_bam_dmux.c
+>> +++ b/drivers/net/wwan/qcom_bam_dmux.c
+> [ ... ]
+>
+>> @@ -762,6 +768,96 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
+>>   	return 0;
+>>   }
+>>   
+>> +static int bam_dmux_assign_dma_pool(struct bam_dmux *dmux)
+>> +{
+>> +	struct device *dev = dmux->dev;
+>> +	struct device_node *rmem_np;
+>> +	struct reserved_mem *rmem;
+>> +	struct qcom_scm_vmperm dst[2];
+>> +	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
+> [Severity: Medium]
+>
+> Is it safe to assume on every probe that HLOS is the only current owner?
+> qcom_scm_assign_mem() documents @srcvm as the "vmid for current set of
+> owners".
+>
+> Two paths can leave the pool owned by {HLOS, vmid} after the driver
+> instance is gone. The first is bam_dmux_remove(), which skips the reclaim
+> on a remote timeout:
+>
+> 	else if (dmux->dma_pool_perms)
+> 		dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
+>
+> The second is bam_dmux_reclaim_dma_pool(), which only logs when the SCM
+> call fails.
+>
+> In both cases the only record of the assignment is dmux->dma_pool_perms.
+> That field lives in devm_kzalloc() memory, which is freed right after
+> remove or after the failed probe.
+>
+> On the next probe (module reload, or unbind/bind of the remoteproc
+> parent), the zeroed dmux would ask TZ to move the pool from {HLOS} while
+> {HLOS, vmid} actually owns it. Would the assign then fail with "SCM assign
+> restricted DMA pool failed" until reboot?
 
+Yes. This is fail-safe, since the pool is static reserved memory that is
+never returned to the page allocator. This matches the existing
+qcom_scm_assign_mem() users, which also only log reclaim failures.
 
-> @@ -442,6 +526,7 @@ static int __group_cpus_evenly(unsigned int startgrp,=
- unsigned int numgrps,
-> -		if (__try_group_cluster_cpus(ncpus, nv->ngroups, nmsk,
-> -					     masks, &curgrp, last_grp)) {
-> +		ret =3D __try_group_cluster_cpus(ncpus, nv->ngroups, nmsk,
-> +					       masks, &curgrp, last_grp);
-> +		if (ret < 0) {
-> +			kfree(node_groups);
-> +			return ret;
-> +		}
-> +		if (ret) {
->  			done +=3D nv->ngroups;
->  			continue;
->  		}
+>
+> The new probe error path calls bam_dmux_remove() right after the PC IRQ
+> may have powered up RX, so it seems likely to hit the timeout case.
 
-There is duplication for "done +=3D nv->ngroups", my suggestion:
-    If (ret < 0) { kfree(node_groups); return ret;}
-    elIf (!ret) assign_cpus_to_groups(ncpus, nmsk, nv, masks, &curgrp, last=
-_grp);
-    done +=3D nv->ngroups;
-}  // end of "for" loop
+This path is not reachable with the SMSM irqchip, as
+smsm_get_irqchip_state() only fails for states other than
+IRQCHIP_STATE_LINE_LEVEL.
+
+>
+>> +	u32 vmid;
+>> +	int ret;
+>> +
+>> +	if (!of_property_present(dev->of_node, "qcom,vmid"))
+>> +		return 0;
+>> +
+>> +	ret = of_property_read_u32(dev->of_node, "qcom,vmid", &vmid);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to read qcom,vmid\n");
+>> +	if (vmid == QCOM_SCM_VMID_HLOS || vmid >= BITS_PER_TYPE(u64))
+>> +		return dev_err_probe(dev, -EINVAL, "Invalid qcom,vmid %u\n", vmid);
+> [Severity: Low]
+>
+> Should the binding and this check agree on the valid range? The
+> qcom,bam-dmux.yaml binding in this series allows:
+>
+>      items:
+>        minimum: 1
+>        maximum: 63
+>
+> This check rejects 3 (QCOM_SCM_VMID_HLOS) but accepts 0. So a DT with
+> qcom,vmid = <3> passes dtbs_check and then fails probe with -EINVAL. In
+> the other direction, vmid 0 is rejected by the schema but is passed to
+> SCM here.
+>
+> [Severity: Low]
+>
+> On 32-bit kernels, can a vmid between 32 and 63 be reclaimed correctly?
+> bam_dmux_reclaim_dma_pool() passes src = BIT_ULL(HLOS) | BIT_ULL(vmid).
+> However, qcom_scm_assign_mem() builds the source list with the unsigned
+> long BIT():
+>
+> 	for (b = 0; b < BITS_PER_TYPE(u64); b++) {
+> 		if (srcvm_bits & BIT(b))
+> 			src[i++] = cpu_to_le32(b);
+> 	}
+>
+> On 32-bit this shift is undefined for b >= 32, so the remote VMID entry
+> would not be written. src_sz is still computed with hweight64(), so the
+> SCM call would see an uninitialized trailing source slot. The helper's
+> int next_vm |= BIT(newvm->vmid) has a similar limit.
+>
+> The root cause is in the existing SCM helper. However, this patch adds a
+> caller and accepts a range the helper cannot encode on 32-bit, and
+> QCOM_BAM_DMUX is used on 32-bit SoCs such as MSM8974. Should the range be
+> tightened here, or should the helper switch to BIT_ULL()?
+>
+> [ ... ]
+>
+>> +	rmem = of_reserved_mem_lookup(rmem_np);
+>> +	of_node_put(rmem_np);
+>> +	if (!rmem)
+>> +		return dev_err_probe(dev, -EINVAL,
+>> +					     "Failed to look up restricted DMA pool\n");
+>> +
+>> +	if (!is_swiotlb_for_alloc(dev))
+>> +		return dev_err_probe(dev, -EINVAL,
+>> +				     "Restricted DMA pool not attached\n");
+> [Severity: Medium]
+>
+> The commit message says:
+>
+>      BAM-DMUX DMA mappings and BAM descriptor FIFOs must therefore be
+>      constrained to a designated memory region ...
+>
+>      When the BAM DMA controller references the same pool, its descriptor
+>      FIFOs are covered by the assignment as well.
+>
+> This check only looks at the bam-dmux device. The descriptor FIFOs are
+> allocated on the BAM controller's own device in bam_alloc_chan():
+>
+> 	bchan->fifo_virt = dma_alloc_wc(bdev->dev, BAM_DESC_FIFO_SIZE,
+> 					&bchan->fifo_phys, GFP_KERNEL);
+>
+> Their address is then programmed into BAM_P_DESC_FIFO_ADDR in
+> bam_chan_init_hw().
+>
+> Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml has no
+> memory-region property and sets additionalProperties: false. This series
+> only updates the bam-dmux binding.
+>
+> With a schema-valid DT, wouldn't the FIFOs stay in ordinary memory that
+> the modem VMID cannot reach? That would leave the XPU violation possible
+> for FIFO accesses.
+>
+> Should the bam-dma binding gain a memory-region property? Should the
+> driver also verify, or at least warn, that the DMA controller behind the
+> rx/tx channels uses the same pool?
+
+This is covered by a separate binding change for the BAM DMA controller:
+https://lore.kernel.org/all/20261021-qcom-bam-dma-vmid-ext-v3-1-299355e8dd3b@oss.qualcomm.com/
+With memory-region on the BAM DMA node, dma_alloc_wc() allocates the
+descriptor FIFOs from the pool, without BAM DMA driver changes.
+
+Using the same pool for both nodes is a DT requirement. The DMA channels
+are only requested at modem power-up, so a check in BAM-DMUX could not
+fail probe and would only warn after the fact.
+
+>
+>> +
+>> +	if (!qcom_scm_is_available())
+>> +		return -EPROBE_DEFER;
+>> +
+>> +	dst[0].vmid = QCOM_SCM_VMID_HLOS;
+>> +	dst[0].perm = QCOM_SCM_PERM_RW;
+>> +	dst[1].vmid = vmid;
+>> +	dst[1].perm = QCOM_SCM_PERM_RW;
+>> +
+>> +	ret = qcom_scm_assign_mem(rmem->base, rmem->size, &src, dst,
+>> +				  ARRAY_SIZE(dst));
+> [Severity: Medium]
+>
+> Once the whole pool is RW for the modem VMID, does every RX mapping copy
+> uninitialized kernel memory into it?
+>
+> bam_dmux_skb_dma_queue_rx() allocates the RX skb with
+> __netdev_alloc_skb() and calls skb_put(skb, BAM_DMUX_BUFFER_SIZE) without
+> zeroing. It then maps the buffer DMA_FROM_DEVICE.
+>
+> With a restricted-dma-pool, swiotlb_tbl_map_single() copies the original
+> buffer into the pool slot before the transfer, whatever the direction:
+>
+> 	swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_TO_DEVICE, pool);
+>
+> That would put up to 2 KiB of stale kernel data per buffer into memory
+> shared with the modem. This happens for all 32 RX buffers at power-on and
+> again on each refill in bam_dmux_rx_callback().
+>
+> Should the RX buffers be zeroed before mapping when qcom,vmid is set?
+
+This is generic swiotlb behaviour for all restricted-dma-pool users: the
+original buffer is bounced for every direction, so that bytes the device
+does not write are preserved. Without a restricted pool, as on the
+existing BAM-DMUX platforms, the BAM accesses the skb directly, including
+its stale contents, so the pool does not widen the exposure.
+
+>
+> [ ... ]
+>
+>> @@ -829,8 +929,11 @@ static int bam_dmux_probe(struct platform_device *pdev)
+>>   
+>>   	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
+>>   				    &dmux->pc_state);
+>> -	if (ret)
+>> -		goto err_disable_pm;
+>> +	if (ret) {
+>> +		/* The PC IRQ may already have powered up the RX path */
+>> +		bam_dmux_remove(pdev);
+>> +		return ret;
+>> +	}
+> [Severity: Low]
+>
+> This changes the irq_get_irqchip_state() failure path from only disabling
+> runtime PM to a full bam_dmux_remove(). That seems to fix an existing bug.
+> The threaded PC IRQ is already registered at this point and may have run
+> bam_dmux_power_on(), which requests the RX channel and maps and submits
+> the RX skbs. The old err_disable_pm path leaked all of that while devm
+> freed dmux.
+>
+> Could this be split into a separate patch with a Fixes: tag so it reaches
+> stable, and mentioned in the commit message?
+>
+> The change also alters probe behaviour. The failure path can now block in
+> wait_event_timeout() for up to BAM_DMUX_REMOTE_TIMEOUT, it sends a
+> power-down vote through bam_dmux_runtime_suspend(), and it calls
+> disable_irq() on devm-managed IRQs.
+>
+> [ ... ]
+>
+>> @@ -853,6 +957,7 @@ static void bam_dmux_remove(struct platform_device *pdev)
+>>   	struct bam_dmux *dmux = platform_get_drvdata(pdev);
+>>   	struct device *dev = dmux->dev;
+>>   	LIST_HEAD(list);
+>> +	bool remote_suspended;
+>>   	int i;
+>>   
+>>   	/* Unregister network interfaces */
+> [Severity: High]
+>
+> This isn't a bug introduced by this patch, but the new probe error path
+> relies on bam_dmux_remove() to tear down an RX path that may already be
+> active. remove cancels register_netdev_work before RX is stopped:
+>
+> 	cancel_work_sync(&dmux->register_netdev_work);
+> 	...
+> 	remote_suspended = wait_event_timeout(dmux->pc_wait, !dmux->rx,
+> 	...
+> 	disable_irq(dmux->pc_irq);
+> 	bam_dmux_power_off(dmux);
+>
+> During the wait, an RX completion can carry a BAM_DMUX_CMD_OPEN command
+> for a channel that has no netdev. That goes through
+> bam_dmux_rx_callback()->bam_dmux_cmd_open(), which calls
+> schedule_work(&dmux->register_netdev_work) again. Nothing cancels the work
+> after that.
+>
+> Can the work then run after devres frees dmux, or register netdevs that
+> point at the freed dmux and are never unregistered?
+>
+> During probe, netdevs[] is all NULL, so after a power-up ack every open
+> command from the modem would schedule the work.
+
+This is a pre-existing issue in bam_dmux_remove(), present since the
+driver was added. This is out of scope for this series.
+
+>
+> [Severity: Medium]
+>
+> This isn't a bug introduced by this patch, but are the registered
+> net_devices ever freed?
+>
+> bam_dmux_register_netdev_work() calls free_netdev() only when
+> register_netdev() fails. bam_dmux_netdev_setup() does not set
+> needs_free_netdev, and this path only calls unregister_netdevice_queue()
+> and unregister_netdevice_many(). netdev_run_todo() only frees the device
+> when needs_free_netdev is set.
+>
+> So each registered netdev seems to leak on remove. With this patch it can
+> also leak in the new probe error cleanup, if interfaces were already
+> created.
+
+This is a pre-existing issue in bam_dmux_remove(), present since the
+driver was added. This is out of scope for this series.
+
+>
+>> @@ -872,13 +977,21 @@ static void bam_dmux_remove(struct platform_device *pdev)
+>>   	pm_runtime_set_suspended(dev);
+>>   
+>>   	/* Try to wait for remote side to drop power vote */
+>> -	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
+>> +	remote_suspended = wait_event_timeout(dmux->pc_wait, !dmux->rx,
+>> +					      BAM_DMUX_REMOTE_TIMEOUT);
+>> +	if (!remote_suspended)
+>>   		dev_err(dev, "Timed out waiting for remote side to suspend\n");
+>>   
+>>   	/* Make sure everything is cleaned up before we return */
+>>   	disable_irq(dmux->pc_irq);
+>>   	bam_dmux_power_off(dmux);
+>>   	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
+>> +
+>> +	/* The remote side may still access the pool if it did not suspend */
+>> +	if (remote_suspended)
+>> +		bam_dmux_reclaim_dma_pool(dmux);
+> [Severity: Medium]
+>
+> Can remote_suspended be stale or wrong by the time it gates the reclaim?
+>
+> It is sampled while the PC IRQ is still enabled, and disable_irq() only
+> runs afterwards. In between, the modem can raise its power vote again,
+> and bam_dmux_pc_irq() would run:
+>
+> 	if (new_state) {
+> 		if (bam_dmux_power_on(dmux))
+> 			bam_dmux_pc_ack(dmux);
+>
+> That requests RX, maps the RX skbs into the pool and acks the modem.
+> disable_irq() only waits for the handler to finish. The earlier true value
+> then reclaims the pool while the modem believes the link is up.
+>
+> Also, dmux->rx == NULL does not necessarily mean the remote powered down.
+> If bam_dmux_power_on() fails in the PC IRQ handler or in probe,
+> bam_dmux_power_off() clears rx while pc_state is set to true. The wait
+> then returns immediately and the pool is reclaimed while the remote vote
+> is still asserted.
+>
+> The commit message says:
+>
+>      Skip the reclaim and leave the pool assigned if the remote side did not
+>      acknowledge the power-down, since it may still access the pool.
+>
+> Would it be more robust to make this decision after disable_irq(), based
+> on the remote PC state (for example !dmux->pc_state)?
+
+Agreed. In the next revision, the reclaim can be decided after disable_irq()
+based on dmux->pc_state, so a failed power-on with the remote vote still
+asserted also leaves the pool assigned.
+
+Vishnu
+
+pw-bot: cr
+
