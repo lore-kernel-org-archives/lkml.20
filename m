@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742016;
-	b=C5wYOVYYCWk/OtfLiOReRh1UBx4E/KpPMwJMj1H5BVG7nKXtSNvJ0yi4mkrGqRXYIQEG
-	 kGoFR8MQNos5o66OLs/FLy9mh6s/QEmKuEW7xVUtnnZSgfFtac7kyIaD9b1qKmAFBAnlR
-	 U/v+vwg6DiSpuGG7+FTJ+JKV0fNRF6X7VUBFB/k8PztQP0b7VV2XQHAgzn3C8ZDAuka2b
-	 rRXZyusRCsh7njkIY1jjG46n7KythQxdZXBTiXQRa9ixsSk+Xr8PkxMAMXITH1NlZysI3
-	 +FdS+t9iyYfHWDb5ulTgF6lhra6KPcFmPSubvfj31IDgQvK8D9IIHN2jo6q7eGmAOdw==
+	t=1793742008;
+	b=f3FhxXv6IRoagR0X7EuyoN1A/5GAhO1ROveoNE5yqj3V/iC2CYj/+5vpq3tuX//fDEal
+	 VqtcIQpZWSmC00aDsaZcr2JL14CWy3+ejH49/zqubIEBss5aESdNHCo+7U5xgKfW/CVhA
+	 vcY08bj+4C6PtgFjlsbrjmIp+2UcVa0D3t3+DKyouV+T0qPjBCARjqT7czLFfca9SIrr1
+	 S0uwi/3NF+CJznyRWWXThwDHGAplQDtjHB3k38CYrKswV53vcaz9VMfBf8nOPPA6h4Eoc
+	 m2/tkESdtss5tfue5b10vPXjjutMt1YcZDuQf0xLQNpM3W0Jx6kLQfYsn6jqUPzkBTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742008;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=ZsGYkHSaF8D1INVVG7IqcJD0MRHplG6cSUzvau3umEk=;
-	b=gk2H2VlsPidxY+tcrPkj0FpnoV6YjS6Huxj81aKW/55Wd+4i8RTzsTiaFiYOK26JNei9
-	 lt3L2g+NviFeIpynwsUe8d6TWqIsL2siKB8KuX8b5lVQjClf1GX9QvfHV9RzT9MrIilfi
-	 i+PNuQn2pc30xyKa7WH6mmAnC0RiXaL0mDo529d22RF4tSbHMnge9HDW/A68oVxiLJjE/
-	 KThTsy/+/uWb8f1aG942Cx8FB0NAVRUlL1dDBU29v0BCxI4wa23Xq0CxFYannew6OQYAH
-	 MQP1VVhJhrjZp3S/ScIcVfQt8pPISke/CVWIc3svZOKZKNAgeKC7DKNJwDOwphd8EHA==
+	bh=E9UoBDBjwLLwDb4WmV28avfpsh+5/w/6UybGFvQ6fZk=;
+	b=drJRLB4pv2aLp7U1jyumdRJWyIbGqQpPsEBofDnzPvCkLmVuzf8RQXZat/ID74eH44rY
+	 mzuJFyIN5nfQ14q2JTdk2nv5OhGXaWAgldQX8L5es8ktZQ7wKqvGtlC9i0UO9xh4Qj+2y
+	 jEM0AucguJtDJYaHhGGw67M7t/dTjEZA9T33ue/Cnb/47U58u4kuiPUWEvcs1ixmhV5dy
+	 SFVtlJUHLUlg6Bmlq9h1JEGVZ/oxFt8DhKr3/rhTxoBlGMx4wQT2qadAZRLNeb22cTJiK
+	 pzzpbHJIg0e2dAlJzRLmpXrhO/VnY7zMd0fT0f+OyswdzjOgdK2vkXANslfQNCm3GLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ezFzqB2p;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9kUYWq2;
+	arc=none smtp.remote-ip=209.85.167.170
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9173E606D821
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:40:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9173E606D821
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23070606A332
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:40:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23070606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ezFzqB2p
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-84621d8c7aaso15316a34.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:40:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9kUYWq2
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4c5d8c7f326so32054b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:40:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793742014; x=1794346814; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793742007; x=1794346807; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZsGYkHSaF8D1INVVG7IqcJD0MRHplG6cSUzvau3umEk=;
-        b=ezFzqB2pNszwv2nsMajwEwrlsXnChTPseu0ngTqhGbRKsfjqRzQDp+73bjr+lA1ARJ
-         NNwz1/qfrk5c59LHztMRDIA1vsRyM/VOCaOcGEOJb1GYnWqHoQ/4H1VK6BB90Nd+rUrv
-         1YXht9wxF8gl0I232NhMFI94NrdVB4kLpQQklWN0eXedK8Ey50KG20MgcOT9A8Sd484c
-         vPeXbqDSLSIvPz8mX6pLkGxV6RATZ/kDccHR8alRRSZ1vyAhCwtoOnZP8FBkX0vMCMAY
-         nJuZjNarJnEyQCW8yTnVfo0Q9XkFRZ4Zx2Eo32tcvDwo53WnuMmbEExqyOv/Afdp16VH
-         Fa6g==
+        bh=E9UoBDBjwLLwDb4WmV28avfpsh+5/w/6UybGFvQ6fZk=;
+        b=Z9kUYWq2J1PQrrBHzOjE+jvFKjYRag4wfA7A+PcWa/4v0oOJGNIKUmnvDk93En0OY6
+         gexWUVLAG1L5tf42hcd1yZlnbAbNAhl2ICgu5/SRlS/kSUt1DxDDzVNnKheSiFW1zmK0
+         oKhMySDWNQ17VxIIyCDKizJ1gI5fML2pxNwvlliER5V+1SsgDtjQ4r3T94XhMSaZ8hxK
+         UTxs25vpgWD7cSm2Kw8CuJ184I4IR2TOdr8kwa634b33vn+g04Lu/YN1voZVP4KrjY9O
+         wICQM3st+DwWeDrrlmYGBq5yIKXa1e0YyuRxurB4TTSIZ76PxJBwZUKljk8FXfzhYfd2
+         DsWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793742014; x=1794346814;
+        d=1e100.net; s=20260707; t=1793742007; x=1794346807;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZsGYkHSaF8D1INVVG7IqcJD0MRHplG6cSUzvau3umEk=;
-        b=F+5wAQdJrlzLeiXxFwrYWSgsjTh64Sy3AalKHooSy88vLKmqlGOspqQoxSPkXtCyqn
-         2Uzfr5m51xJd29Uy+cZfZq5NuoEE4BfQ34dTCjo+/lg2pNbpoW55t8gF/h2RpmRx62BX
-         dnp2M1IUTQKD8Vcl6UZj2CofkTV8A7LBrlKjm4wZoU6TUjcF6aRevHEl5ra4ge7SjPRn
-         N/sf99wwhxUGVnYIgdANFhp0orBcR4zdg235ml960PfVUvx9XxcXpGg6Uk6ulXp9h8NP
-         pr6C5WoNwGmkwqUO+ZeeYk2U0/1rEJ6H8ZOIIjwzguJedUqWt5FiiYkDCrJzFHOktxWL
-         gDGw==
-X-Gm-Message-State: APuU4Z+M4DPhfBGkghsJqctvDk0NApdCcbBJJ49CeeqAsO2P859Nsqaz
-	8R5dD1O/7NH2tHuzCDnOXl5EccQnPjdg76JgDu/wAoFaVzhK4+HVRYYN
-X-Gm-Gg: AYBFou3o7Od6/kN/ubhSYYdHrQDuI0sZItAAbTvcvBT2gsbBYHCKaaxycxgofwazbRo
-	xsqe1Pz6IYlg+2DBR9o34VTvOBkYKgz4aEUR9mcIM4WJDcXQ6H/Pz/wJWOXvXFXk+9XokimZz/1
-	rUpjqQUiOKqapUjqImAJ34JD/QhFDNWW/gA/3Zv5VXQb8OgIw36E8x9LcOMyYgmvnRfQCRS1OFU
-	a84lFo/71dT1efXyhT2Yjc7Y0X/jBF67sqdyAOckn3fPP0GPFpaSPZI/UgKDr9WNgmS+lkqdJFR
-	sZTE+kTPVgSvekVQ45sUwsaqYndpZDd72WEsE8Kpow/K6lBSE4d0Jt0VwDUGR28vMGQwiV4afjp
-	WlIWsxEEF0ZdDFjzVYAI24+TX2Tyx+cADCzf58IqSeR1NKUTMoUjeFnG8n4fAcg8BZChIjQxaeY
-	e+DTEvoDJcihk8A/nRkt7eAQ0n6KirNejerZ3WAfb4cpHe/cj5qtcy1eltO18mtSdiwn2aUn4ll
-	nXDGI4ju0irn2mVARWEVHMheMcnWXxfhy6DFaCZO7tWNdjsLTWHXPfCfs/8HoIN/UKHt7kxWq1U
-	VrFSM7zZQpg44+wGvG839uCSO47qrifbY0aa5SAdWqLIC0x80CmpdvoJU9oO9wLFZ3C2DZ6qMNj
-	h2ejhwFK1ACvSOgW8dDQAUfYUKZLcH7vYQ5OOKmIVeFjMDMsEPZcewfUvqTgQ/fxFuLemTL92MK
-	dWFYbd6B5c+ZRsExBJckOyaEvzvLXH3aD1u+QaJxsKI16lwFJj6Acc
-X-Received: by 2002:a05:6808:148c:b0:4b9:e65b:8c36 with SMTP id 5614622812f47-5640dddd764mr9603574b6e.36.1793742014606;
-        Tue, 03 Nov 2026 13:40:14 -0800 (PST)
+        bh=E9UoBDBjwLLwDb4WmV28avfpsh+5/w/6UybGFvQ6fZk=;
+        b=PExvDOJYsptpDi67Cj2rQSGKWA/rxy0dXAAXjNxh7lotrX12WQTOVq5hr4zlPypTkV
+         W+CAuf6DTUD7+lDKreClW8C6uw/Z+6JoLwHwXbYTVMNXBhuSXAAbPwV6cQ5ZLv3SR5jI
+         //z2R/agfUR5mzrsXMABj+naa1KxoVozur7vqHe+nc78FE+eGBL/7PozkSd9MfIc15mE
+         MqOor+PtvF2nbfjC8Hb/xqFbFdBmWnd8JO2qDc9VjE1huxtxKWdEi9RT7+7HnhfX+q5H
+         EJJS2jSV9iPql5K9xt6vp7Z5S4md2cDHJ8Bj4wNmq4Yk6yW2q3attEF2mOBW2bOOJKwM
+         SM7w==
+X-Gm-Message-State: APuU4Z+3zujq7XYbX8bR7YOZ5/sDHkC2Axa4j1BXG6pmk55LvqGf8v+m
+	vGPvM5SaJgHdTbsVOFSiO25YjwRLcNeN6z+QSqU42yyYzR+Kg6RqhkIL
+X-Gm-Gg: AYBFou0YHEvUfd1lbW1Dp/pGWK7XrPopNgpPxWPSrXE3zvPxw3xiWQL8zupjm/VXtVL
+	ZDZW/M5OoND0QRB84U2LKWfFDUtSkPrtr6GkKbRkXYu9MT1/mmBTamLwAYHNGyI8i5dOL2NIcUm
+	nzA9diYnO+D7Ipydx5561rSf9RfIkDRnK7OGgclV8KU0w1R3CiN6WThwhJMe/L92S92i5a5RGzI
+	EIqqNaW0DV1smD2BzfaX+8e0+DE9ovgjtlV/YRv7HkMqmZjtKI0C/JIP315T2e4hNfxr6Q5fNwX
+	Nhkg8ck2D5V5+jlK/YHDXSEuJrl9X0T5DYJ0KNJd2U6esDRjzbxpbBaYwnFSH355GokmSQNr/Md
+	gKBOcitbKuobtyw8IyKueE54s2v+xec6KpM+iZUsASCI1Kngfy+J5niqjjQ2u+78w7EyZOdxBIJ
+	CeiidkFCLAb+Fnq4k+xwgiFh2We6oei6yD3tUaGQlrOYBs7Q9Tk4J3nGWubVkvcaJuB1O2GagBk
+	0OrCsy6oZ4+s9MigawDY8AqYtjHgodAmwki5yxBb4we0ejWd/GketQmlEF2kDcpefNk53YWbWda
+	tnJA1kOhuvkyJ6VkRJ4gk4+Q/KndlLxWR/Mkh5yhWHRfD1rF/GvMlIv1RrvWK2alnp4VV/UlR/x
+	QUSjbGHDB+7Cqb5H7XllUvdTgZm/Q7zu7Oz00p32RupvBLZH5BSSiYn/d6uu6BoN7Wa5+SoewJv
+	BwGDey+ditILa+n0XZwEFlMLpZXuQU3mnwRHlQIwNcqPjnQ1I6YeUj
+X-Received: by 2002:a05:6808:11c9:b0:4ec:d580:2440 with SMTP id 5614622812f47-5640de5a472mr9799943b6e.54.1793742007017;
+        Tue, 03 Nov 2026 13:40:07 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9f9115csm27060b6e.11.2026.11.03.13.40.13
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9f9115csm27060b6e.11.2026.11.03.13.40.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:40:14 -0800 (PST)
+        Tue, 03 Nov 2026 13:40:06 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 03 Nov 2026 14:40:02 -0700
-Subject: [PATCH v7 09/12] dt-bindings: serial: snps-dw-apb-uart: add
- Allwinner A523
+Date: Tue, 03 Nov 2026 14:39:55 -0700
+Subject: [PATCH v7 02/12] serial: 8250: widen RX trigger byte counts to 16
+ bits
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-submit-h616-uart-fifo-v1-v7-9-c9e248d685c1@gmail.com>
+Message-Id: <20261103-submit-h616-uart-fifo-v1-v7-2-c9e248d685c1@gmail.com>
 References: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
 In-Reply-To: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
@@ -108,37 +108,121 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Samuel Holland <samuel@sholland.org>
 Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-The A523 UART integration has different FIFO depths across its controllers
-and reports each controller's depth in the FIFO Clock Control register.
-The receive thresholds follow the standard DesignWare FIFO-relative
-mapping, while the optional-register layout differs from the generic
-DesignWare integration.
+DesignWare UARTs can have 2048-byte FIFOs, with receive thresholds as
+large as 2046 bytes. The byte-sized threshold tables, setter argument and
+sysfs parser cannot represent these values.
 
-Add a compatible for this integration, also used by A527 and T527, with
-snps,dw-apb-uart as a fallback.
+Use u16 for the threshold tables and byte counts throughout the 8250
+conversion and sysfs paths, including the uart_port callback interface.
+Keep the FCR encoding byte-sized and preserve the existing threshold
+selection. The Moxa setter continues to validate against its 128-byte
+FIFO before writing the byte-sized trigger register.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/tty/serial/8250/8250.h        |  2 +-
+ drivers/tty/serial/8250/8250_mxpcie.c |  2 +-
+ drivers/tty/serial/8250/8250_port.c   | 12 ++++++------
+ include/linux/serial_core.h           |  2 +-
+ 4 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-index fc1289073241..ea6ce99178e3 100644
---- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-@@ -61,6 +61,7 @@ properties:
-       - items:
-           - enum:
-               - allwinner,sun50i-h616-uart
-+              - allwinner,sun55i-a523-uart
-               - anlogic,dr1v90-uart
-               - brcm,bcm11351-dw-apb-uart
-               - brcm,bcm21664-dw-apb-uart
+diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+index 21ed9c41b751..939b7d4209f1 100644
+--- a/drivers/tty/serial/8250/8250.h
++++ b/drivers/tty/serial/8250/8250.h
+@@ -69,7 +69,7 @@ struct serial8250_config {
+ 	unsigned short	fifo_size;
+ 	unsigned short	tx_loadsz;
+ 	unsigned char	fcr;
+-	unsigned char	rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
++	u16		rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
+ 	unsigned int	flags;
+ };
+ 
+diff --git a/drivers/tty/serial/8250/8250_mxpcie.c b/drivers/tty/serial/8250/8250_mxpcie.c
+index 4935a5d1c1a3..4f0b881b4f83 100644
+--- a/drivers/tty/serial/8250/8250_mxpcie.c
++++ b/drivers/tty/serial/8250/8250_mxpcie.c
+@@ -257,7 +257,7 @@ static int mxpcie8250_get_rxtrig(struct uart_port *port)
+ 	return serial_port_in(port, MOXA_PUART_RTL);
+ }
+ 
+-static int mxpcie8250_set_rxtrig(struct uart_port *port, unsigned char bytes)
++static int mxpcie8250_set_rxtrig(struct uart_port *port, u16 bytes)
+ {
+ 	struct mxpcie8250 *priv = dev_get_drvdata(port->dev);
+ 
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index 36b2b0a2c05c..452851815ffc 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -3008,14 +3008,14 @@ static int serial8250_request_port(struct uart_port *port)
+ static int fcr_get_rxtrig_bytes(struct uart_8250_port *up)
+ {
+ 	const struct serial8250_config *conf_type = &uart_config[up->port.type];
+-	unsigned char bytes;
++	u16 bytes;
+ 
+ 	bytes = conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(up->fcr)];
+ 
+ 	return bytes ? bytes : -EOPNOTSUPP;
+ }
+ 
+-static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char bytes)
++static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, u16 bytes)
+ {
+ 	const struct serial8250_config *conf_type = &uart_config[up->port.type];
+ 	int i;
+@@ -3073,7 +3073,7 @@ static ssize_t rx_trig_bytes_show(struct device *dev,
+ 	return sysfs_emit(buf, "%d\n", rxtrig_bytes);
+ }
+ 
+-static int do_set_rxtrig(struct tty_port *port, unsigned char bytes)
++static int do_set_rxtrig(struct tty_port *port, u16 bytes)
+ {
+ 	struct uart_state *state = container_of(port, struct uart_state, port);
+ 	struct uart_port *uport = state->uart_port;
+@@ -3094,7 +3094,7 @@ static int do_set_rxtrig(struct tty_port *port, unsigned char bytes)
+ 	return 0;
+ }
+ 
+-static int do_serial8250_set_rxtrig(struct tty_port *port, unsigned char bytes)
++static int do_serial8250_set_rxtrig(struct tty_port *port, u16 bytes)
+ {
+ 	int ret;
+ 
+@@ -3111,13 +3111,13 @@ static ssize_t rx_trig_bytes_store(struct device *dev,
+ 	struct tty_port *port = dev_get_drvdata(dev);
+ 	struct uart_state *state = container_of(port, struct uart_state, port);
+ 	struct uart_port *uport = state->uart_port;
+-	unsigned char bytes;
++	u16 bytes;
+ 	int ret;
+ 
+ 	if (!count)
+ 		return -EINVAL;
+ 
+-	ret = kstrtou8(buf, 10, &bytes);
++	ret = kstrtou16(buf, 10, &bytes);
+ 	if (ret < 0)
+ 		return ret;
+ 
+diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
+index 4eeb8253752a..97301ef66af0 100644
+--- a/include/linux/serial_core.h
++++ b/include/linux/serial_core.h
+@@ -461,7 +461,7 @@ struct uart_port {
+ 					       unsigned int quot,
+ 					       unsigned int quot_frac);
+ 	int			(*get_rxtrig)(struct uart_port *port);
+-	int			(*set_rxtrig)(struct uart_port *port, unsigned char bytes);
++	int			(*set_rxtrig)(struct uart_port *port, u16 bytes);
+ 	int			(*startup)(struct uart_port *port);
+ 	void			(*shutdown)(struct uart_port *port);
+ 	void			(*throttle)(struct uart_port *port);
 
 -- 
 2.53.0
