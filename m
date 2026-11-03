@@ -1,63 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706118;
-	b=uOpXxaa4Epf+b46kYOXOC1qNkOb4cqI+HOKneVCOUKoaZqOJA7+PHcg6lvV0c14UpbqY
-	 Pxg8gPzsju5c586WlDgAdBxvdAeSgkWEG+8eWdsBypOuj2+p20/cnFRF8yCxXPt9toC1+
-	 QDNJqVEMWWxTPnFcYfxneFOhI05h27MWNNIWmULEjYT/yV+En5ZjOfyOTgTtmzMF7DaHa
-	 2nhbUGX8rRKT6IFMh9aHavxHtGS9Iwnm09tABesDhGAkztobjITHkN/FVBqM6BbzrDsys
-	 6TCM2zCxx0Z7tL+oD+fUBcQEsHhYXfuwQRELnp9VlVGm7MRaCLMA5R6YnNOE9V28PNw==
+	t=1793706136;
+	b=pjg9lY7HOc7uZ4VyNlfm/1NnBMZvCqqaiSQJK9k25FHpP3jffjZEEnctBL+kGb2A3Xrh
+	 2HEx49pak9ez5/CVroKBmucCG43IAl9A0CoFYLsIgyvMbsmAgtLOE6VyDcugMPRVeQvV9
+	 4iJwpGx7XrJVLVBkluLVMLQ2a3IoXU/onwM+gmKPxi/r0X+FNtapXvyp+H5+VQa8TzIXz
+	 8NUL5QpkiDescY+TY29Y5AcwmTcrmG8cXw3RM5VHTqLnSX5YZg771zuWDapybWmcC0YxU
+	 z7PogpMybA0Zepm7WNci5EDFOI36HSZ1grmGg/ar12hXCT7DMvfEopSHUq90iikQZ6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706136;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
 	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=KVVW7TPyhjGJAPwl+tjBBq7ztzXtRILV0pdDvXyoSsw=;
-	b=lw9uis1FUqh3I5sZ2oSkiQycuu3BVwZmsO0zzjQKIc2wH2fKsFAMf2GbxQsMvMhxQ8A5
-	 n8UUu6FsnO5KWNlSHTHSoA7kBQACzqlriYK05TkHZun7l1eDx01YSlbQ9fpRJBcUIdzwA
-	 HljDBp4q3gDU7oiU0gum7m7XWdq1kwpNud0A6COrVDCHqbm0vLsUxjqxHDZzxvpyXUmmW
-	 /3r+hSiCJpthzeFeN3aBzJRM8asGKjC8mfhzW4Ly6U5grmPD5f8ww8P0w/skkrPnc8Ed+
-	 T2Wxlfaunv7UhK+1MgsEVY98MMbpLHkISyipZ1y/uHbq10pDc0S755OEj4pydRhs5lA==
+	bh=WV+2t5wqIYEQvXK2Rast9/aDo3IHy4gV7z6vylgzovo=;
+	b=wDfPRFXDK+RggCkmEjrsNeGThBs0K9Ym9FFbDKWYTDgT8URVJIFe/Kk8qKIDVt27nCM/
+	 nIBvMAlwzfoKLC5YHn6H3TPMLPwEcKx6TjyitG3c2ZfewYgpp0yk1Mdabyk6aTsgU9uC0
+	 /ttJdiFqawfVXob5txwRCGIdFKaalb4X9Lhx0Fz6ZVKKfaPxHFCzHuz47A69/ZP29c/2d
+	 qeW7MDash5w5GK2WK7o+CHBmgUZbHKUl7evCr0GnjbqH7O+EztWUgUEOfnLgGyJ77MT0h
+	 pTdTCcWAerGb1jkcUWhr+jkqamt14MQcMJeqe6glSYednnSbpC98ZstTNqNzEaBHyag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=smail.nju.edu.cn;
 	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=3GAcGtaN;
-	arc=none smtp.remote-ip=54.206.16.166
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=Sj7xWwq6;
+	arc=none smtp.remote-ip=54.254.200.128
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7366082BF5;
-	Tue,  3 Nov 2026 11:41:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D7366082BF5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17256606D80E;
+	Tue,  3 Nov 2026 11:42:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17256606D80E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=3GAcGtaN
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=Sj7xWwq6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1793706094;
-	bh=KVVW7TPyhjGJAPwl+tjBBq7ztzXtRILV0pdDvXyoSsw=;
+	s=iohv2404; t=1793706110;
+	bh=WV+2t5wqIYEQvXK2Rast9/aDo3IHy4gV7z6vylgzovo=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=3GAcGtaNpJdfn3MRUJv6MGuSb1j7qf+uEr3YEYKeN5mN4MhVDDBX7EXr44nPAGcwf
-	 fiJgbBKRMyI7zmDYCJ7oM8aed3FGskoBcrBHKyPQdwK2tMao5pjhI2cHBde9Ts5V3n
-	 PDr3exfsBZMHfBXgA4/4kyKpBo/Kvb531mPSVANM=
-X-QQ-mid: zesmtpip3t1793706092tc9853fb8
-X-QQ-Originating-IP: foAq5r9/O7XKCss9j919Q9DYLIpM1JP+QVY8CprYUU0=
+	b=Sj7xWwq6rpTsw7G0RbFh63jpooISS9/7ydNreQwUaNME5TYSWhzvKxS8DG8tmgQIi
+	 7oOFHHYxQpHQ8Aqd0ayCqb3nuwgIQ8LiJDRoTX1uZHLNTisF+LFW3xD5wGVuD6MI6I
+	 Dh4oYxDvVh8hloh0k9jqkGc7lA204a1GMkqcl7pY=
+X-QQ-mid: zesmtpip3t1793706105t830f9496
+X-QQ-Originating-IP: wCfvw9RnZyrVWyED6DkmN7Kjyi+e5x1KAmHM3pYT2Ws=
 Received: from workstation-Precision-7920-Towe ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 19:41:31 +0800 (CST)
+	id ; Tue, 03 Nov 2026 19:41:43 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3758075859219802919
+X-BIZMAIL-ID: 1704270922219163477
 From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Matan Ziv-Av <matan@svgalib.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>,
+	linux-acpi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: lg-laptop: check WMBB buffer length
-Date: Tue,  3 Nov 2026 19:41:30 +0800
-Message-Id: <20261103114130.75260-1-k.chen@smail.nju.edu.cn>
+Subject: [PATCH] ACPI: property: verify nested _DSD packages
+Date: Tue,  3 Nov 2026 19:41:43 +0800
+Message-Id: <20261103114143.75756-1-k.chen@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,83 +73,82 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: N2dNga98lfCaS7p803k9tYYKAsRP5JNUKmECSkaFiSRtMixv0aL8bF4B
-	zIn0IjzZi8K/iQfgUgh42zirx4frddQmJOimSh/Qcv/cY30kK9TuTaZ4S5JCogcywf51Po1
-	fPaBuiVbqeAjIDaXS1mDscEZ1UG3Mw+7d4rdTRd7o7vCA/VKLBF2y84xR/5DY+aAkIBn6ug
-	ByrdVcnQ2OvAG2PVpQRIls1QpwtKpFB1sYKnxzsFvZD++5CmPLTIEiy0ntO+D8YwfFLml6e
-	Au4RYp/CSumbyVf8MCuRMEox1+uXNTUkk5v7Xi5uYb4jtOvhXy5Slc9uGcuY7oCRPAV1AzS
-	2Cbke1BHMumn1VBrd9wkYBKVvj+nqgnhu5sYebkuTQ0kyidol6Z/F8zJcfsCmsdOFPcFfcy
-	nIfXH6iqNKPjvmC+waFujaInY8GP7E3YDVzSY6WKKyTsV9kZx8Tm5YCVoku6jay3iRqiZly
-	UHU7utUb78tFMG29vf19fIELlDOiJhF13Ly4sP9ZHFr1/qoRQ/7LBJJimW3CdLzHWx/XWGu
-	JtFi0dn6MHXxTviYuRWOmriCRD11zmftic3Yyt/jXtISj/TGa5DAPbctNhLJkJRI2GFz/RZ
-	mx6qR9VvjaQVdnRkrI6+MOgt0ToMs4LdBbDXBo/i0kLi3JAEs4rLVFO2/Qr4K3IXl4Jqp+y
-	qRuemM8geMnUrbh1kh9dY1Knd7gsfhTZqJDObpCBdEdFqocH19+5MU5JihlsFp7D/WFdU5U
-	EZ+dfQ3ECEVY44HTyD5sAlmZIohMocvEvgRq8W7v6cFhywzMoFqQs7LHb8RHXMw1Hw8e7iO
-	CLeafElYGlE8rTAFryFDkw+2aVG+AuXhRdoq7GRnS+l0A74PYlIJ5CU5vCs4dIU5u3tDnBe
-	63YZw528a3vQamOaJoYVYalrfK/55PQTgs0RaTeGTykzRiZkVoCUOnF+XWr18f0Xl5LnQY3
-	9Hr9eHZeWZnYFmr4kdLhXrtj8sCPPcrFQ086UrTg8cmUv/iAOg0h6QTFEYyDC9hv3YWYMR6
-	sj4YNVd1UWSaDugMWjPfHsyoG3r9cQc2TsrE7L7yYkT4kF6EbGblnduQ96cwg=
+X-QQ-XMAILINFO: NRYSeI3Ux+UPc1P43lazSAW8+8UiMVTZhPe9rLGkVsqzAVWephcV1KrM
+	N0sYlyu3cknamDK6rZAS/pRLKxm5Rdx/3zfDjAxbqRWEmKOU0vz4Taf6h1zAJt7Pv1MMqvm
+	61evJDMUOvFB1fp72fX/9TdaSTyubXoHlqsv1Q1PYEgBbSo1Qmv/Fn4PYJP59i4TmekERdS
+	zaewbNVUvzavsNHHvl8keeNdPIJf+EaT1hvsdwfHIrAd2Sua4aqASsD9yxQYwgNx8OfUqQG
+	4vK35OsI/gw0O68KAxEr7mdN3teNdDdRBBKIs+iltmtnCpjqqCAzAHQIQLhlbhUidLRmvH3
+	qPwdWC/S/Pvll9XjKxDOTDO+qk9vX3DAlMMsXzclIrjhVRQ4q7hZfhr50tfBiRKaNWTREu5
+	mxpbFWmfxLB/cF1UcJ+YzYxKRd97yR7ekqRZxgHnli8x7QKFrnD03nF100WKh06PvrmWFys
+	aYBrWzm2srVSNXEbTy/KK1Hcvb9Knek1zOkIWueOIpgI22lm2CqiovS3a8UawWM1L4UHUtR
+	M1L0aLY+MtsFYhb4/MjCUlvqn2dzd+6/G7wYO03/xDfISorzb/SevL9/Yvc6M5JPoDMBEYO
+	7qJ21WDMx7cfwBsGF+LZywNd5LM/w9C6gfOUzqrWm62j6gwISbfQhOs0lhg7tOH2yZCqxZU
+	ExN10Xn68YOsgavVJ3OXOME+2kgj/+RQBI/2g80PIB3aNaYaR4wERM4m94gJWtLQHUiDgbU
+	82g1hmJC95XZXnoOJJKyMVtXwa+QQUEjfWmQf6hbpBWNgf1R9Bju+fNVaWS/VCwLM43Kru2
+	uNUg55p7HFV/oKBMjLXwqY3hrkup2C7ocYGrA+BY1P/TuC2EsM21MmbFCVx7zPRYRwfsnDt
+	17dr87mkmf0ZQUdMxnXmZNRupuyoA1SDrygcCVHTRoGg7k+Z/FAOy+NRvUUMCSeZfgzMPRx
+	oe8pytMLGDEQ53yFePG635DXEh4Dc1s9DV0J3K2uKIsYxIbj7ZZcTb8wetLoDqpAP0ODcUr
+	qIKjngvdbNR3S9KpGa
 X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
 X-QQ-RECHKSPAM: 0
 
-Two WMBB users read byte 0x10 of the returned buffer after checking only
-the object type.  A short buffer from the firmware makes both
-usb_charge_show() and charge_control_end_threshold_show() read past the
-allocation.
+acpi_properties_format_valid() and acpi_add_nondev_subnodes() inspect
+the package.count of nested elements before checking that those
+elements actually are packages.  In union acpi_object, count aliases
+the length of a string or buffer, so a Buffer(2) or String(2) element
+passes the two-element test and the following elements[0]/elements[1]
+accesses read past the small allocation.  In the non-device subnode
+path, the resulting string pointer can reach acpi_get_handle().
 
-Add a named offset and require the buffer to be long enough before
-reading the status byte.
+Test for ACPI_TYPE_PACKAGE before using package.count in both
+functions.  Also require an even number of entries in the _DSD package
+before reading paired GUID/link elements.
 
-Fixes: dbf0c5a6b1f8 ("platform/x86: Add LG Gram laptop special features driver")
+Fixes: ffdcd955c307 ("ACPI: Add support for device specific properties")
+Fixes: 99db5ff7fe0b ("ACPI / property: Hierarchical properties support update")
 Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 ---
- drivers/platform/x86/lg-laptop.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/acpi/property.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/platform/x86/lg-laptop.c b/drivers/platform/x86/lg-laptop.c
-index 36ad1e269443..4e1dbd80ffa1 100644
---- a/drivers/platform/x86/lg-laptop.c
-+++ b/drivers/platform/x86/lg-laptop.c
-@@ -87,6 +87,7 @@ MODULE_PARM_DESC(fw_debug, "Enable printing of firmware debug messages");
- #define WM_FAN_MODE	0x33
- #define WMBB_USB_CHARGE 0x10B
- #define WMBB_BATT_LIMIT 0x10C
-+#define WMBB_STATUS_OFFSET 0x10
+diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
+index 8ee5a1f0eb48..f5e0dc87edde 100644
+--- a/drivers/acpi/property.c
++++ b/drivers/acpi/property.c
+@@ -194,7 +194,8 @@ static bool acpi_add_nondev_subnodes(acpi_handle scope,
  
- #define KBD_LED_BRIGHTNESS_MASK GENMASK(4, 0)
- #define KBD_LED_BRIGHTNESS_OFF	0x0
-@@ -405,12 +406,13 @@ static ssize_t usb_charge_show(struct device *dev,
- 	if (!r)
- 		return -EIO;
+ 		link = &links->package.elements[i];
+ 		/* Only two elements allowed. */
+-		if (link->package.count != 2)
++		if (link->type != ACPI_TYPE_PACKAGE ||
++		    link->package.count != 2)
+ 			continue;
  
--	if (r->type != ACPI_TYPE_BUFFER) {
-+	if (r->type != ACPI_TYPE_BUFFER ||
-+	    r->buffer.length <= WMBB_STATUS_OFFSET) {
- 		kfree(r);
- 		return -EIO;
+ 		/* The first one (the key) must be a string. */
+@@ -262,6 +263,9 @@ static bool acpi_enumerate_nondev_subnodes(acpi_handle scope,
+ 	int i;
+ 
+ 	/* Look for the ACPI data subnodes GUID. */
++	if (desc->package.count % 2)
++		return false;
++
+ 	for (i = 0; i < desc->package.count; i += 2) {
+ 		const union acpi_object *guid;
+ 		union acpi_object *links;
+@@ -331,9 +335,10 @@ static bool acpi_properties_format_valid(const union acpi_object *properties)
+ 		 * Only two elements allowed, the first one must be a string and
+ 		 * the second one has to satisfy certain conditions.
+ 		 */
+-		if (property->package.count != 2
+-		    || property->package.elements[0].type != ACPI_TYPE_STRING
+-		    || !acpi_property_value_ok(&property->package.elements[1]))
++		if (property->type != ACPI_TYPE_PACKAGE ||
++		    property->package.count != 2 ||
++		    property->package.elements[0].type != ACPI_TYPE_STRING ||
++		    !acpi_property_value_ok(&property->package.elements[1]))
+ 			return false;
  	}
- 
--	status = !!r->buffer.pointer[0x10];
-+	status = !!r->buffer.pointer[WMBB_STATUS_OFFSET];
- 
- 	kfree(r);
- 
-@@ -524,12 +526,13 @@ static ssize_t charge_control_end_threshold_show(struct device *device,
- 		if (!r)
- 			return -EIO;
- 
--		if (r->type != ACPI_TYPE_BUFFER) {
-+		if (r->type != ACPI_TYPE_BUFFER ||
-+		    r->buffer.length <= WMBB_STATUS_OFFSET) {
- 			kfree(r);
- 			return -EIO;
- 		}
- 
--		status = r->buffer.pointer[0x10];
-+		status = r->buffer.pointer[WMBB_STATUS_OFFSET];
- 		kfree(r);
- 	} else {
- 		ret = lg_wmab_get(&pf_device->dev, WM_BATT_LIMIT, &status);
+ 	return true;
 -- 
 2.34.1
 
