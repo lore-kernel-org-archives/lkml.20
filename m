@@ -1,64 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700926;
-	b=a9496kK5K6+lqlS4fMxDldL1q9nn7nQL5K16a1dd7qo269UWagejn+ei/Tm0i9WOlO2x
-	 d8JeJXcqiLOOhQKSKR8GQyLYOEwSY7l/reh8Rn7phQpdMDy34C8uX28aWaccirRqMefPu
-	 tTOeO5ku/M5bn+Qxbce9wNW2Bne6IAH46N/4MmC3akORaYS03q04O8pod2+gKOve16XSd
-	 EIQInGPWs4RVSbAtmLul3kpmHstputnJr9J8F9T1+NvIvhG6x30OKHLPjazeffuJYQi/N
-	 HxgnMwAAjVPLraNFi94kzjbOlOgQ8/RrKNjePWqJ7wmdHoQNUDnKHI+qYqtur0D15sQ==
+	t=1793701006;
+	b=FkmNA7N9s9LqA66tIyPOZPTxZA3r0smxG06jBeUOylGA5uzpc6auXUe0CQeul77UmMlZ
+	 S3teMgDluVJNtjDeHxcdPUxIRD1SyMWx1lMjPCwRpuH5jhMgsMYw66TXpzP64BdP+wKEG
+	 jOp26lGsSL4tM2iZLB0eKB69ROT/RxsbBejVQDXNmWHMGlgr1sOIvUQshPw6KZe+x4ib3
+	 mvelRgDmhW8x7Xs6VNmfi8hGeP6ExAkmctdt7JXMD+Dt5c4tL8IHwA44MeEmnoJjTFhu/
+	 pNmxWtO6PSxtJXH9WzKdJnrzkUpemnFEIm3qv3yf0SSgeHMVTyCCK8v10LdgFtc2THw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700926;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5o98qwlKEQyOrCRjq2RUqHe7Txdo2HfIj4qXGPwficc=;
-	b=YiYSOEz8TUNwgmQMVxVTo7JmWAMnXGvkc3QSfsjUqFWYnVDtSnhTnYBeC78D89ElBkiX
-	 SYVl57lZLCUsDMPHQ8fGrDlaevPS23ZB5kRwcwTr0xtHm404wKoGVbhaeyk/c4S0XeoPS
-	 sp4+Au9Toxv1Gr60AbtO1zcnnkGN4JtEwBFFA/lOd3XLW2BD8orAgrKswUwO/gn6XR6SX
-	 RxBnMErbK4WPCysGp2xwLW3udOngr/jRy0NzytMeZDYlGf7N2j3D3ZCXGnxVZuCQo76cF
-	 vZ5LD2BRYQ7rzSVPGYhFUxwkDOVgXhYTQWIMpC0TCTBLa2HaLSTEzgBnRWgaG8XDYjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701006;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AO+1v3uf2PG5kc86URqUg6dn1Nltq7/yDM8x6vv4Ubo=;
+	b=0Mmh1S4o6kaGV1M90enNks2zcBko59WiIAkYHDYQ1IAH1tRmgJYYWYNbnJ6vjpExkE9e
+	 1SkL/focLz8pcfTsZg07MyXtrbGqMnUnLRsmzrvJt41yxHWn/YuKkIMOYbHe1mYCq8xTs
+	 XpG9rh6yjqslc94d4TgcdXEbuRKn4lGO7/uJhYHdODcIkOQZxiA1rCX/vAMrP/7NXYOJt
+	 O7zr7Is2diiJ/6YCumGlaG9GaK/IymTECWtuBL47mz+Drwzmic9CNj7CmI7LXluFw4KGj
+	 w9oTLJl8nRQww20iVR2hY/ljMybbZ+EVEISap4RTd/MkFiLrKdt7BP7rk+r2AnIyqdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4M9873z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qg7R3vNy;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBAC606C575;
-	Tue,  3 Nov 2026 10:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB714606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:16:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB714606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4M9873z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C53311F000C1;
-	Tue,  3 Nov 2026 10:15:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793700925;
-	bh=5o98qwlKEQyOrCRjq2RUqHe7Txdo2HfIj4qXGPwficc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l4M9873zeOp+nuSn9vGGPWM/5zR54YN8iGYC/B8Y18HQJOpFdwDfuPsn2vNUNk+NP
-	 Uhf2M+Btkoiph3PQBpwJsFhic896iAqepE0h9dLCpKlAT/9gUjbY5mhQLzGQ3/fL1f
-	 ZsQ1uSDCfX8u5/3T+tY4zOt7H2ihasdNaaoxKbI2NBQYIYbtZO9nG9bwX8dcZbYdyO
-	 0BQUezOpFtIVi/H+vhLMA7bUtpqmWfcSpK93Xv8oCzQ+t22pDSLZjSIfg3hXfKDps3
-	 DdRnHbHugGUkSbZpCF5hrPiL7KiLQeeff3o/ayxbyjmYJq+PIMS+HKqulLooeXACS4
-	 r4f891vSExf1A==
-Date: Tue, 3 Nov 2026 12:15:16 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: gaohan@iscas.ac.cn
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>, Yao Zi <me@ziyao.cc>,
-	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	kexec@lists.infradead.org
-Subject: Re: [PATCH 4/5] kexec_core: Clear the unused part of CMA segments
-Message-ID: <aum0NFfSezGOiR0K@kernel.org>
-References: <20261023-riscv-kexec-cma-fixes-v1-0-825b90ea23c4@iscas.ac.cn>
- <20261023-riscv-kexec-cma-fixes-v1-4-825b90ea23c4@iscas.ac.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qg7R3vNy
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-369f33df08eso7672052eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:16:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793701005; x=1794305805; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AO+1v3uf2PG5kc86URqUg6dn1Nltq7/yDM8x6vv4Ubo=;
+        b=qg7R3vNy8s70lD2fw2A2vSAJpTPycQTBTAPAL3SVg12+HzqCtYnUSwid3D/6oKXpwm
+         AlG9qpgUkGd/5p/3Dkk6B5/N68mBKxJeYBVyBv1mL1Ptnvd0QigWvtMfBmw7vTT7qKVA
+         QBZZw0HblKMcK9oxq7GT1cstsjxwbb3x8THf+nYKaBkESZaHt3nZmpfhiV9T+4vHPBMl
+         6jxnFJrWex8BY7pE3PYgJdp/WBn+WbHu6vYAjS5yegpQZJJvW04W2vF2omiGPHUl7Hp/
+         Hu9lwzLcX3i+6aMPr7FtPqBxiaMprBt93gnr0MAzBKsq0vrhJqTgLtRx/dMlx8f963gI
+         UEEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793701005; x=1794305805;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AO+1v3uf2PG5kc86URqUg6dn1Nltq7/yDM8x6vv4Ubo=;
+        b=qmRrRBRVwsHRNSmkVq3+5APglo296zYiHL37aSdoIUnEQxN6R0JlWylMKOFtQGCAJi
+         ujlSUmRkVJmC7FKgkoLO2foi+JFCgpAV4uLe3qB9BW4/uJqD0a9KDeIIMwBVGgJ+FYI8
+         h6+icrt7ULSjZjekv4qCK1Z1pRg7/lQAc2/xe16U7ZW4NHc61ldv5ALyfwwp+O/Zg6xs
+         o2uMgscXm/rvnv1jnmVTmtkUQD6QUmZQyNyDB2r7uDrmvWjhd4fyOUwuUL1FFZwu41kG
+         B+IOvgy3Sc2vl9PBJa1r+Da6IyR23Tf6BPD761/ddSWos6JDUydjyOYkyVUpfWSSDcsn
+         arlg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLyITpic6IYv+wdml7ioH+hslVw27BiHveSA23UEHaoQtVFcOT2RuSNndvltfIOnqIt1FVssfoOGrtvuY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7eTiw76kcDeoJP4yaL7aDcve6XNEC+9m6cXafDYuSQznFA4Q9
+	j8kgUy2kDqMJaSy9SZ6WpOYj9poPkpTldWh5KGIgPUOApgRl3Ur3zrGD
+X-Gm-Gg: AYBFou2kyzLruHnyBll1bOFaY4upzIVKXeXo4ABdfxqW6UyjZsffNtUN3W2EVvlMqg8
+	Ekp1jggsWSiwFCvi9S1LXhhANMhsgwS0CsewyZa42C00oXLBLSklJLe49VdmC6Rb8wz/t2GkZ1t
+	jiKWxnolk2MqrAF6ui49x/D79tJ9DFoaRakQYqHXwDVGLvTy2o4g3jbHi8ISGFt/fDp/XRzRzAK
+	2fQQ/hc0yoivhnjMYU0LRZQLcArUTF65z1KlH0koyXtqXAHpXa36uVm76ZT7nWSt2xyE/GQ9hdH
+	Q+/nWsRqN35F+zInQqOpUFVLD6Zr8+h2SUsiX9Fav6CbsAXeBQ5ZUADWeCIezsMwaznxJ8diXRL
+	0WkXFAe/a1llgALmOVRx6bAqwWnhxtmrDSfP4qAkSgkkj+dhma+I4YHqmDDah4NxnODtDp7K8iK
+	0F+7EUVCy5aTqTvkXzbLCTbn6FGvvJbxXdLKV+Thrh5q3lrVRAAKziMCZiYVTlD63V/Y74MWobN
+	xeMx+DV7E4JiZfNzAdKJerNk+wSMaSpcMuE9Iv/tzmqK6UYZdcI7c7Dm+ZanR+OCvivCaxdZggx
+	RoofpcjGMHOkbdiPbMUdRgFZsUJwKSDvve9ic+tfGFRMWKMBMj1w/hq1hkQBz572s8yGYflgtwJ
+	8vlbxPMWgC7SUERw4Qytx0D1DBGskEQVVDYwno6djLG4HtwcygoEk5cKxMuToj7izyXJDaV0NDw
+	==
+X-Received: by 2002:a05:7301:fa4:b0:36a:713:a76b with SMTP id 5a478bee46e88-36a4236a5c5mr20608077eec.6.1793701004758;
+        Tue, 03 Nov 2026 02:16:44 -0800 (PST)
+Received: from arch-pc.genesyslogic.com.tw (2001-b400-e2d9-39f1-6373-5866-a392-6ad9.emome-ip6.hinet.net. [2001:b400:e2d9:39f1:6373:5866:a392:6ad9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1easm40304226eec.5.2026.11.03.02.16.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 02:16:43 -0800 (PST)
+From: Ben Chuang <benchuanggli@gmail.com>
+To: adrian.hunter@intel.com,
+	ulfh@kernel.org
+Cc: SeanHY.Chen@genesyslogic.com.tw,
+	boris.chen@genesyslogic.com.tw,
+	HL.Liu@genesyslogic.com.tw,
+	benchuanggli@gmail.com,
+	ben.chuang@genesyslogic.com.tw,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mmc: sdhci-pci-gli: Add Genesys Logic GL9768 support
+Date: Tue,  3 Nov 2026 18:16:22 +0800
+Message-ID: <20261103101622.213425-1-benchuanggli@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,62 +102,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-riscv-kexec-cma-fixes-v1-4-825b90ea23c4@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 03:33:17PM +0800, Han Gao via B4 Relay wrote:
-> From: Han Gao <gaohan@iscas.ac.cn>
-> 
-> kimage_load_cma_segment() copies the source data into pages that are not
-> cleared, but zeroes nothing after it: the final memset() runs once the
-> loop has consumed all of memsz. The tail of the last source page and
-> every page beyond bufsz keep stale data, while the purgatory digest
-> covers them as zeroes.
-> 
-> A kexec_file reboot then stops in purgatory on a digest mismatch, for
-> instance when the DTB lands in a reused CMA page.
-> 
-> Zero the remainder of each page instead.
-> 
-> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+From: Ben Chuang <ben.chuang@genesyslogic.com.tw>
 
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+The GL9768 is the successor to the GL9767 and uses a compatible
+register layout. Reuse the GL9767 driver for the GL9768 by adding
+the GL9768 PCI device ID to the device ID table.
 
-> ---
->  kernel/kexec_core.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-> index dc770b9a6d05..0d6e10bea4e4 100644
-> --- a/kernel/kexec_core.c
-> +++ b/kernel/kexec_core.c
-> @@ -780,15 +780,15 @@ static int kimage_load_cma_segment(struct kimage *image, int idx)
->  			goto out;
->  		}
->  
-> +		/* CMA pages are not cleared: zero the part without source data */
-> +		memset(ptr + uchunk, 0, mchunk - uchunk);
-> +
->  		ptr    += mchunk;
->  		mbytes -= mchunk;
->  
->  		cond_resched();
->  	}
->  
-> -	/* Clear any remainder */
-> -	memset(ptr, 0, mbytes);
-> -
->  out:
->  	return result;
->  }
-> 
-> -- 
-> 2.55.0
-> 
-> 
+Clear bits 2 and 3 in the SD Express control register at offset
+0x940 when the driver initializes the device. This clears both
+bits to zero, matching the GL9767 default configuration.
 
+Signed-off-by: Ben Chuang <ben.chuang@genesyslogic.com.tw>
+---
+ drivers/mmc/host/sdhci-pci-core.c | 1 +
+ drivers/mmc/host/sdhci-pci-gli.c  | 7 +++++++
+ drivers/mmc/host/sdhci-pci.h      | 1 +
+ 3 files changed, 9 insertions(+)
+
+diff --git a/drivers/mmc/host/sdhci-pci-core.c b/drivers/mmc/host/sdhci-pci-core.c
+index a9000f3bd419..db0417238131 100644
+--- a/drivers/mmc/host/sdhci-pci-core.c
++++ b/drivers/mmc/host/sdhci-pci-core.c
+@@ -1959,6 +1959,7 @@ static const struct pci_device_id pci_ids[] = {
+ 	SDHCI_PCI_DEVICE(GLI, 9755, gl9755),
+ 	SDHCI_PCI_DEVICE(GLI, 9763E, gl9763e),
+ 	SDHCI_PCI_DEVICE(GLI, 9767, gl9767),
++	SDHCI_PCI_DEVICE(GLI, 9768, gl9767),
+ 	SDHCI_PCI_DEVICE_CLASS(AMD, SYSTEM_SDHCI, PCI_CLASS_MASK, amd),
+ 	/* Generic SD host controller */
+ 	{PCI_DEVICE_CLASS(SYSTEM_SDHCI, PCI_CLASS_MASK)},
+diff --git a/drivers/mmc/host/sdhci-pci-gli.c b/drivers/mmc/host/sdhci-pci-gli.c
+index b55618566d65..66452ed8cd8a 100644
+--- a/drivers/mmc/host/sdhci-pci-gli.c
++++ b/drivers/mmc/host/sdhci-pci-gli.c
+@@ -245,6 +245,8 @@
+ #define PCIE_GLI_9767_SD_EXPRESS_CTL			0x940
+ #define   PCIE_GLI_9767_SD_EXPRESS_CTL_SDEI_EXE		  BIT(0)
+ #define   PCIE_GLI_9767_SD_EXPRESS_CTL_SD_EXPRESS_MODE	  BIT(1)
++#define   PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_1		  BIT(2)
++#define   PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_2		  BIT(3)
+ 
+ #define PCIE_GLI_9767_SD_DATA_MULTI_CTL				0x944
+ #define   PCIE_GLI_9767_SD_DATA_MULTI_CTL_SELECT_UHS2		  BIT(5)
+@@ -1354,6 +1356,11 @@ static void gl9767_hw_setting(struct sdhci_pci_slot *slot)
+ 		 PCIE_GLI_9767_SCR_CORE_PWR_D3_OFF;
+ 	pci_write_config_dword(pdev, PCIE_GLI_9767_SCR, value);
+ 
++	pci_read_config_dword(pdev, PCIE_GLI_9767_SD_EXPRESS_CTL, &value);
++	value &= ~(PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_1 |
++		   PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_2);
++	pci_write_config_dword(pdev, PCIE_GLI_9767_SD_EXPRESS_CTL, value);
++
+ 	gl9767_vhs_read(pdev);
+ }
+ 
+diff --git a/drivers/mmc/host/sdhci-pci.h b/drivers/mmc/host/sdhci-pci.h
+index f38f0bd4165c..bcae29f8d8da 100644
+--- a/drivers/mmc/host/sdhci-pci.h
++++ b/drivers/mmc/host/sdhci-pci.h
+@@ -81,6 +81,7 @@
+ #define PCI_DEVICE_ID_GLI_9750		0x9750
+ #define PCI_DEVICE_ID_GLI_9763E		0xe763
+ #define PCI_DEVICE_ID_GLI_9767		0x9767
++#define PCI_DEVICE_ID_GLI_9768		0x9768
+ 
+ /*
+  * PCI device class and mask
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Sincerely yours,
-Mike.
+2.56.0
+
