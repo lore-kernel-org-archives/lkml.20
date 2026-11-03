@@ -1,93 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742194;
-	b=uq3XVZbEaFOsEJqYrJApo4eEqDGfuK/Uh8nNxLQ/gnkTy9yD1q+C4WjrLkcKoFZlyo3s
-	 B+lOLITvV/VTOEYlnQzlbIeoZ5iZX5MA7shOmZ09S2X6TJ8zPF1u4uuZoy3HSHnmNfgx9
-	 CGrF3JLTAmA3qnuq2NkGZ+2dwTDMbZrVgnutIP9kko6VCj2x6Y5o8vADIvSpg1/K6WOXm
-	 o1HDw9sWdxW2XUPlAYT5cKOC6CNDP+o2MgRCz7KqeMt+oeFt1FpP7Rq1YPt//Gb5nx3sn
-	 qSGPmIlFCIcisbDFwl8fNwx+rzWSoNL6auenvfS7MnS103VTYxiJZVEO4zMLTuEvqyA==
+	t=1793742195;
+	b=CIXnlyQtX6Lcnkrn9GGUr7B4kXWOh/e+eR4W8zxVRZNL9Di9wWujDijzgKGj1ZYBhawe
+	 9A3pXYd9k9Hv6izzxYM4Y2lzmhviTEMV5Dg1RAgPKtZdSzZm55mRk3r2WEF96cT/atwVV
+	 uRDcZAs001noKVhNdFgLMBs0ILqN3WCnTigyMgyCBp+p4gEZrNmjKr661pQrouEpDwgUu
+	 /1X6ea4tQaQuLs+l4aPdyxi6hXxHHzqgwMAQmNl/+7GMoKax4J8paZGhvhns17FZRYLBV
+	 DilZq9DW2D5BfX+/KHumgwd6QcPE/noDfpvnqftOzqP/I1btV4bKKlDwwL5/BDGjF2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742194;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742195;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0yQ+xs6aEztTJgPOL/FRptwCM1FCU7FbXIb46UL6X3Y=;
-	b=ZW0Qmi+A2kYZBB1KgNFu8OeEz6xG51+6vVbhm8IxV/DrCCAZyZ9kiydV6L5ev4DFbcP1
-	 tPyo1a0fO0Xm8h1bP9L4cePIH1m3tpc1H86cZLLFm6LqVX3wTaMD+LtQZo9iVPaW27K/p
-	 JdtKFysduW0YMneDqdjbQtanSiiCg5ZyDPWnsv1F9NWBy9PGtF14/3E2bpRI3NoSo/omz
-	 1vMeILeX9Y9yA+O6cYZF5DnaULpf/ClRVNN1PCV/Fn19dzfZsOA4LThybftoNuuznJYwI
-	 0j581nfkI5j8fE9sasnWN+GSKqwZ5tP7dN8D8CioiTcv+OX/y/+UbWLUgyV6bESMvcw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lsQbLTCb15SEBz66E/puI9KOwSbRd2cOgYsx7WE88Ls=;
+	b=di3nRkIpfXQujmaWNKhNugrg6SnkbuvTKOBgjg+W30U2b7fRdG4m/IqstP/UJuZBS0yx
+	 97hnmHYcxsEBMt4c4CnWdT2G+TMG0y5K8dQScH98ATC0g4FIb5hrZ4dqt1A/N9n87KVws
+	 HpxvHGHBqCDuYSiyyjtdL5M6M8qQ2N9vnlHQ0CnDIffJe2sp+/Jd21u2/VF7JgzSE8q1u
+	 4g4Shh6s2kl4CWlkAD3qOaK1rmw5TFNaCEKySx93hsQXMmKytl1pdPdTsweD0gSF8iHQM
+	 PlzsZsojG9prl+OGMAF8Mqr7p3YqSXt9IlirMKOsqZ608VhcN6avihgXex6Pqk5uNLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zgsz6jtt;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A5CHPewS;
+	arc=none smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CF4606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23CF4606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3641F606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3641F606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zgsz6jtt
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so7580074a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:43:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A5CHPewS
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so1494a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:43:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793742192; x=1794346992; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0yQ+xs6aEztTJgPOL/FRptwCM1FCU7FbXIb46UL6X3Y=;
-        b=Zgsz6jttDrNE0nAEi5gAL562a7kaxEtzuezmnofWUEX7AIppECy3pNcKy0hCsIlsIo
-         kOXVQSgsZcjgQlEGH5evjNMecUUPA7lKfxZm1t0uYfmBzPR9xQCTAM5Jf2M5pvArZ510
-         u/+pcCNQ6BMg8P9fhMUKiO6OKFJv5EpnJe90C0E8Qg9efabCtXnrhfeG6Mz9P8pWoxjO
-         lem9eiF3XVWGgdMYsPqVI1spiUp1X6qcN+wyORhJBGCl/ij6vCd+1HBh2ghskcPhZpi0
-         5CXvAhEqKDQAmfN0lOO+zDZPvRx0z6sxASNib77yGQSZ/NYiDaNmFeTKDwSKCrclliOQ
-         z4hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793742192; x=1794346992;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793742194; x=1794346994; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0yQ+xs6aEztTJgPOL/FRptwCM1FCU7FbXIb46UL6X3Y=;
-        b=QXuRmDhI4/IBWsmsxCtwch4aRHQDY8lilS6MHyupNSIkuKEpW0O7+FSPnwtyiuhIjD
-         5+jVY/Pj41ftNAS1vx11tgoa20ScHPMUtLhBh++l+6ew+/6HFMCtrtpuvU5CRYfpqnzA
-         1qWTf9GPdAyEZUsTLkUJBVLNl+pYFuPmRqHbHrbxmj/7rbMiMMuIPQpvhLzNSmNYecRf
-         D+titzE8u4uQO7/mH4EuzZJiA3y8WNNBcfFSkx6KcGXED06xJfamNaCqX8RGRWsDd/gP
-         fjmXRyVKHOH9M4bSF98mCE8ibnqhvSLgCXIf2DSOnVyh4njlFyghC9vtAInito/jHXQx
-         0NKA==
-X-Forwarded-Encrypted: i=1; AKwUvBxnBfNi1u/+mUOW1EKB3GYsFx001s5E5bMROs1tjJbW8TfnFYbJiMHFJff6phP4vHroTvuJif3uPZRPW5U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+AlwKZP+U1rx0YxfMWu+agZp499xKQnQT5FBYAkFlzlywuL188
-	8KspVdN4ddk+GG7GjEb8QwdRULX1JG1rH+kxtYpUreORRQwnLYoQkYZF
-X-Gm-Gg: AYBFou1sERM2K50nN9P1G4ySnNPjb7JKucpndh6cGPbc7/3MJsFWSW7+E5FNErqAa+N
-	bJBYtA3e84Nw83lUt/bdPBeIzREzy2qk5Mr2rH5xIh+CAKBnxplYSwyy8NjVOOMb0Gri4+envYO
-	LqdT8pLbyn5gPn6H+kBj9UQMopdDfGmcia7LIf2b9uhctuk3z1XAGYA6annSJ8rcEY+UWWlBJpl
-	lNPDMbaGvqgoNf1p7F1edURQKhVwEjH5t5PSuSNNaVCSZYuTRMGT776wk3VRpEFgQNqDq2AeLTT
-	Eb/X51ncMdj8z5jG2sxWcmYS3jWjjYFhAUjEGVa74zf/Wxq7Vt1zYm01AZkvilkKGAR4IINFSG1
-	cb9z8JPX0kIb6tvfO0E8qGcGLCckjPBwWnbJEwoqx1ptP/Bk3mPmHAwbKcYv9kPy/C+BQWVxsOv
-	g27XGplI1fcqN9JKTwc3B/fWMezZUxZViAzTOZKaCm+eTWWsIK5yAiIemASdDTCS3HmXC6Spo0P
-	bmX26Khh+Bv2L+Zi/OZAgKGe9Aa1GSe6fhXppGn5lfvGc/Q4o8LBU1dJTzihMep+kO3RDbc36A4
-	3n3IPK47OpPbuApn9XPixnk3+PTSJTHaMsu5aOwIQRlMir7oHzzd9OajrBdJxORUEzVhsTZkAqe
-	rK8LWRVITUJJoIVKw
-X-Received: by 2002:aa7:c693:0:b0:6b1:abe7:8276 with SMTP id 4fb4d7f45d1cf-6b4d33ab545mr7257113a12.2.1793742192252;
-        Tue, 03 Nov 2026 13:43:12 -0800 (PST)
+        bh=lsQbLTCb15SEBz66E/puI9KOwSbRd2cOgYsx7WE88Ls=;
+        b=A5CHPewSGSTU2oeHArS+Of4cmMXag/WzykuQsiv+SZXPrjYlsQGklY6SHJ59b2R5Pu
+         xDqfKMN0Hal/bA7PPxq8uR/fD0gM3HHz41jMUmDsFm+nwBbYFNirdgIn2Gy+EvbyvgV+
+         Gqi1iUw1jlYykhd+2Rx7CUwTVVPUl+/wx2iLlOG41MWANizqlcIxA5AgLpprwAQKYgpm
+         Hv8Jn4h5hczWt27TiFa9kt09R/Q+vnjJTBBHfU1FeN7zPUYNXpaO5xBK7OpcaBfuJ7WO
+         2juceEhWRVEveMlYMoy+PkFmqHtTqARMwhNgoJIBC1GL4Nys2eLanVSgRNDhDtJSw1vI
+         gSkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793742194; x=1794346994;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lsQbLTCb15SEBz66E/puI9KOwSbRd2cOgYsx7WE88Ls=;
+        b=z3UAZWFBcUtdO7ksAeQLr46nE0J573YmdHSZYLRc98yiGYOJdgHKsLNrdR6IDMdEgB
+         wvsCE+oUKBEbyNOcE2wH2wl1+idO0wnbF1kq6fPUCOCUYU97o7lilX7kTjLcwpcsJpZe
+         iwu1uPlFiWzhfOgxqiX7ayuXQm5kSk7MshelAhQDmlxyK5a0ryKtZVwzkYagWlp/RJX6
+         ffr+HV0jTg/q70RjT0tkjSnDATEZ+lKiaEW10JVOYn9fFybn4a2roTj7Wh+pHVROx6yQ
+         FZXhw+oFPO5P29AP0+0nbJVFtIR3F8kzKFKZcxZj6DXL+7rYniqWtaThuEnNjQ7gFC6d
+         prYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwkhVb3F0UVdLt5ppI+W/mU+ncKi/fVWhGaD3og2FhpYs5lDRU3lGtpZbWn/CMlmBkRP0bRgaiH6TmRZp8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+64+DPcXD7GPbmdrSDmY6Zf2h1rPytfMSQs1z2/s87vezU6yXM
+	FXzxL8TgMqsyVbcVJr9Cunmi8b7WB9CgAFXow/yt67aoBHrLfF5u1dP0QNT95elNt0Y=
+X-Gm-Gg: AYBFou3QwbZDVUNPcAQTaeQZ1DnXVRMYutnyBj/1wPXxE+B2td8V83cxD5k1ASeLm+G
+	+3tOIUYWXaseuviohdic4RUWGzjh/H2h0oKbVRIlC+rgDPexs0Ui18J7Pgc3EF0rkQhhLO+q+Hs
+	Nr5fvgUESwbhyjXxLcD3vuDouW6MP3aPG0WulXwqebxTXMZGrcNfux+Hgegwo4elm9GWqTNcAil
+	5gQX2GRFAaRwUeP7p5Sjt4SaaoiEzF1MGqtFbcc9cdTAUKnZpusCwk5Ue7EDMivJ//WHAZEKkc5
+	l/jWstuyl/2iNFd0HAPemHcXsobdE7Vt0B/O1dVC006duo30Q2FNIATTQ/F/D4TwKVdnlKwQXq6
+	TbOZ05Jw+MtoQ68Drdswwivx3pB8RLNvlbYJHu8qoJR5tXH7Uj46H2WM7ntQMijRz/aroxwV1+W
+	XjYyg+tUx/30B1myOQxZXxAoak0BQ9ZRMbltpiJYYNv5jInqxjLqS3Ln6zNuIzmcm5iY0FILZXg
+	0zu9NxfdrM77Cm9Gl5x8ZlUnsjSzGM8bER1nHWUQEPm1SMTK6sZhLcPyej7D6S+8LinqeXoQUaV
+	5yPmIzzcA8IPUqK8nxeMeWfFvXjN6B5mx98kI3Ahkk9+C/rIxaNb352UH4umljvztqzFhwY=
+X-Received: by 2002:a05:6402:90c:b0:6aa:f0e:a15f with SMTP id 4fb4d7f45d1cf-6b4d534badfmr10647171a12.38.1793742193445;
+        Tue, 03 Nov 2026 13:43:13 -0800 (PST)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac5a2a6sm40550a12.16.2026.11.03.13.43.11
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac5a2a6sm40550a12.16.2026.11.03.13.43.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:43:11 -0800 (PST)
+        Tue, 03 Nov 2026 13:43:12 -0800 (PST)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: richard.henderson@linaro.org,
 	mattst88@gmail.com,
 	linux-kernel@vger.kernel.org,
 	linux-alpha@vger.kernel.org
-Cc: linmag7@gmail.com
-Subject: [PATCH 00/14] alpha: fix entry bugs and consolidate generic helpers
-Date: Tue,  3 Nov 2026 22:35:06 +0100
-Message-ID: <20261103214120.1099893-1-linmag7@gmail.com>
+Cc: linmag7@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH 01/14] alpha: fix saved registers in page-fault oops dumps
+Date: Tue,  3 Nov 2026 22:35:07 +0100
+Message-ID: <20261103214120.1099893-2-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103214120.1099893-1-linmag7@gmail.com>
+References: <20261103214120.1099893-1-linmag7@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,101 +102,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With GENERIC_ENTRY upstream for Alpha, this series moves syscall dispatch
-and ordinary interrupt/exception entry and exit into C using generic
-helpers, and removes redundant fork, core-dump, audit and ptrace code.
-It also reuses generic memory-option parsing, OSF resource accounting
-and CPU registration.
+The aligned exception frame moved r9-r15 back by one word. Adjust the
+pointer passed to die_if_kernel() so s0-s6 show the correct registers.
 
-The consolidation work and its regression testing uncovered bugs in
-saved-register oops reporting, audit return values, SIGSYS register
-rollback, syscall restart eligibility and arguments, and handling of
-skipped syscalls versus invalid syscall numbers. Patches 1-5 fix those
-bugs before patches 6-14 consolidate the code. The fixes remain distinct
-commits with their Fixes tags and existing stable Cc tags.
+Fixes: 3b35a171060f ("alpha: align stack for page fault and user unaligned trap handlers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+---
+ arch/alpha/mm/fault.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The fixes and consolidation changes exercise the same entry paths and
-need coordinated review and regression testing. They are presented
-together so reviewers can follow the fixes through the subsequent code
-changes. The fixes can still be considered for earlier application or
-backporting without taking the consolidation patches.
-
-Patch 5 distinguishes the -1 abort sentinel from other invalid numbers:
-explicit cancellation preserves a supplied result, whereas an invalid
-number permitted through entry work returns ENOSYS. It tracks supplied
-results explicitly, avoiding guesses from r0/a3 contents. This also
-preserves small successful values and seccomp results matching the entry
-registers. The C conversion in patch 6 retains the corrected behavior.
-
-The OSF accounting change intentionally follows getrusage(2): RUSAGE_SELF
-covers the whole thread group, previously zero resource counters are
-reported, and CPU times use the generic microsecond conversion rather
-than jiffy rounding. The OSF layout and supported selectors are retained.
-
-On stock-PAL QEMU the rebuilt ES40 image passes all 107 skip/result,
-91 portable ptrace, 30 skipped-restart and 50 forced-success checks, as
-well as SIGSYS rollback, on one and four CPUs. The four-CPU run passes
-all 18 regression suites, including seccomp (99 passes, 12 expected
-skips). Patch 5 before the C conversion also passed its focused four-CPU
-run on the release base.
-
-The complete series passed all 18 regression suites on a three-CPU
-EV67 ES40. The resource-accounting test now compares OSF peak RSS
-with native waitid() for the same child and accounts for its final
-voluntary context switch. Native controls reproduced both the low RSS
-reading and the extra context switch. The corrected run had 8,364
-concurrent CHILDREN snapshots with no mismatches, and lockdep stayed
-enabled.
-
-All eight focused strace injection and syscall-info tests passed. A full
-native strace run at 80e661285 had 1,225 passes, 303 skips and seven
-failures. Three passed on serial recheck. The remaining four involved
-CLOSE_RANGE_EXCEPT, the separately submitted PR_GET_UNALIGN fix, the
-Yama hint when running with CAP_SYS_PTRACE, and the getxpid syscall name
-on Alpha. The companion ptrace selftest remains separate from the series.
-
-Codex assisted with code, tests and descriptions.
-
-Magnus Lindholm (14):
-  alpha: fix saved registers in page-fault oops dumps
-  alpha: report syscall errors correctly to audit
-  alpha: preserve rolled-back registers for SIGSYS
-  alpha: fix syscall restart eligibility
-  alpha: distinguish skipped syscalls from invalid numbers
-  alpha: dispatch system calls from C
-  alpha: use generic entry helpers for interrupts and exceptions
-  alpha: use generic syscall exit for new tasks
-  alpha: remove obsolete core dump register hooks
-  alpha: use generic syscall audit classification
-  alpha: use generic ptrace memory writes
-  alpha: use memparse for memory size options
-  alpha: use generic getrusage for OSF resource accounting
-  alpha: use generic CPU device registration
-
- arch/alpha/Kconfig                     |   5 +-
- arch/alpha/include/asm/elf.h           |   7 -
- arch/alpha/include/asm/entry-common.h  |  11 +-
- arch/alpha/include/asm/ptrace.h        |  13 +-
- arch/alpha/include/asm/syscall.h       |  24 +--
- arch/alpha/include/asm/thread_info.h   |   3 +
- arch/alpha/kernel/Makefile             |   3 +-
- arch/alpha/kernel/asm-offsets.c        |   1 -
- arch/alpha/kernel/audit.c              |  62 -------
- arch/alpha/kernel/entry.S              | 293 ++++-----------------------------
- arch/alpha/kernel/irq.c                |   8 +-
- arch/alpha/kernel/irq_alpha.c          |  41 ++---
- arch/alpha/kernel/osf_sys.c            |  56 ++-----
- arch/alpha/kernel/process.c            |  32 ++--
- arch/alpha/kernel/proto.h              |  16 +-
- arch/alpha/kernel/ptrace.c             |  48 ++----
- arch/alpha/kernel/setup.c              |  41 +----
- arch/alpha/kernel/signal.c             | 151 ++---------------
- arch/alpha/kernel/syscall.c            |  85 ++++++++++
- arch/alpha/kernel/syscalls/syscall.tbl |  10 +-
- arch/alpha/kernel/traps.c              | 118 ++++++++++---
- arch/alpha/mm/fault.c                  |  27 ++-
- 22 files changed, 356 insertions(+), 699 deletions(-)
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/arch/alpha/mm/fault.c b/arch/alpha/mm/fault.c
+index 3dfeb854f196387d8c8f709d0ce355e5145035fb..f09f69894cfd65d814ab1cf498c946043fb9e8a3 100644
+--- a/arch/alpha/mm/fault.c
++++ b/arch/alpha/mm/fault.c
+@@ -244,7 +244,7 @@ retry:
+ 	   terminate things with extreme prejudice.  */
+ 	printk(KERN_ALERT "Unable to handle kernel paging request at "
+ 	       "virtual address %016lx\n", address);
+-	die_if_kernel("Oops", regs, cause, (unsigned long*)regs - 16);
++	die_if_kernel("Oops", regs, cause, (unsigned long *)regs - 17);
+ 	make_task_dead(SIGKILL);
+ 
+ 	/* We ran out of memory, or some other thing happened to us that
 -- 
 2.43.0
+
