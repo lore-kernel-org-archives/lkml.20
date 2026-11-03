@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701577;
-	b=Xz4pTwBIL5kjFrRfYCFxMasTXQi0ifJlv2IM9x+ryUFxzlc1KW/65RCfGxFzwqmBmjo5
-	 SJsqHxnL9qZ35fDKio5CNSDi4x3RyGsRhDk3zAl+HR0QxAOOv8VJ2t4aKA2rSrtdsD3oh
-	 O68oWbuEM15GBnLqeGnFReczO+kmeMn4vXrG2NFd2ECBYqb0o8cNqHsEi5TTBAqDDmp4P
-	 kURTzHqtec1DUD+Hn366AxL2YDAk9poVnNj6tBDI+J8Ow7/NBK01YicfjxvGUkA0O9W6F
-	 MwsaL4aZqmpyWIob9VNTAOTbpbHgvutIe3r08rffSKpXoco5KNQGGQ+1Akv1g/5H8zw==
+	t=1793701583;
+	b=xRkgqeGE+mIPBqcXC79etvHVVAy6JQp6s5RFwRpQnp9HOm81DKAgxy0/HfbmBgF/+X0Y
+	 PBXuN3CrA3dZe4X5q154vHs92NJGGZt4eK/RzLPZzYSHQ/CWZbRYASvD/wRcIaNe5oZDV
+	 Kwonw6TYkHfZe8XPiIpUmehIKMMA9UGqMjcptsg7pIXSeaLP2pUiDQnt992nit1JWuQ+q
+	 xHyGOH0q0JWFBH/Jc2KwCm6ssJZwbHOs9XS53QMzDEMzzFabswxsYK0Mo3Vfpy8JvglgE
+	 kJTEsF8/2vyJbZ/igQ2qoMpEqZ1IL12qIJXm0aTXHO+oULb0PtSAtPP8c26wuugm1ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701583;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9clrbqdXgsnOrqBlmLUFDxai3Lw9LgBHe2HqLH/Q/qQ=;
-	b=2CevA98rTB3XfDblPzClneoU/L7qIDKzwJAzhz+gBgNTVJB9nikqxlgI2Cj6k9y2H+kS
-	 Z2MgW++e8vSPjj4fLH0cEo9JK6SYHIEUtXRyUR5q+WN3CVRQC9hTy259YjjcSWHLYsG3/
-	 6Kr5MmsUZvwkDrg5GBKblUUKCROinA5YVbyCS9dN8rxk7tde6O4F6kMVTTUQtzdkawdFk
-	 TPnZ/Yv7oJjW6W3wjasMXLuNernUoQVn2dLQM46r+pdl8VljQCOtuHDMkBRQfUCzMcDvx
-	 nZNjwiB+Qk90098lgY9xo2sX/B6aXSHJra4Ws6RA2OR66Smihy2vYq2ySV0PIuecIjg==
+	bh=hPelRDqUwp7KW12HTuin5RprdXgKQmkVT6tqrMUtOCQ=;
+	b=FIfTvkNHWx7L7cla1w6A41LKBpIs+NzKDImXtrDovUffuKhQyy9t3+hNDtLGsbscX4fw
+	 oCRqb1QRfMriU2XIaf8Oi+IC05n++L2Lb4yMjDooDwuSA7XUZQCX1Z1FKn5RusP0dbI3m
+	 GPwStE4pY2a/VHxxuEG+6pumrgd2wcTS344BWN++eahJGMOLvPqpPbSKxyg/l2wl5nuVf
+	 WDM91Xhf39J6uM2rDDCOzTVfCAiHCxOnvAdUcrVeNgFhJO66U9rbrOLtLC50cK9jBe0fG
+	 uPYo6GE5Anub70gUaj/TcGXS/oMZYpx/JnY1oD4w2fB7csJDwDSMYI2zQXMJWO8sv1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeahQ9Dq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpW2RbXp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55E1606A32E;
-	Tue,  3 Nov 2026 10:26:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B91A6085081;
+	Tue,  3 Nov 2026 10:26:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeahQ9Dq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE941F000C1;
-	Tue,  3 Nov 2026 10:26:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpW2RbXp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41C3B1F000C1;
+	Tue,  3 Nov 2026 10:26:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701576;
-	bh=9clrbqdXgsnOrqBlmLUFDxai3Lw9LgBHe2HqLH/Q/qQ=;
+	s=k20260515; t=1793701583;
+	bh=hPelRDqUwp7KW12HTuin5RprdXgKQmkVT6tqrMUtOCQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LeahQ9DqABmAbcGyj0dThYoT0DpdsUvtLcNFqMLHA1CJdSENL0/8DLpPsbhNoS2yF
-	 zcOxZYbasmxfKxo4YZeIUek1YLFILiJ8neYYC0APDRMf48s08rTmCq8neceielPrL3
-	 hyF1Dqhx0guchGXSEienywv2eWIJ6an+TGlo4kP8r4WkDJ1GXr7Qkz7Ue8D6qY3dEK
-	 9HLopgH7WABUEAyBdBTMut1Zy0+Hq2w+WavwvK4y43pNox32G0NkaHtBxjlsho8L+K
-	 gKZopNZOxsyBRuthlcghJwvTuYddNK3Ub7b/NX5KZ3b5Rf5I89o1iLT/yvxfSA+z7v
-	 CNzEO7UxSdFwA==
-Date: Tue, 3 Nov 2026 11:26:14 +0100
+	b=mpW2RbXpTauD/p5AFD+KrapAfxCBIXPHR4DSCt/bR9ViaLUyQoHkZoe8IXf3yY/Z/
+	 4j0187qoKzSBfHPC6rlahSbbFFFgw9Iwbk9inUyiHosvEcXM4LCwszYM/FwrGcOWhO
+	 n9O0QDcfv9kMw0jrcI7HBM7tEspOehTakMbUdE51LzI3KCH+4hQmtewP6zrE4oOAK0
+	 T7ExtJjn2pvmeCprKrujBhkSe9wwiAKKOQRhkF55oCzCH1uPGzgEiwWeWNYyBwH//I
+	 OGIleM3ZZ3CxCAtrLNG+GkQjevH5HVqTm4Hy/wLVyzZXt8z5nUz7JhMYycAOBvbZxu
+	 Rq9zY/QPQJqpQ==
+Date: Tue, 3 Nov 2026 11:26:20 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-mtd@lists.infradead.org, 
-	Richard Weinberger <richard@nod.at>, stable@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>
-Subject: Re: [PATCH] mtd: rawnand: atmel: Release the HSMC clock on legacy
- init failure
-Message-ID: <20261103-watchful-iguana-of-criticism-257adf@quoll>
-References: <20261103100602.1310416-1-vulab@iscas.ac.cn>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Siddharth Vadapalli <s-vadapalli@ti.com>, stable@vger.kernel.org, 
+	Jakub Kicinski <kuba@kernel.org>, Vincent Mailhol <mailhol@kernel.org>
+Subject: Re: [PATCH] can: flexcan: fix device node reference leak in stop
+ mode setup
+Message-ID: <20261103-fanatic-thistle-spaniel-aa4ede@quoll>
+References: <20261103100526.1309829-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,27 +60,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100602.1310416-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100526.1309829-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:06:02 +0000, Wentao Liang wrote:
-> When atmel_hsmc_nand_controller_legacy_init() fails after acquiring the
-> NFC clock with of_clk_get(), the error paths return without dropping the
-> clock reference.  For failures after clk_prepare_enable(), the clock is
-> also left enabled.  The caller returns the error without running the
-> controller removal path, so the reference and the enable count are both
-> leaked.
+On Tue, 03 Nov 2026 10:05:26 +0000, Wentao Liang wrote:
+> of_find_node_by_phandle() returns a device node with an incremented
+> reference count. flexcan_setup_stop_mode_gpr() drops it only when
+> syscon_node_to_regmap() fails, so a successful probe of a controller
+> using the GPR stop mode leaks one reference on the GPR node.
 > 
-> Add error unwinding that disables the clock when it was prepared and
-> always puts the reference.
+> Release the reference on the success path as well.
 > 
-> Fixes: f88fc122cc34 ("mtd: nand: Cleanup/rework the atmel_nand driver")
+> Fixes: de3578c198c6 ("can: flexcan: add self wakeup support")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/mtd/nand/raw/atmel/nand-controller.c | 26 ++++++++++++--------
->  1 file changed, 16 insertions(+), 10 deletions(-)
+>  drivers/net/can/flexcan/flexcan-core.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 
