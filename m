@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680293;
-	b=keMnMYmM1MsmD0o5pyWoKLiknojUOjNA9N8O9UEY9PjCVLhg/VwcssdrPkjZH1AXthXE
-	 OAUL6dNwkcAFmFpby0NeYWu74TlIH5cAx8+Bdl8qx1W6Y7rQtCeBD53WOg0gHaJTIgxRj
-	 x5edg3vWAjHavSu7t/QoB53uoxMXfxu3LoWEksIhH9QJiwoXF1YPWdi35Cc6cxc2ph0Ul
-	 VLao2iCZrvLTdXwmvJlX0bAjQiHUviOYL4PE9BdULlLTtTulWqccrcodmTdjAURm9FWya
-	 0I/MMEm2/p6NsmkXhkcfV334nFEs8dj42fvJDYy1DKGjU5drfWvPYr4HnQ0+yH01wGQ==
+	t=1793680367;
+	b=40ImkQU2/0CaPru9HmeW66402d3Sk0gXVkKSw5iQ6n4Xb/oJw500JzMztHm8+4SYRw2D
+	 xYnMGiC9Z2Z1HZjuErEz9lvG1o/BktEDq866AaxNaCl9EetUtpKzmo3nbcDdpSjTtjLhQ
+	 yF9J8os3OZr+Mvfise9qbO8Gln50nTNtGB0QxGWuiGSEThjFjMx0DtMjpatmVHlHSREuz
+	 XKWK0sZL9TlA/fZWhP5z171Tb+oLL98RHDJ0atDYAP6v1nOZcsaw0+mkdYMbGkOC11+un
+	 I7jjnfhzWtRwj32YhLT0+4W1KBYI3N84tTzVuB2lChAZebEfH0GKdv6vUjwNgDQ2NsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680293;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=HBnEGPrUjEKBZN3/I1iTzU6psOWFjDh9X6zt5JL5Tq8=;
-	b=PDLy8Nb0fsEBx05xe83sstaAm+fSf+aCMErXOu8h3vEyo1Aeu/JtfjyCihotX2NHjjgI
-	 Er2c042sctW/h7qkBzxCLlJmIAyWzqaddpGwcaTz4L8dYEfWOsKD+o0NLWOvL9XlpabkS
-	 TXjeL4gRas5DWaz/zZm8c8FVpL4rdjWwpj/uEfyw+B6/OmV28oJkHD+b55zQx3OXyi3aX
-	 wFJwVd78mTzX9HLimIxYbYO425sR/q1cj4+rPj6f58xkxTz59YSZvYNnP9qYQCOZG8dZV
-	 sQ0afw9NI0Jq3ExamaM7Tsp1BObd2jISGWU/Y+UkPyzWFprJP61m4fZ3D958qEV1xzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793680367;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=bKcFirAF39uZbnuW51SyDLYv9Pwoa6/JIHY31d45d68=;
+	b=nb7FU1FtCpCvtLGjjv4kUv+a8/FyCvXWG9ph9lVKxf1m8QmN7U8Q+CgW0PCQChq6WlPa
+	 XkQ5d8m5PfoI4gfiV/YRo1rDPZlXClktEIYzjq/zaMNWrUzLAT49RkUAMb8ny1CgLgooS
+	 IkHdT3SeBD+EZb1JtwuTmiG5dh+v1iStQj4GuAReH8URwTjGXD/+gMUKHNixu4cm0zmXG
+	 5edpL2vyI3UnSZb6Ug2ELGfmfvBzt9/z7lztxodHKBV+S1azKX7suWvu4VAKiqze35zG+
+	 jMkcCLpSnj07wGIAk/5QeRfjl2q4r3P8PDJYkzQTE96t7ECHj4IgDuhpOU1f4ttY1nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aXFYwlzs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XIiTU1Zr;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9FF606A324;
-	Tue,  3 Nov 2026 04:31:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79F8606A326;
+	Tue,  3 Nov 2026 04:32:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C79F8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aXFYwlzs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3761F000C1;
-	Tue,  3 Nov 2026 04:31:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793680292;
-	bh=HBnEGPrUjEKBZN3/I1iTzU6psOWFjDh9X6zt5JL5Tq8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aXFYwlzsy1Bklz6ae4Nr+YZrLopFV53EkPNPqrP3ynRS31+vGUCSJPRckaWX6BLLe
-	 P6vWUuuAaBRDcawDwxapExGog87AkbJZR57neMzaKPgFTG1KGQfcO2EeusF6dTBP2a
-	 BxSloMgQIIJvkt8OztNa14MmJMGNimSH/NHV8+Dec22BNEfOAKoD2ohxxc7Ppy9r9i
-	 9VXBRYQ4xPhCMBlRtZM1CWl83O1dPQPGox5ZAqJ7y0YpvaUlJABUdmJSwYhUubHIUZ
-	 MEuIV5hFO8/H2RnQxFpSXQL/sTCajqEEtrKqMSrXx2cyPa4naSHohiOPul4OzZlGqi
-	 PpyydYqg9I8fQ==
-Subject: Re: [PATCH] rxrpc: Serialize client connection IDR updates
-From: netdev-bot+sashiko@kernel.org
-To: kylebot@openai.com
-Cc: linux-afs@lists.infradead.org, dhowells@redhat.com,
- marc.dionne@auristor.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, outbounddisclosures@openai.com, kuba@kernel.org
-Date: Tue, 03 Nov 2026 04:31:31 +0000
-Message-ID: <179368029159.488856.12235423992714726798@kernel.org>
-In-Reply-To: <20261030042129.73690-1-kylebot@openai.com>
-References: <20261030042129.73690-1-kylebot@openai.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XIiTU1Zr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793680364; x=1825216364;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=01cwiDYw9D/1HXGWVgOQw2fwkbYM11LyL5vI8HvrFmM=;
+  b=XIiTU1ZrK7ZfcI0/WhFwXIFICA+SDLYI/5bVVPyb4GmscrWx4QcVzUah
+   gHct4c4njCuRw4E01hiZ1dG/qGsHGymSkKpWveAiVXjXstUfQkx2UuGL1
+   Mi+l7YRRTQGddRYkYYE9zBKetSAcsSMQXJxfdiyvFefePXoYm5gtWhuYp
+   xdnVHv5/W7wgYcDn/xLXChsJhH/dDMrvHvjgmrTK6CIxhoYLWH9Xl5w6Q
+   LjogkR1651obCFuLCb9CU2sQLgqrPc5KFF3gPFtIKhMhSzVoJbzD+aq1D
+   xM5PA7EMT6vJOtB+Ov0ZI+uOW9r1eDIn1UnzUNxuwWyXb7ibeapGJF8Uk
+   Q==;
+X-CSE-ConnectionGUID: 87zcPNmlSBWZ9fEqabGIxw==
+X-CSE-MsgGUID: zeXjcKK3SDqY8yiUmZmmhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2271050"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2271050"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 20:32:44 -0800
+X-CSE-ConnectionGUID: X8lunzdmS4KBJA6twSG7vQ==
+X-CSE-MsgGUID: FMF0UBQtSRetJZR57Yoa5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6314594"
+Received: from jstevens-mobl.amr.corp.intel.com (HELO [10.246.165.69]) ([10.246.165.69])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 20:32:42 -0800
+Message-ID: <62504426-a365-4523-8f58-804f5fe1c1d1@intel.com>
+Date: Mon, 2 Nov 2026 22:32:42 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,175 +72,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
+ GLOBAL_INUSE MSRs
+To: Jim Mattson <jmattson@google.com>, Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
+ Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
+ Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
+ <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260827223755.143247-1-zide.chen@intel.com>
+ <20260827223755.143247-12-zide.chen@intel.com>
+ <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
+ <auUQgRVFASkWtkoK@google.com>
+ <3276824d-f6a0-455a-bf0c-703fc6d52cf1@intel.com>
+ <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
+ <6c9a13c9-e6c1-4540-a8ca-1f0e800f3571@intel.com>
+ <CAO9r8zOWzr61pkkF01AvEp+YSOo6bA1N=L91RYiM=ETtK5+D9w@mail.gmail.com>
+ <69c428d7-239a-485e-9494-32b8aa82da05@intel.com>
+ <CALMp9eRsR8xaUmQyVu5QmYx1cZ2qFGGk+31bMymhmN9_iaPuMg@mail.gmail.com>
+ <f7213eba-5b61-4514-a315-bce64823fad5@intel.com>
+ <CAO9r8zM4eWD538L3osqSVoB0VHnjgRREtv2k419a1Vvuq+Q9rw@mail.gmail.com>
+ <CALMp9eQPaGG+-wsfp541OTJAP2G0Pq9L2aDeRG0_MFHoa67x0w@mail.gmail.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <CALMp9eQPaGG+-wsfp541OTJAP2G0Pq9L2aDeRG0_MFHoa67x0w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 11/2/2026 5:44 PM, Jim Mattson wrote:
+> On Mon, Nov 2, 2026 at 2:52 PM Yosry Ahmed <yosry@kernel.org> wrote:
+>>
+>> On Mon, Nov 2, 2026 at 2:48 PM Chen, Zide <zide.chen@intel.com> wrote:
+>>>
+>>>
+>>>
+>>> On 11/2/2026 4:25 PM, Jim Mattson wrote:
+>>>> On Mon, Nov 2, 2026 at 2:13 PM Chen, Zide <zide.chen@intel.com> wrote:
+>>>>>
+>>>>>
+>>>>> On 11/2/2026 3:36 PM, Yosry Ahmed wrote:
+>>>>>>>>>> 1. GLOBAL_STATUS_TRACE_TOPAPMI_BIT can leak from the host into the
+>>>>>>>>>> guest. If a host PT PMI arrives while the guest context is loaded, bit
+>>>>>>>>>> 55 will be set for the guest, and the guest won't be able to clear it if
+>>>>>>>>>> OVF_CTRL is intercepted (it will #GP as it is reserved for the guest).
+>>>>>>>>>> Similarly, the value can't be restored through KVM_SET_MSRS.
+>>>>>>>>> I think mediated vPMU assumes that no host PMIs can be generated while
+>>>>>>>>> guest PMU state is loaded.
+>>>>>>>>>
+>>>>>>>>> If PT state can leak into the guest via bit 55, similar leakage can also
+>>>>>>>>> occur for other status bits, e.g. when the guest exposes fewer
+>>>>>>>>> general-purpose or fixed counters than the host.
+>>>>>>>>>
+>>>>>>>>> The scenario where both host and guest can be active simultaneously is
+>>>>>>>>> handled by the perfmon_mask case, where intel_mediated_pmu_{load,put}()
+>>>>>>>>> filter guest-owned status bits.
+>>>>>>>> Looking at the code:
+>>>>>>>>
+>>>>>>>> kvm_mediated_pmu_load() -> perf_load_guest_context() ->
+>>>>>>>> perf_ctx_disable() will iterate PMUs with for_each_epc() and disable
+>>>>>>>> them, which skips PMUs without PERF_PMU_CAP_MEDIATED_VPMU.
+>>>>>>>>
+>>>>>>>> Same for kvm_mediated_pmu_load() -> perf_load_guest_context()
+>>>>>>>> ->ctx_sched_out(), it also uses for_each_epc() to iterate PMUs and
+>>>>>>>> schedule them out.
+>>>>>>>>
+>>>>>>>> pt_init() does not set PERF_PMU_CAP_MEDIATED_VPMU on pt_pmu.pmu.capabilities
+>>>>>>>>
+>>>>>>>> Please correct me if I am wrong.
+>>>>>>> My apologies, this bug is indeed real because pt_pmu lacks the
+>>>>>>> PERF_PMU_CAP_MEDIATED_VPMU capability.
+>>>>>>>
+>>>>>>> Adding this capability to pt_pmu seems intuitive, but unlike
+>>>>>>>
+>>>>>>>                        the core PMU (which merely toggles enable bits),
+>>>>>>> Intel PT is an AUX-based PMU. Stopping and restarting it on every VM
+>>>>>>> transition is heavier, and I'm not sure whether it could introduce a
+>>>>>>> noticeable performance penalty.
+>>>>>>>
+>>>>>>> However, whether the solution is adding PERF_PMU_CAP_MEDIATED_VPMU or
+>>>>>>> some other mechanism to enforce mutual exclusion between pt_pmu and
+>>>>>>> mediated vPMU, we can address that in a separate patch.
+>>>>>>>
+>>>>>>> To immediately protect guest state and live migration in this series,
+>>>>>>> I'm thinking of adding the following defensive filter in
+>>>>>>> intel_mediated_pmu_put():
+>>>>>>>
+>>>>>>> + /*
+>>>>>>> +  * Scrub bits that are not virtualized for the guest to prevent
+>>>>>>> +  * possible host state from leaking into guest state and breaking
+>>>>>>> +  * live migration.
+>>>>>>> +  */
+>>>>>>> +  pmu->global_status &= ~pmu->global_status_rsvd;
+>>>>>> This doesn't prevent the leakage, it just clears it on the guest->host
+>>>>>> switch. So it helps live migration but I am not sure if it's better or
+>>>>>> worse if the guest sees the bit unexpectedly appear AND then
+>>>>>> unexpectedly disappear.
+>>>>> Right, as long as the GLOBAL_STATUS is passthru, the leak can't be
+>>>>> prevented.
+>>>>>> We can clear it when the MSR is read by userspace, which should fix
+>>>>>> live migration, but the guest will still see the bit, and it will
+>>>>>> still disappear unexpectedly but only during live migration.
+>>>>>>
+>>>>>> The guest still won't be able to clear it when OVF_CTRL is intercepted.
+>>>>> GLOBAL_STATUS and OVF_CTRL share the same interception policy. If they
+>>>>> are passed through, the guest can see the bit and clear it; if both are
+>>>>> intercepted, then bit 55 can't leak to the guest.
+>>>>>
+>>>>> It's not perfect, but at least the guest won't observe bit 55 and then
+>>>>> get an unexpected #GP when attempting to clear it.
+>>>> I'm not sure what imperfect solution you are referring to, but Yosry's
+>>>> proposal that the bit gets cleared on a guest->host switch is a
+>>>> non-starter. MSR bits must not vanish unpredictably.
+>>
+>> I don't think I proposed this? :)
+>>
+>>>
+>>> Agree, then maybe Yosry's suggestion is what we can do for now: filter
+>>> out unsupported bits when the MSR is read by userspace.
+>>
+>> This I did propose, but I also noted that the MSR bit will still
+>> vanish unpredictable, just on save/restore instead of guest->host
+>> switch, which should be better.
+> 
+> I will reject any proposal that involves MSR bits vanishing unpredictably.
 
-- [High] Local endpoint teardown can still reach the BUG() in
-  rxrpc_destroy_client_conn_ids() while a replaced client connection's…
-- [Low] The commit message says the patch works "without changing
-  connection expiry", but it does change client-connection expiry.
+In that case, perhaps the simplest approach is to leave this issue out
+of this series and fix the Intel PT mutual exclusion issue separately?
 
---
+Also, once that issue is fixed, filtering out pmu->global_status_rsvd
+bits feels mostly defensive anyway, and I'm not sure it solves any
+additional problem by itself.
 
-rxrpc: Serialize client connection IDR updates
-
-This patch limits the rxrpc_kill_client_conn() call in the common
-connection destructor to client connections. Service connections
-therefore no longer remove unrelated entries from local->conn_ids. It
-also adds a per-local conn_ids_lock and an RXRPC_CONN_HAS_IDR ownership
-flag, so that a client ID is released only once, and takes the same lock
-around IDR allocation and destruction.
-
-> diff --git a/net/rxrpc/conn_client.c b/net/rxrpc/conn_client.c
-> index 48519f0de1853..4c2db83fceaee 100644
-> --- a/net/rxrpc/conn_client.c
-> +++ b/net/rxrpc/conn_client.c
-
-[ ... ]
-
-> @@ -56,6 +60,7 @@ static void rxrpc_destroy_client_conn_ids(struct rxrpc_local *local)
->  	struct rxrpc_connection *conn;
->  	int id;
->  
-> +	spin_lock(&local->conn_ids_lock);
->  	if (!idr_is_empty(&local->conn_ids)) {
->  		idr_for_each_entry(&local->conn_ids, conn, id) {
->  			pr_err("AF_RXRPC: Leaked client conn %p {%d}\n",
-> @@ -65,6 +70,7 @@ static void rxrpc_destroy_client_conn_ids(struct rxrpc_local *local)
->  	}
->  
->  	idr_destroy(&local->conn_ids);
-> +	spin_unlock(&local->conn_ids_lock);
->  }
-
-[Severity: High]
-The commit message says this "covers deferred final puts". Can teardown
-still reach the BUG() here while a deferred final put still owns an IDR
-entry?
-
-The lock only orders the deferred put against idr_destroy(). If teardown
-takes the lock first, the entry is still in the IDR.
-
-One way this can happen is with a replaced client connection.
-rxrpc_add_conn_to_bundle() takes a non-reusable connection out of its
-slot without releasing its ID:
-
-net/rxrpc/conn_client.c:rxrpc_add_conn_to_bundle() {
-	old = bundle->conns[slot];
-	if (old) {
-		bundle->conns[slot] = NULL;
-		bundle->conn_ids[slot] = 0;
-		trace_rxrpc_client(old, -1, rxrpc_client_replace);
-		rxrpc_put_connection(old, rxrpc_conn_put_noreuse);
-	}
-	...
-}
-
-So RXRPC_CONN_HAS_IDR stays set on the old connection. rxrpc_unbundle_conn()
-only releases the ID if the connection still owns its slot:
-
-	if (bundle->conns[bindex] == conn) {
-		...
-		rxrpc_put_client_connection_id(bundle->local, conn);
-
-The old connection can still have an active call when it is replaced.
-rxrpc_may_reuse_conn() marks it RXRPC_CONN_DONT_REUSE on ID drift from the
-cursor, on a remote abort, or when the call counter runs out.
-
-When the socket closes, that call is aborted and disconnected, and its
-final put goes through rxrpc_cleanup_call():
-
-	if (rcu_read_lock_held())
-		schedule_work(&call->destroyer);
-	else
-		rxrpc_destroy_call(&call->destroyer);
-
-Without CONFIG_DEBUG_LOCK_ALLOC, rcu_read_lock_held() always returns 1. The
-destroyer then always goes to system_wq and holds the call->conn reference
-until it runs. rxrpc_release_sock() flushes only rxrpc_workqueue.
-
-The I/O thread can then run:
-
-rxrpc_destroy_local()
-  rxrpc_clean_up_local_conns()
-    rxrpc_unbundle_conn()        <- skips the ID release, slot was replaced
-    rxrpc_put_connection()       <- not final, the destroyer holds a ref
-  rxrpc_purge_client_connections()
-    rxrpc_destroy_client_conn_ids()
-      IDR not empty -> "Leaked client conn" -> BUG()
-
-rxrpc_put_connection() can also defer the final put itself:
-
-	if (in_softirq() || work_busy(&conn->processor) ||
-	    timer_pending(&conn->timer))
-		schedule_work(&conn->destructor);
-
-rxrpc_process_connection() can be the caller whose rxrpc_unuse_local()
-drops active_users to zero and starts teardown while its own work item is
-still running.
-
-The missing ID release for replaced connections and this BUG() both
-predate this patch. Still, the race between deferred final puts and IDR
-destruction that the commit message says is covered can still crash.
-
-Could the ID be released when a replaced connection is retired, even if
-it no longer holds its bundle slot? Alternatively, teardown could wait
-for pending ID releases before the empty-tree check, without holding
-conn_ids_lock while it waits.
-
-[ ... ]
-
-> diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
-> index 0ece717db0f85..bae95cadd72bb 100644
-> --- a/net/rxrpc/conn_object.c
-> +++ b/net/rxrpc/conn_object.c
-> @@ -332,7 +332,8 @@ static void rxrpc_clean_up_connection(struct work_struct *work)
->  	rxrpc_purge_queue(&conn->rx_queue);
->  	rxrpc_free_skb(conn->tx_response, rxrpc_skb_put_response);
->  
-> -	rxrpc_kill_client_conn(conn);
-> +	if (rxrpc_conn_is_client(conn))
-> +		rxrpc_kill_client_conn(conn);
-
-[Severity: Low]
-This isn't a bug, but is this part of the commit message accurate?
-
-    This covers deferred final puts without changing connection
-    expiry or the RCU lookup path.
-
-rxrpc_kill_client_conn() calls atomic_dec(&rxnet->nr_client_conns) without
-checking the connection type. The only increment is in
-rxrpc_alloc_client_connection().
-
-Before this patch, every destroyed service connection also decremented
-the counter. On hosts that serve calls, it could therefore go negative.
-
-rxrpc_discard_expired_client_conns() reads the counter into an unsigned
-int:
-
-	nr_conns = atomic_read(&local->rxnet->nr_client_conns);
-	...
-		expiry = rxrpc_conn_idle_client_expiry;
-		if (nr_conns > rxrpc_reap_client_connections)
-			expiry = rxrpc_conn_idle_client_fast_expiry;
-
-A negative value wraps to a huge number, so the 2*HZ fast expiry is
-always chosen. With the new rxrpc_conn_is_client() check, the counter
-stays balanced and idle client connections get the normal 2*60*HZ expiry
-again.
-
-The new behaviour looks correct. Could the commit message mention the
-nr_client_conns accounting fix and the expiry change that comes with it,
-instead of saying expiry is unchanged?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030042129.73690-1-kylebot%40openai.com
