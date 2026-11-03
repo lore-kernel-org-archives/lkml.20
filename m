@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670774;
-	b=S+z6dg4oc0S1hRu9gEKTJmY7pRalMnIY1hH0pZm1NbHo2Dh7sejOH6Kuoaw10hl5z+cd
-	 Tix2HeR+lNYiq92v75iDsgjDBzfbHqdmCKPPLatSSn8ASnCtFLjyq7B6ArmgMUMVFDjRY
-	 CaTpgynQmxSSF9DMWuHIXK6AkmoZW1VOMywKfL6StgisXz2VpCaMUMq/C7gLLtyYiigeQ
-	 EmlQF9oSnqXO+7gL9bWJv4QsXvx2i3N1UUxtGzFLCDUinta7sq/zlBdRBGwu2Xiz6djcx
-	 Rdvb7hL4dxW665iHJMtq5VJkpmCGobwM6FqjXuhE9iv7g8nVu68oWqQdSrCALgzSVkA==
+	t=1793670779;
+	b=odP4HIsOLUU8pBtrR1oyxRNZ/f/jYVnvb3od7BNWNZHhDlnNMk2ZIh7sbJUeKmeUxAqU
+	 97z4f1Ne1WRMXfCQoJYiNR6ideBWIldsNxTiU86Tad20whPruhy5mYX0Lx7lrsdrOOtfp
+	 9Krlem+OjdFGzc+nmYB9GSicihs8NAVc8Kd9cuZf+OPiS/knlO30ripGRJjm0559WD9tx
+	 pslhftSYMSbv+Vx6g98VWKV4xIwmtdqCUMrhv9lNC5pW5SasaL/obbuIakW0nrs3Ec0zr
+	 zvPPITwD0tasGqjo0WzJ987IyvHLrpaHEonGJ4Z4rzsN1QHuYnGT0kNkbKk4/d1Uw+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670774;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670779;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Y4i2DE+i8w1XbeOqn0nMAJFIa6mEhkdFz3surQorcJw=;
-	b=sDk7zazK0Q/jDR6dsl4XCww6CgxxFXT6BDQS7Lfbi/IMuiohKs6gqdpJUHD1zmQXXOpB
-	 A5+/P3nWiVBXsp81lxoCWii/AZuxnvxN12t8ZJYVzoo25g3wBFVhX06IrjM6nAECDTrVt
-	 9rxh6WiWnoyNtqcGThulFyOxKT0NDQgN29sli9TK8WpgWboI7vqouEp6u5wi0p+ECNjRb
-	 RNWWbp/1cOmxcl2Kyp5haimgjqe0eL6cyybgvwSwBZzWBAWvbxhOr5YBZnZ311qAPkf16
-	 /+2dvNohrqm7NIeiCZLobQxAtt6aRvcSLQQ7kiEwlf9t3HLFNRhNCgAHMILvX7lYZUg==
+	bh=SMLLDo6VVdlvW0r3w2RJurfeIqoziXptyv9h4bz6tPs=;
+	b=2E/gICZeS2muD/VH/O3SaqgjOV047avnEKns45lac6RmoH4K+MQ+YSy5LUBNPAC82/Ln
+	 NHCDuVOG4UtfuOs3MWlaxtuQhgd5+f0lLkdLrO5N2pSd3o6g1GTmVYYH0BQJkx06t6LfA
+	 qrOovfdpGkyhS1OtrLvwBvpHi4aO0i/ip3pl/iD4Uj3EetwX+lMiMBBiM52MbnS7MAdKR
+	 DVM6oqKszgZ5mR4I3cBOX40LH2U9JDpN1l5KiPVhQRYEUe1zvI0dxyOKkjSDujWp/3+Dp
+	 SQ+Z93sACgCN9MauSvcWJAjUChfpqzYAXICYx2nZtBuhKupaa06O4iDu4c2x82VN0kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUa1CpbI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DvRH3EH7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C73606A326;
-	Tue,  3 Nov 2026 01:52:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634F0606D807
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:52:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUa1CpbI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B28E1F00A18;
-	Tue,  3 Nov 2026 01:52:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DvRH3EH7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497981F000C1;
+	Tue,  3 Nov 2026 01:52:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793670773;
-	bh=Y4i2DE+i8w1XbeOqn0nMAJFIa6mEhkdFz3surQorcJw=;
+	s=k20260515; t=1793670779;
+	bh=SMLLDo6VVdlvW0r3w2RJurfeIqoziXptyv9h4bz6tPs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BUa1CpbIgQky/IIOW9E3DTP07V5hm8Q88O7YPtPslDTA1TykJp3slks8QFLCNj2z2
-	 kwJti9BGwoOBu8Sn9oVXf+qOxdXlP1ZLZjIlpTrpaHUiDATlQiNv3vjDEKeQJcUo05
-	 clVJ/TdL+V97V7uBxa0EXx8U/IvAi1SOKhvA010vgLM/7YNLit752Tl0r9rESVdGde
-	 3qbk37fz4iZs3m1sjr+g0zaab8rsRj3xOvX/9R8DH63zIY6rU8s8r8ZPSi8SFVs4Is
-	 hDctmpjHl8OB6qp2u2dQEgweQqH0lJ5AjF9kEw6Q7V4KkRHu658R0xmnGutWGkbYyM
-	 R5/IxsK/DVXTQ==
+	b=DvRH3EH7bqznDfktDcFYfRpihT8PqKJDlzFKOq/wX6g8cHXKJg67EmhfCDq9kRC7w
+	 /FBzf0yKEjSb7xBMWU18++i45JL1bSFcUgF4W/o5ZO4LQW2Ng2DXzNdf54DDcrppcg
+	 Nwvc2pAwFKlMb6qdHWyOkjYkUm/B7T73hPSrQek4Ky/DIuSxNgD9bZK+n6+5WoP77A
+	 QViBsPFf2rArEo2zqFlbbNdxxxOluPboN080Xr79jd6ndSN+uMVlxKQU0/Oz5zOF/M
+	 WQ8qGfrNGT4j7A8VAKbox1marf2BTalRU8tCh2E4t/Ubs/pRGq9hSaXTkoRBvna8aR
+	 OzemCPpQoRlgA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org
-Cc: Bill Wendling <morbo@google.com>,
-	Chuck Wolber <chuck@wolber.net>,
-	Justin Stitt <justinstitt@google.com>,
-	llvm@lists.linux.dev,
+Cc: Chuck Wolber <chuck@wolber.net>,
 	Marco Elver <elver@google.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Thomas Gleixner <tglx@kernel.org>
-Subject: [PATCH v2 04/20] compiler_types.h: Don't instrument __always_inline functions for coverage
-Date: Mon,  2 Nov 2026 20:52:22 -0500
-Message-ID: <20261103015238.3780910-5-sashal@kernel.org>
+Subject: [PATCH v2 08/20] rseq: Always inline the empty stubs called from noinstr code
+Date: Mon,  2 Nov 2026 20:52:26 -0500
+Message-ID: <20261103015238.3780910-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103015238.3780910-1-sashal@kernel.org>
 References: <20261103015238.3780910-1-sashal@kernel.org>
@@ -69,62 +64,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-noinstr code may only call other noinstr functions and __always_inline
-functions. gcov and Clang's source-based code coverage insert their
-instrumentation before inlining, so the instrumentation of an
-__always_inline function ends up in every noinstr function it gets
-inlined into. With Clang's source-based coverage on x86, 2500 of the
-3449 relocations in .noinstr.text and 333 of the 451 in .cpuidle.text
-of vmlinux.o point to coverage counters or MC/DC bitmaps. GCC's gcov
-does the same. Since these are plain memory updates rather than calls,
-objtool's noinstr validation doesn't notice them.
+The !CONFIG_RSEQ stubs in rseq_entry.h, and the !CONFIG_GENERIC_ENTRY
+version of rseq_exit_to_user_mode_restart(), are plain static inline
+functions, while their counterparts are __always_inline. They are called
+from noinstr entry code, directly or through the __always_inline exit to
+user mode helpers, and the compiler won't inline them there when
+building with code coverage instrumentation.
 
-KCOV doesn't have this problem, as it instruments the code after
-inlining and checks the attributes of the function that the code ends
-up in.
+On x86 that's rseq_note_user_irq_entry(). arm64 calls the exit to user
+mode helpers from noinstr code outside of instrumentation_begin()
+sections, so with Clang, asm_exit_to_user_mode() and the el0 exception
+handlers end up calling rseq_syscall_exit_to_user_mode() and
+rseq_irqentry_exit_to_user_mode() out of line.
 
-Make __always_inline imply __no_profile when a code coverage
-measurement implementation is enabled, so that no noinstr code carries
-coverage instrumentation. The cost is that __always_inline functions
-don't show up in the coverage data at all, including at their callers
-outside of noinstr code. For an x86_64 configuration built with Clang 22
-and MC/DC, that removes 556 of 60788 functions (0.9%), 29261 of 1598305
-regions (1.8%), 11067 of 591108 branches (1.9%) and 445 of 36561 MC/DC
-conditions (1.2%) from the coverage data.
-
-This works around a limitation shared by both compilers: they lower
-the coverage instrumentation before inlining, and let __always_inline
-override a no_profile_instrument_function mismatch, so they can't drop
-the instrumentation that ends up in a noinstr function. Once they can,
-this can be limited to compilers that don't.
+Make the stubs __always_inline as well.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/compiler_types.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ include/linux/rseq_entry.h | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
-index c5921f1390079..5c8fff84004b4 100644
---- a/include/linux/compiler_types.h
-+++ b/include/linux/compiler_types.h
-@@ -246,6 +246,17 @@ struct ftrace_likely_data {
-  */
- #define __inline__ inline
+diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
+index 31ce349ed42ce..7f9f1590d73fd 100644
+--- a/include/linux/rseq_entry.h
++++ b/include/linux/rseq_entry.h
+@@ -716,7 +716,7 @@ rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
+ }
  
-+/*
-+ * noinstr code may only call noinstr and __always_inline functions. Code
-+ * coverage instrumentation is added before inlining, so the counters of an
-+ * __always_inline function would end up in the noinstr code it gets inlined
-+ * into: don't instrument __always_inline functions.
-+ */
-+#ifdef CONFIG_COVERAGE_KERNEL
-+#undef __always_inline
-+#define __always_inline inline __attribute__((__always_inline__)) __no_profile
-+#endif
-+
- /*
-  * GCC does not warn about unused static inline functions for -Wunused-function.
-  * Suppress the warning in clang as well by using __maybe_unused, but enable it
+ #else /* CONFIG_GENERIC_ENTRY */
+-static inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
++static __always_inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
+ {
+ 	return false;
+ }
+@@ -759,15 +759,15 @@ static __always_inline void rseq_debug_syscall_return(struct pt_regs *regs)
+ 		__rseq_debug_syscall_return(regs);
+ }
+ #else /* CONFIG_RSEQ */
+-static inline void rseq_note_user_irq_entry(void) { }
+-static inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
++static __always_inline void rseq_note_user_irq_entry(void) { }
++static __always_inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
+ {
+ 	return false;
+ }
+-static inline void rseq_syscall_exit_to_user_mode(void) { }
+-static inline void rseq_irqentry_exit_to_user_mode(void) { }
+-static inline void rseq_debug_syscall_return(struct pt_regs *regs) { }
+-static inline bool rseq_grant_slice_extension(unsigned long ti_work, unsigned long mask) { return false; }
++static __always_inline void rseq_syscall_exit_to_user_mode(void) { }
++static __always_inline void rseq_irqentry_exit_to_user_mode(void) { }
++static __always_inline void rseq_debug_syscall_return(struct pt_regs *regs) { }
++static __always_inline bool rseq_grant_slice_extension(unsigned long ti_work, unsigned long mask) { return false; }
+ #endif /* !CONFIG_RSEQ */
+ 
+ #endif /* _LINUX_RSEQ_ENTRY_H */
 -- 
 2.53.0
 
