@@ -1,126 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.90
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717363;
-	b=PU7PKdox0V5yhbCO/4B7pqWrl4EePBPCAlL7RjQYDIXh1y4A6CiUuhmO7MAoNuSyiYb1
-	 V4RETSi3wrlaTclAUq+7HrLa22ruboL9NNJcLEr3En1tdJM+r+1HzA2aeQddLzCE3F/0P
-	 0Krmf1ANYaMpwljDzWerTdYG7OIAGv0uifaDVlTibr+L6EOZoARJIRKEhJT2lFUDWOoSZ
-	 UDaH31Zmi203Tw9m3UM/Go/fVN18pj8m5NvINR0aWD7lrHEksTiZLkP/Q4x+aXUB/ffBj
-	 5pY1/tOQ3g00mhutLX7y3otK7TZLDpmnXJrWumkWsWWNggJz0iGYV2PrBMC4OgE8Tug==
+	t=1793717385;
+	b=0ksuEXUM8cxjSBxBswjTVZBqSwozrF8mYDZMndp8+GEUCFc1nM/HN7+OR8I0gHCTkXNv
+	 ezBTQWxq5DMYP5hIBzDrewkLN9e2Y5gCi7dLWowyRwDJn0qnXMy8HzTEE2YhzewBSFkvX
+	 xdJVV4Vo7dvrqYTHeKSrJpBFyVBAqgkythUNTCVw48YwBC6aC/eo+eIHzxkvNu55KbYVe
+	 F6eqJpgoViwYBRLqbJJUBHnl6gsr5Zl3Anm44Jiz11uyoa6GEJnYbNEsr/WfbmA05bcQp
+	 szEqfQ+HoT0aOccDCQiv9M1y0Vj/e5C+UMIdhgu1Yky6f3rAHB8zFdiLaRB7bgpIwBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717363;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0jU0FKXBVK1IwPB+pnplBif7xzGvyqeYd/rvs2r/ax0=;
-	b=RQB0J6x8v3rkLsUWh5VR6Tqxdo1uNqtsokZR6WyYEaCq4OfMTAr9OsMXeFCtWi+KlCZ2
-	 JC5SPYQ66wn8pLx9TC9PtoiH6RPnDfMrkluTZwHRd+mueUYaD2zZYfGKq784EAfnxo42M
-	 SlAozlcfMB24ieyZ0M3t8fXkzhOFd9oPjUFTgi/miNqEVLlWgTvEQ/tC1JH+H5Nu4+XM9
-	 htvOEzUlwS9eHVPmGfy0IFJu0hO+aRhdKzMimoP6Aa1X8pnrI97imZdWWblRxYaumDc9F
-	 UI77eTkUn43wNRY5EkrMNW98We4zHqUZKrQjOTEaUDqDK676MXKhkcW3Gvbi2THHO0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717385;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=hnY0hiNXYP1RpvRjHx/f25QO+Lf5qDmxzoSNgMRKLL0=;
+	b=utKR4I8XEkUnPZJiJphLet+6w5TIsDvQc0xuD3f9CDOhocLsUbvefip4psBorQg9zTHQ
+	 4Sk+uZ7PTo74oipnYVuDJsZW5pD57W3By1vxLRpM0M78Mjzmm/hbfEyf4ikGBO9ebmviM
+	 FqWnhxVDAov/CDASgRfxZLj+vN27UVsZKRz6UuuOlTqd0oZbEjxYw1xSFd3cHZymDlrG4
+	 4oYgHrc/gmDbkfGGK7WJjh2jk8RuglJsNLys5tepYGHE3FTGJ8XVRo0nvChC0n+h8XZSb
+	 xDQwA3RIxdrzmyZDHKT4n4DpF09/dg4bHp/ycf9+nBu6Vh4H1Ghtg0Yve6wbqc8nTZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QzuU3YVM;
-	arc=none smtp.remote-ip=91.218.175.90
-Received: from mta0.migadu.com (out-90.mta0.migadu.com [91.218.175.90])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=YVGs+cHR;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4585Kcrk;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1i8IEp2S;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2UUtNLJI;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B55606E6E1
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26B55606E6E1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B5E606D83D;
+	Tue,  3 Nov 2026 14:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57B5E606D83D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QzuU3YVM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dOHWqJbFAMJYJY9pYQ0G9QdWl3ff5fr4nC5HvUAG8+A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793717360; v=1; x=1794322160;
- b=QzuU3YVMkybToy3jCx589JuXk6v7arOjZKVMIuzVTtcNW67BI2N1Sv/tO1vpXZew6+OWlgh+
- BtzfOsvNi5KxLjRGGqGPhJtBN3VmFTvpgdWNR8NKH7Gp6SbMkzFQdncMIrRdzS1uk7Hz+9X+9N+
- g3oq2Ln4/BioZxzKZymYhmOg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 632a76e6b0da1a08;
-	Tue, 03 Nov 2026 14:49:18 +0000
-X-Mizu-Trace-ID: 632a76e6b0da1a08
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com
-Subject: Re: [PATCH v3 42/47] mm/vma: call ->may_split() before a partial merge
-Date: Tue,  3 Nov 2026 22:49:09 +0800
-Message-ID: <20261103144909.6138-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261031-fixes_core-v3-42-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-42-d6437171ecc3@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=YVGs+cHR;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4585Kcrk;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1i8IEp2S;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2UUtNLJI
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 23D432225C;
+	Tue,  3 Nov 2026 14:49:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793717383; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hnY0hiNXYP1RpvRjHx/f25QO+Lf5qDmxzoSNgMRKLL0=;
+	b=YVGs+cHRQ1IjB4Pwm0AmnrJKF0+BkGwTrBnW92HFKGzRT5MzwM2QSq/qOPswGUVJ+C5/H3
+	hILL/1oMLYp26X3VeQpAwCtJom8pZFzINqgkCM/ZtP9MMn78m45EIN70is3a2MjBr97rzU
+	dlE6hb7zArySRuc/ktMz7tGMQ3WyRHk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793717383;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hnY0hiNXYP1RpvRjHx/f25QO+Lf5qDmxzoSNgMRKLL0=;
+	b=4585KcrkM2QPf2iCd2DE0baYD5Hn0f/L/8/xyrg4UESdzGXEBDPJpbCh0mcjyJeGlj4f3c
+	ARvHPbZhi09KbQDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=1i8IEp2S;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=2UUtNLJI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793717382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hnY0hiNXYP1RpvRjHx/f25QO+Lf5qDmxzoSNgMRKLL0=;
+	b=1i8IEp2SFk+Q2bgmBqTj4Tnp6qDJKvY5BzkB95JrQVgFAAiQ4uP1SijiMbV0eF/Ldsu5t6
+	j7n55UuEb+E/jPn5qjg6rvipCuph2BGVYuBVLqVRdlIVbjIjSotEqiduGk3KoUyjwSNcU+
+	lQeI8lMJILZs5EoZ5IvZa2G8EqMOl+k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793717382;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hnY0hiNXYP1RpvRjHx/f25QO+Lf5qDmxzoSNgMRKLL0=;
+	b=2UUtNLJIaVCEFXMGRyZvVvaHxt16P1GApx9kyXDLWKpv6VRDS3RtyJSbBHKmxegM4UMlcR
+	Htg+/TGgE59RbKDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E0BA11350A;
+	Tue,  3 Nov 2026 14:49:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3lQ+LYX06WqLFAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 03 Nov 2026 14:49:41 +0000
+Date: Tue, 03 Nov 2026 15:49:41 +0100
+Message-ID: <87wlquvuka.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Razvan Dinculescu <razvandinculescu@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ALSA: hda/hdmi: Don't share an assigned converter on NVIDIA codecs
+In-Reply-To: <20261102190417.2661176-1-razvandinculescu@gmail.com>
+References: <20261102190417.2661176-1-razvandinculescu@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,71 +112,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 23D432225C
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
+X-Spam-Score: -12.51
+
+On Mon, 02 Nov 2026 20:04:17 +0100,
+Razvan Dinculescu wrote:
+> 
+> All pins of the NVIDIA HDMI/DP codecs share one connection list, so a
+> converter can be selected by several pins at once. Unlike the Intel
+> codecs (intel_not_share_assigned_cvt()), the NVIDIA ones never move an
+> idle pin off the converter that another pin streams on, and the display
+> that should play stays silent.
+> 
+> Seen on an RTX 5090 (codec 0x10de00aa) with a DP monitor on pin 0x04
+> and an HDMI TV on pin 0x05. PipeWire probes every PCM at start-up: the
+> monitor's PCM got converter 0x08 and kept it selected after closing,
+> then the TV's PCM got 0x08 as well when it was opened. With both pins
+> on 0x08 the TV played nothing, although its PCM was running and its
+> ELD was valid. Opening the monitor's PCM while the TV's was running
+> moved the monitor to 0x09 and the TV played at once. Restarting
+> PipeWire put both pins back on 0x08.
+> 
+> Implement pin_cvt_fixup for the generic NVIDIA model as Intel does:
+> restore the pin's own converter selection, which
+> snd_hda_hdmi_generic_pcm_prepare() relies on after the hardware drops
+> it, then move every other connected pin that selects the assigned
+> converter to an unassigned one. Look the converter up in each pin's
+> own connection list instead of assuming the same order on every pin.
+> 
+> Tested on that system with the TV's PCM on 0x08 and the monitor's on
+> 0x09, both pins then forced onto 0x08 with hda-verb: a prepare on the
+> TV's PCM moved the monitor off 0x08, and a prepare on the monitor's
+> PCM put it back on 0x09.
+> 
+> Signed-off-by: Razvan Dinculescu <razvandinculescu@gmail.com>
+
+Applied now.  Thanks.
 
 
-On Sat, Oct 31, 2026 at 10:40:11AM +0100, David Hildenbrand (Arm) wrote:
->From: Chris Mason <mason@kernel.org>
->
->A driver can use the ->may_split() hook to forbid a VMA boundary at
->certain addresses.
->
->A device-dax device is a character device that gives raw access to a
->range of memory through mmap(). device-dax refuses any address that is not
->a multiple of the device's alignment through vm_ops->may_split.
->
->vma_merge_existing_range() can move boundaries, but does not call
->vm_ops->may_split.
->
->If a range at the edge of a VMA gets the attributes of the adjacent VMA,
->the function moves only that range over to the neighbour: one VMA shrinks
->and the other grows. This is a partial merge, and vma_modify() tries it
->before any split.
->
->Take a device-dax VMA that lies next to another VMA of the same file.
->The user calls mprotect() on the one page of the first VMA that touches
->the second VMA, and asks for the protection that the second VMA already
->has. The result is a partial merge. It puts the boundary inside a 1 GiB
->mapping, which is a single leaf entry at the PUD level.
->
->As part of the merge, the kernel looks for a huge PMD to split at the
->new boundary. That code does not expect a PUD leaf:
->
->    vma_merge_existing_range()
->      commit_merge()
->        vma_adjust_trans_huge()
->          split_huge_pmd_address()
->            mm_find_pmd()
->              treats the PUD leaf as a pointer to a PMD table,
->              so the "table" is the device memory that the leaf maps
->            __split_huge_pmd()
->              reads a PMD that the user wrote to the device memory
->              folio_put() on the folio that this PMD names
->
->Bad. While the code must at some point be taught to split PUD entries as
->well, the issue here is that we move VMA boundaries such that they are
->incompatible with the driver.
->
->Fix this by calling ->may_split() on the address that a partial merge
->would move the boundary to, and by abandoning the merge if the driver
->refuses. vma_modify() then tries the split, which fails with -EINVAL.
->
->Factor out existing split handling into check_split() and reuse it.
->
->Fix generated by an LLM and sent by Chris Mason in private.
->
->Fixes: 38607c62b34b ("fs/dax: properly refcount fs dax pages")
->Cc: stable@vger.kernel.org
->Signed-off-by: Chris Mason <mason@kernel.org>
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->[ david: improve description; cleanup the code ]
->Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
->Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
->Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
-
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Takashi
