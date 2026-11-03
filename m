@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701735;
-	b=xP16u8vmPNeIe1npWlMG0QcFTR062qIaVcIggZ1wq6U2fCTnS+QiyeVhpVLUts6a826+
-	 FDoBgeQRS1bQj3fyBMXEAB1/Pf04w8bbY/3KeEPMIFEszqRDHUN0n0ZQg90PYR05mrp+z
-	 tI3XfJX1YO6HyAVk+zNAENpty/vl6PzIObZBPeLSc305beMrbFz7I49VxeXWD9aOyYmOb
-	 p8Pmbrl+8bO3KlKPX2pnS5aQ2svFA0MRQQ1VNHOgMzlQZMIuutc6AubOZIWAjo2tZguyZ
-	 qzTKjswpC75bkoPIlqM3tQ3eqCqi+jZVM8IBOHTM5XHthINqTaXIpiu2DHEqNAarnVA==
+	t=1793701740;
+	b=G9umP4R4yAituW14RyKjO+THjbedLs4Llxp8CnI6RuP6MwyPE0FsGqPZdxl20c+ZYFV3
+	 KBLFftiMT1SNL++VvOy7f+1X4QWQQDAyu1fdPb39AX5Tp+xqcgPbBc4zlofBqJNW96CK+
+	 O/dEYKuLa1shj/dlKEL2J1UcGEK2YyI+3uSg1nRNx8yuufX10Gcy+ANA+uj0iQ11Yg1bG
+	 vRRMyj9q8ZrKw/w+Q3p+0AoZ+Nf3vGS+SsRgDl0e5Uk1wQKhLMOhA141ThYh6H6mrQ/Ro
+	 EBrsRunynPTqDFUYIJ8L+DVFpZik+wBjpq/3Z8tKLF0QjNRyEPkoxl7ZpDrTbtsClPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701735;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701740;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=GIo5PxjdlqP/Xj3D5eFLFmZ+IhvJb/6GVNVYjGH5TxM=;
-	b=oFAiAKkpqqKmMfKz+A0CP/PN6BV2oCPxqh+oFYQbsGlFB9WrIz2QkjdFDlGjx6oLpZwJ
-	 ZsVGJ7cU6DcyP9amwcdPm6VvKEO4aCDEmLs88wonMT5g2Y6wMOdTG3ifpAMWonsDD+M7v
-	 g8HH/odS9VVeymySRbjuxXCXflf9uRHGrOPgGhE8q8AqIp/eAMhI/Jjh3DD+vupsM92DR
-	 m9Qlv2Wu3J/s1pvk0t1pbVq41BdaUJiy6CXPTaVdbT3y7FCHP7t1sa0aDxIvmupreA7cq
-	 CF3qiDphJUSN/KUkJjUIbPz+ReUQIBfMp1jQfaMDRE864MvI5EXflzY8tHO9KQXLBUw==
+	bh=+rMQRp29lqH7BqJxA2OZZYuZF6Au1HYKbj5cMX1rxtg=;
+	b=0xBnSA2uPqsHqX+MFUUt0+xGs2ToZUE6n34Y4k1gdfAl21k1XOK/TzomhyjWhUOFss1d
+	 ukT5z7GGdCudKgL8UAg3DTsIS7W67dB8B9KC7k+zsln8TlB/1BYUdAlq8qEVeEZ5s1SUQ
+	 5VGOORFjJvYm0wtZfQwW1YKlElCbPdbMlv+Plnptf8NSrvvRsOxW+36qNk411BUvw8QOj
+	 cksAip5tgZTJQ5sOcPcSz/BfpeSUOs/YzODpljhUfZLFrZHPVTCynNSfJKo0XQLuP+hnD
+	 wra0zn/wEvV4dXy9QSI9I7kfDs9m8vdgG1CjrzqYBOeLhATTmKiDLWac4Nxkj5s43Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,31 +25,32 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4807360A5BFE;
-	Tue,  3 Nov 2026 10:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4807360A5BFE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806F46075BE2;
+	Tue,  3 Nov 2026 10:28:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 806F46075BE2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADH0JFdt+lqkak7AA--.6524S2;
-	Tue, 03 Nov 2026 18:28:45 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowACHkpNft+lqqak7AA--.3162S2;
+	Tue, 03 Nov 2026 18:28:47 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] ieee802154: fakelb: release platform device if driver registration fails
-Date: Tue,  3 Nov 2026 10:28:54 +0000
-Message-Id: <20261103102854.1340581-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: stmmac: release MDIO node if bus data allocation fails
+Date: Tue,  3 Nov 2026 10:28:56 +0000
+Message-Id: <20261103102856.1340705-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,69 +62,57 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADH0JFdt+lqkak7AA--.6524S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFy7Zr1fur1fAFWkuw4xXrb_yoW8Ar4kpa
-	1UWayrCryUurW2yw4xJ3WxZFy3C3yIg3y09FyxJwnxZw4rZF17CF17Wa9xAF1kJF4kCasI
-	vr4DGr15Can8ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowACHkpNft+lqqak7AA--.3162S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cw4DuF1kWw43Aw1rtryfXrb_yoW8Gw4fp3
+	9rCa9Fyr95Grnrtw4kJw40vFy5CayayrWUGa1Iqanavan8GFyaqr1aqrWjvasrGrWDW3W3
+	tr109r47ZF1DAwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
-	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
-	BIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIByFQAAsg
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
+	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
+	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQAA2rpnOFxAgAAsG
 
-fakelb_init_module() registers a platform device and then registers the
-platform driver, returning the result of the latter directly. If driver
-registration fails, module initialization fails and the module exit
-function is never run, so the platform device is never unregistered and
-leaks.
+stmmac_mdio_setup() looks up the MDIO device tree node and stores it in
+plat->mdio_node before allocating plat->mdio_bus_data. If that allocation
+fails, the function returns -ENOMEM without dropping the node reference.
 
-Check the result of platform_driver_register() and unregister the device
-on failure. Also check the device registration result, which can be an
-ERR_PTR, before using the stored pointer.
+The caller jumps to error_put_phy on this error, which only releases
+plat->phy_node and never reaches error_put_mdio, so the reference taken
+for the MDIO node is lost. Drop it before returning.
 
-Fixes: e1e49b641387 ("drivers/ieee802154: IEEE 802.15.4 loopback driver")
+Fixes: 1a981c0586c0 ("net: stmmac: Make MDIO bus reset optional")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ieee802154/fakelb.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ieee802154/fakelb.c b/drivers/net/ieee802154/fakelb.c
-index e11d8eda85ea..35863c3aff44 100644
---- a/drivers/net/ieee802154/fakelb.c
-+++ b/drivers/net/ieee802154/fakelb.c
-@@ -243,12 +243,20 @@ static struct platform_driver ieee802154fake_driver = {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 3ea16d618215..36f31bad11ca 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -355,8 +355,10 @@ static int stmmac_mdio_setup(struct plat_stmmacenet_data *plat,
+ 		plat->mdio_bus_data = devm_kzalloc(dev,
+ 						   sizeof(*plat->mdio_bus_data),
+ 						   GFP_KERNEL);
+-		if (!plat->mdio_bus_data)
++		if (!plat->mdio_bus_data) {
++			of_node_put(plat->mdio_node);
+ 			return -ENOMEM;
++		}
  
- static __init int fakelb_init_module(void)
- {
-+	int rc;
-+
- 	ieee802154fake_dev = platform_device_register_simple(
- 			     "ieee802154fakelb", -1, NULL, 0);
-+	if (IS_ERR(ieee802154fake_dev))
-+		return PTR_ERR(ieee802154fake_dev);
- 
- 	pr_warn("fakelb driver is marked as deprecated, please use mac802154_hwsim!\n");
- 
--	return platform_driver_register(&ieee802154fake_driver);
-+	rc = platform_driver_register(&ieee802154fake_driver);
-+	if (rc)
-+		platform_device_unregister(ieee802154fake_dev);
-+
-+	return rc;
- }
- 
- static __exit void fake_remove_module(void)
+ 		plat->mdio_bus_data->needs_reset = true;
+ 	}
 -- 
 2.34.1
 
