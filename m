@@ -1,82 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793727535;
-	b=ArKeqeLnH9vbQAK8RhZ4NIzVP2wglsIjsNsSZaX1Q9eLp84Tq5KAgIwJvQGwHIRjVbKi
-	 g1GhQyVoIRHazoIR/REIXWaADS2ddk7KVxMEyQDhxZMaXCpKxTWVStOLv9/YNH01+zjBh
-	 jLnfU82SETBnI6JqviWPviWc/H46e0hME9fj/thBZ9iKvXIcWzKD9yCL86JFklAVlCJ/5
-	 wYONdHDq44KRW221/Pi85/hayyKkc+vySfTQby247ZN9YWT4XyG9DUEuC7unTB8wJJaJK
-	 qFBDahEmyyc4XfkEJZtoU988vmqdMPVpCjLSnnXPipl6VevuGNngxq0jhoy+IfqeRiA==
+	t=1793727541;
+	b=KbC5ABiN6r41WT76r3dfQwO13g4VA99KLoZYT32/n/z+CKwOj5bRakTIZaYU+nV018Ti
+	 txkOGaeE6W4NBpRF0tus2RKtpOd1SDO3oW0RiBS3PiSA/mkat+TzGv59WGPqYJIrmlf3v
+	 p3/YOgrK0i9BEoxA/TjW/cAGreGmQeiUl/ismiAfDIrK5tB6jmt4t9tI6RnEllQli7KQ5
+	 euhZ/aKZBune6t4hFKiZpc67dEKNsxg6AJ2F7dAHeGIfpqA77+DkeMtxGrlj7saVz1Ro9
+	 gq9QWpAzcTL5UO76+M73s7g6K1GTIOrr+K0Qp6xyhpFPUESgxrdea1shVy27TbsyfMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793727535;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
-	 To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=OkwjQcrA+9UHu8UElL0k3VjIuq9juyNW3QXudrampI4=;
-	b=cCvJnj1u3GEE+rKgEcELyk0J/efjKT8u0l7h0c1nWS/GNQJVd7h1oJP7kUWQYNhsE07d
-	 Xel5pw/6dKfzh3Nuyib1YAbQGZUKu4huv6AlJEucOpbvoz/w2O+5GLIRARbz2b3MJ7dIA
-	 JN4a48rQ/8L7alXHbHaM/lGB8yv7/SA/7K1bGmlw/6Rwu7RUu/Hwt0T/UrAUt99lAr0Cs
-	 ETm3opsClSz64rI5jav9HQAFmBzdS2toeTXur7QbUCFLTO+FHXv9YDWO/pFhdNRqMON8N
-	 MabgSTUvs5ScZ9Fn0PIHxJTymN4ns88arJrEy/tUgy6eLMd+i7CRb2ZkWtRdlcWR7aA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793727541;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:X-CM-TRANSID:
+	 Message-Id:X-Coremail-Antispam:Date:X-CM-SenderInfo;
+	bh=NCGelH99NdIiK+XLBUHLsPdudRNaMO0Y3JYjrjdoWyc=;
+	b=KnGIkASKQnmntw8pEeHydeW+WPLpDCVLTR3PIQkh9h8coejUpqLGqcX7QpEGVhlVRvOy
+	 YVJMkpRhZc1CrhYxMjzCzvUOf/CydQL3tzMA41lNOtafK6aO7IrrCacSwA6Jhyo1N3CQz
+	 YZhoblqDuiXuNZhZrjV1Lud9bdeAg0iuP/YXcTXWfQ6H+rnBueo8fqi2jojELBh46ogHx
+	 wyBeu/bcnYdsRb8HGe86zergh5nog4e9CKdOYQi1OUPoWr8bp558fttCoZstCUV1JtjUR
+	 Udblbq/xoeVfZtZb79WtGUl4VJU9E9dakd/qbrwQaosVZDObThmYCxPBA82N2qpj9Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KnGgVeaA;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DEB606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:38:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26DEB606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso36481215e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:38:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793727533; x=1794332333;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OkwjQcrA+9UHu8UElL0k3VjIuq9juyNW3QXudrampI4=;
-        b=f5mFZ0Jzsa56AYsOuEXksy0WRLN6sjNjDKng+dW70uIfoIxa2gFqVhwIvH6haT1gjf
-         PIeJVFsM5Kiy6WbVi+qYaO3wDzfJMO0/EHHc8/KpetoDVYwMw9T19qqNWjfLSUOjxStJ
-         3dicZKiORE1Az09HMlbsdKCjMRylvn9YcYSnAbkH+VoDLqaBBJWcAVbS5Zf+xL1L2kVH
-         53x3jNkt0tPbNxhSFgwqfUnP1igtzeB+gfQvu7kbG9JG9uXmvT5iUTpp7fJ0F1iIDvwy
-         A6F0dnePE5Nk0rp556GIc0E6dA+aorS33Ue2vi+aYNXLkQOvCT3FwYhEMS2B3GNr8AJf
-         o8sA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwu3YzwLB9IbBy/FOnvZ5g3WS5IxNUrkb0ZUQXg6TMFCLRKTn2KLKglrngQaoILi3hE26g95q7T4oWvTk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FNg3MQQnp3SOrnYA2bKsoaQQjt1t3pzSQFfhp9zVGV+dcXzeS
-	/kJL+NhRxgrmzrvJSUejLgYmkikpeNBr0Z+OauBGBAI/4/03OXpkTMc=
-X-Gm-Gg: AYBFou2n37E9fV7rhkfqz14+CjLV/XaB4xWjluhC37LqjOa6y5f/y4/fUl+PblfdggV
-	X16ssHjC312TMADt/yktsvRs93fcjzCEU95Q6orXw8T4/p64UsqFeqiJ7mUAinHdmwy3nXl65b7
-	uGMEfp95I9ryAjNyaR3VRGB3mHL5BIS3GOirvMCVhLXszFytaWNnrapY0JdfZdOQ9aZTVcBi/W9
-	a78LFqw74CFLFxAR4wH1fnI1CDsDtVjIf4NigjSYbgANxsbOKcqz9YePuljhMQ9IHVoK6MMdD8A
-	Pt7/ItaD8cCu38FgSb+E+hXvnBcz1ZgMNl9SDUBK3L/2tIv40R0uNo8L4iZzRl9OV7Xc5pbNH+A
-	4Is0dEGy24/c9QXKWBOIYR9fsrLyK75o5s6UfOiMjLgElc9mIvJs9GedHuc5EpH5fmQbTdvPhDb
-	MzhVhYzTurfjtAR9BWmlSanXC90t7Coi3sxYR0I905V5gwF2o7GPwVdgRk3jQE4GXticfvL5FzT
-	SVkw0ge6SRDcax1kGif6n9fOCWdZxsilFmiGaofmhYZOf3xztj76twvFvnniBtDAobwOL6m1q82
-	u/SzLoddznNgLEPq2MAaSxAE7miIZCJaBg6KWNk=
-X-Received: by 2002:a05:600c:1f93:b0:4a5:75d2:c104 with SMTP id 5b1f17b1804b1-4ac17ffa050mr328285605e9.22.1793727533176;
-        Tue, 03 Nov 2026 09:38:53 -0800 (PST)
-Received: from [127.0.1.1] (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ad414e298bsm173637775e9.2.2026.11.03.09.38.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 09:38:52 -0800 (PST)
-Message-ID: <6aea1c2c.950cae81.3a8700.c477@mx.google.com>
-Date: Tue, 03 Nov 2026 09:38:52 -0800 (PST)
-From: D. Manresa <dmanresa@gmail.com>
-To: sakari.ailus@linux.intel.com, hansg@kernel.org
-Cc: dan.scally@ideasonboard.com, mchehab@kernel.org, brgl@kernel.org,
- toorandom@gmail.com, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/2] media: ipu-bridge: survive module unload and reuse
- the software nodes on rebind
-In-Reply-To: <20261026082549.662885-1-dmanresa@gmail.com>
-References: <20261026082549.662885-1-dmanresa@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B646A606A32E;
+	Tue,  3 Nov 2026 17:38:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B646A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KnGgVeaA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Message-Id:Date; bh=NCGelH99NdIiK+X
+	LBUHLsPdudRNaMO0Y3JYjrjdoWyc=; b=KnGgVeaAbocLq2Zn8K8pVYwr4p451Y1
+	FqxUWNDvnTyAAmnFnvQVrTUsH0HFZin1wIyB4/IgrUd7Yp/cNe55s3blJfp0uSR6
+	f86xTYwO8lAOydj7m5X8ny5pl2XXy1dx990QMu0XahBYDxDbkUCaHwMblgokvjBN
+	uxH2sPEshB40=
+From: shaos <shawnq1@163.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] net/sched: hfsc: clear eligible node on reset
+X-CM-TRANSID:_____wDXv6UjHOpqVNNREw--.49754S2
+Message-Id:<6AEA1C23.11E1A6.00008@m16.mail.163.com>
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF4kZw43Xr4DWr4DKrykKrg_yoW7Jw4xpr
+	Wv9r15KayYga15Ja1vkFyUZFy8Zas3AFs8WF1kWws7Z347uw1IqrWxCryjkr90grWkCayF
+	vr4jqw1Iq3yjqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jrjjgUUUUU=
+Date: Wed, 4 Nov 2026 01:38:44 +0800 (CST)
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbCzwNkcmrqHCP7QAAA3e
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,21 +59,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Please drop 2/2. Bart's driver core fix [1] removes the imbalance that
-2/2 compensates for, so on top of it 2/2 leaks a reference instead of
-saving one. 1/2 is independent of that and still stands on its own.
+Hello,
 
-For whoever picks this up later: the rebind failure 2/2 was aimed at is
-still there with [1] applied. ipu_bridge_init() only unregisters its
-IPU HID node on its error path, and ipu6_pci_remove() does not tear the
-bridge down, so a PCI remove/rescan leaves the node registered and the
-next probe fails -EEXIST. Measured on a Surface Pro 7+ on 7.3 + [1].
+hfsc_reset_class() clears the realtime class counters but leaves its
+el_node marked as linked.  hfsc_reset_qdisc() then discards the
+scheduler-wide eligible tree by assigning RB_ROOT.  After a link
+reset with an RSC class backlogged, the next packet sees the stale
+non-empty el_node, skips init_ed(), and leaves the class absent from the
+new eligible tree.  HFSC then retains the packet in its child qdisc
+without a dequeue event or watchdog recovery.
 
-The machine that produced the IPU6 numbers in this thread leaves my
-hands at the end of the year and I have no other IPU6, so please do
-not wait on me for retests.
+Two fresh QEMU runs reproduced a permanently queued packet after
+link down/up.  An FSC-only class, a drained-queue reset, and a no-reset
+control transmitted normally.  A kernel with the patch below reported
+RESULT=NOT_STUCK and transmitted the packet.  This requires control of
+the HFSC qdisc and is a scheduler liveness/correctness defect; no memory
+corruption or privilege escalation was observed.
 
-[1] https://lore.kernel.org/all/20261023-swnode-dev-notify-balance-v2-0-948d9=
-20a79f6@oss.qualcomm.com/
+HEAD commit:    c03c1a14507dfaf8b856c2608f9ac216021fc222
+Git tree:       30fd2ef82912c26cf3a58ad0ba6afc375fa851ac
+Source version: Linux 7.3
+Compiler:       gcc 11.4.0, GNU ld 2.38
+
+The console logs, full kernel config, packet sender, and QEMU/initramfs
+harness are available from one fixed-revision Gist:
+
+Console output:
+https://gist.githubusercontent.com/shaos26/d7ec57d3a631368bd50ad0182ce9c268/raw/6344f32527074498da61f02b58068539859b388e/console-output.txt
+Kernel config:
+https://gist.githubusercontent.com/shaos26/d7ec57d3a631368bd50ad0182ce9c268/raw/6344f32527074498da61f02b58068539859b388e/kernel-config.txt
+PoC source:
+https://gist.githubusercontent.com/shaos26/d7ec57d3a631368bd50ad0182ce9c268/raw/6344f32527074498da61f02b58068539859b388e/poc.c
+Harness: hfsc_reset_harness.sh
+https://gist.githubusercontent.com/shaos26/d7ec57d3a631368bd50ad0182ce9c268/raw/6344f32527074498da61f02b58068539859b388e/hfsc_reset_harness.sh
+Harness: init.sh
+https://gist.githubusercontent.com/shaos26/d7ec57d3a631368bd50ad0182ce9c268/raw/6344f32527074498da61f02b58068539859b388e/init.sh
+Harness: mkinitramfs.sh
+https://gist.githubusercontent.com/shaos26/d7ec57d3a631368bd50ad0182ce9c268/raw/6344f32527074498da61f02b58068539859b388e/mkinitramfs.sh
+Harness: run-qemu.sh
+https://gist.githubusercontent.com/shaos26/d7ec57d3a631368bd50ad0182ce9c268/raw/6344f32527074498da61f02b58068539859b388e/run-qemu.sh
+
+Clone the Gist and build the vulnerable kernel and initramfs.  The
+kernel source is the HEAD commit above; use the attached full config.
+The host needs gcc, fakeroot, cpio, gzip, BusyBox, iproute2, and QEMU:
+
+    git clone \
+      https://gist.github.com/shaos26/d7ec57d3a631368bd50ad0182ce9c268.git \
+      hfsc-repro
+    cd hfsc-repro
+    TMP=/tmp/hfsc-repro-build
+    mkdir -p "$TMP/rootfs"
+    git clone \
+      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git \
+      linux
+    git -C linux checkout c03c1a14507dfaf8b856c2608f9ac216021fc222
+    cp kernel-config.txt linux/.config
+    make -C linux olddefconfig
+    make -C linux -j"$(nproc)" bzImage
+    mkdir -p poc
+    mv hfsc_reset_harness.sh init.sh mkinitramfs.sh run-qemu.sh poc/
+    cc -O2 -static -Wall -Wextra -Werror -o poc/hfsc_probe poc.c
+    fakeroot -- sh poc/mkinitramfs.sh "$TMP/rootfs" "$TMP/initramfs.cpio.gz"
+
+Run the positive and close controls on fresh QEMU boots:
+
+    KERNEL="$PWD/linux/arch/x86/boot/bzImage" \
+    INITRD="$TMP/initramfs.cpio.gz" OUT="$TMP/rt-reset.log" \
+    sh poc/run-qemu.sh rt-reset
+    KERNEL="$PWD/linux/arch/x86/boot/bzImage" \
+    INITRD="$TMP/initramfs.cpio.gz" OUT="$TMP/ls-reset.log" \
+    sh poc/run-qemu.sh ls-reset
+    KERNEL="$PWD/linux/arch/x86/boot/bzImage" \
+    INITRD="$TMP/initramfs.cpio.gz" OUT="$TMP/rt-drained-reset.log" \
+    sh poc/run-qemu.sh rt-drained-reset
+    KERNEL="$PWD/linux/arch/x86/boot/bzImage" \
+    INITRD="$TMP/initramfs.cpio.gz" OUT="$TMP/rt-noreset.log" \
+    sh poc/run-qemu.sh rt-noreset
+
+The positive prints RESULT=STUCK.  Controls print RESULT=CONTROL_PASS.
+For the fixed-kernel mechanism control, rebuild from the patched source;
+rt-reset then prints RESULT=NOT_STUCK.  The guest configures a qdisc and
+sends AF_PACKET frames, so it runs as root in QEMU.  A direct trigger
+requires CAP_NET_ADMIN and CAP_NET_RAW.
+
+The eligible-node marker must be cleared when the class scheduler state
+is reset:
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: shaos <shawnq1@163.com>
+---
+ net/sched/sch_hfsc.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/sched/sch_hfsc.c b/net/sched/sch_hfsc.c
+--- a/net/sched/sch_hfsc.c
++++ b/net/sched/sch_hfsc.c
+@@ -1488,6 +1488,7 @@ static void hfsc_reset_class(struct hfsc_class *cl)
+ 	cl->cl_myf          = 0;
+ 	cl->cl_cfmin        = 0;
+ 	cl->cl_nactive      = 0;
++	RB_CLEAR_NODE(&cl->el_node);
+ 
+ 	cl->vt_tree = RB_ROOT;
+ 	cl->cf_tree = RB_ROOT;
+-- 
+2.34.1
+
