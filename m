@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793741452;
-	b=lQ8YnyU2ehKJ34wcHdyzWPk+HP85BM1nK6r02V7dCnBCi4jmXcnlSAX3mgVnyjmZDChX
-	 PEJ4CvWbDcwqSRwK2ni7tC4Z09FPf8gfkAmzBA3iyxLHNfQhzcwfkAJ+MuOncxBb+0Ic5
-	 3RVnQr0BPprwaEEM15ut5Tz/KKslXiF9w6JRXj4XpY39J3/UXnuVTjXfrsBdiApYrzTkw
-	 6Z8o/sAH/7WCp9ptNxExjC1tEC5LhfZMIH6bpQGVgUAGn92GYQ45Z/fKymIqVy7XbFB3v
-	 O0AbDlWcSnH/6UucScMSoYj8oGkGbFrXgkd6j3iFmdAdiJhCd6YyW3Wb4xvO352KZJA==
+	t=1793741459;
+	b=Z09969rYUo9mOiTAeoBxiHqyt0hfk5UtgC4UyB8/LV55JXhPJL99Eils/mLh+qYctmKr
+	 aj2e/heC/5M6d6ms4rHyUw8dNjzbFn6u2soh/l3VwX4y/tHsWpoUoeqIE28MpMuoAI2j9
+	 J7bA4rt7+uuCkaxpD5nqmQj8c8m3WirqSZqVuQyT6xQRZPFj7YpA4TuyX4uDn/rHkLyx8
+	 fXV8cS8BzHSyiXFv3IejX2D40FwnA0L1TqEKaXyD79cqfmbAa323JmFet0CW9xJSphB+Y
+	 86z9SeJahffDuIPZftjVzgYHz2VURkaAnlWFfHPBGPKIQ/sBRH0VAwYPFzYoU/VNKOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793741452;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793741459;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vINjqp9pvya8axfuBwfbY8HnHtZqyY6Mf4sC6k4LGmg=;
-	b=PtPPyyVP1tUyiSrNxy/iyox+WjYwYqSZOZ5Y9fS/e5ZRrSRzrwZSl3YldOrGTBhucKTX
-	 d7blxDgh7buI0i+Mx01NcEPzUr59DZgN5+f5Q59m7df4nyfFSVFL2df3XkgQVmP44gfAX
-	 kt0NyZWnLlB47uB3DvsFTYYDlWvkMdKBpR6f9Wi0g2DrrrU3i/P+p3KfsH20fPK7E2vWS
-	 mcUJE1j5oj8d23Xm8L0TwpaSQpAppquYRmlhkc6+IVAR6sRofa073Lpiwx2kVk43as/Go
-	 HUEQJ9TrB3Hp5orBCr8KgC4LqD9d75HN8urx2dP4Vmpnwcme96L9I+TkUKous2W3A2A==
+	bh=2iPUQpArd++dAugymdCYR9QxCbrAkyiSI3kkgK73EZ4=;
+	b=T0BmkwVVArQruOJkQT07KbeonzjYBvUeVaZu3RPYrZgPre67UDtlhFIN/SAPZTOSPG75
+	 8HM4G18cn7zNRws2Kf364QvC4s5r/Cswxxgz1phMM4Q0iF2ni8xTBbx/QzVWTs/jZsQ16
+	 MAZzX5KJOzBMb7apEflUC/ijNlkrql5HNB9RHK2P/DmChNnhGSjxISf/nBvIFjgLOyQlO
+	 yDEsr2iYq9C6/d5EelMx6/7IUwFbl2DrPOSZqLX7SNKltDbByZCoAVQfZtSYdmRME9blv
+	 L8ymQl0L7jsTYh282o5TWGCa/wivn5rXIscJtTq+Q30+m8lgNvHld90YtRCly3xN+Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8TCBl3P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E/4FEwyR";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C2A606A324;
-	Tue,  3 Nov 2026 21:30:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749B1606A335;
+	Tue,  3 Nov 2026 21:30:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8TCBl3P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A288D1F000C1;
-	Tue,  3 Nov 2026 21:30:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E/4FEwyR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8076D1F000C1;
+	Tue,  3 Nov 2026 21:30:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793741452;
-	bh=vINjqp9pvya8axfuBwfbY8HnHtZqyY6Mf4sC6k4LGmg=;
+	s=k20260515; t=1793741459;
+	bh=2iPUQpArd++dAugymdCYR9QxCbrAkyiSI3kkgK73EZ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P8TCBl3Pz2aHOP6xh2Rc3AzoVGQ5WnQltf1OxLL5tXtVIuTDgv84J2srOCYwS6WXr
-	 OiZaqjb8Ovrzws3CEkiULS1Z6Pfe3iNbivm1QQYW8N21bkn3dl4jjmz6N4kR1yWWzx
-	 fJR48SqMzNLFGEOVbBvtIX4Rybu9g4zKBkc0zaaEgh+lmLYeumJjEE2MC+NE0Qye4B
-	 FebYcuGsGHuT+UuA2DAntL9BrxQPyRJ4F6UO1Okb3WjgGECYSVf33b7/ickptYIUJV
-	 4NgfdqxsUyGTxEqx0tT89jZkM0VrCHwn+w1YnG32pWXLbr213yrrdNCeF4ePIh+VRl
-	 LwJ6Q3UeKBqOg==
+	b=E/4FEwyROxGxiyBu8w0XrcG89uXdv+/puOwytwSgG8SZb7kIc53yF8d4xNVamS/u1
+	 ewWSmhdeOv4jBvaeLyt/fxk5VmVBG4yfnAyG7vF9yOWiqIXAgWSnXDLx198oNe2hZ2
+	 VD4biYvQK+Fsv2ltDmRW0FedH+/nTCP+UixjiBrb5qRbp89Bu6C9gWQTu9A6FaVAia
+	 /EPcaDCg3UM7Z6R2ep/280347rxn9C63ZTy8Y2rwIX8aFQIfy2epofN8WOjCJYRZk3
+	 +NSi6afi/H7sN3YeGMEUfVGlphztpgM6FWSLj4hdjM42qdfeMDJxnNyZ1uHiAQFPsp
+	 m0T791mx9lLew==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	James Tai <james.tai@realtek.com>,
@@ -51,9 +51,9 @@ To: lee@kernel.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 06/10] pinctrl: realtek: Fix bit shift when configuring RTD_HIGH_VIL
-Date: Tue,  3 Nov 2026 21:29:11 +0000
-Message-ID: <20261103213002.1673560-7-lee@kernel.org>
+Subject: [PATCH 07/10] pinctrl: realtek: Initialise omitted offset fields to NA in config macros
+Date: Tue,  3 Nov 2026 21:29:12 +0000
+Message-ID: <20261103213002.1673560-8-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <20261103213002.1673560-1-lee@kernel.org>
 References: <20261103213002.1673560-1-lee@kernel.org>
@@ -68,35 +68,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In rtd_pconf_parse_conf(), the RTD_HIGH_VIL case prepares mask as
-BIT(hvil_off) for regmap_update_bits(), but sets val = 1 without
-shifting it to hvil_off.  Whenever hvil_off is non-zero,
-regmap_update_bits() masks val with BIT(hvil_off) and clears the high
-VIL bit instead of setting it.
+The Realtek pinctrl driver uses NA (0xffffffff) as the sentinel for
+unsupported pin configuration features.  However, RTK_PIN_CONFIG omits
+input_volt_offset, slew_rate_offset, and hvil_offset, and
+RTK_PIN_CONFIG_V2 omits slew_rate_offset and hvil_offset.  Because C99
+designated initialisers zero-initialise omitted members, those fields
+default to 0 instead of NA, causing rtd_pconf_parse_conf() to treat
+unsupported features as valid at bit offset base_bit + 0 and corrupt
+adjacent register bits.
 
-Set val to BIT(hvil_off) so that the target bit is set as intended.
+Explicitly initialise the omitted offset fields to NA in RTK_PIN_CONFIG
+and RTK_PIN_CONFIG_V2.
 
 Fixes: dcc9334435b0 ("pinctrl: realtek: add support for slew rate, input voltage and high VIL")
-Closes: https://sashiko.dev/#/bug/linux-e7077311-3f30-4b77-844b-1447519d0c84
+Fixes: e309dbd523b8 ("pinctrl: realtek: add rtd1625 pinctrl driver")
+Closes: https://sashiko.dev/#/bug/linux-fbd0bf54-6dba-4652-9418-270b11fb6d8b
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pinctrl/realtek/pinctrl-rtd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/realtek/pinctrl-rtd.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/pinctrl/realtek/pinctrl-rtd.c b/drivers/pinctrl/realtek/pinctrl-rtd.c
-index 2b877099ec85..72773600303b 100644
---- a/drivers/pinctrl/realtek/pinctrl-rtd.c
-+++ b/drivers/pinctrl/realtek/pinctrl-rtd.c
-@@ -473,7 +473,7 @@ static int rtd_pconf_parse_conf(struct rtd_pinctrl *data,
- 		hvil_off = config_desc->base_bit + config_desc->hvil_offset;
- 		reg_off = config_desc->reg_offset;
- 		mask = BIT(hvil_off);
--		val = 1;
-+		val = BIT(hvil_off);
- 		break;
+diff --git a/drivers/pinctrl/realtek/pinctrl-rtd.h b/drivers/pinctrl/realtek/pinctrl-rtd.h
+index 77c30ea76443..86db54ea3ce8 100644
+--- a/drivers/pinctrl/realtek/pinctrl-rtd.h
++++ b/drivers/pinctrl/realtek/pinctrl-rtd.h
+@@ -96,6 +96,9 @@ struct rtd_pin_reg_list {
+ 		.smt_offset = _smt_off, \
+ 		.power_offset = _pow_off, \
+ 		.curr_type = _curr_type, \
++		.input_volt_offset = NA, \
++		.slew_rate_offset = NA, \
++		.hvil_offset = NA, \
+ 	}
  
- 	case RTD_DRIVE_STRENGTH_P:
+ #define RTK_PIN_CONFIG_V2(_name, _reg_off, _base_bit, _pud_en_off, \
+@@ -112,6 +115,8 @@ struct rtd_pin_reg_list {
+ 		.power_offset = _pow_off, \
+ 		.input_volt_offset = _input_volt_off, \
+ 		.curr_type = _curr_type, \
++		.slew_rate_offset = NA, \
++		.hvil_offset = NA, \
+ 	}
+ 
+ #define RTK_PIN_CONFIG_I2C(_name, _reg_off, _base_bit, _pud_en_off, \
 -- 
 2.56.0.385.gac671c819a-goog
 
