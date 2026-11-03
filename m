@@ -1,62 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793666149;
-	b=Mwj+Wl42adpumrDeYnFu9dFijcVsFk6+5tiA61LfOaHqTetStWayoOiUn6NFDFZy/VJX
-	 3FmdUs7woGcutj390+HKUWdSIIQw9RjhLOiBF5C4EBPr0YtqUiHvPje7rxe7jcHA2n9L9
-	 oAwUZq/WlfxM/p2a6hVBXBkL3PbqIyXlu0irPKAGbmXEX3i9QgPjztuGlpQPAxwgXQPOo
-	 +hG2Acz/0vlb35WRn+/XpiYtaa5RTdFUOpx9Qx9j2op5bSAPRNFsk8OkENM3L8Ab+NW0Y
-	 T4w5gI7hMnsP6dqiAao5gTLwjUEW5m4mjxlWRtdOVGDP0Faxf+3BkzNXgA+QPZzBnQA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793666149;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
-	bh=PWx7yD2PbJfwHT7mGuRmzTwLanSHlLuCjcyfxjQ8Zq8=;
-	b=5txW8q/owHmYWsjwMyz9nTP+Qewwo2AzBWZGMVTCcmLHklFpU4pu/xe0viXQh2mRkEkC
-	 qQTC1ctGLfuKHqDbbgLI/1gzfVUCQz7fT9jax2uETHmY7O0rt78cfX1PC3MiNYOvt45xe
-	 mH/nF3IQh4Riy1qyz+NEbqz8F/xo2SpnIN6lwBvlqRS/xiRbvyo8oWylMlxpFJsOETxQ/
-	 tC4FXIiZWQqV4tA/qlm4eADW+kupPgjEOqOmL9pKMyugs6vq44BvTyX6DJ6b9Ntsvl0XD
-	 tNbIzlsSGO8Tz/Ow3UDYdkghWSwwryUvPANKyCBwcVJ2muvclRT2MIiMlUc/JdDg5bQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=david-bauer.net;
-	spf=pass smtp.mailfrom=david-bauer.net;
-	dkim=pass header.d=david-bauer.net header.i=@david-bauer.net header.a=rsa-sha256 header.s=uberspace header.b=vM7c0oWQ;
-	arc=none smtp.remote-ip=95.143.172.20
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793666184;
+	b=F8vxthJpPCL5UgWc5dQxroTfQXn3o4TmGkN6DfpR51y5JI3qnIS+m+hWYB0zkKuruDAo
+	 CyGxuUm5N0AtfcCZ0BNba0GLEQoUd955bPA6EXBIE5xtpZxmIBYEDb3wmq1RwwUmGNIJR
+	 rl/HrJALUjmcaF9IygNYUtJ5nYZtWXSSX1Is7wmvP2I473bIeGtcQOIEMNGMHl4gbOGXF
+	 C/Ur+w5miq7ZLbjVYA84sxE7RcZjHultghwPRu+nCFw6Aq1UJFKTAK1/1GOhXfJG2rWWA
+	 GziKPhaxNqJoYnDAkNZlkYSAgojhOTHeuHdBqSBCrO14sRc3V/OW453ktBs2UqSWBYQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793666184;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=e7BuwJ/66RybXjpd2K3rEloVztj02mOaYcQ/9XCy8ws=;
+	b=kBm8ob5Zukc6Y4RzA2GVWoGZrJJX3ncEs3KO2VowWDEBx6NbaTnqti0X2BxvQm/oDmBK
+	 uEBX7AqP6/Wk6DgZ3l7kkBFP0C4apzAm8hL33Uh4byd2fIMwdoTCBWSNXCq4Z5E/IyhkG
+	 MEmT+LcNx68k0JJCypUdz/2h3ut+VkfHxHw6zQhRE0nuHCvh9EqrAJbhIetwp+APjbaY8
+	 8rGObAzEaTDVxHNIS7iRG459NKwKKgvTjZmPBXvj0LrlECLXcXSrLI+sBtszbD9il7mNH
+	 nNeTS2PiRkA8fSLLUIXDjLHLhnPNVXejLCQiBJVYgsQeBIQUIMvOHg3SktVmI7lT05g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="Uq/7d8mW";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.23
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010023.outbound.protection.outlook.com [52.101.201.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC32606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:35:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BC32606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=david-bauer.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=david-bauer.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB55606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:36:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABB55606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=david-bauer.net header.i=@david-bauer.net header.a=rsa-sha256 header.s=uberspace header.b=vM7c0oWQ
-Received: from perseus.uberspace.de (perseus.uberspace.de [95.143.172.134])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id A7411610D9
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:35:45 +0100 (CET)
-Received: (qmail 3470 invoked by uid 988); 3 Nov 2026 00:35:45 -0000
-Authentication-Results: perseus.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by perseus.uberspace.de (Haraka/3.1.1) with ESMTPSA; Tue, 03 Nov 2026 01:35:45 +0100
-From: David Bauer <mail@david-bauer.net>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH mt76] wifi: mt76: mt7603: track consecutive failed PSE resets
-Date: Tue,  3 Nov 2026 01:35:33 +0100
-Message-ID: <20261103003534.176866-1-mail@david-bauer.net>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Uq/7d8mW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dxIj9jMhqHJpOmTgoTjaiL5VejSFcPg9XI3HTJVeQQTeQJqEZMNVUsMRRkwvfUZ0DhMmfEXjbk2ShLPGPT3WaF27UDEfm+Yw2JSBX2wG1zQDz/NDA60HjoBMiXkpBBQAnEaC1RhgapMn1lvxh+v5+5ndO+wKuQjF6STSQrJuG9HXlLOhONd/6E61rruvobMYeoLbPGHudzl//XZacvMIFDzC6lkT+WS5QzVh378PB5aHwEqsRjOyZRsdTSUn2NARkO/wfCAVn/MfDZgdOYNzcP7g4NVz1NW5loRzcg66iZbd74yqJARDwr+Pb/WTqPNoJGg0wy5YvtUPxX8nG9eFZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e7BuwJ/66RybXjpd2K3rEloVztj02mOaYcQ/9XCy8ws=;
+ b=EXHwZwgcv170bce/RSHpiKx2CD6lUXBYw5m2ku0yne/So88kBRvp7jToY54FaebLsJfSwWgtAOoTdycmGNMTBd8+x5M7hJmCQG9XjdElIR55IdgVd00rqNjSUQqG9sTzarYqc1TgJQYm52GhI/sc/Zn3u1Wzk+BkUYm2FV7oHdL/TDdpk5C4H5riQZeg81Mp0uQPAAWOZpDwTH5ILL8vBRYWDgJj+YAPZTPSnIJNUz0NpEAusdn77CU8X71b+86BNgA1EyBcsB/g0JL94bTauOsOyjc9yhifesft3Ky9kB6LAHqG3Rjn3nV8xju3JmNskWmHBwcy28eZSfyijaeUiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e7BuwJ/66RybXjpd2K3rEloVztj02mOaYcQ/9XCy8ws=;
+ b=Uq/7d8mW79UJRtQDePP46qj5toC0YREL6au0JCoke7XbLW8Qxh0Zev5JR56FvhtPyd6cPVWaMESZLMN2FzYQjYAlB/+TJynmTRNmbeo+U72R3Ge4710S2Bt86XNPKLtULPhQiojLWwDyJciJ0dZ6Gs63w4PZ3lJZ+ArOcyvWOi/F+Jlrq8qagzUsi5g7YIAwKxl3U70JZT5aPhVPttJZHFaOOlwD9q75U9cJK8O70Kp20/lyYCBo8N1EaKdYrt9d72yBiY7TD0RYIgjgUzgPNeeLpC8zuGDkdvEbEpj8AQ74f7WTnxsTy/rB0zjOpeA3mLpG4w+rgO+Ax09x0rsBzA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by IA0PR12MB7749.namprd12.prod.outlook.com
+ (2603:10b6:208:432::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Tue, 3 Nov
+ 2026 00:36:18 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 00:36:18 +0000
+Date: Mon, 2 Nov 2026 20:36:13 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"Hansen, Dave" <dave.hansen@intel.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"kas@kernel.org" <kas@kernel.org>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"seanjc@google.com" <seanjc@google.com>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"Peng, Chao P" <chao.p.peng@intel.com>,
+	"Verma, Vishal L" <vishal.l.verma@intel.com>,
+	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+	"Tian, Kevin" <kevin.tian@intel.com>,
+	"hpa@zytor.com" <hpa@zytor.com>,
+	"tglx@kernel.org" <tglx@kernel.org>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
+	"bp@alien8.de" <bp@alien8.de>, "Gao, Chao" <chao.gao@intel.com>,
+	"aik@amd.com" <aik@amd.com>,
+	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH 09/15] virt: tdx-guest: Capture the TDI report during
+ device lock
+Message-ID: <20261103003613.GD274202@nvidia.com>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-10-zhenzhong.duan@intel.com>
+ <edafb4a0-ba6d-4fc1-a61a-801888e31a9e@intel.com>
+ <IA3PR11MB9136663EE7AADEA4768D23E9926F2@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <b4fa1858eb35367d0ad5388823017a340d81fda8.camel@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b4fa1858eb35367d0ad5388823017a340d81fda8.camel@intel.com>
+X-ClientProxiedBy: SCYP215CA0072.LAMP215.PROD.OUTLOOK.COM
+ (2603:10d6:300:149::11) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,118 +119,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: /
-X-Rspamd-Report: SUSPICIOUS_RECIPS(1.5) BAYES_HAM(-3) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -0.1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=david-bauer.net; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=35HUvqpd53EuKLwxCx6c9zVK+zSfoB8JoaLgSV2muLQ=;
-	b=vM7c0oWQsSVeeVPhrVjietOxfWaQDUpeCk8BMLGixTIlpccX1fSPUGGVSU7y68ByWHrDeQGWhm
-	K374Uc8rMn0a425vxRBN5WygGiiC7WDIdtf7X3y0czMsKc83HFlnCbqENzWniHs/Xd03Aq2dhsvm
-	dvcWmFUChQplWd2P0pNiKH3d2iRjNKJDmXEnZCtZ9r2kTaNQfHIz6Lc+qGueQnLbKBXnQP4KVVix
-	f9mqpieIHm3nUFgY/0CQDWrc4CwXvf5I7AnygKBACik7JVF9nhMwgHKxwbHuBvLVXGgi/B9swv7d
-	PtyMLVy5fvx7iEMb9O1IPfgYmaErymvKu5VR+Rejx0kWxUZMhkyEdtaMfTKsLMALLA4sRoM4gvwB
-	X3U5E9MmzcsgZHz27Sgc+KZ4VfjsOe02MzQmMi03uI/yciqB1aVUHWObj9jxlcNq1te0UNCgZYv9
-	kj8Ab/G2gw+cdpi8zwPnpsEYAzBYjw5Sf5PCR1gNZKcakxJ5ZHn62xm8hnl+GdnGCCLcw+F580Ue
-	MM39KcP1BElYyzARu88BQvq6CPdQG14P8VZsnjJYBo/KgTDIzMd23XeTpglIaWRZ5BBYTn4HqKGP
-	RLV1tRZPLADsnnTtxsgjqem0L1+eRz7bfTbOmqj++D90JUD8vrMOn1aCibepeHTAfVeEN3kYFN7D
-	Q=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA0PR12MB7749:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5f7fdae-4125-4bfc-6f4c-08df39427981
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|261102123227099003|4143699003|261028144727099003|261022105027099003|261026121527099003|261021121427099003|11063799006|261026140227099003|261022075727099003|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	yDsAkKXxBfCFWBbxelmj1gQ3uHX9MXiBJN5t8IiqLOoXWP2n43pxfS+f1HOSpewwOL2PQDO6VhUZkO0EdPenHlcwI77H/LmLyu2RiukFIDhtlbTaNUUSpzLWbk0sabayTKHtRH/MHMxY3ACjj52NQKVdVUzzbPo73+dYA7zh/yzQeEdgtRoQ2k28/0TKXKViRbzaxWBbDBlHHIZuYoFj8blCGtgpG0ibnALqv5hBEY9ufLRbxYYHX8Qxp6xk9Q9tvFdIINZrjDrh0KFkckzYU5p09obLWbVQz5aNRyy23qtP1+MBrwV298ILb1sOeb7CIjX8Lwlr4m8bB3bNMqN0XH80ArrpFBRS7+NUiK3E2DsOSSA+AS/O3KW1/tWOIoYFuP1237uDH6cspinqwtE84yS4zPAMnzKQB8I06sQNUggKG38StTGSw4FjlMfGsL4NsvPbwYjRDOSmiDoDbITLOfHNDB12RptVuw1R5AcCX43l359u2Ms6NJMjpPKI41HQcQ6KY03YQBjkO43MmtrPEBhqeYsrH3VD3cnG9Xv0taD6RHxX2QRFOjsz3yJK6cnmoaee0XD1hDZkwz8W1vYzU2nEvFOQu5Cz6wcWFGp2ODPRzIYI0tuEHcpataaAHqGBxk1GYubabj8Dgc+y15zjVZ7dE2aOzLXjZ+TtG4oR/V0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(261102123227099003)(4143699003)(261028144727099003)(261022105027099003)(261026121527099003)(261021121427099003)(11063799006)(261026140227099003)(261022075727099003)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Xj9Iq/g1JJrDk5X54mvRUnZU3usVpS0aRbmYQtQ/Y+Qml0IOUTUrxtIb1gQQ?=
+ =?us-ascii?Q?/TMFqZsOCP0w2ur9rWlqv1Prczey6iXaAwvnyZUTyX4tNCBYdZid8P3jWSTE?=
+ =?us-ascii?Q?T+oW/91x+15PsKG0l1WDxHXaX6yzGf21nJAdUY7v8KY7ZML+2B4/Qk+wEYvB?=
+ =?us-ascii?Q?Adw66UVhBtoxVgDrsQcInjc/7Kll2mV8c5nUOmsqyRQ5bUG88z4U1O8GQEEv?=
+ =?us-ascii?Q?uSU6nfO/qfa+L5N51ebMCJHbaGozCSuoTcN/9YlxHnwT+20wtjNLze1Roy39?=
+ =?us-ascii?Q?UYPhFAy0NlxbwsJJMHnbUksBGwWSauCvAnEp5pZBRfgNXhlFAW21Vg2JKRka?=
+ =?us-ascii?Q?hXTtZka9+S5UsyRqU6BrDOCMXJk9b7OhZYjkYvnXPJzJL4ByWkIUfdFWfWHB?=
+ =?us-ascii?Q?itN9V0k517qDpIRQRbNR7qOnv2lUMnXC3bdoVOP06i2KTZ8XRnkxPZ42I4GW?=
+ =?us-ascii?Q?Wof0JqhHMpPMPePf19OJBBiH51Bo2zDQIYZSDXatXS8VMKD7T4l0qHQS7Fld?=
+ =?us-ascii?Q?sl0RDqsSD/DFHjRjcxMwHd7MsAgIgbotdlg5F/C0QiT7hnzV3EyU9JV+WYwq?=
+ =?us-ascii?Q?36aTz6xT5widaduJII5rBD5NdzSCS8PBAXkr0clxfodfkSmPJ/kQo+NQmTCx?=
+ =?us-ascii?Q?pONYxQEO6X8RM3aG6UkWnhOM2JZ9jJ7zaxCCicna/+GyqO7ZdJXyyA7Hm9IC?=
+ =?us-ascii?Q?6Xfd+VfZ84YuJ/NkewbIWgGk4BmV2LrL7RqKLCMjTablVTe3vL8reTnkxqzx?=
+ =?us-ascii?Q?peVxZmlnzfiUx0/iCzLfRDFoWs8a06JqTDSANWaOsnCPXYqNYJmksOq4lTG3?=
+ =?us-ascii?Q?8hGxTaCQs8coIQleISTWRt6sU076mw4jjdVpk9RjoSaRk5kEy8R2XzNS0ndE?=
+ =?us-ascii?Q?yWx2XGALv7hozPd4k1pEafXmZ6EkRW2KrUrJnOVzdGirzny+8KoYq5yox+fN?=
+ =?us-ascii?Q?ctqV0bS7KItWKho141H5Hb98O6j6doWqn1HgvsTi0XAkZgDLXp4qp857vek0?=
+ =?us-ascii?Q?0Fo1e4MiIId+bwAtlH2dRakIIHX8JH5JpIkR+Hs+GL5LZ8/SuJjx/hOnVKRA?=
+ =?us-ascii?Q?/oQkPiWg5Z9A7q+qS5+2osUN7v0mjGZON3I5DwbaGRXu2tvd69t14o4kLQnk?=
+ =?us-ascii?Q?GuDOnb8Kjk1lb1x1HY45yrBacxIut9lqKFtbT4rF7+bCEG63GrMHIBzMrduZ?=
+ =?us-ascii?Q?QbEJ44JQX/ubbjzA7D8GCkRacMX3kKOiaysclb7oY0HlhtooXAJZzFApkmRw?=
+ =?us-ascii?Q?V2U6XWeX48ifFgGu68oG14QoLnGYQaBYn2zBzrm3YH8JV7T2sT26RHxOYYbM?=
+ =?us-ascii?Q?FzyhHgHAW4qt8PmKvvv4CPkXA4DOEOhzIUTr2te7AYRBMhuVEM1vROeSfZ4+?=
+ =?us-ascii?Q?kRyOdpDyIJ21D8L/Qt4koQA2v6v5tMwPulWKqSk6FlG89rs7eNxStr49E/II?=
+ =?us-ascii?Q?HLbgwBIx/8UmCIJa7FM25i2XA3rRvroGMmHZ5DFYVCTfpqtYpkFqf75NCfPe?=
+ =?us-ascii?Q?VQ8JOl7von9+UPqRx00ZURURnEsIZIjTAnw02m0fQpNXcfif4QiNO/bzSJXX?=
+ =?us-ascii?Q?pkaWZoJQFOKWalJ3Yu6ijucyJXL8vw6Oo7wd2luw51lXtOz0OiWMRqI3RW+H?=
+ =?us-ascii?Q?o6oy6NY9njiTiyVQaO+xI76j3QFdiOMS031lDUbVSzxOEGd/hFjxmGcoKKgr?=
+ =?us-ascii?Q?k7wIRrLpf6RBVw1Hm0PbbGJQM8neQ5YeQvq1JPAA8Fxseb+J?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5f7fdae-4125-4bfc-6f4c-08df39427981
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 00:36:18.0127
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jb9gKzSYM7vAoCray5RTLVdQjhwtMSMoEgtWfTPN+rdULCnYR9rSU4/TzSJYzuZX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7749
 
-The current PSE recovery process uses the global reset cause counter to
-clear the MT_MCU_DEBUG_RESET_PSE_S only every 3rd attempt. The counter
-then wraps around.
+On Mon, Nov 02, 2026 at 09:19:00PM +0000, Edgecombe, Rick P wrote:
+> On Wed, 2026-10-28 at 03:23 +0000, Duan, Zhenzhong wrote:
+> > > -----Original Message-----
+> > > From: Li, Xiaoyao <xiaoyao.li@intel.com>
+> > > Subject: Re: [RFC PATCH 09/15] virt: tdx-guest: Capture the TDI report
+> > > during device lock
+> > > 
+> > > On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
+> > > > Retrieve the Trusted Device Interface report through
+> > > > TDCM_OP_GET_TDI_REPORT after binding the device.
+> > > > 
+> > > > Store the report in the PCI TSM device evidence object and free it
+> > > > during device unlock.
+> > > 
+> > > It doesn't talk about why the report is needed, and why it needs to be
+> > > stored in
+> > > the evidence object.
+> > 
+> > The report is used in next patch.
+> > 
+> > With below patch, I think we don't need to store report it evidence object
+> > in next version.
+> > 
+> > https://lore.kernel.org/all/20261005070252.84810-2-ankita@nvidia.com/
+> 
+> You don't want the reviewer to have to piece together a puzzle by holding a
+> bunch of unresolved things in their head as they read the whole thing. Seems
+> like a valid comment to me. But the solution is not always just to add more
+> things to the log.
+> 
+> But I think we are still going to break this series apart into subsections for
+> getting x86 acks. Consider what could covered in a subsection coverletter too,
+> for designing something with overall reviewability.
 
-This does not allow to track the total number of failed PSE reset
-attempts. Introduce a new separate counter for consecutive failed resets
-and clear the bit based on the value of that counter.
+I would prefer the arch code only contain enough to do the very low
+level interface with the TDX module.
 
-Keep RESET_FAILED reset cause as a cumulative statistic.
+Everything related to SPDM Should live in attestation subsystem, and
+we are not likely to be having every arch duplicate the object
+"caching" either...
 
-Also add a short comment about how the reset procedure handles the
-failed case in terms of the retry limit.
-
-Signed-off-by: David Bauer <mail@david-bauer.net>
----
- .../net/wireless/mediatek/mt76/mt7603/mac.c   | 21 ++++++++++++-------
- .../wireless/mediatek/mt76/mt7603/mt7603.h    |  1 +
- 2 files changed, 15 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7603/mac.c b/drivers/net/wireless/mediatek/mt76/mt7603/mac.c
-index fa0bf9a201ce2..549b0d3358f68 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7603/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7603/mac.c
-@@ -1342,7 +1342,7 @@ wait_for_wpdma(struct mt7603_dev *dev)
- static void mt7603_pse_reset(struct mt7603_dev *dev)
- {
- 	/* Clear previous reset result */
--	if (!dev->reset_cause[RESET_CAUSE_RESET_FAILED])
-+	if (!dev->failed_pse_reset_attempts)
- 		mt76_clear(dev, MT_MCU_DEBUG_RESET, MT_MCU_DEBUG_RESET_PSE_S);
- 
- 	/* Reset PSE */
-@@ -1351,15 +1351,22 @@ static void mt7603_pse_reset(struct mt7603_dev *dev)
- 	if (!mt76_poll_msec(dev, MT_MCU_DEBUG_RESET,
- 			    MT_MCU_DEBUG_RESET_PSE_S,
- 			    MT_MCU_DEBUG_RESET_PSE_S, 500)) {
-+		dev->failed_pse_reset_attempts++;
- 		dev->reset_cause[RESET_CAUSE_RESET_FAILED]++;
- 		mt76_clear(dev, MT_MCU_DEBUG_RESET, MT_MCU_DEBUG_RESET_PSE);
- 	} else {
--		dev->reset_cause[RESET_CAUSE_RESET_FAILED] = 0;
-+		dev->failed_pse_reset_attempts = 0;
- 		mt76_clear(dev, MT_MCU_DEBUG_RESET, MT_MCU_DEBUG_RESET_QUEUES);
- 	}
- 
--	if (dev->reset_cause[RESET_CAUSE_RESET_FAILED] >= 3)
--		dev->reset_cause[RESET_CAUSE_RESET_FAILED] = 0;
-+	/* Limit the number of consecutive failed PSE reset attempts.
-+	 *
-+	 * After 3 consecutive failed attempts, the reset limit is
-+	 * reached, the counter is reset and the device will
-+	 * return to normal operation.
-+	 */
-+	if (dev->failed_pse_reset_attempts >= 3)
-+		dev->failed_pse_reset_attempts = 0;
- }
- 
- void mt7603_mac_dma_start(struct mt7603_dev *dev)
-@@ -1481,11 +1488,11 @@ static void mt7603_mac_watchdog_reset(struct mt7603_dev *dev)
- 		mt76_queue_rx_reset(dev, i);
- 	}
- 
--	if (dev->reset_cause[RESET_CAUSE_RESET_FAILED] ||
-+	if (dev->failed_pse_reset_attempts ||
- 	    dev->cur_reset_cause == RESET_CAUSE_RX_PSE_BUSY)
- 		mt7603_pse_reset(dev);
- 
--	if (!dev->reset_cause[RESET_CAUSE_RESET_FAILED]) {
-+	if (!dev->failed_pse_reset_attempts) {
- 		mt7603_mac_dma_start(dev);
- 
- 		mt7603_irq_enable(dev, mask);
-@@ -1920,7 +1927,7 @@ void mt7603_mac_work(struct work_struct *work)
- 	    mt7603_watchdog_check(dev, &dev->mcu_hang,
- 				  RESET_CAUSE_MCU_HANG,
- 				  NULL) ||
--	    dev->reset_cause[RESET_CAUSE_RESET_FAILED]) {
-+	    dev->failed_pse_reset_attempts) {
- 		dev->beacon_check = 0;
- 		dev->tx_dma_check = 0;
- 		dev->tx_hang_check = 0;
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7603/mt7603.h b/drivers/net/wireless/mediatek/mt76/mt7603/mt7603.h
-index 5b0ecd01aad95..47f5be44292d6 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7603/mt7603.h
-+++ b/drivers/net/wireless/mediatek/mt76/mt7603/mt7603.h
-@@ -155,6 +155,7 @@ struct mt7603_dev {
- 
- 	u32 reset_test;
- 
-+	u8 failed_pse_reset_attempts;
- 	unsigned int reset_cause[__RESET_CAUSE_MAX];
- };
- 
--- 
-2.53.0
-
+Jason
