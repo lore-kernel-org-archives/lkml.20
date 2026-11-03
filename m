@@ -1,79 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793739651;
-	b=5Ir/6G+vGUq2LquEsLsNOpuCshUSqYPJDev4K/1q1+dtEjNDB8pmDMvjxRWEme6FzcWW
-	 UEb/X6OmnOIcdGa9GdsnVivrNF5uCUStwVXuGOqh2E2VJF+l5wOoN1NY8vRKB4zehwjud
-	 jwoCjZIbtWNgrczVSi7AFupnMLKD6m8I6cIouYns+K/V6Bj9qZP5VrnH16usZLRGQNGFr
-	 iInsQ8XIamWQnapF3umJFvo75PoGvS780E19dB9vYpvImv/rN7hwPi95re530ELdyJg7F
-	 Csspk4Swt/jGiiZ0RR8JEsI8Bo2w9YlGbB5C1Yr65G9rzfR8xWsxVUZ/c6bwt7SxXkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739651;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=wHJUzXmrAF9C150R57fNbacGrKg8aH4pOauYcunkpBc=;
-	b=dpSQaTK/LQUfilYUfu9agST97RiUWhroTl+9lLzzPMSEb+piSNxYl4tkOZGxLIDE9bSr
-	 foUP/yv8KEYSLOVsLpHSXagEdo8ovXubM7iYQ+eHrD1LFX9Y9jSxsv+fTlwJ1NkWq06FY
-	 WuGojT95/p/DJStIV8Ic52vfNk+mj3Ty4nNbMBW2Hj7ufQzD4ariY3fogWj9GlE7/2+Ni
-	 iKsbs6n5jZSeGjMGhu/momVdsh3RqOtIBsogfatMms6Z/Ay1u+0GK/1Z1TZ3POyKgIvvU
-	 KbThHxp8EGk1InEi3XubMAv6VctDL6838JMku0skM4z/c8DqRtZPh/FSvOCuuAKTeMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDmzrH7j;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.189.236.29
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793739713;
+	b=o+wD+ag7GMEor+Aygmuec80Hc985nCmO/uBosn1eHTJDH1FndfErx7BJY2HM1Znpi9nB
+	 GITPSuGbJCMhun1hIQTzmS2zgaYCohw6TK8WM/c8U4UtLbXqtwTtK/DjPaxu2ObEF1jS8
+	 C/fRTnradNaavW4BKeJkD8oQDAn79iKfrW6WVJSaqjAVNhBee83yzAkNcSvieatToDgag
+	 TSELjhIEVZToy0CsbsydHyWV1mrYbq1XR8Ostzg8IE5X6bX/PcSg5LKib/HnNIleZNCX6
+	 m0tKVddbpPvCjepqxMLm+4TF36KcmgIYlkYBdIEhVOAz2UfNgzn5QTe8IyT+8r5EnvQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739713;
+	h=DMARC-Filter:DKIM-Signature:Message-Id:MIME-Version:From:To:Subject:
+	 Date:List-Unsubscribe:List-Unsubscribe-Post:Cc:Feedback-Id:
+	 In-Reply-To:References:X-CSA-Complaints:X-MJ-Mid:X-MJ-SMTPGUID:
+	 X-REPORT-ABUSE-TO:Content-Language:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=99BNe2ATmoiv6MkGfulWJTv1Uz34GDHfOl50x43wT/o=;
+	b=mf9e4wxpZ/pw1xRkDKymfr6xXp32BrfB3fzrl80z01BjDteVLMORYlavdSh6mDEWfTXf
+	 D9maRIfD4c63zjRM0o/9aXg22uLXuX2mtzH4zpAR51HogPmeqVT3aeFJsDIxwFnMtMz03
+	 orPwGqP68fIr8OezmZ5yqJNPogePsc+uqAGe4EtLDL2AxpGF1Z/KcOtNFWf+TUwhhg5B6
+	 98Bc5kXMPzfAJe/UCRxwEZJZwX/l8sQHftVvh92hUli2vYBakJtKFwAaBaNC9r/VIaqF+
+	 dWNSoziofYUskM3/WRxPDrIlGiAqOh43dR7pDjYnIfonYPNTYKOi3I1/jZGcM40s6SQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hit-on.com;
+	spf=pass smtp.mailfrom=a665032.bnc3.mailjet.com;
+	dkim=pass header.d=hit-on.com header.i=technosf@hit-on.com header.a=rsa-sha256 header.s=mailjet header.b=uc96wAem;
+	arc=none smtp.remote-ip=185.189.236.29
+Received: from o29.p25.mailjet.com (o29.p25.mailjet.com [185.189.236.29])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75CB606A324;
-	Tue,  3 Nov 2026 21:00:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7DFD5606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:01:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DFD5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hit-on.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a665032.bnc3.mailjet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDmzrH7j
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793739650;
-	b=mYesL1myPZGvUVULRmgcNIrdN4oShjQDfGH8gAkoLB2UAL0SnS8QBqQA2l+lQ51c/CUx
-	 eJm/aW3iQS/R3seGf153siMGdPzf1GKArLNAt61gcHY/Op1mExSZnCjYHoT7YfoYjhhqi
-	 c0rUCjfBg3Lvq2RAIpF1HKhCJjGk+vfMeSaZCPoeUCFkHDXPgaRcdo27Vn9nzPtZwTzWZ
-	 4v420gHEmFt5VRy5WuP/typ5TFAPXrBFUnqFgoqW7xMiaYQ1RMDsDUAjqrZxYC8hTPpaL
-	 9pEl1vjLoYWsQv/ksPM5wmhF8Bxtg2sIJEukZsl/kJ3AVFLSrOPLrKlgBkHYeIcE9ig==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793739650;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=wHJUzXmrAF9C150R57fNbacGrKg8aH4pOauYcunkpBc=;
-	b=Q5fR2i0knS07LPktU+AKdmzgfHZFR9H2e4kHycQG44tzzlChoUxCFEfc9JUApK4MuMpF
-	 rilZKyK63OsE9sMhVeeXzeEC1EQBQFD9qKOvghVmfRfaFVXg1RDAx9v8aeUOjzAqx/eRF
-	 sRcr1xh1sd+X6taJtFQ3fVuStZ6HiZMMcWnQf4ZxGabvc86/0GRKNriqByDpQ59HDw+b5
-	 0E54jnJgQ92AwNoDKtIC8VyvDfgLK4qFQ3CmeHtibEcOTxNLB9LObGpUeYrGSOhNq9nhj
-	 sv9LHhpPfL7V4d4x63foKGlL/uhA1AlM3UXCjwgbhC4k9Q4g+ejeJBfy9n7zUSYbcRg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EEFBA1F00A20;
-	Tue,  3 Nov 2026 21:00:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793739650;
-	bh=wHJUzXmrAF9C150R57fNbacGrKg8aH4pOauYcunkpBc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SDmzrH7jCpkAPutlRcigOiRnlE0QoFf9Ww5DcM8AOIlsuwsQNig5d48FH8qXds9GU
-	 pLxQWQagZ58xiHkvYuCOe1u1dxeV3BU/VAVtS65thyUFe5utqmNjUdZ2kmrSJfekdd
-	 E9OR4KoSqZuuD5CovsyXzSWa2/Z/HWiP7hAdgE4GvJczYEtTH66alKOHidAlofre/U
-	 GEdUO4Z0DGze8gKPTV7Zr7JBWprzc+pTHhffUFQm2HBy/AdVZgmA1tbH43J0OYMCq6
-	 LnnVY/jwQNg/Ko4Tc1bOhgTF18yZPT0s59IviN5W01LeUk/xDFcUJrjsiJK9ZiYzrr
-	 TlOHpB5lVDOfQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5AB1E46B12;
-	Tue,  3 Nov 2026 21:00:49 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 03 Nov 2026 16:00:49 -0500
-Subject: [PATCH v2 1/2] mm/memory-failure: don't unpoison a leaked
- raw_hwp_unreliable folio
+	dkim=pass (1024-bit key, unprotected) header.d=hit-on.com header.i=technosf@hit-on.com header.a=rsa-sha256 header.s=mailjet header.b=uc96wAem
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; q=dns/txt;
+  d=hit-on.com; i=technosf@hit-on.com; s=mailjet; t=1793739710; x=1793746910;
+  h=Message-Id: MIME-Version: From: To: Subject: Date:
+   List-Unsubscribe: List-Unsubscribe-Post: Cc: Feedback-Id:
+   In-Reply-To: References: X-CSA-Complaints: X-MJ-Mid:
+   X-MJ-SMTPGUID: X-REPORT-ABUSE-TO: Content-Language:
+   Content-Type: Content-Transfer-Encoding: To: From: Sender:
+   Subject: Date;
+  bh=99BNe2ATmoiv6MkGfulWJTv1Uz34GDHfOl50x43wT/o=;
+  b=uc96wAemX5lmwVp8p4uW9B2vbZJTv/rCnD79F3jalIDQNmL3xFsHTthna
+ +2udtCggTIP0QzqqnNqYjgPBtR8iwRekytKkAiLcJ8aU3NgEjP07yJvjwCJJ
+ ahLKK8YSMrDPFntmmG6VF5t+ip2n14LIJ1OhWwWzsfBBJEB12HxDb4=
+Message-Id: <52ea1bd5.AW4AAKmzGcwAAAAAAAAABIOZQb8AAYC7iywAAAAAAAolyABq6ku9@mailjet.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,82 +56,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-hugetlb-hwpoison-leak-v2-1-98085750c145@columbia.edu>
-References: <20261103-hugetlb-hwpoison-leak-v2-0-98085750c145@columbia.edu>
-In-Reply-To: <20261103-hugetlb-hwpoison-leak-v2-0-98085750c145@columbia.edu>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Matthew Wilcox <willy@infradead.org>, Jane Chu <jane.chu@oracle.com>, 
- Zi Yan <ziy@nvidia.com>, Kaitao Cheng <kaitao.cheng@linux.dev>, 
- Mike Rapoport <rppt@kernel.org>, Mike Kravetz <mike.kravetz@oracle.com>, 
- Yu Zhao <yuzhao@google.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793739649; l=1959;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=QKydKJ4ULQzr2TWbUaUZ31FxafHdsfMjukKm4+Y/tFQ=;
- b=SJLl5itZOXZdXocudWDHOPpqGm7WPscqvj34RDOCSjv1/dQqDbfcDehqvMdV2OWf4dkqSsplW
- 3LJLVsPFS7OBgAZhQlhMVCsD6I7lz3GBvWfObDnz22fxvnZpxoyC9Ux
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+From: technosf <technosf@hit-on.com>
+To: Marco Ziliani <rylos78@gmail.com>, Daniel Scally
+	<dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH v2 1/3] media: i2c: ov5693: Program the mode registers
+ on stream start
+Date: Tue, 3 Nov 2026 13:01:46 -0800
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>, Tony Garcia
+	<tony@loafecho.com>, Simon Kruse <simon0x+git@proton.me>, "D. Manresa"
+	<dmanresa@gmail.com>, linux-kernel@vger.kernel.org
+Feedback-Id: 42:665032.636407:MJ
+In-Reply-To: <20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
+References: <20261029-ov5693-fixes-v2-0-2526d7b13030@gmail.com>
+	<20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
+X-CSA-Complaints: csa-complaints@eco.de
+X-MJ-Mid:
+	AW4AAKmzGcwAAAAAAAAABIOZQb8AAYC7iywAAAAAAAolyABq6ku9JxIsQMyJSzqkaz6P73m1JQAJtfc
+X-MJ-SMTPGUID: 401ba90e-fe83-4148-aa59-d4bdec013fac
+X-REPORT-ABUSE-TO: Message sent by Mailjet please report to
+	abuse@mailjet.com with a copy of the message
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-From: Mani Tofigh <mt4022@columbia.edu>
+Tested on a Surface Pro 8 (Intel Tiger Lake, IPU6; front OV5693, ACPI
+HID INT33BE) in a 7.2.14-based linux-surface kernel, with patch 1/3 of
+the v2 series applied to ov5693.c. The tree also carries
+linux-surface/kernel#180 (MIPI clock lane gating), loaded with
+clock_ncont=3D1; that is not in mainline and is needed for the sensor to
+stream on this machine. The in-tree 1296x972 and 2592x1944 mode tables
+were used. Raw captures from the ISYS video node (5 frames per stream),
+one module build with the patch and one without, each run from a cold
+boot with no gap between streams so that the sensor stayed powered
+(autosuspend delay is 1 s):
 
-If memory_failure() can't save the raw error page of a hugetlb folio,
-it marks the folio raw_hwp_unreliable and unpoison_memory() refuses to
-unpoison it, since we don't know which subpages are poisoned.  Once the
-folio is freed, __update_and_free_hugetlb_folio() leaks it on purpose.
-If its hugetlb flag is cleared by then, e.g., without vmemmap
-optimization, unpoison_memory() doesn't see a hugetlb folio anymore.
-It treats the leaked folio as a normal page and clears PG_hwpoison on
-its head, while the poisoned subpages are still unknown.
+- Without the patch: stream 1 (1296x972) delivered 5 frames; stream 2
+ =C2=A0 (2592x1944) timed out with no data and the pipeline needed a
+ =C2=A0 reboot ("stream stop time out").
+- With the patch: the sequence 1296x972, 2592x1944, 1296x972, 2592x1944
+ =C2=A0 delivered 5 complete frames of the requested size on all four
+ =C2=A0 streams, with plausible image data in each.
 
-The leaked folio is still a large folio and raw_hwp_unreliable stays set
-in folio->private.  We now check it on any large folio before taking the
-page, so unpoison_memory() refuses the folio whether it's still hugetlb
-or not.  With the fix, it returns -EBUSY for the leaked folio as it did
-before the folio was freed.
+In both runs the CSI-2 receiver logs "Transfer FIFO overflow" and
+"Inter-frame packet discarded" errors at stream start; they appear on
+every stream on this machine and are not changed by the patch.
 
-Fixes: ac5fcde0a96a ("mm, hwpoison: make unpoison aware of raw error info in hwpoisoned hugepage")
-Reported-by: Miaohe Lin <linmiaohe@huawei.com>
-Closes: https://lore.kernel.org/all/ae6058ae-3703-a1d5-d82f-4102b46f227b@huawei.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
- mm/memory-failure.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+The test scripts and this summary were prepared with an AI coding
+assistant (Claude); I ran the tests on my Surface Pro 8.
 
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index b215312f261b..496eacbefdf2 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -2809,6 +2809,15 @@ int unpoison_memory(unsigned long pfn)
- 		goto unlock_mutex;
- 	}
- 
-+	/*
-+	 * A hugetlb folio without reliable raw error info is leaked once it
-+	 * is freed, and its hugetlb flag may be cleared by then.  Check the
-+	 * flag in folio->private, which stays set on the leaked folio.
-+	 */
-+	if (folio_test_large(folio) &&
-+	    folio_test_hugetlb_raw_hwp_unreliable(folio))
-+		goto unlock_mutex;
-+
- 	ghp = get_hwpoison_page(p, MF_UNPOISON);
- 	if (!ghp) {
- 		if (folio_test_hugetlb(folio)) {
+Tested-by: technosf <technosf@hit-on.com>
 
--- 
-2.53.0
-
-
+=
