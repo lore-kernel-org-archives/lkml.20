@@ -1,60 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793733913;
-	b=Rex3HxOtCPZnf6lBVhF9HNZLUCMQU8P2/fSaoQKUL78Q9q+pltler1QO8mIKrSUz9I4U
-	 mC4+cnbxA/RAp+XvUwrUgLgga6pLVZNBXv6U6LtP+cnl9vUZd3PqMxav7XHKY0Vav48A5
-	 m6zwBbpjxTlE1X7sHN2jxUD2npxALsEj9vS20GwJj6QfphFayBPN/baiig+cfvfsXuo9Q
-	 6hCjlZWe6sPd/HHHIuZCzYOn3QBrZV9N4rs2X7Nj3JzcXJUYmhDUbC+jq4DENiNdZH/iw
-	 5Cgm+ShlP2wgUqQlTVPdNlTpAqBT7GBOXEnFNr34jpUTbjYFz7ib2QxOoMpi2dv2Y5Q==
+	t=1793733970;
+	b=gDT9OmvHuZkg/iVSby/A8AD2AbnMGQ+OiWscWUy6kRA9ekV/n7uXP3TBKg0T0ynJbzej
+	 uWWJhiaxeFn3kBFt6EefnDd0LGpwl9hXjNpinryqTogyFpQf1e2d25mARsyomUhR1CPdG
+	 dhvSLtliKIyYE6DbLAuRuPdkidnIulrpGgqdreylyZuqDQX2WZ306XQnrA3dzdKu1dn0I
+	 EU/HKfCpZkWSxWwMafMILLWhIFciJc4OoXzRjuWRzbIIaRIn943ZZ1I/Sb9FR9q6wHYk2
+	 vKKaHWUXfggT1m+uly4jfPANjM8exp6AJYe8UJ2W0Jj/Buyxf9vhmI/vOipypIX8fnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793733913;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=7PUwfrJVawcXLdfu41PY6uZ3y3+L4mK5joYpI+grGjw=;
-	b=ryTopN5z+zIUccE7+QRe++pLGSDpZSn3anEVeqwRkX8OIQjmHmZJc2rfDIbRyGCvpqPx
-	 Pkl3M2aQewmGugQujJ2UKR0LPjJZzSBO6u4ZMHE9rKQ9da/CtOKyiTmLqPUznNrsd7XNg
-	 Q/xiwcABYT6/9XgpsTs+wSoIYKcyZRp0qzPHWVRCiMwNVde4kjDZfmztUhMbyJlS361ip
-	 cwUvHlAv+WnLuYDnBD852n+b/AX0YfQAFguTyUWkEQFHwce7VysCzB6tspQLvF5ioH/Es
-	 vPoMVijagVSTO6qQY8UR5k2/wTToNskg9YFqUCIgsP8LY7WlU4ALrazpTMkYB5h+iGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793733970;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Eo6VmiARCV/E0+lmU5+H4tJMnPB8p2KHdxisaJd5aXg=;
+	b=vtultRqeYny1FpdJwZHxTdu9RuLV1HbviOED+xqfVpIfaMiGrkxguxC8MKmxawPlmB/1
+	 cBX7UpTN8qJ/ttwICbPqHagBuJ7FQ5raCkKWpJyLHrAjtEM7lMkUF3HJWZLU0TuWG2SIH
+	 FxwvzdKKE0sA3HtHeGj2UdEGEf6bEvwRnF8Qvewn91UphgbZMNopNspNttCiLrXccVHUI
+	 oVLbcX6hmmwlvqP3z6W+r/6L2vrRY2crnImk+oBYvAMW0N2G4N67+k1RadvoIIc3c/mjN
+	 ecnVmhhbrHg+tRvG/JvnX7rU/Yhpo/NLEMzZgHpgnSIHqnzCuX5GsHL/qcVs6pkL5Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Qpao8Mtf;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=openai.com;
+	spf=pass smtp.mailfrom=openai.com;
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=UGt+GH9y;
+	arc=none smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16DB606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D16DB606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6941606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:26:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6941606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Qpao8Mtf
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261103192510euoutp02c2231677259f76ee5323a556bfb93741~kn3zWV8t01817618176euoutp02I
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:25:10 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261103192510euoutp02c2231677259f76ee5323a556bfb93741~kn3zWV8t01817618176euoutp02I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793733910;
-	bh=7PUwfrJVawcXLdfu41PY6uZ3y3+L4mK5joYpI+grGjw=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Qpao8Mtfd2URQjUccfzke10r/zvBO8i96Iol6Oks4QfxnNbKN2y5fkGa7tHv9hweB
-	 V/F1gx8XGuJR+ZPqIfCNcYRux5iFrJ0AHh4Ty2G/Dx2felApgdDigzb4XLPadl5s07
-	 qw71+24Cik5kWKGQmM16vbJDin4bKAo+kDutXFAU=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103192509eucas1p1b2f9e4fdd60dc8eae89579a1440a30f6~kn3yjR5OT3099830998eucas1p1_;
-	Tue,  3 Nov 2026 19:25:09 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261103192508eusmtip2a833c7ccdaf7e75a797dd7005f03374d~kn3yAQfdV2937629376eusmtip29;
-	Tue,  3 Nov 2026 19:25:08 +0000 (GMT)
-Message-ID: <b71ac175-fba5-4f61-bbdb-0b98dec9ccee@samsung.com>
-Date: Tue, 3 Nov 2026 20:25:08 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=UGt+GH9y
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6dd7070699eso3599185eaf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:26:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1793733968; x=1794338768; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Eo6VmiARCV/E0+lmU5+H4tJMnPB8p2KHdxisaJd5aXg=;
+        b=UGt+GH9yq1ht0NPyjSAI5qXJmJ8w63K4dOhYvT8/8S6e5QDXUZIUvD14Pb8vIY4Vvv
+         q2FVeQuENZUoxFJm4Y2ax5cCNlQBYG7x9wWWMK9tNRbRd7yIX7z+DVpLObbj6DEWZNmd
+         EHiCwQfv7yigz+tn9gtH6xoy8VxOJa8MkFby0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793733968; x=1794338768;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Eo6VmiARCV/E0+lmU5+H4tJMnPB8p2KHdxisaJd5aXg=;
+        b=CeV6ooSlkKbJRp/0Hhwa6fGLC51jsuH8VWLt9t1kilPztwlUxnWqZ/AC3vJZPodR2J
+         flQ7rs+trfvMBl3S2zfSdFxP7twDFITPE/KN1C0WZYy/5ylQoGWRvOb4fTtyKhiY1phR
+         RdS1QCzBFGsk7+f4LemQd1mOekmlzH3WEfLpWNGC9k+lq9HMUO1xWv8IRGKvyMI05Tm7
+         n4mZdSw5ofFnKf2FMcDeQZI9mpgG+lOrqgpK4UW4h0tD/GAEwDp5gx/Pj4wMJcMU32Fe
+         vPigD2I2r45r4MNPk+ATzkHqJrqUUVLft+kzqz+xt++cS9p0lXTbO7xfZHsQ3VhXgSbs
+         19qQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjmTOvG9WIg95RjfRuBlmenzuVeKpoMb2L6DSgQflJ70y2QuKHw+j9EOF+wrJA15GFZ303jMDhnYCZt+c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xgLwlla9ZcQKV9XEBBnmLfSqTKWoNvzkIF09t1crTB69Rnx4l
+	ygnZNldNaSyp6Tnm8+oqcgSEjY8PAH04ATpAFj8HguHKzGVxiKJk+rIBcORGxYYaz/EUrI5H4+L
+	WvhcvLHk=
+X-Gm-Gg: AYBFou2y0XL0TNQKy/nmme6N8gKhpDRxAWyT6X3kelSLHLgjIV51Bi0v+6Tnw3Tm1xp
+	BnAOY3xlLo1z3nceAo7V1i3hEaPyyx2EUr3zyXNVrXASQRO7vKbH6zh5rUvK/Yif9scNwBmOxYI
+	eB3ezfR586pspEEPXw5InQK2IGBQt6JESMXksTHZYcLZSxHbgr0Hywak6IURTqWIetTb/1LgH8d
+	i5chT3aJKfm9NnwqctUptSN13c/Eo4rSofoIHqBgEdKuUejZub1RB539vMYOWOlwOap52UdyNNL
+	lWCTCioJWMX4TEvudL6+mlob5yj6GyXlTt47y0VUJ77rJkw0lAzXTX27sRkK/M3Rb/UIArFWmeV
+	u0ofNmRZlGRdIDwbW7lSD0vk8jIEF1ymry1MwdQ5Yn9Djiuty8Fc44TqVX2oo8otwbZZrA/obmr
+	6prqw5/VvhBvaq4thEd2skNpIqZdrryt1vY6Nbx0zwgHOaic5K/mBbuWl72NoPAbRKRWq2IjEuT
+	Rx8eLQ8+TEadpFGXqECjDDBayPK5xORqZFcpGX/gMvA8YS8l2XMA5fskGBeMw5iyZwLrYJwBaH+
+	j6l+O9j4XbmVlmye+nwvy9beAMANrb8e9jiDQHCrzkMycARiwqU0weV0T+aMPeGZwKx6OTlUZPO
+	FaRqT0iy8aGM827bFCvr/4amRfIRyYKE=
+X-Received: by 2002:a05:6820:2203:b0:6d7:a325:35f7 with SMTP id 006d021491bc7-714f27636fbmr7710632eaf.81.1793733968248;
+        Tue, 03 Nov 2026 11:26:08 -0800 (PST)
+Received: from com-75606.corp.openai.org ([199.47.143.14])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2ce869asm12149533eaf.4.2026.11.03.11.26.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 03 Nov 2026 11:26:07 -0800 (PST)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-sctp@vger.kernel.org
+Cc: lucien.xin@gmail.com,
+	marcelo.leitner@gmail.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2] sctp: avoid requeueing pending control chunks
+Date: Tue,  3 Nov 2026 11:26:06 -0800
+Message-ID: <20261103192606.92502-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,132 +95,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v3 2/2] of: reserved_mem: allocate and map the
- reserved_mem array early
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-mm@kvack.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, Rob Herring
-	<robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Oreoluwa
-	Babatunde <oreoluwa.babatunde@oss.qualcomm.com>, Wandun
-	<chenwandun1@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
-	linux-riscv <linux-riscv@lists.infradead.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <CAMuHMdXcM9yvwLBSi-aYRinG3omhu5aoeNVYynfFQsnDDWR-Hw@mail.gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261103192509eucas1p1b2f9e4fdd60dc8eae89579a1440a30f6
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6
-X-EPHeader: CA
-X-CMS-RootMailID: 20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6
-References: <CGME20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6@eucas1p2.samsung.com>
-	<20261015082315.56876-1-m.szyprowski@samsung.com>
-	<20261015082315.56876-3-m.szyprowski@samsung.com>
-	<CAMuHMdXcM9yvwLBSi-aYRinG3omhu5aoeNVYynfFQsnDDWR-Hw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Geert,
+The T4 and RE-CONFIG timeout handlers take a reference to their cached
+control chunk and submit it through SCTP_CMD_REPLY. A previous
+transmission can still be on the control outqueue when output is corked
+or suppressed, or when sctp_packet_transmit_chunk() could not append the
+chunk.
 
-On 03.11.2026 19:04, Geert Uytterhoeven wrote:
-> On Thu, 15 Oct 2026 at 10:29, Marek Szyprowski <m.szyprowski@samsung.com> wrote:
->> Get rid of the static, limited-size reserved_mem array and replace it
->> with array allocated by memblock_alloc_raw() and accessed directly or
->> through a temporary early_memremap() mapping (depending on the
->> architecture support). Such mapping is needed for some architectures
->> (like ARM64), where linear map is not yet available during early boot
->> scan. The array is allocated from the bottom of RAM to avoid placing it
->> in highmem area, because some architectures (e.g. Xtensa, C-SKY, MIPS32)
->> set the memblock limit to the end of lowmem only after the early scan.
->> The early mapping is not used on PPC64, where the scan is done before
->> early_ioremap_setup(), but the memory allocated by memblock is already
->> accessible at that point.
->>
->> Having a single, writeable array with all reserved regions removes the
->> need to perform two step initialization introduced by commit
->> 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory
->> regions are processed"), so all regions can be processed during the
->> early scan again.
->>
->> The reserved_mem array is allocated only after all static (defined by
->> the 'reg' property) regions are marked as reserved or no-map, so it
->> cannot be placed in any of them. Errors of the early reservations are
->> not recorded per region, only the fact that some of them failed is
->> stored and a message asking to fix the device-tree is printed. The
->> region specific init functions for the static regions are then called
->> in a separate pass, once the array is available. Then all dynamically
->> allocated reserved regions are processed.
->>
->> Suggested-by: Mike Rapoport <rppt@kernel.org>
->> Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
->> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Thanks for your patch, which is now commit aa05faf815836c47 ("of:
-> reserved_mem: allocate and map the reserved_mem array early")
-> in dt-rh/for-next.
->
-> This causes an early crash on BeagleV Starlight Beta:
->
->  [...]
->  earlycon: uart0 MMIO32:0x0000000012440000 (options '115200n8')
->  printk: legacy bootconsole [uart0] enabled
->  printk: debug: skip boot console de-registration.
->  efi: UEFI not found.
-> -OF: reserved mem: 0x00000000fb000000..0x00000000fcffffff (32768 KiB)
-> map non-reusable framebuffer@fb000000
-> -OF: reserved mem: 0x00000000f9000000..0x00000000f9ffffff (16384 KiB)
-> map non-reusable framebuffer@f9000000
-> -OF: reserved mem: 0x00000000d0000000..0x00000000f7ffffff (655360 KiB)
-> map non-reusable framebuffer@d0000000
-> -OF: reserved mem: 0x00000000c9000000..0x00000000ccffffff (65536 KiB)
-> map non-reusable framebuffer@c9000000
-> -OF: reserved mem: 0x00000000fa000000..0x00000000faffffff (16384 KiB)
-> nomap non-reusable dma-reserved@fa000000
-> -Reserved memory: created DMA memory pool at 0x000000107a000000, size 16384 KiB
-> -OF: reserved mem: initialized node linux,dma@107a000000, compatible
-> id shared-dma-pool
-> -OF: reserved mem: 0x000000107a000000..0x000000107affffff (16384 KiB)
-> nomap non-reusable linux,dma@107a000000
-> -SBI HSM extension detected
-> -[...]
-> +Oops - store (or AMO) access fault [#1]
-> +Modules linked in:
-> +CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted
-> 7.4.0-rc1-starlight-00002-gaa05faf81583 #411 PREEMPT
-> +Hardware name: BeagleV Starlight Beta (DT)
-> +epc : __memset+0x68/0xfe
-> + ra : fdt_scan_reserved_mem+0x3a4/0x80a
-> +epc : ffffffff8087fd88 ra : ffffffff80a313c8 sp : ffffffff81403c20
-> + gp : ffffffff814dc6c0 tp : ffffffff8140cf80 t0 : ffffffc4fea38ff0
-> + t1 : 0000000080200000 t2 : ffffffc4fec03008 s0 : ffffffff81403d10
-> + s1 : ffffffffffffffff a0 : ffffffc4fea39000 a1 : 0000000000000000
-> + a2 : 00000000000000f0 a3 : ffffffc4fea390f0 a4 : 0000000000000008
-> + a5 : ffffffff8087fd88 a6 : 00000000000000f0 a7 : 0000000000001000
-> + s2 : ffffffc4fec00000 s3 : 00000000000000f0 s4 : 0000000000000000
-> + s5 : 0000000000002de0 s6 : 0000000000000006 s7 : fffffffffefefefe
-> + s8 : ffffffc4fec02fd4 s9 : ffffffff8148e318 s10: fffffffffefefeff
-> + s11: ffffffc4fea39000 t3 : ffffffff8150df00 t4 : ffffffff8150df00
-> + t5 : ffffffff8150df00 t6 : ffffffff8150df78 ssp : 0000000000000000
-> +status: 0000000200000100 badaddr: ffffffc4fea39000 cause: 0000000000000007
-> +[<ffffffff8087fd88>] __memset+0x68/0xfe
-> +[<ffffffff80a2f63a>] early_init_fdt_scan_reserved_mem+0xa4/0x110
-> +[<ffffffff80a06c8e>] paging_init+0x17c/0x46a
-> +[<ffffffff80a046dc>] setup_arch+0xdc/0x584
-> +[<ffffffff80a009b8>] start_kernel+0x98/0x940
-> +Code: 0000 8793 00e7 8305 97ba 8782 b023 00b2 b423 00b2 (b823) 00b2
-> +---[ end trace 0000000000000000 ]---
-> +Kernel panic - not syncing: Fatal exception in interrupt
-> +---[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
->
-> Reverting the commit fixes the issue.
+sctp_outq_tail() then adds the same list node a second time. Re-adding a
+non-tail entry can corrupt the list without being caught by the
+insertion-time list checks. A subsequent flush or association teardown
+can access an already freed chunk. The ASCONF path is reproducible by an
+unprivileged SCTP socket owner in a user/network namespace, with KASAN
+reporting a use-after-free in __sctp_outq_teardown().
 
-Does moving early_init_fdt_scan_reserved_mem() to the end of setup_bootmem()
-in arch/riscv/mm/init.c change anything?
+Check sctp_chunk_pending() in both timeout handlers before taking the
+extra reference and issuing SCTP_CMD_REPLY. When the chunk is already
+linked, request a deferred outqueue flush instead. Simply omitting the
+reply would also omit its uncork at the end of the timeout event. T4
+would no longer retry the queued ASCONF, and a migrated, pending
+RE-CONFIG could lose its timer until unrelated output flushes the queue.
 
-Could You provide a full boot log from the working kernel and /proc/iomem dump?
+The flush command acquires a local cork only when the caller has not
+already corked the queue. This preserves the existing flush ordering,
+transport/error accounting and timer handling without changing the
+common enqueue path.
 
+The issue was found by an LLM.
 
-Best regards
+Fixes: 2e3216cd54b1 ("sctp: Follow security requirement of responding with 1 packet")
+Fixes: 7b9438de0cd4 ("sctp: add stream reconf timer")
+Cc: stable@kernel.org
+Suggested-by: Xin Long <lucien.xin@gmail.com>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+v1: https://lore.kernel.org/netdev/20261030042321.74407-1-kylebot@openai.com/
+v2: Check pending chunks in the T4 and RE-CONFIG timeout handlers, as
+requested. Preserve their deferred output flush with a state-machine
+command so pending requests can progress without unrelated traffic.
+The common sctp_outq_tail() path is unchanged.
+
+I have a reproducer for this issue and can share by DM.
+
+ include/net/sctp/command.h |  1 +
+ net/sctp/sm_sideeffect.c   |  8 ++++++++
+ net/sctp/sm_statefuns.c    | 20 ++++++++++++++------
+ 3 files changed, 23 insertions(+), 6 deletions(-)
+
+diff --git a/include/net/sctp/command.h b/include/net/sctp/command.h
+index 2058fabffbf6..abd6cc509183 100644
+--- a/include/net/sctp/command.h
++++ b/include/net/sctp/command.h
+@@ -39,6 +39,7 @@ enum sctp_verb {
+ 	SCTP_CMD_CHUNK_ULP,	/* Send a chunk to the sockets layer.  */
+ 	SCTP_CMD_EVENT_ULP,	/* Send a notification to the sockets layer. */
+ 	SCTP_CMD_REPLY,		/* Send a chunk to our peer.  */
++	SCTP_CMD_OUTQ_FLUSH,	/* Flush pending output when uncorked. */
+ 	SCTP_CMD_SEND_PKT,	/* Send a full packet to our peer.  */
+ 	SCTP_CMD_RETRAN,	/* Mark a transport for retransmission.  */
+ 	SCTP_CMD_ECN_CE,        /* Do delayed CE processing.   */
+diff --git a/net/sctp/sm_sideeffect.c b/net/sctp/sm_sideeffect.c
+index 35f540fb15fc..6f19ac78749d 100644
+--- a/net/sctp/sm_sideeffect.c
++++ b/net/sctp/sm_sideeffect.c
+@@ -1498,6 +1498,14 @@ static int sctp_cmd_interpreter(enum sctp_event_type event_type,
+ 			sctp_outq_tail(&asoc->outqueue, cmd->obj.chunk, gfp);
+ 			break;
+ 
++		case SCTP_CMD_OUTQ_FLUSH:
++			/* Request a flush without taking over an outer cork. */
++			if (!asoc->outqueue.cork) {
++				sctp_outq_cork(&asoc->outqueue);
++				local_cork = 1;
++			}
++			break;
++
+ 		case SCTP_CMD_SEND_PKT:
+ 			/* Send a full packet to our peer.  */
+ 			packet = cmd->obj.packet;
+diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
+index b2f609f177fb..8b76b7e28504 100644
+--- a/net/sctp/sm_statefuns.c
++++ b/net/sctp/sm_statefuns.c
+@@ -1122,9 +1122,13 @@ enum sctp_disposition sctp_sf_send_reconf(struct net *net,
+ 		return SCTP_DISPOSITION_DELETE_TCB;
+ 	}
+ 
+-	sctp_chunk_hold(asoc->strreset_chunk);
+-	sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
+-			SCTP_CHUNK(asoc->strreset_chunk));
++	if (!sctp_chunk_pending(asoc->strreset_chunk)) {
++		sctp_chunk_hold(asoc->strreset_chunk);
++		sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
++				SCTP_CHUNK(asoc->strreset_chunk));
++	} else {
++		sctp_add_cmd_sf(commands, SCTP_CMD_OUTQ_FLUSH, SCTP_NULL());
++	}
+ 	sctp_add_cmd_sf(commands, SCTP_CMD_STRIKE, SCTP_TRANSPORT(transport));
+ 
+ 	return SCTP_DISPOSITION_CONSUME;
+@@ -6197,9 +6201,13 @@ enum sctp_disposition sctp_sf_t4_timer_expire(
+ 	 * chunk, it MUST be the same (including its serial number) as the last
+ 	 * ASCONF sent.
+ 	 */
+-	sctp_chunk_hold(asoc->addip_last_asconf);
+-	sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
+-			SCTP_CHUNK(asoc->addip_last_asconf));
++	if (!sctp_chunk_pending(asoc->addip_last_asconf)) {
++		sctp_chunk_hold(asoc->addip_last_asconf);
++		sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
++				SCTP_CHUNK(asoc->addip_last_asconf));
++	} else {
++		sctp_add_cmd_sf(commands, SCTP_CMD_OUTQ_FLUSH, SCTP_NULL());
++	}
+ 
+ 	/* ADDIP 4.1 B5) Restart the T-4 RTO timer. Note that if a different
+ 	 * destination is selected, then the RTO used will be that of the new
+
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.55.0.openai.911.g06873a30d2f3
 
