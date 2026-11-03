@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704248;
-	b=zEBK7AO0vyxZo1s7Wsl92lOja9WFr7AuScEc9DLmTKyMINcAJfV1ibvvN1R/rAOC4tPK
-	 CM8gq5DiHQfrVii2rEa7dxQkb1U2I/9mpWvnEdkS13qsH80VfV3hRfJHo6ZXJUQ0XBKye
-	 ShCmoZ/2FidK2YI02k7yWm3zGH5HlddrFA6yKOdfeHcHX8yZOwUo1H6WGS+sG3v5OK1Bf
-	 oe1sANUIaZfX+35PIKAzSgrRsRHZxJf5vV42OEVL5cljc55Uts7yXWNw7cj8AJmpk5iuG
-	 LWNrqTw3CpCf2lmtJzdOnhAu7cxPGky5TJc5OK9IkcmBis+jegXds+nDnE5XjT9VFqg==
+	t=1793704246;
+	b=TgUv8HupivLOK8voeuzFR3c9APg01+0CZ4zT8LxmD3yzOZsHkSA0s4Z4z++ojinqwupu
+	 uhZ448d4sdWQ6Bu8+uiCoNFZrU9uLL8DIOvjI1+fPWjjJXupACVy0eFqxlyUTrOY6Hv+m
+	 pgU+8sa8eZ9hNeTiuiShzmFPfy85Cjkub+xHuGsaYR/ZsUCcz9BUo4CX9JcFQ/hYEx7Sl
+	 VxOuhbbpik3D+i7JFBh9/FUrxySQfK+JLZOKdMtONrxqHEAzKlg4aPWAkPg2N/mLmNFZn
+	 NOjtRMVnO2sz88zp5mKB57Iz6JpHgGiS9d5uKcbG77F+7EAqGi7Q8NKOULlz703+Euw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704248;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704246;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=U3a4vIXiEGtL1/PeSnTPB5g6R0EJNMxhi9bu6NnV8rE=;
-	b=jGWlxDkzFrB3GEF8ici3U9YsTrixOSU8IGt7JupE4Dwa3ze/HnCqebiBuHqQpB/d3Zxa
-	 LJdtpo2wYthcESLCkz33DcydH5KJTNrSQwC7BBwej1uEaXkty+VUytOqm6gGcrigktmEv
-	 C6r/mAnGKz8pe9hkuAJZVQbhqwrdZuduwqKUSIMCUajR7MR7eoJpZSu3fe9NblWILkRbe
-	 od2Dd5KCk6acMeZKM6WlnWrS4nrM9ativNYlQzBfiUDcNRLBQS50jnCHT8gHnnWSbYB7f
-	 sctz8+1avCgmyvxgXrgkbrT7IxrO+Au8MjPmg2PXpZdiA3ut42HMkkPB8mLrPTOTfqQ==
+	bh=oH9yiNjBLnPnYV/tVi7O279D04XNMxHc/uOO8R+Zy+Y=;
+	b=vb32gFMtiRwIho0hcr5KwAXOWyFiOfA+B4vwKpqPGx8RNKarYOxgp85a1M7goS7rd/pK
+	 u8FI5iUnMwQJAEeLUMYhx4HI1JA1D0aZOuVJi2DT1Bca0xEl+Xn24094J8iyLNI2MNmVz
+	 T20Jo954FWcYnEyJeH//wSl+VJHxKqZfj+HEy8X40NC+B2dxWBoaa7Vy7zicPkq8SWh4Y
+	 GIfhrbeMSrI8RdloUwNcRY3l16HrCsD1P954lhMuxwoHBuG0QtL2YAbVdWhYrDvThclQp
+	 5OY0dh7/qz2zePE/qDaYadpsEGoQeL+DieZMnDSznm0TyKLty6aUa0qgI/O8bfRNhwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLc0Xf4g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDKJNtTK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A4C60850A3;
-	Tue,  3 Nov 2026 11:10:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD84606F7C0;
+	Tue,  3 Nov 2026 11:10:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLc0Xf4g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67611F000C1;
-	Tue,  3 Nov 2026 11:10:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDKJNtTK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54E21F000C1;
+	Tue,  3 Nov 2026 11:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704248;
-	bh=U3a4vIXiEGtL1/PeSnTPB5g6R0EJNMxhi9bu6NnV8rE=;
+	s=k20260515; t=1793704245;
+	bh=oH9yiNjBLnPnYV/tVi7O279D04XNMxHc/uOO8R+Zy+Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eLc0Xf4gELp9GPTXowoGCu175no2Mh1097F+4J0/CdZghDIzoUUbyP2Cw8Yt8uLOz
-	 xWFp9vo6l/GqUWFY+8dSawSD6ycyL/8c529cqSEHDhxDhU5rWMiUkLZImTICoJx41c
-	 Rm8tZfOC0mbOjQzhDxtRqx6xhBww2TE3C/oEf9XWS8unxFOFkl32G6Z7inzfacjbs7
-	 aE3E5Nf0XFcyNAOfT0Pu8ZI9UkG2hhnZiH6MGaSgyzjc4XwUliXcAx3WdbRzp/2iW4
-	 sp7xmxMRVvbPuVd6BuWT52mRRl4NDlESKgzZzNHrW6lIqyd25NSyB6jV6+G0fVcK1L
-	 7tbpzSBRbQLdQ==
-Date: Tue, 3 Nov 2026 12:10:45 +0100
+	b=WDKJNtTKYmj96sfXMvVAPPRf3HgcRFFxdAAYJC6MtHaveC8CAnlhpk/JcYNLFAgk0
+	 uz/V8fWC6JQVy8G1RUO0jtwPiortNGkJ8dqwOG9UKof/5X2lbKiuwXpZ3i226kwTby
+	 upR25nu7N1+mvBEn5AflBBkh/UJMINeUjemytOljYUN34gc45eMe1/oNn57PHTfCtv
+	 U2gcWmh/h+KAU/83XNmE095pdnNXKkqDaz9sfqGXHJ8BeQWtgp+gHOeJMNDM6WyeJi
+	 SjP1eewS8LaWWJ3KsYM9PHDIuKmK1TjlPUXf1MG/HQcqbRVX2adAMBZoZo3EFIznSM
+	 Cg9WNITXZUq2w==
+Date: Tue, 3 Nov 2026 12:10:42 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	stable@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] of: unittest: fix node leak in
- of_dma_get_max_cpu_address test
-Message-ID: <20261103-premium-brainy-chachalaca-a3b6ac@quoll>
-References: <20261103104234.1373570-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>, 
+	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] of: unittest: fix node reference leak in
+ of_unittest_dynamic()
+Message-ID: <20261103-jumping-pretty-leopard-b094a1@quoll>
+References: <20261103104236.1373631-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,24 +59,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104234.1373570-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104236.1373631-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:34 +0000, Wentao Liang wrote:
+On Tue, 03 Nov 2026 10:42:36 +0000, Wentao Liang wrote:
 > of_find_node_by_path() returns a device_node with its reference count
-> incremented. of_unittest_dma_get_max_cpu_address() passes the node to
-> of_dma_get_max_cpu_address(), which does not consume the reference, and
-> then returns without dropping it.
+> incremented. of_unittest_dynamic() only returns directly on the
+> allocation failure path and otherwise falls off the end of the
+> function, so the reference is never dropped.
 > 
-> Release the reference after the check.
+> Release the reference on both exits.
 > 
-> Fixes: 07d13a1d6120 ("of: unittest: Add test for of_dma_get_max_cpu_address()")
+> Fixes: 7e66c5c74f73 ("of/selftest: Add self tests for manipulation of properties")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/of/unittest.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/of/unittest.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
 
 Multiple things here:
