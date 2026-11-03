@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793739187;
-	b=xobJ55pX+vviT2Vn7WoW9PpoFR8kdtYGaIuz740PztqnjnLTpEORcsTVLSPoHLGR9kwe
-	 guRnWM+x+fes4Qb5vRJJ4auEx5Elx0Gb1UEdkje85p8OyPYQJGKKgy5mSu5iQVP+E7dlY
-	 NhZhUejmC3BXIqaLctn2ZmthFEcbC7QQT7sZRM6MdbeDYMkAIL6xxhmy0Ir+2SUMsLFoY
-	 V3C+PClXf6zlIDCDJgrDtkJfndo1i7A8jWrJjThdjyVAcrWdV0WZj6/H1JJHStvyrq/by
-	 JYzJwt0h5a+QPmgGyMI/rPNo/G5l9OwWz7h1EBqJRz3ni4DwyQ4aE+v1p9hDF2GbWuw==
+	t=1793739180;
+	b=Ds+4kJW+G6Gkwyt8nvVlKWxYtX5cyaT0lrLVOG1Bmu2kxcimHFdg6EwAUqskNL9y9XpW
+	 bed/zyHe1gyemnuLfBBAopEnCZH1hnSGgc/iOE+fV51HEbeMvOA/ZcsSXtHFOwBINfIR3
+	 /KX7NpcrMNJI/w1Cf5sdCIWb5J4dZuFJMYVYt1on3sE1njnRfedgzdFJkwLY5TC3kkSxp
+	 74bs5TSODSi6FJqu17FaLKkZKbO50YXeLItUcYohI0Omq1qSGghc249P2i9s50q8LWy7g
+	 gvqp+vCiiEFVOna9a956E+E446AQx/K+QVCujAofs1BMKwj/QsO7rDm05yffbd6GIWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739187;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=qEmYCkPXDtF9hobALFV6QXuRhofx2fxJSYASJMiIobw=;
-	b=cTNj8v9rIy3bLyTDz2YxsnsHCtjf9pPCQvRbmXFx5izTBQ/wtgaxEM8xY7OhlYoBm9uc
-	 EOvVlRneRDKiQ1exAJZklXN3XB8tYEoUwJk2AYMHgIcVxjd/JlynnR3vbnlZJyGXm19N9
-	 l3vUUVQa37RiK45l+7aM3CMvNaQ0zq331XNktX1jDqLeTpwSqkbbF0Zk7EXrD9Q12w6hB
-	 +8yROj9Jo0gPxIZNcK+/bMAyj3j5x8KZ66VHGz8bXKOOHhAEF8MzlZukfAU0O4PuPXj8P
-	 tUyqdHzg/6KRYgSNdYRsaKZTJSyDF43P2sJECqAaQddhH4ciO2TAXIqazXq5IO8KW4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739180;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=b8ubcSjBEw8AJTCDM2HXgckQrwcPyE8v1qlZW30GogM=;
+	b=r5y8lxQRViYyDmBs4ZFnbQ8Gsm+qk4BqssRX9VK3NPjPKCxLsWMw4HWSXg7DBKnnpe9Q
+	 6D5okUQb+DdA64j8c/3dh+IbYZjT3g+BmGYOwm87Ee/ymA2v04ct1nitS7eLMlqRPCwRN
+	 BRj8LVQHUQ5WsJpL375Y0gA8jbB3DVwKULu4jZW8MNte8HHJx+MtLuxv7HRH2ocR00Ijm
+	 dpsqw3w8Vjgf+Ydewt90onaCIDXj3bLx2OVeubqXIYS7Nl19or47Ty4LMKskpozwbzbAF
+	 C8VCYhbBTxVTa0Uqy0R6ulSE1O55zC18xGPlf8Ob6cnmx2bit0oCAtlErmaPiAgmPcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aLOfgM+F;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPCmGOxC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006EB606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:53:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 006EB606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aLOfgM+F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793739185;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qEmYCkPXDtF9hobALFV6QXuRhofx2fxJSYASJMiIobw=;
-	b=aLOfgM+Fndsvjs9isvnZaoUQhg+o+jfhCnQx/yMXgqNjjLO6RiPxpMf5rH5d29rJ69a+Wy
-	h+k1nlgWxT2D8dU6fL4rFcR5DbxMyclauk3XpVHP6Kevcu4e1Kkb2aPXl4M6syHRbuVZE5
-	Vxnh8+QNb4eP7K0KnJ6hw1stnlEQhms=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-118-HjnHRM6hPr23HX-1lG6F3A-1; Tue,
- 03 Nov 2026 15:53:02 -0500
-X-MC-Unique: HjnHRM6hPr23HX-1lG6F3A-1
-X-Mimecast-MFC-AGG-ID: HjnHRM6hPr23HX-1lG6F3A_1793739180
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 17DB61800677;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94417606A31B;
 	Tue,  3 Nov 2026 20:53:00 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 835BE1800347;
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPCmGOxC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C0F1F000C1;
 	Tue,  3 Nov 2026 20:52:56 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
-To: linux-scsi@vger.kernel.org,
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Hannes Reinecke <hare@suse.de>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Wenchao Hao <haowenchao2@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	cki-project@redhat.com,
-	jmoyer@redhat.com,
-	bgoncalv@redhat.com,
-	mpatalan@redhat.com,
-	ftjahjad@redhat.com,
-	fsuba@redhat.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] scsi: scsi_debug: Wait for async target cleanup on module exit
-Date: Tue,  3 Nov 2026 15:52:53 -0500
-Message-ID: <20261103205253.1632907-1-loberman@redhat.com>
-In-Reply-To: <20261103193235.1564898-1-loberman@redhat.com>
-References: <20261103193235.1564898-1-loberman@redhat.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793739180;
+	bh=b8ubcSjBEw8AJTCDM2HXgckQrwcPyE8v1qlZW30GogM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fPCmGOxC3SSolNjKaajL7hRJnEyUTQz1FYrLOwKTmZTg98Hv1CjJzEn6NO11VjIRH
+	 Ac4PUGRxU1itzD2lScBJyQOkryOFWzhJeM2aoVWZktJJwy+Unz7ZXO/qAMZTnWFORZ
+	 egpYoxz68ix6jwqzkUp79Iun6i/Ljsl1M6LagLrZdeteXxnYPCt08vhFEm+z/TIs0n
+	 FY+4DjW218KL1etv7Nl3iOp2NQkZdmY0xt2JvFVxqKWiC0hDK6AhwFwjD6/aXAL0Sm
+	 +riqItO5R3kGZB75EJMsLTzPxtiN/+upW2tmLD76Sj4QS1ltgR11dWcsJzcWPXAFr0
+	 N/8c5qfy70Gnw==
+Message-ID: <ef4145a5-5732-4f1b-9d72-586e75d5e2cd@kernel.org>
+Date: Tue, 3 Nov 2026 21:52:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,72 +51,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: usb: microchip,usb251xb: add
+ battery-charging-enable property
+To: Jhon Wilker Rodrigues Aquino <jhonwilker0112@gmail.com>,
+ Richard Leitner <richard.leitner@linux.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Jhon Wilker Rodrigues Aquino <jhon.aquino@autotrac.com.br>
+References: <20261103185514.72144-1-jhonwilker0112@gmail.com>
+ <20261103200154.125681-1-jhonwilker0112@gmail.com>
+ <20261103200154.125681-2-jhonwilker0112@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103200154.125681-2-jhonwilker0112@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-sdebug_target_destroy() is called with the host lock held, so it defers
-removal of the per-target debugfs directory to
-sdebug_tartget_cleanup_async() on sdebug_async_domain.
-scsi_debug_exit() removes the hosts and then removes
-sdebug_debugfs_root without waiting for that work. The recursive
-removal of the root frees the per-target dentries, and a cleanup that
-runs afterwards calls debugfs_remove() on a stale dentry:
+On 03/11/2026 21:01, Jhon Wilker Rodrigues Aquino wrote:
+> From: Jhon Wilker Rodrigues Aquino <jhon.aquino@autotrac.com.br>
 
-  BUG: KASAN: slab-use-after-free in _raw_spin_lock+0x2d/0x40
-  Workqueue: async async_run_entry_fn
-  Call Trace:
-   kasan_report+0x92/0xc0
-   _raw_spin_lock+0x2d/0x40
-   lockref_get+0x9/0x40
-   __simple_recursive_removal+0x35/0x570
-   debugfs_remove+0x40/0x60
-   sdebug_tartget_cleanup_async+0x43/0x60 [scsi_debug]
-   async_run_entry_fn+0x96/0x520
-   process_one_work+0x925/0x1910
-   worker_thread+0x567/0xcc0
-   kthread+0x355/0x450
-  Allocated by task 150:
-   __d_alloc+0x34/0x9e0
-   d_alloc+0x44/0x1d0
-   ...
-   debugfs_create_dir+0x18/0x3d0
-   sdebug_target_alloc
-   scsi_alloc_target+0x7c7/0xa70
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
 
-followed by a NULL inode dereference in down_write() from
-__simple_recursive_removal(). CKI hit this running blktests throtl/001
-on arm64. The cleanup can also run after the module text has been
-freed.
 
-Commit b402a0dce64a ("scsi: scsi_debug: Fix create target debugfs
-failure") drains sdebug_async_domain before creating a target. Do the
-same in scsi_debug_exit() just before removing the debugfs root, after
-the driver has been unregistered so that no host can still be bound and
-queue further cleanup work.
+> 
+> Describe the battery-charging-enable property as a list of downstream ports in the USB251x device tree binding.
 
-Fixes: f084fe52c640 ("scsi: scsi_debug: Add debugfs interface to fail target reset")
-Reported-by: Catalin Marinas <catalin.marinas@arm.com>
-Closes: https://lore.kernel.org/r/auja2VnJTp-ijxqu@arm.com
-Reported-by: CKI Project <cki-project@redhat.com>
-Closes: https://datawarehouse.cki-project.org/kcidb/checkouts/redhat:3017229113
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
----
- drivers/scsi/scsi_debug.c | 2 ++
- 1 file changed, 2 insertions(+)
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
 
-diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
-index a922c8318a2f..deaed8b3e6c4 100644
---- a/drivers/scsi/scsi_debug.c
-+++ b/drivers/scsi/scsi_debug.c
-@@ -9053,6 +9053,8 @@ static void __exit scsi_debug_exit(void)
- 
- 	sdebug_erase_all_stores(false);
- 	xa_destroy(per_store_ap);
-+	/* Wait for deferred per-target debugfs cleanup before removing the root */
-+	async_synchronize_full_domain(&sdebug_async_domain);
- 	debugfs_remove(sdebug_debugfs_root);
- }
- 
--- 
-2.56.0
 
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
+
+
+> 
+> Add an example that enables charging on ports 1 and 2.
+> 
+> Signed-off-by: Jhon Wilker Rodrigues Aquino <jhon.aquino@autotrac.com.br>
+> ---
+>  Documentation/devicetree/bindings/usb/usb251xb.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/usb251xb.yaml b/Documentation/devicetree/bindings/usb/usb251xb.yaml
+> index 0329a6aaaa928..0eb3035553c37 100644
+> --- a/Documentation/devicetree/bindings/usb/usb251xb.yaml
+> +++ b/Documentation/devicetree/bindings/usb/usb251xb.yaml
+> @@ -230,6 +230,12 @@ properties:
+>        Specifies the time it takes from the time the host initiates the
+>        power-on sequence to a port until the port has adequate power.
+>  
+> +  battery-charging-enable:
+
+Custom properties needs prefix, see writing bindings.
+
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    description: |
+
+Do not need '|' unless you need to preserve formatting.
+
+> +      Specifies the downstream ports which will have battery charging enabled.
+> +      Battery charging is disabled on all ports by default.
+
+Why wouldn't you enable charging on all ports? You have entire
+description (and/or commit msg) to explain why you are doing this and
+why this is exactly hardware property.
+
+Best regards,
+Krzysztof
