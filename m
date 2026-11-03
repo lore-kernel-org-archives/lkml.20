@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793720146;
-	b=UKUVZ7Pnukb86MbjCs5BDHuK575iUuHtv7KsSTsWQJTjdz0v0EwaTr5h9d3YQ7ZC1vkY
-	 TjNTvv/T89dJVrCJl7y1GaPdxBbsWuhVdNymq9ZIyNmTnnSKDft9Rd/+GjTRlPpUb+wyc
-	 gJDglJcyg2Y64jBvfjhTEI5DLSIlJLlABepiZqIMec88/QHiTDs47ZW3qCYIxRlRoSY27
-	 8CCpQaNy/j396CbyK/wRc6oJenc+bs4sbac0f2u0GrAIv7tnW/jSCl7hluxO/9wj2BB8r
-	 QA42vkCyre8WVXxTaCE7HV7asAXTt4kPGZ86mbG/hargNwoIyjzLEf/XNtOGYxlx+ug==
+	t=1793720159;
+	b=ers0q5Ib1giRs8qhLxV1HNxinbXhsJ4Rgz06TdxDOVfmzUjIlcSsZZJUoBFhVDpX/l+8
+	 P2i4uXGqfwiVrhrftt5TRJMJtVgaxJ27Nys7K9dGQ+DUlQKRlNzYVGT2nxx9LUG58YSMY
+	 SJIH3H6DKbkwnWg/fp6vh5flD7Kzw14JT6RW72erPruWLwRrWiPy6WIq0I2Y7/fhA1eT1
+	 dFen9tb5kn1srHSqWdFVBufdYnCEYJ0tgI2N/5MxmFeW8FxbN/YqRowAH73yKLyVX9L7y
+	 0MuKb0tZd8xpISEa3D1kGyeJ8iRS9XPergNfYl7u9y3JUyo/SnUL1i2kTqbb/vQDTDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793720146;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=t6wyycITGM5Nn6DuWAdjmdZN88p+e9N8YZxCzAqrnCY=;
-	b=jeDevCJSw0rkHiZhn9QTAfJHJ4VaCh0Ty3YQhqKqRO4r5Z8Za9TiV+r2SGb6MIHRvHCE
-	 N1HFB5im5lvn8hgG3glcPJ2DiRfioPF0BSL+lBOa/YHrspsAH4AjTXNXmVpZ3hVjz/xm1
-	 ndq4kSzM0TtzMvA/a9W7EcTxiHQrSNrvioDQjtswgOpLDnqKVGE4GjIb8vxvnF84nTs3T
-	 gLiunh3gWhYX2aCbpQi9KEL8kwEJmj6GuUtT+hRNfaFiVomPAzWpIYW6xT4tMl+kkLX8k
-	 0FUbO1ccbq6PsQKAoW91Jsq53zfvPm4kiERS2qbUjHmdR0z/BgrjI8zoXrBjBQiryXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793720159;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yCIVDU95bsgdkbTt99AMpbnlnJFmTgXw72B81ZuUDoo=;
+	b=e81UnFtTrXHRR8V4k0j18UgAR/4roNiKyfxpa+XP0BT6eVnGpPG8RChAGkrT/mQUAoH9
+	 sFiM8vDCQVP32hx+2WnN7VfvstmflCOnk1yKK8AONviVcWmYIvCFND2zFzFNBapEjjiFC
+	 nvQtz8YQ05zBqrJHw73SfYI4xdXYELD7Kg0AC7Ijs9kNk+H8hRdpF/EmAcx2BDMPIE/4Y
+	 Uag3v+N5Gti+qGunIBCm27oC6fe+IvznRIf8ZD2s054SPMoImLguA/5wl+AInSiaKV6bB
+	 jEH+Gd0zj3U0QiWoVpZVzTj7rcBSLQthnETkzas7V4b/tOKZ345ZAOBNj0dlYgPgbKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZlVsRUzz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kETAuEbn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDBE606A326;
-	Tue,  3 Nov 2026 15:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D027606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:35:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZlVsRUzz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35C771F00919;
-	Tue,  3 Nov 2026 15:35:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kETAuEbn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E8601F000C1;
+	Tue,  3 Nov 2026 15:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793720146;
-	bh=t6wyycITGM5Nn6DuWAdjmdZN88p+e9N8YZxCzAqrnCY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZlVsRUzzXc7EhIVSSpAnEcekuGlj9t5O2vlBUWsfHUu3XCRlARdmuZjj9KUBDFt8C
-	 4D9qpQB10CES9LdTJ0f/T3kOm0jh3WlscidBhQWW5At79k3YmpNBPPRDbanvom15dO
-	 Sg03W2POIYjbFNdXUBdp920OCQPnA3dIveJQ68MdkGEZ1ptII4Ze5MBY7ztAEbaeZg
-	 ZqHje8q4OAPZ8g4IDtlm1s8C+d1XaKio9YNLVLoyAVDYiJhBxkQYoM31fSZn7QS3pa
-	 ygnd4/m45Sb8T+ILFW3t9XfFQ2yADvtQ45d9BYrzHGHFOGcB4jR0mwvH5TF35eoWmq
-	 6/EUy3FR67Yxg==
-Date: Tue, 03 Nov 2026 05:35:45 -1000
-Message-ID: <0efbf4db1decd8e6bb6a5fcdcf897314@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: hannes@cmpxchg.org, mkoutny@suse.com, akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net, ziy@nvidia.com, joshua.hahnjy@gmail.com, ying.huang@linux.alibaba.com, ljs@kernel.org, liam@infradead.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, bpf@vger.kernel.org
-Subject: Re: [PATCH 0/3] mm/mempolicy: add per-cgroup weighted interleave controls
-In-Reply-To: <20261103122816.48037-1-lizhe.67@bytedance.com>
-References: <20261103122816.48037-1-lizhe.67@bytedance.com>
+	s=k20260515; t=1793720159;
+	bh=yCIVDU95bsgdkbTt99AMpbnlnJFmTgXw72B81ZuUDoo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kETAuEbnZ/BruujLHSuvhDmanYeoe0fWnDbfCPoQ594J1hK6YTs0gPBie3Cb8K3gS
+	 91P0clCFW7kOsrgLQKJys1s7NkWR8w0PHhWTDnfsLbsqQ7FfzM6ncr/CD6UvepSmUU
+	 uKyyUaLEBBI9If/2GxDIXZhK9A4/fHWp2yh6nGIcyi9ySPl28dg668s1HlmQzSX1ZF
+	 72LkUFMCxLhsEFIfQLPBf3fSSUZazMlh7P5R7B+zgrDwHZiZuWVXXAJXQvw/bNBxdN
+	 pu1W0EJS2tA4Lje2354jAQkJsEoEkpay4UoSVDf3SFnP2QvGcgBVL2CTTEjVAvjag4
+	 Pef/LBN4J2yxg==
+Date: Tue, 3 Nov 2026 08:35:57 -0700
+From: Keith Busch <kbusch@kernel.org>
+To: James Fantin-Hardesty <james.fantin-hardesty@seagate.com>
+Cc: linux-nvme@lists.infradead.org, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Damien Le Moal <dlemoal@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvmet: fix arbitration burst field mask
+Message-ID: <aun_XQSOMjlbweKD@kbusch-mbp>
+References: <20261030191853.1777683-1-james.fantin-hardesty@seagate.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,31 +59,12 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <20261030191853.1777683-1-james.fantin-hardesty@seagate.com>
 
-Hello, Zhe.
+On Fri, Oct 30, 2026 at 01:18:53PM -0600, James Fantin-Hardesty wrote:
+> The Arbitration Burst (AB) field of the Arbitration feature is
+> CDW11 bits 2:0 (NVMe Base Specification 2.1, Feature 01h), but
+> nvmet incorrectly masks it with 0x3. Use 0x7 for both set and get.
 
-On Tue, Nov 03, 2026 at 08:28:13PM +0800, Li Zhe wrote:
-> MPOL_WEIGHTED_INTERLEAVE currently has one system-wide weight table,
-> configured through sysfs or auto-derived from node bandwidth. This series
-> adds an optional BPF control plane that lets privileged BPF syscall
-> programs install manual weighted-interleave overrides for individual
-> cgroups.
-...
-
-I don't think this has much to do with cgroups. Weighted interleave is
-already a per-thread/per-VMA policy chosen through set_mempolicy() and
-mbind(), and the weights are parameters of that policy. I think this
-should be tied to the memory policy instead. This is different from
-the per-cgroup NUMA balancing kfuncs. NUMA balancing has no per-task
-opt-in and acts on memory with no task context.
-
-Gregory Price's mempolicy2 series already proposed set_mempolicy2() and
-mbind2() with task-local weights:
-
-  https://lore.kernel.org/all/20240103224209.2541-1-gregory.price@memverge.com/
-
-Thanks.
-
---
-tejun
+Thanks, applied to nvme-7.4.
