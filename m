@@ -1,101 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793696686;
-	b=mtS3a9rmB63UBlyX7BjRAqHPIMOIydAkpR4rxnL8p5fyjZfUCJsrbYEsu9SMm2JZwdHs
-	 +BKo7bJFUVbqQS7jyYE3GNvw3iVAWdgU+IAvSW/R1PwmhIKKSoni4WjwzKANnAIAOFSrY
-	 Qmn7a4RT3Gd810bQbhCIUnqQkWPJkjK3gjtOGoI4ULkJvhvMU1eBk33C78Wf+3gT86K2f
-	 QVkfKY1aPX8VhA2fjx5mFMdyZb4WJOWnADZJNYfQv3TF00kl3tclAD9AEQliBuGbtu7B1
-	 PRmXkh0PkkLWzlKSfYJvIWJuI0Dp4BVmSCd0yidJUtQq7s5FI5cxFjMvKW9MvtNQY6A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696686;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QibTS3hRHWBtrderPfFItxtuJrimy/UpjW7x7VnYyXc=;
-	b=CgGmnsV7qY/HmQb5tZdVBuD3CbEKFHFuhPJsI6LpC5w0JaJ2CNLXYYNui6xZN3vy/gcM
-	 Fe8t7TdnEcHbwqo//KPPl+/IHmqSOBQqzuDxm61cTwCq2kZdNoL+l7eF3IbZCA+uy9ZeH
-	 Z0GFlhn6II3YXCR8jiXPp9nb36lr5EHv0zwLedC3TNmgfEe+KIM0LTa889rOtCwp6xLnL
-	 JsAz4oVVrRs/J1gGHklmjLpz7XKytBz/aw5fvvbOPMb/VlYj8aiVcBp/xJxDjT10midIm
-	 q4ADs7rMFUlDx/fxghUQyql8O06zKkqBmBr+LnCYLsm5lpUYEj25QwNTIiLrO8r7rcw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=smartx.com;
-	spf=pass smtp.mailfrom=smartx.com;
-	dkim=pass header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NoUTn0BX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793696674;
+	b=3Jb7Q9qDt1NTYHRdF5Yril5ERcQXENkcRLbLaVhEh5oorWKGHbOqkDNvCRJy++YAfxaY
+	 Wo2TvrY9a7y1jUoCpAXI94R81u+/koBXp48BnYn9LPjb5IOaE6lG1wM6q7/oxF2TtHLfI
+	 Z0H3macbvb/GDkwIJL6ua+fWhuyToC/2c/LkMLE5Is38BhMBFVtzRqLkGOIwxpOx6HqFq
+	 hsHHBrMpuqYPJsiDv5bNZThzgp+foVsAVJHX2vmD1cLFYXJOYj7DFjVoYvcSvZsAmXlZv
+	 f3NxcflAzvPm5OLs3sZ1XF+dhfLTJ/srWB6HuYTLoJbt0Bnrnwy/yucTNtYsc1OFv4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696674;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Uyv+Mc5d9d1gCJCyssw8BshM15Hv025jfZyc5jx49Bo=;
+	b=3WHep3ukpuTfkGXc70aGFV3/5EbOHIR2ZEL6tbqE26WaYJeHzDR4wtQKGzVNURJy6IJr
+	 vFzP42LgnH5nksdpqNq84H2Kwh0KUYCTUVG+gRoVp+lWY1B5F16nnjD+6szueoBE5i8rB
+	 gbkJJn96UQ/htANU0iu4Jmp55XJ5SKqE6jgP+t1WvXf1qJM1KO0GRaoPLuBHnzZ88hoyH
+	 /tOdU8d9vwC1Xn/xVxO5ZQ+lNKUH6OU3MxZ22xEG17S9hkrUwKn6hHpdbbiE6NOXTwuLL
+	 bH5t5qyKcRxNL/S3s9kh7XWwpuB4NY/K3MsPpji/7OVxqifVmR/Ov+9eiNRXU2Ws3Xw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=dRgz4HUv;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E769606A335
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E769606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smartx.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A965F606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:04:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A965F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NoUTn0BX
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ab4891fc73so38146761fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:04:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793696684; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T/Na7MMJzUT1HS7cluiS0mj6Er73neUhNio1YhNBVLaR8Zau3LqZeWBIT8+4r7Lupg
-         f8nECJbFFJhSgNuQqDD11U9JVTE4i09La6OS9t+gjMBlEMeXbId7cyAwg0Cph9do3SF0
-         ujmuhnbKtBQ6+IiMUxlIcQtfuOM8Q/GOpqzpwSt2nZ7gYzfrTHOOO0muGEe3sMm7z42W
-         s8BNIucgzYS3tZTGxaQg2KC5/yJ7nvnerCySkIArNB4ea/+2INR7bRlhiEbSG4E3xu4J
-         FSZWQ03RivDlgY4hYV6vNG4GjMTuAk71KWfvPl5fmNdknqR4qVtAeP+vchhYn181U60p
-         p53g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QibTS3hRHWBtrderPfFItxtuJrimy/UpjW7x7VnYyXc=;
-        fh=iNhh2I50JcZmim3E7VbMkZFtHr6itY8VM5vyZiwBrNo=;
-        b=oTWhgMT41DXBH4x3ljdqVv5NFvVv2pZb9ncmYuFWBi7989O1zZve63B1TqfAT0wgpJ
-         gTM7AlM6a8VFGyoBOp9RdkEwA/Hl8DJuD9gi0MBLU7YuCkw9bdAEiNPxCMqFBV4JH0gp
-         K8GKyTJ0FjCsltpnnUP1z9dT7/J9q38VDtjlAxgurZTdds6ItymyT7k6y9Soj5qu4MR9
-         poGCdn0mRFV0lxkyfN84FGaW6IfMTCcU0gsqDEBv+B0VbZW4I+icaI5gEN2KImpMVGEx
-         kuXjIeCjgeI+TjV0fWCVxxE+aRb+nw5ShaWQMD9JrK1rrLeaUKhDEXGTJ3WY10fn0/4q
-         aFPw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smartx-com.20260707.gappssmtp.com; s=20260707; t=1793696684; x=1794301484; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QibTS3hRHWBtrderPfFItxtuJrimy/UpjW7x7VnYyXc=;
-        b=NoUTn0BXtDsnFq1HpMu0aGhl74vF6CKggAagce7kXJrkwzVVNgCdmEOWGPBVK+PZUa
-         Etp/6wMflgBrUvrlEbhJpj0KHK68dO1qsnej/4oCGRTNlUyllk2VSFvBpJ/oijFF3u3x
-         9J7sfZNzCPkN+6LxdDMXV4hIOZkEBaf3HaU4+2CBLg0mihokJbbiFUqVJzbJaTNByS4+
-         4bwRXeFn4TXwNvbD4p0mIan+1sD8jxz8AOSqBvN1PF1sLCAYyvm9keSfuvDve6ExsbVy
-         OWUJdr2MoaeK7kTi52hhSzF5qPFiLX2qRwDITel32YzXCyD09x8KdVs+QeOv8U+ffg3J
-         qngg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793696684; x=1794301484;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QibTS3hRHWBtrderPfFItxtuJrimy/UpjW7x7VnYyXc=;
-        b=iJHhrai3zRqH4TRRcgBoZCYfj3fwGLHKGtFwnY9pfZbpY0Sp3DPU0Ua4JabwArBMpo
-         g0lkcex6oVdSMUr8L8xoHeIXsfysJgxJWjpb3utH4r0MnPGgpvX7fr/K+WnCS6PBZPJH
-         YnXn+1JmAB2oyWappk/ctu4+uOUqfmfQsDPTmdgWTUNCxjKZABdaqdCnoMIVPGr1YRxH
-         TjE8WFhoIFO1oks2rfHNLn92qE3vkIPVGc/d0WQ6VfYu0E/rmH8meQ5l+8LXuflU6O12
-         3zCI6j6t81GMMfEXOdGQGYPGCCIH7XNlRSxVnMfXw3MRLxNI9Vv1yWH3Y2jgs13sv7Lp
-         pj6w==
-X-Forwarded-Encrypted: i=1; AKwUvBw/y7xlk9ZhgoU2ucIdAswWfQPoVI+XeBIsTYn3c8Yb1GHdhs+EzhsmQfHpqfMbhwh6TMi0ZgbubFEas24=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+yMB3D3itKlkq4nyR8y3L3ogN/SA/JaDIEXB21zBrVdiNwL8sH
-	nEo+tBhzCdI0wITbgyLW2sZT/oe4z1MxNHcu1cdEowRAsBhEb50lZzCviw4aJFJTCGf2P8zupAn
-	Ga++kOpSQdWrbWl1GPbkb1fbSCHMmLsTwV54o+VgEjvmFdrG5zM7+yPPZUxBRccyAIdc97+rlFv
-	P+gz2mGz751zTQMaUrEDao4jnjqI4bge742A==
-X-Gm-Gg: AYBFou3MM05UyxP/eBdtsh6oUocFuyfin9VyRgOBfDzhQpwugCFgsmhPHEXdt+2ielI
-	hPlkFDiPE7YUn3tmN7p2kOKcGNYVSiMgH80yNBB+XmD7uu57qGmFatxtyKkDD7zigbf40/MYq7g
-	uBekauVUF7/ImqpPQEu+UmCEGcPgN7HLwWk2UVPg0J5ERbJj04+n0crO6k09VJ7lEv7fwUvV0ul
-	xlqdvs4GM9y4u7//Bd+hRT1FBOdIGjT+vix9v68fl8H2Tr803723CG8GPbJZf+RqmAXORlxQwys
-	3IbtTdBP/Ku8zls1t0p4HDEQe2WoJxr96X9HT2Qtmz2js54VKs+CXju1YApoh5hfH2jY7nmMXpv
-	B1MC1vMHNepcfc/R57jhva8xRBz444tbDzzOtIhqn9tuiCIH0jLZ882YtQO7DWr0e6JB9EJk=
-X-Received: by 2002:a2e:bc11:0:b0:3ab:34b7:2535 with SMTP id
- 38308e7fff4ca-3acb7a29983mr29493411fa.9.1793696683509; Tue, 03 Nov 2026
- 01:04:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=dRgz4HUv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=Uyv+
+	Mc5d9d1gCJCyssw8BshM15Hv025jfZyc5jx49Bo=; b=dRgz4HUvWa1NktTmMP7G
+	/lyCdZIMnsCBeSR9X7GPgUXYjS44XP1ojzhQbML2eqiAKTIJRvooKNiiKKFrQTxq
+	XxrBMzJHHPTX9kcVsOvpf0ZR1QJwrONIdHGYDDSkMBeM/8jfn7zWxAl3oPZDenLW
+	N3L3/zl8f+wGNpWx7rJclM7cBsSLBmriAGL5/XmT0NpNt1joO+bJ2C1lvUhJu6VO
+	Qb4DIGZSRkMF+fy07btxTN5kl9I0hOh13FMCP7jsSBZkqqXX8vewmwP8+VkxRQ28
+	yG2h/G6XQefREoLck4e/6dHNQRjEEADjI/l2W3QfBQREK2GDfgl40f3LAcw9I7Uq
+	7w==
+Received: (qmail 214200 invoked from network); 3 Nov 2026 10:04:22 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Nov 2026 10:04:22 +0100
+X-UD-Smtp-Session: l3s3148p1@I1NYjFtfbsI+ZpL9
+Date: Tue, 3 Nov 2026 11:04:21 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: peda@lysator.liu.se, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] i2c: mux: demux-pinctrl: Release pinctrl handles on
+ deactivation
+Message-ID: <aumjke-mSGP8WVl1@shikoro>
+References: <20261103082905.1167633-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,92 +64,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261009030111.57784-1-lei.chen@smartx.com>
-In-Reply-To: <20261009030111.57784-1-lei.chen@smartx.com>
-From: Lei Chen <lei.chen@smartx.com>
-Date: Tue, 3 Nov 2026 17:04:38 +0800
-X-Gm-Features: AclHuK_pmOLLTESyZi7anXUIO5GW4TaRMlcQcRNW9nXAneDiHkZvFfsScA0IpS8
-Message-ID: <CAKcXpBxKzWgez34rmpqEmV9hw2JiKBtjJsJqVnKk=ySytxkU2Q@mail.gmail.com>
-Subject: Re: [PATCH v1 0/4] Expose blk-mq tag sets through debugfs
-To: Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8CkNpLJWHo1/LwAO"
+Content-Disposition: inline
+In-Reply-To: <20261103082905.1167633-1-vulab@iscas.ac.cn>
+
+--8CkNpLJWHo1/LwAO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jens,
+On Tue, Nov 03, 2026 at 08:29:05AM +0000, Wentao Liang wrote:
+> Each master activation calls devm_pinctrl_get() against the parent I2C
+> controller device. Switching or removing the demux only releases the
+> adapter reference, so the pinctrl reference and its devres entry persist
+> until the parent controller is removed. Repeated switches accumulate
+> these entries. Activation failures after obtaining the handle retain it
+> too.
+>=20
+> Use pinctrl_get() and keep the handle with the active channel. Release
+> it when activation fails or the channel is deactivated, before dropping
+> the parent adapter reference and reverting the device-tree changeset.
+> Keep the no-pinctrl case working by storing NULL when get returns
+> -ENODEV.
+>=20
+> Fixes: 50a5ba876908 ("i2c: mux: demux-pinctrl: add driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-A gentle ping on this series.
+To get a better picture, how did you test this?
 
-It adds a tag-set-level debugfs view to inspect CPU mappings and
-driver tags, with links from request queues to their shared tag set.
 
-I'd appreciate feedback on the overall approach, particularly the
-driver tag lifetime changes in patch 2 that support the debugfs view.
+--8CkNpLJWHo1/LwAO
+Content-Type: application/pgp-signature; name=signature.asc
 
-Thanks,
-Lei
+-----BEGIN PGP SIGNATURE-----
 
-On Fri, Oct 9, 2026 at 11:01=E2=80=AFAM Lei Chen <lei.chen@smartx.com> wrot=
-e:
->
-> Block debugfs provides views of request queues and hardware contexts, but
-> not the tag set they share. This series adds a tag set view for inspectin=
-g
-> configuration, CPU mappings and driver tags, with links from request queu=
-e
-> directories to identify queues using the same tag set.
->
-> The series first removes a stale CPU mapping comment and moves driver tag
-> allocation and reclamation from individual request queue initialization t=
-o
-> the tag set level. This gives the debugfs tag files a lifetime that can b=
-e
-> coordinated with tag allocation and release. It then adds tagset/<id>
-> directories under the debugfs root and links each request queue to its ta=
-g
-> set directory.
->
-> Tag reads hold a debugfs active reference only while copying tag fields t=
-o
-> local variables. Releasing it before copying to userspace lets tag file
-> removal complete even if a reader faults on its user buffer and needs I/O
-> to a frozen queue.
->
-> Based on Linux v7.3-rc2.
->
-> Testing on a 192-CPU x86_64 host with KASAN and lockdep enabled included:
->
->   - null_blk queue growth and shrink under concurrent direct I/O and
->     debugfs reads, including 100 cycles between 1 and 192 queues.
->   - Shared tag sets, shared tag bitmaps, three-map configurations, and
->     repeated device teardown and recreation with old file descriptors.
->   - Unmapped tag reclamation with 256 poll queues: tracing confirmed
->     allocation, reclamation, reallocation and reclamation again for
->     indices that became unmapped as the queue count changed.
->   - Task-local allocation fault injection, including hctx allocation
->     failures that rolled the hardware queue count back.
->   - NVMe loop with two namespaces, 50 controller resets and data-checked
->     direct I/O. These resets retained the same hardware queue count.
->   - userfaultfd-controlled stalls in tag reads: null_blk queue resizing
->     and NVMe loop controller deletion completed while copying to the
->     user buffer was blocked.
->
-> No KASAN or lockdep reports were observed in these tests. A hardware queu=
-e
-> count change with NVMe queues already frozen has not been tested.
->
-> Lei Chen (4):
->   blk-mq: remove stale comment about non-present CPU mapping
->   blk-mq: manage driver tags at the tag set level
->   block: expose blk-mq tag sets through debugfs
->   block: link request queue debugfs directories to tag sets
->
->  block/blk-mq-debugfs.c | 298 +++++++++++++++++++++++++++++++++++++++++
->  block/blk-mq-debugfs.h |  22 +++
->  block/blk-mq.c         | 143 +++++++++++++++-----
->  include/linux/blk-mq.h |  13 ++
->  4 files changed, 445 insertions(+), 31 deletions(-)
->
-> --
-> 2.43.0
->
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrpo5EACgkQFA3kzBSg
+Kbad/A//WCwjjBQrxpHVXSeJWb+Xs49uCukN1xzEiEoagUqDhjukYpVsmstAY4lm
+jzOEVsDQo5aN3U0uNOQU/o7RwkXREGj+9ZhjqcG5hHN0XsELI3XZXzNQQdd4Otf3
+fkyZsuebaUAondP8tRBvQpJCqVuVkUU19Cr3be6b6UInimkzrmMxfNJNdQMDZeT9
+83xsGz1ajtlYPBt6y0zJfpoyXlAcFtZ7J0QwnRlXQyr3l+voDSA6p3epj6pNpiFF
+vj/ASfXXGmXNPopIzBEQwL4GG5qQZ7H/+o+w6dbaDfOBac2ZqZHbyVYDj0YeGIhi
+z/3aCV6Vh3BXw7x5+2Zff7OYVRalL/80c153S9T0ZHWqsrOBZZR5zYRUK6afLl7V
+wLI+P5MaOSvHSgriMD2tgXH1yzMTgk/GWF81IOcEptbbfz8sB0aeAjGFd2+lagEL
+4jIFAMgmiqwQSdIrFjGhWj0nMzU0LAx9+Ofjkv2kVsuK+bJpKIMDKonbQbx4BDTn
+f/NJdXnf584+kJnLxVSP4fCH9Z2Dn0KNPlPZd04jLVZmiwkFK46sqUf9QB9AWW8V
+reflwo19HV9xtoakJ+dQkXSESXThAgw7THGAlbFmWXuSF5QkHtaYmV4iXlSRrnwH
+LDK6vkUFsZXsgbePvP7Nsvxt7poFiY6/i/YE76n9wJ3ZVoXth2U=
+=79Zl
+-----END PGP SIGNATURE-----
+
+--8CkNpLJWHo1/LwAO--
