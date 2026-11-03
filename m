@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749588;
-	b=RLzkkZU2jnEho2j5ZhselE1maxjMhv27JckzRrmY8Xau20ffyOlvg1/Sv0fhhFpacBmH
-	 Eis7r2p3JIK4LJgrh93cKQyJHuIHbF3uTLPGrdW/OGlHC3YEBxElMfbtzlr/ivQRGfHU/
-	 h98D6dxj/sXiP1TzCiPhCcTL9jcsO/RV+kLIZgjejQLk7DpG1G+GzqDWi8zRx+BU6PRtN
-	 nNl8OI2rgaPj9h6bS3CAUO+7CQyoXBxzV2nrUQbb8ovLTHotMEJG0RNtQKbtSqULEGI5Q
-	 PdGdwHX9BH+kYhWhwywHZ8XK3ue/gQ/Y/jp2maVWmBPkEeKEr1+uTe4wCblzaMkQVFw==
+	t=1793749584;
+	b=wKc1k8j7VCEz0RgNJ0D21c9/R17JSTd43vgC93q4HBkr9LOujM+gAick3tRyZLFX1zON
+	 Q5CUZk4ICE+yXNBffIkhRn0M4cG+PJrWpAi5qye0gKramfshP+3XpA4A55IbbBZdsNMNz
+	 EJfz2eq+twrjxfT3p4FTCDRzK2nh7JEEdxH3oHBoC38XlWDDOjB98aFdEOb4j0Ihkxi5x
+	 J90HBTwlbvPbvCg5VpRd666AGviFJwBrgHjD2FXgjry33HsKbgn39Kwf4t0bGN9Mv3Nkt
+	 GwweEBWOVWGeKtojwQex6GzlQuk7zXZ9LPHUImo97pyp9OCKbRkgQHUS5IoYIwsJF6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749588;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749584;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=NSMj0EQk2XJVbJIpKiSnx7gbNLhkEblXTTXusablWHw=;
-	b=BmamHOToOgWDWUvte7/mG2xSWUo4Lli9eqWOU5wUV5LBPFpTSwsLcXPCLZ+VFusaSwZx
-	 5AuoKqgL5zuHZd27TkpOdg1RY6ZaDCea4NTRqH1RgDL4wCyxnOyDkATXQj/B5YElS+BDu
-	 FRoVnlplFrUx+vfY1KhIqIuBWSejMHmTsAA5k7B9mZyz/qLIk7jwM1lxeCEfZTbwc1ZyA
-	 pHyiCVifQPGnunsklC9g+Jzqby9tFs03oLR4qzwsTuAEqxQxfQ2bv8Kh/6d19GyW17IS7
-	 PJRJqpczNZs12S1SCcHv/wzIkz3A99yoakwBJXCEbDkhxgmlySuDK0nPuH9Ip5V+tmA==
+	bh=hBxGw1mdMWdMtHQn9cme+BphDa1tG+r3r3LQchoVn+c=;
+	b=FhkPfnbbe9rNZEqHWognTGB9kcD6Q0uNJ4+aQvHwjK/tDUOfDwXGAfuM/g7zS8G+hIZN
+	 D/smt2bv2l++oLa+lx+1/FTgBO1rsqzkOjhncBnKovCePCRYz9F3FzGW46Fd0daqc8p6v
+	 vs9bHvK6EsEdSY5iSGIWPB9Rb/Q03PdbmqgLFnTFLC4V5qLkgHngZpElNZgcEmSg4tnzZ
+	 jOh1qEQTdFzz6JkO83oO4Yzfp1uetiDBF2jIiRWhOUxVGNNZ8tdfWbqgdCATjZ4f20auk
+	 WjdhSkZQ3YVnmdIit4P2X1qxfi+bDX3uXe5b8qSmVyJb5OnRTViHn34t7QEga2AICsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V6rBWxbj;
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SYyllaon;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640F8606D816
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 640F8606D816
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A116083626
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4A116083626
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V6rBWxbj
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e601800e58so1164605ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SYyllaon
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1aa0fb7f157so288461c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793749588; x=1794354388; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793749583; x=1794354383; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NSMj0EQk2XJVbJIpKiSnx7gbNLhkEblXTTXusablWHw=;
-        b=V6rBWxbjhJ4TNG7EBjluXAVa4nxYxSWrDFJnL1WR3iAAIaRo0HADQ8jpG1NDImW3rY
-         TvHGByYY0aipzmdhRP56lOfK60QZLm5jB87j4KmcpoVTEGG2JVBQrZ12p4QoTsND1BWt
-         hTdgB6fEI2qNna/fo/dKIfjVLyAo9WijCTm/ioiKKkmmiCPxrDvqzTcE4j6EVTA2D1UF
-         lmdgtRw72iodBm1FcMDbhu5/qfqDracD4haGeUCpMwu+0oXBfUJlUkUhiOtp7TFEZeTG
-         YDlOevWrFY2iSjboO2Jr5YrPENYulrPx6pMg/PGyPYhc3fZzdLaZBO+KwgPZRL2ftKJl
-         ALlA==
+        bh=hBxGw1mdMWdMtHQn9cme+BphDa1tG+r3r3LQchoVn+c=;
+        b=SYyllaonRnw6mhdSCiAEeF5VQhVbbRLpDPnoTE58Q14cvPeFxyHgl5wKzl4b/LUx2J
+         0LpDV8EEyKUHiXX6Gx+t5jqI9pYcIj/UZvvTpUyWMIf4Vp5UbVLuHrRpg1k0fJUcIxK4
+         BVMjDeNfiSlpgu5tHMD1iKq12FKk1EsG4JaykSKvDNtTp7uJku8UJWp/Mc3foQAj4KFB
+         UQDF0uE2BklRzYG2jdnG8tJuIyEVEzoiGEg71U0XYBya3nUsDrsgKg4ANh4zFcH63fv+
+         aZQQHOkkOQEhuny1S3d/1NoZ33bNGYej0j4EuE1mOPzPibjxU/00dNv8trGV7J+56REF
+         fJYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793749588; x=1794354388;
+        d=1e100.net; s=20260707; t=1793749583; x=1794354383;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NSMj0EQk2XJVbJIpKiSnx7gbNLhkEblXTTXusablWHw=;
-        b=SYNY+3Yf1diDYjzumP0gbj/jqNi/MS90eYyt35N8ZDKczYOHtVhQ9lly0uBq6SRjav
-         4MQjco32j/gJfWpWDkgFqE/3Q8FDMU+R9I9JiUU7y05jwxPFmOSUfe79nX1TO6pRUFCg
-         e1NxvUEVYKVw21NXcm8f+nqhOCShUZ3Ydmisj+Nw9KhfynZanFOGC5MoG+I3epjjkOWj
-         FANzWdoe6leOSwzwGdDIbgJEoRdP7HOIy4NYkpuRMlyG0O4zRaf4MZ1reLqzsZUTazm2
-         i39qDuCTpCY7Xnw47I0z0+gqdChvOrkgrBDPcvuZbIYLdrsHGq1D8c2SB8Av2pRN8IIR
-         soqg==
-X-Gm-Message-State: APuU4Z8uC60EPo52wHw/kQbjE8TEXFxttUHRej0CyMrlkWh2kwq4j38W
-	TiPZ4mFLnH/BzfSRWDlbQbN3FD/yyK8doJJymlV7b315lHZghPsP25jXq7wnwbDsruXkkRTHo4k
-	t+y/H76gloA==
-X-Received: from plic13.prod.google.com ([2002:a17:903:370d:b0:2eb:153c:2391])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d54a:b0:2df:90d4:1193
- with SMTP id d9443c01a7336-2eb364fa721mr143696105ad.45.1793749587332; Tue, 03
- Nov 2026 15:46:27 -0800 (PST)
-Date: Tue,  3 Nov 2026 15:44:46 -0800
+        bh=hBxGw1mdMWdMtHQn9cme+BphDa1tG+r3r3LQchoVn+c=;
+        b=PA2zjcyAsiIyCymz1rXOy/uF/TarhjCzCO6QUcymHww3j1hA8H4R3lLRwEPhd5w3Pv
+         qTXslTNO0nfAs/xbGw5uZZRFqKPoSXWjDaWj2Mv1nAl1+3jVy8hBKOySAGEJGZNhOiDu
+         gu+F7kjWc8hsbQvhfr32Nrat08b2e/hCM7Su314Z1vbRu51w72KwxwTZMFum3huv20Ao
+         o1e5b5G0xtbjt9T0V3dihdDRf3YoGeDK9p1vvBBYk8yvkE++PV+I8Ok096iJy7960g7g
+         xVnLUKY5q7Uk55Jv0M8ixUL+43F9fURXh2QZIWeQ8RFmWhubLmhetug7pwIFFJ5j2CDG
+         vFJA==
+X-Gm-Message-State: APuU4Z+UcBYWFlAKpLmATlJoer4JYFZUWc2DstTCUUNG7J5NzziLA8Qa
+	WBKNv+pIGQmbOGUYY5ww/+c9iO5iOzeGjXIsFvKXpO7GDAC0Vgip5F64Srlziq9IxxGeXgdRj01
+	kDrprec2kvg==
+X-Received: from dlaf7.prod.google.com ([2002:a05:701b:2407:b0:143:7311:4b88])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4283:10b0:191:a5b2:ef4a
+ with SMTP id a92af1059eb24-1ac5cb186d7mr21837405c88.28.1793749582513; Tue, 03
+ Nov 2026 15:46:22 -0800 (PST)
+Date: Tue,  3 Nov 2026 15:44:44 -0800
 In-Reply-To: <20261103234502.1008382-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,8 +79,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261103234502.1008382-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103234502.1008382-31-irogers@google.com>
-Subject: [PATCH v1 30/41] perf pmu: Probe precise_ip levels
+Message-ID: <20261103234502.1008382-29-irogers@google.com>
+Subject: [PATCH v1 28/41] perf pmu: Add perf_pmu__probe() for basic open,
+ counting, and sampling
 From: Ian Rogers <irogers@google.com>
 To: linux-perf-users@vger.kernel.org, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -95,100 +96,682 @@ Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Extend perf_pmu__probe() to probe supported precise_ip levels (1..3) and
-populate probed.precise_mask and probed.max_precise.
+Sysfs PMU metadata does not expose many runtime kernel and hardware
+capabilities, such as whether a PMU supports counting vs interrupt-based
+sampling or whether perf_event_open() succeeds under the current
+privilege level.
 
-Some PMUs that do not implement hardware precise sampling (such as
-software, breakpoint, or AUX trace PMUs) silently ignore attr.precise_ip
-even on non-sampling events (sample_period == 0), whereas PMUs that
-genuinely validate precise_ip either reject precise_ip > 0 on counting
-events or are sampling-only PMUs. Check for this before probing levels
-1..3 so non-precise PMUs are not misreported as supporting precise_ip,
-while still detecting higher precision levels when core events are
-forwarded to hardware sampling units (such as AMD IBS).
+Add struct perf_pmu::probed and perf_pmu__probe() to actively probe a
+live PMU via perf_event_open() on a dedicated worker thread pinned to an
+online CPU associated with the PMU. Select a representative probe event
+for tracepoint, kprobe, uprobe, core, software, breakpoint, and uncore
+PMUs, hold a keepalive fd for tracepoints to avoid repeated RCU
+synchronize_rcu() delays on close, and record whether opening, counting
+(sample_period == 0), and sampling (sample_period > 0) are supported.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/pmu.c | 50 +++++++++++++++++++++++++++++++++++++++++++
- tools/perf/util/pmu.h |  4 ++++
- 2 files changed, 54 insertions(+)
+ tools/perf/util/pmu.c | 562 ++++++++++++++++++++++++++++++++++++++++++
+ tools/perf/util/pmu.h |  31 ++-
+ 2 files changed, 592 insertions(+), 1 deletion(-)
 
 diff --git a/tools/perf/util/pmu.c b/tools/perf/util/pmu.c
-index 164ed926184e..1c55265be246 100644
+index fecfe791bf8a..9033bada9f47 100644
 --- a/tools/perf/util/pmu.c
 +++ b/tools/perf/util/pmu.c
-@@ -3453,6 +3453,56 @@ static void __perf_pmu__probe(struct perf_pmu *pmu, int pmu_cpu)
- 	if (pmu->probed.can_sample)
- 		probe_sample_types(pmu, &base_attr, pid, cpu, flags);
+@@ -9,7 +9,9 @@
+ #include <sys/stat.h>
+ #include <unistd.h>
+ #include <errno.h>
++#include <limits.h>
+ #include <stdbool.h>
++#include <stdint.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -20,6 +22,7 @@
+ #include <locale.h>
+ #include <fnmatch.h>
+ #include <math.h>
++#include <pthread.h>
+ #include "debug.h"
+ #include "evsel.h"
+ #include "pmu.h"
+@@ -38,7 +41,21 @@
+ #include "strbuf.h"
+ #include "fncache.h"
+ #include "util/evsel_config.h"
++#include "cloexec.h"
++#include "dwarf-regs.h"
++#include "evlist.h"
++#include "mem-events.h"
++#include "mmap.h"
++#include "perf_regs.h"
++#include "rlimit.h"
++#include "util/sample.h"
++#include "../perf-sys.h"
++#include <linux/hw_breakpoint.h>
++#include <sys/ioctl.h>
++#include <sys/mman.h>
++#include <sched.h>
+ #include <regex.h>
++#include <elf.h>
  
-+	/*
-+	 * 3. Precise sampling support (:p, :pp, :ppp).
-+	 * PMUs that do not validate attr.precise_ip (such as software,
-+	 * breakpoint, or intel_pt) silently accept precise_ip > 0 even when
-+	 * sample_period == 0. A PMU that genuinely implements precise_ip
-+	 * either rejects precise_ip > 0 on non-sampling events or is a
-+	 * sampling-only PMU (such as AMD ibs_op).
-+	 * Note: On AMD, core events like cycles:P are forwarded to IBS and
-+	 * support higher precision than advertised in sysfs caps/max_precise.
-+	 */
-+	if (pmu->probed.can_sample && !pmu->auxtrace) {
-+		bool ignores_precise_ip = false;
+ #define UNIT_MAX_LEN	31 /* max length for event unit name */
+ 
+@@ -2837,9 +2854,554 @@ void perf_pmu__delete(struct perf_pmu *pmu)
+ 	zfree(&pmu->name);
+ 	zfree(&pmu->alias_name);
+ 	zfree(&pmu->id);
++	zfree(&pmu->probed.probe_event);
+ 	free(pmu);
+ }
+ 
++#define MAX_PROBE_CANDIDATES 16
 +
-+		if (pmu->probed.can_count) {
-+			struct perf_event_attr c_attr = base_attr;
-+			int fd;
++static unsigned long dummy_bp_var;
 +
-+			c_attr.sample_period = 0;
-+			c_attr.freq = 0;
-+			c_attr.sample_type = 0;
-+			c_attr.precise_ip = 1;
-+			fd = sys_perf_event_open(&c_attr, pid, cpu, -1, flags);
-+			if (fd >= 0) {
-+				close(fd);
-+				ignores_precise_ip = true;
++/*
++ * Resolve /proc/self/exe and compute the file offset of its ELF entry point
++ * so the uprobe PMU can be probed against the running perf binary.
++ */
++static bool get_self_uprobe_target(char *exe_path, __u64 *out_offset)
++{
++#if __SIZEOF_POINTER__ == 8
++	Elf64_Ehdr ehdr;
++#else
++	Elf32_Ehdr ehdr;
++#endif
++	int fd;
++	bool found = false;
++
++	if (!realpath("/proc/self/exe", exe_path))
++		return false;
++
++	fd = open(exe_path, O_RDONLY | O_CLOEXEC);
++	if (fd < 0)
++		return false;
++
++	if (pread(fd, &ehdr, sizeof(ehdr), 0) != sizeof(ehdr) ||
++	    memcmp(ehdr.e_ident, ELFMAG, SELFMAG) != 0) {
++		close(fd);
++		return false;
++	}
++
++	for (unsigned int i = 0; i < ehdr.e_phnum; i++) {
++#if __SIZEOF_POINTER__ == 8
++		Elf64_Phdr phdr;
++#else
++		Elf32_Phdr phdr;
++#endif
++		off_t pos = (off_t)ehdr.e_phoff + (off_t)i * ehdr.e_phentsize;
++
++		if (ehdr.e_phentsize < sizeof(phdr))
++			break;
++
++		if (pread(fd, &phdr, sizeof(phdr), pos) != sizeof(phdr))
++			break;
++		if (phdr.p_type != PT_LOAD || !(phdr.p_flags & PF_X))
++			continue;
++		if (ehdr.e_entry >= phdr.p_vaddr &&
++		    ehdr.e_entry < phdr.p_vaddr + phdr.p_filesz) {
++			*out_offset = phdr.p_offset + (ehdr.e_entry - phdr.p_vaddr);
++			found = true;
++			break;
++		}
++	}
++
++	close(fd);
++	return found;
++}
++
++struct probe_candidates {
++	char *names[MAX_PROBE_CANDIDATES];
++	size_t nr;
++};
++
++static void probe_candidates__add(struct probe_candidates *cands, const char *str)
++{
++	if (cands->nr >= MAX_PROBE_CANDIDATES || !str)
++		return;
++	for (size_t i = 0; i < cands->nr; i++) {
++		if (!strcmp(cands->names[i], str))
++			return;
++	}
++	cands->names[cands->nr] = strdup(str);
++	if (cands->names[cands->nr])
++		cands->nr++;
++}
++
++static void probe_candidates__exit(struct probe_candidates *cands)
++{
++	for (size_t i = 0; i < cands->nr; i++)
++		zfree(&cands->names[i]);
++	cands->nr = 0;
++}
++
++static int collect_probe_candidate_cb(void *vstate, struct pmu_event_info *info)
++{
++	struct probe_candidates *cands = vstate;
++	char buf[512];
++
++	if (info->deprecated)
++		return 0;
++	if (info->str && strstr(info->str, "=?"))
++		return 0;
++	if (!info->name)
++		return 0;
++
++	if (info->pmu && info->pmu->type == PERF_TYPE_TRACEPOINT) {
++		probe_candidates__add(cands, info->name);
++		return 1;
++	} else if (strchr(info->name, '/')) {
++		probe_candidates__add(cands, info->name);
++	} else if (info->pmu && info->pmu->name) {
++		snprintf(buf, sizeof(buf), "%s/%s/", info->pmu->name, info->name);
++		probe_candidates__add(cands, buf);
++	} else {
++		probe_candidates__add(cands, info->name);
++	}
++
++	return cands->nr >= MAX_PROBE_CANDIDATES ? 1 : 0;
++}
++
++static bool parse_candidate_attr(const char *event_str, struct perf_event_attr *attr)
++{
++	struct evlist *evlist;
++	struct parse_events_error err;
++	struct evsel *evsel;
++	int ret;
++
++	evlist = evlist__new();
++	if (!evlist)
++		return false;
++
++	parse_events_error__init(&err);
++	ret = __parse_events(evlist, event_str, /*pmu_filter=*/NULL,
++			     /*cputype_filter=*/false, &err, /*fake_pmu=*/false,
++			     /*warn_if_reordered=*/false, /*fake_tp=*/false);
++	parse_events_error__exit(&err);
++	if (ret || evlist__empty(evlist)) {
++		evlist__put(evlist);
++		return false;
++	}
++
++	evsel = evlist__first(evlist);
++	*attr = evsel->core.attr;
++	evlist__put(evlist);
++	return true;
++}
++
++/*
++ * Pick an online CPU associated with @pmu (preferring one in the caller's
++ * CPU affinity mask) on which to run perf_event_open() probes.
++ */
++static int select_probe_cpu(const struct perf_pmu *pmu)
++{
++	struct perf_cpu_map *online = perf_cpu_map__new_online_cpus();
++	cpu_set_t aff;
++	bool have_aff;
++	int cpu = 0;
++
++	CPU_ZERO(&aff);
++	have_aff = sched_getaffinity(0, sizeof(aff), &aff) == 0;
++
++	if (pmu->cpus && !perf_cpu_map__is_empty(pmu->cpus)) {
++		int nr = perf_cpu_map__nr(pmu->cpus);
++		bool matched_online = false;
++
++		cpu = perf_cpu_map__cpu(pmu->cpus, 0).cpu;
++		if (online) {
++			for (int i = 0; i < nr; i++) {
++				struct perf_cpu c = perf_cpu_map__cpu(pmu->cpus, i);
++
++				if (!perf_cpu_map__has(online, c))
++					continue;
++				if (!matched_online) {
++					cpu = c.cpu;
++					matched_online = true;
++				}
++				if (have_aff && c.cpu >= 0 && c.cpu < CPU_SETSIZE &&
++				    CPU_ISSET(c.cpu, &aff)) {
++					cpu = c.cpu;
++					break;
++				}
 +			}
 +		}
++	} else if (online && !perf_cpu_map__is_empty(online)) {
++		int nr = perf_cpu_map__nr(online);
 +
-+		if (!ignores_precise_ip) {
-+			for (int level = 1; level <= 3; level++) {
-+				struct perf_event_attr p_attr = base_attr;
-+				int fd;
++		cpu = perf_cpu_map__cpu(online, 0).cpu;
++		if (have_aff) {
++			for (int i = 0; i < nr; i++) {
++				struct perf_cpu c = perf_cpu_map__cpu(online, i);
 +
-+				p_attr.sample_period = 10000;
-+				p_attr.sample_type = PERF_SAMPLE_IP;
-+				p_attr.precise_ip = level;
-+				fd = sys_perf_event_open(&p_attr, pid, cpu, -1, flags);
-+				if (fd < 0 && p_attr.exclude_kernel && p_attr.config2 == 0) {
-+					p_attr.config2 = 1;
-+					fd = sys_perf_event_open(&p_attr, pid, cpu, -1, flags);
-+				}
-+				if (fd >= 0) {
-+					close(fd);
-+					pmu->probed.precise_mask |= (1u << level);
-+					pmu->probed.max_precise = level;
++				if (c.cpu >= 0 && c.cpu < CPU_SETSIZE &&
++				    CPU_ISSET(c.cpu, &aff)) {
++					cpu = c.cpu;
++					break;
 +				}
 +			}
 +		}
 +	}
 +
- 	if (keepalive_fd >= 0)
- 		close(keepalive_fd);
- 	pmu->probed.checked = true;
++	perf_cpu_map__put(online);
++	return cpu >= 0 ? cpu : 0;
++}
++
++/*
++ * Try opening @attr across task/CPU target modes, counting/sampling modes,
++ * and privilege exclusion combinations until a working baseline configuration
++ * is found.
++ */
++static bool try_open_attr_variants(struct perf_event_attr *attr,
++				   bool is_uncore, int pmu_cpu,
++				   unsigned long flags,
++				   pid_t *out_pid, int *out_cpu,
++				   int *last_err)
++{
++	pid_t pids[2];
++	size_t nr_pids = 2;
++
++	if (is_uncore) {
++		pids[0] = -1;
++		pids[1] = 0;
++	} else {
++		pids[0] = 0;
++		pids[1] = -1;
++	}
++
++	for (size_t p = 0; p < nr_pids; p++) {
++		pid_t pid = pids[p];
++
++		for (int samp = 0; samp < 2; samp++) {
++			for (int priv = 0; priv < 4; priv++) {
++				struct perf_event_attr try_attr = *attr;
++				int fd;
++
++				try_attr.size = sizeof(try_attr);
++				try_attr.disabled = 1;
++				try_attr.read_format = 0;
++				if (samp == 0) {
++					try_attr.sample_period = 0;
++					try_attr.freq = 0;
++					try_attr.sample_type = 0;
++				} else {
++					try_attr.sample_period = 10000;
++					try_attr.freq = 0;
++					try_attr.sample_type = PERF_SAMPLE_IP;
++				}
++
++				if (priv >= 1)
++					try_attr.exclude_kernel = 1;
++				if (priv >= 2)
++					try_attr.exclude_hv = 1;
++				if (priv >= 3)
++					try_attr.exclude_guest = 1;
++
++				fd = sys_perf_event_open(&try_attr, pid, pmu_cpu, -1, flags);
++				if (fd >= 0) {
++					close(fd);
++					*attr = try_attr;
++					*out_pid = pid;
++					*out_cpu = pmu_cpu;
++					return true;
++				}
++				if (*last_err == 0 || *last_err == ENOENT || *last_err == EINVAL)
++					*last_err = errno;
++			}
++		}
++	}
++	return false;
++}
++
++static void __perf_pmu__probe(struct perf_pmu *pmu, int pmu_cpu)
++{
++	struct probe_candidates cands = { .nr = 0 };
++	struct perf_event_attr base_attr;
++	char uprobe_exe_path[PATH_MAX];
++	__u64 uprobe_offset = 0;
++	unsigned long flags = perf_event_open_cloexec_flag();
++	int keepalive_fd = -1;
++	pid_t pid = 0;
++	int cpu = 0;
++	int last_err = 0;
++	bool found = false;
++
++	if (pmu->type == PERF_TYPE_TRACEPOINT) {
++		static const struct {
++			const char *sys;
++			const char *name;
++		} fast_tps[] = {
++			{ "sched", "sched_switch" },
++			{ "raw_syscalls", "sys_enter" },
++			{ "irq", "irq_handler_entry" },
++		};
++
++		for (size_t i = 0; i < ARRAY_SIZE(fast_tps); i++) {
++			int tp_id = tp_pmu__id(fast_tps[i].sys, fast_tps[i].name);
++
++			if (tp_id >= 0) {
++				memset(&base_attr, 0, sizeof(base_attr));
++				base_attr.type = PERF_TYPE_TRACEPOINT;
++				base_attr.config = tp_id;
++				if (try_open_attr_variants(&base_attr, false, pmu_cpu,
++							   flags, &pid, &cpu, &last_err)) {
++					char tp_buf[128];
++
++					snprintf(tp_buf, sizeof(tp_buf), "%s:%s",
++						 fast_tps[i].sys, fast_tps[i].name);
++					pmu->probed.probe_event = strdup(tp_buf);
++					found = true;
++					break;
++				}
++			}
++		}
++		if (!found) {
++			perf_pmu__for_each_event(pmu, /*skip_duplicate_pmus=*/false,
++						 &cands, collect_probe_candidate_cb);
++		}
++	} else if (pmu->name && !strcmp(pmu->name, "kprobe")) {
++		static const char * const kprobe_funcs[] = {
++			"vfs_read",
++			"schedule",
++			"do_sys_openat2",
++		};
++
++		for (size_t i = 0; i < ARRAY_SIZE(kprobe_funcs); i++) {
++			memset(&base_attr, 0, sizeof(base_attr));
++			base_attr.type = pmu->type;
++			base_attr.size = sizeof(base_attr);
++			base_attr.kprobe_func = (uintptr_t)kprobe_funcs[i];
++			base_attr.probe_offset = 0;
++			if (try_open_attr_variants(&base_attr, false, pmu_cpu,
++						   flags, &pid, &cpu, &last_err)) {
++				char kp_buf[128];
++
++				snprintf(kp_buf, sizeof(kp_buf), "kprobe:%s",
++					 kprobe_funcs[i]);
++				pmu->probed.probe_event = strdup(kp_buf);
++				found = true;
++				break;
++			}
++		}
++	} else if (pmu->name && !strcmp(pmu->name, "uprobe")) {
++		if (get_self_uprobe_target(uprobe_exe_path, &uprobe_offset)) {
++			memset(&base_attr, 0, sizeof(base_attr));
++			base_attr.type = pmu->type;
++			base_attr.size = sizeof(base_attr);
++			base_attr.uprobe_path = (uintptr_t)uprobe_exe_path;
++			base_attr.probe_offset = uprobe_offset;
++			if (try_open_attr_variants(&base_attr, false, pmu_cpu,
++						   flags, &pid, &cpu, &last_err)) {
++				const char *slash = strrchr(uprobe_exe_path, '/');
++				const char *bname = slash ? slash + 1 : uprobe_exe_path;
++
++				if (asprintf(&pmu->probed.probe_event, "uprobe:%s+0x%llx",
++					     bname, (unsigned long long)uprobe_offset) < 0)
++					pmu->probed.probe_event = NULL;
++				found = true;
++			}
++		}
++	} else if (pmu->is_core) {
++		static const char * const core_events[] = {
++			"cycles",
++			"instructions",
++			"branches",
++			"branch-misses",
++			"cache-misses",
++			"cache-references",
++			"bus-cycles",
++			"ref-cycles",
++		};
++		char buf[256];
++
++		for (size_t i = 0; i < ARRAY_SIZE(core_events); i++) {
++			snprintf(buf, sizeof(buf), "%s/%s/", pmu->name, core_events[i]);
++			probe_candidates__add(&cands, buf);
++		}
++		perf_pmu__for_each_event(pmu, /*skip_duplicate_pmus=*/false,
++					 &cands, collect_probe_candidate_cb);
++	} else if (pmu->type == PERF_TYPE_SOFTWARE) {
++		static const char * const sw_events[] = {
++			"software/cpu-clock/",
++			"software/task-clock/",
++			"software/page-faults/",
++			"software/context-switches/",
++			"software/cpu-migrations/",
++			"software/minor-faults/",
++			"software/major-faults/",
++			"software/dummy/",
++		};
++
++		for (size_t i = 0; i < ARRAY_SIZE(sw_events); i++)
++			probe_candidates__add(&cands, sw_events[i]);
++	} else if (pmu->type != PERF_TYPE_BREAKPOINT) {
++		char buf[256];
++
++		/*
++		 * PMUs like AMD IBS without hardware privilege filtering need
++		 * swfilt=1 to open with exclude_kernel, as needed when probing
++		 * unprivileged. They aren't selectable and have no sysfs events.
++		 */
++		if (perf_pmu__has_format(pmu, "swfilt")) {
++			snprintf(buf, sizeof(buf), "%s/swfilt=1/", pmu->name);
++			probe_candidates__add(&cands, buf);
++		}
++		if (pmu->selectable) {
++			snprintf(buf, sizeof(buf), "%s//", pmu->name);
++			probe_candidates__add(&cands, buf);
++		}
++		perf_pmu__for_each_event(pmu, /*skip_duplicate_pmus=*/false,
++					 &cands, collect_probe_candidate_cb);
++	}
++
++	for (size_t i = 0; !found && i < cands.nr; i++) {
++		memset(&base_attr, 0, sizeof(base_attr));
++		if (!parse_candidate_attr(cands.names[i], &base_attr))
++			continue;
++
++		if (try_open_attr_variants(&base_attr, pmu->is_uncore, pmu_cpu,
++					   flags, &pid, &cpu, &last_err)) {
++			pmu->probed.probe_event = strdup(cands.names[i]);
++			found = true;
++			break;
++		}
++	}
++
++	if (!found && pmu->is_core) {
++		memset(&base_attr, 0, sizeof(base_attr));
++		base_attr.type = PERF_TYPE_HARDWARE;
++		base_attr.config = PERF_COUNT_HW_CPU_CYCLES;
++		if (perf_pmus__host_supports_extended_type())
++			base_attr.config |= (__u64)pmu->type << PERF_PMU_TYPE_SHIFT;
++		if (try_open_attr_variants(&base_attr, false, pmu_cpu,
++					   flags, &pid, &cpu, &last_err)) {
++			pmu->probed.probe_event = strdup("cycles");
++			found = true;
++		}
++	}
++
++	if (!found && pmu->type == PERF_TYPE_BREAKPOINT) {
++		memset(&base_attr, 0, sizeof(base_attr));
++		base_attr.type = PERF_TYPE_BREAKPOINT;
++		base_attr.bp_addr = (unsigned long)&dummy_bp_var;
++		base_attr.bp_type = HW_BREAKPOINT_W;
++		base_attr.bp_len = HW_BREAKPOINT_LEN_4;
++		if (try_open_attr_variants(&base_attr, false, pmu_cpu,
++					   flags, &pid, &cpu, &last_err)) {
++			pmu->probed.probe_event = strdup("mem:<addr>:w");
++			found = true;
++		}
++	}
++
++	if (!found && cands.nr == 0) {
++		memset(&base_attr, 0, sizeof(base_attr));
++		base_attr.type = pmu->type;
++		base_attr.size = sizeof(base_attr);
++		if (pmu->perf_event_attr_init_default)
++			pmu->perf_event_attr_init_default(pmu, &base_attr);
++		if (try_open_attr_variants(&base_attr, pmu->is_uncore, pmu_cpu,
++					   flags, &pid, &cpu, &last_err)) {
++			char buf[256];
++
++			snprintf(buf, sizeof(buf), "%s//", pmu->name);
++			pmu->probed.probe_event = strdup(buf);
++			found = true;
++		}
++	}
++
++	if (!found) {
++		probe_candidates__exit(&cands);
++		pmu->probed.open_supported = false;
++		pmu->probed.open_err = last_err ?: ENOENT;
++		pmu->probed.checked = true;
++		return;
++	}
++
++	pmu->probed.open_supported = true;
++
++	/*
++	 * For tracepoint events, closing the last fd for a tracepoint triggers
++	 * tracepoint_synchronize_unregister() (an RCU grace period) in the
++	 * kernel. Hold one disabled fd open across the probe sequence so
++	 * tp_event->perf_refcount stays >= 1 and each probe open/close is
++	 * instantaneous.
++	 */
++	if (pmu->type == PERF_TYPE_TRACEPOINT) {
++		struct perf_event_attr ka_attr = base_attr;
++
++		ka_attr.disabled = 1;
++		keepalive_fd = sys_perf_event_open(&ka_attr, pid, cpu, -1, flags);
++	}
++
++	probe_candidates__exit(&cands);
++
++	/* 1. Counting vs Sampling support */
++	if (base_attr.sample_period == 0) {
++		struct perf_event_attr samp_attr = base_attr;
++		int fd;
++
++		pmu->probed.can_count = true;
++		samp_attr.sample_period = 10000;
++		samp_attr.sample_type = PERF_SAMPLE_IP;
++		fd = sys_perf_event_open(&samp_attr, pid, cpu, -1, flags);
++		if (fd >= 0) {
++			close(fd);
++			pmu->probed.can_sample = true;
++		}
++	} else {
++		pmu->probed.can_count = false;
++		pmu->probed.can_sample = true;
++	}
++
++	if (keepalive_fd >= 0)
++		close(keepalive_fd);
++	pmu->probed.checked = true;
++}
++
++struct probe_thread_args {
++	struct perf_pmu *pmu;
++	int pmu_cpu;
++};
++
++static void *perf_pmu__probe_thread(void *arg)
++{
++	struct probe_thread_args *args = arg;
++
++	if (args->pmu_cpu >= 0 && args->pmu_cpu < CPU_SETSIZE) {
++		cpu_set_t mask;
++
++		CPU_ZERO(&mask);
++		CPU_SET(args->pmu_cpu, &mask);
++		sched_setaffinity(0, sizeof(mask), &mask);
++	}
++	__perf_pmu__probe(args->pmu, args->pmu_cpu);
++	return NULL;
++}
++
++void perf_pmu__probe(struct perf_pmu *pmu)
++{
++	struct probe_thread_args args = {
++		.pmu = pmu,
++	};
++	pthread_t thread;
++
++	if (!pmu || pmu->from_env || pmu->probed.checked)
++		return;
++	if (perf_pmu__kind(pmu) != PERF_PMU_KIND_PE)
++		return;
++
++	args.pmu_cpu = select_probe_cpu(pmu);
++	if (pthread_create(&thread, NULL, perf_pmu__probe_thread, &args) == 0)
++		pthread_join(thread, NULL);
++	else
++		__perf_pmu__probe(pmu, args.pmu_cpu);
++}
++
+ static bool pmu_config_equal(__u32 type, u64 a, u64 b)
+ {
+ 	/* Ignore the extended PMU type in the upper bits of legacy encodings. */
 diff --git a/tools/perf/util/pmu.h b/tools/perf/util/pmu.h
-index 658485faa05d..fea65e314547 100644
+index b556ec51fdeb..ddcd28b3cae5 100644
 --- a/tools/perf/util/pmu.h
 +++ b/tools/perf/util/pmu.h
-@@ -238,6 +238,10 @@ struct perf_pmu {
- 		char *probe_event;
- 		/** @probed.open_err: errno if open_supported is false. */
- 		int open_err;
-+		/** @probed.max_precise: Maximum precise_ip level (0..3) supported. */
-+		int max_precise;
-+		/** @probed.precise_mask: Bitmask of supported precise_ip levels (1..3). */
-+		unsigned int precise_mask;
- 		/**
- 		 * @probed.sample_types: Bitmask of supported
- 		 * enum perf_event_sample_format flags.
+@@ -212,6 +212,25 @@ struct perf_pmu {
+ 	 * @mem_events: List of the supported mem events
+ 	 */
+ 	struct perf_mem_event *mem_events;
++
++	/**
++	 * @probed: Capabilities discovered by probing perf_event_open() on live
++	 * systems.
++	 */
++	struct {
++		/** @probed.checked: Has perf_pmu__probe() been run on this PMU? */
++		bool checked;
++		/** @probed.open_supported: Could a probe event be opened on this PMU? */
++		bool open_supported;
++		/** @probed.can_count: Supports counting (sample_period == 0). */
++		bool can_count;
++		/** @probed.can_sample: Supports interrupt-based sampling (sample_period > 0). */
++		bool can_sample;
++		/** @probed.probe_event: Name of the event used to probe the PMU. */
++		char *probe_event;
++		/** @probed.open_err: errno if open_supported is false. */
++		int open_err;
++	} probed;
+ };
+ 
+ struct perf_pmu_info {
+@@ -334,6 +353,7 @@ bool pmu_uncore_identifier_match(const char *compat, const char *id);
+ int perf_pmu__convert_scale(const char *scale, char **end, double *sval);
+ 
+ struct perf_pmu_caps *perf_pmu__get_cap(struct perf_pmu *pmu, const char *name);
++
+ /**
+  * perf_pmu__add_cap() - Add a name/value capability entry to @pmu->caps.
+  * @pmu: The PMU to add the capability to.
+@@ -343,9 +363,18 @@ struct perf_pmu_caps *perf_pmu__get_cap(struct perf_pmu *pmu, const char *name);
+  * Return: 0 on success, negative error code on failure.
+  */
+ int perf_pmu__add_cap(struct perf_pmu *pmu, const char *name, const char *value);
+-
+ int perf_pmu__caps_parse(struct perf_pmu *pmu);
+ 
++/**
++ * perf_pmu__probe() - Actively probe live kernel/hardware capabilities for @pmu.
++ * @pmu: The PMU to probe via perf_event_open().
++ *
++ * Populates @pmu->probed with supported modes, sample formats, privilege
++ * exclusions, register masks, memory events, group limits, rdpmc, and skid.
++ * No-op if @pmu->probed.checked is already set or @pmu->from_env is true.
++ */
++void perf_pmu__probe(struct perf_pmu *pmu);
++
+ void perf_pmu__warn_invalid_config(struct perf_pmu *pmu, __u64 config,
+ 				   const char *name, int config_num,
+ 				   const char *config_name);
 -- 
 2.56.0.385.gac671c819a-goog
 
