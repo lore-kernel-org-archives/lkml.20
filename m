@@ -1,100 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.161.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793667720;
-	b=wxwrbnd1is6O8zSw6IS4mEVHpWCVcwPGcjV+XpUFMzGBOCLIqJKcG50thLE+CPrI4maq
-	 XbD5ulfa8lKQGy/o1hlYtvo/D43bReCiGYGLA1wnANqd4AOysx0qL04QnREGvdIbR8MI8
-	 y4yVWfYlR8gV1yDH95+S8Tg5gedPWvQ0+UZ9J1LlV4TqVXeoiUwDa0dKNRVk4zw/ec5OY
-	 azVv0/F7CJ7vP2f6q9flUKFBKvlEdXUYCxQeE4NlfprkRwBUCNR+zmGBMii/YMZUBqZI4
-	 nsUSz9L4KG6i9hQgEOTNabamJ/x+GstdSZR/4lWTjJ1acwvVydFKqMJ8Qg9S9pfRe3Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667720;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793667745;
+	b=XHCKHc0wygM2v6aeqVkT/faeONa8g/IpinsYZR4jKiy3Its36CYIfbsXZVjMl0dFPHJW
+	 6IDFGemfB+mRbfIhgFNGx1NnbkCobfk+Dsc6qSE6/O8aUTaljjgxc+zAU7FyYlowLqIF3
+	 6MNbK6krIh+qHpRtz3jfZInPTyE8lTvYwqud4mX630Ar+qGaWFI0psZwcH+bQ9h/BUMWG
+	 qox4OBPEe3rxxBdsnQrvEi4WWIeWD4dowHvvf6l21SahGc4tf6GJMI8y0myj49zXl07tc
+	 8JHnu8TYXNPIHl7VaZefw/tEvjv7N04p7xqaw4taCeixDTCIgNiwlmVE3HMISqYdPog==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667745;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=j1x1ruSwiF5lANv4OCFfUqhUuuyFdIXIOI8sj0wwYcQ=;
-	b=NtcPRDMAdfZ399K17hcZqr/yq4Rh5Ir2leKy8LrUxiViAtd6wbCqvboSePKriUv+a1n3
-	 FV0yDJebaPfBhkvuX+TW8aSD+KT0h6hgdYww6lA8EZLecMnSIQVpoG8XlrvOdIb7BlHSx
-	 ND0FKf0VpBS5B1EmGDBcDY7zvrwLkbxZYYcks0wpjp341BD6fL8Q8xFrxKsd4COG9GHyF
-	 zVSMVT/85Lv4kIWMgk0ETYzl663kncUqlf4+AsVFAr0UDtzyp/1DA3nKJE+i5iILbhOU8
-	 6jjby6hxfYDe5JALJYLR0UitSDae2rRe5z9BHQ4oAVrKw/4RnrY1kY/y2ongrUS9BPw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m2ghYiae;
-	arc=fail smtp.remote-ip=209.85.161.54
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=6yjgp9P+tr1bzQJ5Up7RsRaaww+TiEVtVQnPOHgsXSk=;
+	b=kZlSwnD4+mCXmyhmG1G0w/JzFoQJr5suULsYNNEqYjCU+KBoNw43OD8ZbyK775ToXBZQ
+	 pfl5LvFAqWtwqorJjocC2MNWr/22mIxaxqokBTRAsOfYKHYJIAw+8dm0kZtxc1ZNKlc78
+	 aQR8yKAjidjrJqBEaRSr9/NFXd9pVpJYmZEFxT4otM2Y0JNuu5wpJDTQRlXRvx3yf/9YM
+	 0NopMhXPRzissOu9F4X2SCEOv+hhKNB0a6nDPF3iQAZHiv4BTmUdv0oLuni+k27G1pPf7
+	 69u/ObXJmhZlNz7wWZcXid9i/g6a7q7HUWJ4qkxCRxLyteoGPWclxINOS/OpgdVpCEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AXGOzQZP;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96FE606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A96FE606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605F4606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:02:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 605F4606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m2ghYiae
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6dd7070699eso2950631eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:01:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793667718; cv=none;
-        d=google.com; s=arc-20260327;
-        b=p2vDRfjMlkoOw1yy1dwjl1NwldvUn69lFOcoBU9xjT6Ttna5YgUBpjfgrg0srFyB8Y
-         mduOh+kWY3A7CcfS6hK49DqSpwIAkrWmxMbwZTZ5+lmS3mlkAZV8ZTzDwSa6peWdgKJs
-         ywz+Nwv39+Cs3eoQAcs5wVuTBxTwHk5X1y2KoB/XhS8CCP7nVm9aG7hD2yyOCUOvwoPC
-         dkqgyXd0a/bnU+OoFJ+FQvsLhvtDsB24BE1Cz4t7usobmLSARfhTcdkWh2/tV1vwh89f
-         QIYqEeTZp18WEdgK6v075ZAhBhgTSwlO3/rempYxqitXv6CQENQM4AUN4QKJujPJRafS
-         6L9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=j1x1ruSwiF5lANv4OCFfUqhUuuyFdIXIOI8sj0wwYcQ=;
-        fh=7nxCGiihqRw9nKX0oFuMWo2VqkvpRDgB3Y4EyBffuN4=;
-        b=g8xEkjYz/pAwAvPJjI30UC9b6LnnpGuUHwoZbHOxtS96PySiTjdu94EatMji1oCNZn
-         ANz5+7+eWTj42UUm9XqTEqd2E3EGexJe410Stlvxc9sKr9gE5bjsF3ch5+GEaLH5Kons
-         77QzzpSYuz841GHrg24y+GtJhrrmGvZNBwYsIG+0rOQqT08R5jl2s7afruGhwzX4XZca
-         7HxJVEa/V9U7P5Q7BgtJXFAXKfuOmw5y4roD+y8ZPh75N5u+ka2Kx2r3AAAnNXVvVe0m
-         rsfqqBIMdS125p+SyS2Ma6Fp0z/6yWP6EiS9C2CMJbOSjv5wduGw9ld5PM/rRpP/Zoym
-         ZrIA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AXGOzQZP
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3aed1b64104so1290109a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:02:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793667718; x=1794272518; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j1x1ruSwiF5lANv4OCFfUqhUuuyFdIXIOI8sj0wwYcQ=;
-        b=m2ghYiaeZZaMOOXGFGLv8cJAz95xd/jtLWKvKhmp2NzuLKy5GXqlZiwZFTzgFUsjGp
-         cA9cEL4wDE1OMvrJwm2JdLXkNPPUBSYhAgrWyRg73Ruzulxh76JaiIyhm1cYMGMhPDe1
-         cw0IYK8oHfqqTmBCPnovVamse3KgVZAk8iT10Rt2sskYg2I2A4fggC0h15/w3f2W8BAr
-         XB1YEG5GIfTC8QXKMDC5OSV77LQrJdpCrdyxpNkA2uuV3cLFmx5vTmaig83pYiPD38W9
-         QXhUqA0OcoTgv+1hVmqco9pP+mjP3EPgrDxsIzuqcLgALyuAvgXozZAqHx0r0feykh6l
-         wtlQ==
+        d=google.com; s=20260707; t=1793667745; x=1794272545; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6yjgp9P+tr1bzQJ5Up7RsRaaww+TiEVtVQnPOHgsXSk=;
+        b=AXGOzQZPlu7g4mSUxQCFQyVc6TFHZC5z7MmIvf+Fs1ccp5BPxmSOEEfSXDO7QWgfww
+         6fIjWu+jj/sDGJvoe1lLNde9kvmp/aax4Bdu0/fR0PH7gEoJab/rvGdmwePHrPewUe+3
+         9esAgVNk3DkLr71luEAzSAx5xDRDa0fY+yIojm5PE2leb2lt9hVwsZ7EZdRE/Rj5wm7l
+         E/tkIbsZa19+slIZOLD9uWis3P4NSDwGRkvkY/Dn80F8G+dDkx+9khma3R7yVJ5kDWOR
+         c/yRguEUDOFcayADhbhXgnYloRFZAezi8nYa6YlP5NqkpxQ246mwu7k2s2yVSeUJw+eq
+         /7OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793667718; x=1794272518;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793667745; x=1794272545;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=j1x1ruSwiF5lANv4OCFfUqhUuuyFdIXIOI8sj0wwYcQ=;
-        b=ApEjQRI6U60rPixwY7anm056IuwWldPA6PsLjy1q57H8VAE4aPLnVrjdE89mXJVPGW
-         LXKB/JrFmk0pstzd6z3/Fr7HFYE2ahmnuwJGEcxHFmzOmTjrDkfIYJvgpLE8kDiFksUN
-         BWoDWBl+qHbD0VVxL81u5YFECMlAnXUFl3iguzouk+onJ6S2NrMA8l9YCoda+Xpg7VPF
-         0UPeKbbfkxiS75jXwwqxJhzAuWaDVSfEWOhTbElvXZvM2W9YOWn2WFGh/QzIQzY73S08
-         uU9yyhR7bF3QJR82h4S0vgjtxKCcrxuyZ4UuCLAzo9SvzpLh1vzzMOuTywH9iPMJdQCj
-         khtw==
-X-Forwarded-Encrypted: i=1; AKwUvBxAhHer5G04+9lvWvkaabc9SaB2YPXSkz695Vccc9SL7nTeLJWLqcBR4DsPW8VQrJ3VZUDLdpI38juBZ3g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIV77ng7W7LGBgHV6vqpJHS4Cf2GTdmBECwEeEFiaWQ5GF5p5Sf
-	pYimVKAeznbxoFnNd1935VF9Bw8brXjnPimILh+0ESxoGIwt6whCEMljs736qkaf6RPuHBuuxq9
-	fosuh0Dn9Yf6XITVqPa47iwzIDvUqjVCMFUJ8
-X-Gm-Gg: AYBFou29YBFJPIzr76rOTa11UsMnUDhvCkSZGMCloT4z0nP8JjB1vQDXvIKja4ZjIZY
-	n6D2MThwgTAuvJWkXvDg9L8tWpvEQmF5uJWouoAA0rKxARbl2IPpTso5xSW9r+lYOqSJiheCT6t
-	ANTYQagqCMGEfs+UrAY7LXGhIxUmiztHgrOtEPxsKdpkzA3D+MLSiPV1380/NARVuZv7O+MWqGW
-	te3m7MN1qIT7h9z+TrkfyGYbkA195jOAyA3nkgHSNUd/7/sBjw+qb9Yg84KsiLlVMCl2jUHDg+z
-	g4S27+PSBjkZJV47g5f2AznBoU66gKvArflVb0QXqJzK6hBrz7BkTWUBWeAO2uNfDXrIuZNFTJ8
-	MGYp6HRPPOtXmT8fXhM25d/4+fqpIOOb5EsanyDA=
-X-Received: by 2002:a05:6820:7097:20b0:6b7:83c5:fde8 with SMTP id
- 006d021491bc7-714f240aab7mr4196354eaf.41.1793667718501; Mon, 02 Nov 2026
- 17:01:58 -0800 (PST)
+        bh=6yjgp9P+tr1bzQJ5Up7RsRaaww+TiEVtVQnPOHgsXSk=;
+        b=2tkArv9XkS4Sc4cU3XMzR4odTMRByOOGfN98oliLa+3zeSFBTT3KRCQ9mTVdwXOCB5
+         tZ/J8SE6738n8x6mkjCe0kqkORQkhhS19BlxeIzLcm49aiwOT4Ty6S8LB6Ldm6J0v+DS
+         OsIWz8csfQsmIAlEG99j9iFQJPwD4nLW4tVbdN2sXD4r6oikpdwBZzzR8g4ecl+a43hz
+         Onvp5+Fn5n2XXcgt2cdbX1XT42uaLVsx3ZvajRwxKda3dpNMtm3kOFPkPNCXAOYV/Yds
+         E1mpapbsY3lZ9vXEI6qHjX1BEbvb2Qd8K4NiuF82mZR6KMhXGQXXCtYzv4G+3agkJ1vS
+         RdUA==
+X-Forwarded-Encrypted: i=1; AKwUvByD8yiJbJetmrudeyf5pj308yRs6B8Mjt6oHnM6Mw24nfk6NLYiSxGKZ85Zocoll+zDQ8GnyHcIKvkHxM0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+a5PXewj+cXv0AdDWtcy5ISD0c+BlxfD20bdzUFyPDr2BdOo8M
+	EaYst1AnEuavrLSADF/mgRCV/be+AY1QIYIMoSBLDPjH69zjiSK2McpFbbJTmHpTlzrmnEXcPmv
+	njYh96wqWH84ngw==
+X-Received: from pjbfh3.prod.google.com ([2002:a17:90b:343:b0:3ac:7545:d82e])
+ (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4b90:b0:3a4:7730:33dd with SMTP id 98e67ed59e1d1-3ae8984b662mr9765034a91.58.1793667744325;
+ Mon, 02 Nov 2026 17:02:24 -0800 (PST)
+Date: Tue,  3 Nov 2026 01:02:06 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,126 +75,275 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20260914013033.3938-1-ki.chiang65@gmail.com> <20260914130907.749cd8e7.michal.pecio@gmail.com>
- <CAHN5xi0NSJO=V0=eVd4_MGp2Lg5NrwB3D+hsF87ehTSmaeeSbQ@mail.gmail.com>
- <0e4c85e8-77e6-4eb9-aca1-048199f2f0e0@linux.intel.com> <CAHN5xi0tN2iWGVfH18SASoP0HVvAaDY4Kgq2U6LCCznGg-1o9w@mail.gmail.com>
- <CAHN5xi1M+g3Sy8YkRKpZuU7EtTxiyi0ZD6y5TCcAZTrpxUpHNw@mail.gmail.com> <20261029060335.3ed1fbcf.michal.pecio@gmail.com>
-In-Reply-To: <20261029060335.3ed1fbcf.michal.pecio@gmail.com>
-From: Kuangyi Chiang <ki.chiang65@gmail.com>
-Date: Tue, 3 Nov 2026 09:01:50 +0800
-X-Gm-Features: AclHuK9ObPtg70y5AAcvbpqJBQRzPYrnt5a9FzX5tZ2SdVerRcvdG5dD7M2HEZI
-Message-ID: <CAHN5xi3NY2AUQK2=M80RYkx1N-bA8=zPEE6Y5400EYyMv1=aCg@mail.gmail.com>
-Subject: Re: [PATCH] xhci: Fix HIK camera control timeout on Etron hosts
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@linux.intel.com>, mathias.nyman@intel.com, 
-	gregkh@linuxfoundation.org, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261103010216.3447716-1-dmatlack@google.com>
+Subject: [PATCH v3 00/10] liveupdate: Preserve tmpfs files across Live Update
+From: David Matlack <dmatlack@google.com>
+To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org
+Cc: Alexander Graf <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Christian Brauner <brauner@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	David Matlack <dmatlack@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+This series can be found on GitHub:
 
-Thanks for your feedback.
+  https://github.com/dmatlack/linux/tree/liveupdate/tmpfs/v3
 
-Michal Pecio <michal.pecio@gmail.com> =E6=96=BC 2026=E5=B9=B410=E6=9C=8829=
-=E6=97=A5=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=881:03=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> On Thu, 29 Oct 2026 10:25:17 +0800, Kuangyi Chiang wrote:
-> > We did some more testing.
-> >
-> > We don't see this issue during device enumeration.
-> >
-> > We also found that the timeout is not limited to UVC control
-> > transfers. In one failure case, the first timeout was observed in
-> > a UAC control transfer, followed by UVC control transfer timeouts:
-> >
-> > [  961.127402] usb 2-3: 5:2: failed to get current value for ch 0 (-110=
-)
-> > [  971.367443] uvcvideo 2-3:1.0: Failed to query (GET_DEF) UVC control
-> > 2 on unit 2: -110 (exp. 2).
-> > [  976.487473] uvcvideo 2-3:1.0: Failed to query (GET_DEF) UVC control
-> > 3 on unit 2: -110 (exp. 2).
->
-> But that's the same device and the same control pipe, right?
+This series allows userspace to preserve files on tmpfs mounts across a
+Live Update, in addition to memfds. Today the memfd file handler only
+accepts unlinked shmem files, and LIVEUPDATE_SESSION_RETRIEVE_FD always
+restores them as anonymous memfds. Userspace therefore has to put every
+in-memory file it wants to preserve in a memfd, which works for VM guest
+memory but not for other files that live on tmpfs mounts, such as
+in-memory logs, binaries, and configuration files.
 
-Yes, that's correct. Both UAC and UVC share EP0.
+The kernel preserves the contents, size, file position and seals of each
+file. After the Live Update, userspace retrieves each file onto a tmpfs
+mount of its choice and links it at the path of its choice, so userspace
+decides the directory structure, names, owners and permissions of the
+restored files.
 
->
-> So it just failed and we don't know why or whether it was the host or
-> the device. And this is all during UVC/UAC probe, before any userspace
-> begins using the device? Or could userspace be involved?
+This series builds on the per-file-handler argument for
+LIVEUPDATE_SESSION_PRESERVE_FD and LIVEUPDATE_SESSION_RETRIEVE_FD from
+Pasha's v1 [1], following Pratyush's suggestion on the RFC [2], and on
+the design discussion on Pasha's v1 [3].
 
-We launch a camera application during testing, so userspace
-could be involved.
+[1] https://lore.kernel.org/kexec/20261015093816.2438942-1-pasha.tatashin@soleen.com/
+[2] https://lore.kernel.org/kexec/2vxz7bjmkjeu.fsf@kernel.org/
+[3] https://lore.kernel.org/kexec/atE53vmlDeA4cWD2@google.com/
 
->
-> The UVC driver has some aggressive PM; for every userspace ioctl, it
-> calls usb_autopm_get_interface(), submits an interrupt URB which almost
-> never completes and unlinks the URB before usb_autopm_put_interface().
-> Repeated periodic unlinks is a known problem case for many xHCI chips.
->
-> FYI, I found that 7c0c31c66a7f9 in v7.3 reduced occurrences of periodic
-> unlink failures on other junk HW like ASMedia and VIA. Some of those
-> failures, on ASMedia, resulted in control transfer breakage too.
->
-> Have you tried 7.3 yet?
+Series Overview
+---------------
 
-Not yet. Our tests were based on kernel 7.2.4.
-Thanks for pointing out commit 7c0c31c66a7f9.
+This series implements the following:
 
-> Do you see any interrupt URBs there, using usbmon for example?
+  1. Let userspace pass a file-handler-specific argument to
+     LIVEUPDATE_SESSION_PRESERVE_FD and LIVEUPDATE_SESSION_RETRIEVE_FD,
+     and let file handlers mark retrieve failures as retryable, so that
+     userspace can fix a bad argument and try again without losing the
+     preserved file (patches 1-3).
 
-We haven't checked interrupt URBs with usbmon yet.
+  2. Rename the memfd file handler (memfd_luo) to shmem_luo, since it
+     preserves shmem files, which will include files on tmpfs mounts.
+     Preserving memfds created with MFD_HUGETLB will need a separate
+     handler, so naming the handler after the filesystem avoids another
+     rename later. The compatible string stays "memfd-v2" (patch 4).
 
-However, we captured USB traces using a protocol analyzer and
-observed different behavior between the failing and successful
-cases.
+  3. Fix two existing problems in the retrieve path: a WARN_ON() that
+     userspace can trigger when tracking a retrieved file fails, and a
+     leak of the preserved folios when a retrieve fails before it
+     restores them (patches 5-6).
 
-In the failing case, the device ACKed the DATA stage but kept
-NAKing the STATUS stage until the transfer timed out.
+  4. Retrieve files that were preserved from a tmpfs mount onto a tmpfs
+     mount chosen by userspace, via the new struct
+     liveupdate_shmem_retrieve_arg. The kernel creates the file as if by
+     openat(dirfd, ".", O_TMPFILE | flags, mode), so the file gets the
+     same flags, owner, permission checks and security labels as any
+     other new file in that directory, and is charged to that mount.
+     The kernel fills the file before returning it, so nothing else can
+     access the file before it is complete, and userspace links it at
+     the path it wants with linkat() (patch 7).
 
-In the successful case, the device initially NAKed the DATA stage,
-then ACKed it, and the STATUS stage completed successfully.
+  5. Allow preserving tmpfs files that are still linked, and require
+     permission to change the size of a file to preserve it, since
+     preserving a file freezes its size for all users of the file
+     (patch 8).
 
-We haven't determined the root cause yet.
+  6. Allow retrieving tmpfs files with O_RDONLY so that restored
+     binaries can be executed before the session is finished (patch 9).
 
-In our tests, adding a 1 ms delay to both the UAC and UVC
-control request paths prevented the timeouts.
+  7. Add a kexec selftest for preserving and retrieving tmpfs files
+     (patch 10).
 
-When the delay was added to only one driver, we still observed
-control transfer timeouts (-110) in the other driver.
+uAPI Changes
+------------
 
->
-> > So far, we have reproduced the issue with these xHCI hosts:
-> >
-> > ASMedia ASM1142 (1b21:1242)
-> > Etron EJ168 (1b6f:7023)
-> > Etron EJ188 (1b6f:7052)
-> > Intel xHCI (8086:8d31)
->
-> I don't know that Intel chip, but the others are quite buggy.
->
-> Have you tried other HCs? Any successes?
-> IME, chips from NEC, Fresco, Renesas are more reliable.
+  - struct liveupdate_session_preserve_fd and struct
+    liveupdate_session_retrieve_fd gain a 64-bit @arg field, a pointer
+    to a handler-specific argument that starts with a 32-bit size
+    field. Callers that pass the old struct size are not affected.
 
-In our recent tests without the delay patches, we did not
-observe any timeouts on the following HCs:
+  - Passing a non-zero @arg when retrieving a token that was already
+    retrieved fails with -EBUSY instead of silently ignoring @arg.
 
-AMD EHCI (1002:4396)
-AMD xHCI (1022:149c)
-ASMedia ASM1042A (1b21:1142)
-NEC xHCI (1033:0194)
+  - New struct liveupdate_shmem_retrieve_arg, with @dirfd, @flags and
+    @mode, for retrieving tmpfs files. Files that were preserved from a
+    tmpfs mount can only be retrieved with it, and memfds can only be
+    retrieved without it. Unlinked tmpfs files (e.g. created with
+    O_TMPFILE) were retrieved as memfds before this series, and now
+    require the argument too.
 
-Regards,
-Kuangyi
+  - Preserving a file now requires permission to change its size (see
+    Open Questions).
 
->
-> > The camera works with the EHCI host we tested without any additional
-> > delay.
->
-> That's a little suspicious, it may still be an xHCI bug.
->
-> Regards,
-> Michal
+ABI Changes
+-----------
+
+  - struct shmem_luo_ser (formerly struct memfd_luo_ser) gains a
+    SHMEM_LUO_FLAG_TMPFS flag in its existing @flags field, which
+    records that a file was on a tmpfs mount rather than the internal
+    shmem mount that memfds use.
+
+Open Questions
+--------------
+
+  - Preserving a file freezes its size until it is unpreserved: For all
+    users of the file, truncating it, fallocate() and writes past its
+    end fail with -EPERM, and the owner of the file can't undo that.
+    Linked files can be reached by anyone who can read them, so without
+    a permission check, anyone with a session fd could preserve e.g. a
+    world-readable file in /dev/shm through a read-only fd and break its
+    owner. Patch 8 therefore requires permission to write to the file
+    (inode_permission(MAY_WRITE), but neither a file opened for writing
+    nor a writable mount), or ownership if the file is immutable or on a
+    read-only superblock, since its size can't change anyway. Like
+    FS_IOC_ENABLE_VERITY, it also requires the file to be opened for
+    reading and rejects append-only files. The checks apply to all
+    files, including memfds, where they pass in practice since memfds
+    are created with mode 0777 (or 0666). Is this the right permission
+    model for preserving files? Should this apply all files or just
+    shmem files?
+
+  - Is patch 9 (retrieving tmpfs files with O_RDONLY) worth merging?
+    Without it, userspace can only retrieve files O_RDWR or O_WRONLY
+    which then LUO keeps open until the session is finished, so
+    executing a restored binary fails with -ETXTBSY until then.
+    Supporting O_RDONLY retrieve is fairly simple so I think it is worth
+    supporting.
+
+Merge Plan
+----------
+
+This series applies on top of the next branch of liveupdate.git
+(commit 27be83a12b24 ("Merge branch 'lu-pci-preservation' into
+next")) and is targeting Linux 7.5.
+
+The series will be merged through liveupdate.git.
+
+This series conflicts with Pratyush's "mm: allow freezing mappings"
+series [4], which also changes mm/memfd_luo.c and replaces
+shmem_freeze() with mapping_set_frozen(). Whichever series lands second
+will need to be rebased. Pasha suggested keeping retrieved files frozen
+until the session is finished [5]. That builds on AS_FROZEN, so I think
+it fits better in Pratyush's series.
+
+[4] https://lore.kernel.org/kexec/20261027173031.763213-1-pratyush@kernel.org/
+[5] https://lore.kernel.org/kexec/179322496574.1894369.544573858973645958.b4-review@b4/
+
+Testing
+-------
+
+All patches were build-tested individually. The series was tested on
+x86_64 and arm64 in QEMU using the Live Update selftests:
+
+  - luo_tmpfs (new): 33 test cases covering the contents, size,
+    position, seals and holes of restored files; creating the file like
+    open(O_TMPFILE), with the requested flags and mode, the caller as
+    owner, and O_EXCL; executing restored binaries before and after the
+    session is finished; preserving files through read-only fds, on
+    read-only mounts and superblocks, and immutable files; rejecting
+    files that the caller can't write to, write-only fds and append-only
+    files; block accounting on the target mount, including large folios
+    that extend past the end of the file; mount and memcg limits;
+    memfds; invalid arguments; retrieving a token twice; and that no
+    kernel warnings are triggered.
+
+    The main downside of this new test is that it is large (2k lines).
+    It was trivial to generate with AI, but can understand if it is too
+    large to review. I can look for ways to simplify it.
+
+  - luo_kexec_simple, luo_multi_session, luo_stress_files and
+    luo_stress_sessions.
+
+  - liveupdate (including the new preserve_memfd_with_arg test).
+
+The selftests were run with vmtest.sh:
+
+  $ tools/testing/selftests/liveupdate/vmtest.sh -T luo_tmpfs
+
+luo_tmpfs was also run on bare-metal x86_64.
+
+Changelog
+---------
+
+v3:
+ - Rebase onto liveupdate/next.
+ - Collect Acked-by tags from Pasha on patches 4-6.
+ - Drop the Assisted-by tags (Pasha).
+ - Explain in patch 6 why it has no Fixes tag (Pasha).
+ - Define shmem_inode_on_internal_mount() under CONFIG_SHMEM, like the
+   other shmem helpers declared in mm/internal.h, to fix a
+   -Wmissing-prototypes warning with CONFIG_SHMEM=n (kernel test robot).
+ - Require a file to be opened for reading to preserve it, and reject
+   append-only files (Sashiko).
+ - Reopen files retrieved with O_RDONLY with the flags of the writable
+   file, which file_open_root() normalized, e.g. by dropping O_CLOEXEC
+   (Sashiko).
+
+v2: https://lore.kernel.org/kexec/20261022225035.377445-1-dmatlack@google.com/
+v1: https://lore.kernel.org/kexec/20261015093816.2438942-1-pasha.tatashin@soleen.com/
+rfc: https://lore.kernel.org/kexec/20260901180713.4185641-1-dmatlack@google.com/
+
+
+David Matlack (7):
+  mm: Rename memfd_luo to shmem_luo
+  liveupdate: Don't WARN if tracking a retrieved file fails
+  mm/shmem_luo: Don't make early retrieve failures permanent
+  mm/shmem_luo: Retrieve tmpfs files onto a tmpfs mount chosen by
+    userspace
+  mm/shmem_luo: Allow preserving tmpfs files that are still linked
+  mm/shmem_luo: Allow retrieving tmpfs files with O_RDONLY
+  selftests/liveupdate: Add a test for preserving tmpfs files
+
+Pasha Tatashin (3):
+  liveupdate: Pass user argument to file preserve and retrieve
+  selftests: liveupdate: Add tests for preserve and retrieve user
+    argument
+  liveupdate: Allow file handlers to mark retrieve failures as retryable
+
+ Documentation/core-api/liveupdate.rst         |    2 +-
+ Documentation/mm/index.rst                    |    2 +-
+ Documentation/mm/memfd_preservation.rst       |   23 -
+ Documentation/mm/shmem_preservation.rst       |   23 +
+ MAINTAINERS                                   |    4 +-
+ include/linux/kho/abi/{memfd.h => shmem.h}    |   56 +-
+ include/linux/liveupdate.h                    |   55 +-
+ include/uapi/linux/liveupdate.h               |   52 +-
+ kernel/liveupdate/Kconfig                     |    8 +-
+ kernel/liveupdate/luo_file.c                  |  110 +-
+ kernel/liveupdate/luo_internal.h              |    5 +-
+ kernel/liveupdate/luo_session.c               |    6 +-
+ mm/Makefile                                   |    2 +-
+ mm/internal.h                                 |    1 +
+ mm/memfd_luo.c                                |  621 -----
+ mm/shmem.c                                    |    9 +
+ mm/shmem_luo.c                                |  834 +++++++
+ tools/testing/selftests/liveupdate/Makefile   |    1 +
+ tools/testing/selftests/liveupdate/config     |    4 +
+ .../liveupdate/lib/include/libliveupdate.h    |    3 +
+ .../selftests/liveupdate/lib/lu_utils.c       |   17 +-
+ .../testing/selftests/liveupdate/liveupdate.c |   44 +
+ .../testing/selftests/liveupdate/luo_tmpfs.c  | 2055 +++++++++++++++++
+ .../selftests/liveupdate/run-vmtests.sh       |    1 +
+ 24 files changed, 3237 insertions(+), 701 deletions(-)
+ delete mode 100644 Documentation/mm/memfd_preservation.rst
+ create mode 100644 Documentation/mm/shmem_preservation.rst
+ rename include/linux/kho/abi/{memfd.h => shmem.h} (54%)
+ delete mode 100644 mm/memfd_luo.c
+ create mode 100644 mm/shmem_luo.c
+ create mode 100644 tools/testing/selftests/liveupdate/luo_tmpfs.c
+
+
+base-commit: 27be83a12b246b6b3783e7d3ac5c378ff7520f25
+-- 
+2.56.0.385.gac671c819a-goog
+
