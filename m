@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697687;
-	b=Asa0fHtBYnsurs6XFsqK4nsJEnSFc//jID4A24bfM4CL/itbGaHwVloJyG7urfvxMqmo
-	 hkdhfZwYTWsJnaGjrRtVbme3eWKjmd6tSjCIRrNM0FfMN9CkvnER7hP1RIDhuPXPSHYkG
-	 vH/1Sf7XYdU/LreqoBtuzHoMCBuvhkTHpkJ/4i4CmIpU2Lcz3EMhPHVkWcWrYFk58wyiB
-	 zKYvij/fBqIH77LbFBUkP8Zdh8hCsK09slvSk+Z7pCfKGEocfnx/Yj4/SoFruS6tJgKYK
-	 GLEf8ufsfsPQzJIaTV7vLOnVYnplEJATZ+238n9j+Ccn52SMpRoY7EdyDuBYVC0o8kQ==
+	t=1793697697;
+	b=qfCFDZMH94X+kPhw60elqdh2QfgdgGP3nAnolNCSRWse1JMAKOxguw+JUscPQZF8DON9
+	 4H1hg04o4D+h1B8f7v5Pkfp1TkoU+ayfNFnHOt77dlYA0ddP7fKkOxCQ9gIIizzPEGyIu
+	 o3yEnKMbEkmf5X63PDZLoEf/Raq4f9fOeurP4DDCnr1fxaBpVcXIcAoJ31hYb5xbiybRy
+	 XCHfAScoosmlqFdTSIfWz3mA3+tTTqcMf/xOatHvHjHyLfUrEHDO21HC2iO3Xq2JqVsMx
+	 Aw2BCzRn9ehFr8TjwFxSk6iaTQMfDcKxjdDpgdny4i2CTeo1xPm1tdmjz9r3jEIPO6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697687;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697697;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=r/NLJg4vJ0VL0uH532EoW2UyxnY2RyMyx2aIEVHR6N0=;
-	b=ofxy+Q98XTdYr/TK0ZqcLHu83Got+SOHQofyF9NK6/wuu1u5269EfA1APZanoXh3HTbP
-	 pf7TrA9UTCXZz3z2w7SYwHd41ZwvwUWM0FBSd2f7Ksz8poQ1GJYziIMEgBt37k8VxTyep
-	 2TAc0D35Fz2MV9PXVICjY6JKBIITBMU0ttgWNVuuy1kf3g7W+pp7c0CM1+8dlaDwtaXdI
-	 XTbw1e9QFd+gLusDooSwJ6qD6upAbXuL4hjWlC8q2ecXonytWlFbJZqabfiHRd7z8nb1o
-	 tD2T4cGGpb1gGsIrO7r66PPLBizG2z80KpQXeUleROXkzE5LMqkUP/GMDBNtw6GyTeg==
+	bh=gZHsMDdpmPsnd9fVKQ5HXshg/Ennof29jt+F+15lfj0=;
+	b=WY1NSn8y5b8vI5u/LtOL0TRP4L69MARw8DjTiP5N0boZsxlClYcDGQkHIs17xPyH8kl5
+	 9KsMAEcKHbr29sIKNnQYOfxqC9h5VknnclCOyFMvyl5DNhm7JX4OnDRnhZ813F8Iomgnw
+	 COQsxCJZO97wbWtYJMEsqT10SnzEKW3tG+XvDpbHWHbHve8M05TsmnDeC4EXAceAOaiwK
+	 xkKq/bnxps8bJHHffJGKe8NvrcfBjMQcZvY1eNqKqbkJ84KHPjKNfVFlXD6KReJwRKWMt
+	 Z6jPZWYB3o+bPCQuuDIGMoY+e1U35aDtv+ueCL3ZmSyI0l77ebnabQ7/DnabS94cHNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xWS9gbBo;
-	arc=none smtp.remote-ip=95.215.58.66
-Received: from mta1.migadu.com (out-66.mta1.migadu.com [95.215.58.66])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="K3tC/zFB";
+	arc=none smtp.remote-ip=91.218.175.50
+Received: from mta0.migadu.com (out-50.mta0.migadu.com [91.218.175.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D73606A33E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D73606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6D4606EE84
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A6D4606EE84
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xWS9gbBo
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K3tC/zFB
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0/fxzrCQ92Apr1mEQOQvTl03/XJiS4ZIEfcL3kMkgho=;
+DKIM-Signature: a=rsa-sha256; bh=+cX65HWUnORHAEQhsq35CFgzfw7YbOZo0pOLpUvDick=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793697685; v=1; x=1794302485;
- b=xWS9gbBorvsO8ZBgXXyYwSCltq+7J0Wcnq/0BaAvG9bI2ZMzniUETn5i/lelXz5QOyUFh8ft
- KO0KO0egvzLlw9JOu5aSbDzALbU4S4cZVCL9EZ0ttsI8dgN9QcAwlUGVT7NZrZ/A05iBztOdzQ5
- jG8Bi4BNlwbzlCwRySndeXQU=
+ t=1793697694; v=1; x=1794302494;
+ b=K3tC/zFBBRu4ADhoe1N2zLREOqd3FVjNSxtKLe0SuRZRBOxT2XDSserV5nj0LFXrncQ7KbyB
+ sFaC5V24BpTtlNrl43iEJNiK6UNAt3Lnl7DwaCuN4LjvlRLc6zWUB80zfuHUuzT7OimvJeNGY90
+ M0+RziEd0Rb4k6S9T/6qMLK8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id a8325ab392601fc8;
-	Tue, 03 Nov 2026 09:21:24 +0000
-X-Mizu-Trace-ID: a8325ab392601fc8
+Received: by mta10.migadu.com with ESMTPS id a7b269fb289dbe95;
+	Tue, 03 Nov 2026 09:21:34 +0000
+X-Mizu-Trace-ID: a7b269fb289dbe95
 X-Migadu-Flow: FLOW_OUT
 From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Tue, 03 Nov 2026 17:20:50 +0800
-Subject: [PATCH net v2 1/3] ipv6: route: consider IOAM options in ECMP hash
- policy 0
+Date: Tue, 03 Nov 2026 17:20:51 +0800
+Subject: [PATCH net v2 2/3] ipv6: ioam6: use transformed packet nexthdr for
+ ECMP re-lookup
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,8 +61,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-ipv6_ioam_ecmp-v2-1-6ef0318bdb5e@kylinos.cn>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261103-ipv6_ioam_ecmp-v2-2-6ef0318bdb5e@kylinos.cn>
 References: <20261103-ipv6_ioam_ecmp-v2-0-6ef0318bdb5e@kylinos.cn>
 In-Reply-To: <20261103-ipv6_ioam_ecmp-v2-0-6ef0318bdb5e@kylinos.cn>
 To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
@@ -80,183 +80,129 @@ From: Hangbin Liu <liuhangbin@kylinos.cn>
 RFC 9486 (C2) requires that the ECMP hash of a packet carrying IOAM
 options is the same as the hash of the identical packet without them.
 
-The default multipath hash policy (0) hashes basic.ip_proto, which
-ip6_multipath_l3_keys() fills from the raw IPv6 nexthdr. An IOAM
-Hop-by-Hop option is inserted ahead of the original next header, so a
-transit router sees NEXTHDR_HOP (0) instead of e.g. IPPROTO_TCP and
-may pick a different ECMP sibling than for the same packet without
-IOAM.
+On a destination-cache miss the old code always re-looked up the
+transformed packet under hash policy 0 with NEXTHDR_HOP (and, for
+local flows, keys that do not match the original socket lookup), so
+it could pick a different ECMP sibling.
 
-Recover the nexthdr the packet would have had if its Hop-by-Hop
-header carried only IOAM options (0x31, and 0x11 for DEX) plus
-padding, and use it for the policy-0 key and for the ICMPv6-error
-check, so errors that quote a flow keep hashing that flow. Any other
-Hop-by-Hop option (Router Alert, Jumbo, ...) keeps hashing exactly as
-before. The walk runs for both the nexthdr == NEXTHDR_HOP case and
-ICMPv6-quoted inner headers (with fallback if truncated).
+Inline insertion leaves the destination unchanged: reuse orig_dst and
+cache the fake null_rt, keeping the sibling from the original lookup.
 
-Fixes: 3edede08ff37 ("ipv6: ioam: Support for IOAM injection with lwtunnels")
+Encapsulation may switch the destination to tundst, so it still
+re-looks up. Take flowi6_proto from the transformed packet HBH (41
+after encap, so ipproto rules match as for plain ip6ip6) and
+precompute fl6.mp_hash from the packet, since ip6_route_output()
+carries no skb and would otherwise drop ICMPv6 quoted-flow and L4
+keys.
+
+Depends on patch "ipv6: route: consider IOAM options in ECMP hash
+policy 0".
+
+Fixes: 8cb3bf8bff3c ("ipv6: ioam: Add support for the ip6ip6 encapsulation")
 Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
 ---
-The ECMP path with and without IOAM is verified by
-tools/testing/selftests/net/ioam6_ecmp.sh in the next patch.
----
- include/uapi/linux/in6.h |  1 +
- net/ipv6/route.c         | 95 +++++++++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 91 insertions(+), 5 deletions(-)
+For AI review:
 
-diff --git a/include/uapi/linux/in6.h b/include/uapi/linux/in6.h
-index 5a47339ef7d7..2e66dc37e1e5 100644
---- a/include/uapi/linux/in6.h
-+++ b/include/uapi/linux/in6.h
-@@ -145,6 +145,7 @@ struct in6_flowlabel_req {
- #define IPV6_TLV_PADN		1
- #define IPV6_TLV_ROUTERALERT	5
- #define IPV6_TLV_CALIPSO	7	/* RFC 5570 */
-+#define IPV6_TLV_IOAM_DEX	17	/* RFC 9486 */
- #define IPV6_TLV_IOAM		49	/* RFC 9486 */
- #define IPV6_TLV_JUMBO		194
- #define IPV6_TLV_HAO		201	/* home address option */
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 616b86f89f63..675cf2e8ed35 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -2342,6 +2342,71 @@ struct dst_entry *ip6_route_input_lookup(struct net *net,
- }
- EXPORT_SYMBOL_GPL(ip6_route_input_lookup);
+The mp_hash precompute makes policy-2 hash inner keys while plain ip6ip6
+baseline hashes outer — pre-patch also diverged (proto 0 vs 41);
+C2 for policy 2 was broken before and after, no new violation class, and
+the patches claim/test policy 0 only.
+---
+ net/ipv6/ioam6_iptunnel.c | 79 +++++++++++++++++++++++++++++++----------------
+ 1 file changed, 53 insertions(+), 26 deletions(-)
+
+diff --git a/net/ipv6/ioam6_iptunnel.c b/net/ipv6/ioam6_iptunnel.c
+index cfb2c41634a0..246533276be8 100644
+--- a/net/ipv6/ioam6_iptunnel.c
++++ b/net/ipv6/ioam6_iptunnel.c
+@@ -405,34 +405,61 @@ static int ioam6_output(struct net *net, struct sock *sk, struct sk_buff *skb)
  
-+/* RFC 9486 (C2) requires that the ECMP hash of a packet carrying IOAM
-+ * options is the same as the hash of the identical packet without them.
-+ * Recover the nexthdr if its Hop-by-Hop header carried only IOAM options
-+ * and padding, every other packet is hashed exactly as before.
-+ *
-+ * iph_off: offset of the IPv6 header from skb->data
-+ * nexthdr: iph->nexthdr (NEXTHDR_HOP or not)
-+ */
-+static u8 ip6_nexthdr_without_ioam(const struct sk_buff *skb,
-+				   int iph_off, u8 nexthdr)
-+{
-+	const struct ipv6_opt_hdr *hhdr;
-+	struct ipv6_opt_hdr hbuf;
-+	bool has_ioam = false;
-+	u8 obuf[2], *opt;
-+	int off, len, i;
+ 	if (unlikely(!dst)) {
+ 		struct ipv6hdr *hdr = ipv6_hdr(skb);
+-		struct flowi6 fl6;
+-
+-		memset(&fl6, 0, sizeof(fl6));
+-		fl6.daddr = hdr->daddr;
+-		fl6.saddr = hdr->saddr;
+-		fl6.flowlabel = ip6_flowinfo(hdr);
+-		fl6.flowi6_mark = skb->mark;
+-		fl6.flowi6_proto = hdr->nexthdr;
+-
+-		dst = ip6_route_output(net, NULL, &fl6);
+-		if (dst->error) {
+-			err = dst->error;
+-			goto drop;
+-		}
+ 
+-		/* If the destination is the same after transformation (which is
+-		 * a valid use case for IOAM), then we don't want to add it to
+-		 * the cache in order to avoid a reference loop. Instead, we add
+-		 * our fake dst_entry to the cache as a way to detect this case.
+-		 * Otherwise, we add the resolved destination to the cache.
++		/* Inline insertion does not change the destination. Keep
++		 * orig_dst so the ECMP sibling from the original lookup is
++		 * preserved (RFC 9486 C2 for locally generated traffic).
++		 * Cache the fake null_rt so later packets take the same path.
+ 		 */
+-		local_bh_disable();
+-		if (orig_dst->lwtstate == dst->lwtstate)
+-			dst_cache_set_ip6(&ilwt->cache,
+-					  &ilwt->null_rt.dst, &fl6.saddr);
+-		else
+-			dst_cache_set_ip6(&ilwt->cache, dst, &fl6.saddr);
+-		local_bh_enable();
++		if (ilwt->mode == IOAM6_IPTUNNEL_MODE_INLINE ||
++		    (ilwt->mode == IOAM6_IPTUNNEL_MODE_AUTO && !skb->dev)) {
++			dst = orig_dst;
++			dst_hold(dst);
 +
-+	if (likely(nexthdr != NEXTHDR_HOP))
-+		return nexthdr;
++			local_bh_disable();
++			dst_cache_set_ip6(&ilwt->cache, &ilwt->null_rt.dst,
++					  &hdr->saddr);
++			local_bh_enable();
++		} else {
++			/* Encapsulation may change the destination (tundst);
++			 * re-lookup with the transformed packet keys so the
++			 * outer hash matches the identical packet without IOAM.
++			 */
++			const struct ipv6_opt_hdr *hhdr;
++			struct flowi6 fl6;
 +
-+	off = iph_off + sizeof(struct ipv6hdr);
-+	hhdr = skb_header_pointer(skb, off, sizeof(hbuf), &hbuf);
-+	if (!hhdr)
-+		return nexthdr;
++			hhdr = (const struct ipv6_opt_hdr *)skb_transport_header(skb);
 +
-+	len = (hhdr->hdrlen + 1) << 3;
++			memset(&fl6, 0, sizeof(fl6));
++			fl6.daddr = hdr->daddr;
++			fl6.saddr = hdr->saddr;
++			fl6.flowlabel = ip6_flowinfo(hdr);
++			fl6.flowi6_mark = skb->mark;
++			fl6.flowi6_proto = hhdr->nexthdr;
++			fl6.mp_hash = rt6_multipath_hash(net, &fl6, skb, NULL);
 +
-+	for (i = 2; i < len; ) {
-+		const u8 *type;
-+		u8 type_buf;
++			dst = ip6_route_output(net, NULL, &fl6);
++			if (dst->error) {
++				err = dst->error;
++				goto drop;
++			}
 +
-+		/* Always check PAD1 first as ip6_parse_tlv() accepts Pad1
-+		 * as the last byte of the HBH header
-+		 */
-+		type = skb_header_pointer(skb, off + i, 1, &type_buf);
-+		if (!type)
-+			return has_ioam ? hhdr->nexthdr : nexthdr;
-+		if (*type == IPV6_TLV_PAD1) {
-+			i++;
-+			continue;
++			/* If the destination is the same after transformation
++			 * (which is a valid use case for IOAM), then we don't
++			 * want to add it to the cache in order to avoid a
++			 * reference loop. Instead, we add our fake dst_entry
++			 * to the cache as a way to detect this case.
++			 * Otherwise, we add the resolved destination to the
++			 * cache.
++			 */
++			local_bh_disable();
++			if (orig_dst->lwtstate == dst->lwtstate)
++				dst_cache_set_ip6(&ilwt->cache,
++						  &ilwt->null_rt.dst, &fl6.saddr);
++			else
++				dst_cache_set_ip6(&ilwt->cache, dst, &fl6.saddr);
++			local_bh_enable();
 +		}
-+
-+		opt = skb_header_pointer(skb, off + i, sizeof(obuf), obuf);
-+		if (!opt)
-+			return nexthdr;
-+
-+		if (opt[0] == IPV6_TLV_PADN) {
-+			i += opt[1] + 2;
-+			continue;
-+		}
-+		if (opt[0] != IPV6_TLV_IOAM && opt[0] != IPV6_TLV_IOAM_DEX)
-+			return nexthdr;
-+
-+		has_ioam = true;
-+
-+		/* Keep searching for the next TLV. As long as non-IOAM
-+		 * options (Router Alert, Jumbo, etc.) exist in the HBH
-+		 * header, we should preserve the original NEXTHDR_HOP.
-+		 */
-+		i += opt[1] + 2;
-+	}
-+
-+	return has_ioam ? hhdr->nexthdr : nexthdr;
-+}
-+
- static void ip6_multipath_l3_keys(const struct sk_buff *skb,
- 				  struct flow_keys *keys,
- 				  struct flow_keys *flkeys)
-@@ -2349,15 +2414,34 @@ static void ip6_multipath_l3_keys(const struct sk_buff *skb,
- 	const struct ipv6hdr *outer_iph = ipv6_hdr(skb);
- 	const struct ipv6hdr *key_iph = outer_iph;
- 	struct flow_keys *_flkeys = flkeys;
-+	const struct ipv6_opt_hdr *opt_hdr;
- 	const struct ipv6hdr *inner_iph;
- 	const struct icmp6hdr *icmph;
-+	struct ipv6_opt_hdr _opt_hdr;
- 	struct ipv6hdr _inner_iph;
- 	struct icmp6hdr _icmph;
-+	int extlen = 0;
-+	int inner_off;
-+	u8 nexthdr;
  
--	if (likely(outer_iph->nexthdr != IPPROTO_ICMPV6))
-+	nexthdr = ip6_nexthdr_without_ioam(skb, skb_network_offset(skb),
-+					   outer_iph->nexthdr);
-+	if (likely(nexthdr != IPPROTO_ICMPV6))
- 		goto out;
- 
--	icmph = skb_header_pointer(skb, skb_transport_offset(skb),
-+	/* Outer header has IOAM (NEXTHDR_HOP) and the recovered nexthdr is
-+	 * IPPROTO_ICMPV6. transport_header may still point at the Hop-by-Hop
-+	 * header (e.g. ipv6_hop_ioam() -> ip6_route_input() before
-+	 * ipv6_parse_hopopts() advances it).
-+	 */
-+	if (outer_iph->nexthdr == NEXTHDR_HOP) {
-+		opt_hdr = skb_header_pointer(skb, skb_transport_offset(skb),
-+					     sizeof(_opt_hdr), &_opt_hdr);
-+		if (opt_hdr && opt_hdr->nexthdr == IPPROTO_ICMPV6)
-+			extlen = (opt_hdr->hdrlen + 1) << 3;
-+	}
-+
-+	icmph = skb_header_pointer(skb, skb_transport_offset(skb) + extlen,
- 				   sizeof(_icmph), &_icmph);
- 	if (!icmph)
- 		goto out;
-@@ -2365,14 +2449,15 @@ static void ip6_multipath_l3_keys(const struct sk_buff *skb,
- 	if (!icmpv6_is_err(icmph->icmp6_type))
- 		goto out;
- 
--	inner_iph = skb_header_pointer(skb,
--				       skb_transport_offset(skb) + sizeof(*icmph),
-+	inner_off = skb_transport_offset(skb) + extlen + sizeof(*icmph);
-+	inner_iph = skb_header_pointer(skb, inner_off,
- 				       sizeof(_inner_iph), &_inner_iph);
- 	if (!inner_iph)
- 		goto out;
- 
- 	key_iph = inner_iph;
- 	_flkeys = NULL;
-+	nexthdr = ip6_nexthdr_without_ioam(skb, inner_off, inner_iph->nexthdr);
- out:
- 	if (_flkeys) {
- 		keys->addrs.v6addrs.src = _flkeys->addrs.v6addrs.src;
-@@ -2383,7 +2468,7 @@ static void ip6_multipath_l3_keys(const struct sk_buff *skb,
- 		keys->addrs.v6addrs.src = key_iph->saddr;
- 		keys->addrs.v6addrs.dst = key_iph->daddr;
- 		keys->tags.flow_label = ip6_flowlabel(key_iph);
--		keys->basic.ip_proto = key_iph->nexthdr;
-+		keys->basic.ip_proto = nexthdr;
- 	}
- }
- 
+ 		err = skb_cow_head(skb, LL_RESERVED_SPACE(dst_dev(dst)));
+ 		if (unlikely(err))
 
 -- 
 2.56.0
