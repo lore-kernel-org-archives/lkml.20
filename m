@@ -1,79 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693515;
-	b=hDgyixQk5g6DDSRRGKj5H0vf5Wuxtm8HElB0PIuxKyR+xKH6Ti6UR3Ix/P6fVKWjLSyL
-	 Zb8YUya2DUKeHzqCUNOXvQdiCmsHGm8nZGW5e+Sc/4PGWz1SzJVK1qKaBU5Mym/0Fz2eC
-	 SaFLbKRKzatCmE5ajdRRxfyQ/KdtUX7/3bZNJKdpvzrdoW2lw39Zm72G0YJhHjynSyPjw
-	 Iw2mb6TXLelOggjFFR4JUIVs7gHhEFzE3b5arcvplpfVCRDkqth6YyFZkOZpq4gfyg23U
-	 y8bjyt/UqEq3GbeoyqAFdbGJLK+ZELqERjH4/IGnYPzs3FX1OdgRZNtmSLTtVOF9rlw==
+	t=1793693527;
+	b=M/B11RMUlnOy1Q5n/QspPzH2qlOb6YcDizsqTHY9gPbtiXHSZ+bLdfituRiIINhM0Nlw
+	 NfT0YCDZoNw8ZaYQUeLk4A+/rBQxwtpBSOTzI209Nn3C76PpnI+3A4yyKzXjEproBHCka
+	 Q+8WkcciW/yikq3p2FIIBBiPUP8Xmu+9sWxM4DOkv/xdGPpBzT+Buf3jCI+pGTQ6T/DLP
+	 cNHhMn2g5Z5PBb8b8mQClWgcG7jRAx466UH56e8Rk2rq+nDfP4q3oyjoOsl887VViJp8s
+	 Ei5UMmAAYE2Fm5JroQi2P8w4rt6vkJW8aF/YbX8+yqAxlA9MF6FJXDVB6hzsKCSVhog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693515;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=HWHjCDaJOo5JyfbAzChFMw0H7Jj/ipterv1TFKU6BAI=;
-	b=k0YshQggFzhrTLYaSJJXQMSo71G9Bi7/8Qkf3fWs75v37ROHMFNElNJkRalW6HpJL4qW
-	 gBmuf0Nwl8b4sqayqX/NxqpRDYt/Fv54t5DFpDD7Ig2ohkc58/5mvwfbRQSlsZ9OKkRF5
-	 13fxcfJeVu3tm52hDz1yqDyhYQbYMldb0XMVeQqg3Bf1kWLblykFo3OnYRKotvsOdFR1T
-	 BLfKMQzAmvR5yC3BZY3HAFhk74EPQzxDFPokFP0lnrsx+n6nzlLeLTMtWB91yJLSG10A6
-	 8PlILBsdGwgeUOu87ghT/HtVE/eqECJm5smpNXgUp4n2yPeVou+rKtK7SLpnwNVtykQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693527;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=pdCQj6jg57QOmTW1054OXT4ykpV6txuNent/VW313/0=;
+	b=hZakXtICaNK22/bdJwFT2YjuMyJaY/IaOPou7Zg1C8nsY1zs0mwkHsmKm4885pyD1PmJ
+	 NbAMPaFjfN3X3WdUdNNIP3abaWedRvduqyK/K26+DY6YOPAhZFqj3k5N05G7CmTuWzOA0
+	 wACf80TQN24zA/SgKx5wPihOOnv2/Cc3xHdzEco/0LzPUJ3OouX3HUR9MG60cVCCNrguH
+	 0xe/ZyQJWl/08Tu/D9OSKaC+eFC6cFO6MYZmaIrv1UxpckRd9WpwqnHZlzVmG8U5Jz9W8
+	 X0coDThoKRGI+0XJMnjazdT7PPMPVpT+9tkYyUK5/BoeZxF6ViiqECnQHvvaek5eqTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Se4uKvp5;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=z93SV010;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535D5606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:11:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 535D5606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Se4uKvp5;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=z93SV010
-Date: Tue, 3 Nov 2026 09:11:49 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793693511;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HWHjCDaJOo5JyfbAzChFMw0H7Jj/ipterv1TFKU6BAI=;
-	b=Se4uKvp5dOU5iN/zYf/bE4zWagFx8rgG4Qg6eWdYLqE5NrMjD0xZpWFCbM+9dGivi2Z+t0
-	zsZzXIST9Ws+gdaQ/SIFPmSFcWYjkhBZgAhgpKEm5XA+WaSkqaqgH2CBHmq10s0oXtzD6a
-	o7d5RGOApsp/zUz6rvzO4hds8gAOasac2UIGUDy9Z8Hvbe6Q8niwRsW9mMMLE2Kc/YBMLL
-	mtqai9frPwai282tSm3wMJ66OaUxrVKF+8bxlKDXtshx67U02KTSi1l/Gi8dfK8L/+Iyns
-	rnOQXkW8LnZ/Er2sZkUqmYddns0U/YYo4ePS4+SDxaOWUmx3fL1EqqT4dLeQIA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793693511;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HWHjCDaJOo5JyfbAzChFMw0H7Jj/ipterv1TFKU6BAI=;
-	b=z93SV010ZECHpJWbxZsrQ1aF2AVMp318MTR7S8Ueyme1UCECjKOZEZiKUZMULMSJTm9Xzj
-	ef7cz/bQUY87aKBA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Aaron Tomlin <atomlin@atomlin.com>, linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/deadline: Fix spurious -EPERM for
- migration-disabled tasks
-Message-ID: <20261103081149.DuyWNhVe@linutronix.de>
-References: <20261102135420.244745-1-parri.andrea@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A02606A32C;
+	Tue,  3 Nov 2026 08:12:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A02606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACXaZpUl+lqckc6AA--.63141S2;
+	Tue, 03 Nov 2026 16:12:04 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: selvin.xavier@broadcom.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] RDMA/ocrdma: Release user memory when MR registration fails
+Date: Tue,  3 Nov 2026 08:12:12 +0000
+Message-Id: <20261103081212.1137625-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,43 +54,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261102135420.244745-1-parri.andrea@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXaZpUl+lqckc6AA--.63141S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1UXr4xZFW5Zw1xCrW5GFg_yoW8Ar4Upa
+	15Jw4YkrWqqF47Z3W8J3WUuaySk3yrGrWUKF9Fkw1fuFs8Gr48Zrs5C3W0grWDAF97Gr4S
+	qrn8K3Z8uF4fCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUMGQ
+	DUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpWwrirgABsR
 
-On 2026-11-02 14:54:19 [+0100], Andrea Parri wrote:
-> sched_setattr() can refuse to make a task SCHED_DEADLINE with -EPERM,
-> even though the task's affinity covers the whole root domain. A retry
-> can succeed, but the error blames an affinity the task does not have.
+ocrdma_reg_user_mr() pins and maps user memory before preparing its page
+buffer list and registering the MR. If any subsequent step fails, the
+error paths free the MR and any allocated PBL tables, but never release
+the user memory. The pages remain pinned and DMA mapped, and the locked
+memory accounting is not restored.
 
-=E2=80=A6
+Release the umem on these failures. Use a separate label for failure of
+ib_umem_get_va() itself so its error pointer is never passed to the
+release function.
 
-> --- a/kernel/sched/syscalls.c
-> +++ b/kernel/sched/syscalls.c
-> @@ -628,7 +628,7 @@ int __sched_setscheduler(struct task_struct *p,
->  			 * the entire root_domain to become SCHED_DEADLINE. We
->  			 * will also fail if there's no bandwidth available.
->  			 */
-> -			if (!cpumask_subset(span, p->cpus_ptr) ||
-> +			if (!cpumask_subset(span, &p->cpus_mask) ||
+Fixes: fe2caefcdf58 ("RDMA/ocrdma: Add driver for Emulex OneConnect IBoE RDMA adapter")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/infiniband/hw/ocrdma/ocrdma_verbs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-The task's cpus_ptr must share at least one CPU of cpus_mask. But it is
-not a subset if more than one CPU is involved. So the problem is that
-while it is in a migrate_disable() section after it has been scheduled
-out, it will see only one CPU via ->cpus_ptr while span may have two.
-That makes sense.
+diff --git a/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c b/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
+index 97c2e18e67ad..94a61127fb39 100644
+--- a/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
++++ b/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
+@@ -868,7 +868,7 @@ struct ib_mr *ocrdma_reg_user_mr(struct ib_pd *ibpd, u64 start, u64 len,
+ 	mr->umem = ib_umem_get_va(ibpd->device, start, len, acc);
+ 	if (IS_ERR(mr->umem)) {
+ 		status = -EFAULT;
+-		goto umem_err;
++		goto err_free_mr;
+ 	}
+ 	status = ocrdma_get_pbl_info(
+ 		dev, mr, ib_umem_num_dma_blocks(mr->umem, PAGE_SIZE));
+@@ -899,6 +899,8 @@ struct ib_mr *ocrdma_reg_user_mr(struct ib_pd *ibpd, u64 start, u64 len,
+ mbx_err:
+ 	ocrdma_free_mr_pbl_tbl(dev, &mr->hwmr);
+ umem_err:
++	ib_umem_release(mr->umem);
++err_free_mr:
+ 	kfree(mr);
+ 	return ERR_PTR(status);
+ }
+-- 
+2.34.1
 
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-
-Looking at sched_setaffinity(), there is dl_task_check_affinity() which
-makes the same check. It is skipped for !task_has_dl_policy(). This
-looks time like there is a small window in sched_setscheduler() where
-the affinity check passes, the task is not yet DL, and then
-sched_setaffinity() makes the affinity smaller.
-
->  			    rq->rd->dl_bw.bw =3D=3D 0) {
->  				retval =3D -EPERM;
->  				goto unlock;
-
-Sebastian
