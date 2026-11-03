@@ -1,60 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724862;
-	b=ijhj2dyjHfHhLmD7whGA11knX69TGCUSJ23vLIV0GRPOQN8mGf9h3OiRR0VO7HdCA0T+
-	 mB2jiFv1THqF1cX4ZktJYgxWMp4IU5eOpz23T5thRs222p0UBIgTIrwQ8Q72y2K9LXDEi
-	 0Hu3mLHGLniDhC+5K7DiKK0T6bbCJ4usOLYfzulGIALAJh9Iat8G1OMWQI8ismr/4PnYe
-	 zOiKsQp2JDUdci9XNxljx6d2R3sFv/fkbEGfcxRgL/uQ7mfVPcEupamaqfcSQcfEpTrjm
-	 KBA01ZMRbN6u0/zHM7ReMhtNIMUk9N05lXzEJKFKu4AlwyuKM6cy/1E2bqlncJUk/XA==
+	t=1793724868;
+	b=XqUCrxHWsVf+kFs7KnElXpNsPbrAI308rnpFt7Vg+8i67wkG//BMnvw8wmZyRqRzbi3Z
+	 4o25NdzCV0T50bJJt0qAC+K4GpQokIg6strsTH63K1ytv0UViNZoZtMkH0ahIue1rCEN5
+	 elFPsQCAxeirvjXi2uHFGAlDDWEruwKYaSdON7nEljyQ8yQi8JNMav4K5GaGoET7HFUVp
+	 2QQO/+qJxmot84Izg17Xxl4273lPRlnsCE7NMSU18gdDN2lBm9fvlvaDFo+MR7qm0l9r2
+	 foirj0aG2ozy8vf9B/2sZDSdD+bAzKciUmLX8g4OKAOWjOqi08zy3XP4f9CCbVoVOUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724862;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724868;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vxdw5k8JXp3VH90wFYbwMiOBBanWxY/Kd80uK9Q7CRw=;
-	b=jx0/+CPbSpaq1menVFas5V7oRtR5tGzz4FW6vLCTlcjCC4fK1OiG4p9LHxUx6ZI4jg8y
-	 zfIR3z8iegZt5SJWDz3RkrdTig/QS1UCTABLKnF60ORmh6cfDixIe9f95JpzwhpE7rZt+
-	 2vyoL8ACh9qkXkA8esf6DC8QKHdLCDVpZVQDRC/RXmdg/G0yFYfk21sc2GVVzLZd736mZ
-	 t5/5C53mWJeecDBZxryVSJLr8QnIK/xPIKkmpJPvBsv+UPyWkmrG2d2S0a57pU2jRYAE2
-	 l412WxyV5oq23+zf3JOQxu/wommDe8n+rv19WcPR0jGddcLWpP21ztb20BuEyJRHDag==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=mca1WBmTRuBVPkCPXuqqTeUuiPIqAE1gGlgH4qiGb6o=;
+	b=hzEBqZ/yYyT31eL5K0OoL7Y34ccVta2bTmmtvyCossDWpyzA5EJcvFktOtLgb3NEBjba
+	 N3O7VoESU3LvMfl6Yb7dyOjoGxU9yIXnD76hfwN4XA73NhKpPvi00UPevLnFx1uQSIFSl
+	 qsfQkvDpYxHJWC7SHfV26s0d0XpAhVsrVvP9mqcNlNlgr6Itsp1Bag8eDGwzUvKNou8h8
+	 lEtoqil9LfXZrSvTvHql/q1WkR9ZX1pg0QlCRJD2AF+lnkXwq5S8/WhDBkd+LUmh6/8cB
+	 Bww3fWelYmF5XYtvvfGFPt4TXaCLySErF9vgQKTB0pJbmUn2GGZGaM1zsH4EQhMRz8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cs8/miqg";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQk70WNd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A7B606A328;
-	Tue,  3 Nov 2026 16:54:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58BE606D830;
+	Tue,  3 Nov 2026 16:54:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cs8/miqg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B651F000C1;
-	Tue,  3 Nov 2026 16:54:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQk70WNd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B041C1F00A17;
+	Tue,  3 Nov 2026 16:54:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793724862;
-	bh=vxdw5k8JXp3VH90wFYbwMiOBBanWxY/Kd80uK9Q7CRw=;
-	h=From:To:Cc:Subject:Date;
-	b=cs8/miqg0tUcbThCODMeDQlMoZjRkfmzFPxEnBxPPSJ//H2Fp3ViLDSMDcdgw5kqh
-	 bd7mPUnMKcAKXkAYpG4tFhPcqxro1ePtMqUfqG4WZkymD7XNtZ66kgUrhaSR9IB/UJ
-	 F/SDJFRtvyNneYxXUXPo3FraL3e/8Y+wLFQomeDd9EegOBTFkNGB4oy/LXhl68mnx1
-	 aHQwPdxJutXVgv62umzbdP/6ARwu2PDXMaTB2Em0OMeltAGlYDoFwpi5MpEB5vABPV
-	 C9jzDnqoxtlRLVrgc/pKl50VivHi4U750dN1k+ZM2Vmn0NcQMwjDp0HN8IYmFtZ2AL
-	 t0tPJModPogmw==
+	s=k20260515; t=1793724867;
+	bh=mca1WBmTRuBVPkCPXuqqTeUuiPIqAE1gGlgH4qiGb6o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WQk70WNd9+IhuavwuTuN0IzfVvgkKjVnGGwps0px+xa2uNgdvzTTjnlDwsVXkaERu
+	 EfeW5ZLFgjnJH+nLtVoYiep2aw87QMHow0+QbOWvsWDye3i+znvLbxgM1ZcR3sMi5L
+	 QSFj4SyfdxRinwJh7ns7UAe7g2hr5Gc2J8r+MLBEGfLwk3mWBQtAqqpbWzD+MpkXHZ
+	 ERgLVt6lFrpp1REgtIYt/PLgUpjenhESstnouC/NLCZ9Y1aAEVnEwg1KcB9ujzyU1l
+	 4G601oZmZqeGoT13BrvpsCxNm7T3d8v6mEy9F6TcuD/GGjbGydYQgBJsmVgF00N9KO
+	 33unVj5OwzlYA==
 From: Sasha Levin <sashal@kernel.org>
-To: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
+	Phil Sutter <phil@nwl.cc>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
 	Shuah Khan <shuah@kernel.org>,
 	Nathan Chancellor <nathan@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/fs/mount-notify: fix the indentation in the fsmount test
-Date: Tue,  3 Nov 2026 11:54:14 -0500
-Message-ID: <20261103165419.687806-1-sashal@kernel.org>
+Subject: [PATCH nf-next] selftests: netfilter: nf_queue: drop the no-op loop initializer
+Date: Tue,  3 Nov 2026 11:54:18 -0500
+Message-ID: <20261103165419.687806-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103165419.687806-1-sashal@kernel.org>
+References: <20261103165419.687806-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,50 +75,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A few lines in the fsmount test are indented with spaces instead of a
-tab. That puts them deeper than the ASSERT_*() in front of them, which
-ends in a for loop with an empty body, so clang warns:
+The out-of-order verdict loop starts with "for (ooo_count; ...", and
+clang warns about the unused expression:
 
-  mount-notify_test.c:338:18: warning: for loop has empty body [-Wempty-body]
+  nf_queue.c:354:10: warning: expression result unused [-Wunused-value]
 
-Indent them with tabs.
+Leave the initializer empty.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Found with clang 21; KernelCI's clang builds show the same warnings.
-Amir's pending fanotify series moves this file to filesystems/fanotify/,
-and its rename still applies on top of this.
+KernelCI's clang builds show this warning.
 
- .../filesystems/mount-notify/mount-notify_test.c          | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ tools/testing/selftests/net/netfilter/nf_queue.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/filesystems/mount-notify/mount-notify_test.c b/tools/testing/selftests/filesystems/mount-notify/mount-notify_test.c
-index 6381af6a40e30..6c95c275b1629 100644
---- a/tools/testing/selftests/filesystems/mount-notify/mount-notify_test.c
-+++ b/tools/testing/selftests/filesystems/mount-notify/mount-notify_test.c
-@@ -337,18 +337,18 @@ TEST_F(fanotify, fsmount)
- 	fs = fsopen("tmpfs", 0);
- 	ASSERT_GE(fs, 0);
- 
--        ret = fsconfig(fs, FSCONFIG_CMD_CREATE, 0, 0, 0);
-+	ret = fsconfig(fs, FSCONFIG_CMD_CREATE, 0, 0, 0);
- 	ASSERT_EQ(ret, 0);
- 
--        mnt = fsmount(fs, 0, 0);
-+	mnt = fsmount(fs, 0, 0);
- 	ASSERT_GE(mnt, 0);
- 
--        close(fs);
-+	close(fs);
- 
- 	ret = move_mount(mnt, "", AT_FDCWD, "/a", MOVE_MOUNT_F_EMPTY_PATH);
- 	ASSERT_EQ(ret, 0);
- 
--        close(mnt);
-+	close(mnt);
- 
- 	mnts[1] = expect_notify_mask(_metadata, self, FAN_MNT_ATTACH);
- 	ASSERT_NE(mnts[0], mnts[1]);
+diff --git a/tools/testing/selftests/net/netfilter/nf_queue.c b/tools/testing/selftests/net/netfilter/nf_queue.c
+index cca6c3cfa9e46..bc0b2f601a0a4 100644
+--- a/tools/testing/selftests/net/netfilter/nf_queue.c
++++ b/tools/testing/selftests/net/netfilter/nf_queue.c
+@@ -351,7 +351,7 @@ static int mainloop(void)
+ 		if (opts.out_of_order) {
+ 			ooo_ids[ooo_count] = id;
+ 			if (ooo_count >= 15) {
+-				for (ooo_count; ooo_count >= 0; ooo_count--) {
++				for (; ooo_count >= 0; ooo_count--) {
+ 					nlh = nfq_build_verdict(buf, ooo_ids[ooo_count],
+ 								opts.queue_num, opts.verdict);
+ 					if (mnl_socket_sendto(nl, nlh, nlh->nlmsg_len) < 0) {
 -- 
 2.53.0
 
