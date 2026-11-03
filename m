@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699706;
-	b=skDTOamnv1xBJpOQY4PmgD3DkaNnPkENWqUeW5yktK8ZRrewtfq6gOCy02WOsEGrLsjn
-	 zLuOFucQPry4VVyZQWAIanyA9xQINKawgB0nkU8CE+k07iC2zAxHoqBp3yH785SdSD5Yp
-	 isrTm98s7Qsd8hXHPw1X4DVp6ltTDe3FM0nNL31OzTuiAmXVq0ZsP605+rdsKy58cYK/T
-	 +zBiYC8fYfWIc6A8Ocg1ywFYJHKISwUx+0ADIsWcWp75sT2wYnlew+auDZXvFq1lEPMoO
-	 avgWeRiy5hiwV7xiTQ/i5128r/iDaMZwwWCgMYEDjZYqVO/dvXXSJso7Ctb1pAR3Xww==
+	t=1793699713;
+	b=OMlaWLCbO1NL/te4l2+xQ1qh4xcsO74hvWP/Fp41XHDjLeIKaIen1govYeWsb5rvSCcm
+	 lQ9s4GpfbIB4+dCCO/zavzn/jtXPV1MDcXR+RgcvYzs/Byqz/xWJM5OoFj12f6/f2ksah
+	 lQevc7/O4fJiZ7bSLqk3lqUV54N5/2m550Bue+aK21e3Adif/eJZV/IsXjFlAZei/39N5
+	 t9Yix/RWPtcojmqWLQgXzbsFvLRM6sCLg0hb+DV9XUJQv3XlyvCCGCxYElRv0AW1MI8ys
+	 ax4kBs9ypxEt3wEp9uIo1RYhTd2YfHDMTWwjhHh3H7nbhwiTlcrkR/g9tHjvlT7iNQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699713;
 	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SjvoufU53YipE1rwywIAKoeshFADyLF0Pz/wwifWPLc=;
-	b=dDt8ZsNXcHtCg+E1+vzmeHPIcadY9c69iZoW9oirCLfU34n4L0V9NrDh6en1nx9gyU93
-	 eyZm/hiO4c44dcjVnZW5AQIchN7AtQEFdaBvZ/nTnQdYLsvqADaMyFj2WY0iwB0dfv87y
-	 sqd5tys303Jsbn0DITzQxmUxhW8agmEBq0gFcxymRDUmLc6CE/K7B0Y9ZT26ZJJWbWLfz
-	 Pa0SKOWw6eM8W67kPBkzAaWSl1ZKH/onnFxwMnNkFS1nO7NdqF+XrqakHPaYFlHtQoO6F
-	 aAyMfEdGGjPtrKe8vw4zcS/+QBE3cTWC1H3LRxXlc33LYd53AO4CwDewAQGkoui6jbw==
+	bh=z7FzZKV6A7mrmkNhPw/tA4lioDAGYGyaupm0z0TVJX8=;
+	b=juFkMKHrZra1zysTESx7CMZrlbaycdmPwZRky2Hj9o+Cq6si/Y7VCqt0Cswr3PFc7lZh
+	 2vZx70xExf523294dqzlXv4UMORGOayNm8mCmN35v2vRArFUfDbZmybRR1KZNVVvI1rIt
+	 pPXYEzV/zjkdhhbyJj2Fjiey0vHaZ4ygZ1nlp/XWhCDHjiiuO4LjMDkDxJ4CLNbWIji9Y
+	 vTs9GeGeuYyAtWN9Vxq9WX9Ih9DFS/sKW4tw1VRLSApxPFGixrJLsJCDuMM2ZS8Ojvm2c
+	 obXhN16V43slx8sdny5trQevWC3/5u/x7/+2BvgJDoiTAFzChnts6KO0/hyrR7u3R2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ipAf4aQx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuVofK2o;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EF7606EEBD;
-	Tue,  3 Nov 2026 09:55:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A741C606EEBD;
+	Tue,  3 Nov 2026 09:55:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ipAf4aQx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08DFB1F000C1;
-	Tue,  3 Nov 2026 09:55:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuVofK2o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3999C1F00919;
+	Tue,  3 Nov 2026 09:55:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793699706;
-	bh=SjvoufU53YipE1rwywIAKoeshFADyLF0Pz/wwifWPLc=;
+	s=k20260515; t=1793699712;
+	bh=z7FzZKV6A7mrmkNhPw/tA4lioDAGYGyaupm0z0TVJX8=;
 	h=From:To:Subject:Date:In-Reply-To:References;
-	b=ipAf4aQxmwFJ6JQpkH2dW3va5wADsnlLaKSf3YIirnl1+7RTxxy+7bfrn1rwdv+PW
-	 Lk2QQsFQnSAC6mGHL1W0RrmskUBZrNbdlioy7QkLXrjVb5gKzQA3U6/41UBWcyMfZP
-	 MGKRncKc9INgH6itXj5ZA6tes6jkpWB6eVBM5hvFxhJGLjdT3lBDzTViCwoRvvmVuw
-	 GSdjCb9ZZr5I15xthWutzxdfoQAvhzKUP/Eg6VqSnaoUX10E1w+loqKTmhA1Zx9hZc
-	 zNC9vnnWJwyY0G1vUfL2KmhS2kN0P7cHsGAz21okI8xqw+12yorO+gIz2jlw1rTlDb
-	 TBpFoaLprfv3g==
+	b=RuVofK2opm4qAT6Ttgg6o4o4ffF4lgK+nXd2ilwJkIPK0VJrUyDklK15BhQhvBJcO
+	 2QX7YuMqEqJW8Umh6DC4Xzu9OoSDhdgv7XCNBlukuzg1Gh5ihSeOlATYqiRPvZ1LJa
+	 6YmE/89n8g6PfkADDj8cV/LUAfoH5yo2cCSvNCwptfWlca+TdwOj8x4Yoph5tENfwV
+	 FpePRbM4Q1T5dic+yM4k28vSgbWDFzpqb6otoRXF3VBv1YW3tVc6GIdqGQktx9b75a
+	 egQHbcJO+ryA5UXRmw27THN8F8l3UCX5imCYlrIExXC80ZkoriKnAxK8Oz4dyNSclb
+	 8k+ltSYpW0cAg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Vinod Koul <vkoul@kernel.org>,
@@ -46,9 +46,9 @@ To: lee@kernel.org,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 02/10] soundwire: sysfs: Use sysfs_emit_at() in array show callbacks
-Date: Tue,  3 Nov 2026 09:53:46 +0000
-Message-ID: <20261103095445.81414-3-lee@kernel.org>
+Subject: [PATCH v2 03/10] soundwire: stream: Prevent m_rt_count underflow in sdw_stream_remove_master()
+Date: Tue,  3 Nov 2026 09:53:47 +0000
+Message-ID: <20261103095445.81414-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <20261103095445.81414-1-lee@kernel.org>
 References: <20261103095445.81414-1-lee@kernel.org>
@@ -63,61 +63,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-words_show() and the show callbacks generated by sdw_dpn_array_attr()
-format firmware-supplied property arrays into the sysfs buffer using
-unbounded sprintf(buf + size, ...) loops.  If firmware provides a large
-array count, sprintf() can write past PAGE_SIZE and corrupt kernel
-memory.
+stream->m_rt_count is incremented in sdw_stream_add_master() after
+sdw_master_port_alloc() succeeds.  However, sdw_stream_add_slave() can
+allocate a master runtime without allocating master ports, and
+sdw_master_port_alloc() can fail after partially populating
+m_rt->port_list.  When sdw_stream_remove_master() subsequently tears
+down the stream, it unconditionally decrements stream->m_rt_count,
+underflowing the counter when master ports were never allocated.
 
-Replace the sprintf(buf + size, ...) calls with bounds-checked
-sysfs_emit_at() calls.
+Free any partially allocated master ports on allocation failure in
+sdw_master_port_alloc(), and only increment and decrement
+stream->m_rt_count when master ports are allocated.
 
-Closes: https://sashiko.dev/#/bug/linux-543ff498-3bed-412d-8972-4855c5aa6008
+Closes: https://sashiko.dev/#/bug/linux-bce288e6-c97f-46dd-9fc3-023c33d56f36
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 
-v1 => v2: Drop Fixes and Stable tags
+v1 => v2:
+ - Only increment stream->m_rt_count in sdw_stream_add_master() when sdw_master_port_allocated(m_rt) is true
+ - Drop Fixes and Stable tags
 
- drivers/soundwire/sysfs_slave.c     | 6 +++---
- drivers/soundwire/sysfs_slave_dpn.c | 8 ++++----
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/soundwire/stream.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/soundwire/sysfs_slave.c b/drivers/soundwire/sysfs_slave.c
-index a2ee064147e0..35272cfe9fc8 100644
---- a/drivers/soundwire/sysfs_slave.c
-+++ b/drivers/soundwire/sysfs_slave.c
-@@ -161,9 +161,9 @@ static ssize_t words_show(struct device *dev,
- 	int i;
+diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+index 0b00fcdcab2d..db62a68c09f8 100644
+--- a/drivers/soundwire/stream.c
++++ b/drivers/soundwire/stream.c
+@@ -1113,8 +1113,10 @@ static int sdw_master_port_alloc(struct sdw_master_runtime *m_rt,
+ 	/* Iterate for number of ports to perform initialization */
+ 	for (i = 0; i < num_ports; i++) {
+ 		p_rt = sdw_port_alloc(&m_rt->port_list);
+-		if (!p_rt)
++		if (!p_rt) {
++			sdw_master_port_free(m_rt);
+ 			return -ENOMEM;
++		}
+ 	}
  
- 	for (i = 0; i < slave->prop.dp0_prop->num_words; i++)
--		size += sprintf(buf + size, "%d ",
--				slave->prop.dp0_prop->words[i]);
--	size += sprintf(buf + size, "\n");
-+		size += sysfs_emit_at(buf, size, "%d ",
-+				      slave->prop.dp0_prop->words[i]);
-+	size += sysfs_emit_at(buf, size, "\n");
+ 	return 0;
+@@ -2061,7 +2063,8 @@ int sdw_stream_add_master(struct sdw_bus *bus,
+ 		if (ret)
+ 			goto alloc_error;
  
- 	return size;
- }
-diff --git a/drivers/soundwire/sysfs_slave_dpn.c b/drivers/soundwire/sysfs_slave_dpn.c
-index d2561400da77..16872ea64b1f 100644
---- a/drivers/soundwire/sysfs_slave_dpn.c
-+++ b/drivers/soundwire/sysfs_slave_dpn.c
-@@ -134,10 +134,10 @@ static ssize_t field##_dpn_show(struct sdw_slave *slave,		\
- 	for_each_set_bit(bit, &mask, 32) {				\
- 		if (bit == N) {						\
- 			for (j = 0; j < dpn[i].num_##field; j++)	\
--				size += sprintf(buf + size,		\
--						format_string,		\
--						dpn[i].field[j]);	\
--			size += sprintf(buf + size, "\n");		\
-+				size += sysfs_emit_at(buf, size,	\
-+						      format_string,	\
-+						      dpn[i].field[j]);	\
-+			size += sysfs_emit_at(buf, size, "\n");		\
- 			return size;					\
- 		}							\
- 		i++;							\
+-		stream->m_rt_count++;
++		if (sdw_master_port_allocated(m_rt))
++			stream->m_rt_count++;
+ 	}
+ 
+ 	ret = sdw_master_rt_config(m_rt, stream_config);
+@@ -2108,9 +2111,10 @@ int sdw_stream_remove_master(struct sdw_bus *bus,
+ 		if (m_rt->bus != bus)
+ 			continue;
+ 
++		if (sdw_master_port_allocated(m_rt))
++			stream->m_rt_count--;
+ 		sdw_master_port_free(m_rt);
+ 		sdw_master_rt_free(m_rt, stream);
+-		stream->m_rt_count--;
+ 	}
+ 
+ 	if (list_empty(&stream->master_list))
 -- 
 2.56.0.385.gac671c819a-goog
 
