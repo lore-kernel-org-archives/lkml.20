@@ -1,47 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793682349;
-	b=spyOZnVzz4I3X3VEfM5nQba5dIk2N+IG+qE8ue3QSD/+l5TFJAyriTI9nakTBwu+7RJP
-	 kyf0E+CP8Jbq6gdp3bIw3q+VtczBkq2MohAbTKcdfQegfTliT43h648q764Z0w8W0KFtf
-	 Ue4q4RO7F3xnAd1PUGf/vBHVII2tyAhW2HKrsCoTZjE5GnNgc7Z15VHIURcFYQJJMKcfT
-	 kRKYzEdAdtYca3kaJH55SZjntK4LtNT26U7AtDhrmkcMeyVu5SlYd12TTAfvIKKGtaxAw
-	 25fDo6ZXIydjvGOj6X/XbCaXa9pZDtpHz1zIAcDGJIkXGAZEMoOV+0xFWo1xQ4LCZ1A==
+	t=1793682396;
+	b=QS0r+AB0QJ2r38nuOlFyMXosxTn4ixuWQGHNJtDLKLjHk7cSKG46lWBPrQ/cS2Varwg3
+	 KUJZkArCmuhKZljdzQLCEO+1dkeKVxIG+T4QeYuBCcAwrFwGl5vYkRdATA/ZT19ScEJnQ
+	 Ppw7XVky6Sys1n8cTJv2DOAC3S6XopGfefMCPVnyEIhz8vCTSGMDKW1Tz1Pff7jJwxXfg
+	 3D0uK8havbHqNtYsRemcPhh2R5gABdK42Wnp1tcRBo8i0ITlu+cccbmYMF8vkS1KmE1v9
+	 4jmJq0cCZlgz6Y2xpbD2i7NyVVosxH8l2K6Zvuu3fAgYyNxtHMnZr42mZRHg3QnIHDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793682349;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Wy1B7kK31jh2U/Ek3h8NaYXmd8oP124iADt0yBcYVuo=;
-	b=1/Jm9LRKVfWZNY1xdI+w9HFhIHAn1HITEQVolnf0chF3ja5H+/rhtG679m16TRSN6mDy
-	 UHVkI/gDNbznxrzPvGM6PtvStxrDtnGqOEJugxIjk/KaWCJc5TGA8gq01B8Q01204DDe4
-	 AZykGcKFlmpQnmFE6/HfghuAfRTk6NLDu5RjTKCKK2KWWVpBPRoSbhPbbEjZfBHyQ3Kko
-	 OOt5rSQen/le6+ZFdyFOyaIZObCmG+0kIlg1rV8a/Mva8C/OdShQ3FP+0PU74qlrdc8dI
-	 bjCx9OfrG81vHUy0G8vwJoF074Mln6nl5LzQWxnwn3T1sK2RFK/pEROwPZn6QGqPydQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793682396;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=GTsITmuHAIv/+kE0SNUbfba2LqBOd8VdgHoEhQmFbug=;
+	b=BJPdr830c7mIYY/RqCrvSb/s0QGNVPSJdtDEvdHhpQDqKxIHFcLABQQuZbQc59KdJyKa
+	 CG1Tt6eNkKEnXfLrOHMPajqKjcv/Dcx8h/Qus0GSUaFMptwibt23CAgS1vRM64X5wZyHE
+	 I+PVDb9xI2xTEKpwH7IudZnT6qG7iWIQelUFjZlYl49SF6wSP38nxJPFNEhzFVOaGd23L
+	 JaMIJwMoocz0upQFGZY+4wIN0ElzOA3GUNn+yiqYpNeLSUa+5LZEocoj+l0W0QGznL/+O
+	 GtlzBHw4bfBNrwWG5V0Vvqu2IqDekiXQ8P9RwsyiBVllMCTYwoAd0QSYaaIT63MbByA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jIIfcR7H;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JevUa+0r;
+	arc=none smtp.remote-ip=209.85.215.199
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B58606A326;
-	Tue,  3 Nov 2026 05:05:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6787D606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 05:06:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6787D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jIIfcR7H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E061F000C1;
-	Tue,  3 Nov 2026 05:05:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793682349;
-	bh=Wy1B7kK31jh2U/Ek3h8NaYXmd8oP124iADt0yBcYVuo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jIIfcR7HJwB84zqnAdDFom3Zyliu689D31HB2GRVWvl+Xw/9dIdDWfvBgxEvKb81Z
-	 Z4yYgzXIE9EHQs9UCzmFc0dd1FovoSScM7uI7Mjljmre41ew7B2UtwBWH/gpF5wWth
-	 Yn582gWoZMQFPcBlr5TMcA9EeZ+JhYRW6QY4fPcQ0T9Z63mF9OWE15HThru8YR2Ts+
-	 a8QDiSxk7blnwW+vkHlQdiKbVWKzvGulSPI4NlDMVk82B/JvDFXGzUYFZIsOSJPW2e
-	 3NYQ0w4MHLYL+YX7lYWe/kpojNMUIgpnsc1Ng2MFR6Xlv09Hhhvu/MAPf8YO2bLs7n
-	 pTL88kQLGfrxQ==
-Message-ID: <80a2d229-f4c5-441f-bcca-1a201ff5c271@kernel.org>
-Date: Tue, 3 Nov 2026 14:05:47 +0900
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JevUa+0r
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cdb155f3229so1183851a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 21:06:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793682396; x=1794287196; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GTsITmuHAIv/+kE0SNUbfba2LqBOd8VdgHoEhQmFbug=;
+        b=JevUa+0rLo0+2qi+ZpdzYN+Raq34ZNdypKmtdYwDLEuoGeQ/QiGik15xaPvHO3MmgM
+         EY12ne4qJaY8Exy3MWxfX3WTHQJhO1W7jlOlluR4sPK2qBW3RZlvxjxN2JMw1GEZXYRi
+         1PMrfu2G8L3UDoB54sPaf0cabbWyLMX8BBbMYzeVZr9ktwU2ixVHOS4ZPdaxShtWbzJS
+         GqdCFWFAFAFvPmqawEwjQW8pnXwQSsz/fKJM/KTKoFcNukDZSYTk66joKdbKP3yy1lUR
+         IfK4M6Pz5Scp6Kco6lfGNCOJ0hFf6TMh8DfyW76yoAqF5H2rmyG7PO2csMl5cBZ1E97f
+         SkZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793682396; x=1794287196;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GTsITmuHAIv/+kE0SNUbfba2LqBOd8VdgHoEhQmFbug=;
+        b=pFz/FyqGUCN8p3qSu2hcMBex7m6B4HTFxH9b68VmtxOXJ4gcmOx+CZac15//xWvOY2
+         0CR0+0BrkwCM7zV6jnlINbpYGYkQ6mgjcLdbXeX/aKxwXU7EiAeO0XxVq1XIUvUtxEY+
+         HRYzqZWSAaCa3Sqi6ScOF62odAOkSsrKuq9SZ+/VhKN6MTvoUd8OY91LbZUDqdjZ/xKE
+         2SRnffXh1Numk1EKRKtEsQG4FmbKZ+uYzSs8OVOGyrSVqr25WDt2M1t3iRAhkYzfBQu8
+         HZbnSkq0mMMoGoAx0Q/xiMjGn3+VpM1bOm97h2jqoWFI21+DXrO/1UkJAvOsIPdPMljs
+         lu+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwgdZXq/17s7B3H4aJk88qJWtWNOv0EERSvETTt8e/rgoV6geI8Mozemer2U+Te0YF9TLhfQa/+IJ4RFhg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8023JWo8XT6r1F/OAwPrT20OjRwPuUGU676doSRcSesaVi542Z
+	ZCwklavEXqwiPaux7CovBGuAXLSHLhQOo+P52fXyeql/td5i+PNYwbjAKdDluMtLfOt/6zZVF/X
+	HV9GSNQ==
+X-Received: from pjbjo10.prod.google.com ([2002:a17:90b:140a:b0:3ad:647f:c1bc])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b8a:b0:3a7:8350:3f7e
+ with SMTP id 98e67ed59e1d1-3ae89771679mr9375963a91.44.1793682395471; Mon, 02
+ Nov 2026 21:06:35 -0800 (PST)
+Date: Tue, 3 Nov 2026 05:06:34 +0000
+In-Reply-To: <20261102035943.9700-1-qingfang.deng@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,34 +77,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] zloop: fix the error code in the blk_mq_alloc_disk
- message
-To: shao.mingyin@zte.com.cn, hch@lst.de, linux-block@vger.kernel.org
-Cc: axboe@kernel.dk, linux-kernel@vger.kernel.org
-References: <20261031221737569WQ3bg8y80Ht7JdTCWwlkL@zte.com.cn>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <20261031221737569WQ3bg8y80Ht7JdTCWwlkL@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261102035943.9700-1-qingfang.deng@linux.dev>
+Message-ID: <aulr0Da_4s4WOp5k@google.com>
+Subject: Re: [PATCH net] tcp: initialize send sequence numbers before
+ deferring TFO
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Yuchung Cheng <ycheng@google.com>, Wei Wang <weiwan@google.com>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On 10/31/26 23:17, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Mon, 02 Nov 2026 11:59:43 +0800, Qingfang Deng wrote:
+> TCP_FASTOPEN_CONNECT can return from connect() before tcp_connect_init()
+> when a cached cookie or cookieless Fast Open allows deferring the SYN.
+> At this point write_seq contains the initial sequence number, while
+> snd_una and snd_nxt have not been initialized to that sequence number.
 > 
-> When blk_mq_alloc_disk() fails, "ret" still holds the zero returned by the
-> preceding blk_mq_alloc_tag_set() call, so the error message always reports
-> "err=0".  Save PTR_ERR(zlo->disk) in "ret" before printing it, like the
-> blk_mq_alloc_tag_set() and add_disk() failure paths do.
+> Consequently, inet_diag and /proc/net/tcp{,6} report the initial
+> sequence number as the send queue length despite no SYN or payload being
+> queued.
 > 
-> Fixes: eb0570c7df23 ("block: new zoned loop block device driver")
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> Initialize snd_una and snd_nxt to write_seq before marking the
+> connection as deferred. Both sequence-based queue lengths then remain
+> zero until the first write starts the connection and runs
+> tcp_connect_init().
+> 
+> Fixes: 19f6d3f3c842 ("net/tcp-fastopen: Add new API support")
+> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-
-
--- 
-Damien Le Moal
-Western Digital Research
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
