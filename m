@@ -1,63 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699962;
-	b=1GVORxVVehlW1UG6y6JvhzLFq4CXNN6w18kHYtKSUSAcFla8RRmgSVbghr9WFM5VvGbp
-	 //pUuKfI7ToR6rWbnoarCPGcGG1IpPs0/RG/DK+w4C5UAcAIr4s3l0TmPjSy4xbOiTkVm
-	 Cg5GP0iU12Qwxr4nlYbkL/gn/uO7w5eQ75I1VPfsPOpjT5F1VmCJK6pTp5bIbeR5aNgRW
-	 LhgHRGwskhIFJxI0Vs0jkSjazYgL2te5bED1kuJ4vycIQsCKAaffDt6TaMm8SatFk5/jU
-	 JZi5w+2iHYwem0JEK9sa+qL2b2AKhsghCYXSnoSoOj3ag0FOLiqFBX0rX+m7Eji3ehQ==
+	t=1793700007;
+	b=PLoderf7FZ+7bvZ7s2QCb4xcFH3pz9SNMPTngacaR5CAHtyU8ifBrRsLz+eKg//+2HJ1
+	 xnY/dmliNt0yENqWYWg8wrl1b0iUoP1Ws2d14kWXrj3jI05CMjVj3bN4gE92y/OPy4GfK
+	 sUf3AGfl/N53B+rFQ/aj48vKJM8FkEGpdSfSVeYEF9iuAZmw/OcHhEkdTAZuUOU+Dtd/c
+	 SP3HdijDNpSWoKpMDhVJMOHw+KwxrxLQTq5kIvbhUaoygXRW0grKFWeiZj9zpD8c8RFtp
+	 8SAkVLZ8/LmzcQlNKIj1os2nDLrXAipgfocn9+qulTKzphA5aMkFYQdIjlPBQmgKMYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699962;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=unNLrtRsLoEGpFgoanmKliCly/4Cb8Nih+czK6hyPdyEK3wqrmPgWug0pAj8CH2XQhPe
-	 Msbo85o2qkgF8BDaOjC8dqCKjf6V09X9SVUJ+0J8CoWLmHg6BHubINgz94KmAYzQ/HqK6
-	 QVvSG0CppE5FfV6o5lMQe9DLUf+LXmDcElPZwRtTqdaAbYgQZTFu/cEh1YAtxO9Ydmniv
-	 nyU3mNPxMmzJBOBmDhR5rHA+284Naq8uCsxWwy+0BTlaaPPZQTC5g6LI1FdGie8OWXrJ1
-	 LKO/49WoGXERMQxC/lMJLKP5W510JVdlPTg0QCaxAbTaj7ZYTXH/MVCHVcLKO4Tij3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700007;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=pDPcRYAD1Zq4GsCVSZKQUb+7+o7VG/jBpgu0WdZq2b8=;
+	b=1SMi2NBYqQdNEeYk0YsPJ53OBTYdx4C8pSzqcSsi/sq1svBlFfg4eQ3uCE99WaDXVg/P
+	 NkWUntoLJEU32fWzmKlbYmv5+JwAwqP3p59myuXL64ahbD/DsBoQdZ+SOSTWwsAEvhR7H
+	 HYsqivFEy8OMEEc5Hv2gskh+Sl7S7i0FdeuZZT+SyNfgrixkEBFewmWH5FyzCu4e6XEaQ
+	 sNZWe+Ps6hGhfCyXteBqRl+Mq5tT4tcc+zyzaOSxaiI5Wjcskwx+R93Rw/Xl2ENSH3+Yi
+	 9YmOcwG9bXUKBm+XJl2dTK3ajoPMQyvxlqrRIOD0Cpk9Vw/NBBwxYTGC1rk2LQ4C8Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ekpGyn/R";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Cc794FKY;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5112A606D80A;
-	Tue,  3 Nov 2026 09:59:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585F8606A803;
+	Tue,  3 Nov 2026 10:00:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 585F8606A803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekpGyn/R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A9D1F00919;
-	Tue,  3 Nov 2026 09:59:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793699962;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ekpGyn/RMXBJluqauiXadcjEGPHyxEYiE1L4EKHUbFTOtLPclumaiYTEXeTJqhM1q
-	 gAYg9lGO1LThWiHn2KYeLrqHSA2I5t8kCfHyNPjxxcugzPuyeWtZl9HU7mdt0yWW7d
-	 NCVabrpODzb2+x3hWw7r8gcf47qYHkuBqALGcBOggJHYZU6CFb/YK/azxbDeAdzB+B
-	 tubpY1Fse5+L4tXNJ+bDOqVwjL6RslbYy4ZvaRTLDzCqhmLXaAnixeNUF8q/vpdnDG
-	 k574nKf5x116zGqoQo4csqTFLvEqg0iI6bAdTuHDmhLafj64KQRj2vmvl760foLD2E
-	 18rn0Uhn4n55A==
-From: netdev-bot+sinfo@kernel.org
-To: =?utf-8?q?Jo=C3=A3o?= Silva <jgc3silva@gmail.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Sven Auhagen <sven.auhagen@voleatech.de>, Oz Shlomo <ozsh@nvidia.com>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH nf] netfilter: flowtable: do not clear the offload bit twice
-Date: Tue, 03 Nov 2026 09:59:20 +0000
-Message-ID: <179369996085.488859.11933291398858368008@kernel.org>
-In-Reply-To: <20261103-flowtable-offload-bit-v1-1-20f5952c00a1@gmail.com>
-References: <20261103-flowtable-offload-bit-v1-1-20f5952c00a1@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Cc794FKY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=pDPcRYAD1Zq4GsCVSZKQUb+7+o7VG/jBpgu0WdZq2b8=; b=Cc794FKY5CB1dhp8HTLb+B5M+r
+	/maz7vG8pDFlw/RRRM5ckrPNUzkP8xTFFzHg3sPjzShNbeyof3GG7FJQYJECozhZxOG4XpVVYW3bK
+	3eEMO6NIjDPP0gAP8Ugkystx+fDzWolCkXePbb+8SE13jFscDf9/fx7enzhmmOMiderFkhdXdrdTT
+	LC0gQrHsFzXn/xYY66+SazzrOFY7yJ+jSiYTaTvKtYeC+q4Vu7QTBbSZYwkIUAxFM29uH76sMQCfr
+	28HfleVB5VtYn803Dmb6elWqBpMaMFi57FhNa6sN4Aq+mE3NiC7Gqz7KO2WJ0GKONLjdgXhwPgT7g
+	a5rcVQLA==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOBJF-00000001roV-3cNi;
+	Tue, 03 Nov 2026 10:00:05 +0000
+Date: Tue, 3 Nov 2026 02:00:05 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] partitions: aix: fix kernel-doc
+Message-ID: <aumwpa9S8x_FB9Tb@infradead.org>
+References: <20261021110710.1721073-2-manuelebnerli@mailbox.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,25 +63,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021110710.1721073-2-manuelebnerli@mailbox.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi!
+On Wed, Oct 21, 2026 at 01:07:10PM +0200, Manuel Ebner wrote:
+>  /**
+>   * read_lba(): Read bytes from disk, starting at given LBA
+> - * @state
+> - * @lba
+> - * @buffer
+> - * @count
+> + * @state:
+> + * @lba:
+> + * @buffer:
+> + * @count:
+>   *
+>   * Description:  Reads @count bytes from @state->disk into @buffer.
+>   * Returns number of bytes read on success, 0 on error.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+All these stub kernel docs for static functions aren't exactly helpful.
+Please turn them ito normal comments where they make sense, or otherwise
+just remove them entirely.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
