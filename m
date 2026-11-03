@@ -1,59 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717515;
-	b=lX57L97H3QPThiPyDXfWP8OmSPS773wJ272S1IrStw+o7eOOtW0mbCGfyVrmnX3vfcgG
-	 dAFMya6jh4EgMTGtrZkm6zC1vnkCAV+RMmA4rw1zcCqF3EbRh1rg7EdCkCCqf25zaRiqz
-	 6WYQmhMWo8bxUfOfrYvghOLiFvvaASw3OsNjkrbeOUM2MrH8M4tuGPB0bGZ+m4C7Fx4DL
-	 s9b92GZ/Tt+Kp45V6BSwQx06a6PGmuatW2A/oNS4BEG2ggytIThc1Q1FvzeCKEBi1W8vO
-	 JttR2WnWV7JBNtLjgEFZeQVjPi5SO4WVnrtF2G4DN7PToBjQ3G4VDPh19bEa/6I6yRQ==
+	t=1793717530;
+	b=nzhOi5U5bWleWERa7sd/4n7aaF5Fc1iLnyT1MmYTazDwJ5x+g8D88q0I9PcNPJDI0O/g
+	 +ajzXK0gtwsptZqebsOAp4zxp7qRl2Q0wu6ekQJy9o97yT8/xXlR0GDothxHky67kVJgt
+	 6ZrN+/k8yUaNK49hB2RGK4i600v3fveQ3Ft0dfDGWVTn5gpQDuuHDIcbhBEm//ma3ZJgU
+	 5WdD6J5tNiaAbO0tQQ3CDfRaXK2mZiSBVHigy65YpiA974oSWBLRcVEJ3LnnwVrZOyTy6
+	 mEdX4pMQDnotwQCRlTA1JRb3OW4lfVcNYjnjIA7Zat0Zr5/1q/RhjNydBADke5q6m2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717515;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qj/jBK5uYX1lBOAh7CIGNjD5DbAGZcwkTAmQo8pBkzs=;
-	b=Pyk1ioVu8FD2Nd4FSxFcJbSv6joq1aUrG2Ss4VS7P1VSZff0hS2B04s4QnDzoVOMtMI6
-	 tD0CFsAjz6MdD70kB141knLxmUiJCfuopW+HB0rFbGeYKkbw3fPpFMi1DZfVw9sXpwFpE
-	 9fkCG9gXWb2YYNQ3mvUBfO39PFBInqVMcA9GO0KARfDP3u6Rv9b71GH3FYuMC0UbmxoZ0
-	 BayHal96DC/cD+nJdVZ/MZc/O0KlrZ5KpjUwiq2I5cJyiMUuAdncRUvZE5KdJdrizGV2a
-	 akSELlRy7rv/x84Qk8VP9sX9rcefYSOxRMJJC0K6sbeTmOQMw0r4ru0GFdgq4HF6qzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717530;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LMyRWZC45eOWdRYTp9S1dshzyIL9S0ThqB/6dV7aMIQ=;
+	b=RnwysnXosaW7eMnsD+P1LgQLp60zrlHbxWNZdyjaISxKl+A6G8k9FKPoXasquZutSxGK
+	 pLJOvE/FA5/uIUuH+AlTd2s7+dJtbNx3niQpbqq3ib71HOEujhjfh936Sv2WXxsVgICx6
+	 l9DhcIHMAyQde4jOMcvJO36C7fk/2RVkkF/3UN2FMP1st4LdJTtLCkh6VD95i+M2bwAcu
+	 1ey4b1JIh0QhPb8Iy1xUsrLvplUj9ymRvr/htlG5kcdrvzxCk/PAOjz8FTdhX5yvwtyAC
+	 qr7rlMGhAG1IEg5PeKgdBYSG78j6XytIj9/ljZgZkjgrWLuXxCMCb0tNmt6Nu8EYh7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1yzwcN7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBQ8RpLn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56AC606A7BA;
-	Tue,  3 Nov 2026 14:51:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E9D606A789;
+	Tue,  3 Nov 2026 14:52:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1yzwcN7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06DAA1F000C1;
-	Tue,  3 Nov 2026 14:51:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBQ8RpLn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88EC91F000C1;
+	Tue,  3 Nov 2026 14:52:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717514;
-	bh=qj/jBK5uYX1lBOAh7CIGNjD5DbAGZcwkTAmQo8pBkzs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B1yzwcN7CWiyNWpcvubXRrCbxuNfue3EMWaxmI3o8yCwa1dApj+/hy+6VaZvzbFwj
-	 gEiGdceIHEoatSvdxVZYydAj6jRnOYabrYDeBySkuosbTg1kwo0jFsSP59YwWge8Fh
-	 vUK638xS1loXo8ZXokQ+5An9IkLHb3WpMcTzQ3KsL0J8WrjSZcRZhAoPTl6T2kttoz
-	 rdkBGDeGBcS3zMVvm8FyuDJ2cPNbXIXbrVQhwpQZhqqSn2Json5EKJTKee4s6G1RTm
-	 tpxiF8y58k6WRTbQocwVUIseU94DsGbwghXbH7zHPKxEd/jWAiuBKsm5tltGI3Ev+r
-	 CvokGvV5slJGw==
-Date: Tue, 3 Nov 2026 14:51:52 +0000
-From: Harry Yoo <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Alexei Starovoitov <ast@kernel.org>, 
-	Pedro Falcato <pfalcato@suse.de>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH RFC 4/4] mm/slab: serialize defer_free_barrier()
-Message-ID: <aun0lgIta8LmcP1T@thinkstation>
-References: <20260624-kmalloc-nolock-fixes-v1-0-fdf4d17351dd@kernel.org>
- <20260624-kmalloc-nolock-fixes-v1-4-fdf4d17351dd@kernel.org>
- <feb3e339-f61d-4f99-9859-e1895d396561@kernel.org>
+	s=k20260515; t=1793717530;
+	bh=LMyRWZC45eOWdRYTp9S1dshzyIL9S0ThqB/6dV7aMIQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iBQ8RpLn+4J4/cEkXnFrVxpDoGHc63Kad8Kk1J4mNTWElKzbolQi90qtwjU2mDFvH
+	 TqZWzYOq7/o3yWt5k1JYSeBfBHVQeEyKJPJmZRsFg2BCUkEjg9Nq80BtbaR01oj9Zt
+	 0FLB0oAr4GBp0n6ha4+zy8Zj5/t6io1gBlDQkEzdIV0rPDq1Y3dBPiDD3Fu7y42Rv1
+	 RmxW1EC5vFHOz9ZcAlgjUCSO3H6zRu1TfZ7OGY8aqOTFJ6tIsxxDkwmKd2jd+3gBbn
+	 ZJg6QL7pthOcPFaQcraSrE2E6RD4FLpO2qsue8R1r9IZ6ttI10Q4VDVen/+vcWq9y1
+	 bjAEa5FSDSt6Q==
+From: Sasha Levin <sashal@kernel.org>
+To: Theodore Ts'o <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Yongjian Sun <sunyongjian1@huawei.com>,
+	Jan Kara <jack@suse.cz>
+Cc: Sasha Levin <sashal@kernel.org>,
+	stable@vger.kernel.org,
+	regressions@lists.linux.dev,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	Tom Bereknyei <tomberek@gmail.com>,
+	Elliot Berman <elliotjb@elliotjb.com>
+Subject: Re: [PATCH 6.1.y 0/2] Fix NULL folio dereferences from IS_ERR() checks in 6.1.191
+Date: Tue,  3 Nov 2026 09:51:49 -0500
+Message-ID: <2026-11-03-1-daily-reply-0001-re-ext4-ntfs3-null-folio@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
+References: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,48 +71,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <feb3e339-f61d-4f99-9859-e1895d396561@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jun 26, 2026 at 05:00:51PM +0200, Vlastimil Babka (SUSE) wrote:
-> On 6/24/26 15:11, Harry Yoo (Oracle) wrote:
-> > irq_work_sync() uses rcuwait instead of busy waiting in two cases:
-> > 
-> >   1. The kernel is using PREEMPT_RT and the irq work does not run in a
-> >      hardirq context.
-> > 
-> >   2. The architecture cannot send inter-processor interrupts to make
-> >      busy waiting reasonably short.
-> > 
-> > However, rcuwait.h says:
-> >> The caller is responsible for locking around rcuwait_wait_event(),
-> >> and [prepare_to/finish]_rcuwait() such that writes to @task are
-> >> properly serialized.
-> > 
-> > Since defer_free_barrier() calls irq_work_sync() without any locks,
-> > it can potentially cause a hang as writes to @task are not serialized.
-> > 
-> > Fix this by calling defer_free_barrier() under slab_mutex and
-> > cpus_read_lock() and add lockdep asserts.
-> > 
-> > Now that defer_free_barrier() is called inside cpus_read_lock(), iterate
-> > over online cpus instead of possible cpus.
-> > 
-> > Reported-by: Sashiko <sashiko+bot@kernel.org>
-> > Closes: https://sashiko.dev/#/patchset/20260615-kfree_rcu_nolock-v3-0-70a54f3775bb%40kernel.org?part=5
-> > Fixes: af92793e52c3 ("slab: Introduce kmalloc_nolock() and kfree_nolock().")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Harry Yoo (Oracle) <harry@kernel.org>
-> 
-> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> We hit a kernel oops in 6.1.191 in ext4_mb_regular_allocator(), When
+> ext4's s_buddy_cache pages are evicted, the next block allocation
+> dereferences a NULL folio.
 
-It was dropped as it now introduces a mutex.
-
-(codetag_unload_module() invokes kvfree_rcu_barrier() ->
-deferred_work_barrier() but doesn't have access to slab_mutex
-so we can't reuse it.)
+Queued the series for 6.1, thanks.
 
 -- 
-Cheers,
-Harry / Hyeonggon
+Thanks,
+Sasha
