@@ -1,50 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793688028;
-	b=e3kHxZSfEgS883nQ9BtXImySCjZyx2VI+F4/nlRsG9kd00KCRbUiwgV6rADw9njgtG51
-	 RGtWXL04p2HrpGczRTJwl4NAeLxmYcFV9oymytkVArF7F5Cr3goXSA2I8OihJEpIUOIRG
-	 Z3RUi1zixpJsz/0/tWj22KYF+xQNgm6YIxM9XYOsHzlZwoif0Mmi34JhtTIITehUyvmrr
-	 rdR2tm0C3n7+XKwNVdq9bJ04HH5KAY7aYRGVJKAaw5aQppFbT0WnGdszZwfCwp5RxFXhi
-	 Zoh4mTh2jB4yD+5Sv2C+t8C7HqbEqWxqe0BgmzghxZAJs/fbPed1ko0cBzXQRyZ8xMA==
+	t=1793688105;
+	b=oS8Xa8FCklFpBU0E6ouJDKpszNKyFLJWWyU2yZNGGnXbWGUoc6mGcFPddH/ra1rW4Saw
+	 MSrpbr68yShxFhj91qa8IEHJIgOu65mkndsUm201Qvl7lGmI79uES1mO1pFfGhqAhdW+Q
+	 E299R3uTVeNhoXdMYo+Kf/xy1n7T1M6+/gM/XSfcCbajsRoJRW9Yq/mO06oMyJk4R2EI1
+	 d4V1c0lbZuv+pUa0cNDzZQP2BbuLLYIo71zmaMBx16wkaoXh14mNmLd+AWPT+qCg1eNbt
+	 4PCEWWk5rC/70Hh6kJAIOFURrR4awa5sT6XlYoj4E/MeIv2uplVlfvxE4AIqT019AuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793688028;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=qwgGBP6Md9p7J4/jGlwlz49uLEe/dOav/vGFCZDz5ig=;
-	b=kCZGsQW/zuQgQNkSjShM+/q9s1kO9JOoodZ6TpyKnh5W+5xTcw/5uPlebq9YpvJZzZmo
-	 zVbeDb8278sriXHWO5wckz28wBc0TskIFuGvkl0vpkidtth6MCHrW/qZ4zFXjsdqiy1qj
-	 63iW9jlE3ohsWlSJ5nr3Pe0MYyveZ2nE5YKOrwiyMXAK9QhUhqM+QXSYXXL/WsKK3gZnM
-	 ag2PHCBl4dzswrE1uf3TiK/Q2QlP8rYOjLuX8aiZTSepXts3V3dDzbexjZaW9fOIiuHng
-	 gGvDIdWFBTjQHQqlyVi7X02ikLw+F9Vrqs4aYGIYzItxVt/JtZ9KhrC0/9MgKdmsshA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793688105;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3GhAdV6YWwOILn4mDd4q6cYiLjqazm9wTfpjdpaNwRQ=;
+	b=wdBqUXjoHKVHJNdKnkGULtg84GMGQ4m2Z+yZlufSHxP5xJWBaMLBlcsodLQcELYC+Wkw
+	 ZcMjzkyuDwsBLYRB9WnnCtrMCzRLN06v9lvoyIZKQ4dEteq+9n5Pwx3bZVMeuKqt2zEmv
+	 4g7WJ1CcewGqC4t7NK5asV9z8ZLxGZncfHOVSNAJ9LnYg8MIXl3Qoxouqs3NeSVnQgKaL
+	 m59A/cr6bWoDkaSLutUCNhUeWqDIq8UUDk13RfiT6dsOyeTC39t1qK1POKkCMYJY0k63d
+	 dGaETSEJk/XeYSC7ClsXWcXzhbVWjf+5b4ZgQbHEbfDNAeAJYZdyIwJD0D3g2ZhZrMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=asu.edu;
+	spf=pass smtp.mailfrom=asu.edu;
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=izsSScfq;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9431606A324;
-	Tue,  3 Nov 2026 06:40:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9431606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADn8JHVgelq7nQ5AA--.180S2;
-	Tue, 03 Nov 2026 14:40:21 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: atenart@kernel.org,
-	herbert@gondor.apana.org.au
-Cc: davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD79606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD79606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=izsSScfq
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15ea896ddc8so6533436c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:41:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1793688104; x=1794292904; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3GhAdV6YWwOILn4mDd4q6cYiLjqazm9wTfpjdpaNwRQ=;
+        b=izsSScfqtaEPi04OrrSMWvX3ry3jlF7A9LPcriwbQpO/4rWhTeZT4pB18nVqdcWZ/E
+         AjmrJdC4nUFacz/Vcx2JmSsE9Biu4lGwoy+cZP56fPZxJ9EeyCFhRJKnUwplxJ88rc7Q
+         uCDthukfC0wtFudfwjj7b8NuB2EU7wlH7HLHI79kH+lsTzNR+dcIIt5z8n25uZuAaWmB
+         hfUPPuay236DgiT+/VtDPz7y/wMHliQhdyoJzdIA6dARpaU7jDLVIKY6BD+wde3CddFo
+         qL+J7Ddc2MktG8zns4ZSgBHI74CDl+Fwfwyv3IC52UDajptlFsnAZOCxXtUPZw4P8E3t
+         DCCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793688104; x=1794292904;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3GhAdV6YWwOILn4mDd4q6cYiLjqazm9wTfpjdpaNwRQ=;
+        b=KKrF3LCurIJl7mK/K/JFaTWgcpKF6BE40QAAgYr8KdAF37tcvecd2xdcC8GK1UXNFD
+         RoKB2Wcyf2nAV+RY2pF8hL4yjRrYJfui2bznLuH06SeDv031IUBsFfQHUjHskzW/JIWu
+         oaZZ49fGCQ+NH9oOJaDDUCRFpa5/o9nosDB7qzfnOSXAMER5IaEy1auOaVSCsjVy+saE
+         BGbDVpuyIjzYCLCsXNWK//GFfLUV7+S9pXnZTJsHQUR15LFLU3vr7LsygBLg85UnoMj8
+         IN+5MwQLGme+NvoxFrREdym+z3FGD87i8xB2VtCYcziTFUyGXoCwAwjsR69397ZKQWEC
+         Peow==
+X-Forwarded-Encrypted: i=1; AKwUvBz9SvQr7OeJ1sot8A+oy+wjvVfyWjKut432Hf2QULbItjS+3DWXWo+TrnAT/rq2XsaQtmUX2lvutMD3sV4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CZTdy8UTkG/6KDs3bfG3/u6QANwNhzFPtgxnf7PmbhIPDfr/V
+	nCdZ/E7R/7IdL+PxVacFppJgeHEj53b08oOR4+b1i5Rqv+3/qoGqCE+eHxKRyg5ROg==
+X-Gm-Gg: AYBFou197MDCPOoWzbkI9AXf8tZElYVBbW8f8K7G+DwEZ8Ub8d2f3MlmNFLj55E8EQj
+	GiMbtyOAoBkNBJxAJP9vfhoYlSV4pGUiFPkEP7+ecDCUkeHQ3nwhweT9B7VbrZF6LT74PdkzUrM
+	BfcTw3qKJfHptHPIaHdiWSzFA0+mjOd3NaSGzcVSQsC6/5RRhxbJccdO8i5b6PPhDLeyOqniN7G
+	HKGBCNQux0iilE/GS9MnvxLYEr1ty01xLIIS4ijXtM4F8BLpI6O6JVey7/AkAXzyJBCThPalSND
+	yc6UWZ3Zr+rCiuxMbAaw11GK4ViEH4zqfwCvvd1F9IU45IiEgzV3ezASX8/jrz9cdtx9fbte/RM
+	XgpnC/Qq0fatrTpsj4opXUqz2t49tgu9ComdrLPN0wpmvI2/mJ8U5jeEWUiW+8xvfjVqYzyCU6/
+	qy0htSOKLxS0pj9aT2lhvUuTpWMAwnaLsole29BZwZP7PhTUe7ibufW+ZeRfo1/StUhzE9Zs40c
+	9LakMiJXNsMQaf8cwE+l0KDKyXs32P0bNSjosiZVV67b+bqNESjmU5XsIIlhmTjHbX0x3IdnLXB
+	KTFqd8/G0iSgjRQeDBtR6kVePNPRdW8624eKPSLztQ==
+X-Received: by 2002:a05:701b:2311:b0:189:d6bf:7ec7 with SMTP id a92af1059eb24-1ac5ae39462mr15976051c88.19.1793688103972;
+        Mon, 02 Nov 2026 22:41:43 -0800 (PST)
+Received: from localhost.localdomain ([2600:8800:1e00:25f0:10b:4313:ca58:9bc1])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm38876730c88.14.2026.11.02.22.41.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 22:41:43 -0800 (PST)
+From: Siddharth Mishra <smish149@asu.edu>
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: dsterba@suse.com,
+	wqu@suse.com,
+	boris@bur.io,
+	mason@kernel.org,
+	linux-btrfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] crypto: safexcel - Unwind SHA3 initialization if HMAC setup fails
-Date: Tue,  3 Nov 2026 06:40:30 +0000
-Message-Id: <20261103064030.1034291-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH v2 2/2] btrfs: tree-checker: reject extent owner ref without simple quota
+Date: Mon,  2 Nov 2026 23:41:41 -0700
+Message-ID: <20261103064141.2224566-1-smish149@asu.edu>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <b2c34370-3a6d-4864-8093-654288885616@gmx.com>
+References: <b2c34370-3a6d-4864-8093-654288885616@gmx.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,73 +103,17 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADn8JHVgelq7nQ5AA--.180S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw17GFy7ZF48Jw47CF1Utrb_yoW8CryDpF
-	s3JrZ8try5JF4xWa42qF4ruFyru3ySkry3Cws7Cw1fZ39xZ3W8KryayFy8uF9rAFy8Ja4Y
-	qrs7Kw43Cr15Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbkhL5
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgUAA2rpWmWBuAAAsF
 
-safexcel_hmac_sha3_cra_init() first initializes the SHA3 context, which
-allocates an ahash fallback. If allocating the shash transform or its
-descriptor fails afterwards, that fallback is not released. The crypto
-core does not invoke cra_exit after cra_init returns an error.
+On 2026/11/3 16:46, Qu Wenruo wrote:
+>> Cc: stable@vger.kernel.org # 6.7+
+>
+> Again, use your common sense other than fully rely on LLM.
+>
+> Will drop it at merge time.
 
-Call safexcel_sha3_cra_exit() on these failure paths to release the
-resources acquired by safexcel_sha3_cra_init().
+I'm sorry, that was my decision. I thought a hardening change should go
+to stable if older stable kernels can still hit the issue. I'm new to
+contributing to btrfs, so thanks for being patient with me.
 
-Fixes: 6c1c09b3dd0c ("crypto: inside-secure - Add HMAC-SHA3 family of authentication algorithms")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/crypto/inside-secure/safexcel_hash.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/crypto/inside-secure/safexcel_hash.c b/drivers/crypto/inside-secure/safexcel_hash.c
-index 8f107da66685..308a1992a738 100644
---- a/drivers/crypto/inside-secure/safexcel_hash.c
-+++ b/drivers/crypto/inside-secure/safexcel_hash.c
-@@ -2649,17 +2649,24 @@ static int safexcel_hmac_sha3_cra_init(struct crypto_tfm *tfm, const char *alg)
- 
- 	/* Allocate precalc basic digest implementation */
- 	ctx->shpre = crypto_alloc_shash(alg, 0, CRYPTO_ALG_NEED_FALLBACK);
--	if (IS_ERR(ctx->shpre))
--		return PTR_ERR(ctx->shpre);
-+	if (IS_ERR(ctx->shpre)) {
-+		ret = PTR_ERR(ctx->shpre);
-+		goto err_sha3;
-+	}
- 
- 	ctx->shdesc = kmalloc(sizeof(*ctx->shdesc) +
- 			      crypto_shash_descsize(ctx->shpre), GFP_KERNEL);
- 	if (!ctx->shdesc) {
- 		crypto_free_shash(ctx->shpre);
--		return -ENOMEM;
-+		ret = -ENOMEM;
-+		goto err_sha3;
- 	}
- 	ctx->shdesc->tfm = ctx->shpre;
- 	return 0;
-+
-+err_sha3:
-+	safexcel_sha3_cra_exit(tfm);
-+	return ret;
- }
- 
- static void safexcel_hmac_sha3_cra_exit(struct crypto_tfm *tfm)
--- 
-2.34.1
-
+Thanks,
+Siddharth
