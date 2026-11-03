@@ -1,97 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793734902;
-	b=We++ZI8WJ8XQlO18vwQeavtQCG/BhFd/8nKaRcrn0PjR4PYUp7JtJwqEm7c20a+IcUrF
-	 Vc7gSR8c2ij6oNu2GpKUehrPslCha5oKmcKaVAYyaQPlAw0bfw7dRvzOhp5Vmvcw5UtT4
-	 QE3hGHx/6lclO7tDwyE2pZWOl4BzEa2DpP7W6EBUZtMauMUfV9xNQadA/6rRPiIW2kTVK
-	 i+dN6A2Gsd8tudkm6D5c5O7yuvjQkdsq/ZPFBkUB8uwCUrwU1zoMstyVzMbW8MleG0GKN
-	 CM4XqJpmVL1PyTX77wStE3B3n8E/xNRguSulELufW+Y2o+Al44K9Mp2MyLxFM6eDV3w==
+	t=1793734912;
+	b=vvLyHJ9PN64oAIEiN+9kYGgN+gAYilusWvBrmH01Qwxp4rJNQS00o8C/IQhDGQ5NGvMK
+	 gNYQsQm9ehqc3QAs3iwgTKumlMTQi8npMFqMLUrBy5niPmlAc4h/ncUZonljlzrQahw2K
+	 ep2MLpa4POStEoUfIkSqQqZRnhvP5B/06e87UN191/wabi0kuhREYnWL3IyBlrnjUHd89
+	 JImKoz7J/z3NyWExwvxZpNXPcr1dQBsUKNuLN+VxZ7WmYITrw8so1+2de2kdD9jShErrk
+	 Amn2c2R0R+KDSNrA/GOLXJXVn/m9YFgyxCWo0aLYuOGmg6V6lhHbs3LZcVIY2gCITmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793734902;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xezF0fn8IDQBSoJVFqpD27Lisy+bsjzUf+Sl1jGurIk=;
-	b=iAoDaN70JYsxb8Gv5AERVogAQZugZJWfn6SxgEScd4+oV4enuMWKU90VD9W4xburgXVa
-	 /IZHbdeGkSoryhkei4lbVleJN/SYFVGmSSbxHVPyKo42YKp78AtrVyyCyMsK4fAOI1ZSa
-	 hDJQjrpa0n2MBduuZ2fFDcfpGVkqruap+oCN/V+HJ2qocrlbkS2ja5wV3IEF/vtROkL+r
-	 7vCq+R/4lQwT+UvAwuMPHIC+KWA0hLBH/wcBLZ5RQc7zeYcDpjBuBLRl02qpicgNFtMLZ
-	 02Dp8KEQkF0Vd/VgxRqudP6Bb+dxl2CHN+1ieXdlgSeOA56xRi43wipPwkDA2IveKHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793734912;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=d3csJOB/6AiKlnIu8Uu0qSaCtrziFydsC18XRaRRY+0=;
+	b=q2E92PVjstjJa74t3XrfofwlvhpfT+p92Y4SsGTkhII6FZhfNrl+ZClAqKawFKveleLm
+	 rI3mg/GU6HU8H7fu4Kj5zXXj/Y67Y85Wsxzuw+MenILTiZvTzQgN0QhBNzlAmrU6Dqdqv
+	 T6W+DiR6En+9BZA+F0N1DEXm/A92EFCbwT0p+XR4iMT2L/la8w30IvPGZyWmNZoGFtbxz
+	 mRHDVPywLdGZxJCbqRmyhoyGUlxZnLmhuQ1UJqJalJt1LETqFxmfutIva6KY1nCvmXN0F
+	 ufoR4ORksxWJWuo/kS0TNAqsGATOnXExoRC9MSwDaHwVc56ELfDAsCXXGDHoVaieC5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8nbt7Kg;
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqnNhjIl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024DC606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 024DC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82582606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:41:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8nbt7Kg
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-36888ae05e7so1773462eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:41:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793734901; x=1794339701; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xezF0fn8IDQBSoJVFqpD27Lisy+bsjzUf+Sl1jGurIk=;
-        b=o8nbt7Kg4VLEAVGwOT3wfSMSaYrtKlxDWnrkTwbt16DwdSREle9viHmSI61W/yEHJ4
-         wva+9xyktj9klqdIbCed9fiX6W7X7j/t7YVxMeY6blmFgg0dRRsLH3CXgoLCjViBVCvK
-         X83Onfo09mrcdfTkHUvwXHM6eatj+m3dnpxW0im2hhcdKyfMpPrgjUo6M90Rar18p08m
-         Le0mXuEgSmxASxlHveGZJPhCbZj9yZiZy0Q4BHJimV0PSg0T9IKX23jNfIcjM6S8iOVt
-         fm0MfMcu5JTlvEr2l1dq2um8Msr7j/k0coAHQqT5pZBz0PGK71L6Za9Ewd2oCBlKkTuj
-         upOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793734901; x=1794339701;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xezF0fn8IDQBSoJVFqpD27Lisy+bsjzUf+Sl1jGurIk=;
-        b=OGyO3T4Xk+BRz7Y2C4qM9YEZgidntIpZjmFOSQ9eUncFqaoWpJ1W4cO3BG0NAiELea
-         cKsvjXV2/sDIeLgrNjNlP4hrghql00P/jqqhW0XsgqAnHqteD6XZReO9GtdV3uq1KYpI
-         wKA4pjO7juyssJkcG9+EuENpGiKWWEglleV0xZicB2KrVS0Yt2P86miz5s+3BRHxR65/
-         9cJ8w/VXbUT01Khfptj3C3Wpb4sgK21OnSGyOSb7q1TjmP+96GLMpG36CG/nVemZXPYT
-         xSEPfxKFJgz6GCECwmOVc1keyXh06aGlIliQymgNF8TZrOIBaCfhiQca1cLRCVxfxb0u
-         1enQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwG5pYAeizFcWI8YrLPgTyb5FkHbm5YAht8/wUsicF9MJXVq/Rsphm5zE3WzwR3yEoGl/Tom7SnK6gPfys=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tfy2DVFxxXQb5VR1gIo8EAxymmIs0RTmEhajFEjSrW4qUtRoF
-	c90ky0URlhBE6ylKwbIs6zKHgyEZ81iUSWI01YhCVM62Q9JzrcB1HpyY
-X-Gm-Gg: AYBFou2waP6DmYqE7MP/o6TAE9oR2CKuDHHbNyqHS2kZFLV01NY6WB5V6uI1XDnMAZD
-	n7mNLw/s0sUwmBNnvREhfzrh5WWQY3gTW7Y85vx2S0ou5lrUJ73bE6rDzq+B6zHCSbfRnShsU/X
-	RdtNBeCu2O7aECGLTicGg1yxVn/0+xhbLqSdDvJhZ3gVvF3sylnNc8nwGFQ5OTMtrIvy99KfVbL
-	z2CzPQynvCSKmC1H1OYaUzEKzy9Kj/0Hp1jXz6ex+N4a51RGURZyxyGqo7+fj/xyTcl41n7yLTd
-	NRlV1GCjdyay1ygtrcRDl2XVJGycpxLNGxq49KNL7oSLBQaQWeZem6lNGwGXTxaYYmdsleO/bdF
-	xfoYbkYIDVcR28GmYeBZV+PRUvj19/GN2mYQlq00wWmSZdrhqX+uYpFRWnELgZ5xlebxU5sVCis
-	G5eBq0jxtNJht0qhmxBhCzaiCjuWjQfAf3ZruDBSJIpdhV+xyO9YGs16qJRxZIufDdL9flAkIhl
-	rdnHfrMK0A4U7d0tJiAreI/SRNBih/WxLDiVLgbhHgs19ADTKdkERRgKkHm1OdcGVzWnne2+zb7
-	X2LwlMpPupMfjkrkCHNdcY+IdmpMf7lD1JzSCufiHlvn0WlY3sbOESRK
-X-Received: by 2002:a05:7022:1402:b0:193:9568:b42a with SMTP id a92af1059eb24-1ac5c45fd35mr19813397c88.8.1793734901021;
-        Tue, 03 Nov 2026 11:41:41 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a54ccsm304564eec.4.2026.11.03.11.41.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 11:41:40 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: akpm@linux-foundation.org
-Cc: willy@infradead.org,
-	jack@suse.cz,
-	shr@devkernel.io,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	stable@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] mm/page-writeback: avoid overflow when reporting BDI byte limits
-Date: Tue,  3 Nov 2026 19:36:26 +0000
-Message-ID: <20261103193627.71959-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqnNhjIl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A438D1F00919;
+	Tue,  3 Nov 2026 19:41:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793734912;
+	bh=d3csJOB/6AiKlnIu8Uu0qSaCtrziFydsC18XRaRRY+0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fqnNhjIl+QHhpSQGtoiKuOCsFwmWqljyK/fiu98+jYoHQCgFA6Wf1kgkowKOYqelw
+	 IWS/Kh7HHCQxkDu7KjNETHD3COfL/H3v4FffD9lmzDzNqHNp90bCHB9xe0HlEDhydF
+	 Dh378NLz7REZa7avdiKT5vq5CQigYuBgcINWMAiK0Tnphd131DubBUqV4rWO7pxCtm
+	 e8kUkQcKldYLsVyvthrSH8ddbKyq5gR9Nm//3WRpuidzBgBcmGfGgkT5ZtnwvxpTWw
+	 iYhhyPZxp2w+Gaw0HfD+uvm1NrJVKitXebSOQN2udABQZR/mA2bkToLtKwD1gPWw4r
+	 5VHq90UKTGAUQ==
+Message-ID: <675cfc9a-48ab-446d-9fd0-a1937dfeb0f4@kernel.org>
+Date: Tue, 3 Nov 2026 20:41:47 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,40 +51,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] shmem: skip empty unmap ranges when punching holes
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: hughd@google.com, baolin.wang@linux.alibaba.com,
+ akpm@linux-foundation.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261027171753.1485-1-dennylin0707@gmail.com>
+ <1bf7784c-49ee-4f18-b1fb-205dc064f40f@kernel.org>
+ <CAGEkeHcwUEQ0tAXZ5npAhPp1OPMqkmZcNPTU1OnRuNTrwkDJMQ@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAGEkeHcwUEQ0tAXZ5npAhPp1OPMqkmZcNPTU1OnRuNTrwkDJMQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-bdi_get_bytes() multiplies unsigned long operands before assigning the
-result to u64. On 32-bit kernels, the intermediate product wraps and
-min_bytes and max_bytes report incorrect limits. For example, with
-vm.dirty_bytes set to 104857600 and max_ratio set to 100, max_bytes
-reports 268 instead of 104857600.
+On 11/3/26 20:38, Hungyu Lin wrote:
+>> Can this be >= ?
+> 
+> I think we should keep > here, since unmap_end + 1 is the exclusive
+> end. Equality would pass a zero length to unmap_mapping_range(),
+> which means unmap to EOF. For example, with offset = 0 and len = 1,
+> both sides are zero.
 
-Convert the page count to bytes in u64 and use mul_u64_u32_div() to avoid
-overflow in the subsequent multiplication. This also handles large dirty
-limits on systems with larger pages. Combining the two divisions keeps
-the existing rounding behavior.
+>= is much clearer than then +1 trick, no?
 
-Fixes: 00df7d51263b ("mm: add bdi_get_max_bytes() function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- mm/page-writeback.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+To be clear, I was asking whether we could do
 
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index 499a35473e4f..ddebec79d8d9 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -665,7 +665,8 @@ static u64 bdi_get_bytes(unsigned int ratio)
- 	u64 bytes;
- 
- 	global_dirty_limits(&background_thresh, &dirty_thresh);
--	bytes = (dirty_thresh * PAGE_SIZE * ratio) / BDI_RATIO_SCALE / 100;
-+	bytes = mul_u64_u32_div((u64)dirty_thresh << PAGE_SHIFT, ratio,
-+				100 * BDI_RATIO_SCALE);
- 
- 	return bytes;
- }
+	if ((u64)(unmap_end) >= (u64)unmap_start)
+
 -- 
-2.43.0
+Cheers,
 
+David
