@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680440;
-	b=WjKuw/qM9G+qaZAens3A1jyFRmt0ARc+nLF3zCXdEyFsfWVKztTZ98o/aTklfWJ0yMSW
-	 jJdQpnq2O5mgVH65slteuc4jNZVHlO4DbAPDcPJdngRCNNghRq+WmPBkAIkLb3C5CuB3y
-	 xBh4rp6otWT+x1RPauzzHyWChTq/+Zcg1Fxqy4Hv2r6rt4yX5rv+rzriFEN5L70Mvi90o
-	 /NLl+ESZYRU4zNsFDIhlLpKKlPuWWdgYVb2dJy3kKHF0nu3w70ggLkGZhsAxQizikcV87
-	 JdczX813jbINFV5ESsoZROK1VtOJWTb3a6TaoZFLbABAc21vN8WNZHYjn1qYnfVFaCg==
+	t=1793680486;
+	b=NZc8zM3E7zwH8AqhOeQdXoJ9ObayfiB0o7VWvIKKrwuW1T0rJ1DofnbJnQqgKVUgaBIZ
+	 NQXuTvb5z/r/IiFT9yUwsZJ61s9oAKkGAYfXW7s0y0NsIP5XeDEFR8fm0du4xjtQ7Nx5j
+	 jf5WxQrs+HQcqeGQ32zPJVXCaDkIenRf4G53PGNuO6uNC1DRwMrmGEJgFj0ioUv1s5eXY
+	 3MrJn0ZisfYx438o8N1WLfQNBtZLl9TzKrIyJkc7WQURvdi1FUS/a8TDELb5TXGN8keDd
+	 DcZfmpGf+TOAZsO+CF7qguPyXyep2bRBFlui5hW4eAzbOoRx1pV+QJpuRDqugHIa+IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680440;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=4tPs4mp2bvwQdRd4sbq6CaL9zCSxrf0L6Yrn8je4uH4=;
-	b=yljTM7xFTmaE+Rzj3tZ1D6SrvllhF9uM3gpSVF3RXxrJYFSvot0ORVWn4YZRreaYcCoA
-	 9aX9/Qeh5Jzz4hSaF6LUyAATmA9JKmecjyFwJ81QUBW8MMPkv9mpoWc0yYfGgJMJVD+pZ
-	 K4dRGOnPLu9TxppDZWnQFBOX8IL5tOva4AWHVQ4Fwldi2ujkgiG1WY80o41ikBAR7Hhnr
-	 AOH0okZpQ2EK85eZ91oknRPcpaqg0rgL6TjpZKQ5NxKJsLDJ6tPcT71xw+Lt4Ap2ZKjjr
-	 UTAw8qMm6CuqKj/J+WCGWBlrASY1kZPgklayj8uHBgAaaVdXrLrdZoIKsBfXAlvdRlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793680486;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=K9Njty/s8OSTY2jW7LGO6SCpfmnpl1SS5BBMpxrgIQM=;
+	b=ZFgd7f3Rp0AhWpDJDEtN7fKzWZ/NF6+sfxjJe1HfkrhWn9Lv7XxEfEPH4MmdMOfHUhM1
+	 SwXH1/R2vSR9OW79pHnznvbKztw6dCYCQpMrhATDWIr89+FOiRO+So/Qi3aIj70GeEfNN
+	 kjtEYVRdVi8WjQwRnTQ1AOaMfG5vekkUYDVX1zmSetnft0c6xiRo8o8RTg0xggvdXZkap
+	 GiAJXPwzz1xyV4n246tBv0I21dN6yMAXY2NpVD6tnKBM04l0ymkiq8mvzW6qof1p1h+oU
+	 ol1ie6cbvqR2mB7kLZ7VQLHUNUqGmWqr+bxecj0u7TlXJPrxCNlgVUyw+zwrrPIl7QQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.72
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KHDkkMsv;
+	arc=none smtp.remote-ip=95.215.58.138
+Received: from mta1.migadu.com (out-138.mta1.migadu.com [95.215.58.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BFF606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:33:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8BFF606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-843cf077bf7so5094923a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:33:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793680439; x=1794285239;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4tPs4mp2bvwQdRd4sbq6CaL9zCSxrf0L6Yrn8je4uH4=;
-        b=PMrOscQeO9AladP+W2IZlXndo0xKZAtJfmRzzVt2BXeqTurTPz/aJuZ+QP4NbHkJ92
-         0E6dWjuPl5ILWKZTgb6dnE2kttUXLQHBCbFGhkeaEb7byjg0PIBPDHUgeoBmcBfUFvau
-         WKLq8iWZVaLAfZpsWWaQ0ruR205ORBwGKCS2TS0IYLfEATlNJxhq1UNJS8V7beTFlahu
-         3CZq4IRpyNpzc+THfHkzFP+1mZJEgicqqNAzguD7KnbSDaymv2b1rsrMmhcYuZ+GT0h8
-         2vLGsuGaExl+ElhssUWwu7BQ3eLDNu8//+wg9JwrUfZuFrd1EwYyUMwd4Bp/boOThnr7
-         rC1w==
-X-Forwarded-Encrypted: i=1; AKwUvBzyu5YIvKcbixubICYbCPZD3hIiwx4GHdRzoN8rhSzgMw5SVg5Aye70Eu/tiURiNL/oO0URzNcSADDW7Ys=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9oi7BYZ8h0FJ687MD9GV7HNXyZLAIu7hMAY7lo16Xzljhn7rI
-	GEzshnB2B9V4avivO+4LwHm4MATxT6uJG5Yi+v4+F4PtPMTbRMNoPOZAihmEimp1mRndSIh9q1l
-	nb46q/yq29n34xqy15qVwOc8unBI0qgROdoivjJsqyXTALkVxtxBv8cK+/HA=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B738B606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:34:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B738B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KHDkkMsv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Tkk/8VKuhrIf4fgRDjiA2Ro1wKiXOIisjNU8KXqStt4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793680482; v=1; x=1794285282;
+ b=KHDkkMsvPiy7YmZ1IhyOB0Yed0gk+ac9uCTMIQA+xCfR/YBe14wxj/lhmy+VD41r6zHOc2tl
+ rA0T1oKitTyLSkt9MfU+T0t7+b6MZguMyS2AVRW3hL4HNkXpPV5cZqT2MZ+Nn4fjbjNCQODHUvs
+ 7KXv/3hs1NW2LmEDpLDsmnmw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c175a73cfa824ebc;
+	Tue, 03 Nov 2026 04:34:42 +0000
+X-Mizu-Trace-ID: c175a73cfa824ebc
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 2 Nov 2026 20:34:40 -0800
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Michal Hocko <mhocko@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, Harry Yoo <harry@kernel.org>, 
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] memcg: force charges from reclaim before trying
+ the limits
+Message-ID: <auli2Zlf1F0tyi4X@linux.dev>
+References: <20261030205418.341214-1-shakeel.butt@linux.dev>
+ <20261030205418.341214-3-shakeel.butt@linux.dev>
+ <auhN7v127jwy-q-W@tiehlicka>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,53 +69,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1910:b0:4dc:1374:99ae with SMTP id
- 5614622812f47-5640e033037mr9173554b6e.56.1793680438963; Mon, 02 Nov 2026
- 20:33:58 -0800 (PST)
-Date: Mon, 02 Nov 2026 20:33:58 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae96436.abb90550.19e2c9.0002.GAE@google.com>
-Subject: [syzbot] Monthly netfilter report (Nov 2026)
-From: syzbot <syzbot+list484d79b18bdec1b120a0@syzkaller.appspotmail.com>
-To: fw@strlen.de, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	netfilter-devel@vger.kernel.org, pablo@netfilter.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auhN7v127jwy-q-W@tiehlicka>
 
-Hello netfilter maintainers/developers,
+On Mon, Nov 02, 2026 at 09:46:38AM +0100, Michal Hocko wrote:
+> On Fri 30-10-26 13:54:13, Shakeel Butt wrote:
+> > Reclaim can charge memory, for example when zswap stores a page.
+> > try_charge_memcg() forces these PF_MEMALLOC charges, but only after
+> > they fail at a limit. A charge that fits still has memory.high
+> > enforced. That can make a task in direct reclaim do more reclaim and
+> > sleep longer later, and kswapd records overage that it never handles.
+> > 
+> > It is also a problem for the next patches, which make kernel threads
+> > queue high_work. The worker charges memory from its own reclaim, so it
+> > can queue itself again. With those patches but not this one, the worker
+> > queued itself in 118 of 284 runs in a VM test with incompressible zswap
+> > data.
+> > 
+> > Check PF_MEMALLOC before trying the limits. Reclaim charges then skip
+> > memory.high, as they can already go over memory.max. Drop the
+> > PF_MEMALLOC check in memcg_enforce_high(), which no longer sees them.
+> > 
+> > Other effects:
+> > - As before, the check reads current, so it also catches interrupts on
+> >   a PF_MEMALLOC task such as kswapd. Softirqs set PF_MEMALLOC
+> >   themselves for swap over network, so the check can't be limited to
+> >   task context.
+> > - These charges no longer charge a batch or refill the per-cpu stock.
+> > - MEMCG_MAX still goes to the first cgroup that the charge puts over
+> >   its limit. On cgroup v1, memory.failcnt no longer counts them.
+> > - high_work can still run again and again when there is nothing left
+> >   to reclaim. This only stops reclaim from queuing more reclaim.
+> > 
+> > Suggested-by: Michal Hocko <mhocko@suse.com>
+> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> > ---
+> >  mm/memcontrol.c | 29 +++++++++++++++++------------
+> >  1 file changed, 17 insertions(+), 12 deletions(-)
+> > 
+> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> > index 0e484f7f823a..af95a4574a0f 100644
+> > --- a/mm/memcontrol.c
+> > +++ b/mm/memcontrol.c
+> > @@ -2762,7 +2762,6 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
+> >  	 * when it rechecks the overage and simply bail out.
+> >  	 */
+> >  	if (current->memcg_nr_pages_over_high > MEMCG_CHARGE_BATCH &&
+> > -	    !(current->flags & PF_MEMALLOC) &&
+> >  	    gfpflags_allow_blocking(gfp_mask))
+> >  		__mem_cgroup_handle_over_high(gfp_mask);
+> >  }
+> > @@ -2787,6 +2786,21 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+> >  	if (consume_stock(memcg, nr_pages))
+> >  		return ret;
+> >  
+> > +	/*
+> > +	 * Reclaim may need memory to free memory. Let it go over the
+> > +	 * limits for a while rather than fail or OOM kill. Doing this
+> > +	 * before trying the limits also skips memory.high, so the
+> > +	 * high_work worker can't queue itself from its own reclaim.
+> > +	 */
+> > +	if (unlikely(current->flags & PF_MEMALLOC)) {
+> > +		/* Find the cgroup this charge puts over its limit, if any. */
+> > +		for (mem_over_limit = memcg; mem_over_limit;
+> > +		     mem_over_limit = parent_mem_cgroup(mem_over_limit))
+> > +			if (mem_cgroup_margin(mem_over_limit) < nr_pages)
+> > +				break;
+> > +		goto force;
+> > +	}
+> 
+> This is racy. Not a huge deal as we would get a false event in the worst
+> case but I think it would make more sense to check the margine after the
+> charge is forced. So this would become
 
-This is a 31-day syzbot report for the netfilter subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/netfilter
+I actually tested your version as well i.e. after the charge. It is just
+as racy and it has some additional issues which are inlined.
 
-During the period, 1 new issues were detected and 0 were fixed.
-In total, 13 issues are still open and 200 have already been fixed.
-There are also 3 low-priority issues.
+> --- 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 856a7d07586c..bd202ec05acf 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2653,13 +2653,20 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  	bool passed_oom = false;
+>  	unsigned int reclaim_options;
+>  	bool drained = false;
+> -	bool raised_max_event = false;
 
-Some of the still happening issues:
+First, raised_max_event can't go. Since 374f65b14819 rejected charges use it
+too, and without it forced charges that already raised MEMCG_MAX before reclaim
+raise it again.
 
-Ref Crashes Repro Title
-<1> 151     Yes   INFO: rcu detected stall in rescuer_thread (2)
-                  https://syzkaller.appspot.com/bug?extid=d5f7a5097c24c7c2dbbb
-<2> 7       Yes   INFO: task hung in nf_tables_valid_genid (3)
-                  https://syzkaller.appspot.com/bug?extid=83439cb981624bd8d068
-<3> 199     Yes   INFO: rcu detected stall in br_handle_frame (6)
-                  https://syzkaller.appspot.com/bug?extid=f8850bc3986562f79619
-<4> 132     Yes   INFO: task hung in nfnetlink_rcv_msg (5)
-                  https://syzkaller.appspot.com/bug?extid=c4b20b80ee6a7a2f5012
-<5> 98      No    WARNING in nf_conntrack_cleanup_net_list (2)
-                  https://syzkaller.appspot.com/bug?extid=122256c3e2bf6ec9f928
+>  	unsigned long pflags;
+>  	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
+>  
+>  retry:
+>  	if (consume_stock(memcg, nr_pages))
+>  		return 0;
+> +	/*
+> +	 * Reclaim may need memory to free memory. Let it go over the
+> +	 * limits for a while rather than fail or OOM kill. Doing this
+> +	 * before trying the limits also skips memory.high, so the
+> +	 * high_work worker can't queue itself from its own reclaim.
+> +	 */
+> +	if (unlikely(current->flags & PF_MEMALLOC))
+> +		goto force;
+>  
+>  	if (!allow_spinning)
+>  		/* Avoid the refill and flush of the older stock */
+> @@ -2683,15 +2690,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  		goto retry;
+>  	}
+>  
+> -	/*
+> -	 * Prevent unbounded recursion when reclaim operations need to
+> -	 * allocate memory. This might exceed the limits temporarily,
+> -	 * but we prefer facilitating memory reclaim and getting back
+> -	 * under the limit over triggering OOM kills in these cases.
+> -	 */
+> -	if (unlikely(current->flags & PF_MEMALLOC))
+> -		goto force;
+> -
+>  	if (unlikely(task_in_memcg_oom(current)))
+>  		goto nomem;
+>  
+> @@ -2712,7 +2710,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  		goto nomem;
+>  
+>  	__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+> -	raised_max_event = true;
+>  
+>  	psi_memstall_enter(&pflags);
+>  	nr_reclaimed = try_to_free_mem_cgroup_pages(mem_over_limit, nr_pages,
+> @@ -2773,13 +2770,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
+>  		return -ENOMEM;
+>  force:
+> -	/*
+> -	 * If the allocation has to be enforced, don't forget to raise
+> -	 * a MEMCG_MAX event.
+> -	 */
+> -	if (!raised_max_event)
+> -		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+> -
+>  	/*
+>  	 * The allocation either can't fail or will lead to more memory
+>  	 * being freed very soon.  Allow memory usage go over the limit
+> @@ -2789,6 +2779,15 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  	if (do_memsw_account())
+>  		page_counter_charge(&memcg->memsw, nr_pages);
+>  
+> +	/*
+> +	 * If the allocation has to be enforced, don't forget to raise
+> +	 * a MEMCG_MAX event.
+> +	 */
+> +	for (mem_over_limit = memcg; mem_over_limit;
+> +	     mem_over_limit = parent_mem_cgroup(mem_over_limit))
+> +		if (!mem_cgroup_margin(mem_over_limit))
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Second, !mem_cgroup_margin() is true at usage == max, so a charge that fits
+exactly raises an event (unlike today).
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+> +			__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
+Third, we definitely need a break here otherwise every ancestor at its limit gets
+an event which does not happen today.
 
-You may send multiple commands in a single email message.
+I want to keep my current version.
