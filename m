@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701738;
-	b=CMl2o2WvnsHE/Ic1hfhUCi9jRi4LZIW2IEVvP1GYM5SfhFzuWknQ77eozF5IprAiEw1o
-	 5B+NmQ4x2m5W8VoijAMi/J74mv1lWALXMfvar5Z4lvIFcdAOQkn+JYitcvHMDIfa3TEyF
-	 TGY+EdoanP3/F9R5t6evfrIxy8E0RcsM0BrcvooJgx/ga+1OjVbYWxfw2Q5RypMWeoJex
-	 z6DTRg0PoxsR2Ot3w1rHT0cUAnNep8yrRCPTC5kEYXIr/aWWl4BbrSc2EaadhYexC+vNO
-	 YPc+o5yFuztCABLbO3iKRu+AtFHod3EpavVZUnaCtKI2k8PiIen+OuHXPIKzUMh29hw==
+	t=1793701741;
+	b=TkWCo4RsIKTct/YiYaohFncnDpuWxNpz32prSI7dSdIJ9Fx6SnOz8B+Os1jsVO8tO6jV
+	 PBxcdnalAcpml5RgY8rWsKLHS8n9rHh9MXLFDZmDW2CN8i+dAoU1Iz1vMUvq3GgFCypu+
+	 UMB4A6Vfx46nzHV/ZfSz4ey2gTGioBAW1N8Va2pO3sNkV+UemHI9SA6a3hDqjE5xPtABT
+	 hvRmHfT29xvwn63Aq4B+sxbRph/8MY6O1V9uOcNe00gxxaNY1he2mAEF/aiMUcQlpPTd6
+	 Zxc5Wcl2n54vHK9zK8oW+uKpwP/sahObnmmfln+NF5K0E/vqcbOt7Ia2slSUD7pRd+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701741;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=atR9w/LIKXlCxoZMtunWQfcgxsIkELEPvu7ajRcHDaM=;
-	b=rPiXixtM73A0bAj2F4JIDgZrAb6c+0yBFvqpPuSH6SGqPdCam9nJD7MkL3sclrF4EPvK
-	 mHiwi+14zpSH4yoxNQ6ZGR1sAAusbScIbtzMeeRCH4LaVV1QvkthFMZGL25739laCNRXY
-	 SXKR/cZ4XJHPcWwSvZ0LO2tox8T3VCAy5sdPABA08UCH+ANsR6sWmVBZf9SW/eIvvhTmz
-	 lbzhMOW1JZfa2ZOa6bxa5dyGiPyVvgYsEQzH/sBMSjJdF0JErC+khxjGPLo9o3AR4Xr8E
-	 YggU15KKU627SuKSCwQ0Y2zLvN0PXNnE1NxABdrlEOLCmXlX6MIdRp29zk0bcSUDLNg==
+	bh=XnVUOlkYR8zo0VkJWoSV5NbLPA4v4KJWJQ3QpBwthkQ=;
+	b=08F7nrTyBli6cpVeKqIi/J1m1rwoc7A6HWDVNsLybIyLPv4tu/yRN0hnvQnxJL7ajGAB
+	 XfVxcvUesmwC3G6qZTZQakNUMEDALOK4glP1kgLh9YYhmzplwu6/VovCeuMtN2Vumec23
+	 8QXZEc8f36xv11Zk2SgeSDiMGbqAbSKV4u1wneUeLV2SZKOqBerI2iqgud6IbrTkKp/ys
+	 XodSkUUrYFz/cgYqg4YSAjuU7ejlydHuzEmwt+LQtxmjhNXPpKbH3ylnkZlue3i/Fl03m
+	 OSiofKfeqnSK3bN4Az7aAttjpNHaY8l7q0VoL6RP8YN9KaQPz0pcEdrDbEqtR7p2ZFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,28 +25,32 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243CA60752F0;
-	Tue,  3 Nov 2026 10:28:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 243CA60752F0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC6B60764C3;
+	Tue,  3 Nov 2026 10:29:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC6B60764C3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAnN5hjt+lq0qk7AA--.49100S2;
-	Tue, 03 Nov 2026 18:28:51 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAA3QpNht+lquak7AA--.3082S2;
+	Tue, 03 Nov 2026 18:28:49 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: usb: hso: free an unused shared interrupt state on probe failure
-Date: Tue,  3 Nov 2026 10:29:00 +0000
-Message-Id: <20261103102900.1340894-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: stmmac: drop the runtime PM reference on probe failure
+Date: Tue,  3 Nov 2026 10:28:58 +0000
+Message-Id: <20261103102858.1340765-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,10 +62,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAnN5hjt+lq0qk7AA--.49100S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAF1xury5XFWftw1UJFW8Zwb_yoW5Aw43pF
-	4vgFW5JrWDJrs8J3y3Xr4rGFWF9r4kGa4UCF9xK393G3sxtrySv34UKFy5tF45CrykJFWr
-	tF9ruFyq9ay29rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:rQCowAA3QpNht+lquak7AA--.3082S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WryDJr17Wr1xGr4UJrWrKrg_yoW8uFWxpr
+	48Zay09ry7Xr1Iga1DAr4qvFy5GrWSy393CrykG34Sga1rCryaqFySqFWjv3ZFkFZ5ZF13
+	tw4UAw17Za1vy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -75,93 +79,61 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxAF1xury5XFWftw1UJFW8Zwb_yoW5Aw43pF
 	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
 	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
 	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggAA2rpnIR0AwAAsh
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQAA2rpnOFxCQAAsN
 
-hso_probe() allocates the shared interrupt state with
-hso_create_shared_int() for a multiplexed interface and then creates one
-muxed serial device per port advertised by the device. A muxed serial
-device takes ownership of the shared interrupt state by incrementing its
-ref_count, and hso_free_serial_device() releases the state together with
-the last reference.
+__stmmac_dvr_probe() takes a runtime PM reference with
+pm_runtime_get_noresume() and enables runtime PM before registering the
+MDIO bus.  The reference is only dropped on the success path, so a
+failure of the MDIO, PCS, phylink, devlink or netdev registration leaves
+the usage counter elevated.  The device is never bound in that case, so
+stmmac_dvr_remove() never runs to release it.
 
-There are two paths where the state is allocated but no serial device
-ever takes a reference to it: the port mask read from the device contains
-no port that can be muxed (including a port mask of zero), and the
-creation of the first muxed serial device fails. In both cases
-hso_probe() leaves through a path that only frees the registered serial
-and network devices, so the URB, the buffer, the mutex and the state
-itself are leaked.
+Drop the reference and disable runtime PM again on the common error path.
+Only disable runtime PM if this driver enabled it, because PCI devices
+already have it enabled by the PCI core.
 
-Release the state in both places when no serial device took it over.
-hso_free_shared_int() still has to be called with the state's mutex held,
-so add a small helper which takes the lock first.
-
-Fixes: 72dc1c096c70 ("HSO: add option hso driver")
+Fixes: 5ec55823438e ("net: stmmac: add clocks management for gmac driver")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/usb/hso.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/usb/hso.c b/drivers/net/usb/hso.c
-index 71caa3764b23..818444830072 100644
---- a/drivers/net/usb/hso.c
-+++ b/drivers/net/usb/hso.c
-@@ -2736,6 +2736,13 @@ static void hso_free_shared_int(struct hso_shared_int *mux)
- 	kfree(mux);
- }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 049d85b3e25f..eebf1975f40f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7974,6 +7974,7 @@ static int __stmmac_dvr_probe(struct device *device,
+ 	struct net_device *ndev = NULL;
+ 	struct stmmac_priv *priv;
+ 	int i, ret = 0;
++	bool pm_enabled = false;
+ 	u8 rxq;
  
-+/* Release a shared interrupt state which no muxed serial device took over */
-+static void hso_free_unused_shared_int(struct hso_shared_int *shared_int)
-+{
-+	mutex_lock(&shared_int->shared_int_lock);
-+	hso_free_shared_int(shared_int);
-+}
-+
- static
- struct hso_shared_int *hso_create_shared_int(struct usb_interface *interface)
- {
-@@ -2853,8 +2860,9 @@ static int hso_probe(struct usb_interface *interface,
- 	int mux, i, if_num, port_spec;
- 	unsigned char port_mask;
- 	struct hso_device *hso_dev = NULL;
--	struct hso_shared_int *shared_int;
-+	struct hso_shared_int *shared_int = NULL;
- 	struct hso_device *tmp_dev = NULL;
-+	int mux_count = 0;
+ 	if (!plat_dat->dma_cfg || !plat_dat->dma_cfg->pbl) {
+@@ -8223,8 +8224,10 @@ static int __stmmac_dvr_probe(struct device *device,
  
- 	if (interface->cur_altsetting->desc.bInterfaceClass != 0xFF) {
- 		dev_err(&interface->dev, "Not our interface\n");
-@@ -2912,11 +2920,16 @@ static int hso_probe(struct usb_interface *interface,
- 						interface, i, shared_int);
- 				if (!hso_dev)
- 					goto exit;
-+				mux_count++;
- 			}
- 		}
+ 	pm_runtime_get_noresume(device);
+ 	pm_runtime_set_active(device);
+-	if (!pm_runtime_enabled(device))
++	if (!pm_runtime_enabled(device)) {
+ 		pm_runtime_enable(device);
++		pm_enabled = true;
++	}
  
- 		if (tmp_dev)
- 			hso_dev = tmp_dev;
-+
-+		/* No muxed port took over the shared interrupt state */
-+		if (!mux_count)
-+			hso_free_unused_shared_int(shared_int);
- 		break;
- 
- 	case HSO_INTF_BULK:
-@@ -2943,6 +2956,11 @@ static int hso_probe(struct usb_interface *interface,
- 	return 0;
- exit:
- 	hso_free_interface(interface);
-+
-+	/* No muxed port took over the shared interrupt state */
-+	if (shared_int && !mux_count)
-+		hso_free_unused_shared_int(shared_int);
-+
- 	return -ENODEV;
- }
- 
+ 	ret = stmmac_mdio_register(ndev);
+ 	if (ret < 0) {
+@@ -8278,6 +8281,9 @@ static int __stmmac_dvr_probe(struct device *device,
+ error_pcs_setup:
+ 	stmmac_mdio_unregister(ndev);
+ error_mdio_register:
++	if (pm_enabled)
++		pm_runtime_disable(device);
++	pm_runtime_put_noidle(device);
+ 	stmmac_napi_del(ndev);
+ error_hw_init:
+ 	destroy_workqueue(priv->wq);
 -- 
 2.34.1
 
