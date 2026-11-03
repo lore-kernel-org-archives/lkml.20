@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697680;
-	b=jzUuMWcn9UNc9gKOEvJR2tiyKF9H5m05uK6O8QpOJQVlZXeCYcgdBq8c+DAPM8DQxsfn
-	 ew4aFvbytsOXdT5IBEkU5YfXEmQP8zPkiDTS8kC+6Bya0zY22jVoOR2H7b4Um3r5NaGzn
-	 I/ar6GBcWAxcsxaUyvoVuerhA0zi8eZ86/PHkFqMyGf4+c1BLoC992iVSOsT0KmwzhW3i
-	 wUTkKzDl4Ptbe4wiLexK1X6d1O85wGnjg1HMvJXAukx1WvRh4ge/UUx8Tr8nRhYlyGXJS
-	 pLLlfECIU9XQuZJglpgMEy4HNHfqBLJu0s67EwoC8xyWyisI+35rzePs8wUWLH2kspA==
+	t=1793697687;
+	b=tZa0uS3JmJ90bVtmiEKfHhSYsJXsPR9KWFptRS+Shn+7nEAUm1uhIyhLtkWYgdQ6I7Ry
+	 oWUP1FoT6zksPjHQWjXfGjNQOhrIUk6zCRh7ynkzkZJyC0Xkd1BassUCPabGjcOPYlFl1
+	 p96Byscp25WB/+/WBs2nrgLJObVMw7LrIMdiobn9uUF3cGXxnupyH1HAf22ok4kxzpa7m
+	 BwoYMRaberZrCB/BM2fFnM3mvGmR0HjIMFbzxnDNnfQXhDjm2HuthVRnuHSchAYj1/Dr0
+	 LjPu8GJEC2R1yaqTzzHS1KIluxIDDPXGK41rV+PZZH98byek13P+x3wuYvzgqV5yFIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697680;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697687;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8ff+Ldb+j3rIyThs2zVt58hJSJJjlNUoF1vfWcjecx4=;
-	b=4e4RW4h1OZS3IbHLVblMRwYKjHivTwGL8n8of7nKaH3zqD8uoLt2nGAisasuPb5rQz3L
-	 dptYTjUnRf1d6hvab+S/uz/RI2ohDEiZIV02DR9Dc/1vnuOCcYf8cG/B+31ZKnT6uGdbl
-	 sVS8F7lG3MXfDA8Xnpguo1q2+lOjbDHuEUOHw7Bm81UXBQ8aR6v+VgIwpU0LjUoeRf0J6
-	 YuoMN5PfZ+xcHqm0KkZFZ9uqVojXpOn2EsBRXsVMv09QPUVqy77amZ3WXJYJqqFsCrpX7
-	 tHyem01kImzQlPo9I/gNncS1p1J2k3FqpD8UctVe+EWbnnYVyEtxJbvfD6XEBy22Pow==
+	bh=8gvrtFNaPF85MZnIqWG775YGSTQ1q4Yj1NpyoCXwkzo=;
+	b=wZI6ywSMqWkCqXs0O71BitGyj99HMoeP7OoCQUyLEgsE7dcZFPwoFMS0TSfEpqYGfRTB
+	 7WqnYtJfVyxBBDNzmvmcwPEc+yBemBThbx0KBme/hhaB34OFKKx/qkDVnCMMbeD5UFDgU
+	 mHdtdLOZnud1kQF3+AimOb7Nu6plzAAJRaDnifLb09OTQbUkTBfl3rvoTgvMXuNKOC6pm
+	 q10IKzONDAb3/2wUpu3hQcTSrPrRwE9p9K4nYFewfvXS6R9dxkS1x5dq+M3qveAdrNBOZ
+	 rPbGl2KWOEkjBcK9RKJuwEqgUvDYUio8v7ytz1mTyiMccwRrel8uVfq/sGDxC7pjILQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWfFpU+a;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dvkWm0DS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90CB606A334;
-	Tue,  3 Nov 2026 09:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D3C606D802;
+	Tue,  3 Nov 2026 09:21:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWfFpU+a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910D81F00919;
-	Tue,  3 Nov 2026 09:21:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dvkWm0DS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D670C1F00A16;
+	Tue,  3 Nov 2026 09:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697679;
-	bh=8ff+Ldb+j3rIyThs2zVt58hJSJJjlNUoF1vfWcjecx4=;
+	s=k20260515; t=1793697687;
+	bh=8gvrtFNaPF85MZnIqWG775YGSTQ1q4Yj1NpyoCXwkzo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jWfFpU+aR4y2vaJG/o8Zxih+deVBBi55FV9p9y1sP7KWAqD+Gnf0af1aJw8T6QWId
-	 02cEEwKtjpVCEUl2mZ6jOGTQXVkueZb/KOYJ6u0ITXYsYuTF3tXLiJW5m4U6kCoMFo
-	 F66SVUEIAEn0J9fVkYq8RrOMFOk12a/19FLi98dVylfY+GIdVWStW6x4IziDKUHrJL
-	 Ajaqsw1sRZUQZuECpUPFRUMrNLF+utaRY4I6+wCRL8bHqq+zvp4dDdJeBc7AKjwCDF
-	 P2xHglgbR+uw0aqQWbkye2ONpRe8ZN4T8GAcUUOel2DmyxOdvUrhQRns/d+pDj8+ti
-	 ckh6EH2nVbt9Q==
-Date: Tue, 3 Nov 2026 10:21:16 +0100
+	b=dvkWm0DSi6XmsJWdmyTJtm+nVGXM0H78lqGG2zM3ZREVdxtR72ptzmW5hja5TBBpg
+	 acaXrR+fECf4WjuTaqgZMX0Jm7ll39uDgtqdqQE4zXms4Nltc2XbGygFuG72yMgWVC
+	 dD6w5h5wqhEtv/r9w7tHj93PqIkr7JzncW5srFKmSqrnpNLDz5WWpVKfEdW386REGj
+	 G5feJqXR+oZyfTEy0yL7stNh7MBSJF7T0TFubl7keW8Do/pDOvyUqOLFnk9ufAVGcR
+	 KGylFueE8W4tDwAW/xnNy+SvbHuxZh/fm6N1reApBXGIc7ZZMSpTI+PY+G2AS2anAE
+	 mx6Kds5LXs9QQ==
+Date: Tue, 3 Nov 2026 10:21:23 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: peda@lysator.liu.se, linux-kernel@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, stable@vger.kernel.org, wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH] i2c: mux: demux-pinctrl: Release pinctrl handles on
- deactivation
-Message-ID: <20261103-diligent-taupe-seriema-e3fbd9@quoll>
-References: <20261103082905.1167633-1-vulab@iscas.ac.cn>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, tiffany.lin@mediatek.com, andrew-ct.chen@mediatek.com, 
+	yunfei.dong@mediatek.com, stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: mediatek: vcodec: Free encoder controls when
+ setup fails
+Message-ID: <20261103-authentic-manipulative-shrew-ea455b@quoll>
+References: <20261103083533.1176842-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,30 +61,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103082905.1167633-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103083533.1176842-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:29:05 +0000, Wentao Liang wrote:
-> Each master activation calls devm_pinctrl_get() against the parent I2C
-> controller device. Switching or removing the demux only releases the
-> adapter reference, so the pinctrl reference and its devres entry persist
-> until the parent controller is removed. Repeated switches accumulate
-> these entries. Activation failures after obtaining the handle retain it
-> too.
+On Tue, 03 Nov 2026 08:35:33 +0000, Wentao Liang wrote:
+> mtk_vcodec_enc_ctrls_setup() can fail after creating some controls. On
+> that error, fops_vcodec_open() jumps past the control handler cleanup and
+> frees the context, leaking the handler's controls and allocation.
 > 
-> Use pinctrl_get() and keep the handle with the active channel. Release
-> it when activation fails or the channel is deactivated, before dropping
-> the parent adapter reference and reverting the device-tree changeset.
-> Keep the no-pinctrl case working by storing NULL when get returns
-> -ENODEV.
+> Use the same control handler cleanup as the later m2m context creation
+> failure, and remove the now-unused label. No m2m context is released on
+> this path because its initialization has not been attempted yet.
 > 
-> Fixes: 50a5ba876908 ("i2c: mux: demux-pinctrl: add driver")
+> Fixes: 4e855a6efa54 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video Encoder Driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/i2c/muxes/i2c-demux-pinctrl.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
+>  .../platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c      | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
 
 
