@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749614;
-	b=J0/mbx8/siPDJ9nZ/PCj0e4vVQ/aXRtzkVdAtPTo/hs/rhJzG76gl8EMwbDkd+41Hz1H
-	 HAX/5H0VB7mHvK+35xIRC/vSG73fSWXj3Y0X/X9yYTYAgh/ESN4X3ByA0v3XJeAmXJ+lB
-	 Pfo8jFiJmcZ8lW1j8sD0IslNWrIOoOIM1q+ALqI/zocbfINeq71aVUvw87CMNAI3Nw791
-	 dIWnSJCMhOOg7V5jojYyHS6iR0dQb2QnwVXVmmblyH49hJXh8NiuytasTAZfJGOAis/UX
-	 4fIPDmmTO+RT1JiglIAC0fjn/lWrPdWmI7KU4qGQF0P0EQkF0ECMWvaK/cA5KX8UgAA==
+	t=1793749609;
+	b=Y+IlgsStZTDPaWv5rB/lOk+QYnvGWK3HdI1AdBDa6FRJZijqJTTpbQMt/vyuAN4+J409
+	 KjqpYf3QpPvY97HPJE9kb7rWmcuHSJzveGcFO8JEeaRD0aMin8+4sdFh1iJ9b7Ei725Mw
+	 uMHKP+YqsL7OpmVAOamPaGdzBTmXhcSbnAqGTdSIpy5o2bevK5m1gufOOj7n1NSUeWg4Y
+	 BmX2mr89LvZsXq5UJvwVB9JwsM8FuhHIbWc+6bNSjTLdfKXvgiZUHuYubhgKNBivDKgqf
+	 776pdd285vpn/G9RJ708ihu8hKIZ/T+Ow9zzZtsWUblJEjjgR+IafJESXttTNUn+INw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749614;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749609;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=8PmWEqVL7wU33i6pGMrEamqHBW2E7WIcuhgNZRLyzik=;
-	b=ZXZLPJwTwFLsaSfjKvEu7m7A844OTt9099UEK6yD9gRVmIUrr1JFsc9caZBoXjso46Hx
-	 IU4M40UCKtc/hCW47J5y8XGbkDytb9YfxI/wdOjMW8D0Y+H4E4KWZmFXDRPEaK1GDhGA8
-	 6w6kxV4yJOG2+NLAr6wB1hp6DapFKgOoFksGzBjoBa2P0DajlzGaYzvEVqJx+CMwunHwq
-	 D7Hn8nsA0HrLnTRnXCwPkGJVNtWaE4TeVh+ZGgp9r6Tw9pUFJDr2Ct4SNbCvdqUE8ytU2
-	 55eHO3v4wjKpdAVwJrHKugI4MPDKSYB6nRiXRf1fcgmMtA35L+5gjE73xN+Vcu8hpRg==
+	bh=7Md3VLEcxX9HNNraipqhO2t1Hdj+FVjTPLcFWjXY6nI=;
+	b=N6W4wH1NMzOLFHHrxWp6ijyVJDT2ueGLS3YOXn6o/z8X15Dn1YPMMb/T/0kdJRhzL5fF
+	 HzYXn1tpCqTV0ErquyGS8gAcPXq1/aI9W3c6HkRcr3rHxnkzzHJUNwkgrZDC0bj0MRgg2
+	 SC+zqCHgN11P/0XiPV0EYLfrOIahtpdQh9J7VVHwrqNGcA2eV5U76z4DC2Q0uFrawBrN5
+	 2vCSgC354dkGHe2xdvAVm7OsjXrPd8+FhKStFtBYVudcNxbJkU8NVV8q0PlbBdHv+WxJa
+	 XeYLLatsLJMM/50p20/OWzuYpsOHM9r9JxzQ7hhtzOoyMBjdPInmao7tIFvTc+3sgxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="cjWo/Clq";
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Tm1sOhwt;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D439B60A5BC6
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D439B60A5BC6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD24606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FD24606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cjWo/Clq
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3adf71ee6a5so252136a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Tm1sOhwt
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35cbea41088so108752eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793749613; x=1794354413; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793749608; x=1794354408; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8PmWEqVL7wU33i6pGMrEamqHBW2E7WIcuhgNZRLyzik=;
-        b=cjWo/ClqgRvest9xlcRjSiiPHl038ofABMAB84OpqpVuGXUOVDaogMtI2EJC8mfRHm
-         UwzJLBAqH5BW9HmLTZuY8UB3TRcGAl1eATZYq0eSGsBWlldmRi7G81Btwer7J8Fn61dm
-         +iVZtliZy3s6bfPfMDmapB935auZAkL4F0snOhaqi9Pp/ZzYJN+0eJLCZM+UPhsy5OhA
-         T8LchHAMI0fdsczTYNEtmYYlPgsKXmwhDknBR/k1gSoIEdddbDy67SkloovaVDYmuLeB
-         Cly/vVEM/VLKairSqwfHMNM1t4tbHk3X/twhib5bgR4zNaNzDgAbspX9fBj9AXihDn34
-         BEdQ==
+        bh=7Md3VLEcxX9HNNraipqhO2t1Hdj+FVjTPLcFWjXY6nI=;
+        b=Tm1sOhwtIM1KdwtNd3ZTyA60Ov0SaukwVAg9go6Q+vaLyzQBylBeBrgXNGiTbM/bzl
+         aV9JmQl3U95/4J85ZTB51xcfh2gwqbIAepJcGssMbqC8leELlkBoY8cwmcFZp3YUcLt4
+         No5sDSOuPxdm+r1NQwGD8wLYS1cXRPYYsc05DGyr9io8Vg9xoYl+sjsOf+LQFVafImYy
+         BqgvB4WWjl82Ga9OUL1H/wlL/5cyiHa2uUdKV0RjEkbSrq27GhZdTaavQIgn7bBnupwx
+         cP+N1HRaTtUzPkScyHzoTZ7GXkHFz5vA81VHigj5d3UnlaYVQPSNVojEBnz93vdUNbUJ
+         Xaxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793749613; x=1794354413;
+        d=1e100.net; s=20260707; t=1793749608; x=1794354408;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8PmWEqVL7wU33i6pGMrEamqHBW2E7WIcuhgNZRLyzik=;
-        b=KCec13r3pX6t57qaPe2iJibydOa0iMvRXrUOL89A871gOphTm1cHEiPOxKkHDhDK3V
-         VItZ764a8l9znxh8mziSCZOZaePHB5CZFzgCAV2f+/YE4lFa9xKmMKqAv3C2ku/yJIau
-         lNUU1kgjf/xJ54IGciV6byt3c7N8yOfMBBHGh3msDS8ZFVdYvq4e91N1dEVyiHt6Es5K
-         1vAhIYmIpREk3lMEt32HffpbjNOQFvFjLCHAO8SRjxNZimaJyrILZ4gm2Jyg+WMaWBzZ
-         gFmU0QgooolR6/fTO6j9yGpr7p8uNe97vikD1QHtIs4Say6NvFHiQmGTWp/ZYZpClmQM
-         2esg==
-X-Gm-Message-State: APuU4Z8zcHh1Ia0ugOiuR8R0xgZ0PcIl/ER/eiEg5OQKYRPu1M4kh78W
-	hpkheGxJLJxnyOe1zCXLWoXt9NZiCvbKy2KX987pDwh7FU5Jfy3hegiCt5sS/fbV8SGIHRZXcOT
-	3Su50PSoP2w==
-X-Received: from pjbca10.prod.google.com ([2002:a17:90a:f30a:b0:3ab:1f17:8066])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2641:b0:3ac:8446:c1b5
- with SMTP id 98e67ed59e1d1-3ae8974b804mr11459578a91.31.1793749613054; Tue, 03
- Nov 2026 15:46:53 -0800 (PST)
-Date: Tue,  3 Nov 2026 15:44:56 -0800
+        bh=7Md3VLEcxX9HNNraipqhO2t1Hdj+FVjTPLcFWjXY6nI=;
+        b=z+GXav2raA0cxd/BzQ6WaCvIfM/AqrZWpNUQdx/NrOjMVeyLIVKFpfm8MmiBpRLIi4
+         hT4cayPoP5txabxHbtDDXarZJ1zjfTglvPdWvGVYsicnHs6wigOJAX6bmNohT/Fm/aFf
+         niRA1Z3ikgn4n6pg8Z3jz02wNGgcb1aPCeB1iLqaZScU8ynQOy0bmY0zfMDzKbEvcShm
+         2BNw79nqTBkVMn8B90mKOhNFNff4a7Lu1Ua8Y22I0nHNk5M+mWR3YpUBSFTqkppbLPco
+         X0HcIdaD9EE/Ndc4SySaOO4WNTGbDVT5j3JfDl+G4pDtsnZNlzwsST4sAalfHIqnhvGk
+         RryA==
+X-Gm-Message-State: APuU4Z+FxQTH2pI29oi3Qvp9ko3WM+y6F77uBG6WuyuWYK1noMqer/oX
+	/MgYMSsUKmQaIppuRCnoe/GdKK+pGJVJUiiMWKnMPnJgKOcNtwuJK/+vI0sb4Jj8hHaQsYonJp0
+	7Jx40kJX6Xg==
+X-Received: from dyvj9-n2.prod.google.com ([2002:a05:693c:87c9:20b0:36c:9a6e:5413])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:4152:20b0:36a:1807:75a4
+ with SMTP id 5a478bee46e88-36a423cacb4mr24864506eec.20.1793749607940; Tue, 03
+ Nov 2026 15:46:47 -0800 (PST)
+Date: Tue,  3 Nov 2026 15:44:54 -0800
 In-Reply-To: <20261103234502.1008382-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,8 +79,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261103234502.1008382-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103234502.1008382-41-irogers@google.com>
-Subject: [PATCH v1 40/41] perf docs: Add perf-sysinfo man page
+Message-ID: <20261103234502.1008382-39-irogers@google.com>
+Subject: [PATCH v1 38/41] perf pmu: Probe branch instruction skid
 From: Ian Rogers <irogers@google.com>
 To: linux-perf-users@vger.kernel.org, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -95,146 +95,325 @@ Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Document the 'perf sysinfo' subcommand and its options in
-Documentation/perf-sysinfo.txt and link it from Documentation/perf.txt.
+Extend perf_pmu__probe() with run_skid_branch_loop() and
+probe_pmu_skid() to empirically measure branch instruction skid across
+supported precise_ip levels (0..3) on core PMUs.
+
+For each supported precise_ip level, open a branch sampling event on the
+current thread, execute a NOP-runway loop ending in a backward
+conditional branch on x86_64, arm64, and riscv, and compute the minimum,
+maximum, average, and exact-IP (zero-skid) sample counts from the
+recorded ring buffer samples.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/Documentation/perf-sysinfo.txt | 113 ++++++++++++++++++++++
- tools/perf/Documentation/perf.txt         |   2 +-
- 2 files changed, 114 insertions(+), 1 deletion(-)
- create mode 100644 tools/perf/Documentation/perf-sysinfo.txt
+ tools/perf/util/pmu.c | 259 ++++++++++++++++++++++++++++++++++++++++++
+ tools/perf/util/pmu.h |  15 +++
+ 2 files changed, 274 insertions(+)
 
-diff --git a/tools/perf/Documentation/perf-sysinfo.txt b/tools/perf/Documentation/perf-sysinfo.txt
-new file mode 100644
-index 000000000000..c72ac6d51551
---- /dev/null
-+++ b/tools/perf/Documentation/perf-sysinfo.txt
-@@ -0,0 +1,113 @@
-+perf-sysinfo(1)
-+===============
+diff --git a/tools/perf/util/pmu.c b/tools/perf/util/pmu.c
+index e26563342ad1..a5adbd34c5f2 100644
+--- a/tools/perf/util/pmu.c
++++ b/tools/perf/util/pmu.c
+@@ -3920,6 +3920,263 @@ static void probe_mmap_caps(struct perf_pmu *pmu,
+ 	}
+ }
+ 
++/*
++ * Mark noinline so the compiler does not inline the multi-kilobyte .rept nop
++ * runway into callers; GCC estimates inline asm size by counting newlines in
++ * the template string and would otherwise emit short-range conditional
++ * branches (such as ARM64 tbz/tbnz with a +-32KB range) across the inlined
++ * block.
++ */
++static noinline bool run_skid_branch_loop(unsigned long iters,
++					  uintptr_t *out_s_ip,
++					  uintptr_t *out_b_ip,
++					  uintptr_t *out_e_ip,
++					  int *out_insn_sz, int *out_nop_cnt)
++{
++#if defined(__x86_64__)
++	uintptr_t s_ip, b_ip, e_ip;
 +
-+NAME
-+----
-+perf-sysinfo - Display and probe PMU and system performance monitoring information
++	asm volatile(
++		"lea 1f(%%rip), %[s_ip]\n\t"
++		"lea 2f(%%rip), %[b_ip]\n\t"
++		"lea 3f(%%rip), %[e_ip]\n\t"
++		".balign 64\n"
++		"1:\n\t"
++		".rept 8192\n\t"
++		"nop\n\t"
++		".endr\n\t"
++		"dec %[cnt]\n\t"
++		"2:\n\t"
++		"jnz 1b\n"
++		"3:\n\t"
++		: [cnt] "+r" (iters),
++		  [s_ip] "=&r" (s_ip),
++		  [b_ip] "=&r" (b_ip),
++		  [e_ip] "=&r" (e_ip)
++		:
++		: "cc", "memory"
++	);
++	*out_s_ip = s_ip;
++	*out_b_ip = b_ip;
++	*out_e_ip = e_ip;
++	*out_insn_sz = 1;
++	*out_nop_cnt = 8192;
++	return true;
++#elif defined(__aarch64__)
++	uintptr_t s_ip, b_ip, e_ip;
 +
-+SYNOPSIS
-+--------
-+[verse]
-+'perf sysinfo' [<options>] [pmu_glob ...]
++	asm volatile(
++		"adr %[s_ip], 1f\n\t"
++		"adr %[b_ip], 2f\n\t"
++		"adr %[e_ip], 3f\n\t"
++		".balign 64\n"
++		"1:\n\t"
++		".rept 1024\n\t"
++		"nop\n\t"
++		".endr\n\t"
++		"subs %[cnt], %[cnt], #1\n\t"
++		"2:\n\t"
++		"b.ne 1b\n"
++		"3:\n\t"
++		: [cnt] "+r" (iters),
++		  [s_ip] "=&r" (s_ip),
++		  [b_ip] "=&r" (b_ip),
++		  [e_ip] "=&r" (e_ip)
++		:
++		: "cc", "memory"
++	);
++	*out_s_ip = s_ip;
++	*out_b_ip = b_ip;
++	*out_e_ip = e_ip;
++	*out_insn_sz = 4;
++	*out_nop_cnt = 1024;
++	return true;
++#elif defined(__riscv)
++	uintptr_t s_ip, b_ip, e_ip;
 +
-+DESCRIPTION
-+-----------
-+This command displays a summary of the performance monitoring capabilities of
-+the current system or a perf.data file, including core PMU features (precise
-+sampling, branch stack sampling, user-space counter reading, memory profiling,
-+and hardware AUX trace PMUs), memory and PCIe/IO interconnect bus bandwidth
-+monitoring support, total events and metrics, pipeline metric drill-down levels
-+discovered via '<metric>_group' hierarchies, and an overall system rating.
++	asm volatile(
++		".option push\n\t"
++		".option norvc\n\t"
++		"la %[s_ip], 1f\n\t"
++		"la %[b_ip], 2f\n\t"
++		"la %[e_ip], 3f\n\t"
++		".balign 64\n"
++		"1:\n\t"
++		".rept 512\n\t"
++		"nop\n\t"
++		".endr\n\t"
++		"addi %[cnt], %[cnt], -1\n\t"
++		"2:\n\t"
++		"bnez %[cnt], 1b\n"
++		"3:\n\t"
++		".option pop\n\t"
++		: [cnt] "+r" (iters),
++		  [s_ip] "=&r" (s_ip),
++		  [b_ip] "=&r" (b_ip),
++		  [e_ip] "=&r" (e_ip)
++		:
++		: "memory"
++	);
++	*out_s_ip = s_ip;
++	*out_b_ip = b_ip;
++	*out_e_ip = e_ip;
++	*out_insn_sz = 4;
++	*out_nop_cnt = 512;
++	return true;
++#else
++	(void)iters;
++	*out_s_ip = 0;
++	*out_b_ip = 0;
++	*out_e_ip = 0;
++	*out_insn_sz = 0;
++	*out_nop_cnt = 0;
++	return false;
++#endif
++}
 +
-+When '-p'/'--pmus' is specified (or when PMU filter globs, '-v'/'--verbose',
-+'-a'/'--all', or '-j'/'--json' are given), it also displays detailed
-+information for each PMU, including its perf_event_attr type, kind (core,
-+uncore, software, auxtrace, tool, hwmon, drm), CPUs/cpumask, capabilities,
-+sysfs format bitfields, event counts, and memory profiling events.
++/*
++ * Measure branch instruction skid across supported precise_ip levels (0..3)
++ * by sampling a tight NOP-runway branch loop and inspecting sample IPs.
++ */
++static void probe_pmu_skid(struct perf_pmu *pmu,
++			   const struct perf_event_attr *base_attr,
++			   unsigned long flags)
++{
++	struct perf_event_attr br_attr;
++	char br_buf[256];
++	long page_sz = sysconf(_SC_PAGESIZE);
++	size_t data_sz, mmap_sz;
 +
-+When run on a live system (without '-i'/'--input' and with probing enabled),
-+it also actively probes the kernel via 'perf_event_open' to determine:
-+- Supported modes (counting, interrupt-based sampling, branch_stack sampling)
-+- Supported precise sampling levels, skid semantics, and empirically measured
-+  branch instruction skid (minimum, maximum, average instructions from the
-+  branch and 'PERF_RECORD_MISC_EXACT_IP' ratio) at each supported precision
-+  level:
-+  0 ('SAMPLE_IP' can have arbitrary skid), ':p' / 1 ('SAMPLE_IP' must have
-+  constant skid), ':pp' / 2 ('SAMPLE_IP' requested to have 0 skid), and
-+  ':ppp' / 3 ('SAMPLE_IP' must have 0 skid, or uses randomization to avoid
-+  sample shadowing effects)
-+- Supported 'perf_event_sample_format' sample types ('ip', 'tid', 'time',
-+  'addr', 'read', 'callchain', 'id', 'cpu', 'period', 'stream_id', 'raw',
-+  'branch_stack', 'regs_user', 'stack_user', 'weight', 'data_src',
-+  'identifier', 'transaction', 'regs_intr', 'phys_addr', 'aux', 'cgroup',
-+  'data_page_size', 'code_page_size', 'weight_struct')
-+- Supported user and interrupt registers for 'PERF_SAMPLE_REGS_USER' and
-+  'PERF_SAMPLE_REGS_INTR', listing separately the interrupt registers that
-+  can only be sampled with precise sampling (e.g. x86 XMM registers captured
-+  by PEBS)
-+- Supported memory profiling events ('ldlat-loads', 'ldlat-stores', 'mem-ldst')
-+  and their supported memory sample types ('data_src', 'addr', 'weight', etc.)
-+- Supported privilege/exclusion modifiers ('exclude_user', 'exclude_kernel',
-+  'exclude_hv', 'exclude_idle', 'exclude_host', 'exclude_guest')
-+- Supported execution features ('leader_sampling', 'sw_grouping', 'inherit',
-+  'sample_freq', 'write_backward', 'callchain', 'data_src', 'weight',
-+  'pinned', 'exclusive', 'format_lost', 'auto_counter_reload',
-+  'aux_start_paused', 'aux_pause', 'aux_resume', 'aux_sample', 'user_rdpmc',
-+  'user_time', 'user_time_zero', 'user_time_short') and hardware counter
-+  bit-width ('pmc_width') when user-space counter reading is supported
-+- Maximum number of events in a group counted simultaneously, without
-+  multiplexing, and for core PMUs the maximum number of general-purpose
-+  counter events. Groups larger than this may be accepted by
-+  'perf_event_open' but can't be counted together
++	if (!pmu->is_core || !pmu->probed.can_sample)
++		return;
 +
-+At the end of the text output, a summary section reports overall core PMU
-+capabilities (including hardware AUX trace PMUs), memory and PCIe/IO
-+interconnect bus bandwidth monitoring support, total events and metrics, and
-+pipeline metric drill-down levels discovered via '<metric>_group' hierarchies.
++	if (page_sz <= 0)
++		page_sz = 4096;
++	data_sz = 4 * (size_t)page_sz;
++	mmap_sz = (size_t)page_sz + data_sz;
 +
-+By default, numbered uncore PMU instances sharing a common prefix are collapsed
-+into a single entry showing the instance count, unless '-v'/'--verbose' is
-+specified.
++	memset(&br_attr, 0, sizeof(br_attr));
++	snprintf(br_buf, sizeof(br_buf), "%s/branches/", pmu->name);
++	if (!parse_candidate_attr(br_buf, &br_attr)) {
++		br_attr.type = PERF_TYPE_HARDWARE;
++		br_attr.size = base_attr->size;
++		br_attr.config = PERF_COUNT_HW_BRANCH_INSTRUCTIONS;
++		if (perf_pmus__host_supports_extended_type())
++			br_attr.config |= (__u64)pmu->type << PERF_PMU_TYPE_SHIFT;
++	}
++	br_attr.exclude_user = base_attr->exclude_user;
++	br_attr.exclude_kernel = 1;
++	br_attr.exclude_hv = 1;
++	br_attr.exclude_idle = base_attr->exclude_idle;
++	br_attr.exclude_host = base_attr->exclude_host;
++	br_attr.exclude_guest = base_attr->exclude_guest;
 +
-+OPTIONS
-+-------
-+-i::
-+--input=::
-+	Input file name to read PMU information from (e.g. perf.data).
++	for (int lvl = 0; lvl <= 3; lvl++) {
++		struct perf_event_attr attr = br_attr;
++		struct perf_event_mmap_page *pc;
++		uintptr_t s_ip = 0, b_ip = 0, e_ip = 0;
++		int insn_sz = 0, nop_cnt = 0;
++		void *ring;
++		u8 *data;
++		u64 head, tail = 0;
++		int samples = 0, exact = 0;
++		int min_skid = 999999, max_skid = 0;
++		long sum_skid = 0;
++		int fd;
 +
-+-f::
-+--force::
-+	Don't complain, do it (when reading input perf.data file).
++		if (lvl > 0 && !(pmu->probed.precise_mask & (1u << lvl)))
++			continue;
 +
-+-o::
-+--output=::
-+	Output file name.
++		attr.disabled = 1;
++		attr.sample_period = 251;
++		attr.sample_type = PERF_SAMPLE_IP;
++		attr.precise_ip = lvl;
 +
-+-p::
-+--pmus::
-+	Display detailed information for each PMU in addition to the system
-+	summary.
++		fd = sys_perf_event_open(&attr, 0, -1, -1, flags);
++		if (fd < 0 && lvl > 0 && attr.exclude_kernel && attr.config2 == 0) {
++			attr.config2 = 1;
++			fd = sys_perf_event_open(&attr, 0, -1, -1, flags);
++		}
++		if (fd < 0)
++			continue;
 +
-+-j::
-+--json::
-+	Encode PMU information as JSON.
++		ring = mmap(NULL, mmap_sz, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
++		if (ring == MAP_FAILED) {
++			close(fd);
++			continue;
++		}
 +
-+-a::
-+--all::
-+-v::
-+--verbose::
-+	Display all PMUs including all similar PMUs with alphanumeric suffixes
-+	instead of collapsing numbered uncore PMU instances.
++		ioctl(fd, PERF_EVENT_IOC_RESET, 0);
++		ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
++		if (!run_skid_branch_loop(8000, &s_ip, &b_ip, &e_ip,
++					  &insn_sz, &nop_cnt)) {
++			ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
++			munmap(ring, mmap_sz);
++			close(fd);
++			break;
++		}
++		ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
 +
-+--probe::
-+--no-probe::
-+	Enable or disable active kernel probing of PMU capabilities on the live
-+	system (default: enabled).
++		pc = ring;
++		head = READ_ONCE(pc->data_head);
++		/* Ensure data_head is read before reading ring buffer contents. */
++		rmb();
++		if (head > data_sz)
++			head = data_sz;
++		data = (u8 *)ring + page_sz;
 +
-+--debug::
-+	Enable debugging output.
++		while (tail + sizeof(struct perf_event_header) <= head) {
++			struct perf_event_header *hdr =
++				(struct perf_event_header *)(data + tail);
 +
-+SEE ALSO
-+--------
-+linkperf:perf-list[1], linkperf:perf-evlist[1], linkperf:perf-stat[1],
-+linkperf:perf-record[1]
-diff --git a/tools/perf/Documentation/perf.txt b/tools/perf/Documentation/perf.txt
-index cbcc2e4d557e..0890dd5a1794 100644
---- a/tools/perf/Documentation/perf.txt
-+++ b/tools/perf/Documentation/perf.txt
-@@ -92,5 +92,5 @@ linkperf:perf-help[1], linkperf:perf-inject[1],
- linkperf:perf-intel-pt[1], linkperf:perf-iostat[1], linkperf:perf-kallsyms[1],
- linkperf:perf-kmem[1], linkperf:perf-kvm[1], linkperf:perf-lock[1],
- linkperf:perf-mem[1], linkperf:perf-probe[1], linkperf:perf-sched[1],
--linkperf:perf-script[1], linkperf:perf-test[1],
-+linkperf:perf-script[1], linkperf:perf-sysinfo[1], linkperf:perf-test[1],
- linkperf:perf-trace[1], linkperf:perf-version[1]
++			if (hdr->size == 0 || tail + hdr->size > head)
++				break;
++			if (hdr->type == PERF_RECORD_SAMPLE &&
++			    hdr->size >= sizeof(*hdr) + sizeof(u64)) {
++				u64 ip = *(u64 *)((u8 *)hdr + sizeof(*hdr));
++				uintptr_t uip = (uintptr_t)ip;
++
++				if (uip >= s_ip && uip <= e_ip && insn_sz > 0) {
++					int skid;
++
++					if (uip == b_ip) {
++						skid = 0;
++					} else if (uip >= s_ip && uip < b_ip) {
++						long off = (long)(uip - s_ip) / insn_sz;
++
++						skid = (off < nop_cnt) ?
++						       (int)(off + 1) : (nop_cnt + 1);
++					} else {
++						skid = 1;
++					}
++
++					samples++;
++					if (hdr->misc & PERF_RECORD_MISC_EXACT_IP)
++						exact++;
++					if (skid < min_skid)
++						min_skid = skid;
++					if (skid > max_skid)
++						max_skid = skid;
++					sum_skid += skid;
++				}
++			}
++			tail += hdr->size;
++		}
++
++		if (samples > 0) {
++			pmu->probed.skid[lvl].measured = true;
++			pmu->probed.skid[lvl].samples = samples;
++			pmu->probed.skid[lvl].exact_samples = exact;
++			pmu->probed.skid[lvl].min_skid = min_skid;
++			pmu->probed.skid[lvl].max_skid = max_skid;
++			pmu->probed.skid[lvl].avg_skid = (double)sum_skid / samples;
++		}
++
++		munmap(ring, mmap_sz);
++		close(fd);
++	}
++}
++
+ static void __perf_pmu__probe(struct perf_pmu *pmu, int pmu_cpu)
+ {
+ 	struct probe_candidates cands = { .nr = 0 };
+@@ -4256,6 +4513,8 @@ static void __perf_pmu__probe(struct perf_pmu *pmu, int pmu_cpu)
+ 				}
+ 			}
+ 		}
++
++		probe_pmu_skid(pmu, &base_attr, flags);
+ 	}
+ 
+ 	/* 3b. User and interrupt register sampling masks */
+diff --git a/tools/perf/util/pmu.h b/tools/perf/util/pmu.h
+index bb21e910da90..4bdb8daf7a5a 100644
+--- a/tools/perf/util/pmu.h
++++ b/tools/perf/util/pmu.h
+@@ -381,6 +381,21 @@ struct perf_pmu {
+ 		 * can only be sampled with precise sampling.
+ 		 */
+ 		u64 intr_pred_precise_mask;
++		/** @probed.skid: Measured branch instruction skid at precise_ip levels (0..3). */
++		struct {
++			/** @probed.skid.measured: Was skid measured at this precise_ip level? */
++			bool measured;
++			/** @probed.skid.samples: Number of branch samples collected. */
++			int samples;
++			/** @probed.skid.exact_samples: Samples with zero skid from target IP. */
++			int exact_samples;
++			/** @probed.skid.min_skid: Minimum instruction skid observed. */
++			int min_skid;
++			/** @probed.skid.max_skid: Maximum instruction skid observed. */
++			int max_skid;
++			/** @probed.skid.avg_skid: Average instruction skid across samples. */
++			double avg_skid;
++		} skid[4];
+ 	} probed;
+ };
+ 
 -- 
 2.56.0.385.gac671c819a-goog
 
