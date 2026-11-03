@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749586;
-	b=VwuDsLHgmm6PcxEpcO1DLEEF3EVcfKfmnqtamty2Jec3REYyleq6E1DgaX2jXYfmbFsK
-	 LFbWejKI5wj8Dn6Id+YWasglDZekJ8K/s5I7tOYH8DIgX68STdyfiRKComx3VRCHcfu68
-	 swGzEdNTD5z6Ty456/TmSAwxwQ6p5JESaQGr9K5FFTb7Lei3bofqCwSYutEBf0qlMgvx4
-	 6ZCGKdnk/Jcg/QcUAu8t0eJ41v0/PJFB9B8TdkrkpmgognGGQ6LxOW2MtUcHgCprsiuBs
-	 wVYxkY0T59OVMWP0arfPaTIpEptIlQeSRZkrJWRFJU+kZNLu6xxHVxUafnUkgJHejow==
+	t=1793749597;
+	b=tfmLCImyxVncurQapwYJqemFJ5Rlj421Xbdwla98PNsOuzPhF6jcNT9FyP6HMKLIfNlw
+	 EGA2T05xhNJHpxbAa9He1PeYRTLeoCwFCd/UH7VJT2z7ViKjrFfLj5zbnzoDLw20AdIK5
+	 OS8ixiFOndP7KJhI1C1tnHkCCMjuWe/LfDWLHMau5dBnmsEqZE4DRGYOB3cnBS0gFz9Lg
+	 V3ZuZv85pnVrN2mwNRS+O4Ho1e5CWBMwaaYQ19qv6ZEbe74Lb0Wiw3cDXo4PVYuHZvOuw
+	 qLIqY4LoVbVwYtTsy8iJEej5i7lm/jOuNE9Zv7Se9x+bBH27Xq2b+0mzMsj4nX5j7Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749586;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749597;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=QWrUOGCpXzdW7m/vGfdI2/6APYtveX3HL+c/34q2WdQ=;
-	b=cL/eIXbRe4oVvlB2orS/VO5WJ+vrrPjK5nshNB2O6AsdJUlV3xEeDGIyzftSFv+wNnUT
-	 cHL+Fmbsxoyz1sh9b4Hex4oQzjuBznGTF84ALs5OgYGwRPG1rs36Jdcm6tzNz+uToAqA/
-	 Xiqfhh1HHGybF9h08ODzgsivsgMwVudkMqtgxSf4rq/A4EqBMBkgw/LvpFOgG8pw8LoFW
-	 g+DaL/aaDax+rY5fEu3DDQ+bEv6kIOXkUJcyXYXOth+nanan1s3E8WK/ctbpSYV1fJGV3
-	 XntR4KLxIPqWkSzR8f7so+3HwlpFoYIBzHGQRVXCF2/76E3xl8EnWTu/C9kFElgM6sg==
+	bh=p+YtalTplzDx/zey/+nWV/tPZ+jI1yAKf3V/l0vlsOo=;
+	b=GOD/7SH/vrdnEiuEkqnY7i5f6GrI8VYCCBezf3rX30eyFHRXGI9pcfWbpxMb79m9pO+6
+	 qcJy3inHJ5DfNLIT/6v32i5TEYd9wrm8rUxBYx7uELx+tf7hbQPedrozNVorbB4ekgiOs
+	 l/N5EtXa89z2E57Ot377IcYh7sFqKctDDPvisUdFWUD9hWHMZp1AfuJIY6P4Z/KVFw54V
+	 bh6las+3PjpBuFuBMOI+nZSU3AE4R5XYxiMYX0oUhCH/t6BYWj6i/TpWYblADwR7yHKoo
+	 scFreOjH9phNlrx+c3RonUQvCuryLVSMkaZ7zKyX+MoKeE5Lbic6TORngQxFhFza3MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NfkjKTze;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P8XsKFC3;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286D46083628
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 286D46083628
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804560A2609
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0804560A2609
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NfkjKTze
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3662e7a9299so301751eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P8XsKFC3
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ac7a4ba546so789539a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793749585; x=1794354385; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793749596; x=1794354396; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QWrUOGCpXzdW7m/vGfdI2/6APYtveX3HL+c/34q2WdQ=;
-        b=NfkjKTzek8lzSet5DGBywnwWYRt5MxP4wEt7V+7kY8cUayxmk0BVa09YVneuSVsxZx
-         0oA0L5OIRxDfAwQcqWijZPHlJtYoyNrpEWtCevLwVROmVtKMmcj1ZvA9Iy414qrNhVW+
-         8qV/UEOPb0mXKGCwPgslwISNhy+Lf/xQLwI2eQetk5RXrD9ibnTFJD8/G55va6PxooBo
-         88eZZmLvxBsoFSwxhYtIAaa+QhfG7/fyADlY4lADhp9Rw+nQ7rMNoNeMl8lHCl4YgbuO
-         34jIvV0MW07wxyLMp6mgf6uTO0pHSrEC8077OYBvXg6XKWQN9mKLv93ccB+i1TqT2XAT
-         v9AQ==
+        bh=p+YtalTplzDx/zey/+nWV/tPZ+jI1yAKf3V/l0vlsOo=;
+        b=P8XsKFC3o8KY08JbhnM1rLGHuuGPsd8igBLEumBZq/1BJG9tVgJEUiUdPZeBmQ3Qx9
+         WwPle6UYiDKY2wUacQxvmmGQmx8L+GTpAzEAXYQR4pRE/65XElBxQxkM3O/T0sHeSdgk
+         fJaqYkIq5n3m8vCi5u55rmzuZVzxr1hz6gn+NAZ6zkucV39BzgS1Y1wbGlLdieYBmygV
+         2sJ6qZ5oslUb01FdmjnScMbKfXL1XEGh9TevOznZWdfO61rFNJQoW+l9+O7ML4wYog+x
+         XqGM0edETIVoe7wAnnBddpFtH9/+GzluCZLA+uC28jR8uKzScq6pakDjNjZ5VdVgXtGf
+         piqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793749585; x=1794354385;
+        d=1e100.net; s=20260707; t=1793749596; x=1794354396;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QWrUOGCpXzdW7m/vGfdI2/6APYtveX3HL+c/34q2WdQ=;
-        b=F/aYzrQVx/WW9w1c6pobbkXsanF6EjQNfXPaUD4WwXZYyr4D0UzQz8dyxT70EBbuKb
-         ouA1hALFq+e5l1arQKAt1m8bY4BJkDXDp7W/rCUgS6o2kYP5qCAruMcePTttfOR9RCIz
-         2fG85jhTinDwkysyrYCvfufYoSyhOxcWcH/Ij33vnHY1vuHE2moYNjr3lFU4Grwx/3XG
-         ukw0oMnEcWa/U4Km4cIgAgzZjrj+ppwmVYFkEqR/rQh9AzLy2sLgBE3WUJbWj3EPVSj1
-         /6lxRRrO3LRK/gTx6YOUlS96vIW71Ys7zHp/trUMZE7Lq3zy11Q8bYlq3FRFpwVJBW8s
-         FmcQ==
-X-Gm-Message-State: APuU4Z9Op9odcHqeo7DrKaVInGA2XLxet4RBCxSaBJbfOaJ7y2aIItdb
-	AyppNr9KTeECGUejRCnajPCwGx7K3GaoNitIAzZgxsPlRKbkLrDlmRgx150oae9WNXWLU8JJnRe
-	ZmKkQ60Rq4Q==
-X-Received: from dybgs18.prod.google.com ([2002:a05:7301:2092:b0:35f:390d:248a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:e9d6:10b0:36a:1e0c:e28d
- with SMTP id 5a478bee46e88-36a42206318mr24426125eec.4.1793749584946; Tue, 03
- Nov 2026 15:46:24 -0800 (PST)
-Date: Tue,  3 Nov 2026 15:44:45 -0800
+        bh=p+YtalTplzDx/zey/+nWV/tPZ+jI1yAKf3V/l0vlsOo=;
+        b=Q1Bklrt2Yi2ucPj111h2V5RIQDRVF5TLDb5ehpi+K85v3CBI39iBhiflNdesvB/TbK
+         W+xC1NEMIzYKeJNnatvdhNePYUbgkhnJsubAmp//JzUF1j17TMiIO2Sk/3VDNgjY1OCH
+         I6oZIh2/xk1PIcFEVkiy2K3CLxAVVTNTRwFBUOsvxytn2XHpiZ5AmmRkEGgUGei263EC
+         LABT4kigXz+sY07AhIC2etW0krlG921a/caQUl6jmUvHIFQ2ak2D9yNijKVon0QRzkgU
+         auju8PcWJuTIihgYLJjTdBmKyPmQxl7axXCL07fv2aC31pd+/xHFdOiSTYiPHSwYoeeN
+         m50g==
+X-Gm-Message-State: APuU4Z9ASzSSOyCMTEdsJQ46gUKzDm3HUgkJblGtl1NCRQyuByHkL1OX
+	ChG/Naz5E9cFi+boc9vpSUefDPQcW6wz/NzlKS3xDIwYxc/c/Yd4vSYuzkKFGSZCQ9TcxDwJjPc
+	nMqJvWacgXg==
+X-Received: from pjbcm14.prod.google.com ([2002:a17:90a:fa0e:b0:3ab:7aa4:cfe9])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4ad0:b0:3ae:3e9b:5265
+ with SMTP id 98e67ed59e1d1-3ae897585bamr8174157a91.26.1793749596051; Tue, 03
+ Nov 2026 15:46:36 -0800 (PST)
+Date: Tue,  3 Nov 2026 15:44:49 -0800
 In-Reply-To: <20261103234502.1008382-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,8 +79,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261103234502.1008382-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103234502.1008382-30-irogers@google.com>
-Subject: [PATCH v1 29/41] perf pmu: Probe supported sample_type flags
+Message-ID: <20261103234502.1008382-34-irogers@google.com>
+Subject: [PATCH v1 33/41] perf pmu: Probe event group size limits
 From: Ian Rogers <irogers@google.com>
 To: linux-perf-users@vger.kernel.org, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -95,164 +95,288 @@ Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Extend perf_pmu__probe() with probe_sample_types() to test which enum
-perf_event_sample_format flags are supported by the PMU.
+Extend perf_pmu__probe() with check_group_active() and
+probe_group_limits() to determine the maximum number of events in a
+group that are counted simultaneously, without multiplexing
+(max_group_size). After each event is added to the group, the group is
+enabled and checked to be counting by comparing time_running with
+time_enabled.
 
-First test a common bulk sample_type mask with a single
-perf_event_open() call to avoid per-bit syscall overhead when all
-standard sample flags are supported, and then probe any remaining
-PERF_SAMPLE_* bits individually (configuring required companion fields
-such as branch_sample_type, sample_regs_user, sample_regs_intr, and
-sample_stack_user). Populate probed.sample_types as well as convenience
-booleans for branch stack, callchain, data_src, and weight sampling.
+The number of events in a group accepted by perf_event_open() isn't
+reported as it doesn't reflect what can be counted: disabled events are
+accepted so that groups may be scheduled by hand and many PMUs accept
+groups of enabled events that can never be scheduled.
+
+On core PMUs, where cycles and instructions may use dedicated fixed
+counters, also probe a group of general-purpose (GP) hardware events to
+determine max_gp_group_size.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/pmu.c | 95 +++++++++++++++++++++++++++++++++++++++++++
- tools/perf/util/pmu.h | 13 ++++++
- 2 files changed, 108 insertions(+)
+ tools/perf/util/pmu.c | 210 ++++++++++++++++++++++++++++++++++++++++++
+ tools/perf/util/pmu.h |  14 +++
+ 2 files changed, 224 insertions(+)
 
 diff --git a/tools/perf/util/pmu.c b/tools/perf/util/pmu.c
-index 9033bada9f47..164ed926184e 100644
+index e7e05e29b695..3585147c5242 100644
 --- a/tools/perf/util/pmu.c
 +++ b/tools/perf/util/pmu.c
-@@ -3118,6 +3118,97 @@ static bool try_open_attr_variants(struct perf_event_attr *attr,
+@@ -3119,6 +3119,123 @@ static bool try_open_attr_variants(struct perf_event_attr *attr,
  	return false;
  }
  
 +/*
-+ * Probe which enum perf_event_sample_format flags are supported by @pmu,
-+ * testing a common bulk mask first before probing individual flags.
++ * Enable @leader_fd's group briefly and verify that both the group leader and
++ * @last_fd run for 100% of their enabled time without multiplexing.
 + */
-+static void probe_sample_types(struct perf_pmu *pmu,
-+			       const struct perf_event_attr *base_attr,
-+			       pid_t pid, int cpu, unsigned long flags)
++static bool check_group_active(int leader_fd, int last_fd)
 +{
-+	u64 reg_bit = BIT_ULL(perf_arch_reg_ip(EM_HOST)) ?: 1ULL;
-+	u64 bulk_mask = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_TIME |
-+			PERF_SAMPLE_ADDR | PERF_SAMPLE_READ | PERF_SAMPLE_CALLCHAIN |
-+			PERF_SAMPLE_ID | PERF_SAMPLE_CPU | PERF_SAMPLE_PERIOD |
-+			PERF_SAMPLE_STREAM_ID | PERF_SAMPLE_RAW | PERF_SAMPLE_REGS_USER |
-+			PERF_SAMPLE_STACK_USER | PERF_SAMPLE_WEIGHT | PERF_SAMPLE_DATA_SRC |
-+			PERF_SAMPLE_IDENTIFIER | PERF_SAMPLE_TRANSACTION |
-+			PERF_SAMPLE_REGS_INTR | PERF_SAMPLE_CGROUP |
-+			PERF_SAMPLE_DATA_PAGE_SIZE | PERF_SAMPLE_CODE_PAGE_SIZE;
-+	struct perf_event_attr b_attr = *base_attr;
-+	int b_fd;
++	u64 before[3] = { 0, 0, 0 };
++	u64 after[3] = { 0, 0, 0 };
++	u64 f_before[3] = { 0, 0, 0 };
++	u64 f_after[3] = { 0, 0, 0 };
++	u64 delta_ena, delta_run;
++	bool check_follower = false;
 +
-+	b_attr.disabled = 1;
-+	b_attr.sample_period = base_attr->sample_period ?: 10000;
-+	b_attr.sample_type = bulk_mask;
-+	b_attr.sample_regs_user = reg_bit;
-+	b_attr.sample_regs_intr = reg_bit;
-+	b_attr.sample_stack_user = 64;
-+	b_attr.exclude_callchain_kernel = b_attr.exclude_kernel;
-+	b_attr.inherit = 0;
-+	b_fd = sys_perf_event_open(&b_attr, pid, cpu, -1, flags);
-+	if (b_fd >= 0) {
-+		close(b_fd);
-+		pmu->probed.sample_types |= bulk_mask;
++	if (read(leader_fd, before, sizeof(before)) != sizeof(before))
++		return false;
++
++	if (last_fd >= 0 && read(last_fd, f_before, sizeof(f_before)) == sizeof(f_before))
++		check_follower = true;
++
++	if (ioctl(leader_fd, PERF_EVENT_IOC_ENABLE, PERF_IOC_FLAG_GROUP) < 0)
++		return false;
++
++	for (int spin = 0; spin < 20000; spin++)
++		barrier();
++
++	ioctl(leader_fd, PERF_EVENT_IOC_DISABLE, PERF_IOC_FLAG_GROUP);
++
++	if (read(leader_fd, after, sizeof(after)) != sizeof(after))
++		return false;
++
++	if (check_follower && read(last_fd, f_after, sizeof(f_after)) != sizeof(f_after))
++		return false;
++
++	delta_ena = after[1] - before[1];
++	delta_run = after[2] - before[2];
++	if (delta_ena == 0 || delta_run != delta_ena)
++		return false;
++
++	if (check_follower) {
++		u64 f_delta_ena = f_after[1] - f_before[1];
++		u64 f_delta_run = f_after[2] - f_before[2];
++
++		if (f_delta_ena == 0 || f_delta_run != f_delta_ena)
++			return false;
 +	}
 +
-+	for (unsigned int shift = 0; (1ULL << shift) < PERF_SAMPLE_MAX; shift++) {
-+		u64 bit = 1ULL << shift;
-+		struct perf_event_attr attr = *base_attr;
-+		int fd;
-+
-+		if (pmu->probed.sample_types & bit)
-+			continue;
-+
-+		attr.disabled = 1;
-+		attr.sample_period = base_attr->sample_period ?: 10000;
-+		attr.sample_type = bit;
-+
-+		switch (bit) {
-+		case PERF_SAMPLE_BRANCH_STACK:
-+			attr.branch_sample_type = PERF_SAMPLE_BRANCH_ANY |
-+				(attr.exclude_kernel ? PERF_SAMPLE_BRANCH_USER : 0);
-+			break;
-+		case PERF_SAMPLE_CALLCHAIN:
-+			attr.exclude_callchain_kernel = attr.exclude_kernel;
-+			break;
-+		case PERF_SAMPLE_REGS_USER:
-+			attr.sample_regs_user = reg_bit;
-+			break;
-+		case PERF_SAMPLE_REGS_INTR:
-+			attr.sample_regs_intr = reg_bit;
-+			break;
-+		case PERF_SAMPLE_STACK_USER:
-+			attr.sample_stack_user = 64;
-+			break;
-+		case PERF_SAMPLE_READ:
-+			attr.inherit = 0;
-+			break;
-+		default:
-+			break;
-+		}
-+
-+		fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+		if (fd < 0 && bit == PERF_SAMPLE_BRANCH_STACK) {
-+			attr.branch_sample_type = PERF_SAMPLE_BRANCH_ANY;
-+			fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+		}
-+		if (fd < 0 && bit != PERF_SAMPLE_IP) {
-+			attr.sample_type = PERF_SAMPLE_IP | bit;
-+			fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+		}
-+		if (fd >= 0) {
-+			close(fd);
-+			pmu->probed.sample_types |= bit;
-+		}
-+	}
-+
-+	pmu->probed.can_branch_stack = !!(pmu->probed.sample_types & PERF_SAMPLE_BRANCH_STACK);
-+	pmu->probed.can_callchain = !!(pmu->probed.sample_types & PERF_SAMPLE_CALLCHAIN);
-+	pmu->probed.can_data_src = !!(pmu->probed.sample_types & PERF_SAMPLE_DATA_SRC);
-+	pmu->probed.can_weight = !!(pmu->probed.sample_types & PERF_SAMPLE_WEIGHT);
++	return true;
 +}
 +
- static void __perf_pmu__probe(struct perf_pmu *pmu, int pmu_cpu)
- {
- 	struct probe_candidates cands = { .nr = 0 };
-@@ -3358,6 +3449,10 @@ static void __perf_pmu__probe(struct perf_pmu *pmu, int pmu_cpu)
- 		pmu->probed.can_sample = true;
++/*
++ * Probe the maximum number of events in a group that are counted
++ * simultaneously, without multiplexing. Opening a group doesn't imply it can
++ * be scheduled, many PMUs accept groups of enabled events that can never be
++ * counted, so after each follower is added the group is enabled and checked
++ * to be running.
++ */
++static void probe_group_limits(const struct perf_event_attr *attrs, size_t nr_attrs,
++			       pid_t pid, int cpu, unsigned long flags,
++			       int *max_size, bool *capped)
++{
++	struct perf_event_attr leader_attr;
++	int leader_fd;
++	int fds[MAX_PROBE_GROUP_SIZE];
++	int nr_followers = 0;
++	enum rlimit_action set_rlimit = NO_CHANGE;
++
++	*max_size = 0;
++	*capped = false;
++
++	if (!attrs || nr_attrs == 0)
++		return;
++
++	leader_attr = attrs[0];
++	leader_attr.disabled = 1;
++	leader_attr.read_format = PERF_FORMAT_TOTAL_TIME_ENABLED | PERF_FORMAT_TOTAL_TIME_RUNNING;
++
++	/* The times are needed to determine whether the group is counting. */
++	leader_fd = sys_perf_event_open(&leader_attr, pid, cpu, -1, flags);
++	if (leader_fd < 0)
++		return;
++
++	if (!check_group_active(leader_fd, -1))
++		goto out;
++	*max_size = 1;
++
++	for (int count = 2; count <= MAX_PROBE_GROUP_SIZE; count++) {
++		struct perf_event_attr follower_attr = attrs[(count - 1) % nr_attrs];
++		int fd;
++
++		follower_attr.disabled = 0;
++		follower_attr.read_format = leader_attr.read_format;
++
++		fd = sys_perf_event_open(&follower_attr, pid, cpu, leader_fd, flags);
++		if (fd < 0 && errno == EMFILE && rlimit__increase_nofile(&set_rlimit))
++			fd = sys_perf_event_open(&follower_attr, pid, cpu, leader_fd, flags);
++		if (fd < 0) {
++			/* The leader's times show whether the whole group is counting. */
++			follower_attr.read_format = 0;
++			fd = sys_perf_event_open(&follower_attr, pid, cpu, leader_fd, flags);
++		}
++		if (fd < 0)
++			break;
++
++		fds[nr_followers++] = fd;
++		if (!check_group_active(leader_fd, fd))
++			break;
++		*max_size = count;
++	}
++
++	if (*max_size >= MAX_PROBE_GROUP_SIZE)
++		*capped = true;
++out:
++	for (int i = 0; i < nr_followers; i++)
++		close(fds[i]);
++	close(leader_fd);
++}
++
+ enum probe_exclude_flag {
+ 	PROBE_EXCLUDE_USER,
+ 	PROBE_EXCLUDE_KERNEL,
+@@ -3909,6 +4026,99 @@ static void __perf_pmu__probe(struct perf_pmu *pmu, int pmu_cpu)
+ 		}
  	}
  
-+	/* 2. All enum perf_event_sample_format types */
-+	if (pmu->probed.can_sample)
-+		probe_sample_types(pmu, &base_attr, pid, cpu, flags);
++	/* 6. Max number of events in a group counted simultaneously. */
++	if (pmu->name && (!strcmp(pmu->name, "kprobe") || !strcmp(pmu->name, "uprobe"))) {
++		if (pmu->probed.can_leader_sampling || pmu->probed.can_sw_grouping) {
++			pmu->probed.max_group_size = MAX_PROBE_GROUP_SIZE;
++			pmu->probed.max_group_capped = true;
++		} else {
++			pmu->probed.max_group_size = 1;
++		}
++	} else {
++		probe_group_limits(group_attrs, nr_group_attrs, pid, cpu, flags,
++				   &pmu->probed.max_group_size,
++				   &pmu->probed.max_group_capped);
++	}
++
++	/*
++	 * On core PMUs, cycles/instructions may use fixed counters in addition
++	 * to general-purpose (GP) programmable counters. Probe a GP-only event
++	 * group rotating through distinct GP events to determine the GP limit.
++	 */
++	if (pmu->is_core) {
++		static const char * const gp_events[] = {
++			"branches",
++			"branch-misses",
++			"cache-misses",
++			"cache-references",
++			"bus-cycles",
++			"stalled-cycles-frontend",
++			"stalled-cycles-backend",
++		};
++		static const int gp_configs[] = {
++			PERF_COUNT_HW_BRANCH_INSTRUCTIONS,
++			PERF_COUNT_HW_BRANCH_MISSES,
++			PERF_COUNT_HW_CACHE_MISSES,
++			PERF_COUNT_HW_CACHE_REFERENCES,
++			PERF_COUNT_HW_BUS_CYCLES,
++			PERF_COUNT_HW_STALLED_CYCLES_FRONTEND,
++			PERF_COUNT_HW_STALLED_CYCLES_BACKEND,
++		};
++		struct perf_event_attr gp_attrs[MAX_PROBE_GROUP_SIZE];
++		size_t nr_gp_attrs = 0;
++		pid_t gp_pid = pid;
++		int gp_cpu = cpu;
++		int gp_err = 0;
++
++		for (size_t i = 0;
++		     i < ARRAY_SIZE(gp_events) && nr_gp_attrs < MAX_PROBE_GROUP_SIZE; i++) {
++			char gp_buf[256];
++			struct perf_event_attr gp_attr;
++			bool parsed;
++
++			snprintf(gp_buf, sizeof(gp_buf), "%s/%s/", pmu->name, gp_events[i]);
++			memset(&gp_attr, 0, sizeof(gp_attr));
++			parsed = parse_candidate_attr(gp_buf, &gp_attr);
++			if (!parsed) {
++				gp_attr.type = PERF_TYPE_HARDWARE;
++				gp_attr.size = sizeof(gp_attr);
++				gp_attr.config = gp_configs[i];
++				if (perf_pmus__host_supports_extended_type())
++					gp_attr.config |= (__u64)pmu->type << PERF_PMU_TYPE_SHIFT;
++			}
++			gp_attr.sample_period = base_attr.sample_period;
++			gp_attr.freq = base_attr.freq;
++			gp_attr.sample_type = base_attr.sample_type;
++			gp_attr.exclude_user = base_attr.exclude_user;
++			gp_attr.exclude_kernel = base_attr.exclude_kernel;
++			gp_attr.exclude_hv = base_attr.exclude_hv;
++			gp_attr.exclude_idle = base_attr.exclude_idle;
++			gp_attr.exclude_host = base_attr.exclude_host;
++			gp_attr.exclude_guest = base_attr.exclude_guest;
++			gp_attr.disabled = 1;
++
++			if (nr_gp_attrs == 0) {
++				if (try_open_attr_variants(&gp_attr, false, pmu_cpu,
++							   flags, &gp_pid, &gp_cpu, &gp_err)) {
++					gp_attrs[nr_gp_attrs++] = gp_attr;
++				}
++			} else {
++				int fd = sys_perf_event_open(&gp_attr, gp_pid, gp_cpu, -1, flags);
++
++				if (fd >= 0) {
++					close(fd);
++					gp_attrs[nr_gp_attrs++] = gp_attr;
++				}
++			}
++		}
++
++		if (nr_gp_attrs > 0) {
++			probe_group_limits(gp_attrs, nr_gp_attrs, gp_pid, gp_cpu, flags,
++					   &pmu->probed.max_gp_group_size,
++					   &pmu->probed.max_gp_group_capped);
++		}
++	}
 +
  	if (keepalive_fd >= 0)
  		close(keepalive_fd);
  	pmu->probed.checked = true;
 diff --git a/tools/perf/util/pmu.h b/tools/perf/util/pmu.h
-index ddcd28b3cae5..658485faa05d 100644
+index 8efffbac3cbf..cacb8bc5198b 100644
 --- a/tools/perf/util/pmu.h
 +++ b/tools/perf/util/pmu.h
-@@ -226,10 +226,23 @@ struct perf_pmu {
- 		bool can_count;
- 		/** @probed.can_sample: Supports interrupt-based sampling (sample_period > 0). */
- 		bool can_sample;
-+		/** @probed.can_branch_stack: Supports PERF_SAMPLE_BRANCH_STACK. */
-+		bool can_branch_stack;
-+		/** @probed.can_callchain: Supports PERF_SAMPLE_CALLCHAIN. */
-+		bool can_callchain;
-+		/** @probed.can_data_src: Supports PERF_SAMPLE_DATA_SRC. */
-+		bool can_data_src;
-+		/** @probed.can_weight: Supports PERF_SAMPLE_WEIGHT. */
-+		bool can_weight;
+@@ -278,6 +278,10 @@ struct perf_pmu {
+ 		bool exclude_host;
+ 		/** @probed.exclude_guest: Supports perf_event_attr::exclude_guest. */
+ 		bool exclude_guest;
++		/** @probed.max_group_capped: Was max_group_size capped at probe limit? */
++		bool max_group_capped;
++		/** @probed.max_gp_group_capped: Was max_gp_group_size capped at probe limit? */
++		bool max_gp_group_capped;
  		/** @probed.probe_event: Name of the event used to probe the PMU. */
  		char *probe_event;
  		/** @probed.open_err: errno if open_supported is false. */
- 		int open_err;
+@@ -286,6 +290,16 @@ struct perf_pmu {
+ 		int max_precise;
+ 		/** @probed.precise_mask: Bitmask of supported precise_ip levels (1..3). */
+ 		unsigned int precise_mask;
 +		/**
-+		 * @probed.sample_types: Bitmask of supported
-+		 * enum perf_event_sample_format flags.
++		 * @probed.max_group_size: Max events in a group counted
++		 * simultaneously, without multiplexing.
 +		 */
-+		u64 sample_types;
- 	} probed;
- };
- 
++		int max_group_size;
++		/**
++		 * @probed.max_gp_group_size: Max general-purpose counter events
++		 * in a group counted simultaneously, without multiplexing.
++		 */
++		int max_gp_group_size;
+ 		/**
+ 		 * @probed.sample_types: Bitmask of supported
+ 		 * enum perf_event_sample_format flags.
 -- 
 2.56.0.385.gac671c819a-goog
 
