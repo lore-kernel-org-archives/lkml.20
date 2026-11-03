@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793697929;
-	b=RVoD/Al6YwYVI1EFmxBWl7VznsFrhbTzkCSYgUxedlnPG2Xwd4M0+3YLK0B02vQt2iWS
-	 1IhDNajXBTYbY5y/1c+XzwUJq5vrAE2BGhOIrabsqosdpz3UppnrCxHP9uP4h3inbOX08
-	 +NcVpNsq61Jq4QY1Ln9SeCI+RiO+Xj1Njbs7O03sT3vwuLi8nha5Ng4qeMZLqgxxvvbGU
-	 /4MbARZNWHbkWLbquOaQzFJvl7RSj82wDP9PsiXlvmwYhFADGJdNODNpO3BorDvMNqux8
-	 UuVOokU5E7g0tujTnSf96uvw9uybhZwRWUVPS6EA6lrzY1qT08/fohzqqAob08jxEqw==
+	b=tAbuP5MMugOxeL72lCHlyr6fq75IdsR1cpl++376AV7N19sg2fZnVEnKAjHrSjx9GXBN
+	 I3922RTjrZ+J5sR9Dc5FcTKd6bgK645d0LCr2XMBQyVJHaU4VYeytf05O+VtqzU2RVQBU
+	 ehhOBeq02grEuMidKdowQozQr6+2qOYFFhx2z9f+DGU2PYdRIYasWMs1kPkEF8xGoVfdI
+	 no3LNJg6n9ykSbmWXHR4ZaLBw23klAWXfvwquejcaCnN6feCjw3bvv+GfHwT0MZNPg6eg
+	 FP/K8K7jhoTkRz86fnE4mXit0e1lXzG1PlBwZEGmLQaJT5/5JwYRtrs5IKW8L5ULzog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793697929;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,69 +13,67 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=KSnP4S9euXo8SyEvDVfvmfv9B6rnjJbFdgeaCBJsUmQ=;
-	b=MU7DivQxIvUHiFR5trCzB2fildJO7V0nabdc9ybz/rLnW8DMQ2c6rsrZmILo9UtrBwJs
-	 /kdKVEHqflsTev+xl7wiEn01oTjJta25EwQMGd6ZWj6zS2iV6+xq9kTRed5ncHSZKvkD8
-	 IeUdJjN/0O8cDREoDmnQFzNT275Xiz+LmzX47acBYfrjcuAH5WJsjElPcmU9ffcX+VPfF
-	 ANIHb3rf+KWDalp1AiHwTpV2jyJuxtkSI2nH95QfjzMGCRGkFHghJRNJdwZhSlVX2TQ5i
-	 fg3zi7kURewHzHww6bF8ScM1CiTFUELA9FqoxEhGeOmFxCAlpvPkb70Fi1zjMElMo0A==
+	bh=VzjsOwpA7+tDGhVV1gOZnFASbF1Yw3cdRY+PIzifsHM=;
+	b=4vSBDb6lmAK1XyfIlXttIWbmvYglqCtcD97D/JECYQLcL3/NlMsrM9zkJJ8mbQstGO7h
+	 /Adqhw+HbewmvDxK8lYSRTd6Nav9QHUArfoFcjmV51jdqXqmXpTdH4guSXj2FvnT68D60
+	 Po6szfdM+9VcKxMgrhyc8EXcBkCJ1/oaIAob4vU2GhA7h7T4xMpsgwgFP668Zypadbh15
+	 oDXIMdayprPOo0dsDnUMo2GC31vvQpm6AefYoPc2IHfxarBBg9Q5jboXraP6R+eg3t46W
+	 WVLOOMtO6BfcMCnpwd2j35g74t7MT3siVtcTFNcPauZynkkRLuVYujhTo76miB/IwtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l1JQssXR;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eAHuIoQt;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2335606A329;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9CD606A326;
 	Tue,  3 Nov 2026 09:25:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2335606A329
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A9CD606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l1JQssXR
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eAHuIoQt
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793697928; x=1825233928;
+  t=1793697927; x=1825233927;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=JtthRFrvojy0NIzSq09XA/lQI0bfB+fxouHS5omR5kg=;
-  b=l1JQssXRzuhhcPsw0ISEv7xxrcZvJ0+davdmjdpB3qYzpugia4Jd1W3o
-   XpOFq2rVO1Ne56J3yIhDRBgAG/lT6BpI3ZbXNQDlvY0lT3stRBRyOi1HM
-   TCsGmxC+O+h5FSlrt7tUOq9ZXNzDDJaVfEDOw3qLJH4x/cz725CrbJC/T
-   XSjwggb1A/D9XyzxPc6LMylb4jaZ9Z48t1hfdoS1cYaJrHsuDLnDAXazY
-   8Kg6bOWgTOffOf7cJYIhX4FfTYtbyDVDppX9aLhzqKyWRySmSkeHz3ugE
-   iq4/zCcN3bZTggoG9yDc3L43Mp7/UyhbGBtB7e1Zm1IpfDRLb3e/D2Nwi
-   g==;
-X-CSE-ConnectionGUID: edf871PPQCu98pSShMpj9Q==
-X-CSE-MsgGUID: yNzcjRySQUCxvOkuQc+3pg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2445085"
+  bh=axBssC8auNsg/gQjNzUNBr0llMklPS1mEy+A5Zk0qHM=;
+  b=eAHuIoQtLPsChkAFLGK2sAQ5RCXbR5EG0BopHzkFh8trwEPAo4wIG9T2
+   pX+CKUL+ByFfQhlIZeBi5XXtaqpvowcuTR54FY+O44360Vd5MbTCPDsOs
+   juUdeKyaZS4AnNoQGQWTPILiL1VRgZccvFEhw2JD9HBUrwzcUQHDucSR8
+   7Iv6kVKgQOWisQqKiS1A8ccC+jDveJwVjnwbE4WIf32flcWPPPM0klmNE
+   Jic4n89r5pNo9C+IjnqdufD5VxZITv9ncMe2z37XaSXU5lAwxRGsHBpWV
+   ME4JSV/uDHkW3r0SxJuQuFYKaDit7wQHGgCzD2YofJoajC2aQZVcAv+IK
+   w==;
+X-CSE-ConnectionGUID: BnriHMpdSG2qUHvC7WUfVA==
+X-CSE-MsgGUID: IU/T2jQYRkau75x561PNTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2442660"
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2445085"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 01:25:27 -0800
-X-CSE-ConnectionGUID: iS0V7koUQsGr21cTJoOHXg==
-X-CSE-MsgGUID: Iz/OHAS7Rb+hmhs2mupQ4g==
+   d="scan'208";a="2442660"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 01:25:27 -0800
+X-CSE-ConnectionGUID: 6uSocVP+RB6asO/i3BzVvg==
+X-CSE-MsgGUID: S1uYRFcLR9m/wi3L8sVdmQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6725543"
+   d="scan'208";a="6375782"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 03 Nov 2026 01:25:25 -0800
+  by orviesa001.jf.intel.com with ESMTP; 03 Nov 2026 01:25:25 -0800
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xOAlf-00000000iYM-05lv;
-	Tue, 03 Nov 2026 09:25:23 +0000
-Date: Tue, 3 Nov 2026 17:25:08 +0800
+	id 1xOAle-00000000iYK-3nYc;
+	Tue, 03 Nov 2026 09:25:22 +0000
+Date: Tue, 3 Nov 2026 17:25:06 +0800
 From: kernel test robot <lkp@intel.com>
-To: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>, jikos@kernel.org,
-	bentiss@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
-Subject: Re: [PATCH v2] HID: wacom: replace sprintf calls with safer
- alternatives
-Message-ID: <202611031735.MAqF2fN1-lkp@intel.com>
-References: <20261101054830.291749-1-nehuenlian.kernel@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev,
+	Nicolas Saenz Julienne <nsaenz@amazon.com>
+Subject: Re: [PATCH 17/45] KVM: Introduce NR/NW/NX memory attributes
+Message-ID: <202611031642.2wbBv9l5-lkp@intel.com>
+References: <20261102174512.8903-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,95 +85,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261101054830.291749-1-nehuenlian.kernel@gmail.com>
+In-Reply-To: <20261102174512.8903-1-pbonzini@redhat.com>
 
-Hi Nehuen,
+Hi Paolo,
 
 kernel test robot noticed the following build errors:
 
-[auto build test ERROR on hid/for-next]
-[also build test ERROR on linus/master v7.3 next-20261030]
+[auto build test ERROR on kvm/queue]
+[also build test ERROR on kvm/next linus/master next-20261030]
+[cannot apply to mst-vhost/linux-next kvm/linux-next v7.3]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Nehuen-Lian-Bova/HID-wacom-replace-sprintf-calls-with-safer-alternatives/20261101-024830
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
-patch link:    https://lore.kernel.org/r/20261101054830.291749-1-nehuenlian.kernel%40gmail.com
-patch subject: [PATCH v2] HID: wacom: replace sprintf calls with safer alternatives
-config: i386-randconfig-1000-20261103 (https://download.01.org/0day-ci/archive/20261103/202611031735.MAqF2fN1-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031735.MAqF2fN1-lkp@intel.com/reproduce)
+url:    https://github.com/intel-lab-lkp/linux/commits/Paolo-Bonzini/KVM-nVMX-nSVM-check-unconditionally-whether-CR3-is-valid/20261102-124045
+base:   https://git.kernel.org/pub/scm/virt/kvm/kvm.git queue
+patch link:    https://lore.kernel.org/r/20261102174512.8903-1-pbonzini%40redhat.com
+patch subject: [PATCH 17/45] KVM: Introduce NR/NW/NX memory attributes
+config: i386-randconfig-1010-20261103 (https://download.01.org/0day-ci/archive/20261103/202611031642.2wbBv9l5-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031642.2wbBv9l5-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611031735.MAqF2fN1-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611031642.2wbBv9l5-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
->> drivers/hid/wacom_sys.c:1842:30: error: incompatible pointer to integer conversion passing 'char[18]' to parameter of type '__size_t' (aka 'unsigned int') [-Wint-conversion]
-    1842 |         snprintf(battery->bat_name, "wacom_battery_%ld", n);
-         |                                     ^~~~~~~~~~~~~~~~~~~
-   include/linux/sprintf.h:13:47: note: passing argument to parameter 'size' here
-      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
-         |                                               ^
->> drivers/hid/wacom_sys.c:1842:51: error: incompatible integer to pointer conversion passing 'unsigned long' to parameter of type 'const char *' [-Wint-conversion]
-    1842 |         snprintf(battery->bat_name, "wacom_battery_%ld", n);
-         |                                                          ^
-   include/linux/sprintf.h:13:65: note: passing argument to parameter 'fmt' here
-      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
-         |                                                                 ^
-   2 errors generated.
+   In file included from <command-line>:
+   In function 'kvm_vm_ioctl_set_mem_attributes',
+       inlined from 'kvm_vm_ioctl' at arch/x86/kvm/../../../virt/kvm/kvm_main.c:5483:7:
+>> include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_799' declared with attribute error: BUILD_BUG_ON failed: sizeof(attrs->attributes) != sizeof(unsigned long)
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |                                             ^
+   include/linux/compiler_types.h:683:25: note: in definition of macro '__compiletime_assert'
+     683 |                         prefix ## suffix();                             \
+         |                         ^~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+      40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:51:9: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      51 |         BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
+         |         ^~~~~~~~~~~~~~~~
+   arch/x86/kvm/../../../virt/kvm/kvm_main.c:2736:9: note: in expansion of macro 'BUILD_BUG_ON'
+    2736 |         BUILD_BUG_ON(sizeof(attrs->attributes) != sizeof(unsigned long));
+         |         ^~~~~~~~~~~~
 
 
-vim +1842 drivers/hid/wacom_sys.c
+vim +/__compiletime_assert_799 +702 include/linux/compiler_types.h
 
-  1820	
-  1821	static int __wacom_initialize_battery(struct wacom *wacom,
-  1822					      struct wacom_battery *battery)
-  1823	{
-  1824		static atomic_t battery_no = ATOMIC_INIT(0);
-  1825		struct device *dev = &wacom->hdev->dev;
-  1826		struct power_supply_config psy_cfg = { .drv_data = battery, };
-  1827		struct power_supply *ps_bat;
-  1828		struct power_supply_desc *bat_desc = &battery->bat_desc;
-  1829		unsigned long n;
-  1830		int error;
-  1831	
-  1832		if (!devres_open_group(dev, bat_desc, GFP_KERNEL))
-  1833			return -ENOMEM;
-  1834	
-  1835		battery->wacom = wacom;
-  1836	
-  1837		n = atomic_inc_return(&battery_no) - 1;
-  1838	
-  1839		bat_desc->properties = wacom_battery_props;
-  1840		bat_desc->num_properties = ARRAY_SIZE(wacom_battery_props);
-  1841		bat_desc->get_property = wacom_battery_get_property;
-> 1842		snprintf(battery->bat_name, "wacom_battery_%ld", n);
-  1843		bat_desc->name = battery->bat_name;
-  1844		bat_desc->type = POWER_SUPPLY_TYPE_BATTERY;
-  1845		bat_desc->use_for_apm = 0;
-  1846	
-  1847		ps_bat = devm_power_supply_register(dev, bat_desc, &psy_cfg);
-  1848		if (IS_ERR(ps_bat)) {
-  1849			error = PTR_ERR(ps_bat);
-  1850			goto err;
-  1851		}
-  1852	
-  1853		power_supply_powers(ps_bat, &wacom->hdev->dev);
-  1854	
-  1855		battery->battery = ps_bat;
-  1856	
-  1857		devres_close_group(dev, bat_desc);
-  1858		return 0;
-  1859	
-  1860	err:
-  1861		devres_release_group(dev, bat_desc);
-  1862		return error;
-  1863	}
-  1864	
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  688  
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  689  #define _compiletime_assert(condition, msg, prefix, suffix) \
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  690  	__compiletime_assert(condition, msg, prefix, suffix)
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  691  
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  692  /**
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  693   * compiletime_assert - break build and emit msg if condition is false
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  694   * @condition: a compile-time constant condition to check
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  695   * @msg:       a message to emit if condition is false
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  696   *
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  697   * In tradition of POSIX assert, this macro will break the build if the
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  698   * supplied condition is *false*, emitting the supplied error message if the
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  699   * compiler has support to do so.
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  700   */
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  701  #define compiletime_assert(condition, msg) \
+eb5c2d4b45e3d2d Will Deacon 2020-07-21 @702  	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  703  
 
 --
 0-DAY CI Kernel Test Service
