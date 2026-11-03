@@ -1,55 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711746;
-	b=kFfphRSAHQcFhagKx+HSvJFuwF62Y6sq+EU3vyZiPkHS8qgIJVjfo7VLElGwJiIzcwpf
-	 awn/sqIg8P/ksYX1u2h6jZXdNUU+LZTwAwW7yNttyUuDyZuR1la+XBkZlMWyPGCjiKEJe
-	 ImVTeTkOntyqKarfD7j63VXEHwuUk4tPywIjo83B5M2wwwEI5qKW+w//LMISxFkYkTpVf
-	 qcp5JZTiYMCCDAatJtXPIvX+Kv2EJNqmH22wQKfZd0Au9W2LKTqk9ZmMkwWmc0kT1kOva
-	 Yj6PR2aUkd8i/pRdtecywLoLUEoodfx6wKi6eepLJ8fPAu5tRtdt5RbrnIEpY6qC1MA==
+	t=1793711756;
+	b=5CnVlRnl5TnurR1/gavNtjaNMdF9poR6CRlUu+mSt2SK9V9sU14KiqLr9MFxN72rRrho
+	 vA/caheo/736KQfNbBh31zX+bys/w1HyfU4SUURySSfh3BwPHT6zKyamthaEvLEAU69Fo
+	 f+XeYBQ1DVgnmEbsbL1N3IhFtktaA/soYJfh5Gn80JgAkgnF9oOGcqVhl1fCvD2EyCyOW
+	 OgAImNo++wpTP2FwJs31yloUbacjjN1aDDjda8Kosbtz32ihLrhnYSpda1Ekd2VMUkp7b
+	 YIBcFnNfVrhyYsCEG5aAwsh7tnhzs0pIYcOzgXs32fqpEqEWf4Xc7xYsxHtPSEKlatg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711746;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=cEu6w7zc9xGGvYxDWD1Er5JrgHrkBwXwDSIR3F4m0hM=;
-	b=xNb+i6MBygKKJJ/lz6XKx02pAagfuOWBgntDp0tsIyRkdn75rkwLqByLnZHHBWQjEDNB
-	 YNGLOtlnpXD2sHx2m9Yw/00y3DGsyHEuTgc9Sl/Nmg4WY+riaoFD8PHNksguJIFm5rBl3
-	 ce1tajMYjRiYSxKWduEcZgP9R/7PgeKlKBtfOLFcBkecgWg4oCJNG8EQvhpVE2YTjFtsp
-	 gJF9AX9Qh1p8E1P3hOzvMYPyvdNnxa8ZKN1hMf+uunhRmg4tAvllE4CJE6ALUtntpRnAr
-	 bdzdZqCF8rxICZWPRD9FE5AhJM63oszeIKJ6s7ags1J+JkUYaGyorNv1z8yyjU/VyRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711756;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=7ulnvN9VsCbKJ/5rQ+fv57lUtGef7Rza8nTzYqc8E6E=;
+	b=bI7NjmXumcrqP/HXzgXqkpCk893I7Sf3aUHR0xcwpvSccgbW7sv8IVYTjBSr81vdii/N
+	 0Uzzz0npL1ChH/cZYSyikZEG17wNnkBNRcWIizpFV9l/vGho3WizG9Lp2HIIUEK78bv87
+	 kxjSqsrE9Yxp4O6aJogRSi5gPHjbkn18hI3h8DVjsk3sdOYmyNXVcaPxp04NM75wg2PqW
+	 LlQ/z1nGGNhrH/bFQUkQe8SReKvASN7w60y88U1PIuPhbd0Ure7TDfMYBbxIPf+H6YAJP
+	 nTUPF0Jyq/ZJlN9dyGi1CfWLa+bYzhxID8MAn2muUxxGc5A9q4qPMjaHTRAd931OOfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1zhYdw7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=cjdns.fr;
+	spf=none smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b="J/JdBhFu";
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF088606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:15:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B000C606A326;
+	Tue,  3 Nov 2026 13:15:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B000C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1zhYdw7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D611F00A22
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:15:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793711745;
-	bh=cEu6w7zc9xGGvYxDWD1Er5JrgHrkBwXwDSIR3F4m0hM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f1zhYdw7G0DFKoEJMu2JdhTahA4X7F+lNt8oTUflBFnROSbXXQr6TbGzNO4Prboay
-	 GtY9cDxaOGFRESEh347lCHAlrCvnE/6V1y2zU6xl6nP7TPn6SaCR0XanTIpmaOoxgt
-	 q7ipuzHCcxwPkBwut2/3ZCTGJH05Ez1/7LYVb+UcHXmGMgGcQ64f9MbZM+52vDuzqR
-	 0ES8gT68871HGTKBEt9S/CupCrh3k9Gk35wFrAgFez4Qox7R7uC1+d47TbHiaAJ6ne
-	 +BXoH+HdqKacD+0m7bVqWtUD0s6se716WLDiS/aktJ30RGeeVcSY2ZRtGk/biISdoZ
-	 dRPN0vpxGWp7A==
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-49429181ce9so2523398fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:15:45 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByzySYpH5hSb1+5UFIVH+XorrBReJ5NbpCi+tC4ygoTvLTSNTLmpD3s65PEMecbwDj1BbDviQlQMwcZzwg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OPNKsqiRktfTGAFZPX+pC7BJF1IF4PHcHuNcTScBgYhgU07J4
-	c7pN9q3hf1qIwjHPjanBo+YAhZSYIQkfoJwdNBgW8fN1E+Hahy0fPNL2i9trErA0Jwz6Pxcw3/k
-	Nh8bLBVI+boprVA24J7T48Cg1efbDy1U=
-X-Received: by 2002:a05:6871:ac03:b0:494:b8f4:9a42 with SMTP id
- 586e51a60fabf-4a9072d3ed5mr7152581fac.8.1793711744462; Tue, 03 Nov 2026
- 05:15:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=J/JdBhFu
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D4BB4273BB9;
+	Tue,  3 Nov 2026 14:15:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793711745; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=7ulnvN9VsCbKJ/5rQ+fv57lUtGef7Rza8nTzYqc8E6E=;
+	b=J/JdBhFuB1Lc17BCzKASBTrGoMuC5xDlVYh6Z005FWsIQ+l00oHjV8LmTml6Kl6fMP66+r
+	9Ix+RVrpBG5C66PfhmX3my5GYaaiwTymlM905oI51K2DG/IM1Giu+kqxzgGmAyvLRTZaTd
+	YhGNyGdgwdqVU+NquzGUQ5z1PddP5LFTCzJCtKlnda9DAvS2RXzaJI6z4dGzMC0HwNIKLB
+	6erpbH0qh32nlxnCirtPNjxVTk9h6wLybxcxZTWN18SszPGE0wzB/fgI+e80oqgeuV3lK9
+	D7szzMK5mhi79mzbP61lfXdWDkH5IuxSzDXR4mSZeGubb6ptkSueuvWsfj8C5Q==
+Message-ID: <39cb446e-b667-4766-bd79-2635eb36166c@cjdns.fr>
+Date: Tue, 3 Nov 2026 14:15:32 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,47 +55,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1792838740.git.julius@bairaktaris.de> <3733295a358d34df6220ea924d2b710ca537cf6d.1792838740.git.julius@bairaktaris.de>
- <20261103124438.GM865646@horms.kernel.org>
-In-Reply-To: <20261103124438.GM865646@horms.kernel.org>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 3 Nov 2026 14:15:33 +0100
-X-Gmail-Original-Message-ID: <CAL4WiirPsc6e_j8eWZVQsrrxD7NN1sAq=D7NxCSzFEqD_2K3UQ@mail.gmail.com>
-X-Gm-Features: AclHuK_2zNVn7Z2lHHOyUpXGKRKtOJ8o0wEl1ZUUg5R9TrhPykKJ2PymiNKDISs
-Message-ID: <CAL4WiirPsc6e_j8eWZVQsrrxD7NN1sAq=D7NxCSzFEqD_2K3UQ@mail.gmail.com>
-Subject: Re: [PATCH net v4 4/4] ipmr: do not drop GSO packets that fit the MTU
- after segmentation
-To: Simon Horman <horms@kernel.org>
-Cc: Julius Bairaktaris <julius@bairaktaris.de>, netdev@vger.kernel.org, dsahern@kernel.org, 
-	idosch@nvidia.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, 
-	steffen.klassert@secunet.com, willemb@google.com, jiayuan.chen@linux.dev, 
-	mfleming@cloudflare.com, almasrymina@google.com, bigeasy@linutronix.de, 
-	richardbgobert@gmail.com, ecree.xilinx@gmail.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v4 6/7] dt-bindings: net: dsa: mediatek,mt7530: add EcoNet
+ EN751221 switches
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ chester.a.unal@arinc9.com, daniel@makrotopia.org, linux@armlinux.org.uk,
+ arinc.unal@arinc9.com, Landen.Chao@mediatek.com, dqfext@gmail.com,
+ sean.wang@mediatek.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
+References: <20261029184202.1859843-1-cjd@cjdns.fr>
+ <20261029184202.1859843-7-cjd@cjdns.fr>
+ <20261103-soft-lyrical-squid-c5a108@quoll>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20261103-soft-lyrical-squid-c5a108@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Le mar. 3 nov. 2026 =C3=A0 13:44, Simon Horman <horms@kernel.org> a =C3=A9c=
-rit :
->
-> On Sun, Nov 01, 2026 at 05:42:32PM +0100, Julius Bairaktaris wrote:
-> > ipmr_prepare_xmit() drops a packet with DF set when skb->len exceeds th=
-e
-> > route MTU, without checking whether it is a GSO packet. A UDP multicast
-> > stream received with fraglist GRO or UDP GRO forwarding enabled is
-> > aggregated into GSO packets, and every aggregate is dropped with
-> > FragFails, while ip_forward() lets the same packets pass by checking
-> > skb_gso_validate_network_len(). Do the same for multicast routing,
-> > leaving room for the outer header on tunnel vifs. ip6mr has no such
-> > check and leaves GSO packets to ip6_output().
-> >
-> > On an IPQ8074 router with fraglist GRO on, a 10 Mbit/s stream of
-> > 1316-byte DF datagrams routed by igmpproxy loses 14.5 to 15.5% (n=3D3)
-> > and 0% with this change.
-> >
-> > Fixes: 9fd1ff5d2ac7 ("udp: Support UDP fraglist GRO/GSO.")
-> > Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
->
-> Reviewed-by: Simon Horman <horms@kernel.org>
+Hello,
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Thanks for the review.
+
+On 03/11/2026 12:08, Krzysztof Kozlowski wrote:
+> On Thu, Oct 29, 2026 at 06:42:01PM +0000, Caleb James DeLisle wrote:
+>> The EcoNet EN751221 MIPS SoC integrates an MT7530 switch memory-mapped
+>> in the SoC register space. It is similar to the econet,en7528-switch
+>> except that ports 0..3 are 10/100 only, port 4 has a gigabit PHY, and
+>> port 5 has no PHY, but is in some implementations connected to a
+>> downstream MT7530 multi-chip module via a TRGMII link.
+>>
+>> The downstream MT7530 is similar to the MT7621 multi-chip module and
+>> has all gigabit ports.
+>>
+>> Add the econet,en751221-switch compatible with the same constraints as
+>> the other built-in switches and also add the econet,en751221-gswitch
+>> multi-chip-module switch whose port 6 is configured as a DSA link port.
+>>
+>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+>> ---
+>>   .../bindings/net/dsa/mediatek,mt7530.yaml     | 43 ++++++++++++++++++-
+>>   1 file changed, 41 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+>> index f98b9113ad12..011c94ef9554 100644
+>> --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+>> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+>> @@ -29,6 +29,12 @@ description: |
+>>     and the switch registers are directly mapped into SoC's memory map rather than
+>>     using MDIO. The DSA driver currently doesn't support MT7620 variants.
+>>   
+>> +  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
+>> +  gigabit PHY. Some EN751221 chips such as EN7513G and EN7526G have a multi-chip
+>> +  module implementation of the MT7530 as well as the on-die switch. In these
+>> +  packages, the multi-chip module is connected to port 5 of the on-die switch
+>> +  via a TRGMII link and allows for 5 gigabit ports.
+>> +
+>>     There is only the standalone version of MT7531.
+>>   
+>>     Port 5 on MT7530 supports various configurations:
+>> @@ -109,6 +115,14 @@ properties:
+>>             Built-in switch of the EcoNet EN7528 SoC
+>>           const: econet,en7528-switch
+>>   
+>> +      - description:
+>> +          Built-in switch of EcoNet EN751221 SoC
+> You can drop, pointless description, repeats the compatible.
+
+
+Perhaps reword "On-die switch of EcoNet EN751221 SoC" to avoid confusion 
+with MCM switch?
+
+
+>
+>> +        const: econet,en751221-switch
+>> +
+>> +      - description:
+>> +          Multi-chip module gigabit MT7530 in EN751221 SoC
+> Keep it in one line with description. No need to inflate it even more.
+
+
+OK
+
+
+>
+>> +        const: econet,en751221-gswitch
+> That's almost the same compatible, which makes me wonder if you describe
+> the same device twice. Same device, same compatible.
+
+
+Well, these are both MT7530 based, but one of them is on-die with the 
+SoC and the other one is an MCM so for the driver they are very 
+different - they're even loaded by different kmods. I think since one is 
+MMIO and the other is MDIO, using the same compatible won't cause a 
+driver problem - but I don't know if it's best practice to smooth over 
+such a difference or not. Your advice here would be most appreciated.
+
+
+Thanks,
+
+Caleb
+
+
+>
+> Best regards,
+> Krzysztof
