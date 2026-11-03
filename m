@@ -1,98 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701006;
-	b=FkmNA7N9s9LqA66tIyPOZPTxZA3r0smxG06jBeUOylGA5uzpc6auXUe0CQeul77UmMlZ
-	 S3teMgDluVJNtjDeHxcdPUxIRD1SyMWx1lMjPCwRpuH5jhMgsMYw66TXpzP64BdP+wKEG
-	 jOp26lGsSL4tM2iZLB0eKB69ROT/RxsbBejVQDXNmWHMGlgr1sOIvUQshPw6KZe+x4ib3
-	 mvelRgDmhW8x7Xs6VNmfi8hGeP6ExAkmctdt7JXMD+Dt5c4tL8IHwA44MeEmnoJjTFhu/
-	 pNmxWtO6PSxtJXH9WzKdJnrzkUpemnFEIm3qv3yf0SSgeHMVTyCCK8v10LdgFtc2THw==
+	t=1793701020;
+	b=Kcw2xBENjKg8BQtlK7E1HyVP8+Y4rZHRuKDJmR/kWmphUsdc2u5gP0sX/gq3FKHpZVLj
+	 V3DJlhhW3A4gkZEEPmXlRcNtmRKnVbWimWxJCORlhy5rKjO0U6lEkC6Fo19Uq1wHisO/Q
+	 e1xODo4dHVN90U5/C577AWJSVT7/0VFPCHjEREU+NqbMm7tAf9V3VG/gZyrHFBo8he7Oi
+	 BErqJOp31NN5QBr/cfBPhexECMphVV3UUp4YNqbaNP7fvBbSu63fCPS2lY7/jykh8+75S
+	 C8/fl4jMHmYz4WewoKkshhzAVt3nW3d+aZqjk522gQwdx243K2AhOykVvlhgGSEoLWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701006;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AO+1v3uf2PG5kc86URqUg6dn1Nltq7/yDM8x6vv4Ubo=;
-	b=0Mmh1S4o6kaGV1M90enNks2zcBko59WiIAkYHDYQ1IAH1tRmgJYYWYNbnJ6vjpExkE9e
-	 1SkL/focLz8pcfTsZg07MyXtrbGqMnUnLRsmzrvJt41yxHWn/YuKkIMOYbHe1mYCq8xTs
-	 XpG9rh6yjqslc94d4TgcdXEbuRKn4lGO7/uJhYHdODcIkOQZxiA1rCX/vAMrP/7NXYOJt
-	 O7zr7Is2diiJ/6YCumGlaG9GaK/IymTECWtuBL47mz+Drwzmic9CNj7CmI7LXluFw4KGj
-	 w9oTLJl8nRQww20iVR2hY/ljMybbZ+EVEISap4RTd/MkFiLrKdt7BP7rk+r2AnIyqdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701020;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=rRLij3XTVGso9Uz44bcLDss/GOkyK6j16uFo3GBaQE4=;
+	b=A5EUencz9ZpeqhltnTfqeeSKVcP9DbOWBR3/AYGaqrhOIKzAXJtUGHgp1AwGB4AUqC8r
+	 FLpq3kOGPm16C+HgXnOtmTQ5qFGtK5kok+1BsQjjMfC95iYH8PrdogZw8Saz1j2h0eyeN
+	 A1oax5Oqq7qJ0dpzBjxW3N3OwzVlaBaYIKcwdkGPSzWuKFyx0YQ+zEHq+zF/1Luozi0ff
+	 Nw7NjAwfKL6XNerZIsJ9J+uI8+vk2CDdnw12/ArlVM3AC7q05G7ZuSq7iga92F6Dk4VQ6
+	 QEicqETb45FCYjdn3J7lechPYQXKykQwhJNeS6RqVTQTrpHuxDCEzw6+su+GNiawzGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qg7R3vNy;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZoAMAXYZ;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB714606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:16:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB714606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179D1606A324;
+	Tue,  3 Nov 2026 10:16:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 179D1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qg7R3vNy
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-369f33df08eso7672052eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:16:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793701005; x=1794305805; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AO+1v3uf2PG5kc86URqUg6dn1Nltq7/yDM8x6vv4Ubo=;
-        b=qg7R3vNy8s70lD2fw2A2vSAJpTPycQTBTAPAL3SVg12+HzqCtYnUSwid3D/6oKXpwm
-         AlG9qpgUkGd/5p/3Dkk6B5/N68mBKxJeYBVyBv1mL1Ptnvd0QigWvtMfBmw7vTT7qKVA
-         QBZZw0HblKMcK9oxq7GT1cstsjxwbb3x8THf+nYKaBkESZaHt3nZmpfhiV9T+4vHPBMl
-         6jxnFJrWex8BY7pE3PYgJdp/WBn+WbHu6vYAjS5yegpQZJJvW04W2vF2omiGPHUl7Hp/
-         Hu9lwzLcX3i+6aMPr7FtPqBxiaMprBt93gnr0MAzBKsq0vrhJqTgLtRx/dMlx8f963gI
-         UEEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793701005; x=1794305805;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AO+1v3uf2PG5kc86URqUg6dn1Nltq7/yDM8x6vv4Ubo=;
-        b=qmRrRBRVwsHRNSmkVq3+5APglo296zYiHL37aSdoIUnEQxN6R0JlWylMKOFtQGCAJi
-         ujlSUmRkVJmC7FKgkoLO2foi+JFCgpAV4uLe3qB9BW4/uJqD0a9KDeIIMwBVGgJ+FYI8
-         h6+icrt7ULSjZjekv4qCK1Z1pRg7/lQAc2/xe16U7ZW4NHc61ldv5ALyfwwp+O/Zg6xs
-         o2uMgscXm/rvnv1jnmVTmtkUQD6QUmZQyNyDB2r7uDrmvWjhd4fyOUwuUL1FFZwu41kG
-         B+IOvgy3Sc2vl9PBJa1r+Da6IyR23Tf6BPD761/ddSWos6JDUydjyOYkyVUpfWSSDcsn
-         arlg==
-X-Forwarded-Encrypted: i=1; AKwUvBzLyITpic6IYv+wdml7ioH+hslVw27BiHveSA23UEHaoQtVFcOT2RuSNndvltfIOnqIt1FVssfoOGrtvuY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7eTiw76kcDeoJP4yaL7aDcve6XNEC+9m6cXafDYuSQznFA4Q9
-	j8kgUy2kDqMJaSy9SZ6WpOYj9poPkpTldWh5KGIgPUOApgRl3Ur3zrGD
-X-Gm-Gg: AYBFou2kyzLruHnyBll1bOFaY4upzIVKXeXo4ABdfxqW6UyjZsffNtUN3W2EVvlMqg8
-	Ekp1jggsWSiwFCvi9S1LXhhANMhsgwS0CsewyZa42C00oXLBLSklJLe49VdmC6Rb8wz/t2GkZ1t
-	jiKWxnolk2MqrAF6ui49x/D79tJ9DFoaRakQYqHXwDVGLvTy2o4g3jbHi8ISGFt/fDp/XRzRzAK
-	2fQQ/hc0yoivhnjMYU0LRZQLcArUTF65z1KlH0koyXtqXAHpXa36uVm76ZT7nWSt2xyE/GQ9hdH
-	Q+/nWsRqN35F+zInQqOpUFVLD6Zr8+h2SUsiX9Fav6CbsAXeBQ5ZUADWeCIezsMwaznxJ8diXRL
-	0WkXFAe/a1llgALmOVRx6bAqwWnhxtmrDSfP4qAkSgkkj+dhma+I4YHqmDDah4NxnODtDp7K8iK
-	0F+7EUVCy5aTqTvkXzbLCTbn6FGvvJbxXdLKV+Thrh5q3lrVRAAKziMCZiYVTlD63V/Y74MWobN
-	xeMx+DV7E4JiZfNzAdKJerNk+wSMaSpcMuE9Iv/tzmqK6UYZdcI7c7Dm+ZanR+OCvivCaxdZggx
-	RoofpcjGMHOkbdiPbMUdRgFZsUJwKSDvve9ic+tfGFRMWKMBMj1w/hq1hkQBz572s8yGYflgtwJ
-	8vlbxPMWgC7SUERw4Qytx0D1DBGskEQVVDYwno6djLG4HtwcygoEk5cKxMuToj7izyXJDaV0NDw
-	==
-X-Received: by 2002:a05:7301:fa4:b0:36a:713:a76b with SMTP id 5a478bee46e88-36a4236a5c5mr20608077eec.6.1793701004758;
-        Tue, 03 Nov 2026 02:16:44 -0800 (PST)
-Received: from arch-pc.genesyslogic.com.tw (2001-b400-e2d9-39f1-6373-5866-a392-6ad9.emome-ip6.hinet.net. [2001:b400:e2d9:39f1:6373:5866:a392:6ad9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1easm40304226eec.5.2026.11.03.02.16.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 02:16:43 -0800 (PST)
-From: Ben Chuang <benchuanggli@gmail.com>
-To: adrian.hunter@intel.com,
-	ulfh@kernel.org
-Cc: SeanHY.Chen@genesyslogic.com.tw,
-	boris.chen@genesyslogic.com.tw,
-	HL.Liu@genesyslogic.com.tw,
-	benchuanggli@gmail.com,
-	ben.chuang@genesyslogic.com.tw,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mmc: sdhci-pci-gli: Add Genesys Logic GL9768 support
-Date: Tue,  3 Nov 2026 18:16:22 +0800
-Message-ID: <20261103101622.213425-1-benchuanggli@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZoAMAXYZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=rRLij3XTVGso9Uz44bcLDss/GOkyK6j16uFo3GBaQE4=; b=ZoAMAXYZrR1rxiM3Ntu+4+j9Mp
+	SDUCqT/XSjYcoRGB0hnkrzDMhhkQD/FQur5SjpvV7goEusFaQAXLapmngYItkX9DgNNFzJdzB1ssV
+	CoUNzFXiGSwN4AWb1QC49oJE+B4X3W7u4IakXtCXszbyMTb/mdYIFFijsBbO0ypNmpagQMMi15h4L
+	BxUm4keCC9d2GzS7m1oo6sl6R/YqO6R7Br5Gp2PSG1/PvzcyTZwPIItYz+P1BKHS2yfVkp4YjfZc9
+	zeItOGyo6kJqHoJdIWrjpbUwxKq2KLdgHmW7Z4EASEyUQfA9MwSHS8xz5Ofu2RmRX3aRKQokJbFkY
+	/r8lJQ5Q==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOBZb-00000001wsV-2TAD;
+	Tue, 03 Nov 2026 10:16:59 +0000
+Date: Tue, 3 Nov 2026 02:16:59 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dm-devel@lists.linux.dev,
+	mtsai@redhat.com, colyli@suse.de, stable@vger.kernel.org
+Subject: Re: [PATCH] block: fix discard alignment for non-power-of-two
+ granularities
+Message-ID: <aum0m6cC98UhzHOB@infradead.org>
+References: <20261026000511.73371-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,76 +65,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026000511.73371-1-dennylin0707@gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Ben Chuang <ben.chuang@genesyslogic.com.tw>
+On Mon, Oct 26, 2026 at 12:05:11AM +0000, Hungyu Lin wrote:
+> bio_discard_limit() uses round_up() and round_down(), which require a
+> power-of-two alignment. However, discard_granularity need not be a power
+> of two. For example, dm-thin supports data block sizes that are arbitrary
+> multiples of 64 KiB and advertises the block size as its granularity.
+> 
+> With a 192 KiB granularity, discarding one complete block at offset
+> 384 KiB is split into 128 KiB and 64 KiB bios. Neither covers a complete
+> thin block, so dm-thin ignores both and the mapping remains allocated.
+> 
+> Use sector_div() to find the distance to the next granularity boundary,
+> and rounddown() to align the maximum bio size. This handles non-power-of-
+> two granularities while preserving the alignment for power-of-two ones.
+> 
+> Fixes: 9b15d109a6b2 ("block: improve discard bio alignment in __blkdev_issue_discard()")
+> Reported-by: Ming-Hung Tsai <mtsai@redhat.com>
+> Link: https://lore.kernel.org/r/CALjSBEvjbiGDVewuapWKhGDtaxZwcn4=22raUiBEOyj22rY7-g@mail.gmail.com
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  block/blk-lib.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/block/blk-lib.c b/block/blk-lib.c
+> index 688bc67cbf73..e0de5bb4d969 100644
+> --- a/block/blk-lib.c
+> +++ b/block/blk-lib.c
+> @@ -13,26 +13,25 @@
+>  static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
+>  {
+>  	unsigned int discard_granularity = bdev_discard_granularity(bdev);
+> -	sector_t granularity_aligned_sector;
+> +	unsigned int remainder;
+>  
+>  	if (bdev_is_partition(bdev))
+>  		sector += bdev->bd_start_sect;
+>  
+> -	granularity_aligned_sector =
+> -		round_up(sector, discard_granularity >> SECTOR_SHIFT);
+> +	remainder = sector_div(sector, discard_granularity >> SECTOR_SHIFT);
 
-The GL9768 is the successor to the GL9767 and uses a compatible
-register layout. Reuse the GL9767 driver for the GL9768 by adding
-the GL9768 PCI device ID to the device ID table.
+Please avoid using do_div (or the obsolete sector_div wrapper around) it
+becaus it modifies the first parameter in a sneaky and dangerous way.
 
-Clear bits 2 and 3 in the SD Express control register at offset
-0x940 when the driver initializes the device. This clears both
-bits to zero, matching the GL9767 default configuration.
+>  
+>  	/*
+>  	 * Make sure subsequent bios start aligned to the discard granularity if
+>  	 * it needs to be split.
+>  	 */
+> -	if (granularity_aligned_sector != sector)
+> -		return granularity_aligned_sector - sector;
+> +	if (remainder)
+> +		return (discard_granularity >> SECTOR_SHIFT) - remainder;
 
-Signed-off-by: Ben Chuang <ben.chuang@genesyslogic.com.tw>
----
- drivers/mmc/host/sdhci-pci-core.c | 1 +
- drivers/mmc/host/sdhci-pci-gli.c  | 7 +++++++
- drivers/mmc/host/sdhci-pci.h      | 1 +
- 3 files changed, 9 insertions(+)
+Also this is actually suboptimal, we can just remove the remainder from
+the full size.  Something like the untested patch below:
 
-diff --git a/drivers/mmc/host/sdhci-pci-core.c b/drivers/mmc/host/sdhci-pci-core.c
-index a9000f3bd419..db0417238131 100644
---- a/drivers/mmc/host/sdhci-pci-core.c
-+++ b/drivers/mmc/host/sdhci-pci-core.c
-@@ -1959,6 +1959,7 @@ static const struct pci_device_id pci_ids[] = {
- 	SDHCI_PCI_DEVICE(GLI, 9755, gl9755),
- 	SDHCI_PCI_DEVICE(GLI, 9763E, gl9763e),
- 	SDHCI_PCI_DEVICE(GLI, 9767, gl9767),
-+	SDHCI_PCI_DEVICE(GLI, 9768, gl9767),
- 	SDHCI_PCI_DEVICE_CLASS(AMD, SYSTEM_SDHCI, PCI_CLASS_MASK, amd),
- 	/* Generic SD host controller */
- 	{PCI_DEVICE_CLASS(SYSTEM_SDHCI, PCI_CLASS_MASK)},
-diff --git a/drivers/mmc/host/sdhci-pci-gli.c b/drivers/mmc/host/sdhci-pci-gli.c
-index b55618566d65..66452ed8cd8a 100644
---- a/drivers/mmc/host/sdhci-pci-gli.c
-+++ b/drivers/mmc/host/sdhci-pci-gli.c
-@@ -245,6 +245,8 @@
- #define PCIE_GLI_9767_SD_EXPRESS_CTL			0x940
- #define   PCIE_GLI_9767_SD_EXPRESS_CTL_SDEI_EXE		  BIT(0)
- #define   PCIE_GLI_9767_SD_EXPRESS_CTL_SD_EXPRESS_MODE	  BIT(1)
-+#define   PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_1		  BIT(2)
-+#define   PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_2		  BIT(3)
+diff --git a/block/blk-lib.c b/block/blk-lib.c
+index 688bc67cbf73..6c45f15c41a2 100644
+--- a/block/blk-lib.c
++++ b/block/blk-lib.c
+@@ -13,26 +13,22 @@
+ static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
+ {
+ 	unsigned int discard_granularity = bdev_discard_granularity(bdev);
+-	sector_t granularity_aligned_sector;
++	u32 unaligned_sectors;
  
- #define PCIE_GLI_9767_SD_DATA_MULTI_CTL				0x944
- #define   PCIE_GLI_9767_SD_DATA_MULTI_CTL_SELECT_UHS2		  BIT(5)
-@@ -1354,6 +1356,11 @@ static void gl9767_hw_setting(struct sdhci_pci_slot *slot)
- 		 PCIE_GLI_9767_SCR_CORE_PWR_D3_OFF;
- 	pci_write_config_dword(pdev, PCIE_GLI_9767_SCR, value);
+ 	if (bdev_is_partition(bdev))
+ 		sector += bdev->bd_start_sect;
  
-+	pci_read_config_dword(pdev, PCIE_GLI_9767_SD_EXPRESS_CTL, &value);
-+	value &= ~(PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_1 |
-+		   PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_2);
-+	pci_write_config_dword(pdev, PCIE_GLI_9767_SD_EXPRESS_CTL, value);
-+
- 	gl9767_vhs_read(pdev);
+-	granularity_aligned_sector =
+-		round_up(sector, discard_granularity >> SECTOR_SHIFT);
+-
+-	/*
+-	 * Make sure subsequent bios start aligned to the discard granularity if
+-	 * it needs to be split.
+-	 */
+-	if (granularity_aligned_sector != sector)
+-		return granularity_aligned_sector - sector;
+-
+ 	/*
+-	 * Align the bio size to the discard granularity to make splitting the bio
+-	 * at discard granularity boundaries easier in the driver if needed.
++	 * Align the bio size to the discard granularity to make splitting the
++	 * bio at discard granularity boundaries easier in the driver if needed.
++	 *
++	 * If the current sector is not aligned, shorten the range so that the
++	 * net one is aligned.
+ 	 */
+-	return round_down(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT;
++	div_u64_rem(sector, discard_granularity >> SECTOR_SHIFT,
++			&unaligned_sectors);
++	return (rounddown(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT) -
++		unaligned_sectors;
  }
  
-diff --git a/drivers/mmc/host/sdhci-pci.h b/drivers/mmc/host/sdhci-pci.h
-index f38f0bd4165c..bcae29f8d8da 100644
---- a/drivers/mmc/host/sdhci-pci.h
-+++ b/drivers/mmc/host/sdhci-pci.h
-@@ -81,6 +81,7 @@
- #define PCI_DEVICE_ID_GLI_9750		0x9750
- #define PCI_DEVICE_ID_GLI_9763E		0xe763
- #define PCI_DEVICE_ID_GLI_9767		0x9767
-+#define PCI_DEVICE_ID_GLI_9768		0x9768
- 
- /*
-  * PCI device class and mask
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.56.0
-
+ struct bio *blk_alloc_discard_bio(struct block_device *bdev,
