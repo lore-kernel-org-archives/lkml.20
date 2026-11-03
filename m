@@ -1,73 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670574;
-	b=g7rC3xiJHBW639ejn9tNr+xdmEiSPTnNIip5kg44dHzRh5EhIoNAuP9o34lgIzyI/CZq
-	 fymZZr8imAfSyA5e1KZG8PJpz8h9bPzbjOirhNJS5syZulV5XJlshbR+FSLeD/mcHcP1f
-	 zD+f0a+Zhy3DpH3NTNxmcxBDVdWAz3t6iOS5U+bBPQysX1htUrPixHqxi8UsfNSFz1/Ok
-	 3S4xKJqQcZZ8GcoKQsc6TurPJFdPfsCMsbqE5sZNn2+y6K+pw6wGg3pbrFuR/wVH75OwT
-	 aRqNqOAICf+4nNUlw0bgZ37OziKWG/UxMRjHYcwiixatYM3R3gCj6ohPF8mBnq/aMmA==
+	t=1793670684;
+	b=Tj2p1PMhvxHthFaj7BDQu32MYRfi8kiARz+oxIr+aPZ9NEEZ20PuCeAmMfG8r/HWfg5q
+	 WCB+ferXzR7RRp7BC7iCkKmnYa9FXSAOTm3iPOXRb2i9PpSezoASP3r1pBAhfUZHVXGos
+	 be8FypUe2dkYibJk4/VxomucHNtyp/fMjoltj286KEZrWi38JNlEX3wvIDCDzcBh5HO7Q
+	 xsouoMf+y7mNEE6CKOM6xWByHrCcFXr9GODn5UYQHch4N4IxdUD41K8I1h9wD5/aG5ZPr
+	 pXzW86isCDkKKuLY20SA612bXe3kcuxF5HzSJJLgw6M+icPhJ8qEFIvq7dlDhpU4RAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670574;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=oqD5KjVEUEOf5ZVgC/hbD2wTa3fhBUi4PPSMQExmXq4=;
-	b=GHd3H63kRvNZ47wTvtdzRkJXgInSSgdNZY75Vn5f6vw97V1RFasH6QFA7ysnq3S5vDVR
-	 5taiHI/72K5aE7IqHgwCEDS04Z0Pm2SFPhGuJky1Gw90qOeVI0mP0BPuPe5isVLUn8Sx8
-	 iv2A+pMF5VBznT2NSfzLsL7dzaALFGNOzRCUuT5k/r9NanpURe/uNhlpZo6popG29x7rt
-	 pQCL2C9HmawaI4k3dLeLQGiuMZ5ApgHXuULzn5cndhdDlZ2P8oqxqJ4u6VC1CqLFtw1/x
-	 rgo+vXDwBs3+v+oVco0umZOXJYk5MBSbTAJJNDsu0H9tgu4PmVHyicHXkhDbqcb2nQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670684;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=xjAO2eaT/JXn3CAMxY8DUMmy42acig/EBIl7/8Aipgk=;
+	b=2K8hZA3ad/V2oFua3qfr3CI0Of6TotctNUsyCGWkjnh4+bCW+bX2sk91TeqpyhCzG+q6
+	 yVvBfRRR7mE0IfS14F7qmw2PmovpAbe6z5qMkmpSOUb2GafNiH23TZbOndATq26JYa/T4
+	 1GZSBKdB8sH05inDtudASi4tR3iOI8BY2LcP26qHOWGCa87X2w5t/dBAItSeVMPY+IPCE
+	 DtLS+JKoZYSR5WCkUh2v3Mwn9UwNDYGSnWwe/0Wvk+bEw+kleFqoAQhyNGUWxmv7+wGaa
+	 Y0O4QOT8XZbuNDb8qrpfF88gh4EHZ7gUEKdzbTrqBXY9gfejuGsjQCZnkZUW2qTgqCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=HMnnSs23;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="t1nI1/Xa";
 	arc=none smtp.remote-ip=198.137.202.133
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D06B606A326;
-	Tue,  3 Nov 2026 01:49:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D06B606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77793606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:51:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77793606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=HMnnSs23
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=t1nI1/Xa
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=oqD5KjVEUEOf5ZVgC/hbD2wTa3fhBUi4PPSMQExmXq4=; b=HMnnSs23htRHeD+t1FXWi56qQU
-	kPaJq1I5j/zgCvQGnhWnpQywJkuRkZqvwjGZsMKrWXHfl2qdKOx1DObFxKsDHRH1vFhhs7CgyiJ1z
-	h6tspKBuh2NCHFUFtlbdZ1NDITMe8KcbwrD8rBm3MQfa2hC3aRsM2cDf1kDW8HK6HoJaFNBZxLeI8
-	FPr8ahYhpC59zyt4ZozA+Z38N+HYlvdIaFUWJGkWVOP9XYNc1xgHtjKQFZ98Zr1lnwu3eEQnSFoPZ
-	TJmLSL/MyBwVtYi84PRuIDAxZ4T2ehO+femW09MTceV3Iztu3PxigLwucGnoDjDotL1sTmlr5JJ2g
-	Ni7SNwNg==;
-Received: from [38.23.173.23] (helo=localhost)
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=xjAO2eaT/JXn3CAMxY8DUMmy42acig/EBIl7/8Aipgk=; b=t1nI1/Xa8SYhdnl9fBMOMYPIRF
+	3Yvz+su5OZQurf0W/F4prwVAxP5Z88c7QUrnVnn855vpgJRlemGbmR2RPR++heQWO+MKkcAC8LKGy
+	EYT3fqODTmXnC07vzA8ebw3VuV9w4Ju4lqsxaGr0+AAwxMLDyVnK+ROrif4NBEvYCMd7GwiO3+zA8
+	hLvCt9L6IcG84zN+v5h1hte9yfdPBWwXnNfV3PflqQOKxcRY/wAfIbCRSWFaB9H2xIbb77xUzj330
+	NVEAa4rx/Z2mPayjCsqN3mE6BJs2rMnjRhSinT/V3FAQ/2gfoCTDkhxSYR4wctDN2T611TeUA82Nz
+	uDUGZ+lA==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
 	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xO3eT-00000000p01-3FoP;
-	Tue, 03 Nov 2026 01:49:29 +0000
-Date: Mon, 2 Nov 2026 20:49:23 -0500
-From: "Liam R. Howlett (Google)" <liam@infradead.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, 
-	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>, 
-	Alexander Potapenko <glider@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>, 
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
-	stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
-References: <20261028154218.1668182-1-liam@infradead.org>
- <20261028154218.1668182-5-liam@infradead.org>
- <auKshDXKQXt1kvjy@gondor.apana.org.au>
- <auMbCuecFeRmBFSK@pc636>
- <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
- <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
- <auaFhOa5EBz4gJwK@gondor.apana.org.au>
+	id 1xO3gI-00000000p3n-30ho;
+	Tue, 03 Nov 2026 01:51:22 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	kasan-dev@googlegroups.com
+Subject: [PATCH v2] kmsan: headers: cleanup function and parameter names
+Date: Mon,  2 Nov 2026 17:51:21 -0800
+Message-ID: <20261103015121.2465303-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,60 +66,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auaFhOa5EBz4gJwK@gondor.apana.org.au>
+Content-Transfer-Encoding: 8bit
 
-On 26/11/01 08:19AM, Herbert Xu wrote:
-> On Fri, Oct 30, 2026 at 08:56:03PM -0400, Liam R. Howlett (Google) wrote:
-> >
-> > Hubert, I have another version of this patch set to send out, but this
-> > particular patch remains the same.
-> > 
-> > Are you okay with keeping it the way it is for this release?
-> > 
-> > I don't want to force your hand but I also don't want to keep a valid
-> > deadlock scenario in-tree.
-> 
-> Instead of your patch, please revert the original change that
-> added kvmalloc to rhashtable:
-> 
-> commit 93f976b5190df32793908d49165f78e67fcb66cf
-> Author: Davidlohr Bueso <dave@stgolabs.net>
-> Date:   Tue Aug 21 22:01:45 2018 -0700
-> 
->     lib/rhashtable: simplify bucket_table_alloc()
-> 
+Use the correct function names and function parameter name in the
+kernel-doc comments to avoid kernel-doc warnings:
 
-I don't follow.  Reverting that patch gives the same functional flow as
-the patch I already sent; kzalloc() for one branch and kvzalloc() for
-the other. 
+Warning: include/linux/kmsan.h:146 expecting prototype for
+ kmsan_map_kernel_range_noflush(). Prototype was for
+ kmsan_vmap_pages_range_noflush() instead
+Warning: include/linux/kmsan.h:156 expecting prototype for
+ kmsan_vunmap_kernel_range_noflush(). Prototype was for
+ kmsan_vunmap_range_noflush() instead
 
-We will, however, restore the useless __GFP_NORETRY flag to one branch,
-and a broken check.
+Warning: include/linux/kmsan-checks.h:72 function parameter 'to_copy' not
+ described in 'kmsan_memmove'
+Warning: include/linux/kmsan-checks.h:72 Excess function parameter
+ 'size' description in 'kmsan_memmove'
 
--       if (gfp != GFP_KERNEL)
--               tbl = kzalloc(size, gfp | __GFP_NOWARN | __GFP_NORETRY);
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reviewed-by: Alexander Potapenko <glider@google.com>
+---
+v2: add Rev-by: from Alexander; rebase & resend
 
-gfp != GFP_KERNEL is supposed to just send GFP_ATOMIC in here, but
-instead you are sending GFP_KERNEL | __GFP_NOFAIL as well.
-gfpflags_allow_blocking() should be used here, right?
+Cc: Alexander Potapenko <glider@google.com>
+Cc: Marco Elver <elver@google.com>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: kasan-dev@googlegroups.com
 
-The patch you are saying to revert was correct when it went in.
+ include/linux/kmsan-checks.h |    2 +-
+ include/linux/kmsan.h        |    4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-> The newly added alloc_hooks_tag call should go after the if statement.
-
-You are saying to add it to both branches of the if statement, right?
-
-> 
-> This patch should also be split out of your series and posted to
-> linux-crypto.
-
-Sounds good.
-
-The fixes tag should still point to c6307674ed82, since that's when the
-issue became visible.
-
-Thanks,
-Liam
-
+--- linux-next-20261102.orig/include/linux/kmsan-checks.h
++++ linux-next-20261102/include/linux/kmsan-checks.h
+@@ -65,7 +65,7 @@ void kmsan_copy_to_user(void __user *to,
+  * kmsan_memmove() - Notify KMSAN about a data copy within kernel.
+  * @to:   destination address in the kernel.
+  * @from: source address in the kernel.
+- * @size: number of bytes to copy.
++ * @to_copy: number of bytes to copy.
+  *
+  * Invoked after non-instrumented version (e.g. implemented using assembly
+  * code) of memmove()/memcpy() is called, in order to copy KMSAN's metadata.
+--- linux-next-20261102.orig/include/linux/kmsan.h
++++ linux-next-20261102/include/linux/kmsan.h
+@@ -127,7 +127,7 @@ void kmsan_kmalloc_large(const void *ptr
+ void kmsan_kfree_large(const void *ptr);
+ 
+ /**
+- * kmsan_map_kernel_range_noflush() - Notify KMSAN about a vmap.
++ * kmsan_vmap_pages_range_noflush() - Notify KMSAN about a vmap.
+  * @start:	start of vmapped range.
+  * @end:	end of vmapped range.
+  * @prot:	page protection flags used for vmap.
+@@ -147,7 +147,7 @@ int __must_check kmsan_vmap_pages_range_
+ 						gfp_t gfp_mask);
+ 
+ /**
+- * kmsan_vunmap_kernel_range_noflush() - Notify KMSAN about a vunmap.
++ * kmsan_vunmap_range_noflush() - Notify KMSAN about a vunmap.
+  * @start: start of vunmapped range.
+  * @end:   end of vunmapped range.
+  *
