@@ -1,77 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708685;
-	b=fXr+R30FwqZG8SPbvzPVO1his1UrpHwMTMwWmsprkDo20lk4nhmud2rQxaSJjpp6ujue
-	 QinzGqmG7ybon0E7bt33lymyKV+0KNnfLEZO9xxm20F8Tdv73kil/GQz7Il/hgkUSrDyT
-	 i3ClIbOCBVDqBr9sm8c6pnhVDz1nGJrAhuP9M1qPQ4TcWXpkep3GDu7spkzcbM0DZFR4K
-	 FwRLivBjgO80Zr6/LnnXlsVT5etd+1R7M2YGRdL2kyfwdo5v2bkxBPI5qnIr82Grdpy1B
-	 HfBKB+aCOhQyuMb8/yF+xqd/g51VzGDYqIjN4aVEmufMD3mt1kWWKBAo5o3ULbnKOWg==
+	t=1793708700;
+	b=CRnPDCSub4SvZdoZsZSdJFTO2MJsHiFHS0fTa670FzsJzUC3cV9RGltCrBsBhC4jKwlD
+	 pFdd8cQwZlu837uXKd8ugVHEK8OeOZm3E18U2Jpv0L9Zo9OCni6P93vY3ZULlgVsBSaZ1
+	 ibv4ftSEokI7tRuqZSTmf8iS49Bp/YABr2V5F7RBnavFasTeX7ShuCuXZLtujwzr5li09
+	 TUCsW6UyLBXndNiqfFL6LcihP4z3WMtjtttoSyXyCOszcnoRv2NIGDlQsaWkBshbrx/xN
+	 DNN2rNgDeT96ngyiWg8KM0BeyiRjLpLjRl1VunO00xQlYISKsFFes4XXynKrPZ2e7lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708685;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708700;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=2DQ96R/0ulhMhCPuDty/w5YNIxZWO7PXWDO3bMU5BOI=;
-	b=Ip6E2j857ix97JXJu4uigVh4ksPNxv4W0fQllqJu6J6GMdOMsIbqzXrWkG1BIOk5emr9
-	 KIwEKwkgux6R2Fdt576scKlr8q+q5iruCa6J8DLtVZ454k6Z21cYcyFw43zVamwT1OCQt
-	 6qjPybwlsckujvLI6UNLzLa1Pr6szzIIIOBbXTMIqnOGTEn9heLtUm7cXxqtzdh09B35s
-	 5HwW/Df7c8OVRBvxztspJtA9dBATYv+6t0UmqT0biAMqIsVswMA2iB0jJw2cwJ36HWkmE
-	 GaHWe5UWRI9Xi2Y7XLDFG715H6Y2B9kGxUSZhucpeeiqXXrfM/2jMdOzDenUCNwCODQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ib1Dni4qza/67GkuIbDzSdhClKYEF4f+ldPyq0GWH5M=;
+	b=QXxCOf6HlXA8tZdWLPtUM64TAEJRlms+x0vp12xvr/sfW9/c+jHcT7Airzp3s3Om2SBt
+	 S+xqoRmn+qnonKNp8Q+vqCjMJRS5v5wvmfcaClLpoa4GBO3d4UAy3AHIbZrzwrLOpQ8Tt
+	 aKwrvGN45Q4sOJIirf7xTl1BAEnCWqR2cKNglqM0aUZbhqo9us1Nyu075nTWRx11TwxRW
+	 YFBeNcdMvThoSBFECvMtqx1Rmp+tjSH4uz2bfrZYroEaBd2ewWST/ljTLALGqgWJfyIxT
+	 wOGcL3EH9/0a2TZd8JA37OBKam19ic/1q2pVUULVwS3OEwD9REg53EbuuWoF6DeMtqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2DPOtoe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WdFlpf65;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id AEBFE606A326;
-	Tue,  3 Nov 2026 12:24:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C22606A326;
+	Tue,  3 Nov 2026 12:24:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2DPOtoe
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5D33F1F00919;
-	Tue,  3 Nov 2026 12:24:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WdFlpf65
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D972B1F000C1;
+	Tue,  3 Nov 2026 12:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793708684;
-	bh=2DQ96R/0ulhMhCPuDty/w5YNIxZWO7PXWDO3bMU5BOI=;
+	s=k20260515; t=1793708699;
+	bh=ib1Dni4qza/67GkuIbDzSdhClKYEF4f+ldPyq0GWH5M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y2DPOtoeBhQC9H3iDa32ycCqijeUsQyOWUtRGHIYLH0dXLxZUgEjv6SLfXFJy1+yx
-	 REGyvcQMfuo3sZnBFrDxClG/MkMaDIKnK90l7RtK0PDTXjGL6CaKqpsTGr1H383bgl
-	 4TyhCnpi2mmiJ18g5WO9YEH6HMlaMgnH5EIfxQ78ETdDfCbW0Nq7FnvPdbMq/lkRzu
-	 YVxjlkUTO+w5EzhvM5yynGpZ7GDn2zzh6C78NzGOnNAyoUN8QGMgJIfas682UgvcoY
-	 za6RIYThdNdxsriG9j3+KBkt/9fGZF5z8OM8R3azJs/Dg4hZMYuSZR8c3Kxw2uTAo8
-	 Un2lK6ZcYoQzw==
-Date: Tue, 3 Nov 2026 13:24:40 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, Lixu Zhang <lixu.zhang@intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Imre Kaloz <kaloz@kernel.org>, 
-	Conor Dooley <conor.dooley@microchip.com>, Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
-	Daire McNamara <daire.mcnamara@microchip.com>, Daniel Palmer <daniel@thingy.jp>, 
-	Romain Perier <romain.perier@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	Hoan Tran <hoan@os.amperecomputing.com>, Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>, 
-	Mika Westerberg <westeri@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, linux-hwmon@vger.kernel.org, 
-	Matti Vaittinen <mazziesaccount@gmail.com>, "Enrico Weigelt, metux IT consult" <info@metux.net>, 
-	Viresh Kumar <vireshk@kernel.org>, virtualization@lists.linux.dev, Yinbo Zhu <zhuyinbo@loongson.cn>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-tegra@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Srinivas Neeli <srinivas.neeli@amd.com>, 
-	Michal Simek <michal.simek@amd.com>, linux-aspeed@lists.ozlabs.org, asahi@lists.linux.dev, 
-	linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org, linux-omap@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-unisoc@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
-	Michael Buesch <m@bues.ch>, William Breathitt Gray <wbg@kernel.org>, 
-	Robert Richter <rric@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
-Message-ID: <oiwdi2r7fbay3dsghfaqzejpv7d5dpuerh5jy2vsw3kjyhvhdm@hyrpff5ytihz>
-References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+	b=WdFlpf65xK4cXe3wKfv8T1cOVbNZfDm8uIeit8eITrirURwfPiMoXltzFF3VvNVBp
+	 Y81d82tZK8zLrcgUSrApu/yeRvQLJqEbcaDEspTm/jctPS0HG4Zt9T8Ub0zn8NUj3l
+	 GTWfhPL4f70ouNNddBJq1Iikp8+JRJJ7tHoagPpPhP2o0Rkum9zpq1rRBtIzKchIYe
+	 UIxqEGQKaemTEND+2Hum2H/zXbd7Y6xYSGUMm7n75wJcvZiqLJO7/f+R7x6i0yADEc
+	 MLkYLXWaxiTax5uzo6q51ee21eYAYeUmkVu+9FK1K7s+4LPy6i2w10BADZDSXTO7uE
+	 h/oCA2ZsMOS6w==
+Date: Tue, 3 Nov 2026 12:24:47 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH 3/5] locking/rwsem: add down_read[_killable]_nosteal()
+Message-ID: <aunLcWto870swo38@gremlin>
+References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
+ <20261103-khugepaged-latency-fix-v1-3-a07ab16ac860@kernel.org>
+ <20261103115159.GK1813469@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,37 +71,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+In-Reply-To: <20261103115159.GK1813469@noisy.programming.kicks-ass.net>
 
-On Tue, Oct 27, 2026 at 11:48:37AM +0100, Uwe Kleine-König (The Capable Hub) wrote:
-> Hello,
-> 
-> the original motivation for this series are the patches that convert the
-> arrays to use named initializers, see
-> https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
-> for the idea behind it. Looking left and right a bit while implementing
-> that, the series grew a bit.
-> 
-> Changes since v3 (available at
-> https://lore.kernel.org/all/cover.1793030820.git.u.kleine-koenig@baylibre.com):
-> 
->  - Picked up review tags (b4 even found some from v2)
->  - Add a 2nd MODULE_DEVICE_TABLE(of, ...) in drivers/gpio/gpio-mpc5200.c
->    (My grep didn't handle >1 driver per file well), noticed by Sashiko
->  - New patch to use named initializers for auxiliary_device_id arrays
->  - Fix code style of of_device_id array in drivers/gpio/gpio-grgpio.c
->    (My script doesn't handle of_device_id::name) and
->    drivers/gpio/gpio-ppc44x.c (didn't exist yet when I sent v2 and
->    failed to notice that for v3)
->  - Fix code style of auxiliary_device_id array in
->    drivers/gpio/gpio-shared-proxy.c, missed as I didn't have a script
->    for auxiliary_device_id before.
->  - Dropped a few broken email addresses from Cc:
-> 
+On Tue, Nov 03, 2026 at 12:51:59PM +0100, Peter Zijlstra wrote:
+> On Tue, Nov 03, 2026 at 08:27:44AM +0000, Lorenzo Stoakes (ARM) wrote:
+> > Since commit 1a728dff855a ("locking/rwsem: Enable reader optimistic lock
+> > stealing") a sleeping, queued writer whose handoff timeout hasn't expired
+> > can have its lock stolen by a read lock issued before a woken queued writer
+> > was able to acquire a lock.
+> >
+> > To avoid write lock starvation, this is only permitted if no other read
+> > locks are held.
+> >
+> > However, this behaviour defeats the purpose of a reader periodically
+> > dropping the lock to allow writers in, as doing so only works if the write
+> > lock is acquired first, another read lock is held, or a queued writer's
+> > handoff timeout has expired.
+> >
+> > Provide a means of indicating this intent via down_read_nosteal() and
+> > down_read_killable_nosteal().
+> >
+> > Implement it by exposing a steal parameter to rwsem_down_read_slowpath(),
+> > update the starvation logic to modify this parameter and modify the steal
+> > branch to check it first.
+> >
+> > Also drop the duplicated RWSEM_WRITER_LOCKED check and remove the
+> > goto as the steal condition makes this redundant.
+> >
+> > Exposing this function is safe as it only makes the lock more pessimistic,
+> > so does not impact lock contention.
+>
+> Not generally a fan of this -- can't we tweak the steal thing to never
+> steal if there are pending writers?
 
-If there are no objections, I'll queue it by the end of this week.
+Oh, well, I had assumed I couldn't fiddle with that behaviour across
+rwsem's in general, so if I can yeah that's preferable!
 
-Bart
+I could send that change separately then and drop it out of this series.
+
+Something like this?
+
+diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
+index b9c180ac1eee..d6572e207523 100644
+--- a/kernel/locking/rwsem.c
++++ b/kernel/locking/rwsem.c
+@@ -1034,22 +1034,29 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int stat
+ 	 * Reader optimistic lock stealing.
+ 	 */
+ 	if (!(count & (RWSEM_WRITER_LOCKED | RWSEM_FLAG_HANDOFF))) {
+-		rwsem_set_reader_owned(sem);
+-		lockevent_inc(rwsem_rlock_steal);
++		bool steal = true;
+
+-		/*
+-		 * Wake up other readers in the wait queue if it is
+-		 * the first reader.
+-		 */
+-		if ((rcnt == 1) && (count & RWSEM_FLAG_WAITERS)) {
++		if (count & RWSEM_FLAG_WAITERS) {
+ 			raw_spin_lock_irq(&sem->wait_lock);
+-			if (sem->first_waiter)
++			first = sem->first_waiter;
++			if (first && first->type == RWSEM_WAITING_FOR_WRITE) {
++				/* Writers always take precedence. */
++				steal = false;
++			} else if (first && rcnt == 1) {
++				/* First reader, wake other readers in queue. */
+ 				rwsem_mark_wake(sem, RWSEM_WAKE_READ_OWNED,
+ 						&wake_q);
++			}
+ 			raw_spin_unlock_irq(&sem->wait_lock);
+-			wake_up_q(&wake_q);
+ 		}
+-		return sem;
++
++		if (steal) {
++			rwsem_set_reader_owned(sem);
++			lockevent_inc(rwsem_rlock_steal);
++			if (!wake_q_empty(&wake_q))
++				wake_up_q(&wake_q);
++			return sem;
++		}
+ 	}
+
+ queue:
+--
+Cheers, Lorenzo
