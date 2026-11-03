@@ -1,106 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793731512;
-	b=iSSFUg0VFPSWMdzU3QtQSTfBGisZ16nBo3yeZps1mzgqZLyav68jPio42q0Tn5a8CRD1
-	 rPK5DfQxUb9wjHbOKL7ZxlTpcEHFu7Pxk+b6qHHjFftTJ2YYO6986lB4HozU1U0aM+GnF
-	 nlIdG5CJAsOz6waBexv//khrgyFAdEC320oxyrDmCurs8GwG0AKiJ2FTeH87fNM37wgN3
-	 jj4z6QIslBgfcYCqb0O/GmX0AjH7yWRZpqxvCRAlYSoSVTlIuJvL5ydwGYQnqT+ykjFUy
-	 48briLuiZnlrWnLtI7i1NQw+TGPEzSNdCVODN60eTmly00MaZXfeXJi8tmLHXndKNUw==
+	t=1793731524;
+	b=cZDuR/C2WSmKCAIWRqENzryEZMSqeQmPQwGd2s4nWwnXpQ4Q0sW3fuNLVrScGNDU1LEh
+	 +Qev2J1CsAZMDNL9O3L86ZKMg2wwHxPV4Su3otrSpHawv/1uGrKZWrHzYHrWHFIjFUe/i
+	 s+k9MOtKAnls9o4RZpAzHwhbpbsE/nlJNja/L65pGYriaTfd+3Qw8lCk+M+IZb9NJO23F
+	 yVAdKiQOvzrYPvmmTsB0jPWxMEjb/Akb8xwdGgfsuRPD7QN2kxWG2y+BTMcJq6q63lkor
+	 acpA5/sAemj8VaDXwhYWMK4eWTeyuTBmWJJZQ30f/tBaONJjWP2S+eZ7YdO9yCuW4iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793731512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793731524;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=0CbKdMAQ3nfycPreHgu2fI9LHIGPNt84yRSgRWibZ00=;
-	b=PwVftG/v+nT+cZJwSCbUnrHLQmjLbUCVXvEtYagl5hu4N2hA1YMwxFtqGFB/Q8+MPl6l
-	 2RtUCaAc5/7NTxRIt2SLQFWWCDz0XQwdn6iA17kHEwM0W1BiW0vYm1pvnz1vNEonGDIWX
-	 +aG3WimICfiqRPKOlUzBLd4+xFipS3EGvAqayTQgPwE6R0NzLaFrrH7RRwTtjVqIFiTZp
-	 J2Vrh9yKewyEUAbGNLXWcCGoTrIuoyRFlYe+eAcss4MTW1gr2V5VZckzAHeFGX4gOxGn0
-	 B3W5l1IFJY4zO2ELtzzT7OtznWBttmgJe1DgBPXsJrx9N5zcty2Jm9NAc2cJwJS4mFw==
+	bh=dxl6974/XeNGL3VGfuMejNoLR+R+5VwHaUl0w+woIxw=;
+	b=QlYyMhuRqR5hdJGTeRI1nUOV+/kXX+rzc4QlWDrpig1adxPk222rcn0N3B/306ykajwD
+	 Tt9RwBrTHT2BncM131fnxFdSL5LPu/93uprokF+yScpywrbDSuQ5yow5OBPJooGK1kYLQ
+	 K/Z9EEzwaBCu9O3/hZuNF/SHEe+QLOHPX2bAteKiePYDcYu5MWT/p00Rvo5+jMlnRwLJF
+	 iGQ3Lm94nBy8PidmQhfQAGLRJxhcbHb7QwJiN/y02MAAqSytJoRIthG1+MkWrNEbmaY8Y
+	 NXuDO0ugLKdaXhA5WafLQYsPiLvlFkwRlQT20600r1Pfv2E1KDrkzlOngketuCDsusQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=KjZNCeeq;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bRn/Owv1";
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E114C606A332
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:45:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E114C606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169EF606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:45:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 169EF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=KjZNCeeq
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15943c9c005so3983341c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:45:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bRn/Owv1
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36a18fc7a38so8649913eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:45:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793731511; x=1794336311; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793731523; x=1794336323; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0CbKdMAQ3nfycPreHgu2fI9LHIGPNt84yRSgRWibZ00=;
-        b=KjZNCeeqDju0LEV1HL4/KW13BYXmu4bjkH+mcaUpCucUt70BL1bBF1rOUyIWp7KI1v
-         g7S27R+w1pcAtAl39DH963UdxDnwGRuP1Nu9svNJzLYq9KmTMkUKtJg9x5w+jH8RSDY/
-         QK+GWoPndJnFcBudEIBTPettiqaTNmR6/2V1AnX4/xVdsmOtug3meXuLMs+gNnSmQuPe
-         F3uhjLDodHbrRwXceO/vhE21pgr2F71EVHJuyTYCnJghFRVOsFWr5ZDgYqcz2hPxcTYw
-         kvSLCL+Ae56cMp2am+a0spTkhUmYPJ1RGuDBPRm5+Ot8gA5sMPSHnhMpvEWQbWvDPAOv
-         mCdA==
+        bh=dxl6974/XeNGL3VGfuMejNoLR+R+5VwHaUl0w+woIxw=;
+        b=bRn/Owv1Hbfs4AmSN8ZJ7uUv/i0z0jsI2n/FSJWVnU6sdNs5Vsb6Xm0EVSeeyfd25e
+         s08GRHSnBiw1wt2ZJ57iKnFkzIRWVkEfnnoHjWhJR6uaMXyzdi2V1uY1dCOJnvcLcAGa
+         tOl46D5H4NCfA8pH4ty8mpstLEBI841odDGE8iZL288BlhkJoNYgWzNsmV3/wZQvJ+Wd
+         b1IW+EwkaujwJlpUkvjFTkIXOHtGxTisL8ZYCyaQVlXAw4Nhu+h4ZNRpfaPBcmrbx2YY
+         dlot7YrLO0aHSIq4qsDCn2RGmFQI/dsYji3caC76+BjaLIBiVvV1Oes6fIIA41IYUj8V
+         x01w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793731511; x=1794336311;
+        d=1e100.net; s=20260707; t=1793731523; x=1794336323;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0CbKdMAQ3nfycPreHgu2fI9LHIGPNt84yRSgRWibZ00=;
-        b=C1RNpTfB+m0whl2qIOG0cgxymcqmJT2OkByBlL0Xmt9mhsYDJy2l+lb8XeXAdtUlOa
-         /M5/t0Lzqlmpmje+L6QkNVnE5vW/2lcnBq6iPxKQYa4T+3lXvTiyVW3caGskATd+UnTW
-         1u0IRlXzU/qCNJ+L2MGeZAytFYuYS/IKQlsSlI/Eamt5/dGccnAwk/1mnimbgcl5DkSP
-         AQkN1bUwMj3NeYNQgmYFAymB6mfHvm1ET7iyzjakmCk0VbjFvGHUL/a/J6WCBDW+Vkkr
-         beMfNPFp40zozqSMrLp+PO7B8l6ZUSYvyICkL23MhY6V1d6HDtZawmH24BfWuZ4HMQ+F
-         YPvw==
-X-Forwarded-Encrypted: i=1; AKwUvBwtj95D9AjCkosVDSx9X1BZvwUFTQhX+7zwZy01HzJeWdCBukVeo16u/i1Kq8rDVOT+jWM+OHg7Ng2I76w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HY1idbS4T1P68owq4jJXXHQltyQ04m29O0/5mr6tLw3667Pkt
-	ECwKt4tctkfw/443XhVMlNsSMpgM3os/mwXlzjfC+j0jag4gvtkBAgGsSYMEc4GDi8A=
-X-Gm-Gg: AYBFou2NnNmOWajuyJntifa+wNADKX2O87lHHgu29EbImLcZ8KonLmGamk/DrPbHAvn
-	eAh0P5KMo2VX4YxipJaFhd1ZImbuNVcR/hJnLX7++3hGY5GrnKKcgHhuuNDxpZDHWGNwEDtwxT/
-	aNMBQ7Hd+E6zx7Rx7nV/KVcDiJtaspAXNFSxOO4zYqHiIf5cu1bQQ8a7i8UbcVd1iVy6jGfXLB6
-	9jN2YhXYemX81I4KD/SjDkiFRsh7oRiGFZKb6XrrzF2AtfA0hvVarClHXIT9dMyvuxAUkWCupZ3
-	ef4h5XNBR8S2PDr7aTlzn0zblc62fXcfcsxqh7wo7g28geVjb+MSrSp5qCljd5aP2vvtRkuxT1S
-	qUHe8gzhdvOkUUgGqm57rDvYCJzHSOPabq7tKeOEwzO++zJw5EKl9ZmhdDXuj0mXeyNqQmG0YOp
-	NMXebZ0G1vCqWMzAbPA/fyjqxtAacFo2cLQ6/wQatSyvfhjeVQR8Dz9xR1mFXsQF4kYtwaUBvZz
-	o5tX5D+Yqs9ua2d6Sn9Kt3VvfuzDj3Ssd0Jyq7SfcHiXYJq+bRr9ycT5odId8565ExynYAgaHt7
-	jStrSs4+QUyKnbfTZBvpNaJ3EY/IpXRUyQclRaGaHNP6OV6E
-X-Received: by 2002:a05:7022:e807:b0:1b2:4188:840b with SMTP id a92af1059eb24-1b2418884a4mr3350184c88.25.1793731510547;
-        Tue, 03 Nov 2026 10:45:10 -0800 (PST)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1b245c772fdsm748585c88.22.2026.11.03.10.45.09
+        bh=dxl6974/XeNGL3VGfuMejNoLR+R+5VwHaUl0w+woIxw=;
+        b=AKFDiHy69XLnYCRVD9NjHwfCS8i5lWDRPcTbIkO4uWjO7IwjN6ly9/Z9Ill/foMHaw
+         NyR68hfFKEH2h2ciC9jw6qaXGNZHJ0E9VWpjLQTpp6V8sr2ImRFemUYyBfKkGAVa4KrL
+         EIwLc+16/98+9g6mrvPEb9J8Z/mVqowH1gZpbgzk4imsWcLE2UITey2EjDeLQ5XFmJ1c
+         ICzgauX6WwfzYYMk0ZfVhLBw+9p8hcjw5PMfRQZyyEMDa94ljBq1hRw0hId4zfrYzdgv
+         89Jvg/+vtTTifHCMx7j/8JDVO6x7i+C6JYrCrOn9VUAk8561JwR9qMKmu92SuHP/3TiA
+         1SyQ==
+X-Forwarded-Encrypted: i=1; AKwUvByULfFufUvU9A7j49fiRYWm5W87zPkU/a62kosh5SPJObAf0gFwgCtiaQFz/3odpGWAi0bvs7aNflWHp/Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8L+7QwEfN0f2qTz80U1B6S5vfo8wGYJ6eYbLnFZs104bExZ9Xb
+	3MIW9DZeihatxa439qjX1/nf8Qj2biNtvEn7MXCyMz4+/GZ7JTr8/cYE
+X-Gm-Gg: AYBFou292Ma742e4x1hNEoB2kkp/j9n7rX8LuqSJ/s1z23vnQoRHClmTe2kVavPJOb+
+	C1Y/gBoJQgNjvf7satVumoy0V4jg/kiL813nWBuP61NYZZsICKdlhJFu0r8ymKCI6o5SNc9FKXy
+	QsUFwRQ+1zhEK4aPHOT9MoZc66jEYFU45vccfsGD8OMGyFn8Jm1OSyTBQ3QUXY+pKdHcCSGe2+d
+	FLckAI2TGZSLgZ2WKx+vSg7pGuBW62QjfMe833Gj5+qD5c6oCjExiyCH24Kb61Fl2udU8Kgqa6Z
+	ZomLc8b4XSr3s/9vPwUuwYsFTsPM9x+1Rc3iMVKOAXTuw9ZrOsoyV6akxC8xRQHGxKH2BQM3sWO
+	Gq3+gpJWC5TE+bLhBQKpyfozRN1u584rgt4dJ8a81f1GnFwZh/joC9M7bQcAGO2lyKmhuXAKanR
+	lOuOstlJECvycA//mP2qLGPWuGkl38bSI4+qzOPMHZX6BKd8nqfGDfFji3NCD8/qs1EW7abpu2L
+	qUC042jbUrVw3kCrmvVTB/UuRc/d3IaFVJiJV6+6OonQfoqDfTx6mJCLA9NSeiV5l3RARE4/jvk
+	YZ4N3tF0HwsQJ7D5lEaNwx+s2xrnO8hHi1+QepXVcXw6KPRdc05Qs8vThOe+CB/w5y+Jre5jA4z
+	TOlJjuouZrJ+MyA==
+X-Received: by 2002:a05:7301:648a:b0:369:d793:328d with SMTP id 5a478bee46e88-36c9dd475camr1585502eec.31.1793731523122;
+        Tue, 03 Nov 2026 10:45:23 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3788bffsm102648eec.1.2026.11.03.10.45.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 10:45:09 -0800 (PST)
-Date: Tue, 3 Nov 2026 10:45:07 -0800
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Daniel Wagner <dwagner@suse.de>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 15/18] nvme-fc: Hold inflight requests while in
- FENCING state
-Message-ID: <20261103184507.GA5019-mkhalfella@purestorage.com>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-16-mkhalfella@purestorage.com>
- <d9563967-9ddb-4cd7-9149-d1f37522e1fa@flourine.local>
- <20261021212357.GZ2931-mkhalfella@purestorage.com>
- <45d52d19-dbfc-49b9-a445-a8fb9e69abef@flourine.local>
- <20261103011851.GK122209-mkhalfella@purestorage.com>
- <80b5302d-1bcb-45d3-b926-0874470ee183@flourine.local>
+        Tue, 03 Nov 2026 10:45:22 -0800 (PST)
+Date: Tue, 3 Nov 2026 10:45:18 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	liuc63@xiaopeng.com, stable@vger.kernel.org
+Subject: Re: [PATCH] Input: joydev - avoid an undefined shift in the legacy
+ 0x read
+Message-ID: <auorp8LgmW8Fr9tY@google.com>
+References: <20261103084135.426629-1-zhugl3@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,83 +100,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <80b5302d-1bcb-45d3-b926-0874470ee183@flourine.local>
+In-Reply-To: <20261103084135.426629-1-zhugl3@xiaopeng.com>
 
-On Tue 2026-11-03 11:51:28 +0100, Daniel Wagner wrote:
-> On Mon, Nov 02, 2026 at 05:18:51PM -0800, Mohamed Khalfella wrote:
-> > -/* Complete the requests held in __nvme_fc_teardown_association() */
-> > +static bool
-> > +nvme_fc_cancel_held_request(struct request *req, void *data)
-> > +{
-> > +	struct nvme_fc_fcp_op *op = blk_mq_rq_to_pdu(req);
-> > +	struct nvme_ctrl *ctrl = data;
-> > +
-> > +	/*
-> > +	 * A single cmpxchg decides who completes this request. If the op is
-> > +	 * HELD, nvme_fc_fcpio_done() is done with it and we cancel it. If it
-> > +	 * is still COMPLETE, nvme_fc_fcpio_done() has not decided yet: move
-> > +	 * it to IDLE so its own cmpxchg to HELD fails and it completes the
-> > +	 * request itself (nvme_fc_complete_rq() sets IDLE anyway). Doing this
-> > +	 * as read-then-cmpxchg would let the op become HELD in between and
-> > +	 * leave it with no one to complete it.
-> > +	 */
-> > +	if (atomic_cmpxchg(&op->state, FCPOP_STATE_COMPLETE,
-> > +			   FCPOP_STATE_IDLE) == FCPOP_STATE_HELD)
-> > +		nvme_cancel_request(req, ctrl);
-> > +
-> > +	return true;
-> > +}
-> > +
-> >  static void
-> > -nvme_fc_flush_held_requests(struct nvme_fc_ctrl *ctrl)
-> > +nvme_fc_cancel_held_requests(struct nvme_ctrl *ctrl, struct blk_mq_tag_set *set)
-> >  {
-> > -	nvme_cancel_tagset(&ctrl->ctrl);
-> > -	nvme_cancel_admin_tagset(&ctrl->ctrl);
-> > +	if (set) {
+Hi Guanglei,
+
+On Tue, Nov 03, 2026 at 04:41:28PM +0800, Guanglei Zhu wrote:
+> The legacy 0.x read path shifts the axis values by the calibration
+> constants that JS_SET_CAL installs:
 > 
-> Do we call flush when we don't have a set?
-
-Yes, that is possible in case the controller fail first connect attempt
-before the IO tagset is created. Commit ee38469f8849 ("nvme-fc: Do not
-cancel requests in io target before it is initialized") added similar
-check to __nvme_fc_abort_outstanding_ios() to close this gap.
-
+> 	data.x = (joydev->abs[0] / 256 + 128) >> joydev->glue.JS_CORR.x;
+> 	data.y = (joydev->abs[1] / 256 + 128) >> joydev->glue.JS_CORR.y;
 > 
-> nitpick: use the early return pattern if needed.
-
-Done.
-
+> JS_CORR is copied straight from userspace as three s32 values and
+> never validated, so the shift count can be negative or wider than
+> the type, which is undefined behavior: the shift compiles to
+> whatever the architecture does with an out-of-range count, and the
+> compiler is free to assume it cannot happen.
 > 
-> > +		blk_mq_tagset_busy_iter(set, nvme_fc_cancel_held_request, ctrl);
-> > +		blk_mq_tagset_wait_completed_request(set);
-> > +	}
-> > +}
-> > +
-> > +/* Complete the requests nvme_fc_fcpio_done() held during the fence */
-> > +static void
-> > +nvme_fc_flush_held_requests(struct nvme_fc_ctrl *fc_ctrl)
-> > +{
-> > +	struct nvme_ctrl *ctrl = &fc_ctrl->ctrl;
-> > +
-> > +	nvme_fc_cancel_held_requests(ctrl, ctrl->tagset);
-> > +	nvme_fc_cancel_held_requests(ctrl, ctrl->admin_tagset);
-> >  
-> >  	/* re-enable the admin_q so anything new can fast fail */
-> > -	nvme_unquiesce_admin_queue(&ctrl->ctrl);
-> > +	nvme_unquiesce_admin_queue(ctrl);
-> >  
-> >  	/* resume the io queues so that things will fast fail */
-> > -	nvme_unquiesce_io_queues(&ctrl->ctrl);
-> > +	nvme_unquiesce_io_queues(ctrl);
-> >  }
-> >  
-> >  /*
+> Clamp the shift count to the width of the shifted value.
 > 
-> Yes, I'd prefer this over the introduction of RCU in this code path.
-> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
 
-Okay. I spent a lot of time thinking about these two atomic_cmpxchg() to
-make sure they cover all scenarios. That is holding all requests to be
-held and at the same time not leave a request in a held state and not
-get to complete it. Let me know if you think I missed a scenario.
+Why do all these need to be in stable?
+
+> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> ---
+>  drivers/input/joydev.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/input/joydev.c b/drivers/input/joydev.c
+> index 32459fd8a7c1..4740099599bf 100644
+> --- a/drivers/input/joydev.c
+> +++ b/drivers/input/joydev.c
+> @@ -353,8 +353,8 @@ static ssize_t joydev_0x_read(struct joydev_client *client,
+>  	for (data.buttons = i = 0; i < 32 && i < joydev->nkey; i++)
+>  		data.buttons |=
+>  			test_bit(joydev->keypam[i], input->key) ? (1 << i) : 0;
+> -	data.x = (joydev->abs[0] / 256 + 128) >> joydev->glue.JS_CORR.x;
+> -	data.y = (joydev->abs[1] / 256 + 128) >> joydev->glue.JS_CORR.y;
+> +	data.x = (joydev->abs[0] / 256 + 128) >> clamp(joydev->glue.JS_CORR.x, 0, 31);
+> +	data.y = (joydev->abs[1] / 256 + 128) >> clamp(joydev->glue.JS_CORR.y, 0, 31);
+>  
+>  	/*
+>  	 * Reset reader's event queue
+
+Thanks.
+
+-- 
+Dmitry
