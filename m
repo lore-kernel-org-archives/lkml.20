@@ -1,106 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722792;
-	b=JGc7HLQ0RbhCvWZ275mSmxBLSyjNLTqzM/1nUDoW2D7HaXakNkFwD/Poc1eqCiHMXc9N
-	 0ZB8JLiU99YPp7qmhibl4IiObxBzxlfvTTp8sCjeHqLEsWRcMPr0kIliBBBnwnQTRfSnK
-	 cwKAujBr/2jsqwF/w0SJEr7JeQFoI2mgsIpnuN0e6WIvcFkuv8cTTxsvYixp2JrV24OfN
-	 BshsoTvl/ZWsrVKMYTaIl64OTkJU7bv2pI2DYom4OUxgxyvOjIbj4j0F0OnOx/zC9zGgb
-	 ttyCwF1KIkSTjRiMiPubOHnZZ42FMm0B51ezTfbHIXV0Cf/LJ469fpuREF0Hl9ahnwA==
+	t=1793722826;
+	b=mv6xhyW3vuhsrBKVl6DzTltmL435BFSCy/CmN1Cu4VckVkkIibRtE4WtzvVmZCvVkpin
+	 UxaPcTLsdKebt3C1YM+N2Qn5tXdfLaBz/puEeRUivFQ2idXD/nZkmEAxoOYgyC2ypLmDU
+	 SHYWy4fCMeE4dwHjXrVH3GI0VH1k4MdRlV2Z0d3tr0lvSZN81uZUpaZ3YmN6/GIQEr2UA
+	 /Gklx720wI90Hyy81OmgTI6OuoHCb+phRRv/eb2ZGu9sbllfHPx5UHtcY2L7KkGjjTzva
+	 HKQpzs+Zo2I6gB2koqvjyZLMQ1xbiee+qWDEjnW/9ZBIAKj7UOW3ahJHyHVMqH68WUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722792;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=xpHfezqL4CrIA/YWN30z+58s5ArRjCM7V4FJXfacvA8=;
-	b=TtU8i5FnQT74RW4KEX30H+Ht8fKtdJDvqjqnFhylt/3eWzlivat5alBRIys7+IF8cfYo
-	 u622yMad/PZ0EkQj1QgtsnITR3lvuf+O1ZRFkhqlJjPZw2olo91eo9EsJFwdUi0r2QHdA
-	 nredkOgwLZ48P3Ncggc15S6+booorkibqfQcLAkrSR/zzyfD5vE5yYW6zcLa2oDnZrey8
-	 V8Y9qgByQUkKKIp1l3x6eTKMe4Lphw7WNWHGz0p+iOjn4LNiMpqslLtymIow9egbOmQ60
-	 t+q5CzgEZfslZ5Ul7MtSj8/aZO+Jk2lWcRE+Y/HnkXlbcCEyYYk8lBzFt0FUQ9qqOAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722826;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=hWrA8NhtxzstAUEu/T8XI9QJuMJO8OlRPrMrAUmaBE0=;
+	b=3F4PBeLpkw6tpYJgHzGqC6JpxCgQM9KZSnBTOs76N+FRx1ISjL8mBHjB2z/zDknVDx38
+	 oqYnuf1FGQmVHyHOErqys0s9xeOzLfa9b2jsjSURdM3hhxljlgXYuzIYcroMrXoEsiVF0
+	 g6yloWsEDRCuqzTif3oq4UzytWMhlLkGYDwxNY8iwB8ZUVUrqvAA7zhwW3Z7nP/0oBkJU
+	 +UWK3xc+oLsbC8Ef76GlMWPZdP3VD+vD0QzD8ClgssFnQN00JO7I3sNk0cKOZBuhyTBJx
+	 tqi/rdXlbBeyXP8zZZt7bWR1KXOTqjg0daV3pDsnP5RMnPklMVGh+3zO97LGVAw8vmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aDJFbn4U;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4WcV0edj;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KcehG9YB;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gPgX8g05;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e5Td77DV;
+	arc=none smtp.remote-ip=91.218.175.84
+Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6FD606A324;
-	Tue,  3 Nov 2026 16:19:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F6FD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390B6606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:20:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 390B6606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aDJFbn4U;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4WcV0edj;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KcehG9YB;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gPgX8g05
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7A0C61F7C8;
-	Tue,  3 Nov 2026 16:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793722789; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xpHfezqL4CrIA/YWN30z+58s5ArRjCM7V4FJXfacvA8=;
-	b=aDJFbn4UfCWVzleIqHQkZOzxzD5KopNAjKt3Dn+28Iwk5CK0TuQmoHVCF5Gr6Q37q10Ixx
-	9gAMIgLYmqt+QnYFmGWt6gxk8JYKJ1cbpkyVW8wFLjfdJln228N6x0pLcb2kuxEr31NFlx
-	VpfD/gxW8RgYqpdj5jRL6yBr5zP71TE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793722789;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xpHfezqL4CrIA/YWN30z+58s5ArRjCM7V4FJXfacvA8=;
-	b=4WcV0edjPKML7rTkw1Z0/AM/FyZfnseUDTnjQur1t7IQ8SLqzNJI+kdZ1L8u84HzpieX0+
-	sGOwQaO5cmt/mzAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793722788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xpHfezqL4CrIA/YWN30z+58s5ArRjCM7V4FJXfacvA8=;
-	b=KcehG9YBZcg0wpfTWurK6MXhP+sa+DSfVqtSsBwlwbPBGRPPgpyu4h8aQWgmBpRirgsTPs
-	z9vyNT/Z11raOwsnTOSQMW49fhprVZc5+Nz2yZ5ZZxakqpzKMpjbDHN21BIUJ7QjeX3IaN
-	b6VVAJvbN39hsePQojYZSSalYFib5gE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793722788;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xpHfezqL4CrIA/YWN30z+58s5ArRjCM7V4FJXfacvA8=;
-	b=gPgX8g05ZZOofLlMJ3DBqU5IWZx8u0Qjua5v2nx+O15Mi3wmlKfSFt0Y2Ezmy5nkD/Lr+H
-	0BjS448HcM1UfXCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28B6E134B8;
-	Tue,  3 Nov 2026 16:19:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jG3NOqMJ6mqKdgAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Tue, 03 Nov 2026 16:19:48 +0000
-Date: Tue, 3 Nov 2026 17:19:42 +0100
-From: Daniel Wagner <dwagner@suse.de>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, Hannes Reinecke <hare@kernel.org>, 
-	Ming Lei <tom.leiming@gmail.com>, Nilay Shroff <nilay@linux.ibm.com>, 
-	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, Stuart Hayes <stuart.w.hayes@gmail.com>
-Subject: Re: [PATCH v2] nvme: remove namespaces in parallel
-Message-ID: <b6aab18c-f812-4164-a41d-e1b95e462709@flourine.local>
-References: <20261103-bug-nvme-remove-ns-async-v2-1-44e43766e44a@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e5Td77DV
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5E02A5wHBmpYnX5KdvdmDO0B3Uy/0sGJV6ZUwMIlvIE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793722823; v=1; x=1794327623;
+ b=e5Td77DVkqmMvBqXKsgX4DIN4I+CNT7Ta/R9qOHAyKdgJ6Amu4LDRw6Az1ZutcXkdX30iGqn
+ k11PZXjcLBqGf1K7qnZMSDcF7srNlHe2LHWUAIzh7FviXurgCk09mLb549AMtMeQtcevH1+A3wQ
+ 2DrplhOf3J1dWv5dFQAZH/0s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2f481ca3731aa5df;
+	Tue, 03 Nov 2026 16:20:20 +0000
+X-Mizu-Trace-ID: 2f481ca3731aa5df
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be3b2f17c1so6888e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:20:15 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzT4ug9UVr9Dc+1jUP2Tk4pzNmuQyV9VKau/pd4onSHtCbt7KBlSPcxPR697UUqu6X6Au/vmdkqCHjqQAQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xJI5ZX3X3X05lYX1Gdi+POUqRXija6lJg03GDQONTEyiLdxNQ
+	AdqJvKIwpJHYjCRzp5VdOWvpErqxJI3N0GpI86qZqV8PqHcVeDEI1Asklen9Z414QB8fXNWJPfH
+	NTMY3se1QMd8w7v57LFykSxHQZmB7dbQX5oq+FuTP
+X-Received: by 2002:a05:6512:1087:b0:5bf:c0d0:8fff with SMTP id
+ 2adb3069b0e04-5bff0efda80mr116496e87.11.1793722814476; Tue, 03 Nov 2026
+ 08:20:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,67 +66,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-bug-nvme-remove-ns-async-v2-1-44e43766e44a@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,lists.infradead.org,vger.kernel.org,gmail.com,linux.ibm.com,wdc.com];
-	TAGGED_RCPT(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.80
+References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
+ <20261103084742.1302597-3-fuad.tabba@linux.dev> <9841ba98-7f07-4d5d-8397-a07e22ba7f51@arm.com>
+In-Reply-To: <9841ba98-7f07-4d5d-8397-a07e22ba7f51@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 3 Nov 2026 16:19:38 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTxWA2o7RkZw_17QMfYjXYN2dW-X6Rmj95YN1iYBvBzrCg@mail.gmail.com>
+X-Gm-Features: AclHuK-ekQu6wnuQHHw6haPOsqIeceQhl_GCt9dfFhk4lQ1KKTD7xUnwcbQL5cQ
+Message-ID: <CA+EHjTxWA2o7RkZw_17QMfYjXYN2dW-X6Rmj95YN1iYBvBzrCg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] KVM: arm64: Skip empty IPA ranges when destroying
+ stage-2 page-tables
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Raghavendra Rao Ananta <rananta@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 03, 2026 at 01:28:02AM -0500, Qiliang Yuan wrote:
-> +static void nvme_ns_remove_async(void *data, async_cookie_t cookie)
-> +{
-> +	nvme_ns_remove(data);
-> +}
-> +
->  /*
->   * This function iterates the namespace list unlocked to allow recovery from
->   * controller failure. It is up to the caller to ensure the namespace list is
-> @@ -4725,6 +4730,7 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
->  {
->  	struct nvme_ns *ns, *next;
->  	LIST_HEAD(ns_list);
-> +	ASYNC_DOMAIN(domain);
->  
->  	/*
->  	 * make sure to requeue I/O to all namespaces as these
-> @@ -4759,8 +4765,13 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
->  	mutex_unlock(&ctrl->namespaces_lock);
->  	synchronize_srcu(&ctrl->srcu);
->  
-> +	/*
-> +	 * Remove the namespaces in parallel, as each removal waits for several
-> +	 * RCU grace periods.
-> +	 */
->  	list_for_each_entry_safe(ns, next, &ns_list, list)
-> -		nvme_ns_remove(ns);
-> +		async_schedule_domain(nvme_ns_remove_async, ns, &domain);
-> +	async_synchronize_full_domain(&domain);
+Hi Suzuki,
 
-Nice! 
+On Tue, 03 Nov 2026 10:27:54 +0000, Suzuki K Poulose
+<suzuki.poulose@arm.com> wrote:
+[...]
+> > After destroying each chunk, look up the entry at its start and, if it
+> > is empty and larger than a chunk, skip its whole range. The lookup reads
+>
+> Could we not lookup first before we destroy, that way we can avoid
+> destroy walks ?
 
-Reviewed-by: Daniel Wagner <dwagner@suse.de>
+I'd rather keep it after the walk. Looking first relies on no empty
+table being left linked above KVM_PGTABLE_MIN_BLOCK_LEVEL: the lookup
+would return one of its empty entries, and the loop would skip past
+the table without freeing it.
+
+I don't think anything leaves such a table behind today, but looking
+after the walk doesn't depend on that, since the walk frees every
+empty table it passes through. That's one extra walk per empty region.
+I'll add to the comment why the lookup comes after the walk.
+
+[...]
+> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+[...]
+> > @@ -1010,9 +1010,20 @@ static void stage2_destroy_range(struct kvm_pgtable *pgt, phys_addr_t addr,
+[...]
+> >                   next = stage2_range_addr_end(addr, end);
+> > -                KVM_PGT_FN(kvm_pgtable_stage2_destroy_range)(pgt, addr,
+> > -                                                             next - addr);
+> > +                kvm_pgtable_stage2_destroy_range(pgt, addr, next - addr);
+>
+> minor nit: Given the kvm_pgtable_stage2_destroy_range() is the only
+> called from here, and this caller would benefit from the walk
+> information, would it make sense to return a hint back ? Not sure how
+> much of that is possible. We do this in the RMM, always return a hint
+> of the next possible address. Of course this is not that expensive
+> as the CCA case and could be dealt in a separate series.
+
+kvm_pgtable_stage2_destroy_range() is also called by
+kvm_pgtable_stage2_destroy(), which EL2 uses to free a pKVM guest's
+stage-2, so I'd rather not change it in a fix.
+
+Cheers,
+/fuad
