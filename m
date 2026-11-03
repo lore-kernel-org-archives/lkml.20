@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716430;
-	b=3DrKnP84ORr+Yh99IMTpQLA2I4UgwBaF8Moiu+ggDrWGY+4Yz4GbqjGUh6KbQZIrrgu1
-	 M6b5czk409dmpBD0SZVCzDt+h9QMrHKT5vBtYcCTMu7fYxTdDiLTrD1l4STHx8L2gNl3Q
-	 E2AOWmVAX+A9ALV9w4lS3E2DuTUOWa1cRpQu2LLTCOHhcFATMa7TeZarIKdvM5S8pnIa4
-	 QEqdFLutFyZIUnE9kUQrNtSfF4Kri8kFea2+3y67C8dABY/Pf0sZ1fvrIA3VTgnAvKssE
-	 R6ukoDuH2dq0LX1XZN5LR7EIWQ7L6WhgaK3hTCxajqk4zL1IyuBVRFdzH+k1EP7a8fA==
+	t=1793716450;
+	b=Vd33dL7U6YvZyUyOqHfXkHPWD+N1Inapz+KHnYHUzVtSKB7l3/CWTCAB+DwEVhNkCzof
+	 VjtquDAZTffO1sG7GfnfBXRvmNbCyVJOJCCYxpcgWotSdtTzuxKP/214yY7achmh16MGR
+	 FkNrKSWYT1uXS96/PzhLGMkZIBaKSEcSWJp5lKzjNi93t7mT39/EvGEIC3fLWU+sixTzk
+	 XF1n99CgwFBG42B5GwzajlwkSUdlSvzKas+sDjP3rSHpN/u+dAeMyizunWEFqmLkfHUth
+	 wCmrnOb+65lNaG0TXJE3L/ffAce1S5yyEPzL5Hn5PfuEvd06BdN+opyzOeK53MJgKMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716430;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-SRS-Rewrite;
-	bh=QKIr2Lmc99Ed3YUlMDYRhCaWMe8tCOeGZig27dNb9wo=;
-	b=RxBBmIvC71A5T4VC+8MnYHLu7m6Dr/Zg1aetdBnj9zHJi/Zs146IEkT8ZgSU+yMM6gXw
-	 tznQ9qR/2DJbhgt6pBcAc3oDWUSvAAtIOu5A47l56FOGR1W2xSRP2bJKRljP9tYu1eFEW
-	 REOsEfV46yFm3Ux/JNPYIu/h2F8n3XGVqncdz0Bn/LxAKibGGv5F2OW3GIpdb2H+xxN35
-	 KDGHhxytOmXNhx9j19df4tsMfhpAdQ6LqBhtIERTXNWSBNQW2subpXp86BUbmexpAKFoB
-	 ptoE8OA3qUhtp92BWde7Zs53/CM1ZI+drANpLqHHUe2X+QN1f0Hpo76MnudSgMlCkzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716450;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=4ei8VWimnYV+Bwu8FysUlKVY7l28DimLQlCI3Ur68F8=;
+	b=vCpUio84HoHGdjfTKwCuCcwZwNg+Qq8vk8P400XrD/q8FhAxyNfjvD3zOP0LguykMWfC
+	 mx25LMPUS/PMpl/6/LTkBPhqxd/FxJKaUsDhvXJIaosyZdgUdSqzoPDAcpBaxy1WYBGeR
+	 HLTnEAHUT3oEqG6XFO/d4V9bQnGBZyxSRDc3972spPG7HDdglquPzwQd8xrOPMJYOF2SJ
+	 2+WJkQJra81pt8FQ/kkT3J/oZ1w2YzLbJlhBA1t/HdqmL3P96/3/nCJO4HmSN5fKYa4Kg
+	 vbdpov7PkAWhhhJM8IrALFKQZ7bJwsUdEBN2/UGYfBxShVPMqG+nqwuB7UNs1PYfQcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=lst.de;
-	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=hZsGFShj;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=sJYuyUCz;
+	arc=none smtp.remote-ip=79.135.106.97
+Received: from mail-10697.protonmail.ch (mail-10697.protonmail.ch [79.135.106.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 596A7606A33A
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 596A7606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1AC606A33C;
+	Tue,  3 Nov 2026 14:34:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A1AC606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=hZsGFShj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=QKIr2Lmc99Ed3YUlMDYRhCaWMe8tCOeGZig27dNb9wo=; b=hZsGFShjrHWYr0c7atavZ5Nd3u
-	iUSCexyGy3qhOUIMeZIZnsmy/Akuk9WwEjyX9o/CjFWZ3VeW/dqBM29T70XcDhf75m7SRDHum2f1l
-	9g3ZsKP0/R8NJMZDtQCC04eolLBmAQ6lQYcnt7p1PH5+g29WEQCO6Ubp2JOSzDx+gxFCTzzkdtEJV
-	E84d4Sn7SptYIycAqWfx5vj3QArgGiaKi4rG95aiLVOEkzT3q+2O9mM4ub/o6wYdXoWS23yTim1nj
-	Q6ujwGhJzYb0K5pny8+CoCqznDcxo9Ks+A4rR5Ajb8ZomuTo/qNax0ujSl/mb801SWGkyCF+lCcZp
-	aDW2M4hA==;
-Received: from 2a02-8389-2301-9f00-31e8-efb6-e973-61ca.cable.dynamic.v6.surfer.at ([2a02:8389:2301:9f00:31e8:efb6:e973:61ca] helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOFa8-00000002jWN-2747;
-	Tue, 03 Nov 2026 14:33:48 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: tj@kernel.org
-Cc: jiangshanlai@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] workqueue: improve the draining/destroying warning in __queue_work
-Date: Tue,  3 Nov 2026 15:33:45 +0100
-Message-ID: <20261103143345.3803307-1-hch@lst.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=sJYuyUCz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1793716447; x=1793975647;
+	bh=4ei8VWimnYV+Bwu8FysUlKVY7l28DimLQlCI3Ur68F8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=sJYuyUCzkNU/lmgDb0NwnnxE4957XBhDJxljyhYhXxubK3nITlCHcpr75CZzF6D4h
+	 DBF5FLZKmS4dGUFfXmTjgHmbKH7lDuCX/YctsWdU73r9Evkx4Zutb1RmFVGlgfghec
+	 dLX+dM4dVCsv3WhVe19+/Fc7zNy/YskLFq04IKQkLttpCTvDNaPyLv5+ASOALXSTm2
+	 6pd3bQsxfLza73fL+JIyAC2ippfNzBF54nXiXuMMfc5+mkVjJq0OLEZ3aVn4WFCBZM
+	 OicfTi4OMHZ7i+oSY9i5J3biCLw8igL5SZfJzsZgkt8R2vekBLQ/9ZiiEXjbaIxsZf
+	 1xqmPJLsU/syg==
+Date: Tue, 03 Nov 2026 14:34:02 +0000
+To: Daniel Thompson <danielt@kernel.org>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
+Message-ID: <_kyk4j6fx0PX5QqVrjAIGH-5fzUhj-fKhD8YT4F734mCOnQCDXui6wQB77AOka69_gblWOJN2SxzC5OSrH1lXiQeciLfVnWuPHS0JfaMKD4=@protonmail.com>
+In-Reply-To: <aunqGVkX7-Y61iDA@aspen.lan>
+References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com> <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com> <aunqGVkX7-Y61iDA@aspen.lan>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 53d7bfe873821e818f7ca436899c3f949815e231
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,46 +64,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Tell which of the two conditions hit.  And to avoid makign the code even
-harder to read, move the WARN_ONCE out of the condition triggering it.
+Hi Daniel,
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- kernel/workqueue.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+On Tuesday, November 3rd, 2026 at 4:05 PM, Daniel Thompson <danielt@kernel.=
+org> wrote:
 
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index f2e8071a6f4e..bea294b00d1f 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -2428,15 +2428,19 @@ static void __queue_work(int cpu, struct workqueue_struct *wq,
- 	lockdep_assert_irqs_disabled();
- 
- 	/*
--	 * For a draining wq, only works from the same workqueue are
--	 * allowed. The __WQ_DESTROYING helps to spot the issue that
--	 * queues a new work item to a wq after destroy_workqueue(wq).
-+	 * For a draining wq, only works from the same workqueue are allowed.
-+	 * The __WQ_DESTROYING helps to spot the issue that queues a new work
-+	 * item to a wq after destroy_workqueue(wq).
- 	 */
- 	if (unlikely(wq->flags & (__WQ_DESTROYING | __WQ_DRAINING) &&
--		     WARN_ONCE(!is_chained_work(wq), "workqueue: cannot queue %ps on wq %s\n",
--			       work->func, wq->name))) {
-+			!is_chained_work(wq))) {
- 		struct work_offq_data offqd;
- 
-+		WARN_ONCE(1, "workqueue: cannot queue %ps on %s wq %s\n",
-+			work->func, (wq->flags & __WQ_DESTROYING) ?
-+				"destroying" : "draining",
-+			wq->name);
-+
- 		/*
- 		 * State on entry: PENDING is set, work is off-queue (no
- 		 * insert_work() has run).
--- 
-2.53.0
+> On Mon, Nov 02, 2026 at 09:58:48PM +0200, Roman Vivchar via B4 Relay wrot=
+e:
+> > From: Roman Vivchar <rva333@protonmail.com>
+> >
+> > Kinetic KTD3137 is an LED IC, used in various mobile devices for the
+> > display backlight. Add devicetree bindings documentation for this chip.
+> >
+> > Datasheet: https://www.kinet-ic.com/uploads/KTD3137-04a.pdf
+> >
+> > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> > ---
+> >  .../bindings/leds/backlight/kinetic,ktd3137.yaml   | 64 ++++++++++++++=
+++++++++
+> >  MAINTAINERS                                        |  5 ++
+> >  2 files changed, 69 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/leds/backlight/kinetic,k=
+td3137.yaml b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3=
+137.yaml
+> > new file mode 100644
+> > index 000000000000..140615640a9a
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.=
+yaml
+> > @@ -0,0 +1,64 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/leds/backlight/kinetic,ktd3137.yaml=
+#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Kinetic Technologies KTD3137 LED Backlight
+> > +
+> > +maintainers:
+> > +  - Roman Vivchar <rva333@protonmail.com>
+> > +
+> > +description:
+> > +  The Kinetic Technologies KTD3137 is an I2C LED backlight driver for =
+medium
+> > +  to large size LCD panels.
+> > <snip>
+> > +  led-max-microamp:
+> > +    minimum: 5000
+> > +    maximum: 29800
+> > +    default: 20200
+> > +
+> > +  vin-supply: true
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - vin-supply
+>=20
+> Why is vin-supply required?
+>
 
+The chip cannot function without VIN power supply. Even if it's on the
+always-on power rail on certain board, there's always a chance it might be
+accidentally left disabled on the other. It's better to document supply in
+the bindings as far as I understand.
+
+Best regards,
+Roman
+
+>=20
+> Daniel.
+> 
