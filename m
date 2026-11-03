@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670779;
-	b=odP4HIsOLUU8pBtrR1oyxRNZ/f/jYVnvb3od7BNWNZHhDlnNMk2ZIh7sbJUeKmeUxAqU
-	 97z4f1Ne1WRMXfCQoJYiNR6ideBWIldsNxTiU86Tad20whPruhy5mYX0Lx7lrsdrOOtfp
-	 9Krlem+OjdFGzc+nmYB9GSicihs8NAVc8Kd9cuZf+OPiS/knlO30ripGRJjm0559WD9tx
-	 pslhftSYMSbv+Vx6g98VWKV4xIwmtdqCUMrhv9lNC5pW5SasaL/obbuIakW0nrs3Ec0zr
-	 zvPPITwD0tasGqjo0WzJ987IyvHLrpaHEonGJ4Z4rzsN1QHuYnGT0kNkbKk4/d1Uw+g==
+	t=1793670775;
+	b=exgXai5+qsSlQn67hKTdR1E/IKQlcucc+va/76cmv3lbmdQwjVFRWOdenffKXt9d6By9
+	 qLECEyJsM6rUfEnYr/gdcEd03hjodnizCfxOlrY483nOlavqSU6bUEVoeIyhdf+FTN6Tm
+	 SiYA2MTtGtTgyhlW90mzC3XjCNyIAYvbncOKNZ7lAgOyjgm6+SGwN1+aJtK5HyTwqjCOq
+	 n8rYqTp4kilVBAR9vdKptPUB2ZH+KNe76g1LKlUTSi93V1vTE2aNVNbabjNr7bIXGFHlf
+	 tqFL6IYrs4ObNjqAcyei9R2nRxhif0p0znLya/lrLgQ6P7OFAilmN/lP7HOVr+/LZ1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670775;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SMLLDo6VVdlvW0r3w2RJurfeIqoziXptyv9h4bz6tPs=;
-	b=2E/gICZeS2muD/VH/O3SaqgjOV047avnEKns45lac6RmoH4K+MQ+YSy5LUBNPAC82/Ln
-	 NHCDuVOG4UtfuOs3MWlaxtuQhgd5+f0lLkdLrO5N2pSd3o6g1GTmVYYH0BQJkx06t6LfA
-	 qrOovfdpGkyhS1OtrLvwBvpHi4aO0i/ip3pl/iD4Uj3EetwX+lMiMBBiM52MbnS7MAdKR
-	 DVM6oqKszgZ5mR4I3cBOX40LH2U9JDpN1l5KiPVhQRYEUe1zvI0dxyOKkjSDujWp/3+Dp
-	 SQ+Z93sACgCN9MauSvcWJAjUChfpqzYAXICYx2nZtBuhKupaa06O4iDu4c2x82VN0kQ==
+	bh=ZDSjTgXv/4Por/TZQS5mnyfp69SLks+picO45gYeB1U=;
+	b=mNZoJPmrLbPk/9XMMFLlvLoO5KjRCJ00a0SktdkgDidSMJ2u2NUO3r1J+cW0uKi6xzeq
+	 uDONpQRJKbpkIuDonvfLjP/+RqiONYLo0ThXSsp43EJoa4mUZTygrnQlutZRzguPlSwcZ
+	 9cB14Yr2vHVUkTe/2IEw86RbUYDWLmHNZ35+LvlvTpf/WWHRM9gqRs+j8T/IrEtt4TqsO
+	 0ykXo8PSfT8BUhz/Tu+/KdC4mrUGbNOq2d1YVbzBFrZcwcVw86p9LXvzBf6XbEXRSr53r
+	 I112P3jMwHN6rQGSW8fcnrpYkTUSJloObWgmsVjrJ6Pc/MCW48BE1Yji8/rnYDU5AYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DvRH3EH7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+kRYObF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634F0606D807
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:52:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E653F606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:52:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DvRH3EH7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497981F000C1;
-	Tue,  3 Nov 2026 01:52:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+kRYObF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E88DD1F00A02;
+	Tue,  3 Nov 2026 01:52:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793670779;
-	bh=SMLLDo6VVdlvW0r3w2RJurfeIqoziXptyv9h4bz6tPs=;
+	s=k20260515; t=1793670774;
+	bh=ZDSjTgXv/4Por/TZQS5mnyfp69SLks+picO45gYeB1U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DvRH3EH7bqznDfktDcFYfRpihT8PqKJDlzFKOq/wX6g8cHXKJg67EmhfCDq9kRC7w
-	 /FBzf0yKEjSb7xBMWU18++i45JL1bSFcUgF4W/o5ZO4LQW2Ng2DXzNdf54DDcrppcg
-	 Nwvc2pAwFKlMb6qdHWyOkjYkUm/B7T73hPSrQek4Ky/DIuSxNgD9bZK+n6+5WoP77A
-	 QViBsPFf2rArEo2zqFlbbNdxxxOluPboN080Xr79jd6ndSN+uMVlxKQU0/Oz5zOF/M
-	 WQ8qGfrNGT4j7A8VAKbox1marf2BTalRU8tCh2E4t/Ubs/pRGq9hSaXTkoRBvna8aR
-	 OzemCPpQoRlgA==
+	b=D+kRYObFufDtgvfsPFz8G122dHCTLPJON/GcL2epf1tM3ZVCJUvFo6JZ70wzyGdRw
+	 LZATKUnVysE/sFefucuBh7wrP6nUBimFNUSV0BJ/s8TrsKHU5qZBAzvqKvR494hrbp
+	 RNLD/i6RFYaTRV9bP1ZEiN78Cwaj/FwdYhZEr6G75yuPRQTE0b15X2+es3oCFy0O2V
+	 plEYPYVbSG0+xuLdgSaSZ6dNKMhFV3taswRFatcb3+yJgd4FZ7uyMqwHqE1nwxPYH8
+	 A/yJCWzXpaT7Vvcceug67F1cm0RWWYdWghBGCkFsYDXeKDccAAuMsn/tW5awoZX8D7
+	 uphgNk+ioh3iA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Chuck Wolber <chuck@wolber.net>,
+	Frederic Weisbecker <frederic@kernel.org>,
 	Marco Elver <elver@google.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Thomas Gleixner <tglx@kernel.org>
-Subject: [PATCH v2 08/20] rseq: Always inline the empty stubs called from noinstr code
-Date: Mon,  2 Nov 2026 20:52:26 -0500
-Message-ID: <20261103015238.3780910-9-sashal@kernel.org>
+Subject: [PATCH v2 05/20] context_tracking: Always inline the empty stubs called from noinstr code
+Date: Mon,  2 Nov 2026 20:52:23 -0500
+Message-ID: <20261103015238.3780910-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103015238.3780910-1-sashal@kernel.org>
 References: <20261103015238.3780910-1-sashal@kernel.org>
@@ -64,61 +65,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The !CONFIG_RSEQ stubs in rseq_entry.h, and the !CONFIG_GENERIC_ENTRY
-version of rseq_exit_to_user_mode_restart(), are plain static inline
-functions, while their counterparts are __always_inline. They are called
-from noinstr entry code, directly or through the __always_inline exit to
-user mode helpers, and the compiler won't inline them there when
-building with code coverage instrumentation.
+The !CONFIG_CONTEXT_TRACKING_USER versions of user_enter_irqoff() and
+user_exit_irqoff(), and the !CONFIG_CONTEXT_TRACKING_IDLE versions of
+ct_idle_enter() and ct_idle_exit(), are plain static inline functions,
+while their real counterparts are __always_inline (user_*_irqoff()) or
+noinstr (ct_idle_*()) functions. They are called from noinstr code, so
+when they aren't inlined that's a call leaving the noinstr section. This
+happens with code coverage instrumentation, which makes the compiler
+refuse to inline an instrumented function into a noinstr one:
 
-On x86 that's rseq_note_user_irq_entry(). arm64 calls the exit to user
-mode helpers from noinstr code outside of instrumentation_begin()
-sections, so with Clang, asm_exit_to_user_mode() and the el0 exception
-handlers end up calling rseq_syscall_exit_to_user_mode() and
-rseq_irqentry_exit_to_user_mode() out of line.
+  vmlinux.o: warning: objtool: do_syscall_64+0x81: call to user_exit_irqoff() leaves .noinstr.text section
 
 Make the stubs __always_inline as well.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/rseq_entry.h | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ include/linux/context_tracking.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
-index 31ce349ed42ce..7f9f1590d73fd 100644
---- a/include/linux/rseq_entry.h
-+++ b/include/linux/rseq_entry.h
-@@ -716,7 +716,7 @@ rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
+diff --git a/include/linux/context_tracking.h b/include/linux/context_tracking.h
+index af9fe87a09225..d0672916fc1d3 100644
+--- a/include/linux/context_tracking.h
++++ b/include/linux/context_tracking.h
+@@ -93,8 +93,8 @@ static __always_inline bool context_tracking_guest_exit(void)
+ #else
+ static inline void user_enter(void) { }
+ static inline void user_exit(void) { }
+-static inline void user_enter_irqoff(void) { }
+-static inline void user_exit_irqoff(void) { }
++static __always_inline void user_enter_irqoff(void) { }
++static __always_inline void user_exit_irqoff(void) { }
+ static inline int exception_enter(void) { return 0; }
+ static inline void exception_exit(enum ctx_state prev_ctx) { }
+ static inline int ct_state(void) { return -1; }
+@@ -162,8 +162,8 @@ static __always_inline void warn_rcu_exit(bool rcu)
  }
  
- #else /* CONFIG_GENERIC_ENTRY */
--static inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
-+static __always_inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
- {
- 	return false;
- }
-@@ -759,15 +759,15 @@ static __always_inline void rseq_debug_syscall_return(struct pt_regs *regs)
- 		__rseq_debug_syscall_return(regs);
- }
- #else /* CONFIG_RSEQ */
--static inline void rseq_note_user_irq_entry(void) { }
--static inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
-+static __always_inline void rseq_note_user_irq_entry(void) { }
-+static __always_inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
- {
- 	return false;
- }
--static inline void rseq_syscall_exit_to_user_mode(void) { }
--static inline void rseq_irqentry_exit_to_user_mode(void) { }
--static inline void rseq_debug_syscall_return(struct pt_regs *regs) { }
--static inline bool rseq_grant_slice_extension(unsigned long ti_work, unsigned long mask) { return false; }
-+static __always_inline void rseq_syscall_exit_to_user_mode(void) { }
-+static __always_inline void rseq_irqentry_exit_to_user_mode(void) { }
-+static __always_inline void rseq_debug_syscall_return(struct pt_regs *regs) { }
-+static __always_inline bool rseq_grant_slice_extension(unsigned long ti_work, unsigned long mask) { return false; }
- #endif /* !CONFIG_RSEQ */
+ #else
+-static inline void ct_idle_enter(void) { }
+-static inline void ct_idle_exit(void) { }
++static __always_inline void ct_idle_enter(void) { }
++static __always_inline void ct_idle_exit(void) { }
  
- #endif /* _LINUX_RSEQ_ENTRY_H */
+ static __always_inline bool warn_rcu_enter(void) { return false; }
+ static __always_inline void warn_rcu_exit(bool rcu) { }
 -- 
 2.53.0
 
