@@ -1,84 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700649;
-	b=3IRAmOw+o8hVHwYQg2D5s4Y0IzUS8pJCOfOuABuZXtuM18Vg+AfRjsjy/MASYq5g3xzE
-	 by4WrD5SYzEIfTP+ydfJKAPkcUMIjl52pHSJuDoCMBSg0HNVsm/bZ4O0FvB5MDxi8vyaS
-	 +rhBvf41wfARrQw60mA3EUB/KZVjFqegwxs/IcjamuRh6lzMPe5nlM3TUSQdodYKc9eQI
-	 Ou8HohVZiAzmF87RRGBOqIk7ONefqUWPU5aDagHn1JabB+tkBhg3sbOCSl9lNL1CXkZY5
-	 1niB3MkSCEPQw4jk30yBGAwgayCY4aRX+BRFTJK4HU/geymiaO/DnYaXzT3w4Nd16yQ==
+	t=1793700680;
+	b=IdkC00w0TdCqfoxiJpl2flF0HvH5wENFOWBfLcvCn+uyO9rdE8SCyR6+Ej0JJcNKOI79
+	 3JrusrwE8PhlRS6tKkMiZnpd0vvBjeDwXHWPOFLaV4/bLoUOUdOmpOplxAboU0HkJQviO
+	 BNILlLJj/4UZ+8sdKLaZK8xp6uTICEaHZIbCzCji8zwRHNvcQprFjt5Hy7xUtCQgzpFEp
+	 vS7VJx+N+8t5NXVGtug/oV0oQuMK9sjj1ewgitbP0Is9ZjifjXEAm5P73HF6o7A/oW3vv
+	 hVL7J/nn3sUbcyVIu/zONU8c5kFxetfRThYhB+ZK0HcPm+543GC/oATez5fQXDQLaRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700649;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=KKjRcMgA2od1JAUQ3NDEJd+3pJ6utv9HJwQINe7Cudo=;
-	b=n95Nj7933JKjVcytJxJiz1GD0sIh6fkWVVJ1fhShDu7PEGCTstd5VlcrIridrmj7ryPR
-	 2JVRjmL83klwpDEVuJORKVCF2FJTp5K70BGa5auN7/fal0X1A//D7kWJeG8XVhouImcwc
-	 fRd/jBs12tFeWMFgBUhmfFfrWa7qXo1K/jQwBgdDT8sXH0dlIDCT2VMbY8YQbmjE6nY07
-	 VaYXijopzXEXR5ZvVrFuYKwUyov4i2mZuuSHlpqfSasGD4CZA4Nif8u5kkwQIeMJWjwtT
-	 DKUOgBM816nrE/IatXxOeQpdiLVkY6DrRVZ8M51/UUB+LeFtEFy0kycs6tJEuy+ypTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700680;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=oEeAOkIMhm2brVx+57mg0HvmlruExTUNaN3KGm7ZRmQ=;
+	b=BH1oujcBicPZR5NqqWTqvYGJ8cMfMyRPJMOc8SJQ7hGjgZNigCtMdhRuXjam8uz5L3Nd
+	 Msu6nwXxn06+6ruuQFSZ+hhjYNEABtpuuOqj+fCpcrbB9s83dXrhWAc5lkopzhno5d76K
+	 09frG50FqqFg0HhnyrGCRU6hHINGbk/nzKPJIX9sfAQoFeL6nSWWYHRwZDEvEPTLKnrrn
+	 2SINHygOSGj8xOpppv/dHwQhKAcLyHelABcMb/dpDXUz8+N0Izxto1NmoF9vgoj6GEveS
+	 TdmfLCK0ryRqG3XseY/h88BdJ0SF7oXHJEcwG9f7Lu6Cl4xz7fz7HEukvC6s0TX2amA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nK64mHTD;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=W+HKkBv6;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524D76082BD2;
-	Tue,  3 Nov 2026 10:10:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 524D76082BD2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65443606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:11:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65443606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nK64mHTD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793700648; x=1825236648;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qLeNMV9ESxS4vfP26Q6ujH3mVp4IAYKlMBiwJ2rztyc=;
-  b=nK64mHTDuRqNfCDxuCrjiRkMWyv0Hy70+2pKQeXqd8MDkYJHPH713aB2
-   Kg+WT9rxP5X6QkzQDfsxwM040eByk7GlkG9a+t+OGZHPu5FeAh/Tr2pHX
-   ELNB2G8TMSeG57r9EoZEpaSJNpl50aVnt52MyKJjgUe/zSIUtr/YOhl9l
-   ltdaLyt/IXjN8CX+3GzYLkfUy05MjB9sTxJXWjwtaLFO7ollfK/imFcdP
-   eBGB2hHM8djbEQcR0nYEu9nrc1bGDVURSS641WGy6FvyU4pYUQAgfOzqM
-   t91VQpRI866ZRnQU81SMa7o8CIrMi4f6B3f+Pu9ccXqp23M0NmYQbW0FN
-   Q==;
-X-CSE-ConnectionGUID: /PD3c7YoSwOFAb74OzsHvg==
-X-CSE-MsgGUID: ktY+/j/CQvuz67T4vyuX8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2415067"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2415067"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:10:47 -0800
-X-CSE-ConnectionGUID: cVqWb3x6TMefkE/gQOoIFQ==
-X-CSE-MsgGUID: kl2DLb2fTzeQYxqtxFEZLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6400206"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:10:43 -0800
-Date: Tue, 3 Nov 2026 12:10:41 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, amitrkcian2002@gmail.com
-Subject: Re: [PATCH 3/6] iio: adc: versal-sysmon: disable interrupts on
- shutdown
-Message-ID: <aumzIdkwp_jVcTTs@ashevche-desk.local>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
- <20261102122112.1723130-4-amit.kumar-mahapatra@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=W+HKkBv6
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261103101116euoutp014f10021cbfe2ae229578bf507dc5785f~kgUMbu0c92803328033euoutp017
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:11:16 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261103101116euoutp014f10021cbfe2ae229578bf507dc5785f~kgUMbu0c92803328033euoutp017
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793700676;
+	bh=oEeAOkIMhm2brVx+57mg0HvmlruExTUNaN3KGm7ZRmQ=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=W+HKkBv6baZB/MFF4sW9EQIXMaH/WWcE0xLv30OQ1O3EWG5zu0LlDPyhpUo1rXQWO
+	 wP3pGtKk8BL5a/qRQQdn56Eash1rX+aexjjU29CJDaiMoDlrErCvRkS0FO/wcf9yAm
+	 I8vBGYoJwHVdGf4B7c7QwwC3yrse8D6SWUm4ERx8=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261103101116eucas1p1eadfbb1f322f96673fff2419c4cc5dac~kgUMEKwti2453024530eucas1p1v;
+	Tue,  3 Nov 2026 10:11:16 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261103101114eusmtip1ab1d1332cf288f23ef33eca39d491c32~kgUKcvhCg3212232122eusmtip1W;
+	Tue,  3 Nov 2026 10:11:14 +0000 (GMT)
+Message-ID: <373ea0e8-d0c4-4071-9546-8c4df5d09393@samsung.com>
+Date: Tue, 3 Nov 2026 11:11:13 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,40 +64,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102122112.1723130-4-amit.kumar-mahapatra@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v2 2/7] dma-mapping: Let a device declare that it
+ reaches private memory
+To: Nicolin Chen <nicolinc@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>,
+	joro@8bytes.org, Will Deacon <will@kernel.org>, Robin Murphy
+	<robin.murphy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>,
+	rafael@kernel.org, Danilo Krummrich <dakr@kernel.org>, Johan Hovold
+	<johan@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Pranjal Shrivastava <praan@google.com>,
+	Mostafa Saleh <smostafa@google.com>, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, driver-core@lists.linux.dev, Sonang Patel
+	<sonangp@nvidia.com>, Ankit Agrawal <ankita@nvidia.com>,
+	shameerali.kolothum.thodi@huawei.com
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <0697a7ab3e4c4b7703428644444fd13f8dbfccd9.1793676742.git.nicolinc@nvidia.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261103101116eucas1p1eadfbb1f322f96673fff2419c4cc5dac
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261103035021eucas1p17d005335232f75ad6f3b711b7c4b88d5
+X-EPHeader: CA
+X-CMS-RootMailID: 20261103035021eucas1p17d005335232f75ad6f3b711b7c4b88d5
+References: <cover.1793676742.git.nicolinc@nvidia.com>
+	<CGME20261103035021eucas1p17d005335232f75ad6f3b711b7c4b88d5@eucas1p1.samsung.com>
+	<0697a7ab3e4c4b7703428644444fd13f8dbfccd9.1793676742.git.nicolinc@nvidia.com>
 
-On Mon, Nov 02, 2026 at 05:51:09PM +0530, Amit Kumar Mahapatra wrote:
-> Interrupt teardown is registered with devm_add_action_or_reset(), so
-> sysmon_disable_interrupts() runs when the driver is unbound but not when
-> the system shuts down: device_shutdown() invokes only the driver's
-> .shutdown callback, which this driver does not implement.
-> 
-> The device is therefore left with its alarm interrupts enabled in
-> hardware once Linux has stopped servicing them.
-> 
-> Add a .shutdown callback performing the same teardown, so the device is
-> quiesced before control is handed on. The helper lives in the core
-> module, so it is exported for the platform front-end. It skips a
-> device described without an interrupt, which never set up interrupt
-> handling.
-> 
-> Disabling the interrupts at shutdown is safe to have and not a must have
-> requirement for shutdown.
+On 03.11.2026 04:49, Nicolin Chen wrote:
+> DMA devices in a confidential guest can access only shared memory, or both
+> private and shared memory. Some method outside the DMA API will confirm the
+> device is able to access private memory through DMA.
+>
+> Add DEV_FLAG_DMA_CC_PRIVATE and dma_set_cc_private(dev, bool).
+>
+> The flag must be stable while any DMA mapping exists.
+>
+> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 
-...
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> +	struct sysmon *sysmon = iio_priv(indio_dev);
 
-Side Q to Jonathan: How do you see having a helper that unites these two?
-Something like void *iio_priv_from_drvdata(struct device *dev)
+> ---
+>  include/linux/device.h      |  4 ++++
+>  include/linux/dma-mapping.h |  4 ++++
+>  kernel/dma/mapping.c        | 21 +++++++++++++++++++++
+>  3 files changed, 29 insertions(+)
+>
+> diff --git a/include/linux/device.h b/include/linux/device.h
+> index 429e39f647cf9..01d7877d0b571 100644
+> --- a/include/linux/device.h
+> +++ b/include/linux/device.h
+> @@ -604,6 +604,8 @@ struct device_physical_location {
+>   *		ancestor device.
+>   * @DEV_FLAG_OFFLINE_DISABLED: If set, the device is permanently online.
+>   * @DEV_FLAG_OFFLINE: Set after successful invocation of bus type's .offline().
+> + * @DEV_FLAG_DMA_CC_PRIVATE: The device is able to access private (encrypted)
+> + *		memory, no shared memory bouncing is required from the DMA API.
+>   * @DEV_FLAG_COUNT: Number of defined struct_device_flags.
+>   */
+>  enum struct_device_flags {
+> @@ -617,6 +619,7 @@ enum struct_device_flags {
+>  	DEV_FLAG_OF_NODE_REUSED = 7,
+>  	DEV_FLAG_OFFLINE_DISABLED = 8,
+>  	DEV_FLAG_OFFLINE = 9,
+> +	DEV_FLAG_DMA_CC_PRIVATE = 10,
+>  
+>  	DEV_FLAG_COUNT
+>  };
+> @@ -834,6 +837,7 @@ __create_dev_flag_accessors(dma_coherent, DEV_FLAG_DMA_COHERENT);
+>  __create_dev_flag_accessors(of_node_reused, DEV_FLAG_OF_NODE_REUSED);
+>  __create_dev_flag_accessors(offline_disabled, DEV_FLAG_OFFLINE_DISABLED);
+>  __create_dev_flag_accessors(offline, DEV_FLAG_OFFLINE);
+> +__create_dev_flag_accessors(dma_cc_private, DEV_FLAG_DMA_CC_PRIVATE);
+>  
+>  #undef __create_dev_flag_accessors
+>  
+> diff --git a/include/linux/dma-mapping.h b/include/linux/dma-mapping.h
+> index efde0e5a58dc2..3cc38db4a7490 100644
+> --- a/include/linux/dma-mapping.h
+> +++ b/include/linux/dma-mapping.h
+> @@ -218,6 +218,7 @@ void *dma_vmap_noncontiguous(struct device *dev, size_t size,
+>  void dma_vunmap_noncontiguous(struct device *dev, void *vaddr);
+>  int dma_mmap_noncontiguous(struct device *dev, struct vm_area_struct *vma,
+>  		size_t size, struct sg_table *sgt);
+> +void dma_set_cc_private(struct device *dev, bool private);
+>  #else /* CONFIG_HAS_DMA */
+>  static inline dma_addr_t dma_map_page_attrs(struct device *dev,
+>  		struct page *page, size_t offset, size_t size,
+> @@ -357,6 +358,9 @@ static inline int dma_mmap_noncontiguous(struct device *dev,
+>  {
+>  	return -EINVAL;
+>  }
+> +static inline void dma_set_cc_private(struct device *dev, bool private)
+> +{
+> +}
+>  #endif /* CONFIG_HAS_DMA */
+>  
+>  #ifdef CONFIG_IOMMU_DMA
+> diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
+> index 82e701648d604..ded585b39fb92 100644
+> --- a/kernel/dma/mapping.c
+> +++ b/kernel/dma/mapping.c
+> @@ -501,6 +501,27 @@ static void dma_setup_need_sync(struct device *dev)
+>  static inline void dma_setup_need_sync(struct device *dev) { }
+>  #endif /* !CONFIG_DMA_NEED_SYNC */
+>  
+> +/**
+> + * dma_set_cc_private - Set whether @dev can DMA to private memory
+> + * @dev: device whose confidential-computing DMA access is being updated
+> + * @private: whether the device can DMA to private memory
+> + *
+> + * Called when a device is known to be able to DMA to private memory.
+> + * For architected CPU integrated devices their kernel drivers will
+> + * self-accept using a driver specific validation. Other devices will
+> + * have a userspace managed process.
+> + *
+> + * DMA mapping must not be active when this flag is changed. For CPU
+> + * integrated devices the driver should self accept early during probe
+> + * after validation. Other devices have this flag set automatically
+> + * before probing.
+> + */
+> +void dma_set_cc_private(struct device *dev, bool private)
+> +{
+> +	dev_assign_dma_cc_private(dev, private);
+> +}
+> +EXPORT_SYMBOL_GPL(dma_set_cc_private);
+> +
+>  /*
+>   * The whole dma_get_sgtable() idea is fundamentally unsafe - it seems
+>   * that the intention is to allow exporting memory allocated via the
 
+Best regards
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
