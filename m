@@ -1,67 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708955;
-	b=guo9kNO3atxFE7v4oNFnww1sGLLgrIC9vX29zGa5LgKzlP00Wf23QVl64Vvocy00mZqy
-	 hWrbmS4EHOhTSMfCWzpOBQv92yBbCYLV/XNe8g9VTWskrHDgGksGcxwqgDgT80QuihKvM
-	 BC+HYyyjgOq1Jqb0zadtNmqGLSawpZURpTw52tYbnWn++fKHTvFUu2olM01udMCUy/sSs
-	 t93lw8kg/aA8o3oJOyPw+WsM+lzkxH0kd3JXuWv0DL1VDimYiNIF0LW3wZwbMqWJ1iVyd
-	 2Vtyua0P7DOLyBw4F1rorViTunKaQeMPjeqxRgwo/0N8yyzTAxIAJbtamj1rEpgNULA==
+	t=1793708964;
+	b=nb7vZSwMe7BhKWCTAWCTOFGzssRz+hs7IFkybwqv48Gy6FYeST7o7Ne/yoLdGw2oh3Ai
+	 YSRydpZbu2UualcTKGDtdxpwbn4lt2xu+hovRD+R3tyEFSvqE0KoRwa+9wn6p6bp6DkFq
+	 j6J0zniyFWvfHm0XrMJ9xIqffmP/x/veSLaAWGQWloeMGUN40qtLGwKsjQ5pY07E+cKPC
+	 QOPM9OmbMb4vUuutZpG5dQbybJUuxVtPFto1+4ZGfSehQnAuDF1TWgy5m0SyqhV/MUHj3
+	 iwgtJOwtQ4SvrPRv2u5E1qCFRMnfEuNkmhXfCborenn2Qj1i/tTWKyQaE/v3HuPGimw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708955;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DUyYtY0/ODWml+wjlW+GZawiWsZztBIYKliIpArIvIM=;
-	b=bVUxp0nlhJnOUWVn0jFFcyMdeHd68gDUlYeBTJjdhH1Vp+ZS3mCD4M/3VGEza0N7c0fZ
-	 6fIYQrBhdxV1zImkZaY8BubjdlOe+nxcFiwPklcCAyeEzBXk8+dynpEHLiBOvHCh2XnpU
-	 fUh3ikTGY9DRG910xTd/hF4Q+8s+bsAF9rlLhdqy7fic14ObzeD5gVR0YrdHrFQVwfqpT
-	 uDghX6PSsJ7G3ARJEqTEdSrxQmzB6gta5GnOeJuhij9s6+h1NKlvtBHCK20a5T1/cB4f6
-	 GlNqFvIi2DFMFAIhSzuFss1bkKrx4RQApHjqEuHUKuvQImDc6W+vY+TMjWTLWzlhDYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708964;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dhbxbNBi67wyAuSwSug1/s9Go4nceNJIYCCRWxPbymk=;
+	b=TgoG6JOTWImR3+Gevs2FCgp/2HAjl8NE+oOg57POMT+zSLFc0zBPc4SRDxuR/d6oqLaQ
+	 gSehbUeRE6v8gAVvvDEf+NJDKO3gb2Y+tu7gsdjVEu+8Kos6un42qIKWXikYbZwec5oNP
+	 CgtZph+mnL+NUBSaHHq5M9rwBBWR+cAauOLij1kCylL9kUJKBgQW+Jgl/Zda71IUVfVfZ
+	 pSlf0H+qO3ag+JVgFJ0m/cR9vLC+MO1r8l8Q6wBSYSKvOcJuLlJkhBKR3nW2Z7DcvvSu+
+	 O5NbvmiJPuVCwDhD8z22x9WJ5qnRQireVrQoCTikoe+MyYBKHlpfYXPOVNb1u4KFdUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuOZFi7g;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="s/kSrIPz";
+	arc=none smtp.remote-ip=95.215.58.171
+Received: from mta1.migadu.com (out-171.mta1.migadu.com [95.215.58.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7835E606A329;
-	Tue,  3 Nov 2026 12:29:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F064606A331
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:29:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F064606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuOZFi7g
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CB9EF1F00919;
-	Tue,  3 Nov 2026 12:29:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793708955;
-	bh=DUyYtY0/ODWml+wjlW+GZawiWsZztBIYKliIpArIvIM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FuOZFi7gvZM9i0KCFVY+MbFRT83CKlZXVW1c/zMGlL01IeFLhKm9ANExZwHgYnGjH
-	 lDzdtIeko4Y+RR89YJAlRc7qMht6BVg5czhNrji69ZV/F0S0bQWE5SUtPKF9R85N7/
-	 6yljfx0vSxi3pU4beygEoFcEPlG/XJkIJm5NpSbl/9qO8mIzB3hCQvJEssQ3MRL42m
-	 KSpfAm0oTxTEn9+oLbZbzpJYHiN1B0dapz8GJdlcK33EuWU1z1OO1kR+nzeHGllk4c
-	 4wGyl55Pdx/qkprc27S8bORd228J8HwQtRwdMkcFbPeG3mmY/HVQi4U4X6ZbzZ/Z58
-	 6zGmpJtfDd+yQ==
-Date: Tue, 3 Nov 2026 14:29:11 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: David Howells <dhowells@redhat.com>, Eric Biggers <ebiggers@kernel.org>,
-	linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>,
-	keyrings@vger.kernel.org, stable@vger.kernel.org,
-	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	"open list:NVM EXPRESS DRIVER" <linux-nvme@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [RFC PATCH v2 02/11] nvme-keyring: Add a missing key_put() call
- to nvme_tls_key_lookup()
-Message-ID: <aunTlxXbRJ6ZP63h@kernel.org>
-References: <20261103030226.2685251-1-jarkko@kernel.org>
- <20261103030226.2685251-3-jarkko@kernel.org>
- <20261103053303.GA1382@lst.de>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=s/kSrIPz
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PF34Ywqq3DrUpqxYnrkdwuEKtKWivf29bfPHI77oMDk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793708961; v=1; x=1794313761;
+ b=s/kSrIPzXkIGCH9t1lqlcayf5MiiB6tA0eDDKjCDcWkTDapCIoQDJ/z9rDhaHDEPtasg/VQV
+ q9hNCHRiFdNFLSbkddlo9jwSgKP7xH42LtKjol2mBGAoNw6qBDxAZmYyjdD9DjKa6/uhfWAtatT
+ jVKewPGlRw6ouQuPiydoxNvU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 814c7918c8892395;
+	Tue, 03 Nov 2026 12:29:21 +0000
+X-Mizu-Trace-ID: 814c7918c8892395
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9c9827ff-4541-4a55-8e80-33b5298d8b16@linux.dev>
+Date: Tue, 3 Nov 2026 20:29:09 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,36 +58,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103053303.GA1382@lst.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH -v4 03/22] cpuset: generalize the validate_partition()
+ interface
+To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long
+ <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Koutn? <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Chen Ridong <chenridong@huawei.com>, Ridong Chen <chenridong@xiaomi.com>
+References: <20261101114206.2434398-1-ridong.chen@linux.dev>
+ <20261101114206.2434398-4-ridong.chen@linux.dev>
+ <950ad328-d16d-4cfc-b130-6a43530507ae@linux.dev>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <950ad328-d16d-4cfc-b130-6a43530507ae@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 06:33:03AM +0100, Christoph Hellwig wrote:
-> On Tue, Nov 03, 2026 at 05:02:07AM +0200, Jarkko Sakkinen wrote:
-> > Call key_put() before returning -EKEYREVOKED, as the reference count gets
-> > incremented by key_lookup().
+
+
+On 11/3/2026 6:25 PM, Guopeng Zhang wrote:
 > 
-> Looks good, but I only got this one patch out of a 11 patch series,
-> so without the full context it's hard to fully review it.
+> 
+> 在 2026/11/1 19:41, Ridong Chen 写道:
+>> From: Chen Ridong <chenridong@huawei.com>
+>>
+>> Refactor validate_partition() to take the parent partition, the new
+>> partition root state, the new effective exclusive CPUs and the CPUs to
+>> be deleted, instead of a trial cpuset. A NULL parent stands for a
+>> remote partition, whose CPUs come from top_cpuset. This makes the
+>> interface flexible enough to handle both local and remote partition
+>> validation.
+>>
+>> The housekeeping conflict check is folded into validate_partition(). It
+>> is skipped when the parent is not a valid partition root, as @cs can't
+>> be a valid local partition in that case.
+>>
+>> Use the new interface for local partition enablement in
+>> update_parent_effective_cpumask() and in partition_cpus_change(),
+>> replacing the open-coded checks there. The order of the checks is now
+>> the same for both paths: empty CPUs, housekeeping conflict, then no CPU
+>> left for tasks.
+>>
+>> Signed-off-by: Chen Ridong <chenridong@huawei.com>
+> 
+> nit: is this old tag still needed?
+> 
+> Thanks,
+> Guopeng
+> 
 
-I can it is just I rather do it on request because some people complain
-when doing what you asked :-) Regardless, the bug is independent of any
-patch set changes.
+Hi Guopeng,
 
-I'll summarize the context below (ignore or read).
+Thanks for the review.
 
-I tried to tackle: https://lore.kernel.org/lkml/20261101221519.GB2689@quark/
+Yes, I think it is still needed. This patch was originally written
+and posted while I was at Huawei, so it keeps the original author and
+Signed-off-by, and the second Signed-off-by records that I am now
+carrying and resubmitting it.
 
-And essentially what I would want is key_type_dead not to exist.
+-- 
+Best regards
+Ridong
 
-This version is based on module pinning, and  thus not having that
-key_put() would keep key type module alive in that case. However, it
-turned out this approach will not fly as AF_RXRPC and DNS resolver will
-hit the wall given e.g., the remote pinnings.
-
-The approach I'm going for next is to have a type registry instead,
-which is independent of the module system (to put story really short).
-I think I'm doing this with right process as this really needs a few
-trials in order to find patterns that stick.
-
-Br, Jarkko
