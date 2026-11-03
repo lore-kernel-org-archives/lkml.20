@@ -1,99 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.167.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793682965;
-	b=nArfZPc8XJIU1zQPn8SpSjylSvv2KqNRGzzA2IA8X4gn2v3AJsqRgtudf5Y5qatKQQ36
-	 RqvI8/3oFZkawXdUGAwLlJCGsKt7WOX+dE5Gj04uFf1fD9GnnOe8jOs+DpwyI51oYrF5w
-	 wTuoEkFkSOESWxTCo/vJb/fmMLWWtaKpag28e854JqPIgWFR1bzwcyBO7QKyhE11H38tO
-	 br6+yypPzjqF+rJcy1TgJLZn7p7kzb638EKXUaAJ2Ic91kx840I2MKApMgWHQer3WKKuN
-	 y6ETWiXhE4wpOtJJoFF9AvI63zpqkBmWw6bf83fkAQFaeS7YkEfXmPG6/sm2nmpM4sQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793682965;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=PGFryZNd38Zhqh8hnykXJyIhCnVJvOsmZjjsn+Xx4Kk=;
-	b=Bwt7qYRmg0wdws3IZPu2N82aS6jrqETpdMvJ10sKew/QCyDPS2wIrtciaoxYnJNl6wb4
-	 6qhqrnbhdbO0dvuauCzxST+QC9CTo0RYaa3RHo++0fEYrLeB2PuUceOiw79xeHzDZ4JRr
-	 ucoz+S/HqZUcUQsicum6lv94XNGwu/RCTV0mkr8VPWGuxi4pgW/oMrAVZYyEw96f2cUqi
-	 +M1MrjgsNk9uN8X8PYuF1X4hF49lUIQc1bSQwxaDgJNtKHaOBCMwAXMLS5ckP/Etukt+W
-	 ht0TULzjRP63lgMTNjaLKrnQZcajX0+eWZBRADuC163r87/bMB1O8n2uzpt6dwXGNCg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=FSGnN9eu;
-	arc=fail smtp.remote-ip=209.85.167.178
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793683045;
+	b=aoCBzwwdXMWEpy42XsfnO07HmjfGdietDU3uPnuUsY28Brj62YEUvgHtHLtbEph69rx0
+	 sG3s5FH2Jpqb2trh6i7RWj/whlKduQBhgfrqpQhLxqv2jJtMdVPIO9ArkSe9Pyu80xpCY
+	 uh/UERU140ZboGZxlJ1h4qPYfntj3h4aSGIwdxBYdK/nS9qaU7BtfB2UqNj1NPXc7V7kg
+	 rLcOiQ8bG0mne7vntbPBn+TSLLmEU4LME8b7L7rBlu27ugzF/c8YIbfpr/O380lXAyO5t
+	 p2yavw0wqE9pxvgpDu63ICgalOupR5uNZw4AJ5Ab3yrJ18f1L9liqSI1HB3R5OzL3Ww==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793683045;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=KPGGWC/2kBi+rBWx3h/b5/WqLPeVhFgeand6Amw/foY=;
+	b=fF6Ar11OzCfCmIfyeW2hb8g4orXQdFjlyXhhO7kR0SM9On+JSkEnwYsOruktKE7Iew0I
+	 WFITgwISJmlj4xyRLA1QOxssEB+gpfc6HAGDdrfvGXMzvj6NJyCManscgDwuqJVjQLgRE
+	 4j/PMvKz4svI5zwiJBkhEJP88wtcptXhseuQmcK1d9RSW7Q8/PmysJL6WDBEWZfU8hgX9
+	 DQJnLs0b7VafCD2CfJA5pIAdO5qfMHPRVjWDHYBwLb9ZiYOp0wkuqUUiIWYdkAiRgt/XL
+	 lk1TMRMCa2WG4lV5j5XO9GDBTriUoPvgBgvvFTDiMYmuDFK2VEQb7DvgU1VEVc4unfw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pRH1ILBJ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j8NSJ2J9;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3922F606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 05:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3922F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826EA606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 05:17:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 826EA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=FSGnN9eu
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-53656465d1dso2224635b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 21:16:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793682964; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HgI/Nn7F/HoyzEzrMqJkSUwD+iBj7xKMjGO2yCqM275XvTliYSdkSrbZiNADx8H1O+
-         fGMSkhotJIdkiqfA7Qj8HLCXOgMeocSTll20GvU3tAn+68yGrlD/0sZXn8LHRAf5NoL9
-         Yqg3OZoiBbAxp1RJzf+Xzrsvh2M4aUbC/lZO4d4ALOwdAdch6+KKYq6QTBMYaEx1M4mu
-         /SzunxGf4gh9BnMMve2mQ/rD0IC1rUED00/GVH26Oj0r11bYaaIZ1ffRR+NbiiYsmNxx
-         RMv4KcImrjkrrGPMFNyVlF2IFLGX9jSoDFUEBoa+GS6W7/9oLiZ9A8XA/CtHjVyBd3Av
-         ibXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=PGFryZNd38Zhqh8hnykXJyIhCnVJvOsmZjjsn+Xx4Kk=;
-        fh=9bTH/zCO0LoQpBVxrXn4AAhqIcGYiNBSbqMwdVDT7kU=;
-        b=Eh5MHTnL38OUt8gluEJrj7AMaz6v5bv+QYlX+fx+B+8+CyN/lx43bctmCvbChT45ei
-         UkjXQ/Y6r356Ls6w25xErkUZMnfk6NxIvTytkhSCe4vBSTv8WbAGK78KlUGBomIQ5alE
-         WpEkNl9v13oonBkhdzNr1R5WIogxwK5CADMWShfL68eSQW3iQlYMv514KT6nvHrjf1ad
-         Q/33xGUMe8rfS6pIHfT0ijkmRwPL9B2cXeFhyO+WYYf60JX3VKLMTvcmVk6UovANJzyf
-         1H3l3JIt6+D+vvve8T4gqRH+Q86dPE7IVhtBaV3gG3iNfAv6UU7p0O49P3nxBt35NalH
-         U2oA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pRH1ILBJ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j8NSJ2J9
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31e15h2402837
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 05:17:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KPGGWC/2kBi+rBWx3h/b5/WqLPeVhFgeand6Amw/foY=; b=pRH1ILBJH5f11RCm
+	fQ026mVvdf9l/lR62Jbr5JobdX0HhuJd9Cd9pQVgSE+bKzBtS9H3xAFarkRprzr3
+	JxEEaqCCEP+O1wL+4/+9s67stSC6oJpmnSk+DfjTpYEhtdCpNquGdl0dnKlFkTjB
+	TbVDb1Zip6QjkMp2fwSAZfiCYfO1df3E6vtMdk4g4hoAqph8dwFNLj9sivhD62Dn
+	wHzTr6auQzkZfvccsStYu5VijIg4FecPLBhFeXNeXD5ARYTdZqh+Mz4A8agmjpPT
+	VQp5lo16AphVn2Cto2/RDlBEuxEHzXayL+aO7plrBw/6cRkObF7ZSwWRigb41+t3
+	IvdXrg==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq3uy1623-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:17:23 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-359b81ad4e8so5087598eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 21:17:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1793682964; x=1794287764; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PGFryZNd38Zhqh8hnykXJyIhCnVJvOsmZjjsn+Xx4Kk=;
-        b=FSGnN9euCc9ApPpIPO11jVmZ5B0lESa7Ydpi553D8AMywtGLGjTxy80uGxzB5MbGBE
-         wsDmxZVI6weJS603WotaUcvaZeercfWdQkLTAvdBWod27m4nX/vh8KZgytWZkkZr9RP9
-         aHlZOYKQ+11VD8F63mr6nvqzOTxEK7TD5J8RvG7tZkN3h67kCjHAlOHRGw+YSHKAz7my
-         j4Hj2JZyAjzWEoD3IZQV6XU6wIeLzz0CrMdsFB8QCKx4yStdWTmNB9ojG/SYMxlLQutD
-         Tu+d4ch0ncnEEfl11kbmXXkuAX0sBOhMVMsWZLtTDrc5s3Gxr03xihwjRN3WCVC6wxNF
-         zq5Q==
+        d=oss.qualcomm.com; s=google; t=1793683043; x=1794287843; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KPGGWC/2kBi+rBWx3h/b5/WqLPeVhFgeand6Amw/foY=;
+        b=j8NSJ2J9Hr5enWlSlHJBROzxWHKyUjD5yIsAJV+9LjjjKep0RhR/+2PvaRPpHT3d/2
+         DAZH4LzE7CiU6CdEgfBa4NEswrVxpJvHWGtnvnK97zh64s9XOboaH9bwNwrQUUXvCxq+
+         4hZ50Kq19Tu6bWMci+Zp4k/Lz5jFCslVYuumb++BbkJmD7s/M/lJ5sowcbzKemFETfC2
+         XHl04bFiY/ZYsHC1RWRxz/YU7SAhCQMfwNupqQHiKNqGB/4TgD4uiUMQK7CIjJRvQENr
+         7X3OtWsXT4DZn0Sf+AQi3rbz1EFTRsmabQe9hRrXUCSyOCOQZydn6y6kIqsJPPaPZVbE
+         S1Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793682964; x=1794287764;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PGFryZNd38Zhqh8hnykXJyIhCnVJvOsmZjjsn+Xx4Kk=;
-        b=HCmHLemPJhS50A/8q/XYy9ght/qFYNcE2RC33s7RMm2Cbt9K0lgj0Yg1Vt+3awHAVs
-         jAXZjz1jO865dgDs2MkCMEt3Mi28QWC6cs6pWx6x1SRsz9wyVkIbmRY4FXplmEhDx7bN
-         neRACAtI6mInBEyyrK3oMv4tI5L8buxRLvq9mfOOH4VZgRwgY2vKs/B9q5b8AQ7JEiQR
-         iqfZDqii0zXjsbcovxn5BWJsPteUT1F6gB6G2I+HDyBPEvw7XRwiHZt3toaZQPGc//aY
-         VWwAkSpaabKmTuWXXn13izc3v595H3KAym3Mt75hQuBoDTNKXzLuFwjFKyQcgzQH2abc
-         FNfA==
-X-Forwarded-Encrypted: i=1; AKwUvByEkP92u2g04wGqbq6W+4vn1hSaP2tgpsanCLWSkALRt1FJV8R7HYB94jEKeeHbFiYpF73BRI2ZJV6w71o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKM2hH7Q+2u/GmJJTeHMKXk4eu+CCrvt5/EvZedlC/TanxLwQal
-	sQhR4NCw9q6b4ZZKZtDeSgQ9BVypeoIPRXYaV6FRZTMff49dCxQccPp1ZV5L9zXRd7RVhdJR3nA
-	ZhX8cexleZEhXnvA07sBuzQegqFTjg2kgYDG4m1nc
-X-Gm-Gg: AYBFou3Mtcr/8utMXAiMLAmNWPnLH9BSgHI+PWmwvSJYD/UZSgN+dUdENMAkW/axsvl
-	aHm2ViozXAcH3JjKNCddHvsY9jzb92eD03DhqkoEHNScZWh+qixSPZrTGACOtFzJkM1Zdpr0wKm
-	5YSu7HJ0HrB6kY0yMMVG1HY4nkIvM7FKydxhs3sqN9RDnUZEsnZm/i4hPGZHqOjcwDkOVymeNx4
-	EarxN7PIA9Uni0/9JrsIaOvyuZrtu56+goBqVfOQGTwmhgTb6G58r5gSsZW+P6U3VwlyX0BAcFK
-	q5chzr05WHRIooUOTpduw8LBaIAx3tSp/pzzwwL4k0AmygtyMlgl/6Fe4QkHeNUVz+nRdBbrUxx
-	p5/OfSvFUx/DCYZNnIWd9TGRkNb1xu1aD/mR8/XAS7IkHCTHR/pRiW4KF38KnMffLjRIr2Kg=
-X-Received: by 2002:a05:6808:178b:b0:4e9:cbdd:457d with SMTP id
- 5614622812f47-5640dcb7433mr8152707b6e.11.1793682964043; Mon, 02 Nov 2026
- 21:16:04 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793683043; x=1794287843;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KPGGWC/2kBi+rBWx3h/b5/WqLPeVhFgeand6Amw/foY=;
+        b=O03O0n8HvIT7/enEM3OWxio5AFeo8gfa5G+15ezJuUpt/jai7MKS9umddQVQYoqu9M
+         ZeH3F27UYs5s0YoHWrNc8CtaaiibnSHixvDf3u/1dMaBs21txso719EPmWMEd3jFJ3SV
+         wTWHK8um7Mqhq4nwr/v6PoV81OfbsmQCIefjMu4tDL1kWxfcQn7gn/2PI1LM5xNgYTnm
+         0l7NeUndhcx9kNi472P7O+1EYStlWlLxt2P/UeXbhx2Myzft6WI1mkhqx8lEcnZ9JBqr
+         wlA9ii4823svqyMiSXGTr0WtjKWBUjZEHtvT/WRzhFfK63U1VzJs2VOXt1fjQ0l9Sm7z
+         qpOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwf06Ia0TxwnzATmAzBsL+WFM2OkvRf2cjtHd943zXdZeOomEqsmmGL/P/Qc5NK8rfDU/ZN/TL9syXQrIY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0T8oB8VloSZlyv3XLkXHg6i5vVbfmm8IGAFLygFnxhJN/sYQM
+	vCR4PVnNi1uFMR9ii/O0uooG1qd5NbniyinjPVvx9NLill2XK4PPUMaDnoDwnXJa5MDCAR92hZp
+	aQuiqqWCD1vHCqlRIOddrgkVYGz+U9ADaLT3rzqba8qEH53O+iuQ6qnXgAiOTt9fEdp8=
+X-Gm-Gg: AYBFou2WO4TJRjq4yCn1vZcluok1QIFe7XUWX1YX2nMuF3+cD1LgvJLOUi5+cbm9L0k
+	bEPZ1HBowq4t/yqNUDVeROwYmXQMP/2DRfJXskhPBx2p0gJp6H8DwYpKnT9fnNQ49Z5g3Ljq/JE
+	m/A7Ulh3uCaI0yUX6F65fesVTKAYIBISyy3kxCuynXQD2OsDQSDHRwRfrajGBhRj5jHI4a1L8X/
+	4Jni/PDx9gqgL7NFvDZX3oRuExj7bd+9AUCm154id6nRauUvJ+0Gzfn54TdspNmtQ6FlZHBSY2q
+	xl1jW4LQw+EDSL847JIyTwwsghadoUOLXLYzPa/0ei7stN9Y1qbns/eX4+XmbMPZpq+fmxfV/X/
+	q2LLviGTiscruF0biF9SFnJHlmOZZR0oWnHBtGCzVUNqZ0+GvHQHwpgyIU05ks7p0MlriNbuH0h
+	T33Ie2S3LWW7JU
+X-Received: by 2002:a05:7301:1a15:b0:34d:7ae5:8d78 with SMTP id 5a478bee46e88-36a42418401mr16935926eec.31.1793683042555;
+        Mon, 02 Nov 2026 21:17:22 -0800 (PST)
+X-Received: by 2002:a05:7301:1a15:b0:34d:7ae5:8d78 with SMTP id 5a478bee46e88-36a42418401mr16935896eec.31.1793683041892;
+        Mon, 02 Nov 2026 21:17:21 -0800 (PST)
+Received: from [10.152.199.23] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm36640109eec.4.2026.11.02.21.17.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 21:17:21 -0800 (PST)
+Message-ID: <8a301454-a8b8-427a-883f-cddcf31a4879@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 10:47:17 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,36 +114,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103034932.1790235-1-smish149@asu.edu> <20261103034932.1790235-3-smish149@asu.edu>
- <9b8d9f77-981e-4bcc-9d30-5c53a2c1d1b2@suse.com>
-In-Reply-To: <9b8d9f77-981e-4bcc-9d30-5c53a2c1d1b2@suse.com>
-From: Siddharth Mishra <smish149@asu.edu>
-Date: Mon, 2 Nov 2026 22:15:52 -0700
-X-Gm-Features: AclHuK8EhuIqsMApcRe1p4MKz2sF3pCM5QkPwADZCjYjbLoYzLMJZd77Dx7ktuo
-Message-ID: <CAKpDGtmMzYinwYLF1AKbA4_kvpWS82Z3yWwsyo0-f0t1QknN_A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] btrfs: tree-checker: reject extent owner ref without
- simple quota
-To: Qu Wenruo <wqu@suse.com>
-Cc: David Sterba <dsterba@suse.com>, Boris Burkov <boris@bur.io>, Chris Mason <mason@kernel.org>, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next v2 1/2] wifi: ath12k: report no AFC memory region
+ to firmware
+To: Goran Sustek <gsustek@gmail.com>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Nazar Mokrynskyi <nazar@mokrynskyi.com>
+References: <20261102200235.48973-1-gsustek@gmail.com>
+ <20261102200235.48973-2-gsustek@gmail.com>
+From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261102200235.48973-2-gsustek@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: U9KnBL1minhUSJfHoj5wN-E7EWz8qL2N
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyMCBTYWx0ZWRfX9h6HhD2OqFda
+ C0pYRvmogWwNOcOt7w62H0Mr3T4QBA53QUwcTVxFnMQeAJjrOKfWo7vT0fhUjX8L5i4m2ewQMGI
+ r7KjkSW8n49l9rJXcy0JNREaC6zYYP3VFwyYwea402HTl49K2SDWvPPp+Bv4ZrYNgZXD0cCvig4
+ nMvi8oGrf31so6FwbaxyH0AuPulv43HT2ownspP76n9NdM8C+kLPSHHqW3iZXp3icPBR/npB46e
+ sRWDpg0ev3CfhUxwCa80KvtY57MXqcsz6vuUQWRQTNyDiYjzq7hnAZK0HdEuwAtxr7OXarvD+r4
+ aFuKXGp+ikEfQ/QTtwlVxczLQhs9r0I4zcVB8MhPnwymh++DCXS2SBjBun5PZT28AYq8mDSN18O
+ 2CxpV34TSNIh1/PkPuuNEPPXa0JH0EftOS9if/+njOagSr41e/XFrn+ZBBuP6EvjKlCXGYwMaX0
+ 6BgQGt2kRzEc3Uq5GIg==
+X-Authority-Analysis: v=2.4 cv=VoG2kO2n c=1 sm=1 tr=0 ts=6ae96e63 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=pGLkceISAAAA:8 a=pQ7Vk2PXlUccqxbdelIA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: U9KnBL1minhUSJfHoj5wN-E7EWz8qL2N
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyMCBTYWx0ZWRfXwOtS1X//rJ9v
+ l0p/VNPfN0DYZIZOD8yMR2Pevp8RHhx1YGQGxmQGcduJ+ZCOUkMjetwvT9wOd8HWTggzy4OfoWp
+ 3nEo2XHom8OL51qTUhiuUyWvEOSPMG0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 spamscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030020
 
-On Mon, Nov 2, 2026 at 9:41 PM Qu Wenruo <wqu@suse.com> wrote:
->
-> I don't think this should go into BUG section, but CAUSE.
->
-> Again, remove the last paragraph.
->
-> Again, I don't think this really counts as a fixes.
->
-> Or all hardening would be considered as a fix, which makes no sense.
->
+On 11/3/2026 1:32 AM, Goran Sustek wrote:
+> QCN9274 firmware WLAN.WBE.1.6-01243 requests a target memory segment of
+> type 0xa at every boot. The driver does not know this type, so it logs
+> 
+>    ath12k_wifi7_pci 0000:06:00.0: memory type 10 not supported
+> 
+> and answers the request with a NULL address but the requested size.
+> 
+> Type 0xa is the AFC region: QMI_WLFW_AFC_MEM_V01 = 10 in Qualcomm's
+> wlan_firmware_service_v01.h. The firmware asks for 8 KiB, where the
+> host places the response of an Automated Frequency Coordination server
+> for 6 GHz Standard Power operation. ath12k does not support AFC.
+> 
+> The firmware treats a region as provided whenever its size is non-zero;
+> it does not check the address. With the current answer it therefore
+> takes bus address 0 as its AFC region and maps it for its own use.
 
-Thanks for the review. I'll send v2 with your reviews addressed.
-v2 will drop the last paragraph and the fixes tag from both patches,
-add the tree dumps you asked for, remove the comments, and move the
-reproduction of the second patch into the [CAUSE] section.
+What do you mean by "bus address" here? Do you mean the DMA address 
+provided in chunk->paddr?
 
-Thanks,
-Siddharth
+Also, the paragraph below makes it sound like without this change the 
+firmware doesn't send the memory ready indication and the radios don't 
+come up, which isn't the case. There is no visible functional issue 
+being fixed here. Please update the commit message to precisely describe 
+what changes with this patch.
+
+> 
+> Name the type and answer it with size 0, so that the firmware sees no
+> AFC region, and log this at debug level instead of warning. No memory
+> is allocated. With this answer the firmware sends the memory ready
+> indication, reaches firmware ready and brings up all radios.
+> 
+> Tested as part of the series.
+> 
+> Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+> Signed-off-by: Goran Sustek <gsustek@gmail.com>
+> ---
+> v2: do not allocate the region; answer with size 0 and log at debug
+>      level. New subject. (Rameshkumar Sundaram)
+> 
+>   drivers/net/wireless/ath/ath12k/qmi.c | 12 ++++++++++++
+>   drivers/net/wireless/ath/ath12k/qmi.h |  1 +
+>   2 files changed, 13 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
+> index 817bd820623d..55952da4343b 100644
+> --- a/drivers/net/wireless/ath/ath12k/qmi.c
+> +++ b/drivers/net/wireless/ath/ath12k/qmi.c
+> @@ -2755,6 +2755,18 @@ static int ath12k_qmi_alloc_target_mem_chunk(struct ath12k_base *ab)
+>   			if (ret)
+>   				goto err;
+>   			break;
+> +		case AFC_REGION_TYPE:
+> +			/* The host does not support AFC. Firmware treats a
+> +			 * region with a non-zero size as provided, so report
+> +			 * size 0 instead of address 0 with the requested size.
+> +			 */
+> +			ath12k_dbg(ab, ATH12K_DBG_QMI,
+> +				   "qmi AFC memory region of %u B not provided\n",
+> +				   chunk->size);
+> +			chunk->paddr = 0;
+> +			chunk->v.addr = NULL;
+> +			chunk->size = 0;
+> +			break;
+
+I'd rather move chunk->size = 0 to the default: case. That way, all 
+unsupported memory region types are consistently reported with size 0.
+
+>   		case MLO_GLOBAL_MEM_REGION_TYPE:
+>   			mlo_size += chunk->size;
+>   			if (ag->mlo_mem.mlo_mem_size &&
+> diff --git a/drivers/net/wireless/ath/ath12k/qmi.h b/drivers/net/wireless/ath/ath12k/qmi.h
+> index 1b1c88906f1e..9d9174c6ee60 100644
+> --- a/drivers/net/wireless/ath/ath12k/qmi.h
+> +++ b/drivers/net/wireless/ath/ath12k/qmi.h
+> @@ -177,6 +177,7 @@ enum ath12k_qmi_target_mem {
+>   	CALDB_MEM_REGION_TYPE = 0x4,
+>   	MLO_GLOBAL_MEM_REGION_TYPE = 0x8,
+>   	PAGEABLE_MEM_REGION_TYPE = 0x9,
+> +	AFC_REGION_TYPE = 0xa,
+>   	LPASS_SHARED_V01_REGION_TYPE = 0xb,
+>   };
+>   
+
+
+-- 
+Ramesh
