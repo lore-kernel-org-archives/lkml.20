@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697708;
-	b=gJ8LcOa7CxdWr6c/+FFclI90Kgq6xM3dnptoyUdliObZeZOJfX45vLnfViu+WdIdxzMp
-	 mL69vkWuPs1AwU6f3quXil1xzuV9q1TBXMynxNUkrKdx7uai+aUE81ryImchqvCX5ujrz
-	 nhdsXXFuGlwb64+c3AcInvMIy2tXwlSBTbfzUkP9waQpqeRU9WUwF6ezNkXUFqiYWONwx
-	 qYHCsEjPbxpTKemLaBNgqoeH8ql0gljpVl1MHpwtrSk3JEaMIsyUjp7YJ65YlqkDobSPJ
-	 ggGd0fCUNRsPCUcBtvZanWhVU0TCpZluOBZrQpRUwbeVrURoUOuEu4zj125ExzAyKUw==
+	t=1793697705;
+	b=0poNHwAzr88JuPFMWDtsTTj5Guowogo99HZfqzAfeFp1N0iARaHkSv8cqbV6oYSgI1Fi
+	 gT/EwMWlr1DONsITBD8A+AluS75RJK2+h/OKp1XEWzfidUdOgT4NXkHcpWwJABSog87lu
+	 9xUQku/GLH2lAjpDAz9dCgGUvz6EjBWA5BirkQETjKxl/UDoLzDju36wgRqKqPRnOWSaq
+	 V40ZbAkRZf04wi42AxaROgln6NKD8knD2XI4MK1tOAaBkJmdiZU4vsXvJu6TeUXaFqVDX
+	 tpwU4jdin6NqYxPOk71LdjBhYRkGPhKvifotR4Staa4zE+HpVM4Oi0OsD4FQTCUr3qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697708;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697705;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Nl8vNU0L6hN5oGlwxYaKhQs3x0kx11JFhc47Zg4ZFSU=;
-	b=ERBcFH9E1q8sV4P1JZpyfHe7rrHz4YbcbLpndj5NsH5S2Wqv+F+4IFmryUYpJCV0wCCb
-	 uClsE6dd9tZ87hHjETlotvOZTlrfcPhPM+bVNJcMG2FyX5F8cyZxnaiuHO8m5CwZOeEVP
-	 SU3HyS5nH04B7h1tSUScaBdskUAwHfkd2Wa8SXUxL/Jm303WyejIkVx8RBnOE8exPxPd3
-	 PeIJBTYlWwpruOLAL8fo1Or5Tor12d41BLkwmGKAdqE2Nh8eHWF+32Sanze9nkIn7to93
-	 Q27/9CakrisqGrpb72a4JPKy5oXynGGNC30RJv288ZML2RumcYhhqXx1EGsBJS1S4bw==
+	bh=wSoJrenZh1B9DPRMpx5CpcbMj5JwpEhHMk8T5omwlek=;
+	b=o5D1wrW24GzqtKcnhWo/8QuxnV8nFdS4+at+/vBIP3wfiQeJmrjEvBjzCySxX/mTu8Pb
+	 SJcNPB6gTHiPch0QCUWxjkp6VsQ90k3xZXRPW5RZ9iq6gr9EQIN+M0Iv8MJXT67z4QrZY
+	 jU2h++ZbzgdSNCMlLdXVNORwxFYScfY9hxIeL7e3skct6HUxm+LulJLGqrpPsBfQ0W80B
+	 PKHyWnCGIGHFs1ACLwes55OgFVjdEyw3F92x2Ea3EFJ+7Tu5Zy72tuF8Czwf7mfi9YzMH
+	 6gMJxVLui6u/oQZx/OgaMBCVpjh9Ktv37Y2ETiqRmcYrFDFAi2WZjUE4mWkaNVYI22w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcvreDjF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgdVCDX5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B1E6082BE5;
-	Tue,  3 Nov 2026 09:21:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CEB606D820;
+	Tue,  3 Nov 2026 09:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcvreDjF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34A451F00A1A;
-	Tue,  3 Nov 2026 09:21:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgdVCDX5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8A261F00A1E;
+	Tue,  3 Nov 2026 09:21:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697707;
-	bh=Nl8vNU0L6hN5oGlwxYaKhQs3x0kx11JFhc47Zg4ZFSU=;
+	s=k20260515; t=1793697704;
+	bh=wSoJrenZh1B9DPRMpx5CpcbMj5JwpEhHMk8T5omwlek=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WcvreDjFEuUKl5HrFulwynlRAPT4P+qsjQEMm/JKfkcD2XGe8HydVS6jgO9GCMAFs
-	 BJErznURg5nIw4IgipGyr7ZGXDSkP1CDgsw/ifZzhea0swOADiDI6CG1GD4hQg/vhZ
-	 Ugf2BP+F4mSa8eOL6CX6hxlpG1VG0KSdvS4j/AB7l0ZGOHyE9XnNChcHLxT3CXmZ6l
-	 juyXJOS0Xibbo/iJjR2xgeesO5c5e2rtyGf9QIfT6sUmX0yrXUuf9xWbakkTqep5Uq
-	 4S/nORjhIvHPSIGx0s9m0QpFIXRtCVdElpe7M75PfqLGKzwMPmRNhwcUAxmuUqpKGb
-	 TZoiVn1eCLunA==
-Date: Tue, 3 Nov 2026 10:21:44 +0100
+	b=QgdVCDX5qs7Hvg6Yx/iPUjAss99AQteWsC6hliEo8XgZyip9fVdu+QqGhT3VmMJda
+	 a1t/b22yM20rtlFP2fvkw57cobgP2uqeKs2/xARLLGglN5YP/pPJI2kiAZRKosxq/i
+	 bcfB3DUMnlLk1bRQnrOT+NElV9BVA7qoUXiaThTDQ/5UUrA/TL9iyOYM99sSTeTiwc
+	 KokiObWZhSy1l+lHTHmeDRv0LJwEijACsx3lPrKCLBPlR5WDBUjrjtisPVY+hUYXa3
+	 kGzd5rugrjUNflA8Vh1VK9aResFOII1/awlTnrQ8qWVS1dnFUBlEQg2R2DegenwiXI
+	 pXJzwGhy2bEiQ==
+Date: Tue, 3 Nov 2026 10:21:41 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	stable@vger.kernel.org, sakari.ailus@linux.intel.com, mchehab@kernel.org, 
-	vladimir.zapolskiy@linaro.org
-Subject: Re: [PATCH] media: i2c: og0ve1b: Free controls when control creation
- fails
-Message-ID: <20261103-viridian-rat-of-exercise-e8eaa3@quoll>
-References: <20261103082513.1162639-1-vulab@iscas.ac.cn>
+Cc: linux-rdma@vger.kernel.org, mkalderon@marvell.com, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org, leon@kernel.org, jgg@ziepe.ca
+Subject: Re: [PATCH] RDMA/qedr: Unwind user queue setup if doorbell recovery
+ setup fails
+Message-ID: <20261103-ordinary-legendary-mandrill-172e1d@quoll>
+References: <20261103081732.1144512-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,26 +59,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103082513.1162639-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103081732.1144512-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:25:13 +0000, Wentao Liang wrote:
-> If a control cannot be created, og0ve1b_init_controls() returns the
-> handler error directly, skipping the cleanup used by its later failures.
-> The probe caller then powers the sensor off without freeing the control
-> handler, leaking controls that were successfully created before the
-> failure and the handler's allocation.
+On Tue, 03 Nov 2026 08:17:32 +0000, Wentao Liang wrote:
+> qedr_init_user_queue() pins user memory and allocates its PBL before
+> initializing the doorbell recovery record. If the last step fails, it
+> returns directly without releasing either resource. The CQ and QP
+> creation callers treat this as a failed queue initialization and do not
+> release that queue, leaving its user pages pinned and PBL storage leaked.
 > 
-> Save the error and use the existing handler cleanup path. Preserve the
-> original error before v4l2_ctrl_handler_free() resets the handler.
+> Free the PBL on doorbell recovery setup failure, then use the existing
+> umem cleanup. Match the PBL allocation mode: RoCE uses the populated PBL
+> allocator, while the other path allocates only the table descriptor.
+> Clear the freed pointer as well.
 > 
-> Fixes: 25bf2e1925c9 ("media: i2c: Add OmniVision OG0VE1B camera sensor")
+> Fixes: 97f612509294 ("RDMA/qedr: Add doorbell overflow recovery support")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/i2c/og0ve1b.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+>  drivers/infiniband/hw/qedr/verbs.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
 > 
 
 
