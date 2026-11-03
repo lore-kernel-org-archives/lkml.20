@@ -1,75 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.70
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732907;
-	b=0GrTZ0fxypvpyAwg6Q8NZHUkHu6XSmRBqeRMFBjMzo73iIdpeQWOXBLAejUSo2JIZ1cS
-	 2QcudLEzq7a1QPvvoIkQPqeMcvNIdkPVd7ulrCIGZseJnIMiCLbEgxi5dsUxQQwnExq0g
-	 PdRTuWuQJVloFBQaefFUkUxSkQB3HLromQ5jf3HgU6o7/R6B3EnWWVKOkvZ0HudTunvK4
-	 Z7uG8/AE215hCG37MchJIm+S0OI5ScwoSLNPUjygh79UFoGJeAfhBCIlJm+gnytI2Jj4/
-	 zNQvaJEfnwnvEVCTOvAS3+y8rr7CQlgq7ssKJcBHMCMhGf9IAMqSED3PTJyQNUtsPbQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732907;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=p83s1UZrudYzqyiix38FzmFWnzl/cng77PjrgFldiOE=;
-	b=A+h5w+diuD0RWjmpQEZ4uUmmxoUc/7pbxXHkFAcm3cl5dB6EHrmInoYi2/t/8oIEZ8lI
-	 lwfyyamB+G83o9q2CIDk77CLWf+/8D1UqjRZz9UZ+oelcdhCMxYClkOfGo8cJRosBzvpj
-	 Af2Vnzj7OXQSNppqZUBcH00Eb13SOCf661HSdaJJWixlEdYFnTDMiK/EpQXb9P13qCAm/
-	 XhdviMGa3G+lXV9w+Wry/yZjnhPq8kIYFnhAVAzludSla6I3YG5gPmnfLwOXqRuXRekK+
-	 8jkIuQioyRXuXn7NSkdqKmnvIQcO0SbWuKiCZnBKgAQMMycLINA49PNCIasWobsZi3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=akn1vy+5;
-	arc=none smtp.remote-ip=209.85.221.70
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793732916;
+	b=foNF03Pch7opy7tRrM5qHC0qjT0rVrX1dGMRjAd/IRqnfnETzYLWPU1hLHRG7dOnie/7
+	 2x+VqRjQ5kMp1KhopV3AhjsFDozPULCgg/BG/2W0wo20kpIVrSkNshRbzYQRv10ayZk24
+	 fXRDkB2zki/hL/pc1FPQ/9sP3Ls28hl0axAIMsUg0KAqkNjSnydhMsL5EOlAxAYqJguiI
+	 Hy72dkC6K+hK+AWPRRQiFuNIyG4IbWiRv6ZKzJeR64A006x+zpsyEogUnhB8PZZ2g31ZG
+	 X4nyrzKUG34zB3NUrBLxHwLtan0Iv0GynycJo7Vv0K7exd4NbO1IjW0Sp2pelAx+Txg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732916;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=YwipAATj3m61n1Pz5ouy3ufUS/IQqEsy94sujF8vBtk=;
+	b=4ouTSuaDerlOZ7BYj/S4YeH1/sCA+XiL/0pioL2L1mFmset1f6D/krblltZK4wZdemn5
+	 TpAPzhdFHiw8wj/FDVa8r8ImEZXeM8eeB31w0MuK3ibh9eIYKrI8CcpGN0BOoHySpLX2x
+	 vXm657lmiOOlZFTVNszeRwRO455NZJdpuSX7u/scYnEXznLYrfMpqN0kC4haZoOsGwvkJ
+	 hM0Z+BlJRNoFf35yZKp/foqJjWeA2z8aVnJV38rQQhR0v6KOa2P5WuTDd7o03jJsdZx2q
+	 Iz2WyuTgJLCo0KDmfrY+QrcFwURKnB5BG22FqbDZQ9g37AVEDFIAb331UBgB8TTW3QQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KSHcbzzt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.41
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013041.outbound.protection.outlook.com [40.93.201.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E1D606D825
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:08:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32E1D606D825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B167B606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:08:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B167B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=akn1vy+5
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48b00febba3so3083434f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:08:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793732905; x=1794337705; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p83s1UZrudYzqyiix38FzmFWnzl/cng77PjrgFldiOE=;
-        b=akn1vy+5Xz5pRxHaBrgSKjRXzbwtRSB21+El/VdDDA5Av2vcsF3S8pHrOnmyE8JiVw
-         BomVm1mkbiGo8Q8ibOmDf6w71znJ3Yr/RBXNougHUGgm3c3FoRz86AvKaSUYGs3N/cca
-         n7wcwyq7wXqEaG6iSsImbry1ypAVsLZ8uW2XDeAM4DCwibek56IUMa8z8S8O+04G2kIB
-         Gd61ZlwWFj4X7ohxskEyUxj65wUaueuzW2KBVMV/T0Ae/+OgLpJaLKtj6frNS6fcHXWD
-         uJgnlO8Xv38sGmFAwqB75yp/eazqiZzkEKD31UDP2nY93cJNy0a2QUGAM8mzZYTGhDGS
-         /DyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793732905; x=1794337705;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p83s1UZrudYzqyiix38FzmFWnzl/cng77PjrgFldiOE=;
-        b=lpguL1XIR2C0FHEOKrAfBGCGtaDRdyWeTDaekealaK9ldj6q3CvWVjJxZZMKcVmqZR
-         u8+Uv0qznguAVuIGsXE8lcFof3M1CNYayREoYFs2WgjP+v5RgEXEQ2AQgjUYc2NqQ+Ts
-         4yirR+uSPymELRPu8pE/eEwQ2qY77FwDxgur0TziQObBB9NO6zdwYQA8+zabRL5WDoVa
-         ybFvQ3v5FxECbg6LqSqHAYlf3bTVUyMQZ0wP8YIzjd323/3bXOGx0x1EULRGdTvrT8i7
-         UhVETRdhafNTW3pBipO7KhZ7znTgXoespMTN08wcgLQUdZXGW73gdQqb6073R2E3cbT6
-         SyEQ==
-X-Forwarded-Encrypted: i=1; AKwUvByvNLucm/4VgcN7KRwWRAtQ419qu8ugijLP8nQIlO9bfUxzTdQXaQW4wWNBCaWjbw5QJnbxwRklh1iAzqk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9afFNj9V5ESf6x9JHt80R8COF8+k0twvN0N263NMOcPvtvx1cP
-	wmQYpwn/aP5fY39l1+0e8cdGzx13KK13MkzZCGHlCU/Iyuh75gbhL67A7XTMTfqB0+yqykqOxTF
-	9KLkhkqdfiqO/ww==
-X-Received: from wrsq11.prod.google.com ([2002:adf:fecb:0:b0:48d:ee1f:7396])
- (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
- 2002:adf:f24b:0:b0:48d:dc6f:219a with SMTP id ffacd0b85a97d-48e6e2ff6f2mr25928011f8f.27.1793732905092;
- Tue, 03 Nov 2026 11:08:25 -0800 (PST)
-Date: Tue,  3 Nov 2026 19:07:49 +0000
-In-Reply-To: <20261103190805.3487350-1-jpiecuch@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KSHcbzzt
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZuXgDYHyPSw/TKHhipJvBA+Lkd23ZaQlWAwiidR6PiAdw8e5TEkDunx/PvKIA7WWbn9BtB1oSHnDvHDqhwLAj1oIbskFLoE1ri488vKUmMJafHiybxL91YLLAz9xf2PcrANbGnChgva5tyfmMLFk46ndb7oUTk3megW1lp4BrFirX5QCDBonlnzA9/3o2sKI+ImePNPLf4tXy7zflaz9D84Ej5qEmSiI9kmaFbKYiuNHM5LO+1ZN1ryVLpO+Ef3j8lgWK4koUufx8HMPBP8yHwCypAwZxM7Ukcs/kgCExj2y6GUZBthjRMfUlWyEWjjeiOyf9zJXlKOiP3scSErKdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YwipAATj3m61n1Pz5ouy3ufUS/IQqEsy94sujF8vBtk=;
+ b=c4WNGRI/Td3IoA0zlvvqgWzIQ09vGwwV3twDm0wtRl7J6VngO/7YfdjOUpXE56upIAE6/SQOBCfDTLsDarvk0+bq3jcCe4MhukZDrVzqcr3OgZCA5/sxFdytN/n2Jj7CS+3xWFLvnXRS8ro0Er3tKSPENWkb4COmvZnKJXBn7/zP2wQJJzmkSfSE0EKczwOg9kl+S9t8x3HSiO1pryX6vXcBohwesuQNZetiupUzGv7qJgyWEcc2G3ji0q/NbOUG5l/RYHmgcuVP2fj3jcmP28vluXuj2x43eJR60QD2zW+IKcWVfTuk6vJvzZEzRGxyFo+Z5/eqBqrfTI+Cd3VRFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YwipAATj3m61n1Pz5ouy3ufUS/IQqEsy94sujF8vBtk=;
+ b=KSHcbzztv5CoR+REc1zxly/2P93GMZ8yjEOlFbwWaOXKh3yCLYm+j4AZrjHLCRVkGkHxTwuT5yByqTSElY1t2mK4V1W38N6g0wbt5hS6wrcXI6QJRWW3sXNK8el/yYdFumWfzfdou9BbEUHFrZ4V7dU+Z/+fUMTv/loPgNO5DBY=
+Received: from BY5PR04CA0009.namprd04.prod.outlook.com (2603:10b6:a03:1d0::19)
+ by IA1PR12MB6068.namprd12.prod.outlook.com (2603:10b6:208:3ec::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 19:08:29 +0000
+Received: from SJ1PEPF00002322.namprd03.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::6d) by BY5PR04CA0009.outlook.office365.com
+ (2603:10b6:a03:1d0::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 19:08:24 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00002322.mail.protection.outlook.com (10.167.242.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 19:08:24 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 13:08:23 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 13:08:23 -0600
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 3 Nov 2026 13:08:23 -0600
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+	<sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Remap BO pages instead of using vm_insert_pages
+Date: Tue, 3 Nov 2026 11:08:21 -0800
+Message-ID: <20261103190821.2019203-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,87 +112,266 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261103190805.3487350-1-jpiecuch@google.com>
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261103190805.3487350-3-jpiecuch@google.com>
-Subject: [PATCH 6.18.y 2/2] sched_ext: Fix scx_flush_disable_work() UAF race
-From: Kuba Piecuch <jpiecuch@google.com>
-To: stable@vger.kernel.org
-Cc: Cheng-Yang Chou <yphbchou0911@gmail.com>, Tejun Heo <tj@kernel.org>, 
-	Andrea Righi <arighi@nvidia.com>, Richard Cheng <icheng@nvidia.com>, Sasha Levin <sashal@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, sched-ext@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Kuba Piecuch <jpiecuch@google.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002322:EE_|IA1PR12MB6068:EE_
+X-MS-Office365-Filtering-Correlation-Id: 011c790e-63e9-4ae2-3897-08df39ddd5cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|10067099003|261102123227099003|18002099003|261102130727099003|56012099006|5023799004|11063799006|261026121527099003|261022105027099003|261009223027099003|261026140227099003|261021121427099003|261028144727099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	DvaaLVeSI8Y32Ip7KqCMwqadvIrhPjoZKkY/AdkDgIt3iNDN5Jk8YerDJCU7SCrlWprX9/gKy4KaTnJ6/Mcq/NR4SOQqQJEtlIFcnl8tiMy+6LKxa9uhsLS1SE1hR1zBShBkHDWURS20SJvsRZJPydMVB3AXwr4iWItbtwaijaZ/H3f7PClqXKqd9uNcLs4l/h5jPqG5giF1DaCrJMVAmEkf7cMUisuWVkH4N9viNOzm5oDzMSThbDLAr6qjoEQxjzVT7tTEfK0XKzhFHL2E0t1TasY+Py5G+GkB/uz3YnJMiRZDkMxOKhZ2kfPGiDy0utfsvC2NpU1I/fc2tx8Gufvcqkb2HfbooZXbB+a2kCYTN3v+yEnxXk4iSI6Qryxr7WQzzaBpksLNFE9tMBNerVO41KGbw774x6GFPGDhK4TbbGXcoWJcqWC+NmdxspuevodEKxzhfy+xJUi4vs/AdXuVg7WR3ysu3/RbBrn/attdyorzO9wqzcSnAKJycRIpSgQZLUjpBkHE6nq75y1LHKHYZbBbiUYaQg9wvzu19UnCKw59pdItkMBBWdgLUiN36Aekry5H/53gQIJaCrD2CwIPcotkqfZE9/JcnPpYz/aI8O74qPgwt0AYtChhj8r3z5hTCFuT1jqU8bLbUr5aR/wP/xSHXbketbLUR+xgrVaDZdjqTfZfyJMmfHk+F5+ESK9XTkQ1YUovBuu94eqn0Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(10067099003)(261102123227099003)(18002099003)(261102130727099003)(56012099006)(5023799004)(11063799006)(261026121527099003)(261022105027099003)(261009223027099003)(261026140227099003)(261021121427099003)(261028144727099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	qZ822wz1e0+8R4DRftv+nHfwTkeGv9TKfskELkD2qfX1RrtEoZiBAfNpzyRNk/qqhQ6tv/LMAfnS1EJHRwaoCwpASwBOuyXnSnlOiXRbeNn9fUjlP880yMD1dcNms94r54c7ZMOkStCZK5NGcRmE9Z7NGoTOY0fRLoV7hI6vHXWK/YnXHL0m29stha1nxC1hMj3ES823OLqCrfKFXRKd4v9RXXlve6Ex1dc228RRfyFPdrJf46ek2Gq9VyuNQ2AjtoQ1gjAs5n5vFcLYA2jqjpC2Vrxo54Qr2EQudB5o1VTb71pzPMNnJmAqXVItPLB+yQrwwJVoceQUoitTZqnY5y0BRPFacPeU/iylRa+k2MOA4nbjo9oJAnif3PVpA739iR1eYG4qp7T/6VUxKD0URiX2acESqLW399MSzBpxi0Pi0ZZMMSOyqk11lOMp7aKY
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 19:08:24.6874
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 011c790e-63e9-4ae2-3897-08df39ddd5cf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002322.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6068
 
-From: Cheng-Yang Chou <yphbchou0911@gmail.com>
+VM_PFNMAP is set for shmem BO to prevent pin_user_pages() from pining BO
+memory. Replacing it with VM_MIXEDMAP breaks this behavior.
 
-[ Upstream commit d99f7a32f09dccbe396187370ec1a74a31b73d7e ]
+Keep the VM_PFNMAP mapping established by drm_gem_shmem_mmap() and
+populate its page tables with remap_pfn_range() immediately after
+creating the mapping.
 
-scx_flush_disable_work() calls irq_work_sync() followed by
-kthread_flush_work() to ensure that the disable kthread work has
-fully completed before bpf_scx_unreg() frees the SCX scheduler.
-
-However, a concurrent scx_vexit() (e.g., triggered by a watchdog stall)
-creates a race window between scx_claim_exit() and irq_work_queue():
-
-  CPU A (scx_vexit (watchdog))        CPU B (bpf_scx_unreg)
-  ----                                ----
-  scx_claim_exit()
-    atomic_try_cmpxchg(NONE->kind)
-  stack_trace_save()
-  vscnprintf()
-                                      scx_disable()
-                                        scx_claim_exit() -> FAIL
-                                      scx_flush_disable_work()
-                                        irq_work_sync()      // no-op: not queued yet
-                                        kthread_flush_work() // no-op: not queued yet
-                                      kobject_put(&sch->kobj) -> free %sch
-  irq_work_queue() -> UAF on %sch
-  scx_disable_irq_workfn()
-    kthread_queue_work() -> UAF
-
-The root cause is that CPU B's scx_flush_disable_work() returns after
-syncing an irq_work that has not yet been queued, while CPU A is still
-executing the code between scx_claim_exit() and irq_work_queue().
-
-Loop until exit_kind reaches SCX_EXIT_DONE or SCX_EXIT_NONE, draining
-disable_irq_work and disable_work in each pass. This ensures that any
-work queued after the previous check is caught, while also correctly
-handling cases where no disable was triggered (e.g., the
-scx_sub_enable_workfn() abort path).
-
-Fixes: 510a27055446 ("sched_ext: sync disable_irq_work in bpf_scx_unreg()")
-Reported-by: https://sashiko.dev/#/patchset/20260424100221.32407-1-icheng%40nvidia.com
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Cheng-Yang Chou <yphbchou0911@gmail.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-[ Sync error_irq_work instead of disable_irq_work. ]
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+Fixes: df4d5352063a ("accel/amdxdna: Fix unsafe use of handle_mm_fault()")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
 ---
- kernel/sched/ext.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/accel/amdxdna/amdxdna_gem.c | 157 +++++++++++-----------------
+ 1 file changed, 62 insertions(+), 95 deletions(-)
 
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index d2460a88fba3..78f15ddc0aa5 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -4217,8 +4217,13 @@ static void scx_disable(struct scx_sched *sch, enum scx_exit_kind kind)
-  */
- static void scx_flush_disable_work(struct scx_sched *sch)
- {
--	irq_work_sync(&sch->error_irq_work);
--	kthread_flush_work(&sch->disable_work);
-+	int kind;
-+
-+	do {
-+		irq_work_sync(&sch->error_irq_work);
-+		kthread_flush_work(&sch->disable_work);
-+		kind = atomic_read(&sch->exit_kind);
-+	} while (kind != SCX_EXIT_NONE && kind != SCX_EXIT_DONE);
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 46b9f6c960d7..09e48c794e1b 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -564,11 +564,51 @@ static void amdxdna_mark_mapp_invalid(struct amdxdna_gem_obj *abo,
+ 	up_write(&xdna->notifier_lock);
  }
  
- static void dump_newline(struct seq_buf *s)
++static int amdxdna_remap_pages(struct amdxdna_gem_obj *abo,
++			       struct vm_area_struct *vma)
++{
++	unsigned long num_pages = vma_pages(vma);
++	struct page **pages = abo->base.pages;
++	unsigned long i, nr;
++	int ret;
++
++	for (i = 0; i < num_pages; i += nr) {
++		unsigned long pfn = page_to_pfn(pages[i]);
++
++		for (nr = 1; i + nr < num_pages; nr++) {
++			if (page_to_pfn(pages[i + nr]) != pfn + nr)
++				break;
++		}
++
++		ret = remap_pfn_range(vma, vma->vm_start + (i << PAGE_SHIFT), pfn,
++				      nr << PAGE_SHIFT, vma->vm_page_prot);
++		if (ret) {
++			zap_special_vma_range(vma, vma->vm_start, i << PAGE_SHIFT);
++			return ret;
++		}
++	}
++
++	/*
++	 * The page tables are populated upfront, thus the CPU never takes a
++	 * write fault and drm_gem_shmem_vm_ops.pfn_mkwrite() never marks the
++	 * folios dirty. The device writes to the pages through the IOMMU
++	 * without any notification either. And the PTEs are special in a
++	 * VM_PFNMAP VMA, so unmapping does not transfer their dirty bits
++	 * back to the folios. Mark the pages dirty when they are released,
++	 * the same way drm_gem_shmem_vmap() does.
++	 */
++	dma_resv_lock(to_gobj(abo)->resv, NULL);
++	abo->base.pages_mark_dirty_on_put = true;
++	abo->base.pages_mark_accessed_on_put = true;
++	dma_resv_unlock(to_gobj(abo)->resv);
++
++	return 0;
++}
++
+ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
+ 				struct vm_area_struct *vma)
+ {
+ 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
+-	unsigned long num_pages = vma_pages(vma);
+ 	int ret;
+ 
+ 	/*
+@@ -587,7 +627,8 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
+ 			return ret;
+ 		}
+ 
+-		amdxdna_mark_mapp_invalid(abo, vma);
++		if (!(vma->vm_flags & VM_PFNMAP))
++			amdxdna_mark_mapp_invalid(abo, vma);
+ 
+ 		/* Drop the reference drm_gem_mmap_obj() acquired.*/
+ 		drm_gem_object_put(to_gobj(abo));
+@@ -600,10 +641,9 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
+ 		return ret;
+ 	}
+ 
+-	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
+-	ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages, &num_pages);
++	ret = amdxdna_remap_pages(abo, vma);
+ 	if (ret) {
+-		XDNA_ERR(xdna, "Failed to insert pages %d", ret);
++		XDNA_ERR(xdna, "Failed to remap pages %d", ret);
+ 		dma_resv_lock(to_gobj(abo)->resv, NULL);
+ 		drm_gem_shmem_put_pages_locked(&abo->base);
+ 		dma_resv_unlock(to_gobj(abo)->resv);
+@@ -641,99 +681,21 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
+ 	return ret;
+ }
+ 
+-/*
+- * VM operations for amdxdna shmem VMAs that use VM_MIXEDMAP.
+- *
+- * drm_gem_shmem_vm_ops cannot be used on VM_MIXEDMAP VMAs because its fault
+- * handler calls vmf_insert_pfn() → vmf_insert_pfn_prot() which contains:
+- *   BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn))
+- * All amdxdna shmem pages are ordinary struct pages so pfn_valid() is always
+- * true, making the combination fatal.
+- *
+- * These ops use vmf_insert_page() (struct-page based) instead, which is the
+- * correct API for VM_MIXEDMAP VMAs backed by real struct pages.  The open and
+- * close handlers replicate drm_gem_shmem_vm_open/close using only exported
+- * symbols.
+- */
+-static vm_fault_t amdxdna_gem_mixedmap_fault(struct vm_fault *vmf)
+-{
+-	struct vm_area_struct *vma = vmf->vma;
+-	struct drm_gem_object *gobj = vma->vm_private_data;
+-	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
+-	loff_t num_pages = gobj->size >> PAGE_SHIFT;
+-	vm_fault_t ret = VM_FAULT_SIGBUS;
+-	pgoff_t page_offset;
+-	struct page *page;
+-
+-	/*
+-	 * Partial free of vma is unexpected. Otherwise, the wrong page
+-	 * will be faulted in and the user application may crash itself.
+-	 */
+-	page_offset = linear_page_delta(vma, vmf->address);
+-
+-	dma_resv_lock(gobj->resv, NULL);
+-
+-	if (!shmem->pages || shmem->madv < 0 || page_offset >= num_pages)
+-		goto out;
+-
+-	page = shmem->pages[page_offset];
+-	if (WARN_ON_ONCE(!page))
+-		goto out;
+-
+-	/*
+-	 * Use vmf_insert_page() (struct-page path) not vmf_insert_pfn()
+-	 * (PFN path) because this VMA carries VM_MIXEDMAP.
+-	 */
+-	ret = vmf_insert_page(vma, vmf->address, page);
+-	if (ret == VM_FAULT_NOPAGE)
+-		folio_mark_accessed(page_folio(page));
+-
+-out:
+-	dma_resv_unlock(gobj->resv);
+-	return ret;
+-}
+-
+-static void amdxdna_gem_mixedmap_vm_open(struct vm_area_struct *vma)
+-{
+-	struct drm_gem_object *gobj = vma->vm_private_data;
+-	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
+-
+-	/*
+-	 * Bump pages_use_count so the page array stays alive for the new
+-	 * mapping copy created by fork().  Mirrors drm_gem_shmem_vm_open().
+-	 */
+-	dma_resv_lock(gobj->resv, NULL);
+-	drm_WARN_ON_ONCE(gobj->dev, !refcount_inc_not_zero(&shmem->pages_use_count));
+-	dma_resv_unlock(gobj->resv);
+-
+-	drm_gem_vm_open(vma);
+-}
+-
+-static void amdxdna_gem_mixedmap_vm_close(struct vm_area_struct *vma)
+-{
+-	struct drm_gem_object *gobj = vma->vm_private_data;
+-	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
+-
+-	dma_resv_lock(gobj->resv, NULL);
+-	drm_gem_shmem_put_pages_locked(shmem);
+-	dma_resv_unlock(gobj->resv);
+-
+-	drm_gem_vm_close(vma);
+-}
+-
+-static const struct vm_operations_struct amdxdna_gem_mixedmap_vm_ops = {
+-	.fault  = amdxdna_gem_mixedmap_fault,
+-	.open   = amdxdna_gem_mixedmap_vm_open,
+-	.close  = amdxdna_gem_mixedmap_vm_close,
+-};
+-
+ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)
+ {
+ 	struct drm_gem_object *gobj = dma_buf->priv;
+ 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
+ 	int ret;
+ 
+-	vma->vm_ops = &amdxdna_gem_mixedmap_vm_ops;
++	/*
++	 * vm_pgoff is the page offset within the dma-buf, see dma_buf_mmap().
++	 * drm_gem_shmem_vm_ops indexes the BO pages by the page offset within
++	 * the VMA. Thus the mapping has to start at the beginning of the BO.
++	 */
++	if (vma->vm_pgoff)
++		return -EINVAL;
++
++	vma->vm_ops = &drm_gem_shmem_vm_ops;
+ 	vma->vm_private_data = gobj;
+ 
+ 	drm_gem_object_get(gobj);
+@@ -741,11 +703,16 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struc
+ 	if (ret)
+ 		goto put_obj;
+ 
+-	/* The buffer is based on memory pages. Fix the flag. */
+-	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
++	ret = amdxdna_remap_pages(abo, vma);
++	if (ret)
++		goto put_pages;
+ 
+ 	return 0;
+ 
++put_pages:
++	dma_resv_lock(gobj->resv, NULL);
++	drm_gem_shmem_put_pages_locked(&abo->base);
++	dma_resv_unlock(gobj->resv);
+ put_obj:
+ 	drm_gem_object_put(gobj);
+ 	return ret;
+@@ -1043,7 +1010,7 @@ static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
+ 	.vmap = amdxdna_gem_obj_vmap,
+ 	.vunmap = amdxdna_gem_obj_vunmap,
+ 	.mmap = amdxdna_gem_obj_mmap,
+-	.vm_ops = &amdxdna_gem_mixedmap_vm_ops,
++	.vm_ops = &drm_gem_shmem_vm_ops,
+ 	.export = amdxdna_gem_prime_export,
+ };
+ 
 -- 
-2.56.0.385.gac671c819a-goog
+2.34.1
 
