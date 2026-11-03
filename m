@@ -1,98 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714578;
-	b=l61F9emWk9Df0ZXjTi6b/8cU8LgLKsj3b/hqs4FR8QKBq0VQyCWbuRpRvi3DnSh/NZdD
-	 qpw80cBYMahvaT/UnJ6PMoHyVDlqkB5QTX1knSp63EajlShJK/Aby2b7PHiUwhDbltyb5
-	 LAR3RPoOrdyU4dRlhbLMWxcSYAZcarQAYOlV5i/3N1CRfSLxPPgo0nEOHrK68kP0sgzcj
-	 FrlUFZqIXiPY7uyLYUdKLChmDsd+uFtgZyX4XpwW8Ce6cRrzBr2UtKxNDpcQza2JtsJQd
-	 ux5zzNaTvzH+gVebDAgSoyrKsZTvtC4e+18v/DvoTpHe7SaY3yvnNZCsvdMSAO8vl7g==
+	t=1793714613;
+	b=BpZui9FuCPwbF6fDgg8RD6yRg1ScGfORXaGHfDoWe+BUwks5UBw0rz4Nv1wxzCe5WQiS
+	 MTQGF3ZJXRtFc9BFNQhfvEl3116n7LacKETS8VW6yHIhQjnTjxaoBrw/JWTKDNRZcH/Kn
+	 Fd6IgfyrHx5q5RqMS1VwqIDOZQ0OZlBHRj1m1U9LJ8G2Ezt1C8ibcFJoiBiSEhUesJstg
+	 U/ViaE8D0P/4EqYzfKtUs7KVqr/XpoZtFCbFXJTdqj0c4NnP7eu0K8dMI39QrkImSiwPp
+	 cvrZw8e7bPpLkKo7Jm5QzujYCUYb9GKZQwuiSzxnS8j/rB801X+uiQEMNiKDjQNTFuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714578;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uu68lQxHEs/mkQVI9vO7Af9VdhM6SKqu6dRO3KGsMrE=;
-	b=2DzOY7nGAIXrLl+RxpeNWf/RPz0dOy6qW4PigMftAhq5kOtdqae46IhRDGS6fz83nCSA
-	 snIKfHgplxcihAHt8+IDYuZUTnuq3aj40N8JHqVFwWMp6KlBgLADPutkKgUzJ8FRPb+56
-	 vn0CGEEfmH7AEuh69rIZGqGmyPpzF/mUQJaudqdXlXTjbE/mgD7KXc6hbozf8IvZlwXPW
-	 tOuucBYUOLwp7XuDhKYGtfYYllc6BZhd/lEOyj60qcOqNKvILC9TXkO+lupIye4fvxaXx
-	 H1YcQLvF7sW8YmYFH3eZJkciNW9xtHANahIfRgUPNxhGHYFrEPkXk5H5DwJSbdPkM9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714613;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-AI-Review-Draft;
+	bh=3HJX18ykscvO3Ox8qDgd1rJ1bwooSHpiMGqMiZwMMMg=;
+	b=PnmCGQKNBS46peh4x0USb+IWd9yVaz9MIT9QyIYi+Jlun3IVpw5XVMUTTMVw6T+7O8Ae
+	 +rxyISGVvpUQLcLTfUmVWskpYOlYBNuEtHrvXikQKlTUXV+ApoOojSbXKcljvLdapLIk4
+	 RZg2cS0wATglNXTXNXiAqv/8GlVcMw/RsuF9Ss+OFp484djegvJStjeUet/YQcC3C4r1B
+	 YzW2iSAMnhcwXg0ew4baJmUWeQCj/trd9mtNO4Pe8SqMnAYYyG7YJ7Utd/b5zlqpYsZBi
+	 lmfVAprbqK7wJV0+tSdYb5oJR87wZ+FMdYrZrnMLCEhDxSTXM4ZGesmvkVsoyL+fIoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lPfE1rAh;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+25HXE5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1488606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:02:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1488606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0933D60A5BC5;
+	Tue,  3 Nov 2026 14:03:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lPfE1rAh
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48bbb06e746so2078922f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:02:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793714576; x=1794319376; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uu68lQxHEs/mkQVI9vO7Af9VdhM6SKqu6dRO3KGsMrE=;
-        b=lPfE1rAhADnprxhkmcgestOH0tvsuzlKjQp5DJpWmyTlzDMCZFugFO98fx9NhoU4c0
-         55l5KaOrYezy0SCln/tdno0wgR7AeNRSPKgVpn14RLfmaNNhaSN+zUnUZpkbfSYniNgr
-         4q/9B6GTr/lS1wCeJJf2VSfU9w2Kz7ikAxelR8wc5ob5PV50MNq/cMlvVHQQIwGNhU1L
-         y5B3R7IvzasDSAclNKx+jQXdWLiDC4XTtf2PB0lX2ocIsa1zBr0Kjmxs4/Hr5rHNg9E1
-         g6Tgnz0bmskzCagpWirVVO8TPcKbQlnRu4RLM64NQTscitTpDNyrlIrp4OZfn4cU4z50
-         vA5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793714576; x=1794319376;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uu68lQxHEs/mkQVI9vO7Af9VdhM6SKqu6dRO3KGsMrE=;
-        b=YYA4gjo+xmrAe7ViYpyjKYw5MuhQ6ELEs8JTDk0ohbAuM3mfz7+6cYBPCEWr+0Ms9H
-         tcgf8v1aLKacf4jmnqmluCVsF3RCdh1OrsdW2gyXwV0WcVk6EJw6W+yrgtVvX6QSwdSJ
-         KNVCP+VuVyrZTYQtDz1Osin9KAZVlf9Be+nqMIGsd7jJJsIwebP6mCClDYoGNga6l3Vh
-         MoNElBn8FBylqHy0JdH4LwWZm5sopeV+jvdGWld7+4B9r7v1gQegydf6sqto5q04P1Sz
-         go7DJrTIqjmXssy3Eg/yB1tQHSONNgnIBfb5riE7soMdl5me3UEiogxLFWtse26nNjOp
-         I/Sg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXhTuVhaOmFcTKaiN7yu9yUhh4Ej6LCSgLJzBbW1cCz1Fp1znW7RJZPyDTXLkwLEm2WWmQhdczYLwkjKA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lzLa8YevzHOhUvUY02A7B7oExr3f5AjOuojaYv+4RGUKANurl
-	6s09PAyMDSwSrJ77WxjcalSsvVS472a9bvTpjFC8jaD7Uohygc+15PO1
-X-Gm-Gg: AYBFou0wlJjIml2H00XQ+m1ZB8jatp4fEX5fXCrWuWn1aHhiKNbi8VDClymlDt8MDoi
-	my2S3HC0hHJWb0SYfHRU9qggMe+MysgsSYDZeGKoC6YMmXRoH7+QPSk2xuFYQRnUpuZwd02stb7
-	4Sp2OCD/sZHrt50WbLUnYLUvYj5cXHHv6mXBIE/7Y12PNT9aLK38tnUTM3RCmvsUbPfukMlNWSF
-	MjAWgaazbQmM1zpwbnu6FwTkJN2aWAvmFJCBt8mo43gzD1Z4DDhrtKUws98sMo3pGvVZTV46k3J
-	uOFOD9hREpYormhDQ8vFMtJ9wO7IkFudrrPrr3z/KRN+snh4gUqXU7tdfLcI0lRSE4wbbOSWY55
-	jZ+aEnE2nMR8zoQ6idv9esnFRMdNkdX2INd6kXeA1HGC4IUGxeVN0POywUi7pb5tchdP0nhSC7r
-	kY3hnWmXzvccJmzEoyZWpvJYHuXYkt2wT8Qgd1x3i1HvK21nqUypW0nu0z9dOkZnoiG/MUEYYDs
-	FloTYvDCEljVuqLFDaUkFSCKPzRahFIROX0aVJbIB0qYZOwxc6Yes5xZ89+2x2jA9DfjVXv+00n
-	tApSetg0ZLRn8xDTGJLEJ3Rx7ItVmkQDsEHv1fDdXEzNVGqMfS/wxs/SA0R9lLwHvwN2rNmV7cD
-	qac/BXQ==
-X-Received: by 2002:a05:6000:2486:b0:48d:ff81:5201 with SMTP id ffacd0b85a97d-48e6e4f44f2mr30393094f8f.41.1793714574925;
-        Tue, 03 Nov 2026 06:02:54 -0800 (PST)
-Received: from gandalf.magpie-herring.ts.net ([90.251.75.96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8c0b6sm24467507f8f.41.2026.11.03.06.02.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:02:52 -0800 (PST)
-From: Zak Brighton Knight <zakbrightonknight@gmail.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Zak Brighton Knight <zakbrightonknight@gmail.com>
-Subject: [PATCH] drm/i915/backlight: Keep ACPI backlight requests while the panel is off
-Date: Tue,  3 Nov 2026 14:02:35 +0000
-Message-ID: <20261103140235.1032320-1-zakbrightonknight@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+25HXE5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A1231F000C1;
+	Tue,  3 Nov 2026 14:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793714612;
+	bh=3HJX18ykscvO3Ox8qDgd1rJ1bwooSHpiMGqMiZwMMMg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H+25HXE5bQpX4SO6gYb6lfNqegbOjuTEPRjDTsov3P5/8PY3O6+yCpLEnoRuWG2cM
+	 R3F3IONKnEja1N07TiEc6wZb4sxxfAXv3QJOyoahBKWyL8AT1B0J4aluBdr55LSvRH
+	 xJt10MUkc/KbiXXgzOc6meqOQUJ/Q8e8yza3gfKJKcK01aeuKZdv5AzBl0LDpqJia+
+	 uMy57b7+9YkgVs4PG20ToXl7VRPeRxdXFeXLJyV2nCgAmoAc3AEn0OBDLhfRvh+QuO
+	 rzrDuT1Q/ok87SlSTgdOHGi/J3hEIU1SJDIZf3NaxSJJmJrje95+ccNgkVzajP3lA7
+	 06lV6qUKJ+t1g==
+Date: Tue, 3 Nov 2026 14:03:26 +0000
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+	Ion Agorria <ion@agorria.com>,
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+	Florian Krischer <florian.krischer@fkr.dev>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org, mfd@lists.linux.dev,
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v12 5/7] leds: Add driver for ASUS Transformer LEDs
+Message-ID: <179249575817.1833288.1089755405582445022@kernel.org>
+References: <20261019100406.103687-1-clamor95@gmail.com>
+ <20261019100406.103687-6-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,133 +66,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261019100406.103687-6-clamor95@gmail.com>
+X-AI-Review-Draft: <20261019100406.103687-6-clamor95@gmail.com>
 
-With the ACPI video backlight (acpi_video0), brightness changes reach
-i915 as OpRegion ASLE requests: the firmware's _BCM method writes the
-level to the mailbox and raises the ASLE interrupt.
-intel_backlight_set_acpi() returns early when the connector has no
-crtc, so a request made while the panel is off is dropped. The ACPI
-video driver still reports the new level, but the panel comes back on
-at the old one.
+On Mon, 19 Oct 2026, Svyatoslav Ryhel wrote:
+> From: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+>
+> ASUS Transformer tablets have a green and an amber LED on both the Pad
+> and the Dock. If both LEDs are enabled simultaneously, the emitted light
+> will be yellow.
+>
+> Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> ---
+>  drivers/leds/Kconfig                    |  11 +++
+>  drivers/leds/Makefile                   |   1 +
+>  drivers/leds/leds-asus-transformer-ec.c | 125 ++++++++++++++++++++++++
+>  3 files changed, 137 insertions(+)
+>  create mode 100644 drivers/leds/leds-asus-transformer-ec.c
+>
+> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+> index 7ec2c8d785426..788e689fe875c 100644
+> --- a/drivers/leds/Kconfig
+> +++ b/drivers/leds/Kconfig
+> @@ -120,6 +120,17 @@ config LEDS_OSRAM_AMS_AS3668
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called leds-as3668.
+>
+> +config LEDS_ASUS_TRANSFORMER_EC
+> +	tristate "LED Support for Asus Transformer charging LED"
+> +	depends on LEDS_CLASS
+> +	depends on MFD_ASUS_TRANSFORMER_EC
+> +	help
+> +	  This option enables support for charging indicator on
+> +	  Asus Transformer's Pad and its Dock.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called leds-asus-transformer-ec.
+> +
+>  config LEDS_AW200XX
+>  	tristate "LED support for Awinic AW20036/AW20054/AW20072/AW20108"
+>  	depends on LEDS_CLASS
+> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
+> index 4d4b089156e24..3da746279bb81 100644
+> --- a/drivers/leds/Makefile
+> +++ b/drivers/leds/Makefile
+> @@ -15,6 +15,7 @@ obj-$(CONFIG_LEDS_ADP5520)		+= leds-adp5520.o
+>  obj-$(CONFIG_LEDS_AN30259A)		+= leds-an30259a.o
+>  obj-$(CONFIG_LEDS_APU)			+= leds-apu.o
+>  obj-$(CONFIG_LEDS_ARIEL)		+= leds-ariel.o
+> +obj-$(CONFIG_LEDS_ASUS_TRANSFORMER_EC)	+= leds-asus-transformer-ec.o
+>  obj-$(CONFIG_LEDS_OSRAM_AMS_AS3668)	+= leds-as3668.o
+>  obj-$(CONFIG_LEDS_AW200XX)		+= leds-aw200xx.o
+>  obj-$(CONFIG_LEDS_AW2013)		+= leds-aw2013.o
+> diff --git a/drivers/leds/leds-asus-transformer-ec.c b/drivers/leds/leds-asus-transformer-ec.c
+> new file mode 100644
+> index 0000000000000..1b129247ea6c6
+> --- /dev/null
+> +++ b/drivers/leds/leds-asus-transformer-ec.c
+> @@ -0,0 +1,125 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +#include <linux/err.h>
+> +#include <linux/leds.h>
+> +#include <linux/mfd/asus-transformer-ec.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/slab.h>
+> +
+> +enum {
+> +	ASUSEC_LED_AMBER,
+> +	ASUSEC_LED_GREEN,
+> +	ASUSEC_LED_MAX
+> +};
+> +
+> +struct asus_ec_led_config {
+> +	const char *name;
+> +	unsigned int color;
+> +	u64 ctrl_bit;
+> +};
+> +
+> +struct asus_ec_led {
+> +	struct asus_ec_leds_data *ddata;
 
-The connector has no crtc whenever userspace turns the screen off by
-disabling the crtc and detaching the connector from it, which is what
-mutter does for its power saving mode. GNOME's login screen makes this
-easy to hit: it dims the screen when idle and turns it off a little
-later, and on the next key press it restores the brightness while the
-screen is still off. The screen comes back dim, and the next brightness
-key press jumps from the level the backlight device reports.
 
-On a ThinkPad T520 (Ivy Bridge, LVDS, coreboot), setting acpi_video0
-to 10, turning the screen off through mutter, setting 14 and turning
-the screen back on gives, with drm.debug=0x6:
+Why do we need 'struct asus_ec_leds_data' at all?
 
-  brightness 10, screen on:
-    updating opregion backlight 73/255
-    [CONNECTOR:92:LVDS-1] set backlight level = 444
-  screen off:
-    [CONNECTOR:92:LVDS-1] set backlight PWM = 0
-  brightness 14, screen off:
-    updating opregion backlight 170/255
-  screen on:
-    [CONNECTOR:92:LVDS-1] set backlight PWM = 444
+If we put 'const struct asusec_core *ec;' directly into 'struct
+asus_ec_led', we can drop the outer wrapper struct and the back-pointer
+completely.
 
-after which acpi_video0 reads brightness 14 and actual_brightness 10.
+> +	struct led_classdev cdev;
+> +	u64 ctrl_bit;
+> +};
+> +
+> +struct asus_ec_leds_data {
+> +	const struct asusec_core *ec;
+> +	struct asus_ec_led leds[ASUSEC_LED_MAX];
+> +};
+> +
+> +static const struct asus_ec_led_config asus_ec_leds[] = {
+> +	[ASUSEC_LED_AMBER] = {
+> +		.name = "amber",
+> +		.color = LED_COLOR_ID_AMBER,
+> +		.ctrl_bit = ASUSEC_CTL_LED_AMBER,
+> +	},
+> +	[ASUSEC_LED_GREEN] = {
+> +		.name = "green",
+> +		.color = LED_COLOR_ID_GREEN,
+> +		.ctrl_bit = ASUSEC_CTL_LED_GREEN,
+> +	},
+> +};
+> +
+> +static enum led_brightness asus_ec_led_get_brightness(struct led_classdev *cdev)
+> +{
+> +	struct asus_ec_led *led = container_of(cdev, struct asus_ec_led, cdev);
+> +	const struct asusec_core *ec = led->ddata->ec;
+> +	u64 ctl;
+> +	int ret;
+> +
+> +	ret = asus_dockram_access_ctl(ec->dockram, &ctl, 0, 0);
 
-The check goes back to commit 752aa88a1e78 ("drm/i915: make backlight
-functions take a connector"). Commit 260d8f98ef9d ("drm/i915: Remove
-most INVALID_PIPE checks from the backlight code") dropped it from the
-native path, but kept it for BIOS requests, which can arrive during
-driver init before the modeset readout, when there is no crtc yet. The
-native path, intel_panel_set_backlight(), stores the level whatever the
-connector state and leaves it to the next backlight enable.
+As requested on v6 and v8, why are we still using this bespoke accessor instead
+of Regmap?
 
-Do the same for ACPI requests: always store the level, and skip only
-the hardware update when there is no crtc, which still covers the
-driver init case.
+> +	if (ret)
+> +		return LED_OFF;
+> +
+> +	return ctl & led->ctrl_bit ? LED_ON : LED_OFF;
+> +}
+> +
+> +static int asus_ec_led_set_brightness(struct led_classdev *cdev,
+> +				      enum led_brightness brightness)
+> +{
+> +	struct asus_ec_led *led = container_of(cdev, struct asus_ec_led, cdev);
+> +	const struct asusec_core *ec = led->ddata->ec;
+> +
+> +	if (brightness)
+> +		return asus_dockram_access_ctl(ec->dockram, NULL,
+> +					       led->ctrl_bit, led->ctrl_bit);
 
-The problem was found and root-caused, and this patch was drafted, with
-the help of an AI coding assistant (Claude, by Anthropic).
+Use 100-chars throughout to prevent early wrapping.
 
-Fixes: 752aa88a1e78 ("drm/i915: make backlight functions take a connector")
-Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
----
-Tested on the T520 (i7-3840QM, Ivy Bridge, coreboot 24.08 with SeaBIOS)
-with v7.4-rc1 plus this patch, built with PROVE_LOCKING, under GNOME 50
-(mutter 50.6). intel_backlight_set_acpi() is the same in drm-intel-next
-and drm-tip today, and the patch applies to both.
+> +	return asus_dockram_access_ctl(ec->dockram, NULL, led->ctrl_bit, 0);
+> +}
+> +
+> +static int asus_ec_led_probe(struct platform_device *pdev)
+> +{
+> +	const struct asusec_core *ec = dev_get_drvdata(pdev->dev.parent);
+> +	struct asus_ec_leds_data *ddata;
+> +	struct device *dev = &pdev->dev;
+> +	int ret;
+> +
+> +	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
+> +	if (!ddata)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, ddata);
 
-- The sequence above now ends with "set backlight PWM = 1035" when the
-  screen comes back on, and acpi_video0 reads 14 for both brightness
-  and actual_brightness. The same from 13 down to 6.
-- Setting 12 while the screen is off, then suspending to RAM and
-  resuming before turning the screen on: acpi_video re-sends 12 on
-  resume ("Restoring backlight state"), and the screen comes back at 12.
-- Suspend and resume with the screen on keeps the level, the level
-  systemd restores at boot is applied, and there were no lockdep
-  reports or warnings.
+What consumes this?
 
-One case still comes back wrong, differently from before. On this
-machine _BQC reports the PWM duty cycle, so reading actual_brightness
-while the panel is off makes acpi_video cache its lowest level (2%),
-and it re-sends that on resume. Without this patch, that request is
-dropped and the panel comes back at the level from before the screen
-went off; with it, the panel comes back at 2%. Mutter only reads
-brightness, so I have only hit this from a test script.
+> +	ddata->ec = ec;
+> +
+> +	for (int i = 0; i < ASUSEC_LED_MAX; i++) {
 
-Not tested: the driver init case the check was kept for. coreboot only
-sends requests from _BCM, or from the brightness keys before the OS has
-called _BCL, so I couldn't make it send one between the backlight
-setup and the modeset readout. Not tested either on other platforms or
-with other compositors.
+`i` isn't just a random iterator here - maybe call it `led`?
 
-https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15987 reports
-the same symptom on a MacBookPro11,1: the brightness is wrong after the
-display sleeps, and acpi_backlight=native fixes it. It may be this bug,
-but I can't test that machine.
+> +		const struct asus_ec_led_config *cfg = &asus_ec_leds[i];
+> +		struct asus_ec_led *led = &ddata->leds[i];
+> +
+> +		led->cdev.name = devm_kasprintf(dev, GFP_KERNEL, "%s:%s",
+> +						ddata->ec->name, cfg->name);
+> +		if (!led->cdev.name)
+> +			return -ENOMEM;
+> +
+> +		led->cdev.max_brightness = 1;
+> +		led->cdev.color = cfg->color;
+> +		led->cdev.flags = LED_CORE_SUSPENDRESUME | LED_RETAIN_AT_SHUTDOWN;
+> +		led->cdev.brightness_get = asus_ec_led_get_brightness;
+> +		led->cdev.brightness_set_blocking = asus_ec_led_set_brightness;
+> +
+> +		led->ddata = ddata;
+> +		led->ctrl_bit = cfg->ctrl_bit;
+> +
+> +		ret = devm_led_classdev_register(dev, &led->cdev);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to register %s LED\n",
+> +					     cfg->name);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static struct platform_driver asus_ec_led_driver = {
+> +	.driver.name = "asus-transformer-ec-led",
 
- drivers/gpu/drm/i915/display/intel_backlight.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+Clever!  But, I'd prefer we still to the usual format to be honest.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index b128896cb..2310a9258 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -310,13 +310,7 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
- 	struct intel_panel *panel = &connector->panel;
- 	u32 hw_level;
- 
--	/*
--	 * Lack of crtc may occur during driver init because
--	 * connection_mutex isn't held across the entire backlight
--	 * setup + modeset readout, and the BIOS can issue the
--	 * requests at any time.
--	 */
--	if (!panel->backlight.present || !conn_state->crtc)
-+	if (!panel->backlight.present)
- 		return;
- 
- 	mutex_lock(&display->backlight.lock);
-@@ -332,7 +326,15 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
- 					 panel->backlight.level,
- 					 panel->backlight.device->props.max_brightness);
- 
--	if (panel->backlight.enabled)
-+	/*
-+	 * Lack of crtc may occur during driver init because
-+	 * connection_mutex isn't held across the entire backlight
-+	 * setup + modeset readout, and the BIOS can issue the
-+	 * requests at any time. There's no crtc either while
-+	 * userspace has the panel turned off. Keep the level
-+	 * anyway, it's applied when the backlight is next enabled.
-+	 */
-+	if (panel->backlight.enabled && conn_state->crtc)
- 		intel_panel_actually_set_backlight(conn_state, hw_level);
- 
- 	mutex_unlock(&display->backlight.lock);
+> +	.probe = asus_ec_led_probe,
+> +};
+> +module_platform_driver(asus_ec_led_driver);
+> +
+> +MODULE_ALIAS("platform:asus-transformer-ec-led");
+> +MODULE_AUTHOR("Michał Mirosław <mirq-linux@rere.qmqm.pl>");
+> +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
+> +MODULE_DESCRIPTION("ASUS Transformer's charging LED driver");
+> +MODULE_LICENSE("GPL");
+> -- 
+> 2.53.0
+>
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.56.0
-
+Lee Jones
