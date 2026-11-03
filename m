@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735504;
-	b=AHdHDMzfJzErocNbjj4SmtL5yvx5lCKEfWZxlqfKn6kieke9D++hMEiqxZ9M3WgnbuM0
-	 fdKmLDDYVgG0qJxBWByaPQWjyZ+ZcglzbLWC2QWNf/TyQ1UEbZnJwjGJMkJrM4drqlGnF
-	 rSZQJUN/xHg+Ksq+NsSXKnGRpqFje1WI0cSFFLctZgh5lNyoEa3U1obVBrnGZLVb3erL1
-	 M/x4xWWkPq0KwnFJAgxKccrHV41ki+zmCJ5l9SbZLRt/zqMZfnFK0TpRSS2LoM5Ix/9aV
-	 4lxFx6UfVStMrtQj3rl9dkYC+JyZ6fkTyGdacbbriPjbl5ezGf0BVharW+NShcdBOjw==
+	t=1793735512;
+	b=aO8bEKKLfyTeyBHKW6ONuHES+uztTCF9nuqtNMEcuO4cKJrVpxvp1KfHQ7+CVlj8Fxzu
+	 YzV5TDQPK5NlYEQdD1l+2wfGjM3BvH+4GzC5DIc04QSCDf7MbSxNToKdps/BGdDvzT7PZ
+	 60hK+KheRIA8W9ZBsMztak1BZHEvJf3hcqqulVMKnAIEuosaXnMBXEKYori/8oWX4LgFV
+	 Wb8Rcg5IJI7yaqQgi1uue94EcY6Gc1oHQlO5bv4+QHPOXcFekG+Fh5KIuv+ONoae0oAL+
+	 CZDaxg6CLEc9StB1EgRH7LanlVMQIgpaKBkWFN/x097ezGCAfrycf5PkQ7wTyIPbFTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735504;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=n/PskOK3Y7Z0ycyR+laJWkqhqrbsZR+1MjVv+aAgnRs=;
-	b=t7R4oXeV+9zNaP1eHqyLgrxsaBB0Y/cO43m2FU7IJzEDDJ5PwdudKulQUL6p+1QOwq/m
-	 jewz9saEU+N0eIQZgR7Cgan/3hQ0thpOcvaq+0xmgbMWgkua+Cbxu1BL8GLzjjGDuWAtB
-	 i1RJbMMdMTvlB2saJAkqTLmmK4ksbCkZtuGwjeig3qFpNLcGwrRhfxdpsDCTX6BFHF1gd
-	 oSg1ehNpYk7nllM/93tn9B558gxD22TP72Hn6s6Z75m0ebmazRvDPs1ti4d6pYdjcOi3+
-	 HX+/Rr5QJxUvfJYPUPeFRaNs62T8SUYqg9B0ZmQCKOX7bfRZQqtj0cKtuZ8hPZh6nBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735512;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=WxrrLBpL+5w882waq3Llcz01wK2qP4mY4UJBFpkoOwI=;
+	b=On/gVdVodLjvYbnpOgb1kqHwEsfy6FcAeNhny8SBahf1ni1q99qg1xTW3wGU8BzpOFp1
+	 09Fp646WXQAoOiwrnC27Lk6qqEB7Qzxs2zU8xse4tzX1fPIp6N+0EJmWs52DVB8Jh80YA
+	 K6vtl61I2eNvTy9Z7aXYr3MFscCR6+g0Ihqc5EeKK98kNc6IU8BOKP0ywSjdyu01mqjAx
+	 GgcIcjEoWOYUzqWnxrcVhSiYFbxyW9p8H+/URyitN78y2Ymof+uOAvRJhv2nY/MsQ4tNZ
+	 h58liemk8WZRM8gKWIvP4DRRfloxoDOpfB0bLgJn/wBczn4vQ2U/BAs6bxlKjzAELHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAWhIOYQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=WwSYwHPi;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2095606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:51:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1171D606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:51:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1171D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAWhIOYQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E1E01F000C1;
-	Tue,  3 Nov 2026 19:51:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793735503;
-	bh=n/PskOK3Y7Z0ycyR+laJWkqhqrbsZR+1MjVv+aAgnRs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HAWhIOYQspeIoWsCYj7aDYzrcrBssnG2n9TS3TvyWlXUOi4S+2f9m05ihQemddbiL
-	 1vq+7Hg72EJhLloWSbVxrFpT0RBsfXIfkCEjxx5+ljJXJqTRA9GNoU3B91yaiQdsBa
-	 G6EkK9NuLDXflo7vW+fBc7g6VJHl2k9B3mFxyeb41YfTsKg7aRGDrBO4vwM0NzKcWy
-	 z05vVBw7S9JpXhWI/XRfbo4Iom2ajS0QHljgLqypcKyfMaOV+QHe3VdMnKs3n+m26F
-	 FmE1j+4qkcxhjYNZC1RusBTY+VG+vSNJPlig/lcVLdn7ge7xq89lYG9J0ayRZIXVel
-	 jKdHizrhlEODg==
-Message-ID: <c0e648e2-aa1f-40f3-84f4-c4ca4123de9f@kernel.org>
-Date: Tue, 3 Nov 2026 20:51:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=WwSYwHPi
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso5649041eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:51:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793735510; x=1794340310; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WxrrLBpL+5w882waq3Llcz01wK2qP4mY4UJBFpkoOwI=;
+        b=WwSYwHPitFHEdjhsZkjJSH7aWMdpA2YA//1JDRcF1RwEGXr/nMaefmAdOd6dOQ/eiX
+         Bi7QfWeOW3DsCYxr2DGzEpqrrcTsjf6leFK3LNZ1J0NbB4jAi0qwokTKx0sXCZ6TC+BK
+         iUO9xNgvq21yma8wfdqVogCOc82bHMBBblWnwsgvOOvJWC9OGGQNHiIEo0/VSpCjdyV8
+         o+FXQ5kUCmjbZ9kqx5DzijIRPUndCy54O0gm8w6yGHaGaKNUjmWXiKmaN0No6IRLw1ZB
+         MUxkEvLyfuySLLaaQfvEFblT+krcv31ckRI+DkWYKsLD4IsQ4eey+jvUC1fiEoh9j7s2
+         bLAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793735510; x=1794340310;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WxrrLBpL+5w882waq3Llcz01wK2qP4mY4UJBFpkoOwI=;
+        b=LvjlWqDq7koVITji0dkcXGktxnYcbpwVry8TMpR+FNvVAZ6FKEldy87TsVfW3g+eh4
+         UhOwNPDjLmvjJ9hKnL10CQ5olWTAcuAK04OzPjsJ3jC35cckcL9eYtS7/AfsYaYgFbIX
+         WBBQQ4WNWv8qwLM2kmLstvz6xeRPsLlOxeL3R54g9dlKFowtOXCVQUR4UfWpNjEouLfL
+         gNKpKkjIIe0jx/DNNzu9T8k9RDKNVyP6AvrjFoLTTriLsRjm5x1qdZq6Sz90FV2AYsY2
+         Udnrn0ROT1GfEFck8ZabQLtgVU04+0siyV+qgYNwOEQn/jw7NLMGRNWU7dG4dnQwXd0o
+         MPFw==
+X-Forwarded-Encrypted: i=1; AKwUvBxbAyNMP9g6dMVZFUscaef+j0f1xXEOZoi2e86f5Bw2DwIfj/uMRkuKXtJpQBObe8oh2s18QpDmE0KHevM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KUpF9iA7ZEn+yCLpWqSQFPkfMW2cTY/P9dqvEHiqdwttAwkAW
+	5aCZJOePZloNCXowAOaI4oO7iOHnh3giEOYt9V80mdBDp1jJdQ5X6z8/IQGVSZCxWrw=
+X-Gm-Gg: AYBFou1tGj+i7Ibr3l7bV5bISrgTZmC1VjRiwGlXGuW8bP7pLk1LyND6o57lbeQtdS1
+	m/IUV8W9Y6j7YDdcMu9d/mhXIZISSGNNV5z9lBYcQ6PvWbv0h539UkttgAnCjyvs5aLlFFWts0A
+	anEXygvkeuK3MEkXN45Qa3hLmUT2sHfzRKiwv/zptv+m5V2vcTuJ/22sQNPRnRRqSXLCAdqU/4Y
+	JJpcVDk2Cin15t9EESleZQ/JPqzWl7i9kh1T46alXuUscCR2ywrKgTMAw/XMzX/wHm+5BQ5lKAz
+	gRz0AL3SxqdAbj8sXLrxaFvUjX1/XU3Xq5C86tURkYooms+bB1MX96BIIs6zbxBFyCyQIPh83Us
+	vDiYTxbnR5Cj+LXb73qMgKciCoXbEX9j4b843sy3zNvhg+9nxPPt25idQFb9FUsbZQd6zyXPUeR
+	zBZHwoOaDB1gkFiWGC1PZPxBSgAXsRxKDWpRc0D/MbaJ7xSQRhAIda3DfBPZIGl9XbEL3VhIGho
+	CzV3CRWZ6VA9aNBhP2FZvyINd1vmH7XfWMC4OxEe8XA5NMlWeF9bkf9PmQIG854j2cfo3jlIXmR
+	DszZY8YRzv8PJtsuIseEdJAePkWZIZXsboHiWG4OKTdrzPvh
+X-Received: by 2002:a05:7301:438e:b0:36a:3767:ede0 with SMTP id 5a478bee46e88-36a4240176emr20856013eec.26.1793735509795;
+        Tue, 03 Nov 2026 11:51:49 -0800 (PST)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm361141eec.12.2026.11.03.11.51.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 11:51:49 -0800 (PST)
+Date: Tue, 3 Nov 2026 11:51:48 -0800
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: mt4022@columbia.edu
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+	Ming Lei <tom.leiming@gmail.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Christoph Hellwig <hch@lst.de>, Nilay Shroff <nilay@linux.ibm.com>,
+	Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: take quiesce_lock when removing a queue from the
+ tag set
+Message-ID: <20261103195148.GB5019-mkhalfella@purestorage.com>
+References: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,176 +102,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/memory: use pmdp_get_lockless() for the pmd read in
- do_fault_around()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
-References: <20261103014749.96764-1-hui.zhu@linux.dev>
- <aumfvNWiemmuyooP@gremlin> <61f8a583-5ea5-4fcc-bf30-ea9cafe94d65@kernel.org>
- <auoXIdTpLO60mkEw@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <auoXIdTpLO60mkEw@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
 
-On 11/3/26 19:24, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Nov 03, 2026 at 05:15:27PM +0100, David Hildenbrand (Arm) wrote:
->>
->>>
->>> This pattern is definitely bad I think, we have it in many other places so
->>> should probably convert those to pmdp_get() at least?
->>
->> Usama is working on this as part of separating HW and SW PMDs (he only sent out
->> the PTE part so far).
->>
->>>
->>>
->>> It definitely seems right to use at least pmdp_get() here, but I wonder
->>> about the need for pmdp_get_lockless() here.
->>
->> Whenever we're not holding the page table lock we should be using
->> pmdp_get_lockless().
->>
->> Even if they are semantically equivalent for most cases, it serves as a good
->> reminder that there are no guarantees.
->>
->> And that you have to look again under PT lock.
->>
->>>
->>> pmd_none() only checks the lower word, so a torn 64-bit word on 32-bit
->>> (i.e. the PAE style cases we are worried about) makes no difference:
->>>
->>> From x86 pmd_none():
->>>
->>> 	/* Only check low word on 32-bit platforms, since it might be
->>> 	   out of sync with upper half. */
->>>
->>> And anyway I guess there is no valid PMD in such systems that would have
->>> the lower word cleared and upper word not cleared.
->>>
->>
->> I don't understand the discussion really.
->>
->> No PT lock -> use the lockless variant.
->>
->> Until we can remove the lockless variant.
->>
->> Are we consistent with that? Likely not.
->>
->> But that's all independent of this patch here.
+On Tue 2026-11-03 14:04:10 -0500, Mani Tofigh via B4 Relay wrote:
+> From: Mani Tofigh <mt4022@columbia.edu>
 > 
-> It turns out all of this is a complicated mess, I think I've nerd-sniped myself
-> into sending a series at some point about this...
+> Unquiescing a tag set can run the hw queues of a queue whose hctxs were
+> already freed.  blk_mq_unquiesce_tagset() walks the tag set's queues
+> under quiesce_lock and rcu_read_lock().  Commit 71ec3c7d6db8 ("blk-mq:
+> quiesce a queue that joins a quiesced tag set") added quiesce_lock to
+> the walks and to adding a queue, but blk_mq_del_queue_tag_set() still
+> removes a queue without it.  The hctxs are then freed right away since
+> RCU only keeps the request_queue itself alive:
 > 
-> It turns out we're as wildly inconsistent on pmdp_get_lockless() as we are on
-> pmdp_get(), so TL;DR my main concern is moot so:
+>   Task A (controller reset)            Task B (namespace removal)
+>   blk_mq_unquiesce_tagset()
+>     /* finds q */
+>                                        blk_mq_del_queue_tag_set(q)
+>                                        blk_mq_release(q)
+>                                          /* frees the hctxs */
+>     blk_mq_run_hw_queues(q)
+>       /* reads freed hctxs */
+> 
+> The window is short.  On PREEMPT_RT quiesce_lock is a sleeping lock and
+> the walk can be preempted inside it, which is how it's hit here:
+> 
+>   [  399.851277] BUG: KASAN: slab-use-after-free in blk_mq_run_hw_queues+0x4bd/0x550
+>   [  399.851328] Read of size 8 at addr ff11000003014148 by task kworker/u9:2/116
+>   [  399.851352] CPU: 1 UID: 0 PID: 116 Comm: kworker/u9:2 Not tainted 7.3.0-16299-g81cb9aa43246 #1 PREEMPT_RT
+>   [  399.851425] Workqueue: nvme-reset-wq nvme_loop_reset_ctrl_work
+>   [  399.851441] Call Trace:
+>   [  399.851457]  <TASK>
+>   [  399.851551]  blk_mq_run_hw_queues+0x4bd/0x550
+>   [  399.851564]  blk_mq_unquiesce_tagset+0x128/0x210
+>   [  399.851576]  nvme_loop_reset_ctrl_work+0x78/0x4c0
+>   [  399.851600]  process_one_work+0x92b/0x16d0
+>   [  399.851660]  worker_thread+0x4e6/0xd60
+>   [  399.851707]  kthread+0x300/0x3e0
+>   [  399.851727]  ret_from_fork+0x4f0/0x6f0
+>   [  399.851776]  ret_from_fork_asm+0x1a/0x30
+>   [  399.851793]  </TASK>
+>   ...
+>   [  399.851988] Freed by task 111:
+>   [  399.852040]  kfree+0x1b3/0x4b0
+>   [  399.852050]  blk_mq_release+0x400/0x550
+>   [  399.852060]  blk_put_queue+0x94/0x120
+>   [  399.852068]  disk_release+0x1bd/0x3f0
+>   [  399.852102]  nvme_free_ns+0x39/0x270
+>   [  399.852113]  nvme_remove_nsid_range+0x2d1/0x4a0
+>   [  399.852123]  nvme_scan_ns_list+0x2cc/0x390
+>   [  399.852134]  nvme_scan_work+0x421/0x9f0
+>   ...
+> 
+> With BLK_CGROUP the disk's root blkg holds the queue until a grace
+> period later, which hides this for NVMe namespaces.  It's still open
+> without BLK_CGROUP, and from reading the code also for queues freed
+> without a disk (e.g., SCSI device queues on a UFS host).
+> 
+> Take quiesce_lock around the list_del_rcu() as well so that the walk
+> either finishes with a queue before it leaves the list or never sees
+> it.  With the fix, KASAN doesn't report the use-after-free anymore.
 
-Yeah, I know that we use it in some core places already properly, like in
-GUP-fast, __handle_mm_fault() or our complicated __pte_offset_map().
+Do we need to update the documentation of @quiesce_lock to mention that
+it is now taken when a queue is deleted also?
 
 > 
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it about once every 20 minutes on a PREEMPT_RT kernel.
 > 
-> But for the non-TL;DR... (optional reading, will probably send something):
-> 
-> * Agreed that the semantics matter - and the 'use pXXp_get_lockless() if no
->   locks, otherwise pXXp_get()' is preferable.
-> 
+> Fixes: 59e25ef2b413 ("block: Use RCU in blk_mq_[un]quiesce_tagset() instead of set->tag_list_lock")
 
-Ack.
+Yep, my commit introduced the race by not taking set->tag_list_lock
+which provided the needed serialization previously. Thank you for fixing
+it.
 
-> * But it turns out it's all a giant mess (of course)... for
->   CONFIG_GUP_GET_PXX_LOW_HIGH arches you really actually need to also do:
-> 
-> pmdp_get_lockless_start();
-> pmd = pmdp_get_lockless(...);
-> pmdp_get_lockless_end();
-> 
-> And that's because, as Hugh points out in commit 146b42e07494 ("mm/pgtable: add
-> PAE safety to __pte_offset_map()")), you need IRQs disabled for these arches for
-> it to be safe.
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 
-Yes, there is this pmdp_get_lockless_start() magic ....
-
-> 
-> The explanation is quite good:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=146b42e07494e45f7c7bcf2cbf7afd1424afd78e
-> 
-> And then of course there's also pmdp_get_lockless_sync() used by THP collapse
-> which is some kind of 'true' lockless usage that needs to synchronise with TLB
-> invalidation against GUP-fast and ugh.
-> 
-> * So I think what matters is whether you actually NEED the value un-torn or
->   whether it's an optimistic check that you can live with (rechecked under lock
->   as needed).
-> 
-> * So I wonder if we shouldn't just have e.g. pmdp_get_lockless_optimistic() or
->   something like that which is just a pmdp_get() in all cases with correct kdoc
->   description etc.
-> 
-> * Then we can convert ALL lockless users to using a lockless form without having
->   to do the IRQ stuff. Including a ton of the existing lockless users.
-> 
-> * I am not sure why I did this in bullets. :)
-
-It's really a mess. I wonder if we can remove that somehow completely ...
-
-arch/mips/Kconfig:      select GUP_GET_PXX_LOW_HIGH if CPU_MIPS32 &&
-PHYS_ADDR_T_64BIT
-arch/sh/Kconfig:        select GUP_GET_PXX_LOW_HIGH if X2TLB
-arch/x86/Kconfig:       select GUP_GET_PXX_LOW_HIGH             if X86_PAE
-
--- 
-Cheers,
-
-David
+Reviewed-by: Mohamed Khalfella <mkhalfella@purestorage.com>
