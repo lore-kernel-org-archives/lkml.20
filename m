@@ -1,89 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724466;
-	b=3aDmivbK9mMvW7JzphIfmy+f8/9JL1orz2HFQqPIIDNK+pHfXBFpxaRKsqwN131NN8Ed
-	 hsS4NKbshiE6zgXr3FcP3s1ihFe57Cn64rOs56eVmCzkXk8e1sBGzJgBzZHZ2q5AjJbVt
-	 YKHLK1G+p+/XbmaeDSobpLcZAgjTG9Ii+FMwjzTSQi/rF1/h7Ko281WnkGi2L+HHwjvpE
-	 6bq2AnqupOmhRhpBcXRvDzztwaXBqBykCe1E2sbqfD5+oq5sKuFRl0cav8x2wE5MrZv1N
-	 1dCB6ykcRox4cK9LauzCgFNjSwHt9G6u2e6xtlabV+IpVLvU116DyhJMO/3bsvTKgjw==
+	t=1793724483;
+	b=Z49CcEOU5akdJjR9uUyw7P1EBdcPUhgF8/7pKEIlJUz0Og3jPTP9jbhSGOZ718OPKNQa
+	 BCU9dBUUsKxxG5T4NHT6qGI6t9fV4pji6SIXWek1pskaEiF1mkn3krbedlMEMxlbbvhP9
+	 mEKFYrzXcpp/C4UV/H4leB6k1JLG4xlRtcP/iBR/jSwgH0oCn6Bf1ugeiEcYM2WQnjWbu
+	 uVU68i4GGeK66C6QeHJdNUIvFyPK5QUfdCLhOV9Q5Q3vxcWyp8QPYE99ftQcZ11EYJEfD
+	 23CH8FwRfuIYdvMFSP3n8QhieQPATKvdLHwd6wwbSldvWUrVbFQnEwQDDlh3He7CM2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724466;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=soFe8FZSLjyPJHjFSdKiTxtQrK8J6hJHZTKQlP5gbhM=;
-	b=t+JSulpCGeGrouVEa3LhTUrFmkXHTG2YeGrFBIbSM9ToJzF+hg80xzp3r9JbMzYYX8RA
-	 jzRH78uxLB55/TYCJ9Zq0gF2Nd9TBSa1FzUgz9ryGJyKmQNJ5xx4KQccMB/zhTPyLCGxa
-	 fR1v9U04pYSVEswwcRV0X4n9VvhEOy3I2BsBUSivFopqPZGqmcwx8KnA3bK3NoUHME5xT
-	 s7M6tJI+JLPgLCj4zpuBPB5RJ/+SKUeq3BKIZSnADSlLlA8LKIHTrU4YFewXmKBgx8HSF
-	 r3xqmSFl9tu2KjRl3putmf7x0u3Ho9p7i88ZK0fcH5LKkfkbh6622KbFj1MHScCG+4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724483;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0DHqxRU3I3QAylUw75qoIBcYNwXHNjO4FsY2C/ZCxGk=;
+	b=JD2JoEqFw8wPEf1MZqb8AlOH2cUiRN4wqIupRQf/gyHYLmfbShjPoBYroSf/r9wByxhr
+	 MIkN0Tl67Ju/jf+dAy1v5OZZ2vBLTVG3HPS6fkQhMqYm1jvBsHsGeUX5wBlIycE5VbEUU
+	 Ya5EgX26pg7/3BZlLy0RI6DjJaA6NngwCvXGx8/VXvRtRyLJvOG0frOkdD979JyOQkduY
+	 CfATqvrV40th+jjlsd/8C2/9jwic/+WHO2bLkk5AZ0yfLP6NkiBZn2rlV+/mh/Ry6IO5y
+	 jOURJrYGilUobXkkHq/Kb8bw66FbTgVF6G9rXFldVrnVcLpbnwfCBO/FVcPWu7DA8PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ac5PQogX;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TeeHNMFq;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B18B606A33A;
-	Tue,  3 Nov 2026 16:47:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B18B606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCAE606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:48:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BCAE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ac5PQogX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793724466; x=1825260466;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=J4Le7fbGRKNvDYCgjVXxQqxQ8he0Z7WaCBdBn5Kt3fE=;
-  b=ac5PQogXx+QXLhDWtRpqdbg9vylJu5yPvfxAjrgetDhJyiudi9UpeE/I
-   UWF2xvQZkWOPR+bAkMD5GQn9Pp7FtAhjrwgh7++HkBdc1iTN6mJusL3SC
-   dBpJTeHoOjDz/QaaLR5LxO1uRVZI15uxpQzq+bTgcLRcezCD8qqnlfHZI
-   u+mIA6wYQipVb3ZzCCHlK0ojWlDoRtR4icVLNu/TFd8OUaffyN1iVmP/e
-   J27LdBr8faznZDbtghwnmp60ZZ8yYLV7N0Mw3DQFMANzJo3z6/Ay67n2l
-   GE75s91ujAYwIsy93mm1VgdEtdHYeAsMZXuZaYI5t6SWdodhUV1gjfpzP
-   g==;
-X-CSE-ConnectionGUID: /tq1EQFXRWWE9nDlx95L1A==
-X-CSE-MsgGUID: enjZCDYGQ2ephu233qxkdA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2454189"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2454189"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:47:45 -0800
-X-CSE-ConnectionGUID: pOlBIEX1QIOAWZ3y1gJypg==
-X-CSE-MsgGUID: rAJO8y4YQ8+kLC3HQlRYMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6479484"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:47:40 -0800
-Date: Tue, 3 Nov 2026 18:47:37 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux@analog.com, devicetree@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TeeHNMFq
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so43742525e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:48:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793724480; x=1794329280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0DHqxRU3I3QAylUw75qoIBcYNwXHNjO4FsY2C/ZCxGk=;
+        b=TeeHNMFql7z/dmsDhMNob7K6l+sxr3dGrDQYy4AMO1t13woq6zGlwN6vk1pkxkwMp7
+         7a9m2XWFjxq9xYWZouL701hCI3RdmZyV8iEN7Fiplv1Mv+UDCjEAF4KTcBdnEZ743pcx
+         +8o2zBx1teVEfxt4yvSC2r4WMRsYqUS8unaKkLRtdwQ9jDj+jSDxXaaDDdx8c4ywtdgj
+         wDE6JNwd98H9+hAY394lPPe+XDt5sFmgalZ2u1huCJgqnGyO+sNiWOQaDtza5BpQFnnr
+         ROzuKCzzGhOwxSH/OYqGHpxkLMkN/QtdQ92XCoypAcfES4v8j1Ewye51T75/GlKfgw+i
+         DqvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793724480; x=1794329280;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0DHqxRU3I3QAylUw75qoIBcYNwXHNjO4FsY2C/ZCxGk=;
+        b=PR7NUXcdrroQAyBV1ccZYlGstOKVdRAq7uaHOECj093UGvmayMKuVXqYItclJXMI7/
+         vKXa+GTnGF5+iZaOWFRmcr9CWjC6xxrNPCwArAOvbfGP04I0we9gB/AbXISPlpl03ztl
+         qQagtH/MxvleJf+f5HEmpAQdrfL3s0+hyy0rf2n+EtvPmoxd12jk4Nh8IAxTk+Dl4Aic
+         I1lA8h9jflsIV+Mqli6oz/D/Hrb+N8Qys8gjrRB++WfVpkdEnJ0PxK9bXMWreFG97gGY
+         IuvaDKrlze6NioKxDDki2AYKABDP3B+KFcPb/4Uvhv2SRwX55Ct0zccGMj5gFgVwK+Ne
+         04Pg==
+X-Forwarded-Encrypted: i=1; AKwUvByhvSASBQ48xG38BQCRgX+eLJ9/+pP7m/TV2su1OFuwBgl/kuuEBtQPtt+xl84nYd/zOfkYHI8Pad/sAlA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ucQPbBp3DAP2rvpJ87BZKC3SRrAOkK+YpfUd4DDCDjSdC4wU9
+	EtpNibZjksPTJWQQYxY4tSDp9Y1oFJdbeWCQz+2tTBJFNwwgWFOpEaVs
+X-Gm-Gg: AYBFou1Z9QE0utrsoT1wUpYfmUKBH9GZB7ouwjTqQi8EGc5gqKRHjjFibNWiVbLZJJ3
+	ztpmqfWqSkPqMwyOmgiXCShF7MDqltNC05Tf+ncTWh9lppQcOoPq/3lBjcUroo0dFqlW/m3soc0
+	RvGcsyCkY+lH1mbxvafpjepkIOHHlDgEj7gmyuEK4yCcCjK/Q66JmzrJntHnqvzGUKUPupaszls
+	hHnLxN51ElulHMF2NkD3W0nrwm54ECVoT4xnJ1pKac88RvKCpWiJp641QWrYbQXzH2CCF6rNg81
+	AlZexvXghre+3rUQ96fqXpIYZD/eUsgMRg3Y49eUIvreBh9my6pYi+rlyBLn2uEfEiiGnWwwByY
+	87D+FRHg/0G6lARC+gxQCkDATsg0oWnkhuOOyJAG8R+9RegBIYPLu+p+oWfW/hQCumTRuTEVM2o
+	8oXHXzqL2i8UrcxdDncAYXO7KQcVgNiCPFgevux0d/jpU1cLX17pvhYk9TyDAB/ILUO1vFA/ufZ
+	YUeB8z82QTX8NY8MmoB8lV3Z3Nioxg+q5ISE+m+wPFoNhIial14jd8NUG8hhxcSqo04MMannpIr
+	/BEKPDmkIstA3CFbIANOLTUVk62YqSO9MQ9ffie7OXSTbzfC2G6JOYimJOZMSTV+8IA=
+X-Received: by 2002:a05:600c:8b85:b0:4a2:392:9de2 with SMTP id 5b1f17b1804b1-4ac1932b550mr276786925e9.28.1793724480320;
+        Tue, 03 Nov 2026 08:48:00 -0800 (PST)
+Received: from localhost.localdomain ([79.117.198.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a555e59dsm79469835e9.0.2026.11.03.08.47.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 08:47:59 -0800 (PST)
+From: Jose Nieto <jnieto.alaber@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v3 07/10] iio: frequency: ad9910: support drctl control
-Message-ID: <auoQKX4CNb0sWkWH@ashevche-desk.local>
-References: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
- <20261103-ad9910-backend-support-v3-7-0e9224ddf7b7@analog.com>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jose Nieto <jnieto.alaber@gmail.com>
+Subject: [PATCH] arm64: dts: amlogic: khadas-vim3: add SPI NOR flash overlay
+Date: Tue,  3 Nov 2026 17:47:30 +0100
+Message-ID: <20261103164730.160593-1-jnieto.alaber@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,86 +103,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-ad9910-backend-support-v3-7-0e9224ddf7b7@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 11:53:03AM -0300, Rodrigo Alencar via B4 Relay wrote:
-> 
-> The DRCTL pin controls the slope direction of the AD9910 digital ramp
-> generator (DRG). When dwell is enabled at a ramp limit, the DRG holds
-> that limit until the next DRCTL transition, so the sweep pattern is
-> defined by the waveform applied to that pin, which can be generated by
-> a PWM.
-> 
-> Get the optional "drctl" PWM and expose the integration_time attribute
-> in the DRG ramp up and ramp down channels, which sets the time interval
-> assigned to each ramp direction while the sweep parameter is accumulating.
-> 
-> The DRCTL waveform is described with the PWM waveform API, using the duty
-> offset when DRCTL needs to start low. The PWM is disabled when the
-> resulting period is zero. The waveform is rounded by the PWM provider
-> before being applied, so that integration_time reports the intervals
-> achieved by it. Writing to integration_time fails with -EOPNOTSUPP when
-> no DRCTL PWM is available. As the waveform API has no stubs, the driver
-> now depends on PWM.
+The Khadas VIM3 has a 16 MiB SPI NOR flash (W25Q128) whose data lines are
+shared with the eMMC D4-D7 lines. Add an overlay that restricts the eMMC to
+4-bit mode and enables the SPI NOR controller, exposing the flash as an MTD
+device.
 
-...
+The flash HOLD#/WP# lines are wired to the eMMC D3/D7 nets, so the
+nor_hold_wp_pins pinctrl group is intentionally not used.
 
-> +	if (!ndh && ndl) {
-> +		/* DRCTL low on the first half, so that it ramps down first */
-> +		wf.period_length_ns = st->ramp_down_time_ns;
-> +		wf.duty_offset_ns = st->ramp_down_time_ns / 2;
-> +		wf.duty_length_ns = wf.period_length_ns - wf.duty_offset_ns;
-> +	} else if (ndh && !ndl) {
-> +		wf.period_length_ns = st->ramp_up_time_ns;
-> +		wf.duty_length_ns = st->ramp_up_time_ns / 2;
-> +	} else if (!ndh && !ndl) {
-> +		wf.period_length_ns = st->ramp_up_time_ns + st->ramp_down_time_ns;
-> +		wf.duty_length_ns = st->ramp_up_time_ns;
-> +	} else {
-> +		wf.period_length_ns = st->ramp_up_time_ns + st->ramp_down_time_ns;
-> +	}
-> +
-> +	/* a zero period disables the PWM, nothing to round */
-> +	if (wf.period_length_ns) {
-> +		ret = pwm_round_waveform_might_sleep(st->drctl_pwm, &wf);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	ret = pwm_set_waveform_might_sleep(st->drctl_pwm, &wf, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!ndh && ndl) {
-> +		st->ramp_down_time_ns = wf.period_length_ns;
-> +	} else if (ndh && !ndl) {
-> +		st->ramp_up_time_ns = wf.period_length_ns;
-> +	} else if (!ndh && !ndl) {
-> +		st->ramp_up_time_ns = wf.duty_length_ns;
-> +		st->ramp_down_time_ns = wf.period_length_ns - wf.duty_length_ns;
-> +	}
+Signed-off-by: Jose Nieto <jnieto.alaber@gmail.com>
+---
+ arch/arm64/boot/dts/amlogic/Makefile          |  2 ++
+ .../dts/amlogic/meson-khadas-vim3-spifc.dtso  | 24 +++++++++++++++++++
+ 2 files changed, 26 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso
 
-This and above if-else-if chain can be simplified
-
-	if (!ndh && !ndl) {
-		st->ramp_up_time_ns = wf.duty_length_ns;
-		st->ramp_down_time_ns = wf.period_length_ns - wf.duty_length_ns;
-	} else if (!ndh) {
-		st->ramp_down_time_ns = wf.period_length_ns;
-	} else if (!ndl) {
-		st->ramp_up_time_ns = wf.period_length_ns;
-	} else {		// for the above case
-		...		//
-	}
-
-Or with inverted logic.
-
+diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
+index 57bc440fa55c..3714cbaaa03e 100644
+--- a/arch/arm64/boot/dts/amlogic/Makefile
++++ b/arch/arm64/boot/dts/amlogic/Makefile
+@@ -23,6 +23,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-g12a-u200.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12a-x96-max.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-bananapi-m2s.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3.dtb
++dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3-spifc.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3-ts050.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-bananapi-cm4-cm4io.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-bananapi-cm4-mnt-reform2.dtb
+@@ -104,5 +105,6 @@ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-x96-air.dtb
+ # Overlays
+ meson-g12a-fbx8am-brcm-dtbs	:= meson-g12a-fbx8am.dtb meson-g12a-fbx8am-brcm.dtbo
+ meson-g12a-fbx8am-realtek-dtbs	:= meson-g12a-fbx8am.dtb meson-g12a-fbx8am-realtek.dtbo
++meson-g12b-a311d-khadas-vim3-spifc-dtbs := meson-g12b-a311d-khadas-vim3.dtb meson-khadas-vim3-spifc.dtbo
+ meson-g12b-a311d-khadas-vim3-ts050-dtbs := meson-g12b-a311d-khadas-vim3.dtb meson-khadas-vim3-ts050.dtbo
+ meson-sm1-khadas-vim3l-ts050-dtbs	:= meson-sm1-khadas-vim3l.dtb meson-khadas-vim3-ts050.dtbo
+diff --git a/arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso b/arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso
+new file mode 100644
+index 000000000000..c70780b11b9b
+--- /dev/null
++++ b/arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2026 Jose Nieto <jnieto.alaber@gmail.com>
++ *
++ * The Khadas VIM3 on-board SPI NOR flash shares its data lines with the
++ * eMMC data lines 4-7. Restrict the eMMC to 4-bit mode to free D4-D7 and
++ * enable the SPI NOR controller, exposing the flash as an MTD device.
++ *
++ * The flash HOLD#/WP# lines are wired to the eMMC D3/D7 nets, so the
++ * nor_hold_wp_pins pinctrl group is intentionally not used.
++ */
++
++/dts-v1/;
++/plugin/;
++
++&sd_emmc_c {
++	pinctrl-0 = <&emmc_ctrl_pins>, <&emmc_data_4b_pins>, <&emmc_ds_pins>;
++	bus-width = <4>;
++};
++
++&spifc {
++	status = "okay";
++};
++
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
