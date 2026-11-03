@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690827;
-	b=RQATYkRI++SZiJLHRjFv4lwzGzsm/H2z2yR3n9ZXUMn/X4PpALXAhuiXEg8658GGqxPC
-	 YeDyYZ1t5UH5Z8340g6Hi9bj18iSDFCZYdSz6TKQitTvIBvXT35jjBBJ32itUIC4gpQWl
-	 l8wUW6Dl1U71Pcln0k9OLyyt1kC5lwY25bhjAdJkqHDmAGgmFCrlPeHtVwWLcKcWHtqRO
-	 c92/z8NvZvg8l6qVJCphNe3OI3Nxj8HheOpBWnnTokMAQn6gTDZ7IiLVMf85lmVuf7/pe
-	 CV16tfdPQIX/jl+2ma4l6Sb4GanxUGHZFdX0nZldW31Lip/Kkl0aaAAqTCt9OiaPqgQ==
+	t=1793690816;
+	b=ymjat0USP5tLq9zKqpw6+BK8G769p08pKCqGTgLZx2N+hMhAdL/8fPsXEKGWKcWZx+/x
+	 AOJmhnCr/G4Ft+fBFf4KznpCH66fBPwAMhG8dihlFBDV5On5vVQm26y+i5Y6tfYLhg0iK
+	 XNbbp0hHRFmD5sg08/83uWTDjmzRNXaNuPxgpus+150KrE1idnVUnq1/oWFfj56lM3Y/i
+	 3Qcd6ayYMpSPvQGW5wlp10Gn0H9lOp10ikqwV2cnba5njYrTv10Vf7cc4BtUuyw5RsD6Z
+	 db1wep96UKFet8hXA4XnhkcvjD+HrcOQa1LRNK2XyD3Q2HGja8lvpKF3ma2vcUb8J3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690827;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690816;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=V+/klBUcfcTRm8IMCJQU8L8tHCdvn3hjNDZ9Ft+EtVk=;
-	b=eF1jbNCrUdPab2zFC6oCXaly4SLTAGpwYB6ImsnL00h0U+H1HhEZ2+AsYAjmxN9xn+a4
-	 7Vo47+1FF8HtwZSEJAfuUG+TdyhHe3eb6XjVm1EqAVF7k4WyfGS2ORDCNgkBXx5GbXPM1
-	 iu5/da89xswm8ii4z6MjO3MDmg5VzKZsUKgljyz2mRq4S74DQnn4GKJdkn/JETVsYVCSp
-	 RTVK/miFW51Eza3G07Q6H6tBzH0bwqFfFoIRbvFnWQyyf9F+0Fdp/y/Uhu54vUtzLDOTz
-	 NUtBsBue0pVLJvZ31DZvuYCAaLfaz4CMctNP7E3by9xDlebVe6/pajN2oAvZCY11ldg==
+	bh=1W+dLatY9nnSDyIP/7UDjOZciumv9YU0Js0RJ5PhO4s=;
+	b=ppXvI56MQLhyBpIxIzu5IuPLwWTqoIoqOx9SU9NGbR3RwAWaQsYRP6m7QrUSnkE8SGF3
+	 VRu5fHzRnEd62Qz4vFM8lIYoG9ysH47TQhJaMsLZ/Vxiuoonfv9hwxHYnvAP39Rn8m0bS
+	 IiC+IWYRoJzWyVkvdG7YJ9Ukpbdg4pp7fJ/0SBXoMqPhEnSv4C7kVTJmqbDl9kN4Tr1Tv
+	 oiUoPqyQ5hhmG0CTPm9LyxX9jpONFevuAhs3eeRtO8W6qExsCHYcDySZrdQhC7zHZwYtP
+	 ZsgzPtvxs5Ii1nQtp2gcYsd9E4FuKaMklvkcSnRTzLRFnD/vBGot4HhoJ8L0RWI1FEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLIJ3wD5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b0v84Ky3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830C5606A331;
-	Tue,  3 Nov 2026 07:27:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F58606A337;
+	Tue,  3 Nov 2026 07:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLIJ3wD5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45C981F00A02;
-	Tue,  3 Nov 2026 07:27:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b0v84Ky3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400BB1F00A16;
+	Tue,  3 Nov 2026 07:26:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690827;
-	bh=V+/klBUcfcTRm8IMCJQU8L8tHCdvn3hjNDZ9Ft+EtVk=;
+	s=k20260515; t=1793690816;
+	bh=1W+dLatY9nnSDyIP/7UDjOZciumv9YU0Js0RJ5PhO4s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lLIJ3wD5Mh6L8SP90f75YzxQJ/RXZO/CeQ6MEds9Gzx0k85j8RVPXYUjGY4/0BPTb
-	 lXyKHkwsSWIUMKuSCYilbTMWp6292pBWhX909gwASw2ba14boN5woGfSJN9P8PDqeW
-	 KSc0IQx/hUu5pHnApZgIIBE1mTS+yZPQL603SsmHzo2M9hpFkCDN5ZssxA1/p8mkV/
-	 LXiDGXyr7WqWiOSk6HJFr07zcDE64ynGUxeYtBovtHk9CJ8eHflojb98m0teWQdyzS
-	 8ND+AeP+vZD23nnAB5HzCShKmG8Nm8x2PSKQrZRvzw3fSVRr+saxgh+Sn3yAHmBDev
-	 Sv3hqcECB5LKQ==
-Date: Tue, 3 Nov 2026 08:27:04 +0100
+	b=b0v84Ky3dU/Duc4o23FRWcU5iuPmoE2POmJhnPd7BAea3aNMxLwvz5rXBkmS8Nt/n
+	 +IyIiw3aa+YmlBx1hOP02leHB9bhbAERAhf75pBpHrFLAuLmfGUXBHEFQJPmpuzczZ
+	 ZymLKjUKF2VA9fUcL97G2zPUbW0Y+1cabTzb0x8a1ZD288i4/u5JfuF6uGgUAnn3Xb
+	 u/uD0w4ECgP0ZyNo8pQOYlaG3VSeruzMccIdsdY2KZM48zehBhvjg5x1KDUbAWr3tQ
+	 XrAA0MFc1zWm4wTimoEZt84qhXlkg2/9Xa9RDqoRZzBm07tDbAIq7u/7MlGPPNSMCG
+	 GqqA4+qhdTW1A==
+Date: Tue, 3 Nov 2026 08:26:53 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: zhi.wang.linux@gmail.com, joonas.lahtinen@linux.intel.com, 
-	zhenyuw.linux@gmail.com, tursulin@ursulin.net, dri-devel@lists.freedesktop.org, 
-	intel-gfx@lists.freedesktop.org, stable@vger.kernel.org, rodrigo.vivi@intel.com, 
-	linux-kernel@vger.kernel.org, jani.nikula@linux.intel.com
-Subject: Re: [PATCH] drm/i915/gvt: Release GGTT MM if scratch page setup fails
-Message-ID: <20261103-supportive-olive-barnacle-93590a@quoll>
-References: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, dakr@kernel.org, linux-kernel@vger.kernel.org, 
+	nouveau@lists.freedesktop.org, lyude@redhat.com, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/nouveau: Remove the audio device link on component
+ unbind
+Message-ID: <20261103-hungry-fearless-hummingbird-dc7d80@quoll>
+References: <20261103070331.1079868-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,26 +59,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103070331.1079868-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 06:54:07 +0000, Wentao Liang wrote:
-> intel_vgpu_init_gtt() creates the GGTT MM before allocating the scratch
-> page table tree. If scratch page allocation or DMA mapping fails,
-> create_scratch_page_tree() releases its own pages, but the GGTT MM and
-> its virtual GGTT and host GGTT buffers remain allocated. The caller
-> skips intel_vgpu_clean_gtt() when intel_vgpu_init_gtt() fails.
+On Tue, 03 Nov 2026 07:03:31 +0000, Wentao Liang wrote:
+> nv50_audio_component_bind() creates a stateless device link from the HDA
+> device to the GPU. Component unbind clears the audio component pointers
+> but never removes that link. Stateless links are reference counted and
+> must be explicitly released by their caller, so repeated component binds
+> retain a link reference on every cycle.
 > 
-> Drop the GGTT MM reference and clear its pointer before returning the
-> scratch page initialization error.
+> Remove the link after disconnecting the audio component in unbind. This
+> also covers a later failure of the HDA component master's bind callback.
 > 
-> Fixes: 3b6411c2c205 ("drm/i915/gvt: implement scratch page table tree for shadow PPGTT")
+> Fixes: 742db30c4ee6 ("drm/nouveau: Add HD-audio component notifier support")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/gvt/gtt.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/nouveau/dispnv50/disp.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
 
