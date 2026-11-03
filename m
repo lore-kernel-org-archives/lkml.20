@@ -1,83 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.75.44.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793707806;
-	b=ObatXslvPKM7D2S95UubOd91WFCIc2+GGtwIqjT5MJVyyRQqVR51MLrxHO4caD8s3JWh
-	 H7KkNGdGTKCp7psirSXpmYqwpqpqwhxPRr1no6UjjdERNr6SmMKm0gSFrZnMSHTftvn4r
-	 xKo74+pVPgdkz9AcyOKhn61mFq33D7QBwAxcYwEL1/mZFgv+QL6ppMMPMxbta9zMn8uwn
-	 HfunxRfoaIb1UDOUkhTTAYFNBkMR9fpOtl2nr0JJKrCJLvsQ7Wq8jiLaEiX7TftZlrCaP
-	 WldnngPUgEsEjL1kzSy86XCGW0iVxuIfBpj/CnBEWyBe8o7KN/it79yJzcta2nGPNVQ==
+	t=1793707817;
+	b=2G7UBSOwNYx/qT3Uc/FqDmLSkjT3sdwrYMMhZc4nIYLcnXl49pV9iDONra6U0p1MzUkK
+	 lvFDXxo/pDbwMZxJXYG/RM2w28GmWmiE1dmEYclrnZS10cJg4Gy5cx2bz1OgRRlEdacrV
+	 9mWwCWoW0fzNGfMWj0etfY2X+Ax4K7hKZy7CEUuQIIdvTYv1AgJL4fHsutpXpzA6PfBhl
+	 B8cAVk9VMLjtLNreOT4qBfM6Fok6+rJflp2n/VZQVpXZu7/W6Ae/Fplbu3Uv9CdyXZjDT
+	 FWShwZOrrQTYhaYmVDIgc1N0jrmEyjqj2nmTEQPsC/tDucez55y+B2MbxPyYZ20tf1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793707806;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=lZloWcPDVM4dVpS9WmdN8nPPZc7i9no9wyUqZ5qH2JA=;
-	b=1MsZ+kLj3hbrrt9P9XfbBuFm24cqvfzSb3Bhz6NN8wkVycIPs/lHHxF7I8rcCKFri/1f
-	 pCDZQJEM1J2m5dLUxotEUaRgKL8N2veGFmuMtFfLCkkXAjGwGxpblsBCL6RFRUcAmR3Lu
-	 P656DImofWuZJ0t4NabTCyn9PTo8pdmllFkzKxIw8/xuXFFzSxHHzVR1NohS59PiOf+LZ
-	 yt2yF7oTFgQMxkQMQZJwYkMa/bmw+7WqZRsK3zhkdgG8nvm+NK6T9GTjr4POQpio5X+zk
-	 XWwfWC9MvxzmFF9l/ZG+0oYwix0bs80Y9DHp+Eq86sVnYuC/tZzxGdT+UssODoJgsQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793707817;
+	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
+	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
+	 X-CM-CTRLMSGS:Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:
+	 X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=pUnKC69FcFfgEAXJWb6ayz330aK8YO1Stjki5sEJeMs=;
+	b=C/0DzzVjZFbFIEl9Kvy0wZBNZcIhHsEnmy/HxCHb7rS8SHE/PstmfCSd/h3C+H3GPSlb
+	 i/AzPK2/QtN9iloYzDlqDGj1otOzHPUxD62duWTBWLrAISAbzXnwO22ItwjX/vRwk7vUz
+	 X9RZPPhDlAMFiffH9V+K4Dxrp0yAn/gI/7j4Ehrh/wg6wKSPsSXmCRMC820KDgIV5wOAq
+	 Hkr9F17LK/gT1aprU2TpPgLxtaaW4FwNKuCF9Z4mkSmQgsknkU88EbQK7AG1VnC3hkvoZ
+	 P5lTG9knJ0CTp1Dbsy7kchnnIBLZKL/n8u9oed53GgyQvf0p3EgTD7jnLDZZnyOY72Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yxima1mh;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B80606A324;
-	Tue,  3 Nov 2026 12:10:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B80606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yxima1mh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793707806; x=1825243806;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HPAWnSLRmzqkl6s9RYyuENxxp9+uYSex0FG9pduGwWo=;
-  b=Yxima1mhhhJFWTD6SJx0EVMAxcTojfZzeD9dsfYvryIEFwZYM89QDNw6
-   NhicQr7w59Li1oPVae2DkFy5xad36vwL90SD9KVOrTwrAqu2MJYp6r48V
-   +HuL9GlToqx2h5l36aXaXXIq6Lpy6f9aCNTB/wn8R7pnrvQOmQ3IpgRE1
-   8T4PRtsEirJUrGPaqT6w0tVvG/7jAlzH5suM8sdoOz5n8/SCZRlNqi17L
-   8fxrTklvRAQRhj5QHigYx7cyTq26zupat8vhs3OeZr4czyjuz9nvjOsVs
-   PbAKgW9rVd3QmO+6wEnU+763Rr9SS+RnuZDfnW2+dK5DaNBP70MDHF0ji
-   g==;
-X-CSE-ConnectionGUID: 5iwcUJu1SdqjsioYxJLKcA==
-X-CSE-MsgGUID: AEox1gj8Rl+82Ax2aukMBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2308614"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2308614"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:10:05 -0800
-X-CSE-ConnectionGUID: DLS/RsaYQMKYDRjLO0nS9A==
-X-CSE-MsgGUID: c+UbXbirSpmEEJdXix7DlQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6944952"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:10:02 -0800
-Date: Tue, 3 Nov 2026 14:09:59 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v6 7/8] serial: 8250_dw: discover Allwinner A523 FIFO
- depths through FCC
-Message-ID: <aunPFy2TCljGvV2q@ashevche-desk.local>
-References: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
- <20261102-submit-h616-uart-fifo-v1-v6-7-25afcb346b0c@gmail.com>
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=13.75.44.102
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1FD4606A334;
+	Tue,  3 Nov 2026 12:10:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1FD4606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from xuhx$hust.edu.cn ( [10.12.169.72] ) by ajax-webmail-app2
+ (Coremail) ; Tue, 3 Nov 2026 20:10:12 +0800 (GMT+08:00)
+Date: Tue, 3 Nov 2026 20:10:12 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
+To: linusw@kernel.org, brgl@kernel.org
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: gpio: gpiolib: final put of the gpio_device happens inside  the
+ SRCU read critical section on the setup-failure path -- deterministic
+ use-after-free read at guard release (unfixed upstream)
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
+ 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
+In-Reply-To: <2026102727-data-sequel-ce41@gregkh>
+References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
+ <2026102727-data-sequel-ce41@gregkh>
+X-CM-CTRLMSGS: =?B?CsW1LTiH6nJ5xwDR7hwMki1N8jM=
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_402486_774561210.1793707812534"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,88 +56,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-submit-h616-uart-fifo-v1-v6-7-25afcb346b0c@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Message-ID: <2c0b79c4.1d697.1a1a15126b6.Coremail.xuhx@hust.edu.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:IQEQrMBmjXYkz+lqqiBvAA--.44744W
+X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAQIAB2rot+ykOgAAsD
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkCw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-On Mon, Nov 02, 2026 at 12:55:22PM -0700, James Hilliard wrote:
-> The A523 UART integration, also used by A527 and T527, has 64-byte FIFOs
-> on UART0 and 128-byte FIFOs on UART1 through UART7. Each controller reports
-> its TX/RX FIFO depth in bits 31:8 of the FIFO Clock Control register at
-> offset 0xf0. The field holds a byte count, not a logarithmic encoding.
-> 
-> Read this field in the sunxi setup callback when platform data does not
-> provide a fixed FIFO size. A fixed size takes precedence, so H616 retains
-> its 256-byte configuration without accessing FCC. The probe has already
-> enabled the clocks and deasserted reset before invoking the callback.
-> Leave the FIFO clock-control bits untouched.
-> 
-> Validate the depth before generating the RX trigger table or setting the
-> transmit load. The quarter-full threshold must be positive and the
-> FIFO-depth-minus-two threshold must fit in the byte-sized table and RX
-> trigger API. Report an invalid depth and fail probe instead of generating
-> zero or truncated thresholds. This bound follows the current 8250
-> table and callback types, not a hardware FIFO-capacity limit; support
-> for larger thresholds would require widening that interface.
-> 
-> Select this setup for the A523 compatible. Derive the transmit load and
-> RX threshold table from the discovered depth using the common sunxi
-> helpers. This handles the different FIFO sizes with one compatible and
-> one receive-trigger mapping.
-> 
-> Like H616, this integration has Allwinner-specific debug-divisor and
-> RS485 registers overlapping the generic DesignWare feature probes. Use
-> the common sunxi PIO setup, BUSY-safe integer divisor programming and
-> software RS485 handling. Keep the APB clock gate enabled during termios
-> updates with SKIP_SET_RATE.
+------=_Part_402486_774561210.1793707812534
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-...
+T24gZ3Bpb2xpYidzIHNldHVwLWZhaWx1cmUgcGF0aCwgdGhlIGd1YXJkIHRoYXQgcHJvdGVjdHMg
+dGhlCmdwaW9fZGV2aWNlIGxvb2t1cCAoc3JjdV9yZWFkX2xvY2sgYXQgZ3Bpb2xpYi5jOjEwOTQp
+IGlzIGFsc28gaGVsZAp3aGlsZSB0aGUgZGV2aWNlIGlzIGJlaW5nIHRvcm4gZG93bjogZ3Bpb2No
+aXBfc2V0dXBfZGV2cygpJ3MgZXJyb3IKcGF0aCBkcm9wcyB0aGUgbGFzdCByZWZlcmVuY2UgKGdw
+aW9kZXZfcmVsZWFzZSBhdCA6ODkzLTkwNiwgd2hpY2gKY2FsbHMgY2xlYW51cF9zcmN1X3N0cnVj
+dCBhdCA6OTA0IGFuZCBrZnJlZSBhdCA6OTA1KSB3aGlsZSB0aGUKY2FsbGVyJ3MgZ3VhcmQgaXMg
+c3RpbGwgaW5zaWRlIHRoZSByZWFkIGNyaXRpY2FsIHNlY3Rpb24gLS0gc28gdGhlCmd1YXJkJ3Mg
+b3duIHJlbGVhc2UgKHNyY3VfcmVhZF91bmxvY2spIHJlYWRzIHNzcC0+c2RhIG91dCBvZiBhbgph
+bHJlYWR5IGZyZWVkIGdwaW9fZGV2aWNlLiAgSW4gdGhlIGhvZyBwYXRoIHRoZSByZWZjb3VudCBj
+YW4gYmUKZXhhY3RseSAxIGF0IHRoYXQgcG9pbnQsIHdoaWNoIGlzIHRoZSBjb21tb24gY2FzZSwg
+c28gdGhpcyBpcyBub3QKYW4gZXhvdGljIHdpbmRvdzogaXQgaXMgYSBzZXF1ZW50aWFsLW9yZGVy
+aW5nIHZpb2xhdGlvbiB0aGF0IGZpcmVzCndoZW5ldmVyIHRoYXQgZXJyb3IgcGF0aCBpcyB0YWtl
+biwgbm8gY29uY3VycmVuY3kgbmVlZGVkLiAgT24gYQpzdG9jayA3LjMgS0FTQU4ga2VybmVsLCBy
+ZXBsYXlpbmcgZ3Bpb2xpYidzIGV4YWN0IHNpbmdsZS10aHJlYWRlZApzdGF0ZW1lbnQgc2VxdWVu
+Y2UgMToxIChsb2NrIGF0IHRoZSA6MTA5NCBndWFyZCBwb2ludCAtPiB0aGUgOjkwNApjbGVhbnVw
+IC0+IHRoZSA6OTA1IGtmcmVlIC0+IHRoZSBndWFyZCdzIHVubG9jaykgaGl0cwpXQVJOSU5HOiBr
+ZXJuZWwvcmN1L3NyY3V0cmVlLmM6Njk2IGF0IGNsZWFudXBfc3JjdV9zdHJ1Y3QgKHRoZQpzZWxm
+LWhlbGQtcmVhZGVyIGRlZmVuc2l2ZSBicmFuY2g6IHNkYSBhbmQgc3JjdV9zdXAgbGVha2VkLCBu
+b3QKZnJlZWQpLCBhbmQgdGhlIHN1YnNlcXVlbnQgc3JjdV9yZWFkX3VubG9jayBwcm9kdWNlcwpC
+VUc6IEtBU0FOOiBzbGFiLXVzZS1hZnRlci1mcmVlIGluIF9fc3JjdV9yZWFkX3VubG9jaysweDFh
+IHJlYWRpbmcKb2JqZWN0KzggLS0gZXhhY3RseSB0aGUgc3NwLT5zZGEgZmllbGQgb2YgdGhlIGZy
+ZWVkIGNvbnRhaW5lci4gIFRoZQpzZXR1cC1mYWlsdXJlIHBhdGggYWxzbyBtaXNzZXMgdGhlIGxp
+c3RfZGVsX3JjdSgpIHRoYXQgdGhlIHN1Y2Nlc3MKcGF0aCBwZXJmb3Jtcywgc28gdGhlIGRlc3Ry
+b3llZCBkZXZpY2UgY2FuIHJlbWFpbiByZWFjaGFibGUgdGhyb3VnaAp0aGUgZ2xvYmFsIGxpc3Qu
+ICBBcyBmYXIgYXMgSSBjYW4gdGVsbCB0aGlzIGlzIHVuZml4ZWQgdXBzdHJlYW0uCgpUaGUgZGV0
+YWlsZWQgZGVzY3JpcHRpb246CiogVGhlIG9yZGVyaW5nIChMaW51eCA3LjMsIGRyaXZlcnMvZ3Bp
+by9ncGlvbGliLmMpCiAgVGhlIGNhbGxlciB0YWtlcyB0aGUgbG9va3VwIGd1YXJkIChzcmN1X3Jl
+YWRfbG9jaywgOjEwOTQpLCB0aGVuCiAgZ3Bpb2NoaXBfc2V0dXBfZGV2cygpIGZhaWxzIChlLmcu
+IGNkZXYvaG9nIHJlZ2lzdHJhdGlvbiBlcnJvcnMpLAogIGFuZCB0aGUgZXJyb3IgcGF0aCBkcm9w
+cyB0aGUgZmluYWwgcmVmZXJlbmNlOwogIGdwaW9kZXZfcmVsZWFzZSgpIHJ1bnMgY2xlYW51cF9z
+cmN1X3N0cnVjdCgmZ2Rldi0+c3JjdSkgYXQgOjkwNAogIGFuZCBrZnJlZShnZGV2KSBhdCA6OTA1
+IC0tIHdoaWxlIHRoZSBjYWxsZXIgaXMgc3RpbGwgaW5zaWRlIHRoZQogIFNSQ1UgcmVhZCBjcml0
+aWNhbCBzZWN0aW9uIGl0IHRvb2sgYXQgOjEwOTQuICBXaGVuIHRoZSBjYWxsZXIncwogIGd1YXJk
+IGRlc3RydWN0cywgc3JjdV9yZWFkX3VubG9jaygmZ2Rldi0+c3JjdSwgaWR4KSB0b3VjaGVzIHRo
+ZQogIGZyZWVkIG9iamVjdCAocmVhZHMgc3NwLT5zZGEgYXQgb2JqZWN0IG9mZnNldCArOCkuICBU
+aGUgaG9nIHBhdGgKICBsZWF2ZXMgcmVmY291bnQ9PTEgaGVyZSBhcyB0aGUgY29tbW9uIGNhc2Ug
+KG5vIG90aGVyIGhvbGRlcnMKICB5ZXQpLCBzbyB0aGUgZmluYWwgcHV0IGlzIGdlbnVpbmVseSBm
+aW5hbC4KICBTZWNvbmRhcnk6IHRoZSBmYWlsdXJlIHBhdGggbGFja3MgdGhlIGxpc3RfZGVsX3Jj
+dSgpIHRoZSBzdWNjZXNzCiAgcGF0aCBwZXJmb3JtcywgbGVhdmluZyB0aGUgZnJlZWQgZGV2aWNl
+IGxpbmtlZC4KCiogRXZpZGVuY2UgKHN0b2NrIDcuMyBLQVNBTjsgZGV0ZXJtaW5pc3RpYywgc2lu
+Z2xlLXRocmVhZGVkOwogIHJlcHJvZHVjZXIgYXR0YWNoZWQpCiAgZ3Bpb2RldnNpbS5jIHJlcGxh
+eXMgZ3Bpb2xpYidzIG93biBzZXF1ZW5jZSB3aXRoIGEga3phbGxvYydkCiAgY29udGFpbmVyIG9m
+IHRoZSBzYW1lIGxheW91dDogc3JjdV9yZWFkX2xvY2sgKHRoZSA6MTA5NCBndWFyZCkgLT4KICBj
+bGVhbnVwX3NyY3Vfc3RydWN0ICh0aGUgOjkwNCBjYWxsOyBoaXRzIHRoZSBzcmN1dHJlZS5jOjY5
+NgogIFdBUk5JTkcgLS0gdGhlIGxpYnJhcnkncyBvd24gInJlYWRlciBzdGlsbCBpbnNpZGUiIGRl
+ZmVuc2UKICB0cmlnZ2VycywgbGVha2luZyBzZGEvc3JjdV9zdXAgZXhhY3RseSBhcyB0aGUgc291
+cmNlIHByZWRpY3RzKSAtPgogIGtmcmVlICh0aGUgOjkwNSBjYWxsKSAtPiBzcmN1X3JlYWRfdW5s
+b2NrICh0aGUgZ3VhcmQncwogIGRlc3RydWN0b3IpOgogICAgV0FSTklORzoga2VybmVsL3JjdS9z
+cmN1dHJlZS5jOjY5NiBhdCBjbGVhbnVwX3NyY3Vfc3RydWN0CiAgICAgIChsZWFrIGJyYW5jaDog
+c3JjdS5zZGEgbm9uLU5VTEwsIHNyY3Uuc3JjdV9zdXAgbm9uLU5VTEwpCiAgICBCVUc6IEtBU0FO
+OiBzbGFiLXVzZS1hZnRlci1mcmVlIGluIF9fc3JjdV9yZWFkX3VubG9jaysweDFhCiAgICAgIFJl
+YWQgb2Ygc2l6ZSA4LCBhZGRyZXNzID0gb2JqZWN0KzggPT0gdGhlIHNzcC0+c2RhIGZpZWxkCiAg
+ICAgIGFsbG9jOiBpbnNtb2Qga3phbGxvYzsgIGZyZWU6IHRoZSBrZnJlZSBzdGVwIGFib3ZlCiAg
+T25lIHJ1biwgbm8gaW50ZXJsZWF2aW5nLCBubyBrcHJvYmUgcGFya2luZyAtLSB0aGUgdmlvbGF0
+aW9uIGlzCiAgaW4gdGhlIG9yZGVyaW5nIGl0c2VsZi4KCgpSZWdhcmRzLApIYW54aWFuZyBYdQp4
+dWh4QGh1c3QuZWR1LmNuCg==
+------=_Part_402486_774561210.1793707812534
+Content-Type: text/plain; name=gpiodevsim.c
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="gpiodevsim.c"
 
->  struct dw8250_platform_data {
->  	u8 usr_reg;
->  	u32 cpr_value;
-> +	/* Fixed FIFO depth; zero selects discovery during setup */
+Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjArCi8qCiAqIGdwaW9kZXZzaW0uYyAt
+IGR5bmFtaWMgdmVyaWZpY2F0aW9uIGZvciB0aGUgYXVkaXQtcmVwb3J0IENhc2UgMyAoZ3Bpb2xp
+Yik6CiAqCiAqICAgZ3Bpb2NoaXBfc2V0dXBfZGV2cygpIChkcml2ZXJzL2dwaW8vZ3Bpb2xpYi5j
+OjEwODQtMTEwOSkgaG9sZHMKICogICBndWFyZChzcmN1KSgmZ2Rldi0+c3JjdSkgYWNyb3NzIHRo
+ZSBsb29wIGJvZHkgYW5kLCBvbgogKiAgIGdwaW9jaGlwX3NldHVwX2RldigpIGZhaWx1cmUsIGNh
+bGxzIGdwaW9fZGV2aWNlX3B1dChnZGV2KSBhdCA6MTEwNAogKiAgIHdoaWxlIHRoZSByZWFkIGxv
+Y2sgaXMgc3RpbGwgaGVsZC4gV2l0aCByZWZjb3VudD09MSAodGhlIG5vcm06IGhvZ3MgZG8KICog
+ICBub3QgdGFrZSBkZXZpY2UgcmVmZXJlbmNlcykgZ3Bpb2Rldl9yZWxlYXNlKCkgcnVucyBpbmxp
+bmU6CiAqICAgICA6ODk4IHN5bmMrY2xlYW51cCBkZXNjX3NyY3UgKGZpbmUpCiAqICAgICA6OTA0
+IGNsZWFudXBfc3JjdV9zdHJ1Y3QoJmdkZXYtPnNyY3UpIC0+IFdBUk5fT04oc3JjdV9yZWFkZXJz
+X2FjdGl2ZSkKICogICAgICAgICAgICBhdCBrZXJuZWwvcmN1L3NyY3V0cmVlLmM6Njk2IC0+IGVh
+cmx5IHJldHVybiwgTEVBSyAoc3VwL3NkYQogKiAgICAgICAgICAgIHN0YXkgYWxsb2NhdGVkKSwg
+aS5lLiB0aGUgZGVmZW5zaXZlIGJyYW5jaCB0aGUgcmVwb3J0IHByZWRpY3RzCiAqICAgICA6OTA1
+IGtmcmVlKGdkZXYpCiAqICAgdGhlbiB0aGUgc2FtZSBzdGFjayBjb250aW51ZXMgb24gZnJlZWQg
+bWVtb3J5OgogKiAgICAgOjExMDUgZGV2X2VycigmZ2Rldi0+ZGV2LCAuLi4pICAgICAgICAgIChV
+QUYgcmVhZCkKICogICAgIGxvb3AgaXRlcmF0b3IgcmVhZHMgZ2Rldi0+bGlzdC5uZXh0ICAgICAo
+VUFGIHJlYWQpCiAqICAgICBndWFyZCBkZXN0cnVjdG9yIHNyY3VfcmVhZF91bmxvY2soKSAgICAg
+KFVBRiByZWFkIG9mIGdkZXYtPnNyY3Uuc2RhCiAqICAgICAgICAgICAgdmlhIF9fc3JjdV9jdHJf
+dG9fcHRyIGluc2lkZSBfX3NyY3VfcmVhZF91bmxvY2spCiAqCiAqIFRoaXMgbW9kdWxlIHJlcHJv
+ZHVjZXMgdGhhdCBleGFjdCBzaW5nbGUtdGhyZWFkIHNlcXVlbmNlIHdpdGggYQogKiBremFsbG9j
+KCknZCBzdGFuZC1pbiBmb3Igc3RydWN0IGdwaW9fZGV2aWNlIChlbWJlZGRlZCBzcmN1X3N0cnVj
+dCkgYW5kCiAqIG1ha2VzIHRoZSBmaW5hbCB1bmxvY2sgb2JzZXJ2YWJsZSBhcyBhIEtBU0FOIHVz
+ZS1hZnRlci1mcmVlIHJlYWQ6CiAqCiAqICAgZyA9IGt6YWxsb2MoKTsgaW5pdF9zcmN1X3N0cnVj
+dCgmZy0+c3JjdSk7CiAqICAgaWR4ID0gc3JjdV9yZWFkX2xvY2soJmctPnNyY3UpOyAgICAgIC8v
+IDoxMDk0IGd1YXJkCiAqICAgY2xlYW51cF9zcmN1X3N0cnVjdCgmZy0+c3JjdSk7ICAgICAgIC8v
+IGV4cGVjdCBXQVJOIHNyY3V0cmVlLmM6Njk2ICsgbGVhawogKiAgIHByaW50IHBvc3QtY2xlYW51
+cCBzZGEvc3JjdV9zdXAgKGJvdGggbm9uLU5VTEwgPT4gbGVhayBicmFuY2ggcHJvb2YpCiAqICAg
+a2ZyZWUoZyk7ICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8vIDo5MDUKICogICBzcmN1X3Jl
+YWRfdW5sb2NrKCZnLT5zcmN1LCBpZHgpOyAgICAgLy8gZ3VhcmQgZGVzdHJ1Y3RvciA9PiBLQVNB
+TiBVQUYKICovCiNkZWZpbmUgcHJfZm10KGZtdCkgIkdQSU9ERVZTSU06ICIgZm10CgojaW5jbHVk
+ZSA8bGludXgvbW9kdWxlLmg+CiNpbmNsdWRlIDxsaW51eC9pbml0Lmg+CiNpbmNsdWRlIDxsaW51
+eC9rZXJuZWwuaD4KI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KI2luY2x1ZGUgPGxpbnV4L3NyY3Uu
+aD4KCnN0cnVjdCBzaW1fZ2RldiB7CglzdHJ1Y3Qgc3JjdV9zdHJ1Y3Qgc3JjdTsJLyogZmlyc3Qg
+bWVtYmVyLCBsaWtlIGdwaW9fZGV2aWNlIHVzYWdlICovCn07CgpzdGF0aWMgaW50IF9faW5pdCBn
+cGlvZGV2c2ltX2luaXQodm9pZCkKewoJc3RydWN0IHNpbV9nZGV2ICpnOwoJaW50IGlkeDsKCgln
+ID0ga3phbGxvYyhzaXplb2YoKmcpLCBHRlBfS0VSTkVMKTsKCWlmICghZykKCQlyZXR1cm4gLUVO
+T01FTTsKCWlmIChpbml0X3NyY3Vfc3RydWN0KCZnLT5zcmN1KSkgewoJCWtmcmVlKGcpOwoJCXJl
+dHVybiAtRU5PTUVNOwoJfQoJcHJfaW5mbygic2ltIGdkZXY9JXB4IHNyY3UgaW5pdGlhbGl6ZWQg
+KHNkYT0lcHggc3VwPSVweCBjdHJwPSVweClcbiIsCgkJZywgZy0+c3JjdS5zZGEsIGctPnNyY3Uu
+c3JjdV9zdXAsIGctPnNyY3Uuc3JjdV9jdHJwKTsKCgkvKiBncGlvbGliLmM6MTA5NCBndWFyZChz
+cmN1KSgmZ2Rldi0+c3JjdSkgKi8KCWlkeCA9IHNyY3VfcmVhZF9sb2NrKCZnLT5zcmN1KTsKCXBy
+X2luZm8oInJlYWQgbG9jayB0YWtlbiBpZHg9JWQgKHNlbGYtcmVhZGVyIGFjdGl2ZTogdGhlIHB1
+dCBhdCA6MTEwNCB3aWxsIG1lZXQgaXQpXG4iLCBpZHgpOwoKCS8qIGdwaW9kZXZfcmVsZWFzZSgp
+OjkwNCAtIGV4cGVjdCBXQVJOIGF0IHNyY3V0cmVlLmM6Njk2LCBlYXJseSByZXR1cm4gKi8KCWNs
+ZWFudXBfc3JjdV9zdHJ1Y3QoJmctPnNyY3UpOwoJcHJfaW5mbygicG9zdC1jbGVhbnVwOiBzcmN1
+LnNkYT0lcHggc3JjdS5zcmN1X3N1cD0lcHggKEJPVEggbm9uLU5VTEwgPT4gV0FSTitMRUFLIGJy
+YW5jaCB0YWtlbiwgbm8gZnJlZV9wZXJjcHUpIGN0cnA9JXB4IChzdGFsZSlcbiIsCgkJZy0+c3Jj
+dS5zZGEsIGctPnNyY3Uuc3JjdV9zdXAsIGctPnNyY3Uuc3JjdV9jdHJwKTsKCgkvKiBncGlvZGV2
+X3JlbGVhc2UoKTo5MDUgKi8KCWtmcmVlKGcpOwoJcHJfaW5mbygic2ltIGdkZXYga2ZyZWUoKWQ7
+IGd1YXJkIGRlc3RydWN0b3Igd2lsbCBub3cgcmVhZCBnLT5zcmN1LnNkYSBmcm9tIGZyZWVkIHNs
+YWJcbiIpOwoKCS8qIGdwaW9jaGlwX3NldHVwX2RldnMoKSBsb29wLWJvZHkgZW5kOiBndWFyZChz
+cmN1KSBkZXN0cnVjdG9yICovCglzcmN1X3JlYWRfdW5sb2NrKCZnLT5zcmN1LCBpZHgpOwoKCS8q
+IE5PVCBSRUFDSEVEIG9uIGEgS0FTQU4ga2VybmVsIHdpdGhvdXQga2FzYW5fbXVsdGlfc2hvdCBv
+bmx5IGlmIHRoZQoJICogYWNjZXNzIGZhdWx0czsgd2l0aCBtdWx0aS1zaG90IHRoZSByZXBvcnQg
+aXMgcHJpbnRlZCBhbmQgZXhlY3V0aW9uCgkgKiBjb250aW51ZXMgaGVyZS4gKi8KCXByX3dhcm4o
+InNlcXVlbmNlIGNvbXBsZXRlOiBleHBlY3RlZCBhIEtBU0FOIHVzZS1hZnRlci1mcmVlIFJFQUQg
+cmVwb3J0IGZvciB0aGUgdW5sb2NrIGFib3ZlXG4iKTsKCXJldHVybiAwOwp9CgpzdGF0aWMgdm9p
+ZCBfX2V4aXQgZ3Bpb2RldnNpbV9leGl0KHZvaWQpCnsKCXByX3dhcm4oIm1vZHVsZSBleGl0IChs
+ZWFrZWQgc3JjdV91c2FnZSBvZiB0aGUgV0FSTidkIHNyY3UgaXMgaW50ZW50aW9uYWwsIG1hdGNo
+aW5nIGdwaW9saWIgYmVoYXZpb3IpXG4iKTsKfQoKbW9kdWxlX2luaXQoZ3Bpb2RldnNpbV9pbml0
+KTsKbW9kdWxlX2V4aXQoZ3Bpb2RldnNpbV9leGl0KTsKTU9EVUxFX0xJQ0VOU0UoIkdQTCIpOwo=
 
-But make the code clearer in this sense.
-
->  	unsigned int fifo_size;
->  	unsigned int quirks;
-
-I'm wondering if we can encode the FIFO size (as power-of-2) into quirks,
-but this might be harder to follow in the code.
-
->  	int (*setup)(struct uart_port *p);
-
->  	p->fifosize = data->pdata->fifo_size;
-> +	if (!p->fifosize) {
-> +		u32 fcc = dw8250_readl_ext(p, SUNXI_UART_FCC);
-> +
-> +		p->fifosize = FIELD_GET(SUNXI_UART_FCC_FIFO_DEPTH, fcc);
-> +	}
-
-	if (data->pdata->fifo_size) {
-		p->fifosize = data->pdata->fifo_size;
-	} else {
-		u32 fcc = dw8250_readl_ext(p, SUNXI_UART_FCC);
-
-		p->fifosize = FIELD_GET(SUNXI_UART_FCC_FIFO_DEPTH, fcc);
-	}
-
-> +	/*
-> +	 * The byte-sized 8250 RX trigger interface requires positive,
-> +	 * representable thresholds. Larger thresholds require widening it.
-> +	 */
-> +	if (p->fifosize < SUNXI_UART_RXTRIG_QUARTER_DIV ||
-> +	    p->fifosize - SUNXI_UART_RXTRIG_FULL_MARGIN > U8_MAX)
-> +		return dev_err_probe(p->dev, -EINVAL,
-> +				     "invalid FIFO size %u\n", p->fifosize);
-> +
->  	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+------=_Part_402486_774561210.1793707812534--
 
