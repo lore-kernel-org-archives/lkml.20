@@ -1,65 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719928;
-	b=KLH4BOfIDZ81puXxYHfhT8JDpLM+0q7D/Je5VV3jRqc27qXCLmGinHRRCPuNz1zxqKtd
-	 PwumVtZv7LFJTRC12+ZDD5LhbWAmIGbr1LNw7JFa5XXp1egQElGgnE/MnB/8UkANBLjqX
-	 FjasopkWrEY0ldjfTKOFjWKzJGgrTg+/5++ELzMYZHm5Ja7p+o+NJvq7Hk3l5F/lEVMs5
-	 +kmyDd5Tn4ioCl+46N3n8LTVq9Bbx+Ng0FGQP/pYqcdt/rWKCBJKK3hv69SL/pP3H2i97
-	 EH23wbdy6wA7syGWf7UlT5hNkTi9V1WMr9QMkTTKNhf7boOjbMXxmNW2N5675In6QHA==
+	t=1793719963;
+	b=NgayWnQFAoDr+OoQZWAfXESGLXMRIP2u8Ryx3MklUbPgXdZOa3aC5uZDwkvDALeOB/Z2
+	 I4IVaOTA1+WLxujftauj+ILQpNdlU1T6lNtINXQP/Z5H8LRDTl0E+I0qoOWVwMp1Zng+9
+	 G1FmvzV58fb3UF5ovhgDaECdUgGu3oyRyqw9FmVVjf1TJeLMicHr1YNGz9lenA6wFFbXb
+	 KQNfO9leuNiQHNblqyIPWXgxCyl8Q3Z8yHqqUOu5/beTUw6QYc8YLgbJjNqSbI2AnelER
+	 zn+TG+EYac+eeYuc1eg45StAIC1tJer+xRpPMzkQaOWty/32HlXZTfj2hzq/jSnRtnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719928;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xpIMSn7l3l6OBOGSWWNUxE8zcd+CUJHKxWoXv5WS5/A=;
-	b=i8OriswRkZaRJOwwcbU3TrgoiAPMyNiyz11bk8r8UPnx8FyHl8frDYHrSbe1QRNPsjYX
-	 o8DAwDVbOtzY09UrenrbSCz0WTBFufIwzh7ZJXglX37Hq1QMc5BzmGinnOzJOsQ9TI4Rq
-	 A0PTwMvDDxuvx7P7YW+W1tc/E8iXZO4v2mGqEPb+Ril7dZ87TBxtOAeE73senpna1qOgj
-	 aMSeNJbygC6nO+31HYketu6FsaycydBD9MUKN55B5RqmrzZ4wKmF3rk0+2jGkEBrUcHy+
-	 z7yP01VCJeXQRzRHVNbHVGVOUYILXx+ASEEUu/RXxnjqxeJqA2M8Jn6ylUJGHxYFSOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719963;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kFO2o9d1HuvRpw65wW5KNZGSLKA1liz6URUAihp77/E=;
+	b=EUaKlnhdNspf1Lz7OeiyHAA1crDmoQxFvHhk3+ac50U5KqA8vKsO8szrDz5QJ4BQuKpE
+	 zdYE5PPhBCzntF03yuwAy5wR4xwxtxlDU3dQ1VcmU2F8NJXRrDvCNQxIyuleKfWNgqL8J
+	 xuL2HG/1OZerjvEXj4sb/cU9nANiMW5ppiGsydlWh8BNOFyTh2ldVLw9AnGFFjf/RE4uz
+	 hpaHyFyWde12SxXR5867Ag9asfuo4IcIwekipLEf5og5QNeUhQJ/mEZxc3FcGyzasdVhV
+	 LQBckqd6VFgc0FKbLdoKWdHS8OiQ9P1nMLJ2/VsbXok9bwSXh0vyhbG1as/ijga+2Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="ftTU31X/";
-	arc=none smtp.remote-ip=115.124.30.118
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCtFjDG9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2BC606A324;
-	Tue,  3 Nov 2026 15:32:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D2BC606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BE9606A327;
+	Tue,  3 Nov 2026 15:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ftTU31X/
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793719924; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=xpIMSn7l3l6OBOGSWWNUxE8zcd+CUJHKxWoXv5WS5/A=;
-	b=ftTU31X/prydL2d4t0mIUY1fjEdBkNT9MDgCebre06FIq7TJraCa5XWKF+GiutGLulcJ80uUPsajT/DDPnOqSY2zVZTDpx1ryC2wji7FaekQ26ZO9RRSg6IGHRk5f1q6jcnLvkVIaSNqQRN+K1CrMsbQ7CTCO5FoDpLjxulNngg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R311e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XE3LUTu_1793719923;
-Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XE3LUTu_1793719923 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 23:32:03 +0800
-From: Baokun Li <libaokun@linux.alibaba.com>
-To: linux-fscrypt@vger.kernel.org
-Cc: ebiggers@kernel.org,
-	jaegeuk@kernel.org,
-	tytso@mit.edu,
-	linux-ext4@vger.kernel.org,
-	adilger.kernel@dilger.ca,
-	jack@suse.cz,
-	yi.zhang@huawei.com,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/4] fscrypt: Validate the test_dummy_encryption policy for new inodes
-Date: Tue,  3 Nov 2026 23:31:30 +0800
-Message-ID: <20261103153132.4154855-3-libaokun@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261103153132.4154855-1-libaokun@linux.alibaba.com>
-References: <20261103153132.4154855-1-libaokun@linux.alibaba.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCtFjDG9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0238E1F00919;
+	Tue,  3 Nov 2026 15:32:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793719963;
+	bh=kFO2o9d1HuvRpw65wW5KNZGSLKA1liz6URUAihp77/E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DCtFjDG9eV+fa59I6iiRc3Jh1cm0vdF7xBOyfm+1PZYgyfmCC2M1jcJBDIKq95B71
+	 kTnroD6VjHT9elzS+w4M3SCwmQHfyDe5OwyNSqbP3JntanU5KRb+hvN3RZPTzZyEpu
+	 es27V97O6J6flpnWbHHDLSGojWL5dWatMxK4Diln5wTg2YM4mAXvCSeYVAvD29WGM+
+	 xgkAD9eYB+KyeXEtqrLnXakonyM5+WtSrEHCHXhPRDK151YYkbQnSZD5Hhvn6t6lKJ
+	 Wa3VtFH4vYzkswqDFpeR1bQVaonVGWMsQH/dFbU7vJcaRGS678z13pgeIl75yn1/WZ
+	 PG/zAWGwOiTtQ==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org
+Subject: [RFC PATCH v7 2/8] rust: DmaFence: Add ID accessor for fctx
+Date: Tue,  3 Nov 2026 16:31:32 +0100
+Message-ID: <20261103153138.1087330-4-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103153138.1087330-2-phasta@kernel.org>
+References: <20261103153138.1087330-2-phasta@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,44 +80,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Policies set through FS_IOC_SET_ENCRYPTION_POLICY or inherited from
-an encrypted directory are validated, but the test_dummy_encryption
-policy is not.
+A FenceContext has a fence context number, which can serve as an ID
+field. This number can be useful for owners of multiple contexts to
+identify them, store them in an XArray etc.
 
-fscrypt_prepare_new_inode() applies it directly to the new inode.
-As a result, a v1 dummy policy on a filesystem whose block size
-exceeds the page size is used unchecked, and data written under
-it is lost at writeback.
+Add an accessor for fctx.nr.
 
-Fix this by validating dummy policy in fscrypt_prepare_new_inode()
-before applying it. Inodes in an encrypted directory inherit an
-already validated policy, so the check only concerns the unencrypted
-case where the dummy policy is used.
-
-Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- fs/crypto/keysetup.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ rust/kernel/dma_buf/dma_fence.rs | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index a77b889d7578..497ba67ec6fe 100644
---- a/fs/crypto/keysetup.c
-+++ b/fs/crypto/keysetup.c
-@@ -763,6 +763,14 @@ int fscrypt_prepare_new_inode(struct inode *dir, struct inode *inode,
- 	    !S_ISLNK(inode->i_mode))
- 		return 0;
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index 5300448882e7..897308f60dd3 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -135,6 +135,12 @@ pub fn new<E>(
+         })
+     }
  
-+	/*
-+	 * A policy inherited from an encrypted directory was validated
-+	 * when the directory's key was set up.  The test dummy policy was
-+	 * not, so check it here.
-+	 */
-+	if (!IS_ENCRYPTED(dir) && !fscrypt_supported_policy(policy, inode))
-+		return -EINVAL;
++    /// Obtain the FenceContext's ID number.
++    #[inline]
++    pub fn id(&self) -> u64 {
++        self.nr
++    }
 +
- 	*encrypt_ret = true;
- 
- 	get_random_bytes(nonce, FSCRYPT_FILE_NONCE_SIZE);
+     fn next_seqno(&self) -> u64 {
+         self.seqno.fetch_add(1, Relaxed)
+     }
 -- 
-2.43.7
+2.56.0
 
