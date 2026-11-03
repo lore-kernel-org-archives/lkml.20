@@ -1,63 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712670;
-	b=twajDeoqFOk2bRUcnVMLJ+4YOYsZHpH/TbpTCJaPlmV11nv8M07QcvS5u7+sA7p+PUY0
-	 dSll1Dn4n4jNsSW3pVdLz4nMFaJhtQA+V8y4cQdmhK2OffhiSNw2Ca2r4e7IuFjt+hi1i
-	 mGFjTPH9g3qbk8qCuzFgD5YHZT8Mul0aikbp7rBz95w8oWAC9NXm17kzUZxkyBowUfFls
-	 zmR6j0yFFlYeM3AThVJ7iQ0eXshMnDrD7KRUzsC95+x4w8CuSn1eR4pqDCYhIE/ETkCFg
-	 HRNKOZC0lj67yhLFeisFapoUWV66SBJYWN0YtXswkZREq1aNOnkhDbn5fHKJGtULwHg==
+	t=1793712694;
+	b=hyPF/oz2NQQGoY57jShxkvb6ck7FoPHV967xLoRnrYLzWr7L1UUa8qIsgioP0fszUSWv
+	 pJnAznRi65hCYJBPbn6zuqsu4cXBx8+PNrSKZhGO3zqAa6fL+/NcYgkxKB6XYbwhH5N/c
+	 co3W/WyyYVglKCPCcVV/63TSq21PUXTVjRdFVruH9y16o2XTLYo4RLDWILxjF++1BFk+I
+	 j7GIkBNovElZL6QBDLe2RG1muKl5YAtLiVkZ26rx77TQ6VKCokYiSIXhUbmoMZpj1RVAi
+	 A6RDvwxY+sNcTlzmhiJX14O9K+AeL+yJhyoqwp7uq+Jd2DEODlBXUzkYB1JmCLlJnOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712670;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=E5l4PSEqseEPSiUoHghmPFG/3ehH+QwqD3+IcpFqsYo=;
-	b=EaqvlkVGKnc9LoLPT4N6/C9IV8lJXsLEHxYW7GfCVKRRaRo9nRMea1Y6LQd6n70dTkXe
-	 ERgcn90Epc0eZbEqrPV6dNp6SthzaEpoWERFQnWG6eO0X1/HY2MMHxuKKB39B8SWEYIx1
-	 4T9B/nFCMD21ZlGgVLuMmaKoUQ4jlu/itQq+brklXwBgXUr2mfhqHCJn24/IFLwG7FtqV
-	 8FUarD0J+JwYMeP/QE6x+SI69t+gBmVdElzB3TMT1evqHt98phVTbJRWrxiw9IlqtpYP5
-	 s8OK1kNtcLPXwvfI/AinI+kveK+aL4TGOUjvTwRot377mxFdge03WnLO1y5bz5PAISw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712694;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pvj7a22LyPR4DHO/5fDttm0BqOMPgQ0WH59556KkGjU=;
+	b=1kueRIIg7NBCPSibfPu2zrIczfYLhZ/U4Xf7CHeU+cbfJ+jKTMe8HCdy8U7w9xhf6zox
+	 U+UNbgjUFwWPZU/IMKYPOyAvJmIJSWLMmXCW6R3LAF4eNM5B2m3F5UZnp8K+RDoORDCw9
+	 XWrY/e3fhp7iG1ryeWJjV2eml4FRm2BiTfxhvkz7uwqiDGWmYYGauSVmi6RWfzstXwXaX
+	 jJeSlIS41/DRk+U1haFIA0oIB4i/5m/7jiQU9A8/7EdfiGxVZjONxhXyKUrDNmRpFUs9k
+	 Bjmlsb8ZmWbq8Ye/vrGos7u1/HodAPc9sAmGThDqdZM9DPpAdeQvfeYLBfbxk4eoOzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=siemens-energy.com;
-	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
-	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=pPGV3y4U;
-	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=Zq3L1P3R;
-	arc=none smtp.remote-ip=185.136.64.129
-Received: from mta-64-129.flowmailer.net (mta-64-129.flowmailer.net [185.136.64.129])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FkUMtH69;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA36606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:31:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BA36606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E7B606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71E7B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=pPGV3y4U;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=Zq3L1P3R
-Received: by mta-64-129.flowmailer.net with ESMTPSA id 202611031331014e958246960019fd70
-        for <linux-kernel@vger.kernel.org>;
-        Tue, 03 Nov 2026 14:31:01 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
- d=flowmailer.net;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=E5l4PSEqseEPSiUoHghmPFG/3ehH+QwqD3+IcpFqsYo=;
- b=pPGV3y4UQdSWZ6kx0DhfBgbq9iYf3MvdCBNnj9R8df404+eh0hXaF6phXVMqVOiABGXEDp
- cIysXE0gZx4kFOP4oJWA9T+VmjIBhZSU2ve1elbSftbgAv4iNcFZqFKgZtU2s3rXy0gRk63c
- nSmUPeGaPXTxMkQ+6x5C3IqsAp4Wo=;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
- d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=E5l4PSEqseEPSiUoHghmPFG/3ehH+QwqD3+IcpFqsYo=;
- b=Zq3L1P3RB3d2vKxCyD+Ccm4ZH35BWVLAC35QEa8XDBO5kOy6pVi2bBGxjTwoM/0jp2GpSB
- Nk9GeZgDC2hRwM6YQ4X2rB7Cv7NlqT7vgD7eIKjaR7MOF+O0ECWUE0Wh0sOxJeFKp+FfBgyI
- +h4YOX38GCzcgudHUCLRCQkCR39MnnLTfwtr9gvk6+FwzrEAr2BEByi4YqFUE+xSabB8KjIi
- ykR6SFs6QLpZqWROvhqlh0EFlrqbqDC27EBAweQ0gwJCFDrEcqTGDlpeLaZ/QjDjwape98Qh
- QQ1R87wgJt98CvDnvwMuIHi2SIbCBMmZz1zt75kHRT1Q/8DyeGz6b43w==;
-From: Simon Schuster <schuster.simon@siemens-energy.com>
-Date: Tue, 03 Nov 2026 14:30:28 +0100
-Subject: [PATCH v2 1/3] lib: extract 32bit mul/div helpers from nios2 into
- GENERIC_LIB
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FkUMtH69
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so449802f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:31:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793712693; x=1794317493; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pvj7a22LyPR4DHO/5fDttm0BqOMPgQ0WH59556KkGjU=;
+        b=FkUMtH69okscjkQeoz0Sdj7admXmSG7WNEB2IkeSteQZ57j8AhtKOFbLM80YqT2k7V
+         P29YDAhuA0+oDXoNZOMxmX3FMiF3NElVEiwFarWiQ7RwSiwXJtrpIbE4HelWO4DUSX6z
+         YP9L4zTSgZ2acdeAIcSf/6kTt5TRFpVJ+g8SCBjv71YbfWfUzr+SkoIkGTrOldc/TNao
+         lKx1fqoIyCJR+xaA7BDM7XDuA5gbcCWSzn+YRZIGcHLqSKG3QfngtKWhHd0bSp5x3eY8
+         QJ1qnDzN3bi4/PbI/kAovSlOP2BWRNydpfw3LhDV+U3rHb1fEBIoA9aGY7AMFK1gI89V
+         wnog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793712693; x=1794317493;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pvj7a22LyPR4DHO/5fDttm0BqOMPgQ0WH59556KkGjU=;
+        b=jFqKjYQLI1OjlWbXxXcrv5Cmzoa1ikvRQuFZGI97RnPL5lREYFuDawJcJndf/VHPXX
+         y37wZgeya1/v74LSFsBSITMoDgWQOsYNoiGhT7iqvWp1iaGOAhMoLQ+zHdVjSt+psaz4
+         YnlWEYxaY5XYIrTA+iiIZ6/sQdC9gy8Y7cQQq3epghEPsrW8N4p8PRwaUQEFe2CXQXx7
+         QDpq5z79a9kPo2BIzAwBPy76M303qZp38eexUqq3hfFZvSXyCzSTN1Bv1YFtjj824Bj5
+         APNoSd6nfhMgQmqX2EuPr12mUCssj3iYYAbPEcmT99gF7UkQL5zdXmpvYqscoYVmVOCf
+         RQ9A==
+X-Forwarded-Encrypted: i=1; AKwUvBw4pxfzRsXUdNh4RYa8D95IHm+6/tv5HIFKx2vdNiYvmUY3xX5PDTH7uig8+mMmy+hGvfmviZYjzM/gF3g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Gw2dIUBtawzcxzMGYKjCId773V5NMQ6j7HDWOVEpF1rJcNKb3
+	TVE1scu2GSuAl2KOoRvqmLgUgC4Z2j9q8PBiYhJYdOLqgprABsEhoX4gnEbuEjVMTls=
+X-Gm-Gg: AYBFou10AGGewDFyvQoRntIVuHqYAlwrT/C7Sqc4nchPxRqxqd6BhaN70DKxi2Ax/7q
+	K9KE7YCCbzbcT61jK09JRiqN4NAAlYMttW9cHmBL/4Rnvv7MGEamh3TpB0CvYBmPt1Yxge4g74U
+	z5L5lGkZM0M/rTrL1ojiOy90ydjjKpvfP1ycQNdjpihKpOLmOBgzRi+dVwRGS5TThEHJg8rLHLn
+	qgsjABgTNi6j0R73MwL3DJHuqtoBzS9uEf62xIasEyUgudGRLWs7RttHJpsmuJaJnPHm5gNQWRL
+	zq7iRtIknMwewn4Vb5foPZAp/rTUJ+lcrXlsc0UeR6UY/BfEwXf9XB2g2YlXLp7Ah2wMPeHsC2t
+	Yqg0P6ThPXN7mXzNdSItyeYKER8C2vrPNVryuyLwILuFX2rLeO5hEZA7j7HnaZSsOL++XBYnQOr
+	VmPRdHmyj8phB8FqqY5Xz7gmhzIPNK5jJCMjvwIYta7FgY72OI1T0OuqQWGqHHoIMjGJ79JUrOH
+	QXVtmivYJM+ftiwg64ZtVzi39C3RNKS0OLvKxyZq2/btU1vW0BzoV1jb1+/nXD+Qy8meGx9JnXf
+	D74pudzvlL2ofi12W2yFSckf/489yQ==
+X-Received: by 2002:a5d:69c9:0:b0:48e:55bd:9ce2 with SMTP id ffacd0b85a97d-48e64cc70d2mr27518936f8f.20.1793712692813;
+        Tue, 03 Nov 2026 05:31:32 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b725a2sm23654581f8f.13.2026.11.03.05.31.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:31:31 -0800 (PST)
+Date: Tue, 3 Nov 2026 14:31:29 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Breno Leitao <leitao@debian.org>, Ryan Roberts <ryan.roberts@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Rio <rioo.tsukatsukii@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
+Message-ID: <auniMWhvteH8C3E0@pathway.suse.cz>
+References: <auHNz09oyGFJPTKg@gmail.com>
+ <8733tphow9.fsf@jogness.linutronix.de>
+ <auI40MZlSYO0oAAS@gmail.com>
+ <87a4nwyiaw.fsf@jogness.linutronix.de>
+ <auMmQjcy1A6E0eUm@gmail.com>
+ <874ie4y5mw.fsf@jogness.linutronix.de>
+ <auNaD8LELWok3LOF@pathway>
+ <auTaBZlNbpm3jgvb@gmail.com>
+ <auhl3cdwrHt4Vw7U@pathway>
+ <87v76e3mcc.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,258 +108,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-nios2-remove-usage-of-libgcc-v2-1-5fabbedc49ec@siemens-energy.com>
-References: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
-In-Reply-To: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
-To: Dinh Nguyen <dinguyen@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org, 
- Vineet Gupta <vgupta@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793712660; l=5223;
- i=schuster.simon@siemens-energy.com; s=20250818; h=from:subject:message-id;
- bh=VZ661LQwoei69aNq5/aT0HlMQj3VU5wz5LK3TR14RLo=;
- b=uvF204HjM1l1lydGMcJflux/K5kpfZRy3m3KpWVzFqlH+I/f7u8ZUMChlAmBjGlq25F7Ku8c2
- fFd8+ucWv3dBY2/Wh6zFnzNO+EKMyCEn9drxh8EZgCSfGWYQul1lf9U
-X-Developer-Key: i=schuster.simon@siemens-energy.com; a=ed25519;
- pk=PUhOMiSp43aSeRE1H41KApxYOluamBFFiMfKlBjocvo=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87v76e3mcc.fsf@jogness.linutronix.de>
 
-From: Dinh Nguyen <dinguyen@kernel.org>
+On Mon 2026-11-02 23:28:27, John Ogness wrote:
+> On 2026-11-02, Petr Mladek <pmladek@suse.com> wrote:
+> > I have a crazy idea and do this:
+> >
+> > --- a/kernel/printk/nbcon.c
+> > +++ b/kernel/printk/nbcon.c
+> > @@ -1688,7 +1688,20 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
+> >   */
+> >  void nbcon_atomic_flush_pending(void)
+> >  {
+> > -	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
+> > +	u64 stop_seq = prb_next_reserve_seq(prb);
+> > +
+> > +	__nbcon_atomic_flush_pending(stop_seq, false);
+> > +
+> > +	/*
+> > +	 * This is a compromise. Otherwise, NBCON consoles would never
+> > +	 * have a chance to show messages in the panic paths where
+> > +	 * the unsafe flush is not explicitely called.
+> > +	 */
+> > +	if (panic_on_this_cpu() && oops_in_progress) {
+> > +		panic_nbcon_allow_unsafe_takeover = true;
+> > +		__nbcon_atomic_flush_pending(stop_seq, true);
+> > +		panic_nbcon_allow_unsafe_takeover = false;
+> > +	}
+> >  }
+> >
+> > It would allow to flush the messages directly by printk().
+> >
+> > I know that it would be a step back in the reliability. But showing
+> > the messages looks more important to me than a reliable reboot.
+> > And we could make it configurable when needed.
+> >
+> > Also we could add more checks. For example, do the unsafe flush only
+> > when "num_online_cpus == 1" or so.
+> 
+> I can accept this, since legacy-netconsole had these risks anyway. My
+> only concern is when we add an interface for the unsafe flushing policy,
+> will we continue to have unsafe flushing be the default for netconsole?
+> I guess we would need to keep it the same to avoid regressions (just as
+> we need to have it on by default now).
 
-As suggested in 426c73b7-b4dc-4b68-9aa5-6145a13280bc@app.fastmail.com,
-the software emulation of div/mul/mod on 32-bit platforms from nios2
-might be of use to other smaller architectures as well when trying to
-drop their libgcc dependency (e.g., arc, openrisc).
-Therefore, extract and add them to lib/, guarded by respective
-CONFIG_GENERIC_LIB_* options.
+Good point. I think that this basically goes down to the question
+whether we would later introduce an option:
 
-Symbols covered:
-s32 __mulsi3(s32 a, s32 b);
-s32 __divsi3(s32 a, s32 b);
-s32 __udivsi3(s32 a, s32 b);
-s32 __modsi3(s32 a, s32 b);
-s32 __umodsi3(s32 a, s32 b);
+   --panic-focus-on-debug   or   --panic-focus-on-reboot
 
-Suggested-by: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-Co-developed-by: Simon Schuster <schuster.simon@siemens-energy.com>
-Signed-off-by: Simon Schuster <schuster.simon@siemens-energy.com>
----
- include/linux/libgcc.h | 10 ++++++
- lib/Kconfig            | 15 ++++++++
- lib/Makefile           | 10 ++++++
- lib/divmod.c           | 94 ++++++++++++++++++++++++++++++++++++++++++++++++++
- lib/mulsi3.c           | 24 +++++++++++++
- 5 files changed, 153 insertions(+)
+The current state is somewhere in the middle. I would say
+that:
 
-diff --git a/include/linux/libgcc.h b/include/linux/libgcc.h
-index 0d68f9d6a6a7e..f5db35a9bc146 100644
---- a/include/linux/libgcc.h
-+++ b/include/linux/libgcc.h
-@@ -7,6 +7,7 @@
- #define __LIB_LIBGCC_H
- 
- #include <asm/byteorder.h>
-+#include <linux/types.h>
- 
- typedef int word_type __attribute__ ((mode (__word__)));
- 
-@@ -34,6 +35,15 @@ long long notrace __lshrdi3(long long u, word_type b);
- long long notrace __muldi3(long long u, long long v);
- word_type notrace __ucmpdi2(unsigned long long a, unsigned long long b);
- 
-+/*
-+ * Software 32-bit multiply for cores built without the hardware multiplier.
-+ */
-+s32 notrace __mulsi3(s32 a, s32 b);
-+s32 notrace __divsi3(s32 a, s32 b);
-+s32 notrace __udivsi3(s32 a, s32 b);
-+s32 notrace __modsi3(s32 a, s32 b);
-+s32 notrace __umodsi3(s32 a, s32 b);
-+
- #ifdef CONFIG_HAVE_ARCH_LIBGCC_H
- #include <asm/libgcc.h>
- #endif
-diff --git a/lib/Kconfig b/lib/Kconfig
-index 1e42f5167c68b..16c2f2008b82c 100644
---- a/lib/Kconfig
-+++ b/lib/Kconfig
-@@ -611,6 +611,21 @@ config GENERIC_LIB_CMPDI2
- config GENERIC_LIB_UCMPDI2
- 	bool
- 
-+config GENERIC_LIB_DIVSI3
-+	bool
-+
-+config GENERIC_LIB_MODSI3
-+	bool
-+
-+config GENERIC_LIB_UDIVSI3
-+	bool
-+
-+config GENERIC_LIB_UMODSI3
-+	bool
-+
-+config GENERIC_LIB_MULSI3
-+	bool
-+
- config GENERIC_LIB_DEVMEM_IS_ALLOWED
- 	bool
- 
-diff --git a/lib/Makefile b/lib/Makefile
-index a2afe954805cb..352a012baecba 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -337,6 +337,16 @@ obj-$(CONFIG_GENERIC_LIB_LSHRDI3) += lshrdi3.o
- obj-$(CONFIG_GENERIC_LIB_MULDI3) += muldi3.o
- obj-$(CONFIG_GENERIC_LIB_CMPDI2) += cmpdi2.o
- obj-$(CONFIG_GENERIC_LIB_UCMPDI2) += ucmpdi2.o
-+obj-$(CONFIG_GENERIC_LIB_MULSI3) += mulsi3.o
-+
-+divmod-needed := $(or \
-+	$(CONFIG_GENERIC_LIB_DIVSI3),\
-+	$(CONFIG_GENERIC_LIB_MODSI3),\
-+	$(CONFIG_GENERIC_LIB_UDIVSI3),\
-+	$(CONFIG_GENERIC_LIB_UMODSI3))
-+obj-$(divmod-needed) += divmod.o
-+
-+
- obj-$(CONFIG_OBJAGG) += objagg.o
- 
- # pldmfw library
-diff --git a/lib/divmod.c b/lib/divmod.c
-new file mode 100644
-index 0000000000000..cc1df6f9978ce
---- /dev/null
-+++ b/lib/divmod.c
-@@ -0,0 +1,94 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Copyright Altera Corporation (C) 2026. All rights reserved.
-+ */
-+
-+#include <linux/libgcc.h>
-+#include <linux/export.h>
-+#include <linux/types.h>
-+
-+static u32 udivmodsi4(u32 num, u32 den, int modwanted)
-+{
-+	u32 bit = 1;
-+	u32 res = 0;
-+
-+	while (den < num && bit && !(den & (1U << 31))) {
-+		den <<= 1;
-+		bit <<= 1;
-+	}
-+
-+	while (bit) {
-+		if (num >= den) {
-+			num -= den;
-+			res |= bit;
-+		}
-+		bit >>= 1;
-+		den >>= 1;
-+	}
-+
-+	return modwanted ? num : res;
-+}
-+
-+
-+#ifdef CONFIG_GENERIC_LIB_DIVSI3
-+s32 __divsi3(s32 a, s32 b)
-+{
-+	int neg = 0;
-+	s32 res;
-+
-+	if (a < 0) {
-+		a = -a;
-+		neg = !neg;
-+	}
-+
-+	if (b < 0) {
-+		b = -b;
-+		neg = !neg;
-+	}
-+
-+	res = udivmodsi4(a, b, 0);
-+	if (neg)
-+		res = -res;
-+
-+	return res;
-+}
-+EXPORT_SYMBOL(__divsi3);
-+#endif
-+
-+#ifdef CONFIG_GENERIC_LIB_MODSI3
-+s32 __modsi3(s32 a, s32 b)
-+{
-+	int neg = 0;
-+	s32 res;
-+
-+	if (a < 0) {
-+		a = -a;
-+		neg = 1;
-+	}
-+
-+	if (b < 0)
-+		b = -b;
-+
-+	res = udivmodsi4(a, b, 1);
-+	if (neg)
-+		res = -res;
-+
-+	return res;
-+}
-+EXPORT_SYMBOL(__modsi3);
-+#endif
-+
-+#ifdef CONFIG_GENERIC_LIB_UDIVSI3
-+s32 __udivsi3(s32 a, s32 b)
-+{
-+	return udivmodsi4(a, b, 0);
-+}
-+EXPORT_SYMBOL(__udivsi3);
-+#endif
-+
-+#ifdef CONFIG_GENERIC_LIB_UMODSI3
-+s32 __umodsi3(s32 a, s32 b)
-+{
-+	return udivmodsi4(a, b, 1);
-+}
-+EXPORT_SYMBOL(__umodsi3);
-+#endif
-diff --git a/lib/mulsi3.c b/lib/mulsi3.c
-new file mode 100644
-index 0000000000000..6596a6598de05
---- /dev/null
-+++ b/lib/mulsi3.c
-@@ -0,0 +1,24 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Copyright Altera Corporation (C) 2026. All rights reserved.
-+ */
-+
-+#include <linux/libgcc.h>
-+#include <linux/export.h>
-+#include <linux/types.h>
-+
-+s32 __mulsi3(s32 a, s32 b)
-+{
-+	s32 res = 0;
-+	u32 cnt = a;
-+
-+	while (cnt) {
-+		if (cnt & 1)
-+			res += b;
-+
-+		b <<= 1;
-+		cnt >>= 1;
-+	}
-+
-+	return res;
-+}
-+EXPORT_SYMBOL(__mulsi3);
+  + the legacy consoles are more focusing on the debugging side
+    because bust_spinlocks() is called early. And
+    console_flush_on_panic() is called before emergency_restart().
 
--- 
-2.39.5
+  + the nbcon console are more focusing on safe reboot because
+    nbcon_atomic_flush_unsafe() is called only when followed
+    by an infinite diod blinking.
 
+
+It looked like the nbcon handling was good enough before
+we added netconsole with an unsafe write_atomic. And maybe
+even before converting the widely used uart 8250 serial
+console driver.
+
+People started complaining about missing messages with
+the converted netconsole and uart 8250 drivers. The current
+nbcon handling looks like a regression to these people.
+
+My take would be to modify the nbcon handling to be more
+like the legacy one and focus more on debugging. If anyone
+gets concerned by the reboot reliability then we
+could add the --panic-focus-on-reboot and make
+the reboot more safe in this case.
+
+How does that sound, please?
+
+Best Regards,
+Petr
