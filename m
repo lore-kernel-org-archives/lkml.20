@@ -1,56 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715787;
-	b=MCf+j1I7tIoiGTKDi8tOsoB4GIOTJ9u1ZToTb9zXiuuZhqozmGt0Se5IaKkJ2/eoGFuM
-	 NpeSQBs/hMkxYYR+GdkFfaTpWlN72t4pb8bmDU4CIjhlBIib0hrvljCbhZk4JsRzoOtPH
-	 CqspaBe/UH2H5j0vsxUY34EiZOKKSi74vgzrM5F7lWwlNtSYX2KATJ17bKBc8d7ae+UCx
-	 EcA8Y7q3l6ZI+/LWMWKwY661Ogts7tLpoLDSp/vreIheCgfe4ysdqnAH+8iaV77ydDfXx
-	 gyYu5HlpQkQvlWyD+wB1ygnTJ06QrZEpcuk87dXMo6YmMw3GR8yiQwomgrxvbEqhKLQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715787;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=o7VM6e2M+ho3AEfJ0rmxjTEZRPjXG/crZffo7NprhH4=;
-	b=Mxy75GV2PuBhLHKvvb+q9nMnS9lYinYO79IxMlE4DpqNrD/k2CjnRRtQY+JyHzrrIMqJ
-	 Ll01oOumIlHaFauDSdQXqSMh/ziuaJoBEN9qK8UWH8ozvq1aaA+vtdN3XG/mnPstxRszk
-	 ZjFlhtpZTgD8FP8dIPNrPUw5el2fhEY6uNatcQ/PgT0YxAZR6CTTCTIpJK9JAgE0IxbyV
-	 //LoRfAdwkXkJ+dFiPwMsCREDVVhwxnMUkn+qxwYd2eO0fHsofFypPwaehX3ofLVEwORk
-	 MRwn9/TFWUKYb4MX+JmDAQhNxlIqVKfe121DjG9dHUUjngcaT3uq0kzxLYGO/iJDlUw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XQjOgY/l";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793715808;
+	b=Xq0zj4z/aP0gs7Oruj4mw8h7evHdzwSxWStSf9Jz1v2WjoV1D+XUpEkr2pHGNLrVJ+ww
+	 d65+ZmFK8mBTOGoOiMzvt793PUMyVg5oqDsa3bff0XSrfLZCCO2pHU/7iW69p5TwV1bgA
+	 +Ub+PunmMTLLwn1esYQLt1ERFLgZxlIoVlLFnz0nGtU7CJuw0eIpQG9jQkcx5zTMuUN1L
+	 22yGvh3FCMrST2xutbBxhEngPgtKIlivKd4XjL/IYZ/gfvGUI1k9OmJ2OWN27ENWhc+Ne
+	 2P1tCNU9h9HAoU8BiTJju5BtwH2gh5Qg62f+BpIXZWKvv227aL52gXPfti4isjSSeZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715808;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=fW4J7ACOHfYfOjstKUthqY4FWfHMPDpmyijSUiEDLZc=;
+	b=uZObGUz9WiRpSomTqts1yoRs7y5tt3+O3++Old66DLsUauyfK6ETcFdhDik1Srb7C+A/
+	 wfYdBGUAAB9MQJXAeGUMMrAVA91dF0Ujtmun6mWeMMTlWCy/3+u9mdPHUijgokeFpsc/E
+	 wzkPZQHeJGoeCDIpgYH8Cp/6TWmoVfzkNkHOL8edz8Y8ryMPImeKlMFcxDjrmZmqZ8Vaf
+	 4dqoiFrbaWWJgFcTy04JLodyBDSblZHt6VlFaGgghHyt5Pb+5rJ51yozLQZRi0NWSroP3
+	 7hksw/YnglBSZtEV5sVLG49ONB7n/0fOkPriPr9p9R9CN7m54Q8THjdOTxu/f52zdoA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="J/unelNn";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B97B606A326;
-	Tue,  3 Nov 2026 14:23:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB423606A339
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:23:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB423606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQjOgY/l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E561F0093A;
-	Tue,  3 Nov 2026 14:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715786;
-	bh=o7VM6e2M+ho3AEfJ0rmxjTEZRPjXG/crZffo7NprhH4=;
-	h=From:To:Cc:Subject:Date;
-	b=XQjOgY/lwMngj5FKic6DOI41rYN7SbyQVRssNtXIju4hKd7Jh3axVobm1BydxpFoH
-	 siOu8IL8vmfVjvv3dkV4IUexLAPYjNVZxTQpurjqDxlKO+3TNBTkP7S9guwDL36tls
-	 y1NNV3/NtNgj0u6nqAU9cCeG7uwqC1s+4Hfq4PuD4ztoatxUCD3vootuSzWzw9LxiP
-	 SHzLtBExvNDnwgEyUQlPwF1T+qn/RVRW+bpIN0geku6suknO0/BVyeIuJeqBTHOqkp
-	 zQKbJQSdGkXKjWYjwfWyCxt4UOR7UloYMxuw7ZKbqKtmTyMjRM39jYho/N6F9EO461
-	 HC5W4SWz6GcNw==
-From: Sasha Levin <sashal@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/proc: search the kernel headers before the tools copies
-Date: Tue,  3 Nov 2026 09:23:04 -0500
-Message-ID: <20261103142304.122564-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J/unelNn
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso3914568e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:23:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793715806; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hKhq6WWWEAWPsXal485tiQ73xx9qFlkHU6GBwP23P11fmPjoSR4B64OA/X9m0ZimZt
+         BMAY9YXx41CbY/QEia2WhzgAm+lXb90pN7TwwQUNocu9NZrJSVg1aqIE1BWss/SQvZBA
+         txORn4UWQ53Gv4qI8Vez4RdihqzPvZ1xafANcJBAxap+snN4OIpQUM6mny7uv85g8BcR
+         g/YQiQK9o5MO507XG0cwGXabxPy/7dme8ON0Ktfzbo9dNKrXWmk6hMYoj8y2I1MX+r7L
+         Qnn5WSz5oGnyFKBVkxTnJUpBltynr/NzvSiwQDj97haUDF7oijxJhz5KcmsrA9ZKqc2k
+         kXEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fW4J7ACOHfYfOjstKUthqY4FWfHMPDpmyijSUiEDLZc=;
+        fh=MC52Mi2BTKZbSpTTpgBfwZNLoghPUYVBaeTbgEG0zGs=;
+        b=B6fhuneoEtp/+NR0vyE9YxM+1iXQJWc6t4rFzzxiweCQI6PAlrMHOTi92D8JqCOaSp
+         L/5Ag4DfHJYMnclWr5Mp/Fq6uQVZHPsoI75VxIoFMsBPE8j2rkGcHMemnovVR0vgm4pC
+         M/s6+ridHt5VDxjbBEmWBLyBo/3CuodEqtLAcqdPRDFpuS+HqPRd9LqTpGxmtJbKg5Rr
+         sbbvFc7umg8GMlV0m9rCwlFTa0AsLvf2e0xGHOkkbtL/GMFwcWii0E+PwClLJlloSGy5
+         e4qgnlKJqUHxJSRWiGNhjxsiam217a4rN6iaAnbVNEhQ9pIVIhOZehsFEV/J7lmsfmN+
+         T1Bg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793715806; x=1794320606; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fW4J7ACOHfYfOjstKUthqY4FWfHMPDpmyijSUiEDLZc=;
+        b=J/unelNnXlS41STwOvKArtHOPDj7Di5X2HM32zIS9I8Fi9w4BOTSrEdO1CJN8Mt/tz
+         MXc5jt+3s1X3rCFP7EYsa8iGxfqk/YEseRK/m96bIveDGs9aBEyMGIOgphYpvNOtNbDM
+         sgylqNQninHdiOxkZP/IxMsKg8f3o1JDHhFyElLQsYpn6RONjYAFpvthV/EosYG9DoGI
+         IAC+a6s3MLZde8bso57/P04Sncz34d4uht4LEJ+zDnlIdyPjuARiokeM7rV97D849/HA
+         odDnTtOCJZ15yt+7Ec2VmphNva4T3cMcd0yQv6RVoSC6W62xtVMs9s1bOozaQ//iDuNv
+         JEtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793715806; x=1794320606;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fW4J7ACOHfYfOjstKUthqY4FWfHMPDpmyijSUiEDLZc=;
+        b=PDRHpctZyANMUVttxu92ukCZ/HdJ0uK4FJmDwpn0JwWCcy7nGruI8WVFpGE6tS37xy
+         AHA70739IWmoqgbXdhINAInR0M1fzwmN3sydwmlA8OydQlKrueiEGkmk6RwPJBXYSYJE
+         6W1wpz9Z4iUwLz4Vq/PqXd7VSNr8FzF9MpukMDh74smZAJmBIY87RVl3XSc5/suXqp3b
+         eebyRv3gO81tzAF/HeZhAU3ad6KOEyd4Cbp3puHKHJGgfGQ0hVfEhDyE86J4wkEKd48L
+         8Y+OjeS+kiLvU61R502knF8Pl5CTuJvr8b08pWeQkyC1XsifH2gPWU8OYk5RXmsvds82
+         w7Kg==
+X-Forwarded-Encrypted: i=1; AKwUvByj869V96Qo2OdD7K/vPFseD/sbX82SYzW/LoHwsRcMevQmIJTIbDRCHXPKQrSv4e6zXZpIPpPZKrqAmo8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8N+56K0B+33rwaarQgtjW4QWZjHjdjMkSdtdovXM4UfkWYjlQ3
+	HA3PYKBS/GyAQ2vTHwwxWbhHt5fmXFFG2ajQjma6vXN5wNQ8gx/E7oJStJ42tkXwk8yZ+LiB2G3
+	MO4v3eQMEjEJGQ/mvbPj5wDcgsAnFukA=
+X-Gm-Gg: AYBFou1JMIz+qMecr+m7mrw7NtrvkHzGx3U4iJQbVrHDt1qOWssA8yi+uhSnDVJfOHk
+	WX3VIGqFu1dzmam/1Lh2WZkNm4oeB6IFqI3QRut1j0bpRP3D2Yc/P6dD2zwRCh7hxflFdv6KyDr
+	QfSaWNlqEgcLpOFf/wOshZXSDhGQXHZpx4bRSeeBvKE28VG+tSAmOkBAm0SmR0LyZOTCtRtrXGI
+	ihGTGwJVjQcREyv5fqKpJ0tNBh1nskVsbemgmCY7UAvjxcbizKm11Se9X1Pza63Hjr64A40FZgt
+	qtOa0usAyJMZ/WZt6H66nkVXVju00Hwamj5EZ4X09ofiZ2ADCOsHu+Jh9mjpKimRSpCHinmRPeP
+	tH279OjQA61k0S2vSmJGWSzHKkBl8ovPcwIT9q4N9lH+SzfVri5lsnDX3zPzNlxjTsV3OLzLJjX
+	5NeWoSr2uQXRFpN/rzThEsmBbErYugRkJpQp6yOhhNIRYEU9UQkAdFl6yJhhO1Y47gmPh9F3bQq
+	5YD+TIoWuo2sqe2M1Z3hxI=
+X-Received: by 2002:a05:6512:3402:b0:5be:5409:3886 with SMTP id
+ 2adb3069b0e04-5bfd95791eamr4374297e87.49.1793715805365; Tue, 03 Nov 2026
+ 06:23:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,47 +106,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261103121716.102730-2-manuelebnerli@mailbox.org>
+In-Reply-To: <20261103121716.102730-2-manuelebnerli@mailbox.org>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Tue, 3 Nov 2026 11:23:11 -0300
+X-Gm-Features: AclHuK-VDs-Z0So0fxDRqULrC_8-8BejpNW7-paqqdaT-hr4vP9Unej-j5TEqWI
+Message-ID: <CAMAsx6ehPnWBEb=6=j0pEUoPWj=kDYNK61XaJVGDtR2WbEEw9Q@mail.gmail.com>
+Subject: Re: [PATCH] Documentation: exception-tables.rst: fix bracket
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The proc tests are the only selftests that add $(TOOLS_INCLUDES)
-without $(KHDR_INCLUDES) in front of it. The <linux/types.h> in
-tools/include/uapi then replaces the real one, and unlike the real one
-it does not include <asm/types.h>. On powerpc and s390, <signal.h> pulls
-in the kernel's asm/sigcontext.h, which needs __vector128 from
-asm/types.h, so eight proc tests fail to build on powerpc and six on
-s390:
+Em ter., 3 de nov. de 2026 =C3=A0s 11:10, Manuel Ebner
+<manuelebnerli@mailbox.org> escreveu:
+>
+> Remove needless pair of brackets.
+>
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> ---
 
-  /usr/lib/linux/uapi/s390/asm/sigcontext.h:73:9: error: unknown type name '__vector128'
+Reviewed-by: Daniel Pereira <danielmaraboo@gmail.com>
 
-Put $(KHDR_INCLUDES) before $(TOOLS_INCLUDES), as the other selftests
-that use TOOLS_INCLUDES do, so that <linux/types.h> comes from the
-headers of the kernel under test.
-
-Fixes: 81510a0eaa69 ("selftests/proc: add PROCMAP_QUERY ioctl tests")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-KernelCI's powerpc and s390 kselftest builds hit this. I reproduced the
-error with s390x-linux-gnu-gcc by including asm/sigcontext.h with
-tools/include/uapi in front of the system headers, and it builds with
-the kernel headers searched first. The proc tests for x86_64 build the
-same 26 programs without warnings before and after, with O= and without
-installed headers.
-
- tools/testing/selftests/proc/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/proc/Makefile b/tools/testing/selftests/proc/Makefile
-index a7de2bb6d8be1..30cce563d9a33 100644
---- a/tools/testing/selftests/proc/Makefile
-+++ b/tools/testing/selftests/proc/Makefile
-@@ -1,6 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- CFLAGS += -Wall -O2 -Wno-unused-function
--CFLAGS += $(TOOLS_INCLUDES)
-+CFLAGS += $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
- LDFLAGS += -pthread
- 
- TEST_GEN_PROGS :=
--- 
-2.53.0
-
+Thanks,
+Daniel
