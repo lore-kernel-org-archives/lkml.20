@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793726320;
-	b=xnmxH6By0IgdUcm+XTuEp6qg+mNbKazqj7VZl0Eza+1Zt/6ci2cms4jvzesw52NeDvtc
-	 UBVCG5YzEVbtfdiGTU9/ypnKtWCe47p/OFwNBJsA+aK+Km+3bF7oFwAjH+VX+RmUWQUFn
-	 1DeWeYqnciUlycy5RlVnHqu2zHxntvLZlVPJpE86XA37+RvyW5txPktMMc+I7eFDtN6tv
-	 ToKNWq2rDOlnHjQJ8LjHey6VwmZTrPaYEh55YD6vHDZ0XhdWoUbf3z5aUWOa2chUJ/V9B
-	 HfEsBby1SfJ2H5AyfnbO6aqKpdygNlNg/9qkIGFkLxV8KGQzhZ0/7NnF4Gs/c1hZf1Q==
+	t=1793726324;
+	b=wBKtQSng3bibs6qs5++v83Xs1tuDR7es2WLFCbNUi8JCbXqQ+En7loIixKq715SrzR2n
+	 HtY7N2hBQFw+oGyDJpszHquNqvCIi6w4ZYmP8EoDnzAVxXsCC12xBTkui3Rr4VXBUCl10
+	 4w3FPnCpSe2+eysTf4JClU8YU0MWCthJWIE/KG/zQVY+KOHomQpOpIJiZ2ON8d6QwU3nj
+	 +urgyxVdj5+0gtZlpUQkRuWNpseojfLwAsGDB+YAVWS+cMjCK59HQGQLGrVJ0fyUna1ma
+	 oYTMXaMaTHnpnhwoykYZFVp+tKZEQrJ9IFLkROZeouuNqfm2TuBEB0YKHmV/VcHh14A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793726320;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=zUB0hsoYpltSXGgmhjCTbURxtzzGIGicuUjcqG2tTT0=;
-	b=yBLA7Qe2LN5MENpgseLURrgzdpjGCVTRFo8cy0w4AVbBhnKPNoLIsE1IYBtTSALIFVV5
-	 QJ6vTqHbkfAe6MjoAXCwZEIUn1H7hO0uXg2w4rBLl6YYN3CxOXs3t6+swJuElPupJyuVs
-	 lEI/5YNac3BVVyb29i02vQJ5qC74L0P7eO81CPSpV3/IdnKx1vsG4mHXxmS7ER5rTGCFb
-	 qfI0UiGGtNkRoOqyOH2ojs9nUko1CTvi+YquFLN9X19P1B9MzMWxhM73R9X0G5i6G9HvV
-	 0hN0kEIlvi0rkDlz/qQJy2ZU2owW5aowxkRNFCLO8g3JAqC386U4rm6vZCOrRacu0AA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793726324;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=TeA352CE/Q6hbfepH2zVQnAzyCdZWYcC8v7Bk29Y9r4=;
+	b=pRjf72hPxv7h07uGSwNOwWCXbdHOANM2JIh4+7mHekjFIlHOE9Ce/aP3icsnNCIAPk0g
+	 ZC+OnnR4jX9NQEVsERNZPUidAUVbQFvRt7AnXX86Y51Fw2dX+5/i3QdAITVOKjCBdt+mu
+	 6xo7eUcNoI6a9LLFLLz94mEpiKGoF828sXV/NIs9Go35mWtA7Tpy6gx2A24jQFfqUbLJH
+	 fJxMOkA6viMvOAO9oyUoTlx18708b8Z7PSSr9KEcPv3U+/ormUK61aHWmibnkHyN3RKqK
+	 jQQIHQxGFJ0qlx922G2ZADraLbudAocbTeNEBaOGpaZ4DIIGQ+gzFONbLbUhuIjCFug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=S3SUQB5y;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E87606A31B;
-	Tue,  3 Nov 2026 17:18:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E87606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=S3SUQB5y
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=zUB0hsoYpltSXGgmhjCTbURxtzzGIGicuUjcqG2tTT0=; b=S3SUQB5y1+ytWwuP5SrKm7EFV1
-	PFAKSr4Kj0JHctbaWZMzZON2t2/Fp0BaBT6XVTbxMsnpuWQJG4z/1rjrXusKvv32ZBvV89NIlj6AV
-	wtpWI02I6QIOiaK0rR9LsqdEDbhzn/1yVsFDk7ph8Poy7SsuzbQd6MkH2YjGJOUthX+PMw/HnFzBN
-	4sd6FMzX+wJ+tsQgxU7k9iUQw2VJoS8MiF2R3tKS0PQ1XXOKon7CPKB3MbXgJ49+8ltIMcvbRwCBO
-	qVXnK91yhQh6l693aFRhWhlx3AT8aLskx46YLfFzujsBoFhozx3oKD5zy/Wd5nmSGNGlXU56HaPvT
-	OmhdQh7w==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xOI9c-0075lY-2u;
-	Tue, 03 Nov 2026 17:18:37 +0000
-Date: Tue, 3 Nov 2026 09:18:31 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Sasha Levin <sashal@kernel.org>, chleroy@kernel.org
-Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/configfs: fix the build on 32-bit architectures
-Message-ID: <auoW3rXVeBkgM4qp@gmail.com>
-References: <20261103141627.30838-1-sashal@kernel.org>
+	dmarc=none header.from=stu.shzu.edu.cn;
+	spf=none smtp.mailfrom=stu.shzu.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DBA1606A32D;
+	Tue,  3 Nov 2026 17:18:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DBA1606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.shzu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=stu.shzu.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.shzu.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=TeA352CE/Q6hbfepH2zVQnAzyCdZWYcC8v
+	7Bk29Y9r4=; b=bJaC1QJn5q0/V0DOZF1qVenAP9xYvFS5D8CK0v3Norkq+RF3ij
+	9M2jZV6XK32v50NsFkGaUUp6O62nEifj6li/PDvO3Ff8woqOzXFBXpCla0+Jn2vy
+	H50b8rRkBmtRp+iv3vXfsF8H70nl0CcLpT481BVbDSV13dG1QiMyToIrU=
+Received: from kernel-build.. (unknown [124.119.50.14])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkD2+fxpF+pqV5MfAQ--.29090S3;
+	Wed, 04 Nov 2026 01:18:39 +0800 (CST)
+From: Wang Xiong <20221010117@stu.shzu.edu.cn>
+To: Hans Verkuil <hverkuil@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] media: gspca: konica: skip button release after input disconnect
+Date: Tue,  3 Nov 2026 17:18:31 +0000
+Message-ID: <20261103171833.6136-2-20221010117@stu.shzu.edu.cn>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103171833.6136-1-20221010117@stu.shzu.edu.cn>
+References: <20261103171833.6136-1-20221010117@stu.shzu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,49 +58,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103141627.30838-1-sashal@kernel.org>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkD2+fxpF+pqV5MfAQ--.29090S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr43ury5KF4fCw1fArWUArb_yoW8AF1rpa
+	93Aay8J34fKF1DCa1qvFyUW3W5Ka93Z3y5Jry3K34fZF13uFyDAFZ5ta4jgrW7J393Aw4I
+	vr4DXFZ8CF4qvw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPjb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Jrv_JF4l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aVCY
+	1x0267AKxVWUJVW8JwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv04
+	87Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280
+	aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkIecxEwV
+	AFwVW8MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
+	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc4
+	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
+	xVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
+	1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUxGQDUUUU
+	U
+X-CM-SenderInfo: qsqsjiyqrqiiux6v33wovk63oohg3hdfq/1tbiAQUGCWrp+NUZaQAAsV
 
-On Tue, Nov 03, 2026 at 09:16:27AM -0500, Sasha Levin wrote:
-> The fixture setup checks the result of mkdtemp() with ASSERT_NE(), which
-> hands the pointer to the harness. The harness casts both operands to
-> intmax_t to print them, and on 32-bit architectures gcc warns about the
-> cast from a pointer to an integer of a different size. The configfs
-> test builds with -Werror, so it fails to build there:
-> 
->   kselftest_harness.h:797:49: error: cast from pointer to integer of different size [-Werror=pointer-to-int-cast]
-> 
-> Compare the result against NULL inside ASSERT_TRUE(), so that the
-> harness only sees an int.
-> 
-> Fixes: a7fdcb2edd0f ("selftests/configfs: add tests for the userspace interface")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+gspca_disconnect() clears input_dev and unregisters the input device
+after killing the transfer URBs.  An open video file can outlive that
+disconnect, and its final close can still call sd_stopN().
 
-Thanks for the fix.
+If the snapshot button was pressed when the device was disconnected,
+sd_stopN() passes the cleared pointer to input_report_key().  An
+archived KASAN report shows a NULL read in input_event() from this
+Konica stop callback.
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Report the release only while an input device is registered.  Clear
+snapshot_pressed in either case so the state does not survive the
+stopped stream.  This addresses the input event access; the separate
+USB parent lifetime problem is not changed here.
 
-> ---
-> KernelCI's 32-bit arm kselftest builds fail on this. Built
-> configfs_test.c with gcc 16 -m32, with and without _TIME_BITS=64 (fails
-> before, builds after), clang 21 -m32, and both compilers for x86_64.
-> 
-> The harness cast warns for every pointer comparison on 32-bit, a few
-> thousand warnings in one KernelCI arm build, and configfs only breaks
-> because of its -Werror. Making the harness print pointers through
-> uintptr_t would be a separate change.
+Tool disclosure: OpenAI Codex assisted with static analysis, the code
+change and this message.  It was asked to check archived Konica USB
+disconnect reports and prepare a minimal lifecycle fix.
 
-Christophe posted a harness fix for this in January, but it was never
-merged?
+Signed-off-by: Wang Xiong <20221010117@stu.shzu.edu.cn>
+---
+ drivers/media/usb/gspca/konica.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-    https://lore.kernel.org/all/948937bfe461cf0fb6ade2623e51f673f845fa51.1768298756.git.chleroy@kernel.org/
+diff --git a/drivers/media/usb/gspca/konica.c b/drivers/media/usb/gspca/konica.c
+index 53db9a289..017266d73 100644
+--- a/drivers/media/usb/gspca/konica.c
++++ b/drivers/media/usb/gspca/konica.c
+@@ -242,11 +242,11 @@ static void sd_stopN(struct gspca_dev *gspca_dev)
+ #if IS_ENABLED(CONFIG_INPUT)
+ 	/* Don't keep the button in the pressed state "forever" if it was
+ 	   pressed when streaming is stopped */
+-	if (sd->snapshot_pressed) {
++	if (sd->snapshot_pressed && gspca_dev->input_dev) {
+ 		input_report_key(gspca_dev->input_dev, KEY_CAMERA, 0);
+ 		input_sync(gspca_dev->input_dev);
+-		sd->snapshot_pressed = 0;
+ 	}
++	sd->snapshot_pressed = 0;
+ #endif
+ }
+ 
+-- 
+2.47.3
 
-It still applies to linux-next, and with it configfs_test.c compiles on
-32-bit without this patch.
-
-Either way, I will merge your patch tomorrow if no other review pops up.
-
-Thanks,
---breno
