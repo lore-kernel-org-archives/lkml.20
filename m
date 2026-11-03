@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680621;
-	b=ZRsnS58NT5716TL5hSQmlzy0Iq0WwsIADsM9R/A39xdidosIxYZXmJChSo4NHKL+Jkk0
-	 8VMvx9LYAXvHYj8f8HXiRKjpoSPpGNzyjixYZ5ku/lCvn3zMokeIc8v7TNTZ7+bhtj1tb
-	 y0MzHa4cgZPuCkne8UUH9CKbifHmhZYRxFVGcf+Vbn6CL/cA8oTgIFafVvMsYcY5ahVbT
-	 J/GDtvvTcfZXN0JWrj8Zp3/Q0haWyjOf9TtFaz8KIpWgu43yQTLE8MbomdD9YTcxrsqxH
-	 P2WtHlOtmma5tcmlhdiF1vP6be/542EmY3neM7OKIFA66fZA5lZTuw6lt4sQV5e70eg==
+	t=1793680664;
+	b=A+uUBFUw2IpKO2t+5+MP2lyIdrpUZLvC9d53PwWcatJLzvHI1mWa2G/BEgjJzr0jZA/5
+	 rVct2yxHhVrU6sEu8bJ1nEdzBxjD6Ar7FZGylltpCOKGKXgFsOipTBv62pWisUk39lusQ
+	 lwb9BZLqHnsThu2Ih8z3Tmt25W25oRONGn3JVlR0D6A8B4vLBWIok+sUSTzkrovBOK60u
+	 9A+EP2ODLOqmD7/vULouKuMqQczIqJXKvpfCA4yMX07wtJKjELLVDAs1KvpjYWkqUci+2
+	 19BcNKWlZaXHqxxIxkpIKtIsfQUW2q1syl8zakRVi/qmTc1Lxl1qAh0eVlwM7Ua8/qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680621;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793680664;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=/pEzeyppoE46W1mZEvMY+WnIf+I5XRxOy5A4cmAgaOI=;
-	b=uS8JhzYxjLLSK1bWP9qBeXeJeRoXQO61q/3SNx0DLJ5JfVXTSwyy1MvafQvJJU0jj/wj
-	 SHqbnqJoOPudue139Rd/LXzV5q0Hzj3OkM85zDqxvSySZk1DDOaThCg5MN4adLps4UjJQ
-	 RS4DdnS+57SiKaUE1305d6s2T624d/Pu893RRt/xwaj58chhH/4LZmZveLsY/adPMlFTr
-	 cIiZOkwD7ejeOwSSXkT4vFQ+6Ca19msgzd76Y646j51AtUaxxZvQbITN+WxMqtkDzHgDs
-	 DVVl0beKGkxw61LYbN2cz12zd3hzuFyygIQ+360xwcoe2Hrz4R6kx/WFLJkYqIZoEYg==
+	bh=y6wjbZhTp6FgAt4yM4WvATTLzIXuOKHx2x55i4aYjqw=;
+	b=j1fvI5HGgyby9rhIfKwYV3tIVUQjbVG8HaYnAVTCw4FrI0cVvhqwt9ZUqlJqApSkNw03
+	 8RWckYy7PKbdSNZfSefKKJoNjYuaggtrqR2uLOhLCKOUkvf9nmFtuF7MiVubcsmwtX7Z1
+	 fG9C0PaTVpsXOCV6qlEjcWnf6WF4SZPr0QlBYwr4DHG0KW1Mqrcv9rjGddoRrLkoMkdzS
+	 fqYfh/i//5HBB0kb6HdnYTCQqm5OTOj8U57UZda3yI5hNS7vHSF2LPrpaAASyaUSGM97e
+	 bCFQYzivTYF+EngJ8QOdj8yphnRQBmP0tgxtB5ggjtkbNBiTI/KNXILEIz3TjeuFLnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Xy1IQxTl;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oW4jOSx7;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A162606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:37:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A162606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944E9606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:37:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 944E9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Xy1IQxTl
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49d05d51553so23495825e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:37:00 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oW4jOSx7
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e8246b13cbso31801125ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:37:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793680619; x=1794285419; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/pEzeyppoE46W1mZEvMY+WnIf+I5XRxOy5A4cmAgaOI=;
-        b=Xy1IQxTl6ZVTrl3Vui9Z5bCFjO9qFMooyElAgm9BfRbdTDTdcxtdLdAQG834/dw2dZ
-         Vc/Z3NtC8rNxLHXAFy7tqJkaEqeiQx0AbKpsStajWYZJg/0R1VcFlIoWcgQgH80LGB8b
-         xi5k2PPo5Av0AyMwLad3HQgtGaIWslFnZg+V3ygcpybGO0Hye35nJvoVQdXGIfcVxSCy
-         9n5FBeYuUEexs0SjxxDLOfKbqG856sdTPUyYMvMHBepNzRfs3XUVy86UMrdFBKL8F7uU
-         ZubUxm5AF55Wws16Bk0F4S8CS9wc6PtmEeIW9jC4IZZGi+tr1LeNYDL214Q845xmb7oc
-         Nxog==
+        d=chromium.org; s=google; t=1793680663; x=1794285463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y6wjbZhTp6FgAt4yM4WvATTLzIXuOKHx2x55i4aYjqw=;
+        b=oW4jOSx7D0JSROpnF4CChnXtkfgNeiGcg89AkTawpHxD/LR/9yD3eD1YxF4ucRwgLs
+         elnGb4s7J21M1wmyZi4adPxcN76kU+pv+b7TZexIWFXl5d7mnLEFDujTNP16Vif40dct
+         +6/Sgw0llpqyu8bjd1nYBX45JbXiBIlim64MM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793680619; x=1794285419;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793680663; x=1794285463;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/pEzeyppoE46W1mZEvMY+WnIf+I5XRxOy5A4cmAgaOI=;
-        b=n/kSHrK/udfj9pjPhM3LDgA2knUleqBYeBA9dpxPOqA2IdEryVtU9hqMIcP5K6Ne/z
-         I9JCauWieMIeby/Ig9aINFB/lJG4RqBYBpNSqgWB+NWHSLJk1xtoMTy4VomfAcj+Rp8h
-         9wCVRfWPRfdGqkfWjqb24JBKg2IgznCY4x2FB+ZbZU1bnxOxWx611ydomaEZUfqs91Dz
-         b6SbhvVmd15u5dsc/2XUtYVUrWI5dVh2I8SFNtU9DczbHJ/W0zdUoicn3fbBVlQbL+SC
-         ogStIJxDuS4CfHF4iU2hPaoVrQZZfcfhAFcAr/69HTPKVp5IAXnD1hWay69gUSzzcv08
-         BKlA==
-X-Forwarded-Encrypted: i=1; AKwUvBwu7hHyltXC6HZPWXXdcbzkKuekfU6xR9SkWeoTT5yzTH6A84852+vS5TMfqv/P9eXqmNRFvYLXLczV/jo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0HZBX8esFxz8h4RxejP+iPUjbWTQatYxf0AEWCMD6FxiC+u8b
-	vkJPphGZNhs3CCUD1c6ezDYFmC3RsMABnpjV1nC6vC3+v9tcIw6TUXanJ5m6cqtaKOs=
-X-Gm-Gg: AYBFou0k/45HpdtkGXB8MvTHra8/yH1+YuDvHzk08bnhwE8FdDbf8eq2zivOZSIeJK8
-	VDQ/4XK183Ngcv3U1VKqYzjJUAgpm03l+aA/kqth/uXq2jbtuYtu87iM03ItoR4rFfdZTn49PXT
-	aXhiSau80QJTPQ4k3IzN6RRqwyNmgnlR/WGCNf1YPFbu+JFAQPbhadeDAhGbofJ67nbynGT5HmR
-	bjwg89FP60Faqve3mXsebRxSC+rVQp+g8FB5QQLxpHqwXhY46fM8+4oj2DbXO1BV1a1B8rP0hFt
-	TgLxj/601X1Ifm3m1HgdHbpu+8HcQ+HgS/JgrMohhveE5s2mMqfGudnpnrtZywgeluGKiNvqxUW
-	Xc3EGRJAFHTjbxWSCVKjTvDO0PIMi0+gNiWe+KAILtNX3UVv+c3GyWp3ISaYBIJvdKXk6ngTYyj
-	BuKo/3lkrUoh/PmrMS02beaG3YzpWD4G2PbUgQ25xuUDbW7UyArk+tFGMiLf4dMcbkkYnU+y+Hv
-	UfHvAuimEhIUG5HCE8PisE15WoTjjlrU2csNIvjNHEr+gsnxQrIZ3L05Q4Zwp3rtGpQZfbhEC42
-	YQGWh08hU9A2k9BoY4SoykKxm6koQ2i/BGMeC23XDQ==
-X-Received: by 2002:a05:600c:4e14:b0:4a5:a5ca:de1d with SMTP id 5b1f17b1804b1-4ac187a80bfmr275505455e9.30.1793680618644;
-        Mon, 02 Nov 2026 20:36:58 -0800 (PST)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36b13bd87b2sm2675989eec.28.2026.11.02.20.36.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 20:36:57 -0800 (PST)
-Message-ID: <0e59bdd6-1d30-4337-8933-59c9d2082b6b@suse.com>
-Date: Tue, 3 Nov 2026 15:06:50 +1030
+        bh=y6wjbZhTp6FgAt4yM4WvATTLzIXuOKHx2x55i4aYjqw=;
+        b=ayyyy+44kip1Ib96yg6AxRS2j0NDRjanojrX+XScX6cEP/vLyU1Z5I8ZSPf5NS2LHJ
+         O35qj3kDVczyFrkWNUA09H0BieYxdzhUcaNqc2gh3mF6vHAQJ0MLQfMmrG9MFaZUOIdO
+         gkzNIbhm+QeCOq8OJ3ssYiSxIsifaQrbxykrhrCLtgA8uOHPvz9pFFLxb3RAT/UTGjkT
+         G8CrAIYgcy8qGQFC8LIoKW58G2eK6K/EgjNqVKJsgWH/LA3BzSEQoH3FUrIMFxwEe+If
+         NIukRHJ1mUtAQxWADUoKPt1uWtVgxDL2Fu2vpuZXyO5LipdjlnUe5/beszvTnwQpSuyr
+         HMLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqyhGrIzZvAOG6lQkOez9Me3NOuBie01exILEvBHz92JMB7tRHVjJZCniXLGxMwpz1XvQtF7rNm84wJiI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0s064Lczhh4NtwNPncQLrRFlPc0xATScKQO1/mbHKelmqqX3l
+	EUdupLWcE+yln3D7xTnVUz0E82J8GickJ6QotqXRQ2WuzkZMU9QMYiywkkbHFBngDw==
+X-Gm-Gg: AYBFou19iL3u7r8+Z/OCninl/E4qHoqy/opPi7zXj6X/Da6kH4SEXRvPiERx3w2iVjb
+	ewpLIeQFmgV969612/hdSaDLVfb73uPbNS6RYXJzQK7YNoq2aKSQZOLUNLS1RkwONgC8hT4ih3q
+	XF7XCn/Jwfv2YgKRw9qO+3jxh29y23VQfTH5xiezQCZjjsPckWs0Ip82l2gXrHcuX12wm7vH2Ix
+	ykg6KUe9YWDOyXllCCvO5igesDrrq8ywOksATIuyAs9r8XE9ND3qSa6LLfp3V2IGpsrrsktgeyn
+	S3VBMcmtGabHHS8I78OVZ/oKiTr7egk4ON4PJypeATFdT1RN7nxEd8GQCSpxzre2y6r0UxpM+ig
+	uBi2yWTjkVanAH2xzTfVGhH7/QaY3ex3VSaMr1Fw8KgHGUUuQmP1FsBsicko1YJyGV9SYWNbzvK
+	+if3tlSET2e/Ency1mJP1mGywerQZzTWQhezyaczryOvwnNBZCISRaMS2u6dVJid6kL8AwlkQhD
+	lZ7vf80/VexS0DUu1Gix1PJsyxSEhue25RQjEimneq9XSFlpmVQlsOJun7zXkULdeWDmPKHycaQ
+	kX9ANQvIuOXUIUz60lpWd6pQvl1G/yxml0L0NSkf3/tuj3mMmXJolGUBupVYqYMkzrTKDhulriq
+	mw2clHjbQ88za1H62S7mKv1b5fxQ1CUnvCw==
+X-Received: by 2002:a17:90a:b890:b0:3ab:e588:c29b with SMTP id 98e67ed59e1d1-3ae8e5bdcc9mr6988054a91.5.1793680662787;
+        Mon, 02 Nov 2026 20:37:42 -0800 (PST)
+Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:dea6:6326:4502:bb8b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c71c253sm2072761a91.16.2026.11.02.20.37.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 20:37:41 -0800 (PST)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	chrome-platform@lists.linux.dev,
+	linux-input@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 0/8] arm64: mediatek: Chromebook trackpad supply fixes
+Date: Tue,  3 Nov 2026 12:37:24 +0800
+Message-ID: <20261103043734.2179858-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,180 +105,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] btrfs: tree-checker: validate qgroup status item
-To: Siddharth Mishra <smish149@asu.edu>, David Sterba <dsterba@suse.com>
-Cc: Boris Burkov <boris@bur.io>, Chris Mason <mason@kernel.org>,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261103034932.1790235-1-smish149@asu.edu>
- <20261103034932.1790235-2-smish149@asu.edu>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <20261103034932.1790235-2-smish149@asu.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Hi everyone,
+
+This is v7 of my Chromebook trackpad supply fixes and optimization
+series.
+
+Changes since v6:
+- Patch 1 (regulator)
+  - Fixed rust build
+- Patch 5 (cleanup op)
+  - Fixed missing parameter in cleanup op type declaration
+  - Fixed typos in commit message and comments
+- Link to v6:
+  https://lore.kernel.org/all/20260901074930.764550-1-wenst@chromium.org/
 
 
-在 2026/11/3 14:19, Siddharth Mishra 写道:
-> [BUG]
-> An image can have a status item with SIMPLE_MODE and a super block
-> without the SIMPLE_QUOTA bit.  On a kernel with CONFIG_BTRFS_ASSERT=y,
-> the mount of this image causes a BUG :
-> 
->    assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
->    in fs/btrfs/qgroup.c:411
->    kernel BUG at fs/btrfs/qgroup.c:411!
->    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->    RIP: 0010:btrfs_read_qgroup_config.cold (fs/btrfs/qgroup.c:411)
->    Call Trace:
->     open_ctree (fs/btrfs/disk-io.c:3789)
->     btrfs_get_tree.cold (fs/btrfs/super.c:2133)
->     vfs_get_tree (fs/super.c:1943)
->     fc_mount (fs/namespace.c:1282)
->     path_mount (fs/namespace.c:4337)
->     __x64_sys_mount (fs/namespace.c:4542)
-> 
-> Without CONFIG_BTRFS_ASSERT, the mount is successful in simple quota
-> mode.  The first data write then adds an owner ref.  The write-time
-> tree-checker sees the owner ref without the SIMPLE_QUOTA bit and gives
-> a WARN_ON() (tree-checker.c:1782).
-> 
-> [CAUSE]
-> The tree-checker does not examine the status item.
-> btrfs_read_qgroup_config() reads the flags of the status item.  For
-> SIMPLE_MODE, it calls qgroup_read_enable_gen().  This function ASSERT()s
-> that the SIMPLE_QUOTA bit is set and that the item contains enable_gen.
-> Since commit f2363e6fcc79, the kernel does not write SIMPLE_MODE without
-> the SIMPLE_QUOTA bit.  Thus only a damaged or crafted image has this
-> state.
+Changes since v5:
+- Patch 1 (regulator)
+  - Correctly assign wait_us to all bulk consumers (Sashiko)
+  - Check _regulator_is_enabled() > 0 to check for enabled regulators
+    (Sashiko)
+  - Lock regulator_dev on final _regulator_is_enabled() check in
+    regulator_register() (Sashiko)
+  - Make it clear that _regulator_is_enabled_recursive() assumes that
+    supplies have been resolved (local AI review)
+  - Consider supply's last_on timestamp for regulators that are already
+    enabled or have no .is_enabled() ops (local AI review)
+- Added noautosel tag for some patches
+- Added patch to pass component probe success or not to cleanup callback
+  (patch 5)
+- Only defer regulator disable if a device was found (patch 6)
+- Link to v5:
+  https://lore.kernel.org/all/20260825041628.988369-1-wenst@chromium.org/
 
-The easiest way to show the cause is to provide a tree dump of the 
-offending leaf, and highlight the offending tree blocks.
+Changes since v4:
+- Made regulator core try to set last_on timestamp for regulators that
+  were left on by reset default or firmware, but not enabled in kernel
+- Dropped two patches that were merged
+- Link to v4:
+  https://lore.kernel.org/all/20260811122011.3539250-1-wenst@chromium.org/
 
-> 
-> [FIX]
-> Add a tree-checker rule for the status item :
-> - The item must contain the four members of all versions : version,
->    generation, flags and rescan.
-> - With SIMPLE_MODE, the super block must have the SIMPLE_QUOTA bit, and
->    the item must also contain enable_gen.
-> If a rule fails, the tree-checker rejects the leaf with -EUCLEAN.  Then
-> btrfs_read_roots() cannot read the quota root.  It ignores the error, as
-> before, and btrfs mounts the filesystem without quotas.
-> 
-> Fuzzing found this bug. An AI tool helped to analyse the cause and to
-> write the fix. I tested on btrfs for-next (d6f76ca0a70d), with and
-> without KASAN and CONFIG_BTRFS_ASSERT=y. Without the patch, the kernel
-> gives the BUG above, or the WARN_ON() at the first write. With the
-> patch, the tree-checker rejects the leaf ("qgroup status item has
-> SIMPLE_MODE but SIMPLE_QUOTA incompat bit unset"). The mount is
-> successful without quotas. There is no BUG and no WARN_ON(). A clean
-> simple quota filesystem still mounts, writes data, frees extents and
-> mounts again. Its status item passes the check at each commit. The
-> fstests group qgroup has no new failure (34 passed, 3 not run here). A
-> crafted image and a C reproducer are available on request.
+Changes since v3:
+- Added __private modified to regulator_bulk_data.wait_us field and
+  switched to ACCESS_PRIVATE accessor for the field (Andy)
+- Moved wait outside regulator lock scope (Sashiko)
+- Moved "remaining" value assignment closer to conditional (Andy)
+- Fixed variable unit name in regulator_enable_and_wait() prototype
+  (Andy, Sashiko)
+- Added commit message section showing average delay needed for I2C
+  prober (patch 6) (Andy)
+- Link to v3:
+  https://lore.kernel.org/all/20260721075226.2347933-1-wenst@chromium.org/
 
-Drop the whole paragraph starting with "Fuzzing found".
+Changes since v2:
+- Added new regulator "enable and wait" functions that wait until at
+  least the given amount of time has passed since the regulator was
+  last enabled.
+- Converted patches to use the new functions
+- New header inclusion cleanup patch for elan_i2c driver
 
-It makes no sense. And tell your agent to write this rule into its 
-memory file.
+This series fixes the trackpad descriptions on some MediaTek-based
+Chromebooks: either the trackpad's supply was set as always-on to
+workaround missing delays in the driver, or the delay and supply
+are missing from the trackpad's device node.
 
-This looks very chatgpt, and so far I have no good experience with 
-patches generated by that.
+v1 was just the first patch [1]. It has since grown to cover multiple
+drivers and devices.
 
-> 
-> Fixes: 182940f4f4db ("btrfs: qgroup: add new quota mode for simple quotas")
 
-I don't think this should count as a fix.
+Patch 1 adds new "enable and wait" functions for single and bulk
+regulator enable.
 
-> Cc: stable@vger.kernel.org # 6.7+
-> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
-> ---
->   fs/btrfs/tree-checker.c | 35 +++++++++++++++++++++++++++++++++++
->   1 file changed, 35 insertions(+)
-> 
-> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-> index 61ea8f42c..0d75cb537 100644
-> --- a/fs/btrfs/tree-checker.c
-> +++ b/fs/btrfs/tree-checker.c
-> @@ -2083,6 +2083,38 @@ static int check_raid_stripe_extent(const struct extent_buffer *leaf,
->   	return 0;
->   }
->   
-> +static int check_qgroup_status_item(const struct extent_buffer *leaf, int slot)
-> +{
-> +	const u32 item_size = btrfs_item_size(leaf, slot);
-> +	const u32 min_size = offsetof(struct btrfs_qgroup_status_item, enable_gen);
-> +	struct btrfs_qgroup_status_item *ptr;
-> +
-> +	/* version, generation, flags and rescan are always present. */
+Patch 2 adds the correct enable delay after enabling the supply regulator
+for the Elan trackpad to initialize. This uses the new "enable and wait"
+regulator enable function.
 
-I don't think the comment adds much value.
+Patch 3 applies the same logic of skipping the power on delay to the
+i2c-hid-of driver.
 
-Tell your agent to keep comments at minimal.
+Patch 4 applies the same logic of skipping the power on delay to the
+i2c OF component prober library.
 
-> +	if (unlikely(item_size < min_size)) {
-> +		generic_err(leaf, slot,
-> +		"invalid qgroup status item size, have %u expect at least %u",
-> +			    item_size, min_size);
-> +		return -EUCLEAN;
-> +	}
-> +	ptr = btrfs_item_ptr(leaf, slot, struct btrfs_qgroup_status_item);
-> +	if (!(btrfs_qgroup_status_flags(leaf, ptr) & BTRFS_QGROUP_STATUS_FLAG_SIMPLE_MODE))
-> +		return 0;
-> +
-> +	/* Simple quotas need the incompat bit and the enable_gen member. */
-> +	if (unlikely(!btrfs_fs_incompat(leaf->fs_info, SIMPLE_QUOTA))) {
-> +		generic_err(leaf, slot,
-> +	"qgroup status item has SIMPLE_MODE but SIMPLE_QUOTA incompat bit unset");
-> +		return -EUCLEAN;
-> +	}
-> +	if (unlikely(item_size < sizeof(*ptr))) {
-> +		generic_err(leaf, slot,
-> +	"invalid qgroup status item size for simple quota, have %u expect at least %zu",
-> +			    item_size, sizeof(*ptr));
-> +		return -EUCLEAN;
-> +	}
-> +	return 0;
-> +}
-> +
->   static int check_remap_key(const struct extent_buffer *leaf,
->   			   const struct btrfs_key *key, int slot)
->   {
-> @@ -2475,6 +2507,9 @@ static enum btrfs_tree_block_status check_leaf_item(struct extent_buffer *leaf,
->   	case BTRFS_FREE_SPACE_BITMAP_KEY:
->   		ret = check_free_space_bitmap(leaf, key, slot, prev_key);
->   		break;
-> +	case BTRFS_QGROUP_STATUS_KEY:
-> +		ret = check_qgroup_status_item(leaf, slot);
-> +		break;
->   	case BTRFS_IDENTITY_REMAP_KEY:
->   	case BTRFS_REMAP_KEY:
->   	case BTRFS_REMAP_BACKREF_KEY:
+Patch 5 makes the I2C component prober let the cleanup callback know
+whether a component was found and enabled. Needed for the next patch
+to only delay calling regulator_disable() if a component was enabled.
+
+Patch 6 adds a delay between when the device node found is enabled and
+when regulator_disable() is called. This gives an asynchronously probing
+driver some time to increment the enable count of their regulator
+reference, thus keeping the device operational and allowing the driver
+to skip the initialization delay.
+
+Patch 7 removes the "always-on" setting from the trackpad supply for
+Elm / Hana and adds the correct delay to the second source trackpad.
+This corrects the hardware description. Should not be backported without
+the other driver patches.
+
+Patch 8 adds the supply and power on delay properties to the Synaptics
+trackpad on the Spherion device. Combined with previous driver changes
+this should cause no actual functional changes or delays.
+
+
+Please take a look. Patches 2, 3, and 4 have build time dependencies
+on patch 1. I suggest placing patch 1 on a separate immutable branch
+or tag for the other maintainers to pull in. The three patches all have
+different maintainers.
+
+The DT changes must go in after all the driver changes land, especially
+patch 2 that adds delays to the Elan trackpad driver. Otherwise the user
+could potentially end up with a non-functional trackpad on the device.
+
+
+Thanks
+ChenYu
+
+[1] https://lore.kernel.org/all/20241001093815.2481899-1-wenst@chromium.org/
+
+Chen-Yu Tsai (8):
+  regulator: core: Add "enable and wait" functions
+  Input: elan_i2c - Wait for initialization after enabling regulator
+    supply
+  HID: i2c-hid-of: skip post-power-on delay if powered on sufficiently
+    long
+  i2c: of-prober: skip post-power-on delay if powered on sufficiently
+    long
+  i2c: of-prober: Let cleanup op know if a device was found
+  i2c: of-prober: Defer regulator_disable() on successful probe in
+    simple helper
+  arm64: dts: mediatek: mt8173-elm-hana: Unmark trackpad supply as
+    always-on
+  arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics
+    trackpad's supply
+
+ .../boot/dts/mediatek/mt8173-elm-hana.dtsi    |   8 +-
+ arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi  |   1 -
+ .../mediatek/mt8192-asurada-spherion-r0.dts   |   2 +
+ drivers/hid/i2c-hid/i2c-hid-of.c              |   9 +-
+ drivers/i2c/i2c-core-of-prober.c              |  34 +++--
+ drivers/input/mouse/elan_i2c_core.c           |   7 +-
+ drivers/regulator/core.c                      | 129 ++++++++++++++++--
+ include/linux/i2c-of-prober.h                 |   7 +-
+ include/linux/regulator/consumer.h            |  21 ++-
+ include/linux/regulator/driver.h              |   2 +
+ rust/helpers/regulator.c                      |   5 +-
+ rust/kernel/regulator.rs                      |   2 +-
+ 12 files changed, 176 insertions(+), 51 deletions(-)
+
+-- 
+2.56.0.385.gac671c819a-goog
 
