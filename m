@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687336;
-	b=iD6urbCMlQQNkAOlXclWcQWrzwdCwb+6w4CORXRCgfP6/Ps2tGaOvm9XQ5ytTDoDAz2e
-	 /iV6O3lf5EtCUTSQmntkmiDmsYdJou9ceQmB6IsYgyYDDAq0ZZjZnh1BsMlCza9lxuR8t
-	 NlLz9IsS9yMSC751wfRyU+TjglmCXBShxAWtLTGL4tRxnjoAQZyGt6Ccfa8SfcpSfU2pA
-	 L+Q6+mXceW+f7EHu//uyg/3HCv18gngTwLa3k1uIusYRz/zKrvqrsrKnXGTeY1QVI47Uy
-	 DxX8+sx4t5XQyVWuBsa9Pb0hz3v983oJosDLOBXsn1Toig7SZqccsIbzeOg7MfPvXOw==
+	t=1793687342;
+	b=aIkz0NmBl0sQwaLoW4eBYsM/MUBzmNCAdJy9NiBQ5fea4BrvyRtERfp48fAjfy55Ud1k
+	 O+O0sHfgQ7EWzRtKpixDI7mWaU5LED/tsqauWSObMPv7rVRxEAEHYZ5ztdBKLgylUGttA
+	 d2qaUhdXpRObzH0DurgN9pg1pNPy805h7oD0YYYxU3jeC4KxxM3M/8bEZ++D61U5xQUZU
+	 il0OWCawMwTLRpEsWHA6sTyd7xfBcVaGTrDPCGgMawcQy3hwdjHdrWOYfowVTBKPdPg8d
+	 sjiV5sWNK5GosfbVlgREMoqM0ukOPi+paQFkzjhetb9GDXiILaasH7qZRh4Qk5RV/Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687342;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IJdPaPjcw6KM6945s4a205xSGvQ0CD8VKU+jx7vOtyA=;
-	b=r5fMm8GzlvlAGr0sHkoyf8T7VF6RuxxDlXaOxiccAIMYZEJPT9JEXiVP21+5BClEEF3C
-	 iKWHq6FwjVeKeLAgJIrGFxeVQM/GOz//YDrmJoOlTI3OYYVUFG4feuaHgPHTBCjnVY98d
-	 1ICMbZcpV4vcWkaA57u/3tdz10EQbNKemVQz+W0kEhfTyY+eKbQwEUxo3ZFot38N6oNsR
-	 /BCkIhhtXmoTkIFrv8nwRKU78Q9OuN5XKadK2ScikVTX8xccap4qGe2jPQFMXIpzc4wNR
-	 MO82s4fpJ2S6fvInmnaNvLQG5CNeKyXFlf/gWULn8FzRdzvqgcmtTZyLC6nRUKSp+MA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=kPjMT+SFzLPVRdUodSrgDaoLXCme21lrWUEOuuTeAiE=;
+	b=qnC1kQLPdPSm/N6lZw4xxVW1gG1zzd3BLld3f/x5t+A40EBHzWbGTs4y2zp2yjct6lhk
+	 Rm62fGc9Mq2iH5NWwGCmwXs8UHi5FoxJVPpjrbWFBrjOjwJVlISWvOuIg0/wf6y7EGjml
+	 r/FNAJYHqRtnnYu5QVudomBayK1zvY8W/9FmqFBu68tNb4zrTF1ogFyMmtHzMiwHmA/ut
+	 fbW9DGD/83uR5sBfmsZeDpmASJxyH2Gv/YEpQbpcK3BlEzh673rcYX7mMWD8vposXnTp5
+	 wZIufuoKiOcxEM2xpyh7PnGyCPc30/2tcwksJYIzznhgBRTSYlk8lwYWYy8eKDrgGcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ggLmM6kc;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--cyueh.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j1GQBjH7;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43295606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:28:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43295606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27D6606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:29:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B27D6606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cyueh.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ggLmM6kc
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e6eb21a8fso1476578f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:28:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j1GQBjH7
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-887c99013edso1960020b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:29:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793687335; x=1794292135; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IJdPaPjcw6KM6945s4a205xSGvQ0CD8VKU+jx7vOtyA=;
-        b=ggLmM6kctlkClhPvgazfgjnpR41FPu4meieUr8d2i0Zr9wr6S26bdWwNNj56lucKnD
-         w0AnKXMM8uYV2WYIZTzfGorw6gsWy3k6opQQ5+5fmf/S48JR4wcX2kUqq8ZFMrKom+65
-         KnvZQGaaxSXdsX0eJw/uJ6wezDLb+8xvOt6ErbqaZ7B7RBM4fwxLL8rYV6fCcz+o7FrT
-         Yt2xDXBZv+mKlyUdNhBEc29JHaTJDIH6qwWNjxkovYimHIVoMeK1m/1t245C0D4IV3lE
-         R5wJx/JoAKL6oTp5TnqurjfCNW+wYJFC1jvx8S88cakSGEfCjnivSYWy791/L5zComo3
-         qb7A==
+        d=google.com; s=20260707; t=1793687341; x=1794292141; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kPjMT+SFzLPVRdUodSrgDaoLXCme21lrWUEOuuTeAiE=;
+        b=j1GQBjH73SUB5ThsxahsdEBents9hXXu2EKz1l0qZx6gkh0tn9edRg/WWJ+wK/UC6g
+         ahVh2MkdvWY93+GyivU5dz9jJfHJanY1B7+FpYn1oJ6mtQVS+haXlmuRMi/pwsXKC0t6
+         0+7KMq4l1DlofkirWHNMOXZLoavk4oZ4TVdP/EzzAJVNNZckEL2+Ts1BepYd97b25BWj
+         Yj3PkAosT5q+Ahob+qW5ZwU6Gh2Bnmj6mA47H5sUmremYidoTxClt/BHuxPG297nfMwD
+         7NOuJYr3QudiJwZzUMv7m+TJa4LfififrfklHQ648y1AGogZfOUjHX7UgdNymGHo1I3x
+         RFeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793687335; x=1794292135;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793687341; x=1794292141;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IJdPaPjcw6KM6945s4a205xSGvQ0CD8VKU+jx7vOtyA=;
-        b=D4lvA48dMN+ROXLwNzQHufTzoKgZ/PsGmqpDBWKVwz7KZW/9ICxUNoSP5OrNNbeTFE
-         CizVHGHaEgQ4SsmFaTq5Bg8y20FjOMxFPgcMvA+AXknKMzYVQdCheDuAuIPX28CvTdK6
-         JQFdP6ukKq2o7jpudbrBLaNVFji+UmOhTWq7QlU03ldaN2KjfxgiFuE3xYKvgmvLNcin
-         iHT9OfOt11dW2KVCZus6gcdatm1iA3AOt9S8HjCr4vSOEaKVMtpAH6tyyyIDBqTuBDQj
-         ZRGVzAPtiSsPylSuoflZBKq5+uYYWFhdpf4QA1SY3tAKA0d5rwOTV1DjybspsIIQupNh
-         q8Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBw4zHtXyjjeatspGNNNcs+i7uSf53gGGxXfUbuzoQSZvqhzrTywEv6QcsFZDwq8Ikh89BpmJ1yadYRqzAk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Ig0w6AeKgbXiIuexKOn6dPFUyiTsIFTpHTrTMgDCvWfUXOS70
-	jWi6n48r+2PoJB8pX6qxlX7qbFxHM1BTI2DwbXa2V2L49mtMbdRcMizF2xhNfBSH
-X-Gm-Gg: AYBFou1Y8ZWfS9kI9HyA1i8EIlyy5yk9tAS0ixj99RIP/xQWk3NCpB2j6BNFBiNNmNZ
-	0+O7ZmSQ5uoXTV0EaN9tYNTlFjr3WRu5YjzFiJ0uLp57SjyxcT8bK3kCjp0rBkGXnCByKfOjDJq
-	enbKUDoQSttQThzPSxQGiDIoi/tUg6A9vy1YaxPE+N39BmzwumtFDsGwHUL+YVugq/PVUSn0WwR
-	TDIqh5lD+x9TssuxxGsTIDsJyUnRfEn9/ywJTHuxtWvkJlzwY8GIdHB7qANi9q+k0R7kkUl96gp
-	Ffs70jQMAmFMNwm9urBH89kHE+F46rJbfYYLFW4T5WM1V5Kt9vA9AchUdH04y2c4kdMsunvUm99
-	XtVwpr0lKjoKjS1FdY2c5t8bkOVQNc9jtKk+zGosSW8V3SXrPb/LoB9gkHGq4tna9yFPOx7B3La
-	+JIfkZ2uqUnTl9mXHsMQQBgwwOBPLQlE67PhASkCCi0wzxMfhXuOkFVjbYUrLS2ZwRZfHooQIt7
-	ZGYtvMZjskLBvxCsxYenRzS2igNNvJJSUbkBKDqDgKdeZJS2woPru7Mx7dCfFyXscSy/IcHhoMN
-	CYmohJjHZN9ZjA+Xi9TWmGQxouIxi0qRFtYq8IA=
-X-Received: by 2002:a05:6000:22c8:b0:48e:f07:160e with SMTP id ffacd0b85a97d-48e6e305c3bmr27453712f8f.38.1793687334595;
-        Mon, 02 Nov 2026 22:28:54 -0800 (PST)
-Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d511sm22743032f8f.8.2026.11.02.22.28.53
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Mon, 02 Nov 2026 22:28:54 -0800 (PST)
-Date: Tue, 3 Nov 2026 07:28:49 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Kuangyi Chiang <ki.chiang65@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@linux.intel.com>, mathias.nyman@intel.com,
- gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xhci: Fix HIK camera control timeout on Etron hosts
-Message-ID: <20261103072849.623325cd.michal.pecio@gmail.com>
-In-Reply-To: <CAHN5xi3NY2AUQK2=M80RYkx1N-bA8=zPEE6Y5400EYyMv1=aCg@mail.gmail.com>
-References: <20260914013033.3938-1-ki.chiang65@gmail.com>
-	<20260914130907.749cd8e7.michal.pecio@gmail.com>
-	<CAHN5xi0NSJO=V0=eVd4_MGp2Lg5NrwB3D+hsF87ehTSmaeeSbQ@mail.gmail.com>
-	<0e4c85e8-77e6-4eb9-aca1-048199f2f0e0@linux.intel.com>
-	<CAHN5xi0tN2iWGVfH18SASoP0HVvAaDY4Kgq2U6LCCznGg-1o9w@mail.gmail.com>
-	<CAHN5xi1M+g3Sy8YkRKpZuU7EtTxiyi0ZD6y5TCcAZTrpxUpHNw@mail.gmail.com>
-	<20261029060335.3ed1fbcf.michal.pecio@gmail.com>
-	<CAHN5xi3NY2AUQK2=M80RYkx1N-bA8=zPEE6Y5400EYyMv1=aCg@mail.gmail.com>
+        bh=kPjMT+SFzLPVRdUodSrgDaoLXCme21lrWUEOuuTeAiE=;
+        b=A0K0mdzqucAtaQ3tXqna/LtIpbTc3gXVQrVn5xqtdiqGMgPqfK3V7lKIJo+x+Nel19
+         Fn5rmjmgBiwNWe2ZG+5hvYwDhRJ/yH+F9FIgoCbICZP/eiCBtl7YtqsMQ5Qukqgv+k96
+         RtXMFAWuON/8vg9Ik+XE/yjW89MArq8noFZ86BosqJks/xhUKJARSG1whrPuv21LROUw
+         RMJ+AwmBhZ0CdvYopAGBT3BG4xHdxyG878z4CaRtILKI81DeV4h6DgvMjIp6+Aq3fPfy
+         a9i89hj8eJv4Sn6TDj4M7mb9ekc9sry0gr4lsp+CX5V+4kytnnPe/A42rATVvKpVcfxv
+         8Asw==
+X-Forwarded-Encrypted: i=1; AKwUvBwKBRel+AhluVnoKrFC/V8WJ0LGdQvhk6CpmsIbwdM8P+7O1/lxzGjQ2YpH5dMOhctnarPLYwg3qPFIIIo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+j1TSS2mfSlb5IYvoSKsgAOfwOzLgNfURcJOpf5U4edBB0s56Q
+	5/twZ5I6fptivYQHFaDhCfQR2IsJjhmY5eoNdCMieQcd8WDRzDZsJLbOWbxwg3kry8i/wU/XBJG
+	6RA==
+X-Received: from pfbgq25.prod.google.com ([2002:a05:6a00:3bd9:b0:89f:4f8e:282d])
+ (user=cyueh job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:a510:b0:3e2:257a:a61f
+ with SMTP id adf61e73a8af0-3e928fbdc2dmr9948243637.59.1793687340722; Mon, 02
+ Nov 2026 22:29:00 -0800 (PST)
+Date: Tue,  3 Nov 2026 14:28:02 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,67 +75,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261103062802.361878-1-cyueh@google.com>
+Subject: [PATCH] platform/chrome: cros_ec_rpmsg: record last_event_time on
+ host event
+From: Cheng Yueh <cyueh@google.com>
+To: Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kernel-team@android.com, 
+	Cheng Yueh <cyueh@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 3 Nov 2026 09:01:50 +0800, Kuangyi Chiang wrote:
-> However, we captured USB traces using a protocol analyzer and
-> observed different behavior between the failing and successful
-> cases.
-> 
-> In the failing case, the device ACKed the DATA stage but kept
-> NAKing the STATUS stage until the transfer timed out.
-> 
-> In the successful case, the device initially NAKed the DATA stage,
-> then ACKed it, and the STATUS stage completed successfully.
-> 
-> We haven't determined the root cause yet.
-> 
-> In our tests, adding a 1 ms delay to both the UAC and UVC
-> control request paths prevented the timeouts.
+Transports with a dedicated interrupt line (ec_dev->irq > 0, such as SPI
+and I2C) record ec_dev->last_event_time in the top-half
+cros_ec_irq_handler(), while transports without one (ec_dev->irq == 0,
+such as LPC in cros_ec_lpc_acpi_notify() and ISHTP in ish_event_cb())
+record it in their respective event callbacks.
 
-Could it be a device bug triggered by timing? Some xHCI controllers
-perform control transfers faster than others - we have seen anything
-(IIRC) from complete transfer in a microframe, through one stage per
-microframe, up to one stage per frame even for high-speed devices.
-We are not aware of any way to influence this, besides delaying URB
-submissions. I don't know how fast EHCI controllers are.
+cros_ec_rpmsg also operates with ec_dev->irq == 0: when an MKBP event
+notification (HOST_EVENT_MARK) arrives in cros_ec_rpmsg_callback(), it
+schedules host_event_work to invoke the bottom-half cros_ec_irq_thread()
+directly, bypassing cros_ec_irq_handler() and leaving
+ec_dev->last_event_time as 0.
 
-> > > So far, we have reproduced the issue with these xHCI hosts:
-> > >
-> > > ASMedia ASM1142 (1b21:1242)
-> > > Etron EJ168 (1b6f:7023)
-> > > Etron EJ188 (1b6f:7052)
-> > > Intel xHCI (8086:8d31)  
-> >
-> > I don't know that Intel chip, but the others are quite buggy.
-> >
-> > Have you tried other HCs? Any successes?
-> > IME, chips from NEC, Fresco, Renesas are more reliable.  
-> 
-> In our recent tests without the delay patches, we did not
-> observe any timeouts on the following HCs:
-> 
-> AMD EHCI (1002:4396)
-> AMD xHCI (1022:149c)
-> ASMedia ASM1042A (1b21:1142)
-> NEC xHCI (1033:0194)
+cros_ec_sensorhub_ring relies on ec_dev->last_event_time (via
+fifo_timestamp) as the AP CLOCK_BOOTTIME reference timestamp to calibrate
+the offset and clock drift between the remote processor's local hardware
+timer and the AP timebase. Without this calibration, IIO sensor sample
+timestamps cannot be synchronized to CLOCK_BOOTTIME
+(SystemClock.elapsedRealtimeNanos()), failing the Android CTS sensor
+specification TimestampClockSourceVerification.
 
-ASM1042A surprises me, because ASMedia in general are among the fastest
-ones, except AMD Promontory chipsets which are extremely slow. NEC was
-slightly slower than the fastest chips IIRC. I'm not familiar with AMD
-Matisse and have no idea what xHCI IP they put inside.
+Record ec_dev->last_event_time = cros_ec_get_time_ns() upon receiving
+HOST_EVENT_MARK in cros_ec_rpmsg_callback(), matching the other ChromeOS
+EC transport drivers.
 
-Purely out of curiosity, could you connect a USB 3.0 NIC like RTL8153
-or AX88197 to Matisse and see if it breaks after a minute of:
+Fixes: 2de89fd98958 ("platform/chrome: cros_ec: Add EC host command support using rpmsg")
+Signed-off-by: Cheng Yueh <cyueh@google.com>
+---
+ drivers/platform/chrome/cros_ec_rpmsg.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-  while :; do ifconfig <xxx> up ; ifconfig <xxx> down ; echo -n . ; done
+diff --git a/drivers/platform/chrome/cros_ec_rpmsg.c b/drivers/platform/chrome/cros_ec_rpmsg.c
+index 39d3b50a7c09..07b9e71ac8e3 100644
+--- a/drivers/platform/chrome/cros_ec_rpmsg.c
++++ b/drivers/platform/chrome/cros_ec_rpmsg.c
+@@ -180,6 +180,7 @@ static int cros_ec_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
+ 		memcpy(ec_dev->din, resp->data, len);
+ 		complete(&ec_rpmsg->xfer_ack);
+ 	} else if (resp->type == HOST_EVENT_MARK) {
++		ec_dev->last_event_time = cros_ec_get_time_ns();
+ 		/*
+ 		 * If the host event is sent before cros_ec_register is
+ 		 * finished, queue the host event.
+-- 
+2.56.0.385.gac671c819a-goog
 
-I found this to be a 100% reliable way to detect ASMedia controllers,
-including those in AMD Promontory chipsets. This is the periodic unlink
-bug I mentioned, which is mostly mitigated by 7c0c31c66a7f9 in 7.3,
-so the test is more effective on 7.2.
-
-Regards,
-Michal
