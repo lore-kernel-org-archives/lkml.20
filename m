@@ -1,80 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.184.147
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749308;
-	b=JGxna7Q09ry6j+a9ZvR8dqXHZFYGZjZ/E9FoP7OsB1i2/2L88vPPBkqAc1dMaV1iC6CS
-	 Dmn23Zh27KOFUXJwFIyUSwcbg58k0/7Z5ajFycGRcHjA4NY0NpR3C/yETBtZSPeanu3ug
-	 TcxQv2CafYhKAhbOLojhQaQfpHClXXPof60309HM3pfo8aiNE/1dWVTCdZSeVIKMl1X4v
-	 jvpNcNp5nTtystr8gfteUiAJLKMBNi55lyHzhgWCqIzWTw1ivr0c9k6zP+FF7ov2JGqyR
-	 dbRSdeEk7KBADmrZcexrvT0YgqbcXzDRQ8UKTdwa3BF3AuG7e2UzUziozKi8JgRR5Fg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749308;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=O6sdXePEGQnCUklksv2f3AL3E61fXpQ8dART8Ftimg8=;
-	b=lye+InAeDWTdhKuVo8XqliLeUNPKzzaUR8S3575oufc46+dOMemivFKcPeeW/v1uc32p
-	 Y7vpxY892E/m4Nrjmci8yZh9a+NcJtyo5yDtt4cDlHKtfw6lUi9or47khgtuFILPX/YRY
-	 tqHJW312mVh/gRZJ+qEGkjK+aTlMgziJnGYB+UNfEHrISFLa19asRfzJezZLtOB2N4VDC
-	 YbHM2oThb5DTYCA5xDi0To/YIdOOP8ueZf0u9Inqc9PkbTICXeH78KJAJREeRYy6x2Tkx
-	 xiIkYOv1/bARineHqUtjaMYCM/OVRkeyAbUbEK8UAuU7Jd3B947h65WvId8Fiiv8n/g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=JoZmsgyc;
-	arc=none smtp.remote-ip=66.163.184.147
-Received: from sonic309-21.consmr.mail.ne1.yahoo.com (sonic309-21.consmr.mail.ne1.yahoo.com [66.163.184.147])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793749313;
+	b=YIkFuTOicYMJ+5R9euIn3XjfJF7UIlSqVzcii6cKb4C6iyoUSOgY/vvX7ekUa0t1BImD
+	 YTgaPtoNUujoioq1St87IJv+SNCx51H7mTguAQbIGXNUC9As1EV4E2x3994Cba6Y5D7hf
+	 lBCa26a1eMdUvP9SIiF3EGCegQjKN39+Tu7OiQoODt6nprocdTx9DPRIDVD/04U8MGFCc
+	 VaFoTbA2gYPFKIDmuvBWpNC8aUHYUZW+rIdQjnfbpBNW+5QX7RQUQbM99zhwIUfv2qoTb
+	 ZsDzsNxEpzAyMR1S6F3Qnr/bFvQFPM55aNAUjc4VaTxMoCcSEsI94vnGdHe4hxJc5wQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749313;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=upTfiQRy+DzSxk9UIPPnCZDadurRE8rswVOHeOJf8Eg=;
+	b=lYV6GMn4GzY5YuPAfJbfxRGqxfY2stwZ71Z4tSJbNCe6vxHzB9BvuUhOP4EWwWvyLQau
+	 8BkV/PNIvXKkkq8LzvHVkpzKZB5QVPDqM9yiQFBtlE9uSpaq8RhjhrA1VJW03hKt88vF+
+	 G7jpleVQZkCL9nv3Am6InuUJRDbnXqQBstI2lrN/fZ6xfDYtNsriAyygJZCTbpu3mzAkg
+	 Sn1VFwA+O+hdUzVCiB7MngLJUM74CEIRiPF28DsSb2ruHo3f85iZaHH3ZiOVR/xK5rdfc
+	 BZUAvCEgUzgAvXMQnF5Y2HBbA7rPPPIuL+6iGN3UZYR9momNMpihCEHKNwszx6twvsQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k54oUhuJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F2D606A324;
+	Tue,  3 Nov 2026 23:41:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k54oUhuJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793749312;
+	b=dZvFKvjQ+u+IkvmDlv4aIUsT1Xp7/fU5zjxCbOSHljouYuzGiL9RqNXWcWqxTQx3YdCY
+	 eH75yL0Xf1ZllXcwj8SCUah8TaxBQZpjeMVDFtNnO2Z/sHiQpbBbsxWqAB+L2HIbrzC73
+	 Pp4hDygWKHoQzsMsRzyhQClUru0/ZL/WgV0T6hnEwub6MmY3sBKnkwowwLwWTkmQ2wKb0
+	 qsMCgI/Gym2TmH6rfgBRn8PE685sbRO/2oYW23NkB0qLprJu5NjHNjWPeMf142FW26WVy
+	 GgJ8lG1dEytVK95WXohD7s/it3AgcLL0Fx2li+21XV6Xk/RnCeIXzfmpK7Hf/PXVS4w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793749312;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=upTfiQRy+DzSxk9UIPPnCZDadurRE8rswVOHeOJf8Eg=;
+	b=QI6XR1YuZTHTvc8NpcgnwTq9lzSxjqz2E3SGyy1vRiL/9pfKhs7SLgq8xPd+KPrbzxWV
+	 jf1Y866vmOeZZCjQjqmY4rRJR0/Pu9WLyaR2AxnyPj/oz5fWpDUa6jOI0+f2mQfqiGh16
+	 cOzxfW1Fk5Hg3HroczIy/S92nTzAt3dBcwYVx65tywUV/CvdG4UzojmX79nn5LapWx637
+	 ynl9/lnHVUTtavQJ5iBTyi1mVBC+sfHrnIN6ePClUdeeLltIYg/hhwVwi9gZ9cm45k8UH
+	 oyGcKLyNT0UWf8u4e0JaXHqMa/2HeYKSWqt9Oz1CXE1twMmSaiE8eLMDYzYAP172c3Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B7A606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:41:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0B7A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=JoZmsgyc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793749306; bh=O6sdXePEGQnCUklksv2f3AL3E61fXpQ8dART8Ftimg8=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=JoZmsgycoO8HAJv8AN/Q7ho0Su6Gh7Tj/kZ7NMTFPL1TU7W691e0XPFnA3DXvkhEiBlcogtuERL0uJavhz5WDxVhwBBnCbYg9cxLlA62Ex5TDKhLf9awu+tC3H0hs6rUtpoUgP9fq6gWLUrZ98OKl6OSG0gAqLgwMxYCFf3SqNthUo8ri4aCovl4aNKBa7bTlrriBo/0agFtD58cOYUx6rIsyTMKK7Z0ycaQQBcOmbyRxn2Kyea0zugphACHDZmbujgIMOmVS5iCCD/RxymfPGkJNKWmk8G7pkvbRc0qFgeSAtFsccus/YJzYzgWL3z/PcV2S8fP1Iqi6W6qP40gvg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793749306; bh=Fy2ozdKrh9FmRwvnVMyzhD97JBrR7GoS4h7bfoi3fjh=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=AwO74z0jrXxK41IgiUkC0CdyTF65NxDMVX+9pAaImYcbc9fDhDiQLS73iXH5sINtmzxwHl5tU9xWkLYGD1ELQ2CnjHa8Ws8FlSPU84m9GK9tolcFlDyv5NyFSatWZ9ZT4OaqrO1IWQHszLILEQPg+TnquMbOBL+3wuvVm20QDeCE1RUVOvIOTLqli0JhZhG8lCK0BZCMvTd4WF8G29kwd+hGIKL1VDbHo6eVHT2/mjLsCoiJjORv0vvxMUx8tnNXmR4ReMLI5tlUwY60i3gqLiAcQkcySVLVEEIkv+8RLR2W3FlXeCgWXKhPzA9JiDLY6zdHCXnOWzJ1v8FY+OKLJg==
-X-YMail-OSG: 4uCNa08VM1n.s3bofF.YJlLGcKzw95KEQwPgFm3AjaV.0nRk5X961CHzUtXGyxf
- ezAe8pCG2iFX5NFkx8.W3OcEKJLw38MHc.KBJ_hlPkP5uGSyADKK0tsQTt7FQuwrWaSC1W5DJhyg
- S2BeObiRUphXHbfDKnJHGejfWupgjifSSzGgW.ovSr.kicAxDU8aSlNQhZwtk1WA_RLy6SS2a4Ve
- HzI87aNizp_pjhjspV1Kc7dWxuHlkkYWTMr437Ji31knJKnpVkhCJDSTzpmDf8kZ4wl2OtJmLbCH
- enpgPypxh77JQw9PGbk8wEKmd.mY6CmzcFzVlPs_GGE.EZI.xvoZm5gG9m1R46VRt5eIqXXJYhmV
- AoZpFh2avIvHPx55vDgACPhVkyQH3d1D.Q22EV3PVQOkJmcvsxos9b7r20JsGxMI1TosYXzBGkWC
- H59dc2MvLmdU8X5pCOoGEMaS3lfBSxq6VsEguJYYHLVnZGEGfwLMgHA1Cof4Jc4PxSsPsDupFSpz
- 7T5fQQNZlu9jmcM3Z9L42luIkPI5sUpDLgLlSzMWtDiuzcIZ.DenNy_7ua5AgxnCFtiCwqenY7pt
- n1jiwCN9C9K_52hDz1q_3Ac8XwJl0jaFoBbhN9GCQCD4Vkv5nXooxWX4jedsThvz11En8dXIOEaW
- Xqk6BBGQCI5S9LF_MPlsbN7xKGcPSKdfgsnIBaiet5poh8Y6RgEa79_6cmwBluvLNsNBpGSQioho
- CfRUg72i71OesTKRAhyhoHHRtAJMYk.4902BVPC1UW5zKMF5LsJ2elkmpNivqHchpQY6UeHjA.NJ
- DQbtAk2r3WNJV_tYmc.tT7OPYUxCf5Vz0swx6qfCxM02iwbMLb_9brpgzgumwLn77fqfFaBlhsyc
- dVuVHJOlKA4fhLnFWGadqCvY9w8JRn6LOXCWwA76E_NAiKrdRR1gpg7aTODFt.pUVhKrvXqIO8Id
- MSJx2_DJ8CL85QKIYEKrhA8uQS4GEOK8I1DRyHaBXQArP5ckh.nYZBqPxqEQZ_VBnqIjafXTfb6b
- kHbtmvQj2T0Qu5KGTNzOwIym5DUwugBiB0PSw4amkIIKQYnb2YLEijSuLakX6XSWwh0SsbRJ9c0S
- l.Nn02ayEj5LsQuiWG6fq1n4d3eX70u0MJtn_7TPvEmb.0gEIf.AjlAbxS41fVV_6SoSeeLsdjQF
- Ff99R0hnpiPALYLPKDhtzFzTNd2N5teLLuCeajzMsekDFl.rJOUb9zKePgZ0kj5nmsDqvW524n7n
- THjeStfmWvryRs6s4NGTS1nEinpm0gJhcGenfNkce.x.S._UtzhE0k9xuMQbtIz418EiYVauI5LS
- TFWk2g6YJfXYA13vehuL4T7bUIKVbs21LaWSeBc8Sgl4hDDTkVa543LYb90N29eiQiQhy0w.A14O
- xmsPy8bcoShsN7R0R_7s7kaw6bB0MXswHd3JJ2miOT10IeaAZ4ns0A0L.P.BKOcE8pMRix_rerBF
- 8K.MPzkCHs.hxVSMFmDLq56jjz6wHKM_6553AYrVcjNyc8hTPxphq73xSHjfZke9Nt3lbyQ0mCbo
- 1CxoYgMuqWPNbX58Vqt3SQgACtF_2Uk.pTUxWC4EuQjcOltiTsFhna3zSBOb4dvlkHWlaNr5Vh53
- 03VVqbmhXF9YnRfzaVgvu6cVGvPztwY8eMEYrGDEf_J3CZta0DB2n_XYCUtyOWUCiCXtC3ZK3JjD
- khhs.EvzwJbe1G9pFMMxLA1J9fbSCnCZmTvU9fSNLCiSZC_WPzH.fFI4PgSTrprGfeYxTlSE2mjX
- 1Sxz7a6QjF0vajbV4YvunvYZEnjGZPlK7Dk0lAFAEIgLeLU7rXUhHgrj.2Lz02YzrvmP7ZiAL7hX
- JfYMb1H59Q0mNpCW_IgQjhqogvxtnaedY8oesCk597F.rnOwQREdFfTqvaLUTJW_pyRTlNAEBpO2
- PTQ7BUmJ4CBLUXU7xjkgKX66siEhLN408IIGRHeBNNCPGsppuZrMp7nIGyYcPjkXpNIghn8LXzZH
- 3ah3BQzxgWOiUPF4Vu7nyPc_s3bkmOBe4CUa7c2VKXRYAyRDAp7T_FevX3SQc4Nj9brwVUMfTt_w
- OR.P90IoysHHj.e35BkfdZLcqzKTt_xtC6fBMmgnY4mAWTVb1.JqpL1qQLexDwHBLhk5n8MmwnIK
- yEHH2CIuhZG3X4iTJH6c7pKTreGKis0tebXNNg_bYizJLkgAzg8FszaR4wsdpmJnUlBF.LWroWI7
- VlSN7vEovF3XOx2Tha_.l8rXjyFmKgyXTvk1mg49WtLutZi7dLocSmW1J7U54cKpe2tnoJOEXlJJ
- P7w2uAGo0cwfTgvskdBXcTPJ20kz7dbBnS9pjT5H44quSJqrXEm0-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 5b17de1b-df8a-42e1-bded-2a3c818cefe7
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic309.consmr.mail.ne1.yahoo.com with HTTP; Tue, 3 Nov 2026 23:41:46 +0000
-Received: by hermes--production-ir2-5dd9bf4598-lsjm6 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 07fe932f9edb1c7406d42f3371a6c20c;
-          Tue, 03 Nov 2026 23:41:43 +0000 (UTC)
-Message-ID: <6c6155f0-0431-4ef9-8067-dbc104af710e@yahoo.com>
-Date: Wed, 4 Nov 2026 00:41:40 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id 78D541F000C1;
+	Tue,  3 Nov 2026 23:41:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793749312;
+	bh=upTfiQRy+DzSxk9UIPPnCZDadurRE8rswVOHeOJf8Eg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=k54oUhuJybkreWCynO4qR+7dEnL8a1A9SOIg2LLtzR0OpA9ExXWO+PA5aABf4vVB7
+	 YvoV5cq5wx7rjcqGAklJQvZZ3POXp6xtOPy4jiMJQqR7z9wZwbRUBWhpIarpilMVW8
+	 G6zcIviZMVrq9HqC1WuHoKbkE0F9b3YS5tGk3c4i6DXXE354M+RBpNS/gHIPX2Ye+6
+	 7OYAOqxBL2rRw4+0w2v7X2lsHw/XmxM15mWf463S9H25YHkkh1WiYCtrV4exaPeJO7
+	 jPruAaS/sfavFOYS0KI6cYsK75rU04ToRdUTaTCMtla6Y53ZfZt6GLlxuM31n+Ptgq
+	 FMpo/mfGWDRQA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C682C46B87;
+	Tue,  3 Nov 2026 23:41:50 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Tue, 03 Nov 2026 23:41:51 +0000
+Subject: [PATCH] serial: 8250: fix use-after-free of IRQ action name on
+ port removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,79 +83,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v7 10/10] net: dsa: realtek: rtl8365mb: add
- support for RTL8367S-VB
-To: =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
- <c7f88f0e-b174-4715-b148-5f9a2648bc2f@yahoo.com>
- <auph2uJLrJ6Nj0dh@analog.com>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <auph2uJLrJ6Nj0dh@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.26871 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-serial-8250-irq-uaf-v1-1-24223dcc3119@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAD5x6moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNjXZD6xBxdCyNTA93MokLd0sQ0XYMUA+M0i0QTi0RLCyWgzoKi1LT
+ MCrCp0bG1tQDmZD5zZQAAAA==
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ syzbot+bc6b37960b1d13f68f9f@syzkaller.appspotmail.com, 
+ Joas Antonio dos Santos <joasantonio108@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793749310; l=3589;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=Vj1DUOXxenSAPPDmSUT0HtmMZVzSOWReRJpl/rpE5m0=;
+ b=RtK5sce09jMCtpUzz10809eZmaAN2TcxLlFael8IJpcwKhsR0wJZYm3UPfvtQqtuZ2Vjtn6l1
+ 9hl+ZqqFMV+C28dIDEk1Lbxc8PkFg4qTOt6jy+w5m8/sVYfWOeDocGp
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 11:52:24PM +0100, Alvin Šipraga wrote:
-> Hi Mieczyslaw,
->
-> First of all, apologies for such a late review! I hope you appreciate
-> the feedback anyways.
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-Hi Alvin,
+serial_link_irq_chain() passes up->port.name directly to request_irq().
+The IRQ subsystem stores this pointer in irqaction->name without copying
+the string.
 
-Thanks for the review, no need to apologise. Your comments crossed
-with the v8 I had just sent, so they are not included there. I will
-address them in v9.
+When the port that originally called request_irq() is removed while
+other ports still share the same IRQ:
 
-> This is OK, but in the same spirit as my comment to your other patch, I
-> think we want to make the C and D families equal. So why not:
->
-> -#define RTL8365MB_MAX_NUM_PORTS	11
-> +#define RTL8365MB_C_MAX_NUM_PORTS	11
-> +#define RTL8365MB_D_MAX_NUM_PORTS	8
->
-> and add a num_ports member to struct rtl8365mb_chip_info. Then below:
-[...]
-> The above becomes something like
->
-> priv->num_ports = mb->chip_info->num_ports;
+  1. serial_unlink_irq_chain() removes the port from the shared list
+  2. Since other ports remain, free_irq() is NOT called
+  3. irqaction->name still references the removed port's name string
+  4. serial_core_remove_one_port() frees uport->name (kfree at line 3292)
+  5. irqaction->name becomes a dangling pointer
 
-Agreed. In v9 I'll rename the constants as you suggest, add num_ports
-to struct rtl8365mb_chip_info and use it in rtl8365mb_detect().
+Any subsequent read of /proc/interrupts dereferences the freed string
+via show_interrupts() -> seq_printf("%s", action->name), triggering a
+KASAN slab-use-after-free on the freed kmalloc-8 object.
 
-> Another thing I noticed in the L2 patch was that you added a macro:
->
-> #define RTL8365MB_D_L2_MAX_PORT 7
-[...]
-> Which I wonder, can you even get there if the num_ports is 8? We didn't
-> need that protection for family C. I think you can drop the macro and
-> this check.
+Fix by giving struct irq_info ownership of the name string passed to
+request_irq().  serial_get_or_create_irq_info() now kstrdup()s the port
+name into irq_info->name when creating a new irq_info, and
+serial_do_unlink() frees it alongside the irq_info.  This decouples the
+IRQ action name lifetime from any individual port's lifetime.
 
-Right, with num_ports capped at 8 the core never passes a port above 7,
-same as on family C. I'll drop the macro and the related checks in v9.
+Found by LLM-assisted code review of syzbot-reported crash patterns.
 
-> The reason I'm saying this is that I saw quite a few places where you
-> have a construct of the form:
->
-> if (family is d)
->   // use family d constant
-> else
->   // use family c constant
->
-> Which can become a bit hard to follow/maintain.
-[...]
-> I hope it's possible to remove most of the if (family is x) { do
-> something } constructs and keep things flat.
+Reported-by: syzbot+bc6b37960b1d13f68f9f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bc6b37960b1d13f68f9f
+Fixes: f7048b15900f ("tty: serial_core: Add name field to uart_port struct")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+---
+serial_link_irq_chain() passes up->port.name directly to request_irq().
+When the first port sharing an IRQ is removed, kfree(uport->name) frees
+the string while irqaction->name still references it.  Reading
+/proc/interrupts then triggers a KASAN slab-use-after-free.
 
-Understood. I'll wait for the rest of your comments on v8 and then
-move per-family constants into chip_info where it makes sense, rather
-than branching in the code.
+syzbot link: https://syzkaller.appspot.com/bug?extid=bc6b37960b1d13f68f9f
+---
+ drivers/tty/serial/8250/8250_core.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Thanks,
-Mieczyslaw
+diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
+index 42319843c..f73113daa 100644
+--- a/drivers/tty/serial/8250/8250_core.c
++++ b/drivers/tty/serial/8250/8250_core.c
+@@ -47,6 +47,7 @@ struct irq_info {
+ 	int			irq;
+ 	spinlock_t		lock;	/* Protects list not the hash */
+ 	struct list_head	*head;
++	const char		*name;	/* owned copy for request_irq() */
+ };
+ 
+ #define IRQ_HASH_BITS		5	/* Can be adjusted later */
+@@ -122,6 +123,7 @@ static void serial_do_unlink(struct irq_info *i, struct uart_8250_port *up)
+ 	/* List empty so throw away the hash node */
+ 	if (i->head == NULL) {
+ 		hlist_del(&i->node);
++		kfree(i->name);
+ 		kfree(i);
+ 	}
+ }
+@@ -145,6 +147,12 @@ static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_por
+ 	if (i == NULL)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	i->name = kstrdup(up->port.name, GFP_KERNEL);
++	if (!i->name) {
++		kfree(i);
++		return ERR_PTR(-ENOMEM);
++	}
++
+ 	spin_lock_init(&i->lock);
+ 	i->irq = up->port.irq;
+ 	hash_add(irq_lists, &i->node, i->irq);
+@@ -172,7 +180,7 @@ static int serial_link_irq_chain(struct uart_8250_port *up)
+ 		i->head = &up->list;
+ 	}
+ 
+-	ret = request_irq(up->port.irq, serial8250_interrupt, up->port.irqflags, up->port.name, i);
++	ret = request_irq(up->port.irq, serial8250_interrupt, up->port.irqflags, i->name, i);
+ 	if (ret < 0)
+ 		serial_do_unlink(i, up);
+ 
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261103-serial-8250-irq-uaf-0d03f8a48a98
+
+Best regards,
+-- 
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
+
