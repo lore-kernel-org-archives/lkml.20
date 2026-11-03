@@ -1,47 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695411;
-	b=Cx+Zqe85QWQ8rAFeqT8EY1dltHy3QJnztV7TnNuMWxTDQKo+74rai5Ck57HL17DmYO7m
-	 And06IVmYOU+K1Hr/iU9pUJFIJLPhld2AWZcjwxa8NjvGafcx3kOPJ55h7gtP0f+zY5KJ
-	 NfuXyaWCg0NnUZPKaY2t5JEPchcSYad/AQWUMSZe5I4tC/A08EJkuYQvIETQp5tqJJZjY
-	 eKIILIr7LrYaERMdKq817IeS3TIHr36euhzmyLahutHjBL9dw5tD3bNTS4lYjnGNDvz8n
-	 5CVmFKBieIamoUpp3m5GvVeNGiQFztNzhsTwUAyyr3gexvRTDn2/d+x1rdDdqYzGF3w==
+	t=1793695438;
+	b=k1aSDLkXOAKBsnaf6AbnmSur0vi+iHcrR3HT5EptOjnS8bBah3VCJgOz6oPUxDscaoGP
+	 3ltSOAFvgKNFENDgFjcj+j81lzE01dSTpb05BsWA+Sd11M1KBmY9uvhfMUMLY2G+Lznq4
+	 ySlmKfHgabd1e2j0s0FTuil2dEvkvX9Kk/RbhG5fJ91yuCGZ6RzQgOJ8TLhV3kUwKEpHW
+	 hG3uand/D2cE+PG/eLZ6I0NxO1rXZztshvN3MYrY57UZgSbrxLB2wJjFhlbMa+4+L5453
+	 6QWp9tJbu2cATOuIbZbJMIeNzyuI7b5gvxw14fk+KjucxVqaX3eZbAT4+wWwtD8vETQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695411;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9rOlyWNhYNjk73/KIQlw7+avCgdlg5A1v1ZamKnB7DY=;
-	b=45DKNV6uPYJ9OVcdnn61tIb4WT2NPJmTIoTOCOK75/YFY9XFhVPrtciXwOv6LyzZLGJd
-	 UE4vqsFVoe3nT1rS2/QcSLIzIJreBPJyscW08iv5tkrSX0vwCILgZ3ZFmVgc/IGs/Scnq
-	 EpLvmQGWc6y6kjo5Thdlqbngj9e+apUFvDwMMjlPtqwHSv7hajM3Sv+eDRXK0LkbA+Gan
-	 2tgNmK98u7Jj2OQ+j97DPPR27cwDqA/t9Uc6Tq0acVlWwiLrylk5rD5Pioi2diWZn8xUJ
-	 QfS/ZhJIK6JkhbVGh3WwGErduxDWeQq139Cn8IlVmqkvO5bP34sdeRnCxMWcTHD/2LQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695438;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=dwUVwHlLq9+4ar10B3+uww2PxgckiO6ewtLyyeNYiio=;
+	b=4uFruGZLkTy0LuS9i+F049e8vOg1cKDMtL95uK9VzB2HVe2RLTvk1A63bO+QNm9sQbPz
+	 m9xqSksml3YiTHwkkRYpALVwIX3EPFAVs5Vk1/AuO3rUPRkcQ6J16Zn1/pgj1bewgvVFH
+	 /Zm8QQzMd8HLySWROkMwuzDfUKocMgNn3JjhiCZDlpXxOW8hILJ3uVAOJynlxEbsrGeu8
+	 DG/Lj7OzMFo08broelZ2hvYRv05MRTxsoF98ibfMXffX3H3Rr/yw9esBW8V1mnNVTqJ63
+	 Crumffh+Z9ruky5lvwSavJMkCAaziMZbdAA8Wj1QipklRTjGUv0SV1GqmjLBEU6s4Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZ44Vsxv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b="RZp/ZV91";
+	arc=none smtp.remote-ip=117.135.210.8
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09445606A95E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:43:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A82606A940;
+	Tue,  3 Nov 2026 08:43:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04A82606A940
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZ44Vsxv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C861F000C1;
-	Tue,  3 Nov 2026 08:43:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793695410;
-	bh=9rOlyWNhYNjk73/KIQlw7+avCgdlg5A1v1ZamKnB7DY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MZ44VsxvmaTrmP37/zR0druRWVYIzyNDuuFyrQaW1rkmCbWNDOTU9oCjmW+CS3rA9
-	 XTIO1y8MFeddQ3c+wFjZ1Fc42rlR5g2d38jo8z0KH/QWxsprEFrajdI7KGbrwuBbwq
-	 1ESIHkSzXJa7n+eozadF00gR4t47V8qrG8RNudPMJB+HqwAcmZuCEEDxyVqaSbWSo1
-	 2Qqij15TIKZnFzrNTT6+/bBaBWIrX2VUNvq1SpQPTvNN58SN7iM546zbyxYLQ8oPsp
-	 eQzJNGdEs+IswTqTjsOvYmD2YnDtAEVY46MC9thRmhcbCdlh2JvilCjbjy5kde364g
-	 j1e//FcRMfZIw==
-Message-ID: <df9c504e-e62a-40c0-a513-e8b8c758dd57@kernel.org>
-Date: Tue, 3 Nov 2026 09:43:23 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=RZp/ZV91
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=dw
+	UVwHlLq9+4ar10B3+uww2PxgckiO6ewtLyyeNYiio=; b=RZp/ZV91pw+7iro0Ga
+	9Mdar6EmvNWVqdfAbgZwB8+WwPvjbgXnmjyFJ1VyuGL4sYhJshZyZW5UpFjNqoPD
+	hn5bKeIbUVc9i8/KSIGl3QTLKPJpnFr6FcD7xcDdJ/47gQREkEaqyPjgVoe2lb3y
+	FM32cjLeEfZ2uwerdzsj1AT+Y=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD394uLnulqIw9mCg--.27301S2;
+	Tue, 03 Nov 2026 16:42:52 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	michael.bommarito@gmail.com,
+	gnault@redhat.com,
+	alice.kernel@fastmail.im,
+	kuniyu@google.com,
+	nicoyip.dev@gmail.com,
+	mail@david-bauer.net
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: [PATCH net-next v2] l2tp: bump tunnel stats before dropping the session reference
+Date: Tue,  3 Nov 2026 16:42:49 +0800
+Message-Id: <20261103084249.1337657-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,127 +70,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] mm/gup: break out gup_fill_pages() helper
-To: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe
- <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Suren Baghdasaryan <surenb@google.com>,
- Yuan-Hao Hsu <aa9736195201@gmail.com>, Christoph Hellwig
- <hch@infradead.org>, linux-mm@kvack.org
-References: <20261102193026.3860700-1-riel@surriel.com>
- <20261102193026.3860700-2-riel@surriel.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261102193026.3860700-2-riel@surriel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD394uLnulqIw9mCg--.27301S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXrWfAr1DtF4rXr1fKr4DJwb_yoW5ZrW3pF
+	WUG3yDKr4DKr1UAr18Jay8X3W5CrWSvayrCF90k34SywsxZa4kJa90yr1Fqa4DCrWvka1Y
+	vF1vqw15XF4qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UA9N3UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlAzftmrpnoz9NwAA3q
 
-On 11/2/26 20:30, Rik van Riel wrote:
-> __get_user_pages() fills pages[] and flushes each page's caches in an
-> open-coded loop.
-> 
-> Move it into a gup_fill_pages() helper, which the follow_page_mask()
-> call chain can then use to fill its own pages[] slots.
-> 
-> No functional changes intended.
-> 
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> Signed-off-by: Rik van Riel <riel@surriel.com>
-> ---
->  mm/gup.c | 27 ++++++++++++++++++---------
->  1 file changed, 18 insertions(+), 9 deletions(-)
-> 
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 7d43ce717b246..cdbe2ed3e6442 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -633,6 +633,23 @@ static struct page *no_page_table(struct vm_area_struct *vma,
->  	return NULL;
->  }
->  
-> +static void gup_fill_pages(struct vm_area_struct *vma, unsigned long address,
-> +		struct page *page, unsigned long nr, struct page **pages)
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-unsigned long nr_pages ?
+l2tp_udp_encap_recv() derives the tunnel pointer from the session it
+has just looked up, so the session reference is the only thing keeping
+the tunnel alive.  Both error paths of the function drop the reference
+before jumping to the invalid label, which still dereferences the
+tunnel:
 
+	tunnel = session->tunnel;
 
-> +{
-> +	unsigned long i;
-> +
-> +	if (!pages)
-> +		return;
+	if (version != tunnel->version) {
+		l2tp_session_put(session);
+		goto invalid;
+	}
+	...
+invalid:
+	atomic_long_inc(&tunnel->stats.rx_invalid);
 
-Why is that check needed? Why should someone try filling something that doesn't
-exist?
+Reorder the error paths so the statistics are updated before the
+reference is dropped, removing the dependency on the tunnel staying
+allocated after its last reference is gone.
 
-> +
-> +	for (i = 0; i < nr; i++) {
-> +		struct page *subpage = page + i;
+Currently this is safe by accident: the only live entry point is the
+UDP encap_rcv hook, which is invoked under rcu_read_lock(), and the
+tunnel is freed by kfree_rcu(), so the tunnel memory outlives the
+dereference.  Making the order explicitly correct keeps the function
+safe regardless of the calling context, instead of relying on every
+future caller holding an RCU read-side reference.
 
-There is no such thing as a subpage as Willy keeps saying :)
+The put on the version mismatch path came later, with commit
+4d10edfd1475 ("l2tp: Fix memleak in l2tp_udp_encap_recv()."), which
+plugged a session leak.
 
-Why not reuse "page" ?
+Found by inspection.
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+Changes in v2:
+- Describe the change as hardening instead of a reachable
+  use-after-free: the socket backlog path pointed at by the v1 commit
+  message cannot be reached, and the live receive path always holds an
+  RCU read-side reference, so the old ordering is currently safe
+  (Sashiko AI review).
+- Drop the backport tags (the Fixes tag and the Cc to stable)
+  accordingly and retitle the patch.
+- Correct the index line: the v1 patch carried the blob hashes of an
+  earlier draft of this change, so its new hash did not match the file
+  the diff actually produces.
+v1:
+- Link: https://lore.kernel.org/all/20261027063657.1359170-1-xiaolinkui@126.com/
 
-	for (i = 0; i < nr; i++, page++) {
+ net/l2tp/l2tp_core.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-> +
-> +		pages[i] = subpage;
-> +		flush_anon_page(vma, subpage, address + i * PAGE_SIZE);
-> +		flush_dcache_page(subpage);
-
-Now I wonder why GUP-fast doesn't need any of that. Likely because architectures
-that support GUP-fast don't need any such magic.
-
-Maybe we should in fact base this on the gup-fast batching series and also use
-the helper in there (passing vma=NULL)?
-
+diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
+index 7e042a3e648c..b7183b527fc4 100644
+--- a/net/l2tp/l2tp_core.c
++++ b/net/l2tp/l2tp_core.c
+@@ -1083,16 +1083,12 @@ int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb)
+ 	tunnel = session->tunnel;
+ 
+ 	/* Check protocol version */
+-	if (version != tunnel->version) {
+-		l2tp_session_put(session);
++	if (version != tunnel->version)
+ 		goto invalid;
+-	}
+ 
+ 	if (version == L2TP_HDR_VER_3 &&
+-	    l2tp_v3_ensure_opt_in_linear(session, skb, &ptr, &optr)) {
+-		l2tp_session_put(session);
++	    l2tp_v3_ensure_opt_in_linear(session, skb, &ptr, &optr))
+ 		goto invalid;
+-	}
+ 
+ 	l2tp_recv_common(session, skb, ptr, optr, hdrflags, length);
+ 	l2tp_session_put(session);
+@@ -1100,7 +1096,11 @@ int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb)
+ 	return 0;
+ 
+ invalid:
++	/* The session reference is the only thing keeping the tunnel alive
++	 * here, so account the invalid packet before dropping it.
++	 */
+ 	atomic_long_inc(&tunnel->stats.rx_invalid);
++	l2tp_session_put(session);
+ 
+ pass:
+ 	/* Put UDP header back */
 -- 
-Cheers,
+2.25.1
 
-David
