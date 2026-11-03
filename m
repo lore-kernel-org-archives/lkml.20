@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698944;
-	b=lVTIHeoR26aYbRGR6ACqQMs4pkNjr1M8dJl14m6uGCFHcCupiwcEu1kgiS41fHWeLGY/
-	 lNi7ttyPwaPCmlYEt/DdVSGXQQ+1g1Fm282S1My2/1/Oly3Bric5BL8jm4uoAeyPixOvP
-	 fc8s7ZaxtPmVs+lUlW2kKk/EzVW+fqAr7LuWgdINcTXEq7nvxiTgDvGdoPAmNg/r+mKQo
-	 MoKlNUjgvT+ubaGCyDATWm1r+OEkLviCsi21dLZLjZx7sdrwj2aq/n6+4uqetmmu0jnfp
-	 cnAWVW+8siiJMhYVVDwQgxiKSFg9cgalrRyzE7LLbHcuKLM1OzTZVYek5pVI0ndg9Cg==
+	t=1793698931;
+	b=tLaZDFeLVP0b06Ip6G/flEYxudPsfB7pUNoRPWQExqgzwopQ/iNDx0F460XhJOEyrDbR
+	 F/w0tiMCajpr0K7ouOqf6j9BQx2xzM5WG73xrhmaZLU32jPEc4hjXE3Ldvji9S1+WgqUV
+	 xbt7VNfm1F8BetrR3SY3ynlHoLZ0gtOZrKkZ8aeM6KgoaEpXHKtdjoGyKbBKp07bRoQfd
+	 hMvuAA+snfoQwRs5ftQyWgzA/loenSAyqRP3mzmYbAOFMvUxHmK6tBBFggZXCkg3C/HYe
+	 MxLjAhbd+Ne23XhWr1df/8DPnnLAEMdZdsW6bMyCp/3VH1nSzBkYlx++QREFPRqqr2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698944;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698931;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 MIME-Version:Content-Type:X-Change-ID:X-Mailer:
 	 Content-Transfer-Encoding;
-	bh=vVZw9R8RIfvxlhxDuHSHzu20mAMzOHZdwLo39yrD/qI=;
-	b=je77L9Q9kQ/IXSny9XnVrfj6UMvDQorD8WvBDEXnQzTKIsXHYS6iGfFkAvFH47BOiLcJ
-	 GX46rEdHWCLETN6kW8rAP53/KGXCSFEgC44MdFbFJPZy4/5OlNBzYAfPP+9jB0mpoOXqN
-	 Dp8ev/sVAyvnFNU+g34AjkWI41H4B9bDdc9CLkvDnKN0fv9BngO6BAzef+Oo04g5ePbzf
-	 MnRQlk8HD5OFxlxYeF3OtM1pgH3hbPGySkkjo/uvOaxPwEBxwBqTxZ0aBJqe0k1FjT/Xt
-	 qCTg0RNkJnvmRtKVXQHbxme8xpt5vKi2+3K58Cho57/XMtToL5vqEuWphuPtms2iMuw==
+	bh=Q6huOVjpXzdiG1Dm5N7Lgt8ABR0hut+OKCrUTExPU9s=;
+	b=yqTP8cznEFTxDasNFBZW2ozfWongjzcPS9x5MjL+KhVLCSA92Ih0zu1+h5LNPfzBVV/U
+	 IUn+W+7wO1UHzJLuQZIiuQXRiUdQSpMDoHPnf0P9OG1YS3T0a5fGBZVGhbqygdp7C85V6
+	 AIVesh8xxsySEkiym+xn7sJSXVZpBubscOTXJe6EB5tD//GwCCnzYdOVizEa0aJ06Y/mO
+	 rYR7rq9Qw6qw2pXlK1aR9ED/gzfjTrZqvg+SAJSZvQIAkX0483kwC9tIjv5vkBi3mwBxU
+	 L63tovqcyjhVOg3/JKyK8HwsGTS4IU90fWbSllVE58D3QraPyhB/2ZFT3+AfqiL0+0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IFZMKQig;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCd0Sk78;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AADB606A33D;
-	Tue,  3 Nov 2026 09:42:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9590606A324;
+	Tue,  3 Nov 2026 09:42:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IFZMKQig
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C0FA1F00A02;
-	Tue,  3 Nov 2026 09:42:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCd0Sk78
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7EAF1F000C1;
+	Tue,  3 Nov 2026 09:42:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793698944;
-	bh=vVZw9R8RIfvxlhxDuHSHzu20mAMzOHZdwLo39yrD/qI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IFZMKQig9C2zQfezTJDINGHwID8tGr5XdRMRYby0np3pnAL4lboxf5qIhG+2bMNDd
-	 O38MbzpwlElh/9O+GJT4vZr+P0DNMwzHWhZ/cHcYSj1I4BdZnFOqbOrNTLEFm/zXqr
-	 8ApKz3ZkRRyhe0gGAMm1Nx07ws5iGC7+YZZyk0lurcqC5UcsSpfbN444dE8fo2Samc
-	 pn+n52M0PVqfHa5GafV6NzrOSCNOPhyspIxaz7d3zxCgjcB+IM3NguXBTWg3uG8mMS
-	 t/cBP9gXC7cIRbM8pfskD189fpdgsi4Os3vadcgSuDin/X0vM5xHX4yRjVQckG4sb9
-	 3iu47OLvxTCBg==
+	s=k20260515; t=1793698930;
+	bh=Q6huOVjpXzdiG1Dm5N7Lgt8ABR0hut+OKCrUTExPU9s=;
+	h=From:To:Cc:Subject:Date;
+	b=fCd0Sk78HqgFqmvbyeae6YrEZHkSwDEKDHGFPDuhPBDAX+7Fcp+rN3P37gMauJUSp
+	 /W+L9EkED9Dks2O5rADGqRWWgYi4aF1X6NreCsSYpfJW5IIZbHzBVqGSvj6s+jH1me
+	 PT2J+aLgRT9jY0QkFgizBWm2ajlhucadikkQwdImFNuF/O6teV4ARYY7C/Xr6oXST+
+	 iuNT3U/LKuQUfzvHr850Nw5hW6E0X7KwRZFxv721IrLqqOCrRSb8w30arKKDn4a/BJ
+	 ubgzRIrzahegYDqFXN0yQpJglD864dnqHHgjOaxSLOtt1Z1Lwb1cHqf8p69sVPMO19
+	 uFtkWuORl/OEQ==
 From: Leon Romanovsky <leon@kernel.org>
 To: Jason Gunthorpe <jgg@ziepe.ca>
 Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-rc 4/4] RDMA: Remove pointless links
-Date: Tue,  3 Nov 2026 11:42:00 +0200
-Message-ID: <20261103-rdma-branches-v1-4-763c07cc14aa@nvidia.com>
+Subject: [PATCH rdma-rc 0/4] RDMA: Clean up the MAINTAINERS file
+Date: Tue,  3 Nov 2026 11:41:56 +0200
+Message-ID: <20261103-rdma-branches-v1-0-763c07cc14aa@nvidia.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-rdma-branches-v1-0-763c07cc14aa@nvidia.com>
-References: <20261103-rdma-branches-v1-0-763c07cc14aa@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,41 +58,27 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20261101-rdma-branches-9cebcd4601f0
 X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
-
-These links either no longer exist, point to stale tree, or provide no
-useful information. Remove them.
+Clean up the RDMA-related sections of the MAINTAINERS file.
 
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- MAINTAINERS | 3 ---
- 1 file changed, 3 deletions(-)
+Leon Romanovsky (4):
+      RDMA: Rely on the generic Patchwork instance
+      RDMA: Add missing UAPI files
+      RDMA: Clean up the INFINIBAND subsystem entry
+      RDMA: Remove pointless links
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 54df71bd7d65..6004ff7ed8af 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14192,8 +14192,6 @@ M:	Sagi Grimberg <sagi@grimberg.me>
- M:	Max Gurtovoy <mgurtovoy@nvidia.com>
- L:	linux-rdma@vger.kernel.org
- S:	Supported
--W:	http://www.openfabrics.org
--W:	www.open-iscsi.org
- F:	drivers/infiniband/ulp/iser/
- 
- ISCSI EXTENSIONS FOR RDMA (ISER) TARGET
-@@ -14201,7 +14199,6 @@ M:	Sagi Grimberg <sagi@grimberg.me>
- L:	linux-rdma@vger.kernel.org
- L:	target-devel@vger.kernel.org
- S:	Supported
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/nab/target-pending.git master
- F:	drivers/infiniband/ulp/isert
- 
- ISL28022 HARDWARE MONITORING DRIVER
+ MAINTAINERS | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261101-rdma-branches-9cebcd4601f0
 
--- 
-2.56.0
+Best regards,
+--  
+Leon Romanovsky <leonro@nvidia.com>
 
