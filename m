@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793734045;
-	b=xbcctswGYMB2Icrrw3aDUpHI1gW+MgK+2l36PUcigHkDrI41PwcIhKlkxIeIJ2tFfboq
-	 SsKq9cavX8MDSSUKE1e9e1NKxYCzyLs3iYlHveTIge2HXcaixDMLGrE23QKtZAy2WaYBZ
-	 GhKfYqcYWCiOxV0Hznx2YVmWFL/sPSHBKYtjw8FQUNwfZ9TNfbxP/EwuYlU0F1xhK0FiH
-	 sWFjbARJq0biJmu0xd//TXL01MSRrYYi7hOd2Q8r4xyOnF4nRR0boU5ANfzg31OI65yid
-	 6q7CnNa7A1jbup9tqKNrdqccphW5MV7N7sZd1xctukSL0jZRL6WTpcYqQIV0mVZw/vw==
+	t=1793734094;
+	b=uvxpWsAE4R4Hj2NRgo5bqUMoSfaFy7qq4P1o1WdCEiLjN2bSCLCEZmxU12Q2ffEsOWO9
+	 oouJ4oPyo36DF12Yp73rAYzCdQDKMw0k9h3a3K99Uz1HSqlxxHquTERaNtwVeHMZ8TQK1
+	 uI9c7LqlNsH23vUj/bg5J6LJP1uuAkbGK6cjs9n4IMe9uK2XZX9NBTDzK5/1mBOORPnbh
+	 WsA09D9xYUHOVVBIKxDAQNWVVzHDiQLOu4K1jC7D6/TrkbaKpphxXP6lGNkip4yKfAcVm
+	 rH9iEHMso95qI8L8y7gyPY9UVeEVPIRVbMjrLH1E6Ycm8z8QUAUakACafIlbfRrPtSQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793734045;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793734094;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uM7v3icM1TulOwWui44XsfGK5eoCNO1EvhFijxzbsbw=;
-	b=WUSV1/ACk3uiKSzhV7bLbrecMU1pYs+YsxXBapdvYrSa382IPs4Hfs4y+8LklobdtiuX
-	 YOByWnpXaZz2mKC1ToSd3pJLi8GI1o9+ZaNz9DUcDrB1++sn2P7vJzUnlJmsCw1clUgZo
-	 kIJPSNu1FWuWTxYDxew1v+Tr1hqHr15f9DuyKcwnUWmLlP89+F3Es1GAAxETLPnCr8CXW
-	 HQuanL1FMQKphk1f56xGuN2O8tEJ7QUIpIw2H1aXCVCByhNpbRSm65HA5Q4X7ZHdLVqRO
-	 7QBYUV5QmKLfQVws6D/j01+oaO0Bk3BdbRfKDbqCcfGNNrvnLGKDPXjHEOzT5OlyPyA==
+	bh=+K7XmP528TsFnUG/JVxK/UW4I1FIZw6fbeiM5ne0aYo=;
+	b=wTPzMR1gvbvGdjuqjU6mlymUG61GxR8gdJbr9jm1NJ0Wq/0L/qm6FbI7OtnhqJLnNTOB
+	 UnjAk4y1e2K92jdGpoRy0et7qM2GkGWXUTbycTAZEmq/0Y5IyC81zcDuq04RvBw8vTha+
+	 CDjcD1ac7/Jkv+k9DDg1g/woS8QX5WrHMP/Xx+0e4Jfb2q6Vyp1uLon9e4XZyYeekodKw
+	 sLjLjWKZduxTrhkMWi/gRhnXLz2BO+7qeOgAm8fyIpw8iWynqq2cu5UeKiTcKVwOPyzq0
+	 kKs+CKBj9ogrbSES6TnjIcJ8rE+njfSnBTINWfHs8vBsh6BE6Hlf4iyjlF7US+gL5XQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PTKgLAGg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBVUxWN3;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26909606A31B;
-	Tue,  3 Nov 2026 19:27:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458E7606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:28:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PTKgLAGg
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBVUxWN3
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793734044;
-	b=ATKjaw2dTM7uZsCULpakz9y25MCscMxd8G4c458xZ6/GRrB3kqlOlWKDkkTeesVkD2jX
-	 6AWMS0yEFsETzjnlF9JRDsEvywHRq9CqZ/rP4GNBHM8bzWSfi8nBEuhzaMRR1VuMwcxJk
-	 xztz/AblWB4CphJukJRNlQiebqTWCgh7Ja3b24Hypfj/01gGSZ4JaXRRNQCFr2njmTPQ1
-	 JyQlG6A+XLmEbO5oyYnANxR2+b1jrsjRrPzjlEIisI+EpSNrr7IdED/hzN4xD53ewrWFU
-	 4Y4b+6do2phAdVSznzn/Rr5pkTc985ExHc46GvQHl43Wgxfm70x7GYTiC5G3j57Vf7w==
+	t=1793734093;
+	b=Gb2oamLBYfrlM8NqY55IEAFDveCQOVqFg8qurwJnrATudyqxZCINtIMKjYA8ZzGGOJAJ
+	 A1XuzXHdPx0tKWC8A3P0VNy4f+gVEG+UKZ5ehQk05uTZPm3SQoqvwh3lCr7Rb13Bq4cyq
+	 qEA0Fvxq+qv0J34bEUCL4Vk3XQDScZe2O8WrpttK2YVuyQAzjjCy5BdR6ycDR8u7mFhX5
+	 /JJ9i2LfWaAl+6vEmvFDQo8ubnfdStJAj4xmT8Jpt/Upxfd/ufXPX08KQ7FRafuWkCg0X
+	 UlLP5g3kyTVt9ycXioZFTqkIjcj+iULHwsPdoT7YhR3D7EeqVA7918rZe8jc1LRmT1w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793734044;
+	c=relaxed/relaxed; t=1793734093;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uM7v3icM1TulOwWui44XsfGK5eoCNO1EvhFijxzbsbw=;
-	b=Gmk7HHfpp3RGfTETiDwaLNLQQ6tWuk5W8taiTdykYcCP+68qTXA1YgeZV2yhYCzwKa5b
-	 1gfM36WJ8F5rx5RT7bVNI6flKVv+8zm5kp5cPKEI6J7xYC5blj+S2saA5Y3pO3Ec4KHYZ
-	 HTgavE/ClVL431Y+I5OUo0p4os+xtQ7Qy2hJDZSX//buXVJcwJTqNaluLjkSc/uW/mDuo
-	 frxkg6sFJst0awnxraziWrfbrrh4WmotlbypcY6FMQkkMBoaW4ied02EUqjdXm3HSzXgQ
-	 8jlbukTAUAyvxcjoUfEmWocHExt6VFUHNeX24lgOMezF1fMC+IH4HFFt1Vio6cg3SpA==
+	bh=+K7XmP528TsFnUG/JVxK/UW4I1FIZw6fbeiM5ne0aYo=;
+	b=Ma+5m8AWHtc1Au7ATR6uYQxy+jdyKWvz647W3WI3XhhT/D5iXzqKPnsgkV5+LMQXq6qM
+	 WjuSdIPtlcivTzRPttShtWLI0b2gmJvlVP8NsVnynbHc+XGfkBJnImqawigi/2IwLb1DI
+	 FS4gjYh/Zt4iVbHxHi9Dyc2r4YoTE/qmtnR/5jSo8F9bXe+47vqiA1JCCC5M4KfwUVLVP
+	 Ix0tqNsI4JH/3sLElH7cHI5bDJ+Jp9rpUKr6H+BIcTVTwJ2GMGJNRWNFTKuCTt11kvaLt
+	 8BfC434w57fFpbVksoxTsnV5GxEnGIfaNNT7EP5QOiwy5x8ikOxUSAVYhiri3a+VT/Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3A0C31F000C1;
-	Tue,  3 Nov 2026 19:27:24 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5999B1F00919;
+	Tue,  3 Nov 2026 19:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793734044;
-	bh=uM7v3icM1TulOwWui44XsfGK5eoCNO1EvhFijxzbsbw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=PTKgLAGgNW2fSXM0kYZ/Qm/seuzkArLyfT4I3gQQTxE2G8lSKADny2WxPdNcUzbPM
-	 rOmC+evaZ4D8JXp1EyNBwO2XNpRKrFngAUzc7jKq/fiNBuOdXza6fdVhVd2ZB/q/GA
-	 OeCo159taO0WrFBA+0EmVyJqCL2DjA7Y1M7fyM1kOFEMeBu8c75d3mn2h3rUuXTVt5
-	 uQIIDNzFuPtK4Orru1txZ7WS9JZXK7bWL2bA00O+MKyfxlOpcbcmsRcjkCcO1EUfUL
-	 QDCwOnGsuuYEOAgo9CrGa8t6ehYw/HRHTjNPfPlnthhxJ3EhJb/JrXQGbX7I7QURmI
-	 hlBWq8Hmk9uEw==
+	s=k20260515; t=1793734093;
+	bh=+K7XmP528TsFnUG/JVxK/UW4I1FIZw6fbeiM5ne0aYo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=fBVUxWN3U7v0AxMCKv9afY3n4/scG0NCPWU5UmJrxNCJoNqGpHKxVriydzlpcMAVc
+	 ge2SI4vzZdkiot1cQIxC/yTt10NWexjKVsKp+DilevXCSy2/AloF3hqbL2SWYSBULn
+	 NMBclLvcpOwD8NYGa6ARrALjcj2vNnnQH6JTMI7/SmKcdAb59wmBIeVGSK/HPCx+Q+
+	 p2DrgC8Ut0cnd5vRW/Z3j0T0ON4i8k/lYZU8SJdMnHHIcy2sSjQL4G7DMFmParjbpP
+	 6bCxbtTBLNUrBUpfrxUXIycWEWUDhjDScdSC/BwBb4t+jvbobQat2czWhWkvzJa9Fi
+	 6fZyDWhmypVCg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A896646ABE;
-	Tue,  3 Nov 2026 19:27:23 +0000 (UTC)
-From: Ivan Verbovoy via B4 Relay <devnull+ivanverbovoy.gmail.com@kernel.org>
-Date: Tue, 03 Nov 2026 21:27:19 +0200
-Subject: [PATCH] arm64: dts: qcom: sm8150-microsoft-surface-duo: fix da7280
- pinctrl state name
+	by lkml.kernel.org (Postfix) with ESMTP id D4B5F46AC3;
+	Tue,  3 Nov 2026 19:28:12 +0000 (UTC)
+From: "David R. Hedges via B4 Relay" <devnull+linuxdev844.thelittleman.net@kernel.org>
+Date: Tue, 03 Nov 2026 13:28:01 -0600
+Subject: [PATCH 1/5] drm/nouveau/gsp: fail control calls whose reply went
+ missing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,69 +84,68 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-a1-duo-da7280-pinctrl-v1-1-be1a6dd10f20@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORtoO9Dqq4iHLIkuQ7rRbmMw9
- u5WPX6H/9+haDYtcGt2yLpasTFV+FMD3FN6KZpUQ3Dh7L1rkTzKMqLQJUSHkyWe8xs7FSEmjuE
- aobZT1qdtv+/98XdZukF5/s7gOD5L1h5JeQAAAA==
-X-Change-ID: 20261103-a1-duo-da7280-pinctrl-beddacac8298
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ivan Verbovoy <ivanverbovoy@gmail.com>
+Message-Id: <20261103-nouveau-dp-fixes-v1-1-892f4bd357cd@thelittleman.net>
+References: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
+In-Reply-To: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dave Airlie <airlied@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ "David R. Hedges" <linuxdev844@thelittleman.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793734043; l=1561;
- i=ivanverbovoy@gmail.com; s=20261103; h=from:subject:message-id;
- bh=0js5pdnbTdQyzcVH7Eyw2YpiHysbE+V0Y8mJj4fF7JI=;
- b=RiH3K/R1JRzpBkJIo7DjuAXmYGNE3FhsOK/XAyLQC8ue2NxiLReGgvu9T8ZGQZzvu7oChjSQ0
- EA4YRzzS1TcCCz0Lo18EYHNHy2CBbuZCiYS404fLAJtR+ayJpbzN+4M
-X-Developer-Key: i=ivanverbovoy@gmail.com; a=ed25519;
- pk=0AchqTH1hJFToIUeFfQRlVzzuaWQDs4e75SxT2y3s8c=
-X-Endpoint-Received: by B4 Relay for ivanverbovoy@gmail.com/20261103 with
- auth_id=1396
-X-Original-From: Ivan Verbovoy <ivanverbovoy@gmail.com>
-Reply-To: ivanverbovoy@gmail.com
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793734092; l=1563;
+ i=linuxdev844@thelittleman.net; s=20261103; h=from:subject:message-id;
+ bh=hRrbjbCV1yWJ+Tf4TceO0O/RoGm+JN9bs3miAwLKNC0=;
+ b=6s12OYfwt2UO14gX7497JNyOhA9zhT4/8AHID6LT0VcGuyiRRNzPWfVfvBvnfpxe4/vknFRFo
+ z48TbizjuXvCS3Cgmaa503BHH9hYz5crRbWHqwooqyH4QUz/6Bmj1ws
+X-Developer-Key: i=linuxdev844@thelittleman.net; a=ed25519;
+ pk=Cynzuei/w0GLdh3LuNJdvH7aaszLrHSxY5UyujS7l+g=
+X-Endpoint-Received: by B4 Relay for linuxdev844@thelittleman.net/20261103
+ with auth_id=1397
+X-Original-From: "David R. Hedges" <linuxdev844@thelittleman.net>
+Reply-To: linuxdev844@thelittleman.net
 Content-Transfer-Encoding: 7bit
 
-From: Ivan Verbovoy <ivanverbovoy@gmail.com>
+From: "David R. Hedges" <linuxdev844@thelittleman.net>
 
-The pinctrl core applies a device's "default" state by itself and the
-da7280 driver requests no state of its own, so the state named
-"da7280_default" is never selected: gpio42 stays as the firmware left it
-and its pull-up is not applied. The interrupt line is open-drain and
-level-low; after a suspend/resume cycle it stays low and the threaded
-handler runs continuously (about 2900 times a second) with no event in
-the chip, which slows the whole system down.
+r535_gsp_rpc_rm_ctrl_push() sets *params to NULL and returns
+PTR_ERR(rpc) when nvkm_gsp_rpc_push() returns an error or NULL.  NULL
+is the normal result when no reply was asked for (repc == 0), but
+r535_gsp_msgq_recv() also returns NULL, after a WARN, when the message
+at the head of the queue claims to be longer than a message can be.
+PTR_ERR(NULL) is 0, so the caller sees success with a NULL reply:
+nvkm_gsp_rm_ctrl_rd() hands the NULL back as if it were valid, and
+r535_dp_aux_xfer() and r535_dp_train_target() go on to read their
+reply fields.
 
-Name the state "default" so it is applied at probe.
+Return -EIO when a reply was expected and none came back.
 
-Fixes: d1f781db47a8 ("arm64: dts: qcom: add initial device-tree for Microsoft Surface Duo")
-Signed-off-by: Ivan Verbovoy <ivanverbovoy@gmail.com>
+Fixes: 4ae3a20102b2 ("nouveau/gsp: don't free ctrl messages on errors")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: David R. Hedges <linuxdev844@thelittleman.net>
 ---
- arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts b/arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts
-index f37e11bde067..4078a7521a2e 100644
---- a/arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts
-@@ -372,7 +372,7 @@ da7280@4a {
- 		compatible = "dlg,da7280";
- 		reg = <0x4a>;
- 		interrupts-extended = <&tlmm 42 IRQ_TYPE_LEVEL_LOW>;
--		pinctrl-names = "da7280_default";
-+		pinctrl-names = "default";
- 		pinctrl-0 = <&da7280_intr_default>;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c
+index 70b9ee911c5e..ea925a9d0531 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c
+@@ -44,6 +44,9 @@ r535_gsp_rpc_rm_ctrl_push(struct nvkm_gsp_object *object, void **params, u32 rep
+ 	rpc = nvkm_gsp_rpc_push(gsp, rpc, NVKM_GSP_RPC_REPLY_RECV, repc);
+ 	if (IS_ERR_OR_NULL(rpc)) {
+ 		*params = NULL;
++		/* NULL is only a successful reply if none was asked for. */
++		if (!rpc && repc)
++			return -EIO;
+ 		return PTR_ERR(rpc);
+ 	}
  
- 		dlg,actuator-type = "LRA";
 
----
-base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
-change-id: 20261103-a1-duo-da7280-pinctrl-beddacac8298
-
-Best regards,
---  
-Ivan Verbovoy <ivanverbovoy@gmail.com>
+-- 
+2.55.0
 
 
