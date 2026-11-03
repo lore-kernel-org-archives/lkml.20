@@ -1,53 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700330;
-	b=TdOi4qTQblbTzOkcAyrTP8h4jafjVh1nkWLQMRkJiYD3/An0iA/JRgbx+2o2W9D+kFEZ
-	 WRn8hqTeruBHg8J7sfpuWeot6Gbji4hfjo3ZDr1PCJGq9z5cyWjAhPaQ54U+mkzaENla8
-	 w4R0Eq1WzzmnSHrOh9FLnWq5cLv3zch+3IXY8hDIwf38/B+cxUE+9q2GdXU7ENhbpQufh
-	 ZiP5WGk2L34K5pamx+sSwbww7RNut4i9fUQCFTOXttdGHQps73+poB/879ye6WtvyZPKW
-	 0zYyTKDyb3V8gwedE8j6d18q0C8saduaeBYcE8XMeL+LDstAJoAPHGgErJtNHUmEQxQ==
+	t=1793700337;
+	b=ANctgZRhj/nAgdo8XHxTdatWUvOFOtGE+dGb7XCoIKCAgjz/njrvj1gFVPl/FtO3VzEi
+	 zWhd60aA9zdgMg/TTfLxclC1lx4+ttZ2nj/GYjLJB5T8nNrsILJCUzaf7Mw9cmCWltzBg
+	 O13eYeTGdr4wWOeKUTjBniT5UEsoDHuPhvGS3i0rhYLzYaw6UbQB6cXma+xKnL+EbmVU+
+	 a0bbjPnC6762ZHLYrmOJmqgQ8XPELgBlDs3R97foZ1e8r5oxMDNPpoJbzh9D5hnavAeSh
+	 P+WDqn0PwmHCMZQn4OR88OHlnriRNwY7/py//s3tXnushhwfu2N4PSoBtrg3USYfpeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700330;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=9C/X2YQ+/o0IqEAQQc4J0LZ9Oq8K1zfo4He9kP/ME9c=;
-	b=TtGGvkEyPyl9Ye2R4S7WAn58K2ih/GhTf3Vm9HAMpCuODsdHy6EDDEdij9MVHGwHHb1l
-	 yE5+OMQi8wqniKo1eejH9K6+H9fYYxkhgLG3WnLonf/OqOp4rYLZCQqcaZNqh7IeGmSzz
-	 gzZIk+K7dQhb4F4s7lVqeVjXpJ4Llv0oocd5V5rPwxDlCCNBLPESZ8oASKK1QNphItvzF
-	 sQBEkHqZjWeHQA5tnji9mgrGUvsLonyEKI0N2Ph+aGpkTRLeAabKcKwcC8J1kPxGUVo2Y
-	 U5wu4R+xqt0AlizrNsMn1hWtNSUwyhHhWrZ/YoJMQgc9QMWhaLgUU4P6IRMS5qWjjEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700337;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=HCukR9YFAOk3lavwPJ7DeboS3Lw+qEhNBmLe1sbsC3o=;
+	b=1ZNef7yUvoxkvx66kxU0tExzbhGhTLjncVCQQrxqI+wdHfBg5aFCbJeKRIDXULw4TppT
+	 Cal64UQDsZTYf/pG+7aE+ha1yV59aoWCbELPRuAYRu291eV2qUeySt40j9jM+0p8IC8A5
+	 AFI16Dtza1s1NylfH76vTCSAB+KQ59Ln5BtieuHjf8TcLYEVDjeh7f+xZ7knfEWBwfASK
+	 H57bZGZTgDrAndQOIB4dlmvHvomSId1Dq13zo56OMkEVqCk+ku3w6V1BA9tf36kmcu9QB
+	 Crjp6txQVF4fetsD9qCbjX7rgbjjgO9a2yGTMomD3TwkiuN+q871ot/E7IsnElS4e3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=dEQ9j6d4;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9128B606EE9F;
-	Tue,  3 Nov 2026 10:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9128B606EE9F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=dEQ9j6d4
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5F816A164D;
-	Tue, 03 Nov 2026 11:05:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1793700327; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=9C/X2YQ+/o0IqEAQQc4J0LZ9Oq8K1zfo4He9kP/ME9c=;
-	b=dEQ9j6d4WuVrwbjs1jp7QALQiQ8fSOfh/BfTHhSTLggv9oQSOBFXa4Of/UMrhBRVDuByEa
-	rT3hi6KZ3B4CQBg7GfGlvZEbE+TWbk+BpXkgTWaJgozCB9CI8oTsF31+5+ZeqWU71qnLGH
-	e5a3hpz3wFBM5jNn/ydIpARiYAu+NDFqj/MM/ov/sRr9iDIbx6aOU2xGBp+aUs02evLJP/
-	Z5QVLOOufW2T6eSf7c7CzxETFnHs7DrubIRAhrEBk01O2ndGAmSVnsPmdnHYDGMNaU3YMv
-	ttUVJnlUTFxcdtlexWnZUujPjJ0jHMr/avpGRs5mLLiVvEw+LaJ3Bb0AqWoZsg==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Tue, 03 Nov 2026 11:04:58 +0100
-Subject: [PATCH net-next v6 4/9] net: bcmgenet: rename ENET_MAX_MTU_SIZE to
- ENET_MAX_FRAME_LEN
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F996083637;
+	Tue,  3 Nov 2026 10:05:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F996083637
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAHGJnjselqfHs7AA--.2489S2;
+	Tue, 03 Nov 2026 18:05:23 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Madalin Bucur <madalin.bucur@nxp.com>,
+	Sean Anderson <sean.anderson@linux.dev>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: fman: drop the FMan device reference after port probe
+Date: Tue,  3 Nov 2026 10:05:32 +0000
+Message-Id: <20261103100532.1309969-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,79 +58,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-nb-genet-mtu-nn-v2-v6-4-61d5631676e5@tipi-net.de>
-References: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
-In-Reply-To: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAHGJnjselqfHs7AA--.2489S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kry5ZFWUJw47WF15Zr45Awb_yoW8Zr1fpa
+	yDGa909rWrG3WY9w1DXa1IvF10kw42y34rWryIyw4SqrsIvryrtrWUZFyvvF43ZFZ7Wa4Y
+	yryUArZ7AFs8J3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
+	IYCTnIWIevJa73UjIFyTuYvjfU7nmRUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIBh+QAAsf
 
-ENET_MAX_MTU_SIZE holds a frame length, not an MTU. Both users program it
-into hardware that expects a frame length. The name is wrong once the MTU
-is no longer fixed at ETH_DATA_LEN.
+fman_port_probe() looks up the parent FMan platform device with
+of_find_device_by_node(), which takes a reference on the embedded
+struct device.  The reference is released on the error paths, but not
+after a successful probe, and the __devm_request_region() failure path
+jumps directly to freeing the port.
 
-No functional change.
+As a result the reference is never dropped.  Put the FMan device and
+the port node before returning success, and route the failed region
+request through the existing cleanup labels as well.
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Fixes: 18a6c85fcc78 ("fsl/fman: Add FMan Port Support")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 4 ++--
- drivers/net/ethernet/broadcom/genet/bcmgenet.h | 7 +++----
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/freescale/fman/fman_port.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index 9cb0cd7a9a216..a0f170bf35ef5 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -2659,7 +2659,7 @@ static void init_umac(struct bcmgenet_priv *priv)
- 			     UMAC_MIB_CTRL);
- 	bcmgenet_umac_writel(priv, 0, UMAC_MIB_CTRL);
+diff --git a/drivers/net/ethernet/freescale/fman/fman_port.c b/drivers/net/ethernet/freescale/fman/fman_port.c
+index 1b8fef69114e..faf1e35399cd 100644
+--- a/drivers/net/ethernet/freescale/fman/fman_port.c
++++ b/drivers/net/ethernet/freescale/fman/fman_port.c
+@@ -1850,15 +1850,13 @@ static int fman_port_probe(struct platform_device *of_dev)
  
--	bcmgenet_umac_writel(priv, ENET_MAX_MTU_SIZE, UMAC_MAX_FRAME_LEN);
-+	bcmgenet_umac_writel(priv, ENET_MAX_FRAME_LEN, UMAC_MAX_FRAME_LEN);
+ 	port->dts_params.fman = fman;
  
- 	/* init tx registers, enable TSB */
- 	reg = bcmgenet_tbuf_ctrl_get(priv);
-@@ -2765,7 +2765,7 @@ static void bcmgenet_init_tx_ring(struct bcmgenet_priv *priv,
+-	of_node_put(port_node);
+-
+ 	dev_res = __devm_request_region(port->dev, &res, res.start,
+ 					resource_size(&res), "fman-port");
+ 	if (!dev_res) {
+ 		dev_err(port->dev, "%s: __devm_request_region() failed\n",
+ 			__func__);
+ 		err = -EINVAL;
+-		goto free_port;
++		goto put_device;
+ 	}
  
- 	/* Set flow period for ring != 0 */
- 	if (index)
--		flow_period_val = ENET_MAX_MTU_SIZE << 16;
-+		flow_period_val = ENET_MAX_FRAME_LEN << 16;
+ 	port->dts_params.base_addr = devm_ioremap(port->dev, res.start,
+@@ -1868,13 +1866,14 @@ static int fman_port_probe(struct platform_device *of_dev)
  
- 	bcmgenet_tdma_ring_writel(priv, index, 0, TDMA_PROD_INDEX);
- 	bcmgenet_tdma_ring_writel(priv, index, 0, TDMA_CONS_INDEX);
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-index e48ce39d3e7c8..6f40be5445e0b 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-@@ -28,12 +28,11 @@
- /* which ring is descriptor based */
- #define DESC_INDEX				16
+ 	dev_set_drvdata(&of_dev->dev, port);
  
--/* Body(1500) + EH_SIZE(14) + VLANTAG(4) + BRCMTAG(6) + FCS(4) = 1528.
-- * 1536 is multiple of 256 bytes
-- */
- #define ENET_BRCM_TAG_LEN	6
- #define ENET_PAD		8
--#define ENET_MAX_MTU_SIZE	(ETH_DATA_LEN + ETH_HLEN + VLAN_HLEN + \
-+
-+/* Longest frame the MAC must accept for the default MTU */
-+#define ENET_MAX_FRAME_LEN	(ETH_DATA_LEN + ETH_HLEN + VLAN_HLEN + \
- 				 ENET_BRCM_TAG_LEN + ETH_FCS_LEN + ENET_PAD)
- #define DMA_MAX_BURST_LENGTH    0x10
++	of_node_put(port_node);
++	put_device(&fm_pdev->dev);
+ 	return 0;
  
-
+ put_device:
+ 	put_device(&fm_pdev->dev);
+ return_err:
+ 	of_node_put(port_node);
+-free_port:
+ 	kfree(port);
+ 	return err;
+ }
 -- 
-2.53.0
+2.34.1
 
