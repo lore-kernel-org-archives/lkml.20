@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721314;
-	b=MTncO6bhj+ol1uncCFC+ZgtHHUQbIgCaDegfsNpg9owhokHYWOW74pJm/mjMACgb+viF
-	 n6b7u6g2515lpS8zhNo9mzzIcXfAXmeVXMUDOi+zTJJ5zTYQUcptVhHtt9+nYdVeRYPp5
-	 42h49dWuy9u71+axYS4seOjvlwiMXi32qdk+rGDOiWcC62c+0aqkN/qglHL5PB5W5kzhm
-	 D8nwlLxl5ARbLF5gjDEBEZse7QWKftYpD0dY+Vsft3vlzD6qXbcDmYsNQO0eO9BLaKErm
-	 91Nwet+CVfIumgPavqN8+/9YSl05GOKO4ymk2gnWj4DkJ6/Pt80O727ubH/2583NJQw==
+	t=1793721316;
+	b=Mnh5S3cMiga1ezDADU7DETEjzy61brmNNBTWPLJxYaTrnQZT2TNKVmK9mWyCGhSr7i99
+	 oTsPyStshfildMmBcQfUoNYfbLPNU4VyfXzaJYoh7T46qq2vwSf6woK0DuNFZyRTMz/AB
+	 wyqk1XP9shl9VaS4RVd4T30zdyciffjxYtWzTYDgMn1I34fXuQIkkjHlxRCRZItxr1IOf
+	 m/8ObYzoWe8DP6YvoaRhojN8gvg4hC2MOrLy1ud0yFuqWO6fShcuL2m+mhnBANYX9tvJl
+	 dNOWXiZZN18FA4epUAQMR/yYuxJE77oEH6j61+FJJsnFbp863LJpPuDXR5EluQ6Lxtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721314;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721316;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+bvowQ2tsMrsReD+KwAHfxLIFb4ikb5391MbuSpKn4E=;
-	b=N3f8eCvMlI3Z2Pkzp4TG8KQLIAn0HtvqSSTy77fGBsKHhbdGmVUX8vFKR/Lbd6hx0CvL
-	 G7edE66W9tp9iF+dkuT3801ArWuaQhoqOy9WwSI09NPFQHW/7BHZ8uqV3BpYTYBpPlEeH
-	 Yt8hmkAitPXPvT2DCvJGw15te9wMY9boSruMQOPx4BZgBi9Rv9N0/PLJ0LYnsze6pQ6rC
-	 ZKpuIVa0+noYxZzOGVOraXTFictYYCoRutFCKoZhhBaQk2aq8JZ/L7kyz5S1iVj2ryayd
-	 UKQZVdXgeha2or0TACv6oGfVkmQ6GrxmJWpkFxH7EOYHDVGaCSrCE7yGORWKnVsbPxg==
+	bh=qeNLbpSQYWeLzu/9GgYKukuneWHtvUD45tJUmCL2fts=;
+	b=albZEJ3QnfcfHdiudByJGrIvcG+kx78Hh/vK59O2TAkiZqf8GGJX7reRcyxCNTOZMsLY
+	 ABGYCFf3GfqCF5vLe8bDLNbbczvQZLLKZQxkL2TiU03SwfGtUJ6A8krDtPUKJk2b1GToK
+	 S2y8Z814IbuZugUurXyApyj1PWfyweP3YNjZSEEejAFHvimGmZVaiLIf1elHhwyXpeV8o
+	 hXEZjG5BD03POX1a71zytL3s7g0AtekzVT5QNMJM1TgMHlNKIDurJXamRWd+1JDVXhR9d
+	 sZB+PX9Wln4ESnKfwVvf76DfiVOlgBVHqDgEY84K/IemUT20nPTJMKSn9P8pb5+fHKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YG771SOn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KOCil7qn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7EB6083602;
-	Tue,  3 Nov 2026 15:55:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5F5606D825;
+	Tue,  3 Nov 2026 15:55:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YG771SOn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485D61F00A25;
-	Tue,  3 Nov 2026 15:55:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KOCil7qn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E1931F00A02;
+	Tue,  3 Nov 2026 15:55:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793721313;
-	bh=+bvowQ2tsMrsReD+KwAHfxLIFb4ikb5391MbuSpKn4E=;
+	s=k20260515; t=1793721316;
+	bh=qeNLbpSQYWeLzu/9GgYKukuneWHtvUD45tJUmCL2fts=;
 	h=From:To:Cc:Subject:Date;
-	b=YG771SOn5LCH41hN+89Pt4Ol9E33pLNQO0TsT0O7G5/d6YKDZ/wsgj586ovRKWSEk
-	 PbeuOXvwUxQ31ROOqcdNVWFOC8SzjcLlBYXGbNb0uzlsU2nkBMWxPSkkAVRejCYXeq
-	 30TfBT8/G0/F+z/4R3SLEoAl3fv+NqvQlMqjRXg96ZZOXY7L47uSRNAvzppc1EH1aJ
-	 +eEJ8SA3SCywua3aN27dQn5eRh4bYxfGQXCibX+qu6vMyWyChPNDblB3NXT1GejGIf
-	 lZH+8TmnjUqUb598PHcfJ8Ugkr6XvWIN1zQDZYkVoHdQSRpw2C16S2ckd98/gKkGea
-	 sq3A4604D0qSQ==
+	b=KOCil7qnJ7iH8OXOC7YbkX6YWpVpJt4vBJNx3+pVJhiPkuzPGNJ2TT8DwYVNClmKd
+	 t8+iMBaT4yd5oUUfaYiCeB3hR7XEztxJBgwaScdQUSRZ0/VmzNJXxK+fGcp9ynT/vn
+	 bwcXp26H5GOpe7Q+/+SkKnv+CKzvkG9/aWwLFqCVAQTW5k2GwyTY1GSj+tDbFGnigs
+	 NNMNdJzAHdc9gHuJ2bqJ8lGDfry/QBoxx9qE4EVQgNVCAtHy0Cp97OVY32rfM6kyeu
+	 4QoleFLc6K9CLsP/1wHua0LbeA/hl7i1LCqIPG7MRRs6rOUPXiZsR0xTaV79qVkBZq
+	 b7xBRr6+T3cXQ==
 From: Sasha Levin <sashal@kernel.org>
-To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Cc: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+To: Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
 	Shuah Khan <shuah@kernel.org>,
-	linux-security-module@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/landlock: print st_ino as unsigned long long
-Date: Tue,  3 Nov 2026 10:55:12 -0500
-Message-ID: <20261103155512.535137-1-sashal@kernel.org>
+Subject: [PATCH] selftests: vDSO: print tv_sec as long long in vdso_test_getrandom
+Date: Tue,  3 Nov 2026 10:55:14 -0500
+Message-ID: <20261103155514.535166-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,12 +63,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 32-bit architectures with a 64-bit ino_t, st_ino is an unsigned long
-long, and printing it with %lu warns:
+On 32-bit architectures with a 64-bit time_t, such as armhf in Debian
+13, tv_sec is a long long, and printing it with %lu warns:
 
-  fs_test.c:10511:57: warning: format '%lu' expects argument of type 'long unsigned int', but argument 4 has type '__ino64_t' {aka 'long long unsigned int'} [-Wformat=]
+  vdso_test_getrandom.c:184:40: warning: format '%lu' expects argument of type 'long unsigned int', but argument 3 has type '__time64_t' {aka 'long long int'} [-Wformat=]
 
-Cast it to unsigned long long and print it with %llu.
+Cast it to long long and print it with %lld. While at it, print tv_nsec,
+a long, with %ld instead of %lu, and cast it to long, as it is a long
+long on x32.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -77,23 +81,69 @@ build without format warnings there now, and the x86_64 builds don't
 change. The other selftests get the same kind of fix in separate
 patches.
 
- tools/testing/selftests/landlock/fs_test.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../selftests/vDSO/vdso_test_getrandom.c       | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index f725882fa4a78..a2dc9a7f0481a 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -10508,7 +10508,8 @@ TEST_F(trace_layout1, check_rule_fs_fields)
- 	ASSERT_EQ(0, stat(dir_s1d1, &dir_stat));
- 	snprintf(expected_dev, sizeof(expected_dev), "%u:%u",
- 		 major(dir_stat.st_dev), minor(dir_stat.st_dev));
--	snprintf(expected_ino, sizeof(expected_ino), "%lu", dir_stat.st_ino);
-+	snprintf(expected_ino, sizeof(expected_ino), "%llu",
-+		 (unsigned long long)dir_stat.st_ino);
+diff --git a/tools/testing/selftests/vDSO/vdso_test_getrandom.c b/tools/testing/selftests/vDSO/vdso_test_getrandom.c
+index ef402001e8988..504b84d4cc53e 100644
+--- a/tools/testing/selftests/vDSO/vdso_test_getrandom.c
++++ b/tools/testing/selftests/vDSO/vdso_test_getrandom.c
+@@ -181,19 +181,22 @@ static void bench_single(void)
+ 	test_vdso_getrandom(NULL);
+ 	clock_gettime(CLOCK_MONOTONIC, &end);
+ 	timespecsub(&end, &start, &diff);
+-	printf("   vdso: %u times in %lu.%09lu seconds\n", TRIALS, diff.tv_sec, diff.tv_nsec);
++	printf("   vdso: %u times in %lld.%09ld seconds\n", TRIALS,
++	       (long long)diff.tv_sec, (long)diff.tv_nsec);
  
- 	set_cap(_metadata, CAP_DAC_OVERRIDE);
- 	ASSERT_EQ(0, tracefs_clear());
+ 	clock_gettime(CLOCK_MONOTONIC, &start);
+ 	test_libc_getrandom(NULL);
+ 	clock_gettime(CLOCK_MONOTONIC, &end);
+ 	timespecsub(&end, &start, &diff);
+-	printf("   libc: %u times in %lu.%09lu seconds\n", TRIALS, diff.tv_sec, diff.tv_nsec);
++	printf("   libc: %u times in %lld.%09ld seconds\n", TRIALS,
++	       (long long)diff.tv_sec, (long)diff.tv_nsec);
+ 
+ 	clock_gettime(CLOCK_MONOTONIC, &start);
+ 	test_syscall_getrandom(NULL);
+ 	clock_gettime(CLOCK_MONOTONIC, &end);
+ 	timespecsub(&end, &start, &diff);
+-	printf("syscall: %u times in %lu.%09lu seconds\n", TRIALS, diff.tv_sec, diff.tv_nsec);
++	printf("syscall: %u times in %lld.%09ld seconds\n", TRIALS,
++	       (long long)diff.tv_sec, (long)diff.tv_nsec);
+ }
+ 
+ static void bench_multi(void)
+@@ -208,7 +211,8 @@ static void bench_multi(void)
+ 		pthread_join(threads[i], NULL);
+ 	clock_gettime(CLOCK_MONOTONIC, &end);
+ 	timespecsub(&end, &start, &diff);
+-	printf("   vdso: %u x %u times in %lu.%09lu seconds\n", TRIALS, THREADS, diff.tv_sec, diff.tv_nsec);
++	printf("   vdso: %u x %u times in %lld.%09ld seconds\n", TRIALS, THREADS,
++	       (long long)diff.tv_sec, (long)diff.tv_nsec);
+ 
+ 	clock_gettime(CLOCK_MONOTONIC, &start);
+ 	for (size_t i = 0; i < THREADS; ++i)
+@@ -217,7 +221,8 @@ static void bench_multi(void)
+ 		pthread_join(threads[i], NULL);
+ 	clock_gettime(CLOCK_MONOTONIC, &end);
+ 	timespecsub(&end, &start, &diff);
+-	printf("   libc: %u x %u times in %lu.%09lu seconds\n", TRIALS, THREADS, diff.tv_sec, diff.tv_nsec);
++	printf("   libc: %u x %u times in %lld.%09ld seconds\n", TRIALS, THREADS,
++	       (long long)diff.tv_sec, (long)diff.tv_nsec);
+ 
+ 	clock_gettime(CLOCK_MONOTONIC, &start);
+ 	for (size_t i = 0; i < THREADS; ++i)
+@@ -226,7 +231,8 @@ static void bench_multi(void)
+ 		pthread_join(threads[i], NULL);
+ 	clock_gettime(CLOCK_MONOTONIC, &end);
+ 	timespecsub(&end, &start, &diff);
+-	printf("   syscall: %u x %u times in %lu.%09lu seconds\n", TRIALS, THREADS, diff.tv_sec, diff.tv_nsec);
++	printf("   syscall: %u x %u times in %lld.%09ld seconds\n", TRIALS, THREADS,
++	       (long long)diff.tv_sec, (long)diff.tv_nsec);
+ }
+ 
+ static void fill(void)
 -- 
 2.53.0
 
