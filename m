@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740247;
-	b=vmxA9FY8sQcm+IrHcy/DEXZ5x7rqPpmnpr6e5oB1NowxWGlulzRswZSH/l98+BlkaFYX
-	 P/6SlbU0QRZUV8j45rIyVFExvh/9iHkPrOdKnFIUoe1xxGAdMTH0mHtdi4y7flkmt5Lnq
-	 rsAd/THs+8QxUWtblqX0TLg7jjWQivLrXrwsl0OOvohjPsp1bCjQL+ENd6H6WIkAAHqDo
-	 g2vlUrSDIKwqxpr/RVYV5gBKt1NAGP4Q57LmxpRYHZwRAZC7wL79fTxpnmQfn7eWrcAPd
-	 Wxk++owYwe6LPFfJ3GkG2+kyyqU3nlABL62yZ/BbNf/7Yf7JtFXPc+nZacjHw9WmQyA==
+	t=1793740263;
+	b=q3UmKRxq8jXA6A0eOzgmD2BOIK7Wstxw418qr3cd+5Hdr/qzyDPBzIC2x0m/jYnVIull
+	 Y5l10Nd8febHFTNDqdr3iA7+oe+iSOU9oI/ZDyYqDpLvdKbUzUJA/s1EwBbLnNLcEMA1t
+	 BvzMBsh8dTWnhWA2/rI/YgosrfxgpNZrcUx6QlFTrGuxiW7FjR12iReYsvr3JWlCNKpVJ
+	 MepmjhGimXx2cNsngLOskiOCKyve6iVF011SBRULtklLO5qyrfOU3wGx8mpzT25+DjBjM
+	 CcyXE8qrJTYTaYK9NBkMISzk3bV3hDigbxEiHrNDBX2syEDWclFFzrEntnmthr4MC8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740247;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740263;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=shbCkEoyCrifiYkEbQJnRfGxBCeG+XGkv8U8ujfmjio=;
-	b=fXNlZfN1zBz4mhIuFs1A033ndlPSG2YF9SadFySuNyRh3/mpLzzzvA2wlod2DhCV5aCd
-	 4x9coygW5E+eS6qZeLDgzr+8P/2qQLhmlpTF5f/cfmpOpzUBqXYAvU4aUIaEWs/pnuubC
-	 CopLaWzIviRXiRulbiRLJxxrMYlHxvi3twYlQ28y7Bo777FxqViILQtasFEV2LSopMXsv
-	 5oQH0TiGOTIXqLLqHv4rs3aSGRWrTMgSgZze0QG5vtDGPufgKhoaTbrHCcBiM8GIn0Cqn
-	 KM1NTevQe4qFsLobVOzNywBFHetK49h/vpL+4pWtLejt9B8iSz4dC+LuKeQrA/sxQAQ==
+	bh=hNifrZ/WZEw+wmjcAsPUampZoMi4WcDNpsWEtFvOZeU=;
+	b=q+X39e2fqa+zngl6jfcoJ345hsbqYRn3TW1asqBxCP4d15Bl/5PneQX0BwfG14WFjJnx
+	 xo9M1kvcohr2M4wW6nVPOArR9NnAV+jkOEOr43/ryWlPfiPlyAXeXx2bBRcoN1S817Ix2
+	 dKo68/tOLV7Y+49hlelCci8rwFB6HpNcvaAmptepmPfGJXrYK9CJvyHuHbmazE7Elm7gC
+	 L3VpJ556UCDLhV1PnmatVJTIxublaMc5KkfNitMg3/7OZ/vkjzeCRwOATUxJ7/K/ZclKr
+	 LgxsLjOdEgE0UBzCdt1yGnK5Ek8z5H/OklIEUmi+5EA3Zww0Q07fmr9+2fIbhJhvASg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=JcHbeplg;
-	arc=none smtp.remote-ip=79.135.106.30
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=YcGLNJCD;
+	arc=none smtp.remote-ip=109.224.244.116
+Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4692A606A330;
-	Tue,  3 Nov 2026 21:10:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4692A606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC84606A33A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:11:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC84606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=JcHbeplg
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=YcGLNJCD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793740245; x=1793999445;
-	bh=shbCkEoyCrifiYkEbQJnRfGxBCeG+XGkv8U8ujfmjio=;
+	s=protonmail3; t=1793740260; x=1793999460;
+	bh=hNifrZ/WZEw+wmjcAsPUampZoMi4WcDNpsWEtFvOZeU=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=JcHbeplg7ztSDTlLNpDjXvIqhFqZDWgtpKUw0y+C1bKWqFGbZDpz7Mi9peQrvHsm6
-	 lkB2L/PBWLpqebyx0gsTek0UfGjg2roVY5vrPViU+XkKQE3943Ki3MNpuyYePUqtpJ
-	 lvbCSA6lEEsDP5kyaQ+HLaRkiJ2OEds3l0TXU4rl/GA7FdWK1IGoFGu9L4A6YjyI85
-	 Vz7SpvisPpkUTdF7O6tMnThNYZu5c4/QB9jR7IoirDSwBCKRs9gFwKLuDdkcCpwyZs
-	 6mfA/cuqZ/Pdf6mqFXFHbudCddCLv1nGgzt9SFXbmgdxczjMBEAH12ZlvTkZU7cvxc
-	 wXukiB5dk4QhA==
-Date: Tue, 03 Nov 2026 21:10:40 +0000
+	b=YcGLNJCDtNtZSK3ucVFu90Sv0jk/Ky/IzlBRwgiK3FhcmK00RPMja2CVJuiOXzgzZ
+	 IRZOoS34uRjnkWKlecI5/irTynaU+q+oZ4Ho1fWIPoYAIMC97YKrxyBsOxz+lSLE7K
+	 s/s60nQF4C0+dYORvGtRRZgKDXsyEvduZvrOF/39KAm06bynVpsGn30eDfxkFsxZIY
+	 PL7OtmXkWmgxk2GPpzD2nPlJ8tV29HbFQP/N2wUBofayvQd/KWvWfCpJaD/DboyAei
+	 TIqPc0AP/k+/MZLOMCC6q3rPptj0+ITznDnWcKUvVcFBdIKJRzvBwvmo/JsNgkqKfc
+	 MEvPVTlHtYxLQ==
+Date: Tue, 03 Nov 2026 21:10:55 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 From: Valerii Sokolov <valerii.sokolov@pm.me>
-Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>, stable@vger.kernel.org
-Subject: [PATCH v2 01/11] media: intel/ipu6: move busy check to ipu6_isys_vidioc_s_fmt_vid_cap()
-Message-ID: <20261103211031.1573726-2-valerii.sokolov@pm.me>
+Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
+Subject: [PATCH v2 05/11] media: intel/ipu6: check irq_status mask before calling subdevice ISR
+Message-ID: <20261103211031.1573726-6-valerii.sokolov@pm.me>
 In-Reply-To: <20261103211031.1573726-1-valerii.sokolov@pm.me>
 References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
 Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: aabe814be3164106aa1bcdc20531ac031c7b475b
+X-Pm-Message-ID: 5ba67b23033f4b315fb08fb8e4d7ecd593201f77
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,65 +67,46 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-ipu6_isys_vidioc_try_fmt_vid_cap() rejected calls with -EBUSY when
-buffers were allocated on the queue (vb2_is_busy()), although the V4L2
-specification states that VIDIOC_TRY_FMT can be called at any time and
-never returns EBUSY.
+In ipu6_buttress_isr(), ipu6_buttress_call_isr(adev[i]) is called at the
+start of each loop iteration, before checking whether irq_status has the
+corresponding auxiliary device interrupt bit (adev_irq_mask[i]) set.
 
-Conversely, ipu6_isys_vidioc_s_fmt_vid_cap() lacked the vb2_is_busy()
-check (unlike ipu6_isys_vidioc_s_fmt_meta_cap()) and ignored the return
-value of ipu6_isys_vidioc_try_fmt_vid_cap(). As a result, when a client
-issued VIDIOC_S_FMT while the queue was busy, try_fmt returned -EBUSY
-before clamping fields or computing bytesperline and sizeimage, and
-s_fmt copied the unvalidated user format into av->pix_fmt.
+As a result, the ISYS and PSYS ISRs run on every Buttress interrupt
+regardless of its source, and their return value is then discarded by
+the continue statement. For the ISYS this means ipu6_isys_isr() taking a
+runtime PM reference, masking and unmasking the UNISPART interrupts and
+draining the firmware response queue on interrupts not meant for it.
 
-Corrupting av->pix_fmt while buffers are allocated breaks subsequent
-buffer preparation in ipu6_isys_buf_prepare(): if user-space left
-sizeimage as 0, the size > vb2_plane_size(vb, 0) check is bypassed and a
-mismatched bytesperline * height passed to vb2_set_plane_payload() can
-trigger WARN_ON_ONCE(size > vb->planes[plane_no].length), or if
-VIDIOC_STREAMON follows, program the firmware to DMA a larger frame into
-smaller buffers.
+Check irq_status against adev_irq_mask[i] before calling
+ipu6_buttress_call_isr(adev[i]).
 
-Move the vb2_is_busy() check from ipu6_isys_vidioc_try_fmt_vid_cap() to
-ipu6_isys_vidioc_s_fmt_vid_cap(), matching the meta capture callbacks.
-
-Fixes: 3c1dfb5a69cf ("media: intel/ipu6: input system video nodes and buffe=
-r queues")
-Cc: stable@vger.kernel.org
+Fixes: ab29a2478e70 ("media: intel/ipu6: add IPU6 buttress interface driver=
+")
 Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media=
-/pci/intel/ipu6/ipu6-isys-video.c
-index 129016e574..f394e78db6 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -290,9 +290,6 @@ static int ipu6_isys_vidioc_try_fmt_vid_cap(struct file=
- *file, void *fh,
- {
- =09struct ipu6_isys_video *av =3D video_drvdata(file);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/p=
+ci/intel/ipu6/ipu6-buttress.c
+index f1d236054c..debc4ac929 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+@@ -364,11 +364,12 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+ =09=09writel(irq_status, isp->base + regs->irq_clear);
 =20
--=09if (vb2_is_busy(&av->aq.vbq))
--=09=09return -EBUSY;
--
- =09__ipu6_isys_vidioc_try_fmt_vid_cap(av, f);
+ =09=09for (i =3D 0; i < ARRAY_SIZE(adev_irq_mask); i++) {
+-=09=09=09irqreturn_t r =3D ipu6_buttress_call_isr(adev[i]);
++=09=09=09irqreturn_t r;
 =20
- =09return 0;
-@@ -324,6 +321,9 @@ static int ipu6_isys_vidioc_s_fmt_vid_cap(struct file *=
-file, void *fh,
- {
- =09struct ipu6_isys_video *av =3D video_drvdata(file);
+ =09=09=09if (!(irq_status & adev_irq_mask[i]))
+ =09=09=09=09continue;
 =20
-+=09if (vb2_is_busy(&av->aq.vbq))
-+=09=09return -EBUSY;
-+
- =09ipu6_isys_vidioc_try_fmt_vid_cap(file, fh, f);
- =09av->pix_fmt =3D f->fmt.pix;
-=20
++=09=09=09r =3D ipu6_buttress_call_isr(adev[i]);
+ =09=09=09if (r =3D=3D IRQ_WAKE_THREAD) {
+ =09=09=09=09ret =3D IRQ_WAKE_THREAD;
+ =09=09=09=09disable_irqs |=3D adev_irq_mask[i];
 --=20
 2.56.0
 
