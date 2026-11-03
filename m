@@ -1,59 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717951;
-	b=shTAY5Fer8d5aRaNR5r9Q/rl5e3pgBktcXN6npdnTkwQRprPYeB35hNPstxX5jlzi7UY
-	 lSJvmIE2JpwrKx1lV5BwrgVLRKPEAPOhlsgmLPyh/ukzjIYpPabURnJKjs1bOhmZlPBxD
-	 xqXwl/zNBe04RRkDW3MtmaDGrGHneFBrZ0ZdioepaVxUurktpdHVdxhaG/eD9YX5eIMGq
-	 mqnaZjaEFFHIQqClpFCQgGTurlHp96oSe2s2s1Ba08HSfNHLqCzCR6OGsg5fmU1m1pTiv
-	 SQVSA6Fj5q5AyCdlBRjbx/dkZJ+tKOGxrZua9nJ5Hctsx1KhJwh84d37Hhr/MtlZT8Q==
+	t=1793717967;
+	b=UfktYrBYSeIgxzPpY93mVZilKRH1+PLBJ3OYoFHVsLjasiMQqbx486SPe4Ru7eWo+955
+	 vzOR1+ZYbh3Wq63YGA47HI7pAWb6N4ZKt6EZm4bCXeF+5iuI6K5C78Iw6ByIA53yEzrIQ
+	 ZRRbJ5dTnBjtsUFi4FZqIe0GfJFm3Isd0hvGhEVEAEM3AFCISENCKLDjsWVUCvIixe8iz
+	 vievVkc2l3fXb7WygK02YCyPH55uvbA8+lLxCV4e8wje4dHvZJbY4XMbtEjW2grDY0/IZ
+	 hC8UKtP3JkAaJL5r8ecrp0kO37yx6p+Iyja+Vwl8TJAEUgLVoRKqpx0dzm4eYTXkONQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717951;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SfHKgTJOIchjt97/Xu1pcULxY2i1puSQDcRhp56IYTg=;
-	b=fwrFtMUKNCL4qVIvBRh4gj/e+Zn0/MueVfkwEZtmwrCrX4YAZaETkO3E95AdUM8cTXjA
-	 toPQ6F4Hv49XqpoE5M5zSwRLdohCNtd2N5SYKP3x0WuEyllNW3dKI0aN5mWwcnWSxiTXh
-	 N3v1202nbh6nr9D+ltKc1FQZa3rPOUISJ9SG0TpSSrMPYxD9e6+DYFIDEjVJvFDzY9FIh
-	 oNeNCW1Gk/WlJv+Bw3a75LqlehuZsNxQy1Y4xWhvagm9Y+FIRViJRG+AS9FGyIx1he3kX
-	 9bSQEZvLZbpFT3i2zBfl76ASJQOjXbQb3DC2hC+k2RwIOYBKo4bf237oAfrCPIwUkXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717967;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=QOOunG6x00mFeX/w/BnxH7O4uOunqE+8oUGxItzATdk=;
+	b=FODlVbn1w9pO7igfqfxUlJ2Sv2ewsYIJ6kENpmlhOGigkXmgPjzNHN/xqYWwsDqzH2me
+	 K4PW8Hg0YdwdSDW017QS8XIXwm5jRndrIeQ0yE1CFNigX6OgNAlEWDEFc8izxt8giOkE+
+	 f93Ue1w+y8lvLN6jeMtBdnOZ/qBRRkWI6ckS2cHln8SewDSOIVw/Xkc69JOUsfhzEWkyx
+	 np/kVebUjKtB2WtoU56Tjf2bXuqzSWlyr0BeYymCB7WIaxK+IScPzqHN27Q/KRVI0SJPf
+	 Lx2U2Iz/UOr8VpW7oe3+KO15ijrq/VSDLvglNj/dj6ftdbJRY3fP/j6WpchAFvUGslg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOn3XXgq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KwPLw8iM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98E86070A94;
-	Tue,  3 Nov 2026 14:59:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CD9606BA15;
+	Tue,  3 Nov 2026 14:59:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOn3XXgq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B857D1F0093A;
-	Tue,  3 Nov 2026 14:59:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KwPLw8iM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44FA71F000C1;
+	Tue,  3 Nov 2026 14:59:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717950;
-	bh=SfHKgTJOIchjt97/Xu1pcULxY2i1puSQDcRhp56IYTg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hOn3XXgqNhEw7G/eEEQ1u82epDBE0Bq2OxxScCHiy/xNOIzR7j7Q6aEl4QdUERqAd
-	 NZgK04EENSO/I5/iFveizGAPwGdtCtC1SyMAuf8ZwUjSguCBVEorC0wdt07dOiHxgI
-	 i9ADTV0Ol4GH5B9JENQ6qBtEtF3iNsniubWtaVlsdaDG2f6+744H/vL2p2XtwqqXuk
-	 twesbQ7cIt9ObgJCRJLYbjzk45I44/DIfDl0ae+2x7nCdbutUI0BA1ECYarZCT7qrj
-	 ahwvrw606xfMaWDPnFJwd1L7F+JPlDj4bNWdCLJh/uMFy0mIkTfs7qewzCg6M+ypCw
-	 G23SLyrZxkkLA==
-Date: Tue, 3 Nov 2026 15:59:05 +0100
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Sascha Bischoff <sascha.bischoff@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Timothy Hayes <timothy.hayes@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 00/10] irqchip/gic-v5: Fix misc IRS and ITS host driver
- issues
-Message-ID: <aun2udtwaIo2RiRC@red-moon>
-References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
+	s=k20260515; t=1793717966;
+	bh=QOOunG6x00mFeX/w/BnxH7O4uOunqE+8oUGxItzATdk=;
+	h=From:To:Cc:Subject:Date;
+	b=KwPLw8iM34+GvDWpXRn2Qk8kaaFw+xTRTbO0wP6xXONGTNYdC+FO/VBJgaYxNuPw+
+	 MCVn0zi8zem0QPnXDxgl2iyqx/dEmryVQTzh4ELr/fIliRqjxnDGlA06M/+ueGPRD9
+	 ImqLuWyacvMaeup2FkUAx+5n7b8/HdxNABmDPCxxF6bvRtA/inNwxnEBS1GMgjh6EO
+	 7ccz3kY/MF501KOz0iEGAWwKQ7gMXX2owHIpSKOkeRAoh+/dIj0Zi19Mj6KExVRIiU
+	 9on7CyBGTS44PWpddAUvLk4PxSQ2oVetK/MkXtX6UsUHVlQ1n9ufAqLm+ulQijVNdy
+	 eOXnwdlOdOE7Q==
+From: Thorsten Blum <blum@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Marco Elver <elver@google.com>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	x86@kernel.org
+Cc: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thorsten Blum <blum@kernel.org>
+Subject: [PATCH RESEND 0/3] x86/vdso: Improve vdso=/vdso32= boot parameter validation
+Date: Tue,  3 Nov 2026 15:58:49 +0100
+Message-ID: <20261103145848.427309-5-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,80 +74,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=881; i=blum@kernel.org; h=from:subject; bh=uwB5tWMT98tHP7TVpJKSs4ixsyhtyBoJgd2JGHUineg=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkvv614yuRlc+BOaBW3aNHVy56crxf6rft7/c5Uf/53A r0+dVYyHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCROxsY/grN7Cow9/eV9u4K WXq/zyB4i4rBFdZnMfEVRwQjnE2nGDEynNXJfP+6NEnp3jzu9beTy9znM9zf9a7p1v2axTdclk8 qZwMA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 01:32:53PM +0000, Sascha Bischoff wrote:
-> This series fixes issues in the GICv5 host IRS and ITS drivers.
-> 
-> The ITS invalidation serialisation fix addresses Sashiko's report of a
-> race between event and device invalidation commands [1]. The other
-> patches correct IRS allocation and routing behaviour, serialise IRS
-> synchronisation, and fix ITS L1/L2 table selection, cache maintenance,
-> ACPI coherency handling, and resource cleanup.
-> 
-> The IRS changes:
-> * Reject allocation of an SPI without an IRS, preventing a null-pointer
->   dereference, and warn about low-quality firmware.
-> * Only program IRS_PE_CR0.DPS when 1-of-N routing is supported as this field
->   is RES0, otherwise.
-> * Serialise IRS synchronisation requests, as the IRS ignores a request while
->   an earlier one is still active.
-> 
-> The ITS changes:
-> * Serialise event and device cache invalidations because both use the ITS's
->   shared DIDR register, so concurrent writes are a bad idea!
-> * Select linear device and interrupt translation tables when one L2
->   table covers the full ID space. Currently, this selects the wrong
->   path, then the L1 table code rejects the attempt to create the
->   table.
-> * Check the ACPI noncoherent flag with ACPI, rather than checking the
->   DT's property.
-> * Correct cache-maintenance sizing after limiting the DeviceID width.
-> * Invalidate the device cache before freeing an ITT.
-> * Use firmware-node names in initialisation warnings.
-> * Release the reserved MMIO region if DT-based ITS initialisation fails.
-> 
-> I've CC'd stable for the IRS/ITS locking fixes, the ITS table alloc
-> issue, and the ACPI coherency fix, as these are the most important
-> changes to backport.
-> 
-> The series is based on v7.4-rc1. Thanks for taking a look!
+Replace the deprecated simple_strtoul() [1] with kstrtouint() when
+parsing the vDSO boot parameters. This provides strict input validation,
+rejects partial input, and warns when disabling vDSO for invalid values.
 
-Thank you for fixing these bugs Sascha.
+Adjust both warnings for consistency and update the documentation.
 
-Lorenzo
+[1] https://www.kernel.org/doc/html/latest/process/deprecated.html#simple-strtol-simple-strtoll-simple-strtoul-simple-strtoull
 
-> 
-> Sascha
-> 
-> [1] https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
-> 
-> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
-> ---
-> Sascha Bischoff (10):
->       irqchip/gic-v5: Reject SPIs not backed by an IRS
->       irqchip/gic-v5: Only set IRS DPS when 1ofN routing is supported
->       irqchip/gic-v5: Serialise IRS synchronisation requests
->       irqchip/gic-v5: Serialise ITS invalidation commands
->       irqchip/gic-v5: Use linear DT and ITT when L2 covers all IDs
->       irqchip/gic-v5: Honour ACPI ITS noncoherent flag
->       irqchip/gic-v5: Use firmware node name in ITS warning
->       irqchip/gic-v5: Invalidate ITS device cache before freeing ITT
->       irqchip/gic-v5: Clean the allocated linear device table size
->       irqchip/gic-v5: Release ITS MMIO region on DT probe failure
-> 
->  drivers/irqchip/irq-gic-v5-irs.c   | 22 +++++++++++++++-------
->  drivers/irqchip/irq-gic-v5-its.c   | 29 ++++++++++++++++++++++++-----
->  drivers/irqchip/irq-gic-v5.c       |  9 +++++++++
->  include/linux/irqchip/arm-gic-v5.h |  1 +
->  4 files changed, 49 insertions(+), 12 deletions(-)
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261102-host_gicv5_fixes-1eeea29d2ea4
-> 
-> Best regards,
-> --  
-> Sascha Bischoff <sascha.bischoff@arm.com>
-> 
+Thorsten Blum (3):
+  x86/vdso: Use kstrtouint() to validate vdso= boot parameter
+  x86/vdso: Use kstrtouint() to validate vdso32= boot parameter
+  Documentation/arch/x86: Remove obsolete vdso32=2 compatibility note
+
+ Documentation/admin-guide/kernel-parameters.txt |  5 +----
+ arch/x86/entry/vdso/vdso32-setup.c              | 10 ++++------
+ arch/x86/entry/vdso/vma.c                       |  6 +++++-
+ 3 files changed, 10 insertions(+), 11 deletions(-)
