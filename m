@@ -1,66 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728455;
-	b=XYl6OFzjebsrOMiJTu4FaQ0ozLBfDyZg3Lj4jfGXj96WENL/KtsdfmutCe/qI8dDOa67
-	 7AcontK3xeeZIbTroEGtAO82h6rr+ZhkEs7pCI4d0/AOyq/YzbFr1jSkC91DK0ByqtA6w
-	 /o3yh2OZkalgnvxiBWK/WTsk8DG+OnVFMxXmWs78PYDMxzORrd7hKryaKn/pAotKmZoLp
-	 s7qMG53dblz1m8eRmjtmmmk4AXcD13/dK05xvbrHGDEFDyt0Gkv1kch2sQU+P3HTfixlG
-	 +mZyvdVMWbxCApQTw4iSEwy1Gpnx7HIqfTmsyHkMDO6CvJKjAVdnwMVJojqLtoukdSQ==
+	t=1793728457;
+	b=eVpvc4Ci8fmnYXMMr3v3fuZ7Xdlkg9d1LQRX5UVzCyl8+FhwJaMIISaTP+FXhwRLsiVj
+	 Hxnkg1baVwsQj5mX3T7j4nlKZ4lCzb671S/aadbOfMnhA2m6ESxOCyJBdfgAgeu94FNJh
+	 PRL7g5Ad8rKlySnIglLLk/mzkbZ+WicGNbzeG4JboYyNUHI4MWjwu6lKGBVnKarWmnBz3
+	 XhsXyLDLa9ksQAwWnJ7sOAssgLPAHIdUiweKGlbEYN+X1Hy0Mv1DW4+eCyHbP8xzz3pNc
+	 cIOmlxmL1eyR4/YuIOaSdWPh/zSM0AsvXdteiaB9Ce6xnite+hyj+sb8cT53DjOe/4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728455;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XdfzJkGWADls7GIG36It0yxUfW1LFlYm3MYyInKxsiU=;
-	b=ztK7JTvMynjeTAb4VcXRLINpG5wVjdohRP+AAHAtFNaoGRNzKnW6U0qD95P7svXPMz7F
-	 1dyaeHgsEtDIqxPUE+0pYVHLZh8ZgpTag/yK0TR2woGCZHm8zPYbEFQGvRBN8FS42cXPt
-	 L6xMKewmxeG3BEVriCsmCMlmZGrSO/Rg/8KKr4lSSkyXQtSwGIDAFw3YOFdsJaTbvvb4O
-	 aPzjKD9nSZcf0adzmoYIliByYaVMXpuJghRZYNDJbPs5MtMWLp7H5iFXjdH7c7djoM77C
-	 +EQv53nl9pcFuuhrW2JQtrGMAfqa7syGp8CdcLCKsgjmeEcKvLK/vT0kKT48weELORg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728457;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:To:Cc:
+	 References:From:Content-Language:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=85wjufSf+6sVt0aWaqOMowwqAb9EC24ZQGUWyBhLDRM=;
+	b=q3UQRYsE+1XS6uhv5cXQW1DjhuQ9kr+PyVDv9T7lq3tlzMvHQoP2s6B6Qwx0ljaGVfUJ
+	 cchzitADqn7vSBh8LglYNtPnG3AzM62AdlU6YSouif32Y1P4ZWlCJ0Stfc6Y/PHrEDn/O
+	 A89OR5NM4zbksLddHf53eRl9qjtM0Ska/TYhoG9S8TFIdBeBP9306Arkso3Pwi9hM9dWg
+	 evexZhnXss3IcI4MiAXcEHfaIBkXN5OqrD3CkFLQknyId/3TFqgqaCuCAhBgIwwWJAs18
+	 2K8BJtRIcF+QRD3UIj+5QlSxmu/07BajqHKYuDWRadm34X5GkXwMO2H3IAB4YOyF6Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ZBdoDk6Y;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=6wind.com;
+	spf=pass smtp.mailfrom=6wind.com;
+	dkim=pass header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=EqvEIbDt;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB59606A32C;
-	Tue,  3 Nov 2026 17:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DB59606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0207606A33C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:54:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0207606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ZBdoDk6Y
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJx5y1Hl9z1XLktx;
-	Tue,  3 Nov 2026 17:54:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793728449; x=1796320450; bh=XdfzJkGWADls7GIG36It0yxU
-	fW1LFlYm3MYyInKxsiU=; b=ZBdoDk6YgmKU+GMIkskG9EI89cS48XnTb9iTkMCW
-	VIOjU0DETcQwY9AtpBIXh28yGaFl6kUA9mEjvouzGZtUQCzKFkRifaJjzcMIVn9m
-	bGkx8meI9grbiCktu8e9VWU/b2Yl4VuQc1sF+D/zmVuBcf+dTjlNSxKuoNkr7zhx
-	dnIhpSzcAwfd9G8Jggrm2GS7jNRmZk2FVtRjNzWOPpWaGSYIXeRVjkdOrWe1uWiD
-	5e0HGxQcZLerx8y9YUi/lDcIflQODs+N0ecMvMNsNJvwu0Awoki5i66jk7lEKrg+
-	lJKDbtJkNM0cHvR8mTxZN3paDLNV0vh62Oc4rKAr5++3aw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id cxmg-ULgACGk; Tue,  3 Nov 2026 17:54:09 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:b098:ee7:dc7c:db4e] (unknown [104.135.182.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJx5r4fS3z1XLkvj;
-	Tue,  3 Nov 2026 17:54:08 +0000 (UTC)
-Message-ID: <6c48993e-aa82-44df-a0b6-3e713c4e9ad6@acm.org>
-Date: Tue, 3 Nov 2026 09:54:08 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=EqvEIbDt
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4ae34ad9bb6so5748855e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:54:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=6wind.com; s=google; t=1793728455; x=1794333255; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=85wjufSf+6sVt0aWaqOMowwqAb9EC24ZQGUWyBhLDRM=;
+        b=EqvEIbDtoaLkmh0g0ZZRkF68+My/5IiSsJOZRHN58fGqhvIEXf3L0HfCEWkFhhvCY4
+         mHNp9oZekCSqzVzUXrsMEh3mGAGMbKf63lESjAXLnI2PXZq2nSNqrc36Hohy1MQoUYI5
+         R7c+3JHFf0iwwKu5Cv7DsonVoY21BJtXQlCBGIv0MOi+H6XFJlIPLvL00NgbkpmB1CS2
+         LVeek2Rxu2rb832KPwICZS1nLParVhhUrTLeX7q+bOroHDJeUU8+7YBn7QzjV6soJbSK
+         9bkddTzwd6yuenriuKsLkrZuEqd05giHXja8KKHZCUb7FPq/5CAUBKXHOpzVHPPDD+V7
+         VQVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793728455; x=1794333255;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=85wjufSf+6sVt0aWaqOMowwqAb9EC24ZQGUWyBhLDRM=;
+        b=PgnnhUuiQ32aKE68iDZFGoDhk6nBsjcSZbHm8d14fQpZhnH5GiNoSKaqIf1Isk2qzx
+         wfAWpPEesBiI/BpSTmWMBkALqt3FXYDoC8OcoQKFRxhCRYS2Fwuxlv0EqJ7O27qrAFmo
+         W8eKoZNRYeHGpSaLjALmjgaYF5l6/moUjU7WQ/5iLrVFqqpWXvU3d/xYLgxtsw7vRd6f
+         u3N9e23bpeKoSUpdhjQEr5zBEqLvX0yCN4RhP8NqEYprjkaDw3CDIuVl54jfduBlLtVt
+         g5Gb3bmLXxAdPIDh/oD628xpyRkQwSy+63CZDQ/hSstVwpfA2Wu9eYKu3oOZt4O/qDLA
+         xGlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwRZBXgEWp76ZQ2QpecU0aJLv74bJmgE/fYfJLyhRTYc/QNonLB/XieOo9ENWyMQAEOrPO3nEsg744pj1w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aPmzwNjV12dWEjlS49nOvAioT0mcUgUBQ0Ncw4lR00omWcbYD
+	iMRmwEh64cn5/Gtq1/WPOjdqqMFOaBDNhKvQv/ZimpDJGZkvS8Ch7t72Ru5N+egiAoI=
+X-Gm-Gg: AYBFou2GpWXaNBlcr5BxFkBgctwWJ9+1HpFLmjJN2CY7ELAr+EJagvFqGVIGXivno3y
+	o7+7TN5ynBDJBUQchyXdMwSa7Hv1QPsTQpAp0DV414lXGh6cTsivVd2bLDRAwUM7mQXoCnpeKpf
+	VrHeSRv1uFZaX8BHtnKkA6IwnQYmrFvBow925FjEOJiqNuKqpVrAQUYoWs706c3rJJCABYdQ2Lh
+	jY+6H930hhWKKsXfXcYz/DmkZodDxADlguItgI5ietLgKKAgBga+A+lN8iaemz2uryvIphUV/YD
+	lzrIhuIlrGFTs/ilUO5nIse2pLzFXi/gSz9zCEF4A1pkJjMpXFYISsHq0CgEzvi33pNDqByOAIf
+	XtqY7RwAwnYAbLSj1/2JXRUUvDR7riLAqjXwWydLLD5MYVpsWgOh7z+9avr2abicz4JjqoVYseI
+	k44iH0nq7uEo/cg+lQH2P/mYJSe3JLrW5K8wQ+iBeBUEeuPvAMCHQZosCbRcJsVopK+BEbJdrBt
+	2UDx7Np8HukSNlApVRd3ghmookTu9kbfnvS/0WITK2qgOuGfUb1B7ZT5VY0MESCPxzSDqEUTADN
+	f72EjG4l+o4wZm1priZlnDlQZWJLDueZmOnfGtvJpwOPKg==
+X-Received: by 2002:a05:600c:2604:b0:4a1:b027:99ef with SMTP id 5b1f17b1804b1-4ac16acfa8emr236694595e9.2.1793728455034;
+        Tue, 03 Nov 2026 09:54:15 -0800 (PST)
+Received: from [172.31.99.185] ([185.13.181.2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9bd5d2fsm67727415e9.14.2026.11.03.09.54.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 09:54:14 -0800 (PST)
+Message-ID: <a62aabdc-aa69-4ee1-bf91-606539c6637e@6wind.com>
+Date: Tue, 3 Nov 2026 18:54:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,50 +93,35 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 03/11] ufs: unipro: Move Tx/Rx FSM state definitions
- to unipro.h
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
- NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
- Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
- Pedro Sousa <pedrom.sousa@synopsys.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Can Guo <quic_cang@quicinc.com>,
- Asutosh Das <quic_asutoshd@quicinc.com>
-Cc: imx@lists.linux.dev, linux-scsi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
- eballetb@redhat.com, echanude@redhat.com, Frank Li <Frank.Li@nxp.com>
-References: <20261103133215.1385823-1-larisa.grigore@oss.nxp.com>
- <20261103133215.1385823-4-larisa.grigore@oss.nxp.com>
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net v4 1/2] genetlink: Reject joining multicast groups no
+ family owns
+To: Anil Kaushik <anilkaushikwireless@gmail.com>, netdev@vger.kernel.org
+Cc: netdev-bot+sashiko@kernel.org, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>,
+ Jiri Pirko <jiri@resnulli.us>, Florian Westphal <fw@strlen.de>,
+ Mat Martineau <martineau@kernel.org>,
+ XingWang Xiang <v3rdant.xiang@gmail.com>, Alice Ryhl <aliceryhl@google.com>,
+ linux-kernel@vger.kernel.org
+References: <179372164269.488856.17448970060747076034@kernel.org>
+ <20261103161254.56922-1-anilkaushikwireless@gmail.com>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
 Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261103133215.1385823-4-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Organization: 6WIND
+In-Reply-To: <20261103161254.56922-1-anilkaushikwireless@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 11/3/26 5:32 AM, Larisa Grigore wrote:
-> Move the Tx/Rx FSM state definitions from ufshcd-dwc.h to
-> include/ufs/unipro.h.
+Le 03/11/2026 à 17:12, Anil Kaushik a écrit :
+> Yes, this is a behaviour change, and I missed it in the commit message.
+> A bind() mask with an unowned ID now fails with -ENOENT and joins
+> nothing. I don't know of a program that does this.
 > 
-> These state values are UniPro/M-PHY related and are not specific to
-> the DesignWare UFS host controller implementation, so unipro.h is a
-> more appropriate location for sharing them.
-> 
-> As part of this move, drop the driver-private TX_FSM_HIBERN8 define in
-> ufs-hisi and ufs-qcom and repoint their Hibern8 checks at the shared
-> UFS_TX_STATE_HIBERN8 enum constant. This is a no-op change.
-> 
-> Since the definitions become visible to every user of the shared
-> header, prefix the enum constants with UFS_ (e.g. RX_STATE_HIBERN8
-> becomes UFS_RX_STATE_HIBERN8) to avoid polluting the global namespace,
-> and update the existing AMD Versal2 users accordingly.
-> 
-> This also prepares for using these definitions in a subsequent commit.
+> Ido, Nicolas, is this OK to keep, or should bind() skip unowned IDs?
+> I can send a new version if needed.
+It's ok for me, but if a regression occurs, a fix will be needed.
+I let others speak.
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-
+Nicolas
