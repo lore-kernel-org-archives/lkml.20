@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793667590;
-	b=h3dk/6JSJiw7UiLbbHEWk+fYZVVtmAbVI3qML90psMaFej3MNPKGQcI8HDVHcZx/ZczN
-	 Q9Gw8XA+dLOL5PSn5RXCiZp1oiEiMIWw4jjL6GX12RDeeuKF+YDJqrYQVKM+FBELr2/Hi
-	 WlRWd4KliO1vaWylzl14qvjgaQ0+K4m4Tzh5AWkiqpaB1TZkE7r42YhbS9OxBr29U7GmG
-	 gY6NSRLWFJZoxXmowA8UPZyRdPJ6JXYOn5SnpIp6mjT1LOgHIDASk05yVVCPyMGyyDJF/
-	 SpBOWDRJd07vyHhLDsKUKuGr1Hv5IcMaLBxfJx9ZwxdmW7Yqcx4bfUwyUGK5hA2qkqw==
+	t=1793667589;
+	b=LVVXFKVK1cUvRwOcskBix7XWuUIK2ik2ZKMLnKQClL7LTFh+WC05Hcp5JoMmq4OUGy9O
+	 vBJoeo7n2nlZuWRBumGwLGWDrWYtH7XieNKYM1Hh66wr5bIbEgDRHINXKGjhm+LYIDO7q
+	 EqyoChSNunaUrbgWR7UCvZNt5aaZvlN8q9tSMeRZzf8NtjXjFNqsPTCxOlJ2phAJOECzM
+	 RZl1IIxF7Gd8dTC3aM4zXSns4q0S972jtKAKywwdjfuH4+hPC5YKxbRrHso4Dfz4kg17K
+	 kK0XZ5mJL103aqAfRHJBWI1oQlCQfczlq2Fxi+ZisDanYlGVd9P90o6lOT8p3+B/YqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667590;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667589;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z1ZlDl54vy7oXT8lslczE9b+B9mUQeT7lKAv+hG8SGg=;
-	b=gP66zYOH4yw2SvNBFChe/C+RbTegrrvHJwQ+8ueO6bKk83U5dLc/kHCCsrRYJ3WCJut+
-	 kPfZzx+S2y0uMjeHWPWJkHHA6EfelIfZ0eExcggqf5eDNf5E53tGzvizIDRjXbcjuzvGf
-	 2gX3soW+PU0iurF05dGj3a43pldUUSJDbxSArdoUtQ7J/EiXyiQw+/AY6Sjz+FyveYwkJ
-	 otrnKN8NBO5sXzJmbmjXdUTyK8HQ+m3Vr5rS090Ijm4urgGcw5Hk1t86RlI6aDo87MJ/O
-	 HBy66HaXv0tinxUv3gbR8Xo7Me1V0d0rgrojuBGIUSHBjGaC18PIcAHU507kzZd27ug==
+	bh=wUuIwuuN/5vKEs76XMgA3aQriOe7/CMf19j7+VM0x1U=;
+	b=YEaxm/E2piLVRoZOw4hB0JjvUjrYrXdLAhKM+Wj6M6I6lTzK74oXmj1YDAZeluK2XSGo
+	 aKiAIo/t4mDc8Ef1haw+a5qNqV6hOaXZSSRf9jfh2yu35uxrAtn3JlKQL9dgtkBFGOgSp
+	 wMdZE14Gm5Qj7YfC35zDFn0MR4P0IMR8r4rm7h5HYSwtWViHke1aHpsH4XNYTzdFQqbhS
+	 KcSdF5HvvUmpelg2d+REhexeC6WhmXRR2Gp/Y41+9+8voAuO8pwec0EP0KKHt9ePDs6+W
+	 yFWVk0jv30asbnCELB8k03S3gklwz8inR4otkHzZFEM0SmrZhzI12Xjj9v6Ivl/qCgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jazplH8Q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfCTXNo0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEDE606A335;
-	Tue,  3 Nov 2026 00:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2024606A332;
+	Tue,  3 Nov 2026 00:59:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jazplH8Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066621F00A18;
-	Tue,  3 Nov 2026 00:59:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfCTXNo0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755CD1F00A02;
+	Tue,  3 Nov 2026 00:59:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793667590;
-	bh=Z1ZlDl54vy7oXT8lslczE9b+B9mUQeT7lKAv+hG8SGg=;
+	s=k20260515; t=1793667588;
+	bh=wUuIwuuN/5vKEs76XMgA3aQriOe7/CMf19j7+VM0x1U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jazplH8Q4+HMTuyyZaVjxs1U13KiD2GjrY9G4xDQH56o3nlczZiz4JAVvot3IgDfx
-	 GCC4Btk10IWcK+3iG78kQThpETV3woyhE4z8AR5Ir+Bu/peZQjRYsMXQeWjpNaGhOe
-	 V8ApWwohjex7+gv2ecavvBmeoUPRolzmTvMj/tk2vrSK99tQMNHEGztUrpw9OYWj/N
-	 sJzk/JJw1Jc0G38kEWTzEIEhLyYuwd25038XO+LqSvLnbfpGLLmIFw3mVAv5Cbbpo/
-	 2fLZwdpN5KVpGtyZFY+WkCFggkPj9XCgsGZShw+N71ejt932frK+t4EquSnmiFv5IK
-	 6oViV6BL0d+9g==
+	b=cfCTXNo0ZPM8K1LgRTrhE8S73NmxzqxhLzmYmP8qsqMgJvPkgdU5m34zUIO+MDX3l
+	 pU7qiEvi5XreJoN2NZ+Z6WsvmGOr6pXq60z40hak9Ctmg4QnsgeqqVMczgr/R72pdt
+	 ORxeshkRbhxX7mzpYY76p1JSMXo8btnuPMW4mbC9w8EWSLQXiXaQubBQ4kamwbZRBf
+	 VnidLDjj23i7+/eW5MQjhG+f/PVV+D7K5GpVZhSWin4nMBTmMO0ODuFasksiTLYjPA
+	 YlbdomK4pfJCvhMxfVqcQFi4zMY7WZRc2LAbkRNzTiZyxMTganEklLkbFTmYjcTMrb
+	 7NNsd6ntD6izw==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Aveline Noir <jm5905938@gmail.com>,
@@ -51,9 +51,9 @@ Cc: Aveline Noir <jm5905938@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
 	Manuel Ebner <manuelebnerli@mailbox.org>
-Subject: [PATCH v2 4/8] Docs/admin-guide/mm/damon/lru_sort: fix remaining grammar
-Date: Mon,  2 Nov 2026 16:59:34 -0800
-Message-ID: <20261103005940.91432-5-sj@kernel.org>
+Subject: [PATCH v2 1/8] Docs/admin-guide/mm/damon/start: fix grammar
+Date: Mon,  2 Nov 2026 16:59:31 -0800
+Message-ID: <20261103005940.91432-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261103005940.91432-1-sj@kernel.org>
 References: <20261103005940.91432-1-sj@kernel.org>
@@ -70,10 +70,11 @@ Content-Transfer-Encoding: 8bit
 
 From: Aveline Noir <jm5905938@gmail.com>
 
-Manuel's recent grammar fix for this file, now in damon/next, covered a
-good part of it.  This should take care of the few mistakes that are
-left, like "should automatically activated" and "Make DAMON_LRU_SORT
-reads".  Rewrap where the lines got too long.
+Fix a few grammar slips in the getting-started guide, like "make DAMON
+monitors" and a region "that has not accessed".
+
+"The line of the commands" used to be "The first two lines".  With only
+one masim line left, I make it "The first line".
 
 Cc: Jonathan Corbet <corbet@lwn.net>
 Cc: Shuah Khan <skhan@linuxfoundation.org>
@@ -84,141 +85,62 @@ Reviewed-by: Manuel Ebner <manuelebnerli@mailbox.org>
 Reviewed-by: SJ Park <sj@kernel.org>
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- .../admin-guide/mm/damon/lru_sort.rst         | 45 ++++++++++---------
- 1 file changed, 23 insertions(+), 22 deletions(-)
+ Documentation/admin-guide/mm/damon/start.rst | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/admin-guide/mm/damon/lru_sort.rst b/Documentation/admin-guide/mm/damon/lru_sort.rst
-index aa4cc90ca57c6..6b2cdb48fabe6 100644
---- a/Documentation/admin-guide/mm/damon/lru_sort.rst
-+++ b/Documentation/admin-guide/mm/damon/lru_sort.rst
-@@ -35,7 +35,7 @@ deprioritizing cold pages on their LRU-lists.  To avoid it consuming too much
- CPU for the prioritizations, a CPU time usage limit can be configured.  Under
- the limit, it prioritizes and deprioritizes more hot and cold pages first,
- respectively.  System administrators can also configure under what situation
--this scheme should automatically activated and deactivated with three memory
-+this scheme should be automatically activated and deactivated with three memory
- pressure watermarks.
+diff --git a/Documentation/admin-guide/mm/damon/start.rst b/Documentation/admin-guide/mm/damon/start.rst
+index d98b0eb8e7713..e9c77dcddf7d0 100644
+--- a/Documentation/admin-guide/mm/damon/start.rst
++++ b/Documentation/admin-guide/mm/damon/start.rst
+@@ -63,7 +63,7 @@ the execution. ::
  
- Its default parameters for hotness/coldness thresholds and CPU quota limit are
-@@ -55,7 +55,7 @@ DAMON_LRU_SORT utilizes module parameters.  That is, you can put
- ``damon_lru_sort.<parameter>=<value>`` on the kernel boot command line or write
- proper values to ``/sys/module/damon_lru_sort/parameters/<parameter>`` files.
+ The first command of the above example downloads and builds an artificial
+ memory access generator program called ``masim``.  The second command asks DAMO
+-to start the program via the given command and make DAMON monitors the newly
++to start the program via the given command and make DAMON monitor the newly
+ started process.  The third command retrieves the current snapshot of the
+ monitored access pattern of the process from DAMON and shows the pattern in a
+ human readable format.
+@@ -71,16 +71,16 @@ human readable format.
+ The first line of the output shows the relative access temperature (hotness) of
+ the regions in a single row heatmap format.  Each column on the heatmap
+ represents regions of same size on the monitored virtual address space.  The
+-position of the column on the row and the number on the column represents the
++position of the column on the row and the number on the column represent the
+ relative location and access temperature of the region.  ``[...]`` means
+ unmapped huge regions on the virtual address spaces.  The second line shows
+ additional information for better understanding the heatmap.
  
--Below are the description of each parameter.
-+Below are the descriptions of each parameter.
+ Each line of the output from the third line shows which virtual address range
+ (``addr XX size XX``) of the process is how frequently (``access XX %``)
+-accessed for how long time (``age XX``).  For example, the eleventh region of
+-~9.5 MiB size is being most frequently accessed for last 3.7 seconds.  Finally,
+-the fourth command stops DAMON.
++accessed for how long (``age XX``).  For example, the eleventh region of
++~9.5 MiB size is being most frequently accessed for the last 3.7 seconds.
++Finally, the fourth command stops DAMON.
  
- enabled
- -------
-@@ -70,12 +70,12 @@ condition.  Refer to below descriptions of the watermarks parameter for this.
- commit_inputs
- -------------
+ Note that DAMON can monitor not only virtual address spaces but multiple types
+ of address spaces including the physical address space.
+@@ -95,7 +95,7 @@ monitoring results to a file. ::
+     $ ./masim ./configs/zigzag.cfg &
+     $ sudo damo record -o damon.data $(pidof masim)
  
--Make DAMON_LRU_SORT reads the input parameters again, except ``enabled``.
-+Make DAMON_LRU_SORT read the input parameters again, except ``enabled``.
+-The line of the commands run the artificial memory access
++The first line of the commands runs the artificial memory access
+ generator program again.  The generator will repeatedly
+ access two 100 MiB sized memory regions one by one.  You can substitute this
+ with your real workload.  The last line asks ``damo`` to record the access
+@@ -170,8 +170,8 @@ set size has chronologically changed.::
+ Data Access Pattern Aware Memory Management
+ ===========================================
  
--Input parameters that updated while DAMON_LRU_SORT is running are not applied
--by default.  Once this parameter is set to ``Y``, DAMON_LRU_SORT reads values
--of parameters except ``enabled`` again.  Once the re-reading is done, this
--parameter is set to ``N``.  If invalid parameters are found while the
-+Input parameters that are updated while DAMON_LRU_SORT is running are not
-+applied by default.  Once this parameter is set to ``Y``, DAMON_LRU_SORT reads
-+values of parameters except ``enabled`` again.  Once the re-reading is done,
-+this parameter is set to ``N``.  If invalid parameters are found while the
- re-reading, DAMON_LRU_SORT will be disabled.
+-Below command makes every memory region of size >=4K that has not accessed for
+->=60 seconds in your workload to be swapped out. ::
++Below command makes every memory region of size >=4K that has not been accessed
++for >=60 seconds in your workload to be swapped out. ::
  
- Once ``Y`` is written to this parameter, the user must not write to any
-@@ -87,10 +87,11 @@ active_mem_bp
- 
- Desired active to (in)active memory ratio in bp (1/10,000).
- 
--While keeping the caps that set by other quotas, DAMON_LRU_SORT automatically
--increases and decreases the effective level of the quota aiming the LRU
--(de)prioritizations of the hot and cold memory resulting in this active to
--(in)active memory ratio.  Value zero means disabling this auto-tuning feature.
-+While keeping the caps that are set by other quotas, DAMON_LRU_SORT
-+automatically increases and decreases the effective level of the quota aiming
-+the LRU (de)prioritizations of the hot and cold memory resulting in this active
-+to (in)active memory ratio.  Value zero means disabling this auto-tuning
-+feature.
- 
- Disabled by default.
- 
-@@ -112,8 +113,8 @@ Filter (non-)young pages accordingly for LRU (de)prioritizations.
- 
- If this is set, check page level access (youngness) once again before each
- LRU (de)prioritization operation.  LRU prioritization operation is skipped
--if the page has not accessed since the last check (not young).  LRU
--deprioritization operation is skipped if the page has accessed since the
-+if the page has not been accessed since the last check (not young).  LRU
-+deprioritization operation is skipped if the page has been accessed since the
- last check (young).  The feature is enabled or disabled if this parameter is
- set to ``Y`` or ``N``, respectively.
- 
-@@ -125,7 +126,7 @@ hot_thres_access_freq
- Access frequency threshold for hot memory regions identification in permil.
- 
- If a memory region is accessed in frequency of this or higher, DAMON_LRU_SORT
--identifies the region as hot, and mark it as accessed on the LRU list, so that
-+identifies the region as hot, and marks it as accessed on the LRU list, so that
- it could not be reclaimed under memory pressure.  50% by default.
- 
- cold_min_age
-@@ -134,7 +135,7 @@ cold_min_age
- Time threshold for cold memory regions identification in microseconds.
- 
- If a memory region is not accessed for this or longer time, DAMON_LRU_SORT
--identifies the region as cold, and mark it as unaccessed on the LRU list, so
-+identifies the region as cold, and marks it as unaccessed on the LRU list, so
- that it could be reclaimed first under memory pressure.  120 seconds by
- default.
- 
-@@ -237,7 +238,7 @@ The maximum number of monitoring regions of DAMON for the cold memory
- monitoring.  This can be used to set the upper-bound of the monitoring overhead.
- However, setting this too low could result in bad monitoring quality.  Please
- refer to the DAMON documentation (:doc:`usage`) for more detail.  1000 by
--defaults.
-+default.
- 
- monitor_region_start
- --------------------
-@@ -310,7 +311,7 @@ Total bytes of hot memory regions that were successfully LRU-sorted.
- nr_hot_quota_exceeds
- --------------------
- 
--Number of times that the time quota limit for hot regions have exceeded.
-+Number of times that the time quota limit for hot regions has been exceeded.
- 
- nr_lru_sort_tried_cold_regions
- ------------------------------
-@@ -325,24 +326,24 @@ Total bytes of cold memory regions that tried to be LRU-sorted.
- nr_lru_sorted_cold_regions
- --------------------------
- 
--Number of cold memory regions that successfully be LRU-sorted.
-+Number of cold memory regions that were successfully LRU-sorted.
- 
- bytes_lru_sorted_cold_regions
- -----------------------------
- 
--Total bytes of cold memory regions that successfully be LRU-sorted.
-+Total bytes of cold memory regions that were successfully LRU-sorted.
- 
- nr_cold_quota_exceeds
- ---------------------
- 
--Number of times that the time quota limit for cold regions have exceeded.
-+Number of times that the time quota limit for cold regions has been exceeded.
- 
- Example
- =======
- 
--Below runtime example commands make DAMON_LRU_SORT to find memory regions
-+Below runtime example commands make DAMON_LRU_SORT find memory regions
- having >=50% access frequency and LRU-prioritize while LRU-deprioritizing
--memory regions that not accessed for 120 seconds.  The prioritization and
-+memory regions that are not accessed for 120 seconds.  The prioritization and
- deprioritization is limited to be done using only up to 1% CPU time to avoid
- DAMON_LRU_SORT consuming too much CPU time for the (de)prioritization.  It also
- asks DAMON_LRU_SORT to do nothing if the system's free memory rate is more than
+     $ sudo damo start --damos_access_rate 0 0 --damos_sz_region 4K max \
+                       --damos_age 60s max --damos_action pageout \
 -- 
 2.47.3
