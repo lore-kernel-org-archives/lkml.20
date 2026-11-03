@@ -1,72 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689462;
-	b=nbBmuhcx79GrP3J3VijNjJ7HtqBeiXumY6IuXi/S35b8cvCScB9ZgA7dKxUVl364B/vL
-	 QM6giSdAgw/ymAQDoYU5rRWPjdS4Yc6605/eKvCx29RyruQWu5I3rhUcwaFCNro0zY+oW
-	 EthVMU8nixal6kJzux19emldgZebB2Eu8kr9wEDnDRiwcqxmXLaE6aVm1HzR+N2yIcjXh
-	 doaYKlBI7e8HPg8ZSzNXzEmJ4np8wt3CRoqNf0hEOY2RN3OTYOre7AqRqBv39DDZYlkMb
-	 mHm7/3+z48taRVchGTtx6N094HlrSLH1lhkcOvWVtR0I7BsbXFVrVx5hcx2zpyfo2gA==
+	t=1793689478;
+	b=cgCoYlzSDhyLWMS1pHyUZAgLClJN4nfRRJutZKkKwN9d/fgFrQ95Aiw1fa+AUXrxqfD9
+	 xNeMRm5Dn14ef3Bpgk4Rw/8Z+3C5uRbswIEFRvIRxO7D997IiWvSLCUTHULZZGR2pu+cc
+	 2gW9OIafdhbG35FwdemQ/rN1l+nzKna3fBFzNhn0xqREewZkz49FltUWTzDj/d1gUOzwO
+	 vxvhgJjrxEGGijMwNjoZi9gHRAUJYGUu6Jyw7DSlspilN+o3VXgoq8iPTOQg5BeCHMydX
+	 PbQmqZ5zP705wC3IZylMcgUxTnoAdo7gyGsW1LnssEQOjBKugxLJ91HZtZ2QcB2uXlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689462;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=v3HVGrDn19qzJKOsOUSd0NNPtRrAAsxOMD2NnhVPCgo=;
-	b=F/g4ecpGpxxbehVS10DO46gOPARPa0MDov2jdxNaIjwgckqEP3prhl4AAaUOSXKTmwUw
-	 9dV7JPMYnrH640GePej2u+1Eef79FB/C3bT1sKq5/wekv0taD2XSUhIpe1y+7E9Ppxqd9
-	 XOFRwo9gK6S61lTJLCgBDZ1f2ff39FNq3qtV03QJrkVr8c8qIS6FqYAgZVUMgdiY+UtQp
-	 7+6NRnrzGJitJlzsx7sMbGiO0MLczzuf3CHfVOeL54LhgREl0qqtBEVkrBR7xj3BZXCDk
-	 ZQkZGklEHIPN7XLkckhAseSthx+P7UU8SM+qFNphaP61jSunJBh6eSUvjIanmMJw70A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689478;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=E5tuT9Kurl9L71bzCsfNQUYEv6lqs/5h+LNYeamGL+M=;
+	b=Yl3HK1JlFiL5/rfGB1wFwTQbSw9DV9GAmbX5Dl72IKt6OwB3KmgJGwXKDh5AQmiOUakg
+	 5wckCbLGWcGoMEhs6MFRhBWUROKLBZmkAhmYlVdyVLVyafi6F0TUQQscJz15dyrnojQHa
+	 kYE9UnlADQ/xcpCIwN7ScEzJhoO1aRQfeVMpOs6CY9L8TNeimq+gE3Nzc9VzYP+2pxKMd
+	 OrTa2+1cz4dxjOELfOE6BMTOWdYR0XAZSiYQAi9EP/skpDNT7lYpL2TxC9Opct3LQM9Bb
+	 xxusrWlbs8snYuD/QmXeG/sHs41snE7XvHyY8ZCLt3jwtVhgdOE+jSkJ8SSpJ7LFPGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--robertpang.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P3IPTl+R;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03E0606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:04:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C03E0606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--robertpang.bounces.google.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=MncNOXk0;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4E37606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:04:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4E37606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P3IPTl+R
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1aa0fb7f157so6032720c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:04:21 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=MncNOXk0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793689461; x=1794294261; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v3HVGrDn19qzJKOsOUSd0NNPtRrAAsxOMD2NnhVPCgo=;
-        b=P3IPTl+RbNzVLTOKrXaQQZns1M7Zkhfj2OCkUUY9k5uIssjSECmBKFO11x14bYMJXW
-         +6tpc8ksOZ7B2A41b0/UUh80ncD04oS0nTEEwmLlvoZAKsn5FLQy732N+X7TVQjXM7Cx
-         gGgZuEC6HRpeEQb2AvwEsh0v3peWfOFRIUvwoNGgk0/V8EjDS4QgZ2G+13vy7Uu+FNYL
-         tOipZ5c3pFoaOoeQuYSF/DeoFJdy5VIF5XO4tPFkmoHFYpM5SNsdWVW79BjZEUryo1TT
-         jd7Uz2TKEJXbudVZE71wqbqjJBWi8lITCawdu5ToY/oCIA9pJVHIJ5mMxe2sMAi+l8Ub
-         KGkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793689461; x=1794294261;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v3HVGrDn19qzJKOsOUSd0NNPtRrAAsxOMD2NnhVPCgo=;
-        b=jyXaFbV3bJDRLJmwCiLoh/wepfHcjA5qyqwV1LXApUGcachrfuKku4RckRUhlRmGr2
-         XoBtWVDrkpNZyqVYDH478gAn3EsNn2MX9e9qhPlccj0BTGLjjFrR0fGBjhEAWYzooSIv
-         z7oaUcwgtqiyjzpBDFg+LcAMcPEoSH++xXUEhDRx67u0bGKJIwuC9MqE4mcz1GJ5OCaH
-         KdyCFGmsl9R81C036n3Q0sfH9/7upRvMDowLDuSbea+kbJrtdV/ha8TJPs6KyedOu8mV
-         uZyh1He77pfag6yfJSh5Dl7+i1JxveRFsv9e4RTxPZwOevKNauWQQDPqG7qqJ02jdJRk
-         lz3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxQTzw/TzIMT7BzbTbTVBloFDP7fEc9aIKdvnlZC3lgc1wyzvqgln5hwSEcjwWgqHb2QlGUrQx747x0jMc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nEap4tZcPP3lQBGxkhQKAbkrZqJwm9hNW5jhe43+MmusVmFqm
-	M0f+aGBw9sk22/c7kKOneR+pmzS2EJG5BjgZeUXPtOalodp4/S6Mu6bg5HiEOwLwWbWZi6YlUm6
-	PbVdUyW3dV0RjXVfl+EH+3g==
-X-Received: from dldyr25-n2.prod.google.com ([2002:a05:701b:4519:20b0:195:cde8:ab41])
- (user=robertpang job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:1089:b0:14d:3c0c:79e9 with SMTP id a92af1059eb24-1ac5b027fccmr17755954c88.11.1793689460359;
- Mon, 02 Nov 2026 23:04:20 -0800 (PST)
-Date: Mon,  2 Nov 2026 23:04:06 -0800
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=MncNOXk0DhwKsBUjWB8WF9k153DQ97eUzDxm3wZ2c1UEsom6u11vAvdWzaTrapMYggCGk6qsj+R+k
+	 5uEtriBCTPTNc3n1q2jeSZ3mHkg28m4AxsenntwyRmc/9tzYA2jL7yVz4k/TT4pIpOWK1PL30e+NM6
+	 ggipr90SeJaIsDO0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46ae9877fd25-306fc;
+	Tue, 03 Nov 2026 15:04:32 +0800 (CST)
+X-RM-TRANSID:2ee46ae9877fd25-306fc
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6ae9877f7ef-9b3b5;
+	Tue, 03 Nov 2026 15:04:32 +0800 (CST)
+X-RM-TRANSID:2eea6ae9877f7ef-9b3b5
+From: bajing@cmss.chinamobile.com
+To: peterz@infradead.org,
+	mingo@redhat.com
+Cc: juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org,
+	bajing <bajing@cmss.chinamobile.com>
+Subject: [PATCH] sched/cputime: Fix a spelling mistake in comments
+Date: Tue,  3 Nov 2026 15:04:29 +0800
+Message-ID: <20261103070429.5666-1-bajing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,45 +69,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261103070407.1211071-1-robertpang@google.com>
-Subject: [PATCH] bcache: fix available bucket accounting in bucket allocation
-From: Robert Pang <robertpang@google.com>
-To: colyli@fygo.io, kent.overstreet@linux.dev
-Cc: linux-bcache@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	robertpang@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-In bch_bucket_alloc(), a cache set's avail_nbuckets is decremented whenever a
-bucket is allocated, assuming that the bucket becomes unavailable once
-allocated. However, when a bucket is allocated but the GC mark is unset or
-reclaimable, it is available still. This false counter decrement leads to an
-inflated in-use measurement, which triggers cache bypasses once CUTOFF_CACHE_ADD
-is reached, persisting until the next garbage collection cycle.
+From: bajing <bajing@cmss.chinamobile.com>
 
-Fix this by ensuring avail_nbuckets is only decremented when the allocated
-bucket is already marked and not in the GC_MARK_RECLAIMABLE state.
+A comment block in kernel/sched/cputime.c misspells the word
+"subtract" in two places. Fix the spelling.
 
-Signed-off-by: Robert Pang <robertpang@google.com>
+Comment-only change with no functional effect.
+
+Signed-off-by: bajing <bajing@cmss.chinamobile.com>
 ---
- drivers/md/bcache/alloc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ kernel/sched/cputime.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/md/bcache/alloc.c b/drivers/md/bcache/alloc.c
-index 3ec240ec685d..2d0cb9b414ac 100644
---- a/drivers/md/bcache/alloc.c
-+++ b/drivers/md/bcache/alloc.c
-@@ -446,7 +446,8 @@ long bch_bucket_alloc(struct cache *ca, unsigned int reserve, bool wait)
- 		b->prio = INITIAL_PRIO;
- 	}
+diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
+index 17f3cbd5d403..146d75c66ad6 100644
+--- a/kernel/sched/cputime.c
++++ b/kernel/sched/cputime.c
+@@ -435,8 +435,8 @@ static void kcpustat_idle_stop(struct kernel_cpustat *kc, u64 now)
+ 	steal = steal_account_process_time(delta);
  
--	if (ca->set->avail_nbuckets > 0) {
-+	if (ca->set->avail_nbuckets > 0 &&
-+	    GC_MARK(b) && GC_MARK(b) != GC_MARK_RECLAIMABLE) {
- 		ca->set->avail_nbuckets--;
- 		bch_update_bucket_in_use(ca->set, &ca->set->gc_stats);
- 	}
+ 	/*
+-	 * Record the idle time after substracting the steal time from
+-	 * previous update sequence. Don't substract the steal time from
++	 * Record the idle time after subtracting the steal time from
++	 * previous update sequence. Don't subtract the steal time from
+ 	 * the current update sequence to avoid readers moving backward.
+ 	 */
+ 	write_seqcount_begin(&kc->idle_sleeptime_seq);
 -- 
-2.56.0.398.g882cbad275-goog
+2.43.0
+
+
 
