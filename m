@@ -1,59 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742974;
-	b=GhYvR1DBsD+pvCGFFVzsPlH1e5W94AncdyDGVo7RSApG49lDiX9+udxJe9xTbs5BKjak
-	 jMHfzNpylwThghqlcm/OjDvn7VOTAhTJVFzEuDzrOfY2BTNiFOc8xfjqKwdavG+lQXol9
-	 fQujb2wxrnmBfqr//SzOfO1mdJrAaPJmSWE8W1qBvWyXenSah1rRxTUcdSQ8G0UeSEcNL
-	 Wx0GUzJvRgjVw2bNpVQiAkueDbeHGPbc4xVi6VchH9Krw8CAEm2WhGyVUemYYKoE3UUo5
-	 S8c4VKxnb2oRRuOnEtR+7SciLv4Be0GpVDGDhDUGVjuCEObEgUQ6X7JrlN49lcKQ/rw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742974;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=oeJF8aYxxD8BZqjwEQqWSZiARQ0h/lpcOUQiKQJRU+8=;
-	b=eGUp4UlCIoLZDlbmBwIPc7lPXfF6UVdGoE3zW8v2UUHVh184cKH1sMnMOmgpmNbZZRXx
-	 STJT4UG21xw0PcHC2Mz509d0dM23Lsh7KXVEWvdLxhDXaJ2dhJhlv+1l3enc+ca7IxHRb
-	 dSV3Y7r0UaJ2XPULDaMywpT5OOp9SGq3742lR9NoaC1f6G5H5+RCGZoD5vZyW2ox/x1fX
-	 Yey2+LNxw+rLcrosRWuH2ATLVpbTtUgWRTe4tJSh1bOHg7r7Daap70h8bOSUy8UQr1wgT
-	 pqGtNL6v/l4y0SMhwynhWuuc7Ogt8xiDcCOMq5VuRMnxUZpkCxsDBQzvwJVVwcHGbQw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFYGX2DO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.62
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793743032;
+	b=YWLNZ9xEIE2kTSZa67I5Civffjtzds+S+VQoS+Bfh0i88ttTLZLaw2ePhDTlUqF2k9IO
+	 aKZqZE/E+oy4456D0e3bD5LUqBVzNXTefsiwDamYYfqAVqOY9r3GhJo4E4a4B31IgKZkc
+	 z2Q+xn0KP1YybUx5AUAkj1Uo2W8Tlv4PFu9YZC2BcEhd7Qv10ByZP/DsBDTOtpFIKuXuJ
+	 fUICK2JhFi788LbxTagN5TqovrP1/YW0lFSsWOVTIWczI0iMradkN2dCzrZdPUL4CodZF
+	 z0vW7+06MZT+r7Ll7VpROLOHruwHrhOcsnamnsPAb1wqQgXZlPQ05zFHPkLDgM5lYgw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743032;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uAdqswjusKvrvf48Gfu8PbdPaG6CCT0ACaEEUYCsu7g=;
+	b=PG0RJKpilsxLwBIbSZ8US8vpPVFGkiDFnGL9sKaTmgR/chb39Onjvg18Bfg6W8m2erPr
+	 gBbjiP0BZWCTxS2laGP2mRHcZAq95fo/dZg4e4SUkkMq9GhE8i4O0smpAxuhkyPT+d2HZ
+	 cRzT1K3P1LMt5oVs1/V2/a+UgoLvtVnIbvv45NlcaWgeWKyjeJLLPFY65YgYNq43xL62/
+	 w+uFjLt47CeW5UOTC9qJ0rnl7CpwZ9NaQ/ZRaqIIIA80bjFQP6R1ltzJm7cIxHSwFgiQQ
+	 gBLSZIyFifIa8tGDM7Xrkiyb3RpBIlEEtEjUlqIJezcgtI6ZYwKjc9iz5q6yOI/uE9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=PLhyp4Ch;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.62
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011062.outbound.protection.outlook.com [40.107.130.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CA3606A324;
-	Tue,  3 Nov 2026 21:56:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F15D606A339;
+	Tue,  3 Nov 2026 21:57:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F15D606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFYGX2DO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E6281F000C1;
-	Tue,  3 Nov 2026 21:56:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793742973;
-	bh=oeJF8aYxxD8BZqjwEQqWSZiARQ0h/lpcOUQiKQJRU+8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hFYGX2DO2rT5zi1fI/bB4jwybkDtTCQJBYmajEbY6jfx46OEx1qvX5reQeAL1+XEi
-	 AhoPCYNl+6WFuOeE7RW1BJFjPsiAjX8quXA2zw27NNDWon2U2oOUrlOZhijX8AjdkW
-	 xBr8wT+ytRrIKKUjpCkXXIqGk1cFCDKNwLKbaVR9jfQG2ajO1o9ukM3Qusc8MyexSj
-	 eXFrUlDYWCKAmglC6aJX6TvriOK5/l5zAPPnUWubQ3x4qRxnVduVsnq6ZNC1xCZZo4
-	 TupNhtdCyuCXXhDtBncW/dQ2PvjfWmD3+lNrPN98YgzRngF0eVxmW1w2E0ABeXF0N5
-	 G1olaUH6UW9/Q==
-Subject: Re: [PATCH net v2] net: atl1c: free the RX buffer when the descriptor
- reports an error
-From: netdev-bot+sashiko@kernel.org
-To: federico@rimpianto.com
-Cc: chris.snook@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 03 Nov 2026 21:56:12 +0000
-Message-ID: <179374297269.488856.7749172366095110113@kernel.org>
-In-Reply-To: <20261102215253.68185-1-federico@rimpianto.com>
-References: <20261102215253.68185-1-federico@rimpianto.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=PLhyp4Ch
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q/OzwrQUBCcOQYAV6lbgMZV/4x9Fg2jFa6YwviwCmRwASdvV5kNbGjJcRyzRhkfWXGZ/bYz9VRkNrSGrIaVTbCow6h9tSPjBMsK8TWfg8h1+0ppC3Yfww6sxMgwHGGruKOvJYFCOu8r+NwfOJrw/K/s52+FNw4hpJp/JgYyssIeeoAIhmOQ68g+yQlv7utnvXvLA+cFZDWOXEYVABVbA1m0TFHhVcFPY2z36gOyhe/1Oan+8i4q7X7HyVIWCCu9rOgy5K1MgQ1j/lerdb+7dLyJJ2/H0b+2qp3X6eW1vXwFj5KCIycw/p9FbRK+SxleEMmY25my+xX+dqdacs9IqWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uAdqswjusKvrvf48Gfu8PbdPaG6CCT0ACaEEUYCsu7g=;
+ b=FhUqIW50bR6LWoXWvvMOW08IzJIjkGBGPy1xWZVMt6rxVQ6JFPGyq+WY5gSDwuiIT7N7H0X5zJjZsamjf8A8NKVHPFChh0vLHLvAS2i/eDAtBXod72KehjcaqTR3h+KVXhLzpSOQDhssv7j7k8+ejaZ53DlLSjAV+kYrEJPTfESJ4dIY/uH7xJjBb5VUS7Lo/3DF3HWeE013LkaFEdkLvRooRHP08QFGtzJuUIj4KCNELh6Na/J5MXvwkAJFz7WH9qlNoC3kDaw2sadjWNwqUwtBHKTAayz8kArKadWaDc+8vmG6V4rNcb1L7Gj7vP0Z/LGK5/8bzHOmXCfpVMo1Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uAdqswjusKvrvf48Gfu8PbdPaG6CCT0ACaEEUYCsu7g=;
+ b=PLhyp4ChWmutcu8kzd08Y0kP+Mzg3uNSTlGgJ6OxKPceZwqlH0T5oWY7b6N4stNpkkx0vfeXsMK6xfHd2GaOwce3iDWrSsuSDYhBQA58kgBOtpp1VkcHYtLebJdikjH5T75QKSqRI2MVHxwCLUxNxBLK8oeHKZEsHiTP0vb92ZOUO/kaifVYYvnIqdskRHUk32Dk4lbmgzGCLdFT9KHTazKz43njn3M0ua+bC7jWKTEgTNeaMjnMKi8Z8L44tM754TYDXMtsyRqeNjC7wUrj786wmdjmROumZYqJ1s/bQmdwcfvSI7o/AKMoEIov7987wQe+v94KZ4UWcpSvXf+yvQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DU4PR04MB10600.eurprd04.prod.outlook.com (2603:10a6:10:588::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 21:57:08 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 21:57:08 +0000
+From: Frank.Li@oss.nxp.com
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-tegra@vger.kernel.org (open list:TEGRA ARCHITECTURE SUPPORT),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	vkoul@kernel.org
+Subject: [PATCH 1/1] soc: fuse-tegra20: replace chan->device->dev with dmaengine_get_provider_device()
+Date: Tue,  3 Nov 2026 16:56:57 -0500
+Message-ID: <20261103215701.1818638-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH8PR05CA0024.namprd05.prod.outlook.com
+ (2603:10b6:510:2cc::12) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,288 +98,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB10600:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76529e14-a22d-4733-3236-08df39f567f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|19092799006|11063799006|56012099006|261009223027099003|261022105027099003|261021121427099003|261102123227099003|261021123027099003|261026140227099003|261028144727099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	1D6Iv/1O2y8sKirdEzHr7a6B36EKGxwfLRS5RT90Cv7XDR4lRKxo/4lfzxkaXr2joEa4zBedvjn9fRjqA2kUi3XcQq7CwWA7XyUnRkSJgDHRSeQfi26jETuPE/ogCnPV2KqlD7HVvinypyeaHAVd98BMaD0bGBSxiEcKwODhQRAOgsyDS+Eo6QgCYHHlD/JsxnKvycXL7nBRd8GuFrS6C8kR9j4JyKIwUJTozecLvcsniCO3Hj8QoEXEIeDVteYltAtWOvJWY3IODi9HdGzOR782lD4YrfvMPoAktwADkiLLzMtPL+wD3zPqVo12UqwuhCTCLdD3tXfOl21abn9OaN9GfpXodD3P+3714qdJ5p7lKxGhY3ti3kwnRAuQNtBnkkOocukSl7XESfuU4jssXiDF+huxP8zfOOA8UJEBMG1BCVD5jBzAH3pAB9L6p7PmngtW7rLXBbI4ERQr3STOwCptMtUYwwgblId5gqFxk0YYLkwH//9s3EC23zhP5J/vCvJJIKbybewULTFTVoMheVGwYIK2yDwITlHvfbmt9I9QkxtWOBLxYDhA7C6C4zlXqaveN8QSuUg6XeADPxwVELk94IbjE1QTlquc4c82NCCKkEDAsti3XYrNvK56DVzRJzUlWvERO2Z5sQln8yrpc8XV2eZkdVMmQBIYOsuf9N0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(19092799006)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261021121427099003)(261102123227099003)(261021123027099003)(261026140227099003)(261028144727099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PsxUGKdamJPktf9X7aEhvwcpnqFMhQvEVWlSsPwr9nQKhFUseryLc5G3vb7/?=
+ =?us-ascii?Q?IYgcgTefMEy5X0YjVAQ6kEnzAM6Atdx6zVfFsMLcoQKH5Qb0L20ngn8ypRAi?=
+ =?us-ascii?Q?PF3vAYbQ68Ea5338hd2Oe9Ad96/24PEPWpshU1AUgauXMTwTcCROUoKA6q6u?=
+ =?us-ascii?Q?zSmpDEoV6ksU8J781S8XwnZUqJoWONW8d4rJ4TGlfIGV2FoMiuv+iGSVj7+T?=
+ =?us-ascii?Q?FkxGzETdk3ybKYKWmMkYmtUfovubR+CVmIsX1n4D1veYxS1Du5Fc938eAoGB?=
+ =?us-ascii?Q?n9pIqm0DTJXUAfRBougwpjZozeQ8I04PBzers67nTj58TNaddLua6uxokGd3?=
+ =?us-ascii?Q?LL6tQaM4DMjFbWUw9aaxw4/nXentzC3qdzIssCcNB1XhYDg9NJNiJi6SKueH?=
+ =?us-ascii?Q?r605hpdA2njpsXGelOgmB+k3/7PtsbNaKyZ/Svumv6ttQCKqzz0NPZwS1S3L?=
+ =?us-ascii?Q?LCgjdlo1jTC1tLN58iWSFHTycGZYxTiL4OJdsD2sQ4GAPJCeUI3zt/n5Nn0k?=
+ =?us-ascii?Q?jkwuNay5KePfujsDXP9eod9k2oK905AlZ4WbhEv/q/8r1fOGhqWVHihzqTdg?=
+ =?us-ascii?Q?7mErLow+DkAQ+/fM9TyDjzfIuEq9uvC3dPBsbos5cY4dFetJp/X1KY00vP/B?=
+ =?us-ascii?Q?e1UebMFb4TxWpYjT0S5QBDTElNultrQsxKjxpK4QUr59CnTWmAS18G0UMdH2?=
+ =?us-ascii?Q?WFB4YE4Wda4Fwq2UHTkK3BwwKAhOnw9l6qHhL60DuEctPhIRKIfhSeoTVPff?=
+ =?us-ascii?Q?edgJqrGO2VwGXluCSZ+IzHh29lgs0Th2RtbR9cHgVlkNZ6MG9QdWHmcQiZj8?=
+ =?us-ascii?Q?oFVIHfcOwAVrtBz8phurYvWzkExsUl52yKomUXPzvNRVlWw6/U3Z0FaKX0OZ?=
+ =?us-ascii?Q?1Lbd29I9ZZJof6e9QchtDyGIJgREKrOk/8tO6mvz8jKzpJwNIxvM5vj1Jg+m?=
+ =?us-ascii?Q?quh2GoZQdubZ0aGi8a68iESA+A39hZEAJwg0uWvsQEhRL73GtgKmi7wb6rrp?=
+ =?us-ascii?Q?gNy2QRdl6cWSzQxMMT9X6m/D7Z0yml0Sh92yR4xNbFShZYVHuLcpS8s7yKbe?=
+ =?us-ascii?Q?6s0RJEClzYPJWfTzot4V1snSh5wrdqJiOg3rGpVFxB0mhw6C7vPuojYK+Psu?=
+ =?us-ascii?Q?3nThT5+xYSlKhJZNDYFJVigtrzdJkKnQtz+OBWurFXTluVZjzAkaQrmf05g3?=
+ =?us-ascii?Q?0+wU0xHWG30qeRz+UbqDmbqLCCNrJJvih1Zkec1/pry965yffWAxxL9zbJRs?=
+ =?us-ascii?Q?+pq8Es8r60/JHAXOFUKA2IXBv/jtz2Z6Hl5xgqJ6SZBqc502Xv8uN+WBgInE?=
+ =?us-ascii?Q?mJA9k2IBQ12rTYqFM6FwW8GJX9ARhvuQj3CfLk5eE4SB14O2oKaOuZaIqFIn?=
+ =?us-ascii?Q?wd+BmetCLd6KXWFDZsFp2C2JXsR6zzcLaHqtfJqKSmkOqtI8XBpgee5nriuq?=
+ =?us-ascii?Q?NKYhDd7uJfW3hO3xaTy5e9KIfydSVmF6ljhhvca/nDQC3izlvd4z/thW22zr?=
+ =?us-ascii?Q?plKcmlxr0H3mBNR6QJ6Y4Do/g/zcyIe8s8XPgG5INNCjXl6uy+mbPvfaxyGM?=
+ =?us-ascii?Q?WiYLDMnYOe+KLRGyRHbSy/uGVp6rRhXZHbk9/cq+SYTCmOyeNhq+f13O9DX6?=
+ =?us-ascii?Q?hguFK3op3fgJBd3JVmb8HxDBqhm9vm8DOtK5kxAYi/tAp18SMs6aQlSq2CAb?=
+ =?us-ascii?Q?gj7SmiMvLrzLFaKGaofSRKQEc762eJl29hmhXAmzZtwHlzbAX8AlDpGZb7mv?=
+ =?us-ascii?Q?F4FX9YEeto7gBzb4UNaKqffRA1mUf2OcRGPZFBYXfENXh6g/lHoJ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76529e14-a22d-4733-3236-08df39f567f2
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:57:08.4278
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QGYbtYetfg4P/x5o8Aq9tM2uc72q5K0s2FOAuhXZJPNRnXHNHD12Wu0MlToSazMtMtJ3/sDiZaKZmO/nc9P8ANa/4JxZNeJ2+yJ3iXuohQi4HrTm2gENv/QDXwPh0nN3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10600
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+From: Frank Li <Frank.Li@nxp.com>
 
-Critical: 0 · High: 1 (3) · Medium: 2 (1) · Low: 0
+Use the dmaengine_get_provider_device() API instead of directly
+accessing chan->device->dev to get the DMA provider device.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+No functional change. Prepare make to struct dma_device private to the DMA
+engine.
 
-- [High] The new error-path free can release a buffer the device still
-  owns when a stale RRD is processed after a reset.
-- [Medium] The patch converts only one of the two decodes of the same RFD
-  index.
-- [Medium] The leak fix covers only single-RFD frames.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/soc/tegra/fuse/fuse-tegra20.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch
-  edits this exact branch.
-- [High] This problem wasn't introduced by this patch, but the new error-
-  path unmap/free adds another site exposed to it.
-- [High] This problem wasn't introduced by this patch, but the patch
-  notes rely on the same state.
-- [Medium] This problem wasn't introduced by this patch.
-
---
-
-net: atl1c: free the RX buffer when the descriptor reports an error
-
-Before this commit, atl1c_clean_rx() only recycled the RFD for a return
-descriptor flagged RRS_RX_ERR_SUM or RRS_802_3_LEN_ERR. Now it also
-unmaps and frees the skb on that path. The RFD index lookup and DMA unmap
-move into a new helper, atl1c_unmap_rx_buffer(), which the good receive
-path also uses, and the index is now decoded with le32_to_cpu().
-
-> diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-> index eddd8406867f7..689941e46ff43 100644
-> --- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-> +++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-> @@ -1864,6 +1864,23 @@ static void atl1c_clean_rfd(struct atl1c_rfd_ring *rfd_ring,
->  	rfd_ring->next_to_clean = rfd_index;
->  }
->  
-> +static struct atl1c_buffer *
-> +atl1c_unmap_rx_buffer(struct pci_dev *pdev, struct atl1c_rfd_ring *rfd_ring,
-> +		      struct atl1c_recv_ret_status *rrs)
-> +{
-> +	struct atl1c_buffer *buffer_info;
-> +	u16 rfd_index;
-> +
-> +	rfd_index = (le32_to_cpu(rrs->word0) >> RRS_RX_RFD_INDEX_SHIFT) &
-> +		    RRS_RX_RFD_INDEX_MASK;
-
-[Severity: Medium]
-Only one of the two decoders of this index is converted.
-atl1c_clean_rx() calls atl1c_clean_rfd() on the same rrs right after this
-helper, on both the error and good paths. In
-drivers/net/ethernet/atheros/atl1c/atl1c_main.c that function still decodes
-the field raw:
-
-atl1c_clean_rfd() {
-	rfd_index = (rrs->word0 >> RRS_RX_RFD_INDEX_SHIFT) &
-			RRS_RX_RFD_INDEX_MASK;
-	for (i = 0; i < num; i++) {
-		buffer_info[rfd_index].skb = NULL;
-		ATL1C_SET_BUFFER_STATE(&buffer_info[rfd_index],
-					ATL1C_BUFFER_FREE);
-	...
-}
-
-rfd_num in atl1c_clean_rx() is also extracted from the raw rrs->word0.
-
-On a big-endian host, could these two decodes pick different slots? The
-helper would unmap slot X and free its skb (or hand it to the stack).
-atl1c_clean_rfd() would then clear a different slot Y and mark it
-ATL1C_BUFFER_FREE.
-
-Slot X would stay marked busy with stale skb and dma values. A later
-atl1c_clean_rx_ring()->atl1c_clean_buffer() would unmap it a second time
-and call napi_consume_skb() on an skb that is already freed or owned by the
-stack. The mapping for slot Y would leak.
-
-Before this patch both sites used the same raw index, so they at least
-agreed. Big-endian RX in this driver already decodes word3 raw, so these
-setups were already broken in other ways.
-
-The commit message says "using le32_to_cpu() when decoding the descriptor
-index", but this is the only decoder that does. Could word0 be decoded once
-into a CPU-endian local, and that value used for rfd_num, for this helper
-and for atl1c_clean_rfd()?
-
-[Severity: Medium]
-This is a pre-existing issue, but this helper adds another reader of
-rrs->word0. atl1c_clean_rx() checks the valid bit the device writes, then
-reads word0 with no barrier in between:
-
-	if (likely(RRS_RXD_IS_VALID(rrs->word3))) {
-		rfd_num = (rrs->word0 >> RRS_RX_RFD_CNT_SHIFT) &
-			RRS_RX_RFD_CNT_MASK;
-
-atl1c_main.c has no dma_rmb() or rmb() anywhere. On weakly ordered CPUs
-such as arm64 or ppc, can the word0 load (or the vlan_tag and rss_hash
-loads) complete before the word3 load and return a value from the previous
-lap?
-
-In steady state RRD slot p maps to RFD slot p, so a stale word0 usually
-gives the same rfd_index, which limits the damage. Would a dma_rmb() after
-the RRS_RXD_IS_VALID() check be appropriate?
-
-[ ... ]
-
-> @@ -1908,6 +1925,14 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
->  rrs_checked:
->  		atl1c_clean_rrd(rrd_ring, rrs, rfd_num);
->  		if (rrs->word3 & (RRS_RX_ERR_SUM | RRS_802_3_LEN_ERR)) {
-> +			/* atl1c_clean_rfd() drops the only pointer to the skb. */
-> +			if (likely(rfd_num == 1)) {
-
-[Severity: Medium]
-Are the skbs and DMA mappings still leaked when an errored descriptor
-reports more than one RFD? The unmap and free only run when rfd_num == 1.
-atl1c_clean_rfd() runs either way and walks all rfd_num slots:
-
-	for (i = 0; i < num; i++) {
-		buffer_info[rfd_index].skb = NULL;
-		ATL1C_SET_BUFFER_STATE(&buffer_info[rfd_index],
-					ATL1C_BUFFER_FREE);
-
-rfd_num comes from a 4-bit field written by the hardware. The earlier
-rfd_num != 1 check in atl1c_clean_rx() only prints "Multi rfd not support
-yet!" before jumping to rrs_checked, so such a descriptor still reaches
-this branch.
-
-The driver doesn't show whether the hardware ever spreads an errored frame
-over several RFDs. Since the frame is dropped anyway, could this path walk
-all rfd_num slots, with ring wrap, and unmap and free each one?
-
-> +				buffer_info = atl1c_unmap_rx_buffer(pdev, rfd_ring,
-> +								    rrs);
-> +				if (buffer_info->skb)
-> +					kfree_skb_reason(buffer_info->skb,
-> +							 SKB_DROP_REASON_NOT_SPECIFIED);
-> +			}
-
-[Severity: High]
-Can this free a buffer the device still owns, when a stale RRD is
-processed after a reset?
-
-The RRD ring is only zeroed when it is allocated at open. Some resets keep
-the existing rings: the reset worker in atl1c_common_task(),
-atl1c_reinit_locked(), and the link-down path in atl1c_check_link_status().
-On those, atl1c_clean_rx_ring() clears only the RFD descriptors:
-
-	memset(rfd_ring->desc, 0, rfd_ring->size);
-	rfd_ring->next_to_clean = 0;
-	rfd_ring->next_to_use = 0;
-	rrd_ring->next_to_use = 0;
-	rrd_ring->next_to_clean = 0;
-
-atl1c_down() calls napi_disable() before atl1c_reset_mac(). Any RRD the
-hardware writes in that window keeps RRS_RXD_UPDATED set.
-
-The refill then posts fresh mapped skbs to RFD slots 0..count-2. Software
-can reach a stale index before the device rewrites it. RRD and RFD indices
-advance in lockstep, so the stale rfd_index names a slot that was just
-reposted.
-
-If the stale word3 has RRS_RX_ERR_SUM or RRS_802_3_LEN_ERR set, this new
-code unmaps and frees that skb, and the device can later DMA into the
-freed buffer.
-
-Before this patch, the same stale error descriptor only leaked the skb. The
-if (buffer_info->skb) guard only covers the one empty slot, count-1. The
-good path already had this hazard before this patch.
-
-Would clearing the RRD ring on reset, or checking rfd_index against
-rfd_ring->next_to_clean, close this?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the new unmap and free here
-is one more site exposed to it. The link-change worker tears down and
-refills the RX rings without stopping RX NAPI:
-
-atl1c_common_task()
-    atl1c_irq_disable()
-    atl1c_check_link_status()
-        atl1c_reset_dma_ring()
-            atl1c_clean_rx_ring()
-                atl1c_clean_buffer()
-        atl1c_configure()
-
-atl1c_irq_disable() masks the interrupt and calls synchronize_irq().
-Nothing on this path calls napi_disable() or napi_synchronize().
-atl1c_clean_rx() checks netif_carrier_ok() only at poll entry.
-
-A poll may already be inside its loop on another CPU, for example threaded
-NAPI preempted mid-poll. Can atl1c_clean_buffer() then find this slot still
-busy while atl1c_clean_rx() is between atl1c_unmap_rx_buffer() and
-atl1c_clean_rfd()?
-
-atl1c_clean_buffer() {
-	if (buffer_info->flags & ATL1C_BUFFER_FREE)
-		return;
-	...
-	if (buffer_info->skb)
-		napi_consume_skb(buffer_info->skb, budget);
-	...
-}
-
-That would mean a double dma_unmap_single() and a double free of the skb.
-The two sides would also race on next_to_use and next_to_clean.
-
-Should the link-down path call napi_disable() on the RX rings before
-atl1c_reset_dma_ring()?
-
->  			atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
->  			if (netif_msg_rx_err(adapter))
->  				dev_warn(&pdev->dev,
-
-[Severity: High]
-This isn't a bug introduced by this patch, but this branch is being changed
-anyway. It recycles the RFD and then hits continue without counting the
-work:
-
-			atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
-			...
-			continue;
-		}
-
-The only RX-time refill is gated on work_done. It is also the only place
-the RFD producer index is written during RX:
-
-	if (work_done)
-		atl1c_alloc_rx_buffer(adapter, rrd_ring->num, true);
-
-Suppose about a ring's worth of errored frames (CRC, runt, 802.3 length
-errors) arrives with no good frame in between. Can the device then run out
-of RFDs?
-
-Once that happens it stops writing RRDs, so there is no RX interrupt, no
-poll and no refill. atl1c_intr() only logs ISR_OVER. RX would stay stopped
-until an administrative reset.
-
-The oversized-frame drop in the same function already does work_done++ for
-this reason. Should the error path do the same? That would also let the
-budget check limit polls that see only errored frames.
-
-[ ... ]
-
-> @@ -1920,11 +1945,7 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
->  				RRS_PKT_SIZE_MASK);
->  		/* Good Receive */
->  		if (likely(rfd_num == 1)) {
-> -			rfd_index = (rrs->word0 >> RRS_RX_RFD_INDEX_SHIFT) &
-> -					RRS_RX_RFD_INDEX_MASK;
-> -			buffer_info = &rfd_ring->buffer_info[rfd_index];
-> -			dma_unmap_single(&pdev->dev, buffer_info->dma,
-> -					 buffer_info->length, DMA_FROM_DEVICE);
-> +			buffer_info = atl1c_unmap_rx_buffer(pdev, rfd_ring, rrs);
->  			skb = buffer_info->skb;
-
-[Severity: High]
-This isn't a bug introduced by this patch. The patch notes say the
-if (buffer_info->skb) guard is there because "the slot can be empty after a
-reset". Can the good path hit that same empty slot? skb is used with no
-NULL check:
-
-		skb_put(skb, length - ETH_FCS_LEN);
-		skb->protocol = eth_type_trans(skb, netdev);
-
-After a reset that keeps the existing rings, atl1c_alloc_rx_buffer()
-refills slots 0..count-2 and leaves slot count-1 with skb == NULL.
-atl1c_clean_buffer() doesn't reset buffer_info->length, so that slot keeps
-its old rx_buffer_len and the length > buffer_info->length check still
-passes.
-
-Only rfd_ring->desc is cleared on reset. A valid RRD at index count-1 that
-was not processed before the reset survives it. When software reaches that
-index in the first lap after the reset, would it take this path with a NULL
-skb and oops in skb_put() or eth_type_trans() in NAPI context?
-
+diff --git a/drivers/soc/tegra/fuse/fuse-tegra20.c b/drivers/soc/tegra/fuse/fuse-tegra20.c
+index fdecf7b7c2466..8ff5d7abfc65d 100644
+--- a/drivers/soc/tegra/fuse/fuse-tegra20.c
++++ b/drivers/soc/tegra/fuse/fuse-tegra20.c
+@@ -89,7 +89,7 @@ static u32 tegra20_fuse_read(struct tegra_fuse *fuse, unsigned int offset)
+ 
+ static bool dma_filter(struct dma_chan *chan, void *filter_param)
+ {
+-	struct device_node *np = chan->device->dev->of_node;
++	struct device_node *np = dmaengine_get_provider_device(chan)->of_node;
+ 
+ 	return of_device_is_compatible(np, "nvidia,tegra20-apbdma");
+ }
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102215253.68185-1-federico%40rimpianto.com
+2.43.0
+
