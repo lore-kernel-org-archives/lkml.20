@@ -1,117 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.24
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793669214;
-	b=nTc3Y9sWsxiV7Ad0W0j5yQo/6l4GCWYg0B2+GPnwjNbXp2Y4IquBMLXNVgViF6ugR8VI
-	 ciocir7FqlWEWGJ4V0J8TCftjW8AN+NJAtiz+JeqF+FHJZVxlALTfes11e+EXf+p7gQbE
-	 CeGaDG2XiQP9AdfLZdb9fmEoCN4m3pI5qHsZQPl4phW6llpyP6TchlKNm6R1T257vBGl5
-	 Upe3FrWnDcoiR0QixpVUCch2FuQ4vVWf39Tvp08RrSh+rvjbeqFhiTIVj685BhyoH89J/
-	 eFDuY+3nC+7CUHmT1pmTZzK5hvI5B7RuS1QyUiAkyHSXmMfGj8wOwQV4X/GWiNX8XKA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793669214;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oBPfwb/t1W1II7v5sRMid9xnHb0O0rAZEBd8SAbnO9U=;
-	b=kVwly67tbwfs6Pl6LZ0USpmgmWvVvpV4wTiAttWKB5EBchreUkuJG0BRgdJpVeG+ScJM
-	 YUAENAbCCK9GMfG0PoVOlZmaNRMY1Hr/cqNUDgO9n8FugEp0BwiZm7l2A3taRoL2DOsLV
-	 l/9aj3Du1xRGAV7gmY7Q8FDZ7T9GtGkkobqLLt4HZ3qOjBQts6vAQAIp+TYIwxz8O2cWW
-	 6aZMvxrlsm5lCbfQ/qV2vyN2sQryKd8EnTSwiQdIVyxJwmVGScVz4y7cu9KesK7wm/228
-	 3ZrlhUYKjU+Tk4HMiauOr/VMtHo7QRmFu3ycb1nnsLDGKoY47VM0GKOuIJI3OpagLFQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Uvauescv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.24
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010024.outbound.protection.outlook.com [40.93.198.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.60
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793669241;
+	b=PMTPFvmB1CDe4bdx/mR5RS21grayrvzqDsau5IdA5z/0/Um71MWI7EeUEBypz9WiAO3h
+	 0DAf4vwOfrD0DTkE7L8Hms3m4j50pvmf3sk9RbhEkA5pnla7FBjIfHvdcW+ioFR+4jiC4
+	 QbZzAN52knI9MDlDqXW4SzCzc2Z2+zlqtScQ5+5WHW1aljSaVDXUt6tyYRhk3WrcOWCFi
+	 xJ1dhBaM/yfFjCfeWSevp13oY8kpFVejkCfeNdCSTNuNJGcmNpTqAp2VPH4ijIZ3uhCTz
+	 HLMR9mKRPwgYG4R1ADK0HKY4HeA6xcNGMFjihkzA0gN6hA9fW1DPYEbTne9JhTzkNIA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793669241;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xwrigN4hHrfQ0pdJAvaDQuroSa/OQ6XUSfC/4kh1PgE=;
+	b=jGc0VqhyuxLVK0RXUzH4LQ99USj8jJyy3KSD0OnBEi9FsZQgXqEXNnBjOKtiiqaKVhFY
+	 yWF9FpiC2fCi8M+qbzua70DAJJg/j14f0WEIKbdGa1OCt356ueVccFNkHm9f1bSzTVgjA
+	 ak0z8loj9PqbBWYMPtMGg7oGjTj30JpvNxfGbEBG0b5kzs5YIkxW3TfCcxOgdaenG9ITs
+	 8edXNUTRrY92LwK5JIuh0zPoYJ/ZsIvFjDIa2ShYONoItS/N5350CNBg7oeNRI5mw1n5q
+	 BenXbK3poZk+jqaik6WW53pzQjpp3/TmHN5yzOiczp7ufHk006xWLtJS+dBRLV/f1Uw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PB7soUHQ;
+	arc=none smtp.remote-ip=95.215.58.60
+Received: from mta1.migadu.com (out-60.mta1.migadu.com [95.215.58.60])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72EC606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D72EC606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742C9606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:27:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 742C9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Uvauescv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fOD9DMFBLtD1FCEQv5KsonPiyR/MaqqwmV05O/oHR7Lqmua7CzR1bcjPwp85ymkt7xdJRWbhuXLTA2aODBt777JuFutvCq5Rl7qn/h+xFmOWJCVx6f4Mp9d3YpLt2lpD6xVuEQfhuQXFvVctF90iz8QaQrW0f+dA/2pMQXoYA50aA9zh2XNFPBUbnk2+d+tb/XxbEN71I33TWwCcTdd9RP8RELAdB1zzZUOIsDQh+s0h6hdoYgsMgvkI0CB7G9AmmNdDHWJnyu+PbxzBKJygPAGFCmQxgXYfJAJPYN2WqXhSjhGMfpCOvFw3j1BdMt1AUyIjWQr3GV/NqoNcjtsQAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oBPfwb/t1W1II7v5sRMid9xnHb0O0rAZEBd8SAbnO9U=;
- b=U0XrgjuEREd7pYxvkBTpyORxQ5sVDoTEgcosvHctB9g1d2mDydZ0OfzEVrczlgzzdzcLlNrzR1161sbzhsgpU7Emb79EHSvCV7DUIySYdOwqcq5n9Xjq6sh14WEXMsfAX+I1+oCgDhbt+IwojQSLVFjCHsGD7DiZ8eH06CXb03JZIBAfjSY5QUhxFsQBInzAJOni3/U3E6+yFNbrfR/ovTEO7XvjAbP+pSayKzBmCiNpwpSa1ki9kUaIfx2FAUnhk8D9pEUOrq5xBP+QwdWA/D7F+f9tx5E3pIs/WW50zE2St3X3TIW0lJmUVFwBRoXQnyfKnEgr83EWmQfgVwFvNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oBPfwb/t1W1II7v5sRMid9xnHb0O0rAZEBd8SAbnO9U=;
- b=UvauescvxkW+NKJCrkyVkwzdF3IIDDY0XHoJLBbZwtKzq/UoOQTWcFBp6zdVBnXp53VC1n8ymT2v2/8qtdRMS5R4mlnACQ0+h/yf0FTMv32ujuicm6NyNFoJLXiUzTe5UldEmkDVauDF6MhK3ASRdp3yOT11jdGMPpXv7haf9Fg3GQ1b1BYpoiBknTNirTnssJYEeQB0IDz8cCPn/RhWhKDPFfQiJJSQ3ORaB8x2qw7hYYWUHnGtwrqIOLxk7cDL78efRukaWN8WCM1wu+SBMo9fVDyA56ELcwMsZRtdb/HnreDp/pv+CXIg5VdRNtIAKjEFIzX5FcqKNa9xyRF4nA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by DM4PR12MB6493.namprd12.prod.outlook.com
- (2603:10b6:8:b6::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 01:26:48 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 01:26:48 +0000
-Date: Mon, 2 Nov 2026 21:26:47 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"Hansen, Dave" <dave.hansen@intel.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"kas@kernel.org" <kas@kernel.org>,
-	"seanjc@google.com" <seanjc@google.com>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"Tian, Kevin" <kevin.tian@intel.com>,
-	"Verma, Vishal L" <vishal.l.verma@intel.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
-	"Peng, Chao P" <chao.p.peng@intel.com>,
-	"hpa@zytor.com" <hpa@zytor.com>,
-	"tglx@kernel.org" <tglx@kernel.org>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
-	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
-	"bp@alien8.de" <bp@alien8.de>, "Gao, Chao" <chao.gao@intel.com>,
-	"aik@amd.com" <aik@amd.com>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
-	"x86@kernel.org" <x86@kernel.org>
-Subject: Re: [RFC PATCH 09/15] virt: tdx-guest: Capture the TDI report during
- device lock
-Message-ID: <20261103012647.GE274202@nvidia.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-10-zhenzhong.duan@intel.com>
- <edafb4a0-ba6d-4fc1-a61a-801888e31a9e@intel.com>
- <IA3PR11MB9136663EE7AADEA4768D23E9926F2@IA3PR11MB9136.namprd11.prod.outlook.com>
- <b4fa1858eb35367d0ad5388823017a340d81fda8.camel@intel.com>
- <20261103003613.GD274202@nvidia.com>
- <1a956c4714be8a9488dbc5806efbb89e47beb6ee.camel@intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1a956c4714be8a9488dbc5806efbb89e47beb6ee.camel@intel.com>
-X-ClientProxiedBy: BN8PR04CA0038.namprd04.prod.outlook.com
- (2603:10b6:408:d4::12) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PB7soUHQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=D+/gw0Ztw4cZkf3WTT5E7vaQ4EK3jAqSPRQxFCWd8ok=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793669238; v=1; x=1794274038;
+ b=PB7soUHQZzgbmZjXh/fH9csK3Ied1/V+gZxo/SFEdSc1Zj3L2pmU2rSYLsgY2FEKuXAAHXcD
+ ZM+yjE7osqIRQ6zEkD9hs1ySTqGPIroojC92NhjBfhUne0f36ayjAAXujQ0g87JjcHBf9wZK5Gl
+ Mb8KKgNNX9fRjWUiCl/eteBI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 53184aca2c7ad085;
+	Tue, 03 Nov 2026 01:27:18 +0000
+X-Mizu-Trace-ID: 53184aca2c7ad085
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 3 Nov 2026 09:27:03 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>, Shuah Khan <shuah@kernel.org>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+	David Lebrun <david.lebrun@uclouvain.be>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Mathieu Xhonneux <m.xhonneux@gmail.com>,
+	David Lebrun <dlebrun@google.com>,
+	Stefano Salsano <stefano.salsano@uniroma2.it>,
+	Andrea Mayer <andrea@common-net.org>
+Subject: Re: [PATCH net 2/6] seg6: update skb checksum when ipv6_srh_rcv()
+ decrements the Hop Limit
+Message-ID: <auk4Z3DM4up7qVqu@fedora>
+References: <20261031225033.64-1-andrea.mayer@uniroma2.it>
+ <20261031225033.64-3-andrea.mayer@uniroma2.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,104 +76,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DM4PR12MB6493:EE_
-X-MS-Office365-Filtering-Correlation-Id: 422b08bb-573a-4a31-b071-08df394987de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|11063799006|4143699003|56012099006|261028144727099003|261022105027099003|261026140227099003|261022075727099003|261026121527099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	CIciHaOFUjR7Thgpo5wGlobUrufCFfojPPJXhhU9NvlnApCBomBi255Xg6KNvQR24mSh8ELPygLoCFlMH09stD3DvFP3wZwpulNHYPLH9vnAltUqR78nq/FmcvO6Mr2B9uvZ+qjhJaNyqxrKJmdvUUxm8mmQXNurfdoZi904e0A1WoHFHK9EE0YoQL7Mv1z8FZ4UfzMfKvF8ds+M/I0fCqCqw7fgVAFvSH+Y7kWfLA2mgRTZAQyqH58KhG+c4XHllprqIIn2PpMVQfJ2J1s7HQWe+qJNzAa+x8vbvPvkxDo7blQF+v8f4QSaeGDrZkpeMNlTCr+WMz+faGnZSmQ4+OhxO1qNQX6cOOiOD69zlWEJcpP/MdP7hAGcxOlX6/mtXuAjsr59PnOT0kPoMq/OkrsUfoFTwQCnBzfsFlyJi8rIsljfheAFz5ffhNQ6aepsLxKTI7Z5RyM+FzD1qspiEKr2AQMsWeYQaPzUj7xDMixQxEeCCGjHUyD5GsQiFVzHG9VxdRUs2mDFZUp8jS+LujzDfUHwJLh40SCGwQYNF/zTNQd7drz39umyCbAUaOdfvQ3VFaLaxN1/TXMehCl+w5jfRXLb3TRs5zPjOR59/ObwZ4OZr21AX5YGu7t/eWGBacKumJ1wPGJ/RUM4Wlh0yGogWbzd4O1aLjfOO8sNecI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261022075727099003)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SUiWBEzLrw5P3EEcv+TE3Z9wwEAD7Aug1yoc8ns5xuduHuqPnGWCtsbTYGVR?=
- =?us-ascii?Q?ZmIE+AdALhXKBfEg2wq1T3HW6Qit+AhT0EGWi8G/GMwFoj/kY/zA3AEXzA0T?=
- =?us-ascii?Q?J8JQ7euaciYOoeZ97MfQa168mjvoQXW78na1LhHn18kj6XCPthdu2YmaSsQX?=
- =?us-ascii?Q?dMh4Wf4iX/FAI+79ywtDEDpi1gSPQW54LlRFPhGne5fkMlujDOGUuucs15gl?=
- =?us-ascii?Q?U6775YP8M0zpoa/cq5aSBxiIATXuebzes10w51ahHucN3yR86Z2jYnu2GAPI?=
- =?us-ascii?Q?d+rz6ndoGZWJD4dU6fClOFwK+Ca7OOz6MVxAj4Whup75KkQ9FPQ1mzFZe15E?=
- =?us-ascii?Q?Oq6hoZn24gifsroPJ/PkTW6y2HOj0ipr5268MThGkFOGlxXX5umb71VZB+m7?=
- =?us-ascii?Q?L3ru0yjiL79F1k7FO0EHphzuPJ+dGTcS4lheNkSh8EUhWXqJ4BqlTaL7R9Do?=
- =?us-ascii?Q?JKHKMLgLnAhWZJ38P3jsNpQbwtEAlv2uHRK/C52MCbBTuUa0hz2lS7aAagu8?=
- =?us-ascii?Q?nRthu3RPDF3Y9dLLcCFy9aWFMxGwPVvPuSHCmDCLFmSKyopoNE82WU+vClIy?=
- =?us-ascii?Q?ecoZN2ixbv6vNi5jOa+KmfgyJ5AqHhK/MbcrTUm7A1WRLLHXKWwIaYEJ2sRz?=
- =?us-ascii?Q?UjummvkdsCeqOpgtHPNskCWebU5D3VBfWL2jYXyCbqdUIHZlgNWVNtNRvegx?=
- =?us-ascii?Q?5gfA2MDAFR3IXEchKEuGjARapuopa5Z7nb8sAnMSyW6EZEkjp+R/XwBcwi7o?=
- =?us-ascii?Q?Y8rxqrb0nDP/payQWb9ngSS8pqx2t9apTR5xEXG26KG7arGZ3s9VSERAS8wp?=
- =?us-ascii?Q?fd6iznw8voZ8UX8qFfgcykaI3sqNtECFnFy7tmcVwBwnFtcVw7EXOVG+PqTd?=
- =?us-ascii?Q?BqAyOtKlu+tqjzFS79jffLiU7eSU+Qb5j2h/H/dlIG2LBMYPhl+y8eT9CMEl?=
- =?us-ascii?Q?gGgahCKmOpH1UUkWMJ45xyXIy6zP1E/3CshQc6MzW1/XKwRr5+L+ICJKyfC3?=
- =?us-ascii?Q?yH1HFCuj4BkJ4q9ZDLnNUxHCM6MDpLkZpk7jjz0LRoBJxRSaYeboZw8cSiB/?=
- =?us-ascii?Q?gViiCADUN+wgpLaqbW0OQ+yuE87Ogh4syzN+9KWkCz668mqXtX+jKj++pXK1?=
- =?us-ascii?Q?CTmgGi5SJkU6LEL+p+UZmlSz+Ehkheok4EkRwc+fQCTFu8PAjSa2Sxc+8U8z?=
- =?us-ascii?Q?XuBQg5CW7B1MG92KAn3IMKyxsyfnhUCH00kJjzdYQGwdjMLut5lBN9wpCUa5?=
- =?us-ascii?Q?YnpwOLDolthBQwG5WamqOc+epKKFYgAmetJFfRHkjMKMa2lZ7f/jaVH8p+K9?=
- =?us-ascii?Q?mxPKibhooeWD8xFYO4m0iDdbeRMoZLEQwn/4yd9OYmqSFhbQ7UOaGQH3wqkS?=
- =?us-ascii?Q?JMgTsBvm/W9BwrhdmlqaTEG88MnNt3pcMcRkAS/5+uDTXCd0t4fGsn77AL+J?=
- =?us-ascii?Q?PnqNC0xl9ewK+2ETcyx0QW0F6pZxOX6ZDAcPaiT8wZBKOON0c5PlTKMZkC/6?=
- =?us-ascii?Q?CTXS8pANJrZhYivSiCCFZRvENpouefJDcDLNeSbdbDyLp6lbj/0ft+JhPeRM?=
- =?us-ascii?Q?CTVGhOU7ze6I5AoIuiujtFFOkH5cs1kx/SI0QhHA1d7tCawY5HW+LMwJq1YN?=
- =?us-ascii?Q?XtfWRZqNE75TFIgy/CcvPgIKr9n9M0fe3gHVO9Rp6AAcf4N8Ul7z74suNBul?=
- =?us-ascii?Q?kiKQSQe+LEqpWlXJttPY366LmrrBcDSOuHSnzpTpG6qfjBRi?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 422b08bb-573a-4a31-b071-08df394987de
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 01:26:48.6031
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: juKXyN2haPbQ3afKvbTR1j8VythG9LzKk0Raw6rN9ZGN1gpjW8Wphw5t8fbsVz9o
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6493
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031225033.64-3-andrea.mayer@uniroma2.it>
 
-On Tue, Nov 03, 2026 at 12:48:51AM +0000, Edgecombe, Rick P wrote:
-> On Mon, 2026-11-02 at 20:36 -0400, Jason Gunthorpe wrote:
-> > > You don't want the reviewer to have to piece together a puzzle by holding a
-> > > bunch of unresolved things in their head as they read the whole thing. Seems
-> > > like a valid comment to me. But the solution is not always just to add more
-> > > things to the log.
-> > > 
-> > > But I think we are still going to break this series apart into subsections
-> > > for getting x86 acks. Consider what could covered in a subsection
-> > > coverletter too, for designing something with overall reviewability.
-> > 
-> > I would prefer the arch code only contain enough to do the very low
-> > level interface with the TDX module.
+On Sat, Oct 31, 2026 at 11:50:29PM +0100, Andrea Mayer wrote:
+> When the next segment is a local address, ipv6_srh_rcv() processes it
+> directly and also decrements the Hop Limit. With CHECKSUM_COMPLETE,
+> skb->csum is not updated for this change. If the packet is then delivered
+> on the same node and skb->csum was computed in software, for instance by
+> conntrack, UDP can drop the packet as a checksum error. With skb->csum
+> computed by the device, TCP can instead log a "hw csum failure", as if the
+> device had computed a wrong skb->csum.
 > 
-> In the past TDX work, we have been making it so the TDX module call wrappers
-> were designed based on what the callers needed.
+> Update skb->csum for the Hop Limit decrement with update_csum_diff4().
+> 
+> Depends on patch "seg6: fix skb checksum update helpers".
+> 
+> Found by manual code inspection, and reproduced in a VM without kernel
+> changes or error injection. A following commit adds a selftest that
+> reproduces the problem with a tc ct action. With this patch, the selftest
+> passes for the path with local SRH segments. Also tested against the srv6
+> selftests, and with a ConnectX-6 Lx NIC (mlx5) that provides
+> CHECKSUM_COMPLETE.
+> 
+> Fixes: 1ababeba4a21 ("ipv6: implement dataplane support for rthdr type 4 (Segment Routing Header)")
+> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> ---
+>  net/ipv6/exthdrs.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+> index 96c8402a27a5..9d3ba310065a 100644
+> --- a/net/ipv6/exthdrs.c
+> +++ b/net/ipv6/exthdrs.c
+> @@ -460,6 +460,10 @@ static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+>  	}
+>  
+>  	if (skb_dst_dev(skb)->flags & IFF_LOOPBACK) {
+> +		/* payload_len, nexthdr and hop_limit */
+> +		__be32 *hlim_word = (__be32 *)ipv6_hdr(skb) + 1;
+> +		__be32 old;
+> +
+>  		if (ipv6_hdr(skb)->hop_limit <= 1) {
+>  			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
+>  			icmpv6_send(skb, ICMPV6_TIME_EXCEED,
+> @@ -467,8 +471,12 @@ static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+>  			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
+>  			return -1;
+>  		}
+> +		old = *hlim_word;
+>  		ipv6_hdr(skb)->hop_limit--;
+>  
+> +		if (skb->ip_summed == CHECKSUM_COMPLETE)
+> +			update_csum_diff4(skb, old, *hlim_word);
+> +
+>  		skb_pull(skb, skb_transport_offset(skb));
+>  		goto looped_back;
+>  	}
+> -- 
+> 2.43.0
+> 
 
-It makes complete sense, yes
-
-Maybe I was too specific to say 'very low level'.
-
-Like arch code shouldn't be running the SPDM FSM or doing "caching"
-for example, but that doesn't mean it has to be as low level as just
-register packing.
-
-> So to get the x86 acks on these patches, we were going to package them up into
-> small chunks that do something small (see PATCH Organization section of
-> coverletter). So we can succinctly show what the TSM subsystem needs, and how
-> the wrappers are designed for that. 
-
-I think the lock/unlock is possibly pretty straightforward
-
-I feel the viommu design is coming together well and is looking like
-it will go once the three arches agree.
-
-Anything to do with SPDM seems like it will need alot of work to get
-the right shared code and flows together, I would be careful trying to
-prefetch that too much.
-
-Maybe that helps guide what could go first along with drivers?
-
-> Any concerns?
-
-I don't mind, I'm just hoping we can have stuff in more central
-locations and not in arch code..
-
-Jason
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
