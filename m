@@ -1,50 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693848;
-	b=z9Uh5wwMsDI9vNm04G12wBjQBIXJ+kwsBiHZp1yTq/k+nAAOSGsz56/EDci0+kPwWCUp
-	 F1F3XF5CNiBYYljeK1DECB3BRMnZYYs94mk7nPwNJe+zMyIbAF4aT9FPtNaHlFIg1m2xa
-	 bk90NIyIU8j91Fc7fRCjrX+B5Hfo+1BWut/L/CSWnWd9oTLbMfJHgNJ24rcaFQKK1Y6KI
-	 tZ6XgFSCQFnByeDiXCjdIrQ1OqTVn5cmMpNTBgUK5g3Ff1cmhrLsPh6/mrNvU4DSH/xE8
-	 gtoZYTseBHjsG4GwsS03JHC9yj+3Uss2j0IT+KgsDM3PSzfOTcuADNUrQRGbp0V3PYw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693848;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=ByCs/mZsFgrdq9mpwG3he7XLV2D3BV8wO7JHEOzQf9A=;
-	b=v/3HQwx5j+4M1Kbbz3b2g7mKxuNEtOTGPFjCQep4wgtpCbS71wNpQDOj5bqlX+fkuT5U
-	 iv6MqDI8ds9m7Y1iZ2Zf77Zlm1c9+BR4ofSyeV2zcEB4ptHP6Nn7Ky2GvuumPMlBJBiX1
-	 C2PCx9LoKX9YowlNkCOJjwmUvBOv6i4+VCC7HPANjDOs2MoK0T5eW9CZJC1TPg7gxKcWW
-	 TDDe9Q4X6ZopM7eA3xQkL2OGr6cJ5rSlXaWekdSUHYYf6NYhP7oqzAyNMwVmQD5sWecWz
-	 jT5sirCr95y0VuBNal0QIVuQ2pyamRANh9fXWaAorCS/0j806Ht9/6ItRVD7QgGcq1A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793693923;
+	b=zoOI6oBhPIIVrWUSpWxroUAEz69H0A1i0jsugwv6q8SZWsF0+wiPSgyq8c+kr11JDExY
+	 CJMHN4l14SomQAjmf0ubL925+DvZuKsFCDTFKHsL8pUy3asHm//kyrXyIcWEBRJmeuTLP
+	 ABWhJM3OdEJKRz9OZlIQu2haWXW5fAhlwxoCK+pkk6EA0QKQJWmn805HxXyX+EPCJUBCq
+	 cR2xfZPZSjjWhSOI9EeSF+LSLbhKpq/kGLoqzTrIlHaEREfjMyXo6BTY/2MV6pp4UNetj
+	 vFsx65z/8eTcabW1C6YblA1pqclVikk2vt7tMiEdCFac65y6qk2yk36IGJmI7HQWGsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693923;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1x/lI9NulMOsOkA9APYNVNt8I1sryCaBQizYfOuaPko=;
+	b=iz8rTIKYGwmmVlOsCy0zmzert9meCbHP3FoIshQnIoROUs+2eNnEr1XyguwIf214pCbV
+	 ybCUvUcI9YcwH6LgCTWWdbS8+CF3UTSsxuHR4NH+dR5riT3IB0fY4cfBcQqcF9evh9UwS
+	 5QceLVZG+RhTrPM/RGcLnjnvjpvVfFERGoaqg0b7bru2tC0kJBZFCF9neFalr2zML9QUf
+	 yMCKocALUHwMz0feB9vEne5AQ9lRxlLPgYmJDl2z34ij+Yzb5DvQAvAac64zsnCFUTCmC
+	 P6IkwUFc6whiV9ulWXOIZD6NeQUQsKbQSoOIcxLHYNZCXOVSQodpidudTmNinfDnczQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ke+2cvUZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.15
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010015.outbound.protection.outlook.com [52.101.61.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58C9606A324;
-	Tue,  3 Nov 2026 08:17:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B58C9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAA3QZKTmOlqmVU6AA--.1291S2;
-	Tue, 03 Nov 2026 16:17:23 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: mkalderon@marvell.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] RDMA/qedr: Unwind user queue setup if doorbell recovery setup fails
-Date: Tue,  3 Nov 2026 08:17:32 +0000
-Message-Id: <20261103081732.1144512-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED9C606A324;
+	Tue,  3 Nov 2026 08:18:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CED9C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ke+2cvUZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LgXckiBNrh/rSUABJZkl22OcjDROF3RLtP9TvSOpAI1svmzOzcuc5ksEnXDbCaU1x+w8yGxpKfMqNMEnlA2kdOAOJOaRSXHm4mMf9scLkYcVn5XbbMmSdG5bli7fyy5XLjKrEsyeSTloekV98SooZdXJEVOB7JmRqnhNezxcFSbcq8OoPTFq+F1czXo5m26IQaYUi1EIjXCRLrq3czA7f0Sq/tALtd8JSp68GQz2QqW9nCgeuDlV42g/hh/S/QlBsJ4xweVKkE1opKzDKEcocfToRUPdwD/VJ3+RmkIIUOw/4R17+RX45DQluCBdnuMSQG2HeZZoZ/jBTaj9QoIWXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1x/lI9NulMOsOkA9APYNVNt8I1sryCaBQizYfOuaPko=;
+ b=EJjKGjx+Q8giMhiDlP3FZ3E/j3fGLdNiGHcgD1DAQAcLFMmSXmMKny2qP7vbgH79atvJPn3QufqOcxH3qkKBBXAll1dIkaelFb0TAwof0ksvcxUo9UoDjk3whKhVGxfpmejnvjpA0tyCgDYPWRB8HLmnrGAhysIe/jjcVYkUPRgc2nprmyMGjn0yc4ztUyc8LWOGq2BmXKc7VCFqYJk31ayyQrLg+rE7OkD60FB+5loUB07WbxQ2A14tjTXaqaSFBv/zCpWnwaTPbFuGbFGjmkTRPRKXd+Ek3SuOPDjsDHGT9cyL0ljqteGwYxv90wnW4CwjIQytxl+wVns2cTbs1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1x/lI9NulMOsOkA9APYNVNt8I1sryCaBQizYfOuaPko=;
+ b=Ke+2cvUZGaK53907gym+PcKeCFLGkayJ35am+453JrHdZNnm/KpD4twjtLILD3oDZa05Vh7CGFgG1lJjmW6ppx7qfjsI12QweFQ1w17966gE5LhNdRJhDH4UMlehukNFsAQuzWG0+qNtnyqPl2Rj8jp3gt4NIlK9YWg523GWopQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA1PR12MB7520.namprd12.prod.outlook.com (2603:10b6:208:42f::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 08:18:26 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 08:18:26 +0000
+Message-ID: <37102f95-d316-41b9-85c2-0f56051ff0a5@amd.com>
+Date: Tue, 3 Nov 2026 09:18:21 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Release input fences in the unwrap merge order
+ test
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, phasta@kernel.org, sumit.semwal@linaro.org,
+ linux-kernel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+References: <20261103064457.1056056-1-vulab@iscas.ac.cn>
+ <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0358.namprd13.prod.outlook.com
+ (2603:10b6:208:2c6::33) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,66 +100,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAA3QZKTmOlqmVU6AA--.1291S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar4xWw1DGrW8uFykZFW3trb_yoW8WFWrpr
-	ZxXrWYkryjgF47AanrJr1UtaySgaykCFWUKrZ29w1rZ3ZIkF129asIkF1UXFykAFs2qa1S
-	yr4qyr45Crn7CFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
-	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUMGQ
-	DUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgkAA2rpWmXrlAAAsP
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB7520:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea9c48d5-ff06-4926-c6d4-08df398308b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|5023799004|4143699003|11063799006|56012099006|22082099003|18002099003|261102123227099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	88uF/k4YfScG+pEfhix2XDrMUa3UtBQAldjCYFcs3oAsLOGauWZqrkdEAjaa6k/Y2BYDW4LI4lJlkz4yuJiRkmKhd5rst26ieZX5LuWvCMfWGv6CTO2SroT2lytuOzaxPbiErLHlMgir6dmDGN8GVF1vVrSmMjetH0dnIGEWnaQ48M9Rg7r/ioZcD5poZjQ8Qip/aA94/ZyGogeBwbiXOPH2cUTis0brVyV0su1E5SMUH5ydHuVKmkmmAxfa/gNp7g+gjKuHGAwOZE9dDo924HJociqzsTb10oRs+lQzZ6btOxhc78hV52WiUm2TW8MehUOctIWWzW7k0srQBp3SBcJXoCaJZwlu35UJI8+pT4kvH+rvXsjSzX45vD14w3n/2wmEzQ8sgpM+DPDLXaYyZ9wkl1kjatz90XvRHZLpWyKpdoxVDYc1CxhyEzp5Gbv393y0g7vtui3xxWwPjkTzUkLuJUjQpTWbabTufzWptB/0IAlbcjd5yw1V/4sdpNBz2Er2YJoM4LxCHHPAoD2SPaGArJzMlIUpy8EFhzSrRXuGSVuNpYNiDS67ijdKOcimBFMq0Pu0a/A/jb6LzXQprCOxiSk+ZoCWz4HHKyGWXunyzFix4ssTtxbFnFLon3U9xDdPiiktsAoWGyYoBf5bsF27xh9WwJPgiDndEShOOsc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(5023799004)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TVczNDNmaUQ5bHhMZkpDbVo1R05RdS9Ebk9Sa3lDcmdVTlJCTzBVUDlTV0hz?=
+ =?utf-8?B?SGtadlFjby82WW1ndFlGMmNCcko4cjBCVm1rT01vOGpIeUJhL1RSNVhScGMy?=
+ =?utf-8?B?U1dHVGxkNDhrc1NQbi9iUWlZcGNhQW11NFVvSk44NE9yanBsS1BFQytheFly?=
+ =?utf-8?B?bFNERGwzbG9mOGpRZFIrU2hqN0xvVCtTS25PckdCYVZzMEQ1REF3cUZsbE9L?=
+ =?utf-8?B?ekk5Wnc4S0ZQN1puc0xZQUVZZ2dZdzZmVkNtZDVHKytUNXVtb0FtbVZPVTgy?=
+ =?utf-8?B?SDYzaFRveENxM0xkM1c4dmk2SXc0d0hHWTlySE55UkxDcElrWnBzeGR3S1Rx?=
+ =?utf-8?B?bURkOENnSUZrRWc2cGRzVEpoNjdQSkZZNEtPRVIxa0lLTkpsbXcxWDlLVHRy?=
+ =?utf-8?B?aTBhVEF6S2c5YVNKcnJuQ3U1Vm9ENVR1bnBRblZCVEhFcTBLcmpOTkVFOEVZ?=
+ =?utf-8?B?Vi9SWkp1V01aMEQwazREQms3QTlBdVZkbjhTWHU0dFU1QjBaQ0RTalVUT2FL?=
+ =?utf-8?B?Q1lzSThIQ2tncCtmZUlGNFFDcUtuaHRNZUN3eVl4d00zbWNJL3NCNmNCK3RQ?=
+ =?utf-8?B?engzL3hxTkVQcWJSTnplRFFTVDc4YTB1cW82UGdqWXhZbjR4emJmeE1GWmgx?=
+ =?utf-8?B?TjdNT2NWYmNueDltNC8zRG92Mzkxd1c5ZWU0V2RQMGFJNGJ0bXFKR3JpQURW?=
+ =?utf-8?B?K2thdWFoTlVxbDA5T1NjaHFrcXN0N1A4b1ZBZzVvUXBUSlg1R0tiWFZGY0RH?=
+ =?utf-8?B?bWsxcUZTWW91b0s5aHJVaEJLZU5XTnYrdklPT0lqdFF2aFYzZmplVFBpL3lR?=
+ =?utf-8?B?a1dPMVllQllNeG5ENTMrYk9TZE9vWjJiSXI0TWNnZXd6RnhZWjZzciszQmFK?=
+ =?utf-8?B?M0cwWG93YmNIUGlBMnRSK0NPbFQrZ1RZaHJlSkhoUzJXNTBUTG5GSG03NkNj?=
+ =?utf-8?B?dkpTd1BjWFdQekNKajlaL1JXVndWejFGK0ZXOEI3MldaQXBxNVJlUlBnMGxp?=
+ =?utf-8?B?c1ZiSHZWazEwZUFaRUUxcWR4ajhKZ0NKeW9uL1Uvd2NVVk1FRlV3UktITkJS?=
+ =?utf-8?B?dm5vK3licEdqTGlrVWx2a0pYQ1VkN09lSU0wL0Q5SXFuTDY4Rm9xL3dEWUJt?=
+ =?utf-8?B?SEU2SHYwNWRhR3hjV3Z0Sm45bnk0dHgzUXJoVU5FcXdYTVB2Tmx6Z3E1YXlF?=
+ =?utf-8?B?ZEFmRm9aajk4K05WaklsTm9SWmFYM1dpM0VhVGNBQ0Evc2VjbTZQK3p6L0NW?=
+ =?utf-8?B?cFJVcS9ORXhYMmtodElxZ21sUFZ2REhIZjZ2SDZjcUNrSGZod0FveHYrUXMr?=
+ =?utf-8?B?QS9hUlZWVDJVcmVmV3JDUFpoYnNLMmlCNGI5dm5Tbkh3bmNFQVljQWphWG94?=
+ =?utf-8?B?b3N2a1NMZHkxZkkvSFhSbmUreDNkRnBKRzQwVktvVWFjWEZoU0dFRGU0QUFk?=
+ =?utf-8?B?OXpGWXhyMjFIQ0dJeUpQampld2hNMDNrQUN1ZjcwdlREOXpFazR2c05vT2Jw?=
+ =?utf-8?B?S011ZmNyM2NFRnoybFVON3pvcVhtTXVyUmVvMUFUazlYaUs2c3lUQkNwc3ho?=
+ =?utf-8?B?N3lpQWJBcTJKZExESDBQUVNLdTE4Tmcra0Y4bUsxYzlNOG9qN3J6T0FYWlVu?=
+ =?utf-8?B?bS96N1JhOGM1RnIvNmtCWEtBZlEzSmh4M3gvNG5Na3ZDOTArem9keHJTOWdB?=
+ =?utf-8?B?VmxKNGxTK1k4YzQwbXlia0hRMktITU9zeFVSakpXb1FNdW50dmpkdWF0alU3?=
+ =?utf-8?B?U1k4ODMrZk91RHExZnhKUUdTamdTVnNjc2JUbm1jSEJnWUpUcitzbDZwNkcv?=
+ =?utf-8?B?eDJiOGdOVmtLdERzQjJnKzRmOVpTK1luL1F4NzYxMGFjdkRMYWtJbHRHQUhz?=
+ =?utf-8?B?L0VEU3RzY2w0bkZndHhRb3ZWend4SmNHMVhiSTFBRGFJcU14d3U0ZW9HcjR5?=
+ =?utf-8?B?YkZISmN6bGFFWGJaK2VqclZZbGt0RW92YmZnL1h0OS9HVktGNEJ5dzkwZmpo?=
+ =?utf-8?B?NzA3ZnczNm4wbjRtL2pqYjRiK2dDV0Vxb3UzOHErNUVIaFJrbWxHSkZQdnZX?=
+ =?utf-8?B?Uy9kTjJtcDdLc3VvUm1kVTV6WUJRaEIxU0NzVEpxYXhxOXpDUVdxNVJSUE9i?=
+ =?utf-8?B?NnZPSXM4Zi9vajdCbGVpUDkxT0VnZmpjOW9maXFsaFk4NkFxZzliTGVldXdO?=
+ =?utf-8?B?b1JpRGxrSCtUMXRsSytYazh0WjdsUFJYOE9WbGNSZy9wV0RNa0dnSGloOWNY?=
+ =?utf-8?B?UktoSnkyR0ViaGFtR0hYUXY1UElDK2FMcHF0TWxBaTNjL2V3QVRZSFMrcHNX?=
+ =?utf-8?Q?7ihPavzuGCh2BLIqAA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea9c48d5-ff06-4926-c6d4-08df398308b7
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 08:18:26.1000
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uVPUND940ovrVOkO9+EBH8HzHYAFX/nUyOF4BNWhADDDULsxeN0E+EfFCsgCgCG2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7520
 
-qedr_init_user_queue() pins user memory and allocates its PBL before
-initializing the doorbell recovery record. If the last step fails, it
-returns directly without releasing either resource. The CQ and QP
-creation callers treat this as a failed queue initialization and do not
-release that queue, leaving its user pages pinned and PBL storage leaked.
+On 11/3/26 08:27, Krzysztof Kozlowski wrote:
+> 
+> On Tue, 03 Nov 2026 06:44:57 +0000, Wentao Liang wrote:
+>> The merge order test creates an array and a chain as inputs to
+>> dma_fence_unwrap_merge(). The merge takes references to the underlying
+>> fences but does not consume the input containers. The success path only
+>> puts the merged result, leaking both the input array and the outer chain,
+>> which owns the inner chain.
+>>
+>> Put the outer chain after checking the merged result and fall through to
+>> the existing array cleanup on success as well as failure.
+>>
+>> The dma-buf-fence-unwrap KUnit suite passes all 11 tests under UML.
+>>
 
-Free the PBL on doorbell recovery setup failure, then use the existing
-umem cleanup. Match the PBL allocation mode: RoCE uses the populated PBL
-allocator, while the other path allocates only the table descriptor.
-Clear the freed pointer as well.
+>> Fixes: b1cce631e61f ("dma-buf: add selftest for fence order after merge")
+>> Cc: stable@vger.kernel.org
 
-Fixes: 97f612509294 ("RDMA/qedr: Add doorbell overflow recovery support")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/infiniband/hw/qedr/verbs.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Completely agree to what Krzysztof wrote below, but additionally a <256 byte memory leak in a non-production unit test is not something I would consider relevant for backporting.
 
-diff --git a/drivers/infiniband/hw/qedr/verbs.c b/drivers/infiniband/hw/qedr/verbs.c
-index 3c777bfdef8f..f7a4b2bd7398 100644
---- a/drivers/infiniband/hw/qedr/verbs.c
-+++ b/drivers/infiniband/hw/qedr/verbs.c
-@@ -818,7 +818,15 @@ static inline int qedr_init_user_queue(struct ib_udata *udata,
- 	}
- 
- 	/* mmap the user address used to store doorbell data for recovery */
--	return qedr_init_user_db_rec(udata, dev, q, requires_db_rec);
-+	rc = qedr_init_user_db_rec(udata, dev, q, requires_db_rec);
-+	if (!rc)
-+		return 0;
-+
-+	if (alloc_and_init)
-+		qedr_free_pbl(dev, &q->pbl_info, q->pbl_tbl);
-+	else
-+		kfree(q->pbl_tbl);
-+	q->pbl_tbl = NULL;
- 
- err0:
- 	ib_umem_release(q->umem);
--- 
-2.34.1
+Unless Greg or Sasha have different opinions please don't automatically send everything with CC stable@vger.kernel.org.
+
+Regards,
+Christian.
+
+>> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+>> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+>> ---
+>>  drivers/dma-buf/st-dma-fence-unwrap.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+> 
+> 
+> 
+> Multiple things here:
+> 1. Your team ignored completely previous feedback. Multiple times.
+> 
+> 2. You use multiple identities with this email, thus I doubt
+>    that we speak with an actual person.
+> 
+> 3. Your bot does not even bother running checkpatch, right?
+> 
+> 4. Nothing of this was reproduced nor tested.
+> 
+> 5. Finally, the same feedback:
+> You sent multiple independent patches, to multiple independent
+> subsystems. The amount of these patches clearly suggest this was
+> AI generated and most likely not tested.
+> 
+> More importantly, you sent all this work without properly organizing
+> relevant patches into patchsets. This makes reviewing difficult
+> and might cause multiple reviewers to address the same issue.
+> Replying to the entire set is impossible and requires handling each
+> patch independently, instead of applying or discarding the set.
+> Maintainers also won't see the bigger picture of your work. Quite
+> worrying.
+> 
+> This is on the verge of hostile patch: bomb us with so many
+> contributions, we won't be able to handle them in efficient manner,
+> like responding ONCE to ask you to slow down.  Considering all this
+> is untested and LLM generated, I have even more doubts whether this
+> should be considered for review.
+> 
+> Please read kernel documentation BEFORE posting more work. It will
+> explain you how to identify subsystems, how to organize your work per
+> subsystem (so a patchset grouping multiple patches with a short cover
+> letter), how to document usage of LLM and what you should not do
+> if this was posted in a good faith.
+> 
+> Best regards,
+> Krzysztof
+> 
+> 
+> 
+> 
 
