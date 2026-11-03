@@ -1,94 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687394;
-	b=usJ3e6KCuQqx/ef2NDxpLONeWxdX6zPOowZ+fuxVYS4cwD25KhwVYp+gjkJnHRXn4flF
-	 96m0qkuXe+wYuY36nmT1ypWH1M/1R+GHjaIN/GUlKWcb1P4wF6MNVQ8edJK2V4E119aAX
-	 lZzz+qjmwK6VO8IlmR6mNM50Inl3Cf75SG3lOTB9aE1ftDYM8JWGDj/DtmK/bR+60DmFr
-	 C8ZkV3q2llp+SCO8MXoF0Q2JPQqbNLIAqmmMIoJTNoMuJTgPvgO8TC2Gea9bzaUdrqPtt
-	 tDpPjGOL0Z944IkGMgPaIO5HHvzRzPL0It26hnocn0D1Ko3gaBYetUQVttwAbrHB0sQ==
+	t=1793687441;
+	b=BxRDpP5S2kGWiv4737S6YP2VibdKgbKc4PDwg9b+Y584E2pUGmtT7RB6Hqy/cvND0IvK
+	 L0EG3ERaTASrNUJAv5+lPDWJod0iIhFYwRBaCsgxU1sBW9Mo+uW0jYWRAWh0PtfEoOqrm
+	 FNwBP1fqlBwM6+iaWan35wL6eC4twCJWoWhQjqQOxC9M/+0KcZAdam7gBDp6VmSYncKv5
+	 1jYvNzBrHWhoAanpGU7p4vLnQQDp9rM8FLUCbR/eG6OFNn6TcxD3Too9GAll4p6rU9v4G
+	 qqG4vRa/mvYLWXc6IHHckG30mCYH3D/HIo+fWO+Cal6KyUTGiVmHI2RZ/hU5oZeu34w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687394;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687441;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DlqRd2OswQ5wu8VHrHpo6vh4mLXNYer0je1L96tdIPw=;
-	b=ySGLjTx5CRiCNKkhsvRLv/gulPV/P3S+7UJ9TNffcx4HvowK5rW4HHwtXvgPV2X13Ans
-	 hRaVdDiQE2FaFBC2sKW1NaLUjqNb0yft30mkmVkYl/R96YDiZme5o2k41ssqMXfV4ccHc
-	 zMUPZFbz38t21rNugdC6LCWFKlxCzw7KAxTxO0w254BwSl8H6SXHi/+TcsHoHPwpRgrhp
-	 xz8M76ywQfsg7/wS9ruXhm+9bV2Rr3mLDuXMHw845MQkIrBmOqd2e8Kpoc3k7S6jsqH//
-	 OPdVzBC5x0vrBOGFI64Dl0KvzzDY4HLVctRv/WhrHcKafNYd8WnmpkiLJQKxu4BK1wA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=1e5yiaXntYJQtqK8uc9nIplampCx3pEWFOJaZHKAJjI=;
+	b=UN/LTwAZA/Iw+S4OmBZAjs8uKS1ip67+cbtJ0tRJWTz9OC75EESgBmG29Bc1i30lPL1b
+	 M0pOE0YIR50TaTbfT1dwqt2WL4o8JyDBTbDnO0hZkHwD43PQgninEHT609nGNK/qeE9rQ
+	 y3pRS1T4sSsEA7UmwBL9ejKLiW1ns+ZiLSLQZzewj7nr8AYeTO3Dt0VxtG2d8HppYXqgT
+	 EgsTCKzUt9B3OzSPDsV61iWg2LAD6wlRsaJCfQrW19cHWfGZ0YjPdqgU7v7AxgEhW+Re9
+	 AbrEBBFRbf5AO0tam3tCUxGcbilUv/zeEElyS6lPFU5D4lz9kcWY8lD7jE3Yn90rekg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MEHsoiJW;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jsid9HIZ;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA0D606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DA0D606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8A3606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D8A3606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MEHsoiJW
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1adbf62dd31so4142511c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:29:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jsid9HIZ
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36a315ed211so437502eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:30:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793687393; x=1794292193; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DlqRd2OswQ5wu8VHrHpo6vh4mLXNYer0je1L96tdIPw=;
-        b=MEHsoiJWEDS4Dzk7Wc4SeXmO11lW2V5Oqxt9ezfJSA4skiQn0KSvw9CV2yszdHV+kK
-         CEiOJUO9cEQLam35aocWAO2w6vSg5l0yqzTQkmDgV2FwGm5y2K1fqEzQRionHPy/O3C5
-         IiVMpPMg5T6T3SWpBIptICorHqZUyVxUBF1H8fzgb78dcsqoJCBvjhau6OmR5TGD++WB
-         tOme0+MhKqr32PV4HqHjGjCD8taM2M6nid3NJ3fz4lwKCV6xFvvhIXP6TqFB53orTJH+
-         iEHLzLEbbbVYTsPCNnGO3WYEF5WoGmJ4ZUPXmM7DfBQeHxwInwkOnCcjB37AmRNNP7yB
-         Elew==
+        d=gmail.com; s=20260707; t=1793687440; x=1794292240; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1e5yiaXntYJQtqK8uc9nIplampCx3pEWFOJaZHKAJjI=;
+        b=jsid9HIZFoRNwR6GMTza518FAORcQfu/edmN3FC+6bNwNONpdPpvjjRiQkCnQhuBBi
+         IUs1yj+F3JN/ggclVkohtM4tk9HHZTI9g3ZQZchB6eiZnydJFech6fL570HOw0pSNQYQ
+         EmmZcy4zTzI29HP4wO8ZeEzi81oNtD1LDcmgj2wyWB2XuagDGbcrUMZJX3rrAG4t2AS7
+         2WluI7BdZQn/XZ3aoLCaAXo08ogAcMPnbd24vJXNyVcqNzH1AO9sVRfeQrmvYpwalBM2
+         e7DrnkocDpxifvDy3yfpFIW7FkLXZgTezo17k5Wn/8cLxgv1G8VB1vNI3g147pkXg4N5
+         h7WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793687393; x=1794292193;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DlqRd2OswQ5wu8VHrHpo6vh4mLXNYer0je1L96tdIPw=;
-        b=v2j4M8bx5Gdoa9KjQz3VfY0qhiqANEw1Hw21p/ViLpIIf19P9mqhodhV3DBovYcpau
-         KceNqei68OLT6bdJtYRkhbwp3P7j/5WGDh4rhoKnk+JqKECLrP3GrWmWbhVtPNi/ql7m
-         sv+fMyzStUCDckHsygVzabD73c0fiqhOZS7Amk87eqT03cx9i3am4rwbC8XM7ufmnlJw
-         zmvbpSXqLH/cRbqu5oUiYClprDiRvQ2ZC8OvISKc0cR+dkp8AaxQ1GDAGm1F4VQAQHgP
-         q/r0DyDvA4wcvZkRaouJQVtZefXhjnXeUCLj5Th171RTgL8BhcGgJNH+fPv4+SmYEYuZ
-         1L9A==
-X-Forwarded-Encrypted: i=1; AKwUvBwh7NTuKWem73aSyw2EDE/a7FKO+FoM41hDhYOmuzpjDHRcYble34MOt6M3Fr8PQsq663CVAMFf35n5tKI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WiTpDDHvirxHZNLSTWb4HerX80fp0Z1zBWaCUuW+wKXTgPrFC
-	pVl2uGMZzczsdcinmWWUT0HqWwzEkWxnKyb5j9PVDu8kBY+N1mjzer9I
-X-Gm-Gg: AYBFou08qqlNVeTHGDOoYlLDNOricIzh1aOGFFmx8cKtKsHECBAJk4eWzfbHCQk8QT3
-	5yVnW1TjgiWkMHgwryIchxmpcLNChqMWZPsGUYWpo1fzsqodeqBtyJDkVZAIbWwl3aPpqmu1nPM
-	pyz5ILP1rojDLyh6Fp3MT1mrKMyAJZKAjnsgtKAJFN42gSMQ/Bnpl4v6cOWha+hq5qmFZQpbstf
-	UKUgaCThx3siuZpzriGlQxz/mDni+RepRDzulZuMzXawxFNuYAdeSWKaQ3IRB98VmKA/PDRHEB8
-	cknc4HpX4+Cd8MYwJROfkb8wM0Hc9FpHsJWZTBs1njzDSvwZtcOsqyySHv5xvq8dflJtVV4/4Ek
-	GqLbpOqJgkBH99ZvRgiCuBIcwBok2jhLr85PjL2AE1mX7F9Yei02F1ZnlUFdeBsubRiPPeM3OHf
-	ta/1hqFhE0p4ORUM4UjbyeDqTGiToPhctkwEkJ7f+Gl8AaAqKU1RhNuK41Ex470u+hVcqv36xel
-	w3JAI8vbHzKujoiixOdmXPZ1F43laxTRxzNkrlvJXvnWPk30HsFhdPzG9TcGLzcIOYQQRJGqExL
-	mROlGUtd9Qtsed6nJ5ityS47jYn7VLPuO0kLIsg=
-X-Received: by 2002:a05:7022:b0c6:b0:143:72b1:9004 with SMTP id a92af1059eb24-1ac5ecb37e9mr17812583c88.45.1793687392515;
-        Mon, 02 Nov 2026 22:29:52 -0800 (PST)
-Received: from amd.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4a04esm39366350c88.15.2026.11.02.22.29.49
+        d=1e100.net; s=20260707; t=1793687440; x=1794292240;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=1e5yiaXntYJQtqK8uc9nIplampCx3pEWFOJaZHKAJjI=;
+        b=HsCUV1SAVwaweZqV622AUU7NHnpvOseNCkTXzbfQiZLSmZtSYPy/WAZtlV85LgHIqG
+         l15bZchkZzBsgjPMpV6hQDnTcPhsP2TK6+p8d8qs1Ey4KIoNmtbU3z0mILoVTeAcPyKy
+         j/0ssBYB/GdWHjgilmJJRBrh5xDFQXOlhPJ694TKsO7Vcs/E8zl9ZRmysmQGMXyhVDY7
+         vUuaKCIdqT4ru0CxttlCRXys/jOJ63nHpO5zPkIexrb4qThKwXMY321A2ud2gjS1QlUY
+         0gI/YVUAEPaqxIsoDVFWtSVSbjZeHeHKXLd/WxA38VbjSeJ7cI44gOnDngqT1EitVkmm
+         SK9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxedsfaBQXReSSxAQrAjKRFnKzmtYXnVeW466MRELsEWk2nFUSmMyL76pCvMmZTr7hWDMAyox5kNyRfsE0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/QARQQm9Vldnbou2Vccycu7e0+LH5G4Dn1UFIasdp5lH8N4Qti
+	oO149IiApFgUvtpqV1kwpxuNHgcninNN8xpSskbgjc/0/BQCzfvprm4W
+X-Gm-Gg: AYBFou3AozR0ZUmIwQjvTdPxepPCD8iS6AuWSWMx2h4Je23+NZgcxAlW7tTaTnREDZs
+	eaWcee8uGYAcMpyo8yGB7oYt7wKpHPBWqzVweoJWvTCZd8fLXl7CqkoTvgxLIqLU2XJqVAS8Rhu
+	/k2PvpmH9g3BIv9JcatBbkMxQoSmqPM1Zmtl1y+pVjMsg/8M3cpxJHh8RP3bZZVdCkIIUJngHGt
+	cnnb1uODu/28O6qkMa13Ps141d2xjqdz4irQV6WbvPz4tA1pf/GakzP6H2fHCmAk0qtCVt0oEJw
+	DvI/61S+kX5KvbnVPlOpTOcKLpiq0S1/dX7+N1PAweHH0ATCwEqf1ghv5kRGQ5ALiC7LIEmJEa5
+	K3k2se3BaxHwRCSORaYYAYDnrZ6cnO96nhejgV/8sSo3JmhTxcpiO8XGaxJqsmQtqCBGdtvM+Hq
+	QllrjOiTQJeIrOPyr8EmK409cUa+392kaQW8HtglAX325TeQfADGTqdWeVGvk5Hy364fZ/YMYiR
+	qpYOmIZn7mxvzHguOnuYXBY7p/w4i2iMZ7KvpaTeTHaGJTL7Y11+pME+xsVIH6vA1h5GWJ93BJX
+	1T2uPeoUKZdH/4av4NNLyZS5UzGCLjlCbTj9sLSSTuMlj0E=
+X-Received: by 2002:a05:7300:3b05:b0:369:fe82:8d3f with SMTP id 5a478bee46e88-36a3002ef31mr30681503eec.14.1793687440182;
+        Mon, 02 Nov 2026 22:30:40 -0800 (PST)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429000f8sm44608720eec.13.2026.11.02.22.30.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 22:29:52 -0800 (PST)
-From: Priyanka Mani <priyankamani2100@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Neill Kapron <nkapron@google.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Priyanka Mani <priyankamani2100@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: gadget: uvc: fix dwFrameInterval array leak on frame removal
-Date: Tue,  3 Nov 2026 06:29:25 +0000
-Message-ID: <7f7db2bcb2c5d248cf72a270bd18afc71cf01559.1793687064.git.priyankamani2100@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 02 Nov 2026 22:30:39 -0800 (PST)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Tue, 03 Nov 2026 01:30:35 -0500
+Subject: [PATCH] nvme: wait for SRCU readers before splicing the namespace
+ list
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,76 +91,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-bug-nvme-remove-ns-srcu-v1-1-e239087d63ac@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAIp/6WoC/x3MPQqAMAxA4atIZgO24u9VxKHVqBmskmARxLtbH
+ L/hvQeUhEmhzx4Qiqx8hASTZzBtLqyEPCeDLWxtTGHRXyuGuBMK7UckDIoq04VdObeuqVznjYd
+ Un0IL3/95GN/3A5ZD3BNpAAAA
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-uvcg_frame_dw_frame_interval_store() allocates the frame interval array
-and stores it in uvcg_frame::dw_frame_interval. The array is only freed
-when it is replaced by a later write to the dwFrameInterval attribute.
+Readers walk ctrl->namespaces under ctrl->srcu, and some of them sleep
+there, e.g. nvme_wait_freeze() waiting for I/O to drain.
 
-Frame items use the generic uvcg_config_item_release(), which frees the
-frame itself but not the interval array, so the array is leaked every
-time a frame directory is removed after dwFrameInterval was written.
-This happens on every normal teardown of a configfs UVC gadget, and
-kmemleak reports it as:
+nvme_remove_namespaces() moves the list onto its on-stack ns_list with
+list_splice_init_rcu(), which only waits for RCU readers before
+relinking the entries. A reader still on the last namespace then follows
+its next pointer to ns_list instead of ctrl->namespaces and treats the
+stack as a namespace. Deleting a controller while a Format NVM
+passthrough waits for a delayed read on the last namespace gives:
 
-  unreferenced object 0xffff8881027f5040 (size 8):
-    comm "uvc-frame-inter", pid 281, jiffies 4294827366
-    hex dump (first 8 bytes):
-      15 16 05 00 00 00 00 00                          ........
-    backtrace (crc 60980708):
-      __kmalloc_noprof+0x4ca/0x7a0
-      uvcg_frame_dw_frame_interval_store+0x299/0x440 [usb_f_uvc]
-      configfs_write_iter+0x2ac/0x490
-      vfs_write+0x60f/0x1100
-      ksys_write+0xf9/0x1d0
-      do_syscall_64+0xfa/0x5e0
+  BUG: KASAN: stack-out-of-bounds in nvme_wait_freeze+0x102/0x120
+  Read of size 8 at addr ff110001d2f3fc38 by task nvme/4413
+  Call Trace:
+   nvme_wait_freeze
+   nvme_passthru_start
+   nvme_submit_user_cmd
+   nvme_user_cmd
+   nvme_dev_ioctl
+  BUG: unable to handle page fault for address: ffffffff8af04850
 
-Give frames their own release callback that frees the interval array
-together with the frame.
+Open-code the splice and wait for SRCU readers instead. This also takes
+the RCU grace period out of every controller deletion:
 
-The leak was found with kmemleak while exercising configfs gadget
-functions in a VM.
+  64 tcp controllers, 1 namespace each   before        after
+  nvme disconnect-all (ms)               3543 / 3474   3221 / 3146
+  nvme_remove_namespaces() avg (ms)      39.6 / 38.9   34.4 / 33.7
 
-Fixes: 46919a23ee87 ("usb: gadget: uvc: configfs support in uvc function")
+Fixes: be647e2c76b2 ("nvme: use srcu for iterating namespace list")
 Cc: stable@vger.kernel.org
-Signed-off-by: Priyanka Mani <priyankamani2100@gmail.com>
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- drivers/usb/gadget/function/uvc_configfs.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/nvme/host/core.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/uvc_configfs.c b/drivers/usb/gadget/function/uvc_configfs.c
-index 70a1415ea401..48105b36dbfa 100644
---- a/drivers/usb/gadget/function/uvc_configfs.c
-+++ b/drivers/usb/gadget/function/uvc_configfs.c
-@@ -2142,14 +2142,26 @@ static struct configfs_attribute *uvcg_frame_attrs2[] = {
- 	NULL,
- };
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index a7a4d09644c13..8f032b3edde9a 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -4754,10 +4754,25 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
+ 	/* this is a no-op when called from the controller reset handler */
+ 	nvme_change_ctrl_state(ctrl, NVME_CTRL_DELETING_NOIO);
  
-+static void uvcg_frame_release(struct config_item *item)
-+{
-+	struct uvcg_frame *frm = to_uvcg_frame(item);
++	/*
++	 * Readers walk the list under ctrl->srcu, so hide the namespaces from
++	 * new readers and wait for the current ones before moving them over.
++	 * list_splice_init_rcu() can't be used as it only waits for RCU
++	 * readers.
++	 */
+ 	mutex_lock(&ctrl->namespaces_lock);
+-	list_splice_init_rcu(&ctrl->namespaces, &ns_list, synchronize_rcu);
++	if (!list_empty(&ctrl->namespaces)) {
++		struct list_head *first = ctrl->namespaces.next;
++		struct list_head *last = ctrl->namespaces.prev;
 +
-+	kfree(frm->dw_frame_interval);
-+	kfree(frm);
-+}
-+
-+static const struct configfs_item_operations uvcg_frame_item_ops = {
-+	.release	= uvcg_frame_release,
-+};
-+
- static const struct config_item_type uvcg_frame_type1 = {
--	.ct_item_ops	= &uvcg_config_item_ops,
-+	.ct_item_ops	= &uvcg_frame_item_ops,
- 	.ct_attrs	= uvcg_frame_attrs1,
- 	.ct_owner	= THIS_MODULE,
- };
++		INIT_LIST_HEAD_RCU(&ctrl->namespaces);
++		synchronize_srcu(&ctrl->srcu);
++		ns_list.next = first;
++		ns_list.prev = last;
++		first->prev = &ns_list;
++		last->next = &ns_list;
++	}
+ 	mutex_unlock(&ctrl->namespaces_lock);
+-	synchronize_srcu(&ctrl->srcu);
  
- static const struct config_item_type uvcg_frame_type2 = {
--	.ct_item_ops    = &uvcg_config_item_ops,
-+	.ct_item_ops    = &uvcg_frame_item_ops,
- 	.ct_attrs       = uvcg_frame_attrs2,
- 	.ct_owner       = THIS_MODULE,
- };
+ 	list_for_each_entry_safe(ns, next, &ns_list, list)
+ 		nvme_ns_remove(ns);
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-bug-nvme-remove-ns-srcu-93d8a75a9b1b
+
+Best regards,
 -- 
-2.43.0
+Qiliang Yuan <odys.yuan@gmail.com>
 
