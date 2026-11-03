@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737033;
-	b=XD0LsqHrlOZOGTWYnWobIp9Tu/yqQtl8+6HVgLgLCYAr8+o2zjTa6LqsqI51V5n7E4jf
-	 V+dxaPUdehuJhHKMQs+VhU5XsVGe2V2aLNHQ9tpDREF54LMsrBBWnFXrhOK7BZS9PfBdA
-	 ftv4/a9bSh3d/0noIYWQQKD8T4wykD/l39wNZR/41Pvx8uAzufV4XuMSsXMsCglMDRvAG
-	 PIdS/SwR/XyEoDc3pmrFUNtD/GmQnFiraDD3mR4idhhub7+fACDRmAVTNQzKy33LblReI
-	 qM8ckjc/t/sChxrh8DUqaSg8dsmJl2ntMxEICduygSxkzN3uT/JzCKPwQzLBus8skmw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737033;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=dajxrEaDockhm1J9VMJl3eglzhZN5GaUOBfpcXrRGjM=;
-	b=Toh1kZ4Bw2e5yGyTpQlkKR8znXzRJRJCWo7aLL67ByFkTCu9TJYDK9DcnUtz3BzFFTp6
-	 8PmsNye0xfKntu9Muu8midntZg419nGZew+U6yGbffcJ4TEhn8o6NS3PrsQ/RM1UxD5Tj
-	 HFlXH2V5X+N1JtRfPXFHKuFCpoiZ8IwZs6vxVpWIEp6QYPlTI33iOyLKjaEorVX99HkEr
-	 wxW9GVeN215hV3QP9iEJn212WUM/W9MMCegyXGm05kWyRKjJl4khytcQQiEgzkMXNo7bi
-	 sHLI5c3gJ6ggwJl+VgeyGXn0YXX+m8OBMQ1O+PaQ6SDhy/Pt1Aj3+aI56EJoUPjz2xA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZJNfaURT;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qa7Ahlfy;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793737100;
+	b=41Rq+sHo/U1Dhmaew2fY9CqIaJA3rxwoLqv+cd/q2SQFgEu+AFd0lzGRIaa3bZOEjJEq
+	 0AmfOgBxP3lK5MIYfVPVF+1l4eZvB3HaYY8b90vetUc2GUde3fjeLzBYPe9JB7ose3aNP
+	 xvCZRrwEFfB05MxcqhHDoC7ho37R0dOafeYZ0JSf8flJStbDP8RU33xcHA0Obdjik7GlM
+	 5hB8jg5X8W0YnTO5LIYLmuo3PKKpSRdcffcIZJedykqQWL4a9K30AvYEB7iOssRqgGd4T
+	 wRkP1h1d4mMj+6PdPbIP8yiMSvIE98sT7OjTp30ur1iDwO8r8Sl7j8/QfSo+hIF0qfg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737100;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kkHd2eqDN6g9r6mKgVJdjw4ebv001gReOK3lLkRcsJQ=;
+	b=RaXAYjMzRS11ugzsnoeUPXX0nXpYoP0WJeiaV5LsYCFEkBsUkElvw0z7X+9R/MfJ1nv+
+	 Mav/GH0M4tTX+v3Q8VE6Jx4Eqps/WgYJZCB+c3GzHur17i/KQGq7vDf/dPiIlTsw6o9q9
+	 0JoksCaeRNkBicoVjQP+5A72T760uhgqq4hZEdtW5XaCI8Gwu1JNqZB+kGaztVV0Wo/yk
+	 j4vtk+Br8P7VPfsA0wzBZHAEq1lXF2gOVXOH6mL4gIxRaCJTYoAawZkU2aqMFsIe7aSUt
+	 Db4i2EmYrLn6ORzseGmYW2QQ0REzvwL9rEkKgLeN0qbs5eLJ15x6d+6c3NygkW4gzWQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jYQEHHEz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00A7606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:17:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E00A7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E257C606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:18:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E257C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZJNfaURT;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qa7Ahlfy
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3IYsZB2710149
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 20:17:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=dajxrEaDockhm1J9VMJl3eglzhZN5GaUOBf
-	pcXrRGjM=; b=ZJNfaURTJaYDh4iNUJTByJNVwr/sZiboWwalJLMPCSrliq+bZGT
-	I5PCq50mdtrOW5eWVdV4FRk5MBsa9ex4wNVHtzn0op2K93bPIASvPzri/EmeRPOo
-	m3aSOcp7ThPL5U0O77Y6xqG4Zt2knE5gTKiwRUT/5d+8TrbOsisnJ2RN1kcFMcs4
-	2t4QZiZJBj8ftkhUuoGM4B1o9GlEts/5oJcB8ESLvt/MUVKWsHNEiCYSK2NLgkkB
-	hl1BnIDLaZwQEIuA10Pjwc42DlKr/mYGjwGh5Ifc4fLPXbGNRl4mj8eNP9p+iO+l
-	hn9kED1pWHaKBMlOE2yotZ4M0S8g7LYxylQ==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqh2bsn12-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:17:12 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-98a9c848bf0so1628241.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:17:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jYQEHHEz
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso1710811a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:18:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793737098; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cQf77SVta5HZIKgyvrnF1aJ++kwg0aHwApdjIeQkuldBfWN9mL4hMkMwqoC+r3jDvs
+         OQgN91s9gu6ZTXsFQsHFyj1C+TD572h8HZNyddBFTc571/mTH5QTggSOGYIu+3ri0NkG
+         T/GwswhpIZEj/AUuol3GUfNP3h/rJdSbkyOAylEEZwWdVntfsC7V68tlVc1zygyn8Vf1
+         bpcH3nX3bCLBz6PIaUwzl9SGi5yXPYBUf25REoxzzqfYQIGR3L8L79J/IVNWbmQUwLXu
+         EaIrFoNbg3+hvGvmHTS7WK+1LqlWbpHjJauZMp2yUieH409MdB/1We6m5+9k/0pP2MeE
+         mUtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kkHd2eqDN6g9r6mKgVJdjw4ebv001gReOK3lLkRcsJQ=;
+        fh=IjXR5/j6hp8tLlyuMKOMV+6XApifgxVDCayOmXBhOxc=;
+        b=L21vSLFlbQac4VZ7jld6sr1+P83zAivRd0epXApO05CJUeCTPULRrqTeXemm7LOdfN
+         WAyNRSK8u/U/TY3myMMFPF/XaAA7zAzq1fY9tKuGPkbZtbA541wz+RXPUzPfi9U+wjPZ
+         3ieQezaSy349mGrxlXuL1oN2IQQpOLBHCcWgZtpHTel8iUeo02zHleajgrFoQ6eDLQGN
+         HnJ75gwQU+nG+jGnCxMbKGRswVjL5X8NtJGVNe5g9TUcBA9+8pR+bdE7XLoZiMhicrWW
+         +ywCjgHloeTEi2rj8z7yjwOb2biYqT9V5qq51IgcAgKxRhz53pMgwZka8BRE5Ppq84ud
+         IR4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793737031; x=1794341831; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dajxrEaDockhm1J9VMJl3eglzhZN5GaUOBfpcXrRGjM=;
-        b=Qa7AhlfyzjSWBTbPnh0qWqP2nyHy2eVqgi3U2TOMyXfFPEZn+JtEpSg4WOK8f8q7yf
-         2IfFUjHuTrOPj96VuOVIFyPAZ3s5kCUcryjcQ2kgUhNeswr8LgU1P8CAo2zg/wIb6kta
-         gdiUozcEgmDtkzcFVfTHqQ9DqgMMNKnblT8dXUXdQWH7wOt8M9BmsSr5UnkItGAZf15B
-         0G/PXEPJYvIyhKcE/FvVtOKwhcdmNYFJWfigs2O2devsp4OVBNIEzbGnATrwPjanAUOo
-         AW8vYaiFU7mpp6d/kNSZSmiJuVb4alP0cT+arFmVyc25MNYWgKeAajGQ2+T8fsevTwhs
-         nf8A==
+        d=gmail.com; s=20260707; t=1793737098; x=1794341898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kkHd2eqDN6g9r6mKgVJdjw4ebv001gReOK3lLkRcsJQ=;
+        b=jYQEHHEzPR85viHaxy80rXbEWVIbdt6b6puPPSPn9+EE6hdtzc2GP3uStvSQQmutfC
+         DnDgl5eAG24ujCmOF1JgLe9UISXq02MxzYI+CgLdKk3GMoVItIuRjAmGYWnk8P6Lloww
+         DX0AExm7aLuzW5KejMRQT46i9AGhNXUOd+2ayq4gnCXa041aSm/9O4v/O/2ZE4j3iNc9
+         x/lxuw8hfO18qqSWap1jYCt5ietKXgrpWh4g+qUvCz8Wvcn/v5T224jbfxwTiGv1+BpI
+         wMN+4wNtJIeZhgLtt9Xf8HiwF8k575xamYW0P5xlkDVyZOjESzrinoHDpixFVr2iRvrq
+         +uZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793737031; x=1794341831;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dajxrEaDockhm1J9VMJl3eglzhZN5GaUOBfpcXrRGjM=;
-        b=m34uqjxL2GpA34t67XBf48dmBQ3u0Dl3wuIXlts+gg0yI6WMVMA14w2V6s2IUHH2W2
-         yZARKYcan7d2hvyshbpPOtXL2MCkBdTQqDWAE9yOSVjhscNt1pIIbZKywrCgxuxIY6hl
-         pvhJaOcRl5l0LrjLIpLsPQEuWguc4rIO3TikDjLZBcSzrAfGgMaLLULjjskBIF8L2cUA
-         XXyTJoR6wHrTuSz9JscNE94q4NwCx/0QMLJEb9+oKvI/n8Swor8lylnRIQXf+pDpTDQp
-         NXr2jqkYtNxK38zkrXP+FVri0xLcxI/wNrPxNFdSL3p+wXuV80U2yJJZtEcoGH7X8nQs
-         zwoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwA5VpFPA0R9cwRG5pOjNl0yPIxK2H/bl+9OEalZP7YdhWxYFGSYIw7eLCZhhzEJspQGCvEr0UgUbOd/Yc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+g+9bZz6qg3v56AJN8iliu6wLBdcDLbFiA9iCiotxI26SmWCEc
-	WmngmnMhkDiTBZlHDfltdn3WtOwqVrJTcffot8Tq2YuhwZTVL3VvsVV9gy6eslpRnsdcPM8Woii
-	GkTSO+qKMQIKITx2oJQxPJYvt5Er0KWKd7I3kKwFudyFF/Sfi0CHi+Bh+fnQ0IiES/fM=
-X-Gm-Gg: AYBFou0vRT4lvOj0O6hz+yEkNC44Q95xYwwB1NTXjjCNywNBuMmDfNyUgBYy2A+KzZM
-	m69h5KZ1kB5e5PmFpeZuYM+/b6/uGl2ES4l38Oyadvt6emm1lxDL81fww6x3L+Y7oks05vuuEz8
-	/zyzBnMAyiMx4JzkwvLoM6G/3npV7jNxaDPvWbWcmgB/ISOesJ71RwmQpCzW4MNl5QlKkRoKBlt
-	d+g8UISBc04Owd2Y1Rebxk6+0haI9b4CeCfQx/V2ikhRqYttbLzWQP/2g6xBalB9tqSKuJ60FYi
-	M6MCPPvr0RmeYSgH7A5y8O8MTUnakhF4zag88Yu0bJcWt0llar4LpAe1yuzqbbm9vSVHMQxfqdR
-	8SBvY4dgqkbE1kpOayA2IJXQ8ps0LVPzeWIShMtcJXg3RguvYzjsU8S1vPoLGtQ==
-X-Received: by 2002:a05:6102:3707:b0:7c2:799c:9031 with SMTP id ada2fe7eead31-7d072d11c63mr4757914137.30.1793737031046;
-        Tue, 03 Nov 2026 12:17:11 -0800 (PST)
-X-Received: by 2002:a05:6102:3707:b0:7c2:799c:9031 with SMTP id ada2fe7eead31-7d072d11c63mr4757906137.30.1793737030545;
-        Tue, 03 Nov 2026 12:17:10 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fcd5fc954sm329561f8f.59.2026.11.03.12.17.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:17:09 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] .get_maintainer.ignore: Add Krzysztof Kozlowski
-Date: Tue,  3 Nov 2026 21:17:03 +0100
-Message-ID: <20261103201702.350717-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793737098; x=1794341898;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kkHd2eqDN6g9r6mKgVJdjw4ebv001gReOK3lLkRcsJQ=;
+        b=ARrM7M8QBAz+yEVlWFMsGRWNATrieszi2LcGB+lySBQ1NyUr5khGzT+WBDNf3yOgJn
+         C9b46MOW+Nu4ar3TrKX55/7XH5Tpg3cGLuQLNoDz5Rdn2dOZpEoSbX7P2moOn3cl8hy/
+         fJjsBXwl/u288ptsz4dy1mzSMLXgOkHe70AXn+zzzZSWkVNXDsRUkt1ZSLVjLxeP2pb7
+         OFFbbxvgCRJwv5YTMAE3vuynrNhHIxrXg69D9L0sfG9HYAwtrQ/BkMmYoousYFvhshCi
+         wQhL94iVr3ra7TPgAWILS6qp8IXZW0dW7yjDk79xUOTSk5c2wgLmMI4SxelHkaTHhjXY
+         y9hg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQFX8TYYG5XoLxJ5L5VJDBzGl7voZ+qTzgrwVTL6iiY8j5mjLa3h3ERD+cav6LggpODY/kBxFjiYSoNbo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eKoh5wbSS/6+6/htChk962I9QCoDSkJFyHlQmBFIGMqt0X/VM
+	G0Ne+YvQ9MNymqbYnDZ7hxUl5W9OCizqQeOUBRe9Judu6dAFsAmSNpU+AjdJnG2KGqIxVKet80e
+	PBCgHGwa7VZT93pSHWzYQ16mU+Nucoek=
+X-Gm-Gg: AYBFou3qLgDrcW9vC8ihDV5sQjoxjrS30YdPSGYOiHEhDOzA/3jiuWJRowDRJ+CiQM8
+	ydGbQj0s8V93CDqa2Wptej1u+GC33DqXVVq3jN66WWgh6wh1ICYknMq/vc0sog57alRZ2Sn7vRx
+	68xaXyC/F5TBDMLfk0noNA02cCAuae4FRkGZpqLXgAwb3zI1lk7MQzK5dtbXIwUDYEjypBQfV/u
+	29hFGMToWxB6a2KeuzbKEQI8GsRltSNhAsbPqfDruhjV/N9js5AovnWGTqt8b4YFwuKeyqaJo/6
+	nUozwUWFEgH+9x8oa6LcWlSPFBut25eGJqEUfN3aaylGwa2JrsNZ2Wf/KpGG8skFWaJYj+FpSx3
+	Cyz6xPrnNxqKyStbc7IsNiXFsHeqBmgkpyU/R
+X-Received: by 2002:a17:907:7f9e:b0:c25:5159:6a25 with SMTP id
+ a640c23a62f3a-c49d1285bb1mr1572706066b.6.1793737097942; Tue, 03 Nov 2026
+ 12:18:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,70 +104,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=807; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=ONnrwjPCepjizLymY2UDj1q658PO47z66TSpNerWuEY=;
- b=kA0DAAoBwTdm5oaLg9cByyZiAGrqQT6huDSNyz7WGI6oQgrLqKNEgfGjWc3cGDRp5kMsbBcHc
- 4kCMwQAAQoAHRYhBN3SYig9ERsjO264qME3ZuaGi4PXBQJq6kE+AAoJEME3ZuaGi4PXpVEP/jWM
- 3AFEqrtn3XUCvPNn5WNUKL/aXL7mlE9fymMMLKV6zDh6rbs45Qp6U9hyK67GcnIOVHTP3qgoWhM
- icDsIPAe4Em4T9SGGhkdG6WA9ki88Hjpechs0Z7M4X9nRjqQazSIOiAYRG+U1/ngkKWwNAeC9bQ
- ZsYExNrmE35DGxURpsSSH4XMmB1OithDKf5gH0q7Jr1gBPOhQOT989gyvo+dxL0bPTZeo0GlGaM
- S+dAYml3c3hKLdwwMM30LhY3wXvqt+Tw8buAFlFOLV9w6y1tCRaaihuYQKc+3zUtCPr4f3Aq+oA
- yPs/1UehFWn4w/MDBNbs5qg41tLwbmtHQGzyNiBmoTxRGizfwzkRW0p1A3KgAqgPASmkR77pWGE
- Fi+b6IoK3cvTPtrUnbjoRIiS6JWUgAjmfg3SW99/tIcIleXI2PqA/RWJSAzqvppyYLd+M7wPbmw
- sOaxo4Lu8JJzLkfxxyXjWBuvHgeIkChRJ71/9UKMYHMrT1+oOvVZ40LJjCejbTHDlpSp7Lr6c1k
- 63Y8qleu6tStNcEgXHFAip2RLCGPJYZLK9pjqp6BI6dmLDuAxFzTAXBDOsw9n9Nz1gznx4n6DwN
- i2q3dfH8ZjAhc410MYj9M9Kq1zb42hVoge32hji5E5xIWj6H3FKFwnhOvHXKlm6KZooi+QDtliU IYkoI
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfX1bRkzzKe4nbA
- ZKrRBlB1OFodYXCV966ZLgMqTxcAmFqWOv3ZGEubsdd/ocXrGPZvRhxi97ADfeBCEtAd8ni53Ug
- /w39HnTYExPMMdRLyaR4ea5NPVdZj7U=
-X-Authority-Analysis: v=2.4 cv=AKV9GsJK c=1 sm=1 tr=0 ts=6aea4148 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=QyXUC8HyAAAA:8 a=stkexhm8AAAA:8 a=VwQbUJbxAAAA:8 a=WPyIoOwQAAAA:8
- a=4soc8nNHfR5fbkWxQKQA:9 a=TOPH6uDL9cOC6tEoww4z:22 a=pIW3pCRaVxJDc-hWtpF8:22
- a=S-HzPIwwDS8t1QcwSuWs:22
-X-Proofpoint-ORIG-GUID: ARfCMUq3llhG6VzrVoJpSOVOx7zgSbhC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfX5pnQ7VjAAD62
- kzB/54RhGY0GOphY2WVqEYABy66BdIUsd0xGQ9xNYpv3FAGWwUZc84vPQ0jhvt9LTUGn3gYAtQe
- LcBuVCvZe01fA4Ud0l1Eh3sFY9UMD+IvwaftKSiu38SkSXE3CR0/bnnUb1hSgZU3WNrsvpjFq3B
- R1pQQfnNLYLp84m08NKLUwZ6DSxT2nBqyM276vzcR/zwaL30EqdZTnzGNrLNKKKMyzlL1+G1Sm8
- NSIpTlPxL628gP9oY7WMvTmFPKc+BA7Uqvwb4Fs+dpixSDSstUN5l5o+9BXLMJzaiAZl+lEkKV2
- joPPNQGvBoDT8qUrv1RSZHCQ7eYygbXa6X15WfyIe0BIfS4iQHrauTiveMax9SpRz0CT7sNK2Ix
- seFrv8QyBJxmAUZaFjm3mSTteiTrX9OhQXSm49RNa50233Ridze7uBHO9BkSNHzLTiKewbKOTsG
- Iykyz12nBBmlw9IxTyw==
-X-Proofpoint-GUID: ARfCMUq3llhG6VzrVoJpSOVOx7zgSbhC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0
- phishscore=0 spamscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030080
+References: <20261019222858.1766-1-drifabdelmalekmohamedsaid@gmail.com>
+In-Reply-To: <20261019222858.1766-1-drifabdelmalekmohamedsaid@gmail.com>
+From: DRIF ABDELMALEK MOHAMED SAID <drifabdelmalekmohamedsaid@gmail.com>
+Date: Tue, 3 Nov 2026 21:18:06 +0100
+X-Gm-Features: AclHuK-B3KHOmhLm8nxGZsAI0SElT7ZlUOKjLlskY-PolsjxdKCIQLffMl5plIQ
+Message-ID: <CA+xk8n--qQfYro+xsGu+z7nuCrAJgwzOOyrc+iXuBeSsPOWjhw@mail.gmail.com>
+Subject: Re: [PATCH] lsm: don't call d_path() when current->fs is NULL
+To: paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org
+Cc: jack@suse.cz, linux-security-module@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com, neganhat@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I have been doing various drive-by all over the driver tree, so my email
-address does pop-up purely because of past commits.
+Hello,
+Just following up on this patch to see if anyone has had a chance to
+review it or if any changes are needed since we're at 7.4-rc1.
+Thanks,
+Drif Abdelmalek Mohamed Said
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .get_maintainer.ignore | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/.get_maintainer.ignore b/.get_maintainer.ignore
-index a5946cb30cf9..230b001d7f24 100644
---- a/.get_maintainer.ignore
-+++ b/.get_maintainer.ignore
-@@ -7,6 +7,7 @@ Jeff Kirsher <jeffrey.t.kirsher@intel.com>
- Johannes Berg <johannes.berg@intel.com>
- Johannes Berg <johannes@sipsolutions.net>
- Kees Cook <kees@kernel.org>
-+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
- Marc Gonzalez <marc.w.gonzalez@free.fr>
- Nathan Chancellor <nathan@kernel.org>
- Ralf Baechle <ralf@linux-mips.org>
--- 
-2.53.0
-
+On Mon, Oct 19, 2026 at 11:29=E2=80=AFPM Drif Abdelmalek Mohamed Said
+<drifabdelmalekmohamedsaid@gmail.com> wrote:
+>
+> When the last reference to a file is put from exit_task_work(), the task
+> has already run exit_fs(), so current->fs is NULL.
+>
+> syzbot reported:
+>
+> Unable to handle kernel paging request at virtual address dfff80000000000=
+2
+> KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+>
+> Call trace:
+>  kasan_mem_to_shadow include/linux/kasan.h:65 [inline] (P)
+>  kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210 (P)
+>  kasan_check_byte include/linux/kasan.h:402 [inline]
+>  lock_acquire+0xa4/0x320 kernel/locking/lockdep.c:5916
+>  seqcount_lockdep_reader_access include/linux/seqlock.h:73 [inline]
+>  read_seqbegin+0x6c/0x144 include/linux/seqlock.h:838
+>  get_fs_root_rcu fs/d_path.c:244 [inline]
+>  d_path+0x224/0x4dc fs/d_path.c:287
+>  audit_log_d_path+0xdc/0x19c kernel/audit.c:2221
+>  audit_log_lsm_data+0xe0/0x12d0 security/lsm_audit.c:199
+>  dump_common_audit_data security/lsm_audit.c:421 [inline]
+>  common_lsm_audit+0x1d0/0x290 security/lsm_audit.c:451
+>  smack_log+0x1f4/0x264 security/smack/smack_access.c:400
+>  smk_tskacc+0x210/0x2ac security/smack/smack_access.c:255
+>  smack_file_open+0x1d0/0x230 security/smack/smack_lsm.c:2078
+>  security_file_open+0xec/0x258 security/security.c:2739
+>  do_dentry_open+0x2a8/0xfbc fs/open.c:973
+>  vfs_open+0x44/0x2dc fs/open.c:1101
+>  dentry_open+0x74/0xc0 fs/open.c:1124
+>  ima_calc_file_hash+0x120/0x5cc security/integrity/ima/ima_crypto.c:269
+>  ima_collect_measurement+0x420/0x874 security/integrity/ima/ima_api.c:300
+>  ima_update_xattr+0x160/0x230 security/integrity/ima/ima_appraise.c:617
+>  ima_check_last_writer security/integrity/ima/ima_main.c:227 [inline]
+>  ima_file_free+0x40c/0x528 security/integrity/ima/ima_main.c:251
+>  security_file_release+0x84/0x148 security/security.c:2424
+>  __fput+0x2c4/0x74c fs/file_table.c:506
+>  ____fput+0x20/0x30 fs/file_table.c:541
+>  task_work_run+0x1cc/0x25c kernel/task_work.c:233
+>  exit_task_work include/linux/task_work.h:40 [inline]
+>  do_exit+0x58c/0x1a74 kernel/exit.c:986
+>  do_group_exit+0x198/0x238 kernel/exit.c:1129
+>  __do_sys_exit_group kernel/exit.c:1140 [inline]
+>  __se_sys_exit_group kernel/exit.c:1138 [inline]
+>  pid_child_should_wake+0x0/0x104 kernel/exit.c:1138
+>  __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+>  invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+>  el0_svc_common+0x19c/0x23c arch/arm64/kernel/syscall.c:121
+>  do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+>  el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+>  el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+>  el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+>
+> d_path() renders a path relative to current->fs->root.  After exit_fs()
+> there is no such root, and no substitute root is meaningful: the
+> record's pid/comm describe a task that can no longer name the file, and
+> the file may have been opened by a different task entirely.  Falling
+> back to another root would produce a well-formed but misleading path,
+> so report the field as unknown instead, as exe=3D(null) and name=3D(null)
+> already do.
+>
+> Handle this in audit_log_lsm_data(), where the meaning of the field is
+> known, for LSM_AUDIT_DATA_PATH (Smack file_open), LSM_AUDIT_DATA_FILE
+> (SELinux file_open), LSM_AUDIT_DATA_IOCTL_OP and the AF_UNIX path in
+> LSM_AUDIT_DATA_NET.
+>
+> Alternative: omit " path=3D" as it is done for inode in audit_log_lsm_dat=
+a.
+>
+> Fixes: 4a9d4b024a31 ("switch fput to task_work_add")
+> Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D975ace299d6ba2eb1cea
+> Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gm=
+ail.com>
+> ---
+>  security/lsm_audit.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+>
+> diff --git a/security/lsm_audit.c b/security/lsm_audit.c
+> index 955b2e7b2c8e..5ed505d781bb 100644
+> --- a/security/lsm_audit.c
+> +++ b/security/lsm_audit.c
+> @@ -169,6 +169,15 @@ static inline void print_ipv4_addr(struct audit_buff=
+er *ab, __be32 addr,
+>                 audit_log_format(ab, " %s=3D%d", name2, ntohs(port));
+>  }
+>
+> +static inline void audit_log_lsm_path(struct audit_buffer *ab,
+> +                                                                       c=
+onst struct path *path)
+> +{
+> +       if (current->fs)
+> +               audit_log_d_path(ab, " path=3D", path);
+> +       else
+> +               audit_log_format(ab, " path=3D(null)");
+> +}
+> +
+>  /**
+>   * audit_log_lsm_data - helper to log common LSM audit data
+>   * @ab : the audit buffer
+> @@ -196,7 +205,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+>         case LSM_AUDIT_DATA_PATH: {
+>                 struct inode *inode;
+>
+> -               audit_log_d_path(ab, " path=3D", &a->u.path);
+> +               audit_log_lsm_path(ab, &a->u.path);
+>
+>                 inode =3D d_backing_inode(a->u.path.dentry);
+>                 if (inode) {
+> @@ -209,7 +218,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+>         case LSM_AUDIT_DATA_FILE: {
+>                 struct inode *inode;
+>
+> -               audit_log_d_path(ab, " path=3D", &a->u.file->f_path);
+> +               audit_log_lsm_path(ab, &a->u.file->f_path);
+>
+>                 inode =3D file_inode(a->u.file);
+>                 if (inode) {
+> @@ -222,7 +231,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+>         case LSM_AUDIT_DATA_IOCTL_OP: {
+>                 struct inode *inode;
+>
+> -               audit_log_d_path(ab, " path=3D", &a->u.op->path);
+> +               audit_log_lsm_path(ab, &a->u.op->path);
+>
+>                 inode =3D a->u.op->path.dentry->d_inode;
+>                 if (inode) {
+> @@ -321,7 +330,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+>                                 if (!addr)
+>                                         break;
+>                                 if (u->path.dentry) {
+> -                                       audit_log_d_path(ab, " path=3D", =
+&u->path);
+> +                                       audit_log_lsm_path(ab, &u->path);
+>                                         break;
+>                                 }
+>                                 len =3D addr->len-sizeof(short);
+> --
+> 2.43.0
+>
