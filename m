@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701107;
-	b=q7rcjRa4oKJjcY+2ucj0sOnlLkERiINGEhI98k12Etuv0WCZxucVG+/WrBrbt25vR1Gd
-	 fv5+VoPPbS7aPn0XW27zMvEEWhtZYy4ELznoov7px1ri3RADkkSCwU1ZE7rX7ewD+mvOM
-	 X/YanWzAUcRodMsaDIJIRc2VVplv2lI/02WBmuV3MirvoWL+fK3ZzhVYFZPUVp6KmLgjT
-	 znl2sD5R9QqqEPsjWd58W26ylqs+GP++kEo7rIw3PX38RZ2+xbM8a9A2CR+aFLJHg99rB
-	 RaYACE2pA5jADyw44L9uLgQ5plJXNnqcHZwIVb1rldZvREBtOe75QDa2OR/CfMRBr+w==
+	t=1793701108;
+	b=40oIPioN9vumHNOHuFJI+ObVKTLlGVN6B4xlJqPViULchfhVCPbvFiySbaSX5KG5VpRk
+	 pAuSCTTg4ulzUIx4fS600nv5Yo0zezROuh7fnXcDwkzzSf5J9e+rLxtTJddz7LkuvY2mq
+	 0WoAiYhG8UKwLeO1Zk9QSR6JYoME1qpGs10Kcs4GjddDocv6hXJR0pdGU1HptlzhVraHb
+	 NceaLff3/5oXZ+BY6elVLRjPIabiHza3wdMT2sx89o6iPXjsrSxSLRTGq1zoMeFHHDLq6
+	 GLFB7FqbeboEO1uuo/B7+XD3A61iUnySPDVN1iW/LIrbf5jKAAmLHUxtz7tCTdUTn6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701108;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=q+qf7PzOxjIGrYfKn/FHezKWAiuMsA1N8qY4avTZ+sg=;
-	b=SgVAH6QSAdNNy5DE49hmSqOP/FCzfK1U1OU0eyQatfEjqJyJ4a2NUmPIt2+dyUM20kJp
-	 JrOCREaKlVlsaegB7kL/WOXdVMUHpHsgMHs/YhjG1T0zz4axolKG2f5ygJisctgSiW9uW
-	 FveLpIK2sRbftKcz9dMeXNHhqMz4gbqFgCTi+eIF+wzdlwVvsdzv3GLEF7HXOtgDDqfJv
-	 1DDTHJ5ytaeTbt+L2CExlhqT1CvFVmqIemZ5ZCKLEqxqAubfOAMXq9nAcEhi7Hi6hUx/+
-	 /nrdeSgfIpmQgS0Sd6NpHRhduXfFlsNW2RVjcvCszrgbB2oHQjb4xejKHB/urrwbKqQ==
+	bh=UxgM8P2HIxypNQyiwe8DVm3Lb91bk//Dpc4QBTFjK+c=;
+	b=VRBHQ4MO2PZot4igWdqZ3uGWRajJaYDroE7HR/TSfcFaOQWQrVnUBLc2YMfFiLHXmG4V
+	 ItxglZIXzKwuaPIhUqRxqgVBz5TSRYfBE/K/FQxWNlccDKWmBxW15tdv0umGCPNTZ8x0k
+	 TjlORFgDUnhCFdex64okcHcxb/V1v9FoxsNdYszkkenng5WhKl57bYcSghXGRy1/y5tyy
+	 yABilBf+ozF7+7z0nvAsd3xR/K3/bqHCbnR9zuxg3nrB0oDh/uVNwOOmgbQbC8Zb2EHti
+	 zG7iUVUnYNxJlTBeDXSuAsrjEb/JXNOIsdp6uSBLS/Nnow2g2oXUJ4399oCHMuAOjbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Js/t+wic";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ya3uMW4w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F20606EE8D;
-	Tue,  3 Nov 2026 10:18:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862B96082BCE;
+	Tue,  3 Nov 2026 10:18:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Js/t+wic
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF7C1F00A02;
-	Tue,  3 Nov 2026 10:18:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ya3uMW4w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 904CC1F00A02;
+	Tue,  3 Nov 2026 10:18:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701107;
-	bh=q+qf7PzOxjIGrYfKn/FHezKWAiuMsA1N8qY4avTZ+sg=;
+	s=k20260515; t=1793701108;
+	bh=UxgM8P2HIxypNQyiwe8DVm3Lb91bk//Dpc4QBTFjK+c=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Js/t+wic0TSn5fTLXxZlAewrwiJJ9OtCg/7OOz8p6rErFOEu9Jg+aEmclGkaNai5D
-	 OrElr9bCrj5mXtAv/UjhtyfGYiRMyLldLI1AzzKYC+UnlLspBU7P6YFNjPssJtVKji
-	 +tmGSLDTg9Vrh+uYF7FAznbRESP53FRE2mTWJFd/8/0VmI1ATdC4SUD4ACxRkpVZKL
-	 KnmOoAb14UWgaNg4lghmItZpo8V8jOsWLQJVpfM3OkxUA3ondDmBrbepJTmTrJZ2j0
-	 8ncLU+/at2PB21FjJnl5hr0YKSm7hE7TgWO8+TSphHIZEcPLBF1+UH2XxowjEJJ/Yd
-	 UmiqJ7Dxo/3ZA==
-Subject: Re: [PATCH v3 net 1/4] net: hns3: fix vector resource leak in
- hns3_nic_alloc_vector_data
+	b=Ya3uMW4wDXlXMFg/bXBytmGLOGr/sIri79M9Z/a9eG+aP60Qr2yze9HgFkw5rsk2E
+	 0XNq2Evz3DaZte2ivb8FwKeV12TJT9MlDuKRtKDGmxTGVwjlcpux5VngKErNbMhwD1
+	 +ebsNrJybTD0vs3WdBVEs8F+udovpCkq6Zz1upDiwtT3cE5If7k8K3mcieSRTYZ8lR
+	 tEjqjI+klT1u10ZAFvIubCLIifpDDTc05rJxbYa8f2Eic23efBWQbwy9oYWamFxC2N
+	 m3nbAMD2SFt2+US/DNp42jHSVNg3aqL5J2x1XRZmxkVFlQoT21W9Nj1ld/KGDnu4q1
+	 yuQ2FLM8k8jjA==
+Subject: Re: [PATCH v3 net 2/4] net: hns3: fix page_pool leak in
+ hns3_alloc_ring_memory error path
 From: netdev-bot+sashiko@kernel.org
 To: shaojijie@huawei.com
 Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
  pabeni@redhat.com, andrew+netdev@lunn.ch, shenjian15@huawei.com,
  liuyonglong@huawei.com, chenhao418@huawei.com, yangshuaisong@h-partners.com,
  ningwei15@huawei.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 10:18:25 +0000
-Message-ID: <179370110586.488856.5999411563039166781@kernel.org>
-In-Reply-To: <20261030095633.377289-2-shaojijie@huawei.com>
-References: <20261030095633.377289-2-shaojijie@huawei.com>
+Date: Tue, 03 Nov 2026 10:18:27 +0000
+Message-ID: <179370110712.488856.17112299707405359724@kernel.org>
+In-Reply-To: <20261030095633.377289-3-shaojijie@huawei.com>
+References: <20261030095633.377289-3-shaojijie@huawei.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -71,78 +71,49 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message does not give the real reason for one line of
-  the fix.
+- [Low] The commit message says the new cleanup in
+  hns3_alloc_ring_memory()…
 
 --
 
-net: hns3: fix vector resource leak in hns3_nic_alloc_vector_data
+net: hns3: fix page_pool leak in hns3_alloc_ring_memory error path
 
-This patch fixes the error path in hns3_nic_alloc_vector_data() for when
-devm_kcalloc() of priv->tqp_vector fails. The new path calls put_vector()
-for every vector that get_vector() acquired, and resets priv->vector_num
-to 0 before returning.
+When hns3_alloc_ring_buffers() fails for an RX ring, the out_with_desc
+error path in hns3_alloc_ring_memory() frees the descriptor ring. It does
+not destroy the page_pool that hns3_alloc_page_pool() just created. This
+patch adds a guarded page_pool_destroy() to that error path.
 
-> Call put_vector() for every acquired vector before returning the
-> error, and reset priv->vector_num to 0 to avoid a NULL deref in the
-> subsequent hns3_nic_dealloc_vector_data(), which iterates
-> priv->tqp_vector (still NULL after the kcalloc failure) using
-> priv->vector_num.
+> Add page_pool_destroy() to the out_with_desc error path, guarded by
+> a NULL check, mirroring the cleanup done in hns3_free_ring_memory().
 
 [Severity: Low]
-Is this the right reason for the priv->vector_num reset? As far as I can
-tell, no path calls hns3_nic_dealloc_vector_data() after
-hns3_nic_alloc_vector_data() fails.
+This isn't a bug, but is hns3_free_ring_memory() the right name here? I
+can't find a function with that name under
+drivers/net/ethernet/hisilicon/hns3/.
 
-In hns3_client_init(), the failure jumps to a label that comes after the
-dealloc call:
+The only other RX page_pool_destroy() is in hns3_fini_ring(). That function
+calls hns3_free_desc() first and destroys the pool last:
 
-drivers/net/ethernet/hisilicon/hns3/hns3_enet.c:hns3_client_init() {
+drivers/net/ethernet/hisilicon/hns3/hns3_enet.c:hns3_fini_ring() {
+	hns3_free_desc(ring);
+	devm_kfree(ring_to_dev(ring), ring->desc_cb);
     ...
-	ret = hns3_nic_alloc_vector_data(priv);
-	if (ret) {
-		ret = -ENOMEM;
-		goto out_alloc_vector_data;
+	if (!HNAE3_IS_TX_RING(ring) && ring->page_pool) {
+		page_pool_destroy(ring->page_pool);
+		ring->page_pool = NULL;
 	}
-    ...
-out_init_vector_data:
-	hns3_nic_dealloc_vector_data(priv);
-out_alloc_vector_data:
-    ...
 }
 
-hns3_reset_notify_init_enet() works the same way:
+The new out_with_desc path does it in the opposite order. It destroys the
+pool and sets ring->page_pool to NULL, then calls hns3_free_desc().
 
-drivers/net/ethernet/hisilicon/hns3/hns3_enet.c:hns3_reset_notify_init_enet() {
-    ...
-	ret = hns3_nic_alloc_vector_data(priv);
-	if (ret)
-		goto err_put_ring;
-    ...
-err_dealloc_vector:
-	hns3_nic_dealloc_vector_data(priv);
-err_put_ring:
-    ...
-}
+That order looks harmless today. By the time hns3_alloc_ring_buffers()
+returns an error, it has already detached every buffer it attached. Each
+desc_cb[i].dma is zero, so hns3_free_buffer_detach() returns early and
+never hands a page back to the NULL pool.
 
-hns3_client_uninit() and hns3_reset_notify_uninit_enet() both start with
-test_and_clear_bit(HNS3_NIC_STATE_INITED, &priv->state). They bail out
-before calling hns3_nic_dealloc_vector_data() if the bit is clear.
-
-HNS3_NIC_STATE_INITED is only set once init succeeds, so it is still
-clear after this failure. That means the NULL deref described above
-cannot happen, with or without this patch.
-
-The reset may still be useful for other code that indexes
-priv->tqp_vector by priv->vector_num while the netdev stays alive after
-a failed reset re-init. One example is hns3_dump_coal_info() in
-hns3_debugfs.c:
-
-	for (i = 0; i < priv->vector_num; i++) {
-		tqp_vector = &priv->tqp_vector[i];
-
-Should the commit message name the code that actually depends on
-priv->vector_num being 0, rather than hns3_nic_dealloc_vector_data()?
+Could the commit message name hns3_fini_ring() instead? It could also drop
+the word "mirroring", since the order differs.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030095633.377289-1-shaojijie%40huawei.com
