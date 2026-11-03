@@ -1,54 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703417;
-	b=SXRjM9DI+/Pgn/7ciVnnvC694Q5tfdaZn1tux+z1wL7tliImNcJIfCYEE11vaWEWgl8C
-	 Q98ciSo0zC7l6RKBKQDhA3NDBky+3na+ijGHgGoGo+2ru3UCX7mV6ae0fVi2vr+KkFixX
-	 4+VkZ6zulKXrra6ZFEgfciCIUshu4znVdqA5bpluaHsl2qZb+odjD70jbBBbOzlGxGb0x
-	 XkBp+j6u46W6AsxdjCadoJkSX3T+AIsQUF5Dpn/Ay9JLUj9qevais6RBHJXGv2OzcVL5I
-	 G4vCZI9FOYSxBARQwYf5L9BG0O/pYSwpzKHHdJaB/ui68Bf3xux50WqNXyM02JHah+Q==
+	t=1793703469;
+	b=z09n5Avujm1iyPTPQDfL6lpUP99sx1OuyMhUZXg8GxT6O2vNuWYmYAZ6jXGkwVG9M85z
+	 QvY0tA1NPj0irL3L103Jq0rPr1V2W9SYzGhWqY9GtfkHen5EwJv4idbeP1bYjvlBay0j4
+	 evQAKRUin8CfSwM3Ud6C3aN8Yi90URaDsUX8cEA54RX3+vdBeAc3GpXKQ/23NZsq+458g
+	 IAhCQZ1Q7wVbfofJkbx5Hv45nE8NTPyJoHgr8OLSPDe6NkaUrvBC384O/DWcBlYSl9U3d
+	 iULRJaV8QdwNBpMPBJPrwdaPyiIkbyZgYOv9ACQhq3QI8MJNVZ7YUETghL4NmI3EGWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703417;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=GLCdQ7yyYZVSa1Z/8WV0HEWdcD0ZR8tpxoUJ6zf3iks=;
-	b=P5u9NBOH/f4OZiKB5I0jY/5+YfWFAPTTjxm2AEgK/d2puBC2u4YVk+wDbcCDLj7ts4LE
-	 hESIDSrCG2mp8Anas6uqdF8rF4xTi+mY+kh6OHWJGLUDlMIWkE/ov1Zq3e897pGQ95pdu
-	 sxespP44UtC/TTCavTgJCyH3Ic7nzVCoN2Qp2MuiCKXdcTGveHwBgfrpKD0aBtzi5mCpG
-	 9xa5ZwLsPY8YEa8KZuUdF6QTn0cbBz6L/r/qL65IqaWpMb8S9Ma/7DrT1iUkmPzTZLXAU
-	 mGthF8bHaHtSZxmiF/oGrQ6YgiZHzaCJkZyhiNAmlzUidxeyGkcvmulPTb3CsfAg7PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703469;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=DDfICRyidzH2Xd0djapzVszHzRWjlx8ddWZ00UYB6Ac=;
+	b=pTDZ7brKdccwSuPwesNiULw3iDLQcAJNmaUQAibuwg/73B40h1p7ew+Ag1dN7fN2iyUC
+	 qXiQz1hPPXqP7gYk6LGdS3LWlIUBrU5H+VplxQ9AIrGPmjAo1rjlk5eEnrEWB3sA7nuOZ
+	 PoOPkrM3MP5qVX9VFIb536DLEVjkiP2P8ePvaFRpA3a2ccwwKP1doHdh6kESQH4SPcwRg
+	 JtanVssGL2ggIQB9DRvg0sbduyPpDrlp1cNtJakBjpJk3Uh69zkHJdliJWBjWlO47S08M
+	 dtYlKjWnrP4c8orXWynI751rCJK63Ovw1qUblReO2s8CEoakO2i6vJVldf34Wizl10A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aa6IZpZn;
-	arc=none smtp.remote-ip=95.215.58.11
-Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AwykSUyB;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C4E606BF96
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:56:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7C4E606BF96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E55606BF96;
+	Tue,  3 Nov 2026 10:57:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97E55606BF96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aa6IZpZn
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xul2O4mVtDcfKlb1bMxbQAbRnQ4n0rOnY7nn3uF3ixE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793703412; v=1; x=1794308212;
- b=aa6IZpZnpwjfXx5YqcLcx/jmDShkIWTDUVK5gqxxFWM7R47qsYNwFc/ggSZEAuRul6ZudzED
- CAl5oZzmHsnQl1OWtn6xDLJWuVrhiLD8fv673/DqoybyJLrK+Lit8jrgB/KOcCtl076yre4ac1L
- Ft/5XqeALLMzBql+ozBSI5CU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 6423a6be375d5d61;
-	Tue, 03 Nov 2026 10:56:51 +0000
-X-Mizu-Trace-ID: 6423a6be375d5d61
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AwykSUyB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793703469; x=1825239469;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tVqPDu+U/KkDYeLuXRepbX+YYLrWZCTzJZvgZd55h8w=;
+  b=AwykSUyB0WmhNagLmxWxocxAYHapilLHrt9YjIkLfU4MnAqEfZ6e4Qkh
+   bkJjbBbSz9vfyljiXQxDti8JNt5JwUXusBP3ukIer6lfNmuCmvv4p7kI0
+   ahW+G1QlGD1vygWhPUKyImQKEWvy2mce7KLxbfENn1CueUFAEjVZBDlqL
+   hWgAIod5yToaJ2Nxd5J7M8bfcoxoaqV3m/7r55JRhTECN+vt2+aaAgQyz
+   l9hp6ZdEri268bwowHWNqzaTM3BRLdy74ftcjX1NEBWeN4rpbU3xbBnFy
+   7LUGFP6/aKJRCOKQT0oJxXfuhD/gpY3u9DKc768Qf4Q3k9rJ4RVxn/xX2
+   A==;
+X-CSE-ConnectionGUID: 2liL6YWGToeJ0EUxSs3FrA==
+X-CSE-MsgGUID: +fvNWychQFSaR4PYab88xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2302077"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2302077"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:57:48 -0800
+X-CSE-ConnectionGUID: 43AHykudSHympGxlpG29+w==
+X-CSE-MsgGUID: Fjb47Nx4QzCgkr4Wz5LA+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="8181103"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa011.fm.intel.com with ESMTP; 03 Nov 2026 02:57:46 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xOCD1-00000000ie0-2XzN;
+	Tue, 03 Nov 2026 10:57:43 +0000
+Date: Tue, 3 Nov 2026 18:56:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>, jikos@kernel.org,
+	bentiss@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
+Subject: Re: [PATCH v2] HID: wacom: replace sprintf calls with safer
+ alternatives
+Message-ID: <202611031828.iUFgzaYo-lkp@intel.com>
+References: <20261101054830.291749-1-nehuenlian.kernel@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,108 +84,131 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 2/4] mm: hugetlb: skip CMA allocations under
- PF_MEMALLOC_PIN
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <5bc00742fe249cf09a3095abccf8889d5fa71116.1793692578.git.zhengqi.arch@bytedance.com>
-Date: Tue, 3 Nov 2026 18:56:23 +0800
-Cc: osalvador@suse.de,
- David Hildenbrand <david@kernel.org>,
- akpm@linux-foundation.org,
- azpijr@gmail.com,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <4EC5E593-7537-4659-879C-95ECC2224D2F@linux.dev>
-References: <cover.1793692578.git.zhengqi.arch@bytedance.com>
- <5bc00742fe249cf09a3095abccf8889d5fa71116.1793692578.git.zhengqi.arch@bytedance.com>
-To: Qi Zheng <qi.zheng@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101054830.291749-1-nehuenlian.kernel@gmail.com>
+
+Hi Nehuen,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on hid/for-next]
+[also build test WARNING on linus/master v7.3 next-20261030]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Nehuen-Lian-Bova/HID-wacom-replace-sprintf-calls-with-safer-alternatives/20261101-024830
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
+patch link:    https://lore.kernel.org/r/20261101054830.291749-1-nehuenlian.kernel%40gmail.com
+patch subject: [PATCH v2] HID: wacom: replace sprintf calls with safer alternatives
+config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20261103/202611031828.iUFgzaYo-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031828.iUFgzaYo-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611031828.iUFgzaYo-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/hid/wacom_sys.c: In function '__wacom_initialize_battery':
+>> drivers/hid/wacom_sys.c:1842:37: warning: passing argument 2 of 'snprintf' makes integer from pointer without a cast [-Wint-conversion]
+    1842 |         snprintf(battery->bat_name, "wacom_battery_%ld", n);
+         |                                     ^~~~~~~~~~~~~~~~~~~
+         |                                     |
+         |                                     char *
+   In file included from include/linux/kernel.h:32,
+                    from include/linux/random.h:7,
+                    from include/linux/nodemask.h:94,
+                    from include/linux/numa.h:6,
+                    from include/linux/cpumask.h:15,
+                    from include/linux/smp.h:13,
+                    from include/linux/interrupt_rc.h:18,
+                    from include/linux/spinlock.h:60,
+                    from include/linux/mmzone.h:8,
+                    from include/linux/gfp.h:7,
+                    from include/linux/slab.h:17,
+                    from include/linux/hid.h:19,
+                    from drivers/hid/wacom_wac.h:7,
+                    from drivers/hid/wacom_sys.c:6:
+   include/linux/sprintf.h:13:47: note: expected 'size_t' {aka 'unsigned int'} but argument is of type 'char *'
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                        ~~~~~~~^~~~
+>> drivers/hid/wacom_sys.c:1842:58: warning: passing argument 3 of 'snprintf' makes pointer from integer without a cast [-Wint-conversion]
+    1842 |         snprintf(battery->bat_name, "wacom_battery_%ld", n);
+         |                                                          ^
+         |                                                          |
+         |                                                          long unsigned int
+   In file included from include/linux/kernel.h:32,
+                    from include/linux/random.h:7,
+                    from include/linux/nodemask.h:94,
+                    from include/linux/numa.h:6,
+                    from include/linux/cpumask.h:15,
+                    from include/linux/smp.h:13,
+                    from include/linux/interrupt_rc.h:18,
+                    from include/linux/spinlock.h:60,
+                    from include/linux/mmzone.h:8,
+                    from include/linux/gfp.h:7,
+                    from include/linux/slab.h:17,
+                    from include/linux/hid.h:19,
+                    from drivers/hid/wacom_wac.h:7,
+                    from drivers/hid/wacom_sys.c:6:
+   include/linux/sprintf.h:13:65: note: expected 'const char *' but argument is of type 'long unsigned int'
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                                     ~~~~~~~~~~~~^~~
 
 
+vim +/snprintf +1842 drivers/hid/wacom_sys.c
 
-> On Nov 3, 2026, at 16:01, Qi Zheng <qi.zheng@linux.dev> wrote:
->=20
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
->=20
-> With gigantic overcommit enabled, a fault during long-term pinning
-> can allocate a fresh HugeTLB folio from CMA despite PF_MEMALLOC_PIN.
->=20
-> The folio must then be migrated before it can be pinned. However,
-> fresh gigantic migration targets are not supported, so pinning fails
-> when the HugeTLB pool has no suitable target, even if the original
-> fault could have allocated pinnable memory outside CMA.
->=20
-> Honor PF_MEMALLOC_PIN in the HugeTLB CMA allocator so the fault can
-> try the non-CMA fallback, or fail when allocation is restricted to =
-CMA.
+  1820	
+  1821	static int __wacom_initialize_battery(struct wacom *wacom,
+  1822					      struct wacom_battery *battery)
+  1823	{
+  1824		static atomic_t battery_no = ATOMIC_INIT(0);
+  1825		struct device *dev = &wacom->hdev->dev;
+  1826		struct power_supply_config psy_cfg = { .drv_data = battery, };
+  1827		struct power_supply *ps_bat;
+  1828		struct power_supply_desc *bat_desc = &battery->bat_desc;
+  1829		unsigned long n;
+  1830		int error;
+  1831	
+  1832		if (!devres_open_group(dev, bat_desc, GFP_KERNEL))
+  1833			return -ENOMEM;
+  1834	
+  1835		battery->wacom = wacom;
+  1836	
+  1837		n = atomic_inc_return(&battery_no) - 1;
+  1838	
+  1839		bat_desc->properties = wacom_battery_props;
+  1840		bat_desc->num_properties = ARRAY_SIZE(wacom_battery_props);
+  1841		bat_desc->get_property = wacom_battery_get_property;
+> 1842		snprintf(battery->bat_name, "wacom_battery_%ld", n);
+  1843		bat_desc->name = battery->bat_name;
+  1844		bat_desc->type = POWER_SUPPLY_TYPE_BATTERY;
+  1845		bat_desc->use_for_apm = 0;
+  1846	
+  1847		ps_bat = devm_power_supply_register(dev, bat_desc, &psy_cfg);
+  1848		if (IS_ERR(ps_bat)) {
+  1849			error = PTR_ERR(ps_bat);
+  1850			goto err;
+  1851		}
+  1852	
+  1853		power_supply_powers(ps_bat, &wacom->hdev->dev);
+  1854	
+  1855		battery->battery = ps_bat;
+  1856	
+  1857		devres_close_group(dev, bat_desc);
+  1858		return 0;
+  1859	
+  1860	err:
+  1861		devres_release_group(dev, bat_desc);
+  1862		return error;
+  1863	}
+  1864	
 
-Wait... I think my Acked-by got ahead of me here. :)
-
-There seems to be a rather odd distinction that GUP is missing.
-
-The usual reason long-term GUP must migrate a page out of a
-MIGRATE_CMA pageblock is that the page was only borrowed from CMA by the
-normal page allocator.  The corresponding CMA bitmap range is still
-available, so a future CMA allocation relies on being able to migrate
-that page away.  A long-term pin would prevent that.
-
-However, a HugeTLB folio returned by
-hugetlb_cma_alloc_frozen_folio() is different.  It is the actual CMA
-allocation, not merely a movable page that happens to reside in a
-MIGRATE_CMA pageblock.  Its range has already been marked allocated in
-the hugetlb CMA bitmap.
-
-Therefore, CMA cannot allocate that range again until the HugeTLB folio
-is freed anyway.  Long-term pinning the folio does not seem to make the
-CMA area any less available than keeping the HugeTLB folio mapped for
-the same amount of time.
-
-folio_is_longterm_pinnable() currently only sees MIGRATE_CMA and does
-not distinguish these two cases.  In that light, rejecting
-PF_MEMALLOC_PIN in hugetlb_cma_alloc_frozen_folio() looks like working
-around an overly broad GUP classification.  It also means that
-hugetlb_cma_only users will fail the fault, while other users may =
-consume
-a gigantic contiguous range outside the dedicated hugetlb CMA area even
-when that area has free space.
-
-Would it make more sense to fix the long-term GUP check instead, so that
-an explicitly CMA-allocated HugeTLB folio is considered pinnable, while
-ordinary pages merely borrowed from MIGRATE_CMA pageblocks remain =
-unpinnable?
-
-Thanks,
-Muchun
-
->=20
-> Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic =
-hugepages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> ---
-> mm/hugetlb_cma.c | 3 +++
-> 1 file changed, 3 insertions(+)
->=20
-> diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
-> index 95fd2d190f0d2..dde1c866406fb 100644
-> --- a/mm/hugetlb_cma.c
-> +++ b/mm/hugetlb_cma.c
-> @@ -62,6 +62,9 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int =
-order, gfp_t gfp_mask,
-> 	if (!hugetlb_cma_size)
-> 		return NULL;
->=20
-> +	if (current->flags & PF_MEMALLOC_PIN)
-> +		return NULL;
-> +
-> retry_cpuset:
-> 	if (!nodemask) {
-> 		cpuset_mems_cookie =3D read_mems_allowed_begin();
-> --=20
-> 2.54.0
->=20
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
