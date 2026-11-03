@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793729959;
-	b=orzpTcVanS2selAuS396wP0XgxIZXpifT/amj8e/+3znVpe6Zj07Y3Ak6IJeoV6y3fHm
-	 T4fZ0ILOwaiz/GKM00PRM9QlCq2euhKNUf1Kp9+tKz5xtaZ9Bi8j3mml3NDsjHJwk/ntj
-	 xeMUxsvcsqQoNJqsiN0q1nJhP/LfY0UGxLLdoYKZZLqwCiAuBuTAteVO9dv/J6OOyxHwl
-	 4ifFiXZcQPTPDG/G2QulBZ0CeAwnY6MbMQHD316CHeV7RtA5VaArdodsepqK9yVdE2DWO
-	 zfr+hjj2rk9KPFyiOKlsKbIaoPi3I+24vuv/tVEVe/zO0pWDiTiGeV3K1jYnvZPUyyw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729959;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b5Apdfbysx3UZszHr/cOZmvpYIko3amgTXRkBzLxPAo=;
-	b=HSW6N1m2F0bZud8/Bl5jut4QlaTwXzcH6CPfGG7CWOplwVfdaGZ+7W714C8+gXMhn8P5
-	 eCBzn4JJpYTcyJ6UWH4R3BLs5zdtHxujrkWFK3mY6AmtQ0JVZhE92XJuxNdG4KkyxW90a
-	 59qF59U3GsxAgQ3YtQr1vk0c/WrQT8HWVYucDDo8LhkCNphryVUl0ZVgj2T4xDWaztryg
-	 UCR8/C7M7ICkLvQjOlHUILEXpA7uvRtwOj2atujWih/yLgyb6F58AvfTx/9uNBEdgLPxe
-	 SGhJ86BrRmu/fRttBD8j7Y5xqVfD5t2JD0Qx024XISTHao+r2Woj2+6T2rmQfgnsYwg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4jNSPJF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793729965;
+	b=Rfe8KypEM5d8Q5Yv1Rsityw7A71dZNhgjKXHAMTOCH657vE0oV/3qPYfyTXa/w1hhsaW
+	 ayfuBzBkFOCJO5LDfNa364paLN67aDyEqdi/L4gmuNhlXW5eTcOtJOf6prW+OV8oiCJ4g
+	 sw2VUJwwoO2dGb9YTajwiLIed0XG/9RVm36RMN6iMbDDl8PvTexYzUnEVvyVq178ykO4V
+	 /nPIW1BGJHBU4oLDcLAv61I4oN0yrPQ3/qf/Mpb3nqe/7G4aNx7cc//62n8v8AdjrbTGx
+	 Z+VbZmd82SMiONFWG55eUCWcz/8eHab0bECRNcY7Y9MSg3edoqUnDTKXWSoVaYNjwgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729965;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=BQAYKpdoSrFTsTqrI0dYgxlaPs+j9b8WV1Qokm2C+Fk=;
+	b=Tbp7lViPq25G5Vbxphu2YM6LPg6GWRB7dt+kvTVPeSxLNPxdEG+A5VXz7k0Vzwa9ZilR
+	 hCa0Uv8UpkRpgkZBbFSyEX4LTLjzjT0QETpVFIRRwBqh09wqHBEehbBDNZSNQWLzyJHd0
+	 +HomvlgaCsVEeIBp+gN15ULOLNZq9cUA6R8cVOSVffWrMzrUGuU32zbJr2EuxZ3eGadGV
+	 C16yoCOrM5KwLnTED3/21q5JQJsGorA5HLlGk4pOlaZ0vgFxO33x2ckrABEWK2nf/OToa
+	 /clE89Dv+CedZyJeJqniE4hVIT0Me5fsnPbHKqDwEmp9mE5cdd5ljnNTa69Jxp46Z7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsKlFwZM;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE53606D824;
-	Tue,  3 Nov 2026 18:19:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78C8606EE92
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4jNSPJF
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793729958;
-	b=JxvyKQamrHKQPXL49Gzyc4SE4QS8P0ft+3apo/CIjxJgx2QjfRLC2/F4CrcsRRLIdBA2
-	 2gFbAdfiyeqbRCAnQ5/UALxweB+B8EOOgifU6teNNZ1PifEIEds6rnpx7+ND08eIGIgKd
-	 jvrZi5WMmPEr2tdu95n58kfb6WXFdsU4AS6gSM0W2Ba7cepqLPWoGv1EEtAV/uu/8IZ9w
-	 AqqucnDFrF1DtLgY4sIdguFafOlVmoOylbHpD0odouyIwR10jYU/AFG+71Npf5A2t8rgg
-	 GhvpRn6I9pzYwXh9e/VWGYHZqO1tGkFrtbv5+/iwW7iOfYr6D/6mQc/rkyhZiX8VPPg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793729958;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b5Apdfbysx3UZszHr/cOZmvpYIko3amgTXRkBzLxPAo=;
-	b=MmpYhZC5Q77yGKD9VOg5/QJdw8SxKnqXFvffqaPdBsEn8UxcKWRsgSzZ+pjoyekmWZ/W
-	 7qR/MmUz/KWA7m9Dx3fXscHsvKFD2GQ7P7Uww37V7pQuaSTYOQhwA7/b/KXELOzwSyFfJ
-	 hYPeye6OHxDDDQJzq69ukXt/D96WqmVculNuX0v0PuPEvfVlGR7sBsKafls6jd9mlGqHL
-	 ciNCvy1Sox8dGrkkc5Il+HfqyBxHeo5JbEEaAyUCdyezdYeNHwpDwQdHQ8A7zJWSH53VD
-	 F1p4qM7VfsTkOozx/qmw1pIklackXpFH7pVT6DGYDT19xaQ5vPWmZyw7xfe03wsK5Jw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6EE851F00A16;
-	Tue,  3 Nov 2026 18:19:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsKlFwZM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B87C1F00A18;
+	Tue,  3 Nov 2026 18:19:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793729958;
-	bh=b5Apdfbysx3UZszHr/cOZmvpYIko3amgTXRkBzLxPAo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=i4jNSPJFaLkW6Ofqp75erX029EWCwKlZBxrBUNuHAbiNQBQXga5zcveb6BkWtqs/4
-	 WLM2ybrAELWc4RXN/ny12AkgKlfGxU1U8VNbk5x3rObXF51EChQWA9gU4TMSwKm8g2
-	 9Mlu6SSN5S7axdejTAZCH5NUu5Qq0q8OOXXHUqON04qqeKQmq3YjNUg1/QlmeoUpp4
-	 8QN74PKCcE+AcfZxXe3ieyT5+/Gd7b6dP9iP0k3+8vieS+6krmGoOSbrneGJWB2+06
-	 JJvYfUpPE3050B1zC9X8/F29O5kTvfGgsdqSxI6STuNUPuJEkoljtadjr6SwIs3VMn
-	 Ftf0MZvuYYMHw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 039ED46A69;
-	Tue,  3 Nov 2026 18:19:16 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 03 Nov 2026 13:19:16 -0500
-Subject: [PATCH net] net: cancel napi->timer after the grace period in
- netif_napi_del()
+	s=k20260515; t=1793729964;
+	bh=BQAYKpdoSrFTsTqrI0dYgxlaPs+j9b8WV1Qokm2C+Fk=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=lsKlFwZMWjnD7F2UEwo5VNiNjF+CfV0fYjBXO8lhg0DzeNHloc6fVaunxl08SMONV
+	 JI4s8V2QudtbszkmElD1veYTLcZdOtMuqWhyik1BpJyHPq3mBuCdKcLMhzHVChXhEW
+	 5bZQ2LdKiPm25p1xe2nA4HbU8tfETvUo/supeyhjNbUidcCLyKYRlTLGRw+1T4jEtO
+	 a8vBSfk0COZrTUcczKSf0AG6PFAasXF7Kqv6tVM7VXiYkJE4ePrmdu9G6EdsYOd3OM
+	 4G/ZXRFY75mG0C0nHar1QU46EZxvlQal7Wxq8uBe4Siou34Jlb/7fGt3ZeQybo0C2g
+	 4e/K1QGG7+yMg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id E4810CE0C97; Tue,  3 Nov 2026 10:19:23 -0800 (PST)
+Date: Tue, 3 Nov 2026 10:19:23 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Jan Engelhardt <ej@inai.de>
+Cc: David Laight <david.laight.linux@gmail.com>,
+	torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, Bradley Morgan <brads@mainlining.org>,
+	Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
+Message-ID: <ad8358f4-483c-41d3-8fae-e7032c4a5bd7@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop>
+ <4p5316or-75o2-s068-74s3-6q5011o75672@vanv.qr>
+ <6f24126a-7f84-40f8-a297-095b470beb8b@paulmck-laptop>
+ <qnrr9sr7-19rq-6rp9-0oq9-5939r07no828@vanv.qr>
+ <20261102163448.3956dde3@pumpkin>
+ <s2530278-793s-8r51-s5q8-349s35q8159r@vanv.qr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,166 +67,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-napi-timer-cancel-v1-1-55c631ad5286@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6W8swtJSqX4K+JhTTe6omtJogil/
- 96oxxmYWVAkqxQcugVZ3lr0aQ38rkO8sl2EdGqM4MLee9eT8axU9SGZIluUOyV2HMYhTcPo0bo
- 5S9LP73mEScXpL8vrfJNYvzes6waLWeTzegAAAA==
-X-Change-ID: 20261103-napi-timer-cancel-fa0a285fd581
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Martin Karsten <mkarsten@uwaterloo.ca>, Joe Damato <joe@dama.to>, 
- Dragos Tatulea <dtatulea@nvidia.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Stanislav Fomichev <sdf.kernel@gmail.com>, 
- Sridhar Samudrala <sridhar.samudrala@intel.com>, 
- Cosmin Ratiu <cratiu@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
- Wang Zhan <wang.zhan@smartx.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793729955; l=5193;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=D3DRGuFE0EATDQVzQQV5RjgLb6ytoSbotejXuz5TFKc=;
- b=ssRhd2VE5LU/8fFDf9oHRD8iJ0XKlAM1RWeKEnlFASOxuU6corXvDu0kFe6ZGsG7EEOSLCpRM
- /EI/Db8vV0yCH1bPZEHjbW0a+Y5tEYG6c1CgdcmpBFzIh3UK5NqKwMz
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s2530278-793s-8r51-s5q8-349s35q8159r@vanv.qr>
 
-From: Mani Tofigh <mt4022@columbia.edu>
+On Tue, Nov 03, 2026 at 03:03:47AM +0100, Jan Engelhardt wrote:
+> 
+> On Monday 2026-11-02 17:34, David Laight wrote:
+> >> 
+> >> I can get gcc-17.0.0-20261102 with no further command line options
+> >> to turn `atomic_compare_exchange_strong`+uint16 into some object code
+> >> that does not contain a call to libatomic, for sh2, sh3, sh4. Haven't 
+> >> tried xtensa or the others.
+> >> Thus, is the patch really needed?
+> >
+> >Won't that need a big jump in the minimum supported compiler version?
+> 
+> 12.0.0-20210420 behaves the same. I just chose 17 because that was
+> convenient to try first.
 
-A napi can be freed with its timer still queued.  napi_disable()
-cancels napi->timer, but napi_complete_done(), busy_poll_stop() and
-napi_suspend_irqs() start it without owning the napi and can do so
-right after the cancel.  netif_napi_del() only waits for that start to
-finish:
+Are you also advocating ditching the single-byte cmpxchg() emulation?
+If the compiler really can handle this emulation for all sizes on all
+supported compilers on all affected architectures, that is actually not
+at all an unattractive approach.
 
-  Task A (epoll_wait)                  Task B (queue reset)
-  napi_suspend_irqs()
-    rcu_read_lock()
-    napi = napi_by_id(id)
-                                       napi_disable_locked(napi)
-                                         hrtimer_cancel(&napi->timer)
-                                         napi_hash_del(napi)
-                                       netif_napi_del_locked(napi)
-                                         synchronize_net()
-                                         /* waits for Task A */
-    hrtimer_start(&napi->timer)
-    rcu_read_unlock()
-                                       kfree(rq)
-                                         /* timer still queued */
-
-With netdevsim and debug objects:
-
-  [    3.073483] ODEBUG: free active (active state 0) object: 000000001504358f object type: hrtimer hint: napi_watchdog+0x0/0xa0
-  [    3.073515] WARNING: lib/debugobjects.c:629 at debug_print_object+0x1a4/0x3b0, CPU#0: napitimer/66
-  [    3.079603] CPU: 0 UID: 0 PID: 66 Comm: napitimer Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
-  [    3.084822] RIP: 0010:debug_print_object+0x1ae/0x3b0
-  ...
-  [    3.103822] Call Trace:
-  [    3.104408]  <TASK>
-  [    3.105933]  debug_check_no_obj_freed+0x496/0x5f0
-  [    3.109988]  kfree+0x33a/0x510
-  [    3.110715]  netdev_rx_queue_reconfig+0x357/0x580
-  [    3.111780]  netdev_rx_queue_restart+0x8f/0xc0
-  [    3.113924]  nsim_qreset_write+0x24d/0x350
-  [    3.117832]  full_proxy_write+0x109/0x1d0
-  [    3.118741]  vfs_write+0x1e3/0x1250
-  [    3.124758]  __x64_sys_pwrite64+0x18c/0x250
-  [    3.129645]  do_syscall_64+0xfb/0x590
-  [    3.131385]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Without debug objects, napi_watchdog() later runs on freed memory.
-
-After napi_disable() and a grace period none of the three can reach the
-napi anymore.  Two need SCHED, which napi_disable() keeps, and
-napi_suspend_irqs() needs the napi hash, which napi_disable() removed it
-from.  So cancel the timer again after the grace period that
-netif_napi_del() already waits for, and in free_netdev(), where
-unregister has already waited for one.  With the fix, debug objects
-don't report a freed active timer anymore.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 1s.
-
-Fixes: 6f8b12d661d0 ("net: napi: add hard irqs deferral feature")
-Fixes: 3fcbecbdeb04 ("net: Add control functions for irq suspension")
-Fixes: 58e2330bd455 ("net: napi: Avoid gro timer misfiring at end of busypoll")
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Drivers that call __netif_napi_del{,_locked}() and then their own
-synchronize_net() (eg netdevsim on close, veth, virtio_net, bnxt and
-gro_cells) need the same cancel.  I can send that separately.
-
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/napitimer.c
----
- include/linux/netdevice.h | 9 +++++++++
- net/core/dev.c            | 5 ++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 435be7880d7e..ad3685caf814 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -3013,8 +3013,13 @@ static inline void __netif_napi_del(struct napi_struct *napi)
- 
- static inline void netif_napi_del_locked(struct napi_struct *napi)
- {
-+	bool listed = test_bit(NAPI_STATE_LISTED, &napi->state);
-+
- 	__netif_napi_del_locked(napi);
- 	synchronize_net();
-+	/* napi->timer can be started until a grace period after napi_disable() */
-+	if (listed)
-+		hrtimer_cancel(&napi->timer);
- }
- 
- /**
-@@ -3025,8 +3030,12 @@ static inline void netif_napi_del_locked(struct napi_struct *napi)
-  */
- static inline void netif_napi_del(struct napi_struct *napi)
- {
-+	bool listed = test_bit(NAPI_STATE_LISTED, &napi->state);
-+
- 	__netif_napi_del(napi);
- 	synchronize_net();
-+	if (listed)
-+		hrtimer_cancel(&napi->timer);
- }
- 
- int netif_enable_cpu_rmap(struct net_device *dev, unsigned int num_irqs);
-diff --git a/net/core/dev.c b/net/core/dev.c
-index f32353b0467c..6d6384522a1b 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -12450,9 +12450,12 @@ static void netdev_napi_exit(struct net_device *dev)
- 	if (!list_empty(&dev->napi_list)) {
- 		struct napi_struct *p, *n;
- 
-+		/* unregister has waited for a grace period after napi_disable() */
- 		netdev_lock(dev);
--		list_for_each_entry_safe(p, n, &dev->napi_list, dev_list)
-+		list_for_each_entry_safe(p, n, &dev->napi_list, dev_list) {
-+			hrtimer_cancel(&p->timer);
- 			__netif_napi_del_locked(p);
-+		}
- 		netdev_unlock(dev);
- 
- 		synchronize_net();
-
----
-base-commit: 647b81ddefc6364290e67bf33c89d54971f8995e
-change-id: 20261103-napi-timer-cancel-fa0a285fd581
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
-
+							Thanx, Paul
