@@ -1,99 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697903;
-	b=Dd0F2n8lNrYv9oTgn49labE3OXiy/mi0xegTx9nl+/wgMBncnrw/ErEjKi8nLLqVy3za
-	 WHmGP0w2Y4MTIV10fMDgRw0VJAJcspibGl2bKIpmz35t2G1Bj3v1+89c2PNOrmlmUH2Yp
-	 prg0nr28q/ygH4LuQ+GEwmROw+EKNybqu/lLhHtMw8XyLpUoOHTYp61QsIetUU192xBxf
-	 hZCpJCl4qKYIl6Sgzj+kHUIE5f9oxb0nAiC8ntBrBxtt3n5OAlUhBs0sxhDvhENbEjH/y
-	 orbMq+e+xKMpyJq+ngunW/2F1tw+i/n94XTryKI0VvOEybsNT4kpMVnv7mCrSQ+YArQ==
+	t=1793697900;
+	b=onOYPNNmvoj7VRTayZ0ky56Y1jojvm80heCtxT2iRObiC3ZHkMfr/LGm0APoJuc5akd2
+	 fW5029BGkOrXJN4SWYmzjPZWipvslz4UXNY+s3MKvqjTo1igGPrjSSYTuszqYnwQiH4cj
+	 cuLJpu5xsRke+T9SpFLXZKV/36aDf1Lzm8YXy8FKgMvNgN+c+e/jLoFW1MJW6E4HvVGYd
+	 MtFmagJBI32YrZCoSVbGeuUJkeedWlbDS/ycXIAmAqWHwiJWkJJqi0zUYlZC7t/Dxdkqh
+	 PCBfH6VXmzdcYepHBpV83Bb3ZMPme8obnq52ystMtnyZLekbrKehd2Jhlo4BiYfjHuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697903;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=wbk0beb8505pKbqVSOAGuX9uXweKMLn5Ud0DHY7wulE=;
-	b=e8TxXkEOcBADVWe3lLNKNIkq5HpSJVzljgA79Weo0E4c6RKJ1WxpKsqG1neGyHJceNuz
-	 soV2QvkngdevTrkbrldIQVuxmWrVLnLtEsj+aDwBkJs99uBSmtkrHK9HjCY/iQnNoO+Rq
-	 JgNbuB+6P/aJHXyT5X3WmjyxsoGi8KybQ2WlGjXfyWBKIx5Wa9tMAFJThctgfl9fIoxAR
-	 BUHHCg3wk2C8fuDzvw6jPnKBe5JlzAI7sDTxL2xmki2hIC/xdVVr0lgqJKnRykfEpQiSF
-	 K58KL+6C8JIzdNZVwuOJJEaqFLon99zjrpp51cTMX9+du634WeBSMIkMyegYxNaY3dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697900;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Y53QIYpD7wjqmJYR8fzWA4+4yo7uKK86RU2Kss38ssY=;
+	b=YRpQdlqeYPni/McJJusRZPtG97f0u1U3WfEXgQtkJfoob6cSpgwu/Sg3FYNEERCZBB4+
+	 xKxU1W46zy33hNaw9yhNuZuk3xgp2kZjSHFGm3oo080CrkOIOLX6twX+Z16dU8R+ZH2hD
+	 8UwQwr3S2KZOb5ktP70ZzaWpKvPUacX9HmCHfT956AkgvyAAMsl+ISP3zD1o4Z2F8MQ/b
+	 Wqca4okiOksTuK/KbqvXTHI/CYamgPuviTrXfws/gtNZu/7FAJ4nhHSvpXNL0MQy1vJbc
+	 NrHOvIDgGMFTGXn+dHFUd+fzod6iUVj8nx/fjIFfAy8abL78xHpMEqpHIC8H8GeUvBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=truenas.com;
-	spf=pass smtp.mailfrom=truenas.com;
-	dkim=pass header.d=truenas.com header.i=@truenas.com header.a=rsa-sha256 header.s=google header.b=azSs5YIB;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3yrovMq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD50B606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:25:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD50B606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=truenas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458C6606A324;
+	Tue,  3 Nov 2026 09:25:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=truenas.com header.i=@truenas.com header.a=rsa-sha256 header.s=google header.b=azSs5YIB
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso2227301f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:25:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=truenas.com; s=google; t=1793697901; x=1794302701; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wbk0beb8505pKbqVSOAGuX9uXweKMLn5Ud0DHY7wulE=;
-        b=azSs5YIBFXuTGlF7dg0vL6KaVS/3uhZ/g8RcFu62bqP+FkfLubAMkn3Qz9+qe/hvrG
-         JgVEyJ0XhuWD6j9l1DpBUaqRE4Ab631QZTwYgWCQwyxN0RJ9Pd+eBJIkkGRf9GYmTRf/
-         QQWcv2LdmREkInC3DcqotMKPXRcbxJOfeNdIMDRd9YcqUFsjTEHWkSNaBFAUQaEwO6dp
-         zcmlLe7UlvwnoYW0CiA59kbJ5UysjW6Q2K0i5hZOBOq/RcOlIi3UE7OqDb3hmR+JH0Su
-         1F2DnzzQT9GIGYWpU2drTmsthA754XwyfbGOZXXkSVr+eidKPpCbDm5Ny5a7DO+Pabfk
-         I2CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793697901; x=1794302701;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wbk0beb8505pKbqVSOAGuX9uXweKMLn5Ud0DHY7wulE=;
-        b=Lpp7anS7nluzZ43nV/Krok52Qzk99jppKdpxLfHmUnciGZuJJE9Mx9bRrL4jjim0SF
-         i7ZGs2oTq49t7+04w5SKE1LnTuKC7jtD8NwfH2h/yw5g2OGnNcfdIF7zgqRk9mUhCfZx
-         A8c1k9MKnIiODZohB2pjBSSaNwhbZxy63BfDWH0oNjpTfC/JzGMmI815DnjLwmGMgIxT
-         Gtxx3oz36zraUJl6HBPYGb7nVMONvzfiMKSpo+NWtV0OAJt7miYNqnPCIrqB2Ghvzhn/
-         3PqPFev3X57KzZFTDMjyvRgqu+HsjpnKcxFocSW9rf5PGA6nBAaiA7WsOgjN/dLodwmV
-         8rvw==
-X-Forwarded-Encrypted: i=1; AKwUvByI5J0duPKheYwI0hLuxAjKv/umlbbxHSrj01L7NCkUysibDgeNuko0ua7ad2A7wDXItgN14R4aCuC4yms=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9skyAsjSVZhkjNNh2iICIsahyQXds7brM+tbGGaUywrncA5YqW
-	rmR/Adq4p2OWhe7mRuqPOYzTaSt+8NcSY1la/U6rpl5KGpW6PtQjsjPdE97ea+dBkMylPq0Wddf
-	AfI0=
-X-Gm-Gg: AYBFou0YDy+HnxNg4swsxdFTfd7LzH2PD3XpLMM5eOGkYw+E1RDXZVVoovyW92ai3No
-	nESVmbkZ5+zSzclsd98JKSIELrTl2UQeT66SGinEiU5fK3WJBzUu/dDCMFzXEfcuyyOtOZW9Yw8
-	hA2g4vRxvvWB2QerpsolZQJ6E2uIYQW3mBH+BuGj54HQFTgDLomfkeuWwV1NmBb40K0UXzANAhu
-	hn4SQft2wtPYQcIWLci/c005AHi6OAB4uJl0SSXFvDYfYEKaUMsyxvzewQj+4jI/vHOf365oq9+
-	uF+sByZa8r0IYCmTVDSNsPV0VURZHl/s82UPj3dKTmmsEPQgmE94/RzObroWd7q5MtUD1ki/H8w
-	oFD2T/ltpFq1mgdi/jajV+QrI4wsYpWbXA6mlcFwUW6N2y5nRneNcrRS36gsudpOmkJXN4FQVws
-	Rnw2lqTLi3H3Gh+lpADcvtj4R9kC292lGyUB/b0BhXeyijgOyg/UPi4Uw1obJJWKIHj7dZObzXQ
-	Yu+zvhYB1mjy//QDPjJ+/U182MKlh5blEZrKsnT8mXVeY/uMl8NkZuH/0ZvnULMvDvaANlzYgHv
-	3E3X/dks
-X-Received: by 2002:adf:e18b:0:b0:48e:2949:439 with SMTP id ffacd0b85a97d-48e6e4f5647mr29617079f8f.36.1793697900790;
-        Tue, 03 Nov 2026 01:25:00 -0800 (PST)
-Received: from hamza-PC ([2400:adc1:158:c700::1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9a3b1sm25873954f8f.44.2026.11.03.01.24.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 01:25:00 -0800 (PST)
-Date: Tue, 3 Nov 2026 14:24:56 +0500
-From: Ameer Hamza <ameer.hamza@truenas.com>
-To: Alexander Aring <aahringo@redhat.com>
-Cc: David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, caleb.stjohn@truenas.com
-Subject: Re: [PATCH] dlm: don't set RSB_MASTER_UNCERTAIN on rsb with no master
-Message-ID: <aumi85ZXHFQ_D5ON@hamza-PC>
-References: <20261019151627.3324886-1-ameer.hamza@truenas.com>
- <CAK-6q+j64=mSzuufOaSGjsC2aSwhb0hs9MKxxaAhbwugdztHZw@mail.gmail.com>
- <aujr6x9t2gXbXfFw@hamza-PC>
- <CAK-6q+jBNKN=oSCmm+i011FdhPS+42BZc0iUfbqGiLDBc0Py5A@mail.gmail.com>
- <auj4LE0bq7w7lOF8@hamza-PC>
- <CAK-6q+gqM6O4h762H5NVJ_B==VL2zaBVTBDiwUdbf5zxGNEDsA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3yrovMq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21911F000C1;
+	Tue,  3 Nov 2026 09:24:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793697899;
+	bh=Y53QIYpD7wjqmJYR8fzWA4+4yo7uKK86RU2Kss38ssY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K3yrovMqdy6HhmOPbm4Ti0es2kgNpyacjrgDG2XoZVRiiVLu0G5H2da3S8d05b9/8
+	 F25G+k7Hbws5INlfoVJyodRN8+tqKBgNLv3xBa+p6v3ZjY4D8UNwFiBVhzAW7We/Oo
+	 iInPY9idqDd596i70NbQkSZBL+/tooOLc5y681PjOKaXIog/+gKNpeOagk/tD4jWPB
+	 moTQRizAWIp3QwGwCqxy/DiIlWUwNdR/dC6z0ZYnz3e3LvbfUcmsCH7qkmWX+N2ndV
+	 fT2z2TPd6EXmtl1JAzKEs2ouxyltBOCHOEL5U3B8c1TCOyqGFSnowgZXDcbjVxycrW
+	 54WNB0JVOz8Hg==
+Date: Tue, 3 Nov 2026 10:24:56 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Dom Cobley <popcornmix@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, Stefan Wahren <wahrenst@gmx.net>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, bcm-kernel-feedback-list@broadcom.com, 
+	linux-perf-users@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v16 1/3] dt-bindings: perf: Add Broadcom Raspberry Pi AXI
+ PMU definition
+Message-ID: <20261103-electronic-teal-kraken-5ebcec@quoll>
+References: <20261103041416.2940213-1-irogers@google.com>
+ <20261103041416.2940213-2-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,49 +67,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAK-6q+gqM6O4h762H5NVJ_B==VL2zaBVTBDiwUdbf5zxGNEDsA@mail.gmail.com>
+In-Reply-To: <20261103041416.2940213-2-irogers@google.com>
 
-On Mon, Nov 02, 2026 at 05:22:54PM -0500, Alexander Aring wrote:
-> Hi,
+On Mon, Nov 02, 2026 at 08:14:14PM -0800, Ian Rogers wrote:
+> Add device tree bindings for the Broadcom Raspberry Pi AXI PMU block
+> found on BCM2835, BCM2711, and BCM2712 SoCs.
 > 
-> On Mon, Nov 2, 2026 at 4:03 PM Ameer Hamza <ameer.hamza@truenas.com> wrote:
-> >
-> > On Mon, Nov 02, 2026 at 03:38:12PM -0500, Alexander Aring wrote:
-> > > Hi,
-> > >
-> > > On Mon, Nov 2, 2026 at 3:03 PM Ameer Hamza <ameer.hamza@truenas.com> wrote:
-> > > >
-> > > > On Mon, Nov 02, 2026 at 02:49:04PM -0500, Alexander Aring wrote:
-> > > > > question:
-> > > > >
-> > > > > how do you "pause" anything in DLM?
-> > > >
-> > > > The nodes are VMs, so I freeze the dir node from the QEMU monitor. It
-> > > > stays a member but never answers the lookup, and after the cancel I
-> > > > evict it through configfs. That is what happens on our HA systems when
-> > > > the peer reboots without leaving the lockspace and a pending request
-> > > > gets cancelled before the peer is evicted.
-> > >
-> > > Still, do you just randomly freeze it, or do you busy/poll wait on
-> > > specific struct field changes?
-> >
-> > I don't poll anything. The peer is frozen before the request is made,
-> > so the lookup to it can never complete. Then the request is cancelled,
-> > the peer is evicted and the name is requested again, and it asserts
-> > every time.
-> >
-> 
-> I see, do you use dlm_controld/corosync as cluster manager?
-> 
-> I would assume at some point they should fence the frozen peer.
+> Depending on the SoC and security configuration, these PMUs support
+> either direct MMIO access for the System monitor or routing via the
+> Raspberry Pi firmware mailbox IPC for the VideoCore VPU monitor.
 
-No, our HA manages the lockspace itself through the same configfs and
-sysfs interface dlm_controld uses, with its own peer monitoring. The
-peer does get evicted, but the monitoring first waits about a minute
-in case it comes back, and the lockspace keeps running until then. The
-requester cancels after 60 s, so the cancel can arrive before the
-eviction.
+In such case, where is mboxes property?
 
-Best Regards,
-Ameer Hamza
+> 
+> Co-developed-by: Dom Cobley <popcornmix@gmail.com>
+> Signed-off-by: Dom Cobley <popcornmix@gmail.com>
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  .../bindings/perf/brcm,bcm2835-axiperf.yaml   | 50 +++++++++++++++++++
+>  MAINTAINERS                                   |  7 +++
+>  2 files changed, 57 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/perf/brcm,bcm2835-axiperf.yaml
+
+...
+
+> +description: |
+
+Do not need '|' unless you need to preserve formatting.
+
+> +  The Broadcom BCM2835 series (including BCM2711 and BCM2712) features hardware
+> +  performance monitors on the AXI bus for evaluating memory bandwidth and
+> +  system traffic. Two monitor register blocks are present: the primary monitor
+> +  evaluates the System fabric, while the secondary monitor evaluates the
+> +  VideoCore VPU fabric. This block is distinct from the BCM5301X AXI Trace
+> +  Module.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - brcm,bcm2711-axiperf
+> +      - brcm,bcm2712-axiperf
+> +      - brcm,bcm2835-axiperf
+> +
+> +  reg:
+> +    items:
+> +      - description: System monitor registers
+> +      - description: VPU monitor registers
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    pmu@7e009800 {
+> +        compatible = "brcm,bcm2835-axiperf";
+> +        reg = <0x7e009800 0x100>,
+> +              <0x7ee08000 0x100>;
+> +    };
+> +  - |
+> +    pmu@7c012800 {
+> +        compatible = "brcm,bcm2712-axiperf";
+> +        reg = <0x7c012800 0x100>,
+> +              <0x7ee00000 0x100>;
+> +    };
+
+Drop the second example, redundant. They are the same.
+
+Best regards,
+Krzysztof
+
