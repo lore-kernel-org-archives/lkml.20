@@ -1,112 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717597;
-	b=s9LJPAtcEEqHABxx+16CFjqRjY9FoDoA6y/gFVKD6RbmTQSZJLhuKxmySfqp1rNcjxdu
-	 7A3CF/CILhLHS9BcyJpuh8QuXVhymyAJDcssD73YxJbBwYI4nd/6ShvL4syaAwW1b5ZHs
-	 ORpBIvxPJT3+ykRXTD+n6BV4DfFJSeLTdvX2MywDoyKhQakGNkf6DLvmmP1/4t2gXRVZ8
-	 x1DWmrleoVup1r3TFA9WcEMjORuYTnydDj6UxH323NavY0vxtxsYFavBCkQdD0b1KZwts
-	 61yNlHJiWL8z29dP3Rnm5l+C+8KaDy66IGtOq7sMyh9AyA03WceICWpQ1j7WXZ5Z7uA==
+	t=1793717669;
+	b=qBOlSISzIAbZmYrQoGKMJX2XMnA65hvzP7TzsL9s1GRz3DCrDyYXuWal0PSL6mKAwtAR
+	 u5Rh+NU4rurUxHiWKg/aZ88g+wVqwf14hCVN7fGCBVaaWZ95mZ29qofcsdOTLqx3CdNqC
+	 XJ+RmyUwZf4NmdAGSM/3wBOXLBVUKkN5xDCH2QtkEQ7L3cZh9H6HdJMM1If58mIxSJrC4
+	 uTwVb312pkZhSQweeFv91dPwEvvs13T/mrANco3FtJmx9xMkFHoF2BqwqcBl+DE3j5YD6
+	 I6ZNm8kD3aRwxO+vKkvlxAnx/2oEoCuve/2PpJ+/PsZIG2IsGlwvWy/sYX5TWl8rJ4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717597;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=OfMp/OOfiqCUtByb0q286Rm+h03/84gfN+/uc9hS6YU=;
-	b=Ps5HL9wTLQrs+RXx1Shc0GKj/0Oi4onMXTxwsoBv1KnXtnU6c/YM8diR5E9AWtVe2cbI
-	 Mvh5HQGJ6R08sY5AQoWmCxf7dIP/gLa1WjANVlgUoq7WHEs2m5CsseR6g/ezzxYBwkNwL
-	 AdvTtJqy29k5geD8Nr8yAepn0UWDb+RKcgVAxzqQrBvktGGeeHOgvBDLRWnpHEbQeY+WB
-	 NmdkBFJ6EMMam451s4X480nt9R6KeiTSZy0CNn1Svdu2dnflW8JpnJISs/dbD5VFyWImf
-	 4LrTR1f8a5FcRVyL3PPhuMpTp2uYWyJvRoARUXSDVvGF63FT4KMt+tw1ucGfOOvu77w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717669;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=SSy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=;
+	b=yCwsrXQ6IBsVI5/ybMMuX+1VVIfA2ioVwnL8Lid1+vyxmeK/S8x1Bp8Ie/QjTq+/aeAS
+	 JPPKwc66s5FQZ1XTUeF78UpUAuRwfbNvlrpGYRPL+OyrPqokPwhpT5Ak4Y3O0f46KkYbH
+	 zyxgnfybDMDqkcw1y7eDgow2cp09RhvrA7e1HOyS0YxQtgaouEN6vJkqqoZiKBlFz2r9j
+	 mJ2Sy5l8EQRfF2UD/qs71ggEseEoK8B9L7WF4pvUas4Q4fSeB4nwwqFCoAbM9o7DWUnub
+	 je20CCzand8Ckb/eKrlBeIcXU+PUTzg4KNHhFSMxX92VVVPVTr4DONgFtJsBoHYOtpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HDB4p23A;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7hF6qDq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HDB4p23A;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7hF6qDq;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SVdLAeud;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0lJqVcia;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F056071A05;
-	Tue,  3 Nov 2026 14:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F056071A05
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD91606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:54:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FD91606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HDB4p23A;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7hF6qDq;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HDB4p23A;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7hF6qDq
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 218E91F7C8;
-	Tue,  3 Nov 2026 14:53:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793717595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OfMp/OOfiqCUtByb0q286Rm+h03/84gfN+/uc9hS6YU=;
-	b=HDB4p23ADS/JfJN8FUMlZjeEk+OmLqbhyRmQHJAuhURTn/a+elTSs5w08uIIkP/S9c4aoU
-	NTXuNlxLaI8J6aylxqhMuY8C/MHuVv4I7XpYX6cU2TwgYlyGLvBfBT1VQKj+KSYYJHPh5O
-	YJXPKVOZqxA1uEAAFZJriWQv0w8Jgko=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793717595;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OfMp/OOfiqCUtByb0q286Rm+h03/84gfN+/uc9hS6YU=;
-	b=d7hF6qDqHQ20h9U6v4zs7PL5MpMEq88lYPwGoOdEK2LYihKx3I26krK1thhuqiUnYBIP68
-	hAj/HIqGIMNZ9/Dg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793717595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OfMp/OOfiqCUtByb0q286Rm+h03/84gfN+/uc9hS6YU=;
-	b=HDB4p23ADS/JfJN8FUMlZjeEk+OmLqbhyRmQHJAuhURTn/a+elTSs5w08uIIkP/S9c4aoU
-	NTXuNlxLaI8J6aylxqhMuY8C/MHuVv4I7XpYX6cU2TwgYlyGLvBfBT1VQKj+KSYYJHPh5O
-	YJXPKVOZqxA1uEAAFZJriWQv0w8Jgko=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793717595;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OfMp/OOfiqCUtByb0q286Rm+h03/84gfN+/uc9hS6YU=;
-	b=d7hF6qDqHQ20h9U6v4zs7PL5MpMEq88lYPwGoOdEK2LYihKx3I26krK1thhuqiUnYBIP68
-	hAj/HIqGIMNZ9/Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CE1E01350A;
-	Tue,  3 Nov 2026 14:53:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9ENMKVr16WokGAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 03 Nov 2026 14:53:14 +0000
-Date: Tue, 03 Nov 2026 15:53:10 +0100
-Message-ID: <87v76evueh.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	cezary.rojewski@intel.com,
-	phucduc.bui@gmail.com,
-	kees+treewide@kernel.org,
-	cassiogabrielcontato@gmail.com,
-	mstrozek@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: control: Clear user-provided numid before adding a control
-In-Reply-To: <20261102135034.2751-1-sreekuttan2156239@gmail.com>
-References: <20261102135034.2751-1-sreekuttan2156239@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SVdLAeud;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0lJqVcia
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id D899A1D0023E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:54:28 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Tue, 03 Nov 2026 09:54:28 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1793717667; x=
+	1793804067; bh=SSy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=; b=S
+	VdLAeud+q/wInsQDqqsUAcWLzXyBiSNh5a7e92keQ44lw5NLJ7wUkFjTEE9BMkSZ
+	Yf8D41EFJWwKDFln5xHCPH8TrFN135d2ipSP8e8vB1an9tffaoqYQQTuJZYp0kRD
+	6bWsxrcyJ6TFpNzOwOWYeNAGO7q3LSlazVCxr06VQp2eyu4bVpz4aAAOYFvClZzS
+	aGhoko7+N4iuVkdZsMI3kRNRRpKPmdATNlHEt+dgEabQ5By7ozi+8JM0UKte+vOB
+	3ZjjlnBYaj6ZuF/2ekrwxCjHO83NPlV1UEs7RXATrq6mfCnHNXKx7/vw0qjGbBsl
+	DvCnlzkOZk2ywrseMig8A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1793717667; x=1793804067; bh=S
+	Sy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=; b=0lJqVciaBelVs7ke0
+	6+v6J9dz4F89dFPPZZdPpjRWjF3IybbvsfgrJGUkA/fLHjjeRnFPnP7ni/ThHnBY
+	8c/U4yDyt6Q4UU8pisKsUmwD2EOK/HApw267UvC0e7CPFEIqNYwp64gHh7Dvn5Fm
+	s2IpXFjKREzmE7OO4FX9RkyXJGKhrmMZkJ+QBVzv9lF0y00cDdZjBrw8gcME8iBl
+	a80OowZ3bvBaRsfQGM/5oWRQq2zHfYvaeBeZuCQ7VejnliX0MXNV69D8etJoZpHE
+	1myfDklidEsgibXZs6iLpkk0wf5zY8bio8AosG/P8bDIxAeSGDSaHx5V2iSxZ6/J
+	EHFJA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793717667; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:Ljo6Xpw9D0d1oJBEgjIVX9iTuhk3hJfbpHC3MSWVo+N0U4u
+	/s3UsLVbKiiUrQycyMKoUpP0SGFl8Gylq8day0Fo62nxvwFZjeMx1uWKdG1woQfP
+	8rKnfoJ6zhw3jsPj3nUUeHoldMB6ULG84+NxM4lUPQPLV0lu5B2Zu9ypm2yiEx1J
+	BLsgL6huXixa9+P9kE4DFlE91lT+gXORP7w80fj6XQ6O9S33hPg/7xktlT7xK5LD
+	kaxgt2V7RIvqPu7RAEkhVtkM24f3r1GKbDpZKPdeU8sU1Le+Ko7Y/JIj0YaO6rub
+	/EGMv9TfZzh4Q1r9oKeHzSfjpt8TGGrGf++jd+A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:nrSmHOa7lzwzvlWV06WJub79sz1mZ8uA5wp6BHlMjkE=:SSy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=;
+X-ME-Sender: <xms:o_XpaqdOfVyoLXOnfElKaFgLUsoQXWsSzJcwqm93JTpB-otlk_kOyw>
+    <xme:o_Xpav6_nr3RZj7wTvjoHdFb1sJ_QVYQJASJ1Em-AcTOO0EI-au0SQx7GSerkAkvJ
+    cMoABsvjafbFX_EMK3MsM23qwRyhTlX-pMlK9zVJp5nHQMBMUyn_Q>
+X-ME-Received: <xmr:o_Xpan_0ss_kovDi0BvUuiOaqv3jxrluIReCu3xVTwhYVgn4Z2k3SkhMpOw-BImS>
+X-ME-Proxy-Cause: dmFkZTGjXhpuZ3h++4iNHGnZA4O5fFr/0uT7x86idCLG/85j2p6KL36wtfebS2Xc5ySmMb
+    19LyPhGS6OyebFzppJp2KmpbHGC8rDleAGkASg7sqAe3aN9+mXEF/RANIiDiGeZiiz5vSg
+    QaQQxkmNYPyqhE7t/dRGK1DIZJnPTA5+DTFcEy3voNmv7J3vrQKHJ4X1njDSf3VeGI8Kvi
+    WrcSw+sAfhXlnaaRm0rwp98DRNapQREmuriDR8a07ThQzH16K95qZ7HXZOE+pmsovyYEXZ
+    KFd8sgybNTIaqJljeRBDW85nJFvQZBI6ImoZg+ZPslYLvF59KYNzawhueTcsYkfkE6n8Fo
+    KyZO/FVyQ16YpnEspjeLs9n/2f1Khd0VwuDKW0i5Kn8un7EhJpkCA8XYazhMptGvQCA3MT
+    0gOlwgK6rXjB1zgAubM32ttv8Wmxsumy1aaU/j+sxJ/MLIM7JihRzmL9AQ7Iw0S/BemfQs
+    dqk0znlxQ1FFRugC1laY9pxnrGjNUy+jZttceg9MyNHuX7F+LW5bkN9maRGOxgIF1s7yEU
+    zwevLB7jWBLqZZOzltzZWf7QS75GQCjyvKzKtR29ULEmkYFdON2jxbjr1xjsvWCVdGEEnv
+    GVUrJcYhqVKuwQNIMc1jawlQgO2He2Ja0jjvp60lWSR5CJuL6cPmTtV01etg
+X-ME-Proxy: <xmx:o_XpahEMDholwENdSP6RCIg2FO5YNVciORN4cCVogcfR1g5I60k4UA>
+    <xmx:o_XpasXggG1M37XzX6W2Le0eKb3lXbT3o0-4tX1qiZm11PrWEbSrbQ>
+    <xmx:o_Xpat8aLQk2zNq-BMFlfyk9Grq6oasJPxKTxJsPMsyN3yilUO05OQ>
+    <xmx:o_Xpap7bXlhqA2wjoSbQtOq4JUTWRXH8C4OkyMTo4KgCBk8QMpHxkQ>
+    <xmx:o_XpavuJUMxy97ufdDwFQokWaPUxjQEk7nQSRozQFqzlMfzb0IjKWyo4>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 3 Nov 2026 09:54:26 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
+	stable@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [PATCH v2] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow
+Date: Tue,  3 Nov 2026 08:54:19 -0600
+Message-ID: <20261103145419.10809-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAKYAXd-s-g2V4LNY8e5SsH=+0r3qLY+AeOa5Lp9K0T5p_tnA8A@mail.gmail.com>
+References: <20261102200353.884509-1-icb@fastmail.org> <CAKYAXd-s-g2V4LNY8e5SsH=+0r3qLY+AeOa5Lp9K0T5p_tnA8A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,50 +130,20 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-10.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[treewide];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,intel.com,gmail.com,kernel.org,opensource.cirrus.com,vger.kernel.org];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -10.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 02 Nov 2026 14:50:34 +0100,
-Sreeraj S Kurup wrote:
-> 
-> Clear the user-provided numid before checking for duplicate controls.
-> 
-> A non-existing numid can cause the duplicate control ID check to be
-> skipped, allowing a control with the same name and index to be added.
-> 
-> Since the kernel assigns the numid when adding a control,
-> ignore the value provided by userspace.
-> 
-> Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Hi Namjae,
 
-Applied now.  Thanks.
+You're right. For MAXIMUM_ALLOWED, v2 skips deny ACEs for the caller's
+groups along with their allow ACEs. An owner named only by an OWNER
+RIGHTS ACE then gets the rights of that ACE, write included, even when
+a deny ACE for one of its groups comes first. A probe confirms your
+example.
 
+I'll send a v3 that processes those deny ACEs when this patch decides
+the MAXIMUM_ALLOWED answer. Where the existing lookup decides, group
+ACEs stay ignored for every request, as before this patch.
 
-Takashi
+Thanks,
+Ian
