@@ -1,89 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729308;
-	b=smA5uxcc7WlJToLc1HrHHZyllBlFH2odO7cOOQb6l0f6jha5mYGM9oubKOLKjD90SAKp
-	 ZDRoilaEXWMBzTusYJM3cmpcGC5Xem7bHBYC2QJnlPmjX37xGGU6coEZxdmibIHmDhqgi
-	 RsJiW82OVtIzhS72DS1GLz1Ta9V1Wfp5DZS985jNRK3HO5sk+rt1OEzctOtW/EJ2RRl6M
-	 eE6iOBchzWss5Pi6XheOZdsqaoHQ/G63iBE06jCw8rREgCK6QHZ5H5MxHus5AhtQqxk+N
-	 4lg/NWxAZvSH87koOV1w8ZL+o20AYurpj4EOgEZXBz78e71wn1SIBYDyXADnk9WIqVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729308;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=aIKiDgYd/jXgONymQ12SSZ5b8e5yxBJKR0/jjx24Mc0=;
-	b=1swk8i3DfkyhWSm07+bNeXzWRe40na+zX5WZ4gvp7RfcQk3daVmlFPsoDoM8CEMuKxx2
-	 0HG0WKe8tzMI3Z3NyY7TjOqi4+28VMJITW8Bqzqh6PcW0T7fo3QvF5mWyGm4LM/agvnNZ
-	 cSU0ZPVOuhFMNM36mkkjWdJAHPVc9Wpe0Ug17cK4vW8ZAOLkF4eZ+s5FMH05BxpGxEqrg
-	 8vHbwzmw6A0UNtvCSLrwzx/G3hjdK0EIHazYAwMIT4T80/o/Aw+jH2GwGOe6nF/l2xrGY
-	 qJznAN0kNj9BS89dIBY8tB1qShmX6BwfIEieue+cQLdVbEW3K/5coIdnxppwD15QgyA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pjM0am6+;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793729362;
+	b=0o2up9vWaFmMbs72rIytnMJQWoSuD0VgNQM0cMVtsU1qsIubXDCLEQ7Qst08Lilj4ACQ
+	 ffdD+BhOLo4t+zfVa28xCc6zZdwGvwjdEUvC+G8XapvUZJcvRe1/+d4siFuGdsO9hTiQl
+	 0DYQiO89Pw1CpSeuEj4lEku3Z8NqMPaw1+4+OGEheVaUyaw7MK2xi79iVxSBHbeXfbFt/
+	 MfWc4lRsR5yoYPeerEWydlMHZLTLt3rW+pBvErWgFPSMtjsbLw1bibwad99GNbd3idDwK
+	 xyagF/gzB0wg01UY2kHB4Ntzh/eRXMMHNk1sMAY9ycxqC2wYxbWaXqFUSBroe1j/CoA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729362;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Yim4+xjFSL3rrvzkKn7LXdVgRhB+1jTYxkhUigaCIes=;
+	b=oGXsOL+ccmk9JUpwGxkvOJzirj5kBpaZG/9sgIgLzrWZevZ6emzFuVMsL1zSWZ7XKLcy
+	 bEylENU7rXXXA3yXnTtziZWfNftbfON6pbIe+dqQRDXI2YFXuzkuXTVunHxQtk9jOoSgl
+	 cyDSVCTE/nOahERD2z158VDn8OQ5JyjpWK1KAB9nWLsoR+hpc9eZXaFqUqk2DFZzz5y0Q
+	 PyfBQ4j8wRjTd6PZCrawQZ2ZSoIiWvJ3wo8VAxQQ0XAkSaT69ffVDco6bJ7IHr7FQvANO
+	 hWpFDUZKDGNoCBW/SRC8tKd+mm4FKPm88iyPI/6CIS9qrpBeatPh3FYiy9knJkU5Dqg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqOS5RlT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6C4606A329;
+	Tue,  3 Nov 2026 18:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqOS5RlT
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793729362;
+	b=DiRQx7WCtdPKlSimEi/lCSfRptMxGVd2XpoEokkLCLWJB9fNHodEH8gqWj2DY7uflLbg
+	 CtAN5YrFYVlCcrEAbvctlor4AbNwPizNxccaWqyu4HKxVrccwI1fv/4Q/bcDwxsMnlBcf
+	 Um3AWlckP3VovhBXmdQnKNyXBUE7JNf4LvtGZjTR1HNjDXvbH76FfeX5WvK4iw0V4fpvX
+	 NIWqV4xFQWNAZyw/drxzQ16rWZ1CuWoFY/iFks7r8d11fpkQmQ698zb8un8UuYJ0AqL2T
+	 e4uX1GFitGDYMhdzbI/XDivkjj4cc7LNhnklZq60ptM3gHAeT5kLdakrZ6KOm5CTnkg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793729362;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Yim4+xjFSL3rrvzkKn7LXdVgRhB+1jTYxkhUigaCIes=;
+	b=zort7V+wikGI0O4vBys+Kt2uaapHHR/Fr5+2P1q3VkrEXprtGeobeiEa0ef7bNgrkQsz
+	 SsfG4IKbU5smlEMw9xCAkvUFVHQXNmWw2OwUXwFvEZ7hSE63pv/Tf9no7eJdnOjLflAxw
+	 OM1Z2F5Rl9YfLG3HGwWyz/wG+kyDKPzgwKrVXmAWLoeMSan5i8b/GgGbH3/b6tIgVTqFj
+	 nA5IqPyZ3YVXzG5nkRHvqwJnlkItsQXG9dEB1ays2omTtmiDw6uq7FW9XfNIYlzG2ht+s
+	 aCDZFfDE3ixUO23xHnJ5LM5Ayg3a+zLWvmRYV3xP5kj7QmsFk3gw5+cCslIdn5Yh04g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B623E606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:08:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B623E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pjM0am6+
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36a17a332ecso6751620eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:08:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793729307; x=1794334107; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aIKiDgYd/jXgONymQ12SSZ5b8e5yxBJKR0/jjx24Mc0=;
-        b=pjM0am6+Rgo2yftlp1GqexQpoRm3ayyV/7AWG7PKMkJQsjd0PErZQhxXQs8yZ3P2d2
-         F1LWKPTElCoMg80tzCyajDHBoIWj2AQkTCcyJYnUlH86v+UcMcNf16aie6lFnMqLck4r
-         ISoVW7lI99boYuR9+B2t2FVY3vFtWHb4tBMi5+HvUznELrAetM/zlvxol9iIGYuuypw+
-         ks1JGzr/mVGXvfIouELVug9utfJaibpL6i+BkTYBTVi92Ps58z6e3ujbzFZslHVUyKTD
-         +z6bxcR6JbaDl3e6mipTVr080MF4zDSGdLS6yvZY+n5wX3ELSPeu5Np4nSvBDiOVHtZ6
-         jYFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793729307; x=1794334107;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aIKiDgYd/jXgONymQ12SSZ5b8e5yxBJKR0/jjx24Mc0=;
-        b=UMfisbs5NQNm8dwxnlV/gmGwKaVvoGEal2h8T9abMSo6/AlOEcHvbj/mD/pJfMPm2B
-         fvVWkgOtXQvjm55csZYhRYhAQOFUugRdrHUUzUcmeuqRqq68rzy1mu2g6otM8C+VkZfW
-         y9v+bhgL5OcNqkMHhD9OHX99Rj1YRB+Yltl9XxkUYx7tW3LgGQQkMpdEytquoI5NWpFy
-         NdJNaqBR31gl7p/flA/nxjvgxVbVbPJXtWOH241HCBEbzwgBfFnijxUTTKAgf+vhFKqm
-         /9LTeIPusY178qSr2dpPracWVRZRqlnWs/BxyLfPi3VMDaJAaeZZKnQzdqPzH8En46Lk
-         RMUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwmyEJ7ce0JLAgYqXn4qis92LKgb7fOhhiWAW+/nzcw0kuX6NJl7svVH0Wi1MFT0jk4A0NndWuRSeZI0Kk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/202a/mTCeNe2iBxd9ZfA4K1tbM+XTTOoC8Cg1wYv8X/xnEGNK
-	16BGjIxSVPrb6uxX/Efxn3tcuBoVFHRMuzj5q1UkLxF7TvOvJikYAwIO
-X-Gm-Gg: AYBFou0AVUr4v4+FkQhnhn0gNbPaAuf5x0JMkjDmOXDHf+hSnow8Hq85gwXHsYPR/lT
-	lUeV2OPNIZ7s1fFjNCfreyg+FRYTKeuJX2kE7cnGuf99vroEVlAPjf5Gv4CE4MtdX7tcWzuZwo/
-	PyfofRWsr/oxNOd9BQR0vTo6dqYEboSStI0ATlomgZI8mbuMRLUt1tSKx+INOleVYsTnoqgZgH4
-	dmSMjkVwErT8gTzdZkEkvyhSO9HtWbYqqx56bhWij8/4nGM8T8k75sGTKevdhUmwPcne2sJm/xY
-	8yHZEov44fY2v2rCjBsc0eAvkpDD6bZ/FYIm73wTg+l+Zql5Ejz519hEwGbHZZwrvv56kjr3w1I
-	6jgSMFv7/Xo4RwPxFwI8/VzF2XP/PQydNPD+KiTc+5ZtNyAdR1R+QMTPgCzpi2eJFb+ezOAPyOk
-	fwwMX/pbe08hUi7BlROHPSSeMTmNmDwmJjTVZ7ACQh+hshWPFqx3rM61ObBbXRYHCvp6m5D5vti
-	jfeQtQLH7JN8Gfy7X/SalqljMyOq9SkjKNDWlT19PPLkVWbfvA2P9xEQTUuVjCQE6e2pzD7Gm5O
-	EOlVinGkcDXU0080JBIEjdDh22lsYTv7sFJUOxxe2BCK0zy9
-X-Received: by 2002:a05:693c:87c6:10b0:367:5e31:ce29 with SMTP id 5a478bee46e88-36a42404ab3mr21838555eec.20.1793729306698;
-        Tue, 03 Nov 2026 10:08:26 -0800 (PST)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a96172sm44904557eec.27.2026.11.03.10.08.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 10:08:25 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Sean Christopherson <seanjc@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>, James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
-Subject: Re: [PATCH v4 03/23] KVM: PPC: Flush/zap all memslots on kvm_arch_flush_shadow_all()
-In-Reply-To: <20261030212112.2598640-4-seanjc@google.com>
-Date: Tue, 03 Nov 2026 22:51:44 +0530
-Message-ID: <tslx6dav.ritesh.list@gmail.com>
-References: <20261030212112.2598640-1-seanjc@google.com> <20261030212112.2598640-4-seanjc@google.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 5EDCE1F000C1;
+	Tue,  3 Nov 2026 18:09:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793729361;
+	bh=Yim4+xjFSL3rrvzkKn7LXdVgRhB+1jTYxkhUigaCIes=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=fqOS5RlTgteUHXEnSu+JKU5LlW4VRu+a++526Ulfj8C0WvDXfmftzrNjxFZTL+VKg
+	 0MmExkUVcnEubTEP5KTZsATcPeB4yc9zACPHMltoFFMFesgTrkc76be7/sYbL8NG4Y
+	 bMXBCp38DpIQzpLNT0SQyEl94tvh5rsV/i9dp0w2R7f0VMgasnODd4BiXIoXW+osrU
+	 UT1gq81cckzzL+d4BKEtiNmjpi6p+Xb2tNavpaA8uK+zEJ1BQk23RDoFZcbKBOXIuX
+	 rmeocVStjRRR3nQvwWL3zaxUtoFMtXxxP9Jx/ngFw9jl5qySrfbF8ZnIl55bsBkslz
+	 xx9iZO36uHAgA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B0FA346A69;
+	Tue,  3 Nov 2026 18:09:20 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Tue, 03 Nov 2026 13:09:20 -0500
+Subject: [PATCH] cgroup/freezer: walk exiting tasks in the v1 freezer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,67 +81,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-cgroup-freezer-exiting-v1-1-00d43b443747@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ7CMAxG4atUnrHkBFQkroIYwPwJZkgrp0UVV
+ e9OgPEb3lupwg2VTt1KjpdVG0pD2HWkj2vJYLs3U5TYhyCRNfswj5wceMMZi01WMusx9YKD7qM
+ ItXh0JFt+4/Pl7zrfntDpe6Nt+wAsaXPhegAAAA==
+X-Change-ID: 20261102-cgroup-freezer-exiting-c7f60e4c3200
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
+ stable@vger.kernel.org, Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793729360; l=3795;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=KM/MnDxFBAC+sHs8ZYIfu9PpFh912v0OKBTiwLZBXTs=;
+ b=1kmrrNgSRj3B7olIMU2INLso9M0fRHp0YmplSCHp+8t7YB5hBjT1nV0u0MqY2E+m8lzO1Cm9Y
+ Z75ryOfyQFtCv4tOtkiqG9jzOFrSmMPf2JNi7dBlcze4KBym1pfyMJ4
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-Sean Christopherson <seanjc@google.com> writes:
+From: Mani Tofigh <mt4022@columbia.edu>
 
-> Flush/zap every memslot in kvm_arch_flush_shadow_all(), i.e. when the
-> owning userspace process is exiting, as KVM must ensure all associated
-> memory is unmapped from the guest.
->
+An exiting task can stay frozen after its v1 freezer cgroup is thawed.
+Since commit a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
+the css task walk hides an exiting task once its process has no live
+threads left.  That count drops when another thread of the process
+exits, which can happen between the freeze and the thaw walk.  A pid
+namespace init hits this easily since it waits freezably in
+zap_pid_ns_processes() after commit 81933038f5e2 ("pid_namespace: make
+zap_pid_ns_processes() freezable"):
 
-That's true and yes, this looks like a miss. I guess it must have gone
-unnoticed because after the owning process exits, and when the vmfd is
-closed it will issue a teardown. So the escape is only until the vmfd is
-closed...
-  kvm_arch_destroy_vm() -> kvmppc_free_radix()
+  Task A (pid ns init)      Task B (A's thread)      Task C
+                            do_exit()
+                              exit_signals()
+  do_exit()
+    zap_pid_ns_processes()
+                                                     write FROZEN
+                                                       /* A frozen */
+                              /* live count 0 */
+                                                     write THAWED
+                                                       /* A skipped */
 
-The change looks good to me. I have only tested this on my qemu+dev
-setup for now. But will give it a try on real hardware as well.
+A then stays frozen even after SIGKILL:
 
-Thanks for taking care of this. Please feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+  [   10.775155] task:fz-init         state:D stack:28152 pid:65    tgid:65    ppid:1      task_flags:0xc0004c flags:0x00080000
+  [   10.775176] Call Trace:
+  [   10.775180]  <TASK>
+  [   10.775188]  __schedule+0x10f1/0x4760
+  [   10.775252]  schedule+0xd7/0x2c0
+  [   10.775265]  zap_pid_ns_processes+0x2c7/0x5f0
+  [   10.775346]  do_exit+0x1bf4/0x2560
+  [   10.775403]  __x64_sys_exit+0x3d/0x50
+  [   10.775414]  x64_sys_call+0x156c/0x1570
+  [   10.775425]  do_syscall_64+0xfb/0x590
+  [   10.775450]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  [   10.775529]  </TASK>
+
+Use CSS_TASK_ITER_WITH_DEAD in the three v1 freezer walks so they all
+see the same tasks, as commit 60f21a264930 ("cgroup, sched_ext: Include
+exiting tasks in cgroup iter") did for sched_ext.  With the fix, A is
+thawed and exits.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 10s.
+
+Fixes: a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/freezev1.c
+---
+ kernel/cgroup/legacy_freezer.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/cgroup/legacy_freezer.c b/kernel/cgroup/legacy_freezer.c
+index 8545e0d1ba3d..bd11047f2311 100644
+--- a/kernel/cgroup/legacy_freezer.c
++++ b/kernel/cgroup/legacy_freezer.c
+@@ -265,7 +265,7 @@ static void update_if_frozen(struct cgroup_subsys_state *css)
+ 	rcu_read_unlock();
+ 
+ 	/* are all tasks frozen? */
+-	css_task_iter_start(css, 0, &it);
++	css_task_iter_start(css, CSS_TASK_ITER_WITH_DEAD, &it);
+ 
+ 	while ((task = css_task_iter_next(&it))) {
+ 		if (freezing(task) && !frozen(task))
+@@ -309,7 +309,7 @@ static void freeze_cgroup(struct freezer *freezer)
+ 	struct css_task_iter it;
+ 	struct task_struct *task;
+ 
+-	css_task_iter_start(&freezer->css, 0, &it);
++	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
+ 	while ((task = css_task_iter_next(&it)))
+ 		freeze_task(task);
+ 	css_task_iter_end(&it);
+@@ -320,7 +320,7 @@ static void unfreeze_cgroup(struct freezer *freezer)
+ 	struct css_task_iter it;
+ 	struct task_struct *task;
+ 
+-	css_task_iter_start(&freezer->css, 0, &it);
++	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
+ 	while ((task = css_task_iter_next(&it)))
+ 		__thaw_task(task);
+ 	css_task_iter_end(&it);
+
+---
+base-commit: fffbdad76a57eed26cff1be19f4cbb407f0b6e7c
+change-id: 20261102-cgroup-freezer-exiting-c7f60e4c3200
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
 
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/powerpc/include/asm/kvm_host.h |  1 -
->  arch/powerpc/kvm/powerpc.c          | 11 +++++++++++
->  2 files changed, 11 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/powerpc/include/asm/kvm_host.h b/arch/powerpc/include/asm/kvm_host.h
-> index 708a32f89776..50a42f80e5f1 100644
-> --- a/arch/powerpc/include/asm/kvm_host.h
-> +++ b/arch/powerpc/include/asm/kvm_host.h
-> @@ -910,7 +910,6 @@ struct kvm_vcpu_arch {
->  #define __KVM_HAVE_CREATE_DEVICE
->  
->  static inline void kvm_arch_memslots_updated(struct kvm *kvm, u64 gen) {}
-> -static inline void kvm_arch_flush_shadow_all(struct kvm *kvm) {}
->  static inline void kvm_arch_vcpu_blocking(struct kvm_vcpu *vcpu) {}
->  static inline void kvm_arch_vcpu_unblocking(struct kvm_vcpu *vcpu) {}
->  
-> diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
-> index 9194cf492d1c..9e9d0865c2f6 100644
-> --- a/arch/powerpc/kvm/powerpc.c
-> +++ b/arch/powerpc/kvm/powerpc.c
-> @@ -764,6 +764,17 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
->  	kvmppc_core_commit_memory_region(kvm, old, new, change);
->  }
->  
-> +void kvm_arch_flush_shadow_all(struct kvm *kvm)
-> +{
-> +	struct kvm_memory_slot *slot;
-> +	struct kvm_memslots *slots;
-> +	int bkt;
-> +
-> +	slots = kvm_memslots(kvm);
-> +	kvm_for_each_memslot(slot, bkt, slots)
-> +		kvmppc_core_flush_memslot(kvm, slot);
-> +}
-> +
->  void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
->  				   struct kvm_memory_slot *slot)
->  {
-> -- 
-> 2.56.0.385.gac671c819a-goog
