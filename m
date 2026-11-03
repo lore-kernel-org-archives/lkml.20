@@ -1,70 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716683;
-	b=o5QDpUrGeAEGfUVqv70Rv+2OpFlU1NwI+SQ+l51spApV9on1AOkIKcLxuNLFKXFMfEC9
-	 C1hU8kyKmHCAhW0afkEYxKIFVX/uByFgH9F4+EPYsRoWIiLAlg8/LOfUaVTnjKX6rAbXG
-	 MxI2G61nougzcIQ9KykruJNJMh02f5bC9tYNBWDM/kQyaf8ofuWPoln0J+NLG3SBZm0WN
-	 qa6cgZRXhaPdvt9RDEXN+Y2Cp2hwu42qhgkkZ7vdVKp+yYZsA8ErRrqOHEBJ5VRSr6a9Y
-	 JY55pHywd10G5RNX5QbOM3zKInx5AhK8VckgGMW+GYVTIC9i62Bc8XmlvQwSRz6zWiw==
+	t=1793716676;
+	b=AK/qvJyELXSA9jLVYQezHUyG5fuir+6akot+ZbhttNacuOfNCk6msw4t4UcvKCGAPs8I
+	 K5CNXgNnEjVV4ym7jyIPPlTxXrgK4BGwdA/VU2JOs/1r6qUd1LLEHmwlcpO8UVLJxi8R0
+	 Yzd/F2VT/UgY91Drc/WKzRtz21dccLVp1gFyjL4i60cpOYdx/9hNuUZDG2C+eY9SBtAPM
+	 aIw3srHRwdqyTisjncvZr2GuRlue5fSwI+ydVFsZ5OuJjRjo4sFwgiumYfhdOphMfZonf
+	 Vk3ECcRrLEQPCUSp+W7jJK00qbysDdL3kJM9Cj/ZcDfnfyYev0i0e2C3lTZUs1i3eOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716683;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716676;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=PyFPyh7onnfGIzFlEfV+hvU2o7x9GiyhoFXfV+Xy5ik=;
-	b=Ax0V0kPcwQnE/2x3U1agOdbmPwgSjLbCysGxfMvRmvz/o/OLMzHFynraEtHBLvcnr+1S
-	 uwLO1RsYurrxSg92glTpi+/xz6dBgLN5kTh3mpQtfOcw1bFtydJ0wuC3ah2jtOYxSFoOS
-	 BVSXAAnz4D9CC3UA3Edn/WBSyvh9yfWzBqmBufpOZgfrP4QQbfESVXBDbBgRQ2D0ZV8FG
-	 gFhKETqO2BISmHJa9oPtC0T8JCVzQcDYkbKXA9L+tx5OIX6pDIuSdpcpA317kFlh8gQmp
-	 eQ1fPAuv/S31WYqlUDB9aw6uKJvpLXKLRSxWXKWDnXvFHW4CpPj4rUVG8lmiHOA1GMA==
+	bh=9aaHUaZ+v66t3YydydbToNbzzq2UxbY/jPxKZ6dEeQw=;
+	b=YCPJf4u/3nfDTgSyhM1noPLFMFDnDwi24medJB6hSt7ixq86k2nrWIFPezHoqQaSIjBp
+	 VMHY4STFAXjsyZD+y8kvAINtZuTxKQsLWjCXNCkWaGDwFVOpyq1c8y5v8+/+f8O7W3v6B
+	 A48eS6A8Qlj+VbsYi7Iv178/V5mzhhbKU3O0ieX5tW7srpws/BBSyh3rJPgl+XuVVk7Aj
+	 1slIo+z3+XMa+Yb2lvRh5K83XXwQFW8AAIOiY4PBhWnZgi74cbgX+7NRtx+pbCRl3FZb9
+	 3ZEfkQydXjO37P8A30UsHcjbZwlw56340Kys4wOlPIjYsblf6bk3IdD+VPu+5sC/R+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=microchip.com;
 	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=IGvKLnCt;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=cOQyqPLz;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DF9606A329;
-	Tue,  3 Nov 2026 14:38:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26DF9606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26600606A33D;
+	Tue,  3 Nov 2026 14:37:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26600606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=IGvKLnCt
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=cOQyqPLz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1793716683; x=1825252683;
+  t=1793716675; x=1825252675;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=b7KpuYLFkgsOW71Of4SmLW1tsbLp+3A5iNgRvdk8BEY=;
-  b=IGvKLnCtdcXgouYWM17nB9BE04qwr2HLxpaDvwdUHbDNHc8jPNkEfJEU
-   590Zapo7flCssRO4eY2Mbhrcc3RcpgNV0JJkejwkkYGsT9f0tLN3WmE9A
-   0SOfdSkuXnYqwaPL0pCaDgnCODdUrSxVcfixPzn0Ju9gJzH8zkpaC3emQ
-   Ag7qrlPgd6hpCCwH6AmtR74xUmY4r0wcKESV5HoAJ1RyoEQuKP6cFW6vI
-   v/J6/yQsm0MN5afwbiJuL1eeQ36KYGEJpRfx0X6GPmGUe+r0CNuJSXpnd
-   eFfKjZ1kVVpHcVvtxqxb+6se62XficCHdhvhlCYHXiWBS/pHPAW9/vVvS
-   w==;
-X-CSE-ConnectionGUID: aQnAHX6YSSmb76y4zIvDaA==
-X-CSE-MsgGUID: U61VNT1qQ02ksglDZv5pfg==
+  bh=gXvajI6GzObRwvMjgyeEqoXV7MnuP0WEg5kBk1+v4+U=;
+  b=cOQyqPLzFtRJ7W4bwrDRod6/hWnhFPMWsGRBtYB2ezzT68mSS1hIjQGY
+   tbqJh+gptXqfwchxh6GF/5U1fytRRayp6idqkExk3v3AR/uqc9SFkIusX
+   4q5gQqBq1N1FFWVLkjcaapEu4zBaY13Afq24JmMqgtn3Sscfvm72i/kDT
+   doD1oxlUkrzYHqOzA/XBs6dshqdrNaNBuSdXPx6Ul/Q7CbmDA4I2mO0Qo
+   I2iadD71JvoGM0B1hwJnCuY/95CF5R4vg/5gnEPmpCSslEhMFtGaTCev0
+   zdvg5tqLLr7vaYQGk1MUYlZa5veXQpMHLRo+Alu1DAgkPCKNfSKivfk4K
+   A==;
+X-CSE-ConnectionGUID: XoY6bCqIQH2mEUri3H6BCw==
+X-CSE-MsgGUID: vfcH5ztgSFCXXQNzXelJ2g==
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="233020451"
+   d="scan'208";a="76535163"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 07:37:58 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 03 Nov 2026 07:37:55 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Tue, 3 Nov 2026 07:37:58 -0700
+ 15.1.2507.58; Tue, 3 Nov 2026 07:37:55 -0700
 Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex02.mchp-main.com
  (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Tue, 3 Nov 2026 07:37:55 -0700
+ Transport; Tue, 3 Nov 2026 07:37:52 -0700
 From: Ariana Lazar <ariana.lazar@microchip.com>
-Date: Tue, 3 Nov 2026 16:37:13 +0200
-Subject: [PATCH v5 3/5] iio: core: add iio_fill_val_int_64() helper
+Date: Tue, 3 Nov 2026 16:37:12 +0200
+Subject: [PATCH v5 2/5] iio: core: add IIO_CHARGE channel type
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,7 +76,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261103-pac1711-v5-3-71c20101a52e@microchip.com>
+Message-ID: <20261103-pac1711-v5-2-71c20101a52e@microchip.com>
 References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
 In-Reply-To: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
 To: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
@@ -89,52 +89,109 @@ CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<neil.armstrong@linaro.org>, Marius Cristea <marius.cristea@microchip.com>,
 	Ariana Lazar <ariana.lazar@microchip.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793716664; l=1472;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793716664; l=4074;
  i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
- bh=b7KpuYLFkgsOW71Of4SmLW1tsbLp+3A5iNgRvdk8BEY=;
- b=DlNNvT1s3MxZJqseuhegwvLivW6fhU4RUjjW6uq23cI2nvPSAV9f66QHvOQGI9GjOQj2b2eH+
- Ij4BgKadH3HBzK8LgUMelYLcPz+zFmriOStfnhvt62yDYNlj2hStcOl
+ bh=gXvajI6GzObRwvMjgyeEqoXV7MnuP0WEg5kBk1+v4+U=;
+ b=8ExPqrmrFAudI84YiX1903QSc1HX1G5kly6uwWd+dlw5hxjfsuTafuh7JvK55TO6zMBAiZGn5
+ 90MNnW1c+RwAjwtL+KeTftPqpctAZSpKbhgtErn27Bg/CFHPpNIYEMt
 X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
  pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
-Add iio_fill_val_int_64() to populate the val and val2 output parameters
-with the lower and upper 32 bits of a 64-bit value, as used for
-IIO_VAL_INT_64. The helper wraps lower_32_bits() and upper_32_bits() in
-order to split the value with a single call.
+Add a new channel type for Coulomb counters, which accumulate current
+measurements over time. The sysfs attribute is in_chargeY_raw and after
+applying in_chargeY_scale, the value exposed is in milliCoulombs,
+following the SI convention used by the IIO subsystem.
 
-The pac1711 driver will be the first user of this function.
+This new channel type will first be used by the pac1711 driver to report
+Coulomb counter measurements.
 
 Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
 ---
- include/linux/iio/iio.h | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ Documentation/ABI/testing/sysfs-bus-iio | 13 +++++++++++++
+ drivers/iio/industrialio-core.c         |  1 +
+ include/uapi/linux/iio/types.h          |  1 +
+ tools/iio/iio_event_monitor.c           |  2 ++
+ 4 files changed, 17 insertions(+)
 
-diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
-index 711c00f67371356c913ef0dbf2325e3f4d35266d..d8fd300a125d676bf60e0b59f84a69f99ff23c89 100644
---- a/include/linux/iio/iio.h
-+++ b/include/linux/iio/iio.h
-@@ -1099,6 +1099,21 @@ ssize_t iio_format_value(char *buf, unsigned int type, int size, int *vals);
- int iio_str_to_fixpoint(const char *str, int fract_mult, int *integer,
- 	int *fract);
- 
-+/**
-+ * iio_fill_val_int_64() - Fill the value fields used to represent a 64-bit integer
-+ * @value: The 64-bit value to be represented
-+ * @val: the lower 32 bits of @value
-+ * @val2: the upper 32 bits of @value
-+ *
-+ * Populate @val and @val2 with the lower and upper halves of @value, as
-+ * expected by IIO_VAL_INT_64.
-+ */
-+static inline void iio_fill_val_int_64(s64 value, int *val, int *val2)
-+{
-+	*val = lower_32_bits(value);
-+	*val2 = upper_32_bits(value);
-+}
+diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
+index a4f5595722ade77e81b49efffc68c971e60a2e5b..3d569a2169c2100b3fc81d38bd63124fb8b67e84 100644
+--- a/Documentation/ABI/testing/sysfs-bus-iio
++++ b/Documentation/ABI/testing/sysfs-bus-iio
+@@ -510,6 +510,8 @@ What:		/sys/bus/iio/devices/iio:deviceX/in_intensity_blue_scale
+ What:		/sys/bus/iio/devices/iio:deviceX/in_concentration_co2_scale
+ What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflow_scale
+ What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflowY_scale
++What:		/sys/bus/iio/devices/iio:deviceX/in_charge_scale
++What:		/sys/bus/iio/devices/iio:deviceX/in_chargeY_scale
+ KernelVersion:	2.6.35
+ Contact:	linux-iio@vger.kernel.org
+ Description:
+@@ -1781,6 +1783,7 @@ What:		/sys/.../iio:deviceX/in_energy_en
+ What:		/sys/.../iio:deviceX/in_distance_en
+ What:		/sys/.../iio:deviceX/in_velocity_sqrt(x^2+y^2+z^2)_en
+ What:		/sys/.../iio:deviceX/in_steps_en
++What:		/sys/.../iio:deviceX/in_charge_en
+ KernelVersion:	3.19
+ Contact:	linux-iio@vger.kernel.org
+ Description:
+@@ -2509,3 +2512,13 @@ Description:
+ 		Raw (unscaled) volumetric flow rate reading from the channel.
+ 		To convert to standard units (cubic metres per second, m^3/s)
+ 		apply the channel's _scale (and _offset, when present).
 +
- /**
-  * IIO_DEGREE_TO_RAD() - Convert degree to rad
-  * @deg: A value in degree
++What:		/sys/bus/iio/devices/iio:deviceX/in_charge_raw
++What:		/sys/bus/iio/devices/iio:deviceX/in_chargeY_raw
++KernelVersion:	7.4
++Contact:	linux-iio@vger.kernel.org
++Description:
++		Raw charge value read from the channel. The device acts as
++		a Coulomb counter by accumulating current measurements over
++		time. Units after application of scale are milliCoulombs. X
++		is the IIO index of the device.
+diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+index 767a7794624a5026742087eb8885eb2a5ded05f0..90c92e57e8605d2ab443541b88944dab7084babc 100644
+--- a/drivers/iio/industrialio-core.c
++++ b/drivers/iio/industrialio-core.c
+@@ -100,6 +100,7 @@ static const char * const iio_chan_type_name_spec[] = {
+ 	[IIO_ALTCURRENT] = "altcurrent",
+ 	[IIO_COVERAGE] = "coverage",
+ 	[IIO_VOLUMEFLOW] = "volumeflow",
++	[IIO_CHARGE] = "charge",
+ };
+ 
+ static const char * const iio_modifier_names[] = {
+diff --git a/include/uapi/linux/iio/types.h b/include/uapi/linux/iio/types.h
+index d0fb714ca0fd97421d2c8345e3bc34329f1cb1b9..8acf4105216c11718c07f76ac67b93a8ba7fd6a0 100644
+--- a/include/uapi/linux/iio/types.h
++++ b/include/uapi/linux/iio/types.h
+@@ -55,6 +55,7 @@ enum iio_chan_type {
+ 	IIO_ALTCURRENT,
+ 	IIO_COVERAGE,
+ 	IIO_VOLUMEFLOW,
++	IIO_CHARGE,
+ };
+ 
+ enum iio_modifier {
+diff --git a/tools/iio/iio_event_monitor.c b/tools/iio/iio_event_monitor.c
+index b5c5479b9d78f70cab9d6939ceaab32e42b3f718..50c12395767c0c91916eabc420c62631e834a4e5 100644
+--- a/tools/iio/iio_event_monitor.c
++++ b/tools/iio/iio_event_monitor.c
+@@ -67,6 +67,7 @@ static const char * const iio_chan_type_name_spec[] = {
+ 	[IIO_ALTCURRENT] = "altcurrent",
+ 	[IIO_COVERAGE] = "coverage",
+ 	[IIO_VOLUMEFLOW] = "volumeflow",
++	[IIO_CHARGE] = "charge",
+ };
+ 
+ static const char * const iio_ev_type_text[] = {
+@@ -198,6 +199,7 @@ static bool event_is_known(struct iio_event_data *event)
+ 	case IIO_ALTCURRENT:
+ 	case IIO_COVERAGE:
+ 	case IIO_VOLUMEFLOW:
++	case IIO_CHARGE:
+ 		break;
+ 	default:
+ 		return false;
 
 -- 
 2.43.0
