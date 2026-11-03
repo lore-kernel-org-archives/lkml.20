@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793718072;
-	b=s6NJJAChjJh4AUqAX4UKK5vjnGFSEIvg86Q88ouwgimCiSbqhIOyvkSWk0ah/EaWEl3z
-	 gzMQZZb6EsXepoYuZlmi/W+aknzl3yzBNFy6Ss5ICCNZugUyBiBXJ7CKT6kGWBPYFrX9p
-	 E4h/vKz42/2Eq6wCzArpcCzmYRUnHxKJlBeL62+zr0Y3S/PxIRfKimI8t4wlFuXWFbhQA
-	 G/g6II/UWw46t7cE5CsJBwuhB/y7cawkmhVqzU/Q/RkdNryO+Y1hxN6O4y6JcgeRaD7/b
-	 oKIak6bdo0Tqzn5GECXVfF8SVHz6j2EqAepXs8mlK/b/TTMBq2i3f5Dv8oRQ3s3cxag==
+	t=1793718095;
+	b=caFYQ1+IVkiPVdTOjfgU+stawYOKV9OGlske2MIUcwvwFXMFNPRVJTseKwzzGR0dCrp7
+	 DW0Aqhdyly3eOb1D6hDUS16KV5bLO0uf/8g88pyqtd3LLIqqeY0VTqk1OTNSI+3ZkHEM4
+	 v2tEhyKaQdf65/povP12GhKw2Pwm6oEPtvgRslKnL3rjpVYY8fQC6tH9zJIvVfZJogMil
+	 o5AxQYceD/FUpNJbUjgdpVFX/c4/TQm8Z6Afbad5qTUCvrzgLDzTFQHQAuB2Tvn4z7vvO
+	 ZOZXrXRi0DiMe2/84LnXTOX1zdquboMqKW1o064z7bVaWa6Jl6XfgzOl9CGomVHKecA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718072;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=YIDXQ4LW50kfGoDD/n5YI6WPW7QshVZmOorzzd9ZaKM=;
-	b=PznIMPBWUQ9bSOp1Jo6ZeD3eOx9C29ZaJ8xrFxOYckpDQWwLamzRUQdCOHUi17nDC+WV
-	 ywpqgDHmy0yghpBpKueXS32a0m+jABRNCrWg+VXUFSVf4g+gk72O302ox826Qw4zSm4vb
-	 T2zv6knIeDAFkE6T7NU2G7t3kxRF4WeoRshXig8OG2M8SvvxtE6+VtAcObZ/f7HjpkY0Q
-	 WNDNEkvnH4qEARCsO4hDXLNjsNbpMJu/eFql4dn2uRvh85USkuKDEH8qtouOLoMDb2smj
-	 DUxBT2MzmHWgAyNbzFDYud/P7vCvWAGRhbYH1DWgYBXmxE2gLZUxREBBWVetOJO4VeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718095;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=rEef8FS7q0lvCkkrIL907JgA/rs6+IUe1wrxy5V7xDA=;
+	b=1x6U+6fQwKCKwb/lvguijfucD4OQMdjndtUEQ0RXTMSL0bwehdAv4keGY7fBVlsgYKtl
+	 oCSaE0cG6Qg+gcpUCLEs7tinvA3n09OpQ+GVm+ppKQ44TvDKRF667nnAO4HHvQQkcLcPn
+	 imcnQuiyKXxwMtGJSWKvthpo3bBRVlrq+qKdoiwlS1gJoJ0m4S2wQ+qigBTz0SOtTe13w
+	 TW2gcUlnNm+3DL/OfZVapCQ1sKkidX5IauGBdlfTQ/k7qZH2ecjBL2L0CWdEkVIs0IBcI
+	 DoTL1fPI5257IL2pmCfshcowECMoF0dGkKsqP9tbjPbZuZvhRww2gvJiY4alGkqB2RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODbmtctK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CCA7606F61E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:01:12 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZnDuSfKU;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 285BA606F63F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:01:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 285BA606F63F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODbmtctK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCF481F000C1;
-	Tue,  3 Nov 2026 15:01:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793718072;
-	bh=YIDXQ4LW50kfGoDD/n5YI6WPW7QshVZmOorzzd9ZaKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ODbmtctK6ey4ItCUCWFbeMZSE56D99tTlV1QUMaYA/i1RQej0tUEqcOvef5XhpwWR
-	 XB+mVN2GfQAyp1bpS9F8X79nwmsmMFqY/MuTJ/cdLXmMpmGpwhMJ4tctDHfXAPENUE
-	 rE9TEgnW1tH/70PGGHLE6AXo57XJ9TRuGP+EddEfB/y3IK9OCyYpCUc8L0v1+yuFbR
-	 vxD7+Jdw01ELtZutGhJAGOrCjvkgbTRDHQeGaTcCt7egjp6KhHDFZFN7V2LJgDqVnO
-	 br5kEsp4Covrn8gKtTdn1lwK8UC8sj087mjLzzIfJoU8dmvN3Rol2OKWl0zR8EkxVD
-	 K4PVjHJ6PXAow==
-Date: Tue, 3 Nov 2026 16:01:08 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Marcelo Tosatti <mtosatti@redhat.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hrtimer: Retrigger local timers after clock changes
-Message-ID: <aun3NCjn7dcdghCy@localhost.localdomain>
-References: <20261101141552.644764-2-thnkslprpt@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZnDuSfKU
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3E3C1595;
+	Tue,  3 Nov 2026 07:01:30 -0800 (PST)
+Received: from [10.211.55.3] (unknown [10.57.89.242])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 521733F628;
+	Tue,  3 Nov 2026 07:01:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793718094; bh=CG6q8wsIPq+ixhkuVkm9929Wn3zQbR8LSPlxbsnxgtI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZnDuSfKUzzE9MrbULG40+AhOWauF13XR9ar+iCOPiMJNHMlvLoOqwPvWBa47p0fK1
+	 8UJSFcHsd+Px1RBaKuZYevFUjD0Ba7z8RiIURshnbBLyoPtH8jIV86ji1j1uml8ztU
+	 RsMBYlU5UXEbTrhovtUPjd5a7Em9ROyM3SdqHRUo=
+Message-ID: <308b326e-9fc8-4d49-9c85-c3b9cb9288f3@arm.com>
+Date: Tue, 3 Nov 2026 15:01:30 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,46 +53,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261101141552.644764-2-thnkslprpt@gmail.com>
+User-Agent: Thunderbird Daily
+Subject: Re: [RFC PATCH v2 01/10] arm_mpam: resctrl: Use find_component() when
+ allocating a domain
+To: Reinette Chatre <reinette.chatre@intel.com>, james.morse@arm.com,
+ Dave.Martin@arm.com, fenghuay@nvidia.com
+Cc: tony.luck@intel.com, yu.c.chen@intel.com, babu.moger@amd.com,
+ fustini@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, patches@lists.linux.dev
+References: <cover.1792443633.git.reinette.chatre@intel.com>
+ <94ddff51b91f4a51965baf0384c2368e292c1a8c.1792443633.git.reinette.chatre@intel.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <94ddff51b91f4a51965baf0384c2368e292c1a8c.1792443633.git.reinette.chatre@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Le Sun, Nov 01, 2026 at 04:15:53PM +0200, Avi Weiss a écrit :
-> clock_was_set() selects CPUs whose hrtimer deadlines move earlier
-> after a clock change. smp_call_function_many() excludes the calling
-> CPU even when it is in the mask, leaving its clock event programmed
-> for the old deadline. An overdue realtime timer can then expire
-> only when a later event triggers timer handling.
+Hi Reinette,
+
+The change seems good but I think the commit message can be cut down at bit.
+
+On 19/10/2026 23:07, Reinette Chatre wrote:
+> mpam_resctrl_alloc_domain() starts by checking that the resource's
+> class has a component whose CPU affinity includes the CPU, and fails the
+> domain allocation otherwise. When the resource supports allocation, that
+> component also backs the control domain. The check uses an open-coded
+> walk of the class's component list, while the same function uses
+> find_component() to find the component backing each monitoring event.
 > 
-> Use on_each_cpu_mask() to retrigger the local CPU when selected,
-> without interrupting CPUs with unaffected deadlines.
+> The open-coded walk duplicates find_component(). It also holds the SRCU
+> read lock until mpam_resctrl_alloc_domain() returns, 
+
+, -> .
+
+which suggests that
+> the component needs this protection while the domain is set up.
 > 
-> Fixes: 81d741d3460c ("hrtimer: Avoid unnecessary SMP function calls in clock_was_set()")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> The component does not need it. Components are freed only when an MSC
+> fails to probe, in which case MPAM is never enabled and no resctrl
+> domain is created, or by mpam_disable(), which first removes the CPU
+> hotplug callbacks and thereby tears down all resctrl domains. A component> therefore outlives every domain that refers to it.
+
+You can drop the above section. The SRCU read lock, as you say, is just
+intended for walking the list and modulo any bugs we can just take that
+as read.
+
+However, ...> The SRCU read lock is
+> only needed while walking the component list, and find_component() holds
+> it for that walk. 
+
+
+In addition, mpam_resctrl_alloc_domain() only runs
+> from MPAM's CPU hotplug startup callback, which already holds the SRCU
+> read lock throughout.
+
+I think this can go from the commit message too. It is interesting that
+you point it out though as that is unexpected. I should have used
+scoped_guard() in the case you are removing and in mpam_cpu_online()
+rather than guard() so that the lock can be dropped as early as possible
+and make the intent of the lock clearer.
+
+Thanks,
+
+Ben
+
+> 
+> Replace the open-coded walk with find_component().
+> 
+> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 > ---
->  kernel/time/hrtimer.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/resctrl/mpam_resctrl.c | 13 ++-----------
+>  1 file changed, 2 insertions(+), 11 deletions(-)
 > 
-> diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
-> index 17dd38a6cee7..3133d7403a74 100644
-> --- a/kernel/time/hrtimer.c
-> +++ b/kernel/time/hrtimer.c
-> @@ -1000,7 +1000,7 @@ void clock_was_set(unsigned int bases)
->  				cpumask_set_cpu(cpu, mask);
->  		}
->  		scoped_guard(preempt)
-> -			smp_call_function_many(mask, retrigger_next_event, NULL,
-> 1);
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index 9cec5843e8fa..3d5f90f9f1f3 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -1623,21 +1623,12 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+>  	struct rdt_l3_mon_domain *mon_d;
+>  	struct rdt_ctrl_domain *ctrl_d;
+>  	struct mpam_class *class = res->class;
+> -	struct mpam_component *comp_iter, *ctrl_comp;
+> +	struct mpam_component *ctrl_comp;
+>  	struct rdt_resource *r = &res->resctrl_res;
+>  
+>  	lockdep_assert_held(&domain_list_lock);
+>  
+> -	ctrl_comp = NULL;
+> -	guard(srcu)(&mpam_srcu);
+> -	list_for_each_entry_srcu(comp_iter, &class->components, class_list,
+> -				 srcu_read_lock_held(&mpam_srcu)) {
+> -		if (cpumask_test_cpu(cpu, &comp_iter->affinity)) {
+> -			ctrl_comp = comp_iter;
+> -			break;
+> -		}
+> -	}
+> -
+> +	ctrl_comp = find_component(class, cpu);
+>  	/* class has no component for this CPU */
+>  	if (WARN_ON_ONCE(!ctrl_comp))
+>  		return ERR_PTR(-EINVAL);
 
-Heh, this API is so error prone... If it really doesn't want to call on the
-local CPU (for some undescribed reason), it should at least be renamed to
-smp_call_function_many_butself().
-
-> +			on_each_cpu_mask(mask, retrigger_next_event, NULL, 1);
-
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
-
--- 
-Frederic Weisbecker
-SUSE Labs
