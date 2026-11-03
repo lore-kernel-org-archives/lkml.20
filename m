@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745844;
-	b=BwuCpJAWeYHQVwoelST1SvQ6xTvSbDyBu17YF5E49oXO1GY3gqekRiRFToDOIN3p4KH/
-	 nRg88E+8epVOY9jAlScyCZGvgawqWyIw63/WbuTxyXHuE/zJuBdRX65EPIgDgns0JvH0t
-	 zqDatQiucCjUmbJ/lRVGiA3ylEo0//GOT6JALvDj31wQh9nebQdZbvXZ+dKYt6mxf5xhm
-	 1qXPg+YoXGgfpQr0kyiR8umnhdalTRXZYwAwaL0ScIVKApQM9GThxb6BxUKk5IvJclZLx
-	 M1Zkd4E0lqtb/D3AzY1Z8o11qwEt0Kb9EdGcke+FXiWfpDM/EIN+won6RAH+AdFJK3A==
+	t=1793745860;
+	b=eVA5g+AgwkwLechPqpclKjts94KKiLvRmVMY/Pnr6mZ8pz+hhqNC64xQU98i8B8U51xZ
+	 q7eXW+87F+yigsvGPkWuFNGSlvcWH7Ym5cFxAvPR322x96Dbz/dQfIrLS6+xjQhCVt6Yl
+	 4xMmzl8tIqwA9SODT9Z46rTYO3r7nfP/N3un89R4HlLzHuJQgQPc72xSgjG9idvAv5oJi
+	 YyyuOoBuYr675K2aj5AMqYrR75mSh0P7+ufy7deXmjPfkcu+3mhMXI4PxfcgVg/cGzNG+
+	 kvRyNjP5u5VpBZ0pgnVBeVO7fkOZ7Wvz9QdOXpqzbMiP4gqF7zagX8N8mRaiVBo/f6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745860;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=eCpLb2eSBdU7oOnz3uYs19P+wbMVKJaOGnZyAlRZ5JQ=;
-	b=MQJQs66hHooo2zIFx84fUT/fIKJyZSHxRdKPS99Edw+2o1gLKWSfZTrT/Cr9u6nY7Cz1
-	 6ZxEPLep+qe4b60FvCUVJ1bunBiC3RirmCRUdz94qExyp5ZuzGxs0n5BsCCsv+K+PvVVG
-	 jf5bIebmpa5QWD1YJI1SrZ/PeLatqeLBky0iiHSAhL4DFqD7vjn5ptEVOFcRSVX++tXrL
-	 yuS8wzbq4Sf1QCtviNQ6bu0Am3UZ58yMjkuGnzKWX23OqaufSUeMR0UgzKyADro7bPHDX
-	 /Wk0ccSs8E6oUPID3gFH+kcXByVRPAa8JvywQMYdrFkVPJUzEuvqyCDtRjrb2d+X4ug==
+	bh=ClY6VcM0L71u4TrDzO9N49R1pUiLahDL6t83GVy/u5o=;
+	b=ZQJbh0keytEb678QAhQ0PCY7yGi1q5FYgruTLX5nQXz/4qdZ1RwsCU9f+iuLHo1Xaxhb
+	 6rY40qvT5t4LNraD1nlY2LfMaCoOV6E3c8oNBn1gFZo9ZjAlIOWp+3655VM1X9xtkMFX/
+	 SL7pW/BLxgQYp+lxg9BELQc7OJpbT4zjLxrPrygOBx2GVvRWTOblkuQDib9gCC3KMolL/
+	 1OIsT7KpghbjyNLSxM9p671p0Ze5OebLJCUgYzSpJDAGEaoBm+03zzBKh4bvC66Lu27vR
+	 9AihPJL+fXny1RrayC5nEw2nXsljkaa+MG8ylR6tzdCpMDJ2ttCbQ8rLLJUpGqo7jYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBr6vEao;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzMESGxU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD7C606A329;
-	Tue,  3 Nov 2026 22:44:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5850A606A31B;
+	Tue,  3 Nov 2026 22:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBr6vEao
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEBFC1F000C1;
-	Tue,  3 Nov 2026 22:44:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzMESGxU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB11C1F00919;
+	Tue,  3 Nov 2026 22:44:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793745844;
-	bh=eCpLb2eSBdU7oOnz3uYs19P+wbMVKJaOGnZyAlRZ5JQ=;
+	s=k20260515; t=1793745859;
+	bh=ClY6VcM0L71u4TrDzO9N49R1pUiLahDL6t83GVy/u5o=;
 	h=From:To:Cc:Subject:Date;
-	b=aBr6vEaoSaSIlgo+yE1NlG5IxyzfubHlr6a8X5qUV4/pTRXFKDPZ7nBg+zAMGGqfe
-	 +A/nPSln2hNiF7yICWJb4QNGaY/boYgyl1PoM8WJHw+PmE0Y51jF8Q2mF2zy/5Kopc
-	 wcHFTrwgsQMXjOSfNDytPdObM5Y68mpthtCeZDNyWPr5rQXZhnutZEE9lS02KYswPr
-	 tmOiHV2WlWKwRV0NPmw+mgA6uUtnYP0pEg9YvAVyC34zuIM9XSKG/CY9ZjkVfeQxQY
-	 24JoyvgVtYfqNbjfXDXo4gHNlkNbHXZZWbWupgyjqyaMgVdhmUkzLq5JbEv74E5do2
-	 Kn+nx+B4B83oQ==
+	b=NzMESGxUieHRhVlJc7P8DY1lAEMKYZSwhnQ8vj/8KILknBoYtxShqTn9TwwohTGo1
+	 P9S0gH/lJH/jsPtuuYqxE2oeXegOmV/rSk4QbOHJX+vKS8Qv6+QjTWEHFxStpwxExV
+	 TKS78X1FeGurmTLc0gpoC1BntuE5dbkSoyULT/1DzZzXeSe4q3R+e9+MWTLvbFjr9R
+	 Dkn8HnUKaT6MSXCxBr42m02mb7ibLMb4Ud8sqeQZMx80smh6CZW43rBX/gvQgI1r8W
+	 bnKHbCU4DxIWUiHqYeXTHuUuTMtKe3frztwrXaEfL/vrTPCi4m7ekTk5ZBvMlbVBVV
+	 1IfG0OB6OIjeQ==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: James Tai <james.tai@realtek.com>,
-	Yu-Chun Lin <eleanor.lin@realtek.com>,
-	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.com>,
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-realtek-soc@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: realtek: Add RTD syscon compatibles
-Date: Tue,  3 Nov 2026 16:43:50 -0600
-Message-ID: <20261103224352.862662-1-robh@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Lubomir Rintel <lkundrak@v3.sk>,
+	devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: [PATCH] dt-bindings: serial: 8250: Allow unconnected interrupts
+Date: Tue,  3 Nov 2026 16:44:09 -0600
+Message-ID: <20261103224409.865130-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,168 +63,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-"syscon" nodes must have specific compatible strings. Specific
-compatibles were already added to the bindings. Update the DTS files
-with the specific compatibles for the RTD1295, RTD1395 and RTD1619 CRT,
-ISO, SB2, misc and SCPU wrapper syscon blocks.
+8250-compatible UARTs can operate without a connected interrupt, using
+polling. Requiring interrupts rejects valid descriptions such as the
+HIP06 LPC UART.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- arch/arm64/boot/dts/realtek/rtd129x.dtsi | 11 ++++++-----
- arch/arm64/boot/dts/realtek/rtd139x.dtsi | 11 ++++++-----
- arch/arm64/boot/dts/realtek/rtd16xx.dtsi | 11 ++++++-----
- 3 files changed, 18 insertions(+), 15 deletions(-)
+ Documentation/devicetree/bindings/serial/8250.yaml | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/realtek/rtd129x.dtsi b/arch/arm64/boot/dts/realtek/rtd129x.dtsi
-index ba50e292bdbb..a7fb8dde1d60 100644
---- a/arch/arm64/boot/dts/realtek/rtd129x.dtsi
-+++ b/arch/arm64/boot/dts/realtek/rtd129x.dtsi
-@@ -64,7 +64,7 @@ rbus: bus@98000000 {
- 			ranges = <0x0 0x98000000 0x200000>;
+diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+index 50d5c977afa3..7bc3fa84d3d1 100644
+--- a/Documentation/devicetree/bindings/serial/8250.yaml
++++ b/Documentation/devicetree/bindings/serial/8250.yaml
+@@ -322,7 +322,6 @@ properties:
  
- 			crt: syscon@0 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1295-crt", "syscon", "simple-mfd";
- 				reg = <0x0 0x1800>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -73,7 +73,7 @@ crt: syscon@0 {
- 			};
+ required:
+   - reg
+-  - interrupts
  
- 			iso: syscon@7000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1295-iso", "syscon", "simple-mfd";
- 				reg = <0x7000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -82,7 +82,7 @@ iso: syscon@7000 {
- 			};
+ unevaluatedProperties: false
  
- 			sb2: syscon@1a000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1295-sb2", "syscon", "simple-mfd";
- 				reg = <0x1a000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -91,7 +91,7 @@ sb2: syscon@1a000 {
- 			};
- 
- 			misc: syscon@1b000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1295-misc", "syscon", "simple-mfd";
- 				reg = <0x1b000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -100,7 +100,8 @@ misc: syscon@1b000 {
- 			};
- 
- 			scpu_wrapper: syscon@1d000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1295-scpu-wrapper",
-+					     "syscon", "simple-mfd";
- 				reg = <0x1d000 0x2000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-diff --git a/arch/arm64/boot/dts/realtek/rtd139x.dtsi b/arch/arm64/boot/dts/realtek/rtd139x.dtsi
-index e8af39193e75..11113999824c 100644
---- a/arch/arm64/boot/dts/realtek/rtd139x.dtsi
-+++ b/arch/arm64/boot/dts/realtek/rtd139x.dtsi
-@@ -62,7 +62,7 @@ rbus: bus@98000000 {
- 			ranges = <0x0 0x98000000 0x200000>;
- 
- 			crt: syscon@0 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1395-crt", "syscon", "simple-mfd";
- 				reg = <0x0 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -71,7 +71,7 @@ crt: syscon@0 {
- 			};
- 
- 			iso: syscon@7000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1395-iso", "syscon", "simple-mfd";
- 				reg = <0x7000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -80,7 +80,7 @@ iso: syscon@7000 {
- 			};
- 
- 			sb2: syscon@1a000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1395-sb2", "syscon", "simple-mfd";
- 				reg = <0x1a000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -89,7 +89,7 @@ sb2: syscon@1a000 {
- 			};
- 
- 			misc: syscon@1b000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1395-misc", "syscon", "simple-mfd";
- 				reg = <0x1b000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -98,7 +98,8 @@ misc: syscon@1b000 {
- 			};
- 
- 			scpu_wrapper: syscon@1d000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1395-scpu-wrapper",
-+					     "syscon", "simple-mfd";
- 				reg = <0x1d000 0x2000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-diff --git a/arch/arm64/boot/dts/realtek/rtd16xx.dtsi b/arch/arm64/boot/dts/realtek/rtd16xx.dtsi
-index 43b13d133c32..7f6e7a03f4e9 100644
---- a/arch/arm64/boot/dts/realtek/rtd16xx.dtsi
-+++ b/arch/arm64/boot/dts/realtek/rtd16xx.dtsi
-@@ -143,7 +143,7 @@ rbus: bus@98000000 {
- 			ranges = <0x0 0x98000000 0x200000>;
- 
- 			crt: syscon@0 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1619-crt", "syscon", "simple-mfd";
- 				reg = <0x0 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -152,7 +152,7 @@ crt: syscon@0 {
- 			};
- 
- 			iso: syscon@7000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1619-iso", "syscon", "simple-mfd";
- 				reg = <0x7000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -161,7 +161,7 @@ iso: syscon@7000 {
- 			};
- 
- 			sb2: syscon@1a000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1619-sb2", "syscon", "simple-mfd";
- 				reg = <0x1a000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -170,7 +170,7 @@ sb2: syscon@1a000 {
- 			};
- 
- 			misc: syscon@1b000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1619-misc", "syscon", "simple-mfd";
- 				reg = <0x1b000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
-@@ -179,7 +179,8 @@ misc: syscon@1b000 {
- 			};
- 
- 			scpu_wrapper: syscon@1d000 {
--				compatible = "syscon", "simple-mfd";
-+				compatible = "realtek,rtd1619-scpu-wrapper",
-+					     "syscon", "simple-mfd";
- 				reg = <0x1d000 0x1000>;
- 				reg-io-width = <4>;
- 				#address-cells = <1>;
 -- 
 2.53.0
 
