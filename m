@@ -1,105 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711080;
-	b=cFb3+SbTQ7yPq7BWVPpweVVgSOqriblfynYzQXiyAPbesUpAATRPxLgPkYbN49Hz4SWF
-	 9SmeKybHByJjC9WGz8qW0msCMwrSk2JdUIkTmW1UlIKwBh605lxO8BovrrQAkJvkKN/Z2
-	 zS2QwJCu4LiG5l88grSKXxarjbCc/o2j2wgjSLSaRwtuxJpUiXDffF7FptLWOrxY4iihg
-	 SCmsfkrzkGPIeWldcocmHFsQtU/omODfQ7Bbi60M1CpCJAv+dCOWTQSyfI3Wsf82k+FcT
-	 6dfbRzAUs0ex0uKCCN9MuEvevuhh/x+w47RJIh54Bkjtuob7+Ox4b4m3f5RM6pKSlxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711080;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=Q/139jPZQKwaBkBJtZnCZovtebJHazLS5gj57OpiMCU=;
-	b=WooyQVew37KDAg6schMRl9LuDrrBfppGQwQuuWUWGt0JMJGR2EO6NkdkzVn1qEGsLLKU
-	 Nqcd8YJqsfpLqca8A5D2GeCfV5aFI1d3HQtyoLE1yunYH8nbP0FJXGQZxsPPnnPao7AWU
-	 4nSgxOjWVhxpd/a94gFQd+s1bRgzwz+p/1MZzxm9OpajrmDUT7n0mCAZGEAoaTuw3U48Y
-	 dQDByHyLIvSezLZYOeoBkmimjjZjtzW2uCfvWatanFnC2BscSJ3/CNLb5TtHGjXgF5Yvf
-	 IlnhNwCZ3GddFpnO+iiv8i6FtWkP+AOsMj4uEx7qXeu3ZRerRSzqu0MxYhawcMB4+kw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ANF1cIVM;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8TtvGv8L;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bpU2mnKn;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=n3Jo7DY8;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793711102;
+	b=HbmqRcvWdJpDCg+lyPeUQVPChTVRqNqzGRjtLlrrU+KVmF5xpWOUXph6vQzV2iYyBE1A
+	 mAXw5LrFtzotUuVnEduopYuWN6r29/MwvOHFG8gH63Au44z+HPQt1Nb307D3fyXjA5TtA
+	 LFAFHLJVZMi7xbJihQG8nwVYqFnm1mCA8fDFEP367hCR285WsXjE3W0f1e10SgpVxAGj7
+	 0LA0VE8uWGrtXBLfDYNvAb5fxrbZ6oX4R0nCOM2K3XglqUcWeE292fPr9F+Zy0YCKMXzf
+	 jHBIihF04GnPQhnCMdDwb6c6sX12dayc+tmed6nNCoziy6hCfJD+QVgqBfxbVnv/Kxg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711102;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=sdEbF/CdcFTeewgIOfs6NnkfjTHWigrh08gtk/yhio4=;
+	b=Hv5YWz/j6xz4wR1o6z7nxt8QpZq68p6333DQnI0gIK2KEbAmhJfP/2QEOcMx1Ek3Iakk
+	 jL5DS3CgLRTY9LKe1g1jg0vNkUEzgUnr06kkth+DHocaYDdfDz8YnHJprxbM0F7b1vgNG
+	 dD40Iv7iyt9te4QQ8eLbqo/mrovZ3zqI1JQ+iFWrjfKnCE9+Vll8GoEHsouz7gxiz/FZu
+	 ugcKRCRJtzPad2Kncd8P+yDb3AssMUUOLoViX21Y8iRB6CeyOmFiIU0aO5HiiRIAXWv+5
+	 uz5p/Sx3KIu2S+maoK3uJusimqXOJHgOGXtqcQpxkDjlqPqtjY8pbUxoPPq8wf9G4qg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TDNlPvDd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77240606A326;
-	Tue,  3 Nov 2026 13:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77240606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6698C606A327;
+	Tue,  3 Nov 2026 13:05:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6698C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ANF1cIVM;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8TtvGv8L;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bpU2mnKn;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=n3Jo7DY8
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8C0401F800;
-	Tue,  3 Nov 2026 13:04:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793711077; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q/139jPZQKwaBkBJtZnCZovtebJHazLS5gj57OpiMCU=;
-	b=ANF1cIVMSLHBMUtiUiWpejgfLoTl0vyjQbaj1cfpnkISIUp5n1u/unwcPeBpxYRUXDb2Tf
-	UjkzlUADXxC21UJesyuBuvMgPUaM+qkc4HdnIfAb9nYFnHHZO4tM79LYsKi9fNwS4K+zEY
-	zzZwkBN6+sP3g4dO0a1d3wBr/UMhEKM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793711077;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q/139jPZQKwaBkBJtZnCZovtebJHazLS5gj57OpiMCU=;
-	b=8TtvGv8LVvaJNbWvsrZCPn29cQMVgdY2m8SALwuRQjpf1HzJoLSINDgKpsOa4NSzd7q7HS
-	NfuXGjHg7ELMZjCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793711076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q/139jPZQKwaBkBJtZnCZovtebJHazLS5gj57OpiMCU=;
-	b=bpU2mnKnYN+zKrAYR4qXQGbnlEINOq8954vktVD00uY4y5twdC0IjokGGOxptbf+tU+41O
-	rLAlFEQP+apDyazT7sl20WRIx43hlY/IFaFh1c7Zy51/I6O6+cb0xGSJHOAbafuR0I0B18
-	75D0P6vFtlJBKtL3Gw76k1mvls5XUBc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793711076;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q/139jPZQKwaBkBJtZnCZovtebJHazLS5gj57OpiMCU=;
-	b=n3Jo7DY86tJw9BmI+i9ULYOaUv2VKZ/eZEUY6IJaW7MXHYnV6VV4/+OGbge4Xnj2ImtL7w
-	mJuzycoKfWcmBTCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 60E521350A;
-	Tue,  3 Nov 2026 13:04:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0+TTDuTb6WoFJwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 03 Nov 2026 13:04:36 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id DF27DB262; Tue, 03 Nov 2026 14:04:31 +0100 (CET)
-Date: Tue, 3 Nov 2026 14:04:31 +0100
-From: Jan Kara <jack@suse.cz>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Jan Kara <jack@suse.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ext2: only flush DIRSYNC directories on every change
-Message-ID: <pfzengv7itu5b2rgi7kx55rpkzh56ynzzte5gtifgmfnmccplh@zxxbbfgfu6zu>
-References: <20261027-b4-ext2-dirsync-v1-1-3dcd012d518d@toxicpanda.com>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TDNlPvDd
+ARC-Seal: i=1; a=rsa-sha256; t=1793711082; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=cH64I3HYKwXkyDHsGMQ08l/OCv9IcVronFRoMHJmLjsCUMLPgeR0slE5LZPuBOGW27/prbUmS9JPhyftHq8Kh1g/toGrkpdwyi/gApWtuenRWMT4GbS2rsTZ7o/mliy4ToZJf/GGPymSEfdOFeFTtcvEMWut3Wxa1CX/m542krw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793711082; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
+	bh=sdEbF/CdcFTeewgIOfs6NnkfjTHWigrh08gtk/yhio4=; 
+	b=URt9ABoH8lXbOV+Dr5/eiBlcYncKy1wGqRMwEjMEhAlL2b9enS3vcSs0fkW3FsOJ1zUVAVJus7Yyd89F5P70OqpgXtD53B16cuiPLuCJLpf56M5cmWON2DwnDwimn2NSmrfemzsO+QjHJrfM8ch3ogoteObSJzzQSkxRhoNebhU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=TDNlPvDdR52Uynh5TxQXKHhjrfjeJn5CX+S6g8Jyg4tPpnIjEuGOxOtA2kzpcysfvE/P8x3TLbV6a1nsJKMrc3/QTO00V6dXopO7/eO67fy1YNSXl0lVT25i1u0lvUdSj3n1+M5s33Ed7TCZdUd5d9/lv2b8rtPKo94z0HZxDYQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=sdEbF/CdcFTeewgIOfs6NnkfjTHWigrh08gtk/yhio4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793711079043560.9418675221888;
+	Tue, 3 Nov 2026 05:04:39 -0800 (PST)
+Message-ID: <2e3ca852-03c1-4825-87ea-0a3decad8d6c@collabora.com>
+Date: Tue, 3 Nov 2026 14:04:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,89 +58,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-b4-ext2-dirsync-v1-1-3dcd012d518d@toxicpanda.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,toxicpanda.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.80
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] media: rockchip: rkcif: mask MIPI interrupts when
+ powered
+To: Daniel Golle <daniel@makrotopia.org>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1793702189.git.daniel@makrotopia.org>
+ <24332831989fde000959b3d3037333f511b95ece.1793702189.git.daniel@makrotopia.org>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <24332831989fde000959b3d3037333f511b95ece.1793702189.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Tue 27-10-26 18:43:14, Josef Bacik wrote:
-> Every change of an ext2 directory is written to disk before the system call
-> returns, whether the directory is DIRSYNC or not: its pages with
-> filemap_write_and_wait() and its inode with sync_inode_metadata().
-> 
-> Writes which reach the device for 2000 files, and 200 directories, in a
-> directory without DIRSYNC, with the flusher turned off:
-> 
->             create   rename   unlink   mkdir
->     before    4000     8000     4000     800
->     after        0        0        0       0
-> 
-> In a directory with chattr +D the numbers are those of "before", before and
-> after.
-> 
-> commit bc943f4872a7 ("ext2: Don't flush page immediately for DIRSYNC
-> directories") moved the flush from ext2_commit_chunk() to the new
-> ext2_handle_dirsync().  The IS_DIRSYNC() check which was around it didn't
-> move along.
-> 
-> Fix by putting the check into ext2_handle_dirsync().
-> 
-> Fixes: bc943f4872a7 ("ext2: Don't flush page immediately for DIRSYNC directories")
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Hi Daniel,
 
-Thanks! Added to my tree.
+Thanks for the patch.
 
-								Honza
+On 11/3/26 11:45, Daniel Golle wrote:
+> The MIPI interrupt enable register comes out of every reset with all
+> 27 sources enabled. Of those only the frame end bits are handled, so
 
+That seems highly unusual. How did you analyze this behavior? Feel free
+to throw any patch over the fence that reproduces/displays it.
+
+> the line stays asserted at about a thousand interrupts per second
+> while the block is powered. The kernel then reports the interrupt as
+> unhandled and disables it, after which frame completion only happens
+> from the spurious interrupt poll. The poll can also call the handler
+> while the block is clock gated.
+> 
+> Clear the enable register and the status bits after the block has been
+> reset and clocked, and after the reset in runtime suspend. Treat any
+> status bit that the handler has read and cleared as handled.
+
+Can we configure the interrupt in rkcif_mipi_start_streaming instead?
+This feels a bit more natural IMHO.
+
+Best regards,
+Michael
+
+
+> 
+> Assisted-by: LLM
+> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 > ---
-> I ran into this while testing an overlayfs series with ext2 as the upper
-> file system. Directory entries were always on disk after a crash, also
-> the ones nobody had synced.
-> ---
->  fs/ext2/dir.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  .../rockchip/rkcif/rkcif-capture-mipi.c       | 19 +++++++++++++++++++
+>  .../rockchip/rkcif/rkcif-capture-mipi.h       |  2 ++
+>  .../media/platform/rockchip/rkcif/rkcif-dev.c |  3 +++
+>  3 files changed, 24 insertions(+)
 > 
-> diff --git a/fs/ext2/dir.c b/fs/ext2/dir.c
-> index e17bbc7598c1..5de32c221a83 100644
-> --- a/fs/ext2/dir.c
-> +++ b/fs/ext2/dir.c
-> @@ -442,6 +442,9 @@ static int ext2_handle_dirsync(struct inode *dir)
->  {
->  	int err;
+> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+> index bc9518f8db507..686b995525b9b 100644
+> --- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+> @@ -810,6 +810,23 @@ static void rkcif_mipi_set_crop(struct rkcif_stream *stream, u16 left, u16 top)
+>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CROP_START, val);
+>  }
 >  
-> +	if (!IS_DIRSYNC(dir))
-> +		return 0;
+> +void rkcif_mipi_irq_mask(struct rkcif_device *rkcif)
+> +{
+> +	if (!rkcif->match_data->mipi)
+> +		return;
 > +
->  	err = filemap_write_and_wait(dir->i_mapping);
->  	if (!err)
->  		err = sync_inode_metadata(dir, 1);
-> 
-> ---
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> change-id: 20261027-b4-ext2-dirsync-86ca140154bc
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> +	for (unsigned int i = 0; i < rkcif->match_data->mipi->mipi_num; i++) {
+> +		struct rkcif_interface *interface =
+> +			&rkcif->interfaces[RKCIF_MIPI_BASE + i];
+> +
+> +		if (!interface->rkcif)
+> +			continue;
+> +
+> +		rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, 0);
+> +		rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, ~0);
+> +	}
+> +}
+> +
+>  irqreturn_t rkcif_mipi_isr(int irq, void *ctx)
+>  {
+>  	struct device *dev = ctx;
+> @@ -823,6 +840,8 @@ irqreturn_t rkcif_mipi_isr(int irq, void *ctx)
+>  
+>  		intstat = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
+>  		rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, intstat);
+> +		if (intstat)
+> +			ret = IRQ_HANDLED;
+>  
+>  		for (unsigned int j = 0; j < interface->streams_num; j++) {
+>  			struct rkcif_stream *stream = &interface->streams[j];
+> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
+> index 7edaca44f653c..167b43756929b 100644
+> --- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
+> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
+> @@ -21,4 +21,6 @@ void rkcif_mipi_unregister(struct rkcif_device *rkcif);
+>  
+>  irqreturn_t rkcif_mipi_isr(int irq, void *ctx);
+>  
+> +void rkcif_mipi_irq_mask(struct rkcif_device *rkcif);
+> +
+>  #endif
+> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+> index be3a174b9aab0..fbc8ed78d99ea 100644
+> --- a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+> @@ -281,6 +281,7 @@ static int rkcif_runtime_suspend(struct device *dev)
+>  	reset_control_assert(rkcif->reset);
+>  	udelay(5);
+>  	reset_control_deassert(rkcif->reset);
+> +	rkcif_mipi_irq_mask(rkcif);
+>  
+>  	clk_bulk_disable_unprepare(rkcif->clks_num, rkcif->clks);
+>  
+> @@ -298,6 +299,8 @@ static int rkcif_runtime_resume(struct device *dev)
+>  		return ret;
+>  	}
+>  
+> +	rkcif_mipi_irq_mask(rkcif);
+> +
+>  	return 0;
+>  }
+>  
+
