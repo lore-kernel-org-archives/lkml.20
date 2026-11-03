@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705781;
-	b=xG3sgvGFXcOrARI8L9nh+ajrgs9A8H33YclniL/wk6KvsVC6OxFZiOUVOz2CUZoGPTkO
-	 c6MGKJO0ZpBdekgOV+ti642K3xrJnp4QtIe+cxtZoKJOotMO9gagEiQGuoB+ZPxjg0qwQ
-	 si8101SLNvwnX4hI2bSwJ3QlHuemfQx+jSO0g/RcwKQiWGsmzoYaSfIKFLc9QsVNBbmfx
-	 nptQOq+HxpgGZ605qINNFyZTJQW+YLUVYe44dOv3k3vFTJZ5N/5AI2bE5241mToDo0SV9
-	 Grn5ugmEksW+CkT3NzMI1hV3hEb1ztaiexw+SDj4L6L2MLTlyWm6c0THM+ZxVJ+anNA==
+	t=1793705779;
+	b=5enlDcY+2j2AshV95V759eFloKovLsCaX4lcxS0dqRQUVEq9DQjt0Jl8YTUw8SkW4HQo
+	 rtJFvBE8M8cMog0AOirP4UtrCTavgT9mXDTI14Sc6VFgq39wUembAKORgd51vawwljxmN
+	 DhN6vYhJ6XbVO+FdnvlpMPz7lLo6RVxMj5cVRHmRsF+DoBzFaX2emE8Wtf/fkcJQ52o1z
+	 u/MyuapqHipEcVZWTvwioiYmkJQx6KPG2ljM4Um8jq2gLPXWyXbZxFXMnS5rvGMWcHBCD
+	 eKqBXcXCCifw9OhUQfJ6C8kxSHkFKzErrLw/5Qq1uizhVNnCzNehLkOxG5mbI9Xh6Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705781;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705779;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ScfTwcq9I4Mf8HhdrAkHGB9+lfTwXV0th0eOLvsD448=;
-	b=oYlM9ecdNxOVty1l/NxZA/RKV0cAfiiRCkV+SOufGF9zCtu5O9RJ2DjbL/KKFmOasbP0
-	 pGQzcuew25gKB7rIugoJEP2rSsy6NHuSvZ1xp4Gkzn0up6s5PS8PQvpcYtFMOsto8P2Wc
-	 mFZs2mn+asWvkVwNcEmExM9Hh9jD1Zhh3tsJ035Do3wBgkEAEGx8ASl21a6t6MGy7sZEg
-	 ml/QpG0ETbbIRlosNwOpQfmQ2Y9EYt2dolkrzBibiyCXuu2UrJ1g36sL5dWMO1NJlHliV
-	 Fvca3G1XGH/TANZ7tsY/neym7voYWLFu0o72V8rHlzWnabZtJj6UO1kQ91uPAk/9cGA==
+	bh=c1MqLsdZLfJXru7WWFpoL/bAGrI6oga7tiCox+Jwpew=;
+	b=oBsTE8hr2GsM9slJHznrQizCU6f8KfqcsxRABI5ZnJyJKJ7vCPFrHF/RnQ7hPFQVDyxn
+	 5anfNv3sdjv3NOdVl9Uc1QPhij/aG7UQLyiq5IBvZYLQaZUSlQiqPbcAU1hJqTmNwrU8l
+	 N76S6OtAwF/zUhfuLWXcDhiHIOqyI+f9seBpNOjEXapGYxdxzA/NYhR9p3TWFl5h4AYVv
+	 7POthpxWeXui/Uo//i+peteMmb16tmjNAMI14kfSLpsd1UrVrLdDJBiFFlPQtcPszpXof
+	 +4Auvx7Pr81X55AUEpD0A/rsPGr+trtUht+ORwy46Elxon69eLDBBMx8EMcUDDQbyUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=GsS+0dvC;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PA7HwPP7;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712C86082BFC;
-	Tue,  3 Nov 2026 11:36:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 712C86082BFC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BA86082BEB;
+	Tue,  3 Nov 2026 11:36:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83BA86082BEB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=GsS+0dvC
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PA7HwPP7
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D91EC4181;
-	Tue,  3 Nov 2026 12:33:55 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7D1221F37;
+	Tue,  3 Nov 2026 12:33:53 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793705636;
-	bh=xoTWdeNEm+I4pj50SHZiPb0ElVYsJaI8KWjVRUcnqxw=;
+	s=mail; t=1793705634;
+	bh=PqS2ruK7frGkC0TCq9Vxb5F4GJ8X3qRXVBnADO5zlCY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GsS+0dvCBNGYzuplAFMkf+rEIFr2gQBNuJ9UfagQ8P9MaQePDu7M2uI9awHY58ABZ
-	 pCxCmgsPt5sfYYP1cdKjov9Vh+WemwKgUeH4ENtyYWrfQJSWTjadIUWu7k7FwRsMwZ
-	 7zye3pRyNyIQMWiMr4MreIfPfBB9liZR+ksDgnX8=
+	b=PA7HwPP713o5ZrPurkqsJc7F7kx+HyLJpiph+MSzeV7Elf08n4ilzQ7mfsnSpk8to
+	 8F3/rTNRNvqpi3IXLM9Z3i/ouuzA1fkqEB47AYRVsq/XrNgxNDAGxc0I07V+hgTw+Z
+	 M3lNfVfNTz7GNMRxdLSwItNPL6D4ZOCJSm4jYErQ=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Tue, 03 Nov 2026 13:34:35 +0200
-Subject: [PATCH v5 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display
- and audio
+Date: Tue, 03 Nov 2026 13:34:33 +0200
+Subject: [PATCH v5 13/15] drm/tidss: Add support for AM62P display
+ subsystem
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-beagley-ai-display-v5-15-f1c8d0e52bb4@ideasonboard.com>
+Message-Id: <20261103-beagley-ai-display-v5-13-f1c8d0e52bb4@ideasonboard.com>
 References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -72,265 +72,59 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Louis Chauvet <louis.chauvet@bootlin.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Andrew Davis <afd@ti.com>
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7374;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1532;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=g7T7xLDJz+T9EUK9a9YSCQo4F1o4IpRfssGuj9B1glE=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccawll4dP6G63cGqB88Kev9IoG7HH9MFzfBH
- oGW0vM6O2eJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGgAKCRD6PaqMvJYe
- 9bFjD/9Fh7/uZgTdp3Aj8fj4VD2+/dPkpe1gBphFEa/3lfA1gtiPnppjTQOT3HXuS9QwuFOszoI
- QY5ledtdS8z5bXDsImibeuqnvNIx3MBnHQUYneB0i31frSesG5PPRF23BJcLk2l0DIM9cZs8neB
- ZvodImE2SrH2gdYGKMbmF1FC8X3uG5PoAEyLfcIYJIeNGh3OIPRtrQ9ETajaVMts+2Dg9OEqf0P
- iugX4gR69I7H1MarvS26zZp5K7/hAkmRy2XVAclh81D4NLHaDGASydpEpX5WFgH7iLi6RZ/FSTy
- mdS0kxXWTsmwf2Ci6l5s+D0vKSE74YXUBnStl01dcv0Cem/TlbnJmJgPil6UEPUuE/hGfmimOWe
- fzTl6VPw2U9It87pZQNK40Zagi40lK3cXHLlFUaQj/Rh7cS3orhJ/MtdKCWce5d2C4oUy0nOM1c
- +grkCh9GYTpEju4ORjuHFuA1TOzQnkLIQVEWOPiz4vwCdbcLo7AVhHLd2ndtasRCJxrsFoUHwEZ
- Pq4dGrPME9MCSECmoRyneme1TG0DRnQa+h91VRx68XT+d/XPDJX1iGrnRFyhV3ZF1GAaFK1TRbO
- jGOjsC5kWWcJG1d2CEknHrQs85BXw4xd/axIurpbHuWFdlLy18JVrl+thNd9KV73Mbqfy8UXH1x
- kkc+K/Yt/iPXKjQ==
+ bh=nQs3IwWopJPpCONI45Cyuco5UVYrRBdHvpe+bDQ95yk=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6cca65axinlSiBbteoGzJR3wpLtcFhjJWSwnD
+ RuFNAUm4S2JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGgAKCRD6PaqMvJYe
+ 9cBYD/47Pn1bCaMx0NbtKo1mrQGgueUJmrlI4qYyUVbp7dgQvEMnquROrMzH9ZQnDh7A5vprGE0
+ MCIpdbfSwJLWoYbXvIpgIqdysZducF9YL+u39rhRWiSznOCC5rbc5feqf/tYXfr08pC2f2BH6AL
+ dzaI6aATY/2/1T/TWwv9PxxAdZl62/sZUfC2pnCuOqddkQyECmkQ+Chs5XDR4uPjpapR8x93CYj
+ N5eTmitx4gRp6n8vpvbWtdwV0EEHpKBSbRzn7jqiLxW31dPZ6EWtDTo1o3MnWvOvrELQKC60FjW
+ 8f7A6bBDsG7thJ48zfzMOe6TWXA8C4Tdmmm3lNkYNVDoQEnKJmg6c3/qDOnwl/jQp7twcGwkUeO
+ suks5rTINlcfUwv0m+3mjmm9wHtK1pm7Ccmbybc+iB6+H/c2Hr7OKuiPLmcOAMO9Z7LUSNXg/C8
+ 0Q4OkoOrfjXaWDrR9zCSqE9CZHrhIZm9fbnT+LP0KxERrZD0M1JR7f/5DZnJrgpH7ggDfM9t6a5
+ Co5aNfs2fmZHr5W+oxejKY4HrOp1JE4G8uVBf5PGaLRgguIxO4hilqE3ziqJivdJFlf98noBAoj
+ 9AxtHzm5QOrjiqy7imDWoWocsv+1IJeL+4glwDesBDM9Rea/RXAUBa3mC4F1PgA4uVbTDWd/ZAl
+ Us9VmOIagxPTB3w==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-From: Andrew Davis <afd@ti.com>
+From: Swamil Jain <s-jain1@ti.com>
 
-Enable HDMI support for BeagleY-AI platform. The display controller used is
-TIDSS and the HDMI bridge used is IT66122.
+The DSS controller on TI's AM62P SoC features two instances of the TI
+DSS. Each DSS instance supports two video ports, similar to the DSS
+controller found on the TI AM62X SoC. This allows three independent
+video streams to be supported: OLDI, DPI, and DSI.
 
-Based on DT by: Robert Nelson <robertcnelson@gmail.com>
+Since the DSS instances on AM62P are architecturally similar to those
+on the AM62X DSS controller, the existing dispc_am625_feats
+configuration can be reused for the AM62P DSS support.
 
-Signed-off-by: Andrew Davis <afd@ti.com>
+This commit adds the necessary device tree compatibility entry for
+"ti,am62p-dss" in the tidss driver, pointing to dispc_am625_feats,
+thereby enabling DSS support on AM62P devices.
+
 Signed-off-by: Swamil Jain <s-jain1@ti.com>
-[tomi.valkeinen: cosmetic fixes]
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts | 180 +++++++++++++++++++++++++
- 1 file changed, 180 insertions(+)
+ drivers/gpu/drm/tidss/tidss_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-index 8b4b3b80a29d..be3f5349345f 100644
---- a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-@@ -159,6 +159,34 @@ dsi_csi_mux: mux-controller {
- 		/* state = SEL + 2*OE : 0 = DSI0, 1 = CSI1, 2,3 = off */
- 		idle-state = <2>;
- 	};
-+
-+	hdmi0: connector-hdmi {
-+		compatible = "hdmi-connector";
-+		label = "hdmi";
-+		type = "d";
-+		port {
-+			hdmi_connector_in: endpoint {
-+				remote-endpoint = <&it66122_out>;
-+			};
-+		};
-+	};
-+
-+	sound0: sound {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,name = "it66122 HDMI";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,bitclock-master = <&hdmi_dailink_master>;
-+		simple-audio-card,frame-master = <&hdmi_dailink_master>;
-+
-+		hdmi_dailink_master: simple-audio-card,cpu {
-+			sound-dai = <&mcasp1>;
-+			system-clock-direction-out;
-+		};
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&it66122>;
-+		};
-+	};
- };
- 
- &main_pmx0 {
-@@ -205,6 +233,13 @@ J722S_IOPAD(0x0240, PIN_INPUT, 7) /* (B24) MMC1_SDCD.GPIO1_48 */
- 		bootph-all;
- 	};
- 
-+	main_i2c1_pins_default: main-i2c1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x01e8, PIN_INPUT_PULLUP, 0) /* (C24) I2C1_SCL */
-+			J722S_IOPAD(0x01ec, PIN_INPUT_PULLUP, 0) /* (A22) I2C1_SDA */
-+		>;
-+	};
-+
- 	mdio_pins_default: mdio-default-pins {
- 		pinctrl-single,pins = <
- 			J722S_IOPAD(0x0160, PIN_OUTPUT, 0) /* (AC24) MDIO0_MDC */
-@@ -254,6 +289,47 @@ vdd_3v3_sd_pins_default: vdd-3v3-sd-default-pins {
- 			J722S_IOPAD(0x0254, PIN_OUTPUT, 7) /* (E25) USB0_DRVVBUS.GPIO1_50 */
- 		>;
- 	};
-+
-+	dss1_pins_default: dss1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0100, PIN_OUTPUT, 0) /* (AB23) VOUT0_VSYNC */
-+			J722S_IOPAD(0x00f8, PIN_OUTPUT, 0) /* (AB24) VOUT0_HSYNC */
-+			J722S_IOPAD(0x0104, PIN_OUTPUT, 0) /* (AC26) VOUT0_PCLK */
-+			J722S_IOPAD(0x00fc, PIN_OUTPUT, 0) /* (AC27) VOUT0_DE */
-+			J722S_IOPAD(0x00b8, PIN_OUTPUT, 0) /* (W27) VOUT0_DATA0 */
-+			J722S_IOPAD(0x00bc, PIN_OUTPUT, 0) /* (W25) VOUT0_DATA1 */
-+			J722S_IOPAD(0x00c0, PIN_OUTPUT, 0) /* (W24) VOUT0_DATA2 */
-+			J722S_IOPAD(0x00c4, PIN_OUTPUT, 0) /* (W23) VOUT0_DATA3 */
-+			J722S_IOPAD(0x00c8, PIN_OUTPUT, 0) /* (W22) VOUT0_DATA4 */
-+			J722S_IOPAD(0x00cc, PIN_OUTPUT, 0) /* (W21) VOUT0_DATA5 */
-+			J722S_IOPAD(0x00d0, PIN_OUTPUT, 0) /* (Y26) VOUT0_DATA6 */
-+			J722S_IOPAD(0x00d4, PIN_OUTPUT, 0) /* (Y27) VOUT0_DATA7 */
-+			J722S_IOPAD(0x00d8, PIN_OUTPUT, 0) /* (AA24) VOUT0_DATA8 */
-+			J722S_IOPAD(0x00dc, PIN_OUTPUT, 0) /* (AA27) VOUT0_DATA9 */
-+			J722S_IOPAD(0x00e0, PIN_OUTPUT, 0) /* (AA25) VOUT0_DATA10 */
-+			J722S_IOPAD(0x00e4, PIN_OUTPUT, 0) /* (AB25) VOUT0_DATA11 */
-+			J722S_IOPAD(0x00e8, PIN_OUTPUT, 0) /* (AA23) VOUT0_DATA12 */
-+			J722S_IOPAD(0x00ec, PIN_OUTPUT, 0) /* (AA22) VOUT0_DATA13 */
-+			J722S_IOPAD(0x00f0, PIN_OUTPUT, 0) /* (AB26) VOUT0_DATA14 */
-+			J722S_IOPAD(0x00f4, PIN_OUTPUT, 0) /* (AB27) VOUT0_DATA15 */
-+			J722S_IOPAD(0x005c, PIN_OUTPUT, 1) /* (AC25) GPMC0_AD8.VOUT0_DATA16 */
-+			J722S_IOPAD(0x0060, PIN_OUTPUT, 1) /* (U26) GPMC0_AD9.VOUT0_DATA17 */
-+			J722S_IOPAD(0x0064, PIN_OUTPUT, 1) /* (V27) GPMC0_AD10.VOUT0_DATA18 */
-+			J722S_IOPAD(0x0068, PIN_OUTPUT, 1) /* (V25) GPMC0_AD11.VOUT0_DATA19 */
-+			J722S_IOPAD(0x006c, PIN_OUTPUT, 1) /* (V26) GPMC0_AD12.VOUT0_DATA20 */
-+			J722S_IOPAD(0x0070, PIN_OUTPUT, 1) /* (V24) GPMC0_AD13.VOUT0_DATA21 */
-+			J722S_IOPAD(0x0074, PIN_OUTPUT, 1) /* (V22) GPMC0_AD14.VOUT0_DATA22 */
-+			J722S_IOPAD(0x0078, PIN_OUTPUT, 1) /* (V23) GPMC0_AD15.VOUT0_DATA23 */
-+		>;
-+	};
-+
-+	main_mcasp1_pins_default: main-mcasp1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0090, PIN_INPUT, 2) /* (P27) GPMC0_BE0n_CLE.MCASP1_ACLKX */
-+			J722S_IOPAD(0x0098, PIN_INPUT, 2) /* (V21) GPMC0_WAIT0.MCASP1_AFSX */
-+			J722S_IOPAD(0x008c, PIN_OUTPUT, 2) /* (N23) GPMC0_WEn.MCASP1_AXR0 */
-+		>;
-+	};
- };
- 
- &cpsw3g {
-@@ -334,6 +410,13 @@ J722S_MCU_IOPAD(0x050, PIN_INPUT_PULLUP, 0)	/* (C6) WKUP_I2C1_SDA */
- 		>;
- 		bootph-all;
- 	};
-+
-+	hdmi_gpio_pins_default: hdmi-gpio-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_MCU_IOPAD(0x0038, PIN_INPUT_PULLUP | PIN_DEBOUNCE_CONF6, 7) /* (D8) MCU_MCAN0_RX.MCU_GPIO0_14 HDMI_INTn */
-+			J722S_MCU_IOPAD(0x0034, PIN_OUTPUT_PULLUP, 7) /* (B2) MCU_MCAN0_TX.MCU_GPIO0_13 HDMI_RSTn */
-+		>;
-+	};
- };
- 
- &wkup_uart0 {
-@@ -435,6 +518,54 @@ rtc: rtc@68 {
- 	};
- };
- 
-+&main_i2c1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_i2c1_pins_default>;
-+	clock-frequency = <400000>;
-+
-+	it66122: bridge-hdmi@4c {
-+		compatible = "ite,it66122";
-+		reg = <0x4c>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hdmi_gpio_pins_default>;
-+		vcn33-supply = <&vdd_3v3>;
-+		vcn18-supply = <&buck2_reg>;
-+		vrf12-supply = <&ldo2_reg>;
-+		reset-gpios = <&mcu_gpio0 13 GPIO_ACTIVE_LOW>;
-+		interrupt-parent = <&mcu_gpio0>;
-+		interrupts = <14 IRQ_TYPE_EDGE_FALLING>;
-+		#sound-dai-cells = <0>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			/*
-+			 * HDMI can be serviced with 3 potential VPs -
-+			 * (DSS0 VP1 / DSS1 VP0 / DSS1 VP1).
-+			 * For now, we will service it with DSS1 VP0.
-+			 */
-+			port@0 {
-+				reg = <0>;
-+
-+				it66122_in: endpoint {
-+					bus-width = <24>;
-+					remote-endpoint = <&dss1_dpi0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				it66122_out: endpoint {
-+					remote-endpoint = <&hdmi_connector_in>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
- &sdhci1 {
- 	/* SD/MMC */
- 	vmmc-supply = <&vdd_mmc1>;
-@@ -467,4 +598,53 @@ &main_i2c2 {
- 	status = "disabled";
- };
- 
-+&dss1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&dss1_pins_default>;
-+
-+	clocks = <&k3_clks 232 8>,
-+		 <&k3_clks 232 0>,
-+		 <&k3_clks 232 4>;
-+
-+	assigned-clocks = <&k3_clks 241 0>, /* DSS1-VP0 */
-+			  <&k3_clks 240 0>, /* DSS1-VP1 */
-+			  <&k3_clks 245 0>; /* DPI Output */
-+
-+	assigned-clock-parents = <&k3_clks 241 2>, /* PLL 17 HDMI */
-+				 <&k3_clks 240 1>, /* PLL 18 DSI */
-+				 <&k3_clks 245 2>; /* DSS1-DPI0 */
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		/* DSS1-VP0: DPI/HDMI Output */
-+		port@0 {
-+			reg = <0>;
-+
-+			dss1_dpi0_out: endpoint {
-+				remote-endpoint = <&it66122_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mcasp1 {
-+	status = "okay";
-+	#sound-dai-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_mcasp1_pins_default>;
-+	op-mode = <0>; /* MCASP_IIS_MODE */
-+	tdm-slots = <2>;
-+	serial-dir = <  /* 0: INACTIVE, 1: TX, 2: RX */
-+		1 0 0 0
-+		0 0 0 0
-+		0 0 0 0
-+		0 0 0 0
-+	>;
-+	tx-num-evt = <32>;
-+	rx-num-evt = <32>;
-+};
-+
- #include "k3-j722s-ti-ipc-firmware.dtsi"
+diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
+index 7e7f2ba6ae82..86b7596ab628 100644
+--- a/drivers/gpu/drm/tidss/tidss_drv.c
++++ b/drivers/gpu/drm/tidss/tidss_drv.c
+@@ -240,6 +240,7 @@ static const struct of_device_id tidss_of_table[] = {
+ 	{ .compatible = "ti,am625-dss", .data = &dispc_am625_feats, },
+ 	{ .compatible = "ti,am62a7-dss", .data = &dispc_am625_feats, },
+ 	{ .compatible = "ti,am62l-dss", .data = &dispc_am62l_feats, },
++	{ .compatible = "ti,am62p-dss", .data = &dispc_am625_feats, },
+ 	{ .compatible = "ti,am65x-dss", .data = &dispc_am65x_feats, },
+ 	{ .compatible = "ti,j721e-dss", .data = &dispc_j721e_feats, },
+ 	{ }
 
 -- 
 2.43.0
