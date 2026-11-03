@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700103;
-	b=1PcwPVXo18Kdi1cQeyOrpjwMtjj1ZpUMyXfb/LtT6ojIaBnEiXhFbrQeB/TU+Fe2WGwu
-	 Dbn+oRM4Ik34f4WqiC6DiGgIxe5qpBR0y/x6gIhebu86CCXDD7tRJJtpEu18Xmm+dlSCU
-	 peO0KX/Tbw5UQAtgwVN7AQcsHG265gGKGVpglxU9TSfAw11/urWINiU0gu8MSSrHRCRQp
-	 Iak1AjcEh78oeAEJsTRQD2SzT3ksdQtTNL6qFsdbtrJi88XHFmyyn4vfO6EdBHMlH313F
-	 4aspKSif6tJOcM6Np+vKCuW6pbsXH31UWPSk+PnfLt7v4MSkAizIRqSIWlKkPRgRAcQ==
+	t=1793700149;
+	b=1F+W4t7kB5GOwCEtSuTKX/hyx1VTK0ktm15f8Mbu8RMPcwb2BlL2ycZ0vsOMJ3tljFys
+	 L0ELQ9d2TG8V9w30t/yFXac25nvz2ohJEXIJ0Z8hRTl1BBmipgv06eHn9SyBVh9Vnx4ox
+	 MKZJT40Bob5VWiegBNRsUo++x+5I/JlB7PqhA4H5hc8ujFgEG364sJqSrb7ZE9ujWcGoz
+	 YFec9HI/JiM9Ver9U0oaqCD+HSW53aUoFZoeMFHid22+wr+CuLcftbM4jIqn+KAFcG/rr
+	 UFtBhnaSTDmi2dByu3vHGTyCVKSZgQazdGfb1Kik6m264x3/1op2WS1wbxbunT4kLjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700103;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=FqjOBQ3xr5kwaGHmjLky3COOWtd1V+xD1/etHhnAFZU=;
-	b=2oplPyWtPzjjYbnCVPinPf0X5XxokknCKl1n6Q0aDyo1dh0ElhaiopJ/IQtImmmm8+Fd
-	 4EzJnZFT46wVWs2lvTc/PZIAbTSsOr4SuWfWNh32l6Y7TsmpZEoqNvgtVQImYdg5CtKjP
-	 6mHvlaZLvoNTRtU0NeAOnjZMtmcn3eWMRDpZsyaJlDdTGjhBnA7Hsa56GuTUm3bwVaXWO
-	 Xz6YME0vBNWQ6O6JBzToJo4INoANnQuzN3+b9330Yua+rn7yQN1UcsGbtbwOyQFrnHAvf
-	 CrKWMaAsKgbtZ4bFzTezUuG2KSuJ2RC2bLL32rdqoU7jeLu5V7GXqceRHJvM2x58PdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700149;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=SqbYtgRwv8HZ1eJAUuQK7Bk8SUZv++K3V0kRYg9US0c=;
+	b=4Y2TheDzh7u15aPrFBqs5iKcKP5WKjCm85b+zl2W0JzqyvI0uaVfAjBbWjKNlk+aID8R
+	 n86I2YeLE2HrXmyCZLDlZwILTC5sS8X6vhDuQxZtujQuuvKJigPxRqXJiWUqyEOCzc7AL
+	 qpGAQu6+OwBW0FGmaBWpo261PGs+3EQ+lCQNVotYh7Y5CDzw1g0JfDwYc5/j0MhNnFoNL
+	 xlmRYiaRLMr8XJwD6scBVw0VgftCyuQ6PY+ElvKVoF0UKg6ckTQM01LDcL06QqPb1vQSj
+	 zxNAxsV2UUFelQ/X4xZOSYqkUxYMEgnXnAVnWL6uNRqda7pB8b3lAUmw1fID3tPPagQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S7Ux2+O+;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLTVrKrI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3542C606A326;
-	Tue,  3 Nov 2026 10:01:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3542C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C69606A33D;
+	Tue,  3 Nov 2026 10:02:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S7Ux2+O+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793700103; x=1825236103;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/UZzLak2/xNgfH1t1NAvGuxOOsCUaFsLQSniakLlK/4=;
-  b=S7Ux2+O+ulws937fC/4jLRfFsiesFBAmun5pMpyhF0inh7TAfi1Yy0WC
-   BJS2jMsRMTs5MlHPt5PJiJYXxqh4YlDrvpsgpO0ZQF76OLPny1nJZFnaf
-   X11E04864uHr08nLVkVa4X1ALvNR2mTJtdpkJ3LO/L/sCy/iV/d+enDBu
-   NQdi/Vt2rMZOVHvGBB3fNh5tARFUevwUxAWK23oHzBgpgTDaZIaY6fguk
-   4X1qORagJfCC7c3cgOa6Hluiw6nst+7U8bR7/F9j+sq0CGwa1Wuk9B4w7
-   jNTUg1Z7f2l/1vekHWxujveTR6q8AVn5PsFkx7VK3K7hoAFAm/BGhsQNn
-   A==;
-X-CSE-ConnectionGUID: YpZ0RBnGS1SDyQuBsRiBZA==
-X-CSE-MsgGUID: ANxxJBlVQhukfLtUC8dhPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2413708"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2413708"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:01:42 -0800
-X-CSE-ConnectionGUID: 2ogpPpswSQWp0KB5mHcIhQ==
-X-CSE-MsgGUID: aST13NSzQCKvLHsSz43b1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6376728"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:01:39 -0800
-Date: Tue, 3 Nov 2026 12:01:37 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jaakko Koivisto <jmatko@utu.fi>
-Cc: Andreas Klinger <ak@it-klinger.de>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] iio: chemical: sgp40: Replace manual locking with
- guard()
-Message-ID: <aumxAT4Gg4Zm_hgw@ashevche-desk.local>
-References: <20261102091258.247402-1-jmatko@utu.fi>
- <20261102091258.247402-3-jmatko@utu.fi>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLTVrKrI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A878C1F000C1;
+	Tue,  3 Nov 2026 10:02:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793700148;
+	bh=SqbYtgRwv8HZ1eJAUuQK7Bk8SUZv++K3V0kRYg9US0c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=lLTVrKrIaBH6zUQ7bDKr5TgacOJRuOJZlmYT4d2u9XwfynGPj5m6vY/dw1vsxASJc
+	 1XxtplUbtMmzp38uiPm38pM+9ntGvLkwFYfW9AclENHSaZ9jHZupHQQhWYFriAi4h1
+	 +z9iA3e9vvd322FcypTX174RiWpzmmOSl5XWeZmrXpM6Iy3zkGyu0OJ7aLgKK/Lkzl
+	 0JOvIDeV+5KfkqSZWA7pVGRxaO80q3rWan+3jpMgZlqu0bZk4hyEI53JwHyaZVyuUH
+	 jsPxZMk45yZCIVIV2tgUT8Jhi2tiKb/m4Q43SRLIIHPgcmofkZlkg5CRLoxRSjc2JL
+	 3rLYjndwtPGHw==
+From: Carlos Maiolino <cem@kernel.org>
+To: Ravi Singh <ravising@redhat.com>
+Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dave Chinner <dgc@kernel.org>
+In-Reply-To: <20261021063329.2853484-1-ravising@redhat.com>
+References: <20261021063329.2853484-1-ravising@redhat.com>
+Subject: Re: [PATCH] xfs: mark i_mode=0 and shut down on attr fork
+ inactivation failure
+Message-Id: <179370014741.413123.16126716252675791304.b4-ty@kernel.org>
+Date: Tue, 03 Nov 2026 11:02:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,36 +59,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102091258.247402-3-jmatko@utu.fi>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-On Mon, Nov 02, 2026 at 11:12:55AM +0200, Jaakko Koivisto wrote:
-> Replace manual mutex_lock() and mutex_unlock() with RAII-style
-> guard(mutex)().
+On Wed, 21 Oct 2026 08:33:29 +0200, Ravi Singh wrote:
+> xfs_attr_inactive() can fail on an I/O error reading the attribute
+> fork's btree blocks, for example from fault injection such as the
+> dm-flakey errors used by xfstests generic/475. On failure,
+> xfs_ifork_zap_attr() zeros af_nextents without freeing the attribute
+> blocks or decrementing i_nblocks, leaving the inode in an
+> inconsistent in-memory state.
 > 
-> Extend the lock in sgp40_measure_resistance_raw() to cover the
-> I2C send and receive cycle, preventing I/O-errors if the device
-> is currently running a command, or clobbering the output of a previous
-> command if a new command is issued during the sleep-period between
-> i2c_master_send() and i2c_master_recv().
+> [...]
 
->  	/* we calculate as a multiple of 16384 (2^14) */
-> -	mutex_lock(&data->lock);
-> +	guard(mutex)(&data->lock);
->  	x = ((int)resistance_raw - data->res_calibbias) * 106;
-> -	mutex_unlock(&data->lock);
+Applied to for-next, thanks!
 
-We don't wont heavy code to be in the critical section. Here it's quite obvious
-that the call should be scoped_guard().
+[1/1] xfs: mark i_mode=0 and shut down on attr fork inactivation failure
+      commit: bde0010631a207511308dc8407f34595dac13ad5
 
-Side note, in case of use guard()() make sure it's delimited by blank lines, so
-it's visible at a glance when reading a code.
-
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Carlos Maiolino <cem@kernel.org>
 
