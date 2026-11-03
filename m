@@ -1,88 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696109;
-	b=3DPl4dhPQj/TKw9fSMGGQgdXpZYLWobU/HyAI+PmFLDHH+uGP++fsvEWWYovkSRwXhkb
-	 XsvdGdg1Mxm29fdc21GDhxkg8G+x3vNpyjOgdWsaxeEb1XmOJULSgNBNEwFGtm1ahheie
-	 cgueDt+O2DYLDkl0Dh8XdDADpYQreAbW2f71wsvt60OEhGAzVQkkthFOnxrVO5/8E+21J
-	 LNtgV5Iwuu/pHrEaksIXwrOr0GKd/tpBuEvwNLsSPL2w3sSCshsQLvkfZk5v6S9uLCdFc
-	 1LLuJN/Ie14Www1pCUGkFZ0uobICyIu9+ustJqHYYS3GqPXMdQw0lro1UhAsAJJe67A==
+	t=1793696128;
+	b=WAaljWknj73iUQSW/wyyEFEqbW6ALjSy0cd6CEP/s+xhJ5C7zRT/7572yifNTRSAZrU2
+	 ag0LaHQzBjXMekX5Y/dX1+waGAfAzM6yGOfLOSd7NdVl+VIfed0Dwqv8Scuy9T6NPGleY
+	 4rOU0mk5rjwgiOA278xKqwQXoplt1M2LGM8UH6hgE/Oelxio9ws10etN+ixs2FBarQ4Xu
+	 7eqO4lq7hTiMWK1VOMeVWoJqjKsX8fUwuIzCfcSvf+t9MjGc3hF9jCiqyMBuptcRFp9Wk
+	 fergOwbaoiO/x1kgFMC00UKafvFDRQC3m05yBvCXGAdpGUfSzdzAVIR6Hf7J5FTGTjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696109;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:References:
-	 Content-Language:Autocrypt:Organization:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696128;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=agwTDlVTaDDjvub+/sVTXidA5drfVA/Xuq65aoektFk=;
-	b=XoiTNiwnMdSo+n1LkAwj7zfBGVImjp1rng3QWvijVQSjBrx70l5qxiRuZOoLaEBb0kiZ
-	 hFkeExnaQ0IUN62fPpF2lGEbbn/EG/7btuBRQG5pK4j0+GdAKfATspKFhvCi6LZ707vlv
-	 ZjMTT/nGQf/UZfU9eBYRmpLdo8vTI5KowbtBwIbg4VhsXtFWKix4W2f9Vsx3bWpqDMV/W
-	 rbyGji+TVWpbxj6eM7YrpsY+kpHF2nnShrbYcfMIMa6pV9T43K5/bnsgMuZRicf6s8fi8
-	 odN+RwHyP6piIqxXR1HwtRzo6235AEsRWx0HiL/lw7Qhq8RcoOpK1FPCvIN8uDmtO3g==
+	bh=skS4Hj0nFWFL/cGWu35SXWo0kl33qV99q/2dROGQj+Y=;
+	b=M45J3+8SolDvkik9xuMdf+kY8EfdRRZbRMf/tGmGS1u8Or0SwY36AIOYRmPBs1zlIfnI
+	 1NR2EIRTmoaM+Rd9lq9w0CI1mYJ5v/9zOP18ADkkxwUCNXtAGgFxbaArN8OJIY44dzNS/
+	 pwlYW2LLjPkGnRAg90McnUARw2C2oi2N9gARA/uTgUppIylj4+A1gGTX4C73njVJEmO14
+	 U5HRKbQYi+zMAysApyygUmvdzJ7Gru4PGmoee3B8J125nhzNmpXLJCDt9bh99jtB3mBVN
+	 kda+dlxW12U4FoD2D5tfLneWfB+Z7xEv1PYUel0ULhPZjMigdXt9bWqzigDYG+02PQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tb4P2c31;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=sHIIfLuQ;
+	arc=none smtp.remote-ip=115.124.28.75
+Received: from out28-75.mail.aliyun.com (out28-75.mail.aliyun.com [115.124.28.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6760606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:55:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6760606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C393A606A324;
+	Tue,  3 Nov 2026 08:55:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C393A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tb4P2c31
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so40517615e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:55:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793696107; x=1794300907; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=agwTDlVTaDDjvub+/sVTXidA5drfVA/Xuq65aoektFk=;
-        b=tb4P2c31O94KPbtcM+9HGamMUoeSJpm688QqLQHP4hJk4CdmZcauDs+ZG3RhjL3OqP
-         83U14EZE2dM08TV1PFO0bayYgxCjJAZwxYrKIi7hshc8+269p2tlnPEdRFkIv76T1oWv
-         qQZlfREtbknavweStprVRQFhLexTTf1hN1Pk0B5pNaw5deRFADnUmYrkzSHWshHO/3Oo
-         yY2crvWrFXr1MrZimgIRy6KNY6kPOi+hJZsm5mishijBDPEy7iBadj+NmHzk4vVU+CKb
-         dabUBw5i9J7b0kVifyOAJ4NSJrBz7Fk83JdvUIcQEODaNRgF0f/7lrMUz5tL5f0LuWFQ
-         jR1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793696107; x=1794300907;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=agwTDlVTaDDjvub+/sVTXidA5drfVA/Xuq65aoektFk=;
-        b=VjFRwwSucGeeGxtE/W7Xbih/+VdX3D57FySONDfKZo+oDyPBr7+gE/IiVePp2QR47C
-         f1UCohQwCtX5F8crUxUuf+wnnddarc1v+VNUrV6BYt7T4ISDLURVFNZ4p+l3ZD5zL1/w
-         IxyvEBnL6q/8VUQqrA0HHCpdiKti6gmHdpNRasf8LwTOpMUq8rgO6FTVa6GFicxZOajA
-         bCPVKAg4xzeIBUUFq66itmgr02j4DMxsefIyFd6ENSSrigkPpPM3Ix4WPpB98L+Q4ccc
-         UwU8nd4t51vuJ3vWkz/VOXJnb7Uz7qWO+6XIH3HtvYkb7ZA3iaQWys9nXj5pzKrKGbqV
-         FbHA==
-X-Gm-Message-State: APuU4Z84JReCErMMVamwEY8GyyDjVj8yUzCEI2MIBtaY3HLzm4mUEOyt
-	CJfigRlnDxi7cXJrAUcLB+1BSJ94xviPNlVeWOrJ+RKJ4iuMxheGQcZRPIRTChHvyMo=
-X-Gm-Gg: AYBFou0+ZTTmdMn4HyfslvyGcs3leDSRcbhX0laa3ISmwNpMtPnS5hp7pRJXz4l54B6
-	6PtphdUHsuO9wJ1qvJfSuIg8vCA1g2/4a0Bjtd6b5QTC9G5vJjZDlBjgDcMxgI0ASKCVpZjqMsb
-	fAZ8Mmgf49fmduUcNijyuvLn9CYhoNKZ91moLdfeFDP8gVCfFu4nbiN5wDqtO+eZeydzPKlkzc3
-	1LbW8yyxlVfFoqgFYO/EfU0bR4reoCCstVcR0Axu7y/nTi26x5+X9e9RH09XoWCuQ8p99GtZWF8
-	MqdVCpUIHGM50JGNi5rmdUmnnw1lzXlLF1RGfI1dLjflawW6CKgrdTR4g7XLq+d8XaxCeO6WLI4
-	ESGAVHyQEEkZEmXfmMtPkMX+wFV3xu3B8eK3ehIANN+2nmYNDQOALktMBD5e9qAdhtbpL3vzwZR
-	hs3XrVuieQR26PmN09tR3OGoxVmMuQtzTDuq6YOXh9yng4a2s3gFWk7xrmHhGCnmK3x0YD/iBm3
-	fEz6dNGoDg1exhMZZo/WaJqYiaRPWF08+YEmdWmzqEQORhjWWqfpQrAUjw72mv2Mt0fNaYCfKX4
-	V/PKtayaKrZBfV3eoR5nMhchtslgj48j8A0xVbo/7pcxmPu2AFLjowzOslS9JxiLtNUF4dZa9Nz
-	LdqlTRIwK
-X-Received: by 2002:a05:600c:8119:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4ac17a36a28mr255021625e9.9.1793696106916;
-        Tue, 03 Nov 2026 00:55:06 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:95a2:4869:9f46:45f0? ([2a01:e0a:106d:1080:95a2:4869:9f46:45f0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9bd5d9fsm40122525e9.15.2026.11.03.00.55.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 00:55:06 -0800 (PST)
-Message-ID: <518cba7c-1aba-492f-ac6a-c5c4fe6da847@linaro.org>
-Date: Tue, 3 Nov 2026 09:55:06 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=sHIIfLuQ
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793696115; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=skS4Hj0nFWFL/cGWu35SXWo0kl33qV99q/2dROGQj+Y=;
+	b=sHIIfLuQc5qvtCAhQT8GYlRVviqImPNlRG1mWvCNApOUxii7+7yKaV3fE0aV0GhKDTp2+lEW1dKgrk6C3RGiHIBsWL6oUs1pHvjnhLtorN7Cd+H4YjAfe/FEVX65ctB//4GIDdVFV03b/VsnS69aFmrrHRtrK5Fv7BfE/evjQMM=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1169655|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0211264-0.000480096-0.978394;FP=5579365199278152916|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037033194;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jvSnYUX_1793696114;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jvSnYUX_1793696114 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 16:55:15 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] Input: joydev - avoid signed overflow in the broken-axis correction
+Date: Tue,  3 Nov 2026 16:55:14 +0800
+Message-ID: <20261103085514.431010-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261103084135.426629-2-zhugl3@xiaopeng.com>
+References: <20261103084135.426629-2-zhugl3@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,71 +63,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] arm: dts: meson8m2: add dwmac 3.70a compatible
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-References: <20261101232011.1172410-1-martin.blumenstingl@googlemail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261101232011.1172410-1-martin.blumenstingl@googlemail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/2/26 00:20, Martin Blumenstingl wrote:
-> The Meson8m2 DWMAC reports User ID 0x10 and Synopsys ID 0x37,
-> identifying it as a Synopsys DWMAC 3.70a core.
-> 
-> Add the "snps,dwmac-3.70a" compatible to match meson8b.dtsi.
-> 
-> Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-> ---
->   arch/arm/boot/dts/amlogic/meson8m2.dtsi | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/amlogic/meson8m2.dtsi b/arch/arm/boot/dts/amlogic/meson8m2.dtsi
-> index 6725dd9fd825..cdc47ee1a233 100644
-> --- a/arch/arm/boot/dts/amlogic/meson8m2.dtsi
-> +++ b/arch/arm/boot/dts/amlogic/meson8m2.dtsi
-> @@ -25,7 +25,7 @@ canvas: video-lut@48 {
->   };
->   
->   &ethmac {
-> -	compatible = "amlogic,meson8m2-dwmac", "snps,dwmac";
-> +	compatible = "amlogic,meson8m2-dwmac", "snps,dwmac-3.70a", "snps,dwmac";
->   	reg = <0xc9410000 0x10000
->   		0xc1108140 0x8>;
->   	clocks = <&clkc CLKID_ETH>,
+The JS_CORR_BROKEN correction multiplies two user-controlled 32-bit
+values before shifting and clamping the result:
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+	value = value > corr->coef[0] ? (value < corr->coef[1] ? 0 :
+			((corr->coef[3] * (value - corr->coef[1])) >> 14)) :
+			((corr->coef[2] * (value - corr->coef[0])) >> 14);
 
-Thanks,
-Neil
+The coefficients come from JSIOCSCORR without any range check, so
+three things can go wrong: the subtractions can overflow 32 bits
+(value = 0 against coef[1] = INT_MIN), the products can overflow the
+type, and a product that survives the multiplication in 64 bits can
+still wrap when the shifted result is assigned back to the int
+variable, which then slips through clamp() as a small value instead
+of saturating.
+
+Compute the whole correction in 64 bits, including the subtractions,
+and clamp with clamp_t(s64, ...) before narrowing, which is
+bit-identical for every in-range input.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
+v2: per review, extend the 64-bit computation to cover the subtractions
+    ((s64)value - coef, which could overflow 32 bits before the
+    promotion in v1) and keep the shifted product in s64 through
+    clamp_t(s64, ...) so an out-of-range result saturates instead of
+    wrapping during the narrowing to int.
+
+ drivers/input/joydev.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/input/joydev.c b/drivers/input/joydev.c
+index 32459fd..18aa9ce 100644
+--- a/drivers/input/joydev.c
++++ b/drivers/input/joydev.c
+@@ -72,11 +72,15 @@ static int joydev_correct(int value, struct js_corr *corr)
+ 	case JS_CORR_NONE:
+ 		break;
+ 
+-	case JS_CORR_BROKEN:
+-		value = value > corr->coef[0] ? (value < corr->coef[1] ? 0 :
+-			((corr->coef[3] * (value - corr->coef[1])) >> 14)) :
+-			((corr->coef[2] * (value - corr->coef[0])) >> 14);
++	case JS_CORR_BROKEN: {
++		s64 tmp = value > corr->coef[0] ?
++			(value < corr->coef[1] ? 0 :
++			 (s64)corr->coef[3] * ((s64)value - corr->coef[1])) :
++			(s64)corr->coef[2] * ((s64)value - corr->coef[0]);
++
++		value = clamp_t(s64, tmp >> 14, -32767, 32767);
+ 		break;
++	}
+ 
+ 	default:
+ 		return 0;
+-- 
+2.43.0
+
