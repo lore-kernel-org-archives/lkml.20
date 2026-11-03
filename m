@@ -1,60 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670787;
-	b=ICKboZtiGOMyQEHNoXPXXGvyD9LIF2vc/byn9DYzwWD4Gj8UAuX0U04fwpGBhyPhMj2f
-	 sSlL2c4NApqtgOmuOPhGPopOMLWnP7wacTdERprItcoIUcVT9yVYezexzAnSyyQCXITXZ
-	 1j4NzdvffPPcFvkqU2rqgnhHmoMIpbgsUeGuqlqqK/0Ww9wLhZ1d9kWkXXJ/gWwWJEbZT
-	 MOJGL+KKEtrC6w/utHwiwWXcf03s7SbI6GqL0KeXcq0VSgOsIyONnlZE6DWm5Z71iURma
-	 lUJGNAX3MIJS5Pb1k2tfIN/tsi5xJWhBJFvGFpmNqVM7OKwZMo7iklQ+bCGVyGH0qkA==
+	t=1793670783;
+	b=kk/hR8pMlgfU8iS49y+/qKhKVeUIOlW2hm3xWlbA1oKh8oWi1bFgPm/z/d7tm5LzT8Ap
+	 NF1EN8QaG6rcRCLsylmAYYlDVow7AZqFqlKR1Ih/qWkeyI5FcU2LrZHDZ7MXG4qNuUob+
+	 FI8PDxRB0+lBMuLSRayRzUHFMvnywc5P212E8UKDuFDjFZt8fQYM6rzeeif91gzVpsg4f
+	 EIG0XYzB8N9uTaJY+O9UY46F0qxwsnO4HojVOktllziYu5rvicXRRxjzEQ1cRKJDAwHXz
+	 0sS6KZ49Vf/W8BkTmOvdiyCzakxgySZyR08E/Zj7TgeFG/RJvOqBq/75aFhPytgwxvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670787;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670783;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=w78hgx36qeDHkysHaTIEABwBhJjJACJ9wwYhJIydxFc=;
-	b=KsNsKsSqyukLIAJIAKYQ7GGgDqHHDVqjzMvIAwXSKM6CL5o3aXPGbZPS6pxr+5CCumxx
-	 ZXNbLn38z/6bmESWPH1yVYvTnXPNbnlz8tSchalBIYnKWyQYKl4N4bUFopvJN36wwncYu
-	 3VV76Zf8S3ijENnqHo9yC35j1Lfqk2vfSbOyIjdwAzMYsoWtYuHYm/2QYFdeb1Ag/MH7m
-	 vsn2AWu+jmuGuHFp+kHrw6t1WTPtc2rEqxAbXcSkDQiLSd87e/UhAJrMAnbC1UjqHBSot
-	 397A9OXYkYhniQ+3TItJyz85ZPkzgARf77wr5CDD1IVwwZXSPgErnXT5oEaCQRblCXw==
+	bh=UkBaLAlMUwHRb5nWDne6IbjsAhmk89ydx5e4BpR6msI=;
+	b=sRMsdEmRYc1VV1lsXd6EFTbAo/TwuWavIaOKwD2Nlz+1yNoFiq4JFib6gDHDgcgzzwp9
+	 qedt2ubte5NbpIY/Kp865RJ47GwACcCx6PGLTIHoPCDvUoXblhhEG/J2HGWtQqu09zI2y
+	 I6G+xxAMPPo7WIsIpdE69tj4ns/q5Q60tdCL/L2GDCYQ7UGb8Z5+wBcCfbSayiEm2IF3r
+	 R38XzhZh59/cuBZr0Sqh5hQhEoPsZa6is2Mk2o8lxAamEwXsgb4wcWSOMun50dQ92iQ9g
+	 K71nwDSRCFuRcBR+277au27HeuxU+U9SW/hqEqUiRXUMNMl/8hO8sFt+rKjR6tcoXvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cxa4X7ev;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6cf0Y1a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38FDE606D80D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:53:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4E3606D81D;
+	Tue,  3 Nov 2026 01:53:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cxa4X7ev
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6EF11F00919;
-	Tue,  3 Nov 2026 01:53:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6cf0Y1a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D8E1F000C1;
+	Tue,  3 Nov 2026 01:53:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793670787;
-	bh=w78hgx36qeDHkysHaTIEABwBhJjJACJ9wwYhJIydxFc=;
+	s=k20260515; t=1793670782;
+	bh=UkBaLAlMUwHRb5nWDne6IbjsAhmk89ydx5e4BpR6msI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cxa4X7evwgmhT/qasL4MLE40CUJG68EkUsdVHT/Ffy3m7G0JcbTOYTr0zP5scp3PS
-	 2eh25X1AYw7idPIJDzKt3eCz5iliLqquqNtpYuA3rD4uAq7ha/S76JpnFIDgfaIQA8
-	 DDay2j6pyQfl3lV+tFuh/AVJnQVVdjTjtJ3IR5IUrMbpksgXLuDwwHqZt+FTTtqEkE
-	 9joqTQBzhLUgfxladE2Zg/y3FTLxyGM+Ex3G2pAWc6g+aGmtG+AoQzz7VKYXmZInzy
-	 XEYvCIsAA+HXqDWTrkuguYVYHh8zD4Hnh+gH9Mgq4cS4A3A03FGCXOPy+u2VgrHZfn
-	 WdyH+V9M+Ep3A==
+	b=e6cf0Y1aUCvZ2jJrmWiTnpvORsJpqM2kUEGebn00tyA8NeK/bTiiEHBb7zw62KbUf
+	 VTiPW91J0Rbf9Lm6LIbtW4uPbl4mzeuuaW/xh3E4y021RHvdmx23cxglsUCh4ujmV3
+	 10LCxb68ff4KDtEjDvsTy2t0asfcGqExSOTyDGNAzt4VdBBrHZQPNjX1hWsvDnX/z9
+	 UyvhqukAya979uOMY9sQFPSemPcMRNhCNgZ5QOzNIGgtcUvfSSQ7NGh1KJrPPD25xl
+	 NvW3mNb6Wyzw4ICvFp+tiKcM4Qo9gMj81o1hXbP5YJphRrXxh3lak20IOSeJvtjNWI
+	 u+t79AfFSX+MQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org
-Cc: Andy Lutomirski <luto@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
+Cc: Borislav Petkov <bp@alien8.de>,
 	Chuck Wolber <chuck@wolber.net>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	"H. Peter Anvin" <hpa@zytor.com>,
 	Ingo Molnar <mingo@redhat.com>,
+	kvm@vger.kernel.org,
 	Marco Elver <elver@google.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
+	Sean Christopherson <seanjc@google.com>,
 	Thomas Gleixner <tglx@kernel.org>,
 	x86@kernel.org
-Subject: [PATCH v2 13/20] x86/entry: Stop excluding the entry code from KCOV
-Date: Mon,  2 Nov 2026 20:52:31 -0500
-Message-ID: <20261103015238.3780910-14-sashal@kernel.org>
+Subject: [PATCH v2 10/20] x86/sev: Use non-instrumented bitops in the GHCB accessors
+Date: Mon,  2 Nov 2026 20:52:28 -0500
+Message-ID: <20261103015238.3780910-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103015238.3780910-1-sashal@kernel.org>
 References: <20261103015238.3780910-1-sashal@kernel.org>
@@ -69,62 +71,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The x86 entry code has been excluded from KCOV since commit 20355e5f73a7
-("x86/entry: Exclude low level entry code from sanitizing"), when
-noinstr couldn't keep KCOV out of noinstr functions.
+The GHCB accessors are used from noinstr code, such as
+__sev_es_nmi_complete(), but use test_bit() and __set_bit(), which
+call the KASAN and KCSAN checks. arch/x86/coco/sev/Makefile disables
+KASAN and KCSAN for noinstr.o, which turns those checks into empty
+stubs, but they still have to be inlined. Instrumentation such as gcov
+can prevent that and leave calls to kasan_check_write() behind in
+noinstr code.
 
-Since commit 540540d06e9d ("kcov: add __no_sanitize_coverage to fix
-noinstr for all architectures"), noinstr implies __no_sanitize_coverage,
-and on x86 objtool removes any KCOV call left in noinstr code. KCOV
-instruments the code after inlining, so __always_inline helpers don't
-carry it into noinstr functions either. What remains instrumentable in
-arch/x86/entry/ is the system call dispatch and the ptrace system call
-hooks, which run in task context.
-
-Drop the exclusion, so that noinstr alone keeps KCOV out of the x86
-entry code, like it does for the other coverage implementations. A
-traced read(-1) now reports 18 instead of 12 PCs, the additional ones
-being the system call dispatch.
-
-The generic entry code has to stay excluded, but for a different reason
-than its Makefile gives: parts of the interrupt exit code, such as
-irqentry_exit_cond_resched(), run after leaving hardirq context, where
-KCOV adds their coverage to the trace of the interrupted task. Without
-the exclusion, they show up in the traces of system calls interrupted
-by the timer. Document that instead.
+Use the arch_ bitops, which aren't instrumented, as is done elsewhere
+for noinstr code.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/entry/Makefile | 1 -
- kernel/entry/Makefile   | 3 +++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ arch/x86/include/asm/svm.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/entry/Makefile b/arch/x86/entry/Makefile
-index 83b4762d6ecba..cd24c28358f97 100644
---- a/arch/x86/entry/Makefile
-+++ b/arch/x86/entry/Makefile
-@@ -5,7 +5,6 @@
+diff --git a/arch/x86/include/asm/svm.h b/arch/x86/include/asm/svm.h
+index 83fd49b26a4b1..9881c702a8f01 100644
+--- a/arch/x86/include/asm/svm.h
++++ b/arch/x86/include/asm/svm.h
+@@ -674,8 +674,8 @@ static inline void __unused_size_checks(void)
+ #define DEFINE_GHCB_ACCESSORS(field)						\
+ 	static __always_inline bool ghcb_##field##_is_valid(const struct ghcb *ghcb) \
+ 	{									\
+-		return test_bit(GHCB_BITMAP_IDX(field),				\
+-				(unsigned long *)&ghcb->save.valid_bitmap);	\
++		return arch_test_bit(GHCB_BITMAP_IDX(field),			\
++				     (unsigned long *)&ghcb->save.valid_bitmap); \
+ 	}									\
+ 										\
+ 	static __always_inline u64 ghcb_get_##field(struct ghcb *ghcb)		\
+@@ -690,8 +690,8 @@ static inline void __unused_size_checks(void)
+ 										\
+ 	static __always_inline void ghcb_set_##field(struct ghcb *ghcb, u64 value) \
+ 	{									\
+-		__set_bit(GHCB_BITMAP_IDX(field),				\
+-			  (unsigned long *)&ghcb->save.valid_bitmap);		\
++		arch___set_bit(GHCB_BITMAP_IDX(field),				\
++			       (unsigned long *)&ghcb->save.valid_bitmap);	\
+ 		ghcb->save.field = value;					\
+ 	}
  
- KASAN_SANITIZE := n
- UBSAN_SANITIZE := n
--KCOV_INSTRUMENT := n
- 
- CFLAGS_REMOVE_syscall_32.o	= $(CC_FLAGS_FTRACE)
- CFLAGS_REMOVE_syscall_64.o	= $(CC_FLAGS_FTRACE)
-diff --git a/kernel/entry/Makefile b/kernel/entry/Makefile
-index f220bae86b123..2c837b7513c71 100644
---- a/kernel/entry/Makefile
-+++ b/kernel/entry/Makefile
-@@ -4,6 +4,9 @@
- # as long as these things cannot be disabled per function.
- KASAN_SANITIZE := n
- UBSAN_SANITIZE := n
-+
-+# Parts of the interrupt exit code run after leaving hardirq context, where KCOV
-+# would add their coverage to the trace of the interrupted task.
- KCOV_INSTRUMENT := n
- 
- # Branch profiling isn't noinstr-safe
 -- 
 2.53.0
 
