@@ -1,122 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717819;
-	b=d069KNXeyEz8c0jKnyAlgPc2Fz+8YMdTyl6N79uRygMpieM89YkZB7Kd3NeCrgPEEAsI
-	 oTO4nvjDKwLC59qX5E7dTes/P1vdVu9RxOeSoQ0vyEiAVbpqkRH2JRyCTpFFdHF4Hn+Fm
-	 ehK9Wklj3fG7b5d5+tS1ESMcEj1iWFzNf3oLE/aNfjNc6zUy/Cx6/DP0VGHZ8nPDhS960
-	 Z0GY8K+0fi6j0jcSY7DDcJMtf709iye6miNncwNTBDEWP8a2aMn9wtKIrDBixfG917uIl
-	 Du7HqgsaOM+sRLBjKxJ9GRYxOLX6+D9RzODaLW76QaGx1DgJkZBvrWRYliXD0RhaiHQ==
+	t=1793717848;
+	b=kXV8xyx2Q8Tj9JXHutSb1eObcENJEUjgyAbPfzfc3qlXYIUyFzdBiyefPHaTfgA+R5Xn
+	 +6r6+hY/vE6Bt1lTk7xWyQG2OkFSEBLRwlURkIPyApU0XpUgW+qnNwCiCB+xNJVNRdcp2
+	 Upbc+OAdu8Un0+H8Z0IBlULM89Z9AEQxvePHTaSV0NSbEm5+l8iyTEkNu7EL7OyusvRdg
+	 t2gwn6WwTCQefeCWOwRqgsid2tz2xoWTUPA7lAEgy2o/QJT24OsGiMQgKsSxVjISkvyfI
+	 WFG57Lv5Mh9PVzltzVzu5q0FYKz8wu0lR63XXAlRKRTsmtOXjbBwatTk/cwrpQTi+xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717819;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CxRFMAsJ+VFJvYEEwkTyCVJVUBTdh4sTWBpZZ0rFhHI=;
-	b=ljBqS6kAP5WaS9dEbupCt4uqbMCS4Xoa3Ufml4O5RZ15Rj5UiVflpYXOQwXi+rF1l73k
-	 dbWqX5KZkxx12q8cvZ5GuhK423J+65M7AmfU6TWoEe0EMiCE82f4IWClkUlaBKV9CywVe
-	 paY9CWQh3aFn0tDvkESkhHAbZSUZnSLeJP0lqjXlPPUThmHVJPZoMArvEzutYFo+KDsUG
-	 bh2kUC2ofErAm2K3z53gDJ23syiTl51Z1yX/trfhy6P9WFXFA2Udgqk0wvLlFwFNIcGlj
-	 75Rprsr2c/1Twv8gKWvqi6N+1rqKU5M/7VfGHjYt7IZukBfB9Sl0ErMvYVwRjETC8BQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717848;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=SI+4+3+usaqn/QJk403KP0hoB8huPiz8Q28IoF20v0Y=;
+	b=gVpOY7fsnJMyhQCrMxp3kJNLDO11qSSevsG5R5yhDasl8uiHN9IhoRM+aV5B1+6Mkbho
+	 b3oKnRfmzV2LXpDj8Ws7r7A5rKdcN5D+Uvbv056gAy6Q8pm0bk7dduOxipGpUT4+0pyLY
+	 LbWlRjOPPenXui5INCBWSKwzVYanGvLi3dfgxDm1pKKKBpToRoXpwlrp1qT6ZowxcT7mJ
+	 KD5cNYunBthDB9G58bg+ufMBof5KyFBPLYnnyBQDW6yqzw6nUsp8kSPSD3Xn8wtUYMPt9
+	 3OTBf7Q0V9QIMfx4f3948msqHTs5+IbMG+qIm/5RtkPGCzvTlbyIFWfn92mAU82BuQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F7cpy9Tv;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="KZN0YW7/";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mSAQi4Il;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dpuSkBmx;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DImAWeuU;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="TMU/jrrT";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731E76082BD7
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:56:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 731E76082BD7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1A9606A789;
+	Tue,  3 Nov 2026 14:57:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF1A9606A789
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F7cpy9Tv;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KZN0YW7/
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EAHV63690011
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 14:56:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=CxRFMAsJ+VF
-	JvYEEwkTyCVJVUBTdh4sTWBpZZ0rFhHI=; b=F7cpy9Tv7DXa07GrLaw6XePHHgF
-	lr9TQbW18YHBYVnh2AFUK3o3FUKk7+AF3BWZmPfIMzjcf55Gh/B1hoMSQsX7IOM0
-	PABuRBu5wNHS4JdtysvxjzT54w/5lW5+7kDE8k+qfM+zRjQ91PqnsAGUyoCProsS
-	MqnckyTvN5US6YY9O9St5qDpqfoyMypLS5qZn0K/Vha4aX7k9eSacYF+JEsRfUAo
-	mhuqyNcFYpE8Q74N1LfGfh5psh8B5Wb/nYuVp/HAc7VcFRlaiDrj/RVxMGtiSdxj
-	tD6tq7MCFVcFrrhmVIIGFqDpGXnnVe+ojkEiM2W/p/85m5uabYn4DmeA2ww==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq6m9at70-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:56:58 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f37c94ceeso138309285a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:56:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793717818; x=1794322618; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CxRFMAsJ+VFJvYEEwkTyCVJVUBTdh4sTWBpZZ0rFhHI=;
-        b=KZN0YW7/f+2Y96RS/pb0Zczi1DBZkMwnJ7PEsW3IByiLmcf+EC38QZ7R3qWgYbFv/h
-         PuyGuGd6LoFsGsIn59FhPP3YfF/mpKg4lXbSigv7nsZqAkcEgk9iBb5qvj5mazIgGtm2
-         Sr/PE46LEOCRVaRVjkahjQGcNXcEOucariX56dRxI4hEe6Cb4sQDkALquMBdmrI8ZHuQ
-         +v0A38jDbI7md55hR01yOzKjDQK0coocQhHzSHUAdHF9wgHlgn1W2qaXT9WTu2+G58AD
-         LimdtF4fuf8hWyI/g55SdGnim4R4Ac/NJuD7e3gFsiPGKnF6wf4gIhPCkW2V9dFpo1zX
-         vTag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793717818; x=1794322618;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CxRFMAsJ+VFJvYEEwkTyCVJVUBTdh4sTWBpZZ0rFhHI=;
-        b=0BZogXYvjrrS1fu9QLsKlGCybAevbVx3ODMS1mFQSNUyV7jOc8JZNWOcf/+f27nrQY
-         szY3mQk7a7KNRg8bI2pzHO0iZoZzg/lRIz1ZBZ8lGDIoF3iDe8x+E/+7LXvbu1cLRatU
-         gqyyw+RciO/oUGGLfQtKP5Q/H161JOYpKCQaure9tqkHUqs1EKrXjczIBxXNUTGeKho3
-         DuXKFnGrZO4EaCExZRsCYMgWpBSZVu2c0mwtYkB/9YOZUeaj/t1sdr3+DkuhB7zMHxtV
-         wLoiue83NTc6Lnyva9HPzopnot/qjlfuK5fOn0N7xxEzi/jaXul7edGt6K061lpMhMrb
-         SpjQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTaHvY3kxr/idFp7Tds9Ky2wEmgqzT4aiGsQc12P7D0UAcb9HtwmPQ/+EqHQDIaYsHj6fL/IiVc6VpqJY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Nicx4WpzxLC4xQ0SKhfbgwUYTpLw0lhYkOwm1OYgQms+AFgeT
-	z47oC2XIW+dWxdIYXUxTxa3QQY4ohcKPucesukvjzlhLLE3MOlYLf5ZRKGgXWUpSx8y7fo2j5uh
-	uCi7mwZZBKZQG1zZzMKQJyl6c2mITrJ9Hlccg3B+iQJQ4JBfCd9INwDtq+SGn21wGacw=
-X-Gm-Gg: AYBFou0N+POI0LD6FqArA2NjXCP7iwwNv4GVZ4sYvtUBp9wgKAere+S5f6tHbqhKBrl
-	SsKx2XiHtU7viF5/gQ9MDnFwg4FqY2kTaUae6TnjZ0nhQKmfr6tTuqomP37n2Gys2K/6ivSnkuL
-	87BjD8FEaPQyU7tAGF7ihAF2eTBWys32GV0+EwzlsRGVrDNiNCMUvGFHdtFXQGt0g1BXFvEc6M/
-	qitYrmr83xyptp5ZbWrcL7uYMnGd44I0JaOKMc/pKxxYtWyxGrKDRzp11S90fd3euqFbvGMMDTh
-	VnDpvX+Cgj615Lpm4CKN77F6Jsy/PZIK9/z80GihDHS9k1Ph1z4sk+sFjZ0XMk6VF+w/9PBld+2
-	6++ZYRex/o2zw5+kRXvDFyarmtht7oHGuF0NTNM/uyVQQF9ojPeWLXVl1vH9b0A==
-X-Received: by 2002:a05:620a:1b8a:b0:93f:36d8:5334 with SMTP id af79cd13be357-9441338900bmr2433457385a.21.1793717817703;
-        Tue, 03 Nov 2026 06:56:57 -0800 (PST)
-X-Received: by 2002:a05:620a:1b8a:b0:93f:36d8:5334 with SMTP id af79cd13be357-9441338900bmr2433453285a.21.1793717817213;
-        Tue, 03 Nov 2026 06:56:57 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a82cebdbsm69772645e9.3.2026.11.03.06.56.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:56:54 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Andy Gross <andy.gross@linaro.org>,
-        Mark Brown <broonie@kernel.org>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 3/3] soc: qcom: apr: Narrow critical section in error path of gpr_alloc_port()
-Date: Tue,  3 Nov 2026 15:56:38 +0100
-Message-ID: <20261103145635.309032-6-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103145635.309032-4-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261103145635.309032-4-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mSAQi4Il;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dpuSkBmx;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DImAWeuU;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TMU/jrrT
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D77432203B;
+	Tue,  3 Nov 2026 14:57:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793717846; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SI+4+3+usaqn/QJk403KP0hoB8huPiz8Q28IoF20v0Y=;
+	b=mSAQi4Il1Cjtwz7R7et/GkGFi7TlEwL4b+RU2KlUuslz16IpbstmdmDHEl31yVcbaZJf1u
+	TT+Vna9jjdb+4YBod4cO6y9vrUpHEGysfQKUCDBPlB8DrkyHfFvi42R5mXL8cww1J/jWqk
+	Wkz+2gYerXK7Tb44HHYcF9pj8knyKPY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793717846;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SI+4+3+usaqn/QJk403KP0hoB8huPiz8Q28IoF20v0Y=;
+	b=dpuSkBmx3sFcCvcaWkP8vZfWZkOtOjQdUpIj9/DHULyK3WLF+HCzxXEw/vPSKkgREuSXum
+	lVsR6FUNy8PdIUAA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=DImAWeuU;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="TMU/jrrT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793717845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SI+4+3+usaqn/QJk403KP0hoB8huPiz8Q28IoF20v0Y=;
+	b=DImAWeuU7gMtjpuAdgxjiONkT/63uNjHqxU3YyzYXBnbpPIcunFXjwX7BGVAoXBmjP9hEk
+	E4qoh1XaseahqZObbRrMvEqBJaEAV9JPC+Pyekph+LZDBTDxOUA9WF3ZCjioCVBxYd1Quo
+	zFa3PwRfRcVIYgmV8bZkcE3phOm+h98=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793717845;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SI+4+3+usaqn/QJk403KP0hoB8huPiz8Q28IoF20v0Y=;
+	b=TMU/jrrTQZ56fpXixeJ9AhinWZOH8KRxfziqHqrWIUoTtazyB00UXrrXVJVV4xRa84oVkb
+	AaJZ2oijGuvDvIBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 768121350A;
+	Tue,  3 Nov 2026 14:57:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id MF9dE1X26WolHAAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Tue, 03 Nov 2026 14:57:25 +0000
+From: Daniel Wagner <dwagner@suse.de>
+Date: Tue, 03 Nov 2026 15:57:22 +0100
+Subject: [PATCH v2] blk-mq: use a housekeeping CPU for passthrough requests
+ on isolated hctxs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,79 +106,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1103; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=U4DKx8MMiCRhcURxj0s5MqGMwNt0kESinKP9ZIRoZRg=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq6fYlmtozzSuoxt4g+Yf6h4QKEby6PWKuCSTiU
- M1iNwDveb2JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaun2JQAKCRDBN2bmhouD
- 19DyEACOlcNQpYZmE9m21aYxKuhM/A175nzFHKe4HnXyq4p+l6crVJ75W9HI0zhaRmZqciuGpFA
- V20iscomAfrOYRWUmKtrcRL/OusO5KF7dKsH968V8UvqromAv2eXV+gvS0MWawvwbMuAtdS9Mhd
- h2vbAJue3kKjt4XMGN14LLAO55BqENiDHcI3tM22Gc2XlzyRIbvdBd+9O5IFaQIbpEuwiGixGpM
- EN83+bblsAoHimmMLLoLgLxhCr/MbQ/Fdn5L2Idlvwmnq+9J0En9hdpg2UKf1E/Vmtl2SfIAcOi
- we3hobgdwVzLLgqrtWi9OHlI51dfIHO0WQZYZFbQewSHcZh1RhBRUPsfx1Kb/gHJ79fT2UEitMy
- H61MSv0P3NuzaEQZbZhfEAUHfthokjZJ7Dclpj3smthNjYesq9Oun1DRLLEguGFS+/Qkrsj5xvE
- ZxYMnPiTEQKXiu9NoS6M4jyQZUQl9UZ10gymoaK22F4TyWlGRPx/Q3orlsOc47G7URkVRhGsxOi
- H2Ru62FnxJdPYnnEQ6DIhLiUcpVipfOVL5Y79EubVy0HfPdN69EyC7DrMRiRkUKqNsPNsq0o2EM
- Qx+4FfIdbYunvzMvn+YMoVHPkyBppxnXgdm3vWDMqJqUWFxmE4CBXOLJxNS89t5WCKTou6wR+bP zyW642TPYGaKpqQ==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: qRvgBi-Z5LvcG4khCmcRPcY9xtwj6py3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfX3G4uJDSFwI5H
- Z2LfiN6YflY8o/95Eb9KiTz5DFnJLvdG3NL3lebSm6sWwMuoaszoUCAWUM917s97Rkc0ZLPWIJ0
- zo9Jf38cFHL9TJ2YnypNG/HUIbFDkrk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfX2oHHLz/Y9xSl
- /INHUhBN67fbn+okVnQ3gg1zuW5irqbbIwb7IbsCGtmyCrTv0IiOxrXqodXKKV1Q7T/10XT0ASA
- Zz4hLPzYHBaQxjkMi6nWE7cKBJpAMN+F3vrysZHc+zVye7gY4BwdjO5x6pqcxg2WraQxP6oa4ch
- qRnAoJV5trzSFLbjlpwYVW9V44HFl5EHuqbKJpKvnk99jkxk65kG3O/imX1pVLh3JM8NAbeYYEm
- fcLZeqpUdEpYEXlhFtU0LHvRiLNk+OoyQ8/WwBQjOXqvFmdvFxyXQ/0trkF+i0Dzh51kXilHMFk
- YH1fWfmtcSfCx/aySOuFoYiAcHhuogr4otmLlnPQoaFKSjcsNFBvRTUI0hIzziivXMD+mBHVz4G
- stkNZQWqrpiE+LbwCABFQkH+cbRY0QfuwkDCR4LAsU9eJTxw5Jzi5rZNcesV8LLASHUfkpR8waS
- AI/NfrMgI6OnTXqnI7g==
-X-Authority-Analysis: v=2.4 cv=C7B8WgP+ c=1 sm=1 tr=0 ts=6ae9f63a cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=M4xG5xDUUUIxRXP9NZYA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: qRvgBi-Z5LvcG4khCmcRPcY9xtwj6py3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030059
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-nvme-fabrics-isolcpu-v2-1-95ec70d58254@suse.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr2K6dgwtFNGV9zAsaB1gFFsyhUZDu
+ LuAcefyJf+/N4mATBjEeTcJxkiBvFtA7XfCtpVrEOi2sFCJymUiU3DxiVBXhskGoOA724+gTXb
+ KijRXdVGI5doz1vTatNfyy2E0d7TD6loXLYXB83vrRrnufonsfyJKSCDVWurcoDoadXkgO+wOn
+ htRzvP8ASBspR/LAAAA
+X-Change-ID: 20261013-nvme-fabrics-isolcpu-5b4948362f88
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Ming Lei <ming.lei@redhat.com>, Surabhi Gogte <sgogte@purestorage.com>, 
+ Hannes Reinecke <hare@kernel.org>, Nilay Shroff <nilay@linux.ibm.com>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Aaron Tomlin <atomlin@atomlin.com>, Maurizio Lombardi <mlombard@redhat.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Daniel Wagner <dwagner@suse.de>
+X-Mailer: b4 0.16.0
+X-Spamd-Result: default: False [-13.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim,msgid.link:url];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: D77432203B
 
-Error path of gpr_alloc_port() can unlocok the spinlock earlier, before
-printing error message and freeing the local memory, because the
-allocated memory is not published outside of this context.  Shorter
-critical section makes system more responsive, although gain won't be
-likely because it is only an error path.
+blk_mq_alloc_request_hctx uses the first online CPU in hctx->cpumask to
+select the software context for a request.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Since commit a46c27026da1 ("blk-mq: don't schedule block kworker on
+isolated CPUs"), hctx->cpumask excludes isolated CPUs. If a hardware
+context is mapped only to isolated CPUs, the mask is empty and
+blk_mq_alloc_request_hctx fails with -EXDEV.
 
+The NVMe fabrics transports use blk_mq_alloc_request_hctx to allocate
+the Connect command for each I/O queue. As a result, connecting to a
+controller can fail when using isolcpus=domain or an isolated cpuset
+partition.
+
+Passthrough requests bypass the software queues and go directly to
+hctx->dispatch. Their software context is only used to select the
+completion CPU and as a hint when freeing the tag.
+
+Use the software context of an online housekeeping CPU for passthrough
+requests.
+
+Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
+Tested-by: Maurizio Lombardi <mlombard@redhat.com>
+Signed-off-by: Daniel Wagner <dwagner@suse.de>
 ---
+Connecting a fabrics controller fails when all CPUs of a hardware
+context are isolated with isolcpus=domain or an isolated cpuset
+partition. Since commit a46c27026da1 ("blk-mq: don't schedule block
+kworker on isolated CPUs") the CPU mask of such a hardware context is
+empty and blk_mq_alloc_request_hctx() fails the Connect command with
+-EXDEV. This patch lets passthrough requests use the software context
+of a housekeeping CPU instead.
 
-Changes in v3:
-1. New patch
+The nvme fabrics fixes from v1 (patches 1 and 3-5) are in nvme-7.4, so
+only the blk-mq patch is left. The blktest for this patch is nvme/070,
+posted separately.
 ---
- drivers/soc/qcom/apr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- Only the blk-mq patch left, the nvme patches are in nvme-7.4.
+- Reword the commit message to describe what the fix does (Hannes).
+- Add Tested-by from Maurizio.
+- Link to v1: https://patch.msgid.link/20261014-nvme-fabrics-isolcpu-v1-0-355156be27b2@kernel.org
+---
+ block/blk-mq.c | 37 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
-index 80056bd0686b..edddf473943c 100644
---- a/drivers/soc/qcom/apr.c
-+++ b/drivers/soc/qcom/apr.c
-@@ -117,9 +117,9 @@ gpr_port_t *gpr_alloc_port(struct apr_device *gdev, struct device *dev,
- 	id = idr_alloc_cyclic(&pr->svcs_idr, svc, GPR_DYNAMIC_PORT_START,
- 			      GPR_DYNAMIC_PORT_END, GFP_ATOMIC);
- 	if (id < 0) {
-+		spin_unlock(&pr->svcs_lock);
- 		dev_err(dev, "Unable to allocate dynamic GPR src port\n");
- 		kfree(port);
--		spin_unlock(&pr->svcs_lock);
- 		return ERR_PTR(id);
- 	}
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index 5fca78778c31..77685e6283fa 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -717,6 +717,25 @@ struct request *blk_mq_alloc_request(struct request_queue *q, blk_opf_t opf,
+ }
+ EXPORT_SYMBOL(blk_mq_alloc_request);
  
--- 
-2.53.0
++/*
++ * Return an online CPU which is neither isolated from the scheduler domains
++ * nor from managed interrupts, or nr_cpu_ids if there is none.
++ */
++static unsigned int blk_mq_housekeeping_cpu(void)
++{
++	unsigned int cpu;
++
++	rcu_read_lock();
++	for_each_online_cpu(cpu) {
++		if (!cpu_is_isolated(cpu) &&
++		    housekeeping_test_cpu(cpu, HK_TYPE_MANAGED_IRQ))
++			break;
++	}
++	rcu_read_unlock();
++
++	return cpu;
++}
++
+ struct request *blk_mq_alloc_request_hctx(struct request_queue *q,
+ 	blk_opf_t opf, blk_mq_req_flags_t flags, unsigned int hctx_idx)
+ {
+@@ -767,8 +786,22 @@ struct request *blk_mq_alloc_request_hctx(struct request_queue *q,
+ 	if (!blk_mq_hw_queue_mapped(data.hctx))
+ 		goto out_queue_exit;
+ 	cpu = cpumask_first_and(data.hctx->cpumask, cpu_online_mask);
+-	if (cpu >= nr_cpu_ids)
+-		goto out_queue_exit;
++	if (cpu >= nr_cpu_ids) {
++		/*
++		 * Isolated CPUs are not part of hctx->cpumask, so it can be
++		 * empty although online CPUs are mapped to this hardware
++		 * context. Passthrough requests are inserted directly into
++		 * hctx->dispatch, so use the software context of a
++		 * housekeeping CPU for them. Inactive hardware contexts have
++		 * no online CPU left.
++		 */
++		if (!blk_op_is_passthrough(opf) ||
++		    test_bit(BLK_MQ_S_INACTIVE, &data.hctx->state))
++			goto out_queue_exit;
++		cpu = blk_mq_housekeeping_cpu();
++		if (cpu >= nr_cpu_ids)
++			goto out_queue_exit;
++	}
+ 	data.ctx = __blk_mq_get_ctx(q, cpu);
+ 
+ 	if (q->elevator)
+
+---
+base-commit: c8c53d669d4e45b3a804013251a34387d7e11bfb
+change-id: 20261013-nvme-fabrics-isolcpu-5b4948362f88
+
+Best regards,
+--  
+Daniel Wagner <dwagner@suse.de>
 
