@@ -1,78 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793686057;
-	b=eOf8MT6DgvJ49+ZBvFKJ1DlWeQYPec7fNSbLpSg5BB+7noXKeEf6+h7Hygk+WOqZM9HM
-	 WxU9d8S5ZAwbhvfT2N0pwaoP/jWo/MirK1h5MysvLjKaGHHCSlEe4TlgYwnXjol6TB6E9
-	 E4xntr0aduE29psRBPAtbRuTA1FHFMrCFOPvvNcqGSccmw1dBZp19SWYAD4OhHPbahiEq
-	 shP02YRmqe75UJqF12/0ceZzEHArKX0bQMPpDA2wAQJ9Nf+aZphuHId0MbwObcIU7czjK
-	 4C1Vur4ndVmwrCrUhIhugbkvkIIThigXQCdGvwGLWsd8b9QojVVvPkL8eYR5PE7IOog==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793686057;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=+LNCQwzF5/rRaERSiZo9WaoUzbx5YYQQRcOrcscm3h0=;
-	b=Wn1TvzQ5zBPOPDHpfWbquEBRzxxlWEaWA6AYFPkISFlTXhgmyXU8r0j8O60800CIm640
-	 xCthPitIWqbaPNERUYCiEgSxnvFrzYIQmnyGGyhq3AfLC99Y5U7MmS2Tg6tlOJKMavlKQ
-	 hCPClR2dQeOarVo8Quu2zVdgcfT2oDLXAt7JM6WJAmvDXDoXGR5d2LdF+DvfsifkmVXYp
-	 hpW4kiTRzAI2InHlGRoTIONc95RT6nlQAks/ynHh6tnmTvXra1MDAWvpiwL3CfQuWz/H4
-	 AZOkG6dRl3VkXYqBbnDUxGxpXapXO1OYflm24XAp1tCTaCRkRjVA0Mcm2frYUYu3g1w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O7s1P95g;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FB3606A324;
-	Tue,  3 Nov 2026 06:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O7s1P95g
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793686056;
-	b=bemL/9DUmWApBh8KWvWUmB8v6Bd5uNtR50i/WChyZSMj8Nn/oYU2gPrjNN7I4NlNFV6b
-	 pdoAOmyvQJOfjsrWzOUGNmUhfjFvMS4UIfQ/sdi/XqTi+ejohkpevV85ul5ae12rkfyfs
-	 q7FaaKj+eGRjkEubYEqBB4slCqCjSG9Q4rstpJBpx2Vw1F3upnnKKn7Eh4tHvyqIWoPJA
-	 ZUUiPJ8371W8RHjPhoBxR0PfGNvvnanbKw1gGJva3ig6Pf4vP4f6PslRMAVAhz5pCpvg5
-	 2tNGd048ZNxGkCIK3qlH8mFuEEuV8d0ltnXa08DBP7cY6zG5gd2/jWTkY3Hig57hPbg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793686056;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793686082;
+	b=Tqp5cZTBZ6rcpR3tpyqo/gTfhJjfEocmVlkRJCxxvbnRLoE6U9gMvXxhxjG4pV8VxjN7
+	 8dsfruATpuxSXhDcvWPtde5VvzHVPBEIjt88j4w5GTHz6rqfIEMfsh+V+VLIt4afzkKTo
+	 AADG0HYuR/59YW39MVyuIIkFOzD3ekqdfuq73X9L6VLsOhrvwGRV08m2B4PKu6NuGHDpK
+	 DUxtwvL2l/SCpwz8swly22NMnFktP6rwO6i/l7FYkWyjVDwHH89xltTvS+l/APubnO8V0
+	 hzk5au1kFSxZ+k0R6nh3bHRvZwiA3gpv/N0PWYekVIaj/gGwDcWQZVq+Sbw67//qaCQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793686082;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=+LNCQwzF5/rRaERSiZo9WaoUzbx5YYQQRcOrcscm3h0=;
-	b=nh+y0r8r/TbTyeQ+76C9/zNon7klXqS4WOgAFAxi525PukS3bhQK5XC8QZwT5SNzMJXJ
-	 5XAUa5I6zyPzhutT7WQpz33se86R4m4mUliWBQsni0Wgpj74tfCrYwU+J1i4cxV2x70va
-	 o63f1RIFRXaTCNWKZq1uVCvwjKYopL6WciCbNy+Ni2mPCyBXjCYEvMrvWF/xJLT8sKytS
-	 ItJGqT9Xda4pihwyYEJsX4M+Aaffejm1JBjPS2jqotJQaYVE4TAVRMwdpjYkcQbg6yzaA
-	 dd8eq5txrx8AlXcodp8dXfT7jKatjYgsjBNwwWP1lWJtG2g0QBjhvRhawcinuNR6fKg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=EqZFBFEZO5TSxtcO1rE9N6/Lrb9ZGXQ+yZtDiTgYOIA=;
+	b=YB7sUTlgsgS2eBbGCRhFbIQZbSfxsqYlxGG9UIWz9LGftPdeLK1nasZblrFh95GvxpPY
+	 YxzYwlanAg6g+ezNO0MV68kOph7dU/cju1GrD+vq+UnkQ70qJ9GDqiZF+fayfEdJd2ixo
+	 SH6LJRvh2O2BSvSTaHj8RptuEmBPUV4dq6O+Gm2pJs7egamyyGuX6uTvJhLhzsF1wmLcE
+	 NAJ44g/ARcPVkN8RW4inrCWeJKuWJnP5+H1Urtl3GNn9b/gDl2kXXadT9l1ma//Fr4r/2
+	 J5dr1WzLqicEdekGTPrLrsDX+hxAvnMl8Y6XchOz3HFmhR6cEY9tSBYMCjhwhN+ACWA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IynaLvmm;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 730891F000C1;
-	Tue,  3 Nov 2026 06:07:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793686056;
-	bh=+LNCQwzF5/rRaERSiZo9WaoUzbx5YYQQRcOrcscm3h0=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=O7s1P95g7AlAS6fGetJYjjgeNRWAFa3r9xSMaEQSDOg+oEFw2EnOs5nnnhJMxqSnl
-	 DqbQPusu1eHVQOgWKhQnGKj2+nyQ5hBeK1XyywNrc8tc5RC31bfiQAIT5ayYddwuio
-	 e4ZWqAd0dYZInTKdC9cFKcB/gK9gaCVU5ajbLVcZ4OV13OVfJ5xYaGMVtyNKe9aVgL
-	 2Jt/yhy+kmySUGV3B7TLiO0idrzKCVRZBPRGdD192LyH5zy0EyuYY6/YffM0AbK4eN
-	 YoCpdF8kC0tgBc2Oizy02F9tGJdqaB++WXBpEzl8roIMEA0NeVEPprHRYV0xm9k31c
-	 GpbC076Q2eemA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 03606467C4;
-	Tue,  3 Nov 2026 06:07:36 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Tue, 03 Nov 2026 06:07:35 +0000
-Subject: [PATCH] PCI: rockchip-host: Enable async probe by default
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FBE606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:08:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7FBE606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IynaLvmm
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e0d885929so3005323f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:08:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793686080; x=1794290880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EqZFBFEZO5TSxtcO1rE9N6/Lrb9ZGXQ+yZtDiTgYOIA=;
+        b=IynaLvmm8AyoydJlvlscvund15eOIxvoQHt4TeCsjuK1E4Ga2Zy6ojPs9ZzziUd9Ad
+         WwITpXHJVXmKor+FHisR6Ea2Xqxunr6H0Tl5qfg4NpF2Bi2CwxGNBdlWb7F4L4nB8Pbp
+         KsBlTmtQg/Ua3qOCfuHrntQbLn3O+voh61b3Mt2vhyM6ZFwV0uT4Iv3Z9lZBG1S/QltH
+         yz83IhBrnUYxQ2CW4RVUaJD8nC/lxmk8E94oSbsvz1MGHn+Vf73OBItyHa+1fHJri0Zr
+         rncHFvdw/pdU+E86G0/hP7Ci7YrJ9+GL5c2fg3cEtUI9M4iq+YztA9R5zZ56KEXycdX+
+         rRww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793686080; x=1794290880;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EqZFBFEZO5TSxtcO1rE9N6/Lrb9ZGXQ+yZtDiTgYOIA=;
+        b=QAj4hhOhHa/T74AZEMdywvFFvTuuLSdGIen9vMIJDgrEpOmYaoLWvc6HR04xDLRyVw
+         t4SsE2i/cBC+isoXSAdwPCyJ/tSc9aBY/bfmwQ8aCOpGCgESCmQnDy9tABvP3cSc4KMF
+         T1l7tRqi/5y15r+Hl9yggAjjBRwrPFr15h4R3yuDHobjoe7jxr6ETQk8Izikayzz8D6X
+         b0qpgqj+yo/LZfcBwuDUYmu27SQG3zAVyJhQs+AMLTsX9jXlsnKMGwXKnf8JvlzhDntI
+         NNFr29d02X1eopPsWsp9rymis/JWo0YAz0ZYt5hjro6iUs7JHD/GyAIK0/VgpvQy9At0
+         Ubtg==
+X-Forwarded-Encrypted: i=1; AKwUvBwh/KAzoNAsJEx2GOb9ocCP1RW1NKu5UQUWipKmyC0nGgbBKVWM4lFJ+XJw3L2H0fZnSuDp4u+7XBB2V5I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GShkrALa+Hn+6S258yoYW9L+OfDOe6jO2bB6xd6msSDkF1Hbm
+	zwNjgp0ZfWG4CuwSR8P3VWkL5DmRUxJX8LOxJmONzaXTHYFawixy7mD2
+X-Gm-Gg: AYBFou1+yCOEcGXT5kFUuMZ2udV3VfAGfHV2ajmODqKsynn1iRQRDjxDX887XqkNjVP
+	cfv7MANeaDrcXdbs+i/fGl1K2R8IUqFBOddCPwVA6PpSA0c+Djh5MBIdLMJsLlKV4E+8vmA3Y78
+	kdDbmKppu6NR6lZYeixU3piro1SUfCq4fKl8WsLBQJI2zXnAxyT4wsEBDxoApbSb5jyys8g77ZM
+	R8/eq6ZiuPJQf11uYyRO1LLLx3JURuq488okgAvkoJS8z/F70bGqFrfC7Ib3Yuloipw1wNZdf3L
+	ezZERGYcQGVBWFPTaYN5fiNfvuLwsowlKejPqimiKgkplX3VSpIdcMJbFZhLlBCGgIPcF2YsN7r
+	MyPXlLg2Mq2Fsc8oFRWrpuuZQArvR7Ozum8W/xbSn/Rg8x7QD3ruPaY597GFoM/sdnKLicbjXpR
+	SPWXIWUHySVGe2Ft9jRj1XnsZ5STxusmKKABgMrNc5DWN0Wlz8Xr8rcjUmnOQ7CbcZjhCJAZCMX
+	0WHIwBxhjdi4Uhoz+cEcef4WJL+8bsEAwvizoMDedH4OVhgnc0mxee1fFypSUzDoJcN9ietJ5ep
+	tQnScQjUqlRxalcSwbxdZ9a3JV1gMLmE0w7qzBJtc5MQ2q+OvhTgVUlIvfCtkIijhUxXcHQoi2O
+	qjs9M/aedo5I=
+X-Received: by 2002:a05:6000:4026:b0:48b:4a2:8175 with SMTP id ffacd0b85a97d-48e6e501911mr27129221f8f.43.1793686080145;
+        Mon, 02 Nov 2026 22:08:00 -0800 (PST)
+Received: from box (046124040162.public.t-mobile.at. [46.124.40.162])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3e9sm26072722f8f.6.2026.11.02.22.07.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 22:07:59 -0800 (PST)
+From: Martin Leitner-Ankerl <martin.ankerl@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: Martin Leitner-Ankerl <martin.ankerl@gmail.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Andi Kleen <ak@linux.intel.com>,
+	Youling Tang <youling.tang@linux.dev>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Youling Tang <tangyouling@kylinos.cn>,
+	Nikolay Borisov <nik.borisov@suse.com>
+Subject: [PATCH] x86/cpu: Use prefetcht0 for prefetch() on 64-bit
+Date: Tue,  3 Nov 2026 07:06:20 +0100
+Message-ID: <20261103060658.696994-1-martin.ankerl@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,78 +110,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-rockchip-pcie-async-v1-1-4dcadb94af64@iav.lv>
-X-B4-Tracking: v=1; b=H4sIACZ66WoC/x3MMQqAMAxA0atIZgOmlSpeRRwkRg1CLS2IIr27x
- fEN/7+QJKokGKoXolya9PQFVFfA++w3QV2KwTTGETUW48kH7xowsArO6fGMrWFi2zvrqINShii
- r3v91nHL+AHfeqAhlAAAA
-To: Shawn Lin <shawn.lin@rock-chips.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1786; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=ZRf73Oh50c+9BYq7xVYrqoGA7KZ7hc21cjbuWcPTIPw=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkvq9Q33dNaILT/C3cxu8LL4tufGK5wVXIbLE/R5cpfP
- Pfm9ft5HaUsDGJcDLJiiiwTDmncylhy9a+/h/kDmDmsTCBDGLg4BWAixo6MDG3aCrO1rvx1qGjM
- eiz3foPj60OBV5WOG39zNSifdVgg+g/D/7LIaF+1uw6CruuWzXr/+8X969VN935HTem6ILzj/b+
- OdD4A
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Igor Velkov <iav@iav.lv>
+x86-64 does not define ARCH_HAS_PREFETCH, so prefetch() from
+<linux/prefetch.h> is just __builtin_prefetch(). The kernel builds with
+-mno-sse, and clang then drops __builtin_prefetch() without a warning,
+while gcc emits prefetcht0. An x86-64 defconfig vmlinux has 8
+prefetcht0 with clang 22.1.8, all from inline assembly, and 62 with gcc
+16.2.1. Also prefetch_range() is empty on x86-64 with any compiler, it
+needs ARCH_HAS_PREFETCH.
 
-The probe waits for the link to come up, and with an empty slot it
-holds the deferred-probe worker for about 0.7 s. On ROCK Pi 4 with
-UHS-I enabled for the SD card, the I/O-domain driver then binds only
-after the card has switched to 1.8 V, and tuning fails ("All phases
-bad!").
+Give x86-64 its own prefetch(), a prefetcht0 in inline assembly, which
+every x86-64 CPU has, and define ARCH_HAS_PREFETCH for 64-bit too. Not
+the 32-bit alternative: it becomes prefetchnta on CPUs with SSE, a
+non-temporal prefetch, which would change what gcc builds emit today.
 
-Probe asynchronously, as commit c0e1eb441b1d ("PCI: qcom: Enable async
-probe by default") does for the Qualcomm host driver. This does not
-order the I/O domain before dw_mmc in general; an explicit dependency
-was proposed in [1] and not merged.
+Afterwards clang's vmlinux has 57 prefetcht0, the new ones in 34
+functions, e.g. __blk_mq_alloc_requests(), prepend_path(),
+__alloc_skb(), tcp_ack() and the receive paths of e1000, tg3, sky2,
+r8169 and forcedeth. gcc's stay at 62. With gcc 16.2.1, prefetch_range()
+adds 16 to hfi1's receive functions and 8 to scsi_debug, which a
+defconfig does not build. Youling Tang proposed to define
+ARCH_HAS_PREFETCH in <linux/prefetch.h> instead [1].
 
-Link: https://lore.kernel.org/all/20230904115816.1237684-1-s.hauer@pengutronix.de/ [1]
-Signed-off-by: Igor Velkov <iav@iav.lv>
+KVM guest with one CPU on a Ryzen 9 7950X at a fixed 4.5 GHz, clang
+22.1.8, 6 boots per kernel in turns, ns per call, median (range):
+
+                    before                 after
+  io_uring IOPOLL   680.1 (679.6..684.6)   664.9 (663.1..668.4)   -2.3%
+  getcwd()          912.9 (912.0..1019.4)  901.4 (900.1..907.3)   -1.3%
+
+IOPOLL reads 4 KiB from null_blk, 32 per submit; getcwd() is 40
+directories deep. Built with gcc, where both kernels have the same
+prefetches, the two differ by +0.4% and 0.0%. pread() with O_DIRECT, UDP
+and TCP over loopback, times() and clock_gettime() change no more than
+that. Unfortunately the NIC receive paths need real hardware, so they
+are not measured.
+
+Fixes: ab483570a13b ("x86 & generic: change to __builtin_prefetch()")
+Link: https://lore.kernel.org/20240529032059.899347-2-youling.tang@linux.dev/ # [1]
+Cc: Youling Tang <tangyouling@kylinos.cn>
+Cc: Nikolay Borisov <nik.borisov@suse.com>
+Signed-off-by: Martin Leitner-Ankerl <martin.ankerl@gmail.com>
 ---
-Tested on v7.3.1 with the Armbian rockchip64 config (PCIE_ROCKCHIP_HOST=y):
-- ROCK Pi 4A, empty slot, UHS-I DT change posted separately: SDR104 on
-  3 of 3 cold boots; without this patch tuning fails.
-- Kobol Helios64, JMB585 in the slot: link, SATA and disk reads OK
-  over 3 cold boots and a reboot.
----
- drivers/pci/controller/pcie-rockchip-host.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index 5b071bdc4f90..1e1556e436b8 100644
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -1027,6 +1027,7 @@ static struct platform_driver rockchip_pcie_driver = {
- 		.name = "rockchip-pcie",
- 		.of_match_table = rockchip_pcie_of_match,
- 		.pm = &rockchip_pcie_pm_ops,
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
- 	},
- 	.probe = rockchip_pcie_probe,
- 	.remove = rockchip_pcie_remove,
+Notes:
+    Code generation, testing, compiling, analysis, measurements, etc. were
+    all driven by an AI agent (Claude Code). I have reviewed the results and
+    supervised the process.
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261103-rockchip-pcie-async-42c1c3863617
+    A few minutes ago this went to the x86 maintainers only, without the
+    lists, by mistake. Sorry for the duplicate.
 
-Best regards,
+ arch/x86/include/asm/processor.h | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/include/asm/processor.h b/arch/x86/include/asm/processor.h
+index 77488ff5eb8c..64748b8705e3 100644
+--- a/arch/x86/include/asm/processor.h
++++ b/arch/x86/include/asm/processor.h
+@@ -624,15 +624,25 @@ extern int			bootloader_version;
+ extern char			ignore_fpu_irq;
+ 
+ #define HAVE_ARCH_PICK_MMAP_LAYOUT 1
++#define ARCH_HAS_PREFETCH
+ #define ARCH_HAS_PREFETCHW
+ 
+ #ifdef CONFIG_X86_32
+ # define BASE_PREFETCH		""
+-# define ARCH_HAS_PREFETCH
+ #else
+ # define BASE_PREFETCH		"prefetcht0 %1"
+ #endif
+ 
++#ifdef CONFIG_X86_64
++/*
++ * Every x86-64 CPU has prefetcht0. Not __builtin_prefetch(): the kernel
++ * builds with -mno-sse, and clang then drops the builtin without a warning.
++ */
++static inline void prefetch(const void *x)
++{
++	asm("prefetcht0 %0" : : "m" (*(const char *)x));
++}
++#else
+ /*
+  * Prefetch instructions for Pentium III (+) and AMD Athlon (+)
+  *
+@@ -645,6 +655,7 @@ static inline void prefetch(const void *x)
+ 			  X86_FEATURE_XMM,
+ 			  "m" (*(const char *)x));
+ }
++#endif /* CONFIG_X86_64 */
+ 
+ /*
+  * 3dnow prefetch to get an exclusive cache line.
+
+base-commit: 2305edc99ef7bbc11a8dcebf78853bc1b6a761bc
 -- 
-Igor Velkov <iav@iav.lv>
-
+2.56.0
 
