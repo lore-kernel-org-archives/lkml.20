@@ -1,74 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793711179;
-	b=SOL/3Bc6efzqB7RBMuu0hhX82ndcxFsFcesARoe9GF2bc+b9dPIm5xcbQ63XvJ8hBvKy
-	 q75gGcLYExUnQs7z9LGGC6JbtE1oXsO60i4fhS15p1kdOEKoLyywd1tLUqEtQbmxY5hcV
-	 2P0qjcuj+s+iqRbJqBO6by6mpnZz60yTZJbz6wOVnlYsLwd1efIcMwvHPa7CMhmHRLO0r
-	 dWd4ieaA1KeZ0GedaCPPIKlMWVKHdknIW8xI6Wc6ko/pNzlcCA5bNk89Axfdj2sZIJ+F1
-	 y5DUxnipDX3BZJgJsxxqKq55ha2Km7y9jUemWOZym9RPellb6uQ9lvmnOQ/UzzfkQvw==
+	b=XBPMPNQ0hOl6ZEvM2mTI8vqXCj0QQfNgQScesI6NGFax5Rqya+46QP0zpkEvfyxIOJJs
+	 xU29PIvluEba8O11PZtNf8HIvaOFdHsbAhnJlmNYulL0EZ3YbFxfDNxFXm69DSA74gzxH
+	 ByEbDQ5IU0qtz2zziSKTzWPgY4Rsiw6CV6uomihDtgjdXANvUCjZ/EJO73nKZrU/m26Op
+	 GuKmYb241Vish73OhPJB471cDdHVXa0lU+0MDL137jo8j7OsGwf9QXB8045901ORLX4mt
+	 jXZLIA2v3/3Tq/Vq0UXUnowwPEpoHkVWSoHK5ruVZxGdRJUG6LMgkNNvatppsrdjzPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793711179;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
 	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
-	bh=jpC9vuyM0oDYGwUVcqxTgssTiCR7zkzLjAhyFTXihMI=;
-	b=fJvASzleC+1Z7S7qWWAAOU1IQ5rSaxXdSWN11lAq4BeJ3Y2DkzgZEwvLmcnq3PGXA8Rd
-	 cgRajdQI3vDzasITlOmJFYS5qwKJPf8fJyVR20FyHmm8Rcvs1RJ7VD3zMY1HubUOA88lM
-	 Nen94AiWVZvpO57L0RkEcHUPeQKrg9lPV+peahzKs6V0rVhs7dKfoob6Qddza+0s/ruB5
-	 6iEgTL3YQIgYDgVFeTSrzdXyrFPpN6thqtehln3Jp549nFMyXTbXtzSdoTlD1ukhpTHEU
-	 It6u9qtm1AAEwqCzq43PGG8onbxnim4w9OTQDcQItsAsjo7B5zXhuq3SmUVcDQX0HLQ==
+	bh=tWxPJzZwEoBsVUWyHIoViN5NlrycE+BNkSoICL6D6cY=;
+	b=4TtNTmDm3CdbCgliB8v3qJpOLQy0fDku4m1jmYd2ADd3DX2Cj0qT8Gg6lNe97ZlWbUhU
+	 zrksXdtuXah0P3U59N0U7mBCVM4seak/tiZNN4oCTEv8MKu3EEsrKP9714TwRdi9Qpzuy
+	 8EyV2+8ksioYDFd7CjOiX/bL1oU+gXbAITRwlfkmq17Wxotk/ZCirO3PxdoFmMQxWyAOb
+	 b+wLbQXxhuZXvzoMuL3ZqIMkUjJn8cEqpQ3zGxFqm3SLcLJWQqrQ5OE2xOoTI2uOjuDPY
+	 jhDdHqf5XT1vyxsv1gGde/HDGkMM+ZWtC2usuZ61ZeFqyZZKXfkOHWDnvZsJ7V40H9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GmUeDqRi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1IFRfsM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C53606A329;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D17D606A327;
 	Tue,  3 Nov 2026 13:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GmUeDqRi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F32C1F00A18;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1IFRfsM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 298B21F00A02;
 	Tue,  3 Nov 2026 13:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793711179;
-	bh=jpC9vuyM0oDYGwUVcqxTgssTiCR7zkzLjAhyFTXihMI=;
+	bh=tWxPJzZwEoBsVUWyHIoViN5NlrycE+BNkSoICL6D6cY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GmUeDqRiqyFQcvTbGC+coMj8CxGZAvxnQJCXNyGsRAh2/9RZN9iQJC6jihMnZPCtx
-	 wJdP7j6kbof2dCwHOVI1q7tEfu4pQwjxrL9mxx1PMRIQGy4WQy9no+TZqt8wRnn4Rj
-	 ChnfVoeB7d3roJXeLq8GVrRU1rdytqyTiqYQ5ypRiRV5hsdYlN/3rlVQ8jRLcuLDXG
-	 RSMDPxtnaeGUjMOeIGY2BChfgsCjx1XAl82QfobI2T2+XUD/e6ekVIzvafsY6ngpA9
-	 +o0/yuN04ouux4/5H71nw5Us7I9FxnZIEWBSh5mNZTntn+RkZZiCU4eYnQrIU8Az6s
-	 NYnXul8JBksnw==
+	b=G1IFRfsMsfNhwvUPIp3LCRqhl4kH/da+XzUX45vDSJ0J0prTPqYKv2B2oSD9Tc5aN
+	 o9B0atx6oVZLwSdoEl65Ec6NdGRB3Vg1j5Q8MvieJR2BIY3NQ0KSlwizrEX5ClSVdz
+	 bjZJqTLNIVAJuhKlVW+70aQZBXK8cmeVnj6FG9H8KsOIyYX+k33fSbyG5asVexm+K+
+	 WFE+gjZmXeMHygR2ULEOapK3S3ZT/eDFG0hgKhE7Y0tuSANS5/1WJOC75eebzHBUbY
+	 bbRyfpW0PAQ6mJ59O5iMKwGYeQ8TI2eliUM9OCayKHUiiyk9elWlUVZ9CcpBvK+3IN
+	 pzjtyoPZOlKjQ==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
 	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <maz@kernel.org>)
-	id 1xOEDR-0000000ATWs-1t0Z;
+	id 1xOEDQ-0000000ATWs-3vOV;
 	Tue, 03 Nov 2026 13:06:17 +0000
 From: Marc Zyngier <maz@kernel.org>
-To: Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
+To: Thomas Gleixner <tglx@kernel.org>,
+	Colton Lewis <coltonlewis@google.com>
+Cc: Radu Rendec <radu@rendec.net>,
+	Oliver Upton <oupton@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
-	Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Yuchao Zhang <ndaugoing@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] KVM: arm64: vgic: LPI fixes for redistributors with LPIs disabled
-Date: Tue,  3 Nov 2026 13:05:30 +0000
-Message-ID: <179371111251.2844725.11327747024377032677.b4-ty@b4>
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Raghavendra Rao Ananta <rananta@google.com>
+Subject: Re: [PATCH v2] irqchip/gic-v4: Use a separate lockdep class for vPE doorbell IRQs
+Date: Tue,  3 Nov 2026 13:05:28 +0000
+Message-ID: <179371111254.2844725.1319552424303810824.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261026092802.2636798-1-fuad.tabba@linux.dev>
-References: <20261026092802.2636798-1-fuad.tabba@linux.dev>
+In-Reply-To: <20261027180610.2840837-1-coltonlewis@google.com>
+References: <20261027180610.2840837-1-coltonlewis@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,30 +74,24 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, fuad.tabba@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, andre.przywara@arm.com, eric.auger@redhat.com, ndaugoing@gmail.com, linux-kernel@vger.kernel.org
+X-SA-Exim-Rcpt-To: tglx@kernel.org, coltonlewis@google.com, radu@rendec.net, oupton@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, rananta@google.com
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, 26 Oct 2026 09:28:00 +0000, Fuad Tabba wrote:
-> Two fixes on top of Marc's cross-CPU vcpu pausing series [1], for LPIs
-> whose redistributor has LPIs disabled. Without them, the guest can take
-> such an LPI with EnableLPIs clear, or lose one mapped before it enables
-> them.
-> 
-> The first is the vgic_target_oracle() change Oliver suggested on v2 of
-> that series [2]. It stops an LPI from being queued to a redistributor
-> with EnableLPIs clear once the disable path has retired the vCPU's AP
-> list. With that check, the path has to pause the vCPU before clearing
-> EnableLPIs, so that the retire still finds its LPIs.
+On Tue, 27 Oct 2026 18:06:09 +0000, Colton Lewis wrote:
+> By default, init_desc() assigns the shared irq_desc_lock_class lockdep
+> key to desc->lock for every struct irq_desc. Device drivers that
+> register an IRQ affinity notifier establish a lock dependency chain of
+> &irq_desc_lock_class --> &pool->lock --> &p->pi_lock --> &rq->__lock
+> when irq_set_affinity_locked() calls schedule_work() while holding
+> desc->lock.
 > 
 > [...]
 
 Applied to fixes, thanks!
 
-[1/2] KVM: arm64: vgic: Don't forward LPIs to a redistributor with LPIs disabled
-      commit: bf9c9ed5204fe8155bfff96a737faaae6afe07d8
-[2/2] KVM: arm64: vgic-v3: Don't drop a pending LPI mapped with LPIs disabled
-      commit: b4c9f30194a421b069bcfef18ccbee004c97b9f2
+[1/1] irqchip/gic-v4: Use a separate lockdep class for vPE doorbell IRQs
+      commit: 7100185bdc1162eb2eca1dd20a036314e27f1561
 
 Cheers,
 
