@@ -1,82 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723866;
-	b=kK30Xj308g+b9gpsH3ywpkOx6/KRXB5UK5do753eZ7EBFij+y9NB/Wj7wV/H+lLLi1y9
-	 mqZJ4nlgc0ojwhWVbEcsIDg5GC846L5HzZ5+GLygbw1B/OFWiRri41WY+91uhfnOdT7fA
-	 bGFVQ2v1+9a4yy4OzfycMl7T2zJRE2nG2BZJrpbLOmoCQIN3u39JBKT/BXwHxqY7I5LVv
-	 7tkTVaiGq+UZ2Jc1CF3GHLnUfh8cEXJJDFXYiKQ9UZM9Y+v3Qnusymq8luJh/hyMG58Pn
-	 vPnr3HRjz0krIdCGNVb0eXMtxAkoWpZrl+CiPW8nOHYYtQt2bNRfePjIS+TUE7dc8eA==
+	t=1793723884;
+	b=Ln7rhHjzEayYNXkHuxpX+K3nkFg/ePuPzu0RXYduR6kdFU7u0C5Ihq0WIXWadECMSM9d
+	 wlnJm0vVXRAgoV1pzdFLqF1nL9Y3wNixYCfU4e0xSbhZ+UFHJm/p6JQzvnhwgUgGv5Ub6
+	 BSkkfOc2Zy4e5OyCLXZ8fJEv+5d5ctbHVFLpRg0XCVJeA16YuZHUNzi1AEw+cHGO+e9Ky
+	 rnRkvaM1MgsDkJ+2qd/+sUda1mhb+eA826MtK5UzW9tYiJ+NddvC5guSjF1xp2hl4nNLw
+	 BpsDWLfBolBmsMMrUGKG7SYY/6o7Tb9oPf/8lYmALMAbEq7/PdMseHwxN7pr8Gn3CrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723866;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=GwfhP5LWWxixp0uLdZlxIW4UeNWIJ1egcYjLbbZ39hs=;
-	b=WyjNXei/kFOQmbksJ1aGLb5cuUt/ShdHaRMnu/uVU05HtxNQT8QbpsINRq7Sfgnk0Dtx
-	 5MxxJfLW6g8R44Tf+uW2mli2cRZpZSAE1ETz6rW4TiWzlUvHGU6j/4DBq07dcLp8Yf2o5
-	 7TVsmkopmnbK79cxbyP+UTkpZrkgUHtX1/Nrh6mxMk926A1PFvJmRCwbrR/NfwvOxrXgR
-	 cMVCzGLM21324rD9oaOyj6j64Yzza0ghZxixfYJVL5FdeoW1Vx58WqGqm8dzLk8MBdXIp
-	 /4KYSeTU+dTr2YfSaMEzh2OatcRa429H5AKx7qQvi86b/WUPiqkOmyKY443oHRmTiRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723884;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=CWv72uCOCqMYoLAg7IauldxNcJXBuFWTSZgkJBhwQnA=;
+	b=ro3418oFtNUgNKm325YdYTK6joiauzGMADVNPyVhzCErvSayNXQRIA6uiVp9PskqsMEM
+	 GfYrM532HAVAGdL7xzaNuGF2TvmXTVET42ljsNQdl9n0EPzbl6BRZ6PaASgTNx2FuqvVj
+	 l0pIyvT9Lk52N/PAzHJAMNKIauSzQJLNnIshvw5kCJMwlJ6RW7lf+3Skvc/7nLMiqf3K5
+	 c+SGf0f/4yXD+GeUaMBdKmcuEY09y2Gpz5eHamU3KKr5ByXW2jjXHFomMbB3nUT3Xpo09
+	 yJ9YSQmmOchB136iUh86dOUqjTdpe7toXRrGFBdhDQdgOJ3AAls73+k/XS28Ydbeskg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kOQA+TfD;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RiI7X+Y1;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190E7608362F;
-	Tue,  3 Nov 2026 16:37:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 190E7608362F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE15C606A33C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:38:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE15C606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kOQA+TfD
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EE65x2027511;
-	Tue, 3 Nov 2026 16:37:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=GwfhP5
-	LWWxixp0uLdZlxIW4UeNWIJ1egcYjLbbZ39hs=; b=kOQA+TfD/QCkGY9t9Y7ACB
-	9yDzdkvMjnHVPqqXCuuAMpaXtgn3nizBMr+m56osfDM/b1UUr0NHNr91Nyjqg4d/
-	EXrNDGj3nEsAXMw+ZVIbEUuw4FrU8mdoleglqkLNrOlLOrskRwxKRgQmbeM0xi/9
-	XD6+pxAw8T2ebQc1s5HfthNiN5OWTkbUsyuFHDZ+Rh0e2Q59U7//0W2KK2f2+n1r
-	lZgHSga/AVz3u9Cpbzcj14AXVfKzxiFm2TjOLQF1NgXyyj6+1/UnPwzNQ//dmhdn
-	DW86oczojOo7uXizoE9TberxjWRoJ6M3hGyIUK15EWyNIoV/LK68M6o82gRQZ8KA
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn826pyck-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 16:37:28 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EK46L2558213;
-	Tue, 3 Nov 2026 16:37:28 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqcrc9urt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 16:37:27 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A3GbQfZ4850412
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 3 Nov 2026 16:37:26 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6EE6D58043;
-	Tue,  3 Nov 2026 16:37:26 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E5C3A5805F;
-	Tue,  3 Nov 2026 16:37:23 +0000 (GMT)
-Received: from a46lp21.lnxne.boe (unknown [9.87.84.240])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  3 Nov 2026 16:37:23 +0000 (GMT)
-From: Andreas Grapentin <gra@linux.ibm.com>
-Date: Tue, 03 Nov 2026 17:37:03 +0100
-Subject: [PATCH 2/3] KVM: s390: arm64: Declare enum vcpu_sysreg
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RiI7X+Y1
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e09aa5264so2243965f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:38:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793723882; x=1794328682; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CWv72uCOCqMYoLAg7IauldxNcJXBuFWTSZgkJBhwQnA=;
+        b=RiI7X+Y1OQT7mlICAaroBCmsBUUfgvOQ0p1FWYX4xK2TsS4JUvL80YPyJ2N2b3fqNe
+         xfZ5Gtp7r4ZUKDiFErgUXthbpVR7KImLaQzaxMInakBo+BVKJteJvhy8LhW+QyWvnIQF
+         gaVDjepQEVZ/v9r25ymqgkOPqPm2sJvw1x34TaR7maPdUUB4GV2bSmUgrZSfURPLUw2Q
+         Pr3Gc1mDy4DRPy0gHDyrKAH0ETu2fkts4EODd2JUEwfptI21w9JWhnlzDxIAaciME6sh
+         bD9YY1M/jjVbH1ZnbkVYHhIXIQlUP6801ghr1aWv+WwOYai5vk6Z8/fYqSxkKH9YZztk
+         zJcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793723882; x=1794328682;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CWv72uCOCqMYoLAg7IauldxNcJXBuFWTSZgkJBhwQnA=;
+        b=dwNLaNYUEMbJQ8mppZpySPQYRPBH+/tDetkc+2FmUawxNlg08symzHRwXdeCIm2IUs
+         VOK0vh5e3iqtSwfXJP/axsr8rjHoTveZ1vMAGW8c+asss6hxhWo88GfoXmVDJ9bluKvz
+         llaV6VQV52CHJOgoZZQRAHekV77zFIT3OCMtX67h2AK64HhCH6BjC9qO8pAbx6pp2YGO
+         BHwXBxr2DAH54Z28UEEyFEAWWGUsLHFnnybopNL2lgNIpzR9ueZLfKsQIAXajdr6Izi4
+         aTEuP6QXrXQx723XgYUYHZTsQ77FfrDoRf8z8RNRDXxe6Py3lI/VCkZ1XY2Fz+7PtoWQ
+         Z55w==
+X-Forwarded-Encrypted: i=1; AKwUvBwrd9hOxej5DArUgFR5JB9OhELzSSKrHh1f9Xqb4cnyQicP45/WycuWDM/rFqkpKom9M7qu42cMD6Cu9BI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8N16sV6IdjLjn5i25wo3Y/fjwu2MDRyXsmkYeg8ioewdWa/M59
+	2Nkpgx4H4nwBr/HjfeiDd8eIEEkXFs/U0n5UxD6WC+Y7zcsMDXaVML4T7SvF8oJ42Q==
+X-Gm-Gg: AYBFou20wArM6klLx9KmWb+X1wKHPmU9SKCYJLQquXS1zugKNU1ZoBHyF1b8NomsDTE
+	aoOwtBmVVITmYA3W8KEpXvw9KuDP+CSL8ThKpF9PQQnk9S3CRRjQB5XHYdzceYQODG95SKxZcOo
+	o1HM5wwnmT7FF+KgRJAPnFF+wG5y602FRHoivF2egUcYFCMCeX2Ys9BDSOezx++omuxmtLyppWI
+	VBnt0H6DEgtCUdWcuGh8BYeS24HbJ92O7LZ3NwcrxgroSJW3wvfJxIksb5kjviUzva9mp/F0l7j
+	RysegYqkh0gMW9L/swh9NNCwI5ElT2q/orCtAQP/BMaE60tHqRIdxBHmCPoB0pvmefZPYOIqw7G
+	fZcI0LAZ4+13kO/cUVK10cFBfHghsRKzetMJTonvyJ1W9/7wx5txsRd4QOHPoI2hRdD/TgQ1Z0t
+	iPwi5hKnc7Q5h9qIUsqINJaYXfC0OcUJIRfRMDfdy+Spk4kRTYAveNlCD+/up7O8nmyJTmESBPS
+	hBRuvx6UHPj/YbOPTLktFFEGK0FNZfaTHXBzqCXTfQnn7BOaILJ2hM9NXbdB39DyhEyQma4iPHE
+	entksGFqMc+Ra7Cfh1GyPW7MMweLZUmbaCwWsNOwXq796tnJ9azE8Ir2e9fS7yREbQ==
+X-Received: by 2002:a05:6000:310d:b0:48a:f59f:8b70 with SMTP id ffacd0b85a97d-48e6e4f8c71mr33055012f8f.46.1793723880548;
+        Tue, 03 Nov 2026 08:38:00 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8a84esm28271412f8f.39.2026.11.03.08.37.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 08:37:58 -0800 (PST)
+Date: Tue, 3 Nov 2026 16:37:54 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH 1/3] KVM: arm64: Don't walk the whole IPA space when
+ destroying a pKVM stage-2
+Message-ID: <auoN4h8iloqPuepc@google.com>
+References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
+ <20261103084742.1302597-2-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,93 +106,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-s390_arm64_kvm_fixups-v1-2-21c36fedd878@linux.ibm.com>
-References: <20261103-s390_arm64_kvm_fixups-v1-0-21c36fedd878@linux.ibm.com>
-In-Reply-To: <20261103-s390_arm64_kvm_fixups-v1-0-21c36fedd878@linux.ibm.com>
-To: Steffen Eiden <seiden@linux.ibm.com>, Marc Zyngier <maz@kernel.org>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>
-Cc: kvm@vger.kernel.org, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Andreas Grapentin <gra@linux.ibm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=955; i=gra@linux.ibm.com;
- h=from:subject:message-id; bh=g/ibanxIB75ZFzYFkvX0YbHlme7U8HCYQeJwd5YWtQE=;
- b=owEBbQKS/ZANAwAKAXUg1t0k8konAcsmYgBq6g26BIIEJKEJTNtdYcV76pcsPbktt/o8EO2h4
- 2b8Os1JyE2JAjMEAAEKAB0WIQRrKkreGscL2VvlPix1INbdJPJKJwUCauoNugAKCRB1INbdJPJK
- J5ekD/9cMksyLQPmDVNlC1Arak2CnnJ850ts1PRAdPzlkwEo/DfFXL2U1rbxwWgvqxDgvqAJr7d
- qFIHo5DqLHZb6lllUeZUzk9OAII/xbBeX5MFF60c0WD3sXbg5k46arnd+I9SK06wgCQJ7DN4ldK
- 77AR3uOoEbXjCMUMKvA4BzSHt7FcQJNZvNszKiZBWqvinTukh2LTmkTm/i1C7OrUqmVwnP6XlH+
- +21Zkm3JptuXjHH9yylVo5Vah7fCfBBDiGAx6iU9O3GDxVg+g3XL+6DzpySWN818QdknAF0qENX
- gqiQdaTD40Ko5VamMYiuT17nZ7v9XkvXgfV7SrVBuwHtkWS0h42oHaWtxPIr2DhlGT/oMJgsTDS
- Ot38iMs77xjuyA+oZZ+bWHUB50eD3yyrssCm4f9wgfOUiMAWEbthy+gtaXCFsW6dqXk1fiVUrKC
- 7WFRdG3Ql/N4Qhzs9xh272qV0TIbwDFzmd3JxrRRyvv6GpIYeE9/9idoX1vOrbbz1nzWcdKWK6W
- crtGIh5igrJ2erMqLdbqNtYAS9NqK+/GfY4WHMcjJqnFh8GgGQ5UQNxTBXy8SeGodWB2zPxiPHe
- o3yUsI3B/v2jMVPGB3wFG0wLsNl3vLjnHiewDFPKzJEshcVx7fgcIdS1HZwN5KiUfz20hdXGU7O
- pumQuj6HNZcFWJQ==
-X-Developer-Key: i=gra@linux.ibm.com; a=openpgp;
- fpr=3B910193D094AA78FD974A04D8BFC37DD553D93F
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Kj1RmjLl0u63RRpWYeCq7ZZmyxw1geEO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA2NCBTYWx0ZWRfXyDYLvELqYJr+
- vlUw4L4hpKpHGxeLFwfOZBK9jxVFyk2yPhkyPmXLKzl8PelsNc2Pl46bFUwTOus285L5RtSTsFF
- OT/fcBIbeY3iu9iiixeaQAgPz6KFzitMCmNKZYh6OlcBIUG48JIC3aYUl0e3MxhiC2Nm2taDIb8
- 8RZihWvXvigKcjagaZNkMCmTyWa3DhdwSfyg/iOCvXfE/JypGrlyq4g3s+OVCfL5qAwh623RVGN
- oXn7GN4/RzaRSxgH/+iD2v5jU9Jtz+GtHawICDLtqTYDMHu32tSVFd3NrCAo08S0G4Iiddeui8v
- CeXwoBzEvXk1h7Beu70UeghgGK/ORMNCiIm8i4XwMo/K0zdiWEy0ppD1Ml2LjvvzNOjRHt8IyAX
- 9MiX6Er3856rbCnr6J0j9pU8KbrwLe0/cE6BJMNLUxiMzDhdm4OsDxvsCWSduAopOl2jTVRRM8B
- 3T3ikppVgLJiswKCJgA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA2NCBTYWx0ZWRfX0PBW+xcdjIxG
- pPm3jTMyTcftlUMtUaNsHRpPvDsQgFLfomeRp6EtBebfRnbc0YhUwApDmeU5phZ0/pZjsx9gPfe
- gYzPYVlxo1/hxKug9h+moNw+4ZxL6+w=
-X-Proofpoint-GUID: Kj1RmjLl0u63RRpWYeCq7ZZmyxw1geEO
-X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aea0dc9 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=HiePRu6x428vW_iCRwUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611030064
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103084742.1302597-2-fuad.tabba@linux.dev>
 
-Forward-declare enum vcpu_sysreg in kvm_host_arm64.h. This should have
-been included in the first iteration of the header, since we will need
-it to talk about system registers.
+On Tue, Nov 03, 2026 at 08:47:40AM +0000, Fuad Tabba wrote:
+> Since commit 4ddfab5436b6 ("KVM: arm64: Reschedule as needed when
+> destroying the stage-2 page-tables"), kvm_stage2_destroy() steps through
+> the IPA space in block-sized chunks, and with pKVM each chunk is a
+> lookup in the VM's mapping tree. However, pKVM gives every VM the host's
+> IPA limit, so with LPA2 a teardown makes 2^27 lookups with 16K pages
+> (2^22 with 4K), nearly all of them for empty space.
+> 
+> Walk the mapping tree once instead, and reschedule after passing each
+> mapping to the reclaim or unshare helper. The unshare helper can't
+> reschedule itself, as the map and unmap paths call it under the
+> mmu_lock. A failed unshare now leaves only its own mapping behind, not
+> the rest of its chunk.
+> 
+> Fixes: 4ddfab5436b69 ("KVM: arm64: Reschedule as needed when destroying the stage-2 page-tables")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/mmu.c  |  7 ++++++-
+>  arch/arm64/kvm/pkvm.c | 17 +++++++++++++----
+>  2 files changed, 19 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index 1db10d8d6db73..42977cf8a7f5d 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -1022,7 +1022,12 @@ static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
+>  {
+>  	unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
+>  
+> -	stage2_destroy_range(pgt, 0, BIT(ia_bits));
+> +	/* pKVM walks its mapping tree, not the IPA space, and reschedules per mapping */
+> +	if (is_protected_kvm_enabled())
+> +		pkvm_pgtable_stage2_destroy_range(pgt, 0, BIT(ia_bits));
+> +	else
+> +		stage2_destroy_range(pgt, 0, BIT(ia_bits));
+> +
+>  	KVM_PGT_FN(kvm_pgtable_stage2_destroy_pgd)(pgt);
+>  }
+>  
+> diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
+> index 016997288fd23..992ed3ca6bdd9 100644
+> --- a/arch/arm64/kvm/pkvm.c
+> +++ b/arch/arm64/kvm/pkvm.c
+> @@ -504,6 +504,7 @@ void pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
+>  {
+>  	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
+>  	pkvm_handle_t handle = kvm->arch.pkvm.handle;
+> +	struct pkvm_mapping *mapping;
+>  
+>  	if (!handle)
+>  		return;
+> @@ -513,10 +514,18 @@ void pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
+>  		kvm->arch.pkvm.is_dying = true;
+>  	}
+>  
+> -	if (kvm_vm_is_protected(kvm))
+> -		__pkvm_pgtable_stage2_reclaim(pgt, addr, addr + size);
+> -	else
+> -		__pkvm_pgtable_stage2_unshare(pgt, addr, addr + size);
+> +	/* Called once for the whole IPA space, so reschedule between mappings */
+> +	for_each_mapping_in_range_safe(pgt, addr, addr + size, mapping) {
+> +		u64 start = __pkvm_mapping_start(mapping);
+> +		u64 end = __pkvm_mapping_end(mapping) + 1;
+> +
+> +		if (kvm_vm_is_protected(kvm))
+> +			__pkvm_pgtable_stage2_reclaim(pgt, start, end);
+> +		else
+> +			__pkvm_pgtable_stage2_unshare(pgt, start, end);
+> +
+> +		cond_resched();
+> +	}
+>  }
 
-Since the definition of enum vcpu_sysreg is not shared yet, and not used
-on the s390 side, this should not cause any functional changes.
+Just thought that it is a bit weird that pkvm_pgtable_stage2_destroy_range()
+does cond_resched() while kvm_pgtable_stage2_destroy_range() does not.
 
-Fixes: e6c329180d1d ("KVM: s390: arm64: Introduce host definitions")
-Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
----
- arch/s390/include/asm/kvm_host_arm64.h | 1 +
- 1 file changed, 1 insertion(+)
+How about instead kvm_stage2_destroy() refines start/end with some accessors
+calling in pkvm.c pkvm_mapping_iter_first() / pkvm_mapping_iter_last()?
 
-diff --git a/arch/s390/include/asm/kvm_host_arm64.h b/arch/s390/include/asm/kvm_host_arm64.h
-index a3e40650d75d..3e69724f17c9 100644
---- a/arch/s390/include/asm/kvm_host_arm64.h
-+++ b/arch/s390/include/asm/kvm_host_arm64.h
-@@ -8,6 +8,7 @@
- #include <asm/debug.h>
- 
- #define vcpu_gp_regs(v)		((v)->arch.sae_block.gpr)
-+enum vcpu_sysreg;
- 
- #include <arm64/kvm_host.h>
- #include <arm64/ptrace.h>
+>  
+>  void pkvm_pgtable_stage2_destroy_pgd(struct kvm_pgtable *pgt)
+> -- 
+> 2.47.3
+> 
+> 
 
 -- 
-2.55.0
-
+Vincent
