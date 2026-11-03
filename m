@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700327;
-	b=cm9qfHJO1tPC6t9C8o/rtAuvNRoOAOxtRMkCwWFQkxUKv7zQOO0bluxunwl71wVaL16s
-	 wGupsqQUVokjB2DleNEk1DXf+cy1SnsFktltMUO4hGueFFPjlHSZ5KVs4GyzqYn0/92tH
-	 0mDZfV5JDGLU3y4/pxNFUZ9ZUzrCAaRI+xb5GRg7/aQtpnliECUD26LEi2lgsMMRSPQ4N
-	 eFOF2gMjC+GbcEFlOTiNNthbIvsJVwxozzccsxOcUxE2ruw8KwMKvRysAnWhEVOXKZZ41
-	 7kREpuvQYu1klOnbxIbLlKogy/znS7kaepZnpXIt2MLeDvG4D+RDZw3Qb+q8mAOu8bQ==
+	t=1793700329;
+	b=eHFHUVX/W80Um37X4Fbx2/23n2Ai3DsWOYL9DHAQi/jUy0OJ0sUN2xms9WgBb4pgGDvf
+	 etYv87J2FjSsxoBjg+gyCFLx3zPhVWpMInoNHyN1/jEJvB2m2Gn1bhQhS4JU03XFOE61T
+	 soZWb/o7OpVblofiRAa6feOBK2cXnkHhcsGjzIwGcIDNYJqdjQ0SE5fa9vkacDB78p4ZA
+	 qE51tZaN+J73cWxuWedBR+PrruM+yF0wBoNjQV6RyjbOM6iqixYeT8+sFECGoc7aprPlg
+	 LvrCbQeZlw6fgIJ09fMeFHdcieLpb7Uw09yO6Q9RzDmVIXpFhSqkZtXpXmS6qfLCU5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700327;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700329;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=1hy2B0Zu7GhzWyKHcTjvBdxlkZN8R27zax2cpYW8l4Y=;
-	b=G54D/8vtuQNph9EK0KUklCRUlTrXNwQeqmbe8OBpV82q6JT8s0Tojxx9BkXMzeRW9DPg
-	 8GU88ZKaOVl4YlAcUTqPxTe5nggFdFlvv45aGvihsFx5XJ+rjOT6p9ODE7Ybduj15y1fp
-	 8HMDAHvvZeh5qh9a1ZvXwxYWFLGvve52qob2LNkIWkLFEtUVJyB1VQ9ZDBsIsVIDhQ7MJ
-	 7J0a4bFPSAr8aQbvdJ88Rg4bn6ZpYjAKoEvrQnhFjmm+TyUjlYE6DbZULVzaL+CfvCfwU
-	 2dukxQw/TQYoSwQBV8wKXtWitKWJ+xH7VAAXUwWZaACFe3GbqPsY5JYSa1Ejq7kKL0A==
+	bh=nbe3HCMkE02cNxSbO6fejeM4cYJlJPCFxeXdrIl+taY=;
+	b=vchJaigfA+ioVdeO/LyLNEg+9grJiYyVJuzRhhO6tkCIPj97MaYPYw7NN8UhX+lYuEtu
+	 mrbfkQpJENHHAI0Ef7XaG6qp9CFvbG2Y4vkQcDH6pTcfmxkjxeueG/nNTKKuEhVxMX5Kx
+	 v0HDv1gJ2FIBx4lM5rzz3oif6rS8yRhKkw4ebCWOC8+VwlkD0RuvPvEHKjMfgJRgrG2pQ
+	 LICh4h4LJjlSmJD3eCDViY96qzNLhvaxgrrQdN/ip1UNlcW5epQoWQOSUnVGXg6KWEY58
+	 7dqRzLfRLNyEVND8fP4Dh8I/bkGajHRRgQnbW/gE6oxPs7SoU79PXWxgxwMAqpWu+ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,25 +25,28 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFC4606D838;
-	Tue,  3 Nov 2026 10:05:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BFC4606D838
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C01B606EE8B;
+	Tue,  3 Nov 2026 10:05:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C01B606EE8B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAnN5jgselqZns7AA--.48851S2;
-	Tue, 03 Nov 2026 18:05:20 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowADn8JHhselqdXs7AA--.2502S2;
+	Tue, 03 Nov 2026 18:05:22 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	=?UTF-8?q?St=C3=A9phane=20Grosjean?= <s.grosjean@peak-system.fr>
-Cc: linux-can@vger.kernel.org,
+To: Potnuri Bharat Teja <bharat@chelsio.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] can: sja1000: fix netdev leak for non-contiguous channels
-Date: Tue,  3 Nov 2026 10:05:28 +0000
-Message-Id: <20261103100528.1309863-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: cxgb4: do not leak a PTP skb when the Tx queue is busy
+Date: Tue,  3 Nov 2026 10:05:30 +0000
+Message-Id: <20261103100530.1309928-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,57 +58,74 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAnN5jgselqZns7AA--.48851S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw45KrW8Cw1rWF48Cw1UGFg_yoW8GF1kpF
-	WDtF90vrykJF1Fqan5Xw1kCa45Ja97G3y7K3yYv348Zws8AFyxCr1rGay0gFyqqF4fuFWY
-	qF1YkrWjgas5A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowADn8JHhselqdXs7AA--.2502S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF13Gr13ZF4rJr47Ar1fZwb_yoW8ZFWDpw
+	sakr90k395Jw4Ygayvyw48XFn0qw48t3yfKFyrC3s5u3s0qr1rury8WayjyrWDArWkGay7
+	ArsFyFnrGrs8ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
 	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
 	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
 	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8
-	Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUMGQ
-	DUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIBh6AAAsO
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
+	BIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMAA2rpnIBh8AAAsX
 
-pcan_add_channels() stores a registered net_device at card->channel[i],
-where i is the hardware channel index, but only increments
-card->chan_count by one. When a lower channel is absent or fails to
-register and a higher one succeeds, chan_count no longer covers the
-used slot. pcan_free_channels() then iterates only up to chan_count and
-leaks the net_device of the higher channel; the LED timer and the
-interrupt handler also skip it.
+cxgb4_eth_xmit() stores the PTP skb in adap->ptp_tx_skb with an extra
+reference before the descriptor credits are checked.  When the PTP
+queue is full the function returns NETDEV_TX_BUSY, and later failures
+such as an unsupported FCoE offload or a failed DMA mapping jump to
+out_free.  None of those paths transmit the packet, so no transmit
+timestamp ever arrives and the extra reference is never released.
 
-Record the highest used channel index plus one in chan_count so that
-every iterator covers all channel slots.
+Only take the extra reference once the packet is certain to be queued,
+just before it is handed to the hardware.  The initial check for an
+outstanding PTP skb is kept, and PTP transmits are serialized by
+adap->ptp_lock, so only one PTP packet can be in flight.
 
-Fixes: 2b61972b7421 ("can: sja1000: add support for PEAK-System PCMCIA card")
+Fixes: a456950445a0 ("cxgb4: time stamping interface for PTP")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/can/sja1000/peak_pcmcia.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/chelsio/cxgb4/sge.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/can/sja1000/peak_pcmcia.c b/drivers/net/can/sja1000/peak_pcmcia.c
-index c3c2aa21da47..bba51dd808f8 100644
---- a/drivers/net/can/sja1000/peak_pcmcia.c
-+++ b/drivers/net/can/sja1000/peak_pcmcia.c
-@@ -574,7 +574,7 @@ static int pcan_add_channels(struct pcan_pccard *card)
- 		}
+diff --git a/drivers/net/ethernet/chelsio/cxgb4/sge.c b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+index 9fccb8ea9bcd..7e83f60bd14e 100644
+--- a/drivers/net/ethernet/chelsio/cxgb4/sge.c
++++ b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+@@ -1523,12 +1523,9 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
  
- 		card->channel[i].netdev = netdev;
--		card->chan_count++;
-+		card->chan_count = i + 1;
+ 	qidx = skb_get_queue_mapping(skb);
+ 	if (ptp_enabled) {
+-		if (!(adap->ptp_tx_skb)) {
+-			skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+-			adap->ptp_tx_skb = skb_get(skb);
+-		} else {
++		if (adap->ptp_tx_skb)
+ 			goto out_free;
+-		}
++		skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+ 		q = &adap->sge.ptptxq;
+ 	} else {
+ 		q = &adap->sge.ethtxq[qidx + pi->first_qset];
+@@ -1707,6 +1704,9 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
  
- 		/* set corresponding led on in the new ccr */
- 		ccr &= ~PCC_CCR_LED_OFF_CHAN(i);
+ 	skb_tx_timestamp(skb);
+ 
++	if (ptp_enabled)
++		adap->ptp_tx_skb = skb_get(skb);
++
+ 	if (immediate) {
+ 		cxgb4_inline_tx_skb(skb, &q->q, sgl);
+ 		dev_consume_skb_any(skb);
 -- 
 2.34.1
 
