@@ -1,64 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695909;
-	b=uVaMj1Lm8aefTDRdZzi52N+CMHBZEYPJLk0L1ougVu8CIUc/nsszZb2h+pc0Tgz0yTBE
-	 8pb7LerXqvnua50+WN6rdzcBwPPQ2grT+6C3PiMbySlITgyWB9m6tKW/DqcQnqN7rUwbS
-	 dloEcqLS5QTqU3P4gJUcYteHEAjeXpdQUmVzzyM/FkhzeEu+fNNbU5hufHsecyJb4Yf/p
-	 onha0BQCN88QZakKFiu+C+mArohVApWngM3QncuytOtyO55sKIvC/EjaseuXsJVchtqB4
-	 Y49fT2hFvaay9Yhc26T6IBTx9LLHbmi2cTQyv/GoZc/at4d2cakknz6ruvOda7fjglQ==
+	t=1793695965;
+	b=DHw6JP78d+DuAlKCzje/tRBuPDd0qsu3APXBnra/SyEWVuioL9ldEn8XQQ+gBdbehHOf
+	 If1L49XX21IJ7NZwKH7IJ537gbEKuVRKsWWOnK1HnuUog06TE2tdb+fxwB3z0uyOGxL4r
+	 wrQPlRmmTb7Xr1oljcX7WO2HhjpgdkPuNpHcY8HH+rzYUakB1asXLTlQAN2Ma7tM9Pp1R
+	 so6RCnqo4ftiGR2Qe0Rqk9kcbvwu029QFTtmCveS4Nb9uv/GHF1jlWfAth2r2ouEVA4gM
+	 stPOjRdYu+T2tP7Em+zI9l1CXfmyet/Bni29+9Y4CYz/66IRWanjXJcVBz4ZtJL4fFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695909;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=j+3BPXD40gd/4m9XzSumpuXVLjI3f9knyuC9D1sbOkc=;
-	b=OOzNwcyvNxyl2CEdsrvqaqZqWzyAMtA6/XwaKIUc60Qlen1kSMDEf9uTBeHDxouv3IXw
-	 vvkuFByf+T4Ic0bMHlubsTsuI90IEKxMg/zMnxu4VQmxWiMHZ9tyEY9rKio1P5DFy5ksM
-	 ZSxtlOzh0ef80GK5QGD56BLcIhigT0hOLX+Y+ZO3l5kx/XYnOugbM6gHLCCEoljFwnjPd
-	 cj+nYQz2xgy/CAxQle+VRR5wil/kcKupA1Eocyq/SawZyd4/MgCrWTWFK4Tg4FN/QrBCK
-	 gSiwRIVHzT0/QT7TvbWd9kyoR30NZk5+XPs9oM7oAKSd99m6PHpSI7ozu9QYainrGEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695965;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RHBl9u4PW6S73EDeR1NNdDwKss/rh1D+3K5dZAbhGGY=;
+	b=fiWsIm8njppyPQieHsRMnh5QGVjUWM0t7gB9Yp2q7YcAcwk3wN6osEru6YMzo44UG/R2
+	 xHltby0lFoxtkNhf/VpIj8vbSSlxh/i38vOF4OOZ+u3A0rWICOZErktS3OvmnuV/mHxeJ
+	 +YWo414tyqCm++HpgmG/Tkd7KcSPd2gWL5ur7BFVY5nY/gbDw4SWxtxj9gHGgEDFqAFDO
+	 ekYbMJiXOthqdwoF9cLD7hTXMNx7ugauzr7vGw0DV/LjENAy4xhMxY7hwqnSRLMCjSP9G
+	 CWY+u+gAxnU+ccizM2s5gAeGgHhI78DqTyWj342+QUJggi/bS0DSTiK7CTdgEPxzsZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=VICk0y7t;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Kkpeey0y;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB48606A330
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:51:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB48606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8172606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:52:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8172606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=VICk0y7t
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=j+3BPXD40gd/4m9XzSumpuXVLjI3f9knyuC9D1sbOkc=; b=VICk0y7tFmDowx7CHe+0DsyCY7
-	LClgNjNRNTmI9Prr3a1bDclClA3ff/AlKrH4MNC1fSFIVL/epGrQMKxQejHa1tRZChkVKxMpd+rtX
-	32Qs28YT2lS+pOBqEi0lJC/hYtNmSt9Y0wQlj3vhpTLeGG4r8YMHUw3TRoKYBBD3iLAfpUYjOP1ja
-	B1kZfzwY2r25iOTQI+OGL+nNb9R3Lmi6RWms1Z52LpfvuDS1QAHSoxiKJwKCXyajO42wtcUQGRynO
-	944lZYbGF9TkclyFWPHQSUTh2TsUfsDlLXggu4K/a+7Gjvta9/xWx/Ih0ZyeEAokcte6Y1C1uLEB2
-	qvth5kGg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOAF7-00000000D2H-1iIh;
-	Tue, 03 Nov 2026 08:51:45 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 8EFD43002D9; Tue, 03 Nov 2026 09:51:43 +0100 (CET)
-Date: Tue, 3 Nov 2026 09:51:43 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org, jpoimboe@kernel.org,
-	leitao@debian.org, keescook@chromium.org, hpa@zytor.com
-Subject: Re: [PATCH 4/6] x86_64/entry: Mark all syscalls __noendbr
-Message-ID: <20261103085143.GX2668564@noisy.programming.kicks-ass.net>
-References: <20261102112549.714541309@infradead.org>
- <20261102114000.771366690@infradead.org>
- <20261102170630.1dfc00eb@pumpkin>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Kkpeey0y
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso38984715e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:52:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793695963; x=1794300763; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RHBl9u4PW6S73EDeR1NNdDwKss/rh1D+3K5dZAbhGGY=;
+        b=Kkpeey0ycZBJPK+awNbsenphUdiA1HBnSjtXYjGhfY5uRNOtzFiSXHpBO2CsUDlSn1
+         BR17Mtf+4UFo8KlNtiDO6kKqbyOVAcyQn2/e407Rg36fz0qJLB2/KvcdXqMWUH8Sm1wi
+         NB74W2BH5B8hXPl5ZEg1u+piume7YhDXGoE1DwDJuCbBy+/axt89rbeinnTeXAaO8KVi
+         ah/0gtiNMCR7nZCC5P6mf6BvDpvNEp8lkBDzP8Ow1+aiEopPhBfM9iR/pBXPMhE7rxOL
+         Aimpz5/LbY8ztjW/DNCC09gMg4LamBkDuwZlAAsVceoeS53QCXbwFeOFkOb9ZJ7eNvV/
+         xb7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793695963; x=1794300763;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RHBl9u4PW6S73EDeR1NNdDwKss/rh1D+3K5dZAbhGGY=;
+        b=gNxPmbzeAncxxTdrWyZ+F4MTc14c1V4FTRQGTjlqPxubOF812dAtOgLCGbv0rfcV+Z
+         MeRLF447SB748tZknQn97/S1sdRfNQdQcXUHh3U4X5BwHrT0KxLXKpHPWCu1m8e6Tfh+
+         oVDsJm/uigZsGFFPW5o7ry7WNuYNmBFRDTf27gFvhQ9UyIomdVlKi6dJ9D641JCjuxyD
+         8cFeK3YYju/ehNmoWrDwn8oW04tl6WXt+q4aFp0VvKS3EkOVdtmnX76j7aO2Iv80/RVO
+         6XATCHuKABoVShf/yq0qcpndNEEXP4iJ4U5Ld1XsjOGFwI/3UACRaRKaDOUoKTnsB5cw
+         53DA==
+X-Forwarded-Encrypted: i=1; AKwUvByvfpsrjEyiOayMEyyat7YQBet/wuz4iqkVbFojm6U/vTlzf6LGhJjk2MHJS5RPK3HwWcrFDL+5BRdStVs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QIe8v1KNAgpsFz2JdQd2rJjAF4KPrlHzHth+A+2HTrEzEXjB+
+	ayltpHKVbe49Z4RNkR5yG98GsoaNlVoi82ukycyHoMHedf6i6CG35g8yenSMsMgCfp0=
+X-Gm-Gg: AYBFou1BGibqNSmjVFuhkzan/QgeCt+dy/PVTg6tqJZA6mvcsyHYpwi0nUGjx8eD58D
+	qJrKnAfujx0dEQ7p37foYKKnOOfIIsYnE+JuVqd8dnpc958RCO9T994PlhPjpnuEwZTd2fcJq6F
+	HowlHBV73Uq5iZgsjToUjaZb1EjdjPkK9HU8REIfxJJYZvxGNbU+1dWw9L8hkEJor5Cb26m5ZMD
+	+xKF9fgOPhh3Lla4lkUKW1tJQYRsWyZ5O/4x/aUGCPYWMhHQnt3F1FhqmonJRkaTXOM78EptszO
+	qBwEmKYMr307UkAdLl2wVmFMeWKWfup8cPZTG120Y0dNKchDf3bXaTL6hSvvxygUPmly/xhKMik
+	kOAKXNGPp5Lh473oqyzZimK0qZUUkj3BfIwt8kVeoPUcA1RGo2xroxf6ve7GCQ1aj9ylwzz1VBq
+	zG9x2yIcbto1oMXrQflbw8XiMMJ6zu6+IRIgmu1RGaJTlZeg9YDa1ksgRuVCbjG9/ave+N6CfvP
+	jclmiHRHzbCbf/BMYudjukFsTo0eyGbF8MwTumrQJix4nIAGQ7rIHXBcJ14GSrx/GPbKP2kwjN9
+	wlKDvLnE72UJC57MbbB5v1ZJii6srGg69WNkDlWIsMkZK/Ih/vtX0lwOxF9Io4LM6w24cdUVo+M
+	E1eN50dI=
+X-Received: by 2002:a05:600c:6216:b0:4a3:5aea:21e5 with SMTP id 5b1f17b1804b1-4ac1737c533mr271366495e9.9.1793695963059;
+        Tue, 03 Nov 2026 00:52:43 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:95a2:4869:9f46:45f0? ([2a01:e0a:106d:1080:95a2:4869:9f46:45f0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a8c6a9e0sm43117295e9.6.2026.11.03.00.52.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 00:52:42 -0800 (PST)
+Message-ID: <3736bdc3-0f1e-49a9-9559-5a3b7383848b@linaro.org>
+Date: Tue, 3 Nov 2026 09:52:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,76 +93,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102170630.1dfc00eb@pumpkin>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2] arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan
+ tachometer
+To: Igor Velkov <iav@iav.lv>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261006-hc4-fan-tach-v2-1-e27ad96e92a2@iav.lv>
+ <20261102-ping-fan-1@iav.lv>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261102-ping-fan-1@iav.lv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 05:06:30PM +0000, David Laight wrote:
-> > --- a/tools/objtool/check.c
-> > +++ b/tools/objtool/check.c
-> > @@ -4672,8 +4672,15 @@ static int validate_ibt(struct objtool_f
-> >  		    !strcmp(sec->name, "__patchable_function_entries"))
-> >  			continue;
-> >  
-> > -		for_each_reloc(sec->rsec, reloc)
-> > +		for_each_reloc(sec->rsec, reloc) {
-> > +			struct symbol *sym = find_symbol_containing(reloc->sec->base,
-> > +								    reloc_offset(reloc));
-> > +
-> > +			if (sym && !strcmp(sym->name, "sys_call_table"))
-> > +				continue;
+On 11/2/26 19:20, Igor Velkov wrote:
+> Hi Neil,
 > 
-> Does that slow things down somewhat?
-> Could you do it the other way around??
-> So remember the bounds of sys_call_table and just check whether the relocation
-> in inside it.
+> Gentle ping: this has your Reviewed-by from Oct 7, but I don't see
+> it in for-next. Could you pick it up for v7.5?
 
+Yes
 
---- a/tools/objtool/check.c
-+++ b/tools/objtool/check.c
-@@ -4676,7 +4676,7 @@ static int validate_ibt(struct objtool_f
- 			struct symbol *sym = find_symbol_containing(reloc->sec->base,
- 								    reloc_offset(reloc));
- 
--			if (sym && !strcmp(sym->name, "sys_call_table"))
-+			if (sym && sym->syscall)
- 				continue;
- 
- 			warnings += validate_ibt_data_reloc(file, reloc);
---- a/tools/objtool/elf.c
-+++ b/tools/objtool/elf.c
-@@ -556,6 +556,9 @@ static int elf_add_symbol(struct elf *el
- 	if (strstarts(sym->name, ".klp.sym"))
- 		sym->klp = 1;
- 
-+	if (!strcmp(sym->name, "sys_call_table"))
-+		sym->syscall = 1;
-+
- 	if (!sym->klp && !is_sec_sym(sym) && strstr(sym->name, ".cold")) {
- 		sym->cold = 1;
- 
---- a/tools/objtool/include/objtool/elf.h
-+++ b/tools/objtool/include/objtool/elf.h
-@@ -85,7 +85,7 @@ struct symbol {
- 	u8 fentry            : 1;
- 	u8 profiling_func    : 1;
- 	u8 warned	     : 1;
--	u8 embedded_insn     : 1;
-+	u8 embedded_insn     : 1; //  8
- 	u8 local_label       : 1;
- 	u8 frame_pointer     : 1;
- 	u8 ignore	     : 1;
-@@ -93,11 +93,12 @@ struct symbol {
- 	u8 cold		     : 1;
- 	u8 prefix	     : 1;
- 	u8 debug_checksum    : 1;
--	u8 changed	     : 1;
-+	u8 changed	     : 1; // 16
- 	u8 included	     : 1;
- 	u8 klp		     : 1;
- 	u8 dont_correlate    : 1;
- 	u8 fake		     : 1;
-+	u8 syscall           : 1;
- 	struct list_head pv_target;
- 	struct reloc *relocs;
- 	struct section *group_sec;
+Neil
