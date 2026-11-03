@@ -1,73 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725292;
-	b=T4K2iceiBxpHwTEtVcH7POXcR45numn/20TZJfhH7pHSFWaHIskNPNCGNKWi0qXQz4xe
-	 lhL1AkoaP5g4JlXEh3yY/NSTAyKgZFpfXgyHDVJ4aSUVqDuHgX72mZI3fRsi/JAyqqPIj
-	 E3/QbDxDXY2iNSmqqjEA8vcjSDZEOw2+ttjM5AEKkZQBt93Yd3zKeCpwQYlbx8LZ4yDO2
-	 2vmH2jXK+UmyuP4SPJ0SZUnz4xOiC/kq+RLf+GJTqNYHUJCKoPwGFYcOmu6HNAlEFPCj/
-	 YX9WxU7KbLnDrVFP8IvblT0+IJV5b2pUGICIiZVNvkP8jn7luyVi1cR6BhocF/zRg+g==
+	t=1793725318;
+	b=C1wG/8z5+6E6DKoHQFzqx4yLoX9FxTfzxsnT2jE6jfPX0ipSsAxEs/hXNUDI/FJa5BDX
+	 IXs9Bfhz5wJQgzRMLEj+nBSqdLBsei/Nvb3DjZkTnHdMDX0fTZCp4BX9m5PA+o/gHn6kO
+	 TzdghDfGru7TU5t2yRYQkHOaqpix0PCw6VJ7v/rbYWL7a56DxGQJsE4NptPhP7B9Jds/y
+	 e80piog3UZL92QjNGNAafuxGNPe9JcUU/xQc1KvKqGCd/rvbgR2UXBSby1SaVpHaLXRCj
+	 pkaWJQqVOYGoWK1Q4MpMUGsYssXvy6o7rtkzlI3PaxQAmR3zQ9KtuqFh4EIutSrC2xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725292;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
-	 X-SA-Exim-Mail-From:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
-	 Subject:X-SA-Exim-Version:X-SA-Exim-Scanned;
-	bh=RchtkJFTw36chOPxEtH6cIti46A9gaK+Fmpg6WmFwbs=;
-	b=4MiQJrVdX2z96uFUI1g6/cYeREPDKl+tPLbb04DHKkP1rywIsfoS6LPwzcTzp8zF5FZi
-	 rQq1tFHCPwQChggEDM/xt1wdAgN5FQ6ebmxA6Ud+LYiSe9DsUeKJHamkK/I0jH55mg214
-	 9qYVPTF0TmYLSmOYjkQGm202D/BoK4caY2j5Z4jKhA4UiXrvnYK/CUDe9Zk1iqh8lxc8+
-	 gXqR6mn6PxM/vtcn3RTZE2wzBGqCIC9W6jvyiMuJhaNnVqKqjTGMqQxyujgXDh7kx3scW
-	 PWo5B+dChFvINQLaw9q4bNPity3koZwIL/BHq+pDXPfyLFF6AN4HWEnJr8mCW+2Ev4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725318;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/ygLRDArd2qcZRlnb2YAG6JBEFLHnwKUcdybO4KmhRQ=;
+	b=fBu4223uSrTi1vq4i2ExRuBIujbNSvAdXR7GLqkClV+Puhd3XVZjyZntd4cRMGYV163N
+	 jVgdlEtfTS2EFCH+R5JequbpdaZDNPPa7HXV7nw4eYocMllsMe+UgA5z5rUxRUekDtqyj
+	 yVCY7/AhH0DJgvJJqVep0sBpLMZnHluAj5ib6eY0mOvGBqB1Bcsidza5jxXas5r7E1pn2
+	 hr0VoBOVyYR18gZKw/nXp0qQDlyjsfKvAekcVaJJfCru4sf6DiZ39/MsxaURl12qDRSdc
+	 HpJVa0Cme2rqYXyAAu114ElPjIJlUxiMRF7QHEYDfEQWK9xjZboJNXrh1ehUfQGn3dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deltatee.com;
-	spf=pass smtp.mailfrom=deltatee.com;
-	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b="foVlrp//";
-	arc=none smtp.remote-ip=204.191.154.188
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXJx8p1e;
+	arc=none smtp.remote-ip=91.218.175.32
+Received: from mta0.migadu.com (out-32.mta0.migadu.com [91.218.175.32])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01D1606A330;
-	Tue,  3 Nov 2026 17:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C01D1606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA48A606A32E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:01:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA48A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=foVlrp//
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Cc:To:From:content-disposition;
-	bh=RchtkJFTw36chOPxEtH6cIti46A9gaK+Fmpg6WmFwbs=; b=foVlrp//IyLx1QBfkxVpzc1KCC
-	CGFzpNOKIKFhLC/XazHI8NMy7zTb/Gg02IimXseSDTbqt/bm8PY3YmVsl1pi9986E8uvrSGKAsmmR
-	XPnVXBY7uE9+wMyWl6J0UMLgmKwk2nuJQgoMPdOb5vxHLc1+432uLArZ5HhCabwmT+vS1msjh3PfG
-	xyqIaGrehKfHiddluH3TKmDcHbVeMrBUC3aKYjAz/4YC4HsX3Nl2z/PCrzJ/YHAepbOtRyS9tfugE
-	ZjqVOkn/gGeZdOc9gliF+k5NnOrlrAQat8c//FiA3EBkf805Op90zkXK3h0YM3QCnVoWZBTlNBRnz
-	BbtxfLLg==;
-Received: from donard.priv.deltatee.com ([172.16.1.31])
-	by ale.deltatee.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xOHt3-000000092Tv-24jH;
-	Tue, 03 Nov 2026 11:01:30 -0600
-Received: from logang by donard.priv.deltatee.com with local (Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xOHsC-00000001yXc-2loB;
-	Tue, 03 Nov 2026 11:00:36 -0600
-From: Logan Gunthorpe <logang@deltatee.com>
-To: linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: Frank Li <Frank.li@nxp.com>,
-	Kelvin Cao <kelvin.cao@microchip.com>,
-	Logan Gunthorpe <logang@deltatee.com>
-Date: Tue,  3 Nov 2026 11:00:32 -0600
-Message-ID: <20261103170033.471034-2-logang@deltatee.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103170033.471034-1-logang@deltatee.com>
-References: <20261103170033.471034-1-logang@deltatee.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXJx8p1e
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EVSPRf8vZjWZPWFWXvzAwsJ1II8mVWMBvcu4Y1x6kdg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793725315; v=1; x=1794330115;
+ b=lXJx8p1eUasX2fzSD5gCO1OI3g/AW83HJ9DXJk8vDD5bQo7xzdiMhW9JYgas3xcogvLJPiEM
+ Xq6tiCHXEzY0xIpMvF0Wt0Ug461eIAoZ3tDZ1BTbUWR9436X2ZiVAPM76zQerAkgdSfifUW3hCI
+ jNKOsdoQBwVej+2WOugS+lLI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id f9a1694e07816c8b;
+	Tue, 03 Nov 2026 17:01:54 +0000
+X-Mizu-Trace-ID: f9a1694e07816c8b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0dce8e2f-e039-45f1-9579-91cad6563a66@linux.dev>
+Date: Tue, 3 Nov 2026 17:01:53 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,39 +58,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: libsas: Fix interval notation
+To: Manuel Ebner <manuelebnerli@mailbox.org>, Jason Yan
+ <yanaijie@huawei.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-scsi@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260916124403.315227-2-manuelebnerli@mailbox.org>
+ <9fd990b5-b4fd-423a-bd80-2bb630fc5de5@linux.dev>
+ <2deda25727af9db748f86f2a3d1f61047c903f3a.camel@mailbox.org>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <2deda25727af9db748f86f2a3d1f61047c903f3a.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 172.16.1.31
-X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, bhelgaas@google.com, Frank.li@nxp.com, kelvin.cao@microchip.com, logang@deltatee.com
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: [PATCH 1/2] dmaengine: switchtec-dma: Add Gen6 secure device IDs
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-Add the device IDs for the Gen6 PFXs and PSXs secure switches
-(48XG6 and 64XG6) so switchtec-dma binds to their DMA functions.
+On 11/3/26 14:25, Manuel Ebner wrote:
+> On Wed, 2026-09-16 at 14:40 +0100, John Garry wrote:
+>> On 9/16/26 13:44, Manuel Ebner wrote:
+>>> Remove needless ']' from interval boundary.
+>>>
+>>
+>> This documentation is wrong for this structure description (not shown) -
+>> it should be for asd_sas_phy, not sas_phy
+>>
+>> Same for sas_port -> asd_sas_port
+> 
+> Does replacing all sas_phy -> asd_sas_phy and sas_port -> asd_sas_port
+> fix this? Then I'll send a patch.
+> 
 
-Based-on-a-patch-by: Kelvin Cao <kelvin.cao@microchip.com>
-Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
----
- drivers/dma/switchtec_dma.c | 4 ++++
- 1 file changed, 4 insertions(+)
+uh, I don't think that anyone would be checking this documentation from 
+now on, as I don't expect any drivers for new SAS HBAs which may even 
+want to use libsas will appear.
 
-diff --git a/drivers/dma/switchtec_dma.c b/drivers/dma/switchtec_dma.c
-index a386c3a284e6..1af938bb40b3 100644
---- a/drivers/dma/switchtec_dma.c
-+++ b/drivers/dma/switchtec_dma.c
-@@ -1455,6 +1455,10 @@ static const struct pci_device_id switchtec_dma_pci_tbl[] = {
- 	SW_ID(PCI_VENDOR_ID_MICROSEMI, 0x5452), /* PSXA 52XG5 */
- 	SW_ID(PCI_VENDOR_ID_MICROSEMI, 0x5436), /* PSXA 36XG5 */
- 	SW_ID(PCI_VENDOR_ID_MICROSEMI, 0x5428), /* PSXA 28XG5 */
-+	SW_ID(PCI_VENDOR_ID_MICROSEMI, 0x6064), /* PFXs 64XG6 */
-+	SW_ID(PCI_VENDOR_ID_MICROSEMI, 0x6048), /* PFXs 48XG6 */
-+	SW_ID(PCI_VENDOR_ID_MICROSEMI, 0x6164), /* PSXs 64XG6 */
-+	SW_ID(PCI_VENDOR_ID_MICROSEMI, 0x6148), /* PSXs 48XG6 */
- 	SW_ID(PCI_VENDOR_ID_EFAR,      0x1001), /* PCI1001 16XG4 */
- 	SW_ID(PCI_VENDOR_ID_EFAR,      0x1002), /* PCI1002 16XG4 */
- 	SW_ID(PCI_VENDOR_ID_EFAR,      0x1003), /* PCI1003 16XG4 */
--- 
-2.47.3
+John
+
+ > Thanks>   Manuel
+> 
+> 
+>>
+>>> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+>>> ---
+>>>    Documentation/scsi/libsas.rst | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/scsi/libsas.rst b/Documentation/scsi/libsas.rst
+>>> index 305a253d5..9ebf2bf28 100644
+>>> --- a/Documentation/scsi/libsas.rst
+>>> +++ b/Documentation/scsi/libsas.rst
+>>> @@ -75,7 +75,7 @@ enabled
+>>>        - must be set (0/1)
+>>>    
+>>>    id
+>>> -    - must be set [0,MAX_PHYS)]
+>>> +    - must be set [0,MAX_PHYS)
+>>
+>> this looks ok, even though it is so trivial
+>>
+>>>    
+>>>    class, proto, type, role, oob_mode, linkrate
+>>>        - must be set
 
