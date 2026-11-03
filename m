@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701623;
-	b=lG9w2svhZ/hRv4Wa9+KfOryXIXl1KkkI7Umit6U6SSemJRoVHzPOguP03Wmr4Ci6j90t
-	 LgbTmiKoa5+/IfLjYFNQQiw7hluBUdydkNJy0NC9wreQ5XhrDf2zrDKZxzhI1fxU5b7Wr
-	 ZKKgd325yJcyPVGbJD5+pePHTw+i4pX7tWXa69H3tArqBqFZUlBt2LUY+N2IV820I+q4z
-	 yEdwApIBNdqE4xFqoLw+k0ldYEzpllnH/BgnaHEgGmkSaHVyKy9yjH1Tz8rX12lSNVGYf
-	 HrvSIlTYrMfX7PTWwrVlgfLi7tF8N6IA3gE/+j3xAjWW9dDl9k6Ryezk6OTNi4qaHgA==
+	t=1793701616;
+	b=EWRVqzYmhX4doLqyrQjUp+h0hZGCnCYGvFMQA4kOxGTOw6l+4llUXw7TREU5HAneBdnx
+	 f5hesDHpeZlHczM3f1yfLWYdntPAQDIHBXL6kE0khD23I9PpUI3T4/QsqmtQqQbOCejre
+	 vnLvDpQDC/VI9yeqy32COTByiHvFJzOpC48434kudEzTFXr66MFszhKAPx/SenRhcSSpz
+	 jgREy4rMecIurpJGKygMHLjX8Or7iBpwWy0+Xoee5pxBwYok49FIPaUj45eJbbYqUzoci
+	 unHpCy/8TD7QnLiIBE8RTyKRrfjonhfDx3+l4Rix/38DK37BU9ae8MjCNI1qO7m+Hog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701623;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=BLOHIiVh9KScUX9/k8FRamlay1WjAQp1p19oFBHTvH0=;
-	b=ceY5z36S/JFgveswj86y7esDwo58v0T7HFz9k8KENeM3UZylqbtgTlABAOfqMFaqLd5M
-	 J7QAh5iR6olz+txKv4woJliqD2ZKT+wiLfHA4fRS78iaHmT59KiXwSrU0aAvmTEryBE8q
-	 hsGifz39Tcsczi8TdHe0ZE7NfPKrFmtsecIbB6oWAIDPsHj4L4gD/TpF9wxr4j3S/lMEP
-	 3UfldXsqcjQKd1i5w6yWnPabkJ6itIlZrubXkmLUIIaLpSR58bvx5wLn2S+Nq2jWdxGUh
-	 CP8zMkF27y70sffW73AEUnacPTDg7ywOGavMzx1mkiuQDSgvMc3m8nyU/3MV1CbrkEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701616;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vF8xG9Wg0/iR0LYUbbIhgD9MY7+21+7qiT7sQpnMXI8=;
+	b=d+cUViFGs93QHMRwWLIkKWmr5gjA523S0plBw23dBJstdW4X9qZFwQhxSIpmMyF1RYim
+	 qdXKIWGtGx8GcZ8qiC/TzbdG+VzZBRlVUX9X15SL9whCVJAvarMKhZxuZ/j+eR5m9iNiP
+	 6VTriROCJ9fLznG55vv8f2ncql6G9c4oUjjk3Lmy7DXnyQGsr2G+SLjoTwfVydFruJCf6
+	 rN8osM6axMIqsJ1QxRC6nRMrsIKS2gPw6IsP264E7NiX58c/3ziHzKjM2ovg4A+c0Wrwl
+	 3ZSbggY7Vz/FoMzFM0DzhknR3c6FJsJHqZW4Xpoq9tge6bjtyOK9UWwIuZ8IlNngETA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fPiRBSRl;
-	arc=none smtp.remote-ip=91.218.175.31
-Received: from mta0.migadu.com (out-31.mta0.migadu.com [91.218.175.31])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AgGIuc3i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A55606C5BE
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:27:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68A55606C5BE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCA1606C580;
+	Tue,  3 Nov 2026 10:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fPiRBSRl
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uVhKCRPYYUCTxuKfKCPJrKjYgbdLJ824hxS2eudo/Zs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793701620; v=1; x=1794306420;
- b=fPiRBSRlYy3Vwo05AqVUHNNpp7hOU01Q5k8fWY4sK1OLGosAScUMJk8UgUdgMvZxGiXfyPaL
- nhAsKxscf0JylJA3H5Pojz4zQjNCw294rJmrnznqQpDFVnkzfs9QCQAluKQcsiiB4kfNiZOuIKp
- ZAZ9DS6S43B9+zcNVcRzJMH4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 46b14ca827d6b28a;
-	Tue, 03 Nov 2026 10:27:00 +0000
-X-Mizu-Trace-ID: 46b14ca827d6b28a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b2caa92c-9e10-4e36-bd73-b71621d60108@linux.dev>
-Date: Tue, 3 Nov 2026 18:26:51 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AgGIuc3i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B98A1F00919;
+	Tue,  3 Nov 2026 10:26:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793701616;
+	bh=vF8xG9Wg0/iR0LYUbbIhgD9MY7+21+7qiT7sQpnMXI8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AgGIuc3i/+pEZMq8Ko91aA5O3SOhC42Fu/wTLmdPjmQWZKruH/btztx6oYySW/I1E
+	 dPqizGAIInK3ymc/fa7u93E38cbR93+Z6Ar7k1Yas2EE44BW46sESs8AzjtvodKU7p
+	 TfBqBXMjj12KDWMnYZQF8IgIQAnj3BGQPUZCnwAweYmWpwd+FNHC9DsiS3Ou4Q5dms
+	 AayCEZnMuqJbcWWmhEB+y6MJok5KTbnFfuilA96pwxF0bDaYOyibDJdyvfMnq/TCM2
+	 v5CLb0WmpgrufPTbYiGDLWP2/gdDh3lb1BTzDZw+CNp9KqkYZ2VOg9+t75Eua3PP7I
+	 GdKWemYdsJeZQ==
+Date: Tue, 3 Nov 2026 11:26:54 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Peter Griffin <peter.griffin@linaro.org>, linux-media@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: exynos4-is: Free control handler if fimc-lite
+ subdev init fails
+Message-ID: <20261103-macho-determined-woodlouse-b1ba77@quoll>
+References: <20261103094617.1289377-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,123 +59,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH -v4 04/22] cpuset: introduce partition_enable()
-To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Koutn? <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chen Ridong <chenridong@huawei.com>, Ridong Chen <chenridong@xiaomi.com>
-References: <20261101114206.2434398-1-ridong.chen@linux.dev>
- <20261101114206.2434398-5-ridong.chen@linux.dev>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261101114206.2434398-5-ridong.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103094617.1289377-1-vulab@iscas.ac.cn>
 
 
-
-在 2026/11/1 19:41, Ridong Chen 写道:
-> From: Chen Ridong <chenridong@huawei.com>
+On Tue, 03 Nov 2026 09:46:17 +0000, Wentao Liang wrote:
+> fimc_lite_create_capture_subdev() initializes fimc->ctrl_handler and adds
+> a control to it. If the control cannot be created, handler->error is set
+> and the function returns after cleaning up the media entity only. The
+> control handler still owns the memory allocated for its buckets and for
+> any control created before the failure, and fimc_lite_probe() does not
+> call fimc_lite_unregister_capture_subdev() on this error, so that memory
+> is leaked.
 > 
-> Add partition_enable() to consolidate updates to key cpuset structures
-> during partition enablement, including:
-> 1. remote_partition
-> 2. effective_xcpus
-> 3. partition_root_state
-> 4. prs_err
+> Free the control handler before returning the error.
 > 
-> Key operations performed:
-> 1. Invokes partition_xcpus_add() to assign exclusive CPUs
-> 2. Maintains remote partition flag
-> 3. Syncs the effective_xcpus mask
-> 4. Updates partition_root_state and prs_err
-> 5. Triggers scheduler domain rebuilds
-> 6. Sends partition change notifications
-> 
-> This helper also handles the transition between root and isolated
-> states of a valid partition. In that case the cpumasks are unchanged
-> and only isolated_cpus is updated.
-> 
-> A partition_state_update() helper is added to set partition_root_state
-> and prs_err, and to reset the partition data when the new state is not
-> a valid partition.
-> 
-> Signed-off-by: Chen Ridong <chenridong@huawei.com>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> Fixes: 4af813108b88 ("[media] s5p-fimc: Add support for Exynos4x12 FIMC-LITE")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  kernel/cgroup/cpuset.c | 51 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 51 insertions(+)
+>  drivers/media/platform/samsung/exynos4-is/fimc-lite.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index df52f6e5e99f..052a131731dd 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1716,6 +1716,57 @@ static void compute_effective_nodemask(nodemask_t *new_mems,
->  		nodes_copy(*new_mems, parent->effective_mems);
->  }
->  
-> +static void partition_state_update(struct cpuset *cs, int new_prs,
-> +				   enum prs_errcode prs_err)
-> +{
-> +	lockdep_assert_held(&callback_lock);
-> +
-> +	cs->partition_root_state = new_prs;
-> +	WRITE_ONCE(cs->prs_err, prs_err);
-> +	if (!is_partition_valid(cs))
-> +		reset_partition_data(cs);
-> +}
-> +
-> +/**
-> + * partition_enable - Transitions a cpuset to a partition root
-> + * @cs: The cpuset to enable partition for
-> + * @parent: Parent cpuset of @cs, NULL for remote parent
-> + * @new_prs: New partition state to set
-> + * @new_excpus: New effective exclusive CPUs mask for the partition
-> + *
-> + * Transitions a cpuset to a partition root, only for v2.
-> + * It also supports the transition between root and isolated partition.
-> + */
-> +static void partition_enable(struct cpuset *cs, struct cpuset *parent,
-> +			     int new_prs, struct cpumask *new_excpus)
 
-Should we consider the bisection case here? With CONFIG_WERROR=y this
-patch fails to build on its own — partition_enable() is defined but not
-used.
 
-Thanks,
-Guopeng
 
-> +{
-> +	int old_prs = cs->partition_root_state;
-> +
-> +	lockdep_assert_cpuset_lock_held();
-> +	WARN_ON_ONCE(new_prs <= 0);
-> +	WARN_ON_ONCE(!cpuset_v2());
-> +
-> +	if (old_prs == new_prs)
-> +		return;
-> +
-> +	spin_lock_irq(&callback_lock);
-> +	if (old_prs > 0) {
-> +		/* Switch between root and isolated, cpumasks are unchanged */
-> +		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
-> +	} else {
-> +		/* enable partition should only add exclusive cpus */
-> +		partition_xcpus_add(new_prs, parent, new_excpus);
-> +		/* enable remote partition */
-> +		if (!parent)
-> +			cs->remote_partition = true;
-> +		cpumask_copy(cs->effective_xcpus, new_excpus);
-> +	}
-> +	partition_state_update(cs, new_prs, PERR_NONE);
-> +	spin_unlock_irq(&callback_lock);
-> +	cpuset_force_rebuild();
-> +	notify_partition_change(cs, old_prs);
-> +}
-> +
->  /*
->   * remote_partition_enable - Enable current cpuset as a remote partition root
->   * @cs: the cpuset to update
+Multiple things here:
+1. Your team ignored completely previous feedback. Multiple times.
+
+2. You use multiple identities with this email address, thus I doubt that we
+   speak with an actual person.
+
+3. Your bot does not even bother running checkpatch, right?
+
+4. Nothing of this was reproduced nor tested.
+
+5. Finally, the same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document the issue discovery method and what was
+or was not tested.
+
+Best regards,
+Krzysztof
+
+
+
 
