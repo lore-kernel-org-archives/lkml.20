@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745755;
-	b=KFxrbKdR1M56jTgao0+t7ch8hfHt5Wl7M1tmmlC24vbCgLka5j5zshAmnIWyIJINRAiQ
-	 VG6xfvhSB+qFDg/QCB+LLGPjD+6RpR90oU0C4O7Mt5A1Jy0MMA/LChGA6g/AEa0rVqDWg
-	 i1fKq2wRbGvdieCQHolfQ4/xAJU2eXKDLIMJpggSgbSO5Yx8YgQzMcLrGuBwOYDi49KNM
-	 xDijnMdP2NE2Awu9mqTa35FuCb9nEdRTNo+YtwQWgXZ7Y9z7upoHhfN16ErB7RTlLXM8h
-	 qDnd6Th5qAEYKorQMxY5yQLn4CWqqEH2kQQ28NXegqHFqGEJRgEZOGecTiJaZl6aWlQ==
+	t=1793745750;
+	b=3ZwI/39Usvbn/Epb2TR9++uYMw5XE6Dq4lWoNMIUCgATXmHoItI9Z9vrWbOWTUOVK6Er
+	 m8vHgKwjB1QblfduIL/9lnGpsP2Vig/lP2Y7BugbxoTYWGvqLw6kjW7LLLkH86W0cMvAe
+	 QVkBLPhiSR78i87STax14GN7aU63z9H+Zr9kSFQXe08cva7K045r4gGx/sxCx306YQ27p
+	 baeMsFhE7bPxO3hZ9bsx/u8AmjbB9mndCDJKWIX2LfxDbb1GYXqZ2tA8+c9P40TMPHp+0
+	 /U9mtcwrwi2D+c2IN/OgUDxJNKG5uFRiSdYm19Yi/9aQ61M2lMP7ih2cq/08uySXdsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745750;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=PEvKgHuzMcEqcFdxZxPthE75TieLrA0urwCwR3k19ac=;
-	b=LOYQFNOPsFgwl7FHhn3ZMmZYxzJCdEnVSKmauX4Hu9V3T5MIpFbQbtKbyVM1jH0DW/sA
-	 Cj1tq/dSVtH+1tg6XjI8OFAtZoBZ/V4Xma21d8aDm1wbgBwlQw230PIRJm2Gj5zIBIxKe
-	 XtHszT52tvmpTBSCu0eNbfy52X4Yz169cuL6nVWt4fHrPPDMHq67dcggx3xNQTJBpeosd
-	 77Ixw0CLes4nyFeMtkZaAUil33YE9kjz/CZYDfhcUfa3RHoZBhFkJMPVE881ZEBrKO8Dk
-	 ivJkWW2Vf89rQ6+gvXnZ8Dzvcz1UPiK8B75XdVQXOufcN3ioUbItC4CUlvobwTjkNxA==
+	bh=Qcm7dNlNC7FzVRWrzrfVIhHJC+ShPSNQpQhZi/uhkcQ=;
+	b=eGxpVjs9lAdX1bXLMuutNZqS7I9tYQUzqIulI/RM4SvgDkVTZTFE1H4zipiBWDg2EszL
+	 cj7uTyA1F9nRPLOx2n86iSZKdJka/+TUnBW+vUS6qP1voIrkFnhk5++Dme7SlY4C4LjoB
+	 X6ePdLUrku0eEY4ikceQjdEbx9RffYQbxpy4P8sjDOpSicLUTOezNsf6jyAsp/xb0ITm+
+	 NfWPVoCKjoS+19zrFArwQ38FFjxkDKyJE6qDOIrm8ip4kxqiPmcp3ZRa7jPvm0jArHHtS
+	 mj2mKqm7GRslNAp2HAn0hEsNr/ICKdZpcjHSyqSZRWB8ZmsX6Padgpa58yBn+eBmIfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngCPkUY0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nb+ibHK9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A656C606D807
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:42:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20246606A339
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:42:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngCPkUY0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3E2A1F00A18;
-	Tue,  3 Nov 2026 22:42:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nb+ibHK9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A721F00A20;
+	Tue,  3 Nov 2026 22:42:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793745754;
-	bh=PEvKgHuzMcEqcFdxZxPthE75TieLrA0urwCwR3k19ac=;
+	s=k20260515; t=1793745748;
+	bh=Qcm7dNlNC7FzVRWrzrfVIhHJC+ShPSNQpQhZi/uhkcQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ngCPkUY0jlR5Djwrf4nIjSIorDE1ghYkWYzgJSc1vgf4n9R9yaGn3wULmw0KOcstt
-	 6aZGCzzU4BeKvANk8Gfa/qHtpmfmDbRX+zXEvNMWUY3HsGEbcy5yzNikUJmgTPC7MC
-	 +1+yY1aExPT3mr+4jratPgIP8zrDN0DsMS9F1PVS22AskyURF0L025OV8bLuhlemRR
-	 0Kx9HCZgOzqrhIfDumPV313oJFhKOMaPW7pdcwwZ7O/Ji6M/7M5l7jT3dLX7uJbO+V
-	 4aFXp/rjwtb7uv/PAlvQ0io6IwjFq/gv5VLqlRiew35lIjfsa/Iq7PRrp5h67G6LYv
-	 K7U61LGn4wCYA==
+	b=nb+ibHK9JAbh82K8ggyPNssRjvJVzwveQFWZXv0a6pINFTUP9tD8cpX/SWEYHwTog
+	 QsXQXWHwCtwI+KuFNafJV8v26GgOnqBaPaBlML5QTISqcWa3+bkPovQkgjKppwT3nr
+	 yQafEg9epQjd087eDFrxSaxDWT9tnzbpncSnNpjns3978frYMaqIGG9H/fiXtOlsOi
+	 S/5cVXD4TprlJoxO0wYTbAYxX/UtBMq+CyLJU3idwcC1zQPIThYORvDsLCoGtbov2n
+	 G/U0tBu3xDouJyq6uRXCCxwOg0CwPrXGezP0lbdR9csd5P/xaFU9ENpAyWnplOmQzB
+	 q1V97y6YhhdYQ==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Tue, 03 Nov 2026 16:42:11 -0600
-Subject: [PATCH v11 10/12] drm/gud: add connector luminance support
+Date: Tue, 03 Nov 2026 16:42:08 -0600
+Subject: [PATCH v11 07/12] drm/panel: add connector luminance forwarding
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-superm1-backlight-property-v11-10-00cce7b2ba22@kernel.org>
+Message-Id: <20261103-superm1-backlight-property-v11-7-00cce7b2ba22@kernel.org>
 References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 In-Reply-To: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -75,71 +75,182 @@ X-Mailer: b4 0.16.0
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose GUD display brightness through the connector LUMINANCE property
-when DRM_LUMINANCE is enabled. The value is mirrored into tv.brightness
-during atomic check so it is sent to the device with
-GUD_REQ_SET_STATE_CHECK in the same commit.
+Add helpers that expose a panel backlight through the connector
+LUMINANCE property and forward connector updates to the backlight
+backend.
+
+Hook the helpers into panel bridges that create their own connector.
+Panels consumed directly, or by a panel bridge attached with
+DRM_BRIDGE_ATTACH_NO_CONNECTOR, remain unchanged. Turning the backlight
+on and off is left to drm_panel_enable() and drm_panel_disable(), which
+already honour self refresh.
+
+The panel backlight remains the hardware backend and keeps its
+/sys/class/backlight device, which is owned by the backlight driver.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
 v11:
- * Apply LUMINANCE in the atomic commit instead of a worker, fixing an
-   endless commit loop, a use-after-free on disconnect and brightness
-   being clobbered on DPMS off (Sashiko)
- * Attach the property at connector init (Sashiko)
- * Keep selecting BACKLIGHT_CLASS_DEVICE (Sashiko)
+ * Don't remove drm_panel.h stubs (rebase artifact, Sashiko)
+ * Use drm_connector_to_panel() rather than an invalid panel_bridge
+   container_of() (Sashiko)
+ * Clean up the connector if attaching the property fails (Sashiko)
+ * Drop .disable_luminance and program the committed level before
+   drm_panel_enable() (Sashiko)
+ * Don't attach the property when the panel bridge is attached after the
+   device is registered, which would WARN
+ * Update brightness under the backlight ops_lock
+v10:
+ * Split panel support out of the combined panel and bridge patch
+ * Limit integration to panel bridges that own their connector
 ---
- drivers/gpu/drm/gud/gud_connector.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_panel.c | 93 +++++++++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_panel.h     |  4 ++
+ 2 files changed, 97 insertions(+)
 
-diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gud_connector.c
-index ddbf3b3ebbca8..bfb298bbc9b51 100644
---- a/drivers/gpu/drm/gud/gud_connector.c
-+++ b/drivers/gpu/drm/gud/gud_connector.c
-@@ -292,10 +292,19 @@ static int gud_connector_atomic_check(struct drm_connector *connector,
- 	struct drm_connector_state *old_state;
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index 74c96da45b7a5..bbd0e14401c18 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -64,9 +64,18 @@ static int panel_bridge_connector_get_modes(struct drm_connector *connector)
+ 	return drm_panel_get_modes(panel, connector);
+ }
  
- 	new_state = drm_atomic_get_new_connector_state(state, connector);
-+	old_state = drm_atomic_get_old_connector_state(state, connector);
++static void
++panel_bridge_connector_set_luminance(const struct drm_connector_state *conn_state)
++{
++	struct drm_panel *panel = drm_connector_to_panel(conn_state->connector);
 +
-+	/*
-+	 * LUMINANCE is sent to the device as tv.brightness in the same commit,
-+	 * the brightness change below then triggers GUD_REQ_SET_STATE_CHECK.
-+	 */
-+	if (connector->luminance_property &&
-+	    old_state->luminance != new_state->luminance)
-+		new_state->tv.brightness = new_state->luminance;
++	drm_panel_set_luminance(panel, conn_state->luminance);
++}
 +
- 	if (!new_state->crtc)
- 		return 0;
+ static const struct drm_connector_helper_funcs
+ panel_bridge_connector_helper_funcs = {
+ 	.get_modes = panel_bridge_connector_get_modes,
++	.set_luminance = panel_bridge_connector_set_luminance,
+ };
  
--	old_state = drm_atomic_get_old_connector_state(state, connector);
- 	new_crtc_state = drm_atomic_get_new_crtc_state(state, new_state->crtc);
+ static const struct drm_connector_funcs panel_bridge_connector_funcs = {
+@@ -101,6 +110,12 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
  
- 	if (old_state->tv.margins.left != new_state->tv.margins.left ||
-@@ -324,7 +333,7 @@ static int gud_connector_late_register(struct drm_connector *connector)
- {
- 	struct gud_connector *gconn = to_gud_connector(connector);
+ 	drm_panel_bridge_set_orientation(connector, bridge);
  
--	if (gconn->initial_brightness < 0)
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE) || gconn->initial_brightness < 0)
- 		return 0;
- 
- 	return gud_connector_backlight_register(gconn);
-@@ -699,6 +708,13 @@ static int gud_connector_create(struct gud_device *gdrm, unsigned int index,
- 		return ret;
- 	}
- 
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE) && gconn->initial_brightness >= 0) {
-+		ret = drm_connector_attach_luminance_property(connector, 0, 100,
-+							      gconn->initial_brightness);
-+		if (ret)
-+			return ret;
++	ret = drm_panel_attach_luminance_property(panel, connector);
++	if (ret) {
++		drm_connector_cleanup(connector);
++		return ret;
 +	}
 +
- 	gconn->encoder.possible_crtcs = drm_crtc_mask(&gdrm->crtc);
- 	ret = drm_encoder_init(drm, &gconn->encoder, &gud_drm_simple_encoder_funcs_cleanup,
- 			       DRM_MODE_ENCODER_NONE, NULL);
+ 	drm_connector_attach_encoder(connector, encoder);
+ 
+ 	if (bridge->dev->registered) {
+@@ -169,6 +184,19 @@ static void panel_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	if (old_crtc_state && old_crtc_state->self_refresh_active)
+ 		return;
+ 
++	/*
++	 * Program the committed luminance before drm_panel_enable() turns the
++	 * backlight on, so the panel does not light up at a stale level.
++	 */
++	if (panel->connector.luminance_property) {
++		const struct drm_connector_state *conn_state =
++			drm_atomic_get_new_connector_state(atomic_state,
++							   &panel->connector);
++
++		if (conn_state)
++			drm_panel_set_luminance(panel, conn_state->luminance);
++	}
++
+ 	drm_panel_enable(panel);
+ }
+ 
+@@ -873,6 +901,71 @@ void drm_panel_disable(struct drm_panel *panel)
+ }
+ EXPORT_SYMBOL(drm_panel_disable);
+ 
++/**
++ * drm_panel_attach_luminance_property - expose a panel backlight through DRM
++ * @panel: panel whose backlight is controlled
++ * @connector: connector on which to expose the property
++ *
++ * The backlight class device remains the internal hardware backend. When the
++ * luminance UAPI is enabled, userspace controls that backend through the DRM
++ * connector property instead.
++ *
++ * Return: 0 on success or a negative error code
++ */
++int drm_panel_attach_luminance_property(struct drm_panel *panel,
++					struct drm_connector *connector)
++{
++	struct backlight_device *backlight;
++
++	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE) || !panel)
++		return 0;
++
++	backlight = panel->backlight;
++	if (!backlight)
++		return 0;
++
++	/* Properties can't be created once the device is visible to userspace */
++	if (connector->dev->registered) {
++		drm_dbg_kms(connector->dev,
++			    "[CONNECTOR:%d:%s] registered, not exposing luminance\n",
++			    connector->base.id, connector->name);
++		return 0;
++	}
++
++	return drm_connector_attach_luminance_property(connector, 0,
++					backlight->props.max_brightness,
++					backlight->props.brightness);
++}
++EXPORT_SYMBOL(drm_panel_attach_luminance_property);
++
++/**
++ * drm_panel_set_luminance - set a panel backlight's relative luminance
++ * @panel: panel whose backlight is controlled
++ * @luminance: relative luminance level
++ *
++ * Updates the backlight brightness without changing its power state, under
++ * the same lock as brightness changes made through sysfs. Turning
++ * the backlight on and off is left to drm_panel_enable() and
++ * drm_panel_disable(), so a level set while the panel is disabled is applied
++ * when the panel is enabled again.
++ */
++void drm_panel_set_luminance(struct drm_panel *panel, unsigned int luminance)
++{
++	struct backlight_device *backlight;
++
++	if (!panel || !panel->backlight)
++		return;
++
++	backlight = panel->backlight;
++	guard(mutex)(&backlight->ops_lock);
++	if (!backlight->ops || luminance > backlight->props.max_brightness)
++		return;
++
++	backlight->props.brightness = luminance;
++	backlight_update_status(backlight);
++}
++EXPORT_SYMBOL(drm_panel_set_luminance);
++
+ /**
+  * drm_panel_get_modes - probe the available display modes of a panel
+  * @panel: DRM panel
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index 58113ea7d63a0..233d30dd2e182 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -342,6 +342,10 @@ void drm_panel_unprepare(struct drm_panel *panel);
+ void drm_panel_enable(struct drm_panel *panel);
+ void drm_panel_disable(struct drm_panel *panel);
+ 
++int drm_panel_attach_luminance_property(struct drm_panel *panel,
++					struct drm_connector *connector);
++void drm_panel_set_luminance(struct drm_panel *panel, unsigned int luminance);
++
+ int drm_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector);
+ 
+ #if defined(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL)
 
 -- 
 2.53.0
