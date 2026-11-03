@@ -1,66 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793707771;
-	b=sP3ANg1/TMn3cjK0VgxGwtpID/6UUds21zoqxlcuz46oxnDjMLYUmJUWXUj1F7eUCxpi
-	 1j7MAGesrFcHHDaa+D2rWXzfq75G3TQ2LgFPgvqyIMxU8fx3RRj9RcXljLxfLDKc38cWw
-	 0egSbwHNgZVDFXYarPoJk+n8kFM1lZqslMu4V0+fN7zs3hXDtQmBSNqfw5swpb4aV6Oyy
-	 dxMnpUjSMQyVFB/2j4snwownaXr+o4ZhHDwhPd0yYw6tZEqHGhI19doTWOeW30oQuI+VV
-	 7PVJINsCPTkAg/k4MVaeqoQ8CJJwuQihZLeLOFbiTKr5gzWtuUf1OqIRheRvnPa755A==
+	t=1793707778;
+	b=wPZEAMWPInsc4EDUJ4knJC9wEW1Pyf/RKNLtIf1A0YU7bbWEbv9td+DTbmdu0epHrm7A
+	 Bz1akD69krWD/kt2vKZM0xz9PJHKOnl7q1RbbXhdCh+NbAqd0XeCydPBRAVl1yeysSTe+
+	 Exaq/jQVbkWsDfjkrhs6MWvV/UXoEgWkRCL0mSUSaGYwhowrJS2egOHbvuD4xR3hajxuK
+	 riz7tJUiORjNlaoRCbCLynNlD/jElRFMmmJL2ZAEZg1XHCl8/1BT4PyFcjcFfpZbi6eQV
+	 r/VgFVltTfMdw0/3aoPOwQeAOVkpHJ1geTDCzueou1FQbFJ+qdrKOfPMJU8a3Bx3afQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793707771;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=sV+R1FT/pn2Zt/OXRGgG36sgbz06VwTueul13RNvQCk=;
-	b=0VuU8mrSyX3qX78Cmzuqlw+ZJ2jvkU6OFOAEaq0rKNVFy/LG1mgD5YWjw2oxV/agRKP4
-	 VXsHM9DdzK8omsXVnKG+7LHnXWCDr3nE22k1tU2RTRi2faOiKBHu/nlqyspn2mMQaFK+h
-	 mZrDdT7bGpEU3tAtc5qayg4rUBU/yEXTT2gTteAIVVQxodR+0W4AfS8bQt99Of7nvNIes
-	 AvqLyU9QbvzwnQzPrT6MZhDwC5BEjCRysvaO2AxE7cY+PRDYCuLPE3x7KukgqQBwcG6I9
-	 7VaTkUURSMQ94TTq2GZ7pwyvcrZgFukb265+UF2PWYSmzvXtDmzhYMLzrVe2C5H3tog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793707778;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=qOgVcaVCfVDurCdKkOzwU6BX+3zAlyWvZ5jp4m/3mPw=;
+	b=aF2jJ4G/tstsQ9WWGKyvT5UFrse01kgEgdHGZuFvx2FVWA/4y2vjxIMmQJrtpIYBK6yp
+	 FAQxDIV24fxszsEo91MKcOqu9WzhGvo5pSM398Ggt1wJErSDvryg4JPEszcJ8ZRswrSYh
+	 Xao4Q+d1/q+LhVpo3U/H8EbFttgxXB9CgXyRFMRtEAubT0D15O5tnmH3jETZ5vQ7DngLr
+	 /jTS6jmINucCxgoXgFOEMjsw3Puf/+VM5nxgfbgi1OmZIzhho7Iz4OOIXYpU8fVi/zRLQ
+	 rNLMu/KCIpwCgkm5gKmaZn2MoLAvLD+CxdLSixrEWzZxubN3BYHwcyomXFWn142Vyng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=jcz6+OJ+;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CECD606A329;
-	Tue,  3 Nov 2026 12:09:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CECD606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ip3Fe6JO;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1599606A32D;
+	Tue,  3 Nov 2026 12:09:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1599606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=jcz6+OJ+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=sV+R1FT/pn2Zt/OXRGgG36sgbz06VwTueul13RNvQCk=; b=jcz6+OJ+2zTZ+Rm0G9VcvXhKJl
-	J8aoxQzFiPl+WY56Au9tgtShkQL11ctyM6ACag7SmXengwlTfeL3yNtS7iniSp9v3agMqPDB+CZH/
-	DBcYuLxko3/+IJOHDwSx4P5yNa/KmZvCOiOHmDAVjYUAoYHNpmAgNeIPUAxAt3WUvx3urmLhNmv5Y
-	LVL2pYank1CxMyhZ0WHy6Coh9RrdoDmDufWNnhp30nGpqcMCrEV9FvTkz0Bm6NqcOCfhDUoDVWtvP
-	umFkZKaOsgIGidpTQZbSbpWGNCcujn/voMXQeyRDFxGpqQ9VsoPoEToKEtpL9NYLQC45aK7P2OdMC
-	BY3q7vTw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xODKP-006vIm-10;
-	Tue, 03 Nov 2026 12:09:26 +0000
-Date: Tue, 3 Nov 2026 04:09:21 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Gustavo Luiz Duarte <gustavold@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Stephen Hemminger <stephen@networkplumber.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5 3/4] netconsole: recheck device registration after
- waiting for carrier
-Message-ID: <aunO6ayPWIou9euS@gmail.com>
-References: <20261102-netcons-fixes-v5-0-bdada2f03563@gmail.com>
- <20261102-netcons-fixes-v5-3-bdada2f03563@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ip3Fe6JO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=ip3Fe6JOQaCT+v808aulAvX66nfYRcwickWpP+CoQfXLol5xUKo4DlI4WqMbcO/iokObv+kHf6AEC
+	 EExEw/5c1yr0vpidgkIfZ+HpC7TKJOysIzc/CvhatfhKkY46t/wrK7HUbI2JQ/5zNHnB+9q6Wnj1Dy
+	 H+Ay0osxhaKS9GrM=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae9cefcbdc-6136c;
+	Tue, 03 Nov 2026 20:09:34 +0800 (CST)
+X-RM-TRANSID:2ee66ae9cefcbdc-6136c
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from dsh.local (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae9cefdd64-f8da8;
+	Tue, 03 Nov 2026 20:09:34 +0800 (CST)
+X-RM-TRANSID:2ee96ae9cefdd64-f8da8
+From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: netdev-bot+sinfo@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: ethernet: adi: adin1110: mask the RX IRQ of the port being stopped
+Date: Tue, 03 Nov 2026 20:09:33 +0800
+Message-ID: <20261103-adin1110-clarify-1-yuehongwu@cmss.chinamobile.com>
+In-Reply-To: <179370682903.488859.10553739131009732027@kernel.org>
+References: <20261103-adin1110-net-stop-1-yuehongwu@cmss.chinamobile.com> <179370682903.488859.10553739131009732027@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,25 +67,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-netcons-fixes-v5-3-bdada2f03563@gmail.com>
-X-Debian-User: leitao
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: git-send-email 2.43.0
 
-On Mon, Nov 02, 2026 at 07:54:51PM +0000, Gustavo Luiz Duarte wrote:
-> netcons_netpoll_setup() drops RTNL while it waits for carrier when the
-> device is not yet up. If the device is unregistered in that window, the
-> NETDEV_UNREGISTER notifier runs before np->dev is set and has nothing
-> to match.
-> 
-> We might then end up setting up netpoll on a device that is being
-> unregistered while holding a reference to it, stalling
-> unregister_netdevice() in netdev_wait_allrefs_any().
-> 
-> Add a check to confirm the device is still registered once we retake
-> RTNL. Release the device reference and return -ENODEV otherwise.
-> 
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-netcons-fixes-v3-1-1aac85ed7665@gmail.com
-> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+Hi,
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Here is the information missing from the changelog:
+
+- How the issue was found: during a code review of the driver that was
+  assisted by an AI coding assistant (an LLM).  The assistant compared
+  adin1110_net_stop() against the bit definitions and the mapping used by
+  adin1110_port_rx_ready(); I then checked the finding against the register
+  semantics used by adin1110_net_open() (IMASK1: 1 = masked).
+
+- Triggered or theoretical: theoretical.  I have not triggered it and there
+  is no reproducer.  Expected symptoms if it is hit: on ADIN2111, bringing
+  one port down masks the peer port's RX-ready interrupt so the peer stops
+  receiving, while the port that was brought down keeps its own RX interrupt
+  enabled; since the interrupt is level triggered and
+  adin1110_read_frames() skips the FIFO while netif_oper_up() is false,
+  pending frames keep re-asserting it.  On the single-port ADIN1110 the RX
+  interrupt is never masked at all.
+
+- Hardware: none.  The change was not tested on real hardware; it was
+  compile-tested only (CONFIG_ADIN1110=m, x86_64) and passes
+  scripts/checkpatch.pl --strict.
+
+Per Documentation/process/generated-content.rst, the tool assistance is
+noted above.  I have reviewed the analysis and the change and take
+responsibility for them.
+
+If another revision is needed, I will fold this information into the
+commit message.
+
+Thanks,
+Yuehong Wu
+
+
