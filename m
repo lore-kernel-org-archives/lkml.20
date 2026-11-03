@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706996;
-	b=fkiov60AePa0aMTqZ9GRCEuaEDUAnui/OKu0WmfdPbtpyOxm/p/wotTd8R9MzxG591k8
-	 DORHv5ytjduhUZeM78hnN+eg5vZhu6lkNRNWklu4pe5VSyGF+OnyoVDKPEaFgwVNPC/zM
-	 Eii9qSC8/FmncVcQcP1Q1xXZiJUyPuQ1E67bSXpRRoraiVKWawuPh0u0L46vua/3PrOEX
-	 cc/tzu7zfcz9ABqbvCLqzRCan6yXmX08hdC7cNuXQEW0VySeFaDh5/bh3gJJaD9ILBBz2
-	 gjH3LKpcSYN24J5WhLoD4CV+/7x70vfRMTbJNiaBr7cVuSDYHDgC7KqEq1n0PTUCFUA==
+	t=1793707017;
+	b=koYD8cw4AeyjOoE82a1+kTOypQmikgd5Ws817GuqnlH+hCu8+PJ/p8Bj7oTvtHnEsMW9
+	 tliHbV44Azm/W/ZbXEl9FVsm1VuOFNgRf6kBRaeucywzfR3TksPTJMH8g3cSYdAWK30tU
+	 3N8idAHYepueqJbw0EDsGZujeo1mveOjN6LtxM+aeZgZBu7xC6C9r1Dc448atiRVrl9Ws
+	 bn6KdZlFziELK5QSNxPSNCyWNxY6w1alCr+n1hpahFFVePRtX3QDGGkF65WIYQaH7Y6V6
+	 td4pAXa4o0hd7ZTa0LYF7L35XeF+Vu+wwHpSv4uGnjoGY6YXQuoC7GyxkVMQtms87Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706996;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=jIxAGmi/bgc1YwjeYYPC92LW6SDaXY3wvvNSqHMVOzo=;
-	b=5kbYsFvEQTxgnFdsJkMj77OLlNBJ8DkhZNlP4gqD/0F51lj7GmmbZIGHjWk2Jl2FBfeo
-	 s60E5noW9CGcWsVu1fp36ZPFJiAyXZTkBuJ9DI7xS8vIDv4jAqxbDuMbf+IEEg3wapB5c
-	 3Pub/haUI1koY2z4A++SOybL0UEvBEpbehWbeM0L5clBYVYuyFMV/zmuqhfQn0bjz7YHL
-	 eAHohytyLkGC6nMUyzvGCUhT2dEs83MRLqqZppDqGCc4Bglj+B6SaNpfPLkIX8YMeYs2n
-	 pFAmcP8I2XikI/bJkvF+32jMXhQdE2O2CRNYo01CWE35n70p2+KP9zbj6Ax5f6UeWlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793707017;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=gpG61H4NaKgIlPD6cDVNG6JgarlHQOS56XSWB61VJ6I=;
+	b=cQ6aMtQAJN6Z6HRWbl7O9FiHeyBjasD95S4eyORDvY65XY24n/iqIdOzRka/fSFziAC3
+	 M3MUZhejRTw8SdmMAgEAnNTggBGNGDBYBb2eHkGWsNiUiHsVPtgH8gyLGb4bG6BOq8btj
+	 bBaYxF/AI+1bN+Vq2/IWnb2OGZTNBINTw2J+Ece+66cXbw6fgr/qK9E4WVJLu5znzH+TE
+	 j4UqrYYjWnSxJgp8Vg+/FTvv8YT2dOrXbLL0slr/o1Hkbx50Ix/KfkvVPsxQtyCZjwH+C
+	 4WcoPOWvRTnCLte0zCY2Ot/IjG+q1E2LoRJzMeW3ENMZFkpb9hn17H8kdG2rrmOfOsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=beiGC7cT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f5d3s41p;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0218606A326;
-	Tue,  3 Nov 2026 11:56:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17FF606A326;
+	Tue,  3 Nov 2026 11:56:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B17FF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=beiGC7cT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 259C11F000C1;
-	Tue,  3 Nov 2026 11:56:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793706996;
-	bh=jIxAGmi/bgc1YwjeYYPC92LW6SDaXY3wvvNSqHMVOzo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=beiGC7cTr4lU3Q7w6zlSeY0xJntwgWJsFPmvv061El7XYesdH4hNmWlXfgEBuaxR1
-	 /3wy1vmHwS1+qakvR4rUETDJ6HlORLHb+V5yC+hrPAsQ8+do9pGo9kNLHSKgXsreP9
-	 Es8OPmwoSlMXLGyXLwXjyR3YTz8lMdltfWBDdbgYsaUsPDH6caoxk6QMC061jKjohd
-	 nYpUUOZsnvxNKqBqmPfAfZ/ivQC/XKPn7R/IKjgeCrHsHReigB+OsRPCQiVdDYdI4y
-	 ejm8gMOF10K1g+GP5kbqkq77GCZtTju5UHIuQdVbZ4A/Ij7c7PUt6Tfc7U7t37K3Bw
-	 A8DlBZfKO0QMg==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 59166253B042;
-	Tue, 03 Nov 2026 11:56:34 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Sunny Luo <sunny.luo@amlogic.com>, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>, Myeonghun Pak <mhun512@gmail.com>
-Cc: Li Youhong <liyouhong@kylinos.cn>, linux-spi@vger.kernel.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-In-Reply-To: <20260913043745.35022-1-mhun512@gmail.com>
-References: <20260913043745.35022-1-mhun512@gmail.com>
-Subject: Re: [PATCH] spi: amlogic-spisg: Balance runtime PM and clock
- cleanup
-Message-Id: <179366146354.2186205.11571999677156537831.b4-ty@b4>
-Date: Mon, 02 Nov 2026 23:17:43 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f5d3s41p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793707017; x=1825243017;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Yb0phZ9ZfbhxPWXKdu7Ovs5wBaI7W1Boke0adqZkUZs=;
+  b=f5d3s41pAie0KNHi0lXSwAdH/VjQ1dzbAvmjBJx4jM+cXt3h7kjX7mcN
+   AUKO2kUfPLEhFWKyEat0zn1tYeGauAJdvLrHZ/pzrhZ6OuABQ7LZ21KYY
+   ehuri1uHQI5AE54f/Bv02uFFKQTieFvQKvU577go/VKwZUzvdPFNzW16W
+   hOOu2t8/1t4gI6qgSj9HxxFXUcjobYxMrj9lg6IjKaeBUJKqzR1QrMaGZ
+   CNQv1YCq/hhmJLB0ODfMwCeYQYLwHXilBurTWJbiT0rnFSv2QuDWTjwj4
+   QICRQ4cg/zwNgAbQiqKX/QhVBpYwjbYaj8aVZBjpwMxQEvEsDyMU8YYWo
+   A==;
+X-CSE-ConnectionGUID: nkDJhORmTG2pk75QRI5SSw==
+X-CSE-MsgGUID: ibC6GumBQjikwpGudAl/Ow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2421647"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2421647"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:56:56 -0800
+X-CSE-ConnectionGUID: UKHryEbJR6uoszUa4CJoDg==
+X-CSE-MsgGUID: XuIgmIB3R92iLX6eP/gjdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6405132"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:56:54 -0800
+Date: Tue, 3 Nov 2026 13:56:51 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kang Chen <k.chen@smail.nju.edu.cn>
+Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: imu: inv_mpu6050: validate the CNF0 package
+Message-ID: <aunMA-vO-ILv86P9@ashevche-desk.local>
+References: <20261103114146.75881-1-k.chen@smail.nju.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,38 +83,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103114146.75881-1-k.chen@smail.nju.edu.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, 13 Sep 2026 00:37:45 -0400, Myeonghun Pak wrote:
-> spi: amlogic-spisg: Balance runtime PM and clock cleanup
+On Tue, Nov 03, 2026 at 07:41:46PM +0800, Kang Chen wrote:
+> asus_acpi_get_sensor_info() walks the package returned by CNF0 and uses
+> each element as a package without checking the object type or the
+> element type.  A top-level string or buffer makes package.count alias
+> its length and package.elements alias its data pointer.  For a
+> non-package element, the inner count and elements pointer are taken
+> from unrelated union members, so the driver can walk a firmware-chosen
+> pointer and pass it to strscpy().
+> 
+> Require a top-level package and skip elements that are not packages.
 
-Applied to
+acpi_evaluate_object_typed()
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks!
-
-[1/1] spi: amlogic-spisg: Balance runtime PM and clock cleanup
-      https://git.kernel.org/broonie/spi/c/67e3d31893ab
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 
