@@ -1,44 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696955;
-	b=VZNtIaIJV/ex1YKQIAbN6LfkMpgILj/+m/wyaiH+WKKsy2a+nk19lRpoAua+aPY5AE6i
-	 DvnbD3qbYceRPJJuGKR43hRiBK8KVnOwRzOkwbuGpIDuv/LB5y0gLMCjlm2nHESvQkadZ
-	 oItQmGLeWPoTvbBPwh56j44R/m3NoLxbkb/g2a+avTeyNRXPR2fY6RAU/mtQ7QN9RIDOr
-	 TFpwO+SWLSuNk3KYiXyAokYd042+FggIBWaIKWlu5pyVbi2EU3cfqtzltkXKJcNJOTkRM
-	 VqksAv/fZ86jlgR0pblDrv4pE7umYPtrw1kmEg3U8iFBEGj7m8aKWNKPazJpVH6RnqA==
+	t=1793696961;
+	b=kjMmPwpX4i2r/Jf6B6UD6FgtR/IqE30dt0GTdAgr/JAOTWjO6qikFnnuRmhuHnpE9tIN
+	 IMNlKwy1JEBm7JUcg30UjPm7yL/Ltobp/kKaK94+aF+cDuijdTTmjhsT8wUR0o+ttXo4e
+	 MCeN7MTMmCfZkmV8kZkKIOPcAivKDcgHi2ySCiGb9HFjF354hXvHeyHJiBsogzYar7qGi
+	 dAcQ8YCoW1qNFamfP3Vvkxw8VgcFFO7fuRCq4vaw//VF9m2yBg1QvCrPUgtJ8CB/S1aMP
+	 Z97J2XzkL1YPl0sK3hcMOP9rQe8lvtUahE7EidNKNARf4z87kShWN5HZvLLAZMzdUSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696955;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Content-Language:To:Cc:From:Subject:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=AAvT4oaR+HyN+G7lEV1yPMDfRG3OafQ1aTdZbcSjPog=;
-	b=nnfaCGwvNsKAzrETbDD+dm51QsaW6v6QcG9uIWzrXaKZd5vYot4v9lwI4Iug/Cu113Vi
-	 7Z6/diUkwLhHeZkXTogEKpHXBnkI80lSVOF018DhLhaYBV6bX0L9/Eb+l+P4bMfw12Ed8
-	 z/I55LJG5yzXEg9uh/Atr6whhOonsGpdUpHtok9GCnv4IbpgmgpehOhgzBUinesE9khZc
-	 IDQn//vdsj8h0Wy0KhV1lHVWuS4BDPM+SSpqifawg0CGim+NQnwvEpNZG3fauspfwH3qb
-	 Op1y0XNK8uLb6WIioE/sGghLPcTHq7BWqrJFJi4asjW8RMRYt7UP583KsrN4ThcRu5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696961;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BBTr+Hy0VdRQdkWFNF6C19CVLgiwmF8bx5L98QPeRao=;
+	b=ve4FKvZAipOqaPrnnvaH9PWA7UJUdIPLHmlvrOJTcB/379Yc0oCXMW99MEKUTOcHzTVI
+	 MgjJxsoBWHAvTiqSb/PipyyrM1jci7tMPdIXsVZlZ3krGjFu4xfPmz1EXft5dPSbBDIgh
+	 71DIwO79s9Jv8yrlahl89V8sHuS51YmRJuZ1AAhPqaAB/ZsavXmsq236cwtsRTkpqhYvK
+	 i/0gZPNolQtuxluav9ZMncLLh7m0AABmryL4v6lAdyfxm4UN7MIYPz97i53K4/PT/cI56
+	 waHx8pslX4XFoXS8LT4odsUJLHbN4KM4fRikjJfiJ/0E/VHqUlmTcOjmsL9898sef0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hdu.edu.cn;
-	spf=pass smtp.mailfrom=hdu.edu.cn;
-	dkim=pass header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=Ej2YrPe5;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rd1HG7b8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DF6606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3DF6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 163D5606A32D;
+	Tue,  3 Nov 2026 09:09:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=Ej2YrPe5
-Received: from [10.25.10.139] (adaptive-ssl-xc-proxy0-entmail-virt174.gy.ntes [60.191.122.35])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 535158c75;
-	Tue, 3 Nov 2026 17:08:56 +0800 (GMT+08:00)
-Message-ID: <93888c18-7ce4-4341-b387-a80a29847d3e@hdu.edu.cn>
-Date: Tue, 3 Nov 2026 17:09:05 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rd1HG7b8
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id ADD0D1F000C1;
+	Tue,  3 Nov 2026 09:09:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793696960;
+	bh=BBTr+Hy0VdRQdkWFNF6C19CVLgiwmF8bx5L98QPeRao=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Rd1HG7b8vKZe3wL/ox7VTzKhvRkMIgOpQtaCq81EvltYUAtmuBG5zKgISB7rB6jWN
+	 82ubsJlxEMAeI8hSK/O6entOhlOIlmwyhzbJrRTKO7pWZIXs21NW7xObuC1JuQZD1g
+	 Jh0hwVw9en8yuOAe32im+vxH/EFqLFKbEPMPGAhXeGjH8/VC2CLORlYDbzDGzOXSnv
+	 8GMUPK7nxczSg/LqNlTqFbBDqklCnvsd232VMNtWxFHsjB90mg6Efu4IMfrRQiwmdi
+	 KpzptJyZJvf8WzfkXvJIiOyTKSt3smkg7K2GnlZacL/37cvWrt1eEMPQbn40j9y/E/
+	 suXLPWzbDtEMg==
+Date: Tue, 3 Nov 2026 10:09:17 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
+Subject: Re: [PATCH RFC] arm64: dts: qcom: nord: add ADC-TM thermistor
+ channels for Nord PMICs
+Message-ID: <ebhzyg5ypdes5vmh7z4tfe7wngbra7jmilfizhs3rprigfjshq@hefxoxdebp5h>
+References: <20261028150103.520428-1-shengchao.guo@oss.qualcomm.com>
+ <6drdycuoo4n4qssp3axrij5xrftvg6w24z4oa5xw6wmtayknk2@mwz62l7bnvhg>
+ <aumbOqMXf-uWmGOx@QCOM-aGQu4IUr3Y>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,112 +62,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-From: =?UTF-8?B?5r2Y54Wc5p2t?= <242270054@hdu.edu.cn>
-Subject: [PATCH v2] drm/vmwgfx: unpin BOs without revalidating placement
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1a0ab2e8903a2kunmaa12480911d197
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGkkZVh1CSkxKTkpMSBkYQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlNS1VKQkpVSklJVUhOWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Ej2YrPe5hrR1wG06R1BVSTu2S3HpXAiHo0rutQEUOqosX+G6LnP02aus4mzS8rLyDjeEJI2tMZ33Dx5i+OXubeNgVVRkqRb6hmCzx70/PquVwKHm27nuYf/69IsGdmPKJFoVICbp9/iBwP+XerZU2rvLgaicPlqg2pu7svK0dU4=; s=default; c=relaxed/relaxed; d=hdu.edu.cn; v=1;
-	bh=AAvT4oaR+HyN+G7lEV1yPMDfRG3OafQ1aTdZbcSjPog=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aumbOqMXf-uWmGOx@QCOM-aGQu4IUr3Y>
 
-Hello,
+On Tue, Nov 03, 2026 at 04:28:42PM +0800, Shawn Guo wrote:
+> On Fri, Oct 30, 2026 at 10:28:21AM +0100, Bartosz Golaszewski wrote:
+> > On Wed, Oct 28, 2026 at 11:01:03PM +0800, Shawn Guo wrote:
+> > > From: Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
+> > > 
+> > > PMAU0102 (Kai_MV) and PMM8650AU's Kobra_MM ADC5 Gen3 controllers only
+> > > expose REF_GND/1P25VREF/DIE_TEMP calibration channels; none of their
+> > > AMUX thermistor pins are wired up, so none of the board thermistor
+> > > rails feed the thermal framework.
+> > > 
+> > > Only 3 AMUX pins are actually wired to thermistors on Nord, all on
+> > > Kai and none on Kobra: Kai instance E's AMUX1 (SDRAM3 THERM) and Kai
+> > > instance I's AMUX1/AMUX2 (SDRAM1 THERM, UFS THERM). Kai's other AMUX
+> > > pins are either DO_NOT_USE or wired to voltage-rail monitors, not
+> > > thermistors, so add only these 3 channels.
+> > > 
+> > > Add #thermal-sensor-cells = <1> to the two Kai adc@ nodes that gain
+> > > a channel, the new AMUX1[/AMUX2]_THM channel(s) with qcom,adc-tm,
+> > > and a per-channel thermal-zone for each, following the existing
+> > > Gen3/Gen4 board pattern of a direct thermal-sensors phandle into the
+> > > ADC channel.
+> > > 
+> > > Signed-off-by: Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
+> > > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > > ---
+> > 
+> > ...
+> > 
+> > > +
+> > >  		pmau0102_f_thermal: pmau0102-f-thermal {
+> > >  			polling-delay-passive = <100>;
+> > >  			thermal-sensors = <&pmau0102_f_mbg_temp>;
+> > > @@ -501,6 +545,42 @@ trip0 {
+> > >  			};
+> > >  		};
+> > >  
+> > > +		pmau0102_i_sdram1_thermal: pm-i-sdram1-thermal {
+> > 
+> > Existing thermal zone nodes use the "pmau0102" prefix.
+> 
+> Hi Bartosz,
+> 
+> Following up on this: "pmau0102-e-sdram3-thermal" exceeds the
+> thermal-zones.yaml node name limit (11 chars before "-thermal").
+> Since v2 moves these zones into the board DTs per Konrad's comment,
+> I will name them after the measured component, i.e. sdram3-thermal,
+> sdram1-thermal and ufs-thermal, like other boards do. I will drop
+> your Acked-by in v2 as the patch changes quite a bit.
+>
 
-I apologize for the repeated mistakes in my previous messages and patch
-submissions. Thank you for your patience. This version includes the corrected
-Fixes tag and an unwrapped patch diff.
+Sounds good!
 
-Unpinning a buffer object does not change its placement. Avoid calling
-ttm_bo_validate() on the unpin path, where a placement validation failure
-currently triggers BUG_ON() and crashes the kernel during PRIME cleanup.
-
-Keep validation on the pin path, where it is needed to establish the
-requested placement before pinning.
-
-During PRIME/GEM cleanup, vmw_gem_object_unpin() calls
-vmw_bo_pin_reserved(vbo, false). The latter currently calls
-ttm_bo_validate() for both pin and unpin operations. In the observed Linux
-7.3 QEMU run, ttm_bo_validate() returned -EINVAL on the unpin path; the
-following BUG_ON() caused a kernel BUG during process teardown.
-
-The path is:
-
-  exit_group()
-    -> GEM/PRIME object cleanup
-    -> vmw_gem_object_unpin()
-    -> vmw_bo_pin_reserved(vbo, false)
-    -> ttm_bo_validate() returns -EINVAL
-    -> BUG_ON(ret != 0 || bo->resource->mem_type != old_mem_type)
-
-Observed report excerpt:
-
-  [BO_PIN_TRACE] before-validate pin=0 old_mem_type=0 target_mem_type=0 flags=0x10
-  [BO_PIN_TRACE] after-validate ret=-22 old_mem_type=0 new_mem_type=0 ...
-  kernel BUG at drivers/gpu/drm/vmwgfx/vmwgfx_bo.c:342!
-  RIP: vmw_bo_pin_reserved+0x36d/0x380
-
-The change skips placement validation when unpinning and retains it on the
-pin path.
-
-Fixes: fbe86ca56791 ("drm/vmwgfx: switch over to the new pin interface v2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuhang Pan <242270054@hdu.edu.cn>
----
-
-Sorry, the previous submission was damaged by Thunderbird's line wrapping.
-This v2 keeps the diff header on one physical line. I verified patch
-applicability to the clean Linux 7.3 index after normalizing email CRLF line
-endings; runtime verification of this exact patch is still pending.
-
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 9c7a73c..14d28e2 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -308,6 +308,11 @@ void vmw_bo_pin_reserved(struct vmw_bo *vbo, bool pin)
- 	if (pin == !!bo->pin_count)
- 		return;
- 
-+	if (!pin) {
-+		ttm_bo_unpin(bo);
-+		return;
-+	}
-+
- 	pl.fpfn = 0;
- 	pl.lpfn = 0;
- 	pl.mem_type = bo->resource->mem_type;
-@@ -321,10 +326,7 @@ void vmw_bo_pin_reserved(struct vmw_bo *vbo, bool pin)
- 
- 	BUG_ON(ret != 0 || bo->resource->mem_type != old_mem_type);
- 
--	if (pin)
--		ttm_bo_pin(bo);
--	else
--		ttm_bo_unpin(bo);
-+	ttm_bo_pin(bo);
- }
- 
- /**
--- 
-2.43.0
-
-Regards,
-Yuhang Pan
-242270054@hdu.edu.cn
+Thanks,
+Bartosz
