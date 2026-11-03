@@ -1,71 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.194
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715944;
-	b=lhTgvGz6H2Dixk4V7lv/PGNPMIY8gmi+Tc2NHDHwXM9QURhmWTtqCsU0ah7PA5t7ie00
-	 cyvKmN2vC3PfXhQjLkMNSuYzXsuohTnM+QwONY7UXzGo+aXdArIgq/vy4a5JXcG4sr7Ro
-	 BDcaVdG1rvoRMwGXNT1oT12KhtVZitxxtVSHdltnTJhAssfIQChvoQ/4ljTjXEOP02mRE
-	 pCBBiGoOBqfdeqrta8vbXEom/ztYg4w4Y5L64HLKMeIkAp8xQC8Rc/+tb51ibx2sw2UOH
-	 S2UDpwKU5mBvlhaw1UTOD+rLgtQYAmmx2dish/PxFmcfouinxQHTWMeI49Xon1rF4gw==
+	t=1793715970;
+	b=WpohQ1kEE4VYq4S9NIo6xPDVtdITXVL1wBUDdRidXEzWUiUgaUW4aoGNSqS90iu5sJvj
+	 UAN0nMwludEGRRDc758yHkhwj1C3UEiU3ArzObre2ugBKCE0VZvOHvMb98BktHcKYL1Sm
+	 eXhZ4+PZe4HmhJkXquVl6WjOPhLTRArH/NZRFyflMj/ypYaXmumBS/6TwF2ID0iZWuOhk
+	 SqQpgYp/z6S+z+2/ZOM5jS/yiAzw46NFzMi7TSItgmpsgITs9elAlWa4DKfXlN+jzN0+i
+	 tyL6uPwCN4CJeKfsDRPT5qMYGjAcnLXjWSRrc1BBor6OW8QWR7Ej2oi5t/lgrkq4Ssg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715944;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=49zbKkD+qQSXnnoiQB3Y6/fM4CNsO4eo9Y7QcQh8muM=;
-	b=Gi6xe3jsUZa+vUODNEYagV9CvEKX2oyIqWNSDgsTQB5Rq0Sg0gBnTHE6WmHQgOPBc4Dr
-	 J6aYt70m8qYt8yT6p6D9uM0JiHFFwJypKY1dW3IfB3uc9p8ACt3EIXKH9JytEAWl7WYn5
-	 O0nZS1XDVQMxR999VIiytXD851w31AMHgZAu8yoOT8HUI9RIyjegbfsX6yGyt5GlhOwy/
-	 dxwmRZ1mDxzLycnVnmyKaZ3YS6sV4EDUZ/t2fFqFZ8W0sjCQZlgEZBzp1wLIwyMewBN55
-	 87fLnf7UUVnx6deqo1S9KOSBz8+UL2B9ZWk5aJcwIV7ZaEWiRiYGNZsss92OQ9S0QdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715970;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SP+PsE8Ru4U+3pCKdB8/8ut6hXzWlTRuTLeApszTcIU=;
+	b=KjL/HvIjMNnyr70iZHxVOLltSnChVvpGXj5lXtRGDnZY/5tcmiW6Vefajns4OFUPUVVS
+	 z74MGA6ucHHE0XXjLXywOSDz/B0TUppeWhekWgmMWGE6ubR81nauLoLSu2EjnsulpmcOs
+	 bnPe+1BBGh6DAo8tx25lMpKaPbaJC2/E5DIxmmCGcTXIw4upQqtn8o7FcMS9tD45Ow8Fw
+	 t2oDR8htc+7BuFXg7Lt/F9+YMc72d8SOePvN18DkCcXLO6lWDzX2Lr1GSd2PJzJjqbm8X
+	 dLk7sv/gAVRcqv98NU9tRfDuU84shSzGuC+9/0BbF+/ima3faGXKTC8rFtAyyxYk10w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=hwr2Tx3C;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YaHi5cR7;
+	arc=none smtp.remote-ip=95.215.58.194
+Received: from mta1.migadu.com (out-194.mta1.migadu.com [95.215.58.194])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFE8606A327;
-	Tue,  3 Nov 2026 14:25:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EFE8606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F6C606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:26:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7F6C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=hwr2Tx3C
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jJrTH3vWXzMlHW;
-	Tue, 03 Nov 2026 15:25:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793715939;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=49zbKkD+qQSXnnoiQB3Y6/fM4CNsO4eo9Y7QcQh8muM=;
-	b=hwr2Tx3CP0tgm+YkZfDPHHl8QVmDobiGZGr9P2s+mOMWxOMdAw7DIAs6E0kno8Wq3H0By6
-	VEORArh+EJxTI79POf2bLgdItv5GKoj/btycCTOu9yuATQ1CepzILqfR3nBOiuwm72EGBR
-	tgzoR0iCpfYSkEYIALqeaYQctWjJu47jGJErhvObLDDONJ2fJjxQ40U+b2kWwEASywR6pW
-	yxIkMHlsYxCjhi2SbqpSvEW/TemrkH5ffuL03/TIKgrgfIS7ehOgXVM3HlkJ5NxiRaYkFQ
-	tIER+CjaUDiupGo1MoVRHXB2cRDLDLPSgrf/bgJSd++3GD5HFZL++l89SPIH3w==
-Message-ID: <2deda25727af9db748f86f2a3d1f61047c903f3a.camel@mailbox.org>
-Subject: Re: [PATCH] scsi: libsas: Fix interval notation
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: John Garry <john.garry@linux.dev>, John Garry <john.g.garry@oracle.com>,
-  Jason Yan <yanaijie@huawei.com>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan	 <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-scsi@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 15:25:37 +0100
-In-Reply-To: <9fd990b5-b4fd-423a-bd80-2bb630fc5de5@linux.dev>
-References: <20260916124403.315227-2-manuelebnerli@mailbox.org>
-	 <9fd990b5-b4fd-423a-bd80-2bb630fc5de5@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YaHi5cR7
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=e4dRfO2AklgdwU7Ax1baawDTLW3B5X1MgsMszdfEn0w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793715967; v=1; x=1794320767;
+ b=YaHi5cR7BLL3kSm9QyMD6IvLgxrXUGjQG7/SqJWzCm2WzFzZhyONHi8FPdjtOJk4qBGtFzGG
+ kUjC4kf2hI0RoP7sX43XiNI3hrc3E6tOctdbNbZyDbre2NqoFVOkam2lJx6loXVKlDQ2DE0i8lm
+ Q9I7zUhYUe25GVDd/+Ls1CWo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 313b1a0531fdd4a8;
+	Tue, 03 Nov 2026 14:26:07 +0000
+X-Mizu-Trace-ID: 313b1a0531fdd4a8
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	akpm@linux-foundation.org,
+	chengming.zhou@linux.dev,
+	dsterba@suse.com,
+	hannes@cmpxchg.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	nphamcs@gmail.com,
+	terrelln@fb.com,
+	yosry@kernel.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	senozhatsky@chromium.org,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH v2 1/2] mm: zswap: use separate compression and decompression requests
+Date: Tue,  3 Nov 2026 06:25:58 -0800
+Message-ID: <20261103142600.279899-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261013002140.28880-1-kanchanapsridhar2026@gmail.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,47 +82,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: b5cfb7b84978453e990
-X-MBO-RS-META: g3htgsum3szq44kzqx1kc444gzhqjtb9
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-09-16 at 14:40 +0100, John Garry wrote:
-> On 9/16/26 13:44, Manuel Ebner wrote:
-> > Remove needless ']' from interval boundary.
-> >=20
->=20
-> This documentation is wrong for this structure description (not shown) -=
-=20
-> it should be for asd_sas_phy, not sas_phy
->=20
-> Same for sas_port -> asd_sas_port
+On Mon, 12 Oct 2026 17:21:40 -0700 "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com> wrote:
 
-Does replacing all sas_phy -> asd_sas_phy and sas_port -> asd_sas_port
-fix this? Then I'll send a patch.
+> On Fri, Oct 9, 2026 at 6:31 PM Usama Arif <usama.arif@linux.dev> wrote:
+> >
+> > Stores and loads serialize on the same per-CPU acomp request and mutex.
+> > A low-priority store can be preempted as soon as the compressor drops
+> > its stream lock, while it still holds the mutex. A higher-priority load
+> > on that CPU then waits until the store runs again, which can take a
+> > long time when other tasks are runnable.
+> >
+> > Give compression and decompression their own request, completion wait
+> > and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
+> > decompression APIs from zsmalloc"), the per-CPU buffer is only used for
+> > compression, so group it with the compression request. Independent
+> > requests can share the per-CPU transform; the codecs and drivers
+> > synchronize their shared state internally. Loads can still wait for
+> > each other on the decompression mutex, and stores still serialize on
+> > the compression mutex.
+> >
+> > acomp_request_free() ignores NULL requests, so drop the check in
+> > acomp_ctx_free().
+> >
+> > This follows the proposal from Sergey Senozhatsky for the same split
+> > for zram [1].
+> >
+> > [1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chromium.org/
+> >
+> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> 
+> I have a question with regards to this patch. Is the intent to allow a
+> decompress thread to run concurrently with a store thread for a given process?
 
-Thanks
- Manuel
+The request is shared by tasks using the same CPU and zswap pool.
+These may be different processes or threads of the same process.
+Each operation still runs synchronously in its caller.
 
+The motivating case can happen entirely on one CPU:
+1. Task A compresses page X and releases the codec's stream lock.
+2. A is preempted while still holding the zswap request mutex.
+3. Task B runs and faults in an already stored page Y.
 
->=20
-> > Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> > ---
-> > =C2=A0 Documentation/scsi/libsas.rst | 2 +-
-> > =C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/Documentation/scsi/libsas.rst b/Documentation/scsi/libsas.=
-rst
-> > index 305a253d5..9ebf2bf28 100644
-> > --- a/Documentation/scsi/libsas.rst
-> > +++ b/Documentation/scsi/libsas.rst
-> > @@ -75,7 +75,7 @@ enabled
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - must be set (0/1)
-> > =C2=A0=20
-> > =C2=A0 id
-> > -=C2=A0=C2=A0=C2=A0 - must be set [0,MAX_PHYS)]
-> > +=C2=A0=C2=A0=C2=A0 - must be set [0,MAX_PHYS)
->=20
-> this looks ok, even though it is so trivial
->=20
-> > =C2=A0=20
-> > =C2=A0 class, proto, type, role, oob_mode, linkrate
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - must be set
+With the shared request, B blocks until A runs again and releases the
+mutex. Separate requests let B load Y while A's store is unfinished.
+The codec/driver still synchronizes its own shared state.
+
+> If so, I wonder if incurring context switch/PTE/TLB shootdowns performance
+> penalty is worth it?
+
+The switch to B already occurs with the existing code. This patch adds
+no worker threads, forced migration, PTE changes or TLB shootdowns.
+It avoids B's subsequent wait on A's request mutex. The 1-vCPU
+benchmark in the cover letter exercises this without CPU migration.
+
+> 
+> With the proposed change, will zswap_store() continue to run on the "old" CPU
+> (i.e. the one to which the process got migrated), or is it a requirement that
+> the "old" process is in sleep state? If so, should we codify/document this
+> requirement?
+> 
+
+There is no requirement for A to sleep. A can remain runnable while
+preempted. Its zswap_store() invocation resumes in the same task, on
+whichever CPU the scheduler selects. If it migrates after selecting
+the context, it retains that pointer and the corresponding mutex,
+as the existing code does. The same task cannot execute on two CPUs
+at once.
+
+> On the new CPU, is the same process "runnable", and if so, how do we ensure that
+> the "higher priority" decompress is handled while the zswap_store() prior to
+> preemption is still not done?
+
+Normal scheduler policy decides when B runs. Once it runs, the split
+removes its dependency on A releasing the shared request mutex.
+A load starting on another CPU already selects a different context
+today; migration is unnecessary for the benefit described here.
+
+Existing folio/swap-cache locking still orders accesses to the same
+page. The example above concerns two independent pages.
+
+Thanks for the review!
+Usama
+
+> 
+> Thanks,
+> Kanchana
+> 
