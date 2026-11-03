@@ -1,126 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793664714;
-	b=LXZH4xUAXCaUr6bi5095D7g4WfjoB3sFVc27HdZ2OC9KfUBwW2/k4oDmuy7vM2bRxdUN
-	 N5iNNsi4HEpn2DW3GBmOkqIbhO6NaMNqzE9VYIsQ4qDbsYCTx8v9mjhyrjg/JUYnlVShh
-	 zoIzlgcV6cAAXfpiesSBbB+nA7JNFMdg+dDeOcQb/vFWGuTX4CJ4MRcTvzXjtqZpFbMbY
-	 VAG0MV2Ti6N20MBCCSFm6dvLdOZUCcmNvJZTEre66Poyva+kgUlEhpGQ3tP4ja0J1h85G
-	 zIjTJvV8krygwpIST42zTW9i8PUl9pCyve7wq09zYFNaP2Vnu+sNwxTcrTz/VXaeJrg==
+	t=1793664968;
+	b=sGKltvufwAIKdZmS2vWSwtI+Q9jsrGml3crcTOAMMaaRql8tGmAoafB3340IHCFuYTeX
+	 jmpGhR/NczdRfPsf3fMH+fp5cq3TjkaWsQv0zrjnRZyjR/xmnuV8lG1BjaP3hltRn6sSt
+	 8UPvjJ2ykXQxENeTyQc/cOamkMmJK+0Ig9ehXv7YnzlZmaoXCjOJ35DXwZV8s6FPfbfRA
+	 r7HiSJ/Syguxflc7XX1NnijJp/81HhsP5xuCWsJ23iUKyvHKYNUoFbEieriayicIEdjRG
+	 wkTroFeXFoABPtX5WIVHkkhQtmnSPRSEp+XpWc5jiodirN2pLNtNvvjQhvpBiSAZtSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793664714;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nAYlfopKplFpCvjeBoKRW2i4VXzCq65tChw/Zjl0dY4=;
-	b=ELjLWsfoFEt1HwN42KRh6v/HhLVMYUMiDp3dmowX39/zEw89P2mtRT0dNBMOrVitRoGh
-	 D/EuUeB3TtB+UtAMN6OnSv44i5V0CnB4xAaJrJ8jq9SubSoRwdiFSGuM6w5EPLChHYd9G
-	 Rqgo0slgMQhG809fxHH3hNG6uccgj3gCBP2NPcf2njPb0yXvk+31ZvCdPmllyBNZXDy+L
-	 ZYpbi2+QWuxcfm9Qasrs1FHeEDW/XPikPwwOe5RvRhkEG4fQxSS4jKCHuumfQtwDtonrl
-	 DGRzD6jt5wSHWYA0vJdSwXawUWzliOQdtFltUkeG/WZF3APHkPgRbmQd99k3TXVeoHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793664968;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/uPT4vdHUQZrtGUWIDhvkzHSaxat7xD3UNSEdtv7bHA=;
+	b=45Hu7Yo2Ut64op1FG8Y+HEC5o71xPNSOlTVoi9YueX6v/EUr0pKPus65zp2u5bGyzPaC
+	 QyCAQayBtwvPtVLLwC0YWdyo2IiH7LHlIcEgUG4IYoYoo8Zzb96N0zwMJ+mXvfZSmer0A
+	 eI7QAo6dTChXvDDQUhPFZubz4cRs4f4EVo3JyO4YZeoHxQfLa/zxj1F+z35SvVhV3trJL
+	 PonN/MSN36/0My4xgOXq8vvQpJx27xR+1u/3AR8FAMwjwN3SV2Yq7uEhZNvlMQ2X3mVJc
+	 BaifHMdnFtTEEIwY3RDZHUhApp0WK9vt3neHleNVzsm8zx/5+73QTaF4dgGY7yWJETA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=EWqjTzRU;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=CGBEru57;
-	arc=none smtp.remote-ip=202.12.124.145
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HNf0zk5b;
+	arc=none smtp.remote-ip=95.215.58.125
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77242606D80D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:11:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77242606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1EDE606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1EDE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=EWqjTzRU;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=CGBEru57
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id BF68F1D000DC
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:11:52 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Mon, 02 Nov 2026 19:11:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793664712;
-	 x=1793751112; bh=nAYlfopKplFpCvjeBoKRW2i4VXzCq65tChw/Zjl0dY4=; b=
-	EWqjTzRUMCSlXkFm/qHNJt2WYDzbJtU+3zVCFQOJEbKYfeIQs/euI7/NsHeUTUuc
-	MLk6Tbssr5r8EHudUe0Oi7iVGCdvRiqOMz/hk5ZOGljqjicxdURb9sjKjKKSJ2hB
-	yp+Y/uAHoFeCibQF03TzpejhJQS1kw6nXCw7bRuTBCARCTmsAW/pbBUpoG7QycmG
-	AYdCZBknmI65WPu9q46Id84i2biz+14bH/grLQHDTub3hKAq7jBD53pDgJbOqSE1
-	DX0QiJnSOei/q+94BMCqEYoKMyZYN7zrvlZUQscp3aLXXaBbKWFpX+jASsya61Gn
-	O/HpIBRltIHT5z9cCj3qmQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793664712; x=
-	1793751112; bh=nAYlfopKplFpCvjeBoKRW2i4VXzCq65tChw/Zjl0dY4=; b=C
-	GBEru57NEjJ6zEnaA/s3EIUI3aPlGmG/pAEregPm5wc6mHMbRLmtkamFH6seghnm
-	LeFCzR7G3tGYE0xExNw4tR/20RaElOLwwuFEAhXIS4NKWEdMu42t3QZLHFv+lc/c
-	W4WfQ60scjhI2RQPr/SKdf0Tl8/+7BAzyodhFduaXvgitbvbrsW7cIA5Irci4hvc
-	AR1m7IbtdHkoWYHPirkYttAa+hlRExfHWY0Vug2yxfAWzLwKId2t877gj3DgIY6t
-	UiS5llybi467MaKcYcZcms3gxwnc5XMEEfWzcGbKtf+3uZrmSdS7ecIjnuCRGKma
-	898CGzOwBhkw4fkFzneXg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793664712; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:mukajHmUvcb1Mgpdj7vGgbmZcc49jq8cQTQ7luwX6YHwcPd
-	BkxI3Fot7dLuFf4Evz9aTKDGmsh9IdmICzVHcdvJfSWL4cEaXjIDHJFP+dW6NWKH
-	veVnTAbmqCEhfALljL9hpv4PDJvZy88OaHsU4Tsw3FmrsLJPCAGvz/6lJrYSIUdo
-	Ll++ySbRIIvevm9FbKcOlZn6+uigh2sAJ3M8OW36drjj342f8H8j7TcaI9JZIWEW
-	tCkYCHmrP6xwNzf8OjMoLWYeB8SxOrhaX25NlUWy+0BFZgIvQ+wX/7jFaeAEOgqW
-	jU47Ji9G8aCVYFZ7zWRXJUiM/WZEL8Zxp/k5Tmw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:ib1t8J7HIPjzcbaZLgDmo/S57AG8FFWKbLaEUAQkbF4=:zK6xMzgqMIjtNl7Qhz3cYyMrvTIOUJ7JryNKniSNlhU=;
-X-ME-Sender: <xms:xybpatN3nQAp7QPYzH0wgeoEnvFG2dnvFnf9HKbwANOiSYKDfjDl2w>
-    <xme:xybpar1pHCT9adN5rW0WHIV6zZXCYYmEGQgcPJxM0lIUlJaz7VeYPKVp8kITLcYoQ
-    Bd1bbk2YCI4BaVaT2P3egpW19O3yx9ZhWwaO-pvL8yAYEARYxkXI_th>
-X-ME-Received: <xmr:xybpapTuHxewKOQrbVrg0fLzvBDRF8xKrFVz9ld8VaMaeNh9CvYVSbj9EwChBA>
-X-ME-Proxy-Cause: dmFkZTF8SRv5LTr0bKOnRmaCpL3IXr8QyK44csVcumPgbXUJKzwO6qj90HElaIqZj6Sbw5
-    BlqP7qlQ31TVW0XeIQsoS0kLaluG5E5gQIy/LqC8pfIUyeBKs4IDzqt4lXJXV0OMnxa0Bu
-    KGqrGWZnL5TlXEQj5TDi6EZBrQjNdWJAMnoCqtig8KTzwoumcmz0WDKnoUzjRAn6KaggE1
-    oGrVPEExI31142Sx+/mPwdixYE342dJEur+yURNKSGHWQ1w/XJpGUWnysJHcQXcAgzcRix
-    e2yRmWUdGFWsMGhFnQq6XW3MjKgFt3+162/wvdiQgzHrtyJ0ldBAxkPGCmCyvetm5PpykQ
-    +cenZSYyi2nbRwKNbqTxJ5Rfz3PEf8p1RH5EsIuCWyDVpkeFyNsC9ZFCKjTpNfZKbYiLqA
-    mv7pPrOnhSmFvoxpt/U1bZB8YccViG+jeTxlZaVfQ2atsmb3rGj1hLu51Yxyz1xho4I0SK
-    /PdUOCGZ11MdUcKzT1I14pSzUvp5QOWD/r72hR6wvdw/szYAjYH2j8OhtTuy23kWsnWhg9
-    JscAAv2E9BEDLM48MCyKMdYbMjowUtly4kyr6SaLwTT3/1xe+ap+3quwrtM9GciNoo96Nq
-    JptV8LIGhDq8tQpvXb9T97GOk4q5Uxb/WcYBSe2u7u2Qb+2FUzFUbJJMKZgw
-X-ME-Proxy: <xmx:xybpaun3ko6mTuDTVd0HLAfSi1pvedrzl8M8aHOzCUc0iTDd7kQj3Q>
-    <xmx:xybpaqMdbCD11pLmhLVP44f6nIEwNGgTou8QLnToBNnd_xSW0LgKxA>
-    <xmx:xybpaqhNm8-8kYvqmRjMvPuU5Yeauhsv_OXJ5nqd01vEay7mJq3YQQ>
-    <xmx:xybpagiXT3q4xre88zdBaYsV-aoafPS3PgDha1ROqV8l0fVhcjz5xg>
-    <xmx:yCbpalAX22tVfHT8wEautQEQ2wx8RRpBaOUxKdlkd6-ftoMHrdxFNfwn>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 19:11:50 -0500 (EST)
-Date: Mon, 2 Nov 2026 17:11:49 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Peter Xu <peterx@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, David Matlack <dmatlack@google.com>, Shuah
- Khan <shuah@kernel.org>, Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe
- <jgg@ziepe.ca>, alex@shazbot.org
-Subject: Re: [PATCH v2 2/2] vfio: selftests: Test BAR write faults after
- clear_refs
-Message-ID: <20261102171149.5d4ed369@shazbot.org>
-In-Reply-To: <20261101062049.998160-3-almasrymina@google.com>
-References: <20261101062049.998160-1-almasrymina@google.com>
-	<20261101062049.998160-3-almasrymina@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HNf0zk5b
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0XIP2nwc6eaTMkjHzyVrBh3ylA4dDdfFpXWL7zb1+wc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793664965; v=1; x=1794269765;
+ b=HNf0zk5b7JsjzBN040M2Q4qRLual1HyMagKRSCTOiXIVNdyUcptondMSoT65ys2Jq6H2mLgY
+ OvU8PZyXkLzYRrKNMtmw5TN4pLHpIseYXiMIhO2IPrgsgi5v4v48dSQ9KS3nvM+RzpKzfmzjcfW
+ 7npEsvXbD7EKdYEn0wclsWrA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ca924cd7e3058c18;
+	Tue, 03 Nov 2026 00:16:04 +0000
+X-Mizu-Trace-ID: ca924cd7e3058c18
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7c603b2b-6fcc-41d7-84e3-31e8af005776@linux.dev>
+Date: Mon, 2 Nov 2026 16:15:55 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,173 +58,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v3 4/8] selftests/bpf: make arena_base() opaque
+ to GCC's -Warray-bounds
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, bpf@vger.kernel.org
+Cc: daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+ memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, john.fastabend@gmail.com, shuah@kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ jose.marchesi@oracle.com, david.faust@oss.qualcomm.com
+References: <20261102220717.4079739-1-vineet.gupta@linux.dev>
+ <20261102220717.4079739-5-vineet.gupta@linux.dev>
+ <DML32WAB5JZD.1LR3JA1OYY6A5@gmail.com>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <DML32WAB5JZD.1LR3JA1OYY6A5@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sun,  1 Nov 2026 06:20:49 +0000
-Mina Almasry <almasrymina@google.com> wrote:
+On 11/2/26 2:38 PM, Alexei Starovoitov wrote:
+> On Mon, Nov 02, 2026 at 02:07 PM Vineet Gupta <vineet.gupta@linux.dev> wrote:
+>> The barrier is behind #ifdef __clang__ so clang keeps the plain macro.
+>> It does not need it, and the barrier is not free: it blocks reuse of
+>> the map address, so each call site reloads it.  Across the five progs
+>> and 20 call sites that is +35 instructions under GCC
+>> (2528 -> 2563), about 1.4% on those objects and nothing elsewhere.
+>> Clang output is unchanged, bit for bit.
+> stream.c already has barrier_var() for both compilers.
+>
+> How about this one instead:
 
-> Add a regression test in vfio_pci_device_test to verify that huge_fault
-> on writable MAP_SHARED VFIO PCI BAR mappings handles write faults after
-> soft-dirty tracking clears VM_SOFTDIRTY and downgrades vma->vm_page_prot
-> to read-only via /proc/self/clear_refs ("4").
-> 
-> Specifically, for each mappable read/write BAR (already aligned up to
-> SZ_1G by vfio_pci_bar_map() with MADV_HUGEPAGE), verify both:
-> 
-> 1. Read-then-write fault sequence after clear_refs, exercising in-place
->    huge PMD/PUD write-protection upgrade via wp_huge_pmd()/wp_huge_pud().
-> 2. Direct initial write fault on a freshly mapped unpopulated BAR VMA
->    after clear_refs, exercising vmf_insert_pfn_pmd()/vmf_insert_pfn_pud()
->    with FAULT_FLAG_WRITE set.
-> 
-> Skip gracefully when /proc/self/clear_refs is absent or soft-dirty
-> tracking (CONFIG_MEM_SOFT_DIRTY) is disabled, or when the device exposes
-> no mappable read/write BARs.
-> 
-> Cc: David Matlack <dmatlack@google.com>
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
-> ---
->  .../selftests/vfio/vfio_pci_device_test.c     | 83 +++++++++++++++++++
->  1 file changed, 83 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/vfio/vfio_pci_device_test.c b/tools/testing/selftests/vfio/vfio_pci_device_test.c
-> index 93c11fd5e081..75ccc557efb9 100644
-> --- a/tools/testing/selftests/vfio/vfio_pci_device_test.c
-> +++ b/tools/testing/selftests/vfio/vfio_pci_device_test.c
-> @@ -1,10 +1,13 @@
->  // SPDX-License-Identifier: GPL-2.0-only
-> +#include <errno.h>
->  #include <fcntl.h>
->  #include <stdlib.h>
-> +#include <unistd.h>
->  
->  #include <sys/ioctl.h>
->  #include <sys/mman.h>
->  
-> +#include <linux/compiler.h>
->  #include <linux/limits.h>
->  #include <linux/pci_regs.h>
->  #include <linux/sizes.h>
-> @@ -102,6 +105,86 @@ TEST_F(vfio_pci_device_test, validate_bars)
->  	}
->  }
->  
-> +static int clear_soft_dirty_refs(void)
-> +{
-> +	ssize_t ret;
-> +	int fd;
-> +
-> +	fd = open("/proc/self/clear_refs", O_WRONLY);
-> +	if (fd < 0)
-> +		return -errno;
-> +
-> +	ret = write(fd, "4\n", 2);
-> +	if (ret < 0)
-> +		ret = -errno;
-> +	else
-> +		VFIO_ASSERT_EQ(ret, 2);
-> +
-> +	VFIO_ASSERT_EQ(close(fd), 0);
-> +	return ret < 0 ? ret : 0;
-> +}
-> +
-> +TEST_F(vfio_pci_device_test, bar_write_fault_after_clear_refs)
-> +{
-> +	const u32 rw_mmap_flags = VFIO_REGION_INFO_FLAG_MMAP |
-> +				  VFIO_REGION_INFO_FLAG_READ |
-> +				  VFIO_REGION_INFO_FLAG_WRITE;
-> +	struct vfio_pci_bar *bar;
-> +	bool tested = false;
-> +	int ret, i;
-> +	u32 val;
-> +
-> +	ret = clear_soft_dirty_refs();
-> +	if (ret == -ENOENT || ret == -EINVAL)
-> +		SKIP(return, "soft-dirty clear_refs unsupported (%d)\n", ret);
+Yeah definitely much better. Just to be clear the intent of series is to 
+not make current compiler look better o anything. As I mentioned in the 
+cover, this was during in my in-works arena compiler testing, ....
 
--ENOENT seems to map to the open() when /proc/self/clear_refs is not
-present.  We can't clear soft-dirty by virtue that the file is absent.
-Fine.
-
--EINVAL seems to be intended to catch:
-
-clear_refs_write():
-
-        if (type < CLEAR_REFS_ALL || type >= CLEAR_REFS_LAST)
-                return -EINVAL;
-
-But that's only testing for a known type, not that it's supported.
-This is never triggered, which can lead to a false pass if soft-dirty
-really isn't supported and silently does nothing.
+Thx for the quick feedback.
+-Vineet
 
 
-> +	ASSERT_EQ(0, ret);
-> +
-> +	vfio_pci_cmd_set(self->device, PCI_COMMAND_MEMORY);
-> +
-> +	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-> +		void *vaddr;
-> +
-> +		bar = &self->device->bars[i];
-> +		if ((bar->info.flags & rw_mmap_flags) != rw_mmap_flags)
-> +			continue;
-
-Where do we filter out BARs that wouldn't trigger a PMD/PUD fault?  If
-we're only testing sub-PMD BARs, this is another false pass.
-
-If we do find a BAR to trigger a PMD/PUD mapping, what's the value in
-continuing to exhaustively search and test the remaining BARs?
-
-> +
-> +		ASSERT_NE(NULL, bar->vaddr);
-> +
-> +		/*
-> +		 * clear_soft_dirty_refs() stripped write permissions from
-> +		 * vma->vm_page_prot on the unpopulated BAR mapping created by
-> +		 * vfio_pci_device_init(). Fault it read-only first, then write
-> +		 * to exercise in-place write-upgrade (wp_huge_pmd/wp_huge_pud).
-> +		 */
-> +		val = READ_ONCE(*(u32 *)bar->vaddr);
-> +		WRITE_ONCE(*(u32 *)bar->vaddr, val);
-
-Sashiko notes[1] an issue here that might be a false positive, but the
-comment should at least note that a matching driver could already have
-touched the BAR via read/write but doesn't invalidate the test... if so.
-Thanks,
-
-Alex
-
-[1]https://sashiko.dev/#/patchset/20261101062049.998160-1-almasrymina@google.com
-
-> +
-> +		/*
-> +		 * Replace the VMA with a fresh unpopulated mapping at the same
-> +		 * hugepage-aligned address, clear soft-dirty again, and fault
-> +		 * with an immediate store to exercise initial write insertion
-> +		 * (vmf_insert_pfn_pmd/pud with write=true).
-> +		 */
-> +		vaddr = mmap(bar->vaddr, bar->info.size, PROT_READ | PROT_WRITE,
-> +			     MAP_SHARED | MAP_FIXED, self->device->fd,
-> +			     bar->info.offset);
-> +		ASSERT_EQ(bar->vaddr, vaddr);
-> +		madvise(bar->vaddr, bar->info.size, MADV_HUGEPAGE);
-> +
-> +		ASSERT_EQ(0, clear_soft_dirty_refs());
-> +
-> +		WRITE_ONCE(*(u32 *)bar->vaddr, val);
-> +		(void)READ_ONCE(*(u32 *)bar->vaddr);
-> +
-> +		tested = true;
-> +	}
-> +
-> +	vfio_pci_cmd_clear(self->device, PCI_COMMAND_MEMORY);
-> +
-> +	if (!tested)
-> +		SKIP(return, "No mappable read/write BAR on %s\n", device_bdf);
-> +}
-> +
->  FIXTURE(vfio_pci_irq_test) {
->  	struct iommu *iommu;
->  	struct vfio_pci_device *device;
+> diff --git a/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h b/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h
+> index 82aafe8..0eba529 100644
+> --- a/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h
+> +++ b/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h
+> @@ -49,7 +49,16 @@ void __arena* bpf_arena_alloc_pages(void *map, void __arena *addr, __u32 page_cn
+>   int bpf_arena_reserve_pages(void *map, void __arena *addr, __u32 page_cnt) __ksym __weak;
+>   void bpf_arena_free_pages(void *map, void __arena *ptr, __u32 page_cnt) __ksym __weak;
+>
+> -#define arena_base(map) ((void __arena *)((struct bpf_arena *)(map))->user_vm_start)
+> +/*
+> + * The map definition is smaller than struct bpf_arena.
+> + * barrier_var() hides that from -Warray-bounds of GCC.
+> + */
+> +#define arena_base(map)							\
+> +	({								\
+> +		struct bpf_arena *___arena = (void *)(map);		\
+> +		barrier_var(___arena);					\
+> +		(void __arena *)___arena->user_vm_start;		\
+> +	})
+>
+>   #else /* when compiled as user space code */
+>
+> diff --git a/tools/testing/selftests/bpf/progs/stream.c b/tools/testing/selftests/bpf/progs/stream.c
+> index 1ae015c..b4d88d0 100644
+> --- a/tools/testing/selftests/bpf/progs/stream.c
+> +++ b/tools/testing/selftests/bpf/progs/stream.c
+> @@ -178,16 +178,8 @@ __stderr("Call trace:\n"
+>   "|[ \t]+[^\n]+\n)*}}")
+>   int stream_arena_write_fault(void *ctx)
+>   {
+> -	struct bpf_arena *ptr = (void *)&arena;
+> -	u64 user_vm_start;
+> +	u64 user_vm_start = (u64)arena_base(&arena);
+>
+> -	/* Prevent GCC bounds warning: casting &arena to struct bpf_arena *
+> -	 * triggers bounds checking since the map definition is smaller than struct
+> -	 * bpf_arena. barrier_var() makes the pointer opaque to GCC, preventing the
+> -	 * bounds analysis
+> -	 */
+> -	barrier_var(ptr);
+> -	user_vm_start = ptr->user_vm_start;
+>   	fault_addr = user_vm_start + 0x7fff;
+>   	bpf_addr_space_cast(user_vm_start, 0, 1);
+>   	asm volatile (
+> @@ -212,16 +204,8 @@ __stderr("Call trace:\n"
+>   "|[ \t]+[^\n]+\n)*}}")
+>   int stream_arena_read_fault(void *ctx)
+>   {
+> -	struct bpf_arena *ptr = (void *)&arena;
+> -	u64 user_vm_start;
+> +	u64 user_vm_start = (u64)arena_base(&arena);
+>
+> -	/* Prevent GCC bounds warning: casting &arena to struct bpf_arena *
+> -	 * triggers bounds checking since the map definition is smaller than struct
+> -	 * bpf_arena. barrier_var() makes the pointer opaque to GCC, preventing the
+> -	 * bounds analysis
+> -	 */
+> -	barrier_var(ptr);
+> -	user_vm_start = ptr->user_vm_start;
+>   	fault_addr = user_vm_start + 0x7fff;
+>   	bpf_addr_space_cast(user_vm_start, 0, 1);
+>   	asm volatile (
+> @@ -252,17 +236,9 @@ int stream_arena_load_acquire_fault(void *ctx)
+>   		.off	 = 0x7fff,
+>   		.imm	 = 0x100,	/* BPF_LOAD_ACQ */
+>   	};
+> -	struct bpf_arena *ptr = (void *)&arena;
+> -	u64 user_vm_start, val;
+> +	u64 user_vm_start = (u64)arena_base(&arena);
+> +	u64 val;
+>
+> -	/*
+> -	 * Prevent GCC bounds warning: casting &arena to struct bpf_arena *
+> -	 * triggers bounds checking since the map definition is smaller than
+> -	 * struct bpf_arena. barrier_var() makes the pointer opaque to GCC,
+> -	 * preventing the bounds analysis.
+> -	 */
+> -	barrier_var(ptr);
+> -	user_vm_start = ptr->user_vm_start;
+>   	fault_addr = user_vm_start + 0x7fff;
+>   	bpf_addr_space_cast(user_vm_start, 0, 1);
+>   	asm volatile (
+> @@ -296,17 +272,9 @@ int stream_arena_xchg_fault(void *ctx)
+>   		.off	 = 0x7fff,
+>   		.imm	 = 0xe1,	/* BPF_XCHG */
+>   	};
+> -	struct bpf_arena *ptr = (void *)&arena;
+> -	u64 user_vm_start, val;
+> +	u64 user_vm_start = (u64)arena_base(&arena);
+> +	u64 val;
+>
+> -	/*
+> -	 * Prevent GCC bounds warning: casting &arena to struct bpf_arena *
+> -	 * triggers bounds checking since the map definition is smaller than
+> -	 * struct bpf_arena. barrier_var() makes the pointer opaque to GCC,
+> -	 * preventing the bounds analysis.
+> -	 */
+> -	barrier_var(ptr);
+> -	user_vm_start = ptr->user_vm_start;
+>   	fault_addr = user_vm_start + 0x7fff;
+>   	bpf_addr_space_cast(user_vm_start, 0, 1);
+>   	/*
+> @@ -346,17 +314,9 @@ int stream_arena_cmpxchg_fault(void *ctx)
+>   		.off	 = 0x7fff,
+>   		.imm	 = 0xf1,	/* BPF_CMPXCHG */
+>   	};
+> -	struct bpf_arena *ptr = (void *)&arena;
+> -	u64 user_vm_start, val;
+> +	u64 user_vm_start = (u64)arena_base(&arena);
+> +	u64 val;
+>
+> -	/*
+> -	 * Prevent GCC bounds warning: casting &arena to struct bpf_arena *
+> -	 * triggers bounds checking since the map definition is smaller than
+> -	 * struct bpf_arena. barrier_var() makes the pointer opaque to GCC,
+> -	 * preventing the bounds analysis.
+> -	 */
+> -	barrier_var(ptr);
+> -	user_vm_start = ptr->user_vm_start;
+>   	fault_addr = user_vm_start + 0x7fff;
+>   	bpf_addr_space_cast(user_vm_start, 0, 1);
+>   	/*
 
