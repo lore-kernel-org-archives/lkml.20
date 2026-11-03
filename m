@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694619;
-	b=Hr8JLcp9FPVPwPbOgbNM336oMQqq6ypjR9L8OLDhPn0SlJvnOHl2tk3FWmHoDAdQMa/P
-	 T/bQeW5spg9yNr/i7UDgX0j8wdhvv8kj0wOGO8Q+L0ocg544GhrRhE7+qLYlwdub5pNiG
-	 7Ro07f9l23Fr+GAoQtyh9Hi1hB295o86qS20JaRiLO+xDvmwtX5DMQ91sEch7oALdtGf2
-	 YnWF04nu8PJ9YrC9CNAFSUMZME2lE7YSQ6wBR1Z1rjP214hF8IyEdCgyDXfHXwM0Opq20
-	 t95Ax53mtLgTW2Xzx2JPWRwoaxvzrZYHEXsxsTZLXB/fMiSCbXTv4lf6CQwkZfw0/ig==
+	t=1793694638;
+	b=EZFMfmDgS7bDYEKk1PuYLYz34xTNGZ0gCWGhBHZcw2wsAJ9XQkO7dgPV4dEqPX3K0Eb1
+	 LCdVNZUBq4Kx0I/X1wXhCAboy/SoAQHl/Pd0LDGA7I0kgR1XKE376HXsYPhU+N0UtXq4G
+	 S3ZaQQAQ20iIdjbjPEhQrh9eH3PXuT9c3d9o8ATyh8sxgkYtxo+Sb9Z4y+BzNOn/OLAIc
+	 FLtu63Sc/h2hewf2pJaHWCsm7Pbb3OjSCUs7xliU0w2i4tB9/FFxiu4TlimbL/GHKNA31
+	 fS7MvgUGQ3n9025bJhlxV1IMfHsFVN5JdVY4EVJNQwmDUEe1tJeNfJrzUSO3vpZKXBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694619;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694638;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
 	 Content-Transfer-Encoding;
-	bh=YD0JyfMGqA98tDkqSb0eSRlEdJc2ifVG/QLKbZ5F19M=;
-	b=XWbv55nNqO11iMjIYNSB+ZvrUY324/NBu4aDJggwc11lKVn1H2CsHvTRfSZQt9ihdJk+
-	 Zpl0LzkkFMVaeKNysOydi6qUQxiCkc7PpYIbZagRoxROKcuoqT3WRJXqOqnwBfHTezTA/
-	 OpKTW+PEp6gijoj1uQfzwQLBPT28Ah69E2XLxyRp8t1wuDve0rfRAwgCdfocpz6nfjXKi
-	 I0XTkG9hqkhawDmt3UfAm58SDe6DNLJvVRJ9DXEa0FROwyl2j0nYOsYffu39rPx4rWR7P
-	 1k91KUqsTZnLxrqrrWd8uWe6fLLY663+zNxYVfIZbWeAEcjnz8QR1/r599lsgbKs3Wg==
+	bh=PmDjqu8cLkPviHiNjMUUQIVJ2jpv6ZvNX41K9VUO8WU=;
+	b=QcxQIV/MVgl0mpWsbiPFhgTSjfGzh79XOUA2ZIVpBchD6EHWYxBN1nt9rC0+udIqne3V
+	 nhhne6Ok0mKsSy9yzsgQOEGposBXlo0IjT4RZnxD6145IyYFLZiINHG9xL2bfhplvJwij
+	 lJ76AQ0VMLziWWuZk/qfzhZRgDT8ZDd7qHJajH4/rp5YlWGvqFwclD/OMm/rhNahEK3rj
+	 32er4TSJfIYUiGO9TVCq7C1wHUBU0Wyv66uUMOAkl8QKAjsPUTWt3kS/9iVdSar8FkzmD
+	 JZ1GHM0Dmtgqqry8UoVi/tNabPovsW/LP/wfSh5WTx4nkx7Xf5czaZnSrcdtdxSUvaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=giyn1c7c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXX0w2fQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716CB606A32C;
-	Tue,  3 Nov 2026 08:30:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400896082BC7;
+	Tue,  3 Nov 2026 08:30:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=giyn1c7c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750CD1F00A26;
-	Tue,  3 Nov 2026 08:30:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXX0w2fQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6721F00A1A;
+	Tue,  3 Nov 2026 08:30:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694619;
-	bh=YD0JyfMGqA98tDkqSb0eSRlEdJc2ifVG/QLKbZ5F19M=;
+	s=k20260515; t=1793694637;
+	bh=PmDjqu8cLkPviHiNjMUUQIVJ2jpv6ZvNX41K9VUO8WU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=giyn1c7cs//4KOb8XR0QI8MxZLfh9r2Tk7zoc21CsaGzI/1aoQ8lv81zR0s4H15qc
-	 N6vOTuU9XFYoUMUuYv3l0rc1VZGrvBEbnLIuV1yowOf5k7Tj6qYztNLt4eFE3JuEnY
-	 ipuHkwOuUbUOcDY9Z5QepLPuA8FObTSfOLQqFhtyzxOJGbbIfMb5lF1/0yLJuqVeCB
-	 yXuEZ/1UqQnqHO44PeFWAOzB12AuBuSDUoeVaLOXDJ5qJiTUkvhM4kBP5EOU5/joni
-	 iOVhs+P/aiGIUbcKAfaF2ZgXj2YT57n5/1alvnrGYZlxwDhk9QvI4BrtAylvo9U0LL
-	 MMO5bzzJoKJsg==
+	b=MXX0w2fQsfVxVWK0KooDW/yUdbe2C1laSplOJSfxmPGbcfVs/NGrNIDZLTzcTboDk
+	 iiljwU5fFhWR48hfg0VuHqkKEf6vuc0TMWVp++GXM4KJbzFVpy9xO0DZqoG1oA8ajD
+	 45UcQl+0wbL/+93NhTI8trgPryZaztfpUSO+kWwVX3ZlWTxPfP2m/iB7WfyPFI7ECy
+	 XPQbFqA9Ttyrp/AkE1dG1UAqTCi/c3WFlurY8aAF3u9zGj4R+aPdNJCRrEP+UhFwuy
+	 00teU0FfhwVwIXhngWnWCck0OpNHEtGAFnasw9A0NTq4TQDODvOm08DVHUcMJpkx3J
+	 4pORahJtHDm9g==
 From: Leon Romanovsky <leon@kernel.org>
 To: Bjorn Helgaas <bhelgaas@google.com>,
 	Logan Gunthorpe <logang@deltatee.com>,
@@ -69,9 +69,9 @@ Cc: linux-pci@vger.kernel.org,
 	Shuah Khan <skhan@linuxfoundation.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v12 04/19] PCI: Reject unreadable ACS controls in isolation checks
-Date: Tue,  3 Nov 2026 10:29:43 +0200
-Message-ID: <20261103-fix-p2p-acs-v4-0-v12-4-912101f93517@nvidia.com>
+Subject: [PATCH v12 09/19] PCI/P2PDMA: Route Relaxed Ordering Completions directly
+Date: Tue,  3 Nov 2026 10:29:48 +0200
+Message-ID: <20261103-fix-p2p-acs-v4-0-v12-9-912101f93517@nvidia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
 References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
@@ -90,60 +90,84 @@ Content-Transfer-Encoding: 8bit
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-pci_acs_flags_enabled() and the Intel SPT PCH quirk use ACS registers
-without checking config-space read errors. A failed read may leave control
-state indeterminate yet allow the device to satisfy requested isolation
-controls. So can a read that returns all ones with a successful status,
-which is what a device that does not answer usually produces.
+ACS P2P Completion Redirect leaves Completions carrying Relaxed Ordering
+alone, per PCIe r7.0 sec 6.12.1.1. A Completion copies that attribute from
+its Request, so a client setting it on Non-Posted Requests need not use the
+host bridge solely because Completion Redirect is enabled.
 
-Return false when either ACS capability or control state cannot be read
-or reads as all ones, which neither register can legitimately hold. An
-unknown state cannot prove isolation.
+Route Completions directly for PCI_P2PDMA_TLP_RELAXED_CPL unless a device
+quirk redirects them or the Completer lacks an internal route to its
+sibling. Neither restriction promises a Relaxed Ordering exception. No
+caller selects these classes yet.
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-Tested-by: Tushar Dave <tdave@nvidia.com>
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/pci/pci.c    | 4 +++-
- drivers/pci/quirks.c | 8 ++++++--
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ drivers/pci/p2pdma.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 7c6f2aba8144..6d677695c0f5 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -3627,7 +3627,9 @@ static bool pci_acs_flags_enabled(struct pci_dev *pdev, u16 acs_flags)
- 	 */
- 	acs_flags &= (pdev->acs_capabilities | PCI_ACS_EC);
- 
--	pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl);
-+	if (pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl) ||
-+	    PCI_POSSIBLE_ERROR(ctrl))
-+		return false;
- 	return (ctrl & acs_flags) == acs_flags;
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 9d416329aa4b..785e4668a2af 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -580,11 +580,15 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
+ /*
+  * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
+  * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redirect
+- * affects a Completion.
++ * affects a Completion, and that one leaves Completions carrying the Relaxed
++ * Ordering attribute alone.
+  */
+ static enum pci_acs_p2pdma_state
+ pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
+ {
++	if (tlp_flags & PCI_P2PDMA_TLP_RELAXED_CPL)
++		return PCI_ACS_P2PDMA_DIRECT;
++
+ 	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
+ 				   PCI_ACS_P2PDMA_DIRECT;
+ }
+@@ -737,6 +741,7 @@ static void pci_p2pdma_warn_redir(struct pci_dev *client,
+  *		than upstream, so it is where the Request controls apply.
+  * @cpl_ctrl:	ACS Control of the Completer-side divergence port, likewise for
+  *		the Completions travelling back.
++ * @cpl_quirk:	A device quirk reports Completion Redirect at that port.
+  * @req_upstream: The Requester has no internal route to its sibling.
+  * @cpl_upstream: The Completer has no internal route to its sibling.
+  * @unreadable:	First port whose ACS Control could not be read, if any.
+@@ -745,6 +750,7 @@ static void pci_p2pdma_warn_redir(struct pci_dev *client,
+ struct pci_p2pdma_acs_path {
+ 	u16 req_ctrl;
+ 	u16 cpl_ctrl;
++	bool cpl_quirk;
+ 	bool req_upstream;
+ 	bool cpl_upstream;
+ 	struct pci_dev *unreadable;
+@@ -761,11 +767,16 @@ pci_p2pdma_request_state(const struct pci_p2pdma_acs_path *path,
+ 	return pci_acs_p2pdma_request(path->req_ctrl, tlp_flags);
  }
  
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 7f1f47ea2ee4..05605c3afe08 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -5145,10 +5145,14 @@ static int pci_quirk_intel_spt_pch_acs(struct pci_dev *dev, u16 acs_flags)
- 		return -ENOTTY;
++/*
++ * ACS P2P Completion Redirect leaves Relaxed Ordering Completions alone. A
++ * device quirk that reports Completion Redirect does not promise that, so
++ * treat every Completion through that port as redirected.
++ */
+ static enum pci_acs_p2pdma_state
+ pci_p2pdma_completion_state(const struct pci_p2pdma_acs_path *path,
+ 			    unsigned int tlp_flags)
+ {
+-	if (path->cpl_upstream)
++	if (path->cpl_quirk || path->cpl_upstream)
+ 		return PCI_ACS_P2PDMA_REDIRECT;
  
- 	/* see pci_acs_flags_enabled() */
--	pci_read_config_dword(dev, pos + PCI_ACS_CAP, &cap);
-+	if (pci_read_config_dword(dev, pos + PCI_ACS_CAP, &cap) ||
-+	    PCI_POSSIBLE_ERROR(cap))
-+		return 0;
- 	acs_flags &= (cap | PCI_ACS_EC);
- 
--	pci_read_config_dword(dev, pos + INTEL_SPT_ACS_CTRL, &ctrl);
-+	if (pci_read_config_dword(dev, pos + INTEL_SPT_ACS_CTRL, &ctrl) ||
-+	    PCI_POSSIBLE_ERROR(ctrl))
-+		return 0;
- 
- 	return pci_acs_ctrl_enabled(acs_flags, ctrl);
- }
+ 	return pci_acs_p2pdma_completion(path->cpl_ctrl, tlp_flags);
+@@ -1132,6 +1143,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+ 	if (a_child && b_child) {
+ 		if (!pci_acs_p2pdma_ctrl(a_child, &path.cpl_ctrl))
+ 			path.unreadable = a_child;
++		path.cpl_quirk = pci_acs_p2pdma_quirk(a_child, PCI_ACS_CR);
+ 		if (!pci_acs_p2pdma_ctrl(b_child, &path.req_ctrl) &&
+ 		    !path.unreadable)
+ 			path.unreadable = b_child;
 
 -- 
 2.56.0
