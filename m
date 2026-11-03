@@ -1,83 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704423;
-	b=BUsRgmGG0DmvKqnsZniTT7taLtAXlu2U7T0sYIrsD0a5L/cSR0EVmZkPI3vjnQSySQHS
-	 7OFqm1Azn/VdHO26VIrZN1wLeAJfrtTcO5Rh5N9k6+ELMlyegVnqRQvLaz5p3eHdmivUI
-	 9+7AYQTJx/PkEobFhInJ2U8I4fBYsMsYijXYHbY2B5bcGdQHAQNQHXhma1DLEakRk2Cvg
-	 vRfMFizhFoNMnohsaMQEPcx1ujdgjfjHtfn/KIu5WbXpf5qOOOM0fqmZupfdwTq2Bcz1q
-	 cJHTVIJKF5KPWRR6zImDbsmIBsqyxnFpWmYLIW6X3ecHg+gfxAjzA9YBDbrejgI+FrQ==
+	t=1793704502;
+	b=uI42GFkWw6bfcbzcSnOmHpESMkBTxShbXXlIgYKkKcYOt+qaHfnS7cahs+zfPOHdnv49
+	 3e8ZuW0MRP94XZBsKPtWuYCuhqT7Jn+QM68/gpDZk5aO5upYrBa/8xbfaDmv8WbRBAXd5
+	 6iWewXVWhDqxWuFa1BIlO3j95g4y4VRA0AntU3VJMP1027XMsh4IA1UOzV2rrFgYOsCor
+	 aaDMI8W79XylmAvaWiISg3HZrKU6CYcnVDLuIMvCBvX7EScXSdcxbzNxHlpdOQdhHEi1i
+	 rZtJLrgZYXbnlIBBVhPHaHImwiX+84iK+5GamPGa3aULwREE9AkP5zNhh/b7pqIGkhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704502;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:
-	 References:In-Reply-To;
-	bh=aApL6RX54q6lZ7c3C3mWoQyOMn5uc2rO6KvHRJ9B9N4=;
-	b=PcSXLQjgWP438Z2L+jX6iEAoQyGBM6NvZ5sxZNAINOn6tqZfGsA3aE1IoNLdYiY6Vsj+
-	 C3pK4FneIruFdS9IDZFpR4ZIhF4Hd279IOvGByRlmJiWXpX4h6U5wulQ/aFV1ajtO52ku
-	 yYwSqoG20O4TrzhSgkC6TvgviS8DTeg9aPFqPGgXbwSvS62cUi2Iuv0iEoKsBY0RwcN/y
-	 yNj5HpB6UYrKHkVEXysvrq1miWq4ZLoIdeHTAIKTau1Z2g8W1Rlknftu54vuuokVyqa7D
-	 CG/TsgAyx1mCA6I5bFusC9V0akcz6hb+J3cLhjtd5tjp/LIgA+xZNvq86QvkOpiFVtg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FqFkEa1Wf24oHm/ydD3AaExm05JqCxeJcFBeUKnuAzg=;
+	b=ffiPdls5FR+QmoarGCSArrlN33k2vHnUTZ/YJ0RLxwWfmdxw2r6tvueNBUuLJXwVEDKJ
+	 uu/+AkAEr66EqT+kGtkn3MNOQFVihblftZDJAi12jEPBrlB7cwghmDcDq9xkQvzDyZmoT
+	 yRpyiZw4U0+1rPnE4YOSgVbq81GLtHjFS6EUtsPZHbEU9l3kawipFLVuHLOV3m4BJBz+i
+	 LYTKTNqvMhgiW/ObDQZCVqz7wduZEnDWUHIiUU4W7rah1GOG7H9NEQ/EI5P9VpOi7ZaEY
+	 fI+6nhId7R84Bs+ixLPvnczzEuXlDiUsd+DR+7dEekXjEzv3fSKcwTRwq4WPGbJanfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tpRmkYQw;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PERKkOYa;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E53606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:13:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E53606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804FD606A82A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:15:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 804FD606A82A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tpRmkYQw
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b042c0728so958330f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:13:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PERKkOYa
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4ceb15dfd7so137955866b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:15:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793704421; x=1794309221; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aApL6RX54q6lZ7c3C3mWoQyOMn5uc2rO6KvHRJ9B9N4=;
-        b=tpRmkYQwFppJ27NUtYosmR6LsYnLr+Wiyh6rMF6lYNSjfpXnh5Q8jwzAgXIY4mEpFO
-         PllIYdcu14Ls9Kmp+8OBaskBar+dbdSBWjtrhdkzxVAP+lCC14vkl+/CagIJ3uZFA29P
-         qRvlXRbWdHcEcZNpvQncxDYc2R2Z3He37YNGQn4KrNI8JR9Q6xr/53Wvj31TZ1cEGugH
-         s3b70ufLGfJHYowjGsb5w/bRKJwTQ7C4AI4YkjUDEPYIhGbphI9sIfhwe4v/kbybfojt
-         yE3ClQnwVr5GeYlG3rLRUlNKeykNkNj77XFyn5sOHkJHKcNz89okRIlsMxqXCap6SGix
-         KPEw==
+        d=gmail.com; s=20260707; t=1793704501; x=1794309301; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FqFkEa1Wf24oHm/ydD3AaExm05JqCxeJcFBeUKnuAzg=;
+        b=PERKkOYaShx0AfUcvg3glaGUkDjcU+eiSZK1M0atlWYClrtMCNETno5tQmbA2D03Jp
+         hssa2xi9vaeUhTseMPme7sq43Gz399dWzXFDA3BRj8Hpd41Cxf0QC01ZIbT3sGAMsHhV
+         9jECDUetyiBXHBXrZlhrvP8clv8ONj8jE3cGNyRyTuF7xTxLTdM6W+RsW//rwvq/7vqk
+         7UoFiqrU9tEvMf+tN+iqj4MzZyQ+DnV3ogkM70ewdakuOSbj7Uu1kXVnu/g17RufdLAF
+         xzxIMnzQbz2r7vRgxZbZZCbxVDrHkkLIYuYUxEtH0H8HIFn4b46YWTYs83FrKJQ4Drji
+         VaRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793704421; x=1794309221;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=aApL6RX54q6lZ7c3C3mWoQyOMn5uc2rO6KvHRJ9B9N4=;
-        b=CVHC1JUnVtXEPbyWDNd2B0ZNVRTGQTfViY9YttaX64TnVskc3yyNDIuXVVj5FZO+ZJ
-         9AYHfK2E5bdKhelGFl5gxzkddE6KhyHuDp00PLf/W07iZnPsZ1yLcT6DUmVgjwVjdwv5
-         aFUxxkdWEjS2dVlHZTNbsMjs5W7VjSfZKViXZc22c9bJtlbburUQXapZAVw+gwmMjIgF
-         QCNDiY99+4T1qNINwJ5+D2OyZqwY7bG5kjhzOA6LavFExyTzTHm1VRz3tbMoUWsCzIOV
-         2U3i60WftTd1PWuLaql+c1lMDm1CQJrDRPgHa39JMoWNI2WrB21Us3hIlasgfekAk2Zx
-         MbBg==
-X-Forwarded-Encrypted: i=1; AKwUvBwVb0woc7LzQQO55V/7TwHA8cs0kF/CsUobZHVRc9fWBpsP3i6nmjSZRb/TKBFnH8ve3xYaUT6SGVAqi9c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8h8mn2fJevuf9/vgbmGe/MBBGNnScl4vLCLS5XIZjUhqOV0FYR
-	uL5qWCp+RKnUkYkEM/URX0grFwQTfsRdGGNamZoYAGv6DRz/xsdfC7QM
-X-Gm-Gg: AYBFou1tEq1HcOdFXqVOk0bGCF7bKLJz2HwX1IgJsF1MM75fexxcS8hhNgu1ha1Vt3V
-	up4zx6f/xLpqRFgWEXQb2FupQYVYeQL32iLTFqM/SmZGVBHWowYlAz9QeCdukgogT501PXXZ3lz
-	T1TtLt6E7Rjlzj6zFmLjQ7MOeDIHauka+HJzjOb6Emb867EXAGHalPxTG8YJwFX8H+nSaRT6Oko
-	WZN5tXhtAv44kmNBbT1WErDgvKwHnuuFpwckMeFwux2bj1SXt5d2+O305F07a0Jr7RnfPEmx6mG
-	FBFiWQpJel3trDirMJarw7pnY1tym9hcC+Zqfmh285P5gI0h/RWJzOeZt5I1FIVVILLihu7yeFc
-	8ll1qLUKBR5Y469pu6UYKZtPwleHc2kQgT8wtv5sNE450aCeGF+XP0+P7uU+7ae3XDzeIzQzipr
-	nkBtS4OLb/Lgq7gYx9IsUfiHIa1f1wPjB+kSxk62XoZaqmPpb0tAwz/7MSRvtwwLYa/QbkPeg+W
-	HNVBW4p18HSAoi0fynpvcpgmLM5v5IQcaxsPmGVmYf4+YIYWP3bnILDokjDxbWr9Gxj6bvbBh3K
-	HTGDd2Y9G0CFc5OkoRKv/2z/XldslLKdogC2ts1NcqCHjXE9
-X-Received: by 2002:a05:6000:4311:b0:48e:20ed:d5e7 with SMTP id ffacd0b85a97d-48e6e2ff167mr26601099f8f.34.1793704420858;
-        Tue, 03 Nov 2026 03:13:40 -0800 (PST)
-Received: from localhost ([130.192.98.149])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8a5a7sm25639265f8f.37.2026.11.03.03.13.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 03:13:40 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793704501; x=1794309301;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FqFkEa1Wf24oHm/ydD3AaExm05JqCxeJcFBeUKnuAzg=;
+        b=wkkA8Mp8a8m9CjhDyoVH5ng+grWNXeqgqrKHIuYMfjmOw4J3VoghfmrIggCWIwMi6K
+         RR0VaWQ8k7RRsU92/A5smehzmEJefK44a23i/B+J/WX7nRdODW2TclpUNPGAj7g4NMUr
+         GKLY1/yY2WTYSpxM0rlrK3KRkC5z0nknM/OtuWh4BS9v8usSBWQOBjGJsBlrSUw2BsEU
+         neTb4jUEKtzdbNMm8Xp++cSw/k/onQ62VCmD5s1uUms8UuhZU02mdUGlUS0Msag1y6/k
+         llEVmYU6rdWik7lnmc+vhLinSwWyXrkXKmNt8qPc2l30GcP9VU+4iy0RphkHVskC2M/C
+         jx+g==
+X-Forwarded-Encrypted: i=1; AKwUvBw7j8aGNn081rsY/KbBIgjxRnhNNU51pl/cbTemrwLg+3nK+5zgPISlH22tBUCDtOpyHR0tfG9Hi+Pr8tg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9N0MZORmMvXD1/ltke++OlX0/BCfbmd6vDpSWSvPbzSuvmvnC8
+	S7SME3v7De/4VfqwfJOfp6t3DcIrDVlSdJLeE42g+adEq0Mg1z7ZvHOnaC2H0WkhS1o=
+X-Gm-Gg: AYBFou2N7PZf5BYbf7ayfH618odp9xz9cbUXjJFmG+nNWV7+g1E92JfV4+kV2/vjWVl
+	bYn29OaW17hjG2gwA38y8WE5p51QQvgGLwPK5GDtaFmEu1sIHG1dodYtwgYT/ECkB1KWW+nba1Y
+	stX6BSSkzGaZ/rBiQA1e1lSyrrH25oRvmNkciF07aaWMDPlhlcYZeYME5rKjhnxBxaCDrV+jlaU
+	vU80eq1ZETFUyLkmWJTck73uhUF3ftOOXMgyzk9zwYpn0BuUmseZzNUurw3bYrVytuaOyP3IBvU
+	Z6gsjV+PQ8uLn0UCuDzrD9EoZa+50FP0byOfR/j0LCiyrRan/Cn7ekiBh4H93oUuD96rtLK+Hw4
+	Pj45aKjpwRW1f/caBk7w94DabsbJPrKQhAyOlOfohD2+GTx4YHKWqauY8hGRGGO7oqXqH+cpKKo
+	dN4ivS+M4Ztr/THAP8F0ql+A2dUK/EEFZjC4+12YK9WXn9CVVns3LFDyFMpFX0ZoGoE/yDiBpqA
+	h/Os2B+aTOrv/Lj1hQJIFRhcDp3K1uVDwjHRdjGOAaHtn9Uo8i3vnYAnwuhN0nHL70mdF9iHmxe
+	lVYw7kr5KcLjH+cBoWwTGIBr1NzXm34qBsSDeZJEJxCweZXTuoeRo2dL++KA2NbjTKjtA/rRgzc
+	yLYBJxn6n8RmNWCM000Mr3moJzUJ6SjOetolkghS5
+X-Received: by 2002:a17:907:d9f:b0:c40:b477:dfa0 with SMTP id a640c23a62f3a-c4ca7a46ab6mr975704366b.18.1793704500712;
+        Tue, 03 Nov 2026 03:15:00 -0800 (PST)
+Received: from wlan-199066.nbw.tue.nl (wlan-199066.nbw.tue.nl. [131.155.199.66])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca0f376sm4349291a12.26.2026.11.03.03.14.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 03 Nov 2026 03:15:00 -0800 (PST)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Enzo Matsumiya <ematsumiya@suse.de>,
+	linux-cifs@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] ksmbd: AES-GMAC signing support
+Date: Tue,  3 Nov 2026 12:14:51 +0100
+Message-ID: <20261103111453.84804-1-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,149 +100,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=e80d9f52f04d877396f5736b7426fc0b9ce68638903c33e71797700113b3;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 03 Nov 2026 12:13:37 +0100
-Message-Id: <DMLJ5DR2A4KZ.28U8XSZ0KFJTG@gmail.com>
-Cc: "David Sterba" <dsterba@suse.com>, "Alexander Viro"
- <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Namjae Jeon" <linkinjeon@kernel.org>, "Sungjong Seo"
- <sj1557.seo@samsung.com>, "Konstantin Komarov"
- <almaz.alexandrovich@paragon-software.com>, "Chris Mason"
- <mason@kernel.org>, "Jan Kara" <jack@suse.cz>, "Yuezhang Mo"
- <yuezhang.mo@sony.com>, "Chuck Lever" <cel@kernel.org>, "Darrick J . Wong"
- <djwong@kernel.org>, "Sean Smith" <defendthedisabled@gmail.com>, "Andrey
- Albershteyn" <aalbersh@kernel.org>, "Pedro Falcato" <pfalcato@suse.de>,
- =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
- <linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <exfat@lists.linux.dev>,
- <ntfs3@lists.linux.dev>, <linux-api@vger.kernel.org>
-Subject: Re: [RFC PATCH v3 1/5] vfs: add provenance time (ptime)
-From: "koraynilay" <koray.fra@gmail.com>
-To: "Amir Goldstein" <amir73il@gmail.com>, "koraynilay"
- <koray.fra@gmail.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261101015551.786044-1-koray.fra@gmail.com>
- <20261101015551.786044-2-koray.fra@gmail.com>
- <CAOQ4uxiuJ=eZu28FZAUz3rpqPKqCimPxJucOnYYuBowvD09_Cw@mail.gmail.com>
-In-Reply-To: <CAOQ4uxiuJ=eZu28FZAUz3rpqPKqCimPxJucOnYYuBowvD09_Cw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---e80d9f52f04d877396f5736b7426fc0b9ce68638903c33e71797700113b3
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+SMB 3.1.1 clients choose the signing algorithm in the
+SMB2_SIGNING_CAPABILITIES negotiate context. ksmbd parses the client's
+list, but init_smb3_11_server() then overwrites the choice with
+AES-CMAC, so a client that does not offer AES-CMAC cannot connect.
+Patch 1 fixes that and keeps each signing key paired with the
+algorithm it was created for. Patch 2 adds AES-GMAC, which Windows and
+macOS offer first, using the lib/crypto AES-GCM API.
 
-On Mon Nov 2, 2026 at 3:00 PM CET, Amir Goldstein wrote:
-> On Sun, Nov 1, 2026 at 2:57=E2=80=AFAM koraynilay <koray.fra@gmail.com> w=
-rote:
->>
->> Add provenance time (ptime), indicating the time when a file or
->> directory was created. This is user-settable via file_setattr() and
->> retrievable via statx(2) (using STATX_PTIME) or file_getattr().
->>
->> The semantics of when to preserve this new timestamp are the same as
->> mtime, the idea being that there is a correspondence like this:
->>
->> ctime <-> btime
->> mtime <-> ptime
->>
->> so every operation (copying, moving, ...) that currently preserves mtime
->> should also preserve ptime.
->>
->> Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
->> FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
->> xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr() to
->> allow ptime to be used with the file_setattr()/file_getattr() syscalls.
->>
->> [ This is a re-implementation of the initial patch[1] by Sean Smith
->>   <defendthedisabled@gmail.com>, following the advice[2] from Darrick J.
->>   Wong <djwong@kernel.org> of using file_setattr() instead of updating
->>   utimensat() ]
->>
->> [1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabled@gma=
-il.com
->> [2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
->>
->> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.4.7
->> Signed-off-by: koraynilay <koray.fra@gmail.com>
->> ---
->>  fs/file_attr.c            | 33 +++++++++++++++++++++++++++++++--
->>  fs/stat.c                 |  2 ++
->>  include/linux/fileattr.h  |  5 +++++
->>  include/linux/stat.h      |  1 +
->>  include/uapi/linux/fs.h   |  8 +++++++-
->>  include/uapi/linux/stat.h |  7 ++++++-
->>  6 files changed, 52 insertions(+), 4 deletions(-)
->>
->> diff --git a/fs/file_attr.c b/fs/file_attr.c
->> index 833e03810b24..c0645cb22bf3 100644
->> --- a/fs/file_attr.c
->> +++ b/fs/file_attr.c
->> @@ -102,7 +102,7 @@ EXPORT_SYMBOL(vfs_fileattr_get);
->>  static void fileattr_to_file_attr(const struct file_kattr *fa,
->>                                   struct file_attr *fattr)
->>  {
->> -       __u32 mask =3D FS_XFLAGS_MASK;
->> +       __u32 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
->>
->>         memset(fattr, 0, sizeof(struct file_attr));
->>         fattr->fa_xflags =3D fa->fsx_xflags & mask;
->> @@ -110,6 +110,8 @@ static void fileattr_to_file_attr(const struct file_=
-kattr *fa,
->>         fattr->fa_nextents =3D fa->fsx_nextents;
->>         fattr->fa_projid =3D fa->fsx_projid;
->>         fattr->fa_cowextsize =3D fa->fsx_cowextsize;
->> +       fattr->fa_ptime_sec =3D fa->fsx_ptime.tv_sec;
->> +       fattr->fa_ptime_nsec =3D fa->fsx_ptime.tv_nsec;
->>  }
->>
->>  /**
->> @@ -141,15 +143,20 @@ EXPORT_SYMBOL(copy_fsxattr_to_user);
->>  static int file_attr_to_fileattr(const struct file_attr *fattr,
->>                                  struct file_kattr *fa)
->>  {
->> -       __u64 mask =3D FS_XFLAGS_MASK;
->> +       __u64 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
->
-> That is not the correct way to extend this API.
-> This fixed mask was added as a placeholder for
-> "We intend to add support for more xflags to selective filesystems":
-> https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-2-amir73il@g=
-mail.com/
->
-> Please see this POC patch for filesystems to publish their supported
-> xflags mask:
-> https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-3-amir73il@g=
-mail.com/
+Discussion:
+https://lore.kernel.org/linux-cifs/D0F05F9A-5097-4A2D-9235-AE395961F456@gmail.com/
 
-Thanks, I did not think of adding a dynamic mask like that, I will look
-into it and implement it for v4.
+Testing:
+- smbtorture 4.19 with each algorithm forced
+  (clientsmb3signingalgorithms): without the series an HMAC-SHA256
+  only client fails smb2.connect with NT_STATUS_INVALID_NETWORK_RESPONSE
+  and an AES-GMAC only client cannot negotiate. With it, all three
+  connect and sign with the forced algorithm; smb2.connect then stops
+  at its tree disconnect check (STATUS_ACCESS_DENIED instead of
+  STATUS_NETWORK_NAME_DELETED), as it does for AES-CMAC without the
+  series.
+- smb2.session (smbtorture 4.19, multichannel off): 21 tests pass
+  instead of 12. signing-hmac-sha-256, signing-aes-128-cmac,
+  signing-aes-128-gmac, encryption-aes-{128,256}-{ccm,gcm} and
+  bind_negative_smb3signGtoH2X{d,s} need signing negotiation and now
+  run and pass instead of being skipped. 26 other
+  bind_negative_smb3sign*/smb3sne* tests now run too and fail with
+  STATUS_USER_SESSION_DELETED, because binding needs multichannel;
+  see the next item for them with multichannel enabled. No test that
+  passed before fails.
+- smb2.bench.echo and smb2.bench.read with each algorithm forced,
+  smbtorture 4.19 (x86) and 4.23 (arm64).
+- smb2.session.bind_negative* with multichannel enabled (smbtorture
+  4.19): all tests involving AES-GMAC pass. Without the series most
+  smb3sign* tests were skipped, as ksmbd could not negotiate anything
+  but AES-CMAC. The four AES-CMAC <-> HMAC-SHA256 tests now run and
+  fail on existing binding behaviour that this series does not touch:
+  the *d variants because ksmbd rejects binding from a different
+  ClientGUID (Windows accepts it), the *s variants because a session
+  setup without the binding flag on an already bound connection
+  succeeds instead of failing with STATUS_ACCESS_DENIED.
+- Windows Server 2025: offered AES-GMAC, AES-CMAC, HMAC-SHA256 and
+  ksmbd answered AES-GMAC (checked in a packet capture). A 1 GiB copy
+  to and from the share came back identical (SHA256), with signing
+  required and encryption off.
+- macOS 26: negotiated AES-GMAC, 256 MiB copy identical.
+- No "bad smb2 signature" messages in any of these runs.
 
-> This will allow callers of file_getattr() to know if the filesystem
-> supports ptime
-> without trying to set it and failing.
+End to end, smbtorture smb2.bench.read with 1 MiB reads, MB/s:
 
-So after adding fsx_xflags_mask to file_kattr, every filesystem would
-populate fsx_xflags_mask with all the returned (=3D=3D supported) FS_XFLAG_=
-*
-in their own specific .fileattr_get, correct?
+                               HMAC-SHA256   AES-CMAC   AES-GMAC
+  arm64, Apple M4 VM, loopback        1354        924        797
+  x86, AMD EPYC VMs, 3.56 Gbit/s       449        341        469
 
-Best,
-koraynilay
+On arm64 AES-GMAC is currently the slowest because the arm64 GHASH
+library code does not use PMULL for bulk data; I'll send a separate
+lib/crypto series for that, as discussed in the thread above.
 
-> Thanks,
-> Amir.
+Not tested: multichannel with Windows or macOS clients (binding was
+only tested with smbtorture), and SMB over RDMA.
 
---e80d9f52f04d877396f5736b7426fc0b9ce68638903c33e71797700113b3
-Content-Type: application/pgp-signature; name="signature.asc"
+An AI assistant was used to draft the patches and as an independent
+reviewer. I ran the Windows, macOS and benchmark tests; the smbtorture
+runs were done by the assistant under UML.
 
------BEGIN PGP SIGNATURE-----
+Michail Andreas Michalopoulos (2):
+  ksmbd: sign with the negotiated SMB 3.1.1 signing algorithm
+  ksmbd: add AES-GMAC signing support
 
-iHUEABYKAB0WIQRJ2XvJtXGwULYEerQ0bnTtJTDoOAUCaunB4QAKCRA0bnTtJTDo
-OGlqAP9FN1O36Vljpv9qu+GHoMq4dpgT5l0jYNkHeq3xwaeLZQEAp8imIPg1c77f
-Nx6+7PN4i6jMGvOBbnpA+XfhiQmdEgs=
-=mk5d
------END PGP SIGNATURE-----
+ Documentation/filesystems/smb/ksmbd.rst |  2 +-
+ fs/smb/server/Kconfig                   |  1 +
+ fs/smb/server/auth.c                    | 60 ++++++++++++++++++++++++-
+ fs/smb/server/auth.h                    |  4 +-
+ fs/smb/server/mgmt/user_session.c       |  1 +
+ fs/smb/server/mgmt/user_session.h       |  2 +
+ fs/smb/server/smb2ops.c                 |  4 +-
+ fs/smb/server/smb2pdu.c                 | 53 +++++++++++++++++++---
+ 8 files changed, 116 insertions(+), 11 deletions(-)
 
---e80d9f52f04d877396f5736b7426fc0b9ce68638903c33e71797700113b3--
+
+base-commit: af8c72f6550744fe948ef2dbc7ab8739c149aab2
+-- 
+2.43.0
+
