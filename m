@@ -1,59 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692526;
-	b=aqG/gcB3OWbeKeb/kxSRqVlDi/ihjNrAqEN6Yq28XSDce0jeX8GRlDxg4ImmU3yB6I5/
-	 6NqBQx+LQuruuCLlneCKlUIP5kFKr5Nf5ATF8DeWj7qcSXkQ8DgjOEVIYH1i79Jmdy8lp
-	 Zsl0QsOAe4EiHZb1vKH4fSTyrvhz7USweKAF5RS7SB7YDatUs4qiiaGpGuZocEt+2nKYb
-	 FiAkKMaJ/dEEHj+8O3TZUO3rCfwXZORr+LJBqZ9oaXQgcR2/rinmVI4loR6b7VKUPj6Vk
-	 k6WjsNUs3jUDpS57Bc8oLkxv5F3hc3jUuhh2BG0LSrv0T+A4vld49xszp61jOJiUgOQ==
+	t=1793692669;
+	b=5LrNcMJA2F5cqm6Q3C0hz51STLHK+IhGDeeYhZ2eEdj7N83zM4F3I0dpterkRA8NYopW
+	 6IDp77ppJUTrBIXGm78VZOX0o3eWhsjJ7r1d/+mOLimAFapZhs3r6SIkg52hwxyBJ2HQh
+	 FEi9rJ9d1xZVjV6Fxh6n32cKICzswU2Wsnp3gh5SMzQbzYpMefOykydk6xzQ9lzjVrBDR
+	 CGxtWkZAsyuhOzsJGKYneiL3SYIALfb6Zj/vt4gQDT0QnTbk1vRhUcNxytQRsar8mfuFe
+	 mEDAxGGYj5S1lRxrJWLxAosArf6FvD5JahlueBSAXnvCCtsNPc9u6YaJUZUZVWcMoFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692526;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=bb6BgZSBzPk54W//sDNNb8p0kiKtn/n37kN4ZJY96f8=;
-	b=tGB3B8qP0mUS97XR89ztUtidFQVxmwrqbeWRRj0bvGNqo7PwpCQQqhq9SA52br1d3mxP
-	 h9VD+I4eJnNSX9p/4VepmsDrVhVMD9J6SjmjT98TV7i6xnUE79Fgdb0b1zzL7SPvgrtBD
-	 x7EHn0q6GB7FTGmPWcOcI0u2GWpUr65He6V4jbRHUvbzfhmuIaSloDC7wv+SNbLiemdDw
-	 Zx+Yh/rYxE0v/9maKyrPxQ2u2hu0+yR6PScqaha/+h+4YadOZ6ftLjx2jDeekEuNQ5snB
-	 VCsGpBcC9hgiS2dTyhbU8KaXzTHE1P5LbtMHq4etkWF04vYhkBgHWgIa2q/BmFcWOiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692669;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rJQLd3VOK3FZhENCM8D/t0DZtET0O4ORpZWDG+n9uQY=;
+	b=AJJp0td+BvVg79gZ49OL/yOYU0M1UyoYht2GJ4B8jJpOJp+WBznQB+qYL0kuyYGnXEY/
+	 9n/IeUaV0a2CAW/jfxTjLAkCknwW/j/Obm45du8/nI92mm7RR3VKVcPnuwlvj4Hpal5IG
+	 +c0Av+cN3fetUQlER1ZePFRim99Bwv3wOVGyCXcZMNJkRWI/7jTONnSSA3TJn6ntMle2L
+	 /2Ia1S8/ujo+OW7+D5WW21iV0BbkUucroIoJGPgePBIjQvbtNLmdUp00rLLJwtPEtX+dE
+	 4hMTT2sAIEpBstc7Z7bkHqvFypsB4jkdWLCONkazfTMBqRPiwj7XcxCYu8GDXTW5HwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMfDg5n5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJ9QnrTf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254C3606A329;
-	Tue,  3 Nov 2026 07:55:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2592C606A324;
+	Tue,  3 Nov 2026 07:57:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMfDg5n5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B251F000C1;
-	Tue,  3 Nov 2026 07:55:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJ9QnrTf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F36A1F000C1;
+	Tue,  3 Nov 2026 07:57:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793692526;
-	bh=bb6BgZSBzPk54W//sDNNb8p0kiKtn/n37kN4ZJY96f8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dMfDg5n5ZpSq9zWJs/Z3rxKBJtLSmEL1qvhU8Oa5ge0xDb8QHtK9NYBMfzywS+awC
-	 ij3hiL1YwHx/yHYBWBLYHpTwT94CpD0OTLYaPaec3EBLtZoZ7Opl4EyJvUJ0SbvBHF
-	 Rkd8EJTRw9Pn1vwrIj2Q+u2ET+ICKU6HW8h5gNad1Xgf9c3MeI0/hVd5cZsyfCqASs
-	 425ed0id3H3lRYA3bSiaTt7chrYYcPoMvLOG2cVd4Dr4/WSwtt3qIm9YzwmzBMpXLR
-	 OlF9oPamKs04CCxEcrYNFmH9g86xOU1Ga5MtM/v//pBD/o6GjLOSYsic5RYKyfjP+B
-	 2C8Qy2fkJuEnQ==
-Subject: Re: [PATCH net 2/4] net: dsa: motorcomm: Fix IPv4/IPv6 address key
- dispatch in flower
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 07:55:25 +0000
-Message-ID: <179369252510.488856.6603340329074881644@kernel.org>
-In-Reply-To: <20261102071119.3435180-3-mmyangfl@gmail.com>
-References: <20261102071119.3435180-3-mmyangfl@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793692668;
+	bh=rJQLd3VOK3FZhENCM8D/t0DZtET0O4ORpZWDG+n9uQY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TJ9QnrTfbo/UeTq5oGknUx4stta7TmKqMiWIVL97e2xhYNM2Ke1SEAfqKUTf1Lf2U
+	 6JlctJEa1VCEqRNgtTuELapT/qmz4mugxiTg1CVrYOQlFLJ3sjAQAO/7ruE4pX1XZt
+	 asRKKmwXBthZTCuQpKh0xFs4JzS2QnKIIbZ330BH+P8vXtbQkTt3dCw8Kw/RwxC99M
+	 wVlW8iebhJUZMCJY7W3D48Qgn5+UnvoTdzfuXWCS0EXxwux7yMaE/PEqnLPnwMhQxi
+	 uxabVzjB/2hMRbKMH5Ds1wxKgFwxvDuLxYTH/AcLlvdmLB6XZVmDYIoji1gphWNA2X
+	 Rndou7otc+iqQ==
+Message-ID: <34e16c38-2150-4d88-be97-105b0f81f03c@kernel.org>
+Date: Tue, 3 Nov 2026 08:57:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,167 +51,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] virtio-mem: only mark the device ready in kdump mode
+ with vmcore support
+To: Yuho Choi <oss.patchbox@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowangio@gmail.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261102203518.436327-2-oss.patchbox@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261102203518.436327-2-oss.patchbox@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 11/2/26 21:35, Yuho Choi wrote:
+> virtio_mem_init_kdump() marks the device DRIVER_OK before it checks for
+> CONFIG_PROC_VMCORE. Without vmcore support it then fails with -EBUSY,
+> and virtio_mem_probe() deletes the virtqueue on that error path without
+> resetting the device first. The device is left with DRIVER_OK set and a
+> queue that points at freed memory. Nothing has been queued at that
+> point, so the device has nothing to process, but the driver should not
+> leave a device it is giving up on marked ready.
+> 
+> Before commit a9403425b3cf ("virtio-mem: mark device ready before
+> registering callbacks in kdump mode"), virtio_mem_probe() called
+> virtio_device_ready() only after virtio_mem_init() had succeeded, so this
+> path never exposed a ready device.
+> 
+> Move virtio_device_ready() into the CONFIG_PROC_VMCORE branch, right
+> before the vmcore callbacks that need it are registered, so the -EBUSY
+> path never sets DRIVER_OK.
+> 
+> Fixes: a9403425b3cf ("virtio-mem: mark device ready before registering callbacks in kdump mode")
+> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+> ---
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The commit replaces the used_keys presence checks with a
-  control.addr_type check, and this introduces a regression.
-- [Medium] The commit message describes a bug that does not exist in this
-  tree.
-
---
-
-net: dsa: motorcomm: Fix IPv4/IPv6 address key dispatch in flower
-
-This patch changes yt921x_acl_rule_ext_parse_flow_entries() so that it
-chooses the IPv4 or IPv6 address block from control.addr_type. Before,
-it checked whether the matching address key was set in used_keys. The
-commit message says flow_rule_match_key() reports both address keys
-when only one of them is used.
-
-> The IPv4 and IPv6 address keys share the same storage in struct
-> flow_rule, so flow_rule_match_key() reports both as present whenever
-> either one is. As a result, IPv4 address rule may generated bogus IPv6
-> address bins, and vice versa.
-
-[Severity: Medium]
-Is this description accurate? flow_rule_match_key() is just
-dissector_uses_key(), which tests one bit in used_keys:
-
-include/net/flow_dissector.h:dissector_uses_key() {
-	return flow_dissector->used_keys & (1ULL << key_id);
-}
-
-FLOW_DISSECTOR_KEY_IPV4_ADDRS and FLOW_DISSECTOR_KEY_IPV6_ADDRS are
-separate bits.
-
-In flower, struct fl_flow_key has separate ipv4 and ipv6 members (not a
-union). fl_set_key() fills in only one family. fl_init_dissector()
-registers each key on its own, based on that key's own mask:
-
-net/sched/cls_flower.c:fl_init_dissector() {
-    ...
-	FL_KEY_SET_IF_MASKED(mask, keys, cnt,
-			     FLOW_DISSECTOR_KEY_IPV4_ADDRS, ipv4);
-	FL_KEY_SET_IF_MASKED(mask, keys, cnt,
-			     FLOW_DISSECTOR_KEY_IPV6_ADDRS, ipv6);
-    ...
-}
-
-fl_hw_replace_filter() then passes that dissector to the driver
-unchanged.
-
-In nftables offload, nft_flow_key does put ipv4 and ipv6 in a union.
-However, nft_payload_offload_ip() and nft_payload_offload_ip6() only
-set the bit for the family being matched.
-
-Is there a path where both bits end up set? If not, the old code looks
-correct for these inputs. The patch has a Fixes: tag and will be
-backported, so could the commit message be corrected, or could it
-include a reproducer?
-
-> diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-> index 8835907366bf7..5a4459507582d 100644
-> --- a/drivers/net/dsa/motorcomm/tc.c
-> +++ b/drivers/net/dsa/motorcomm/tc.c
-
-[ ... ]
-
-> @@ -603,8 +604,15 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
->  		return -EOPNOTSUPP;
->  	}
->  
-> +	if (flow_rule_match_key(rule, FLOW_DISSECTOR_KEY_CONTROL)) {
-> +		struct flow_match_control match;
-> +
-> +		flow_rule_match_control(rule, &match);
-> +		addr_type = match.key->addr_type;
-> +	}
-> +
->  	/* Entries */
-> -	if (flow_rule_match_key(rule, FLOW_DISSECTOR_KEY_IPV4_ADDRS)) {
-> +	if (addr_type == FLOW_DISSECTOR_KEY_IPV4_ADDRS) {
->  		struct flow_match_ipv4_addrs match;
->  
->  		flow_rule_match_ipv4_addrs(rule, &match);
-> @@ -630,7 +638,7 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
->  		}
->  	}
->  
-> -	if (flow_rule_match_key(rule, FLOW_DISSECTOR_KEY_IPV6_ADDRS)) {
-> +	if (addr_type == FLOW_DISSECTOR_KEY_IPV6_ADDRS) {
->  		struct flow_match_ipv6_addrs match;
->  
->  		flow_rule_match_ipv6_addrs(rule, &match);
-
-[Severity: High]
-Can this program bogus IPv6 bins when the IPv6 address mask is all
-zero?
-
-fl_set_key() sets addr_type whenever an IPv6 src or dst attribute is
-present, whatever the mask is:
-
-	} else if (tb[TCA_FLOWER_KEY_IPV6_SRC] || tb[TCA_FLOWER_KEY_IPV6_DST]) {
-		key->control.addr_type = FLOW_DISSECTOR_KEY_IPV6_ADDRS;
-		mask->control.addr_type = ~0;
-
-fl_init_dissector() only registers FLOW_DISSECTOR_KEY_IPV6_ADDRS through
-FL_KEY_SET_IF_MASKED. Take a rule like this:
-
-  tc filter add dev swp0 ingress protocol ipv6 flower skip_sw \
-      src_ip ::/0 action drop
-
-It ends up with addr_type == FLOW_DISSECTOR_KEY_IPV6_ADDRS, but with no
-IPV6_ADDRS bit in used_keys.
-
-skb_flow_dissector_init() memsets the dissector, so
-offset[FLOW_DISSECTOR_KEY_IPV6_ADDRS] stays 0. skb_flow_dissector_target()
-adds that offset without checking whether the key is present. As a
-result, flow_rule_match_ipv6_addrs() returns key and mask pointers to
-the start of struct fl_flow_key (meta, control, enc_control, basic, ...).
-
-With that layout, mask->src.s6_addr32[2] overlays control.thoff and
-control.addr_type, and the addr_type mask is 0xffff. mask->dst.s6_addr32[2]
-overlays basic.n_proto and basic.ip_proto, and the n_proto mask is 0xffff
-when a protocol is given.
-
-Wouldn't the loops then create YT921X_ACL_TYPE_IPV6_SA2 and
-YT921X_ACL_TYPE_IPV6_DA2 entries keyed on addr_type and the 0x86dd
-EtherType? The hardware rule would then match only IPv6 packets whose
-address words happen to equal those values, not all IPv6 traffic.
-
-Other matches such as ip_flags or dst_mac can add SA3/DA3 bins in the
-same way. The extra bins can also push an otherwise valid rule into the
-"Rule too complex" error path.
-
-Before this patch, flow_rule_match_key(rule,
-FLOW_DISSECTOR_KEY_IPV6_ADDRS) returned false here and the block was
-skipped.
-
-The IPv4 branch has the same structure. It is harmless today only
-because offset 0 hits the meta key, and the meta mask is zero since META
-is rejected in used_keys.
-
-This also looks to be still present at the end of the series. The
-commit "net: dsa: motorcomm: Delete the ACL rule of the port being
-unbound" keeps the addr_type-only conditions.
-
-Would it work to keep the presence check and add the addr_type check on
-top of it? For example:
-
-	if (addr_type == FLOW_DISSECTOR_KEY_IPV6_ADDRS &&
-	    flow_rule_match_key(rule, FLOW_DISSECTOR_KEY_IPV6_ADDRS)) {
-
-and the same for the IPv4 branch.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102071119.3435180-1-mmyangfl%40gmail.com
+Cheers,
+
+David
