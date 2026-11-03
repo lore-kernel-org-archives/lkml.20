@@ -1,95 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737105;
-	b=qBJSGqW9n9xA2vFU6gtPDGUYShUeduJ0spUo+EO31owuXgDrVCoFiuIdIzVpHXaeGIoC
-	 zSJ5vYJrFu1TFyuu9v12SJjumC52jhLH/1R6ZR9h9aadlufFn59GAImqwnuzXJAzX2l1j
-	 yJZNZ8YsEzsgJMeexDK/o1fzXYnDQOQLMYSQ6e4IajhbPdyZuIS0nuYs4Do18XY9kewcj
-	 PEQG80QMe6l6572IRYp/W4lA7hoRkVtythPpl9xw8bEqn2bm2uAQ2khmolOcQ7F0AybT4
-	 Zm5bEoPbeb+UDbUB7PzfxxcyXz0q2jqjmo51YtkA3LHdTvfT1Ht0854CmsW8ZVQdEIg==
+	t=1793737126;
+	b=R7Vhsq/XOXAkTCkCQVrpimCfCg6yXjSDxRDo7UbeZncfg+Ae0o8PFPQ9mXWGOQAIEU3L
+	 6Ijn9S2YhIJ6mNTzYng1KXulcvURMcP9SdcO8av/R6hp+hcCZoh3SDdCkrS2h6ySJwYTk
+	 VCP7R1Lye24dBk/mlXg+IcLCOy71rsQMNCOE/Gs42JbnvpcrLRr3ddWecnkYQ6vzMQzWU
+	 f0xwVw0zQ8+cmc2xcZ4GOIsVC1RQOKZ/wX7M53pY6xOANSiH4kO3YAqoZM1ZMAa6I3VTT
+	 LVd0f4S6Q5rBoSYOZXqsTxIhl0HnoN4K4l78gBgqY8iPYHO5DJeEcjCPZ/3uSsZjnKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737105;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Xny6TxdisJDz1rgCYagKSUk768TV4NYM8IYebe0cybY=;
-	b=eIynhJp1srVIS20SiLeYoeH/QWSkQf1enh9fO8KLZkBmFLStobTlBR4mX1+d32qbNAp2
-	 CErYckoKnXJzfyKAxTq9P8NnU6nQwrHwIB3jP94WHh3RGdaFXDheBs9EjymoO8ITWAL9m
-	 f3NMrAw38XenYpkjwcSRS2ltf8oMvUG2wVBZF3/gnZhnFdmYTpvmvyFV1wKwF+H6PxWPo
-	 QkZ+S9e61axDfCSXxgC9+X1YhOSFNZTAcoZNnpQ6WWavG1w8JxkkqV480xd+iKmPEByfl
-	 Ly54xkPuq4CrpBXCNK89wPNrupPQ+14pqFbsLSZCq12jrbiJftQblw6KUkfsQhx01WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737126;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=oIr0fqj99M6zbhKwpxysFhLjpIn4bALWywxuRR1DN1s=;
+	b=eQYoBIOzpOYFpDnwsJIifIEIJzmTPaxD38O87+whiKG9QAAgTPJssHRbdUJEL5POIaxS
+	 B4xGmvivLVANKWOeXUzosLt4Yop4NFtvkJ7sveSb/1l8d7IOO0G1jG58hHUl7paLkThUY
+	 mhGTTSXmfD4y9WVMWQkQ7Ab8X2lJu0KQ/Hft85AbslHxOvR232gTNWjS9UGBODZsZdkW7
+	 FYRu8VhhB0YpcnRlJudtG7RV1tgryMNyQ/+DVHv5stipo6Bfrfx5AiN5/CbtSm/ysJ/OH
+	 5aiKJcJxfMJiPqpNyS4c0Bb8A0pdh2FWCA5fZ1t+oj4XypTfi62AwNfyrCH8qCWhWyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nipKVCTB;
-	arc=none smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994E1606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:18:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 994E1606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GYnS+mja;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFA1E606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:18:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFA1E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nipKVCTB
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91c791d5460so734086d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:18:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793737103; x=1794341903; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xny6TxdisJDz1rgCYagKSUk768TV4NYM8IYebe0cybY=;
-        b=nipKVCTBE9DipRbWBWM8riaSp+ZE5lc1wbL2Tg2pOFblhssBproOupEOeIPs7TfOMX
-         xPHcGiXojn400BMFeVVH4rrBXLEZjdnB35uFeiMqNOqvI1CvR4+7MA0ZwiF8DzxVhkRw
-         VUocVl0dJr9607/qHbpCjkr+iSYSX/3elC7yfjtP0YKFpPkcxFc8vOslJHB9cMfkKK+K
-         Vo8nEbDAoOyLoyfEwlzqf0TlYLdF0pUsGkvMo30ti12hOkNJgss5znGvq3NldLvHIZQM
-         9MyfZaTokUIc31x6SAi2Sb2hPJ+CTv92RdjQfdy4tzvAs+fgQnS9jRX7JXhlqmQiGrLn
-         57Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793737103; x=1794341903;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xny6TxdisJDz1rgCYagKSUk768TV4NYM8IYebe0cybY=;
-        b=dxOfkAsDBz2LHQHhZ+M/iP/aYLI7erXnuAe3Lp3FjrUQ6yKOXAmQCJMsthiXDI/S5R
-         HizhFt48zAt1jVNeTbBdbWYADZ18PGOLKDhicm3+0PA9ux1iWb34u8gli4tuA2y88g9t
-         GuBNCVTSfJlgJbcDNJBLmZkmQpPtmcJsLB13PCsn35njTwYWvfSrcSSkOo2DUdctaXka
-         FbLHTrzZx44IIK8FRamIAS5hrtUMB+2Kr69EX/hd34lyDLHIsRMMa4WBaoju8wz/yILL
-         UF14IMWFfUISy7XOl5IFKZVo+NTmJyaP7WtkV7hUnUg5ETSzJcgDJBIX8MkRbIKSXP2I
-         cTDw==
-X-Forwarded-Encrypted: i=1; AKwUvBzYv6QbOgp1oAb/5+b27QQFH2aLS2KH2mMKSJOeBml/9/kvdaxoCmUzWr9Rb2+q8Vo2RQXz88EocDpQ/QA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JQG5S82nlMfFvhC9g6xN7sBweky13SUK8gZ7CmP+jfQtXxY9u
-	AfNnwQX2u/vhV2pJmBcym70OysMXGHzpJJ7pJRR1K/DbcZ4YbC9aCnrn6fdQ3A==
-X-Gm-Gg: AYBFou2lb2R1D6qEFQ9Q5N1GIL96BSV+lcdE7FiFCvxX7j+5BpbZ6mq5nen+iUBPXed
-	gyfAwP5Cm0kqsazPTFpSxTotjpByLoL34MMMoM19uZfQsfrtnwFesvUmadt7Iy3Pj3KBs92+1sJ
-	12OqakM9VxRJZleWcTnfp+pz89iRAfhv98QTVjjtX2L1k7Ftik95ZP87cs2oi2OQioi7a03yJ4k
-	Ip4n4QZBQyYeAWURvHYmFoUN9L1lfteXDBSpYNlKmwEjhsmIziZe0hsVCPd3xDXcCe/zq/ilSCv
-	FmctJ6JX9s650g34o04VFF27j+yrE9GlmAN3HzMhNtNqLoEkDXufZGNYeDx4pYy81aRNiPJo4l/
-	PralrLw8F0ACxY5PshiF6ZmRfWAikHS9n6yZrAgMEjgblJ7zmBY83MxD44xjOTTbpYCb29AlnPw
-	drEpnPSSKRJXozHC3rcZmLy/viISjb5BxovAn8qoeTLf3afGUH53eH3d5oldzO2fj9JPwfwJkyU
-	lBg+pB1WiKZ0DcqCbShy/oTrN/lO0zb3hHe5KNjTgCW6eNtvUJeS0unnQptQEuiHOKJyHY9OM3x
-	wqU/3Ot5TaEzLwnk8K05WVyQH6XY504Pk7mVUqKWzTrFrIEY8qDW
-X-Received: by 2002:a05:6214:5910:b0:91c:6cd1:8058 with SMTP id 6a1803df08f44-91ca4aea703mr226950896d6.13.1793737103352;
-        Tue, 03 Nov 2026 12:18:23 -0800 (PST)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7c79b50asm1854636d6.31.2026.11.03.12.18.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:18:22 -0800 (PST)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v2] irqchip/gic-v3-its: Drop ITS node reference on its_of_probe() errors
-Date: Tue,  3 Nov 2026 15:18:10 -0500
-Message-ID: <20261103201817.1259660-2-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GYnS+mja
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DBD0F1595;
+	Tue,  3 Nov 2026 12:18:40 -0800 (PST)
+Received: from [10.57.17.5] (unknown [10.57.17.5])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A318C3F628;
+	Tue,  3 Nov 2026 12:18:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793737124; bh=pOlmng10gT/2DVXXo/ZSmPsjwL9pj6J3zgx/5plS2KY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GYnS+mjaANJ8KeKuIxkQsXqvwKdwwtNq0qE5yu7epLfE6KepxCJhs8oNq/OSdw2Hp
+	 cgPps8AY4R6nKA1GF52uznutYFlEB261zaFYCd5MYZnrHF6L8GYkq/Oq83iHhOsiCq
+	 qFnebu0CoHn5TvLXS10qzkGyYACofMWvIOgrd+pU=
+Message-ID: <9c64eeb4-66cb-4e82-a00d-ae5ef5cba360@arm.com>
+Date: Tue, 3 Nov 2026 20:18:40 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,69 +53,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] iommu: free dev->iommu when iommu_fwspec_init()
+ cannot allocate the fwspec
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Tal Zussman <tz2294@columbia.edu>, Kevin Tian <kevin.tian@intel.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jean-Philippe Brucker <jpb@kernel.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261031-iommufd-folio-dirty-v1-0-2cef66d2d6d1@columbia.edu>
+ <20261031-iommufd-folio-dirty-v1-1-2cef66d2d6d1@columbia.edu>
+ <7e209fb2-4bda-4207-9109-c67c8df41e05@arm.com>
+ <20261103193253.GN3889730@ziepe.ca>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261103193253.GN3889730@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-its_of_probe() walks the ITS nodes with of_find_matching_node(), which
-drops the reference on the previous node and returns the next one with
-its reference count raised. The loops are balanced when they run to the
-end, but the three error returns (a failed its_reset_one(), a failed
-its_node_init() and a failed its_probe_one()) leave with the current
-node still referenced.
+On 2026-11-03 7:32 pm, Jason Gunthorpe wrote:
+> On Mon, Nov 02, 2026 at 04:51:05PM +0000, Robin Murphy wrote:
+>> On 31/10/2026 8:33 pm, Tal Zussman wrote:
+>>> iommu_fwspec_init() allocates dev->iommu with dev_iommu_get() and then
+>>> the fwspec. If the fwspec allocation fails it returns -ENOMEM but leaves
+>>> dev->iommu allocated, and it leaks.
+>>>
+>>> kmemleak reports it when iommufd_fail_nth injects the allocation
+>>> failure:
+>>>
+>>>     unreferenced object 0xffff88811c138b00 (size 192):
+>>>       comm "iommufd_fail_nt", pid 783
+>>>       backtrace:
+>>>         __kmalloc_cache_noprof
+>>>         dev_iommu_get
+>>>         iommu_fwspec_init
+>>>         iommu_mock_device_add
+>>>         iommufd_test
+>>>         iommufd_fops_ioctl
+>>>
+>>> Free dev->iommu on failure if this call allocated it. iommu_init_device()
+>>> allocates it before calling into the driver and frees it on its own
+>>> error path, so leave it alone in that case.
+>>>
+>>> Fixes: 72acd9df18f1 ("iommu: Move iommu_fwspec to struct dev_iommu")
+>>
+>> No, the bug is clearly the early return in 2a918911ed3d ("iommufd: Register
+>> iommufd mock devices with fwspec"), so fix it there please.
+>> iommu_fwspec_init() has always been designed to be called in conjunction
+>> with iommu_probe_device() which handles cleanup appropriately.
+> 
+> Asking AI to audit this found the other case I remember...
+> 
+> Yes: ACPI DMA configuration during driver binding can leave dev->iommu
+> allocated after failure:
+> 
+>   really_probe()
+>    -> dev->bus->dma_configure()
+>      -> acpi_dma_configure_id()
+>        -> acpi_iommu_configure_id()
+>          -> IORT / RIMT / VIOT
+>            -> acpi_iommu_fwspec_init()
+>              -> iommu_fwspec_init()
+> 
+>   If dev_iommu_get() allocates successfully and the subsequent fwspec
+>   allocation fails, acpi_iommu_configure_id() (line 1614) does no
+>   cleanup. acpi_dma_configure_id() (line 1670) ignores errors other than
+>   -EPROBE_DEFER. This invocation has no enclosing iommu_init_device() to
+>   unwind it.
 
-Declare the iterator in each loop with __free(device_node), so that the
-reference is dropped whichever way the loop is left.
+Yes, because that path will no longer allocate - if we reach 
+iommu_fwspec_init() from the really_probe path at all now it's because 
+the IOMMU is not yet registered, thus we'll always take the early return.
 
-Fixes: c733ebb7cb67 ("irqchip/gic-v3-its: Reset each ITS's BASERn register before probe")
-Fixes: 9585a495ac93 ("irqchip/gic-v3-its: Split allocation from initialisation of its_node")
-Suggested-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-v2:
-- Use __free(device_node) on the loop iterators instead of adding
-  of_node_put() to each error return (Marc).
-- Rebased on v7.4-rc1.
+In fact I think the only reason to still have dev_iommu_get() in 
+iommu_fwspec_init(), rather than just dereferencing dev->iommu directly, 
+is for the sake of those few remaining drivers which abuse 
+of_dma_configure() directly that I'm not sure what to do about.
 
-v1: https://lore.kernel.org/r/20260923165447.619477-1-oss.patchbox@gmail.com
-
-Compile-tested only (arm64 defconfig, W=1).
-
- drivers/irqchip/irq-gic-v3-its.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-index 282e4bafb084..7c5df91a317c 100644
---- a/drivers/irqchip/irq-gic-v3-its.c
-+++ b/drivers/irqchip/irq-gic-v3-its.c
-@@ -5572,7 +5572,6 @@ static void its_node_destroy(struct its_node *its)
- 
- static int __init its_of_probe(struct device_node *node)
- {
--	struct device_node *np;
- 	struct resource res;
- 	int err;
- 
-@@ -5582,7 +5581,8 @@ static int __init its_of_probe(struct device_node *node)
- 	 * reset, don't even try to go any further, as this could
- 	 * result in something even worse.
- 	 */
--	for (np = of_find_matching_node(node, its_device_id); np;
-+	for (struct device_node *np __free(device_node) =
-+	     of_find_matching_node(node, its_device_id); np;
- 	     np = of_find_matching_node(np, its_device_id)) {
- 		if (!of_device_is_available(np) ||
- 		    !of_property_read_bool(np, "msi-controller") ||
-@@ -5594,7 +5594,8 @@ static int __init its_of_probe(struct device_node *node)
- 			return err;
- 	}
- 
--	for (np = of_find_matching_node(node, its_device_id); np;
-+	for (struct device_node *np __free(device_node) =
-+	     of_find_matching_node(node, its_device_id); np;
- 	     np = of_find_matching_node(np, its_device_id)) {
- 		struct its_node *its;
- 
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
+Thanks,
+Robin.
+> The OF path has its own manual free fix already, it doesn't rely on
+> iommu_probe_device() to clean it. The other driver users are the only
+> things actually protected by ops->probe_device().
+> 
+>>> @@ -3074,6 +3074,7 @@ int iommu_fwspec_init(struct device *dev, struct fwnode_handle *iommu_fwnode)
+>>>    {
+>>>    	const struct iommu_device *iommu = iommu_from_fwnode(iommu_fwnode);
+>>>    	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+>>> +	bool new_iommu = !dev->iommu;
+>>>    	if (!iommu)
+>>>    		return driver_deferred_probe_check_state(dev);
+>>> @@ -3088,8 +3089,11 @@ int iommu_fwspec_init(struct device *dev, struct fwnode_handle *iommu_fwnode)
+>>>    	/* Preallocate for the overwhelmingly common case of 1 ID */
+>>>    	fwspec = kzalloc_flex(*fwspec, ids, 1);
+>>> -	if (!fwspec)
+>>> +	if (!fwspec) {
+>>> +		if (new_iommu)
+>>> +			dev_iommu_free(dev);
+>>>    		return -ENOMEM;
+>>> +	}
+> 
+> Just move this allocation before the dev_iommu_get() and free it if
+> the get fails. Then the function has a more sensible calling
+> convention that error means it doesn't need any unwinding. The
+> new_iommu is a little too weird.
+> 
+> Jason
 
