@@ -1,69 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793671667;
-	b=v0q2KL0Z1VVXxV8Bfh102Rlkir9a9aVoAkILdlA05za7Lrqf46bH8pIiHZQmtaMAUxI+
-	 lFoKAENo7vAVn+axCcGIwYvi1ktB1u9Lp/RAdG1B1GhOgzPnO9zfRE1VAZDVR6Ctx0nIy
-	 LbZYF0vHkt+MbaXz2MUygUpaN2sWSyiIFKUhIJw5zibaV2rXnDJ3pTE2gZDgU7Hf7u6Ra
-	 N1KoJriqMIaTk07oa/NKehbw8+cerTHcUs2HApFX1vY2jVP2/itptBekXjlub3YnTzWlg
-	 edUT0Tlp7hWQP92Ne+L2/Lt7eRjRPIE6lYRuD18jG6HR/tUwXiVOxQ6vmGxmyqycmqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793671667;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UZFi2mAWq4lB8sfvhCBMvmbDAWZypjFWJ5S9ABz2IMQ=;
-	b=GeSc1BWm3ZXhS82ODvwP2Kj8/B7VboSEAOmwixQlfb4MBta3y7EHiMIXwIDLGj3hwotq
-	 aUYDMfxGu0LoAXi/PIvZmBAK/IfZLjM/lYNrb4uRNpf7RsvzTGdw2ib/fVRzTEe/nzttn
-	 PyG76wBt4ZkCalHHcMcw4NBHiue4tANH9YogwErQTYJhC75382mF024IbrSx3rkRLTvyY
-	 deQE58LsPhwhKzUjTnWZ12tQJvdZHlb28H/DLEk2gtOvZ+fSZ+lXI5NIDuvFa99Pgh3aE
-	 WUOGe8c4HlO0k3UpSnKHEPInQ1bxckFYPm/OSnOGoiVgHPWwwZd6nPeC2jSytXSofcw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=PLDr99jG;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793671951;
+	b=IeU103mTmRjoy/CmYC0IBpcln3QLst53U2Qby0FXogZh1PlVby/4hnU06QCw3hG/rypj
+	 hSGtMbq2j/1rsmHfHqq6FTjB4sQKM9rWnhYq8GrwTSzPLVTtT2INWMdEtW5vqgSOPGjB4
+	 qD8GKmCxarXcoT10PnxlUw4nWsjuXhC0AeHo8NlEnRuMpkD4veYC6ZuZNtKkigRVb0QSh
+	 0GeQ9p1ChbKoYccA5nZEjpkqePCGhhurNeht7BxW6P9WedszWC3jfqPxGhNYMp6YICrmE
+	 +vg9se2LVI8olj6QKaihE+I0cSqHvlce1JQgSnYECDoEdIjklv9Jj4z74cDpxIQ9oDA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793671951;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=gbxtANkKD+no5T6EiXK6Tea/adYVuoSud4wUlEix+Yo=;
+	b=ACjzCu/Jf0XogDO8MNUfEH2CzHYwYIpfEyRAs/H62piSB1qC3dAZBqWs1Ml/wg92i+L6
+	 7bf+vCIIOxrvjrvLq6n0Wgq5DVhn67YJVZFsiIUyOgLmQcoYAO0GfvwVqDMw5yDf/O6Jj
+	 OryL+uYa4BEVd2gB3s0bio2+f2AdcPMMGcNDbeAI6UL351GFld9lklOYVyRZLsH0we9nZ
+	 61Mh8rQP87dnEVuxEFOtmUaWPYyetJoM3DJo5fEOYMRuFzYsh7KcsVZBsE1a2eZzL0EYm
+	 pSL/qjkpelqx2TN3RhmCGzCfahWDu+RiwK6VIbrZUiVwso4A2qTiQu//j0EjrAuEfdA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fF6G9Jhk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C139B606A32C;
-	Tue,  3 Nov 2026 02:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C139B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21F1606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:12:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C21F1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=PLDr99jG
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=UZFi2mAWq4lB8sfvhCBMvmbDAWZypjFWJ5S9ABz2IMQ=; b=PLDr99jGAHpZOPhy+SMGmYcYQc
-	9qGVEjN70Wa7zfgxRDMiqCJLtSwU2mGacYQG7JTRIKjtooQhX1+kxk71XIgshMOnbNrIMmlSI8UBS
-	xE2Sgj1RgcQ77yAZZ+2wLc1YrtzB8zcjyC3CJ0G5ddTBML2n9d1eIiHj4HYWXybdPO4R2SwlQ3zqT
-	28gyvsUtpir+7LPw/+aYSd+nSeSz6u36d2RzRw9nVBMfhI2c2ytYodwG7vkYkBdhdL5bUh7jA9TU5
-	CV0BiovbsHohoYKYdthwMNDblTVBpTwuUZDkVpNwqMZXSgWZAIYfKHquY/Pz2K1Xu/x2wtMwp6HBY
-	07WMVa9w==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xO3w9-00000000qwc-3pSM;
-	Tue, 03 Nov 2026 02:07:46 +0000
-From: "Liam R. Howlett (Google)" <liam@infradead.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>,
-	"Liam R. Howlett (Google)" <liam@infradead.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/3] maple_tree: Update internal warning and bug_on code
-Date: Mon,  2 Nov 2026 21:07:24 -0500
-Message-ID: <20261103020724.2614498-4-liam@infradead.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103020724.2614498-1-liam@infradead.org>
-References: <20261103020724.2614498-1-liam@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fF6G9Jhk
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-917bab38b14so47016756d6.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:12:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793671950; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FdoC1TlvZyy46GTH4LZXj05XM9E0EhAP95w+6QwApV/0Jgd5veBUvnTTXtRyaOwaAz
+         FgWjoF6om9k5K/29w4GFZhYhM27ZLiMNsIPbRtX3+t5f2yJU0tTDPEUGy9rwktGYVd61
+         wgJOiJSVOQNj77aOHPXvsy/wFcq8+14NdiMztPzDsJsJxxtt+uzDyDNUw7ghw9CRfAqC
+         jqFs1T1CpjmNLswlAqvVFuYj2hegq2Jm1ijnUWRklisQjAGep0pzRg8ABcTGeGPCNqa+
+         1r3vvjO/nQPI+VobFs7NDObCQhpY5rZi50lvRk/45FZzLmmfKFokNpDG0vP400Ibw01q
+         xWAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gbxtANkKD+no5T6EiXK6Tea/adYVuoSud4wUlEix+Yo=;
+        fh=uQs9j1E8EAERuIzGSgwgh+r/LvmrWoSN5Mf91JWjgi0=;
+        b=KJsnrnlUVilyH4Nj/sy1hAu4EwlGdFBm6QUAQe0LroKW0ZBBplchsfsZuQhYz9Rmj5
+         Z6dF5HxkMrqt9gLbZV+q4LcuzMbRGMLgQKysRK1sslZmHgmPhlzVrG8Oi1cqBmUUkuI9
+         A4gBMMQfGP8egCuSX5SiTo1UUg1YMg6wsimuV5Eo6NP78wnUatvizt0XYSBba2NiLKPr
+         5caLcBeX1/Sf3DMS1gBakvJrjZI8KS66GbwD3zqk4x3OugiJxOVTJ1SfXjELYDted81q
+         y8+CMiJBK3TNre+2r2tWF4drpsMQAuubNT8TvQJPTnUTpjFnkhBs3oSHG8wrRVdwztzT
+         tlEg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793671950; x=1794276750; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gbxtANkKD+no5T6EiXK6Tea/adYVuoSud4wUlEix+Yo=;
+        b=fF6G9Jhk66eL2YXQUxSOw+szWa/NhEq79A2zPZQQzPiUgVMfgGeuZOOKG8KL4Qf5/f
+         /Vlq7oZGdPTmWtI2vO/ONJ9ixUgGU+hQnkxA86yN5VBnHpMLfQdA/CSv/TtV29ZvNY9d
+         +bvU24SjSIrs5JoFQsMrQ2wfXz7F53jvyRwVJSieB4K05orjtGfa7jHaRAOL1Ya+SKqC
+         gCqKxVTHJpwXhdON6MwmTMWbQD+bNNJ7JYrnNbmlDevNYPY6nOnpnstG1f2xma4oZPNc
+         JgfJ3GbMPdRN3jfaWDpwbFtioHNzS9yJXyXsy4u07dlfU3ccv/Hi5fb2zrU1yTHTEor6
+         dWdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793671950; x=1794276750;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gbxtANkKD+no5T6EiXK6Tea/adYVuoSud4wUlEix+Yo=;
+        b=JOymoCuf/zB9LrSjbuBjtslpaoV0arT+pjle42ibSSxi+JX/22dfWx4FEzwwbdiIUp
+         rN2rYbShGQwHl1fqsF0vG8wNxgxPKlRiBG+4aHuVSYaTaXVI2xMtdW0PhV8w7rAwsIsR
+         J0kNHtc8ZEP7zGWMJOaMJHwIzJrvSshqPNtiHqbBaJzRgQ52YNKc5YnhzPHzKQcaCNnb
+         wtbppfKquovYLpuPEhXexBaS9Xm88vBKckcUFzm/Ek4mho5Unq0iOkptaNu1oIasz0Ri
+         Q8pY3kcS68vGSKYfF3nb2PFW9KQ+mzfm9EeENVBDaE8lycNEBUyn1go17W0vPv2pxiKk
+         WuPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxFL5ky9zvOyECD7nvsoAyK3BNF2KD2TpsXJwbfmfzwMhldXoR6MhKQ0udRkM7fXtTq4xUGrK29YSEIllI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/Uud9L22xtqov5iz8PTg01i0mtlystfCobp8z8Kwn7561xKb6
+	dg5IhSiqFShZatucrANZbLhxokTKeSBxJ6rQXINDJYbdN9VKdD78umDYlmxAyHb1DwzNeWVyTS3
+	7cfmNOc4fTIDYpkwN1qaa9U6ejz9X2bM=
+X-Gm-Gg: AYBFou3zDXDC0njD4PInSekheZQoYng4w9tkDyN73a7cMW6Gagzv2JujWGRnxiTOAtw
+	tk70WTUH4AuyeYNBqrZXoEu3TJmCR54MDc2aRoJZb72n0Rhe4LCM6acgCiVKOfZQwFNYfRUXACr
+	yn1q0zPs+wp/qDhZI94J1zwnchtKqKB+eizaQpzMV/FphMrqMjQoWcVJe/tQ9ZA9pNX36+vYWxY
+	ad3SLgkOYF0d/Twm/dvmrPAhAVfCiMy4Al7S4UvxISe6jsH3mESJ6sKwhzIeyi1voEQTTW1VaZQ
+	M5gQAY52YFzrws0Nrrt4x3KLtHM/zJzyqrQumUGOB030meuB8VBvPAp3WzOc1or6OJZt94RxL/B
+	N8w2Ox202wT91Pn3y0pRW46EvimLtjytEgrMOTSGVQkCFLppoC6461TdAFzM1YK+VLUpjmmNpOE
+	RgX3xkzeGc/QWJdt2UmHTEuKxbJ/o4ZD/seEIaLku9InFwW0OVHA1fqqkHsmyXVKU4Yr+k3qoPu
+	MHRlsUNGg/g9MPDQcD8SXukLA==
+X-Received: by 2002:a05:6214:e87:b0:91c:7a51:ee57 with SMTP id
+ 6a1803df08f44-91ca4aeaac5mr203416566d6.15.1793671949650; Mon, 02 Nov 2026
+ 18:12:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,231 +105,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261101022257.52819-1-mhklinux@outlook.com>
+In-Reply-To: <20261101022257.52819-1-mhklinux@outlook.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Mon, 2 Nov 2026 23:12:17 -0300
+X-Gm-Features: AclHuK9uvtjaaPHlebO_GILeXhtM4eF9Xw6fUbaddVzuMdSO3LAS3jPBYG1eB3c
+Message-ID: <CAMAsx6eCrbcseb=eM_GW+3k2YF3t38Was35oQHW+3UkidsvKWA@mail.gmail.com>
+Subject: Re: [PATCH 1/1] Documentation: hyperv: Update docs for PCI pass-thru
+ device support
+To: mhkelley58@gmail.com
+Cc: mhklinux@outlook.com, haiyangz@microsoft.com, wei.liu@kernel.org, 
+	decui@microsoft.com, corbet@lwn.net, skhan@linuxfoundation.org, 
+	rdunlap@infradead.org, linux-kernel@vger.kernel.org, 
+	linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-When CONFIG_DEBUG_MAPLE_TREE is set, call WARN_ON() once per site after
-the custom information is dumped about the tree.  Without using the
-kernel's WARN_ON calls, syzbot will not catch issues detected by this
-code.  The BUG_ON variants now stop instead of dumping and continuing.
+Michael Kelley <mhkelley58@gmail.com> writes:
 
-Update the non-debug code to call WARN_ON_ONCE() as well.
+Hi !
 
-The userspace tests asserted on dump_stack() but only print on
-WARN_ON(), so make WARN() fatal in maple-shared.h and have the maple
-test exit with the result of maple_tree_seed().
+> +and unmask interrupts. It becomes the parent domain for the per
+> +device IRQ domain created by the normal Linux driver for the
 
-Cc: <stable@vger.kernel.org>
-Reported-by: Lorenzo Stoakes <ljs@kernel.org>
-Fixes: f0a1f866aba1 ("maple_tree: add debug BUG_ON and WARN_ON variants")
-Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
----
- include/linux/maple_tree.h          | 48 ++++++++++++++---------------
- tools/testing/radix-tree/maple.c    | 13 +++++---
- tools/testing/shared/maple-shared.h | 33 ++++++++++++++++++++
- 3 files changed, 66 insertions(+), 28 deletions(-)
+I think "per-device" should have a hyphen here too, since it's an adjective.
 
-diff --git a/include/linux/maple_tree.h b/include/linux/maple_tree.h
-index e30e57f5f3df9..3a9751c6689fc 100644
---- a/include/linux/maple_tree.h
-+++ b/include/linux/maple_tree.h
-@@ -680,7 +680,7 @@ void mt_cache_shrink(void);
- 		pr_info("Pass: %u Run:%u\n",				\
- 			atomic_read(&maple_tree_tests_passed),		\
- 			atomic_read(&maple_tree_tests_run));		\
--		dump_stack();						\
-+		BUG_ON(1);						\
- 	} else {							\
- 		atomic_inc(&maple_tree_tests_passed);			\
- 	}								\
-@@ -696,7 +696,7 @@ void mt_cache_shrink(void);
- 		pr_info("Pass: %u Run:%u\n",				\
- 			atomic_read(&maple_tree_tests_passed),		\
- 			atomic_read(&maple_tree_tests_run));		\
--		dump_stack();						\
-+		BUG_ON(1);						\
- 	} else {							\
- 		atomic_inc(&maple_tree_tests_passed);			\
- 	}								\
-@@ -713,7 +713,7 @@ void mt_cache_shrink(void);
- 		pr_info("Pass: %u Run:%u\n",				\
- 			atomic_read(&maple_tree_tests_passed),		\
- 			atomic_read(&maple_tree_tests_run));		\
--		dump_stack();						\
-+		BUG_ON(1);						\
- 	} else {							\
- 		atomic_inc(&maple_tree_tests_passed);			\
- 	}								\
-@@ -722,16 +722,16 @@ void mt_cache_shrink(void);
- #define MT_WARN_ON(__tree, __x)  ({					\
- 	int ret = !!(__x);						\
- 	atomic_inc(&maple_tree_tests_run);				\
--	if (ret) {							\
--		pr_info("WARN at %s:%d (%u)\n",				\
--		__func__, __LINE__, __x);				\
-+	if (!ret) {							\
-+		atomic_inc(&maple_tree_tests_passed);			\
-+	} else if (__ONCE_LITE_IF(ret)) {				\
-+		pr_info("WARN at %s:%d\n",				\
-+		__func__, __LINE__);					\
- 		mt_dump(__tree, mt_dump_hex);				\
- 		pr_info("Pass: %u Run:%u\n",				\
- 			atomic_read(&maple_tree_tests_passed),		\
- 			atomic_read(&maple_tree_tests_run));		\
--		dump_stack();						\
--	} else {							\
--		atomic_inc(&maple_tree_tests_passed);			\
-+		WARN_ON(1);						\
- 	}								\
- 	unlikely(ret);							\
- })
-@@ -739,17 +739,17 @@ void mt_cache_shrink(void);
- #define MAS_WARN_ON(__mas, __x) ({					\
- 	int ret = !!(__x);						\
- 	atomic_inc(&maple_tree_tests_run);				\
--	if (ret) {							\
--		pr_info("WARN at %s:%d (%u)\n",				\
--		__func__, __LINE__, __x);				\
-+	if (!ret) {							\
-+		atomic_inc(&maple_tree_tests_passed);			\
-+	} else if (__ONCE_LITE_IF(ret)) {				\
-+		pr_info("WARN at %s:%d\n",				\
-+		__func__, __LINE__);					\
- 		mas_dump(__mas);					\
- 		mt_dump((__mas)->tree, mt_dump_hex);			\
- 		pr_info("Pass: %u Run:%u\n",				\
- 			atomic_read(&maple_tree_tests_passed),		\
- 			atomic_read(&maple_tree_tests_run));		\
--		dump_stack();						\
--	} else {							\
--		atomic_inc(&maple_tree_tests_passed);			\
-+		WARN_ON(1);						\
- 	}								\
- 	unlikely(ret);							\
- })
-@@ -757,18 +757,18 @@ void mt_cache_shrink(void);
- #define MAS_WR_WARN_ON(__wrmas, __x) ({					\
- 	int ret = !!(__x);						\
- 	atomic_inc(&maple_tree_tests_run);				\
--	if (ret) {							\
--		pr_info("WARN at %s:%d (%u)\n",				\
--		__func__, __LINE__, __x);				\
-+	if (!ret) {							\
-+		atomic_inc(&maple_tree_tests_passed);			\
-+	} else if (__ONCE_LITE_IF(ret)) {				\
-+		pr_info("WARN at %s:%d\n",				\
-+		__func__, __LINE__);					\
- 		mas_wr_dump(__wrmas);					\
- 		mas_dump((__wrmas)->mas);				\
- 		mt_dump((__wrmas)->mas->tree, mt_dump_hex);		\
- 		pr_info("Pass: %u Run:%u\n",				\
- 			atomic_read(&maple_tree_tests_passed),		\
- 			atomic_read(&maple_tree_tests_run));		\
--		dump_stack();						\
--	} else {							\
--		atomic_inc(&maple_tree_tests_passed);			\
-+		WARN_ON(1);						\
- 	}								\
- 	unlikely(ret);							\
- })
-@@ -776,9 +776,9 @@ void mt_cache_shrink(void);
- #define MT_BUG_ON(__tree, __x)		BUG_ON(__x)
- #define MAS_BUG_ON(__mas, __x)		BUG_ON(__x)
- #define MAS_WR_BUG_ON(__mas, __x)	BUG_ON(__x)
--#define MT_WARN_ON(__tree, __x)		WARN_ON(__x)
--#define MAS_WARN_ON(__mas, __x)		WARN_ON(__x)
--#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON(__x)
-+#define MT_WARN_ON(__tree, __x)		WARN_ON_ONCE(__x)
-+#define MAS_WARN_ON(__mas, __x)		WARN_ON_ONCE(__x)
-+#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON_ONCE(__x)
- #endif /* CONFIG_DEBUG_MAPLE_TREE */
- 
- /**
-diff --git a/tools/testing/radix-tree/maple.c b/tools/testing/radix-tree/maple.c
-index bfe4b8626c429..846c67e20e82a 100644
---- a/tools/testing/radix-tree/maple.c
-+++ b/tools/testing/radix-tree/maple.c
-@@ -36502,22 +36502,27 @@ static void regression_tests(void)
- 	test_spanning_store_regression();
- }
- 
--void maple_tree_tests(void)
-+int maple_tree_tests(void)
- {
-+	int ret;
-+
- #if !defined(BENCH)
- 	regression_tests();
- 	farmer_tests();
- #endif
--	maple_tree_seed();
-+	ret = maple_tree_seed();
- 	maple_tree_harvest();
-+	return ret;
- }
- 
- int __weak main(void)
- {
-+	int ret;
-+
- 	maple_tree_init();
--	maple_tree_tests();
-+	ret = maple_tree_tests();
- 	rcu_barrier();
- 	if (nr_allocated)
- 		printf("nr_allocated = %d\n", nr_allocated);
--	return 0;
-+	return ret ? EXIT_FAILURE : EXIT_SUCCESS;
- }
-diff --git a/tools/testing/shared/maple-shared.h b/tools/testing/shared/maple-shared.h
-index 2a1e9a8594a28..5f827709773a0 100644
---- a/tools/testing/shared/maple-shared.h
-+++ b/tools/testing/shared/maple-shared.h
-@@ -8,6 +8,7 @@
- #include "shared.h"
- #include <stdlib.h>
- #include <time.h>
-+#include <assert.h>
- #include "linux/init.h"
- 
- void maple_rcu_cb(struct rcu_head *head);
-@@ -20,5 +21,37 @@ do {                                            \
-     call_rcu(&((_p_struct)->_memb), rcu_cb);    \
- } while(0);
- 
-+/* Make WARN() fatal */
-+#undef WARN
-+#undef WARN_ON
-+#undef WARN_ONCE
-+#undef WARN_ON_ONCE
-+#define WARN(condition, format...) ({				\
-+	int __ret_warn_on = !!(condition);			\
-+	if (unlikely(__ret_warn_on)) {				\
-+		__WARN_printf(format);				\
-+		assert(0);					\
-+	}							\
-+	unlikely(__ret_warn_on);				\
-+})
-+#define WARN_ON(condition)					\
-+	WARN(condition, "assertion failed at %s:%d\n", __FILE__, __LINE__)
-+#define WARN_ONCE(condition, format...)	WARN(condition, format)
-+#define WARN_ON_ONCE(condition)		WARN_ON(condition)
-+
-+/* Once state for the debug macros */
-+#ifndef __ONCE_LITE_IF
-+#define __ONCE_LITE_IF(condition)				\
-+	({							\
-+		static bool __already_done;			\
-+		bool __ret_once = false;			\
-+								\
-+		if ((condition) && !__already_done) {		\
-+			__already_done = true;			\
-+			__ret_once = true;			\
-+		}						\
-+		__ret_once;					\
-+	})
-+#endif
- 
- #endif /* __MAPLE_SHARED_H__ */
--- 
-2.47.3
+> +"irqchip@<paddr>" domain created by the GICv3 driver when it
+> +initiaizes the virtual GICv3 hardware provided to the guest
 
+Is "initiaizes" a typo? Shouldn't it be "initializes"?
+
+> +device's MSI/MSI-X registers/tables. The guest writes a virutal
+
+I think this one is also a typo, right? Shouldn't it be "virtual"?
+
+> +Once the host-valid MSI message is obtained, the guest must treat it
+> +as a black-box that the guest does not interpret or modify. The only
+
+"black box" (no hyphen) it's used as a noun here, so it shouldn't be hyphenated.
+
+> +valid guest action is to write it to the MSI/MSI-X registers/tables
+> +using the .irq_chip_write_msi_msg function on the HV-PCI-MSIX-<PCIaddr>
+
+struct irq_chip has no .irq_chip_write_msi_msg; shouldn't this be
+.irq_write_msi_msg? Same in the last paragraph.
+
+Thanks,
+Daniel
