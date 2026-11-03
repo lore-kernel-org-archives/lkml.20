@@ -1,62 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.54.77.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694610;
-	b=ZGORc8nkNRaL5FPZNaicaIehdB8v+4Az+ty238CtoObpNCyODlX8w5E8WjbJQGgoNGmR
-	 HuN34YHqRt7XgJcZ9XHoKLiSKu66jXj91ucA20PNH49/tj61lVaCetl3gyVADpMdJ8inD
-	 b6lC0M1NoeMF5c9zAV92wREEk1AJmviJC9x0uzhdU8FyyiegnjTl/DlTzFTJqN92GmMg8
-	 4yvEAYXFKreTF9qjVvPaKWmUxtl57Bmj+S7NKJwGW4+W/HnRDuYsRejRCMaQk92kbESro
-	 iwYwO8HRdF1JMBXHq/DfJmoawYl4jI86wyRP7vIEXWQj8ZC+XziKOhu5Wp0F0Rz0alw==
+	t=1793694613;
+	b=fm3vwPIiAsM3cAffPLyt1DuhtVJHKO9thAlamtmjIUMth8gXdn6wZ1UNWS/YHL5n/2j4
+	 RDBqKOB8hQrRQaTfiNjlntvyN3kNiH82+JPPmVu4MjGLha0zk+gvJ/aSZ+SoQflr2nSOi
+	 TcgDCWgv4XBICtor19iuNIr12EFF7pbkWdUHYgsp/VvTfEXvuJ28q/cLRyyNf65totIEL
+	 2BtKKLh8/iOt99E1W5rsAXa5+otb9MUls0G9bdCqnEJqZ2+e7bCjkYq9BglXJKWkUyS9C
+	 P0qoKLWa76E5FgGHTgB4yGNOGDHojPem2/+cvCo1LLKew6Br7CWECHaVCy/ZtsCvlWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694610;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=lBty04VWGx6OTs8IxjT6/mXezzwuQfDiBt+l30CB91E=;
-	b=VX91i/KqB+DdYvb90fBYfydxJO3nGgnKFzki9KA0dymHiOd6S3RXo7HbOTFJhen4djwx
-	 6f4BiYj3mH55tmex18HNGbpHqdQuixAhmczJ5oIVoube2sfcf1LRj73wO6fIhoqeWXayp
-	 UtfEpgqxSSYctaKsjidh+by8ExhfddzZXD4r4GTgsSFuMcKGwm8e9VhrF9OHWbVCdw3M8
-	 VsboCUAN1LLp2LVrhgVbwHM9HhQ0ajdEigFLmNGR72xBe5JrEWoLtp5aiBETahJt2zhzu
-	 fnjGIfdN5WH/Q0HZKKZ1fDjopSEFkDDb0CDHgvhHUDR+5OOlo2850ec4CoUaIeGv8XA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694613;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 Content-Transfer-Encoding;
+	bh=jMsCflS36xjM5xM77gmQxJkejXiZCOlxvrxpfrVWc+Y=;
+	b=VCvxabUrjUmHMePj9ftlVnr/V4y27s3nG3a2lmHhhvSO+vnKhi7e1MpJEPwxHZe8II3o
+	 DM0VniqfyQV0eWfhebv+aCH0c4nvonDEBrXJOzC5P+zQcY1byDPHtemcc6uOkctPb8OGZ
+	 wge+pGfGFNOdTUmCWRGnZlaOzz0G4H53B/IV13JmUGxFzHsnaIkTVXbZlpdhKPxLlIV39
+	 XiM5Hyh0R3b3D8h0NGbR7TgUW/H5BDgcao7Fu77MUtLIPl2gfbAq/964NzxJ3CFdpBgcl
+	 v4jL+l2MbzEGwh7Z/Yx3OApzg9LC9gtLSntBkZtxX1uV+83za9KOenVCI4LB+I5jsng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	arc=none smtp.remote-ip=207.54.77.50
-Received: from esa3.hc555-34.eu.iphmx.com (esa3.hc555-34.eu.iphmx.com [207.54.77.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7173606D814;
-	Tue,  3 Nov 2026 08:30:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7173606D814
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1793694609; x=1825230609;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=6NQ+JCrUKfrA7uFLiOTfNzx/YP0EhppYPV0YnJM/iC8=;
-  b=YRlmKHmRe0QUR0NVi5IrH+hloOdRtg+5y803lH4NeOhWkY6S4z3hwKEi
-   0y+uRoGYf2vPwj0w5pbIFZ8XCLgW0Tz0/CGwCJxXtEuZknFyXusVcFwDj
-   iwqESvsYXOYViKvFDl7pdyP1kYYpInzcEc6GSl2vemhAuMGE5J7uJX9kS
-   eVW71AjmYsNfOmFrz/5W0i3sutLmoLuULwZZ+HTChfc439VJLcLxwR3+6
-   TgEJNUqf11E6qrVjCx/SZhMGoic6/M2iXuntjFbTscYMYvOBmOX0xtUdi
-   ybfKblwzSeDPwty6thJ8K6TxdAFXHAFnX/QPOiulOjbYaMLCnRVUtHr4O
-   g==;
-X-CSE-ConnectionGUID: WKayc7FvTj6Ghpb3AUjXyg==
-X-CSE-MsgGUID: wpfEUyjmSLKUvNnHbQBibw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces01_data.me-corp.lan) ([146.255.191.134])
-  by esa3.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:30:00 +0200
-X-CSE-ConnectionGUID: CTAxmoEyTR6UyFIkVF/rng==
-X-CSE-MsgGUID: Z2v27LxZQs+5B/Dvmx/71A==
-Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.3])
-  by ces01_data.me-corp.lan with SMTP; 03 Nov 2026 10:38:00 +0200
-Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Tue, 03 Nov 2026 10:29:58 +0200
-From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-Date: Tue, 03 Nov 2026 10:29:44 +0200
-Subject: [PATCH 8/8] i2c: nomadik: reduce FIFO flush timeout to avoid long
- interrupt handling
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5dxzOoN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC429606EE95;
+	Tue,  3 Nov 2026 08:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5dxzOoN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC021F00A23;
+	Tue,  3 Nov 2026 08:30:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793694612;
+	bh=jMsCflS36xjM5xM77gmQxJkejXiZCOlxvrxpfrVWc+Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=A5dxzOoNkDrW4pNqVVyZoklt9Azfg+rSlnLM4mi3BebvkCaa++F/7TpjYlr5zu8wy
+	 4yDD9HfFhTwRuQ0eI0YVHiBgutbM9gl7+BpiJGKoDjUmx0Qh4+3hUkGhTMZigaVRAj
+	 FGz1gAGtbH6SL8KlkVBpzELQqjEAbyBJ+yEaL6UPWLkvk1rnxyKpHitCPg7rU6LpM4
+	 U5/XE9JUJh/38SEUypc8pmzSmAG5aixgcrLNvM4qkWWIVZxHDvvcn3icojD1C4n6n4
+	 SIaWmfGIIrE7TQ8Rv5n12j6VtykfdpxzYYfC3OwRfvoeKfTn33lMic2wRCr7yPaOFQ
+	 eZYtkej6XWYFA==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH v12 02/19] PCI/P2PDMA: Document the TLP attribute assumptions
+Date: Tue,  3 Nov 2026 10:29:41 +0200
+Message-ID: <20261103-fix-p2p-acs-v4-0-v12-2-912101f93517@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
+References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,89 +85,45 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-i2c-nomadik-fixes-v1-8-655c6af2cb70@mobileye.com>
-References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
-In-Reply-To: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
-To: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- srinidhi kasagar <srinidhi.kasagar@stericsson.com>, 
- Ben Dooks <ben-linux@fluff.org>, Andrea Gallo <andrea.gallo@stericsson.com>
-Cc: linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-X-Mailer: b4 0.16.0
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
-In flush_i2c_fifo(), the driver sets FTX and FRX flags and waits until
-they are reset (these bits are self-clearing). If after the first read
-one or both of these bits is set, it waits until both are reset. The
-timeout is 10 * I2C transfer timeout. I2C transfer timeout is by default
-200 milliseconds. 2 seconds are much more than needed: as stated in the
-comment above, the flushing operation takes just several cycles before
-completed.
+From: Leon Romanovsky <leonro@nvidia.com>
 
-flush_i2c_fifo() is called from init_hw() that may be called from
-interrupt handler. So, if the I2C controller is stuck and the FIFO does
-not get flushed, the CPU may spend up to 2 seconds in the interrupt
-handler and cause watchdog timeout or other unwanted consequences.
-Moreover, if the interrupt is handled by the same CPU core that updates
-jiffies, the loop may not finish at all.
+P2PDMA selects a mapping without receiving the Request's ordering or
+Address Type attributes. Its ACS handles only strictly ordered Requests
+carrying an Untranslated address.
 
-To avoid too long waiting, reduce the timeout to 100 microseconds and
-use read_poll_timeout_atomic() instead of relying on jiffies.
+Document that the result is not defined for Relaxed Ordering or
+ATS-translated Requests because those TLP attributes can select different
+routes through the fabric.
 
-Fixes: 3f9900f17cdb ("i2c: Add support for Ux500/Nomadik I2C controller")
-
-Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Tested-by: Tushar Dave <tdave@nvidia.com>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/i2c/busses/i2c-nomadik.c | 26 ++++++++++----------------
- 1 file changed, 10 insertions(+), 16 deletions(-)
+ Documentation/driver-api/pci/p2pdma.rst | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
-index cc8b5a357f06..1f332e66a243 100644
---- a/drivers/i2c/busses/i2c-nomadik.c
-+++ b/drivers/i2c/busses/i2c-nomadik.c
-@@ -278,9 +278,8 @@ static inline void nmk_i2c_writeb(const struct nmk_i2c_dev *priv, u32 val,
-  */
- static int flush_i2c_fifo(struct nmk_i2c_dev *priv)
- {
--#define LOOP_ATTEMPTS 10
--	ktime_t timeout;
--	int i;
-+#define FIFO_FLUSH_TIMEOUT_US 100
-+	u32 reg, err;
+diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
+index 63cff9e4d2c9..80f8fec9b0e9 100644
+--- a/Documentation/driver-api/pci/p2pdma.rst
++++ b/Documentation/driver-api/pci/p2pdma.rst
+@@ -15,6 +15,13 @@ then based on the ACS settings the transaction can route entirely within
+ the PCIe hierarchy and never reach the root port. The kernel will evaluate
+ the PCIe topology and always permit P2P in these well-defined cases.
  
- 	/*
- 	 * flush the transmit and receive FIFO. The flushing
-@@ -291,21 +290,16 @@ static int flush_i2c_fifo(struct nmk_i2c_dev *priv)
- 	 */
- 	writel((I2C_CR_FTX | I2C_CR_FRX), priv->virtbase + I2C_CR);
- 
--	for (i = 0; i < LOOP_ATTEMPTS; i++) {
--		timeout = ktime_add_us(ktime_get(), priv->timeout_usecs);
--
--		while (ktime_after(timeout, ktime_get())) {
--			if ((readl(priv->virtbase + I2C_CR) &
--				(I2C_CR_FTX | I2C_CR_FRX)) == 0)
--				return 0;
--		}
--	}
-+	/* This may execute in interrupt handler, so use read_poll_timeout_atomic() */
-+	err = read_poll_timeout_atomic(readl, reg, (reg & (I2C_CR_FTX | I2C_CR_FRX)) == 0,
-+				       1, FIFO_FLUSH_TIMEOUT_US, 0, priv->virtbase + I2C_CR);
- 
--	dev_err(&priv->adev->dev,
--		"flushing operation timed out giving up after %d attempts",
--		LOOP_ATTEMPTS);
-+	if (err)
-+		dev_err(&priv->adev->dev,
-+			"flushing operation timed out giving up after %d microseconds",
-+			FIFO_FLUSH_TIMEOUT_US);
- 
--	return -ETIMEDOUT;
-+	return err;
- }
- 
- /**
++This evaluation assumes clients issue strictly ordered Requests carrying an
++Untranslated address. Its result is not defined when clients use Relaxed
++Ordering or issue ATS-translated Requests because those TLP attributes can
++select different routes through the fabric. Unless ACS Translation Blocking
++is enabled, a Port with ACS Direct Translated P2P enabled routes a
++Translated Request directly to the peer regardless of the redirect controls.
++
+ However, if the P2P transaction reaches the host bridge then it might have to
+ hairpin back out the same root port, be routed inside the CPU SOC to another
+ PCIe root port, or routed internally to the SOC.
 
 -- 
-2.43.0
+2.56.0
 
