@@ -1,101 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793717591;
-	b=vxO4nC5LpI8nXWKiOQxWkflGGSWSVZRg6Eko8BuZbx0lJGHaoCI6zf96//wY03mj6xPy
-	 zAWcu1nBWnpavibt1dUCOcIUNssY6ph9yp9oqWB72R9bwn1uczscQrfJOlE9zwOXBiW8m
-	 Ercd1hWbl/CSLvEujGuAMJ899UcO/mU94Qd+Bn7dMMUpKvDKJ5jBAZ6t8QdOkMKYja2tp
-	 Rv79MrLKe1PMyk2BDgcj5EtsfGFdBbVwv36Qoe1YuohFzf30325PHYp+JaUIITCG77WMS
-	 uf047DqA/Hx19S+pYUUlMrgpSi+DSiGz8iWdf5ygx4iH55JLnTaLVNJ9p2hGRvCJtPw==
+	t=1793717586;
+	b=qt9dhqhvnFMu/6VYWY3XgmwpLXporZ9SdONupzbxjPAxOxX+V1G26JaCmRx1MZ+eu6V2
+	 1KVTfrFN6uhpIbEsMmDwpVat0TUE0mPbvRdjHjFnc1qE3NC1Yy2r7jDODJc7i1KUrcsCL
+	 PhSrxG73XFKLg35qnJgiAHJia8Dwo27y67dKKowQKczu+3WEi5c/O7ajUN4pEu3dQThJx
+	 FFzejHKlAHgdFpxPkC11NGlp3HHzSI7ng5h89sx1BBNwhs4jukIgSIOJDDrVobuTvjcvC
+	 9ZreB3LBCYLtk6bWfulViE7Ul8cDCGAzS2OGXvofKnsHnpl1ha61ew7/CoGdi3uxG4Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717591;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=t6aL0KS08y3lw+fbFyxxj89k4kn2zrtKzdEdMJuh9jE=;
-	b=PZNLr7KX+jTShqqrPvKxhiZnF6kcq+Jxjcr21jpbhOxeVCIa4uVz5Mcb6UZd0zERKgUu
-	 7I5ALMeTyS1WOODiPFWZit+2egDC8YNaATkXe+PXlSwbtgZ4cS382VFDzrBESSToiREUi
-	 EJ2Kwcg4ubOnT+IgtGtl9ToMeLi4xmUvUyqBKAqzaszBVycfTWzr0aV2FbcteJ0i/5qqM
-	 dbdaXHUYNncRbmLSAXGJmx7POfIlUG4qHgfUCxuk4bIFGJxEFw4P5HQixqRHoYquRjuAQ
-	 QQJ3pN3XGx6iQUs6WPDOuLvKJRd3WAPuonNx4T6TOG2woj9DxYGJwj+zAje1cIKw8ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717586;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6+KUMNWETbOIm1etOJvqfpofFQZLeiAo3ByMDioY4WU=;
+	b=fB8xVvSZyC6jSOhEE5TeMpV29OJPWDNFxd3pOlq/iClNHnfekVurb/yvTAXofJLhv7V6
+	 m5BHP6W5iEHkkaNAy5lS+MJyhl/u6+7irh7ud+Eu8PZCJOZZ2M97mMsJkb9Rh6QlKUk1V
+	 lCmGoJAvtxaqq2t871rnGoevWlgDqx4OSIK5pY0kgaLG2WCY41jOdyjJYUCKyEg/fdyFB
+	 D8qb2XYIdznTRJ9Qxvrqtz3PEj3+Rzpw+a9GVe4roVHp8+Pg7ojXUoBsYwc9vZY//27f1
+	 sEgBLzcJlCS9MgYQQSARLt3y5Etdl3CiCrUtY3KcQPA3pZ6LWOkZnlHIjUmMHjwounQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Y+H0OJPV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ophI3+Zb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A7B6082BCD;
+	Tue,  3 Nov 2026 14:53:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ophI3+Zb
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793717585;
+	b=lPrA3OD/V2IMByOoVOwA2VBDQxz29e6p95b/eHMt3Rj8FTwg9tO30uqvNBFUsFecsxyx
+	 CvPtqzxAvcL2FAzbqK7/ta3eZBUcIGCS5dqj7vcvder8zuCbxRAb80WZFIgXCLNz1/M+a
+	 nzQGcErZmt11wpulFMY5HRRvzH8ntRbCRF7PIOmz0FBBhGqBsoZXRhv8h9TDfjilS5XwO
+	 656cDbPSfeArTkUfJ63NMHRcinpqgY4Ws/ePnjEXur5J3pVZqtehaqlTCUjDw7pc0OcLq
+	 QFZWZ1lHaLnhWJ4BAgiOXivFmGB9pAHyoGECAFLtYFua9d2HBo++1ffywF7U0PHqfWg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793717585;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6+KUMNWETbOIm1etOJvqfpofFQZLeiAo3ByMDioY4WU=;
+	b=SPcDNV4fas5mgiq3kHzDSgOtyn6f9encT9ac9OW02RkY9MUya6PHVd5vNJ4bgN8gAiJe
+	 MwKTNWGvrjx0AjKjRQkh0CMpymcVvJbSnN5lDpSlS5GyWuqXq0w1zR4TDLqIAYVvPZhOc
+	 42CX/11HEA9Mlx7+wyvoBPZWjIJgq8HRM4VKgfBmZGvvYnYEW08c1uFiDfKZtPFLWegr5
+	 4T0mJhFglvqcVvvINifiI/Flp8S6coEBF5cwP+13FKPrOZoOEfgjEgFq4bMhwXE1WMCRF
+	 XFayzpaP87btVTHQQub+jxPvFkgBMqP2heZb/VaZMzclKRYoW3KJ+HfTVqMnLsSmnMQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD29606C83D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:53:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AD29606C83D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Y+H0OJPV
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso9502a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:53:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793717589; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cCc95QEhTuude5z/jr6KOnOE9eJruxQnJupluJZfD+RIBWaMdACpUjzNG1D2Hu7P4g
-         RHcL2IFf0+E1SzWaiolWEMmhwIFy9z4UCPqU+miczMHx2Br+GS/9XZ6jBIMAG6mQSNLL
-         Jf5yPAvpP8elTeYAzBanonGUp6X6ZdrXeDmmoA2fHnZ7dtNp5UPPywchb5H0KjYE2ZaM
-         uaD5MKEKQbOy3ir6tlv+JBfNNgaDqgzcgMQOMuAgv/dfQJFeke94ITREyDkuGMCPgp1n
-         u+Nn8COlCqc01MQilRKhScQkgyCKhEIr8YMnosuwsP7k75PwUAcaVHTHRG3sA4FdBwgH
-         3VOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t6aL0KS08y3lw+fbFyxxj89k4kn2zrtKzdEdMJuh9jE=;
-        fh=f7gb1P3liubkLNX5sUiB/M4fM9RnMjdtgvnhczdrX60=;
-        b=BIW4y9FwWhqe67clqmes2gtIgdf4s/S6NFXYrous6MkrnnUtpuvb441NRBl9czKfAJ
-         EYCW9QukF158Smd9FSQrQ7ugJW/PEVOeT61onHmKAXlooZyqZchgVJqtaUk7ZdF/Qwxy
-         RQjG/CT0SgSqkFfa7kDTMHES+IfdnuRjm1GKs5Ms3ONvt25uqXQxawelc3r73lgg/Jx8
-         fEtOm4cbla//N5no8tPPZKWuVRH3DVg1fA2zMUjuKovjQw/nB8pdUW7Q0bOS21gXuEqw
-         VVRngBNQD9cgCUOOVtsaU7ixG2tvPp8rVN8YPFBUjd8DKx1UYU6C5YeVBe7f7T1EABoF
-         MA2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793717589; x=1794322389; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t6aL0KS08y3lw+fbFyxxj89k4kn2zrtKzdEdMJuh9jE=;
-        b=Y+H0OJPVgHDZCYeP2enbnr5FPxcAmQTxI3HKvOduQJ8ZbovEsbNIyW7B1wlNCh8u8w
-         2Ydd3bDG91Z0lOjY81c6J1GwpiDRRALIQvxgXNYN062HfH62xQHnen5wx/sWgkoJGokf
-         yIfE10xzWzomHsI4sASlc/W0lJUKAp92KwDdvlJWYn9Ks4r3qJlTQ7ycK+W1N28/wokx
-         gyMmIU3yJhkRM0TD56x87F/uqu3waUu+VhdoIjCn5UdixXgVUDv2Fucrmul7VzIax2jk
-         Ck2RrqeKIjxqw3au+C9KsvKS5JH+aBGCGUvyxtdXkOM0clMMdTCtr6W0N9fV3JSSQXxy
-         d8cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793717589; x=1794322389;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t6aL0KS08y3lw+fbFyxxj89k4kn2zrtKzdEdMJuh9jE=;
-        b=H+7FDOujAAh4az4Vl4d+d+cz0DexUr4WElbtHqeqWADQ9P2mvtoNC8B7cHg/CpDfwh
-         ys/eyBmtzjrsxN5hDwOaRJi7uWS8N3z/yBRdR5zLmcqCHluV3mRrBmKy8TNnle/QqAou
-         B1LIwezveI1n2pd6xfNumtHNUirtOtKcF7zVG8WHCfIESE7MURzc/Tch5fN6pSd3jy0h
-         eWl6PU1saEBdc0kxfr6SIFhPPShkBfYl8thTs4/cLN8Sz52TR2M36WGjeSzSPZd46P9H
-         rqqT+Kru0QK5JXLWgOEZjGhfj2s68E/Z5e6ifDaep6VXVHdNFpm2MTZwuFl/nV8uhdlF
-         36BQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkufoqkb3Co+7qzuVPgllBSXDE5FjtXjQAl9GXLUcFHfyJHIQ71m9mRzK1q5sTVeEr8qX2mzQ+XeKemeY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3szY5CeZZFaNVJqFLpowSiTWag4mNHnVeZZ+L0Yk1H0W0DzLz
-	c77nVg9YKzpRuj22kU8r9v3rlRYd8cQyBSYElZgilTuFIIXK0cjn8OL2xf3VGyg/gqKjSKKcJd2
-	51ryVLRPEGOjAuwIZ9boBNlxn83l2lAFnVfuidpr2
-X-Gm-Gg: AYBFou2UV1/1r6kUi7uXKo+dvuJHrTmAwTrurM3LvCmIi1qnoKICNcCVQoxE2ojJaUG
-	ZdI28lWw70j5AwjyhhTg55C0XMtoJ/NOhl3hCNLzXoanXYtADyVMpSJ0/+1Oax0KFpjyuhfwNno
-	sBhe710uKLvCEBSrHo2DOacd4YlXZ+/loCQI08woLYEZOzQn2/aJE9AiuvqZQ401SkMj22FZ0cV
-	iosASXgj6C6+vC1Gl9hERjsQkxwLfrW9TN+hw34E3gv3VPNc3Q18hsQbaG4Vp+qtlKF39U5yLfJ
-	Mbt447ub6tiKEMr+FiDgE1mJ9MyhT0YmwM5omMJCH7rzoxEm9wWqh+NkQVmQ/IXbzEbKoQVt42Z
-	ELAewmhPfh3rJvyn3xu4RarFe+qAoRecDhBDNAjRzYMnOqBbcoDV9N+aJ/Yaik2ZxZgcpdRYwYK
-	Ee7+phXDZrmvKvy/W5F5nLZwQIdV8=
-X-Received: by 2002:a05:6402:a519:10b0:6af:b196:68bf with SMTP id
- 4fb4d7f45d1cf-6b53e7443a7mr46490a12.7.1793717588777; Tue, 03 Nov 2026
- 06:53:08 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id C172B1F00A18;
+	Tue,  3 Nov 2026 14:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793717585;
+	bh=6+KUMNWETbOIm1etOJvqfpofFQZLeiAo3ByMDioY4WU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ophI3+Zbj+OMNNkQzA1dSV3YKkLRbLB6+AOf/i6mlIxgwKAFVSqBmtQBsSRYWPsNj
+	 RRgBA/Qcqs0Hx4L4f2iTTn336Q3vK1H3zrLVvkY2LGnwqYrGnpDwa77/vjyl46aTD0
+	 +Dxy+F/m+gxL3oAC+ez04xsgfp2OMXtI2ucvo4FNvb4xBeMgAyN9Qi6g+4HrCQU527
+	 mTYtGqH48RojghMO6lfvuUSwk1F4teMx2JnuEVUP5gkaf8KdNo84PYI06yUntT4PGN
+	 eZ7QVhBtf0QQ2ypvyzdzajQsLIVfAvbjgnFCWYrcBQ8jZB6SFfSC4ec+a1Ho0XHekH
+	 +5gz/w8wAOnEg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D2FB6469C2;
+	Tue,  3 Nov 2026 14:53:01 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Date: Tue, 03 Nov 2026 11:53:06 -0300
+Subject: [PATCH v3 10/10] docs: iio: ad9910: document DRCTL pin control
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,129 +82,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102035943.9700-1-qingfang.deng@linux.dev>
- <bfbc4b3c-fe19-4070-97b4-4ff8ded06011@linux.dev> <d6ba5426-fbee-49da-b18b-1419fd84fa0f@linux.dev>
- <CAL4Wiio9VXUtGg4UrFFU1kG2JENYL8xi0DzsDmhOp=zXs0DiUg@mail.gmail.com>
- <b8595ed2-6e7a-48f1-8240-3d522776e378@linux.dev> <CAL4WiioRi2hZRMTv-v=iUpSZhbnj__rh=Uh+g2dOCre-YBa6Ug@mail.gmail.com>
- <aulxmZNZqmAzK6r1@google.com>
-In-Reply-To: <aulxmZNZqmAzK6r1@google.com>
-From: Neal Cardwell <ncardwell@google.com>
-Date: Tue, 3 Nov 2026 09:52:48 -0500
-X-Gm-Features: AclHuK-j4hFEfW-ro6EopyT-Tk8HqSro_wq-t_bz6R1ZwuBKQefVxhZGd66IHmk
-Message-ID: <CADVnQymrKnfXu4irTp6ysuR5puXeeWZVys=K7Z+ianbHsbE_NQ@mail.gmail.com>
-Subject: Re: [PATCH net] tcp: initialize send sequence numbers before
- deferring TFO
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Qingfang Deng <qingfang.deng@linux.dev>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Yuchung Cheng <ycheng@google.com>, Wei Wang <weiwan@google.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-ad9910-backend-support-v3-10-0e9224ddf7b7@analog.com>
+References: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
+In-Reply-To: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
+To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-doc@vger.kernel.org, 
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793717581; l=6219;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=9AdEqIZ+bYqk9Lw6P7OuqM0LPTI0z5xHBJLcZX+ImKY=;
+ b=SF1JYoXgO+FxUz2GP4/tQHNTweCPsntKfTq76xvARUEKSPTFgnFk+uhwJvEgELc01WUcw112a
+ Cdfges/M0G1AcSavfuvKQFIVXvcBU9cQckmpKfutUvbedCaFwS5D+hn
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 3, 2026 at 12:32=E2=80=AFAM Kuniyuki Iwashima <kuniyu@google.co=
-m> wrote:
->
-> On Mon, 02 Nov 2026 09:20:41 +0100, Eric Dumazet wrote:
-> > Le lun. 2 nov. 2026 =C3=A0 09:13, Qingfang Deng <qingfang.deng@linux.de=
-v> a =C3=A9crit :
-> > >
-> > > On 2026/11/2 16:00, Eric Dumazet wrote:
-> > > > Le lun. 2 nov. 2026 =C3=A0 08:41, Qingfang Deng <qingfang.deng@linu=
-x.dev> a =C3=A9crit :
-> > > >> On 2026/11/2 14:11, Jiayuan Chen wrote:
-> > > >>> On 11/2/26 11:59 AM, Qingfang Deng wrote:
-> > > >>>> TCP_FASTOPEN_CONNECT can return from connect() before tcp_connec=
-t_init()
-> > > >>>> when a cached cookie or cookieless Fast Open allows deferring th=
-e SYN.
-> > > >>>> At this point write_seq contains the initial sequence number, wh=
-ile
-> > > >>>> snd_una and snd_nxt have not been initialized to that sequence n=
-umber.
-> > > >>>>
-> > > >>>> Consequently, inet_diag and /proc/net/tcp{,6} report the initial
-> > > >>>> sequence number as the send queue length despite no SYN or paylo=
-ad being
-> > > >>>> queued.
-> > > >>>>
-> > > >>>> Initialize snd_una and snd_nxt to write_seq before marking the
-> > > >>>> connection as deferred. Both sequence-based queue lengths then r=
-emain
-> > > >>>> zero until the first write starts the connection and runs
-> > > >>>> tcp_connect_init().
-> > > >>> This patch looks good to me. But idiag_wqueue can still go negati=
-ve
-> > > >>> on the normal connect path, since the socket is already hashed an=
-d
-> > > >>> diag does not take the socket lock. We always set write_seq first=
-,
-> > > >>> then init snd_una later:
-> > > >>>
-> > > >>>     tcp_v4_connect
-> > > >>>       WRITE_ONCE(tp->write_seq, st.seq)
-> > > >>>       tcp_connect
-> > > >>>         tcp_connect_init
-> > > >>>           WRITE_ONCE(tp->snd_una, tp->write_seq)
-> > > >>>
-> > > >>> Can you try this instead?
-> > > >>>
-> > > >>>     r->idiag_wqueue =3D READ_ONCE(sk->sk_wmem_queued) ?
-> > > >>>                       READ_ONCE(tp->write_seq) - READ_ONCE(tp->sn=
-d_una) : 0;
-> > > >> This does not guarantee the load order on a weakly-ordered CPU. LL=
-M
-> > > >> suggests using this load-acquire/store-release sequence:
-> > > >>
-> > > >> r->idiag_wqueue =3D smp_load_acquire(&sk->sk_wmem_queued) ?
-> > > >> READ_ONCE(tp->write_seq) - READ_ONCE(tp->snd_una) : 0;
-> > > >>
-> > > >> Then in tcp_connect_queue_skb(), replace sk_wmem_queued_add()
-> > > >> with smp_store_release():
-> > > >>
-> > > >> /* Paired with smp_load_acquire() in tcp_diag_get_info(). */
-> > > >> smp_store_release(&sk->sk_wmem_queued, sk->sk_wmem_queued + skb->t=
-ruesize);
-> > > >>
-> > > >> What do you think?
-> > > > Please do not do this.
-> > > >
-> > > > /proc/net/tcp and inet_diag dump sockets without holding the socket
-> > > > lock. They provide a best effort snapshot, and transient inconsiste=
-nt
-> > > > values are expected (see the comment about rx_queue in get_tcp4_soc=
-k()).
-> > > >
-> > > > The window in tcp_v4_connect()/tcp_v6_connect() is a few usec, with=
- the
-> > > > socket lock held by the caller. Adding memory barriers in the TCP s=
-tack,
-> > > > on a field updated in many places, to cover this is not worth it.
-> > >
-> > > tcp_connect_queue_skb(), as the name suggests, only queues the
-> > > connecting SYN. So this adds a small setup cost on weakly-ordered CPU=
-s
-> > > (on x86, smp_store_release degrades to a compiler barrier).
-> > >
-> > > If strong memory ordering is not required, do you prefer Jiayuan's ap=
-proach?
-> >
-> > Neither, let's keep v1 as is.
-> >
-> > I know tcp_connect_queue_skb() only queues the SYN. The cost is not the
-> > problem; sk_wmem_queued has many other writers, and one release store
-> > among them is a special ordering rule that nobody will remember the
-> > next time this code is changed. This is too much complexity to hide a
-> > transient value in a best-effort dump.
->
-> +1.  v1 looks good to me too.
->
-> Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-v1 LGTM as well.
+Document the integration_time attribute of the digital ramp generator
+(DRG) rising and falling channels, and describe how the DRCTL pin
+waveform is generated from those values according to the dwell_en
+configuration. Add usage examples for triangular and sawtooth sweeps
+driven through the DRCTL pin.
 
-Reviewed-by: Neal Cardwell <ncardwell@google.com>
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+ Documentation/iio/ad9910.rst | 90 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 84 insertions(+), 6 deletions(-)
 
-thanks,
-neal
+diff --git a/Documentation/iio/ad9910.rst b/Documentation/iio/ad9910.rst
+index aab569f561db..bff55cca8c82 100644
+--- a/Documentation/iio/ad9910.rst
++++ b/Documentation/iio/ad9910.rst
+@@ -85,13 +85,13 @@ system clock (SYSCLK) which affects all other channels.
+      - ``drg_rising_frequency``
+      - ``drg_frequency``
+      - DRG frequency rising-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_frequency132``
+      - ``drg_falling_frequency``
+      - ``drg_frequency``
+      - DRG frequency falling-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_phase130``
+      - ``drg_phase``
+@@ -104,13 +104,13 @@ system clock (SYSCLK) which affects all other channels.
+      - ``drg_rising_phase``
+      - ``drg_phase``
+      - DRG phase rising-ramp parameters: limit code, dwell enable, ramp clock,
+-       rate of change.
++       rate of change, integration time.
+ 
+    * - ``out_phase132``
+      - ``drg_falling_phase``
+      - ``drg_phase``
+      - DRG phase falling-ramp parameters: limit code, dwell enable, ramp clock,
+-       rate of change.
++       rate of change, integration time.
+ 
+    * - ``out_altcurrent130``
+      - ``drg_amplitude``
+@@ -123,13 +123,13 @@ system clock (SYSCLK) which affects all other channels.
+      - ``drg_rising_amplitude``
+      - ``drg_amplitude``
+      - DRG amplitude rising-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_altcurrent132``
+      - ``drg_falling_amplitude``
+      - ``drg_amplitude``
+      - DRG amplitude falling-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_altcurrent140``
+      - ``ram``
+@@ -493,6 +493,60 @@ Ramp channel attributes
+        from the hardware step size and the current ramp clock. Writing
+        requires ``sampling_frequency`` to be configured first.
+ 
++   * - ``integration_time``
++     - s
++     - Time interval assigned to the ramp direction, which is used to generate
++       the DRCTL pin waveform. See `DRCTL pin control`_. Rising and falling
++       ramp channels of all destinations share the same underlying value for
++       their respective directions. The written value is adjusted to the
++       resolution supported by the PWM provider.
++
++DRCTL pin control
++^^^^^^^^^^^^^^^^^
++
++The DRCTL pin selects the DRG slope direction: a logic high drives the ramp
++towards the upper limit and a logic low drives it towards the lower limit.
++When a PWM is assigned to the DRCTL pin (via the ``pwms`` and ``pwm-names``
++devicetree properties), the driver generates the DRCTL waveform from the
++``integration_time`` of the rising and falling ramp channels, according to the
++``dwell_en`` configuration:
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Rising ``dwell_en``
++     - Falling ``dwell_en``
++     - DRCTL waveform
++
++   * - 1
++     - 1
++     - DRCTL is held high for the rising ``integration_time`` and then held
++       low for the falling ``integration_time``. The PWM period is the sum of
++       both intervals. If a ramp reaches its limit before its interval
++       elapses, the output dwells at that limit.
++
++   * - 0
++     - 1
++     - Sawtooth rising ramp: a new ramp starts at every DRCTL rising edge,
++       which happens periodically at the rising ``integration_time``. The
++       falling ``integration_time`` is not used.
++
++   * - 1
++     - 0
++     - Sawtooth falling ramp: a new ramp starts at every DRCTL falling edge,
++       which happens periodically at the falling ``integration_time``. The
++       rising ``integration_time`` is not used.
++
++   * - 0
++     - 0
++     - Bidirectional continuous ramp. DRCTL is not relevant and it is held
++       low.
++
++The DRCTL output is disabled when the resulting PWM period is zero, e.g., when
++the relevant ``integration_time`` attributes are set to ``0``. Without a PWM
++assigned to the DRCTL pin, writing to ``integration_time`` fails with
++``-EOPNOTSUPP``.
++
+ Usage examples
+ ^^^^^^^^^^^^^^
+ 
+@@ -525,6 +579,30 @@ Configure a frequency sweep from 40 MHz to 60 MHz with a rate of change of
+   # Enable the DRG with frequency as the destination
+   echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency130_en
+ 
++With the same limits and rate of change, each ramp takes 0.8 ms to complete.
++Configure a PWM-driven triangular sweep that dwells 0.2 ms at each limit:
++
++.. code-block:: bash
++
++  # Enable dwell on both limits, so DRCTL controls the ramp direction
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency131_dwell_en
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency132_dwell_en
++
++  # DRCTL high for 1 ms (rising ramp) and low for 1 ms (falling ramp)
++  echo 0.001 > /sys/bus/iio/devices/iio\:device0/out_frequency131_integration_time
++  echo 0.001 > /sys/bus/iio/devices/iio\:device0/out_frequency132_integration_time
++
++Configure a rising sawtooth sweep that restarts every 1 ms:
++
++.. code-block:: bash
++
++  # No dwell at the upper limit: the ramp returns to the lower limit
++  echo 0 > /sys/bus/iio/devices/iio\:device0/out_frequency131_dwell_en
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency132_dwell_en
++
++  # A new rising ramp starts every 1 ms
++  echo 0.001 > /sys/bus/iio/devices/iio\:device0/out_frequency131_integration_time
++
+ RAM mode
+ --------
+ 
+
+-- 
+2.43.0
+
+
