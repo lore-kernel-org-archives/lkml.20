@@ -1,53 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743955;
-	b=dxPXAcFjHzGqxoTvqMG0EHmc+O66tGn7hDvrn5uvuEt14l8JBIoF6wTWk0MP1LGZNyeM
-	 9kwuGdpgiKDzfxcXRxSIFf53Q2vHhZdmbsTHeXvR109VmhWiOh2ELK5RJJSFLIKwgYOY6
-	 lVZyuEO1R1tzIHdtS/b/dYQBbhWWE3C3uOr8NIgdaS4xrHPtq55aYiiZnRIMm6O3kKE0k
-	 FeUUv8UBT4hxkg3lnpIzk/w6gpzU+5bVzc6izxgoIPA2OcaKJpxOWb7QUutuH8UVedUNi
-	 9JlJp3K7ZnU6zWWszJoMKz84Gma0S6dbShtCxd3fFxZWbETjGqcn4IDpq2pk6luOEGw==
+	t=1793744008;
+	b=iRJDdko5/3I7TMo+/MfZtYwcFhPSurFGhB4TotIQWKGjCgP8DjoMNpnps2Z+qJqZmaR2
+	 kN8nYU1LMDRwd9W4tp9KuNZvsNUgZzQl+W4PwjUXNXiyJsbJM42/R9quiC1afYqXnCMHX
+	 tfC0ejTOu/NakNojyi4skPLdwvaQ20L4wQmBFD+Hifzh2bDrOgOu22Jlj92fnefqh0vjM
+	 PtszQ39QBulEQTeQK6Pzq0xusqBkgDnogmLL1sbPAZaAg9gCKOYOXGHcmCu/HAlQt3ofG
+	 3p34112tL3mpGLbDkhZXGOZdew+azI0CwoNbY2gB5e7NvkSzLbHMsC1uUXWCG0YYR2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743955;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=x84ot11ZHk8kmM1pFcELFVBbhxlp1ehogrcHxTfRDVY=;
-	b=pCk4li695ewiOKNtv+oKrzzpazCtdgLxZzFFYVlOPw76yHYxd7hJ/2Nqza/0/FXLo3ND
-	 dJj0dAiqmw7ipQP4AI/entQpA6k6zwCuoecvXTkiBZOLxcZotfftp2ej6kgNs2iwkGSmi
-	 2Far15Uj9n8Eqdc1c8dWaqOOpUYMyOVzKRtrsc0Am4Y1aZy1xdQ+Nprl+GIbhU9CxargP
-	 XVQ9KE7Z+S8z+6Ji6JiZtOQdhTNzPkSRfLvaSRjt1LdvgZHwjA+yKHLMjIoG1QVrSipl1
-	 afA0ew5zFtnhcffxEDv4+mRbo2RwKOenSbrYmMxgK/Lel56/NJ/yOWEvwtW1yV5CExA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793744008;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=FYgDozVOhRM4JDfEKkxlqSPk10kuZhtX9QzDdoHL+wQ=;
+	b=supF4N6OoLc2leU0JYzl1P8VMlLHomwMd+y5U0Saav98cHm55nI3/FpeRDhxQ/1N2fYA
+	 Xcq6Awjkhv8oRGqEYwk3T4IrK8D9S0+Uyhsh8GATIZn7HpsRGL/ZhMkzpdeBO4oWp4cRP
+	 hrIYUPndc/Lpgp28kl3R+alz7YTlPruiBGfF2qa8Htq7rX1TFSr+CP892hSqEKJtTXG18
+	 liRuSx1frW7SaZ7DChLBhfk0e1ykOjvPb9r3aH7GWBLS9PChZLcWtpTyYUxpX8XDmWiZD
+	 j7rONHI6yoVYieEDOx/w7g+L4ECh4U9kIV/Amwq6z6yKo4zzt4eTywqUj4wWP2zi1XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=Igalia.com;
-	spf=pass smtp.mailfrom=Igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=F9HLVpaL;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="DPE/7ccz";
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087F1606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:12:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 087F1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=Igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFC5606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:13:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BFC5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=F9HLVpaL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=x84ot11ZHk8kmM1pFcELFVBbhxlp1ehogrcHxTfRDVY=; t=1793743953; x=2109103953; 
-	b=F9HLVpaLPArVACjfn4KYT4QazJP9l44+Nc7HNdTgtTgbceeV4+xcimDyU/MF5VKj9uw08JlV3se
-	r3CsDCP4XDLycFRQIeJr99quFOgn9sDzmkgw9KjsZKq1FOYyRO8IxpyamjE2fFIZtssMDOUFqXgdt
-	FLAU+eoVHt3QybLlsrzy9CNP9EEC1JiaACV4qNW2RFOTBWATffLnqElj0O2YK+dSHN4oXF5/Q4SzK
-	n2j4mULOcm6Zs6UIYFIULMNRJObHJg5EGS3i4Xfe3r0UNMjdw6WVhHF2CPHu6d3IcqE53VsFLKQuy
-	1OvrJRXZs4lSxvOXaJueB8vi3OAip7gdulSg==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91] helo=[192.168.1.133])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xOMjs-001enn-GI; Tue, 03 Nov 2026 23:12:20 +0100
-Message-ID: <a359e88a-8afb-4aa5-bb5c-264ae56c4ee1@Igalia.com>
-Date: Tue, 3 Nov 2026 14:12:12 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DPE/7ccz
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso54193f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:13:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793744007; x=1794348807; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FYgDozVOhRM4JDfEKkxlqSPk10kuZhtX9QzDdoHL+wQ=;
+        b=DPE/7cczWrzdEgveF9OagaGEJsdUjFSMrVTj2h3jvH+HE/tNArl6aIxqhwXdICH+w5
+         bB/He/83JKSzbYSy3z640eUPcFRETov3/5zNf1Ndaj+SMTWTwx+qKTTQ4g+qitveuBbP
+         gZb5oCoQ3MZrA0sCnDeNfBhg8WudUmz7g2RA98DlhefRNQ7rFFTUUkHAlDOf+yi8w44P
+         lEzaOIC5VBALwRJ1MMfIghFSeToc/hQgEUrtOptAwSCochAn5xHJszKSsFBpRNNZgdmB
+         8Y4NBZD5VtEcemyp+DKtp0vXq8CdLLuBKRCcCXxAdBX1H1ElpHh9WlCA0UUc5vxEUhff
+         PDXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793744007; x=1794348807;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FYgDozVOhRM4JDfEKkxlqSPk10kuZhtX9QzDdoHL+wQ=;
+        b=UIfXvPc/HGXqnlKjjSbAclM6CDfXDqlvjJYo/Pg/xaMqVT/Iz9sN/hQU/PVQZgGNgK
+         zPw0JgLWAcDt3QuG8c/FatMPB2mj55RMjc+BiLsIo1C13bxC0qugy6grvQsknXkLXfIy
+         aifTigblCHFJgcup7sewu1XqwB827Lv4beQYZNONpd3WnCmIjPW4mptRevrs5JwBiORv
+         Jb32PIRv9Zt6dkZo8TsohEY37j8efv7q/oYnJ6pLt2ADza1VkfRhz8LGmdaW82m7X8Xv
+         QDPCB3jldqHmbMAOSkiU7Wt3sIlTE53NmWHz7Gd5RVxZAcLTOrx2FfxbhuqLBlZoLvOk
+         41iQ==
+X-Forwarded-Encrypted: i=1; AKwUvByCTV3di+tdE8/D7ET+IPtSqB0Fgqmfa02fQhlGsyouZdnO3kk/2stjsghDqiQvN2omHu0gJ9/DCPscIRo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xBoTc3RNLyJlSy2gVOymwyWd09Xg0IqrFVfv2TAgsxizbIOBy
+	CJ8EzTy/5kGGkdn1U5DE9mDFJRBtYWbgX44m43fwfP656cUjU9r5p7zC
+X-Gm-Gg: AYBFou2sa1XJdt1dnK66exrSxgAbszVHaRs4MfDonAgEoczDtOVJ4nhicYvtzF5vanf
+	c8CPRvnQQhM939fIxCzk8ZuCDwdKaeCl8uKdvtyxMSOFOcxL4q1ipkQpucr2nUNU0cKiDsVdRMC
+	FXvAZhhkaRtQZ1rRGINT+PfDE9BhqfcTkkEawb62jdAw6WpTwMMZXFkDx19k+ZppQovuPxeJYzL
+	/Q0J2TyKVvUtXtiT+wrmnF9NwyIkJWjTtC32BY1iUMqaajXSeJl6a2PLuz0vLFxAGO2Nh7wKIqT
+	7C5mfzWl2iqs8ng9ZCU9cZgvr+o4q2IvYAvQADMGoPUCtkZkUp9Vpz98lPfDoPNcVA6UtrD1I1y
+	q8R39XepHkF0dsoGO+4YjEd3Ma1MhtAsP1Yrnb4ofOvOLudJDS+1pgaI8oRkilOvXX40ZD8CCjj
+	M+BmMdeyRD/joZGwqtlVaAlVgBc9tqqBLXXkMCPpxkqyvBj7oopnUTVxk3v0iFeN8Rz0zPfenO4
+	wCNyPXhdtI7GV3XAlvVxTDlQOwVJP2aYVri8do7U1Csujs2OrJ+k2+a8WZhOzAidbj+V//sfnmD
+	7YBsGSa/TVm9N6EHdBNLxmhsxINmCA61mcKtLZwCcExYxy4iRLZkuUDnx6u/Yyu3
+X-Received: by 2002:a05:6000:4305:b0:48f:d7cd:a5af with SMTP id ffacd0b85a97d-48fd7cda6e6mr765081f8f.0.1793744006661;
+        Tue, 03 Nov 2026 14:13:26 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed5538basm272474f8f.44.2026.11.03.14.13.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 14:13:26 -0800 (PST)
+Date: Tue, 3 Nov 2026 22:13:25 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Kiryl Shutsemau
+ <kas@kernel.org>, bp@alien8.de, dave.hansen@linux.intel.com,
+ dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org,
+ hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+ kernel-team@meta.com
+Subject: Re: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+ without FSRM
+Message-ID: <20261103221325.789ff51a@pumpkin>
+In-Reply-To: <77b8befb-e3dc-4a3f-ab30-b6c85bb90f94@linux.dev>
+References: <atCpTMcAALymqADw@thinkstation>
+	<20261017192727.2760919-1-usama.arif@linux.dev>
+	<atiKeB-76nOj-ztU@thinkstation>
+	<CAHk-=wh+dyDPs2kp=KoUiCYdk2MBBqzTKYbrkAyOMV9Z1XNu0w@mail.gmail.com>
+	<20261022094958.13aeb5c0@pumpkin>
+	<5f6fa235-55bc-45c6-90a8-20f75152e9f2@linux.dev>
+	<20261103083238.672cdfa5@pumpkin>
+	<77b8befb-e3dc-4a3f-ab30-b6c85bb90f94@linux.dev>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,480 +110,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/7] drm: writeback: Refactor drm_writeback_connector
- structure
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Cc: "Shankar, Uma" <uma.shankar@intel.com>,
- "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>, "sean@poorly.ru"
- <sean@poorly.ru>,
- "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
- "laurent.pinchart+renesas@ideasonboard.com"
- <laurent.pinchart+renesas@ideasonboard.com>,
- "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
- "tomi.valkeinen+renesas@ideasonboard.com"
- <tomi.valkeinen+renesas@ideasonboard.com>,
- "kieran.bingham+renesas@ideasonboard.com"
- <kieran.bingham+renesas@ideasonboard.com>,
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
- Liviu Dudau <liviu.dudau@arm.com>
-References: <20260714042805.77934-1-suraj.kandpal@intel.com>
- <20260714042805.77934-2-suraj.kandpal@intel.com>
- <fef90473-9572-4bbe-8cd3-8e2ef3a16469@Igalia.com>
- <DS4PPFE901A304FE19EA821D66BE3B9E3B1E3692@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <DS4PPFE901A304FE19EA821D66BE3B9E3B1E3692@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 11/3/26 00:30, Kandpal, Suraj wrote:
->> -----Original Message-----
->> From: John Harrison <John.Harrison@Igalia.com>
->> Sent: 18 July 2026 01:10
->> To: Kandpal, Suraj <suraj.kandpal@intel.com>; freedreno@lists.freedesktop.org;
->> dri-devel@lists.freedesktop.org; kernel-list@raspberrypi.com; amd-
->> gfx@lists.freedesktop.org; linux-kernel@vger.kernel.org; intel-
->> xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org
->> Cc: Shankar, Uma <uma.shankar@intel.com>; Murthy, Arun R
->> <arun.r.murthy@intel.com>; abhinav.kumar@linux.dev;
->> tzimmermann@suse.de; sean@poorly.ru; marijn.suijten@somainline.org;
->> laurent.pinchart+renesas@ideasonboard.com;
->> dave.stevenson@raspberrypi.com; tomi.valkeinen+renesas@ideasonboard.com;
->> kieran.bingham+renesas@ideasonboard.com; louis.chauvet@bootlin.com;
->> kernel-dev@igalia.com; Liviu Dudau <liviu.dudau@arm.com>
->> Subject: Re: [PATCH v6 1/7] drm: writeback: Refactor drm_writeback_connector
->> structure
->>
->> On 7/13/26 21:27, Suraj Kandpal wrote:
->>> Some drivers cannot work with the current design where the connector
->>> is embedded within the drm_writeback_connector such as Intel and some
->>> drivers that can get it working end up adding a lot of checks all
->>> around the code to check if it's a writeback conenctor or not, this is
->>> due to the limitation of inheritance in C.
->>> To solve this move the drm_writeback_connector within the
->>> drm_connector and remove the drm_connector base which was in
->>> drm_writeback_connector. Make this drm_writeback_connector a union
->>> with hdmi connector to save memory and since a connector can never be
->>> both writeback and hdmi it should serve us well.
->>> Do all other required modifications that come with these changes along
->>> with addition of new function which returns the drm_connector when
->>> drm_writeback_connector is present.
->>> Modify drivers using the drm_writeback_connector to allow them to use
->>> this connector without breaking them.
->>> The drivers modified here are amd, komeda, mali, vc4, vkms, rcar_du,
->>> msm
->>>
->>> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
->>> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
->>> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
->>> Reviewed-by: John Harrison <John.Harrison@Igalia.com>
->>> ---
->>> v5 -> v6:
->>> - Rebase on latest kernel
->>>
->>> v4 -> v5:
->>> - Remove more unnecessary wrapping of drm_writeback_to_connector()
->>> (John)
->>>
->>> v3 -> v4:
->>> - Use drm_writeback_to_connector() wherever possible (John)
->>> - Do not wrap line where not needed (John)
->>>
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
->>>    .../display/amdgpu_dm/amdgpu_dm_connector.c   |  4 +-
->>>    .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  8 +--
->>>    .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  6 +-
->>>    .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
->>>    .../arm/display/komeda/komeda_wb_connector.c  |  8 +--
->>>    drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
->>>    drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
->>>    drivers/gpu/drm/arm/malidp_hw.c               |  6 +-
->>>    drivers/gpu/drm/arm/malidp_mw.c               |  8 +--
->>>    drivers/gpu/drm/drm_atomic_uapi.c             |  2 +-
->>>    drivers/gpu/drm/drm_writeback.c               | 28 ++++----
->>>    .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  3 +-
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 14 ++--
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
->>>    .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  6 +-
->>>    .../drm/renesas/rcar-du/rcar_du_writeback.c   | 16 +++--
->>>    drivers/gpu/drm/vc4/vc4_txp.c                 | 12 ++--
->>>    drivers/gpu/drm/vkms/vkms_composer.c          |  2 +-
->>>    drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
->>>    drivers/gpu/drm/vkms/vkms_writeback.c         | 13 ++--
->>>    include/drm/drm_connector.h                   | 69 +++++++++++++++++--
->>>    include/drm/drm_writeback.h                   | 66 +-----------------
->>>    24 files changed, 150 insertions(+), 141 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> index 1726eb6a3c63..427a8a52d256 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> @@ -4885,7 +4885,7 @@ static void dm_set_writeback(struct
->> amdgpu_display_manager *dm,
->>>    			      struct drm_connector *connector,
->>>    			      struct drm_connector_state *new_con_state)
->>>    {
->>> -	struct drm_writeback_connector *wb_conn =
->> drm_connector_to_writeback(connector);
->>> +	struct drm_writeback_connector *wb_conn = &connector->writeback;
->>>    	struct amdgpu_device *adev = dm->adev;
->>>    	struct amdgpu_crtc *acrtc;
->>>    	struct dc_writeback_info *wb_info;
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> index 91affbdb2d6c..a1faf9f3670e 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> @@ -894,7 +894,7 @@ static inline void amdgpu_dm_set_mst_status(uint8_t
->> *status,
->>>    #define to_amdgpu_dm_connector(x) container_of(x, struct
->>> amdgpu_dm_connector, base)
->>>
->>>    struct amdgpu_dm_wb_connector {
->>> -	struct drm_writeback_connector base;
->>> +	struct drm_connector base;
->>>    	struct dc_link *link;
->>>    };
->>>
->>> diff --git
->>> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
->>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
->>> index 88f938a8f24f..d48d764eae63 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
->>> @@ -1368,11 +1368,9 @@ create_stream_for_sink(struct drm_connector
->> *connector,
->>>    		aconnector = to_amdgpu_dm_connector(connector);
->>>    		link = aconnector->dc_link;
->>>    	} else {
->>> -		struct drm_writeback_connector *wbcon = NULL;
->>>    		struct amdgpu_dm_wb_connector *dm_wbcon = NULL;
->>>
->>> -		wbcon = drm_connector_to_writeback(connector);
->>> -		dm_wbcon = to_amdgpu_dm_wb_connector(wbcon);
->>> +		dm_wbcon = to_amdgpu_dm_wb_connector(connector);
->>>    		link = dm_wbcon->link;
->>>    	}
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
->>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
->>> index 3ee31634549e..18ef4ce73b46 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
->>> @@ -205,9 +205,9 @@ int amdgpu_dm_wb_connector_init(struct
->>> amdgpu_display_manager *dm,
->>>
->>>    	wbcon->link = link;
->>>
->>> -	drm_connector_helper_add(&wbcon->base.base,
->> &amdgpu_dm_wb_conn_helper_funcs);
->>> +	drm_connector_helper_add(&wbcon->base,
->>> +&amdgpu_dm_wb_conn_helper_funcs);
->>>
->>> -	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon-
->>> base,
->>> +	res = drmm_writeback_connector_init(&dm->adev->ddev,
->>> +&wbcon->base.writeback,
->>>
->> &amdgpu_dm_wb_connector_funcs,
->>>    					    encoder,
->>>    					    amdgpu_dm_wb_formats,
->>> @@ -219,8 +219,8 @@ int amdgpu_dm_wb_connector_init(struct
->> amdgpu_display_manager *dm,
->>>    	 * Some of the properties below require access to state, like bpc.
->>>    	 * Allocate some default initial connector state with our reset helper.
->>>    	 */
->>> -	if (wbcon->base.base.funcs->reset)
->>> -		wbcon->base.base.funcs->reset(&wbcon->base.base);
->>> +	if (wbcon->base.funcs->reset)
->>> +		wbcon->base.funcs->reset(&wbcon->base);
->>>
->>>    	return 0;
->>>    }
->>> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
->>> b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
->>> index e8cb782a6f8e..6611920c45fb 100644
->>> --- a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
->>> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
->>> @@ -213,7 +213,7 @@ void komeda_crtc_handle_event(struct komeda_crtc
->> *kcrtc,
->>>    		struct komeda_wb_connector *wb_conn = kcrtc->wb_conn;
->>>
->>>    		if (wb_conn)
->>> -			drm_writeback_signal_completion(&wb_conn->base,
->> 0);
->>> +			drm_writeback_signal_completion(&wb_conn-
->>> base.writeback, 0);
->>>    		else
->>>    			drm_warn(drm, "CRTC[%d]: EOW happen but no
->> wb_connector.\n",
->>>    				 drm_crtc_index(&kcrtc->base));
->>> @@ -269,9 +269,9 @@ komeda_crtc_do_flush(struct drm_crtc *crtc,
->>>    	if (slave && has_bit(slave->id, kcrtc_st->affected_pipes))
->>>    		komeda_pipeline_update(slave, old->state);
->>>
->>> -	conn_st = wb_conn ? wb_conn->base.base.state : NULL;
->>> +	conn_st = wb_conn ? wb_conn->base.state : NULL;
->>>    	if (conn_st && conn_st->writeback_job)
->>> -		drm_writeback_queue_job(&wb_conn->base, conn_st);
->>> +		drm_writeback_queue_job(&wb_conn->base.writeback,
->> conn_st);
->>>    	/* step 2: notify the HW to kickoff the update */
->>>    	mdev->funcs->flush(mdev, master->id, kcrtc_st->active_pipes); diff
->>> --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.h
->>> b/drivers/gpu/drm/arm/display/komeda/komeda_kms.h
->>> index 83e61c4080c2..9c34302782c0 100644
->>> --- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.h
->>> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.h
->>> @@ -53,8 +53,8 @@ struct komeda_plane_state {
->>>     * struct komeda_wb_connector
->>>     */
->>>    struct komeda_wb_connector {
->>> -	/** @base: &drm_writeback_connector */
->>> -	struct drm_writeback_connector base;
->>> +	/** @base: &drm_connector */
->>> +	struct drm_connector base;
->>>
->>>    	/** @wb_layer: represents associated writeback pipeline of komeda */
->>>    	struct komeda_layer *wb_layer;
->>> @@ -139,7 +139,7 @@ struct komeda_kms_dev {
->>>    static inline bool is_writeback_only(struct drm_crtc_state *st)
->>>    {
->>>    	struct komeda_wb_connector *wb_conn = to_kcrtc(st->crtc)-
->>> wb_conn;
->>> -	struct drm_connector *conn = wb_conn ? &wb_conn->base.base :
->> NULL;
->>> +	struct drm_connector *conn = wb_conn ? &wb_conn->base : NULL;
->>>
->>>    	return conn && (st->connector_mask ==
->> BIT(drm_connector_index(conn)));
->>>    }
->>> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
->>> b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
->>> index c1bedbaa26f9..848ac37a76e4 100644
->>> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
->>> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
->>> @@ -53,7 +53,7 @@ komeda_wb_encoder_atomic_check(struct
->> drm_encoder *encoder,
->>>    		return -EINVAL;
->>>    	}
->>>
->>> -	wb_layer = to_kconn(to_wb_conn(conn_st->connector))->wb_layer;
->>> +	wb_layer = to_kconn(conn_st->connector)->wb_layer;
->>>
->>>    	/*
->>>    	 * No need for a full modested when the only connector changed is
->>> the @@ -151,7 +151,7 @@ static int komeda_wb_connector_add(struct
->>> komeda_kms_dev *kms,
->>>
->>>    	kwb_conn->wb_layer = kcrtc->master->wb_layer;
->>>
->>> -	wb_conn = &kwb_conn->base;
->>> +	wb_conn = &kwb_conn->base.writeback;
->>>
->>>    	formats = komeda_get_layer_fourcc_list(&mdev->fmt_tbl,
->>>    					       kwb_conn->wb_layer->layer_type,
->> @@ -183,9 +183,9 @@
->>> static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
->>>    		return err;
->>>    	}
->>>
->>> -	drm_connector_helper_add(&wb_conn->base,
->> &komeda_wb_conn_helper_funcs);
->>> +	drm_connector_helper_add(&kwb_conn->base,
->>> +&komeda_wb_conn_helper_funcs);
->>>
->>> -	info = &kwb_conn->base.base.display_info;
->>> +	info = &kwb_conn->base.display_info;
->>>    	info->bpc = __fls(kcrtc->master->improc->supported_color_depths);
->>>    	info->color_formats =
->>> kcrtc->master->improc->supported_color_formats;
->>>
->>> diff --git a/drivers/gpu/drm/arm/malidp_crtc.c
->>> b/drivers/gpu/drm/arm/malidp_crtc.c
->>> index ebe8e1078777..4402c1de8c69 100644
->>> --- a/drivers/gpu/drm/arm/malidp_crtc.c
->>> +++ b/drivers/gpu/drm/arm/malidp_crtc.c
->>> @@ -421,7 +421,7 @@ static int malidp_crtc_atomic_check(struct drm_crtc
->> *crtc,
->>>    		u32 new_mask = crtc_state->connector_mask;
->>>
->>>    		if ((old_mask ^ new_mask) ==
->>> -		    (1 << drm_connector_index(&malidp->mw_connector.base)))
->>> +		    (1 << drm_connector_index(&malidp->mw_connector)))
->>>    			crtc_state->connectors_changed = false;
->>>    	}
->>>
->>> diff --git a/drivers/gpu/drm/arm/malidp_drv.h
->>> b/drivers/gpu/drm/arm/malidp_drv.h
->>> index bc0387876dea..aa5599467d27 100644
->>> --- a/drivers/gpu/drm/arm/malidp_drv.h
->>> +++ b/drivers/gpu/drm/arm/malidp_drv.h
->>> @@ -32,7 +32,7 @@ struct malidp_drm {
->>>    	struct drm_device base;
->>>    	struct malidp_hw_device *dev;
->>>    	struct drm_crtc crtc;
->>> -	struct drm_writeback_connector mw_connector;
->>> +	struct drm_connector mw_connector;
->>>    	wait_queue_head_t wq;
->>>    	struct drm_pending_vblank_event *event;
->>>    	atomic_t config_valid;
->>> diff --git a/drivers/gpu/drm/arm/malidp_hw.c
->>> b/drivers/gpu/drm/arm/malidp_hw.c index 9b845d3f34e1..5a7bd27d3718
->>> 100644
->>> --- a/drivers/gpu/drm/arm/malidp_hw.c
->>> +++ b/drivers/gpu/drm/arm/malidp_hw.c
->>> @@ -1315,15 +1315,15 @@ static irqreturn_t malidp_se_irq(int irq, void
->> *arg)
->>>    	if (status & se->vsync_irq) {
->>>    		switch (hwdev->mw_state) {
->>>    		case MW_ONESHOT:
->>> -			drm_writeback_signal_completion(&malidp-
->>> mw_connector, 0);
->>> +			drm_writeback_signal_completion(&malidp-
->>> mw_connector.writeback,
->>> +0);
->>>    			break;
->>>    		case MW_STOP:
->>> -			drm_writeback_signal_completion(&malidp-
->>> mw_connector, 0);
->>> +			drm_writeback_signal_completion(&malidp-
->>> mw_connector.writeback,
->>> +0);
->>>    			/* disable writeback after stop */
->>>    			hwdev->mw_state = MW_NOT_ENABLED;
->>>    			break;
->>>    		case MW_RESTART:
->>> -			drm_writeback_signal_completion(&malidp-
->>> mw_connector, 0);
->>> +			drm_writeback_signal_completion(&malidp-
->>> mw_connector.writeback,
->>> +0);
->>>    			fallthrough;	/* to a new start */
->>>    		case MW_START:
->>>    			/* writeback started, need to emulate one-shot mode
->> */ diff --git
->>> a/drivers/gpu/drm/arm/malidp_mw.c b/drivers/gpu/drm/arm/malidp_mw.c
->>> index a4c6a00c0941..4c77a459c241 100644
->>> --- a/drivers/gpu/drm/arm/malidp_mw.c
->>> +++ b/drivers/gpu/drm/arm/malidp_mw.c
->>> @@ -212,7 +212,7 @@ int malidp_mw_connector_init(struct drm_device
->> *drm)
->>>    	if (!malidp->dev->hw->enable_memwrite)
->>>    		return 0;
->>>
->>> -	drm_connector_helper_add(&malidp->mw_connector.base,
->>> +	drm_connector_helper_add(&malidp->mw_connector,
->>>    				 &malidp_mw_connector_helper_funcs);
->>>
->>>    	formats = get_writeback_formats(malidp, &n_formats); @@ -229,7
->>> +229,7 @@ int malidp_mw_connector_init(struct drm_device *drm)
->>>
->>>    	encoder->possible_crtcs = drm_crtc_mask(&malidp->crtc);
->>>
->>> -	ret = drmm_writeback_connector_init(drm, &malidp->mw_connector,
->>> +	ret = drmm_writeback_connector_init(drm,
->>> +&malidp->mw_connector.writeback,
->>>    					    &malidp_mw_connector_funcs,
->>>    					    encoder,
->>>    					    formats, n_formats);
->>> @@ -244,8 +244,8 @@ void malidp_mw_atomic_commit(struct drm_device
->> *drm,
->>>    			     struct drm_atomic_commit *old_state)
->>>    {
->>>    	struct malidp_drm *malidp = drm_to_malidp(drm);
->>> -	struct drm_writeback_connector *mw_conn = &malidp-
->>> mw_connector;
->>> -	struct drm_connector_state *conn_state = mw_conn->base.state;
->>> +	struct drm_writeback_connector *mw_conn = &malidp-
->>> mw_connector.writeback;
->>> +	struct drm_connector_state *conn_state = malidp-
->>> mw_connector.state;
->>>    	struct malidp_hw_device *hwdev = malidp->dev;
->>>    	struct malidp_mw_connector_state *mw_state;
->>>
->>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c
->>> b/drivers/gpu/drm/drm_atomic_uapi.c
->>> index 1050dddadb17..a5c11832ff64 100644
->>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->>> @@ -1514,7 +1514,7 @@ static int prepare_signaling(struct drm_device
->> *dev,
->>>    		f[*num_fences].out_fence_ptr = fence_ptr;
->>>    		*fence_state = f;
->>>
->>> -		wb_conn = drm_connector_to_writeback(conn);
->>> +		wb_conn = &conn->writeback;
->>>    		fence = drm_writeback_get_out_fence(wb_conn);
->>>    		if (!fence)
->>>    			return -ENOMEM;
->>> diff --git a/drivers/gpu/drm/drm_writeback.c
->>> b/drivers/gpu/drm/drm_writeback.c index 6ba3833a93ca..f93c936643bb
->>> 100644
->>> --- a/drivers/gpu/drm/drm_writeback.c
->>> +++ b/drivers/gpu/drm/drm_writeback.c
->>> @@ -95,8 +95,9 @@ static const char
->> *drm_writeback_fence_get_driver_name(struct dma_fence *fence)
->>>    {
->>>    	struct drm_writeback_connector *wb_connector =
->>>    		fence_to_wb_connector(fence);
->>> +	struct drm_connector *connector =
->>> +drm_writeback_to_connector(wb_connector);
->>>
->>> -	return wb_connector->base.dev->driver->name;
->>> +	return connector->dev->driver->name;
->>>    }
->>>
->>>    static const char *
->>> @@ -193,7 +194,7 @@ static int __drm_writeback_connector_init(struct
->> drm_device *dev,
->>>    					  struct drm_encoder *enc, const u32
->> *formats,
->>>    					  int n_formats)
->>>    {
->>> -	struct drm_connector *connector = &wb_connector->base;
->>> +	struct drm_connector *connector =
->>> +drm_writeback_to_connector(wb_connector);
->>>    	struct drm_mode_config *config = &dev->mode_config;
->>>    	struct drm_property_blob *blob;
->>>    	int ret = create_writeback_properties(dev); @@ -275,7 +276,7 @@ int
->>> drm_writeback_connector_init(struct drm_device *dev,
->>>    				 struct drm_encoder *enc,
->>>    				 const u32 *formats, int n_formats)
->>>    {
->>> -	struct drm_connector *connector = &wb_connector->base;
->>> +	struct drm_connector *connector =
->>> +drm_writeback_to_connector(wb_connector);
->> FYI: I missed this before but drm_writeback_connector_init needs to be
->> removed. The whole point of Dmitry's patch set is to switch to drmm instead of
->> drm init/alloc functions. I don't think it really affects this patch set much. But I
->> believe the last version of the i915/Xe writeback support was still using the
->> manual memory management interface via this function. That will need
->> updating to use the drmm version.
->>
-> I think from the last revision of Dmitry's patch series we are currently not use drmm versions
-> At least for now
->
-> Regards,
-> Suraj Kandpal
->
-Yeah, the drmm route was proving too complex. Too many tangles too 
-unravel all at once. It still seems like a better way to go, but that 
-can wait until later. Getting something functional landed now and 
-polishing it later is better than never getting anything merged at all.
+On Tue, 3 Nov 2026 14:14:50 +0000
+Usama Arif <usama.arif@linux.dev> wrote:
 
-John.
+> On 03/11/2026 09:32, David Laight wrote:
+> > On Mon, 2 Nov 2026 23:03:39 +0000
+> > Usama Arif <usama.arif@linux.dev> wrote:
+> >   
+> >> On 22/10/2026 10:49, David Laight wrote:  
+> >>> On Wed, 21 Oct 2026 08:18:25 -1000
+> >>> Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> >>>     
+> >>>> On Tue, 20 Oct 2026 at 23:55, Kiryl Shutsemau <kas@kernel.org> wrote:    
+> >>>>>
+> >>>>> Moving MOVQ inside ALTERNATIVE_2 is ugly...      
+> >>>>
+> >>>> Yeah, maybe it would make sense to make that function be
+> >>>>
+> >>>>         movq %rdi, %rax
+> >>>>         movq %rdx, %rcx
+> >>>>         ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
+> >>>>         RET
+> >>>>
+> >>>> instead? No nop instructions at all, and both alternatives are two bytes.
+> >>>>
+> >>>> Then do any ERMS logic at the top of memcpy_orig, which now has the
+> >>>> registers ready for string instructions anyway.    
+> >>>
+> >>> Is it possibly to just patch "rep movsb; RET" over whatever gets generated
+> >>> for memcpy_orig (after the two register moves) ?
+> >>> Then there are neither nops nor a jmp.
+> >>>
+> >>> David
+> >>>     
+> >> Hi,
+> >>
+> >> Sorry for the late reply. I had taken time off for the past couple of weeks
+> >> and didnt have access to my work station.
+> >>
+> >> I implemented Davids suggestion and I think it looks good. The scalar body is
+> >> now part of __memcpy(), and FSRM replaces the existing 32-byte check with
+> >> "rep movsb; RET". Non-FSRM calls fall straight into scalar code, and FSRM
+> >> returns before any padding.
+> >>
+> >> I have retained the 2048-byte ERMS cutoff, since selecting REP from 32 bytes
+> >> regressed short copies in the Cooper Lake tests.
+> >>
+> >> I asked LLM to review it and it indicated a problem with ITS: returns are
+> >> patched before alternatives are copied, so the return decision uses the
+> >> replacement's source address. I align replacement storage outside the
+> >> copied range so ITS retains the return thunk and relocation preserves its
+> >> target. This adds no executed padding.
+> >>
+> >> Any thoughts on below? I will send it as a proper patch for review
+> >> if it looks acceptable.
+> >>
+> >>
+> >> From 9baffefb71c7223702c7bcd96d43b9a2828f3939 Mon Sep 17 00:00:00 2001
+> >> From: Usama Arif <usama.arif@linux.dev>
+> >> Date: Thu, 1 Oct 2026 14:15:12 -0700
+> >> Subject: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+> >>  without FSRM
+> >>
+> >> Commit 68674f94ffc9 ("x86: don't use REP_GOOD or ERMS for small
+> >> memory copies") left ERMS CPUs without FSRM, including Cooper Lake and
+> >> Skylake, using scalar code for all out-of-line copies. Btrfs/zstd input
+> >> staging and output flushing accounted for about 34% of memcpy_orig()'s
+> >> sampled weight in Meta's x86 fleet profile.
+> >>
+> >> Use REP MOVSB from 2048 bytes on ERMS CPUs without FSRM, keeping scalar
+> >> copies below that threshold. FSRM continues to use REP for all sizes.
+> >>
+> >> Merge scalar code into __memcpy() and overlay its existing 32-byte check
+> >> with REP MOVSB and RET on FSRM, removing the non-FSRM entry jump. Copies
+> >> below 32 bytes bypass the ERMS gate. SHR11/JNZ fits one ten-byte NOP
+> >> without ERMS; the REP arm reloads the original count from RDX.
+> >>
+> >> With ITS configured, align replacement storage before its start label so
+> >> the raw FSRM return retains its thunk before relocation. The alignment
+> >> padding is outside the copied range.
+> >>
+> >> On Cooper Lake (boost disabled, capped at 1.401 GHz), plain-RET userspace
+> >> replicas with aligned warmed buffers and entry offset zero modulo 64
+> >> measured 4 KiB copies at 371.7 ns originally and 123.4 ns with this patch:
+> >> a 66.8% paired reduction across five process runs. A separate sweep using
+> >> REP from 32 bytes increased 32/64/128/256-byte times by
+> >> 114.9%/54.4%/66.1%/23.2%, respectively.
+> >>
+> >> Small-copy costs remain: a warmed aligned zero-byte copy at entry offset
+> >> 48 modulo 64 took a paired 0.75 ns more (+7.9%) than the original, in all
+> >> five runs. These microbenchmarks do not establish a kernel workload gain
+> >> or the best threshold across CPUs.
+> >>
+> >> Direct copy checks and memcpy KUnit passed with all four ERMS/FSRM
+> >> combinations and with ITS forced on; the copied return target was verified.
+> >>
+> >> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> >> ---
+> >>  arch/x86/lib/memcpy_64.S | 42 ++++++++++++++++++++++++++--------------
+> >>  1 file changed, 27 insertions(+), 15 deletions(-)
+> >>
+> >> diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
+> >> index 12a23fa7c44c5..407b226d4de2f 100644
+> >> --- a/arch/x86/lib/memcpy_64.S
+> >> +++ b/arch/x86/lib/memcpy_64.S
+> >> @@ -31,24 +31,27 @@
+> >>   * which the compiler could/should do much better anyway.
+> >>   */
+> >>  SYM_TYPED_FUNC_START(__memcpy)
+> >> -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
+> >> -
+> >>  	movq %rdi, %rax
+> >>  	movq %rdx, %rcx
+> >> -	rep movsb
+> >> -	RET
+> >> -SYM_FUNC_END(__memcpy)
+> >> -EXPORT_SYMBOL(__memcpy)
+> >> -
+> >> -SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
+> >> -SYM_PIC_ALIAS(memcpy)
+> >> -EXPORT_SYMBOL(memcpy)
+> >>  
+> >> -SYM_FUNC_START_LOCAL(memcpy_orig)
+> >> -	movq %rdi, %rax
+> >> +#ifdef CONFIG_MITIGATION_ITS
+> >> +	/*
+> >> +	 * Returns are patched before alternatives. Keep the replacement
+> >> +	 * return in the first half of a cache line so ITS retains its thunk
+> >> +	 * when the instruction is copied to its final address.  
+> > 
+> > I'm not 100% sure what that is about, but does it mean that the cache line
+> > alignment of the code here also matters?  
+> 
+> Not the alignment of __memcpy() itself, only that of the replacement in
+> .altinstr_replacement.
+> 
+> On ITS affected CPUs, a RET in the lower 32 bytes of a 64-byte cache
+> line needs mitigation, so apply_returns() leaves such sites as a jump to
+> its_return_thunk, whose own RET is in the upper half, and turns the rest
+> into a plain RET. It runs before apply_alternatives(), so for the RET in
+> the FSRM replacement it decides from the replacement's address, not from
+> where the code is copied to. A plain RET could then end up in the lower
+> half of a line in __memcpy().
+
+So the RET in the replacement is in the first half a cache line- so becomes a ret.
+But, unless __memcpy() is aligned, the relocated RET might be in the second
+half so would need mitigating - but you copy in a mitigation-free ret.
+
+If that is the only mitigation then wouldn't aligning memcpy mean you could
+just use a ret (possibly followed by an 'int 3' - or whatever is the 'flavour
+of the month' instruction for stopping SLS).
+
+David
+
+> 
+> 
+> >   
+> >> +	 */
+> >> +	.pushsection .altinstr_replacement, "ax"
+> >> +	.balign 64
+> >> +	.popsection
+> >> +#endif
+> >> +	ALTERNATIVE __stringify(cmpq $0x20, %rdx; jb .Lhandle_tail), \
+> >> +		    __stringify(rep movsb; RET), X86_FEATURE_FSRM
+> >>  
+> >> -	cmpq $0x20, %rdx
+> >> -	jb .Lhandle_tail
+> >> +	/*
+> >> +	 * Prepared RCX is scratch for checking length >= 2048.
+> >> +	 * The 10-byte alternative fits a NOP without ERMS.
+> >> +	 */
+> >> +	ALTERNATIVE "", __stringify(shrq $11, %rcx; jnz .Lerms), X86_FEATURE_ERMS  
+> > 
+> > Can you use %rdx here, preserving %rcx for the 'rep movsb'?
+> > You might need to swap cx<=>dx in the rest of the function.
+> > (I'm sure we could use #defines to give names to registers....)  
+> 
+> 
+> Yeah thats a good idea! It does make the code change a lot bigger, but its
+> easy to review as its just swapping rdx to rcx. If there arent any major objections
+> to this version, I will send it as an official patch tomorrow with the swap you
+> suggested plus a bit more cleanup on the commit message and comments.
+> 
+> 
+> Thanks for the review!
+> Usama
+> 
+> > 
+> > David
+> >   
+> >>  	/*
+> >>  	 * We check whether memory false dependence could occur,
+> >> @@ -169,5 +172,14 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
+> >>  
+> >>  .Lend:
+> >>  	RET
+> >> -SYM_FUNC_END(memcpy_orig)
+> >>  
+> >> +.Lerms:
+> >> +	movq %rdx, %rcx
+> >> +	rep movsb
+> >> +	RET
+> >> +SYM_FUNC_END(__memcpy)
+> >> +EXPORT_SYMBOL(__memcpy)
+> >> +
+> >> +SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
+> >> +SYM_PIC_ALIAS(memcpy)
+> >> +EXPORT_SYMBOL(memcpy)  
+> >   
+> 
 
