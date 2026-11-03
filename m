@@ -1,101 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745595;
-	b=zvqs81OxhvYHMoNkc0BBgpBNBWDZhNoHgz/2OlBTkILMoGAWPMGtJuAmbhhiHo7LZqOV
-	 lvi9sEIvQUpbokivuk25q9Q7/EO0QT5ZjPESreyPQp7mxdnZ3CSoGDM9sA1cuP9oXb40h
-	 FkN4yUQRivCNNqWJiufBPtKSvRTa92gaX3wWDX1M27ZV3g9GaCnq2niiyht37iGD46E6h
-	 sa/2aq8FNMeJwxARhAjsnFjYJGmzQgjrrfzvhMXIZ4cGXFBkoai377So6lPQY6jeGYxIJ
-	 2pIRMtc3eMTk63bbMRTusDGMQrOQ/0ZVT9reQ488+NOPaN3tu+zvqo4dSmJvQam5srA==
+	t=1793745592;
+	b=32vjN3b2VqtEa+N5eWDAHk+euE3QKnf09mpNiTYN+Eiv97O7LCZjNhUQfH6PyV4gz0pL
+	 1efOU46Jjh19y6yeaCpJLEZ6wtc1mKcjwtYvKsgk8MBsAa4ZMQJF2wm6V1MGCiSi/NkrL
+	 WuuROKhh1bE4bIs+Na6sP4gWdQFLmpXYz1rzSfSBqpCRfrvZQPNC/ffiTfyw00s3Fo4qR
+	 V/nVcJ5oDpWXpAeQ3zSJi1L5IZTq+MHi/0Izu2XhmNXZlPiP0/xARD7WmGjwAu+xvwNOB
+	 3YDSCoK49R9sFHASqqYSJUj9N0KFf5u3l/SxqeGWXO9Om4IZL662u1+FgxRXRQy/lmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745595;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hkasm7w43b+dUY5l9LtRYckjAHHkeZc9T5ParUJyZ88=;
-	b=e6eFZ+0WEPrgZ75ouQ59J+47m9vCE5TccYbRiXgB+1JCmOKLbf4rAKPW400wriKRB7SU
-	 xyM/GZXi9LsDAGe17UzbkD554PX3mRd4483KTAzBI+iTDfwv8cnEhHNQ4VqjSAkmtl41w
-	 caWNmHuw9QQLASy1xFwjT057JwJ3tZgWNQnfRSzeQbJVyRPv2l0ESbTsPvsN0E4SvdrcC
-	 wQPaEtZwXCEedfd3OpsmlCD8rHVZdd8pCgA+tx4Ocf8LA8aPEjw4fVKn+N/gvphcuYmGJ
-	 HIn1GlUGI1qNPzUt1m8YZrkAyfDgFfaMGq65a8RdGfqIFk9HJRd/F11EwPIH8OG0Ckw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745592;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=YhUmBPOp0GBHjBhGSwhDdx5NqcNjkjGI8oHDjK3Q308=;
+	b=zsZ4HDeSLZNmAxc+hjnixxKv4oqtvgbqNFcUfbs1IRJlVMW2sLu+S8MmiSPL6qFLYzGC
+	 QdDbEFL1SI2Iwdr3NgihvJyC2ygVaE2LuDNlNZ5kUrvLZBvGdniYQgqMKP8N9/Hl3i3b6
+	 ax757k/CLOWFjb61F8TMmhBzT1hylZiQxpkbBXU5jak/vrEzGyJB+znbLGI0Iw+qn6ho2
+	 I31HmnCxdgxD/0CSL4GO3bLIDwVlPogO5eD4lbJCI13S8wGwMO4LZRBjTm6DuCN5HaUPz
+	 DwHpAf5Je2ofygYDtibE+jMcmy95tQTN21nBekH1k44WYGnx/HUhOVi/2/h6fKWLssg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=t9+0qfDC;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=nY8SYePo;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA0A606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:39:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCA0A606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175A0606A31B;
+	Tue,  3 Nov 2026 22:39:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 175A0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=t9+0qfDC
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so105450a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:39:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793745594; x=1794350394; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hkasm7w43b+dUY5l9LtRYckjAHHkeZc9T5ParUJyZ88=;
-        b=t9+0qfDCYwLylSmVAKRemuYBtlBZtSEc+OwR8egCGuHW44FrD9qGXupxIVP2sK5RcK
-         gmHttwu2rBCZKtFtMJrm9PyA6fBRymv4FsKNKVc1zw+XE1ZUKC1PcXjm3fKuNeKOoVTr
-         t8HiFndykiCtgEK/lMZajxktnukuNLVgoXXVfg4jQFKtczvWw+/pOYmokImYksBc/ITd
-         x0k/nEIdiKco/iaIxoJ0jb2mZ8ry7s/ssMr9cql7NhE7XIaIsRq0H5la4a8ii+DwXAcK
-         WaytQ+JGfu5tiiZ8chSCPiCUMyp8RHuwuHwEn1Ww7Jrz8LGwFQMtspL29OMRaeuMMglF
-         m5Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793745594; x=1794350394;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hkasm7w43b+dUY5l9LtRYckjAHHkeZc9T5ParUJyZ88=;
-        b=iMEuPJIGy08I+8YUr7lHyA+RyRU47lLR2ZJXrf5knHay5ghztkjSkuQ4mRrKdXhvv/
-         xo8eOtm05swu11Q45iqObHHFHk3pEyEbaM2O7Mn2wyRtXebk6Vz24VnvLev6wUMrRXR8
-         nZLW38uqltP2CSLV/7qaUXdcfuFX+Pts4pGu2C12CFngWC2FsOnHvlUs2pCW/ChG+KLh
-         SiOUI4LQOhnCp5DMwUQ4YUhEZkqZRwYpgAlaxxLghzE+EZqCSXP+FG9J0ZUionNybbWO
-         5YDmQoaKRUthM0E9C+cLGHwBI8YFCkKt09joKCNl1cKSZZvJjtnnMTxoEiKdAB6djq4X
-         lPQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzuoONmnumgvCyU1naFWwyDocE9FZcaFBEo3X6+evrBNt/F41ikfRAEqPItmrv805oNW+KRIWZZsbebFh4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+M9Njqvev6p4xnA6qHiKl39/sIgJNngXjQvV+eCvI44axS6/Z5
-	+buMTJsZb+mUFdUxzWxgjl4xd0onJiFXfhxiKOu0F9OqZ0Xi18EHZs8K9yNtSsHRt/k=
-X-Gm-Gg: AYBFou1ZYSIoIqf2aV45EmifSC/WMUtyJCZgdOc+uahLTI++9kSGD+yUFOXmWdk8BuD
-	/2w8sDChnSEgvLOIJrpIgbcJ1guPGKFuuT8aFMPDHi03cyRdgSgy//f7tt8PQ9Qlx5r3Cq1pdw+
-	N0pbYuoL7ohJOB0bJHkRdEWYvFfp3DzIXTOZhKbu8ya8Toace6IMrngcht7QtCE4qRhMdDaIkY8
-	Q/OeefL2usxdbBXzL36VqQAFtgyykdpIxfvBFnkE5o5VZwjax0O9WOKD2F1PvGyqCVn++FZCJ8y
-	/nQtxQPHVDzX/t34yDVR2a207JmNRigPAK+v72hsF3QShL118aPBH88eSt5p5+aT9Pv/Xi/fzYp
-	ak5xsWYPMRqGAjYQGGvaqkifs8sX5BWw7TDvXfWvtLMRzf28DO86SdOPF7SKJs/kLzFtymbTAhi
-	whL1iz8ZChVu+Y0BobsPGC1DuKbmIEi1GpQ1TRvS+7B4SHhmpGqHHbRSFRs+beLWUrBX5Susj3A
-	QEuAm1O25FsuRdVt3S0X8leauTAcSLohtcEr3mKea0IM4BMdL2aVy6Yba81vaCr9MEAksqxCQGw
-	5CW+4a7BqZ1xrE2lQZoxWWKi/GItTPBPUlG14GlWzIKU+nTbWdgCPinGU+s+ZSDs9OMGnnte/Gd
-	0DU6JTphgnO8rG147bYbTeTevY94JrVztZHPe
-X-Received: by 2002:a17:90b:1844:b0:3ac:9c37:9429 with SMTP id 98e67ed59e1d1-3ae89838746mr11403550a91.52.1793745594421;
-        Tue, 03 Nov 2026 14:39:54 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:744:cf40:a7b2:e78f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944a0ff7sm886691a91.10.2026.11.03.14.39.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:39:53 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Sagi Grimberg <sagi@grimberg.me>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: Re: [PATCH v5 0/5] IB/isert: fix the device removal use-after-free
-Date: Wed,  4 Nov 2026 07:39:45 +0900
-Message-ID: <20261103223945.1697775-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103125955.1530355-1-yhlee@isslab.korea.ac.kr>
-References: <20261103125955.1530355-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=nY8SYePo
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=YhUmBPOp0GBHjBhGSwhDdx5NqcNjkjGI8oHDjK3Q308=; b=nY8SYePoicizj/jHg7XYL8Mn5y
+	89+t36FA99T+XZOPMhkxJpXuTEB13wWAosEXYtbnUL1/npVFl0rpVGGlFwjGviA5DiNQzJuiWzkw9
+	RI9l46qtoETA0kRiAxUwXB4+cIXI3IIilrXPxZHZPCzQAORctl2bALKKGmliaPiTno21jfbnsc7S4
+	S5s6jJZJkpPGexawT1UhIA3nSgmA+Zb5L1fFSLVKvtwqL/NOTWUfbp8Gm+iOwaB7ucAA/ZFNeYdau
+	uDoiKVN7h/ZC55pcItQi6KMhsScyBKDZWect39tOd+U7xhKIwvuGz143SD+HbHsiGw4RhnXGcA35m
+	z/qVMn6A==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject: Re: [PATCH v15 00/15] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Tue, 03 Nov 2026 23:39:28 +0100
+Message-ID: <6777074.j6PcuT4dK6@diego>
+In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
+References: <20261101082307.151957-1-gahing@gahingwoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,8 +70,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-This series is superseded by v6:
+Hi Ulf,
 
-  https://lore.kernel.org/r/20261103223802.1697607-1-yhlee@isslab.korea.ac.kr
+Am Sonntag, 1. November 2026, 09:22:52 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Jiaxing Hu:
+> Ulf offered to take 7, 9 and 10.
+
+I've now looked at the patches in question and they do look good to go.
+So it would be nice, if you could pick those up, when you have a minute :-)
+
+Thanks a lot
+Heiko
+
+
