@@ -1,79 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793699587;
-	b=oFGbJ16F5G2jzQAf7zriX3oNQuk90NFHqVZVHu9NBNwp0Y7EVlcwsmHjPeV7N5BnpwiR
-	 T9qb2E8A9pgXp6oimMPChAiXCk3dBzXNYIq4QxufuuD7dg+AAGi/+jQ+PYsviROQR8OBh
-	 JW4LT/YmQCYCbU6ScWncWhpG0tgAoS7WcKjOAuhCljr7KSwF0EqjUYT6nok2MkkGbGjHC
-	 wnMYsRcHB+fllErAUM11fhw8WLPgqZvAzNwvd11TIkecPPUDH+4LuK0nxoAx1GTE883xL
-	 RLMTDMcX+AaChs0/gL2nXj1kF9qP4HeYXzMRGpsO0v8Jc+0uqX6CQ9xHg65s454857Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699587;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FpuQRSe26poIQS4tvUq80P6B8OW0P07tubX87zAYZVs=;
-	b=qS8afb5or+RRrU5b4t94tA2JijgkVbIsWsxSBdrD/5tCXdlMX8KVPzLFGHEcm/9rYUPa
-	 8AlF+dVawnBibmZxEN8sFc/jd5gtouZacYcTryTOkuOq3/GYjML+u1yt6cYj6xYrp55HW
-	 Hul2hfQ5N5KO8eUknNBA9Rc60MrIFpSBr4jgrxVAONiZsITBz4jUtZxrI0JuZqUu0heCQ
-	 6TeVQW4WQoofJ5r8Pr66Rq8nWQmxzAq7dJ60SHRR0MvINvRKOfEeRBNEYcpi7Lglc+QeX
-	 w81KVkRkRzedSdydCkT48ux3sjjNqYf3YWDdA7RIuvTfxsNFEp6xE9vgZOtARyjms/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJ6hk963;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.211
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793699620;
+	b=nRA7CWvPjI10COXy/8/WUQcVX/2KfquZiZDlIplKnjAPeDhkSvh/FM9GxCsi6/wn4R09
+	 AM+C18aHceOQcEka4qMZsLdmgD4i+O05PINiAL++UazUw0bdDc/QA/4se1I9HwtlWJit5
+	 Lxbadx3z4Rx/RID6thAq5v0oc2j3iVDdDaoq2K1zsVLj5Ht0mGW+ua8HbwWCtk5JMR/YE
+	 8aV15H0tZosGn7hZ89NUIYFDw+LKTQ/3Xf25z+3sMlHr9K4YsMxO6h9V44P0VNYyEBKDe
+	 Vb1sRgPITsyYW8BI0uEhrkV3IG+LnKyhwKWYOMc0YfUW6eXj5z/8jfuL7qPc5FbZD4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699620;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=exuUVrZEzA5+Clh7tzMZyi/JBKCYe76w9r6sEUWqx6M=;
+	b=HlytfLaQ12WlOyv8pqrYgbNVb7BDij1Sj22m80Kt51hD4ErMEWc3/KcSH56F6AzUpDoV
+	 XxklgBKNbJa0ZPhCiu7akX0cm0IVEPdnmBQ77fQBkQXv7y/65wJconN2s7E89WZYWeaQK
+	 dZQTjZDuOcBUXIkwq0ACuv3gpByDNYySDL0OkWcpTOgNjI07yHXvJFNkzlKO56+KHsjlL
+	 5TarUOywCkBYqqi6+ug+OSSQ/clOxd4I+yZapCJ3pi6I48lBmz+5JOBmRZKIWqeqSPIuw
+	 VSO0QpGK6CzBmEkviVaZh9zZR1mbzYyWNgw0JtwWAC7aypQG6Gb14Y4yrOFY8deNdvg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=rPxgZSle;
+	arc=none smtp.remote-ip=162.62.58.211
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B21C606D823;
-	Tue,  3 Nov 2026 09:53:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F120A606D802;
+	Tue,  3 Nov 2026 09:53:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F120A606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJ6hk963
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793699586;
-	b=b6cZ49s+DyWI3oJYQDHSpomOx8xM6mXPcCT3AqxltRWKgrGd2Y901X0H0uahkly5J+FJ
-	 AAD4nEjV5FftJztqkyDVmdCBy7Y4ER+kzitpACuWSzNB+po/B77esazTeGdjCGB5fCKQI
-	 mG7Mohb+BsBAqJqVWhFGzLCYtuFfnAE4mLUJGbiNxg0dRQ3tYWTatAdaciPZTZ9VSnpfd
-	 KsJ6rWmymerMyBupzjrXIdrI03jn3xuxrbCylcWYsa3r3mANtr2StVJ58HRrGaNqjgVv1
-	 yL/io/3ooG5so4syLZnsgRpsTmxAxAJpP7oYfzY3nSxTNtC1aFrDb4kBIT9+MasvSsg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793699586;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FpuQRSe26poIQS4tvUq80P6B8OW0P07tubX87zAYZVs=;
-	b=bU2JiEaCNGz8JcsjeqRFEQuwfD9S656fmKrbR5WdT7jyklw7eFmEZyhw1sz6/n9pUmSj
-	 wUX+i356zudffFeeHJVrWgFzhfNu9sn7JwE+fxNGYpBOfprEwKQ2YJffVw9urxOSY2UUG
-	 cGo+WoKKUQ1rGPOEfWlL/eQ6ytUK20UDh96LSVVwILmI9JYPX3yYyd5OEQs0xH33N51w+
-	 NjzZ3HCAp5oMdegZUSYoj3FcKXjRHy5EeKE0v+LFrfGXXsHjcKykVf55vqWSGW9HnxSup
-	 hh2BJExVPL6R9Re2jxYKfGSuh9SX8pg2m7MIs6im3cfaKN61vnZJw7ofOh8+t0dVMgg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 725101F000C1;
-	Tue,  3 Nov 2026 09:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793699586;
-	bh=FpuQRSe26poIQS4tvUq80P6B8OW0P07tubX87zAYZVs=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=RJ6hk963A+ZOmNcVqWuWe3vzTJ+652sfHTAsjGVXYyfPm31jzbJMgozL1cJCE5DR+
-	 adNhvCx7nvC9chCivTc8+yPiKqTiPDGP1cXoDPCSv2K47RYK0LKZWt1gDxZ5yURVyY
-	 3Fyk0PH9AeR4mav3IZ1MWz+RBEFmlbTJs0vbQ66Mx9gIxWCz4M1fSieOYQ/H3jyjUW
-	 dMMlojhmxmpy5e2cCRVS7REAnimQY15EeW4cjp59SeFFoPOLk0xh1ZYSsOUPJC3NVB
-	 AV5VXqERkmZf0pH1X3IKXO9kgR161NgaB8R2HuQu7LdkRAHLlLIaE0L97Ha1Wqsc85
-	 Ex3pmH0mM7+0w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 027F146866;
-	Tue,  3 Nov 2026 09:53:06 +0000 (UTC)
-From: =?utf-8?q?Jo=C3=A3o_Silva_via_B4_Relay?= <devnull+jgc3silva.gmail.com@kernel.org>
-Date: Tue, 03 Nov 2026 09:52:56 +0000
-Subject: [PATCH nf] netfilter: flowtable: do not clear the offload bit
- twice
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=rPxgZSle
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793699606; bh=exuUVrZEzA5+Clh7tzMZyi/JBKCYe76w9r6sEUWqx6M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rPxgZSle8nDOKptywmWbOo0z8RQ3mCDoGToo1AGOo0lRHC5vhQFlXeejPPN6cN9MA
+	 9NBZ3MZiVaq2/5FHBGuNpvM9Bv6aJyR3hTS8FjXIF6W68J5AsXSxSbrkWn8MsYwcYo
+	 UwcXoG4ZNNWAN04+No32w2/wu9ScEzdkl4iaZvPY=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+	id D563F852; Tue, 03 Nov 2026 17:53:22 +0800
+X-QQ-mid: xmsmtpt1793699602td0red6kd
+Message-ID: <tencent_173B7731E90B9624F9F82613DC3031B70907@qq.com>
+X-QQ-XMAILINFO: M07Ulnfy3VHKaC+H0tf4KCWjgzzzUw8hDxsxEI2gxvotU7+hRHwycOPVkOx2oT
+	 U5ys/Cz/e69cQee+tNseErHvnO81TO8tQyWRyu8KlKcmvXvfNlFe6OXXf9RrysGhnBZlCpDQqWtL
+	 RQijzEpKYUc6uPDXuN5T3tMpQNlmdKQZHXu4BUkP7SUWl0umrUwbRkb5LgswdDDn6H4RUa0clWyu
+	 2TPJm+v5ugYa4Pxb5sSpBylPnxqVL2tkKmve0+6Lx5QKnjtZIQU4zuh6lJf3zcysxVxoOt9w///x
+	 BVdf4KsULJ138dM6RaT8ZRKVkYWGDQMvCDBlUBks1AKsR/ah03oGSdnynxyHkyoTrmf45Dx/eLVd
+	 iq2oXUL4j6hgpwKEi/fCBxN6kpF1ISCjOg4G/5313dE7b9Sggcfs7hD8wgZYFcHNNPTQdHzXu10K
+	 /bRNGj9hLgcY8SDfCfWutZL0Bt03VkQJT4h51KzozPZd5yRsSRBFqdmDQ3NK3hVjOyKzSCoDNsiV
+	 8opEGCHuRGMt1OIZEeV7kUQShMKg8Uq0KxZ+h/hesM3pJC4OtjVMmao6Ud+IAmNN5H4vyEtru8Zb
+	 yIti6IKLmLSfjxAYDCllF8eFycihYFCSm4eMK1XnrFzqgDrwfvarMtXIDCeXSlCRfKT9C9oyMGPK
+	 WsIr6R2svBOxoMRmT0A/DONZxSbJnVlcPnh7chV8Jd8gh7RBs9linMoJgU8ZPSlRHgK2tP5tcbcT
+	 COcvXmo6riN7Bru2P1ipuY27DkJ+eKfxPR1PWx3eVg2izsrimhMcPz/GXTfPlvSo6EwtP/x6F6vN
+	 U4Ls19KlLAdCIX/cRL154u7meTEN7FRUZKUoVEp8RfHSYkK/LeQJY3CF2bEfMikRydXKDbIqPI/h
+	 NX6jsTL/dUN/2gNrkyQWc75aaErMY5FgF+Pbp23tOCl9n5L2pTSllLOed0yVTxIUphatUjStIlc7
+	 f5etLVsfTixJiJ/leLP1MAf2lyhZRFKVAIVtBe6en+nnMQv4ocDJlJuX9OQqRmzFPboor/eAXDBj
+	 +d7GosoY2Jbqhc62nwmoqjabP7wo7e6z0DTNUXqIonpAbXQEVGKbaxoAtTi/z7XO1YaEy8+rLteA
+	 wZ+ucu
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Shuai Liu <847807867@qq.com>
+To: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+Cc: Shuai Liu <847807867@qq.com>,
+	Igor Korotin <igor.korotin@linux.dev>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Mark Brown <broonie@kernel.org>,
+	Brandon StJohn <branstj@gmail.com>,
+	linux-iio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v6 0/4] iio: position: add Rust driver for ams AS5600
+Date: Tue,  3 Nov 2026 17:53:22 +0800
+X-OQ-MSGID: <20261103095322.297395-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com>
+References: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,97 +94,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-flowtable-offload-bit-v1-1-20f5952c00a1@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqDMBAAvyJ77kJWUYpfKT0k7q5dkEQSaQuSv
- xu8zRxmTiiSTQrM3QlZvlYsxSb06GD5+LgKGjeH3vUTkRtQt/Q7fNgEkzb2jMEOVBqDMvHwFIb
- W7lnU/vf3BVHhXesFPBZVSmsAAAA=
-X-Change-ID: 20261103-flowtable-offload-bit-f15bfd1d38ed
-To: Pablo Neira Ayuso <pablo@netfilter.org>, 
- Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Sven Auhagen <sven.auhagen@voleatech.de>, 
- Oz Shlomo <ozsh@nvidia.com>
-Cc: netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Jo=C3=A3o_Silva?= <jgc3silva@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2100;
- i=jgc3silva@gmail.com; h=from:subject:message-id;
- bh=Dqh+hiNjtTLDhc1tQ1I4cJIXp18+vbRya6xJ6r5BvN4=;
- b=owEBbQKS/ZANAwAKAfy6ZkDxTpFsAcsmYgBq6a8B/LyRbqX7acF1fsF5gvc8q49GwOjhfgNpz
- fi9/9p/9NmJAjMEAAEKAB0WIQROyCimFhnPgEUkNBX8umZA8U6RbAUCaumvAQAKCRD8umZA8U6R
- bDQjEADIUBI6EVVK5bTcxUq4pZ4jJqoTbvOqdomL/NYoYddHaBmpG+kdqfsyoGnhYDrpGVfgble
- ifEIjjOzp3LfrpgOJR4ItmuUuku6LAVExR1kAHIkJMM4+4brdDI7Qdoij9RdUOUoJaeaU4qIhDe
- U4bx4aUtt3J+vI0yLqpTJUkR5lIbKLYZQMS0V9r08kUFkrb2W3Y1vLpTjcXc8M4XGv2Rzc/s9J2
- 0ZX30hPIKk3NJK0JZc+5G9LUNfJjoDJYftkkx9s1PjUN/HO1gfDvOgDf/8Rmc3WJfY+YUaxJTbB
- erJ2IbEiWtHRbl5vjFA4hVa/KHcvQcijOM0GsaPOJhI6TTso0X6FOpwjCUFhmVZNkCKYqCgUoRw
- QUjgkb+OhdeTQeS2vPxGJxCSXSTszJ6UBFwG6cjSlbSpCHczYldr4ByclcV6H/5/0K/EBDAJtXV
- RKDkb7PGmgC33igdk4BeQxSNdLghRL41MlhsadJ/Lo8uOKHS77lqIWQOwcZlkTKvqOcOwxg8k4U
- 5U6x2JziJVH/4MMpDOtZaxiFj7IX7TNg3/X7gSUmvAk4KBA3H5AXd1RzfVaZ9sSfrpc+cSZznzW
- yQYvqTB3Q0pHUn+/JyBq80uBFqaCqUEuJppyL4THxLx8N6krbQnpDtpHotWw3Gk2H5STK+t+5JB
- vpIjiuTmuiawWwg==
-X-Developer-Key: i=jgc3silva@gmail.com; a=openpgp;
- fpr=4EC828A61619CF8045243415FCBA6640F14E916C
-X-Endpoint-Received: by B4 Relay for jgc3silva@gmail.com/default with
- auth_id=1392
-X-Original-From: =?utf-8?q?Jo=C3=A3o_Silva?= <jgc3silva@gmail.com>
-Reply-To: jgc3silva@gmail.com
 Content-Transfer-Encoding: 8bit
 
-From: João Silva <jgc3silva@gmail.com>
+Hi Coirul,
 
-An expired hardware flow remains in the flowtable until its asynchronous
-hardware deletion completes. Teardown clears IPS_OFFLOAD_BIT, so a packet
-can create a replacement flow referencing the same conntrack entry while
-the old flow is still waiting for deletion.
+Thanks for the series. I read through v6, including Igor's registration
+rework proposal in this thread. The comments below do not overlap with
+that rework and should carry over to v7 unchanged, as far as I can tell.
 
-The next GC pass calls flow_offload_teardown() on the expired old flow
-again, clearing the replacement's offload bit. More packets can then
-create additional flows for the same conntrack entry. A pending hardware
-work item can also delay deletion and expose the same repeated teardown.
+1. clippy warnings
 
-Commit d2d31ea8cd80 ("netfilter: conntrack: fix erronous removal of
-offload bit") closed this window for software flows by unlinking them in
-the same GC pass and made the conntrack state fixup one-shot, but
-hardware flows stay linked until NF_FLOW_HW_DEAD is set.
+`make LLVM=1 CLIPPY=1` reports four warnings on this series, which the
+Rust CI gates on. Three are `clippy::ptr_as_ptr` in the IIO abstraction
+and one is `clippy::useless_conversion` in the driver:
 
-Make clearing IPS_OFFLOAD_BIT part of the existing one-time teardown
-transition, alongside the conntrack state fixup. Subsequent teardown calls
-must not alter the offload state now owned by a replacement flow.
+    --- a/rust/kernel/iio.rs
+    +++ b/rust/kernel/iio.rs
+    @@ -202,1 +202,1 @@
+    -    let priv_ptr = unsafe { (*indio_dev).priv_ as *mut T };
+    +    let priv_ptr = unsafe { (*indio_dev).priv_.cast::<T>() };
 
-Fixes: e5eaac2beb54 ("netfilter: flowtable: fix TCP flow teardown")
-Signed-off-by: João Silva <jgc3silva@gmail.com>
----
- net/netfilter/nf_flow_table_core.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+    (the same pattern at lines 334 and 397; line 334 is already inside
+    an unsafe block and just needs `.cast::<T>()`)
 
-diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
-index 0d72dc8ae47a..709b55b74cc7 100644
---- a/net/netfilter/nf_flow_table_core.c
-+++ b/net/netfilter/nf_flow_table_core.c
-@@ -398,9 +398,11 @@ static void flow_offload_del(struct nf_flowtable *flow_table,
- 
- void flow_offload_teardown(struct flow_offload *flow)
- {
-+	if (test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
-+		return;
-+
- 	clear_bit(IPS_OFFLOAD_BIT, &flow->ct->status);
--	if (!test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
--		flow_offload_fixup_ct(flow);
-+	flow_offload_fixup_ct(flow);
- }
- EXPORT_SYMBOL_GPL(flow_offload_teardown);
- 
+    --- a/drivers/iio/position/as5600.rs
+    +++ b/drivers/iio/position/as5600.rs
+    @@ -133,1 +133,1 @@
+    -                Ok(IioVal::Int(angle as i32))
+    +                Ok(IioVal::Int(i32::from(angle)))
 
----
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-change-id: 20261103-flowtable-offload-bit-f15bfd1d38ed
+2. ignored doctest in the SMBus word helper
 
-Best regards,
--- 
-João Silva <jgc3silva@gmail.com>
+The example on `smbus_read_word_swapped()` (rust/kernel/i2c.rs:841) is
+marked "ignore" and references driver-specific facts (the AS5600).
+Ignored examples are not compiled or run by rusttest, so the helper
+currently ships with no tested usage. A generic, compilable example
+works here:
 
+    --- a/rust/kernel/i2c.rs
+    +++ b/rust/kernel/i2c.rs
+    @@ -841,8 +841,15 @@
+     /// ```
+    -/// // AS5600 stores the 12-bit raw angle at command byte 0x0C with its
+    -/// // high byte first, so the SMBus (low byte first) word result must
+    -/// // be swapped.
+    -/// let raw = client.smbus_read_word_swapped(0x0C)?;
+    -/// # Ok::<(), Error>(())
+    +/// use kernel::{i2c::I2cClient, prelude::*};
+    +///
+    +/// fn read_hi_first_register(client: &I2cClient<kernel::device::Bound>) -> Result<u16> {
+    +///     // A device whose 16-bit register selected by command byte 0x0C
+    +///     // transmits the high byte first needs the SMBus (low byte first)
+    +///     // word swapped.
+    +///     client.smbus_read_word_swapped(0x0C)
+    +/// }
+     /// ```
+
+3. repeated unsafe blocks in the SMBus access helpers
+
+Patch 2 implements the `FallibleIoCapable` impls for `u8`/`u16` with
+five near-identical unsafe blocks wrapping `bindings::i2c_smbus_*`
+calls plus error conversion. Extracting four small safe helpers would
+put the safety argument in one place and turn each call site into a
+one-liner:
+
+    fn smbus_read_byte(client: &I2cClient<device::Bound>, reg: u8)
+        -> Result<u8>;
+    fn smbus_write_byte(client: &I2cClient<device::Bound>, reg: u8, value: u8)
+        -> Result;
+    fn smbus_read_word_data(client: &I2cClient<device::Bound>, reg: u8)
+        -> Result<u16>;
+    fn smbus_write_word_data(client: &I2cClient<device::Bound>, reg: u8, value: u16)
+        -> Result;
+
+For example, `io_try_write` for `u8` then reduces to
+`smbus_write_byte(client, reg, value)`. Happy to send the full diff if
+that is useful as a starting point.
+
+With 1 and 2 applied (and 3 sketched on top), `make LLVM=1 CLIPPY=1
+drivers/iio/position/as5600.o` builds with no warnings and the rusttest
+doctests pass.
+
+Thanks,
+Shuai Liu
 
