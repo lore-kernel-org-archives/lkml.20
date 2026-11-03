@@ -1,112 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705100;
-	b=ansVFZI4vn6LcJdF14b1IN0Gxrnz2IQTMecI+pggoEkxSWFTMKg/G0IL8egpfAD7H4Es
-	 IQzQw8t0M5/SgqkJIKkar7qEp8Z9Q4RpVVz1928bCYSYl4FoQkNr5joU8XSsx0lkYVw1q
-	 ExHINOVkO68MsUSC/XGgQA6aiRVDAeMGibzuNb4uvNU9yJyJ6irC8Nre0fVI7It01/7vq
-	 /XFx5Z2bTRWNj9J2tOr2D4exiXp3+731nqt9JWyKhMetm59SjmmDp3vldSOUTzEWY6YlY
-	 9OgmRZDffI4/xB8UPUk/i25xP0xa97fWp/1Hv+lEhGGTifOWFEVhThjHwohH4oucRSg==
+	t=1793705109;
+	b=RegqqzgXZ185NFQJfjKRXm0X4flf857ZIeK4gx7O65BRpJBTTcLjkqGdI+/+dWijnFqb
+	 9QqxkJsv/DftbeJmeQo/QCboMhkwmzounCQF0Lfrq+dwhpFDX2LAuVRU5LT1nBseoL0VF
+	 p5VBbVqtoGtGEzrGapZpOF1+DC1skxj7R++xNfE6xWvo4R/FxWIB4eTA/rENW3Gszdzdx
+	 DU8YogMlrPO5ueV4h7fO9DKKEfJBgVN3F2TWdZ6JGSI/hmLKsCnlcD9rH+OYAv2b4gNLy
+	 AzDg45C9AOOAjNIlVL0MU8GSXaOxf338I7DnXO8GHJxn2E/D49l1i0ecwTDRTrhN8Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705100;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=iGMyTcAe2JPy7lK5xDkMwrISIdWLdzqB9J4ABUaidFI=;
-	b=a9mdya+Ucfel1Vscb2s3s8W7EQIK0YhCY4UlAHT8H27vAioY58hWOtnanDuBZgM/YRAn
-	 IVg798TAt7R4hwjGOBeldaKWS3OxLPIaOY0/SkCOMDw9qBpazhtLV7jYE8WW1u8g9Ur5q
-	 +R/kYH9ic6wNbkuZFAx1xwNUPNNt+cNB0aqEk11HQ08QAtYGppnCYgr98iGtJNJQ9cALv
-	 ll8txjqfDCyO0g/ipuy7O+60vjRmZguV5Ap1PDx71el1peIvgf6Pvuol2aZ7APpeUSUlq
-	 ostEi9Rr4WhMmuNBg0bDmAL9AKmOgIRTQl5Ui/LHJt7DwQq0oDH/x0ZPz2QoElwY15w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705109;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:
+	 References:In-Reply-To;
+	bh=8bSO1iAMGBoupdoV8PvbgD0X+fmxLosH8U23GEaK4zU=;
+	b=a0tGqFi2XLZB0aMZWs0PqNJddlcMxe6ceS+T2dGzaHi2LpdfENLe8AKtECz9Y9UYbInd
+	 dwOWRrS+jCXhvM4EHKKC2IBkQapCE+wP3VuGrzB4YLjWdrgCW5pR2o/jVc8/+KbCh/2eV
+	 m60AQBxFDA5w6VLbsJfol4DtpbgwRWC4P6W5U7IOrEw6rgACY2e4Sv0JZr2kDhSkZvUT4
+	 Itl3vcfldWz8YoIo686SXXTL3N1mJwq7NhrorxVFa2D/vbImaKYkol/K8wXAKsWv2jIA7
+	 XT0k1znd6PgFtYTTOCISYiLJoDpHZdibBZV8e2a7jaZITXUqgs8jR8cXMRQQTDkRhFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QwUTQ+xG;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UuJBFhQC;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R8q97n1k;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002B5606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:24:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 002B5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543D6606A81A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:25:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 543D6606A81A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QwUTQ+xG;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UuJBFhQC
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3AAMfM2554811
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 11:24:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iGMyTcAe2JPy7lK5xDkMwrISIdWLdzqB9J4ABUaidFI=; b=QwUTQ+xG6Mwg3VW6
-	5DKhYqOvR4Rc+lwaP7zzeye13XKtbpzK2TyJJc5x5f4hBi6CFwMSl7bWR1S3UrDj
-	aAsjvyiGSLw8qw4DEsByU7eUZT55uyDiN120EsZ1+gdFc8yzQSpDPFu1O91SkwKz
-	ILEHpdKjsyCYd8ENqmkYxA0SzvqIpTHrgHR3ZlNyh3UqvDe69A/P02E2x8lYcTQu
-	izCxscBLt9cFUzhZCqTNG499POX0bEBoqYipqz9FqNpg/i0WkoijsijjizUZRANC
-	vck7FSDSPVGplNzZnhHdroETs39nFOykljvOrBCnKNSZzE1wBuSAEeTy7GaKCs5/
-	2l0OsA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq2acjvy7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:24:58 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91c8f9f6b49so9769886d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:24:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R8q97n1k
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49d05d51553so26148445e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:25:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793705098; x=1794309898; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iGMyTcAe2JPy7lK5xDkMwrISIdWLdzqB9J4ABUaidFI=;
-        b=UuJBFhQCpIjXXz/StmHCVqqnT6KEsVdpYw3x6EiLNt5WiPOqP03aPy2V8qbfvpJQAx
-         C4sdj14jpy0GxlTmfgVAJbEDK7Ly/aEOhObTQdvsmdVDFoJN10qzFJPdz51GF9d3PLEt
-         EkbzXk7YVWl519QFNdRIE0N8HsvBM0DfIUuQTCexqGMPzDtF+TooEB2+bsZT1M+gPbtU
-         7RX471BnyBG+D1dxGn5KmK+oY+ny2onUoufRwTpxpqRM7hR5QU4uHiXnKU5nmseyKRmE
-         LQrEvRFa/6UB7ii8KwnGBFrsKICu/LU+nH79eD5PzKg7rdY3NfQFOKJv69eqeh2UNJwm
-         M3fQ==
+        d=gmail.com; s=20260707; t=1793705107; x=1794309907; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8bSO1iAMGBoupdoV8PvbgD0X+fmxLosH8U23GEaK4zU=;
+        b=R8q97n1kh1aV4PKBIUuf1oPYOGuko+1kq7bhp8ZO63wFwGah4y4zR9W1eUkNKRcwX7
+         2+gCOi3WE5qhZf/WgPYD/UA7TSuhCKOJzGlb9wmJ3eUPjARIrirex3++nr90++4tcn1u
+         7b3E4H/hQU5WQDi95tBd+ySV03TRsQJ3NFjbjTyaQNMaU212ghJTOnQyCgLOZJ0dblqa
+         4uMcK1pTGUxwf4od+bmoKXjzkvL1cKYZSlpGCRkovdi1bsK4VL2oB0LvNYSryDraDEYB
+         jKDiCEJTFKwsoMJLPi150yIktWuoe0jLClfAFmEbzvXY/BsT66K6ATrLheptA/1Uupd8
+         J2Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793705098; x=1794309898;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iGMyTcAe2JPy7lK5xDkMwrISIdWLdzqB9J4ABUaidFI=;
-        b=pGcAn7pYG48tbfDaDpIAzArvX67+ZkukBgpErDtxHWWPGI6k7Uy6V/ULzz25Y5iS2S
-         R4XvSPtzYmBFKHYNMyGRMBUXyJOBkJEQ0MdHvb6LAYSmXvxK2zu/nEGclSIltNg0IOPd
-         zPlZ6RtK74cv4Bj4sGikrfGU6aOJNW6+us7kyQaByKCLV3yZyzfGJFbtRbj8pZZbmZe/
-         r257BBkvosgp8Mjbe+vKD0du73vQSAv8De/OSxd6Kl6iV0GJ7b5ec7iLgzXuJMg0n4cH
-         QiOranUdTiIFC0S3h+X4taxrwfBokptO05QIWPhVgDwuV3VZWycmPtL6Ac8WIJWTOYVN
-         y+6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxEUEc/Sxw/q6PpgnZi+y6tSXMj4jS2KAypPLexbLGgDLSsfPoAcOQz+xdgQEfX/ZrMIbl8KNsWpJ4N0ck=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Q8ZCj/3n81m/bFmREMDkXVsrkAFbccVMwaY2efODCHj14NJe7
-	1kmD3z6q5yCgANchViRg0bFvNqBPUYq0p94YFArmeBxS1krQUqPHslEXAKPyTJuasZ6kifASv3R
-	oMD8gU7M+9sstrybvxyYWhHBtCbAvoL6yeeZhfhzHQKehKwV11yXFPv+GfkpvSe60nHUq3u/z0r
-	U=
-X-Gm-Gg: AYBFou0u6s1/8Hq7ce1SPUzhhsqzzkuhF+c3YkbTl189A4yqMBn2Pw4O2XBP9KshG/d
-	3HGTICB1b0+u1okbkQHTpzLSKIi+IK0/MXCiqmobtfhBe2ipVGA5mGQ4Pn8fKjWIi+fVfcmsiNq
-	ET5ZxnpXEeS6DNUehKoXtXaD8M4RFJTdZBBTv4fd8z4RCxtEuf7674f6WfG5ZXDax8ry1VfZ5ow
-	o22tGl96bsNXrsO0IyKh8JtA5T9D5zv4ibx2VfDuCuhrSEEKc6ZJMjvQ5cOvINCfDGfVfq5unKL
-	P2McpefDYR2TY6AMo1k+g2TGFT2NTevRMSkmP1UkgZQcGGKA3a2MNSIqOvgmOH/DF34lpDr96bX
-	P2pgsH3EIK8q7WxaZLPizF7dd2c7uy/imXKBzNm7QVlnmCaIg36ol3EWJs/issCXbjEk6lw==
-X-Received: by 2002:a05:620a:3c87:b0:93c:c96c:a5b4 with SMTP id af79cd13be357-94421697192mr1942471985a.4.1793705098412;
-        Tue, 03 Nov 2026 03:24:58 -0800 (PST)
-X-Received: by 2002:a05:620a:3c87:b0:93c:c96c:a5b4 with SMTP id af79cd13be357-94421697192mr1942469185a.4.1793705097997;
-        Tue, 03 Nov 2026 03:24:57 -0800 (PST)
-Received: from [192.168.226.81] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cebefde4dsm75525666b.39.2026.11.03.03.24.55
+        d=1e100.net; s=20260707; t=1793705107; x=1794309907;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8bSO1iAMGBoupdoV8PvbgD0X+fmxLosH8U23GEaK4zU=;
+        b=1FbgCYFQzThplUOfgz3M7PqZIUay6O7vHVfcGoRm5AAOEskjS9tRLKlh+rWnPfG4j0
+         svnY5syzERhX6N+3gUf65gBrBFhXYt+s2kn/Ab44dqCbgcj1LINHs9XaGJv0IS7DB25o
+         /kpt+F5YL81oiUglEOdU0xFkUZhDbKUYgZuGFGCzHu3jdapd/JNtU84vArMefuGSPkU+
+         gocQCMpji+Cbq2nkkLINfL/yqgCOBiZMO4rjnEWp0z3sSU285CTRozj+uOP/j+gjHkMY
+         +a3u4XorUFrMc4lThvtbWzWgq3ljGbuHuM9MlIt2b4o3YzS/mx4qY1oTiKLA4uaTm3Ig
+         RwlA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXGEp0imWweSOPFwAPOUCMEbelrS6M7djZultyrhfnlFTCL7C82QGRnb2yvhREU2TdY+uKXCkIM0US7Bc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PgMs1UCAm0Lxy8bHREUohiTQzagEQh8f5C7E/zHGLL3lNqV05
+	TduTB4Jz/7+Mr65ElCOVeAUJshrbO1nSFZSDgXFf3iJhWDkVaWPIAiNp
+X-Gm-Gg: AYBFou2OzSAVa22hW0Oq+gSG+hS8HCS4kwJGiNe9x/WnIExBUJjFuz11MRZQmAnyl67
+	Oj74PCbiAp4qsTljRAb7qwYoC/ql6k7O6B0FIO2HU4QSg08P7WfSGWSzzOhYdDPtD66qIAjX5lB
+	/XP2OW/3Nu/iuY5K9IETBKkZ/M+xwkZZ78VJgzjuw43/6iVmvKYxiRUFSoqKg6a+NxA4iX0WykP
+	P3NFvyCtlGIQ3K+6xEeQV2hYbkIai0NQlkEF66Pt/S+M6Ygu2XgKVawJyYW0iNofyi18KkwTkQi
+	bZWa5l1Dw7MUQ9bAmz2Ja96G5swV4pJ9LVPy3RQnjDQLgV3NwFK7YyBxkjKe+n5tbkAc6dFGgWr
+	69LoTtVbQaYv9mWYymu8G1MraDugcVbIAwe56fpJRbvZY8v0epbVtTyn4xGD3YHl3m7kndpjZhC
+	MmzDMEO9vDEVp9nELKHDAsyviJ3VfuHhKL5B6dyE6Vb8230KGLhW4BtrDY8Mohk3ijoAiPKXd95
+	geeQ+hQ9JObC5mJmCsXjQ8IzxlbH8fgVPBd7VAk5PeUBd+1qqM7RWByO0UBWsojxjWtPx9Yb9cD
+	7UE+7uIaSILZezSbvukyLcZSUbX4xFlFEAzkEezOCm9/HHiVzFJtZQau6PRkx3dAHk4M2A==
+X-Received: by 2002:a05:600c:871a:b0:4a7:d9b1:b684 with SMTP id 5b1f17b1804b1-4ac14ec7947mr295648015e9.2.1793705106618;
+        Tue, 03 Nov 2026 03:25:06 -0800 (PST)
+Received: from localhost ([130.192.98.149])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a96fc87fsm47137555e9.12.2026.11.03.03.25.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 03:24:56 -0800 (PST)
-Message-ID: <7ace2198-61c0-43f9-806b-e97b32b36c18@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 12:24:54 +0100
+        Tue, 03 Nov 2026 03:25:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,66 +86,198 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] drm/msm: Add cleanup help for disabling IFPC
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-        Sean Paul
- <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
- <20261102190010.720443-3-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261102190010.720443-3-robin.clark@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=39af0fb162530eef4d1786772010c721ce09e1ab8025fd2ff3bbc4e23655;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Tue, 03 Nov 2026 12:24:59 +0100
+Message-Id: <DMLJE2Z57AD9.1W22LSE7V9HH2@gmail.com>
+Cc: "David Sterba" <dsterba@suse.com>, "Alexander Viro"
+ <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
+ "Namjae Jeon" <linkinjeon@kernel.org>, "Sungjong Seo"
+ <sj1557.seo@samsung.com>, "Konstantin Komarov"
+ <almaz.alexandrovich@paragon-software.com>, "Chris Mason"
+ <mason@kernel.org>, "Jan Kara" <jack@suse.cz>, "Yuezhang Mo"
+ <yuezhang.mo@sony.com>, "Chuck Lever" <cel@kernel.org>, "Darrick J . Wong"
+ <djwong@kernel.org>, "Sean Smith" <defendthedisabled@gmail.com>, "Andrey
+ Albershteyn" <aalbersh@kernel.org>, "Pedro Falcato" <pfalcato@suse.de>,
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+ <linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <exfat@lists.linux.dev>,
+ <ntfs3@lists.linux.dev>, <linux-api@vger.kernel.org>
+Subject: Re: [RFC PATCH v3 0/5] add provenance time (ptime)
+From: "koraynilay" <koray.fra@gmail.com>
+To: "Amir Goldstein" <amir73il@gmail.com>, "koraynilay"
+ <koray.fra@gmail.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261101015551.786044-1-koray.fra@gmail.com>
+ <CAOQ4uxjkG=1j1z==Mv4wzkF042rXstodokKnBfMFBf2e-Eztmw@mail.gmail.com>
+In-Reply-To: <CAOQ4uxjkG=1j1z==Mv4wzkF042rXstodokKnBfMFBf2e-Eztmw@mail.gmail.com>
+
+--39af0fb162530eef4d1786772010c721ce09e1ab8025fd2ff3bbc4e23655
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=T4gZ3PKQ c=1 sm=1 tr=0 ts=6ae9c48a cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=cWb5AwZ_sP_0w0E8whcA:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA0NSBTYWx0ZWRfX9Hc/aOBvlSIN
- uZGCu1vn6DZ8ZpcJFy2aoB3gC5hNa8bir8ApCw3mu8sBiI/iPSC5HknVRps0XmTwTKa0PLtki0D
- ZT5MvFOQQCjyE32UNr7uxQP7AfJDjdcWgnVJylODhfOWAeE721xSDGlGV82PXGA6RDz9HK9XoGB
- pUcPuXFPPHwTsF38ZiT4BLlF7XPFkGFQRUaHFtYcOkV4MHTSKb/P5TLpYXj68Mazw1/bNQ5tJRo
- 2dX4S0tf1I6dVZrNg6nx6tdyd7xeqYlBgqQIjzlqHy+RHz2lkOphtqFnhwURkJDNMhu8VR0G/6H
- LKHO+FR68rhT7YwaV2hiMzd3vJINvwzrwLJfjjwp04MQtfFA0e+qtEEL1Qy0ZBny/Xr+/KNZIjg
- ITT9WoT1NZ8rmym7d0eXESBxUEcUxk+cMIF9oj2Y3cHEVXTIKAf+4vPv5o66XmY8ZYV9bFFsXC5
- EvviXBtvzhm8nwUcgLQ==
-X-Proofpoint-GUID: xWNGbF-eixv7JnAq1D1oddMysCRxp5hJ
-X-Proofpoint-ORIG-GUID: xWNGbF-eixv7JnAq1D1oddMysCRxp5hJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA0NSBTYWx0ZWRfX8sql9uEVEgNs
- UHzvQ+Q9NgQvx+KQEUELAzN7N7S0JBmmTcNMWeQNTCpxgsXsvVKKQk2VJqBC+Ex0LvrW0HMJCfL
- VIb4msJrLcDe/n0yYUFD1ecPtSSQbYI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_02,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 spamscore=0 adultscore=0 malwarescore=0
- clxscore=1015 phishscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030045
 
-On 11/2/26 8:00 PM, Rob Clark wrote:
-> Simplify error path cleanup for IFPC-disable critical sections.
-> 
-> Note that this moves where we re-enable IFPC until after the
-> wake_up_all(), but that is harmless.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+On Mon Nov 2, 2026 at 3:54 PM CET, Amir Goldstein wrote:
+> On Sun, Nov 1, 2026 at 2:57=E2=80=AFAM koraynilay <koray.fra@gmail.com> w=
+rote:
+>>
+>> This is an initial implementation of a new timestamp to indicate the
+>> time when a file/directory was initially created.
+>>
+>> This patch series takes inspiration from the one by Sean Smith
+>> <defendthedisabled@gmail.com> [1], but using
+>> file_setattr()/file_getattr() as suggested by Darrick J. Wong
+>> <djwong@kernel.org> in [2].
+>>
+>> The semantics of this new timestamp should be at least these:
+>> - it should be the same as btime on a newly created file
+>> - it's user-settable, so it can be preserved for backups, filesystem
+>>   conversions, archives and any similar operation
+>> - it should be preserved every time mtime gets preserved
+>>
+>> and the correspondence with the other timestamps is as follows:
+>>
+>> ctime <-> btime
+>> mtime <-> ptime
+>>
+>> Examples:
+>> 1) a .zsh_history file created in 2019, then after a few years the user
+>>    decides to switch to another filesystem, copying the .zsh_history to
+>>    the new home, in that case btime would have the timestamp of the copy
+>>    and ptime would have the 2019 timestamp (just like mtime would have
+>>    been preserved)
+>> 2) a symlink created in 2020 from the home directory to a /path going
+>>    through the same process as the .zsh_history, in this case it would
+>>    also make sense to sync the ptime to the 2020 timestamp instead of
+>>    keeping only the btime (so the inode creation time).
+>>
+>> The proof-of-concept code (for testing) for stat(1) and cp(1) is
+>> available at https://github.com/koraynilay/coreutils (master branch)
+>> (Note: these coreutils code changes are a prototype and won't be
+>> submitted upstream as-is, but they work as expected in simple stat and
+>> cp -a/--preserve=3Dptime tests)
+>>
+>> Lastly, the name "provenance" and "ptime" are not final, I personally
+>> don't have a strong opinion on any name, but while testing with stat(1)
+>> I noticed that "Provenance" is definitely too long for the normal
+>> output, so another option which would fit well is "Origin time",
+>> abbreviated as "ntime" (OrigiN time) and not as "otime", as that would
+>> conflict with btrfs' internal naming and create confusion.
+>
+> FWIW, I agree that given the existing uses of btime and crtime in the
+> kernel and various XXXprogs, using 'ptime' for kernel code is probably
+> the lesser evil.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+What do you think about the origiN time (ntime) (Origin: in stat)?
+It would also coincidentally be alphabetically (ntime <-> mtime, n -> m)
+the same as btime <-> ctime (b -> c) ahah.
 
-Konrad
+> The question of how to display this in stat and tool is a different quest=
+ion
+> that can be left to the userspace developers.
+>
+> The UAPI headers uses Birth time language and stat displays:
+>
+> Access: 2026-11-02 15:22:27.067329367 +0100
+> Modify: 2026-11-02 15:22:27.067329367 +0100
+> Change: 2026-11-02 15:22:27.067329367 +0100
+>  Birth: 2026-11-02 15:22:27.067329367 +0100
+>
+> If the UAPI headers will use consistent language:
+>
+> +       /* provenance (settable creation) time */
+>
+> +       __s64 fa_ptime_sec;     /* provenance (settable creation) time
+> (seconds) */
+>
+> I  think that the man pages could be unambiguous:
+>
+> stat(1)
+>        %w     time of file birth (immutable), human-readable; - if unknow=
+n
+>        %W    time of file birth (immutable), seconds since Epoch; 0 if un=
+known
+>        %p     time of file creation (mutable), human-readable; - if unkno=
+wn
+>        %P     time of file creation (mutable), seconds since Epoch; 0 if =
+unknown
+>
+> statx(2)
+>        stx_btime
+>               The file's (immutable) creation timestamp.
+>        stx_ptime
+>               The file's (mutable) creation timestamp.
+>
+> And userspace tools could be displaying ptime as:
+>
+> Access: 2026-11-02 15:22:27.067329367 +0100
+> Modify: 2026-11-02 15:22:27.067329367 +0100
+> Change: 2026-11-02 15:22:27.067329367 +0100
+> Create: 2026-11-02 15:22:27.067329367 +0100
+>  Birth: 2026-11-02 15:22:27.067329367 +0100
+>
+> If they want to, without that being more confusing than Provenance.
+
+That's fair, I don't like too much the fact that this would have a
+different name vs the variable name (as all other timestamps do), but it
+would be fine IMO.
+
+>>
+>> v2 changes:
+>> - fix permission bypass leading to ptime update on immutable and
+>>   append-only files (found by sashiko[3])
+>> - normalize ptime timestamp as done in fs/attr.c:notify_change() (found
+>>   by sashiko[3])
+>> - fix wording in vfs patch to be like the cover-letter
+>>
+>> v3 changes:
+>> - vfs: reject setting ptime with -EOPNOTSUPP on filesystems that do not
+>>   support it instead of silently ignoring it (found by sashiko[4])
+>
+> Please see my review on patch 1/5 on exporting the supported mask
+> to userspace.
+>
+>> - vfs: fix not being able to clear immutable and append-only on files
+>>   with ptime, and allow updating immutable/append-only atomically along
+>>   with ptime (found by sashiko[4])
+>> - btrfs: validate on-disk ptime nanoseconds and reset to otime if
+>>   invalid (found by sashiko[4])
+>> - btrfs: avoid re-assigning ptime on unrelated chattr calls (found by
+>>   sashiko[4])
+>> - add ntfs3 and exfat support as suggested by Amir Goldstein[5], but no
+>>   vfat, smb, or nfs4 yet as they are a bit more complex
+>
+> Please explain what makes them more complex.
+> My concern is that I would like to see that the proposed API fits the exi=
+sting
+> fs and we won't need to change the API again later to support them.
+
+By "more complex" I mean just that when grepping the code I noticed ntfs
+and exfat were very straightforward to implement, while vfat had the
+msdos/non-msdos handling and smb had a completely different structure,
+so I thought it would be fine to have ntfs/exfat as proof-of-concepts at
+first.
+
+For v4 I can check and see how easy/difficult to implement ptime in smb
+and nfs (and vfat) is if you prefer, or keep that for v5 and v4 for the
+mask change.
+
+Thanks,
+koraynilay
+
+> Thanks,
+> Amir.
+
+--39af0fb162530eef4d1786772010c721ce09e1ab8025fd2ff3bbc4e23655
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRJ2XvJtXGwULYEerQ0bnTtJTDoOAUCaunEiwAKCRA0bnTtJTDo
+OA2+AP9tE+FSr3eeWAWRuBVnKIDJtzRzw2cV9tUkiSUVhqG0LgD/U+rTyz1e7vUB
+noQFwO6TgTl23M9IOu9TvoLKXA8jug0=
+=e8Hn
+-----END PGP SIGNATURE-----
+
+--39af0fb162530eef4d1786772010c721ce09e1ab8025fd2ff3bbc4e23655--
