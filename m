@@ -1,109 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.10
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793674904;
-	b=gcF4ONvzQ+h1aRHhslMZZAm0raPjSzCzNpHHlmzQQy9cMxPGCdIZ/t6EDbzYfHTrANMW
-	 cqj/5ojMpeXt1q0mQyYcMTq5gu/WBWZ6uBNR/bWmaYYygGN6gSpGtzKVthpHycKt/0yYt
-	 /IzXORd6yEEZixBtctN03iv8hleJ2VYIAZUjLQoCxwgOhrKReSvhwxzhcFmh8yLSajJgD
-	 OqWT5DkhbtvaA7ofEcPBSWdCDkTMtKYquTwQAmDD6sByLzTFt11uJdKeaENXnq8Xv/aWc
-	 rTkt+sy7TpQLC3LAWtr/bJ1eHUYCsZUjMq9fmj17jFOdstGIu6Yd2bndERW14tza8yQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674904;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IkElwCgd4giFwvWBgSR4/6i5DRT/RrEQQLucrCdY+pM=;
-	b=AYdDrJ9FTdTOGSo7nK4rlLTtOoJGt5T0TUp3zvrqAZdiTJm6VjJFbRLCq0BeGEJ2uW2k
-	 EaTQ2IGIlfIJ5Sc7IYPj1T+GtuIGTN91TwvHghN4Rg/D7TXTsbulK9gnWLYhSV9K5sg3h
-	 5HC+tLOTQdIaPlR6MGYg1ZsM6YCDHTrk+Gt7v7feqKcH4gXSF3NijISP/c6eBqU7V8y0j
-	 EjpYXm8C2a0w/wdyqjWbqF+G9UrC1j3Iz1Ftw5vxZUyaX/NWi39gZflJwbxkHRNqSBO+o
-	 wUXpXONp/mramWO3zNXqiHbFbMLXBfDvtqAaZU5EbFy6cbkDmGo0HBrc/xtVYrrA5gQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cd871SAm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.10
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011010.outbound.protection.outlook.com [40.107.208.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793674919;
+	b=bjz2gDfQv9X9MI/8gl1O9VHI9TbNLnUETaNxZP/rWJgF2pwjjpbDFEjHqViYaOopE3tN
+	 bFnQT3L5CfFoO6uF8WT2nOcqOB+ecMKAWPfHi/BHZysIiniFXquVOxaqKl+/S5KLIChyg
+	 CstgrD7ugwh9tB/vc02R470wTf+Qsnr/WFnjvsXhuuzWqcywIm6+O5HyPSnZD4HO+AoJw
+	 dorQMzA0kJrUK5YtRxd9CJvqc7Ujo4kUfFBd8WzLmKW33nVQm407wbLfpJpoWJjW/Jl7k
+	 x1p50OMmCoOzPn2vcEIIxA+vrxaTrorFuNlNNtcRKkXH68cn1uyv3DaD3IhB5IMqMeQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674919;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=iWZ6T7xk8VtKH5R/9rzQs0i+4KFIZ3hVEHuGR9wxUGI=;
+	b=XUzX9qMiA92sWZp49njN3hGaAwowmeaaD7/Zj/JAKpsajRiQAM1uqp3LrQYOxK6MRR2/
+	 hkfJMTuFvgoEtI+Ed5oSO+wW5GEDhGOPa4QcTlCZdrFEkHvVEzc9869AtHtqMZddmNCrG
+	 JtL7smPS7RF8HGh4iY1gGVZxeskxC2sYc90ecUaY73ed0RHtZStzxcl1KiDEud3hrp8XL
+	 x7IBnLNwJH4ZZjcHNEiOMWikJ1/zflQaI4T+QKrUTNZlTHNTP/rUeA7yhK2PolH5lO0Rz
+	 psdwiu3FKOInFfcFnT2rGTKKBHVuGad9hdpVAgHpYrutF/h/NyiGtC2ZHBQ3mVN148w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="sxrpQ/Fg";
+	arc=none smtp.remote-ip=74.125.224.52
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83967606A327;
-	Tue,  3 Nov 2026 03:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83967606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D64606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D64606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cd871SAm
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rYpDd9bQIhxEYzijukUWNtdqn4+ntH0+aA8aG3lYfD/STXJsxTs9ze6/DWaEpCet6HUFGWUD9ojGOErrHZ1YpumIOJnEdKywnMzMnSivkC9QthSGSQqpvjsLOksChdPVj/MdTqdBP3hCcIvMoh5kb1SCneX/p21c/NI8a6dy4H/rYVYrNl71Ywkr+6s8H75k2AaM2t1lTd6MXzmKNdhaTbmLg7g894AK1Bsd5MqZ89gbnFkCocqSCeR5KMpUrJ/RVNAAeQYRAbS3VQpHP3kOYCar5xCcoNQTUhsgA32/202reLBWtkz+BsVZ2WtMMcI3SgLeJGIAjS77CpVu1ohZyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IkElwCgd4giFwvWBgSR4/6i5DRT/RrEQQLucrCdY+pM=;
- b=W1XYuXS2HC9V3QDxcxJLOVvAoRMWaUifw7ffQyytA+WsIFM2R/y/0uEOEu0JT+LkvXZ6G7oqId3kVrjIv90C919pR8Mbj0IaCvoe56oB0WsSWEMKF0RD7fcAL6ni0fm92qi/fH4U84Qzn1A/i1VOVw6xXlnX524sX9lrP6j98v4feTkbQA62cMwYcrZzbTu2yEYTox9+DZkIsKCN1Nr45Da1r7yBDSmPjX9y3XTNIc8O+XDgC62HuoTN/xsTZ4xZPtYfnQR0Hrr06xym9EY0+hdqVWHvcyqaj7PNkpmcxVnum9aHKyNOsMk03ShoQ4znp+iNjIVbwG4N/W7qyuFO+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IkElwCgd4giFwvWBgSR4/6i5DRT/RrEQQLucrCdY+pM=;
- b=cd871SAmFgXknFoHKc6yGwqvwVeN46oEu8BryXOanCraqkov4V7HEqj/3TU/bwvxDxRq+watLruQBZ7NFrIYiVuvqBR6lT2nK+WLIFmRU7Zcv5N0LEco9vlapnzWcjVDzGymXfdjV5f7kRAZFucV0Kl/zZ7LARhdSwdfgnFp0XyTiHqb+E5LJaltkP1WXAzG2D51BCbL+nYNnW2tvY0BIDmi+59sTIK8GRz0CMhENbehoz9iY+fyEaWy3sTiJrYUwM7Y0NUCVwZgxsmRT5aprXhocxPfpkNAy2Xu1fCd3SDisghroJHO8U1dyouyiHp0YnNiwUFPjY4OaVVqJeCRrA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by PH0PR12MB8173.namprd12.prod.outlook.com (2603:10b6:510:296::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 03:01:39 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 03:01:39 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Nov 2026 22:01:36 -0500
-Message-Id: <DML8OO28WT5O.3U6NG100XWKZP@nvidia.com>
-Subject: Re: [PATCH v5 07/12] mm/mmzone: read each zoneref slot once when
- filtering by nodemask
-Cc: <linux-trace-kernel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <kernel-team@meta.com>, <akpm@linux-foundation.org>, <david@kernel.org>,
- <ljs@kernel.org>, <liam@infradead.org>, <vbabka@kernel.org>,
- <rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>,
- <kasong@tencent.com>, <qi.zheng@linux.dev>, <shakeel.butt@linux.dev>,
- <baohua@kernel.org>, <axelrasmussen@google.com>, <yuanchu@google.com>,
- <weixugc@google.com>, <baoquan.he@linux.dev>,
- <baolin.wang@linux.alibaba.com>, <rientjes@google.com>,
- <rostedt@goodmis.org>, <mhiramat@kernel.org>,
- <mathieu.desnoyers@efficios.com>, <muchun.song@linux.dev>,
- <osalvador@suse.de>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>,
- <ying.huang@linux.alibaba.com>, <brendan.jackman@linux.dev>,
- <hannes@cmpxchg.org>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
- <nathan@kernel.org>, <ndesaulniers@google.com>, <morbo@google.com>,
- <justinstitt@google.com>, <Bessel.Wang@huawei.com>, <jiang.liu@huawei.com>,
- <mgorman@techsingularity.net>, <anshuman.khandual@arm.com>,
- <stable@vger.kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>, <linux-mm@kvack.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261101021340.2251928-1-gourry@gourry.net>
- <20261101021340.2251928-8-gourry@gourry.net>
-In-Reply-To: <20261101021340.2251928-8-gourry@gourry.net>
-X-ClientProxiedBy: YQZPR01CA0159.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::17) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sxrpQ/Fg
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67a80d827e8so2274440d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:01:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793674918; x=1794279718; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=iWZ6T7xk8VtKH5R/9rzQs0i+4KFIZ3hVEHuGR9wxUGI=;
+        b=sxrpQ/Fg2JFt5UhQftOqpwRcNtKxNtR5nNK2TDGIQqELxIlA94HJNYQnqwPns0uDWU
+         91OqkdSrYaHG/lKgiTuX57NR7+lvAOrsbwp3fhypMcglBFn77QR8/jUU1h8J0HcYglOK
+         sVdVWCT3Y4g02I+kyZFMg4z6J4tpHmr6f54jyQB8QFsUuHBA2RHzV7Sj7VdpIphSWs5i
+         v6pwLJSBlYnDF6F+UF5uUFyR45kagKhVjZBvofnGOM5uKil3dKGDurDWGDQTrKLlspPw
+         UaadcStd9/G14qySwV/Plg4VjI9r501xdOmSQ8L5JukSfZvE/Hg0rckyc47x7nujdjbv
+         BZuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793674918; x=1794279718;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iWZ6T7xk8VtKH5R/9rzQs0i+4KFIZ3hVEHuGR9wxUGI=;
+        b=ZUZ57pZ2LaMoo7i/BoFfMcxR1GtpmUF7mtbhNRokSFkSvG05jG6lZmZhCYe62vr01I
+         iKl8wxAyLzID58GsQF5mAiz2dLETSUiATkVVEdGb5CuxgQHYmnkOqa63iV60FruqJJT9
+         M+Fqi5hDYrheTA8rj+boG65k3i8NtHyPtQS+GJC5d6NiY9IdelTFIESjCo0lPZKf5izR
+         0XIojPWlo8HSsUn2lwvGPL73oqXKlO77M81Df704Q66/vXzf2Wve1oG9OcGJS9tvM4g4
+         HpUTou+f3I/6+M1lE0Sz0Kn8DglK0GKc3Q4zq3VgRpVCwNiwlYsAfARPD9DKEvWCQFnC
+         5rIg==
+X-Forwarded-Encrypted: i=1; AKwUvBywv4w1k7eRTtpLYY8xekYDgc1h2ES16CtMxv3l+mPmyhN7CzWFWK8R+mdn473aeSJazJX65WbrG45qFSA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wlM3yZj0tWv+oKTklwe+zt6jSI+ehFqOi89mxpNaVltK4VWb8
+	n8U/N+aUm3H6LHYJjox7lvlzYM2wkuad3k7AuNbhAneJkgmfG+L9qs/U
+X-Gm-Gg: AYBFou36eIk7MJrehzdPNpSJtnFW8EuTgrGzhVTPTvWYoQTaVzKJ2MTSJJaWqYfOVvh
+	DgUuWAjEp3921jHqvnHLYi4PrUFKVaR74EfD7eUlbiCIN0PfGyOS5GKT9t/wxAHkSl2/J6qHe7b
+	DYB61gxFdtCF+PLowq7qGmF4HtRfiEFvlc2qVKTeqpuqpHaOT8LSynOhuyCwFYpG9mVdImM14+J
+	PmLeVclnZ2Y7Aqg9rM1JdkwMrAODmckRwlTyJyZU7zdqo9sCT3xhVSyKKzd2nSY8bWkbMSlbKPy
+	KoIZbvUIjtekdVg3C3rQrwC+P4W82NycUOW7BJWMnvlbB4ZqCUOU5eCUN0ZbvFTQVvKANU6xPbV
+	UBGvUg+zGTF0A0I+tq3KiGuDlvoNrQLq3Rwq5MpeQZoYKoF72uuZCvjEpanafgceIxQW7Yl0aeT
+	0GSVl1ZS+SO8TQXC45COImtrGHAcr20mlqnUzc6PTxTX+zKzXb6fiHNtrEpuzZFM4rjs2z6dJCB
+	f5Jn+D93sH83VdgV37MumyfceCAhP2q/4YcHRaAjet7z00rZ4W7FKVVR1vDgvBMaCdKZ9g0EDZc
+	LOJgwM6C+5NeUBqw8YqV3wy/euSdvgbueA8qXfn41N/1ISpFKsZuG+4hpdMIqH5+J0BCS5HjyPH
+	2p4xjr/l1Xg==
+X-Received: by 2002:a05:690e:169b:b0:667:e855:ecdb with SMTP id 956f58d0204a3-67ba4c7f1bdmr7334220d50.3.1793674918196;
+        Mon, 02 Nov 2026 19:01:58 -0800 (PST)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf3154cfsm6413297d50.19.2026.11.02.19.01.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 19:01:56 -0800 (PST)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH v4 0/7] alpha/perf: add ProfileMe sampling
+Date: Mon, 02 Nov 2026 22:01:55 -0500
+Message-Id: <20261102-alpha-profileme-v4-0-61e00f5e1da8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,121 +93,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH0PR12MB8173:EE_
-X-MS-Office365-Filtering-Correlation-Id: e657dad5-fec8-4ae8-a239-08df3956c7e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|261102123227099003|56012099006|261021121427099003|261022105027099003|5023799004|11063799006|4143699003|261009223027099003|261028144727099003|261026140227099003|261021123027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	W0rrzj0rCFRII+xirkyfewLvivLalIUhvJUbA8IJyD8AZ8OUgA1Y2uUx2mJzjzkfgDR7eSQQG0WS1y07U3Gc1FGMWdXWISOv60PywKuJ+g+4lTQ/XRkWQnxUaoUc9ys6YH1/nWxW36bZ0eBnF7aYMisE3FsCd6UO6EigEOYouu6XV5X93KOyCyOCZRSMb+ODubcVneLHWCUqu6qTCC9VYMH0NK8EqCKNKVNymt0FTgIQ6gocc5N1N145Gwu+Huf4npwQstU4z2NVMHX3EUkkwwYH6V/ID2xBwiDrBSGsEAyDPgk/2xro6M8XlwwiuNdyKw2Mc8XOSrG/0hR7ks6uKG38dHJ6X81+u8e4rqLKGevn0a3jy9kiTVmwamQ//LEBg9eOEwZ2PtTDZO9Bi7+PNmS0Ic4SiMXiBSzHq73PvoVTahOuMvN1eEM/bfJu0nN63T3wcfAIQPoSU85sAQWHBjuIC8YoKpN8EttX0KjiXqpaES9ZRYBO+522JkzuQQvSY/uCpV9yE/cwlKR2+q1Vbai1R0cIoZlnF3v63M/WViZnowjgEcP/AV8bXFH+NpSQE+wT6eZCFDK0hN+sOYiwT3NIIiy6EFwMxGGVVSoknHx2adPfE+VO7ZaNKA7jHLtxz40A1nMMy99mqc3OKXMVVIxyaoLybPNLeiG5woYqGtg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(261102123227099003)(56012099006)(261021121427099003)(261022105027099003)(5023799004)(11063799006)(4143699003)(261009223027099003)(261028144727099003)(261026140227099003)(261021123027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a3ZYQzlBY0VYUUgyTHlCeU9OcDJMdUJYMk5qVjdObUlvaW9lYlEzeVFUUXF6?=
- =?utf-8?B?OE05TkUxTnBYWnpXZGVUaktIV05PaklYNDI1dEFMNGtvNjVsRlRpNXB4enJE?=
- =?utf-8?B?YzNLYWtRbDI0cXFUMm1CYUUwUTZyM1NkY0NxTGZkUC83VUFkUyt6VnVjS3N3?=
- =?utf-8?B?Q0kzMmFpRVZHRlgyWTNjYlViQW9lZVJUK2FtKzI2dzZSZ1dSMVlPNTR1TkU4?=
- =?utf-8?B?TVlPUXdsN3pZdTFiWjU0Qm9EN2FFeXVmdVQ2ZXlrMkpiaW1KL3c5ZmZHQklQ?=
- =?utf-8?B?ZXdnZVlFTFlrcXZkUGE5U3F0dzM4aXhpUXNtTklGeVo0c2p1UWc5WFZkS2g1?=
- =?utf-8?B?UFFiV0FvTVkvYmQyTmgrYXRJZE5yQXJHVE5SV3d3NjZ6Ti9IOEk5aVBiem1M?=
- =?utf-8?B?TE9QSEFWcGVHK1pUenFKNHVYVkdGVlVSUjhmbEdnaDUzbmp3OGxQOTZDelZy?=
- =?utf-8?B?WEZySXJqZW9CclFCQ05jekUvMFlTNDc4VU5sdnMwUXgzZEJvd25Gakc4dm5Y?=
- =?utf-8?B?YnVpR2Q4dDlkeDlaWENTUUhPZUQ2dmFlek0xREJSeDNDY0xqbTF5Qk56Qk1I?=
- =?utf-8?B?TSsvSThqcEZ3TkpEcUlMbkhoWnZ2VU5PalMxc0dRZ1NHRHJmM2F6RTUrOStl?=
- =?utf-8?B?M1VBVTY4dmdnV3VJNCtoOS9HS0NaZlByMEdyclg4WDQrU254SU5iajZPcFo5?=
- =?utf-8?B?bnZLclpXQlhyQ3VhanVwWWRLQk1La202czJna2p0WFJmZ0J6clpIUEJEV3FI?=
- =?utf-8?B?N0RGM0pKUnFrSkhXQVlWV3dNSXI0YmVKVXdxVEJkWklPalgxNm5nZ1pzQ0hY?=
- =?utf-8?B?MXdQdmdTNFJibXUzcTJpR1dWVjNNQUYrSkNzTU9jZHRtcGc3WDRZUjlUUGJP?=
- =?utf-8?B?TGw3dUV0RXMwbnBOaGhHSUpVT2RzTEhnaDhtWG5oWEdGTTU5ZVJpUjNKQjNL?=
- =?utf-8?B?SGxjVittTmRHZWhzdjFPT0djQlAydHV5bi9qYVc1ZmQ2UklXbkEvbDBQVm9n?=
- =?utf-8?B?K2VpVC9rTFdOeDB4NnhNbjQ1bDZkMEo4MUJCaG1vNlNJUWxYK3V2aVhNNks4?=
- =?utf-8?B?dmZHUS9SRFlnai9kWVJnbGxaYnpTUzFNb2oyWmRhOVpGUERUK0Y4UEhxZjVx?=
- =?utf-8?B?bkUwcHJlbUNPRmRyTG1KajhzZ1pHdGNkeGsvV0tvRldaaWtWSUtTTm8raTFY?=
- =?utf-8?B?bzF4TnNYODN5NURnaXBKUVlyNDdkcC9ROVorWnhMTlZVemxLNC84eDJlbm9E?=
- =?utf-8?B?NWFKOVE4ZVFZY09YanFoUGVidXhWZmJoQW1mTWtmRUQ0cnBiaWpROXV1SldG?=
- =?utf-8?B?RDU2WHNVd3VBdWdxMXgzZE5nTmx6WDZUQ3ltUjFCNmdWbk9LVzJjcmlPY3NV?=
- =?utf-8?B?ZTZndm9wcGN5MWYrNnhIWW9MZXFiWkJvWnlVSEh0L214eHhBZU1Mbzhqejls?=
- =?utf-8?B?eTZtcFJOcmQyd3g1QlBkcXN4VkZocklsODRRdkd2c3VhaHlPYkYzT21LMFVq?=
- =?utf-8?B?aEhBOUNVdlhzZ0E2RVNybFZ4RExqU2h4T21KS2tWSmE0N09tRjNGMlVlZFFs?=
- =?utf-8?B?WnRzaWR4KzJEaTRiOGdEYXpvaHZueUJRbkdKMkpwckNSZEZFbmNZajM3TnhO?=
- =?utf-8?B?Z01zMHdhNzEwSDFDeHBGNWNGNTlYVERqTnJuRFNmNWlxS053U3cvaWpvbzNy?=
- =?utf-8?B?cmVjS1pOVjhzQVBlMk9UNXUzM0tPeVVmdzE4UWVDbERJNzF0aHhRM1dqMFFy?=
- =?utf-8?B?Zk9NdExsYnd5Q3U4VTNLUFNCTi9lUXBrRitlSWUvd1hTZTZWQlRGVnBuSEg0?=
- =?utf-8?B?Z3FvQS9IVkI2ZFZsRllsNk1VZFJIdVZ4dW04WWI5S09hUDVQa09aR0VwblVC?=
- =?utf-8?B?WU0rVzBSeXNZRHdSb1QwdlB5QTcyazlPVEMvUkVFRVVya2NQUU5DTmY3M0E4?=
- =?utf-8?B?TTkrYU8wZ0xwa1lOMXp0c3QxRjJ2MEZhT1Vlb0ZPOW5lVDB5Z3ZCTkFqY1Y0?=
- =?utf-8?B?RmNOdW9aSngrOVl2VHhZMWlmYUhTbU1DYTNDUFdiYVlYK3Y4U0RWbERQdFBw?=
- =?utf-8?B?OXQ4ZUpLM2xNOVlaVFpyQUxCSXBnc3hjaGtPV1Y4VVEzbHV6TE4rWHdxUjBG?=
- =?utf-8?B?alBxTU13VnZ6VFBkVUszQ2NMY1lMVVNHejN3YjN6RXJXWWduVGxmUHR4WmNR?=
- =?utf-8?B?bDFNbnhuRmVOdnNyNGhBNmdUa01lVmhidmlYNVZUNG5UNFF5VzVmQmJHSUI1?=
- =?utf-8?B?MGVxWmlXNmJnbFZJby9vekpnZ2NpcStzWUJmSm9BakRvb1YrSkdDZkFvZmRD?=
- =?utf-8?Q?10Sfp+OkddMNqP5HJZ?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e657dad5-fec8-4ae8-a239-08df3956c7e1
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 03:01:39.4901
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RL5gsG15AeqVcM2ZIx42y3VIDuN0O7PV2s7h2D57yVJ3PuQYXQuoouef2oenKowj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8173
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNTQ6CMBCG4auYrq2ZDi2IK+9hXLRlkBr+0irRG
+ O5uwRiJLL9knndeLJB3FNhh82KeBhdc18YhtxtmK91eiLsiboaAqQCUXNd9pXnvu9LV1BBPKd/
+ rPMusUZJF1Xsq3WMuns6fHe7mSvY2ZaaLyoVb55/zy0FMd9/6flUfBAdeSGkUmhIVwPHSaFfvb
+ NewqT7gwiew9hi9zQBLYVOFGf775OcFiLVPos+xUEIYpUHKpR/H8Q1NvqIxQAEAAA==
+X-Change-ID: 20261024-alpha-profileme-6e98a977cb54
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6294; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=GI2yJRLUaIOwEtKf3HjoI/9jnSBjkQZtJcT5P0UJiCI=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe+i3O26A8M3BRz6r7054eKLSe0t1mzzvX5EVeidA3L
+ 3W/5vU7Oj6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
+ U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOaauzmMDHNneFaf0H
+ OcoX3mXWHpzPzwjnr2k+u/VEyeeU3a+X21zWuG/4mup75mzHP+mP5udduSzNz5Cgu497XL8hwuW
+ 8e9/+apv0wA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-On Sat Oct 31, 2026 at 10:13 PM EDT, Gregory Price (Meta) wrote:
-> __next_zones_zonelist() tests a slot's zone for NULL, then reads the
-> slot again to look up the zone's node. Offlining a zone's last block
-> rebuilds the zonelists in place, so the second read can return the
-> terminator:
->
->   CPU 0                             CPU 1
->   __next_zones_zonelist(nodemask)
->     zonelist_zone(slot 1) =3D NORMAL
->                                     offline_pages()
->                                       build_all_zonelists()
->                                         [MOVABLE, NORMAL, NULL]
->                                         -> [NORMAL, NULL]
->     zref_in_nodemask(slot 1)
->       zone_to_nid(NULL)
->
-> Current GCC and clang merge the two reads, but nothing requires it.
-> With mm/mmzone.o built with -fno-inline -fno-ipa-sra, holding a
-> nodemask allocation between the reads while the node's last movable
-> block goes offline oopses every time:
->
->   BUG: kernel NULL pointer dereference, address: 0000000000000060
->   RIP: 0010:zone_to_nid+0x0/0x10
->   Call Trace:
->    zref_in_nodemask+0x9/0x20
->    __next_zones_zonelist+0x23/0x70
->    prepare_alloc_pages.constprop.0+0x16c/0x190
->    __alloc_frozen_pages_noprof+0xaf/0x330
->
-> Read the slot once and test that zone. A NULL zone still ends the walk.
+The 21264 from EV67 on, and the 21364, have a second performance counter
+mode, ProfileMe, alongside the Aggregate mode that the driver uses today.
+An Aggregate mode sample reports the PC where the overflow interrupt was
+taken. On an EV7 that is anywhere from 15 instructions before to 12
+after the one that overflowed the counter, which makes perf annotate
+output close to useless. In ProfileMe mode the CPU picks one fetched
+instruction, follows it down the pipeline, and reports its PC along with
+what happened to it: whether it retired, whether it trapped and why,
+whether it was a mispredicted branch, stalled before map, or was killed
+on a wrong path, and what PCTR1 counted while it was in flight.
 
-It is better to spell out the rename from zref_in_nodemask() to
-zone_in_nodemask().
+Patch 1 fixes a constant passed to the wrong PALcode call, with no
+functional change. Patch 2 adds the sysfs format and event attributes
+the perf tool needs to name raw events. Patch 3 fixes counts lost when
+an event is stopped before its first start, and patch 4 stops reporting
+user registers that the entry code has not saved yet. Patch 5 adds
+ProfileMe sampling, selected with precise_ip or a new profileme config
+bit, so cycles:p and perf record's default event use it. Patch 6
+attaches the status registers to each sample as PERF_SAMPLE_RAW data,
+and patch 7 adds an option to randomize the sampling interval so that it
+cannot lock onto a loop.
 
->
-> Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_=
-zonelists")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> ---
->  mm/mmzone.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->
+A separate series for perf-tools-next adds a decoder for the raw data
+to perf report -D and perf script -D, and a script that sums the status
+by symbol or by instruction, in the style of DCPI.
 
-Makes sense.
+The two modes cannot run at the same time, because PCTR_CTL[SL0] sets
+the mode for both counters. A ProfileMe event is scheduled alone, and
+perf multiplexes it with any other hardware events. perf stat does not
+ask for precise events, so it keeps using Aggregate mode.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+To try it:
 
+  perf record -e cycles:p -- ./workload
+  perf annotate
 
---=20
-Best Regards,
-Yan, Zi
+I tested this on an AlphaServer ES47 (EV7). Samples from a
+16-instruction loop land on all 16 instructions rather than on 4 PCs.
+DTB misses and unaligned traps are attributed to the faulting load. A
+branch on random data shows up as mispredicted in 21% of its samples,
+and in 0% with sorted data. A 12 minute perf record -a while building
+git took 4.45 million samples with no warnings. Sampling every 10000
+instructions, which used to wedge the CPU, ran 66 times without a hang.
+On two CPUs, this version survived 26 runs that mix sampling, context
+switches and multiplexing, with no warnings.
+
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+---
+Changes in v4:
+- Patch 4: move __entry_save_end past the r16-r18 stores in entSys,
+  as PAL_callsys does not save them and interrupts are still enabled
+  there.
+- Patch 5: report the user registers when the profiled instruction is
+  in the entry code but the interrupt was taken after it, since
+  perf_get_regs_user() sees the PMPC rather than the interrupted PC.
+- Link to v3: https://patch.msgid.link/20261101-alpha-profileme-v3-0-92d511b5a044@gmail.com
+
+Changes in v3:
+- New patch 3: clear PERF_HES_UPTODATE when an event starts counting,
+  so that a stop before the first start does not lose the count.
+- New patch 4: report no user registers for a sample taken in the entry
+  code, where the frame at task_pt_regs() is not complete. An interrupt
+  nested on one taken there is still not caught.
+- Patch 5: a user instruction whose interrupt is taken in the kernel now
+  reports its PC with no registers or user stack, as the frame at
+  task_pt_regs() may not be built yet. Thanks to Magnus Lindholm for
+  finding this and for the fix.
+- Patch 5: also move the counter away from overflow when a ProfileMe
+  event is removed, or stopped without PERF_EF_UPDATE, as
+  alpha_pmu_del() does not go through alpha_pmu_stop().
+- Patch 5: ignore an interrupt that was pending when the event was
+  stopped. Document that rewriting a counter does not cancel one.
+- Link to v2: https://patch.msgid.link/20261030-alpha-profileme-v2-0-c702f1c65272@gmail.com
+
+Changes in v2:
+- Patch 1: explain why bit 0 clear means all processes, although the
+  Architecture Reference Manual says otherwise.
+- Patch 3: fix a CPU wedge during high-rate ProfileMe sampling. The
+  ProfileMe counters are now written twice, and a stopped counter is
+  moved away from overflow, as EV67 HRM PALcode restrictions 32 and 38
+  require.
+- Patch 3: set the profiled PC in place in the trap frame of the
+  instruction's mode instead of in a pt_regs copy on the stack, so
+  sampled registers and stack values are those of the right frame.
+  A kernel instruction whose interrupt is taken in user mode gets a
+  per-CPU frame holding only its PC, so the user frame is not changed.
+- Patch 4: drop the reserved field and pack the 64-bit fields of
+  struct alpha_profileme_sample, so they are 8-byte aligned in the
+  sample record and the record needs no padding. This changes the raw
+  data layout.
+- Patch 5: compute the jitter with mul_u64_u32_shr() and saturate the
+  sum, so that large periods cannot overflow.
+- Link to v1: https://patch.msgid.link/20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com
+
+---
+Matt Turner (7):
+      alpha/perf: pass PERFMON_CMD_LOGGING_ALL to the logging options call
+      alpha/perf: add sysfs format and event attributes
+      alpha/perf: clear PERF_HES_UPTODATE when an event starts counting
+      alpha/perf: do not report user registers from the entry code
+      alpha/perf: implement ProfileMe sampling
+      alpha/perf: attach ProfileMe status as PERF_SAMPLE_RAW data
+      alpha/perf: optionally randomize the ProfileMe sampling interval
+
+ arch/alpha/include/asm/perf_event.h      |   2 +
+ arch/alpha/include/asm/ptrace.h          |  12 +
+ arch/alpha/include/asm/wrperfmon.h       |  14 ++
+ arch/alpha/include/uapi/asm/perf_event.h |  31 +++
+ arch/alpha/kernel/entry.S                |   9 +
+ arch/alpha/kernel/perf_event.c           | 382 +++++++++++++++++++++++++++++--
+ arch/alpha/kernel/perf_regs.c            |  13 ++
+ 7 files changed, 450 insertions(+), 13 deletions(-)
+---
+base-commit: 330517c63aa9b48227b6ab45f01003effac77ae4
+change-id: 20261024-alpha-profileme-6e98a977cb54
+
+Best regards,
+--  
+Matt Turner <mattst88@gmail.com>
 
