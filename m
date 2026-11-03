@@ -1,58 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732458;
-	b=EAVqMvtGSwm8U63Xd+DrNeYjKOanazQWNGIK61Ab2PvcC0uelN+2XX1F8ysO2BsSa4wu
-	 v5qve9UoPEsv3DmNZbdcm/nJgDU4fkr8Pa/NQyYiNPqrHJy+/xKzXMAkRwiDS2i+vkUA9
-	 fOjVz+LBP5UDoRDzw7bRN4f8WiVsAPtj615mSgHoHoA2oda0c/Vc/saBmk5GIkRu4hB5z
-	 HI7/CTXBqrlGwhlaVgWJ3ldy1iDg+gqrjBo+ZSukGZliZAsjmtVGduscEdrrIbb/dwlND
-	 bafBFXBJFte1sUJgwSllo3sZqTSXy6sdncyhZ9ta9m0aRlfUa7uHiDAkFSGm14epuhg==
+	t=1793732462;
+	b=4kdhRAVhzmtDa/vdRNXaFGkuFpa1vZbwhTnbVZWqvAgatZXX6kQIYA/U/uEQE5MxOikT
+	 HMNB6kTyAFJjP3PYFKrGQSqCGp6LANqgPxp0Fc0YNt3HHwhE3YV+3T4Tkcur54IdH6gUX
+	 JBmNP4lSvkqM86w5IXRKNV/i9zR3YRoxPnOP0fDfckzRQ9oiasCJm0uhNfLh+PCLlBGQi
+	 oHDGqoGAAI7JWGe23eP9prqJ97mv8Dx+iYXZnQFgnJ61vtMso8PhTNiXMvYdk/AEceTFp
+	 TXzrPRiFQZELhI7jCs3rTdQku88DFas54RdFYhpYbMsKNDqPjxi5550k1APz0oRJ/0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732458;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nPbC9p/kXZfK/pAtwP8FvtmaMonTRXTCIHkYzc09zfM=;
-	b=h0qbbBPtbMtaQ/o12xATN8sJ28f2alMqqzjkoMgEK2S88f3WJMtUu1ufWMK2cST6viJp
-	 EpzMqxn3yb20yL/G71Z3eTqwsoHtn+yoQBH91TOV2XReEZrWiWwzmGI2psateAm2NgnTY
-	 MfM3WNK/icQ8y/xT1svOfUE7mYV9hZUEZ/iAPvUZgOgu8CIbsK1FAU9+OppsnD1y11jjN
-	 KGBkAGKcY5lPPYuhZdLtyZS7cymQzZK6vrUC0EFPyF1AOF5PloPwiJDfZMY9RZyVsbevt
-	 uFYrYyBMptueYJxlNDpSgbtrmFHPAj2K6jsfR0Ev8cmwG2S14gY7hBwUoKdVnPeMHMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732462;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=/Wb2hWe4KA32hKCHvZDkI6uBk6DsPpr/yrXxExmyUpw=;
+	b=M3Oc4c1xFNV9N7EMCO7rpJrN9ABapundJlGgGG1djEhYb16dvXbvxhP9DPcmnXxFuZR5
+	 q2H3s2JxugUBxkChaBl1Y1WjUITfFAxJUP+xAmDxZmZR0RWncRnOTPAmQ9q3FkiYeLm1V
+	 YickeNEj0nzE2dQDibcIJqQeyJOFGSOqjpL8STnZS22/TyHWFBHVL3/ZuGtMTXWTskbfY
+	 zydwmpOZnBGhYz52bWTvZLtjyaZFKJjIn5Ic2QA3EObIOFhjo+DKsd5qasWBHMv+Xq9o4
+	 3BR0pq69qjQhLcib32KNRIwrU8Hm9NxgAvTAmaesn4O1ZbmLEquRO819KTm1SSfMD8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mA3KNvu9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B3E606A330;
-	Tue,  3 Nov 2026 19:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mA3KNvu9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1951F00919;
-	Tue,  3 Nov 2026 19:00:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793732457;
-	bh=nPbC9p/kXZfK/pAtwP8FvtmaMonTRXTCIHkYzc09zfM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mA3KNvu9dg7XUyhJO0i0shuS6M7OCVvpPJ12H2WiorQDQRwexlDCrSlqzfrLNf6YT
-	 UVpjkw08WSqPHQzkqqf8i4mFVXpr3Wg7kM0/yBXGVrT7wVT2l0vZdxtfod18lCAPy2
-	 XJ2sCPSkDumY332hjBeQ346+g5Jqk+WpWRGxZx2P88xUjesfQkge49DYFQTc1QZCy9
-	 nFdw8SsvHpeeBP2IipbPgbbaGYfdvXGxdyQp3+D3sipL6je0FiYu2qmByUTcEz+7qf
-	 OzKxc7zzcEU5C7ndPp/zWJx6b2C2xtpQnC/dCD95fuehMxkayaYVecqWuZ4SwaxZN7
-	 s+LCjijx97KgQ==
-Date: Tue, 3 Nov 2026 12:00:52 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Rosalie Fang <rosaliefang@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Kuan-Wei Chiu <visitorckw@gmail.com>,
-	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
-	David Laight <david.laight.linux@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Greg Thelen <gthelen@google.com>, Yi Zhu <chuyee@google.com>,
-	llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] lib/base64: fix -Wconstant-conversion warning in INIT_1()
-Message-ID: <20261103190052.GA267580@ax162>
-References: <20261103163404.159582-1-rosaliefang@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB0A606D806;
+	Tue,  3 Nov 2026 19:01:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEB0A606D806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJyZy1wZ8z5B13X;
+	Wed, 04 Nov 2026 03:00:58 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl1.zte.com.cn with SMTP id 6A3J0n7R079058;
+	Wed, 4 Nov 2026 03:00:49 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 4 Nov 2026 03:00:52 +0800 (CST)
+X-Zmail-TransId: 2afa6aea2f6405e-d45a2
+X-Mailer: Zmail v1.0
+Message-ID: <20261104030052059PG6LDNeanA7C3vQaZAOff@zte.com.cn>
+In-Reply-To: <4f38227c-a524-4d42-a3e4-ad0157939b41@acm.org>
+References: 20261103185229490gmhePBF5_11x_thf4X-Rw@zte.com.cn,4f38227c-a524-4d42-a3e4-ad0157939b41@acm.org
+Date: Wed, 4 Nov 2026 03:00:52 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,69 +58,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103163404.159582-1-rosaliefang@google.com>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <bvanassche@acm.org>
+Cc: <martin.petersen@oracle.com>, <alim.akhtar@samsung.com>,
+        <james.bottomley@hansenpartnership.com>, <peter.griffin@linaro.org>,
+        <beanhuo@micron.com>, <stanleyjhu@google.com>,
+        <linux-scsi@vger.kernel.org>, <linux-samsung-soc@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCAwLzJdIHNjc2k6IHVmczogZml4IGFuIFJQTUIgdGVhcmRvd24gY3ljbGUgYW5kIGEgc2hpZnQgVUI=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A3J0n7R079058
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 03:00:58 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEA2F6A.000/4jJyZy1wZ8z5B13X
 
-Hi Rosalie,
+On 11/3/26 09:51, Bart Van Assche wrote:
+> This series no longer applies. Please rebase it on top of Martin's
+> for-next branch.
 
-On Tue, Nov 03, 2026 at 04:34:04PM +0000, Rosalie Fang wrote:
-> When expanding BASE64_REV_INIT() for v in 0x7c..0x7f (124..127), the
-> unselected ternary branch (v) - '0' + 52 evaluates to 128..131, which
-> exceeds SCHAR_MAX (127). Recent Clang versions diagnose implicit integer
-> constant conversions in unevaluated ternary arms when initializing the
-> s8 lookup tables:
-> 
->   lib/base64.c:58:18: error: implicit conversion from 'int' to 's8'
->   (aka 'signed char') changes value from 131 to -125
->   [-Werror,-Wconstant-conversion]
->      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
->         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
->   lib/base64.c:34:42: note: expanded from macro 'INIT_1'
->      34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
->         |                                              ~~~~~~~~~~^~~~
-> 
-> Explicitly cast the digit-branch expression to s8 to silence the
-> warning.
-> 
-> Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
-> Assisted-by: LLM
-> Signed-off-by: Rosalie Fang <rosaliefang@google.com>
-> ---
->  lib/base64.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/lib/base64.c b/lib/base64.c
-> index 325c7332b049..1489c048b1fd 100644
-> --- a/lib/base64.c
-> +++ b/lib/base64.c
-> @@ -31,7 +31,7 @@ static const char base64_tables[][65] = {
->  #define INIT_1(v, ch_62, ch_63) \
->  	[v] = (v) >= 'A' && (v) <= 'Z' ? (v) - 'A' \
->  		: (v) >= 'a' && (v) <= 'z' ? (v) - 'a' + 26 \
-> -		: (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-> +		: (v) >= '0' && (v) <= '9' ? (s8)((v) - '0' + 52) \
->  		: (v) == (ch_62) ? 62 : (v) == (ch_63) ? 63 : -1
->  
->  /*
-> -- 
-> 2.56.0.385.gac671c819a-goog
-> 
+Done, thanks.  The problem was the base-commit: v1 was generated against
+linux-next next-20261030 (7649ba73f9e7), which is not an ancestor of
+for-next, so b4 refused to apply it.
 
-Thanks for the change. I avoided this in a different way, which has
-recently been merged into a tree that should be merged into mainline
-relatively soon:
+I rebased both patches onto for-next (v7.4-rc1, 6628e7d4c6b2) and resent
+them as v2:
 
-  https://git.kernel.org/akpm/mm/c/3af83c11cf5990fda0bfe3959aa6391ff903ffdd
+  https://lore.kernel.org/all/202611040259247915t_cYYK0k5pPbEqfdTAQu@zte.com.cn/
 
-For the record, I do hope that
+The hunks are unchanged.  While testing patch 1 I also confirmed that the
+teardown path only becomes reachable once the "scsi: ufs: rpmb: register
+and unregister the ufs_rpmb bus" patch lands: without it device_register()
+fails with -EINVAL.  On top of that patch, a synthetic hba on QEMU shows
+the rpmb0 class device surviving ufs_rpmb_remove() before the fix and
+disappearing after it.
 
-  https://github.com/llvm/llvm-project/pull/226775
-
-eventually gets merged so that these workarounds will be unnecessary but
-I am not sure how that will play out yet.
-
--- 
-Cheers,
-Nathan
+Thanks,
+Shao
