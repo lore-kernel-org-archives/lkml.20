@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701574;
-	b=iBJ36cedFqoq18xrnIMu6EkkLrM0H53ggzRYMK485rXqpuyg1fx0nPrFXISZA+LK8kqR
-	 kCRW9xaBXmy4v68Iu67hYCTJWFtyyzpUdeeSUEOBNYe8XMtNgmnFcNpp5B72PkmsKBLA1
-	 sfNRD2EVkr8X5xpP3w7DliLiWVStpisqnDIbBCEvKNHxbmns+GNe7m94vNa/C0p7f3oHs
-	 dlSy7FbRQxcgc8/Hp21tEBDkYwgg5jped4e3ImOvNm+Iz9TXBqHGpP9TR6HvWzJDpuJQi
-	 vNvZCsOMSioAoaCT6CiB3UXARX4d+4DoQaR9aaF4avhz7VmTFPEJZKmnw2vu0fUZ92A==
+	t=1793701580;
+	b=h6rGylK0HgKfhD164EOUrwyw3j0lpWBWMiOUq3zyVoVQpLvlK0zzkgziK0my3UhI9C3S
+	 SdKoiHW9Y6QjF887NmP8NvpB6zTkClHtyG4XTgsJNSFGtB82Ev1rCEBEN/yAqsEI6LCPh
+	 8j4I4So0+p2NFFJX0tqTw0BgZkZEBQmXSSwxEEciiEp5ptstBHy3FWTLNK8I4mONTAcEK
+	 E6uB1m6KhHerL3Z539phf6pV0xj4fsvAHKyftaBkR59Ap5LeptODRRs+UTweuFyEfRZOk
+	 H+icWUwhUIW1Gvr9Q0UYEBn6FlKWF+l3DyfNuza/Kae7vvvm6pJqBvsExBiO0dWOXig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701580;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qUyoZGjFGQOPeeRO9E3lTpQ1eLM4d6d6tlvrm+8kxb0=;
-	b=G0tQoo0CBaxeXlNZNPCtahpXCBcnQpjjNhWJhSnbELpvakhL4MSSZqgYsI9JcMld1F0A
-	 AcfC3pNki9RksaallOdNCP6HZvnRK33coTkYnAtMmncLVgD4mL/z4PiQIVSt52TPPXacO
-	 3RE10HjHpq0OmWMxKeE18RhPIvCROOvhhFkuY/+56va+KyFeVN+Iw9VJzOpJO5OF5PZ+v
-	 icudJ7G4huPaxAiHIBYpPoFNplc2aqP/PLeoGAxDp+i3Mcx2ukETX76rorGJKBCdO8QXU
-	 coaEYHk0eOsGzcyXzjUbsQ9Ud6uO1TUsdIIQxyp+7mC+b3DktVE/DpwnPxC/GbzgypQ==
+	bh=qt/XERH9JA6N26gnj2KjkQP/rhmppH53Kiuwbw79Xu8=;
+	b=1JWGM2fJWXubYM3BsIjX71x5NM4Sbj6YWmjNRKpcakS74kr4IiabmjXdTC3tlRxcJngZ
+	 nAmeeKR8HQ192AjXjREQ/toi5pLRF2x/2vFYIXv5ixLMXMyiFxQDqBMzaJqssmI7V8EFs
+	 q4f/m+mTTdXsB7lg2zvfr0Fw8W7aerzNjb2WvznGv8ozUOTyIkO/u7YNb3TVVHy8TVmWA
+	 ZyM5OPnJBg2KU0aOr2bLf6X5xZiL/W1e7w2JKfKPdv8lHrNg7qveOBQEQ3eRlXsoXV/IG
+	 6MuDiKrxOA8saZBV5MgP8g8vzJC2BQyLM6IypdXw0o5Ur5E2EHfS4UlQahD+NLpC6Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFkSfzCh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQ3J97Ml;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1FB606EEB0;
-	Tue,  3 Nov 2026 10:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB816083618;
+	Tue,  3 Nov 2026 10:26:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFkSfzCh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EB91F000C1;
-	Tue,  3 Nov 2026 10:26:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQ3J97Ml
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265711F000C1;
+	Tue,  3 Nov 2026 10:26:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701574;
-	bh=qUyoZGjFGQOPeeRO9E3lTpQ1eLM4d6d6tlvrm+8kxb0=;
+	s=k20260515; t=1793701579;
+	bh=qt/XERH9JA6N26gnj2KjkQP/rhmppH53Kiuwbw79Xu8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lFkSfzChsyncS1wMeU3n9VEwiz8x0Fo71a/5ra/ytsLVU3hRGSo0FJJE3YkCF3kxq
-	 jPKnCfLlTzXsUG9QHLidsVMZDz6erG/Bb76JeTIPea/xX0uRA01of4Ta7VdDYvjCsE
-	 0qDbmSmzQtM/tDZzqtAwuUbEyuIHP1sLp5fsh+2gYs7zGrYJeBBlEgxdio27DSBSMF
-	 sllaNWPGI1dcjZlB8jelkOC3jHksyXRxWC32VZYdvfQ0gk8+IBFoUlRQ1t4Z3/kXRq
-	 xrnc/BbfCmags8Dk47dr1Cc++p/BjUgHeGJ+sRzi/TnnfAye3DDqg5eqP3QVCPFF8j
-	 2C6tQk1hjCkPA==
-Date: Tue, 3 Nov 2026 11:26:11 +0100
+	b=NQ3J97MlzbGvbPfqP+8jmcqpXwFhQwFkdoBsXHSVlYt4kgfqM1t9TPAYyAgjsHuEz
+	 xPaoAhx8x+Q+NIgUVeOo5FKZwtT950eA2hNgOzsHNWkfWEImJZAWEZNdozzsNjqNcu
+	 Z/1D1JdCvRJUIYSOvtNL7gUlofzKee/IrCIgAXDV0iZqZaVS+DqfY7XXW3VmQrrWui
+	 n7nmOltb0QuCZPq7VcJiZRB9+inv+mW7MvE7tJECWLPlg92yZ9VBp+TIRltfSsT6Cb
+	 VuKob6Bo8aPZnFPntFJ0A+3EdWo4WMrT5Nh/hEIqSmV7SR3PEnp7qiSBHpFo4IpmOk
+	 DKQK4/n1AIZLQ==
+Date: Tue, 3 Nov 2026 11:26:17 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Vladimir Oltean <olteanv@gmail.com>, stable@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
-	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH] net: dsa: loop: release netdev reference on registration
- failure
-Message-ID: <20261103-subtle-private-dinosaur-e0effb@quoll>
-References: <20261103100529.1309887-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, linux-can@vger.kernel.org, 
+	Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, 
+	linux-kernel@vger.kernel.org, =?utf-8?B?U3TDqXBoYW5l?= Grosjean <s.grosjean@peak-system.fr>
+Subject: Re: [PATCH] can: sja1000: fix netdev leak for non-contiguous channels
+Message-ID: <20261103-enlightened-righteous-leech-e92bb9@quoll>
+References: <20261103100528.1309863-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,25 +59,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100529.1309887-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100528.1309863-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:29 +0000, Wentao Liang wrote:
-> dsa_loop_drv_probe() takes a reference on the CPU net_device with
-> dev_get_by_name() before calling dsa_register_switch(). The matching
-> dev_put() is only done in dsa_loop_drv_remove(), which the driver core
-> does not call after a failed probe, so every failed registration leaks
-> the reference.
+On Tue, 03 Nov 2026 10:05:28 +0000, Wentao Liang wrote:
+> pcan_add_channels() stores a registered net_device at card->channel[i],
+> where i is the hardware channel index, but only increments
+> card->chan_count by one. When a lower channel is absent or fails to
+> register and a higher one succeeds, chan_count no longer covers the
+> used slot. pcan_free_channels() then iterates only up to chan_count and
+> leaks the net_device of the higher channel; the LED timer and the
+> interrupt handler also skip it.
 > 
-> Drop the reference when dsa_register_switch() fails.
+> Record the highest used channel index plus one in chan_count so that
+> every iterator covers all channel slots.
 > 
-> Fixes: 98cd1552ea27 ("net: dsa: Mock-up driver")
+> Fixes: 2b61972b7421 ("can: sja1000: add support for PEAK-System PCMCIA card")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/dsa/dsa_loop.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/net/can/sja1000/peak_pcmcia.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 
