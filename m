@@ -1,96 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793678690;
-	b=eJ2jjhTcvNWTmWDZ7efB9u2y0JdsUeYrFIM4gsGUryU83te+gVXaK16pFvEwJ7E7hIZX
-	 xXF5MkBok6IIlTbla3KPLb+bb33/08AVbgNYuQse4VCE9qHdHIAQXkif7FeZPhiTgw+B1
-	 cDi+lSlYml9R121Je5P+FDP3ZTuIWJD+Y/EkDJ4zKERlbF3vUibt5AkWXezeaOe810Wka
-	 VCzxtnq3cWiTueCZa1lrxzjXsxOre8ELr+bUFtmO19EwV9ShhR7/q4jdlrHy4hlaZ8de+
-	 4nEMShwibGq6qPa5M/ZbhI1bn7WeGMjwUh2UyqgvezcJFtfcbYeyYq96jNi/wPhnldA==
+	t=1793678840;
+	b=CL5qYzzrKUGfWME91k/PtMMqgcVTs5PcnD+5Ev1xb/+smg3O+dz99PaipqNrkAiPYAvd
+	 dfBQqNVFDaCp6EKuu76SAOAdPzYcF6iM0eI2IUDaBo9RlZ4f1fNlA5lqnJFS2ooOF4T5W
+	 pJ2ZK9AfUk4rVvh2xTewsvTLsOITMXgGNr0Yd41TmEphH8JY5j4FBw99JmEmi+bmEBleL
+	 GkLsXYL0gmKZYc4+1JU6Ohv9JdQ7djn7ax6AOMh1JI0F3iCQYs0sfd3UAyphuUCZOv9Wf
+	 P9Wg2FJM0Op7OX+8pcxpJkJC+Y11FtwCjqWQRqyrYR0lmQE30gBeGXRmtQAhKNw6+aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793678690;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cl7XuderxVyatIgZNuprudUTpms6qFioS0bOx3h11W0=;
-	b=UbTLGkzoeFN+RL+e8t7ji375dBaDmsQixVPdwpW7ggzK7CQteXNnmsYX75cbeRiDnEOi
-	 qTmn+5WV2+OGF6PRULT+o3HiB9mFyVE9MH94s4/a+rjbbOyJeKZR3vEjc3BZ5Jby+PRuW
-	 w3Tj3zEaWGktNB0QZzKl/TF+uDP5VvmsYiFy8BjAgfxAu5L6JPj7knwbJszh9Yn/XtKta
-	 le993jOZBzzAzacZaH/03mXdzqPHK3VDqYWBt8PK7Wp9Ae/kkuBVM/1jMBiAW5gm/+Q4I
-	 BRFUdHERh3V2fTGDHxWnfYPzd0ynI8WApzNNtoOkvaGMV/14d7wtlvFXDrxfUsriYKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793678840;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0yC0Wrf4nrD1HQnsTBLD2PZGSp8C8ysH6eIf+cD1dWw=;
+	b=zKFv5fmwGS5leEAfU4WAg4eB98R3MRw/XE8OQyKYtbE81rHK54Bg9QBQ1QAzA32aSTle
+	 WzYVNbcIXAdeMjcWYS1WkwUhngpa0jgL/3H8dSRl0knK5WyXhUyeb8GFbdsWi5wm+Fsiv
+	 RDV0YyL07V7EJfCWhMKatd/KkJH28FRDet8ToDg2Gjg9KR6/bE/7siZ3IEpjEDQeAy2yW
+	 T6S4+hCaWTd66WSgvb637iSmm+PHx2tzlxY+vTGvjcTt3o5V4JNki8Vz+HaioJsjIcGxa
+	 oLBN0d3TNhbpEFMB6+1GcFM9yJRLKp1KGWr5MOBW7xwJb0RcYBrmupoFSmx9Tw1QfMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R2gIKhW6;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="Kh5YPZg/";
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF21606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:04:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BF21606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090BD606A324;
+	Tue,  3 Nov 2026 04:07:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 090BD606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R2gIKhW6
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so2298320a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:04:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793678690; x=1794283490; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cl7XuderxVyatIgZNuprudUTpms6qFioS0bOx3h11W0=;
-        b=R2gIKhW6pfblgk9jrw7yZXDmd173ksyQUrOkB27n2rVrm/JMdpjAHeAyYy7ZysBU8Q
-         RDHdJtBApkO5eWkEzBM9VobNhpvR54hAh5FFZUKircnF/TsrZdQFSVoWzbrm0fYfpqoS
-         xo3RXktiKbnnlmt6fvxqvtuagTkSTraI6bAUWzAGvuw8AZuZF85QJf0ui1rD4IuJ+Wgn
-         kDNq4dH4sDy294dxIHFDJCh10fsB/xN2rZZZm3Ee46zD2QvtT4ZNVILPYbP7Tr3bENdn
-         tT0xH//OOGvc/+gFaHt237BtGpW0jUZmmBY28WmKzmx0yuEpfQlEgbp/Sdw4A76RBVgS
-         ZkJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793678690; x=1794283490;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cl7XuderxVyatIgZNuprudUTpms6qFioS0bOx3h11W0=;
-        b=CGjsRMEjqZ9OaURxjmfAo1u9ncFnh1EbQoJxGrqRdSRUQCdp6Y4roF8wrC5U6QWq3u
-         f4++WbVqS+WTpoz6IYPX2k7Kev+icPZ5OKCQl8JMalNJJZSyufhVJ5BV2es4ezBhP43k
-         rIU8/LLkL9Fgpjhme+QhPPTMzE6hJ2l3GSeZJ0jr0JzQn3SOwrBw1a47rtRW1ZH7v5S1
-         4i122vf1KdvKeVxcAbM8LgeupEp3kr/UMSkCCu6QWjRjMdISrgyvGnddRf+tb7eiO3MW
-         yudmH4jdK4vsFjWbZ4IMhVf+ehg349c/ih1yq93t3F4+B4GrduDhfGiRejj8DYsOCr8V
-         n1gw==
-X-Forwarded-Encrypted: i=1; AKwUvBzubIn2QBp7NFscPMafuzL28FdT2kGbDmR4hfb5QjvB1xbPWGercS2hYeW7MmspNdXqBB3067aiQ+LebHo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vqyNeM1VU3K8wA7icnI/5QKI9OexSzFzHbbPPw8LM8ORVqjfg
-	i3XdKNvk4F2B37Gw+eEccNSyaTpAx2OXgBa24jqNTRek5sJJoBkuO+k=
-X-Gm-Gg: AYBFou1NdhH+TfN6HMMR9DE3qVVHtqcu9O+qKtc03KC2BLDRsRRLAx8/+YSKnYKFTmM
-	/Xk/oG9ZJrqOFqAnILicEC/M0fUsg/mJ/FbSACvjlQ6hQwrmIqL0k9N/3osMCp1o77BaYXB0Q8+
-	LM/WhfJcDzSuuWT/9lvK3TUtkTbtLPKchKJgLgPcaSV+di3XGnduj8BhPBbOhDD5u9+Psw4RlGV
-	lTIVOsIqphaW3/16Jgq34lIMWwjdmmrbj0NMZpwmElBOb0UFEHYVfSmDbN4/RrmLz/0V2me0u0C
-	QyVgh2SH3bWebl2xwZW6jdAceXrZKhozL3SFWH1Gw+qlqjIdXA+bL/tdb/0d3R7j68KMJiVbTjw
-	eLq67YWBr2I856ApQUKez11qViTCgsC8RmDZ08HvHc/4RpW+BXaJqm7TMdf4ii+r4JBDF9pMbPE
-	fE4NuE/Al5LCU9I7armjbdSWukbxdkXqzJBCNc4G0kJyDdn1ajCnW5xhJOl2bNSBbp4WzpsysV8
-	gw7IICGyexBkCS5h0ikU4PGJQIM7YSNwwvhvtVYbmz3C434BdQOb+JCG1egYRRNuEcNRO31OSie
-	z3yYHmErt0CglDC+bjS9UCfzjn88uhGPE6K+z4dBQ6LdsVYEnXkNLXXt3bcGiz2evTZ7
-X-Received: by 2002:a17:90b:2e4f:b0:3ac:9a5e:9ce9 with SMTP id 98e67ed59e1d1-3ae897f3440mr10056187a91.29.1793678689562;
-        Mon, 02 Nov 2026 20:04:49 -0800 (PST)
-Received: from freddie-kane.lan ([71.212.222.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c896cc6sm1887277a91.9.2026.11.02.20.04.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 20:04:48 -0800 (PST)
-From: Burke Cates <burke.cates@gmail.com>
-To: baochen.qiang@oss.qualcomm.com
-Cc: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
-	jjohnson@kernel.org,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH ath-next] wifi: ath12k: fix MLO 4-way handshake timeout on QCC2072
-Date: Mon,  2 Nov 2026 20:04:34 -0800
-Message-ID: <20261103040434.3387789-1-burke.cates@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <492ece60-a670-48f4-a808-f09394b3db95@oss.qualcomm.com>
-References: <20260815014329.3748059-1-miaoqing.pan@oss.qualcomm.com> <20261030041902.2740757-1-burke.cates@gmail.com> <492ece60-a670-48f4-a808-f09394b3db95@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Kh5YPZg/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=0yC0Wrf4nrD1HQnsTBLD2PZGSp8C8ysH6eIf+cD1dWw=; b=Kh5YPZg/HP65n2u4ZNHPw/o3qH
+	LAivrfokQ0ZHtXUf0jmpuGO71HgJn4tOZfFRvQCGWEIOgUrSik2zKYGnmEyMgfK1qcaXmt6ONc6mu
+	kqT2NRDUlEPNX8m995blWpKWHyANKHnixzL2XHRfBnNxqGb1iEyjwTxTOgeHSFXszFiEnaJyn93q4
+	Mg1VBxzq6fQBx01JbCEurgEIR7PomS78SE9CsS2ZnUS2ISamV/JBRxzOMg8t/TSDiS6BTln8SZs/u
+	2BWziPbfXqsdafCTDqyMQKBfhXcTwf9vFQDINCs/em2gJ/mYeo7iq4JjJ9Et0ysbTV9shiZygaOQW
+	eZ9lTG1w==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xO5nq-00000000yvd-1SUy;
+	Tue, 03 Nov 2026 04:07:18 +0000
+Message-ID: <caa02760-9ba8-41f9-9089-3ceca2201c13@infradead.org>
+Date: Mon, 2 Nov 2026 20:07:17 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,37 +58,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] USB: ohci: ohci_pdriver.h: fix missing kernel-doc
+ comments
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20261103014710.2451967-1-rdunlap@infradead.org>
+ <02148858-defa-4c15-92e5-0ce7029bc000@rowland.harvard.edu>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <02148858-defa-4c15-92e5-0ce7029bc000@rowland.harvard.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 04:02:56PM +0800, Baochen Qiang wrote:
-> Hi Burke, can you please try if below series can fix your issue as well?
->
-> https://lore.kernel.org/all/20261102-ath12k-logical-link-id-v4-0-f4c7807c299b@oss.qualcomm.com/
 
-Yes, it fixes it here too. I took Miaoqing's patch out and applied
-v4 1-11 instead, on v7.4-rc1 plus three ath12k commits from ath.git
-(c752394249f8 and 02121aa4a012 from ath-next, 1e678e37ff13 from
-ath-current) and out-of-tree Glymur platform/board patches; the tree
-also carries Miaoqing's dp_peer reconnect fix (8b6b871332b5). All 11
-applied as posted.
 
-On the tri-band MLO SSID that failed with reason 15 (SAE, PMF
-required, 2.4+5+6 GHz):
+On 11/2/26 7:49 PM, Alan Stern wrote:
+> On Mon, Nov 02, 2026 at 05:47:10PM -0800, Randy Dunlap wrote:
+>> Convert comments to kernel-doc format to avoid kernel-doc warnings:
+>>
+>> Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_on'
+>>  not described in 'usb_ohci_pdata'
+>> Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_off'
+>>  not described in 'usb_ohci_pdata'
+>> Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_suspend'
+>>  not described in 'usb_ohci_pdata'
+>>
+>> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+>> ---
+>> v2: move all kernel-doc comments to before the struct instead of
+>>     having them inline insidet the struct. (Alan)
+>>
+>> Cc: Alan Stern <stern@rowland.harvard.edu>
+>> Cc: linux-usb@vger.kernel.org
+>> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>>
+>>  include/linux/usb/ohci_pdriver.h |    8 ++++----
+>>  1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> --- linux-next-20261102.orig/include/linux/usb/ohci_pdriver.h
+>> +++ linux-next-20261102/include/linux/usb/ohci_pdriver.h
+>> @@ -13,6 +13,10 @@
+>>   * @big_endian_mmio:	BE registers
+>>   * @no_big_frame_no:	no big endian frame_no shift
+>>   * @num_ports:		number of ports
+>> + * @power_on: Turn on all power and clocks
+>> + * @power_off: Turn off all power and clocks
+>> + * @power_suspend: Turn on only VBUS suspend power and hotplug
+>> + *                 detection, turn off everything else
+> 
+> It would be nice if the indentation for these new entries matched the 
+> indentation for the ones above (1 or 2 tabs instead of 1 space).  Aside 
+> from that:
+> 
+> Acked-by: Alan Stern <stern@rowland.harvard.edu>
+> 
 
-- 12 of 12 connect/disconnect cycles completed the 4-way handshake and
-  came up as MLO with three links (2.4 and 6 GHz active), ping OK each
-  time; no reason 15 in 23 handshakes over the session
-- 5 of 5 rejoins after s2idle resume
-- non-MLO WPA2 on 5 GHz still fine
+Agreed. I'll send a v3.
+Thanks.
 
-This firmware sends the PEER_EXTENDED event (two per association), so
-the host allocation path in 8/11 was not exercised. I'll send a
-Tested-by on the cover letter.
+> 
+>>   *
+>>   * These are general configuration options for the OHCI controller. All of
+>>   * these options are activating more or less workarounds for some hardware.
+>> @@ -23,12 +27,8 @@ struct usb_ohci_pdata {
+>>  	unsigned	no_big_frame_no:1;
+>>  	unsigned int	num_ports;
+>>  
+>> -	/* Turn on all power and clocks */
+>>  	int (*power_on)(struct platform_device *pdev);
+>> -	/* Turn off all power and clocks */
+>>  	void (*power_off)(struct platform_device *pdev);
+>> -	/* Turn on only VBUS suspend power and hotplug detection,
+>> -	 * turn off everything else */
+>>  	void (*power_suspend)(struct platform_device *pdev);
+>>  };
+>>  
 
-Tested-on: QCC2072 hw1.0 PCI WLAN.COL.1.0.c2-00277-QCACOLSWPL_V1_TO_SILICONZ-1
+-- 
+~Randy
 
-AI coding assistants helped run these tests and draft this reply; the
-results are from the hardware runs.
-
-Thanks,
-Burke
