@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710185;
-	b=gmmSRr95TH42vwRDFHQNbGfk99k1d1sU+kyxscPELXL7xQ72CJ2zlzX1xkVRtILNjYXV
-	 Lr3YYrUukbHlGwEYMlgT0ulXs9wxBuWgOTgBOiyuwUsoUOzcGZSgC6vUs+oeeKq72tj2u
-	 kCak3JPldkep5R+qu/CQqON5avyw930soPQe/Wbc/rPZk3spMXPoHjjVJVf59XA57QHH7
-	 KBUTZuYciACuH6rotZpCCWvME4WTmyevgDrLaTGy75MS3UHnvCO2WPrVflm44RXMxcUsh
-	 8UXT8n1UzVPG4N8gsXKGpkOKf5XPfIEgIHqKvhSeXfOIDWBbUcgDGwG2hmAhWzLuyXQ==
+	t=1793710229;
+	b=ZJ+7fxEzq4l1my4PQI7HFmKucNN3iJYaUmAJ4LP03SET2duWPu2Dfi4i+izBAeDS/zsP
+	 bZ0FFT0+6N/95nHV0NGmBeCFY7YaEk9f9UfoGfTx1e/MKI1oAymZWWYHQc0mI+ip8j61S
+	 rdAH0mTafI3ZHDROFxb1I0P3myiLo/VbuzIp5AUfD9EdEeS94RpayJKHYTd7CrGXNkeIJ
+	 JM/FpYlKcFDnq1MGl7D9VX78R4OQCT5ZS5Bo97lrh0h44gGGea8nhP18Nq3gli5ZPrZHc
+	 MuAQqugsvnrWlxIkGXbgKdPQkx22YVu2sqzeDu7uZsyk59/O+dssxCNsHdSQmPKSO5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710185;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=h3E3p4Qx57k7mF3SMejk35tEDH50NV2LOZoyFsmHgdo=;
-	b=kM3xF8hajQDnYJ5JG7o65vqi+sUguu/tGRp7nPAbeZqAksp85nBxFMfr/BYB/uEOT1D+
-	 qR/my5l12WjWqZyu/W/GmPQ3nC5n3y4zYoz89nyBsyrnpfc4mD3cZHWjanNFfRIBQde00
-	 ktPJLD+YBL92okSf/fxZHfvLJcRkw3V+qbQZU+Je5n4yBvVsvtFyUS1UNbJOtCEYRG51y
-	 CCKti7g1T32vG2rc9++FXNc4TE6dRwZ9ymNVdFWHg/Yf583g3j8b2iGk6S8t83GRlI8P0
-	 BSPmaUIsfMSkRGNfyXcdHLk8f9J/P18EQLqVvkc66FqHxTQGARBTomJIF5YgXwS2tnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710229;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fVruni02f1KhjN7plFvbiZ0eo1NN/cpMLIaSDj/3PxE=;
+	b=5GvQFrTr74fPBC9cWiGWWeEPD4J5jPHHmoptq3cVc/MOdDSAuVaECeauQqPaJu3v0dpa
+	 EXVzQYbxhiXVrgKn23iCttcNSi7Zv0VYayJ+B6b4IWLILy382JKQayi6vP88pZ0hO45N2
+	 jVlC0XyqYYRZJBRBOWKBEcfDqE59EEv2M/VjG1kLH0SotFYqo3P5WPbinuY4QzBsUuAa6
+	 zJlqZY2XozbIdtAlcgVQIMcAPs+axdu9cDRxRx/Jqh3XVDh08Mlp/94R2/dVTAAPnY9fu
+	 +6ONe8cLcAa8YJMnlGcviYHjm6D5MK4G2DeVmTVtxwynLxaZMaPZB7H/aHuAE/rXMow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XvtwIdaY;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YIj+MeUM;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7420B606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:49:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7420B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36342606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:50:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36342606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XvtwIdaY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793710183;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h3E3p4Qx57k7mF3SMejk35tEDH50NV2LOZoyFsmHgdo=;
-	b=XvtwIdaYfTFCegfK1Em0oZRrrUf7oftlwde1xK0Abr0uMn9kbGOAcHTUK38xTyR9MRjIHq
-	zmc2gr+GTgUoZGTfi1IO0ZraT0blxXbA15y8qEXSlTmTQxz7GDNcpzAdll6vdWkLlmeGzd
-	mvRp9gSS5zzfMGoPAR0+7QtWHrYt6CU=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-17--KLJ9WWrMVaISxSpM5npsA-1; Tue,
- 03 Nov 2026 07:49:38 -0500
-X-MC-Unique: -KLJ9WWrMVaISxSpM5npsA-1
-X-Mimecast-MFC-AGG-ID: -KLJ9WWrMVaISxSpM5npsA_1793710177
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7A5081955D8E;
-	Tue,  3 Nov 2026 12:49:36 +0000 (UTC)
-Received: from pbonzini-thinkpadx1carbon6th.rmtit.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3207D1955F01;
-	Tue,  3 Nov 2026 12:49:33 +0000 (UTC)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Hillf Danton <hdanton@sina.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Harry Yoo <harry@kernel.org>,
-	syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] KVM: register asynchronous page fault waits with interrupts disabled
-Date: Tue,  3 Nov 2026 13:49:29 +0100
-Message-ID: <20261103124930.2278671-2-pbonzini@redhat.com>
-In-Reply-To: <20261103124930.2278671-1-pbonzini@redhat.com>
-References: <20261103124930.2278671-1-pbonzini@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YIj+MeUM
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so31213675e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:50:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793710227; x=1794315027; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fVruni02f1KhjN7plFvbiZ0eo1NN/cpMLIaSDj/3PxE=;
+        b=YIj+MeUMjk8k95d/WDY+hsdQQifEB+sLygCr+j6LiaDauxHmYHCQsdoXMALt2Z3gYR
+         gNUDDujfzjush7WcwUz61uuquLt6mDyhbuHyclPsoEZhsWXjBlHl4eZ1ZsvmW2fXVRM1
+         omKLdy9WWdE9KnhD9Ql7fp2ON6SD+ybGzDEEgEcSNkJAFqLZLLCtHITt4uzR6NrJBlKo
+         xnEjZ5DtQEp62zYokgQwYQSNvL7+6FaHoTPM4iUZUVpLSo+5zzy7JbcGpZvxL8gJoshb
+         tVOXluusG5wtLRUsZEx1AC2y2dZwhbfwCa3UruDw75B64jpHHs4Ami76FJ3FGnUcTocv
+         mgHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793710227; x=1794315027;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fVruni02f1KhjN7plFvbiZ0eo1NN/cpMLIaSDj/3PxE=;
+        b=TyQIgcElD8FYjjmGhqJxfdETE6nsOCIzv/VxGzzQ8/lB4IX/SaSLH8vyWixfy1JNT5
+         DDLBMXzIK/OyV4oTnygCeRKtPwVRIYa3/+4n7RbBlB4XomZ5xxKHeA0cL98xUS7tTRGW
+         LUpqEsBAPqtVOwF7Zp6WlWowHW0qxLWgwBQi/xn8l/6j0Q07Udj2Xs2q5xlaRnfzJ1/r
+         9pkCcTQZ6FEwyo49j/4RsdTYjxUKNBsIxrDtn0nwmTyKKXhGCWhGg3inX5YjS/x3jlQG
+         0Uwr3EWSjBpDjMx2cYCNxcmlOvVvnYlCy+N71MxhJPMPczbULWyWSTMtK1k0+B7M4wGY
+         rsWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzHXBwO5hj6yB6sShyVUvhjaNg2DHgy0luHNzPzuapj/Knte98siK8YNIqKZ0ki5UypoVZ36fqwd8qSfVw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+G78uohvcAh8dxkj/H4r8W5WxNFQBgTTZfKnicyue3yvLgEWB5
+	HwD0r6RZATGQvPiN21NP6wlZikBBG6IZLY/3Cb5iLpsTk3wpzgbX66bA
+X-Gm-Gg: AYBFou3R88hO600nSfLEj3yYw0W7Try/f9R7x1sDEnrZNmH3lKTMva6q4VuG9NlnLr6
+	eZaOux2KrO75OD+yfEJSzkP04JRLSP3coaEz2EnqrB9b+DU3nSDEQKBoqmpvBqeqg8fChwtFCXc
+	hACchfCyIVCCZ3AwYsxctdI9tRT79t8Sm6QXdfw63Ci4M1mNZElEUfTY6kpeIoXYIk5tYjMMg9t
+	re2eaWvq6oJKCGfkU+cStDXwPluXAaSXYGBOTWRWRV2VU6PYYOcfBt2mLoXY5PP9gvDyVs+bbIz
+	zGaVbKafG7F32w8DNfv0me/c2xUUvd4JVP1toivNOtNEV6lF7pKpOLAV+4UeAk6R0oJY5qHNKR+
+	8lDUWWJdHkL/08dkFMq16znayxMwj4b4TNNqoFLQ9lmBKgczDuslVdExvo6u/pIJ0tNyEUbBgTS
+	8SijKylOAoxmqJtBjuVfa/WP/BB4cvbDEV4Kxq8M7+gAH53A72xDS5CFaOZbCS5K0S8YyoCPPrm
+	wLpHja6vwpyt5PBxgffmBGIyCLsA2QLZyHH5vspBoXwKIpodymaDMmqhd7wOlLnTAyKw7c6anaI
+	umF+v1xWaWUFXebYni0KSp+EsTTuehWX539PoJJGfrgg4A/7GXUpFGj6pdOShKOucbkFq4tL+De
+	so0MXXKu467CJpRTyBBr4rNOlUACNtvykxI0/9sPltjoftQZg0ZnRsR+x8hcXbg==
+X-Received: by 2002:a05:600c:628d:b0:4a1:e01e:1927 with SMTP id 5b1f17b1804b1-4ac17d16a1bmr294497215e9.5.1793710227348;
+        Tue, 03 Nov 2026 04:50:27 -0800 (PST)
+Received: from localhost.localdomain ([2a00:102a:403b:96a2:e8a9:f4a7:ed37:36a3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a5372d8bsm61406425e9.0.2026.11.03.04.50.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 03 Nov 2026 04:50:25 -0800 (PST)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: netdev@vger.kernel.org
+Cc: marcin.s.wojtas@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	maxime.chevallier@bootlin.com,
+	w@1wt.eu,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 0/5] net: mvneta: fix the TX queue arbitration and the mqprio offload
+Date: Tue,  3 Nov 2026 13:50:16 +0100
+Message-ID: <20261103125021.70845-1-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,277 +103,58 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Asynchronous page fault handling has some wonky code to detect page ready
-notifications that are sent before the waiter is registered.  When page
-ready notifications for asynchronous page faults were separated from
-not-present notifications and turned into an interrupt, this code was
-unwittingly made almost-redundant.  Page ready notification is now delayed
-until after interrupts are enabled; and for an asynchronous page faults
-that occur outside guest mode, Linux never enables interrupts between the
-delivery of the #PF exception and the call to kvm_async_pf_queue_task().
-Therefore, the dummy allocation path is fully dead on that common path.
+The NETA TX arbiter is left at its reset default, which serves the TX
+queues in fixed priority. Under load a busy queue starves the others.
+OpenWrt has worked around this since 2017 by sending all TX traffic
+of its 32-bit boards through queue 0 [1].
 
-For the nested virtualization case, however, vmx.c and svm.c do
-record in the interrupt-disabled region whether a #PF vmexit is an
-asynchronous page fault, but they defer registration of the waiter until
-kvm_handle_page_fault().  Because of this, the vCPU thread can be preempted
-before kvm_async_pf_task_wait_schedule() is called, and apf_task_wake_one()
-may them not find the vCPU thread in the waiters list.  It then allocates
-the struct kvm_task_sleep_node* on behalf of the task that received the
-asynchronous page fault.  Besides keeping alive the wonky code, allocating
-the node from an hardirq-disabled region is a problem for PREEMPT_RT kernels,
-as duly reported by syzkaller.
+Patch 3 serves the queues in weighted round robin. While working on it,
+four older bugs in the mqprio offload showed up. Turning the shaper off
+leaves the per-queue rate limits in place (patch 1). Deleting the qdisc
+never reaches the driver (patch 2). A failed setup is not undone
+(patch 4). Opening the interface or changing its MTU sets every rate
+limit to 10.23 Mbit/s (patch 5).
 
-Split registration from wait so that the caller decides where to
-put the node and so that KVM can anticipate the registration before
-interrupts are enabled.  KVM cannot use a node on the stack like
-kvm_async_pf_task_wait_schedule() does, but it can place it in the vCPU
-struct instead.
+The series was tested on a Turris Omnia (Armada 385). The other NETA
+variants were not tested, but the driver already programs registers of
+the same block (MVNETA_TX_MTU and the token sizes) on all of them.
+Suspend and resume were not tested.
 
-Reported-by: syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com
-Link: https://lore.kernel.org/kvm/6adf2939.67317f00.38c4bc.00ae.GAE@google.com/
-Cc: Sean Christopherson <seanjc@google.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- arch/x86/include/asm/kvm_host.h |  1 +
- arch/x86/include/asm/kvm_para.h | 21 +++++++++++++++++++--
- arch/x86/kernel/kvm.c           | 31 ++++++++++++-------------------
- arch/x86/kvm/mmu.h              | 14 ++++++++++++++
- arch/x86/kvm/mmu/mmu.c          |  4 +++-
- arch/x86/kvm/svm/svm.c          |  3 +--
- arch/x86/kvm/vmx/main.c         |  2 +-
- 7 files changed, 51 insertions(+), 25 deletions(-)
+With patch 2, replacing an offloaded mqprio qdisc with another mqprio
+under a new handle loses the new configuration. The new qdisc is set up
+before the old one is torn down, and the driver now acts on that
+teardown. Software mqprio loses the configuration in the same way.
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 1ee4b127004d..3f096a0f3387 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -951,6 +951,7 @@ struct kvm_vcpu_arch {
- 		u16 vec;
- 		u32 id;
- 		u32 host_apf_flags;
-+		struct kvm_task_sleep_node host_apf_node;
- 		bool pageready_pending;
- 	} apf;
- 
-diff --git a/arch/x86/include/asm/kvm_para.h b/arch/x86/include/asm/kvm_para.h
-index 4a47c16e2df8..1e28c89b1405 100644
---- a/arch/x86/include/asm/kvm_para.h
-+++ b/arch/x86/include/asm/kvm_para.h
-@@ -5,6 +5,7 @@
- #include <asm/processor.h>
- #include <asm/alternative.h>
- #include <linux/interrupt.h>
-+#include <linux/swait.h>
- #include <uapi/asm/kvm_para.h>
- 
- #include <asm/tdx.h>
-@@ -117,13 +118,22 @@ static inline long kvm_sev_hypercall3(unsigned int nr, unsigned long p1,
- 	return ret;
- }
- 
-+struct kvm_task_sleep_node {
-+	struct hlist_node link;
-+	struct swait_queue_head wq;
-+	u32 token;
-+	int cpu;
-+	bool dummy;
-+};
-+
- #ifdef CONFIG_KVM_GUEST
- void kvmclock_init(void);
- void kvmclock_disable(void);
- bool kvm_para_available(void);
- unsigned int kvm_arch_para_features(void);
- unsigned int kvm_arch_para_hints(void);
--void kvm_async_pf_task_wait_schedule(u32 token);
-+bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n);
-+void kvm_async_pf_task_wait_schedule(struct kvm_task_sleep_node *n);
- u32 kvm_read_and_reset_apf_flags(void);
- bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token);
- 
-@@ -146,7 +156,14 @@ static inline void kvm_spinlock_init(void)
- #endif /* CONFIG_PARAVIRT_SPINLOCKS */
- 
- #else /* CONFIG_KVM_GUEST */
--#define kvm_async_pf_task_wait_schedule(T) do {} while(0)
-+static inline bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n)
-+{
-+	return false;
-+}
-+
-+static inline void kvm_async_pf_task_wait_schedule(struct kvm_task_sleep_node *n)
-+{
-+}
- 
- static inline bool kvm_para_available(void)
- {
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 9f0efbe94793..ca5dcdc7ffde 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -80,14 +80,6 @@ static int has_guest_poll = 0;
- #define KVM_TASK_SLEEP_HASHBITS 8
- #define KVM_TASK_SLEEP_HASHSIZE (1<<KVM_TASK_SLEEP_HASHBITS)
- 
--struct kvm_task_sleep_node {
--	struct hlist_node link;
--	struct swait_queue_head wq;
--	u32 token;
--	int cpu;
--	bool dummy;
--};
--
- static struct kvm_task_sleep_head {
- 	raw_spinlock_t lock;
- 	struct hlist_head list;
-@@ -108,12 +100,14 @@ static struct kvm_task_sleep_node *_find_apf_task(struct kvm_task_sleep_head *b,
- 	return NULL;
- }
- 
--static bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n)
-+bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n)
- {
- 	u32 key = hash_32(token, KVM_TASK_SLEEP_HASHBITS);
- 	struct kvm_task_sleep_head *b = &async_pf_sleepers[key];
- 	struct kvm_task_sleep_node *e;
- 
-+	lockdep_assert_irqs_disabled();
-+
- 	raw_spin_lock(&b->lock);
- 	e = _find_apf_task(b, token);
- 	if (e) {
-@@ -142,34 +136,31 @@ static bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n)
- 	raw_spin_unlock(&b->lock);
- 	return true;
- }
-+EXPORT_SYMBOL_FOR_KVM(kvm_async_pf_queue_task);
- 
- /*
-  * kvm_async_pf_task_wait_schedule - Wait for pagefault to be handled
-- * @token:	Token to identify the sleep node entry
-+ * @n:	Previously queued sleep node.
-  *
-  * Invoked from the async pagefault handling code or from the VM exit page
-  * fault handler. In both cases RCU is watching.
-  */
--void kvm_async_pf_task_wait_schedule(u32 token)
-+void kvm_async_pf_task_wait_schedule(struct kvm_task_sleep_node *n)
- {
--	struct kvm_task_sleep_node n;
- 	DECLARE_SWAITQUEUE(wait);
- 
- 	lockdep_assert_irqs_disabled();
- 
--	if (!kvm_async_pf_queue_task(token, &n))
--		return;
--
- 	for (;;) {
--		prepare_to_swait_exclusive(&n.wq, &wait, TASK_UNINTERRUPTIBLE);
--		if (hlist_unhashed(&n.link))
-+		prepare_to_swait_exclusive(&n->wq, &wait, TASK_UNINTERRUPTIBLE);
-+		if (hlist_unhashed(&n->link))
- 			break;
- 
- 		local_irq_enable();
- 		schedule();
- 		local_irq_disable();
- 	}
--	finish_swait(&n.wq, &wait);
-+	finish_swait(&n->wq, &wait);
- }
- EXPORT_SYMBOL_FOR_KVM(kvm_async_pf_task_wait_schedule);
- 
-@@ -273,6 +264,7 @@ static __always_inline bool kvm_apf_reason_pending(void)
- 
- noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
- {
-+	struct kvm_task_sleep_node n;
- 	irqentry_state_t state;
- 	u32 flags;
- 
-@@ -314,7 +306,8 @@ noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
- 
- 	if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
- 		/* Page is swapped out by the host. */
--		kvm_async_pf_task_wait_schedule(token);
-+		if (kvm_async_pf_queue_task(token, &n))
-+			kvm_async_pf_task_wait_schedule(&n);
- 	} else {
- 		WARN_ONCE(1, "Unexpected async PF flags: %x\n", flags);
- 	}
-diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
-index b2a295a9f084..3cb2616d88ac 100644
---- a/arch/x86/kvm/mmu.h
-+++ b/arch/x86/kvm/mmu.h
-@@ -162,6 +162,20 @@ void kvm_configure_mmu(bool enable_tdp, int tdp_forced_root_level,
- bool kvm_can_do_async_pf(struct kvm_vcpu *vcpu);
- int kvm_handle_page_fault(struct kvm_vcpu *vcpu, u64 error_code,
- 				u64 fault_address, char *insn, int insn_len);
-+
-+static inline void kvm_handle_host_apf_irqoff(struct kvm_vcpu *vcpu, u32 token)
-+{
-+	vcpu->arch.apf.host_apf_flags = kvm_read_and_reset_apf_flags();
-+	if ((vcpu->arch.apf.host_apf_flags & KVM_PV_REASON_PAGE_NOT_PRESENT) &&
-+	    !kvm_async_pf_queue_task(token, &vcpu->arch.apf.host_apf_node)) {
-+		/*
-+		 * Nothing to do but regular page fault handling must still
-+		 * be suppressed, so leave host_apf_flags nonzero.
-+		 */
-+		vcpu->arch.apf.host_apf_flags = KVM_PV_REASON_PAGE_READY;
-+	}
-+}
-+
- void __kvm_mmu_refresh_passthrough_bits(struct kvm_vcpu *vcpu,
- 					struct kvm_pagewalk *pw);
- 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index dc2aef72ffdd..1f2ae73275aa 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4979,8 +4979,10 @@ int kvm_handle_page_fault(struct kvm_vcpu *vcpu, u64 error_code,
- 	} else if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
- 		vcpu->arch.apf.host_apf_flags = 0;
- 		local_irq_disable();
--		kvm_async_pf_task_wait_schedule(fault_address);
-+		kvm_async_pf_task_wait_schedule(&vcpu->arch.apf.host_apf_node);
- 		local_irq_enable();
-+	} else if (flags & KVM_PV_REASON_PAGE_READY) {
-+		vcpu->arch.apf.host_apf_flags = 0;
- 	} else {
- 		WARN_ONCE(1, "Unexpected host async PF flags: %x\n", flags);
- 	}
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 136069dfcd44..e0ff458761cf 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -4764,8 +4764,7 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
- 
- 	/* if exit due to PF check for async PF */
- 	if (svm->vmcb->control.exit_code == SVM_EXIT_EXCP_BASE + PF_VECTOR)
--		vcpu->arch.apf.host_apf_flags =
--			kvm_read_and_reset_apf_flags();
-+		kvm_handle_host_apf_irqoff(vcpu, svm->vmcb->control.exit_info_2);
- 
- 	kvm_clear_available_registers(vcpu, SVM_REGS_LAZY_LOAD_SET);
- 
-diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index d75170a6199e..b46f8f60ce70 100644
---- a/arch/x86/kvm/vmx/main.c
-+++ b/arch/x86/kvm/vmx/main.c
-@@ -916,7 +916,7 @@ static void handle_exception_irqoff(struct kvm_vcpu *vcpu, u32 intr_info)
- {
- 	/* if exit due to PF check for async PF */
- 	if (is_page_fault(intr_info))
--		vcpu->arch.apf.host_apf_flags = kvm_read_and_reset_apf_flags();
-+		kvm_handle_host_apf_irqoff(vcpu, vt_get_exit_qual(vcpu));
- 	/* if exit due to NM, handle before interrupts are enabled */
- 	else if (is_nm_fault(intr_info))
- 		handle_nm_fault_irqoff(vcpu);
+Changes in v2:
+- Add patches 4 and 5. They fix the pre-existing issues that the
+  Sashiko review pointed out.
+- Patch 1: say that deleting the qdisc reaches the new code only with
+  patch 2. When MVNETA_REFILL_NUM_CLK_REG was never programmed, the
+  full rate refill keeps the refill period that the queues have after
+  mvneta_txq_hw_init() and only raises the tokens, so it is not slower
+  than before.
+- Patch 2: describe the replace case. The v1 cover letter called it an
+  existing limitation, but before this patch the driver kept the new
+  configuration.
+- Patch 3: add a missing blank line in the commit message.
+- No code change in patches 1 to 3. Rebased on current net/main.
+- v1: https://lore.kernel.org/netdev/20261102112816.12322-1-pepe.schlehofer@gmail.com/
+
+[1] https://github.com/openwrt/openwrt/blob/a5e96c837ead549820867bb83c1ad471e39f5ace/target/linux/mvebu/patches-6.18/700-mvneta-tx-queue-workaround.patch
+
+Josef Schlehofer (5):
+  net: mvneta: lift the per-queue TX rate limits
+  net: mvneta: fix the removal of the mqprio offload
+  net: mvneta: serve the TX queues in weighted round robin
+  net: mvneta: unwind a failed mqprio setup
+  net: mvneta: keep the TX rate limits across open and MTU change
+
+ drivers/net/ethernet/marvell/mvneta.c | 91 +++++++++++++++++++++++----
+ 1 file changed, 80 insertions(+), 11 deletions(-)
+
+
+base-commit: f56daaadfecae1f760d0fb34385b256d3af68970
 -- 
-2.56.0
-
+2.54.0 (Apple Git-157)
 
