@@ -1,45 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693751;
-	b=e8o3lr739iE6QSyQKCwk3ElrzTx+/BOK5G1kEeVWNsSwg/F2MdnMqfW0EPjrsqGYDFus
-	 tsXojBQnguyXTmQV2VUiVzBPxgCBVsA4MK8Ogt9+sXaEeiZknOJ+g9s+x5z8aj00+wlw7
-	 zCJp3CotG2RlOYR5EkjGQuG3iGRXYiWt3JQYuhFYTnmQPI0Ig79fNGYenr3aw5JiNS0fr
-	 peMSGgFYteyxp8yBWxegVcMPoOa7r3jUiO15FZRL4zWQ7spl6Xrk4jREjDObHvdhKzcCs
-	 yGt8bfNi3e9L/A42uJSQdGzZpUBMchSMiBWYxezmwrp4xTR6caEemIrvdLse5pJdLrg==
+	t=1793693770;
+	b=M7n7dfa9/+oVXU+0zMRs3iZ28OCciN+thjG7q9a1Rr7Whi0A81ddN4yoUUpEICwxeypS
+	 FDLAlpMw0scMFba6UQhm8fqenAdp+gtOvfYwD18p3+PyvK2pkSHhCdFFZ9mEgzV1I92Kg
+	 M6yjSHpuutcBNhFTeVP4fm3OVcv7a2Xa1Deuh6QR0TuIrHI9nkKHOIYl5w6aoXwYGHw8x
+	 vvfBnwgyOpz9GVmnNkeguxS5nLO/s/ND/QcWzvLfBGhPo0Ee2w4RTwCK8Y1a4TNpTQSZ+
+	 CdmEtxF14lKA6Midttv8zZE0Gp6hJU8DmZuS3pJbwvcCM5sLmG4I0yghzssGs9Rsw6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693751;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=VVI2BEPcphI98oQDYKHMPWx770bBBVfS5vHEb2ZMpdw=;
-	b=m5EjAgPgQ5ONY9jlv/oscPnLknHBLml7nOd0bCi0LwWfSIo3mrd8iueb1UGQqzdP1Kbt
-	 zdxHU2HU0I20+b41oxFT2IAugUFA7pA7n4hqWzcgXj1agJlWR3KeItL0tzfhNINukp09I
-	 /JJB8ASFQLE8s3gBDsPSivRrXc86DVCoO+HDcAsMdACSDuIqnoOfzci5FpCrVISmrNGbk
-	 4eHuDkq3VAJS/bjk9lkbM+uLHO8akseb/XnWST7e5MsTFIqYA+HTDQLY4U9nejvDhDaUN
-	 7RENp5OW67kGYGKkgVp6N2dnW0kcMwdJh0yLE646x1K+Xsj/SrCDhxV0v7fAJ81fTtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693770;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=7Qfv2RrlktjTn/mFNJau1qV3Ljc+Bg56TPja324C4EE=;
+	b=tkMETNHRscZyfdIXK2Ql/jJhh5rd1VKUVNuZDRXhlLrIAe2yaHlLbNP91KXWqjLUmg2l
+	 Fenec6hiul41B1skIc40ywk85cwP9TDZgcuyfhafYFnLc3g/VLAVpvdhonH0EL49P6IW5
+	 zFUx8FLTCHk+EAdu1UanvGhbfs64tzZL9lddQ9SmYZLnYgPb6OnuOcRnoQJku42vFwwZT
+	 AlnrQAk6KiPqLrD3cqMU/No1bR3ISceUJ4QISGzyBFDQvI7riD+enXzSo3LyqvBD/RpLQ
+	 T91hwRl9MBBZBHClXE5grxU6YwTLgQMVkXV/IpVdSE0sZZOlxk/Qppx19F07M6knRDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lst.de;
-	spf=pass smtp.mailfrom=lst.de;
-	arc=none smtp.remote-ip=213.95.11.211
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0544A606A32E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:15:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0544A606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 8055868CFE; Tue,  3 Nov 2026 09:15:47 +0100 (CET)
-Date: Tue, 3 Nov 2026 09:15:46 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nvmet: drop the extra RCU grace period in
- nvmet_ns_disable()
-Message-ID: <20261103081546.GC4301@lst.de>
-References: <20261103-bug-nvmet-ns-disable-rcu-v1-1-ff7ac5623923@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94566606A32C;
+	Tue,  3 Nov 2026 08:16:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94566606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACHkpNGmOlqQVI6AA--.1655S2;
+	Tue, 03 Nov 2026 16:16:06 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: mkalderon@marvell.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] RDMA/qedr: Release user memory on MR registration failure
+Date: Tue,  3 Nov 2026 08:16:15 +0000
+Message-Id: <20261103081615.1143267-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,28 +54,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-bug-nvmet-ns-disable-rcu-v1-1-ff7ac5623923@gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACHkpNGmOlqQVI6AA--.1655S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw1rtFW3CrWruw4xXw17Awb_yoW8Jw4UpF
+	4fWrZ0krWUtF4293WDAF10vFWSga4rAayjg3sIy34fZFsxZF109FnYka4UZryDGF95Xr4f
+	Zr4Utws8uF1xCFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUMGQ
+	DUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpWwroEgAAsm
 
-On Tue, Nov 03, 2026 at 01:31:25AM -0500, Qiliang Yuan wrote:
->  	 * Now that we removed the namespaces from the lookup list, we
->  	 * can kill the per_cpu ref and wait for any remaining references
-> -	 * to be dropped, as well as a RCU grace period for anyone only
-> -	 * using the namespace under rcu_read_lock().  Note that we can't
-> -	 * use call_rcu here as we need to ensure the namespaces have
-> -	 * been fully destroyed before unloading the module.
-> +	 * to be dropped.  Rely on that wait for anyone only using the
-> +	 * namespace under rcu_read_lock() too: the ref can't drop to zero
-> +	 * before an RCU grace period has passed since the kill.  Note that
-> +	 * we can't use call_rcu here as we need to ensure the namespaces
-> +	 * have been fully destroyed before unloading the module.
->  	 */
->  	percpu_ref_kill(&ns->ref);
-> -	synchronize_rcu();
+qedr_reg_user_mr() acquires user memory before initializing the PBL and
+allocating and registering a hardware TID. The error paths after that
+acquisition release the MR storage and PBL resources, but skip
+ib_umem_release(), leaving the user pages pinned and DMA mapped.
 
-This assumes the percpu_ref is never moved to atomic mode otherwise.
-Which we don't do in nvmet, but maybe leaving a reminder of that here
-would be useful.
+Release the umem at err1, which is reached after a successful acquisition.
+The failure path of ib_umem_get_va() still jumps directly to err0 and
+never passes its error pointer to ib_umem_release().
+
+Fixes: e0290cce6ac0 ("qedr: Add support for memory registeration verbs")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/infiniband/hw/qedr/verbs.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/infiniband/hw/qedr/verbs.c b/drivers/infiniband/hw/qedr/verbs.c
+index acab3cb98caa..3c777bfdef8f 100644
+--- a/drivers/infiniband/hw/qedr/verbs.c
++++ b/drivers/infiniband/hw/qedr/verbs.c
+@@ -3006,6 +3006,7 @@ struct ib_mr *qedr_reg_user_mr(struct ib_pd *ibpd, u64 start, u64 len,
+ err2:
+ 	dev->ops->rdma_free_tid(dev->rdma_ctx, mr->hw_mr.itid);
+ err1:
++	ib_umem_release(mr->umem);
+ 	qedr_free_pbl(dev, &mr->info.pbl_info, mr->info.pbl_table);
+ err0:
+ 	kfree(mr);
+-- 
+2.34.1
 
