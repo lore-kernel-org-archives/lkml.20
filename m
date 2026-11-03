@@ -1,89 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793734693;
-	b=BIleBurD02bO0m/Urw3xIpT7jbvs5n/amzg8kwaZMdgUha6QfyGNY0Vy49xjEc1NR1QO
-	 Oudk7AjJxb+ykLYBfA2UrxW8DxwE4cOQvCgeRLy5Ap1ZZRDkb5G16RmoyC5mxZTOxHF/z
-	 oAglpWT8vlUj3YZQdttk5fACjxdp3lT+FoPrzCwIpUU5l4WE0QsOZawnNOf4N6plQJP5w
-	 ZGIl2VgtlQ+PJTV4i8mysOKQanrwrnDj0A0TBlj4Den+fFrHjjM2XAx4Qow3o2drgCFss
-	 3wh/XxhNoGjLHr4OVCimLG0wRnmKW8DPt/skixR8Mi5+vK7DxYmRx+1KVz5cHmTH7TQ==
+	t=1793734717;
+	b=yVtFMXyfkbeSibFoYtNljs1BzBiiS42SU2PApfW5CcDUiZw5NuLr9tJZhO8vlCVh0sOj
+	 Uw8INLiXm0cv1urj0nBLC1n4q3dK2hP/LZgw21r1c/LRAXjfFJEQaq4Rq462RUFjawlxg
+	 H9g8CNMe2Ygg1DJy8XBwQ3H8wT4S2n+OGRQYEAoSlKADjXUL32gBr6UAE7GfSNjGREFix
+	 1Q5elWeSjTlZ4mSXZMgl6Lrv5uNjcS/gOiP8kmHUkgMyopFgty4jDwjPO9k6cAx2ZDU8S
+	 kE/po/dDhfCCc/0AhAIZ/FQQ/YcH0Yw0C0e3jRbvMiKwRoFpm8SbGaD1P2B6xQYUM4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793734693;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=tuTSxu3KTMYXj5m2sq/CjElD/51ek2rmveUedi9cdvQ=;
-	b=054Qu885Sseiz71LlTn4ojlCeXBWf+w4py0hmDSdvtdtuH+nhfAOOPV5K1lKwFU9dlzZ
-	 KRO//UiOgQdUh0xqAwodmu9dGMfe2/0wXSL3zb7RGBX/HyqiBoHHNE4okKMRzlMUhyL6C
-	 8G5C60hSrvT+nQwVbyxeIKLyV16va5tJBStJSeW6z5Br9q0e/EdJdyQ4JhQvMLDlwt69z
-	 I1MZNZ79+e2kZsqrdPIKdMPIWO7q2d5MuWhjwDIAGaesHveJ7gDOxqm1mEUWBMa1SdNih
-	 15wJvtD578f7hKuyFkjKqRpV/j9RZ1EbeOkSC9UMSipDECFtwKRCMfSSRIk4iSiZLFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793734717;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=gjbIoKggA3ZB4AoecBWT6FbzxdHr7kpCEu66Kpd7ryc=;
+	b=CsxQX3kEfHhE3mVWoxf0d8sl8Skfv9dQN3LakENySfBrZlPRSGdYH98sPbNszsOg8nDV
+	 +CjKz84+viGSNZ+6uYMD9nNbSn5oiGWMv0IkMJ7BvxHObNq8TMjZsjMwkDQpKBLprER1W
+	 xlf0y+KLtIdd2WqUfqikNDrYaI+x8vqjPlPJVqJk2GRbv6vj6sFLh2zpxrNW1AM4pgioY
+	 KXmIHt3nNFOjfL/FfkkSz+bscOUIZnj8bqp2+f+ea63RykB/u8bixwo74SSF6IvTWsWei
+	 TBeaSOUljPobY1nKRY6mIUMKFSqaxP8OJZejtoxRAWegsybtkmZfNVxxyXHI/Quspkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="GKRtY/xR";
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9Pa4ssf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A66606A33D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:38:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1A66606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3297606A324;
+	Tue,  3 Nov 2026 19:38:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GKRtY/xR
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so2516756f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:38:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793734691; x=1794339491; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tuTSxu3KTMYXj5m2sq/CjElD/51ek2rmveUedi9cdvQ=;
-        b=GKRtY/xRqxKE0icRGOY1BmyhxrRDxuz7CSnjvN1kQlWXikkvz0R3sFAz8EPh+B8BED
-         VHYDvslWBn1s8MtghLOL4W6uzFOja+20OtOFQbOF7QwyCVzyykDJ5gnCXuYj60qiIWDO
-         HU5FW5OdZXn1Y6X1hmQc4YAx+rjaMNbVGA+01AQ7JSakygrakPRCy6P7ezF7/f/7JidB
-         P31QRfc4IITd5Dikbcf7f6t519fkGW02GVIJEDEJK8I/8i489SdL/z+fBSwSlo4aNUkB
-         a9svGfTw4Gh55GeKCCczCqgKD4PVjZGCzK4jYgVuvw8Upd85z+B8RrWCVWBxkyEbXeEy
-         185w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793734691; x=1794339491;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tuTSxu3KTMYXj5m2sq/CjElD/51ek2rmveUedi9cdvQ=;
-        b=n1E4WYx4mf05l9JAjqRG/GV9h+k9vTQ+hXtl/Sx/L42htxM4EQxWH8dSiuRyXABKcp
-         1asFJNJ8Otg0TmDsz9dB0nMs4Dt0CZuaz45SzfID4+mCSbcAcUBlVKVFze4bwKPoYJss
-         qucCIRi0jEIcZdJiKcTk6WalG98ObVd/4OCgZrM49yG0lsCBVZNCHoMmvBUzLzLdlHde
-         cbFcibv3FSxjSRT9kBHoN2tFrQ04l/74sfJVbTue2aT9Ao45WltSHQqNS0dcmjy1pb9O
-         56PMZdI6EiLc9G4Hl6vWOsD3ztAYtyv3nPSHWMpRSk8W1ivOmZ1UInNyr1sti41v4XFh
-         6L7w==
-X-Forwarded-Encrypted: i=1; AKwUvByTaxX4myuNOUnTGyHmicM+A5LeUB95E6FoexcxLpETMVKWnsHrJGLP+g7y0+Rnmmk+frQT4rSjQxkfSWU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XS/nXjb0hkMYh36WGIhunz/GPhCpdypwv2kbuMx0s/PN9wzGc
-	WxJ5QawKCTa58BirDe6vBP4VlHs2DG3XlWztnGudvP+9pjg21Xl0xTeeQgychETpLp1ha4iFoSA
-	Ljlrb
-X-Gm-Gg: AYBFou1tA73mLyVXZO9V/tVmeeiBOFieY9XGWjRHmGuWh/EtBMraTOcz3DxCFnk/p1S
-	R/jPWOCdiwgYagsK6BIOf3AIhVDZsnTbKEyR0NLIXGrFnDOj4082cyd5egjJ4Cl8X7LvGUvPzeo
-	RbmdUHxrURoMMyErS//rJTdPBx3NNXQZexFoci3IFl3Iq4HASwUgMjoeUFGtir+SWttikFnD3oQ
-	cc/3L/0PDgjyekyMdYY+cL9zCbD7QElOGZcdThP2MWz53a60J+7QTJDD7e62q05gEUXmxTYO9Vf
-	XiOC8A5R5ffZf6aPVM2pfgJa3a/5LXaaJCSQaCfTB1iFM05f0zp4KS7I3YjNzESDuEyTnTd3Ah8
-	nFZCD0DV8C0Nbtx61nm16l2q5YuAuGY+AXKgvXZKdVKNhZ3WiWevgsL2uTAOpWE3OVU89sXN9G5
-	ymAvxwPKkidqWEByFi7bDbpCeBlhW10U8O/1nJvg1JlV82Gzm/PicFfITGfCO6N1BqwoeV8WmuX
-	8kMBn2lrhmwg3KCesJ4JSAFYqbq/ze4GZi4io7rKW3ZlrvVi5Vfc5gDKcjUTozGZ4Xji3TKRTlO
-	2POH75CRGZ8WOTLtqp1oE1vt+g==
-X-Received: by 2002:a05:600c:8b61:b0:4a2:1398:dd05 with SMTP id 5b1f17b1804b1-4ac17752ee4mr302304865e9.16.1793734691196;
-        Tue, 03 Nov 2026 11:38:11 -0800 (PST)
-Received: from localhost ([2001:4090:a244:81d0:2c16:1c4d:8a04:e0bf])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b413312b94sm2165015e9.3.2026.11.03.11.38.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 11:38:10 -0800 (PST)
-From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Date: Tue, 03 Nov 2026 20:37:30 +0100
-Subject: [PATCH 3/4] dmaengine: ti: cppi41: Restore QMGR_MEMCTRL in resume
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9Pa4ssf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D1951F000C1;
+	Tue,  3 Nov 2026 19:38:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793734716;
+	bh=gjbIoKggA3ZB4AoecBWT6FbzxdHr7kpCEu66Kpd7ryc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=J9Pa4ssffdth4yMj2y8l9OYDobyqKq7UDkJVQNhlBmmneHHTuEGA7Dql4t9zawMN2
+	 ZOsz226ckgvlfCq0/Z+IIMQHWOmuAEREm9tkWhwceL1CxgEePRvI7dh50rTgqtq2JP
+	 lAU87zp1Nx/7Aq9CoNFwYbZkFqp9a5bF2yDEKMAxfDPsgFdrRyjah6euWIN1Liz1PL
+	 V78vkkpxsaB33WUmXAv/HcNTvsU4WYR2PhQUvW9xbb2oU8B1a/Z8YqB1emQbIXSKci
+	 AU4EBhDh6Glx3VagNeXNABaPcWa2PrJQKexTH/5TvxgeHek1DQmjrNGKpawTEOMdXt
+	 BZhASPo+c/bXg==
+Subject: Re: [PATCH net] ieee802154: reject ARPHRD_IEEE802154 devices without
+ ieee802154_ptr
+From: netdev-bot+sashiko@kernel.org
+To: joasantonio108@gmail.com
+Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
+ linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 03 Nov 2026 19:38:35 +0000
+Message-ID: <179373471506.488856.5288914841220832792@kernel.org>
+In-Reply-To: <179338834213.72059.10411262981778676981@gmail.com>
+References: <179338834213.72059.10411262981778676981@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,107 +65,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-v7-3-topic-am335lpm-cppi41-v1-3-d7213446c5f5@baylibre.com>
-References: <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
-In-Reply-To: <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, Daniel Mack <zonque@gmail.com>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
- "Francis, Sebin" <sebin.francis@ti.com>, 
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2614; i=msp@baylibre.com;
- h=from:subject:message-id; bh=T6rTeOj2mOVu4qd7MFS1jh/VVnFzsdhhla/rk3UZJo8=;
- b=owGbwMvMwCXWejAsc4KoVzDjabUkhqxXFsKpjQ9+x5c/rYm9/bl9wn7BJ3u/L6rfcPTZ9I6rX
- 878iV27uKOUhUGMi0FWTJGlMzE07b/8zmPJi5ZthpnDygQyhIGLUwAmcu0RI8OC25+Ur8mGMu6Z
- 89M0nvPsjc+vhZttq3+zVO1bryq3ze86w//QY618XK2+0keu63f1Pvog/bkr/Idl7j/PyFLnIN4
- d6hwA
-X-Developer-Key: i=msp@baylibre.com; a=openpgp;
- fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
 
-Currently only QMGR_MEMBASE is restored in resume, QMGR_MEMCTRL is left
-at its default values.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Add a restore for QMGR_MEMCTRL. This introduces a helper function
-cppi41_memctrl() to not duplicate this calcuation in init and resume.
+Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0
 
-Fixes: f97b98d6d02e ("dma: cppi41: add support for suspend and resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
----
- drivers/dma/ti/cppi41.c | 27 +++++++++++++++------------
- 1 file changed, 15 insertions(+), 12 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/dma/ti/cppi41.c b/drivers/dma/ti/cppi41.c
-index f5a824418fe7..e2a089066c6d 100644
---- a/drivers/dma/ti/cppi41.c
-+++ b/drivers/dma/ti/cppi41.c
-@@ -842,13 +842,22 @@ static void deinit_cppi41(struct device *dev, struct cppi41_dd *cdd)
- 			cdd->scratch_phys);
- }
- 
-+static u32 cppi41_memctrl(int area)
-+{
-+	u32 reg;
-+
-+	reg = (area * ALLOC_DECS_NUM) << QMGR_MEMCTRL_IDX_SH;
-+	reg |= (ilog2(sizeof(struct cppi41_desc)) - 5) << QMGR_MEMCTRL_DESC_SH;
-+	reg |= ilog2(ALLOC_DECS_NUM) - 5;
-+
-+	return reg;
-+}
-+
- static int init_descs(struct device *dev, struct cppi41_dd *cdd)
- {
- 	unsigned int desc_size;
- 	unsigned int mem_decs;
- 	int i;
--	u32 reg;
--	u32 idx;
- 
- 	BUILD_BUG_ON(sizeof(struct cppi41_desc) &
- 			(sizeof(struct cppi41_desc) - 1));
-@@ -858,13 +867,7 @@ static int init_descs(struct device *dev, struct cppi41_dd *cdd)
- 	desc_size = sizeof(struct cppi41_desc);
- 	mem_decs = ALLOC_DECS_NUM * desc_size;
- 
--	idx = 0;
- 	for (i = 0; i < DESCS_AREAS; i++) {
--
--		reg = idx << QMGR_MEMCTRL_IDX_SH;
--		reg |= (ilog2(desc_size) - 5) << QMGR_MEMCTRL_DESC_SH;
--		reg |= ilog2(ALLOC_DECS_NUM) - 5;
--
- 		BUILD_BUG_ON(DESCS_AREAS != 1);
- 		cdd->cd = dma_alloc_coherent(dev, mem_decs,
- 				&cdd->descs_phys, GFP_KERNEL);
-@@ -872,9 +875,7 @@ static int init_descs(struct device *dev, struct cppi41_dd *cdd)
- 			return -ENOMEM;
- 
- 		cppi_writel(cdd->descs_phys, cdd->qmgr_mem + QMGR_MEMBASE(i));
--		cppi_writel(reg, cdd->qmgr_mem + QMGR_MEMCTRL(i));
--
--		idx += ALLOC_DECS_NUM;
-+		cppi_writel(cppi41_memctrl(i), cdd->qmgr_mem + QMGR_MEMCTRL(i));
- 	}
- 	return 0;
- }
-@@ -1191,8 +1192,10 @@ static int __maybe_unused cppi41_resume(struct device *dev)
- 	if (pm_runtime_status_suspended(dev))
- 		return 0;
- 
--	for (i = 0; i < DESCS_AREAS; i++)
-+	for (i = 0; i < DESCS_AREAS; i++) {
- 		cppi_writel(cdd->descs_phys, cdd->qmgr_mem + QMGR_MEMBASE(i));
-+		cppi_writel(cppi41_memctrl(i), cdd->qmgr_mem + QMGR_MEMCTRL(i));
-+	}
- 
- 	list_for_each_entry(c, &cdd->ddev.channels, chan.device_node)
- 		if (!c->is_tx)
+- [High] The fix misses one place.
+- [Medium] The patch rejects a non-WPAN device after a first-match lookup
+  has returned it, instead of skipping it during the lookup.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  ieee802154_dump_iface() and ieee802154_llsec_dump_table()…
+
+--
+
+ieee802154: reject ARPHRD_IEEE802154 devices without ieee802154_ptr
+
+This patch adds !dev->ieee802154_ptr checks to the legacy 802.15.4 netlink
+code and to the AF_IEEE802154 socket code, wherever a device is picked by
+dev->type == ARPHRD_IEEE802154. It fixes NULL pointer dereferences caused
+by TUN devices that TUNSETLINK switched to ARPHRD_IEEE802154 and that
+have no wpan_dev.
+
+Closes: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
+
+> diff --git a/net/ieee802154/nl-mac.c b/net/ieee802154/nl-mac.c
+> index 74ef0a310afbb..5bf6725eb55dd 100644
+> --- a/net/ieee802154/nl-mac.c
+> +++ b/net/ieee802154/nl-mac.c
+
+[ ... ]
+
+> @@ -437,7 +437,8 @@ int ieee802154_dump_iface(struct sk_buff *skb, struct netlink_callback *cb)
+>  
+>  	idx = 0;
+>  	for_each_netdev(net, dev) {
+> -		if (idx < s_idx || dev->type != ARPHRD_IEEE802154)
+> +		if (idx < s_idx || dev->type != ARPHRD_IEEE802154 ||
+> +		    !dev->ieee802154_ptr)
+>  			goto cont;
+>  
+>  		if (ieee802154_nl_fill_iface(skb, NETLINK_CB(cb->skb).portid,
+
+[Severity: High]
+This is a pre-existing issue and not something this patch introduced, but
+is this for_each_netdev() walk safe if a device is unregistered at the
+same time?
+
+ieee802154_dump_iface() and ieee802154_llsec_dump_table() walk
+net->dev_base_head without RTNL or rcu_read_lock(). They also take no
+dev_hold() on the current device. The legacy family has no parallel_ops,
+so genl_dumpit() only holds genl_mutex around the callback:
+
+net/netlink/genetlink.c:genl_dumpit() {
+    ...
+	genl_op_lock(info->family);
+	rc = ops->dumpit(skb, cb);
+	genl_op_unlock(info->family);
+    ...
+}
+
+The loop body also sleeps while holding the raw dev pointer.
+ieee802154_nl_fill_iface() does:
+
+	rtnl_lock();
+	short_addr = dev->ieee802154_ptr->short_addr;
+	pan_id = dev->ieee802154_ptr->pan_id;
+	rtnl_unlock();
+
+ieee802154_llsec_dump_table() calls llsec->lock_table(dev), which takes a
+mutex.
+
+At the same time, ieee802154_unregister_hw() can take RTNL without
+genl_mutex. It runs on driver unbind, module unload and atusb unplug:
+
+	rtnl_lock();
+
+	ieee802154_remove_interfaces(local);
+
+	rtnl_unlock();
+
+This can unregister the device being dumped and then free it with
+free_netdev().
+
+When the dump thread resumes, does it use freed memory? It reads
+dev->name, calls ops->get_mac_params(dev) on the freed sdata, and follows
+dev->dev_list.next to the next entry.
+
+IEEE802154_LIST_IFACE needs no privileges. The new !dev->ieee802154_ptr
+checks read the same unprotected pointer inside these loops.
+
+[ ... ]
+
+> diff --git a/net/ieee802154/socket.c b/net/ieee802154/socket.c
+> index be8ca1f053a2b..f87c9ccbc8488 100644
+> --- a/net/ieee802154/socket.c
+> +++ b/net/ieee802154/socket.c
+
+[ ... ]
+
+> @@ -74,6 +75,14 @@ ieee802154_get_dev(struct net *net, const struct ieee802154_addr *addr)
+>  		break;
+>  	}
+>  
+> +	/* A TUN device can have its type set to ARPHRD_IEEE802154 without
+> +	 * being a WPAN device.
+> +	 */
+> +	if (dev && !dev->ieee802154_ptr) {
+> +		dev_put(dev);
+> +		dev = NULL;
+> +	}
+> +
+>  	return dev;
+>  }
+>  
+> @@ -641,6 +650,11 @@ static int dgram_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+>  	else
+>  		dev = ieee802154_get_dev(sock_net(sk), &ro->src_addr);
+>  
+> +	if (dev && !dev->ieee802154_ptr) {
+> +		dev_put(dev);
+> +		dev = NULL;
+> +	}
+> +
+>  	if (!dev) {
+>  		pr_debug("no dev\n");
+>  		err = -ENXIO;
+
+[Severity: Medium]
+These checks reject the device only after a first-match lookup has
+returned it. Can that hide a real WPAN device that comes later in the
+list?
+
+For an unbound socket, dev_getfirstbyhwtype() stops at the first
+ARPHRD_IEEE802154 device:
+
+net/core/dev.c:dev_getfirstbyhwtype() {
+    ...
+	for_each_netdev_rcu(net, dev)
+		if (dev->type == type) {
+			dev_hold(dev);
+			ret = dev;
+			break;
+		}
+    ...
+}
+
+A TUN device set to ARPHRD_IEEE802154 can sit ahead of the real WPAN
+interface in dev_base_head. For example, the WPAN interface or a hwsim
+radio may be created after the TUN device. Would every unbound
+AF_IEEE802154 datagram send in init_net then fail with -ENXIO?
+
+The IEEE802154_ADDR_LONG branch of ieee802154_get_dev() has the same
+pattern. dev_getbyhwaddr_rcu() returns the first type/hwaddr match. The
+new post-filter in ieee802154_get_dev() turns an earlier non-WPAN match
+into NULL. That match could be a bond that copied its slave's address, or
+a TAP device switched with TUNSETLINK whose MAC was then set. In that case
+bind() returns -ENODEV even though a real WPAN device has the address.
+
+The short address branch already skips non-WPAN devices inside its loop.
+Could the other two lookups work the same way?
+
+The test note says unbound sendto() "keeps working (it picks a hwsim
+interface)". That only holds when the hwsim devices come first in the
+list.
+
+[ ... ]
+
+> @@ -1097,7 +1111,7 @@ static int ieee802154_rcv(struct sk_buff *skb, struct net_device *dev,
+>  
+>  	ieee802154_raw_deliver(dev, skb);
+>  
+> -	if (dev->type != ARPHRD_IEEE802154)
+> +	if (dev->type != ARPHRD_IEEE802154 || !dev->ieee802154_ptr)
+>  		goto drop;
+>  
+>  	if (skb->pkt_type != PACKET_OTHERHOST)
+
+[Severity: High]
+Does lowpan_rcv() in net/ieee802154/6lowpan/rx.c need the same check? It
+handles the same ethertype, and it still checks only the type before it
+dereferences ieee802154_ptr:
+
+net/ieee802154/6lowpan/rx.c:lowpan_rcv() {
+    ...
+	if (wdev->type != ARPHRD_IEEE802154 ||
+	    skb->pkt_type == PACKET_OTHERHOST ||
+	    !lowpan_rx_h_check(skb))
+		goto drop;
+
+	ldev = wdev->ieee802154_ptr->lowpan_dev;
+    ...
+}
+
+lowpan_packet_type is a global ETH_P_IEEE802154 handler with no device or
+netns filter. lowpan_open() registers it through lowpan_rx_init() as soon
+as any lowpan interface is up. lowpan_rx_h_check() only looks at frame
+bytes that the sender controls.
+
+There seem to be two ways to reach this.
+
+The first is a bond whose first slave is a mac802154 interface.
+bond_setup_by_slave() copies slave_dev->type into the bond, and
+bond_enslave() rejects only ARPHRD_CAN slaves. Received frames can then
+reach lowpan_rcv(skb, bond_dev) with ieee802154_ptr == NULL.
+
+The second is a TUN device switched to ARPHRD_IEEE802154 with TUNSETLINK,
+plus a tc mirred egress-to-ingress redirect. __dev_queue_xmit() sets the
+mac header, mirred leaves pkt_type unchanged, and a frame starting with FC
+0x41 0x88 passes lowpan_rx_h_check(). lowpan_rcv() has no init_net check,
+so this also works from a netns owned by an unprivileged user namespace.
+Writing to the TUN fd directly does not work: the mac header stays unset,
+so ieee802154_get_fc_from_skb() hits its WARN_ON and the frame is dropped.
+
+lowpan_newlink() and lowpan_device_event() in the same module already
+check ieee802154_ptr after checking the type. The commit message says
+such devices are rejected "wherever a device is picked by its type".
+Should lowpan_rcv() also get || !wdev->ieee802154_ptr to complete the fix?
 
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179338834213.72059.10411262981778676981%40gmail.com
