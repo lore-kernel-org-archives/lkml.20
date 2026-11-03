@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698664;
-	b=1F4WJk0F8YGlDIn7h7Lsw8ST42Lu0fEQlCq1JxC//CIUF2NSOCaNQXI+7kwx5lfZCqA2
-	 kXKFvNInLAxk/UfZgu7DZutr571HV3ARUJVfOD3dqTi3kqi57iDWNhzD7gJV0F1xBRA70
-	 r6PuSSqFngNiJyy9QP0BN7hnj0pmicJC3QuSILrNqma/5/fVDmS0GDqd+2FU9Nr61JuFV
-	 zqBN6mcJtszYbnGSQD3YDZFvrFETYotwnUMxHuLM3X+YOMicCJpnjcmavpO4XBVxxlBeD
-	 9fuR45R8CiZFtII4kSVcmwD7i2+vWhwLbJpNSIYg6Hrqie1YeVNMgH4RiMrhmUpbTLw==
+	t=1793698645;
+	b=2p1af+hsmjYlItOXAVn143L3QraC27524ipFRRrCx8GTvMdKdlgPKa6VMX6C2UHK11GO
+	 geH5j6iZty+kZx79Phx/lBLpS+T5J2yfsWoQ1R323/xH9V1B7frHcS7VDOAEE6vyr5m69
+	 E4GCBHe8EHAa15ncAZ64zOB7h7ntpYk1mk/qXGzgfwrJs+2JOeOIsSi0jTDTLc2LHbY+F
+	 iYCi9GwIELpY5iDbP4hj5SkzwsSJIZukgQcTpdvyFMIMrw55fnWgf/PbQHDZ2y/qURLHn
+	 QJ/fI53sCbkeFQK870GmzxMQtRfWjfyVgqEiklErpGxVf4zp88iacwV0LcP7hmWeD0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698664;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698645;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=m96nh3pIfd5T2dHjgVJW57pUnSKhZsnJmnbKqdVYY3w=;
-	b=c/bM/5/vqvN804txCG3DLY1ffUUNtP1EIwaeDRyaNzht12C968SwK7/qvOR+AqBcphm6
-	 vOP1S4H8srQEisIjk2GmL7qIA9pw0q3ElX8L2nlJHbz9Lc9RLV0rwMnYNtDWQCHTDjk+i
-	 9tg+vLexkwA6KdOLSWhuF9U8U935oEP2c0lx5Glr1O9pRii2O5BrzMS8ucU9qEhKbbxtX
-	 P+NFR2cKL6c5MB2J04Yw9hOknlyfxa2oSX1AELuTJGNVWf4KyIriBIK6X48382vi4OelL
-	 qoyisVKbmB4NgYNIxlYL3V1F1KxbJZ9+vTvLVsLMxgV/ck1w/AkavPTLkmLKYUk8sNw==
+	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=lZRs1mh8clZfojHLrAwgtXfzj6EvyuT7nj0JvBT+Z5E=;
+	b=SuLhe58brUaeJIuxxT4HgZo8AZ7LSlpoE9LODRrtpeR4iQWTk+p2I1mSiPWudktJwTEz
+	 Ffrhtjg0pKStC7elhWxAVm//Rh6bWuEjBVo4zWC9GIqL01RpGYRZ0EMrs9+ZyTF9C49nb
+	 chKstneiXsUEmM6aGvfaeAVx3ChLaARZ7HA+769hbuYwHwb91yVXLeJ1XgqAEXlpsJIBl
+	 K+DajQ75Ykv0RXc+dEmK6z9I5r8msoTesIa+EMT2sB9bNDcw/p3B97/fGPOhLHZTJYzgh
+	 A/lm7Q/e9sXeKJt9yFxKKHlSA2wXE9eMRfbE+HqmrXBz+wBBdw/EKIrAzEVXkHStYQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SOfMxzkm;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j6z1gFE9;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 353A0606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 353A0606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0DC39606A324;
+	Tue,  3 Nov 2026 09:37:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DC39606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SOfMxzkm
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j6z1gFE9
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E745716F3;
-	Tue,  3 Nov 2026 01:37:37 -0800 (PST)
-Received: from [10.57.66.79] (unknown [10.57.66.79])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 06A0E3F632;
-	Tue,  3 Nov 2026 01:37:38 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1E74F16F3;
+	Tue,  3 Nov 2026 01:37:20 -0800 (PST)
+Received: from [10.57.15.76] (unknown [10.57.15.76])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BE8E73F632;
+	Tue,  3 Nov 2026 01:37:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793698661; bh=4hSUFNsDMJJkO6LJAwKFbCYlyI1ujmGAiIPD2tV7jDc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SOfMxzkmC0WLCulHw8RhMkwhBbOS3LfHThPnXAfMcQ1ejTjY8GOyHWmk0VeH0M+Kj
-	 DoqLF5MwvyySThN1AIT3/ZrIT2TMGZkLcWwUHiB1/xts4ToUmXfC2kEXOS3XMJFRMI
-	 IXVzE9me7YgLPHBjn6uG14p9+OONA7PoSNQraelY=
-Message-ID: <29e7d214-b7b0-403a-a40f-dbc5b6951e22@arm.com>
-Date: Tue, 3 Nov 2026 09:37:37 +0000
+	t=1793698643; bh=7QDQ7pc/gnWwpqj4MUth7NieA0YgqoBhtCAT6FAK5mk=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=j6z1gFE9FN6ZhKEuSuCr1zTfgj6efFtTQmZpYQKWkpGAqWkIxXGcGYEdE6tJQtL0k
+	 Fmf4hivKP1c0+iTQX1hXn4BLPhjHTd1TRISiMjuloQmS0ylhsTnU0qm+QBLWeDaPld
+	 9z5MEO2WiiV58NnfR9CUDT/Osmgpx14CozX6muwc=
+Message-ID: <2c3df215-3f64-4697-805f-11e6e39c7d4d@arm.com>
+Date: Tue, 3 Nov 2026 09:37:51 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,146 +54,81 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] KVM: arm64: Move stage-2 teardown into kvm_vm_s2_ops
-Content-Language: en-GB
-To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>
-Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>,
- Steffen Eiden <seiden@linux.ibm.com>, Zenghui Yu <yuzenghui@huawei.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Raghavendra Rao Ananta <rananta@google.com>, Fuad Tabba <tabba@google.com>
-References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
- <20261103084742.1302597-4-fuad.tabba@linux.dev>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261103084742.1302597-4-fuad.tabba@linux.dev>
+From: Lukasz Luba <lukasz.luba@arm.com>
+Subject: Re: [PATCH] PM: EM: Rank boost and non-boost frequencies separately
+To: Guo Chen <guo.chen@oss.qualcomm.com>
+Cc: "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Vincent Donnefort <vincent.donnefort@arm.com>, Len Brown <lenb@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, xin.liu@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, tengfei.fan@oss.qualcomm.com,
+ tingwei.zhang@oss.qualcomm.com, Pavel Machek <pavel@kernel.org>
+References: <20261030-em-rank-boost-separately-v1-1-238a6b2bb888@oss.qualcomm.com>
+ <3ed2a68b-d066-4a3a-b3ed-30a5ca00ae38@arm.com>
+ <738c61fa-0397-4faa-acae-e9b42f901d1d@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <738c61fa-0397-4faa-acae-e9b42f901d1d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Fuad
+Hi Guo
 
-On 03/11/2026 08:47, Fuad Tabba wrote:
-> Replace kvm_stage2_destroy()'s is_protected_kvm_enabled() and
-> KVM_PGT_FN() dispatch with a vm_stage2_destroy hook in kvm_vm_s2_ops,
-> like the other stage-2 operations. Both pKVM flavors share
-> pkvm_stage2_destroy(). Like kvm_vm_stage2_destroy(), it takes the range
-> from kvm_phys_size().
+On 11/3/26 07:16, Guo Chen wrote:
 > 
-> No functional change intended.
+> On 11/2/2026 11:28 PM, Lukasz Luba wrote:
+>>
+>>
+>> On 10/30/26 08:10, Guo Chen wrote:
+>>> em_compute_costs() ranks all the frequencies of the table, boost ones
+>>> included. A non-boost frequency can be marked inefficient only because
+>>> a faster boost frequency has a lower or equal cost, e.g.
+>>>
+>>>    3.9 GHz  4.0 GHz (cost C)  4.1 GHz (boost, cost C)
+>>>
 
-Someone beat you on this (well almost) ;-)
+[snip]
 
-https://lore.kernel.org/all/4304d0c7-2220-4add-9c71-e6dc6b4fbc11@arm.com
+>>> +        bool boost = table[i].frequency > max_nonboost;
+>>> +
+>>> +        if (boost != prev_boost) {
+>>
+>> We expect in EM fwk that the frequencies are sorted ascending
+>> and we return error during setup if the driver callback fails
+>> to provide that.
+>> Therefore, in this code we don't have to deal with random
+>> 'boost' labels with gaps between.
+>>
+> Hi Lukasz,
+> 
+> Thanks for the review.
+> 
+> You are right. The boundary is derived from the highest non-boost
+> frequency, so with an ascending table the boost states always form a
+> contiguous top segment, and prev_boost is redundant.
+> 
+>> Let's make all OPPs which are 'boost' equally possible
+>> to reach (at least in theory), so label them as
+>> 'efficient'. I think this is fair in 'boosting' case scenario
+>> and energy has not that importance in it.
+>>
+>> So simply something like, would be enough IMHO:
+>>
+>> if (boost)
+>>     prev_cost = ULONG_MAX;
+>>
+> Agreed, this is simpler and gives the same result for the non-boost
+> states. Boost states are no longer compared with each other, which is
+> also a sensible semantic. I will drop prev_boost and use the above in v2.
 
+Cool, please make sure in your new implementation for the
+corner case with the first non-boost OPP from top to be marked as
+efficient (you can even force that).
+
+Regards,
+Lukasz
 
 > 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->   arch/arm64/include/asm/kvm_host.h |  2 ++
->   arch/arm64/kvm/mmu.c              | 24 +++++++++++++-----------
->   2 files changed, 15 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index 97332ffcb1300..b36779bafae9b 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -233,6 +233,7 @@ struct kvm_vcpu_ops {
->   
->   struct kvm_gfn_range;
->   struct kvm_s2_fault_desc;
-> +struct kvm_pgtable;
->   
->   struct kvm_vm_s2_ops {
->   	bool (*vm_age_gfn)(struct kvm *kvm, struct kvm_gfn_range *range);
-> @@ -243,6 +244,7 @@ struct kvm_vm_s2_ops {
->   	void (*vm_stage2_unmap_range)(struct kvm_s2_mmu *mmu,
->   				      phys_addr_t start, u64 size,
->   				      bool may_block);
-> +	void (*vm_stage2_destroy)(struct kvm_pgtable *pgt);
->   	int (*vm_mem_abort)(const struct kvm_s2_fault_desc *s2fd);
->   };
->   
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 10b425a0141be..9df3c80a5acd1 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -1029,17 +1029,16 @@ static void stage2_destroy_range(struct kvm_pgtable *pgt, phys_addr_t addr,
->   	} while (addr = next, addr != end);
->   }
->   
-> -static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
-> +static void kvm_vm_stage2_destroy(struct kvm_pgtable *pgt)
->   {
-> -	unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
-> +	stage2_destroy_range(pgt, 0, kvm_phys_size(pgt->mmu));
-> +	kvm_pgtable_stage2_destroy_pgd(pgt);
-> +}
->   
-> -	/* pKVM walks its mapping tree, not the IPA space, and reschedules per mapping */
-> -	if (is_protected_kvm_enabled())
-> -		pkvm_pgtable_stage2_destroy_range(pgt, 0, BIT(ia_bits));
-> -	else
-> -		stage2_destroy_range(pgt, 0, BIT(ia_bits));
-> -
-> -	KVM_PGT_FN(kvm_pgtable_stage2_destroy_pgd)(pgt);
-> +static void pkvm_stage2_destroy(struct kvm_pgtable *pgt)
-> +{
-> +	pkvm_pgtable_stage2_destroy_range(pgt, 0, kvm_phys_size(pgt->mmu));
-> +	pkvm_pgtable_stage2_destroy_pgd(pgt);
->   }
->   
->   /**
-> @@ -1126,7 +1125,7 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu, unsigned long t
->   	return 0;
->   
->   out_destroy_pgtable:
-> -	kvm_stage2_destroy(pgt);
-> +	kvm->arch.vm_s2_ops->vm_stage2_destroy(pgt);
-
-minor nit: should we retain the kvm_stage2_destroy() to dispatch the 
-callback ?
-
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-
-Cheers
-Suzuki
-
-
->   	mmu->pgt = NULL;
->   out_free_pgtable:
->   	kfree(pgt);
-> @@ -1246,7 +1245,7 @@ void kvm_free_stage2_pgd(struct kvm_s2_mmu *mmu)
->   	write_unlock(&kvm->mmu_lock);
->   
->   	if (pgt) {
-> -		kvm_stage2_destroy(pgt);
-> +		kvm->arch.vm_s2_ops->vm_stage2_destroy(pgt);
->   		kfree(pgt);
->   	}
->   
-> @@ -3152,6 +3151,7 @@ static const struct kvm_vm_s2_ops protected_pkvm_vm_s2_ops = {
->   	.vm_age_gfn			= no_age_gfn,
->   	.vm_test_age_gfn		= no_age_gfn,
->   	.vm_stage2_unmap_range		= no_stage2_unmap_range,
-> +	.vm_stage2_destroy		= pkvm_stage2_destroy,
->   	.vm_mem_abort			= protected_pkvm_mem_abort,
->   };
->   
-> @@ -3161,6 +3161,7 @@ static const struct kvm_vm_s2_ops pkvm_vm_s2_ops = {
->   	.vm_age_gfn			= pkvm_age_gfn,
->   	.vm_test_age_gfn		= pkvm_test_age_gfn,
->   	.vm_stage2_unmap_range		= pkvm_stage2_unmap_range,
-> +	.vm_stage2_destroy		= pkvm_stage2_destroy,
->   	.vm_mem_abort			= kvm_vm_mem_abort,
->   };
->   
-> @@ -3170,6 +3171,7 @@ static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
->   	.vm_age_gfn			= kvm_vm_age_gfn,
->   	.vm_test_age_gfn		= kvm_vm_test_age_gfn,
->   	.vm_stage2_unmap_range		= kvm_vm_stage2_unmap_range,
-> +	.vm_stage2_destroy		= kvm_vm_stage2_destroy,
->   	.vm_mem_abort			= kvm_vm_mem_abort,
->   };
->   
-
+> Thanks,
+> Guo
