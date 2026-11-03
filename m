@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749549;
-	b=1MdMQd1QBj17AJJnBQNz0hOiyTIxT5vm5pFOLguwsFJMfEjFMBsxaQqnyYsxu2CU4Kzy
-	 OGep7R70vE9S49wrYXAiwGxk/XZMxatyRuCc/cRn8fdFuVLXG5a0XB/aqjamJ4oxwN5HI
-	 QolgnjiixWAF3RQB0bGFhMque4aObVgzVk8omOdZmF2lR0eNHz23EoU6VebCM04HaRc7G
-	 kCF1CR0upL6hYXHvgjWjsOXDPpvUeNXUPwYH/LgWZPQn5W9bt+Mew9yu915lqwDf5zL4h
-	 Md0+xPyetRMXNYZza9aVfnrypaP/XiKVImh9E5HsoNT/ROEkMLThs9CePkv/7qoK6Ug==
+	t=1793749554;
+	b=SPiKa96ffeBOq9CVd+Mgu7zcqsOQuN09OjwUyylvMUaaeeCUe8YFIi5dhCfaXEPCZUbO
+	 dXjt6NQ5htZ+HvWvP8sWQ7DMylNjLxmLlhiLp3lTbPFkn2zfuzIqhkLIsoJOBGiYivDM/
+	 Gp/HX0fxn7b5i25c7U3+907lO3VF1icXYSMEEGA2L/rfKMf8FEJYN0vMRhwy4FTGfAqkt
+	 PN4IEnH4LJXy0vEQdWClrLz2m+Rhm5X4tDlgW4SJ99nRSNEDo1D9jZWJ5ERq+H0Erby+/
+	 eLnViL5xjZ8e/yFKqTaES7ZiwQUAioApgH648RcFGf7GfYTR7+pvegXK6v6ACylW9Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749554;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=/c9dAAdPppqLCH60TYdEbM0bjim2NQq3FwqogCqlwxw=;
-	b=f3nr4PB4zSfW7MCp0eTcmnj3CUmQvrfsMams4WzqBcAWAJ/+Uuy0mASvhrR9kY+Fn29E
-	 DUuE2IAHS0Dw5yl1Awo7HMojJM1xuyjqGgzzB2wyTV0t5rGbij5zWRXom7WEviQCvw0R7
-	 K0iZO8yCO+O8jgi7EH3z1Sr1R+6/sq5AV5ZvXhMjIk98F1B5YvBRPLf1w5T+oaehIViwQ
-	 cL2c89ZF+STlMqL+TwillWTM9ORQU9jYn2ugR53o2hhrvwn1FCiDXynCvsIMBjtTxJVQA
-	 w8sXYyXX7pd357Kk7XvkuheVOXZmMWhuirFzzAAnJsyrnlMX40vKr/fm9G2OZaydlYw==
+	bh=HMj7KDZ/DTYFVtYhKj4sdsY+fu2KtHcvo/tUcFljRak=;
+	b=JYedPx1IUUZDRL/iPqOi1U4T3j54JvxIJVTuaBGkkK1KvT8f6vWmHUzJB6NJmW2rrjvD
+	 y7+XJCd8Gcs3u7G6CLXiypj5HCaGaaatE3HW2RlpWFovJnShOfRFZ5Gv4DxQaBLnxjRs/
+	 RfiAyjqvnfFaXPIT2kVjDhFhr3mvhX/2/sYpnTxqwwY0m/P64dUWl5MtVVp7OBXQOaMW5
+	 50V/PWYbLqulI7f3Bw2nx8y4HbPfinbcPgzzy6kz9ysqSU9B7JUQ94IzJNn8HHbRKbLMa
+	 ESJf1HanNhGAgyHh+sFHV43pC+PlH6raPr53tXxiHf4tPxQZjbqlvJGoQ9ZLtmntu8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AdA1S5I+;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PpitjWl0;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC80606A335
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:45:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CC80606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C3C606D81F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:45:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C3C606D81F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AdA1S5I+
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so643626c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:45:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PpitjWl0
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-15c16792146so175336c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:45:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793749548; x=1794354348; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793749553; x=1794354353; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/c9dAAdPppqLCH60TYdEbM0bjim2NQq3FwqogCqlwxw=;
-        b=AdA1S5I+agN485n4wGTdxTRZtrKj/kQn2kThMHJGdE3SKhE7RQwKXgc/wimcM9TC3s
-         xt8Ib2C9cGMe5Bgm0vFCQyJiisanLNCronXTFt4sBo/CObDAmdW2PiGd1792byfhSP7/
-         xjptxcs7hwS7RulMcssaG6rVUtt6ryzXIe8ZGYy9GtLzeXI/FTuLGQQUuVv8vl7ox33f
-         iyaNV0MBHtg7QvcYLBvmSQBKPZPcv55Rvc6IrhSKoVloTZi413Eh0w12r0+B9f7wnIsM
-         O6zMJWrSKTWUyintHvJgoZPTH5tdCrEG1O/KD+F/+Ax4aVmH596TRPzYD4O4dgRPC1yu
-         Syuw==
+        bh=HMj7KDZ/DTYFVtYhKj4sdsY+fu2KtHcvo/tUcFljRak=;
+        b=PpitjWl0yqanj2vTofHgFIw7Va4o/mcZkfOTIlArX1mCysflDRtOycxwMpKPJevKNJ
+         6WYaEbREi98HuKTMPMSMtGeBjLGMA1Bcpm0eWMmkZcSISOF3uQkMZVBnj76OScl9UIV7
+         IKQSNJSyKnhQ3mdaRUrL9vIXW6gDEs+I3j+QYfTR8AAS15b9HNJe4hbnexqOUPJ+c2sy
+         QmUNOfFWittYMRBxg87n4vzTvSgrbmidRvjitWD1iASsLny7apZKl5HZ4UFqI4ALVY/+
+         GKtHYAo26Pjc95hLyFvlhz3JBug0UPJJ3joqdsC0Bb3m2zY9Y1Rn5O1OVYdDXyIgKAKM
+         9YCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793749548; x=1794354348;
+        d=1e100.net; s=20260707; t=1793749553; x=1794354353;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/c9dAAdPppqLCH60TYdEbM0bjim2NQq3FwqogCqlwxw=;
-        b=al7phJt6E3osYFLzCnlT6iyYSpCSUlgBC0ASbKV/158eii+rlGrkoOmJchsxInJ7KK
-         5a8LvZ1OtpXacBuktJJ1EqK3KEPiz0Hp0Nu6iwDXOdt6VKy7da+5HxuSK0wXWkhJdIv9
-         o1Ww6gjyKpwcjx6VXQ8quAFzFe1WCw+XwZFZnKOx/QzjWqIwckG/wBV7bw/CXzp5CYbv
-         Yemv/tLtUFunnspx3GtFxLz7aG6w+j2oA2Q+O9MgeLuYysGPeP/7djcYelxpGHnOSeIv
-         JUAt4aYMNVxRnp7rXiOWYmvHDTdt841TwlzM0P4jrLk//rjY0u0lZXe5/O0RUldHYnBO
-         peKQ==
-X-Gm-Message-State: APuU4Z9wtTwVKeU6sdQZcsVWbuxqubzK5W+Zq7gDBzKI4PctjhTjA/NP
-	i4T68TfgO6UWxQ5zvxzt3BjVnp/hC76DebydC0QiyrIzvecZS7L8bxvzaakNDbn5bM1b62MNrfK
-	P0+0ksIorGA==
-X-Received: from dlbvg13.prod.google.com ([2002:a05:7022:7f0d:b0:150:117b:cbf8])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:b047:20b0:1a3:bfb6:44ad
- with SMTP id a92af1059eb24-1ac5da797d4mr23809134c88.32.1793749547250; Tue, 03
- Nov 2026 15:45:47 -0800 (PST)
-Date: Tue,  3 Nov 2026 15:44:31 -0800
+        bh=HMj7KDZ/DTYFVtYhKj4sdsY+fu2KtHcvo/tUcFljRak=;
+        b=1lXilivOZTRC3ORg9pxyHv+XB0tH/Bxqvo4bwT5JQjoJkm1zPN4DkXpxvzMpWmmecU
+         krpKdB+OgZpivrCmE9E7KyPYkC9Xjiz9mDlWhekJpYj0AzpN1hZd/ZYtphJD4LpbNMCn
+         67hITndZarjaVXYjlIjLfQdZkaJDe3T5coZ+S4J0LgMRlzmcCSLSZ9Ol1Za/2daPWBB6
+         61Pjyp5q64ZAiCYZwXAW7aaCpWHh04aelqDXe3u/7BLnLBxBtOTj3+IYXpM0TJXYGSp5
+         HmbXzru/TQEOfKKlE1dPMOdwfJ5rGbJ5PVGxdGEENdacGLciMkQEWUCoa3WlV7iFqs1j
+         3Y+A==
+X-Gm-Message-State: APuU4Z+1PGovwPn6ZnfcX29JshvVxRiKhfzwdLtxR6jRwWbfi4WXv+YM
+	ics01JcEShA6l4C0txALoAwIR8vctchTQyn3DRM2xQaa9ON257U4BK+QYU3mdGCyEuohko0jm5B
+	u44Vd8eaWkw==
+X-Received: from dlbur23.prod.google.com ([2002:a05:7022:ea57:b0:185:5973:326c])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:f115:b0:1a2:1a28:9348
+ with SMTP id a92af1059eb24-1ac5e22840emr18300181c88.37.1793749553014; Tue, 03
+ Nov 2026 15:45:53 -0800 (PST)
+Date: Tue,  3 Nov 2026 15:44:33 -0800
 In-Reply-To: <20261103234502.1008382-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,9 +79,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261103234502.1008382-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103234502.1008382-16-irogers@google.com>
-Subject: [PATCH v1 15/41] perf metricgroup: Move matching of metrics to
- recorded events from perf script
+Message-ID: <20261103234502.1008382-18-irogers@google.com>
+Subject: [PATCH v1 17/41] perf evsel: Generalize metric_id to a set of metric_ids
 From: Ian Rogers <irogers@google.com>
 To: linux-perf-users@vger.kernel.org, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -96,391 +95,640 @@ Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-perf script finds metrics whose events are all present in the
-perf.data file's evlist so that they can be displayed alongside
-samples. Move this code into metricgroup.c as
-metricgroup__add_matching_metrics() so that it can be shared with
-other commands, such as perf stat report. No functional change.
+When computing a metric the value of each of its events is added to the
+expression context using the event's metric_id. When metrics are matched
+to events read from a perf.data file, different metrics may refer to the
+same recorded event by different names, for example "instructions" and
+"cpu_core@INST_RETIRED.ANY@", but an evsel previously stored only a
+single metric_id.
+
+Replace evsel::metric_id with a NULL-terminated evsel::metric_ids set of
+unique identifier strings. Keep the representation private to evsel.c
+behind helpers: evsel__add_metric_id(), evsel__copy_metric_ids(),
+evsel__has_metric_id(), evsel__shares_metric_id() and
+evsel__for_each_metric_id(), a callback based iterator. Use the iterator
+in prepare_metric() to populate the expression parse context with all
+metric_ids of each metric event. The metric_ids are freed by
+evsel__exit(), so make the __add_event() error path use evsel__put()
+rather than freeing the evsel's strings itself.
+
+Remove evsel__metric_id() as returning a single identifier from the set
+is error prone. Its uses either iterate over the set, test membership,
+or, when finding duplicate events for a metric leader, test whether two
+evsels share an identifier. Tool events without an explicit metric-id
+keep their tool event name as an implicit identifier, other events
+without a metric-id no longer have the identifier "unknown".
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/builtin-script.c   | 156 +--------------------------------
- tools/perf/util/metricgroup.c | 157 ++++++++++++++++++++++++++++++++++
- tools/perf/util/metricgroup.h |  12 +++
- 3 files changed, 172 insertions(+), 153 deletions(-)
+ tools/perf/util/evsel.c        | 172 ++++++++++++++++++++++++++++++---
+ tools/perf/util/evsel.h        |  10 +-
+ tools/perf/util/metricgroup.c  |  98 ++++++++++++-------
+ tools/perf/util/parse-events.c |   8 +-
+ tools/perf/util/python.c       |  34 +++++--
+ tools/perf/util/stat-shadow.c  |  37 +++++--
+ 6 files changed, 291 insertions(+), 68 deletions(-)
 
-diff --git a/tools/perf/builtin-script.c b/tools/perf/builtin-script.c
-index 8bef76eaf67d..da3f1793774e 100644
---- a/tools/perf/builtin-script.c
-+++ b/tools/perf/builtin-script.c
-@@ -2354,151 +2354,6 @@ static void script_new_line(struct perf_stat_config *config __maybe_unused,
- 	fputs("\tmetric: ", mctx->fp);
- }
- 
--struct script_find_metrics_args {
--	struct evlist *evlist;
--	bool system_wide;
--};
--
--static struct evsel *map_metric_evsel_to_script_evsel(struct evlist *script_evlist,
--						      struct evsel *metric_evsel)
--{
--	struct evsel *script_evsel;
--
--	evlist__for_each_entry(script_evlist, script_evsel) {
--		/* Skip if perf_event_attr differ. */
--		if (metric_evsel->core.attr.type != script_evsel->core.attr.type)
--			continue;
--		if (metric_evsel->core.attr.config != script_evsel->core.attr.config)
--			continue;
--		/* Skip if the script event has a metric_id that doesn't match. */
--		if (script_evsel->metric_id &&
--		    strcmp(evsel__metric_id(metric_evsel), evsel__metric_id(script_evsel))) {
--			pr_debug("Skipping matching evsel due to differing metric ids '%s' vs '%s'\n",
--				 evsel__metric_id(metric_evsel), evsel__metric_id(script_evsel));
--			continue;
--		}
--		return script_evsel;
--	}
--	return NULL;
--}
--
--static int script_find_metrics(const struct pmu_metric *pm,
--			       const struct pmu_metrics_table *table __maybe_unused,
--			       void *data)
--{
--	struct script_find_metrics_args *args = data;
--	struct evlist *script_evlist = args->evlist;
--	struct evlist *metric_evlist = evlist__new();
--	struct evsel *metric_evsel;
--	int ret = metricgroup__parse_groups(metric_evlist,
--					/*pmu=*/"all",
--					/*cputype_filter=*/false,
--					pm->metric_name,
--					/*metric_no_group=*/false,
--					/*metric_no_merge=*/false,
--					/*metric_no_threshold=*/true,
--					/*user_requested_cpu_list=*/NULL,
--					args->system_wide,
--					/*hardware_aware_grouping=*/false);
--
--	if (ret) {
--		/* Metric parsing failed but continue the search. */
--		goto out;
--	}
--
--	/*
--	 * Check the script_evlist has an entry for each metric_evlist entry. If
--	 * the script evsel was already set up avoid changing data that may
--	 * break it.
--	 */
--	evlist__for_each_entry(metric_evlist, metric_evsel) {
--		struct evsel *script_evsel =
--			map_metric_evsel_to_script_evsel(script_evlist, metric_evsel);
--		struct evsel *new_metric_leader;
--
--		if (!script_evsel) {
--			pr_debug("Skipping metric '%s' as evsel '%s' / '%s' is missing\n",
--				pm->metric_name, evsel__name(metric_evsel),
--				evsel__metric_id(metric_evsel));
--			goto out;
--		}
--
--		if (script_evsel->metric_leader == NULL)
--			continue;
--
--		if (metric_evsel->metric_leader == metric_evsel) {
--			new_metric_leader = script_evsel;
--		} else {
--			new_metric_leader =
--				map_metric_evsel_to_script_evsel(script_evlist,
--								 metric_evsel->metric_leader);
--		}
--		/* Mismatching evsel leaders. */
--		if (script_evsel->metric_leader != new_metric_leader) {
--			pr_debug("Skipping metric '%s' due to mismatching evsel metric leaders '%s' vs '%s'\n",
--				pm->metric_name, evsel__metric_id(metric_evsel),
--				evsel__metric_id(script_evsel));
--			goto out;
--		}
--	}
--	/*
--	 * Metric events match those in the script evlist, copy metric evsel
--	 * data into the script evlist.
--	 */
--	evlist__for_each_entry(metric_evlist, metric_evsel) {
--		struct evsel *script_evsel =
--			map_metric_evsel_to_script_evsel(script_evlist, metric_evsel);
--		struct metric_event *metric_me =
--			metricgroup__lookup(evlist__metric_events(metric_evlist),
--					    metric_evsel,
--					    /*create=*/false);
--
--		if (script_evsel->metric_id == NULL) {
--			script_evsel->metric_id = metric_evsel->metric_id;
--			metric_evsel->metric_id = NULL;
--		}
--
--		if (script_evsel->metric_leader == NULL) {
--			if (metric_evsel->metric_leader == metric_evsel) {
--				script_evsel->metric_leader = script_evsel;
--			} else {
--				script_evsel->metric_leader =
--					map_metric_evsel_to_script_evsel(script_evlist,
--								       metric_evsel->metric_leader);
--			}
--		}
--
--		if (metric_me) {
--			struct metric_expr *expr;
--			struct metric_event *script_me =
--				metricgroup__lookup(evlist__metric_events(script_evlist),
--						    script_evsel,
--						    /*create=*/true);
--
--			if (!script_me) {
--				/*
--				 * As the metric_expr is created, the only
--				 * failure is a lack of memory.
--				 */
--				goto out;
--			}
--			list_splice_init(&metric_me->head, &script_me->head);
--			list_for_each_entry(expr, &script_me->head, nd) {
--				for (int i = 0; expr->metric_events[i]; i++) {
--					expr->metric_events[i] =
--						map_metric_evsel_to_script_evsel(script_evlist,
--									expr->metric_events[i]);
--				}
--			}
--		}
--	}
--	pr_debug("Found metric '%s' whose evsels match those of in the perf data\n",
--		 pm->metric_name);
--out:
--	evlist__put(metric_evlist);
--	return 0;
--}
--
- static struct aggr_cpu_id script_aggr_cpu_id_get(struct perf_stat_config *config __maybe_unused,
- 						    struct perf_cpu cpu)
- {
-@@ -2528,12 +2383,6 @@ static void perf_sample__fprint_metric(struct thread *thread,
- 
- 	if (!init_metrics) {
- 		/* One time initialization of stat_config and metric data. */
--		struct perf_env *env = evlist__env(evsel->evlist) ?: host_env();
--		struct script_find_metrics_args args = {
--			.evlist = evsel->evlist,
--			.system_wide = perf_thread_map__pid(evsel->core.threads, /*idx=*/0) == -1,
--
--		};
- 		if (!stat_config.output)
- 			stat_config.output = stdout;
- 
-@@ -2547,8 +2396,9 @@ static void perf_sample__fprint_metric(struct thread *thread,
- 						  /*needs_sort=*/false);
- 		}
- 
--		metricgroup__for_each_metric(perf_env__pmus(env), pmu_metrics_table__find(),
--					     script_find_metrics, &args);
-+		metricgroup__add_matching_metrics(evsel->evlist,
-+						  perf_thread_map__pid(evsel->core.threads,
-+								       /*idx=*/0) == -1);
- 		init_metrics = true;
+diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+index 4053a80d3ba7..e73a84e6d59d 100644
+--- a/tools/perf/util/evsel.c
++++ b/tools/perf/util/evsel.c
+@@ -577,11 +577,8 @@ struct evsel *evsel__clone(struct evsel *orig)
+ 		if (evsel->filter == NULL)
+ 			goto out_err;
  	}
- 
-diff --git a/tools/perf/util/metricgroup.c b/tools/perf/util/metricgroup.c
-index 876c549069e5..51dbdeac5e60 100644
---- a/tools/perf/util/metricgroup.c
-+++ b/tools/perf/util/metricgroup.c
-@@ -453,6 +453,163 @@ int metricgroup__for_each_metric(struct perf_pmus *pmus, const struct pmu_metric
- 	return pmu_for_each_sys_metric(metricgroup__sys_event_iter, &sys_data);
+-	if (orig->metric_id) {
+-		evsel->metric_id = strdup(orig->metric_id);
+-		if (evsel->metric_id == NULL)
+-			goto out_err;
+-	}
++	if (evsel__copy_metric_ids(evsel, orig))
++		goto out_err;
+ 	evsel->cgrp = cgroup__get(orig->cgrp);
+ #ifdef HAVE_LIBTRACEEVENT
+ 	if (orig->tp_sys) {
+@@ -1029,15 +1026,166 @@ bool evsel__name_is(struct evsel *evsel, const char *name)
+ 	return !strcmp(evsel__name(evsel), name);
  }
  
-+struct find_matching_metrics_args {
-+	struct evlist *evlist;
-+	bool system_wide;
-+};
-+
-+static struct evsel *map_metric_evsel_to_evlist(struct evlist *data_evlist,
-+						struct evsel *metric_evsel)
-+{
-+	struct evsel *data_evsel;
-+
-+	evlist__for_each_entry(data_evlist, data_evsel) {
-+		/* Skip if perf_event_attr differ. */
-+		if (metric_evsel->core.attr.type != data_evsel->core.attr.type)
-+			continue;
-+		if (metric_evsel->core.attr.config != data_evsel->core.attr.config)
-+			continue;
-+		/* Skip if the data event has a metric_id that doesn't match. */
-+		if (data_evsel->metric_id &&
-+		    strcmp(evsel__metric_id(metric_evsel), evsel__metric_id(data_evsel))) {
-+			pr_debug("Skipping matching evsel due to differing metric ids '%s' vs '%s'\n",
-+				 evsel__metric_id(metric_evsel), evsel__metric_id(data_evsel));
-+			continue;
-+		}
-+		return data_evsel;
-+	}
-+	return NULL;
+-const char *evsel__metric_id(const struct evsel *evsel)
++/*
++ * Tool events, such as duration_time, are identified by their tool event name.
++ * Other events without a metric-id have no identifier. The evsel's PMU may not
++ * be set yet, such as during parsing or cloning, so check the attribute's type
++ * rather than using evsel__is_tool().
++ */
++static const char *evsel__implicit_metric_id(const struct evsel *evsel)
+ {
+-	if (evsel->metric_id)
+-		return evsel->metric_id;
++	if (evsel->core.attr.type != PERF_PMU_TYPE_TOOL)
++		return NULL;
+ 
+-	if (evsel__is_tool(evsel))
+-		return evsel__tool_pmu_event_name(evsel);
++	return evsel__tool_pmu_event_name(evsel);
 +}
-+
-+static int find_matching_metrics_cb(const struct pmu_metric *pm,
-+				    const struct pmu_metrics_table *table __maybe_unused,
-+				    void *data)
+ 
+-	return "unknown";
++/**
++ * evsel__for_each_metric_id - Call @cb for each metric identifier of @evsel.
++ * @evsel: The evsel holding the metric identifiers.
++ * @cb: Callback passed each identifier, a non-zero return stops the iteration.
++ * @data: Passed to @cb.
++ *
++ * Explicit identifiers are visited in the order they were added, followed by
++ * the tool event name for tool events. Tool events without explicit
++ * identifiers have their tool event name as the only identifier.
++ *
++ * Return: 0 or the first non-zero value returned by @cb.
++ */
++int evsel__for_each_metric_id(const struct evsel *evsel,
++			      int (*cb)(const char *metric_id, void *data),
++			      void *data)
 +{
-+	struct find_matching_metrics_args *args = data;
-+	struct evlist *data_evlist = args->evlist;
-+	struct evlist *metric_evlist = evlist__new();
-+	struct evsel *metric_evsel;
-+	int ret = metricgroup__parse_groups(metric_evlist,
-+					/*pmu=*/"all",
-+					/*cputype_filter=*/false,
-+					pm->metric_name,
-+					/*metric_no_group=*/false,
-+					/*metric_no_merge=*/false,
-+					/*metric_no_threshold=*/true,
-+					/*user_requested_cpu_list=*/NULL,
-+					args->system_wide,
-+					/*hardware_aware_grouping=*/false);
++	const char *implicit_id;
 +
-+	if (ret) {
-+		/* Metric parsing failed but continue the search. */
-+		goto out;
++	if (!evsel->metric_ids) {
++		implicit_id = evsel__implicit_metric_id(evsel);
++		return implicit_id ? cb(implicit_id, data) : 0;
 +	}
 +
-+	/*
-+	 * Check the data_evlist has an entry for each metric_evlist entry. If
-+	 * the data evsel was already set up avoid changing data that may
-+	 * break it.
-+	 */
-+	evlist__for_each_entry(metric_evlist, metric_evsel) {
-+		struct evsel *data_evsel =
-+			map_metric_evsel_to_evlist(data_evlist, metric_evsel);
-+		struct evsel *new_metric_leader;
++	for (size_t i = 0; evsel->metric_ids[i]; i++) {
++		int ret = cb(evsel->metric_ids[i], data);
 +
-+		if (!data_evsel) {
-+			pr_debug("Skipping metric '%s' as evsel '%s' / '%s' is missing\n",
-+				pm->metric_name, evsel__name(metric_evsel),
-+				evsel__metric_id(metric_evsel));
-+			goto out;
-+		}
-+
-+		if (data_evsel->metric_leader == NULL)
-+			continue;
-+
-+		if (metric_evsel->metric_leader == metric_evsel) {
-+			new_metric_leader = data_evsel;
-+		} else {
-+			new_metric_leader =
-+				map_metric_evsel_to_evlist(data_evlist,
-+								 metric_evsel->metric_leader);
-+		}
-+		/* Mismatching evsel leaders. */
-+		if (data_evsel->metric_leader != new_metric_leader) {
-+			pr_debug("Skipping metric '%s' due to mismatching evsel metric leaders '%s' vs '%s'\n",
-+				pm->metric_name, evsel__metric_id(metric_evsel),
-+				evsel__metric_id(data_evsel));
-+			goto out;
-+		}
++		if (ret)
++			return ret;
 +	}
-+	/*
-+	 * Metric events match those in the data evlist, copy metric evsel
-+	 * data into the data evlist.
-+	 */
-+	evlist__for_each_entry(metric_evlist, metric_evsel) {
-+		struct evsel *data_evsel =
-+			map_metric_evsel_to_evlist(data_evlist, metric_evsel);
-+		struct metric_event *metric_me =
-+			metricgroup__lookup(evlist__metric_events(metric_evlist),
-+					    metric_evsel,
-+					    /*create=*/false);
-+
-+		if (data_evsel->metric_id == NULL) {
-+			data_evsel->metric_id = metric_evsel->metric_id;
-+			metric_evsel->metric_id = NULL;
-+		}
-+
-+		if (data_evsel->metric_leader == NULL) {
-+			if (metric_evsel->metric_leader == metric_evsel) {
-+				data_evsel->metric_leader = data_evsel;
-+			} else {
-+				data_evsel->metric_leader =
-+					map_metric_evsel_to_evlist(data_evlist,
-+								       metric_evsel->metric_leader);
-+			}
-+		}
-+
-+		if (metric_me) {
-+			struct metric_expr *expr;
-+			struct metric_event *data_me =
-+				metricgroup__lookup(evlist__metric_events(data_evlist),
-+						    data_evsel,
-+						    /*create=*/true);
-+
-+			if (!data_me) {
-+				/*
-+				 * As the metric_expr is created, the only
-+				 * failure is a lack of memory.
-+				 */
-+				goto out;
-+			}
-+			list_splice_init(&metric_me->head, &data_me->head);
-+			list_for_each_entry(expr, &data_me->head, nd) {
-+				for (int i = 0; expr->metric_events[i]; i++) {
-+					expr->metric_events[i] =
-+						map_metric_evsel_to_evlist(data_evlist,
-+									expr->metric_events[i]);
-+				}
-+			}
-+		}
-+	}
-+	pr_debug("Found metric '%s' whose evsels match those of in the perf data\n",
-+		 pm->metric_name);
-+out:
-+	evlist__put(metric_evlist);
 +	return 0;
 +}
 +
-+int metricgroup__add_matching_metrics(struct evlist *evlist, bool system_wide)
++static int metric_id_equal_cb(const char *metric_id, void *data)
 +{
-+	struct perf_env *env = evlist__env(evlist) ?: host_env();
-+	struct find_matching_metrics_args args = {
-+		.evlist = evlist,
-+		.system_wide = system_wide,
-+	};
-+
-+	return metricgroup__for_each_metric(perf_env__pmus(env), pmu_metrics_table__find(),
-+					    find_matching_metrics_cb, &args);
++	return !strcmp(metric_id, data);
 +}
 +
- static const char *code_characters = ",-=@";
- 
- static int encode_metric_id(struct strbuf *sb, const char *x)
-diff --git a/tools/perf/util/metricgroup.h b/tools/perf/util/metricgroup.h
-index 2cc28b3eb983..2069211913dc 100644
---- a/tools/perf/util/metricgroup.h
-+++ b/tools/perf/util/metricgroup.h
-@@ -97,6 +97,18 @@ int metricgroup__parse_groups_test(struct evlist *evlist,
-  */
- int metricgroup__for_each_metric(struct perf_pmus *pmus, const struct pmu_metrics_table *table,
- 				 pmu_metric_iter_fn fn, void *data);
 +/**
-+ * metricgroup__add_matching_metrics() - Add metrics whose events are in @evlist.
-+ * @evlist: The evlist, typically read from a perf.data file, to add metrics to.
-+ * @system_wide: Are the events in @evlist system wide?
++ * evsel__has_metric_id - Is @metric_id an identifier of @evsel?
++ * @evsel: The evsel holding the metric identifiers.
++ * @metric_id: The identifier to search for, may be NULL.
 + *
-+ * For every metric whose events all have a corresponding evsel in @evlist,
-+ * add the metric to the metric events of @evlist so that it is computed and
-+ * displayed along with the counts of the evsels.
-+ *
-+ * Return: 0 on success or a negative error code.
++ * Return: true if @metric_id is in the set of metric identifiers of @evsel.
 + */
-+int metricgroup__add_matching_metrics(struct evlist *evlist, bool system_wide);
- bool metricgroup__has_metric_or_groups(struct perf_pmus *pmus, const char *pmu,
- 				       const char *metric_or_groups);
- unsigned int metricgroups__topdown_max_level(void);
++bool evsel__has_metric_id(const struct evsel *evsel, const char *metric_id)
++{
++	if (!metric_id)
++		return false;
++
++	return evsel__for_each_metric_id(evsel, metric_id_equal_cb, (void *)metric_id);
++}
++
++static int has_metric_id_cb(const char *metric_id, void *data)
++{
++	const struct evsel *evsel = data;
++
++	return evsel__has_metric_id(evsel, metric_id);
++}
++
++/**
++ * evsel__shares_metric_id - Do two evsels have a metric identifier in common?
++ * @a: The first evsel.
++ * @b: The second evsel.
++ *
++ * Return: true if the intersection of the metric identifier sets of @a and @b
++ * isn't empty.
++ */
++bool evsel__shares_metric_id(const struct evsel *a, const struct evsel *b)
++{
++	return evsel__for_each_metric_id(a, has_metric_id_cb, (void *)b);
++}
++
++/**
++ * evsel__add_metric_id - Add an identifier to the metric identifiers of @evsel.
++ * @evsel: The evsel to add the metric identifier to.
++ * @metric_id: The identifier to add, ignored if NULL or already present.
++ *
++ * The first explicit identifier added to a tool event is followed by the tool
++ * event name so that the tool event name remains an identifier.
++ *
++ * Return: 0 on success or -ENOMEM.
++ */
++int evsel__add_metric_id(struct evsel *evsel, const char *metric_id)
++{
++	const char *implicit_id;
++	char **new_ids;
++	size_t nr = 0;
++
++	if (!metric_id || evsel__has_metric_id(evsel, metric_id))
++		return 0;
++
++	implicit_id = evsel->metric_ids ? NULL : evsel__implicit_metric_id(evsel);
++	while (evsel->metric_ids && evsel->metric_ids[nr])
++		nr++;
++
++	new_ids = realloc(evsel->metric_ids, (nr + 3) * sizeof(*new_ids));
++	if (!new_ids)
++		return -ENOMEM;
++	evsel->metric_ids = new_ids;
++
++	new_ids[nr] = strdup(metric_id);
++	if (!new_ids[nr])
++		goto out_err;
++	new_ids[nr + 1] = NULL;
++	if (implicit_id) {
++		new_ids[nr + 1] = strdup(implicit_id);
++		if (!new_ids[nr + 1])
++			goto out_err;
++		new_ids[nr + 2] = NULL;
++	}
++	return 0;
++out_err:
++	zfree(&new_ids[nr]);
++	if (!nr)
++		zfree(&evsel->metric_ids);
++	return -ENOMEM;
++}
++
++static int add_metric_id_cb(const char *metric_id, void *data)
++{
++	struct evsel *evsel = data;
++
++	return evsel__add_metric_id(evsel, metric_id);
++}
++
++/**
++ * evsel__copy_metric_ids - Add the metric identifiers of @src to @dst.
++ * @dst: The evsel to add the metric identifiers to.
++ * @src: The evsel whose metric identifiers are copied.
++ *
++ * Return: 0 on success or -ENOMEM.
++ */
++int evsel__copy_metric_ids(struct evsel *dst, const struct evsel *src)
++{
++	return evsel__for_each_metric_id(src, add_metric_id_cb, dst);
++}
++
++/**
++ * evsel__free_metric_ids - Free the metric identifiers of @evsel.
++ * @evsel: The evsel whose metric identifiers are freed.
++ */
++static void evsel__free_metric_ids(struct evsel *evsel)
++{
++	for (size_t i = 0; evsel->metric_ids && evsel->metric_ids[i]; i++)
++		zfree(&evsel->metric_ids[i]);
++	zfree(&evsel->metric_ids);
+ }
+ 
+ const char *evsel__group_name(struct evsel *evsel)
+@@ -2092,7 +2240,7 @@ static void evsel__exit(struct evsel *evsel)
+ 	zfree(&evsel->filter);
+ 	zfree(&evsel->group_pmu_name);
+ 	zfree(&evsel->unit);
+-	zfree(&evsel->metric_id);
++	evsel__free_metric_ids(evsel);
+ 	evsel__zero_per_pkg(evsel);
+ 	hashmap__free(evsel->per_pkg_mask);
+ 	evsel->per_pkg_mask = NULL;
+diff --git a/tools/perf/util/evsel.h b/tools/perf/util/evsel.h
+index 53f3641b66e1..e776ca60a9a5 100644
+--- a/tools/perf/util/evsel.h
++++ b/tools/perf/util/evsel.h
+@@ -74,7 +74,7 @@ struct evsel {
+ 		double			scale;
+ 		const char		*unit;
+ 		struct cgroup		*cgrp;
+-		const char		*metric_id;
++		char			**metric_ids;
+ 
+ 		/* The PMU the event is from. Used for missing_features, PMU name, etc. */
+ 		struct perf_pmu		*pmu;
+@@ -336,7 +336,13 @@ int arch_evsel__hw_name(struct evsel *evsel, char *bf, size_t size);
+ int __evsel__hw_cache_type_op_res_name(u8 type, u8 op, u8 result, char *bf, size_t size);
+ const char *evsel__name(struct evsel *evsel);
+ bool evsel__name_is(struct evsel *evsel, const char *name);
+-const char *evsel__metric_id(const struct evsel *evsel);
++int evsel__for_each_metric_id(const struct evsel *evsel,
++			      int (*cb)(const char *metric_id, void *data),
++			      void *data);
++bool evsel__has_metric_id(const struct evsel *evsel, const char *metric_id);
++bool evsel__shares_metric_id(const struct evsel *a, const struct evsel *b);
++int evsel__add_metric_id(struct evsel *evsel, const char *metric_id);
++int evsel__copy_metric_ids(struct evsel *dst, const struct evsel *src);
+ 
+ static inline bool evsel__is_retire_lat(const struct evsel *evsel)
+ {
+diff --git a/tools/perf/util/metricgroup.c b/tools/perf/util/metricgroup.c
+index b4a978794cc8..e87da791fd1e 100644
+--- a/tools/perf/util/metricgroup.c
++++ b/tools/perf/util/metricgroup.c
+@@ -275,12 +275,34 @@ static bool contains_metric_id(struct evsel **metric_events, int num_events,
+ 	int i;
+ 
+ 	for (i = 0; i < num_events; i++) {
+-		if (!strcmp(evsel__metric_id(metric_events[i]), metric_id))
++		if (evsel__has_metric_id(metric_events[i], metric_id))
+ 			return true;
+ 	}
+ 	return false;
+ }
+ 
++struct match_metric_id_args {
++	/* The events already matched to IDs of the metric. */
++	struct evsel **metric_events;
++	size_t num_events;
++	/* The metric IDs to match. */
++	struct hashmap *ids;
++	/* The newly matched ID. */
++	const char *matched_id;
++};
++
++static int match_metric_id_cb(const char *metric_id, void *data)
++{
++	struct match_metric_id_args *args = data;
++
++	if (contains_metric_id(args->metric_events, args->num_events, metric_id))
++		return 0;
++	if (!hashmap__find(args->ids, metric_id, NULL))
++		return 0;
++	args->matched_id = metric_id;
++	return 1;
++}
++
+ /**
+  * setup_metric_events - Find a group of events in metric_evlist that correspond
+  *                       to the IDs from a parsed metric expression.
+@@ -293,8 +315,8 @@ static int setup_metric_events(const char *pmu, struct hashmap *ids,
+ 			       struct evlist *metric_evlist,
+ 			       struct evsel ***out_metric_events)
+ {
++	struct match_metric_id_args args = { .ids = ids, };
+ 	struct evsel **metric_events;
+-	const char *metric_id;
+ 	struct evsel *ev;
+ 	size_t ids_size, matched_events, i;
+ 	struct perf_pmus *pmus = perf_env__pmus(evlist__env(metric_evlist) ?: host_env());
+@@ -310,9 +332,8 @@ static int setup_metric_events(const char *pmu, struct hashmap *ids,
+ 		return -ENOMEM;
+ 
+ 	matched_events = 0;
++	args.metric_events = metric_events;
+ 	evlist__for_each_entry(metric_evlist, ev) {
+-		struct expr_id_data *val_ptr;
+-
+ 		/* Don't match events for the wrong hybrid PMU. */
+ 		if (!all_pmus && ev->pmu && evsel__is_hybrid(ev) &&
+ 		    strcmp(ev->pmu->name, pmu))
+@@ -323,21 +344,19 @@ static int setup_metric_events(const char *pmu, struct hashmap *ids,
+ 		 * events per socket on skylakex. Only the first such
+ 		 * event is placed in metric_events.
+ 		 */
+-		metric_id = evsel__metric_id(ev);
+-		if (contains_metric_id(metric_events, matched_events, metric_id))
+-			continue;
+ 		/*
+ 		 * Does this event belong to the parse context? For
+ 		 * combined or shared groups, this metric may not care
+ 		 * about this event.
+ 		 */
+-		if (hashmap__find(ids, metric_id, &val_ptr)) {
+-			pr_debug("Matched metric-id %s to %s\n", metric_id, evsel__name(ev));
++		args.num_events = matched_events;
++		if (evsel__for_each_metric_id(ev, match_metric_id_cb, &args)) {
++			pr_debug("Matched metric-id %s to %s\n",
++				 args.matched_id, evsel__name(ev));
+ 			metric_events[matched_events++] = ev;
+-
+-			if (matched_events >= ids_size)
+-				break;
+ 		}
++		if (matched_events >= ids_size)
++			break;
+ 	}
+ 	if (matched_events < ids_size) {
+ 		free(metric_events);
+@@ -359,9 +378,8 @@ static int setup_metric_events(const char *pmu, struct hashmap *ids,
+ 		 * of such events to be the event that appears in
+ 		 * metric_events.
+ 		 */
+-		metric_id = evsel__metric_id(ev);
+ 		evlist__for_each_entry_continue(metric_evlist, ev) {
+-			if (!strcmp(evsel__metric_id(ev), metric_id))
++			if (evsel__shares_metric_id(ev, metric_events[i]))
+ 				ev->metric_leader = metric_events[i];
+ 		}
+ 	}
+@@ -469,13 +487,6 @@ static struct evsel *map_metric_evsel_to_evlist(struct evlist *data_evlist,
+ 			continue;
+ 		if (metric_evsel->core.attr.config != data_evsel->core.attr.config)
+ 			continue;
+-		/* Skip if the data event has a metric_id that doesn't match. */
+-		if (data_evsel->metric_id &&
+-		    strcmp(evsel__metric_id(metric_evsel), evsel__metric_id(data_evsel))) {
+-			pr_debug("Skipping matching evsel due to differing metric ids '%s' vs '%s'\n",
+-				 evsel__metric_id(metric_evsel), evsel__metric_id(data_evsel));
+-			continue;
+-		}
+ 		return data_evsel;
+ 	}
+ 	return NULL;
+@@ -516,9 +527,8 @@ static int find_matching_metrics_cb(const struct pmu_metric *pm,
+ 		struct evsel *new_metric_leader;
+ 
+ 		if (!data_evsel) {
+-			pr_debug("Skipping metric '%s' as evsel '%s' / '%s' is missing\n",
+-				pm->metric_name, evsel__name(metric_evsel),
+-				evsel__metric_id(metric_evsel));
++			pr_debug("Skipping metric '%s' as evsel '%s' is missing\n",
++				pm->metric_name, evsel__name(metric_evsel));
+ 			goto out;
+ 		}
+ 
+@@ -535,8 +545,8 @@ static int find_matching_metrics_cb(const struct pmu_metric *pm,
+ 		/* Mismatching evsel leaders. */
+ 		if (data_evsel->metric_leader != new_metric_leader) {
+ 			pr_debug("Skipping metric '%s' due to mismatching evsel metric leaders '%s' vs '%s'\n",
+-				pm->metric_name, evsel__metric_id(metric_evsel),
+-				evsel__metric_id(data_evsel));
++				pm->metric_name, evsel__name(metric_evsel),
++				evsel__name(data_evsel));
+ 			goto out;
+ 		}
+ 	}
+@@ -552,10 +562,8 @@ static int find_matching_metrics_cb(const struct pmu_metric *pm,
+ 					    metric_evsel,
+ 					    /*create=*/false);
+ 
+-		if (data_evsel->metric_id == NULL) {
+-			data_evsel->metric_id = metric_evsel->metric_id;
+-			metric_evsel->metric_id = NULL;
+-		}
++		if (evsel__copy_metric_ids(data_evsel, metric_evsel))
++			goto out;
+ 
+ 		if (data_evsel->metric_leader == NULL) {
+ 			if (metric_evsel->metric_leader == metric_evsel) {
+@@ -610,6 +618,17 @@ int metricgroup__add_matching_metrics(struct evlist *evlist, bool system_wide)
+ 					    find_matching_metrics_cb, &args);
+ }
+ 
++static int append_metric_id_cb(const char *metric_id, void *data)
++{
++	struct strbuf *sb = data;
++
++	/*
++	 * Stop after the first, the metric-id of a parsed metric event is its
++	 * first identifier.
++	 */
++	return strbuf_addstr(sb, metric_id) ?: 1;
++}
++
+ /*
+  * The metric events are parsed with a metric-id holding the identifier used in
+  * the metric expression. If the evsel name is just the parsed event, which
+@@ -626,16 +645,19 @@ static int set_metric_event_names(struct evlist *perf_evlist, const char *modifi
+ 	evlist__for_each_entry(perf_evlist, ev) {
+ 		bool has_slash = false;
+ 
+-		if (!ev->metric_id || !strstr(ev->name, "metric-id="))
++		if (!strstr(ev->name, "metric-id="))
+ 			continue;
+ 
+ 		ret = strbuf_setlen(&sb, 0);
+ 		if (ret)
+ 			break;
+ 
+-		ret = strbuf_addstr(&sb, ev->metric_id);
+-		if (ret)
++		ret = evsel__for_each_metric_id(ev, append_metric_id_cb, &sb);
++		if (ret < 0)
+ 			break;
++		if (ret == 0)
++			continue;
++		ret = 0;
+ 
+ 		zfree(&ev->name);
+ 		for (cur = strchr(sb.buf, '@') ; cur; cur = strchr(++cur, '@')) {
+@@ -1470,15 +1492,21 @@ static int parse_ids(bool metric_no_merge, bool fake_pmu,
+ 	return ret;
+ }
+ 
++static int pctx_has_metric_id_cb(const char *metric_id, void *data)
++{
++	struct hashmap *ids = data;
++
++	return hashmap__find(ids, metric_id, NULL) ? 1 : 0;
++}
++
+ /* How many times will a given evsel be used in a set of metrics? */
+ static int count_uses(struct list_head *metric_list, struct evsel *evsel)
+ {
+-	const char *metric_id = evsel__metric_id(evsel);
+ 	struct metric *m;
+ 	int uses = 0;
+ 
+ 	list_for_each_entry(m, metric_list, nd) {
+-		if (hashmap__find(m->pctx->ids, metric_id, NULL))
++		if (evsel__for_each_metric_id(evsel, pctx_has_metric_id_cb, m->pctx->ids))
+ 			uses++;
+ 	}
+ 	return uses;
+diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-events.c
+index 1c02c2b90684..1cda7dc4d00f 100644
+--- a/tools/perf/util/parse-events.c
++++ b/tools/perf/util/parse-events.c
+@@ -332,9 +332,9 @@ __add_event(struct list_head *list, int *idx,
+ 		int ret = parse_events__decode_metric_id(&sb, metric_id);
+ 
+ 		if (!ret)
+-			evsel->metric_id = strdup(sb.buf);
++			ret = evsel__add_metric_id(evsel, sb.buf);
+ 		strbuf_release(&sb);
+-		if (!evsel->metric_id)
++		if (ret)
+ 			goto out_err;
+ 	}
+ 
+@@ -362,9 +362,7 @@ __add_event(struct list_head *list, int *idx,
+ out_err:
+ 	perf_cpu_map__put(cpus);
+ 	perf_cpu_map__put(pmu_cpus);
+-	zfree(&evsel->name);
+-	zfree(&evsel->metric_id);
+-	free(evsel);
++	evsel__put(evsel);
+ 	return NULL;
+ }
+ 
+diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
+index 065742a7431b..cdd12557d065 100644
+--- a/tools/perf/util/python.c
++++ b/tools/perf/util/python.c
+@@ -3073,6 +3073,27 @@ static PyObject *pyrf_evlist__metrics(struct pyrf_evlist *pevlist)
+ 	return list;
+ }
+ 
++struct add_metric_id_val_args {
++	struct expr_parse_ctx *pctx;
++	double val;
++	int source_count;
++};
++
++static int add_metric_id_val_cb(const char *metric_id, void *data)
++{
++	struct add_metric_id_val_args *args = data;
++	char *n = strdup(metric_id);
++	int ret;
++
++	if (!n)
++		return -ENOMEM;
++
++	ret = expr__add_id_val_source_count(args->pctx, n, args->val, args->source_count);
++	if (ret)
++		free(n);
++	return ret;
++}
++
+ static int prepare_metric(const struct metric_expr *mexp,
+ 			  const struct evsel *evsel,
+ 			  struct expr_parse_ctx *pctx,
+@@ -3080,6 +3101,7 @@ static int prepare_metric(const struct metric_expr *mexp,
+ {
+ 	struct evsel * const *metric_events = mexp->metric_events;
+ 	struct metric_ref *metric_refs = mexp->metric_refs;
++	struct add_metric_id_val_args args = { .pctx = pctx, };
+ 
+ 	for (int i = 0; metric_events[i]; i++) {
+ 		struct evsel *cur = metric_events[i];
+@@ -3127,15 +3149,11 @@ static int prepare_metric(const struct metric_expr *mexp,
+ 
+ 		if (ena != run && run != 0)
+ 			val = val * ena / run;
+-		char *n = strdup(evsel__metric_id(cur));
+-
+-		if (!n)
+-			return -ENOMEM;
+-		ret = expr__add_id_val_source_count(pctx, n, val, source_count);
+-		if (ret) {
+-			free(n);
++		args.val = val;
++		args.source_count = source_count;
++		ret = evsel__for_each_metric_id(cur, add_metric_id_val_cb, &args);
++		if (ret)
+ 			return ret;
+-		}
+ 	}
+ 
+ 	for (int i = 0; metric_refs && metric_refs[i].metric_name; i++) {
+diff --git a/tools/perf/util/stat-shadow.c b/tools/perf/util/stat-shadow.c
+index f5ae399bf336..587db3e2a05b 100644
+--- a/tools/perf/util/stat-shadow.c
++++ b/tools/perf/util/stat-shadow.c
+@@ -45,6 +45,29 @@ static bool tool_pmu__is_time_event(const struct perf_stat_config *config,
+ 	return true;
+ }
+ 
++struct add_metric_id_val_args {
++	struct expr_parse_ctx *pctx;
++	double val;
++	int source_count;
++	int aggr_nr;
++};
++
++static int add_metric_id_val_cb(const char *metric_id, void *data)
++{
++	struct add_metric_id_val_args *args = data;
++	char *n = strdup(metric_id);
++	int ret;
++
++	if (!n)
++		return -ENOMEM;
++
++	ret = expr__add_id_val_source_count_aggr_nr(args->pctx, n, args->val,
++						    args->source_count, args->aggr_nr);
++	if (ret)
++		free(n);
++	return ret;
++}
++
+ static int prepare_metric(struct perf_stat_config *config,
+ 			  const struct metric_expr *mexp,
+ 			  const struct evsel *evsel,
+@@ -53,15 +76,16 @@ static int prepare_metric(struct perf_stat_config *config,
+ {
+ 	struct evsel * const *metric_events = mexp->metric_events;
+ 	struct metric_ref *metric_refs = mexp->metric_refs;
++	struct add_metric_id_val_args args = { .pctx = pctx, };
+ 	int i;
+ 
+ 	for (i = 0; metric_events[i]; i++) {
+ 		int source_count = 0, tool_aggr_idx;
+ 		int aggr_nr = 1;
++		int ret;
+ 		bool is_tool_time =
+ 			tool_pmu__is_time_event(config, metric_events[i], &tool_aggr_idx);
+ 		struct perf_stat_evsel *ps = metric_events[i]->stats;
+-		char *n;
+ 		double val;
+ 
+ 		/*
+@@ -114,11 +138,12 @@ static int prepare_metric(struct perf_stat_config *config,
+ 				aggr_nr = aggr->nr ?: 1;
+ 			}
+ 		}
+-		n = strdup(evsel__metric_id(metric_events[i]));
+-		if (!n)
+-			return -ENOMEM;
+-
+-		expr__add_id_val_source_count_aggr_nr(pctx, n, val, source_count, aggr_nr);
++		args.val = val;
++		args.source_count = source_count;
++		args.aggr_nr = aggr_nr;
++		ret = evsel__for_each_metric_id(metric_events[i], add_metric_id_val_cb, &args);
++		if (ret)
++			return ret;
+ 	}
+ 
+ 	for (int j = 0; metric_refs && metric_refs[j].metric_name; j++) {
 -- 
 2.56.0.385.gac671c819a-goog
 
