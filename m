@@ -1,65 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680486;
-	b=NZc8zM3E7zwH8AqhOeQdXoJ9ObayfiB0o7VWvIKKrwuW1T0rJ1DofnbJnQqgKVUgaBIZ
-	 NQXuTvb5z/r/IiFT9yUwsZJ61s9oAKkGAYfXW7s0y0NsIP5XeDEFR8fm0du4xjtQ7Nx5j
-	 jf5WxQrs+HQcqeGQ32zPJVXCaDkIenRf4G53PGNuO6uNC1DRwMrmGEJgFj0ioUv1s5eXY
-	 3MrJn0ZisfYx438o8N1WLfQNBtZLl9TzKrIyJkc7WQURvdi1FUS/a8TDELb5TXGN8keDd
-	 DcZfmpGf+TOAZsO+CF7qguPyXyep2bRBFlui5hW4eAzbOoRx1pV+QJpuRDqugHIa+IQ==
+	t=1793680535;
+	b=SIxsgvWhdpjvtTzj6LM5i0gTZK9EBHrfJ1aUOVALFwE1U1F7M+TWOF5eW4O/hGyKotV4
+	 nC8HpSuqxeF/D3kBrzqtfrWJ2ZleiEcNN91xqrqNr5WLmNxBTkb2CzDnIXQ/frFKKy0Dr
+	 kbgCGzgbrkR8HTyKHEjX0pwdXmem3wd6Sc0XrfgfB7yyITlzQ4cqMoo/eWrWRztUzPdWp
+	 u5NnFeCCKrCg8w8bgZBuySvENVQp8Aa3jshUic6zxwV3/PdAg6uSb8IpIiT1xQV7UJFKG
+	 tNTygZbEEtrbNGIfrr4l2k2YlYwf+sFnloDNz6BzXF/Dlne1R5BR4ImjbObQwhlA5YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680486;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=K9Njty/s8OSTY2jW7LGO6SCpfmnpl1SS5BBMpxrgIQM=;
-	b=ZFgd7f3Rp0AhWpDJDEtN7fKzWZ/NF6+sfxjJe1HfkrhWn9Lv7XxEfEPH4MmdMOfHUhM1
-	 SwXH1/R2vSR9OW79pHnznvbKztw6dCYCQpMrhATDWIr89+FOiRO+So/Qi3aIj70GeEfNN
-	 kjtEYVRdVi8WjQwRnTQ1AOaMfG5vekkUYDVX1zmSetnft0c6xiRo8o8RTg0xggvdXZkap
-	 GiAJXPwzz1xyV4n246tBv0I21dN6yMAXY2NpVD6tnKBM04l0ymkiq8mvzW6qof1p1h+oU
-	 ol1ie6cbvqR2mB7kLZ7VQLHUNUqGmWqr+bxecj0u7TlXJPrxCNlgVUyw+zwrrPIl7QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793680535;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:Date:
+	 Message-Id:Cc:Subject:From:To:In-Reply-To:References:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=+haBGwyiWfU5fK0i8XKvoQcOJxAPZRgUZLulxjt6MCY=;
+	b=AtLQsg9l/b/4tXdkhnJvk8WRtdfKSvKmQ8UcFDplDODlHp2ArAcoHTrrPkFJAxT5CG1+
+	 kgus0aqoAUwkPAXCL0i6w0w4FJVujHW6aJQEVzyrvsX9T0nTjjXxgpb6VaygIr/4psbOS
+	 IUuZ99c5QhfdCQrFU9fnkpbG5oWGXz26ZuUWnVMEHNrpo1rVK1n84dPWH28j/vKb8SICz
+	 J0cKlx0+VH51dwZYS4loeoeh4n7CpeQ7oWbxgX0phDdcvSOoTKivWCWOHK80g9+26qoPG
+	 oERVL7Od+IhYGqFAhheW4l/6EZII19z/fmT3llfw/mzHOtsE8vyDavFTXB/zg+mCFpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KHDkkMsv;
-	arc=none smtp.remote-ip=95.215.58.138
-Received: from mta1.migadu.com (out-138.mta1.migadu.com [95.215.58.138])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EUYCg2Xx;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B738B606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:34:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B738B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BC7606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:35:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49BC7606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KHDkkMsv
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Tkk/8VKuhrIf4fgRDjiA2Ro1wKiXOIisjNU8KXqStt4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793680482; v=1; x=1794285282;
- b=KHDkkMsvPiy7YmZ1IhyOB0Yed0gk+ac9uCTMIQA+xCfR/YBe14wxj/lhmy+VD41r6zHOc2tl
- rA0T1oKitTyLSkt9MfU+T0t7+b6MZguMyS2AVRW3hL4HNkXpPV5cZqT2MZ+Nn4fjbjNCQODHUvs
- 7KXv/3hs1NW2LmEDpLDsmnmw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c175a73cfa824ebc;
-	Tue, 03 Nov 2026 04:34:42 +0000
-X-Mizu-Trace-ID: c175a73cfa824ebc
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 2 Nov 2026 20:34:40 -0800
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Michal Hocko <mhocko@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, Harry Yoo <harry@kernel.org>, 
-	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] memcg: force charges from reclaim before trying
- the limits
-Message-ID: <auli2Zlf1F0tyi4X@linux.dev>
-References: <20261030205418.341214-1-shakeel.butt@linux.dev>
- <20261030205418.341214-3-shakeel.butt@linux.dev>
- <auhN7v127jwy-q-W@tiehlicka>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EUYCg2Xx
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso1992876a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:35:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793680533; x=1794285333; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+haBGwyiWfU5fK0i8XKvoQcOJxAPZRgUZLulxjt6MCY=;
+        b=EUYCg2Xxy1ACTZiwCq3hVMXK3t3no7wXjeF5y600TxKzaCOeyHe6TFA5VKnm1dGTv2
+         RE09ZssXDv+aqW8biwBm1hwinP4uyCGsLICDt1Efl2hfEtiwEii8MmclL+9IpyOImz5b
+         AwsxivXu5eWr3qyWNguj0S/WDcxvchQjfL/5nbHeIwn0ANAI957Ix7HyaRhauy1e+nlt
+         JZH1L9XFVf9cRYx/gktVcXG8Yq1l/GDsUgyTUrH/Icd63ncCCO1oSNbNwVtDd9f91PnM
+         MH3IuDh7PRkflveanVTkY2w+S8d4zVeML2V/yT4mJJegWfn0NkQlAb9eSAICdfuZtP6q
+         iBeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793680533; x=1794285333;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+haBGwyiWfU5fK0i8XKvoQcOJxAPZRgUZLulxjt6MCY=;
+        b=Kp/d49GEfD80XUsise9KcZEu4HUcvyMaitEsOyYEr2OxSApRB5sHt1C8QFBgGv/zUn
+         ew/dElCM6+v/Ua5ubUpxnqnYMZVrkwmRxpoCw1MM+CLQcyGwB0CIddc6cuvDRWYL//ts
+         Z0RXl6T6EO0OJf0UZbGLzP0KkYM/OW9F3RswTx4AYvkvDt8a3fgbcugRSg73jp9H5hFS
+         nRlN+IuIsN3cEhXu/JoBjMeLxkyXzGPX6qH3C2JONpAG8gqRgSVpfo/asT+0/Pas3z3O
+         py8OiQenY4sVppa9mmslxbYZNM5rS3bI6spKdfRgthBrXlhoQtdkhpBPUJBGzuoc5wwh
+         dvEg==
+X-Gm-Message-State: APuU4Z/Q8WkFuTEDr+H9nnmEzn60dkKlaQK4hFZlI8vKWBYihM+D+Rjk
+	2W6w2FXHnrIwawIVNvPx24x2DPlJLTlA40gj5+wiuis2B+Rwj7y9yjw0
+X-Gm-Gg: AYBFou1rLN1P5Go1wAYXIZbAHydezmsMEHJPILIZrX2RefCWSfP1MwU+FMDp1ERYWRB
+	ot2ZHozy/Yh7g3h8ggNtFS58USPK2tBmDnlCP7+Kc0VJGwW98nyb6cP8HaFqsXco19i+YiCDr+N
+	oSRXG9qRQNfV06v7ansxbLtRh4vHtfcYHxjULQX5+Y4ay7wbvTFG0cFUjMqIfOBE0m9Ure+JXN/
+	ZiBDL5Fv7GhbHV9FZRkFjADq/g0szwfwrz1zM2vrYF7iTOuZ3q4ADXNSjYEuUj7FoI5nrn26NHx
+	dNuOCQFGKx4b6s9K4yIIegr36cQwxBOy/wOtC+ZIRPAqCmQ2JsA6qcanOXKIRXduDRTn6VZxTHW
+	oO0eC1Ky8PHlGsFUGl/oEoaIOSduIgDa3LDcI5PJCWEu5T+yvprl75SfOliEINVbOhwtwzCidQN
+	Wn/IiG1HnEMKZu0Spix1c6EwszU5bX6Ze2BTq+LXVXcpYD4NFDjFv5mkwDXNVtwZnSOGkgcdJv9
+	U6yM8Vo3KUnUknPHWBueZ3PKx7H5/NEYcNBBjVyQZrDQcP16BVsqheTa/wwth3F5j6TfnugaNsN
+	eLBW96TYH9mXpJOE9XsDPGdAVT/FDjS9L4fKiyg18fOsFFdWyRvqEw2gxaGIkcJxoTd1nXzrGLw
+	Jf0ZU1yQDp9DGALwks8d4vK+n9AOjejx2QlY=
+X-Received: by 2002:a17:90b:4f87:b0:3ac:af8d:c839 with SMTP id 98e67ed59e1d1-3ae897f6e6dmr9433576a91.35.1793680533365;
+        Mon, 02 Nov 2026 20:35:33 -0800 (PST)
+Received: from localhost ([153.61.198.248])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85cb91e5sm9616698a91.0.2026.11.02.20.35.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 20:35:32 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 03 Nov 2026 04:35:32 +0000
+Message-Id: <DMLAOL0238CH.43SXF0SFHONW@gmail.com>
+Cc: <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <llvm@lists.linux.dev>
+Subject: Re: [PATCH bpf-next v4 2/2] bpftool: Make the LLVM disassembler an
+ optional runtime dependency
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: <socketpair@gmail.com>, "Quentin Monnet" <qmo@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
+ "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Song
+ Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri
+ Olsa" <jolsa@kernel.org>, "Nathan Chancellor" <nathan@kernel.org>, "Bill
+ Wendling" <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>,
+ "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Nick Desaulniers" <ndesaulniers@google.com>
+In-Reply-To: <20261102-bpftool-plugin-v4-2-5a853e973db9@gmail.com>
+References: <20261102-bpftool-plugin-v4-0-5a853e973db9@gmail.com> <20261102-bpftool-plugin-v4-2-5a853e973db9@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,171 +108,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auhN7v127jwy-q-W@tiehlicka>
 
-On Mon, Nov 02, 2026 at 09:46:38AM +0100, Michal Hocko wrote:
-> On Fri 30-10-26 13:54:13, Shakeel Butt wrote:
-> > Reclaim can charge memory, for example when zswap stores a page.
-> > try_charge_memcg() forces these PF_MEMALLOC charges, but only after
-> > they fail at a limit. A charge that fits still has memory.high
-> > enforced. That can make a task in direct reclaim do more reclaim and
-> > sleep longer later, and kswapd records overage that it never handles.
-> > 
-> > It is also a problem for the next patches, which make kernel threads
-> > queue high_work. The worker charges memory from its own reclaim, so it
-> > can queue itself again. With those patches but not this one, the worker
-> > queued itself in 118 of 284 runs in a VM test with incompressible zswap
-> > data.
-> > 
-> > Check PF_MEMALLOC before trying the limits. Reclaim charges then skip
-> > memory.high, as they can already go over memory.max. Drop the
-> > PF_MEMALLOC check in memcg_enforce_high(), which no longer sees them.
-> > 
-> > Other effects:
-> > - As before, the check reads current, so it also catches interrupts on
-> >   a PF_MEMALLOC task such as kswapd. Softirqs set PF_MEMALLOC
-> >   themselves for swap over network, so the check can't be limited to
-> >   task context.
-> > - These charges no longer charge a batch or refill the per-cpu stock.
-> > - MEMCG_MAX still goes to the first cgroup that the charge puts over
-> >   its limit. On cgroup v1, memory.failcnt no longer counts them.
-> > - high_work can still run again and again when there is nothing left
-> >   to reclaim. This only stops reclaim from queuing more reclaim.
-> > 
-> > Suggested-by: Michal Hocko <mhocko@suse.com>
-> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> > ---
-> >  mm/memcontrol.c | 29 +++++++++++++++++------------
-> >  1 file changed, 17 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index 0e484f7f823a..af95a4574a0f 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -2762,7 +2762,6 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
-> >  	 * when it rechecks the overage and simply bail out.
-> >  	 */
-> >  	if (current->memcg_nr_pages_over_high > MEMCG_CHARGE_BATCH &&
-> > -	    !(current->flags & PF_MEMALLOC) &&
-> >  	    gfpflags_allow_blocking(gfp_mask))
-> >  		__mem_cgroup_handle_over_high(gfp_mask);
-> >  }
-> > @@ -2787,6 +2786,21 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
-> >  	if (consume_stock(memcg, nr_pages))
-> >  		return ret;
-> >  
-> > +	/*
-> > +	 * Reclaim may need memory to free memory. Let it go over the
-> > +	 * limits for a while rather than fail or OOM kill. Doing this
-> > +	 * before trying the limits also skips memory.high, so the
-> > +	 * high_work worker can't queue itself from its own reclaim.
-> > +	 */
-> > +	if (unlikely(current->flags & PF_MEMALLOC)) {
-> > +		/* Find the cgroup this charge puts over its limit, if any. */
-> > +		for (mem_over_limit = memcg; mem_over_limit;
-> > +		     mem_over_limit = parent_mem_cgroup(mem_over_limit))
-> > +			if (mem_cgroup_margin(mem_over_limit) < nr_pages)
-> > +				break;
-> > +		goto force;
-> > +	}
-> 
-> This is racy. Not a huge deal as we would get a false event in the worst
-> case but I think it would make more sense to check the margine after the
-> charge is forced. So this would become
+On Mon, Nov 02, 2026 at 04:44 AM Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org> wrote:
+> +  else ifeq ($(words $(LIBLLVM_SO)),1)
+> +    # Don't link with libLLVM.so. "prog dump jited" loads it with dlopen().
+> +    CFLAGS += -DLIBLLVM_SO='"$(notdir $(realpath $(LIBLLVM_SO)))"'
 
-I actually tested your version as well i.e. after the charge. It is just
-as racy and it has some additional issues which are inlined.
+sashiko is right. realpath was my suggestion, sorry.
+Today DT_NEEDED of bpftool has the soname of libLLVM.so.
+Every distro makes that name visible to ld.so.
+The name of the file behind it is up to the distro.
+The two are the same on Fedora 44, where you tested.
+Where they differ dlopen() fails and "prog dump jited" doesn't work at all.
+Pls use the soname. Something like this (not tested):
 
-> --- 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 856a7d07586c..bd202ec05acf 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -2653,13 +2653,20 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
->  	bool passed_oom = false;
->  	unsigned int reclaim_options;
->  	bool drained = false;
-> -	bool raised_max_event = false;
+    LIBLLVM_SONAME := $(shell $(READELF) -d $(LIBLLVM_SO) | \
+                        sed -n 's/.*(SONAME).*\[\(.*\)\].*/\1/p')
+    CFLAGS += -DLIBLLVM_SO='"$(LIBLLVM_SONAME)"'
 
-First, raised_max_event can't go. Since 374f65b14819 rejected charges use it
-too, and without it forced charges that already raised MEMCG_MAX before reclaim
-raise it again.
+[...]
 
->  	unsigned long pflags;
->  	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
->  
->  retry:
->  	if (consume_stock(memcg, nr_pages))
->  		return 0;
-> +	/*
-> +	 * Reclaim may need memory to free memory. Let it go over the
-> +	 * limits for a while rather than fail or OOM kill. Doing this
-> +	 * before trying the limits also skips memory.high, so the
-> +	 * high_work worker can't queue itself from its own reclaim.
-> +	 */
-> +	if (unlikely(current->flags & PF_MEMALLOC))
-> +		goto force;
->  
->  	if (!allow_spinning)
->  		/* Avoid the refill and flush of the older stock */
-> @@ -2683,15 +2690,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
->  		goto retry;
->  	}
->  
-> -	/*
-> -	 * Prevent unbounded recursion when reclaim operations need to
-> -	 * allocate memory. This might exceed the limits temporarily,
-> -	 * but we prefer facilitating memory reclaim and getting back
-> -	 * under the limit over triggering OOM kills in these cases.
-> -	 */
-> -	if (unlikely(current->flags & PF_MEMALLOC))
-> -		goto force;
-> -
->  	if (unlikely(task_in_memcg_oom(current)))
->  		goto nomem;
->  
-> @@ -2712,7 +2710,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
->  		goto nomem;
->  
->  	__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
-> -	raised_max_event = true;
->  
->  	psi_memstall_enter(&pflags);
->  	nr_reclaimed = try_to_free_mem_cgroup_pages(mem_over_limit, nr_pages,
-> @@ -2773,13 +2770,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
->  	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
->  		return -ENOMEM;
->  force:
-> -	/*
-> -	 * If the allocation has to be enforced, don't forget to raise
-> -	 * a MEMCG_MAX event.
-> -	 */
-> -	if (!raised_max_event)
-> -		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
-> -
->  	/*
->  	 * The allocation either can't fail or will lead to more memory
->  	 * being freed very soon.  Allow memory usage go over the limit
-> @@ -2789,6 +2779,15 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
->  	if (do_memsw_account())
->  		page_counter_charge(&memcg->memsw, nr_pages);
->  
-> +	/*
-> +	 * If the allocation has to be enforced, don't forget to raise
-> +	 * a MEMCG_MAX event.
-> +	 */
-> +	for (mem_over_limit = memcg; mem_over_limit;
-> +	     mem_over_limit = parent_mem_cgroup(mem_over_limit))
-> +		if (!mem_cgroup_margin(mem_over_limit))
+> +	lib = dlopen(LIBLLVM_SO, RTLD_NOW);
+> +	if (!lib) {
+> +		p_err("failed to load %s: %s", LIBLLVM_SO,
+> +		      dlerror() ?: "unknown error");
+> +		return -1;
+> +	}
 
-Second, !mem_cgroup_margin() is true at usage == max, so a charge that fits
-exactly raises an event (unlike today).
+"bpftool prog dump jited id N file F" fails here too when libLLVM.so is
+not installed. It doesn't need a disassembler.
+prog_dump() only writes the image to F.
+But do_dump() calls disasm_init() before it parses "file".
+Call disasm_init() after the arguments are parsed, and only without "file" ?
+It can be a separate patch.
 
-> +			__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+Also common_options.rst still says "linking against LLVM".
 
-Third, we definitely need a break here otherwise every ancestor at its limit gets
-an event which does not happen today.
-
-I want to keep my current version.
+pw-bot: cr
