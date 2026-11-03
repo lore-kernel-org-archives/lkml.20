@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690824;
-	b=i2BT7R4SP2Cpnh115IJqwFrSsxyH5G9b0C3MCmaJsT7bV73Ai/UqsJtjkrrPZnvoW7As
-	 F+AWC1+NxGV+kkgW1UaPRIp8VgFyBIcvSSyQYtq/Qp82UNFg3Li2zOKYRjHcOPrifDXVn
-	 eYkH5T85lXeRYnVC5af0x/LOxF3wtkQsW332BLUsRrQiu0R7lf0q3z0sZLGJojb+aDWQ7
-	 E9PhNSgkFZvHm/gWEiXGOysY7xUI04DzwvhWBWY3e8Xn2J5Rc8ap4AL60ZRDw+vk7tLlC
-	 G/gDS6bnvtopBOXh0zjuqvQuCiw1faiz+kKDEMxDJ85Veia9kJ+QUWFvchipilZsr7g==
+	t=1793690820;
+	b=2Wp7tR2zOd0ZQvA12SGAmWwkH3j98CZJrTQ8DRnoXuIBR3uLCbWD95VkD7C7fTJ2RLJk
+	 xFeBXy2u5AxF7Iy3QuXzAqliJFR9HdH7e2lYmPiV9vCquGLzZxXTBADXKApk2i8icdwtu
+	 AHeb+6TLbD2uIgVfd1ruYUKY+xLSnO4+Ra1Wg4sgJQ3UoBRxSHe41b6nU+M40YNFF/hcv
+	 YEeaveRoxw5PTItwzAZh/Fdt1ihidDJ77f30in4vc/TBqgcMu9mCONFkm/K/ve92fY7IS
+	 C7dBkjsiiP3Nr5nBnkJumvdLE4TSDnQCEnyyarYN2e7VN12xPBb97cQvKwOhN7Wq6DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690824;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690820;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2UnuvNTwSNhA/b6GJllR0EE5L47EKTxjsVEy/FAQlXI=;
-	b=m02ndrF9VcnIybxDGFBnF+s0XeSeHYlR8cS++V+7tQjcw2iVz0pgvfYjxiAELqdRdZcf
-	 L1K9wk5PfuCkfXDHiO1ZkLteANHIp/Zt7RaE5wnZ5e9kVaGV2/PnZ+OsyFVhJbIK+vfy9
-	 iqSlVhfAT3JYXPnD0GhmNMg3s6HsgxvBd8n1rOCDTJwJaUx2tUl10yyBdJgoKjIg805Hv
-	 o9paro84wzPebiKGAu9YbXnx1IlnZFcVR3DQuUOSFX558K2r2gGov4MA32fNykRNmB5GR
-	 u0FiTYLqAXI+MdnIdKK9jKOVrdwveywsZkDBEh8Udh++FSaFSKQduo6W58aJX40eFJg==
+	bh=G6WXuYVuFVaqWLX5G0w7v21yMWKT2qQz3bCPmIaySXM=;
+	b=fyOcVOR09OVrdYAP5rTbKdMHtBCHbX45R2CRLXF79Zvw+aqIWgg6tps8VvcbxFTX1D61
+	 Z0B4zpHuAJ4bsRxFKSSmKvklI6wLh0e65YIBaTTSrtWbyhwSnvM+u/XsT+DF0jOhk3Cm3
+	 Llru/8Sk9epTAGld/PH6wZB8HGaXzlOdo+/+Zz6vJwjuTBdHSIvbpNb0pF4hy23gu54oF
+	 bX2Dcj5lF9u8cx0OCvXRJWCJPzzUI1h0UqVNwv7ZwJ5qAjSnpWKIjXyg0rjMlRKvgnKuN
+	 j1kOVAFmO38nE4xtjj+43elPNnBxLAa1kUdYKTr7jpA8ZdlaGF7B8MOvlDnA6RmQNSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIiyxDSn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FI7wUr13;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6D2606A32F;
-	Tue,  3 Nov 2026 07:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DC6606A329;
+	Tue,  3 Nov 2026 07:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIiyxDSn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CCB21F000C1;
-	Tue,  3 Nov 2026 07:27:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FI7wUr13
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6B01F00A16;
+	Tue,  3 Nov 2026 07:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690823;
-	bh=2UnuvNTwSNhA/b6GJllR0EE5L47EKTxjsVEy/FAQlXI=;
+	s=k20260515; t=1793690819;
+	bh=G6WXuYVuFVaqWLX5G0w7v21yMWKT2qQz3bCPmIaySXM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NIiyxDSnojE1F4PCwK7yqKFa+jsgtfS5tsZ52Il6MxHOgyuEgSdh4TI8GPt9M6uJm
-	 52ZHO5L0CImM4bwOnbMppBktyOrU+4rs/Y3zFtjs7JB3Nj5fJ4f8a6y2tnj9igylnj
-	 PtC/51vZJ06PyYvXKUQteHnWeJgg3dyXtKqC7dlLTvmQdokfMQSc4XxhxlDP7vzXSF
-	 2aFDKKWCAj54sPez+fvBoQ/Yyr+KmRnpGVM0e9X97vAtw6VSaOpC16d973rW5iNdcU
-	 fGNPl97f/lq/27kXaKbbu4iNVDNbPLPXqcRxnm1BtaahCP82hbhpf4yUXfbJ67ec+N
-	 nRtY/EvAt2Dyg==
-Date: Tue, 3 Nov 2026 08:27:00 +0100
+	b=FI7wUr13qUiCZjI5Cfxbb+wytm4cVV3/lKY2i+xGFDsEoJWw4xuc0SWfVMyNwCQli
+	 GfGk87l4VZqMNz1NgrcnMA+ugAdGCVibsvTbAcLcsZkgB6WR3W+HtfS1B0ko1473Df
+	 6X/x8yPB3FoSRWnPZBhcYoX+q2NEWe/ssJU/8lG8y+weFcwW9kyefWtaCqG/TK1Fz6
+	 nkpEPgBVJV2Cv/rPCwAGimB03lq1z2pQql4PKNj9YKEYZytLgkFlKTmZJ/43jri9ac
+	 wE2n2fXTCW8aYJlquNKwpx2umsCtpk8zxXTlWVXrzGTBkP/1GogeNATFEq3ypP1dh6
+	 3riqd62KwmdPg==
+Date: Tue, 3 Nov 2026 08:26:56 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: tursulin@ursulin.net, jani.nikula@linux.intel.com, 
-	rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/selftests: Put GuC test contexts on early
- failures
-Message-ID: <20261103-careful-honorable-earwig-cee583@quoll>
-References: <20261103065554.1073445-1-vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, 
+	stable@vger.kernel.org, thomas.hellstrom@linux.intel.com, intel-xe@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, matthew.brost@intel.com
+Subject: Re: [PATCH] drm/xe/pm: Balance the runtime PM reference when ioctl
+ resume fails
+Message-ID: <20261103-cheetah-of-inescapable-engineering-1766dd@quoll>
+References: <20261103065810.1075142-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,27 +60,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103065554.1073445-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103065810.1075142-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 06:55:54 +0000, Wentao Liang wrote:
-> intel_hang_guc() creates an intel_context before changing the heartbeat
-> interval and initializing the spinner. If either operation fails, it
-> jumps to err without dropping that context. intel_guc_fast_request()
-> also skips the context put when spinner initialization fails.
+On Tue, 03 Nov 2026 06:58:10 +0000, Wentao Liang wrote:
+> xe_pm_runtime_get_ioctl() uses pm_runtime_get_sync(), which increments
+> the usage counter even when resuming the device fails. Its conditional
+> runtime PM guard only runs xe_pm_runtime_put() after a successful get,
+> so failed resumes leave an extra reference behind.
 > 
-> Release the context on these failure paths. The existing put after
-> igt_spinner_create_request() handles the later paths.
+> Use pm_runtime_resume_and_get() so a failed resume releases the usage
+> counter increment before returning the error.
 > 
-> Fixes: 69142c0a5f9a ("drm/i915/guc: Add selftest for a hung GuC")
-> Fixes: 706785c19fe9 ("drm/i915/guc: Add a selftest for FAST_REQUEST errors")
+> Fixes: 23cf006beac3 ("drm/xe: Runtime PM wake on every IOCTL")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/gt/uc/selftest_guc.c           | 1 +
->  drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c | 2 ++
->  2 files changed, 3 insertions(+)
+>  drivers/gpu/drm/xe/xe_pm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 
