@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730295;
-	b=dq+dZfvWhzb/5dESbLRiCB3r3Dn04ETRKZlonBCjhWAl4D/n/XvU5cBtyKxhPTaAEjW/
-	 oi3eieZJJPDgyO4Omm0B5NTy7abKCNLrK3aOhEWUYOVPhoEJCewjmm34AM848l/75pZSK
-	 +sC6NCTt9pa+x4UKapmGDya+Di8wXCe7xkhiTIhKC7FhR48cDS60j1VE0fdoow0SAbe9l
-	 DXbptcNHM++g20sr4bNP45cZjL6ElGq03Cel40kbLmIZ2Zy51eYPND2vONNjxcjVJofdC
-	 tWnYY3ZH0fSWhuiKa0e5teeBkKZ5BaMB77luCw2cyjx1D8FQyJPAfVg6Ot/vRL5iQOg==
+	t=1793730303;
+	b=VpGXY3lLHHBGWzD0s5KCNoeRX6QhsSTSPpA7WXzoFDFjv/lcbuQwopUOo8bKBwcESc16
+	 X2Po0Xhz7Ltw3NjLIFOEt/3g3tbAMJYMy/oxWWEnW09vG9kaSf3jOh0/FY9l88b6HAxxu
+	 4k+vs6bFB4/Z9u1GxLgve/E2RIQKLUn2q0rdK9rnY6Dpwq7rQPBBX/OCXb5yGtFV5327x
+	 znYrIkrpQkDyUYhHNj5ueR8eztbAV7hrB2LVh1FpglBjChfW02sVLAwgBgYm2g7N7upc9
+	 u1aKPkSg9eh9N4d+Cqp3cugP4z8F5CDs3Gx7yXgHAa4aHfDyFRMyjwZcAxy5ZXopyBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730303;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=h/bTOMABqpVamX0NVx1RRz5vWrrSfjlCdmnKrtlIDAM=;
-	b=rOlDcjdY/zl97tk7w/OcoEUgKxd3oaEKrAFDVR+uhQlbolQHIVuijmNVcOTndj5165H8
-	 R7VawgV+eWl5NtWDlTVueOMZ8CyDSfxt7x02kcnoALFUEeAKgqahoLFvRIw6ECj82Eg4E
-	 iTNx4fS1M/pdeUgaJdEldp8BWZRhON2NRWezcAzPuacEektoP6Koc0BEK80PJ2IAt1HEp
-	 08vodC4TWUQIGG/lHfavzL1BLbS99mQifo+0DmCLIjFdO0SdaS7VxpE0ekt6I6Qpj7qUl
-	 FiPcK9uF3HKCn736HBeAIqRIPuqk7WP6jurVyv9bQMID4PgRSgLBHCRZt8Nijzq3obg==
+	bh=cw1nPp6gtYuMPpv8xpD/+xrEUnqo5ELKlrwfbjJ3TG4=;
+	b=qQNF9xWGrYsRwlTGfXKXzxR5RcndoWcDjTwtteFTTRGDitHTl21pNIDdQPDn9GLZNmEX
+	 f5NPvOdQlIZ7ffJ8NGdDeMom1TLIVGQv5lnv5hw+G2Ug7ckHtlrzSjzWZL9s/tsBab2ii
+	 3AnArjw5mbDOobUM22usXTVcrePqD+D4ckN45jwOODwpe0YBgvV5EYsGQ/bErCxnkQlxk
+	 49Czaw12VtdPlcBASjGRpKj9L6x6jKLKee2jGajuOUfXii1gybbuHMNiJA38sYEu2X/zQ
+	 aZVJLEixT2h3plIuiFQgfiNZ13grcOBH5rFKYzvgWFQIuLeuW8BCqOjbAyRff1KPUqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mqwlOeXO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gpJlexKu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EE9606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:24:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D6E606A31B;
+	Tue,  3 Nov 2026 18:25:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mqwlOeXO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DEF11F000C1;
-	Tue,  3 Nov 2026 18:24:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gpJlexKu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4584B1F0093A;
+	Tue,  3 Nov 2026 18:25:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793730294;
-	bh=h/bTOMABqpVamX0NVx1RRz5vWrrSfjlCdmnKrtlIDAM=;
+	s=k20260515; t=1793730302;
+	bh=cw1nPp6gtYuMPpv8xpD/+xrEUnqo5ELKlrwfbjJ3TG4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mqwlOeXOwK3RUJrektBfmfynzktGQFdocRd4YrTEiXZefQ9Tp0omcmn52+c7sOj3U
-	 /mKCP5nctLK7qlqw/D0/1TcqjhPK7/rqo9KVc3yNnK8CbUkSllsERCgwQ831+IMSpt
-	 LaIBfdIJm1RhtXSEnptNpMihW/5hBEd31q9g5JguNI2UMeO0hF3hohHjYXTKKc6Iz3
-	 IizGMDt9DOdWSX6etKHgP7WE5qNnvJkwNCdEo+Gl7rHW9SMoodtT4aWVcvYBnbGpEU
-	 GgTD9ugSVmyYaZtXxSU+jSdvZkU1SaJae4gekbdZLIJd/uIuls78nFCAKoEPToO/aZ
-	 1GJ/sqt3fp++g==
-Date: Tue, 3 Nov 2026 18:24:48 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Hui Zhu <zhuhui@kylinos.cn>
-Subject: Re: [PATCH v3] mm/memory: use pmdp_get_lockless() for the pmd read
- in do_fault_around()
-Message-ID: <auoXIdTpLO60mkEw@gremlin>
-References: <20261103014749.96764-1-hui.zhu@linux.dev>
- <aumfvNWiemmuyooP@gremlin>
- <61f8a583-5ea5-4fcc-bf30-ea9cafe94d65@kernel.org>
+	b=gpJlexKu0aije/Zg9DEtyhR70HVdCt5MBrVJ+Ndoet2JmDV87MaSCFK7zrgn8aYYE
+	 8HhaQAToC8NWXmV3bx1Jc5WwYeXnfns6Cd0O0BBRJ2ZD2hsIBF4iRsbkaXNL4Jx7d1
+	 oQTZorxSuf2soGsbUc+qist5zWum7SuKA6P/2+eqerQ6rsJJM3m4jmcvTAP1rcXiT0
+	 0/092dhBWEz5IhMwJNCFAMRunGu+G3aKev78qX2sR45/IH/Pk48/Jv1/ZV8rBKon43
+	 xX+kVfHMyTIxVHb1/rXFZmVfCDhsyqCDybYJxwl0dbmwk9Hw7podw4cUsqezUcw8uj
+	 4xUb4xzFpV9Pw==
+Date: Tue, 3 Nov 2026 11:25:00 -0700
+From: Keith Busch <kbusch@kernel.org>
+To: Matthew Wood <thepacketgeek@gmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Alex Williamson <alex@shazbot.org>,
+	kvm@vger.kernel.org, Nikita Vetoshkin <nikita.vetoshkin@gmail.com>
+Subject: Re: [PATCH v2 5/5] PCI/sysfs: Use user config accessors for
+ serial_number
+Message-ID: <auom_DjFYTR-tKta@kbusch-mbp>
+References: <20261029192032.1325629-1-thepacketgeek@gmail.com>
+ <20261029192032.1325629-6-thepacketgeek@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,104 +61,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <61f8a583-5ea5-4fcc-bf30-ea9cafe94d65@kernel.org>
+In-Reply-To: <20261029192032.1325629-6-thepacketgeek@gmail.com>
 
-On Tue, Nov 03, 2026 at 05:15:27PM +0100, David Hildenbrand (Arm) wrote:
->
-> >> +++ b/mm/memory.c
-> >> @@ -6017,7 +6017,8 @@ static vm_fault_t do_fault_around(struct vm_fault *vmf)
-> >>  	to_pte = min3(from_pte + nr_pages, (pgoff_t)PTRS_PER_PTE,
-> >>  		      pte_off + vma_pages(vmf->vma) - vma_off) - 1;
-> >>
-> >> -	if (pmd_none(*vmf->pmd)) {
-> >
-> > This pattern is definitely bad I think, we have it in many other places so
-> > should probably convert those to pmdp_get() at least?
->
-> Usama is working on this as part of separating HW and SW PMDs (he only sent out
-> the PTE part so far).
->
-> >
-> >> +	/* pmd_install() rechecks pmd_none() under the pmd lock. */
-> >> +	if (pmd_none(pmdp_get_lockless(vmf->pmd))) {
-> >
-> > It definitely seems right to use at least pmdp_get() here, but I wonder
-> > about the need for pmdp_get_lockless() here.
->
-> Whenever we're not holding the page table lock we should be using
-> pmdp_get_lockless().
->
-> Even if they are semantically equivalent for most cases, it serves as a good
-> reminder that there are no guarantees.
->
-> And that you have to look again under PT lock.
->
-> >
-> > pmd_none() only checks the lower word, so a torn 64-bit word on 32-bit
-> > (i.e. the PAE style cases we are worried about) makes no difference:
-> >
-> > From x86 pmd_none():
-> >
-> > 	/* Only check low word on 32-bit platforms, since it might be
-> > 	   out of sync with upper half. */
-> >
-> > And anyway I guess there is no valid PMD in such systems that would have
-> > the lower word cleared and upper word not cleared.
-> >
->
-> I don't understand the discussion really.
->
-> No PT lock -> use the lockless variant.
->
-> Until we can remove the lockless variant.
->
-> Are we consistent with that? Likely not.
->
-> But that's all independent of this patch here.
+On Thu, Oct 29, 2026 at 12:20:29PM -0700, Matthew Wood wrote:
+> serial_number_show() reads the device serial number with pci_get_dsn(),
+> which uses the kernel config accessors which don't check
+> block_cfg_access, so a read that races with a reset goes to the device
+> mid-reset and can fail with -EIO or report an all-ones serial number.
+> 
+> Do the capability walk and DSN reads with the user config accessors
+> instead, as the "config" attribute does, so each access waits for any
+> pci_cfg_access_lock() holder (e.g. pci_reset_function()) to finish.
+> Also wrap the reads in pci_config_pm_runtime_{get,put}() like the other
+> attributes that read config space.
+> 
+> A reset can still start between two accesses, but the next access just
+> waits for it to finish, and the DSN capability is unchanged by a reset.
+> 
+> Add a check that both DSN reads are successful, unlike pci_get_dsn(),
+> and fail with -EIO instead of reporting an all-ones serial number if
+> the device is disconnected between the capability walk and the reads.
+> 
+> Unlike pci_find_ext_capability(), the walk doesn't check dev->cfg_size
+> first. serial_number is only visible if pci_get_dsn() found the DSN
+> capability when the device was added, and cfg_size is final by then.
 
-It turns out all of this is a complicated mess, I think I've nerd-sniped myself
-into sending a series at some point about this...
+Looks good.
 
-It turns out we're as wildly inconsistent on pmdp_get_lockless() as we are on
-pmdp_get(), so TL;DR my main concern is moot so:
-
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-But for the non-TL;DR... (optional reading, will probably send something):
-
-* Agreed that the semantics matter - and the 'use pXXp_get_lockless() if no
-  locks, otherwise pXXp_get()' is preferable.
-
-* But it turns out it's all a giant mess (of course)... for
-  CONFIG_GUP_GET_PXX_LOW_HIGH arches you really actually need to also do:
-
-pmdp_get_lockless_start();
-pmd = pmdp_get_lockless(...);
-pmdp_get_lockless_end();
-
-And that's because, as Hugh points out in commit 146b42e07494 ("mm/pgtable: add
-PAE safety to __pte_offset_map()")), you need IRQs disabled for these arches for
-it to be safe.
-
-The explanation is quite good:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=146b42e07494e45f7c7bcf2cbf7afd1424afd78e
-
-And then of course there's also pmdp_get_lockless_sync() used by THP collapse
-which is some kind of 'true' lockless usage that needs to synchronise with TLB
-invalidation against GUP-fast and ugh.
-
-* So I think what matters is whether you actually NEED the value un-torn or
-  whether it's an optimistic check that you can live with (rechecked under lock
-  as needed).
-
-* So I wonder if we shouldn't just have e.g. pmdp_get_lockless_optimistic() or
-  something like that which is just a pmdp_get() in all cases with correct kdoc
-  description etc.
-
-* Then we can convert ALL lockless users to using a lockless form without having
-  to do the IRQ stuff. Including a ton of the existing lockless users.
-
-* I am not sure why I did this in bullets. :)
-
---
-Cheers, Lorenzo
+Reviewed-by: Keith Busch <kbusch@kernel.org>
