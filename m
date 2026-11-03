@@ -1,82 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735390;
-	b=eG1aVgYUd64Oz7fmuYn0zfDfX49Py+DGI1J4ioEQKcOjD17DyoUAcME+edC0zyBSjQH+
-	 zFKt3EV4bu5gXult4i9ZM2tn/iF2J2hq1suyWo7ypIFp0CJTpey07MbDh8HlOaKoEgV5T
-	 BLYokbOX48HCO+HSf9bbGt8B9TsW8Zzawn4sLRfAu2lsSCbuQVfidcVnIi55BBvzSuxL6
-	 wG//3v/uqMDml0cdHibAfGANclqUkwWtLQrx2u/OoRClHxsxK31mCnIrNS2TZU/gN6BAA
-	 g4cMHl6X9Q4jh3BxTUoQx8g0Zk/qbYs6nDTk0h3bEjw0aw1GFBu82w5TNtCre+VUk2g==
+	t=1793735388;
+	b=yNtJRUfeJQQhYGEGGX8ANiD8Y015hezzhNN66NXYKjoR2pO8YN3z1H5rPWYIsacv+oxY
+	 rov2z9NSVntuir/EFET14aLCBmzZkiaPWkTXyP3YPp/CFEyYSoqHUMUgbG3d1JwyVK+Y0
+	 6wyG/GySiU6EncJ0kR/Ps2nJA4009/Jyjq7mjaq8sMEaMrrpUb3DNweIBbkMoYHJLpqYN
+	 gjjvxGGG/oN/i9rrh2yK5sxpNiPpJS0tk8LgeXJvynjrbQRVDDgrjLj51S0L1bEje3UO7
+	 1X8JNfx6e09SfQ4xIaxs2lZb6j2L/35uej2H1nXMHzdHBvMr2cQGTptt0GONu2k+kGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735390;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=9P+E53yKlDmqXM3P0gvNQJjIJEomFqG3poCHUiZ6Bi0=;
-	b=rToaIOicllhNgPHlPf489039pTpD4Kxm+j0rBonOq5c8GJa/WVzZuaPNSa4musjxqJBV
-	 u3wsq8wxKUUNuJI4fbNvPyRvums2xnRGyAV9+UPp9+G+MBAAepgDrQOSc3Km20Yscf5nv
-	 GpEKXolQX9Ra46E5N74jAPM4GENvIgDJOjN8DSdYg/qI1G7lYUPDNkn8eG9wei2vkfD6p
-	 OZ96/5fr41M0XGaJNtr4IKpYHN0Jvgn87cKc9U82Mt9kyJgxrJtv4X2BQngEULPpG2SKK
-	 26IRuuDzuxanyf6z8cWL1ZD/F7Idu1DJtuhuEGJFWoC/5hkJF+pNTi41qvGNvU/XGRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735388;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=wr1vBxqOwzVVeBlfORJLdh2wU2b9XxfZ/Zk2+hfs9Rs=;
+	b=f6bvV/NJknGdy8/xXmotPeHkBTeSIxMRwIF22rhDoXWUbkOeBYNq0O6vODauDhOKYtCv
+	 C48lbVyg4N7h4yII2CPNSgmfmxGP0GUN+LYuL6W5VjjLQwoq+aAVyorjzy8lkDU0JD/3y
+	 lbSiTUvYaoNp/dznxFDWyjPNXvXUDrw+XKq4tflsfYqjtUmgmIkLq3NkPWdzWe97jN4De
+	 rKQE4IzrQc1LS5HdP42Y36nCJI0vETgoi3dWGj4vN3J3/x/8n4DvOKDTOPQVLgbdnVW48
+	 dr0CudhvvexL4vv1DwPAsioca60hKdezt3W8KDc+EIZHjIvpOjRIagPncAFYIVn8E3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X59HlbTz;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE146606A335;
-	Tue,  3 Nov 2026 19:49:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE146606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X59HlbTz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793735389; x=1825271389;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=rCERoXWCfBu35r5RRg7xmnqKjETJErwBKzmm+LfUQgQ=;
-  b=X59HlbTzuf7T9sTkMexVJVALXyzRA4JBN0tC3F2BDPk8T5yLTFsMN9ZN
-   IYYeM1/AfY0/Y7lMkTwaiiyRStTxECllESq7IDf9tPPdc9PwcT5nUxXan
-   hB4cckVCnW96mFB0LUwFT2mDwFTAgCkLAD92WmxEblDFPwZ3Etmhc9LnG
-   2VAgATcLiAcOpjoFgS2+MJn1HIs46V3OarcPgeI3ZSVzvvok+tmfgfbS9
-   x0OJJo4oEMZ1EvNqvfM1GFamGhdpVBrRkRIS/N6igg2QxfyBwVr0uXqY8
-   sKsPtR7V/4VILvU7QvIPTA6jy9UDkup26NkvMo2rAof8FGOZcqdMb/XW0
-   g==;
-X-CSE-ConnectionGUID: /v57nx9NSlO9oKLsrgGeBA==
-X-CSE-MsgGUID: Ue0TikruR0ifo1Xouh04jw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2568222"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2568222"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 11:49:49 -0800
-X-CSE-ConnectionGUID: +nzjp0bdSYCWNsVVsQUiqQ==
-X-CSE-MsgGUID: M2Twv/xtSl6go+XODMWfkA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6364910"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 03 Nov 2026 11:49:47 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOKVt-00000000jFH-18IU;
-	Tue, 03 Nov 2026 19:49:45 +0000
-Date: Wed, 4 Nov 2026 03:48:54 +0800
-From: kernel test robot <lkp@intel.com>
-To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
-	jjohnson@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
-	sibi.sankar@oss.qualcomm.com,
-	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Subject: Re: [PATCH] wifi: ath12k: skip hardware rfkill setup on Surface
- Laptop 8th Edition
-Message-ID: <202611040318.qlss0Yol-lkp@intel.com>
-References: <20261103094024.1764151-1-gopikrishna.garmidi@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFAE606A32C;
+	Tue,  3 Nov 2026 19:49:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FFAE606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJzgD4KJGz57KTr;
+	Wed, 04 Nov 2026 03:49:44 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6A3JnbwE052245;
+	Wed, 4 Nov 2026 03:49:37 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 4 Nov 2026 03:49:40 +0800 (CST)
+X-Zmail-TransId: 2afc6aea3ad43f2-f7913
+X-Mailer: Zmail v1.0
+Message-ID: <20261104034940800qG8bny1y_TdrfjLr-KGpv@zte.com.cn>
+Date: Wed, 4 Nov 2026 03:49:40 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,67 +56,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103094024.1764151-1-gopikrishna.garmidi@oss.qualcomm.com>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <martin.petersen@oracle.com>, <alim.akhtar@samsung.com>,
+        <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>
+Cc: <james.bottomley@hansenpartnership.com>, <peter.griffin@linaro.org>,
+        <beanhuo@micron.com>, <stanleyjhu@google.com>,
+        <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYzXSBzY3NpOiB1ZnM6IGV4eW5vczogVXNlIEJJVCgpIGZvciB0aGUgbmV4dXMgdHlwZSB0YWcgbWFzaw==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A3JnbwE052245
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Wed, 04 Nov 2026 03:49:44 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEA3AD8.000/4jJzgD4KJGz57KTr
 
-Hi Gopikrishna,
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-kernel test robot noticed the following build errors:
+exynos_ufs_specify_nexus_t_xfer_req() and
+exynos_ufs_specify_nexus_t_tm_req() set and clear the nexus type mask
+with '(1 << tag)'.  Commit 01aad16c2257 ("scsi: ufs: exynos: Fix
+programming of HCI_UTRL_NEXUS_TYPE") converted the same expression in
+exynos_ufs_post_link() to BIT() and noted that the UTMRL access should be
+changed as well; the four remaining mask computations were missed.
 
-[auto build test ERROR on ath/ath-next]
-[also build test ERROR on wireless-next/main linus/master next-20261030]
-[cannot apply to wireless/main v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Use BIT() there too, matching the rest of the driver.  The transfer
+request tag is in 0..nutrs-1, and nutrs can be 32, so BIT() makes the
+width of the shift explicit; the task management tag is in 0..nutmrs-1
+(at most 7), so only the transfer side can reach bit 31.  No functional
+change.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Gopikrishna-Garmidi/wifi-ath12k-skip-hardware-rfkill-setup-on-Surface-Laptop-8th-Edition/20261103-014024
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/ath/ath.git ath-next
-patch link:    https://lore.kernel.org/r/20261103094024.1764151-1-gopikrishna.garmidi%40oss.qualcomm.com
-patch subject: [PATCH] wifi: ath12k: skip hardware rfkill setup on Surface Laptop 8th Edition
-config: arm64-defconfig (https://download.01.org/0day-ci/archive/20261104/202611040318.qlss0Yol-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261104/202611040318.qlss0Yol-lkp@intel.com/reproduce)
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+v3:
+- Make this a standalone cleanup: no Fixes: and no Cc: stable.  The
+  kernel is built with -fno-strict-overflow, under which GCC and Clang
+  both define the signed shift here and neither trips the shift
+  sanitizer, so there is no runtime bug to backport.
+- nutrs counts UTP transfer request slots and nutmrs counts task
+  management request slots; only the former can be 32.
+- Capitalize the subject verb.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611040318.qlss0Yol-lkp@intel.com/
+ drivers/ufs/host/ufs-exynos.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-All errors (new ones prefixed by >>):
-
->> drivers/net/wireless/ath/ath12k/core.c:91:9: error: expected '}' before '{' token
-      91 |         { /* Sentinel */ }
-         |         ^
-   drivers/net/wireless/ath/ath12k/core.c:86:39: note: to match this '{'
-      86 | } ath12k_core_broken_rfkill_table[] = {
-         |                                       ^
-
-
-vim +91 drivers/net/wireless/ath/ath12k/core.c
-
-defae535dd63b1 Aaradhana Sahu      2025-07-08  76  
-5949d1910f13c2 François Roux       2026-10-06  77  /*
-5949d1910f13c2 François Roux       2026-10-06  78   * On these machines the OS cannot control the WCN7850 hardware rfkill
-5949d1910f13c2 François Roux       2026-10-06  79   * input, which reads as "radio off", so hardware rfkill must stay
-5949d1910f13c2 François Roux       2026-10-06  80   * disabled. Ideally this would come from the connector node of the board
-5949d1910f13c2 François Roux       2026-10-06  81   * DT, but that binding does not exist yet.
-5949d1910f13c2 François Roux       2026-10-06  82   */
-5949d1910f13c2 François Roux       2026-10-06  83  static const struct ath12k_core_broken_rfkill_table {
-5949d1910f13c2 François Roux       2026-10-06  84  	enum ath12k_hw_rev hw_rev;
-5949d1910f13c2 François Roux       2026-10-06  85  	const char *compatible;
-5949d1910f13c2 François Roux       2026-10-06  86  } ath12k_core_broken_rfkill_table[] = {
-5949d1910f13c2 François Roux       2026-10-06  87  	{ ATH12K_HW_WCN7850_HW20, "microsoft,denali" },
-5949d1910f13c2 François Roux       2026-10-06  88  	{ ATH12K_HW_WCN7850_HW20, "microsoft,romulus13" },
-5949d1910f13c2 François Roux       2026-10-06  89  	{ ATH12K_HW_WCN7850_HW20, "microsoft,romulus15" },
-2d169d089ae8e1 Gopikrishna Garmidi 2026-11-03  90  	{ ATH12K_HW_WCN7850_HW20, "microsoft,surface-laptop-8-13p8" }
-5949d1910f13c2 François Roux       2026-10-06 @91  	{ /* Sentinel */ }
-5949d1910f13c2 François Roux       2026-10-06  92  };
-5949d1910f13c2 François Roux       2026-10-06  93  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/drivers/ufs/host/ufs-exynos.c b/drivers/ufs/host/ufs-exynos.c
+index 3bcbc9ebbb28..ee47958253bb 100644
+--- a/drivers/ufs/host/ufs-exynos.c
++++ b/drivers/ufs/host/ufs-exynos.c
+@@ -997,9 +997,9 @@ static void exynos_ufs_specify_nexus_t_xfer_req(struct ufs_hba *hba,
+ 	type =  hci_readl(ufs, HCI_UTRL_NEXUS_TYPE);
+ 
+ 	if (is_scsi_cmd)
+-		hci_writel(ufs, type | (1 << tag), HCI_UTRL_NEXUS_TYPE);
++		hci_writel(ufs, type | BIT(tag), HCI_UTRL_NEXUS_TYPE);
+ 	else
+-		hci_writel(ufs, type & ~(1 << tag), HCI_UTRL_NEXUS_TYPE);
++		hci_writel(ufs, type & ~BIT(tag), HCI_UTRL_NEXUS_TYPE);
+ }
+ 
+ static void exynos_ufs_specify_nexus_t_tm_req(struct ufs_hba *hba,
+@@ -1013,13 +1013,13 @@ static void exynos_ufs_specify_nexus_t_tm_req(struct ufs_hba *hba,
+ 	switch (func) {
+ 	case UFS_ABORT_TASK:
+ 	case UFS_QUERY_TASK:
+-		hci_writel(ufs, type | (1 << tag), HCI_UTMRL_NEXUS_TYPE);
++		hci_writel(ufs, type | BIT(tag), HCI_UTMRL_NEXUS_TYPE);
+ 		break;
+ 	case UFS_ABORT_TASK_SET:
+ 	case UFS_CLEAR_TASK_SET:
+ 	case UFS_LOGICAL_RESET:
+ 	case UFS_QUERY_TASK_SET:
+-		hci_writel(ufs, type & ~(1 << tag), HCI_UTMRL_NEXUS_TYPE);
++		hci_writel(ufs, type & ~BIT(tag), HCI_UTMRL_NEXUS_TYPE);
+ 		break;
+ 	}
+ }
