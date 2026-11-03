@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723953;
-	b=Diy7jWqYmy3P/5WgMD05/ptUEubOeBISZ3RUnxzBzCgC1peIabjF+L3wpXRm7eAlKqmB
-	 a0MSuCIoO+/T4kCbgF8iTf3i1UX0QBvJFNanANWh9OOn252QB4dYF0f5yynPpG9XLaz8d
-	 hM+BrSDFpt2SgU8rF0t0Cl++R6kuHUP/ywR+sw3zQW9XqvV9GOFZUq2zn0rrn4wtfXtOv
-	 dds4PlXnUx2Zns+njGiwapRmwIcToZQYnsTHUhI28i9CE1ByZlhw5nMOxkISkAfhWFyFe
-	 NKmZhQYQ5OJepH5g64aqr3h9srPw5blVgW2hFZ+LFDMBhGVD1YZtfM288CM7aScO/7g==
+	t=1793723959;
+	b=z1ea9v0dgaNAYmV0UIa5yrlyG06umzHxqQh1vqO3sZKx+RDdOQ5MCsldsosLoWSuXb9P
+	 yD43IHkv8kwnpc9BQSimj+3b0xZOR22kfapA9UxYl2RUsdaFMBYpdT0v7CyPro7QquHGq
+	 novod9RSJNqDYGbrU/XRZIRR1j/ekJ0YtvBOPcUDDbhlXHfHPxgfXZTSKXoRQnlR7mhH1
+	 ziO3Jswfv7neHZ0mA4vklQ7L6gImVQfHV80H9agTShV47UnifNO3JREU8zmWrlmyqwKI4
+	 Fk3vQI2Km39s+RVlImVRRmZIAVHzFmtWwidzDKJ6nWauAdTiN09ZZrt4RvoVs38jpbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723953;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723959;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=V7CHaxJjio26zC0cpwOTJ7GJgFVKnUUB8e0VQq1U5gQ=;
-	b=my0dlfNmZQvVcdZKl+83Fsc+SDtTMr0V4KbdkrvBk+qVV2nrnnznhifyaulGZI9Nbq2K
-	 AVy/+Ezh1aNy+s9e9x0no1CxESiHkYt6EsuASRGeAQD2BSOB6NLwXj8OXcgROn37Jf76T
-	 l9NXTS0PzcO+Zeu41BL39x835lfi73MPdVH17RU/6AbEeowmNYMGPfD9NU4o63MNh1H1A
-	 f4O7EZAkNEZU2ykOXbKhgJ0+R9Sr+jLTMScBoTi3f9LBIdcO8fSJn0NH6P2qcTJGHtm57
-	 eXHfHM/LkTWDzJR7lIo449uRqvE67En51y0Coo0EfECk9Nv3vEueldQBVJCtQJuuLIg==
+	bh=nFEbpr1S/fywdsLNs6gMW5AfQVW9GmywjT2Nznx1bkQ=;
+	b=hg5SS0dGMCmIiXsuFXn1+bG9JR/jNxKSiek/UwUfNzjnKukgQNxM3x8GCjUPkwXD+oBP
+	 h9V4Blzo6mV9I4tfrJeBUVGOeeY5nbRbrnFbk4pG7f0TBl39I8JdhnDoipEJmzP8trn53
+	 CGM2PEglKUMcQMXvsuh1PMyBRj+25NllToR9KsAiz/L6I6TwsM4MRGSaKx9VWDdpaGb4x
+	 1Wo3sF/jR3TE8dVCKuvJ9DCmfG/ZY9p93DKEWDicMFTWo5kB6Mm/HxVAW+gr89PlVJZJt
+	 tr+8AKqI1e+uJadyD20x+hewDMNbpT2dJwcWkEzNwN3UzWqPFIJXow61x8NtCsgSuww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdBvAHNI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G9Wh75Qn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29596606D82E;
-	Tue,  3 Nov 2026 16:39:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC436082BFA;
+	Tue,  3 Nov 2026 16:39:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdBvAHNI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1251E1F000C1;
-	Tue,  3 Nov 2026 16:39:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G9Wh75Qn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3030A1F000C1;
+	Tue,  3 Nov 2026 16:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723952;
-	bh=V7CHaxJjio26zC0cpwOTJ7GJgFVKnUUB8e0VQq1U5gQ=;
+	s=k20260515; t=1793723958;
+	bh=nFEbpr1S/fywdsLNs6gMW5AfQVW9GmywjT2Nznx1bkQ=;
 	h=From:To:Cc:Subject:Date;
-	b=TdBvAHNIBiCJJBY5I1S+uoEa5ecgBwXwsRVhoUSH1ux5MYJu9206o9rs5ElSUGLok
-	 OXNwcM7ttaX5bSOZLAZ2llT/uQ3WAh6GNnqE52m3yVx9FWQpgu82M4qVxHJW5eUCT0
-	 qlplwpqd2UA+MJRQRpXsN8CmcCiGcchQoDMhNhKItMDQWJippImuH/bnHvE3Bv1VQX
-	 XsVp9O70ggB4iyeh4+p8D5x6cA+IK11qbfs8b0skK/pmJ/j8UGb+qXN3Rl/KSOBubw
-	 1mrPPLdkH0xSYsUO5VDqF19GrHIoQ2T0jeKydoMiDedrBTZP0WyiGEW5KGtRfGHny7
-	 dVk+5HlNbDO3A==
+	b=G9Wh75QnGhYvovPg5xAzjnRYZqswO6/JSyToounH/GNCzWXa1YiMDtTzI0yEf5A1e
+	 R6bL/+7PGUsb9YoJWx4mQ5x9FUsppgUSwvz5oOLHDmcmBhVMcgw3NKlVLre6kfKSEY
+	 xte9qOcNLndu3Rxu9Jur0l5DoNYJqcGa1l8T/STZzPuBBdI8QVFxnmMXPMAQYDH3Ns
+	 2aUg22dCfai76o3kJX8k91825irAJGyj9xKK7GQ0gKJRN33FYBXLSwOEtwX4j/4POE
+	 7myZOqswosqcRIrlguNcREYjFu4Of2YV0N2c+NbLSLOQMoNN2rmH3eIrPWupUdNr8u
+	 xJIIHhOy6BU5Q==
 From: Sasha Levin <sashal@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>
-Cc: Shuah Khan <shuah@kernel.org>,
-	iommu@lists.linux.dev,
+To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Cc: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-security-module@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] iommufd/selftest: fix the unmap-all length on 32-bit architectures
-Date: Tue,  3 Nov 2026 11:39:10 -0500
-Message-ID: <20261103163910.640756-1-sashal@kernel.org>
+Subject: [PATCH] selftests/landlock: fix the regex_escape() error check
+Date: Tue,  3 Nov 2026 11:39:17 -0500
+Message-ID: <20261103163917.641130-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,17 +61,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-_test_ioctl_ioas_unmap() takes the length as a size_t, so on 32-bit
-architectures test_ioctl_ioas_unmap(0, UINT64_MAX), which asks to unmap
-everything, passes SIZE_MAX instead and doesn't test the unmap-all case:
+regex_escape() returns (char *)-ENOMEM when the buffer is too small, but
+matches_log_fs_extra() checks the returned pointer with "< 0", which is
+never true, and goes on with a bogus cursor. On 32-bit architectures gcc
+also warns about the cast of the pointer in the error return:
 
-  iommufd.c:861:9: warning: conversion from 'long long unsigned int' to 'size_t' {aka 'unsigned int'} changes value from '18446744073709551615' to '4294967295' [-Woverflow]
+  fs_test.c:7474:24: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
 
-Take the length as uint64_t, like the length field of struct
-iommu_ioas_unmap. While at it, cast the pointers that go into 64-bit
-UAPI fields through uintptr_t, as casting them straight to uint64_t
-warns on 32-bit.
+Compare against (char *)-ENOMEM instead.
 
+The size left after the escaped path also subtracts the prefix a second
+time, which can make a long path fail with -E2BIG. Compute it from the
+cursor instead.
+
+Fixes: 316d06b01130 ("selftests/landlock: Add audit tests for filesystem")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 Found with 32-bit builds of the selftests (gcc 16 and clang 21 with
@@ -79,81 +82,27 @@ Found with 32-bit builds of the selftests (gcc 16 and clang 21 with
 KernelCI's 32-bit arm builds show the same warnings. The changed files
 build without them now, and the x86_64 builds don't change.
 
- tools/testing/selftests/iommu/iommufd.c       |  2 +-
- tools/testing/selftests/iommu/iommufd_utils.h | 12 ++++++------
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ tools/testing/selftests/landlock/fs_test.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/tools/testing/selftests/iommu/iommufd.c b/tools/testing/selftests/iommu/iommufd.c
-index ca2b35e9d443a..f96c262c6a245 100644
---- a/tools/testing/selftests/iommu/iommufd.c
-+++ b/tools/testing/selftests/iommu/iommufd.c
-@@ -2454,7 +2454,7 @@ TEST_F(iommufd, map_cmd)
- 	struct vfio_iommu_type1_dma_map map_cmd = {
- 		.iova = MOCK_APERTURE_START,
- 		.size = PAGE_SIZE,
--		.vaddr = (__u64)buffer,
-+		.vaddr = (__u64)(uintptr_t)buffer,
- 	};
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index f725882fa4a78..27a78434d1c21 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -7470,10 +7470,10 @@ static int matches_log_fs_extra(struct __test_metadata *const _metadata,
+ 	log_match_cursor = regex_escape(absolute_path, log_match_cursor,
+ 					log_match_remaining);
+ 	free(absolute_path);
+-	if (log_match_cursor < 0)
+-		return (long long)log_match_cursor;
++	if (log_match_cursor == (char *)-ENOMEM)
++		return -ENOMEM;
  
- 	map_cmd.argsz = 1;
-diff --git a/tools/testing/selftests/iommu/iommufd_utils.h b/tools/testing/selftests/iommu/iommufd_utils.h
-index b4928cbd4d9c8..38339dc9f943b 100644
---- a/tools/testing/selftests/iommu/iommufd_utils.h
-+++ b/tools/testing/selftests/iommu/iommufd_utils.h
-@@ -198,7 +198,7 @@ static int _test_cmd_hwpt_alloc(int fd, __u32 device_id, __u32 pt_id, __u32 ft_i
- 		.pt_id = pt_id,
- 		.data_type = data_type,
- 		.data_len = data_len,
--		.data_uptr = (uint64_t)data,
-+		.data_uptr = (uint64_t)(uintptr_t)data,
- 		.fault_id = ft_id,
- 	};
- 	int ret;
-@@ -310,7 +310,7 @@ static int _test_cmd_hwpt_invalidate(int fd, __u32 hwpt_id, void *reqs,
- 		.size = sizeof(cmd),
- 		.hwpt_id = hwpt_id,
- 		.data_type = data_type,
--		.data_uptr = (uint64_t)reqs,
-+		.data_uptr = (uint64_t)(uintptr_t)reqs,
- 		.entry_len = lreq,
- 		.entry_num = *nreqs,
- 	};
-@@ -341,7 +341,7 @@ static int _test_cmd_viommu_invalidate(int fd, __u32 viommu_id, void *reqs,
- 		.size = sizeof(cmd),
- 		.hwpt_id = viommu_id,
- 		.data_type = data_type,
--		.data_uptr = (uint64_t)reqs,
-+		.data_uptr = (uint64_t)(uintptr_t)reqs,
- 		.entry_len = lreq,
- 		.entry_num = *nreqs,
- 	};
-@@ -695,7 +695,7 @@ static int _test_ioctl_ioas_map(int fd, unsigned int ioas_id, void *buffer,
- 	})
- 
- static int _test_ioctl_ioas_unmap(int fd, unsigned int ioas_id, uint64_t iova,
--				  size_t length, uint64_t *out_len)
-+				  uint64_t length, uint64_t *out_len)
- {
- 	struct iommu_ioas_unmap cmd = {
- 		.size = sizeof(cmd),
-@@ -832,7 +832,7 @@ static int _test_cmd_get_hw_info(int fd, __u32 device_id, __u32 data_type,
- 		.dev_id = device_id,
- 		.data_len = data_len,
- 		.in_data_type = data_type,
--		.data_uptr = (uint64_t)data,
-+		.data_uptr = (uint64_t)(uintptr_t)data,
- 		.out_capabilities = 0,
- 	};
- 	int ret;
-@@ -978,7 +978,7 @@ static int _test_cmd_viommu_alloc(int fd, __u32 device_id, __u32 hwpt_id,
- 		.type = type,
- 		.dev_id = device_id,
- 		.hwpt_id = hwpt_id,
--		.data_uptr = (uint64_t)data,
-+		.data_uptr = (uint64_t)(uintptr_t)data,
- 		.data_len = data_len,
- 	};
- 	int ret;
+-	log_match_remaining -= log_match_cursor - log_match;
++	log_match_remaining = sizeof(log_match) - (log_match_cursor - log_match);
+ 	chunk_len = snprintf(log_match_cursor, log_match_remaining,
+ 			     "\" dev=\"[^\"]\\+\" ino=[0-9]\\+%s$",
+ 			     extra ?: "");
 -- 
 2.53.0
 
