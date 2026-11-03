@@ -1,65 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706136;
-	b=pjg9lY7HOc7uZ4VyNlfm/1NnBMZvCqqaiSQJK9k25FHpP3jffjZEEnctBL+kGb2A3Xrh
-	 2HEx49pak9ez5/CVroKBmucCG43IAl9A0CoFYLsIgyvMbsmAgtLOE6VyDcugMPRVeQvV9
-	 4iJwpGx7XrJVLVBkluLVMLQ2a3IoXU/onwM+gmKPxi/r0X+FNtapXvyp+H5+VQa8TzIXz
-	 8NUL5QpkiDescY+TY29Y5AcwmTcrmG8cXw3RM5VHTqLnSX5YZg771zuWDapybWmcC0YxU
-	 z7PogpMybA0Zepm7WNci5EDFOI36HSZ1grmGg/ar12hXCT7DMvfEopSHUq90iikQZ6Q==
+	t=1793706131;
+	b=Wh1N8e9bf32rZ8alaB6SUVVK4QeuSPJV7UNjxx+B+WOXYitiRHkeNLmlnIG5qitEEzq5
+	 8CDnA45Q+vNaJoq22IUqWccDKGAs63kVZUrqoIFU90IlgFR9y07RCsoUG21dg+FZhdhrP
+	 XuQq1TfQXTyGC64YigzJXiwL8g3/Jo7BrGhfn3xF47NVvGtTvlmWcoK7F6d8uvAN4N78k
+	 gJvLrAmUNLD42b8p/PPCLsqSVixUPi+VjJJda5sEH/g+Vwu9eRpE6zCU9+CYh2n7M0ZIs
+	 LSELFgubUrW0DKHTwypa0yCZoAltXKY/HvyI7hcBrxNUv1H86KdmLqX4mEml9CX8R4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706131;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
 	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=WV+2t5wqIYEQvXK2Rast9/aDo3IHy4gV7z6vylgzovo=;
-	b=wDfPRFXDK+RggCkmEjrsNeGThBs0K9Ym9FFbDKWYTDgT8URVJIFe/Kk8qKIDVt27nCM/
-	 nIBvMAlwzfoKLC5YHn6H3TPMLPwEcKx6TjyitG3c2ZfewYgpp0yk1Mdabyk6aTsgU9uC0
-	 /ttJdiFqawfVXob5txwRCGIdFKaalb4X9Lhx0Fz6ZVKKfaPxHFCzHuz47A69/ZP29c/2d
-	 qeW7MDash5w5GK2WK7o+CHBmgUZbHKUl7evCr0GnjbqH7O+EztWUgUEOfnLgGyJ77MT0h
-	 pTdTCcWAerGb1jkcUWhr+jkqamt14MQcMJeqe6glSYednnSbpC98ZstTNqNzEaBHyag==
+	bh=nw5fLRj7RL+2syLOMMA7tyljQ2HjZvVTME4BUc9E8ps=;
+	b=wrHk+2C4FhLslPP1eKFRGlibIno2ghpbESeZelInRGWe6SDpcvP7BejvD4Xp34K7pfcY
+	 pVRoL00dJwKn+48fsCkxWvv+FPSDI35kk/wfY/6bv4HdRKKskyo8gHE8HkwgF8jeh1knf
+	 JoBE6irxF9SvhsKG7dPHZ7iOMWEgZ//L2ht9e0oaZsBlSRre7wY887nLeQnYGfxelqKlY
+	 kHiUGkZ5dvpIGCeYLw1HN25YRra6xZUDE0WZRBaknIGF6s7UygF9B73MjYmwyyGY/O3ej
+	 zce8Is/VKfm3Oe1f/2ZPLug/xJ1IbxfnidM9Z/XIUwVtPqxvmA4nVdZS4v64BMmcfKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=smail.nju.edu.cn;
 	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=Sj7xWwq6;
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=DPJ9vv+j;
 	arc=none smtp.remote-ip=54.254.200.128
 Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17256606D80E;
-	Tue,  3 Nov 2026 11:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17256606D80E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA0A606A32E;
+	Tue,  3 Nov 2026 11:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AA0A606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=Sj7xWwq6
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=DPJ9vv+j
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1793706110;
-	bh=WV+2t5wqIYEQvXK2Rast9/aDo3IHy4gV7z6vylgzovo=;
+	s=iohv2404; t=1793706100;
+	bh=nw5fLRj7RL+2syLOMMA7tyljQ2HjZvVTME4BUc9E8ps=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=Sj7xWwq6rpTsw7G0RbFh63jpooISS9/7ydNreQwUaNME5TYSWhzvKxS8DG8tmgQIi
-	 7oOFHHYxQpHQ8Aqd0ayCqb3nuwgIQ8LiJDRoTX1uZHLNTisF+LFW3xD5wGVuD6MI6I
-	 Dh4oYxDvVh8hloh0k9jqkGc7lA204a1GMkqcl7pY=
-X-QQ-mid: zesmtpip3t1793706105t830f9496
-X-QQ-Originating-IP: wCfvw9RnZyrVWyED6DkmN7Kjyi+e5x1KAmHM3pYT2Ws=
+	b=DPJ9vv+jijG/LAtI+NIvTTLHBqalbk/mJ96OezSzpwE8owMGJqR1/CSUUwPSEL037
+	 1vNlJbxlaZpZjMSYpdKAgTn9rpFjRrIH4KsMHtiBxgU2bRH7POKube3UWsghfdYvna
+	 M4TVRWhPlTxEtbK1IhqGhu9D3jRQdS9gSY5PrK7Q=
+X-QQ-mid: zesmtpip2t1793706095t0010be25
+X-QQ-Originating-IP: yLTLrJJZJ5yQF+/M6zgCbAkA0E144ZNRNRnSj1TNW+M=
 Received: from workstation-Precision-7920-Towe ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 19:41:43 +0800 (CST)
+	id ; Tue, 03 Nov 2026 19:41:34 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1704270922219163477
+X-BIZMAIL-ID: 6715613712380591380
 From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>,
-	linux-acpi@vger.kernel.org,
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Patil Rajesh Reddy <Patil.Reddy@amd.com>,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ACPI: property: verify nested _DSD packages
-Date: Tue,  3 Nov 2026 19:41:43 +0800
-Message-Id: <20261103114143.75756-1-k.chen@smail.nju.edu.cn>
+Subject: [PATCH] platform/x86/amd/pmf: check APTS buffer before reading header
+Date: Tue,  3 Nov 2026 19:41:34 +0800
+Message-Id: <20261103114134.75395-1-k.chen@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,82 +71,57 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: NRYSeI3Ux+UPc1P43lazSAW8+8UiMVTZhPe9rLGkVsqzAVWephcV1KrM
-	N0sYlyu3cknamDK6rZAS/pRLKxm5Rdx/3zfDjAxbqRWEmKOU0vz4Taf6h1zAJt7Pv1MMqvm
-	61evJDMUOvFB1fp72fX/9TdaSTyubXoHlqsv1Q1PYEgBbSo1Qmv/Fn4PYJP59i4TmekERdS
-	zaewbNVUvzavsNHHvl8keeNdPIJf+EaT1hvsdwfHIrAd2Sua4aqASsD9yxQYwgNx8OfUqQG
-	4vK35OsI/gw0O68KAxEr7mdN3teNdDdRBBKIs+iltmtnCpjqqCAzAHQIQLhlbhUidLRmvH3
-	qPwdWC/S/Pvll9XjKxDOTDO+qk9vX3DAlMMsXzclIrjhVRQ4q7hZfhr50tfBiRKaNWTREu5
-	mxpbFWmfxLB/cF1UcJ+YzYxKRd97yR7ekqRZxgHnli8x7QKFrnD03nF100WKh06PvrmWFys
-	aYBrWzm2srVSNXEbTy/KK1Hcvb9Knek1zOkIWueOIpgI22lm2CqiovS3a8UawWM1L4UHUtR
-	M1L0aLY+MtsFYhb4/MjCUlvqn2dzd+6/G7wYO03/xDfISorzb/SevL9/Yvc6M5JPoDMBEYO
-	7qJ21WDMx7cfwBsGF+LZywNd5LM/w9C6gfOUzqrWm62j6gwISbfQhOs0lhg7tOH2yZCqxZU
-	ExN10Xn68YOsgavVJ3OXOME+2kgj/+RQBI/2g80PIB3aNaYaR4wERM4m94gJWtLQHUiDgbU
-	82g1hmJC95XZXnoOJJKyMVtXwa+QQUEjfWmQf6hbpBWNgf1R9Bju+fNVaWS/VCwLM43Kru2
-	uNUg55p7HFV/oKBMjLXwqY3hrkup2C7ocYGrA+BY1P/TuC2EsM21MmbFCVx7zPRYRwfsnDt
-	17dr87mkmf0ZQUdMxnXmZNRupuyoA1SDrygcCVHTRoGg7k+Z/FAOy+NRvUUMCSeZfgzMPRx
-	oe8pytMLGDEQ53yFePG635DXEh4Dc1s9DV0J3K2uKIsYxIbj7ZZcTb8wetLoDqpAP0ODcUr
-	qIKjngvdbNR3S9KpGa
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: MkhAA4qIuU0pXalTEwAhbIyjkSFXfk8Cgp6b6AqL376hRAxaVWJV0uN+
+	SWw/vT/ujTB0nVtD8I8uoS/XpUU4IyQl29AJs1MimmmdAp1Iqdbtc7+oj9mLA7fXDPRUakO
+	5pUEir6I23jPckjbiFfWE1uP0XlK2E9XfVtGSqoFni+c7o8X3naJj8Q4Abj0jbbY5OHC4bU
+	N63Gp4iiXqDP7OAuun8EuBss/9PWvFGf5UrEJ0vcS4saTWRHJrzAhSG5HSVwryRpEmxSVy9
+	E1ubEMCn5tUinYaMWLpFHRYIDFSRH+DE4vynznn9zQIa6NNbQJ+3PXN6uHS5/3FShZtndji
+	jFzI5djJex7B1pa3yAlFsqJlcMqzzm83+kUSEwKh6kh2qv8DBJB1VUqw/WfRAyJHQ4i6+cY
+	atwtIUMj823AjKWaWFe8b0WYe6U8hyJdKcQnmAzZcQSoMuTRyRWUCRIZNB94k3QkZsZgBt2
+	pelQGcmP8QD1/Q6ROzxxphyX12HYrPb6tkSQjsu+eNq/LKhETcermDJe27+9DPhj9smnhtO
+	M4crB655YoEn+uxfu+Kt83ePmk0CGOqPJRUc/M8JwJrcm6y8EPIQ0aVB1miCo4Nh87Mhhgf
+	caAKISu1S7JqM+kvIQhrDpdbPWpM8VtsVGvcPWnTrIGwImadNN0xEs3VmtrL8Q5i+rdGp5x
+	RNQI3ESr+g7PL23YLSaiYzOi6CZM4fsyQgaFXEDCPEfDf1s837EJZ/StmGz7ByIG1zUFePP
+	2Wowfcw8h6Od0HgvLqKH2cRePeJvIb8sTVBOzZIf4eRmVKnASlRCrFYe/1C3pXTYG7yyzXZ
+	6cExeMuAzRw6U+W9wwJoMxZp9nFLsLhr4nywA4h3g1O9QZZt+VnEOCQ+ulaKL0AMbyNPaS8
+	/siAt+QmGj47IjTsTgcp/XNXUWXFG+3uhgpfuJYwodQxDwUPgZaAaXwNwWghDxFnd93y+DS
+	SI8igSMIFu5DjhuyFC2Uc1Jjc7G9GtnOtQZk3Bk7mdQrbSsdublaA+gvAMNY+c2ZO2zrIZM
+	RHjVw/Eg0ac1q47TBy8EWm6I1P18yH/1zMJP2V3xAEzh1NK5Y60hFi6IK4EbA6OZzQ58M8N
+	Q==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 X-QQ-RECHKSPAM: 0
 
-acpi_properties_format_valid() and acpi_add_nondev_subnodes() inspect
-the package.count of nested elements before checking that those
-elements actually are packages.  In union acpi_object, count aliases
-the length of a string or buffer, so a Buffer(2) or String(2) element
-passes the two-element test and the following elements[0]/elements[1]
-accesses read past the small allocation.  In the non-device subnode
-path, the resulting string pointer can reach acpi_get_handle().
+apts_if_call_store_buffer() reads a u16 length from the APTS buffer
+without checking that the buffer has at least two bytes.  The sibling
+apmf_if_call_store_buffer() performs this check.  A Buffer(0) reply
+from the APTS method makes the driver read two bytes past the ACPI
+allocation.
 
-Test for ACPI_TYPE_PACKAGE before using package.count in both
-functions.  Also require an even number of entries in the _DSD package
-before reading paired GUID/link elements.
+Add the missing length check.
 
-Fixes: ffdcd955c307 ("ACPI: Add support for device specific properties")
-Fixes: 99db5ff7fe0b ("ACPI / property: Hierarchical properties support update")
+Fixes: 3eecb434d7f2 ("platform/x86/amd/pmf: Add support to get sps default APTS index values")
 Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 ---
- drivers/acpi/property.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/platform/x86/amd/pmf/acpi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
-index 8ee5a1f0eb48..f5e0dc87edde 100644
---- a/drivers/acpi/property.c
-+++ b/drivers/acpi/property.c
-@@ -194,7 +194,8 @@ static bool acpi_add_nondev_subnodes(acpi_handle scope,
- 
- 		link = &links->package.elements[i];
- 		/* Only two elements allowed. */
--		if (link->package.count != 2)
-+		if (link->type != ACPI_TYPE_PACKAGE ||
-+		    link->package.count != 2)
- 			continue;
- 
- 		/* The first one (the key) must be a string. */
-@@ -262,6 +263,9 @@ static bool acpi_enumerate_nondev_subnodes(acpi_handle scope,
- 	int i;
- 
- 	/* Look for the ACPI data subnodes GUID. */
-+	if (desc->package.count % 2)
-+		return false;
-+
- 	for (i = 0; i < desc->package.count; i += 2) {
- 		const union acpi_object *guid;
- 		union acpi_object *links;
-@@ -331,9 +335,10 @@ static bool acpi_properties_format_valid(const union acpi_object *properties)
- 		 * Only two elements allowed, the first one must be a string and
- 		 * the second one has to satisfy certain conditions.
- 		 */
--		if (property->package.count != 2
--		    || property->package.elements[0].type != ACPI_TYPE_STRING
--		    || !acpi_property_value_ok(&property->package.elements[1]))
-+		if (property->type != ACPI_TYPE_PACKAGE ||
-+		    property->package.count != 2 ||
-+		    property->package.elements[0].type != ACPI_TYPE_STRING ||
-+		    !acpi_property_value_ok(&property->package.elements[1]))
- 			return false;
+diff --git a/drivers/platform/x86/amd/pmf/acpi.c b/drivers/platform/x86/amd/pmf/acpi.c
+index 4392bf0bc0bf..8e0d9be8c042 100644
+--- a/drivers/platform/x86/amd/pmf/acpi.c
++++ b/drivers/platform/x86/amd/pmf/acpi.c
+@@ -137,6 +137,12 @@ int apts_if_call_store_buffer(struct amd_pmf_dev *pdev, u32 index, void *data, s
+ 		goto out;
  	}
- 	return true;
+ 
++	if (info->buffer.length < sizeof(u16)) {
++		dev_err(pdev->dev, "buffer too small\n");
++		err = -EINVAL;
++		goto out;
++	}
++
+ 	size = *(u16 *)info->buffer.pointer;
+ 	if (info->buffer.length < size) {
+ 		dev_err(pdev->dev, "buffer smaller than header size %u < %zu\n",
 -- 
 2.34.1
 
