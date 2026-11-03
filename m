@@ -1,68 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737560;
-	b=tLHKwrZdO6P88ymlZI5HDM1r5KC8Ak6mntoEZ3bNPjEFaJ9bz20TqMKID2mRwWYX4CGg
-	 UH517XRGqwIxx6LDQaUxvRjD8ZqyYYWdPm3BkLeXMd01jwP6w5NK86nhDhnbQBjY3Uxyx
-	 u53eTFXylox4b+/fezX+2am2ZrYw5r9k0AP/DqwkDVElZ8oRdq+HWzyF7gcJR4JhKkkr8
-	 XdW4xCz8i6NgRqw9/2gAszLf4GX08EebQel5sfuDQst+sH5/hi7kaOzAumqK9WcLfqF0I
-	 3GwXpONCX6Xd2H0irtlX+f6pc3LzBnLwwgg5DsGa+CwD6lixcsOSfTDjWuyXFqwTuNQ==
+	t=1793737635;
+	b=GNL1sOxcUfcosIGlv1g61urW5LlQbiCL3v72d9FLoT6uHFGwSu4/wQSqNjMu1ROCDv7B
+	 ms2zz43MmgLjDqGBoIrJOPW1oIWd9LurE0H0PoW52kMOAoiCBM4DtO14znN0WaRL2leh7
+	 VaBLGXqcCQqUqcgKT2ijMJIbJ+YLxgE/sOoHUZjKb7f9BmY84gZIyAnv7d0w2lxjXoP7Z
+	 G6r+rRYNhpXS9hrIAh/xB0y+d5rV8bfya4+k23/dJLntxXpH7fGgbVol4kmnmYS/zNC4a
+	 f/mE88taaZzH4HfWZOwdzo00Pujdwz4B0pGwbWmZef4OgTQQ5WAJNFgu9HMmjq7OuEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737560;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=XRAM5MpIj6Z1I4smHHGIzRKW0/u/4IqPVzsD/vQ4Szc=;
-	b=kBvZtnN4W3OT7L5OxaY4krEiZE/+b50dIAcNQFDg2j3jr+zumu3M1P+/PkxBA3lRzr1r
-	 ex8NFX3nFtTGZuQIpUVFA+OMg7lOH+NNfWUBcopTRsDSQ4CBqDajfx0s8lbQYzqXe6TmR
-	 bX6jIgjmp2KRuhPSwf/slOr8/lagj511v8ioxKq6d8Uc5IGv9Oiejp96QKYiveYI8tzNI
-	 mR6gKpcRRgk+fB+yVCZSLdmxsa2eZ+2PabSPbzov6cwlKXHV7DUqneSpbokm/c+QCm2p7
-	 jK6T3YaaB8/gVKMxRkgiogYSIDWvUWU1nCwN1ufEXxQVqznzLAPM9dHNMGptmQia2pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737635;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oqrcEuwTdfOxKIfYEs/ydcBz2K7swqbaTmtMGonjwTg=;
+	b=KlODBiS9hkYXSpd5gvHrhL2X/0Ogo3ntscDvvJPM9fOIckAHmCai1mM2purDMiQbcm9P
+	 +MHQ0JktP69hnbyulM1FJDBWF54PWFvnhBRXmwYHZxOYs2PO0FaPqFBodNAsudIsl1erW
+	 x4oFfTzAdYnpt7x9uS0jL9bpoYyJ+nb3oGNwPZXkLof4nEVnZwyejmK4KkBRddGgRtYHG
+	 t5HshvJgQe4oOBTi8jjcB+KQkYjUoOtFo69EgbLE2BRJN+VBBfsF/yMV1BhrHgLRxJkZn
+	 7LzQCP2HnICYOz8HCq5IUJP6IlffudjF6Kchtg60ao5G4yNGVac93IWLMlD+6uKlYZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cz3B2Mne;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBuMa7bV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C255F606A31B;
-	Tue,  3 Nov 2026 20:25:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C255F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B69606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:27:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cz3B2Mne
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793737560; x=1825273560;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=SWq5OmyCwps2TKvfMs9OIHkssrxda8Ynaleu/ktXDIo=;
-  b=cz3B2MnebSH+bNOrpZA2C6ouWHpdqOFkAU7ZrJWBKnfW1JDUsFZl6oDw
-   ISPyXXAmrqH79gZ1WGkvYdLcePaB7d8Dd88JK3Nm3/HbgM5cnB/hRcocX
-   xloPGByRu0oWZMb+H9s8hCigdK5Isdfj3QdvI8d8BF03gsjZhbpMwKWZ9
-   GAr8AjEpxWagoAicUgQ1YrZgZA5pJNILbjoBjkEiNxcUWwon6kQgJaZJV
-   fA4FVXxtJPyPqqRF9H4JJLSZSDARNn90xcBsV41BuFYPb0gvVvdFokQox
-   RDv3FwGEJxM+C/ZgKuWpLiJ8LVjHLNBqYEgQIBPzAdipQXcUZFK1q5Zux
-   g==;
-X-CSE-ConnectionGUID: qESWJvG1TDavkMn8TkYsJg==
-X-CSE-MsgGUID: TrudUbU0SfOxyxc331GXTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2363865"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2363865"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 12:25:59 -0800
-X-CSE-ConnectionGUID: ZKWMP0uSRnO4LPHIxgsSVg==
-X-CSE-MsgGUID: glCrLts5R8mzg5QKla6bbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6529492"
-Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 12:25:58 -0800
-Message-ID: <fe6ad028-35b0-462f-a2df-d3f9c6af66dd@linux.intel.com>
-Date: Tue, 3 Nov 2026 12:25:58 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBuMa7bV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CEA01F00919;
+	Tue,  3 Nov 2026 20:27:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793737635;
+	bh=oqrcEuwTdfOxKIfYEs/ydcBz2K7swqbaTmtMGonjwTg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RBuMa7bVjJ0UxmmAC9Gj7sJYqYOOjMltPrVTwC9E2KH9ptZ/cGgtyUnJLhymy5yx0
+	 GBnQJ+wJVvrpF/IvMdnRNVX83S2XHSH65MLEwU8kBoyjPBfR3EHEMJABWSJmNLqDEW
+	 6t5JSw70LQ9UWkw8C0nucvCTtdmTxPYDzhKEHmSWJuf3dTCgmG6F5rNWXA2k9lUFPZ
+	 OV5vJOzvtiH7jplG6HgbMspXjSDSddzx9BMwd04MZ/QDSH/PiYnge49CJrruSIaKju
+	 XctTZ6vAqKLPTopE5K/D6CisYvav8teHEc+u/or9bRfiQCqVM9ldyDkBjE91y60cTg
+	 8ldWFY/4tLiBw==
+Date: Tue, 3 Nov 2026 20:27:09 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Hui Zhu <zhuhui@kylinos.cn>
+Subject: Re: [PATCH v3] mm/memory: use pmdp_get_lockless() for the pmd read
+ in do_fault_around()
+Message-ID: <aupAdlzeOtc0qSsQ@gremlin>
+References: <20261103014749.96764-1-hui.zhu@linux.dev>
+ <aumfvNWiemmuyooP@gremlin>
+ <61f8a583-5ea5-4fcc-bf30-ea9cafe94d65@kernel.org>
+ <auoXIdTpLO60mkEw@gremlin>
+ <c0e648e2-aa1f-40f3-84f4-c4ca4123de9f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,129 +64,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] PCI/DPC: Avoid access to non-existent AER
- capability
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Oliver O'Halloran <oohall@gmail.com>, Len Brown <lenb@kernel.org>,
- linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261020181924.3003553-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20261020181924.3003553-2-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20261103194734.GA314988@yaz-khff2.amd.com>
-Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20261103194734.GA314988@yaz-khff2.amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c0e648e2-aa1f-40f3-84f4-c4ca4123de9f@kernel.org>
 
-Hi,
+On Tue, Nov 03, 2026 at 08:51:38PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/3/26 19:24, Lorenzo Stoakes (ARM) wrote:
+> > It turns out we're as wildly inconsistent on pmdp_get_lockless() as we are on
+> > pmdp_get(), so TL;DR my main concern is moot so:
+>
+> Yeah, I know that we use it in some core places already properly, like in
+> GUP-fast, __handle_mm_fault() or our complicated __pte_offset_map().
 
-On 11/3/2026 11:47 AM, Yazen Ghannam wrote:
-> On Tue, Oct 20, 2026 at 11:19:18AM -0700, Kuppuswamy Sathyanarayanan wrote:
->> From: Lukas Wunner <lukas@wunner.de>
->>
->> Downstream Port Containment does not mandate presence of an Advanced Error
->> Reporting capability, so a Downstream Port may support DPC, but not AER
->> (PCIe r7.1 sec 6.2.11.2).
->>
->> In February 2019, commit 9f08a5d896ce ("PCI/DPC: Fix print AER status in
->> DPC event handling") amended the DPC driver to access the AER capability
->> without checking for its presence.
->>
->> In May 2020, commit 708b20003624 ("PCI/AER: Remove HEST/FIRMWARE_FIRST
->> parsing for AER ownership") fixed it by inserting a call to
->> pcie_aer_is_native() in dpc_probe(), which implicitly checks for presence
->> of an AER capability.
->>
->> However already in October 2019, commit 35a0b2378c19 ("PCI/DPC: Add
->> "pcie_ports=dpc-native" to allow DPC without AER control") made it
->> possible to override the check:  The DPC driver may access a non-existent
->> AER capability if "pcie_ports=dpc-native" is passed on the command line.
->>
->> Fix it by making the DPC driver cope with AER-unsupporting Downstream
->> Ports.
->>
->> There are two places where the AER capability is accessed:
->>
->> - dpc_get_aer_uncorrect_severity() uses it to discern whether a Fatal or
->>   Non-Fatal Error triggered DPC.  Access the Device Status Register
->>   instead, in accordance with PCIe r7.1 sec 6.2.5.
->>
->> - dpc_is_surprise_removal() uses it to detect whether a Surprise Down
->>   Error triggered DPC.  Return false on AER-unsupporting devices.  The
->>   function works around an AMD-specific quirk and it seems reasonable to
->>   assume that all affected products are AER-supporting.  In any case the
->>   detection is not possible without AER capability.
->>
->> Insert a temporary check for an AER capability after the call to
->> aer_get_device_error_info() because the function currently returns false
->> for AER-unsupporting devices.  The check will become obsolete and will be
->> removed with the imminent baseline capability error reporting.
->>
->> Fixes: 35a0b2378c19 ("PCI/DPC: Add "pcie_ports=dpc-native" to allow DPC without AER control")
->> Signed-off-by: Lukas Wunner <lukas@wunner.de>
->> Cc: stable@vger.kernel.org # v5.5+
->> ---
->>  drivers/pci/pcie/dpc.c | 23 ++++++++++-------------
->>  1 file changed, 10 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/pci/pcie/dpc.c b/drivers/pci/pcie/dpc.c
->> index 2b779bd1d861..793a799053f1 100644
->> --- a/drivers/pci/pcie/dpc.c
->> +++ b/drivers/pci/pcie/dpc.c
->> @@ -236,21 +236,15 @@ static void dpc_process_rp_pio_error(struct pci_dev *pdev)
->>  static int dpc_get_aer_uncorrect_severity(struct pci_dev *dev,
->>  					  struct aer_err_info *info)
->>  {
->> -	int pos = dev->aer_cap;
->> -	u32 status, mask, sev;
->> +	u16 devsta;
->>  
->> -	pci_read_config_dword(dev, pos + PCI_ERR_UNCOR_STATUS, &status);
->> -	pci_read_config_dword(dev, pos + PCI_ERR_UNCOR_MASK, &mask);
->> -	status &= ~mask;
->> -	if (!status)
->> -		return 0;
->> -
->> -	pci_read_config_dword(dev, pos + PCI_ERR_UNCOR_SEVER, &sev);
->> -	status &= sev;
->> -	if (status)
->> +	pcie_capability_read_word(dev, PCI_EXP_DEVSTA, &devsta);
->> +	if (devsta & PCI_EXP_DEVSTA_FED)
->>  		info->severity = AER_FATAL;
->> -	else
->> +	else if (devsta & PCI_EXP_DEVSTA_NFED)
->>  		info->severity = AER_NONFATAL;
->> +	else
->> +		return 0;
->>  
->>  	info->level = KERN_ERR;
-> 
-> Did you settle your question from here?
-> 
-> https://lore.kernel.org/all/74fe0d79-dc90-4c05-ba9c-9a0eec1ada48@linux.intel.com/
+Yup, but also inconsistently, basically mostly interchangeably with
+pmdp_get(). Rarely is this value actually used.
 
-No, not yet.  Lukas hasn't replied, and v2 carries his patch unchanged.
+> > * But it turns out it's all a giant mess (of course)... for
+> >   CONFIG_GUP_GET_PXX_LOW_HIGH arches you really actually need to also do:
+> >
+> > pmdp_get_lockless_start();
+> > pmd = pmdp_get_lockless(...);
+> > pmdp_get_lockless_end();
+> >
+> > And that's because, as Hugh points out in commit 146b42e07494 ("mm/pgtable: add
+> > PAE safety to __pte_offset_map()")), you need IRQs disabled for these arches for
+> > it to be safe.
+>
+> Yes, there is this pmdp_get_lockless_start() magic ....
 
-The concern still stands.  For a port with an AER capability, the
-Fatal/Non-Fatal Error Detected bits in Device Status are set
-regardless of the Uncorrectable Error Mask (PCIe r7.1 sec 7.5.3.5).
-So a masked Fatal error next to the unmasked Non-Fatal error that
-triggered DPC is now reported as Fatal.
+One of those things that, the more you look into it, the more stuff you find...
 
-If Lukas agrees, I can fix it in v3 by keeping the AER-based logic
-when dev->aer_cap is present and using Device Status only for ports
-without AER.
+> It's really a mess. I wonder if we can remove that somehow completely ...
+>
+> arch/mips/Kconfig:      select GUP_GET_PXX_LOW_HIGH if CPU_MIPS32 &&
+> PHYS_ADDR_T_64BIT
+> arch/sh/Kconfig:        select GUP_GET_PXX_LOW_HIGH if X2TLB
+> arch/x86/Kconfig:       select GUP_GET_PXX_LOW_HIGH             if X86_PAE
 
-> 
-> Thanks,
-> Yazen
+Yeah that'd be ideal.
 
--- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
+But actually could we not just simplify and allow these arches to be a little
+bit slower (who cares for museum pieces)?
 
+The only user of the start/end magic is __pte_offset_map(). And it does:
+
+	irqflags = pmdp_get_lockless_start();
+	pmdval = pmdp_get_lockless(pmd);
+	pmdp_get_lockless_end(irqflags);
+
+So that could just get folded into pmdp_get_lockless() for these arches.
+
+That would mean the places that don't require IRQs to be disabled (optimstic
+checks) would now be needlessly enabling/disabling, but hey - use a system that
+doesn't live in a museum :)
+
+That way we could safely convert every non-PMD lock holding caller to
+pmdp_get_lockless() without needing another pmdp_get*() variant + fix confusion
+about whether the start/end magic is required.
+
+And this would work even in places where the IRQs are already disabled as it's
+fine with nesting.
+
+So you'd just update thusly:
+
+static inline pmd_t pmdp_get_lockless(pmd_t *pmdp)
+{
+	pmd_t pmd;
++	unsigned long flags;
+
++	local_irq_save(flags);
+	do {
+		pmd.pmd_low = pmdp->pmd_low;
+		smp_rmb();
+		pmd.pmd_high = pmdp->pmd_high;
+		smp_rmb();
+	} while (unlikely(pmd.pmd_low != pmdp->pmd_low));
+-
++	local_irq_restore(flags);
+	return pmd;
+}
+
+...
+
+pte_t *__pte_offset_map(pmd_t *pmd, unsigned long addr, pmd_t *pmdvalp)
+{
+-	unsigned long irqflags;
+	pmd_t pmdval;
+
+	rcu_read_lock();
+-	irqflags = pmdp_get_lockless_start();
+	pmdval = pmdp_get_lockless(pmd);
+-	pmdp_get_lockless_end(irqflags);
+
+	...
+}
+
+What do you think?
+
+--
+Cheers, Lorenzo
