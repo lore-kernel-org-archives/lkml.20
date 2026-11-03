@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793720781;
-	b=Psz5UW43zWErux4+/6vA5KHe7CdxDrfSjjP8m7smjDU9yAfIqN5vyCKWw20AFZTHfDAK
-	 OaOpdwLnFwGuUP9FdfZVEy1eqIVRuX5nefsSvyMBRUVU3yEQ+e2nDOBCpwGB2U120Lhlx
-	 ckVJpHjJ06hQGDwyUpb8eaRZSs2mzMeQUOZbFekT+gFKg31DvduKXvHRxyCcRTXsF/QxH
-	 WjrVtqPaxn+tssneRpRR4DM8x6pd7DA+PoPlPX0yki+a7Rvz9Mj6U4z1VlISzx5M3r84b
-	 xUmjwRCE4M3RV92YK4lE86oZk48H11KjyOIsp95dBtsx5BHPK14wDlkaScQ+3Db4GIg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793720781;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793720784;
+	b=UN+tucwDCgoVMQChDg+rquHKhqFftL9fe0ue8W53pTsCcQAlkYStHwz4vIbIN0z0q9/d
+	 ZzX4bHms/cMQ1fws8pdVl0jxZAepC/g/kf0LQ5WLmsqLs8auPrkIOYtNuwRRdjdp4u6t0
+	 n53/dJHI7oO8r8Y/tAjuqAhYdIZwhmna2O+YQkjBcX2MeSm0Icq5f/zApTW4sgiBipUmJ
+	 cLom1znxoRnBKQ5Is01J8ZgTMuVVXtCzWy7Ai7FRJpU98i9ewBt2o4ZZBemmJpLBFoT5C
+	 Uciucrd8G4YJivFdh7FZ7zDkap8LGroXzs4egty6daSmgDd1l+EExDd2sdXfdffs2MA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793720784;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=XqVrl/eIhgH1AW6P2fdddm80pjg0IUatGliczQKyBXo=;
-	b=XY4Mr8x3de8rITbNrNbLHPunfg1xex1QHNz6m0VIxAShAXDQUcvl7I2x3wEeNqIPgtNE
-	 n+uDt9IXDKGvamnAQOLjnFp+txQsPhgnWXWEeJo2amR84OMdO9SyouxxZGDm/WGKuUyKA
-	 UtGM2eaovcfIyqvCP9GsDnMz9EE7SoicpvxKsyGyPXq7dW7ZILMm7E4KOXUX7+IcMLHAq
-	 1SogyMuVLaYmnZyo9bapxprkk7jtrh+dwT1IGqJfoWOkZZvndiJMSSmxPeiFPx4TxxtTU
-	 C90tGo+lJ1HyemSobCG9uX0uJmX3+gbemVfyfUJoTO2AQFGqYpPRZWC1lK26AiJ9p2w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EVojxrJq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=f/WZYQLdPkHbIQApsbqkOqPa3g52v+aebL2Gv1OKZH0=;
+	b=bhVjPKj2AP50ztAmFR7c2J+uv3DBd9Q+6og/mu+zLWkseyd5SryEs6Z2FbB/ysT3wP6r
+	 592zIAzZutsGNP5XXpDbXZhiZ/BdP4nK1rl67+7A/WbKecnDY7NoTXuIhlMmauYzQc/q6
+	 BPav9tKMpO2FdRZpKtKRvsML5zwo5W1ceBBuOh80IzpYSWxpIqU6coCyBb5DY8RikcNe0
+	 2jx+ItLZOCLFcBLT+1M+VE+fSGF6TuNQbFo8FMQvv18gmlO250JPP81eyrlvN4YfZXh7h
+	 Js2KctB27w886sK34wurbgjgsqTIdcZY5MKCAFrtRTlxNjU61RNPip7Q0b1cZPLcmpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UAjttzsT;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897A2606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:46:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 897A2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A67606A334
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:46:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A67606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EVojxrJq
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso6378186a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:46:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793720779; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XkyTO4fLqb3Kpu42qi20iYP5ecm3OAypH6odis6vw8Ki0A9UYQyAtSCPf5moGZJHvE
-         6+iYxRAVyFBaFqPAGF/KYq+VS7QAQl0ACEPI6A8zM+TIlAQtgP5Uu8iKubNBDP6w2G5Q
-         z0Dpz4wPUrDUigY/pqsHlC5teaiVbC4rryZZ3zq2mWJhAXoY8dw2ZcK8FOoy2Urtfr6R
-         YvyNiZyZXMlAh4bZ9Jx4S4mZng/bQYIL9k2VTYj6AXtxVA5W2CaOanf3Hw6DjlcvCcy5
-         ao9FAlbF2iP12Ci9qOycPr+dqmmcVJx8EWHkxFP6XhMNBypDgUsytb9afc4tp4RAZ0Vw
-         yBjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XqVrl/eIhgH1AW6P2fdddm80pjg0IUatGliczQKyBXo=;
-        fh=YDt/z6HQA1inHjRUduwJlnIfzN4WmzHC6Qt721ONuM4=;
-        b=Jd5xWhUTW4pyxX4IWav6tyJtfmj+olD7iekwshBsU8w6wvTC/se3NHG5MJYZAmrZ9D
-         pT1dwrdDDbUXhY2TZDMK57R6htQ8XZZ6HuSmVvVXhaW9OZ17NPZShv0zVgp5qIWWS6hv
-         FFBkbJ3mJu2RwPQyMqcFdEFa4g+ICgVlJlkAm3nH+iEbryYite2nJDMj0cEK4lj/rnuz
-         f93/n2+98qKSeVacxGQacjnnoFWiNCAGdcXpYNojLPzT+WCG+QnwJAyFcaRkow8fRuBW
-         +gQMhtA4n9iqrQxZrqTd34WdnWYNu8N4HcHA+uSxHqG0JkKlex/s76bwp0DgsHV4KYUe
-         81Zg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UAjttzsT
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so44004315e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:46:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793720779; x=1794325579; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XqVrl/eIhgH1AW6P2fdddm80pjg0IUatGliczQKyBXo=;
-        b=EVojxrJq1nfNLZAfOB0u42NOdLqIiqAqvjLX/i9zQN5Ak3VoOyWzsD1otRUBDBLO9U
-         g+oNrR9+QcRM4NsgVzz4dEKNUudKfrXart5l7JqDGfJiMMNrd8Z2uCvF2j1fe+l6HHK5
-         QTJzEVWWC1Yuz5O7YcVRvGIdsSPZEQivCcW7PjXfeaqzH1joyqrU9laIUPS0zp2Se0qi
-         HU9ZyjeurKVzIubOwlka59PQSXZvzP9S5uxrxbQ8mudB6f7VcHnR/zvt2bdyp1MPatwr
-         /Ocy6ox1Sl0Qz/VDiXZDcEXSsMkBwP8iukIWZgFEHpewg+TyVsEnilJwx94k3Yunhd2t
-         F3og==
+        d=gmail.com; s=20260707; t=1793720782; x=1794325582; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f/WZYQLdPkHbIQApsbqkOqPa3g52v+aebL2Gv1OKZH0=;
+        b=UAjttzsTfNvl7dxIbR5d7BqbeC2CMb8wBixKhjw58wn/iu2+dyv9vNdl+jqW9Dr3Sa
+         xghVO/HqPxWrZ8g0rDE7O/XOhk02zxbotvhAXpkQKa9trJUEWlJTlDgqP+hSpW2BVuI1
+         uXJVUle3uJbJgYHvNTOK4kbLzpugBRI7bcapy74OsatXrU4NQxRnuYDo0w60cDosh7Ma
+         atyqhuljGWimjdV9WUiqPo7x6cC0f0zF10g7mo79yzRRavIffWb1ZRIWRo2Im+vmHyiP
+         t2HefdOKEFOH0VFiHpiL9opWUiNBhiB4vQxwotTrhRPxBLp1q64iksEmsSm5DKoS12Iu
+         ei1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793720779; x=1794325579;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XqVrl/eIhgH1AW6P2fdddm80pjg0IUatGliczQKyBXo=;
-        b=jrZomP0dbOUUha+jg72JK3EEJiM8KmJj7oDBaNVcwuCBtiHeccJSTGeop6rF2DpbBA
-         l+SpyHk2xsQhwqaYA0f3W0PT3TFNXvqEhgeJOczU+MZ8kvOC6wuxQySci0Ms4M6syF1C
-         SvD6eVdruZBattkcKk+vQxy12l09AmkueqSg2315fKVm5EcIkI5A5h5676mzi4xZjo3z
-         TufeMYfjB7DWY0IKYdxtlvduf1BoRmnCPV+McJVaBgKArxwfh2xdu2TOdfSwcUEun75C
-         BX4BM2PBWSe+n9DarzaIVVPNUaRxGrxJBZuA06l1yWHQO1mzg0UQz0JkyNyoeQi0ryrV
-         dIHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdKpwmCnQco36peip7XaBcuF121euAfUJZptgmIgyFOoZW8G9wAb6do9Ra0HA4A3mWGo69PhSdANoX/Bw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ldp9w7gXHH48o37rf+DZbdxn+Kfr4dxxievLzXhmofkLCgeYv
-	+51hEJN1kgB7P1MxPkl0C7x5HnnOFt91q2uy1jQp/dHlOux1K5qPAJjDYA3IMLNVUPYEaZ/hps8
-	UFI1fz/v4djft3ATxPJMgj/QiPTExL/c7qMYyLj/wRg==
-X-Gm-Gg: AYBFou3UugTpw0yBqxJgfXQx0GouPxXx8SQj+r0cUSD2Daq0tZOIR+OdqEGawXzDhi+
-	TtdTf7YxpKtJR/Nfmg3llur2FjZmOnGVZcq+qqwMa7GZMUsFTrC9u3OE0/kBc1/6zDuztfu9BT3
-	Lcj7VhLIeJaqWc4/uGP+J52FR0hVujUsZQzhiRU8xCesp4+4bttHUiyv+o+atiFmv1/ZwUVfVdh
-	7inANlHopSOuGd6mE4nO85gjtYyjyS7REfcE9ulUV4NQU2zac+bop3z3Nf2Dc+WZ7mgc6tGpMfN
-	P4sxsHix4N5nR9c84kO/hLMe7MUAv1krKd1Wl6AArh8YS6F6/MAFVAMZZZTQ1IiHHHzSMgXISkY
-	iPYv9qa8YSkcV570PaSKLgPBQsCepPTtjfk+GnwCKCvnmUqsSOvWONDx3W7iQNrYVZ0XZsQ==
-X-Received: by 2002:a05:6402:c9:b0:6b4:21b3:a407 with SMTP id
- 4fb4d7f45d1cf-6b4d468ac52mr8200092a12.22.1793720778601; Tue, 03 Nov 2026
- 07:46:18 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793720782; x=1794325582;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f/WZYQLdPkHbIQApsbqkOqPa3g52v+aebL2Gv1OKZH0=;
+        b=VpM1nsEFdaHCWbV4WZgXYN0CchW8gpE8TZ55Q42ZTwKMtzKkb3KXkItzZMT03z3ojH
+         0e6xinfjOdUSKwdNVHnW81Quu0hhBIDDmWWV8ueWijcvyb4bsjrxyKYYIZ9o9veU2Hc1
+         9zWyV2odGhPp8+jrsWgkB+oQNSJ9tP8Se2n7kbEGm+1efepD8piTIUT5ebTI9q+Kp0y7
+         FC0CTFcHqHJ/Pwxntb/WS7V/eOQrzIhsTf1yZ8JxoxmgTXDn00inUu6tLina10hOWbSu
+         ggojhbjjc/IXVJXg/ts+UjFEgPM/qEFVfypYD3FIj4Fx2jHkmJOMuRLWj/gphG9sDCET
+         7R9A==
+X-Forwarded-Encrypted: i=1; AKwUvBw4qfkBdaJlzFaQnwlzhhGJVOdjrddg2vO3PbKgUbVw9B+Vnz8hRP88qj8H33oGflYfu1kQR9upVZEVfG4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Wnigft/+XROVNYO/Zp6N7Hypnx6gUYL0Lwtdy8Pc50r+Jbvqb
+	bEgWEH60s8O4FGta95mpel5EXS/T6vcyJg4vns+l51XnE2uOrnsh0Z5a
+X-Gm-Gg: AYBFou0CE1XgTlKCLvbv5Pbgj4BPGHnijXVfWdh2jF6p+3D7LJiPQgzeHFTry6OkxoF
+	bdSP5aeFggBr6LkWAvCQNYpa29WsYAnwoUgjZN4M4bIrGvfozC9KHjCv213+tSyNG4gEb2qPQYf
+	45eD2A1vO3+XIPtx+lSwlHgjBvdQYCD63vryYCum4Dum4VpbJRGLGfTx8j3CEhryP5K4w7LYPGc
+	QtxfloPvjw4pzeVQXhLITQeWz+BG22DquOrTPrHBKBvtldsAbZvTZu0/+XysdYL9AC0v9alv7FD
+	r5pQzG+QUte5tuNhfAjiEvuU4vX+LOQziKPWPa+Wketg6SqGnbPGzUZmNUbDNVRx7jBF33KWWbe
+	Ua4oNwTk3xEhLVAknqCMhWwEeg6O2w87W8Zfa2RyDKIYmQ3FL/MpHdBAooPUa6y2odtBuuN1/xA
+	OYrWptdpdCt4j+HeItGhMLkPToP9UMfhR7ws660X1trnIRS3qjwyGj52IajOnEoajuJiABFl7ah
+	Z43pct3CjfNa0Nunshu62jy3nAf7ZCpJk4kCh5FN+QEfAj9tc9UcA/tvXDB1XhnBonNjlUl9hu9
+	MgC1laX6yxt+q1nOiLw=
+X-Received: by 2002:a05:600c:4f0f:b0:4a1:e00b:a10b with SMTP id 5b1f17b1804b1-4ac17b2cde9mr354368685e9.7.1793720781489;
+        Tue, 03 Nov 2026 07:46:21 -0800 (PST)
+Received: from fedora ([2.35.201.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a8d60bc5sm70002245e9.8.2026.11.03.07.46.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 07:46:19 -0800 (PST)
+From: Francesco Nigro <nigro.fra@gmail.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mike Galbraith <efault@gmx.de>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: [REPORT] sched: ITMT + DELAY_DEQUEUE: woken task waits ~1 ms behind another task on the preferred CPU while allowed CPUs are idle
+Date: Tue,  3 Nov 2026 16:46:03 +0100
+Message-ID: <20261103154603.1893325-1-nigro.fra@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,188 +102,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102134831.243255-1-parri.andrea@gmail.com>
-In-Reply-To: <20261102134831.243255-1-parri.andrea@gmail.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Tue, 3 Nov 2026 16:45:59 +0100
-X-Gm-Features: AclHuK8WRN7Frxg40KVoY27kcAGJAgEvtikAelCqS42SHsjCQtD2cjtIHdvZIFg
-Message-ID: <CAKfTPtBGU=nZzDSeUm9ABHTiypjqLJfAYou9=7X4qNVFJdHbNA@mail.gmail.com>
-Subject: Re: [PATCH] sched/uclamp: Reject clamp values above SCHED_CAPACITY_SCALE
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Yun Hsiang <hsiang023167@gmail.com>, Hui Su <sh_def@163.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2 Nov 2026 at 14:48, Andrea Parri <parri.andrea@gmail.com> wrote:
->
-> sched_setattr() accepts sched_util_min and sched_util_max values that do
-> not fit in uclamp_se::value. A single thread can do:
->
->   sched_setattr(max = 800)              returns 0
->   sched_setattr(min = 0xfffffffe)       returns 0
->   sched_getattr()                       min=2046 max=800
+Hi,
 
-I can reproduce this on arm64
+A woken thread waits behind another running thread while other CPUs it
+is allowed to use are idle.
 
->
-> which leaves the minimum above both SCHED_CAPACITY_SCALE and the task's own
-> maximum.
->
-> The range check in uclamp_validate() relies on the + 1 wrapping -1, the
-> reset value, to 0:
->
->         if (util_min + 1 > SCHED_CAPACITY_SCALE + 1)
->
-> That only works for an unsigned type. util_min and util_max are int and
-> SCHED_CAPACITY_SCALE is a long, so every negative value passes the check,
-> and so does INT_MAX, whose + 1 wraps.
->
-> uclamp_se_set() then truncates what got through to the 11 bits of
-> uclamp_se::value, but computes the bucket from the full value. A minimum
-> of 0xfffff800 is stored as 0 in the top bucket, where uclamp_rq_max_value()
-> takes it for the highest active clamp once a higher value leaves the rq.
-> The rq clamp falls below what the remaining tasks requested, and emptying
-> their bucket trips the WARN_ON_ONCE() in uclamp_rq_dec_id(), without any
-> privilege:
->
->   WARNING: kernel/sched/core.c:1862 at dequeue_task+0x2a3/0x2b0, CPU#0: repro/126
->   Call Trace:
->    __schedule+0x933/0x1320
->    schedule+0x36/0x100
->    do_nanosleep+0x61/0x190
->    hrtimer_nanosleep+0xb5/0x1d0
+I see this on an AMD Ryzen 9 7950X running Fedora's 7.1.13 kernel, with
+ITMT (AMD preferred cores) and DELAY_DEQUEUE enabled. Two busy threads
+end up on the same CPU, the highest-ranked of the ones they are allowed
+on. When one of them is woken, it is queued behind the other one and
+starts one full CPU burst late (1 ms here). That happens to 0.08-0.36 %
+of wakeups. Reproducer, scripts and raw results (commit 49b6d72):
+https://github.com/franz1981/itmt-delay-dequeue-repro
 
-and this as well
+Kernel and machine
 
->
-> Make util_min and util_max unsigned int, so that -1 is the only value that
-> wraps. The pair check below is unaffected, since it skips -1 explicitly and
-> anything else is at most SCHED_CAPACITY_SCALE by then.
->
-> Requests that were only accepted because of this now fail with -EINVAL.
->
-> The following program triggers the warning when run by any user outside
-> a child cpu cgroup. With this applied, its 0xfffff800 request fails with
-> -EINVAL and the warning no longer appears:
->
->   #define _GNU_SOURCE
->   #include <pthread.h>
->   #include <sched.h>
->   #include <stdint.h>
->   #include <sys/syscall.h>
->   #include <time.h>
->   #include <unistd.h>
->
->   struct attr {
->       uint32_t size, policy;
->       uint64_t flags;
->       int32_t nice;
->       uint32_t prio;
->       uint64_t runtime, deadline, period;
->       uint32_t util_min, util_max;
->   };
->
->   static volatile int stop;
->
->   static void set_min(uint32_t v)
->   {
->       /* KEEP_POLICY | KEEP_PARAMS | UTIL_CLAMP_MIN */
->       struct attr a = { .size = sizeof(a), .flags = 0x38, .util_min = v };
->
->       syscall(SYS_sched_setattr, 0, &a, 0);
->   }
->
->   static void burn(long us)
->   {
->       struct timespec s, n;
->
->       clock_gettime(CLOCK_MONOTONIC, &s);
->       do
->           clock_gettime(CLOCK_MONOTONIC, &n);
->       while ((n.tv_sec - s.tv_sec) * 1000000 +
->              (n.tv_nsec - s.tv_nsec) / 1000 < us);
->   }
->
->   static void *bogus(void *arg)
->   {
->       set_min(0xfffff800);
->       while (!stop)
->           burn(1000);
->       return arg;
->   }
->
->   static void *worker(void *arg)
->   {
->       long v = (long)arg;
->
->       set_min(v);
->       while (!stop) {
->           burn(v == 800 ? 300 : 1500);
->           usleep(100);
->       }
->       return arg;
->   }
->
->   int main(void)
->   {
->       pthread_t t[3];
->       cpu_set_t c;
->       int i;
->
->       CPU_ZERO(&c);
->       CPU_SET(0, &c);
->       sched_setaffinity(0, sizeof(c), &c);
->       pthread_create(&t[0], NULL, bogus, NULL);
->       usleep(50000);
->       pthread_create(&t[1], NULL, worker, (void *)500L);
->       pthread_create(&t[2], NULL, worker, (void *)800L);
->       sleep(15);
->       stop = 1;
->       for (i = 0; i < 3; i++)
->           pthread_join(t[i], NULL);
->       return 0;
->   }
->
-> An LLM helped find the warning and write this patch and its tests.
->
-> Fixes: 480a6ca2dc6e ("sched/uclamp: Allow to reset a task uclamp constraint value")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> Cc: stable@vger.kernel.org
+  - Fedora 7.1.13-100.fc43.x86_64, untainted, Fedora's stock .config
+    (at the link above): HZ=1000, PREEMPT_DYNAMIC (lazy), SCHED_MC_PRIO,
+    SCHED_AUTOGROUP, FAIR_GROUP_SCHED, NO_HZ_FULL. Fedora's
+    patch-7.1-redhat.patch touches nothing under kernel/sched/, nor
+    itmt.c, amd-pstate or cpufreq. I cannot boot mainline or a patched
+    kernel on this machine.
+  - AMD Ryzen 9 7950X, SMT on, amd_pstate active with prefcore,
+    sched_itmt_enabled=Y. CPUs pinned at 4300 MHz, boost off.
+  - CPUs 4-7 have prefcore rankings 211, 216, 231, 221 and the same
+    amd_pstate_highest_perf (166): CPU 6 is not faster than the others.
 
-Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
+Reproducer
 
-> ---
-> This textually conflicts with [1], which rewrites these declarations and
-> keeps them int. Whichever goes second needs to keep them unsigned.
->
-> Tested on x86_64: 0xfffffffe, 0x80000000 and 0x7fffffff now fail with
-> -EINVAL and -1 still resets. Not run on a 32-bit kernel.
->
-> [1] https://lore.kernel.org/20261016062629.2102883-1-sh_def@163.com/
->
->  kernel/sched/syscalls.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-> index 45a127deeadd9..abe5ea6b3e36d 100644
-> --- a/kernel/sched/syscalls.c
-> +++ b/kernel/sched/syscalls.c
-> @@ -318,8 +318,8 @@ static inline void __setscheduler_dl_pi(int newprio, int policy,
->  static int uclamp_validate(struct task_struct *p,
->                            const struct sched_attr *attr)
->  {
-> -       int util_min = p->uclamp_req[UCLAMP_MIN].value;
-> -       int util_max = p->uclamp_req[UCLAMP_MAX].value;
-> +       unsigned int util_min = p->uclamp_req[UCLAMP_MIN].value;
-> +       unsigned int util_max = p->uclamp_req[UCLAMP_MAX].value;
->
->         if (attr->sched_flags & SCHED_FLAG_UTIL_CLAMP_MIN) {
->                 util_min = attr->sched_util_min;
-> --
-> 2.53.0
->
+Two threads each run a calibrated 1 ms CPU burst and block on an eventfd.
+A waker thread on CPU 2 busy-polls and writes each eventfd 10 us after
+that thread's burst ends. A handoff (waker's timestamp before the write
+to read() returning) of 0.5 ms or more counts as a stall.
+
+    gcc -O2 -pthread -o asym_min asym_min.c
+    taskset -c 4-7 ./asym_min 1000 10 30 2
+
+asym_min.c (195 lines):
+https://github.com/franz1981/itmt-delay-dequeue-repro/blob/main/asym_min.c
+
+Results, 5 interleaved rounds of 30 s (results-final-min.txt):
+
+    setting                      stalls per run         total
+    defaults                     212  49  48  76 214    599 of 294616
+    sched_itmt_enabled=0           1   0   0   0   0      1 of 295349
+    NO_DELAY_DEQUEUE              21   9  11  26  14     81 of 295201
+    defaults, SMT siblings
+    20-23 also allowed            16  27  15  13   2     73 of 295215
+
+The median handoff is 3 us in every setting.
+
+Trace
+
+stackcheck.bt records, per wakeup, whether se.sched_delayed was set at
+try_to_wake_up() and whether select_task_rq_fair() ran. Two 30 s runs with
+the defaults (results-final-min-trace.txt):
+
+                                                    run 1    run 2
+    worker wakeups                                  58592    58770
+      delayed, no select_task_rq_fair()               340      174
+    waits >= 0.5 ms                                   310      153
+      on CPU 6 behind the other thread                288      137
+      after a delayed wakeup, no CPU selection        280      139
+      other thread moved to CPU 6 by
+        active_load_balance_cpu_stop()                 30       12
+
+In a third run (stackcheck-idle.bt), 3 of the 4 allowed CPUs were idle
+when the waiting thread was woken, in all 102 waits >= 0.5 ms.
+
+The code path in 7.1.13:
+
+    fair.c:dequeue_entity()
+        if (sched_feat(DELAY_DEQUEUE) && delay &&
+            !entity_eligible(cfs_rq, se)) {
+            ...
+            set_delayed(se);
+            return false;
+        }
+
+    core.c:try_to_wake_up()
+        if (READ_ONCE(p->on_rq) && ttwu_runnable(p, wake_flags))
+            break;
+        ...
+        cpu = select_task_rq(p, p->wake_cpu, &wake_flags);
+
+    core.c:ttwu_runnable()
+        if (p->se.sched_delayed)
+            enqueue_task(rq, p, ENQUEUE_NOCLOCK | ENQUEUE_DELAYED);
+
+Sequence, from the trace flags and the code above (A waits, B runs):
+
+    CPU 6                                   CPUs 4, 5, 7
+    -----                                   ------------
+    A ends its burst and blocks while
+    not eligible: stays queued, delayed
+    B runs its 1 ms burst                   idle
+    the waker writes A's eventfd;
+    ttwu_runnable() re-queues A on CPU 6,
+    no select_task_rq()                     idle
+    B's burst ends, A runs ~1 ms late
+
+A task alone on its cfs_rq is always eligible, so A can only be delayed
+while B shares CPU 6. How the two first end up there is only partly
+traced (active balance in 30 and 12 of the waits above).
+
+Mainline (7.4-rc1) still re-queues a delayed task in place in
+ttwu_runnable(). I have not run it.
+
+Related, not tested here
+
+  - Mike Galbraith, "sched/fair: Dequeue sched_delayed tasks when waking
+    to a busy CPU" (tip sched/urgent, 2024-11-11; not in 7.1.13 or
+    7.4-rc1) and its V2 thread:
+    https://lore.kernel.org/all/bf4f50886c462ee1f33cc404843944fea4817616.camel@gmx.de/
+  - Peter Zijlstra, "[PATCH v2 11/12] sched: Change ttwu_runnable() vs
+    sched_delayed" (2025-07-02, not merged):
+    https://lore.kernel.org/all/20250702121159.535226098@infradead.org/
+  - "sched/fair: DELAY_DEQUEUE causes ~25% pipe IPC regression on
+    Raspberry Pi 5" (2026-04), a different symptom, no ITMT:
+    https://lore.kernel.org/all/20260423080453.GQ3126523@noisy.programming.kicks-ass.net/
+
+Questions
+
+  1. Is this cost expected when a delayed task is woken on a busy CPU
+     while other allowed CPUs are idle? Here the busy CPU is not faster
+     than the idle ones, and each stall costs one full burst.
+  2. Is the ttwu_runnable() change in the threads above still planned,
+     and would it be expected to cover this case?
+  3. What else would be useful to trace or measure on this machine?
+
+Notes
+
+  - Tested on this machine only; Intel ITMT is untested. Which settings
+    matter elsewhere is a guess: the allowed CPUs relative to the
+    preferred-core ranking, SMT siblings, the waker CPU. scan.sh at the
+    link above tries several CPU sets without root.
+  - asym_stack2.c at the link above is an earlier, longer version of the
+    reproducer. It showed the same pattern at about 3x the stall rate
+    (results-final.txt); I don't know why the rates differ.
+
+Tool use: an AI coding assistant (Claude Code, Claude Opus 5.5) wrote
+the scripts, ran the measurements on this machine and drafted this
+report; Codex helped with earlier analysis. I reviewed the method and
+the numbers against the raw files and can answer for them.
+
+Thanks,
+Franz
