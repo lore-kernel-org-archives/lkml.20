@@ -1,93 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742197;
-	b=xuEYGQTAdFSAlSiv41C+bMieUGb/wksHTEi6cDd3qs3B5bONzy462Xl8Gp6FI3iqz+gJ
-	 HJrb7NoTvxv3aorKZhqsjdz0/j0vSuOOxYdEX/d9S+RR96GdfjT52WvqMexwXYHbIj2k8
-	 44OHoFaCDNnYhxsWx81Qb68pTK+4cOezM1ZLv2h4akStYMNyRPFSqt6VP8Bh6m5v2rK6v
-	 vyYEL+GTSHlt6PDK8cNFdW9DEXO9HZjO0z36mjajjg+cVCWF8SQjzYl+O6Mnvi5Z5xVSA
-	 GJ3My4nhHhMjIbQs/2GElYjYRgZdJ45c9+ye5/LtPleIWVM0X3u5CpyeWycfwEEAlFw==
+	t=1793742198;
+	b=E9WJW/Ruj70K/3kwMcinZmhR7tsEFZATtQUbO9WisaqyBKEnZoKX0/C9Pv308mj5DAlG
+	 NQLyA8HuWr73Ix1JDSb/cXgGhFlqnKr0iwelR/e5Yl6pF6T0gTM26Dt+5UC1rfj4J8Fjm
+	 OmShmJYqh5ydPne9C5cu1zOciZreB9q7AbqQfAmX4qS62UlAA9AwuP5+24e7XxLppWVqw
+	 xt7k8HmkaJfLCo4DcPPUh8f7p2hy9s5qmRJ65xfxQTnC2r1dYVrT3JuVXh/znIowgyCUe
+	 uUit6+2YaNyDckkySqOK0chbEDsUY3K3Jcht2Cyw+eN2Qk/nnEMfOjCwUjBrCQn8eCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742197;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742198;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=wiixacI9+OIBzgiEEn6eKWz0f2j1hW6VMWT9Hic5AQo=;
-	b=qK85pAx1VYEKFAVr3v5xXoxUtfGW+eaBzMdjuukQvsQ/z1Le8AgNzYqhyV4gXoZerh1a
-	 WtoTRAcSdf5WbhpmZHUeZrI0L3ZoOG8/HBU0sUzS0ko7DWtjp+nnGs70u9uLGVtog8lCT
-	 ifazMreb/maaXA18+LjD9Hi7pPg3TMJLHUlWQa3IyLILRSUhP06edrGifQExYhBHGSKVx
-	 1siNJIUHvmyGGLILykVY0OcxFdm2wUModOEWvOTtMtxq3NBKxGJQ2EqrI9LusWA8CKnr9
-	 PxqfJqeJSEZJUhik50iKCX3CnJhiAUTTD2/5UnotQTCYS7gDpzpFa3BrBKX8LWJ8b+g==
+	bh=zZ0YsJUmZEHGM0S6zZ5gkkjGrmZKtts5IgDdt6PpFEA=;
+	b=t4BsVVzNA3drC3bMA02beXNc1n3rn4HMo4USbhgbmggbv720lFiEuuEQhT4++CAJ8fnA
+	 fBmkkKdLeYoZkvzMLSnOsF74PLSS62eZb0sreDCOAhX9UhpVukTbswf63ThyQ1i2EK5Ra
+	 SfTRwF4Co6x5m8YimlyUT4N82ItPtPZdwJimbGvC0BwPKBqeb5cx5biZP/+ihVSbKvxLw
+	 OoOjK7jXONDXFuUU94DJTKA8UK1ZGxq2/kbNFexPX0zM/qiaEN4g7LU/gHn0Udq6wuUTt
+	 Wi/d8sonRyxRyu/oROd0waHd7NeMHi/HzkHSAXmdC2/+LK3u3gmrIkk37zZ2YxUh92A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FQSKpPpr;
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mqkoi8UQ;
+	arc=none smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BB6606A33F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40BB6606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84662606D80D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84662606D80D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FQSKpPpr
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso1719545a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:43:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mqkoi8UQ
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso4479a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:43:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793742195; x=1794346995; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793742196; x=1794346996; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wiixacI9+OIBzgiEEn6eKWz0f2j1hW6VMWT9Hic5AQo=;
-        b=FQSKpPprvEMgZOOhUwG4A8mNt7T8IA3bh9a/h2e9b4PmWfSRZ3cM+us2pjyqaahOG0
-         Ywdz4gayJ9EjYXZF4En96C9RLaYXV0MAZvK0B8D0mVT1hoEze6ClqEuHkEIdmubu+/SD
-         Q9ZXz0ooOaDkVjj/SFmG87ovZ1PEDGqPIJ24Kd50nT0c3Mfv+lIW9gpa457oJDhGhfGC
-         TpgaXbrwBl5RZLpONNJ+JW5QJpWzhKbDB4KPpuvWgJ7wJaO8Qw8TQ/toRmlLVDtvqOqv
-         xXTSqDljfdrt/4kO5xYaGGLZwhVh9/HGyAdp5mQ6mTOJOuoHBlysQJHsjuxXW2f+AK2A
-         e3yw==
+        bh=zZ0YsJUmZEHGM0S6zZ5gkkjGrmZKtts5IgDdt6PpFEA=;
+        b=mqkoi8UQ7vuFDVkGVeR+z97GiNNw3yS8b+CpKmSgk9X+Tr2tvRYuEJ73LcIe8m58sX
+         N0nxelw7qX9rLXny/ZR+pAstsri2A0Mu6Nubz5v7eR8PxTDkz9bppUzjmRKLsTiDx3F7
+         FS9NTZDVoXGc3rt7r/tXAaDPR9L+lkYyf5zoOxvK/i3Wr5EMQKcwPoJyDRVDUpg0DZdi
+         GL0Sy+uPbxxRFkg/f3hoC+AqNgqR11bOcUvOwhD+H+SwUfkNREcJ4CabszfAMDLeS5+S
+         ahDOT4YqbeZGWEj+/N7Gf8tezJyll2wNvKhaGBGDeA4Huq2VG/vdIYz8F6m3SA3q7fDn
+         yIwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793742195; x=1794346995;
+        d=1e100.net; s=20260707; t=1793742196; x=1794346996;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wiixacI9+OIBzgiEEn6eKWz0f2j1hW6VMWT9Hic5AQo=;
-        b=MwbEJDAl2SNEewCEo/Lszm89rYkoxDgXO0oRy2HkXYcnpgmOHbH/eK4LRVtlZvVdYh
-         odN+0L6r0M/ZBS6cKZ6/R9cXw6ZujwJ8KJ0cHrOal5vPFsay+bVz12BHd1hDDN/xRHEj
-         kbhd3+Ei8IAGsya7CM+qexmjSwA0S2E1Rxj0lQHD1UrhNFsFra3CUIuHb3WF9grYOz73
-         fc4ZLE1R8L+51OhpdDXM6uBDyIxjtlYMkd9I8mjEIxgrakyNv6Um4zSkOULsK8Vzbvg8
-         YIHOEsUsFZIqisf60pvxjEEX9fTLBYhNOsoe9CiPyZy225AS4JHmbmWGJMR+4ySj+4bc
-         khww==
-X-Forwarded-Encrypted: i=1; AKwUvBxtgb3LkSuY5J/shGBpbI4VRBHQxYUkYAmcCg/KAcM0oWoXbYdgigbr+vZDHyTc2uIwf0qOlxZwbuOserw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NXCvkBoQtxO7BC2V07Bja9Xjxi9Gpqh3pDsr6kgO26P+vj2PR
-	uFIZU5k6VXFaYbRX8Boh8UXoaMW0n+5fapG8F8wZtTLPy/ry013PVsTz
-X-Gm-Gg: AYBFou0kc+DJ+BE4eLyIBmvhblBLj3IsYlQhklPjZz/oxtMUH7Nx19PxasJl+7VIRs9
-	udq8DVDBnD2XF2nznhj/Sar5DlGozy79LgJ0DNoD58kqw1Uul8m4fl08HHsC/ATdTVSRmflB3Ar
-	F8vLvqKJ/bANzJGrDeiP/B+7eYyxSZGqYT8yH2q8WpFH0rOC5tz0AHK2sx4YD5F3s+06pRp2eoD
-	gFwhYbWcwpYUl8wB58OyZp+/2D2FYIg72DHfomQiGtMGw8R0/dW2cEhyTrdNN7G0s3NkZtWdBZZ
-	noimRmq4c8HNBYHG7jGMQIFfqUICr+1H8DAuEP88NESnshdl0N5GTuXHx4PMttIrURawZJ3WYqV
-	JtccCRVfu/9/+3mvk9Nt3OueZnr82b/m7+4+D3M9id0oB6dAFpNnS1FGQ8m4oPOunK8PWjmJej0
-	K+HAuxyPtya34q4g3+Q0QSzEJDJ2ZS/yWr/+YUSgjLfSL/5X0DZbIwwvG8qSCxbfCRuUBMWX9cm
-	UZS5DJOu8SnDS6rNduLE1AoB9Gem4jHym9CtddRhGHhp702SkbsBjR/ByD6eXdZsjQwJcLwQL9l
-	cm+axvsXC8QBmsAZ3MLX8zJy1XT3WPiHvqo7ZgzUOrWPiy0VcXlwndTzz4Jqhtoe+FA8YMk=
-X-Received: by 2002:aa7:c418:0:b0:6ae:16f5:5be9 with SMTP id 4fb4d7f45d1cf-6b4d4c78d8fmr7236202a12.7.1793742194559;
-        Tue, 03 Nov 2026 13:43:14 -0800 (PST)
+        bh=zZ0YsJUmZEHGM0S6zZ5gkkjGrmZKtts5IgDdt6PpFEA=;
+        b=qpfrTmxZPwvC5Ls7D4Vdd6fbSwmcMJkM98SVhS6UiUwYLPEfxme19dPvB0VGNQlvAH
+         QvR7O59DocR78h5TZCBXXQH973LJEabKBTSFaAjwOTPk/ZqB4fWWGQTw8f8LdHfkH0QI
+         FUBql2PRDTMrKlcjtXGNOn8M/qJCQ9SMbRbrFwXZ3Yyuhh85nX6OOXKAMXMkCJQbzsa3
+         wqYWxef8kvuTDGykgvij83I30+hx8VXXnAY56y4K+fRSQ/UsTThm3N50Oy6QGFM2cyuT
+         IeLf0zaNvsxDVGML4tAHvkEsxN2PkM9DeC6dZuTMQ6tC3+OTQC9f1vOk0UttFnX5QeGj
+         A+gg==
+X-Forwarded-Encrypted: i=1; AKwUvBxxAsBgRjjzgElBfKf6ZZ+3VjUQPnm4lHTuuhFTTHLQcLzn4ccwDNthsNKf+5q8+3ExX8v+eFqtHdNCqZI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81VZ+1F9zgTXbOS6JnRgovkQgJhd6hj36Y4UxPAXww9Ylu5mJt
+	9vxkuzqUZsVdzP3ZtuDxvvc5fVSdeRdXvJZGI6zu85hcLEsBLUG3hDi2+6jIMDugzQA=
+X-Gm-Gg: AYBFou1dNtcZTfEoDZN3VZCPSxcVJHwemJWrO9BLHYOFXIfwgc7yrQbZv9Regyeogfp
+	AqHF8+eLRs4d3/N2/IDZqf9aJBB9H2QH4wCqY8V9hYsKZsCg6yC6/FV3etzGo8sK94Na77NqWYN
+	HBSfPdJZrBhpz5ThkAFZdyYsJHW7/xmAmNDcemfwhZ4Uv7q/oVsBT33T3sYsoCYmLFwdtqt6JXS
+	u96SNfFOk1Q6Yt9ZhmVT5/DazDoL9nzylx7dIfuOy2f2Z/kbvZQnvk8JTCV4Eo/nFRZI4lbA+eE
+	YtXjmrzOAxR0ItYjTcE7vsc9Tsfei7ZT+D8QmxQ4CDUEwjH5DvVmp0262vRC+tXNjpzKFAFckeb
+	GQ/zfWQMFNg2sYZNsznY0Z7NE+xesvJmdIz0bHi3gQtUoGqKqG2TdXhfnpUSeMVX3ND/lWA8ell
+	35ZAvgt6096+1JpqIys7DDKPpzfC0q6f74379RqbhF+lrzmIObGASkZZxI078yjk3zznCOD00ZA
+	6XOR3wJ2iRCNjZWreL1VV4rnNmyO54CwhH7LPN/ULkUqazKqfxBocGatLRJ55PgGFMrXLOw6AEd
+	EIeM2StQrPIZZUE2CZtxzw7BLArzF6fWTeYI6rM1wrAp4xcUMxi2QPp5aqwisawEKm2NxJY=
+X-Received: by 2002:a05:6402:42cf:b0:6b4:20bc:fa0 with SMTP id 4fb4d7f45d1cf-6b4d428ea8amr11759571a12.13.1793742195931;
+        Tue, 03 Nov 2026 13:43:15 -0800 (PST)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac5a2a6sm40550a12.16.2026.11.03.13.43.13
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac5a2a6sm40550a12.16.2026.11.03.13.43.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:43:13 -0800 (PST)
+        Tue, 03 Nov 2026 13:43:15 -0800 (PST)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: richard.henderson@linaro.org,
 	mattst88@gmail.com,
 	linux-kernel@vger.kernel.org,
 	linux-alpha@vger.kernel.org
-Cc: linmag7@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH 02/14] alpha: report syscall errors correctly to audit
-Date: Tue,  3 Nov 2026 22:35:08 +0100
-Message-ID: <20261103214120.1099893-3-linmag7@gmail.com>
+Cc: linmag7@gmail.com
+Subject: [PATCH 03/14] alpha: preserve rolled-back registers for SIGSYS
+Date: Tue,  3 Nov 2026 22:35:09 +0100
+Message-ID: <20261103214120.1099893-4-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103214120.1099893-1-linmag7@gmail.com>
 References: <20261103214120.1099893-1-linmag7@gmail.com>
@@ -102,42 +101,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use a3 to distinguish errors from successful return values and negate
-error codes for audit. Failed syscalls otherwise appear successful with
-a positive errno. Keep raw r0 for kernel-mode frames.
+Record syscall_rollback() in syscall_meta so skipped-syscall handling
+preserves r0 and a3. Otherwise seccomp RET_TRAP handlers and kill-action
+core dumps lose the original syscall number and fourth argument.
 
-Fixes: a9302e843944 ("alpha: Enable system-call auditing support.")
-Cc: stable@vger.kernel.org
+Fixes: 83bd31c2840b ("alpha: enable GENERIC_ENTRY")
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- arch/alpha/include/asm/ptrace.h | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ arch/alpha/include/asm/syscall.h     |  4 +++-
+ arch/alpha/include/asm/thread_info.h |  1 +
+ arch/alpha/kernel/signal.c           | 12 ++++++++++--
+ 3 files changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/arch/alpha/include/asm/ptrace.h b/arch/alpha/include/asm/ptrace.h
-index 45d1229344b6f848eb930917bf50ba759da99beb..c933c8805eedd91e3845bb4b46588974258398c2 100644
---- a/arch/alpha/include/asm/ptrace.h
-+++ b/arch/alpha/include/asm/ptrace.h
-@@ -21,9 +21,18 @@
- 	(current_thread_info()->syscall_meta \
- 	|= ALPHA_SYSCALL_META_FORCE_SUCCESS)
- 
--static inline unsigned long regs_return_value(struct pt_regs *regs)
-+#define is_syscall_success is_syscall_success
-+static inline int is_syscall_success(struct pt_regs *regs)
- {
--	return regs->r0;
-+	return !regs->r19;
-+}
-+
-+static inline long regs_return_value(struct pt_regs *regs)
-+{
-+	/* For user-mode registers, a3 is an error flag only at syscall exit. */
-+	if (is_syscall_success(regs) || !user_mode(regs))
-+		return regs->r0;
-+	return -regs->r0;
+diff --git a/arch/alpha/include/asm/syscall.h b/arch/alpha/include/asm/syscall.h
+index c1394910f584f9ca42367ffc33b1c0ac46cfe112..22315b932f854a71fd3babf6565dda443c6c7a77 100644
+--- a/arch/alpha/include/asm/syscall.h
++++ b/arch/alpha/include/asm/syscall.h
+@@ -105,14 +105,16 @@ static inline void syscall_set_return_value(struct task_struct *task,
+ 	}
  }
  
- unsigned long user_stack_pointer(struct pt_regs *regs);
+-/* Restore the original syscall nr after seccomp/ptrace modified regs->r1. */
++/* Preserve the original syscall registers for a skipped syscall. */
+ 
+ static inline void syscall_rollback(struct task_struct *task,
+ 					struct pt_regs *regs)
+ {
+ 	unsigned long nr = task_thread_info(task)->syscall_saved_nr;
+ 
++	regs->r0 = nr;
+ 	regs->r1 = nr;
++	task_thread_info(task)->syscall_meta |= ALPHA_SYSCALL_META_ROLLBACK;
+ }
+ 
+ static inline bool arch_syscall_is_vdso_sigreturn(struct pt_regs *regs)
+diff --git a/arch/alpha/include/asm/thread_info.h b/arch/alpha/include/asm/thread_info.h
+index d781ac79106dd1178b9cb0e094333139db531bed..49bc08f3b5a98fbcb1d4ac919001bf70c3db614b 100644
+--- a/arch/alpha/include/asm/thread_info.h
++++ b/arch/alpha/include/asm/thread_info.h
+@@ -57,6 +57,7 @@ register unsigned long *current_stack_pointer __asm__ ("$30");
+ 
+ #define ALPHA_SYSCALL_META_SKIP			0x2
+ #define ALPHA_SYSCALL_META_FORCE_SUCCESS	0x4
++#define ALPHA_SYSCALL_META_ROLLBACK		0x10
+ 
+ /*
+  * Thread information flags:
+diff --git a/arch/alpha/kernel/signal.c b/arch/alpha/kernel/signal.c
+index 441d8dd61055d5ddc321c2221984eab8aca5d206..3fae37b4593f22f07a375ab7bc0b0712d0130a07 100644
+--- a/arch/alpha/kernel/signal.c
++++ b/arch/alpha/kernel/signal.c
+@@ -587,10 +587,11 @@ alpha_syscall_enter_select(struct pt_regs *regs, long syscall)
+ 	 * entry work did not already change the return state.
+ 	 */
+ 	if (unlikely(!permit || (unsigned long)nr >= NR_syscalls)) {
+-		if (regs->r0 == saved_r0 && regs->r19 == saved_r19)
++		if (!(ti->syscall_meta & ALPHA_SYSCALL_META_ROLLBACK) &&
++		    regs->r0 == saved_r0 && regs->r19 == saved_r19)
+ 			syscall_set_return_value(current, regs, -ENOSYS, 0);
+ 
+-		ti->syscall_meta = ALPHA_SYSCALL_META_SKIP;
++		ti->syscall_meta |= ALPHA_SYSCALL_META_SKIP;
+ 		return fn;	/* ignored by asm when SKIP is set */
+ 	}
+ 
+@@ -617,6 +618,13 @@ alpha_finish_syscall_to_user_mode(struct pt_regs *regs, long ret)
+ 
+ 	instrumentation_begin();
+ 
++	if (meta & ALPHA_SYSCALL_META_ROLLBACK) {
++		ti->syscall_saved_nr = 0;
++		instrumentation_end();
++		syscall_exit_to_user_mode(regs);
++		return;
++	}
++
+ 	if (meta & ALPHA_SYSCALL_META_SKIP) {
+ 	/*
+ 	 * Skip-dispatch path: ptrace/seccomp may already have installed
 -- 
 2.43.0
 
