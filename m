@@ -1,91 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.183.30.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690424;
-	b=d6dDiVFeiz+35wIN0QqivH7lmV1vHNysm87PW3imyYMz28eO5E4BV4jVrnBwEY4Dvy52
-	 GKFtvqiOj4R23+acifQ00Vda0bnnQnoni9xW0+AVBY1xlAHVX6XXZcCB/vwPRo1PUTfN9
-	 EDnLWT0fuK0jHO+4ur6RCOis6xfS0NHTp5YbRbaxagDtVZ4PnqDRd0+5TXidkOnb7Smsx
-	 nAIg5vUNV2CdMi/aEj6ibHQHJrbqkw6+QmZ21yLxglJKHirdKSvmhj2tR1dGiCjJIBy6Q
-	 gRyTWpvP1Mub6GWMNjnJA+NkO48TOUsSF3nTUCnOVy2xaasXCBiMs0j/CX+tvBdxKjA==
+	t=1793690445;
+	b=YAKvJMzyvvrRb1yr6aQnF2k0l3+ASALHzpvF99vj4X7vaubRaTDy1aJqwoAgY6G+ocNX
+	 4Yso38nUws8yHEDRILRC73MGZQ0AmyYGo+vizf53o1MoTm/epVau84pO/YUVvh2F6caU4
+	 45llY/skFH5QuuKbdqW3p0MhlsqHKdYMmz7ZqCMGu82gG+NdXcRJtGk0ECIE3clnleKin
+	 7qbIopwjwqXoMrnZN3yKQWbtptNl1MHpXTbjXMVBE8cac0NvUguyAGXJy1Ls+kcvFQVmG
+	 u2I1l62xQu/O1//BBTl1z1JauDfjnZd+x9WHbEjr1WGDl7OXqAZnHafMoHo+iWXiBuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690424;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:
-	 X-Sony-BusinessRelay-GUID:X-Proofpoint-Virus-Version:
-	 X-Sony-EdgeRelay-GUID:X-Proofpoint-Virus-Version:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Sony-Outbound-GUID:X-Proofpoint-Virus-Version;
-	bh=ONacZA2IlUbb1cp8eEt922uuAV4DZI66JC7mLtN87ms=;
-	b=x17TzcRZbfshXrGU9DE3NXg2pqYy8SNs3L+UK8+XZBMo3H1+UMrJzxTFsaaeRjdTmbBH
-	 W7S/ChkrcTgdEhBfknXSbUWDq+uq2obmUkiemtGhq/dUOnqSYl/DHXjpp9skhhl/ro3HO
-	 whXABwcOtbT7LMlX/JUr2cp0d+rGUO/MsuegVdz7kqODjabxBDglCddkDRxe2FC+5qTE6
-	 BZ68oA1DKPunbXD3NAZCnPkiOIaNF6nmw0YPgDWgpyxpF4XVT2ZcrWZq9JIU665AKCtzy
-	 WtAx0444HMl1/MzJScrXbXAIUysAQbyCJpUdw5XenY7NqTdZCSmqCKl8YKazfylhEsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690445;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=nQGxanT95z7gj11pozst1Dv+dzrh+mNFxgMJ/FgtyKo=;
+	b=gBvUEl0yFDESSpX68qyPiDkM3Yw9L5/bkpo+1q3TS/vKH8k8jnYChwUkP8vzhez/mJVg
+	 FwBHzPM4yZhhHxnvBOGF4luBtFnrkizLSAHC8xzcfalP5i3aBYZJTgqD5g9pJFQlBqF6r
+	 YQgXlgTLE3tFtP9oCDr8ylpt0R9A4aVoikRnevDE4yBG5uVUR6I0tDYAFypKakdd3Vvig
+	 6G5si6Thsx8na64NC3LrceEDwNuQBiHac1lxZXg8DKIUfmw9ihhUI9h9bVX6a3vTiLL4G
+	 UzZ7LgVbgf6K78Badp5JuFWXb7LfCPiqTnF85fEp3JrbrjjUhdiNFhS6gdav2hP+5XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sony.com;
-	spf=pass smtp.mailfrom=sony.com;
-	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=bOTzZ3cW;
-	arc=none smtp.remote-ip=185.183.30.70
-Received: from mx08-001d1705.pphosted.com (mx08-001d1705.pphosted.com [185.183.30.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VYR1gr4s;
+	arc=none smtp.remote-ip=209.85.216.99
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078EB606A329;
-	Tue,  3 Nov 2026 07:20:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 078EB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B73E606A32E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B73E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=bOTzZ3cW
-Received: from pps.filterd (m0209322.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A35vqTM2833910;
-	Tue, 3 Nov 2026 07:19:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=p1; bh=ONacZA2
-	IlUbb1cp8eEt922uuAV4DZI66JC7mLtN87ms=; b=bOTzZ3cWwgNvSBOvMFb1xXD
-	GUSjJ/8QmFLmAS86MY2UqcGE+5wAjfAtapO9TeUX5If6ZrthTtTKLZ89Qf0D5wSL
-	0P83gBv8CgNVebOOecQ0zVUe0v0V7c/yhq0pGwNQQSilhq/OtUFwOG7BONeWxf+m
-	pUPshPLTtjYtBSF5pkKrAKZyMKW+E5S14p/VhsQ2yCmMKBG+SexnbeqatZVGf+YX
-	csGngGjM0DHbi0XFk2oJoce+dhBl61lzP1CcBPv21rj9ovzRPxNeiBA7UNe9NJzP
-	/tz2r0w6OofiIcpsvWpb/2R/jTf/BsbKQMzdV5iJJzLhjoZx3U12zDnPO0U7uVA=
-	=
-Received: from sgppsea01v.sg.gdce.sony.com.sg ([121.100.43.225])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hn743baw1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Tue, 03 Nov 2026 07:19:45 +0000 (GMT)
-Received: from pps.filterd (SGPPSEA01v.sg.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 6A35a1Wb584139;
-	Tue, 3 Nov 2026 07:19:42 GMT
-Received: from usculxsnt13v.am.sony.com ([146.215.230.187])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4hn9dgk8bg-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 07:19:42 +0000 (GMT)
-Received: from pps.filterd (USCULXSNT13v.am.sony.com [127.0.0.1])
-	by USCULXSNT13v.am.sony.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3794FB4053419;
-	Tue, 3 Nov 2026 07:19:40 GMT
-Received: from us842f57abef3e ([10.10.10.214])
-	by USCULXSNT13v.am.sony.com (PPS) with ESMTPS id 4hn7keq5t8-1
-	(version=TLSv1.3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 07:19:39 +0000 (GMT)
-From: Maciej Grochowski <Maciej.Grochowski@sony.com>
-To: Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, Nikolas Joshua Britton <nbritton@exabit.io>,
-        Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>,
-        Alexey Fomenko <alexey.fomenko@intel.com>,
-        Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-        Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof =?utf-8?q?Wilczy=C5=84ski?= <kw@linux.com>,
-        Mesih Kilinc <Mesih.Kilinc@sony.com>
-Subject: Re: [PATCH v4 0/7] PCI: Resource placement algorithm fixe
-Date: Mon,  2 Nov 2026 23:19:30 -0800
-Message-ID: <20261103071937.37940-1-Maciej.Grochowski@sony.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
-References: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VYR1gr4s
+Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so2819506a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:20:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793690443; x=1794295243;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nQGxanT95z7gj11pozst1Dv+dzrh+mNFxgMJ/FgtyKo=;
+        b=zCcu9bvV8BtI31tHngkWOt2x5Tiw3a2Age+7lGtTFLA4KHjxi6XqgnzBfz2SBMHXxj
+         Nl1LlvibloSjH2zXh56A3VdYgROY6YlDET8rTzQJPk0MCsmfnmp2/Jt4chrGOp70jcj2
+         AEf/riKKA+n7HULZhBPaxKw5G4zAl6X3RthpswnGe6R+qgJbk/4A1PjS9VgAXUeP73Hg
+         dnSD2MZ3R6CrJufc5tPAMYmW+qZSAD9EN/jOamfxbvbR5ef2XIacKahHy4UDXGNxBxlM
+         ltXoRplZP4m6ailiviJlSz280LyTeiJdpCzE6Bz/X3YyceoyJCpMsrMYllJihFhPinA1
+         V9+w==
+X-Forwarded-Encrypted: i=1; AKwUvBw6KSheK73TzJ7TCvKWlrxCe5V7z83qZiwEkNqkhJ9lgtYXNoVRTd3zu1ZtvwpiSczi4wbfup0VbCRQb/E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oxE9rhbEH4guZf6HkIMuY/zmt8GRntNNfQfrllennhvJSBxVJ
+	wB/yk9Ojqw1B/IHwHD8zHcUzHANyiBmN6dqak9rPj6tqfNp4/Fnv5+udJF81kITZTReqEyH85dZ
+	/MdOQncEX9INK3C6dbglxUZJD/m5cZTjxkCIjpoBSlQRSnBDKV4i67wiZuHdOKl+XOrmZSAQnN6
+	vEAfDQ6nbBkNQHZFi0Jho8BqThc+KvNx8LifyHYtmfg5YOCDaxWbVGVS/zYLa7RSAA8dR7QQvNl
+	UiKTMIiaU4qzmPT
+X-Gm-Gg: AYBFou3qdFGgN92woJbbZZ9C1Y+dhUJGzJYQv+yrOlXsmoLHEY+lxAt98RLaeKzrveh
+	aryUf6Yvrl0v8wA7VK9RgQ4O0zV+d1ORkcK0YSjelI+h5IdECibZh66Rf5sL6DNkNit63Dvsu0U
+	lQTO9lfilXysg+0qfANvjBsTvnWQrW+Z4b4xqqdxHehXEdKcFrUR0gW3aZmrwvBmvXM4AbpTa60
+	qPxOIGTqdHhuZO2/wD3nUJmJyHb8DaxoLSOHgmVpIp2gUoas2vwSPomkisyv4MM11O5xYXFz73v
+	RCMrUc0a8oS4nJZn5ApacDKtEbdIos9Ir2iDVODZ+54dlYGx1+2/tWk9IOHMvbYTHTxZHofq3Ea
+	47gQ3hP3d/XUgA4WJbW+dYdCe5IP1F/ZVHeCDQeRFGbWXbiLYp72txZhzzf6B4m6/jiC36sIJHb
+	yILZxf0P2MHpQZBIu2soSAvm+RRWznqPut
+X-Received: by 2002:a17:90b:224f:b0:3ab:27f0:c90b with SMTP id 98e67ed59e1d1-3ae8983cf4emr11263443a91.53.1793690443278;
+        Mon, 02 Nov 2026 23:20:43 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae8809c5ebsm4423128a91.4.2026.11.02.23.20.42
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 02 Nov 2026 23:20:43 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5337b591609so45503761cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:20:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793690442; x=1794295242; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nQGxanT95z7gj11pozst1Dv+dzrh+mNFxgMJ/FgtyKo=;
+        b=VYR1gr4sQXppxDQLuGFj5ToiZH0PchHqYEKDxI1CjWFwveLbk4tt9bWHHGhlYNQFbf
+         +53LVYuppWFJeyOX8Hp+1orzncSPbrQ7VlLNMYvyUuwxbwko80FSzm40344syH9cC/wC
+         41l3S8Ef1E8nFM8e7qt7siBMXybpCFNZX34dg=
+X-Forwarded-Encrypted: i=1; AKwUvBwZvDbK05g8ilnvVtc6E1yQlgz3lzSlbhHABxB94s2XmsYT4nzuhJjumICZSiBETdlJgi7ynfd6uduorps=@vger.kernel.org
+X-Received: by 2002:ac8:5a86:0:b0:535:a5fa:edff with SMTP id d75a77b69052e-542b7c08be6mr197740991cf.63.1793690442080;
+        Mon, 02 Nov 2026 23:20:42 -0800 (PST)
+X-Received: by 2002:ac8:5a86:0:b0:535:a5fa:edff with SMTP id d75a77b69052e-542b7c08be6mr197740811cf.63.1793690441651;
+        Mon, 02 Nov 2026 23:20:41 -0800 (PST)
+Received: from vertex.localdomain ([192.19.218.250])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5498c379989sm18885491cf.19.2026.11.02.23.20.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 23:20:40 -0800 (PST)
+From: Zack Rusin <zack.rusin@broadcom.com>
+To: Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Bo Gan <bo.gan@broadcom.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	virtualization@lists.linux.dev,
+	linux-coco@lists.linux.dev,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/1] x86/vmware: Share steal-time counters in encrypted guests
+Date: Tue,  3 Nov 2026 02:20:33 -0500
+Message-ID: <cover.1792471114.git.zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,78 +124,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Sony-BusinessRelay-GUID: 4A1t5G8UbwH6zWE8dE2pfmKpipJqoMEZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
-X-Sony-EdgeRelay-GUID: Zvqw4pyaadM_KBvCBIlaREh5efCx4pPX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
-X-Authority-Analysis: v=2.4 cv=C+Z8WgP+ c=1 sm=1 tr=0 ts=6ae98b11 cx=c_pps
- a=XNW8778QP6juiAqijDMnrw==:117 a=XNW8778QP6juiAqijDMnrw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=KAb5x4SsHD3PzxGk7EmX:22 a=cIyGuqrkuvkXWOl_fzuj:22 a=hv4kebVBQj_3QzTFHUsA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: xNEfkGf9rHyq82-ZwnIK_enn2KT-VdR5
-X-Proofpoint-ORIG-GUID: xNEfkGf9rHyq82-ZwnIK_enn2KT-VdR5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyOCBTYWx0ZWRfX3PUr7lPig9Se
- zn16L6Wg55hwTmN0t7ZYilywY3Y3zJlYWMCoknm5y3Ink19etBtNNnOLSzejRQcBIqJct8xYVRq
- IH3Fr0IjEec0/cSc/v/eXoIhzub3ueJYNlh6fD1vmJzoFsJPgUZRA9RuG4VQhAcQZzPaoCvPMHW
- IMB//YZ8Tiy6NB+2tnPwvt9Q7x0M+4zTaVFZoIk8FZpN+bm9uSa+XzGVosHtTg0k7mpQKYurx2a
- elaRAwNyvafmMbCF9hEXiEaeByjcsk9zcsNSqNjEN9CK0nJexzaYafh1HtTcMddMHdt/AElyOwh
- /Fu81GxqB8k24iKuy6xS04QjJDlo6mhdxaL5TY6hVi4RsSZOMNrJwnYg5HlWpgF52U3YTxkMHdp
- +SetR48vSNMMxd+fDJwFCUTdhbm8hf8a9IJVNiFVcwIEtuZTa5rRAdGfqp7Tmj0y7DPI2ItZlzp
- 7/Yb5rvb97Ne4coVk1Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyOCBTYWx0ZWRfXxqmaFcbHRZ89
- hlMFyHdqKjws20ESyrG6oRJsRzW2zlfg1xyEGjVY9ZgJcWk9APPTqZpGva3vP6z1g+HzBtR05Ui
- MCo4JPH1haiF6y/ceu7nDG55f1L8bCSi+4WcoK7vsasMXZPaSkBG
-X-Sony-Outbound-GUID: xNEfkGf9rHyq82-ZwnIK_enn2KT-VdR5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Ilpo,
+Steal time is the time a virtual CPU was ready to run but waited for the
+host to schedule it. For example, in a 100 ms interval a vCPU might run
+for 70 ms and wait 30 ms for a physical CPU. Reporting those 30 ms lets
+Linux:
+- account CPU usage accurately, without charging applications for time
+  their vCPU wasn't running;
+- base scheduling decisions on the CPU time tasks actually received;
+- show host contention in the "st" column of top and vmstat and in
+  /proc/stat.
 
-Thanks for the update. We already had the v4 backport in testing when
-you asked us to wait for v5, so here are Mesih's sizing results.
+VMware writes a running total into a small per-CPU buffer in guest
+memory, and Linux reads it. In a confidential guest (AMD SEV-SNP, Intel
+TDX) memory is private by default and the host cannot write it, so the
+guest has to share the buffer first. Linux currently registers the
+buffer without sharing it, and ESXi then powers off the VM. This only
+affects VMs with the steal clock enabled, which ESXi enables by default
+only for Photon guests.
 
-Our setup has an AST2720 root complex, a Microchip PM50052 switch and
-eight Microchip PCI1003 devices. The BAR resource sizes per PCI1003 are:
+Following the v2 discussion, this version uses one packed allocation for
+all possible CPUs' counters and shares it before registering any address.
+Setup moves to an early initcall so it can use the normal memory-conversion
+API. This avoids converting a page in every CPU's per-CPU area and
+concentrates sharing in one allocation.
 
-  16 MiB + 16 MiB + 4 MiB = 36 MiB
+Changes since v2:
+- Replace the six infrastructure patches with one VMware-only fix.
+- Leave the per-CPU allocator, linker, KVM and early conversion code alone.
+- Move ordinary-guest setup to the same initcall.
+- Rebase onto v7.3.
 
-That gives 288 MiB across all eight devices.
+Tested on ordinary VMware x86-64 SMP/UP guests, ESXi SEV-SNP and TDX
+guests (SMP, UP, 66 vCPUs and percpu_alloc=page), and QEMU/KVM x86-64
+guests.
 
-The prefetchable bridge window is still 387 MiB with v4, the same as v2,
-compared with 384 MiB using our local max() -> ALIGN() workaround.
+v2: https://lore.kernel.org/r/20260929040256.543767-1-zack.rusin@broadcom.com
 
-Looking at pbus_size_mem(), I think the extra 3 MiB may come from three
-unused prefetchable bridge windows: 0001:02:08.0, 09.0 and 0a.0. One
-branch is empty; the other two have Pericom UARTs with non-prefetchable
-BARs.
+Zack Rusin (1):
+  x86/vmware: Allocate shared storage for steal-time counters
 
-V4 keeps:
+ arch/x86/kernel/cpu/vmware.c | 130 +++++++++++++++++++++++------------
+ 1 file changed, 86 insertions(+), 44 deletions(-)
 
-  size += max(r_size, align);
 
-For a zero-sized window aligned to 1 MiB, max() contributes 1 MiB, while
-ALIGN() contributes zero. That would account for the difference if all
-three resources reach this loop. Together with 96 MiB of alignment
-padding, this gives 387 MiB instead of 384 MiB.
-
-pbus_size_mem_optional() returns false when realloc_head is NULL, but we
-have not yet traced the resource flags and alignment at each level to
-confirm this explanation.
-
-Is that minimum contribution intentional for empty prefetchable windows,
-or should zero-sized windows be skipped in this pass?
-
-So far we have compared sizing only. We do not yet have a complete
-allocator trace or a verified v4 BAR-assignment result.
-
-Thanks,
-Maciej
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
