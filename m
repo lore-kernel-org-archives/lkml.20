@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.229
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693093;
-	b=JKm8gwDQzB8O750bpcJQV/KU0neNsNSDkbqSJuePymwM9MJANW1u4Gutd5OWHdJYIEIl
-	 GeOl/mLE0AVH7g2ELxuC3OblUWUpSzzvC0Dzt/MkeTJ1GQSPBWGAPNBDnEl8jXWRKhIlp
-	 ujLQWgKdYZKyiRv1FzjtLmFANUgEFiTITPklf24IsOeYLqb+0Ivm4nbyWAnuFgDphV94U
-	 ZABkCDN06CAUudrXkKnkRdYnOsdLRV8IMiKuleZ41RH9uc+X5UfaeKhj6Q/foullXfrpL
-	 7RLkdmzVVCQMWSymgjjVKGD4CsUN0cRT815HgZaq8THtqbKQ5lAGqCtFgnfCga3uwkw==
+	t=1793693127;
+	b=VZwmQQYYCEmAXVPvROiHJIvPMvMfYcY0Cfp/g2ecjD3r23M1G6X2kAe9j4dXsj1PzVDL
+	 QOL/h2NQU3WbARV5vO2BJ7DVSwHfdGyHpKziq7gcz41fQbURamohOaaPqqIQMJfbNSKPI
+	 Ia0rHnXyJJfOTYNOdqPf57pLyqA1J/gwSftkso3p63KEhkbtepRDG7wcRVT9OYPrLr+2K
+	 +zMRtmErSs6hBr74VXjBT4DShdbMuJWFlINHp/9e5gUnUjcG7vqvBlHGXFFxZgJr5C1ZU
+	 3VOCoZFoyw65JiLpXqUbQyqqNMq+gOLPBI8Sk6vFo+18ZCz7YHeZWpVuldMQMz+IWDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693093;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=lBZxiQ5cmXwoaVDZ7ajT7A8R3NOnKXHegqMIHSlVWYg=;
-	b=HX4CJgL3iSAEUbXIMlnW4jpLM7fS07gmETPTOTKwaGfGMtldB7vb7r5Pgpa7eWSNUXm0
-	 eb8oNzgbreD7VPrnVGyS0TZPt2695+Wvy3h0nua1mGlHAHdf3QHDKeHVG2LUo5Q2LqM/D
-	 /I5SYptqBSq0EW7QquG4nlGxIYmOvEWy0sZdVjMJfPzUlTSvRruBB0YkYwKV+GzOD4vdP
-	 frztskFqlNvqAASVb63/QqH4Uk1qrv3Q31qFOCtrd6qV1tHYBDVf61xZfUb73QNlGKSgH
-	 mOxTAeL65a0zLr8lGGptujXzYOYX2Aov6CPBim5FNO12I6ynQL+bDsMW2WJU9d2mrtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693127;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=gTw7XRRIfHVYQyqbfXSyx0Prw2PsL3DVtgnGhtx9nTo=;
+	b=bvthIm5Ibzxjj/EAdfy7FDfKE30A8vx/v+5rkvp3jU+C0qS9l5oupUv1fcJQa8xJD4Mi
+	 7JfEL0d6RhPNTiL7kGmchx4lf6ktlCHeL0yTR4nCno5Rd6Y/qik2eF1kayXgZjVSrVFuJ
+	 mbbTMcFsy2Z/ToJzYeOmJ422ZHLBrXxunUJ1sH8TDM93WjU30+u1xn0wntqgHvfoLoT3a
+	 IHfknpaDPlMEg/f3uivEPtPZKWtIaJ2BNSxg37TshZoVeT7PxL0yeJR4rRaQi1fm5Dot+
+	 +EmI00l2hjZxPeueHsUBxSB52Vme9z+oxdYOSf49XJrXDYqfo3sj5H9G9TKbKN3T01Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="WPkOyO7/";
-	arc=none smtp.remote-ip=95.215.58.229
-Received: from mta1.migadu.com (out-229.mta1.migadu.com [95.215.58.229])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD66606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:04:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FD66606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WPkOyO7/
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RWmMBXkZ+vwtLY3BE8puJytWEPMWyGOh1ixW8aK6vWM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793693091; v=1; x=1794297891;
- b=WPkOyO7/jXnLDvvc58HZsAFsfZhlf1yGovKl4MbrDD3v7pUevz+ROx/uSPrQ1a7NHZFsII+0
- gP0Gw5D1MyVzs8i7M66XV5NhZ+lxO8D2+BMYmIXo1Vr48JqGui41RiSMEIjRZEUmPTeEOwyDoa7
- Qhw6IteAtpqUdxhI+EMQw8M4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id d76ee08530dc8e23;
-	Tue, 03 Nov 2026 08:04:51 +0000
-X-Mizu-Trace-ID: d76ee08530dc8e23
-X-Migadu-Flow: FLOW_OUT
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Tue, 03 Nov 2026 08:04:33 +0000
-Subject: [PATCH] irqchip/riscv-imsic: Synchronize remote state with IRQ
- work
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743C1606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:05:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 743C1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4d2f0f77124so4256367b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:05:27 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793693126; x=1794297926;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gTw7XRRIfHVYQyqbfXSyx0Prw2PsL3DVtgnGhtx9nTo=;
+        b=rC2pvijWuOxGeKCWWHiEDJoSFoUJ57BIzXSH/KR9VZKqp9x8DwKx/yCx2B56gVhisL
+         RYSAcbHbG8fK82A6T1kfY8ISaLevhApReR8+IB1tUjKhGoXRiNFLF1MfQnq9JXoKLULV
+         COW9pP0WniBGYEG64PWvmY48PDL1o+VxBKS7Hn8wrBb9fy1/R2XS73t/ZWAG2I6KRbby
+         4BGE9NI+167c6fyzcDRVfcuz2UPT6EZ/oHZ+WcUjrv1MKQT/vMgjC8m8C2ga+JL88CrF
+         cSQQCtqas8CXogshZfrJ0HTBAdIFJcL4GVKKjfbZqvMggS+XmVM0gM1z3zIcg4zN478/
+         YpTg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2PB8C3ZFLQcXr0S+yl9yTxkUpPbw64jovom1QFiwT4zI2tqs2pUOEg14oEnhnwi1misvxwZEVEGOCEYM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z94U9eEwDYWP+z6MBRGYHrLSo7IlihSEFxd2Ys1hzueJ/kEv0eb
+	3VkJHwqQjL1q1dm/fBjI7Zjokxq3Y33X4SqxUxyz5vyFnpKrH+8pZS9QsLeoFSqSV9Otrih7I7e
+	g04NCsuIyMlEcIFW1HYA0hzPrEbL5Beaflafb2KNFcOv0aNelZResDwkaYxk=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,166 +58,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-imsic-remote-sync-irqwork-v1-1-8b5c951fc62a@linux.dev>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAxG4auQrm0yg4ZEr2JcaPnRapjRFgVDu
- LujLr/FezM5TOG0q2YyvNQ1p4K4qkgux3QGa1tMdaibGMOatXcVNvR5APs7Cas9xmw33koHaWQ
- TQwsq/d3Q6fR77w9/+/N0hQzfIS3LB/3jP2V9AAAA
-X-Change-ID: 20261103-imsic-remote-sync-irqwork-9cfec6c410de
-To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@rivosinc.com>
-Cc: Anup Patel <apatel@ventanamicro.com>, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
- Troy Mitchell <troy.mitchell@linux.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5097;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=RWmMBXkZ+vwtLY3BE8puJytWEPMWyGOh1ixW8aK6vWM=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFkvpy6okFmZcNa7vdtgpfeWyO8zZ3w4vqH13Lv8ghreL
- RzfZCIvd5SyMIhxMciKKbJ0P+DZVuATZVsgUOgLM4eVCWQIAxenAEzkcArDXzHZrdmfAnZsvee9
- cz77heo9BSmFKsUCMwt3hgdd3e+5yYjhv2fKPcUE/RVvL/40XrcnKqleN61dWtFz3YWO7d4rJvb
- mMgAA
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-Received: by 2002:a05:6808:124a:b0:4e7:8f9b:1185 with SMTP id
+ 5614622812f47-5640d92c7ffmr7321913b6e.3.1793693126459; Tue, 03 Nov 2026
+ 00:05:26 -0800 (PST)
+Date: Tue, 03 Nov 2026 00:05:26 -0800
+In-Reply-To: <6836d5d8.a70a0220.253bc2.00c5.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae995c6.24f6a368.35686f.0de8.GAE@google.com>
+Subject: Re: [syzbot] [fbdev?] KASAN: vmalloc-out-of-bounds Write in fillrect
+From: syzbot <syzbot+7a63ce155648954e749b@syzkaller.appspotmail.com>
+To: deller@gmx.de, dri-devel@lists.freedesktop.org, 
+	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	osama.abdelkader@gmail.com, simona@ffwll.ch, soci@c64.rulez.org, 
+	syzkaller-bugs@googlegroups.com, tzimmermann@suse.de
+Content-Type: text/plain; charset="UTF-8"
 
-Remote IMSIC state updates are deferred to a timer on the target CPU.
-If that CPU has stopped its local clockevent and is waiting for a
-broadcast interrupt, enabling the broadcast IRQ can depend on delivery
-of that same interrupt. This can stall timer delivery when the broadcast
-IRQ is unmasked or moved to another CPU, including during CPU hotplug.
+syzbot has found a reproducer for the following issue on:
 
-Queue hard IRQ work to synchronize remote state independently of timer
-delivery. Keep synchronous updates on the local CPU and the timer retry
-for an unfinished vector move. Hard IRQ work also avoids depending on a
-schedulable worker when PREEMPT_RT is enabled.
+HEAD commit:    6628e7d4c6b2 Linux 7.4-rc1
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14484581580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1d2c97eac7d33533
+dashboard link: https://syzkaller.appspot.com/bug?extid=7a63ce155648954e749b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=126c692d580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=140f1d59580000
 
-Fixes: 21a8f8a0eb35 ("irqchip: Add RISC-V incoming MSI controller early driver")
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
----
-This was found while bringing up the SoC timer on SpacemiT K3 as a tick
-broadcast device.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-6628e7d4.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/2f9e962fc6ac/vmlinux-6628e7d4.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/192b99738db6/bzImage-6628e7d4.xz
 
-Without a real broadcast device, the tick code falls back to the hrtimer
-based broadcast, which keeps one CPU's local timer running. Once the SoC
-timer is registered it replaces the hrtimer broadcast, and every CPU may
-stop its local timer in idle.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+7a63ce155648954e749b@syzkaller.appspotmail.com
 
-On K3 the SoC timer interrupt goes through APLIC in MSI mode to IMSIC.
-When the CPU owning it goes offline, the interrupt is moved to a CPU
-that may already be idle with its local timer stopped. IMSIC leaves the
-enable on the new target to a timer on that CPU, and that timer can only
-fire through the broadcast interrupt, which is not enabled yet. The
-system stalls.
+==================================================================
+BUG: KASAN: vmalloc-out-of-bounds in fb_write_offset drivers/video/fbdev/core/sysmem.h:30 [inline]
+BUG: KASAN: vmalloc-out-of-bounds in bitfill drivers/video/fbdev/core/fb_fillrect.h:133 [inline]
+BUG: KASAN: vmalloc-out-of-bounds in fb_fillrect_static drivers/video/fbdev/core/fb_fillrect.h:219 [inline]
+BUG: KASAN: vmalloc-out-of-bounds in fb_fillrect drivers/video/fbdev/core/fb_fillrect.h:278 [inline]
+BUG: KASAN: vmalloc-out-of-bounds in sys_fillrect+0x174a/0x1910 drivers/video/fbdev/core/sysfillrect.c:24
+Write of size 8 at addr ffffc900056fd000 by task syz.0.17/5992
 
-Tested on a K3 COM260 board by offlining the CPU owning the broadcast
-interrupt, and then each CPU in turn, under a timerfd load:
-- v7.4-rc1 with the SpacemiT SoC timer series and local timers forced
-  to stop in idle
-- a vendor 6.18 kernel with SBI cpuidle states that stop the local timer
+CPU: 3 UID: 0 PID: 5992 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ fb_write_offset drivers/video/fbdev/core/sysmem.h:30 [inline]
+ bitfill drivers/video/fbdev/core/fb_fillrect.h:133 [inline]
+ fb_fillrect_static drivers/video/fbdev/core/fb_fillrect.h:219 [inline]
+ fb_fillrect drivers/video/fbdev/core/fb_fillrect.h:278 [inline]
+ sys_fillrect+0x174a/0x1910 drivers/video/fbdev/core/sysfillrect.c:24
+ drm_fbdev_shmem_defio_fillrect+0x22/0x140 drivers/gpu/drm/drm_fbdev_shmem.c:39
+ bit_clear+0x17d/0x220 drivers/video/fbdev/core/bitblit.c:73
+ __fbcon_clear+0x633/0x760 drivers/video/fbdev/core/fbcon.c:1358
+ fbcon_scroll+0x48b/0x650 drivers/video/fbdev/core/fbcon.c:1910
+ con_scroll+0x464/0x690 drivers/tty/vt/vt.c:730
+ csi_M drivers/tty/vt/vt.c:2307 [inline]
+ csi_ECMA.constprop.0+0x1238/0x3b60 drivers/tty/vt/vt.c:2730
+ do_con_trol drivers/tty/vt/vt.c:2945 [inline]
+ do_con_write+0x366b/0x4ae0 drivers/tty/vt/vt.c:3442
+ con_write+0x23/0xb0 drivers/tty/vt/vt.c:3778
+ process_output_block drivers/tty/n_tty.c:557 [inline]
+ n_tty_write+0x440/0x1200 drivers/tty/n_tty.c:2366
+ iterate_tty_write drivers/tty/tty_io.c:1008 [inline]
+ file_tty_write.isra.0+0x4ca/0x8f0 drivers/tty/tty_io.c:1056
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f3a15b9fb19
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffe1abca668 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f3a15e25fa0 RCX: 00007f3a15b9fb19
+RDX: 0000000000001006 RSI: 0000200000000680 RDI: 0000000000000006
+RBP: 00007f3a15c37b70 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f3a15e25fac R14: 00007f3a15e25fa0 R15: 00007f3a15e25fa0
+ </TASK>
 
-Both stall without this patch and pass with it.
----
- drivers/irqchip/Kconfig                 |  1 +
- drivers/irqchip/irq-riscv-imsic-state.c | 19 +++++++++++++------
- drivers/irqchip/irq-riscv-imsic-state.h |  4 ++++
- 3 files changed, 18 insertions(+), 6 deletions(-)
+The buggy address belongs to a vmalloc virtual mapping
+Memory state around the buggy address:
+ ffffc900056fcf00: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+ ffffc900056fcf80: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+>ffffc900056fd000: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+                   ^
+ ffffc900056fd080: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+ ffffc900056fd100: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+==================================================================
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 136bab41f801..5cdc3f52198c 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -651,6 +651,7 @@ config RISCV_IMSIC
- 	bool
- 	depends on RISCV
- 	select IRQ_DOMAIN_HIERARCHY
-+	select IRQ_WORK if SMP
- 	select GENERIC_IRQ_MATRIX_ALLOCATOR
- 	select GENERIC_MSI_IRQ
- 	select IRQ_MSI_LIB
-diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/irq-riscv-imsic-state.c
-index 01620373b43a..f6373e4019a2 100644
---- a/drivers/irqchip/irq-riscv-imsic-state.c
-+++ b/drivers/irqchip/irq-riscv-imsic-state.c
-@@ -252,6 +252,11 @@ void imsic_local_delivery(bool enable)
- }
- 
- #ifdef CONFIG_SMP
-+static void imsic_local_sync_work(struct irq_work *work)
-+{
-+	imsic_local_sync_all(false);
-+}
-+
- static void imsic_local_timer_callback(struct timer_list *timer)
- {
- 	imsic_local_sync_all(false);
-@@ -268,18 +273,19 @@ static void __imsic_remote_sync(struct imsic_local_priv *lpriv, unsigned int cpu
- 	 */
- 
- 	/*
--	 * We schedule a timer on the target CPU if the target CPU is not
--	 * same as the current CPU. An offline CPU will unconditionally
--	 * synchronize IDs through imsic_starting_cpu() when the
--	 * CPU is brought up.
-+	 * A remote CPU may have stopped its local timer and be waiting for
-+	 * the broadcast interrupt whose IMSIC state needs updating. Use an
-+	 * IPI-backed work item so enabling that interrupt does not depend on
-+	 * its delivery. An offline CPU synchronizes IDs in imsic_starting_cpu().
- 	 */
- 	if (cpu_online(cpu)) {
- 		if (cpu == smp_processor_id()) {
- 			if (__imsic_local_sync(lpriv))
- 				return;
-+			__imsic_local_timer_start(lpriv, cpu);
-+		} else {
-+			irq_work_queue_on(&lpriv->sync_work, cpu);
- 		}
--
--		__imsic_local_timer_start(lpriv, cpu);
- 	}
- }
- #else
-@@ -510,6 +516,7 @@ static int __init imsic_local_init(void)
- #ifdef CONFIG_SMP
- 		/* Setup lazy timer for synchronization */
- 		timer_setup(&lpriv->timer, imsic_local_timer_callback, TIMER_PINNED);
-+		lpriv->sync_work = IRQ_WORK_INIT_HARD(imsic_local_sync_work);
- #endif
- 
- 		/* Allocate vector array */
-diff --git a/drivers/irqchip/irq-riscv-imsic-state.h b/drivers/irqchip/irq-riscv-imsic-state.h
-index 189829b8673a..a36b9f0ef840 100644
---- a/drivers/irqchip/irq-riscv-imsic-state.h
-+++ b/drivers/irqchip/irq-riscv-imsic-state.h
-@@ -9,6 +9,7 @@
- 
- #include <linux/irqchip/riscv-imsic.h>
- #include <linux/irqdomain.h>
-+#include <linux/irq_work.h>
- #include <linux/fwnode.h>
- #include <linux/timer.h>
- 
-@@ -34,6 +35,9 @@ struct imsic_local_priv {
- 	unsigned long				*dirty_bitmap;
- 
- #ifdef CONFIG_SMP
-+	/* Remote synchronization must not depend on a timer interrupt. */
-+	struct irq_work				sync_work;
-+
- 	/* Local timer for synchronization */
- 	struct timer_list			timer;
- #endif
 
 ---
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261103-imsic-remote-sync-irqwork-9cfec6c410de
-
-Best regards,
---  
-Troy Mitchell <troy.mitchell@linux.dev>
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
