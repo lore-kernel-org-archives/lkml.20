@@ -1,49 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699201;
-	b=aTUnl4dcXATUx2PPV8MBcMC25dMtX0HiepmX0NwP4pH64Oiyk93UEd5FBOGnAuEFqmPX
-	 ygccaJSNtp3QIsavk0QOmvgjIjy4Ui1mJ8y0e1xNYbs+qs7/XfHkRQCFy06M9S9d8CZn2
-	 rV3Q422fuu9UokooRkuHpyA0QDAyhOLMwdP1iWS5tuP/OAGD1TrMq/mjCo6TQkdaWDsqS
-	 Wk8o7UztukgH7TeYl+gUCWcPIst6TeGVK1JMMf+vocumd7p0wtRcPE7An4AT2V75H5GST
-	 kFbNsnBb+wowRjWILVvLDt/eQJphzAFGK1S/5C//V7XxOygnn1JeDldcEz1Qb788E8A==
+	t=1793699210;
+	b=i7ONK2fpDx4DQqgnFu5RmCcOYHmJa+J4nD9/6sOsbXGnbDJpwair5M3BPZ7wYIsEFjnA
+	 dBBMdoZiChwSy7lpEuZa1e99kOGGoEEwnu/Gi1NAI//Nbb8QLrb6TzzlndPobXqjaZs4n
+	 h6Uku7q5Z9JAo04PSHyVgD0olMCi06zA17Kk4vO7KH/6In5SFBgngX9mqnkdBlL94mXhB
+	 XgdawPwKLtWYZVrz74QXT4DDtlM/iTD8Mv0ZmRHoFyBLhcD84aOgRkitCslKNsAe7BPW7
+	 EtRi6FPoogr5E2G6uz3hKtxBKf/xblwaphnfHtSe5aKEZzNk3H/wK1NflykI2DAK6JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699201;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=y0bvXf1h7Wz+f0YJZfiRLxuceLa0NyfzQU1Grzqc+gw=;
-	b=wfqo6w7VOirXSDJFXLoXXiXkxajQ1+rYM5vOxhSW4BZ7XzwkBf+TEDqVuqntfqhqTn18
-	 NVYc9Llafo/dARv1GpXdJUvkVXWqX8mof72HZzJaO2vg3R4FdCXsSVCwvFAT1NHCzIvTQ
-	 9XjsNQ1wE5j/sYAAIGL5q4kDtyrtd7R835tOFOC6Z2Z54fJiuHy73u87R6rv2xskGIS3K
-	 nbKimekbZa1RrbWVI78kTVlYSqJMgkibyjoWfaWx7VnytGmCJl9ydqAuXQNq0Dmwy0apS
-	 2xAU2drJ85hvpqo6GKL/UsK9s0jBtAMkN234UJzQVIJaMqsb1f+TCW6DmMVQP1MSGXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699210;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:X-ME-Sender:
+	 X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:
+	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
+	 Content-Type;
+	bh=/IKeePEzkzQb0ij5rJyiMvvaU4VMD6EhYQBwHPP2ZQM=;
+	b=ywZi+rFwQ+ev1kdS4M2SvEFEh7KWLDvbJ2iWUNYjAAgfPSsM6Eltc1/VX82MSS9HBVZS
+	 V6Fe9ym1Eu31udPbMVqlC48nHdNE0rtetc1WIGHmZs2BDfGPAgOHyPK4WFHvuIb68uMHl
+	 kKPCJBytuabmhFNwSIVgYTazzpt2/RnBcKYM6tonIgIVWJixeqlq+bCrBIHz0dTtrsOk0
+	 bqsSU/SxZklVPahhUx0UsF5xh+EEMyi2nVkmhD7MIutSJufGkdLEvRDV5SmD27e1vHS+8
+	 wO1/Ild5kuG8WMQfqGY653NkflyvaQ+iJM/Upx9q5KAAXqONi3XuqmExFmgGSsG1rtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=none header.from=linux-m68k.org;
+	spf=none smtp.mailfrom=linux-m68k.org;
+	arc=none smtp.remote-ip=202.12.124.154
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330E4606EEAA;
-	Tue,  3 Nov 2026 09:46:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 330E4606EEAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADH15h7relqEVA7AA--.5157S2;
-	Tue, 03 Nov 2026 17:46:35 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Michael Hennerich <michael.hennerich@analog.com>,
-	Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND] mfd: adp5520: Release the subdevices when the client is removed
-Date: Tue,  3 Nov 2026 09:46:44 +0000
-Message-Id: <20261103094644.1289853-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3FC606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:46:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE3FC606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 04A017A008F;
+	Tue,  3 Nov 2026 04:46:44 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Tue, 03 Nov 2026 04:46:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793699204; x=1793785604; bh=/IKeePEzkzQb0ij5rJyiMvvaU4VMD6EhYQB
+	wHPP2ZQM=; b=hwcOYUL6yDd71JGia5mt9XdEkl5igSIOSPcEZCYUmSq0pBCZPYS
+	+bqrJvDQcJDFXJQu7ALZ9u9Z00jVaKSTSlyzODlvMiKxs1ixxzzijxzWOGBFirJ4
+	LCWo199EPZvtoRb2PEEN3ilhsVGyPtFOhmR44yTjNcoZE3WmZYjlAhJHQxmLodUs
+	oBHrESTKWM7t7/f57mj/vehCTP8iJNplCVGTxOO59YCMiwQp9VIBc8kaFliHEAR2
+	On4Zke+ZMhkBW5KROEURMndOmONPvmEpbSdu2BnJeLxqkNTWOQRq0vUhD4Q69VJ0
+	faq5kDgjCTksyTZBR0Si2pjYURb9rPRoJRA==
+X-ME-Sender: <xms:g63pao1oXemuL-_ffQhBs_yx62UXFOVjkRzWI27LIuCeLYLpRA1kTg>
+    <xme:g63pamZ2iUVFO4-9oPLQNC9JlHp0Kxe-qLOa7Zxp1WSvU6TVB0irDhNXXo2kRiN6b
+    phXSOyVhnDo0RG2i8Z9PhyKooYH5P8U4ZrezqDDR4rGVpNJZHVdXkgdJg>
+X-ME-Received: <xmr:g63pasv7gKy0kxOqQSNoyWuus8qBlg2sSuhgoHCVy1FFF-wKaqPVB_efBmOq8scn5Yu6V5Eb9-ViYJ9h0B86Gz8bQ-b6Xzq-CFU>
+X-ME-Proxy-Cause: dmFkZTGsab++Yb187nq4D1T5x8jnxJ1X+qM2yU337wNKyg/7p/AZFEimtm/w/ej5BGPHh5
+    jdVZ1lx05ifLTc80WlGqgvEyQBW93KVfuWHMBGQH0nRiKPv1sBpHlcNNu/r82osNl2UlzG
+    P/uNVb2MlqBf/wb+gPI+q03IAtBsjpxsayKL4q/JWUj9WQgzLVIInu2VI1hYRhkdbOhAHU
+    WkvBXSUXnOM6rkYRr5DiTj7aksnHRCf0dfuN9r1ymrfTaqoh8MKxPT1o9jg8bVPOUiCtia
+    qy7AP4qT0uaRPBU9qa7bHI5H7UDYCRLJUOUhd44sTlVm1xkWLd45S4tj740ViSqWLnmEUT
+    fo6u47Ob0pMttntHtGzqhCbeOGhLsBrs8XDwKLXq93UaCdCd1QVmvH1twQVEtThmpr+xuv
+    +UbT2UCUbhUZYW4oOe/3b36/L7gUBA8oryNhJqJNd8xBOGx5PCdLFv4u1KyogHHLzNGdtw
+    kIDzB5ScPgLNQOVgQ8dIYa7rviL32fVrIBn/ctTf3taDWXDK+vEBzCwdVFohLOZJKZ95g/
+    GX6/sMP+FTtm/0Ky/yYnA3LrEQU3ZoB+7guD07Pn9J2lmzC+86zFhccITemct0RRYKZj9j
+    xcs7mz6xosDFKwxlBdfZscmkvWys9LNSd+MDHanHdSWIWXALnXli+h3f15CQ
+X-ME-Proxy: <xmx:g63palBBf4wc9Kag6Yv3st7h3K8ypt80VvukO_1N8frQp6cXRiv-KQ>
+    <xmx:g63pavD4a_GBFH7TRGR6LPcyVbqcyZUKofI_hJDwAuvjXZ0L80vaKA>
+    <xmx:g63pannhtLkDPR3Rt-qSZiJ8TaechLUDUGtgLSmUQyzfg1583E70vw>
+    <xmx:g63paou899ZZnaoPgVKO1OjqWnvlqG80Jw5CyuMYXXU-9c0cLLfx5A>
+    <xmx:hK3pahdr3F0oGXfZC6DJ6oveDNi6Y1Ut0m6lGSlZBZnz-pKMEC8KzNmA>
+Feedback-ID: i58a146ae:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 3 Nov 2026 04:46:40 -0500 (EST)
+Date: Tue, 3 Nov 2026 20:46:36 +1100 (AEDT)
+From: Finn Thain <fthain@linux-m68k.org>
+To: kernel test robot <yi1.lai@intel.com>, 
+    Peter Zijlstra <peterz@infradead.org>, 
+    Andrew Morton <akpm@linux-foundation.org>
+cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org, 
+    Geert Uytterhoeven <geert@linux-m68k.org>, Sasha Levin <sashal@kernel.org>, 
+    Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+    Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+    Ard Biesheuvel <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
+    Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, 
+    Arnd Bergmann <arnd@arndb.de>, Boqun Feng <boqun.feng@gmail.com>, 
+    Daniel Borkman <daniel@iogearbox.net>, Dinh Nguyen <dinguyen@kernel.org>, 
+    Eduard Zingerman <eddyz87@gmail.com>, Gary Guo <gary@garyguo.net>, 
+    Guo Ren <guoren@kernel.org>, Hao Luo <haoluo@google.com>, 
+    Jiri Olsa <jolsa@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+    John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+    Jonas Bonn <jonas@southpole.se>, KP Singh <kpsingh@kernel.org>, 
+    Marc Rutland <mark.rutland@arm.com>, 
+    Martin KaFai Lau <martin.lau@linux.dev>, Rich Felker <dalias@libc.org>, 
+    Song Liu <song@kernel.org>, Stafford Horne <shorne@gmail.com>, 
+    Stanislav Fomichev <sdf@fomichev.me>, 
+    Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+    Will Deacon <will@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+    Yoshinori Sato <ysato@users.sourceforge.jp>
+Subject: Re: [linus:master] [atomic]  80047d84ee:
+ WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
+In-Reply-To: <202611022259.def3e086-lkp@intel.com>
+Message-ID: <13bdec81-18cb-4a1c-4932-41751346a621@linux-m68k.org>
+References: <202611022259.def3e086-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,78 +109,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADH15h7relqEVA7AA--.5157S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uw1DJw45Jr1rZr4DWF15Arb_yoW8ZrW7pF
-	47Wa43Crs8XF12kw47Zr1rCFyrAa1SyrWUCFn3Gw4a9F45CryftFyIqFWjyF13CF1fCa12
-	yw1rtFWUAFW8CF7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWx
-	JVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
-	Uua0PUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpnOFPRQAAs6
+Content-Type: text/plain; charset=us-ascii
 
-adp5520_probe() registers up to four platform devices (keys, GPIO, LED
-and backlight) as children of the I2C client, but the driver no longer
-has a remove callback.  The callback was dropped when the driver was
-made explicitly non-modular, on the assumption that a built-in driver is
-never removed.  That assumption does not hold when the I2C adapter the
-client sits on goes away: the driver core still calls the driver's
-remove callback, and without one the child platform devices are never
-unregistered.  They stay registered, keep a reference on the I2C client
-device and leak the memory they were allocated from.
 
-adp5520_remove_subdevs() already exists and is used by the probe error
-path, but it is not reachable on the removal path.  Add a remove
-callback that unregisters the subdevices and drops the interrupt, in the
-same order as the probe error path.
+On Tue, 3 Nov 2026, kernel test robot wrote:
 
-Fixes: 6b09274bacc7 ("mfd: adp5520: Make it explicitly non-modular")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/mfd/adp5520.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+> 
+> kernel test robot noticed "WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked" on:
+> 
+> commit: 80047d84eed25e9c92cfb9169980a0dfec110246 ("atomic: add alignment check to instrumented atomic operations") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+> 
 
-diff --git a/drivers/mfd/adp5520.c b/drivers/mfd/adp5520.c
-index bd6f4965ebc8..6b53b00efe52 100644
---- a/drivers/mfd/adp5520.c
-+++ b/drivers/mfd/adp5520.c
-@@ -305,6 +305,16 @@ static int adp5520_probe(struct i2c_client *client)
- 	return ret;
- }
- 
-+static void adp5520_remove(struct i2c_client *client)
-+{
-+	struct adp5520_chip *chip = i2c_get_clientdata(client);
-+
-+	adp5520_remove_subdevs(chip);
-+
-+	if (chip->irq)
-+		free_irq(chip->irq, chip);
-+}
-+
- static int adp5520_suspend(struct device *dev)
- {
- 	struct i2c_client *client = to_i2c_client(dev);
-@@ -341,6 +351,7 @@ static struct i2c_driver adp5520_driver = {
- 		.suppress_bind_attrs	= true,
- 	},
- 	.probe		= adp5520_probe,
-+	.remove		= adp5520_remove,
- 	.id_table	= adp5520_id,
- };
- builtin_i2c_driver(adp5520_driver);
--- 
-2.34.1
+It appears that a misaligned lock was accessed in 
+__split_huge_pmd_locked() back in 6.19.0-rc on i386.
 
+And it appears that bisection landed on commit 80047d84eed2 ("atomic: add 
+alignment check to instrumented atomic operations") because that's when 
+the check got added to detect such accesses.
+
+If the misaligned atomic operation is somehow normal in this situation (?) 
+then I guess it's a false positive from DEBUG_ATOMIC=y.
+
+But if it was unintentional, the next step would probably be to check 
+whether the current mainline kernel has the same issue.
+
+I have to confess to a state of ignorance about the mm subsystem so I 
+don't know what to conclude here.
