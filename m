@@ -1,128 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793725569;
-	b=p8Jxp1R6HactHs5FP7/4k31EA6JX0BAvnl7aAF9BiRjLrugVFzZn5IaqMH6L7qbPIVYS
-	 3/kkqXa0ICY1BbLCDSRyagf61rCebmyWxzUPR41dhM2me6ZLROp/2f0AWJ+AVrPcIDQbI
-	 HgarU0zanOGzECKjoY4dTNRIZ6otpRZuOtWxS4phiohL+Zl0/lXfyPAzoCaz2nCloNLmx
-	 JUr2RkSbCPHhy3ptrTbezlO0JdxuDzC1ZV3uliaW7ntom3YE6LKoFjaJFNVsqcQc15r4B
-	 YdCyZKl/DGX0VlX7jMHgX5gq0I37E9oIEuNsZIcx7Mkn5x+JGWkBszF0g46xIQbEoJQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725569;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793725611;
+	b=FSyw4Rbbjo9g92IL1pz1iBsQmP0bKB/m8swyxaXZjh/xDGx9FLESVpduILCs+csq5Xas
+	 wY5i4bX2BMNLdxIczptrOrg+1j6RK5MpS3gVqkccuNw/Ug4wPda9J+9/NllkxevPCv4C4
+	 sDql4LFncGFxh5v4ndrfLZLEXZP3mYlk1oFwJ7rEELjbLa0uTUSYUTtJHzGfibUC8a4f1
+	 Ze3YTo46czEfQdDFXzOV3BvEFcK+E3GnRi1r+oaRe2ZprMDKXMeY3xsnbF+1Rwdx48g0z
+	 yDEvfWEl7BbsTIV7LsTf5yP7eJwM3hP9coCTJ7l1aURKJMnbjZPXS+kq5Iz9ka4Tpww==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725611;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=l873VninDBUiKeh1WHAl+Vibl6xopVLfKVt0iMRQubw=;
-	b=GbtB1DIRkCXFVMcKR4abWcm8Pz8sNv9Yw9NMFgDGRB1/BfMfi1tSAwYTl9IP7wtNQNOU
-	 9dD3swLuWCY+ZbenWwefxhVG5rasFmqx0lXIh1tnlTIC+tj7mb+vhaNFABUFxBVp0MNoo
-	 mrb3EcK1aYw2CHnzfU4E4WLN28WpxBTNUau1Y1TFJNaruCrJRDGgYqEKogLOeRsVnom9J
-	 wRQWGG60mYhteBc2Q4664baLx9AmNqZNrN35sRaQstQpKj4I33j1HWAaxAk1Rw9tWpFW8
-	 mm+Vm94OWX7kQs0AI3/TQM7r+eM4SlXOCmJ/XQSTxVxQdRcC38AFplGdOwKzY49q2dw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bt1mctYa;
-	arc=fail smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=LnJRPskf8tuWyC8euiLr2zfBkW5TahKoa5RK+g4sahI=;
+	b=vEOujfoPgwwh65pctjUaSAhUdzQrASd7tXTDD4WBGhbxM2FNviHG88T71bCTAOP9ETJs
+	 tL5/rIt38GNfQu8jnWwMdqpwUlI1yTAUiuOyR94PcEOWgiEYTaypw3pzzGNdL2ifhJGfg
+	 i+Kem9LvM25rWVbcvz4qQnAZnNOKRQzF7a5485EZ69U3Pb/gq6Jk2UDXo6QNvEDQz8++k
+	 781D2A5LTBalcW1+pGe/uxUTOhONvQ/KKJxLxSOx6wyymlPcr9onAP7AT622jznOGe+8V
+	 HBfDRHNAJsmLMcdKnl5WMqie2kdsyNue+Oq0g2zg9dq3YZ6YvAwh76u5lbC56YAUgkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jkqS6a3D;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF0F606A324;
-	Tue,  3 Nov 2026 17:06:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF0F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF442606A324;
+	Tue,  3 Nov 2026 17:06:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF442606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bt1mctYa
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jkqS6a3D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793725567; x=1825261567;
+  t=1793725611; x=1825261611;
   h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=Ppz/73dqWgbClPw7a/kwE9g5IzvJiy8nr36629DoINE=;
-  b=Bt1mctYateBbD+++u8Mi0iVvWvCkPBOVOFjwipH9QJ2YON/sc0tEqYWy
-   qvVxHp03c0BsFRWsC3eYbatWqlHjweOzkhMA8RRWe1ylAXGN0c/yT2/9J
-   gYuka8nCsfjErJRbtNnLjd7VS6Buv/xTq6PHW7C7U+hkZOMxI6JF9o2Q5
-   b3ybnfrf/ljLTxQ8O/5jhNP+KN7ygTr+1cuh5T7zK1BGI5eNjediG5mNi
-   5n5WZ9JZN/6NZdXwkBAGg3sBtInyjwMRWUh4wl2KSa+COeyt3zXU/xSyX
-   yI4IBCt/T6jfRq0EeZvyZLO7Oewozp96HjNoRV/7SBIaK5V24728Z+UPE
-   w==;
-X-CSE-ConnectionGUID: H2lMBep0SXeCMWT2RK+qhA==
-X-CSE-MsgGUID: ipklqMNKTaazPiLGKUlCvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2467471"
+   mime-version:in-reply-to;
+  bh=0/Ods/jKC1tVnIO8altZ+B3XsQ3TaPxecZLysqqf6EE=;
+  b=jkqS6a3Dgsoq3H7AIroOF/KOnpEEalq77/OQ71ouNjcU8NqOVUMosO2H
+   mbxD9IFMtREpCd721sDkhQxr96ed0Y0IMrHJfe3oNsRtEbldzY6RdXSxG
+   frQgk0ifywBRrvWGcgCeTIMAAI8HCAHywWhrHuKugnXR2c1Rb2Pg//dmP
+   7JwUoCMdgsz11bhBqSPUSinDeeFi6m62frGFLov64CifswcUmX95Au+vu
+   vK7CxcP8fr5acCVIkY+xf6mNMtn1PRxO/gj8sMtd6CJfK/CY/p8Z6n+mH
+   LN9D3IoKeXTDRbzO8w7D0dcl2U3JY+sFVnLNWwboBp/vgVq0cBTUp8Gut
+   Q==;
+X-CSE-ConnectionGUID: 4lBJ9DWERXaDg/jnEv2AOA==
+X-CSE-MsgGUID: Kk3V0KaAR5GSgLmT3iCa4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2339829"
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2467471"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:05:38 -0800
-X-CSE-ConnectionGUID: 2KvPU0AhSSOFvD3xopmgpA==
-X-CSE-MsgGUID: R8UiEvPcTOSpx03goyodVA==
+   d="scan'208";a="2339829"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:06:39 -0800
+X-CSE-ConnectionGUID: iT3AJUmwR0ufFtQwiH5x+A==
+X-CSE-MsgGUID: xQuXNDHgRLmpSPA7hG/IKQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="8324892"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:05:37 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 09:05:36 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 09:05:36 -0800
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.18) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 09:05:36 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TZoWKJc3h1p95p1ickBPGrSqamAUED1ujQEBSk3xGefd3qXETWuvl4E2FPHCtJlc+wvgpUjTHhEJOT32T/Z81+9STILR8kXXoxywXcgl26UUMHFdytttyyy3qm9XXtjJEmKAQnPmQWoSvxMjFOb+fHA/MtZBpVe3VpuC9UfpV0EuJfxFesV4oJtW6NnNOsgRgbGHxYKA/IAKaXLIZ3HkezoMicQTt6eqm/bEVDriv6+txhwM1X1avFrhdZ6NZhdP7bJ0S4YsfihezaX/tst27eQQdM+fUZmpAyxVErm5QQOWKw8LIiOBRLtK+rUB2Gvvcc+p51K/HAupgPK0TXTjyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l873VninDBUiKeh1WHAl+Vibl6xopVLfKVt0iMRQubw=;
- b=BnS96dOkPHkSgnRpyAwoePrxIjP92XBZ4iPyRBxsALW/okgiPewuCWrjrmov/GohooGBLIwbkamMQzIiXQtKeaAJ/ZCGi7lIVQbNvxOVZaXN/3qFFFfdwffN1nsYExUvujcrwhRqPKGCTJWzlib5LbTXb2fBEJ2Nt66KF5uCPt03EG+VybToLL/7Avg1omSQaBr4LhtNKAnYT7Kjzgf9nzphSLXpoIe021nXlHoC3RhX8/ox51MD/aJ87L3VErVdIbitavdnsfU9wKipEs7y2P5oKhhBSKG4tzvvKiJ29A5tGtYiKBn9xnPVajV8wlAndOau2yIVgnH4abHulRRMag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH8PR11MB403433.namprd11.prod.outlook.com
- (2603:10b6:610:32f::10) by DS4PPFE70B31BEF.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::5a) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 17:05:28 +0000
-Received: from CH8PR11MB403433.namprd11.prod.outlook.com
- ([fe80::b087:96e4:50ea:b5de]) by CH8PR11MB403433.namprd11.prod.outlook.com
- ([fe80::b087:96e4:50ea:b5de%4]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 17:05:28 +0000
-Date: Tue, 3 Nov 2026 09:05:26 -0800
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Kang Chen <k.chen@smail.nju.edu.cn>
-CC: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	Borislav Petkov <bp@suse.de>, <linux-acpi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ACPI: ADXL: verify component name types
-Message-ID: <auoUVk7-jBYwmvvB@agluck-desk3>
-References: <20261103114149.76010-1-k.chen@smail.nju.edu.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261103114149.76010-1-k.chen@smail.nju.edu.cn>
-X-ClientProxiedBy: SJ0PR03CA0082.namprd03.prod.outlook.com
- (2603:10b6:a03:331::27) To CH8PR11MB403433.namprd11.prod.outlook.com
- (2603:10b6:610:32f::10)
+   d="scan'208";a="6490320"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:06:32 -0800
+Date: Tue, 3 Nov 2026 19:06:30 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Raul E Rangel <rrangel@chromium.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Timur Tabi <timur@kernel.org>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v9 2/8] serial: serialize asynchronous write wakeups with
+ the port lock
+Message-ID: <auoUlkzXsl9WJG8B@ashevche-desk.local>
+References: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com>
+ <20261102-submit-serial-8250-dma-cancel-v1-v9-2-9159caade148@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,111 +103,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR11MB403433:EE_|DS4PPFE70B31BEF:EE_
-X-MS-Office365-Filtering-Correlation-Id: 819ee725-6f94-4fd3-5f20-08df39cca926
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|18002099003|10067099003|56012099006|22082099003|261009223027099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|11063799006|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: hEh6yOX2iNKgOSDfoLsOyR0qjbpwR+yoxpP62l7R1JsMkTyyC0TPIrujwPhMgz8ko7+tucIF/cxVzlruMdfjRNpq1MYm1+NS34g6yqNAhSJcrkiqah7DdTLv6R8h8GMIFX7syDoySkUvWw4ZylNAGM+t5Sm9UySWKynOwdRQAm42E4xyoefZEG01+onEaxXOOzbkAAiwql4Y2pYJR2ulJmrJViH7Pfm2fMbLOtCNmSmdaB+MwPgSScm6nwBrnR+CFV5+gFjA2IgVhAAdCp33dcmqeoClexAqA5wLhINKSplPvaJTwDBKf9SsKq11D9EWUR5y2Hjiq/L0OboZ+TOoAdkLEhKpfydvQdIONj1Evd1Kbvq2fGgg53XIhi2thyBMlhjpaAL8BiiWz6gMYHnhMHOHLU32LYMaZkiINRn8R2O2/FdM6WRFq/F3riOwXbt8iNTPs1qkwbHMUAot8gNfeijuFEJ6fuxIYbCgvhMqsVY8RyocBu7pNlbkdkVTaq1fcQ45SvygjupnMnvYEw92qiQOQ96NmjUQjhOJoCXxyeZ7bCjzMvR1/rL3t+csHNHyPXm0XVY71nHB7Kv9RVDsd8WgWZMHcad6DEoEfWTdIpw+GmM6APt8S4NTqUtUhWRmVOGdm6WMYhOfUYTAVQLJfThnVd+02nw2r+MWuQ/5c3w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR11MB403433.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(10067099003)(56012099006)(22082099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(11063799006)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?nfAxd1BI0P1p7n8FFJoMHTrGmEEn8wTyETCZy8aPDxO7CoN1SDisHSNFGXIQ?=
- =?us-ascii?Q?MZ0Vyc7MP8BEXWNAhE+TnNZ92S7WJXgT3H3gFVpapfWgLuzeyuJiFwyuwMvi?=
- =?us-ascii?Q?+opXv/Zk/hR6KOZqj9H/JcnCY8p+1XxcQYQnFf5T0wm0wUU6A8ySA7OfByoT?=
- =?us-ascii?Q?CXhK2vwwmTSnWI31rQfsj8yiPfL6PA1GzrNBcrMLoP4WPsXTd7HIoAd7aF99?=
- =?us-ascii?Q?rVe2O9nChEB2/I+U2E2TAGhNciS6TtYeAFwOv9OPGTqPwEcWKsv3ehLrVbHG?=
- =?us-ascii?Q?6/L7RqHjmtFHNkTHgCanaiwLGUS1ZG6scAOVRPWA5z17f/gYJr7zdJWvaWQu?=
- =?us-ascii?Q?QVWRNWhMj730Ts+OXlkMI5fpVM/FbaEkWGLP++RQ2LH6JwzXLuOLUaVMgbpT?=
- =?us-ascii?Q?McIsutRyY11oQZ8OdBxiHQvSCiL+uXi2YINZkMHr84nwKz91IzoUVoDpqJU3?=
- =?us-ascii?Q?hTRrvbosZWuX4yfmCcW8uxZ+ipi6lAuvCgH0NC40vNXwqG8ETGHaKOWJwN4i?=
- =?us-ascii?Q?QGnbGnOvknbQa/znX9Lo+Sn91Cp9ngneShDmTaWLzF0kPD1LtBErvqRreVjR?=
- =?us-ascii?Q?IY5J/sVgfTGqIYo6OyxIB0M2XsXIRrWgdT8zN3ozDnW+62F4/vsUnikakkC3?=
- =?us-ascii?Q?Y7DzUXVKkTxm8RME/6s/n7xPX8vodbCDqgqfutVkskd3dA1XURbabseeylec?=
- =?us-ascii?Q?7/elZsZ+4Dw9C6EvVvuTyCzvEyese2NAPfutefy6wqqrgn7zkcEgTr/+bFD1?=
- =?us-ascii?Q?pHPwrpfMQ06u/sh95gxps2vDW8Di7TDHKD+QWDCpSofTwfRsD/l2K9WQJ0NK?=
- =?us-ascii?Q?h8QdiOBjtupSMgobepFNKA0uh5JhlsEjcIwW3Tw41UB8mQL0lYY2n7Fo71ET?=
- =?us-ascii?Q?EYKHNvfbr0+4hROB/THE8xv6Q+HFxS+wLQ/WncZ49yTiie8kCCxyC+uhYbWu?=
- =?us-ascii?Q?+dq0sm4Me0vH6a2BwaUjZTYs6ww9/YPe3dR6z3uQrsUA+B9xnco00F6VHIAV?=
- =?us-ascii?Q?QBZnh6A6Kpp12GQEsXQYspho8di67R7RwotGL3Z0Zj2LL8LoC5l8+Fvn7NwJ?=
- =?us-ascii?Q?Ta7VoBRzmCVyLylSCpGelGf3jLIc2TZW8umXR5EFywps4NBNbbOFzK0/bLYL?=
- =?us-ascii?Q?qty8vCINDN2xOWSHsLe3Hh89/VaAw3fLK+IaANDyrrXinfKPXJqG9BANq69k?=
- =?us-ascii?Q?cbnE6ykD0UIJmjbEqC5fqlYTNePmBteuHjFFHAczKlrqIJcnfVjQBKh6cvpt?=
- =?us-ascii?Q?/CHMIdPOmkjkE+4L1YUpLDefbW/wWxsrqgSDC5rrYwX2qbSpzz9XFtdlJnZa?=
- =?us-ascii?Q?vG6JKQxivmr9Ym1Wta6Aqde8Yhzj2qjsXDR0ZvMf4t6P8P/rSAoSsylhZzSP?=
- =?us-ascii?Q?Zp+Xctl+ts3HhEzQPaW9zkP3zFHexAK9ce7TbKJRd4WYOBeUe8Omzd22sHvB?=
- =?us-ascii?Q?PzumuB0YSZ9sKAPFivrHZiaJmhS5qasVLFXl158D+B+93L3Avl86qyZ8V74X?=
- =?us-ascii?Q?alND/Sc66FyRGB70GeObR7uErs5DbJ+mgltagZx7B57vb5pLLsXUzcGXtadd?=
- =?us-ascii?Q?NHs+LCdExpnlIEs7dyMtQaE48WXp1K26Fu2fOAGjdPLm/90GYAQ2HZXfqpv6?=
- =?us-ascii?Q?QUYvuLVcze/SSQsJmlJm+QYAKBzAO5JkVQwolT/MwMuz9RXSAjLyMJAU5OU0?=
- =?us-ascii?Q?xK/wvzq4KfC91l/gW1Y8YnyyFpTmK4hnWKAQpS7sO3IVVDFz11CXIfnrFxqF?=
- =?us-ascii?Q?o1v7iUKm6Q=3D=3D?=
-X-Exchange-RoutingPolicyChecked: VkJ7yhy80l3o/KQCnXP3KicFYqCPOSFYFaTBZKy2SDyh5S1KCUKkMCtU0x0+Ur6zwoQkvlhf4DVHNhP1XGDAPnIuZKWklmi+bfVc2aoxakGGekmB7jb5IC7EfaArvOPNS1b6Afud9D8qKX83zVjLQQgL49pq6pAqxs/ZMmEeWqFLj5q0gTSiLM3Yywe1XHq0eBtyaB9yJMjtQr5n59zzZKAmoQm3d8BZ9mtobOV/ES+DEpo13cH7Yr9IozGpqDB29s+3mFntzNSMpqjpEU7Ns8gXN4AH/jfD1z0goGF5H7qcyDoJu0bPia2ml2a8tyl1kEej60q8KgeIJ4LdRS7LSA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 819ee725-6f94-4fd3-5f20-08df39cca926
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR11MB403433.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 17:05:28.4663
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1GmF69ZnnQECEP2tMw7jt1OkXR/wxzvyygMwXUygSvDwwXRTk7/QO/3oezoDYxUptVUYqmFrLMFHKN9bHvLuKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFE70B31BEF
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-submit-serial-8250-dma-cancel-v1-v9-2-9159caade148@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 03, 2026 at 07:41:49PM +0800, Kang Chen wrote:
-> adxl_init() stores p[i].string.pointer for every component name
-> without checking that the element is a string.  An integer element
-> makes the pointer the integer value, which adxl_decode() consumers
-> dereference with strcmp() and %s, causing a wild read during boot on
-> machines with an ADXL object.
+On Mon, Nov 02, 2026 at 04:14:29PM -0700, James Hilliard wrote:
+> uart_write_wakeup() expects the UART port lock to be held. Several worker,
+> DMA completion and interrupt paths call it without that lock, including
+> indirect calls from uart_handle_cts_change() and the transmit helpers.
 > 
-> Reject the interface if any component name is not a string.
-
-Has this ever happened on a real system? Or is this just an:
-
-	"AI told me there was a *potential* bug" 
-
-issue?
-
-
+> Take the port lock around these notifications or their transmit helper.
+> Keep sleeping SPI and regmap accesses outside the locked region, and keep
+> the FSL LPUART completion lock held through its wakeup. Acquire the port
+> lock after releasing private channel locks to preserve the ordering used
+> by UART callbacks. In the MUX timer, publish available FIFO space under
+> the port lock and keep the hardware FIFO-drain wait outside it.
 > 
-> Fixes: 4cf841e39850 ("ACPI/ADXL: Add address translation interface using an ACPI DSM")
-> Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
-> ---
->  drivers/acpi/acpi_adxl.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
+> Use plain port locking in hard-IRQ handlers and in helpers whose callers
+> already mask interrupts. Atmel status handling is also called during
+> resume, where lock_suspended is acquired with interrupts disabled; JSM
+> interrupt processing holds its IRQ-saving board lock. Keep IRQ-saving
+> locking in workers, tasklets and other mixed-context paths.
 > 
-> diff --git a/drivers/acpi/acpi_adxl.c b/drivers/acpi/acpi_adxl.c
-> index 13c8f7b50c46..de646b312eba 100644
-> --- a/drivers/acpi/acpi_adxl.c
-> +++ b/drivers/acpi/acpi_adxl.c
-> @@ -184,8 +184,17 @@ static int __init adxl_init(void)
->  		return -ENOMEM;
->  	}
->  
-> -	for (i = 0; i < adxl_count; i++)
-> +	for (i = 0; i < adxl_count; i++) {
-> +		if (p[i].type != ACPI_TYPE_STRING) {
-> +			pr_info("Bad component name type %d\n", p[i].type);
-
-If this really happens, then Linux has a way to point a finger at the
-source of the problem:
-
-			pr_info(FW_BUG "Bad component name type %d\n", p[i].type);
-
-> +			kfree(adxl_component_names);
-> +			adxl_component_names = NULL;
-> +			ACPI_FREE(params);
-> +			params = NULL;
-> +			return -ENODEV;
-> +		}
->  		adxl_component_names[i] = p[i].string.pointer;
-> +	}
->  
->  	return 0;
->  }
-> -- 
-> 2.34.1
+> Take the port lock after requesting the ST ASC interrupt and hold it
+> through startup's transmit servicing and RX interrupt enable. The transmit
+> helper can notify writers even when the FIFO is empty, and serial core
+> calls startup without holding the port spinlock.
 > 
--Tony
+> Use IRQ-safe locking in the Atmel RX and TX tasklets and SB1250 termios
+> path, since their interrupt handlers now acquire the same port lock.
+> Preserve the caller's interrupt state when releasing those locks.
+> 
+> On SB1250, lock modem-state updates after reading and filtering the change
+> status, and wake modem-status waiters after unlocking. Take the TX lock
+> inside its service routine so RX-only interrupts need no acquisition.
+> Keep that lock across x_char handling, FIFO consumption and the decision
+> to mask TX interrupts: a writer must not enqueue data and enable TX between
+> the empty-FIFO check and the interrupt-mask write. Each TX invocation sends
+> at most one character.
+> 
+> Serialize CLPS711x TX servicing and its interrupt-enable state with the
+> port lock. Disable TX interrupts without waiting in stop_tx(), since a
+> threaded handler may need that same lock. Have an already queued handler
+> leave stopped output untouched, and drain it outside the lock during
+> shutdown before the transmit FIFO can be released.
+> 
+> SCCNXP handles interrupts under a controller lock which its UART callbacks
+> acquire with the port lock already held. Collect the ports needing wakeups
+> in an unsigned long bitmap while servicing the controller, then release
+> that lock before visiting the set bits, taking each port lock and
+> rechecking the wakeup threshold. Removal drains the IRQ or timer before
+> unregistering the ports.
+> 
+> This serializes write notifications with port-locked serial-core state
+> changes, allowing readiness and transmit-storage reservations to gate the
+> notification without a check-versus-shutdown race.
+> 
+> Cover DZ TX servicing and JSM Classic modem notifications as well. On
+> DECstation ZS, acquire the port lock before the SCC lock and notify writers
+> after releasing the SCC lock. Defer normal TX restart after console output
+> to a worker, since console output can already run under the port lock.
+> Check transmitter readiness before consuming another character and drain
+> the restart worker during shutdown and removal. Release Lantiq's hardware
+> lock through the transmit helper's completion hook before notifying the
+> line discipline.
+
+...
+
+> +++ b/drivers/tty/serial/sccnxp.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+>  #include <linux/err.h>
+> +#include <linux/find.h>
+
+Try to understand what AI is trying to achieve and why it compiles.
+The above is wrong.
+
+>  #include <linux/module.h>
+>  #include <linux/device.h>
+>  #include <linux/console.h>
+
+...
+
+> +static unsigned long sccnxp_handle_events(struct sccnxp_port *s)
+>  {
+
+> -	int i;
+> +	unsigned int i;
+
+This change seems unrelated to the patch. Again, slow down and READ what AI
+produces before sending, please!
+
+>  	u8 isr;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
