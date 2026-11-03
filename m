@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721207;
-	b=ixwgY9ZTCOO8fTbl9aT27LVtC/n9710wGs5B2YPjzKwFs5imfdrCV8d5ZwQR5O3MT+AJ
-	 TEpCV2rgWjiR2C1+uXBO9hGtuyKvHdf2sILiWpoDf56O2aXI1ZAM2AFzy/o7lsYs0avMh
-	 0x4jnizin93/wO7KAfqZCJV2Q0gLsU9TELP49O4o/kTakt0CCieLttSnRTTpCF8pflUM1
-	 KrfEVPYi5epeKkjydEvQ+hTnglkq/ft0trU34Jc7+y59CALQdq/dxf+FCnhlBamhYgPh2
-	 JxR5s9JR6LKI/xqbK2Z8hLbbSImMtcxjPaKjwc0+lz3+LBvvat4SO9JJBh16b2fU30g==
+	t=1793721211;
+	b=qCwnNodPvz3hQNOXm3yZBn+1pcdR77f3b8Kjyv2QcQnC01jzNgh2kONg0iVd1pGBEMfJ
+	 effu1mnB6SzCTDH//N3FnFWlJGCgvEteOrw9xYAmvGRgcK+iyQ+iJ2O9wnMbZVHPwrnm8
+	 8M4lwoCg1coBrSaHR0lSMxwRrbi/ZreHXfvxqzQhJvoJJb89ZT25lz26e8Jdk7//cWS5q
+	 OoU1RwEgKevv087QhT9AmycqNic47XCqO+T3FivwGqZq8XZvcRj0q3F41MEiMNEQ0jaLY
+	 tbUMbu3tDwSf2mkvxKqvVxfQi0uTm51ddM9wa2/xho4n2oAppirElUsvYxUIZcF/yrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721207;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721211;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=zmgOx3DOkVSwagY2PRIacCzKqEPjbIHBYHXTptn9QVw=;
-	b=4A3IEQ+ypUZfWlO1bLD2ydtyu7XozlPVZLtn3Mvm7kSXrNqafik7TURcq9ocUKESWM/C
-	 uObZb94opd6hXny/2QiBpVzbjfOnfDtBTJCPpzrUE2aAIkv0JZVOjdt8FIiWJOKBnFRGg
-	 XzzI8WAS/jxaEvaq7Tlb364yJSuy/y0btB6Uff8FlhWE7aH94kQy2LVOnRdxdQpZx/Wxq
-	 x2dyjO6NG/K90cO03M3SnckH0W0U1Fm+lxnmhgSlzMsaCgll0d1Sr0qUXJCW63hcsBcnP
-	 ry6poUutbQr4HcyLvKT9+ig546xd7v+dfQTk6nbolSsvVjjD4U0r8OvQl0sIrPZI43Q==
+	bh=QOWQN6KK00fNNA4WnFOnqK7uxhM/XkYooxesvFiwoQo=;
+	b=CU52SNOyftuHkhXbBHa/Ff5baGzxPNFDQGJfxvn8B0OlqaKCtazMusZ7RwpMTv5cHqbe
+	 ocWeX22uAMGwf4hE5cXOQOiyQfxMK2xEnjNtK41+ClG9WIqq7HW1ApW7VT5TO7VByoEh4
+	 yOWYF5jPL3wQn2fiDUIuOTE1tFRyoZSaZUOxTtsv1HA+g7K0AtMsIAXVLEZbQ+7OYlTrm
+	 93xXlRJMlzaQApbVO6/ol6F1OSnAHF7n/uvJ8r9mCYXFvq96HaSWTUWfERIqWUA86SIm1
+	 0cIatqn9ODr58mNIkb4DJ4525wopeuKvJKNA3s8OcLzrfpHQ/fZFLaegZ5iVi2mqssA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yecahwDX;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MyGZzUlA;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFF5606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:53:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECFF5606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009D9606D81D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:53:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 009D9606D81D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yecahwDX
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4af52002471so9253325e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:53:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MyGZzUlA
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a73fdd2966so6681295e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:53:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793721205; x=1794326005; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793721208; x=1794326008; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zmgOx3DOkVSwagY2PRIacCzKqEPjbIHBYHXTptn9QVw=;
-        b=yecahwDXyL4ixwjwAtwXtbzFW4oCartcs77hkEkNndr/+1B9/2ER+Goy8hgElFvZcp
-         4PANlbS+T5MWn9GWy1sLu/scTX+ZuZsledXUZo4y+t4NQmFj+umbmxqoXieVvWXPC6JU
-         kajMYHvs72ea8bvnsPsYipzb//43xDBUPNWjBH8vwMHfzTYNiC84PTbnWcF5/mPc1Ozo
-         3fcrzoniWqx7iUdoVWz68jjQn8ILPVp4+b59gw60wG1NwDvWybW9x3BSTCZzthBA2/HP
-         xrrkG2zyPVLK2SYxovLADOzd5fP31/EDWT1OHTOMgF/RG1QuZVcIaKCLl4hK2PsXb4kO
-         Swbg==
+        bh=QOWQN6KK00fNNA4WnFOnqK7uxhM/XkYooxesvFiwoQo=;
+        b=MyGZzUlAm7mGaAffU7lQ5/xQVxY15KLM+smR4NBoA3b9fUecWINdq5vcshpM6GfHDP
+         HSgOoheRqoDZqlrDML6cFrQ/aitRqflHVURMNeo9ujCgKp1PLCh7DdE0FHB3ttnVHHnC
+         aSt1h/PmOWmJ8KLDGlJgoZ3d9H+yG3OH9E0kLt/A/wB5dGqMUB5XYyVTvOjuXvc5lC5W
+         mv6Fu5kXB8/IpGIh5Q4icplFOTnM4IK7b7F3gAdzH2SYJ0LqC9G3v7Cprox26CTBIH8d
+         uz0vXwRe6EXzrSspMTf9yG/tEquga/zO6vVBUlnRo7aKv+0BBIpCfpJd4sIIWE6hVSim
+         w+SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793721205; x=1794326005;
+        d=1e100.net; s=20260707; t=1793721208; x=1794326008;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zmgOx3DOkVSwagY2PRIacCzKqEPjbIHBYHXTptn9QVw=;
-        b=PX3WbCpieQfQcV2h6eYDznixggix7iiQ1yfj79vtZW8ap/uIIp/AjF3V3Tri8lyDo+
-         Y7nhoYwvUZLem84I4eXIi/+KFUqT7tEAyhmP4r6+cDsAc3ariq1lkUse2eBsgM4JoxMH
-         xfqrEplKBsTk03HJLBIUb071V2cGTrE2PIAiw5bd5DhArGOjyMr05B27HPvUkGEo/WIm
-         ZpwVadGrpE0Tn1NKyDC3f55DwLA/IA+c70dzNsOMR5Uppzcj6uWBVjeVCq48QErrFcph
-         v02pCSH9j7oMLFWdZxlRodn5Kixz0uLCubeao79NyKrdP6ApmeiMfPqs1jFbEsc6Cdd6
-         f/gw==
-X-Forwarded-Encrypted: i=1; AKwUvBw/LXrga8odhW9b9DpiDry3b/QxlQa+V4QTTnmTbfKwaAtRAtbTqmd0F0jVHdRCVd+cV24ONENm7xGQMYs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bYlRGTZjAaiOYHJtoBBbEjCO+etXpd0ZHmlZ7Um6OGE5OAFua
-	p2WgbY0CXqcHeuxx5Lyqo2uVuDufWD/JKkgIvDWxDSxxEqmed8KxZNNS
-X-Gm-Gg: AYBFou23Mcf9LddFpv7+CyToxEgUMhUENCVjUGlNpCfifcH9jx9FEa0Mkf28ErPXY9+
-	2bdAgtn4SiVxRSTjd0gwjLpDmxIL/ywMDh5D3FrplZkcFS8TN9j6S1HegZpMmp6qy+8i1vGjjLQ
-	7DFvatqaEoYXsyYAhwmVn8VCQfyU7KVvSlRMwjYDKICjFtRCi4+cbBNqUryGNbzYheiYUYjTU2m
-	twwVFY+DOT4g8dCdpCAAv4UaB/9tdrbDndPFRTUTFQd1OXRVWVUOH/KrehUk/3YWQ8rxyBd3RSy
-	oKBBGLbihXSzIljelLLgHhk/vO8LtSnY+l0wk6zbcswSyJAybWGZkehsmZrwi4Yi2NIEjvz671M
-	UzyGrMTtM2ZUJmUi6jPvzhAb9E2UifQqRaWZV3CXBusILq2xic8KUoENBRG+/j+ZKURiJSBUE20
-	kVc/umCznuzs73BnahFpCiX/gy/QKjAYdzMaRB7H5HfLfuGj7MmFCOB9o/fcy9Be8GW1E5ZY+T6
-	rvyGo3d9cdoxN+mUt3ycs7qkeg2z/jcuEqAC1K7omJIWofy+5Wk/DEhkySv7fZ1C134R8Xe/Ao/
-	dloHV0nVieu2lYx+n/U5KhxXlZAUJc65k3bHS7KUvDvaL01cYlQ=
-X-Received: by 2002:a05:600c:4897:b0:4ad:5ec2:d3b3 with SMTP id 5b1f17b1804b1-4ad5ec2d3e4mr152905945e9.1.1793721205339;
-        Tue, 03 Nov 2026 07:53:25 -0800 (PST)
+        bh=QOWQN6KK00fNNA4WnFOnqK7uxhM/XkYooxesvFiwoQo=;
+        b=j1e1l4fOVNFpkZ4xqo9Q3i69/if2Dx1DQObUSKZ9TBgYKHgB9LoT4+YYGry6aZlZhL
+         odNE54TmeoAfnHwaGXW2+rFlnEAG6D/X84WIrMylArlFC8qt3BxZWd2dRogwqDuqnooH
+         2+7EK/l+lt9xSh0+imkJAY0tDboQb7KNYndF6kZWpf0x/g1JEsG0yF+ndmzNWeOTHBV5
+         cTGGBu+Rfu6zk6EOmg44iHc/mtDk+4sJ99LD0rfRFZ18yesNbxWgBspUG83eZTCxGlen
+         AzDGK1/nSgvEnwqOa39oIVbhYF2vRVclthIs7U+Y8I3Uc8eugjoFVMhK92/4Ad5l/bB6
+         TPcA==
+X-Forwarded-Encrypted: i=1; AKwUvBwdhkFD5to3clSYOpX72Zfjn68VK5UyUISny9JQ1cEhEYz0ZTHPsCYSOFzuQPVbzZqDhg3V+urrwQKR4fw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zc+9/gdN9xrMvLbgpAM3Qs2/+FgwruaUF4BbCJS5K7BMgOvlu
+	1mYZzCcFYyaYMHBgvCDKVRZiWjDsB05fxP3f2CCN//YqlFITwkxvMybF
+X-Gm-Gg: AYBFou0jfCEN55lOB4ri0b8PwCa4s4XWplV6O9Pmt4DcHOAJ022kOK8N3yzzHEXRD+h
+	jlyAatQzlHTrqJGGAX0aDefl7IaSncjpwL9F/o6/uZZwrsj6FoM9QshbtVjhajS3jvR6d8dnsWe
+	UbIi728ZPzqYeq2A9ql5zHPxhYztTQjOpqcQaT2IH6imZPEj22OcD+7AvmioWLMcseF2nWrbJVK
+	7F6O4A6E6WJHd4fTN8WpB4cwIZrPnEyiR2IOX9dWfe1KTWK7GDFzWotDT43rIg87J1VcHrlG0lV
+	djsuxpIYLMc9iDd7TreuITJSoirGJ3Vpb6S5FvEFOzVU4SzFVU0YdblDMZ5ECPRTdfgsR+0Z0Jx
+	yhN4kF3lafqXW96+dvBsUWf8kiXLJxHpxCB466RZDDuB9WvevWdBWI79uvuQ06r+JbZfmR2XkS3
+	v8Z2DqEbFJJ5O7ZQr3dYSdQawYEK99S7jrR5RHyUePu0OA3DkOpFCxgdBCtTxoEdfi72KbnUPUo
+	AnaAIHjYhFOjdcVjl2ZZf7UxLg69XOUrnNakfCnpJCZu80lcCooJnRlwlt5H+fIPTNTM+91tVZ8
+	IV1FlmGPyxnkIcCkyU+IA90nrCDM8PLbuchs+bowIQo/bsqn0Qtytyz4ZakRi04ud4kSdzW+
+X-Received: by 2002:a05:600c:a010:b0:4a1:7dcf:be1f with SMTP id 5b1f17b1804b1-4ac166ee4d6mr304046925e9.1.1793721208244;
+        Tue, 03 Nov 2026 07:53:28 -0800 (PST)
 Received: from Termis-ROG-FLOW-Z13 ([2001:16a2:4495:e600:1209:ec98:a2b4:9c5a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a879f401sm63777815e9.5.2026.11.03.07.53.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a879f401sm63777815e9.5.2026.11.03.07.53.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 07:53:24 -0800 (PST)
+        Tue, 03 Nov 2026 07:53:27 -0800 (PST)
 From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
 To: Mario Limonciello <superm1@kernel.org>,
 	Alex Deucher <alexander.deucher@amd.com>,
@@ -100,9 +100,9 @@ Cc: Bin Du <bin.du@amd.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-Subject: [RFC PATCH 1/3] media: i2c: ov13b10: add an I2C device ID table
-Date: Tue,  3 Nov 2026 18:53:11 +0300
-Message-ID: <20261103155313.114347-2-saif.elden.hatim@gmail.com>
+Subject: [RFC PATCH 2/3] platform/x86: amd_isp4: add the OV13B10 (OMNI13B1) board configuration
+Date: Tue,  3 Nov 2026 18:53:12 +0300
+Message-ID: <20261103155313.114347-3-saif.elden.hatim@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
 References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
@@ -117,44 +117,180 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On AMD ISP4 platforms the amd_isp4 platform driver creates the sensor's
-I2C client by name ("ov13b10"), with a software node and no ACPI
-companion. The driver only has an ACPI match table, so the I2C core
-does not bind it to that client.
+The rear camera of the ASUS ROG Flow Z13 (GZ302EA) is an OmniVision
+OV13B10 behind the AMD ISP 4.1.1, exposed in ACPI as \_SB.CAMB with
+_HID "OMNI13B1". Like the OV05C10 reference platform, its ACPI device
+has no resources and no endpoint graph, so add a platform
+configuration with the software-node graph for it:
 
-Add an I2C device ID table so the driver can bind to clients created
-by name. Nothing changes for ACPI-enumerated sensors.
+- I2C address 0x10, where the sensor answers on the ISP's I2C bus (the
+  camera's _DSM also returns this value);
+- a 24 MHz sensor clock, the rate declared for the OV05C10 reference
+  platform;
+- four CSI-2 lanes at 560 MHz, the link of the ov13b10 driver's
+  full-resolution mode.
+
+If the host ov13b10 driver binds to the sensor, it currently accepts
+only a 19.2 MHz external clock, so it does not probe with this
+configuration until it supports 24 MHz. The sensor's reset GPIO is
+registered by amdgpu together with the other ISP GPIOs.
 
 Signed-off-by: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
 ---
- drivers/media/i2c/ov13b10.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/platform/x86/amd/amd_isp4.c | 127 ++++++++++++++++++++++++++++
+ 1 file changed, 127 insertions(+)
 
-diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
-index 242a95834..d33fb7032 100644
---- a/drivers/media/i2c/ov13b10.c
-+++ b/drivers/media/i2c/ov13b10.c
-@@ -1706,6 +1706,12 @@ static const struct acpi_device_id ov13b10_acpi_ids[] = {
- MODULE_DEVICE_TABLE(acpi, ov13b10_acpi_ids);
- #endif
+diff --git a/drivers/platform/x86/amd/amd_isp4.c b/drivers/platform/x86/amd/amd_isp4.c
+index 0d4948995..6b850e0fc 100644
+--- a/drivers/platform/x86/amd/amd_isp4.c
++++ b/drivers/platform/x86/amd/amd_isp4.c
+@@ -19,10 +19,13 @@
+ #define AMDISP_OV05C10_I2C_ADDR		0x10
+ #define AMDISP_OV05C10_HID		"OMNI5C10"
+ #define AMDISP_OV05C10_REMOTE_EP_NAME	"ov05c10_isp_4_1_1"
++#define AMDISP_OV13B10_I2C_ADDR		0x10
++#define AMDISP_OV13B10_HID		"OMNI13B1"
+ #define AMD_ISP_PLAT_DRV_NAME		"amd-isp4"
  
-+static const struct i2c_device_id ov13b10_i2c_ids[] = {
-+	{ "ov13b10" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, ov13b10_i2c_ids);
-+
- static struct i2c_driver ov13b10_i2c_driver = {
- 	.driver = {
- 		.name = "ov13b10",
-@@ -1715,6 +1721,7 @@ static struct i2c_driver ov13b10_i2c_driver = {
- 	.probe = ov13b10_probe,
- 	.remove = ov13b10_remove,
- 	.flags = I2C_DRV_ACPI_WAIVE_D0_PROBE,
-+	.id_table = ov13b10_i2c_ids,
+ static const struct software_node isp4_mipi1_endpoint_node;
+ static const struct software_node ov05c10_endpoint_node;
++static const struct software_node ov13b10_endpoint_node;
+ 
+ /*
+  * AMD ISP platform info definition to initialize sensor
+@@ -245,8 +248,132 @@ static const struct amdisp_platform_info ov05c10_platform_config = {
+ 	.swnodes = amd_isp4_nodes,
  };
  
- module_i2c_driver(ov13b10_i2c_driver);
++/*
++ * ASUS ROG Flow Z13 (GZ302EA) rear camera.  Its ACPI camera device has no
++ * resources or endpoint graph, so provide the same complete software-node
++ * graph used by the reference OV05C10 platform.  The ISP supplies the
++ * sensor clock at 24 MHz, as on that platform; four CSI-2 lanes at 560 MHz
++ * are the link of the ov13b10 driver's full-resolution mode.
++ */
++static const struct software_node ov13b10_amd_camera_node = {
++	.name = "amd_camera",
++};
++
++static const struct software_node ov13b10_isp4_node = {
++	.name = "isp4",
++	.parent = &ov13b10_amd_camera_node,
++};
++
++static const struct software_node ov13b10_isp4_ports = {
++	.name = "ports",
++	.parent = &ov13b10_isp4_node,
++};
++
++static const struct software_node ov13b10_isp4_port_node = {
++	.name = "port@0",
++	.parent = &ov13b10_isp4_ports,
++};
++
++static const struct software_node_ref_args ov13b10_isp4_refs[] = {
++	SOFTWARE_NODE_REFERENCE(&ov13b10_endpoint_node),
++};
++
++static const struct property_entry ov13b10_isp4_endpoint_props[] = {
++	PROPERTY_ENTRY_REF_ARRAY("remote-endpoint", ov13b10_isp4_refs),
++	{ }
++};
++
++static const struct software_node ov13b10_isp4_endpoint_node = {
++	.name = "endpoint",
++	.parent = &ov13b10_isp4_port_node,
++	.properties = ov13b10_isp4_endpoint_props,
++};
++
++static const struct property_entry ov13b10_i2c1_props[] = {
++	PROPERTY_ENTRY_U32("clock-frequency", 1 * HZ_PER_MHZ),
++	{ }
++};
++
++static const struct software_node ov13b10_i2c1_node = {
++	.name = "i2c1",
++	.parent = &ov13b10_amd_camera_node,
++	.properties = ov13b10_i2c1_props,
++};
++
++static const struct property_entry ov13b10_camera_props[] = {
++	PROPERTY_ENTRY_U32("clock-frequency", 24 * HZ_PER_MHZ),
++	{ }
++};
++
++static const struct software_node ov13b10_camera_node = {
++	.name = AMDISP_OV13B10_HID,
++	.parent = &ov13b10_i2c1_node,
++	.properties = ov13b10_camera_props,
++};
++
++static const struct software_node ov13b10_ports = {
++	.name = "ports",
++	.parent = &ov13b10_camera_node,
++};
++
++static const struct software_node ov13b10_port_node = {
++	.name = "port@0",
++	.parent = &ov13b10_ports,
++};
++
++static const struct software_node_ref_args ov13b10_refs[] = {
++	SOFTWARE_NODE_REFERENCE(&ov13b10_isp4_endpoint_node),
++};
++
++static const u64 ov13b10_link_freqs[] = {
++	560 * HZ_PER_MHZ,
++};
++
++static const u32 ov13b10_data_lanes[] = {
++	1, 2, 3, 4,
++};
++
++static const struct property_entry ov13b10_endpoint_props[] = {
++	PROPERTY_ENTRY_U32("bus-type", 4),
++	PROPERTY_ENTRY_U32_ARRAY_LEN("data-lanes", ov13b10_data_lanes,
++				     ARRAY_SIZE(ov13b10_data_lanes)),
++	PROPERTY_ENTRY_U64_ARRAY_LEN("link-frequencies", ov13b10_link_freqs,
++				     ARRAY_SIZE(ov13b10_link_freqs)),
++	PROPERTY_ENTRY_REF_ARRAY("remote-endpoint", ov13b10_refs),
++	{ }
++};
++
++static const struct software_node ov13b10_endpoint_node = {
++	.name = "endpoint",
++	.parent = &ov13b10_port_node,
++	.properties = ov13b10_endpoint_props,
++};
++
++static const struct software_node *ov13b10_amd_isp4_nodes[] = {
++	&ov13b10_amd_camera_node,
++	&ov13b10_isp4_node,
++	&ov13b10_isp4_ports,
++	&ov13b10_isp4_port_node,
++	&ov13b10_isp4_endpoint_node,
++	&ov13b10_i2c1_node,
++	&ov13b10_camera_node,
++	&ov13b10_ports,
++	&ov13b10_port_node,
++	&ov13b10_endpoint_node,
++	NULL
++};
++
++static const struct amdisp_platform_info ov13b10_platform_config = {
++	.board_info = {
++		.dev_name = "ov13b10",
++		I2C_BOARD_INFO("ov13b10", AMDISP_OV13B10_I2C_ADDR),
++	},
++	.swnodes = ov13b10_amd_isp4_nodes,
++};
++
+ static const struct acpi_device_id amdisp_sensor_ids[] = {
+ 	{ AMDISP_OV05C10_HID, (kernel_ulong_t)&ov05c10_platform_config },
++	{ AMDISP_OV13B10_HID, (kernel_ulong_t)&ov13b10_platform_config },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, amdisp_sensor_ids);
 -- 
 2.56.0
 
