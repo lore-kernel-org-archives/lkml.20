@@ -1,93 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793677752;
-	b=DQhD7J1DxB3nbKBX9i3XFlKbTpVQ1fsbVslZLOuGtmYAQACDPUnJjxmj/Z2DbloiTP+k
-	 ChVm4TRwwrnS8lypg5uNp+KTzBP13FYRPPDXVZl3mYUN4HONZsPqGmTFH/z4VBHlfOpPp
-	 J/BRnHkob0gtU/1Ljv/t3sHDPZehbRcfDGMVaJ9DrMPuvbLrU+cLfPh01EK8+llb2/3mZ
-	 bG3xFeE2o4od30dq7IbSVxfTT8jtlq/VAQGhxQc+Xk17eXvJuN0Y+T0vPbqoVd+c+FLb9
-	 9PoNImhb9A/0OHH5O+soVSMBWY0I9t934Do1LuXJO1sM0h/0qo3yootMjhJRBxK8EHQ==
+	t=1793677780;
+	b=QOVQDEZVTVlE+l06wABiruP35eAdYXtfBxER60O2G9ABSmtfwT7+OnZVN2z3aROdktX5
+	 4txJrEQx4PGY5XhxmhtHp3+eSmYxLCSCR3KLsyYamzP3na5D+Tf21XLPa4EU3JbQvJobr
+	 BGlKzLdPB/mfX+lxmwL8sWT+0+1aqa4jcCdnCF7Qi++1qqOiDTUja8Nmfunlw0ly+HZeb
+	 88DhJmPU2T7yO/CdQygxR+6CCAzwAd81bR054ri5vU5KC7+Se0u2ZvjjW3ojlvX90pG50
+	 jHhkBSuQijhPDIATMzZSYAORgWaV++RngyPpV5WtPSH06+EWXKaQCLXeig8tPedQgSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793677752;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=xlANKc/hUsDyqlrzuS4pvu9SPatWxo1EtaTcINdrPck=;
-	b=PNwOY80cmyk+KX/ctvpgLV2dqIm46r2sPihzAjMKWE2ONmjQlIzrYVKwQrsUkzuvRuIs
-	 8mU4UfU03K3E1d/S+9E9Ay31jpznNeJQrDATRr9+5e7Z2XjysgD2Wsf+PApIflC+6WeKJ
-	 2fOhRhhoQap5NPCjjaCInz82jk0uN1QMO0nr7I2IPn5clhCJ/zGxgewh8Oq2CByDol9zw
-	 7O35NRY+tm4WLHFqPtM+G9KE8ezc5uR6YDmMf5T2R7fxjpvd7E8Q8vFzoF6w6j00D2KRk
-	 FMUqH5ZIJ81yjY4REsepphvUQjzcPmcrVWmO+KSXbdPz/ceydYPk1cIhYTSN1bGph+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793677780;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=DZ/NX7uo8xloLOcGc8uQxWAK76padB8qKwhdHOOlzHc=;
+	b=FqneM9JO1CZ8Rpi33o75nJ5bTZczBynXdubQuk4kjplFGL6ikyEUuDUPMrHe7KxEb24X
+	 VrasZ++LTvTsybEacKMnTdpQHCz85JUz7KJAzJP9jaNmvqSbm33ZbidQ1i3M0+3034c0+
+	 Fpo9YKbfRKpPVMsTjwK9tffElYSu7Y1aQIp1CooYJtqLZ5z5fODaLCGOuPKSLSSINUMQP
+	 hIEiMkIhb9dLuOE9K59LX4oq7weFY1kLRqxV81s+hmH210+BLzifhYgYs9+rGybIlzMAK
+	 8MjUYc7+oNvCwtyH0VLa/pJn3PgTms+DLJ2S2Am/2a5Wxy0JuyA7DETKiyKpiPMFKyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b="hC52/YqU";
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jVXtSxUK;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Qsd1z/Wd";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E9A606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:49:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9E9A606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E96606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:49:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61E96606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=hC52/YqU
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93f3c8958d5so451474985a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:49:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jVXtSxUK;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qsd1z/Wd
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A32om7F2609157
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 03:49:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DZ/NX7uo8xloLOcGc8uQxWAK76padB8qKwhdHOOlzHc=; b=jVXtSxUKddlNgSq9
+	kpw8LMVJBMHdzSvYSjLUNvlr2VLJQJas7CrSh/IMyiVlyDVcE7I843TVHxQlneGm
+	GICWBw0Db7gQkK/TqffKoDX5HfoNesmgtuhz2DHLQegvBfOKI1Qorp+yN5B30qIk
+	lm3oE91pt6jQ2y3z0MLuQ7IuAazgv6liCmXM81JCeX0RiiL0MfLUAN6xqy/Lwj4M
+	CS580V4m1b8JsJD3xNYkQ8l18t08tRgQ8ztnEKzowDQwap2bchnfHELCk1zbJV9s
+	eCzoc4pFrhoo+WlpudCjRJCzYRYF+KfiFnO+ovXCtqTMIHQ2YFSK+KwaTuoKpuuB
+	Z6RW8w==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq76d85y3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:49:39 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so8471213eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:49:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793677750; x=1794282550; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xlANKc/hUsDyqlrzuS4pvu9SPatWxo1EtaTcINdrPck=;
-        b=hC52/YqUVgi5zyfeZsh2Sa1tBvxb6geWgwGIsR9akKn7Qd8A6Wm9GYov0aUhLX80LG
-         /52Z9KUU3EBRRpekphMoymY8hS7Sni+RjFa7eVGSPoWRCG4edwqloOFBhbqs4QP8Y9FN
-         WMkbYiIz7cwz2wQsHX1tAr7EaaiyvR7gLZeUVtgThYoSVEmWB+Tepx2qPTOLWSzkw4ou
-         zkAMCBYwfTz6AXMrDVjtH9+GEqfybQIUb+n/Rh/dR1VeLo4Sd1cFqDF2JyVuy/coCOJr
-         EWzBH76iTxP3nLEXrVp8bj+kajI3KrE1eurboGLqz55lJSy25hjdrvCfbWnX7K4cdJvp
-         MABw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793677750; x=1794282550;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793677779; x=1794282579; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xlANKc/hUsDyqlrzuS4pvu9SPatWxo1EtaTcINdrPck=;
-        b=HvPeifauzRRWFpNhhE1ZEgOAN3OkvGdNfpRfwTodVPaBHb5I5VzMKmvij/KGDZ94VF
-         +dOqfkeRB4irof4NZa5JetHVl8qFhSxab85hLfTq6YhRtHgD5/PE5g9OxtxvIgXDhbL+
-         ajOpoujOu8FZZ3IPeqmeBL9+MggOPwejo7TB3e1GmVcLwKt8TNi3yop9QJEmbTSxOUIt
-         eaAAozQJzkAtNC/xEDsqzb4m798ibKtszNIiJOeIib8VtUbkh5d3wdaM/+AvO7wy3kgA
-         6D3PhaeQcQHVJJsvQZzJ0qI8OFs9ofdjY/xNu9TeMoZWMshf6ezGMD2D3vOtdLWNjo1v
-         SdTw==
-X-Gm-Message-State: AFq9FYJ1JP3Xhd67n9JjY1DM3PiooeGpUmZjN+/EX2b0qYSArlujqBbw
-	euNFPbfsg4Ngty1x44c8z8voRZnanwEvRmNaRnFnqU7RaRPJsJtuLHjUM4V21ldoArf9Wk6O5BB
-	EFmvk0A==
-X-Gm-Gg: AYBFou1ITjT8ja9B0vSIIOvlLfgZ3npXZ26rdcQPyaPCg6VPLaemcDwEgHGuSZ0i/f5
-	7cg/Q+7nK2OlnvdilooSNWKGrfApIXrznbJsNFQN3tDnHF9hCPLr4rXstTHHM3RpxetHvLIuofE
-	TtGvM9NTHLgDpOi5pFAw6lHFxEb9/gxFIrLyv/2mPFztcq8GGghkV78IDmyl0/lGtBsPvZRus5a
-	/KNPun4alJduHA22Gs2w4gYbqRT2UMwIJHOwVmUbErpXOwh3K97QALqz+2zUdkFgR9b4SPPy6wj
-	uvO2mwKt8PFgUQcavAhOxeZtkoJw94tRcurJp7zf1aozdTG582kXGuaQt/V7iiNdfPZrQXzxny8
-	vhb7J5nrW5VnGyKu0fCbiknWicxByeoYpsgocEs85JkHQ2AKGgP6qKARHXK3oe5tRTK5M3dfAaF
-	5JMkZ6dHcK4TwdjCY9oatgGhIgOxZH9LjZXCcSEdGKnrcGNxByvi2cJ1wPstwCniL5UiodJ4I+I
-	Rxg65yyXYWC5sd8P74RNlFx6iJ6pnZNj3wGU7WqvbokNpaPvydZv4u6O+1DeMBTgkPOaDx3haMs
-	kNaN13xs/xsCiqzpsDGyUovMBR6S
-X-Received: by 2002:a05:620a:370b:b0:93f:1af1:7951 with SMTP id af79cd13be357-94421729826mr1933039785a.66.1793677750486;
-        Mon, 02 Nov 2026 19:49:10 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425a6b9b4sm987221685a.26.2026.11.02.19.49.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 19:49:10 -0800 (PST)
-Date: Mon, 2 Nov 2026 22:49:07 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v2] USB: ohci: ohci_pdriver.h: fix missing kernel-doc
- comments
-Message-ID: <02148858-defa-4c15-92e5-0ce7029bc000@rowland.harvard.edu>
-References: <20261103014710.2451967-1-rdunlap@infradead.org>
+        bh=DZ/NX7uo8xloLOcGc8uQxWAK76padB8qKwhdHOOlzHc=;
+        b=Qsd1z/WdOBfyrl1XEGwf+xzSOFm4T97bdfqYmNi0YCix5/NqI5m2IMwbN/jqwRHcLK
+         rGxSw4wtPec8PWwkRwdZHbn9HHSkZ9oXbU8bb5bJcz6DQE+hqL/5GiuyWsvLSmcBL+1t
+         kr+lyeVToLNAzXE5Ppg+UXbFA/nmXfjF0Lij+kecnhbfMk8+v75rQy6G/Jj1eIleR/jN
+         LlwS3JM6p6t2T86tlQ8l2eo+lfQeWdcHawDDuDPVd0NHwP73G8UXalo1aCQ49fiAMrC7
+         uQzvk3+XPH1qy9+wcz2wl7K7KeP/VgS7X2NXYr5X+xDqv9PBVzaKL1rFkwqowfpWWXoo
+         81ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793677779; x=1794282579;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DZ/NX7uo8xloLOcGc8uQxWAK76padB8qKwhdHOOlzHc=;
+        b=afwEHQummKmTrQgaQ6RIPltEDCMUmuilx8s4YiKSj5xTmYZbeNa6DJO6ChNUo2wDKt
+         ytizUrJhNbdhAZwWHaLCvJn971iimkmtuRg/qOgL4fhmd66OgZZaCymM38k7/p1j6qIA
+         paznNulqNwVj/7PBY/3FVVeG88i3Ss1Auwpxa9gsM9Qds9LPQV8QtlDOJmCbf8XQoSre
+         WwyKqIp42aoXJUDetEr2Zu8Be2sOjpL0FTEGpdlye2tZn46eM/05EV05ar0L7SYz2oEP
+         2XOdjPBlX6qPXsYortfRDpX3U4pavx25vUcUEI8GlUbSNYoPol3/T9pn4dzicC9Htt9O
+         jVxA==
+X-Forwarded-Encrypted: i=1; AKwUvByfza2KHCNeMEQzurV2qdCwbilG4xjmd2PFBVbavwHN6ezFTo7Ikpb+QFyQvoNnT22z4850Cs+uImiBZt0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK12Z5f/E+adfbr7Zaz3hxcdOulELLOszEJzHisUox3RXhibagn
+	4BN9o7CH92cTgiqmu50Y7hzA5sPrBgIiL78vNo1d3MD4C5rInpUjFxFvfzW1gcWcvR5Rae4RpNh
+	szNTMj6dhZ9OSx30qHFDV5z8bkX1Iojl3kp0fjtnM/G+XSXsdlgQdg+VQwA4FeHevtNw=
+X-Gm-Gg: AYBFou0F7UWW/ZIw2o0+kXYNcKOXhlU0/Nrq9zwrm93F74RZijgRHLlAwumvsNqyyva
+	oZ76roV3/1uibyUSDmVR0KQKGy30rxesvTF85oQDA6xbV+thLLiWbT0rkSjsBOhlMYqo50z/u77
+	F4rbl1wAbYWN5AWeJU7iUSqmq/JHvSduzDV2gizh+wcsHpF4asiV2PbED/VWfxolPuZ+B4kmu1y
+	9cfD+xTCR35B8WRvbo3c4heAj4d3Wxgc2dncLXMIPlyboUq/UN9nCQYS2otD4oO0A54Exi4ZVvD
+	fT5Wro7Yz+eDKF7GMjsTYO5XrVqV9ngXDBS7V63ksgfRnK5/pWo2G/gpIqU9VRE9mRX5fGXsq5F
+	ff5Au2g35P/uuIXZaZm7kX9HmrKrcmdTlTYOSTU+A8rl1FMAhm68SLp73YCbfY6EvFQjl3+d0YD
+	3eXRkhAVhv
+X-Received: by 2002:a05:7022:f115:b0:1a2:1a28:9348 with SMTP id a92af1059eb24-1ac5e22840emr15230866c88.37.1793677778578;
+        Mon, 02 Nov 2026 19:49:38 -0800 (PST)
+X-Received: by 2002:a05:7022:f115:b0:1a2:1a28:9348 with SMTP id a92af1059eb24-1ac5e22840emr15230837c88.37.1793677778005;
+        Mon, 02 Nov 2026 19:49:38 -0800 (PST)
+Received: from [192.168.1.5] ([182.65.247.97])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm65455321c88.10.2026.11.02.19.49.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 19:49:37 -0800 (PST)
+Message-ID: <dc441642-aa49-4f99-b10d-695f8d05fe2a@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 09:19:31 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,64 +116,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103014710.2451967-1-rdunlap@infradead.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: codec: pcm1681: Acquire sck when bound to a card
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Shenghao Ding
+ <shenghao-ding@ti.com>,
+        Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+        Sen Wang <sen@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261021031228.2074402-1-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <20261021031228.2074402-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=KJTPn1Fo c=1 sm=1 tr=0 ts=6ae959d3 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ya3+xhBzxnqkq9vGoikweg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=k5KkOgXd54y_7d7CN8cA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAxNSBTYWx0ZWRfX/c4by8TucrXH
+ jrCoSc0/g4k7K+eVUlMiM4vUf5vMg2/+r2o7seEAxDm2/p26EXMqaGQ2F9WNq2wHJQ/h7VYFOiX
+ mTgkBSLZp9LfCu34sRvD0hyMYKQDDLM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxNSBTYWx0ZWRfX6kIv5SSEq46W
+ 5qqN3yT4kZOz5msLtggZ3fjXlz6Ln9Y3JucdH+4z1VMYp1oSv09R326JavmWiy1CcuJp8gC2gjE
+ g2WUAVwbVT1h/ml2FB0tZcFDvm8FZxmmZ/YxSgruUuPfL6yPso1xipmd/Qb0gMSM+Tkc/2gQ6As
+ DnSxYY9ChhTKBI/eF1t27sr2eiBmMppqtzPfzmTKrzD8ihxPl2tQOyaGIwG1ag8BkLXNSE2gKrF
+ qJBlV8GxPbpsg8/6UX9bTT5kASmY1uYAj+87xn7ZeHahWtg8gvrBsA/YkRnBo1d9XjXS8++UKgo
+ h62lAJ+H8IPKraB7LsuVG96GAYqhul2NVtBIe5co2zHBp1ubKkht8NNEb4+0Qr4VMtyEXa3BDU7
+ BZ0f1YoE7o3Dcdiy/gTcNacPibEilIB6zvIF6/Iyi4MDrYb+15dr4CEssJIungco72WkVcARskt
+ SYU8z578ngQowyKcMrQ==
+X-Proofpoint-GUID: J5MqIo6wYpj3srRhw54XQl-LvqpodGo0
+X-Proofpoint-ORIG-GUID: J5MqIo6wYpj3srRhw54XQl-LvqpodGo0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030015
 
-On Mon, Nov 02, 2026 at 05:47:10PM -0800, Randy Dunlap wrote:
-> Convert comments to kernel-doc format to avoid kernel-doc warnings:
+
+
+On 10/21/2026 8:42 AM, Shawn Guo wrote:
+> The sck clock is taken once at i2c probe and held for the lifetime of
+> the device. On Qualcomm boards it is an LPASS clock exported by the
+> q6prm clock controller, which lives on the DSP and is unregistered and
+> registered anew whenever the ADSP is stopped and restarted. fw_devlink
+> cannot tie pcm1681 to that provider, since the provider node only gets
+> a device once the DSP is up, so it falls back to the remoteproc device,
+> which stays bound across a DSP restart. pcm1681 is therefore never
+> unbound and keeps a clk handle to the dead provider.
 > 
-> Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_on'
->  not described in 'usb_ohci_pdata'
-> Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_off'
->  not described in 'usb_ohci_pdata'
-> Warning: include/linux/usb/ohci_pdriver.h:32 struct member 'power_suspend'
->  not described in 'usb_ohci_pdata'
+> After an ADSP restart the first runtime resume fails with:
 > 
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+>    pcm1681 0-004c: Failed to enable sck: -6
+> 
+> and there is no playback through the DAC. Even with a fresh handle the
+> DAC stays silent: the new provider registers its clocks at their
+> default rate (19.2 MHz), while assigned-clock-rates (12.288 MHz) was
+> only applied by the i2c core at probe time.
+> 
+> The sound card, however, is torn down and re-created on a DSP restart.
+> Move sck handling into the component probe/remove callbacks: get the
+> clock, re-apply the assigned clock rates and enable it each time the
+> component is bound, and release it on removal. The i2c probe now only
+> sets up supplies and the regmap, keeping the cache in cache-only mode
+> until the clock is running, and the cache is synced once sck is up.
+> Runtime PM is enabled and disabled together with the clock.
+> 
+> Fixes: 8987e9a24f45 ("ASoC: codec: pcm1681: Add optional SCK clock and runtime PM support")
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+
+LGTM,
+
+Reviewed-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+
 > ---
-> v2: move all kernel-doc comments to before the struct instead of
->     having them inline insidet the struct. (Alan)
+>   sound/soc/codecs/pcm1681.c | 122 ++++++++++++++++++++++++++-----------
+>   1 file changed, 88 insertions(+), 34 deletions(-)
 > 
-> Cc: Alan Stern <stern@rowland.harvard.edu>
-> Cc: linux-usb@vger.kernel.org
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> 
->  include/linux/usb/ohci_pdriver.h |    8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> --- linux-next-20261102.orig/include/linux/usb/ohci_pdriver.h
-> +++ linux-next-20261102/include/linux/usb/ohci_pdriver.h
-> @@ -13,6 +13,10 @@
->   * @big_endian_mmio:	BE registers
->   * @no_big_frame_no:	no big endian frame_no shift
->   * @num_ports:		number of ports
-> + * @power_on: Turn on all power and clocks
-> + * @power_off: Turn off all power and clocks
-> + * @power_suspend: Turn on only VBUS suspend power and hotplug
-> + *                 detection, turn off everything else
-
-It would be nice if the indentation for these new entries matched the 
-indentation for the ones above (1 or 2 tabs instead of 1 space).  Aside 
-from that:
-
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
-
-Alan Stern
-
->   *
->   * These are general configuration options for the OHCI controller. All of
->   * these options are activating more or less workarounds for some hardware.
-> @@ -23,12 +27,8 @@ struct usb_ohci_pdata {
->  	unsigned	no_big_frame_no:1;
->  	unsigned int	num_ports;
->  
-> -	/* Turn on all power and clocks */
->  	int (*power_on)(struct platform_device *pdev);
-> -	/* Turn off all power and clocks */
->  	void (*power_off)(struct platform_device *pdev);
-> -	/* Turn on only VBUS suspend power and hotplug detection,
-> -	 * turn off everything else */
->  	void (*power_suspend)(struct platform_device *pdev);
->  };
->  
+> diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
+> index 6002da3a5666..2cc34561aa83 100644
+> --- a/sound/soc/codecs/pcm1681.c
+> +++ b/sound/soc/codecs/pcm1681.c
