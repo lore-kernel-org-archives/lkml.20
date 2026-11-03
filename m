@@ -1,63 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729965;
-	b=Rfe8KypEM5d8Q5Yv1Rsityw7A71dZNhgjKXHAMTOCH657vE0oV/3qPYfyTXa/w1hhsaW
-	 ayfuBzBkFOCJO5LDfNa364paLN67aDyEqdi/L4gmuNhlXW5eTcOtJOf6prW+OV8oiCJ4g
-	 sw2VUJwwoO2dGb9YTajwiLIed0XG/9RVm36RMN6iMbDDl8PvTexYzUnEVvyVq178ykO4V
-	 /nPIW1BGJHBU4oLDcLAv61I4oN0yrPQ3/qf/Mpb3nqe/7G4aNx7cc//62n8v8AdjrbTGx
-	 Z+VbZmd82SMiONFWG55eUCWcz/8eHab0bECRNcY7Y9MSg3edoqUnDTKXWSoVaYNjwgQ==
+	t=1793729960;
+	b=XvaX/62WPog+mjeinBiatmzFp/3dP1Cm8uLTcJQ+uFiZZ3eQ1M6/f+enY3lnqu5Gt62P
+	 fn5c9PFG5h544FeteEkQyTUtuixu0zp9IeW91Ouqi7Qt/KbQGrQcDYVTOUw1YKdDlX+EV
+	 ZmMAdseHkL90WMsyTgZ0AO5AmWHvPceGVMv/cXX8L2k+BNn3GbQ8G3sOpw2VbdIzCVvyr
+	 zK7EoKLhiEPztPLQdFniSNuUU/G+ekkwCMHzXCt1+ucSFfxeSSZybgVxHtFY/aQKjVjyU
+	 QQoVD6FvaL/XQUV2jUCgxvm1d028GTjb03DCAhS/mecwk3YKAluvCSH8YyjsiwXSwIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729965;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=BQAYKpdoSrFTsTqrI0dYgxlaPs+j9b8WV1Qokm2C+Fk=;
-	b=Tbp7lViPq25G5Vbxphu2YM6LPg6GWRB7dt+kvTVPeSxLNPxdEG+A5VXz7k0Vzwa9ZilR
-	 hCa0Uv8UpkRpgkZBbFSyEX4LTLjzjT0QETpVFIRRwBqh09wqHBEehbBDNZSNQWLzyJHd0
-	 +HomvlgaCsVEeIBp+gN15ULOLNZq9cUA6R8cVOSVffWrMzrUGuU32zbJr2EuxZ3eGadGV
-	 C16yoCOrM5KwLnTED3/21q5JQJsGorA5HLlGk4pOlaZ0vgFxO33x2ckrABEWK2nf/OToa
-	 /clE89Dv+CedZyJeJqniE4hVIT0Me5fsnPbHKqDwEmp9mE5cdd5ljnNTa69Jxp46Z7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729960;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=a6e33FUXB/GBiDw4+lwPznAxPC7ALaJyHv7KaCKbPmk=;
+	b=MqlsYx/9iXV+BcMXLTSWxiGakiRs3Dsfd+2Rbv5ZjMjhTyxX20+RaFCWX1ob0t08bJTf
+	 fYejtLJ1iqlnkRt3BN4Q5oHJ/uJrJC6KR5EPckcFYi61VtI3St026emZrsAxIEshx8lUp
+	 OxV0ggBdU9YQ73JZN8iV6WsZwUNJOE9ol7Fa7xiR8nmMUNGFPak6Os5zhZi34CWPx9EmH
+	 AvvZv4CIRFlsh27JgS4EfbIeqXyQt7kR7bRAlghOjDuefYLrjffLO0JIkFxBcvXBpiSrN
+	 BTzSfOHT130YW9iotfMarb6YAc/qLaYc0pgHS545qp/LxxkjiYD7n97E5FQHR8IDQWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsKlFwZM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PK6AizbL;
+	arc=none smtp.remote-ip=91.218.175.195
+Received: from mta0.migadu.com (out-195.mta0.migadu.com [91.218.175.195])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78C8606EE92
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC30606D831
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBC30606D831
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsKlFwZM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B87C1F00A18;
-	Tue,  3 Nov 2026 18:19:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793729964;
-	bh=BQAYKpdoSrFTsTqrI0dYgxlaPs+j9b8WV1Qokm2C+Fk=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=lsKlFwZMWjnD7F2UEwo5VNiNjF+CfV0fYjBXO8lhg0DzeNHloc6fVaunxl08SMONV
-	 JI4s8V2QudtbszkmElD1veYTLcZdOtMuqWhyik1BpJyHPq3mBuCdKcLMhzHVChXhEW
-	 5bZQ2LdKiPm25p1xe2nA4HbU8tfETvUo/supeyhjNbUidcCLyKYRlTLGRw+1T4jEtO
-	 a8vBSfk0COZrTUcczKSf0AG6PFAasXF7Kqv6tVM7VXiYkJE4ePrmdu9G6EdsYOd3OM
-	 4G/ZXRFY75mG0C0nHar1QU46EZxvlQal7Wxq8uBe4Siou34Jlb/7fGt3ZeQybo0C2g
-	 4e/K1QGG7+yMg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id E4810CE0C97; Tue,  3 Nov 2026 10:19:23 -0800 (PST)
-Date: Tue, 3 Nov 2026 10:19:23 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Jan Engelhardt <ej@inai.de>
-Cc: David Laight <david.laight.linux@gmail.com>,
-	torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, Bradley Morgan <brads@mainlining.org>,
-	Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
-Message-ID: <ad8358f4-483c-41d3-8fae-e7032c4a5bd7@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop>
- <4p5316or-75o2-s068-74s3-6q5011o75672@vanv.qr>
- <6f24126a-7f84-40f8-a297-095b470beb8b@paulmck-laptop>
- <qnrr9sr7-19rq-6rp9-0oq9-5939r07no828@vanv.qr>
- <20261102163448.3956dde3@pumpkin>
- <s2530278-793s-8r51-s5q8-349s35q8159r@vanv.qr>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PK6AizbL
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2hguKlDZFZ6O92tcQVjyXL2fJi6dM7PMsX0fLFDYtGg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793729958; v=1; x=1794334758;
+ b=PK6AizbLtyu1CxXklZGGmxDaJ3afApG4wSjRuW53XtJ7HVsIYb5nODCMXJCcvSJYrEXJfylH
+ aSgWMyS8j7OFpvN2Iy+ZbAOU0ORCkNlBt6iPueL+qJpXdJaadHUY/5Wxhw6kDCzzkNF32nOVRTC
+ z8BhVp+RSaVyDBK1WNSbvVig=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ccfdecbf43939bb5;
+	Tue, 03 Nov 2026 18:19:17 +0000
+X-Mizu-Trace-ID: ccfdecbf43939bb5
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	jose.marchesi@oracle.com,
+	david.faust@oss.qualcomm.com,
+	Vineet Gupta <vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v4 7/8] selftests/bpf: cast explicitly in the struct_ops arena triggers
+Date: Tue,  3 Nov 2026 10:18:15 -0800
+Message-ID: <20261103181816.254686-8-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103181816.254686-1-vineet.gupta@linux.dev>
+References: <20261103181816.254686-1-vineet.gupta@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,28 +82,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s2530278-793s-8r51-s5q8-349s35q8159r@vanv.qr>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 03:03:47AM +0100, Jan Engelhardt wrote:
-> 
-> On Monday 2026-11-02 17:34, David Laight wrote:
-> >> 
-> >> I can get gcc-17.0.0-20261102 with no further command line options
-> >> to turn `atomic_compare_exchange_strong`+uint16 into some object code
-> >> that does not contain a call to libatomic, for sh2, sh3, sh4. Haven't 
-> >> tried xtensa or the others.
-> >> Thus, is the patch really needed?
-> >
-> >Won't that need a big jump in the minimum supported compiler version?
-> 
-> 12.0.0-20210420 behaves the same. I just chose 17 because that was
-> convenient to try first.
+trigger() in struct_ops_arena.c and its three siblings puts the
+__BPF_FEATURE_ADDR_SPACE_CAST guard inside the function, so without
+arena support the body is gone and the program falls through to
+"return 0". The host side then does
 
-Are you also advocating ditching the single-byte cmpxchg() emulation?
-If the compiler really can handle this emulation for all sizes on all
-supported compilers on all affected architectures, that is actually not
-at all an unattractive approach.
+  err = bpf_prog_test_run_opts(bpf_program__fd(trigger), &topts);
+  ASSERT_OK(err, "test_run");
+  ASSERT_EQ(topts.retval, 0, "trigger_retval");
 
-							Thanx, Paul
+and passes, having run a program that did nothing.
+
+These are not driven by test_loader, so __skip_without_arena cannot
+reach them. They do not need it: cast_kern() is a nop when the
+compiler supports the address space and bpf_addr_space_cast(ptr, 0, 1)
+when it does not, so one cast makes the body work either way and the
+tests run for real instead of being skipped.
+
+No verdict changes: struct_ops_arena/arena_arg and /arena_autobind
+reported OK before, from an empty body, and report OK now from one
+that runs. What changes is that the OK means something.
+
+Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+---
+v3 -> v4: was 8/8. cast_kern() instead of the skip_tests flag in
+.data, so these run rather than skip. (Alexei)
+
+ tools/testing/selftests/bpf/progs/struct_ops_arena.c           | 3 +--
+ tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c  | 3 +--
+ tools/testing/selftests/bpf/progs/struct_ops_arena_member.c    | 3 +--
+ .../selftests/bpf/progs/struct_ops_arena_member_render.c       | 3 +--
+ 4 files changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_arena.c b/tools/testing/selftests/bpf/progs/struct_ops_arena.c
+index 8aa8639df91f..3fffa24839ee 100644
+--- a/tools/testing/selftests/bpf/progs/struct_ops_arena.c
++++ b/tools/testing/selftests/bpf/progs/struct_ops_arena.c
+@@ -86,7 +86,6 @@ struct bpf_testmod_ops3 testmod_arena = {
+ SEC("syscall")
+ int trigger(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	u64 __arena *val;
+ 	int ret;
+ 
+@@ -94,6 +93,7 @@ int trigger(void *ctx)
+ 	if (!val)
+ 		return 1;
+ 
++	cast_kern(val);
+ 	*val = 41;
+ 	ret = bpf_testmod_ops3_call_test_arena((u64 *)val);
+ 	if (ret)
+@@ -134,6 +134,5 @@ int trigger(void *ctx)
+ 		return 11;
+ 
+ 	bpf_arena_free_pages(&arena, (void __arena *)val, 1);
+-#endif
+ 	return 0;
+ }
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c b/tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c
+index 495faa0f4a8b..3455ca9e2d47 100644
+--- a/tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c
++++ b/tools/testing/selftests/bpf/progs/struct_ops_arena_autobind.c
+@@ -45,13 +45,13 @@ int unrelated(void *ctx)
+ SEC("syscall")
+ int trigger(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	u64 __arena *val;
+ 
+ 	val = bpf_arena_alloc_pages(&arena, NULL, 1, NUMA_NO_NODE, 0);
+ 	if (!val)
+ 		return 1;
+ 
++	cast_kern(val);
+ 	*val = 41;
+ 	if (bpf_testmod_ops3_call_test_arena((u64 *)val))
+ 		return 2;
+@@ -59,6 +59,5 @@ int trigger(void *ctx)
+ 		return 3;
+ 
+ 	bpf_arena_free_pages(&arena, (void __arena *)val, 1);
+-#endif
+ 	return 0;
+ }
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_arena_member.c b/tools/testing/selftests/bpf/progs/struct_ops_arena_member.c
+index a2218cd81619..afbe59f77af6 100644
+--- a/tools/testing/selftests/bpf/progs/struct_ops_arena_member.c
++++ b/tools/testing/selftests/bpf/progs/struct_ops_arena_member.c
+@@ -80,7 +80,6 @@ struct bpf_testmod_ops3 testmod_arena_member = {
+ SEC("syscall")
+ int trigger(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	u64 __arena *val;
+ 	int ret;
+ 
+@@ -88,6 +87,7 @@ int trigger(void *ctx)
+ 	if (!val)
+ 		return 1;
+ 
++	cast_kern(val);
+ 	*val = 41;
+ 	ret = bpf_testmod_ops3_call_test_arena_member((u64 *)val);
+ 	if (ret)
+@@ -104,6 +104,5 @@ int trigger(void *ctx)
+ 		return 4;
+ 
+ 	bpf_arena_free_pages(&arena, (void __arena *)val, 1);
+-#endif
+ 	return 0;
+ }
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_arena_member_render.c b/tools/testing/selftests/bpf/progs/struct_ops_arena_member_render.c
+index 09b4c740bdca..c4e134e14f87 100644
+--- a/tools/testing/selftests/bpf/progs/struct_ops_arena_member_render.c
++++ b/tools/testing/selftests/bpf/progs/struct_ops_arena_member_render.c
+@@ -63,7 +63,6 @@ struct bpf_testmod_ops3 testmod_arena_member_render = {
+ SEC("syscall")
+ int trigger(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	u64 __arena *val;
+ 	int ret;
+ 
+@@ -71,6 +70,7 @@ int trigger(void *ctx)
+ 	if (!val)
+ 		return 1;
+ 
++	cast_kern(val);
+ 	*val = 41;
+ 	ret = bpf_testmod_ops3_call_test_arena_member((u64 *)val);
+ 	if (ret)
+@@ -80,6 +80,5 @@ int trigger(void *ctx)
+ 		return 3;
+ 
+ 	bpf_arena_free_pages(&arena, (void __arena *)val, 1);
+-#endif
+ 	return 0;
+ }
+-- 
+2.53.0-Meta
+
