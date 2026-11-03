@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793704097;
-	b=i7lCXsMTReUlLg862pE43d44Hxf9bYeWu8jz13ES69lMMqo5wGUnyb1mgDigtFrhUhtJ
-	 /mjDg3zO6K4MKECZesJQBvm+sSXv8Xq2icTma+3Pg4hgvK0ZLHD0v4Xr+zjhDp9zRqTlA
-	 vumOjSemv/9ktc8mh/yfrjFG1NfloqXeO5hIpe3OIMTns3+TbykVOeqj1jF+mcd6M8uYq
-	 kQ6XDrbuBZP0iJU7J6LKTQ1M8D0vE3jYpWVZMMK7FPE7M/TEAlqyButVeVExFhYmiluKV
-	 568YIphynPkkGFI1XlQYyERsJxHiPL7DlmrfUjiUXScA62KCzyCp7eo+mxx8Cz1+NdQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704097;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/Zp3HhZWdOqhjmPq6xmi/Tj3ka8PFrAOHqU0dCBIgo0=;
-	b=FVEZ5hx/nQ5AP/EG44xnP2k0Up23doJlpfm1G4o+omlmz4b4ywcH1WoHTGasJt1h/BoR
-	 ikpudk14DUmVdXUhKEorVTzuywenebZEUhh0QtTfTI39Q0zVbivyTGZ6lduKLLg9cMqWd
-	 H7m6e6ikFMbGo/D005HWWcpzl4wcB/aTdQ7un4cR3Fj3pBYW5AmNdGNJ00c+fpVelz34B
-	 wmgGvr9kkvnrX6NrILPGzUW6k+EahzQpk1reQ0X0VCFmljmrhKT+li7zE4cQz7AxdBeTK
-	 QkrowttJxq0XzatvHZ0X+SC281sUYaa9E5WonOdFuHLhND66j8ANTwhW65DRnWTQ91w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nagashi.ma;
-	spf=pass smtp.mailfrom=nagashi.ma;
-	dkim=pass header.d=nagashi.ma header.i=@nagashi.ma header.a=rsa-sha256 header.s=ggle-ngsma header.b=I96VemwD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793704122;
+	b=YeB2esthRwaPBRFFlRV9O1Ctlt7WTrEh+VMGr11cCeldYwpGvLAGazOdIqQasrpZsHMV
+	 lyLbS+j7R2TZIz6slz+w6gwAs5Bbp1Z1cOwqvGbOYY3EbqCFwSy/PPs0nVuDf4CU41hbT
+	 tMYbRXsj2tvOEJcchV5z7mtu0j7ICJifA3tOxYuYykPRpD2CPmlXzCM3knjdnLrs1KmM3
+	 O+6L31WFupjnWv8bjI1e1B4xikrjotlqc59Lu0hWULaj0qs1+DQrJGUXrsVt1ypVKWddc
+	 n+VJGRr1yWIXI/0ApkNOC3prSX7gEbBCVvyt4p+swwREbAr/CbwJS4XKCjCmpFwk9KA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704122;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=aYL/i0YuscUEzD0VCErR+Tz3KdHDJR7ZwPlCYlD62po=;
+	b=tIWFUXM6goONnBM5M73BgbxSXVHfywKLclImN+DnZ+o+9cHpttqyvdyDJQiOtJWo15bt
+	 w8vsdIT6sMp0IQsoF9Qa9vtpTxY8iaGufBZZHWloP31VYE8ruUO8ojAUv6+WMh/SvYCmI
+	 A4ii49bpJVQFzVbIBFyO2BOibiCq5pN4DFbtPojNf5pOycds8DZcrmhf3wSS4F+GdS2sL
+	 sjtblxipFoi4FJ4vJoP/c0j5Rd+8il5TXvxiGOw4Pwn2SYiYSJcPwVgCzlzEiFHgYFiP8
+	 rnofIeuaoocwNlUy8s54flgyVpgXiWhmdqNmuIuDAziuwTtpVTYz8Z3XAUFDdNUvQ6A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ib3z5+Md;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8441C606A825
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:08:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8441C606A825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nagashi.ma
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nagashi.ma
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48F4606A32E;
+	Tue,  3 Nov 2026 11:08:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nagashi.ma header.i=@nagashi.ma header.a=rsa-sha256 header.s=ggle-ngsma header.b=I96VemwD
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c45551fa84eso582846266b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:08:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793704095; cv=none;
-        d=google.com; s=arc-20260327;
-        b=chXJzK/hW1L3zt9dW8hbhKGtWs5sJBOP5+Jdh50KM+nrYOIMHUoKTXbyo7gNxYJvuI
-         28ie5W1Wjk2ekhlFMTlliPIG4H9X2rMcZx5QAgIce+0tivoVlOlbt9uIInJSh5qstaL3
-         bHeuT58jHEoz/27fTizJfNb/BF0ua/T48RhPcEQFuNr8IZOOE5DdnBMlbvQLD5qeZNpa
-         H04Ec2NlB3RTuwBcZ7imrfottV7fBIiCY6s4OLcj6l8G52Ytn4SDpTdLe/rv8fuzuf17
-         G7KsQ902r50d7YZ8eKafSkkf9vrtnPMfBU28wSvvZd9+SBuiMK9ITJEZ3QQpctfpjSML
-         riHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/Zp3HhZWdOqhjmPq6xmi/Tj3ka8PFrAOHqU0dCBIgo0=;
-        fh=NU/jyKsynx/ven7YQIyY4SWIU/2RmeThSj51yWlPCYI=;
-        b=L+y4PbwaSyCbPh2J1ItZqlM6ztwcJZjtK9NWj175KFmZNEsn2tJs6Q1v1pDJAlllRf
-         eUaZVOo5IfQOwBichOLN4JCAmCY1QfdG0ImYMX09A7JRjwwBId3x0l9tX+kJNSL1lV07
-         9vD21QQc5yKtHctK4qMfZln9sX60MI+TzTCwX6JJRTKBDukUL6Rt90unFraqBQ02tW2C
-         eILa6aAT0ukbi5RmpS7UcwI4SBaSmAHlz3y18t7tIELIZMQ6FjiXS7Ym6WsZwvCVGn1u
-         n/e6yV7wS0Jf1T5Bu0H+aldwCHX2uKHKGo0dLT+kKVPhcOZhuho7OTrQ/ZLwONKNwnQ1
-         ChWg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nagashi.ma; s=ggle-ngsma; t=1793704095; x=1794308895; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/Zp3HhZWdOqhjmPq6xmi/Tj3ka8PFrAOHqU0dCBIgo0=;
-        b=I96VemwD8UABTkS0R80cL5UJ+UXdgwlGOs2uVLe+HOw51zymBi1kiFDDbjAflBNFri
-         AMnj40ZNXvXs0vKhzB2htENOXORq1TvkDep3e0z8m2GywBWQNrzY1iqdda/ehL8Iotq9
-         R9NImmkPoneUMLL1tElYwvwWQlrpziFmNd7akvYkenYgB3QHLt1NkFA+KwtCNrzw8a4V
-         VKS60F4IEONZBhVLn6tQYMHvP0Eo85ZYlrQxDsr4XRu9r9pM6X7bmnld03n0Q7lZZYPg
-         4U8xq7dHrMWlEl/wuXUqC1KYScVCTKkVahmISNx3j5a2y7O5ECcME0plf9xxsOYw7bhH
-         2q7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793704095; x=1794308895;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/Zp3HhZWdOqhjmPq6xmi/Tj3ka8PFrAOHqU0dCBIgo0=;
-        b=xPR9EP/8qvtknKBddoxiM3qHDvopCpUDXmc+qqrmECFzot8mAGE78sSM+EkLtvy146
-         9dI6x8+G5IcfVGV29MVts5h4BmaVAwOT6UCzUcsyz6KMPT7ebEB5b0MMlKZnBvuJPTtC
-         775gQFyUDW9xY5gcDoQq3i2gA31u5cnRKZPd5wO9DN5UFvLCrg6UyjCv7USegcFn/e6C
-         EYrJQQXdUUV1XzPw0558WAMCOOVYWjs8Df96HwjEi2KBTWx+UCjOUeSotdlUiJHtQ/DG
-         t8w/mHMbhOt8hpJJnkPR/l6LDG3BvQ7DqMOvhvxd2JjgEU+wq2s1GZ34nvBIuxBwcD+0
-         E3Lw==
-X-Forwarded-Encrypted: i=1; AKwUvBxUwFJ2huBq+zIO6sVltY55JH7kCRdJ63yb5KGDvM2vVHqcDS8GEejO5NmqHzgZfUliBVpX9/fouIgVZX8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpbUMmp400yADwXAqQR2aHlZpDv/4jKEtgfm0E8fmPbJmINwsh
-	2iS+dtF2eQJCxBbmWXD2ev5dkKYe/Q5tMbAzU0V7yn02Gb/GBXxKXDoDAykP8u7GECDNsIuZnIm
-	UC/EZL7NxbtGCK4HkZlLp9HZTbvq6YiANL7oBpIyb
-X-Gm-Gg: AYBFou1/oIix1mQcsBvh30msGQzxqIz5zMzRqrYV6Ce+q4fXT4RsRLvqpRr0J7clE4V
-	rfRAgEs3ouEx0bEKjDUnoye6CYqRRgtcRBgh9aEntMdQ9o8EqLJfw+7eVSiiP1/Um37/el6fzxN
-	nBZOOeTpZeKA06c+liramvplzsgif0YUyp2sKWyEcI+0QkJTsZOGMxbY4/sALRF2sUkwLRAV5qE
-	OkPgAMRMCS/a68u6jCcXW1DZttolBA1oXsPqHX/mqpwmtIRLs+GUqiO0Vl/Dr8/cbtEW6uAvurg
-	TojqeakBjiK716yAU0DX4wak2Sl4itkpE1sTIsHHL994mQp74e6M/BjHIiOZLE5Z2vqS+GalyZO
-	axkAAF/kuhk5JadjQYVgTh0XR2P2rLzrIEYbGzT7BIq8g/T5Rfx3pRWyho2LhODWx2IcPiIHjEg
-	L9WuG8QZBBda+7x0tcB0r0aSdlE/IpHFHPlC4IT7i1XdZIdNq4RT+JCro=
-X-Received: by 2002:a17:907:3f1d:b0:c49:9231:5518 with SMTP id
- a640c23a62f3a-c4ca7a40254mr1059160866b.21.1793704094661; Tue, 03 Nov 2026
- 03:08:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ib3z5+Md
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF051F000C1;
+	Tue,  3 Nov 2026 11:08:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793704121;
+	bh=aYL/i0YuscUEzD0VCErR+Tz3KdHDJR7ZwPlCYlD62po=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ib3z5+MdhkonNdwMiArvyjWg6RnzTYHc2pP/M44kZZ+O5Vr8BoPLiJPCfQFqyxVHW
+	 N1YYjgkSE9RJ5mkBYWF/Wkv2WqEyM8LwFzDLHiZyZXRwW9+lo5WtALZ12TX+bsotmk
+	 VYq5I9K/9tJovZW+Gaef777aWtvI04kR29BgdVYEOhbbEhxZcAYKpr7klaqi+IlgbX
+	 oVMX/g0apanLPeSaSllUbJBAuluobnHJgzD8bgoakxClpdDEdjGc+8oUhyweJURGZj
+	 59hulPiSobqluqW2m8XOZyAG+/hl6V9VWBDKI/B95hDZyuLjpSuLjprzGFeSH5r4V5
+	 lT7XCpm47J4/A==
+Date: Tue, 3 Nov 2026 12:08:38 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+	angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com, daniel@makrotopia.org, 
+	linux@armlinux.org.uk, arinc.unal@arinc9.com, Landen.Chao@mediatek.com, 
+	dqfext@gmail.com, sean.wang@mediatek.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
+Subject: Re: [PATCH v4 6/7] dt-bindings: net: dsa: mediatek,mt7530: add
+ EcoNet EN751221 switches
+Message-ID: <20261103-soft-lyrical-squid-c5a108@quoll>
+References: <20261029184202.1859843-1-cjd@cjdns.fr>
+ <20261029184202.1859843-7-cjd@cjdns.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,56 +64,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016-ath10k-series-v1-send-v1-0-c847697b3558@nagashi.ma>
- <20261016-ath10k-series-v1-send-v1-1-c847697b3558@nagashi.ma>
- <CAFEp6-2xY_gM=FRUp3R30TZ-NgT=-eYnyz_BPE0vxEenv+202w@mail.gmail.com>
- <CACB3TCKq--tdL6j+uGR_dxGdy-gHxQhY8p0h6xxqi_4Fd3VEOQ@mail.gmail.com>
- <c45bdcae-63da-4552-9e35-59ec6a71621a@gmail.com> <CAFEp6-36Fc15uDWSR=v+xCMhERbkhggZOBoEFTF7pAcRLz_vFw@mail.gmail.com>
-In-Reply-To: <CAFEp6-36Fc15uDWSR=v+xCMhERbkhggZOBoEFTF7pAcRLz_vFw@mail.gmail.com>
-From: "Nagashima, Shunsuke" <shunsuke@nagashi.ma>
-Date: Tue, 3 Nov 2026 20:07:48 +0900
-X-Gm-Features: AclHuK-tO3aJA8d_SmuLc3ZoFMk8WdJMtEnlyIJzjfGwrGOn0GHRV9smb-wnHEg
-Message-ID: <CACB3TC+NVYPbNKeOu9aAnRaCUTTon4PAO+kp_QbLqL6qd37aeA@mail.gmail.com>
-Subject: Re: [PATCH ath-next 1/3] wifi: ath10k: set the PMF peer flag on WCN3990
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: "Conn O'Griofa" <connogriofa@gmail.com>, Jeff Johnson <jjohnson@kernel.org>, 
-	linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
-	Fabricio Akio <fabricioakio@gmail.com>, Aleksei Kharlamov <aleksei.kharlamov@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029184202.1859843-7-cjd@cjdns.fr>
 
-Hi Loic,
+On Thu, Oct 29, 2026 at 06:42:01PM +0000, Caleb James DeLisle wrote:
+> The EcoNet EN751221 MIPS SoC integrates an MT7530 switch memory-mapped
+> in the SoC register space. It is similar to the econet,en7528-switch
+> except that ports 0..3 are 10/100 only, port 4 has a gigabit PHY, and
+> port 5 has no PHY, but is in some implementations connected to a
+> downstream MT7530 multi-chip module via a TRGMII link.
+> 
+> The downstream MT7530 is similar to the MT7621 multi-chip module and
+> has all gigabit ports.
+> 
+> Add the econet,en751221-switch compatible with the same constraints as
+> the other built-in switches and also add the econet,en751221-gswitch
+> multi-chip-module switch whose port 6 is configured as a DSA link port.
+> 
+> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+> ---
+>  .../bindings/net/dsa/mediatek,mt7530.yaml     | 43 ++++++++++++++++++-
+>  1 file changed, 41 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> index f98b9113ad12..011c94ef9554 100644
+> --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> @@ -29,6 +29,12 @@ description: |
+>    and the switch registers are directly mapped into SoC's memory map rather than
+>    using MDIO. The DSA driver currently doesn't support MT7620 variants.
+>  
+> +  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
+> +  gigabit PHY. Some EN751221 chips such as EN7513G and EN7526G have a multi-chip
+> +  module implementation of the MT7530 as well as the on-die switch. In these
+> +  packages, the multi-chip module is connected to port 5 of the on-die switch
+> +  via a TRGMII link and allows for 5 gigabit ports.
+> +
+>    There is only the standalone version of MT7531.
+>  
+>    Port 5 on MT7530 supports various configurations:
+> @@ -109,6 +115,14 @@ properties:
+>            Built-in switch of the EcoNet EN7528 SoC
+>          const: econet,en7528-switch
+>  
+> +      - description:
+> +          Built-in switch of EcoNet EN751221 SoC
 
-On Tue, Nov 3, 2026 at 10:20 AM Loic Poulain wrote:
-> For change request I think the best for this is probably to follow
-> board like change:
-> https://wireless.docs.kernel.org/en/latest/en/users/drivers/ath10k/boardfiles.html
->
-> Please, keep me in CC.
+You can drop, pointless description, repeats the compatible.
 
-Thanks. I'll send it to the ath10k list in that format, with you in CC.
+> +        const: econet,en751221-switch
+> +
+> +      - description:
+> +          Multi-chip module gigabit MT7530 in EN751221 SoC
 
-One question first, about which file to change. In linux-firmware, the
-shared WCN3990/hw1.0/firmware-5.bin goes with wlanmdsp.mbn
-WLAN.HL.2.0-01387 (sdm845 boards such as db845c and SHIFT axolotl).
-qcm2290 and shikra have their own firmware-5.bin, picked through the
-firmware-name DT property.
+Keep it in one line with description. No need to inflate it even more.
 
-My comma four runs WLAN.HL.2.0.c10-00459, which comma ships itself. It
-is not in linux-firmware, and the comma four device tree is not
-upstream, so a per-board file would not help anyone else. But I have
-only tested the bit with c10-00459, not with 01387, and I don't have a
-db845c.
+> +        const: econet,en751221-gswitch
 
-Is that enough to change the shared file, or should someone test 01387
-first?
+That's almost the same compatible, which makes me wonder if you describe
+the same device twice. Same device, same compatible.
 
-Also, the page says Kalle adds the files. Should I address the mail to
-Jeff now?
+Best regards,
+Krzysztof
 
-I worked through this with Claude (AI). English is hard for me, so AI
-helped write the English. I ran all the device tests myself on my comma
-four.
-
-Thanks,
-Shunsuke Nagashima <shunsuke@nagashi.ma>
