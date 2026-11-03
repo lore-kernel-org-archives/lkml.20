@@ -1,78 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723165;
-	b=Y6q5pJ+3+/Dvc7m08EjbnI06CI/zvsKRMhYaXwLuEKMYMBeqet3gOccKDJ3K6J5snfv3
-	 6as5mW4PoDFsmgY5E1FUcom9FFZK+AfZWZnjx0dVZyKoOWH63wWDams+7NKqHz3JGROXf
-	 y94gPFOcHCzXp826qSceGqItghFKQwGTAD5RT1nEKgdhAEcx51NGpxq86yhjU2bGqTNQE
-	 j8l2e8DvR8JFUGcETWrJqkCweg2E9j6k6gwLQ0C1hyk8ird74ToASe1z4lIFEpG2zeAOK
-	 SSITetrX4AxeeRPK7VvJyAAaM5Lue8tmGJboQdzz1RC+1lGhG8LWJCHD+v+8r1h4jzw==
+	t=1793723196;
+	b=de0t5tAyrnyXAbkQbiTZ2C+cbAYfDQs2cTyl/SqxKfDJG3XHdMeMj3022Ufe+mERdVAT
+	 +ZzygmdJOITO18ZCTcF6Hze1dneVPtjYSJLLNNOZ4bq4JZQoTyhfB2H4OWGAlSDtbAp8X
+	 lMw+lQb0HBhfuqekU6sPU6XOcgN62V2BzWtztyYNkR5lDMcxukdlo1ZJ+1pazOpZmQLfn
+	 yWXqCMjxYFEfYAIrmYqyKPh7vya7mLyXWm99lwJ3Yunl0DlePoZ15H46ZKsOVXA5XjajR
+	 amsBuX0CyCvpY0OOus2YL65Do0Uox5LMAGQG9R6+YMBItQrG2k2yVSvVPsokIp2mzZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723165;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=NsCA1FKYyEC6+lnEUbeQgCTjVtjYpHvweOvN+u1DACA=;
-	b=iA0xo49IGYhH4pQQD3Hv2mCUyMNhNOdaLVB4j6vv5J8nGd/O4gc+tQpdBpFL7B86O6P7
-	 dutzjxoCOyDpYtXKiiqyYEumC4PUCaX7MWZ92HsQp+xP1OgoZIZ6EctaaprLvMeXvb1KU
-	 XgcNMZVbBmR1getwI/kNHzCdjdq+betcpfgro/BQlgFnGmsWk0EIyEcgvpkSKyLzh6VJw
-	 GXzpW4ynuRKQ08MO+zyvMixAx4xO0GEvsUk06hftobFdHWs3pnV7WM88u1Ys5dFyxBPZP
-	 2W2ae1AbpvtdaBt+tKlTmLra2QmE/aTkhU29YMXqmCym15pQaZnf7ycvtC5xCuHJnxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723196;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=88x5nWCU4/5DUnm5J75+/44oJREtwTCj+m3lJcaJoNE=;
+	b=tdawQlYfgDrb3alGEDfr439O5Cw+xIZMzgxuDQTvu1eq98R7olpfgWnXNElxe+6RNneW
+	 +WtM6uldUVExM54iZpuquygLBgV4ss9v1DdlPrhBRgjlpJsdA9htasb5VqBuKI9xdRRZQ
+	 mXNqPuVznzoA01sj3DERKYaelKX3fIa36NpOutkvXGqh8Mxsj0eSKWhsIaJedFVEQIxti
+	 n7X9odVx6mncFTtIw7BeW8JUrJIaRC0dbILM11QFF47/8afyZkTDuml9E/fnFFfGtarJY
+	 +ME6FErInGL9MCUfBY7Ykc5Ds6s17BJZSRUQzGoG5BB1MPpvwHhtpkwzrDzTAt0asVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XY3qZadr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyDteQG2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC841606A328;
-	Tue,  3 Nov 2026 16:26:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259F4606A327;
+	Tue,  3 Nov 2026 16:26:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XY3qZadr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5D01F000C1;
-	Tue,  3 Nov 2026 16:26:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyDteQG2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09A721F000C1;
+	Tue,  3 Nov 2026 16:26:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723164;
-	bh=NsCA1FKYyEC6+lnEUbeQgCTjVtjYpHvweOvN+u1DACA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XY3qZadr11uiBhM392hBYJVR/qMO5gtXMq34UYO9nzjQRrjMi2jN0lLN+tvdAdDqV
-	 qEYTO6RPoEhwC8zH498eSdFxnB8CAmzPxjl6JMF8JpLIz0FL7c7vn6OnH/RTiTS17S
-	 GL4OKQgLmBTs3mo2ED1tQPK02BP/NsjgaXJBhB/KkVzeVOoZ0F7htqU3HPMrZFrXca
-	 +GVm1bbT1kdEp0wEAcPCEU3JskHw4XrRsB02MwMFD9yhfjDmZF5qCScUi9elTKQUa0
-	 /uKDShFLGe5WMWmCWxwcY40uFAmBdSahCE1QU+RSQjelSR7aiA/A+3YZFsiCUVDjo5
-	 UAuIGSq6ZLr+w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xOHKk-0000000AaH5-1VOP;
-	Tue, 03 Nov 2026 16:26:02 +0000
-Date: Tue, 03 Nov 2026 16:26:01 +0000
-Message-ID: <865wyd3mqu.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Vincent Donnefort <vdonnefort@google.com>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>
-Subject: Re: [PATCH 1/3] KVM: arm64: Don't walk the whole IPA space when destroying a pKVM stage-2
-In-Reply-To: <CA+EHjTwCPHp_odMPJAJ8pfPtymtU5ia_RrH30DavFeiZqvhVAQ@mail.gmail.com>
-References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
-	<20261103084742.1302597-2-fuad.tabba@linux.dev>
-	<aun1NJNtnOeSL4oc@google.com>
-	<CA+EHjTwCPHp_odMPJAJ8pfPtymtU5ia_RrH30DavFeiZqvhVAQ@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1793723195;
+	bh=88x5nWCU4/5DUnm5J75+/44oJREtwTCj+m3lJcaJoNE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HyDteQG2VBDz2pwudxJvRFZ3NzuhMM1n/qoJyRpSIEa+4sIo8qfNjCKCMkx9fqPnu
+	 PTXEB3HB8c+csEYJbUqrD18YNji+Wb3P0nPR4rCDriU41qd0d35Q951xfxtaew6zqD
+	 xTRV7HQa/evoV4YEWVb3yEGxlVh8/pDAOnR650sPVOaA2QtXNMiUjYtFVGzVyuFmxJ
+	 cuqSFcaDMPcPNDAwdq/HarCHKLW8nQ/TcudxBJnTO/IQN1HpQ6LTm2xHx92xHn7YRV
+	 9GYQVIg2n29fkajQrtiWC1hueIuFYRrAfwMXbzDr3+UFxfeou5MMiBIFbN+ZYhp4th
+	 RFlMkVbcaKQDw==
+Date: Tue, 3 Nov 2026 17:26:21 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Chuck Lever <cel@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, 
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>, linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+	Linuxppc Dev <linuxppc-dev@lists.ozlabs.org>, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
+	platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, kexec@lists.infradead.org, 
+	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
+	jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+	linux-usb@vger.kernel.org, samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+	linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, 
+	linux-raid@vger.kernel.org, linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+	linux-debuggers@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 27/38] sunrpc: make queue_wait a global wait queue
+ again
+Message-ID: <20261103-lufttemperatur-absondern-zweifach-31d272ad55ab@brauner>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-27-59422ed3e465@kernel.org>
+ <16f91f93-16b4-49b1-b7fa-cec69759c349@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,51 +78,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, vdonnefort@google.com, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, rananta@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <16f91f93-16b4-49b1-b7fa-cec69759c349@app.fastmail.com>
 
-On Tue, 03 Nov 2026 16:15:03 +0000,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+On Mon, Nov 02, 2026 at 10:12:12AM -0500, Chuck Lever wrote:
 > 
-> Hi Vincent,
 > 
-> On Tue, 03 Nov 2026 14:52:36 +0000, Vincent Donnefort
-> <vdonnefort@google.com> wrote:
-> [...]
-> > > Walk the mapping tree once instead, and reschedule after passing each
-> > > mapping to the reclaim or unshare helper. The unshare helper can't
-> > > reschedule itself, as the map and unmap paths call it under the
-> > > mmu_lock. A failed unshare now leaves only its own mapping behind, not
-> > > the rest of its chunk.
+> On Mon, Nov 2, 2026, at 9:21 AM, Christian Brauner wrote:
+> > Since commit 552d0e17ea04 ("sunrpc: convert queue_wait from global to
+> > per-cache-detail waitqueue") poll() and epoll queue their waiters for a
+> > channel file on the queue_wait head in struct cache_detail. But the
+> > cache_detail can be freed while its channel file is still open and
+> > waited on.
 > >
-> > Not a problem now, but don't we make the device assignment story harder?
-> 
-> I don't think so. In Android, the host doesn't track the MMIO of a
-> device assigned to a protected guest. The hypervisor maps it into the
-> guest, and gives it back to the host in __pkvm_start_teardown_vm(),
-> before the host reclaims anything. So the walk this patch changes
-> shouldn't reach it.
-> 
+> > The procfs channel files of a network namespace are removed when the
+> > namespace goes away. Removing a procfs file waits for the callers that
+> > are in one of its methods right now and then calls ->release on every
+> > file that is still open (cf. close_pdeo()). The waiters that poll() and
+> > epoll left on the head stay queued until their file is really closed.
+> > So:
 > >
-> > >
-> > > Fixes: 4ddfab5436b69 ("KVM: arm64: Reschedule as needed when destroying the stage-2 page-tables")
+> >   sunrpc_exit_net()
+> >   -> ip_map_cache_destroy()
+> >      -> cache_unregister_net()
+> >         -> remove_cache_proc_entries()
+> >            -> proc_remove()      // ->release, the waiters stay queued
+> >      -> cache_destroy_net()      // kfree(cd)
 > >
-> > Isn't it an optimisation?
+> > and when poll() returns remove_wait_queue() writes to the freed
+> > cache_detail:
+> >
+> >   BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x4b/0xa0
+> >   Read of size 1 at addr ff110001131bb570 by task sunrpc-poll-uaf/242
+> >   Call Trace:
+> >    remove_wait_queue+0x22/0x1c0
+> >    poll_freewait+0xc2/0x230
+> >    do_sys_poll+0x9ba/0xd50
+> >    __x64_sys_poll+0x165/0x470
+> >   Freed by task 12:
+> >    kfree+0x267/0x620
+> >    sunrpc_exit_net+0x34/0x80
+> >    ops_undo_list+0x271/0x8d0
+> >    cleanup_net+0x3f3/0x860
+> >
+> > Closing an epoll instance that watches the file gets there through
+> > ep_unregister_pollwait() instead.
+> >
+> > The channel files of a network namespace belong to the root of its
+> > user namespace and cache_open() doesn't check for a capability. So an
+> > unprivileged user can open the channel file of a namespace of its own
+> > from the outside, poll it and let the namespace die.
+> >
+> > Go back to a single static wait queue that never goes away. A wakeup
+> > for one cache wakes the waiters of all caches again but cache_poll()
+> > reports per cache_detail so that's just a spurious wakeup. procfs
+> > should really own the wait queue of its files like kernfs does but
+> > that's nothing for stable.
+> >
+> > Reported-by: Chris Mason <mason@kernel.org>
+> > Fixes: 552d0e17ea04 ("sunrpc: convert queue_wait from global to 
+> > per-cache-detail waitqueue")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 > 
-> No, it fixes a regression: 4ddfab5436b6 replaced a single walk of the
-> mapping tree with the 2^27 lookups, as described in the commit
-> message.
+> Acked-by: Chuck Lever <cel@kernel.org>
 
-But that's a configuration that simply does not exist in HW.
-
-Therefore this isn't a fix, this is an opportunistic optimisation that
-may or may not become useful. So not a fix, no backporting.
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Fwiw, I have a patch series on top of this that makes procfs own the
+waitqueue and then this whole UAF issues goes away structurally and you
+get to elide that global thing here.
