@@ -1,89 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690512;
-	b=xt2V360mOc/7+EHFxO3LzqIcUjcPUwejZociL8lzyuEguWRAoKKdTaNkfpzVrMeaE/iK
-	 k/Srf6P0ucuKuKgpOaJnwHGh5PAe44dY1DOK7vofChtjHxPB2tGk9Cpv92Y44s52t1H7n
-	 1lI1AjKeSNYbEUjTVY0wQo3RmkIoypZFArei+DXwqVDzgGjpHfx3spSZJQw/l9Rin7Q9y
-	 7l09Xm7Yis59Ac/qneSYI9CtaZ5t4YzLnGtiYcEHwJtO8hL728BtFP9TCj4f3aqslk8QC
-	 sScCuKjh/BTSOzbSVDcm/o9Mz7kQRpC/LAQCKQJSo0jduEJ68YH0bq/cp0RwSvt7lmQ==
+	t=1793690521;
+	b=SS+ior1AAhhT1vA4fo0nRU8gs+4cNNNzyw/zkGcyMZWkyndJjypHd3EUnv2qmLkEY6Y6
+	 XGx1U71Gc4IBz6MfTsT6VM7Xor9fWwy0LxncnVlkyX8TTWfTUYbMD1/D96pV86/2DD/n/
+	 v6t1ZoI9LuqSrcOsa9eJJe+C03wqbzvs4sWoBxbmHzcQp/i15y1MK+ULdkD/qSKwDv48K
+	 M0ECstYpXwFeAA72g06kvQa8PA3Tac9K46Rh6LkTqED9Ael0opa0id3R3NJx2aWd9ADH7
+	 zj6UbNXnlJFrS/WeOWqJMuxVcH4UteT+bQ08L/8XApBcyzz96rhs8RuS91ePGFmameg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690512;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690521;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qxNaHg0QwAKV8JFvr9izfGFpZQV2tly781er29vLsvA=;
-	b=NJwjndgJnJCB+U74dIbY2Ls/SZE56DR76bPVYmQd6ganEINE+Wv3sB2O6FeEFy0bPfTP
-	 T9OQHWMP+uxSRd7F2HK8X+l8L3ADpub2PWVejv27yOVWjLZfChenidPUNgVhr8MEzgWYg
-	 r3gESBLjPf9CzeI0aVRy1sq8aAxK8ZByddwM//quvpjYfOSgrorbch1OdYNJgL3vh9vD4
-	 E1Q/A7iwvhLfokRnyM1qEI0DH3dJxQG0ACXYsvSOnI7rrFCOHxHPkSWbs6Ys0QaYS7fOx
-	 tHZxIv0XfFKQYVKcGUfViVyy0nd1MOCWD0vICG/VlvnhIUaR5+g/K8zog8rJdWJwOCg==
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=oNOQHJMVvx6lR/9lQldFO/azLOgEmsHBjYrpgr2OldY=;
+	b=cdZhi0neq+mn0Sr7yd4jSvI199DPtwBx7ZOMJZ7mFekHQgKO5Y3UNvLxpP/fn6Hty8fJ
+	 fiBldBrf/gkOTPvveBE6zGkhf+7SjikQ9sJd8TRnYYUxrrgV3Nwd3gs6/BZzZMwiMs+jF
+	 cCDKR8f/syRnvFBBXfeGRWytPVSrw6EuIG4vWAJRe03Hw+7czyaR/qX/dp5gTvJCz40/e
+	 cwv/HCHbLd1LnZFbqJR/6nw+EN1qyVkIhDRtn4hCTtxa10KOs++0lMZ5SZtIQJbP5rTvq
+	 SpUsNSTPs5hmnlvNTJRJ7zrV4TzaSXLmD1v8keAG7+zVTnjvTOrw6PwAA9m2oGNYW+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ybY5HE2t;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ezMF53wN;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BGtTIaBI;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E54606A337
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:21:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7E54606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F56606A334
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:22:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72F56606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ybY5HE2t
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48b001cd92bso2028451f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:21:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ezMF53wN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BGtTIaBI
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A34hRXK751268
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 07:22:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	oNOQHJMVvx6lR/9lQldFO/azLOgEmsHBjYrpgr2OldY=; b=ezMF53wNN1hAlzpQ
+	zPBeT7TC/xSZHNmjdsSl2GQ6BmRxXFvF3LseH/sFoC3xmeQqk/6NIN1TekJ4maEL
+	KS788+hJBxvPILfskRTPGdZNmGuZ/KG8/5nB6EOj/VyBqQsqv6Vq47Dd5KkBPw6J
+	RyyvbT9ow8iG0IElFc+hEonEiK9JZDRMZnZpxb/5mqfLLhP+FlGE0Psp51EGg05x
+	9llxfvRzhZDSStQFRFcM1hFbbSTKEiF5xn1IyDsl81n/9c83XJneypRyZxizAylD
+	eQk5XEj96drXanlrr/bl0u/Kmdk0z+1MU8SSMHr0nmEKEh3Xsw7jgrag5sF7FVjv
+	2Bzhyw==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq8u5gj5x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:22:00 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cbb92868263so2119443a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:22:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793690510; x=1794295310; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793690519; x=1794295319; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qxNaHg0QwAKV8JFvr9izfGFpZQV2tly781er29vLsvA=;
-        b=ybY5HE2t5kZnS14uxoTv3e2uQeumA1UZ/ccTKbO3vU8azOvBBnDg5yloy4Yei86IaW
-         tfofRUm1ZvD9UV5WgpUc7tonFFzfrxJB45s1ZskF8/N+Xdupj62uuf5GOuXHWzy6afn9
-         bPeYMILWtthTb1oXNm6SVJNSJ7f5i/bLcXql4uaxfhg5US1lI7SnD7tqmZJc6j5+xxsP
-         HI+JBgEV9w91onxX8fncHzOCiysfDMECiEX7xDUNeLZBg7wDCuhaYEfvHUQkSoCrZA0I
-         v4V9SqTPrbyxELmyjIW57rCJVjM6ZtGrRnfo73C8vOtGdfhnida1wzpZTPGUsZEHB8Ag
-         TyyA==
+        bh=oNOQHJMVvx6lR/9lQldFO/azLOgEmsHBjYrpgr2OldY=;
+        b=BGtTIaBIMrrKnFSxyT/4pFlXPo/SdPLLEMgB+zfOxCcp+KH1PDewGJhYGrZCybwz6Q
+         KAIZTGGGgzJQmxjJQc0BMwYbfey1e7zdqA1vyR2nuNrAHwkWZDVG6NwuuZv4HryuNPao
+         Xz2bqjEwD3eWALRv6JavURbxtGjxLm+BkFP3sF/79xOh2tf4KrSxjrB5Y5G1Lyfq9xUR
+         4a5IboolIfp2BQrGugwpw/iNnznq3XiJd/6U7xWoPkkyC+YwmXQbLGZYbSNcQhYJJFG9
+         WDDI1CLFmpm6ExoYae0gp4z9Wd4cmRaStotTYk/wyXRyEjJlPOk1HzrkCJF/rxHWrZqn
+         2b0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793690510; x=1794295310;
+        d=1e100.net; s=20260707; t=1793690519; x=1794295319;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qxNaHg0QwAKV8JFvr9izfGFpZQV2tly781er29vLsvA=;
-        b=EC5YTHeRJIFUdSGPP68h61LuHAiNT5PkRPJ3Fcuk2RERHW7B41zssuZiMjW/XWf4pz
-         reGQXs+DI1h3cEvQI4R/pYGfA/8mUuHw6DrPhK1/p0LebdYudkAdBt6nDYWBHx/8NEbC
-         mphq+LmGvHwirHfvE358BVItMlkh2L6wdllToCvzbHEXE1+9NlvkWUP2X9Lw5d+xLPEj
-         B1JimEy/Tdn7cYGtSpOzqtVJytF9VQe8raUKtpFy8daIPmO18YLacc6vJa35suOVBlqi
-         t8N45uYJADWZMIb2zft7RKVpYEgCh+e1plx2J90/j5zP7qZYPPYihuw7BlWVxGxgQHQx
-         IlSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzGbOODK5akR6KaNc0K+WQ1ka81SFfQUTIqby6S4CXPZGQQ+KV/rHwnarxK6L/wnZ5r+aobU287IteGa1s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//TXyNVtcY3uXA23rQz6RYtHgcUij1INue3hFvOrVXk0QT18uK
-	H2gjXp6PakxShtpt4LHk4x1Adgvok4UsoXbwM6q45iSwaOjtUi4EVC3T
-X-Gm-Gg: AYBFou2x3nwt1D7DVdmhaybDg1wZedCpc5C+GfBYa7QH/OJzdYnSDb2z0YQqgHaywRE
-	xbsEj337izApYxSfYKPCOP/i+3fvXatSko6LriIjY7mY/BZCr+DMfUaFYyffZNyqUX+ZpDGM/UH
-	VepdNsF5ux0JckHq6L9Da22kpp0wAn65U2uLevqBXixn2QQPjodkMeWIsQxLUpvZTe8l4B9lfS5
-	XgifIt1lb8a5LubU2LUohP2dZQWkQ1QcZNygGP/8JExGMI7XkjfENe+OzTBfepL1vbe4wrwVqlk
-	RmaUe+n8oZdLFCwIFhE1xcomYFpID3Gq20joeePoizyvKFsrzu9k8BLA/BUp4Rhyq4Y74cUJNTq
-	acTQBtClTgyPZfaCmQSeOSW/KKgZb9fATT3F7U6KxInOZ6JzcxlOOBFK5aUpM7YboQ0GpALTzhj
-	ZuAJQDp9NMQ0MPNQfebKuKjJgFZ+3G5+NI0yizpZTQ8T8R5AxzozLPX4Fko4s/mTJmVf+qicItx
-	fmNGQ8hSHLULcIPihyqXI26fzo7/MJGOQNbhUqz+48DqXeEb6MhXIOhMBVfD61irLZxADDXePrn
-	TTOiZ4/lnWWduDIjYgOKG5liZQCzeE47HSbju/Esm+GOdAzPHNZgBGc4wA6bPoALvMkUnb8PDms
-	UOzMotrvzcNsFxXneshxDa8vCgh42reuiG7Nk7Uvu8ZJB53Z2micMxUUm4w==
-X-Received: by 2002:a05:600c:698d:b0:4a2:994:575c with SMTP id 5b1f17b1804b1-4ac185bcc4emr280845615e9.34.1793690509954;
-        Mon, 02 Nov 2026 23:21:49 -0800 (PST)
-Received: from [10.77.100.5] (ipservice-092-209-215-046.092.209.pools.vodafone-ip.de. [92.209.215.46])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a80e0fe6sm43172275e9.1.2026.11.02.23.21.48
+        bh=oNOQHJMVvx6lR/9lQldFO/azLOgEmsHBjYrpgr2OldY=;
+        b=znA+DRn1HuAzixp3u8DxZ+Ubdc2zrM84Bc0GUdS3Tm/13Ar0+WdIiOXHJMAmI3RlH9
+         +UMw4wX9XPq4ENV8+UHP7HK2+VY7b0TNHpD1lmhO1ofrkax0J8de+MnGnwgwQG2lSQoS
+         FPQMf1r8iGNQsqlL8fXlOeyh3NTudUZ3c6uxVhcaf1HlO8VlWncTlRsVehfdIiFdxvh1
+         LZZRv4BJGq6Oi2cDoDpNBhkYH21Bf0QVHKegimwuDGqJulRVl4GXwP0JcuRcLLNRLMxU
+         0twrsYHxG5TbD7GFXPcDqVeE2Hgu2jT1RpFA4ICILXjoJI/tZANASxuS7/pZCGJ2ePcy
+         6/Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpOmcv0y0NT1pwON0XicoHpoY8KaqD+85SMWCvg2/XpwB3dbv3oDE36Ua2IW2eqkSqtWje00Aead/2/x0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/bR2Gbg31PXK7qB+vWOBNH54XDf4xst2ZcZgBDsREVTw0UCdj
+	44dJe70cZVc4EuPKJquu4tqq9ahKpmsVqcEGGwONPsEiaOjeZ4JmhuQmEQJzFraQzbKXYJBdF7z
+	eQHquAai1NfAm1dSNxs+WhoAsHZgQ1nsX5DoZjQX+hngLqxOsvFY2qbSaW/9deB+hRyo=
+X-Gm-Gg: AYBFou1UeMxBpzoqXrw9zKnB9c+VjK99tdNXQE5IR/KP7pdPHp7Bt+d3cQ7wd+yhQHT
+	CrNegidfK0WQCfKh728s2qVxFpPC2mv4pmWcXS5zYtu4tuu2Yf8T0lYOlXqHDM245QZKdo0Moqf
+	QQOOZ3DNJkGUPDlhujJK5PUZOg4r8EP9kXdWDxFXwrJD9Tjl8MjqAh259oai33sjC1BuZGqseGk
+	BMp28+h9BorCXbyIysK1n6HPLgbaRC8+UD5Wmbst6BH63CB89C6Pzuzc16VffXRMpbq3YOECVoX
+	5wHDwm4Uiqjo7rtVtK5eEYXWzd0LycuFdlUYbqib4j/AZ2UPivAz1QIROhI0DiNQ6mVplubDEwp
+	uKHEFUEoQYjsHm7RRqyTJcOmMt3bj902ysbsEXOub9Tw4CJkoSZj9Dh6T09k3XvwDegKbjf3t13
+	/RTY4=
+X-Received: by 2002:a17:90a:c2cc:b0:3a8:f70f:2437 with SMTP id 98e67ed59e1d1-3ae8980bd04mr8855424a91.50.1793690519169;
+        Mon, 02 Nov 2026 23:21:59 -0800 (PST)
+X-Received: by 2002:a17:90a:c2cc:b0:3a8:f70f:2437 with SMTP id 98e67ed59e1d1-3ae8980bd04mr8855410a91.50.1793690518518;
+        Mon, 02 Nov 2026 23:21:58 -0800 (PST)
+Received: from [10.217.218.73] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c666cdcsm2799014a91.11.2026.11.02.23.21.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 23:21:49 -0800 (PST)
-Message-ID: <06ca6c0e-ba61-4ac7-900d-8f4d588ab4d6@gmail.com>
-Date: Tue, 3 Nov 2026 08:21:25 +0100
+        Mon, 02 Nov 2026 23:21:57 -0800 (PST)
+Message-ID: <cb63c8ad-abf2-41f3-a2c2-0b21196fe46e@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 12:51:52 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,230 +117,102 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] HID: surface-hid: support keyboard backlight on Surface
- Pro Keyboard (045E:09AE)
-To: =?UTF-8?B?UmFtw7NuIEplc8O6cyBNaXJhbmRh?= <ramonjesusmiranda@gmail.com>,
- Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261023173213.6219-1-ramonjesusmiranda@gmail.com>
+Subject: Re: [PATCH v3 1/3] dmaengine: qcom: gpi: Add I2C bus recovery opcode
+ support
+To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>
+Cc: naresh.maramaina@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-i2c@vger.kernel.org
+References: <20261027-20260826_aniket_randive_oss_qualcomm_com-v3-0-7f2a6e572de9@oss.qualcomm.com>
+ <20261027-20260826_aniket_randive_oss_qualcomm_com-v3-1-7f2a6e572de9@oss.qualcomm.com>
+ <197ed473-d259-4f1f-ace0-ce98ac0fd127@oss.qualcomm.com>
 Content-Language: en-US
-From: Maximilian Luz <luzmaximilian@gmail.com>
-In-Reply-To: <20261023173213.6219-1-ramonjesusmiranda@gmail.com>
+From: Aniket RANDIVE <aniket.randive@oss.qualcomm.com>
+In-Reply-To: <197ed473-d259-4f1f-ace0-ce98ac0fd127@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 6e1WxMvPxxljJVezCNBvN7om0aIEo7Io
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyOSBTYWx0ZWRfX5S24vebSEpsC
+ AT70ty4SFLPHvc7VteL0YWdz0IXWiKjMcMHXP8G5t0SHRJHNYs7ClaFu+xxmaB7dgbnPytmVsPm
+ e034C5zZwxqoBHen/bh9dgAj11/vNr0=
+X-Authority-Analysis: v=2.4 cv=RZ0FmFtv c=1 sm=1 tr=0 ts=6ae98b98 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=Dft2pwwzc1VQXl6WdfMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-ORIG-GUID: 6e1WxMvPxxljJVezCNBvN7om0aIEo7Io
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyOSBTYWx0ZWRfX7E/HY0QOI0bD
+ BlWpVQYCAVZPAHsE46sjJ+/zO39ADWOVeMZU8ShV9qS0AIoGCJ7GboSAZaC1+mks6VDIiGinnVg
+ L85PA/2DULewsQxuIA9egCc9O9+wjDN4tmcw4PZmlRtFJtMYuSNPBY5H8no+OtLC+n0FBiEr/sq
+ +x8uZmaMpUSXZ0OJhXQZjYkrqD+sotQx53KaK/QZZcFa88E7GX2pOKZK7fiABbV7tjwLJ1CKAbC
+ b1GP9gNYMUwnmrZBrAaDBXBXBXZbDJ5Gvj2uQno93QZfNyM7PLgDdG2Ht8VJZXYXadgvI7ed3mi
+ L7SDv1p1aypcF9RpNrC953RrbJJvL2RVTor41m12+T2CzdLsRhNNkU2Eozto0UCsDxGHaRUsOaV
+ OaX2xKzwdBe3gMPmBGX147bwhEJl4jim9RklPz0JpVD7tAPUoHuKLOfxBXc5h5fWkbc9ODuTqQG
+ J23vkxQPChqMKDmYiBA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 phishscore=0 suspectscore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030029
 
-Am 23.10.2026 um 19:32 schrieb Ramón Jesús Miranda:
-> The Surface Pro Keyboard / Flex Keyboard (VID 045E, PID 09AE) attached to
-> the Microsoft Surface Pro 11 (Snapdragon X Elite / X1E80100) exposes its
-> keyboard backlight through the HID Consumer Control collection (Usage Page
-> 0x0c, Usage 0x07) rather than through the legacy Surface Aggregator Module
-> (SAM) TC/KBD category:
-> 
-> - Feature Report 0xd5 (Usage 0x0517, unit Candela) advertises the 4
->    supported discrete brightness levels: [0x00, 0x03, 0x06, 0x0c].
-> - Feature Report 0xd6 (Usage 0x007b) returns the current brightness level
->    (0, 3, 6, or 12).
-> - Output Report 0xd5 ([0xd5, level]) sets the brightness level.
-> - Input Report 0xd5 (Usage 0x0515, Keyboard Brightness Next) fires
->    [0xd5, 0x01] whenever the hardware backlight key (F5) is pressed and the
->    embedded controller cycles the brightness in hardware.
-> 
-> Register a LED class device named "surface::kbd_backlight" (max_brightness
-> = 3, flags = LED_BRIGHT_HW_CHANGED) when the HID device matches VID 045E /
-> PID 09AE, mapping steps 0..3 to hardware values {0, 3, 6, 12}. Also hook
-> raw_event to read back Feature Report 0xd6 and notify userspace via
-> led_classdev_notify_brightness_hw_changed() when Input Report 0xd5 arrives
-> from the F5 key, and restore the saved brightness level on resume.
 
-Should this whole thing not be an HID driver? I don't like the idea of
-hard-coding report parsing here.
 
-Best,
-Max
+On 10/27/2026 7:04 PM, Mukesh Savaliya wrote:
+> 
+> 
+> On 10/27/2026 10:43 AM, Aniket Randive wrote:
+> [...]
+>> diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
+>> index c41bfac65ddf..394e7287f6e9 100644
+>> --- a/drivers/dma/qcom/gpi.c
+>> +++ b/drivers/dma/qcom/gpi.c
+> 
+> [...]
+> 
+>> @@ -1692,6 +1709,7 @@ static int gpi_create_i2c_tre(struct gchan 
+>> *chan, struct gpi_desc *desc,
+>>               tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_BEI);
+>>       }
+>> +log_tre:
+>>       for (i = 0; i < tre_idx; i++)
+>>           dev_dbg(dev, "TRE:%d %x:%x:%x:%x\n", i, desc->tre[i].dword[0],
+>>               desc->tre[i].dword[1], desc->tre[i].dword[2], desc- 
+>> >tre[i].dword[3]);
+>> @@ -1825,6 +1843,18 @@ gpi_prep_slave_sg(struct dma_chan *chan, struct 
+>> scatterlist *sgl,
+>>           nr_tre = 2;
+>>       if (direction == DMA_DEV_TO_MEM) /* rx */
+>>           nr_tre = 1;
+>> +    /*
+>> +     * Recovery opcodes do not require DMA data TREs, only CONFIG
+>> +     * (for set_config) and GO TREs. Since gpi_prep_slave_sg() is
+>> +     * shared with SPI, verify the channel is I2C before accessing
+>> +     * the configuration data.
+> I think i have mentioned earlier also. gpi_prep_slave_sg() Not only 
+> shared with spi but rather say, is a common function for all protocols.> 
+> +     */
 
-> 
-> Tested on a Microsoft Surface Pro 11 OLED (X1E80100) with UPower and KDE
-> PowerDevil.
-> 
-> Assisted-by: Antigravity:gemini-2.5-pro
-> Signed-off-by: Ramón Jesús Miranda <ramonjesusmiranda@gmail.com>
-> ---
->   drivers/hid/surface-hid/surface_hid.c      |   4 +
->   drivers/hid/surface-hid/surface_hid_core.c | 104 ++++++++++++++++++++-
->   drivers/hid/surface-hid/surface_hid_core.h |   8 ++
->   3 files changed, 114 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hid/surface-hid/surface_hid.c b/drivers/hid/surface-hid/surface_hid.c
-> index eae47e0..0f81732 100644
-> --- a/drivers/hid/surface-hid/surface_hid.c
-> +++ b/drivers/hid/surface-hid/surface_hid.c
-> @@ -161,6 +161,10 @@ static u32 ssam_hid_event_fn(struct ssam_event_notifier *nf, const struct ssam_e
->   	if (event->command_id != 0x00)
->   		return 0;
->   
-> +	if (shid->has_kbd_bl && event->length >= 2 &&
-> +	    event->data[0] == 0xd5 && (event->data[1] & 0x01))
-> +		schedule_work(&shid->kbd_bl_work);
-> +
->   	hid_input_report(shid->hid, HID_INPUT_REPORT, (u8 *)&event->data[0], event->length, 0);
->   	return SSAM_NOTIF_HANDLED;
->   }
-> diff --git a/drivers/hid/surface-hid/surface_hid_core.c b/drivers/hid/surface-hid/surface_hid_core.c
-> index 6690c24..afee61f 100644
-> --- a/drivers/hid/surface-hid/surface_hid_core.c
-> +++ b/drivers/hid/surface-hid/surface_hid_core.c
-> @@ -184,6 +184,98 @@ static const struct hid_ll_driver surface_hid_ll_driver = {
->   };
->   
->   
-> +/* -- Keyboard backlight (Surface Pro Flex / Type Cover 045E:09AE). --------- */
-> +
-> +static u8 surface_kbd_bl_raw_to_idx(struct surface_hid_device *shid, u8 raw)
-> +{
-> +	u8 i;
-> +
-> +	for (i = 0; i < 4; i++) {
-> +		if (shid->kbd_bl_levels[i] >= raw)
-> +			return i;
-> +	}
-> +	return 3;
-> +}
-> +
-> +static enum led_brightness surface_kbd_bl_get(struct led_classdev *cdev)
-> +{
-> +	struct surface_hid_device *shid =
-> +		container_of(cdev, struct surface_hid_device, kbd_bl_led);
-> +	u8 buf[2] = { 0xd6, 0 };
-> +
-> +	if (surface_hid_is_hot_removed(shid))
-> +		return shid->kbd_bl_cur;
-> +
-> +	if (shid->ops.get_feature_report(shid, 0xd6, buf, sizeof(buf)) < 0)
-> +		return shid->kbd_bl_cur;
-> +
-> +	shid->kbd_bl_cur = surface_kbd_bl_raw_to_idx(shid, buf[1]);
-> +	return shid->kbd_bl_cur;
-> +}
-> +
-> +static int surface_kbd_bl_set(struct led_classdev *cdev, enum led_brightness value)
-> +{
-> +	struct surface_hid_device *shid =
-> +		container_of(cdev, struct surface_hid_device, kbd_bl_led);
-> +	u8 idx = clamp_t(u8, value, 0, 3);
-> +	u8 buf[2] = { 0xd5, shid->kbd_bl_levels[idx] };
-> +	int ret;
-> +
-> +	if (surface_hid_is_hot_removed(shid))
-> +		return -ENODEV;
-> +
-> +	ret = shid->ops.output_report(shid, 0xd5, buf, sizeof(buf));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	shid->kbd_bl_cur = idx;
-> +	return 0;
-> +}
-> +
-> +static void surface_kbd_bl_work_fn(struct work_struct *work)
-> +{
-> +	struct surface_hid_device *shid =
-> +		container_of(work, struct surface_hid_device, kbd_bl_work);
-> +	u8 prev = shid->kbd_bl_cur;
-> +	u8 hw_idx = surface_kbd_bl_get(&shid->kbd_bl_led);
-> +
-> +	if (hw_idx == prev) {
-> +		u8 next = (prev + 1) % 4;
-> +
-> +		surface_kbd_bl_set(&shid->kbd_bl_led, next);
-> +	}
-> +
-> +	led_classdev_notify_brightness_hw_changed(&shid->kbd_bl_led, shid->kbd_bl_cur);
-> +}
-> +
-> +static void surface_hid_kbd_bl_init(struct surface_hid_device *shid)
-> +{
-> +	u8 feat[5] = { 0xd5, 0 };
-> +	u8 cur[2] = { 0xd6, 0 };
-> +
-> +	if (shid->hid->vendor != 0x045e || shid->hid->product != 0x09ae)
-> +		return;
-> +
-> +	if (shid->ops.get_feature_report(shid, 0xd5, feat, sizeof(feat)) < 0 ||
-> +	    feat[4] == 0)
-> +		return;
-> +
-> +	memcpy(shid->kbd_bl_levels, &feat[1], 4);
-> +	if (shid->ops.get_feature_report(shid, 0xd6, cur, sizeof(cur)) >= 0)
-> +		shid->kbd_bl_cur = surface_kbd_bl_raw_to_idx(shid, cur[1]);
-> +
-> +	INIT_WORK(&shid->kbd_bl_work, surface_kbd_bl_work_fn);
-> +	shid->kbd_bl_led.name = "surface::kbd_backlight";
-> +	shid->kbd_bl_led.max_brightness = 3;
-> +	shid->kbd_bl_led.flags = LED_BRIGHT_HW_CHANGED;
-> +	shid->kbd_bl_led.brightness_set_blocking = surface_kbd_bl_set;
-> +	shid->kbd_bl_led.brightness_get = surface_kbd_bl_get;
-> +	shid->kbd_bl_led.brightness = shid->kbd_bl_cur;
-> +
-> +	if (led_classdev_register(shid->dev, &shid->kbd_bl_led) == 0)
-> +		shid->has_kbd_bl = true;
-> +}
-> +
->   /* -- Common device setup. -------------------------------------------------- */
->   
->   int surface_hid_device_add(struct surface_hid_device *shid)
-> @@ -218,15 +310,23 @@ int surface_hid_device_add(struct surface_hid_device *shid)
->   	shid->hid->ll_driver = &surface_hid_ll_driver;
->   
->   	status = hid_add_device(shid->hid);
-> -	if (status)
-> +	if (status) {
->   		hid_destroy_device(shid->hid);
-> +		return status;
-> +	}
->   
-> -	return status;
-> +	surface_hid_kbd_bl_init(shid);
-> +	return 0;
->   }
->   EXPORT_SYMBOL_GPL(surface_hid_device_add);
->   
->   void surface_hid_device_destroy(struct surface_hid_device *shid)
->   {
-> +	if (shid->has_kbd_bl) {
-> +		cancel_work_sync(&shid->kbd_bl_work);
-> +		led_classdev_unregister(&shid->kbd_bl_led);
-> +		shid->has_kbd_bl = false;
-> +	}
->   	hid_destroy_device(shid->hid);
->   }
->   EXPORT_SYMBOL_GPL(surface_hid_device_destroy);
-> diff --git a/drivers/hid/surface-hid/surface_hid_core.h b/drivers/hid/surface-hid/surface_hid_core.h
-> index 4b1a7b5..c874489 100644
-> --- a/drivers/hid/surface-hid/surface_hid_core.h
-> +++ b/drivers/hid/surface-hid/surface_hid_core.h
-> @@ -11,8 +11,10 @@
->   #define SURFACE_HID_CORE_H
->   
->   #include <linux/hid.h>
-> +#include <linux/leds.h>
->   #include <linux/pm.h>
->   #include <linux/types.h>
-> +#include <linux/workqueue.h>
->   
->   #include <linux/surface_aggregator/controller.h>
->   #include <linux/surface_aggregator/device.h>
-> @@ -67,6 +69,12 @@ struct surface_hid_device {
->   	struct hid_device *hid;
->   
->   	struct surface_hid_device_ops ops;
-> +
-> +	struct led_classdev kbd_bl_led;
-> +	struct work_struct kbd_bl_work;
-> +	u8 kbd_bl_levels[4];
-> +	u8 kbd_bl_cur;
-> +	bool has_kbd_bl;
->   };
->   
->   int surface_hid_device_add(struct surface_hid_device *shid);
+Currently, the GPI driver has only I2C and SPI clients, so I mentioned 
+SPI specifically. However, UART may also use GSI mode in the future. 
+I’ll update the comment to state that gpi_prep_slave_sg() is common to 
+all protocols.
+
+>> +    if (gchan->protocol == QCOM_GPI_I2C) {
+>> +        struct gpi_i2c_config *i2c = gchan->config;
+>> +
+>> +        if (i2c->op == I2C_BUS_CLEAR || i2c->op == I2C_STOP_ON_BUS)
+>> +            nr_tre = set_config ? 2 : 1;
+>> +    }
+>>       /* calculate # of elements required & available */
+>>       nr = gpi_ring_num_elements_avail(ch_ring);
+>> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/ 
+>> i2c-qcom-geni.c
+> [...]
 
