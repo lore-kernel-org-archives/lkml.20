@@ -1,66 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793739279;
-	b=0nEUJVusO+HhgJ/omWScYNTU0/PZi1+25ts+CP5vexkgKYqJNkPXtImii4JUaKMTAa7o
-	 F5ugrwFcBiqZ1hI4lGHZTS11NOR2lRsx4T6MUrkVJDcX5CHKeYfi5M/JYUoAvqXbF0fww
-	 MlICGSw/fi1OWGrW80tfrfHwjqFCiUwVwA0T73PkqvlNGQjuAL7kTuKhzKaXzGrp503VA
-	 XFPmK2OdzMprWnOSgS0bkpccrt47fWldEPxJx9pkIpaAOGCgqCGtl90rmpdhsCIidNeA8
-	 /UYN6dKEyKQBVn32TbXailfS8cFrBVZmXEVyYkuiD+04L1iSgyXHdbQAekZXtYEwYfg==
+	t=1793739275;
+	b=06g0/CuP1F7TbZhILy/FFcLkbHlqYWGJ7U5QhQrFDRQS5zLy6kRf0SQPgHv0J+XphJDN
+	 dqZk5tq/a8k+VIAtsK0GucPNS6i0l7QYTbxLm6A70xpv9LGBu4bzGsUQaLBu6y+R6Stgf
+	 7fRmwexx+3DkZWHLaD+bUXP4XOXUb1MIB2hFsBuOvysPW7+qfvBz+9UVLTPBoCdkueya8
+	 6hvMgebpAsZyABJ48akA8ihiykRqP7fmu+3E0Zq/86p3WXGd+fogGvvkZktmpfb5+Xn5X
+	 2WokomQXWkoX1jZJhuN89T2J0wtRAcAUQdZ2aB3eKopBMvQOP9v6KZ3RhiU9ATjC23A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739279;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=U9zXQB+7vAN4+u9CA5J+kHq3aVzM2suNNiiqveHIdmU=;
-	b=ch/wBg/U/FLkJqxPhz0MSgMDIp0/DJlnmhTYdr/C9lZYkPtWR9sLh8d9WClGC8BMe4It
-	 0y/G0Ozisw9iuh2fZTEPf1VZg1ocAeMfDdNRnnvGUlvF7v8AbQieyS4l9xQPLBhbd5S+d
-	 a9c+iQtcEs0vIiPncwAr710XGIWaq3z7wD11CkV06rIKtBuPWeStqIglFZfWplanDQfYe
-	 +O1wPa9SOrVZUtNTKFcznkxDGOxNfacfGs9dpCMf5dE3kia4EAVUERkh+68+ydeUXVm8z
-	 /T5vcSgISLeFE17sY5TltugWMmb4e06kgTf4RmgxEADI7cA+H17EfdStNAHlF/+R9nQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739275;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=/A80EODLCyXaaGfYKqpHl1AEtmb4ixEKWz6DBGz/WQs=;
+	b=b38dFRctif5h8rQkNl0tsInJ8+P9un1wuyY7UwH2jol9K3maJ8hOeRvft68adpCjhEZQ
+	 l0bIXUKqULeAVtxctrLfzPaQSiJ5hBa5tW0ucOFgv25Zexq/WeKeqyBMd8ESUgeGd6ect
+	 nxlRH+M3uNxOuBQ0QK82fwItb/QqjvAtrTUZ28QgiyWi+VJuip0ByqrN2QshGVcvlnjVJ
+	 ZzmAqpxeZsnHo43Pomjp0kSNr0KrLGwoRWi2Nf0HO37TU8h+RdNBEvsiMVlpcBH9v8Z7E
+	 XZurq/VEFCratIdPrzWkUqrNZqVfY+dA2DpLP9OjjqVV1CCl1EIgFFO6IfDBy8lyV4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=RC3QCQEp;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xWMKjz2f;
+	arc=none smtp.remote-ip=209.85.128.181
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE92606A32C;
-	Tue,  3 Nov 2026 20:54:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE92606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33769606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:54:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33769606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=RC3QCQEp
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jK1661ZKHzlfwgG;
-	Tue,  3 Nov 2026 20:54:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793739276; x=1796331277; bh=U9zXQB+7vAN4+u9CA5J+kHq3
-	aVzM2suNNiiqveHIdmU=; b=RC3QCQEpaDjtm9JfU+Nued1GIc1zrvsBle9ZKDyb
-	7xCeR1G3dOs4ybGu3i3e6SBNo8KW4OckbwAejKIsFRplzxMhLVidEPMgFmffMLfQ
-	etYv+pxpzdK6CsGo4AEXwYWrVdBKqU7T8/MOx4uyfbW0G3FLTcARkbOApy/JfuPy
-	UgXA7TRjbtj9rz5QE300cYxQY3LT6XOkzNHnYFxhKaBTU72yY/NfPhKuL1zO5VUN
-	RUAHxW9uWmNN/XtL1m6IBN0cSue+THkKKnECwGbIw0g0rzd2x1jZi+H1Y2SJ1A1t
-	OO+4Hhqa4kHoQHCiG+eDYe/eb8nMYwU4YnuaTJ3hXbHDxg==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 6OudQalGJVzn; Tue,  3 Nov 2026 20:54:36 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jK16367HszlfwgF;
-	Tue,  3 Nov 2026 20:54:35 +0000 (UTC)
-Message-ID: <6e42537e-c7da-4b44-90bf-dc4cf30be6cf@acm.org>
-Date: Tue, 3 Nov 2026 12:54:35 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xWMKjz2f
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b06c0794cfso342587b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:54:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793739274; x=1794344074; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/A80EODLCyXaaGfYKqpHl1AEtmb4ixEKWz6DBGz/WQs=;
+        b=xWMKjz2f24N7OKwl4uSDOvuxlNLn5Py1ca2wVzSkGeUL+AettLzhvVM0YhUWZD4dze
+         PdI2V8dKw6JpN/yJahTam97guOJbvw9Z7BD7CcKiD+0HZtuy/19eQEuvvbnw77oKYu7x
+         hyN3c79ZTgDEdWW24uy714LlOnwpl9GhZqgvF32VJYvOw/bh9l8y+b4mPEbtN6m6FDAo
+         jh5Mdp1BNbAC752TteA7tevs3WR+eA41r30iAXlxRKFgw7WHrpCbqtRJp8wUXhdkZMzp
+         gZSr4rgme9jkfa4P0NTFBoMPBtevKxdOqI8vtjQIEypl3vMbUYroG6wCF8m+y0vN8wwX
+         r0cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793739274; x=1794344074;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/A80EODLCyXaaGfYKqpHl1AEtmb4ixEKWz6DBGz/WQs=;
+        b=Xu5IaXz9Tav38tgYntivOmmXi0f7J3E8QAR0PQlK0ZeIMyDFlt4GHZp/8iBxpYh++0
+         46c73WhxYdDBba4TELT0ZexJGJJcX1+s0zTEZjJ2d86xsZIe2uPQEN820V13/0sZv0ZX
+         OtYUbzGYmWPgp2FOAN5ICcaavxOUmhR7OJw8Nlw8vHk2AnpcI4/kA+gXiG5bZuKKpOiv
+         101g1eAO5dx5VpS5qYNaZFOG4aXvWbY+Suw2sve1C7sNGPJmC8x/43jAPjmOjaWKtrAf
+         RP3WTRT9wQ43EWG7zyJZp1JnEtb5gcOVAMgnVyR+mhsJc6BaOCEopiwWsUr5mY+n6isU
+         ry6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy4AZoKWTJqCsazbiw6NxlQIIPziUlNLwlapg9+QUZqbnO0Vt9CO1z5HaJfdAOHQSN87bD6Ko/lAX9DurU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8G6lxNcx2q/Iva32uIFFKSOutPzcHHWu3JfOQihBiIyimQ6gS1
+	ZEljDeCVBnKa5lu27P4lhFAScKB8/Rd+b/yOKVZBGHavWl9sTpAGtrtn
+X-Gm-Gg: AYBFou0162n8PCcXmc2Q3a3mX/w+K6OsnA2GuFhRq6vByqmllsaNXrquI5Msinsufhs
+	9e/ulIhTMlBeWXjZU/yz6lzzmqYHUU3x9KBapLQVvUGjMXv98cB0yzrymgCnq2BJcUVNx8UX3fS
+	17KivqCD5kdJggyElaVRu/1l/CL/LXqomsactHaraZoSt6mRqEkXPYFmVLTtwJqll79OZWg91YC
+	tXLwuvQZnAT5DWq52yJDFbUiZjtlnsfsLe0XSfJyp64D9PEWQuIFNXhcw++wOErLVzhhaEdzBZp
+	d9iqyiQ4rM2e3qoI2WIq1D051vdqPkml7v7GU/nHbMQ5tGh1KqxV0MkeDSY1jbr2t5cbdrZnqY4
+	108cVBRJsmYDvHrC4cyJpdBs3ws4Fjq2OVf7G4/zPH41V6jcZr3eIclJ3UQXYdUOfoXiVGwOi61
+	cy71cZ3suhP0kNzc/Ufu/EiHJXhJ99EWlQyXKP80iva3vzgE8cvpIQUlHGGAyZheJxViW2H0qr+
+	/zZYzz3CO/zpb/b/yC1gyEYJSsC2/xzTlOMOUdDFYmkfDfyirR6Ucsg9HGhyk+dH3byrio82/gl
+	g5BROCpoPKpBrIu7QONc2lRWNRmoxXs0pdGRgQNetzrQl8APIb7CPTfgbQ==
+X-Received: by 2002:a05:690c:4992:b0:8b0:e680:616a with SMTP id 00721157ae682-8b2b66f45dcmr112559257b3.24.1793739274317;
+        Tue, 03 Nov 2026 12:54:34 -0800 (PST)
+Received: from daniel-HP-Stream-Laptop-14 ([172.56.75.102])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bb4406sm4805187b3.40.2026.11.03.12.54.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 12:54:33 -0800 (PST)
+Date: Tue, 3 Nov 2026 15:54:29 -0500
+From: Daniel West <daniel.west.dev@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+	Paul Kocialkowski <paulk@sys-base.io>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH] drivers: staging: media: sunxi: cedrus: spelling correction
+Message-ID: <aupKBdon3N4Kpnkt@daniel-HP-Stream-Laptop-14>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,48 +100,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when
- already active
-To: Stanley Jhu <stanleyjhu@google.com>, Jens Axboe <axboe@kernel.dk>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Praveen Talari <praveen.talari@oss.qualcomm.com>,
- Alan Stern <stern@rowland.harvard.edu>, linux-block@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261029040001.2100001-1-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261029040001.2100001-1-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 10/29/26 12:08 AM, Stanley Jhu wrote:
-> @@ -153,7 +154,9 @@ void blk_pre_runtime_resume(struct request_queue *q)
->   		return;
->   
->   	spin_lock_irq(&q->queue_lock);
-> -	q->rpm_status = RPM_RESUMING;
-> +	/* Keep RPM_ACTIVE if a prior failed resume reactivated the queue. */
-> +	if (q->rpm_status != RPM_ACTIVE)
-> +		q->rpm_status = RPM_RESUMING;
->   	spin_unlock_irq(&q->queue_lock);
->   }
->   EXPORT_SYMBOL(blk_pre_runtime_resume);
+Correct spelling in comment.
 
+Signed-off-by: Daniel West <daniel.west.dev@gmail.com>
+---
+ drivers/staging/media/sunxi/cedrus/cedrus_h265.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Stanley, the analysis looks right to me. Could you make the invariant 
-explicit? Only move SUSPENDED -> RESUMING in blk_pre_runtime_resume(), 
-and only call blk_clear_pm_only() in blk_post_runtime_resume() if 
-old_status == RPM_RESUMING. Please also describe in the commit message 
-how this was tested. With those changes:
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+index 780da4a8b5af..f57642c0d8fa 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
++++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+@@ -755,7 +755,7 @@ static int cedrus_h265_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
+ 	}
+ 	cedrus_write(dev, VE_DEC_H265_SCALING_LIST_CTRL0, reg);
+ 
+-	/* Neightbor information address. */
++	/* Neighbor information address. */
+ 	reg = VE_DEC_H265_NEIGHBOR_INFO_ADDR_BASE(ctx->codec.h265.neighbor_info_buf_addr);
+ 	cedrus_write(dev, VE_DEC_H265_NEIGHBOR_INFO_ADDR, reg);
+ 
+-- 
+2.51.0
 
-Reviewed-by: Bart Van Assche bvanassche@acm.org
-
-Separately: since commit eef1d74bf88f, ufshcd_recover_pm_error() no 
-longer sees power.runtime_error after a resume failure. Its handling of 
-that case is probably dead code now.
-
-Thanks,
-
-Bart.
