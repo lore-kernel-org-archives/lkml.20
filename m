@@ -1,89 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732195;
-	b=QNVl2cRjJ3nRNiKnkXRv1vvKd0GMOa3odbLJIzlUPitK8lwpv3kf1ySOp5OAkjHBnVQj
-	 aQZIJPgMTkY9v/NSz9ZO6qVHEeKhKQtKzbz6GPojgyY0eX4m9neW22EzJ/ds6IvV/H6e8
-	 UvbrqssD3SFS+YSi5YEC5VKWOuzR6U8ShEaP2DeujKuI7D8cmd6ka6xkwpSH6vi/foC2d
-	 8OxpUOL9nnMzLBNyDH6PdIGtJVVeWjgIEJxavp4DHBygXJdmBW/nNDjZVcXl/8Yc53mwb
-	 hRVqEpo4+/lkJKdkJW4xSHQCXNsbs8cUcxfydNCiqlEO6Ub8QgsdqYXYtYPZgsLEvuw==
+	t=1793732224;
+	b=iJpj5xLV6llFQyLPnqIOnN6cE2mpRs/CEUdjakg3im/PpLFJ8r1WYbUF1YM7U8q/OoF7
+	 YRq8nRq7frtNcZ5vWXbcgMNa/dFbMkSKsa3OqPHHUaNa/0u7yKqRJFvJQGAQ5yhu01Aa7
+	 fYc0psSyBBrODsK7nmb0t7Sv0McXVumyAw1r90DGwicZpPFaG19MneHMREQVKmadX2uRq
+	 yOhoZKptCMO+EfP+R+8+b9/jY+gj0EI/KdQt65rNjEFMzw6t/dCeonbYa42UkbSNvnZeh
+	 /sV7XjgGIQTwpbnIDNfzm3aROZpASB46Go7fee1JDViln8chFLiD8sKz4+DiPeFiPHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732195;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732224;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PLO2xwfCocrBevVIKEHkd2tUmUVJORQjvzNZ7fJWYoM=;
-	b=BwM5LLrq6NBaCb8VZ8iPJYKi+YasqODMsbDwI2ekarWHbZxQn6WYYQd8LxNS+Y/LbFG7
-	 Mr78AToK+KySQS1dwAF6psSOylNZ/yiY71zfKHmt76RjSeNPiyHnqQwjq/+WPXu/ym2E/
-	 VpO5Hq2N7gyBQSAh0zNClTYglhsm9bTuzSQnMtJlv7JxvaBS1PN8c1DWkfpZFqxlrrVKy
-	 0wyVqogKdMUAROKVh/RZk0OS/n210ALSKTjsCDCurW03VCCdkUEn0q1J3oEN05ieaiSqF
-	 m2866OEbdIyl3fzmk+lUKcKCmqkDPiRSBRhbOxbJhd6fOcpDTRKEt/X9bppdwmNeOeg==
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=74r72HRpRA559V/nquUDmiH0Ij5L9Tuuw/PXNIqNzX0=;
+	b=mtnbBM8XCNCvOWbVjvVcGj5rA8gUBE5c6qf3VjJ1Ocef2J0sWFLuS/tS6z53FUgfyaGK
+	 3EvnfP8JZdT7Sa1eXFpxifpvzFSv+PQQUX6uS+4gWgoZWVtLqVf69SrgyESgVvktgjyHV
+	 02OZP5sLiIMxz0dJJGA09k7Con23N1XCPCbJpV6OgE0tqwL1xXedd1gA/zun/se/pWtVs
+	 /zwo+ScIQLmdIYWxGWI3TyCRkt+cYkSadzYr5CUU4kpn3dWNfppyXsbeHqo7BgUNm1LF8
+	 zEjIILs0UPDEJMQEfe8QJ7f1ktZcMRv32SovANedSZ/abU8nseAvqbtn6eYG17hOQyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n28IUoCz;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wJ+kGEGB;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46ADA606A332
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46ADA606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042D7606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:57:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 042D7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n28IUoCz
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so38851575e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:56:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793732193; x=1794336993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PLO2xwfCocrBevVIKEHkd2tUmUVJORQjvzNZ7fJWYoM=;
-        b=n28IUoCztPkOlL+/CXAG4SBObTW9aBGn/U7mFufsMhv/WPJsvUzl/Y6EqWzrh/yGMW
-         dYc1WEPIQTohl016wkl+7KVSesl3V4AGRbXYsfN0tYCwm8bz5o6U/URwCHKOX+FIX4T/
-         GWlhtg0Q/00gYJvxUKYUM6E4FtU3NVKe9eu7j0f/NURbl1DXRbxXy9ztlVNXEoCbXUx9
-         fOZSJJ8pFblx/PPGxTa2J8wGhNZ9s3lyNWlCo+odAyFRAie9E73Xw2s7OvCrHueVWmkO
-         8XSVuuU2/Yef8nXN5srjPUpuxNQJnwF4UKGmSVNBoTiiSk5X8Y5fWD19N1i+grIMF9hm
-         rRdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793732193; x=1794336993;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PLO2xwfCocrBevVIKEHkd2tUmUVJORQjvzNZ7fJWYoM=;
-        b=1PgKX9pJz0nd6k9ndpx1Pg41XSu0T5IKetfUkgHFgziP4kn9/K7ae78wsm7PM6Zo5O
-         MRhDK7gcDXPGg70hafN8W2HzFx9lrgYGifQpkSCWhQK9SejrkYyF54u1asZCt6ehYwRV
-         xLF38j4JFASND43a/LjLiO66i0XxN2xKPkTCIO8M1GL8B1sWgaJtzD7Ito6qkl/HJrbf
-         AdQvKNTkXUPH1tJsmB0WEBCSxPVm61sUdGnPLmvUKCIt3NP3u4ysh7y9/S+XhHkyPWRv
-         WybdjwejD5QOl32KVN1mrf7dxYe1nL//rRbml8UWOj4iA3gzbyAxfP0vY0iv8Hj7THEB
-         a4vw==
-X-Forwarded-Encrypted: i=1; AKwUvBz4rv3Rn3WqC/Mi6liN+yRuhldu20/bOGT4m0xqpMwbI77sKd6Lxx94ejPyhzU7RPe2uuA8CqenlC30uJI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/goL9Ev/YufjrDIKEOYQZK5APwv81UHNxDcKPQXdpze9EJ//2T
-	ZWGT0xxBGQQcS4cNSZDmuTAjHGe9jmLcsYkD1mrIxdwSuiSVR5mrrGvZ
-X-Gm-Gg: AYBFou3FhiKYG1XXD8BGUQQkVy1JYZlnDTq22Rt6bkXyIoFoDXI68Edkg2ddJfU69mB
-	rkFV15XmojKq6OvswY9SqPIJQJi/aTRsURNEZUjEoLiYW2RFexJzO/xetRe9xNPvsV/cgYaYFmz
-	Ch9evfB/CYNFwhiBpkW7UNlqPyjZIu4jRW6qE0XmtPLY+PCAWkKl0g++Nb4l6Riu8Hp2/yQ5UdJ
-	ZJR3otGdf9QawfMhGhiMMS/9/6naETVcf6aQAIWTjy5o60EtPE25E04hW3jfnXhHT6/4XveBaqu
-	m6sfugXyj59S0sjiH3vmUUUGeAcLaCFXtoYKCeQSZUkxjvktn+/w4eeeqSTycoMVeoSEdJjuw3H
-	FNyeuHA5UZQlxtWrF5/dpTjYW65B35KNoNjjAUBWHNyLW0q/7F0AcUP/2EaCfQjZR61vD9rCxC5
-	NUirhQgoejtm3aNpPhkbb/+wfdVfy1rGAV6bgNsgzQtlW5x2hgSRTNPDiTalycIKwTv0DJ4KAar
-	NfnC4TaLzlThJqME0FSClS7HZEnpY8xfqmY/3pzh287kJNhwvh/wcGIBp8vDqXjVTLW84z6zC7N
-	b2aFZQMt0xEd2qj3BC/Z6DIYM1lgOL/shJMhQCKS/5LqTFg9tthMQ00gj/lM7fSqczitR6yyIE6
-	tirjxmctHelPYsHHCC4cw73rH
-X-Received: by 2002:a05:600c:628d:b0:4a1:e01e:1927 with SMTP id 5b1f17b1804b1-4ac17d16a1bmr319846245e9.5.1793732192587;
-        Tue, 03 Nov 2026 10:56:32 -0800 (PST)
-Received: from ?IPV6:2a12:26c0:4402:6300:8cdc:cc88:9490:1614? ([2a12:26c0:4402:6300:8cdc:cc88:9490:1614])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9bd5d9fsm76736105e9.15.2026.11.03.10.56.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 10:56:31 -0800 (PST)
-Message-ID: <f909ccfb-0bad-4ad2-a5d7-d836f4bbc958@gmail.com>
-Date: Tue, 3 Nov 2026 18:56:30 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wJ+kGEGB
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id DDCEFC49F4B;
+	Tue,  3 Nov 2026 18:58:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 40D226046C;
+	Tue,  3 Nov 2026 18:57:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6204A103291D1;
+	Tue,  3 Nov 2026 19:56:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793732215; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=74r72HRpRA559V/nquUDmiH0Ij5L9Tuuw/PXNIqNzX0=;
+	b=wJ+kGEGBNVZ89WuIxN3rnWCuCDQDU3XXjku/sCN/Ae+9+ekADeymkPJ2P8gPXkDjynwT43
+	P7kNuPannoFLtJ/ZI7sgqbUZ23Ayk5Xkm3vPescXb7//nrek1uoVvQhWtl34D50L/NuduK
+	olNBXdQLuPF8tDrOpOY89rJcnT6T4ohu7WPbDocXlbHD3MhejxB0ubsb3BiaM9X8pyyxsT
+	KXDXjxtjoNUJEY5Eb0LNZDmlNop8VKRn9t8MnTzYwWzuYUam2hICvRkDMQ8NMpjMVzC3er
+	fkiTTc4If7meLPfK86Sqz63ZhG++dOnyEl0d/Nnfsk0WI/07WxC4rKS3Y20v1g==
+Message-ID: <750783ff-37d0-4b91-beaf-d36c8080a4d3@bootlin.com>
+Date: Tue, 3 Nov 2026 19:56:52 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,95 +63,72 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH nf] netfilter: flowtable: do not clear the offload bit
- twice
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Sven Auhagen <sven.auhagen@voleatech.de>,
- Oz Shlomo <ozsh@nvidia.com>, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261103-flowtable-offload-bit-v1-1-20f5952c00a1@gmail.com>
- <aunoySCHzqwI1QIz@chamomile>
-Content-Language: en-US, pt-PT
-From: =?UTF-8?Q?Jo=C3=A3o_Silva?= <jgc3silva@gmail.com>
-In-Reply-To: <aunoySCHzqwI1QIz@chamomile>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2 1/5] net: mvneta: lift the per-queue TX rate limits
+To: Josef Schlehofer <pepe.schlehofer@gmail.com>, netdev@vger.kernel.org
+Cc: marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, w@1wt.eu,
+ linux-kernel@vger.kernel.org
+References: <20261103125021.70845-1-pepe.schlehofer@gmail.com>
+ <20261103125021.70845-2-pepe.schlehofer@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261103125021.70845-2-pepe.schlehofer@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
 Hi,
 
-The fix was LLM generated but I wouldn't say it's just "for correctness".
-For some context, this issue was hit while developing hardware-offloaded 
-flows for the RTL930x target in openwrt. There was a point in 
-development where this was causing flows to pile up and eventually 
-exhaust the TCAM of the PIE engine on the switch.
+On 11/3/26 13:50, Josef Schlehofer wrote:
+> The per-queue rate limits set by mqprio stay in effect after the
+> shaper is turned off.
+> 
+> mvneta_disable_per_queue_rate_limit() only changes the mode bits in
+> MVNETA_TXQ_CMD1_REG. The token buckets keep limiting the TX queues
+> with that mode as well, and their refill rate still holds the old
+> limit.
+> 
+> Refill the token buckets of all TX queues at full rate when the rate
+> limit is disabled. Deleting the qdisc reaches this code only with the
+> next patch.
+> 
+> Tested on a Turris Omnia (Armada 385) with 10 Mbit/s limits on a
+> 100 Mbit/s link. When mqprio was set up again without a shaper, each
+> TX queue stayed at 10 Mbit/s. With this patch the link reaches
+> 94 Mbit/s.
+> 
+> Fixes: 2551dc9e398c ("net: mvneta: Add TC traffic shaping offload")
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 
-Thanks for considering.
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-João Silva
+Thanks for addressing this,
 
+Maxime
 
-On 03/11/26 13:59, Pablo Neira Ayuso wrote:
-> On Tue, Nov 03, 2026 at 09:52:56AM +0000, João Silva via B4 Relay wrote:
->> From: João Silva <jgc3silva@gmail.com>
->>
->> An expired hardware flow remains in the flowtable until its asynchronous
->> hardware deletion completes. Teardown clears IPS_OFFLOAD_BIT, so a packet
->> can create a replacement flow referencing the same conntrack entry while
->> the old flow is still waiting for deletion.
->>
->> The next GC pass calls flow_offload_teardown() on the expired old flow
->> again, clearing the replacement's offload bit. More packets can then
->> create additional flows for the same conntrack entry. A pending hardware
->> work item can also delay deletion and expose the same repeated teardown.
->>
->> Commit d2d31ea8cd80 ("netfilter: conntrack: fix erronous removal of
->> offload bit") closed this window for software flows by unlinking them in
->> the same GC pass and made the conntrack state fixup one-shot, but
->> hardware flows stay linked until NF_FLOW_HW_DEAD is set.
->>
->> Make clearing IPS_OFFLOAD_BIT part of the existing one-time teardown
->> transition, alongside the conntrack state fixup. Subsequent teardown calls
->> must not alter the offload state now owned by a replacement flow.
-> Let's better target nf-next for this, this looks like LLM triggered
-> for correctness.
->
-> Thanks.
->
->> Fixes: e5eaac2beb54 ("netfilter: flowtable: fix TCP flow teardown")
->> Signed-off-by: João Silva <jgc3silva@gmail.com>
->> ---
->>   net/netfilter/nf_flow_table_core.c | 6 ++++--
->>   1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
->> index 0d72dc8ae47a..709b55b74cc7 100644
->> --- a/net/netfilter/nf_flow_table_core.c
->> +++ b/net/netfilter/nf_flow_table_core.c
->> @@ -398,9 +398,11 @@ static void flow_offload_del(struct nf_flowtable *flow_table,
->>   
->>   void flow_offload_teardown(struct flow_offload *flow)
->>   {
->> +	if (test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
->> +		return;
->> +
->>   	clear_bit(IPS_OFFLOAD_BIT, &flow->ct->status);
->> -	if (!test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
->> -		flow_offload_fixup_ct(flow);
->> +	flow_offload_fixup_ct(flow);
->>   }
->>   EXPORT_SYMBOL_GPL(flow_offload_teardown);
->>   
->>
->> ---
->> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
->> change-id: 20261103-flowtable-offload-bit-f15bfd1d38ed
->>
->> Best regards,
->> -- 
->> João Silva <jgc3silva@gmail.com>
->>
->>
+> ---
+>  drivers/net/ethernet/marvell/mvneta.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
+> index ea755cf05b9e..9b9efac2846e 100644
+> --- a/drivers/net/ethernet/marvell/mvneta.c
+> +++ b/drivers/net/ethernet/marvell/mvneta.c
+> @@ -5204,9 +5204,16 @@ static int mvneta_enable_per_queue_rate_limit(struct mvneta_port *pp)
+>  static void mvneta_disable_per_queue_rate_limit(struct mvneta_port *pp)
+>  {
+>  	u32 val = mvreg_read(pp, MVNETA_TXQ_CMD1_REG);
+> +	int queue;
+>  
+>  	val |= (MVNETA_TXQ_CMD1_BW_LIM_SEL_V1 | MVNETA_TXQ_CMD1_BW_LIM_EN);
+>  	mvreg_write(pp, MVNETA_TXQ_CMD1_REG, val);
+> +
+> +	/* The token buckets still limit the queues, refill them at full rate */
+> +	val = (1 << MVNETA_TXQ_BUCKET_REFILL_PERIOD_SHIFT) |
+> +	      MVNETA_TXQ_BUCKET_REFILL_VALUE_MAX;
+> +	for (queue = 0; queue < txq_number; queue++)
+> +		mvreg_write(pp, MVNETA_TXQ_BUCKET_REFILL_REG(queue), val);
+>  }
+>  
+>  static int mvneta_setup_queue_rates(struct mvneta_port *pp, int queue,
 
