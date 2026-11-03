@@ -1,111 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711867;
-	b=5HldNYEiSmjjwHmqqfPz+jVjbzq6O5VnIkK4q46wYOS+gz9GxsXioyr1b5gqLPy9K4f7
-	 kUPyGO0H4EKxBG1WHrjemiKbkXPBgQRpOkzbWlZ3KC8YcacL8rxcNJ8CYT9bASZ+xaqTN
-	 eVXarhCuFeeuwsArCHZFZlL/X0xxaE0WH0t9OTytbzHNRjI9UXHUOc48OMQlyLohwn+j0
-	 h7dnrDCITg+1G0cBDeha48NtZHLNvDUUfWN3AdQgEaFd2+ssg4Pn+2pdPQ5idjaO1Xxnx
-	 QoUT0xFq5XQqYaC+J2QvGUKvSFOTjOZqS7/2dXgJJ6XNtT7c2/gDgFGlaslC7XpGMCg==
+	t=1793711877;
+	b=qJ+Nbj9MtAOP8GTV/1xgtLC1vZXDGT5C2g9EwJ0J8W2I1f47/CZm+s6uTxrmHRTcPSBL
+	 rlhK+eiN+DBQWTxD1+rcopgyW3zljQ66eQe4GZH57TrWXZRHFj++GdqmUlsxvV5erWMC/
+	 hpxsCAjvMZUHpv9/ZsLQQmSV9RMbQmOzy7EH79m7JkwG98JFlchUBcEplRL3L2mT5lLWO
+	 liDUkkN+4jT7Q3F7a7MsYbijBhMXe0u2qA/msK/trsU7dnNf7KG0vqbidfhJ6HGGpZz0j
+	 XraBUXhmnBNTYyS7bt2V8SrRRd9qxqKHeGxNYsVg24Cg0zNt5N3kzBKe8fMIhq9iaWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711867;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711877;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Zb7f9/XcDtj1wxbpECuZfkzStRwfhMzR+kgnYWRKlKs=;
-	b=B9xC2FreL1GqGIDf5c9OsoLGIbEsBxz2pCTPxv6gVrr/zId3zkZO092iwz7BCBI4r7hb
-	 wCIYrze9dXy1SZ/5aqyvVtPHbXnZbHO2QuaHO03/hw+Mv42FLkx6TouxlcsuIbxzYtmGg
-	 An5ppyy1WDg/Ke1tV2yQQWzJqsBCczuSgGNMdB9cZCZYQcCMm+z8/+46fZPC5Qn9oVY5o
-	 CkQOf7Uo39qI4KZzun9WY2fnr7u0b+dnInJNi0w/xr/EM13UJtwauPRdzU0oxs1jaIV/3
-	 sGDMMhb7YCyD2Qb0ooG2pDK70VGAHgfbOBDdlGA+9eFrZt+5TH9pxq/uYyTH0mGQkrw==
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=eXDd895Lrwplt7+NQ9MqaxzvFVwb3SBaY9P7Ikgu9YA=;
+	b=zx0/PGfGgAh2hy23+nSi9hwplt7xBejNmJP2vnH+ViXQUEUAXpNvFWkF+ddVXSnSiz3z
+	 1b74IXv6ytUcen07mor7tHA5ZJJ2TCJWZD31yFVo9FQoi18+w2Y/zzDlxF7bPFQ/fETLQ
+	 wJ+awNWSat4AuNR0uB+LzHBHdhH0mQn+qMamtfGBr+afm/kY2vwRcLIeiSMmb7r2qWVNF
+	 C45eAJdhfbjLjjY+26WQw+FOHTG98m+TOFYgmluob0Z07up5lUtcOLPsuhkBKVt5I2TTs
+	 wHgToAQwQHfj54JRUn+5QFPfbofkPkRdYtgUhREVpe77rSXku9y07XhWkIaibtRVo7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=columbia.edu;
 	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=vN+2wytO;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b="KsV/jAvk";
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=BWP5imKv;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b="OTa2SQO/";
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5005606D826
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:17:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5005606D826
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADCB606EEBE
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:17:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ADCB606EEBE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=vN+2wytO;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=KsV/jAvk
-Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A39MuBv625324
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 08:17:45 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=BWP5imKv;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=OTa2SQO/
+Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A38SGmu4083639
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 08:17:56 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=Zb7f
-	9/XcDtj1wxbpECuZfkzStRwfhMzR+kgnYWRKlKs=; b=vN+2wytOVXtOCWN6oZbf
-	65xCkmf6K5i0ks9ukYf9AAPsiLYe7V9KkPEFm0LtiHGaQLTvdcbJPzipEwvpVgIY
-	2Zuk6+uy7SCOrKLpjxfRh3fQthMoCHT22pc15rgPuhxbXzA6R9OJIbwXOzYSsomn
-	IRYj0Uml9jTkANtsS4tIMQ6u0IELOY+kFXP1N7oGr4E/tGZDA0wzbqe1FN2b1lUv
-	wyzyKTu/Fhoe2sRRR1tk40zRwXeFq4dm3zDdqIUA18KNHlGJy5aDqJGQ41MIDp9+
-	gPwRWdbvVh7yFz2OPmU/geQ1xQzGYSSJLRiGarkuyG15QosKgpQco0RS3CmHCM97
-	Zw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hqcr912mq-1
+	:message-id:mime-version:references:subject:to; s=pps01; bh=eXDd
+	895Lrwplt7+NQ9MqaxzvFVwb3SBaY9P7Ikgu9YA=; b=BWP5imKvcn+F4+dfv0y3
+	21bnm57gQVhyNhGsCX+GMxhLwGpsSPggT9G4AgvKtiXcs2eeVcGwyAXekaAQ2LgV
+	C7SccP2wB35RPvWjvJ82QQFgtjVU3PCHKCdmnGVKjh+M0m1Vf4ATm/QSqwxMudva
+	5klp0aPwPb0olULhAYteI3l2ikX7HruK/XcejBEagJPcqfduJXi1DBstvZlB29Cn
+	ixyFxOSeJCJ9aaEyQXVCJeL1Up23RYPLrwyvIrmgEbDINPc22AJ3y+Uau1QxjYnM
+	Vh62V8h5SSBzhxjdkh17D4d3sui+dVJjxMe0WOugy8lT9kWa3tZE/MVnYS03iTyo
+	cg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hqawfsedr-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:17:45 -0500 (EST)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-537548d4bc0so63193341cf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:17:45 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:17:56 -0500 (EST)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934963b2bc0so755961785a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:17:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793711865; x=1794316665; darn=vger.kernel.org;
+        d=columbia.edu; s=lionmail; t=1793711875; x=1794316675; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Zb7f9/XcDtj1wxbpECuZfkzStRwfhMzR+kgnYWRKlKs=;
-        b=KsV/jAvkHuZKHAh4Sv1xEWmiz9lRzyCaAUesvoBjkDiEAlwAnuTpID/YOSl4I0ArZw
-         hL0Jyf/NtKlPeLOAkJz7u1+X+biEz/sx4smjaPMkfSEgUTzdzNP3tzmZvj97aYhLHmW2
-         t4Y2eBE24H0yctYcpD/Nt/ovw8hUFvl92TuCd9PIrs3pnFB5qyoTCh70p7BJMtoX34YG
-         D+imUwFO2jYHO4bmH0T9sGowX0o1BHvUvltjyA3NDZeE1Uhoimw82XVHPVdvRQTCvQEl
-         dUrwKxris7YdeUgdoSqoRSq/xm1SdgroQ070jtTu0+7glh+RxNH50dPkMZiMO8tMzmyk
-         5l3A==
+        bh=eXDd895Lrwplt7+NQ9MqaxzvFVwb3SBaY9P7Ikgu9YA=;
+        b=OTa2SQO/DT2VARhxG9tALHDP/sQyTBUcBg4FMae9aXtemeH7OwaTVI25ht60ucOZJf
+         E/VWbdim7PzCgZRzhPAAoGMualRS+7obHudDq9lrGFxIJDgIt5QGVSJUfcqYH5T4itr9
+         48er/YiCYu5W74s9EGOz4GO/2N9SZMub3r/1J+LSK60gKRi34a5lJaV8tSFiwYfr0sdG
+         fqeo4fGNHzn9CbvyPQGMjkLuYW8p9nNfp65oc5vaxqlun+ttwJg+tex+WMb4VYPKSNO2
+         7ZHx+3QG4AEaw/pnJTFmvK1rYZoGFdOsoPlA+dAxHH7KdRBNXU0HHQ90J71LjHLFMTRs
+         /gGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793711865; x=1794316665;
+        d=1e100.net; s=20260707; t=1793711875; x=1794316675;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Zb7f9/XcDtj1wxbpECuZfkzStRwfhMzR+kgnYWRKlKs=;
-        b=tkB4JPTA2ZZ2h/Ehk6knn66oPtI5eRxOHWirBlDBT7aILvsnSSrMfISeod50I5UnR+
-         haNbFwAZQFUpJXe1ktA9KJlwluMIXfYsulq3EtDtRbGcgFeRUlmXclXyB4ffVbzEDGsE
-         AhLE4CKOn9qJqoMHRpZHWoaewe0u9Hkfh5MFNSttctUUHB6NMHsnHCAr596AZvl3LMjb
-         KHZYuL9DZ/SecIZy11iGa7fV7NDaDcDM990B5YI4kzVcoLjYWLjy1iLBblrtWHdOqWle
-         nUfWXv050rUyu+l378BpcurQzmaxp2gSUbg9QkymE0EucvroHWGfi90qS4UB0VEQAMbO
-         MuYg==
-X-Forwarded-Encrypted: i=1; AKwUvBzhwHqisphQcMS7P7zkvY9+xYPd/CrrGi5Eg6mxOfmnANviYbeoZhoLiWarv5VK5nW52UAVqiM7lax/ddI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HeVcnYwCDaGu70xN486UCicMOPyMZZiM4K33rdQezA+XFZ5Da
-	7FCWHn8a4sXkLga0WEkMeDtnLxpZTcgXij9svjZh19RozVk2JeWoQlQBWghPO40HXy1tW0PFSvn
-	nNzMfj+Ni60Rr+oTu9IAXGiNaT78Ec+n5wKNShYDMwLHmYnisIUQu+qdxZiJjdQ==
-X-Gm-Gg: AYBFou1W/aZlY+2dzklH/NHJvwZ56gAWyN2vW+/HG+rUjYDcDRJOPZSOPIiPKyfGC/X
-	8tB8pWfrq9EU2fLKaz5gbULlDGi2TYO96rf8qMvWyKCIDfilNHVT8JVUvk4d+JWdsrcov000YmS
-	wSQwZevKVO6MtDNyv2NuIzLakNMVnayQalEpTxbW75fncB1d6HBGNxWzSefuqprGpjkuKRLPQxc
-	UlUTgIsI3RtFuzqH6tt6lL9EVevofq6LtZOhPwJPPSrC+AUDiIXaxhkTAEqc7cZ/piam1830/4f
-	k/Tc2I3YaTL49yDY3uR6Qzv2sNQ83KJmJRkQP2UMp0uGp5vze2Kd29XLha0SLAQ8Jr07ZtL8HYB
-	A2uGXbUfKX30E5rNY6GOleNSFz9QyD7P2Q4lCCRh+MWyS
-X-Received: by 2002:a05:620a:8004:b0:93e:53fd:4139 with SMTP id af79cd13be357-944214dc4demr1972031585a.9.1793711865045;
-        Tue, 03 Nov 2026 05:17:45 -0800 (PST)
-X-Received: by 2002:a05:620a:8004:b0:93e:53fd:4139 with SMTP id af79cd13be357-944214dc4demr1972026285a.9.1793711864356;
-        Tue, 03 Nov 2026 05:17:44 -0800 (PST)
+        bh=eXDd895Lrwplt7+NQ9MqaxzvFVwb3SBaY9P7Ikgu9YA=;
+        b=CpBOT1sUefkoy1mqBlw9w/+yKwsRUK0R3p38PIqMh49v7HymW6vbl5kGtApML6X5TT
+         X02YfQkvLJIlsuz+dc/dmhlPE10FSonwGv0G2jacagY0xt7wwRUpx9ppn4wWaqqg+XJF
+         baSte1Kvgy+1+7sFFREH2i3D4UWkMglRrgBTOxwWQsYbfGNayCIw6o507JHdp6LySIJ4
+         fKDcZ0/cY2SlnnXlhtFxvV5BvHYeB/edB9NUGP4RnxCJ5HAwANPn6SqSw3Y2BJj4E6qq
+         JR9+rSHdkFC+L/3LBMPn8iUXazpqxdJSN/aMaz7+pit+R4M551NLLi47Qs1DHjkZLHC3
+         /61Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwaR2tf60556eDxSj+UWLDp2NFhOucXTz/SRcpgLB8oVKcBh0cDvFGHp6QWqLF4n4N2gfKfbYefUGWg600=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ivSYo1/jV9v+wyCEumNbguFREbhixPHMyDjhq9FfWzPC5GDxu
+	pJf9aV+Y0EwQURRy2ILhrApyXLjDpoj6QO2qG2yS2s+VaPrPm2fsaxrKls6XM6hypx7/qkRQm+x
+	+R9ujg3SplFIolg8Cet4+ecyFCXnSoUztemK/QL9xkG0Bqw3J8w7McPZ2lbvR+A==
+X-Gm-Gg: AYBFou3FaDAGc9yyP6uQQx2YPsf2jBv01Ei3+rcWDyGKZm7eIJX2eI6G+tjGRtGL8bp
+	47/SwvH2BBxEnu6oTq+RJP9xZ1WaPyru1DD3gdZJFJpFtqL50yduMbga3asVI7P/Bw8tQ9h7jbF
+	no2iceiF6oTXCbxy2d4PtyEAb2i3MeXsi54BHK9xWJJ5G2jIRoe00CIHC9E7uVMkm9/pZ5C4FqD
+	MIYo2NIhfRhyLNhI2oyIa0CVlcPAbhs/+krwmAQ39inL0NREL+YSC9nXynv+k5hIza2JVKPTw/r
+	SgiZfNV2XCSFYMrQZl2iYq4BZzPnM6nvS57VA1Jo526q7U1zZkTWuWkr6tkSX31HWmMb8nyg2/9
+	SoDhlCghjhP6wBmHdgdzaeE52gyhdqq08Faq5AAvxBBflMqqb9gL5euGPeaQ=
+X-Received: by 2002:a05:620a:318f:b0:93f:633b:ee1f with SMTP id af79cd13be357-94421617479mr2171230985a.28.1793711875260;
+        Tue, 03 Nov 2026 05:17:55 -0800 (PST)
+X-Received: by 2002:a05:620a:318f:b0:93f:633b:ee1f with SMTP id af79cd13be357-94421617479mr2171226585a.28.1793711874627;
+        Tue, 03 Nov 2026 05:17:54 -0800 (PST)
 Received: from [127.0.1.1] ([37.142.147.122])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aa5781c9sm62076885e9.8.2026.11.03.05.17.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aa5781c9sm62076885e9.8.2026.11.03.05.17.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 05:17:43 -0800 (PST)
+        Tue, 03 Nov 2026 05:17:53 -0800 (PST)
 From: Tal Zussman <tz2294@columbia.edu>
-Date: Tue, 03 Nov 2026 08:17:03 -0500
-Subject: [PATCH 05/16] squashfs: add a folio based page actor
+Date: Tue, 03 Nov 2026 08:17:08 -0500
+Subject: [PATCH 10/16] squashfs: walk folios by offset in the page actor
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,7 +117,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-squashfs-folio-v1-5-7b0fd4d20882@columbia.edu>
+Message-Id: <20261103-squashfs-folio-v1-10-7b0fd4d20882@columbia.edu>
 References: <20261103-squashfs-folio-v1-0-7b0fd4d20882@columbia.edu>
 In-Reply-To: <20261103-squashfs-folio-v1-0-7b0fd4d20882@columbia.edu>
 To: Phillip Lougher <phillip@squashfs.org.uk>,
@@ -126,188 +126,129 @@ To: Phillip Lougher <phillip@squashfs.org.uk>,
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
         linux-kernel@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793711849; l=4768;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793711849; l=3031;
  i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=o2Tizo07Eab/4Y4ayN3gpdfnMlmlLy+KbnolzkCsoms=;
- b=Xo5kOjuv+a2VjKW6PrFAaLZ/pW5WPVLGlPpsYPjbjG1Rzqgxiorg23S4qtw91BtBzpXJQHWgr
- dNdDBMaGzntB/bYeE1wcNWJskFQi/ec0jKGCnbuSAMAjk2inN0rPoRU
+ bh=mMnCbeooKrnCvJRRMHT7drzS1qonasc+CddLfFrZSN4=;
+ b=61kzzAEezfkDJdv0nQLQZYz9z9zOAiYcP2PN6I1HHUm2uqHMZjl8bhYj/j+hIcXCc8TE+nThv
+ uedpdjpdFTtBXSLeq5sdf+NFWBDMajhpmac2Aw6X38hD2gSYSb23Bvo
 X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
  pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1MiBTYWx0ZWRfX/h3YP6gzbGTE
- x6FNp3iZD7aLmZXOGRyxTbss8/hgS6/xTZDogXYTebDzEg6iC4LFwGcp+UkEhB9QzbRqQ9Jo30P
- phz8YpjaDbJ0dOJAO5XnMQzCyEZUoYQLvg8NPaU96i5eSE3YPnl5
-X-Authority-Analysis: v=2.4 cv=W8atxhWk c=1 sm=1 tr=0 ts=6ae9def9 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=6RgaMXXTExC6Yw++yBnrug==:17
+X-Proofpoint-ORIG-GUID: sgLka0-b_M_EFVJNcx5PL54JHLhozdXP
+X-Authority-Analysis: v=2.4 cv=DsXDa2/+ c=1 sm=1 tr=0 ts=6ae9df04 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=6RgaMXXTExC6Yw++yBnrug==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
- a=kTpTTbHfegdTIErnXYwA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1MiBTYWx0ZWRfX+G/pa7EhEAdY
- tx06Qp37V1T1KNVQSB1aEcCS9wslLdi7noYkFM1kH8dhDeIiHLMMzRZuq5YF2MYzkge5GajUy5c
- RdXQhg1533mjPyKTNEnJdRwLuL7riesgONFJ4lz5iunblJlU98X6ev6YlwiKf5KbQhw1qkgilq3
- vONUoakcqceqB6NMKaUtKa95LUWdBGOyooF76+m5EWO0fQWFOt/erTkFK/UkJRnnUhIYu8CL2wo
- NKe+sWfa0ZNyMdL4Jc5ruyuY7lobxZs3DlL/Aw0DzW53tM6BbfEA7jdH4fnta4CQqau2h+E4qZz
- cQPPk92i+eVD5k8gXRf/ghYFf70armWw8hzNQPQ4Mjf6NbQzkxEvHGWBnBzNPyTOiOs2NiGrPqI
- gSpSI02gyEWMDAkUSpwmy+bP2O4aNAl/6fSZLSUgwJIoMdD/0v5qpL8cfIpyAStFSxaFpf0qXW2
- 8oPWwl2xxFIyb3K7BRw==
-X-Proofpoint-ORIG-GUID: MKlu3949gu1HizFjkKeULPlws5ahfT7h
-X-Proofpoint-GUID: MKlu3949gu1HizFjkKeULPlws5ahfT7h
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=svvvyxlR1OQQkelhaPoB:22
+ a=8RdLy8_qIiOmrIqx_ysA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1MiBTYWx0ZWRfX4kEvKTT9vmjf
+ xqezmuU5wjoCxGPQZwBpk/an81M/boEwhc5fvPtICpdVO5dpGkJjs88xGlqn0gPZQjgRJEjfuSW
+ +Vsa46x6AjAYA5IR50iPptnXnjMnsYryYmErPF40mwRnYRogJZWO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1MiBTYWx0ZWRfX4BpfVhNkt0Bm
+ WO3ig+NcDY6U3Zp4DwiwleH2sT8Xi4JEqx7G0nn4HIum6Ez1fzLClTdt+Lu79gR7LB2LXniP9HE
+ lDLPblLzhCu52fZsM1OrIqOwexJ44npuFUlYgBCWomAw3tli706DncH+TtfT8x7Zz5gYNII1fJR
+ g0JGnLQD1qOUXdrsVq8JGlXVVAC/WWg8M8jWp7ClZNZz0Grsm0IBsi6aHLZB7Eu9JOM6ddhppef
+ MgMKZw8Y8mxJGZ5UGdQv4uGlQaF6Pg4NC+bMO/Hdrxmfg9wysAgn4UoMVLEOiMbpXtuduv/82Ud
+ IVXITrQiJjOIoitKiVaUtBZJMrpOcIH583cpezlq3Nt6ihd/VDdkrP+e8vgI5NdPURUSy+iGl4R
+ aKK2Lp2ol4kWxXTviSibfyR+JE2CuKkE3yWhYu6/KVi2eMKb0KGTo7er43LIFeCi2exuhe/LHQy
+ ApQj2ksqHx9taWSfPZg==
+X-Proofpoint-GUID: sgLka0-b_M_EFVJNcx5PL54JHLhozdXP
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11954
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=10 priorityscore=1501 suspectscore=0 spamscore=0
- malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=10 impostorscore=10
+ malwarescore=0 adultscore=0 suspectscore=0 spamscore=0 priorityscore=1501
+ clxscore=1015 bulkscore=10 lowpriorityscore=10 impostorscore=10 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030052
 
-Add squashfs_page_actor_init_folios() and
-squashfs_page_actor_free_folios(), folio versions of the page actor
-init and free. The page implementation stays until its users are
-converted.
+Track an offset into the current folio and map the next page at that
+offset, moving to the next folio once the offset reaches folio_size().
+
+squashfs only uses order-0 folios, so no functional change. This is a
+step towards enabling large folios.
 
 Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- fs/squashfs/page_actor.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++
- fs/squashfs/page_actor.h | 16 ++++++++++
- 2 files changed, 98 insertions(+)
+ fs/squashfs/page_actor.c | 26 ++++++++++++++++++++------
+ fs/squashfs/page_actor.h |  1 +
+ 2 files changed, 21 insertions(+), 6 deletions(-)
 
 diff --git a/fs/squashfs/page_actor.c b/fs/squashfs/page_actor.c
-index 79b73e98abab..8471f69e5cbe 100644
+index 185365c1afda..3ecf83a5cdf6 100644
 --- a/fs/squashfs/page_actor.c
 +++ b/fs/squashfs/page_actor.c
-@@ -139,3 +139,85 @@ struct squashfs_page_actor *squashfs_page_actor_init_special(struct squashfs_sb_
- 	actor->squashfs_finish_page = direct_finish_page;
- 	return actor;
- }
+@@ -62,25 +62,33 @@ struct squashfs_page_actor *squashfs_page_actor_init(void **buffer,
+ /* Implementation of page_actor for decompressing directly into page cache. */
+ static void *handle_next_folio(struct squashfs_page_actor *actor)
+ {
+-	int max_pages = (actor->length + PAGE_SIZE - 1) >> PAGE_SHIFT;
++	int max_pages = DIV_ROUND_UP(actor->length, PAGE_SIZE);
+ 	struct folio *folio;
++	pgoff_t index;
+ 
+ 	if (actor->returned_pages == max_pages)
+ 		return NULL;
+ 
+-	actor->next_index++;
++	index = actor->next_index++;
+ 	actor->returned_pages++;
+ 
+ 	if (actor->next_page == actor->pages)
+ 		goto missing;
+ 
+ 	folio = actor->folio[actor->next_page];
+-	if (actor->next_index - 1 != folio->index)
++	if (index != folio->index + (actor->folio_offset >> PAGE_SHIFT))
+ 		goto missing;
+ 
+-	actor->next_page++;
+ 	actor->last_folio = folio;
+-	return actor->pageaddr = kmap_local_folio(folio, 0);
++	actor->pageaddr = kmap_local_folio(folio, actor->folio_offset);
 +
-+/* Implementation of page_actor for decompressing directly into folios. */
-+static void *handle_next_folio(struct squashfs_page_actor *actor)
-+{
-+	int max_pages = (actor->length + PAGE_SIZE - 1) >> PAGE_SHIFT;
-+	struct folio *folio;
-+
-+	if (actor->returned_pages == max_pages)
-+		return NULL;
-+
-+	actor->next_index++;
-+	actor->returned_pages++;
-+
-+	if (actor->next_page == actor->pages)
-+		goto missing;
-+
-+	folio = actor->folio[actor->next_page];
-+	if (actor->next_index - 1 != folio->index)
-+		goto missing;
-+
-+	actor->next_page++;
-+	actor->last_folio = folio;
-+	return actor->pageaddr = kmap_local_folio(folio, 0);
-+
-+missing:
-+	actor->last_folio = NULL;
-+	return actor->alloc_buffer ? actor->tmp_buffer : ERR_PTR(-ENOMEM);
-+}
-+
-+static void *direct_folio_first_page(struct squashfs_page_actor *actor)
-+{
-+	return handle_next_folio(actor);
-+}
-+
-+static void *direct_folio_next_page(struct squashfs_page_actor *actor)
-+{
-+	if (actor->pageaddr) {
-+		kunmap_local(actor->pageaddr);
-+		actor->pageaddr = NULL;
++	actor->folio_offset += PAGE_SIZE;
++	if (actor->folio_offset == folio_size(folio)) {
++		actor->folio_offset = 0;
++		actor->next_page++;
 +	}
 +
-+	return handle_next_folio(actor);
-+}
++	return actor->pageaddr;
+ 
+ missing:
+ 	actor->last_folio = NULL;
+@@ -112,6 +120,7 @@ struct squashfs_page_actor *squashfs_page_actor_init_folios(struct squashfs_sb_i
+ 	struct folio **folio, int nr_folios, int length, loff_t start)
+ {
+ 	struct squashfs_page_actor *actor = kmalloc_obj(*actor);
++	int i;
+ 
+ 	if (actor == NULL)
+ 		return NULL;
+@@ -126,8 +135,13 @@ struct squashfs_page_actor *squashfs_page_actor_init_folios(struct squashfs_sb_i
+ 	} else
+ 		actor->tmp_buffer = NULL;
+ 
+-	actor->length = length ? : nr_folios * PAGE_SIZE;
++	if (!length)
++		for (i = 0; i < nr_folios; i++)
++			length += folio_size(folio[i]);
 +
-+static void direct_folio_finish_page(struct squashfs_page_actor *actor)
-+{
-+	if (actor->pageaddr)
-+		kunmap_local(actor->pageaddr);
-+}
-+
-+struct squashfs_page_actor *squashfs_page_actor_init_folios(struct squashfs_sb_info *msblk,
-+	struct folio **folio, int nr_folios, int length, loff_t start)
-+{
-+	struct squashfs_page_actor *actor = kmalloc_obj(*actor);
-+
-+	if (actor == NULL)
-+		return NULL;
-+
-+	if (msblk->decompressor->alloc_buffer) {
-+		actor->tmp_buffer = kmalloc(PAGE_SIZE, GFP_KERNEL);
-+
-+		if (actor->tmp_buffer == NULL) {
-+			kfree(actor);
-+			return NULL;
-+		}
-+	} else
-+		actor->tmp_buffer = NULL;
-+
-+	actor->length = length ? : nr_folios * PAGE_SIZE;
-+	actor->folio = folio;
-+	actor->pages = nr_folios;
-+	actor->next_page = 0;
-+	actor->returned_pages = 0;
-+	actor->next_index = start >> PAGE_SHIFT;
-+	actor->pageaddr = NULL;
-+	actor->last_folio = NULL;
-+	actor->alloc_buffer = msblk->decompressor->alloc_buffer;
-+	actor->squashfs_first_page = direct_folio_first_page;
-+	actor->squashfs_next_page = direct_folio_next_page;
-+	actor->squashfs_finish_page = direct_folio_finish_page;
-+	return actor;
-+}
++	actor->length = length;
+ 	actor->folio = folio;
++	actor->folio_offset = 0;
+ 	actor->pages = nr_folios;
+ 	actor->next_page = 0;
+ 	actor->returned_pages = 0;
 diff --git a/fs/squashfs/page_actor.h b/fs/squashfs/page_actor.h
-index ffe25eb77c32..bab0a19be266 100644
+index bc4f44122ddc..e188e807350b 100644
 --- a/fs/squashfs/page_actor.h
 +++ b/fs/squashfs/page_actor.h
-@@ -10,6 +10,7 @@ struct squashfs_page_actor {
- 	union {
- 		void		**buffer;
- 		struct page	**page;
-+		struct folio	**folio;
- 	};
- 	void	*pageaddr;
- 	void	*tmp_buffer;
-@@ -17,6 +18,7 @@ struct squashfs_page_actor {
+@@ -17,6 +17,7 @@ struct squashfs_page_actor {
  	void    *(*squashfs_next_page)(struct squashfs_page_actor *);
  	void    (*squashfs_finish_page)(struct squashfs_page_actor *);
- 	struct page *last_page;
-+	struct folio *last_folio;
+ 	struct folio *last_folio;
++	size_t	folio_offset;
  	int	pages;
  	int	length;
  	int	next_page;
-@@ -31,6 +33,10 @@ extern struct squashfs_page_actor *squashfs_page_actor_init_special(
- 				struct squashfs_sb_info *msblk,
- 				struct page **page, int pages, int length,
- 				loff_t start_index);
-+struct squashfs_page_actor *squashfs_page_actor_init_folios(
-+				struct squashfs_sb_info *msblk,
-+				struct folio **folio, int nr_folios, int length,
-+				loff_t start);
- static inline struct page *squashfs_page_actor_free(struct squashfs_page_actor *actor)
- {
- 	struct page *last_page = actor->next_page == actor->pages ? actor->last_page : ERR_PTR(-EIO);
-@@ -40,6 +46,16 @@ static inline struct page *squashfs_page_actor_free(struct squashfs_page_actor *
- 
- 	return last_page;
- }
-+static inline struct folio *squashfs_page_actor_free_folios(struct squashfs_page_actor *actor)
-+{
-+	struct folio *last_folio = actor->next_page == actor->pages ?
-+				   actor->last_folio : ERR_PTR(-EIO);
-+
-+	kfree(actor->tmp_buffer);
-+	kfree(actor);
-+
-+	return last_folio;
-+}
- static inline void *squashfs_first_page(struct squashfs_page_actor *actor)
- {
- 	return actor->squashfs_first_page(actor);
 
 -- 
 2.39.5
