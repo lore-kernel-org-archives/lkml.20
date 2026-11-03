@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695438;
-	b=k1aSDLkXOAKBsnaf6AbnmSur0vi+iHcrR3HT5EptOjnS8bBah3VCJgOz6oPUxDscaoGP
-	 3ltSOAFvgKNFENDgFjcj+j81lzE01dSTpb05BsWA+Sd11M1KBmY9uvhfMUMLY2G+Lznq4
-	 ySlmKfHgabd1e2j0s0FTuil2dEvkvX9Kk/RbhG5fJ91yuCGZ6RzQgOJ8TLhV3kUwKEpHW
-	 hG3uand/D2cE+PG/eLZ6I0NxO1rXZztshvN3MYrY57UZgSbrxLB2wJjFhlbMa+4+L5453
-	 6QWp9tJbu2cATOuIbZbJMIeNzyuI7b5gvxw14fk+KjucxVqaX3eZbAT4+wWwtD8vETQ==
+	t=1793695444;
+	b=SjwSTDdYw3/3/2E9rLlx+iUEirQSBJl1dzzcUJCmOGFrm906vyJ/4hkJJTqYLDGjFf0b
+	 oZtApPtVePig80N9BfErEzElwTxoowR7FHUTZ1iqFWuQuu9jf8K/cfHVsZJH+bwourHhx
+	 7cavE4CA0jjARKzyjmp3FjZ8/x0LC8QI5Vj+qw/kAx7tJ99qt1fS60DTHvU5l/65nRqt1
+	 7Q7vhjCD8WFiCgApNiLU5FTNXogTTU2ubf21MnRsgn0J1/a7fIfnMz3NDJ290vPEbrYGL
+	 mrOEfvZ+exV87Msy0RqhUSTk49ZUFkMzLpIzZVAQ2eZiqLWbBERyzOC5ltLsq81xJwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695438;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=dwUVwHlLq9+4ar10B3+uww2PxgckiO6ewtLyyeNYiio=;
-	b=4uFruGZLkTy0LuS9i+F049e8vOg1cKDMtL95uK9VzB2HVe2RLTvk1A63bO+QNm9sQbPz
-	 m9xqSksml3YiTHwkkRYpALVwIX3EPFAVs5Vk1/AuO3rUPRkcQ6J16Zn1/pgj1bewgvVFH
-	 /Zm8QQzMd8HLySWROkMwuzDfUKocMgNn3JjhiCZDlpXxOW8hILJ3uVAOJynlxEbsrGeu8
-	 DG/Lj7OzMFo08broelZ2hvYRv05MRTxsoF98ibfMXffX3H3Rr/yw9esBW8V1mnNVTqJ63
-	 Crumffh+Z9ruky5lvwSavJMkCAaziMZbdAA8Wj1QipklRTjGUv0SV1GqmjLBEU6s4Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695444;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=qKY6HPHC5qrYrTa66v2t7bNaES7eOt5+LBkRq20PIeI=;
+	b=ftV2GbzuS0rl6oFMS8SSISdEpyfYsSRDeEzC86Qy9hibLr/L5Nrix51HMBK5Qtadjqne
+	 bZIARMDd4n3RTIdQhmu145xOxoBNcDurwKHXloCXMiBwjomZqFRfSBePgjkXKT+pYxIV6
+	 oYfbdSn3HJXuLUuB3AuYv3Quf2XbLOGzsegagGV/Gk0FecyUEDASAfRiL86No87Ar1gBB
+	 5LOtR9Uh5l8EwpaK2xfBc7yc4jPfA5M3ta/Nssa1h8xMLcS0GVoO7i/ijgjN02D9Fspvl
+	 f5A1Uh/0pc+R0coJJbwiWvdMgDkeUmrzZKon11Uyx/h/vzBOfVNzfg7alinXNVHeR9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b="RZp/ZV91";
-	arc=none smtp.remote-ip=117.135.210.8
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A82606A940;
-	Tue,  3 Nov 2026 08:43:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04A82606A940
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=RZp/ZV91
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=dw
-	UVwHlLq9+4ar10B3+uww2PxgckiO6ewtLyyeNYiio=; b=RZp/ZV91pw+7iro0Ga
-	9Mdar6EmvNWVqdfAbgZwB8+WwPvjbgXnmjyFJ1VyuGL4sYhJshZyZW5UpFjNqoPD
-	hn5bKeIbUVc9i8/KSIGl3QTLKPJpnFr6FcD7xcDdJ/47gQREkEaqyPjgVoe2lb3y
-	FM32cjLeEfZ2uwerdzsj1AT+Y=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD394uLnulqIw9mCg--.27301S2;
-	Tue, 03 Nov 2026 16:42:52 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	michael.bommarito@gmail.com,
-	gnault@redhat.com,
-	alice.kernel@fastmail.im,
-	kuniyu@google.com,
-	nicoyip.dev@gmail.com,
-	mail@david-bauer.net
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: [PATCH net-next v2] l2tp: bump tunnel stats before dropping the session reference
-Date: Tue,  3 Nov 2026 16:42:49 +0800
-Message-Id: <20261103084249.1337657-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3D8606C697
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:44:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB3D8606C697
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab8b4887d4so3536793b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:44:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793695443; x=1794300243;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qKY6HPHC5qrYrTa66v2t7bNaES7eOt5+LBkRq20PIeI=;
+        b=unOYxLF/m0nf4/9nhoUXi0BRNKT84IBLYQNBnyX76/LhD+e5l9nzoRWNuZIZp9qN9F
+         or5f+jPD9Jzwv4VhonEDzDDsnJ9LTGrCqCQiWaWL7p6b5WibgGNg6UG1PywyRNeNayLN
+         srhTShEaBtLM2HnFMnjSQ+2cQpg0Kw4bilqIRKxt9ulWoRiUph3Sxvq8oGYYZPKUidZ1
+         fBL/Y24/9S6ylrD7ToFLbREknhAMDbOu4qDnTG0ejU1n9vX924JODeocuSCTlM2gz3MD
+         nG8RvuQX4uBD1zUrAedJyEprTIWuphTwNWDCsLCW0+0bueTWV6IN1jetftQiV/Qfmg6F
+         humg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3rFt/fCrSmHvpbYhlq1jmqe/2depTQZ0OcQ2k7slVA4W4/khWfkJ1ilbbbNdwX47Rj2kGZsM1zHeRlAw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/T/b2yXoyxDwOmqFBK/XDTYQhYWFMtRnonA0CVy0gNkd494OvO
+	YRulvgCMFBwWi2iUDyMug3qlvlgrCvXh73O2PB//no3KRg9gqVF+oE0hZ2EeGIXYGRevFlAflRj
+	Vo47W7OLS8kWfvy/ImbwfglbRxQTcgZK6IvX9al0NgnTPLb7+MtymZLuHFCA=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,102 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD394uLnulqIw9mCg--.27301S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXrWfAr1DtF4rXr1fKr4DJwb_yoW5ZrW3pF
-	WUG3yDKr4DKr1UAr18Jay8X3W5CrWSvayrCF90k34SywsxZa4kJa90yr1Fqa4DCrWvka1Y
-	vF1vqw15XF4qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UA9N3UUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlAzftmrpnoz9NwAA3q
+X-Received: by 2002:a05:6808:1b2a:b0:4b9:e5fa:8a17 with SMTP id
+ 5614622812f47-5640dd9c199mr8261680b6e.28.1793695442824; Tue, 03 Nov 2026
+ 00:44:02 -0800 (PST)
+Date: Tue, 03 Nov 2026 00:44:02 -0800
+In-Reply-To: <20261103082349.3009885-1-fei.yu@intel.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae99ed2.0c24fc0a.13a0ab.0036.GAE@google.com>
+Subject: Re: [syzbot] [dri?] WARNING in drm_mm_takedown
+From: syzbot <syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com>
+To: fei.yu@intel.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+Hello,
 
-l2tp_udp_encap_recv() derives the tunnel pointer from the session it
-has just looked up, so the session reference is the only thing keeping
-the tunnel alive.  Both error paths of the function drop the reference
-before jumping to the invalid label, which still dereferences the
-tunnel:
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-	tunnel = session->tunnel;
+Reported-by: syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
+Tested-by: syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
 
-	if (version != tunnel->version) {
-		l2tp_session_put(session);
-		goto invalid;
-	}
-	...
-invalid:
-	atomic_long_inc(&tunnel->stats.rx_invalid);
+Tested on:
 
-Reorder the error paths so the statistics are updated before the
-reference is dropped, removing the dependency on the tunnel staying
-allocated after its last reference is gone.
+commit:         6628e7d4 Linux 7.4-rc1
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=12954f95580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=dc5d2f8cec3bf9ef
+dashboard link: https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1067284e580000
 
-Currently this is safe by accident: the only live entry point is the
-UDP encap_rcv hook, which is invoked under rcu_read_lock(), and the
-tunnel is freed by kfree_rcu(), so the tunnel memory outlives the
-dereference.  Making the order explicitly correct keeps the function
-safe regardless of the calling context, instead of relying on every
-future caller holding an RCU read-side reference.
-
-The put on the version mismatch path came later, with commit
-4d10edfd1475 ("l2tp: Fix memleak in l2tp_udp_encap_recv()."), which
-plugged a session leak.
-
-Found by inspection.
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
----
-Changes in v2:
-- Describe the change as hardening instead of a reachable
-  use-after-free: the socket backlog path pointed at by the v1 commit
-  message cannot be reached, and the live receive path always holds an
-  RCU read-side reference, so the old ordering is currently safe
-  (Sashiko AI review).
-- Drop the backport tags (the Fixes tag and the Cc to stable)
-  accordingly and retitle the patch.
-- Correct the index line: the v1 patch carried the blob hashes of an
-  earlier draft of this change, so its new hash did not match the file
-  the diff actually produces.
-v1:
-- Link: https://lore.kernel.org/all/20261027063657.1359170-1-xiaolinkui@126.com/
-
- net/l2tp/l2tp_core.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
-index 7e042a3e648c..b7183b527fc4 100644
---- a/net/l2tp/l2tp_core.c
-+++ b/net/l2tp/l2tp_core.c
-@@ -1083,16 +1083,12 @@ int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb)
- 	tunnel = session->tunnel;
- 
- 	/* Check protocol version */
--	if (version != tunnel->version) {
--		l2tp_session_put(session);
-+	if (version != tunnel->version)
- 		goto invalid;
--	}
- 
- 	if (version == L2TP_HDR_VER_3 &&
--	    l2tp_v3_ensure_opt_in_linear(session, skb, &ptr, &optr)) {
--		l2tp_session_put(session);
-+	    l2tp_v3_ensure_opt_in_linear(session, skb, &ptr, &optr))
- 		goto invalid;
--	}
- 
- 	l2tp_recv_common(session, skb, ptr, optr, hdrflags, length);
- 	l2tp_session_put(session);
-@@ -1100,7 +1096,11 @@ int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb)
- 	return 0;
- 
- invalid:
-+	/* The session reference is the only thing keeping the tunnel alive
-+	 * here, so account the invalid packet before dropping it.
-+	 */
- 	atomic_long_inc(&tunnel->stats.rx_invalid);
-+	l2tp_session_put(session);
- 
- pass:
- 	/* Put UDP header back */
--- 
-2.25.1
-
+Note: testing is done by a robot and is best-effort only.
