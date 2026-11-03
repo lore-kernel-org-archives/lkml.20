@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793741466;
-	b=gcWQBz+ihplGz/L00C8Vb1aQwVyTReVJWXMuz0L4DNBLwPWmw6bVLk8xY/IxeqjuiBPZ
-	 +37vgq3Y69bkEtjLaO6SfRRwwWXU3GoY/F8CzvMPStszweowvP1QNJXfnBpTY87jHlmC2
-	 0TqnODbo603qCCeIllFUKHa3K3lHwJzqcfeUEdaGf18r9egSvk0v2GcLdAJrDz1W7+97p
-	 kUmns4YtlyrcXgggTX7cVMMaaY1IzhbIHH+Dd5sQN535+B7AYv7FxH0DXXyZ3uyzwUUDO
-	 TUuT+YLzTI0TiAp9wxXO32Y/WDI6H7gG1uzgN1psgGcS82SLl/lmyspigM1qZSKDP0w==
+	t=1793741473;
+	b=hVB8mTVXhotPJWlg8n83se9tg4g0e/1Bl5TH5MOHoEgx6wvISABXdapxKE9mch2uGczG
+	 bIvq7b7jSn1qS9tGgtPZtxT1xE2oUaDUv2GnrEBMYujXEbJWvYC9wFqPINojKgUrrrLLB
+	 KIXO+gwb9WGoeUZTdKdMEDbf4iHVx+oiyWG1oWmmjK4ldGpTySfxd55EGK5QSjAdxgh+T
+	 Gg2FLot+Y3WC4dSoioXSn76uN+9zUvCTHtF+vMzHSKU+/QiJ2AQi+XO7eTLHxDN0lLRdJ
+	 dEXcGzRf8p0upHtFrXS2bwC6MgHsN/hmJ661dcWCu6AVrLMnswBO/RbEPuMq4YyrCsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793741466;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793741473;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3/oOsHewxoaJAaDJ/rO1u+yX1SuMv/P/AudEIBEMG7w=;
-	b=JVbd4cSpfSCYdHmLngU15azdgdIbE+Lfqos/8azEAKJ8ZAMvyhilN/4yMmGR4hdG1dqY
-	 M8xMwtDM5t0FY+tD6zluUahhdgahV4MD4IhOht2FTHKt/m8tfUqlFCx0UnkrGDKbvAiqY
-	 0HKMA1qr4yqWGlcy/E9b/sMPnDNTs4ASjeLCOrAcU5kS3Zojq6e6Uxs5p2LJjS/Yo07so
-	 SbSjuiZ/WqBEAG2b/9ey3JqM5nQCMIHdFjHLO+5h15rHgaRmSGUEu/j7pjad2WOY9K6qj
-	 iwdTIGdNsplyNRDy2bGEKupQNi+lz1Tg2JD78KXALHtFDzD/OSvFExwiXHfT7yAXiDw==
+	bh=f0ma+jHzcciETFu2F4xi1pN1CPcSp4hOEtFv0IsiDV4=;
+	b=Zi40DGrs6JwS4dJ3MnXo1EQEP6UbNoWfXDDMx5ksjujXGUs+2awCXTJkq8xkgxDsBzfg
+	 SAluOd6c6JasnPuqoLxPTvMmQ7pBIagA45YoDUvKQhQcv8tu5EmxpkoV6ktLkCqvhJyaz
+	 1EIL4ATsw/qH0hBB2Y5ssGD4ye5bAwHHtjZWr1mScj1tLK9XsQdIoeGrm1cIW9GHrXPbD
+	 DMi4S4f2TBnXlOriTmLyfU7rMWzB1+Jn+/4oT5VNOITG5+AX8NFPvCWd7f+oyKSwyjbQJ
+	 52QvUQZkWH4ZKE9CPFnrsZh+NbbDq6wHC4VQWuoYhV9mxuE5YO7UH9caGFnCCszLriA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FMWVqxa1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fr4Psa/B";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C1C606A31B;
-	Tue,  3 Nov 2026 21:31:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848BE606A326;
+	Tue,  3 Nov 2026 21:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FMWVqxa1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5025F1F0093A;
-	Tue,  3 Nov 2026 21:31:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fr4Psa/B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EDC21F0093A;
+	Tue,  3 Nov 2026 21:31:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793741466;
-	bh=3/oOsHewxoaJAaDJ/rO1u+yX1SuMv/P/AudEIBEMG7w=;
+	s=k20260515; t=1793741473;
+	bh=f0ma+jHzcciETFu2F4xi1pN1CPcSp4hOEtFv0IsiDV4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FMWVqxa1FNxP1228G32bTLVARYQ3QmprHch71ewzUY/3cokfxHRbiLY8bJdd7QIY6
-	 9b/IJJINomPPHFXkkbRjzQzlMnWaXqmIX+D0uM2IC+ik7B1EtxY/6c1gwP2PLupO2w
-	 WRcQ2O0Lir3/wtmX7pB8ql3mia8EWlLhDi0UU0U0jUGC69f7a9Kmpx7tvNdDykFhd1
-	 zg2VtXHVIuY9Aql8rftE6fdeCdhIyA28K6ntxQOvOcCI9pRn5/aTK7I8YRNkIRcLGN
-	 mXIoqqqbzvuyYRXz3W5+3ANaY/QYRVxDF1ODKuPaEq+0KsSOk5xU9YWMikFRVHt0B3
-	 KgWBzfYAUBKUA==
+	b=fr4Psa/B2JpwdpKsWn4kacWBVEmwIR9mGxLeXDKCcfoVujwzps+XBrF7qnJ6LEgK0
+	 MUlkzd2LzQQ4VFcrTG6mkfOzNG7xuXexVUuwVuy5u8BjhjrfmfSX9VHLla+lI0LzOX
+	 7Nq38h4yFwiT81Dsn5HqCqCHTEKV4bp9spFUQs7cX6led9HyS2W+JOkMYsE7Zzhbfr
+	 Sa9Hz++1mamyR38F1EZhg1J1ec1D5YZKWEkQ3pPFoCy4zwSoEIE5aUxnKUHwF/o8Gy
+	 /2MsmpHL4PntxfTSP2F0TeFLF+JwKGaewegHhohmNespDtKihaIHqoktlGwdRgm0z8
+	 rF6+O3CnKG/dA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Sean Wang <sean.wang@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hao Chang <ot_chhao.chang@mediatek.com>,
-	Qingliang Li <qingliang.li@mediatek.com>,
+	"Ryder.Lee" <ryder.lee@mediatek.com>,
 	linux-mediatek@lists.infradead.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 08/10] pinctrl: mediatek: Clean up partially initialised hw->eint on error
-Date: Tue,  3 Nov 2026 21:29:13 +0000
-Message-ID: <20261103213002.1673560-9-lee@kernel.org>
+Subject: [PATCH 09/10] pinctrl: mediatek: Prevent divide-by-zero for pins with fixed drive strength
+Date: Tue,  3 Nov 2026 21:29:14 +0000
+Message-ID: <20261103213002.1673560-10-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <20261103213002.1673560-1-lee@kernel.org>
 References: <20261103213002.1673560-1-lee@kernel.org>
@@ -69,51 +68,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In mtk_build_eint(), if of_property_count_strings() fails or
-hw->eint->nbase is non-positive, the function returns -EINVAL directly
-after allocating hw->eint without jumping to err_free_base.  Because
-callers such as mtk_paris_pinctrl_probe() and mtk_moore_pinctrl_probe()
-log a warning and continue probing when mtk_build_eint() fails, leaving
-hw->eint non-NULL with hw->eint->hw unset causes subsequent GPIO or
-suspend/resume callbacks to dereference a NULL pointer inside
-mtk_eint_do_suspend() or mtk_gpio_to_irq().
+mtk_drive[] only defines entries for DRV_GRP0 (1) through DRV_GRP4 (5),
+leaving mtk_drive[DRV_FIXED] (0) zero-initialised with min = 0, max = 0,
+step = 0, and scal = 0.  If mtk_pinconf_drive_set() or
+mtk_pinconf_drive_set_rev1() is called with arg = 0 on a pin with
+drv_n == DRV_FIXED, the range check (0 >= 0 && 0 <= 0) succeeds and
+!(arg % tb->step) divides by zero.  Similarly, mtk_pinconf_drive_get()
+and mtk_pinconf_drive_get_rev1() divide by tb->scal (0) if the pin has
+drive register fields defined.
 
-Jump to err_free_base on both error paths so hw->eint is freed and
-reset to NULL.
+Return -ENOTSUPP immediately when desc->drv_n == DRV_FIXED.
 
-Fixes: 3ef9f710efcb ("pinctrl: mediatek: Add EINT support for multiple addresses")
-Closes: https://sashiko.dev/#/bug/linux-0689c07e-ef74-4bc2-b5de-bd2f361124bd
+Fixes: c28321979ba8 ("pinctrl: mediatek: add driving strength related support to pinctrl-mtk-common-v2.c")
+Closes: https://sashiko.dev/#/bug/linux-d3852d37-6806-4c41-a493-f249dd59d0c6
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-index faa6dbf0f635..aa15c9e047d8 100644
+index aa15c9e047d8..1243862983b9 100644
 --- a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
 +++ b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-@@ -382,12 +382,16 @@ int mtk_build_eint(struct mtk_pinctrl *hw, struct platform_device *pdev)
- 		return -ENOMEM;
+@@ -1040,6 +1040,9 @@ int mtk_pinconf_drive_set(struct mtk_pinctrl *hw,
+ 	const struct mtk_drive_desc *tb;
+ 	int err = -ENOTSUPP;
  
- 	count_reg_names = of_property_count_strings(np, "reg-names");
--	if (count_reg_names < 0)
--		return -EINVAL;
-+	if (count_reg_names < 0) {
-+		ret = -EINVAL;
-+		goto err_free_base;
-+	}
++	if (desc->drv_n == DRV_FIXED)
++		return -ENOTSUPP;
++
+ 	tb = &mtk_drive[desc->drv_n];
+ 	/* 4mA when (e8, e4) = (0, 0)
+ 	 * 8mA when (e8, e4) = (0, 1)
+@@ -1069,6 +1072,9 @@ int mtk_pinconf_drive_get(struct mtk_pinctrl *hw,
+ 	const struct mtk_drive_desc *tb;
+ 	int err, val1, val2;
  
- 	hw->eint->nbase = count_reg_names - (int)hw->soc->nbase_names;
--	if (hw->eint->nbase <= 0)
--		return -EINVAL;
-+	if (hw->eint->nbase <= 0) {
-+		ret = -EINVAL;
-+		goto err_free_base;
-+	}
++	if (desc->drv_n == DRV_FIXED)
++		return -ENOTSUPP;
++
+ 	tb = &mtk_drive[desc->drv_n];
  
- 	hw->eint->base = devm_kmalloc_array(&pdev->dev, hw->eint->nbase,
- 					    sizeof(*hw->eint->base), GFP_KERNEL | __GFP_ZERO);
+ 	err = mtk_hw_get_value(hw, desc, PINCTRL_PIN_REG_E4, &val1);
+@@ -1095,6 +1101,9 @@ int mtk_pinconf_drive_set_rev1(struct mtk_pinctrl *hw,
+ 	const struct mtk_drive_desc *tb;
+ 	int err = -ENOTSUPP;
+ 
++	if (desc->drv_n == DRV_FIXED)
++		return -ENOTSUPP;
++
+ 	tb = &mtk_drive[desc->drv_n];
+ 
+ 	if ((arg >= tb->min && arg <= tb->max) && !(arg % tb->step)) {
+@@ -1116,6 +1125,9 @@ int mtk_pinconf_drive_get_rev1(struct mtk_pinctrl *hw,
+ 	const struct mtk_drive_desc *tb;
+ 	int err, val1;
+ 
++	if (desc->drv_n == DRV_FIXED)
++		return -ENOTSUPP;
++
+ 	tb = &mtk_drive[desc->drv_n];
+ 
+ 	err = mtk_hw_get_value(hw, desc, PINCTRL_PIN_REG_DRV, &val1);
 -- 
 2.56.0.385.gac671c819a-goog
 
