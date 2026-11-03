@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724869;
-	b=ofSNzfaIuk5bzvrMzfr4utEFdumT4F9aLMR33SRPZ0kUwkjDrTU+jTViM1RsQ9G1Jux2
-	 UPUunWLwgcGHzGQ7ZyVtS8uxNMaKnBPhBwmcAuTnmTRRnWLBSCLrtrT2Hr8zlFI3ack/s
-	 IIjXhAoi0vQWMkRfkawM6NDQT0OMTS/7r5Hp9G24sZhzYTa9mpEnCMYAgXC0QPQfD4baA
-	 XnYdmUhI3bJNTxrBIVus7yboJKDg/AwQMQhRkHWb+hI7b1YEzaSQc385++WefRfpfb+Gr
-	 JVpZWYv8Z042Jx1gER7BeAvafMXdhi31QHcvnpMQYv0U98Yf2Gxtpl1osmti1aX3Qxg==
+	t=1793724866;
+	b=lzeudaCR5hjLBQudQsLso5GVV1GAZvCCNrd2zd6hmJ3kIw6ArVDYv+24113UNs2HDmVE
+	 XBReI+2bV71VFt8uYbKihe9HY73PlgJwHP5KPDa/NONugM/gZweoQe+S5lL/mX6T/mfjR
+	 74vdurh+d9YNANwwLoaRCrGFbum5dFV331OOq0VNXCJwY/9CYqX/sfm7rGG6uKyRT+/eX
+	 E7TP6l67fNo9uPypBmlLBeBUJ/TiD0UInAE4bE9XeelGXDidBqSsIoi0hBoDv7CUpga3N
+	 OjnU46cxLTEA32LM7vZDSi9s1q0jwDgxq+bS8gjVvIDsZ7/He7+87xpJNPpiNxIlPlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724869;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724866;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VwLmXbxU91lRfKL2iRheEIften8r0BgVcs9fiXKoTcg=;
-	b=WorUQ2nW+F3L2fJ5xss768wT+zKRIVOF5rj0IQV2VSh4V3ItnldX3Qu8gjGpDiDiRpDN
-	 w2vj9fZB651ZJDkDGv+73DjB5EKbNxhcuSS6R5YP8lolh97GahiU+qc5QQ5Jk0vHEyhMf
-	 9kJJ7CADblq5MhZ9C8X+XmAd2lQX+uTiEbG+NYqeXIdPAVXqwfwwA6XdzHh1nM5IlmHpl
-	 jh4LmKJOfB1tQxx6a1doj+5but+GWL3akCiDLWBb0ODQtUl9ginf/TphmjPOzvMDL6UF+
-	 fDUN4DyAQw+TLYqIZXtImYrqj1NOPTL87W20XWrBfxh0/6UOgd7VWkkk1r8NDUhl5qQ==
+	bh=9E8O4GJrrDPUZq5FZkBH34WVGX8r7ZAAIL0omDrXCko=;
+	b=kxrH+54lIIJh5Wc5QtAji6JscrAjwU51CpaLzyZNZFZm5NiF61xYbgJ+ExY7pZ0eL7r4
+	 13gj7q8JUPFc6KxgLb7JxtpqNEodGqJuWFz8/tSkG08iY7+5KAFTQBYzU5/nh1qkSg1YQ
+	 WFCIDJsXGQvrpGRZ7jLOvVPimVenqG59rdxp1M+20onF6NnqKGuPN25ZAP2KCWi0TqlL8
+	 wxJvSvrwvIe7s8B/pN/ND0ITj5bSX0bID0o6q5OQVz+XHooW6UElYv+5QStRylmciL7on
+	 VCsZu14yM1w4YiDwdfEmXFZ3mgO58Eulp3UNUcWz5hFJUrickR26srxALI+Q5UZv/dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=arrnO611;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVGT3Kyf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5F3606A333;
-	Tue,  3 Nov 2026 16:54:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72AB606D818;
+	Tue,  3 Nov 2026 16:54:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=arrnO611
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A709D1F00919;
-	Tue,  3 Nov 2026 16:54:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVGT3Kyf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0601F00A18;
+	Tue,  3 Nov 2026 16:54:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793724868;
-	bh=VwLmXbxU91lRfKL2iRheEIften8r0BgVcs9fiXKoTcg=;
+	s=k20260515; t=1793724865;
+	bh=9E8O4GJrrDPUZq5FZkBH34WVGX8r7ZAAIL0omDrXCko=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=arrnO611IZwyoWaY1V9AcfKmMhFFjczf4DebS4KGC9bTut5Itz8CLlrNwntO3Ng1T
-	 6WsT4gpSk95fnKpY59ct2Oep+wPeFCYjLDZf3j8lXaDIbkfCelJxbrvRqBlh+BTEMz
-	 fCP91wjx0eKlGR4ES73O9tURQ4EV0kIZT8vz5H5xMbM9MVQ2NzhfhN1xVESJO+gJes
-	 BytgJVJDhW20+17/lRKt7SFsRI99U1I9KA31RkXzIBGEfDfSNSTBZ9H5yaBQH/jeQt
-	 P+FAdWAStEgDiaa/Rbr9lY6mvs3PgCTpVZ2Bp0pYPx+8MUKpFcKgO/7LTvQ8OU/U4y
-	 jVQ2M4G/6Ydbw==
+	b=OVGT3KyfSO7lz698T/7ZIH19zf/F71nm3PVqZxgHe3otI7z1Z2q9m/VOYj/7pHpU9
+	 A+vRPIriUmHo66gIO2miB288wqxkXmUJbIRy8Yy15XJqT54ZmP7/POqwbgWJm5l3lM
+	 2KsxVrZWx2MVRPl4j6DYL+Cgv6S7f28clNz2KhBm8STmkzFaBRKfW0bqYgF+htRXoY
+	 K0aDYHa+zNYI+6Wxpu4BMSuFhsegU98toErDlTwr/gCqjExv55vx7Dlorqqzcy/hyv
+	 s4CaUL+QBHrtCbJzyXzLjXNX53gosClI/vn+ccD7x8uZ/nC/hZ+HgcD4P+Zbc/1r+E
+	 58HROTINW5O7Q==
 From: Sasha Levin <sashal@kernel.org>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
+To: Christian Brauner <brauner@kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Dmitry Safonov <0x7f454c46@gmail.com>,
 	Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org,
+	Nathan Chancellor <nathan@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
+	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] selftests: net: tcp_ao: make the netstat column pointer const
-Date: Tue,  3 Nov 2026 11:54:19 -0500
-Message-ID: <20261103165419.687806-6-sashal@kernel.org>
+Subject: [PATCH] selftests/namespaces: initialize the byte the children write
+Date: Tue,  3 Nov 2026 11:54:17 -0500
+Message-ID: <20261103165419.687806-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103165419.687806-1-sashal@kernel.org>
 References: <20261103165419.687806-1-sashal@kernel.org>
@@ -68,36 +65,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-lookup_get_column() stores the result of strchr() on a const string in
-a plain char pointer. Since glibc 2.43, strchr() returns a const char
-pointer for a const argument when C23 features are enabled, as they
-are with _GNU_SOURCE, so gcc and clang warn:
+The children in listns_pagination_bug and stress_test write c to the
+parent only to say they are ready, but never set it, and clang 21
+warns:
 
-  lib/proc.c:61:16: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  stress_test.c:137:22: warning: variable 'c' is uninitialized when passed as a const pointer argument here [-Wuninitialized-const-pointer]
 
-The pointer is only used to compute the length, so make it const.
+Initialize it to 'X', as the parent does with its byte.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Found with gcc 16 and clang 21 on glibc 2.43; KernelCI's gcc 15 builds
-show the same warning.
+Found with clang 21. The namespaces tests aren't in TARGETS in
+tools/testing/selftests/Makefile, so CI doesn't build or run them. Is
+that on purpose?
 
- tools/testing/selftests/net/tcp_ao/lib/proc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/namespaces/listns_pagination_bug.c | 2 +-
+ tools/testing/selftests/namespaces/stress_test.c           | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/tools/testing/selftests/net/tcp_ao/lib/proc.c b/tools/testing/selftests/net/tcp_ao/lib/proc.c
-index 8b984fa042869..50062b527a393 100644
---- a/tools/testing/selftests/net/tcp_ao/lib/proc.c
-+++ b/tools/testing/selftests/net/tcp_ao/lib/proc.c
-@@ -56,7 +56,7 @@ static struct netstat *lookup_get(struct netstat *ns,
+diff --git a/tools/testing/selftests/namespaces/listns_pagination_bug.c b/tools/testing/selftests/namespaces/listns_pagination_bug.c
+index da7d33f963972..6452825e88506 100644
+--- a/tools/testing/selftests/namespaces/listns_pagination_bug.c
++++ b/tools/testing/selftests/namespaces/listns_pagination_bug.c
+@@ -46,7 +46,7 @@ TEST(pagination_with_type_filter)
+ 		ASSERT_GE(pids[i], 0);
  
- static struct netstat *lookup_get_column(struct netstat *ns, const char *line)
- {
--	char *column;
-+	const char *column;
+ 		if (pids[i] == 0) {
+-			char c;
++			char c = 'X';
+ 			close(sv[0]);
  
- 	column = strchr(line, ':');
- 	if (!column)
+ 			if (setup_userns() < 0) {
+diff --git a/tools/testing/selftests/namespaces/stress_test.c b/tools/testing/selftests/namespaces/stress_test.c
+index dd7df7d6cb277..6a27b98c5bc2a 100644
+--- a/tools/testing/selftests/namespaces/stress_test.c
++++ b/tools/testing/selftests/namespaces/stress_test.c
+@@ -124,7 +124,7 @@ TEST(many_concurrent_namespaces)
+ 
+ 		if (pids[i] == 0) {
+ 			/* Child: create user namespace and wait for parent signal */
+-			char c;
++			char c = 'X';
+ 
+ 			close(sv[0]);
+ 
+@@ -366,7 +366,7 @@ TEST(listns_pagination_stress)
+ 		ASSERT_GE(pids[i], 0);
+ 
+ 		if (pids[i] == 0) {
+-			char c;
++			char c = 'X';
+ 			close(sv[0]);
+ 
+ 			if (setup_userns() < 0) {
 -- 
 2.53.0
 
