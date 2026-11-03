@@ -1,74 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738203;
-	b=bYszMKYntcdsZT5L7L98ENgjvyfyENv3/JwCuYyBeG4hPOjjSRAjMrXZx/aZjXXX2Heo
-	 8C1gkbcRT2Zq6dzEiZtQyWEhoFecO8g63cti1mENkh5gVa5J80mGxIq0SszQExtamZ0le
-	 VzK7Y+izUxs9loJRRmga3tKrro6PMW6qEcedrr5/5KCNTP0VZxXO0taIoXlxNNiDQzL8T
-	 N/K84TC/VI/qVOFJipYwKD6CYwX6QelldCeMYnDP5o7zEcq7GMAe8czt+1IDbV5rxMrKk
-	 47ySTODwxCTCfh5DkOgEUiqBD6kGpdVW6dRy747rCxW2aYiy9jBOXE5h+CvZSN2r5qg==
+	t=1793738258;
+	b=1E7j8q1Xpd6VQ/tdN4yaqGM3t6+4WxAWyq32dtZHDx/2treRV5S04gVhS6I6btfmwooq
+	 EG1dEiYc3hwVB1GhHO+txaqdO66efa7Kskeousx4hNBrv54OYWqhKgXWgmhk5yCDdT3N1
+	 ZcGNqmf7oXY2zaYVadSRjKQU99zxFNHzMaP95pqGobxYB5pQT3K5qg2Ese00mOsxSGaZR
+	 v7KH29uXeM6EVcIpG/0pAvEW6Gz5xCXf+Hg59Euv0xLl7+wbtGuFsT6Y/uYPv4BQzDpOy
+	 wM56fWNWWLWDU0pLiiBefXGj/v6U1fiW8YaU+zk5J7vqsgplp8mvOaf2pRMhByOjygg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738203;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=H6euy1JPMcTX2hy9GI94GZuSFSw81ZMn0tXNEvb00oQ=;
-	b=HExciybylwjYyu94G3mem7f8XJZr0nFS+eN69+77Hw5Oynts02F+Hdd2qEN60GiOYNp9
-	 GLowioUGLik/yP+4vJZuu0jLlljrTAG/qQZ+BE7m/vCJmWDaaUEpIvR1ofEifsaoCNoR+
-	 sy+6roKVM94Vp3C5Nd8F+79DDr17xNdLNmwqrp2JF3GyKLNUtgpx636OgkJtmORNFwJLh
-	 wB0GBARKC5mANvc97flGKvCeT9Mp9KT/o0F+LCcLtcA8VWYTejetY4KE0Z0qvbQURyFq2
-	 vwekF4TI2Smc6+XH/TB5FCVsaivHbfKY7GHw9jQTtAtQSod3HvreIKwYkDN4HPdJFpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738258;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=CAJZ9w7PvYuaNBVJxa/d2is14JnTz6y5YmlVXkPbIHM=;
+	b=BiplGljU3CX8YKY4OF1t20HS9nzXtS903dlk+FN3ZhhhMLzMORl96jWaVvOa5tO5SaQT
+	 kijDC6kwrzF0bPpL6C7aHM8OrBsgIf4xK8PAW6BqWB8fZa+2bpr+eZ/An0SK6Q3UzoJnR
+	 AQW5CkqAxsdRqvv45eYo9ImwaznCevf6wGf1Yu31AccEDGRbQVcyqYZnhPPKLTQScJcKm
+	 KknqXbhALi4rkffe+RVxa0XqGxZVQXgTD4x5uuwX6R1/YCd4qWXZW2Mok07AZNiVNOMub
+	 +cp2oJXQaHpahgrKtuKyitTFVga5i+tQmYeKK0E6TevDFwo8UgoFSHe9Sf0WhOgEX6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HxYLUwvD;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=H6K4GAAd;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DLGSc2nu;
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B331606A31B;
-	Tue,  3 Nov 2026 20:36:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B331606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17087606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:37:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17087606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HxYLUwvD;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=H6K4GAAd
-Date: Tue, 03 Nov 2026 20:36:38 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793738200;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H6euy1JPMcTX2hy9GI94GZuSFSw81ZMn0tXNEvb00oQ=;
-	b=HxYLUwvDWn+v+ihJGXGyPwrpD9IHW8nsrQ1jy7H/kAO1iT//ghfa4tYN7W71NZwOGdo4k4
-	ZnNJkvekl0MrwcJ/8grusbeOvETFZsspZWU6zhvyVfmTvkUq4kURmd0A41Bn2fNoc/643C
-	AXK+CZXgfPJZG+ix1f0VPgEqrGS93hcixFkjl2JBXPTZP36ZCegKFlq6SApADehOF4ImqV
-	5oYBXPAl9T/nbhNe4pZin4DbWTpyMQ4LTjEUGYhIP3kB0teY7XeJ247QUFUH17qK+6XDM0
-	7/x6inbwtgGeWEypEwcpfulXpABlwv8eRnD82/ONpkMTnCoVpQdtwKN2BMgB2w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793738200;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H6euy1JPMcTX2hy9GI94GZuSFSw81ZMn0tXNEvb00oQ=;
-	b=H6K4GAAdHRL9B/JCxSlad7RkpphfzejlbFUWspDgsuP3iPL/u2Pr5hyLsZXKCgsf3hXPmu
-	GswTTs4PFjv14VCQ==
-From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/entry: Fix ptrace regression
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <87ecd4xwlr.ffs@fw13>
-References: <87ecd4xwlr.ffs@fw13>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DLGSc2nu
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0a921ee46so29817b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:37:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793738257; x=1794343057; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CAJZ9w7PvYuaNBVJxa/d2is14JnTz6y5YmlVXkPbIHM=;
+        b=DLGSc2nua2sAubmMqauOCurDIC1jpM1/FNHFFjxO1+5wcsfGHs5wqAClpQZLXUC+ov
+         jhnY+w6ETBzizbTMhO170i+b4aHBR4ulnDzV70xpGFUvcdLwVEP1xCwPyGP1l2XfvLDo
+         svwSe9jXr5c5piF+m+ABt66W1+03HXkxo+JJbxgO+5WKOjJ3St9ole8EfIVPl7OgsP/x
+         E5Y7f479u7z1lf7f0Wzf4w6tZhmAeaCm8F54oTD02QIi6zZ7ZCYk47W9rbOyaxttbt9A
+         Bv3oQJZnEAPZpwdMOkqs3hVF81EynJ1d/uRpQm2xGi+3kZkfOgqRQ4aARwdsOKska4nJ
+         lIBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793738257; x=1794343057;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CAJZ9w7PvYuaNBVJxa/d2is14JnTz6y5YmlVXkPbIHM=;
+        b=howPCbzwJJUnbKY0gGDrEU1nks8jMANxxeYi95h5M8LbDnP3jzqKbKwhaWfuJnVYWE
+         cpDkhwLa0wfLD42KTh6DxzDGmbGPsTg1BKU/45u2UW/G3xOTQ/14FKXI1ZUeTHPj19Je
+         Qr/S+FrebetmtC4ulvl4atcm5JDaJF3zxqVQwlKMSRhyZ7BzCVGiLl+u7m3leseKyYyL
+         aHNmeDDeTyq1HPDyxwxaC2S61X+CHY2fuxA7JkcFOoiGBZ6mXRuZaH1f6r3h84YjCbX/
+         v+zLXkpqxw0yahUlrd9UFXLAQ1A5LdHts53NKqn7dQ+G3GxFAArYiGKajI6ahBhzz7o3
+         LytQ==
+X-Forwarded-Encrypted: i=1; AKwUvByUCEFwqFpJK0Ir/uG7QNfYtFJNvkWy/ufnHyl+b/0xxAFU9NLKETvgFopd5cCVi6GpxD0edwiB14YmmFE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/S3TAgkznwCV4uuB+IiwFUAJlKY+iSH6J5yRRDSvg6WIxTNULZ
+	JA+yqOfnxqCFCUQoRq9DldeaISlxICAEQ65Cy59GLlYf4IRiNpm6w70J
+X-Gm-Gg: AYBFou30SoE6WAXArCsiYQtUaSbLB3jZmFMMMgVwbDIuUr6AK9MWF7F+LLdpMDqxvCj
+	4bzZqqqvUb/sfTXDoeTNdJ4ZQiAq26jb2ufNiRvffQd8lvxR8AzlJzvUQJA6Jy5j4SYnhMahHjs
+	DH63PHgtXSex01zLvTTRH6/jxB/0bpIkFc1PTf6mvBL1fDbicNZ/QlDeEw8EUTtInrbGr2rl5nE
+	UOQF6r2aCP/o4Ri7pLgl8diTdTF65gmiZEZmt2ynpBW/L2ExHY6/LllHCzvTsSvjiXn25hw/TNb
+	fRzC8OrSik2ruTjuayL3jhPDCbr+IRHH+FQ3iOe729KV9F4YJl3xXWiQk3Aiv7CoA8lnK3O4BBD
+	PVr1Ewl0P+E3RH890yj+9m9ej3nV1Xbo749VXKfwabTicSK6FR63ys1WUdOoTIrILyEXtLoesFy
+	xXvRzHqhfmiiVCdcJe+Xb2t7WyPIV5iofTHZ0mSq/ICT9lzd19N8itRnumDk0SUui/zYLWL/c3H
+	LVsGZzlewWD/QLlErk938Eb628cWkOAyXopzmVaAA1AY5uJcEXTTlsac+8bG2PEYfPzNIzq0+eA
+	QinVejYuTo2O4CV3AShDlTwtMLWoR3++cr4wEfSg5P1j0vyQDJzko1rnY3Dsx+j7saWEGZvIjAM
+	AT8BoJI7tBet2ZnwYKwujLys7KuEk7m8=
+X-Received: by 2002:a05:690c:386:b0:8ab:a473:fde9 with SMTP id 00721157ae682-8b2b67a4c22mr85235777b3.95.1793738256981;
+        Tue, 03 Nov 2026 12:37:36 -0800 (PST)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b30997aa84sm4668747b3.29.2026.11.03.12.37.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 12:37:36 -0800 (PST)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH v5 00/11] alpha/perf: add ProfileMe sampling
+Date: Tue, 03 Nov 2026 15:37:33 -0500
+Message-Id: <20261103-alpha-profileme-v5-0-bbe3937fbf3a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,114 +93,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179373819852.1009794.4642891487121637825.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNTW6DMBCG4atEXtfRzGDz01XvEXVhm3FwBQHZC
+ WoVcfeaRFVRWH7SPO/cReIYOIn3w11EnkMK4yUP/XYQrjOXM8vQ5i0IqEQgJU0/dUZOcfSh54F
+ lyU1tmqpyViuR1RTZh+9H8fT53Olmv9hd18x60YV0HePP4+WM691fvd7VZ5QgW6WsJutJA3ycB
+ xP6oxsHsdZn2vgC9p6ydxWQR1dqqujVF/8eAfe+yL6hViNabUCpV6+2nvZeZV8iA3jN2Jp665d
+ l+QWfvFLhgAEAAA==
+X-Change-ID: 20261024-alpha-profileme-6e98a977cb54
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7353; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=refArfxK4ah7c+vGUWppYA8/fex5U3SemuzZ82rLSjs=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJeufG9kzsYre8k5i/z68nWyWKtr/IX6J9cH65YYbepb
+ KuiubhYx0cWBjEuhpliiixx6xVZZrXtWOpzWvoXzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ CGToGMVD5PQYNDKLi0tTi3TTCooc8vJLEksy8/OK9fILUvMK0gv00jLTSjIy8ouKU4FG6OWllpi
+ 6OroZGRqYWDpamDlZOJqaODs7GTq5OTo6uzoZWZqbGDhbOpq4WpozcHEKwFzzSYPhn7I2/7Gzk+
+ ruL8/ccSH8wL4NjR94rO/I7vyr+JxrcqalzVeGfzrn01Uv7m52y3w6h7F7m+WHgvmLYtdIOXf9L
+ xTmubyJjQ0A
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-The following commit has been merged into the x86/urgent branch of tip:
+The 21264 from EV67 on, and the 21364, have a second performance counter
+mode, ProfileMe, alongside the Aggregate mode that the driver uses today.
+An Aggregate mode sample reports the PC where the overflow interrupt was
+taken. On an EV7 that is anywhere from 15 instructions before to 12
+after the one that overflowed the counter, which makes perf annotate
+output close to useless. In ProfileMe mode the CPU picks one fetched
+instruction, follows it down the pipeline, and reports its PC along with
+what happened to it: whether it retired, whether it trapped and why,
+whether it was a mispredicted branch, stalled before map, or was killed
+on a wrong path, and what PCTR1 counted while it was in flight.
 
-Commit-ID:     b697faab2c92653ee13bd950c8de13551a78971d
-Gitweb:        https://git.kernel.org/tip/b697faab2c92653ee13bd950c8de13551a7=
-8971d
-Author:        Thomas Gleixner <tglx@kernel.org>
-AuthorDate:    Sun, 01 Nov 2026 18:58:08 +01:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Tue, 03 Nov 2026 21:29:35 +01:00
+Patch 1 fixes a constant passed to the wrong PALcode call, with no
+functional change. Patch 2 adds the sysfs format and event attributes
+the perf tool needs to name raw events. Patch 3 fixes counts lost when
+an event is stopped before its first start, and patch 4 stops reporting
+user registers that the entry code has not saved yet. Patch 5 adds
+ProfileMe sampling, selected with precise_ip or a new profileme config
+bit, so cycles:p and perf record's default event use it. Patch 6
+attaches the status registers to each sample as PERF_SAMPLE_RAW data,
+and patch 7 adds an option to randomize the sampling interval so that it
+cannot lock onto a loop. Patches 8 and 9 report what PCTR1 counted as
+the sample weight and the data source of DTB misses. Patch 10 adds
+filters that keep only retired, mispredicted or trapping instructions,
+and patch 11 makes precise events sample only retired ones.
 
-x86/entry: Fix ptrace regression
+A separate series for perf-tools-next adds a decoder for the raw data
+to perf report -D and perf script -D, and a script that sums the status
+by symbol or by instruction, in the style of DCPI.
 
-The recent rework of the syscall entry code missed the historical detail of
-the abuse of syscall number -1L to abort a syscall and keep modifications
-by tracers to the return value, while a rewrite of the syscall number to an
-invalid value undoes eventual tracer modification to the return value and
-overwrite it with -ENOSYS.
+The two modes cannot run at the same time, because PCTR_CTL[SL0] sets
+the mode for both counters. A ProfileMe event is scheduled alone, and
+perf multiplexes it with any other hardware events. perf stat does not
+ask for precise events, so it keeps using Aggregate mode.
 
-Restore the original behaviour.
+To try it:
 
-Fixes: 1b1f3b3e1b39 ("x86/entry: Get rid of the sys_ni_syscall() indirection")
-Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Tested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87ecd4xwlr.ffs@fw13
-Closes: https://lore.kernel.org/all/20261022142425.3Wx-RrU5@linutronix.de
+  perf record -e cycles:p -- ./workload
+  perf annotate
+
+I tested this on an AlphaServer ES47 (EV7). Samples from a
+16-instruction loop land on all 16 instructions rather than on 4 PCs.
+DTB misses and unaligned traps are attributed to the faulting load. A
+branch on random data shows up as mispredicted in 21% of its samples,
+and in 0% with sorted data. A 12 minute perf record -a while building
+git took 4.45 million samples with no warnings. Sampling every 10000
+instructions, which used to wedge the CPU, ran 66 times without a hang.
+With precise_ip, killed instructions went from 67% of the samples of a
+mispredicting loop to none. On two CPUs, this version survived 62 runs
+that mix sampling, filters, context switches and multiplexing, with no
+warnings.
+
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- arch/x86/entry/syscall_32.c |  4 ++++
- arch/x86/entry/syscall_64.c | 26 ++++++++++++++++++++++----
- 2 files changed, 26 insertions(+), 4 deletions(-)
+Changes in v5:
+- Patch 5: refuse precise_ip 3, as a sample with a PALmode PMPC keeps
+  the interrupted PC. Thanks to Magnus Lindholm.
+- New patches 8 to 11, from Ian Rogers' suggestions: the sample weight,
+  the data source of DTB misses, config1 filters, and retired-only
+  precise samples. The last changes what a default perf record shows.
+- Link to v4: https://patch.msgid.link/20261102-alpha-profileme-v4-0-61e00f5e1da8@gmail.com
 
-diff --git a/arch/x86/entry/syscall_32.c b/arch/x86/entry/syscall_32.c
-index a59509b..ca97fa3 100644
---- a/arch/x86/entry/syscall_32.c
-+++ b/arch/x86/entry/syscall_32.c
-@@ -77,6 +77,10 @@ static __always_inline void do_syscall_32_irqs_on(struct p=
-t_regs *regs, unsigned
- 	if (likely(nr < IA32_NR_syscalls)) {
- 		nr =3D array_index_nospec(nr, IA32_NR_syscalls);
- 		regs->ax =3D ia32_sys_call(regs, (unsigned int)nr);
-+	} else {
-+		/* See comment in do_syscall_64() */
-+		if (nr !=3D -1UL)
-+			regs->ax =3D -ENOSYS;
- 	}
- }
-=20
-diff --git a/arch/x86/entry/syscall_64.c b/arch/x86/entry/syscall_64.c
-index 966d3d1..bb95ad0 100644
---- a/arch/x86/entry/syscall_64.c
-+++ b/arch/x86/entry/syscall_64.c
-@@ -64,15 +64,20 @@ static __always_inline bool do_syscall_x64(struct pt_regs=
- *regs, unsigned long n
- 	return false;
- }
-=20
--static __always_inline void do_syscall_x32(struct pt_regs *regs, unsigned lo=
-ng nr)
-+static __always_inline bool do_syscall_x32(struct pt_regs *regs, unsigned lo=
-ng nr)
- {
-+	if (!IS_ENABLED(CONFIG_X86_X32_ABI))
-+		return false;
-+
- 	/* Adjust the starting offset of the table */
- 	nr -=3D __X32_SYSCALL_BIT;
-=20
--	if (IS_ENABLED(CONFIG_X86_X32_ABI) && likely(nr < X32_NR_syscalls)) {
-+	if (likely(nr < X32_NR_syscalls)) {
- 		nr =3D array_index_nospec(nr, X32_NR_syscalls);
- 		regs->ax =3D x32_sys_call(regs, (unsigned int)nr);
-+		return true;
- 	}
-+	return false;
- }
-=20
- /* Returns true to return using SYSRET, or false to use IRET */
-@@ -81,8 +86,21 @@ __visible noinstr bool do_syscall_64(struct pt_regs *regs,=
- long nr)
- 	if (likely(syscall_enter_from_user_mode_randomize_stack(regs, &nr))) {
- 		instrumentation_begin();
-=20
--		if (!do_syscall_x64(regs, nr))
--			do_syscall_x32(regs, nr);
-+		if (unlikely(!do_syscall_x64(regs, nr))) {
-+			/*
-+			 * The special treatment of syscall number -1 is a
-+			 * historical bogosity as the original code used -1 to
-+			 * indicate syscall abort, which is not distinguishable
-+			 * from a syscall which is invoked with syscall number
-+			 * -1. The historic behavior is to keep the return value
-+			 * in regs->ax unmodified in that case, which means it's
-+			 * either the preset value -ENOSYS or a value which was
-+			 * written by a tracer. If the syscall number is invalid
-+			 * but not -1 then overwrite any tracer modification.
-+			 */
-+			if (!do_syscall_x32(regs, nr) && nr !=3D -1L)
-+				regs->ax =3D -ENOSYS;
-+		}
-=20
- 		instrumentation_end();
- 	}
+Changes in v4:
+- Patch 4: move __entry_save_end past the r16-r18 stores in entSys,
+  as PAL_callsys does not save them and interrupts are still enabled
+  there.
+- Patch 5: report the user registers when the profiled instruction is
+  in the entry code but the interrupt was taken after it, since
+  perf_get_regs_user() sees the PMPC rather than the interrupted PC.
+- Link to v3: https://patch.msgid.link/20261101-alpha-profileme-v3-0-92d511b5a044@gmail.com
+
+Changes in v3:
+- New patch 3: clear PERF_HES_UPTODATE when an event starts counting,
+  so that a stop before the first start does not lose the count.
+- New patch 4: report no user registers for a sample taken in the entry
+  code, where the frame at task_pt_regs() is not complete. An interrupt
+  nested on one taken there is still not caught.
+- Patch 5: a user instruction whose interrupt is taken in the kernel now
+  reports its PC with no registers or user stack, as the frame at
+  task_pt_regs() may not be built yet. Thanks to Magnus Lindholm for
+  finding this and for the fix.
+- Patch 5: also move the counter away from overflow when a ProfileMe
+  event is removed, or stopped without PERF_EF_UPDATE, as
+  alpha_pmu_del() does not go through alpha_pmu_stop().
+- Patch 5: ignore an interrupt that was pending when the event was
+  stopped. Document that rewriting a counter does not cancel one.
+- Link to v2: https://patch.msgid.link/20261030-alpha-profileme-v2-0-c702f1c65272@gmail.com
+
+Changes in v2:
+- Patch 1: explain why bit 0 clear means all processes, although the
+  Architecture Reference Manual says otherwise.
+- Patch 3: fix a CPU wedge during high-rate ProfileMe sampling. The
+  ProfileMe counters are now written twice, and a stopped counter is
+  moved away from overflow, as EV67 HRM PALcode restrictions 32 and 38
+  require.
+- Patch 3: set the profiled PC in place in the trap frame of the
+  instruction's mode instead of in a pt_regs copy on the stack, so
+  sampled registers and stack values are those of the right frame.
+  A kernel instruction whose interrupt is taken in user mode gets a
+  per-CPU frame holding only its PC, so the user frame is not changed.
+- Patch 4: drop the reserved field and pack the 64-bit fields of
+  struct alpha_profileme_sample, so they are 8-byte aligned in the
+  sample record and the record needs no padding. This changes the raw
+  data layout.
+- Patch 5: compute the jitter with mul_u64_u32_shr() and saturate the
+  sum, so that large periods cannot overflow.
+- Link to v1: https://patch.msgid.link/20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com
+
+---
+Matt Turner (11):
+      alpha/perf: pass PERFMON_CMD_LOGGING_ALL to the logging options call
+      alpha/perf: add sysfs format and event attributes
+      alpha/perf: clear PERF_HES_UPTODATE when an event starts counting
+      alpha/perf: do not report user registers from the entry code
+      alpha/perf: implement ProfileMe sampling
+      alpha/perf: attach ProfileMe status as PERF_SAMPLE_RAW data
+      alpha/perf: optionally randomize the ProfileMe sampling interval
+      alpha/perf: report the ProfileMe window count as the sample weight
+      alpha/perf: report the data source of ProfileMe DTB misses
+      alpha/perf: add ProfileMe sample filters
+      alpha/perf: sample only retired instructions for precise events
+
+ arch/alpha/include/asm/perf_event.h      |   2 +
+ arch/alpha/include/asm/ptrace.h          |  12 +
+ arch/alpha/include/asm/wrperfmon.h       |  36 +++
+ arch/alpha/include/uapi/asm/perf_event.h |  31 ++
+ arch/alpha/kernel/entry.S                |   9 +
+ arch/alpha/kernel/perf_event.c           | 535 ++++++++++++++++++++++++++++++-
+ arch/alpha/kernel/perf_regs.c            |  13 +
+ 7 files changed, 625 insertions(+), 13 deletions(-)
+---
+base-commit: 330517c63aa9b48227b6ab45f01003effac77ae4
+change-id: 20261024-alpha-profileme-6e98a977cb54
+
+Best regards,
+--  
+Matt Turner <mattst88@gmail.com>
+
