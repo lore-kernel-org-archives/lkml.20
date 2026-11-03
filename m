@@ -1,75 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793712368;
-	b=wREzoMnOlog3m9dKYiPq87aY4DNKNeIQeajvIK+zZp/CtX89oMyBQj4hWneDiXw0M8d6
-	 kAivWckbnrXLRYDqJvg3uot7zIu3VzTbYyPMkf9/yqq1H787HnlITJWcH4RxNxqZLQ8MS
-	 gtClWUIZmg/hNi03UpgGU/VInp5lejjgqc0FINZh7eNcKK7FS/UMq3NfPSQc3D7Y7O/R4
-	 /jkDp9hRf1GU+1VUwmFSY1Kckl4GiOQBmjbCtJULV7eTJHQaIwm19WohGnI7aabTO/bTC
-	 O/OvvxqJmGpypr6RgHiz+QDnlCfWuOqk77pfpP+SAgcydcHXv7wJCPU16RvvJBpSOMw==
+	b=sLkNiB31BB4iRdOirBNnfCCs34Jhcg9SXKVZ3/sLMSPOUuxm8hNv9PvXoydDcXzcx1og
+	 Tgakt5eNG/ngSlrlPrA8Kchx4Jbl2PCR+YOBj+2Q++Q89DWYv8f3POVVSSonw5LdmD6CG
+	 EXd7UEM2cQZruJhJAPMrJLnFzBDvTapCb3SBiJo4OkUDeH7ZEW8Qper2KpF9hQJA0efqZ
+	 PgpXw84jy14fZKk3Mkr6PhzB3Q13iisTlORf0IutgWxYDDnIDOBrvA/pxjBsqSqdWL7RK
+	 OBNaxli/Msa0G8yzB7CyefjxQ6UosK8zQj5mwvc6mooKMRvXCRwLEVrbkAAAIytjtZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793712368;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=o5SZ/NShCuAWE2uB9E4TilJUmn35hUWsHaAWAMpUlpo=;
-	b=S5mfGkGe2cHYT952igaW5XV5icBJR0xu1EX4gcuEAwl9lYJC2r+JpFaSaB6kZ4UiO3vc
-	 vq/O9WXMTK5CbOs6+UhFY+wOcEyjbizek6aVXliwMfuM3KS4wkQA8gDJwZY6/LBpz+pz7
-	 mOjnP0nzTiFMhrnVn6LBBQLeuec4wLw3Jf694Q5fNopo9A9v+fKvz2Rvjexy09Ax+MkAA
-	 5wSgVOkjeBLd7hzOxptU4LE4sOg9FXBbiul8GtLAqeVyNidksQE2mxDbTXJkgWsnW61gK
-	 GjeNFUoP+DmH56CjgAFmWOFJN9Ox10sukrUcsm6SQYCLthgEnh4t4xxnVdKb08tFHaw==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Y+g2AMTya4HYz0zERnN4BvDBd0jLIZfZI/CWvcyCK8U=;
+	b=qqeBj0Nr0BeEonMEAPVf3aLzpD1Z9zg1DDxmkyEFAlOj2ZId6kGE9jBw/fBCGGmchDsf
+	 wRK2Neoop2vORPJZoN8FQWc15EF7ekDBhIOK5ggOmQucmOSdubjahuWEOvf4J63Phsb1q
+	 ZaanOXxmWLakCSrEbZjbwXfco4KAwExqC0fEk7QcrZIBlCQv2WWH5QoXNun+7ky0C6J1t
+	 lfHg6osDdLnfnZASky9E4Z34dmujcB6+IsV6nKPPW6CSxJnkX8ee7Cf1F5gtZWxDXusoF
+	 ghnaDHDOsHDGwlRdf2uJ0burL+VQ/Al/tEJWIfhu/caR8y8VvX0qvKFMmYE/pgeFkpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=lIO2otwz;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9hxx1d1W;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CWlnjz4r;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84049606D820;
-	Tue,  3 Nov 2026 13:26:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84049606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3D1606D831
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:26:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC3D1606D831
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=lIO2otwz;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9hxx1d1W
-Date: Tue, 03 Nov 2026 13:25:58 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793712360;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o5SZ/NShCuAWE2uB9E4TilJUmn35hUWsHaAWAMpUlpo=;
-	b=lIO2otwzqOtT0ws2FqH4yp2q89eo/1g9TLGh9hISFmF+6uvvUJamWVERI4mcmUBgss6XHv
-	Dd4gBqqvOhP4W5xXzIh7pSLl7/q9TQYFJJxsEz3WxMdIKHjmGj7b4WOrNA9/9Mu6dehEnu
-	SRnZU71/TiOgsQPt7ntFaLcAPWDoWCGIgE0dJgDE01RKVTOvXVWcjeOMScr3fo/iTC7vIz
-	ZA/13X91Sgdjr5pE4KGT9QhFc3tk+AtDYX8DdnebBoRWMejTseXZ7zUej2se7po5Fa/x24
-	BiQfsMMUhZZ2ejANnwjH99TzqVFtR+zJ3dGAUcrWPmyDLKmbULuDDUF0RbGebA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793712360;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o5SZ/NShCuAWE2uB9E4TilJUmn35hUWsHaAWAMpUlpo=;
-	b=9hxx1d1W58jRYJJUPp/Wi7vnFakA13h33rfTtMlFPADpacghKUYp233i/kAnMuuDmL7SQD
-	EwCfFMlhMvGuDsBQ==
-From: "tip-bot2 for Juri Lelli" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: sched/urgent] sched/deadline: Reject SCHED_DEADLINE on exited tasks
-Cc: Weiheng Qiu <weihengqiuu@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
- Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261103-b4-sched-dl-bw-fixes-v1-4-dd761fe005b4@redhat.com>
-References: <20261103-b4-sched-dl-bw-fixes-v1-4-dd761fe005b4@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CWlnjz4r
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so4331205e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:26:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793712366; x=1794317166; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y+g2AMTya4HYz0zERnN4BvDBd0jLIZfZI/CWvcyCK8U=;
+        b=CWlnjz4rrRz9SV2C7HxzrXH8uQwffRboT01bIdNjdoU/CpU6VNRuT7dV8mJLhkcdQu
+         C7EnTSgO+/V8b/NINxTfys7U+6VyjOflCbVwdOD9b5BLKcsm/KQ9ikH9BfaSQiU0Qqcs
+         6dZt3WZKHzubmah3bts/maoMf0MV6SgvWVrwhg7ejvl4x4/eArvRHPlDpvQIqfp51Jju
+         Cuvrily8cWhaWmvS+MBa1sYVOtaRdEro9k/ZdSL5pYr5IRNN2LWtas9TtSExGOiB0Dp0
+         zpSS8XqpkecAaCZkm7SatmjWhyDtDv/PHb25cGCxcrWFzmH3PIQRz8pfzm57Vc2kKkG6
+         KqtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793712366; x=1794317166;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y+g2AMTya4HYz0zERnN4BvDBd0jLIZfZI/CWvcyCK8U=;
+        b=wj/3+kwJNA8/XBJbh4GBlLQ7QwZK3lgU/RYhxU/zjQGXTI3hXGrlzZIUvvAQrGh4AL
+         P6alGtXWsf7U0hLYtJ1YjgHinCZNGKW2aj4qKLILltJB7GyA0eKFOFJxz9/LdAIESdp7
+         xAvdGSLd6hrnl/R7knwyn71kLKeyl2S5ZpNbnZstWf9l7lWaEoeFaaU0kJPr8zUsLHJX
+         awZlO57bGyZGpKHYdf8pNKCjtYPL05ZW9cgoHqRIBPxfGLNzv9QMA/gCGcrJVuAW8Yby
+         WZKMzsIkUw0EijeGSmAAT5evTuD1hWSolyDcFeEe/tDoiZ4xablcR66x2lBiVIws6W+t
+         AwYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxcfJe/+EymDy9zOQG2f2A9JUbp+F0o6SWgSyit+PoJsOxnR0YZQVPbTopwxhdgZMejKD5VZ+d2rc+Z3QU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Kx1k7EiXhen87gm0HAUPxlPcoeX9xAYEVlAViSg3pbCtD2mYJ
+	2+xrRJ0wspkcSpWy/CtMcvBGZ5O6ozswnWdw0//KAw4+Ici4uTIsvdpw
+X-Gm-Gg: AYBFou0az6bVOByYcKY18JnM2z91qGWoILSu3kqy2dL6aOCorZX79ZKd6CZyLEzQ6+C
+	89JVnEUdyq66iPOYxXVG9GC+82x/5UeMpVwT3kRUKZsI2B1p5ZOGu5ONOaWSXEuapn360bVZpwl
+	1/dFzccsmUKUhGU3rbCVmvfwt5hjDP/pm01bQDM6WFZFKccVkCK/RbsTIJv66U91nMOQ4B04I2j
+	gmlXEiBxbqrf/Oa/NeFsv7aufqfAb8fF6BhQs5/EY7eiJU50NIZ32CbPyRUedsdtpNGnFmOlBHO
+	teL2eesKPnzBQDyTHHHEdfr2ophtx8IsGL50YWf2qt5itsvrHQvIQOsmfN0t6lDJFer8xVtTziV
+	W7ClSgzHYxkN065Prjpwiuhkxf3wxwAv9E4Ta8wDGu/UBX/6fRuG+VlPJ6dIlp+QJEscnhlrSGZ
+	vBb3rT1HLarGcMG9jE7CmOpNwG8o+Z9ai7nFRmdv1x0zOhTgjJGPlCpNaq5poVFF0Isebmj5oWc
+	8U7Zwohy6rZlWLxNYCOuMUTucWEzc06emV2cGnobEdI/CmWMPAguja3wuE7n9JCpd9pO4YvE84E
+	6P57GwkCgEW0D6YfHtyOVVa1xLHgCuJLOYYENV9ucCCM0DzJyI++7hPd79yZ1mSSdvJFyZQMHrZ
+	LPA==
+X-Received: by 2002:a05:600c:8116:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4ac17e10724mr301749905e9.16.1793712366192;
+        Tue, 03 Nov 2026 05:26:06 -0800 (PST)
+Received: from kreach.multipass (nat44-21-238.net.ruhr-uni-bochum.de. [134.147.21.238])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a82cebc1sm84725725e9.1.2026.11.03.05.26.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:26:05 -0800 (PST)
+From: Jude Gyimah <jude.gyimah87@gmail.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	heiko@sntech.de
+Cc: linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jude Gyimah <jude.gyimah87@gmail.com>
+Subject: [PATCH 5/5] ASoC: rockchip_spdif: select REGMAP_MMIO
+Date: Tue,  3 Nov 2026 14:25:37 +0100
+Message-ID: <20261103132537.3717496-6-jude.gyimah87@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261103132537.3717496-1-jude.gyimah87@gmail.com>
+References: <20261103132537.3717496-1-jude.gyimah87@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,64 +104,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179371235835.1009794.6060109721665812114.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the sched/urgent branch of tip:
+rockchip_spdif calls __devm_regmap_init_mmio_clk, which
+drivers/base/regmap/regmap-mmio.c provides under REGMAP_MMIO.
 
-Commit-ID:     a2b67e904401858d9f0ff6a0485c2fab506cc1bf
-Gitweb:        https://git.kernel.org/tip/a2b67e904401858d9f0ff6a0485c2fab506=
-cc1bf
-Author:        Juri Lelli <juri.lelli@redhat.com>
-AuthorDate:    Tue, 03 Nov 2026 12:26:32 +01:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Tue, 03 Nov 2026 14:18:06 +01:00
+  rockchip_spdif.c:(.text+0xf67): undefined reference to
+    `__devm_regmap_init_mmio_clk'
 
-sched/deadline: Reject SCHED_DEADLINE on exited tasks
+The driver can be built into vmlinux while REGMAP_MMIO is a module, in
+which case the symbol is not there at link time.
 
-sched_setattr(SCHED_DEADLINE) on a zombie task succeeds and charges
-total_bw via sched_dl_overflow(), but the task has already done its
-final schedule() and will never run again. Nothing releases the reserved
-bandwidth. Repeating this fills total_bw to the admission cap, after
-which sched_setattr(SCHED_DEADLINE) and CPU offline fail with -EBUSY.
+Select rather than depend on: REGMAP_MMIO has no prompt of its own and is
+only ever enabled by a select, so a depends on would leave
+SND_SOC_ROCKCHIP_SPDIF unselectable.
 
-Reject sched_setattr(SCHED_DEADLINE) on exited tasks with -ESRCH.
+Reproduced on v7.3, x86_64, with CONFIG_SND_SOC_ROCKCHIP_SPDIF=y and
+CONFIG_REGMAP_MMIO=m.
 
-Reported-by: Weiheng Qiu <weihengqiuu@gmail.com>
-Signed-off-by: Juri Lelli <juri.lelli@redhat.com>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Link: https://patch.msgid.link/20261103-b4-sched-dl-bw-fixes-v1-4-dd761fe005b=
-4@redhat.com
-Closes: https://lore.kernel.org/all/3f6e6c87-645b-45fd-8fc6-8da5bc5b82d8@gmai=
-l.com/
+Found with kreach, a static check that compares what Kconfig allows
+against the symbols the compiled objects actually reference.
+
+Fixes: f874b80e1571 ("ASoC: rockchip: Add rockchip SPDIF transceiver driver")
+Signed-off-by: Jude Gyimah <jude.gyimah87@gmail.com>
 ---
- kernel/sched/syscalls.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/soc/rockchip/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index be351f8..3fa447a 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -584,6 +584,16 @@ recheck:
- 		goto unlock;
-=20
- 	/*
-+	 * Reject SCHED_DEADLINE on exited tasks. A zombie will never be
-+	 * scheduled again, so sched_dl_overflow() would charge total_bw
-+	 * that nothing will ever release.
-+	 */
-+	if (dl_policy(policy) && p->exit_state) {
-+		retval =3D -ESRCH;
-+		goto unlock;
-+	}
-+
-+	/*
- 	 * If not changing anything there's no need to proceed further,
- 	 * but store a possible modification of reset_on_fork.
- 	 */
+diff --git a/sound/soc/rockchip/Kconfig b/sound/soc/rockchip/Kconfig
+index aba9a518d3b2..0e5110125c14 100644
+--- a/sound/soc/rockchip/Kconfig
++++ b/sound/soc/rockchip/Kconfig
+@@ -45,6 +45,7 @@ config SND_SOC_ROCKCHIP_SAI
+ 
+ config SND_SOC_ROCKCHIP_SPDIF
+ 	tristate "Rockchip SPDIF Device Driver"
++	select REGMAP_MMIO
+ 	select SND_PCM_IEC958
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM
+ 	help
+-- 
+2.43.0
+
