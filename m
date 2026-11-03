@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692836;
-	b=P+sX+KgrYHx3Z53gPriqdVuRoEL82EXXtjhEbr/CWl01H19FqHQGhGQWEL/zbke95qhZ
-	 g0ZQFiXSc5+HiLPc4+/pmQh5g7llmEQ8f77R1IMAk9E8F4TdIQZ8Qwnx9/Vod/kBQWGDh
-	 z8InKmRt1duLtB12BU/7E0Zna323XrzPJD6IVghFIZ0JUZfvpmJb+laUlbAsf2WhDJaBg
-	 GP7hR+VQDGHDjnl+sn+nZheLvYMFKO77gi4yDGq6E2OaABif33lSE1hxwKndguWH3Pc/4
-	 4Pfozrqjn95HXhHgy6bZNQC+nwGMjdBWE00Nek5IH2Vjl+d9ewHCTONEwJh3lv0lDIQ==
+	t=1793692847;
+	b=VUHV13G3uzlxMx5gG7h1oW7A2vqV7zcInX3bhg5hzBJnFdKPzyxX4PMYUWryyS3eaqIi
+	 rKObJd7Nmxnt3AdWl8Qi/j2oeywrzExJncRbXLYVMMofRDqg3E1woIpf6oIDMkGsuxdRJ
+	 iHZTB2mOXl83a2fYPnoZyz7qqsOlmIo/ec45lOfTeGB8xbVwG+hNB2j1Op5pkXoRhvf8H
+	 HN2b9NR7IVTtUN3Ni3j43pNFLaz0enpTpB1PDudXhVdOe/5nOh4zCxEXdexJiniaZZeeW
+	 I1RVV2HQgIYyi/ZY4TRP6+pbt/dF9lT+uZwkXijzwVXP+iXxSTU4rQakoEqTUGfK31g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692836;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692847;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:
 	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
 	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=T8zb3wMITIwc0YE32nW2cv2RNb7OiLJ0144r3mIJzPg=;
-	b=yViM3uM9GBaIvJLSPLWqHdjyRQCWrH5ktQTPjk7GrddDVhM0/ZQsnBLzBYQkInRXvbSf
-	 o0rqvoWw6jWgNIEBHtP1BVSd++Xg2tnEU6lrJOzI8zikg2hUBcYGIxwuWU9BCIPW/0A1h
-	 8AzRklbct1VHj12l2iHt5wLPIWqyxqgeTrTTYJMXconcAUUxcuXuwjVIKh31o7gt5Wox6
-	 DaVcYfnvt3GtYjsMvNGySnb9hqtLdD1BHstRHpjSftwJXpJu6Iwo28cF/H8RlLILsSamY
-	 UU/NNi+sj9CnJrrR+YgqXLCVhR8V+5gR74Af1nFMrNq404kx+z4SSPtINRuuGJs1UzA==
+	bh=axvLEFAtLHuXEMPFGyntKrpt+rf9qpIaNSM/g7iVnHA=;
+	b=T4ZHAyMjPQISSNh/uzadxNFI943JJrjttclYC5nmXoODd8D/Kp1MdDZhGeCiYBK214T8
+	 0lrnwSTQ1PJFO+y+SoHISKim3JREsvEH2Hw+A8PbXi24wJAlCX5//ipNfeR3pHxhooEbt
+	 udrKbKb3iACX/GTubaPZ8GstBahBk+eedcfw4Ef5WJ3KuSHPEfsUAP43qfFjL1O9JDXmT
+	 EMB+KDamKoriwERMBNxQPZZf3FeRhAsguuVRbWdaakBRxtRsQ8XyYNqQe9Iv7LOfMy9BQ
+	 nF5TmH+puTKjw3JIP0c6nVo0mkc0YHGENo79G/dv0ujs72DPSZ7gJEu6QgRCNOf/HBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=canonical.com;
 	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=UIZ7nvGJ;
-	arc=none smtp.remote-ip=185.125.188.122
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=TkbN7JC4;
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2171D606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2171D606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31410606A32E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31410606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=UIZ7nvGJ
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=TkbN7JC4
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id B3B173F853
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:33 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 9E3303F606
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1793692833;
-	bh=T8zb3wMITIwc0YE32nW2cv2RNb7OiLJ0144r3mIJzPg=;
+	s=20251003; t=1793692844;
+	bh=axvLEFAtLHuXEMPFGyntKrpt+rf9qpIaNSM/g7iVnHA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version;
-	b=UIZ7nvGJIG+sZFnD5a2PhAo7R+1VRHTTj5tcQ9agWWGqguxjGWfXQxShCVJNqqxjh
-	 7+eYGCu2IIr/4IkbD2B9bEvoB5XJVN1oas8l8eE11iA1EddyzowpzfENN0thWISoeP
-	 ME230/40+1EYDuQ9NOu5uWce3VCPSKt+qawfobSipY17OHfPqsHIROBvmybfYO8Dyn
-	 8H43ByagapbMD5a7Gm6hJdXR/OaB07mxJWj+tiKyMxCQq8F9v4OiCab3ATYauCof3u
-	 klIB83wh7QqxArr/oMPbt1TW/UZFf3/fsWQO9eSEroeqme4fWkJV6uH3WIyFQACdIb
-	 mND213+P4+V6v9+JAkqxZmsQaDLnjrgEiBg6Bb9qr/mRaVSNMzCsCHQ3hLhyrY8ohM
-	 gseKbZ00eBIXVscg1kTDlHTKDRZVRZlvZjcSorFfdZt+tg+jM1ORCu+KJKxwxVb2xx
-	 nlIJu1szBd32ZNlo7QfNzVenxGCoHX0gIQx8YocXAAg4urjY4DpQ+nDH60RUn9hMw4
-	 k5ehBI/nrghGdKi+An6t3RGG2LearEX+D4F7VbDWacVfBMwrsWzbWyO4o/80iUYCdR
-	 KAddM6unYm7VNE67IyYpzzgd8mFdqGsP3kXnsu/0Hn6AC6OOTO+6W4ERi4kA19aCT+
-	 llkWm58IhOiis8+Uj1DaThqs=
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso8653640eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:00:33 -0800 (PST)
+	b=TkbN7JC4NwqwaC8NlTPVX/z0ilUl0WHS85fzKdAsXkY2S3lCCkCafb5uW3wMznFqa
+	 hXOoWSGdS4uYj+BQrSVsUoq3i3TCwB4sIYpQhEzvJq2Q/rGCo3jWE1rWY8mAISJv7n
+	 fQ0z3ycWoMEhu8Ae4o3M54WwrNFGkm+j+MQ4dSrwkvJUB+nCY/V/aqyRXSRq2YvH6F
+	 ebSDs/NRiNOhRY0FdCzlFQF7uHHwB0P5YS0SXMgqODf2Fa+9xsPXUmxQA4ZweNmo2t
+	 x56+D/u/jDkNrUL0GdmNazJkgC+kG2f4ihQq01MDpzvxCvvKIvw4rXMwQEZYpoKC9o
+	 Er5zf8sX3yQ53VTLE8j7+xyHR0lqAMZzfF1TT8ijpSBasT+UaBgwafhE235h4GjS03
+	 wu7LQBv2vtjzsznTJC+w8rFQ3D9EupmUopDCUqCbz07pdvrH5UJAoGyRgmjpoWzY0z
+	 xQmgwTJmDPCMOjoTmvE3TWjWU5/VbMIKoiGqR2bxbU/pDgHIHeXLCPQj1KES8LXhd6
+	 BzhdNA/n1AdHw64yga6Ul6PrAdOIGITUZWU6ImoV7WGk0Q7MQcaV6zmCrMiurTcyVB
+	 fRnEDhn+jPMXKQITdX9nfGSBnXlawAoOLf01P38gwr38Op/7es+qRYwWKXWOGMsluu
+	 gRQjUo+kqELeGE80P3LmFDrc=
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35c5aef2a74so16515354eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:00:44 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793692832; x=1794297632;
+        d=1e100.net; s=20260707; t=1793692843; x=1794297643;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T8zb3wMITIwc0YE32nW2cv2RNb7OiLJ0144r3mIJzPg=;
-        b=xCVwnRPdJPqmBEvGb87FplK1IqyTQKcBENz1ZDi6DLU/nRiLKHiVtw5GbipvBd2LVL
-         BIRF9kEG3m5Yqnrmj41odntd2id9gItgfBkM4CikFi+w+Qr3PoDztW3bnb9lBD7rXNsF
-         AuTj6hklLPlRazZyImCdyzArGoBCtZ7pzAEFCLLEJmV4wUmyiufB4yBNQY22bbS6pb8b
-         3Z4YRYsMkolJw+CcbSPa+6de5TunuThuuzT2GZqKfKXRYqnZf74btHPfYj7O2GJr71+D
-         +lK2XRwKbxCqvJ7HWEvZowMDHpx75SCPyjKg5S72B075yRltdhJ8ptqE2z9JP4TOkzmy
-         OcDw==
-X-Forwarded-Encrypted: i=1; AKwUvBxyLIPSHEHMECD8ozN7fsENU71fV3nraxD6QYCVTiwy+gSZ67U/vFyTzK6f8cwY/aXvtyMkNQek/FqgUeA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8B89I4fbTXUXe4WyQK1x4M5O2br8C2pD0AQRtoeM7bav5tEziR
-	2PAer5aAAxchQmXkATjz2yaBfrfKjFGuRCw3CrMIMcHFIM6h0oJkIyHGHRSpT+vRM+AXYT9EiMg
-	qgmHrMJVgH4CGSpnbGf8Ex3T5Oh9FWpzHrpODdfVuFW00/qOfqqQmLs7fp1yFb61p4enqZsitMf
-	DLRrhZEA==
-X-Gm-Gg: AYBFou3FOqlc0AgeRl0VV2UjxNkY0URPNsTWXr+NBKutiKO4n83F2JrgrSae9Qwztaj
-	sX763ldqZqw5KN6MBhuv+gNGQbE0N6NWPMA229bA6EuoCnIfePn9KmDXnsRqpcVWkqmDb9orVXT
-	CNY5K1nSfJJr5l05r5D0+Nl2aJhxzU5oEwmMNw6MczfnC/R4vdHb+md+pvh5TQgU4FY3n5OJKPs
-	GvMBF38oRNKKC50o60aGAr+bTXC6FXG/hTBSk5deecEC28z7OKjf3hGe9CaGbPNPVvIy2Fgot3D
-	kmShNovHslKcHjVXqF973Nok5bEVm/EdQhrSWPr3HQ4+jdhhvEW2+YKdiT3QPDv3GUclRv6JLUT
-	UGvnS1phhcs3Ra5ohIEoAWodj18pcg5pUa4sdXrJy6pSs9SmayIV1SL+AdWa6SOhjIdRCrfjSnS
-	rjOomykx4k+GxshEmQGw==
-X-Received: by 2002:a05:693c:20d3:10b0:369:fa21:ba0b with SMTP id 5a478bee46e88-36a42451227mr19269597eec.33.1793692831568;
-        Tue, 03 Nov 2026 00:00:31 -0800 (PST)
-X-Received: by 2002:a05:693c:20d3:10b0:369:fa21:ba0b with SMTP id 5a478bee46e88-36a42451227mr19269546eec.33.1793692830912;
-        Tue, 03 Nov 2026 00:00:30 -0800 (PST)
+        bh=axvLEFAtLHuXEMPFGyntKrpt+rf9qpIaNSM/g7iVnHA=;
+        b=coiTRneaUtI9mR4DkyOHzspm8SDfUMioGxS7SEVDT0b1xyWBhV+KiCkoMksU+4YH1z
+         Y07rpVTrPujY6yKe9NPeCeP/hTXC0P+uC2AgFqaCFkVGnKjlGHmN+bVeU1TZUufUbUtH
+         2CKRqL2iGB/rtEIKeCUTGaaKZhn8Zunbrf43CzV7BMUlZEByo3RgabDLX3iw8iatu0xu
+         +nG0oCp6j2+o8wthhg6omCFWf16GoDzCimDn9W2zsuyOoO82QLACX7KIaWrhs1wln0lO
+         e/ALI4cpTSYRmlieQwUbYUvMoC9QrqrkdVsjdq+HVUomI+5uTvByvWxZD9N616OlN08U
+         jQXg==
+X-Forwarded-Encrypted: i=1; AKwUvBylom9EZ3zvoi3zouKdpzBALXOfNQcEcHflMpQM4wP0MqJWxz53BR5OBRXttE/rwInqGZ+Bww1vcNDdDG4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8aoHAGhgD8hP8232dGOB4IMAgnxvvxNx1YR7mS3qJ4lTaF7WwX
+	raWOzjLAjNQnU0eTm09jIwpmTFqEZr5SoKlu4rgG2h4cw3AkiK0vFtcgqjGPXklJiJvZ4yLo66Z
+	mCuPeFwV64ZGlud3F/7CmeFuC6IbMmwMzvuXTU1qCdRSy641VIOag+lVrRULwfX6dZk6WwYMx9r
+	yTUHcFmQ==
+X-Gm-Gg: AYBFou3NLMRqT9GDit89JzKqb8DK1x82boeBWHrp0w2yvv1xKeHZcNrnUdHI6bz4CdL
+	S88FxG3NB/FFcAUU0bch1a5dBapnzqH50uA/6Fzm4pTz2S0xXB7Ad53pws5Ql7Kxn+p5I3Wa+9w
+	DUvFFlFl2B3SDnnk7uXEVmzmSPILTpLQphK8loMmNPoK5DGIr9B4SZgSvekcWr6udu0EnomwQx6
+	iEkaAmrt7oQXwfRlNHxS2fuYfjufp2wGMZCR577SRZnLqkQW8WkifAOp4tEVULVb4ap8sJp4NoJ
+	VtRCjB7PMwDYtUZUpPPmeIKkz4dgjtJlgzhaMPyTSbS2Z5ymP6nvzMR8SpMpN3KoqGGtR1tqkdk
+	PYgYlkkhBLcAB4jxGlEWAxJjl2Y4ZTrBCCvv3jlesR82G7DpF4ThChDzalFeEMpCwptZn50oXuK
+	kx+suCTxsW9+aWCo2gQw==
+X-Received: by 2002:a05:693c:65d6:b0:368:72f0:353a with SMTP id 5a478bee46e88-36a42431e17mr15518473eec.38.1793692842732;
+        Tue, 03 Nov 2026 00:00:42 -0800 (PST)
+X-Received: by 2002:a05:693c:65d6:b0:368:72f0:353a with SMTP id 5a478bee46e88-36a42431e17mr15518408eec.38.1793692842058;
+        Tue, 03 Nov 2026 00:00:42 -0800 (PST)
 Received: from Garunix (122-58-163-222-fibre.sparkbb.co.nz. [122.58.163.222])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm37885274eec.4.2026.11.03.00.00.20
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm37885274eec.4.2026.11.03.00.00.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:00:30 -0800 (PST)
+        Tue, 03 Nov 2026 00:00:41 -0800 (PST)
 From: Matthew Ruffell <matthew.ruffell@canonical.com>
 To: Waiman Long <longman@redhat.com>,
 	Frederic Weisbecker <frederic@kernel.org>,
@@ -123,9 +123,9 @@ Cc: Caron Wills <caron.wills@pulsar.com>,
 	cgroups@vger.kernel.org,
 	linux-mm@kvack.org,
 	Jay Vosburgh <jay.vosburgh@canonical.com>
-Subject: [PATCH 2/6] kthread: Keep unbound kthreads off nohz_full CPUs
-Date: Tue,  3 Nov 2026 20:59:36 +1300
-Message-ID: <20261103075940.110308-3-matthew.ruffell@canonical.com>
+Subject: [PATCH 3/6] mm/folio, mm/mlock: Don't batch folios in per-CPU LRU caches on isolated CPUs
+Date: Tue,  3 Nov 2026 20:59:37 +1300
+Message-ID: <20261103075940.110308-4-matthew.ruffell@canonical.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261103075940.110308-1-matthew.ruffell@canonical.com>
 References: <20261103075940.110308-1-matthew.ruffell@canonical.com>
@@ -142,114 +142,213 @@ Content-Transfer-Encoding: 8bit
 
 From: Caron Wills <caron.wills@pulsar.com>
 
-Since commit 041ee6f3727a ("kthread: Rely on HK_TYPE_DOMAIN for
-preferred affinity management") kthread_fetch_affinity() only removes
-domain isolated CPUs from a kthread's affinity, assuming that nohz_full
-CPUs are always domain isolated as well. Up to v6.13 every kthread
-inherited kthreadd's affinity to housekeeping_cpumask(HK_TYPE_KTHREAD),
-and from v6.14 the preferred affinity was filtered with HK_TYPE_KTHREAD,
-so nohz_full CPUs were always excluded.
+Folios are collected in per-CPU folio batches (cpu_fbatches and
+mlock_fbatch) before being added to or moved on the LRU lists. Another
+CPU can only empty such a batch by queueing lru_add_drain_per_cpu() on
+the owning CPU and waiting for it in __lru_add_drain_all(), which is
+what every lru_add_drain_all() caller (compaction, khugepaged, memory
+hotplug, memfd, drop_caches, ...) and every lru_cache_disable() caller
+(page migration through cpuset.mems, mbind() and move_pages(),
+alloc_contig_range(), memory offlining) does.
 
-On a system that keeps its nohz_full CPUs in the scheduler domains, e.g.
+On an isolated CPU that per-CPU kworker may not run for a very long
+time, or ever: low latency deployments pin a SCHED_FIFO busy-polling
+thread to each isolated CPU, and since RT bandwidth throttling is gone
+nothing forces such a thread to yield to a SCHED_NORMAL kworker. Any
+folio left in that CPU's batch then blocks the waiting caller.
 
-  isolcpus=nohz,18-95,108-178 nohz_full=18-95,108-178
+LP: #2165410 hits exactly this. Writing cpuset.mems for a cgroup on a
+192-CPU AWS instance with nohz_full CPUs 18-95,108-178 running FIFO
+spinners makes cpuset_migrate_mm_workfn() -> do_migrate_pages() ->
+lru_cache_disable() -> __lru_add_drain_all() -> flush_work() wait for
+the kworkers on those CPUs, and PID 1 (systemd), which flushes the
+migration workqueue from task_work before returning to userspace, stays
+in D state for 2 to 10 minutes. logind cannot create sessions meanwhile
+and SSH logins fail. The reproducer, a FIFO/80 thread per isolated CPU
+that touches and MADV_DONTNEEDs a 24 MB buffer in a loop, keeps 1 to 14
+folios in the lru_add batch of every isolated CPU at all times.
 
-HK_TYPE_DOMAIN covers every CPU, and the RCU expedited grace period
-workers rcu_exp_par_gp_kthread_worker/N, the RCU boost kthreads rcub/N
-and every NUMA node affine kthread can now land on nohz_full CPUs.
-rcu_thread_affine_rnp() prefers the CPUs of the rcu_node, so for a leaf
-rcu_node made entirely of nohz_full CPUs the worker is pinned to nothing
-but nohz_full CPUs.
+Stop batching on isolated CPUs: when the current CPU is isolated, move
+the folio to the LRU immediately through an on-stack batch, without
+touching the per-CPU batch at all. The latter matters: __lru_add_drain_all()
+samples the per-CPU counters without the owning CPU's local_lock, so a
+folio that sits in the batch even for the few instructions between
+folio_batch_add() and an immediate drain is enough to get work queued on
+that CPU. A first version of this patch reused the lru_cache_disabled()
+add-then-drain path and was caught doing exactly that in testing.
+cpu_needs_drain() now stays false for isolated CPUs and
+__lru_add_drain_all() never queues work on them. The per-CPU buffer_head
+LRU has been skipping isolated CPUs the same way since commit 8a237adf213d 
+("fs/buffer.c: disable per-CPU buffer_head cache for isolated CPUs"),
+and mm/memcontrol.c schedule_drain_work() does not queue memcg stock drains
+on them either.
 
-Those workers are SCHED_NORMAL (CONFIG_RCU_BOOST=n leaves kthread_prio
-at 0), so a SCHED_FIFO userspace busy loop on such a CPU starves them
-indefinitely. Every synchronize_rcu_expedited() in the system then
-blocks in sync_rcu_exp_select_cpus() -> kthread_flush_work() until the
-FIFO task yields. LP: #2165410 captured exactly that on three 7.0
-kernels: the cpuset_migrate_mm kworker sits in
+The cost is one lruvec lock acquisition per folio instead of one per
+batch of 15 on isolated CPUs, which are not expected to do bulk memory
+work. Nothing changes on housekeeping CPUs or on systems without CPU
+isolation, where cpu_is_isolated() is a static-key guarded test.
 
-  synchronize_rcu_expedited+0x1b2/0x220
-  lru_cache_disable+0x15/0x30
-  do_migrate_pages+0x4e/0x2b0
-  cpuset_migrate_mm_workfn+0x26/0x50
-
-with rcu_exp_gp_kthread_worker in D state in kthread_flush_work(), and
-PID 1 waits behind that migration in flush_workqueue() for minutes.
-
-Intersect the affinity with the HK_TYPE_KERNEL_NOISE housekeeping mask
-as well and fall back to the CPUs that are housekeeping for both types.
-On systems where nohz_full implies domain isolation the two masks are
-identical and nothing changes.
-
-HK_TYPE_KERNEL_NOISE is named explicitly rather than HK_TYPE_KTHREAD:
-commit 8f78b749f3da ("sched/isolation: Make HK_TYPE_KTHREAD an alias of
-HK_TYPE_DOMAIN") (v7.1-rc3) turned the latter into a synonym of the domain
-mask, which is precisely the assumption being corrected here, and made a
-first version of this patch a no-op on 7.1+ kernels.
-
-Fixes: 041ee6f3727a ("kthread: Rely on HK_TYPE_DOMAIN for preferred affinity management")
 Link: https://bugs.launchpad.net/bugs/2165410
 Signed-off-by: Caron Wills <caron.wills@pulsar.com>
 Signed-off-by: Matthew Ruffell <matthew.ruffell@canonical.com>
 ---
- kernel/kthread.c | 30 ++++++++++++++++++++++++++----
- 1 file changed, 26 insertions(+), 4 deletions(-)
+ mm/folio.c    | 21 ++++++++++++++++++++-
+ mm/internal.h | 28 ++++++++++++++++++++++++++++
+ mm/mlock.c    | 28 ++++++++++++++++++++++------
+ 3 files changed, 70 insertions(+), 7 deletions(-)
 
-diff --git a/kernel/kthread.c b/kernel/kthread.c
-index fdb8fb07f40b..b9d8dfe1b6ca 100644
---- a/kernel/kthread.c
-+++ b/kernel/kthread.c
-@@ -327,24 +327,46 @@ void __noreturn kthread_complete_and_exit(struct completion *comp, long code)
+diff --git a/mm/folio.c b/mm/folio.c
+index 35e242b48870..7f85747910d7 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -208,6 +208,16 @@ static void folio_batch_move_lru(struct folio_batch *fbatch, move_fn_t move_fn)
+ 	folios_put(fbatch);
  }
- EXPORT_SYMBOL(kthread_complete_and_exit);
+ 
++/* Move a single folio to the LRU without touching the per-CPU batches. */
++static void folio_move_lru_now(struct folio *folio, move_fn_t move_fn)
++{
++	struct folio_batch fbatch;
++
++	folio_batch_init(&fbatch);
++	folio_batch_add(&fbatch, folio);
++	folio_batch_move_lru(&fbatch, move_fn);
++}
++
+ static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
+ 		struct folio *folio, move_fn_t move_fn, bool disable_irq)
+ {
+@@ -220,7 +230,9 @@ static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
+ 	else
+ 		local_lock(&cpu_fbatches.lock);
+ 
+-	if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
++	if (lru_batching_bypassed())
++		folio_move_lru_now(folio, move_fn);
++	else if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
+ 			!folio_may_be_lru_cached(folio) || lru_cache_disabled())
+ 		folio_batch_move_lru(this_cpu_ptr(fbatch), move_fn);
+ 
+@@ -856,6 +868,13 @@ static inline void __lru_add_drain_all(bool force_all_cpus)
+ 	WRITE_ONCE(lru_drain_gen, lru_drain_gen + 1);
+ 	smp_mb();
+ 
++	/*
++	 * Isolated CPUs don't batch folios (see lru_batching_bypassed()), so
++	 * their counters stay at zero and no work gets queued to them.  This
++	 * matters because the per-CPU kworker of an isolated CPU may not get
++	 * to run for a very long time, if ever, and flush_work() below would
++	 * wait for it.
++	 */
+ 	cpumask_clear(&has_work);
+ 	for_each_online_cpu(cpu) {
+ 		struct work_struct *work = &per_cpu(lru_add_drain_work, cpu);
+diff --git a/mm/internal.h b/mm/internal.h
+index 566cbd2dce48..5888f7b5ea5c 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -17,6 +17,7 @@
+ #include <linux/pagewalk.h>
+ #include <linux/rmap.h>
+ #include <linux/swap.h>
++#include <linux/sched/isolation.h>
+ #include <linux/leafops.h>
+ #include <linux/tracepoint-defs.h>
+ 
+@@ -1006,6 +1007,33 @@ bool need_mlock_drain(int cpu);
+ void mlock_drain_local(void);
+ void mlock_drain_remote(int cpu);
  
 +/*
-+ * Unbound kthreads must run neither on domain isolated CPUs (isolcpus=domain,
-+ * cpuset isolated partitions) nor on CPUs isolated from kernel noise
-+ * (nohz_full=, isolcpus=nohz). The two sets usually coincide, but the kernel
-+ * accepts nohz_full CPUs that remain in the scheduler domains, so both
-+ * housekeeping types have to be honoured.
++ * Folios are normally parked in per-CPU batches (cpu_fbatches and
++ * mlock_fbatch) before they are moved to the LRU lists. A remote CPU can
++ * only empty such a batch by queueing lru_add_drain_per_cpu() on the owning
++ * CPU and waiting for it, see __lru_add_drain_all(). On an isolated CPU that
++ * kworker may not get to run for a long time, e.g. because a SCHED_FIFO task
++ * busy-loops there, and every lru_add_drain_all() or lru_cache_disable()
++ * caller in the system then blocks behind it.
++ *
++ * Isolated CPUs therefore bypass the per-CPU batches entirely and move
++ * folios to the LRU lists right away, through an on-stack batch. The folio
++ * must not even transiently sit in the per-CPU batch: __lru_add_drain_all()
++ * samples the batch counters without the owning CPU's lock, so the few
++ * instructions between folio_batch_add() and an immediate drain are enough
++ * to get work queued on the isolated CPU. The per-CPU buffer_head LRU
++ * (bh_lru_install()) and the memcg stock drain (schedule_drain_work())
++ * already stay away from isolated CPUs the same way.
++ *
++ * Callers hold the batch's local_lock, so smp_processor_id() is stable. The
++ * housekeeping cpumask consulted by cpu_is_isolated() is RCU protected.
 + */
- static void kthread_fetch_affinity(struct kthread *kthread, struct cpumask *cpumask)
- {
--	const struct cpumask *pref;
-+	const struct cpumask *pref, *hk_domain, *hk_kthread;
- 
- 	guard(rcu)();
- 
-+	hk_domain = housekeeping_cpumask(HK_TYPE_DOMAIN);
-+	/*
-+	 * Deliberately not HK_TYPE_KTHREAD: since v7.1 that is an alias of
-+	 * HK_TYPE_DOMAIN (commit 8f78b749f3da), which is the very assumption
-+	 * being corrected here.
-+	 */
-+	hk_kthread = housekeeping_cpumask(HK_TYPE_KERNEL_NOISE);
++static inline bool lru_batching_bypassed(void)
++{
++	guard(rcu)();
++	return cpu_is_isolated(smp_processor_id());
++}
 +
- 	if (kthread->preferred_affinity) {
- 		pref = kthread->preferred_affinity;
- 	} else {
- 		if (kthread->node == NUMA_NO_NODE)
--			pref = housekeeping_cpumask(HK_TYPE_DOMAIN);
-+			pref = hk_domain;
- 		else
- 			pref = cpumask_of_node(kthread->node);
- 	}
+ extern pmd_t maybe_pmd_mkwrite(pmd_t pmd, struct vm_area_struct *vma);
  
--	cpumask_and(cpumask, pref, housekeeping_cpumask(HK_TYPE_DOMAIN));
-+	cpumask_and(cpumask, pref, hk_domain);
-+	cpumask_and(cpumask, cpumask, hk_kthread);
-+	if (cpumask_empty(cpumask))
-+		cpumask_and(cpumask, hk_domain, hk_kthread);
-+	/*
-+	 * Both the boot parameters and cpuset guarantee that at least one
-+	 * CPU stays housekeeping for every type, but don't rely on it.
-+	 */
- 	if (!cpumask_intersects(cpumask, cpu_online_mask))
--		cpumask_copy(cpumask, housekeeping_cpumask(HK_TYPE_DOMAIN));
-+		cpumask_copy(cpumask, hk_domain);
+ static inline unsigned long __vma_address(const struct vm_area_struct *vma,
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 67ae9b18b923..3bb8195e5c5f 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -209,6 +209,16 @@ static void mlock_folio_batch(struct folio_batch *fbatch)
+ 	folios_put(fbatch);
  }
  
- static void kthread_affine_node(void)
++/* Handle a single folio right away, without touching the per-CPU batch. */
++static void mlock_folio_now(struct folio *folio)
++{
++	struct folio_batch fbatch;
++
++	folio_batch_init(&fbatch);
++	folio_batch_add(&fbatch, folio);
++	mlock_folio_batch(&fbatch);
++}
++
+ void mlock_drain_local(void)
+ {
+ 	struct folio_batch *fbatch;
+@@ -254,8 +264,10 @@ void mlock_folio(struct folio *folio)
+ 	}
+ 
+ 	folio_get(folio);
+-	if (!folio_batch_add(fbatch, mlock_lru(folio)) ||
+-	    !folio_may_be_lru_cached(folio) || lru_cache_disabled())
++	if (lru_batching_bypassed())
++		mlock_folio_now(mlock_lru(folio));
++	else if (!folio_batch_add(fbatch, mlock_lru(folio)) ||
++		 !folio_may_be_lru_cached(folio) || lru_cache_disabled())
+ 		mlock_folio_batch(fbatch);
+ 	local_unlock(&mlock_fbatch.lock);
+ }
+@@ -277,8 +289,10 @@ void mlock_new_folio(struct folio *folio)
+ 	__count_vm_events(UNEVICTABLE_PGMLOCKED, nr_pages);
+ 
+ 	folio_get(folio);
+-	if (!folio_batch_add(fbatch, mlock_new(folio)) ||
+-	    !folio_may_be_lru_cached(folio) || lru_cache_disabled())
++	if (lru_batching_bypassed())
++		mlock_folio_now(mlock_new(folio));
++	else if (!folio_batch_add(fbatch, mlock_new(folio)) ||
++		 !folio_may_be_lru_cached(folio) || lru_cache_disabled())
+ 		mlock_folio_batch(fbatch);
+ 	local_unlock(&mlock_fbatch.lock);
+ }
+@@ -298,8 +312,10 @@ void munlock_folio(struct folio *folio)
+ 	 * which will check whether the folio is multiply mlocked.
+ 	 */
+ 	folio_get(folio);
+-	if (!folio_batch_add(fbatch, folio) ||
+-	    !folio_may_be_lru_cached(folio) || lru_cache_disabled())
++	if (lru_batching_bypassed())
++		mlock_folio_now(folio);
++	else if (!folio_batch_add(fbatch, folio) ||
++		 !folio_may_be_lru_cached(folio) || lru_cache_disabled())
+ 		mlock_folio_batch(fbatch);
+ 	local_unlock(&mlock_fbatch.lock);
+ }
 -- 
 2.55.0
 
