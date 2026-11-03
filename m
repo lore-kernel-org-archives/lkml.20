@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704221;
-	b=kzQuklmh256fO4pLWdC8am+Kyz4AnAJoY3XETDg7VT/P4vSdXiSnBP0xwVC9JUFvlPxu
-	 kRdmKf4fDPSJvu2jPa/pv00a6/KIJefmk/y7ccEBU7sXfEHhYhjcxzpuQym/Pad6DNpcT
-	 wo/inYvaXbcu/On8pLjv/m0ia7Fbjp9uQayhRlo77SH1U0/CspkNDGNlbLK9J7xwZ4MYV
-	 uVgojw9vm0MMOymRvTRNn1YNL5KDY30XVAqV95liGDrZmKX2sewWOmYQnNjiKfeLOGb0i
-	 1Dg3AsZ9PTwlu4ZDU+tnWL4kV3tJL68CewlnPikLkXWl+OIM4vqIDUNllaWNLhEb2+A==
+	t=1793704219;
+	b=M9K2r4LqlrcvTXYleY/xkUXCbgX3VRWYc/vZ99GNgERKcsd7GBovjBJ/YEOCJ421lqCO
+	 6gTuwYHhiFD3CA7/vfweotLxslwtSbvvK0n/u8uXlHyZewAHbPyEsH4k5npTu9xh5OltG
+	 FXZir4z8DoHMDAYFkhm0+CALNSn+H9sivUiN6E5K8WCc3JQUTGD/fZD0LlgOaAGgFA5uI
+	 1frL2xgxqtL6hcGtcAkWy4gAULguBG6QVHCtc5aBOOsxedaKpXQVPqQtEFlQvVVbtW8Sd
+	 1rl5ibcJyovKT1SMfnrQXdNkqMKjD9sQsvLRbaRxj+Bq6149A8Aic6y75js8SmX6F0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704219;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DttFhI0LxeH79eT/YhOIy6UMobLtyg9GPfkbGAxdi3s=;
-	b=4ofUyBzxjngxJvkiRNCQYFasy5tDLkmsj9zZD7LscfpIHmCB1X1I8qt4FfJiAXJRd58t
-	 k5QJbzaFhDYoBkvoLPR7PXnyHC79AyxFdjz8VOfXNFodwN/q1Euu1Wv3QC64/35fueHhX
-	 IvTRfOQPf3uGtRha3Gp6ZmuOweAeS8+o3t0MoyCZLJDI3/HPd0Z+YShcZ89gleNPkBbwz
-	 FkY5TU2UYfa8ObcL+7dva3vRLUbUehMy4/cNFtOSI1t6ZCmoxtmV1ueHqiF6WbDgs8kCu
-	 o5KcBd3EfZ0uXxGUPIIWel81/HRlm39xcgYm9ZDJzMwV8EU9egOUMOhGjW13edTsRgQ==
+	bh=NcMf+ZVLmz04u/HN3Wxip9DQ9rG8PD3kxPva+jU7U8U=;
+	b=GYyW39/AK7tfsfapnt/gTZvRA2DtZUxN6KOstW6pIWFivoy4o7C5pAzTJIKmuOyIdG4s
+	 oxFODd7sFU1ZCq6NDvOS2Xu6gPzgeENOwFdEZ9uvlzU5xZZih3Zon8i6L8xK8IrQJShAm
+	 vHmwZweRUodEYH6NKZWGKJJsw3tMkYaeC5S9KLEPxM4z9xgdCT+jvfZELtewoR8aT4TIH
+	 vdEqHiOJr7rd0DXfzcXuxg52RWM+ZZp/FvKHeeLH0Rr+dmD8Tk8IZ9fVnKk98DZlL1vWH
+	 ovULAgCTPg2VHgYfykfqQlXr37vjPsPguyn6t3nLE6HmkbrMi4VpYoVNcSI+Mu/rrJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CGGniuzx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mdlyZ/Y6";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11DC606C56C;
-	Tue,  3 Nov 2026 11:10:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99F7606C567;
+	Tue,  3 Nov 2026 11:10:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CGGniuzx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3D41F000C1;
-	Tue,  3 Nov 2026 11:10:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mdlyZ/Y6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B348E1F000C1;
+	Tue,  3 Nov 2026 11:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704221;
-	bh=DttFhI0LxeH79eT/YhOIy6UMobLtyg9GPfkbGAxdi3s=;
+	s=k20260515; t=1793704218;
+	bh=NcMf+ZVLmz04u/HN3Wxip9DQ9rG8PD3kxPva+jU7U8U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CGGniuzx9iamA1AwRWMQ1/ltNGuso7AezbHqZvG0a82iiXHiwroTbFy0Yv0D2P56V
-	 /i8XebYAe+VzhNJoc21a+OLWcTzWVY4BArMpFynRoK/OIafQa3PAxXjLB4Yk+zcHlG
-	 prmDed2NkkYSSKO+ndsUIqitcgo5/TEWdZTJqYCP5oUqCTS9XNMiPy6dfbV5UjSe92
-	 jJWEsLg05NYuiRk6y1ILq5wze+65C5pZ1TWCYp2JmkkJBrnPFPHNVkmZoZr54t37Hf
-	 7uSsVgkIXTA61kgSFV0HcgG3O9l9UZ79fY+oIXA4P8X06WrasZ5jU663w/uNuuzutz
-	 Bly/TlxMd8lqw==
-Date: Tue, 3 Nov 2026 12:10:18 +0100
+	b=mdlyZ/Y6k0sbdKbPikMDKXgsUtOAz5HrJRPAoVFXjshi76nsuMvVkkNHl84B39eLt
+	 mylrl8mWmKM2EClq6buoqHPVskn/HH+gGTbb4zYZkydPBBaG4OhhTvpUVrSChfZPQw
+	 wc0nYOhZbdHjk5953sL3BwLrcZzaeN1Tzir+BqaLaTNmwvl3Y9FqA5jyIbdpZvU4z8
+	 cyacM2376J6s3vZMEcviRg5GpWEPOQKC93qLHBlorrwsozfkQl/m00ZSnL4rzhAxjZ
+	 dRxtNnkk/4oSqbMt4iEGK0fK9XmmAXGlgKl/iEQTZsK6oPvi2WIZzF4EMTBXD7JF6O
+	 vK+JeO3lmMKKw==
+Date: Tue, 3 Nov 2026 12:10:16 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Chunfeng Yun <chunfeng.yun@mediatek.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-mediatek@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org, stable@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>
-Subject: Re: [PATCH] phy: mediatek: hdmi: use devm clock provider registration
-Message-ID: <20261103-jumping-nostalgic-mussel-1fddcf@quoll>
-References: <20261103104241.1373838-1-vulab@iscas.ac.cn>
+Cc: Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
+	Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	linuxppc-dev@lists.ozlabs.org, Jakub Kicinski <kuba@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Zhao Qiang <qiang.zhao@nxp.com>
+Subject: Re: [PATCH] net: wan: fsl_ucc_hdlc: release the net device on remove
+Message-ID: <20261103-psychedelic-malamute-of-health-ce7f30@quoll>
+References: <20261103104237.1373675-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,28 +61,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104241.1373838-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104237.1373675-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:41 +0000, Wentao Liang wrote:
-> mtk_hdmi_phy_probe() registers the PLL clock provider with the
-> deprecated of_clk_add_provider(), which takes a reference on the device
-> node.  The driver has no .remove callback, so neither the node
-> reference nor the provider registration is ever released; after the
-> device is unbound, the global provider list still points at the freed
-> hdmi_phy and at the unregistered clock.
+On Tue, 03 Nov 2026 10:42:37 +0000, Wentao Liang wrote:
+> ucc_hdlc_probe() allocates the net device with alloc_hdlcdev() and
+> registers it with register_hdlc_device(), but ucc_hdlc_remove() only
+> tears down the QE resources and frees the private data.  The net device
+> is never unregistered or freed, so after the platform device is removed
+> or the module is unloaded it stays registered, keeps its reference to
+> the module and is left pointing at the freed private data.
 > 
-> Register the provider with devm_of_clk_add_hw_provider() and
-> of_clk_hw_simple_get(), matching the sibling MIPI DSI PHY driver, so
-> that it is removed when the device is unbound.
+> Unregister and free the net device in ucc_hdlc_remove(), before the
+> private data is released, as fsl_qmc_hdlc does.
 > 
-> Fixes: be28b6507c46 ("drm/mediatek: separate hdmi phy to different file")
+> Fixes: c19b6d246a35 ("drivers/net: support hdlc function for QE-UCC")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/phy/mediatek/phy-mtk-hdmi.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/net/wan/fsl_ucc_hdlc.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
 Multiple things here:
