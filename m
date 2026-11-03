@@ -1,92 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700828;
-	b=VOi9kd1DLziQQPjL7XvIupwiV0/jTx4ggnp0QngRW/31DC9a7OpqqdSEmrIpVB1fBrV5
-	 GSZRgmpxIAikXeTG8xVHDZMo8JvKm9a9n/Mv7OXu9mB2QQBWlAGMsB+1ngJl/nIdMoqmu
-	 BRwgbsL6YLsdHX+/A/rBlSezWR38bW3+AnRjvRlpQVtHlus6RYJQWl4rcw0VfnMFfkdQj
-	 zxTD8swuKlfTGwSLbIDKEaa7AdR3xjHoKOqjx1KLdwP7i8VUW5LZSiGMo2KVM7HSwuJm/
-	 yybXbqbO0O2IQW8i2xqCiPsizUDykJgFSouMW7hTRz8NCn17nX5G/pSZMbROwmC2WrA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700828;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=8iafhbcQJ7sp3lB+0gHN0eXHJ45Ph346dETrlnBka+M=;
-	b=mZBlSXiBQfrqzr5ZaNlt708qjXcBbPNwYRYyjEVMJ9BO9ls8NF5UqYnEpClCVK867Oev
-	 pVDg+O7oRIY15y9ITkEgeWSqybG3JBF5sortwCWMjzGyLFf9SW9zFHbSo2bZUpwoHrFA+
-	 JXj0+5Ro4Qwz4aFk0zF7xr+a1tNvwXmInT9G6b5HvQKisQ7UiR6jTiD7balInkHoJEI5I
-	 9+rYPZPiL4pfxlvaPXMwmtFwStqX3xN2kdUVxZUPUrH5YUgsMTqUp7PonGM4V+ykASZ6G
-	 ZV3ObOe4jH22zVJPfY37xLZ1EbFfUKnJd+d9jjBgPWDoEdQsuO+jRNy2u8D4qW5g59g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LJ49dyEW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.33.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793700813;
+	b=z7/5n17HceNAGwRQov28EAC37KLArtraf7l5pNocJXLStE6iF0hn/8nI0T5QSlgjrs1m
+	 8iwC9JZf6zq461FLZ0LexR0eZTVl0b38xUVoAvX6xObePF9RUYMmbRNdjnJfMZfKIJJxV
+	 nUT8w8bSJmHiz300i2mMi2jeoWKzGz9E9ts/UZjjxRpRttH2fbBWszNmiDxDXGvarE8iu
+	 S96h2UvI8UDy3rYbK8InXPAoV+n/w3WZo+N34lNCX9mYkTU/hKvBeJrMWCiYRtcaDglx2
+	 s256ErkJQI/kCUqYYo3taS1AZyaaADj+6IGBryfH6NzCF6aIv8Q5UnEj2UoISK2pv9g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700813;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ay5QBVTupXpoCiXn6UZZm9RK4cKeTVdq6BJnnY3kAgU=;
+	b=3gaw9pV9akTGczwxUOfx864g+wJ3msc3UHYiCJCfyF3o4Pg/WamdHqgKcm+D0XVlOelK
+	 rS2wY9QKC/xekI5j+6V5u4HjlD5FITkgsvlubIU/un1wDPDhrTGN+se0Ju8kV9zQgMIeh
+	 18l/yYffKsDv1I2we5TOk7oRsIe1AdTMJ/VjC5Y9ZsmhdFM08ZlZ5xAmhieInzPg324Al
+	 OTJ+4RqE11KfbTvhssKq+AhfkfOgbfQrVisZ8OUuFZvvBvESrclaxDI5b8O0cI88hmBop
+	 p2F+k+d5ZCwFnT0hwhhSoshI0NmgKpNy7+QMkqh6Ss+5VPwDHnMSBVX4iNTlw8SG1OQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hotmail.co.uk;
+	spf=pass smtp.mailfrom=hotmail.co.uk;
+	dkim=pass header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.a=rsa-sha256 header.s=selector1 header.b=glH2tIi9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.33.32
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazolkn19011032.outbound.protection.outlook.com [52.103.33.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08918606A32E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:13:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF16606B116;
+	Tue,  3 Nov 2026 10:13:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DF16606B116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LJ49dyEW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D520A1F00919;
-	Tue,  3 Nov 2026 10:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793700827;
-	bh=8iafhbcQJ7sp3lB+0gHN0eXHJ45Ph346dETrlnBka+M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LJ49dyEW1HSNMVjc8HysCkMJAKValKvKD+anluel384bY8OL2y7pe1oyTioxxxJms
-	 +ZIgIVllF8lLs0V9ZvZw9Lpf8itVjChw/caNCHbg1uSR3nlxQalDQDcuhkfwem8bM5
-	 l5ypGZZHyfnLOuKDL9jnyCg2h3qAJcCL17ELAjWv5XkSui0MMtjR2xEavTstyfYd1I
-	 5p9qOx6CuMLibkoWJmr6em6FHGjZeznrydK5tmcbZJLF3n970d5Lk3cO68vQz9fa3f
-	 DsthOTEtZrQBQcPWYfgEIskwr/i8PG9UAcK29jq0rNt/L+5EUjkV4QnEwbkDjdZAHP
-	 RQJH8eMKyVfHw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A4BDD1980047;
-	Tue,  3 Nov 2026 05:13:41 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 03 Nov 2026 05:13:45 -0500
-X-ME-Sender: <xms:1bPpalr2gMXOjQyvyy7dSqZbILOBgga3ox1uzYDdZktOrYfTbQWUGQ>
-    <xme:1bPpatVOTtGlPIcDh6wCoDEGO4n42_AQ-5X3kvnlBZNLT0PAgkoDodLtNdjpnzRak
-    RBL3p4XnfgxEvHgHdm92hqNh_esleSXtbvsWChbo5OBanSwJ08FEThDmA>
-X-ME-Received: <xmr:1bPpajYB4CDza1uoYOfmW8OTbvpIYI0lnBB1y75umVPSVbw88Xb2r8Gpo_M>
-X-ME-Proxy-Cause: dmFkZTEwQUzH9wfsWr85L33/7Ip8vsacIUnJqbt5Fzpmxj6hGx0brSuxDwz8Cr9mCj51ov
-    Ixy3YLwmNS9t2Eu+tskJCdR54uQZWpOzJSDT4qm+jBBxJN6PKyJ1hsnh4IoHE4bCysApMW
-    YfwR1L2hSiVYcvadWZx00S2J7ZYGsyv3Z4v4dGUcEyxibWsq6sXCysn97CP9L5rsW8Dqa4
-    qa0lutljG5RxY65EWsu+0Y6ZYfQ50/7c7rccNHV1kdgiVqzt00A+kNFk6M/GZBFwivSj06
-    mvpX2fLJNE88WXgipN7XHGTOR8F9B9MCi5FrcPE8QrxMRpxGF8GRAEvZGnwfAgiMQp6Hel
-    WWY9pmnT3gLJo1in4TAthn4hhGbypTlHoqCm+sY9XTKOmmr9Y5xg9/8FyGxLE/eB3vVbQ7
-    lNOgdrWrb+y//wC66bz/qyr3TeASU/l8s9iS14SXwAU22UfHMMtS1x2mNxq4safC4LECWI
-    6Zlg57xFEZmMJmkLwabNSeudd8wAkO5aMs4gjRn0c88p0wKZXOCs98rIzCbwi/LlSL7Iv3
-    6AO9cvt9Yj/i4FgKDfEmX5O1ECillOv0T7kToh8g7QVA3TQ4B4wGwLR2pWAlukQfhrPsWt
-    f2XsDWJZJjFP5/hNVNKpc/iwph1G2jqKvw2q16xIyeZDk6HEu4jMojOSXb9A
-X-ME-Proxy: <xmx:1bPpautBv3lU7CCVrH7Yh7YJd1hgS7NNQVXkymg5Ok1CjQCT85t3Ug>
-    <xmx:1bPpaqp4J_12LQlGj_SYfL2c9PmP4uidYGPuBNdZBjQoK6a19YBX3w>
-    <xmx:1bPpauISTpEI2L4Yff1qlbMTdFL8llRWQeLA6gz0NAex2KASEsymFQ>
-    <xmx:1bPpah6AD4KSee7fZthwezNfUIufqKyi1AHQhOe6AtB4b_lGrTAksw>
-    <xmx:1bPpanQAi20wLItnIVmA_XLNiBtcmBUCkk3YSrlCgxdxN83QjMZXtNXL>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 3 Nov 2026 05:13:40 -0500 (EST)
-Date: Tue, 3 Nov 2026 10:13:39 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Peter Xu <peterx@redhat.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Andrew Donnellan <andrew+kernel@donnellan.id.au>, Rohan McLure <rmclure@linux.ibm.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH] x86/mm: Define the zapped-entry checks only with
- CONFIG_DEBUG_VM
-Message-ID: <aumzjHyJsshPJBUI@thinkstation>
-References: <20261102144001.342837-1-kas@kernel.org>
- <b04316eb-a2f8-4587-9392-e673c7bd2fc8@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.a=rsa-sha256 header.s=selector1 header.b=glH2tIi9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sxTbdgbazeHGPY7ZrxWOM9N+acZn9iboEARjARhScxwroki2OziAied7/4vfLncTA2pblK/W7XFjxuyHLJZGAH/b5p1x7nctDXogazEtxoKo3BFdEMj/FAWjLd8jSDuNspHU7I/wZE38JiJTU9JEYd6/OmYjOq9iHIRvUVI/6MySHL0Cuu9MVjM4apLwlTN+eRYUP9x/D9Ho+69IHtDBvdqyyA8oeCNyuUok3+PTjieeiQQypDwqI9EuCarLmT9oSkYHjbsSZIuaNzmufalUF/UjWE/jXEa+YnsGlMQfQn1ZQKhE4RTZu/Zyaf/7KhpNln0EKjbRwS03CVbE1BgnBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ay5QBVTupXpoCiXn6UZZm9RK4cKeTVdq6BJnnY3kAgU=;
+ b=HmU4afQu5m2NaNR2/YSFeTQ8ZJOiB6v+aLL0tr0m5JBoL2LImmSVpowKxQ9xEm005KnmiqRj/uk5VkoDMMF+RofyeN1g8nUOPX5SMw0q2Ppd0pjICewyxaDWBZ10dA0jXq78Qpy/UeiGOQEZ0bLxb06O4yF+aOkWl0+T621NFcbXxIGKcFydP4Wfitr/JvOMFLlHX4A8ObXwOazCrWedFnkRo0SAjkfc4tot0NIrXTpIpVxPh6PXF/3Zi8Dx/+a7ELdlrpLy64WuWNMXVZp/ZWDE7UrKJfoI2j4O0WDhpUGfwNsnAfk/iG/lTeE8FuDm7HMKap0e2Ht7nKhQxo5Fqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ay5QBVTupXpoCiXn6UZZm9RK4cKeTVdq6BJnnY3kAgU=;
+ b=glH2tIi9r0lKu4pk9qhmTXCMj5OTMHABB6QMYh/wo57oY/J+b/B+xRv8NiiwIomrkdiIDX6Uuil7pPVpbFCNlV5ewkUTd+pt4/4cQrgA1iq8CFumMexzq2WutRi1YtV7yOOUY6ZUnUjE2lETXAQnjNHjQEZg4cpPS4nqjiV12e1xRnxv1l2AS5hr0F53OXlquiz1Xe0CC9EQOW2PBCasyo16/88wzCs2v31vkeXeQnFp7oaTZe1xOd9p7gQiwvCxyBj+kx2HFpNCWh5AqpkQkHzBSsPU/lWUDWIbImIY9hAl/5oi9cU9+yFi4m/3M383opqSwFvZg9VJ1XqzuN0Cyw==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by DB9P251MB0077.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:2c9::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 10:13:30 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 10:13:30 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Aaron Lu <ziqianlu@bytedance.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	kvm@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] vhost: Run TIF_NOTIFY_RESUME work in the vhost_task loop
+Date: Tue,  3 Nov 2026 10:13:28 +0000
+Message-ID:
+ <AS8P251MB000115355C9F818CBDE48A79C8692@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261102170928-mutt-send-email-mst@kernel.org>
+References: <AS8P251MB00012469E6ECBEA2B7D87BB0C86C2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM> <20261102170928-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0103.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c3::6) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20261103101328.22586-1-elb12345@hotmail.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,195 +105,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b04316eb-a2f8-4587-9392-e673c7bd2fc8@intel.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|DB9P251MB0077:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39183dba-877d-4eeb-ce1b-08df39931bbc
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|6090799003|15080799012|5072599009|25031999004|37011999003|51005399006|55001999006|24021099003|8060799015|19110799012|25010399006|260925184616899003|4140399003|26104999009|440099028|3412199025|40105399003;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bFlrM08vQVdqZUJXUWtheVJIdW1qTHRpTEsyMEpKTTVuSFJjTFZOWnk2OE9o?=
+ =?utf-8?B?ZXFhcmkyR2ZUcjZMMEFua2VHQmgwZG5PczZRVGl6SzlZSGNMQW9WbXFjb1BC?=
+ =?utf-8?B?UDl3aHdTSmxFbDhBWlltZEd5ZnVaWWpqZzhuVmJwTWU3Y0NnS2ZWK3JQQ2F3?=
+ =?utf-8?B?RHQwVkt1L0Z5YVBXL2hDb3hwUlpicE9laWs4eDJubVBrcVRXQUZJdEszV3F0?=
+ =?utf-8?B?WWtTNFdDUzNjWXg2S3ozeTBZU3Y4Nm5xQnVxdmNrNys1dEZ1RmJsRHpJNnV1?=
+ =?utf-8?B?RVZXaldRcEpPQkpVcjdoa0h4bjlqUUlCcWZibXI4a0hjV3NuQ1pjWE9LajEy?=
+ =?utf-8?B?MUVoOS8wdVgreDluSVpBS09wMzYyWHhHaHhLRGlEcWRkYVZoN1dHKzdFYUlX?=
+ =?utf-8?B?MGVnb3gvZEh6UG1RVU5aa3RJQnpBd0tDRUtsUEpvRitqdWtOUXhhNUs4Q1B2?=
+ =?utf-8?B?UlVZVXlKSU85QVNDVDdMTUFJb25jd1UrQ2tPRisxNmtlWkVsQlBnK20yalNw?=
+ =?utf-8?B?OThWcld1dEptQ3Z0ZWZ2d2dHZTBJb3U0L2lPSFBRYVdwOVhYTGZiNVI4REZ0?=
+ =?utf-8?B?MllLakwzNHRCMFVtaVJJeUVKdjN5eDFycXVjUHE5Y0lQZ29ISVB0MXdRODlh?=
+ =?utf-8?B?YmtpMEg0eG4vTFBLNDk5K0h6bjViMWFCbkVXeWgycENHM280K1BjYlFmamZI?=
+ =?utf-8?B?TEZ3ejRMcDZLdUNGMnFPUm1KeC8vSE5zNU9scG5PU1EwbTdUZUhNTmZnWjN1?=
+ =?utf-8?B?VFpINjdTK3NmOEJHNUVOSldQTmFmOUgzeWFKbWxZbHZoWVgrdkNhNlpvcnVv?=
+ =?utf-8?B?ZUlOTFhJOTNTMnhCMFNmSnJteU4zcDFNdURidGp6ZjhoSkNabFM3Rmp1ODBM?=
+ =?utf-8?B?eFNXVCt6cGh4VzJUWXM0elhEMGdyc2FNN2JEQUgxSHRDdFdiSnBMdkxBaHc1?=
+ =?utf-8?B?RFdQL3F6dXQ5VVNkZmN5aU9xMFNSb1lwYS95Sm5vdHowbDQyVFRLbXRoS2lB?=
+ =?utf-8?B?Ukd3SHJJdXlWT1NWZk1OSlZLWWVTS3orbTdoS2I5N0dsbHMxaG4xb1VrK1ND?=
+ =?utf-8?B?UGhYUEpxN204VlFlczMxWWJzSnlXbnptd0VWdmlZTnpWYklvczFjZy9UUGdW?=
+ =?utf-8?B?UDlxWjlUd2E0RWZLS0cxTlNNeStZMVV5K2t2OEFGK291Q3NBcDBvVlpKN3BR?=
+ =?utf-8?B?eEd6bUplMzFxRjA5Skw1U2kwOGlQQlhKZkFGWE1LWm5ONGNJL0NFM0xRZWRO?=
+ =?utf-8?B?c2FWR3c4ZDZsZHdrbWwvWG56UkMwMjBJVGVNdXNweU9aZnRQOVJvcGU5dmtq?=
+ =?utf-8?B?SEJ3ZTVjb0UxbUFwSVlUb2l3RTNFaFp4cVNIZ0F3dkE3RmNwai9KbFA1eXU4?=
+ =?utf-8?B?Z1lXS3p4SUdQdExwak1FQnBrQk1MTHFWakNGTmpCeXlmdmlBY1dlSDJaYi9l?=
+ =?utf-8?Q?EMJ4issR?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N0NEYzVheFlDeVlMbm95ZjRRekd1MnBGRUNsQjhzNkt2Uk10cGtIaW5MaWt1?=
+ =?utf-8?B?SGR1S2t1QnpHWENtUUNvZ3g5M1JOTjgzNWgrRUZDU0F3ZnVJL1RjbUdLOG12?=
+ =?utf-8?B?anJZcW1vY21WU0xSRnVqMkRGcGo2cTZxcDZYeG1KSTVzZnk4QkM1d2ozTStP?=
+ =?utf-8?B?RmlhbUVycUx2OVJKcTF6cGxsTFg4aWVUTG9mVU1pK3FDa295YXkvdDZEbzZ6?=
+ =?utf-8?B?Q2MyMldNeWRVd0dqT0xBQnBURkMwVmJuNHJtaTNrTmc0ZUtsa2plMFFjeGVr?=
+ =?utf-8?B?RnYydG11SkxZczZGNkJTK1k5NzhtY29yK2sybDhuZnR1MlhjbTZxSmszTFNo?=
+ =?utf-8?B?VHlwZ1I3Sll6RGRDamFsc1RuWmQ2SURvM01rTXlheStIQVBIVVFqK0d6Sjd2?=
+ =?utf-8?B?alFSSC9ER0RtZjZPTm81ZFRPekt5dkc0VVM1Q01TVHhTeXkzQnAwbUNPb1pD?=
+ =?utf-8?B?S016dnF1WTdVZVcwS2FoZ3NsOXA0RnVoOGVXb096MXdnRGRUY3hDZ3Z0akhy?=
+ =?utf-8?B?QldJSkpvMkZPRWNRWmxRbStwRlRHQzRrLy9nV1RNbHIybklOaHNHVFc5bGRL?=
+ =?utf-8?B?Rko2QUlUMDBQVUhOY0IzNzRLYTlndzFYaE0vdk1HVWdGQXpiTXZMTVhrdnpV?=
+ =?utf-8?B?VGRUTzVHZVViSVd3RjFVZVRGTzBZcDlrU2hsSmp5a1JvOFhWaGZHeXhVT1Fl?=
+ =?utf-8?B?bmVXNy9vc21JcmNqbFAzb2krYXFUNzhoNlJmbzRraFl4YzZEdWdXMUF1UEtB?=
+ =?utf-8?B?aUV5YjBOL1BqVlRjQi8wdVQ1ak9keGZnZUxWdndtQjdPZTZEV3BqK1VEeXNL?=
+ =?utf-8?B?RHJnc24yK0FzTHJNQXA5b1V6VnFiV2kzSE4vSHdiREZEN2s5ZmNIOGRlRlla?=
+ =?utf-8?B?TWFJR254VlFrb3RJclNjbEVaOXZsRm8wdEJ3dmt0RmZwVDJHWVJrYUQ2cHJi?=
+ =?utf-8?B?QjFQM010b25MaVZEeERMTzUxMzI5Z2xRd1BnTXh0bENwcnE1R2t3ekIrbVlU?=
+ =?utf-8?B?MDd5bHU3OVhQbXh1bjNVKzJ4cjFPOXBjZmRqcGdVMVdiaXQ2WlZvUEF5eHRQ?=
+ =?utf-8?B?USszZUVtSDZKek9XWGR0bFBlVit6d0FvdkhmeTBucE1ES1JVNlJBeDA3eml2?=
+ =?utf-8?B?QXZNZjBRVEJVOWdBM3hOTDM0NGlVNVJYclBOMlJHTWtCS1c0MHRNR1JOclhr?=
+ =?utf-8?B?MHByRFhkMEVRQ0RKUlpUT2hUOVdtN2dnNHk1VkU4RktLZnBQek9mbUFGSmNE?=
+ =?utf-8?B?d0tudmNZTEZlRFl5SWdSRzlEMlpMK1JRcGdDYjk3YjNUSk52VGp0OEdLL24y?=
+ =?utf-8?B?SnBTaVlzcWxLYmZsRTM5Mi9IbTBDM1cyZWpDamZ3L3VjL1RtbkdadTNtRE9K?=
+ =?utf-8?B?RitKTnJpZmhqdmR2bmJCN2NPWm9IMVpaalVGc0ppQjNLNjl3dDh3dnY1NHM5?=
+ =?utf-8?B?OVh2SVBOM0dYQXhnMktjZDlheTBHSm14Uld2dzNXcUFQRTRpQWpQSGxTUVNR?=
+ =?utf-8?B?WkdOWnYzOW5kbXljTzRrS2xKaVZMQmUveTZ5c25iRlhqTDh6ZVVwNjIzVWtQ?=
+ =?utf-8?B?NHJEZHNJTHZQY3N3eHVpWmlINGJPT1NSZkg1RCtCZ0lpN2ROaHRpL3E2QWNG?=
+ =?utf-8?B?UUNLMkUzNzhFQ1AzWjJ5N2QzamgwdVplZCttTlJvSUh5d3dpWUVvcGw2MUR0?=
+ =?utf-8?B?RG1vTVBmRUVkSnJhdzRXKzV2Rk8wRWVIbUV2NjJnYmZlUFRnTy92MENUZGV0?=
+ =?utf-8?B?K2RaN3huT0I2R3dvaDZhZTA1SGJ3OVhsYTlSYmx4bnVJL3VVSDdWeUcrMkJB?=
+ =?utf-8?B?THhLdStTRkNjdng5OHpqcHFRcHIwamJPRWgvQjVCSk5kOHpKSTNaeC9HVTFO?=
+ =?utf-8?B?S29lczZuUGpKT3NwT1U0OXNqYmNmd1hrQ1NKb0FwaHV6L0kvMjQzZndTUHZI?=
+ =?utf-8?Q?uXijVxcORt16KROka5B7WB3D9beC6CzJ?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39183dba-877d-4eeb-ce1b-08df39931bbc
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:13:30.4422
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P251MB0077
 
-On Mon, Nov 02, 2026 at 01:12:47PM -0800, Dave Hansen wrote:
-> Or, heck, I'm not that attached to these checks. Let's just kill them.
+On Mon, Nov 02, 2026 at 05:09:42PM -0500, Michael S. Tsirkin wrote:
+> Could you pls respond to Sashiko's review?
 
-Works for me. x86 is the only architecture with them, although arm64 and
-riscv have shadow stacks too, and the x86 helpers already keep
-Write=0,Dirty=1 out of other VMAs. Patch below, without the Fixes: tag.
+On review, Sashiko's points don't seem to hold:
 
-Rick, any objection?
+1. throttle_cfs_rq_work() runs from task_work_run(), which calls
+   cond_resched() after each work item:
 
--- >8 --
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH] x86/mm: Remove the zapped-entry checks
+        do {
+                next = work->next;
+                work->func(work);
+                work = next;
+                cond_resched();
+        } while (work);
 
-Zapping a range calls arch_check_zapped_pte() for every batch of PTEs,
-which is every page for small folios, and arch_check_zapped_pmd() or
-arch_check_zapped_pud() for every huge leaf. Only x86 implements them, as
-out-of-line functions that warn about a shadow stack entry (Write=0,
-Dirty=1) in a VMA without VM_SHADOW_STACK.
+   throttle_cfs_rq_work() has already called resched_curr(), so with
+   preempt=none/voluntary the worker is switched out at that
+   cond_resched(). With preempt=full/lazy it is switched out earlier,
+   at the rq unlock. Either way this happens inside
+   resume_user_mode_work(), before vtsk->fn(), with no locks held.
+   Traced on 6.18 with preempt=none: each throttle switch-out was in
+   __cond_resched() called from task_work_run().
 
-The warning is a VM_WARN_ON_ONCE(), so without CONFIG_DEBUG_VM the
-functions are empty, but the calls remain. With the SRSO "Safe RET"
-mitigation the return of every such call mispredicts.
+2. Depends on fn() running while throttled, which per 1 doesn't
+   happen.
 
-The x86 helpers already keep such entries out of other VMAs.
-pte_wrprotect(), pte_mkdirty(), pte_modify() and their PMD versions go
-through SavedDirty, and only pte_mkwrite() and pmd_mkwrite() on a
-VM_SHADOW_STACK VMA create the combination.
+3. Re-armed throttle work is queued at pick time and run by
+   task_work_run() before it returns. Anything armed later is handled
+   at the next loop top, which is normal deferred throttling.
 
-Remove the checks, their callers and pud_shstk(), which has no other
-user.
+Will raise a v2 now with Shakeel's previous points.
 
-In a KVM guest on Zen 4 with Safe RET, zapping 4K pages takes one branch
-miss per page fewer. MADV_DONTNEED of 1 GiB gets 6% faster on anonymous
-memory and 8% on shmem, munmap() 5%. THP is unchanged. Without Safe RET
-the difference is within noise.
-
-Suggested-by: Dave Hansen <dave.hansen@linux.intel.com>
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- arch/x86/include/asm/pgtable.h | 16 ----------------
- arch/x86/mm/pgtable.c          | 26 --------------------------
- include/linux/pgtable.h        | 20 --------------------
- mm/huge_memory.c               |  2 --
- mm/memory.c                    |  3 ---
- 5 files changed, 67 deletions(-)
-
-diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
-index 000fc6c1ca37..613c22c7838a 100644
---- a/arch/x86/include/asm/pgtable.h
-+++ b/arch/x86/include/asm/pgtable.h
-@@ -199,13 +199,6 @@ static inline int pud_young(pud_t pud)
- 	return pud_flags(pud) & _PAGE_ACCESSED;
- }
- 
--static inline bool pud_shstk(pud_t pud)
--{
--	return cpu_feature_enabled(X86_FEATURE_SHSTK) &&
--	       (pud_flags(pud) & (_PAGE_RW | _PAGE_DIRTY | _PAGE_PSE)) ==
--	       (_PAGE_DIRTY | _PAGE_PSE);
--}
--
- static inline int pte_write(pte_t pte)
- {
- 	/*
-@@ -1666,15 +1659,6 @@ static inline bool arch_has_pfn_modify_check(void)
- 	return boot_cpu_has_bug(X86_BUG_L1TF);
- }
- 
--#define arch_check_zapped_pte arch_check_zapped_pte
--void arch_check_zapped_pte(struct vm_area_struct *vma, pte_t pte);
--
--#define arch_check_zapped_pmd arch_check_zapped_pmd
--void arch_check_zapped_pmd(struct vm_area_struct *vma, pmd_t pmd);
--
--#define arch_check_zapped_pud arch_check_zapped_pud
--void arch_check_zapped_pud(struct vm_area_struct *vma, pud_t pud);
--
- #ifdef CONFIG_XEN_PV
- #define arch_has_hw_nonleaf_pmd_young arch_has_hw_nonleaf_pmd_young
- static inline bool arch_has_hw_nonleaf_pmd_young(void)
-diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
-index 4a105f283cfb..58e5012b56b0 100644
---- a/arch/x86/mm/pgtable.c
-+++ b/arch/x86/mm/pgtable.c
-@@ -797,29 +797,3 @@ pmd_t pmd_mkwrite(pmd_t pmd, struct vm_area_struct *vma)
- 
- 	return pmd_clear_saveddirty(pmd);
- }
--
--void arch_check_zapped_pte(struct vm_area_struct *vma, pte_t pte)
--{
--	/*
--	 * Hardware before shadow stack can (rarely) set Dirty=1
--	 * on a Write=0 PTE. So the below condition
--	 * only indicates a software bug when shadow stack is
--	 * supported by the HW. This checking is covered in
--	 * pte_shstk().
--	 */
--	VM_WARN_ON_ONCE(!(vma->vm_flags & VM_SHADOW_STACK) &&
--			pte_shstk(pte));
--}
--
--void arch_check_zapped_pmd(struct vm_area_struct *vma, pmd_t pmd)
--{
--	/* See note in arch_check_zapped_pte() */
--	VM_WARN_ON_ONCE(!(vma->vm_flags & VM_SHADOW_STACK) &&
--			pmd_shstk(pmd));
--}
--
--void arch_check_zapped_pud(struct vm_area_struct *vma, pud_t pud)
--{
--	/* See note in arch_check_zapped_pte() */
--	VM_WARN_ON_ONCE(!(vma->vm_flags & VM_SHADOW_STACK) && pud_shstk(pud));
--}
-diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-index 780fe849ff8b..fc32289af58a 100644
---- a/include/linux/pgtable.h
-+++ b/include/linux/pgtable.h
-@@ -621,26 +621,6 @@ static inline unsigned int exec_folio_order(void)
- }
- #endif
- 
--#ifndef arch_check_zapped_pte
--static inline void arch_check_zapped_pte(struct vm_area_struct *vma,
--					 pte_t pte)
--{
--}
--#endif
--
--#ifndef arch_check_zapped_pmd
--static inline void arch_check_zapped_pmd(struct vm_area_struct *vma,
--					 pmd_t pmd)
--{
--}
--#endif
--
--#ifndef arch_check_zapped_pud
--static inline void arch_check_zapped_pud(struct vm_area_struct *vma, pud_t pud)
--{
--}
--#endif
--
- #ifndef __HAVE_ARCH_PTEP_GET_AND_CLEAR
- static inline pte_t ptep_get_and_clear(struct mm_struct *mm,
- 				       unsigned long address,
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index bd44d58e8684..6e49fa841911 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2558,7 +2558,6 @@ bool zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 	 */
- 	orig_pmd = pmdp_huge_get_and_clear_full(vma, addr, pmd,
- 						tlb->fullmm);
--	arch_check_zapped_pmd(vma, orig_pmd);
- 	tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
- 
- 	is_present = pmd_present(orig_pmd);
-@@ -3045,7 +3044,6 @@ int zap_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 		return 0;
- 
- 	orig_pud = pudp_huge_get_and_clear_full(vma, addr, pud, tlb->fullmm);
--	arch_check_zapped_pud(vma, orig_pud);
- 	tlb_remove_pud_tlb_entry(tlb, pud, addr);
- 	if (!vma_is_mm_managed(vma)) {
- 		spin_unlock(ptl);
-diff --git a/mm/memory.c b/mm/memory.c
-index 0fb676dd2bd6..25d630033642 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -1755,8 +1755,6 @@ static __always_inline void zap_present_folio_ptes(struct mmu_gather *tlb,
- 		clear_full_ptes(mm, addr, pte, nr, tlb->fullmm);
- 		rss[MM_ANONPAGES] -= nr;
- 	}
--	/* Checking a single PTE in a batch is sufficient. */
--	arch_check_zapped_pte(vma, ptent);
- 	tlb_remove_tlb_entries(tlb, pte, nr, addr);
- 	if (unlikely(userfaultfd_pte_wp(vma, ptent)))
- 		*any_skipped = zap_install_uffd_wp_if_needed(vma, addr, pte,
-@@ -1795,7 +1793,6 @@ static inline int zap_present_ptes(struct mmu_gather *tlb,
- 	if (!page) {
- 		/* We don't need up-to-date accessed/dirty bits. */
- 		ptep_get_and_clear_full(mm, addr, pte, tlb->fullmm);
--		arch_check_zapped_pte(vma, ptent);
- 		tlb_remove_tlb_entry(tlb, pte, addr);
- 		if (userfaultfd_pte_wp(vma, ptent))
- 			*any_skipped = zap_install_uffd_wp_if_needed(vma, addr,
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Kind Regards
+Aamir
