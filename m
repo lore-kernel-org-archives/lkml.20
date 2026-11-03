@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793723149;
-	b=LlWx7QP00i2Emg0+FpFoSdtRQKPtdXfkz9vdNfFSOO+QD9Kd/h/GhYVD4tmyOKTJdDmT
-	 PM05aTXGlYDhg0IXlEBeVw+jVogI4+b30y6dL0733ym1BbQZEmaZDcMfZDgBaNH/QxOfW
-	 YALQQLprbp78r+9faoUUwEqkg2WATGmvqe7noiFJwEjTQwLJAI3FVXITdzvYampVFt2ym
-	 N66kjvKEj6Ra2uqGuDCUte0K+HkadcPhOToEZbbBnH5sZ4yYZyCDhnajDk5UJlU6j3+Bv
-	 rsuqrPIGCXLby9bGAE872hRVEZh90/e3Qd9vRXiZjF3ENOx3A0aH7vobSUq9FEWr/vw==
+	b=sQM5YVeqAGbEADK1JPMIBioLWvG55lA6T/YhrVMT2xHZ7PGpvelBQEASkMZ9cmTgDmrX
+	 9djTduazKJfi0p8gM1qsftp8jz3j5as/fA3StDf3hXTHVMgcCHkuuEUia8dSgQsMIcWqc
+	 ZNEFK+B7TQDaYHDULT0vE2EVdDD/FLwNNVAkzpv6SzTbwA9h/QZzHl3isJXdZHy78zLXE
+	 IyZn5xTDzPMQ8F5E0SL7HaeAFKPnWN7swHv7rOfoZjRj1OcxT3p5px1FavrVJiwd+X9wG
+	 nG3o6ps3HaeE/fzu8m345VHepVEQl2jiUjLVolBwJ6y1VUGXuIAumcZuzaU1osXV6Og==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793723149;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=YhFPGq66AAtaFmboYz1uYaKBpqYr/PH8XApnUGdT9oo=;
-	b=CAofpyJj3p6Fv1lhX5MM3HSv4Nx3Tx1103aTNarUcVkj4/jwjNlMEO7KDYCMOHfb55X9
-	 zkDniHRPuYs76n34X0vMmbcFHGXPN8edFfZp0G/kvQdR8pNbkXHu1qa7ZlNgVi0GMPlRY
-	 6QfNPbLrFXq4qU7gWmA614/rg0kPwqPo6vG0TojsrlAiXYJdOZFptEiiaegIMww+md96E
-	 e2ggIdyPcXo/ef19a3ZOaR5z+zRflIT6R5ygscHVXURh/0TDmVY96N2ej1JQTlNnk6Mn6
-	 uGBUp/INDBUnIOVjXoPH3q4A+1XMDg57u1MecARVMM7D4E73UA8qDHhgdqkM3TqxXDQ==
+	bh=YrvLenOfUjR4xjaCoygKbKHPvPlEFGRZPhOnPcpMtlI=;
+	b=V8Un4xDMjZJFBXqylf+5zvca6ncA4WBzbOntsDJDtwjfRg3+o9B3oOBQdVAsoFXxWEkX
+	 xeEV5s7SsjA5qIVGJJnsUSmQHLHpVvJJU4UEIaaR9xQt5c9SUsP8HO4ooXsX2hWHkNipJ
+	 q8Z2Btzs8xdFC/yEVjHsF33mS3eKIY23Ry+z7ywsO1dsXsO4CTEcgmQdc9IXxqe6jL1F0
+	 Xf15JJhrKigo0UyZWZ1JAy4t4iwSzZD6GGkyKs+6uggSWUuSbGWbBdjZzaeFvRuratsHY
+	 ml0gUI3fuf2X+avghI4vPKD9ibvNI7shWidcwdiBty/dFytKRD7Pt1TkaN1nlzZFrDw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U51x1HrB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fAtHMJCT;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D7A606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E228606A33F
 	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:25:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U51x1HrB
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fAtHMJCT
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793723149;
-	b=o/T50ihoqdq46aEHWLu4U44W9dvkikdXUWeHHfjBpNLtzXCZ6PXPU5Hn3B5CKuZLuZXd
-	 eq9TqfbYEHEllj1xjhx4BZ2J2lnEiIZE/98gsSYxLMSLxudA3MRxZ3ISHCrD28ri56Xw0
-	 okW+aDxx5C5EsJv2N3Ne0n72saPVnOFiuH03zxKQ9WqkwlKUjpJN+SCPCUroxDfuloHCH
-	 VcLl51VohmGcQjEmAQMzjmHLM9SXM/6w8XN9CBVpTPXpq32gbR7RtCGKTX0D8ZGezuUHE
-	 Y9cE1Z4OsiXwa7ygpQB+EIsZIViqKb+QNEgmslreETHNJFt0TJ4iS/ojd9tP+dSC0mw==
+	b=nOLT4jsZ0ggSgMevBeG/YvkQOz8HSWtgfgZ/q8UG4XOPBhYgkw5scqnoXk/BcW48nC44
+	 iYgV21K7qeVSjcryxa1bPgNzUOfY301WzdHCSafGHAnGhQoR+xdrO2xicgqOQszDOebgc
+	 DrFosH177DYw7zV1RA9qRPdrjzXTo0iuGCjkLORBdVQy23ncWeuPkY881N+lYHrmb5810
+	 kXvCXmOaLr7Qkx9gnU4uK0x5UJYiuNOvVhRxiOh9DkhTd2Jp8EYuNvZ3HBbltfFLdVmc4
+	 WvgBr5PWQC2LvCyV8j/cXvS9CDyT1/zAqQvgVqIcCkOlaplZGwdk6LidqcWmr4SnHxQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793723149;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=YhFPGq66AAtaFmboYz1uYaKBpqYr/PH8XApnUGdT9oo=;
-	b=SR00+1i4LcnTkCFR5NR13u5g5uC5/EE7sAPd0dKtjZ0Dbibge2FYeggCuRbBg39Y5Xev
-	 EHo2S/TbhYi2y3d/ePEnhCDRzsKGRnSPeuaax0W1c886RCsMPoUZ7PuqHF9yTeXK83msk
-	 j2T9hjveUnHh6p2nvuvQcVQ7VdSleaGvy6qs8Ow9TuByR+y5heJHKO60OabOFaW/FSr3X
-	 4ke/UhE+19RQmmlM/3thFtVPZ7ZXNQpP8A2Sho3Yt43W/fgobUTvnzlvRrdjNin8i+a4c
-	 kI2uMl1bFEkSXKvCIab10hvZTc9QiEy8It2J5LNWJ5nCszpqOWAmWipIIfYo3iR1q4w==
+	bh=YrvLenOfUjR4xjaCoygKbKHPvPlEFGRZPhOnPcpMtlI=;
+	b=jv2er5w6TZfQGMpEfpTzoHVRUroo+jyOzxCbHNYQD5gW2e8Zz4c6usGzKrfRAonlQOkF
+	 XD1+n4UcZ291YiIO1tAYYaVAn5oGby1eVN64QRplw5xYUSIqwDCq0czMhOd2ZQFhkyxiY
+	 71iBKY3VftqflDpjW1EPeynyaz6AlG5bfEMZJNKF4GoE+KFfoSdt5sJ/R9FP0lfS9auB2
+	 xVqOofUxstEkrLkFa65oMrxsMJGupFWBmJn1KBSfoCIKSEIx6vwLM1QwK8jO/txHJrLKI
+	 r3Y/xJQcKzbU35hSS1qrbCVMPdPn2pBybPPtLTuqg42jUcsuULfmTWZjVGyITu0VtWg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C6C651F00919;
+	by smtp.kernel.org (Postfix) with ESMTPS id C8D6D1F00A02;
 	Tue,  3 Nov 2026 16:25:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793723149;
-	bh=YhFPGq66AAtaFmboYz1uYaKBpqYr/PH8XApnUGdT9oo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=U51x1HrBbAvBU4FXVebjW5zRlZhklRZH5wj9qSxQhFxFs3sGcxl8zmuEWuqGU9X9u
-	 18bfvrkU6tPb340mJzaLR5USdchWYaxrsYsegJk+Q8JZMMPE1p79sRMygtRFRYB3QJ
-	 2rGskxmVZau/BglEVbJXw4hheAaJVJd2FjmUX1sVkWyt/FiZYr9NRxF8sXj70KZdZ0
-	 kmlzV7kHErtclAhnCRTMjAqJ1XNIc2doGB3xN24Rd+3hcwILYShBw+vcor7pRDmb7t
-	 m+Lpouh+0gDbeqAPyN+gjs5nIHfAc6pyzBbKN+ysH/0R1R5Ju0KawQZRdBlWZSNM6E
-	 r09E9URk7DKiw==
+	bh=YrvLenOfUjR4xjaCoygKbKHPvPlEFGRZPhOnPcpMtlI=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=fAtHMJCT1hpoD6RUCO03ORkfT3COYww7VWDwzMTSBEl+iIFeRXcdpHqWer+Yor2/7
+	 EdAEeA2RmhwZB+oLTmC6VGpig+BPy5PPu/71eEv31nPi4v8dT7bWFI0bfmcy8NBGrX
+	 CNf/qhCnWTcPEu+oEV3cwpGncnpbTet4SOOC5QSRZGvJU2gpLhETZ++qZtO5t5Uygq
+	 RB8Od3xXbbDf34el6f8h3VZpTJOlVJTZRlmJYS11Yfebt8Wc/Lo3je6Jv9PMXNyGYw
+	 Ls4ug+YW6iyB8vNO4Cp2lyg8iKGJNtOwhm+iuygETU5Kv2EqjCYx2iw0ttfAn9vyZ2
+	 GgSH8pkpeKCDA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 35D4846A1F;
+	by lkml.kernel.org (Postfix) with ESMTP id 24C9C46A22;
 	Tue,  3 Nov 2026 16:25:47 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Wed, 04 Nov 2026 00:25:45 +0800
-Subject: [PATCH v4 1/3] mm, swap: only allow swapped-out slots into the
+Subject: [PATCH v4 0/3] mm, swap: keep hibernation swap slots out of the
  swap cache
+Date: Wed, 04 Nov 2026 00:25:44 +0800
+Message-Id: <20261104-swap-hibernation-slots-v4-0-0ba9393609e1@tencent.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,9 +86,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-swap-hibernation-slots-v4-1-0ba9393609e1@tencent.com>
-References: <20261104-swap-hibernation-slots-v4-0-0ba9393609e1@tencent.com>
-In-Reply-To: <20261104-swap-hibernation-slots-v4-0-0ba9393609e1@tencent.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNwQ6CMBAFf8Xs2ZK2KIIn/8NwKLCFIrakW1BC+
+ HcLHieZN28FQm+Q4H5aweNsyDgb4XI+Qd0p2yIzTWSQXGZC8JTRR42sMxV6q0KUGQ0uELsWOpM
+ 3nTVFoyGOR4/afI/ws/wzTVWPddhru9EZCs4vx/Oc7t5xwnMhRColLxKZxyTPmWCLm2zbTzYZl
+ X89hhaT2r2h3LbtB0oV1c7BAAAA
+X-Change-ID: 20261103-swap-hibernation-slots-59f627f6d9df
 To: linux-mm@kvack.org
 Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
  Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
@@ -97,11 +100,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
  Kairui Song <ryncsn@gmail.com>, linux-kernel@vger.kernel.org, 
  Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793723146; l=3324;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793723146; l=4307;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=DSg4zPkZqnOQvGhK9sG11r29/KrXHPQLe9s8Rr3DHeY=;
- b=11vQE85hIvbe97NqWxRwvbKHZLTqYj7++y3AJG7mDwZH12EvUhPH1qnjISuktefyl8en6VaMR
- jh9fyvGQjrxBGIJUcby06JaCEM3YOc/F9b/KUBNKe9Fh1hR/a8I/AfT
+ bh=R6H98dXtxG2Z2jromolKwbcKkJz42BJ5UcLj3L7np7k=;
+ b=pCZlUKbzxhlgH5oldMolUwrYC95wl6NeIpN6alMrW4KT/RIxnUUNta7Gs+Bq63C1qEybExxRQ
+ wheQielJf2iCXKl+H4uQiHjhNWxIfXv6K9pghFGGSHvvMktsqklSeWq
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -109,79 +112,90 @@ X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
 X-Original-From: Kairui Song <kasong@tencent.com>
 Reply-To: kasong@tencent.com
 
-From: Youngjun Park <youngjun.park@lge.com>
+The original series is sent by YoungJun, now with a few nits fixed,
+rebased and re-send, dropping already merged one. Especially recently
+there is LLM code inspecting suggesting patch 1/3 of this resent is
+needed as it avoids reading into bad slots.
 
-__swap_cache_add_check() turns away folio entries and slots with no count
-and lets everything else in.  That is safe only when the caller owns the
-slot.  Cluster readahead owns nothing, it walks a raw page_cluster sized
-window of offsets around the faulting entry, so it can land on any slot.
+Cluster readahead walks a raw page_cluster sized window of offsets around
+the faulting entry.  A hibernation slot looks like an ordinary swapped out
+slot, so __swap_cache_add_check() lets it in.  Readahead reads the offset
+off the device into a folio and puts that folio in the swap table where the
+hibernation entry was.  This has been possible for a long time.  It only
+wasted a folio and a read.
 
-A bad slot gets in.  The check reads the count with __swp_tb_get_count(),
-which shifts the count bits out without looking at the type, and
-SWP_TB_BAD has all of them set, so the slot reads as SWP_TB_COUNT_MAX.
-Readahead then allocates a folio and reads the offset off the device for a
-slot nothing will ever swap in, and the folio entry that replaces it drops
-the bad marker.
+That changed with commit 0d6af9bcf383 ("mm, swap: use the swap table to
+track the swap count").  A slot with a folio in the swap cache should only
+be freed when the folio leaves the cache.  swap_put_entries_cluster() still
+does that, but the conversion left swap_free_hibernation_slot() freeing the
+slot either way.  Nothing points at the folio after that, and when reclaim
+drops it later, it writes to the table entry at the old offset, which
+someone else may own by then.
 
-Readahead used to be guarded by swap_entry_swapped(), which goes through
-swp_tb_get_count() and gets -EINVAL for a bad slot.  That call went away
-when the swap cache checks moved into __swap_cache_add_check(), and the
-raw accessor there does not do the same type test.
+That one is fixed in v3 1/4, which is upstream as commit 10d9012e83ef
+("mm, swap: don't free a hibernation slot that is in the swap cache")
+already.
 
-Require a shadow entry instead.  A slot dropped from the swap cache always
-gets one, empty if there is no workingset value.  The type test runs first,
-so the count is only read off a countable entry, and the check as a whole
-runs before the folio allocation in __swap_cache_alloc().
+What is left removes the cause.  Readahead should not touch these slots at
+all, so patch 1 lets only swapped out slots into the swap cache, which also
+puts back a bad slot check the swap cache rework dropped, patch 2 gives
+hibernation slots their own swap table entry type so that check covers them
+too, and patch 3 drops the guard and the reclaim in
+swap_free_hibernation_slot(), since no such folio can exist any more.
 
-The large folio walk in the same function does the same raw reads.  A bad
-slot cannot be in its range, but the range is not pinned, so a slot freed
-and then taken by hibernation still trips the countable assertion there.
-Give the walk the same shadow test, the folio check folds into it.
+For any of this a task has to hold hibernation slots while the system is
+still running.  The in kernel path does not, it allocates, writes and frees
+the slots with everything frozen.  Userspace hibernation is different.  The
+process writing the image is not frozen, and SNAPSHOT_ALLOC_SWAP_PAGE does
+not check that anything is frozen.  The swap device must also not be
+SWP_SYNCHRONOUS_IO, or swapin takes the direct path and never reaches
+cluster readahead.
 
-Reproduced with a badpages list written into the swap header by hand.
-Readahead took over four bad slots before this patch and none after.  It
-needs a crafted header, so a normal setup will not hit it.
+Tested with a debug patch generated by AI that counts hibernation slots
+through the swap cache paths.  virtio-blk swap, page-cluster 3,
+SNAPSHOT_ALLOC_SWAP_PAGE interleaved with MADV_PAGEOUT of a shmem region
+so the hibernation slots land in the readahead windows.
 
-Fixes: e1e6750df3b4 ("mm, swap: add support for stable large allocation in swap cache directly")
-Acked-by: Kairui Song <kasong@tencent.com>
-Signed-off-by: Youngjun Park <youngjun.park@lge.com>
+                                unpatched   fix only   this series
+  hibernation slots allocated       2732       2732         2732
+  readahead landed on the slot      2731       2731         2731
+  admitted to the swap cache        2731       2731            0
+  reclaim found the folio              0       2731            -
+  slot left unfreed                    0          0            0
+  VM_WARN in the free path          2731          0            0
+
+The VM_WARN is the existing assertion in __swap_cluster_free_entries(),
+not something the debug patch adds.
+
+Changes in v4:
+- Drop the hibernation slot free fix, it is upstream since v7.3
+  (10d9012e83ef).  This revision is the three follow-ups only
+- Rename the swap table layout entry to HIB and reword its doc, pointed out
+  in the v3 review
+- Rebased onto mm-unstable
+- Link to v3: https://patch.msgid.link/20260811132209.2862708-1-youngjun.park@lge.com
+
+v3: https://lore.kernel.org/20260811132209.2862708-1-youngjun.park@lge.com
+v2: https://lore.kernel.org/linux-mm/20260809144559.2104856-1-youngjun.park@lge.com/
+v1: https://lore.kernel.org/linux-mm/20260806190636.446205-1-youngjun.park@lge.com/
+
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
+Youngjun Park (3):
+      mm, swap: only allow swapped-out slots into the swap cache
+      mm, swap: give hibernation swap slots their own swap table entry type
+      mm, swap: drop the swap cache guard and reclaim in swap_free_hibernation_slot()
+
  mm/swap_state.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ mm/swap_table.h | 14 ++++++++++++++
+ mm/swapfile.c   | 25 ++++++++-----------------
+ 3 files changed, 30 insertions(+), 20 deletions(-)
+---
+base-commit: 0ea6dc8c4a2192227ec25768625686b8fcd5cb09
+change-id: 20261103-swap-hibernation-slots-59f627f6d9df
 
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index d9e36c505398..da65d75ceead 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -191,9 +191,14 @@ static int __swap_cache_add_check(struct swap_cluster_info *ci,
- 	old_tb = __swap_table_get(ci, ci_off);
- 	if (swp_tb_is_folio(old_tb))
- 		return -EEXIST;
--	if (!__swp_tb_get_count(old_tb))
-+	/*
-+	 * Only a swapped-out slot may be brought into the swap cache.
-+	 * Cluster readahead walks raw offset ranges, so it can land on
-+	 * slots that are free, bad, or owned by hibernation.
-+	 */
-+	if (!swp_tb_is_shadow(old_tb) || !__swp_tb_get_count(old_tb))
- 		return -ENOENT;
--	if (shadowp && swp_tb_is_shadow(old_tb))
-+	if (shadowp)
- 		*shadowp = swp_tb_to_shadow(old_tb);
- 	if (memcg_id)
- 		*memcg_id = __swap_cgroup_get(ci, ci_off);
-@@ -206,7 +211,7 @@ static int __swap_cache_add_check(struct swap_cluster_info *ci,
- 	ci_end = ci_off + nr;
- 	do {
- 		old_tb = __swap_table_get(ci, ci_off);
--		if (unlikely(swp_tb_is_folio(old_tb) ||
-+		if (unlikely(!swp_tb_is_shadow(old_tb) ||
- 			     !__swp_tb_get_count(old_tb) ||
- 			     is_zero != __swap_table_test_zero(ci, ci_off) ||
- 			     (memcg_id && *memcg_id != __swap_cgroup_get(ci, ci_off))))
-
--- 
-2.56.0
+Best regards,
+--  
+Kairui Song <kasong@tencent.com>
 
 
