@@ -1,62 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694602;
-	b=tELU0+8GFuusjzXcdfTSqCFh/wQbXYT+NmXbRlvKRjvMJKkSiME7YQyb+GggR+M577jB
-	 zgAu88TPPRxu19HL4nvm8baMWdRo4XaslbKrRO1ydwLAT5Ilvle/GpVfehC0MOi+8SZUt
-	 PftgRHBJqFWMyaDJ3bQErP/ikbWB8vAayt7LroFGBTrF7JwkaMMHZz4xglOb/BeSwrMhF
-	 O/zJugLSUTMaaNSyVU/qFP1W61EyNczoEIA970AmNFVKSZcKI7Cp4Ut2hqF53zLTXrPV3
-	 5/GGsJDXPLJgfIgBjAiR8130WcBGMJG97rkqvjDJEbo6Ts5g9h4++dxfAxdt4vigqhQ==
+	t=1793694600;
+	b=OIFcLybFrKePvSrrs5gTWyr8PW97buy3kQxwRaI9hRDWHmN9ti4945ksultC+ax6UmE3
+	 FwQVfI+xSH84IF6Pvy71NHOuwUqzfhbpKUdEjUTCp+83IvqX0qP7jz753YNeL1nbmUZkZ
+	 b6vV4hc9Oetvy1uBcvD27vdocgJtlDijYjugOgUjAN7bMiRqQNQZqfNCWbokgQMiddfR6
+	 8bpPQnl8No6H8rKFUGSo6aN/Ha+YSp+1ViE5ihFE71hy0j9qKc+Ss1jYgTuvWaXMDVepQ
+	 +ALevq4soPygD2TZuWLtdWQzoK3YcZehua/nGTNXF9EIJkEXQTxJNrYke9P+HSDFYPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694602;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694600;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=n9UzS+0yoynIRHmX7RFL35r5qc5ZU/OmMg2n54yvo4I=;
-	b=dadEa8cgRLLdjMWVbVo65cGMsGpNMV6fVgLbmXzOUytTBUDW8udGN0nqbcgX47lgJMHJ
-	 Rb8pqmLRxv3xbsNwzxBX62b8UETpTATZPT2zJrMCTs8/LZm8L1mJf+/R2PQ+vnCb2C7ST
-	 Y2fUUOmscJOH62BU6JO+qn01qoj9cHlF9l7hNClbTbOiztxAkR+Y4zTmDHN6VO//8ehDh
-	 du5NnySlMie8qooXvuzk9Kefym8Kd2fRe5s7aF/ybHAQD5D6UDWs9ZSs3PSaZMIffJPZY
-	 fCHkmooD8JgPZHpgse5hozBGSt3v7AdgRuKOuZtWYK0q0dRNErvDQLeCCoq6hOgdl9A==
+	bh=uw3KvG+PK8eM2CabI2O1bfrEegYb6WR8U15r7XjoD6o=;
+	b=SZBiKlRugKDTXaG8fUAg8+HiS0YqbSnbfCdkq7/7JzAjb4VZ+kSDK32DLwBBCCnbNfsY
+	 bAnUQPhAFNeInav/zejWPyiVvxJGySkJ4JzdbC7Wo03CMHUkgjGrkDXPuM2R9tiCVvVP6
+	 LhHdAiRbJRdaiVhQSRGkjcsbIg4Jc22uOFYnP9RUbSauoAn8o9iyG05UMov8pIgI1lXdM
+	 BHAtzX977aF/CmJrzl40aTIXaxL1onKNrIukWksK/b/lV8Hqh1jgJX3EPiVWq+vJ2c2S6
+	 T1YndRu1IjwX22YcQjt9VQRumK+4m7zeTI8fF78dk5U3hGcLvROampdilVQ9hQlSMng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mobileye.com;
 	spf=pass smtp.mailfrom=mobileye.com;
-	arc=none smtp.remote-ip=23.90.104.147
-Received: from esa2.hc555-34.eu.iphmx.com (esa2.hc555-34.eu.iphmx.com [23.90.104.147])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAF11606D812;
-	Tue,  3 Nov 2026 08:30:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAF11606D812
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4FD6606A327;
+	Tue,  3 Nov 2026 08:29:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4FD6606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1793694608; x=1825230608;
+  t=1793694603; x=1825230603;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=9ihnjzFxJvJl8h5oChA4G/zXh2wj+4MuoWnoqC0/TW0=;
-  b=fLd5oducjhITP50ljOlMaVJW469l8bEdrhw1cMePbZWiyKm8tt2XnBpJ
-   0V0oXvTHtG62TzV2F7ehwpnlUaOWJgMjx+YBBZMtWnXTEYtlodxjGr3LV
-   sRHn2SKuI2/7VtqmhRGByFkafRZ2r4uCkd9/aoexyLft2R+CIKAOewXpl
-   chq/uH6dNZzYFs0GY4kieoDasf4u3VAGCiCPSmU60rtF6lXMOBckCSf4/
-   yX92EpYELBqf0oa/xpZIbBNMMgig9Yt5w5aHMydtboIrkmiwRWBsvQirE
-   972q4DxQmRLaQD+Bv3B8/QckoDr7q1ktawKiSU78JdPUSxsvgJqIeCDZv
-   w==;
-X-CSE-ConnectionGUID: 934Ie9vNTzGq9yPtCoPvOQ==
-X-CSE-MsgGUID: FEmvPFZ8SNe032lKFoIKRA==
+  bh=UphLcdo9RHlivP4kKmdKbKimucYDRR+v25gGpEyZICw=;
+  b=pc/BPG9QcQoRymeBfEmvjAVIEuPI0rT0Z7Q+cjV5BxNZilX6JZN6W1Lw
+   T8kTj+DyRb7+2XGQ1VEol2BNmaiyX6PEbPa8FthdJroWDhtRiTIco9G4M
+   objRlQzIZAjDnNrA6ONmkNemwUvQiOefHiTMDqvwHzAvK/8eVBaoowF6J
+   jhmXrs7lgPiecYAnrm3fYXJMPKalzJ6htn8lTj85F3EuS3/Lzu6mVf2I1
+   K+G2f0HxL0XjXsrQuwL4q5UpFUSsenUA78VmQ7upbtCAkECqOpecDB3MG
+   z+R8HnYqItpQJK1kdkbS/PP5aRVP6W/wlAsdLkxW8wS+JpFcjwVuz2+8T
+   g==;
+X-CSE-ConnectionGUID: mkHVKEemQYKyShKrAcDMuQ==
+X-CSE-MsgGUID: llb/BxV2RhKESl6Q7qy66w==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces01_data.me-corp.lan) ([146.255.191.134])
-  by esa2.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:30:00 +0200
-X-CSE-ConnectionGUID: klZl+CP9Rxy8oF4EFwvFXg==
-X-CSE-MsgGUID: td+SdMnxQb2fLPb9q9wA+g==
-Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.3])
-  by ces01_data.me-corp.lan with SMTP; 03 Nov 2026 10:37:53 +0200
-Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Tue, 03 Nov 2026 10:29:51 +0200
+Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:29:57 +0200
+X-CSE-ConnectionGUID: Z/IpEXidQsevqic4iwnu5w==
+X-CSE-MsgGUID: RFQ4CpKzSaWSVJGFKkqrYQ==
+Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.2])
+  by ces03_data.me-corp.lan with SMTP; 03 Nov 2026 10:37:36 +0200
+Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Tue, 03 Nov 2026 10:29:50 +0200
 From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-Date: Tue, 03 Nov 2026 10:29:40 +0200
-Subject: [PATCH 4/8] i2c: nomadik: change print level for fault messages to
- debug
+Date: Tue, 03 Nov 2026 10:29:39 +0200
+Subject: [PATCH 3/8] i2c: nomadik: return proper fault codes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,7 +67,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-i2c-nomadik-fixes-v1-4-655c6af2cb70@mobileye.com>
+Message-Id: <20261103-i2c-nomadik-fixes-v1-3-655c6af2cb70@mobileye.com>
 References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
 In-Reply-To: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
 To: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
@@ -78,43 +77,69 @@ Cc: linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Dmitry Guzman <Dmitry.Guzman@mobileye.com>
 X-Mailer: b4 0.16.0
 
-i2c-nomadik driver prints error message on every faulted message. This
-is not a good practice, because in I2C a fault not always is an error,
-sometimes it is the expected result. For example, scanning bus with
-`i2cdetect` prints over 100 messages in dmesg (two messages per each
-target address).
+I2C documentation Documentation/i2c/fault-codes.rst defines fault codes
+for different negative results in I2C transmittion. Previously,
+i2c-nomadik driver didn't implement them properly - it returned
+ETIMEDOUT on most errors and EIO on master arbitration lost.
 
-To avoid excessive prints in the log, change the print level from err to
-debug.
+To comply with the documentation, return the proper fault codes for
+different conditions, namely:
+
+- EAGAIN if arbitration lost
+- EOVERFLOW if message is too long (>2047 bytes)
+- ENXIO if target address is not acknowledged
+- EIO on other errors detected by controller (for example, NACK on data)
+- ETIMEDOUT if driver gets timeout waiting for message completion
+  without any fault condition detected by the controller (for example,
+too long message, or SDA/SCL line stuck on 0).
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
 ---
- drivers/i2c/busses/i2c-nomadik.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/i2c/busses/i2c-nomadik.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
-index a3cef4b66190..9c7658148bd4 100644
+index ca9366e09e71..a3cef4b66190 100644
 --- a/drivers/i2c/busses/i2c-nomadik.c
 +++ b/drivers/i2c/busses/i2c-nomadik.c
-@@ -627,7 +627,7 @@ static int write_i2c(struct nmk_i2c_dev *priv, u16 flags)
+@@ -226,6 +226,18 @@ static const char *abort_causes[] = {
+ 	"overflow, maxsize is 2047 bytes",
+ };
  
- 	if (!xfer_done) {
- 		/* Controller timed out */
--		dev_err(&priv->adev->dev, "write to slave 0x%x timed out\n",
-+		dev_dbg(&priv->adev->dev, "write to slave 0x%x timed out\n",
- 			priv->cli.slave_adr);
- 		status = -ETIMEDOUT;
- 	}
-@@ -661,7 +661,7 @@ static int nmk_i2c_xfer_one(struct nmk_i2c_dev *priv, u16 flags)
- 		i2c_sr = readl(priv->virtbase + I2C_SR);
- 		if (FIELD_GET(I2C_SR_STATUS, i2c_sr) == I2C_ABORT) {
- 			cause = FIELD_GET(I2C_SR_CAUSE, i2c_sr);
--			dev_err(&priv->adev->dev, "%s\n",
-+			dev_dbg(&priv->adev->dev, "%s\n",
++/* Linux fault codes for controller abort causes */
++static int fault_codes[] = {
++	ENXIO,
++	EIO,
++	EIO,
++	EAGAIN,
++	EIO,
++	EIO,
++	EOVERFLOW,
++	EIO
++};
++
+ static inline void i2c_set_bit(void __iomem *reg, u32 mask)
+ {
+ 	writel(readl(reg) | mask, reg);
+@@ -653,6 +665,8 @@ static int nmk_i2c_xfer_one(struct nmk_i2c_dev *priv, u16 flags)
  				cause >= ARRAY_SIZE(abort_causes) ?
  				"unknown reason" :
  				abort_causes[cause]);
++			priv->result = -fault_codes[cause];
++			status = priv->result;
+ 		}
+ 
+ 		init_hw(priv);
+@@ -865,7 +879,7 @@ static irqreturn_t i2c_irq_handler(int irq, void *arg)
+ 
+ 	/* Master Arbitration lost interrupt */
+ 	case I2C_IT_MAL:
+-		priv->result = -EIO;
++		priv->result = -EAGAIN;
+ 		init_hw(priv);
+ 
+ 		i2c_set_bit(priv->virtbase + I2C_ICR, I2C_IT_MAL);
 
 -- 
 2.43.0
