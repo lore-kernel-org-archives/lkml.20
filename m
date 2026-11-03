@@ -1,101 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793701990;
-	b=gWyQc8liZqVr9JKwzH543eiVGWSrw7seMiHCVHpU6S3MyUGXHre5ix1nIIIBatRFfLxM
-	 dD2SwNyb+xlkGrXzxXe/ohG6CqC0n8Rhcs4QwJflU8JEqRlcsUMggpvtQaHsjWfhdreUi
-	 i6oTu08sFT+FiwHXHANbMmfnVBmJS/jL2+/q9toRx9uDHAmQNCBfVbV5UvG7rfiYyUs6p
-	 I8fwwpwnOXeJy0mbOGBmOKp9BUhvRE7TO2UK8P8NsA7KR9KfOiZ4eFOSV0P0yD2cm9r+z
-	 f7LROUmEVq8C57LXTh/UU6p3G4XpEnOF1hQM+OTTAeGhKMplk+PNehwM2h+K/ew6AEQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701990;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=g3m2mGfXH20IphEsill1uplryjayEM4Uu7+mGiTrhok=;
-	b=OIbtRsjlZXlRVx1/NDR56OGUPcXH8QwbeZpIpJ9PXL2goKGIoXIKY2FS9HnaIJysILci
-	 wXoNDMWNr/EMfCH3t4lYoACITQI4dRQhB+9pgNQeqKY/sznwdT0jFQBmBaxLIhZfCIPXj
-	 BuSIS1Pf9MnsOoLhKjWxCBujY3NfmtjBY3aEsJhqAMQ/whs65S/Di3E5bgN4SPO5PNGGv
-	 kXKP6zBoZvpT3B7r7G0JHiT86u3tluVAfRYmwtbGzyR8lAQTtNXdcrVgTF8F6mEZNU2rH
-	 EIw4biZuo514tPxErGZzRQmzN+i8A+yE7E4zhmfeEJ4f/nxB6xb2SxEW1N0cHmEsaXw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dPdQHj42;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.17
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012017.outbound.protection.outlook.com [52.101.43.17])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793702004;
+	b=gTif/R2wCbmLB96+QRd1TnZpbJBYjl6H519COV93KkC5m390yu6i/cwmyc/MhjpQKgkm
+	 vEgtZsVZ5uF7uF+ZFTigZoDakQLHdE4AVZ5cp/0am0866cfaWURtJILcQaZDF9QcKETKV
+	 48QOqsrHPdwosy/0CLpMzq9Ay49Ig6V/oIf6OlimLucbyecfoU6JYC3C1jQGvEnc1STH9
+	 lx9JLvXeD/uEFC6TGtXpmwXjBA6vy38/TZwyW2w6WBTCVM//C1/WH4LWUzip5j5iCmc6k
+	 L/TZeL3OdAfpND9vjG6WwkXgQgoK2F7XUMX1pw5c7KuAloZKXqq3hs5gPvvnP/TTI+Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702004;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HXOXhFDJYLDRoGylKYnUE2k2Is7r20kYjCkIfNstnsU=;
+	b=pb2dJdhN4wSduZKoUmPHeXIZwJvbdWFiM0jLxfbOczjA1sjxeemduD0lo2NCeUj6vRh4
+	 KoZraJ4fAehbg9x/4yFGUBIzZI6qaHX9mRbw3rO42fuOUVkPXbomtVSV//leOBbyXBhgF
+	 IR3QtbF1oF59YoccY2NP8T8aclags9eZA/oFF/DC05sQAieNpqiQ9OgOGQqvZlAwNv18j
+	 jDglhk5SD16V0c00AVQCWLE0QfSDoQO7i6O/DYVzECSbbl0eAvc09ehd6s2V/Mj5TKn+p
+	 keyQm379fAaA/gbswKqMZHurjyGIu+JlYiJKuxo0Cl9bbYJa2+ErxxS6ChD1DbxJD3w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=WksIFISt;
+	arc=none smtp.remote-ip=79.135.106.121
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F09E606F7C2;
-	Tue,  3 Nov 2026 10:33:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F09E606F7C2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E48606F7D1
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:33:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69E48606F7D1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dPdQHj42
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UMcuXaf2nobWkyzz/C2svCYjRNbdfqKchwGi5HZC2OejpdGmSuaCMqJ7d7lLZFbU7wFjAMVetCEASnj+saxUNIfG1fqR006WeF+yGccWeB/2x7VjqqpHD6y+3W7C4mjLq67i3OI+XsYgiPqAPhPTARiR4MT6xastdmTXTsqZncoRJO3ruiWB9Y5mb6YBRU2qbLWBfjEH+w+DU3tYL1Q3Mwf89/41BgoPtrHEPO8edL4d6ceM9v/fAvH23sPUqAcQkFigDZvcLPlF2N8kT5S1SDBuglsQtKVMDcvTMVLZHcnsY/1XGFGW5dnKUAKcGjyS6c8NHN8Qpu6BCBQqjQRajg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g3m2mGfXH20IphEsill1uplryjayEM4Uu7+mGiTrhok=;
- b=l549pjVOMQlk7yU6U1DOFR3r4d+7bxobeTbLMkLRqoV7AOQ6RgdycjqGSbL8pHQk3f88VRPi6tLjZhrFR5CE38JzNntI62QCiGzT6Z3rcF/0AT8MT8LoK1VTys+P+/LdIn3QIsp0Wstd3LxKBSKQeexbsWV5U00DbxXIzvxs1b8+bwtXS3gbYBP8ZJQA69FhCKDDS+bj2dy3DG/DzuGZNlH25dUjxpSmuElSbTYU0Y6Jm0NrbpU11L0eXd8dnUjf1hpckyw/3t3RCVAOVzL3FMwicG1PIbtMOERR9OrfyXtsElXYP2b81HQjK/ct8iqTJmW66zYbeDjA0kZbjyZJdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g3m2mGfXH20IphEsill1uplryjayEM4Uu7+mGiTrhok=;
- b=dPdQHj42ahDTmZf6jJSgci5w1NHUgTIm0n4alqdYcSR6MCKPz6bODK7kBoFRI8EUvY8FPzPKG48+MSl4TKTlN6bW9C2++Qp9S0UhNOpjNMlBJzSggNFoUhRwmDkt0lot6oZlXPiXyHfAQPsxbL/j4z2qYmj6FMsOkNtbWRF9x3i7Mm3tkrKCv/QtSsTCv42WOaDEgiy0BCSPj1cfY4z/gWDbWRie0ouTNF/bwOKiSEkMi4W4UpNOl83KXY6dSAjMjLD0BBiosqvyZs0R6WdT2gEC1b+v9VVMUwJbBDTdeB++qrkicNBSadNwOoRhI5Tcp9ml7NvFWti8cPdKlkxdnQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
- by BY5PR12MB4033.namprd12.prod.outlook.com (2603:10b6:a03:213::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 10:33:02 +0000
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 10:33:02 +0000
-From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Kent Gibson <warthog618@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v5 6/7] gpiolib: cdev: don't report a failed line read as an edge
-Date: Tue,  3 Nov 2026 12:32:39 +0200
-Message-ID: <20261103-gpiolib-chip-removal-v5-6-aambrozewicz@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103-gpiolib-chip-removal-v5-0-aambrozewicz@nvidia.com>
-References: <20261103-gpiolib-chip-removal-v5-0-aambrozewicz@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TL0P290CA0008.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:5::19) To PH7PR12MB5974.namprd12.prod.outlook.com
- (2603:10b6:510:1d9::19)
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=WksIFISt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793702002; x=1793961202;
+	bh=HXOXhFDJYLDRoGylKYnUE2k2Is7r20kYjCkIfNstnsU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=WksIFIStTqavmN78sLXRIZlGAKriJ2SsXHhZq52eCVTXLDOB2iR+oSqjIy7KYz5c2
+	 R4KCm4EB/Kud0sPhY92cYwvmB9ZNwIm2PHHDhcZmpArPwh2uAPh6/b7+kKNE7CWIxB
+	 rbJjakT8cOqjo4JWScp8fmv/PKWNVu4JaHSze0J/aDAa9LtU92mWpLpLe9yf5+Ht9Q
+	 Scr3nG/YsCyJ1zNn1gkt1T22jAjHEciPieuP2sb0yeQBtqIfNDgZdDH+CbVu6wHffr
+	 0u0NOVTqVbGTDPtudDYKR9xXyeiZXisO/fv8B2E+qEgIVdUsldeaPHU0HNXsEWjkuZ
+	 WvIQPHma7KyNQ==
+Date: Tue, 03 Nov 2026 10:33:16 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 4/4] media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
+Message-ID: <20261103103235.94397-5-lsa.uz@pm.me>
+In-Reply-To: <20261103103235.94397-1-lsa.uz@pm.me>
+References: <20261103103235.94397-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 624a34f9112f61ac808e7f74f25f7807559654f8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,129 +64,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|BY5PR12MB4033:EE_
-X-MS-Office365-Filtering-Correlation-Id: 320f7ebd-c130-4a56-c54d-08df3995d6b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|18002099003|22082099003|261102123227099003|56012099006|11063799006|261009223027099003|261021121427099003|261028144727099003|261021123027099003|261026140227099003|261022105027099003|261026121527099003|10067099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	zJd1SlQE1gqt94FsFq0LsJCD4HiI5zIZsRxO8I9iFqsCOciFNtIlQXSd+P5wv+hhtvRCO9Rg9ehS6uRkkKJUqs3LyLvRuOrJyPlMnWEhd62XotVWNmEwI/6xHFZQrf7fAt5g0WjGdqucUEocqrCWszIxXxg7XNQwmxJipiPUSdGJDQ1QR42d9qDETWrTc62N3UxI4xWg+330G6bwZkdvbeg/f21pD5PJ/P7tyREZcIEzrrh/innZnXkKGbOmwGHNMqgIl3fhidpI/EG3MWNUgQWQD8cnHI5bsXZEpHkhiEeysfb5g19TZMiFPioA7OHHGNUuQwQDosUk3jOSjpYfYQl8bY2iOmPTKte4Wg+Ku9VmFeqF1EtaAHuXloKb1OvwTn5EOzp6qT6UWp6l/RPZKo49kqQ3ggI6Li46xMpFCMSdKjijzWVENPjHzkWlFNIb/K8aSmoFAqfJhj8hdhruxigULnj8BIgnKHr8V2/63LbxzBJiyWkaewM0SxVUTzWA3oDO4BtpxqWsLlJ/l2xjSC3xO6F0KMLyyhPmpVnW6YKoUH9rvaNbMRmeXsgsUww6GQrKz9mJjLR7YEm2VLuT8oot4978r9zwmpCA9Iq3vgqJIOGKZhVqoHEuuj1QNe6Y5ZCxQs1jc8HjTVvGRPR0i/z8+pb949kmL96NGLZLSmU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(18002099003)(22082099003)(261102123227099003)(56012099006)(11063799006)(261009223027099003)(261021121427099003)(261028144727099003)(261021123027099003)(261026140227099003)(261022105027099003)(261026121527099003)(10067099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ee0vi0Qk1PlbRPKiuLawrH6VZNMoTYIL40EBCUT9WOrW5OaaBFmP3MbKi/sG?=
- =?us-ascii?Q?8Fk8po5UksPvrGQEdLS7Ndp5TuNLu/CDSm04ESTY/cSnhUGhK3LxjsK06AsP?=
- =?us-ascii?Q?MlfBb+D5Z8sbdX/bRfyREPAwXBmDQGkByS4M2LqSPWN4D3+mAQNHzNmYKo9f?=
- =?us-ascii?Q?x0VqL015MWwGZiTOhQMRv177rekHPqoUmyh/XmH4ztiQGkAZB50SC9qT2Itn?=
- =?us-ascii?Q?GHDMUPfnnlnXOR/gAnH+fYJ81/vt7zh00H1kTZrYEJ24JcXqWw7ospIVtQuS?=
- =?us-ascii?Q?w7ZnKK2ULI4rQljtnGFP3sKxazy/YvhCF5o+GqMP+puIbBYW2tVrZInyoGxU?=
- =?us-ascii?Q?qidiV0hITwbTZ8U0KI5Cn739PGeaTWJWlV9p/9H5GZHFfIINebtVrP3umdSZ?=
- =?us-ascii?Q?Vo1NggRvpYq0pIRyvNL5KIra42wWUZFErCSP0L0drd5T+4auXqxfoxkPcF4t?=
- =?us-ascii?Q?Bunz9vu0HcJvVcxk+B9IwWSOq141imjUXpg3Zk2UfhIYnsx/eET4v0fskEpO?=
- =?us-ascii?Q?3ZUfq2Ibj6CHrVix6SuyGAnFpIJchVRHiOaxoeCg4jGtNFUoNYu6AJo1N3lz?=
- =?us-ascii?Q?bmPiGS4dgJoPFOPtYRbCJzfVQ629rYkgSJ+eW0v87WbXhHYrtrFL6lBksj1P?=
- =?us-ascii?Q?GhgWKd2PbXWT2NIKYfjWTVISS1B2SHwk3NQrJxXFFyVL2Go1CPYwyJI7yllZ?=
- =?us-ascii?Q?uO0XxpQq84nPRavGRpUdSmtMLiH6M2D1NiXtga7esY7sF7L4U2kZzW2mdLh1?=
- =?us-ascii?Q?D8QGRhU1y60mBnIAd53PdSsY4HISq9ByiWC7e0MYAt76/QPtm3nAg67Mnntt?=
- =?us-ascii?Q?Eo8/48PqqYc5dUmQeIntSPK4e6nhl0DSLLe4TuYxXcfGC/biZb1NtUQfNPvx?=
- =?us-ascii?Q?3UbA/V9rpsE1s0OJ7d015cXEMjp7HHYpiTJ44y95W7buMZ10Ld0rqYs+mmDq?=
- =?us-ascii?Q?o5X0ZnI7kCjCC5BmkQPTwPQvHGvHDEYQc0DjKgd3M2KMqGcQknBM+Rjwkgyd?=
- =?us-ascii?Q?Ah9FEhELwII6SyKrF5pA8SGUdEzsC5e3IE1mHx8ZkJBcJmVpvvMwIz8BzzMj?=
- =?us-ascii?Q?qis2t7PMWFRZXkNUagH7CE9vWLBIUC5zxBJkl2hFmYrW/t2hNDGRKaj6oOks?=
- =?us-ascii?Q?wQuW6Wn9R4NOvSYVCp0/A1HC35WL2kQYxYkqxwrtjaJtl7Skq20IuxHWjEYr?=
- =?us-ascii?Q?ETlIwdvtsIk1mjlbgkUVONG0wAta0zBSKa7gqL7dDCUa6U5B3uk50QjRVNUN?=
- =?us-ascii?Q?YthZnW8BCuD3hB37ieyusqOw4svHaZAwVfvPrBxLYekxkfXePwNQJ6ujKPS+?=
- =?us-ascii?Q?sb/czffHtXDLjldmACERXwhZCb7/x/2vWLyj81L7V90um5NUYNshxZhFcCE4?=
- =?us-ascii?Q?Riu98xIeVoPHDXxnLMJUbobKhlxuCPpA0boUBStVfFl8gG7lrCGO07dAtv+a?=
- =?us-ascii?Q?t7saOLT6ZPmiFFWRVynTBQ5qOB813Ao1oJ8GH1xn35nHpKGRvdAKxnK06gzO?=
- =?us-ascii?Q?2SrO8q6QUZlsXAfRVjRt1ecwGEVQmfZspBBVqw4sb2F+sdf+/oy9ATVoyjpB?=
- =?us-ascii?Q?c2octhN4aqy7XwshIBSIoeieerARunnPLtGTwN0lQyjw01ElbN63PY3xxEuw?=
- =?us-ascii?Q?uF9HgzItIU41NrZcTNtI50gSq4xGNosf+MhynxMIPaXjzibm33zpAXyaCl4R?=
- =?us-ascii?Q?5yoOmz95eOwsrkGQ8/XcqvNIrR2c5XrycR3QYG8PKdzc4KQkx9R/nPDVO2mY?=
- =?us-ascii?Q?BYYBxXLR4w=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 320f7ebd-c130-4a56-c54d-08df3995d6b6
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:33:02.7601
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: upNvWZGl9W30iRSp15xSet3BJDDYMw8DRZk9ZzOpPvkcw+2aW8Pm7Gzd9HU2Z545Z3TFg5A2H9khKUOU5rpxKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4033
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-With both edges requested, the IRQ threads read the line to tell a
-rising edge from a falling one, and treat an error as a high level.
+On the Surface Pro 9 and on the Surface Pro 11 with Intel, the infrared
+illuminator is driven by the VD55G0's GPIO 1, which strobes it during
+the exposure. The ACPI tables do not describe it, so the sensor driver
+finds no st,leds and offers no V4L2_CID_FLASH_LED_MODE.
 
-The read fails when the chip is gone. A driver's ->get() returns an
-error once its device stops answering: pcf857x when the I2C transfer
-fails, dln2 when the USB adapter is unplugged. Since gdev->chip became
-SRCU-protected, the read also returns -ENODEV between gpiochip_remove()
-and the IRQ being freed.
+Give the sensor's software node st,leds from a DMI match, as the
+upside-down quirk gives a rotation. dev_properties gains an entry for it,
+as a sensor can also have a lens-focus reference. The software nodes
+outlive the module, so the property name goes into struct
+ipu_property_names and the GPIO numbers into struct ipu_sensor, where
+nothing points into the module image.
 
-Drop the event when the read fails, as debounce_work_func() does.
-
-Tested with gpio-sim removal (test delay in the IRQ threads) and a
-test chip whose ->get() returns -EIO: both reported a rising edge, none
-with this change. The HTE path was compile-tested.
-
-Fixes: 61f922db7221 ("gpio: userspace ABI for reading GPIO line events")
-Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261020-gpiolib-chip-removal-v3-0-aambrozewicz@nvidia.com?part=6
-Assisted-by: LLM
-Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Assisted-by: Claude:claude-opus-5-5 sparse
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
 ---
- drivers/gpio/gpiolib-cdev.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+v2: the st,leds name and GPIO numbers live in the bridge's own
+structs, as the software nodes outlive the module (Fernando); the
+Surface Pro 9 is added (Fernando).
 
-diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
-index 3623b05fef60..50b1a77ef0f1 100644
---- a/drivers/gpio/gpiolib-cdev.c
-+++ b/drivers/gpio/gpiolib-cdev.c
-@@ -643,6 +643,8 @@ static enum hte_return process_hw_ts_thread(void *p)
- 		level = (line->raw_level >= 0) ?
- 				line->raw_level :
- 				gpiod_get_raw_value_cansleep(line->desc);
-+		if (level < 0)
-+			return HTE_CB_HANDLED;
- 
- 		if (edflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW)
- 			level = !level;
-@@ -745,6 +747,7 @@ static irqreturn_t edge_irq_thread(int irq, void *p)
- 	struct line *line = p;
- 	struct linereq *lr = line->req;
- 	struct gpio_v2_line_event le;
-+	int level;
- 
- 	/* Do not leak kernel stack to userspace */
- 	memset(&le, 0, sizeof(le));
-@@ -765,7 +768,10 @@ static irqreturn_t edge_irq_thread(int irq, void *p)
- 
- 	switch (READ_ONCE(line->edflags) & GPIO_V2_LINE_EDGE_FLAGS) {
- 	case GPIO_V2_LINE_FLAG_EDGE_BOTH:
--		le.id = line_event_id(gpiod_get_value_cansleep(line->desc));
-+		level = gpiod_get_value_cansleep(line->desc);
-+		if (level < 0)
-+			return IRQ_HANDLED;
-+		le.id = line_event_id(level);
- 		break;
- 	case GPIO_V2_LINE_FLAG_EDGE_RISING:
- 		le.id = GPIO_V2_LINE_EVENT_RISING_EDGE;
-@@ -2008,6 +2014,8 @@ static irqreturn_t lineevent_irq_thread(int irq, void *p)
- 	    && le->eflags & GPIOEVENT_REQUEST_FALLING_EDGE) {
- 		int level = gpiod_get_value_cansleep(le->desc);
- 
-+		if (level < 0)
-+			return IRQ_HANDLED;
- 		if (level)
- 			/* Emit low-to-high event */
- 			ge.id = GPIOEVENT_EVENT_RISING_EDGE;
--- 
-2.43.0
+D. Manresa's ipu-bridge series changes the same lens-focus line;
+whichever of the two lands second needs a trivial rebase:
+https://lore.kernel.org/all/20261026082549.662885-1-dmanresa@gmail.com/
+
+ drivers/media/pci/intel/ipu-bridge.c | 68 +++++++++++++++++++++++++++-
+ include/media/ipu-bridge.h           |  6 ++-
+ 2 files changed, 71 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
+/ipu-bridge.c
+index cb1d1582fa1..b5ce9a64dde 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -283,6 +283,42 @@ static const struct dmi_system_id upside_down_sensor_d=
+mi_ids[] =3D {
+ =09{} /* Terminating entry */
+ };
+=20
++/*
++ * Sensor GPIOs that drive an illuminator, for machines whose ACPI tables =
+do
++ * not say which. They reach the sensor driver as its own leds property.
++ */
++struct ipu_sensor_leds {
++=09const char *hid;
++=09u32 gpios[IPU_MAX_LED_GPIOS];
++=09unsigned int nr_gpios;
++};
++
++/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
++static const struct ipu_sensor_leds surface_pro_ir_leds =3D {
++=09.hid =3D "SMO55F0",
++=09.gpios =3D { 1 },
++=09.nr_gpios =3D 1,
++};
++
++static const struct dmi_system_id sensor_leds_dmi_ids[] =3D {
++=09{
++=09=09.matches =3D {
++=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 9"),
++=09=09},
++=09=09.driver_data =3D (void *)&surface_pro_ir_leds,
++=09},
++=09{
++=09=09.matches =3D {
++=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
++=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
++=09=09},
++=09=09.driver_data =3D (void *)&surface_pro_ir_leds,
++=09},
++=09{} /* Terminating entry */
++};
++
+ static const struct ipu_property_names prop_names =3D {
+ =09.clock_frequency =3D "clock-frequency",
+ =09.rotation =3D "rotation",
+@@ -292,6 +328,7 @@ static const struct ipu_property_names prop_names =3D {
+ =09.remote_endpoint =3D "remote-endpoint",
+ =09.link_frequencies =3D "link-frequencies",
+ =09.clock_noncontinuous =3D "clock-noncontinuous",
++=09.st_leds =3D "st,leds",
+ };
+=20
+ static const char * const ipu_vcm_types[] =3D {
+@@ -563,6 +600,22 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, st=
+ruct ipu_sensor *sensor)
+ }
+ EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
+=20
++static const struct ipu_sensor_leds *
++ipu_bridge_get_leds(const struct ipu_sensor_config *cfg)
++{
++=09const struct dmi_system_id *dmi_id;
++=09const struct ipu_sensor_leds *leds;
++
++=09for (dmi_id =3D dmi_first_match(sensor_leds_dmi_ids); dmi_id;
++=09     dmi_id =3D dmi_first_match(dmi_id + 1)) {
++=09=09leds =3D dmi_id->driver_data;
++=09=09if (!strcmp(cfg->hid, leds->hid))
++=09=09=09return leds;
++=09}
++
++=09return NULL;
++}
++
+ static void ipu_bridge_create_fwnode_properties(
+ =09struct ipu_sensor *sensor,
+ =09struct ipu_bridge *bridge,
+@@ -570,7 +623,8 @@ static void ipu_bridge_create_fwnode_properties(
+ {
+ =09struct ipu_property_names *names =3D &sensor->prop_names;
+ =09struct software_node *nodes =3D sensor->swnodes;
+-=09unsigned int i =3D 0;
++=09const struct ipu_sensor_leds *leds;
++=09unsigned int i =3D 0, d =3D 3;
+=20
+ =09sensor->prop_names =3D prop_names;
+=20
+@@ -624,10 +678,20 @@ static void ipu_bridge_create_fwnode_properties(
+ =09if (sensor->vcm_type) {
+ =09=09sensor->vcm_ref[0] =3D
+ =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
+-=09=09sensor->dev_properties[3] =3D
++=09=09sensor->dev_properties[d++] =3D
+ =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
+ =09}
+=20
++=09leds =3D ipu_bridge_get_leds(cfg);
++=09if (leds) {
++=09=09memcpy(sensor->led_gpios, leds->gpios,
++=09=09       sizeof(sensor->led_gpios));
++=09=09sensor->dev_properties[d++] =3D
++=09=09=09PROPERTY_ENTRY_U32_ARRAY_LEN(names->st_leds,
++=09=09=09=09=09=09     sensor->led_gpios,
++=09=09=09=09=09=09     leds->nr_gpios);
++=09}
++
+ =09sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =3D
+ =09=09PROPERTY_ENTRY_U32(names->bus_type,
+ =09=09=09=09   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
+diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
+index 3ef94c2b767..7383bdf5a45 100644
+--- a/include/media/ipu-bridge.h
++++ b/include/media/ipu-bridge.h
+@@ -12,6 +12,7 @@
+ #define IPU_MAX_LANES=09=09=09=094
+ #define IPU_MAX_PORTS=09=09=09=094
+ #define MAX_NUM_LINK_FREQS=09=09=093
++#define IPU_MAX_LED_GPIOS=09=09=094
+=20
+ /* Values are educated guesses as we don't have a spec */
+ #define IPU_SENSOR_ROTATION_NORMAL=09=090
+@@ -136,6 +137,7 @@ struct ipu_property_names {
+ =09char remote_endpoint[16];
+ =09char link_frequencies[17];
+ =09char clock_noncontinuous[20];
++=09char st_leds[8];
+ };
+=20
+ struct ipu_node_names {
+@@ -178,8 +180,10 @@ struct ipu_sensor {
+ =09const char *vcm_type;
+=20
+ =09struct ipu_property_names prop_names;
++=09/* The software nodes outlive the module, so these values live here */
++=09u32 led_gpios[IPU_MAX_LED_GPIOS];
+ =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
+-=09struct property_entry dev_properties[5];
++=09struct property_entry dev_properties[6];
+ =09struct property_entry ipu_properties[3];
+ =09struct property_entry ivsc_properties[1];
+ =09struct property_entry ivsc_sensor_ep_properties[4];
+--=20
+2.54.0
+
 
