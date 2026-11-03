@@ -1,59 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721299;
-	b=dD/4sCg8lgv2EP6DvQ/B+aU6EkQN1feCZxXv3HxSY6LFVD5Lttb932kDEwnmmIaXzm8O
-	 6SSWD46OfeAe/1cHHUcrIM+blNz2l7dM9zunyp+jgzR3AzfFqE4ReFAk98J3qZQ+Y66wD
-	 o0WjlM1/t1oCHn6UPRsGL4zn+WHxhoaJSVML9Ar4iXkaBM5CNZ/UFvgJ6cCFEtEt/wTuP
-	 SH2nmn36kn00RLLRTif21Fa/Y2SKmpn3KgAiWtSdJHPDeE6dxgFch7eS1xVIe2KyCPm6c
-	 JTJefeIL2BsAvdyExzCf+uiiPVMsebfGPIEuW3oJg0bddeKFhZPjWQuAOD4iWKnskNg==
+	t=1793721311;
+	b=o4i0hDZFcpXTG4dTnjzA0b6+87ZmHdAXJq5pavsqUoGDtJ0COqtTxOCYRWLghD0i9kb8
+	 JwXzt5iquj5Tcx+rOIjhR+zNlfaxvjnW5qKXyUYvs+onrP88QlQPaWleH/5SU3R4UXD91
+	 RRyz5YM9XiUPrsjcfgHuuKijhqfO+y/Jhv/IlWkaH2aQltR2Q6/LoTuxfA5IjZydvMoaK
+	 PTk/P+uLRyxUJiT1Eg7C8j6UrIE6Uo52pCVg/VOjhCYxJ5wNzjanbLkWGxzAjSNgYKz4e
+	 iZlVbo+3f9sAbO0hi/yN3DILcmN0p68RL4OGd9BRV7EYUfLMjHk/XrWV39UMTdMguNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721299;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721311;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=O/jUknsydqahcxESJ7eAS0pyf88Dhlfftx821T6uSIU=;
-	b=CDamAV2aL03W9zkW/p7mVmD4LKrSAHGkFTuyyT/gwXW3kFSa76XtdbUJbh7HmEMbFCWn
-	 kubFm5xQe4abRV7azhXBDRty0RcM/VUHLRcuA9ZF54HLo2HllhyEr6xSNHWkm/WUDwql6
-	 9DQrUruh3e6d0K0auqExbxbTPB81YSV6dj5CSZSf62ropR/ISy6GDFZ1U8cFbeeNYbt99
-	 GzJTXNnJcXY3VFEBRk/z07sjFfM9ZHnT9OPBBrfWfwhgWWTas3PyQUb4u+KQ6spY2e7Ju
-	 uJbw8CCLbDlEhbasuWgGV2vsmSvmwWuGDFxcH8T+ShEMTs0MNK14Y96YKl/NxnIj/FA==
+	bh=5RPT6/oxC1p+cSsny4MKa2BwstuyUVmMMVpai1GPqa8=;
+	b=25IPkQ+7TeuFoWv+43uMzjd/53CysKbM/UUL/8qtNAx81j8/bsFzTl5hMF/Nhm1COiZ3
+	 +LLZFe2AGzVIVavqymvhwa2jJCVVjSVm0L1u4bO9qoKGYjx1WTUB9hl11qzc76Pe+EwSk
+	 Gno3FrB0R9NCEcR/AJw6E1+p7HKyVrymxS/VIjsTsrz1wot3UfhJxz5+sTMKZjv/NKheV
+	 SKT7XIOmUMYU8kXwDlcCkZluwYYahqsJv6zrtr9ZSxc4X6XK5fPc05DnBAgWLVUYpqPlg
+	 Jk6c99ubVYd9ITdM5GzdYACDAjcXxlo/ZkUcAWYN93LaYaPoIhKZ8oQWaVBxyPSTxAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhJtAzid;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkyWAosN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20633606A33B;
-	Tue,  3 Nov 2026 15:54:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B187B6082BCC;
+	Tue,  3 Nov 2026 15:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhJtAzid
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E061F00A1B;
-	Tue,  3 Nov 2026 15:54:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkyWAosN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A941F00A1F;
+	Tue,  3 Nov 2026 15:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793721298;
-	bh=O/jUknsydqahcxESJ7eAS0pyf88Dhlfftx821T6uSIU=;
+	s=k20260515; t=1793721310;
+	bh=5RPT6/oxC1p+cSsny4MKa2BwstuyUVmMMVpai1GPqa8=;
 	h=From:To:Cc:Subject:Date;
-	b=LhJtAzido5Pe5ihl8fxiEg46QKwuK908HCgwtjhnQbkDmIasZz64TkoKMXKOZc7Vn
-	 MVAK++JAzdBxFurU4SuzXMoPjb9T+tnjcwydP4JYn8gbc69NPI1RdCuf7r/ZWs0uHz
-	 XgsX9OZ31Z9J8E4ALLsUXmWaMIrkTBw63xoiL3gA4PveJp8SP/JSsJF7uQEqzXVQfb
-	 5UbMarVD9TOZumQt1rzIjkXEIRQYEjGf9mhjRddlNz2LB6wR1eOkek+74kdrmQ6m6d
-	 mftcY3B6zoyRkEQQzZ8WV5wcEmkIhUlzrCAC54SoU1wuHtc7Lfdti+mr8bAEIGhTYi
-	 EY9wt+vkIKuzQ==
+	b=mkyWAosNrSq5Q0xsNe3pAkiiVcoegpwy7SLO1e32mRYJ5wro7eiFiI58a9s/Yp/XC
+	 /u+YH1yulfMjyzOJNCySnblyNIpqOKf/GYoIPz4/fVIhrU7Z4HaM8CNVviiDDHy0ot
+	 QTWHE+H9ulHxNFbSWSMbwS5HabZxKZHnmhDOIqeHY4lSzAp9zbxXioG4tuvTMX3OrC
+	 TKpmZljTK+/hrodG3hMGO0phD2AhJ77IZffuF8d0KM674jiW4xC00HSMsIc9RfKamy
+	 oBFUmQRmKD1pPUcp8UVKqfhYqOxKHnl76m34dKlJ8NbI2VtmO30M2m3Tq7wpSNLzas
+	 7hYvM+pOXMJMw==
 From: Sasha Levin <sashal@kernel.org>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Tejun Heo <tj@kernel.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>,
+To: Christian Brauner <brauner@kernel.org>
+Cc: Miklos Szeredi <mszeredi@redhat.com>,
 	Shuah Khan <shuah@kernel.org>,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/cgroup: read and write size_t with %zu in test_zswap
-Date: Tue,  3 Nov 2026 10:54:56 -0500
-Message-ID: <20261103155456.534684-1-sashal@kernel.org>
+Subject: [PATCH] selftests/statmount: fix format warnings on 32-bit and s390
+Date: Tue,  3 Nov 2026 10:55:08 -0500
+Message-ID: <20261103155508.535010-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,47 +61,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 32-bit architectures size_t is an unsigned int, and reading and
-writing it with %ld warns:
+The f_type field of struct statfs is an int on i386 and armhf and an
+unsigned int on s390x, and the listmount() results are uint64_t, so
+printing them with %lx and %zi warns:
 
-  test_zswap.c:34:29: warning: format '%ld' expects argument of type 'long int *', but argument 3 has type 'size_t *' {aka 'unsigned int *'} [-Wformat=]
+  statmount_test_ns.c:243:56: warning: format '%zi' expects argument of type 'signed size_t', but argument 2 has type 'uint64_t' {aka 'long long unsigned int'} [-Wformat=]
 
-Use %zu.
+Cast f_type to unsigned long, and print the listmount() results as
+unsigned long long.
+
+On i386 and armhf the comparison next to it also sign-extends f_type to
+the 64-bit sb_magic, so a file system with the top bit set in its magic,
+such as btrfs, fails the test. Compare against the same cast.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 Found with a 32-bit build of the selftests with a 64-bit time_t (gcc 16
 and clang 21 with -m32 -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64);
-KernelCI's 32-bit arm builds show the same warnings. The changed files
-build without format warnings there now, and the x86_64 builds don't
-change. The other selftests get the same kind of fix in separate
-patches.
+KernelCI's 32-bit arm and s390 builds show the same warnings. The
+changed files build without format warnings in the 32-bit builds now,
+and the x86_64 builds don't change. The other selftests get the same
+kind of fix in separate patches.
 
- tools/testing/selftests/cgroup/test_zswap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../testing/selftests/filesystems/statmount/statmount_test.c | 4 ++--
+ .../selftests/filesystems/statmount/statmount_test_ns.c      | 5 +++--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/cgroup/test_zswap.c b/tools/testing/selftests/cgroup/test_zswap.c
-index d50acc1b83ac8..9b5769b417410 100644
---- a/tools/testing/selftests/cgroup/test_zswap.c
-+++ b/tools/testing/selftests/cgroup/test_zswap.c
-@@ -31,7 +31,7 @@ static int read_int(const char *path, size_t *value)
- 	file = fopen(path, "r");
- 	if (!file)
- 		return -1;
--	if (fscanf(file, "%ld", value) != 1)
-+	if (fscanf(file, "%zu", value) != 1)
- 		ret = -1;
- 	fclose(file);
- 	return ret;
-@@ -45,7 +45,7 @@ static int set_min_free_kb(size_t value)
- 	file = fopen("/proc/sys/vm/min_free_kbytes", "w");
- 	if (!file)
- 		return -1;
--	ret = fprintf(file, "%ld\n", value);
-+	ret = fprintf(file, "%zu\n", value);
- 	fclose(file);
- 	return ret;
- }
+diff --git a/tools/testing/selftests/filesystems/statmount/statmount_test.c b/tools/testing/selftests/filesystems/statmount/statmount_test.c
+index b237a95ec9fb3..8133a5841ac08 100644
+--- a/tools/testing/selftests/filesystems/statmount/statmount_test.c
++++ b/tools/testing/selftests/filesystems/statmount/statmount_test.c
+@@ -335,10 +335,10 @@ static void test_statmount_sb_basic(void)
+ 		return;
+ 	}
+ 
+-	if (sm.sb_magic != sf.f_type) {
++	if (sm.sb_magic != (unsigned long)sf.f_type) {
+ 		ksft_test_result_fail("unexpected sb magic: 0x%llx != 0x%lx\n",
+ 				      (unsigned long long) sm.sb_magic,
+-				      sf.f_type);
++				      (unsigned long) sf.f_type);
+ 		return;
+ 	}
+ 
+diff --git a/tools/testing/selftests/filesystems/statmount/statmount_test_ns.c b/tools/testing/selftests/filesystems/statmount/statmount_test_ns.c
+index e500905e4c078..c9ef755ffaa72 100644
+--- a/tools/testing/selftests/filesystems/statmount/statmount_test_ns.c
++++ b/tools/testing/selftests/filesystems/statmount/statmount_test_ns.c
+@@ -240,8 +240,9 @@ static int validate_external_listmount(pid_t pid, uint64_t child_nr_mounts)
+ 	}
+ 
+ 	if (nr_mounts != child_nr_mounts) {
+-		ksft_print_msg("listmount results is %zi != %zi\n", nr_mounts,
+-			       child_nr_mounts);
++		ksft_print_msg("listmount results is %llu != %llu\n",
++			       (unsigned long long)nr_mounts,
++			       (unsigned long long)child_nr_mounts);
+ 		return NSID_FAIL;
+ 	}
+ 
 -- 
 2.53.0
 
