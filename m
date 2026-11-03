@@ -1,97 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793699223;
-	b=DxfWqLAcC4eLB7NjJ6ILrAYK/iMA6GeWwbEMjpukQYnaK20Ol1TZBTg5T7l8hFdk0KB6
-	 EcLFLRcDaUZrvUHAb1QTyIIHfnYxpUTrshZTs76AkEvyfrIyDogOJN1yEQA/ak9uG7RPc
-	 L03RBZJ+2JduswBcpeY+bMyZDMXTb5hZjrgJiWlURnah7OBhAYChWpxbG4aAaz2eLasEq
-	 NldlBpRCl6DoGqN8cSMgoU5jM9THD6oEqlfHKauOdwUKo8yhJf4Aq9pDqw/loEx01eM6Q
-	 ZElTuYL8er6Q7BJsb+tvemIDSajMMLRlUWmmeA+Sjzc8/UjI6rw0l0Q83cxCzXpIeaw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699223;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=yRfAE5lM/RCUsJPrIa5QZ/uOcu2NRcRQfgumlTEgJ1E=;
-	b=M2aXCWrx1JTdwpDjCILTDQ7UxebcA+HRKWaMdG1IEK3/ke7auLRA+yx1u8XM8lg3VjWL
-	 oeNSmBZCJuWNMJX6rdYuqzwTDJFicR358N2TF3e2De3ytfHzgmtfJSbWLrPMiMViELIrD
-	 ktg3wTnqn+klkdNedbbwm/J45clv39Ceso906YfBpihGKe8gB79LiBOYXxQpw5UxMfByv
-	 4qm1pG03e5Jq15ETDQukZiqjLlLiV2Iuy1N8eItYk4tlLsb9MMj49oZNwN6ByRF3kfvO0
-	 P+7hoVJHU5zaFAjw5hgdNhUuaCBkK0HBTcB4d32qsoLDbsQHodE5b6KwXXXksKcN4eA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nAb5Pslr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.11
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012011.outbound.protection.outlook.com [52.101.48.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793699225;
+	b=hSWB/TdPxbyFyKMoTSy+HTkSanU8jRHt57nA4vPNdZxeQ1BfWbAhebjMs8wfEDJxKYA0
+	 D1qfvo4/oiQDkgnjc3fYyMmERA4owqcWVo9JjYeiohPdsJ9Px6rni2R+Av/DdAZX8dx/m
+	 vu0kaVI+nqFM5Ais8st57dRvjfvpjqJqpA8ArLiH8ZpoBmiIweQzZgi0C2Dbp5h0z1fYw
+	 gf+RFaM6mIcZhQ7y+7NQMDAZvwfOn0JremTs8M8+mtPZQUB2Jji25pWDiE+NtWyUr3xku
+	 QmVqYeD+EXmLAmX3fU1B7O3G0aidqsZhQbF2iIN9qyeXbjxg8imkf3+zVHED19U8jLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699225;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References:
+	 MIME-version:Content-type:Content-Transfer-Encoding;
+	bh=0JBGFPPLquwWwHmBGhL2h+y4hpkquMXF6f4Dd0IfIRA=;
+	b=uCKGFNuox9/pSf6X0q0yDVKZdaU/VDV7vtIBJryW8BsP0hvnJeDAuf158juCX9cl2L5y
+	 rC1HZ+l5asR4NP3AN9gaB+2Zk6sBJAkZLN8fyua6H2CZO4GO4/LiN10mSXxphcvHu/rzB
+	 j0RYXm1wdRXk35SfUWnLi4pV5L+B4b6isNeRdF6+lLI1dfht3xZ/5wgLlcvz7GR8MOzB8
+	 ag06hKMrA0tAJW/mjjFt7HqAwnbkdr9ol9qpnPVr6mpVDsMMoqvep0rFw0MfqeNI75f7G
+	 SUj9hrIct1JfntQaivGYlac/4ijrCFtZyy4gDrP4jeK7WT0L0ZOoTB2VfwtPZNsx/UQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b6L2Aj81;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CFA606A331
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:47:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5CFA606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE144606D827
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:47:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE144606D827
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nAb5Pslr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JErGgP2OYWNRPRjNvwy4MDqsDmZ18A7VMUojctrm9i7iNIa1Ol2T3JhsSqyS+gvRHJvvO8jKmarxKmCUbis1RdiK5J+aktWe8oHWRmvIuyCplCq1RWnoLuLyRErJtKz6bOr6JVRI28jFlIKaSlVHjSMPuhoOY0SIxtr+PGC1miuuruF4t5tC4EtiPNw6dKHyKeBMp/xgrwZo7h+9hQ5yuB32XWNuRWWUTWMCrdVwTjBAQ7TNyE3woM2GDJSh4BU1Z5APq52ZOYcd63cCReO+UkitSB/+5VqKVJvtNCTCCMHn/eZfnD0INT6dztiScb+69YbkR58K2yQNfRjynS5prQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yRfAE5lM/RCUsJPrIa5QZ/uOcu2NRcRQfgumlTEgJ1E=;
- b=WVLBAr/aH8tGjY1e0W8OJiGsSGXca0vIiOc/CZSt5K3+cxkeW92bWs3cYkrdq3lzXIj6oX2gPFrsLObDfjm4Y7a/Rza8bhpISgDc4hDVLnUoUXtArrGI8a+jlxJIqe+fb1dBUkJM4ejEcu633rAnriExocY9APO7WAVX/dQsAuN8l9bx6V5ApNal2deNHD5xeljssoP8qy+5CYsMeG8P0isDD3nUmZmDeKEN5vYaEmaehlSkq9BbPGT17Fzuax3KGWOaCNEAo6mGdlvtXpViXIh/wYGFHbjeLwO7EA1N8hwdg4ftiNz6sBrXi5qJjlG4kor7OtDmYKL9g1PBLFhtoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yRfAE5lM/RCUsJPrIa5QZ/uOcu2NRcRQfgumlTEgJ1E=;
- b=nAb5PslrWKwTZQ5eu3n5HLTesWf/yVUQHrPd/ZUdQttJsoRTH++XVMFsI0z0sQGXhzfuAVBe2Wx5l5OHyfWqErQ9TzmzNxJnWQcDb3rYu3vTjGonsdnIgaiPw0L/B1uec/hMTmY3sxeZvKSwJl6a/wKaUKnrjm3sgfaJzo8Ps8g=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LY0PR12MB991423.namprd12.prod.outlook.com (2603:10b6:404:21e::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 09:47:00 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 09:46:53 +0000
-Message-ID: <de29b510-04db-4bac-a45a-ea8bf7632b39@amd.com>
-Date: Tue, 3 Nov 2026 10:46:49 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/syncobj: Silence allocation warnings for user-sized
- arrays
-To: "Yu, Fei" <fei.yu@intel.com>, dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
- Madhur Kumar <madhurkumar004@gmail.com>
-References: <20261103085002.3100723-1-fei.yu@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261103085002.3100723-1-fei.yu@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0355.namprd03.prod.outlook.com
- (2603:10b6:408:f6::30) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b6L2Aj81
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36a17a332ecso6030676eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:47:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793699224; x=1794304024; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :message-id:date:in-reply-to:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0JBGFPPLquwWwHmBGhL2h+y4hpkquMXF6f4Dd0IfIRA=;
+        b=b6L2Aj81JYNG0j3AYXRQzcnSaKwkxDIPpZxq6zx2Lea4S+scn7qFA+MO7PX1lJjgBl
+         iLcwKu5NaQ1YRFeeeCDeZCO4XYNqR1YpyHTaOFsB/LHL4/8O06i8SlUdCm7gDiT6K97c
+         5PibD1eiTY0cWmYG+8tl1tWXPqzVpAKvE1J6JchBcLJaubQJaOyZecNijGvACPoHtP3R
+         kL7j5n5p7VR+EcuNGoD3eF7DjhF3TANIdoEjARIv6V8DcmRVJ9s6rzZAW4uUVWXEgrpj
+         Ay0yt0HPo0YmxKMSZDT44J5GdlDsdPJowlZJd98SzWPH/mPx9f1VKDLUnBt/XPp/gP8U
+         Grrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793699224; x=1794304024;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0JBGFPPLquwWwHmBGhL2h+y4hpkquMXF6f4Dd0IfIRA=;
+        b=qQLP1me9qf4hD9qUIEKqlZkbRI9DogMbEVm1qvT35JK13Cz+zNLms8p0RRGBHg4RUC
+         zBkSvuOSf8/G96mMYmlqC8/VtaokKrIJOlGO7/rFWuJ4uXb6ZExkMb3zaT0sA6yphzn4
+         MUoDPUTxiEO/i5VEYgX85nqn4inzJrWmVuDEgc+7PQHhL9tk18dkyFceptmXAcCufZvL
+         Cob5W6T9XGoc73ZnpSMH3UuaXYTHmgTz4PqM0sYiO8IpFcyIpvIA8k6cd7SBQMAQOrUR
+         fsLPTyOgljBzvWeeaaoye4T8K5Xt+hTBrg2LAvsJC9Ha32NxBBIgXbThmbEl9AYf1IZe
+         G52A==
+X-Forwarded-Encrypted: i=1; AKwUvBymW1eYIAyoy6aH+y4w1XtgikoSbDwL4hJ/eTQ+qJZJ1sLiS2Fd4EYQ9JDCyOaE9NbP2nHVWjU/R1O2sOg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CSpkS1BoshiKpt/F8xY8aeZXSNGnnTEK732cX3lJ709TWIa5S
+	gHlJSdm4Zn2Kg9avMePKb8zJSjM77h4I1WoaTqbi8TYX1GiLJm4UM73o
+X-Gm-Gg: AYBFou1LNisVqzcHr95gUFbrxIk5LJOS6XG8co+vVL6cd+jJ55GfMOyN/gY6TPYdDnP
+	mWh8vIDPYGfRxCTO95n17hCNbsiFdiTEv/BtilS0DKViSLgKWCudIGxn6ab9b7A1B9SYyvc1DD5
+	P98lZEYNhkpFBZuEPZVh84yaY04YNpZuqG3fzgKiLwGMgVHDf8fZ7Bkba8aYStHl5GOvEvjRD1R
+	inEixQucrQCxkdgZnh4mvwRT+l3l2ejvL267wNud+6M2Q0U/TaK3kndu1tl458GkewX9JmztU/P
+	WG8Na+i/B7+/LHs5/AytTXNfdQu/KBifS92BepWyGvSw6cDQ53GEbLxKTXPQoVcBAfP56xy6kHl
+	Ki0LvoKobiDrCbIMyXKvl8aieONvu5N/S8pf35dzDX8CMP+qon8Dizw6SmjJJw0sXbQqu9LOz8d
+	JiyFYKt0+QG9UHourKXA06rJKYW0uyrd5iBtNG7VG9Hl4UozY2utXy87IDEDl3fgkYbQM3uZfgC
+	yQNRR+eYABxpJa6LhLv5bT4bSgNT7487IIw9U3EAaoMNy49KOr0CTN1L++MVcqocd1Ayv9yRKLH
+	I4Y1wgRhRYTaCnKCJ2ArkF3Fwsc=
+X-Received: by 2002:a05:7301:6405:b0:366:83dd:4704 with SMTP id 5a478bee46e88-36a423dc7f8mr19544762eec.17.1793699223769;
+        Tue, 03 Nov 2026 01:47:03 -0800 (PST)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm38668145eec.4.2026.11.03.01.46.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 01:47:02 -0800 (PST)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Hari Bathini <hbathini@linux.ibm.com>, stable@vger.kernel.org, Josef Schlehofer <pepe.schlehofer@gmail.com>
+Subject: Re: [PATCH] powerpc/code-patching: Flush the patch area TLB entry locally
+In-Reply-To: <44406eef-0035-4d6f-a2b0-3647d7c1ea2e@kernel.org>
+Date: Tue, 03 Nov 2026 14:42:04 +0530
+Message-ID: <wlqu5lej.ritesh.list@gmail.com>
+References: <b7916dadd8ef56d417d0cbf69fa9ef2a447a5a3e.1793674111.git.ritesh.list@gmail.com> <44406eef-0035-4d6f-a2b0-3647d7c1ea2e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,213 +95,148 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LY0PR12MB991423:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bf55686-0468-48a2-10df-08df398f643d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|261102123227099003|261022105027099003|56012099006|11063799006|261021123027099003|261009223027099003|261009221227099003|261028144727099003|261022075727099003|261021121427099003|261026140227099003|261026121527099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	a8fy0USYZkaDMS5LGVSdRJHs//f3FPHzpVfTRGNJKM+AKBPiqtT6mZKUH3gDLiUu0FYKtLJCZQJDoths/3zGCspvJMWbpK2LZ23SbbwHld2Wr19XeLioz0HiZMwuOB6AhGatIYqxYSCVQkLoEqxCIlKBye2PD23JpZE/gYpimpYNEQZq+l3l81+SWH/gcJQ6xbAQGMWHkx4h2Ydyvujw8+wI3kqlOYJj0Bpff2hp16am2VxnTS63FEAMfwcfMYeA1yMMrksNAcINNicisvsXzi87qaeqa4LN6w4Pr1pOp25viI+4Fo4UjlFe8UO5B3HIVALFvUbQBrtJhhdN1h8sZ+0et9J4+UDVEUZ56f0JU0Ixsfl03NiA3uu8PPcIhn3mAMMrZymxz3qUMqHecbM+5Fdiqk8dV8Pz86W5d2ywD5CHyzLS67itZFayVolBxs+cs9CoBwh2CHDSWDl0VRz1r97JdofudA47v1EVuAz2sKF3794C1t99xtVBBj9CKCCXiJTOGuEfwwimM3jw/1f26hhg70buSoZXfAvNClsHC5OkGkPb+tiy8eZwUKPu2G3vHZUBvENriEHpjEimK+SifjHA3ZX/R0CL1+xpK3boxprrAoutAYhQxau7X7MJiene
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(261102123227099003)(261022105027099003)(56012099006)(11063799006)(261021123027099003)(261009223027099003)(261009221227099003)(261028144727099003)(261022075727099003)(261021121427099003)(261026140227099003)(261026121527099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cm5yTnJuczBOdzhJRzBSRmQ3YlhZTmRrMkdMeVBsdTQ2OVdqbjJpa2R1RUVG?=
- =?utf-8?B?anBBeVowcGtDbkFLUk5yTUcxTU5qNzNpdTZMTVFtRlU4WjVrcEkrYnVyejdx?=
- =?utf-8?B?NjZ0Z2pGdmhSaDQxZ2lLOEhIWUl5b1FFOXVPbWdLdFVDeERoamg0aUtsUDZr?=
- =?utf-8?B?OFIxMmYwTFM4RjdublBRTFhWLzhQUmV6Vnc5MzJvTVpCdlJZQjZJYnczS0ZV?=
- =?utf-8?B?b1h4Mzlzc2F1clp2ZzNCeGdOVkZ0cGNaUXJKK0RlOU1jVER4Y1ZmYnVQZmZq?=
- =?utf-8?B?eEVuWUJ0WGJQV2JMdTFNNlNkaU1xMmpIay9Qa3V5N09NVGdmeHcrTEcwMUNu?=
- =?utf-8?B?c2tOcS8rbGFITDk1clRRODRpUnVnVVRtOW9JODlldHlwTFR1OGpiUTFrQkZD?=
- =?utf-8?B?Z3lmVUZscTlHRkxvTlJLM1lQSTVJc2xjaEx0UldJbzhCcUdvbDRsdkx1OFlF?=
- =?utf-8?B?cTNoajhNY2VzYUNlMXNxN1dUTHVEbHdNYVY3Z3FsVmxZMEplVWhTdmJSYWV6?=
- =?utf-8?B?bURCUlVoblpXdVQ2bFpndUd2RHM5a3d3OHhhY2J2VndCRmZMZ1lSaHREd3N2?=
- =?utf-8?B?Z25OV2F0M3hUb0N2Znphak1pNFlrUnlUaTZHNGpBeXdqckpxbmQrSVhNK0Ft?=
- =?utf-8?B?MkY3TEEyYXJRUnJMZFpyUDBJOEthVjNwR3lxMFB4UzlBV3Y3TkNFZGxWQUFO?=
- =?utf-8?B?Ylgwbk5GWi9LcTRDQ3M1bUlabkEzRmpZd0xvb2w0amx3RFozTFFhMUU1MFdB?=
- =?utf-8?B?Zkx2Sm1xVHFSN1dYdmJtYmJsMXJYRkZ5RVJnUzgrbWFKR2Y0RkRSY1IwUnQr?=
- =?utf-8?B?dFZvZUtSK1pLb2pIQnFWV0tMT0FzTkozNkhkQVg4cU1zZ1hyNHhpdjg1ZWNr?=
- =?utf-8?B?bURTcm5BQWtBdFV1djVTOXg4em1zdXd1SFFqTWlXN1V5LzlZMUhWTWRROUE5?=
- =?utf-8?B?UGZ5TmdQWFJ6S0R4S24zQlBoUEc2UEY0ZDZBR3FuQmJ6L3cydVBSOUdTZzgy?=
- =?utf-8?B?RGI3K2Y2K3laaXExcVovYzRBM2xBT3lTUWJXRnFLSGNCYlVSbVg3QnAvS0dT?=
- =?utf-8?B?blpGem9PTC9IVWF4REQ1anBnM2dyOGNGcFBzY0w1VlViY1lhMUwxTEdPWnRy?=
- =?utf-8?B?M0R6S1J5dWg3a09GRjZHV1VXZ1VhWXpmNm1wWXR2NmdOTEp0S1E2eFhKUHZ5?=
- =?utf-8?B?cy9EOGkyTUxnUnBnQmZwOEY2UHdxaUp1b0hYZ0RuM3g0WVM0bFFQOTFWWGFv?=
- =?utf-8?B?eDVuaWUrQlNoZ3hVLzB6UDhBbDNrcTF6U1A5NWRROGY3dWR0T1Q0eG5yaUpT?=
- =?utf-8?B?R1Zld0hiRUNkUCtoK1l4Vy9NQWowaHFLdk9Wd0czMGtuTGtoZGxxOXk2K3h5?=
- =?utf-8?B?TG9UQTIvMTl0cWZsZG5HamxuT2xUa3BkL1dnOU5sNFhnSnhFOENuaUNSRlFB?=
- =?utf-8?B?S29pZlVzTUNVck5DNmh6TndhdDZjY2NMdG4wdEtLMGlkYjUyOVB6cFNGQlYr?=
- =?utf-8?B?OTdyZkZkZHNKeWlseVFvZ21UeXJ0cWlsYXkzb1NYdHg1dlZpQUpNbnNHaks0?=
- =?utf-8?B?Nkt2QzJPYjFlWjhodENMTkNoeGI0WFg0Y2dtQVU5bGdLQU5iMitqcW03ZkNC?=
- =?utf-8?B?cTgvN2pKUHRLZVQ4YWNQYTh3d0ZMMSs0WTIvZzE1djVhZ2RDZTFDT0d4ZGww?=
- =?utf-8?B?b1JzQS9HWTJKNFpneVdsU2RzLzM3ZFgvLzFwUnR0emlDVnBndU5lTWRFWHI0?=
- =?utf-8?B?N0RObWVRZC9BeUNLbnltRzRBVUY4YXpMQTRTOEtGZHYzTjlSVVB2UHVVR282?=
- =?utf-8?B?TUNVR0tJQXRpMlhQSTRSQUswRi9ESlJORFY3UVBCTGxUYW5taFdpemF2UG1w?=
- =?utf-8?B?U01pMUR6akhGWkhuNDlaOEM5N1ZXc2p2WTNhZ0RFTkhMSitMZlYyNmh1ejF3?=
- =?utf-8?B?N1p1dy9RejcyMEM1OU02VHVTelo1VlVSV1lFVE1YQ3Q4YUl3VzRYV0F2Ylox?=
- =?utf-8?B?UTJxditnNHNDVER6Z2JtWU1QbitXN3gxcmZQRFJaTDRSaVdxYi81RnVSd3BO?=
- =?utf-8?B?RXl1eEsyZ3VFVjFueHJURjQzNjY1SlV5MUJYQW9CY2w1QUwxOGtKdU8xWUd5?=
- =?utf-8?B?VFNDVmFVVmpDYkR4dGk1aElybFE0citjOFZ4WlFBYzlHRjJYZGR4Wmo3Y29U?=
- =?utf-8?B?YlI4M0h1RUJzODRCcTRJTnVHTVlxN05hWjhQRm5hL2I0a1IrbWtjRVVKZ29k?=
- =?utf-8?B?cE5oTU92V3cvYnJVdHZVUDBmWlNjYzloRjN0ODRObmV3TjhQRE9BREphNUwr?=
- =?utf-8?Q?dPuCn0bA5ifYb4ZBNF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bf55686-0468-48a2-10df-08df398f643d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 09:46:53.6066
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +kTaGErxrNCVvntQuV0WGpCutw6PwIeoZf2LH6IEQzN7qVcWxE9AxkAgOcBnr1wU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB991423
+MIME-version: 1.0
+Content-type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 11/3/26 09:50, Yu, Fei wrote:
-> From: Fei Yu <fei.yu@intel.com>
-> 
-> The syncobj wait, timeline wait and timeline signal ioctls allocate
-> several temporary arrays whose size is taken directly from the u32
-> count_handles provided by userspace:
-> 
->  - handles and syncobjs in drm_syncobj_array_find()
->  - points and entries in drm_syncobj_array_wait_timeout()
->  - points and chains in drm_syncobj_timeline_signal_ioctl()
-> 
-> A large enough count makes these allocations exceed KMALLOC_MAX_SIZE
-> and trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
-> 
->   WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
->   Call Trace:
->    __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
->    __do_kmalloc_node mm/slub.c:5519 [inline]
->    __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
->    _kmalloc_noprof include/linux/slab.h:995 [inline]
->    _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
->    drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
->    drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
->    drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
->    drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
-> 
-> The allocation failure itself is already handled by returning -ENOMEM,
-> so the only problem is a warning that userspace can trigger at will.
-> 
-> Pass __GFP_NOWARN to all allocations whose size is derived from
-> count_handles.
+"Christophe Leroy (CS GROUP)" <chleroy@kernel.org> writes:
 
-That is clearly not a good idea. __GFP_NOWARN should only be used when the allocation is optional and that is really not the case here.
+> Le 03/11/2026 à 03:54, Ritesh Harjani (IBM) a écrit :
+>> patching functions like patch_mem() and patch_instructions(), maps the
+>> target page at the per-cpu text_poke_area, write it, clear the PTE and
+>> then flushes the tlb using flush_tlb_kernel_range(), with interrupts
+>> disabled. flush_tlb_kernel_range() on SMP nohash (e500) does an IPI
+>> based TLB invalidation i.e -
+>> 
+>> 	smp_call_function(do_flush_tlb_mm_ipi, NULL, 1);
+>> 
+>> ...which will wait for other CPUs but with interrupts off. This can be
+>> caught by lockdep with the following warning:
+>> 
+>>    WARNING: kernel/smp.c:917 at smp_call_function_many_cond+0x430/0x818, CPU#1: swapper/0/1
+>>    CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc1-leds-v4 #1 PREEMPT
+>>    Hardware name: Turris 1.1 e500v2 0x80211051 Freescale P2020
+>>    Call Trace:
+>>    [c1915bc0] [c001be04] flush_tlb_kernel_range+0x2c/0x74
+>>    [c1915bd0] [c001ce2c] patch_instructions+0x1b0/0x318
+>>    [c1915c20] [c003113c] bpf_arch_text_copy+0x5c/0xb4
+>>    [c1915c40] [c01c3398] bpf_jit_binary_pack_finalize+0x28/0x8c
+>>    [c1915c60] [c0031770] bpf_int_jit_compile+0x5dc/0x758
+>>    ...
+>>    [c1915dd0] [c102e114] ptp_classifier_init+0x30/0x4c
+>>    [c1915df0] [c102d3a8] sock_init+0xc8/0xe4
+>>    ...
+>>    hardirqs last disabled at (3076): [<c001ceb4>] patch_instructions+0x238/0x318
+>> 
+>> Josef confirmed that this was causing a hang (deadlock):
+>>      I think this is why the CZ.NIC Turris 1.1 hangs early in boot with
+>>      CONFIG_JUMP_LABEL=y. On 6.18.44 it hung in 19 of 19 boots and booted
+>>      fine 9 of 9 times with jump labels off. The hang comes while static
+>>      keys are patched and modules are loaded, nothing is printed and the
+>>      watchdog resets the board. OpenWrt keeps jump labels off on these
+>>      boards for now.
+>> 
+>> ...which is possible if both cpus are doing similar operations with interrupts
+>> off and doing TLB invalidation using IPI.
+>> 
+>> Broadcast TLB invalidation is not needed here since text_poke_area is
+>> a per-cpu area. It is mapped and unmapped with interrupts disabled by
+>> it's own cpu. The only reason I think, if we would need a broadcast tlb
+>> invalidate is, when we want to prevent a stray or malicious write to
+>> this cpu text_poke_area by another CPU. This generally gets solved with
+>> temporary-mm path like how Radix and even x86 implements. However, booke
+>> doesn't implement that, so for now let's ensure we use local tlb
+>> flushing for correctness.
+>
+> This problem was already discussed one year ago, see 
+> https://lore.kernel.org/all/PA3P192MB2865C07D634E3B775D003C7F8CD7A@PA3P192MB2865.EURP192.PROD.OUTLOOK.COM/
+>
+> See response from Arnd, a stop_machine() should be done for completeness.
+>
 
-> Guarding only drm_syncobj_array_find() is not enough:
-> the wait entries are much larger than a handle, so a count that passes
-> drm_syncobj_array_find() can still trigger the same warning in
-> drm_syncobj_array_wait_timeout().
-> 
-> No functional change and no new limit on the uAPI.
-> 
-> Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
-> Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
-> Signed-off-by: Fei Yu <fei.yu@intel.com>
-> ---
-> Testing: on v7.4-rc1 (x86_64, KASAN) the syzbot C reproducer triggers the
-> ___kmalloc_large_node() warning with the same size (0x100000920); with
-> this patch it runs clean. DRM KUnit: 667/667 passed.
-> 
-> Notes:
->  - An earlier attempt [1] added a size check returning -ERANGE, but only
->    for the handles array, so the syncobjs array and the much larger wait
->    entries could still warn, and it changed the ioctl's error codes.
->    This version keeps the existing -ENOMEM behaviour for all six
->    allocations.
->  - kvmalloc() was not used on purpose: it would let userspace trigger
->    multi-GB vmalloc() attempts. A hard upper limit on count_handles
->    would be a uAPI change; happy to do that instead if preferred.
+I will have to take sometime to go over what ARM does here with
+stop_machine(). However, either ways I think, we still need this fix,
+since otherwise P2020 boards gets hung during boot. Thoughts?
 
-Yeah that is most likely what we need to do here.
 
-A "reasonable limit" needs to be applied to the number of handles given when that is exceeded -EINVAL returned.
+>> 
+>> Fixes: 49e3d8ea6248 ("powerpc/fsl_booke: Enable STRICT_KERNEL_RWX")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+>> Closes: https://lore.kernel.org/all/20261026195644.16384-1-pepe.schlehofer@gmail.com/
+>> Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+>> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>> ---
+>>   arch/powerpc/lib/code-patching.c | 21 +++++++++++++++++++--
+>>   1 file changed, 19 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/arch/powerpc/lib/code-patching.c b/arch/powerpc/lib/code-patching.c
+>> index 44ff9f684bef..6351342fa5c3 100644
+>> --- a/arch/powerpc/lib/code-patching.c
+>> +++ b/arch/powerpc/lib/code-patching.c
+>> @@ -276,6 +276,23 @@ static int __do_patch_mem_mm(void *addr, unsigned long val, bool is_dword)
+>>   	return err;
+>>   }
+>> 
+>> +/*
+>> + * The patch area is per-CPU and only used by its own CPU, with IRQs
+>> + * disabled, so only the local TLB can hold an entry for it.
+>> + *
+>> + * On nohash SMP, flush_tlb_kernel_range() IPIs the other CPUs and waits, which
+>> + * must not be done with IRQs disabled (see smp_call_function_many_cond()), so
+>> + * flush just the local kernel (PID 0) entry.
+>> + * Book3S keeps flush_tlb_kernel_range() which doesn't IPI here.
+>> + */
+>> +static void flush_patch_area(unsigned long addr)
+>> +{
+>> +	if (IS_ENABLED(CONFIG_PPC_BOOK3S))
+>
+> CONFIG_PPC_BOOK3S not consistant with commit message. Are you adressing 
+> a problem on e500 only ? on all not book3s ? What about book3s/32 ? What 
+> about 8xx ? Even for book3s/64, is it correct at all when 
+> mm_patch_enabled() returns false ?
+>
 
-The problem here is to find that "reasonable limit" since this function needs to scale from the tiny embedded device to the largest HPC cluster on the planet.
+No we are addressing the problem on all NOHASH platforms. IIUC, all
+!BOOK3S are "nohash". Although some of them maybe UP, so it doesn't
+matter whether a flush_tlb_kernel_range() is called or
+local_flush_tlb_page() - it wouldn't matter. And on others which are SMP
+but do not have STRICT_KERNEL_RWX enabled, they will anyway not go
+through this path - but if they ever do - then we should ensure they too
+do a local_flush_tlb_range() to avoid the same deadlock.
 
-Considering that using kvmalloc() is probably justified.
+However, I think, maybe we could use CONFIG_PPC_MMU_NOHASH instead of using
+CONFIG_PPC_BOOK3S, thoughts?
 
-Regards,
-Christian.
 
-> 
-> [1] https://lore.kernel.org/all/20251227160830.34291-1-madhurkumar004@gmail.com/
-> 
->  drivers/gpu/drm/drm_syncobj.c | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-> index f1d4da168..10aede1c0 100644
-> --- a/drivers/gpu/drm/drm_syncobj.c
-> +++ b/drivers/gpu/drm/drm_syncobj.c
-> @@ -1051,7 +1051,8 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->                 lockdep_assert_none_held_once();
->         }
-> 
-> -       points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
-> +       points = kmalloc_array(count, sizeof(*points),
-> +                              GFP_KERNEL | __GFP_NOWARN);
->         if (points == NULL)
->                 return -ENOMEM;
-> 
-> @@ -1064,7 +1065,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->                 goto err_free_points;
->         }
-> 
-> -       entries = kzalloc_objs(*entries, count);
-> +       entries = kzalloc_objs(*entries, count, GFP_KERNEL | __GFP_NOWARN);
->         if (!entries) {
->                 timeout = -ENOMEM;
->                 goto err_free_points;
-> @@ -1238,7 +1239,8 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
->         struct drm_syncobj **syncobjs;
->         int ret;
-> 
-> -       handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
-> +       handles = kmalloc_array(count_handles, sizeof(*handles),
-> +                               GFP_KERNEL | __GFP_NOWARN);
->         if (handles == NULL)
->                 return -ENOMEM;
-> 
-> @@ -1248,7 +1250,8 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
->                 goto err_free_handles;
->         }
-> 
-> -       syncobjs = kmalloc_objs(*syncobjs, count_handles);
-> +       syncobjs = kmalloc_objs(*syncobjs, count_handles,
-> +                               GFP_KERNEL | __GFP_NOWARN);
->         if (syncobjs == NULL) {
->                 ret = -ENOMEM;
->                 goto err_free_handles;
-> @@ -1573,7 +1576,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->                 return ret;
-> 
->         points = kmalloc_array(args->count_handles, sizeof(*points),
-> -                              GFP_KERNEL);
-> +                              GFP_KERNEL | __GFP_NOWARN);
->         if (!points) {
->                 ret = -ENOMEM;
->                 goto out;
-> @@ -1586,7 +1589,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->                 goto err_points;
->         }
-> 
-> -       chains = kmalloc_objs(*chains, args->count_handles);
-> +       chains = kmalloc_objs(*chains, args->count_handles,
-> +                             GFP_KERNEL | __GFP_NOWARN);
->         if (!chains) {
->                 ret = -ENOMEM;
->                 goto err_points;
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> --
-> 2.43.0
-> 
+-ritesh
 
+>> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
+>> +	else
+>> +		local_flush_tlb_page(NULL, addr);
+>> +}
+>> +
+>>   static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
+>>   {
+>>   	int err;
+>> @@ -296,7 +313,7 @@ static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
+>>   	err = __patch_mem(addr, val, patch_addr, is_dword);
+>> 
+>>   	pte_clear(&init_mm, text_poke_addr, pte);
+>> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
+>> +	flush_patch_area(text_poke_addr);
+>> 
+>>   	return err;
+>>   }
+>> @@ -488,7 +505,7 @@ static int __do_patch_instructions(u32 *addr, u32 *code, size_t len, bool repeat
+>>   	err = __patch_instructions(patch_addr, code, len, repeat_instr);
+>> 
+>>   	pte_clear(&init_mm, text_poke_addr, pte);
+>> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
+>> +	flush_patch_area(text_poke_addr);
+>> 
+>>   	return err;
+>>   }
+>> --
+>> 2.39.5
+>> 
