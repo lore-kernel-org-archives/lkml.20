@@ -1,108 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712318;
-	b=Pt9h9Bblc4nlSR00cyjuUMSM85C8Y/DgXv06LjUOL4wovGVJB+GJcoYPBgm4+aWyaVc2
-	 91XbaR1OKd2T0SohBTjkYPj6sJctk2nu1PUJ0XkWpjWVaqWwdnieGkuC3LXmOaX2+JVIo
-	 3zO9dP0bY3GW9OvwY8zbqaUHG0ne6IsPQ58o/yq3JVsHCMdml5ABiFwjZuVJjfuYale0Q
-	 hyBYLjjK25ZD3BXXpZTbJ/nMw85faPYEuFnkbik1/oCVNYsCfB3n1C/P+nYaUTFhoiMgm
-	 xeTehV0lHH1IG6QtjqLPY440AdPjzm+E09J12C23Zeu92wSEXSUrH0ITJHdUQpXoglA==
+	t=1793712362;
+	b=adjQ4/HYS7vA8WYYcuFRrLWqcQVr+kTZc81Syx9Zp2E8Cl7TQ1i0lqQpfPwt0mFAnrGR
+	 uE706xOyDc3ZDECDeKQ9lafvIuMCz2oHqEKXy2kCKWeUZw1M5wdjsNS6N5yOFlH6E/9iD
+	 Ssc5Bwuozoyj65F7NIttwnOiBa9whnA/zxKumYAjmVk847Fv1UazmPW8qL3vWYRTRizC5
+	 Z/PJEV50JOyIJQKWwL9C/+mJiIHXPLmb8RSJqywR9+j+alnb9i0ziTXkR8/o0nG+vNcmE
+	 b7IIzqkQKfLwePYbENoW2vRvLx8S0jCQfTWlplxaC7f5f+JubD5/eoTEct0RfukVxOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712318;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
-	b=VqWhvRvAtQp8IvSoZKvm221iGPH9tsWAQxdeLf8XR7EGIYcwgJ3WhyWSubvwAeKIx9G7
-	 7KroKmcdCkDF+2dMP8KLCXCvUgnTRAW54eSzSVMZjCYPbWfwl64EKO/W6iG/uoAMr1zyY
-	 MoPYNHReC97szpltIEA4tuSNBIZGJmO43cNyKwynE2sBES1YZHa6p/3gJP/RGDB/q7Ukp
-	 2Hz2RQz7gCJEe9Xh3fVh0VjiYPn3Kb/BF4fQDPvNVUt6rBnpcexcLrEmEzHfjmhU5rP3q
-	 MWNVJ5P/2q8mXvIuwdmSyR1D711AmoXY9OBSQUtUi5BHNMPodpCcqlqL7ZS3UsmsEfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712362;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4tPenR+/9h0LCzZJprU/jbaqrKPBMlOXgrDY4zMH4eg=;
+	b=Vp+8SRSJb/s09xMlMWS2BCwJylDvTrfUQ39woBQvNTnKSbgPWAxqvajt5q3dmdioMPUr
+	 6T0QuMIKt1P7omKatMZmMBIa0ga6+MaNeBJR1K0mb2mWyXbrJF+1jsuq94/B460grVzS+
+	 QbIhHBaqKQX0lsJYm05A2ICbHlwWlvXxtFkY5JPIqs7B80dHwxj4B32oAIMfJqu0hKerm
+	 ohEpXDBC90yOGsi3bP3XXQYPU/LQniQA5jCZKqJyveCfofHe1ga/1bdxjsn87x2IV+vkK
+	 ifmd1Bo52yZD+s5m+j+HS9K4TBHhCKvr8eHip0CtvRxUfAQe3co8pfbciFJenbEC+CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=jDIYE2Wy;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6S6FpgMY;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=jDIYE2Wy;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6S6FpgMY;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pr1e8+U0;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F7D606A330
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:25:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9F7D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C17B606A331
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C17B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=jDIYE2Wy;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6S6FpgMY;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=jDIYE2Wy;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6S6FpgMY
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A28131F7BC;
-	Tue,  3 Nov 2026 13:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793712308; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
-	b=jDIYE2WyfEg34pmcsp5C7MlEr/x+GVmfAFm124V/oYwJ3GZpUmKp5C3a7qk9I2aymIgWT8
-	d7pedixGoDB+KB4mNQofMO4sbv+P7kdmDLfXjTSjqMFczzKffj1AcfI8jzZgw+F9+g4WzE
-	Z6ZrRFvGKoLbi/58D705kL7qyyZZA64=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793712308;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
-	b=6S6FpgMYG3bx+g6WkrUiadtUXmTWKgKMyBaO1W+ddpp4yaxoQru2A8S5vIn2xOpcfE9TOm
-	KakV7dD4y4YfxLDA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793712308; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
-	b=jDIYE2WyfEg34pmcsp5C7MlEr/x+GVmfAFm124V/oYwJ3GZpUmKp5C3a7qk9I2aymIgWT8
-	d7pedixGoDB+KB4mNQofMO4sbv+P7kdmDLfXjTSjqMFczzKffj1AcfI8jzZgw+F9+g4WzE
-	Z6ZrRFvGKoLbi/58D705kL7qyyZZA64=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793712308;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ig+S13a8vEqhb2EJ96UgMbCZDWWH93JU5OrFhKM4hSc=;
-	b=6S6FpgMYG3bx+g6WkrUiadtUXmTWKgKMyBaO1W+ddpp4yaxoQru2A8S5vIn2xOpcfE9TOm
-	KakV7dD4y4YfxLDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 772411350A;
-	Tue,  3 Nov 2026 13:25:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hhHQFLTg6WqLPAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 03 Nov 2026 13:25:08 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 08FB9B272; Tue, 03 Nov 2026 14:25:08 +0100 (CET)
-Date: Tue, 3 Nov 2026 14:25:07 +0100
-From: Jan Kara <jack@suse.cz>
-To: koraynilay <koray.fra@gmail.com>
-Cc: David Sterba <dsterba@suse.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Chris Mason <mason@kernel.org>, Jan Kara <jack@suse.cz>, "Darrick J . Wong" <djwong@kernel.org>, 
-	Sean Smith <defendthedisabled@gmail.com>, Andrey Albershteyn <aalbersh@kernel.org>, 
-	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/2] add provenance time (ptime)
-Message-ID: <upe7qvhod63zd724s7uiql6kanqyrcwplodoavcvqjt35vd4ee@s3iglizxejlr>
-References: <20261027220532.736352-1-koray.fra@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pr1e8+U0
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso19560655e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:26:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793712360; x=1794317160; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4tPenR+/9h0LCzZJprU/jbaqrKPBMlOXgrDY4zMH4eg=;
+        b=pr1e8+U0b60Vg86WqF9hISWy2VhHBhTPV0Top3duFznVviKPcsIIhKmqTzXK9c1uKj
+         C/gOOQzQRh/x8B4O/fDbE8jDc4kYFoMhZYTXVModQ30qRCIhC6fWbSWuGB9tIrtPeYyT
+         Tx5FUpZjxtOJVGi8gM3AHX5FLlDIfEBGYLAoNAioAafqXk6Hx14g4AdKi9joV8+IUm4o
+         arn6+HqerXCfP7AZnZSPxGnPptQD+5MvOdPUhomBG7Pr3xiB9D+TfYD/pGnHlPiCRPg2
+         kkD0Isa4fk5+6P7Yir/CUgPAzbWq2loBsnDAxbkpKZIZyDJnO9uXwB9HgDTFjD3dyLQW
+         9tfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793712360; x=1794317160;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4tPenR+/9h0LCzZJprU/jbaqrKPBMlOXgrDY4zMH4eg=;
+        b=ytkb8KM6chRgMzdqyBwjkt/9xhdhCbynK9OYHJ3amkw1E3XlaAluwHaP0w9ueQdJPv
+         eKpqMAEE+MabGB92smACRhKzX9Z86cnC32xqKjcpYOr4AeIfdBDLCku6EPXAOU3Vj3hg
+         Q4jHREQWvFgjgQReFH2ET/uAXfTrqGEHqj7ibi9+P0EykylQ4tRMa/gP255BauEf2SGy
+         Yh/6D3jh6ZUvvfhKU3/A/Vhu0x5/LVuzsRJXtDwkYTJuMLvXKcLHjPJ1104Ju+Gu6X1Y
+         PQovHkINx91QzvQcUc1TZC3yhlSPttAu/F7ZmXl/X4Bvv3SG1MYKlAb5XAJMLAqlXhNQ
+         4dWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwG/F9WbIRlAZx7pZxjaZQjTJnPUKI103PPO3po3Av2YZq9M1s1mtJmS2akkQmoGY3n8/gm3LqapOHgJuc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CjFAgq4j6eL5nQ7uuGOgTnmrrGr5RNzdvD2uyht5iWL9I3qx3
+	eTNT9TdFKPe8DzlfWTh1YgUYhl2/AzhH7k8F/szpD99kZgDyZh2oPkIifBA5LwCx
+X-Gm-Gg: AYBFou3b0S90cEso8Mir9u/b+495lPMLqtavlAzSx4i24yKg8RaLDIdxRkN2hQgQ4JL
+	qHCZf/h1xAhC3OFmpSKz8uaD/05MNDSLwphzmklVS/dd//VD3o1XgiRHbL0sh5u9CqNxVIz5WtX
+	nJZeROna5EpNWvguJ6hn0DPyzJ4QZE76U9CZuDpXTzBVQzZry4pOwbhTwA/MId7FBvSu0/YEuit
+	TKzPgjraJ7dnHQCwY5/FL+4Qx2lwUMcZDStkVB+ziOXznxxNO9WOisxe1+NfpAIjEJj1XTglie9
+	Cd27yZGKrbjCM2rY9VBNbURdwLiKBl/ML+JBAP3NdMV5erFxGuSVN6fSVbWZJ3CQhU32xjE4d5M
+	j29HGUEWqNtd06dIE7CAh5e8OntElGNHly5bVl2s1BeLviY3FYEzsYjDnuJDfjyETXqaYEDsjy4
+	+UFLU8VJ3ZWwhH6ZcEwyu1H5JbcJXjkZ0k7xWiSezhzdIfGC/aIMxVd+Ytsc7CZxy4GUroNkWm7
+	2KhdN81Dyur9p9gqmKioAuiAR3Kp3r2z9yJvlqp6H2h3XiQxc+D385gZbu9mkA/UFoYY8x2f+5T
+	ONh46d1KKF6JcvRaWyHRyULrtIPyJHzLDm4H09y53ZDg5+DGUEpGLWCa6FKaiciQ+1qD5xYJWK5
+	V9jOPaUnMwwGzfKbSbtRH9aY=
+X-Received: by 2002:a05:600c:a00b:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4ac1765d8abmr303491105e9.22.1793712360411;
+        Tue, 03 Nov 2026 05:26:00 -0800 (PST)
+Received: from kreach.multipass (nat44-21-238.net.ruhr-uni-bochum.de. [134.147.21.238])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a82cebc1sm84725725e9.1.2026.11.03.05.25.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:25:59 -0800 (PST)
+From: Jude Gyimah <jude.gyimah87@gmail.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	heiko@sntech.de
+Cc: linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jude Gyimah <jude.gyimah87@gmail.com>
+Subject: [PATCH 0/5] ASoC: rockchip: fix missing REGMAP_MMIO dependencies
+Date: Tue,  3 Nov 2026 14:25:32 +0100
+Message-ID: <20261103132537.3717496-1-jude.gyimah87@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,117 +101,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027220532.736352-1-koray.fra@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,zeniv.linux.org.uk,kernel.org,suse.cz,gmail.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.30
+Content-Transfer-Encoding: 8bit
 
-On Tue 27-10-26 23:05:30, koraynilay wrote:
-> This is an initial implementation of a new timestamp to indicate the
-> time when a file/directory was initially created.
-> 
-> This patch series takes inspiration from the one by Sean Smith
-> <defendthedisabled@gmail.com> [1], but using
-> file_setattr()/file_getattr() as suggested by Darrick J. Wong
-> <djwong@kernel.org> in [2].
-> 
-> The semantics of this new timestamp should be at least these:
-> - it should be the same as btime on a newly created file
-> - it's user-settable, so it can be preserved for backups, filesystem
->   conversions, archives and any similar operation
-> - it should be preserved every time mtime gets preserved
-> 
-> and the correspondence with the other timestamps is as follows:
-> 
-> ctime <-> btime
-> mtime <-> ptime
+Each of these drivers can be built into vmlinux while the code
+providing a symbol it calls is a module, which fails to link.  The
+same shape in 5 drivers, so they are here as one series.
 
-One thing I miss in this series is an explanation what this new timestamp is
-good for. Because frankly, I don't miss such timestamp as a Linux user :).
+Affected: rockchip_i2s, rockchip_i2s_tdm, rockchip_pdm, rockchip_sai,
+rockchip_spdif.
 
-								Honza
+The fix is a select rather than a depends on: the providers have no
+prompt of their own and are only ever enabled by a select, so a
+depends on would leave these drivers unselectable.
 
-> 
-> Examples:
-> 1) a .zsh_history file created in 2019, then after a few years the user
->    decides to switch to another filesystem, copying the .zsh_history to
->    the new home, in that case btime would have the timestamp of the copy
->    and ptime would have the 2019 timestamp (just like mtime would have
->    been preserved)
-> 2) a symlink created in 2020 from the home directory to a /path going
->    through the same process as the .zsh_history, in this case it would
->    also make sense to sync the ptime to the 2020 timestamp instead of
->    keeping only the btime (so the inode creation time).
-> 
-> The proof-of-concept code (for testing) for stat(1) and cp(1) is
-> available at https://github.com/koraynilay/coreutils (master branch)
-> (Note: these coreutils code changes are a prototype and won't be
-> submitted upstream as-is, but they work as expected in simple stat and
-> cp -a/--preserve=ptime tests)
-> 
-> Lastly, the name "provenance" and "ptime" are not final, I personally
-> don't have a strong opinion on any name, but while testing with stat(1)
-> I noticed that "Provenance" is definitely too long for the normal
-> output, so another option which would fit well is "Origin time",
-> abbreviated as "ntime" (OrigiN time) and not as "otime", as that would
-> conflict with btrfs' internal naming and create confusion.
-> 
-> Thanks.
-> 
-> [1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabled@gmail.com
-> [2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
-> 
-> koraynilay (2):
->   vfs: add provenance time (ptime)
->   btrfs: add provenance time (ptime)
-> 
->  fs/btrfs/btrfs_inode.h          |  4 ++++
->  fs/btrfs/delayed-inode.c        |  6 ++++++
->  fs/btrfs/inode.c                | 17 ++++++++++++++++-
->  fs/btrfs/ioctl.c                | 12 +++++++++++-
->  fs/btrfs/print-tree.c           |  1 +
->  fs/btrfs/tree-log.c             |  3 +++
->  fs/file_attr.c                  | 24 ++++++++++++++++++++++--
->  fs/stat.c                       |  2 ++
->  include/linux/fileattr.h        | 27 ++++++++++++++++++++++++---
->  include/linux/stat.h            |  1 +
->  include/uapi/linux/btrfs_tree.h |  3 ++-
->  include/uapi/linux/fs.h         |  8 +++++++-
->  include/uapi/linux/stat.h       |  7 ++++++-
->  13 files changed, 105 insertions(+), 10 deletions(-)
-> 
-> 
-> base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
-> -- 
-> 2.56.0
-> 
+Each was reproduced on v7.3, x86_64, by a vmlinux link that failed on
+the named symbol, and each links once the select is added.
+
+Found with kreach, a static check that compares what Kconfig allows
+against the symbols the compiled objects actually reference.
+
+The checker is at https://github.com/JGyimah/kreach, and the
+reproducer configuration for each finding is published with it
+under results/.
+
+Jude Gyimah (5):
+  ASoC: rockchip_i2s: select REGMAP_MMIO
+  ASoC: rockchip_i2s_tdm: select REGMAP_MMIO
+  ASoC: rockchip_pdm: select REGMAP_MMIO
+  ASoC: rockchip_sai: select REGMAP_MMIO
+  ASoC: rockchip_spdif: select REGMAP_MMIO
+
+ sound/soc/rockchip/Kconfig | 5 +++++
+ 1 file changed, 5 insertions(+)
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
