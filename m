@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706121;
-	b=Ii8JSZltjMVk8jF6hPw+r7M5qSylo3eldhXmAgzKoP4ftGTeP0ss+vVl+HcelQ7ReRAA
-	 /mE0O79USfJFcauBGRlri/klD6k4iy5BwnvMuhlPDQ0AEzBt2jlCrpSXubdci++vM32Y7
-	 dGI+jJF0RdquFTFJ5phQprY0dLOeGf0GarsT+rBn3dCTrllk+ifhg6JbTx505I7iDCpb1
-	 H+iyKkOSS8GguHBquDVapB6DzYe6xNWfi60gj43eIPZN1Xkov/Bal/cHsGIJ3ypQ7hrhA
-	 I6+AbSEZVyUZN4ebHG8r52AQ+oGpxtMM4oQM6v+gDfSxlmXfLAi+tm8Ujw0Yiy9dYaQ==
+	t=1793706112;
+	b=l1igByY2kjHH9E05fCsHsA6wXF0j1zfy1RWNDWjP/6E6Rn/I2b9t3JIndwPe6bdvwpWX
+	 5SehVqpnYJPLKjl2f7ObuNimOXt//lE+NzDhSM3Wx8/1Ja6wOKPNjOBTX1kYg5jShh0Jc
+	 Zo9wLLmFcXMmPuA86HO4b+0lNMCQvGRID286lm7GGXZOXmVr5gCWHD12S5iMwLO2pa6oH
+	 AZ2/fYWUaC8JfCrKgNImCkztxqSH9Z+676ep3JolSXonDIcqPYOeBHBDUsbeZcf9kgAxU
+	 zuyRKh+dDlhYkpEmLE/giK47QCjR6bjqMgIpOasBG0QRAqStd3mEl4JU8u9QdxrccEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706112;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
 	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=8tYgI7U7JYmedYpkIdtnauPshatRkrQpdi/rpjwbkyM=;
-	b=FMeJb+86PVyQF3NboVbmDip3PhB1aEJAY42vqqcy9mYag28VDCwa9j4SH4tWKnLV/u7X
-	 61xX1pQeqaEf/1DeAzodLt15+uIZwgNXJLFo/gsg07jc6O+ZpeWJJMSsAmuYPTBfepGew
-	 v5KdB7peizdUil4rx0k0ol+bxxIft6VUhtkRZ/f523/wSj1TCzuMj/adiZ9XbDXP5fM//
-	 IEskTOXSj236v9Pz1in+xA/VmZ+UU2aDhRtFG8Gz7gdIhE74wjID7sWEI7LRZJJmTkENK
-	 du+YUniWsditppz3SFrAOiQGrRhI5QKfp7UDmDfp5G1EDIQXf0RIbpZKuLaqglKgxjA==
+	bh=dMgNV0jBP386c1M5k8fbE4FD70hbCVrb4DRYRoUJnEQ=;
+	b=jZeqk1B8A1seYjMJoZ9XF88qQxCQ3EIE5NlDqIOjOp77xsVOPjn1T3csbZGber8XD8vX
+	 3k/ZJ/lZOY0KPh5cxYIA+XsFQB/h8Acf6bpB3sNlOTpDFVhXHLUWM0o3B1KPZsuoKMHj8
+	 fDLnuhK6aM8/oEYgmdJchj+a7Y+zQ5nUNftMhShW4eiU/7whOR1cNr0qx9m72WiQHmIAU
+	 I8i9pcgii1WecJW7zZwRZTzSRBgx3xt+B1x408SSgx9Jfy1D+GoXmwdrNZ49RAuUCB0rb
+	 4BUEB/0oCY0HA2MasYA82Nfsh+1Kg4fP0DhIfh/cOtnyvHbgeSlFKiphoR/gxD+DKHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=smail.nju.edu.cn;
 	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=mg+eudsw;
-	arc=none smtp.remote-ip=54.207.22.56
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b="oudu/DTJ";
+	arc=none smtp.remote-ip=54.254.200.128
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0929B6083617;
-	Tue,  3 Nov 2026 11:41:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0929B6083617
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87BA606EEB7;
+	Tue,  3 Nov 2026 11:41:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D87BA606EEB7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=mg+eudsw
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=oudu/DTJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1793706091;
-	bh=8tYgI7U7JYmedYpkIdtnauPshatRkrQpdi/rpjwbkyM=;
+	s=iohv2404; t=1793706075;
+	bh=dMgNV0jBP386c1M5k8fbE4FD70hbCVrb4DRYRoUJnEQ=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=mg+eudsw9OV0O8fS4/fIA1eJhvLo0uRBwOvhIRXSbfft7pG7D4j/YTf0N9acqUqzz
-	 Qx7tWLBqoVSDsh7BTijYf67OK33THWd3gKaCvx1CMzmPj07LEL1ddtg7Dad4gMnNmt
-	 xW8hICEfLvTuDjvD56cVusZvuNYaDzLCmEQSVRnc=
-X-QQ-mid: zesmtpip2t1793706086t1bb2953e
-X-QQ-Originating-IP: D/AEZKMn2kJtUBFbU+hsHR+WHo//mWfb/3lQpT54PQw=
+	b=oudu/DTJr7fOtFbUz7u1RaI5Uv/yjL8IdJCU2vRKcmy+Wt3x+GLFVRqNhA9LKUq+d
+	 D+BqWcz8FRNiXwbLAHNNOM7R/dKoeN/ZQ69u2iEHZ6dsmXjxwElNdur+o+LvpfWIcM
+	 Ad+7uD5ttITsg0c61y4XUwviqvMYJuWQegZbScB8=
+X-QQ-mid: zesmtpip4t1793706074ta9a1284a
+X-QQ-Originating-IP: 3BL24A0JtZi4/sPLoqmnloKswGieoAbx0hCHNQPU2qo=
 Received: from workstation-Precision-7920-Towe ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 19:41:24 +0800 (CST)
+	id ; Tue, 03 Nov 2026 19:41:12 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6292213750309205283
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 3521924657254701755
 From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Jeremy Soller <jeremy@system76.com>
-Cc: System76 Product Development <productdev@system76.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Tim Crawford <tcrawford@system76.com>,
-	platform-driver-x86@vger.kernel.org,
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Alexandru Gagniuc <mr.nuke.me@gmail.com>,
+	linux-acpi@vger.kernel.org,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: system76: fix off-by-one in system76_name()
-Date: Tue,  3 Nov 2026 19:41:24 +0800
-Message-Id: <20261103114124.75032-1-k.chen@smail.nju.edu.cn>
+Subject: [PATCH] PCI/ACPI: validate _HPX type 3 record lengths
+Date: Tue,  3 Nov 2026 19:41:12 +0800
+Message-Id: <20261103114112.74527-1-k.chen@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,53 +72,105 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: MgQY1K25Ph0m4vdwcr0y+9/51aOErcfWj/LqYObz1ZVmUj70ayDbQQaw
-	uLtxwH2JduZ9TEdWYQe4KFZPLfjxZg1ICs1/pUhLEBnjw2FxQhZudiPL7h5irw5+YsEuuH1
-	TIyXHDhgIW+bk5A9yQxL5Z1qlBC1oXleXeKNHzzZsmazZ4nd1/n5bt18tKe5Z1IR1rQxfjG
-	Xy7rXziSwE4yio/a137k6BlOZoVvU+CaoRVvoIuogke2cinl1hR1YS0tXjDo3+ZjwV72wWi
-	snDFo5XRxFcyJAmgTkrABGq8FS00t/gFf05iqVC0CUFavPiDaa0JVa5phix7FvtEVh8tjPq
-	tNcHgbD/qhk3KIXENuOEekhMYrsTjI067GBjjscS35+G4iOGADhkzsM256jneaUje3sqO3J
-	ZQ2GnjfG9/bq07xpO6XwGN46iwwLafXQtve7JiEnKwn+Ogs57gwFONuKnv5TRPuBDCFs3C0
-	FFAC2iZ+wt6r4M5ypHntCHMyIbmKcAQCSXX1QGlvZX1tB1wb82Z0x7DGHaFsTK3igoJRWxF
-	E93Yb9j3qcXgBUoC83egq/ZFi7QQwqUpRXhPZNpLh/9z+ZNApAHbE58TiUx+nK/YmGAoyKO
-	rHIs16THHtgSnYpro7TuFSgqaE4WfsKaD98EObAUs0yt6TtIeQ8NGuxW/RVJx+l3ntEgQ0Z
-	4XvfX7810DWFzBZQQSsp8htbK0DU2C8Zu+1ALSA0BE5ebXFexBGhy54qn5b1i1Gl0jvacee
-	19G6yXBWtgVtUKFvurMAf5ZHEIfUEvni5Fsv6QU926j2fpF6wOcYitlDYYrMgW5tg/KrUsI
-	zi1kxerv7b42MamvUzfvgLtSxrkUSlDqgHWTrd6uw7joc3IqnlB9vBPSfM5Ce1gw2w/siuq
-	oVr6uUf3P9M95AB/k+BUKp4IfAQ6kK7VQ6kVSbOvh6fKxXGzTz0F8y7Bslehs8idz2UFmjy
-	+4t0Bxvcl86uHkGaAtyYvjWLF8LkvdY/sHIo+cgQgwbkxk68o5L3EmnvZDDk1OrraaDJKtJ
-	Dt0HnQoZTV4lR3B1l8c30BfEM7K3A=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-XMAILINFO: NC2sbZ2AMa4K/5QaqY9IqFZKdgWxhFwts5rSSc+QERjqHcc07YgRn+24
+	Vgyd+SirP00+ZTYAKOY1wx6yE2at43eReYt8IohLpG/eBGru+QeWlVNgZHg08NJ4bWfabFv
+	XyBBjLKkP7r12GtUS2qciMv2/4IRodH1ZW2tg+D+Vf8i/G4HaTD1rOkwKNgy1t6Cs/IqNiY
+	kM6Edhg0n1HQt7xKKIwI6MP7BhIE+HgCaXgVThK0YG/KP4/8/1XyCuj5vfHRcYOAuTrm9Rz
+	YetefDnsRcJ5Ysmpw7qR+BD6EYKsXVlbYdmuz4NupSlJs1SsIcYNwTjcK51XJi4SsWosk/6
+	n+U9ZovIWNE+RWHeUSXBjd0OYYjqxioqZFrdDIvS/vFfnrPhTJq2pZ1AIFIipwM7zVrvSYI
+	oUrct10RcqMOqWt9i55cq7bZ5DgNxJSH9KZMGWItqk1PfnRmY2l2X3YcVuEdRyyYH0fzBq6
+	JtDa2U0qLYTAV50HLX9Wt0KSAGrWAJSVKvCUrqWGQtrkHOtNOV34kBClCX2ymN1Nwd+yuAm
+	qiEOa+7HtDoHJqy57LguPxu0fpsh+QJ8mnqiZS9SL/cJ7a9N9vZ/lO/hl5rtIgTxFmcO5tK
+	d07zEATQpb2fqG5TScX+DRdlaM3p9tkYSEc3YeLUwmp0s+sy6odWgNj8PDqiK3e3vY5ezEM
+	O64G3TSrQ8uF/H+E582i0PfRjSR1J2BBm9rLuet1GOjKjNntPG+Q84cKTmxdvjR1H4SnXZY
+	nFgP70ezQGpcS5htNPW234a9kngBIaN6tMCjXJs3BH+0g7P8sBS8zMKTb4Oe42iJqE1MllO
+	LxboHrctKNLMVDcEe/0GlD3Q2qZUzCDUxUDknxbC+Ph4lpWM1y8KwzZHc63HH2XFL0zyhHy
+	fn/bcuU0DNlPJc1XU372QCVkf2ATDcHTpxTvxT/1hR0QDSDAtfHTnrihFNA4wYF+bhQ1pXH
+	gOI9enM0m9icCA0yJK25ks9rMdHOJi65Z7/jyGxAXRxsH3qBObgngj4ciX3LzsaSVgYtC1b
+	gvqrAGJTSbhJBxQo/TSbyHQ1I8PUfPZowMZE9K2XekxClp3gPq
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 X-QQ-RECHKSPAM: 0
 
-system76_name() accepts index == obj->package.count and reads
-elements[index], one element past the end of the package.  If the
-adjacent memory happens to look like an ACPI string object, the driver
-returns a wild pointer that is printed with %s through the hwmon
-interface; otherwise it reads out of bounds.
+program_type3_hpx_record() computes the expected record length as
+3 + desc_count * 14 in 32 bits.  A firmware-provided desc_count of
+0x80000000 makes this wrap to 3, so the package count check passes for
+a three-element record and the loop then walks far beyond the elements
+array, feeding out-of-bounds data into PCI config space writes.  The
+record is also indexed at fields[1] and fields[2] before its length has
+been checked.
 
-Use a strict upper bound and reject negative indexes as well.
+Reject records with fewer than three elements, verify that fields[1]
+and fields[2] are integers, and reject desc_count values for which the
+expected length would overflow.  Reject revision or descriptor count
+values that do not fit in 32 bits instead of silently truncating them.
+Use an unsigned loop index and advance the register pointer explicitly
+so the walk cannot overflow either.  In acpi_run_hpx(), reject records
+that do not have at least the two elements needed to read the type and
+revision.
 
-Fixes: 95563d45b5da ("platform/x86: system76_acpi: Report temperature and fan speed")
+Fixes: f873c51a155a ("PCI/ACPI: Implement _HPX Type 3 Setting Record")
 Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 ---
- drivers/platform/x86/system76_acpi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/pci/pci-acpi.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/x86/system76_acpi.c b/drivers/platform/x86/system76_acpi.c
-index dd7b1b07c316..4cd6a7f45a8c 100644
---- a/drivers/platform/x86/system76_acpi.c
-+++ b/drivers/platform/x86/system76_acpi.c
-@@ -128,7 +128,8 @@ static int system76_get_object(struct system76_data *data, char *method, union a
- // Get a name from a System76 ACPI device object
- static char *system76_name(union acpi_object *obj, int index)
- {
--	if (obj && obj->type == ACPI_TYPE_PACKAGE && index <= obj->package.count) {
-+	if (obj && obj->type == ACPI_TYPE_PACKAGE &&
-+	    index >= 0 && index < obj->package.count) {
- 		if (obj->package.elements[index].type == ACPI_TYPE_STRING)
- 			return obj->package.elements[index].string.pointer;
- 	}
+diff --git a/drivers/pci/pci-acpi.c b/drivers/pci/pci-acpi.c
+index 1150f2fbabf4..b15700523810 100644
+--- a/drivers/pci/pci-acpi.c
++++ b/drivers/pci/pci-acpi.c
+@@ -607,12 +607,28 @@ static acpi_status program_type3_hpx_record(struct pci_dev *dev,
+ 	u32 desc_count, expected_length, revision;
+ 	union acpi_object *reg_fields;
+ 	struct hpx_type3 hpx3;
+-	int i;
++	u32 i;
++
++	if (record->package.count < 3)
++		return AE_ERROR;
++
++	if (fields[1].type != ACPI_TYPE_INTEGER ||
++	    fields[2].type != ACPI_TYPE_INTEGER)
++		return AE_ERROR;
++
++	if (fields[1].integer.value > U32_MAX)
++		return AE_ERROR;
+ 
+ 	revision = fields[1].integer.value;
+ 	switch (revision) {
+ 	case 1:
++		if (fields[2].integer.value > U32_MAX)
++			return AE_ERROR;
++
+ 		desc_count = fields[2].integer.value;
++		if (desc_count > (UINT_MAX - 3) / 14)
++			return AE_ERROR;
++
+ 		expected_length = 3 + desc_count * 14;
+ 
+ 		if (record->package.count != expected_length)
+@@ -622,10 +638,11 @@ static acpi_status program_type3_hpx_record(struct pci_dev *dev,
+ 			if (fields[i].type != ACPI_TYPE_INTEGER)
+ 				return AE_ERROR;
+ 
++		reg_fields = fields + 3;
+ 		for (i = 0; i < desc_count; i++) {
+-			reg_fields = fields + 3 + i * 14;
+ 			parse_hpx3_register(&hpx3, reg_fields);
+ 			program_hpx_type3(dev, &hpx3);
++			reg_fields += 14;
+ 		}
+ 
+ 		break;
+@@ -661,7 +678,8 @@ static acpi_status acpi_run_hpx(struct pci_dev *dev, acpi_handle handle)
+ 
+ 	for (i = 0; i < package->package.count; i++) {
+ 		record = &package->package.elements[i];
+-		if (record->type != ACPI_TYPE_PACKAGE) {
++		if (record->type != ACPI_TYPE_PACKAGE ||
++		    record->package.count < 2) {
+ 			status = AE_ERROR;
+ 			goto exit;
+ 		}
 -- 
 2.34.1
 
