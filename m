@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793683774;
-	b=uQW44vCWpohejbGTsfZt/jyPDpPnMuPp1/xb+8KTlpJXrC2RMVjPQvbQPTlq/KK1v+hz
-	 WJcE6+P77jxr03VYxVIkL8ODx4LyuV5VvkFVVRGSTxBIvtci+6S1uhjoSrGUjhEUsgnCh
-	 SxIeDJiCkbeIDC78zvj2FLLje5mRvih4qosxN+YpHUP0tFZdwdinv24pmDpq8DCBzhMVt
-	 P+Gx/dnj6aienBBXyP5bgrNARq2PfueDwEYyepS/OlukSgB8KE6F7ZFIpbNiKkudzVhPN
-	 g2O+lV6AH/EzzP2jvhtgQMqKF3I5gp1yss5ZTuV6oE9tWdFFtnnIZzogUagINnRSh7Q==
+	t=1793683809;
+	b=uzpgEzRvQjy7DhDc23TUPZOfcu5xFogtXS2pJ3r8LBKDYmvn61mPHkWN1Yh0M0gJ6KRG
+	 qFMl3tXmOde+n73AGfmZ+Nbgp7ZnGYG7fGtxblQpf3fLfHlqLsVz6org9KIxIFCpfI+Rb
+	 qS0Teggk0W5VRyvqsyj70YdFSOHNFDPydArtpYRHmuc29oqnCwnEaVBgWBsdoKYWO1atk
+	 Mhtz83+0PGk4JdSBWd+xUz978HNqAfBqp10m2NfCYtpQozT4/7EluO7OcRwryOgXm4xpu
+	 Vlf3LApYGWrCeKA6fO306Kf71ugS2Y9VFlveiYztp37hqg23VDLDaYuccCFCg66VfOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793683774;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793683809;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=ke9vhkENAXPfCm1yxHfr+SbOqiszin1sS4qIXy02ijk=;
-	b=SewObLPuJW4pMkqM6Z393PQTM9tBF66ntCimkx/jaqcH8dd2CuazYBvQV+BsomUyYGrC
-	 8aUX9AYASKivr/5/DEsUubxxWh4CuayQpz0j9R3NMq6RRMvd8GvVxBDIk6ZmunN2HZ5Qk
-	 ppt6uYE3W8R9PMaui0/OciNTCNVllm3SaucwjbU0gltsYfikN76+VQgkTknwBUieZ0UcW
-	 Wh2jWhai6vhsE1P0voNEJHqunDvVDFSvFTIPH/Nj3tyM2ZR1RlRa8veN160QkW8Qo4M/h
-	 F9UPVUGOpiqW5UC03FSxMpKMGfPO2qwBFjBfshH0GcUwVgYYMaJlz+UP4MtdciMBH6w==
+	bh=UfcfWDapD1eN1wGqKknnJPLrQVp/4XjcdHnVO04qcqw=;
+	b=pjmqsNBcJqNi+icGO8tE5IV/BocTsEY++YNndPi1R+M46HZXBnFWNVEYQ/riLWOCr9DS
+	 rPgeNpC+fK//1I89A4JXV/WbblGDgqDQBp/+j8cenrzMihf1WSJsJi/ZnET+bMPW8WYre
+	 lZd5hr1Gs5DtFrw+Dxh04OeiH9wwKkuqpeXwMJ1MhjAqySvF2uexQGMNxX2pc9ErE/7Z3
+	 Y7BQjD8+VoRKG+BNPqRwxc9mQISXxhXjLdoVWqeO7Cmsqsc3sffntLqk39R3qbH1Alnqo
+	 v9sWFY4wuHwSg1qknJ8SRtNNr/7ICCNCgTIyxo95+ku7TvuE/AL8E6iBk2dEmGzcoGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UmzAFCtx;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NYg9ND0r;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF9A606A33C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 05:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF9A606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858A1606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 05:30:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 858A1606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UmzAFCtx
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e9572e892dso26853565ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 21:29:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NYg9ND0r
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a064f294cbso2413133b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 21:30:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793683773; x=1794288573; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793683809; x=1794288609; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ke9vhkENAXPfCm1yxHfr+SbOqiszin1sS4qIXy02ijk=;
-        b=UmzAFCtxp1ZYyFABxl1CisByc7Hr2e969siZsRVUO5jvr9m5lyMi3dsG2NZaa6DbkS
-         Q8filMC2M4hVX6GaGHy3WskJo5Ss81YXxBmHv8Gi3cYWgKeSPF/RHDi5+dirS5fixcse
-         lmlGFAnXepRzUL004qTIZUB77qN5VCnadqWy0pYWfUhEFZZs52UGP/bbyIqea7T6Z9vn
-         DhELoXdUTRArq8p4XtGXSWvwgHHdcbHZOXSSL+egm063O5C4EG5katn0QWTJQvViSFD3
-         fikNYAgztw0YQOL9Nb7azqmVcP8aky6HDdQz0uv/e0/YqjmnYm/mNXTh+9aJgyQVZzM1
-         YQeQ==
+        bh=UfcfWDapD1eN1wGqKknnJPLrQVp/4XjcdHnVO04qcqw=;
+        b=NYg9ND0rl6ZVUxd59X/M8JLqm2JZfoIYNgR1YP5jub2+BFtBLeQ6XsXn365c4VONP2
+         H+A7iCzlCy34ecM7sWmkKX4CSlv1q7BWbKmykJVVpdv820G3ICM2QOeyzNOY8+O3CE5e
+         DQ+yMogBox/+L3KwUSPWxA+8MN1cRLV4q5o608j9isVxzd50uLOBM7UfTq0Ye+OIuxU3
+         KFtw68WwivnN/Wy08dWnqskChfVLU/uQmhuiR04knfq0kNLrYAaMxg6h2pYF7e26XK3e
+         Bt1/Fg8TaIWyajMiBondOsiZi9OpQw5aaLWOmDklwFSswSlWUnwHA7brg9sziDRAaLTI
+         5Jhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793683773; x=1794288573;
+        d=1e100.net; s=20260707; t=1793683809; x=1794288609;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ke9vhkENAXPfCm1yxHfr+SbOqiszin1sS4qIXy02ijk=;
-        b=lcr90TK6+rTnLVixnAM8eYk2LVMwLOtmdJcIVSRg2WxQj3+6OxL5AZwz7vZL2tu62a
-         V623Kt5BI8hGC9ZX+jlQUn7UTWrVqeQ9zu8syKYGpyeNQfj0EyQYKKG2P9C6mcyydH6R
-         8+E2+4fXFJ25DFRCRb9TzGxx9rtxGiTZ3xDarixWZeyPcZdIdscRayn07x+xVuhchIgj
-         0D3zliJYVEFY3bjCo4L5Vj/GmUVtN+MLi3BDSbwSds/kXLxYo+9E/FAPiZAVBU4loxR/
-         x5Uzz8xCEWGNgaVuyo1e8vxZUXliHdaZNgmC89/79GM3xP+wJxeS0LQJE9b8OtyXhMpU
-         4NSg==
-X-Forwarded-Encrypted: i=1; AKwUvBxei3k4kW6nfbrRXm1AeizLSc0EwxS3dRZ2JP84kXaDTskUOG2Eg81ZAjir+GjF7iblzg3LXvkDe6/N7tQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z880znF1CiDoq912d0R1N+DD8k3nFECqjFwnABW1lCw7ow+Hh3Z
-	x3oSoys8U2UcX3PYUSDhpNNvjkDhZO5GjMveBp75td4aSCwjfdVClqwUqK7X/0oSv4h9u8JdYGo
-	XZK8Rpw==
-X-Received: from plbbb6.prod.google.com ([2002:a17:902:bc86:b0:2e8:18c6:a093])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f712:b0:2e9:5829:9b40
- with SMTP id d9443c01a7336-2eb3649be7emr111118405ad.9.1793683772335; Mon, 02
- Nov 2026 21:29:32 -0800 (PST)
-Date: Tue, 3 Nov 2026 05:29:31 +0000
-In-Reply-To: <20261101061331.286404-5-jiayuan.chen@linux.dev>
+        bh=UfcfWDapD1eN1wGqKknnJPLrQVp/4XjcdHnVO04qcqw=;
+        b=WBPeZFcssvqYDogBb6UaTO91XOVzyHDzQhX9FEbuuwLpMiFCagQmGv7l9dj5oBzQfE
+         YkX/ziuQBUFoIldzZmcFsfpLZtIZAJ34/bKgM7D5HHH36u3IBR/dhyu0g9Iuv1syDNb2
+         UdC5elLC2XZCgbPunlUm7zn/OEkYl/cxfgwe3L+U9qN2HkUhgYC/+QdG/TQre8PQ+3wJ
+         EO+r1aMv1QahcB7ZMVH5nRHTIgMkUvz8M1YBoPoHB+jscTOURwNMgkTAVIM1XeFd6qXr
+         uUPGug/AS7NMImGpUbJBLFN7e7HpSOYvC4M+VzZ79G9EeWV/VRvZPvyPnjAygDqkx7Pe
+         nPRg==
+X-Forwarded-Encrypted: i=1; AKwUvBz8MweIul25s9mSn8AWcRns/CcQovLeH0UGr4/OnxMa+/hfPnngYi45DV9PZm7vEkIAA/2gWslSKGMAaU0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sTkyHLo/bszZS6GYDOVLv0d1cK2we6gNdTOB+zqwD8Vw6MeG6
+	et3FmxYThmWgIeINBDcojztdePPhP6b/mEgORP20Itu1vQ/kpwxsV+MsyQPDmyg7lO+go7+hfvU
+	xGjahhA==
+X-Received: from pfba5.prod.google.com ([2002:a05:6a00:ac05:b0:899:3459:82f2])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:e85:b0:886:3a6c:a9da
+ with SMTP id d2e1a72fcca58-8a9beb6139dmr9360293b3a.26.1793683808642; Mon, 02
+ Nov 2026 21:30:08 -0800 (PST)
+Date: Tue, 3 Nov 2026 05:30:08 +0000
+In-Reply-To: <20261101061331.286404-6-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,42 +78,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261101061331.286404-1-jiayuan.chen@linux.dev> <20261101061331.286404-5-jiayuan.chen@linux.dev>
-Message-ID: <aulxMqNrVTWFRuv3@google.com>
-Subject: Re: [PATCH net v3 4/5] ipv4: restrict igmp_qrv to 255
+References: <20261101061331.286404-1-jiayuan.chen@linux.dev> <20261101061331.286404-6-jiayuan.chen@linux.dev>
+Message-ID: <aulxWKGoq0ed__Rr@google.com>
+Subject: Re: [PATCH net v3 5/5] net: restrict message_cost and message_burst
+ to non-negative values
 From: Kuniyuki Iwashima <kuniyu@google.com>
 To: Jiayuan Chen <jiayuan.chen@linux.dev>
 Cc: netdev@vger.kernel.org, stable@vger.kernel.org, 
-	Fernando Fernandez Mancera <fmancera@suse.de>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	Joel Granados <joel.granados@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Petr Pavlu <petr.pavlu@suse.com>, Maoyi Xie <maoyi.xie@ntu.edu.sg>, 
-	Jiri Wiesner <jwiesner@suse.de>, Oleg Nesterov <oleg@redhat.com>, Gerd Rausch <gerd.rausch@oracle.com>, 
-	Neal Cardwell <ncardwell@google.com>, Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, 
-	Yung Chih Su <yuuchihsu@gmail.com>, Wyatt Feng <bronzed_45_vested@icloud.com>, 
+	Joel Granados <joel.granados@kernel.org>, Fernando Fernandez Mancera <fmancera@suse.de>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>, 
+	Ido Schimmel <idosch@nvidia.com>, Thomas Gleixner <tglx@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Maoyi Xie <maoyi.xie@ntu.edu.sg>, Zhan Xusheng <zhanxusheng1024@gmail.com>, 
+	Oleg Nesterov <oleg@redhat.com>, Neal Cardwell <ncardwell@google.com>, 
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, Yung Chih Su <yuuchihsu@gmail.com>, 
+	Wyatt Feng <bronzed_45_vested@icloud.com>, 
 	Hannes Frederic Sowa <hannes@stressinduktion.org>, Flavio Leitner <fbl@redhat.com>, 
 	"Paul E. McKenney" <paulmck@kernel.org>, Petr Mladek <pmladek@suse.com>, linux-doc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 
-On Sun, 01 Nov 2026 14:12:02 +0800, Jiayuan Chen wrote:
-> net.ipv4.igmp_qrv only has a lower bound, but ip_mc_reset() stores it
-> into the u8 in_device::mr_qrv, and the IGMPv3 retransmit counters filled
-> from it (crcount, sf_crcount) are u8 as well. Anything above 255
-> silently wraps. With 256, mr_qrv becomes 0, every
-> "in_dev->mr_qrv ?: sysctl_igmp_qrv" falls back to 256, which truncates
-> to 0 again in crcount, and igmpv3_send_cr() never puts the state change
-> records for the group into a report. The older version querier present
-> timeout (mr_qrv * mr_qi + mr_qri) also collapses to just mr_qri.
+On Sun, 01 Nov 2026 14:12:03 +0800, Jiayuan Chen wrote:
+> net.core.message_cost and net.core.message_burst feed the interval and
+> burst of net_ratelimit_state, but neither rejects negative values:
+> message_burst uses plain proc_dointvec, and message_cost uses
+> proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
 > 
-> Make the sysctl a u8 like mr_qrv and switch to proc_dou8vec_minmax(),
-> which rejects anything above 255, and document it.
+> Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
+> negative"), ___ratelimit() splats on such values, so the next
+> net_ratelimit() caller warns, e.g. a martian source log:
 > 
-> Fixes: a9fe8e29945d ("ipv4: implement igmp_qrv sysctl to tune igmp robustness variable")
+>   Negative interval (-250) or burst (10): Uninitialized ratelimit_state structure?
+>   WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/3218
+>   RIP: 0010:___ratelimit+0x578/0x960
+>   Call Trace:
+>    <IRQ>
+>    net_ratelimit+0x1c/0x30
+>    ip_handle_martian_source+0x1bb/0x340
+>    ip_route_input_slow+0x1057/0x3650
+>    ip_route_input_noref+0x104/0x260
+>    arp_process+0x109b/0x2510
+>    arp_rcv+0x381/0x460
+>    __netif_receive_skb_one_core+0x173/0x1c0
+>    __netif_receive_skb+0x21/0x150
+>    process_backlog+0x37e/0x1200
+>    __napi_poll.constprop.0+0xa5/0x5e0
+>    net_rx_action+0x4c0/0xf70
+>    handle_softirqs+0x204/0x9b0
+>    __do_softirq+0x10/0x18
+>    do_softirq.part.0+0x49/0xd0
+>    </IRQ>
+> 
+> Negative values never meant anything here: 0 already expresses both
+> "no limit" (interval) and "suppress everything" (burst).
+> 
+> Reject them at write time. message_burst can simply use
+> proc_dointvec_minmax with extra1 = 0. proc_dointvec_jiffies has no
+> minmax variant, so add proc_dointvec_jiffies_minmax(), mirroring
+> proc_dointvec_ms_jiffies_minmax(), and use it for message_cost with
+> extra1 = 0. Note that like the ms variant, extra1/extra2 are compared
+> against the converted jiffies value.
+> 
+> Fixes: a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are negative")
 > Cc: stable@vger.kernel.org
+> Suggested-by: Joel Granados <joel.granados@kernel.org>
 > Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
 > Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
