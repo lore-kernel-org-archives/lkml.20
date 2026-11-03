@@ -1,104 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691329;
-	b=DeFxObznr4O7YlSh8jjY83DUxcJU/UJExuoNlT7auX8umxfGW5yCHaFo/dHpkPCKRP50
-	 zYDDwQlDEsqaltCKDOUrwdVucz8p4nxf1sxpzGYYeA5nZl2SJgAJMr2wsZzvEHTFuAQKx
-	 xp9oYWBx6wjanKycsKFWYC0a/2cQeY88DNaZjOD9GzQEMTawm61dQP4e6xUUEl7SK2jLg
-	 TBnY7iu+355OysEiTYNZivPtm0EQ2Uy0Ywv+okJX6F2VAY0l4UVuSk9HGiZHPBSrS98FL
-	 JYe8aurjV/OmlZ1WmX24STCWULXGW+DKgvc5vDpOZeaZuEH6lcNadM7OhSOrrJXGlyw==
+	t=1793691341;
+	b=2Er+pXgUbtPvzlHAYUUg9HukeLrZr6r9bc9uRte7Y3h5kYi5Sp1dnvJVwNl7Cu4RcfXg
+	 4zlUYW8ae6C2kET3E62zvqIE2rw4P7ELh1Y8t3581F/nD3K4DJ4J2QiHpNIwrD1wpUBV6
+	 eFYMkX7Gxye1Bjj54ykH0tiaiKnNopaubnRlzGvvE41zRyaKcKBTkFWPMwYWtsW7brh/G
+	 uSsffXTa0noPNR2ngwQDBBIn5jA0uCGvtyOdW324eTg776QavBmwSRMwWx9ySmczKo7dI
+	 l6HV4pmBUxF02z3jH+sLqvGM5dIF+kVgsntE1cOCbAL9i/k7LRYGSQK55C7Rb/kn8NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691329;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
-	b=iRt0svN26NrO696QlnktXCQZqZfIczBq/t1MQQq02FCLrt2CxBay7JGk5kdVMxZz8T0q
-	 00VQ1CgspWs06lSCoWDPTvsKBgmNVFtBehPN68TfD41u2x34NNTp2zKeUGm7DKZQFD65z
-	 0uq9coKNpPZfxQ5I/qxR6Eex+iIznmKBVYrg/oIJzE1d1yBJtCLn/KOTrZa5VoXY1P8A3
-	 UGHqEMjLzm2cANw6ELh1dc1uEL+KjRsU8ECf9fRG4AvdtKPw6zA2QlXAAXNVy4Y8v76MW
-	 clA9398p6Oqw4XdolYvosKF06uma3vEV854342c62nLkxRVDrM94pPGOYjPETBaEgIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691341;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/kQXicVqSPGn/VkwwLnYSrjADMOXvvKsHTowWZrwqDo=;
+	b=ntFf2MhNA+n8/2dZARPL3xP4mM98RDFGc7FlNOTyRLBebRCcUYODDleSa3XcgOCHJ3wL
+	 Wep9Q7877+fgM0Rm+3oEhQ/wfc/R1n0fnghvXhz+6XxJAaffTjNA6UkDxL/XYrE2mJ5uq
+	 ONjPhT4OvV1DNMhvz9p/7JwUtjfXItrdk6KBrOY9GuQunmEwTSeemUj/oK8Vwe5N1bvvZ
+	 Gzjfc56A/GCubDwRY30UlMo2edEqZts/PFfgYvMYQVA793U3YizxEk6PMoKJ2pZf35L3e
+	 67FogJNtHHZ5oZiCdCWIU+IJm2xvX3B/H0VdKWww3tmkenS16RLsycX2lVzybjkkp9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zSxcL1io;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UTQ9roF2;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zSxcL1io;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UTQ9roF2;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K65Clxbr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA5F606A324;
-	Tue,  3 Nov 2026 07:35:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA5F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B257606A324;
+	Tue,  3 Nov 2026 07:35:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zSxcL1io;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UTQ9roF2;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zSxcL1io;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UTQ9roF2
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 01CDF21FC7;
-	Tue,  3 Nov 2026 07:35:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793691327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
-	b=zSxcL1iojpUe5ZdrCvindIxiwo/ggMbXdgrcbF+2k/LAwGM8B5guAJFzxbgFBvVUsK9OkT
-	pqg5MtjCwVB2LJpACi+phHN7vbCBpJII8HZ87xlUXeS6UIs+G1hhbNMBy4QQLfNPDO72sg
-	PSk5glhRTYob+yO+BGrG/6m+BdERxtk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793691327;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
-	b=UTQ9roF2y2PxQUzcLRcfNIJ46shaQXncRJkXD6xBaEMB9mKI0Md0WAB9ZlSEf5e02WQfMP
-	Daj8jnVUlpAkDKCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=zSxcL1io;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UTQ9roF2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793691327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
-	b=zSxcL1iojpUe5ZdrCvindIxiwo/ggMbXdgrcbF+2k/LAwGM8B5guAJFzxbgFBvVUsK9OkT
-	pqg5MtjCwVB2LJpACi+phHN7vbCBpJII8HZ87xlUXeS6UIs+G1hhbNMBy4QQLfNPDO72sg
-	PSk5glhRTYob+yO+BGrG/6m+BdERxtk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793691327;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
-	b=UTQ9roF2y2PxQUzcLRcfNIJ46shaQXncRJkXD6xBaEMB9mKI0Md0WAB9ZlSEf5e02WQfMP
-	Daj8jnVUlpAkDKCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9AA3D134B8;
-	Tue,  3 Nov 2026 07:35:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2WcBHr6O6WoaUQAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 03 Nov 2026 07:35:26 +0000
-Message-ID: <311b1a91-24b0-4864-91c1-6801ca558e2b@suse.de>
-Date: Tue, 3 Nov 2026 08:35:26 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K65Clxbr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1991F000C1;
+	Tue,  3 Nov 2026 07:35:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793691340;
+	bh=/kQXicVqSPGn/VkwwLnYSrjADMOXvvKsHTowWZrwqDo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K65Clxbrdc64/02z6dd49q17Axcq3jIlV9mM2ZN8OZ/RRH0TmQzoNyU7ckt9mqFCw
+	 Wjfs6HSkxG7DsnwjdkqgYddXD0skESri46eRDgL4EBdGFnztFCXnv0Oxw31h2z52W0
+	 F7U9T1Ul1xNyQprq3c7vcEpaWAv8ezdf0CXmZsO38DFjfWyJU2VczyNBqyBpxVvELZ
+	 mwYSZuWzPDwdrji3ZVj6eJKsp1nC9lOlZBFUVPnusBRb2MC/TcChe2gunQRgGg3w87
+	 ZY9vfiQ4O4MLiSrP92vdNwWchDtgrZYgG8kgtZYis3y5CznuddtYvGixdj1Ed/oU8m
+	 RAW74/eS7BoYw==
+Date: Mon, 2 Nov 2026 23:35:38 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Yanbo Zhao <yzhao62@ncsu.edu>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Kan Liang <kan.liang@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	James Clark <james.clark@linaro.org>, Zecheng Li <zli94@ncsu.edu>,
+	Xu Liu <xliuprof@google.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] perf annotate: Data type profiling support for
+ C++ classes and virtual calls
+Message-ID: <aumOys6T9Kbd-dR3@z2>
+References: <20261005201010.36493-1-yzhao62@ncsu.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,100 +65,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] nvmet-auth: reject incomplete DHCHAP messages
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 01CDF21FC7
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -13.50
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261005201010.36493-1-yzhao62@ncsu.edu>
 
-On 11/2/26 2:24 PM, Jérémy Jean wrote:
-> Commit c9359401036e ("nvmet-auth: reject undersized AUTH_SEND
-> payloads") only ensures that AUTH_SEND has auth_type and auth_id
-> before nvmet_execute_auth_send() starts parsing the payload, but the
-> DHCHAP path reads t_id before it verifies message lengths. A two-byte
-> DHCHAP NEGOTIATE payload can therefore still trigger an OOB read that
-> KASAN reports as:
+Hello,
+
+On Mon, Oct 05, 2026 at 04:10:07PM -0400, Yanbo Zhao wrote:
+> Hello,
 > 
->    BUG: KASAN: slab-out-of-bounds in nvmet_execute_auth_send
->    Read of size 2 at addr ffff8880030d8364
+> Data type profiling currently only understands C struct/union types.
+> For C++ workloads, member accesses through base class subobjects
+> cannot be resolved, and virtual function calls (indirect calls through
+> the vtable) lose the return type of the callee: the register holding
+> the returned value becomes unknown, which matters when it's used
+> directly to access memory like 'p->next()->val' where no DWARF
+> variable describes the temporary.
 > 
-> Require the payload to cover the minimum DHCHAP message length
-> before parsing it.
+> This series extends data type profiling to C++:
 > 
-> Fixes: c9359401036e ("nvmet-auth: reject undersized AUTH_SEND payloads")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
+> Patch 1 introduces die_is_compound_type() covering DW_TAG_class_type
+> as well and accepts DW_TAG_inheritance in the offset-based member
+> lookup so that it descends into base class subobjects.  It handles
+> empty base classes, members placed in the tail padding of a base and
+> virtual base classes.
+> 
+> Patch 2 adds the DWARF helpers for virtual calls: the vtable slot index
+> of a virtual function, the virtual function at a slot of a class
+> (following the primary base class chain), and the class of the vtable
+> pointer at an offset of a type.
+> 
+> Patch 3 tracks the vtable pointer and the virtual function pointer
+> loaded from it in the x86 instruction tracking, and resolves the
+> return type of 'call *N(%reg)' and 'call *%reg' through them.
+> 
+> Tested on x86-64 with GCC 15 (-O2 -g) using small programs covering
+> single/multiple inheritance, empty base optimization, tail padding
+> reuse, virtual inheritance, direct calls through the vtable and the
+> speculatively devirtualized form.  In all cases the access to the
+> returned pointer after a virtual call is annotated with the right type
+> and member, e.g.:
+> 
+>   movq    (%rbp), %rax           # data-type: struct Node +0 (_vptr.Node)
+>   movq    (%rax), %rax
+>   cmpq    %r14, %rax
+>   je      0x1240
+>   movq    %rbp, %rdi
+>   callq   *%rax
+>   addq    8(%rax), %r12          # data-type: struct Node +0x8 (val)
+> 
+> The existing results for C code are unchanged and the added cost on
+> the common path (a pointer dereference) is a tag check on the resolved
+> member type.
+
+Sorry for the delay, but can you please rebase it onto the current
+perf-tools-next?  It doesn't apply anymore..
+
+Thanks,
+Namhyung
+
+> 
+> Changes in v3:
+> - Rebased onto the current perf-tools-next.
+> 
+> Patch 1:
+> - No change.
+> 
+> Patch 2:
+> - Check the value of DW_AT_virtuality instead of its presence (Sashiko,
+>   Namhyung).
+> - Bound the base class walks in die_find_virtual_func() and
+>   die_get_vptr_class() with MAX_TYPE_CHASE (Sashiko, Namhyung).
+> 
+> Patch 3:
+> - Check !src->multi_regs when loading a function pointer from the
+>   vtable and when marking a register as the vtable pointer (Sashiko,
+>   Namhyung).
+> - Set ops->target.multi_regs in call__parse() so that an indirect call
+>   with an index register is not resolved by the displacement alone.
+> 
+> The recursion depth limit in __die_find_member_offset_cb() reported
+> for the patch 1 will be sent as a separate patch on top of this series
+> as discussed.
 > 
 > Changes in v2:
-> - Check the minimum DHCHAP message length.
 > 
-> v1 (2026-08-11 18:03:35 +0000): https://lore.kernel.org/all/20260811180335.4161138-2-Jeremy.Jean@oss.cyber.gouv.fr/
+> Patch 1:
+> - Explain DW_TAG_inheritance with an example DWARF in the commit
+>   message (Namhyung).
+> - Skip virtual base classes whose location is a runtime expression
+>   instead of falling back to offset 0 (Sashiko).
+> - Match a base class in the offset lookup only if it actually has a
+>   member at the offset, to handle empty base optimization and tail
+>   padding reuse where a member of the derived class shares the offset
+>   with the base (Sashiko).
+> - Keep looking at the next sibling in fill_member_name() when an
+>   anonymous child (base class) has nothing at the offset.
 > 
->   drivers/nvme/target/fabrics-cmd-auth.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> Patch 2:
+> - Drop the non-existent DW_AT_vtable_elem_index and the DW_LANG_*
+>   fallback macros (Namhyung).
+> - Drop cu_get_language(), cu_is_cplusplus(), die_get_base_class(),
+>   die_get_parent() and die_find_member_by_offset() which are not
+>   needed anymore (Namhyung).
+> - Document that die_get_vtable_index() returns the vtable slot index
+>   and that GCC and Clang both emit the index as DW_OP_constu
+>   (Namhyung, Sashiko).
+> - Fix die_find_virtual_func() to return the function DIE instead of
+>   the DW_TAG_inheritance DIE when found in a base class (Sashiko).
+> - Follow only the primary base class chain in die_find_virtual_func()
+>   since non-primary bases have their own secondary vtables, and skip
+>   an empty base at offset 0 which is not the primary base.
+> - Add die_get_vptr_class() to find the class of the vtable pointer
+>   through base class subobjects, and die_is_vtbl_ptr_type() to
+>   identify the vtable pointer by its type ('__vtbl_ptr_type').
 > 
-> diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-> index 70136f6c22e8..a15f21fc41e4 100644
-> --- a/drivers/nvme/target/fabrics-cmd-auth.c
-> +++ b/drivers/nvme/target/fabrics-cmd-auth.c
-> @@ -301,7 +301,7 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
->   		nvmet_check_transfer_len(req, tl);
->   		return;
->   	}
-> -	if (tl < offsetof(struct nvmf_auth_dhchap_success2_data, rsvd1)) {
-> +	if (tl < sizeof(struct nvmf_auth_dhchap_failure_data)) {
->   		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
->   		req->error_loc =
->   			offsetof(struct nvmf_auth_send_command, tl);
+> Patch 3:
+> - Remove the receiver ('this' pointer) register update after the call
+>   which was dead code and not needed, and the arg0_reg field (Sashiko,
+>   Namhyung).  The 'this' pointer lives in a callee-saved register or
+>   on the stack across the call and DWARF location lists cover it.
+> - Handle 'call *%reg' by tracking the function pointer loaded from the
+>   vtable as TSR_KIND_VFUNC_PTR with its return type (Sashiko).  This
+>   form is common due to speculative devirtualization by GCC.
+> - Strip the leading '*' of an indirect call operand in call__parse()
+>   instead of extract_reg_offset() so that both forms are parsed.
+> - Ignore void virtual functions instead of aborting (Namhyung).
+> - Keep the existing pointer dereference branch and its fall-through
+>   intact; the vtable pointer is detected from the resolved member
+>   type there instead of a separate lookup before it.
+> - Treat the new register kinds as pointers when saved to the stack.
 > 
-
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-
-Cheers,
-
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+> v2: https://lore.kernel.org/r/20260930210038.196928-1-yzhao62@ncsu.edu
+> v1: https://lore.kernel.org/r/20260821050207.4517-1-yzhao62@ncsu.edu
+> 
+> Thanks,
+> Yanbo
+> 
+> Yanbo Zhao (3):
+>   perf dwarf-aux: Add die_is_compound_type() to handle C++ class types
+>   perf dwarf-aux: Add C++ vtable helpers
+>   perf annotate: Resolve C++ virtual function calls in x86 insn tracking
+> 
+>  tools/perf/util/annotate-arch/annotate-x86.c |  77 ++++-
+>  tools/perf/util/annotate-data.c              |  61 ++--
+>  tools/perf/util/annotate-data.h              |   4 +
+>  tools/perf/util/disasm.c                     |   7 +
+>  tools/perf/util/dwarf-aux.c                  | 282 ++++++++++++++++++-
+>  tools/perf/util/dwarf-aux.h                  |  21 ++
+>  6 files changed, 426 insertions(+), 26 deletions(-)
+> 
+> base-commit: 1dc462fc214907671600172280c2e79ef9fe6fcf
+> -- 
+> 2.53.0
+> 
