@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742198;
-	b=0T9AEtGzFLwAWQ9ot5tOeNfevMTiihvy94vjmuIplF3Ndg0mvuabrpKK64G4YDdrmHmF
-	 ZqQS/WXpy2WofUOkahw9ZfNPN7PKY0KkyciDLDltjqAHn/xHN9wdR2Oaq26cCAmFDctVa
-	 CP4OmEW42jzL0HYbOS1v2RW7Hb9NF4JWPMkzpBWhG8GqE03k3YLlUH+TIALP4GwPVcJWT
-	 goTzR1o+tjM7izT4XD9s90M87hQHTDBp/FzZelrzBChRw4/fIiv2jo9zF3XwPbFEba1ra
-	 XeqopZdnCjaQMwcdghkggnqRQ/fElakcfGCiZ7+p7ZGYkP9QttGY9gkOiiy8myAJ4rQ==
+	t=1793742200;
+	b=oTTIMsTWMhOXV3Bcm2Sxem8uDSocTwl446t6W8MdH+Ba5y3GXFjbcJpJqqlNjJTusTFz
+	 PcZK+nimEBcCBBTaka+Uxu43pp6mjgVgbaH2zB0xNIdYpuPjQPxNCWmhICNZdUAZ82aiw
+	 TGSZqEVaOxyXsNYcNAZlmgwnPOSVYQaFi7ZuQc+slHTZO92zLpUgWWgoOtAtEZZwUiYRE
+	 SbFCgrqXzSbx7e/xFDGo3fAnaVOzlHO9Cz95vw4V4NHlhFX7jDCdUYYuOBOOB1xawmeqL
+	 Rm5qkYfZ1FrSrAqBeRsNFYoaM5rQr9E1eagDL8Xhqcg0iXRAa66VL8+8pFw1AJJIb9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742200;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4P8XRThq1Wu1TjVMMjPvOh5ua3op9yoqp6jtpZeTP9I=;
-	b=m/taf/N1Z/vD8tUWOUL5WAzFvuQPPchfI233fj5HmMUS01+E++EgtIIz6fy3WZzUh3US
-	 D71XH4gTo9vzfKpiOW0f49aajjsyFurbx3lT6L0kSaUNNpXIpJTqcTtzGPqCW2F0k3Lfk
-	 4N2wojdJ4EO6Xp8sJJ3TborBfssS9H3iDlMZnnK/uz3M7ZwZCLL8WBRnj2ZGp8DWiLpFX
-	 DGo2sSt9XgUIZ6yWwHLdaRKXxn0yQi1A6/MTayjWQmxnuojFh8yDCXWybniBAESnHMME2
-	 jsHBHcpAHAnNQmHsQ1xxTWxJDtBeRP4CU7kHs5LLvpvrnwl2ntoIDIcj7anpEgNPe2Q==
+	bh=kTz3h69vKYpBYO69sjF6ABERXYTIv+Bm2//nQ0YJpXo=;
+	b=m14tkxg89NMQki8/rsFpfVqu/jksrtkktAs5kU8Cj81DRkTybRXYli8syaCr4hoav/jB
+	 19z+4Wn7HniJvr0IQvzR4zuXwwRQyKGec1dbtnqPupkEGLzWGw9UK3BnoahSc5VURYeKM
+	 Is2a+AJjEUiMGeQIyuB7d+JMN+ve0KiTZ/BNxOBVgmY3uknkFh0PjEPM9tuQ3QULR/lJR
+	 hrR/XTLzaiFGH7AqxV1mUVYWrWGoQ8Ghqs5t74RwiK0Xv2eb4Y2TDZ/o/TI/czb2cH9Eq
+	 qvt2htv2cRj/RSPXauNuZyPqVuhs0MMPzbDPcBuqe+tr8grpesf0ENxDNwJNNeOeqgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=exJQJ5SR;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q0qKsJ2j;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EC5606D816
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87EC5606D816
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C390F606A331
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C390F606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=exJQJ5SR
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4682977f9aso8263166b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:43:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q0qKsJ2j
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c45551fa84eso9695766b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:43:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793742197; x=1794346997; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793742198; x=1794346998; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4P8XRThq1Wu1TjVMMjPvOh5ua3op9yoqp6jtpZeTP9I=;
-        b=exJQJ5SRRmD3cZY1VidWiAtntqIsF9RrZcZrpFw/ca2dJvD9uO3LbdtO8jK5p+CZvN
-         19HEmVOV9kjAPVazHdDDRAK7wO1KS+XGE+aBOnMWnxiOWjj80wFfh5tC1iY02yBlBwer
-         cPw5eH3DRc+3z10qjXQuD6XiRmiweTCxihtSAzB2jvKIONfezkmWWAXPJPHtTaEUNlyf
-         PFPrUgrjn34WGKrxXcI3MO3bWT53GBwJfu5ZEeWH9ZerOb30omngiVakFG0CWo6P2mpU
-         c+jzBVrM1nJUhDx29utoPCEx5lBRpU2cKOg5uzEiqphmSPuYCK6hGZLTm5JBG6nuFItH
-         RC/g==
+        bh=kTz3h69vKYpBYO69sjF6ABERXYTIv+Bm2//nQ0YJpXo=;
+        b=Q0qKsJ2jiuLFef8xMUQn8xbdFoN2laqEnnTMM2E4MHpD17Y8TBwRv2QLcbFGvj6GbV
+         CWgWyno+T5P/n9axHZ77q+UTYrmy04iMhCd+99G+UO//iklKtdrbjLbmoZyFYw/jElAG
+         g5IHmpOG98qNmA3gddLKtDQAMD780DHLsF8wppU/+J2eX1ILZlr5LefUPhm15HcOcxdm
+         BKwCvfi8cpGjchP/vWSv3wN9RQlG3BZuQEnd4VD9PxGm/X/ZJoWiqxymBpBA0iNpIbYa
+         cZ8dXpsxAvhQ/G+ob1+kMVnS4RQDGN2XShK8OBn4t2a8n3Ah34CtHXPjluZ5Pr2zPe8l
+         /s5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793742197; x=1794346997;
+        d=1e100.net; s=20260707; t=1793742198; x=1794346998;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4P8XRThq1Wu1TjVMMjPvOh5ua3op9yoqp6jtpZeTP9I=;
-        b=D6CwC0ROxzgB0yUsBPO9EqGC/3AUymq7uhdi3EzGt5EkV4T6OSa4PxVndD4zad/ofh
-         1qIFe26ioaVKe8l8OO7Z9CznxGsAxQmQsTFfU894CqHk8FCdyZuTAz4e44ezq8xNzYlx
-         e1q/H9dWP4JI2D120dk4sgTfeuOrs6ivce1EQtgIhXHWInJU/SYDVdwe2lfJGNttRlz7
-         XNXgf25t2MJ+Fz4TEOsPnzGeFgYdjEAU8UGnEQzF9UiBKRRgTEtwbVvr8emAFUctTD8n
-         RkZhMoK5831PQvDAe8/JtlX76Bzv9E0fyCrEMdUOqgD/9hIAZ6ruR1x33zYBg58pc81/
-         X+rw==
-X-Forwarded-Encrypted: i=1; AKwUvBxmE3rJbYqyJKnW7DddcIGAHHdQMk8CZad2/XRnlwKQRV+Qm480eSL6vMDZsD/vCw6ZRDiZZMkMf0dWMWk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91bCB78DcwqspAas0QIepqkegc7mhlJEX0ohGeDdRomq3HNewx
-	JcZdFv1eZK73TQzMQlQr96M1FN1DwcbVv1zmVhKz65In+GUiVHTvL0uEbV9qzJB+N/s=
-X-Gm-Gg: AYBFou3sycOobW5dH9hWjD6EkyNmGeQhAMXE5Ure5e3RyWnIAHmb5vC8yDxcM9L7qFJ
-	XSXWmKPEk7L+rqPTkBnSshJVEyduC63jhfmnv5g7NKmIkDM6JUdY0/Gl3E9knGiW/6UK6aZzKsr
-	XO/r+Q3T21zVi4CZ8y2Wf4fOQ7L1sfJMVbc0wAiFxm3x3sdpnqz/OVUxEFSb6WmGsh6IyYrHoPH
-	vX0ZXeaK4SdjrN1QN4XjiaoM7npCA3edTGCmkEdTlyyQbiNb3NOuFvHtS8M+OmrhQpiVkdmsBCi
-	4zlCBnm/QYXW9zh891n/RbvcJ7eDUyW3fvEi9BzAmpBb7KhG7x63lwKXZcaq7r3pmvKHfOUT2na
-	hfy0aBROiPXG28DeZBHCIPUtKOpihvSa1tHIk9DDnYJb3Da7nlb+WG0mtD9ToGnZKykQOWU0wSl
-	AtPjkCfwIwGkupUASXDbqpOQ7vyIloY0MxaY7Et6Ke6ZPUqr+R/mbjCHk6tbJrKKPCM85Bf4Hdz
-	jNoD7+gb+ZaUmyAndKk+vSzn/0xiJQkesi1Qznvixu9lRvMV9De5+woBbabzScHbgrc0Dblgno0
-	T6Kf6o4nJT5fm24nRiaEkxsdRo4neXL/t08KG8qYGOy1k+YmPiJ7v5h3E+R4TnXl5LhGifw=
-X-Received: by 2002:a17:907:3d89:b0:c46:645f:cedf with SMTP id a640c23a62f3a-c4ca7a0708amr1244476366b.15.1793742196882;
-        Tue, 03 Nov 2026 13:43:16 -0800 (PST)
+        bh=kTz3h69vKYpBYO69sjF6ABERXYTIv+Bm2//nQ0YJpXo=;
+        b=aQjhYLHIVV/DDVm3N3PsN1QdZ6fJJ9hZ0g1BcHmO3UUMIL07b3NnkPSbUbLCQCXhau
+         b3eHlU8JMVGkllqvgMdgWgsIpgErCXgZS2xCkm7+rATfK6xC1pi9iATuxQcSkN6OF1Zw
+         8+8BPp4LKEraqp/9uzGPCle4YdnYsTiX8OobTXmRiHLgYG57vpHz38IpqZHOLJJKG8SO
+         hHgd/UQ/29N/3hvaEs0AffgpeF1enriShb71QEtluczFz8Lm6CeszjHJcAWFDTAgE8Qu
+         9eHhyKXF3iOjE3kQvDJ3q0lJDX4g/tW84QK+bCtIsCRjJM2DIDkWJG5XaeDeWeKP/pm7
+         DIog==
+X-Forwarded-Encrypted: i=1; AKwUvBwtS/ggRDn3W6NIhfCpfnC6uM3F3uhzMHAxVFbdGCLF8URwUKAk7DV1q0qnyt1Bj4FNjWD/knn0dtAJkiw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9fMDtSRAtyQ6VPgyi1EOMVD2pD6IswZn6Pa3MdMPd2cVZmeRmC
+	AFaBxSi1xnY8luIlQeLD09QWnTC1k2TEEEBkZ3nDZp5zKuem0AzudmqhdiHXzCEqsXM=
+X-Gm-Gg: AYBFou0BU+QKJfY2jEbJLddukkBV3XkBZ+4laF/18hGVWkUfcIwn9dB4Ao5Kaqm/CXK
+	Cnw/b89MDYmy7NGDMaS9NjqeZj88o94mjJ+CvFgokSLPhS3Jas2GIRO6l14oUzYqSlpZvSBjcn9
+	L9kVvtJk+SK0Ihn4tv9OPEqeIZ6SGX56jDkxkR9gtfXlM6PPSe7GkTVtlVvXU3RpcwKVnGe0116
+	V9vjmso3reSgKx6OfLB/7lu1YAAgQnP1/Qvif2FPA69ZTEEUJcR9iaSJqy5V54y2gc54F4KNmjF
+	BE7JKIGlfHPFDO0D8n6LqucauXXoMbhUXsOLz3dQ7keCEA0DQfHfmafnn9+Om7iE8616dY5r1wb
+	b8Ouo6fMNbxH2l5TavzTkvCrFlq4HfyFBVcRgvJMABYIjRoMa4sqnJfiyHHm07ZFYkkn2/zS1Yl
+	snx/HkZLS0KSxhNqfPyxz8FxjKtfrVYSjlpwYMYxI+Tbao84BIrLaGIaDA6fAL6/ap8lf2gQhMu
+	37dO6UFaER+khIAvl6x4/1LhYvQAORlzUHS8Vmw6zztZ89p60SSL5WV86pHKGvZ/lmsLR1G9oHr
+	jG6LHYYsnkVEUmkcuECjWSJqcCc3Arci61ZrJauokjIno13t1X9oWjtrA78W52LC3pun108=
+X-Received: by 2002:a17:907:3e0f:b0:c2e:8eb7:53dd with SMTP id a640c23a62f3a-c4ca7a9f026mr1341572866b.42.1793742198084;
+        Tue, 03 Nov 2026 13:43:18 -0800 (PST)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac5a2a6sm40550a12.16.2026.11.03.13.43.16
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac5a2a6sm40550a12.16.2026.11.03.13.43.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:43:16 -0800 (PST)
+        Tue, 03 Nov 2026 13:43:17 -0800 (PST)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: richard.henderson@linaro.org,
 	mattst88@gmail.com,
 	linux-kernel@vger.kernel.org,
 	linux-alpha@vger.kernel.org
 Cc: linmag7@gmail.com
-Subject: [PATCH 04/14] alpha: fix syscall restart eligibility
-Date: Tue,  3 Nov 2026 22:35:10 +0100
-Message-ID: <20261103214120.1099893-5-linmag7@gmail.com>
+Subject: [PATCH 05/14] alpha: distinguish skipped syscalls from invalid numbers
+Date: Tue,  3 Nov 2026 22:35:11 +0100
+Message-ID: <20261103214120.1099893-6-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103214120.1099893-1-linmag7@gmail.com>
 References: <20261103214120.1099893-1-linmag7@gmail.com>
@@ -101,105 +101,195 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-After GENERIC_ENTRY, stale restart state or a successful syscall result
-such as 512 can be mistaken for a restart code, corrupting r0 or the PC.
+An out-of-range syscall number other than -1 must return ENOSYS even
+when a tracer has changed the return registers. Keep explicit results
+only when entry work rejects dispatch or the number is the -1 abort
+sentinel. The generic-entry conversion incorrectly treats both cases
+as skipped calls and preserves tracer results for invalid numbers.
 
-Clear restart eligibility after use and before returning to userspace,
-including signal-context restore. Require a3 to indicate an error before
-handling restart codes, preserving the saved arguments for replay.
+Track explicitly supplied r0 values instead of inferring them from
+register contents. Alpha cannot preset its complete ENOSYS return state
+before entry work because r19 is still argument 4. Value comparisons
+can overwrite legitimate results, including -1, the original syscall
+number and a seccomp errno matching the entry registers.
 
-Save the fourth argument before entry work can replace r19 with the
-a3 error flag. Preserve that saved value when seccomp or ptrace skips
-dispatch and supplies a restart error; dispatched syscalls still save
-the argument after any ptrace changes.
+Mark results supplied by syscall_set_return_value(), scalar ptrace
+result writes and regset writes covering r0. Keep number-only aborts
+returning ENOSYS. After a legacy r0=-1 abort, subsequent r0 writes are
+results, not another syscall-number substitution. Honor the supplied
+r19 error flag for regsets instead of turning small successes into
+errors. Writes outside r0 and empty regset writes must not mark it.
+
+Preserve seccomp return values, SIGSYS rollback and saved restart
+arguments. The existing per-syscall metadata reset prevents a supplied
+result from carrying over to another syscall.
 
 Fixes: 83bd31c2840b ("alpha: enable GENERIC_ENTRY")
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- arch/alpha/include/asm/entry-common.h | 10 ++++++++++
- arch/alpha/kernel/signal.c            | 13 ++++++++++---
- 2 files changed, 20 insertions(+), 3 deletions(-)
+ arch/alpha/include/asm/syscall.h     |  2 +-
+ arch/alpha/include/asm/thread_info.h |  1 +
+ arch/alpha/kernel/ptrace.c           | 25 +++++++++---------------
+ arch/alpha/kernel/signal.c           | 37 ++++++++----------------------------
+ 4 files changed, 19 insertions(+), 46 deletions(-)
 
-diff --git a/arch/alpha/include/asm/entry-common.h b/arch/alpha/include/asm/entry-common.h
-index a811c73454d28dbc166b83b6f5cd550da339b5fb..85dabd1021da012269eb28acb3ce2da21e0ad706 100644
---- a/arch/alpha/include/asm/entry-common.h
-+++ b/arch/alpha/include/asm/entry-common.h
-@@ -4,6 +4,7 @@
- 
- #include <asm/stacktrace.h> /* For on_thread_stack() */
- #include <asm/syscall.h>
-+#include <asm/thread_info.h>
- 
- #define arch_exit_to_user_mode_work arch_exit_to_user_mode_work
- 
-@@ -11,4 +12,13 @@ static __always_inline void arch_exit_to_user_mode_work(struct pt_regs *regs,
- 				unsigned long ti_work)
+diff --git a/arch/alpha/include/asm/syscall.h b/arch/alpha/include/asm/syscall.h
+index 22315b932f854a71fd3babf6565dda443c6c7a77..52fa96ea57caba5f04c2c0c3d9ea31b909eb9f60 100644
+--- a/arch/alpha/include/asm/syscall.h
++++ b/arch/alpha/include/asm/syscall.h
+@@ -94,7 +94,7 @@ static inline void syscall_set_return_value(struct task_struct *task,
+ 					struct pt_regs *regs,
+ 					int error, long val)
  {
+-
++	task_thread_info(task)->syscall_meta |= ALPHA_SYSCALL_META_RESULT;
+ 	if (error) {
+ 		/* error is negative errno in this tree */
+ 		regs->r0  = (unsigned long)(-error);  /* positive errno */
+diff --git a/arch/alpha/include/asm/thread_info.h b/arch/alpha/include/asm/thread_info.h
+index 49bc08f3b5a98fbcb1d4ac919001bf70c3db614b..78f9f60d4ad197c27cd05bfd6a5c20af22bee7a3 100644
+--- a/arch/alpha/include/asm/thread_info.h
++++ b/arch/alpha/include/asm/thread_info.h
+@@ -58,6 +58,7 @@ register unsigned long *current_stack_pointer __asm__ ("$30");
+ #define ALPHA_SYSCALL_META_SKIP			0x2
+ #define ALPHA_SYSCALL_META_FORCE_SUCCESS	0x4
+ #define ALPHA_SYSCALL_META_ROLLBACK		0x10
++#define ALPHA_SYSCALL_META_RESULT			0x20
+ 
+ /*
+  * Thread information flags:
+diff --git a/arch/alpha/kernel/ptrace.c b/arch/alpha/kernel/ptrace.c
+index dba7e9905cfa842dbfe851b3e6ab996c94f7ee46..08e2401cb7e005795a04e169f0c53cf9ed35adb5 100644
+--- a/arch/alpha/kernel/ptrace.c
++++ b/arch/alpha/kernel/ptrace.c
+@@ -280,21 +280,6 @@ static void alpha_elf_gregs_set(struct task_struct *child,
+ 
+ 	if (nwords > 32)
+ 		ti->pcb.unique = src[32];
+-
+-/*
+- * PTRACE_SETREGSET can be used at a syscall-entry stop to skip the
+- * syscall by setting the syscall number to -1.  The seccomp/ptrace
+- * selftests use this to synthesize errno returns.
+- *
+- * Alpha uses r19/a3 as the error flag, so a skipped syscall with a
+- * small positive r0 and a clear r19 must be normalized to an error
+- * return.
+- */
+-	if (pt->r1 == (unsigned long)-1 &&
+-	    pt->r19 == 0 &&
+-	    pt->r0 > 0 &&
+-	    pt->r0 < MAX_ERRNO)
+-		pt->r19 = 1;
  }
-+
-+#define arch_exit_to_user_mode_prepare arch_exit_to_user_mode_prepare
-+static inline void arch_exit_to_user_mode_prepare(struct pt_regs *regs,
-+						 unsigned long ti_work)
-+{
-+	/* An interrupt after returning to user mode must not restart a syscall. */
-+	current_thread_info()->syscall_saved_nr = 0;
-+}
-+
- #endif
+ 
+ static int
+@@ -328,7 +313,8 @@ put_reg(struct task_struct *task, unsigned long regno, unsigned long data)
+ 	 * mutable syscall number in regs->r1.
+ 	 */
+ 
+-	if (regno == 0 && regs->r1 == old_r0 &&
++	if (regno == 0 && regs->r1 != (unsigned long)-1 &&
++	    regs->r1 == old_r0 &&
+ 		(data == (unsigned long)-1 ||
+ 		(regs->r19 == 0 && data < NR_syscalls))) {
+ 		regs->r1 = data;
+@@ -339,6 +325,9 @@ put_reg(struct task_struct *task, unsigned long regno, unsigned long data)
+ 	 */
+ 		if (data == (unsigned long)-1)
+ 			regs->r19 = 0;
++	} else if (regno == 0) {
++		/* Once dispatch is cancelled, even -1 is a valid result. */
++		task_thread_info(task)->syscall_meta |= ALPHA_SYSCALL_META_RESULT;
+ 	}
+ 	return 0;
+ }
+@@ -535,6 +524,7 @@ static int alpha_regset_set(struct task_struct *target,
+ {
+ 	elf_gregset_t gregs;
+ 	unsigned int nwords;
++	bool writes_r0 = count && pos < sizeof(elf_greg_t);
+ 
+ 	if (pos + count > sizeof(gregs))
+ 		return -EIO;
+@@ -551,6 +541,9 @@ static int alpha_regset_set(struct task_struct *target,
+ 
+ 	nwords = sizeof(gregs) / sizeof(elf_greg_t);
+ 	alpha_elf_gregs_set(target, gregs, nwords);
++	/* Only count r0 bytes actually supplied, not the preserved registers. */
++	if (writes_r0)
++		task_thread_info(target)->syscall_meta |= ALPHA_SYSCALL_META_RESULT;
+ 
+ 	return 0;
+ }
 diff --git a/arch/alpha/kernel/signal.c b/arch/alpha/kernel/signal.c
-index 3fae37b4593f22f07a375ab7bc0b0712d0130a07..ab32affa09c41152eabd1f3be92a126a85fb7a2d 100644
+index ab32affa09c41152eabd1f3be92a126a85fb7a2d..f972f690eb678b9201e340624a60fe26ad7f23c8 100644
 --- a/arch/alpha/kernel/signal.c
 +++ b/arch/alpha/kernel/signal.c
-@@ -154,6 +154,7 @@ restore_sigcontext(struct sigcontext __user *sc, struct pt_regs *regs)
- 	struct switch_stack *sw = (struct switch_stack *)regs - 1;
+@@ -567,7 +567,6 @@ asmlinkage unsigned long
+ alpha_syscall_enter_select(struct pt_regs *regs, long syscall)
+ {
+ 	struct thread_info *ti = current_thread_info();
+-	unsigned long saved_r0 = regs->r0;
+ 	unsigned long saved_r19 = regs->r19;
+ 	unsigned long fn = (unsigned long)sys_ni_syscall;
+ 	long nr = syscall;
+@@ -584,22 +583,20 @@ alpha_syscall_enter_select(struct pt_regs *regs, long syscall)
  
- 	current->restart_block.fn = do_no_restart_syscall;
-+	current_thread_info()->syscall_saved_nr = 0;
- 	current_thread_info()->status |= TS_SAVED_FP | TS_RESTORE_FP;
+ 	permit = syscall_enter_from_user_mode_randomize_stack(regs, &nr);
  
- 	sw->r26 = (unsigned long) ret_from_sys_call;
-@@ -497,17 +498,20 @@ do_signal(struct pt_regs *regs, unsigned long r0, unsigned long r19)
- 	unsigned long single_stepping = ptrace_cancel_bpt(current);
- 	struct ksignal ksig;
+-	/*
+-	 * Alpha cannot preset the full -ENOSYS return state before generic
+-	 * entry handling, because r19 is still syscall argument 4 on the
+-	 * normal dispatch path. So provide the default -ENOSYS result only
+-	 * here, after we know no real syscall will be invoked, and only if
+-	 * entry work did not already change the return state.
+-	 */
+-	if (unlikely(!permit || (unsigned long)nr >= NR_syscalls)) {
+-		if (!(ti->syscall_meta & ALPHA_SYSCALL_META_ROLLBACK) &&
+-		    regs->r0 == saved_r0 && regs->r19 == saved_r19)
++	if (unlikely(!permit || nr == -1)) {
++		/* r19 is still argument 4 unless a hook supplied a result. */
++		if (!(ti->syscall_meta & (ALPHA_SYSCALL_META_RESULT |
++					 ALPHA_SYSCALL_META_ROLLBACK)))
+ 			syscall_set_return_value(current, regs, -ENOSYS, 0);
  
-+	/* Consume restart state once, even if the exit loop repeats. */
-+	current_thread_info()->syscall_saved_nr = 0;
+ 		ti->syscall_meta |= ALPHA_SYSCALL_META_SKIP;
+ 		return fn;	/* ignored by asm when SKIP is set */
+ 	}
+ 
++	/* Invalid numbers other than -1 must invoke sys_ni_syscall(). */
++	if (unlikely((unsigned long)nr >= NR_syscalls))
++		return fn;
 +
- 	/* This lets the debugger run, ... */
- 	if (get_signal(&ksig)) {
- 		/* ... so re-check the single stepping. */
- 		single_stepping |= ptrace_cancel_bpt(current);
- 		/* Whee!  Actually deliver the signal.  */
--		if (r0)
-+		if (r0 && regs->r19)
- 			syscall_restart(r0, r19, regs, &ksig.ka);
- 		handle_signal(&ksig, regs);
- 	} else {
- 		single_stepping |= ptrace_cancel_bpt(current);
--		if (r0) {
-+		if (r0 && regs->r19) {
- 			switch (regs->r0) {
- 			case ERESTARTNOHAND:
- 			case ERESTARTSYS:
-@@ -571,6 +575,7 @@ alpha_syscall_enter_select(struct pt_regs *regs, long syscall)
- 
- 	ti->syscall_meta = 0;
- 	ti->syscall_saved_nr = syscall;
-+	ti->syscall_saved_r19 = saved_r19;
- 
- 	if (!(ti->status & TS_SAVED_FP)) {
- 		ti->status |= TS_SAVED_FP;
-@@ -614,7 +619,9 @@ alpha_finish_syscall_to_user_mode(struct pt_regs *regs, long ret)
- 	unsigned long meta = ti->syscall_meta;
- 
- 	ti->syscall_meta = 0;
--	ti->syscall_saved_r19 = regs->r19;
-+	/* Entry work may have replaced argument 4 with the a3 error flag. */
-+	if (!(meta & ALPHA_SYSCALL_META_SKIP))
-+		ti->syscall_saved_r19 = regs->r19;
- 
  	instrumentation_begin();
+ 	{
+ 		unsigned long index;
+@@ -633,24 +630,6 @@ alpha_finish_syscall_to_user_mode(struct pt_regs *regs, long ret)
+ 	}
  
+ 	if (meta & ALPHA_SYSCALL_META_SKIP) {
+-	/*
+-	 * Skip-dispatch path: ptrace/seccomp may already have installed
+-	 * the return state in r0/r19. Preserve it unless the syscall was
+-	 * skipped with no explicit return value.
+-	 *
+-	 * Generic PTRACE_SET_SYSCALL_INFO changes only the syscall-number
+-	 * shadow, so r1 == -1 while r0 still contains the original Alpha
+-	 * syscall number. Legacy PTRACE_POKEUSR based skipping can leave
+-	 * r0 == -1 with a3/r19 still indicating success. Both represent
+-	 * an unhandled skipped syscall and should become ENOSYS/a3=1.
+-	 */
+-		if (regs->r1 == (unsigned long)-1 &&
+-		   (regs->r0 == ti->syscall_saved_nr ||
+-		    regs->r0 == (unsigned long)-1)) {
+-			regs->r0 = ENOSYS;
+-			regs->r19 = 1;
+-		}
+-
+ 		instrumentation_end();
+ 
+ 		syscall_exit_to_user_mode(regs);
 -- 
 2.43.0
 
