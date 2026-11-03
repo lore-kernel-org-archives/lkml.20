@@ -1,80 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.223.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738854;
-	b=DJaLghgvadyJiRlxh6MbaCLjTyB+AFkT92J2fKuKMySoEcrH6Io2BwnhM0HvulGF5/UZ
-	 L26O+/S4dNoiSC+WzFVpqSXkQxysPSlTU1yk5SV9UonZdeQf0p/hxSL4sU1fRqrGY/U7D
-	 DT8xLEWd/Fv3n3y+DHUWpmn9XRCcsylhI7RXnlpou2Cl/6S7lVBBcSCsKeS7UMJ6RoUrZ
-	 M9bBbCtJhIKVkqvro/8PjDoLCJRM5wcn6mCr4WHAEP9A1zIFrzD2pWAg+zGXl2w1rCHCF
-	 wg91CMQZabdvBv6cqT5OWoUSP2K46E+jixZ2c1InOBI48Cc2bjnOOBAmpZhWKqZzZow==
+	t=1793738942;
+	b=s5jipH3lc0kGLZeo4Gs1tvuyGPmyGHch/6fPhIDD9c33mFJvNQEp6maK9izSfJgHDEda
+	 B5kGAiP/jZ6G5FOJ5ePszsZZLQm5LbkozZBfYuWRlHgPBtjy233pK9oSCjqaOMqaqz70I
+	 mmjVzCVlCM4zbAQ/AH7OkXgp02CMHgfzgQk1mXcg2rpxn1/+ySyo1dt8UUlxHgLLXdv+d
+	 Sb0rKJFFgjVClBvR9xSc9KOBDHgILkEHiW0/5mrefTfvQigLsAWhtmH2hvJnE6ppjLp6Q
+	 vr8eG2KmLnWqhtSp23yjt9ZwLo8xaZSCdaJFbAGk5MzEwS5H3PsnSlVHaprIMKpzsuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738854;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:X-Patch-Reply:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CtgBDanjsD9iD2RTvWfEtW3CqZKYJo5b1NZUqI+Cpjg=;
-	b=2U4ETlXnZyTnATAhJk9UXQS75VbgcERXdOUBGumT4noVvZyxhoHqFOEWV8GwZZAF7Pm4
-	 JHk89e80Cy12uZFEYQQbfWUSc58KK4EeWM19duLdSndDksqv2DgrOnjL9qefpBv88Zb7U
-	 G+QPTDkjVbFnDNGtlJ1YvaUDn7NjTIlmeAzaTNN152C1u+Raqr0tMIibM0WDOeQrmrvMc
-	 MwWJuglZwQQvx7VJkUJEN//x9Q0f1nncvO8NR4X+KhdSDqfG/1ukMesoXDtpYAlVVHzts
-	 1dlsiYRdbB2aGZCJzTmmDOn5PBVI+OyHJkIRJwiMUkulQUfEq+IUs4Jvr5wAtRKWZdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738942;
+	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
+	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Spill-Robust:
+	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:Received:
+	 DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=CixWyglPjJq+NuYBAuybNSUrDT7S8FVzUuoegqk0l5g=;
+	b=lGmvMb+roSk0YY40Y6+iub4GAmJw1X6g9bVB8J0PFzs0cG8BDHezdxKBEq66uCgiTnB2
+	 B7NS170vSfdH77aHXnZhGKqtK60Fe5c4ys+G4+16bRlYfHkW7Mtc46vUl5Lj3aC3kxdIK
+	 5j3vd4UxKrSkQoXiZjA086xfCGhDNhvlCTyuU/BfnSeCz1OMwvSw2aTUpfGKq2WxJclLw
+	 TZOtTyeUyQ+4m8JtHlGqhuvopaXzYrKLIXWE40ipPfc5dTbC7wh6nfm7RoytcX+tnCXwk
+	 +3P6ptsvXes+k9oMVTPfo3RzBylAJjiukiwKo2BlZk4/2LklJONMlTwbprKqbYxEJ/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2J2pWY0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=stgolabs.net;
+	spf=fail smtp.mailfrom=stgolabs.net;
+	dkim=pass header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=b8zCEMv9;
+	arc=none smtp.remote-ip=23.83.223.162
+Received: from seashell.cherry.relay.mailchannels.net (seashell.cherry.relay.mailchannels.net [23.83.223.162])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E301A606A324;
-	Tue,  3 Nov 2026 20:47:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD660606A324;
+	Tue,  3 Nov 2026 20:49:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD660606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2J2pWY0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D2A1F00A15;
-	Tue,  3 Nov 2026 20:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793738853;
-	bh=CtgBDanjsD9iD2RTvWfEtW3CqZKYJo5b1NZUqI+Cpjg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M2J2pWY0jhbLhVM9FKDXDNvfvUxC+w3Tq8ilF1TOQBv9TrwR06l6H5Oa83KooXn3y
-	 2ccw7HSm4bfh47+EFNp1Sm4wf7/rztr9T5G7GOg0slVOD3ipBWd+1+8f9T7qpp19en
-	 sZQt9xseIc5xALm/qY2ryr3sO55PUJwNu0KW4dCz0M5TpBQ4Bp5OfsjdUS2cq+r+JN
-	 hDsbbPJAQzjLra2VMqYrmEwMhBLuHRQyirk0kJMjn9I4tEZC00kOMPr1wj8k8a/l4X
-	 vnbUZxh1xr3ousr5v7LalHg6BMxp0j25DVOolg9IqzDCD2ytix14M78ewnR9iVzW3g
-	 2JStyPXV7aSDg==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Timur Tabi <ttabi@nvidia.com>,
-	rust-for-linux@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=b8zCEMv9
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 885DE4C1392;
+	Tue, 03 Nov 2026 20:48:55 +0000 (UTC)
+Received: from pdx1-sub0-mail-a249.dreamhost.com (trex-green-2.trex.outbound.svc.cluster.local [100.99.192.246])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 2EA7C4C0C00;
+	Tue, 03 Nov 2026 20:48:55 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Spill-Robust: 300bfe26607bd16d_1793738935457_4122454896
+X-MC-Loop-Signature: 1793738935457:1005928785
+X-MC-Ingress-Time: 1793738935457
+Received: from pdx1-sub0-mail-a249.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.99.192.246 (trex/8.0.2);
+	Tue, 03 Nov 2026 20:48:55 +0000
+Received: from offworld (unknown [76.167.199.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a249.dreamhost.com (Postfix) with ESMTPSA id 4jK0zV1BM8zymd;
+	Tue,  3 Nov 2026 12:48:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1793738934;
+	bh=CixWyglPjJq+NuYBAuybNSUrDT7S8FVzUuoegqk0l5g=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=b8zCEMv9bhNCGM1tlmBK2EMLJBD1rcF1sm/u/EJTNNWWz3OG1iX9Mq2VL/ghE/4ch
+	 eqIGuBDuWjE/XvR9GDMpJYcW+YN4O6EOHwLc6oCxjxXAmxmm3my/Pm9mfPSUeqD+r8
+	 8LymCeE1FL+poryrkmBlBe40sOxdEo61oLWoduxYafry4p5ZKyL+1KoaggZy1x3tnR
+	 MPUBnvbI4fmY65BFuS1xCcROWODExD4KaFCSJLB4WxsmSTa0PRyDNOq0FHF38KFrY+
+	 wFO+5dUpyRyhr5qxbyRbWNgFPjJwznKh18a7eY4Ho1+qvk7sZ7M9bzfyY3Wq1JAdjw
+	 HwXsk1TKvFPOg==
+Date: Tue, 3 Nov 2026 12:48:51 -0800
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Dave Jiang <dave.jiang@intel.com>
+Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
+	linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: (subset) [PATCH v5 0/7] gpu: nova-core: add NVKV codec
-Date: Tue,  3 Nov 2026 21:47:25 +0100
-Message-ID: <20261103204725.4021673-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028-b4-nvkv-v5-0-ef78909b513e@nvidia.com>
-References: <20261028-b4-nvkv-v5-0-ef78909b513e@nvidia.com>
-X-Patch-Reply: applied
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+	Jonathan Cameron <jic23@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>
+Subject: Re: [PATCH] MAINTAINERS: Update CXL, NVDIMM, DAX, and others for djbw
+Message-ID: <20261103204851.v2blzpa25xopouc6@offworld>
+References: <20261103201547.4079847-1-dave.jiang@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,24 +95,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261103201547.4079847-1-dave.jiang@intel.com>
+User-Agent: NeoMutt/20220429
 
-On Wed, 28 Oct 2026 11:20:59 +0900, Eliot Courtney wrote:
-> [PATCH v5 0/7] gpu: nova-core: add NVKV codec
+On Tue, 03 Nov 2026, Dave Jiang wrote:
 
-Applied, thanks!
+>Dan is no longer with us. Removing entries in MAINTAINERS to prevent
+>people from keep emailing his address.
+>
+>async_tx will be essentially orphaned. There has been discussion of
+>deprecation for the feature on the dmaengine mailing list.
+>
+>fsdax will no longer have a maintainer. But there are reviewers still
+>and Alison Schofield will continue to wrangle patches for DAX overall.
+>
+>Cc: Alison Schofield <alison.schofield@intel.com>
+>Cc: Vishal Verma <vishal.l.verma@intel.com>
+>Cc: Matthew Wilcox <willy@infradead.org>
+>Cc: Jan Kara <jack@suse.cz>
+>Cc: Davidlohr Bueso <dave@stgolabs.net>
+>Cc: Jonathan Cameron <jic23@kernel.org>
+>Cc: Vinod Koul <vkoul@kernel.org>
+>Cc: Frank Li <Frank.Li@kernel.org>
+>Signed-off-by: Dave Jiang <dave.jiang@intel.com>
 
-  Branch: alloc-next
-  Tree:   git@github.com:Rust-for-Linux/linux.git
+Thanks for sending this.
 
-[1/7] rust: alloc: add Vec::try_push_init and Vec::push_init
-      commit: 55f9b4727cbb
-[2/7] rust: alloc: add ArrayVec
-      commit: a2a82cbb7334
-
-The patches will appear in the next linux-next integration (typically within 24
-hours on weekdays).
-
-The patches are queued up for the upcoming merge window for the next major
-kernel release.
+Acked-by: Davidlohr Bueso <dave@stgolabs.net>
