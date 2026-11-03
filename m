@@ -1,114 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717266;
-	b=G70SRpHQS0yNAA335hlps7tt8owKGtuhVabgi/IAeIzGXg08ZhRNKd52VPQRkqybnLlr
-	 npc3djLOmV6LXPzG3e2jCKW0IA98kiBKSFcIZEZP1kOOC03U8coaCfaNr/AwoJiDkMkWe
-	 YSxptu7u1Q8PshlmaOg/PwYqTE2rbVNzTxyiV+bjj/UkkTE4PwnumatVmsspgsE2UMR78
-	 KJuv9qbsWu+1wqVZwxrnPdOhY3nEfijk/2F9/LwbzXxk/RBRkduEo0s/8leyu2LN9fJet
-	 MldcOkAAFPjQMKGJ/tDFz8TaDVcsR3zEH+iBppOoE3TBsuHh3KF/tzEtsOnetIfgthg==
+	t=1793717286;
+	b=TjQUwFV8QRzktvLRUdrwc/P1tMMOt9g0SegdJfXo/UXef5H3myE6N8YIsUemjnP3V1hM
+	 dwMeK5ZVOFzjkd6wZlzUR+G2RbMgkPfvvH6artqFX+YCqxdMEheJ9xxmn3cVO/DM1i/DL
+	 ph6QcJA6lWad/NVvIogciOQgg39/b6IH5LbioZ0Du8aOE/sJRNAX3wwSsJC005nUcZwRM
+	 rAierqBG3cbL/v3VQIXbGT1B8vNWJbMCaniYfxK7EJuyV2fhNg96Dgpf47gfOTBey+FVq
+	 thgZCjlet0DT3q7JA9Xyu4SNaSYYiTsocySQrhOwQJAPBcqF4Vt6Xrf3VPcKACk2MjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717266;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=YXoxe9Qu1Hj58tp1tyj5bOciDNUA04IKDc8QcBHrpJQ=;
-	b=YOwP0s0fQmJNQ0xnvy1snfDAPfApqmaGtqDrkgyXNKbahHy2vb6IojeWS14YLS6ksh9R
-	 t+zKkKQAPsEcDNHW6GZpexLQMssH63JVa+lSpEECziNLKhtVqUIa8y3BYRw+h4FIDlU6L
-	 RwhvUhuU9gUt0H9L7tMAItIhCXF7g0k/nY2esSqF1WJzOYk0s7J3oY+LtjH2kIhE5+9ll
-	 /NEFW1JDTR/2c0a4m0lPFdyey6To4vTeWyBuhr+Hr8k+HvwM3NxyN86+ZnlXb2mOEfZky
-	 /qADnCvZcfOLmKu3AH6fjyCFyJL2/UV+jG5+Z7MG4xcAxjzI1k380Yl998Mu7t0zovQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717286;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=Wcfm4NJTkbtPoo0W4PeJYWfvmalPaASf+2pIVtyvhx8=;
+	b=dQ3GzDfyPKggA0a+x9ljslY275ARFxNU46BozFAAVHEZU+sSuyJhdoBVDwkXm6A+zgNZ
+	 CghW9tV5D0T36el674+SWq9hW3MtciRRuhCUve6/gW/8a1nfGsz3wMplGljxS9KM0R7xh
+	 /twSmwCdj0ZaOH2kLzufAJwZdcgmvpylx8ecHHgEqfYrNUlhrlfJUSJu63LIIUo7Ddz+9
+	 fBooGQKb+AIDgtTHQeVyNk4PUD+Pgy57sAFe5grdqIA92Zs22YE6yW/sTLRJA3UJiCzlU
+	 E+0xXm7dp2fXCtMXHbnHpjdcUBLtqRPr26HIv02ScohTOWoUXrg0aABwW42+hr+/ziA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="l146/vAv";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Nd+qNEc8;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="l146/vAv";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Nd+qNEc8;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=og5bCNnC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A409606EEB5;
-	Tue,  3 Nov 2026 14:47:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A409606EEB5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A0E60A380C;
+	Tue,  3 Nov 2026 14:48:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=l146/vAv;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Nd+qNEc8;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=l146/vAv;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Nd+qNEc8
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B4A181F7B3;
-	Tue,  3 Nov 2026 14:47:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793717263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YXoxe9Qu1Hj58tp1tyj5bOciDNUA04IKDc8QcBHrpJQ=;
-	b=l146/vAvG+RenZpah+7v/7sa3kSzL+7HKVNYrHTh/f2yqQULm9RruhbL4FtF4aGkPTy2oq
-	Z305kB6Kyv57jY4kgMGMuOA/94iAi/Hsrcd01Urh9KmLZeJVBFFxxy4zsfeiiEFiDvv/Is
-	x/0xEf6DIzyJHWsCShgmZAVflluNJLU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793717263;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YXoxe9Qu1Hj58tp1tyj5bOciDNUA04IKDc8QcBHrpJQ=;
-	b=Nd+qNEc89D7jSbkRX8UkGLWtgWMYHHz++qtEIzAOt5GNq+XvQuTFRKz8z/RKUbWAFU8JH4
-	bgCxv6S8HqUB0sBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793717263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YXoxe9Qu1Hj58tp1tyj5bOciDNUA04IKDc8QcBHrpJQ=;
-	b=l146/vAvG+RenZpah+7v/7sa3kSzL+7HKVNYrHTh/f2yqQULm9RruhbL4FtF4aGkPTy2oq
-	Z305kB6Kyv57jY4kgMGMuOA/94iAi/Hsrcd01Urh9KmLZeJVBFFxxy4zsfeiiEFiDvv/Is
-	x/0xEf6DIzyJHWsCShgmZAVflluNJLU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793717263;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YXoxe9Qu1Hj58tp1tyj5bOciDNUA04IKDc8QcBHrpJQ=;
-	b=Nd+qNEc89D7jSbkRX8UkGLWtgWMYHHz++qtEIzAOt5GNq+XvQuTFRKz8z/RKUbWAFU8JH4
-	bgCxv6S8HqUB0sBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 69B371350A;
-	Tue,  3 Nov 2026 14:47:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id MW8OEQ/06WroEgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 03 Nov 2026 14:47:43 +0000
-Date: Tue, 03 Nov 2026 15:47:39 +0100
-Message-ID: <87zevqvuno.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sonali Pradhan <sonalipradhan@google.com>
-Cc: nkapron@google.com,
-	gregkh@linuxfoundation.org,
-	tiwai@suse.de,
-	balbi@kernel.org,
-	jeffinphilip14@gmail.com,
-	victor.krawiec@arturia.com,
-	fanwu01@zju.edu.cn,
-	christophe.jaillet@wanadoo.fr,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: gadget: f_midi: fix UAF race during IN request handling
-In-Reply-To: <20261028074821.579450-1-sonalipradhan@google.com>
-References: <20261028074821.579450-1-sonalipradhan@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=og5bCNnC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478AE1F000C1;
+	Tue,  3 Nov 2026 14:48:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793717285;
+	bh=Wcfm4NJTkbtPoo0W4PeJYWfvmalPaASf+2pIVtyvhx8=;
+	h=From:Subject:Date:To:Cc;
+	b=og5bCNnCWypgCWUiGfXpt76OPxMNmpziIPcsV9Zs5WXVFaTldbfNdS4SVH5zwQHNz
+	 OjqAfGiEzma5i4WL0gLpzl24H9P8dQavzNaT5aaije6CnIww4V462jcJhFBBVmyTaF
+	 l1B+fIXqiY+axDuZBtkIDZMHCO2YItflbVfoiPhhhtNq/3u7V2qvVGQ8SwVaFjvzqs
+	 V4aaXA9o8YoZvc8DAtwx9fDkdYbvSQvVOR28KfbxWOdiaOF7qFNDSyyjdTI35uamTm
+	 HXE3+ZFWtyerrJw8EwjYQxymxyuwoxsAVAlzc+5WKGI0ivodCEhqOsxeH2g2jQf0W4
+	 X2/UXPsn5b30w==
+From: "Harry Yoo (Meta)" <harry@kernel.org>
+Subject: [PATCH for-next-fixes v2 0/5] memcg,slab: kmalloc_nolock() fixes
+Date: Tue, 03 Nov 2026 14:47:49 +0000
+Message-Id: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,106 +52,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,wanadoo.fr];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[google.com,linuxfoundation.org,suse.de,kernel.org,gmail.com,arturia.com,zju.edu.cn,wanadoo.fr,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -12.30
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABX06WoC/yWMwQ6CQAxEf4X0bBNSdBf9FeMB1wIV3DVbNCSEf
+ 7fCZZKXmTcLKGdhhUuxQOavqKRoQIcCQt/EjlEexkAludLREYdXM44pYEyWA7Yys2I4e+dPFdX
+ eV2DqO/NWmHmFNmWMPE/7Fm57r5/7k8P0/4Z1/QFNLHSfiAAAAA==
+X-Change-ID: 20260624-kmalloc-nolock-fixes-c97675328773
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Harry Yoo <harry@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+ David Rientjes <rientjes@google.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Cc: kernel-team@meta.com, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Wed, 28 Oct 2026 08:48:21 +0100,
-Sonali Pradhan wrote:
-> 
-> f_midi_disable() drains and frees pre-allocated IN requests from
-> in_req_fifo without holding midi->transmit_lock. If f_midi_transmit()
-> runs concurrently on the workqueue, f_midi_do_transmit() can peek a
-> request from in_req_fifo and write into its buffer while
-> f_midi_disable() frees it, leading to a use-after-free.
-> 
-> Additionally, when usb_ep_queue() fails in f_midi_do_transmit() (such
-> as with -ESHUTDOWN when the endpoint is disabled concurrently), it
-> resets req->length = 0 and returns active instead of the error code,
-> causing the do-while loop in f_midi_transmit() to keep spinning under
-> midi->transmit_lock until the substream is drained.
-> 
-> Fix this by acquiring midi->transmit_lock in f_midi_disable() while
-> releasing IN requests from in_req_fifo, and returning the error code
-> from f_midi_do_transmit() when usb_ep_queue() fails so f_midi_transmit()
-> aborts immediately and drops active substreams.
-> 
-> Fixes: e1e3d7ec5da3 ("usb: gadget: f_midi: pre-allocate IN requests")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
+This patchset fixes three kmalloc_nolock() bugs.
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+1. obj_cgroup_put() takes spinlocks in the release path when it drops
+   the last reference, but it can be called from any context.
 
+2. A spinlock may be taken in the following path and may lead
+   to deadlock:
 
-thanks,
+   kmalloc_nolock()
+   -> slab_post_alloc_hook()
+   -> memcg_slab_post_alloc_hook()
+   -> memcg_alloc_abort_single().
 
-Takashi
+3. irq_work_sync() is called without synchronization for rcuwait
+   (on PREEMPT_RT or some architectures), potentially causing a
+   hang.
 
+Bug 1 was reported by lockdep, and bugs 2 [1] and 3 [2] were
+reported by Sashiko.
 
-> ---
-> Changes in v2:
-> - Remove the transmit_lock and ep->enabled checks added in v1 from
->   f_midi_complete() and f_midi_transmit().
-> - Return error code from f_midi_do_transmit() when usb_ep_queue() fails
->   so f_midi_transmit() aborts the loop immediately.
-> - Link to v1: https://lore.kernel.org/all/20261019135701.2767078-1-sonalipradhan@google.com/
-> 
->  drivers/usb/gadget/function/f_midi.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
-> index 63fb6ee70a3d..48cda34399e8 100644
-> --- a/drivers/usb/gadget/function/f_midi.c
-> +++ b/drivers/usb/gadget/function/f_midi.c
-> @@ -420,6 +420,7 @@ static void f_midi_disable(struct usb_function *f)
->  	struct f_midi *midi = func_to_midi(f);
->  	struct usb_composite_dev *cdev = f->config->cdev;
->  	struct usb_request *req = NULL;
-> +	unsigned long flags;
->  
->  	DBG(cdev, "disable\n");
->  
-> @@ -431,8 +432,10 @@ static void f_midi_disable(struct usb_function *f)
->  	usb_ep_disable(midi->out_ep);
->  
->  	/* release IN requests */
-> +	spin_lock_irqsave(&midi->transmit_lock, flags);
->  	while (kfifo_get(&midi->in_req_fifo, &req))
->  		free_ep_req(midi->in_ep, req);
-> +	spin_unlock_irqrestore(&midi->transmit_lock, flags);
->  
->  	f_midi_drop_out_substreams(midi);
->  }
-> @@ -661,6 +664,7 @@ static int f_midi_do_transmit(struct f_midi *midi, struct usb_ep *ep)
->  		ERROR(midi, "%s failed to queue req: %d\n",
->  		      midi->in_ep->name, err);
->  		req->length = 0; /* Re-use request next time. */
-> +		return err;
->  	} else {
->  		/* Upon success, put request at the back of the queue. */
->  		kfifo_skip(&midi->in_req_fifo);
-> -- 
-> 2.56.0.307.g5fe7bd680c-goog
+Patch 1 only touches mm/memcontrol.c and no later patche depends on
+it, so it can go through to the memcg tree.
+
+Deferring obj_cgroup_release()
+==============================
+
+RFC v1 skipped the stock drain in __refill_obj_stock() when spinning is
+not allowed. Making sure "obj_cgroup_put() is not called in a restricted
+context that doesn't allow spinning." is easy to get wrong.
+
+v2 makes obj_cgroup_release() safe in any context instead (as mentioned
+in cover letter of the RFC v1). The release callback only queues the
+objcg (llist_add() + irq_work_queue(), both NMI-safe) and the release
+runs from irq_work.
+
+This also fixes a performance regression in RFC v1 in a free-heavy
+kmalloc_nolock() microbenchmark.
+
+Changes in v2
+=============
+
+- Rebased onto the latest slab/for-next-fixes.
+
+- Rebasing the series, writing patch 1 and 5, and verification was
+  assisted by AI and carefully reviewed by Harry Yoo.
+
+- Patch 1: replaced with the new approach described above.
+
+- Patch 2:
+  - Now introduces the allow_spin local variables itself
+    (previously added by the old patch 1).
+  - Addressed v1 review comments from Vlastimil (thanks!):
+    - restored the blank lines.
+
+- Patch 3 (new): call debug_locks and KCSAN checks in kfree_nolock()
+  regardless of allow_spin, as they acquire a spinlock only when
+  reporting a bug.
+
+- Patch 5 (patch 4 in v1): Introduce a mutex for
+  deferred_work_barrier() as it can no longer reuse slab_mutex. In v1
+  the only caller was kmem_cache_destroy(). The barrier is now also
+  called from kvfree_rcu_barrier() and friends, which are usable outside
+  mm where slab_mutex is not visible. Dropped Vlastimil's Acked-by
+  accordingly.
+
+- Dropped the Cc: stable tags to avoid intrusive backports for unlikely
+  issues in practice [3].
+
+- Link to v1: https://lore.kernel.org/20260624-kmalloc-nolock-fixes-v1-0-fdf4d17351dd@kernel.org
+
+[1] https://sashiko.dev/#/patchset/20260610-slab_alloc_flags-v2-0-7190909db118%40kernel.org?part=9
+[2] https://sashiko.dev/#/patchset/20260615-kfree_rcu_nolock-v3-0-70a54f3775bb%40kernel.org?part=5
+[3] https://lore.kernel.org/1816e94b-87e0-4276-8ff7-1fb651326ab3@kernel.org
+
+---
+Harry Yoo (Meta) (5):
+      mm/memcontrol: defer obj_cgroup_release() to irq_work
+      mm/slab: handle allow_spin in slab_free_hook() instead of open coding
+      mm/slab: call debug_locks and KCSAN checks in kfree_nolock()
+      mm/slab: fix a deadlock in memcg_alloc_abort_single()
+      mm/slab: serialize deferred_work_barrier()
+
+ include/linux/memcontrol.h |   2 +
+ mm/memcontrol.c            |  27 +++++++++--
+ mm/slub.c                  | 112 ++++++++++++++++++++++++++-------------------
+ 3 files changed, 91 insertions(+), 50 deletions(-)
+---
+base-commit: 03a176b9248c4513bb705ed3d931af3a7e9c2a08
+change-id: 20260624-kmalloc-nolock-fixes-c97675328773
+
+Best regards,
+--  
+Cheers,
+Harry / Hyeonggon
+
