@@ -1,89 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696039;
-	b=35fPd17pTX8vc2suhFbxwtwe3TwXYHnWtDhjRrBolnUXBgTz/jUiwK+5IihpAXwRBVU9
-	 qLsO8X4FwCD2okskCupxOWRiRiuPiPEC0DapuTIIe1/89kM5stWl2oo0xbK+3RZia97kN
-	 7OU1M97kldFQ4ZksFZ2GBR+V89QcJoZwtIVxszs54z/vfNgyeg9tFjPkJBOhe6fiKMqSU
-	 qMhNGGLGDFEgPxKzpziSqBlDLvCSBpq/cZxDO7fHtbUyHQdwcUBRzDVUoM9EWRsMwZ7U1
-	 yVvQsydLHCoylXY7aUw9HYGKOLaveUm5ZRqjq9BzYLu0qIlUUG0ES3xCllflRqdp10Q==
+	t=1793696109;
+	b=3DPl4dhPQj/TKw9fSMGGQgdXpZYLWobU/HyAI+PmFLDHH+uGP++fsvEWWYovkSRwXhkb
+	 XsvdGdg1Mxm29fdc21GDhxkg8G+x3vNpyjOgdWsaxeEb1XmOJULSgNBNEwFGtm1ahheie
+	 cgueDt+O2DYLDkl0Dh8XdDADpYQreAbW2f71wsvt60OEhGAzVQkkthFOnxrVO5/8E+21J
+	 LNtgV5Iwuu/pHrEaksIXwrOr0GKd/tpBuEvwNLsSPL2w3sSCshsQLvkfZk5v6S9uLCdFc
+	 1LLuJN/Ie14Www1pCUGkFZ0uobICyIu9+ustJqHYYS3GqPXMdQw0lro1UhAsAJJe67A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696039;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=itZKsf6vDdL64wd7jcD7s+h3ERv0zNg9SrhhaMX8rgQ=;
-	b=OLYvtYrNdd7kaU7lsZSJxoWnQMocgxhK5ruKO/nKdkRBmgQeVhTRXFb/0XZWGy28NNAQ
-	 9wl8xjL0Jd+sI5svt3aNh9Lcm2GYu184iZ7MAqHK4cOdBCdet6N2OD4j4esgdKMRRoj1V
-	 iNiFWV0giIooIp+ybckSX8ak1XmB7kkPP9Ld6rpdyJ0XphwEU6AbvJqfQh03GNc2+Xe1C
-	 7lnhy1+SPvOhgJIm88Y/MID3tH3yCSkfyhsbBSGVIWPsSlF/IYTQVfUi+CFFni6kvDtmU
-	 56FdtbVYgg3Vc7eVDUkeqPKBfFj5lIQuZmUWhIdBPXiLTlHU3leSatRCtI7Lgmcj0DQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696109;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:References:
+	 Content-Language:Autocrypt:Organization:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=agwTDlVTaDDjvub+/sVTXidA5drfVA/Xuq65aoektFk=;
+	b=XoiTNiwnMdSo+n1LkAwj7zfBGVImjp1rng3QWvijVQSjBrx70l5qxiRuZOoLaEBb0kiZ
+	 hFkeExnaQ0IUN62fPpF2lGEbbn/EG/7btuBRQG5pK4j0+GdAKfATspKFhvCi6LZ707vlv
+	 ZjMTT/nGQf/UZfU9eBYRmpLdo8vTI5KowbtBwIbg4VhsXtFWKix4W2f9Vsx3bWpqDMV/W
+	 rbyGji+TVWpbxj6eM7YrpsY+kpHF2nnShrbYcfMIMa6pV9T43K5/bnsgMuZRicf6s8fi8
+	 odN+RwHyP6piIqxXR1HwtRzo6235AEsRWx0HiL/lw7Qhq8RcoOpK1FPCvIN8uDmtO3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=O+eNprhO;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tb4P2c31;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A84606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:53:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57A84606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6760606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:55:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6760606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=O+eNprhO
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31isKC306162;
-	Tue, 3 Nov 2026 08:53:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=itZKsf6vDdL64wd7jcD7s+h3ERv0zNg9SrhhaMX8r
-	gQ=; b=O+eNprhOXuYW0WOQvEw4YhHUixTkJi1AcvhvMuHTcCZcsAYm8kwgdf/Qv
-	GRvGYiFphAfIhxX8J+Mw9EDpJgIuhGMh3RMzQJDFML5X4hULOxSlIa7mL3HutFL5
-	yBBruJTN1OXBwNA86v8g8JeOX1BzmIQlfdi61Hx4tFTzPkwYDqax0uqDYGEJBNFH
-	eAskRVfLC/KS23GH3vvYbrVEXsLUEkHTcRc011FkCObJ8LMTjEuq8eKh4FaCWgD2
-	rwSysa2Elhi81OQeI5jPvl7A2KiLAKPEB03UD5jkqrMxA6AAsxrJAVV1Sv0FWlIh
-	FP3t8mdaXDZZlaDZ8PpwtGiyGVstQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7yrvet8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 08:53:29 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A37aSYZ623512;
-	Tue, 3 Nov 2026 08:53:29 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hnvvfscjc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 08:53:29 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A38rPYY16449920
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 3 Nov 2026 08:53:25 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 39CB820043;
-	Tue,  3 Nov 2026 08:53:25 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 287E020040;
-	Tue,  3 Nov 2026 08:53:22 +0000 (GMT)
-Received: from shivang.bl1-in.ibm.com (unknown [9.123.12.247])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  3 Nov 2026 08:53:21 +0000 (GMT)
-From: Shivang Upadhyay <shivangu@linux.ibm.com>
-To: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        sourabhjain@linux.ibm.com, rppt@kernel.org, ruanjinjie@huawei.com,
-        baoquan.he@linux.dev, Shivang Upadhyay <shivangu@linux.ibm.com>,
-        Anushree Mathur <anushree.mathur@linux.ibm.com>
-Subject: [PATCH] powerpc/crash: update fdt on cpu hotplug remove
-Date: Tue,  3 Nov 2026 14:23:19 +0530
-Message-ID: <20261103085319.51480-1-shivangu@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tb4P2c31
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so40517615e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:55:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793696107; x=1794300907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=agwTDlVTaDDjvub+/sVTXidA5drfVA/Xuq65aoektFk=;
+        b=tb4P2c31O94KPbtcM+9HGamMUoeSJpm688QqLQHP4hJk4CdmZcauDs+ZG3RhjL3OqP
+         83U14EZE2dM08TV1PFO0bayYgxCjJAZwxYrKIi7hshc8+269p2tlnPEdRFkIv76T1oWv
+         qQZlfREtbknavweStprVRQFhLexTTf1hN1Pk0B5pNaw5deRFADnUmYrkzSHWshHO/3Oo
+         yY2crvWrFXr1MrZimgIRy6KNY6kPOi+hJZsm5mishijBDPEy7iBadj+NmHzk4vVU+CKb
+         dabUBw5i9J7b0kVifyOAJ4NSJrBz7Fk83JdvUIcQEODaNRgF0f/7lrMUz5tL5f0LuWFQ
+         jR1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793696107; x=1794300907;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=agwTDlVTaDDjvub+/sVTXidA5drfVA/Xuq65aoektFk=;
+        b=VjFRwwSucGeeGxtE/W7Xbih/+VdX3D57FySONDfKZo+oDyPBr7+gE/IiVePp2QR47C
+         f1UCohQwCtX5F8crUxUuf+wnnddarc1v+VNUrV6BYt7T4ISDLURVFNZ4p+l3ZD5zL1/w
+         IxyvEBnL6q/8VUQqrA0HHCpdiKti6gmHdpNRasf8LwTOpMUq8rgO6FTVa6GFicxZOajA
+         bCPVKAg4xzeIBUUFq66itmgr02j4DMxsefIyFd6ENSSrigkPpPM3Ix4WPpB98L+Q4ccc
+         UwU8nd4t51vuJ3vWkz/VOXJnb7Uz7qWO+6XIH3HtvYkb7ZA3iaQWys9nXj5pzKrKGbqV
+         FbHA==
+X-Gm-Message-State: APuU4Z84JReCErMMVamwEY8GyyDjVj8yUzCEI2MIBtaY3HLzm4mUEOyt
+	CJfigRlnDxi7cXJrAUcLB+1BSJ94xviPNlVeWOrJ+RKJ4iuMxheGQcZRPIRTChHvyMo=
+X-Gm-Gg: AYBFou0+ZTTmdMn4HyfslvyGcs3leDSRcbhX0laa3ISmwNpMtPnS5hp7pRJXz4l54B6
+	6PtphdUHsuO9wJ1qvJfSuIg8vCA1g2/4a0Bjtd6b5QTC9G5vJjZDlBjgDcMxgI0ASKCVpZjqMsb
+	fAZ8Mmgf49fmduUcNijyuvLn9CYhoNKZ91moLdfeFDP8gVCfFu4nbiN5wDqtO+eZeydzPKlkzc3
+	1LbW8yyxlVfFoqgFYO/EfU0bR4reoCCstVcR0Axu7y/nTi26x5+X9e9RH09XoWCuQ8p99GtZWF8
+	MqdVCpUIHGM50JGNi5rmdUmnnw1lzXlLF1RGfI1dLjflawW6CKgrdTR4g7XLq+d8XaxCeO6WLI4
+	ESGAVHyQEEkZEmXfmMtPkMX+wFV3xu3B8eK3ehIANN+2nmYNDQOALktMBD5e9qAdhtbpL3vzwZR
+	hs3XrVuieQR26PmN09tR3OGoxVmMuQtzTDuq6YOXh9yng4a2s3gFWk7xrmHhGCnmK3x0YD/iBm3
+	fEz6dNGoDg1exhMZZo/WaJqYiaRPWF08+YEmdWmzqEQORhjWWqfpQrAUjw72mv2Mt0fNaYCfKX4
+	V/PKtayaKrZBfV3eoR5nMhchtslgj48j8A0xVbo/7pcxmPu2AFLjowzOslS9JxiLtNUF4dZa9Nz
+	LdqlTRIwK
+X-Received: by 2002:a05:600c:8119:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4ac17a36a28mr255021625e9.9.1793696106916;
+        Tue, 03 Nov 2026 00:55:06 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:95a2:4869:9f46:45f0? ([2a01:e0a:106d:1080:95a2:4869:9f46:45f0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9bd5d9fsm40122525e9.15.2026.11.03.00.55.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 00:55:06 -0800 (PST)
+Message-ID: <518cba7c-1aba-492f-ac6a-c5c4fe6da847@linaro.org>
+Date: Tue, 3 Nov 2026 09:55:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,66 +92,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Mcr5KJ/f c=1 sm=1 tr=0 ts=6ae9a10a cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=S-6rMyIPvGFi4FMeT0EA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfX0rxcaEh/2Kz5
- ZLGga6GYB7VlZs2Z6kNOdda082/rfEMKGGDXHyFM6y3NA6fP11xMn3ea7/rYV7zl3Op0cduAJ0Y
- CsdAgVRKgRkoDgFFPC2ZeMjCWit41TY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfX76o3wtPlmDLu
- w68FFedjwKrL4IWwd8dLZdb8DVKYG4DnC8dF400W2siSx9cO6D+Fekcv5D8QC/xmKn1914DNTRl
- HcysI2SA15OyWp+O7tnFCTDighhrQw5SQggMFJFYRE+J0TEbzqwx91dRuwS7pm7ClDnlSxWGdRt
- u8LwjGJQELpp7awcjS5AMoa0ONbYya+ZULk9aOOYXvy4ZfzqFPyAz3LV2Ynxh7xidietxnIyruw
- OAA5H9nixmWauk+DIMfFi81WbJEh/37iv8ZNnnyclptY//5h5+1JQEjWO1o8f0a63GPSgLeaZ9S
- Tv7Di4te11W+etZA0P9R4oshrHQzVgMq9SeI/zGSpojoyRW/5bFHCTDfNyzYHgQPBCEyiiFNZAt
- aDZEmtRXCz+Cr3Xeyz90k8tQradovcx1cYPszT1IbXM5ugSM8xRKfomU1ZzNOomxHSJQ9awDWNF
- ng5bBCc426qW7/Ks7Kg==
-X-Proofpoint-GUID: kyGgd7sLQHA9gL5cdsTSwh2-a3auW3vL
-X-Proofpoint-ORIG-GUID: cdzfwjm90R_Fs9ILAKWt3brLtMRv2zZM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- clxscore=1011 impostorscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030034
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] arm: dts: meson8m2: add dwmac 3.70a compatible
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+References: <20261101232011.1172410-1-martin.blumenstingl@googlemail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261101232011.1172410-1-martin.blumenstingl@googlemail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Currently fdt for crash kernel is not updated on cpu hotplug remove,
-which can lead to the following XIVE warnings on the crash kernel
-bringup.
+On 11/2/26 00:20, Martin Blumenstingl wrote:
+> The Meson8m2 DWMAC reports User ID 0x10 and Synopsys ID 0x37,
+> identifying it as a Synopsys DWMAC 3.70a core.
+> 
+> Add the "snps,dwmac-3.70a" compatible to match meson8b.dtsi.
+> 
+> Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+> ---
+>   arch/arm/boot/dts/amlogic/meson8m2.dtsi | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm/boot/dts/amlogic/meson8m2.dtsi b/arch/arm/boot/dts/amlogic/meson8m2.dtsi
+> index 6725dd9fd825..cdc47ee1a233 100644
+> --- a/arch/arm/boot/dts/amlogic/meson8m2.dtsi
+> +++ b/arch/arm/boot/dts/amlogic/meson8m2.dtsi
+> @@ -25,7 +25,7 @@ canvas: video-lut@48 {
+>   };
+>   
+>   &ethmac {
+> -	compatible = "amlogic,meson8m2-dwmac", "snps,dwmac";
+> +	compatible = "amlogic,meson8m2-dwmac", "snps,dwmac-3.70a", "snps,dwmac";
+>   	reg = <0xc9410000 0x10000
+>   		0xc1108140 0x8>;
+>   	clocks = <&clkc CLKID_ETH>,
 
-[    0.630795][    T1] xive: H_INT_GET_QUEUE_INFO cpu=16 prio=6 failed -55
-[    0.630912][    T1] xive: Error -55 getting queue info CPU 16 prio 6
-[    0.680899][    T1] xive: H_INT_GET_QUEUE_INFO cpu=17 prio=6 failed -55
-[    0.681000][    T1] xive: Error -55 getting queue info CPU 17 prio 6
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Fixing this by updating crash fdt on cpu hotplug remove path also.
-
-Reported-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
-Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-Signed-off-by: Shivang Upadhyay <shivangu@linux.ibm.com>
----
- arch/powerpc/kexec/crash.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
-index 775895f31037..0ef10e39ae49 100644
---- a/arch/powerpc/kexec/crash.c
-+++ b/arch/powerpc/kexec/crash.c
-@@ -639,8 +639,6 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
- 
- 	switch (image->hp_action) {
- 	case KEXEC_CRASH_HP_REMOVE_CPU:
--		return;
--
- 	case KEXEC_CRASH_HP_ADD_CPU:
- 		update_crash_fdt(image);
- 		break;
--- 
-2.54.0
-
+Thanks,
+Neil
