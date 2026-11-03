@@ -1,82 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700321;
-	b=uCFlLHYJnnqtwEhsg8k83U3MGKoAbjtCIx48QEYT7IvbFLhWiOb6XXkcf5kq+gOz7XIe
-	 f40YKZk71GwihpTjoZd2Gc4B7wB8bLpsIIDTe5rAqsOJiIxckkdHmwCySHPvhzuWq0Xj+
-	 sdRGensG4cHymikrtIuD8FcVdfgFFQAaps/WG+oAUp2ZcteKus1p9zwrIypGP7JKo8d7m
-	 9OJiBCpvhFgoDfwWYm0twUkmJydkCsF6xGYPsh77R61e/j6HSU2bfJGXk+4726gLMaP99
-	 9naZUm9QVro3KHYPYBAuevC1chBnzCHeHfcC979zwv/utUpsWg2+Dg8JstkjsAAvZww==
+	t=1793700329;
+	b=G5WlL82FAu001Zo0QyG3tUYpmTzvLXYkVbd//eBgo1O3yxqkB5pEKfIa1+247caKjIOT
+	 7S6SGX9Z86Q3gr0mVQcWxq+4qcnYE6iTjfGM82E8aUFhh8mMvCAlz3hibU3YQpU/fBjya
+	 dJGhU5TMqdaLhAXp5/K/jgKjD0DyNNHHkRaPDSPJW/GONu8/3IfgHMk+uPVhXae/DWcm/
+	 xWPcCNBxyluPFM6oh+kl5SsdFNbiWgVTSCDZu+n2So6QmiQmHCdmMd9Eo8yTfBtOifX3a
+	 ev+pw1Mx6OYJAS0q4ql85LhUg11fEloPG1qIrXC6ZhkJkScBHxd1GHlsjCSwULvG6Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700321;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=H01nuevod7cnFCrtDHpk23vAzEHHZdXCHyJSMzdN5dM=;
-	b=HzYEnqFrZ+E0qCfDowRBGxV9S7S0O7cRqXWVLPcZRerLuIu6loIibN0WhqRI47mIbvW4
-	 MEP8rBPf5W9k1YzagGzQz7Gsnb6/4dGMCnhrI+7KH1Xmgj9d1b9xqSMvlAUyIoOsPqGiw
-	 pcPHHDNp/mN4qPxkpIkqjdQMX1LKp2bBsGT8biVoJPINFvl3ZdFKuxZzIj8xzVPUkfYiY
-	 MkHqSab2+WDUYtKKBjgCcJaToXJTjVHZjmVaGDB4YQ4knvOoV0qBBhwUQwdyZIi6zN6Dj
-	 ZuPih0QZPJPhEkcKwIJP7l0muhOuQDJ7clqbb3IHooDKxM8HiSIST0T03jdr9iLGNhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700329;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=eMhYrEXhK+jNgEjEWTh9+AJn7+8+y5YB3TQvTD1Q6tA=;
+	b=4jFSZJkd21jvFT1VKJyB33yDKdbSdezaePpHFciM3rml61twhaS8iw6rKNv4wjFMJiDo
+	 /y24veSl5Gi+69HEuvcYd9xYxpaAnPQRN3YKOjNVzxnjr+PyKk5LHmbG+mp8vGB18dbOs
+	 JKItXqqhjPV6hjIh/q4XnHJyUsjJmekl6c4/6p3BpzmXeO0b83f72dh26/Kapd5GGWGtS
+	 qihsFOQzyTV/R+6Rs0aPgxjTdQtMWhCDqLG+tnAvnNMxl7abU6TuIEzBgZCd3e53TOU8y
+	 ehuMooVgxg3MVqypPWWhtDln59uIbgt9FhDb8ikDES11JXNz+HYcbvBiS5A46BykNEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a7dnz2HM;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=regW97Ie;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D61606A836;
-	Tue,  3 Nov 2026 10:05:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6D61606A836
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEAB606A808;
+	Tue,  3 Nov 2026 10:05:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDEAB606A808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a7dnz2HM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793700320; x=1825236320;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/4YV5Hv0XTl7jI4bSouEDC6Desep4PfFSDZDI0//9gY=;
-  b=a7dnz2HMkk8VX4fOSICk77lSxOK44sIYEPaOSRYDn+iMs9l7eVFKLYI5
-   hzfxX5O4YWfLNBXGQ8tBpjzPxlEPL3NVUKGHIuQC6a7zJ4audztqZZXA9
-   C3mem88CnUE0vUmidXQNLBIsZrmY3LLCyq283miTJ3QpNznJEnpsIrFgr
-   s2fjrvl5cbJ6YM5cK41nB/giGzp8nu0gCQUwjQzFOzMAWtPJYpbzjjOVd
-   T07qWM4Y/Vn94hvVLhGtCZD8ZUDSBUFf1tlnhmRh9nOdZYFPzBf5RN2GH
-   cawytP4QlFXiSLlfPBkjlR2VZ2B17gzDbYitnQbtpkWnqpDfRlitvailm
-   Q==;
-X-CSE-ConnectionGUID: Rs3XfL3gTg2+HycdCKwFLw==
-X-CSE-MsgGUID: U0IoOYAuSsOBwHc/zho0nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2308179"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2308179"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:05:19 -0800
-X-CSE-ConnectionGUID: uUP+FxXpT42+jL9+a6xt/Q==
-X-CSE-MsgGUID: uiJ1IYByS3iTK3YMRmRpeQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6490303"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:05:17 -0800
-Date: Tue, 3 Nov 2026 12:05:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Arnav Kapoor <kapoorarnav43@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] iio: proximity: sx9310: keep the IRQ balanced
- across suspend and resume
-Message-ID: <aumx29VuBAuKdGIJ@ashevche-desk.local>
-References: <20261028220444.70121-1-kapoorarnav43@gmail.com>
- <20261028220444.70121-2-kapoorarnav43@gmail.com>
- <20261101015416.4b477c91@jic23-hlaptop>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=regW97Ie
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9610CA1648;
+	Tue, 03 Nov 2026 11:05:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1793700326; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=eMhYrEXhK+jNgEjEWTh9+AJn7+8+y5YB3TQvTD1Q6tA=;
+	b=regW97IexwV6kx+XlflsLJ3m1UK0MBab70xex4UyBDyDi+k1LifhVOw7hM+sGKhePWy2JE
+	vvsCaLWo/X1MRACUpvU5CRYOEV2erkgtC97gk8MO6exYy49rJLhIbIwBaH+PHvZJcglCog
+	eirPvTSLsSny2LyNJdyJ1Ot169yhd8iIEMLgsTF/9971zrIw2ORAdEqsKzR8pRcfmVgtl2
+	UcEscRO1YRCv9cqBYABXKI4+OV0px9Da4bo87Lx/r8cVOVbMm5FCU/wfaad68Q8bGAMkVo
+	n+raraf4wBeYsOdkQZ/Vfi85UueuT/oSCmg37asNy3CdSnLUwlZXDepze7ezqQ==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Tue, 03 Nov 2026 11:04:55 +0100
+Subject: [PATCH net-next v6 1/9] net: bcmgenet: ring the doorbell when the
+ last frame of a batch is dropped
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,30 +57,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101015416.4b477c91@jic23-hlaptop>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-nb-genet-mtu-nn-v2-v6-1-61d5631676e5@tipi-net.de>
+References: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
+In-Reply-To: <20261103-nb-genet-mtu-nn-v2-v6-0-61d5631676e5@tipi-net.de>
+To: Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Nov 01, 2026 at 01:54:16AM +0000, Jonathan Cameron wrote:
-> On Thu, 29 Oct 2026 03:34:37 +0530
-> Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
-> 
-> > sx9310_suspend() disables the interrupt first and returns with it still
-> > disabled if a register access fails. Resume isn't called after a failed
-> > suspend, so the interrupt is never enabled again. sx9310_resume() also
-> > returns without enabling it on error. Without an interrupt line,
-> > client->irq is 0 and both callbacks act on IRQ 0, which the driver
-> > doesn't own.
-> 
-> irq 0 doesn't exist any more on any architectures I think..
-> It did once, long ago. Today it means no interrupt.
+bcmgenet_xmit() only writes the producer index at the end of a batch. The
+error exits return before that write. If the dropped frame was the last of
+an xmit_more batch, the frames queued before it stay in the ring until the
+next transmit. The queue is still running, so the watchdog does not fire.
 
-...on the new architectures (?), on the old ones we have to live with it.
+Found by a sashiko review, not by a bug report. The existing exits only
+trigger on an allocation or DMA mapping failure, and the padding in a later
+patch adds three more.
+
+Write the producer index on those exits too.
+
+Fixes: ddd0ca5d60b3 ("net: bcmgenet: add support for xmit_more")
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index 4d2be2a21ed1b..f28b32f62a7c6 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2122,6 +2122,15 @@ static void bcmgenet_hide_tsb(struct sk_buff *skb)
+ 	__skb_pull(skb, sizeof(struct status_64));
+ }
+ 
++static void bcmgenet_tx_kick(struct bcmgenet_priv *priv,
++			     struct bcmgenet_tx_ring *ring,
++			     struct netdev_queue *txq)
++{
++	if (!netdev_xmit_more() || netif_xmit_stopped(txq))
++		bcmgenet_tdma_ring_writel(priv, ring->index,
++					  ring->prod_index, TDMA_PROD_INDEX);
++}
++
+ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ {
+ 	struct bcmgenet_priv *priv = netdev_priv(dev);
+@@ -2168,10 +2177,8 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	/* add the Transmit Status Block */
+ 	skb = bcmgenet_add_tsb(dev, skb, ring);
+-	if (!skb) {
+-		ret = NETDEV_TX_OK;
+-		goto out;
+-	}
++	if (!skb)
++		goto drop;
+ 
+ 	for (i = 0; i <= nr_frags; i++) {
+ 		tx_cb_ptr = bcmgenet_get_txcb(priv, ring);
+@@ -2196,7 +2203,6 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		if (ret) {
+ 			priv->mib.tx_dma_failed++;
+ 			netif_err(priv, tx_err, dev, "Tx DMA map failed\n");
+-			ret = NETDEV_TX_OK;
+ 			goto out_unmap_frags;
+ 		}
+ 		dma_unmap_addr_set(tx_cb_ptr, dma_addr, mapping);
+@@ -2238,10 +2244,7 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	if (ring->free_bds <= (MAX_SKB_FRAGS + 1))
+ 		netif_tx_stop_queue(txq);
+ 
+-	if (!netdev_xmit_more() || netif_xmit_stopped(txq))
+-		/* Packets are ready, update producer index */
+-		bcmgenet_tdma_ring_writel(priv, ring->index,
+-					  ring->prod_index, TDMA_PROD_INDEX);
++	bcmgenet_tx_kick(priv, ring, txq);
+ out:
+ 	spin_unlock(&ring->lock);
+ 
+@@ -2258,6 +2261,10 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	}
+ 
+ 	dev_kfree_skb(skb);
++drop:
++	/* The dropped frame may have been the last one of the batch */
++	bcmgenet_tx_kick(priv, ring, txq);
++	ret = NETDEV_TX_OK;
+ 	goto out;
+ }
+ 
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
