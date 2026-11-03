@@ -1,79 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793736202;
-	b=lZKAMXUsFwwWrBp2MmSnlrDuuO/fxD0H9WdXeBTwq6xI+r+DyUxNU7afvCw+b6RG1DIk
-	 P1IH0leyKO1Rau8tYcZWSDdm4fjbCJ7gEkTRL8VcQVpKEznKalM/I64N0LPVfi4ePPGX/
-	 gCletmjnYX4KMyE4kuW1/TY1CMqsO+b8L7cyZapZeI++9YPKq//WbUU4NNiS5Q7Zd71pV
-	 nzd+DAmkYlKrW5kgksPb1Kihc2xwGCJ3BGFZZIZ3P/cqc1SHmiJ8KCBRFnz+S3fter3S7
-	 Q4xQK1mb7u8Pg3y73Pdri16AP0KEhmREnGi8tAo7JXEfaPCikVJFMPjF1eqkn0iwrUg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793736202;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GIMs1YJrQR1ugDS+TrlJFUtffoilOTXQSJKU4AwMCqM=;
-	b=eLXwEAjV9YxWMAHwggOOn3dcX6CnCisFcThh4IA4bJIhe/p26CzwCzXyWDvq3eKYeKlN
-	 Z6KSIB50xETucjxW64J5LLCZtKOhF8fpuYa2W5pBXuNSoxMcJY/r7Ewd4WZ/uL/7kA9Ql
-	 ZWIziQzRW5GbezKQEUPS/vsxCIppkRNx2WPt8+VMnJpYlEBxGkAfJf12yOI+kw47uYCUA
-	 rYXaGIkjazEQ0b0rkk9c/yivWAe/B5hQcC33w7ydGZE405HnT7ogIpQdeBzH152nrNbOc
-	 fAWqFu3CQh4+eepieiPNW2FjDx04CbUoYtt3GHCe8U2f9dMtCPrE9Inw+9YjYglJ92Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUS9abmS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793736264;
+	b=SkOJdXIUxANLqqjDLp/RP534PpsA0enUKxD+NIvFLGaHY2KaoowhsM309IFW0AlameNp
+	 rLexFTZnCeMgrd0ud2HJ1444YTNWtV39C3N+wE2b1Eplpjkd7zwaSMGKlPmObFf3td0vB
+	 5xVQdo1/MA1AKX2xfvWOZ1skrAicXF4I9EmHnuBYL1+Iv0q0eiZLP6Sg0aqso5CXgSiNb
+	 FaFqAJai1a0zJsbun69ZMUWyaz5L+od28QwsfVi6WyOzdw5RJlopoZeKtav7pt6rCBZFO
+	 vF8JMl/mb5M6bT6kZq8Zs57L2XH1wiS/jqPHMR/ZxCtawD9l2R2csBCXOroE6cMGCcA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736264;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ca0hHsmpG3HQsvFcbsyFyNCCoxGaBnFVGg/6zIoTkvE=;
+	b=FdIicgG2KlFcLhLHvI/A2eIWgc0Y9KLkFKrO38Tlsk8cvPQPcsbNPBnFHmweb/Cp0acK
+	 mv3vTUnYlkoS+GF/6UyMqmBxHl9xXsSdUGdcuc67JO2PlFtrCURwuuyKt/7HvOzu6nyC/
+	 m76uM8Y1BLhjbcahEUD+SkQMlOPOQ7B+qg/EY16ZYFi/Dx5dUmwTz4LEKSiXnya0ePhRG
+	 yDs7DTU3FKNyaqdF4LDAd3Jw/gs9a1S0XnIBPSrPhcJUXfQouVUIJ7K39Hcac7WVSARR/
+	 veULIDGufuLf4QTCNVz/+kob26r7QLt70KR1KfNwwLx9TVB2pSTfF5mdl97l7ksaXgA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5tU5JkE;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891D5606A31B;
-	Tue,  3 Nov 2026 20:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B45606A330;
+	Tue,  3 Nov 2026 20:04:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUS9abmS
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793736202;
-	b=UefImCJBzoN+WQU+VYuHKZAy5AtI8ZJDIrVnjxERCFD1Os0oh3jyAZtO0tvx8pSgv1RX
-	 S4K+o5DC1QEDL0Ts2Op067N0pQjBkq1WBCFILzmDn88X7/GCYiOeYc5Yzh40so3RNTs7u
-	 lHUABKHEpMjsGaqPjdSc6eL8TGio8/oa1h+svxMh7in3tqLQQWL484pDYRpZ4e9/p+9U9
-	 6PPgVPD0BcWAQRdtdWq6y9+Bh+wyVphGk5IgUOkLlIJdvEtSax6bdsk0h+blUZPjhIELG
-	 0bQtefzb7AIDwHGmG9LoSzXr79ygZy7elqOdkoixSdobkSHnVteH4uNe+jmUTDyKcZQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793736202;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GIMs1YJrQR1ugDS+TrlJFUtffoilOTXQSJKU4AwMCqM=;
-	b=mckztlEjhc62Zj9BxKd/SvurwqMGIzo3Oi07PxktWHrdJyKh9muFugKNzyPz6Ofz4gff
-	 WHNx+z3ewNH6xyNRCX+gT8xJQeHZg1UXn+s7n8ZWms1SZqAhy9+XD8HNGhkPUATqSlfMw
-	 PKufFIl0BPCS3bSTtpNl/t4xVB5iBEJf8fXl+WMx06orltuh4u/Dng98zNUyyU41m2n9r
-	 G2KBFOg/g0+FiIB1s0FBMIMMvAR++JIkaq/oCXkHP9D+6UnieG7+igoN33OqUUtXcb5ST
-	 GLkevxGAur484H8RD1LsXCeCdFpcAkj8QIDvGxVIeDuVACrGQaXrYdWQlnslJsVXEOQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D27F71F000C1;
-	Tue,  3 Nov 2026 20:03:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5tU5JkE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45061F0093A;
+	Tue,  3 Nov 2026 20:04:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793736202;
-	bh=GIMs1YJrQR1ugDS+TrlJFUtffoilOTXQSJKU4AwMCqM=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=WUS9abmS/zkyjFkjfse8JT6//dm5rb3MhXWsN743vApIAqQQHbE6Iv/Ziv0uNmGXr
-	 1Yi4qtzqL5V11Ri/GUUqNQrpGkH7ZDomscZc/l/6Dmj4HqohoV9iGw7vYKjHEg9qaZ
-	 oGL43jmldfl+kcAz7Uwy8vn641usc7+Br6CDvYh1fkLMzqDhn4SsKfs37Bs1WsUXZy
-	 94n86tT0y9w7OjoGBE9KDlf1H29rc/QOT8zBDBgeE1SCY5BpByY6jBqFiX/MTy/vg1
-	 V7IhZOzBv3hlL0ap0J1RWIq4viJPjevU4/Px7A/eKj56LrYbi2K7eE8aU3A3FqJ79d
-	 Gf552NWp3UuoA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6453E46ADB;
-	Tue,  3 Nov 2026 20:03:21 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 03 Nov 2026 15:03:21 -0500
-Subject: [PATCH v2] btrfs: fix bio counter and bioc leak when async
- checksumming fails
+	s=k20260515; t=1793736263;
+	bh=ca0hHsmpG3HQsvFcbsyFyNCCoxGaBnFVGg/6zIoTkvE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=g5tU5JkEwn4tu1d8S5HnYL+8vdGgzXem4oU05Ivtpp159At1KIxVA4QVqH9Z7tR1g
+	 x6DX0LiJbmP6icDXAz89InBZEoka7gRC/Q8Hnbluy8bqEoDKhkws0eRj0aiuQLkCBB
+	 HtwrcWANcgQ5Kk3sYUWepJzr363Uw4J74pa4OfPMQmrZIqC383w/D/VFOHZoTogQNp
+	 8M6wd08AdJWZ2Y2Z2koLg4LbvquOZ1oC7QwOacEKlBa5T+nLSBdVpwTsymBcHz6ago
+	 bbBdg7PM1hSa38IJY4dIKBUni/0OW+aRTBYYQsfpUX53IMuHxfJT4bkrjgbgvgnG/e
+	 Bu2SU3Mt6HVkQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,113 +50,102 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-btrfs-async-csum-leak-v2-1-30872bec9613@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2jGdEiG68j8Mi1KmUuVhOpRIC
- P8uj7XLk9x7zgzCwbPALZkh8OjF990K+pSArU33ZPTVyqCVzkilCsshOEEjU2fRSmyxYfNGynN
- duYtTNtWwfj+Bnf/u3kdxsMTyxXbYZNui9jL0YdrDI227o0GK/jRGQkLHxnFuOCO+3m3fxLb05
- sxVhGJZlh+5AekZzwAAAA==
-X-Change-ID: 20261030-btrfs-async-csum-leak-1772df5f0c32
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
-Cc: Qu Wenruo <wqu@suse.com>, Christoph Hellwig <hch@lst.de>, 
- Josef Bacik <josef@toxicpanda.com>, 
- Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
- John Garry <john.garry@linux.dev>, linux-btrfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793736201; l=3251;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=sZ15wckZNBlDyiOLVC9bEfAohvO3ectUWRrLDyA5+Jo=;
- b=SvIUTYUzswOF461t+ia+Mvr4QdkS5dDCzWFzYtYqa6vm3Ju6Yv/w1en7R2C3eCAZtWSAW9u2L
- ifiK38ND2fWA1pfSmFN8mySC2RaANi85jqbizdLWXKaJspdrg/xVBZx
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 3/3] clk: ti: dpll: apply the spread spectrum
+ configuration right away
+From: Brian Masney <masneyb@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Cc: linux-kernel@vger.kernel.org, linux-amarula@amarulasolutions.com, 
+ michael@amarulasolutions.com, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Tero Kristo <kristo@kernel.org>, linux-clk@vger.kernel.org, 
+ linux-omap@vger.kernel.org, Brian Masney <masneyb@kernel.org>
+In-Reply-To: <20261028074436.1958132-4-dario.binacchi@amarulasolutions.com>
+References: <20261028074436.1958132-1-dario.binacchi@amarulasolutions.com>
+ <20261028074436.1958132-4-dario.binacchi@amarulasolutions.com>
+Date: Tue, 03 Nov 2026 15:04:08 -0500
+Message-Id: <179373624826.588706.3689544002135897133.b4-review@b4>
+X-Mailer: b4 0.17-dev-7ca47
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2898; i=masneyb@kernel.org;
+ s=20250903; h=from:subject:message-id;
+ bh=jln7AT7QOPgP6kL9K0P39uOf2tdCbb81WRPJdPJZLVg=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJe2TnValn07XX5sLVj5/1uZe5IwTnLVOL4WPgFHR3Sd
+ q84tTato5SFQYyLQVZMkWVJrlFBROoq23t3NFlg5rAygQxh4OIUgImY8TIyLJT+Jzv1vfPj26sn
+ PJ11fOtGY/+n678v447V2DkjTqJ5+yJGhmnT/+QrtTbtaDJOOXnpxFlVpy2fGjaIh3zjO/Qvm3n
+ pYR4A
+X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-From: Mani Tofigh <mt4022@columbia.edu>
+Hi Dario,
 
-A single failed checksum allocation can make a later device replace
-hang forever.  btrfs_submit_chunk() takes a dev-replace bio counter
-reference and a bioc before it hands a write to the checksum worker.
-If the checksum fails there (e.g., its allocation fails),
-run_one_async_done() ends the bio but drops neither.  The counter then
-never gets back to zero and the next replace waits for it:
+> The spread spectrum clocking (SSC) registers are only programmed by
+> set_rate(), which the clock core skips when the requested rate is
+> already the current one, e.g. when the bootloader has set it up.
+> As a result, the SSC configuration is not applied, as it was with the
+> vendor specific properties.
+> 
+> Apply it from set_spread_spectrum() instead, reprogramming the DPLL
+> at its current rate.
+> 
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> ---
+> Changes in v3:
+> - Skip reprogramming only if the configuration is already applied
+>   to the hardware
+> 
+> Changes in v2:
+> - Check the DPLL lock state instead of its parent, as the reference
+>   and bypass clocks can be the same clock
+> 
+>  drivers/clk/ti/dpll3xxx.c | 49 ++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 43 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/clk/ti/dpll3xxx.c b/drivers/clk/ti/dpll3xxx.c
+> index 634fe0a1f9fd..d32d81a27bfe 100644
+> --- a/drivers/clk/ti/dpll3xxx.c
+> +++ b/drivers/clk/ti/dpll3xxx.c
+> @@ -690,17 +690,22 @@ int omap3_noncore_dpll_set_rate(struct clk_hw *hw, unsigned long rate,
+>   * @hw: pointer to the clock to set the spread spectrum configuration for
+>   * @ss_conf: spread spectrum configuration
+>   *
+> - * Stores the spread spectrum clocking (SSC) configuration of the DPLL. The
+> - * configuration is programmed along with the DPLL multiplier and divider
+> - * at the next rate change. The hardware supports center-spread and
+> - * down-spread only. Returns 0 on success, or a negative error value on
+> - * failure.
+> + * Stores the spread spectrum clocking (SSC) configuration of the DPLL and,
+> + * if the DPLL is locked, reprograms it at its current rate to apply it.
+> + * Otherwise the configuration is applied at the next rate change. The
+> + * hardware supports center-spread and down-spread only. Returns 0 on
+> + * success, negative error value otherwise.
+>   */
+>  int omap3_noncore_dpll_set_spread_spectrum(struct clk_hw *hw,
+>  					   const struct clk_spread_spectrum *ss_conf)
+>  {
+>  	struct clk_hw_omap *clk = to_clk_hw_omap(hw);
+>  	struct dpll_data *dd = clk->dpll_data;
+> +	struct clk_spread_spectrum old_conf;
+> +	struct clk_rate_request req;
+> +	unsigned long rate;
+> +	int ret;
+> +	u32 ctrl;
+>  
+>  	if (!dd || !dd->ssc_enable_mask)
+>  		return -EOPNOTSUPP;
+> @@ -718,9 +723,41 @@ int omap3_noncore_dpll_set_spread_spectrum(struct clk_hw *hw,
+>  		return -EINVAL;
+>  	}
+>  
+> +	ctrl = ti_clk_ll_ops->clk_readl(&dd->control_reg);
+> +
+> +	/* Already applied */
+> +	if (!memcmp(ss_conf, &dd->ssc_conf, sizeof(*ss_conf)) &&
+> +	    !!(ctrl & dd->ssc_enable_mask) == (ss_conf->method != CLK_SPREAD_NO))
 
-  [    8.369171] BTRFS info (device ram0): dev_replace from /dev/ram0 (devid 1) to /dev/ram1 finished
-  [   41.534247] INFO: task btrfscsum:80 blocked for more than 20 seconds.
-  [   41.534391]  btrfs_rm_dev_replace_blocked+0x135/0x180
-  [   41.534463]  btrfs_dev_replace_finishing+0xefe/0x13b0
+The == on this last line has me a little confused right now. Should this
+be an && instead?
 
-The worker is only used when CONFIG_BTRFS_EXPERIMENTAL is off and the
-checksum isn't a fast one, e.g., sha256.  We hit it on a sha256
-filesystem.
+Brian
 
-We put the bioc and drop the counter in that error branch.  We also
-put the bioc on the synchronous error path and on the btrfs_split_bio()
-error path, which both only drop the counter.  With the fix, the
-replace doesn't hang anymore.
-
-This bug was identified and confirmed with the help of fault-injection
-testing on a deterministic hypervisor currently under development.  The
-C reproducer below however hits it within about 35s.
-
-Fixes: f8a53bb58ec7 ("btrfs: handle checksum generation in the storage layer")
-Fixes: c7c97ceff98c ("btrfs: handle bio_split() errors")
-Cc: stable@vger.kernel.org # 6.6+
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Changes in v2:
-- Also put the bioc on the btrfs_split_bio() error path (Qu)
-- Mention the sha256 / non-EXPERIMENTAL setup in the commit message (Qu)
-- Add Reviewed-by from Qu
-- Link to v1: https://patch.msgid.link/20261101-btrfs-async-csum-leak-v1-1-feafe7ae61e9@columbia.edu
-
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/btrfscsum.c
----
- fs/btrfs/bio.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
-index 2c6234f6182f..2e12a6d7e16f 100644
---- a/fs/btrfs/bio.c
-+++ b/fs/btrfs/bio.c
-@@ -624,6 +624,8 @@ static void run_one_async_done(struct btrfs_work *work, bool do_free)
- 
- 	/* If an error occurred we just want to clean up the bio and move on. */
- 	if (bio->bi_status) {
-+		btrfs_put_bioc(async->bioc);
-+		btrfs_bio_counter_dec(async->bbio->inode->root->fs_info);
- 		btrfs_bio_end_io(async->bbio, bio->bi_status);
- 		return;
- 	}
-@@ -762,6 +764,7 @@ static bool btrfs_submit_chunk(struct btrfs_bio *bbio, int mirror_num)
- 		split = btrfs_split_bio(fs_info, bbio, map_length);
- 		if (IS_ERR(split)) {
- 			status = errno_to_blk_status(PTR_ERR(split));
-+			btrfs_put_bioc(bioc);
- 			btrfs_bio_counter_dec(fs_info);
- 			goto end_bbio;
- 		}
-@@ -822,6 +825,7 @@ static bool btrfs_submit_chunk(struct btrfs_bio *bbio, int mirror_num)
- 	return map_length == length;
- 
- fail:
-+	btrfs_put_bioc(bioc);
- 	btrfs_bio_counter_dec(fs_info);
- 	/*
- 	 * We have split the original bbio, now we have to end both the current
-
----
-base-commit: 6255426d70f2755968bb5436ae7b43dae742ac38
-change-id: 20261030-btrfs-async-csum-leak-1772df5f0c32
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
-
+-- 
+Brian Masney <masneyb@kernel.org>
