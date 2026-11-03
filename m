@@ -1,49 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694113;
-	b=RLV0BhTgifrisFNmuWpy4QDyGCn1by69AW7yr6lpWJ4Vj609aZGyJCg8rB6E6xRq/IbK
-	 gis5ycKoFTwCN2JqwTiibmrcXC2UoPoXmxt8Tjexj5oZcbSHjKtabTgX/upfFu9IP7G5x
-	 0zhbGy4oTxPkmdYEGcBw2KEfoZQ7vYcH0apaUk6+bWoLYgzy1B21iJlOpe3lpdn7FQKMF
-	 8IGwFPlVODhxzlT4tgfsxe3nwUrbM/g3wT04zPeuLEmvJXqbhFhoshJ+uoMA38UuqkeCT
-	 Ajr72cq403zBIZeL5YTaszisyTprxxHr7rge0a0xmMD5ZCYRWzGy8D4q8xnjgBtUIOg==
+	t=1793694117;
+	b=5lMCPafO1bORQ6IObOUTGPEsfBT8ekkyFrtNMmvWSckjTSp05kdsMUwYnEnVEX1+Ks7m
+	 hI6mBGTGgJxhaLvPw2F4tDYrUqV5OmV4opEVlcktTw5UOSWHFbRc/wZOF7telwZ2mjGb2
+	 Cv8+wYDtC1SLHeYTpQrv07qHa8OjQKd/3mnjiPe3DRs6wEvpvVw64HhJ+Bl4woHd68FlW
+	 AFfA2naujs6QDNtB1JgQ8Sd7AB11LHTnmhlb//81F2PIJK83lt8bihzZ/QE1sUWfosHKG
+	 +7rFKdEj5YPKXlf6QnFdqh4Msq/bsIFmLKSn5m75TFalYb+VxnjOAu7JM0FeYmSXL1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694113;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=WixHpB8N4M++eagrGtYe6t/Wu7Mqek2EVGnTx2XIQrU=;
-	b=sQ2bUvlMXUQN9EWLvzoZEC0wvw1RORQUif+xgcWximzd14yOpvzC7KaH5R9f2l/QtGr0
-	 QR4YYU1jwMrTxF+sZpnZNxfQ/b8RhbMgsjQsps+Ujep/ltUaGPl55dqWMlhdTSBY08V2p
-	 i2HuRNeorLuujIvZHd8HUinFkLhgTw1EX9WTJvh3y91P/er79bhPz+O71sJGxBIswjcU+
-	 /cQb0e7ISTbZoHKw1/O2gKsCgWMA1VksPib8nNIC0w78gOThPG4FDefQfi8G7SdDaEV+V
-	 erpltpCuDbR/qGvFzJkU4HIyMElcqC5cl2XMua7jasQpcwh4AhK1cNjYKYdbiidvPgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694117;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=yLQRnh2hdGlVukDi2GeDt7GCNY8T/kIpvofHSqWsHiQ=;
+	b=Bh2t+K/9eSjZsJ2QeZQ4fT/RusBEWWGIRE38i2K7+p/s/ercBD1ThlIOs6dWuG4hSM7O
+	 qiwiV8oLujx1MoVL2X5I6ivgSZCUVacIYhTeeDoeulSAQeBNr5t/qKG0ylcDeKo6nqh6P
+	 ehID9B5uPNRlUaFuDMosYwqpmyPxUeb3NkQdUD3Eb/yuyKVBiww1uFxlKckfufCY2N7JY
+	 7uvybjnhIs9bf/syRDcm6Gw0OS8QTtWBqFtvevOJgCkIOf6orfxD8ejsJgjNm8UN3XXLw
+	 QTZcHkRI/INp8y5VloIVWKSuq8OLJfL92f0CGK3nXUFjs6oCDRE5OufUId2n9bZb8zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="j/gYoG/F";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77E46606A32C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:21:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E46606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jJVYUhix;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gXrDHLwD;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185D1606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:21:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 185D1606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j/gYoG/F
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 536201595;
-	Tue,  3 Nov 2026 00:21:47 -0800 (PST)
-Received: from [10.57.66.208] (unknown [10.57.66.208])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A46D3F628;
-	Tue,  3 Nov 2026 00:21:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793694110; bh=gCf635Z0t+q9uenx/i536l/3FLqnNeuLKcM86iQ5qzw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=j/gYoG/FtE4TTRjotanpcFBp2bzYU6509gZ5lRNBX06r3efUVt6QoF1M15Yu1bu4v
-	 WrPwLfGgDCenVXItO2rJ5kfhAr4eGdu+AnbMLVmVlPV6uvIwyGl5engvULJCPx4qCU
-	 YCrz2Q7n13cf8qVN64VlvjsbtENu/zpKFsbEJHFk=
-Message-ID: <6faca00c-dfd5-46a3-9766-9f573ad71d75@arm.com>
-Date: Tue, 3 Nov 2026 08:21:47 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jJVYUhix;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gXrDHLwD
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A37pl49470803
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 08:21:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=yLQRnh2hdGlVukDi2GeDt7GC
+	NY8T/kIpvofHSqWsHiQ=; b=jJVYUhixx967j2ttO4X3I1RY5j/nnJieQ6eYyvH+
+	ALvOFWymp1Kw/xWtKRwb7JxUPkj7PvOvj2qZREyi+DjSkmsJeuMQF0Dv4/F5J58f
+	9T+gr26qtTUpbxxnPBVBOpSbIgbL2FYQBCNURplYoa1Vtk3ZIO/7uduE7KdpWtva
+	NJNm5u0Y0OOFdd516ZiyEeZ6RYRH74wcgbvw2u0kQIxX2Ge4bI+lKZWSjgB5v9b1
+	kdwGRLjPWoqFOBmhqlhVJkkxH/r0ViNspS+C1qsVtQGj+u8X9ysgPPVD3ADSFFyZ
+	RMcdtCgKeDpw4tIS5ZIgq//qs321DTAk6Vilp1UZuID/JQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq081tqpr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:21:56 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36637676140so5388548eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:21:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793694116; x=1794298916; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yLQRnh2hdGlVukDi2GeDt7GCNY8T/kIpvofHSqWsHiQ=;
+        b=gXrDHLwDcGr0jy2IYdwHzxamMMw05I5eI4UuC3X49SUi8JnTolpNAUfXAcoVx0Ob7O
+         9qkEr8a7cCgWp9BVTOpfRrq5KcdVIRMik2zmSt6tXRS2yL2isX7euSmGWOcuGPUOPhEh
+         2WzVHkZ4pYar8OJuB/medfHpHKsZj5yoKs5geLqIkfSdzmSX4YUS2AlKsyOqf3NKhcwB
+         2LqYZ9OFq5tEe83a4LDRz/AJ24Tj9OtKo92TiftbCX2rVRHqL8uxN4cnW4KHJ5+DZZ15
+         7rNIe9vKQaIcW4H4cCvbhxkXLlBV/eiFRHrmo5yLUyWiSr43fCPf6cnOPAW/R7shTktr
+         NmIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793694116; x=1794298916;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yLQRnh2hdGlVukDi2GeDt7GCNY8T/kIpvofHSqWsHiQ=;
+        b=RWuEse1+y8v/OnB+9fWmhXM5BwZVhDrECeOSuQH+s5MBxFTJ7CRWtVncyhncjPwQ1e
+         X25OYUYh/AX/dsBfi6gGxe9qx5EW/6rGPRtd2xokkzGOqUATKprMVlbc5/GwjtHs89VP
+         IsO+YTzayuqvNjOuFsWXSr+g9Bdt/9I+xxv+ct++JMqyvUNNmcv3FJogblRY1CD5sB+t
+         nau9uQrIuT08Rmr6QImyJ90rYtfRX87X4Yb87vcX+u1PY4fGghgd5IH4QNVsVc8jXopU
+         yH2s1JUJxTxsq01MvnVysxsUzQm/Hpliz54EiLd8Kjy5Nu5rPdku0SHKqx0yIeYHmwor
+         RMJg==
+X-Forwarded-Encrypted: i=1; AKwUvBxlySD6Q+3O2Tt9zIGVK+tdB3XC3fv9x6yOQdkMkXUOFFooj4tus2lgawxkOKp1huYTVQAi87tD/4lD1DU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HBPNH2oH1TzaIBDTCmz3bKxDgL3CysmNIfKQtO1F2ymRZ/mgs
+	mVRhFsiEUvyhgKbdL4cO127M6xd3WkYgM3AYnhA0KwJ3iN7MUpjWD+oPyz3SVSFETlgGRwKWw7e
+	OSvLsGPSVF5GQMYEEHZ4OKAJidzCsuWa87M49PE/ULoC6MGKCj/YP4nDPsJ2ZyQlCc+4=
+X-Gm-Gg: AYBFou2t/GnI8sDxE4CbJ9EwRjIASjbmkFK1lUAH+rB/rr8NfZ6o6aNmiCJGgBOnXSA
+	Weg/C18KODEoHIc+z/RDxfmCNFzO0e2Mptj4dy1dzcmc27UTg461+ckja73CU/lkmJWik9i/rG1
+	8+wfpaTTao7jjPyJCruE3TpF2bTRleSokBohBolHxTSScQvigLDzl7aw7gLmVId202LYszOcAq1
+	Y3Yw8WvZc+KUVVeN4XRCrFawYATXYDYDfabk+gOCwzHhhDLZ4gs5p4bu21JavK4xpKnsG/lEDUm
+	vbKxLExIn4qxT/bIEiyCa/1gWsVZMGBOs4FI526JhJLb2N0ovzwRa6AjsKyATDfGcr4JeqUSj9h
+	9icGVZzHgcJT/4cdtu6VokovqbMiV+5Q9UWT8kkLjYL0QnrRidFWh4QjmBhujgiOfgCHf668qUK
+	tYg7DCXzDMVjqBzg==
+X-Received: by 2002:a05:693c:880d:10b0:34e:9923:e372 with SMTP id 5a478bee46e88-36a4241a810mr20200302eec.29.1793694115515;
+        Tue, 03 Nov 2026 00:21:55 -0800 (PST)
+X-Received: by 2002:a05:693c:880d:10b0:34e:9923:e372 with SMTP id 5a478bee46e88-36a4241a810mr20200273eec.29.1793694114999;
+        Tue, 03 Nov 2026 00:21:54 -0800 (PST)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428ecb61sm39999277eec.10.2026.11.03.00.21.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 00:21:54 -0800 (PST)
+Date: Tue, 3 Nov 2026 16:21:49 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
+Subject: Re: [PATCH RFC] arm64: dts: qcom: nord: add ADC-TM thermistor
+ channels for Nord PMICs
+Message-ID: <aumZncr_X52nXO_P@QCOM-aGQu4IUr3Y>
+References: <20261028150103.520428-1-shengchao.guo@oss.qualcomm.com>
+ <34479df5-3f4f-485e-8204-3744a09ce08d@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,100 +126,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] sched/delayacct: blkio_start recorded on the wrong task
- when a delayed task is blocked from pick
-To: kiln <806144828@qq.com>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Balbir Singh <bsingharora@gmail.com>,
- Yang Yang <yang.yang29@zte.com.cn>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
- K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org
-References: <tencent_6CFB6E9B26A308DC2800D4059DF93FEC9706@qq.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <tencent_6CFB6E9B26A308DC2800D4059DF93FEC9706@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <34479df5-3f4f-485e-8204-3744a09ce08d@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzMyBTYWx0ZWRfX6WzALKjlvJ/0
+ adv1m7PvdZ+ohcDSb32NmjsQCEg4icbzJETJK7HZ/JEwO4f7HWdurHWV6zUB+0l4fj4Ws9HFH5D
+ CGSynnkQ3RXr+eExmdPq2Yp0G8vkfLQ=
+X-Proofpoint-ORIG-GUID: LQQPTYYM7Fgl1qTjkatdYrr6HOr590Tk
+X-Authority-Analysis: v=2.4 cv=F73C5ahN c=1 sm=1 tr=0 ts=6ae999a4 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=JDAaRAOIzmlwRyo0OuIA:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-GUID: LQQPTYYM7Fgl1qTjkatdYrr6HOr590Tk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzMyBTYWx0ZWRfX1bUywwTJWqwo
+ SB5EvTPPLS1oXkthM19Un0yOg0d36szM1cU6rJMy+dayBmOOD7gh1yu0sFDZDiq5DZJj5ePVCjV
+ JxReol3zFRd7b1LZtTCpScLj6WOe7DE+YmWnz7MQV35k62cIfA+UBiHeiTmvFk1O9ewXBMynj+7
+ 0YRMWFEC0pI3cBrKv7Wzfwfsi6lWp/xXQaVNW+M3b/CjGCEMjvJIUYjTF4pz3qypec3Z5agd1bL
+ BuP5SweeofHVvnNa39HxdSKNbTmjV8xY0c5289MoGLzNsEyH2XJl2Gj4KkSn+uUXZsu716vZO+C
+ cPUe1w1jyqMs22D1JkEmDwwp8A1UeyWOPj2Na8ub7uvTXf78cuuRtrPbT7RXyr2dfxIVHioGFeY
+ I7RCBVZPZ/umyWT3M8bjgJtludGJABiOAAnRqca2OrLBfILhUkl8HnagaKlaR8LmS7s1ds6rd1P
+ uvZ5qpqrlfLMS7Fls0g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030033
 
-On 11/3/26 06:01, kiln wrote:
-> Hi,
+On Mon, Nov 02, 2026 at 12:54:37PM +0100, Konrad Dybcio wrote:
+> On 10/28/26 4:01 PM, Shawn Guo wrote:
+> > From: Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
+> > 
+> > PMAU0102 (Kai_MV) and PMM8650AU's Kobra_MM ADC5 Gen3 controllers only
+> > expose REF_GND/1P25VREF/DIE_TEMP calibration channels; none of their
+> > AMUX thermistor pins are wired up, so none of the board thermistor
+> > rails feed the thermal framework.
+> > 
+> > Only 3 AMUX pins are actually wired to thermistors on Nord, all on
+> > Kai and none on Kobra: Kai instance E's AMUX1 (SDRAM3 THERM) and Kai
+> > instance I's AMUX1/AMUX2 (SDRAM1 THERM, UFS THERM). Kai's other AMUX
+> > pins are either DO_NOT_USE or wired to voltage-rail monitors, not
+> > thermistors, so add only these 3 channels.
 > 
-> I think there's a delay accounting bug that came in with DELAY_DEQUEUE.
-> __block_task() calls delayacct_blkio_start(), and that helper always
-> writes current->delays->blkio_start. That's fine when __block_task() runs
-> from __schedule() for prev, but when the task was delayed and gets
-> blocked later from pick_next_task_fair() -> pick_next_entity() ->
-> dequeue_entities() -> __block_task(), current is whoever is scheduling on
-> that CPU, not p. So p's blkio_start is never set (or is left over from
-> an older sleep), and when the I/O completes ttwu() calls
-> delayacct_blkio_end(p), which adds local_clock() - blkio_start to p's
-> blkio_delay. For a fresh thread blkio_start is 0, so the thread gets
-> charged the whole time since boot in one go.
-> 
-> How I ran into it: per-thread blkio delay (taskstats, and field 42 of
-> /proc/<pid>/task/<tid>/stat) on some hosts showed threads that were a
-> couple of seconds old with ~7,070,000 s of block I/O delay, which was
-> exactly the host uptime. Always freshly created threads of a headless
-> Chrome (ThreadPoolForeg, Chrome_IOThread, Compositor and so on); Chrome
-> creates lots of short-lived threads that soon wait on ext4 journal I/O.
-> 
-> Kernel: a distro 6.6.102 kernel that carries the EEVDF / DELAY_DEQUEUE
-> backport (Alibaba Cloud Linux 4, 6.6.102-7.alnx4). I have not reproduced
-> it on mainline yet, but as far as I can tell the code there is the same:
-> __block_task() in kernel/sched/sched.h still calls delayacct_blkio_start()
-> with no task argument, in v6.12 and current master.
-> 
-> What I measured with bpftrace while starting Chrome a few times
-> (roughly 70 s per run):
-> 
-> kprobe:dequeue_entities    { @in_de[tid] = 1; }
-> kretprobe:dequeue_entities { delete(@in_de[tid]); }
-> kprobe:__delayacct_blkio_start {
->   @start[@in_de[tid] ? "from dequeue_entities" : "from __schedule",
->          curtask->in_iowait] = count();
-> }
-> kprobe:__delayacct_blkio_end {
->   $p = (struct task_struct *)arg0;
->   if ($p->delays->blkio_start == 0) { @zero[$p->comm] = count(); }
-> }
-> 
-> With DELAY_DEQUEUE on (two runs):
->   from __schedule, current in_iowait=1:        11081 / 8691
->   from __schedule, current in_iowait=0:            0 / 0
->   from dequeue_entities, current in_iowait=1:     50 / 61
->   from dequeue_entities, current in_iowait=0:     52 / 103
->   blkio_end with blkio_start == 0:                 3 / 10 (all Chrome threads)
-> 
-> With NO_DELAY_DEQUEUE (two runs, same workload):
->   from dequeue_entities:                         0 / 2
->   blkio_end with blkio_start == 0:               0 / 0
->   starts vs ends: 12057 vs 12056, 9612 vs 9610
-> 
-> So on the dequeue_entities path about half of the starts land on a task
-> that isn't even in iowait. A kernel stack for one of the zero-start ends:
-> 
->   __delayacct_blkio_end+1
->   try_to_wake_up+1509
->   wake_bit_function+57
->   __wake_up_common+118
->   __wake_up_common_lock+129
->   wake_up_bit+127
->   journal_end_buffer_io_sync+48
->   end_bio_bh_io_sync+38
-> 
-> This looks like the mirror image of c96f5471ce7d ("delayacct: Account
-> blkio completion on the correct task"), which fixed the end side the same
-> way. The obvious fix would be to pass p down, something like
-> delayacct_blkio_start(p) setting p->delays->blkio_start (checking
-> p->delays rather than current->delays). Happy to send a patch if that
-> direction is okay.
-> 
-> Thanks
-> kiln
-> 
+> These thermistors seem to concern board-side thermistors, not
+> channels coming straight from the PMIC, so these additional
+> thermistors belong in the board DT
 
-This should be fixed by
-https://git.kernel.org/pub/scm/linux/kernel/git/peterz/queue.git/commit/?h=sched/urgent&id=5d010dd27be92a68eaac3af4f5ef0555bcde6031
-(please give it a try!). It being in queue/sched/urgent should mean it
-comes in with -rc2?
-Peter any reason this isn't in tip yet?
+Indeed! The AMUX wiring is board specific. I will send v2 to keep only
+#thermal-sensor-cells in pmau0102-nord.dtsi (for all Kai ADC instances,
+as it is a PMIC capability), and move the thermistor channels and thermal
+zones into the board DTS.
+
+Thanks for the review, Konrad!
+
+Shawn
