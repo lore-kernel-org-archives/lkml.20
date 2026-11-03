@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793695376;
-	b=2jW1ymaz2iKgghs2zHJKHclakEjsmCOa9WTu/M80RWmhMoD2DoaZPvpmwt92uIYp4lPV
-	 R3Ek12DtkPyxwreN6xJz+lzTmY8FFXTLjm+VjLUmoawg7jHxk/S8tYIYGI+Y2hr5LEaOg
-	 XZk/ZmInFaRb5/qCaFtmZuXftmMJRqwL6NPRd3bU7u7ySWiy71t49QdXvU0dN/c0FATlO
-	 sczfxJtvz6Ufm+2xRwpOE8I9KG73HFt4KhrZk+z17I/dHKd8YjXnwnoo7xruyXxdDPb7f
-	 AAZzTzoD5JacqON0PuTWQDiqt/Du6Kfb8t2XipAEH9rjNA6biryEtF5XjO/0Ciatxag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695376;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7sTZJyUq7mKy3Fxr6vaWDbX2Cxr/cZcHPJrauTyc4Rg=;
-	b=gVEbZyquWuVISF2GDSUfX9tyyqbLIS2mvQXXdOtETS/XmueO1bU89c2KCtGLDQy+AHCy
-	 M6v9dxvsFdWL1j4Cz2se0HHQzUwp2lZC4PXAqBfH/vmo0qHVq7HRks46pu/irlUu+2v2w
-	 62dxRy9UOAu69dLm0mtZYDQAyEJ89/rhOLZl1XLNrLXNahbbqy40yeJBQ13sVwhhVl422
-	 vCSsUXXV5KcTJzprzJdBpSRk8Fq8mJ3OxX1IsALFiPZWVypPr4QtpsYGgCWhk6v3n1z42
-	 KRlkCuXN2jeE5EFGp5lJJJhS4FENxfxmXnzGEuo3+Z0Y5wVr+87E8LFthU2DfZBgMMQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lGF/X43v";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571A7606A95E;
-	Tue,  3 Nov 2026 08:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793695385;
+	b=paTS3MiUcSKbMQvbnxyQT8hQIdOBnwBZLO6YumnUf4xLI2OSgkwsbl6fvD/eaQ6XrCRb
+	 TRcWLOeJ7Yz3M4ezuJnyPxwEoOJI1GJ4MFC6RErW2XdVKY9s7NVHymAJEoAIRtrij3uad
+	 vcWhl2Y8DVFtyVmlBOVa5KvSZsICNuzQALJw17I5ifd7foeTi7Fn/uyOwQvVN/aNhEPmA
+	 hiA1ZoBCep+LBWXHyUIXBdAf56fkCLkF2+sTbO1xAaoygf1UPKc9u15jC86uNCAi8V8IF
+	 3IgAOxdLDBidsM253ohqrQM7KJroCR7OACTsl361qnMjIo9hitAweEFXinElCDJ3hRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695385;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=R3G95yWaf+sWcTEm63d9FXQfK/5a79F3ruZBzma63A8=;
+	b=yEfq3wLnrsFPcsstQdLGCvWfu7+0eqpQFx4iQn0NRmRjn1Wd3/jJHYfZjlFQY0gOo633
+	 eob1HNRtMr2kpOoun7S8henqq5B7QTa4XvM0nV4mPEo7kFLqOcC6lnHOJP5nwviDsnAx4
+	 mJ6F9Q80K9I3ZigBs5VmNQv85bgdpeXgaGBF+eHVX9Y+Ur+OPl0y6+yit77M25FNSKOvE
+	 H9YvEhFVaqHPmIwIMKq3moV7sMPSZePzkskfQyGBFYQ9YyZA22ACOIVaZ+zUKMvxbK9Zj
+	 UzljZ2F7ve6RIVRzylLz2/WmPWXoxTz+uPijPcxObwIuo5EVg5V9dCpew1vgt4+m6Ug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=DXJPWLzn;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7AF5D606A95E;
+	Tue,  3 Nov 2026 08:43:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AF5D606A95E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGF/X43v
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793695376;
-	b=YP9qtoqnEOO6hg9ATuFdkxjAPUWE0s4JeeXNxAf7LJTaWyDjx/03DV0ekLKo0uVMs1wm
-	 +l6h3rxuLDQr5LuTOvHRHidRnSF1kh7OIFWZHdOiWCJBKdTlPfvBHaC7z6YrCmzUl5nnI
-	 /fIijRSDVHb/Oo0Cs+g1tJR8m0S84jLE3qV0LvMQvj7Zuk24dV9x+9o2viJPv4CR3w4mz
-	 QPF8d8qkcRpQkwAxgTY1U4TFjqleH1vbcq4k/XCWV4Wmy6M08yjNxl5vSbhpJ+jcGgj/V
-	 4MejlvZL6iYDwj+D8/Y7xtGelyT/VkziqIAjOJmDmnvcfQD1IKdxGdIVN09WP/NbW7w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793695376;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7sTZJyUq7mKy3Fxr6vaWDbX2Cxr/cZcHPJrauTyc4Rg=;
-	b=zqm+fu1NmfK4/ZOvc/u60ptfisD31GwyJEpv1+gt4sddJplDKK9NeYVSn8CyHutFTFKr
-	 8Z75Yb2PKgbicnJjqh1/5G0hdgPvXwM6gFCaxE1Xq4cxTPaQABwdvNkBcy4lMIuTQ7/RW
-	 38kv2NiDJXyVMC48R05gMQtaK5fOpytDP+dClXkN9v7/zto6Uesril9eMuJBDFtHmXHJt
-	 drgcX0bYJeVU59X+vMEs3h3ay6QXTRFH+caF3JASnVouVFKKiGbAqPE9KBKbaC3HJ8YQN
-	 nzDz934nN6SgJptcsBwU37d+rOs8Rhfdz0Xa6jblHHugf1ZV3amp+ZNL0O/utR6esgQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6DF701F00919;
-	Tue,  3 Nov 2026 08:42:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793695376;
-	bh=7sTZJyUq7mKy3Fxr6vaWDbX2Cxr/cZcHPJrauTyc4Rg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=lGF/X43vZBVbt9XLJZB8PFxQd+f1nm/KTZKCY+1sD2PvsDYVJ3OnbsMYjXiJ+yE+N
-	 4LDlq2kXDuXcXWCNZagmYlY+jdyKU2xF3YvEflb20YHgRokIIKM2mKLMpPHWIbF4f/
-	 7QdymwbtBdMjOq1Nz2cZks661WP/69Iw1xEsy/ZJvCy3cQla4JPi7GbXPjBhbu163g
-	 aGysZsOcPARbEQNuEgjQkhXqDwkycJDqcV5k4YtOm1Pzc+R8dFurvFCLvhITbWfNhT
-	 E4HRjQG4Q9fhenm7bxxh97vF9ntn5WQfWfbSCGSioek6VzMhyi9ntK2jb8qjub1BhH
-	 iiHXbfi8YeA+Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E79BB4682A;
-	Tue,  3 Nov 2026 08:42:54 +0000 (UTC)
-From: Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
-Date: Tue, 03 Nov 2026 08:42:48 +0000
-Subject: [PATCH] iio: light: al3010: fix out-of-bounds read of the scale
- table
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=DXJPWLzn
+Received: from [10.95.64.190] (unknown [4.194.122.136])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 87A4A20B7166;
+	Tue,  3 Nov 2026 00:42:47 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 87A4A20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793695370;
+	bh=R3G95yWaf+sWcTEm63d9FXQfK/5a79F3ruZBzma63A8=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=DXJPWLznZPYVXr3OmPYzZcQG1HlwtFfSG+/+kJHkWVF9KBIh8nLsRrdttdQlAdfcM
+	 YrcqZmod/F1py7b2yxaEtICrqh3jba6UjP71iSIv/9FQqSK+oTSNUQxFDEQ9t6OZYs
+	 G7sLeIYyi2a4f6h1I1R58pUHBgc2+6FMl+Ko4pxk=
+Message-ID: <e7eacfc8-7bf1-4dde-b62a-607a490fdd06@linux.microsoft.com>
+Date: Tue, 3 Nov 2026 14:12:59 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,81 +53,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-al3010-scale-bounds-v1-1-6110c2ffe3b4@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxA0atI1g0kKtb2KsXFzJjWFBnLRKUg3
- r2jXb7F/xuYJBWDe7FBklVNp5jBlwLC4OJLUPtsKKlsmKlCN1bEhBbcKOinJfaGVPv2xiKuvja
- Qy0+Sp37P66P72xb/ljAfK9j3H2ZFq3B3AAAA
-X-Change-ID: 20261103-al3010-scale-bounds-04b891eea476
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Dmitry Osipenko <digetx@gmail.com>, 
- David Heidelberg <david@ixit.cz>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793695374; l=1752;
- i=raffaele.tranfaglia@gmail.com; s=20261011; h=from:subject:message-id;
- bh=wBZCgtZERGB8XNugFlSt0efy2L/NU1X8KF6SrS/tjqs=;
- b=eOxXoHadO3NIfwDPw73bTr3xABL88fOLiUqxWGYFz/ReqKOrnjHjtblVW6gtg31s2IpM+nwcz
- i1LeJ+W1TRdC9gLAmx0fnlNmQXR3TYwujEkq6dsM0FmaZOsegLX14Mr
-X-Developer-Key: i=raffaele.tranfaglia@gmail.com; a=ed25519;
- pk=mweuSGNM6vguCTdqa+aiHwMXdgk70suj2wolzCp6XGM=
-X-Endpoint-Received: by B4 Relay for raffaele.tranfaglia@gmail.com/20261011
- with auth_id=1160
-X-Original-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-Reply-To: raffaele.tranfaglia@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] Documentation: hyperv: Update docs for PCI pass-thru
+ device support
+To: mhklinux@outlook.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ rdunlap@infradead.org, linux-kernel@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261101022257.52819-1-mhklinux@outlook.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <20261101022257.52819-1-mhklinux@outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
 
-The gain field read from the CONFIG register is three bits wide, so it
-can hold values from 0 to 7, but al3010_scales[] only has four entries.
-If the register holds a gain value of 4 or more, reading the scale
-attribute indexes past the end of the table and returns garbage.
 
-Reject such values with -EINVAL instead of indexing past the end of
-the table.
+On 11/1/2026 7:52 AM, Michael Kelley wrote:
+> Add a section to the documentation describing the IRQ domain and IRQ chip
+> hierarchy that is created for virtual PCI devices, including the
+> differences on x86 and arm64, and the reasons for those differences.
+> 
+> In the context of the IRQ domain and chip hierarchies, describe how the
+> CPU selected for effective affinity is spread across CPUs in the affinity
+> masks. Again, account for the differences in x86 and arm64.
+> 
+> Finally, rework existing text on how MSI messages are composed. Provide
+> an expanded section on the overall approach that Hyper-V takes to MSI
+> messages. The section provides more context on the handling of MSI messages
+> in the Hyper-V vPCI driver, and why it is structured the way it is.
+> 
+> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+> ---
 
-Fixes: c36b5195ab70 ("iio: light: add Dyna-Image AL3010 driver")
-Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
----
-Found with LLM-assisted static analysis of drivers/iio, looking for
-table lookups indexed by unchecked register fields; the fix was drafted
-with the same assistant and reviewed and tested by me.
+<snip>
 
-Tested on arm64 QEMU with i2c-stub and CONFIG_UBSAN_BOUNDS=y. After
-writing a gain value of 4 to CONFIG (0x10), reading
-in_illuminance_scale:
-- before: two array-index-out-of-bounds reports (al3010.c:137 and
-  :138), and the attribute reads 0.000000
-- after: the read fails with -EINVAL and no report is printed
----
- drivers/iio/light/al3010.c | 3 +++
- 1 file changed, 3 insertions(+)
+> +MSI Messages
+> +------------
+> +In a typical guest on KVM, the VMM traps guest writes to a vPCI
+> +device's MSI/MSI-X registers/tables. The guest writes a virutal
+> +message (with a guest APIC address and a guest vector), and VMM
+> +emulation translates the message to program the physical device and
+> +physical device interrupt remapping (IR) tables on the guest's
+> +behalf. The guest never sees or handles the host-level MSI message.
+> +
+> +Hyper-V takes a different approach in which MSI/MSI-X register or
+> +table writes are not trapped. The guest writes the device's MSI/MSI-X
+> +registers/tables directly with a host-valid MSI message. The physical
+> +IOMMU and its remapping table are still owned by the host, so the
+> +guest must ask the host for the proper message.
+> +
 
-diff --git a/drivers/iio/light/al3010.c b/drivers/iio/light/al3010.c
-index 49f6d8336dbe..481dad5097b9 100644
---- a/drivers/iio/light/al3010.c
-+++ b/drivers/iio/light/al3010.c
-@@ -134,6 +134,9 @@ static int al3010_read_raw(struct iio_dev *indio_dev,
- 			return ret;
- 
- 		gain = FIELD_GET(AL3010_GAIN_MASK, gain);
-+		if (gain >= ARRAY_SIZE(al3010_scales))
-+			return -EINVAL;
-+
- 		*val = al3010_scales[gain][0];
- 		*val2 = al3010_scales[gain][1];
- 
+Could we distinguish MSI-X table writes from MSI configuration-space
+writes here?
 
----
-base-commit: d1425b382b9cc5bd19223fad8ba4a8af3dbe1305
-change-id: 20261103-al3010-scale-bounds-04b891eea476
+pci_write_msg_msi() programs the MSI address/data through
+pci_write_config_*(), which goes through the Hyper-V config-space
+access mechanism. As described in the existing "PCI Device Setup"
+and "PCI config space access in a CoCo VM" sections, those accesses
+trap to Hyper-V in normal VMs, or use explicit hypercalls in CoCo VMs.
 
-Best regards,
---  
-Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+The distinction seems to be that Hyper-V requires the guest to obtain
+a host-valid MSI message explicitly over VMBus, rather than relying
+on interception of guest MSI programming to establish the interrupt
+mapping. That is separate from whether the programming accesses
+themselves are trapped. We should probably make that distinction instead
+of saying that both MSI and MSI-X writes are untrapped?
 
+> +The "asking" is done by the .irq_compose_msi_msg function for the
+> +"Hyper-V PCIe MSI" chip, which is hv_compose_msi_msg(). The
+> +implementation requires sending a VMBus message to the Hyper-V host
+> +and awaiting an interrupt indicating receipt of a reply message.
+> +Since .irq_compose_msi_msg can be called with IRQ spin locks held, it
+> +doesn't work to do the normal sleep until awakened by the interrupt.
+> +Instead hv_compose_msi_msg() must send the VMBus message, and
+> +poll for the completion message. As further complexity, the vPCI
+> +device could be ejected/rescinded while the polling is in progress,
+> +so this scenario must be detected as well. See comments in the code
+> +regarding this very tricky area. A synchronous hypercall to get the
+> +MSI message would be a much nicer interface, but the code makes do
+> +with what's available.
+> +
+> +Once the host-valid MSI message is obtained, the guest must treat it
+> +as a black-box that the guest does not interpret or modify. The only
+> +valid guest action is to write it to the MSI/MSI-X registers/tables
+> +using the .irq_chip_write_msi_msg function on the HV-PCI-MSIX-<PCIaddr>
+> +chip. That function is pci_msi_domain_write_msg(), which calls
+> +__pci_write_msi_msg().
+> +
+> +If the affinity of an IRQ changes, the steps must be
+> +repeated. A new host-valid MSI message is requested via the
+> +.irq_compose_msi_msg function and that message is written
+> +to the MSI/MSI-X registers using the .irq_chip_write_msi_msg
+> +function.
+
+I don't think ordinary affinity changes require a new MSI message,
+including with the companion arm64 spreading patch applied.
+
+hv_pcie_init_dev_msi_info() installs irq_chip_set_affinity_parent
+instead of the generic compose-and-write affinity handler.
+
+On arm64, the new hv_pci_arm64_set_affinity() selects a CPU and passes
+a single-CPU mask to the parent. gic_set_affinity() then updates the
+SPI's GICD_IROUTER and effective affinity, without recomposing or
+rewriting the device's MSI message.
+
+Similarly, on x86, the new CPU/vector is communicated through the
+Hyper-V unmask/retarget path using the existing MSI descriptor.
+
+Could this paragraph describe updating the routing of the existing
+message, rather than obtaining and programming a new one?
+
+Regards,
+Naman
+
+> +
+>   DMA
+>   ---
+>   By default, Hyper-V pins all guest VM memory in the host
 
