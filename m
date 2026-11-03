@@ -1,104 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712680;
-	b=BQb/CV2Gqnf9XBFaRNCeMlYdXyBUYD307NMHQYkf2cFPvu1m4ScHmROhqeuir/lJNgEv
-	 k4EJdnPdChnRuBGHxQa+PG/s37uCziosoQm268RnqU3bahXU1LQlv5EOVWCVC2sgZMpwO
-	 SgvL1dbm9pB0jUGI9cL8Y0byFLlhSlryJ+Lyx48blVidO2a0NQKOE4CCiC+P2djfXT/0T
-	 z5tpyB3lHKBEmxBFK0GSWWcA9IuLKf+5XJ/vnvlWQwvFgbhbQPJAMp1DuWDUBdwVgsY5q
-	 4yONS+JZEq1EuJYwwa5WLD3g1vK7zLVTvdX4LMDzGRUxzp5JBUx35Y9QsDagVPr5P2g==
+	t=1793712670;
+	b=twajDeoqFOk2bRUcnVMLJ+4YOYsZHpH/TbpTCJaPlmV11nv8M07QcvS5u7+sA7p+PUY0
+	 dSll1Dn4n4jNsSW3pVdLz4nMFaJhtQA+V8y4cQdmhK2OffhiSNw2Ca2r4e7IuFjt+hi1i
+	 mGFjTPH9g3qbk8qCuzFgD5YHZT8Mul0aikbp7rBz95w8oWAC9NXm17kzUZxkyBowUfFls
+	 zmR6j0yFFlYeM3AThVJ7iQ0eXshMnDrD7KRUzsC95+x4w8CuSn1eR4pqDCYhIE/ETkCFg
+	 HRNKOZC0lj67yhLFeisFapoUWV66SBJYWN0YtXswkZREq1aNOnkhDbn5fHKJGtULwHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712680;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=bqSSouDoyJf0YGFehgWYnnk2xGKwMtREqQQCF8wiudg=;
-	b=IXI2NedoZHQAf3EwgK7J2dE3e1iFeXHDjGrQN2QSIXPwhcJ7Qv7A/+cAJY/cC4AsAHL3
-	 iR8KyLbEDm3cRYYD1n3t4xBi44gXvKksTUSMLsD6A4OS6M4dVcI2RQcoMDHI4mAjK5mIa
-	 hDhjVYFjG6IPLC7kRJ8t6yNcqRw1j+oJGvl7T3CAkQVF85mwkBzP7MLHMuXK5xFkFLXCy
-	 BdB6aRwFjJvF+1Y9d4F/yCmIwjckpEunakB6FAEUIE+gWQ7dqdbjT08WahK2qR8wyqh8e
-	 jhXr+wbUg0CFdQF6+OcZQv1mr1KZKDyFjEJUDjNkxYx4xEsj2IHhGnfFzRsOIIAecvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712670;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=E5l4PSEqseEPSiUoHghmPFG/3ehH+QwqD3+IcpFqsYo=;
+	b=EaqvlkVGKnc9LoLPT4N6/C9IV8lJXsLEHxYW7GfCVKRRaRo9nRMea1Y6LQd6n70dTkXe
+	 ERgcn90Epc0eZbEqrPV6dNp6SthzaEpoWERFQnWG6eO0X1/HY2MMHxuKKB39B8SWEYIx1
+	 4T9B/nFCMD21ZlGgVLuMmaKoUQ4jlu/itQq+brklXwBgXUr2mfhqHCJn24/IFLwG7FtqV
+	 8FUarD0J+JwYMeP/QE6x+SI69t+gBmVdElzB3TMT1evqHt98phVTbJRWrxiw9IlqtpYP5
+	 s8OK1kNtcLPXwvfI/AinI+kveK+aL4TGOUjvTwRot377mxFdge03WnLO1y5bz5PAISw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SBMs4pMo;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	dmarc=pass header.from=siemens-energy.com;
+	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
+	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=pPGV3y4U;
+	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=Zq3L1P3R;
+	arc=none smtp.remote-ip=185.136.64.129
+Received: from mta-64-129.flowmailer.net (mta-64-129.flowmailer.net [185.136.64.129])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A77E606A33A;
-	Tue,  3 Nov 2026 13:31:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A77E606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA36606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:31:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BA36606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SBMs4pMo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793712680; x=1825248680;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hkR8M4AVECxKSn4GYebF87vUMQPK1tTyUqELFgxgqRs=;
-  b=SBMs4pMoauBtpedelBcC49z4kvO8AMo7TtACgeFMjLOfl4DXt66bxMHJ
-   XEh4U4rRY32DpnOKeliENg5B02GQ3JiJidpJS/9izMPO9ZCO31XGYrmTr
-   lOL4EqqPCT3BibNcwOU2x3jB0Eclj2BAzdtY3JdaneuY+iqALFKtIIGiC
-   RlR3fb2d8C9XO5L19+mJ+6k8ZrQvpJfNgso30NmiltPSZCIxEwN7oLilw
-   YyAD/2OecJOyqSqFxAeTbofirdkfkLEGBjdJehOaV3POiwrOLbu9ofEgi
-   Qqaptfs0Xqz7Lparr2lXq3+yIlGaqQXBWnRleNmGO6sxsWWIxLNi5PeB4
-   Q==;
-X-CSE-ConnectionGUID: REkoUaqRQcaGfQpDmI1H/g==
-X-CSE-MsgGUID: dpZiRuxSRSK1VrSc8Tcorg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2429900"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2429900"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 05:31:19 -0800
-X-CSE-ConnectionGUID: lTrs3dgKTlWdj0SfnJ8l6A==
-X-CSE-MsgGUID: kcSFKz+DTo2hkMUZE0wIXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6542067"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 03 Nov 2026 05:31:12 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOEbU-00000000ilw-1efr;
-	Tue, 03 Nov 2026 13:31:08 +0000
-Date: Tue, 3 Nov 2026 21:30:46 +0800
-From: kernel test robot <lkp@intel.com>
-To: Matthew Ruffell <matthew.ruffell@canonical.com>,
-	Waiman Long <longman@redhat.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Tejun Heo <tj@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Caron Wills <caron.wills@pulsar.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org
-Subject: Re: [PATCH 3/6] mm/folio, mm/mlock: Don't batch folios in per-CPU
- LRU caches on isolated CPUs
-Message-ID: <202611032138.4bxGcYLC-lkp@intel.com>
-References: <20261103075940.110308-4-matthew.ruffell@canonical.com>
+	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=pPGV3y4U;
+	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=Zq3L1P3R
+Received: by mta-64-129.flowmailer.net with ESMTPSA id 202611031331014e958246960019fd70
+        for <linux-kernel@vger.kernel.org>;
+        Tue, 03 Nov 2026 14:31:01 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
+ d=flowmailer.net;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=E5l4PSEqseEPSiUoHghmPFG/3ehH+QwqD3+IcpFqsYo=;
+ b=pPGV3y4UQdSWZ6kx0DhfBgbq9iYf3MvdCBNnj9R8df404+eh0hXaF6phXVMqVOiABGXEDp
+ cIysXE0gZx4kFOP4oJWA9T+VmjIBhZSU2ve1elbSftbgAv4iNcFZqFKgZtU2s3rXy0gRk63c
+ nSmUPeGaPXTxMkQ+6x5C3IqsAp4Wo=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
+ d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=E5l4PSEqseEPSiUoHghmPFG/3ehH+QwqD3+IcpFqsYo=;
+ b=Zq3L1P3RB3d2vKxCyD+Ccm4ZH35BWVLAC35QEa8XDBO5kOy6pVi2bBGxjTwoM/0jp2GpSB
+ Nk9GeZgDC2hRwM6YQ4X2rB7Cv7NlqT7vgD7eIKjaR7MOF+O0ECWUE0Wh0sOxJeFKp+FfBgyI
+ +h4YOX38GCzcgudHUCLRCQkCR39MnnLTfwtr9gvk6+FwzrEAr2BEByi4YqFUE+xSabB8KjIi
+ ykR6SFs6QLpZqWROvhqlh0EFlrqbqDC27EBAweQ0gwJCFDrEcqTGDlpeLaZ/QjDjwape98Qh
+ QQ1R87wgJt98CvDnvwMuIHi2SIbCBMmZz1zt75kHRT1Q/8DyeGz6b43w==;
+From: Simon Schuster <schuster.simon@siemens-energy.com>
+Date: Tue, 03 Nov 2026 14:30:28 +0100
+Subject: [PATCH v2 1/3] lib: extract 32bit mul/div helpers from nios2 into
+ GENERIC_LIB
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,65 +67,258 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103075940.110308-4-matthew.ruffell@canonical.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-nios2-remove-usage-of-libgcc-v2-1-5fabbedc49ec@siemens-energy.com>
+References: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
+In-Reply-To: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
+To: Dinh Nguyen <dinguyen@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>
+Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org, 
+ Vineet Gupta <vgupta@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793712660; l=5223;
+ i=schuster.simon@siemens-energy.com; s=20250818; h=from:subject:message-id;
+ bh=VZ661LQwoei69aNq5/aT0HlMQj3VU5wz5LK3TR14RLo=;
+ b=uvF204HjM1l1lydGMcJflux/K5kpfZRy3m3KpWVzFqlH+I/f7u8ZUMChlAmBjGlq25F7Ku8c2
+ fFd8+ucWv3dBY2/Wh6zFnzNO+EKMyCEn9drxh8EZgCSfGWYQul1lf9U
+X-Developer-Key: i=schuster.simon@siemens-energy.com; a=ed25519;
+ pk=PUhOMiSp43aSeRE1H41KApxYOluamBFFiMfKlBjocvo=
 
-Hi Matthew,
+From: Dinh Nguyen <dinguyen@kernel.org>
 
-kernel test robot noticed the following build errors:
+As suggested in 426c73b7-b4dc-4b68-9aa5-6145a13280bc@app.fastmail.com,
+the software emulation of div/mul/mod on 32-bit platforms from nios2
+might be of use to other smaller architectures as well when trying to
+drop their libgcc dependency (e.g., arc, openrisc).
+Therefore, extract and add them to lib/, guarded by respective
+CONFIG_GENERIC_LIB_* options.
 
-[auto build test ERROR on akpm-mm/mm-everything]
+Symbols covered:
+s32 __mulsi3(s32 a, s32 b);
+s32 __divsi3(s32 a, s32 b);
+s32 __udivsi3(s32 a, s32 b);
+s32 __modsi3(s32 a, s32 b);
+s32 __umodsi3(s32 a, s32 b);
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Matthew-Ruffell/sched-isolation-Consider-nohz_full-CPUs-isolated-in-cpu_is_isolated-again/20261103-205935
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20261103075940.110308-4-matthew.ruffell%40canonical.com
-patch subject: [PATCH 3/6] mm/folio, mm/mlock: Don't batch folios in per-CPU LRU caches on isolated CPUs
-config: sh-allnoconfig (https://download.01.org/0day-ci/archive/20261103/202611032138.4bxGcYLC-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611032138.4bxGcYLC-lkp@intel.com/reproduce)
+Suggested-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+Co-developed-by: Simon Schuster <schuster.simon@siemens-energy.com>
+Signed-off-by: Simon Schuster <schuster.simon@siemens-energy.com>
+---
+ include/linux/libgcc.h | 10 ++++++
+ lib/Kconfig            | 15 ++++++++
+ lib/Makefile           | 10 ++++++
+ lib/divmod.c           | 94 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ lib/mulsi3.c           | 24 +++++++++++++
+ 5 files changed, 153 insertions(+)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611032138.4bxGcYLC-lkp@intel.com/
+diff --git a/include/linux/libgcc.h b/include/linux/libgcc.h
+index 0d68f9d6a6a7e..f5db35a9bc146 100644
+--- a/include/linux/libgcc.h
++++ b/include/linux/libgcc.h
+@@ -7,6 +7,7 @@
+ #define __LIB_LIBGCC_H
+ 
+ #include <asm/byteorder.h>
++#include <linux/types.h>
+ 
+ typedef int word_type __attribute__ ((mode (__word__)));
+ 
+@@ -34,6 +35,15 @@ long long notrace __lshrdi3(long long u, word_type b);
+ long long notrace __muldi3(long long u, long long v);
+ word_type notrace __ucmpdi2(unsigned long long a, unsigned long long b);
+ 
++/*
++ * Software 32-bit multiply for cores built without the hardware multiplier.
++ */
++s32 notrace __mulsi3(s32 a, s32 b);
++s32 notrace __divsi3(s32 a, s32 b);
++s32 notrace __udivsi3(s32 a, s32 b);
++s32 notrace __modsi3(s32 a, s32 b);
++s32 notrace __umodsi3(s32 a, s32 b);
++
+ #ifdef CONFIG_HAVE_ARCH_LIBGCC_H
+ #include <asm/libgcc.h>
+ #endif
+diff --git a/lib/Kconfig b/lib/Kconfig
+index 1e42f5167c68b..16c2f2008b82c 100644
+--- a/lib/Kconfig
++++ b/lib/Kconfig
+@@ -611,6 +611,21 @@ config GENERIC_LIB_CMPDI2
+ config GENERIC_LIB_UCMPDI2
+ 	bool
+ 
++config GENERIC_LIB_DIVSI3
++	bool
++
++config GENERIC_LIB_MODSI3
++	bool
++
++config GENERIC_LIB_UDIVSI3
++	bool
++
++config GENERIC_LIB_UMODSI3
++	bool
++
++config GENERIC_LIB_MULSI3
++	bool
++
+ config GENERIC_LIB_DEVMEM_IS_ALLOWED
+ 	bool
+ 
+diff --git a/lib/Makefile b/lib/Makefile
+index a2afe954805cb..352a012baecba 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -337,6 +337,16 @@ obj-$(CONFIG_GENERIC_LIB_LSHRDI3) += lshrdi3.o
+ obj-$(CONFIG_GENERIC_LIB_MULDI3) += muldi3.o
+ obj-$(CONFIG_GENERIC_LIB_CMPDI2) += cmpdi2.o
+ obj-$(CONFIG_GENERIC_LIB_UCMPDI2) += ucmpdi2.o
++obj-$(CONFIG_GENERIC_LIB_MULSI3) += mulsi3.o
++
++divmod-needed := $(or \
++	$(CONFIG_GENERIC_LIB_DIVSI3),\
++	$(CONFIG_GENERIC_LIB_MODSI3),\
++	$(CONFIG_GENERIC_LIB_UDIVSI3),\
++	$(CONFIG_GENERIC_LIB_UMODSI3))
++obj-$(divmod-needed) += divmod.o
++
++
+ obj-$(CONFIG_OBJAGG) += objagg.o
+ 
+ # pldmfw library
+diff --git a/lib/divmod.c b/lib/divmod.c
+new file mode 100644
+index 0000000000000..cc1df6f9978ce
+--- /dev/null
++++ b/lib/divmod.c
+@@ -0,0 +1,94 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright Altera Corporation (C) 2026. All rights reserved.
++ */
++
++#include <linux/libgcc.h>
++#include <linux/export.h>
++#include <linux/types.h>
++
++static u32 udivmodsi4(u32 num, u32 den, int modwanted)
++{
++	u32 bit = 1;
++	u32 res = 0;
++
++	while (den < num && bit && !(den & (1U << 31))) {
++		den <<= 1;
++		bit <<= 1;
++	}
++
++	while (bit) {
++		if (num >= den) {
++			num -= den;
++			res |= bit;
++		}
++		bit >>= 1;
++		den >>= 1;
++	}
++
++	return modwanted ? num : res;
++}
++
++
++#ifdef CONFIG_GENERIC_LIB_DIVSI3
++s32 __divsi3(s32 a, s32 b)
++{
++	int neg = 0;
++	s32 res;
++
++	if (a < 0) {
++		a = -a;
++		neg = !neg;
++	}
++
++	if (b < 0) {
++		b = -b;
++		neg = !neg;
++	}
++
++	res = udivmodsi4(a, b, 0);
++	if (neg)
++		res = -res;
++
++	return res;
++}
++EXPORT_SYMBOL(__divsi3);
++#endif
++
++#ifdef CONFIG_GENERIC_LIB_MODSI3
++s32 __modsi3(s32 a, s32 b)
++{
++	int neg = 0;
++	s32 res;
++
++	if (a < 0) {
++		a = -a;
++		neg = 1;
++	}
++
++	if (b < 0)
++		b = -b;
++
++	res = udivmodsi4(a, b, 1);
++	if (neg)
++		res = -res;
++
++	return res;
++}
++EXPORT_SYMBOL(__modsi3);
++#endif
++
++#ifdef CONFIG_GENERIC_LIB_UDIVSI3
++s32 __udivsi3(s32 a, s32 b)
++{
++	return udivmodsi4(a, b, 0);
++}
++EXPORT_SYMBOL(__udivsi3);
++#endif
++
++#ifdef CONFIG_GENERIC_LIB_UMODSI3
++s32 __umodsi3(s32 a, s32 b)
++{
++	return udivmodsi4(a, b, 1);
++}
++EXPORT_SYMBOL(__umodsi3);
++#endif
+diff --git a/lib/mulsi3.c b/lib/mulsi3.c
+new file mode 100644
+index 0000000000000..6596a6598de05
+--- /dev/null
++++ b/lib/mulsi3.c
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright Altera Corporation (C) 2026. All rights reserved.
++ */
++
++#include <linux/libgcc.h>
++#include <linux/export.h>
++#include <linux/types.h>
++
++s32 __mulsi3(s32 a, s32 b)
++{
++	s32 res = 0;
++	u32 cnt = a;
++
++	while (cnt) {
++		if (cnt & 1)
++			res += b;
++
++		b <<= 1;
++		cnt >>= 1;
++	}
++
++	return res;
++}
++EXPORT_SYMBOL(__mulsi3);
 
-All errors (new ones prefixed by >>):
+-- 
+2.39.5
 
-   mm/folio.c: In function '__folio_batch_add_and_move':
->> mm/folio.c:293:13: error: implicit declaration of function 'lru_batching_bypassed' [-Wimplicit-function-declaration]
-     293 |         if (lru_batching_bypassed())
-         |             ^~~~~~~~~~~~~~~~~~~~~
-
-
-vim +/lru_batching_bypassed +293 mm/folio.c
-
-   280	
-   281	static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
-   282			struct folio *folio, move_fn_t move_fn, bool disable_irq)
-   283	{
-   284		unsigned long flags;
-   285	
-   286		folio_get(folio);
-   287	
-   288		if (disable_irq)
-   289			local_lock_irqsave(&cpu_fbatches.lock_irq, flags);
-   290		else
-   291			local_lock(&cpu_fbatches.lock);
-   292	
- > 293		if (lru_batching_bypassed())
-   294			folio_move_lru_now(folio, move_fn);
-   295		else if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
-   296				!folio_may_be_lru_cached(folio) || lru_cache_disabled())
-   297			folio_batch_move_lru(this_cpu_ptr(fbatch), move_fn);
-   298	
-   299		if (disable_irq)
-   300			local_unlock_irqrestore(&cpu_fbatches.lock_irq, flags);
-   301		else
-   302			local_unlock(&cpu_fbatches.lock);
-   303	}
-   304	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
