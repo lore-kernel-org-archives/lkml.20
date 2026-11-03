@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738265;
-	b=OrW/Qm8T2zVbcNmn5/SUDs0nTFxKvtjnpC/0eA0FI6cNtXAO5bRtgGLJP9wuf6JYGuK9
-	 VWKlNtckFcjEIIzS71MskpZJ9JLPrnXYtNridsj+wP0mQsQbWAizlg7STkLdN6up63xyO
-	 sPIo7S76XqdwE+TYE3Nh1+m/NFlnBRpgeTN6HF3RdKNAW1vMNP/IVwk6AmRXypMBcuDyI
-	 wZsb61SO3atywohDc7fo6+B/Lgff7y1mCOP5IGYLxV1FIi/pq6+mzAmlj/qZtjITnNp+u
-	 1SXQdaoeJ6pJE5e2W1tpHm+nJMAun7zh7rLEZiuUWRlpeuDHrygv6qhnB1lKFRHyvlQ==
+	t=1793738260;
+	b=tqmYTjV51vekJtm9kxGHkprB8upC2dd/pEc3p9WXmeHSZUgGmhjbmP5/z2VzuC5g7Q4h
+	 4B5QQo9863FXojY47dnpQXIsD3umd4nBYfDbZITpuPzL9d+30VAkmolzrJ28cDVBqZD4T
+	 RB/IdepfgE1dRYOJUuMqpt1JfpSyo0swGVoPTiowxOKm54x2o2BmNgkbAPxGR9DwMNgy+
+	 ig4PP7uzLW1Y9KnzLOWpcjOMzhkCwPtONem6LUvupYqRfIdZmsJKXe8hWRdqTgzKvi5sa
+	 2jlYEBqzcB8D+FRXKl52f4J+Ym96RbdRbCLBFSMhOfkcJ5PSGO/OQnpBzzzhsPQnnmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738265;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738260;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=yhfMQyhA4yeVo/bZMJr9JjklAVTmBlY2c8c0GfiXoB0=;
-	b=3PRl+tRZ5alNlhAV1LcWmMlOCSA1RKaI+XbbVvbFNUewezUg6qlsOUwk7Dongk9wjUPD
-	 I17ssnfm6+S7ux1rVh9nEnhkNsYGv6koVdc1nzufusp8uhqEro0DsAdzTB5UGUFtRbKf5
-	 O5/vTl6lfWGiEpgTZ37M0PSdJpHIpftO4rHe19mSHTsxa6kzuyECj+QkrSCGexmGlGbuy
-	 JzyA7LJps+sG3dfprDwyWOzgxVuvMndxAdaWjvKlOmfbzs8QmgHHTAYgV5CWMEaGjG/xN
-	 Rs+E0ipD3TEGBCUImk81FR72O8W0Bu7EtZAkrKscW8ETz0S5QT7fGEq3lzVdWUIK1iw==
+	bh=dosiBfQauFJU+WqcvxLeUWiXahPtDKDMOxRNRzp0hBw=;
+	b=rH3pL5rObYuAH+2c1xxsfXorkCW+IdYXgOmSnlTiDBxt41eMMSbsdBwNNCMsNVq1L1oB
+	 htyPYgI+1h97RPb1HizPnh2CgU/P1ZiMJZ5YxTtxN+zyvYHl+fkWcUHlLdEF12nXfoBAw
+	 263YIiEgsbybKVZD32oiSJOLiGC0PjU5keWJrNLRa5TPAlH1IFmwoL8cnl4/8a4POjzIA
+	 nQVAT1KqovRYm9h/+M1B1lG8iW6wEuHYz34bZL3DscAhFbvh1Bx7keXufILbncBIN2Vxk
+	 mq3BWeeYII8VAyuowz1fmQP+2LM0EIovja5oIPHiZ4uyqexlW/9Lvx2wrWmnJxdLe0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b2H3uHIE;
-	arc=none smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G6WsBRKD;
+	arc=none smtp.remote-ip=209.85.128.181
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478CE606D812
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:37:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 478CE606D812
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF064606A332
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF064606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b2H3uHIE
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b2d149693fso138687b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:37:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G6WsBRKD
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b0a921ee46so30067b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:37:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793738264; x=1794343064; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793738259; x=1794343059; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yhfMQyhA4yeVo/bZMJr9JjklAVTmBlY2c8c0GfiXoB0=;
-        b=b2H3uHIE6MH5SCNXmTqyQmQw9x60pFn5rWYqpuCa2D5eetD8N0iFCXIIZY1kJC4omS
-         e2rJlxWBymAFAnIQDoDpq39Y0ZbORYn9SnCIuDKOv/Vosa+P8gSV2GH7hVvH1wDmI+vD
-         8ifAyXQ5QtO8+yvJE9ldJjvqy4u97CQFrOmzv7w5jtArrOFVfyxAuwJJa/08JAof9hqJ
-         cbG2DtIqnVF5VAOAczYP0fDP9Fdgv0xFpisISqWEWmVMZHf7mGKAjBzVe4hIDfL9Zoeq
-         +hgyHpWG+hWW9QQiEuc1fpsYSJ7/CB+dj94AbOayvC22CyFsccCyWTcvG6D2YoynBEGu
-         MP5w==
+        bh=dosiBfQauFJU+WqcvxLeUWiXahPtDKDMOxRNRzp0hBw=;
+        b=G6WsBRKDefsIufqDF2PgOWTttnEsYB2O+D3e24zE6JmeBPruimavahu5TJQyhcuNQF
+         TA/o7n8WMqsIkYCeXTtFXZQSIDdBgri03yFDPfbQkiEatp7WXaZqDIdH9NF86AqPaNCN
+         G7j8qzycEaJT4ySI7xFe7IVrhsHFVTmuGxvuHAslrC2GvyzSWpvZQYkk052nXTO9UGv4
+         5Uaq53mOTGaL8htrPpNleU3wI8J1bRXzfZ8qBFk/TeDHiE6o8+3Vt0f+sInxx9IXlqNT
+         5DATrVLeICErb+hVkuIiDfQ770Mlo/2VPaTWhlQmwXfKB3zDT8AL/u93LNt37XAxRxNk
+         AbqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793738264; x=1794343064;
+        d=1e100.net; s=20260707; t=1793738259; x=1794343059;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yhfMQyhA4yeVo/bZMJr9JjklAVTmBlY2c8c0GfiXoB0=;
-        b=bKTXsSFrn5BIOP91X2TCVGEzBbp3v6la64yULzXEpBHaVaQtsVjP0gB5OUvA5SVsGX
-         6hcqJ14VzrDBKRUXr65PeOmhPmTmKqO3T8VrJOelEAWPe1ZMol8NgURCYsomu5FKQKbt
-         Xb18h+fIYPmaIu7R0/F8w5xoVs+Xp0GqBPQW0U1xuvPdmFtjUlrK06bnwGUG5Mk8m7PW
-         +x8eWTmeIbWeBgm5+EmfvTW65k9NkpiSEyNGBgH9eEuKFTK8YC6urQHD8Vm18Fy1uTDO
-         zJRCbNvlwqRPCZ0Gtm8lHKqogw4L9ZJt9Q/WXYGmsbkYDEpAZIGEdraIr0+g2y2sJ6gc
-         bzsw==
-X-Forwarded-Encrypted: i=1; AKwUvBxW1+BwqqLaeCmsabax3ruzFCbnxvKXCpjtZARuHzKoNMS3M54+6pjrZqLejcZD3oDpddlcIxU62gKzcHE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NxuNWAE105XOMcEpDrlr103mprbvRmCl84t5RGdYjNPwWP/KL
-	+zJ57cIGckKougoxZMCJXV/TSpDaksoeJyBhrEuPPpAJEL/BjINPiXTE
-X-Gm-Gg: AYBFou0zguO5o9HT95b4PAnBZ8qrlYA22Cp7lQforYPms7yaHuNwKTD+UjLbTiuyjmt
-	bWgnsmPHAq2aNfYMcN6sVahLNuPEmQ9GDvLgRSpD3RgNL9gucEfNVezzweo3kl0zkCsPzbV/fp7
-	I3bSF0XaoP3JSzrfREIRsqawEiOarNiEEMGZqT9A6LOd95niJEVEAtta5AYpMnCpzE4Ccm+J96t
-	SldN6qwilfd3ro5l5AdCK8BjF1lE1DBZZPr0rk241w0399Tfug2rnKMyCz1fiU6s3nJTRQVuiQt
-	RLotLavLWiClrpVoih26vrgkg2tZ2MrZ+gDxvHsDdBGEl+6ZGHfCTTUSBwFlRwprxsgjJXW1Inc
-	UemenOIEbnod0gO3W0qmWoH2vGKM/TCjQ6zHJ2c9xSU/aj3vscAHmrj7kvSOCJido8g8Pl80JFT
-	nkfHMMJKP05cFlw7JAB1Bqa88xruHp2+/+WQ8x/W15noJeGDD5HWLjV0XmQS8cqPY9fCzs0qouZ
-	TCWm1GXzsKlTTUtebX0Xx6Tdg3VmZnLRj192xLNTkA9QlTaJLBErjOL1Ud7TbvdHfvDF/qRbKJ0
-	CIqkecuZVRvRctBMqYJwTdj5J6cwI5cdCHp+/RAeq11EvP+fErQCVROW2xtyXUnhCNOqrlGPzhP
-	r+SOcDyS47A==
-X-Received: by 2002:a05:690c:60c1:b0:8a8:9149:e4da with SMTP id 00721157ae682-8b2b67fe3aemr79052567b3.108.1793738264234;
-        Tue, 03 Nov 2026 12:37:44 -0800 (PST)
+        bh=dosiBfQauFJU+WqcvxLeUWiXahPtDKDMOxRNRzp0hBw=;
+        b=NdGKcgjA7rq0IX5LSGKBzZcj+hhZdpRreMAZKAH60dhr+Vu8QnWDEwW6KUuMgIBgs/
+         9+xXcIssy3OQwacmymlWT0tE2v0p8VM3AvwKiyxgxFokev6nl04sGJ3hZWTAO+Ofs0kK
+         MbCWiiITlDjy4eeWzMyPbd33J4i69jS09CLDpdkfZPH9VwnB186z3+H30zJZsBUtjuYr
+         0a5RxENmmiSLOWMfCmYaxHjpKCDblCnRoLqgrqjqhW8VjEp40urpUUAUBda1jg3AjDPi
+         wZeKas9njk9Y+J2Ymc96ej7NKtBVzxHYzgJAAyFJtAwC+B39CI8qqOMwLGCxwY+lQGnR
+         R3FA==
+X-Forwarded-Encrypted: i=1; AKwUvByt3Pku4SkyEIgEV1SdVpmkyXJu3A2Gex1kKOhuj49f1cUztJIDbQApjb715NpAZB/TVgz2L+YLi+CniZs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DU8xPv4lzkfAqpkeqj+xXqLpE8B14xurNVAbLEfrrWM53SlIZ
+	IpwvaQuirk0qW0TzVST+rK3wegsPAJFCIXjzlULLtv0nMjy1mf2qt3Yn
+X-Gm-Gg: AYBFou1IQ8SbyRGaEVwomsVN0hhI2tmMCFEaetxc3Q+8tCW+BcALcLKdcBsgv3rGBoM
+	urECpYx+Ajqiy4eI5ayZ3xg9l5mW+b1CcwsiBxoilv3KJ0oMUCHc8qRxRYpw23T5Nn7GHNanTPb
+	WdmyydW8DSN5dwc/2QjFyHJzoCoQkAV4ONSUITBGwDFVrLjpCBxGBL6k4X9JhF2QxR+aRoV1wPY
+	8FSHWCcoyaA4jgXk7AUJ2t90vvHvXVC/7eyhGko/uIJKCDDRXJf0ZkwmWYbVHqHXHXdV0u4wT8w
+	2EI0CV1BHYHaWCsrPtZjJwQMqjqyWQqAy0BHB4wqT77G0DCZAdtHPvnZHQxIF/j2mm/D+V/5WWA
+	xcly/AcRKvVNF+kpOvqgBbeQA6XfRu1ykb5PIDLz4plYLtQp4qj3mMCBgVWZv7hNhvSZTfHI4QB
+	lGv3KW/6cXygenIClyc/RfypN9uu7H654+reu8ZEHSqgqkww1qIq+VClJbbw8uAKVXGjuRAbJIg
+	nwlBjm6QrlG62sbDQbkcNzFf8ZeuqnMYxfRE+WTXNTkTDSfInHg9NnFoklqcL6SawxlDgDJH9Ns
+	iZMW8OQY7EW+TuV3a1ISebLbuzHGw8cWVnK5j4Te8s4MLgPrujJRMCgsqlvjyNfXi94BNkx+Y1E
+	hls2AE6AmyHptoEGNpOLEPQNkLnebI5k=
+X-Received: by 2002:a05:690c:e208:10b0:8ab:41a5:63c with SMTP id 00721157ae682-8b2b67d34ddmr54698687b3.108.1793738258573;
+        Tue, 03 Nov 2026 12:37:38 -0800 (PST)
 Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bd1672sm4541337b3.43.2026.11.03.12.37.43
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bd1672sm4539577b3.43.2026.11.03.12.37.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:37:43 -0800 (PST)
+        Tue, 03 Nov 2026 12:37:37 -0800 (PST)
 From: Matt Turner <mattst88@gmail.com>
-Date: Tue, 03 Nov 2026 15:37:37 -0500
-Subject: [PATCH v5 04/11] alpha/perf: do not report user registers from the
- entry code
+Date: Tue, 03 Nov 2026 15:37:34 -0500
+Subject: [PATCH v5 01/11] alpha/perf: pass PERFMON_CMD_LOGGING_ALL to the
+ logging options call
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-alpha-profileme-v5-4-bbe3937fbf3a@gmail.com>
+Message-Id: <20261103-alpha-profileme-v5-1-bbe3937fbf3a@gmail.com>
 References: <20261103-alpha-profileme-v5-0-bbe3937fbf3a@gmail.com>
 In-Reply-To: <20261103-alpha-profileme-v5-0-bbe3937fbf3a@gmail.com>
 To: Richard Henderson <richard.henderson@linaro.org>, 
@@ -110,123 +110,66 @@ To: Richard Henderson <richard.henderson@linaro.org>,
 Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3878; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=LiN+Yv+pum+ZIoYCbCmWoIHtlAzTvYQXPQL0PlKXs7o=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJeufHZGzuv7D1wpD8wuLhnzfXzv/yZze9U/tj9weH6g
- uzWY6ZPOj6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
- QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
- U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOaaUD+G/04lnSYKDt
- uapLXuFxrMdDi4YnIX376kg+9P7f7L3CK5RomRoW+Gi3d8WoBETHjHvZz2IwuDYv9WVIpvyjVws
- +ZZnfaNFQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2126; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=IGfq8dWu2iMEFoz3MC34tYu6sOJyy2DqaUpgqZ45fio=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJeufEtDZiVNCO80aFT6zGzWkp0iursVqYlvAfcGAW+9
+ b9m+SDU8ZGFQYyLYaaYIkvcekWWWW07lvqclv4FM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
+ Ahk6RvEQOT0Gjczi4tLUIt20giKHvPySxJLM/LxivfyC1LyC9AK9tMy0koyM/KLiVKARenmpJaa
+ ujm5GhgYmlo4WZk4WjqYmzs5Ohk5ujo7Ork5GluYmBs6WjiauluYMXJwCMNf8nsbwV6iH6cYXXr
+ Oi8HwXt+c3+TLlLiUs2JKqseVSHf9kt/3M3xn++776HK9v/jnu+uSAM2/mrD7nNqP0p6zznbLND
+ Te2SZmlsQEA
 X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
  fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-perf_get_regs_user() returns task_pt_regs() whenever a sample of a user
-task lands in the kernel. But exception entry runs with interrupts
-enabled, so the sample can land before the entry code has saved the user
-registers. Only the part PALcode pushed is valid then. An interrupt
-taken on the first instruction of entUna, say, pushes its own frame on
-top of PALcode's, which overlaps the rest of the user frame, so r7 and r8
-read as the interrupt's r23 and r24.
+alpha_pmu_enable() passes EV67_PCTR_MODE_AGGREGATE to
+PERFMON_CMD_LOGGING_OPTIONS. That constant is the counting mode bit for
+PCTR_CTL, which belongs in the PERFMON_CMD_DESIRED_EVENTS argument. The
+logging options call takes a flag in bit 0 where 0 means "count all
+processes". It works only because EV67_PCTR_MODE_AGGREGATE happens to be
+0.
 
-Report no user registers while the interrupted PC is in the entry code.
-Such a sample also gets no user stack dump. The range is all of the entry
-code from entInt to the end of the save in entSys, so it also drops the
-registers of samples that land after they were saved there.
+Table E-18 of the Alpha Architecture Reference Manual gives bit 0 the
+opposite sense, but the PALcode in the ES40 and ES47 firmware agrees
+with the above: it sets I_CTL[SPCE], which enables counting for all
+processes, unless bit 0 is set. Linux never sets the PME bit in the
+PCB, so if 0 meant "selected processes only", nothing would be counted.
 
-An interrupt that nests on one taken in the entry code still reads the
-incomplete frame, as its own PC has left the entry code.
+Add a name for that argument and pass it instead. No functional change.
 
-Fixes: 9280e99d87dd ("alpha: add HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP support")
-Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
 Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- arch/alpha/include/asm/ptrace.h | 12 ++++++++++++
- arch/alpha/kernel/entry.S       |  9 +++++++++
- arch/alpha/kernel/perf_regs.c   | 13 +++++++++++++
- 3 files changed, 34 insertions(+)
+ arch/alpha/include/asm/wrperfmon.h | 2 ++
+ arch/alpha/kernel/perf_event.c     | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/arch/alpha/include/asm/ptrace.h b/arch/alpha/include/asm/ptrace.h
-index 45d1229344b6..1400ba3e7d43 100644
---- a/arch/alpha/include/asm/ptrace.h
-+++ b/arch/alpha/include/asm/ptrace.h
-@@ -14,6 +14,18 @@
- #define task_pt_regs(task) \
-   ((struct pt_regs *) (task_stack_page(task) + 2*PAGE_SIZE) - 1)
+diff --git a/arch/alpha/include/asm/wrperfmon.h b/arch/alpha/include/asm/wrperfmon.h
+index c97b82a1f7db..1fa9bc813263 100644
+--- a/arch/alpha/include/asm/wrperfmon.h
++++ b/arch/alpha/include/asm/wrperfmon.h
+@@ -23,6 +23,8 @@
+ #define PERFMON_CMD_I_STAT 8
+ #define PERFMON_CMD_PMPC 9
  
-+/*
-+ * Whether pc is in entry code that may not have completed the frame at
-+ * task_pt_regs(). See entry.S.
-+ */
-+static inline bool in_entry_save_code(unsigned long pc)
-+{
-+	extern char __entry_save_start[], __entry_save_end[];
-+
-+	return pc >= (unsigned long)__entry_save_start &&
-+	       pc < (unsigned long)__entry_save_end;
-+}
-+
- #define current_pt_regs() \
-   ((struct pt_regs *) ((char *)current_thread_info() + 2*PAGE_SIZE) - 1)
++/* PERFMON_CMD_LOGGING_OPTIONS arguments */
++#define PERFMON_CMD_LOGGING_ALL 0
  
-diff --git a/arch/alpha/kernel/entry.S b/arch/alpha/kernel/entry.S
-index 790389a15c3c..b8d7804e5aa3 100644
---- a/arch/alpha/kernel/entry.S
-+++ b/arch/alpha/kernel/entry.S
-@@ -186,8 +186,14 @@
+ /* EV5/EV56/PCA56 Counters */
+ #define EV5_PCTR_0 (1UL<<0)
+diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_event.c
+index a3eaab094ece..2d9383425357 100644
+--- a/arch/alpha/kernel/perf_event.c
++++ b/arch/alpha/kernel/perf_event.c
+@@ -728,7 +728,7 @@ static void alpha_pmu_enable(struct pmu *pmu)
+ 		maybe_change_configuration(cpuc);
  
- /*
-  * Non-syscall kernel entry points.
-+ *
-+ * Between __entry_save_start and __entry_save_end the frame at task_pt_regs()
-+ * may not be complete. perf uses these to avoid reading it.
-  */
- 
-+	.globl	__entry_save_start
-+__entry_save_start:
-+
- CFI_START_OSF_FRAME entInt
- 	SAVE_ALL
- 	lda	$8, 0x3fff
-@@ -479,9 +485,12 @@ entSys:
- 	lda	$8, 0x3fff
- 	bic	$sp, $8, $8
- 
-+	/* PAL_callsys does not save these, unlike the other entries. */
- 	stq	$16, SP_OFF+24($sp)
- 	stq	$17, SP_OFF+32($sp)
- 	stq	$18, SP_OFF+40($sp)
-+	.globl	__entry_save_end
-+__entry_save_end:
- 
- 	mov	$0, $1
- 	lda	$16, 7
-diff --git a/arch/alpha/kernel/perf_regs.c b/arch/alpha/kernel/perf_regs.c
-index 33ea2e831ba0..894683851b30 100644
---- a/arch/alpha/kernel/perf_regs.c
-+++ b/arch/alpha/kernel/perf_regs.c
-@@ -59,6 +59,19 @@ u64 perf_reg_abi(struct task_struct *task)
- void perf_get_regs_user(struct perf_regs *regs_user,
- 			struct pt_regs *regs)
- {
-+	/*
-+	 * Exception entry runs with interrupts enabled, so a sample can land
-+	 * before the entry code has saved the user registers. PALcode has
-+	 * pushed only its part of the frame, and the rest may hold an
-+	 * interrupt's frame. An interrupt that nests on top of one taken here
-+	 * is not caught, as its PC has left the entry code.
-+	 */
-+	if (in_entry_save_code(regs->pc)) {
-+		regs_user->regs = NULL;
-+		regs_user->abi = PERF_SAMPLE_REGS_ABI_NONE;
-+		return;
-+	}
-+
- 	regs_user->regs = task_pt_regs(current);
- 	regs_user->abi = perf_reg_abi(current);
- }
+ 		/* Start counting the desired events. */
+-		wrperfmon(PERFMON_CMD_LOGGING_OPTIONS, EV67_PCTR_MODE_AGGREGATE);
++		wrperfmon(PERFMON_CMD_LOGGING_OPTIONS, PERFMON_CMD_LOGGING_ALL);
+ 		wrperfmon(PERFMON_CMD_DESIRED_EVENTS, cpuc->config);
+ 		wrperfmon(PERFMON_CMD_ENABLE, cpuc->idx_mask);
+ 	}
 
 -- 
 2.55.0
