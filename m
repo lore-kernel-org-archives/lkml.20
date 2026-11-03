@@ -1,100 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.20
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793718890;
-	b=23CbtmXyv45VZ1T42vcA0sCEtAcCawmM2GggUbBvPTT2/BbOPVaTIYSNYLpuGzL61tgN
-	 P14WyCAiU1ELTNPi2KnfWqS8T0ybwikgyAf8uVALuYRFB7inD4AEq7XwgImJIS7U5i7u1
-	 8MVoT9UCrC5wJfn0G0Lzv9uCcqjfPBRmnvGE9HLRoZ/ZETLy5FImlUk4vcre2bVM4XJV8
-	 iZBVWUgG2qIpTLnQoi9ZfcZfsUX//xJnuJk4vgiela5MhE+NT7PX2CXSlNnaQwqfqT97d
-	 j4eQ4uXGR99zM0L35TWT/VxfgAMblMja/3wDOIEOz6Ftsp3IDsCXQViZReiQYqWmGmA==
+	t=1793718891;
+	b=NMrC+tejoO3Uz9IT/tZJxH9KRVcCaaaq7KNL2PUvkN8o959dapl06ht5XUIi0/x8+mYw
+	 N5I+XYdTgrEq9mpbtRa+5KJjGaRnnuhQiZWFn/M1ebE1eVWLs6QKP88WI31GluKGgCRQO
+	 n46uUHNsNKmwRUXC6zYb/slkBwwXOVgcuvWotZNjqFYtyrZB+5EW/yldeeNu1AwrrLKwN
+	 ODIJ124KkKULuAtRBL5kywcP8ygatglQ2fBXRMXqoubsdGZW8vksWdewCGzJGxXad+HZF
+	 uW/AFzgtNQuCzDiKXQHP4gfcDfhfmJD1mQMwRKEr4ROW3nB1eN5MnfySvQZDsfZ9YJw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718890;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QDUu0ipWkEkr2evKB+VQexo3kZhP7laIpcWU434jcM4=;
-	b=mQUdQB0kQ59i1bgwxqnf891vmaTO7sXZelZ8WyvF0D1lhL44PHBcfelOXTjMZQ1/gPuN
-	 pfE9ZppWy2W82LtWDyIvaKYHXqbGQQVE/6QrUqyQkaiDr39QjShla64DsR8YnMK+0D4bV
-	 FeCAdnvqk/28QaxBo3hjhJqV/uiqDwYWz9so9OxL9E1ADk8edUi4jTOEFScCZ47qcF+b3
-	 +MO7XeNg0w6S8+oJyiSia+XEkIf8CTSb/cJx/1SQf4DMmXnX48Zv9/pg170CqTtBAfo+H
-	 QvbiGzI7Tlg0jegN80fpl05PpiXDAyVR6bHQ8U5bkSitRv/QI47Moo/ZEW2Bu28k9jQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718891;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=nfYtahTkQWtAMURhK9hqS5NWUEpE9ray61Q/0s6SXvw=;
+	b=iC8y5tLBnhUn/mexkDldSU/AdJC4aKoNXx8zep0JWoSo+tli/JyhZQZ4iQOAV6DC9LdG
+	 0vKIEGOH4+1w1HfX54Tk604EUh40gmh9iP7YCbNtIR7a2JDtIH2La3ZDY2sh5gIuIkKUk
+	 FNIEIgQBp18u72YjW22SlC2unLqpGeVBAKR4wAdxlDm/LRVqQRfPUt/DCJrZVm2OEAnMJ
+	 NB2oRiCrKJRkthp632lG1kc+bgtyEl1nLwbATKJQux1UaIT20EQ6c0sUi4r0Sb+Cjz3pG
+	 cwZl+caMCfhZ88JyfnF94HUL7BEk51JUJ3tGJVRT9MDQUOeHnrowgRq8tU4mLY3HOoQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iAw1L019;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="vKMZ/Vy2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.20
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011020.outbound.protection.outlook.com [52.101.70.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DED7606EE8D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:14:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DED7606EE8D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673FB606EE95;
+	Tue,  3 Nov 2026 15:14:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 673FB606EE95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iAw1L019
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so6198458a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:14:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793718888; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oJQoO1ejJobL4jdGT3dkjIkgzaznj2nro1bB/fDkan6cLKF8b17ZNJO7oY8ROoYWBe
-         fmvRyHc1BbInY7fnyx9/nuwcKSPnmj3tKg3abBPMKnd+G8A9jZH7DwsE6fKULobY/ytP
-         GX6/3k3b2eLkUi23fD/jWPI/6nzOdQwW20ZELWfFPBWQjLA7gTben9aHXI10jGEcmIZ/
-         nHfvBFJq+O1vtP3kTPQfWmgPCv+E+01DqILL/dtyIiSOsNeq6h6d4VxhGX0qwl7j20ue
-         0uZ7svKzhnVK/kKJNEvpXY9EwG/hd6Ac7S0MLGcXrgWz1m2DfBxKx3mUDMkVMtzHp6UN
-         p3zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QDUu0ipWkEkr2evKB+VQexo3kZhP7laIpcWU434jcM4=;
-        fh=LDyU4hpMlHDzZIulbesIsjcnk9HKPENkff/riJOxYA0=;
-        b=AQlpDFNyeVb7Efkp1E5f9uuhBYlhcbQ0NEFhzbA4DFsX7uwu/3nHSEK467/NBGWZHP
-         8G0fWTLA4KdPc0CSbcx0yh88cUTdNL8nNNpY/VpodD1aMpzJIywa4vU1tSf4wPbjAjOR
-         0V8cT/yEe8JV8ZlcegeDvnh7rIPCBILhUqwfgNiMO64mGspaL39jFXuxAWHEqAqKjp5V
-         /sVJL3pdIq4/iKan2hBiHNHqME1HFRmCFSx4nOGSUm3rX2pqsuX7u97q9ePU1HNh9OEq
-         Okm728s4IsIKRCzmJm0a47NEjfJfh1AmaOpfyyI2EcAz1ttGqhotPFwUcsbarld9SqMJ
-         n00w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793718888; x=1794323688; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QDUu0ipWkEkr2evKB+VQexo3kZhP7laIpcWU434jcM4=;
-        b=iAw1L019pbEECqKdWoucVoYt8cFM0CJimSPA3rGm9rZtMZpD0LGCCG5hkH3c1GOMpf
-         IspJYDJNQRBAf5O6qxCrg24PZgTtDkgCcJNc+Te/FaLgF/P2D2ygdPGcLtFbCUaY0gnX
-         nmK4XIqfh/wBKe13PTQ3kpyVHbCepAgmJlXpEqP8L3+CnEReQhrjzuddQkWkPc8aT2Ew
-         WXWATOtMwvJL4pflCNbceNHwqDeFvIKJFx0h/Vg6B5F579r0iqYdPkfD5EDX+IkmrfUS
-         8lO3wA9EaUVodg+Hln22pbunmgEx1YJidGyr6Qo2rLI9Snk3VNHTBqzw5kVIPPr31SEA
-         cHng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793718888; x=1794323688;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QDUu0ipWkEkr2evKB+VQexo3kZhP7laIpcWU434jcM4=;
-        b=hEzWjSMcvcg6TXJscwtKCZ0qa5PKafmFZmFRTkXd+DUookF0rRtB5FrLKTclUjyong
-         BhM41hactRtuWW3PSnzJfRaLuMKcwgFVp/6s0MyBXMritMNXX0rMQ5OBi8AdO5FPi1Cu
-         VG8NeoOzO2XmhAZwMn+vTr9VEG2E+V2sRyNiN/CEGxXZ5K95p0YAB5uhRW6zyWeQnYeZ
-         h74HJf0wVogWa7fOq/eWwi2ZvQACFNXAZyBqIx9/T0DVa9Q6ykmFuRfUDOr9E4N6/2Ak
-         jo1JFSLpISlzRTXWeyTzecfNdBADB7tmkBhwYjiabS+IsfzKPvA96W04pFwQ0WltiZzK
-         IoWA==
-X-Forwarded-Encrypted: i=1; AKwUvBwJi25mKmY90Q2pAySkTbRUdbalFqSOslYnUMX10YRSeuAbhBJaDxCjOQQN8lIEr83A7HTinQxKUJHT9Ks=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VmdGwXVpVP0prG3IlYS5jfvwbgLB99FNsoKUYS7uG8EVpg0Ea
-	L5jbdCOMBXJswlmp7em6OqgGedg9bmYNFuG7apU75x3CVHtcX7JI1kaaYBWshz01Vj36GaON32x
-	sjW38mlZJ1ClEmHp5TG/u08igDyCGJqM=
-X-Gm-Gg: AYBFou1E/l55siiUrfSIcJL5ZtECGaJStxriuMAkQ0rklKbAXSfKBZycaqK+Pe8AmuS
-	ALsuhcuVRxr0yGVA1HWsBrWS5RO18MrutPrj2PnUYpPmr8o8Wk/NZuo6uQpLOj0RuMpfSx2nPtL
-	wDHxUc7VqXb0dFpwnk39jaYWdsOUh+aPAP1Q9JWbCjjiqtrVU5eZif5zOyZ8KJ0st7JxNt+AMoK
-	+WibbSoEAYVJ9do3TUkrKNLMoU7CUzGG9SG95xBXpu7WS/Noj23HHq3les4nUvPTjVx40XlifA+
-	opGi4P/Pq35XT51PFi0RUuBoqw7B2JPVggygf2p0QyAqeDjKcaw5C5FYyPuC8h+Hj6nqPJka1h1
-	79HjduBu8lrExhLdPD6+Xq2iDglZx9gYSVe4bWbJ/iWVqmzq6iljEKtO9GNV4LmT6xvaS3tM=
-X-Received: by 2002:aa7:d309:0:b0:6b3:f094:8ced with SMTP id
- 4fb4d7f45d1cf-6b4d4683a29mr7344511a12.21.1793718887787; Tue, 03 Nov 2026
- 07:14:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=vKMZ/Vy2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rryzXrLlXNGrcCtgs798MFJ4NSnlf5gXgGUB/GzS2sw7ILYDBGV3FT7uTyaz3JajXjFejlgr91Sez6JRIt8oUStmSZxo7qj9if2SDkiTJ6iWoR68PkcEYZKPQzkAavrtnP3QOI0pS1nJyDe0/jucmFsNaWDagkZp3RqaJD65XLJnMSsIG7ClfySNsW1tOza+L67HFTlIRSTdpN7gjMVI/bWwisPZIq2e+EnsZKGEom6GaRYO8a13uIrsHzRi2fiIAxwwlR7l1aSgt8N/j31bJzc90WIUnLa89OOojqDcbxui31qzmrHz4ADTV79EH5xGKejjmrLtIJG4gkqfZf2ucg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nfYtahTkQWtAMURhK9hqS5NWUEpE9ray61Q/0s6SXvw=;
+ b=h5b+SL4lXpRFE0jgD1kNSGiNQeocNYx9tT3RdDrxETOdZCmxAmCHRgmpk5eqv301jI2CZ+mqk/qEWSBXzawY3jHTR7jkUT7rsETykzmDT/CVa3DeMbGoTW+/NVG+ZbXWPX9iZ0dGCsAOX9sxCmaVhsXNf9Xjnz1uA+TZmNNQ/887s3D2inA+wPa2eY8lkie5bPW/tzYkN5/RSEYWr30ma3PSO8VpkjN9+RPAGaGEOsPk0GHL1aOpxgZSU5b8Hg+suDTjM6Yv3yYbrfh5NpsHgr9vgg5VEgwYI9XbI0fXFKo4szt+p7uJ8QXx+yxoOgT/LiEDLJOgusZLGjrLZtVxhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nfYtahTkQWtAMURhK9hqS5NWUEpE9ray61Q/0s6SXvw=;
+ b=vKMZ/Vy2I5LTAHtdT7VSxd3I0JuWqZxukvTIzpM6bH0yDzuxT2pXhVgq5EdcI9rpDAztoq5/MCYnFTVr4+3pJGep/enkZ/BQfTnfoHFCZp4tr6c5RpXBdUR6E7JOCAK11UcYXyasUEVZwCZFL4ShV7NcBgSgxq8HLaCnDVzIZQURjESoWtLyFLCmrGCexUPVZnUUPcDX3bv8I+2WHXSb5F04AU2ViJvs+p+Z/TYPcbQpNHVVsG68zxkev9Ao3ukpxM28tAk4cY0/OQNk0RT+X1WIUMu4tIMJzrIbfqSbY3/RgxifPHOVuxQEl+QcnnyqSwpQY0u2wYYi48PFQYN1cQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by AS8PR04MB8037.eurprd04.prod.outlook.com (2603:10a6:20b:2ac::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 15:14:47 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 15:14:47 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Tue, 03 Nov 2026 23:19:02 +0800
+Subject: [PATCH v4 5/7] dt-bindings: dma: fsl,edma: add per-channel child
+ node support
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-edma-iommu-v3-v4-5-470415d418c5@Example.Com>
+References: <20261103-edma-iommu-v3-v4-0-470415d418c5@Example.Com>
+In-Reply-To: <20261103-edma-iommu-v3-v4-0-470415d418c5@Example.Com>
+To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
+ Jon Hunter <jonathanh@nvidia.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, 
+ Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev, 
+ dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ iommu@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: SI3PR03CA0006.apcprd03.prod.outlook.com
+ (2603:1096:4:297::8) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,133 +109,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101015551.786044-1-koray.fra@gmail.com> <20261101015551.786044-2-koray.fra@gmail.com>
- <CAOQ4uxiuJ=eZu28FZAUz3rpqPKqCimPxJucOnYYuBowvD09_Cw@mail.gmail.com> <DMLJ5DR2A4KZ.28U8XSZ0KFJTG@gmail.com>
-In-Reply-To: <DMLJ5DR2A4KZ.28U8XSZ0KFJTG@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 3 Nov 2026 16:14:35 +0100
-X-Gm-Features: AclHuK-EjP75rU69csZK2uVzxHspULIwEcPYYUtLw5t3M157ApaMB9lhTx9MQvw
-Message-ID: <CAOQ4uxiTS-QT7y1avNSasJSffkt2uRNkdrb2_GrK7kJ82-MoXw@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 1/5] vfs: add provenance time (ptime)
-To: koraynilay <koray.fra@gmail.com>
-Cc: David Sterba <dsterba@suse.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Sungjong Seo <sj1557.seo@samsung.com>, 
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, Chris Mason <mason@kernel.org>, 
-	Jan Kara <jack@suse.cz>, Yuezhang Mo <yuezhang.mo@sony.com>, Chuck Lever <cel@kernel.org>, 
-	"Darrick J . Wong" <djwong@kernel.org>, Sean Smith <defendthedisabled@gmail.com>, 
-	Andrey Albershteyn <aalbersh@kernel.org>, Pedro Falcato <pfalcato@suse.de>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
-	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, exfat@lists.linux.dev, ntfs3@lists.linux.dev, 
-	linux-api@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS8PR04MB8037:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00f302f8-e481-401d-a4ae-08df39bd32cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|19092799006|921020|261026140227099003|56012099006|11063799006|261009223027099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|261026121527099003|10067099003|18002099003|22082099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	APFc/Gl524MNS9k+7RgG6AYAC6EK0Pll5ZmdTccYEYA73+IEVBDCmQkqcmukuxGmTlUwQAgZpGEfLUVoJzRdXM9c3qRhaf7O+XNzmsPY1gznfMfJcATCD3clZWosvgTtgR2etyBPaocnaG3k+AZnF6hSMh4BM3QKkbo9fp/3C9wBo650ftVOWETPVyYmVALRZ7SOgskqDsTJax1Pf35sH03J2IZhytId/+bdvvWSNZ7rzvgDrP97Ok/1f2U6DC4cRFhcb5pK1zmKfvytAUOnBzj5L9DlWQyI1VPnV29wI8aKJHJuXQdP1xJ/TE1VpwCQ3LW0QnHtCAhJPWyQ21qPRzDK5nGSHQT4k4yNVY2FW7WkBCAinrVLviXnHnz4qZ5bRtu0wxmwu6iEaDnVTRHT8GWn89EgIXjf9BlbO0aDsZG4cqnaAHazFFHYO6BTQ4fKDzkgzibJ2OhRaXPwG393r+R9+juj9sLPGMgJQ2ePXrI+FtHym6p2GBP+h++NoxbrHwWV/bRQYbWg66aagoTEeh1e6jYQ45ThTv099SvQz6UKAe2TC+gaabViLpXVv4DvTJfcaStGVqYJT84pLEhPfQSKBUSJ5ZIsdx4yzrF/VPt+drPVmUPG7RVLA4qWAUc9uYeP2W0w2DZHAnBduUDIjWIBAkt0VD1p3z+WjIv71swsprI9lf/paq44p1A9HnHSlYudUY/Kedg6/mUbycYgTQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(19092799006)(921020)(261026140227099003)(56012099006)(11063799006)(261009223027099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dFN3UzdHdWFLdzNGQnJEZFJTeVM5RDRYQXV6SzR6a0ovdW40c04rZVIzZy82?=
+ =?utf-8?B?S2w1Zk40SnhJNlRldm5kWVhoSGZ1cncyOEEzcUxzdmVpdFVpMkVER05OTytj?=
+ =?utf-8?B?NFZaY2dsSW8vMHFQSGtlWGY5RG10Z3MwYklEY1RWNUU0aUNQbGUzck51RzVo?=
+ =?utf-8?B?bFFUc2NqWVJhK0haZzV6L3lKbElBOFEvMS9MNUVnM0wwaGsydkZ0ZXJSYldK?=
+ =?utf-8?B?NVE5b3pJT0Qvdm00Y2huR24wSGRWSFlheE1nZWNUQzdxUW1WUGVCcmVmWUM2?=
+ =?utf-8?B?bjkrSjcwekE5dVA4dzA4eDNhQXZoZzRqdTNaMUlSQmhJdWNFelBwSjVyRlRG?=
+ =?utf-8?B?SFU5RDhIWXd0MTBqKzBxc2R6NnRPdHQzOWxUS2Nvb3dRSzJISGRJT25hV2Rr?=
+ =?utf-8?B?dFhTSWZtQTRlL2pVRngyQ3NNTkkvdWp3WW9lcHRQNjRxV2s3cDhPWU1IbXNk?=
+ =?utf-8?B?SWc0Mk1zZFBaT2NVckc5UzZ3SFF6ZmV1REMycDZZRUIxSnZyZ0h5Y1paQlVo?=
+ =?utf-8?B?bGFVN1ppdU8yR1UwM0VsWm9IZThoeldXWURTaTFFYmFBVklNYTNzSlpOa2d0?=
+ =?utf-8?B?UWZQQ3JSWGkvdks2RGlCaW51QlZlUW9lMGFBZ0dIN3l6ZnBQYVVqNjhDTkdC?=
+ =?utf-8?B?bG9OSVJ5MzFQdVlQWnBxbU5xS3ZnWnJXa2VuWEZDVDU1aVNjaDdXVzkzL0NZ?=
+ =?utf-8?B?NkRySHVWUFloQmJrRStBZHdBOTJkZmx3NzUvSkdhTXlxbWVzeVJ2SElpenIr?=
+ =?utf-8?B?cGkrRFRuMS9UZHZkb3NyT21hNTlBSFNrS3ZIU1dFMFdJYjhOcE41MXI1bklQ?=
+ =?utf-8?B?WjNCQ1FWVk5XcVNkTWp2SGlMNDBZUGtIZnR3clVmZTNGKzY2aDlmS1pVcHZG?=
+ =?utf-8?B?WDBoZUJrWTVoNW44aWpSU05VcHVpb1dLSENscFpTT0xubnNGTENSamF6QzdD?=
+ =?utf-8?B?SmhOZjdkNElYUEpMWHpJWmppM3JaY1h5ZHRMWW1qNUIwd2FzU3hXdTRzYWZs?=
+ =?utf-8?B?WFJzUzQ2L0ljOWt4WXJDUzhQallKM2tnVDk3b3NhZnZGcnhhY3JneGp0SWFK?=
+ =?utf-8?B?Ynd4cEdBYXRLN0JMZFVJMEVKQkJHRzJxYUdUVGZrZENKcUdCeHdoOTlBVmwr?=
+ =?utf-8?B?dDVBQi8zcFpoNEM5V25XZHFhcjNvM0c5YWozdzlocDduTC9lbnNLNUNPSVVK?=
+ =?utf-8?B?WityUE5yN2hkQTI0bm5BdU1mVVNoQXdXWnpqMllDanRkSjJWU2VtM3NBcjU1?=
+ =?utf-8?B?Z3Y0bGR3cHFOUlVaTHRITE1rQ3psQk1CR2VDQVk1Qjh1WHA5Ujh2RmxvcVM4?=
+ =?utf-8?B?Sm5oZG1pUFU3NXF3Ty9aK3kxOTRFRTBVK3V6U0ovOGxHUmloZHJoaXFFKzZx?=
+ =?utf-8?B?SmpTbDVjR2c4SEx5VHdicHVjYXhZaTFWTExiRE1QbzFodFMwaXNJZ3FjemlH?=
+ =?utf-8?B?RlJkb3RHbzBvcDdqMFJnK2lIclgwMU9ZTHNwdGtQTGdLV3JjZDBSL1ZSdUU1?=
+ =?utf-8?B?R1BPazJ4UjRCQmszYW9tTFBUUDV4UW1YVFFUcVlVbHZtVWQ3SkI0Z0RqZjBM?=
+ =?utf-8?B?VjJuZ0hlekNUODhnSS9TOU9FZTc4RUVROTM1dC9jc1oySGlaRlphRUVSSFhP?=
+ =?utf-8?B?b3ZLUWlQTEdzc0U2OHUwT0pOaE90bzViV1czVHFjdUQ3eWpSNzlCVUovMWxo?=
+ =?utf-8?B?T3NXR2twTFJ2RFBXY2RkMVFDMjNDU3gwMVYySUNtZzhrVWUzUTVLREVsMk92?=
+ =?utf-8?B?UFBNeVV3SmpVS0tUdDBqUkVURm9ldXpGNzBXWVBjZVBVVUJRWFY1VFFLUUxL?=
+ =?utf-8?B?c0xHT21QdDVsZ2MrbmFpWTBmUmE4V2wwZktWbi9QWVRhK2xRb3Q4Yk5NOFNz?=
+ =?utf-8?B?OFZyS1Jac0t0amVlOWU1WFNjVWtpTFZPSXhWMngzZzJucTF5TUdDNURXc3RI?=
+ =?utf-8?B?OCtGdzd6ajJCY3JSS0lwRzRYS2FNUHp2SzF3NnVlZmhKU2Y4bTE5cFQ4QjIy?=
+ =?utf-8?B?cDQzVzdzQ2pUTU5GNDhVZk9peE90Qmd6azVJaDZ1T0dBUXU5aDNKRnZYaGhm?=
+ =?utf-8?B?Z25lTmtGZVN5T21ZZmh3RFZnQXpreFJEVnREbVhNVVpxbGJwTlJISGpvUjN4?=
+ =?utf-8?B?djRjbE9oK2dWdVVzNnh5emE1T3k4dmIva29EQnNIQWhnRDV4YzJMMS8wd0Vm?=
+ =?utf-8?B?bnRZYy9iUkR0SU9BcXluUU5WMG5xb3ZHTG44dHdITjlaNjR1TkR6Rk9PK3NB?=
+ =?utf-8?B?Zy9aR2hGaWQ3ajk2ZDkzTlhBRFh5UW9EMDk2UTFIVDFIdEsySVJDMlBlbzZ4?=
+ =?utf-8?B?WXVoV0x0YlJrMDNYVVZkSnFTaG1Xc1k0cStYL20vaTBNUWovYzF5cG5pdWlG?=
+ =?utf-8?Q?qred2nvp7AuSBULEJO8h3G8/WXwRZcBa2UqEi?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00f302f8-e481-401d-a4ae-08df39bd32cf
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 15:14:47.4953
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pCQSvZlXBFe5ZBtkOZLUiWDplb83TSDsLqQD8BGAxci04VuXTA/ou4e1isGtBxxd7UTzKiOVk8Gb+z8KZgscQr/YFa0atLv/R1Q4q8S7Yj1Ss8LPR80U3WuOcw61sJAI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8037
 
-On Tue, Nov 3, 2026 at 12:13=E2=80=AFPM koraynilay <koray.fra@gmail.com> wr=
-ote:
->
-> On Mon Nov 2, 2026 at 3:00 PM CET, Amir Goldstein wrote:
-> > On Sun, Nov 1, 2026 at 2:57=E2=80=AFAM koraynilay <koray.fra@gmail.com>=
- wrote:
-> >>
-> >> Add provenance time (ptime), indicating the time when a file or
-> >> directory was created. This is user-settable via file_setattr() and
-> >> retrievable via statx(2) (using STATX_PTIME) or file_getattr().
-> >>
-> >> The semantics of when to preserve this new timestamp are the same as
-> >> mtime, the idea being that there is a correspondence like this:
-> >>
-> >> ctime <-> btime
-> >> mtime <-> ptime
-> >>
-> >> so every operation (copying, moving, ...) that currently preserves mti=
-me
-> >> should also preserve ptime.
-> >>
-> >> Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
-> >> FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
-> >> xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr() =
-to
-> >> allow ptime to be used with the file_setattr()/file_getattr() syscalls=
-.
-> >>
-> >> [ This is a re-implementation of the initial patch[1] by Sean Smith
-> >>   <defendthedisabled@gmail.com>, following the advice[2] from Darrick =
-J.
-> >>   Wong <djwong@kernel.org> of using file_setattr() instead of updating
-> >>   utimensat() ]
-> >>
-> >> [1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabled@g=
-mail.com
-> >> [2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
-> >>
-> >> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.4.7
-> >> Signed-off-by: koraynilay <koray.fra@gmail.com>
-> >> ---
-> >>  fs/file_attr.c            | 33 +++++++++++++++++++++++++++++++--
-> >>  fs/stat.c                 |  2 ++
-> >>  include/linux/fileattr.h  |  5 +++++
-> >>  include/linux/stat.h      |  1 +
-> >>  include/uapi/linux/fs.h   |  8 +++++++-
-> >>  include/uapi/linux/stat.h |  7 ++++++-
-> >>  6 files changed, 52 insertions(+), 4 deletions(-)
-> >>
-> >> diff --git a/fs/file_attr.c b/fs/file_attr.c
-> >> index 833e03810b24..c0645cb22bf3 100644
-> >> --- a/fs/file_attr.c
-> >> +++ b/fs/file_attr.c
-> >> @@ -102,7 +102,7 @@ EXPORT_SYMBOL(vfs_fileattr_get);
-> >>  static void fileattr_to_file_attr(const struct file_kattr *fa,
-> >>                                   struct file_attr *fattr)
-> >>  {
-> >> -       __u32 mask =3D FS_XFLAGS_MASK;
-> >> +       __u32 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
-> >>
-> >>         memset(fattr, 0, sizeof(struct file_attr));
-> >>         fattr->fa_xflags =3D fa->fsx_xflags & mask;
-> >> @@ -110,6 +110,8 @@ static void fileattr_to_file_attr(const struct fil=
-e_kattr *fa,
-> >>         fattr->fa_nextents =3D fa->fsx_nextents;
-> >>         fattr->fa_projid =3D fa->fsx_projid;
-> >>         fattr->fa_cowextsize =3D fa->fsx_cowextsize;
-> >> +       fattr->fa_ptime_sec =3D fa->fsx_ptime.tv_sec;
-> >> +       fattr->fa_ptime_nsec =3D fa->fsx_ptime.tv_nsec;
-> >>  }
-> >>
-> >>  /**
-> >> @@ -141,15 +143,20 @@ EXPORT_SYMBOL(copy_fsxattr_to_user);
-> >>  static int file_attr_to_fileattr(const struct file_attr *fattr,
-> >>                                  struct file_kattr *fa)
-> >>  {
-> >> -       __u64 mask =3D FS_XFLAGS_MASK;
-> >> +       __u64 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
-> >
-> > That is not the correct way to extend this API.
-> > This fixed mask was added as a placeholder for
-> > "We intend to add support for more xflags to selective filesystems":
-> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-2-amir73il=
-@gmail.com/
-> >
-> > Please see this POC patch for filesystems to publish their supported
-> > xflags mask:
-> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-3-amir73il=
-@gmail.com/
->
-> Thanks, I did not think of adding a dynamic mask like that, I will look
-> into it and implement it for v4.
->
-> > This will allow callers of file_getattr() to know if the filesystem
-> > supports ptime
-> > without trying to set it and failing.
->
-> So after adding fsx_xflags_mask to file_kattr, every filesystem would
-> populate fsx_xflags_mask with all the returned (=3D=3D supported) FS_XFLA=
-G_*
-> in their own specific .fileattr_get, correct?
+From: Peng Fan <peng.fan@nxp.com>
 
-Not all filesystems. Just the ones that wish to extend the constant
-legacy FS_XFLAGS_MASK.
-So just the ones that you change to support XFLAGS_PTIME
+Add support for optional per-channel child nodes (dma-channel@<addr>)
+to the fsl,edma binding. Each child node can carry its own reg,
+interrupts, iommus, and power-domains properties, describing a real
+per-channel MMIO region.
 
-Thanks,
-Amir.
+Enables per-channel IOMMU stream ID assignment via the standard
+iommus property on each child.
+
+The interrupts property is removed from the required list since
+channels with child nodes carry their own interrupts. Existing DTS
+without child nodes remains valid.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ .../devicetree/bindings/dma/fsl,edma.yaml          | 70 +++++++++++++++++++++-
+ 1 file changed, 69 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+index 0260d177c7d04..65877e78330ad 100644
+--- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
++++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+@@ -104,11 +104,40 @@ properties:
+       Bit semantics: 0 means channel available, 1 means channel unavailable
+     default: 0
+ 
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++  ranges: true
++
++patternProperties:
++  "^dma-channel@[0-9a-f]+$":
++    type: object
++    additionalProperties: false
++
++    properties:
++      reg:
++        maxItems: 1
++        description: Per-channel register region within the eDMA block.
++
++      interrupts:
++        maxItems: 1
++
++      iommus:
++        maxItems: 1
++
++      power-domains:
++        maxItems: 1
++
++    required:
++      - reg
++
+ required:
+   - "#dma-cells"
+   - compatible
+   - reg
+-  - interrupts
+   - dma-channels
+ 
+ allOf:
+@@ -351,3 +380,42 @@ examples:
+                       <&pd IMX_SC_R_DMA_3_CH6>,
+                       <&pd IMX_SC_R_DMA_3_CH7>;
+     };
++
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    dma-controller@42000000 {
++      compatible = "fsl,imx95-edma5";
++      reg = <0x42000000 0x210000>;
++      #dma-cells = <3>;
++      #address-cells = <1>;
++      #size-cells = <1>;
++      ranges;
++      dma-channels = <64>;
++      clocks = <&clk 0>;
++      clock-names = "dma";
++
++      dma-channel@42020000 {
++        reg = <0x42020000 0x8000>;
++        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
++        iommus = <&smmu 0x30>;
++      };
++
++      dma-channel@42028000 {
++        reg = <0x42028000 0x8000>;
++        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
++        iommus = <&smmu 0x30>;
++      };
++
++      dma-channel@42030000 {
++        reg = <0x42030000 0x8000>;
++        interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
++        iommus = <&smmu 0x31>;
++      };
++
++      dma-channel@42038000 {
++        reg = <0x42038000 0x8000>;
++        interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
++        iommus = <&smmu 0x31>;
++      };
++    };
+
+-- 
+2.34.1
+
