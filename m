@@ -1,124 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708988;
-	b=4lQ0041zKEsdG378ukUhvME+QmccooHORTchc62sdJbP9BInrJxG57jX2gbujl+cdjx4
-	 w45SfJvMnFSa2lWs/oZ4QnKX+icx1fXPg5ht6T6Pi3Rt8PXFuznYrZobRAqPUH6QHr7Pt
-	 ExZtd3rHRvDhoemvsUd6sixmWEoSqoZ1ndW787z8k/8p2ZUGCuB7hZHST4oTB44ypmj5n
-	 fF6rioNHYKwYBziixjaYCUJLOpyVik7sAYvcT8Pl1qAK7wQnpr0kjzweDgfwcCDzDZWP0
-	 ARTYpGnHd/Xeu26WaTbVzNC3/T8AiwvDr8OhoLc7eLOiRIvrqqbvYIfBwgYCPQ2xXuQ==
+	t=1793708996;
+	b=Hdpk3HRZQrhWlOQGgNH53wXyvxYoVMmFz4Ztqm0REPGG/r4hmmbhFRQZyWxSdtyPwOWx
+	 Fl7fEGq+adfTLr3M1saWnjGdq8xCavoVnUsh5hJVoLuO/WnV3wA0ZPB4sQnIrpReTRbRp
+	 rPph5ZJXBWIbVt7klLr4VNk8/AFFMdgoQD4z2ldpAze1fehy/9SGnnfL7Y5DOtD9ETvSt
+	 3nvFygi4w/z4KQIleS+Wv2DRvqfMRKx4FKzMizAUeDa/DIkppzpd6hF3hmh2NWFzd9d/p
+	 sxHrjoCpszJhPdLY+BlUg0a8NCIm+qhb4l4iYN3C2Cu/tV7VxO8He3TTWL4KKgGio0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708988;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=IDI+igDoc6QkC7pgWT8Wprn1keJKc8oLjyvAr5GbucA=;
-	b=Nz4VoTcg2uUd3Xo6tY0/y4YDJEpvCI+OgVp1fB8IqAX1arb3DTv8/iOh2+JIpjNY8kg/
-	 FDO4qQkztPdn997yFPvWLTXWHADy/dDMnMDYTuGLko7NgQeMBVZOeillrG6nk91s1Uvxe
-	 kabJJfTFIyYkPDdpPlou8kWGy2EIhj5iG1oamTVMtE1kumJerXGfhEdME/V51OikKn07h
-	 OGI7OB5B1YE3B5JNIEQmIMtUtrwEg9I07chKMkjymmxrJ6Mnjz0tPZhNQU3SeX+ZvG4DT
-	 bUAFFH2nk/RtUfFK6efIZtATLH5oHuuz5nWrvg0PQ+9N5stU8G1GU+P0cpFXTK108sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708996;
+	h=DMARC-Filter:DKIM-Signature:In-Reply-To:Date:X-Lms-Return-Path:From:
+	 Subject:X-Original-From:X-Mailer:To:Cc:References:Content-Type:
+	 Mime-Version:Content-Transfer-Encoding:Message-Id;
+	bh=ikdsUf5143hpiDaILAuysJHFLeRnHTQHDNJjwBmFwLY=;
+	b=PwB1G6THq/mLMHjzDhrgiAtdOyLIVU8lW0dJWNbS4m1bcrnMh+Hr9IWyV5uwX2R1uiEK
+	 8LA8horHh+EF9P/FEe6EFql18mm+hyyCFB9mKAPHmPtXAmWdjrw93wznxqPDDymgtUkZ5
+	 1N1xRZTQxn28m5t3dwOCMaqMzL48KdYDox4K33v67JleUDSwKX55JaMJwFaL90xYn5N31
+	 RWfoC9Ntr6tBeQbSEtC9aA5wFH00T2HkhIFnEOXSmm7+XS1md2cJe6Xu/qejnLgfdcPfo
+	 hyYk5kMdSLEgmzKchADml+hh4MBjBsKwDQiJCWJ/N0IESZov8DXOl2fULqoWcG9sGuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EDDclsUC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gugOoYN2;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="BBrNWs3/";
+	arc=none smtp.remote-ip=209.127.231.115
+Received: from va-2-115.ptr.blmpb.com (va-2-115.ptr.blmpb.com [209.127.231.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF795606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:29:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF795606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44CBD606A339
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44CBD606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EDDclsUC;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gugOoYN2
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3CPQLl2497452
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 12:29:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IDI+igDoc6QkC7pgWT8Wprn1keJKc8oLjyvAr5GbucA=; b=EDDclsUCxxBMMyPS
-	hSRvJNY9XyOMPssJxN2bWsAG3M5QV3Mo9ybSqfB56MCR9Gvl4jcHa4oZ5CftGMW4
-	vzKklfqahmA7YyvrecFKafFk/s+yDkTrZhvYlOk+YO+p/UX0Lwcnjpu9UeCDwQPj
-	VAE1xx8G3frBAyWWVkaZ9qhkmBdv0L7ye/k+4iHmsz3U0kLITNPElieRfQVAJLTf
-	IVbCfW/CDlXcdVNCj0rEuogCOHzRPWD2XTjz6KffviY66ir/FXJry7sgis8RnXvk
-	9NYXWmso4AmHZoKPeB0cbleLnfp3F302T6DhK3FdldgdcHLyquf3Tx4gJ9eJMKow
-	3nzbww==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq07r3q7n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:29:46 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-98c6374b678so3745753241.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:29:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793708986; x=1794313786; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IDI+igDoc6QkC7pgWT8Wprn1keJKc8oLjyvAr5GbucA=;
-        b=gugOoYN2/WM/kDivAuJBtXpihzzVU/JUJS14+FC7Uhqwdzb0ooMCyd7j2rBSgjpJo2
-         L89FbR1PoSRMS6cqxm8NK5ZipdUOkd/ku3vUUsR6O6LM/+nBnMfmdE9Ms/YTti0kjO1d
-         6Mv+HKKwzKc/21lG0ENyZQ5I5AKSzW3t1Tv7Y6z1kSggyzhETO+IcImhdmCuPcWF4ocl
-         SAvtUnqKl1dpH1deZ7Tm302bganlXr1ayJYSo3GoOzXGIOtboF8lrMQEhkZgqA/Uu6rB
-         LfJgEjGsfgCcd39P8fqs8aKLI7nNrLpgC1gIPEI7cY2kNwR7Fd4TGKJb6KM+0rUsSC2q
-         V7Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793708986; x=1794313786;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IDI+igDoc6QkC7pgWT8Wprn1keJKc8oLjyvAr5GbucA=;
-        b=WDIAFr5DfD9lEIyvHFAWLOggNpEOAj7inoR0tdHxJZG96OvktJc2wqqoZZo2IF9jCT
-         9mCN8tXlfpzade7gBvx9N8H80++9PKaPfOQ0I+dR7/scDu/Qx4FpnsVKZesgh3HhTxAw
-         rsPLSvAKVR8O54lmctuwssBKZSChULGXldg1KYUoyUI/TbYFi/+GpXBZ4b4yXPwB3HKH
-         EXOazpCT27hp/tz74owq68EJylwJ9MQQRGmvj8twBGuTtL32u/RdKiE20vjisDcC5w1Z
-         5DWu3B/0xf6BJBl4mnaaQ8PjbRlEJAcKiM6lqLno3pHZLtI8D7kbV8ksrSXhTG6u5Xlo
-         hw1w==
-X-Forwarded-Encrypted: i=1; AKwUvBxnMlf3GCNb/fYcRmAm/8gR9wDGBemmNudQaepfpn865F75Xjc9GnKYP/T1e8zH9TbmfJAoYr7Neb/XyDo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Agnb0mUutoi/TjG2awK2q8QdISHH8ZAJ+s2X3rJs1v+RfikS+
-	GOEBqEJpMhx2S7R4P6rUV4SYSLnTWA5BGQ3g/VqJGaxdF+odPbCw7iPJfPDiEaqU7IuJ/kS//Um
-	x7fd7xI5nOmNXCcGI+VhlSiae1rhmCrPNj8wiit0MR1HCZjjE0APEYqnZuaC+PHOdT5E=
-X-Gm-Gg: AYBFou1+b7/Pr3p0GILOeh5NR8+JTxoahFxjq1H7zvNssVaVTP/elvM2UpQz6ddSN8R
-	YFdPkr/jk6DpM2xB4sSXwRsS9/FtuLDJzln7PzwMnwGR/3kwmyNqP6xcu0FHU+DYNkKIyd87Ggn
-	Sb1N3DZLQPvEvsrcfhJPpc1XFyTWpSqUBKpoKUywi9uFGP/U9vBNcleP23kxF8F4aZkTHSTzo1X
-	aHxD53DF1KdBY/Cor53pSKt1o/JOcdofSURL0bRHifoArsFp180e+wKltHeCv0Hj9KJ8vPdyYlE
-	8s+1dKXxZOSMStpEfpYsGeQfq9tTMQOkltASn70hWGT9tEsUw3x+Nml6AeFq4N/uJt2xjlMYPko
-	eo5truDdQUhPymKfOzQP+DyvWRs1IsFsTI+PiqV5W2ZsHAKzVcCzZScPWxl7XiKjg7Jv/Jp8B4p
-	Gi
-X-Received: by 2002:a05:6102:6881:b0:7a8:1837:9eb9 with SMTP id ada2fe7eead31-7d07273b428mr4586998137.27.1793708986047;
-        Tue, 03 Nov 2026 04:29:46 -0800 (PST)
-X-Received: by 2002:a05:6102:6881:b0:7a8:1837:9eb9 with SMTP id ada2fe7eead31-7d07273b428mr4586987137.27.1793708985574;
-        Tue, 03 Nov 2026 04:29:45 -0800 (PST)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d5dfsm28910586f8f.3.2026.11.03.04.29.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 04:29:44 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        chejiang@qti.qualcomm.com, quic_chezhou@quicinc.com,
-        wei.deng@oss.qualcomm.com, jinwang.li@oss.qualcomm.com,
-        mengshi.wu@oss.qualcomm.com, stable@vger.kernel.org,
-        Cheng Jiang <cheng.jiang@oss.qualcomm.com>
-Subject: Re: [PATCH v1] power: sequencing: qcom-wcn: increase WCN7850 power-up delay
-Date: Tue,  3 Nov 2026 13:29:42 +0100
-Message-ID: <179370897915.27908.8240780682152468371.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102094800.3225454-1-shuai.zhang@oss.qualcomm.com>
-References: <20261102094800.3225454-1-shuai.zhang@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=BBrNWs3/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793708983; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=ikdsUf5143hpiDaILAuysJHFLeRnHTQHDNJjwBmFwLY=;
+ b=BBrNWs3/gz8szEJoKNfnRRDZFTzpsfBmk33UQk0FFlGPSJ3xUEbx3x35XCl17IxWpgNI5d
+ XK4hvYrC3TWoucupfpWDtjMFMZwn6Na+Cq//MDIMuOlxR2A63HudmbQvUBUS2luuhmMLdd
+ jC1S+JyCvGaD/Mqrbn0Ayrepv5kpQv60bRf8pSmszvlMRnPo6+SqR063M2RCHuMPIzaAgV
+ RcFkOmOtlO4YFM1MEjOmn8fEN7yBXFpJ1ZArDMZmJKAMBr5pkqWa9Jd33jIFt3QRLYEoum
+ DvJY52y6TQfh9XVs9B9QGNV/M6EdPqyIinX/zvxBhQkpwUcNnBrm3xbGtNg8SQ==
+In-Reply-To: <20261103122816.48037-1-lizhe.67@bytedance.com>
+Date: Tue,  3 Nov 2026 20:28:15 +0800
+X-Lms-Return-Path: <lba+26ae9d3b5+1d0f60+vger.kernel.org+lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Subject: [PATCH 2/3] mm/mempolicy: add cgroup weighted interleave plumbing
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+X-Mailer: git-send-email 2.45.2
+To: <tj@kernel.org>, <hannes@cmpxchg.org>, <mkoutny@suse.com>, 
+	<akpm@linux-foundation.org>, <david@kernel.org>, <gourry@gourry.net>, 
+	<ziy@nvidia.com>, <joshua.hahnjy@gmail.com>, 
+	<ying.huang@linux.alibaba.com>, <ljs@kernel.org>, <liam@infradead.org>, 
+	<rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>
+Cc: <cgroups@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>, <bpf@vger.kernel.org>, 
+	"Li Zhe" <lizhe.67@bytedance.com>
+References: <20261103122816.48037-1-lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,54 +68,295 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: nLuHM3qWKZkNY0hiwa1A9AttPZs4mdZs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA0OSBTYWx0ZWRfX4ab5uq7llE9F
- IjpUVUhLW8+QJr94xsI509S2DFJYyyr5nV4YdDlwxZ9Vr7DSJ/8sLylpl+2qTjUtU8FGv+5H7eM
- FWzoakZIXTxFEQ8QBYLFEPBJ3rab0TxAekMoDdnzeXgLp+uSV5qndkdY54+11z02fefUVBu72cS
- 9OSyDqsvpJpr0Po1SrI+9JSIgOtapWG0sAfSLquicrXKi1fgnU8kuQziyRqyT0lqB0eaxr3hz70
- o1X/n4LvZCAIs85Gd4du6j3+dzr28FdcqT1/cv/q6mQjcab9qVVxD0KyJawXDqDlDpnGb+xz7ac
- q5J7geV5kM1ie3c+fv7jjJsWONWxGP1oI5gJWjwIl3Pg//EJJVzF+IHJlPZsp37Ohwmk/EX1jI7
- enpfvijxlbEIOQiF0R9brDXPzf8TPtxdodXp4TNm0BgOqeIDlRRpVstH/PyEkuiPcIJx1UvtfJm
- E1zFRkpKHV4ecU/RLsg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA0OSBTYWx0ZWRfX+9QFo8x6dP9w
- 0yfV9MkAwsXJHlaZimPsBaKEMNdSaTTf/aybVDWs5cvKgdf8V381hEq5ptOK+/ls8PmJ3eVmTSZ
- SQ3x9WbIgL2LAWtzbNRSufis8Iuda2M=
-X-Proofpoint-GUID: nLuHM3qWKZkNY0hiwa1A9AttPZs4mdZs
-X-Authority-Analysis: v=2.4 cv=NZlzRGD4 c=1 sm=1 tr=0 ts=6ae9d3ba cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=KLQxzaQ-LYvYA5eWPjEA:9 a=QEXdDO2ut3YA:10
- a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_02,2026-11-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030049
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103122816.48037-3-lizhe.67@bytedance.com>
 
+Add the kernel-side storage and lookup plumbing for per-cgroup weighted
+interleave overrides. Each cgroup stores only an explicit override
+table. Cgroups without one inherit the nearest ancestor override and
+otherwise use the existing global weighted-interleave state.
 
-On Mon, 02 Nov 2026 17:48:00 +0800, Shuai Zhang wrote:
-> When the WCN7850 is powered up from the Bluetooth side first, i.e.
-> BT_EN is asserted while WLAN_EN is still low, the chip starts from a
-> cold state and is not ready to accept the first HCI command 50 ms after
-> BT_EN goes high. The first command (0xfc00, read QCA version) is lost,
-> hci_qca does not resend it and fails after the 2 s command timeout:
-> 
->   Bluetooth: hci0: Reading QCA version information failed (-110)
-> 
-> [...]
+The BPF control plane is built through a hidden derived Kconfig symbol,
+so it follows the BPF syscall and BTF prerequisites without adding a
+user-visible weighted-interleave knob.
 
-Applied, thanks!
+Per-task weighted-interleave state continues to cache the current node
+and the remaining dynamic weight quota. Weight changes and cgroup
+migration are observed when that quota is refilled; the hot allocation
+path does not revalidate the cached quota on every allocation.
 
-[1/1] power: sequencing: qcom-wcn: increase WCN7850 power-up delay
-      https://git.kernel.org/brgl/c/bd60a639b621453fe37b780df4b6d3a13f981f13
+Bulk weighted-interleave allocations continue to use wi_srcu for
+concurrency protection.
 
-Best regards,
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+---
+ include/linux/cgroup-defs.h |   5 ++
+ include/linux/mempolicy.h   |  10 ++++
+ kernel/cgroup/cgroup.c      |   2 +
+ mm/Kconfig                  |   6 +++
+ mm/mempolicy.c              | 104 ++++++++++++++++++++++++++++++++----
+ 5 files changed, 117 insertions(+), 10 deletions(-)
+
+diff --git a/include/linux/cgroup-defs.h b/include/linux/cgroup-defs.h
+index cbfe8937647c..2dc1cb7336a5 100644
+--- a/include/linux/cgroup-defs.h
++++ b/include/linux/cgroup-defs.h
+@@ -29,6 +29,7 @@ struct cgroup;
+ struct cgroup_root;
+ struct cgroup_subsys;
+ struct cgroup_taskset;
++struct weighted_interleave_state;
+ struct kernfs_node;
+ struct kernfs_ops;
+ struct kernfs_open_file;
+@@ -647,6 +648,10 @@ struct cgroup {
+ #ifdef CONFIG_EXT_SUB_SCHED
+ 	struct scx_sched __rcu *scx_sched;
+ #endif
++#ifdef CONFIG_BPF_WEIGHTED_INTERLEAVE
++	/* Explicit weighted-interleave override for this cgroup. */
++	struct weighted_interleave_state __rcu *wi_state;
++#endif
+ 
+ 	/* All ancestors including self */
+ 	union {
+diff --git a/include/linux/mempolicy.h b/include/linux/mempolicy.h
+index 65c732d440d2..59bfb272da31 100644
+--- a/include/linux/mempolicy.h
++++ b/include/linux/mempolicy.h
+@@ -16,6 +16,7 @@
+ #include <linux/pagemap.h>
+ #include <uapi/linux/mempolicy.h>
+ 
++struct cgroup;
+ struct mm_struct;
+ 
+ #define NO_INTERLEAVE_INDEX (-1UL)	/* use task il_prev for interleaving */
+@@ -304,4 +305,13 @@ static inline bool mpol_is_preferred_many(struct mempolicy *pol)
+ }
+ 
+ #endif /* CONFIG_NUMA */
++
++#ifdef CONFIG_BPF_WEIGHTED_INTERLEAVE
++void weighted_interleave_cgroup_free(struct cgroup *cgrp);
++#else
++static inline void weighted_interleave_cgroup_free(struct cgroup *cgrp)
++{
++}
++#endif
++
+ #endif
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index a284225f8dc9..705bb2e85571 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -35,6 +35,7 @@
+ #include <linux/magic.h>
+ #include <linux/mutex.h>
+ #include <linux/mount.h>
++#include <linux/mempolicy.h>
+ #include <linux/pagemap.h>
+ #include <linux/proc_fs.h>
+ #include <linux/rcupdate.h>
+@@ -5733,6 +5734,7 @@ static void css_free_rwork_fn(struct work_struct *work)
+ 			cgroup1_pidlist_destroy_all(cgrp);
+ 		cancel_work_sync(&cgrp->release_agent_work);
+ 		bpf_cgrp_storage_free(cgrp);
++		weighted_interleave_cgroup_free(cgrp);
+ 
+ 		if (cgroup_parent(cgrp)) {
+ 			/*
+diff --git a/mm/Kconfig b/mm/Kconfig
+index afff1b25b543..43190060f25f 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -1530,6 +1530,12 @@ config ARCH_HAS_PTDUMP
+ config PTDUMP
+ 	bool
+ 
++config BPF_WEIGHTED_INTERLEAVE
++	def_bool y
++	depends on NUMA
++	depends on CGROUPS
++	depends on BPF_SYSCALL
++	depends on DEBUG_INFO_BTF
+ 
+ source "mm/damon/Kconfig"
+ 
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index fb9962302664..751a5e90a4e1 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -96,6 +96,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/init.h>
+ #include <linux/compat.h>
++#include <linux/cgroup.h>
+ #include <linux/ptrace.h>
+ #include <linux/swap.h>
+ #include <linux/seq_file.h>
+@@ -112,6 +113,7 @@
+ #include <linux/printk.h>
+ #include <linux/leafops.h>
+ #include <linux/gcd.h>
++#include <linux/jump_label.h>
+ #include <linux/srcu.h>
+ 
+ #include <asm/tlbflush.h>
+@@ -170,6 +172,11 @@ static unsigned int *node_bw_table;
+  */
+ static DEFINE_MUTEX(wi_state_lock);
+ 
++#ifdef CONFIG_BPF_WEIGHTED_INTERLEAVE
++static DEFINE_STATIC_KEY_FALSE(wi_cgroup_weights_set);
++static DEFINE_MUTEX(wi_cgroup_lock);
++#endif
++
+ /* Readers that sleep while walking iw_table hold this instead */
+ DEFINE_STATIC_SRCU_FAST(wi_srcu);
+ 
+@@ -212,18 +219,90 @@ static void wi_state_init_from(struct weighted_interleave_state *dst,
+ }
+ #endif
+ 
+-static u8 get_il_weight(int node)
++static inline u8 wi_state_weight(const struct weighted_interleave_state *state,
++				 int node)
++{
++	return state ? state->iw_table[node] : 1;
++}
++
++#ifdef CONFIG_BPF_WEIGHTED_INTERLEAVE
++static struct weighted_interleave_state *wi_cgroup_state_rcu(struct cgroup *cgrp)
++{
++	struct weighted_interleave_state *state;
++
++	for (; cgrp; cgrp = cgroup_parent(cgrp)) {
++		state = rcu_dereference(cgrp->wi_state);
++		if (state)
++			return state;
++	}
++	return NULL;
++}
++
++static struct weighted_interleave_state *wi_task_state_rcu(void)
++{
++	if (static_branch_unlikely(&wi_cgroup_weights_set) && in_task())
++		return wi_cgroup_state_rcu(task_dfl_cgroup(current));
++	return NULL;
++}
++
++void weighted_interleave_cgroup_free(struct cgroup *cgrp)
++{
++	struct weighted_interleave_state *old_wi_state;
++
++	mutex_lock(&wi_cgroup_lock);
++	old_wi_state = rcu_dereference_protected(cgrp->wi_state,
++						 lockdep_is_held(&wi_cgroup_lock));
++	if (old_wi_state) {
++		rcu_assign_pointer(cgrp->wi_state, NULL);
++		static_branch_dec(&wi_cgroup_weights_set);
++	}
++	mutex_unlock(&wi_cgroup_lock);
++
++	wi_state_retire(old_wi_state);
++}
++#else
++static struct weighted_interleave_state *wi_task_state_rcu(void)
++{
++	return NULL;
++}
++
++#endif
++
++static struct weighted_interleave_state *wi_effective_state_rcu(void)
++{
++	struct weighted_interleave_state *state;
++
++	state = wi_task_state_rcu();
++	if (state)
++		return state;
++	return rcu_dereference(wi_state);
++}
++
++static u8 get_effective_il_weight(int node)
+ {
+ 	struct weighted_interleave_state *state;
+-	u8 weight = 1;
++	u8 weight;
++
++	rcu_read_lock();
++	state = wi_effective_state_rcu();
++	weight = wi_state_weight(state, node);
++	rcu_read_unlock();
++	return weight;
++}
++
++#ifdef CONFIG_SYSFS
++static u8 get_global_il_weight(int node)
++{
++	struct weighted_interleave_state *state;
++	u8 weight;
+ 
+ 	rcu_read_lock();
+ 	state = rcu_dereference(wi_state);
+-	if (state)
+-		weight = state->iw_table[node];
++	weight = wi_state_weight(state, node);
+ 	rcu_read_unlock();
+ 	return weight;
+ }
++#endif
+ 
+ /*
+  * Convert bandwidth values into weighted interleave weights.
+@@ -2144,7 +2223,7 @@ static unsigned int weighted_interleave_nodes(struct mempolicy *policy)
+ 		if (node == MAX_NUMNODES)
+ 			return node;
+ 		current->il_prev = node;
+-		current->il_weight = get_il_weight(node);
++		current->il_weight = get_effective_il_weight(node);
+ 	}
+ 	current->il_weight--;
+ 	return node;
+@@ -2228,8 +2307,8 @@ static unsigned int weighted_interleave_nid(struct mempolicy *pol, pgoff_t ilx)
+ 
+ 	rcu_read_lock();
+ 
+-	state = rcu_dereference(wi_state);
+-	/* Uninitialized wi_state means we should assume all weights are 1 */
++	state = wi_effective_state_rcu();
++	/* Uninitialized effective state means we should assume all weights are 1 */
+ 	if (state)
+ 		table = state->iw_table;
+ 
+@@ -2734,10 +2813,15 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
+ 	me->il_weight = 0;
+ 	prev_node = node;
+ 
+-	/* The page allocator may sleep, pin the weight table with SRCU */
++	/*
++	 * The page allocator may sleep. Pin the selected weight table with
++	 * SRCU, but choose the task/cgroup effective table under RCU.
++	 */
+ 	scp = srcu_read_lock_fast(&wi_srcu);
+-	state = srcu_dereference(wi_state, &wi_srcu);
++	rcu_read_lock();
++	state = wi_effective_state_rcu();
+ 	table = state ? state->iw_table : NULL;
++	rcu_read_unlock();
+ 
+ 	/* calculate total, detect system default usage */
+ 	for_each_node_mask(node, pol->nodes)
+@@ -3683,7 +3767,7 @@ static ssize_t node_show(struct kobject *kobj, struct kobj_attribute *attr,
+ 	u8 weight;
+ 
+ 	node_attr = container_of(attr, struct iw_node_attr, kobj_attr);
+-	weight = get_il_weight(node_attr->nid);
++	weight = get_global_il_weight(node_attr->nid);
+ 	return sysfs_emit(buf, "%d\n", weight);
+ }
+ 
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.20.1
