@@ -1,106 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793673383;
-	b=dqorhOSvaYFLmqHlfAbzwAWq1DdhomgRvwq7pUUxnvl/aL06wpbJlL5Vg4D1LyrZ7FyJ
-	 JxOH4ESnQWrwekioHbvdqCZb4U38dlpiB1Hkno41hkXvMVvVQsYc6kSSN0s+0EXCc40t1
-	 MmxzKlnLpDSU8p+fQFdg66vQtll+xwXHki2oWpZ4DBxeNegiJBASQuH6+JEhfDLXYFNi8
-	 CjrKdFbD0DvkS9dHcbaEZJ5RRr+cuXWbDeJK39mVLDd5AVQB/XitMXfuE9JY1IiYZk2w7
-	 D9LHgzt/hjJFYbbwOWYU0ZILDwVtuoLpE2gNchxIMnyA2Ke5TdOwc99XoNJPRNWI5rw==
+	t=1793673468;
+	b=4P4HLE44GQw5Ys6Pz501QQsRYhA06PerVLyx1txsLE8F1Bh3NSLtSQztkZhZ72XELzEH
+	 QKUA8N5WHG1vG9BnMvTb6f2Cl1MuMelOW0F+DN2KfxPhm3u/gZegFlRZHrlWA6a0VfIDP
+	 /1Aw+o3MaYqf4NVT6h0Jd55yjk+AKQQAi7FcxmaraEuzB6dgoRWDGl1ljBuYfvQ09GYyr
+	 1MrZIOBQlTeo+MuT0OkXDIJyzFh25sz2IsNMrKHGYZDV+JXLEiNzISxD/lpAPPq5ibTLs
+	 6NUiCVNrwUDrD2M/YbJWU/8+NwCeyfs3M3U734iHu+QDFINEtGBOcNZiGRI5B8NFB9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673468;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=9Jlikt+rNAof8xPAw+Y9FynKuu4c36ojLvpof3Ekays=;
-	b=nHtEHYVkvePVuvhwVem5xukm2U0T979QS4mwsIRkTFDIcN77ps77EPeNQ7HJVa7djLuv
-	 RKqMIWUf0NK55UZ7SAsccLdcgGP8CTGsSX+Wq66zPpPZ4KQ6/ZiakIXyiih/5EYP0G5Rm
-	 VqC1ESDOIk479dK43ream/1qXgztdfSjgZpOLkfwNkcv6fd4ySGdD/HAH35D49mT5AtGB
-	 sOpK3vDy687V4GXLAOqK64S0VODYrdEj23IT1jlSmT2KOJlxsstVuJAYQzqajTekdPYzw
-	 wnWavWnw8JwZRXJ6Ezls0dEj2AZ9JlrDq619DuEEokHqZlSoqORrE0g0A3eilQICIlg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KAx1cm6yWne+0gYptOITSpq6g181IgU4YzBAy/lnyOQ=;
+	b=bJvt4oOzS4sN5WJn1at1+ksQ1koyqCK/1jOX69sgc0oJNhsoS7DztUkUuin8HaMJDL1I
+	 zvblYQYzfGyiQqeHFvJ1aP9LB3g9pezgLZooOs6eLeqZ6gGYOuRE438+U1DTOXDVJA+wY
+	 3eyUFXi7F7rxeMyzwPlZrI2bcmYelcVIK4AUZ+yFLY6j7eiFl4/7cmNKjG0Wwd8AvgMef
+	 usKylATsXke0Hkg2QuWvS/hdpruCA/A2UokIRy6NqssS81fv0gl3rgz3Lo1ulTjTYh5x9
+	 t9fD7SkAbP1zurRzuVHD6dJoXReCn0SJHXhM6z7Cjiq8pB7dAQtr9v1N58zl2lKxF9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=a4TvgsYw;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g080rFoP;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9BC606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:36:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F9BC606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF400606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:37:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF400606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=a4TvgsYw
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36a18fc7a38so6879689eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:36:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g080rFoP
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ea0efd636dso33507035ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:37:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793673381; x=1794278181; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9Jlikt+rNAof8xPAw+Y9FynKuu4c36ojLvpof3Ekays=;
-        b=a4TvgsYwUyyS0K9tedfdNHQcVmmTszna7pZdCPWDEUtUfS8eazt+3tw7+E0fRMUfaS
-         fbpUnYPgGgifY/ZvHRVF5OLPg2c30UiopXSfMUiyig6a/tRPEeKoYjvQSV6xLBEBDqii
-         FCwYWgrkpqBCRUi49rZFN8p0cYjDCfC5cmtpQ=
+        d=gmail.com; s=20260707; t=1793673467; x=1794278267; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KAx1cm6yWne+0gYptOITSpq6g181IgU4YzBAy/lnyOQ=;
+        b=g080rFoPDiAmYQkytqEN5TwRHCf/UNtmoe6wnN42uiWJqkW+IM6Z2klbo8F2JjzJmR
+         d8Sa6txmq5cmMlXTk4HZDZWrVJZyE/5/+qaVPs+m99dHpPFteJ1aYb6j7XrFM/VDzsbe
+         765upSnho6Blgg0osE9Zz5kZvqX+6gHUfzweOiqBjlb5Zgr4frFJdt8kWeAyH80RF/mE
+         +gwfVq7UB/Z6rsh/lM7yGRzf8tfiVi/xJNoPGqyD1wXlDV5Tarz/XGTMhvNnmz/ZS6CP
+         CnOJFFiZcSxkc9AvlEf4g4ugX6RvCPc+5Mfsd14aJnGWXjYTJUINUYeZRStnS2CwNToE
+         AnBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793673381; x=1794278181;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9Jlikt+rNAof8xPAw+Y9FynKuu4c36ojLvpof3Ekays=;
-        b=u3hD5ECljsfup0RzRLgv/y8iL6cm/GkaLaS3gR6Iv/wym1xQ4i0oIVKTRtGiSCHH6h
-         46p5XYYBZvwOWAjw1YvlQZhhfLZASG+8AP8C/qDt+p5NG6vsSBFA53O2PEYNjYF0ejbQ
-         cg+ZgaiJY/z8TcBssiaFLgEwbJiyf0agbqofj4Ehwzcotf7KNp0of4jw8pSb58RzDGgU
-         WJN/+XrZ7Ax4eR6RIr0gGao5ASWMvhcgFWogllmQO1lX//hXdtrHQL24uCG0VEL6O7fS
-         sQT3hMmfxePnBLNiyXDs+rnfz4M9czTBQKPh4hO7j5bp3N55/iMaL7KriBoM2CT2QB3P
-         UwuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw0PIBBz5n0w4oQQZm3/Yt5EpZFufYILK2WgVP/qCotKzh2fGWzDszUoFEupTw5a9qNIcXiA9cqsJ3xMTs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3MW3yh9zsuAC+JrRiXZ7VjiahDy/x4MCCsIU+ygOS89hEYFM7
-	O7z3EtfhERmWFLvyGuBoNeJTMHM6XasLYMwSPSBppBOKTk5uAH7swwr/8Jc7Jk8aOQ==
-X-Gm-Gg: AYBFou2/1MEqDzMrmCFav3IDP1mgPfq04UL13bLWLONhqLF2wVvJf5rBAW1BWyxybx3
-	Ye+psVfDIxYElKzMS8kx8jhsPpC4Gw6LHaiPjpf7H/Upd3mnT3mPLgAF9wkWkhGEMYoiMvtcZVi
-	+quGM0eKJPjDVVHfVFxlv0rlheEZuLvqBs9dcC2HcmtuxH96MozExyohyiO59YhKK6gR+88plAI
-	U8A++dsrceVpnMgtgOX0cMEQdsOqH9EWPhCHbnu7pAel2NYwUtWG2JXF0+lR1PhLSNJquqXbGh3
-	PGvcQ02nTQ1PcHcLFUQeQAslB941cPhBa5K6ROKMvEPA/HbOUjiJp3xqbfY/3eFEfgiu4jobWvU
-	/1Zekc4XH0VvysJxDi2vl65QnK0O5SY6Urpi3+aeSBCs+L8enIZ52IhSXhyjVPJCcu856o3mRnx
-	xiict+xFAbEbYPLDeBiQN2GS+BZRoBzeDRfmy+EgdpSO95ADTMq5N5euPbdY55ymK0WZAJ7HtID
-	my6njj7OjJP65vaLiWM2xHGLIPH406AkGP1WARbnau8jpHXLqzPOZf7CcUFgBdhzmgN/tsA5vOs
-	IuCFn5rrcQQN9FpRrn4+Mrz8O5cWUbuTPPuffaddmaD5MPtVKjLmqVgVrFlKKm3SjyI=
-X-Received: by 2002:a05:7022:1110:b0:14d:c9e:a356 with SMTP id a92af1059eb24-1ac59dd07f5mr17524614c88.12.1793673381373;
-        Mon, 02 Nov 2026 18:36:21 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:c57d:c93d:3543:aab5])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1ac1abcd6f1sm37000499c88.20.2026.11.02.18.36.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 18:36:20 -0800 (PST)
-Date: Mon, 2 Nov 2026 18:36:18 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+        d=1e100.net; s=20260707; t=1793673467; x=1794278267;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KAx1cm6yWne+0gYptOITSpq6g181IgU4YzBAy/lnyOQ=;
+        b=nrgDcVZlK7yum6FYpdx7cyLkBC8XVwqO+pcTI6rhx2lo+ZXtEaozp5Ab7VaJy/OJ0x
+         GjuDRouLi389T4R1MZ9NHdfFa54W35zcnX0qP0/PYLGEPt3x2alPM1RxraYX18GFoZmp
+         CkRTUfkX2jJGkpykXShGVHNZ+uka8kSiUJJKCdtwxuZJVhBHaXniH3ItGnJ0Q2ggtlm/
+         GmhEzp6U4nhTPPfNG7DwtIsZ6jEe3YmYgvsAABHkyT3JJpI6/RABpFxUVQlVf2SdSqyU
+         34jgTBvp8huhbiGzPyKD3lotr5A45ipq9G2MEGkv8XsctD5ViNPLy4j5A/7w4ow8qf1R
+         37UQ==
+X-Gm-Message-State: APuU4Z8fT6gnarTnZb2bE58gyR3RLEwQmpOn+j+anGxMGt9gibr9JDcj
+	zjzoWn6l1U/xPql79rAUniJPwGi7YF/cKq1T8ijOHFGzhQl0O5d/DF0Z
+X-Gm-Gg: AYBFou256c9aO/4pw4D0UXz0Luy/GWS7ycHSEvFkfWOhqNzckVGfbILQV5lBfe+Q+xt
+	umW0dnkFjUuKKMs4/MKYGByoMDmNUj+6T2jiUD3gvm8xUGL8RU7WQvmkg9NzjHpWOd71aIL9pgU
+	aOWCxNMOQo9e9+97iEhmUB6mF4HBpaooigg0dU8KHBUfOlKMZcMLXrpQzAU/wDrqqQIusXfmwN5
+	mzvW3W2mTjNZgMyJtAZq0WkDfNGz9E4RgIeXN0j0kEXBlUchVQLyWG5iYSls/WzLva7lAPbHtZp
+	gkGtFt8QB6hTIkXWtcYIQ0+APiwkTqTvtQWmF0Adof2qxDYHKBxBA1XDY1INwGyoyghY7YU6vJX
+	uA1UY5ViZ07kVRfqmPeRE1BDlkqX9ZFc/e4+Qq0s2guWtexYUNRZeOW6p6sjy/slSOpv80ABR6g
+	3QFnSPo0jFFCnvnecTj48BtKWLhHBlH5YmWOPwsL3/yEWSgBkWIlId72PaRgS2rykeaWPQ3LmQe
+	XUkOLYAMNt9PW/jdx/QHebQTaUGI7i24TB+UC5hYwBzVSnzC3vqpiOyo+bIDgDKNecAxcbfjXSn
+	eVakSbd2zRctOlHO49WoN7fC+pLrjkEOew==
+X-Received: by 2002:a17:902:fdad:b0:2e9:4175:3079 with SMTP id d9443c01a7336-2eb3649422bmr128568295ad.21.1793673467085;
+        Mon, 02 Nov 2026 18:37:47 -0800 (PST)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39298329sm33189015ad.61.2026.11.02.18.37.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 18:37:45 -0800 (PST)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: ben.horgan@arm.com,
+	james.morse@arm.com
+Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	Mariano Marciello <mmarciello@google.com>,
-	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
-	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
-Subject: Re: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM
- binding
-Message-ID: <aulIoq2oVjJ3DVzL@google.com>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
- <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
- <20261028-rapid-daffodil-rat-0adc6a@quoll>
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com
+Subject: Re: [PATCH] arm_mpam: Only program MATCH_PMG when the monitor supports it
+Date: Tue,  3 Nov 2026 10:37:42 +0800
+Message-Id: <20261103023742.2624994-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <912dbaa0-0fc0-46fb-819a-6594538b47cd@arm.com>
+References: <912dbaa0-0fc0-46fb-819a-6594538b47cd@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,97 +99,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028-rapid-daffodil-rat-0adc6a@quoll>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 02:19:23PM +0100, Krzysztof Kozlowski wrote:
-> On Mon, Oct 26, 2026 at 02:43:40PM -0700, Brian Norris wrote:
+Hi Ben,
 
-> > --- /dev/null
-> > +++ b/include/dt-bindings/interrupt-controller/irq-cpm-google.h
-> > @@ -0,0 +1,16 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > +/*
-> > + * This header provides constants for CPM IRQ.
-> > + *
-> > + * Copyright 2025-2026 Google LLC
-> > + *
-> > + */
-> > +#ifndef _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
-> > +#define _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
-> > +
-> > +#define CPM_IRQ_RTC_ALARM_NO			0
-> 
-> Keep naming consistent. Clocks has _CLK suffix, so this should not use
-> prefix.
-> 
-> 
-> > +#define CPM_IRQ_AOC_MIN				7
-> 
-> Anyway, ABI constants should be indexed from 0 and incremented by 1.
+Sorry to bother you again. I was looking at how the driver derives
+mpam_pmg_max, and I think there is a similar blind spot:
 
-What do you mean by this? Do I need to make up names for the
-unused IDs between 0 and 7? On an initial search, I don't believe they
-have any meaning at all. Does that mean I should make up some kind of
-"RESERVED_<N>" naming here?
+mpam_msc_hw_probe() folds every MSC's MPAMF_IDR.PMG_MAX into the
+global mpam_pmg_max, regardless of whether the MSC has any monitors.
 
-Between 7 and 156, these are just ... 150 different "service numbers"
-within the AOC (Always On Connectivity) subsystem. I can name them
-AOC_0, AOC_1, ... AOC_149 if that helps.
+Concretely, on our platform the DSU has no monitors and reports
+PMG_MAX=1. Our memory controller MSC has monitors and currently
+reports PMG_MAX=0, but if we later add PMG support and report
+PMG_MAX=31, the global value would still be clamped to 1 by the DSU,
+and resctrl would only expose 2 RMIDs per CLOSID instead of 32.
 
-Or are you suggesting that I pack the actual use cases (so, 0 and 7-157)
-into 0-151? I thought it was valuable to directly use the firmware
-indexing where possible; if I change those, then the indexing loses its
-inherent meaning, and we also have to add another layer of translation.
+Should the convergence only consider MSCs that have monitors?
+The PE-side value from MPAMIDR_EL1.PMG_MAX would still apply, as
+that is the maximum PMG the cores can tag traffic with.
 
-> > +#define CPM_IRQ_AOC_MAX				156
-> > +#define CPM_IRQ_AP_GDMC_WAKE			157
-> > +
-> > +#endif  /* _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H */
-
-
-> > --- /dev/null
-> > +++ b/include/dt-bindings/soc/google,lga-lpcm.h
-> > @@ -0,0 +1,54 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > +
-> > +#ifndef __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
-> > +#define __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
-> > +
-> > +/*
-> > + * LPCM IDs of each SSWRP.
-> > + */
-> > +#define LGA_LPCM_CPM			0
-> 
-> What are all these?
-
-The binding doc says:
-
-      Each reset is specified by an LPCM ID (cell 1) and a reset ID (cell 2).
-      See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
-      <dt-bindings/reset/google,lga-cpm-reset.h> for reset IDs.
-
-and
-
-      Each clock is specified by an LPCM ID (cell 1) and a clock ID (cell
-      2). See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
-      <dt-bindings/clock/google,lga-cpm.h> for clock IDs.
-
-These are the IDs used in the firmware interface to talk about these
-things, as many of the SoC resources involved (clocks, resets, power
-domains) are grouped in this way (by subsystem (SSWRP / LPCM), and then
-with indexing within each subsystem).
-
-In reading again, I see that the definitions and explanation of these
-terms and the SoC organization are split a bit between the pmdomain
-commit message and the binding doc. Where would you prefer I elaborate
-more? In the binding doc, the comments here, or both?
-
-Or are you suggesting these IDs should be allocated/structured
-differently?
-
-Brian
-
-> Best regards,
-> Krzysztof
+Thanks,
+Ping
