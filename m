@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695092;
-	b=LPlR9sJscIpFXaasRNHPCOU49nOvSJsYjqQm66cB7s2XH0ohGBbqTvtZSfCywSclNr0g
-	 W1iPy/S9wJSLFkTGBs8653Sw6Pa75mjrQVudTsZoM5qjTYI+omfy1E+0tjRLl5Iqt44Sy
-	 V7FCW1cEEyxHQlKkTVo9oD5rfETQZwQ7oOHGYFUqY3C2FWEmBHoryiDjlPF1Xmg/vR1yM
-	 FOcDnkz4F4klw7ZTT3gF46VwbIQZ/9fhyY7ABBaFTnOmfywz+hH+DJUlJEN9F6QsuM1aJ
-	 ZRPG6UC+8I66SbnWp1Ct1tZSARyaufWhZWLTtSC+5gksCSjEusM5kEicYQB7f2z1TVA==
+	t=1793695135;
+	b=3aga5iLyBNUcWaRc2VhJ5tqfC+pSOjCBw7eJaY0Uv60yZ3pwxEKjOvIuWV5bf8IsGbDj
+	 U957VDgo/oSK7n+Laf+RTKYx3oIyWurI1roZISmJ2A1+vsCJnXqD60y3KFAVUHuZsE7a6
+	 Hbk6lxjK/A6vPYBH0+uzJNs1U3H0xaKqv0M60It6gR+SmQJW2RuUeN5cMYifESrtfjmif
+	 3C4Z5ABN7ll1jV2796eT4O6CNyOBTb2hdl2evWO+NED3eKe/8TvR364zD+kuQoMc8CpQr
+	 71CnykDHJ1j27r1nh/TEScBmfkYteck8AfIyh6fFNkYAvUWwnl2u3ITsBpexdCFu6fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695092;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=TdamLChv+sdG6LNLYw2Qd9U2h+0ZmzxZDp/9+0oIr/8=;
-	b=gYxTFUTUpcuaXGCygEL8SZn1W6UKYJ6EIBVfKUFkz3fpdX1lUswGG9aYQ5YkZ42XOWGY
-	 G4f1CWOt0ncShFnEZFwEwWcWArKF+VLWwEyfxaYaNVxzGQbrVLanaJZVfk5MrJTnV8Pgs
-	 8DouLsT14oDKq8VMu1G9/qFTQGY0fGBx82Xu0gPbJ3RdsxK5sJrd3MRJZdpbcASvqWJC6
-	 KAWo4uPvXxV8WRD9aotQKNSZf+8uEAYwHIvx0EvkdOqulio8c6GbE72HQnBFJ5zoA3cjw
-	 G29cKVwWv7SuT2OD+UBeGhKWt2suzN2CvHM1/kPl9km48hXs6vGTn7YqJcVLVxTEVAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695135;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qeqwFlyJpg/hyC5+cDpsscxjxixuGz6INW/VspMuWu8=;
+	b=4hA3zK2dy7b5aBVAd4T2nFlDsL67Bl6ahhdhgI1Xw1NO3GIJKZXwR1ZX5BvVi/uYCX6L
+	 pyVArBd8MKMrQOfa+FbB+ATMgfTfb8UQiHHBPFhZyUVm23wgZV1ZcK2cu4mpHs8hQta7s
+	 W5F7D11PpXR8tjKJvXFvvvi/OfvaEoI2acZC0ylpF5nMO4ik1bjtpER78NZAFRi4NUWV2
+	 kb3sgPo7t+dpgiFMMRCHe2Tzat2RoyRs0V3v2kO8ItEyHVo3XQyx5H6/6sZbAWkdAC3Oo
+	 4r040IwF7lA+5cW8TyD/AkJLW3E6T0nMMAmrzhbCIRqMUNGfvPXEM9+LWMcANQ2IIwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=w6cO5Iqj;
-	arc=none smtp.remote-ip=54.206.16.166
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ROPqMjXI;
+	arc=none smtp.remote-ip=91.218.175.122
+Received: from mta0.migadu.com (out-122.mta0.migadu.com [91.218.175.122])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D336606B6CE;
-	Tue,  3 Nov 2026 08:38:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D336606B6CE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A46606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:38:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01A46606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=w6cO5Iqj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793695016;
-	bh=TdamLChv+sdG6LNLYw2Qd9U2h+0ZmzxZDp/9+0oIr/8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:To;
-	b=w6cO5IqjJExIIXtaNNyHsNqRVmvJutHxeRni/Qqkl+1gKQ9qzkX7zFJIOlUMHWbqC
-	 hQ+zD43oqJp3c+fU1cZ1zb5zqnVghHnh3pxW+ROCV3CJ2Sy8eToXGlG2/E6dcBQioK
-	 xNNsRYe4b0YZ6jXW3wVfkyN9uxwBPYS6MpYPR+Ig=
-X-QQ-mid: esmtpsz16t1793695014te7e09926
-X-QQ-Originating-IP: nmbsjrG9Q/k+ygiAZgy/ipMAVRJ/EG1ptsNZJKn7YJo=
-Received: from = ( [183.48.245.66])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 16:36:51 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3319238422093485390
-EX-QQ-RecipientCnt: 16
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Subject: [PATCH 0/5] Add SpacemiT K1/K3 SoC timer support
-Date: Tue, 03 Nov 2026 08:36:45 +0000
-Message-Id: <20261103-spacemit-soc-timer-v1-0-36722421db6e@linux.spacemit.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ROPqMjXI
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OSN5qGHgqiHVh7/05xFfowZL4pMsF7I9FTtrXt2Dh7Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793695132; v=1; x=1794299932;
+ b=ROPqMjXI5XlPI4j2+AMYhgpbz8V4jO1vsprSWBij54GaljEpun6cdUgvud1esw4g1ip9qwvg
+ fsTAQ9gdAlNWK7zqvCd/jneT7dLIbvPehxzOCbiFFcMIHZx1ClxtmYq+gcr3R7jTmQ9V53IVzlH
+ yyMf7sjmzypXX+cjR/BV8gP0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c2bade759b0e2b73;
+	Tue, 03 Nov 2026 08:38:51 +0000
+X-Mizu-Trace-ID: c2bade759b0e2b73
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9cabcddf-d807-4a36-84f1-5bb06ea72aac@linux.dev>
+Date: Tue, 3 Nov 2026 16:38:39 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,88 +58,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDuQpCDRq5Qu4mSsI/hDJkpBv
- LuxXX6L9w5QTsIKbXVA4l1UlrnAPiqgIcwfRonF4IyrrbEN6hqIJ8moC2GWiRNSiP3TeB+dr6G
- Ea+Jevr/p6/23bt3IlO8TnOcFVjedxXYAAAA=
-X-Change-ID: 20261019-spacemit-soc-timer-cadf3088d286
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1586;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=PNHlNjoGBqlCgwqEiENuzZY3/cTV0XgOwjEaCmEORME=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFkv5yqJB3DXBkxkFtjr2xqw3Dhhl869tV/m8RTE3fxkH
- a6nee1DRykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwERubGFkWFw073bSmxC5oojL
- nHahXrHGXhuvTXT3z/83+5y9W0pDHyPDk1MFM+s1ux5vrlAXmuPtO/1ryNdJmwwLSpdwWycI3/j
- LDAA=
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OGcOLeZOn6+Xc9iI5B2rtSsjF4jH1PDw0GhPYigu5Cvs0iPhsnj4u3W0
-	T37bNLRTcdkVPXglvZlkyQ63KKyeMzgPd+Jeikq9HDjvRsE3iAg1+vtf7CAqylwO5SC6n6z
-	SvENZ3tK6dU8FnbIvgXSqyX3iTzwdq0WsGWWvEMgPHuxAJ8nZh2+VETdrxvaM+Ajmpa5HVX
-	aDBDM215XGQHTQQkyCMRbA+RJEmx0+JxDqi7d6T5wn1iF4HPX2ZWtuN9O2ymMNbGwVRZoqo
-	2JhdUxndwqaKxH3JelgJZwq9eRV0yzcTNAZ+upqEMHceqF5YPGyVQ11xeGZskboK7cU2fEe
-	88DnLRpelZKbBKg6mem1aCiYMSiPuHC0B1R5V9OjXO/imhjfdql4QY03sDiU4k3CFYHq0Sq
-	9myeNsfcflsC6CFG9/sK7j8yqE3mcy87tuUr4kMp2EgxXTiKBq+aSGGSAuSmHNqjr9XuRO4
-	DhNeiGGZWMVswsvdnohK47+Zbj4Lr9nAbp8EYaO02ejdDqTKaH+t28Dl8NkX7C1SiH8VAhH
-	n8FFUOw+ZlQZ/6cjpsFs7wGZYzp6DffgrVAGwkF293arWvK+yYu09MSIPFE4S9X6JOeI9xI
-	vvQ59BsNqiWNZs1gz/2rZh+U18SrvzIAMwwSsCbGGQvu4EEDvMgyuIz4e29JP9bGUZQfXfg
-	1Rc+bYZplcUltI4R08Tk5KQe6IInsPii599mIPj3CyAZJKCJb+Sp1AYCZkYEqeE+L6pUWUd
-	2vsD8N7tCf2b619qQ7TC3XOX+Ylxw30qUXaihC7Kq2dT4akbKyVrh/XRrt7+Yj8RXCl+Lo7
-	yzMb+KUk0fW6iGYpH7ASJXbDB6xo2yIg0L395FbPVAUrzFH7WebTGUmcXeBU/lpJ4jQ284P
-	qqWrFP+ZdhzdR0uXAP9Kcb/xinSrVDuiEgHpM2j8bAuZC0lMwYRvOyVRm2qhdri2TXOhN4H
-	N6DIR8PAJ8A+m6XLYWFEyDs4IkKXtBvd2a+y5tg/PuSQc8XppCoeeq/17OEY/i+eDZW8nhx
-	0RmG5mTUxFdu5728C9TWmnTCwbTmkqWWn2DUWaPLjcKf3tdWn74BknI7284x+UQkZ0LKr2Z
-	EePR3EpSBLfURX6rE3oAOqqrfJBWeQw9Kv1FXdbaMzTrA3wSarvrqo=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 7/7] mm/mglru: add tracepoint for inc_max_seq()
+To: Barry Song <baohua@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
+ cgroups@vger.kernel.org,
+ "open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261103025610.3738894-1-ridong.chen@linux.dev>
+ <20261103025610.3738894-8-ridong.chen@linux.dev>
+ <CAGsJ_4xCTSctcPcC7X6Dx4zYaOycaPqs0DG7AaxB55wx1Afwpg@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAGsJ_4xCTSctcPcC7X6Dx4zYaOycaPqs0DG7AaxB55wx1Afwpg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The SpacemiT K1 and K3 SoCs have APB timers that run independently of
-the CPU cores. Each timer block has three 32-bit up counters, and each
-counter has three match comparators and its own interrupt. A counter
-can be clocked from the functional clock or from the 32.768 kHz clock,
-and can run in free-running or periodic mode.
 
-This series uses counter 0 as a oneshot clockevent. It is registered
-for tick broadcast, so it can wake up CPUs whose local RISC-V timer
-stops in idle.
 
-K3 uses the same register interface as K1 and falls back to the K1
-compatible. Both SoCs run the timer from a 1 MHz functional clock.
+On 11/3/2026 2:48 PM, Barry Song wrote:
+> On Tue, Nov 3, 2026 at 10:58 AM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
+>> youngest generation. There is currently no tracepoint on this path, so
+>> the moment a new generation is created, and how the min_seq of each type
+>> trails behind it, cannot be observed as it happens.
+> 
+> We might be more interested in why aging is triggered rather
+> than the exact moment when max_seq is advanced.
+> 
+> With your patch, we get:
+> 
+> ~ # cat /sys/kernel/tracing/trace | grep mglru_inc_max_seq
+>             a.out-93      [001] d..1.   278.276539:
+> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=4 anon_min_seq=2
+> file_min_seq=1 nr_anon={0x0,0xf016,0x12,0x0}
+> nr_file={0x1886,0xb,0x4c,0x0}
+>           kswapd0-50      [000] d..1.   278.422400:
+> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=5 anon_min_seq=2
+> file_min_seq=2 nr_anon={0x5,0xccb6,0x3439,0x0}
+> nr_file={0x4ae,0x4f,0x55,0x0}
+>           kswapd0-50      [000] d..1.   278.508003:
+> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=6 anon_min_seq=3
+> file_min_seq=4 nr_anon={0xccb6,0x3d29,0x1,0x0}
+> nr_file={0x0,0x59,0x7,0x0}
+>           kswapd0-50      [000] d..1.   280.046056:
+> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=7 anon_min_seq=4
+> file_min_seq=5 nr_anon={0x3bf3,0xcbbd,0x23e,0x0}
+> nr_file={0x0,0xb,0x1,0x0}
+>           kswapd0-50      [000] d..1.   280.124876:
+> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=8 anon_min_seq=5
+> file_min_seq=6 nr_anon={0xcafd,0x3e31,0x0,0x0}
+> nr_file={0x0,0x5,0x7,0x0}
+>             a.out-96      [001] d..1.   290.629014:
+> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=9 anon_min_seq=7
+> file_min_seq=6 nr_anon={0x0,0x10615,0xb,0x0}
+> nr_file={0x331,0xb,0x9a,0x0}
+>           kswapd0-50      [000] d..1.   290.653098:
+> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=10 anon_min_seq=7
+> file_min_seq=7 nr_anon={0x15,0xef23,0x18c4,0x0}
+> nr_file={0xb,0xb8,0x55,0x0}
+>             a.out-96      [001] d..1.   290.684875:
+> mm_mglru_inc_max_seq: nid=0 memcg_id=1 max_seq=11 anon_min_seq=8
+> file_min_seq=9 nr_anon={0xeee3,0x1afb,0x2,0x0}
+> nr_file={0x0,0x76,0x4,0x0}
+> 
+> You can see that the youngest generation is always zero,
+> because you're just getting the newly added youngest
+> generation :-)
+> 
 
----
-Troy Mitchell (5):
-      dt-bindings: timer: Add SpacemiT K1 timer
-      clocksource/drivers/spacemit: Add K1 timer support
-      riscv: dts: spacemit: Add the K1 APB timer
-      riscv: dts: spacemit: Add the K3 APB timer
-      MAINTAINERS: Add entry for SpacemiT timer
+Hi Barry,
 
- .../bindings/timer/spacemit,k1-timer.yaml          |  71 +++++
- MAINTAINERS                                        |   6 +
- arch/riscv/boot/dts/spacemit/k1.dtsi               |  12 +
- arch/riscv/boot/dts/spacemit/k3.dtsi               |  12 +
- drivers/clocksource/Kconfig                        |  11 +
- drivers/clocksource/Makefile                       |   1 +
- drivers/clocksource/timer-spacemit.c               | 312 +++++++++++++++++++++
- 7 files changed, 425 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261019-spacemit-soc-timer-cadf3088d286
+Thank you very much for testing and reviewing.
 
-Best regards,
---  
-Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> This somehow suggests that the information is redundant, as
+> there is always a zero there.
+> 
+> I suspect we'll need an additional tracepoint to show why
+> aging is triggered and at what sc->priority it happens.
+> 
+> But do you know why you trace the moment just after aging
+> is completed, rather than the reason why aging is needed?
+> 
+My original goal was to pair it with mm_mglru_scan_folios, to see how
+the aging window of each memcg moves. The per-generation anon/file
+nr_pages were added following your suggestion on v1. I put it at the
+end of inc_max_seq() because of the restart there, as max_seq and
+min_seq are only final after that.
+
+You make a very good point that the reason for aging is also
+important. So I'd like to discuss which way is better:
+
+1) Keep mm_mglru_inc_max_seq, and add another tracepoint at the aging
+  decision in try_to_shrink_lruvec(), reporting why aging is needed
+  and at what sc->priority.
+
+2) Replace mm_mglru_inc_max_seq with a single tracepoint in
+  try_to_shrink_lruvec(), right before try_to_inc_max_seq(), reporting
+  the reason, sc->priority, swappiness, max_seq/min_seq and the
+  per-generation nr_pages before aging. The youngest generation is
+  not empty at that point, and the new window after aging can still
+  be seen from the following mm_mglru_scan_folios.
+
+Which one do you prefer?
+-- 
+Best regards
+Ridong
 
