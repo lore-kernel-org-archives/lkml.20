@@ -1,65 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706118;
-	b=mcd02qVetx7pSpAMmEVE6f3jxn8/B//ALAEFRfzoP8dCjbDT44cwfJCCL5g1e1w7yyzq
-	 lO1dkEWlWN4SND6DR/6Fr/4+MEtfFrouMeNmEozqxlEPt5/7dUtXmanCZDa443bhcgLf7
-	 kfdEf47S/zt+4j7NY8P45MtEA942UYqOla0JnuloAZyrUdiXCeCwzOa9C5Ple2thpecRI
-	 UPqC3Z3Pid8mbmiBOM0d4lmEisXY6WBawAZl6aE2JyXBZhbecQLa6ioAWlsaMUiRLhRUz
-	 h+5utgkR0/WuEpMYTaDxJOAUpvDqc1WMovIl+vyvNqWH2iPT5fdGBiD4Eev1cihX+Xg==
+	t=1793706119;
+	b=VPZoiPY4aYc+pZQM5RdHYOjwXF9a7H9yPV2oNblokehLOHAXQdY/Fwi+N//WZD/REue8
+	 WSpSduqjO/l40hqzm3DphGw3H8RJIDlA779pAWlA4WyN53QcScZbn/NrXSxTtxKt82tSi
+	 aQvKr9hTA7IrBDQD8iEAzdY4uXjNivWy+++6Tn8k4+QWU+D8/sVTvby2uISvW21bpzMO+
+	 tX0t8FSH5H+Y9sgZaI/X6qU9UX1Z2cdzl3aLH9THzU0JMsVVjgqKlOjoDMVjAwo+oKvEh
+	 kuQjyMzzeN2TgMbZAXmk/IEarWgIy4r/2xo4o42F62S0eRmFpGb9o6i4tphWry7SzXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706119;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
 	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=Quzn8tDSWOj9Otu16BaBrdI5t0AOEg7iQ6jj1NIMH5s=;
-	b=L4Ac786bx2tLaDR+VjnA5QkDVNuN7GYYd7C0+Bom9ek4P6Vt70swM5PlmIcVKfs3PcbQ
-	 gVqRZBUrmn9PW1W50HM603XgBnvOtKH4BHgRT6vWMRPGavz2cpnlLgFOnTCtFPYnb2THc
-	 kqdD/o+yV1knnVZOl7GehckgFp1wE+k3EBTk+Wr7kd4oCIU3DpNEFTvaAlOqWUtI3hyjz
-	 MTtFxxGVsca5nPdDIo8JSnGXSZM2tiPBOVXqzd3GjM7VeDG1JZFd4Gp04QQ14lWsfze+w
-	 xY0/SW88cwfV1uLkO/YNcRv46plnvcTL1qtNDjei2STR7QusPjXzhruCVMERWx9EyCQ==
+	bh=ENk5SyDbftTYbD5uW6iaa1Q6vZlyK2LjOT5m0xsgNcM=;
+	b=mY0IoYJ25eE5AGkyzNlD2++IULDzn7FNs7K6yQ2BnOInsN7H+77KHBP+XnsU9oDBW50/
+	 snRxQgfwd4c4zWxGJWOewHSHYiGSeywqcmuUJ+R2YcZybfm6flqHMsruwBglwUNNkjCY5
+	 ZP6lDlJKHvUH2ZAxf7+4YExRFjEvrCZA2b1DmCvHOnv7NSaUZDBXDGhiORdBgdV3jdGDD
+	 OqjMWxzmHGGAGuwDSGYQnsIRe15NmqbwyhQ32yrGt6pMoEPtWSXH1fGQ+tQNghIwu7KFU
+	 gohGOq6ixfKAujs3aJMqRmbLtSrmfgK0sruEdCdi0EJpukDCc/85PSJ46AX6G9bpSZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=smail.nju.edu.cn;
 	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=TZSrww58;
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b="ZVGeDG//";
 	arc=none smtp.remote-ip=54.254.200.128
 Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C06F6082BF4;
-	Tue,  3 Nov 2026 11:41:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C06F6082BF4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA2A6083612;
+	Tue,  3 Nov 2026 11:41:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA2A6083612
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=TZSrww58
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=ZVGeDG//
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1793706083;
-	bh=Quzn8tDSWOj9Otu16BaBrdI5t0AOEg7iQ6jj1NIMH5s=;
+	s=iohv2404; t=1793706094;
+	bh=ENk5SyDbftTYbD5uW6iaa1Q6vZlyK2LjOT5m0xsgNcM=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=TZSrww58lP1j5o6LpJdN5E32hdgFibIQpneggjSR7qgD14H4tv3Fs1qd1dFpKQYOQ
-	 Aler6YFzel6hBmPDgCwigGd84CGESWs1YLQN5Nq3jOD8C9HQotT2Vmq3X63mFvb1Ey
-	 9PYJtcsvY9bwqccqUASoK7YFhhZIN8/3l2VXWwR0=
-X-QQ-mid: zesmtpip4t1793706077ta8017ae4
-X-QQ-Originating-IP: CgLr/o05gbHd9iLwh6qU6GiZ5/4CMdQLF2HKButkzRk=
+	b=ZVGeDG//Z7eQT5jqhlLHGozPOQ19wKhfAjiRJzZiKRH1o9f5k4SCIS0f8a0Nhiu28
+	 BIgc72tmErf1v23AgD8399nl116WC+Z9Z+S/ZRdowFY2u/6y1GHI/XQ2JH/mvX21gS
+	 h4y25m6DR0eG1KByG3p72kYvCcGpaun0tyUTKgK4=
+X-QQ-mid: zesmtpip2t1793706089t42376647
+X-QQ-Originating-IP: rs/FEwKJBbXtW+3d7f3tQAQRUeaRJ8AsG67TGOUkIU8=
 Received: from workstation-Precision-7920-Towe ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 19:41:15 +0800 (CST)
+	id ; Tue, 03 Nov 2026 19:41:27 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11776490591211574618
+X-BIZMAIL-ID: 2264155925313795611
 From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Matteo Martelli <matteomartelli3@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Victor Duicu <victor.duicu@microchip.com>,
-	linux-iio@vger.kernel.org,
+To: Marcel Holtmann <marcel@holtmann.org>
+Cc: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Kiran K <kiran.k@intel.com>,
+	Vijay Satija <vijay.satija@intel.com>,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] iio: adc: pac1921: validate the ACPI description
-Date: Tue,  3 Nov 2026 19:41:15 +0800
-Message-Id: <20261103114115.74662-1-k.chen@smail.nju.edu.cn>
+Subject: [PATCH] Bluetooth: btintel: validate the BRDS domain packages
+Date: Tue,  3 Nov 2026 19:41:27 +0800
+Message-Id: <20261103114127.75143-1-k.chen@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,82 +71,55 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: Mprg6+9faFwuonxFKdHsqYXJyipBWk+Ihch9dk758p6OMsnVcUufQDhv
-	FMKSFxrgtMUx4JrkNf/5af8YaFb586aUrTTu1+trSc8lZZ+80o3+NfXZOyRu3Z33WMK13ti
-	kRdl4CBi8pGIcXRHSbhrjHMld3XHoRY1DHaKhVsyjv4DvO0VrUStnQ5lkG71a8IeH5qBIgD
-	u0tgwLAhu5agB+Pb1HRv/BJz0vHq/BNqYfL7FimUrnSZCQemIs0BOx/g4HI4tRCi3RPxxKz
-	xZ0POSQDTh12jo1P1LdvJjDjj0RcFmEE1h+zdjbyKW/c+If9pNmVDTgfXfcwMlEENW26oP0
-	h9j6HLbtZP9cFHiiWOSmBWqDzIR7Y11pRtA2cmcQmDS2JH5UK/jQCEM31Y7POp7QfERPeW/
-	2MXY3tEJZRskwR+vgmNUZhEgMlKzXe/UbSCc10u04GWtHTfE+yyRVlRLSzftikG3dFsi14y
-	bDfTpTh6CErVJca28qAeTWajyUVw+MW6bsxhsf7gpc7Y2E+dKWaLiVn92eamCw9c4QDQ8cB
-	VfdMkIUwDW0dAUSqVEhpc96RN/GKXvCGcfC9MnYoEDzg/Hb1fz3Bjk2qC5YBR2JSdmo1At4
-	oxQXOOHJecOJCXIxMK0ezrAqb/ZpjsfsxNDgMX/WPr+Th7Xx4PobZPZAJwxxK2ppDUHUa+l
-	U4BQZcDc56hnhkk+yeYwO1qTER9+p4J04KqatASf5uKaQShKgYxoH411pFG9NJaL9RR6/nD
-	9+C1NO7eAW8wsWGaN4J9i8J5AtN5k23yYX9M8S52+CJDu2XVwMUMfdNQCrkvsW/kUFViMkI
-	T9vzyrI0fwGeD3YzA/bQc1GNI5A1qAa0ZaxoSOuV9HxnWU2DE8uQCSsoqnORpeH4XXPrlNC
-	4IhBAcQ0jUu7IknnWlGM8xVHD7mZ7qs47N2oEz1ablFbonh2nFJZztVVrx7/Dm28lqgI770
-	zE53iO2owilnDysHLvq5SFx9MvIzjTNVk3KiqRLPuynZQgLRL4LsVs4wpvmkpZPueaKs463
-	UMXGRE1CKY9SzAl9od4THfeCZVSz1pAAafkOJHMq+R8otL9DYAjZsxBMy+6Oqnf3BLEAACF
-	Q==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-XMAILINFO: NChuY+V9daHbTr9h6Jn1ViXBf0aDgCi4YRuFpqnNjDQOZYYzRLhgEhnG
+	x4NUQHSCI+qKONakqm+BXwMU/rUFnUtmeygwgnQRpT6UPXkXNG/xmu97rzvGbevaoWZyIWv
+	MHpLJV1T2rT9e4PMSoGyaDk2aEUi1kiNWjukZ3MhwUBTrl5ay+XVzIm/oBaRVxZQOE+4sgo
+	9WCekioLrl8WPxQWuP0z38PmnE13zU5IudVUgOIqrlbCMW5bdKuC5T3GL8g0hqPs1fOlvcK
+	i+PcMQlRcBQeHU9pfkPwBnGlaaYpqnskQVTFwrXLa7qXETSHMHT4HoaESb2dendnvbs9+h3
+	a/3efAiVDFu9kH8Yn888tT9etuIo10ozb9LtmQPd6tM6oefil8i2PYrNE7V12VTd3GpqJ78
+	u6eLnbHiXo9XZ6flps673XpLeMVWfDp0IvrZBddna1IbBSamSmeBTBS5DHviISZr0HhPuik
+	CxP6K9gSCmSoACfb+Kumrv/BQ61RNT8HisQ+SRpyMURaWAvdNJbki+CxCeDa1EduhW1uBIp
+	fxN3CpO1ubU4tNQgoaG0hoVPwXQ2s170/gAKkbSh4R7pcnoIFECjRoF/XzMNV6TkYNXV6xG
+	iYqqg3jAN/046mIVTKsNIyHuhM/KENlO7KxWnK4gAf2geEkaa8/1fn9wpiTgV+YcoCB35+J
+	RKQrfhshJd46sFF6uGEe0Z1UjYYQR1+gws9Um5wGwjf0eagkEFCIpbNwYn92Ryj8a8d+UA1
+	OOHioVS4/K+CrUZPoyx2x7uBMU/FL6q+yTukbAM2XliRVLcAc2gl9jHr3J1cKqgWqs8m+35
+	JLoAEP3pWCqcMo6WloV8l4EqAj8j/PhPLH2+BVe6bXhrVtB1i6kct30m8zJZo6p3rTQvyYp
+	ZByZfwQwyKJtOEPPFS5/yn7leVxiKga9KZMVTlxHHN36T6M/yg8FeN86MaxxwWpovsFEVCt
+	jZ2ZtXCN7poYvrjDJ0ivhGpKX9kMTXUcq+rROyaoakFf8MEY7emge5ofQbMOUDTPlpYKGep
+	9EgS2Uod57aiHts/Zl30CVrArm1HGnT3FHlgXOgdGOJXdZqqns
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 X-QQ-RECHKSPAM: 0
 
-pac1921_match_acpi_device() reads elements[0] of both _DSM replies
-without checking the top-level object type, the package count, or the
-element type.  An empty package makes elements[0] an out-of-bounds
-read.  A string reply to the shunt query, or an integer reply to the
-label query, makes the driver interpret unrelated union members; for
-the label query this can pass a firmware-chosen pointer to
-devm_kstrdup().
+btintel_acpi_get_bt_pkg() treats every element after the revision as a
+package and reads its first element without checking the element type
+or count.  An integer element makes package.elements alias the integer
+value and dereferences a firmware-chosen pointer; a short string or
+buffer element reads past its allocation.  The function is called for
+BRDS during Intel SAR setup.
 
-Require a package with at least one element of the expected type before
-reading it.  Also reject a shunt value that does not fit in the int
-range checked by the driver before it is truncated to u32.
+Skip elements that are not non-empty packages.
 
-Fixes: 9fdf1d033316 ("iio: adc: pac1921: Add ACPI support to Microchip pac1921")
+Fixes: e036afb1fe44 ("Bluetooth: btintel: Add support to configure TX power")
 Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 ---
- drivers/iio/adc/pac1921.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/bluetooth/btintel.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/iio/adc/pac1921.c b/drivers/iio/adc/pac1921.c
-index f0bab94462f4..3242928d80e4 100644
---- a/drivers/iio/adc/pac1921.c
-+++ b/drivers/iio/adc/pac1921.c
-@@ -1189,6 +1189,19 @@ static int pac1921_match_acpi_device(struct iio_dev *indio_dev)
- 		return dev_err_probe(dev, -EINVAL,
- 				     "Could not read shunt from ACPI table\n");
+diff --git a/drivers/bluetooth/btintel.c b/drivers/bluetooth/btintel.c
+index 0709fb3212f9..16745b58bde4 100644
+--- a/drivers/bluetooth/btintel.c
++++ b/drivers/bluetooth/btintel.c
+@@ -3042,6 +3042,10 @@ static union acpi_object *btintel_acpi_get_bt_pkg(union acpi_object *buffer)
  
-+	if (status->type != ACPI_TYPE_PACKAGE || status->package.count < 1 ||
-+	    status->package.elements[0].type != ACPI_TYPE_INTEGER) {
-+		ACPI_FREE(status);
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Invalid shunt value from ACPI table\n");
-+	}
+ 	for (i = 1; i < buffer->package.count; i++) {
+ 		bt_pkg = &buffer->package.elements[i];
++		if (bt_pkg->type != ACPI_TYPE_PACKAGE ||
++		    bt_pkg->package.count < 1)
++			continue;
 +
-+	if (status->package.elements[0].integer.value > INT_MAX) {
-+		ACPI_FREE(status);
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Shunt value out of range from ACPI table\n");
-+	}
-+
- 	priv->rshunt_uohm = status->package.elements[0].integer.value;
- 	ACPI_FREE(status);
- 
-@@ -1198,6 +1211,13 @@ static int pac1921_match_acpi_device(struct iio_dev *indio_dev)
- 		return dev_err_probe(dev, -EINVAL,
- 				     "Could not read label from ACPI table\n");
- 
-+	if (status->type != ACPI_TYPE_PACKAGE || status->package.count < 1 ||
-+	    status->package.elements[0].type != ACPI_TYPE_STRING) {
-+		ACPI_FREE(status);
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Invalid label from ACPI table\n");
-+	}
-+
- 	label = devm_kstrdup(dev, status->package.elements[0].string.pointer,
- 			     GFP_KERNEL);
- 	ACPI_FREE(status);
+ 		domain = &bt_pkg->package.elements[0];
+ 		if (domain->type == ACPI_TYPE_INTEGER &&
+ 		    domain->integer.value == BTINTEL_BT_DOMAIN)
 -- 
 2.34.1
 
