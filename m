@@ -1,120 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793681348;
-	b=0wpFvTv4+GWuHeijUbbymX6Z0B8SsS70XMZN6o+blGlBFy2DA755C5kegXMo2BE/ifdE
-	 VmIUfJw5IcL/BMcBcT8LVmSwVBhaRz7hAjCY+nOUowWiHM9KvmHYSpVu0hjypbWkWEq+C
-	 SJ7FR4lpTX2rYDeyo9k6SHEh6sZM0AttwGCnHIe3fSwE8DRREpUIvFaiaEfKIW0TOCggV
-	 crfe7d8crWn0hmcWh/5ov8308canRtm24rXpncezZk2leF01QoyfpImNQgxTB6klwUu/I
-	 ntwLjFT6QNTJBqYdf4pctyXEu9BinscM1EOwbb0LvGQGsh2l7urT2N+7rl8tnvtm3sQ==
+	t=1793681343;
+	b=Ko4vJDPAplGgRyP4ne36zm6VJq8vMtXCXjgkPrL1/9j5I0f8QC4DEeHuyNMurHKTg5ES
+	 OyvBDjV2a3XMcRzAHOz1/Q9S2ZGmWBSj6ycpt5lsdxGj0EAYy8rDJAxYh68d7D4ixWDI2
+	 pc9ZsIZVTP70XzzuzeuFYBSfX+mp7+VxHaCjaxVJeWe5l7Z56SWwenSZi40SJlfqNG9hP
+	 +d4gB/WL+zlkorzvSkmeyKCW9balOnRklGCLc4I4Y4exOySNPiVxSIM5GNaMwPHJv16uE
+	 mAyyYfqKRq9f5uhx7rezrxhYB4r+GL3CcWkoITm4P8cRZV5pigZOn+2qwSiNHDeTlHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793681348;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=JCqczoWRKss8snbeoW1OQA5p86RlP9skpTKlIpuQAs8=;
-	b=JJOukpSe6YaTM9hCboLukwDBxH0gZIXP5J+iT0PTwIvBlEF+/8ocd8KBJxOctjzPOLvb
-	 iVOcBiFU0AkGHHMo7rSb4JIPc2xzeg8aX3kSXeBmtX3e9GlBWZ0iiHcVZAI4a+WtuMZfY
-	 2bIt7byZHbQaAUOE5dDgzUPxLpF8Fv28es3qSa14yBxTSw5CNdVjViv6K2Qg0hqv2/ZrS
-	 EyWNQnoW5H48nqrPObverNcQ2GkqQmQgr4WsLWXxiYQN/NYWwp90deQhZzWD7cNyfPu7v
-	 GTSd8yV6WcmUhx7ECTfeca/pEcEYTYpWIJyYJNci0H4Hd/q/xoRZvyLoCuJ0OkbALug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793681343;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=xpPM8d6E2sOmuORX+oJQ/3Yb6xz98T79nukjUCv60w0=;
+	b=tl9Wb1F5ZHHQRtCxoHKw4PG9iJRWam5zXJtYxtzn14S2LSR1ZqDB4zEaZG6QPq7OJQWr
+	 qFfKUvfsJ8O/mYP8PPvQIbq3sBB8DHmrBeXTBdYlVxXpFtJm8ypuyh/EOiCMMzg6Nm1nH
+	 wl5nEW0O52gasEiPubx5mMcHBM91u+qekBzHfzG0IW1BZINz6m8EU3vh01WN90vqpzE66
+	 1yP/pVCN9dHYgvSDOZp0pResxpEjk1qvyIbygHcDoySIycyr6ce0379Uoz6eLB1CPXmPJ
+	 Wrh+XIrbzGYwTzzflzQUaVNgpiXsMkXZGWh/ztf8fl0J2N4qg/BAVZ8K/1zL32qySmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IiyEcu+O;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FC+qTWCz;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=N3yb8+oy;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2143606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:49:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2143606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86782606A33B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86782606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IiyEcu+O;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FC+qTWCz
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31ejrt2012524
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 04:49:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=JCqczoWRKss
-	8snbeoW1OQA5p86RlP9skpTKlIpuQAs8=; b=IiyEcu+OqwEx+AHLh6dxF0HFLuN
-	v98LajLChhJP5gTSB9kX9r74mVC9QrqEke9Qvoy3ed90rvutsx8p665rpcGY3QOz
-	rObsNdhMw1wXKKCjJUQ54Jj0L7YJh9XG+rnrM0M1/DKI7T/c5BeO+1H9l43OcQAg
-	muCb0jxv7fkOZPu79mX/YzDBC3jOm0pCTidi4z6wxi7uB+L4uhNGm5wjXWuw31ls
-	O2titeVUNp71mrAKHObPSZ45Fk3C92LDopi6SiW4n8zmMgsBtJWAHsvgoIETBbHB
-	J/N6Om7Sj6P2Q+ea2kI8eUsyr0f5QOeLtwtmQcB6WG8EawbK7aY01JWjOrA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpsa6uupk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:49:06 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb71b1443so776668085a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:49:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=N3yb8+oy
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b07b06027eso642459a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:49:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793681346; x=1794286146; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JCqczoWRKss8snbeoW1OQA5p86RlP9skpTKlIpuQAs8=;
-        b=FC+qTWCzhoaMRfDmqYlyhHAyQKti9YOGol7kZmmR7/h8jc5d85UXCDxSqfK5e01Jgv
-         DyNJqR99fBVFZ5dZyIyu7nlZsXfzp+hVRr+gi+fEm6WdDOj1m2duH16HyAPBUnhcZBLZ
-         3zSCLzlo4HUD2ETnzy5kQK+Co3VFKue48BUpyrNfexaeH5rRU5uns1MOTmvfV31m4gWD
-         gO7CKFZKKKThfCxzn+JZSBbVDJY2MHaZMS9Tms038QYDqiOUbhiT6rKfa7jQJN2/x7km
-         sv1CN27kKMoY7j4X1b6qJbEaoTjLuGZigcaxu86DEg+O9IOf4rsXD8OxcAyP+p+lSafZ
-         6ZMg==
+        d=google.com; s=20260707; t=1793681342; x=1794286142; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xpPM8d6E2sOmuORX+oJQ/3Yb6xz98T79nukjUCv60w0=;
+        b=N3yb8+oyTXT5JmTpHZoNiyTZDZyViCCgxID1pC+ipOJlnaGTUES+eSgUktKLb6Ed7b
+         Bcu40a285vRAYe+p0EBWCbP8XOr475B2EH6Djl7GLJoYXUYnOak+Qc41B04TBNPlJ1Xj
+         X0k4g0c4ECEzScqGR83aMPTeecbGzdCJtSuye0sSmqp+B1QYQGfE8KuLEACn5EFeVu7A
+         tuZkJhYU0SxS6gn3VJyUrE8wull93UwkmYHM4kAEcOcASepeCgbX6ZkGeZvN1IehLwT2
+         mtm8P5HrSKgfxu5TUUyUX/2Dumh0mQK5nuXUhHLDdzDO0Kg08OWhWmCOcRAcA9OmrKVk
+         W7+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793681346; x=1794286146;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JCqczoWRKss8snbeoW1OQA5p86RlP9skpTKlIpuQAs8=;
-        b=jwyUysUG2MJ81pdmymnfmSEQCkOyuJhvvSbVpaQbTbJ4bLJe32pzuPvMpaX6nxPBT1
-         BwrRF2BD9hjzReyqqDP2FIlCSwMpwQ8I3/BaikVn49ks0XbZvuwdo3jjlGj1K9BFT0Gr
-         fHYTE9d//voVuRX74XfBZf79oAb7u8CKnnuIenbXythFVrNOdMwp5/mCe/cAYqumSTCM
-         +tMkE7Uk5fD72aUIawEaubOUp93f9iVENRc0yVV4trqrf191Q9Sh2M5uSnEoh44vYESo
-         HWufu1reMpDF8J2ha2Lv4/Jx8saAPwG7I6x3vmxUbjCVnPQclVUy532THJpCUz6XM9Hc
-         5MxA==
-X-Forwarded-Encrypted: i=1; AKwUvByUmJ5+n3laGQfFCcaacHzit2I0kKdt7UPYytfkGPLIFOsuH+uTSRZFZwD9/yxDxPGVFOqBc6u1x7iBKRo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/u2i4pyjjZrcRWsHNa1fceGmliLBdhVRp+VHlv3h4kFry/PKZI
-	dQxgbT3QqY5whDPKzdlvtee9RNlGak1+Nhrva/P2eKPbRDFN3SqRNSUl6ajTFg1o+Oq5h7QqFS2
-	3FG1FkdrjLBa8pCd7twOC/k/VE7xEeKKLCRgqpHCfflRqlagLC5MzN5IAabyWT8B4W+c=
-X-Gm-Gg: AYBFou3M5XBtoFJL4QF+qKJzEWgTAsFkwV77yWwD17XILwgLqsXNQWlgYOsUQWSyxyl
-	fL8AdOh9gBqSB8Pm+wewoYHf4nyqLQuiV/LuoANaOK/xElVlQMQgXlbA7gtsKUvLjxQaKJ7dWzk
-	DOq9EmmIakhfr9JQvYMWu1xnQP+VmyAbc5v/jAUajotQtlnNBJRFaZooWn3WRPiS6VQTZFuNf2D
-	NXNSz1xLrTCuysNm5Xzs26cqci+cln29vwxrVwVvh+0TB70HWHCrK25GHEZACZZ70HC90j1s3WH
-	8UkudjFq7gQwWlP9Hea7FHSeREiQF8GmuRwBYcq8+yFaCeEsWEQ4KqIVh0sR9GG58bKYsAE2Xz/
-	zfJ9g661vhnF61IdY6IfIcw10wEup/1j5pY3dQdvcM7yo55Lfd0HqERuqsaMv1CzmTb/0Ck65WS
-	Yo
-X-Received: by 2002:a05:620a:a89b:20b0:945:51c1:c17 with SMTP id af79cd13be357-94551c11060mr930800885a.42.1793681345834;
-        Mon, 02 Nov 2026 20:49:05 -0800 (PST)
-X-Received: by 2002:a05:620a:a89b:20b0:945:51c1:c17 with SMTP id af79cd13be357-94551c11060mr930800185a.42.1793681345400;
-        Mon, 02 Nov 2026 20:49:05 -0800 (PST)
-Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:8b9e:7797:dd05:11cb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a879fb29sm25685445e9.4.2026.11.02.20.49.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 20:49:04 -0800 (PST)
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-To: rafael@kernel.org
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-rockchip@lists.infradead.org, linux-kselftest@vger.kernel.org
-Subject: [PATCH v5 3/6] powercap: dtpm: Remove duplicate RK3399 CPU hierarchy nodes
-Date: Tue,  3 Nov 2026 05:48:17 +0100
-Message-ID: <f9b6ff8250f27e117facd372735b6c1f46e74926.1793666444.git.daniel.lezcano@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793666444.git.daniel.lezcano@oss.qualcomm.com>
-References: <cover.1793666444.git.daniel.lezcano@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1793681342; x=1794286142;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xpPM8d6E2sOmuORX+oJQ/3Yb6xz98T79nukjUCv60w0=;
+        b=OMP9kA4tmrx1bdgqU2Dfczwz5yjKxJJdLfqB/vQyaYbiuF7SpJg7eduH/IbQ8qUb02
+         6q86EhWz/Wlklk/hPdX6lI1pgZbvNHt8If2+j4P0pcFWZei1qCY5i1kzNGqrCB3FKXIe
+         bS6yoMypZKqz/ZPbUyVBfS367q4/T0AAoITe3ZRp8lR/qtHQ21HJ0HCWvTBOyJ9ltaCb
+         vfPPt5xgbkAZ5GMO2/zVg+hTFy+naMAfAcZrCWSOsf504uNe1OzKGIcUGskJ0hQQyGRt
+         cMFNJkrtBErJlUHxs5C5MFMYSgWLRnunHXob4FtJ4pn2trwi/Q67X2IVPHamJvWmWcq0
+         ZjjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzaLzWXp32DoVCIpTZ+k7EHo6HaDnTBTJJG6IYWh09qaNi3oq9MFY7fU5aCSYHMBjfvQjQwc6txeXfqEg0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Xm4YTEORIrlPU72ccyI0rC8IF4cTIrKvHwW4Q5/98KZ5o1bre
+	NEK91Ks0oNphyxuIenkuxA5+08S6AZXhf+lkfEHW1PEk4GUeVSUu/YNwSq4xBX4n+50cm0EkrH6
+	SNK/oVA==
+X-Received: from pgbj23-n1.prod.google.com ([2002:a05:6a02:61d7:10b0:ccf:d903:c14c])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2d8b:b0:3ab:c80:9370
+ with SMTP id 98e67ed59e1d1-3ae89724ae3mr8703357a91.20.1793681341720; Mon, 02
+ Nov 2026 20:49:01 -0800 (PST)
+Date: Tue, 3 Nov 2026 04:49:01 +0000
+In-Reply-To: <20261031113330.45704-2-vitaly.zuevsky@gcore.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,105 +77,232 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxOCBTYWx0ZWRfX6zmXdMqqCOfY
- iQR6bir4+k8Orl8Xr4WAnsBFOHXufOfPSi1OL3IuzIoAYEvXtjjbnYccUKtBnhkMaqHWVNqzmH0
- 0Mmp3ivP3Q8wT/HZPn0OpoW8TTAuMp0iw/Sx28YT1ENtL8pftho1ja4Gtuvy2sB0uEs6OdkEf3G
- CCU1kCtsQQWXz3lj7rWn0bR/TeuOnB2pEFMjZs02PkpDumJZt9MgdvVnWYBsmhUZhg6UU8D0p9m
- rfFUYQSsb+UaglZ+JNBOKRIAxPBrTmxPJIBvzOHkGnKsQ372CDSTafmaBHauMJMhf9tYy3+89AA
- vUcQfduwVa1yGytrdlOAtRPxHq1tU4tyZWCt27gsjH9MmPoyG8YRFwMhEKoDOsOBakl6RnYZf8k
- Aw4fypmVCsYDIpHmw51leBwgQq1u4EtqIbObEbaT8kTgtgt5TNWREBdShRSgRt4/UY4CPrMhpIi
- h/GMYOeajZ1b+Uw+5/A==
-X-Proofpoint-GUID: wyNfNaFItx_vrvsWISO9wRK6lwrN6Uz1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAxOCBTYWx0ZWRfX/vB9SqDdw4ER
- bIkKc6FZM13myVZLyn9od22hUN0F2XRBD485GySQIAUrvCP3tQVaySiBa8RiLgzDEwHJ0dXzvCC
- P00My3SuDEXJ61QKkUnzwePJXLdwAM4=
-X-Proofpoint-ORIG-GUID: wyNfNaFItx_vrvsWISO9wRK6lwrN6Uz1
-X-Authority-Analysis: v=2.4 cv=I9fw19gg c=1 sm=1 tr=0 ts=6ae967c2 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8
- a=EpzjDTW3ywHV2UopgxgA:9 a=PEH46H7Ffwr30OY-TuGO:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030018
+Mime-Version: 1.0
+References: <20261031113330.45704-1-vitaly.zuevsky@gcore.com> <20261031113330.45704-2-vitaly.zuevsky@gcore.com>
+Message-ID: <aulmWD9VUXcwgp6h@google.com>
+Subject: Re: [RFC PATCH net-next v1 1/2] net: add SO_NO_RFS to exclude a
+ socket from RFS and aRFS
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Vitaly Zuevsky <vitaly.zuevsky@gcore.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Richard Henderson <richard.henderson@linaro.org>, Matt Turner <mattst88@gmail.com>, 
+	Magnus Lindholm <linmag7@gmail.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Andreas Larsson <andreas@gaisler.com>, Willem de Bruijn <willemb@google.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Christian Brauner <brauner@kernel.org>, Andrew Halaney <andrew@amutable.com>, 
+	Jori Koolstra <jkoolstra@xs4all.nl>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
+	Tariq Toukan <tariqt@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, 
+	Chuang Wang <nashuiliang@gmail.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-arch@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-The DTPM CPU backend registers one powercap zone per cpufreq policy,
-not per CPU. On RK3399, CPUs sharing the same cpufreq policy therefore
-map to the same DTPM zone.
+On Sat, 31 Oct 2026 11:33:29 +0000, Vitaly Zuevsky wrote:
+> RFS and accelerated RFS are enabled per host and per rx queue, but
+> whether steering helps is a property of the flow. A host that carries
+> a few long-lived flows which benefit from steering alongside a large
+> churn of short-lived flows has no way to express that today.
 
-Remove the redundant CPU nodes from the RK3399 hierarchy and keep only
-one CPU node per cpufreq policy. The backend already suppresses duplicate
-registration through its per-CPU state, so the removed entries are
-redundant descriptions of the same zones. Keep both CPU policy domains
-and the GPU in the hierarchy, preparing for one created zone per generic
-hierarchy node.
+FWIW, we have the exact same option in our kernel since 2019,
+it was named SO_BYPASS_RFS with skc_bypass_rfs:1.
 
-Also fix indentation in the Rockchip device match table.
 
-Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
----
-Changes in v5 (since v4):
-- Add Reviewed-by from Lukasz Luba; no code changes.
+> 
+> Add a boolean socket option, SO_NO_RFS. When set, sock_rps_record_flow()
+> does not record the socket in rps_sock_flow_table, so get_rps_cpu()
+> finds no match and neither software RFS nor ndo_rx_flow_steer() acts
+> on the flow; it stays on the CPU chosen by RSS or RPS.
+> 
+> The option is kept in sk_flags so that sk_clone_lock() copies it to
 
-Changes in v4 (since v3):
-- Rebase on v7.3; no code or commit-description changes.
+I posted this so that you don't need to access to cold cacheline.
+https://lore.kernel.org/netdev/20261103044213.1336347-1-kuniyu@google.com/T/#u
 
-Changes in v3 (since v2):
-- Rebase on v7.3-rc7.
-- Fix Rockchip match-table indentation here rather than in patch 1.
-- Clarify that the existing backend suppresses duplicate registration.
 
- drivers/soc/rockchip/dtpm.c | 22 +++++-----------------
- 1 file changed, 5 insertions(+), 17 deletions(-)
+> accepted children: setting it on a listening socket excludes every
+> connection accepted from it, while sockets the same process connects
+> itself remain eligible.
+> 
+> sock_rps_delete_flow() is skipped as well, because a socket that never
+> recorded itself must not clear a table slot that may belong to another
+> flow.
+> 
+> The test sits after the TCP_ESTABLISHED check and inside the
+> rfs_needed static branch, so hosts without RFS pay nothing and hosts
+> with RFS pay one test_bit() on a cache line tcp_recvmsg() already
+> touches.
+> 
+> Signed-off-by: Vitaly Zuevsky <vitaly.zuevsky@gcore.com>
+> ---
+>  arch/alpha/include/uapi/asm/socket.h  |  2 ++
+>  arch/mips/include/uapi/asm/socket.h   |  2 ++
+>  arch/parisc/include/uapi/asm/socket.h |  2 ++
+>  arch/sparc/include/uapi/asm/socket.h  |  2 ++
+>  include/net/rps.h                     | 13 +++++++++++++
+>  include/net/sock.h                    |  1 +
+>  include/uapi/asm-generic/socket.h     |  2 ++
+>  net/core/sock.c                       |  8 ++++++++
+>  8 files changed, 32 insertions(+)
+> 
+> diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
+> index 5d3524c26b2b..256d37f5b9b0 100644
+> --- a/arch/alpha/include/uapi/asm/socket.h
+> +++ b/arch/alpha/include/uapi/asm/socket.h
+> @@ -161,6 +161,8 @@
+>  
+>  #define SO_PEERPIDFD_THREAD    87
+>  
+> +#define SO_NO_RFS              88
+> +
+>  #if !defined(__KERNEL__)
+>  
+>  #if __BITS_PER_LONG == 64
+> diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
+> index 245a43f52fb1..5b477de463a3 100644
+> --- a/arch/mips/include/uapi/asm/socket.h
+> +++ b/arch/mips/include/uapi/asm/socket.h
+> @@ -172,6 +172,8 @@
+>  
+>  #define SO_PEERPIDFD_THREAD    87
+>  
+> +#define SO_NO_RFS              88
+> +
+>  #if !defined(__KERNEL__)
+>  
+>  #if __BITS_PER_LONG == 64
+> diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
+> index f23710e1c671..b3a4cc2cbc50 100644
+> --- a/arch/parisc/include/uapi/asm/socket.h
+> +++ b/arch/parisc/include/uapi/asm/socket.h
+> @@ -153,6 +153,8 @@
+>  
+>  #define SO_PEERPIDFD_THREAD	0x4055
+>  
+> +#define SO_NO_RFS		0x4056
+> +
+>  #if !defined(__KERNEL__)
+>  
+>  #if __BITS_PER_LONG == 64
+> diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
+> index b35b25bdefc2..ba5ed7942570 100644
+> --- a/arch/sparc/include/uapi/asm/socket.h
+> +++ b/arch/sparc/include/uapi/asm/socket.h
+> @@ -154,6 +154,8 @@
+>  
+>  #define SO_PEERPIDFD_THREAD      0x0060
+>  
+> +#define SO_NO_RFS                0x0061
+> +
+>  #if !defined(__KERNEL__)
+>  
+>  
+> diff --git a/include/net/rps.h b/include/net/rps.h
+> index e33c6a2fa8bb..5afa48868236 100644
+> --- a/include/net/rps.h
+> +++ b/include/net/rps.h
+> @@ -98,6 +98,13 @@ static inline void _sock_rps_record_flow(const struct sock *sk)
+>  	 * [1] : sk_state and sk_prot are in the same cache line.
+>  	 */
+>  	if (sk->sk_state == TCP_ESTABLISHED) {
+> +		/* SO_NO_RFS: application asked us to never steer this flow.
+> +		 * Tested after sk_state so the common case stays on one
+> +		 * cache line.
+> +		 */
+> +		if (unlikely(sock_flag(sk, SOCK_NO_RFS)))
 
-diff --git a/drivers/soc/rockchip/dtpm.c b/drivers/soc/rockchip/dtpm.c
-index b36d4f752c30..e71f315fbb6b 100644
---- a/drivers/soc/rockchip/dtpm.c
-+++ b/drivers/soc/rockchip/dtpm.c
-@@ -20,30 +20,18 @@ static struct dtpm_node __initdata rk3399_hierarchy[] = {
- 	[2] = { .name = "/cpus/cpu@0",
- 		.type = DTPM_NODE_DT,
- 		.parent = &rk3399_hierarchy[1] },
--	[3] = { .name = "/cpus/cpu@1",
-+	[3] = { .name = "/cpus/cpu@100",
- 		.type = DTPM_NODE_DT,
- 		.parent = &rk3399_hierarchy[1] },
--	[4] = { .name = "/cpus/cpu@2",
-+	[4] = { .name = "/gpu@ff9a0000",
- 		.type = DTPM_NODE_DT,
- 		.parent = &rk3399_hierarchy[1] },
--	[5] = { .name = "/cpus/cpu@3",
--		.type = DTPM_NODE_DT,
--		.parent = &rk3399_hierarchy[1] },
--	[6] = { .name = "/cpus/cpu@100",
--		.type = DTPM_NODE_DT,
--		.parent = &rk3399_hierarchy[1] },
--	[7] = { .name = "/cpus/cpu@101",
--		.type = DTPM_NODE_DT,
--		.parent = &rk3399_hierarchy[1] },
--	[8] = { .name = "/gpu@ff9a0000",
--		.type = DTPM_NODE_DT,
--		.parent = &rk3399_hierarchy[1] },
--	[9] = { /* sentinel */ }
-+	[5] = { /* sentinel */ }
- };
- 
- static struct of_device_id __initdata rockchip_dtpm_match_table[] = {
--        { .compatible = "rockchip,rk3399", .data = rk3399_hierarchy },
--        {},
-+	{ .compatible = "rockchip,rk3399", .data = rk3399_hierarchy },
-+	{},
- };
- 
- static int __init rockchip_dtpm_init(void)
--- 
-2.43.0
+Move this to just after rfs_is_needed().
 
+With skc_bypss_rfs in the hot bit, access to it and skc_state
+adds no cost.
+
+
+> +			return;
+> +
+>  		/* This READ_ONCE() is paired with the WRITE_ONCE()
+>  		 * from sock_rps_save_rxhash() and sock_rps_reset_rxhash().
+>  		 */
+> @@ -111,6 +118,12 @@ static inline void _sock_rps_delete_flow(const struct sock *sk)
+>  	rps_tag_ptr tag_ptr;
+>  	u32 hash, index;
+>  
+> +	/* Never recorded, so never clear a slot that may belong to
+> +	 * another flow.
+> +	 */
+> +	if (sock_flag(sk, SOCK_NO_RFS))
+> +		return;
+
+Same.
+
+
+> +
+>  	hash = READ_ONCE(sk->sk_rxhash);
+>  	if (!hash)
+>  		return;
+> diff --git a/include/net/sock.h b/include/net/sock.h
+> index 173b37b2b8bb..4472dc4ed28e 100644
+> --- a/include/net/sock.h
+> +++ b/include/net/sock.h
+> @@ -1024,6 +1024,7 @@ enum sock_flags {
+>  	SOCK_RCVMARK, /* Receive SO_MARK  ancillary data with packet */
+>  	SOCK_RCVPRIORITY, /* Receive SO_PRIORITY ancillary data with packet */
+>  	SOCK_TIMESTAMPING_ANY, /* Copy of sk_tsflags & TSFLAGS_ANY */
+> +	SOCK_NO_RFS, /* SO_NO_RFS: never record this flow for RFS/aRFS */
+>  };
+>  
+>  #define SK_FLAGS_TIMESTAMP ((1UL << SOCK_TIMESTAMP) | (1UL << SOCK_TIMESTAMPING_RX_SOFTWARE))
+> diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
+> index 56fed7ab27ab..9bf415b0d470 100644
+> --- a/include/uapi/asm-generic/socket.h
+> +++ b/include/uapi/asm-generic/socket.h
+> @@ -156,6 +156,8 @@
+>  
+>  #define SO_PEERPIDFD_THREAD	87
+>  
+> +#define SO_NO_RFS		88
+> +
+>  #if !defined(__KERNEL__)
+>  
+>  #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
+> diff --git a/net/core/sock.c b/net/core/sock.c
+> index e7405be8941f..02b8cc4bc1c4 100644
+> --- a/net/core/sock.c
+> +++ b/net/core/sock.c
+> @@ -1597,6 +1597,10 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
+>  		reuseport_update_incoming_cpu(sk, val);
+>  		break;
+>  
+> +	case SO_NO_RFS:
+> +		sock_valbool_flag(sk, SOCK_NO_RFS, valbool);
+> +		break;
+
+Guard this with CONFIG_RPS.
+
+
+> +
+>  	case SO_CNX_ADVICE:
+>  		if (val == 1)
+>  			dst_negative_advice(sk);
+> @@ -2118,6 +2122,10 @@ int sk_getsockopt(struct sock *sk, int level, int optname,
+>  		v.val = READ_ONCE(sk->sk_incoming_cpu);
+>  		break;
+>  
+> +	case SO_NO_RFS:
+> +		v.val = sock_flag(sk, SOCK_NO_RFS);
+> +		break;
+
+Same here.
+
+
+> +
+>  	case SO_MEMINFO:
+>  	{
+>  		u32 meminfo[SK_MEMINFO_VARS];
+> 
+> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+> -- 
+> 2.34.1
+> 
