@@ -1,95 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742207;
-	b=IazKHzjuXCLm7FeShucLUecpckMviLYMlrQwwJJH1RVzDx9oMDc+ETuiVGhxMahgq58G
-	 BsxYbdlUtqhIX0QJScotbSo63LVSUG1xUjDGcyEeFRkPL5k+qMDXYu+Xkyd3RtB2lkEaT
-	 75NFlAe4heNj0utRU0FX1CDquxUOveuw76WFpxEuGINO0Y7ReG4hc0JtszpR7DwhG02lR
-	 SkLWxjUevVnCCl/1LHzKB2xqLYVadUtucm70waQKZgxBsBjo6yAbyWSDl7JOWk4f8KfIs
-	 5nocoECwknaWKyeP/Dmq04v7JfxwwZHbN3wpmMuAqjeDPdUCAGQV/sj+Qd1kgzSZ3Rg==
+	t=1793742203;
+	b=FLH5iOGpeq7mwhVl2qcrv8RCUgDfRPioVhWhvR2U4UCc/Zk87joFYz0x6SoGUBlqu++E
+	 j/PfpNqjoaN0slrUh7cHq951lJE1HukCoicl+gYvSckshplPS53wMDNseUbH1CnXKLIA5
+	 v4heydztke0bk6vU6tyqSvXuUNmpzQs7LdHqSQC7QXU9RviIkGH66kohhYAVok7ifx0bZ
+	 Mi9QvnIWmvXwu5uWm5Wuo/nbcbnvKpgPOG5IH0oG9hZjMdj+9YudgvqzXrmLMRv2hXobW
+	 E4vMu9Xll7XuvaJItkQX9nikI5GH8+bl6SIYl66S4/pIIjS8Qt3e14p639fJyOm4FTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742207;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vUI4WubnJa1B4/84lLFCEDflaxOrnHrdNhUumLhC5ng=;
-	b=fh+qLmNow6Si+UnfWM5bqEMyJEsykKe4ISWpvVNcIzaR2wqyUB4ytRveoP0+1KitW4O4
-	 yf6GIf9z4Gp8ecKTTf+G1UVxiElWbMmf2ZQQ0/3lYW9oVcL6PqcBP1VWHF7inBYe+3hP6
-	 sLCUkiteDDMPUEZLiD3EU8Za6N3znTB/dArFK0HRsyimWNyQRthogQ3vVclYGRjrJDHCV
-	 rN8tEjAX+kVNkm27v3ff69SR9oV0Fu31MglMxie6dRaaEgvMWfdM/cS8FAOL9JwxobeRk
-	 P1KNZHjhupRiqHNyvjUB+YGNqRqrlFC6Vboww++eTYQ2LCKxfjlbS4i1ULwgpiiWe2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742203;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Scanned-By;
+	bh=Gdx/WQdxu5mNkZRNRx7LJXwK9h4DO072qzsRF6KgrFQ=;
+	b=VCUlb9GLx3M52kG7GYJI/jFn7IHu80aTVDjfLBXWJDCSNUjqGsgTXsw9ZMku0TVyUNd9
+	 89WOXoGI12qNNr9lySfWwV+DBZ56aPd0zWRFO5JLvqxwXiHM8r9SUhWzv57lA8ytY10tt
+	 pLm2vWEd3MU9kI7vze6H1u2Trc/Emo7TqSbm1rcXxuezeDN7EatLOYOK0xNgDT/IeQHuz
+	 ZAz7ruA/sUEeLxP7QM4cueltAW6IbdZrtxwMuvTgmi4Lu7ykLEhH+skM91OmffyQgl4Tj
+	 mmCzf0x0joc+0jrBMWwwRZ3cQeJpy6syD7RcZUw7yMSA7qlu7IjKpIGkoSQAQIfIRTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YH4TeVD9;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ipFH911v;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A11606EE8D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39A11606EE8D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0184606A32E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0184606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YH4TeVD9
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b3dc272dcfso6262109a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:43:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793742205; x=1794347005; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vUI4WubnJa1B4/84lLFCEDflaxOrnHrdNhUumLhC5ng=;
-        b=YH4TeVD9yklISDTSf/HTYUcoOVemwE33ZyBdtAsgHES+ReJVpl6S+Y1QWO4ACCA83E
-         yhmcBNYOrCtYpQMXp6cPt36Is6eGQSA97okm8OnZ9rzPpzNqPI6Ri/eSEXTBQtgbF56K
-         L00lBGXRkDu1kXtrC8V52aB7nl4NGSMe/ECFcGJBLUqj3P0zOHgoX15nSeLjIj6MH26s
-         i7sQP2zZbRhhvRRaEyooqgM0/v+UTFhEdBVM3+OyI5cNd2RLexEj/bT/4qvfQp6jdaV4
-         /yCwFLvGOlqaVmaoK0k8qt2QUHUOB8JW55TzL/4RjdmO4E/wTVqNYjAd25XZ3VTuU0ps
-         R27g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793742205; x=1794347005;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vUI4WubnJa1B4/84lLFCEDflaxOrnHrdNhUumLhC5ng=;
-        b=udAh9b3fij399TrPOlQfUOblUcOeZaXCeIhwIWTuBnSuQNiPIj+lt8ZjMC+F8eSZ0R
-         HzYqNHaGQoSGQYZrchj3lqkSJ2QY5ht43KeQWOHW9bGOQj6MBySvg/RRS0bltsbpMm3n
-         gLsEMXEAxW5SZsD4supM5jWP0yG9x3qeFX6+6SBEDVLyig7chHg96WQgplYmC+c0vxrj
-         m08LYcZj3yOdN0GUKCzvlUnw0buEk+b4hTNxsVOIFw44hz9r1PYkyh0EGjqO5NZ1cJZ6
-         n+rsLz1MNTJ18+4xu7JKVeenSJHKLsnv6dBD4ORaPHq2fLUBuu46G0XO1ImSlBjxsnXR
-         aGwQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQhUAZCZcYcINgf1v6C05uwhb9y2YPUg5ypRL1AmYuxgb5/xiPA/DJ4Lw4l+nohgV2G323lnN4Lu4XNSM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9JOmjNmkvddaXaITF4JhXOZ95CxH+TV3tkcD3Xg8FF7pI4fzky
-	4Oa2O21rWnyuzP7Quj3s9lpozgR8tSEMnxh9544u4QlYHxu59hjXwuNh
-X-Gm-Gg: AYBFou2/BQOcYxRSqCrTAakIOrmqg6n2mYS2CqgkBeID60Qe/+CHEx3u6tTh3ckiItU
-	srZdOoVskmEtIgD6uqrxWpMxDnP/YRy8IxlRmkYbB3+BBa/P0qVSyfdrW9Qu48eycjNL40UhUtU
-	9GAJ6PHDUnB9G9PMIsLoRWoMWSK3Uaczu3Cb8gqKvc0dM/9AqTFbr8q7pNkRXeas//IEJCuLHai
-	zf/g+Zu3v/m28PJ2bjZ+aT0tiwu76z6eV0JwBICGVzc+O77lEdHoEgbW2FpKA1jfngPuW/gQVXb
-	zNebmb+YE71s1xap+24/XpEQAFiORpM7sdZG4gMpFgNjndsfvv6v0fEnigzu/hCddSoaBIGgKAe
-	Zda5bZZRrgYtyieLW4u5IOTadIoDT+foxqrexb1PzFMups4+7XhYhQkw0bLh0kki819TECf8vBO
-	6T6CWRCswOnvGyi4Ut7v+nGQbOSt53J85DXxJmvntUTRs9b5x+E41jTcIzIIWX4nLjCOG5jB/Tn
-	vrpyNlZzytbwuH2sjMjJmjr9gJpVthFzxJw2TVe+fAw5V8XDAvtPXZmbizx1JA12Zbcvokl8Waz
-	RpLJMph9Xq0zo10Nsc4fUV+KrWrYl9yosdDrO+QUKGgxpDv305eESN3hvVlcLR0WJO4bYSI=
-X-Received: by 2002:aa7:d901:0:b0:6b3:8456:e891 with SMTP id 4fb4d7f45d1cf-6b4d339252cmr8103106a12.6.1793742205577;
-        Tue, 03 Nov 2026 13:43:25 -0800 (PST)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac5a2a6sm40550a12.16.2026.11.03.13.43.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:43:25 -0800 (PST)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: richard.henderson@linaro.org,
-	mattst88@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org
-Cc: linmag7@gmail.com
-Subject: [PATCH 12/14] alpha: use memparse for memory size options
-Date: Tue,  3 Nov 2026 22:35:18 +0100
-Message-ID: <20261103214120.1099893-13-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103214120.1099893-1-linmag7@gmail.com>
-References: <20261103214120.1099893-1-linmag7@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ipFH911v
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793742201;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gdx/WQdxu5mNkZRNRx7LJXwK9h4DO072qzsRF6KgrFQ=;
+	b=ipFH911vlCRkE4r8OmnFsz156dHrESaruIx9G/zedUx0hclmk/wer8ptK5ehg6NjM1RzoI
+	cdUOdS7ply9ERnZujcLRT6Vt5WfVJPgvTL1iRe1c7ugQTrMaRDIG1HrkmhtYzh3CK5raZ0
+	pU+UaZBCs0UlSQyAmCDgK+B18+fF9wY=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-649-YYDZYaQiMUuMg9E1mMQlNA-1; Tue,
+ 03 Nov 2026 16:43:17 -0500
+X-MC-Unique: YYDZYaQiMUuMg9E1mMQlNA-1
+X-Mimecast-MFC-AGG-ID: YYDZYaQiMUuMg9E1mMQlNA_1793742196
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BB1E5195604E;
+	Tue,  3 Nov 2026 21:43:15 +0000 (UTC)
+Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C44F5195608D;
+	Tue,  3 Nov 2026 21:43:14 +0000 (UTC)
+Date: Tue, 3 Nov 2026 16:43:13 -0500
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Hannes Reinecke <hare@suse.de>
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, mst@redhat.com,
+	jasowangio@gmail.com, mkp@kernel.org,
+	James.Bottomley@hansenpartnership.com, pbonzini@redhat.com,
+	eperezma@redhat.com, virtualization@lists.linux.dev,
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	sashiko-bot@kernel.org, kwolf@redhat.com
+Subject: Re: [PATCH v2] scsi: virtio_scsi: implement eh_host_reset_handler
+Message-ID: <20261103214313.GA2159241@shajnocz.csb>
+References: <20260911164417.33860-1-ngocthang2710.1999@gmail.com>
+ <28865bba-ac60-4c6e-aec8-64b1fcdb1c8f@suse.de>
+ <20260914133144.15509-1-ngocthang2710.1999@gmail.com>
+ <20261102200615.GC1738758@shajnocz.csb>
+ <c5460180-e134-423a-b67f-a58a00106eb8@suse.de>
+ <20261103135156.GB2072598@shajnocz.csb>
+ <bdef8300-8570-4103-8c8b-cb978c88eb81@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,66 +86,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bdef8300-8570-4103-8c8b-cb978c88eb81@suse.de>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Replace the private parser for mem= and gartsize= with memparse(),
-preserving page rounding. This also accepts T/P/E suffixes and uses
-memparse()'s saturating overflow handling.
+On Tue, Nov 03, 2026 at 05:26:44PM +0100, Hannes Reinecke wrote:
+> On 11/3/26 2:51 PM, Stefan Hajnoczi wrote:
+> > On Tue, Nov 03, 2026 at 08:27:52AM +0100, Hannes Reinecke wrote:
+> > > On 11/2/26 9:06 PM, Stefan Hajnoczi wrote:
+> > > > On Mon, Sep 14, 2026 at 08:31:44PM +0700, Nguyen Ngoc Thang wrote:
+> > > > > Once virtscsi_eh_timed_out() lets SCSI EH run on an unresponsive host,
+> > > > > abort and device reset both fail the same way (same dead ctrl vq), and
+> > > > > since virtio_scsi implements neither target nor bus reset, EH falls
+> > > > > through to scsi_eh_offline_sdevs(), which frees the stuck commands' DMA
+> > > > > buffers without any guarantee the device has actually stopped touching
+> > > > > them. If bus mastering (or whatever broke the transport) comes back
+> > > > > later, the device can still write into memory the kernel has already
+> > > > > reused.
+> > > > > 
+> > > > > Add a real eh_host_reset_handler instead. virtio_reset_device() is the
+> > > > > guarantee scsi_eh_offline_sdevs() was missing: once it returns, the
+> > > > > device will not touch guest memory again, so it is safe to hand
+> > > > > outstanding commands' buffers back. Reuse virtscsi_remove_vqs() +
+> > > > > virtscsi_init() -- the exact sequence already used across
+> > > > > suspend/resume -- to tear the virtqueues down and rebuild them.
+> > > > > 
+> > > > > Verified with a QEMU virtio-scsi repro (PCI_COMMAND_MASTER cleared
+> > > > > mid-write): EH now runs abort -> device reset -> host reset -> abort ->
+> > > > > device reset -> host reset -> offline, then dd's stuck fsync returns
+> > > > > EIO and D-state drains to 0, in ~244s total. No task remains
+> > > > > uninterruptibly blocked.
+> > > > 
+> > > > By the way, there is a known limitation in the QEMU virtio-scsi
+> > > > implementation where some reset-related operations are implemented
+> > > > synchronously (can block vCPUs and QEMU activity while waiting for I/O
+> > > > to drain in some situations) instead of asynchronously. Recently there
+> > > > has been work in QEMU to make VIRTIO device reset asynchronous, for
+> > > > example, but it needs to be implemented on a per-device basis and
+> > > > virtio-scsi hasn't taken advantage of it yet.
+> > > > 
+> > > > Please let me know if you'd like to discuss or contribute. It's
+> > > > something that is on my radar but not until 2027.
+> > > > 
+> > > > > 
+> > > > > Suggested-by: Hannes Reinecke <hare@suse.de>
+> > > > > Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> > > > > ---
+> > > > > v1 -> v2: implemented eh_host_reset_handler as suggested by Hannes
+> > > > > Reinecke in review of the original RFC, instead of relying solely on
+> > > > > the EH loop falling through to offline.
+> > > > > ---
+> > > > >    drivers/scsi/virtio_scsi.c | 24 ++++++++++++++++++++++++
+> > > > >    1 file changed, 24 insertions(+)
+> > > > > 
+> > > > > diff --git a/drivers/scsi/virtio_scsi.c b/drivers/scsi/virtio_scsi.c
+> > > > > index b4f20c487718..9698f4f91cc6 100644
+> > > > > --- a/drivers/scsi/virtio_scsi.c
+> > > > > +++ b/drivers/scsi/virtio_scsi.c
+> > > > > @@ -833,6 +833,8 @@ static enum scsi_timeout_action virtscsi_eh_timed_out(struct scsi_cmnd *scmnd)
+> > > > >    	return SCSI_EH_NOT_HANDLED;
+> > > > >    }
+> > > > > +static int virtscsi_host_reset(struct scsi_cmnd *sc);
+> > > > > +
+> > > > >    static const struct scsi_host_template virtscsi_host_template = {
+> > > > >    	.module = THIS_MODULE,
+> > > > >    	.name = "Virtio SCSI HBA",
+> > > > > @@ -846,6 +848,7 @@ static const struct scsi_host_template virtscsi_host_template = {
+> > > > >    	.eh_abort_handler = virtscsi_abort,
+> > > > >    	.eh_device_reset_handler = virtscsi_device_reset,
+> > > > >    	.eh_timed_out = virtscsi_eh_timed_out,
+> > > > > +	.eh_host_reset_handler = virtscsi_host_reset,
+> > > > >    	.sdev_init = virtscsi_device_alloc,
+> > > > >    	.dma_boundary = UINT_MAX,
+> > > > > @@ -947,6 +950,27 @@ static int virtscsi_init(struct virtio_device *vdev,
+> > > > >    	return err;
+> > > > >    }
+> > > > > +/*
+> > > > > + * No bus/target reset in virtio-scsi, so EH lands here after device
+> > > > 
+> > > > The choice to use the VIRTIO device reset in virtscsi_host_reset() looks
+> > > > good to me, but I would like clarification on this comment. virtio-scsi
+> > > > does have I_T_NEXUS_RESET and I believe this is the modern equivalent to
+> > > > the pre-SCSI-6 TARGET RESET. Is it really the case that virtio-scsi
+> > > > doesn't have target reset? And do you want to go ahead and implement
+> > > > .eh_target_reset_handler() using I_T_NEXUS_RESET?
+> > > > 
+> > > Would probably not a bad idea to use I_T_NEXUS_RESET here.
+> > > Not sure what it does internally, though; _is_ there a nexus
+> > > to reset?
+> > 
+> > Whether there is any benefit to I_T_NEXUS_RESET may depend on the device
+> > implementation. In QEMU:
+> > - LOGICAL_UNIT_RESET resets just 1 LUN
+> > - I_T_NEXUS_RESET resets all LUNs
+> > - VIRTIO device reset also resets the HBA itself
+> > 
+> > In practice QEMU's I_T_NEXUS_RESET is unlikely to fix things if
+> > LOGICAL_UNIT_RESET wasn't sufficient. Maybe it will help on other device
+> > implementations though.
+> > 
+> > I think the Linux driver mapping should be:
+> > - .eh_device_reset_handler() -> LOGICAL_UNIT_RESET
+> > - .eh_target_reset_handler() -> I_T_NEXUS_RESET
+> > - .eh_host_reset_handler() -> VIRTIO device reset
+> > 
+> I guess 'target_reset' is pretty much pointless for modern setups.
+> If lun reset doesn't work it's pretty much guaranteed that target_reset
+> won't help, either.
+> (Unless you are on SAS, then it might, as I_T nexus reset actually
+> resets the SAS link and such does something useful).
+> Problem is that in most cases LUN reset fails as the _communication_
+> to the LUN is interrupted, and hence sending another TMF across the
+> same communication channel won't help, either.
+> For virtio that would mean that we'd have to reset the virtio queues;
+> can we even do that in a meaningful fashion?
 
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
----
- arch/alpha/kernel/setup.c | 24 ++----------------------
- 1 file changed, 2 insertions(+), 22 deletions(-)
+The virtqueues can only really be reset by VIRTIO device reset
+(.eh_host_reset_handler()).
 
-diff --git a/arch/alpha/kernel/setup.c b/arch/alpha/kernel/setup.c
-index 4cbcfb1852d51e7aaf37b01a176f4a4280af6dae..28387786cb9f9ad4b587a22a3b0267b825b424c7 100644
---- a/arch/alpha/kernel/setup.c
-+++ b/arch/alpha/kernel/setup.c
-@@ -241,26 +241,6 @@ reserve_std_resources(void)
- 	for ((_cluster) = (memdesc)->cluster, (i) = 0;		\
- 	     (i) < (memdesc)->numclusters; (i)++, (_cluster)++)
- 
--static unsigned long __init
--get_mem_size_limit(char *s)
--{
--        unsigned long end = 0;
--        char *from = s;
--
--        end = simple_strtoul(from, &from, 0);
--        if ( *from == 'K' || *from == 'k' ) {
--                end = end << 10;
--                from++;
--        } else if ( *from == 'M' || *from == 'm' ) {
--                end = end << 20;
--                from++;
--        } else if ( *from == 'G' || *from == 'g' ) {
--                end = end << 30;
--                from++;
--        }
--        return end >> PAGE_SHIFT; /* Return the PFN of the limit. */
--}
--
- #ifdef CONFIG_BLK_DEV_INITRD
- void * __init
- move_initrd(unsigned long mem_limit)
-@@ -486,7 +466,7 @@ setup_arch(char **cmdline_p)
- 			continue;
- 		}
- 		if (strncmp(p, "mem=", 4) == 0) {
--			mem_size_limit = get_mem_size_limit(p+4);
-+			mem_size_limit = memparse(p + 4, NULL) >> PAGE_SHIFT;
- 			continue;
- 		}
- 		if (strncmp(p, "srmcons", 7) == 0) {
-@@ -499,7 +479,7 @@ setup_arch(char **cmdline_p)
- 		}
- 		if (strncmp(p, "gartsize=", 9) == 0) {
- 			alpha_agpgart_size =
--				get_mem_size_limit(p+9) << PAGE_SHIFT;
-+				memparse(p + 9, NULL) & PAGE_MASK;
- 			continue;
- 		}
- #ifdef CONFIG_VERBOSE_MCHECK
--- 
-2.43.0
+Stefan
 
