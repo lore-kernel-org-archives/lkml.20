@@ -1,49 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672629;
-	b=CRr/eqdn2xR6quzlmAsA6U0UWYZot7+bHZoveHQNm/LAJslFi4BtzNJ1ZPf1CPFsu4d/
-	 EtYiQyRxTzjjuoqzt4LeShgo6c1FGKNoODuHIf6TWGGc4IiYyJsNxAx/fsSjNeklfVyey
-	 H+h68LWob63hO06b32jPcIFAXn2mNYYdqQVz0Qc/bhjPQcWw2Ypxr7mUc+SQ0MNT4sAXV
-	 QNhZjrCxlHREnSRtHbGjWyJTTAYNizoOzYnFU9iDpwDuxjvJ4TovMWm1djzWbwQ2UVnsH
-	 LQCcuneYx4S/McN7GPQZR+0GiRg7EtXPiqpvtl2sOsc3WLI+Hw3ZRCOM3LN8RDDDz/w==
+	t=1793672656;
+	b=p9dC38U+TVoKzm0YyB4ktu7C+wtVMGOEIM/T9dAcMDcM9NBmNTDztaHism8e+H950Qpx
+	 Ae0N0kaCG+RPF8LQx6O/kkQ2CeLiWTTwQnsX1Z+ppIlUV9t24D9Dq63TQdXKN/Waq9Vs+
+	 RZo5Rw6yhQ287qFheF8vM2DibwQs0NAIhvc7KgjrSAtbDniH0u8AyHysJjdkT2fUHjJ4i
+	 fCkOI2V+OWDoO6109o4fBkBOLeWc/3P59eWOQhQgNfHUy8rIULnO0y3uvwEUIJiqEgFRe
+	 KWuzqIk2AkPg52E6nNxxQNjO1Cru3HwkdkMgD7XPgnq3oVaVnKKob67tI6w+PrtsOWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672629;
-	h=DMARC-Filter:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Subject:From:References:Cc:To:In-Reply-To:
-	 X-Original-From:X-Lms-Return-Path:User-Agent:Reply-To:Message-Id:
-	 Received:Date;
-	bh=oxQllBAFT/GD689LugUGzY1mG/UNAwQ+Yi2gGE1tTSA=;
-	b=k43/ZTj2GrK9jVp0SjetaFerkEL85GoSgQMuEN0u3yCLKTTnQzZVcGx34WHoct3WOkjd
-	 J5JshucWvlOpNv4CKsjFAH42vAs1uscpXAVBsS3xC98iDXU6RxmDLUpvBwp0QaQewntib
-	 V+hiIV9x/Xt30LBlZcX/ud0xL6dKHMNKmLRXwTG2MFac7qphtYITEVvxobE5QuSNU1iUY
-	 jY8IMdyMzsXIbH8F6rtc/AhAsejt1McLrCqq4MdqPtl9v3pP3V4JFvztzIHZxli63s9AO
-	 6pWoxCJG+hpVgog+zP87kho1/AxBKcOLPqvsjBRWJ1DZveNipUlHEx8VAqjIw9UrDaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672656;
+	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
+	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=UTAawBq1TFFImCpcVMvX7PdBtwNak+VTPEQ+ylgpEcw=;
+	b=PTHj7lTC5ua4YNwhR7gUeXdQt4RoHQ24fsgINHZVbldY9FnDA/Qp5l16NVh1t1nKPQJ6
+	 6TMAgvMmTz+Jb/oorxSzQoDmW6NnKkTQbOHD7255s5Fp7KzQwW+BJDtA0uHiTgmpiQta3
+	 hnRhakJGXrPhgwXdlDU5U29UnQTYrMdS4MTSfbL9EMrMamMFd6rYGTVBJfFIV3MUtC7lf
+	 bFDyoYZXRVGBkoPYc/v/r9/MatlJhL6yokixgdEYOPaNpbqqXF2ANpG6LkjRRSiQa/7pe
+	 Q3byPprOrjESmNAgYWqWG24w22S77Rf2mjUpcC2ZVA3N9Z7cGrxrN9RYpM2fb/4f83g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fygo.io;
-	spf=pass smtp.mailfrom=fygo.io;
-	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=NnIXjQCH;
-	arc=none smtp.remote-ip=209.127.231.57
-Received: from va-2-57.ptr.blmpb.com (va-2-57.ptr.blmpb.com [209.127.231.57])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128BF606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:23:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 128BF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=NnIXjQCH
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793672624;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=oxQllBAFT/GD689LugUGzY1mG/UNAwQ+Yi2gGE1tTSA=;
- b=NnIXjQCHVQlC2eaQbNsvVXVPUIt3jYmfUYkdts2m5umi2Z3PgbUH7l60tM6nJZGCyw+2gy
- U9pu0YStIiO3nQjBiZ2jmiQnl4FVrNw0hlOVX0dSDgj6s1FXoHU/TCAPwMKkUm8nQ6sw5C
- /rr11YcjhueN0FyrNFjQaVPAx0BEt1vANOBYMnFrONJjMX95Ko3vVeUkv/WZnUu6b44DDP
- Pus3evB/r0ZqOExBV7W95WZrloKIaVdaSBPJsCf2O9VRf2Q9PX3uBr+Ja/UJ81Xsl6wAg0
- kcldmxByH2nOFo1wPHeM6CbpBsD22bpjy90oWWbn53myZjz1mPau8iWwDjaXrA==
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AD48606A324;
+	Tue,  3 Nov 2026 02:24:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AD48606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8DxC9LLRelqRc8bAA--.14963S3;
+	Tue, 03 Nov 2026 10:24:11 +0800 (CST)
+Received: from [127.0.0.1] (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJAx3c7KRelqWAsyAA--.37821S2;
+	Tue, 03 Nov 2026 10:24:11 +0800 (CST)
+Subject: Re: [PATCH v1 1/2] LoongArch: BPF: Make arena support depend on SCQ
+ extension
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Hengqi Chen <hengqi.chen@gmail.com>, loongarch@lists.linux.dev,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261102072808.23080-1-yangtiezhu@loongson.cn>
+ <20261102072808.23080-2-yangtiezhu@loongson.cn>
+ <CAAhV-H52mbZJX2vkgG_h=XfwHoio=asLjFdhTJwUYqDp4V5JMg@mail.gmail.com>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <8b00e5a7-4e60-19bd-7953-f76dc71e15ec@loongson.cn>
+Date: Tue, 3 Nov 2026 10:24:10 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,65 +55,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Subject: Re: [PATCH] md: Fix an unlock in an error path of lbs_store()
-From: "yu kuai" <yukuai@fygo.io>
-References: <9dd41992e8b2d4bd63f74a245d34fa7850529bed.1793044632.git.bvanassche@acm.org>
-Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: "Bart Van Assche" <bvanassche@acm.org>, "Song Liu" <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-In-Reply-To: <9dd41992e8b2d4bd63f74a245d34fa7850529bed.1793044632.git.bvanassche@acm.org>
-X-Original-From: yu kuai <yukuai@fygo.io>
-X-Lms-Return-Path: <lba+26ae945af+c2b3fc+vger.kernel.org+yukuai@fygo.io>
-User-Agent: Mozilla Thunderbird
-Reply-To: yukuai@fygo.io
-Message-Id: <cfc6e703-70cc-4f63-9fb1-875cb6cc4b1d@fygo.io>
-Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Tue, 03 Nov 2026 02:23:43 +0000
-Date: Tue, 3 Nov 2026 10:23:39 +0800
+MIME-Version: 1.0
+In-Reply-To: <CAAhV-H52mbZJX2vkgG_h=XfwHoio=asLjFdhTJwUYqDp4V5JMg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx3c7KRelqWAsyAA--.37821S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxZF1fCFyDGFyUKr18Kr1kCrX_yoW5AFykpF
+	W7ArnrCrWYgrn5JrZrK3yrWF4DJrn8K342ga10krykJF98Xa4UXr18C3ZxXFn8Jrs5Ww40
+	gFyYka4a9asxJagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
+	xVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
+	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
+	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIx
+	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
+	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F
+	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jnUUUU
+	UUUU=
 
-Hi,
+On 2026/11/2 下午10:20, Huacai Chen wrote:
+> Hi, Tiezhu,
+> 
+> On Mon, Nov 2, 2026 at 3:28 PM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
+>>
+>> When testing bpf selftest "jit_insns/cast_to_user", there are different
+>> behaviors on different Loongson machines.
 
-=E5=9C=A8 2026/10/27 3:57, Bart Van Assche =E5=86=99=E9=81=93:
-> If mddev_lock() fails, lbs_store() calls mddev_unlock() although the
-> reconfig_mutex is not held. Fix this by returning the mddev_lock() error
-> code directly. This bug has been detected by the Clang thread-safety
-> analyzer.
->
-> Fixes: 62ed1b582246 ("md: allow configuring logical block size")
-> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
-> ---
->   drivers/md/md.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
+...
 
-This problem is already fixed:
+>> diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+>> index 3ab039d0afb6..01c12da168ee 100644
+>> --- a/arch/loongarch/net/bpf_jit.c
+>> +++ b/arch/loongarch/net/bpf_jit.c
+>> @@ -2489,7 +2489,15 @@ bool bpf_jit_bypass_spec_v4(void)
+>>
+>>   bool bpf_jit_supports_arena(void)
+>>   {
+>> -       return true;
+>> +       /*
+>> +        * The arena range tree uses kmalloc_nolock(), which requires 128-bit
+>> +        * atomic cmpxchg support, provided by SCQ extension on LoongArch.
+>> +        */
+>> +#ifdef system_has_cmpxchg128
+>> +       return system_has_cmpxchg128();
+>> +#else
+>> +       return false;
+>> +#endif
+> You can "return cpu_has_scq" directly.
 
-[PATCH] md: fix mddev_unlock() called without holding lock in=20
-lbs_store() - Jack Wang <https://lore.kernel.org/all/20260920103705.23191-1=
--jinpu.wang@ionos.com/>
+This was my initial thought too; it is simpler, but unfortunately
+not enough here.
 
->
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index ac03b99f6428..7ce527073be9 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -6049,11 +6049,10 @@ lbs_store(struct mddev *mddev, const char *buf, s=
-ize_t len)
->  =20
->   	err =3D mddev_lock(mddev);
->   	if (err)
-> -		goto unlock;
-> +		return err;
->  =20
->   	err =3D mddev_set_logical_block_size(mddev, lbs);
->  =20
-> -unlock:
->   	mddev_unlock(mddev);
->   	return err ?: len;
->   }
+The 128-bit atomic cmpxchg arch_cmpxchg128() not only depends on
+the hardware SCQ extension, but also requires assembler support,
+which was addressed in commit c8b8f3c50f48 ("LoongArch: Only use
+SC.Q when supported by the assembler").
 
---=20
+Therefore, using #ifdef system_has_cmpxchg128 as in the current
+patch is necessary to handle toolchain compatibility properly.
+
+Here is a simple diff to verify this scenario. On a 3A6000 machine
+with hardware SCQ extension, if we hack bpf_jit_supports_arena() to
+return cpu_has_scq directly, but force AS_HAS_SCQ_EXTENSION to 'n'
+to simulate an environment without assembler support, the original
+test error "libbpf: map 'arena': failed to create: -ENOMEM" still
+shows up because the underlying slab allocator lacks the flag
+__CMPXCHG_DOUBLE.
+
+```
+diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+index b5ed4881d3c0..6f572d24d2c3 100644
+--- a/arch/loongarch/Kconfig
++++ b/arch/loongarch/Kconfig
+@@ -336,7 +336,7 @@ config AS_HAS_LVZ_EXTENSION
+         def_bool $(as-instr,hvcl 0)
+
+  config AS_HAS_SCQ_EXTENSION
+-       def_bool $(as-instr,sc.q \$t0$(comma)\$t1$(comma)\$t2)
++       def_bool n
+
+  config CC_HAS_ANNOTATE_TABLEJUMP
+         def_bool $(cc-option,-mannotate-tablejump)
+diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+index 8cc78efe722d..1e8049937851 100644
+--- a/arch/loongarch/net/bpf_jit.c
++++ b/arch/loongarch/net/bpf_jit.c
+@@ -2490,15 +2490,7 @@ bool bpf_jit_bypass_spec_v4(void)
+
+  bool bpf_jit_supports_arena(void)
+  {
+-       /*
+-        * The arena range tree uses kmalloc_nolock(), which requires 
+128-bit
+-        * atomic cmpxchg support, provided by SCQ extension on LoongArch.
+-        */
+-#ifdef system_has_cmpxchg128
+-       return system_has_cmpxchg128();
+-#else
+-       return false;
+-#endif
++       return cpu_has_scq;
+  }
+
+  bool bpf_jit_supports_fsession(void)
+```
+
+So, the current patch has no problem IMO.
+
 Thanks,
-Kuai
+Tiezhu
+
