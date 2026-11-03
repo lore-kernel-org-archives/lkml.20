@@ -1,73 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695666;
-	b=YfMHg3fDOKg4h3ciWI1zIUW7Wn4EPyrWJDcymKheAhvR4ZwTJU//GrO20rz2MN/yR84s
-	 leeeJTAguepcUlJyKUETrrYMXCB6k+AjX05LvCzhEaS5GJo3KpZFxSiVwDVKVXN1THvOw
-	 GyqWXYZA9qzurWnFBI8NEbUw0S4xe5CiMJM3qRI6/8EGpbNWOyaNNED8GT2iiJwqvLsTK
-	 inS0yhU//1vYu+GfxL0/TTZ+vjWg6DtO+HuTjZSIB3aSi/CKp/ba73Z1pxFfyHeuQazeF
-	 3j3YqjJ8+cVOmeN0fx2Qr6AHIuc1nL36NInQWvNy4zprXkYJ10uxJb0dSlyiiaAD2jA==
+	t=1793695664;
+	b=fbhVhNFFnASZweHcE++lLkOiv3cgPeW6U3/En3ZkREZVZ4W8NsTyG8VKmQmlVw9rubnZ
+	 Vme4XSSo9kyhC3BJuyDxI/GNtqRMTVkZNSIsXI6SUaDD/PFSwYa59JBL2xCODCpgZGdEW
+	 R95Y+0n/J7Kdh5LIKrruxwnD3f3Q7654YGDeQ9Ow42NT6ShBwuFxDDjRYA4atsbdIqGHi
+	 nugNS6yFkoWPKYAdHVYtv/ZCus2YF6RJmlVlAEUVhYNbkVYyRsVNYjTSz6EG3FsA+Tihq
+	 +I8EjcVo3BTnTfQ5nJibO8U19b8uWXXvBASSy5gW8ZZqkb/OnZOTvJHWCOldORqxiJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695666;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=XtJiRyro5pp1Ubk31vh+uEkbIHM0qppKB9W3IOPNN0E=;
-	b=HkSnO5t5nHHUwvZqlNRiFfr8PDQhRNjD8fL7WbKzqlLSIeRu86rTtOmzcl5HaLrCYN8o
-	 /Fdvas9tJd4JRoBEUsg5EtwABbECRRD2QS440azG36Yxv1fLRFjLeJ2rC4Cz57xhFWmFc
-	 REDT6wLbXKWNIzBRa98EFrB9yjeenk44wUFlVo/ENdb3zsQ5VXn/9NM2lMzuD4syO2OXa
-	 00ibfi+jQJrxwfB4qU9rN3Tgsxuxanya3LVwp9LCGFoR6gvJVpZhXFBr4Hul6FbINJNBb
-	 tGz10wgR2oymYt8Jt8Yv73WYq54jZCa77KardEaCWo71CuMfNdYl0pcLvc6NnrHVDNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695664;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=B+BHED5eRoDIkE3I9oNS1EqLCs1mF8mondSiDowJlEA=;
+	b=ndEaaf+bdMDTSHF2sIwsaYDE1dFojz/iDOM9WJx8Sn8NFNzhU4wzU/uJdtu7cjTR3gq9
+	 YBuCYXNy1Fmnsa9Fu+PZB+AyYD9z0ybIKEh/k2n7I7qq26NF6sMedhXMMFgkCRwWPzZhu
+	 TBXYcFCSup2ajK2IPcHOKEMeZ+E3X8ZG2hUQUPTRmRwQ/pVrFBOUNTSvnHLAa5hKEW7+j
+	 IO4OXRxkZhCQhkFjL+eNMBrOepiGDEpfGZTpaHanSRr4KI1MepDAVZTdBOZBflO3MT00G
+	 //GFVuiRicWM6PjDhRd/slzG39r7OwVh/Bq+7hxz9M2EFHtwOvshv5/hXxANGkWoDMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="aZ/qKBhl";
-	arc=none smtp.remote-ip=91.218.175.65
-Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EJ6rLKic;
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4ED3606A95A
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:47:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4ED3606A95A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8B4606A33A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:47:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD8B4606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aZ/qKBhl
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vxgqiZ0okcZF28/Y6ng3hoY+gPOQ7Ju8Td5h/EbU8As=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793695663; v=1; x=1794300463;
- b=aZ/qKBhlKEc2WXQLYiCL3Yy8XT146ylvR7IJx0CfEBuBYqUSNrxd51Y1kNTNkFqLB+dEug7G
- GdeizSkTbDL/1Uir2Qv+3/UnT/7NUSUiKeMUifbYjyK4dUGWycHEfs1k3Y4r40S9/l9OHOcFH9D
- n8N6xmgJo2YzgOI46a4gbYDM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d3cf5bf9ecc66116;
-	Tue, 03 Nov 2026 08:47:43 +0000
-X-Mizu-Trace-ID: d3cf5bf9ecc66116
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EJ6rLKic
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso2574087b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:47:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793695663; x=1794300463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B+BHED5eRoDIkE3I9oNS1EqLCs1mF8mondSiDowJlEA=;
+        b=EJ6rLKicFs/V8t7AShlkaCPJb3//mmq5INznbJek8qBXVZ9a1t/jAnD7/+Xb9DZmQF
+         Sx74RVj3/48r4oYff39D4C18huhRZ2s8bZS3a7QMBpuivzxHlEO+pI1J4s4gA5lOeI3i
+         uLMGZHXmFEAB2Twxo2vKzzglbOi0kb9Gb80Sk5tuz2dMR1EVDTgTSBBkqBGlJo53jf3E
+         4j8igUqCS2eiO+JfrTkJmVgqjH9KL1o5QX1NwEMklesE3wTjLKvFiCskEDmwVkUd16oE
+         d6NGJxxNOAdipqW56OkPx9zqiw+IAqgxO0esQKI0C0ZBbZZAzDZoBXK9VinfKJs0gtWA
+         S6Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793695663; x=1794300463;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B+BHED5eRoDIkE3I9oNS1EqLCs1mF8mondSiDowJlEA=;
+        b=TEFw+3dqx/hqDbASANAOq7cOmKxr+OijzXAgugL0ytLyUmEk7Zv2lqVgovOoOMY71a
+         LhvLtFzRED2qqihsMKLGbN1+9WrYQiuplY6M4n5V/Jg5wj0spxGB2RnAW+RyUTNu3654
+         x6Os7vfmT3m9SuaBgTcNsfMZ3Fz2qe0nBQZxts7xAdC3VyRdLid0hg+x/heL02T9z/Py
+         Jc+NtYAQoLAbE2o0/umFz9vN63cGHp9P6IyTbF5AogjsCS1+AaA+XvRD/TPsVjtRBIjf
+         F7Aseg3+cqqmjayFzXAF/JcJyIipxqPBsF6MnjqFN2FeMFnyTP1CfME4u1eKTRQRBAjq
+         Eshw==
+X-Forwarded-Encrypted: i=1; AKwUvBzKZtC+IoxzFd2FAA/V2IWzW3C2ukDZ12qvalnRzk3EYRYocUM53g+sNlcUUQs+jmBj8MZxE4/nMqEpaWE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dIEdG6S5CrePId3zBfX3+1j7n5fx7MVi8e5vIRE5OuptIFvvZ
+	rJXbSsqvaw6NxXBW4zoKV9VUUjPADz3SGc5znt6mS/FNfzkTgZ3q28zX
+X-Gm-Gg: AYBFou1kSgkNqQvtVaGst6UYkHYtUDY/2++3dxGAc3XLwlhRlJgcb25kFYUF+08Kxht
+	IdeE5KkjXOIK0eZu2eyKLNWJ90ym1elGalT4FxgeECt9RFYPX7PxZqPs1Ava3yfYMCOqu32mzqS
+	Pt/uKH2TpW7xnPrq7FPqbPKS3+kj4kUYGbXGnVtW6RXv1/k4Fwcql+3cGocCp8+g9VxuOKksiTP
+	fPxo4Z9Uz03awX1LwPvY3CGhnzhwuIyB9uKrK+81ovUxPjn4XHYoN5uUUF3Bsb3McXypRnwTUaR
+	dLCuHgGlavSXKKOPb44Xi78kEQjKgmR5AQUrt/r8FZqWhpZD1vl/NoJBAEBwJHQ06rvqxsYsOjs
+	NlxId6SybSeENjjaxy1I04HbaEx/ZvrsR0v97wL+IkngA/Uq/gLX/N4pSmwnlIz/N5/bhynwaHu
+	IqOA8jp2IV4HbM36/pPS5UMDJssmdetjo0Tgp0mP0X9PQk2DMOsSMSyyK6T6mHQoH57Q91rJmCA
+	zF1RcndWM7V8xxxBtWO9MnBjXAxxvOcADgbe6PholFNtDe2D5xVhlzYoScUQJzdtt8V6czqW3o4
+	EIpIRaSnI/sknNl563UhlXtXHw8VmWElCojOktqVoNrl+z5u
+X-Received: by 2002:a05:6a00:4b4f:b0:89e:fe2d:abe2 with SMTP id d2e1a72fcca58-8a9bf90cae1mr10126228b3a.44.1793695663009;
+        Tue, 03 Nov 2026 00:47:43 -0800 (PST)
+Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada9aab57sm2844023b3a.46.2026.11.03.00.47.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 00:47:42 -0800 (PST)
+From: Li Ximo <lixicaicai@gmail.com>
+To: T Pratham <t-pratham@ti.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH 2/3] KVM: arm64: Skip empty IPA ranges when destroying stage-2 page-tables
-Date: Tue,  3 Nov 2026 08:47:41 +0000
-Message-ID: <20261103084742.1302597-3-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103084742.1302597-1-fuad.tabba@linux.dev>
-References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
+	Wang Haoran <haoranwangsec@gmail.com>,
+	Li Ximo <lixicaicai@gmail.com>
+Subject: Re: [PATCH] crypto: ti - dthev2: fix empty-list wild pointer in dthe_get_dev()
+Date: Tue,  3 Nov 2026 16:47:34 +0800
+Message-Id: <20261103084734.1996045-1-lixicaicai@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <e9e36645-51c3-4099-9c5f-063224b479d0@ti.com>
+References: <e9e36645-51c3-4099-9c5f-063224b479d0@ti.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,52 +103,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The page-table walker steps over an empty entry in one go, but
-kvm_stage2_destroy() starts a new walk for every block-sized chunk of
-the IPA space. Tearing down a VM that requests a 52-bit IPA then takes
-2^27 walks with 16K pages (2^22 with 4K), however little it maps.
-crosvm requests the host's limit.
+Hi Pratham,
 
-After destroying each chunk, look up the entry at its start and, if it
-is empty and larger than a chunk, skip its whole range. The lookup reads
-fields that hold the mapping tree on a pKVM stage-2, so this depends on
-the previous patch keeping pKVM out of stage2_destroy_range(). For the
-same reason, call kvm_pgtable_stage2_destroy_range() directly rather
-than through KVM_PGT_FN().
+On 10/28/26 12:26, T Pratham wrote:
+> Thanks for the patch. However, this fix is already in works in this series:
+>
+> [PATCH v10 00/15] Fix several issues in DTHEv2 driver
+> https://lore.kernel.org/all/20261016124456.1802080-1-t-pratham@ti.com/
+>
+> Specifically this is the patch:
+> https://lore.kernel.org/all/20261016124456.1802080-2-t-pratham@ti.com/
 
-Fixes: 4ddfab5436b69 ("KVM: arm64: Reschedule as needed when destroying the stage-2 page-tables")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/mmu.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+Thanks for the pointer - we were not aware of your series. Our patch
+duplicates the dthe_get_dev() part of it, and yours goes further by
+also fixing the callers, so please consider our patch dropped in favor
+of your series. We will review your patches instead.
 
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 42977cf8a7f5d..10b425a0141be 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1010,9 +1010,20 @@ static void stage2_destroy_range(struct kvm_pgtable *pgt, phys_addr_t addr,
- 	u64 next;
- 
- 	do {
-+		kvm_pte_t pte;
-+		s8 level;
-+
- 		next = stage2_range_addr_end(addr, end);
--		KVM_PGT_FN(kvm_pgtable_stage2_destroy_range)(pgt, addr,
--							     next - addr);
-+		kvm_pgtable_stage2_destroy_range(pgt, addr, next - addr);
-+
-+		/*
-+		 * The walk freed every table it emptied, so skipping an empty
-+		 * entry here doesn't leave anything behind.
-+		 */
-+		if (!kvm_pgtable_get_leaf(pgt, addr, &pte, &level, 0) && !pte &&
-+		    level < KVM_PGTABLE_MIN_BLOCK_LEVEL)
-+			next = __stage2_range_addr_end(addr, end, kvm_granule_size(level));
-+
- 		if (next != end)
- 			cond_resched();
- 	} while (addr = next, addr != end);
--- 
-2.47.3
+Sorry for the noise, and thanks for the heads-up.
 
+Best regards,
+Li Ximo
