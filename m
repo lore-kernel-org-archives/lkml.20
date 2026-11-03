@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=146.20.161.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793727392;
-	b=SV5IEdMHS/v8f+iFAETKiSWML72+76mZStaAhaNA2IVTLyZJcDLKCVMZ4i0amnAg+rUY
-	 LGQ0T/UeFJMhXOPqG9ayRVY+BKXk8lucna1cYlEjkL4d6RBGVrcDufjtFzFxJs3444v9L
-	 qdjbJCIiL17noVZvdo57+OuInRx3WscxdzZ2lrIPKrg5gAjRasSHOypUs217PRnJzWk1o
-	 VsA10bYThc/k91pT7qaOJUq4RAb/MxXs5luRj/OogacBHSFOKv+PbXFPYQtTRcL4DrlRx
-	 elL9OSdvmckyZMvv7qbavf9Ec4acqVBgzsgWCPEt38DC+xK/o0nBhHwEPgUsHXKaoOQ==
+	t=1793727464;
+	b=skkyvM6RpNvu0BvIt3tZrwjY9ujswGKCOpVaoktZyF5N/3qtyd3zHsIG4ULgB1olOsbc
+	 egAElZ/Li54f32yyhr3piE/8jUSBsobgXA4+O/11EfV4yBcyjKXtPhbFEetb4DYtu61jZ
+	 wrx0NkxDf6h5O2rMzgzDvXniWo5/fAivN2fkP4i7vBcFfJdBk7ZluCeg4RB98q3VGMNtA
+	 leCC6mdpyO7K91kscIEQv+EnNFGUD65JtPRIxGcgpfbMTflJKU//HCTNs4aVn+1qg6buz
+	 t+C7bUTB4j7/jmwpM2bGLPABNcveWiH/dap2Wmp4aYJ09oLUN2SBWGRLtPbBUbztUIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793727392;
-	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Classification-ID;
-	bh=mlwVKzQaz90cP2VvYbc9QKywyDPuFpi3+lO6nVGa5Ug=;
-	b=c9w2d0UNQK2vuguywZBH0ZBSrxXKQSzqxqch8LNoGrvvDo7vQJJgZJ72sFBjMlp7Lb0+
-	 iv+vYjAzGwwTAinGRVBvEN8rF7mKJMiXMNgMAETrOj4sgQIBif4K/S6V0aMp/szcNK5Tb
-	 MmHhtUnR/02ozkj7o+swoE9swAq6f0UifBtRSqpJ8895DczjHxlP3U7WE4TRkC1WGvnUr
-	 0S0yG2fP4HYTjDC18Px+wxxYaULZ7uRWwKZoMB9VAfBQZZlEfWaBo9/LGtWrEQAlIGHYL
-	 Jx7mFGBSn6GhvkiFKyqT+INLrldOGK/6272Bq0eOQahq0fvdKwwnUrE4vE8a7KI4OCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793727464;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qFjhgIGgPZUYlvL+RYcSfUXPWGvrnI6FenzKH94jOMM=;
+	b=DO81q76VtVsiISVzxyqH7hDSmPogzaj2XQNlQrnEtV/vvKKiB/37kHqD47jX947mjW3f
+	 KBgr96YMEdvVvg5Ay1dcqRUoIHSR11Nt3FRVMxxGcN5NSIrsqZI1HuaJ7nqRArPEz2o0Y
+	 mfX/IfwlgBoZkcdqeEslUl9VgM/96bXDjRJQdYxD9vFWwSnxK0vrHEZpKvnk7/4ZUtlpy
+	 rTSlGzWDW19sNJEoFRmvraJj+kNfyvMgwxfgNatBYqezBDLUAM+Qk9BBt6hwPGrv2q9r2
+	 wu3tL4uWzxyrSY3BPBv4CJCBI1//rsm9W4Db0t3SVeGgwfSHvauBzUjI2qPmPkBE22w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mev.co.uk;
-	spf=pass smtp.mailfrom=mev.co.uk;
-	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=pr4iv9aa;
-	arc=none smtp.remote-ip=146.20.161.82
-Received: from smtp82.iad3b.emailsrvr.com (smtp82.iad3b.emailsrvr.com [146.20.161.82])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=karaolidis.com;
+	spf=pass smtp.mailfrom=karaolidis.com;
+	dkim=pass header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=wRvZOb3s;
+	arc=none smtp.remote-ip=109.224.244.117
+Received: from mail-244117.protonmail.ch (mail-244117.protonmail.ch [109.224.244.117])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FCD606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:36:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9FCD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49199606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:37:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49199606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=pr4iv9aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1793727385;
-	bh=YP4gSfMUV4rgJVshnWyKvF49f9AjiSmen+6i99ocz7U=;
-	h=From:To:Subject:Date:From;
-	b=pr4iv9aaasc4oFc3s7eeX1PQLXGBJbpggmI0PJkfYApO+3yzCJSP/6uLlp0vHkYuk
-	 KopDKNZjIukD6HsJq4Dq5m9lez7VsYMo7d8r8EW1rE1XfgkCoViEgdMOyVcfyqlKU5
-	 iBeSiknB2Fq8DplinyrKS/joV7LHKfrZrsG8EyRg=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp3.relay.iad3b.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 9CEBA403D4;
-	Tue,  3 Nov 2026 12:36:24 -0500 (EST)
-From: Ian Abbott <abbotti@mev.co.uk>
-To: linux-kernel@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] comedi: comedi_bond: Fix leak of opened device references
-Date: Tue,  3 Nov 2026 17:36:10 +0000
-Message-ID: <20261103173610.89687-1-abbotti@mev.co.uk>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=wRvZOb3s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
+	s=protonmail3; t=1793727460; x=1793986660;
+	bh=qFjhgIGgPZUYlvL+RYcSfUXPWGvrnI6FenzKH94jOMM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=wRvZOb3sE3o59vmGwvbkJ49QorWYcdSvzlj8XXAZic+nqaL8DGQ2lwfyGveYMZn2+
+	 uP7JMbZVJ35G7ju606zIJ5GiIZSqJSqXFJYsGPGBUvclWtIjwt4ZdMY0X/IoAHZbxU
+	 8RjdHhuX3k8ycoj+Pz9FBK5a2cAcWa4Z9ClukeMD1E2MWkBcqXGTrcppA0GesLHMSu
+	 D72mvXFvpKGF4eGLnNH5F62MiL+ctCnUL+nl8ryPaLXa6AMapR+KGcWco3+SorPH9i
+	 +1v+mhfGSZvbhybpL2OCZ40+zmJIv3BBkLF6hcRdQUDakvY2l4ZCgZ7WqTdrGp0J84
+	 k2uSOebhIKFGg==
+Date: Tue, 03 Nov 2026 17:37:32 +0000
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Nick Karaolidis <nick@karaolidis.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Oscar Salvador <osalvador@suse.de>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, =?utf-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>, Hui Zhu <teawater@gmail.com>, Georgi Djakov <georgi.djakov@oss.qualcomm.com>, virtualization@lists.linux.dev, linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org
+Subject: Re: [PATCH RFC 0/6] virtio-mem: support memmap_on_memory
+Message-ID: <TOhF_b9SkdekrK9Ee-ti1ZwiT3wqERe1fpF8nA8WgHb-MX26lmQTex3l_NDfWzFKR7gcmLfjxB2YWixGw3LpR1mvgmPWR7uy1bkqbGREMpQ=@karaolidis.com>
+In-Reply-To: <fd6094d5-50d3-4e73-8c09-91b0769476ab@kernel.org>
+References: <20261103-virtio-mem-memmap-v1-0-308ae1da6240@karaolidis.com> <fd6094d5-50d3-4e73-8c09-91b0769476ab@kernel.org>
+Feedback-ID: 101209095:user:proton
+X-Pm-Message-ID: 08ccacc36e0bd2d68f132c0bd7bb29272cb682f1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,90 +64,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Classification-ID: 09818d2c-3d59-417d-b5b2-d1f13afcd2d5-1-1
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-bonding_attach() calls do_dev_config() to open other comedi devices
-specified by the user and tries to make use of them as part of the
-'bonding' device.  If it successfully opens the other device but cannot
-use it (either because it does not any subdevices of a type the
-'bonding' device can use, or because of some error that occurs while
-dealing with its subdevices) then it is left in the open state and the
-fact that it is open does not get recorded by the 'bonding' device, so
-the reference to the opened device gets lost.  Fix it by closing the
-opened device if it could not be bound to the 'bonding' device.
+On Tuesday, November 3rd, 2026 at 4:29 PM, David Hildenbrand (Arm) <david@k=
+ernel.org> wrote:
+> Care to pitch the use case to me?
 
-To match previous behavior, if the opened device is unsuitable then
-ignore it (after closing it).  The opened devices recorded by the
-'bonding' device will eventually get closed by bonding_detach() even if
-bonding_attach() returns an error.
+Sure! The point of my project is better control over guest memory.
 
-Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
-Reported-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://lore.kernel.org/lkml/20261103063301.1025860-1-vulab@iscas.ac.cn
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
----
- drivers/comedi/drivers/comedi_bond.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+Each VM boots as small as possible. An agent in the guest throttles the
+workload with memory.high before it OOMs and asks a daemon on the host
+for more, the daemon grants it (or not) by resizing the virtio-mem
+device, and the guest gives it back once it no longer needs it.
 
-diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
-index a10cfbd04c728..3764ece90f826 100644
---- a/drivers/comedi/drivers/comedi_bond.c
-+++ b/drivers/comedi/drivers/comedi_bond.c
-@@ -184,7 +184,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 		char file[sizeof("/dev/comediXXXXXX")];
- 		int minor = it->options[i];
- 		struct comedi_device *d;
--		int sdev = -1, nchans;
-+		int sdev = -1;
-+		int nchans;
-+		int nope = 1;
- 		struct bonded_device *bdev;
- 		struct bonded_device **devs;
- 
-@@ -223,11 +225,14 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 				dev_err(dev->class_dev,
- 					"comedi_get_n_channels() returned %d on minor %u subdev %d!\n",
- 					nchans, minor, sdev);
--				return -EINVAL;
-+				nope = -EINVAL;
-+				break;
- 			}
- 			bdev = kmalloc_obj(*bdev);
--			if (!bdev)
--				return -ENOMEM;
-+			if (!bdev) {
-+				nope = -ENOMEM;
-+				break;
-+			}
- 
- 			bdev->dev = d;
- 			bdev->minor = minor;
-@@ -248,14 +253,23 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 				dev_err(dev->class_dev,
- 					"Could not allocate memory. Out of memory?\n");
- 				kfree(bdev);
--				return -ENOMEM;
-+				nope = -ENOMEM;
-+				break;
- 			}
- 			devpriv->devs = devs;
- 			devpriv->devs[devpriv->ndevs++] = bdev;
-+			nope = 0;	/* keeps the device open */
- 
- 			/* Append dev:subdev to devpriv->name */
- 			seq_buf_printf(&s, "%u:%u ", bdev->minor, bdev->subdev);
- 		}
-+
-+		if (nope) {
-+			/* Opened device cannot be used, so close it. */
-+			comedi_close_from(d, dev->minor);
-+			if (nope < 0)
-+				return nope;
-+		}
- 	}
- 
- 	if (!devpriv->nchans) {
--- 
-2.53.0
+From there, one can set up VM priorities, revocation policies, etc etc.
 
+> Is this something that your use case would actually benefit from,
+> or was that project already discarded?
+
+It is live, though on my own server for now, and nowhere near
+datacenter scale. It's a 32 GiB box running two VMs, a CI runner and a
+game server node.
+
+Each used to have a static 32 GiB with a balloon because both workloads
+could potentially use up to that much memory.
+
+At the ceiling, the memmap for 30 GiB is about 480 MiB in the kernel
+zones of a 2 GiB VM, on top of up to about 360 MiB of other unmovable
+memory.
+
+> Why so much MOVABLE memory,
+
+Have you seen RAM prices lately? :)
+
+In more seriousness, giving memory back only works if unplugging
+reliably succeeds, so hotplugged memory is onlined movable.
+
+Onlining some of it to the kernel zones, as auto-movable would, makes
+that part hard to unplug again.
+
+> and how do other kernel allocations (page tables etc) cope with
+> that?
+
+On said VMs, page tables peaked at 75 MiB, and page tables,
+unreclaimable slab, kernel stacks, and percpu memory together at about
+360 MiB. They scale with the workload, while memmap scales with the=20
+plugged size, which is why I started with it.
+
+The other problem I hit was inodes. Their page cache ends up in
+ZONE_MOVABLE, which reclaim for kernel allocations does not scan, so
+they pile up in the kernel zones. In testing with 1 GiB of boot memory,
+that meant OOM kills and usually a panic. Working on it turned up two
+inode LRU bugs, which are now in 7.4-rc1:
+
+  8dc4116041e2 ("fs: don't lose inodes that another LRU walker is isolating=
+")
+  8ee09f597763 ("fs: rotate inodes whose page cache could not be dropped")
+
+I have a series for the pinning itself that I'll post separately.
+
+My VMs have been running with all mentioned patches (with some minor
+tweaks) applied for some 5 weeks.
+
+Thanks!
+Nikolaos
