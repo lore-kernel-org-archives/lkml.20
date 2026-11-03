@@ -1,59 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714705;
-	b=mrkWPovvzSaxkNTTVDvg/0tkgUYuTf/a9oLMipObT6/5stKSYGwqg6IITcQbLPAJYqRh
-	 32BwkaxELXjPFJkmgHry3B+6oUpYf8yQym1rYlNuTezSVpaXxftescYq//0HN2JHpL/yc
-	 Rx9EbdDo78Pq7ul7imoD7KkghLQ4AnqrBawPfNxft0Skgftxg9TW22Xtxx/N2USq6AHpc
-	 CuPTopuHwEFwpQ/qwLBQgJDUHDZbORgh4RLAkeCFyNnrE4LhrPptkvC9P3B8yMzZKhIEv
-	 KbzdRbeeUr8V5tSbwg7hcRDIYnNqcZtILPJREIwUoR/ZoF+0Ypjd2Hbfyi9HU1tSF9w==
+	t=1793714719;
+	b=sH2ZOjnvEEub/i7Jafg2ihXBPnsxsGBULL04NmZZwEm8rB92LHfxytYJIRmFqbsXWUpt
+	 1p7uqwlkY/o3QASqjobec13B9wpYxrTPYFwcBUNxbC07Zvnarb1JWAemYmT/sM/aSUiVG
+	 a2nflc5OsBzsz6G5hNETRA96f+gTDsXZhv+sQ/Sd6xIRWY3gtOxvQRDTN8jSZzzZm5apr
+	 M8pk9rSeYXBZO6MM2w1DGn8B0Fz/ENmz80JR8iLaxA+EypX0DJkTK18rt9KbKxa9+nVDm
+	 wEkCRF5WmtvYM1fyFWCTi2ZdY0731mjQ49XDllZ/L8MTxljCQr/MSAiuCjL1gBHjO2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714705;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Z9sgzcHkxu/+0pAwfSMbdu/m/b2YeHjsiSjPVdj3CBw=;
-	b=XetblfDOj+YIReMEb6DGgdOnpd87O7GTq6itEPl0VBi5gG811dTmseNXcoo0vtV23KAC
-	 MY8jQwjit0Gbobao0RzvhWCxruv+KQUCzxRfF5XMhZTLC+Ws2bKxd8EfqLRhcCJPT3j0G
-	 PcOhxR9GuszHyX7DNE/VjOfKcMXGLIIU7Hczcqidcta52/L5UD4XgZIU3CjiDivNfMwDW
-	 1UPQ1pKkOqWtEoOkteC62QsLDygyUqVIMYYRuV4+r8X5G+FtG0GQ3iY41EsXffUtLySJ6
-	 XQtIp1eOi3Iv/fXr98sPc2O/w4id13QqglrornI9ciIa8bAZUThJO4M5LxFUyNfvNfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714719;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=WUmT6CAUiVXyDquHcVLXStJkH7YVniXYY2fst0uJG/c=;
+	b=TJThrEWdQY9c0bk4kFbJdA7pdY3vlLAaFRFPgBmhMe0+msVJIlbFk52iX0iFdkbZ6rRL
+	 iHYC94b8g+1BxYY9oV01bhPBERsnDwhKNzAFAUPMfL1qHfeKLHZ6u/4f9IgN3Bfr0ZGM/
+	 9mH+kM9A0pkZ/X2gzC5mjo1oqFWzMmJaFxbjnkIKgaiU4XjJsDHvydhb1mK29WaMv35/y
+	 TwVlPka6EvndgYSl0gOYXB7JxHcAk/Z81QJxTITo+uZnt9q91x9B57mhg2IFmSbznlwtW
+	 etblqKUhHwpfJfgYwxw4ltZh7jCpEp1SC96EpZB6kN/ILc2qfet7KrXuzXjp/bkQNag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aSA7kE8A;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=KsZuoxiW;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC649606A327;
-	Tue,  3 Nov 2026 14:05:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82483606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:05:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82483606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aSA7kE8A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20ED61F000C1;
-	Tue,  3 Nov 2026 14:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793714704;
-	bh=Z9sgzcHkxu/+0pAwfSMbdu/m/b2YeHjsiSjPVdj3CBw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aSA7kE8A9FiD3o7+1mMovRZ4e3hvIMr05wH6CYj5r1WRX8iM43jOOYTQ6bwqPjyrx
-	 QaTNIs/fMyoX89Fx2cG4YHjb/M8pKA8M8VsZHuprG2Upm3PP8relAZtSuPvNKr+Gj4
-	 GY4a2tVmNR6X/9Y2hr+hrGxYnnNyIvW1gzEp+wiw=
-Date: Tue, 3 Nov 2026 15:04:50 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Kang Chen <k.chen@smail.nju.edu.cn>
-Cc: Dan Carpenter <error27@gmail.com>, Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Raushan Kumar <mitramaurya80@gmail.com>,
-	Chelsy Ratnawat <chelsyratnawat2001@gmail.com>,
-	linux-media <linux-media@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	linux-staging <linux-staging@lists.linux.dev>
-Subject: Re: =?utf-8?B?5Zue5aSN77yaW1BBVENI?= =?utf-8?Q?=5D?= media: atomisp:
- reject short _DSM packages
-Message-ID: <2026110339-joyfully-captivate-855b@gregkh>
-References: <20261103114121.74901-1-k.chen@smail.nju.edu.cn>
- <aunacczneVpPd3mM@stanley.mountain>
- <tencent_283392A22C260EB0040CD271@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=KsZuoxiW
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id OCxtx5qH4JFmFOF8XxG9IV; Tue, 03 Nov 2026 14:05:17 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id OF8WxOlOibtpUOF8Wxv4Tz; Tue, 03 Nov 2026 14:05:16 +0000
+X-Authority-Analysis: v=2.4 cv=dIqmmPZb c=1 sm=1 tr=0 ts=6ae9ea1d
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=EUspDBNiAAAA:8
+ a=oz-p-7aixD_jC9KcsVQA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=WUmT6CAUiVXyDquHcVLXStJkH7YVniXYY2fst0uJG/c=; b=KsZuoxiWiTV6WuFXC5es94x3+k
+	CDj/0sZQMEWDWX00zYQk+T0f5REShQl9QtXfwXvt8yVOFxiKJecLVAt59UMTnnTuxDWGqY7Un58gB
+	oSVCyuQA5APzw09m7EmALSTiiH7AKCR4ZQJzwCi7nh4o3g8F+a1G6Q7up4XSgSTwuoMvRLrvRAXh/
+	qG2jrL6BaAt3lK4KJqpw3APVPi+xl1HbM71t54gjHtOaIP4pYE/zncshe+Ng33cTB5kN8XIzaFA7Q
+	YPiP9pEiEGD44mHyEQabSToc5tN35XQN8VgEhgWTT7ICKVmPqbEsJ4tqKmEfk1CHrgWXHjOLaE7Tq
+	3VC4tbYA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:36386 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xOF8V-00000002ZBT-2orD;
+	Tue, 03 Nov 2026 19:35:15 +0530
+Date: Tue, 3 Nov 2026 06:05:14 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Kevin Jia <kjia@nexthop.ai>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: Add TDK FS160x and FS1006
+Message-ID: <9bc4cc83-c96c-4d06-aaae-e18b033ed489@roeck-us.net>
+References: <20261030-fs1603-v3-0-6f8963a74def@nexthop.ai>
+ <20261030-fs1603-v3-1-6f8963a74def@nexthop.ai>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,20 +89,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <tencent_283392A22C260EB0040CD271@qq.com>
+In-Reply-To: <20261030-fs1603-v3-1-6f8963a74def@nexthop.ai>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xOF8V-00000002ZBT-2orD
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:36386
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 3
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLdmRRN4XaKmgdWzRCaSlDxdMzmfNkvhr+idZprj1NBeOtRu5atshUWVbwD2C63McwUJ7DP92en+7rVj4fGXAGurReLadYWbwjchp/zbhymbsIuEumN2
+ vBQlDwn02EwkmNsuuZ3pKMeYA0gjR2uNJtPdmQCsQBK5OfbOYH9+H3K+w54SnhFW2LsZX9NrPAU3s1fVtqZm5H5Wl1IELlSQUrcAsuZILX14875xJ0l59drS
 
-On Tue, Nov 03, 2026 at 09:13:16PM +0800, Kang Chen wrote:
-> No. In the confidential computing (CVM) threat model, ACPI tables are
-> controlled by the host and are untrusted; BadAML (CCS'25) shows malicious
-> ACPI/AML can be used to attack the guest.&nbsp;
-> And the kernel already validates many ACPI return values
-> (e.g. types, package counts, bounds).
+On Fri, Oct 30, 2026 at 08:35:37PM +0000, Kevin Jia wrote:
+> Add the TDK FS1603, FS1604, FS1606 and FS1006 uPOL converters. They have
+> no ID register, so each part and factory preset has its own compatible,
+> including the 3.3 V and 5.0 V presets of the FS1006. The FS1604, FS1006
+> and FS1606-2500 encode telemetry the same way as the FS1603 and fall back
+> to it. The base FS1606 reports in 10 mV steps and the FS1606-0600 needs
+> an output current correction, so neither has a fallback.
+> 
+> Signed-off-by: Kevin Jia <kjia@nexthop.ai>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Are you sure that Linux supports that threat model at this point in
-time?  And that this matters for this specific driver?  I doubt that
-this media driver would ever be seriously considered for those types of
-situations :)
+Applied.
 
-thanks,
-
-greg k-h
+Thanks,
+Guenter
