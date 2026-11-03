@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793717492;
-	b=a7KZUGHho5pwJhqzG8CKXx5NZ/IJepcsnTmGE1MC4OUGs0Jrt1hOl5B27l67R2MBAec/
-	 WgWpj743aBKjrXZNgYrgNvGRG/ZEfdqHzJt2FK2+F+zWWAIC8nrnCVAlJnbmddeDml/fV
-	 ocbHHxxfEj5hJBGbR73ORYIY9NmW/PAZfekDhAxeF1kc+EX1h/ntpVuxC1DINzfbrf4bw
-	 kZwOU9x2BWPrNXiB6CBLWYFjkQ5bdUhM88VAWCTKIo0aZrVDteoEKZoBkvcOYrt2TBL5e
-	 h3ZHLF1Fdif4kt/qxs/hn5YNjx9dVY/fUQZyiQpyW8ZI3jRTaQY8L8MjbWj5fV0tBMQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793717493;
+	b=iLRGItkT/dVEP7yf/v4W023bDTVquI+2bX1DrwiPUuDehBpgR3RHn+Xl5G6z8ydfzCNe
+	 7HXs0EUNc3nuRbcmaenHy59vLiIfKl5XcJJyGvKTRN3PlH+Xid4Ow7y3wps7vS0F6Lu/s
+	 cRlrzt/p/z817YiWjy1AfxIZCDMrH92be1vpRIHJyvsfk08AuRxO8q12ow7Vb15jMc91B
+	 mvJ7eGQfmv5bHRIjxV7F+56wsNLov0tCkrEE6jA70gtry3wyqKC+r8xSsy7AKfzSkiVtf
+	 7RZBn+fwNH6yF04lrHBVY29IccFqq7+FRufVt8leLvaNQVSI4bNhF6HxGhxhnbHOQ4Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717492;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717493;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=DP6mwMrATChRECS6iH+LkcBySCfvUn9RliJv7XX0ATM=;
-	b=nv5+e8fRj8vMB7KMF8XhcfaFOWZwgnu6tLLDmyFkeO5pqnaMoDxL8z3FNv0P7+NaWIGT
-	 14eDVyW8B4kF1aJFwANbAdDaBUdosVASMTV9WqXB8xDer4T+srQTv1DfBnHLQ5lQT7kIv
-	 PioGdgiNL3i02BpPa7PX2/ie7Ta3CDyb4z6pRniVYMSM8ZewO9fe+Xmw2K8lCdg/nf3pH
-	 Vf3vIELjoxxfGMB+u5Ko6LvWLTK9FWA0DG0PIq2zgPA9FrmoWImuT5B0F3Gp1/RkQdMxC
-	 8SV3s1S2F/C288nsHlEmaIaS8VLeuuFYGNM92AfT0Wjvcbc5Qw7jMWFhMsGMDnnwfTw==
+	bh=x+rKpDcUVvGPJr3bkDQyTK7gGqYh9JNlycfqo4e6K1c=;
+	b=I7iNZXu/F8SHN4Ja8jBaIcfY2c391HPe2+sYFphxr4gBFoaOrzh38IyrcwjZWLBpgVBX
+	 FThVSTOoNxWjwIRvVr/1Y2zh1OsKNhwwtoAycbrJeD534TQ2yfBzLTz/GPFH2D7q2i/yh
+	 FAfQ4pCPmLTmi6QHP8ifqHITt0mFY+DkDV9rLKxDJIrPM3RJ74XREmkhMaURMz+hVOSIt
+	 WoVJGE4/ZuWHaUf3arnKoPoRmRcMqibsCJ2EbfX+G40HbY91CrIeA7aD1SXVWUVTb5UX4
+	 bWUYcB0WlcaBhCbM2a4hjL51wDW2TNGBOBAf1TiAIWUrJzziQhD3RZvZoyUcVTJjEiQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=g+DyEpQ7;
-	arc=fail smtp.remote-ip=185.203.200.13
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Id1lym5F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C2C606EE90;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4C7606EE8E;
 	Tue,  3 Nov 2026 14:51:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0C2C606EE90
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE4C7606EE8E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=g+DyEpQ7
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Id1lym5F
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 11B44202BA8;
-	Tue, 03 Nov 2026 15:51:23 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id F14CA202BA6;
+	Tue, 03 Nov 2026 15:51:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793717483;
+	s=20260414; t=1793717482;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DP6mwMrATChRECS6iH+LkcBySCfvUn9RliJv7XX0ATM=;
-	b=g+DyEpQ7o7JHNM2a+ma/vTx96oAKmFoFYxUIVm4AsFQUH8O/q72HusDv5Hf4vglITeZ6R6
-	il9HKK6z3MheHC87Z8Y933CzgpemWeWaV8OLAcQZWOfAOE5kl2NbIK2oZDSQlKpfYFtI3d
-	94sPh+KWjAiYOJDQn0/p9NLHt9awxMQZZVbvQSIi8i4p8mNRGsb+AdRIro6X2RdPeHLujO
-	cKk6kpPtvpFH6kF+cFxHz49ydCfD9RP5NiB+jweqZi/QA7zDPR2xmMtQA/UrBg4eCoi9PR
-	3tiecrBnwQT9r+GS1jMuOgaBgGkfwHAhUrPMWEoflJAa21E6UpPb3fXt0r9XHA==
+	bh=x+rKpDcUVvGPJr3bkDQyTK7gGqYh9JNlycfqo4e6K1c=;
+	b=Id1lym5Fz7t+eMxpTMaZN+7TiHwPNmmcA6qeEbzBAkMVEeaHVZ3JpImn/a2ROI/47mmpvp
+	/msZzxLCs6ndeABFb7Xrt7zQKHs/9I9hZRSaAJTsLZZFpwLmLRpSWd31Em8ES+xAgnH3I4
+	Kczi2G3bBc6FZ0vBlVjFnm1/dqe7Am0PtW+ylRIPRsH1KjgitOuyoSwQuaPcor7B/ZDq13
+	3oELqH3TzEbUPtEfkDLcEWCLqmWtmL+uKnxNJI9UqzqkluSZ7WcmZIyecl/kccWjy+2Vqs
+	AbXxhx34cRD6fAkoS/wkynfubyvInx4VIMiddsE8aewOHKArK7Tkwh7qJqHrfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793717483;
+	s=20260414; t=1793717482;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DP6mwMrATChRECS6iH+LkcBySCfvUn9RliJv7XX0ATM=;
-	b=TfG9uqD1mbRrSVdlLGSX6ihDYFexs3BpnQ4u1EMWZcwvsy1aitQVZhj+GUbvJv+GLAGL4y
-	w2VvuVoOWGBpJBSRdNsOzA7DAzfZV6+qYDnhzjFmUFqClKVSoqNpogSlq8JkjwxTbJ32eL
-	uRNl56BpV5574hO5pfjs7rCPovrp4MWjuJxHmPFPm7075JWdHf+OzqXX4ClfK+lY9kqg8M
-	YNo2C3aPWjQP1UL0kfT+wQznbRWREAlsJxDM0au/lE9jasbyZOv3QA5zwb2TV9xboS12yi
-	Ok8GGLLEX/BBve9qDHbtk0+sG0jCesltaCyuHP89mCn66YLPvY+qng6gpPWOJA==
+	bh=x+rKpDcUVvGPJr3bkDQyTK7gGqYh9JNlycfqo4e6K1c=;
+	b=Az8RUpguMPpLhsGgRfw7RuOBgom3SCeAvy3SX6ktwYbDNVQCG+OHvE0/stwIdy0e5cSa80
+	cggOlzAS01OZx5wBdOUScAFVIv98t9Z4lEINBBxuWhnA4+LpdinmgYcn2SO74z9OqtB2BE
+	KSS9XWCcBkF618vDrRA7/wAy0Z26DX5kkXLdCIIGk/uDq+o1fGurtjl4E76jNBZ/B/g9cp
+	gF8vXd7TiDKPvxW29DIZdx622XUumdr9N64BwozYgWSWcpUYARdeOYzwX7w7hf9GUnpMCq
+	9+Vp4BBHE4vps5R3BbwALup6GMUPZBXgFukcHKRMNlqPxjF42+/5ktloEjeiXg==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793717483; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793717482; a=rsa-sha256;
 	cv=none;
-	b=XakO3n4r/H5x+BNOeVPN2Bab8azFGLFjyeNUTnpXb4lMukEW1qrk2sy5VrzCgB1wRQsRCq
-	q+55d6BOPErAhqiUuqDLgYzlo+mcDE8aiqWG4fJgCysLTgVgdp9uzCE/RVzowROCjzxom4
-	MTem8SmqvuwvMo/lyn3gjrpYgxJXK3Rdy9WE3zaaiU7eH7gQ/voAzxtmfjvl2KoeansGSH
-	ZaXRu3WNBWqa5I3fju81FdOPkco+GlD4820syrE5+sW4bedAGMVYUe9dh7e+A8nBHXlbFN
-	p+cCKlEXYgPp7HE0Cw0rmnyOaipv6TgN7jU2TZCOfUawg2Otwlgzl+EHJ3hBjA==
+	b=Yj9e63n9Y+J42c/b32g509Z5AT2fUfSGYlMuTCi/FhHQf2d1AokcLvKFTAT62Jpg5NolWE
+	k+pa/JoLiCRk+M/KNqvztHOgSKk3JKaI2+vfRYeACQ6txXYJyqTeJnKvlBQkmKCn+UYi/+
+	jYNI/xxZMludtFA6y6Qh6BzV2R5rmdQ2FqMMVseibDD9n6SRskdWXOucFxVKD37QBEq9Pg
+	wuUFN6fcm79j2s2pSsSoogznKozh30Ed0LI/5ecSCX8/7SRAlhZmrxiGWbOPMftvm/YJBd
+	5CNSYOHcYy3j3O8frpHwmmWznaqArR3dqUaAoxKMOJlQFjkvMQaKrFitXGSTBg==
 Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <p.zabel@pengutronix.de>)
-	id 1xOFr8-002SzQ-39;
+	id 1xOFr8-002SzQ-2p;
 	Tue, 03 Nov 2026 15:51:22 +0100
 From: Philipp Zabel <p.zabel@pengutronix.de>
-Date: Tue, 03 Nov 2026 15:51:28 +0100
-Subject: [PATCH 8/8] reset: tn48m: Use regmap_test_bits in
- tn48m_control_status
+Date: Tue, 03 Nov 2026 15:51:26 +0100
+Subject: [PATCH 6/8] reset: rzv2h-usb2phy: Use regmap_test_bits in
+ rzv2h_usbphy_reset_status
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,7 +91,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-reset-regmap-test-bits-v1-8-1b33607a76b0@pengutronix.de>
+Message-Id: <20261103-reset-regmap-test-bits-v1-6-1b33607a76b0@pengutronix.de>
 References: <20261103-reset-regmap-test-bits-v1-0-1b33607a76b0@pengutronix.de>
 In-Reply-To: <20261103-reset-regmap-test-bits-v1-0-1b33607a76b0@pengutronix.de>
 To: Damien Le Moal <dlemoal@kernel.org>, 
@@ -106,38 +106,32 @@ Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
  Philipp Zabel <p.zabel@pengutronix.de>
 X-Mailer: b4 0.15.2
 
-Simplify tn48m_control_status() by using regmap_test_bits().
+Simplify rzv2h_usbphy_reset_status() by using regmap_test_bits().
 No functional change.
 
 Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
 ---
- drivers/reset/reset-tn48m.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/reset/reset-rzv2h-usb2phy.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/reset/reset-tn48m.c b/drivers/reset/reset-tn48m.c
-index 177ee5127a1e..4c7d7ef7c7a9 100644
---- a/drivers/reset/reset-tn48m.c
-+++ b/drivers/reset/reset-tn48m.c
-@@ -66,17 +66,13 @@ static int tn48m_control_status(struct reset_controller_dev *rcdev,
- 				unsigned long id)
+diff --git a/drivers/reset/reset-rzv2h-usb2phy.c b/drivers/reset/reset-rzv2h-usb2phy.c
+index d96042e28cd5..e644092cc2f7 100644
+--- a/drivers/reset/reset-rzv2h-usb2phy.c
++++ b/drivers/reset/reset-rzv2h-usb2phy.c
+@@ -68,11 +68,9 @@ static int rzv2h_usbphy_reset_status(struct reset_controller_dev *rcdev,
+ 				     unsigned long id)
  {
- 	struct tn48_reset_data *data = to_tn48_reset_data(rcdev);
--	unsigned int regval;
- 	int ret;
+ 	struct rzv2h_usb2phy_reset_priv *priv = rzv2h_usbphy_rcdev_to_priv(rcdev);
+-	u32 reg;
  
--	ret = regmap_read(data->regmap, TN48M_RESET_REG, &regval);
-+	ret = regmap_test_bits(data->regmap, TN48M_RESET_REG, BIT(tn48m_resets[id].bit));
- 	if (ret < 0)
- 		return ret;
- 
--	if (BIT(tn48m_resets[id].bit) & regval)
--		return 0;
--	else
--		return 1;
-+	return !ret;
+-	regmap_read(priv->regmap, priv->data->reset_reg, &reg);
+-
+-	return (reg & priv->data->reset_status_bits) == priv->data->reset_status_bits;
++	return regmap_test_bits(priv->regmap, priv->data->reset_reg,
++				priv->data->reset_status_bits);
  }
  
- static const struct reset_control_ops tn48_reset_ops = {
+ static const struct reset_control_ops rzv2h_usbphy_reset_ops = {
 
 -- 
 2.47.3
