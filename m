@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737342;
-	b=BFtuyzsnwyQmV6nfV6+/RRoMDlkpyUIYgR/Tnojme8VI6gYHHTkShMfd+Yjj2tgfRPgi
-	 GdnbpnBWs9gTXgqgNAmvUPeEEzTvARK/zO0FVLZgLZhnsxRXCht5F3zD9OnbGp40zHvv4
-	 mV7SLyz8IJ6NljF8ZmRS5SmrftiIh5THoW2N2bRCtEfOf/+91Q/TG6oxnj9k6ujtgAfjS
-	 D6G1YMOeRaVMKXuKuKUuXtMRFdbiWjpn9HjCrklQ9f+ejIeZ9zxh71KlxbWozSl9oA1dN
-	 Bn6B4NXwY+dhojaxwnrgH1nWuB/Cdj/JYLzuCN6+dQr1hssz3PsXzKRFRdAu2n3DD0Q==
+	t=1793737506;
+	b=I9RuDzBsRB9MWb5Sky6siKrNadfsNLcPFdoECpP5HEaR4G+Ki/dgx8DZq+9B8AKupEMP
+	 e8CagqxUlQREnPTSSR0s5Kf35kkzwljp3Tn/wghkRT+EvxNVinNPaCe0BKbsOEoAX1ASL
+	 /FEVsOXHgDQiBC6QhEwgl8x4GYMTHAGpjM2bpGiHNgy9EMEUziROjHB0C1FnA5lVSCUQx
+	 SuMP1qWNu892Tj5cla2v0FrbMFnsGMvVbtAsc4Wr/dmkKaFrZxwTbe/El2f6rMIufrykF
+	 4mXV3JRJ/txzOMiw7NMvn+J8JYms271etzH4OzLAganmCl4ulUBAD/JicPUiaifdF3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737342;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OowuJQe3aC0/b/4LdRy+JJUp1bkSK8DzGICROZcpBoE=;
-	b=ENiKH/tXySCD+L0xUJr0+wfhwY5pCVajVhRlObqI0NPd9pjtwnFNuNDZ11iv5wMyz9Bv
-	 DvP06Piz96sYOEaqcH4NNvXmMHQ7R244UE0hEPGhbQvCIErXJJjk3T3CKGooNB7DLU7PG
-	 QMtNfgHEHaM+Xl8v3I07G5fFYqI1GiflzsyYb5mycV2dowawPhVnr1ZPkMJav825ujKJh
-	 siO7Op+Jtyimzp/bq90ESPpQxcE8wIVaheWanMmx5mHxxsMuknYRG/MVAj2lFjN39gxHp
-	 o/u09k96OrYdu0noIaw2K584PnyUY8FJnxKh9D5QVvBP0cB2+WKe3OJiDYREVEbpWkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737506;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ey3bmLuO/tccwPs6bses4tdGWflrXeb+2JX3HuYScV4=;
+	b=so4uPWZ6PptUph0sHBgfQB0UkTKKYBIS5NL7Yjup1vwhmV74Na6hRxuzhgdj4pTvmaOX
+	 LOWhdxepZbSKMhfrM1aTLlwxaeAfNkwY2Hm3rKdtmsYPII7inLckLNZm5iyd/Tdy3jxoW
+	 UgxdKu/oeAcrB8iOFzprfXwDwJ8u9iREc1LfVgOYKXiDKe6PjO6fyH/mEiM97iF5G2JcV
+	 Kt00Uk5cv7c48QuQ9LjDvBYeIgugwc0thE3oO5l7ASB5SR7SNwxbvbEqXHymmd6mB0OUf
+	 EkG1sdWvEia/tQ92yEeioU5B/L8Brlqsdd24FG+lz2R+g2p2kPTbnTKAIxSa17h+NlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=F1Cb0x8H;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5ssbrCV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B00606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28B00606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE431606A31B;
+	Tue,  3 Nov 2026 20:25:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=F1Cb0x8H
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=OowuJQe3aC0/b/4LdRy+JJUp1bkSK8DzGICROZcpBoE=; b=F1Cb0x8H3kRQarOHQ6CQBF8gcm
-	bhCaWl5QzG2ChnLUDKXehOJ1Fd70NHF5nPk8Qa2oY3y2zTXZibbInwgks6qIO7jsR2/QAgLiZ7Mnf
-	+Oq5KN0uvYZ2FH4mc561XClVhRllCL1VVkD8cLM8DXg/rxi5vNy8AYZvnsFyk4Oy41f0rrDcMYsoT
-	9NwwAIAxwrm0qTE1BW1pWuw+VsMe1BuN9kL7Pf6fyd3n7biq9e7FZh9lQVjdebAiQLka5B16WM4Jx
-	A/pcNV/fQv+5FmRItjO+L6m0SVFyXyC+E+t7lg5UlUAi029mzw0Mgmren3UPQxkYTGL562EkzD+ZM
-	fx5Fzeww==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOL1P-00000003c7K-08Ii;
-	Tue, 03 Nov 2026 20:22:19 +0000
-Message-ID: <124acf19-a676-46bb-a414-08d957d9cc7b@infradead.org>
-Date: Tue, 3 Nov 2026 12:22:18 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5ssbrCV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21D21F000C1;
+	Tue,  3 Nov 2026 20:25:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793737505;
+	bh=ey3bmLuO/tccwPs6bses4tdGWflrXeb+2JX3HuYScV4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=P5ssbrCVpBBYTmauqrVaBiDJEvktbbY3AHI740ST8cI80wQGavxxiKa+nooMEATRM
+	 eb+x8qWnvDiBDzKQqAEkckVPb55a0wbVtSTOTmgATo95zdHWFr2u/szy1NnV/DILke
+	 qb5+6RmUplemGrSjMO57a7YgiQbSXvbWiKKnasCZ+hOAh+0F22xgwavgwKbLaQCjbe
+	 0cyJq/eeJtzT57YExAprUOdYuuSh9L4bwPwdwJEn18tpJHV9pBKQ9qrKym22HgUq45
+	 Z/DC3+B5fGmmD1trrkD7HTXwDeFYsyAAGwu8OqzO1ZjislP5EOGxe0pEtxfA8eAs9/
+	 LoLsy+ATgqQgQ==
+Message-ID: <f72d88e0-553d-4cc9-af38-9cca183cb814@kernel.org>
+Date: Wed, 4 Nov 2026 05:25:03 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,89 +52,66 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/wii: Remove redundant 0x prefixes
-To: Thorsten Blum <blum@kernel.org>, Madhavan Srinivasan
- <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- "Rob Herring (Arm)" <robh@kernel.org>, Jonathan Cameron <jic23@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-References: <20261103170305.455444-3-blum@kernel.org>
+Subject: Re: [PATCH v2] ata: libata-scsi: reject data-in commands with a
+ data-out buffer
+To: Zhao Gongyi <zhaogongyi@bytedance.com>, Niklas Cassel <cassel@kernel.org>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261027090809.94126-1-zhaogongyi@bytedance.com>
+ <20261028113903.19569-1-zhaogongyi@bytedance.com>
+ <8ec9e401-4c00-42fe-b997-228e05ed9c2a@kernel.org>
+ <36648b88-c295-4acb-8b6e-25d742d50946@bytedance.com>
+ <2def2444-0b73-4371-9ba2-78af235e64cb@kernel.org>
+ <0a4822fe-f283-4cac-8ca3-91f4e8f017e2@bytedance.com>
 Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261103170305.455444-3-blum@kernel.org>
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <0a4822fe-f283-4cac-8ca3-91f4e8f017e2@bytedance.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 11/3/26 9:03 AM, Thorsten Blum wrote:
-> The %pa format specifier already includes the 0x prefix. Remove the
-> redundant prefixes to avoid printing 0x0x.
+On 10/30/26 12:19, Zhao Gongyi wrote:
+> On 10/30/26 9:18 AM, Damien Le Moal wrote:
+>> Yep, these are the only ones we can catch easily. Other commands we do not look
+>> at/know about will keep potentially triggering iommu page faults, but that is
+>> fine as that is not a crash. However, ideally, that should lead to the command
+>> being failed, which it seems we are unable to do... Did you check if we can
+>> propagate the fault into a the request to indicate a failure?
+>>
 > 
-> Fixes: 7b69600d4da0 ("powerpc/wii: fix resource printk format warnings")
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-
-There are other cases of this elsewhere in the kernel sources.
-Are you addressing those also?
-
-Thanks.
-
-
-> ---
->  arch/powerpc/platforms/embedded6xx/flipper-pic.c | 2 +-
->  arch/powerpc/platforms/embedded6xx/hlwd-pic.c    | 2 +-
->  arch/powerpc/platforms/embedded6xx/wii.c         | 6 ++----
->  3 files changed, 4 insertions(+), 6 deletions(-)
+> Hi Damien,
 > 
-> diff --git a/arch/powerpc/platforms/embedded6xx/flipper-pic.c b/arch/powerpc/platforms/embedded6xx/flipper-pic.c
-> index 91a8f0a7086e..e9c84793cc4d 100644
-> --- a/arch/powerpc/platforms/embedded6xx/flipper-pic.c
-> +++ b/arch/powerpc/platforms/embedded6xx/flipper-pic.c
-> @@ -145,7 +145,7 @@ static struct irq_domain * __init flipper_pic_init(struct device_node *np)
->  	}
->  	io_base = ioremap(res.start, resource_size(&res));
->  
-> -	pr_info("controller at 0x%pa mapped to 0x%p\n", &res.start, io_base);
-> +	pr_info("controller at %pa mapped to 0x%p\n", &res.start, io_base);
->  
->  	__flipper_quiesce(io_base);
->  
-> diff --git a/arch/powerpc/platforms/embedded6xx/hlwd-pic.c b/arch/powerpc/platforms/embedded6xx/hlwd-pic.c
-> index 1522a8bece29..a1bdb83fe51f 100644
-> --- a/arch/powerpc/platforms/embedded6xx/hlwd-pic.c
-> +++ b/arch/powerpc/platforms/embedded6xx/hlwd-pic.c
-> @@ -171,7 +171,7 @@ static struct irq_domain *__init hlwd_pic_init(struct device_node *np)
->  		return NULL;
->  	}
->  
-> -	pr_info("controller at 0x%pa mapped to 0x%p\n", &res.start, io_base);
-> +	pr_info("controller at %pa mapped to 0x%p\n", &res.start, io_base);
->  
->  	__hlwd_quiesce(io_base);
->  
-> diff --git a/arch/powerpc/platforms/embedded6xx/wii.c b/arch/powerpc/platforms/embedded6xx/wii.c
-> index e7eec328f121..928d082abf56 100644
-> --- a/arch/powerpc/platforms/embedded6xx/wii.c
-> +++ b/arch/powerpc/platforms/embedded6xx/wii.c
-> @@ -73,10 +73,8 @@ static void __iomem *__init wii_ioremap_hw_regs(char *name, char *compatible)
->  	}
->  
->  	hw_regs = ioremap(res.start, resource_size(&res));
-> -	if (hw_regs) {
-> -		pr_info("%s at 0x%pa mapped to 0x%p\n", name,
-> -			&res.start, hw_regs);
-> -	}
-> +	if (hw_regs)
-> +		pr_info("%s at %pa mapped to 0x%p\n", name, &res.start, hw_regs);
->  
->  out_put:
->  	of_node_put(np);
+> I checked the DMA mapping and IOMMU fault paths.
+> 
+> For DMA commands, ata_sg_setup() calls dma_map_sg() using qc->dma_dir,
+> which is derived from the direction supplied with the SG_IO request.
+> Therefore, for a request declared as DMA_TO_DEVICE, the mapping itself
+> succeeds with device-read permissions.
+> 
+> If the device subsequently attempts to write through that mapping, the
+> permission violation is reported asynchronously by the IOMMU. I could
+> not find a generic mechanism that associates such a fault with the
+> corresponding ata_queued_cmd or scsi_cmnd and turns it into a
+> per-command failure.
+> 
+> Some host controllers may also report a host-bus or interface error for
+> the command, but that appears to be controller-specific and cannot be
+> relied upon by libata.
+> 
+> Therefore, for the mismatches that libata can identify, rejecting the
+> command before issuing it still seems necessary. For arbitrary ATAPI or
+> vendor-specific CDBs whose actual direction libata does not know, I do
+> not think the generic IOMMU fault can be reliably propagated to the
+> request.
+> 
+> I will wait for your guidance on the appropriate sense code before
+> posting v3.
+
+Looking at the list of scsi sense code, I think the data phase may be most
+appropriate, but with a qualifier. So why not use: DATA_IN_BUFFER_ERROR (0x4B0A).
+
+The other one that I like would be SCSI_TO_HOST_SYSTEM_INTERFACE_FAILURE
+(0x5400), but the DATA IN BUFFER ERROR may be clearer.
 
 -- 
-~Randy
+Damien Le Moal
+Western Digital Research
