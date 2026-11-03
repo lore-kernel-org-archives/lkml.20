@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743578;
-	b=BRzzjDY82jdOdkP0wXq9Kv9F/qGzZXPW9dIdG+Hhl9GvU3l1LjVkNn1ZWfbdCVn8nanE
-	 79aTn9sCmclt4kU81O+Ad2FuShdJIDgodepRFILw0zFE+6jHVOMwIyLXNSAXRQjQpXJWD
-	 ZiDlniJWU68dnuvzSmJzTS9Hozfqq8LCuUmjZoMX+Nrj2CAcKEuCkSdjPWNH/yNaL6mOb
-	 HlhjLggSJhKUWqYpeIAwc48nO4NxW2O+hPEGP2OfaMbkQw2z1HUppId0Fkrlsec60O+X6
-	 DaUiUDbCnwk6Z+iQiRPOll5/hWvF9dlEPmor6XAx+LRj71lgmElaXK5s4B+8JxhRF3w==
+	t=1793743619;
+	b=5euhTBpNAA3BN8ppt5tlQ0Ng0jlrJmcDNcBZNjY908JAVE0IJNkGgjz+HjbgFuTTA8pm
+	 n1xN2cT97tVbrh5MMjCzb+FCB+uOUwfiEVUVP2bcmk2wgGIZCBXX3xoqxOrQwKUTWFiBy
+	 Twp00cVZoJFjGxw/QyVkYz+SdrBlVkcF2EYWGcRlRKxD1RIf+Wzj/4Y2piQBf7mDMu+9s
+	 9qfuHRpW2nwlctcgZboaQttXtbcw01+TFd1HWYGM/88z4Bgpg7pltUJVzEtdTXP1rabyf
+	 9vNOooxXQRf+EfeBSjKFvfRnUiWwkFVDFJfrh2GR2zf42Tq4+OGUGn4QVbVScgdoVOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743578;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743619;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=hv0Uio0iKv6YWg4emi8XyGAuTMh6jvPk4JOtOEL/kqI=;
-	b=NRdfK+veUE1rj9ev1IcMQOqO1ej1CtVRxNm5+Kjgw2/d94PF4lIHUuhOd9h4j7V4cCe0
-	 CvVxkCAyBWcf56rhjn+JehrCaL9ck6ZUxJvVmoWRoVOkme2MRmOXQu314QbgkiLyZKtfN
-	 cILpcKI+m4xt/D7QQU4aTh74NsNZn1JcFc+Nzhcvqnf4+jvX3jmBtgPVx5YzAJw/TDWgp
-	 bR+Qxqgft/9DmAPvdOodrHuZzSqNkGMc/uwZ8ufRpv4Ojv33gwcA7Vu5DZyGX4TG+Jut2
-	 NLp2BuZgaxsc3Ti8D9ByxkJXSEf8fSUbGGeAwaYu8OlFNW6REnabE8DhtrPTEhK5+Xw==
+	bh=lOZWFaFosPV/+qtC8DUJqMFl+nVK4cTga9YvJmW6lvI=;
+	b=hk8FkVeJ/wu4F/fWFvCPi9lVwHxoliUEq379GaBm+dbyNzErwYzePvxDhFVwL1UahKrg
+	 FT6KCiCtMHhwAvVx+Yf7jwEmAthj7Vdh2i5BfvSFCSdiAf9bpzR1v8sTFlwIvalev3fv/
+	 SwigsuoTvYRhamcM53vwRA3hAJMAi0y7aPT733APqcKw12c+6xDADfHImETRE2qeejDjx
+	 4iJO9ggCvc1X1U25AcXHASgOMNKinsrZ7SQ6RwcGr9EJFxv65bRmHYRSRgWX5k58+mxek
+	 Rd4QEvt47NAAYKUYpGHqTYx8bzVaxOOxZmD58ozTpdsZlNJWkmK3C4efevOQfD+RP6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VWPaHvnX;
-	arc=none smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="S5FKJ/Zk";
+	arc=none smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77566606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:06:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77566606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C62B606A32E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C62B606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VWPaHvnX
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5363316fa0cso56555671cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:06:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S5FKJ/Zk
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-53512cd2f85so36711cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:06:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793743576; x=1794348376; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=gmail.com; s=20260707; t=1793743618; x=1794348418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hv0Uio0iKv6YWg4emi8XyGAuTMh6jvPk4JOtOEL/kqI=;
-        b=VWPaHvnXR4QbSC5IyHVKu5R88jNYS/0KrZk5ghuorRGJARgbf8FsaNzpnVC2zLJEdX
-         pa9OJ3WVP+4YhQdgWFAwTzIJTVifMCP1ol6riFYHBz7ZMlHr3lBDY9A/+PsoKRCNQFOx
-         sligINswxDpSji18Eb/9ET++sAXIUl3P+I9AqvOXKCmnXaWp9JZOO8bgk/K2DZHWGkkP
-         CswXp/YDWUFeWiCLCNzlSzODJQBe+lBNurqJxHZAJTVuav4ZUcsx+KO6BOJcYlC+8AEV
-         M4+nGfRIKClahBvqOlhLzMDiENOkewQ+hn24ujf1KlZJgz71U8BMNYZnDJwZVIbtu8Zs
-         jSwQ==
+        bh=lOZWFaFosPV/+qtC8DUJqMFl+nVK4cTga9YvJmW6lvI=;
+        b=S5FKJ/Zk2aUUUWdSlFZ7AcYRILTpQVfVtwVaymeP145rcwm3SnciwbKmli09tsb3lS
+         Z7puXVmTGbAjOUvURvgXuaEmBW/54e1w723WHTbZ5nPWEWghvf11d4tzE9LLARCH/miA
+         zFF9psjuSVYMSicCC/leHNtGFn4eoXjGuDNb/7Bbp9WcXB2HtseQHuRT1iGV2jfKvWCC
+         K13qUL8SXIgfqAmOua+BLma5zRyXkVly7K+S4qh+dOTK1zyqy/FBr6viYQoZ3ZD5dbHF
+         0buBlrvk3/dFvLqTNr4IlxsSl3Mzp7+n4UO3ED61HPHcGfy6QCiTdhdPQ1W5vpdXvKjD
+         8LjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793743576; x=1794348376;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=1e100.net; s=20260707; t=1793743618; x=1794348418;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hv0Uio0iKv6YWg4emi8XyGAuTMh6jvPk4JOtOEL/kqI=;
-        b=t6c6mkXxi5m8CYGPoWpTfFVNIHoSizO8o0yyu5Dd3IB3pcc/ofKPbBNMvpXx0YXK5t
-         00fRoyQkTAFc4weFvJ5sypsuFuE1itE22c53Bm30bO5SmhuIf4xTTuU3IzX4mSekFQSU
-         +XRPMtLgUQx7IAb/rKOaaKHYz5oSRn8Ui2jwDomkiVq397LT6+UJZVr+V925Ir2lLRxh
-         W1ewYtAJjI0rq1GTbKhpB8yupQCCMPtRXpvRLk2P3BqxtnAfoYNjKUyNf2bUUTUrpLL9
-         HdzMlgvuSoztu2KPBBimVGoTqEUQ/BYn9aFamjEy//nEyuJm2AR0yx8kDy4miU1cAooy
-         Ttug==
-X-Forwarded-Encrypted: i=1; AKwUvByjK/vAey+dQJQwu5wncpp/th6Lkn6Lv4Z4Ay8XmYwCiY4khwOB9ycwP+uvhXa91+GgnLeW52kLMFk/cCM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tg7OeJZ1WSf5fQkA76p/oYwLrCIz5OuTAUMreF9868Mt+kiNK
-	koNP7T7aaU4PdendHJ0DTK6RDtq3bemae3fGehF7X6CBRhH+GnXsAMaU
-X-Gm-Gg: AYBFou3PBjIgyLjP2iG4ZNTljpgUixjAHeAm3irSJ1oCJyT8eJRm7sLujHRDj8qm8Hd
-	Rjk6TTXSa4VOfNcERCXfLzuu9YkUbQmBimOETaLyEE9YnVzAJn2n9u1t294+fRu41jmZBlQrTR4
-	AwX61xyx/0Wl5YHVzbDaU7Z284YLjgOCOFI99l9HdQ/mzpPbGV8ryePr1d7OdByPVpz6ax1bRkF
-	xMD1H14u4H/zBK417OwOCx1XOBLC5oZncH8jWdyi3r5H3jJSZ46KhrhWuY1Aj6qrGl2lwqWtuBK
-	AjqhZQVCzRkRm4GVsNEf9EXNY/FtdFiBtJVvbEHcXm99E/gQW6pX29dmcNdRb/+nVS/snFZQO84
-	hZ3/sWCr1oGwOEGuRYDAcveKfuSxdSDeSL3JEoxzHvn9UFIiCBT52RwFMgGXotql+JRXN84wO/s
-	h3+u1i/5Nd7Ib+IxDCLyG2EGTs4hIp+SHRJU8rfq0yMBc0tFO9OwSyEwsS1R+rJOWGHe7FGkeAj
-	P9EueyTrlPx6h1IintY2BlKxUz3AO21F7hZ24lJsF6msJme9Ts5toaYseGnwP2FmJNQVpb6EwOx
-	ALI5URzsnoMF9QzDAhCggzlZBAhUKgIyUyt52Ai/I/JDJYhj+h9TjHM=
-X-Received: by 2002:a05:622a:1f90:b0:535:a5fb:645b with SMTP id d75a77b69052e-542b83f7705mr214523681cf.70.1793743576258;
-        Tue, 03 Nov 2026 14:06:16 -0800 (PST)
+        bh=lOZWFaFosPV/+qtC8DUJqMFl+nVK4cTga9YvJmW6lvI=;
+        b=eQudjQZ7ovBp7lA5Ojpnl2uq1MBHI0jsuZZCc9YTpwRUEu39VC4d+BWeOa8kohD9EU
+         pjWPbY0kHwKZromjrGONbdMxlVGhCp/3WtC+muld2cvOaO6nVDRllxPSUfyriZzFueJm
+         O/NNpY2j3SJ4DaxhuYpVzFqGT3rnMWiZQgSGiVlogi3IPY7IkCYQPR7xEhQDlgTH+pwI
+         iOlnETYrRQpocR1GgWi7QD3AVz7PrHTreWW4NojeHzZAQjNXy5ccKMf//LEzh/Rm6yk3
+         W+BK+sP6lWc5h3zGdPOABZ/j+sgyJjlaKTmYL/an1kTxZYzReGX9ErXDpJNazRN6Ktqj
+         oNWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxYxiuO2b7TAbkj0QxILXfvpoLvDtMQGL9DOU9df/fZ7bu2+Ylg70rYyirqh5NfcLxqnCLqdUAOufaNQ7k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82sSZqm3Y8rsAg31ux9/F8P/nYSGfrZKvq7/0KcL1GmLIPDNAs
+	qECPrmXFnlz6ObzfRf+QelARSj4fzNqBoCVFg8rFyyycZcu+hMFEH9+3
+X-Gm-Gg: AYBFou3lEASz8J7SalcH4vavVRKtUygNtNEAGtonGDMEcIMUNdlDtJLTmGKkx75RrzT
+	MtPr5BdwIOjBGhK9rzG87hmUSI6p0tHuvnmYEwpygv6wKvbTt/PPt94JNWCR4Li5pcqZJU6xaTi
+	ZAScsP/nih/M4P3FXLx0wcvvHZ2WVR5rBzKwNpqH+XyHJtjZtt0vo2Ze9iY03l+Pk9I5r8fxpHg
+	ETGu3h3YYJajU2kyg0bse6N9FG0vVBPyM5I4brTachzf/7E7aYIPjFy1QJtFKFsZw7qy03atUir
+	0ECBSkUY3BMJ2h8BbPL7u/6EiNn+qEEpf4+grUXiIt+U1KOb8Cn9TjuJdUZD6G1lvaGdFRMrbVR
+	ES/SidU20+tWLvK7e2GB9t+JDiEw2V3d6wHt0UFG1nhBXZfYPYaXbPjUww6DDqZSY+Vy5/dEn6I
+	YcrUS2rchso7j4hF92l8mHS5hdPLxUGbcaRujqe2r9My7rZAjAKrvHDfkGLo4w61Q+Ls39dnrm4
+	vH33eZ9YhKt4aYV2ZmZOBcwOF7BJSK/NFEtRIb+lGi7H37sXkq1wqkIy3c/qXYhNA6g1Ro3HAov
+	GzsHnw+qUHrbA4gxIAcVDfsV/J4/egoOpWV9fGWytCVh8GGRMZy7N1Y=
+X-Received: by 2002:a05:622a:4d8a:b0:535:8509:3138 with SMTP id d75a77b69052e-542b3c732b3mr240064241cf.11.1793743618294;
+        Tue, 03 Nov 2026 14:06:58 -0800 (PST)
 Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b10cf31desm6749061cf.23.2026.11.03.14.06.14
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7dfe98b2sm1903246d6.21.2026.11.03.14.06.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 14:06:15 -0800 (PST)
-Message-ID: <9a6429d6-ecd5-45df-bcb3-6bfa235008a9@gmail.com>
-Date: Tue, 3 Nov 2026 14:06:13 -0800
+        Tue, 03 Nov 2026 14:06:57 -0800 (PST)
+Message-ID: <0d5f8aa1-8d0e-4a28-b7dc-dacbfb1ca1c2@gmail.com>
+Date: Tue, 3 Nov 2026 14:06:56 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,8 +93,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] serial: sb1250-duart: Fix console message
- clobbering at channel resets
+Subject: Re: [PATCH v3 2/3] serial: sb1250-duart: Fix bootconsole handover
+ lockup
 To: "Maciej W. Rozycki" <macro@orcam.me.uk>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -102,36 +102,61 @@ To: "Maciej W. Rozycki" <macro@orcam.me.uk>,
 Cc: linux-mips@vger.kernel.org, linux-serial@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <alpine.DEB.2.21.2608060322360.55540@angie.orcam.me.uk>
- <alpine.DEB.2.21.2608060337580.55540@angie.orcam.me.uk>
+ <alpine.DEB.2.21.2608060359330.55540@angie.orcam.me.uk>
 Content-Language: en-US, fr-FR
 From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <alpine.DEB.2.21.2608060337580.55540@angie.orcam.me.uk>
+Autocrypt: addr=fainelli@broadcom.com; keydata=
+ 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
+In-Reply-To: <alpine.DEB.2.21.2608060359330.55540@angie.orcam.me.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 8/6/26 03:54, Maciej W. Rozycki wrote:
-> Ensure any characters outstanding have been sent before issuing channel
-> resets so as to prevent messages issued to the bootconsole from getting
-> clobbered.
+> Calling sbd_init_port() in the course of setting up the serial device
+> causes line parameters to be messed up and the transmitter disabled.
+> We've been lucky in that no message is usually produced to the kernel
+> log between this call and the later call to uart_set_options() in the
+> course of console setup done by sbd_serial_console_init(), or the system
+> would hang as the console output handler in CFE tried to access a port
+> whose transmitter has been disabled and line parameters messed up.
 > 
-> Contrary to device documentation at the time the transmitter empty bit
-> is set only the transmit FIFO has been drained and there is still data
-> outstanding in the transmitter shift register, so wait an extra amount
-> of time for that register to drain too.  This also prevents subsequent
-> messages produced to the console from getting clobbered, owing to what
-> seems a transmitter synchronisation issue.
+> It'll change with the next change to the driver, so fix sbd_init_port()
+> such that line parameters are set for 115200n8 console operation as with
+> the CFE firmware and the transmitter re-enabled after reset.
 > 
-> When called from sbd_serial_console_init() it is too early for fsleep()
-> to work and even before lpj has been calculated, and therefore neither
-> udelay() works.  Therefore delay by hand, observing that roughly 170
-> iterations over an Input Port Register read are sufficient for the
-> transmitter to drain with the BCM1250 SoC clocked at 800MHz, so using
-> 2048 iterations should give enough margin including in particular for
-> the faster BCM1480 SoC clocked at 1GHz.
-> 
-> Fixes: b45d52797432 ("sb1250-duart.c: SB1250 DUART serial support")
+> Fixes: 84a9582fd203 ("serial: core: Start managing serial controllers to enable runtime PM")
 > Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
-> Cc: stable@vger.kernel.org # v2.6.23+
+> Cc: stable@vger.kernel.org # v6.5+
 
 Tested-by: Florian Fainelli <f.fainelli@gmail.com>
 -- 
