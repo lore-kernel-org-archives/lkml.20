@@ -1,63 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711404;
-	b=jpeU8CcpS32mRCUW6mQO+A5ouYnCF6nxaXAbN1oaUjGzfzKiWZqUPUo8LMX/TjLYs5v2
-	 W1lmX0TduVsiHEMAae/LI3rmOa73/x4V8UWUECT8z7AYQ67ikGU9k2D+taDs3+OORfSz+
-	 vmu7c93aP17BA1po2f11NDPXX4Vbli6WBaLK7i/YKFh7QO4HphnoKZbXxxUvYFdEHQso1
-	 CtGc5Yim//ONlhaIJX/ObS+XuhrSLRZ4eurWE5joQGXmnu1v/qHtgduri6q+mxxvv8qnk
-	 9uvbB8REg+7XoFCgIn55F4Os8+09jCyftsU+fKlX+bMisu8ITFeZWS0csBmutZkIXjg==
+	t=1793711412;
+	b=cfEPnnQHf7sEdl9Xmu/i2jTnka/DLcfG3uGwKLAUoN7Bd9mQPWw34bG76ByO01dfjygO
+	 dXULDu5vZJjf5tUsYPIw9toLZOEsPAn5YpUM+gmGhw8lkPBWo6Bplh42g55dGpi27SWGv
+	 SvpCupitCHFt1sH5osftgvbhw+DBE7yBZwLszxKkQt9EuOqEKF6TrKpEwgPKSZKjAq/dr
+	 VfyiTaF9/meIQRzllFugOBtjQbuEIuo1DJxfe58BlsSlJG4woEjLHcLeGQRV+Fo9DKRwf
+	 y8LGIJ673TbWiJs8EPGZYOGbnmcW9FFjfugeW8f4IGBipEvFsHAd2LFkwpKZmSgyDyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711404;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=w3H7blSooLszPMxpdrt6nkYHGz8mEQiZ6Smc95l6Wxo=;
-	b=0jIuLrp9iR/CcM0/aR/G4+yA4PXFLOGrQQhG4cQEWCxtipQJ6dBBjJ88pcQzjHM1noxg
-	 uuR6sopMxQvZ6khlLFLb+/uEi0NG0DPDUUDhlGHj62dNBQy+uOvfVUlSczh12XUZviXPD
-	 phb2zLou38Y9y/I+v/VqQiFPG1PD0KmmOHXQ3mt1CqaTX/NqpkRyf2gFADieOAYymoaVK
-	 TLbJ/36H/Oxd3V4sIFOs59RSJdZCnFjLUpi1jA35qa6DNKIWc3Jkf8DVUZVQAVVeDwH6b
-	 I3K1z7PD3j/7vgFf0cQsofYmjaN9lYl6F2pBuQj3ZkFdACG8frPrPJMphhF2EVCa3IA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711412;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PSDntGuIfgagBvAExwS6AxASDwHywut+hO3ZGe4XpBM=;
+	b=egR+3LtTyBxTxPxFspTzoATrHc/P3+Rp5yLf321o0am4Zz72V8Qtrsf19uXYcduxG43V
+	 31lPnsfLkbMd+ZXb9pqfu4vzifmcYO+peAMlZp4CSCCXZCKvAIXlGj9WzUmpCMFSKVcCM
+	 EfmROie0UPN+RRm5Pk4TnzFWLDFT5mdKOxLe5fId49DpmwtcwNnHeSXQNvnDPg63rrbNu
+	 /tXst5DANkxILy3LzqqapYmxVyUzN4AYnimvwZAnt1nrmf/HgIGGy6p7qnR6OS/HAThF1
+	 TlpkjI2l7TqfXr9PTubSbKy0PhP6iP2DakjspnC8FzLj3X+PNzRmCIW+LsyPzZ82Z/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=cxWQCZlZ;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEyqadUq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3DD606A326;
-	Tue,  3 Nov 2026 13:10:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED3DD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7281C6082BD9;
+	Tue,  3 Nov 2026 13:10:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=cxWQCZlZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=w3H7blSooLszPMxpdrt6nkYHGz8mEQiZ6Smc95l6Wxo=; b=cxWQCZlZV2IvzjmfRq2QtTPOQW
-	54CSCbMtbNhCCuKN6nHKoXxgcUwzTC0AYb2d0QRHp+H+TCxCuwohIRrVe3qkyAkkupoKiw/6FJBtE
-	9TOlPD6/4vliE8F81UqEAxHlp0NVe6nkdgmlSQUYQCBqvQjPrKRfv7OVY8OVo6FbKSNc2Cvc6kx8Y
-	kWDEACaM/DNLJhLq0xqE3SnmoTR+ZGU0+Zbun6Puct5FSQ86QhSDtXXIEB/9yEvPkJyDgDrHVUUSh
-	ue7jZ7QTQsKB6lsp5Jw/SVhY/s8yebdz6dQB9qINT7t1AwljGPNd0VQIDsFeEDG59m7+Kox52PMza
-	n4x7LEig==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xOEH1-006xOC-2a;
-	Tue, 03 Nov 2026 13:10:00 +0000
-Date: Tue, 3 Nov 2026 05:09:55 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Shuai Liu <847807867@qq.com>
-Cc: Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzbot+675af112519ca34f5502@syzkaller.appspotmail.com
-Subject: Re: [PATCH] io_uring/sqpoll: don't set IO_SQ_THREAD_SHOULD_STOP on
- thread exit
-Message-ID: <auncyphG6lXI7rvo@gmail.com>
-References: <tencent_BB08960D79E0261B5C1EB1E589787734E907@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEyqadUq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA251F00919;
+	Tue,  3 Nov 2026 13:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793711412;
+	bh=PSDntGuIfgagBvAExwS6AxASDwHywut+hO3ZGe4XpBM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YEyqadUq/vD7mn2sQm7rW5cXSKEBCH/ZXFx7VIjAsR/sVuKdO9E4SzT3UBw28oGOW
+	 Y7Ssto7CIv59mQru1uVSibGFkHy7VhU738TmPn+3NAAiDX51ZozvEL6Y8iZQFP1DTV
+	 agZkjzhjBgXYAaJikdv8RYfrbedIEFKozfjGca95CoT7B50B3on4TeX9nl0QKVVXYv
+	 zNKNxyVKc0oydZyn4uCwh3J1Ua63+sfHDokcgfmtd8B03fsr9dw5Rev67vzcl+uvS7
+	 EUUnWfpoTnqLU3BY13hlaFhffZl8oYr7ngAl2gyiJarVZfTiTIwA6b2RqBV/dgN+fF
+	 bcjZeTbE5WRaA==
+Subject: Re: [PATCH net 2/2] connector/cn_proc: release socket state and
+ listener count on close
+From: netdev-bot+sashiko@kernel.org
+To: cenzhang@linux.microsoft.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, anjali.k.kulkarni@oracle.com,
+ liam@infradead.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, AutonomousCodeSecurity@microsoft.com,
+ tgopinath@linux.microsoft.com
+Date: Tue, 03 Nov 2026 13:10:11 +0000
+Message-ID: <179371141120.488856.13027523647862479080@kernel.org>
+In-Reply-To: <20261102130922.75629-3-cenzhang@linux.microsoft.com>
+References: <20261102130922.75629-3-cenzhang@linux.microsoft.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,26 +65,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_BB08960D79E0261B5C1EB1E589787734E907@qq.com>
-X-Debian-User: leitao
 
-On Mon, Nov 02, 2026 at 04:05:42PM +0800, Shuai Liu wrote:
->   WARNING: io_uring/sqpoll.c:88 at io_sq_thread_stop
->   Workqueue: iou_exit io_ring_exit_work
->   Call Trace:
->    io_put_sq_data
->    io_sq_thread_finish
->    io_ring_ctx_free
->    io_ring_exit_work
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-I've started seeing this issue on my debug kernels.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Not sure if this is the right approach to fix it, but, I've tested this
-patch, and the warning went away.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Jens, feel free to add my `Tested-by: Breno Leitao <leitao@debian.org>'
-if you decide to get this patch in.
+- [High] This patch makes cn_proc_release() (drivers/connector/cn_proc.c)
+  the single place that cleans up when a NETLINK_CONNECTOR socket closes.
 
---breno
+--
+
+connector/cn_proc: release socket state and listener count on close
+
+This moves the NETLINK_CONNECTOR release cleanup into a new
+cn_proc_release() helper, which now runs for every socket on close. The
+helper frees sk->sk_user_data and decrements proc_event_num_listeners
+when the stored mcast_op is PROC_CN_MCAST_LISTEN. The aim is to fix the
+proc_input leak and the listener count imbalance.
+
+> diff --git a/drivers/connector/cn_proc.c b/drivers/connector/cn_proc.c
+> index 4f613c0648ae4..a4b62998095ea 100644
+> --- a/drivers/connector/cn_proc.c
+> +++ b/drivers/connector/cn_proc.c
+> @@ -387,6 +387,20 @@ static void cn_proc_ack(int err, int rcvd_seq, int rcvd_ack)
+>  	send_msg(msg);
+>  }
+>  
+> +/* Called when a NETLINK_CONNECTOR socket is released. */
+> +void cn_proc_release(struct sock *sk)
+> +{
+> +	struct proc_input *input = sk->sk_user_data;
+> +
+> +	if (!input)
+> +		return;
+> +
+> +	if (input->mcast_op == PROC_CN_MCAST_LISTEN)
+> +		atomic_dec(&proc_event_num_listeners);
+> +	kfree(input);
+> +	sk->sk_user_data = NULL;
+> +}
+
+[Severity: High]
+This cleanup assumes two things. Each socket owns at most one
+proc_input, and proc_event_num_listeners holds exactly one increment for
+each socket whose stored mcast_op is LISTEN. Does cn_proc_mcast_ctl()
+actually guarantee either of these?
+
+Nothing on the send path serialises it per socket. In
+netlink_sendmsg()->netlink_unicast()->netlink_unicast_kernel(),
+nlk->netlink_rcv() is called with no lock_sock(). cn_call_callback()
+holds queue_lock only for the lookup:
+
+drivers/connector/connector.c:cn_call_callback() {
+    ...
+	spin_unlock_bh(&dev->cbdev->queue_lock);
+
+	if (cbq != NULL) {
+		cbq->callback(msg, nsp);
+    ...
+}
+
+As a result, two threads sharing one fd can run this section of
+cn_proc_mcast_ctl() at the same time:
+
+drivers/connector/cn_proc.c:cn_proc_mcast_ctl() {
+    ...
+		if (sk->sk_user_data == NULL) {
+			sk->sk_user_data = kzalloc_obj(struct proc_input);
+			...
+			initial = 1;
+		} else {
+			prev_mc_op =
+			((struct proc_input *)(sk->sk_user_data))->mcast_op;
+		}
+		...
+		((struct proc_input *)(sk->sk_user_data))->mcast_op = mc_op;
+	...
+	case PROC_CN_MCAST_LISTEN:
+		if (initial || (prev_mc_op != PROC_CN_MCAST_LISTEN))
+			atomic_inc(&proc_event_num_listeners);
+		break;
+	case PROC_CN_MCAST_IGNORE:
+		if (!initial && (prev_mc_op != PROC_CN_MCAST_IGNORE))
+			atomic_dec(&proc_event_num_listeners);
+    ...
+}
+
+Can this still leak the proc_input? If both threads see sk_user_data as
+NULL, each calls kzalloc and the second store overwrites the first
+pointer. cn_proc_release() frees only the pointer that survives. A loop
+of socket(), two concurrent control messages and close() would then
+still leak kmalloc-8, much like the OOM reproducer in the commit
+message.
+
+Can the count still be left too high? Both threads can take the
+increment path, for example when both are initial LISTENs, or when the
+second thread reads the freshly published zeroed mcast_op (0, which is
+not PROC_CN_MCAST_LISTEN) before the first thread stores LISTEN.
+cn_proc_release() decrements only once.
+
+There is also an interleaving where the new release-time decrement
+seems to push the count too low:
+
+thread A (LISTEN, fresh socket)
+    sk->sk_user_data = kzalloc_obj(...)   /* mcast_op == 0 */
+    initial = 1
+
+thread B (IGNORE)
+    prev_mc_op = 0
+    atomic_dec(&proc_event_num_listeners)
+    mcast_op = PROC_CN_MCAST_IGNORE
+
+thread A
+    mcast_op = PROC_CN_MCAST_LISTEN
+    atomic_inc(&proc_event_num_listeners)
+
+close()
+    cn_proc_release()
+        atomic_dec(&proc_event_num_listeners)
+
+Before this patch that sequence left the counter balanced. With this
+patch, each round lowers proc_event_num_listeners by one.
+
+Once the count drops below 1, proc_fork_connector() and the other
+proc_*_connector() hooks, as well as cn_proc_ack(), return early. Would
+that stop process events for every listener on the system? The
+reachability checks are cn_bind() for CN_IDX_PROC and the init user/pid
+namespace test in cn_proc_mcast_ctl(), so an unprivileged user can
+trigger this.
+
+Would it make sense to serialise cn_proc_mcast_ctl() per socket, for
+example with lock_sock(sk) or a mutex around the sk_user_data install
+and the mcast_op transition plus counter update? Another option is a
+cmpxchg() install of sk_user_data together with an xchg() of mcast_op,
+using the old value to pick the inc or dec.
+
+>  /**
+>   * cn_proc_mcast_ctl
+>   * @msg: message sent from userspace via the connector
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102130922.75629-1-cenzhang%40linux.microsoft.com
