@@ -1,79 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715025;
-	b=ia+FnL2LI3nzuVAhvDAnal+hCh3Wxji6tPIM/Pins7C+YJT5QBVnfomaQO2mKZ7ZKdQi
-	 iEShNxFEKPk4yQKIYncyW7mNgvsSfehkn4SZ6GHbGtlLUKVjydgNgXMJQbrerVL49j1EB
-	 z1lmHBN+Jf9tEnmAZnuxKza5Kf+pSbrV57nwyM9UfB1zYzQ1AewQqg4w68P3Ae5zV6JyP
-	 TCGikOoxxIkzh/X2VJGuNhwZ62eg9ImHU5vbPyLj2RImYmBQeYCsloe63B5qE8cUH5FVF
-	 iGVzVOK8GY6PN9to/HPpHxmM7eJduLNkVmi5okJf6u2HKy8MV8svMkobINiXLornvKg==
+	t=1793715064;
+	b=uS9S6flwiRYDiUe59sF4DyUtGEoJZJYhgiTb1d7uLRGaQsdLy+2b7j6uu7kEGSpMSUqT
+	 tgTEtFTgpXHKX+/9jyfWQOx6nq1nv5YaJgitJFraTa9GqszxqR6XRSzk1t6cH1N2X+PUA
+	 CgPUbLrTiooLe5U4fGG2svgmMmx/I5RenBdgL11m8KGq1Sn5/yK92M7aWNMBg568CbGjU
+	 nfr+Fr8T0+sYgk42kCOTk6GS0NBWvotGMDrJRK3uoYX92ahFJGismWNaFzwYg/Ab79IGL
+	 k5uQYJ1IeaQTQUCfqBtfCO+ibfo2P2nSICNqSzkwhyGY82hguUWNQ15iGWPftISZdsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715025;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=9hcT28SYX76z1COvWorzxu+1gkA4oj6GNwI2cd7zGC4=;
-	b=ve6nwXNB/yTTk1tKsUllEugm2ATxOxhYFj3TyYg2DK4BN8w6XoWxh2XCla82iQRQxXnY
-	 n3yVuF4TjF18WkwnUq4rRJgBxpIz3VQK6GRsf5OROzajO4RV54HAV4D8xRKDr5aeMT7wW
-	 xUuUSCtIJZq4j+vjwNrF/SvMir1vpQN732KZSOi4CaGKqekQ0WKWlr6UDf565c1whnmkJ
-	 8vtX2T20nrjVPfRyWnCeigX4KFWN70zmpPf2f7fPLwhOF48r6fSppRrtVg/FFgj6iLNaL
-	 Qwppbx/l9VyFkXQzGg7paBGsqfZLbGTSJXwWl/roTRujjHrZfyaWqmqJd79QMlJo8ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715064;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=ZenQCEo5AsVMWUXOpth4eQIpq69oE3D6EXJwyyUJZMc=;
+	b=eWN+2QD/cP2MD4HIKxzPzHJ+u27dMVducAfv6QBSMjtUuacFsVnQspbcm0VrKeriHf79
+	 J1fx/68PyKShuigvlpGbVCnpjReeDMaIpXZEgYlvGUDCvzG4FAqOTD1UJdP56ttovc1Wi
+	 8pOAUa0G+AqQsaY1eOaPSDmaCMQjcN+7HA6vFJOB9UuaX6NxtIbd+Uycl+oTt/pJJ/avw
+	 aAKeoZ6CMAX1fpOjgB1Uwd+jtbXTQL0bXVk19x10xyXUKHMcIQ3uXvnuP+dTLc1XD253F
+	 EeGiHSTbTWwQYxIM35Gn8Zh06qPFiSc+5stSiVtL2l3ehmhNh8iNQJaJsMfvH1QojJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8gG2FyS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VAQn8dM5;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F88A606A32C;
-	Tue,  3 Nov 2026 14:10:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEEF606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:11:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FEEF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8gG2FyS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C32D1F000C1;
-	Tue,  3 Nov 2026 14:10:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715025;
-	bh=9hcT28SYX76z1COvWorzxu+1gkA4oj6GNwI2cd7zGC4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A8gG2FySIrvGccJDt9QVUN41xO71+6Rpf7aiyxt8Vsopa/Ys8hBvt1hDZeBlS/PGw
-	 MOt8BcnF/W4r1s15z+9Q6nzud+DWuRPuIHnctKYism3LQZOnWs3vU+zGKDYcGAak9v
-	 i1JqUhBvQ5kbpMtFLU6xUwyGov9lzqLdMvTVOsorWieMgO07vFjRnAf8TphXqmT54a
-	 fGU5gWTkE4FlbUGGSThdSpyyACGOdEcur0TIARvk+d+UVbVw5+sbat1Ht0raY6TNIJ
-	 eZtyJEUng8T8aAiarrufke9huCyGceFpE9bK2kxHfRy5JVsGTTX+UrBQ3G6s7LkukY
-	 Bnv6IKVnB5Lwg==
-Date: Tue, 3 Nov 2026 15:10:22 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Matthew Ruffell <matthew.ruffell@canonical.com>,
-	Leonardo Bras <leobras.c@gmail.com>
-Cc: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Caron Wills <caron.wills@pulsar.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VAQn8dM5
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so35989965e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:11:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793715062; x=1794319862; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZenQCEo5AsVMWUXOpth4eQIpq69oE3D6EXJwyyUJZMc=;
+        b=VAQn8dM5nSnW0NdbGGU4rdqxR42DExYanqkdDwJWwC5TS+xaesLbGXFiJN3ARYzx80
+         un0Iz7VSigkaKDr3D4J6WtmfS2MxAsFBBFj7xk2NEHnIoB2rkJzYahnBjBvriUdiM+4v
+         hTEkQYK/QHJ5Pyud3eiyr8H2V+1EDwicj3G/OSsbhDdxGu3fJP2eSl0H2rR8/tEe/Jxl
+         E6NMM+rzXwHlcb1TpQi+CoSe9DkdS9rC0iKeZy26rxMVBTZdPLZX49q5/iVQH7OtlIRv
+         jCD7KSakypUEn8Jzf3DtaJOpQwqnVXGG5sleDYByz1Filidc/6gAGj//U0aaIuyIosDJ
+         W5yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793715062; x=1794319862;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZenQCEo5AsVMWUXOpth4eQIpq69oE3D6EXJwyyUJZMc=;
+        b=R5Gl4Vc8Nd5rmZIDRoy1gYSi/6Isc2vQsCSdtf8EAMZIFLGU5w9Q4Cl8jmxzYA55aE
+         3zlKnqZEcU1xbHgwjnpUb/Mj0L7dDlWWN/kH+ytsqyFPw6BaPYvlk5w8iJ/GN8+xculy
+         ewBN6tecOwf3BgH9c0TB73yJIkeZqq+qRIX+8gFnbvNKckALmAbmdguBfvvmayaokxhf
+         Ly27abGiol3vzILbGzG0czCe+6uYY5AZVtiff31hpB/fq/Cy8Y7nr3OG/b6z6k+pk1Gj
+         Hy0ZsHykNRjXN9YByzDT937eLeh2H4hc6X4K8bhTKdJPc3dOcZ7RnIdmmTwCnCSCpWlV
+         Y0Aw==
+X-Gm-Message-State: APuU4Z+TZEga2mvyT+lPZyET9TBCxdtgQrhxXo1cWBLTWlYOfMDmBDwH
+	XB4AzbLP9GAqDMOPufLhS+WeJHzDCLkym0PO8C0gfdpAJUt3ymsOzW73B968PjEvKWo=
+X-Gm-Gg: AYBFou1dVowVkLRKPtcmKyI/DKCbm9c/SCxgfei4GNJeb+69TTsHZX6IkafPU2VzMq8
+	CCJIPXmgANOnE/Ff0cIToz97ypzZYkuezCRTL+aLki2GLGhRILq3BZPurl3hSJaDwbwjf+zm7EO
+	NVYFpXBXvgvK/9G0IXoFCnWeHviI40QBpUs3BRhm6+KvOvkFZZrdp1FmROrvqJz2HzRdFy2rm7R
+	I6bLYu235jrrgQlK3+fSafn5eC4PmwBEfEsKxjT8HBvtkAHQouh4QnN+3dYy+YdoHs5raBWgpoK
+	h4VZdSLr9nUjAuKTyCyDeb45yUjECeaGFtMmG4hKngDhefkkjUgXhZasO9QEA/LRK01cr+Kqtg5
+	qpSVSZ1y4jVffyapDQU+BDEPDwj+N96ZEZYRlPU2xSIfQaXMz9DilYUk/ruF9+SeEk2YCIAMIhZ
+	DmsH/EXIi+rG1ojBMb3iTaTCdkMbW12h9ogsNKX9Rm3UeTbSp+FfVCr4so/r8LS00+NrPljZKah
+	fGJGeokWhP/cgSQuiz/wcimnvRivA1BYkwtLM1uiZYqIyG39HLQyG7Kim8jQjxnZizyWYtHBVTF
+	KdraYu2fUy8oYV1CJIaKmmjyYWOhtUeAX1mb08Hk/RlT1VwqUNo=
+X-Received: by 2002:a05:600c:3556:b0:4a7:6bc7:f778 with SMTP id 5b1f17b1804b1-4ac1932a355mr284608655e9.30.1793715062277;
+        Tue, 03 Nov 2026 06:11:02 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80eb1sm26842325f8f.34.2026.11.03.06.11.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 06:11:01 -0800 (PST)
+Date: Tue, 3 Nov 2026 15:10:59 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Kees Cook <kees@kernel.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org, linux-mm@kvack.org,
-	Jay Vosburgh <jay.vosburgh@canonical.com>
-Subject: Re: [PATCH 4/6] sched/isolation: Drain per-CPU LRU batches when CPUs
- become isolated
-Message-ID: <aunrTtH00__Xi7PW@localhost.localdomain>
-References: <20261103075940.110308-1-matthew.ruffell@canonical.com>
- <20261103075940.110308-5-matthew.ruffell@canonical.com>
+	Tycho Andersen <tycho@tycho.pizza>,
+	Namhyung Kim <namhyung@kernel.org>
+Subject: Re: [PATCH v5 0/2] vsprintf: Don't leak pointers
+Message-ID: <aunrc5atzlyf0TM9@pathway.suse.cz>
+References: <20261023-vsprintf_kallsym-v5-0-57ff92187c1d@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,39 +101,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103075940.110308-5-matthew.ruffell@canonical.com>
+In-Reply-To: <20261023-vsprintf_kallsym-v5-0-57ff92187c1d@linutronix.de>
 
-Le Tue, Nov 03, 2026 at 08:59:38PM +1300, Matthew Ruffell a �crit :
-> From: Caron Wills <caron.wills@pulsar.com>
+On Fri 2026-10-23 18:46:22, Sebastian Andrzej Siewior wrote:
+> It is possible to leak pointers via %ps without KALLSYMS enabled.
+> With KALLSYMS pointers can be leaked if they can not be resolved.
 > 
-> Isolated CPUs no longer batch folios in their per-CPU LRU caches, so
-> that __lru_add_drain_all() never has to queue work on them. Boot time
-> isolation (isolcpus=, nohz_full=) takes effect before any folio is
-> batched, but a cpuset isolated partition can be created at runtime and
-> the affected CPUs may still hold folios in their batches from before.
-> Those would linger until the CPU happens to drain locally, and the next
-> lru_add_drain_all() would fall back to queueing work on the now isolated
-> CPU, which is exactly what must be avoided.
+> The tiny series has two patches, one for each issue.
+> I do follow the %p format instead of printing "(unknown)" since I care
+> more about getting it out of the way than the actual content (as long as
+> it is not the leaked pointer). Last time the discussion added the h:
+> prefix to a hashed pointer to identify it as such. I would like to keep
+> this part out of the series since there are few users that expect a
+> certain pointer width and adding two extra characters would break that
+> (we could strip the two 0 on 64bit but again, not related to this
+> problem here).
 > 
-> Drain all batches once from housekeeping_update(), right after the
-> HK_TYPE_DOMAIN mask has been updated and next to the vmstat and memcg
-> workqueue flushes that exist for the same reason, so that newly isolated
-> CPUs start out with empty batches.
+> v4…v5: https://patch.msgid.link/20261019-vsprintf_kallsym-v4-0-ffd3c012d00c@linutronix.de
+>  - Use %p instead snprintf_default_pointer(). This might recurse back to
+>    vsnprintf() if used by '%ps' but it already did so. Suggested by Petr
+>    Mladek.
 > 
-> Link: https://bugs.launchpad.net/bugs/2165410
-> Signed-off-by: Caron Wills <caron.wills@pulsar.com>
-> Signed-off-by: Matthew Ruffell <matthew.ruffell@canonical.com>
+> v3…v4: https://patch.msgid.link/20261015-vsprintf_kallsym-v3-0-c175c27f38b7@linutronix.de
+>  - In symbol_string(), !CONFIG_KALLSYMS case, use the 'value' argument
+>    instead 'ptr' to consider the '%pR' case. Noticed by lkp@intel.com.
+>  - The kerneldoc for snprintf_default_pointer() must describe the 'len'
+>    argument instead the not existing 'size'. Noticed by lkp@intel.com.
+>  - sashiko noticed that the string isn't properly terminated if the
+>    input buffer is too small.
+> 
+> v2…v3: https://lore.kernel.org/all/20260821152614.2202196-1-bigeasy@linutronix.de/
+>  - Instead of "(unknown)" the hashed pointer is printed. This follows
+>    the generic %p flow.
+>  - In v2 I argued that it is better so print the actual pointer instead
+>    hiding it for post-mortem analysis. After looking at some backtraces
+>    with invalid pointers (not part of the kernel image) I realised the
+>    the PC is already part of the register dump. There I changed it back
+>    to what %p would do if it can't resolve a pointer. Again, following
+>    %p flow so it can be overridden at boot.
+> 
+> v1…v2: https://lore.kernel.org/all/20260814144854.746840-1-bigeasy@linutronix.de/
+>  - For %ps and !KALLSYMS no_hash_pointers is used to decide if the
+>    pointer should be written or not. This aligns with the %p policy.
+>  - For %ps and KALLSYMS, unresolved pointer continue to be leaked. It
+>    has been pointed out it might be useful to see them in backtraces/
+>    crashes if the return address became invalid.
+> 
+> ---
+> Sebastian Andrzej Siewior (2):
+>       vsprintf: Don't leak pointers for %ps without KALLSYMS enabled
+>       kallsyms: Don't leak pointers for unresolved symbols
+> 
+>  kernel/kallsyms.c | 2 +-
+>  lib/vsprintf.c    | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 
-There was this patchset:
-https://lore.kernel.org/lkml/20260519012754.240804-1-leobras.c@gmail.com/
+JFYI, the patchset has been committed into printk/linux.git,
+branch for-7.5-vsprintf-kallsyms.
 
-Leonardo, do you plan a v5?
-
-Thanks.
-
--- 
-Frederic Weisbecker
-SUSE Labs
+Best Regards,
+Petr
