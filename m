@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701219;
-	b=1wu2HKX2hoRGuKNfq/RRhBclkMUxysYd8/lm+ghgn/iOxKJxyvHFPRUS4uuAqs0O4pmT
-	 VH8yzu5PvcVVJLciL/B9caRmhaaEpXxnZ/4AL1rZX+EpTn9C4Hf2ia3WoKEr/M36dThLp
-	 Ul6uh21XMDTjnghr1H3+OAmI+YzpiEwtbly3sLkUR5/xcbpYDuuWX5Mwhrw9OD4oi4W/n
-	 jnkuCFwLEB5Q0Uq7Cv9lDWK2Vh+9A17XlOvHCDo0NdSkZn0GyZLayjFje2xRLhUrlz0cw
-	 stXJ+93mwQKCfTTLsMfMt/jupvyBz3Ci+RumkiSazkkgkOGvqzEzSpZHPWpv8RGI6Sg==
+	t=1793701244;
+	b=3zwSIhYeQCfunwM64v5j0ZsviuaCDhQZLhxwSw/JVpALxVE1GiDk3YLdt79F2/pbrvSX
+	 M39oF1TRctqERyB0K/OHKJr2OT+D7ukFup9zBjFl54EY5fW15rSI/NI6fP74HZUTLoSJW
+	 L3y0Ccya7N/ronVWeTszG7PAbXl4sbrxL79b74umAhopFdiM/n9OjT4DRL5hJPGoAixGu
+	 JZ2jKLLV6AxATS+IC5euW/K9m5DTidqltSpadwYFrC5E9gBJjabG2rqddq2GwQGkPCOJ+
+	 PA9KV0Cq8gUPXCLJje7Irtv7X6emX/O6u2OqiiPSL5hkO2rwtzGIF+cb+llyctVm2Sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701219;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701244;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=h/kSx3u3vVCVPli1ZFb8nfYbCpLt1xTWZmMpPKWCjIw=;
-	b=oh/oPqISAc+eUcl97NFE9C+b5lkBbeir4u1aO2aqM6A8h3b2zR0QX5u8dSzV27+nUF2e
-	 II4A1lEtsgLxqbwkkW0c6ZaNB3adx4wgFViv7xYGB3tS7j0fjofnKHaRmXl1ZOL4mkSyE
-	 quD+99ZOsLQXAKfhE23xfU7+3fm3F2ffepcH+o8cEHt2w/7lCh3gePhd9EmhcUXsxmnnk
-	 Z4rMiX+u+/F+9dCwUfoy6goirf5yYrUaEsTLAImZYmVaKal8SKPr6W0xIZ+2Thx1O+Ag1
-	 OJRovH//lyeTfNgrqkM/fTMXTmcHUrErKJK7kITRwu0l7342y+CtRF18kkYHXCeob3A==
+	bh=OOAuvDr0bNq0ZlfRIptUrIs7H4PWkv30dfkrZDwHZ4g=;
+	b=wjRQnUTKTPe9PNefsoZZEPqWj7oUIEgpNCzqOjuGeHWDVWApaLsCE6flrGGY/SVovF6p
+	 VQlr7EC7YTxTyKhMRbkOSqA0aBK87uFMMIOou66ey4X75fChnAeruh+fHzDjq1TFyiP6x
+	 hw6IZUYlcaGrz8ts6O2fuOIYlNpCuilmQ13Jwlhhl0JEnn6DHze5gu7yf0g9WSe8Muvj4
+	 nrA+6L4TjRnyFwCTHieM/1FF3kqBcQZ0nFaVZ849BNXfGsMcQ+QlrTQ7gZ3lk+udmbAPE
+	 tzZMNPXF6QBjZsS6Edckz3Ydj8/Qaqdyzn7U25HlmRytIQ9x2tN9xAUE8pmzNwIpxJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LaCzVBMk;
-	arc=none smtp.remote-ip=95.215.58.74
-Received: from mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MMNU5rEx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599CA606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:20:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 599CA606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF21606C54B;
+	Tue,  3 Nov 2026 10:20:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LaCzVBMk
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=f2gnUeKq2RDNsn2I0tV8LaUqGPSf8U/2kQeBdioZDaQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793701210; v=1; x=1794306010;
- b=LaCzVBMkxMlc28V6nDp23xhcn5kzSxXXC7+wlr6+cmEqFFG0OoaRsFwiLCsMYUx6DdnI1+v3
- G38KW02vo6aquE2h2dhLmi3JNddQ08YFeIQW6BO/CeBpOH3Xx+zvJmoifjQNYPwm9dAg/qfdOsD
- C2oklDW0AdqtlrbwsOs3+eWo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d775d7131cdd61bc;
-	Tue, 03 Nov 2026 10:20:09 +0000
-X-Mizu-Trace-ID: d775d7131cdd61bc
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6808ff6c-d331-4f1d-9bb9-25f7a6b1f3ff@linux.dev>
-Date: Tue, 3 Nov 2026 18:20:00 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MMNU5rEx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C1B1F00A15;
+	Tue,  3 Nov 2026 10:20:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793701243;
+	bh=OOAuvDr0bNq0ZlfRIptUrIs7H4PWkv30dfkrZDwHZ4g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MMNU5rEx0huhCwk5Y1knijpuWakvcMLlUlyyAdlJSA79NT7lpsAvv9pDazyG8E3dN
+	 zQZoXAJnVk42y8kP0aR7KT6y1ZuZlQjlxxiQWA8aTdu1nZYdVj6fKZqlwOwnVbBBkc
+	 A3iFrCNuWgEict5IStcrGagVi6JZiQFvs7Htth644td9goNabJlG+acKmVCUZewfPh
+	 dGtZ67+EANcrklE6If5DXf2MmnBEmH9e0UvB7d7nj4kYYhyNCWcdLhKIT6Frrkadtr
+	 JLUHYFszSPZDq9Uqn0OShN+SF0rXz8CHq0XTOjvs4gydl7EltGw9PxUZZuzz5VKpuu
+	 M3cKM2m8G7LJA==
+Message-ID: <519ac4d1-5da2-4577-9202-7d3f6956fd60@kernel.org>
+Date: Tue, 3 Nov 2026 11:20:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,71 +52,80 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH -v4 01/22] cpuset: add early empty cpumask check in
- partition_xcpus_add/del
-To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Koutn? <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chen Ridong <chenridong@huawei.com>, Ridong Chen <chenridong@xiaomi.com>
-References: <20261101114206.2434398-1-ridong.chen@linux.dev>
- <20261101114206.2434398-2-ridong.chen@linux.dev>
+Subject: Re: [PATCH] memory: atmel-ebi: release the SMC clock on probe failure
+To: Wentao Liang <vulab@iscas.ac.cn>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ stable@vger.kernel.org
+References: <20261103094624.1289547-1-vulab@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261101114206.2434398-2-ridong.chen@linux.dev>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103094624.1289547-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-
-
-在 2026/11/1 19:41, Ridong Chen 写道:
-> From: Chen Ridong <chenridong@huawei.com>
+On 03/11/2026 10:46, Wentao Liang wrote:
+> of_clk_get() returns a consumer reference and clk_prepare_enable()
+> enables the SMC clock, but the probe error paths after that point
+> return without dropping either.  If the regmap lookup, the
+> address/size-cells parsing, disabling a child device or
+> of_platform_populate() fails, the clock stays enabled and its
+> reference is leaked.
 > 
-> Add a check for an empty cpumask at the start of partition_xcpus_add()
-> and partition_xcpus_del(). This allows the functions to return early,
-> avoiding unnecessary computation when there is no work to be done. With
-> these changes, partition_xcpus_add() and partition_xcpus_del() can be
-> called even if xcpus is empty. The caller no longer needs to check whether
-> xcpus is empty, eliminating many conditional statements.
+> Unwind both on these error paths.  A successful probe still keeps the
+> clock enabled for the lifetime of the controller, as before.
 > 
-> Signed-off-by: Chen Ridong <chenridong@huawei.com>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->  kernel/cgroup/cpuset.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 3219f927c35e..72e1df1295e1 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1315,10 +1315,13 @@ static void partition_xcpus_add(int new_prs, struct cpuset *parent,
->  {
->  	WARN_ON_ONCE(new_prs < 0);
->  	lockdep_assert_held(&callback_lock);
-> +
-> +	if (cpumask_empty(xcpus))
-> +		return;
-> +
->  	if (!parent)
->  		parent = &top_cpuset;
->  
-> -
->  	if (parent == &top_cpuset)
->  		cpumask_or(subpartitions_cpus, subpartitions_cpus, xcpus);
->  
-> @@ -1342,6 +1345,10 @@ static void partition_xcpus_del(int old_prs, struct cpuset *parent,
->  {
->  	WARN_ON_ONCE(old_prs < 0);
->  	lockdep_assert_held(&callback_lock);
-> +
-> +	if (cpumask_empty(xcpus))
-> +		return;
-> +
->  	if (!parent)
->  		parent = &top_cpuset;
->  
+> Fixes: 87108dc78eb8 ("memory: atmel-ebi: Enable the SMC clock if specified")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+I do not take patches from you.
 
-Thanks,
-Guopeng
+Best regards,
+Krzysztof
