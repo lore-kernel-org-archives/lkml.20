@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793707394;
-	b=FRD/yVjQjaVklzRpCDTKNYP2stv5a55bKm9NRXfGO95TYxcbnf6z2AOOt6az7+nFJDMe
-	 CPH8SI3g8yZkrgXpeUBtXDd129/yUOr8bviHmnUDJorSWHFVWH8MzScRx/VOg5Nq2tpVL
-	 5iusPgJr9wmkAITSaeGoYXb+YO7gfslFsowBrjl9GOLLYEP1RqDpbZR53LfIeWGkY8uwm
-	 qEN1Q0B6K4i1fye6+9IPNzhoWCsrbAK3uEtqOkqYs9oCNICl91q5xGNVN7JEUuDswnDf3
-	 FVgh/hpBGhtykv+Xa8nP+NlViNObA7/u4dP0Sz6isPQnrjRESAlIG0wi30oXYTVisAQ==
+	t=1793707408;
+	b=Ge0FtLyPiSV0pBzS87wIIfhmV6LXBahlHwIQNstHBOK960xHvCjtQ0b0UL89tZomhgTz
+	 vNI3PAJW4XNyZUxM9IXiZhb5c3uOBpg2A3XePGfWmM8NCLynvt8A9y0NiKAgxthjRW3ak
+	 KQ7mNzIFZOGd06+nCaNOc/fhLva8IRb9XGwnHuwme+UOG2AzTxbXuXlQIGvM+Qzp7zyVn
+	 Hq54OxAiUflp4oYjRftl+BOVvRev5Q6EFPf14Y/3AycyjsvB84WuleioJcf0J6e/UGUWp
+	 ApLiD7nSg6kJVB29RVZWeJtt5YY2Yh0aq4h3y6d/i/pkYvGYX9swD9uc0DNTsh7MO2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793707394;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bHdV+uBKMbmZEFk857VJk5Itb2ycFnnVw8kcF5qHilM=;
-	b=oeL/hsEl+mXOUaEhElNSibsTvg1GI9A8Ux0SnL4RB7FnAJBvGfJEekFqLlwEIowevNlJ
-	 LgwNWxbYzDnzXC7ac7Hj2JiEN2YhzOmfm5pRO3QBWxy3avsavBZhrKm2EIdqlhfhXXafo
-	 PjkA+ih6OkGQeFcSkYO3gZqFeuY7TEf23wW0m4iUZhfTt3bUFzBmJu5u4HXPnQjyPE/6R
-	 +Wa0Vrdl6uv/OzJQBpvMwAeyRmhcwY4qT3J2Hjw+GQSKZ/Lxbn9+s72vobezP20bCQ9Hp
-	 PGWtNBUSu+HBwxj8jZ6CiQ6zWmcKUm/1CViZuSV1ciHKFM+Nm19BrTaB57K5tFkMVIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793707408;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=aFDkJvc0SlO0FoZdt7sy/omFWAvQLp/LHRh9YqnoHDQ=;
+	b=qMVNk3Q33n6BYv1OLl6J3njET99wFHHj2+FqtLNRgyBTsqIeP1pwTfgosneGPoWz3ni2
+	 eLRoOsBoaYb+5K11HvsVKYlu5as+6pexKD0dOR3ezAatniXKnmw69NlObzkhk7VVoJnjz
+	 O+co1RL77fYq3JXKwVKsXCdcvSQjb4SfvNIU0vIqVJh+weC7wSh9KBX+jj86656rIyTS+
+	 aqjKE7GboKH3haJV0itI3L9n+ssNhm1YXQC7a1+Gh0hoCbGdRY0gipg4+5rWMaRGuLSl6
+	 jl56NeiTkffudhfNrQp3eXlPPsnBA0TyLdvDNdXQsyfpsiPx6d95aquDV8GSzNb7OkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="mnQx4vk/";
-	arc=none smtp.remote-ip=115.124.30.119
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HKJzLVtx;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CF1606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:03:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70CF1606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAD3606D820;
+	Tue,  3 Nov 2026 12:03:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDAD3606D820
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=mnQx4vk/
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793707385; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=bHdV+uBKMbmZEFk857VJk5Itb2ycFnnVw8kcF5qHilM=;
-	b=mnQx4vk/5XZdtAg2my6o72UzPMkNsSlbHvXdcPycTbWZyRFfrLfAbpL4oOeUODsE2FhkAjwXu/pgdWbkrZqrOPWkkpOA2uDy6CCgxLz10z19yKrOLWRd0Byj8+TWnWCBeV5Wc/wUkpfWAYUyI1mwG6v60k+/ZmNclbuqHfacKKs=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R841e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XE2qGyW_1793707381;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XE2qGyW_1793707381 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 20:03:03 +0800
-From: fangyu.yu@linux.alibaba.com
-To: tomasz.jeznach@linux.dev,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	baolu.lu@linux.intel.com,
-	jroedel@suse.de,
-	zong.li@sifive.com,
-	andrew.jones@linux.dev,
-	anup@brainfault.org,
-	jgg@nvidia.com,
-	jgg@ziepe.ca,
-	kevin.tian@intel.com,
-	atish.patra@linux.dev,
-	skhawaja@google.com,
-	vasant.hegde@amd.com,
-	joerg.roedel@amd.com,
-	tanchi25@mails.ucas.ac.cn,
-	gong.shuai@sanechips.com.cn
-Cc: fangyu.yu@linux.alibaba.com,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	kvm-riscv@lists.infradead.org
-Subject: [PATCH v7 02/10] iommupt: Add RISC-V Second-stage (iohgatp) page table support
-Date: Tue,  3 Nov 2026 20:02:28 +0800
-Message-Id: <20261103120236.53474-3-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261103120236.53474-1-fangyu.yu@linux.alibaba.com>
-References: <20261103120236.53474-1-fangyu.yu@linux.alibaba.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HKJzLVtx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793707409; x=1825243409;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ms+g3QoZSUyFHUMK9wfol68PI8V8MBi/mm/vsDLdkK8=;
+  b=HKJzLVtxnCKrz1kbs/KMp5RNv0G8AoPu37zW05Ha7X8xAq7qMkHKVzOu
+   QyY0XY7CpZslVYp+hiwWwZI4oil0XouTcplQWmfuDa0L1Q+cg74AvAIfY
+   /S8p7lWEZinvzuGaVVZyPc1ZxSK74MwJJNt5tjhcCTbhCQmD4EmDzI35q
+   YmoI49FCeJEyiznEqJ33xpFoHZRDyFumKU5AGGZCSOSeZEPCbXJkj6QQH
+   2ik8BbGCIe1fMbwX1nbqQUpGOik1WB4v5uhUwJm5xqGWEureCNZ0r4NOi
+   +srPxXIxBTQXvKwNnNJJcm/YupR6SgmROhv+O9kM/wDFo6S0j+4rVKEz0
+   w==;
+X-CSE-ConnectionGUID: hiLi+IPGQaivNb8egb+K7g==
+X-CSE-MsgGUID: 1UN2z4S4TruEczkdvDe0SA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2336005"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2336005"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:03:28 -0800
+X-CSE-ConnectionGUID: u0dGWKT/S9WdmDpo9aqLlg==
+X-CSE-MsgGUID: 772hCfvgTIKLnsT8dX0suA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6737785"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:03:23 -0800
+Date: Tue, 3 Nov 2026 14:03:21 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v6 4/8] serial: 8250_dw: configure the Allwinner H616 UART
+Message-ID: <aunNiQcpKMrc88EK@ashevche-desk.local>
+References: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
+ <20261102-submit-h616-uart-fifo-v1-v6-4-25afcb346b0c@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,232 +86,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-submit-h616-uart-fifo-v1-v6-4-25afcb346b0c@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+On Mon, Nov 02, 2026 at 12:55:19PM -0700, James Hilliard wrote:
+> H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
+> component parameter register reads as zero. Generic 16550 probing leaves
+> the port using the 16-byte FIFO configuration and its trigger-level table.
+> 
+> Keep PORT_16550A and supply H616's fixed FIFO depth through platform data.
+> The 8250 core derives the transmit load from that depth.
+> 
+> Allwinner encodes receive thresholds relative to the FIFO depth: one byte,
+> quarter-full, half-full and depth minus two. Construct the RX trigger
+> threshold array on the fly so other FIFO sizes can reuse the same mapping.
+> For H616 the thresholds are 1, 64, 128 and 254 bytes, with the normal
+> half-full FCR setting selecting 128 bytes. Use this array for both RX
+> trigger callbacks and the shared bytes-to-FCR conversion.
+> 
+> Serialize trigger changes with termios through the port mutex. Hold a
+> runtime PM reference for the register access and the UART port lock while
+> updating the FCR shadow and hardware. Changing only the trigger field
+> preserves the FIFO contents; a runtime resume failure leaves both the
+> shadow and hardware unchanged.
+> 
+> Advertise automatic flow control so CRTSCTS enables MCR.AFCE, matching the
+> DesignWare termios path's hardware CTS handling.
+> 
+> Select this configuration through the platform setup callback. H616's
+> debug-divisor and RS485 control registers overlap offsets used to detect
+> generic DesignWare features. Use the fixed configuration with BUSY-safe
+> integer divisor programming and software RS485 handling.
+> 
+> Keep the UART clock enabled during termios changes with SKIP_SET_RATE.
+> Its clock is a gate on the shared APB2 source rather than an independent
+> baud-rate generator.
 
-Add support for Sv39x4/Sv48x4/Sv57x4 Second-stage page tables used by
-the RISC-V IOMMU iohgatp register. The x4 root page table is 16 KiB
-instead of the usual 4 KiB, covering 2 extra GPA bits (hw_max_vasz_lg2
-= 41/50/59).
+I'm not sure I followed previous discussion, but as far as I get it Ilpo
+mentioned the possibility to have that FIFO trigger threshold helper to be
+available on 8250_dw level (meaning dwlib). Or was it decided against this?
 
-Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
----
- drivers/iommu/generic_pt/fmt/iommu_riscv64.c |   2 +-
- drivers/iommu/generic_pt/fmt/riscv.h         | 109 +++++++++++++++----
- include/linux/generic_pt/common.h            |   4 +
- include/linux/generic_pt/iommu.h             |  11 ++
- 4 files changed, 102 insertions(+), 24 deletions(-)
+...
 
-diff --git a/drivers/iommu/generic_pt/fmt/iommu_riscv64.c b/drivers/iommu/generic_pt/fmt/iommu_riscv64.c
-index 1bb74114fb02..fa61839e5599 100644
---- a/drivers/iommu/generic_pt/fmt/iommu_riscv64.c
-+++ b/drivers/iommu/generic_pt/fmt/iommu_riscv64.c
-@@ -8,7 +8,7 @@
- 	(BIT(PT_FEAT_SIGN_EXTEND) | BIT(PT_FEAT_FLUSH_RANGE) | \
- 	 BIT(PT_FEAT_RISCV_SVNAPOT_64K) |                      \
- 	 BIT(PT_FEAT_DETAILED_GATHER) |                        \
--	 BIT(PT_FEAT_RISCV_SVPBMT))
-+	 BIT(PT_FEAT_RISCV_SVPBMT) | BIT(PT_FEAT_RISCV_S2))
- #define PT_FORCE_ENABLED_FEATURES BIT(PT_FEAT_DETAILED_GATHER)
- 
- #include "iommu_template.h"
-diff --git a/drivers/iommu/generic_pt/fmt/riscv.h b/drivers/iommu/generic_pt/fmt/riscv.h
-index ae9a76514416..d4445e463fa9 100644
---- a/drivers/iommu/generic_pt/fmt/riscv.h
-+++ b/drivers/iommu/generic_pt/fmt/riscv.h
-@@ -37,7 +37,16 @@ enum {
- 	PT_MAX_OUTPUT_ADDRESS_LG2 = 34,
- 	PT_MAX_TOP_LEVEL = 1,
- #else
--	PT_MAX_VA_ADDRESS_LG2 = 57,
-+	/*
-+	 * PT_MAX_VA_ADDRESS_LG2 is the upper bound accepted by the generic
-+	 * pt_iommu_init() range check.  It must cover both first-stage and
-+	 * second-stage (G-stage) modes:
-+	 *
-+	 *   First-stage  (fsc/iosatp): Sv39=39, Sv48=48, Sv57=57
-+	 *   Second-stage (iohgatp):    Sv39x4=41, Sv48x4=50, Sv57x4=59
-+	 *
-+	 */
-+	PT_MAX_VA_ADDRESS_LG2 = 59,
- 	PT_MAX_OUTPUT_ADDRESS_LG2 = 56,
- 	PT_MAX_TOP_LEVEL = 4,
- #endif
-@@ -126,6 +135,12 @@ riscvpt_entry_num_contig_lg2(const struct pt_state *pts)
- 
- static inline unsigned int riscvpt_num_items_lg2(const struct pt_state *pts)
- {
-+	/*
-+	 * It is not allowed to call pt_num_items_lg2() at the top level, this
-+	 * API restriction is specifically an optimization avoid overheads
-+	 * dealing with concatenated tables here.
-+	 */
-+	PT_WARN_ON(pts->level == pts->range->top_level);
- 	return PT_TABLEMEM_LG2SZ - ilog2(sizeof(u64));
- }
- #define pt_num_items_lg2 riscvpt_num_items_lg2
-@@ -261,20 +276,41 @@ riscvpt_iommu_fmt_init(struct pt_iommu_riscv_64 *iommu_table,
- 		       const struct pt_iommu_riscv_64_cfg *cfg)
- {
- 	struct pt_riscv *table = &iommu_table->riscv_64pt;
--
--	switch (cfg->common.hw_max_vasz_lg2) {
--	case 39:
--		pt_top_set_level(&table->common, 2);
--		break;
--	case 48:
--		pt_top_set_level(&table->common, 3);
--		break;
--	case 57:
--		pt_top_set_level(&table->common, 4);
--		break;
--	default:
--		return -EINVAL;
-+	unsigned int top_level;
-+
-+	if (pt_feature(&table->common, PT_FEAT_RISCV_S2)) {
-+		/* Second-stage (iohgatp): Sv39x4 / Sv48x4 / Sv57x4. */
-+		switch (cfg->common.hw_max_vasz_lg2) {
-+		case 41:
-+			top_level = 2;
-+			break;
-+		case 50:
-+			top_level = 3;
-+			break;
-+		case 59:
-+			top_level = 4;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+	} else {
-+		/* First-stage (fsc/iosatp): Sv39 / Sv48 / Sv57. */
-+		switch (cfg->common.hw_max_vasz_lg2) {
-+		case 39:
-+			top_level = 2;
-+			break;
-+		case 48:
-+			top_level = 3;
-+			break;
-+		case 57:
-+			top_level = 4;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
- 	}
-+
-+	pt_top_set_level(&table->common, top_level);
- 	table->common.max_oasz_lg2 =
- 		min(PT_MAX_OUTPUT_ADDRESS_LG2, cfg->common.hw_max_oasz_lg2);
- 	return 0;
-@@ -292,30 +328,57 @@ riscvpt_iommu_fmt_hw_info(struct pt_iommu_riscv_64 *table,
- 	PT_WARN_ON(top_phys & ~PT_TOP_PHYS_MASK);
- 
- 	/*
--	 * See Table 3. Encodings of iosatp.MODE field" for DC.tx.SXL = 0:
--	 *  8 = Sv39 = top level 2
--	 *  9 = Sv38 = top level 3
--	 *  10 = Sv57 = top level 4
-+	 * Both first-stage (fsc/iosatp) and second-stage (iohgatp) share the
-+	 * same MODE numeric values for a given top level:
-+	 *   top_level 2 -> MODE 8  (Sv39 / Sv39x4)
-+	 *   top_level 3 -> MODE 9  (Sv48 / Sv48x4)
-+	 *   top_level 4 -> MODE 10 (Sv57 / Sv57x4)
-+	 *
-+	 * See "Table 3. Encodings of iosatp.MODE field" (DC.tc.SXL = 0) and
-+	 * "Table 2. Encoding of iohgatp.MODE field" in the RISC-V IOMMU spec.
- 	 */
--	info->fsc_iosatp_mode = top_range->top_level + 6;
-+	if (pt_feature(&table->riscv_64pt.common, PT_FEAT_RISCV_S2))
-+		info->iohgatp_mode = top_range->top_level + 6;
-+	else
-+		info->fsc_iosatp_mode = top_range->top_level + 6;
- }
- #define pt_iommu_fmt_hw_info riscvpt_iommu_fmt_hw_info
- 
- #if defined(GENERIC_PT_KUNIT)
- static const struct pt_iommu_riscv_64_cfg riscv_64_kunit_fmt_cfgs[] = {
--	[0] = { .common.features = BIT(PT_FEAT_RISCV_SVNAPOT_64K),
-+	/* First-stage (fsc/iosatp): Sv39 / Sv48 / Sv57 */
-+	[0] = { .common.features = BIT(PT_FEAT_SIGN_EXTEND) |
-+				      BIT(PT_FEAT_RISCV_SVNAPOT_64K),
- 		.common.hw_max_oasz_lg2 = 56,
- 		.common.hw_max_vasz_lg2 = 39 },
--	[1] = { .common.features = 0,
-+	[1] = { .common.features = BIT(PT_FEAT_SIGN_EXTEND),
- 		.common.hw_max_oasz_lg2 = 56,
- 		.common.hw_max_vasz_lg2 = 48 },
--	[2] = { .common.features = BIT(PT_FEAT_RISCV_SVNAPOT_64K),
-+	[2] = { .common.features = BIT(PT_FEAT_SIGN_EXTEND) |
-+				      BIT(PT_FEAT_RISCV_SVNAPOT_64K),
- 		.common.hw_max_oasz_lg2 = 56,
- 		.common.hw_max_vasz_lg2 = 57 },
-+	/*
-+	 * Second-stage (iohgatp): Sv39x4 / Sv48x4 / Sv57x4.
-+	 */
-+	[3] = { .common.features = BIT(PT_FEAT_RISCV_S2) |
-+				      BIT(PT_FEAT_RISCV_SVNAPOT_64K),
-+		.common.hw_max_oasz_lg2 = 56,
-+		.common.hw_max_vasz_lg2 = 41 },
-+	[4] = { .common.features = BIT(PT_FEAT_RISCV_S2),
-+		.common.hw_max_oasz_lg2 = 56,
-+		.common.hw_max_vasz_lg2 = 50 },
-+	[5] = { .common.features = BIT(PT_FEAT_RISCV_S2) |
-+				      BIT(PT_FEAT_RISCV_SVNAPOT_64K),
-+		.common.hw_max_oasz_lg2 = 56,
-+		.common.hw_max_vasz_lg2 = 59 },
- };
- #define kunit_fmt_cfgs riscv_64_kunit_fmt_cfgs
-+/* Sign extension is only valid for first-stage configs, not S2. */
- enum {
--	KUNIT_FMT_FEATURES = BIT(PT_FEAT_RISCV_SVNAPOT_64K),
-+	KUNIT_FMT_FEATURES = BIT(PT_FEAT_SIGN_EXTEND) |
-+			     BIT(PT_FEAT_RISCV_SVNAPOT_64K) |
-+			     BIT(PT_FEAT_RISCV_S2),
- };
- #endif
- 
-diff --git a/include/linux/generic_pt/common.h b/include/linux/generic_pt/common.h
-index 1b39b27f0cfa..a87d8e3dc26d 100644
---- a/include/linux/generic_pt/common.h
-+++ b/include/linux/generic_pt/common.h
-@@ -197,6 +197,10 @@ enum {
- 	 * Support Svpbmt extension: encode page-based memory type (PBMT) in PTEs.
- 	 */
- 	PT_FEAT_RISCV_SVPBMT,
-+	/*
-+	 * Using second-stage / iohgatp address translation.
-+	 */
-+	PT_FEAT_RISCV_S2,
- 
- };
- 
-diff --git a/include/linux/generic_pt/iommu.h b/include/linux/generic_pt/iommu.h
-index 13ebb72a67de..59edb5cf9408 100644
---- a/include/linux/generic_pt/iommu.h
-+++ b/include/linux/generic_pt/iommu.h
-@@ -328,7 +328,18 @@ struct pt_iommu_riscv_64_cfg {
- 
- struct pt_iommu_riscv_64_hw_info {
- 	u64 ppn;
-+	/*
-+	 * First-stage (fsc/iosatp) MODE encoding:
-+	 *   8 = Sv39, 9 = Sv48, 10 = Sv57
-+	 * Used to program DC.fsc.iosatp.MODE.
-+	 */
- 	u8 fsc_iosatp_mode;
-+	/*
-+	 * Second-stage (iohgatp) MODE encoding:
-+	 *   8 = Sv39x4, 9 = Sv48x4, 10 = Sv57x4
-+	 * Used to program DC.iohgatp.MODE.
-+	 */
-+	u8 iohgatp_mode;
- };
- 
- IOMMU_FORMAT(riscv_64, riscv_64pt);
+> +static int dw8250_sunxi_set_rxtrig(struct uart_port *p, unsigned char bytes)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +	int fcr, ret;
+> +
+> +	fcr = serial8250_bytes_to_fcr(data->rxtrig_bytes, bytes);
+> +	if (fcr < 0)
+> +		return fcr;
+> +
+> +	guard(mutex)(&p->state->port.mutex);
+> +
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(p->dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(uart_port_lock_irqsave)(p);
+
+> +	up->fcr &= ~UART_FCR_TRIGGER_MASK;
+> +	up->fcr |= fcr;
+
+	up->fcr = (up->fcr & ~UART_FCR_TRIGGER_MASK) | fcr;
+
+(as is also okay)?
+
+> +	/* Changing the trigger alone preserves the FIFO contents */
+> +	serial_port_out(p, UART_FCR, up->fcr);
+> +
+> +	return 0;
+> +}
+
 -- 
-2.50.1
+With Best Regards,
+Andy Shevchenko
+
 
