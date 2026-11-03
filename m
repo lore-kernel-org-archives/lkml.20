@@ -1,207 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793740071;
-	b=tw+iJTP+3/eIj3QtMxTSGac8bAfOlVaqz4XuSW6L37axCh0xsIQwpBF8SzMrmjkiRFjk
-	 DI2GariCcfss9Mf/daWt1Sgy3WVY42atFgT9oHavEDrSWClyYai6Eu59cBBHWuQ2e6GO3
-	 AyChk+cuT/CjNxJf/DLPL24B2neh48t/zNhEsikN9i5J1raIpDtgrR85AJQlJJjSSIVCM
-	 BMjo82cyTYFLU42u+AB0KpQQxlMVz9vgb1gZSbjC4CYJ40KiaJTT9W5LLoV1TQZCOfsLv
-	 BDEgRo5tBZNjy7VyoCzZ7jnpgqh4cyEXCK+Kel705NAcC567hkpRwJAaB+qNgQoYylw==
+	t=1793740136;
+	b=gEEDnSRoaSRS+JcbzYR+dee3iZECVOvl/k3bm9uYhZvR0nxf2Z4YScCEiyAPG8EcHn4W
+	 4LXwV/0NkDExpd+/VG8JUETFCAXoC43l3VhR+2DD0kEB+R2FijbYoqCGxAGtLjJadUTW4
+	 Sj/+ulf4pIWsPJMTY0s4fSIQlJGNwk1r317ky7nNlUfMDwX7anA7dZ3t+Mm5EIF650a17
+	 SVvOA7rrFLGfsbcYt4hN+jToRs+gA7R9zUR7bi7tB85XikiL5G4g4vmZK3orSb0G+egkZ
+	 2HoFLBhyCS7qevFP9s1l4GOjwhoqPUYoMfvXEBNtkfOTzudIB8ICuAEs2BV0c5D7kjA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740071;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:user-agent:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=/4Fyp8X2ER7RY8Bo1w0SL8mNEUpfRgQDeUbMhEz6id4=;
-	b=YqqE0GtY6BqkXaQ5TKhvsYDUwqCbEU7A7d/7U6LyglqUAg+b6geCMaEd5SYa8vyxrddR
-	 RXsWcRH0KH1TR60UxFgE+7OLBZ8cKaF0cF2jYAZiSFla2W3zcyz5hvQMZwBF3OFRp+lpP
-	 2cBmn2JwQA64UwpV6UQoPw/1W0PlChvbp8gCm3m06v7WgpaZHjjqrnxzM5YQE3ud2/Yzo
-	 uDcaolPWEdDooXBahKWHfaF6xwpTLCp3JXeHsB7KwxfL9qG5gp5KbKgo7S6J+CUvLl6fw
-	 p8ZvlJQ8SOxf8k3OHbOwiJgaiorV21f1bNl2xd7HcVcRJUnlHOQWeNYu+M2OhPNV7iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740136;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=SHYGP7YdDrluRd4VWQyjYbq8NHSmfkSt9LBV7zxwYfU=;
+	b=VT5FaSiGjdcTLp1L1kauARMDXBocjUaWnFwwN7WMMKRKRG0Uzl6aMikAFahsAdws5pBm
+	 unvQX5xzeWU51FVY+S19fR1b+WF+VcIYm+rVEfxgx2CV8w5jyXTNM43f8wmzmi3OGVNU0
+	 KLsXlDlr5dTywMNFqITJyK+TvrdBPQ65WN4yuLm8Ndrd7bEC24RUd13EXSs0dkc9JKX/H
+	 Y36mKKNTpgxSr+ciyF+Zy3+G65qREcApWF+hFSh0XENxh8VxmBq1Z1qkhywfixqYmM6Dh
+	 A8rrJwbPJ4e0xaNAenhShE9jvO7xOpsvT9IU5Wc/uF5AGGOLWtc6AS4Ax7tuOgqnBfQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mMckykjK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwhpBTM5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A277606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:07:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A277606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB24606A31B;
+	Tue,  3 Nov 2026 21:08:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mMckykjK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793740071; x=1825276071;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=/4Fyp8X2ER7RY8Bo1w0SL8mNEUpfRgQDeUbMhEz6id4=;
-  b=mMckykjKPVUTlw2egfMwqU60HL2/QO6ZUJDD2XCbkSQ16lksjD4Jv/Vo
-   3t5MBz8PIJ7fw2qtz4ylnIheJwHI8P6x8bvWvy9teRtGstLRCLL9+3OjH
-   PDhMLCctua2zwgThobTQsN8oXUrnBi3f1k6rJnbIphRhjPmnk8WlH40Jo
-   l//ntLYtpnWXzDG818AdEtD00hvYy+si0HWhSF2bowCMJQj6fiBRCK513
-   lsc36oS7HT8kt288uJ/1ytYoTXw5k2waPs62XBpTDKLAU3aJw6HNo0pJJ
-   3GFqIGVewyWTZ+vUZJ0fA10Rd17vkvNJZOpRnmDoozWOsWZDfrLiUzBgG
-   w==;
-X-CSE-ConnectionGUID: 6QcVudrtTmiWQJOyIpkvPg==
-X-CSE-MsgGUID: cgbwLwSySIevrz8F43MrlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2499536"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2499536"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:07:51 -0800
-X-CSE-ConnectionGUID: ue46x1G8SzihLnuzjgLtLg==
-X-CSE-MsgGUID: qZdM7SdyRrmTxNZpgY/NdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="8308861"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:07:51 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 13:07:50 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 13:07:50 -0800
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.57) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 13:07:49 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UV1s4EiFI6go1dUP1uw8voRW+Uyry78cHCzmxNujICvvDNXkxay2YZfN4z07jSdcrFvTIsDFhpU1YLAjRpR3+GHOfTroHl6HXWqmm2E8WhIQmw2Rf4IwVLz6SvOfEko87wD4jz1x24ga3nHMvNMV7iWzLjHcZjeodrOt+WgnE5UdKIwSaLVcX6KA6FWmwq5vua9tAGhhjugVyl1+CRejJFBNw0HpF0bW97ukaL05EDCacO32x8KuqKWgDjNI7W4sgFg9Q2eI8h654XLZKwXIKf55TarrFpmC/syXG1PFREY9acuehStYDnSF/KwoX2oI6H+3CZWU8xsZ+FeHT2dY2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/4Fyp8X2ER7RY8Bo1w0SL8mNEUpfRgQDeUbMhEz6id4=;
- b=LHfrVOHkKyggcHX9K32EiMc4jeCaq8qpECaWKT6E0kzsimuiwAQnCUL51f9PTs92WhBN46XUruQSYpNxH5jI4kOQbly98N3mvt2YRj0VRnATdC+i713OcMSjoFr5MxA1wKRl5OwTZOtQ6+jq0qKCSpDBUzJHG3GhY+r1SUq672Nii4jEZboORTqWE2uaWGXV/wOqebcLIy1gtvrSMy1JJqqvkpxyny8/sH3kXB4DC4Jz9XMDVuQACRJuSgnVDnjm/l9fYEONLcEyNdcnOocy+EiJv3aSAsi7TBsisG0TDNxcEAaQXBEbiWrk+N6PNaZcqJq9lUgibdooAxtrXc6UmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB634048.namprd11.prod.outlook.com
- (2603:10b6:208:549::23) by SJ0PR11MB5086.namprd11.prod.outlook.com
- (2603:10b6:a03:2d1::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 21:07:47 +0000
-Received: from IA3PR11MB634048.namprd11.prod.outlook.com
- ([fe80::760f:f0a4:7417:6e57]) by IA3PR11MB634048.namprd11.prod.outlook.com
- ([fe80::760f:f0a4:7417:6e57%5]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 21:07:47 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "Li, Xiaoyao" <xiaoyao.li@intel.com>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "nik.borisov@suse.com" <nik.borisov@suse.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Duan,
- Zhenzhong" <zhenzhong.duan@intel.com>, "x86@kernel.org" <x86@kernel.org>
-CC: "Hansen, Dave" <dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>,
-	"seanjc@google.com" <seanjc@google.com>, "mingo@redhat.com"
-	<mingo@redhat.com>, "Peng, Chao P" <chao.p.peng@intel.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>, "Tian, Kevin"
-	<kevin.tian@intel.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>, "Verma, Vishal L"
-	<vishal.l.verma@intel.com>, "hpa@zytor.com" <hpa@zytor.com>,
-	"tglx@kernel.org" <tglx@kernel.org>, "nicolinc@nvidia.com"
-	<nicolinc@nvidia.com>, "Gao, Chao" <chao.gao@intel.com>, "bp@alien8.de"
-	<bp@alien8.de>, "aik@amd.com" <aik@amd.com>, "yilun.xu@linux.intel.com"
-	<yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Topic: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Index: AQHdS9rF50k7lxnBBE+JUA+1gdhvT7cCNcsAgAISOACACwTNAIAB/ggAgALIGICAB3LugIAAwwYAgADOJgA=
-Date: Tue, 3 Nov 2026 21:07:47 +0000
-Message-ID: <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
-	 <20260924041032.1096569-7-zhenzhong.duan@intel.com>
-	 <8c892695-7ec5-4d93-a74b-487fe535c3f4@suse.com>
-	 <IA3PR11MB913605FFABBBC42C1FF341E192982@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <03c80e1b-2a47-466a-a042-c736f640d3c7@intel.com>
-	 <IA3PR11MB91368A7BCDAF146ECDC6A4CB92602@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <IA3PR11MB9136FE2B23CA52EC68EF2139926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <bd0f63af98521d76e0d34ea31f18accc063d1d27.camel@intel.com>
-	 <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
-In-Reply-To: <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB634048:EE_|SJ0PR11MB5086:EE_
-x-ms-office365-filtering-correlation-id: def7bbf4-7ef8-4b2c-5990-08df39ee8330
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|18002099003|22082099003|10067099003|38070700021|56012099006|4143699003|261026121527099003|11063799006|261022105027099003|261028144727099003|261022075727099003|261026140227099003;
-x-microsoft-antispam-message-info: hZMBfpaiEO3XwxbkneCV/ZBXS93lKieraXnI8G94i3XhLglUuExuFyBfU3VOf0RxuzZphtSoqdrHJXTsIrrJTgbsHHa/hKpTZhqla+Q6D4CQWHGy4x4wHBzZ6yJYoHlxlxCHSM77cHBQn9uFoRCRj04+5TbAULAVKiSGb5UrWzhLXB/WyQrNrPo6YdCL4xDBthDWL7LBW9fOU8m1TZvqKggIH3tMCapWE2KDFK7TpVb7NE81nkJ8nai0kbtfjfCKeqHfQCBv7ExDNfioDnoRG6U++RBbv4kHRPp8fPMFSbE15cReoEmzprRiG3tNTq5FDPmyRlG4EuIL0t6J5m1OwLJWrRCg3XaiR0ZLxHutbS552CK0PS56Qdle9V9Y0rB6vqRPX+sHKTh8Kv77DR8LSFsefODU6i66q8Yv7BfM5LDRyIQeK4mwX06JM4x10jzBeUNaAtAMrc6rIykE9xTlhNYqqen+SJEqrdwcdrJ+9B1JhAQBC8A1XCSh68D6JuXFKTdSmLRNe6zNwBOW84sbqrTkMVu6GQen/ki5gQZ8OU8nQgFzN/MZzIaxAwCqJAOXbR/Zk81McCMXXaGzq/Df9ztp3FCQ4YM3J4OPBRxVUhFlZPZsHhPtrrA22eS88x2vPFqSh6damdCSbPX/F/ThEpRYzw82/u2Ysd/206qXkUTHdNg+q/qFUB2x2VVM7CsdLIKp+uXyxlMVL4Sf1NVkS5saieCAK21zpf+/wqlMuqQ=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB634048.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(10067099003)(38070700021)(56012099006)(4143699003)(261026121527099003)(11063799006)(261022105027099003)(261028144727099003)(261022075727099003)(261026140227099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?M3J1Ly9FK24vTFNHV2psQklVemYyQ3ltWFdmM1BtZXBibWZOYmxOS0xuTTh6?=
- =?utf-8?B?S3gvOXp0YkEzSmxHaWpQdUJUVXkyb3Z0c1UrS0xmcXVWZUlyd2kxZWFkaENM?=
- =?utf-8?B?c3YvZXlHVGtPbEhxWDM1YnBUc3kzMDhsbmZBVkEvTXdTK210NXJFVUhrQmVL?=
- =?utf-8?B?T1FaemdOeXd3MktMUERYeEV1Vy92ZnVFNEN3NzZMWDVndFdLUkllSi84eC9s?=
- =?utf-8?B?SXFKVG4zNVRoZ1IzZkZOTUhmQzR5ZjV1MmtnUzBpNkhsVVBMeXUzanpvelM5?=
- =?utf-8?B?R1FOcTN6aUhpRDhkVGMvay9seTFtWXpYRldYbDZDZmtpT1laaUtIK0dJbmw1?=
- =?utf-8?B?elZtMHkzbUQ0SWMyOTJxcHZyYW1oY0N4bGNnQW1Ybms5ZkF0MTFQb0t3b2Vy?=
- =?utf-8?B?aldQNHpNdVVuVVRVbysxUEdZREV0ZTRqenREcUZNVmdWQjBwYmQ1NTZtdzEz?=
- =?utf-8?B?cWFXbFlsMnYrWGVXSDlWNVVnZ1p4aStuUmxMTDhIaW5ZVnFaY1B2eVBraDdv?=
- =?utf-8?B?ay9MS3BGMDZ3dXJVZXNGb1VoUndRZWF1MjJWcUQ1blNlSUExZzB3Q3IyMlM4?=
- =?utf-8?B?c1BFNVVoNDJ2WENKdVVVNURPRlBDd3lmSWtENXV3cXJWWjZlcy9TUVAxRmo3?=
- =?utf-8?B?cVJDQUk1N2ZCMXVDS3pvb2dxcWtkR2RZSU5sNElTcHd0UUgxN2JFMnZwM3k2?=
- =?utf-8?B?VE1sOW5zbmtBclNlM3M4STAvYlp5ZHNMNXhsL1VyRHNQY0RFemZVSnl6VFhv?=
- =?utf-8?B?YXg5NDUrOFcxeEJYUzR1OU8xTWJSekJMbnhwY0xFb0pFK096RitJRnpLb2ZI?=
- =?utf-8?B?aXdiNzEvb0xzRHZiWjh5d2VYZXhHK25KUUN4VkY2US9lNU11SkkwaSt5ZUN3?=
- =?utf-8?B?ZDRnRzhSU3VtVEVhR3lqUXordHB5c1hLODNuSnZsRHNhQlY2UHdZbzJqaTJx?=
- =?utf-8?B?dmtNWEdwb3BXeWtvYk5TSnFmbDNWZm5ja0gwc0l5SnVJMHBGT0U5S2l5VDYw?=
- =?utf-8?B?TUJuN2MvMjNFSXB2cDF2bEMzVUFBZnpzejAzNWxPY2tURGFaMEhDWmsrM3ZJ?=
- =?utf-8?B?QlU0aFFVT1FMTDBhR0JiZk1EWEZSSjlFSzNKOGJUTGc2WkJyR1dSVlpvQ1Bm?=
- =?utf-8?B?YWVtMUVyOEJSRFpXbEZpUmJUNGRvcFU5bWdBUHp0N2k3eHc3RFZicGl5OFNJ?=
- =?utf-8?B?TExHVVlwajVBZDZQbVVHUXZzR1pBcWNobEdmcHRjcnFlWXVRdkkxTkdNMEIv?=
- =?utf-8?B?VkhTZm95QnloWkdmQ3FocExWSTRJMkdYcXA0UHk3YitOcDVHczhET2hadThX?=
- =?utf-8?B?N0hJbXI2amRhWGtnSCtadUlSRXUrWGwxN2JmVU1ldFJ1M0EzWW1wZUtQWDhY?=
- =?utf-8?B?TlN0Y2ZGbmtna0pFM0M4YzV3MGJLdmlhVGdTN0loY24yVGdtaEM1TWRYbkc2?=
- =?utf-8?B?TW1PMTFWb1VacDR3L3R1MWZ0NHlqSFNpSzFHSUVhcHNPZ3pDNWx0eFhNZENv?=
- =?utf-8?B?Sm9MTlBuSitzc2l6eUtNV0JROUVVcmFPY29MRVJqSFRwS3BLcElXNEFGVHZ1?=
- =?utf-8?B?WXhwYjhVRmdwMmJDMVZEcEhLQW14N21VTFdYdEpkUk1VdXM2OGVuQlZRZzIz?=
- =?utf-8?B?elBxb3J3UFpQM1FETEFyMGRjU0lHUWtiZWdaeHJod3k3N0NlWkFaN04xV0VN?=
- =?utf-8?B?UjFzcGJMc2dRNm9hWFpYUUQzOHk5VWFSVTZFQ2Q2NUdCemRDSVBnWWRZRUlr?=
- =?utf-8?B?bWViMzZwQ0EvUUx2cDJxaVhOdFEydVFEb0d2ZTd3aGtBaXZneWxEL3h0a1Vx?=
- =?utf-8?B?RXU1bTFYVldqYVlMUjdDRnlReVdiS1RBRmlWa2o3U1NHOE81aDlqVENhOEZr?=
- =?utf-8?B?UG0rZUpEWDIyYitpem42dGE2dVdxWFRnekVtTWdyVldwYXZISGZURVViYlY5?=
- =?utf-8?B?KzU5VmxFQzZJdGZWbVVDem1nbUZTQUtidDhTT0REdTEzTXhObVliWXlCRkRL?=
- =?utf-8?B?SjR1UTB2b0kvMTAybVBzZTUwNDBBd1pRS3JWYjQyVmxZU1ZTRkJzUkUwYUJP?=
- =?utf-8?B?MWczNTRzbEJudkF0aUVFb1E5bFZKN002bDd2WkVCaDhlQjByYmYySGM2c3lz?=
- =?utf-8?B?S09kL3FDZXhLZ1BycEtpcUFsWlVxaGd6bHcyeXVtaEl5dTg5TTU3ZFlsemJJ?=
- =?utf-8?B?b3hBai9yZm9VRzJoMEFPN0ZNS1liMnBqd25LaWR1dUl2RjFKWUxSd0JFUWxx?=
- =?utf-8?B?dDBxRlpBazRVeTUyVUpmUGtqT1lleDdDSUxBZDJkWlpUMndzSXUzYXlvcTgx?=
- =?utf-8?B?UisvcWkvb1F6czJCRS9qL0h0ZDBnRU01NkN4eHhSK29ZaGVJcU1XK0pSMzh6?=
- =?utf-8?Q?fWx56OdvHn9MmnyU=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4A725EB25D4F944CB9DEB2E06B3EA5FD@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwhpBTM5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793740135;
+	b=VjuKyfetme59n3j4S0pM/xKGZzcwidq2leVyhd5lk1p63OkEV8bfLNNQ30+bkXnMljH6
+	 /fiY9LyKc5fZXs5xIvQ7Y1EN4akjTNG0FPjc2nmMNH+0LegSBO6lUQNfTZ5ziAFa3/1bA
+	 WQg8hWhvy0e8koaW1TXTuiCcXguCigOIY8laOi2ojFvo+9D/Rus3aQx2/hLOw/CraJ34J
+	 +8/Z5hrHWndCqHuAGxwFialTzLT8eM4CS9nckLfAm7cQcyTtL6Uq8TKQzs2ERAMfvRPkD
+	 XiCVHsEMbYSRyIAw5M8Fz/K2if0NWFvdmCgNBx3RswImDGLdeMeOJa/H3AhE4Pr1GqQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793740135;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=SHYGP7YdDrluRd4VWQyjYbq8NHSmfkSt9LBV7zxwYfU=;
+	b=yHiC4T2WH6/Iy49TZUy77BaltArbJ8mcxISUT+F10o6PA5GRsEQSyiAFlFNfy8JJWmbT
+	 5v3zKtMWyLMCJgF4hZfBFdpoFsVwwj0/92SBo5tbf1Y5I1z7vtZ8pkl7aa5TtHJ9GHVbz
+	 xwDZj4zqlzXtVMGZizoEjphQMD5pApVe9OwULJ26ZLENaEZ0r0WLtMP7286a2OIKKLAIi
+	 h2Ya2mgTNfMVsn0NTvJsWuhEjTwb/RBy7cnhwKip34Oc5pW5LiE4Q6neMvW3yvkScelIi
+	 e/VVQP3rE/XRhAkDrNrBGwHFTkOfGn1yjg7b5cUb9Yu6oYRNlxzLw2XmSTs3MwYutMQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 03E0C1F000C1;
+	Tue,  3 Nov 2026 21:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793740135;
+	bh=SHYGP7YdDrluRd4VWQyjYbq8NHSmfkSt9LBV7zxwYfU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=IwhpBTM5K54K1iQEs/6DNB7oaPizr7IWrEaG0RdCtObNHrbuJXRvnxwEnSKePVtG0
+	 mN7Z87+gkRDlmkgsIWIxd5UDLwM/UMrEIFA4wXiJJZTLQvyhQl9HGZ3HFe8pffxVBd
+	 cmE8CAMbae6Lg5V+8B3eKigK+KnMuu85NF11/T7kZHTL9X6g3L9zb9kY9VAdrPnuPy
+	 U3WgiEvRTCv78kjphZzZN7IKF2jhaPSGB45RJbCc6s48squhl1gmUs+J5O6jijCg8K
+	 f80t0oFQPuICwVLjEK619RiPoCR6wCF8scLyTabmfaD2KJ96JWjQdrqguhDSFQVFdm
+	 YC9jjm0fSiAwA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5450C46B12;
+	Tue,  3 Nov 2026 21:08:54 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Tue, 03 Nov 2026 16:08:54 -0500
+Subject: [PATCH v2] mm/memory-failure: set PG_hwpoison of a non-hugetlb
+ page under hugetlb_lock
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -211,33 +83,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: XbS+Fgk3evZUKQdNt6ZT75g9cJG7OeYVkTHKw6Bh+43vp/qsU4tXMcdTcZ510blhGzJ6CgGpg9MOiqUotcRxPzNi3nw/OtBqDlpL78l9GoTGKqJtrKUNltVBrVGoiLds7EwHtOtWofZep07LkruTGeOSEVPUoEWLH8PKHiramuINrnSn3RdFwwCA5Mpa7vYFp1cSbR3cB7UJ/NaqGlqhVjISyUE9LqPUb0NFdXPE/1X88U4oOYooFzAti9vpKgIwhiBx/RxLhqAQatxHr3dmkxV+oquoPVif23QXVqsZ21w4Po8sDZhRXB1iGmnVafRLPvSouupe8VXZbwmB8yXpHA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB634048.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: def7bbf4-7ef8-4b2c-5990-08df39ee8330
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 21:07:47.5752
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BpbxqblqnUmvXSqO5mSIBlCsJLJdA93N7ePtzzo6Hm2fzALIQNcLW0h2QouDoc6VClRKuiCqLbxzSsAq/XTAyqPZCuDfqRegGMAtDMXxW7E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5086
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-hwpoison-hugetlb-ro-v2-1-43876fc9eef1@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBBFf4V0bU2nQoOu/A/Doi0DHYOUtBQ1h
+ H+Xx9blSe49Z2YRA2Fkt2xmASeK5PsV5Clj1um+RU71ykwKqUBcBHfvwVP0PXepxbEzPHheNGV
+ ZglZCN1e2PoeADX1266M6OCbzRDtuqm3hKI4+fPfsBNvuKICAv4UJOHCdy1rlANao4m59l16G9
+ BnrxKplWX6iq0beywAAAA==
+X-Change-ID: 20261030-hwpoison-hugetlb-ro-5f8881a60af9
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Kiryl Shutsemau <kas@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Mike Kravetz <mike.kravetz@oracle.com>, 
+ Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793740134; l=7194;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=1F4vtxF/OETYZMMsAx/an9+en/AsTwNgpWrKWjVH9+s=;
+ b=36qX1N4lsVP5MFwUZeAQ1y7uk2rexo4x3/XUNeYm0dqNg3zcPDbnsyeLp2sMTGDQolR+TJ8VC
+ LT0k2JgrqVFAcMOQCxNNO6yyIUGyzrUXC/qdyEQtYC8Of1b6KxxvDHO
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-T24gVHVlLCAyMDI2LTExLTAzIGF0IDA4OjQ5ICswMDAwLCBEdWFuLCBaaGVuemhvbmcgd3JvdGU6
-DQo+IA0KPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4gRnJvbTogRWRnZWNvbWJl
-LCBSaWNrIFAgPHJpY2sucC5lZGdlY29tYmVAaW50ZWwuY29tPg0KPiA+IE9uIFRodSwgMjAyNi0x
-MC0yOSBhdCAwMzoyNiArMDAwMCwgRHVhbiwgWmhlbnpob25nIHdyb3RlOg0KPiA+ID4gSSB3YW50
-IHRvIGRpc2N1c3MgdGhpcyBmdXJ0aGVyLg0KPiA+ID4gDQo+ID4gPiBJZiB0aGUgVFNNIGRyaXZl
-ciBzdWNjZXNzZnVsbHkgbG9ja3MgYSBkZXZpY2UgYnV0IGxhdGVyIGZhaWxzIHRvIHVubG9jaw0K
-PiA+IGl0LA0KPiA+IA0KPiA+IENhbiB5b3UgZXhwbGFpbiBzb21lIGNvbmNyZXRlIHNjZW5hcmlv
-cyB3aGVyZSB0aGlzIHdvdWxkIGhhcHBlbj8gV2UgY2FuDQo+ID4gdGhpbmsNCj4gPiBhYm91dCB3
-aGV0aGVyIGl0IGlzIHJlcXVpcmVkIGZvciBhbiBpbml0aWFsIG1pbmltYWwgc2V0IHRoYXQgZG9l
-cyBzb21ldGhpbmcNCj4gPiB1c2VmdWwuDQo+IA0KPiBJIGNhbiB0aGluayBvZiBzb21lIHJhcmUg
-Y2FzZXM6IHRoZSBURENNIGh5cGVyY2FsbCBtYXkgcmV0dXJuIGFuIGVycm9yKGUuZy4sIGEgbWVz
-c2luZyBWTU0gb3IgVERJIGRldmljZSBmaXJtd2FyZSksDQo+IA0KDQpJJ20gbm90IGNsZWFyIHdo
-b3NlIGZhdWx0IHRoaXMgaXMuDQoNCj4gIG9yIFREQ00gaHlwZXJjYWxsIHBvbGxpbmcgdGltZW91
-dChlLmcuLCBoZWF2eSBsb2FkIGluIGhvc3QpLg0KDQpIZWF2eSBsb2FkIGluIHRoZSBob3N0IGxl
-YWRzIHRvIGJyb2tlbiBmbGFnIGJlaW5nIHNldD8gVGhpcyBpcyBwcmV0dHkgc2ltaWxhciB0bw0K
-dGhlIGlzc3VlcyBhcm91bmQgdGhlIEJVU1kgZXJyb3JzLiBZb3UgcmVhbGx5IG5lZWQgdG8gdGhp
-bmsgdGhyb3VnaCBob3cgdGhpcyBpcw0KYWxsIGdvaW5nIHRvIHdvcmsuIA0K
+From: Mani Tofigh <mt4022@columbia.edu>
+
+memory_failure() checks under hugetlb_lock that the page isn't part of
+a hugetlb folio and sets PG_hwpoison only after dropping the lock.  The
+page can become a tail page of a new hugetlb folio in the meantime.
+With hugetlb_free_vmemmap=on its struct page then lives in the tail
+page that all such folios in the zone share, so the flag lands on tail
+pages of every one of them:
+
+  Task A (memory_failure)              Task B (nr_hugepages write)
+  get_huge_page_for_hwpoison()
+    /* P not hugetlb */
+                                       alloc_fresh_hugetlb_folio()
+                                         /* P becomes a tail page */
+                                         hugetlb_vmemmap_optimize_folio()
+                                           /* P's struct page now in
+                                              the shared tail page */
+  TestSetPageHWPoison(P)
+
+The error on P itself is ignored, while healthy pages of other folios
+stay marked and are never reused once their folio is freed.  After
+freeing the pool, /proc/kpageflags shows them as hwpoisoned.
+
+This is the allocation side of the race that commit 32c877191e02
+("hugetlb: do not clear hugetlb dtor until allocating vmemmap") fixed
+for freeing.
+
+Set the hugetlb flag of a new folio under hugetlb_lock and set
+PG_hwpoison of a non-hugetlb page inside the locked check, so that the
+vmemmap can't be optimized in between.  The retry path clears it under
+the same lock, unless the page has become a tail page of a hugetlb folio
+in the meantime.  With the fix, no healthy page gets marked anymore.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 35s.
+
+Fixes: f41f2ed43ca5 ("mm: hugetlb: free the vmemmap pages associated with each HugeTLB page")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+Changes in v2:
+- In the retry path, also clear the flag if the page has become the
+  head page of a hugetlb folio, so that the retry doesn't take the
+  folio for already poisoned (Sashiko)
+- Rebase on mm-new
+- Link to v1: https://patch.msgid.link/20261101-hwpoison-hugetlb-ro-v1-1-a42d6411cb65@columbia.edu
+
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/hugetlbro.c
+---
+ mm/hugetlb.c        |  3 +++
+ mm/memory-failure.c | 45 ++++++++++++++++++++++++++++++++++++++-------
+ 2 files changed, 41 insertions(+), 7 deletions(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 779b1de33c78..dd409d7f697e 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1792,7 +1792,10 @@ static void account_new_hugetlb_folio(struct hstate *h, struct folio *folio)
+ 
+ void init_new_hugetlb_folio(struct folio *folio)
+ {
++	/* Pairs with get_huge_page_for_hwpoison(), see there. */
++	spin_lock_irq(&hugetlb_lock);
+ 	__folio_set_hugetlb(folio);
++	spin_unlock_irq(&hugetlb_lock);
+ 	INIT_LIST_HEAD(&folio->lru);
+ 	hugetlb_set_folio_subpool(folio, NULL);
+ 	set_hugetlb_cgroup(folio, NULL);
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index b215312f261b..80bac8d544d4 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -1956,6 +1956,7 @@ static unsigned long __folio_free_raw_hwp(struct folio *folio, bool move_flag)
+ #define	MF_HUGETLB_FOLIO_PRE_POISONED	3	/* folio already poisoned */
+ #define	MF_HUGETLB_PAGE_PRE_POISONED	4	/* exact page already poisoned */
+ #define	MF_HUGETLB_RETRY		5	/* hugepage is busy, retry */
++#define	MF_HUGETLB_NON_HUGEPAGE_POISONED	6	/* not a hugepage, already poisoned */
+ /*
+  * Set hugetlb folio as hwpoisoned, update folio private raw hwpoison list
+  * to keep track of the poisoned pages.
+@@ -2040,7 +2041,11 @@ static int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+ 	spin_lock_irq(&hugetlb_lock);
+ 	folio = page_folio(page);
+ 	if (!folio_test_hugetlb(folio)) {
+-		ret = MF_HUGETLB_NON_HUGEPAGE;
++		/* Mark it before it can become part of a new hugetlb folio. */
++		if (TestSetPageHWPoison(page))
++			ret = MF_HUGETLB_NON_HUGEPAGE_POISONED;
++		else
++			ret = MF_HUGETLB_NON_HUGEPAGE;
+ 		goto out_unlock;
+ 	} else if (flags & MF_COUNT_INCREASED) {
+ 		ret = MF_HUGETLB_IN_USED;
+@@ -2091,7 +2096,8 @@ static int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+  * PageHWPoison) should be done in single hugetlb_lock range.
+  * Returns:
+  *	0		- recovered
+- *	-ENOENT		- no hugetlb page
++ *	-ENOENT		- no hugetlb page, now marked hwpoison
++ *	-EEXIST		- no hugetlb page, already marked hwpoison
+  *	-EBUSY		- not recovered
+  *	-EOPNOTSUPP	- hwpoison_filter'ed
+  *	-EHWPOISON	- folio or exact page already poisoned
+@@ -2110,6 +2116,8 @@ static int try_memory_failure_hugetlb(unsigned long pfn, int flags)
+ 	switch (res) {
+ 	case MF_HUGETLB_NON_HUGEPAGE:	/* fallback to normal page handling */
+ 		return -ENOENT;
++	case MF_HUGETLB_NON_HUGEPAGE_POISONED:
++		return -EEXIST;
+ 	case MF_HUGETLB_RETRY:
+ 		if (!(flags & MF_NO_RETRY)) {
+ 			flags |= MF_NO_RETRY;
+@@ -2169,10 +2177,32 @@ static int try_memory_failure_hugetlb(unsigned long pfn, int flags)
+ 	return identify_page_state(pfn, p, page_flags);
+ }
+ 
++/*
++ * Keep the flag if the page has become a tail page of a hugetlb folio in
++ * the meantime, as HVO may remap its struct page.  A head page is never
++ * remapped, and keeping the flag there would make the retry take the
++ * folio for already poisoned.
++ */
++static void clear_non_hugetlb_hwpoison(struct page *page)
++{
++	struct folio *folio;
++
++	spin_lock_irq(&hugetlb_lock);
++	folio = page_folio(page);
++	if (!folio_test_hugetlb(folio) || &folio->page == page)
++		ClearPageHWPoison(page);
++	spin_unlock_irq(&hugetlb_lock);
++}
++
+ #else
+ static inline int try_memory_failure_hugetlb(unsigned long pfn, int flags)
+ {
+-	return -ENOENT;
++	return TestSetPageHWPoison(pfn_to_page(pfn)) ? -EEXIST : -ENOENT;
++}
++
++static inline void clear_non_hugetlb_hwpoison(struct page *page)
++{
++	ClearPageHWPoison(page);
+ }
+ 
+ static inline unsigned long folio_free_raw_hwp(struct folio *folio, bool flag)
+@@ -2450,12 +2480,13 @@ int memory_failure(unsigned long pfn, int flags)
+ try_again:
+ 	res = try_memory_failure_hugetlb(pfn, flags);
+ 	/*
+-	 * -ENOENT means the page we found is not hugetlb, so proceed with normal page handling
++	 * -ENOENT and -EEXIST mean the page is not hugetlb and is now marked
++	 * hwpoison, so proceed with normal page handling.
+ 	 */
+-	if (res != -ENOENT)
++	if (res != -ENOENT && res != -EEXIST)
+ 		goto unlock_mutex;
+ 
+-	if (TestSetPageHWPoison(p)) {
++	if (res == -EEXIST) {
+ 		res = -EHWPOISON;
+ 		if (flags & MF_ACTION_REQUIRED)
+ 			res = kill_accessing_process(current, pfn, flags);
+@@ -2486,7 +2517,7 @@ int memory_failure(unsigned long pfn, int flags)
+ 			} else {
+ 				/* We lost the race, try again */
+ 				if (retry) {
+-					ClearPageHWPoison(p);
++					clear_non_hugetlb_hwpoison(p);
+ 					retry = false;
+ 					goto try_again;
+ 				}
+
+---
+base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
+change-id: 20261030-hwpoison-hugetlb-ro-5f8881a60af9
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
+
