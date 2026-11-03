@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717563;
-	b=YfJdVUYjM6I5UvL8SrfnUPPTppmObYVIu0adtbAwsD3fWLm/k7MAkoXps8uXs9bVG8h3
-	 H7LDuwD8FUYruYPF3+bCwaWgUAdz6zXm3JSL5hBpraPtQ1/CJoZQtUgHr6abGeHhcpNu4
-	 vz0kSziVNkIroBc1ML8L8OVKfRSHei/11VlApLuAbecYaPzdZu0jOCqvj46QQotEEynGa
-	 mLPtJF4UHwB3YIdpgXGe3FYcCcEoN9pEWpsKvyYJDEoXFRvxve41Iw8xIIZp8TutXzpeJ
-	 lLJnA5ZHNsZ255BmeyPQxJyqJq0dGovZIqTErqfjDaeiWWFugpj5STUxboKAkEAh5xw==
+	t=1793717573;
+	b=D7zC8koGXIgBTkhfu0cCPhmKV2KSIQE/RgcQo274hHuhZ0c3Ubrh+H0hEyPQS8/zHpaI
+	 6U0rgyvo9M9nybWTjse+vfj1/36v5ieDLp5cr9q9GhgHspH9h5UXswFHhJ1qTvsU5xOov
+	 MEkNX5RwX6GJEAKRGoqOGnbpC/iskY2dAaNyhWUlDd0Ry6y71DFVzZPqn0E6NJIh9e5ba
+	 e8VMYaJdrqMi31C5wAVdpndQSp88tsEhwGk0YTAo1jPAS5ozzztW3vskCeYOzs2tZli78
+	 3gGjqrtsgWkZLxvub3QWzpka1oQeT0ev0oOd6RnXQ38ml68bXBGHy3Fcwaz1F9T781g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717563;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=WaOsrEmAYoqVhViGwTJTcykgEVpjZAmCdFfMPnWGgSQ=;
-	b=lEbCnqkJQS7yqJyVPcsDoJ3X6P5PXvfGAW/5GqpB7qj8zTEkwhMuDRnMXfF/YCyfTUE/
-	 aHNV+Eord8nIUPGa3QVMhRdRwjUBp0ygQk6olZzrpvGAAhWmjnriXcbUTVBpfFP8uXw3N
-	 D07gfk2luqfj4JNAD2t13BvNjSEJDZI+qk6ZUHmFVqEBVil9q1l2CAcUm2SL+02N2OzBM
-	 CCd/DZic0EPB80zJgLPI+k4eQLWmJqZXfGzVecRNU3vMtSZ7995pFdFlAmsCUFnHhvOmT
-	 Ktw7k2dAHc3HCyvoV788fKL0idtvfWI701u3P5mNkDVw86VgpmmQArJCPkOP1WR03Hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717573;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=AZzVmOOfoRtDvZHpF7qwPdY9qMJ2XRmaKfYRT9GKTJM=;
+	b=dU5U46tBPh8fcUzmXuYWZjtj+v6/vvzLR11vVDoY2UgCpWSHd3AlBi6RsAtwrqx8095w
+	 yzcadsIN35AAjxpkImLO0mNjPTsWnvuce2pEgK/Vk/c7dAbDg4UAgXgNaB65MzkeCXS5V
+	 Dd1+n86Wbw2Y1NsbKQzQMZM7Qh7yTiPPAaM2LWNNzEeXF9jgyE1BOaeJDlE3Y+ig95qvu
+	 KsO4k3cZOgO5QUdzUqfeU7CAX+yyAZ1CvwA/u4EB8xw3E7iGB5eEvuEeEkVJr6xkK1Ck+
+	 hGZtgVKHt4nC71EcmSMmrXULv4GGLrg+v5jWYRCHIz0XsvuVWZ6qXjHMLr/1f4b0ASA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D6YH80jO;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=skz89O6F;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30ACB606BA34
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:52:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30ACB606BA34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84026606B24E;
+	Tue,  3 Nov 2026 14:52:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84026606B24E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D6YH80jO
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso40366315e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:52:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793717561; x=1794322361; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WaOsrEmAYoqVhViGwTJTcykgEVpjZAmCdFfMPnWGgSQ=;
-        b=D6YH80jO1Zi3E8BghI++8Cu9HfhepHASViq5SfBFIS04slEMTPod8X1i/mUWqHfY2W
-         zd4Tz0FQqjhG8x9rTNRvZIozmCT5ZOMqQL1Gka400uFMgHwy/XXzgDY8N1RoU3ntTfok
-         U/tep+N9Z5yDIUbTDc4eMtJT0qxCABifQtJuCtU/ssphQwNOw128ZKDODp94P8zH1fBG
-         4BvGk0fNoXwh1rZuCugurXiBhS7hzjQoEqlP3y+SEl9U3YYuG1TkAeQNlxVF0bDsk4Iu
-         52bDBxScSb0AzEsJ4ZbuAID2urU3t8iHH6Lk7njgOMn1ETZWGhIORyS/njtcDrzXSNPH
-         QTjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793717561; x=1794322361;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WaOsrEmAYoqVhViGwTJTcykgEVpjZAmCdFfMPnWGgSQ=;
-        b=vCSK1vcMVCP0G+HdMyOuMtXNsV80juPJFnYxqyaDHnmyDgedjT6zjv3+NcjUflCgRt
-         TP1eg+vnqHwq57lw6xaoDDO8zNa40J96hvlamZy7jnOm9F9C0rO72Eskmsc9EQMDiMnP
-         RN4N2nL36NCQIOoKr2ySVJl4sK+uK0GKLiqfP87liup8TWFjDB8s10sy7pmASqny/e2z
-         I9R6PZhRBb7J6OCeMnIDNfjgbMA1/fyZmQVLFPAYf2VNqh1oTQ7U/hyjrI8Vn9kkSTzs
-         5JZN5dFCDOYP6EIyZ+rvV67B/84V+pWoDXJSGwuJR8Ugp+X3crJGKvgpuBnQqe7K2W+3
-         Odag==
-X-Forwarded-Encrypted: i=1; AKwUvBwmQJEV3Y+8nhsZqcOHRInc3TTg6yRSMGfxYNQyaXCBPEfYQYPZPeM8JU9p+87vrmG2WipCmgqFCKN2NoI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NdzVUIgvB/w225Kq8YacKaTY04lHIEI0Z8PanAfilrL7hQNwL
-	six63pBbBmkXG2j2BOMdSxlX/m06HRTjMOAfzSChw1j54d9LQHvog/ZFP9Ge7vtgXQ==
-X-Gm-Gg: AYBFou0InhhFZzVZAlaucO4t9BZSULyJ4ueHYj/jhwEE3vK/S5PjTybl0Ok++cH3PyF
-	T1FABngJPnqqwSf6KrgHMyFPE6vhxEQI8u6ZJQTL4Pr5e82gmFFAp+qCP8Hle5dY72szlNaaYC3
-	DMXMYmylWEe6FSOUs6IDqeIcURI0/aroFlLQ8Fm88dB3OR9f0k4M1gVjYcZH9aJedX8mKSt9RFR
-	Dy5XjWRr2QUSQof+/bNbqSp0JB17kwOOZlQMnpBhKq0AI6PPvxr6HORl3YDcwpT7X0tU6gJLJun
-	vZSErC8mDo8YjrxFACiikmZP4rCzmDIdFgX1QZ/YZy4oFZ9oMvvyp/16bYORXHdUsL5dg2v43GN
-	EOljqaCUZxj8PN/0wZ35WyVdUAPUFCz/b5HjbXYpxlOUJOqIQhhZibMPJD7XexAqX61sUIcj8Tt
-	NIvgWz+wmpUQFXlxI0xsD45BEx1sc5QQz0h4gugMT3DVdr7K4Bezb7iV49zy/xxa8Ri5411pMwi
-	s/QK4Ju88dM59hyJbMiJyFyBBvkMdIt3+7z4I1leBrdx/2dZ7HouD/x888hFu/jumRwWxypZCFl
-	TXSncLRixWH7cXFTI39Ba3062BFPbbUeS2ST5O1MpaEMH6aSIYKKZNQmx2N6rEaf
-X-Received: by 2002:a05:600c:8b04:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4ac17a3683bmr312931635e9.18.1793717560966;
-        Tue, 03 Nov 2026 06:52:40 -0800 (PST)
-Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a555e59dsm69647405e9.0.2026.11.03.06.52.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:52:40 -0800 (PST)
-Date: Tue, 3 Nov 2026 14:52:36 +0000
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH 1/3] KVM: arm64: Don't walk the whole IPA space when
- destroying a pKVM stage-2
-Message-ID: <aun1NJNtnOeSL4oc@google.com>
-References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
- <20261103084742.1302597-2-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=skz89O6F
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=AZzVmOOfoRtDvZHpF7qwPdY9qMJ2XRmaKfYRT9GKTJM=; b=skz89O6F8mEMMNAlN1u/nqq/Nd
+	Am9hqZOCT8D63YyzHpNND8SaYE7BEFaMaPgSN1SXruvzs3jWwVbmwO15MPpWrpfUvhhVI6lh8oCQg
+	vihlRywjPlCWqWXryCEux9ucABuQ3flQ4k1vEpsm19EAKcG/SD4lerWSD7aOspiW9J3PLKSqXTVQq
+	DaVcLkgntHTCpDCQUzFG6cdwMuE1hupteVUPjtcatFiMXb3p+jprlXmi33oYgyKSVwip16YVuqbxv
+	x/1UR+UqZpE0nX22ScRLXLcLFolszfJYW0mhkSyCLlm917oXRyvBenEHMqi97nC02kD7akamLQvu0
+	W/ZJbZdQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOFsD-0000000Ebhh-1pHh;
+	Tue, 03 Nov 2026 14:52:29 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 2505B301185; Tue, 03 Nov 2026 15:52:28 +0100 (CET)
+Date: Tue, 3 Nov 2026 15:52:28 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Sasha Levin <sashal@kernel.org>, kernel test robot <yi1.lai@intel.com>,
+	oe-lkp@lists.linux.dev, kernel test robot <lkp@intel.com>,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Red Hat)" <david@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Kirill A. Shutemov" <kas@kernel.org>,
+	Finn Thain <fthain@linux-m68k.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ard Biesheuvel <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>, Gary Guo <gary@garyguo.net>,
+	guoren <guoren@kernel.org>, Hao Luo <haoluo@google.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Jonas Bonn <jonas@southpole.se>, KP Singh <kpsingh@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Rich Felker <dalias@libc.org>, Song Liu <song@kernel.org>,
+	Stafford Horne <shorne@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Will Deacon <will@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>
+Subject: Re: [linus:master] [atomic] 80047d84ee:
+ WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
+Message-ID: <20261103145228.GO2668804@noisy.programming.kicks-ass.net>
+References: <202611022259.def3e086-lkp@intel.com>
+ <20261103122647.GL1813469@noisy.programming.kicks-ass.net>
+ <20261103123508.3910990-1-sashal@kernel.org>
+ <e69e6690-cfc0-4ea8-83e1-5ad2d98b84d5@app.fastmail.com>
+ <846703eb-111c-4376-a0ba-36bd3e13f632@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,101 +104,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103084742.1302597-2-fuad.tabba@linux.dev>
+In-Reply-To: <846703eb-111c-4376-a0ba-36bd3e13f632@app.fastmail.com>
 
-On Tue, Nov 03, 2026 at 08:47:40AM +0000, Fuad Tabba wrote:
-> Since commit 4ddfab5436b6 ("KVM: arm64: Reschedule as needed when
-> destroying the stage-2 page-tables"), kvm_stage2_destroy() steps through
-> the IPA space in block-sized chunks, and with pKVM each chunk is a
-> lookup in the VM's mapping tree. However, pKVM gives every VM the host's
-> IPA limit, so with LPA2 a teardown makes 2^27 lookups with 16K pages
-> (2^22 with 4K), nearly all of them for empty space.
+On Tue, Nov 03, 2026 at 02:41:32PM +0100, Arnd Bergmann wrote:
+
+> FWIW, I checked the other architectures that may be affected:
 > 
-> Walk the mapping tree once instead, and reschedule after passing each
-> mapping to the reclaim or unshare helper. The unshare helper can't
-> reschedule itself, as the map and unmap paths call it under the
-> mmu_lock. A failed unshare now leaves only its own mapping behind, not
-> the rest of its chunk.
-
-Not a problem now, but don't we make the device assignment story harder?
-
+> - 32-bit arm has transparent hugepages and a 64-bit pmd_t with lpae,
+>   but that type has natural alignment, and pmd_populate is a
+>   simple assignment.
 > 
-> Fixes: 4ddfab5436b69 ("KVM: arm64: Reschedule as needed when destroying the stage-2 page-tables")
-
-Isn't it an optimisation?
-
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/mmu.c  |  7 ++++++-
->  arch/arm64/kvm/pkvm.c | 17 +++++++++++++----
->  2 files changed, 19 insertions(+), 5 deletions(-)
+> - arc has transparent hugepages and a 32-bit pmd_t but a 64-bit
+>   pte_t that is not naturally aligned. It probably should be
+>   aligned, even though I don't see any actual bugs
 > 
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 1db10d8d6db73..42977cf8a7f5d 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -1022,7 +1022,12 @@ static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
+> - sh has a 64-bit pmd_t on sh4a CPUs that is not naturally
+>   aligned and probably should be, but there are no transparent
+>   hugepages.
+> 
+> All other 32-bit targets don't use transparent hugepages
+> or 64-bit pmd_t. 
+> 
+> We probably only need to align p?d_t though, not p?dval_t.
+> How about the version below?
+> 
+>     Arnd
+> 
+> diff --git a/arch/arc/include/asm/page.h b/arch/arc/include/asm/page.h
+> index 9720fe6b2c24..af5303459d56 100644
+> --- a/arch/arc/include/asm/page.h
+> +++ b/arch/arc/include/asm/page.h
+> @@ -65,7 +65,7 @@ typedef struct {
+>  
+>  typedef struct {
+>  #ifdef CONFIG_ARC_HAS_PAE40
+> -	unsigned long long pte;
+> +	unsigned long long pte __aligned(8);
+>  #else
+>  	unsigned long pte;
+>  #endif
+> diff --git a/arch/sh/include/asm/pgtable-3level.h b/arch/sh/include/asm/pgtable-3level.h
+> index d1ce73f3bd85..6d5e2e3248f2 100644
+> --- a/arch/sh/include/asm/pgtable-3level.h
+> +++ b/arch/sh/include/asm/pgtable-3level.h
+> @@ -33,7 +33,7 @@ typedef union {
+>  		unsigned long pmd_low;
+>  		unsigned long pmd_high;
+>  	};
+> -	unsigned long long pmd;
+> +	unsigned long long pmd __aligned(8);
+>  } pmd_t;
+>  #define pmd_val(x)	((x).pmd)
+>  #define __pmd(x)	((pmd_t) { .pmd = (x) } )
+> diff --git a/arch/x86/include/asm/pgtable-3level_types.h b/arch/x86/include/asm/pgtable-3level_types.h
+> index 580b09bf6a45..061283293341 100644
+> --- a/arch/x86/include/asm/pgtable-3level_types.h
+> +++ b/arch/x86/include/asm/pgtable-3level_types.h
+> @@ -16,14 +16,14 @@ typedef union {
+>  	struct {
+>  		unsigned long pte_low, pte_high;
+>  	};
+> -	pteval_t pte;
+> +	pteval_t pte __aligned(8);
+>  } pte_t;
+>  
+>  typedef union {
+>  	struct {
+>  		unsigned long pmd_low, pmd_high;
+>  	};
+> -	pmdval_t pmd;
+> +	pmdval_t pmd __aligned(8);
+>  } pmd_t;
+>  #endif	/* !__ASSEMBLER__ */
+>  
+> diff --git a/arch/x86/include/asm/pgtable_types.h b/arch/x86/include/asm/pgtable_types.h
+> index 2ec250ba467e..5c028b3f59c4 100644
+> --- a/arch/x86/include/asm/pgtable_types.h
+> +++ b/arch/x86/include/asm/pgtable_types.h
+> @@ -292,7 +292,7 @@ enum page_cache_mode {
+>  
+>  typedef struct pgprot { pgprotval_t pgprot; } pgprot_t;
+>  
+> -typedef struct { pgdval_t pgd; } pgd_t;
+> +typedef struct { pgdval_t pgd __aligned(sizeof(pgdval_t)); } pgd_t;
+>  
+>  static inline pgprot_t pgprot_nx(pgprot_t prot)
 >  {
->  	unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
->  
-> -	stage2_destroy_range(pgt, 0, BIT(ia_bits));
-> +	/* pKVM walks its mapping tree, not the IPA space, and reschedules per mapping */
-> +	if (is_protected_kvm_enabled())
-> +		pkvm_pgtable_stage2_destroy_range(pgt, 0, BIT(ia_bits));
-> +	else
-> +		stage2_destroy_range(pgt, 0, BIT(ia_bits));
-> +
->  	KVM_PGT_FN(kvm_pgtable_stage2_destroy_pgd)(pgt);
->  }
->  
-> diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
-> index 016997288fd23..992ed3ca6bdd9 100644
-> --- a/arch/arm64/kvm/pkvm.c
-> +++ b/arch/arm64/kvm/pkvm.c
-> @@ -504,6 +504,7 @@ void pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
->  {
->  	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
->  	pkvm_handle_t handle = kvm->arch.pkvm.handle;
-> +	struct pkvm_mapping *mapping;
->  
->  	if (!handle)
->  		return;
-> @@ -513,10 +514,18 @@ void pkvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
->  		kvm->arch.pkvm.is_dying = true;
->  	}
->  
-> -	if (kvm_vm_is_protected(kvm))
-> -		__pkvm_pgtable_stage2_reclaim(pgt, addr, addr + size);
-> -	else
-> -		__pkvm_pgtable_stage2_unshare(pgt, addr, addr + size);
-> +	/* Called once for the whole IPA space, so reschedule between mappings */
-> +	for_each_mapping_in_range_safe(pgt, addr, addr + size, mapping) {
-> +		u64 start = __pkvm_mapping_start(mapping);
-> +		u64 end = __pkvm_mapping_end(mapping) + 1;
 
-__pkvm_mapping_* are rb-tree internals. I think it is better to use explicitly:
-
-  start = gfn_to_gpa(mapping->gfn);
-  end = start + (mapping->nr_pages * PAGE_SIZE)
-
-Also, I wonder if we'd better WARN if the mapping isn't aligned with the
-destroyed range?
-
--- 
-Vincent
-
-> +
-> +		if (kvm_vm_is_protected(kvm))
-> +			__pkvm_pgtable_stage2_reclaim(pgt, start, end);
-> +		else
-> +			__pkvm_pgtable_stage2_unshare(pgt, start, end);
-> +
-> +		cond_resched();
-> +	}
->  }
->  
->  void pkvm_pgtable_stage2_destroy_pgd(struct kvm_pgtable *pgt)
-> -- 
-> 2.47.3
-> 
-> 
+This doesn't cover all of p?d_t, does it?
