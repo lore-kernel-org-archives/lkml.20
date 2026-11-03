@@ -1,73 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687709;
-	b=2nNu9pch/MJaxPm8+LQ3bghclmTcYd07A66G3Zi8IIUR2J7epCId8Y/hg1o7pZISSF5z
-	 H5wHtbxl5zSZWgS0b12CVyXpqPIOFtHT9xXhzt3eKwqse85i0QQqqyRERVQ47DT4RjpxO
-	 zr3lGLUsMV9oF2wsGc007Hvn6k6PrV76k/S+q98NIEKewExQYzaOJtO9n9aLAcpgZyGrv
-	 OEE73ov7yHrtrLIOFYV+HZ7/y9s3jyAmc2suoaNO7wwFuO9SwklLZt2oe2rSlhJStcE4T
-	 fui5f4KK9nvxvv75Gz7pNtIWyN5MOLhDfqiEfQ3O9UoNQ1ndqFzBqD4j9r/Z5vJFvwQ==
+	t=1793687738;
+	b=cx1SIno3pW96wkJRSyzLLRpofYUslw7Hypwbx3WQQhlRWEcKi0gNwFOMUJG5DDc7tQKz
+	 doruoSD389JXV6Csy0MSaFz89x9sNExVdqnF7hZFeH37kwwsdGgdDzfqjGc1FiLs0crwo
+	 znggJKz8lbWZhJYYOdYf7KVIPQbXBsZHGMr/YDuUSFLbtdkjclKyuW0L4tX6J31QKzmPa
+	 6Mbem8gzKJdZtB0Nhw0WH2JnlSXa79S7VDIZflIxipIn7jwveMAzJURMT3qqO7CXFJhZo
+	 TYooDEBR3BqAIrmf2XLFs+o4QSsh1nv35Y+s5HG6Nkug+DSR45cvbjUYabEtx9BjKEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687709;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=yAZOZJs9KcIFFtegfeWb7c/pQrDj/UhaRfTWHv2xopY=;
-	b=FIduf6glT0SaY0kTB4sqCUdMHAQ+cBHWEmWSuzRdHoMIygr5UgevlgtYKvpI1REEr+lu
-	 61pd+HrAzcdFx+VwOG736T1bvLBw6eFAsnoNEdBo73WRMHn32+nYj2/6AoFvrtxP0mBHr
-	 qy0VC+lThrxPNLU1kIrYKS2vXXThjAvmbJzpWEMeGQ47JrHsO5cqu8vqCUATDZ3XP78XT
-	 19kULm1UVxDEGBJ6qZU/atNJSkWQ2Se1llCki9QlPqys0u5xboQQ+4qamPRDyoGFO6dm/
-	 lZh2evKxe9f5y3EsiPnN+7EXXtZGWJElS2sVhbX9qmmnV+P4D44+gJWgZfpnmz21IxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687738;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
+	bh=4dMx8oyOcsvpKZmeDA9XB9ac9xFIUPa8LzVWlB1uze0=;
+	b=3cesduwIbuOGPeMbIgxoxX5ZFZTHqWDgdJFFki/pQDAWIx5vwU5qYHy5UWREkBxKE1E3
+	 sr1AOMxokNEA2bcXRrizcK4O1yweRt3HGF6vK4Bsow+aHgomHCzlaUTtfB0Km4Jhtk0Z7
+	 Rdj2SuVBvitftTEM3M2+BMQugHp/dqdQcfQwJH4l3MWhcIY5aa780yj6TKt9JzXYqFlHh
+	 9HKofQHZJmtF7/wLEPehL84Wg1lIzyyQJOIHpc6PjRNNbig8P0ZlbhBefnqpsvzYj+2GP
+	 1cAIEU0Qg+aVnVltVRfAiEE0M47ba0BSBcnvC5cUE9bFpTV424N/m42TSHkjzgOTDkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=U0z1YiP3;
-	arc=none smtp.remote-ip=162.62.57.87
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABC4606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:35:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ABC4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=C5cyDqhH;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C548B606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C548B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=U0z1YiP3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793687702; bh=yAZOZJs9KcIFFtegfeWb7c/pQrDj/UhaRfTWHv2xopY=;
-	h=From:To:Cc:Subject:Date;
-	b=U0z1YiP3+zQEbzpsdILd7lN9lKliz38qZomj5oti0jgH409LhjksVx/lW1hv09sn3
-	 aMfe5Ii72WIGtWeApJ6mkw8Ite+qTpl4xe6rLxXkJ32hTvuTXzxUo076PbgLti51wL
-	 dEToCdTUBK9ZREfLMETTHg8ON9CstNLe/Y0y7LTg=
-Received: from [172.18.4.77] ([61.136.26.103])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 8C007267; Tue, 03 Nov 2026 14:35:00 +0800
-X-QQ-mid: xmsmtpt1793687700tfraguhhw
-Message-ID: <tencent_B367A2067C2EA3845289BED747449C264D09@qq.com>
-X-QQ-XMAILINFO: NI6TJc3opC6F7/qwgER8n2ajpIziUYrbt6OBeYaBbDkrO1CtCBgNYItxZoygtg
-	 IhX2seLS5oPW6AKdB+KhI85MkHwjkrqYIZzQIv84qtgseD62H6H9pLQKmT/ElNGM2ZdbXpTuHKmi
-	 GLOYcQMgb3N5vERuK3MgZLICHqY0EL4qQ1HKEXEyWNBI8kvgNnw/6BMbigty8ztQCNMeB3CvCS4a
-	 IsY9W95PpJQum8qbYVq9wVz3TiwqjL4mszEpPmG/quEQP3SFccClbY3NXN7io7a2wy3aE+cn18UQ
-	 /y8EkALmVSBfxk9OA9ChVAiuNHGoypjrTk2EAxRRaLOsU2AvAtByw0UmlQpju3jhI/5VI9jcv6xn
-	 1QhAFTef2EKADWIwsYtoXxa8aO5SEsH/YWNpE/+jPy/rLSZrbHjjMy/BPrDNlTVGU2Y4cJz349UJ
-	 yokZbCHATwdhYNiG8UUmwrL9iOPrwFsfnMoptArTwiYfI4g2E5eKs7kPHynQw+yHqoE1nG7pyI3h
-	 rKubWpAQQufzTZQ76xOh3qUYFSu1u5axeruo4Pbq87dIzYCQYL9/+QqI6xu64CgAWqgarO3pFL+x
-	 bv1/91JRaS5CMpqWIq1BsYWXMR3p0o1q0QtrPRu+PO/MYkloZ/1hxJRf3N84mbcmD4/oopRyQSKx
-	 5vVXHdohEocq4L4wSnV+ZUdtGyhfmuYxlXnNhpXZd31yMjcKsUdkNcqzSqnIzjrjcW3z9huWCgt7
-	 hOTdsSuprZdG1f6kXe/p8C6qoav/ZycVquJ2rgYxESnHBMpUO0qiCYKOP4U60CMjdbJTb9eBBRM7
-	 J9Akn5Y27+7C4POpr+CMAo90nP8VfIleWad9hcXWepF22YdiA+MeP19dv8pPAepCYFkLT3tU1HEs
-	 HFuT4iLq89P5KwG4OMBR7mB4RRA6oYLr5gFxjJ9gODY58fh+Y1KBBwaUtgzqT0hrXWmHdY2WVLox
-	 S6apXKCYTVHW2xflnYNIqxZQgD+gbRc3IUvTkSH12a/yJLItKdclU9wv/dS6S2+DnKk6f7eM4uKO
-	 XZDzjNDRI4rsLA/XRe1rBE6HU3o8KQqhbuXFFo6w==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: [Bug report] gfs2: unvalidated lf_depth causes shift-out-of-bounds in
- dir_e_read, dir_split_leaf and gfs2_dir_exhash_dealloc
-X-OQ-MSGID: <c12-gfs2-lf-depth-shift-20261103@qq.com>
-Date: Tue, 03 Nov 2026 10:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=C5cyDqhH
+Received: from linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net (linux.microsoft.com [13.77.154.182])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 2C2A520B7166;
+	Mon,  2 Nov 2026 22:35:16 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2C2A520B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793687716;
+	bh=4dMx8oyOcsvpKZmeDA9XB9ac9xFIUPa8LzVWlB1uze0=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=C5cyDqhHIsCzTiuaHaq1svaWIigxtCUNFwtyf3xrRWLVfHaPzEuC+kkRVWp4/b4hX
+	 U9tpDMG1ocmExkay0nGn+XuYmo9Lf74YcXSQdJ5SADB409yr9l9X/VGQnUm8ecn/rI
+	 fm0s96BJYEu85+5MNVjg6ExXjFQkkrOXzGZIgOoE=
+From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+To: ptsm@linux.microsoft.com,
+	tgopinath@linux.microsoft.com,
+	ssengar@linux.microsoft.com,
+	srivatsa@csail.mit.edu,
+	michal.simek@amd.com,
+	rajan.vaja@xilinx.com,
+	tejas.patel@xilinx.com,
+	abhyuday.godhasara@xilinx.com,
+	gregkh@linuxfoundation.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] soc: xilinx: Fix event manager CPU hotplug state cleanup
+Date: Mon,  2 Nov 2026 22:35:15 -0800
+Message-ID: <20261103063515.679043-1-ptsm@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261103062051.676519-1-ptsm@linux.microsoft.com>
+References: <20261103062051.676519-1-ptsm@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,72 +68,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On driver removal, the event manager removes the CPUHP_AP_ONLINE_DYN
+CPU hotplug state instead of the its actual state. This can leave the
+event manager callbacks dangling. Use the actual CPU hotplug state
+during driver removal.
 
-Mounting a gfs2 image whose leaf blocks carry an lf_depth larger than the
-inode's i_depth triggers an undefined shift in three places. i_depth is
-validated when the dinode is read; lf_depth is never compared against it.
+Hotplug registration failures are also ignored, allowing probe to
+succeed without the callbacks needed to enable event interrupts on
+CPUs brought online later.
 
-  fs/gfs2/dir.c:1560  dir_e_read()
-      len = BIT(dip->i_depth - depth);        /* depth = lf->lf_depth */
+Fixes: c7fdb2404f66 ("drivers: soc: xilinx: add xilinx event management driver")
+Signed-off-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+---
+ drivers/soc/xilinx/xlnx_event_manager.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-  fs/gfs2/dir.c:1050  dir_split_leaf()
-      if (dip->i_depth == be16_to_cpu(oleaf->lf_depth))   /* equality only */
-      ...
-      len = BIT(dip->i_depth - be16_to_cpu(oleaf->lf_depth));
-      half_len = len >> 1;
-      if (!half_len)                     /* checked after the shift */
-
-  fs/gfs2/dir.c:2137  gfs2_dir_exhash_dealloc()
-      len = BIT(dip->i_depth - be16_to_cpu(leaf->lf_depth));
-
-Observed with a 4K-block image (mkfs.gfs2 -J 8) whose root directory was
-grown to exhash with 400 long-named files, i_depth 8, 16 leaf blocks at
-lf_depth 3. After a clean umount, lf_depth in every LF block (block offset
-+24) is raised by 12, then the image is mounted and getdents64() issued:
-
-  UBSAN: shift-out-of-bounds in fs/gfs2/dir.c:1557:9
-  shift exponent 4294967289 is too large for 64-bit type 'long unsigned int'
-  Kernel panic - not syncing: UBSAN: panic_on_warn set ...
-
-4294967289 is (unsigned)(8 - 15). Changing the lf_depth delta changes the
-exponent by the same amount, so the chain is unambiguous.
-
-One detail worth noting: BIT() yields unsigned long and the destination in
-all three functions is u32, so the truncated len is 0. In dir_e_read()
-that makes index = (index & ~(len - 1)) + len evaluate to 0 while
-index < hsize is still true; in gfs2_dir_exhash_dealloc() next_index also
-stays 0. I have not measured the behaviour with panic_on_warn disabled.
-
-gfs2 metadata blocks carry no checksum, so the image is built with
-mkfs.gfs2 plus direct edits at two fixed offsets and needs no checksum
-recomputation. A single forged image reaches all three sites depending on
-the operation performed afterwards: getdents64() for dir_e_read, creating
-an entry in a full leaf for dir_split_leaf, and rmdir of an emptied exhash
-directory for gfs2_dir_exhash_dealloc (gfs2_dir_del() decrements
-lf_entries but leaves GFS2_DIF_EXHASH and the leaves in place, and
-evict_unlinked_inode() calls gfs2_dir_exhash_dealloc() when the flag is
-still set).
-
-All three sites obtain their buffer through get_leaf(), which has the
-directory inode at hand, so one check there covers them. After the
-existing gfs2_metatype_check(), when no error was returned:
-
-  struct gfs2_leaf *lf = (struct gfs2_leaf *)(*bhp)->b_data;
-
-  if (be16_to_cpu(lf->lf_depth) > dip->i_depth) {
-          gfs2_consist_inode(dip);
-          error = -EIO;
-  }
-
-lf_depth <= i_depth holds for every directory built by the kernel:
-dir_split_leaf() returns early when the two are equal, so a leaf is never
-given a depth above the inode's.
-
-The reproducer (image builder, VM harness, crash log) is available on
-request.
-
-Thanks,
-Guikun Yang
+diff --git a/drivers/soc/xilinx/xlnx_event_manager.c b/drivers/soc/xilinx/xlnx_event_manager.c
+index f733dc42b3b1..2d8bfeab4190 100644
+--- a/drivers/soc/xilinx/xlnx_event_manager.c
++++ b/drivers/soc/xilinx/xlnx_event_manager.c
+@@ -24,6 +24,7 @@ static DEFINE_PER_CPU_READ_MOSTLY(int, dummy_cpu_number);
+ 
+ static int virq_sgi;
+ static int event_manager_availability = -EACCES;
++static enum cpuhp_state hp_state;
+ 
+ /* SGI number used for Event management driver */
+ #define XLNX_EVENT_SGI_NUM	(15)
+@@ -625,8 +626,6 @@ static int xlnx_event_init_sgi(struct platform_device *pdev)
+ 
+ static void xlnx_event_cleanup_sgi(struct platform_device *pdev)
+ {
+-	cpuhp_remove_state(CPUHP_AP_ONLINE_DYN);
+-
+ 	on_each_cpu(xlnx_disable_percpu_irq, NULL, 1);
+ 
+ 	irq_clear_status_flags(virq_sgi, IRQ_PER_CPU);
+@@ -660,8 +659,13 @@ static int xlnx_event_manager_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* Setup function for the CPU hot-plug cases */
+-	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "soc/event:starting",
+-			  xlnx_event_cpuhp_start, xlnx_event_cpuhp_down);
++	hp_state = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
++			"soc/event:starting", xlnx_event_cpuhp_start,
++			xlnx_event_cpuhp_down);
++	if (hp_state < 0) {
++		xlnx_event_cleanup_sgi(pdev);
++		return hp_state;
++	}
+ 
+ 	ret = zynqmp_pm_register_sgi(sgi_num, 0);
+ 	if (ret) {
+@@ -670,6 +674,7 @@ static int xlnx_event_manager_probe(struct platform_device *pdev)
+ 		else
+ 			dev_err(&pdev->dev, "SGI %d registration failed, err %d\n", sgi_num, ret);
+ 
++		cpuhp_remove_state(hp_state);
+ 		xlnx_event_cleanup_sgi(pdev);
+ 		return ret;
+ 	}
+@@ -704,6 +709,7 @@ static void xlnx_event_manager_remove(struct platform_device *pdev)
+ 	if (ret)
+ 		dev_err(&pdev->dev, "SGI unregistration over TF-A failed with %d\n", ret);
+ 
++	cpuhp_remove_state(hp_state);
+ 	xlnx_event_cleanup_sgi(pdev);
+ 
+ 	event_manager_availability = -EACCES;
+-- 
+2.49.0
 
