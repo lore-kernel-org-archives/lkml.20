@@ -1,78 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793668492;
-	b=xD9ewXCr4s/hx40d9Gy5mvwLs7azbwQv1LYOGCtsGqPJ45canTiaxNYC5OLnqZghPvJG
-	 Lp7hGL2ZkFw9diqOqgwmF6nItnLtLdnCNGzZZezdC299zGzVu95bfdKXHAJKyyOTydLbR
-	 DH1boy4lxpB+q4soOoCwbrSWhrjLe2iB4F/iVfhA9mm9nRxvxCAb0uwhGeLKWmYuXsKmZ
-	 ZIB/8wzdf2MSQwEXdkzbVkIjpNqI7FlzO3eHMSHmgZQcIRhHJLmhu3TgmY41KTxGPlOkX
-	 00KdqULbavvfKbVhFQO/gZVLZtB1aeRGQst7pFIslX6JyIonFvYyavOwQbA+wYy4NWw==
+	t=1793668505;
+	b=KaZpDy2O2oMhzkQ2lHUiVxSkitfEUzhH9Zr4SvyxVHbdA/oxVPXNY4r5jg9qTV2QEVa5
+	 0XOBVagP/9faPcH5BEsHnBzg210BL9X51qd4iGlSgnaJ8c34n/1JU6DlUxAmKr2k5vc2M
+	 zfTBGZ/HMIET5QTeQXPeZtHOMLI9BKKXX2ka7mulZ7P2cuT76NuGRzTOr/aRP4kKYoqEH
+	 Jk9KhzmCyD8udAyK5ttr0n0wIuM0sjUDnRBKAe0soHQC9HWa9VfFSzpRN4/p55/yIzLTh
+	 cuWx80C9nh1QWFxXP77c0FVTUGFvH1v/llAbu9iWxIufwysaYbBXIhpWPACJ5oFU6rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793668492;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793668505;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=bGBbvEyNXQ9kpI+I2OBxN/fHwF8Lik0cSsDj+zUuuBA=;
-	b=4k4dJDNLBAlZkaZN/bTrxfTmnV7lJecAOOYhAWqU8KJ1MZ17cVdoC5OuJ2uPXRHUy7U7
-	 3M4rPiyjb6dBifho8wnDHcV9tegliilC5aY8ideaMQlJfOn+XCzLtqjS/pN+Z15dHHkys
-	 pXrInRuahHPPAgapiDgWoVFgjSjiXiZuk/129jGlMbrmpxPbsiT27whscxxgUP5fyQECA
-	 I7wdNLMt/ilteMx9UyPGd7QLtZnnghNPESepD99XG97eiVbEw0orDRl1bWN/rzYIGAlhS
-	 K+pMAZKi0QdEskQOLu790PixdKlVhVf70/+Rrx2ni7ldMZfxBuFjoFwMBfDvc51T/4A==
+	bh=yGfxGis/8g0KaCRnCd2Ma8RfczzUtJnT7BRnU64wFQA=;
+	b=JEfe4kaH5h/BHriz0gBuzsys5ZCt3DUo3ZNW/UmZQJBaBCoMmDrl61RECEzgKA/JI8/f
+	 qKHgPN8z0RR9LuoGHYrOKnYqIqRlft+jywEZLPjLzB/3ceQMPgn56JTrauVFRJzJEaAap
+	 F3eV0k6UHaZtJCbvqootIJH4tetEpSVWjA7rFG0pPd4w7lVFjviDbCkNQrb+gpbycrCZs
+	 tHwVGcCNOiA0nLz0aFNfxLwITmbeneKmsSOEGPDRpWLHk4//kb8QkX+UUEye26IdPzkgY
+	 UFbO+bS6hTNB+4f4By4LSNZuQrYlP6LjBaG/RvOqPCIEdww1hHaCrwl0Qgx3I2O9e6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kylinos.cn;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9666606A338
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:14:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9666606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AF2606A332
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:15:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42AF2606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3027076eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:14:51 -0800 (PST)
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36a17a332ecso5628084eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:15:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793668491; x=1794273291;
+        d=1e100.net; s=20260707; t=1793668504; x=1794273304;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bGBbvEyNXQ9kpI+I2OBxN/fHwF8Lik0cSsDj+zUuuBA=;
-        b=EjwzsubgpnHkcfyGpbmprn5vETTTfDJZTqfyC6BRcOTkNozA9LgAGy/kPpBt7X9O2T
-         e2ySDbwSXJeO887AKWUFgMzFlQiZfhex75Tha1l1B6SdBMoOcrzUSU6T3lyveqfv6fAK
-         n7pcOk53OJcOFQwmfb5SkkKc3PBEFUqfwNlervwo0C2Ow7oGDqeYbmjsO+V+aEyEslYI
-         OPODPVD7ccJZfSt4tJswIcTGcRTHfclMvw87Bu6IrfqNloF6o1cTF4Xock+NIU/Yxk51
-         vMp1YEvVi7OEmCm3Kcvuj2ybxCCDOl02BwPZdiGdSn50JBjyCBFXqyhzhxHIACFEBRfX
-         YCAA==
-X-Forwarded-Encrypted: i=1; AKwUvBywBekk9Mp+avcLxIr1NVl9IR6DOqTgOP+q1J6Rs/vgwPl8mIpink6HLmJCjgS40gN8wSTZsgOB0ihPtF8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87ECAfmL3oqJ6cKlEk1pgQQdYyo2dxhQx1S2vARYicOUKcaoBU
-	OYfYF6tPLki1tisLPHna/JQ1KvFCO2YqmweroAll3QDVUthXSHPAkaHoqcYZnw==
-X-Gm-Gg: AYBFou2LFyxpKt1ULHDjDewu8Y6zacGiQKfP2sgXSLikUUIa0X2/fxTU//ZiLV5/iMP
-	U9tbPAm1l2TxtscqyQt1CX4khAZvmvN/nC6NnN46v45Y8FEkqY9DY9wFii8SOVG7FgRyDjfp2/t
-	l2mJz2m6VmZVghE11RYxZ6YmYR0rkAaOonHXVENEVX7OY2KjNucFNXTDwgUjGtu32xv0NA7yTLu
-	h8Y4++1Yd6OUrXCQXz6vDY+5NBWzVDIDfLPGgVRFmJcf+fdGlwRY1OLJUt5hfKpgFpf0MuyE5dU
-	svfudGFO8YWvTXBSjVzPbkwLDtwmGjRDxgUmrwjwluV6VeZKt7IWxdFFu8jXXVjP7/5o9FX3F8t
-	klVqASN2RIEnd3KNYG/xoBxDpeU+GyNh0BNB30nTNrKlFPPGVCe0OMbNu+hZAYjcTDRyrLLtrz9
-	mHyt6g3Enofa0sXlXBsidYgvnzQnuhbXBsh7EB2VDXxqDmTzYGmt2aak6fIZnFWuney0Ovs4qtF
-	zNYRzbf+33kE9yrynI9jcGO34L0t1Q9AXYABisCozPj9CEzJ9cqrZj0VOs/JQmTZxU0l6qFLILK
-	L+fNGI3jjDRV5HrabJpmTGpw66gH9vkCBYCjv+uJO7F2YIG2ZMV8jJyAdbAgtSGw/nAZSWIua8Q
-	jGgUMWloE61pl+qWzMcmCmeXhIDPQOE38N9cX
-X-Received: by 2002:a05:693c:6382:20b0:366:f9c2:9b16 with SMTP id 5a478bee46e88-36a423f5d7amr18122565eec.31.1793668490612;
-        Mon, 02 Nov 2026 17:14:50 -0800 (PST)
+        bh=yGfxGis/8g0KaCRnCd2Ma8RfczzUtJnT7BRnU64wFQA=;
+        b=KbEYUUOF3dyVJLRKom8ieCFcZ8YoQbw0tuOXYVzDw3QWrvwpURDU609Hz02ryBEFlI
+         zsl10tYEVMFA5/zcx3KIhWJVnD+rrP/KTdTvhjMzsbbYYv0DSG0hjGWqLWZV73Y22wyh
+         4BGOwZfcT11VMPEHHTJlyjj8mPUidQNQ33n5QYbwFJNsQHhKyIDdKKZ1jIPLm8+APkVl
+         IE5Prgrfn6Bi/N42FUD5+G7zawzYor88SjFYqHYqUD8o6OEA96mT/hxozNjl9iTo7qgI
+         JclI0IWF6/4a236ai7MV36sXyIE/2ORUM9z0xjc9E4VnHNbZAE9Xr6VUK7fT5VP4NTkQ
+         Ai+w==
+X-Forwarded-Encrypted: i=1; AKwUvBy++G02JkUckLQm6qzhkx7KYirZihrEXaB2xir0j5x0XSBjYvmbFVgOUglAnEMG/ie5PnAHPr5tqw9It30=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9d8gVrnO3Aajl/BFmc7a4/wT4pCbvhuxsTsAFzmicilKC+CzYt
+	0W2ITa9VR0F7knkODY33djgMXb96o4Sa4p/oOF74U9pNzafMf0+3bJ7I
+X-Gm-Gg: AYBFou1p3Pg5wn2/AiaEfzQ/9Kh+wSMhrnJoO1qbzTBT0yC6eD6NsYdPc09RC8q4icZ
+	UkYNCDzYh97DJW9af7NpGF7YXUBSqcfGlZNBL8nXymQm2E6U9N8ZouVTByP5G6FX8KCiN8OEMPG
+	tVh7MNtz4eT6n8AWv66USOQpxW9U80g29eaxtO8D9dP+gut0lHPKhVW2/Iep0aKW9gPW7gbgWUl
+	ZTUTAcWqQ+L6GfEfISAVDQQZ/i6Qy9XZs5WtOpHsi7GBSyykA0qTsdGvoN6IyYXgiZbr24Tplf2
+	aQT6sWH+bRAJGHFNlrlp6H7rqt5yJ5c8vteML0LDoJGQFORKY2F8dOrUc1+PUE3zYkqSX5lVAB4
+	O/QhI6+Jv2X+ylE6oop2Ni2fPmZjksgN97qiSEY5pk0Jjyy+CVfRgHCSwW6uYfUCA5rgveW30/N
+	RJRiVTYhjs1HwinFf/YbCI/alDKhUcYXefkXbRXD0fHqbfsTU8XIfJ/6KKI1qIu8yji2ytNDwiM
+	mbXUft25yANpcsc4tpNo9LvODhHYegdURfFALAbo98kMY3CUWWDDcD3Onsmdy4n9JDAySUVr+fK
+	QhelSVc6M0xJJdwE4SCML3xsT6FOGrSyJjkKQ9pe3Rg86KnTvHKDIJYaqNF7WNwGCL+x4vckQSM
+	ThWNLQlpVKD0Xhm0=
+X-Received: by 2002:a05:7300:7b81:b0:351:7ec1:a92c with SMTP id 5a478bee46e88-36a42431768mr26206992eec.28.1793668504130;
+        Mon, 02 Nov 2026 17:15:04 -0800 (PST)
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2602:294:1:b9:a2b::1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a426681aesm51988583eec.1.2026.11.02.17.14.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a426681aesm51988583eec.1.2026.11.02.17.15.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 17:14:49 -0800 (PST)
+        Mon, 02 Nov 2026 17:15:02 -0800 (PST)
 From: Hongyu Xie <xiehongyu1@kylinos.cn>
 To: samuel.thibault@ens-lyon.org, speakup@linux-speakup.org,
  linux-kernel@vger.kernel.org
 Cc: gregkh@linuxfoundation.org, chris@the-brannons.com, kirk@reisers.ca,
  w.d.hubbs@gmail.com, stable@vger.kernel.org
-Subject: [PATCH v3 2/4] speakup: Do not hold spk_mutex across catch_up()
-Date: Tue, 03 Nov 2026 09:14:45 +0800
-Message-ID: <179366848581.70545.6758144332656658334@kylinos.cn>
+Subject:
+ [PATCH v3 4/4] speakup: Serialize synth clearing against locked readers
+Date: Tue, 03 Nov 2026 09:14:59 +0800
+Message-ID: <179366849966.70545.13780230213235717518@kylinos.cn>
 In-Reply-To: <179366847311.70545.1738521378158835923@kylinos.cn>
 References: <179366847311.70545.1738521378158835923@kylinos.cn>
 Content-Type: text/plain; charset="utf-8"
@@ -87,271 +88,263 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-speakup_thread() holds spk_mutex while calling synth->catch_up().
-Apart from the indefinite retry loops fixed by the previous patch, a
-synth that digests its buffer slowly keeps the mutex held for the
-whole drain, so loading, unloading or switching any synth module
-blocks until all pending speech has been output, which may take
-arbitrarily long.
+speakup_key() checks the global synth before taking
+speakup_info.spinlock, but do_spkup() and its handlers dereference
+synth inside that lock: speech_kill() calls synth->is_alive(), and
+the flush path reaches synth_start() reading synth->alive.
+synth_release() clears synth under spk_mutex, which does not
+serialize against the key path, so a speakup key pressed while the
+synth is being removed can pass the unlocked check and oops on the
+stale pointer:
 
-Take spk_mutex off the catch_up() call path and keep the synth alive
-for the duration of the call instead:
+    CPU0 (speakup key)             CPU1 (rmmod -> synth_release)
+    ------------------            ----------------------------
+    speakup_key():
+      if (!synth)                  mutex_lock(&spk_mutex)
+        return  /* passes */       synth_release():
+    spin_lock(&speakup_info.         ... drain in-flight catch_up() ...
+        spinlock)                   synth->release(synth)
+    do_spkup():
+      speech_kill():
+        synth->is_alive()
+        /* synth whose release() already tore down its I/O */
 
-- speakup_thread() raises a catch-up count and releases spk_mutex
-  before calling catch_up(), re-taking it afterwards.
+Close the window on both sides: clear synth under
+speakup_info.spinlock in synth_release() and in the do_synth_init()
+probe-failure path, and recheck it after acquiring the lock in every
+reader that dereferences it there - do_spkup() at entry, the console
+notifier paths after their trylock, do_handle_shift(),
+do_handle_spec(), the speakup_key() special-handler dispatch,
+synth_direct_store(), and the /dev/synth and /dev/synthu write
+paths.  The unlocked checks that used to gate these paths only
+duplicated the in-lock recheck, with a window a clear could still
+slip through, and are dropped; the only behavior difference is that
+an empty write to /dev/synth or /dev/synthu with no synth loaded now
+returns 0 instead of -ENODEV, which is harmless.  The speakup thread
+keeps its existing fence: synth_release() drains the catch-up count
+before clearing.
 
-- synth_release() first clears synth->alive (which makes catch_up()
-  return) and wakes the thread out of its sleep, then waits for the
-  catch-up count to drop to zero before releasing the synth
-  resources (sysfs attributes, variables, tty).  The synth buffer is
-  cleared there as well, so a switch discards the text still pending
-  for the old synth instead of waiting for it to be output.  As
-  synth_remove() only returns after the drain, a synth module cannot
-  be unloaded while catch_up() still runs, so the synth structure
-  and its tty stay valid for the whole call without any module
-  reference counting:
-
-    CPU0 (speakup_thread)          CPU1 (synth_release)
-    -------------------            -------------------
-    atomic_inc(&synth_catch_up_count)
-    mutex_unlock(&spk_mutex)
-    synth->catch_up(synth)         spin_lock(&speakup_info.spinlock)
-      /* reads synth->alive,       synth->alive =3D 0
-         synth->io_ops, the tty */ spin_unlock(...)
-                                   wake the thread out of its sleep
-      /* returns once ->alive      wait_event(!synth_catch_up_count)
-         is 0 (loop exit of the    /* resources torn down only
-            previous patch) */        after the count hits zero */
-    atomic_dec_and_test(...)
-      wake_up(&synth_catch_up_waitq)
-                                   synth->release(synth)
-
-The SPEECH_KILL key handler can revive the synth at any time: the
-is_alive callbacks set synth->alive back to 1, so a revival landing
-after synth_release() cleared it keeps the loop running and the
-drain blocks forever.  Mark the synth with ->releasing under
-speakup_info.spinlock while it is being released, and have
-spk_synth_is_alive_restart() and spk_synth_is_alive_nop() skip the
-revival then, so the drain always terminates.
-
-The wake_up_process(speakup_task) sites (spk_do_flush(),
-do_synth_init(), synth_release()) get the same treatment: the
-keyboard notifier is registered before the kthread is created, so a
-key press in that window would pass NULL (or the kthread_create()
-error) to wake_up_process().  They now take the task pointer under
-rcu_read_lock() with READ_ONCE() and skip IS_ERR_OR_NULL() values;
-the exit path unregisters the notifiers first, and
-atomic_notifier_chain_unregister() synchronizes with the RCU
-readers, so by the time speakup_task is cleared no wakeup site is
-still running.
-
-After this change spk_mutex no longer serializes synth registration,
-unregistration and switching against speech output.
-
-This depends on the previous patch: the catch-up drain introduced
-here assumes that catch_up() eventually returns once synth->alive
-has been cleared, including in the local catch_up() copies of the
-serial synth drivers.
+Two sites of this shape remain, preexisting.  The cursor_done()
+timer callback dereferences synth inside the lock with no synth
+check at all; closing it needs the cursor_timer lifetime handled
+against synth teardown, which is beyond this series.  The serial
+read buffer handler (synth_readbuf_handler()) has the same shape but
+cannot run in this tree: the only registration chain goes through
+spk_serial_synth_probe(), which has no callers, and any
+registration from outside the tree is still serialized by the
+free_irq() in the serial synth release path, which runs before the
+in-lock clear.
 
 Fixes: 2067fd92d75b6 ("staging/speakup: Move out of staging")
+Suggested-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 Cc: stable@vger.kernel.org
 Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>
 Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
 ---
- drivers/accessibility/speakup/spk_priv.h  |  3 ++
- drivers/accessibility/speakup/spk_types.h |  1 +
- drivers/accessibility/speakup/synth.c     | 59 +++++++++++++++++++++--
- drivers/accessibility/speakup/thread.c    | 11 ++++-
- 4 files changed, 70 insertions(+), 4 deletions(-)
+ drivers/accessibility/speakup/devsynth.c | 13 ++++++----
+ drivers/accessibility/speakup/kobjects.c |  8 +++---
+ drivers/accessibility/speakup/main.c     | 31 ++++++++++++++++++------
+ drivers/accessibility/speakup/synth.c    |  4 +++
+ 4 files changed, 41 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/accessibility/speakup/spk_priv.h b/drivers/accessibility=
-/speakup/spk_priv.h
-index 9da57ead17cb..967862cd0440 100644
---- a/drivers/accessibility/speakup/spk_priv.h
-+++ b/drivers/accessibility/speakup/spk_priv.h
-@@ -75,6 +75,9 @@ struct spk_synth *synth_current(void);
+diff --git a/drivers/accessibility/speakup/devsynth.c b/drivers/accessibility=
+/speakup/devsynth.c
+index e3d909bd0480..5a32d3bbf7b8 100644
+--- a/drivers/accessibility/speakup/devsynth.c
++++ b/drivers/accessibility/speakup/devsynth.c
+@@ -20,8 +20,6 @@ static ssize_t speakup_file_write(struct file *fp, const ch=
+ar __user *buffer,
+ 	unsigned long flags;
+ 	u_char buf[256];
 =20
- extern struct speakup_info_t speakup_info;
+-	if (!synth)
+-		return -ENODEV;
+ 	while (count > 0) {
+ 		bytes =3D min(count, sizeof(buf));
+ 		if (copy_from_user(buf, ptr, bytes))
+@@ -29,6 +27,10 @@ static ssize_t speakup_file_write(struct file *fp, const c=
+har __user *buffer,
+ 		count -=3D bytes;
+ 		ptr +=3D bytes;
+ 		spin_lock_irqsave(&speakup_info.spinlock, flags);
++		if (!synth) {
++			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
++			return -ENODEV;
++		}
+ 		synth_write(buf, bytes);
+ 		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
+ 	}
+@@ -47,9 +49,6 @@ static ssize_t speakup_file_writeu(struct file *fp, const c=
+har __user *buffer,
+ 	u16 ubuf[256];
+ 	size_t in, out;
 =20
-+extern atomic_t synth_catch_up_count;
-+extern wait_queue_head_t synth_catch_up_waitq;
-+
- extern struct var_t synth_time_vars[];
+-	if (!synth)
+-		return -ENODEV;
+-
+ 	want =3D 1;
+ 	while (count >=3D want) {
+ 		/* Copy some UTF-8 piece from userland */
+@@ -84,6 +83,10 @@ static ssize_t speakup_file_writeu(struct file *fp, const =
+char __user *buffer,
+ 		/* And speak this up */
+ 		if (out) {
+ 			spin_lock_irqsave(&speakup_info.spinlock, flags);
++			if (!synth) {
++				spin_unlock_irqrestore(&speakup_info.spinlock, flags);
++				return -ENODEV;
++			}
+ 			for (in =3D 0; in < out; in++)
+ 				synth_buffer_add(ubuf[in]);
+ 			synth_start();
+diff --git a/drivers/accessibility/speakup/kobjects.c b/drivers/accessibility=
+/speakup/kobjects.c
+index e1860f8d9d42..45a8e9fbd8de 100644
+--- a/drivers/accessibility/speakup/kobjects.c
++++ b/drivers/accessibility/speakup/kobjects.c
+@@ -416,9 +416,6 @@ static ssize_t synth_direct_store(struct kobject *kobj,
+ 	char *unescaped;
+ 	unsigned long flags;
 =20
- extern struct spk_io_ops spk_serial_io_ops;
-diff --git a/drivers/accessibility/speakup/spk_types.h b/drivers/accessibilit=
-y/speakup/spk_types.h
-index a5762330e249..efb931db1850 100644
---- a/drivers/accessibility/speakup/spk_types.h
-+++ b/drivers/accessibility/speakup/spk_types.h
-@@ -200,6 +200,7 @@ struct spk_synth {
- 	unsigned char (*get_index)(struct spk_synth *synth);
- 	struct synth_indexing indexing;
- 	int alive;
-+	bool releasing;	/* set while synth_release() drains this synth */
- 	struct attribute_group attributes;
+-	if (!synth)
+-		return -EPERM;
+-
+ 	unescaped =3D kstrdup(buf, GFP_KERNEL);
+ 	if (!unescaped)
+ 		return -ENOMEM;
+@@ -426,6 +423,11 @@ static ssize_t synth_direct_store(struct kobject *kobj,
+ 	string_unescape_any_inplace(unescaped);
 =20
- 	void *dev;
+ 	spin_lock_irqsave(&speakup_info.spinlock, flags);
++	if (!synth) {
++		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
++		kfree(unescaped);
++		return -EPERM;
++	}
+ 	synth_write(unescaped, strlen(unescaped));
+ 	spin_unlock_irqrestore(&speakup_info.spinlock, flags);
+=20
+diff --git a/drivers/accessibility/speakup/main.c b/drivers/accessibility/spe=
+akup/main.c
+index e9b7c2761f6f..60be4d4df363 100644
+--- a/drivers/accessibility/speakup/main.c
++++ b/drivers/accessibility/speakup/main.c
+@@ -1166,9 +1166,13 @@ static void do_handle_shift(struct vc_data *vc, u_char=
+ value, char up_flag)
+ {
+ 	unsigned long flags;
+=20
+-	if (!synth || up_flag || spk_killed)
++	if (up_flag || spk_killed)
+ 		return;
+ 	spin_lock_irqsave(&speakup_info.spinlock, flags);
++	if (!synth) {
++		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
++		return;
++	}
+ 	if (cursor_track =3D=3D read_all_mode) {
+ 		switch (value) {
+ 		case KVAL(K_SHIFT):
+@@ -1763,11 +1767,15 @@ static void speakup_con_write(struct vc_data *vc, u16=
+ *str, int len)
+ {
+ 	unsigned long flags;
+=20
+-	if ((vc->vc_num !=3D fg_console) || spk_shut_up || !synth)
++	if ((vc->vc_num !=3D fg_console) || spk_shut_up)
+ 		return;
+ 	if (!spin_trylock_irqsave(&speakup_info.spinlock, flags))
+ 		/* Speakup output, discard */
+ 		return;
++	if (!synth) {
++		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
++		return;
++	}
+ 	if (spk_bell_pos && spk_keydown && (vc->state.x =3D=3D spk_bell_pos - 1))
+ 		bleep(3);
+ 	if ((is_cursor) || (cursor_track =3D=3D read_all_mode)) {
+@@ -1792,11 +1800,15 @@ static void speakup_con_update(struct vc_data *vc)
+ {
+ 	unsigned long flags;
+=20
+-	if (!speakup_console[vc->vc_num] || spk_parked || !synth)
++	if (!speakup_console[vc->vc_num] || spk_parked)
+ 		return;
+ 	if (!spin_trylock_irqsave(&speakup_info.spinlock, flags))
+ 		/* Speakup output, discard */
+ 		return;
++	if (!synth) {
++		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
++		return;
++	}
+ 	speakup_date(vc);
+ 	if (vc->vc_mode =3D=3D KD_GRAPHICS && !spk_paused && spk_str_pause[0]) {
+ 		synth_printf("%s", spk_str_pause);
+@@ -1811,9 +1823,13 @@ static void do_handle_spec(struct vc_data *vc, u_char =
+value, char up_flag)
+ 	int on_off =3D 2;
+ 	char *label;
+=20
+-	if (!synth || up_flag || spk_killed)
++	if (up_flag || spk_killed)
+ 		return;
+ 	spin_lock_irqsave(&speakup_info.spinlock, flags);
++	if (!synth) {
++		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
++		return;
++	}
+ 	spk_shut_up &=3D 0xfe;
+ 	if (spk_no_intr)
+ 		spk_do_flush();
+@@ -2087,6 +2103,8 @@ static spkup_hand spkup_handler[] =3D {
+=20
+ static void do_spkup(struct vc_data *vc, u_char value)
+ {
++	if (!synth)
++		return;
+ 	if (spk_killed && value !=3D SPEECH_KILL)
+ 		return;
+ 	spk_keydown =3D 0;
+@@ -2115,10 +2133,9 @@ speakup_key(struct vc_data *vc, int shift_state, int k=
+eycode, u16 keysym,
+ 	u_char shift_info, offset;
+ 	int ret =3D 0;
+=20
+-	if (!synth)
+-		return 0;
+-
+ 	spin_lock_irqsave(&speakup_info.spinlock, flags);
++	if (!synth)
++		goto out;
+ 	tty =3D vc->port.tty;
+ 	if (type >=3D 0xf0)
+ 		type -=3D 0xf0;
 diff --git a/drivers/accessibility/speakup/synth.c b/drivers/accessibility/sp=
 eakup/synth.c
-index 6a49ff475c16..40870949b3c6 100644
+index 1af80eb116af..aef482f8b14e 100644
 --- a/drivers/accessibility/speakup/synth.c
 +++ b/drivers/accessibility/speakup/synth.c
-@@ -24,6 +24,14 @@ char spk_pitch_buff[32] =3D "";
- static int module_status;
- bool spk_quiet_boot;
-=20
-+/*
-+ * Number of catch_up() calls currently in flight, and waitqueue used by
-+ * synth_release() to wait for them to finish before tearing down the
-+ * synth resources they may still be using.
-+ */
-+atomic_t synth_catch_up_count =3D ATOMIC_INIT(0);
-+DECLARE_WAIT_QUEUE_HEAD(synth_catch_up_waitq);
-+
- struct speakup_info_t speakup_info =3D {
- 	/*
- 	 * This spinlock is used to protect the entire speakup machinery, and
-@@ -154,6 +162,8 @@ EXPORT_SYMBOL_GPL(spk_synth_get_index);
-=20
- int spk_synth_is_alive_nop(struct spk_synth *synth)
- {
-+	if (synth->releasing)
-+		return 0;
- 	synth->alive =3D 1;
- 	return 1;
- }
-@@ -163,6 +173,18 @@ int spk_synth_is_alive_restart(struct spk_synth *synth)
- {
- 	if (synth->alive)
- 		return 1;
-+	/*
-+	 * The callers run under speakup_info.spinlock (speakup_key()
-+	 * holds it across do_spkup()), which is also the lock
-+	 * synth_release() takes to clear ->alive, so checking
-+	 * ->releasing here cannot race it: a synth being released is
-+	 * not revived, or an in-flight catch_up() draining to a stuck
-+	 * synth would never see ->alive cleared and synth_release()
-+	 * would block forever on the catch-up count while holding
-+	 * spk_mutex.
-+	 */
-+	if (synth->releasing)
-+		return 0;
- 	if (synth->io_ops->wait_for_xmitr(synth) > 0) {
- 		/* restart */
- 		synth->alive =3D 1;
-@@ -197,6 +219,8 @@ void synth_start(void)
-=20
- void spk_do_flush(void)
- {
-+	struct task_struct *task;
-+
- 	if (!synth)
- 		return;
-=20
-@@ -209,7 +233,11 @@ void spk_do_flush(void)
- 		}
- 	}
- 	wake_up_interruptible_all(&speakup_event);
--	wake_up_process(speakup_task);
-+	rcu_read_lock();
-+	task =3D READ_ONCE(speakup_task);
-+	if (!IS_ERR_OR_NULL(task))
-+		wake_up_process(task);
-+	rcu_read_unlock();
- }
-=20
- void synth_write(const char *_buf, size_t count)
-@@ -476,13 +504,18 @@ int synth_init(char *synth_name)
- /* called by: synth_add() */
- static int do_synth_init(struct spk_synth *in_synth)
- {
-+	struct task_struct *task;
- 	struct var_t *var;
-+	unsigned long flags;
-=20
- 	synth_release();
- 	if (in_synth->checkval !=3D SYNTH_CHECK)
- 		return -EINVAL;
- 	synth =3D in_synth;
- 	synth->alive =3D 0;
-+	spin_lock_irqsave(&speakup_info.spinlock, flags);
-+	synth->releasing =3D false;
-+	spin_unlock_irqrestore(&speakup_info.spinlock, flags);
+@@ -519,7 +519,9 @@ static int do_synth_init(struct spk_synth *in_synth)
  	pr_warn("synth probe\n");
  	if (synth->probe(synth) < 0) {
  		pr_warn("%s: device probe failed\n", in_synth->name);
-@@ -510,13 +543,17 @@ static int do_synth_init(struct spk_synth *in_synth)
- 		return -ENOMEM;
- 	synth_flags =3D synth->flags;
- 	wake_up_interruptible_all(&speakup_event);
--	if (speakup_task)
--		wake_up_process(speakup_task);
-+	rcu_read_lock();
-+	task =3D READ_ONCE(speakup_task);
-+	if (!IS_ERR_OR_NULL(task))
-+		wake_up_process(task);
-+	rcu_read_unlock();
- 	return 0;
++		spin_lock_irqsave(&speakup_info.spinlock, flags);
+ 		synth =3D NULL;
++		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
+ 		return -ENODEV;
+ 	}
+ 	synth_time_vars[0].u.n.value =3D
+@@ -585,7 +587,9 @@ void synth_release(void)
+ 	for (var =3D synth->vars; var->var_id !=3D MAXVARS; var++)
+ 		speakup_unregister_var(var->var_id);
+ 	synth->release(synth);
++	spin_lock_irqsave(&speakup_info.spinlock, flags);
+ 	synth =3D NULL;
++	spin_unlock_irqrestore(&speakup_info.spinlock, flags);
  }
 =20
- void synth_release(void)
- {
-+	struct task_struct *task;
- 	struct var_t *var;
- 	unsigned long flags;
-=20
-@@ -525,8 +562,24 @@ void synth_release(void)
- 	spin_lock_irqsave(&speakup_info.spinlock, flags);
- 	pr_info("releasing synth %s\n", synth->name);
- 	synth->alive =3D 0;
-+	synth->releasing =3D true;
- 	timer_delete(&thread_timer);
-+	synth_buffer_clear();
- 	spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-+	/*
-+	 * catch_up() may still be running without spk_mutex held (it gets
-+	 * taken off the mutex by speakup_thread()).  Wake it out of its
-+	 * sleep and wait until it is done before releasing the resources
-+	 * (sysfs, variables, tty) it may be accessing.  speakup_task can
-+	 * be an ERR_PTR here, when speakup_init() failed after the
-+	 * command-line synth_init().
-+	 */
-+	rcu_read_lock();
-+	task =3D READ_ONCE(speakup_task);
-+	if (!IS_ERR_OR_NULL(task))
-+		wake_up_process(task);
-+	rcu_read_unlock();
-+	wait_event(synth_catch_up_waitq, !atomic_read(&synth_catch_up_count));
- 	if (synth->attributes.name)
- 		sysfs_remove_group(speakup_kobj, &synth->attributes);
- 	for (var =3D synth->vars; var->var_id !=3D MAXVARS; var++)
-diff --git a/drivers/accessibility/speakup/thread.c b/drivers/accessibility/s=
-peakup/thread.c
-index 2fc75e60fbac..5279e112248b 100644
---- a/drivers/accessibility/speakup/thread.c
-+++ b/drivers/accessibility/speakup/thread.c
-@@ -50,9 +50,18 @@ int speakup_thread(void *data)
- 		if (synth && synth->catch_up && synth->alive) {
- 			/*
- 			 * It is up to the callee to take the lock, so that it
--			 * can sleep whenever it likes
-+			 * can sleep whenever it likes.  It may indeed sleep for
-+			 * a long while, e.g. while draining to a slow synth, so
-+			 * run it without spk_mutex: synth_release() waits for
-+			 * the catch-up count to drop before freeing the synth,
-+			 * hence the synth stays alive for the whole call.
- 			 */
-+			atomic_inc(&synth_catch_up_count);
-+			mutex_unlock(&spk_mutex);
- 			synth->catch_up(synth);
-+			if (atomic_dec_and_test(&synth_catch_up_count))
-+				wake_up(&synth_catch_up_waitq);
-+			mutex_lock(&spk_mutex);
- 		}
-=20
- 		speakup_start_ttys();
+ /* called by: all_driver_init() */
 --=20
 2.32.0
 
