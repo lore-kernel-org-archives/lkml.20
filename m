@@ -1,88 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722566;
-	b=jTjNWQu3fHGJ5A5JIQw6LLbBzhOKyKb72wu3TIms6Asj1qp1oFOSYEjkdin0zJW4Jyy7
-	 UMSYZxtOjoTwRtg0KiWlVCyfSQ4/0KSywKE4L016hSsfgp8VDycMZesk6yVTcAlmFsGxq
-	 B+2Iy30y2xKfV/um/NBRxovfd3BlqAf717Xam18+RLShhxuALHVmHkJsI8KB2It3JpOax
-	 OMLcKD2IA6PxbtHBlSAEAzypyom0L6TadLR0EUcmG+vnQ5yCPXieR0IfGtGCUqeYjaIl7
-	 Cn9pclGjngzP0e9SDQ9hW9eI2v66e8AC+x5K4Gc8IZTEK/xOcdGS4vmSG7nfx7dCQsg==
+	t=1793722602;
+	b=ssdQGd3BabJD+ZbMC+mmF0rRYZzHVI/x5NahS+N1ZwXmJDogGXsdQNm3IdDjKo0STFMz
+	 vUoEE+RniTWkNyiUwie7reDsZUF1OSybAhMLnO6nkyg52ZPDKSPtaUKTS/7x5TbKgw5h5
+	 493c/kQUpCOlvjj7t1Ea8OMjqPzYP0O8SMWCfgzHbTCGjcQJT6STlSdgySMllJYvYU2gT
+	 ivNgJDsHW/fORIgmkHYG9xkMW8z4QE+L30Pq71xfj0044TRr02tU5zfQnBOTVIUsFftur
+	 JFDncQIYvz714OzzMgO//Jf9AY/M1dUm25fHtK2TIwwySgQS+vxrXUlhftls5ETnq0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722566;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9LM7bW7BvJgw4gfAeBXkU89NfwFVZbgW9lWUN8AzG5Q=;
-	b=c1S7msOofK5GBSoz25tdBsdUqmDsxqt58DZasYoxbouJGswSfqwQlMv0wkMIiF4S7RpT
-	 cRIJdkV86WXoBH8n+AQPi51YBFBn0Y5vMGVRcapVqmzWMPtdcWV1ak5JaXlILXX7pKViF
-	 f5+XbVmIKspBKZErsljvDXJ7GkElfTEFCiPmjEekBbKayp6N0cp01J14d0VPZO6j7+DRj
-	 qUz5dzVNZFYeOW0Y9dHOC6vFblaU6BxRoMOFFLzJNzYClb1Rb/0H3NFDcrzk7cvDJ4OxW
-	 EP7bt+BeINuH6Rq6SZleEyXGUAjAV7kC7MT0U8eLuMv9o3f4kwcWU88q0rPW0PxaOsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722602;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=BSURkJWn0WOY0anZbHcDJ2sPzRJFppuAJJqratEJAWY=;
+	b=V48a2c1EoQVZYWhvvm8X1QzL03PJKEZP6FB4LG7zJExb8RPWtRcb7/guzyvRS2y40uPP
+	 sJeNWGb5Lp1+6iEginrbmCM99kw/77JiqGI5/Ta7d2V+OGYHPqW1C1L/+UYDc4EP0Wlns
+	 5enU4bbZDZJgpXhf9wFGaEYzJk9RTUs+rxvlkwqowMDja+jjSetoH24yCRDTH3ALOEpcN
+	 ZMsBOI+L0UTHYrPJQq3c2ml2vVbJZViVMgCS1/jPjenH/F3cTvhtmI2xBbUNQTnQ6ELki
+	 gYmKp6xRAtOOWTb1icXy1KkgaihJNXcWntviDrqoGgHiqL48z3CqtZuQFt+W9xuzHGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qph3Iegx;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOkTSrTI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3614E606EEAC;
-	Tue,  3 Nov 2026 16:16:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3614E606EEAC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B254F606D804;
+	Tue,  3 Nov 2026 16:16:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qph3Iegx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793722553; bh=9LM7bW7BvJgw4gfAeBXkU89NfwFVZbgW9lWUN8AzG5Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qph3IegxGiV35MCw5XBbvK/cAxl2YBMIanem09v3elODGZ/Tw7LYPre8xNLVFv5gO
-	 ReTudtNbbiI5WocjfmtG884qE8vzE+Xd946FSFPzPoc4nlQjOqbx5WQ8fghMyimB6I
-	 Gxk8VtSr9bzEp5ROOORtDB4T89NaHnhOPOTnCm5k=
-Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:4bda:7622:58c1:3569])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 3F1850EE; Wed, 04 Nov 2026 00:15:49 +0800
-X-QQ-mid: xmsmtpt1793722549tp9bgxq3r
-Message-ID: <tencent_9109FFF19F0341A556269E694408976E2708@qq.com>
-X-QQ-XMAILINFO: N/WmRbclY25Gc3Kg9n4OQQwOYiQ/YgRH6M/jRKFHKIayuWGMjDc8UcWKTobeoG
-	 lCEcSoMmSfLNQk6YsvQzBBiSRTD6/O/ISt+Ox7HlY+3ODnN+iH/wJE96p9P+7UiVfvoiCYxw6+3M
-	 PqnkTPB39fGg6gbqBleP3ViOlXJyDwPj6IFptVdENtxZERHliCJ4e7RE0DtXLl5FrxzNPCuGolqY
-	 l3id8M94eW/j45OkYgdC21RcyeuuaX++7fIptX7ZJX1dK3eabxcODTwnAQyGKk9CTNYjs0nDbHpG
-	 Ly39dRlED0t9fsOkXPhhxTCmvAG9upjbLU0IXcrttMiGqXqAN5RGqU+cipk3kYLMtFcG5Io2pjB6
-	 tx9SIjfZwfxFrLd1ncZTjSJmHqtHSs5QGKvSuRconbpeN+WHTeyKx3AtltFCAA/dkIIvlSBnJxic
-	 Q9xoGthgG3mkSDoeW/NoHxji3jrG4DxHeoO0q+Dt/byt+I0+Kh/r9ydbZPT5yBexyrH19LS3WfgK
-	 tCyY46v1ZuNAQiJgbh91l6KEYUrEWi67O/HdfY6PlSWQVoD5388BtWv1T04tfJ7weU5dRz9cRib9
-	 3/NAQUazL5nfQwI7RdhERggVI+V1vYrJ6lJD7uBrZ1A9VOLSiQw31Wq6LRVdn9YnGuinASCr62tU
-	 rsjpDd2ltDNURW6dFFvDhv74ECOiDSMtUzTnNgN24BAfP8yCWW3pVFJ4KiqzACpUsAznc+bAtjis
-	 lC+xUgFMXig7UdEUmyZURjoVWhDX6NM04wDULg/XflSvrSMEkocfQPTg0rk2efUEwYwXYwlIWkuC
-	 AaPNnp9GvB57+SuKbOKPfCcGypDCxCEoOD6vLYuxu8iW4e0LRFeIqT2frbm3egj9ye96y3gnh6Ot
-	 nKzSiSvdMUkYrrOMGjMtihOyUhZVKWhjpYSlRVjKfL0NlJw4BswwE5AVM1dExm8niwZBBoTGANG3
-	 0O7hSi8hfLqBtmXq7nzuK23H7UwcIRnDeLu6T0Dq4tDEaT83DHNQNb24gLOqW7dAvee2OaLh7+rs
-	 Nrg876DE0/5LgNIHirJfFXZ5GxhbtdkwMV7eRX6ITj4D/dgQI+7PzYsStTffagXjDMxU2mXg==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Yingjie Wang <1075151112@qq.com>
-To: lvs-devel@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: horms@verge.net.au,
-	ja@ssi.bg,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH nf v2] ipvs: reject negative sync_refresh_period values
-Date: Wed,  4 Nov 2026 00:15:49 +0800
-X-OQ-MSGID: <bc742c371e85fbb5fc60bc79868a10b1d03aaf58.1793722537.git.1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <tencent_C567615098D5B2A71811CFE5CB09C9FFC406@qq.com>
-References: <tencent_C567615098D5B2A71811CFE5CB09C9FFC406@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOkTSrTI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EDB1F000C1;
+	Tue,  3 Nov 2026 16:16:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793722601;
+	bh=BSURkJWn0WOY0anZbHcDJ2sPzRJFppuAJJqratEJAWY=;
+	h=From:Date:Subject:To:Cc;
+	b=MOkTSrTIeM+eTu168yZYd31L2CQqTHYREHA0mjZ2RTauoPD132dnddGqfjNGf6jqk
+	 n0T4hVGKXBmHUV1dcw2NXZj7p5t1Js8Juqqapz4epAZ6PO6UDhDtLJovUyg2jKYUN3
+	 DpXPNJqeySMwq2EosO9byTSUHxZo3MUTCtZiEbq8XhGDR/2kcMzN9ZGmOHiobowVjT
+	 aasPoMQdrX8tIwaGL4FSjeEuCpoUiD5+PTNP5kaMLB9/ENUkzrHfIZ4SM34WgRB1cB
+	 d2zZobkPo69q6KfKWVDPPyE/7wKfYHbwIkCi3xaAU22GFz6aqnQ5QgtqjtoDxwF0Qi
+	 XwoCR8Xg9I7cw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Date: Tue, 03 Nov 2026 17:16:28 +0100
+Subject: [PATCH v3] rust: xarray: fix false positive lockdep warnings
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,106 +52,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-xarray-lockdep-fix-v3-1-e188bec82003@kernel.org>
+X-B4-Tracking: v=1; b=H4sIANsI6moC/33NTQqDMBAF4KuUWTclPyTVrnqP0kWMowbFyKQER
+ bx7o5tSKGVW78H7ZoWI5DHC7bQCYfLRhzEHdT6B6+zYIvN1ziC5NFxyw2ZLZBc2BNfXOLHGz0z
+ wRjhnCtT1FfJwIsz1gT6eOXc+vgItx48k9vYvlwTLp5TQpRZVocy9RxpxuARqYfeS/BiG65+Gz
+ IbUVmte2gpRfRnbtr0B/8uH3vkAAAA=
+X-Change-ID: 20260206-xarray-lockdep-fix-10f1cc68e5d7
+To: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Tamir Duberstein <tamird@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Boqun Feng <boqun@kernel.org>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Andreas Hindborg <a.hindborg@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6528; i=a.hindborg@kernel.org;
+ h=from:subject:message-id; bh=zW8CTkyLa5/Xfhlku1cMkbmOKZnpkUiI+klPyk+NhXo=;
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBq6gjdBsVxhiVB6uBDIGlVa6URlAS8YvNrGesx3
+ JMDoCqkW0KJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCauoI3QAKCRD6UCkIqsW9
+ 0FDyD/9ROvfEc0GytNOQPMYsfGyCck2Ua1VwykH6yuTHUIaj0O/N7ga1X7iUPOQnvNDKluqQhmA
+ YmI6+SlcH7u/mdQXEr4y/7jOvZZ6mg9LWMWrOz2ciMqiK2XAcEVc9DhnKZLbvPUYGQZVhMo2YB8
+ BxgLqjR6y6u3UIf0trVaCG4KY86z1fywyk+wXWbbnEnEOY6IPaKhZ3I1qhN6nF7HSWdn6redSdd
+ cQBrdn63U4QNJihQ261c6naXbk6Fwf1pSYSP1yNMeCjyUJVJ5RZ0pHdoPFG1L7luq0U44jfHHix
+ RCmMxmEoOMc5Nbsgcgv4nEOndZTdVuwGDJpTiNOfCfhA0JUkLgxaGt71i8si+fwcgtCS/G3uBhZ
+ l3/Xh5qF4ob4F4PRpf4yeNsOmLPTBWJVJsfBg+NMNErrKnFpOauPuDlm+cW2EP4EqDlUJ7VBGyl
+ YEUQJ/vSW6gDcDu1APt7VPbRa/ptgPeGaI3kSd2Bwc19JdHv6AKkdajLos8BdXzSwzmY5NyYiNT
+ Hav8zziTjx7d97kXZIGYmy01J18MLdfLKXsqz0QyZREVGS+fTjDMZqWVPYZ/U9fmMrBsBxHpDXK
+ ohsvDf0VSYxVhbX22c53AuqBk6qlTyoBAUTF4sggArxmgqioEBSjeRzTPkPEah9N0zyq9DIeni3
+ DmRyCcTqbSg2wSw==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 
-net.ipv4.vs.sync_refresh_period is documented as an unsigned number of
-seconds.  proc_dointvec_jiffies() accepts a signed integer and converts
-it to jiffies before storing it in an unsigned int field.  Consequently,
-writing -1 stores UINT_MAX - HZ + 1 jiffies and bypasses the finite
-bound applied to ordinary positive writes.
+`xa_init_flags()` is a static inline that expands `spin_lock_init()`,
+which generates a single static `lock_class_key` per compilation unit.
+When used through the Rust binding helper, every Rust `XArray`
+instance ends up sharing that single key. Lockdep then sees concurrent
+locking of distinct Rust `XArray`s as recursive locking on the same
+class and emits false-positive lock-ordering reports.
 
-This changes the behavior of ip_vs_sync_conn_needed().  With
-sync_threshold="0 1" (threshold 0, period 1) and
-sync_refresh_period=-1, only the first of twelve packets requests a
-sync message; the zero-refresh control requests all twelve.
+Add a custom helper `xa_init_flags_with_key()` that mirrors
+`xa_init_flags()` but takes an explicit name and `struct
+lock_class_key` from the caller. Update `XArray::new` to take a name
+and a `LockClassKey`, and add a `new_xarray!` macro that uses
+`optional_name!` and `static_lock_class!` to generate a unique class
+per instantiation site.
 
-Store the value in seconds, as documented, and convert it at the single
-consumer.  Use proc_douintvec_minmax() to reject negative input.  Cap the
-value at INT_MAX / HZ to preserve the prior jiffies range and avoid
-overflow in secs_to_jiffies().
+Remove the now unused `rust_helper_xa_init_flags`.
 
-The issue was reproduced on an affected 7.0 distribution kernel in a
-temporary network namespace.  A patched target kernel was built with W=1
-and exercised in QEMU; -1 is now rejected with EINVAL, zero and positive
-values retain their behavior, and the HZ=1000 boundary accepts 2147483
-while rejecting 2147484.
+This was previously part of the series at [1].
 
-Fixes: 749c42b620a9 ("ipvs: reduce sync rate with time thresholds")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Link: https://lore.kernel.org/r/20251203-xarray-entry-send-v1-0-9e5ffd5e3cf0@kernel.org [1]
+Fixes: 210b81578efbe ("rust: xarray: Add an abstraction for XArray")
+Suggested-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Tamir Duberstein <tamird@kernel.org>
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 ---
+This now mirrors `init_work_with_key()` in `rust/helpers/workqueue.c`,
+which takes a name and a `struct lock_class_key` from the caller for
+exactly the same reason: the C initializer it replaces produces one static
+lock class per call site, so routing every Rust caller through a single
+helper would collapse them all onto one class.
 
-Notes:
-    Changes since v1:
-    - Drop the unnecessary <linux/jiffies.h> include.
-    - Rebase on current net/main and use the nf target tag.
-    
-    Link: https://lore.kernel.org/r/tencent_C567615098D5B2A71811CFE5CB09C9FFC406@qq.com/
+Changes in v3:
+- Rebase on v7.4-rc1.
+- Reword the comment on `xa_init_flags_with_key()` to describe the helper
+  for its caller rather than its implementation (Tamir).
+- Drop the unnecessary type ascription in the `XArray` example (Tamir).
+- Link to v2: https://msgid.link/20260605-xarray-lockdep-fix-v2-1-25a5509abee3@kernel.org
 
- include/net/ip_vs.h            | 6 +++---
- net/netfilter/ipvs/ip_vs_ctl.c | 8 ++++++--
- 2 files changed, 9 insertions(+), 5 deletions(-)
+Changes in v2:
+- Use a C helper `xa_init_flags_with_key()` that calls
+  `lockdep_set_class_and_name()` to install the caller-supplied key,
+  rather than calling `__spin_lock_init()` from Rust. Mirrors the
+  `init_work_with_key()` pattern in `rust/helpers/workqueue.c`
+  (suggested by Alice Ryhl, seconded by Tamir Duberstein).
+- Add `Suggested-by: Alice Ryhl <aliceryhl@google.com>`.
+- Correct Tamir's `Acked-by:` email to `tamird@kernel.org`.
+- Rebase on v7.1-rc2.
+- Link to v1: https://msgid.link/20260206-xarray-lockdep-fix-v1-1-13315951b836@kernel.org
+---
+ rust/helpers/xarray.c | 17 +++++++++++++++--
+ rust/kernel/xarray.rs | 27 +++++++++++++++++++++++----
+ 2 files changed, 38 insertions(+), 6 deletions(-)
 
-diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-index 9a83bff32569..b6834542489a 100644
---- a/include/net/ip_vs.h
-+++ b/include/net/ip_vs.h
-@@ -1267,7 +1267,7 @@ struct netns_ipvs {
- 	int			sysctl_sloppy_sctp;
- 	int			sysctl_expire_quiescent_template;
- 	int			sysctl_sync_threshold[2];
--	unsigned int		sysctl_sync_refresh_period;
-+	unsigned int		sysctl_sync_refresh_period; /* seconds */
- 	int			sysctl_sync_retries;
- 	int			sysctl_nat_icmp_send;
- 	int			sysctl_pmtu_disc;
-@@ -1335,7 +1335,7 @@ struct netns_ipvs {
- #define DEFAULT_SYNC_VER	1
- #define DEFAULT_SLOPPY_TCP	0
- #define DEFAULT_SLOPPY_SCTP	0
--#define DEFAULT_SYNC_REFRESH_PERIOD	(0U * HZ)
-+#define DEFAULT_SYNC_REFRESH_PERIOD	0U
- #define DEFAULT_SYNC_RETRIES		0
- #define IPVS_SYNC_WAKEUP_RATE	8
- #define IPVS_SYNC_QLEN_MAX	(IPVS_SYNC_WAKEUP_RATE * 4)
-@@ -1363,7 +1363,7 @@ static inline int sysctl_sync_period(struct netns_ipvs *ipvs)
- 
- static inline unsigned int sysctl_sync_refresh_period(struct netns_ipvs *ipvs)
- {
--	return READ_ONCE(ipvs->sysctl_sync_refresh_period);
-+	return secs_to_jiffies(READ_ONCE(ipvs->sysctl_sync_refresh_period));
+diff --git a/rust/helpers/xarray.c b/rust/helpers/xarray.c
+index 08979b304341..f6cc05b26cc0 100644
+--- a/rust/helpers/xarray.c
++++ b/rust/helpers/xarray.c
+@@ -7,9 +7,22 @@ __rust_helper int rust_helper_xa_err(void *entry)
+ 	return xa_err(entry);
  }
  
- static inline int sysctl_sync_retries(struct netns_ipvs *ipvs)
-diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-index ce9fe20d6106..82726b6b5e3a 100644
---- a/net/netfilter/ipvs/ip_vs_ctl.c
-+++ b/net/netfilter/ipvs/ip_vs_ctl.c
-@@ -2369,6 +2369,8 @@ static int ip_vs_zero_all(struct netns_ipvs *ipvs)
+-__rust_helper void rust_helper_xa_init_flags(struct xarray *xa, gfp_t flags)
++/*
++ * Initialize `xa` with `flags` and register its internal spinlock with the
++ * caller-supplied lockdep class `key` and name `name`, both of which must
++ * live for the lifetime of `xa`.
++ *
++ * `xa_init_flags()` cannot be used instead: it expands `spin_lock_init()`,
++ * which yields one static lockdep class per compilation unit, so every
++ * caller reaching it through a Rust helper would share a single class.
++ */
++__rust_helper void rust_helper_xa_init_flags_with_key(struct xarray *xa,
++						      gfp_t flags,
++						      const char *name,
++						      struct lock_class_key *key)
+ {
+-	return xa_init_flags(xa, flags);
++	xa_init_flags(xa, flags);
++	lockdep_set_class_and_name(&xa->xa_lock, key, name);
+ }
  
- #ifdef CONFIG_SYSCTL
+ __rust_helper int rust_helper_xa_trylock(struct xarray *xa)
+diff --git a/rust/kernel/xarray.rs b/rust/kernel/xarray.rs
+index 987c9c0c2198..84e7fb051612 100644
+--- a/rust/kernel/xarray.rs
++++ b/rust/kernel/xarray.rs
+@@ -10,6 +10,8 @@
+     build_assert::build_assert,
+     error::{Error, Result},
+     ffi::c_void,
++    str::{CStr, CStrExt},
++    sync::LockClassKey,
+     types::{
+         ForeignOwnable,
+         NotThreadSafe,
+@@ -19,6 +21,19 @@
+ use core::{iter, marker::PhantomData, pin::Pin, ptr::NonNull};
+ use pin_init::{pin_data, pin_init, pinned_drop, PinInit};
  
-+static unsigned int sync_refresh_period_max = INT_MAX / HZ;
++/// Creates a [`XArray`] initialiser with the given name and a newly-created lock class.
++///
++/// It uses the name if one is given, otherwise it generates one based on the file name and line
++/// number.
++#[macro_export]
++macro_rules! new_xarray {
++    ($kind:expr $(, $name:literal)? $(,)?) => {
++        $crate::xarray::XArray::new(
++            $kind, $crate::optional_name!($($name)?), $crate::static_lock_class!())
++    };
++}
++pub use new_xarray;
 +
- static int
- proc_do_conn_max(const struct ctl_table *table, int write,
- 		 void *buffer, size_t *lenp, loff_t *ppos)
-@@ -2824,9 +2826,11 @@ static struct ctl_table vs_vars[] = {
- 	},
- 	{
- 		.procname	= "sync_refresh_period",
--		.maxlen		= sizeof(int),
-+		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
--		.proc_handler	= proc_dointvec_jiffies,
-+		.proc_handler	= proc_douintvec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= &sync_refresh_period_max,
- 	},
- 	{
- 		.procname	= "sync_retries",
+ /// An array which efficiently maps sparse integer indices to owned objects.
+ ///
+ /// This is similar to a [`crate::alloc::kvec::Vec<Option<T>>`], but more efficient when there are
+@@ -33,9 +48,9 @@
+ ///
+ /// ```rust
+ /// use kernel::alloc::KBox;
+-/// use kernel::xarray::{AllocKind, XArray};
++/// use kernel::xarray::{new_xarray, AllocKind, XArray};
+ ///
+-/// let xa = KBox::pin_init(XArray::new(AllocKind::Alloc1), GFP_KERNEL)?;
++/// let xa = KBox::pin_init(new_xarray!(AllocKind::Alloc1), GFP_KERNEL)?;
+ ///
+ /// let dead = KBox::new(0xdead, GFP_KERNEL)?;
+ /// let beef = KBox::new(0xbeef, GFP_KERNEL)?;
+@@ -92,7 +107,11 @@ pub enum AllocKind {
+ 
+ impl<T: ForeignOwnable> XArray<T> {
+     /// Creates a new initializer for this type.
+-    pub fn new(kind: AllocKind) -> impl PinInit<Self> {
++    pub fn new(
++        kind: AllocKind,
++        name: &'static CStr,
++        key: Pin<&'static LockClassKey>,
++    ) -> impl PinInit<Self> {
+         let flags = match kind {
+             AllocKind::Alloc => bindings::XA_FLAGS_ALLOC,
+             AllocKind::Alloc1 => bindings::XA_FLAGS_ALLOC1,
+@@ -102,7 +121,7 @@ pub fn new(kind: AllocKind) -> impl PinInit<Self> {
+             //
+             // INVARIANT: `xa` is initialized here to an empty, valid [`bindings::xarray`].
+             xa <- Opaque::ffi_init(|xa| unsafe {
+-                bindings::xa_init_flags(xa, flags)
++                bindings::xa_init_flags_with_key(xa, flags, name.as_char_ptr(), key.as_ptr())
+             }),
+             _p: PhantomData,
+         })
 
-base-commit: 647b81ddefc6364290e67bf33c89d54971f8995e
--- 
-2.43.0
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260206-xarray-lockdep-fix-10f1cc68e5d7
+
+Best regards,
+--  
+Andreas Hindborg <a.hindborg@kernel.org>
+
 
