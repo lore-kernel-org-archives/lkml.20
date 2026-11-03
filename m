@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694507;
-	b=n9HETNRZVjRg1ihmCmITSYZ/EH0Y8L6w7k2fIGl0pe6WgksS7olm7u9QJ+5bUTFgNjHm
-	 MXCms8jr6TcMaMMPUiZYUA+jKSWuMN0MTzWDtJJBaFmAyhZnJCjx6rVv0r8VMNJUPLRNT
-	 ICQRvAlRd5vzg9nGqF94MLMuCGecp2J3wcdmxt6/sL0dsFuGRFPECVdscfPvyRkA5QPix
-	 mS0KBSwsOJH2iQWxNULHpKrRlHVtjPd++IJ/qVTEx7CTTj/EpI/+ed6Q7+P/N/VROpoeb
-	 w5adXt8PsuWCwo9ifflaz5QqEO9WlLOzMvh4ODARlnCKLBDuj3s0KVxb2nxEMZOgZJg==
+	t=1793694492;
+	b=AlkNxTiJX5pmwY1dnhT0OH3k/lQEu+1aoAvgTR+vQD38JEQcHJJk0Din8oE/CcANz6wP
+	 jif14w8dDxEMGbE7GxNYIqXiNKGx7KOgy8X8wW9BJXGiAVNIPhqObh1YAMdkjnPF+vP0F
+	 eKODxO+auibTm9TAF5cNyoUhP5hPtvO+IS0zBNyo9Ex38ilnYE5lj5Z5A/58uNlkIrFlE
+	 UpMQ6FurC2C8GYuegQ4hnjWHxg+wAppw0uCz+7mjJSVa8rwbS2tCCwgTuWwRUDMHL2nEE
+	 AmAuFsC0MJeKJetlcgR3py2nKoza6hT5wZBmGnN2LO6vskBPR3+LqCuVJXMqMypXOHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694507;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694492;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=syysjtWhfrzlfEaldEsTM26pEEl0o8azDUYhhDNzYQk=;
-	b=DAYSkgEaroM6EYJ3mn17J0J1pQkxhkoL/bki/kmrdunwrzSCtMH1emUxEQzzS00XTUPi
-	 RXO6pnQsv7wHN2B5mkCxtWgQ7OVV0ugHdXVvflU5phf+YkR+h6eZNsOxqGpFK/6wavE2H
-	 ZLDKurZgdAJewT9SabUalYZQ2SIHw+ByUMKqbcvoWQDY8Rp3pN+6RE0Q14KWWVVFdBkSI
-	 nL9TD/TMYbw7no5rGM4FAUtKMv69ef4zv+ejoMrp/+GrjfjUX3gLo38IXP+kM/7UZkYB+
-	 cy9kzqJB065EHStuZmwhEqcP0HmsMrMx40Ir+4ZSIeTl7dudhqKS4NhoCg5iuCTXsng==
+	bh=OvY0AiutF4T/EB4hRLo3HpPGeukYkdDeEJ/iU+h1ORc=;
+	b=BrWM6ekPlkWYZ0OlKPaweKuJ0eDGzx0VkFl9l4f7IgTULKNahPV/4oiPNcBUAbZVENz6
+	 vCHJtTd7vSd1VLS22hZc+UN3rh5dG87Ujf0e69WPXJt2mjjIahK5z1Dtd4gJkYJpuqzjT
+	 8IjgLoK/ULfT3wEnuAR4u5Lo+zoHBQpoTszsb+BqAtPRKGHP8zlUcCKO6zGAAan5yWbvx
+	 ychHNP+5e707Gs80fVIgwjftZ6vlm8CNtBH/t79iUh88EnkUWUs2ZMn3kGMCaiNtBQY/1
+	 QxPOrG1rCipNTfwD328G+gGChZDWYA9lgVDmeCz5cr1MvKTCSfoedcHdVR5FarqSZkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lww+V+Uc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jsi2k6DU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F0A606A337;
-	Tue,  3 Nov 2026 08:28:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E08606A326;
+	Tue,  3 Nov 2026 08:28:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lww+V+Uc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83B2F1F00A15;
-	Tue,  3 Nov 2026 08:28:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jsi2k6DU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55461F00A18;
+	Tue,  3 Nov 2026 08:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694506;
-	bh=syysjtWhfrzlfEaldEsTM26pEEl0o8azDUYhhDNzYQk=;
+	s=k20260515; t=1793694491;
+	bh=OvY0AiutF4T/EB4hRLo3HpPGeukYkdDeEJ/iU+h1ORc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Lww+V+Uc0HnDEMnlaPNGK3FmZK2Wnvx+sTOFI0bhrUqedqS0E/A0WpmuXi/Dfb6X5
-	 bwKWFdt/R6ToGf3lwLiEyRLjZCzQcisgulT3d0c2vrmJNw7vKlhbX6QAiIIKcm6UEy
-	 Fa/xbMH2eLwCFtpeE6fDPW4ceKZeaWhv7vINA+DqB/1Gx+fTixflTB6NGWvcDWGNOB
-	 wHsTp6tH8WC46WwQ6qu+a5wSXNryqO6BX/EUINPYInua8QLpUDce6s+KNl3fnaDTOA
-	 nOBkdr4yc1IjgCHHU/FZP0CcI74qSbOppjVpZC5skjUQtdpo8rId3LS9ViUZmkR82p
-	 mV8vrx9PwAzTA==
+	b=Jsi2k6DU7Oh4aCzLUoyqdjj7G7J2pWq2gAvAERDaWugLeCNd45aEyJUjjH1j3DIZ/
+	 4WK2D69zuXf0TH9ivA4uU9EhOPCOuxAd/uwOLvAb1rTsiZq0JdKIbHch8U79SWHR9/
+	 TQjwjIApWZVNqq7wkmW3QcGZEer2VvcsJ24gorf/qPVJPaBaRru6Sr6+kR/04yj0Vr
+	 JoK2GPJHqpPFLmyP478wap5BJcXtgqU2I45bSkryz3AbK+7/vJMy9asK6uLB4fzk+1
+	 xK0QKeLbJ+lljB2lGISxrOsqQ7AiLZyoyLJ+shsQF9Easzn435NgEVR/yPaR+yHlJO
+	 7ouc47z0RzQKQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 03 Nov 2026 08:27:44 +0000
-Subject: [PATCH 3/5] locking/rwsem: add down_read[_killable]_nosteal()
+Date: Tue, 03 Nov 2026 08:27:42 +0000
+Subject: [PATCH 1/5] Revert "mm/khugepaged: remove definition of struct
+ khugepaged_mm_slot"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-khugepaged-latency-fix-v1-3-a07ab16ac860@kernel.org>
+Message-Id: <20261103-khugepaged-latency-fix-v1-1-a07ab16ac860@kernel.org>
 References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
 In-Reply-To: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
 To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
@@ -78,219 +79,228 @@ To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7465; i=ljs@kernel.org;
- h=from:subject:message-id; bh=xtvSRfFhxlbNSRroaUFE9M6KTB+D22EsX7i6cFBQZL0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJezub5/9PB9+MNEfPOmi3q32b+565bpTJjuYhysUMdp
- +n9RX6rOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRlUmMDI8POjeq85rmRQn5
- zgz7E3Ev91+B7sPupdEH2JvUc9bt+cTwv95OP7WoI2nxt1kMizfePH/WbM3nJu32fbecG7bVfbH
- dywwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6851; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=ty70DWaf971lvzzena0vW+gJxafYRNDAfLReCqRuH9g=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJezuaZ6c1iubrVitX2xWq/2QVdm4KCPmW9fvta6xbnY
+ qnbNya96ihlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBElsky/C9i1kvb4+hrmTtl
+ j6N6SdyECTMOH1MJjA1jYSvdc8FTwYPhn1n5q71Kv1g29y++f31Z73vXaxvEX3g2HmY8eC206t7
+ zt2wA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Since commit 1a728dff855a ("locking/rwsem: Enable reader optimistic lock
-stealing") a sleeping, queued writer whose handoff timeout hasn't expired
-can have its lock stolen by a read lock issued before a woken queued writer
-was able to acquire a lock.
+This partially reverts commit b4c9ffb54b32 ("mm/khugepaged: remove
+definition of struct khugepaged_mm_slot"), as a subsequent commit needs to
+resurrect this type to store additional data alongside the mm_slot.
 
-To avoid write lock starvation, this is only permitted if no other read
-locks are held.
+The stated intent of the commit was to address a NULL check in
+__khugepaged_exit():
 
-However, this behaviour defeats the purpose of a reader periodically
-dropping the lock to allow writers in, as doing so only works if the write
-lock is acquired first, another read lock is held, or a queued writer's
-handoff timeout has expired.
+	mm_slot = mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
 
-Provide a means of indicating this intent via down_read_nosteal() and
-down_read_killable_nosteal().
+slot can be NULL and mm_slot_entry() is an alias for container_of(), so
+this is container_of() a NULL value.
 
-Implement it by exposing a steal parameter to rwsem_down_read_slowpath(),
-update the starvation logic to modify this parameter and modify the steal
-branch to check it first.
+This was benign as there was only 1 field in khugepaged_mm_slot (offsetting
+NULL at 0 results in NULL), however it was right to fix this, so retain the
+fix.
 
-Also drop the duplicated RWSEM_WRITER_LOCKED check and remove the
-goto as the steal condition makes this redundant.
-
-Exposing this function is safe as it only makes the lock more pessimistic,
-so does not impact lock contention.
+It also unwrapped KMEM_CACHE() in khugepaged_init(). This was a mistake,
+and was itself reverted in commit c14bdcc9f274 ("mm/khugepaged: use
+KMEM_CACHE()"). Therefore, retain the KMEM_CACHE() form in this revert.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/rwsem.h  |  2 ++
- kernel/locking/rwsem.c | 71 +++++++++++++++++++++++++++++++++++++++++---------
- 2 files changed, 60 insertions(+), 13 deletions(-)
+ mm/khugepaged.c | 57 ++++++++++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 38 insertions(+), 19 deletions(-)
 
-diff --git a/include/linux/rwsem.h b/include/linux/rwsem.h
-index 6a1a7bae5f81..66ab6fad5e24 100644
---- a/include/linux/rwsem.h
-+++ b/include/linux/rwsem.h
-@@ -227,8 +227,10 @@ static inline void rwsem_assert_held_write(const struct rw_semaphore *sem)
-  * lock for reading
-  */
- extern void down_read(struct rw_semaphore *sem) __acquires_shared(sem);
-+void down_read_nosteal(struct rw_semaphore *sem) __acquires_shared(sem);
- extern int __must_check down_read_interruptible(struct rw_semaphore *sem) __cond_acquires_shared(0, sem);
- extern int __must_check down_read_killable(struct rw_semaphore *sem) __cond_acquires_shared(0, sem);
-+int __must_check down_read_killable_nosteal(struct rw_semaphore *sem) __cond_acquires_shared(0, sem);
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index da91762f6358..aad8797f8d5a 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -66,6 +66,14 @@ static DEFINE_READ_MOSTLY_HASHTABLE(mm_slots_hash, MM_SLOTS_HASH_BITS);
  
- /*
-  * trylock for reading -- returns 1 if successful, 0 if contention
-diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
-index b9c180ac1eee..75fa9fcdee91 100644
---- a/kernel/locking/rwsem.c
-+++ b/kernel/locking/rwsem.c
-@@ -1014,7 +1014,8 @@ static inline void rwsem_cond_wake_waiter(struct rw_semaphore *sem, long count,
-  * Wait for the read lock to be granted
+ static struct kmem_cache *mm_slot_cache __ro_after_init;
+ 
++/**
++ * struct khugepaged_mm_slot - khugepaged information per mm that is being scanned
++ * @slot: hash lookup from mm to mm_slot
++ */
++struct khugepaged_mm_slot {
++	struct mm_slot slot;
++};
++
+ /**
+  * struct khugepaged_scan - cursor for scanning
+  * @mm_head: the head of the mm list to scan
+@@ -76,7 +84,7 @@ static struct kmem_cache *mm_slot_cache __ro_after_init;
   */
- static struct rw_semaphore __sched *
--rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int state)
-+rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int state,
-+			 bool steal)
+ struct khugepaged_scan {
+ 	struct list_head mm_head;
+-	struct mm_slot *mm_slot;
++	struct khugepaged_mm_slot *mm_slot;
+ 	unsigned long address;
+ };
+ 
+@@ -386,7 +394,7 @@ int hugepage_madvise(struct vm_area_struct *vma,
+ 
+ int __init khugepaged_init(void)
  {
- 	long adjustment = -RWSEM_READER_BIAS;
- 	long rcnt = (count >> RWSEM_READER_SHIFT);
-@@ -1023,17 +1024,16 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int stat
+-	mm_slot_cache = KMEM_CACHE(mm_slot, 0);
++	mm_slot_cache = KMEM_CACHE(khugepaged_mm_slot, 0);
+ 	if (!mm_slot_cache)
+ 		return -ENOMEM;
  
+@@ -446,20 +454,22 @@ static bool hugepage_enabled(void)
+ 
+ void __khugepaged_enter(struct mm_struct *mm)
+ {
++	struct khugepaged_mm_slot *mm_slot;
+ 	struct mm_slot *slot;
+ 	int wakeup;
+ 
+ 	/* __khugepaged_exit() must not run from under us */
+ 	VM_BUG_ON_MM(collapse_test_exit(mm), mm);
+ 
+-	slot = mm_slot_alloc(mm_slot_cache);
+-	if (!slot)
++	mm_slot = mm_slot_alloc(mm_slot_cache);
++	if (!mm_slot)
+ 		return;
+ 
+ 	if (unlikely(mm_flags_test_and_set(MMF_VM_HUGEPAGE, mm))) {
+-		mm_slot_free(mm_slot_cache, slot);
++		mm_slot_free(mm_slot_cache, mm_slot);
+ 		return;
+ 	}
++	slot = &mm_slot->slot;
+ 
+ 	spin_lock(&khugepaged_mm_lock);
+ 	mm_slot_insert(mm_slots_hash, mm, slot);
+@@ -504,12 +514,15 @@ void khugepaged_enter_vma(struct vm_area_struct *vma,
+ 
+ void __khugepaged_exit(struct mm_struct *mm)
+ {
++	struct khugepaged_mm_slot *mm_slot;
+ 	struct mm_slot *slot;
+ 	int free = 0;
+ 
+ 	spin_lock(&khugepaged_mm_lock);
+ 	slot = mm_slot_lookup(mm_slots_hash, mm);
+-	if (slot && khugepaged_scan.mm_slot != slot) {
++
++	mm_slot = slot ? mm_slot_entry(slot, struct khugepaged_mm_slot, slot) : NULL;
++	if (mm_slot && khugepaged_scan.mm_slot != mm_slot) {
+ 		mm_slot_remove(slot);
+ 		free = 1;
+ 	}
+@@ -517,9 +530,9 @@ void __khugepaged_exit(struct mm_struct *mm)
+ 
+ 	if (free) {
+ 		mm_flags_clear(MMF_VM_HUGEPAGE, mm);
+-		mm_slot_free(mm_slot_cache, slot);
++		mm_slot_free(mm_slot_cache, mm_slot);
+ 		mmdrop(mm);
+-	} else if (slot) {
++	} else if (mm_slot) {
+ 		/*
+ 		 * This is required to serialize against
+ 		 * collapse_test_exit() (which is guaranteed to run
+@@ -1773,8 +1786,9 @@ static enum scan_result collapse_scan_anon(struct vm_area_struct *vma,
+ 	return result;
+ }
+ 
+-static void collect_mm_slot(struct mm_slot *slot)
++static void collect_mm_slot(struct khugepaged_mm_slot *mm_slot)
+ {
++	struct mm_slot *slot = &mm_slot->slot;
+ 	struct mm_struct *mm = slot->mm;
+ 
+ 	lockdep_assert_held(&khugepaged_mm_lock);
+@@ -1790,7 +1804,7 @@ static void collect_mm_slot(struct mm_slot *slot)
+ 		 */
+ 
+ 		/* khugepaged_mm_lock actually not necessary for the below */
+-		mm_slot_free(mm_slot_cache, slot);
++		mm_slot_free(mm_slot_cache, mm_slot);
+ 		mmdrop(mm);
+ 	}
+ }
+@@ -2891,6 +2905,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+ 	__acquires(&khugepaged_mm_lock)
+ {
+ 	struct vma_iterator vmi;
++	struct khugepaged_mm_slot *mm_slot;
+ 	struct mm_slot *slot;
+ 	struct mm_struct *mm;
+ 	struct vm_area_struct *vma;
+@@ -2900,12 +2915,14 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+ 	*result = SCAN_FAIL;
+ 
+ 	if (khugepaged_scan.mm_slot) {
+-		slot = khugepaged_scan.mm_slot;
++		mm_slot = khugepaged_scan.mm_slot;
++		slot = &mm_slot->slot;
+ 	} else {
+ 		slot = list_first_entry(&khugepaged_scan.mm_head,
+ 				     struct mm_slot, mm_node);
++		mm_slot = mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
+ 		khugepaged_scan.address = 0;
+-		khugepaged_scan.mm_slot = slot;
++		khugepaged_scan.mm_slot = mm_slot;
+ 	}
+ 	spin_unlock(&khugepaged_mm_lock);
+ 
+@@ -2981,7 +2998,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+ breakouterloop_mmap_lock:
+ 
+ 	spin_lock(&khugepaged_mm_lock);
+-	VM_BUG_ON(khugepaged_scan.mm_slot != slot);
++	VM_BUG_ON(khugepaged_scan.mm_slot != mm_slot);
  	/*
- 	 * To prevent a constant stream of readers from starving a sleeping
--	 * writer, don't attempt optimistic lock stealing if the lock is
--	 * very likely owned by readers.
-+	 * writer, only attempt optimistic lock stealing if the lock is
-+	 * unlikely to be owned by readers.
- 	 */
--	if ((atomic_long_read(&sem->owner) & RWSEM_READER_OWNED) &&
--	    (rcnt > 1) && !(count & RWSEM_WRITER_LOCKED))
--		goto queue;
-+	steal &= !(atomic_long_read(&sem->owner) & RWSEM_READER_OWNED) ||
-+		rcnt <= 1;
+ 	 * Release the current mm_slot if this mm is about to die, or
+ 	 * if we scanned all vmas of this mm, or THP got disabled.
+@@ -2993,14 +3010,16 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+ 		 * mm_slot not pointing to the exiting mm.
+ 		 */
+ 		if (!list_is_last(&slot->mm_node, &khugepaged_scan.mm_head)) {
+-			khugepaged_scan.mm_slot = list_next_entry(slot, mm_node);
++			slot = list_next_entry(slot, mm_node);
++			khugepaged_scan.mm_slot =
++				mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
+ 			khugepaged_scan.address = 0;
+ 		} else {
+ 			khugepaged_scan.mm_slot = NULL;
+ 			khugepaged_full_scans++;
+ 		}
  
- 	/*
- 	 * Reader optimistic lock stealing.
- 	 */
--	if (!(count & (RWSEM_WRITER_LOCKED | RWSEM_FLAG_HANDOFF))) {
-+	if (steal && !(count & (RWSEM_WRITER_LOCKED | RWSEM_FLAG_HANDOFF))) {
- 		rwsem_set_reader_owned(sem);
- 		lockevent_inc(rwsem_rlock_steal);
- 
-@@ -1052,7 +1052,6 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int stat
- 		return sem;
+-		collect_mm_slot(slot);
++		collect_mm_slot(mm_slot);
  	}
  
--queue:
- 	waiter.task = current;
- 	waiter.type = RWSEM_WAITING_FOR_READ;
- 	waiter.timeout = jiffies + RWSEM_WAIT_TIMEOUT;
-@@ -1281,14 +1280,15 @@ static struct rw_semaphore *rwsem_downgrade_wake(struct rw_semaphore *sem)
- /*
-  * lock for reading
-  */
--static __always_inline int __down_read_common(struct rw_semaphore *sem, int state)
-+static __always_inline int __down_read_common(struct rw_semaphore *sem, int state,
-+					      bool steal)
+ 	trace_mm_khugepaged_scan(mm, cc->progress - progress_prev,
+@@ -3090,7 +3109,7 @@ static void khugepaged_wait_work(void)
+ 
+ static int khugepaged(void *none)
  {
- 	int ret = 0;
- 	long count;
+-	struct mm_slot *slot;
++	struct khugepaged_mm_slot *mm_slot;
  
- 	preempt_disable();
- 	if (!rwsem_read_trylock(sem, &count)) {
--		if (IS_ERR(rwsem_down_read_slowpath(sem, count, state))) {
-+		if (IS_ERR(rwsem_down_read_slowpath(sem, count, state, steal))) {
- 			ret = -EINTR;
- 			goto out;
- 		}
-@@ -1301,17 +1301,27 @@ static __always_inline int __down_read_common(struct rw_semaphore *sem, int stat
+ 	set_freezable();
+ 	set_user_nice(current, MAX_NICE);
+@@ -3101,10 +3120,10 @@ static int khugepaged(void *none)
+ 	}
  
- static __always_inline void __down_read(struct rw_semaphore *sem)
- {
--	__down_read_common(sem, TASK_UNINTERRUPTIBLE);
-+	__down_read_common(sem, TASK_UNINTERRUPTIBLE, true);
-+}
-+
-+static __always_inline void __down_read_nosteal(struct rw_semaphore *sem)
-+{
-+	__down_read_common(sem, TASK_UNINTERRUPTIBLE, false);
+ 	spin_lock(&khugepaged_mm_lock);
+-	slot = khugepaged_scan.mm_slot;
++	mm_slot = khugepaged_scan.mm_slot;
+ 	khugepaged_scan.mm_slot = NULL;
+-	if (slot)
+-		collect_mm_slot(slot);
++	if (mm_slot)
++		collect_mm_slot(mm_slot);
+ 	spin_unlock(&khugepaged_mm_lock);
+ 	return 0;
  }
- 
- static __always_inline int __down_read_interruptible(struct rw_semaphore *sem)
- {
--	return __down_read_common(sem, TASK_INTERRUPTIBLE);
-+	return __down_read_common(sem, TASK_INTERRUPTIBLE, true);
- }
- 
- static __always_inline int __down_read_killable(struct rw_semaphore *sem)
- {
--	return __down_read_common(sem, TASK_KILLABLE);
-+	return __down_read_common(sem, TASK_KILLABLE, true);
-+}
-+
-+static __always_inline int __down_read_killable_nosteal(struct rw_semaphore *sem)
-+{
-+	return __down_read_common(sem, TASK_KILLABLE, false);
- }
- 
- static inline int __down_read_trylock(struct rw_semaphore *sem)
-@@ -1502,6 +1512,11 @@ static inline void __down_read(struct rw_semaphore *sem)
- 	rwbase_read_lock(&sem->rwbase, TASK_UNINTERRUPTIBLE);
- }
- 
-+static inline void __down_read_nosteal(struct rw_semaphore *sem)
-+{
-+	__down_read(sem);
-+}
-+
- static inline int __down_read_interruptible(struct rw_semaphore *sem)
- {
- 	return rwbase_read_lock(&sem->rwbase, TASK_INTERRUPTIBLE);
-@@ -1512,6 +1527,11 @@ static inline int __down_read_killable(struct rw_semaphore *sem)
- 	return rwbase_read_lock(&sem->rwbase, TASK_KILLABLE);
- }
- 
-+static inline int __down_read_killable_nosteal(struct rw_semaphore *sem)
-+{
-+	return __down_read_killable(sem);
-+}
-+
- static inline int __down_read_trylock(struct rw_semaphore *sem)
- {
- 	return rwbase_read_trylock(&sem->rwbase);
-@@ -1577,6 +1597,16 @@ void __sched down_read(struct rw_semaphore *sem)
- }
- EXPORT_SYMBOL(down_read);
- 
-+void __sched down_read_nosteal(struct rw_semaphore *sem)
-+	__no_context_analysis
-+{
-+	might_sleep();
-+	rwsem_acquire_read(&sem->dep_map, 0, 0, _RET_IP_);
-+
-+	LOCK_CONTENDED(sem, __down_read_trylock, __down_read_nosteal);
-+}
-+EXPORT_SYMBOL(down_read_nosteal);
-+
- int __sched down_read_interruptible(struct rw_semaphore *sem)
- 	__no_context_analysis
- {
-@@ -1607,6 +1637,21 @@ int __sched down_read_killable(struct rw_semaphore *sem)
- }
- EXPORT_SYMBOL(down_read_killable);
- 
-+int __sched down_read_killable_nosteal(struct rw_semaphore *sem)
-+	__no_context_analysis
-+{
-+	might_sleep();
-+	rwsem_acquire_read(&sem->dep_map, 0, 0, _RET_IP_);
-+
-+	if (LOCK_CONTENDED_RETURN(sem, __down_read_trylock, __down_read_killable_nosteal)) {
-+		rwsem_release(&sem->dep_map, _RET_IP_);
-+		return -EINTR;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(down_read_killable_nosteal);
-+
- /*
-  * trylock for reading -- returns 1 if successful, 0 if contention
-  */
 
 -- 
 2.56.0
