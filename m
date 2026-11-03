@@ -1,96 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738994;
-	b=2XXe2X6Of0s0G60kvLgFE/CkChTdDc3Q9GieZ29HGKM1cEerws+rO6LcO19anYt7scV4
-	 B6oeqcoO18+Qieiy0gAxSp+YQqFiOb3iUPpzPkMxjrMCyArfFmWCwL2p9gGAjc32UgJX0
-	 20wWWi3CDx0HedozyaMTs05JCpP4PI7NlF8bZ79lP5bc9FAys3e3ITGw1lZpz5KY1ilae
-	 srAMW7hGL27kGsYBaf88mRL4Pak+anPPpla54SPhgn8+crjj5quBjgeKyXsqZoj5PiE67
-	 TByIPBf0/HpY9vTOIUGg/BAM7FHUgkcJmOh72OAUP4W2q1m8Jf6O8dDGOH6iWyxOljw==
+	t=1793739029;
+	b=rSXTnDjt0/WGHjCKFFsRwvCK6y2+3VNphPt3n5nBQd93aV5ep9/2u1r4tUs9BgH+nlLI
+	 rFIwCgweYSo2QVuCsBzGqtxNOIGLve+P+hsXHsTmBHNwLKVggcgMcW4yglMKA5LIV23zq
+	 OoPlcATemZB84OIR0+pV4EJkn5BC85YFqI7jdL5pJYcFsQvAbfATAGFKsN4F0eSHnoV7j
+	 LvopFNXDNtlXPsb0kXVUiurmvofubo0y73lL+5yJiIuwS9j9BW6ry2DAuQIl1ktyzr/f1
+	 n+ed3X0dOJlw5PIbImS4JnUdnxo9zXezviAmrcZZ80PzZiovwziIhEZ2znKYaRMRd+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738994;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=vsBN/U3w7HiU12daWsEJrqxDOHajJ7sejATwoccs78Q=;
-	b=bWw3KMlW9wYqH3T18ebJ4T+hmh1WetoZewwEqZrxRJViLaOB8RP1xblVaJjlc00EDYDe
-	 l9Mk4V4g2HjblGVknOlZE0cRo4j5nbvomFgG5byZT7pDiUnOuvW7bzJqlJNSN2pRvuDgN
-	 p4Dccib3V0aJzqQms1p/wphQ1jTSDzgAZj73+jeJqHuGWzqzYyPTImXpHfQiZT2t+1OAY
-	 0NWeRmsu7aMNC03edHADuAWOm2UgAfyPDzcwXIF5H5R4JGN5QOYdKQfm74+CHZw+Uahy6
-	 jbRGvtsGhRu3jI66F46YgJylTnC96bJ34SXiqco3xP/NmN29XvGMOqcF0pcvG74loXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739029;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=xELWjlpLSei6f90PTVpULHIqJs/YZ9fxtevXdlFEib0=;
+	b=j3TyiKlgv+ZGnUbnmvtug199gcvtv8P+7C781qApF3JK5kkn1qcow/2b8xpbSSQOcyLn
+	 ELk2DEnaKPVacRQ7uEXsNZFQ86j1fKAeiBnEUHhklfoFuQW5eejr9fgUkiwc+utwoeXfK
+	 ELXhwyfbAmilHQavUBbvOnXXL6HcRSUxJTuqlCQSOY15ojvh0XXd7QuCISm4s+SmRRKqJ
+	 P6C0sNQ1maE6/dbVFrZEj5yWm/Z4+jTDPepaagmpzI2Q8abyp4V7LK8Y/dy7E3JXdXEk7
+	 DLRr5GALdifglRqNDqIxQq0c17gJV6YHzH/KGHDFegzHv49QPTKruyLH8Fk8huzgasQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=fMnpa+1T;
-	arc=none smtp.remote-ip=209.85.217.48
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=3hlB2CED;
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD0E606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:49:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACD0E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511FD606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:50:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 511FD606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=fMnpa+1T
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7ce78f9d6baso781245137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:49:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793738992; x=1794343792; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vsBN/U3w7HiU12daWsEJrqxDOHajJ7sejATwoccs78Q=;
-        b=fMnpa+1TiwfQPLuzFj5KOL6nFs02Wh1/Q1YpGU6fPLgP3xa3v32+1TjkV7QnIVan9X
-         Au8t7zhlc/Wqy8IvIN+6jwLOFQbroSFX7e5zl0iAE7wFfeVbzt0sIuL3znxfqictoNsU
-         AszKx1EvRDOQodQNEXb/u5LjHwROXDEMTmdCip+hwRGCmIxicUkyjygp47Jsy/AWcCRd
-         diAEVE+F0cg81rpl7V3b9WCEeI9XS94s04/3X+zMUyu4ualbNDhpMfK0cW3xt4RRyBNm
-         9tphFt4TM7T6ssY5Yq9vio5SJIJno9nEOGWGr+KAQeT+pXFnFKGV+dWl2SH0fY4XHZUn
-         +r0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793738992; x=1794343792;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vsBN/U3w7HiU12daWsEJrqxDOHajJ7sejATwoccs78Q=;
-        b=0ldcNUuDfVY78xPm+zpz+3kuvjBWWhktg2Z7GuZrB3Q++ViEjleFlWb/VEf/CrRV16
-         aJziUS/BBdinhdQ3Ezg03lmAGlxVeH7wlTZ8K1OsbeWpWd+902IsZU4sFgGsjqPeM4x6
-         K2uDO7Qqvxp1TLG8wVGZMnCLNaeha0HFdvFANgc1V5zP1b9oYoiAOWkcZmjm0qUnFx5s
-         3Xoq54Jfqne/WVlZMeo85f9v6vnkIiqDAmNxlP8nm61uPnCMBoO2McvCql1xX/IgXclW
-         MKEc0mHDKtTQTmGR2pnmk5oBs7OVi4ApcjHEdCZw//KEuoNaRJjdaSPm4vBBuuAt+nD9
-         Fgrg==
-X-Forwarded-Encrypted: i=1; AKwUvBwdT2L3BoOZGG6CyVTKIxFlhHWWsYh2pkx03ZSHnAdQJR06I4ZraD75+oiH1K1Sigp1nwAVMPgkYYx266g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Fdy1N6SJsB5AZTuraQZWWKXj4Lt55fQx60XIsCOUaXU7FbJBD
-	F1Nvz1zuLWA77R9Q2q0oumlnrMXsZcxLGOwjmlYf6OWfa9On+aIfg/QWiAyhVHGcFfU=
-X-Gm-Gg: AYBFou1A0MlW0GzW4HxD7xOsoc0OThpyTqZjm2QiXEDE8i3mI/GyunLF5XYP1sjBUr9
-	bNQrVyS5SGUrf7WfiE5b1Gv2XPrRgEQxyw96es3K9L9XpSlGZSSr1j2fxT1SID59vcHGiQIR+1A
-	yGvXc7S5loIqn0b+GW84ZEb3/IBvChg/njfm2fZhoxbPIRDuibxosOcfvDorP9qt8B5MpFUcQwy
-	FmcfZNQ1Oka+nGymi9qaVtP454/Ju730QRK/1q3zb0AyKHjmYN1VZ4DKEPH24zd4I3sIdnrwKm7
-	dRqo6KE5RQF+E/K5tcZdGcXMvLYV6+16gO3xzd5Ia7X4gDiY1kL29DLiuVFfUZ8jClRZWLaWAaF
-	burbQoxCQ/9m8rQiBaluoTuofgEJ3aZ3EkBW9TvVjwEUV4Jikcdxkh/ph+Yyta9n1Ta5hGdlLGz
-	bwgY0qWTpnzD4EGdvC2AelQbPqvl4+tWq/FthP2B5AoTtOeSn8T2yghrleHApj/ow2jBvfJtuGI
-	94VkUps5SGZUC8HQJSVYRo5S/PeNQI9GOkzA3Ahlwe92d7DOU0O7beBfyUMNmx6kIQttkJGvvsx
-	whqjh8wvTrtChzAhVxZ37diCpzWFEz/ZhopVpqJc+Ty0ryLSxQZdVV0qB2bw2+C11AjCTX04OLf
-	EUNZL/k4i4gFFixSX8pYEoMsTzXZKqo1eeZ7w3IKUP+mIH0kXevMIkk+0Q/SAVTFU2oa0nA==
-X-Received: by 2002:a05:6102:4194:b0:7b4:9eba:69dd with SMTP id ada2fe7eead31-7d0543c880dmr4776321137.45.1793738992639;
-        Tue, 03 Nov 2026 12:49:52 -0800 (PST)
-Received: from soleen.c.googlers.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca8d77c6esm117398e0c.6.2026.11.03.12.49.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:49:52 -0800 (PST)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Mike Rapoport <rppt@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Pratyush Yadav <pratyush@kernel.org>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org
-In-Reply-To: <20261103172251.2348370-1-pratyush@kernel.org>
-References: <20261103172251.2348370-1-pratyush@kernel.org>
-Subject: Re: [PATCH v2] mm/memfd_luo: don't use memfd_pin_folios()
-Message-Id: <179373899206.721270.10991415543158845800.b4-ty@b4>
-Date: Tue, 03 Nov 2026 15:49:52 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=3hlB2CED
+Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
+	by cmsmtp with ESMTPS
+	id OHwTxncYmyb4YOLSfx2Dta; Tue, 03 Nov 2026 20:50:29 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id OLSdxQGJ20w3mOLSexTxCB; Tue, 03 Nov 2026 20:50:28 +0000
+X-Authority-Analysis: v=2.4 cv=ZtntK87G c=1 sm=1 tr=0 ts=6aea4914
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=zd2uoN0lAAAA:8
+ a=_jlGtV7tAAAA:8 a=klRYj2L7PfcOG0d8UPIA:9 a=QEXdDO2ut3YA:10
+ a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=xELWjlpLSei6f90PTVpULHIqJs/YZ9fxtevXdlFEib0=; b=3hlB2CEDBZwe
+	aiEylSCBEhU+z8JZSKLZp1kftWUvB1Xvm2YsQWW7K+D+A4muhD2MMK6dbIr8W6XpGrgrsm8cuDjz+
+	u7iOz66NDTS0PoifCQogRaESOGC2qlImEHwFes6rmcITgF9lxjNeYs6a4fFZhMyrT0VamrGRArz9Z
+	5AfScOvNqpBU6saJnEDdELPzgfvHSvp81CByYWtAKskoYSLCiKdpTqPorqnQsBYsGnvUrqUNPry87
+	ItyhlIeKD7vpkHGulL12RllEd52Rpq+PmiRFLMSOcHvD9tYGvAYek0k2nmGEZCeTeUvut3ohFQDus
+	3bpSBfPmBVvzEkC8NhkBmQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:59138)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xOLSb-00000001ohg-3diX;
+	Wed, 04 Nov 2026 02:20:25 +0530
+Message-ID: <d468fa55-c0fc-471c-9341-b735fb394fa3@roeck-us.net>
+Date: Tue, 3 Nov 2026 12:50:23 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,34 +76,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 4/4] hwmon: add AMD Pensando ionic sensor driver
+To: "Nikhil P. Rao" <nikhil.rao@amd.com>,
+ Brett Creeley <brett.creeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-hardening@vger.kernel.org, Abhijit Gangurde
+ <abhijit.gangurde@amd.com>, Arun Kumar Prakash <ArunKumar.Prakash@amd.com>,
+ Eric Joyner <eric.joyner@amd.com>
+References: <20261103-pr46-b4-v1-0-850ab7fbec19@amd.com>
+ <20261103-pr46-b4-v1-4-850ab7fbec19@amd.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261103-pr46-b4-v1-4-850ab7fbec19@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xOLSb-00000001ohg-3diX
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:59138
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 7
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfA4S7ywg0Z50uWkSW/OXxKCzAgJpugoGLmf3rMoLojdf3R5Q4594lHyEHVp0qH6IQG8O3HaIUaPltOp+ebRQBPxmeuDJQeQbdQyCB85p5a2HbjIajcHQ
+ 41d0cygK86OQ3ioR+LL0ZE8Og0z0uxpgYQrszIP05q1ZWb01yEcIsbSEp0AO0tP8ZnwnBQAasN7dy93UN0+rzmsK7ieXHmEp3AwQXx1E76xg0et+1/wvXSyQ
 
-On Tue, 03 Nov 2026 18:22:50 +0100, Pratyush Yadav wrote:
-> memfd_luo takes a snapshot of the folios in the file's mapping. To make
-> sure the snapshot does not go out of sync, it pins the folios in the
-> file via memfd_pin_folios(). The pinning also migrates the folios out of
-> MIGRATE_MOVABLE to make sure doesn't land in KHO boot memory or in a CMA
-> region.
+On 11/3/26 10:14, Nikhil P. Rao wrote:
+> From: Arun Kumar Prakash <ArunKumar.Prakash@amd.com>
 > 
-> memfd_pin_folios() does not lock the folios. So it can race with
-> shmem_writeout(). A folio returned by memfd_pin_folios() might already
-> be in swap cache. This happens to work but is fragile. memfd_luo looks
-> at folio flags and index on a folio that isn't in the memfd's page
-> cache.
+> Add an auxiliary driver that binds to the "ionic.hwmon" device created
+> by the ionic Ethernet driver and reports the adapter's temperature,
+> voltage and power sensors through hwmon.
 > 
-> [...]
+> The sensor set depends on the board and firmware, so the driver reads
+> it from the device at probe rather than hard-coding it. A sensor type
+> with a channel the driver does not recognise is skipped as a whole,
+> since hwmon channel numbers must match the firmware's.
+> 
+> The hwmon device is parented to the adapter's PCI function rather than
+> to the auxiliary device, so lm-sensors names it by PCI address instead
+> of as a virtual device.
+> 
+> Signed-off-by: Arun Kumar Prakash <ArunKumar.Prakash@amd.com>
+> Signed-off-by: Eric Joyner <eric.joyner@amd.com>
+> Reviewed-by: Brett Creeley <brett.creeley@amd.com>
+> Co-developed-by: Nikhil P. Rao <nikhil.rao@amd.com>
+> Signed-off-by: Nikhil P. Rao <nikhil.rao@amd.com>
 
-Applied, thanks!
+Acked-by: Guenter Roeck <linux@roeck-us.net>
 
-https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git/log/?h=next
-
-[1/1] mm/memfd_luo: don't use memfd_pin_folios()
-      commit: 9d07522bf59b3eb4b89b3a791a780a30884bfb5a
-
-Best regards,
--- 
-Pasha
-
+Thanks,
+Guenter
 
