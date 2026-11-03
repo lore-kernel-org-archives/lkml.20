@@ -1,72 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708561;
-	b=tDJ4hujcwKuXNLNJu1nTefJsvzmXrYQIH3JL/zg9F/zFx3WJ6aU/Mnm4fu0wbcHpLTqZ
-	 YAC8/zyAKXU229q3X+G2aUcf9eFO3SZ9y1dY9XPmX9i/iUqgXrRjkbaqA8ALTOTh0g6b1
-	 nxGbZPZLTUvJb8GrWl0iFaDpkmmR7v/7Dv8Xsyefy3WdTpi6PZ3ilqSeNMYm+JcdR5U2Q
-	 Pf8sXhQIMPexqPxsqGs09kHJafwvqnZDPxqqcgGE79cC7OYSstFkbB2kthghqEUN6e8/z
-	 q+qspuXqbO3dYAgKDbdNcSAvK8EWYLRL/oIPzH871lSfiXqUA9qr6MO3iHJ4g9ErvYg==
+	t=1793708596;
+	b=Zou7qkKP+ncm9aO0I1Peu8ERrk090zAr9AhUzy02aPxV/gidbucl8Wt51tRw40srZU5b
+	 QRFTsUCVrNxQhX1CumTBVQ40I2YoTx6re2hJNtT/1p0edDbb1crfyppmm3Jv8y4PFgzVl
+	 8jkjoqzPjCMhCXU0Hbyt3xfWjA/9aRsSW0QFS73o8t7ql/U3YuBvSb/ruRMrggO8XY5oB
+	 R7N38lOxjgj86cd4pe97fTyz57BA7uKodZtCsNxWkLriUn6/HF64ecRNxeKgo9Pe/KUM5
+	 tHyAaczuQJWwcI3GYkXkrYBOrEoCu3rD+zKWQXHTfXdC8ZwzIx9+wzF10gSgadMU+JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708561;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-MBO-RS-ID:X-MBO-RS-META;
-	bh=jgY0YRLdw++1SlF9Oy8/8aCNKHiboset4+rGgzfeZCM=;
-	b=ExCOY5oaAFrtqWiXzbYYQ0Z0nCJ3PcnPrpSd0dPso5Uj7L8+O1bajP5b7F6+7smzAAQz
-	 BIN5SKv4OFpDwpBY8nteZ8EEwsq/JStCURm4FhobbFKU0k875EJCq+ndDlc4JRSt6Gpte
-	 B2bCGf1NqBijIahMPkHH7ewrCElEiu9tOunGkHa0IbWF2IUn8JVhX9RtnhyXaoab39xGg
-	 Xcc5qd3UvTuJaaYTUimbn7paZY1Ww5r8e3P0jOLO/pbVkrrEWlNMTHfmhYup/GEDFEJHY
-	 tMt8reFamSQjLrwhsqWObseyKbCNU5na+sNe0F+0LLP8fqwN0nXQ8am8Xd3zsHhCMRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708596;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=CH7v1QYtuAIpGEme7SIV7J6uwrhadxjJXEqMvW5h55w=;
+	b=L6jq6F2ab16w3br6XZdyCKAwFITBhpH2R17k1HjhZ7WPBs1vOeOG6sf+U1sTo4tug9C1
+	 Y7ubJQkhVc8nYf7vSNVtI/4Kjxm83iYwevMI+ClvTs0dKSOS0CfWgtbXRuV0lbeGpawSo
+	 H92svRn1KgY7+J52VKE0AVLWbl+76tRCfX/ClJlHeKqfRTV95RKDbBuKC6y0e82VUjX4T
+	 HaO+9v882VTD8VYnhMAC1EZT1QEvM3z4QUl7cRDTDNoWokQDCZI4cLwmk5JaibXy543qe
+	 0bzdS0AHFxQrextWjFqE5zSe7tuzJU5kLGh+CwJOUjf6ACFoVIZuK/ajEbP3sihDH9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=L62vpwCn;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CE1606A328;
-	Tue,  3 Nov 2026 12:22:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26CE1606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jbF7EyAV;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A191606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A191606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=L62vpwCn
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jJnlJ2pc8zKp1r;
-	Tue, 03 Nov 2026 13:22:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793708556;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=jgY0YRLdw++1SlF9Oy8/8aCNKHiboset4+rGgzfeZCM=;
-	b=L62vpwCnobxNZTz6ftk/Kg05RFP9iL6z3reG9JEMYnXjcajfPE1MAiPqEnIm9virjrFGfh
-	mi6rPxLZFb0sNv/YBL+h/UpipLXadX7pRkhCJjErRivuY8MGZcTySN30ezJyJ4HOdr9d2Q
-	NwsZTP6ZiGAQ2AhCe9Dlo86CbNS+TpKvXJNr6X/zSX0rYzJ2AkgJkIxJ+AAdMFpt92wfOI
-	0qiLVsI+etRWL+k8b5uYm0+oiQt4z6SPykpLonjUWDnHGnLacgbNGmU0IIYap3i8i4XkjC
-	Vo8JNb1USplZcHIW/7I4jHvmpLayGoC7WA1N4AFg4ga2y3fUuvKQ6HvAWhhkxw==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH] Documentation: exception-tables.rst: fix bracket
-Date: Tue,  3 Nov 2026 13:17:16 +0100
-Message-ID: <20261103121716.102730-2-manuelebnerli@mailbox.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jbF7EyAV
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B14C11691;
+	Tue,  3 Nov 2026 04:23:12 -0800 (PST)
+Received: from [10.211.55.3] (unknown [10.57.89.242])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9908A3F628;
+	Tue,  3 Nov 2026 04:23:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793708595; bh=S9BO58FYCbI1LYWmEmCYU6CXvki/lX9LlFi6yxqpDiQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jbF7EyAVJr6fqxqz3iev/lFhjI3sfdc7S6aXSUt7cdtglJ+kZYzv6Q5RRAstaWy6Y
+	 PzukBrOhCYmQ0pZ7NlUgtLLrf94rKEQ5vJbIynQu5WOg9ECOoVO0CqbipqSwnGtQW6
+	 QHs/dicXZGDzUYwV4lfuPBNTKekGnyifxq2zjguM=
+Message-ID: <6fd6dee4-7bf9-4fd1-9ad5-43e262dc6f32@arm.com>
+Date: Tue, 3 Nov 2026 12:23:12 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,33 +53,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 8aab7e8b7aea86ebc49
-X-MBO-RS-META: 6pcqng9waph6xmihdnzmtzam4xxizchq
+User-Agent: Thunderbird Daily
+Subject: Re: arm_mpam: plans for the SMMU integration series?
+To: Ping Li <leeonion.muyu@gmail.com>, james.morse@arm.com
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ andre.przywara@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com
+References: <20261103121534.532108-1-leeonion.muyu@gmail.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261103121534.532108-1-leeonion.muyu@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Remove needless pair of brackets.
+Hi Ping,
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- Documentation/arch/x86/exception-tables.rst | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On 03/11/2026 12:15, Ping Li wrote:
+> Hi James, Ben,
+> 
+> I have recently been debugging SMMU MPAM support, and noticed the
+> series James has on the mpam/snapshot+extras/v6.18-rc1 branch. Is
+> there a plan to merge it upstream?
 
-diff --git a/Documentation/arch/x86/exception-tables.rst b/Documentation/arch/x86/exception-tables.rst
-index 6e7177363f..de776bfdd1 100644
---- a/Documentation/arch/x86/exception-tables.rst
-+++ b/Documentation/arch/x86/exception-tables.rst
-@@ -72,9 +72,9 @@ The preprocessor output (edited to become somewhat readable)::
-     {
-       long __gu_err = - 14 , __gu_val = 0;
-       const __typeof__(*( (  buf ) )) *__gu_addr = ((buf));
--      if (((((0 + current_set[0])->tss.segment) == 0x18 )  ||
-+      if ((((0 + current_set[0])->tss.segment) == 0x18 )  ||
-         (((sizeof(*(buf))) <= 0xC0000000UL) &&
--        ((unsigned long)(__gu_addr ) <= 0xC0000000UL - (sizeof(*(buf)))))))
-+        ((unsigned long)(__gu_addr ) <= 0xC0000000UL - (sizeof(*(buf))))))
-         do {
-           __gu_err  = 0;
-           switch ((sizeof(*(buf)))) {
--- 
-2.55.0
+There is interest in getting SMMU for MPAM and more generally IOMMU and
+device requestor in resctrl but I don't know if anyone is actively
+working on that at the moment. The latest thread on this topic can be
+found at:
+
+https://lore.kernel.org/lkml/arKx__kOPe4B5gDW@agluck-desk3/
+
+Thanks,
+
+Ben
+
+> 
+> Thanks,
+> Ping
 
