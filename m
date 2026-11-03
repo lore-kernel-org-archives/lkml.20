@@ -1,78 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723442;
-	b=yqPEHbdDJcmE8Eopr4is7xn+6BkMSrb1mFer7iHGLr2wSRowz0sOc+30SjQC95kmBeN+
-	 gQW3dld3hYsnWEZdolWsu5x4g6FxRbVN7dExo9m9ihD40FJn4VVgHRTx5cv/9FKtQ0siS
-	 eKoDEPoXDHbQw3jEeqwi6jyA+tl8iWGtsrXR/ZnGE8DeIUjbCowBI2CCyIrCWdU55zRVs
-	 w8aLKjM9Mj1P7vpVw1ka2LmpYhTwZJC+5XCNLAcEDU+Jfmful+SLckwldUwk38loLi6Y/
-	 yclnlKa2nZJCdR+pT2gLI+fUXxOuFc6n3bgyBwkjmrrrDpv90e4jHj8DJDqQfTbld2w==
+	t=1793723469;
+	b=k+tJU1brcd6I0mX8Imc6a2ip9UXT7SfLcf3Uq9bGY/uMJIOc1T/OrKleHJbJ+V+2ENhV
+	 W1pc0lZxlhmEEqBI7o72Il4Z4MzE5StdrWAwvV6+dTWPyDHAx5eNQjXa07k4ebw7OMDdX
+	 niW8ID7iYi+H95Ujjfmne8ZyU6U08D0Hx8Jnz+DBZd+LYiPxsSKrXDMedDWzaGDHEU1Y+
+	 e7KQOGWvim8CT2ZKOH30qWAiAfoe7At1p4gxzPAhmK4qPAPuuduVWOFYihLvPdXj9p52D
+	 nfaT35xzavs++KxN2rqW1iFcKNAMJB0oqillIWfNTvqjFkfOF4cxKUKXdzLmKx44WcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723442;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QIKLXmDhQNqLB4Y+YR2V9D04+lvxRqYL6EpEyVAWUjQ=;
-	b=meHtBLnNTfKAJF9h9cxXNROWAeA8bX6Odbw9uXLAHnkLjEmpGI8VonWa9K+d5W2B8uCN
-	 doVz1a7yAWkBCHL8emgSIYvi+ShpzAX4r6Vgl/L0yWSuQs2zraYC8XFiXElv5SGe3MZLT
-	 lS+BDQOmHhFhI6oEkslrWsl4M1zN2LfrMCvldA+U+emid/Q7d8Zml8Vykk5+jSTqo4oRU
-	 7S/3ZgwjcoiovGRohWpb75k7W0pK5RO8gkAG7VLyzCIcg4as+Jm23FqVFVmzIIEEb2tQZ
-	 ySPgUelOKpsui0tJfn05CFJKJ3GzFEb042712Yufucr90ywPEGIYALU86XjNUNcv5yQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723469;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=VDOlP1yYgCTkepByMon6CVwjX5f86IPmFVoSMeSOXbQ=;
+	b=KYUQXFo+f7AQnorCvqysU8f8HSEYQL5l/w6xNn3ii56oy1vv8rUl5Jy2j+IUORFo5ncx
+	 zVrdLz8pT1ZrUX9gxqVvwcR9qHWA2JLFnh9hDOY9mfnLo7qWg3WifAH2hjsuBuROu/Dpj
+	 Fs9PlPVKuqBCJfvlJ6dIMBK/Khd7F6yiKZ7dOMtSykPwONdnys5sRUckCcHKNcr61znW3
+	 10+ZDAy/Sf3xCxlKLiRJOIuWRuwHYgmEEBw6ES54idhh4jggsBjZ0ZIh6iMnJ/4lz6FJM
+	 u17eg8JPnno9NweL7UVVC7Pyku7Ca2bCQ/imJzeo2McsNAdF//B9q9tXjEAUOLVWx9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.175
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--mclapinski.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XIQYKkEO;
+	arc=none smtp.remote-ip=209.85.208.69
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C2F606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:30:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58C2F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b06c0794cfso40633027b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:30:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793723441; x=1794328241;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01ABA606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:31:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01ABA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mclapinski.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XIQYKkEO
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b1e00100eeso5227502a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:31:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793723467; x=1794328267; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QIKLXmDhQNqLB4Y+YR2V9D04+lvxRqYL6EpEyVAWUjQ=;
-        b=NMxz5nT8j/27WNGBiDwAl1YGZAWu0kWFru49cJU7Sar9zS+Emix7+PFSNHYN42SNIH
-         0IXQRntYOV/InWvzj0MhyG1FVyMTPHkMY6UOoZlvFlQ/Cq0MiHdSvp3/LahNGHYwBsaW
-         Dk5QA69wUuKCYHTUXSrHkc+DLCFBuvcnVlFmrTFdnFJ3X+iBAz2J5yrX7or5tywKhdkw
-         1/tmyHZmVEjjiFWHFoyzggEmJ8FLgFUaxUEyVqRoX8Yr+HtnW+2654tu7Uefpb3YDn1R
-         LQ8Yty/GUBrMo7n/wy7VpX/B/7VIQS0c9ZOrjznKp5aBH1WKPftgFVk4HtOyd8LMFPbc
-         q13g==
-X-Forwarded-Encrypted: i=1; AKwUvByBTzt3U99Gkif9M/sd8umDssiulQt8jgzppQnCfG00dK9a1vIQ5MH6RYB0DJbgLLqTKQF55vcIJeJJ2KY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QxOpHE+mKRMx+JxAruMgWGWUaHiiM05MGdrfLPxpYK1Rd7St2
-	g0hnE0pko7cmcVy9Wpt5PDi+qie0IPu0yQu18myQwhlDVVK85uWIjtVVhM0onIVyayI=
-X-Gm-Gg: AYBFou0etVEHZIZlukcbZK/tBAOUlSbRWN2RLmRHc7am/MOUhQ/N9nIDLjB7hoPVvig
-	PG6pUYvN484bgZN2+VeL4WlYincdz23Ia7doSNrIaxjVYP69D/vdrIA7q2zG6TSacUKLT2XrZdM
-	ungdm/7CQN0JTPZicA6nb0QoZPlQLnTbnDlCkgeNTpZceVd5CpgmqtooR2T3qOayCQ72WEKXQQD
-	lW45zODCiodn1gM5MNNIoFSlricqXFakd92PA0BW1L7Zx9xwl2t99nlFR21W7n9fE0uc9MA3FXs
-	fm9cxo3AhqwABA70QSLiAZNdkpj7FZFSnAFMYGmatC0iYbKAsjX1u6gCpIHrmaTQSLneYG3dqHv
-	IeeOAmbJ5UCpbSwMG1S91KmDFhTbmCYF+ThnimJB/SKL8R7aHoi6Yqmn/e5yNMT7eS4BhygoDcm
-	X7PHgJQ27xPRv6LakaRTwRtrxBiqgKiSFBm7X6Hqy30zEZtERp2xwnBNqAwB1HY8RpWlRImHmNu
-	rCyVdUDrjXscN66dY9h5qSFkU9L/3wNmwdNBj68/itlRIpo5Eokllxokf8iwR9Avf5S6b6nVkTi
-	Mcl3iXdLYlEFYEGf4YeaWf+YshDPLFivmhsoW2+kDQvAkh5ExS5+7sKzNApNlGvBOMjI+1PEb6b
-	LQATT1GZ+9gqKYjjYwAEMNQ==
-X-Received: by 2002:a05:690c:e28b:20b0:8b0:de8c:a3a3 with SMTP id 00721157ae682-8b2b67d7546mr73839537b3.69.1793723441162;
-        Tue, 03 Nov 2026 08:30:41 -0800 (PST)
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com. [209.85.128.169])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3098c27c3sm176357b3.9.2026.11.03.08.30.38
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 08:30:39 -0800 (PST)
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b06c0794cfso40632407b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:30:38 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByWHM0K5x6s+FIZae7cb0BzX8ORLegwXdAK27e1zizzTqTUfbxMX4meTY8ihPuoyIlHm2F+7TV8IOL8pOA=@vger.kernel.org
-X-Received: by 2002:a05:690c:91:b0:8b3:2b8:856 with SMTP id
- 00721157ae682-8b302b80a2emr8226867b3.68.1793723438403; Tue, 03 Nov 2026
- 08:30:38 -0800 (PST)
+        bh=VDOlP1yYgCTkepByMon6CVwjX5f86IPmFVoSMeSOXbQ=;
+        b=XIQYKkEOmfor/xIJT1jjiUlev5I3Ci0zf/GK2GU+8W/1zq4AsvXsb3EgnxxF38mT7V
+         7S1c/kioDJ/5ZIPt8qBYRHJ47QeVi2lWTSlpTYTlH0zKMvGHQ/OKCB3iITI+mhnPfqQK
+         bA4r8usE2EN4u7NC74X9iOcvLgmqjExCuLxk7dR8NfWyfZJQIdaER88Va2btu3C3m6RS
+         YKC0P7X49JfkRxwoBrxOzbAoPUOJCX2Sfh7vDUk3Q04vlF9q2VX7qqoR098FT4mXPG7b
+         LxcSazK2G43e+ZbIw04ayWz9/T+f2QWYmtcT4YSdzzBhXWGWAoZgyEFnK6+SlbRshwad
+         Pbhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793723467; x=1794328267;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VDOlP1yYgCTkepByMon6CVwjX5f86IPmFVoSMeSOXbQ=;
+        b=a7iF8PCG/D0Z9AWhvkNHnno6Cn65S/Q+NEEQhjfBpv5lQ1zBgi//289yuPTor15TAL
+         lDDB52LJA5aN+46oe/x5ajJux0yORejm9QNpiqFUyVS8A0Aa/bJ+x+cit4yoEMAhuxJ1
+         odHhaRJnVO0kBwD/M0kPyaukt6/rlqrypyD+/0pfbIbUZOjbCwpOGJeGZtOm5D5Xq85W
+         uF9p6wYeU7I19awe1bu+RXvk7Ll9JuBCrXuOH3HnOHS7yIRVcRLV/Aty8XqI8o4wK0DI
+         ss1cW3HFvYJp3zHe5S8zFqhgyRni24eAruOWVqEZzJ69DaBXsx7limRniZSkGNxUBVjw
+         Ffpw==
+X-Forwarded-Encrypted: i=1; AKwUvBwhnOw4wdqqFz1gZq+UecLPbNF78eGu2iF/y6j9NxpR4dkAnQj5qcvUJaQhuiEnIxhIalbzLu5zSZ74U/Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YWYbDAsbu3HORdIFN+YTC3kn8njwQxwGYrJEqAxY7VQ+oXErz
+	zMkFyBr6VqDflDdaSAIrlLzhxVJXeD2EZmLnsno0PcdfWlq9RVx91mJPU8TtlRsdPU/qZ56ulXT
+	qYQ4cuv3gKlTecFW3+WLTFQ==
+X-Received: from eddo25.prod.google.com ([2002:a05:6402:5619:b0:6b4:20bc:f86])
+ (user=mclapinski job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:42cf:b0:6b4:6464:8a9 with SMTP id 4fb4d7f45d1cf-6b4d4677539mr8592397a12.18.1793723467260;
+ Tue, 03 Nov 2026 08:31:07 -0800 (PST)
+Date: Tue,  3 Nov 2026 16:31:01 +0000
+In-Reply-To: <20261103163101.1696520-1-mclapinski@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,40 +78,152 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261022200640.3101932-1-tanure@linux.com> <20261022200640.3101932-4-tanure@linux.com>
- <c7d703f1-57fa-42cc-82fc-3e0aab05b71a@lunn.ch>
-In-Reply-To: <c7d703f1-57fa-42cc-82fc-3e0aab05b71a@lunn.ch>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Tue, 3 Nov 2026 16:30:27 +0000
-X-Gmail-Original-Message-ID: <CAJX_Q+1=3ZRLX7B0UG+R5G74S6tVECPJV-MWcYfbU6nh=EOaug@mail.gmail.com>
-X-Gm-Features: AclHuK--tXPcmW4jBK-98mKvizjMAJUNc7lOR6WXsrVb58UVKvwxXzerIoleZek
-Message-ID: <CAJX_Q+1=3ZRLX7B0UG+R5G74S6tVECPJV-MWcYfbU6nh=EOaug@mail.gmail.com>
-Subject: Re: [PATCH v4 3/7] net: stmmac: dwmac-meson8b: add support for the
- Amlogic T7
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+References: <20261103163101.1696520-1-mclapinski@google.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261103163101.1696520-3-mclapinski@google.com>
+Subject: [PATCH v2 2/2] PCI/DOE: Poll briefly for a response before sleeping
+From: Michal Clapinski <mclapinski@google.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
+Cc: Lukas Wunner <lukas@wunner.de>, linux-kernel@vger.kernel.org, 
+	David Matlack <dmatlack@google.com>, Michal Clapinski <mclapinski@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 1:57=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> > Without that gate the controller cannot do DMA at all, so it is
-> > required rather than optional: a clear probe failure beats an
-> > undiagnosable hang later.
->
-> Does the DT binding mark it as required?
-Yes. The T7 block in patch 2 lists the five clocks as an "items" list
-without minItems, so all five, pipeline included, are required.
->
->      Andrew
+doe_statemachine_work() and pci_doe_abort() wait for the mailbox by
+sleeping PCI_DOE_POLL_INTERVAL (PCI_DOE_TIMEOUT / 128) between status
+reads, which is 7 ms at HZ=1000 and 4 ms at HZ=250. Mailbox operations
+are served from the device's local mailbox logic and complete much
+faster: on NVIDIA B200 GPUs, an abort completes in ~70 us and a
+discovery exchange in ~110 us, including the status reads polling for
+them. Every DOE-capable endpoint pays the sleep once for the abort
+issued during mailbox creation and once per supported feature during
+enumeration.
+
+Make pci_doe_wait(), which both paths use, back off exponentially:
+start with a 1 us delay and double it on every poll until it reaches
+PCI_DOE_POLL_INTERVAL, then fall back to the existing jiffies-based
+wait.
+
+Enumeration at boot runs before high resolution timers are enabled, so
+any sleep lasts until the next tick, which at HZ=250 is no shorter than
+PCI_DOE_POLL_INTERVAL. Until they are enabled, busy-wait instead of
+sleeping for delays of up to 128 us. Operations that complete within
+~255 us of accumulated delay, like the ones above, then finish without
+sleeping, while slower ones waste at most that much CPU time before
+sleeping anyway. Once high resolution timers are enabled, short sleeps
+are accurate and no busy-wait beyond what fsleep() does is needed.
+
+Time spent in pci_device_add() for a B200 GPU drops from 45.9 ms to
+6.4 ms.
+
+Signed-off-by: Michal Clapinski <mclapinski@google.com>
+---
+ drivers/pci/doe.c | 47 +++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 43 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
+index 6d258f751318..3f2f0b181f25 100644
+--- a/drivers/pci/doe.c
++++ b/drivers/pci/doe.c
+@@ -15,6 +15,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
++#include <linux/hrtimer.h>
+ #include <linux/jiffies.h>
+ #include <linux/mutex.h>
+ #include <linux/pci.h>
+@@ -27,6 +28,8 @@
+ /* Timeout of 1 second from 6.30.2 Operation, PCI Spec r6.0 */
+ #define PCI_DOE_TIMEOUT HZ
+ #define PCI_DOE_POLL_INTERVAL	max(PCI_DOE_TIMEOUT / 128, 1)
++#define PCI_DOE_POLL_MIN_US	1
++#define PCI_DOE_POLL_SPIN_MAX_US	128
+ 
+ #define PCI_DOE_FLAG_CANCEL	0
+ #define PCI_DOE_FLAG_DEAD	1
+@@ -244,11 +247,45 @@ void pci_doe_sysfs_init(struct pci_dev *pdev)
+ }
+ #endif
+ 
+-static int pci_doe_wait(struct pci_doe_mb *doe_mb, unsigned long timeout)
++/*
++ * Wait before the next poll of the DOE Status register.
++ *
++ * Mailbox operations are usually served from the device's local mailbox
++ * logic within a few hundred microseconds, far below the jiffies
++ * granularity of PCI_DOE_POLL_INTERVAL.  Start with a short delay and
++ * double it on every call, so that a response is noticed soon after it
++ * becomes available.
++ *
++ * Until high resolution timers are enabled, any sleep lasts until the next
++ * tick.  At boot, that is the case during PCI enumeration.  Busy-wait for
++ * delays of up to PCI_DOE_POLL_SPIN_MAX_US instead, so that typical
++ * operations complete without sleeping.  Slower operations waste at most
++ * that much CPU time before sleeping anyway.  Once the delay reaches
++ * PCI_DOE_POLL_INTERVAL, fall back to waiting on the wait queue.
++ *
++ * @delay_us must be initialized to PCI_DOE_POLL_MIN_US by the caller.
++ */
++static int pci_doe_wait(struct pci_doe_mb *doe_mb, unsigned int *delay_us)
+ {
++	if (test_bit(PCI_DOE_FLAG_CANCEL, &doe_mb->flags))
++		return -EIO;
++
++	if (*delay_us <= PCI_DOE_POLL_SPIN_MAX_US &&
++	    !hrtimer_highres_enabled()) {
++		udelay(*delay_us);
++		*delay_us *= 2;
++		return 0;
++	}
++
++	if (*delay_us < jiffies_to_usecs(PCI_DOE_POLL_INTERVAL)) {
++		fsleep(*delay_us);
++		*delay_us *= 2;
++		return 0;
++	}
++
+ 	if (wait_event_timeout(doe_mb->wq,
+ 			       test_bit(PCI_DOE_FLAG_CANCEL, &doe_mb->flags),
+-			       timeout))
++			       PCI_DOE_POLL_INTERVAL))
+ 		return -EIO;
+ 	return 0;
+ }
+@@ -266,6 +303,7 @@ static int pci_doe_abort(struct pci_doe_mb *doe_mb)
+ 	struct pci_dev *pdev = doe_mb->pdev;
+ 	int offset = doe_mb->cap_offset;
+ 	unsigned long timeout_jiffies;
++	unsigned int delay_us = PCI_DOE_POLL_MIN_US;
+ 
+ 	pci_dbg(pdev, "[%x] Issuing Abort\n", offset);
+ 
+@@ -276,7 +314,7 @@ static int pci_doe_abort(struct pci_doe_mb *doe_mb)
+ 		int rc;
+ 		u32 val;
+ 
+-		rc = pci_doe_wait(doe_mb, PCI_DOE_POLL_INTERVAL);
++		rc = pci_doe_wait(doe_mb, &delay_us);
+ 		if (rc)
+ 			return rc;
+ 		pci_read_config_dword(pdev, offset + PCI_DOE_STATUS, &val);
+@@ -486,6 +524,7 @@ static void doe_statemachine_work(struct work_struct *work)
+ 	struct pci_dev *pdev = doe_mb->pdev;
+ 	int offset = doe_mb->cap_offset;
+ 	unsigned long timeout_jiffies;
++	unsigned int delay_us = PCI_DOE_POLL_MIN_US;
+ 	u32 val;
+ 	int rc;
+ 
+@@ -525,7 +564,7 @@ static void doe_statemachine_work(struct work_struct *work)
+ 			signal_task_abort(task, -EIO);
+ 			return;
+ 		}
+-		rc = pci_doe_wait(doe_mb, PCI_DOE_POLL_INTERVAL);
++		rc = pci_doe_wait(doe_mb, &delay_us);
+ 		if (rc) {
+ 			signal_task_abort(task, rc);
+ 			return;
+-- 
+2.56.0.385.gac671c819a-goog
+
