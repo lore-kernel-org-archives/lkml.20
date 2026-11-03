@@ -1,75 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745113;
-	b=iatJp9/BkTrqn7ub7527O+z89luZbIysDm5EfwhBVASxY94sFwMWfUXBhT5GbLgnVukU
-	 RMthq8CcT7dPUwwI5/I0kqU0BSCuPuKFt+Jsx7EdlCFG03DCizK0MKd4SqiVigZlve0Hx
-	 5htlrUoVtQQfX0BeLHIPvT284oC/+F4r6B1ukGkWOUUpMagN99N47goWssZKWb+JsvfA0
-	 QC+9Lr67fP3hFR7KVZ7aB7ZXki7/OC4jzBWnnXvqvwQuhqnUGwXXYE7h8smBP89LQiwfM
-	 sy/wkUbuI/0qfP5Oi51BYcqAOSglH+dDoLLD2+puVQ+I5lidx3sQgsp4jGdEewtye8Q==
+	t=1793745111;
+	b=CjOnczxXBH3o8saSt0ntHKq9sdpi8HSOJAPQY2Sx4cJMW6Xqf2VNjHiNNmw+FYntetFB
+	 Wey2Lxqk8P5KXa/IdiBzn7ujVZXpQsUbdDY/Y9lJeE4SuGZKobg1/Fa+uLqoaVOgd3Kwt
+	 J+bS3dQfKle71zE7reiKeLXeaX8YfIbz7WM/GOd1f6Arc6nlDNlsdedxlxaCBpFiCFgQB
+	 tXdv99MYo6muynjt2BVvVoo+xIOXKZlAeco2FN9ZkiKL+wfrkx4Np2RGFvZ4la6D7ThNA
+	 Q3OHam7nUBwN5QqzLjvjX4txqOKigFnBEE1xX+bC3u+4SMuxy8QPPaseNXkg4qFgELg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745113;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745111;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=yiLjmo0Ku8al3hMMt8KalpT5YKclAs+wJ9YFfzSDu7o=;
-	b=GiJGkOV819uxKOHtYCffMuil5/J6T/4EdXZ3GvHo3sYqHtl3zSPTgNwAGKeXDmibwfxj
-	 OrmiS1+73eF4aaO/kRwJyfNrIATyEz/hvcZYb8ZaIYeQcUOqDcLekv7jsY4PbPbI/RYVq
-	 u4xO2eTOeP8PZdc2mY77+w+kiTULvETKdZTJMib/uVUB/tvQ9j79MRQ/qxYBlYgM44KDC
-	 N9mpdb64BqXK48ud670I5r2tr/mprj3eSFHIyyBOSurA9UOjY4IgZSNammgwk0OicI+CS
-	 eaU8U1S9X8E3ma8dUye3wNntjyoaRSITSMOb4XHQakiIMbwXVAMxjjNiTcNO5XOgslw==
+	bh=BrTX3wJjILuApgcUkXldz9A0fDSI5dqDukx6+R/xaJI=;
+	b=BQQEnFEJ6NB8tjuFebp+++S0irebXVorvx8G7/hkPu3ZcDHT+FzJlq7qs1FJQoH6gh7u
+	 xA3qMkypWWEY18fgW0YG7a+tFNaAy/i9inklyT8QUVw713eB2E0cEjR6LzfWpkgRnrvHB
+	 B+O3HYnu6n69/BnpuybtbSyKDF7wiAnYaWw8BKy2pqqpTLp9KrSkXexCj6f9OpyNSKd3X
+	 DPcWZcz4qS478vTQOmSNijzRDWu+gC2eBQwgMrmO2kRLAvk6uOBxIQUZGa7ZL6xIw3inE
+	 c5Av+9XucL6OBms8YRcMUj2EE228PyHmgzXS6jVGTvCYsQ/QYB91DOhg/IaoYPNlhFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--nhuhuan.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GEp3ZJLU;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g60ZR+5c;
 	arc=none smtp.remote-ip=74.125.82.197
 Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5E6606A336
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:31:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF5E6606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EB6606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:31:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16EB6606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nhuhuan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GEp3ZJLU
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-341eff9e381so39178eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:31:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g60ZR+5c
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so49515eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:31:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793745112; x=1794349912; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793745110; x=1794349910; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yiLjmo0Ku8al3hMMt8KalpT5YKclAs+wJ9YFfzSDu7o=;
-        b=GEp3ZJLUlvl3ji3CiAIx3mbesyNOJD4HeygwWRq8optnqkmc43zFw5raauDCiZO5vw
-         yZTyJeFAoQz8GyM4pfKoO/wSIldJmg7w4ZnGNdoFAlhRuXpjD8tfRnryYkZjjIflveS/
-         B4DxUyl5WkTK8g9u/7sbNaP6BEYQDqkcmtpiejvIDec5D9SZGA+zbjqvAGWn4MYKBfPf
-         3hPDfitkR/qLk8TOqD/fk7ygFmalGF8Nb6gls/ERLmQp84OzYXUGBb8UetFvmE360izs
-         +E6cuj87VrQVHwXReOTlORn827N6nNNa5dBY51r7Ffnrb23Ca08rYNdlN8FOO4fgYjWo
-         ZSjQ==
+        bh=BrTX3wJjILuApgcUkXldz9A0fDSI5dqDukx6+R/xaJI=;
+        b=g60ZR+5cGx3Kne5HRSgfcrUxFoC16c0uMvrcSowkwdKoy9+5+Q/Pxyi2+op5jAm8p4
+         Yyuqh4SsQLKZ5cHnuMhClKxfLJniePL/BjlkxzWDIoHdoWEmbuWIywaV2pOOr/4SNp3B
+         29y9lAgoxKELBeYFg38vm4dSle6GRGgfoQ3Iy5VwOEeJkyr1pU+Nd1vGvrYIHGQM0sxO
+         Q6317b86To14Zmz74Bta2GAO17929qdtFilbiLiybY/14xbyP702k1CK/BQkctHAwBlt
+         fT/1ASy8B2y0ayIn77VCIuijFr32uLBy4WVdcA0E6nZam9NhHmjx3mM2fy7sl01debTW
+         6knw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793745112; x=1794349912;
+        d=1e100.net; s=20260707; t=1793745110; x=1794349910;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yiLjmo0Ku8al3hMMt8KalpT5YKclAs+wJ9YFfzSDu7o=;
-        b=ru6dDBJfTvRDzYVo3j5UEH7bPhQfDjRlXC3jsSbkruTvM7RbHDreNvfRr1n9jCqJ/Q
-         1I3plWZ4GBBA/CdPYhDk1IK8K6Z8ximaYfi5k/CpeLl0l+bj12PqN0Mr7LDF/o9JXQWb
-         D4RCJfIc5CoA7t3bFXDK+7ILr49IEIehVtY6RKAHZoPWeNvc8RI7MmNHcJniRMwtVhzg
-         +wdt8GyzCSZqho3pU3KZ4Iy9QOGu+FXsQygQM75QanJKpqWv1RFHQlnpF4A5pSk/y8Y2
-         OGxG+wvOtS9RGuIIB889fxjbrEUDyH0bKhKUY4fGmO5I3XBlpRxIi9Dancpc9bxyFX45
-         TCHg==
-X-Forwarded-Encrypted: i=1; AKwUvByq/Mv95X8locXbXcaRSyIocMvOj0DtgQOMwtE4FlFyA/SH8LEhMy6VAHuRXEIP4UP2G7iP1NIzBl/WV+w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ke1JqiIYhKKUMGJRom6QXNTELq+Zo6aHv1y++zY1GI64eJUbW
-	ngJRugCIjENNQB/KHKbhPaOanLvR/SCHL4x4/bgbD840Won+NXTG++QoLhs1xtYhqzQQdGmkuug
-	9EvtKb9DhOQ==
-X-Received: from dlep20-n1.prod.google.com ([2002:a05:701b:4594:10b0:19c:1243:1e3d])
- (user=nhuhuan job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:ea46:20b0:1a6:53cc:7454
- with SMTP id a92af1059eb24-1ac5d4b2ad9mr23818615c88.27.1793745111665; Tue, 03
- Nov 2026 14:31:51 -0800 (PST)
-Date: Tue,  3 Nov 2026 14:30:24 -0800
-In-Reply-To: <20261103223025.2482227-1-nhuhuan@google.com>
+        bh=BrTX3wJjILuApgcUkXldz9A0fDSI5dqDukx6+R/xaJI=;
+        b=dshkeH1+SSGzv9qfFl15jIh86GxA/urzLZUp7bGSUcc5Oat2Ofy8PDGxEfcxokeT7Q
+         +QAEX2KHMYZtZtbxG8sXU2urUoRuRjZ5azWm0ZD7+2uUm5R9wr3Zm89O0yX1mC93+JHI
+         sQUaWw43jLIbDnXi6cscq1P2wk+BQomkgUs4hUe/VhFN+4VX+r4Z8koAQJt4GyaUo+Au
+         sbSngyRnEXEJuzeq/VKdeT+JfOyhzEyDOfP6fXkojI/tv2vx9PaamIh3hkFKqQvtV/FN
+         ohrDzcgzbBXWTdQsUpPTw0xlHUpkUU/jMoq3t+k1wSROPb7CuWWaEQ+kb9Uu1n75d/Q4
+         0knQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz29RKXD5RGUirBX+ohGNrncbDFx2j0y0SsFodJ6H6f0lWYY5iaTP5gEl+IFfENfTwNQNiEeO5xbR298ro=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ymLU1ex/a8BtiyFDV8kIicZ2rn9up3qYQLAGmlLnUxilIt5x1
+	1OPHM1SRONKBB4icI/cRIXSD4MokBa80boVMJF4VYCA6fQapXmVOsQX74vxFCGAi+IjIK0g6prc
+	JMpbqP6QLyQ==
+X-Received: from dlbsv7.prod.google.com ([2002:a05:7022:3a07:b0:1b2:3bdb:f218])
+ (user=nhuhuan job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4244:10b0:149:1b5b:1f25
+ with SMTP id a92af1059eb24-1ac5b211405mr22122314c88.15.1793745109795; Tue, 03
+ Nov 2026 14:31:49 -0800 (PST)
+Date: Tue,  3 Nov 2026 14:30:22 -0800
+In-Reply-To: <20260730-rfc-nt-demote-v2-0-452dbe3b5073@zptcorp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,10 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20260730-rfc-nt-demote-v2-0-452dbe3b5073@zptcorp.com> <20261103223025.2482227-1-nhuhuan@google.com>
+References: <20260730-rfc-nt-demote-v2-0-452dbe3b5073@zptcorp.com>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261103223025.2482227-3-nhuhuan@google.com>
-Subject: [RFC PATCH v3 2/3] mm/migrate: introduce async non-temporal migration mode
+Message-ID: <20261103223025.2482227-1-nhuhuan@google.com>
+Subject: [RFC PATCH v3 0/3] mm: use non-temporal stores for demotion
 From: Huan Nguyen <nhuhuan@google.com>
 To: tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
 	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
@@ -103,256 +103,83 @@ Cc: rientjes@google.com, dave@stgolabs.net, nifan.cxl@gmail.com,
 	linux-nfs@vger.kernel.org, linux-trace-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Introduce MIGRATE_ASYNC_NONTEMPORAL to migrate cold folios using
-non-temporal stores, avoiding CPU cache pollution.
+This series continues the non-temporal demotion work originally posted
+by Yiannis Nikolakopoulos [1].
 
-Existing callers check "mode == MIGRATE_ASYNC" directly, which would
-cause new asynchronous modes to fall back to synchronous handling.
-Introduce migrate_is_async() and update callers across compaction,
-NFS, and migration.
+Motivation
+==========
+Memory tier demotion moves cold folios from local DRAM to slower memory
+tiers, such as CXL or remote NUMA nodes. Standard store instructions
+force the CPU to allocate cache lines for cold data that is unlikely to
+be referenced in the near term.
 
-In __migrate_folio(), invoke folio_mc_copy_nt() when the migration
-mode is MIGRATE_ASYNC_NONTEMPORAL.
+Using non-temporal stores and prefetching on x86 bypasses CPU cache
+allocation, protecting active workload working sets and improving
+demotion throughput.
 
-Suggested-by: Alirad Malek <alirad.malek@zptcorp.com>
-Suggested-by: Dimitrios Palyvos-Giannas <dimitrios.palyvos@zptcorp.com>
+Changes in v3
+=============
+- Unified MCE-safe NT copy (addressing v2 Open #1):
+  Implement copy_mc_page_nt() in x86 assembly to provide machine-check
+  safe copying using non-temporal stores (movnti) and prefetchnta.
+
+- Architecture abstraction (addressing v2 Open #2):
+  v2 relied on memcpy_flushcache(), which lacks non-temporal stores on
+  architectures like arm64. RFC v3 replaces this with a dedicated
+  __HAVE_ARCH_COPY_PAGE_NT interface and generic fallback, enabling
+  architectures to plug in native non-temporal routines independently.
+
+- Memory ordering:
+  Add a wmb() barrier at the end of folio_mc_copy_nt() to ensure weakly
+  ordered non-temporal stores are drained before page tables are updated.
+
+Discussions
+===========
+1. Migration mode vs. migration control refactoring:
+   Currently, this series introduces MIGRATE_ASYNC_NONTEMPORAL into
+   enum migrate_mode. In parallel, Shivank Garg's migration refactoring
+   series [2] consolidates migration arguments into migrate_control.
+   Once that lands, demotion can simply rely on the migration reason
+   instead of adding a dedicated migration mode and helper.
+
+2. Large folio copy optimization:
+   Multi-page folios (such as 2MiB THP) are supported by iterating over
+   constituent 4KiB pages via copy_mc_page_nt(). Once the batch page
+   copy series [3] lands, copy_mc_page_nt() can be extended to copy an
+   entire multi-page folio in a single invocation, eliminating per-4KiB
+   loop overhead and keeping the prefetchnta stream uninterrupted.
+
+Thanks to Yiannis Nikolakopoulos, Alirad Malek, and Dimitrios
+Palyvos-Giannas for their original work, feedback, and collaboration.
+
+References
+==========
+[1] https://lore.kernel.org/linux-mm/20260730-rfc-nt-demote-v2-0-452dbe3b5073@zptcorp.com/
+[2] https://lore.kernel.org/linux-mm/20260902-migrate-refactor-shivank-v1-9-9dcca87669c4@amd.com/
+[3] https://lore.kernel.org/linux-mm/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com/
+
 Signed-off-by: Huan Nguyen <nhuhuan@google.com>
----
- fs/nfs/write.c                 |  2 +-
- include/linux/migrate.h        |  5 +++++
- include/linux/migrate_mode.h   |  1 +
- include/trace/events/migrate.h |  1 +
- mm/compaction.c                | 18 +++++++++---------
- mm/migrate.c                   | 29 ++++++++++++++++++-----------
- 6 files changed, 35 insertions(+), 21 deletions(-)
 
-diff --git a/fs/nfs/write.c b/fs/nfs/write.c
-index 0b42d31f7a75..ad28ff48e541 100644
---- a/fs/nfs/write.c
-+++ b/fs/nfs/write.c
-@@ -2128,7 +2128,7 @@ int nfs_migrate_folio(struct address_space *mapping, struct folio *dst,
- 	}
- 
- 	if (folio_test_private_2(src)) { /* [DEPRECATED] */
--		if (mode == MIGRATE_ASYNC)
-+		if (migrate_is_async(mode))
- 			return -EBUSY;
- 		folio_wait_private_2(src);
- 	}
-diff --git a/include/linux/migrate.h b/include/linux/migrate.h
-index 78424b3824c2..188f9d891a0a 100644
---- a/include/linux/migrate.h
-+++ b/include/linux/migrate.h
-@@ -51,6 +51,11 @@ struct movable_operations {
- /* Defined in mm/debug.c: */
- extern const char *migrate_reason_names[MR_TYPES];
- 
-+static inline bool migrate_is_async(enum migrate_mode mode)
-+{
-+	return mode == MIGRATE_ASYNC || mode == MIGRATE_ASYNC_NONTEMPORAL;
-+}
-+
- #ifdef CONFIG_MIGRATION
- 
- void putback_movable_pages(struct list_head *l);
-diff --git a/include/linux/migrate_mode.h b/include/linux/migrate_mode.h
-index 05102d4d2490..fd752fddc972 100644
---- a/include/linux/migrate_mode.h
-+++ b/include/linux/migrate_mode.h
-@@ -12,6 +12,7 @@ enum migrate_mode {
- 	MIGRATE_ASYNC,
- 	MIGRATE_SYNC_LIGHT,
- 	MIGRATE_SYNC,
-+	MIGRATE_ASYNC_NONTEMPORAL,
- };
- 
- enum migrate_reason {
-diff --git a/include/trace/events/migrate.h b/include/trace/events/migrate.h
-index 15ee2ef201b5..0bb2444211af 100644
---- a/include/trace/events/migrate.h
-+++ b/include/trace/events/migrate.h
-@@ -9,6 +9,7 @@
- 
- #define MIGRATE_MODE						\
- 	EM( MIGRATE_ASYNC,	"MIGRATE_ASYNC")		\
-+	EM( MIGRATE_ASYNC_NONTEMPORAL, "MIGRATE_ASYNC_NONTEMPORAL") \
- 	EM( MIGRATE_SYNC_LIGHT,	"MIGRATE_SYNC_LIGHT")		\
- 	EMe(MIGRATE_SYNC,	"MIGRATE_SYNC")
- 
-diff --git a/mm/compaction.c b/mm/compaction.c
-index f1b2060eb201..c11739e6891f 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -445,7 +445,7 @@ static void update_cached_migrate(struct compact_control *cc, unsigned long pfn)
- 	/* Update where async and sync compaction should restart */
- 	if (pfn > zone->compact_cached_migrate_pfn[0])
- 		zone->compact_cached_migrate_pfn[0] = pfn;
--	if (cc->mode != MIGRATE_ASYNC &&
-+	if (!migrate_is_async(cc->mode) &&
- 	    pfn > zone->compact_cached_migrate_pfn[1])
- 		zone->compact_cached_migrate_pfn[1] = pfn;
- }
-@@ -508,7 +508,7 @@ static bool compact_lock_irqsave(spinlock_t *lock, unsigned long *flags,
- 	__acquires(lock)
- {
- 	/* Track if the lock is contended in async mode */
--	if (cc->mode == MIGRATE_ASYNC && !cc->contended) {
-+	if (migrate_is_async(cc->mode) && !cc->contended) {
- 		if (spin_trylock_irqsave(lock, *flags))
- 			return true;
- 
-@@ -882,7 +882,7 @@ isolate_migratepages_block(struct compact_control *cc, unsigned long low_pfn,
- 			return -EAGAIN;
- 
- 		/* async migration should just abort */
--		if (cc->mode == MIGRATE_ASYNC)
-+		if (migrate_is_async(cc->mode))
- 			return -EAGAIN;
- 
- 		reclaim_throttle(pgdat, VMSCAN_THROTTLE_ISOLATED);
-@@ -893,7 +893,7 @@ isolate_migratepages_block(struct compact_control *cc, unsigned long low_pfn,
- 
- 	cond_resched();
- 
--	if (cc->direct_compaction && (cc->mode == MIGRATE_ASYNC)) {
-+	if (cc->direct_compaction && migrate_is_async(cc->mode)) {
- 		skip_on_failure = true;
- 		next_skip_pfn = block_end_pfn(low_pfn, cc->order);
- 	}
-@@ -1409,7 +1409,7 @@ static bool suitable_migration_source(struct compact_control *cc,
- 	 * allocator fallbacks. For non-movable requests, this helps a
- 	 * lot, as they can finally scan movable blocks.
- 	 */
--	if (cc->mode != MIGRATE_ASYNC)
-+	if (!migrate_is_async(cc->mode))
- 		return true;
- 
- 	/*
-@@ -1514,7 +1514,7 @@ fast_isolate_around(struct compact_control *cc, unsigned long pfn)
- 		return;
- 
- 	/* Minimise scanning during async compaction */
--	if (cc->direct_compaction && cc->mode == MIGRATE_ASYNC)
-+	if (cc->direct_compaction && migrate_is_async(cc->mode))
- 		return;
- 
- 	/* Pageblock boundaries */
-@@ -1753,7 +1753,7 @@ static void isolate_freepages(struct compact_control *cc)
- 	block_end_pfn = min(block_start_pfn + pageblock_nr_pages,
- 						zone_end_pfn(zone));
- 	low_pfn = pageblock_end_pfn(cc->migrate_pfn);
--	stride = cc->mode == MIGRATE_ASYNC ? COMPACT_CLUSTER_MAX : 1;
-+	stride = migrate_is_async(cc->mode) ? COMPACT_CLUSTER_MAX : 1;
- 
- 	/*
- 	 * Isolate free pages until enough are available to migrate the
-@@ -2565,7 +2565,7 @@ compact_zone(struct compact_control *cc, struct capture_control *capc)
- 	unsigned long start_pfn = cc->zone->zone_start_pfn;
- 	unsigned long end_pfn = zone_end_pfn(cc->zone);
- 	unsigned long last_migrated_pfn;
--	const bool sync = cc->mode != MIGRATE_ASYNC;
-+	const bool sync = !migrate_is_async(cc->mode);
- 	bool update_cached;
- 	unsigned int nr_succeeded = 0, nr_migratepages;
- 	int order;
-@@ -2588,7 +2588,7 @@ compact_zone(struct compact_control *cc, struct capture_control *capc)
- 		ret = compaction_suit_allocation_order(cc->zone, cc->order,
- 						       cc->highest_zoneidx,
- 						       cc->alloc_flags,
--						       cc->mode == MIGRATE_ASYNC,
-+						       migrate_is_async(cc->mode),
- 						       !cc->direct_compaction);
- 		if (ret != COMPACT_CONTINUE)
- 			return ret;
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 7bdcdb57652f..18470de10857 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -876,9 +876,15 @@ static int __migrate_folio(struct address_space *mapping, struct folio *dst,
- 	if (folio_ref_count(src) != expected_count)
- 		return -EAGAIN;
- 
--	rc = folio_mc_copy(dst, src);
--	if (unlikely(rc))
--		return rc;
-+	if (mode == MIGRATE_ASYNC_NONTEMPORAL) {
-+		rc = folio_mc_copy_nt(dst, src);
-+		if (unlikely(rc))
-+			return rc;
-+	} else {
-+		rc = folio_mc_copy(dst, src);
-+		if (unlikely(rc))
-+			return rc;
-+	}
- 
- 	rc = __folio_migrate_mapping(mapping, dst, src, expected_count);
- 	if (rc)
-@@ -921,7 +927,7 @@ static bool buffer_migrate_lock_buffers(struct buffer_head *head,
- 
- 	do {
- 		if (!trylock_buffer(bh)) {
--			if (mode == MIGRATE_ASYNC)
-+			if (migrate_is_async(mode))
- 				goto unlock;
- 			if (mode == MIGRATE_SYNC_LIGHT && !buffer_uptodate(bh))
- 				goto unlock;
-@@ -1229,7 +1235,7 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
- 	dst->migrate_info = 0;
- 
- 	if (!folio_trylock(src)) {
--		if (mode == MIGRATE_ASYNC)
-+		if (migrate_is_async(mode))
- 			goto out;
- 
- 		/*
-@@ -1334,7 +1340,7 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
- 		/* Establish migration ptes */
- 		VM_BUG_ON_FOLIO(folio_test_anon(src) &&
- 			       !folio_test_ksm(src) && !anon_vma, src);
--		try_to_migrate(src, mode == MIGRATE_ASYNC ? TTU_BATCH_FLUSH : 0);
-+		try_to_migrate(src, migrate_is_async(mode) ? TTU_BATCH_FLUSH : 0);
- 		old_folio_state |= FOLIO_WAS_MAPPED;
- 	}
- 
-@@ -1592,7 +1598,7 @@ static inline int try_split_folio(struct folio *folio, struct list_head *split_f
- {
- 	int rc;
- 
--	if (mode == MIGRATE_ASYNC) {
-+	if (migrate_is_async(mode)) {
- 		if (!folio_trylock(folio))
- 			return -EAGAIN;
- 	} else {
-@@ -1826,7 +1832,7 @@ static int migrate_pages_batch(struct list_head *from,
- 	LIST_HEAD(dst_folios);
- 	bool nosplit = (reason == MR_NUMA_MISPLACED);
- 
--	VM_WARN_ON_ONCE(mode != MIGRATE_ASYNC &&
-+	VM_WARN_ON_ONCE(!migrate_is_async(mode) &&
- 			!list_empty(from) && !list_is_singular(from));
- 
- 	for (pass = 0; pass < nr_pass && retry; pass++) {
-@@ -2134,7 +2140,7 @@ int migrate_pages(struct list_head *from, new_folio_t get_new_folio,
- 		list_cut_before(&folios, from, &folio2->lru);
- 	else
- 		list_splice_init(from, &folios);
--	if (mode == MIGRATE_ASYNC)
-+	if (migrate_is_async(mode))
- 		rc = migrate_pages_batch(&folios, get_new_folio, put_new_folio,
- 				private, mode, reason, &ret_folios,
- 				&split_folios, &stats,
-@@ -2156,8 +2162,9 @@ int migrate_pages(struct list_head *from, new_folio_t get_new_folio,
- 		 * with minimal effort, force MIGRATE_ASYNC mode and retry once.
- 		 */
- 		migrate_pages_batch(&split_folios, get_new_folio,
--				put_new_folio, private, MIGRATE_ASYNC, reason,
--				&ret_folios, NULL, &stats, 1);
-+				put_new_folio, private,
-+				migrate_is_async(mode) ? mode : MIGRATE_ASYNC,
-+				reason, &ret_folios, NULL, &stats, 1);
- 		list_splice_tail_init(&split_folios, &ret_folios);
- 	}
- 	rc_gather += rc;
+Huan Nguyen (3):
+  mm, x86: support copying a folio using non-temporal stores
+  mm/migrate: introduce async non-temporal migration mode
+  mm/vmscan: demote folios using non-temporal stores
+
+ arch/x86/include/asm/page_64.h |  2 ++
+ arch/x86/lib/copy_page_64.S    | 65 ++++++++++++++++++++++++++++++++++
+ fs/nfs/write.c                 |  2 +-
+ include/linux/highmem.h        | 21 +++++++++++
+ include/linux/migrate.h        |  5 +++
+ include/linux/migrate_mode.h   |  1 +
+ include/linux/mm.h             |  1 +
+ include/trace/events/migrate.h |  1 +
+ mm/compaction.c                | 18 +++++-----
+ mm/migrate.c                   | 29 +++++++++------
+ mm/util.c                      | 29 +++++++++++++++
+ mm/vmscan.c                    |  2 +-
+ 12 files changed, 154 insertions(+), 22 deletions(-)
+
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
 -- 
 2.56.0.398.g882cbad275-goog
 
