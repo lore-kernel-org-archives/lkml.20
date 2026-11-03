@@ -1,61 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703309;
-	b=cqmywwRr94bvkIWxpekD95QUTnXXMuMYW/ZBBtiGqYxS2We/+JCj/gHXR8BH1rv3usSn
-	 buIiqh/mVdklVB8TNpXdE4oyTcaOpKUZx2OOvRmgDv/sFmsnk/PY62zto4TRQY5jEd0fH
-	 Hup4UlspBMdEYcnPYLwUgPEQVfW/mVet2nFEXkZXSh6aaWjbwbkAliuoeCTRn+hn8CKdk
-	 p6JvdBplkHyFoqVrsBg3gGtQkRi+3haXgIbMdSuRIA0CnTcLhpedHbtneHh44QccKGuvL
-	 BEpGLemsm8aoKc+N/1o7Ucr0nC/wI/kusotiYM3FZmd4d5AMo2QWB3rNip6qCKkweoQ==
+	t=1793703324;
+	b=s06P+ytzbN5kfgWP7G4YnTlHRhuRMVLN/fWwo4xqXDIZZpx8jIiUlCoRsgw3Ej9S4vYJ
+	 d1UCrMN8sEc1Q/oQzrIAhLChgjoAJhI5jYFs0wHzDdQrBw4gr714bROcuzu8t5GMKv1az
+	 9fUCzuLVc6+0DWNDXYwbrwziidfqdxGYp84IWudiqZBdwqtlef3+cCp/aJxi5QUhkPxUE
+	 Rh4bJBkG2JOqYCYWyDzTqwBlz1I/CdoTgx8B2nBtJxCnYyCGx+N0evotLIxNHoKvnk0GF
+	 T4rNW63Y2x0wdB6p7pMKhlSOS8cotNzXbMoJgGJhPIvTlWpW4SLj2wySszsd6p6+Qrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703309;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=w876MNRRdwRCJnTU1Fel47UMgeqbTWjT7jcDrhfNJKE=;
-	b=kQdqrBwkSe097ubYEaSQEUXK5ICnRxBYu3PjJtQ7mCd3YLDc4F2Bq8ac918v157b/2W8
-	 Afi+3XSuH0i+WiIgBn1259K32zMhv5lKyEbWN5sckRrD5TLxWynhxvaKIg7HTybPN51Su
-	 JIRTdFHQDkmREBHT+coy5u2Q0FVEA/rhDstGzPPqmGSuzZjkFCDvwdG8QDgjtERh7+rTk
-	 hRVl/FDS6sWUnh/ACsSikBLBT7uxokpfuRVcmcvvjY3yTkdJYueiBnFtqYmAFMKJ9YNHG
-	 /DDOiCFzNLlIYm01wQYCIE6530ssD9LZQRj9CvW/ZtDNxWvJ0XbDsemMrWQDcwrLOSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703324;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=u3cLj5oN/VZ0ZNxbSXI8g2cl/Xh+rzyKi2IZeHfI1Hc=;
+	b=r2W6RLUgns9QGWc28EFNojJHgyG31P67zlC6QxWJwdvF2KqIGygDcgdeZ0KymOUnxmer
+	 qJKR02u3LeNTvYIKk7X70Qt0JETX+Dxxe9rSM1zmrwgvMODIeNrt3OGiWli7gW0wL65lg
+	 0Hg4b8HM5JRJeQ0E2sMD8vLvUb+4dwK8Kqx/pYy8fRTyR99zUbBhDz+dW57xEMxEo2aa+
+	 6IetaksfQ9SKOngxLNS24qcOmRHFkB0QpTPTNbPsl3PmoAEOvNDi6GofOBAL0thY5QZG+
+	 DoLITRtPu4xORHtHmj1tVmkEDe1gxxf9RANoFojwijSa/PWZhu4a6V6jYw7CCUP5qLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGhmVNVq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q7+sAeHy;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82494606EDA2;
-	Tue,  3 Nov 2026 10:55:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03A9606D809;
+	Tue,  3 Nov 2026 10:55:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D03A9606D809
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGhmVNVq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8ED1F000C1;
-	Tue,  3 Nov 2026 10:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793703309;
-	bh=w876MNRRdwRCJnTU1Fel47UMgeqbTWjT7jcDrhfNJKE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XGhmVNVq11sVz2YuESBLrONEKvK0ZNJjI2SHX5sTBYCcFcs6FWJ2YiCm8aMGrjwux
-	 Do3wZjHshoAa6omlmPqTLhWZF0pvwEnaW2N2Qsd7a2rYtB3q2hvkBPnE89nQxaUAXG
-	 KA1f3vqz+yXjLuYZORRIojBR8XP+z98A0jTh6+L70t4FynniyE9KeBNEcK2+01GuAK
-	 +odVFY3a79WkD40N+S0Nk7lLqxLAtHBGG9WaJgGU5sEJ13oj5y833SlGKQbWYnkaZo
-	 uaUxhiK/X/RBATcHVtoMX9QBmqijVCgNGdBp8LUC+q2goVfK/RKhl6RCOoIMZ4vk9I
-	 q7X2MQ340Elgg==
-Date: Tue, 3 Nov 2026 11:55:05 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Alexandru Ardelean <alexandru.ardelean@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux@analog.com
-Subject: Re: [PATCH v5 4/8] dt-bindings: iio: imu: Add bindings for ADI
- ADIS16607
-Message-ID: <20261103-accomplished-real-cuttlefish-b6efdc@quoll>
-References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
- <20261102-adis16607-v5-4-4f98b0d271ac@analog.com>
- <20261102-barista-haste-6f219aa98c81@spud>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q7+sAeHy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793703324; x=1825239324;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zlZAkh1fUKEzetjxu/VNbWuP8t3+57w9dqjd0ryW8yY=;
+  b=Q7+sAeHyt7kkxZEYIiu513DlJmseQmOtuHoKzHYbluQA02UoY9olFOu/
+   f+BdHfZmWZwVrzavu5vvUIp2yhbVDecxz1QbIKyx39T2meWtcJ4hhz+j+
+   IsmMeBSSe7viDk/LxMUkyaC32cCG4HNYXHb204OXwtxX/PJer/Sp46qZN
+   hJnMpr8XlMUXuxzKAj84Va5oktDZAMEeGtccPL0WTKXLw8BTbiS9pm96a
+   suj+th06S1pZmRyAOHTUvPlzWUe9psv1du9qPaWM6JPFYKdnbYR+BP29K
+   cpbhwd4+16OI2l4QhdH6d5lHMwrq8tkNyFWfFmAD7tiznn4bosypEJs5y
+   g==;
+X-CSE-ConnectionGUID: fB7vy+gdSdGHiiat4LMEig==
+X-CSE-MsgGUID: QZ+pxtITQ3m2bW1jB9GROw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2301013"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2301013"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:55:23 -0800
+X-CSE-ConnectionGUID: 46CalhT3TQ+EBH80tcOG+Q==
+X-CSE-MsgGUID: QZxCu3gBRxCB1e+dzUPh2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6450346"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.154])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:55:21 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 5F50B121B74;
+	Tue, 03 Nov 2026 12:55:30 +0200 (EET)
+Date: Tue, 3 Nov 2026 12:55:30 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+Cc: Hans Verkuil <hans@jjverkuil.nl>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] media: i2c: vd55g1: Mark the AE lock and bias
+ controls inactive in manual mode
+Message-ID: <aum9ooVly1Oq3phM@kekkonen.localdomain>
+References: <20261101195006.220657-1-fernandorimoli11@gmail.com>
+ <20261101195006.220657-2-fernandorimoli11@gmail.com>
+ <auh9SHrLKHTjENwY@kekkonen.localdomain>
+ <20261103104959.52785-1-fernandorimoli11@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,40 +89,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261102-barista-haste-6f219aa98c81@spud>
+In-Reply-To: <20261103104959.52785-1-fernandorimoli11@gmail.com>
 
-On Mon, Nov 02, 2026 at 07:36:00PM +0000, Conor Dooley wrote:
-> On Mon, Nov 02, 2026 at 11:25:40AM +0200, Radu Sabau via B4 Relay wrote:
-> > From: Radu Sabau <radu.sabau@analog.com>
-> >=20
-> > Add device tree bindings for the Analog Devices ADIS16607 Precision
-> > MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
-> > gyroscope, triaxial accelerometer, and temperature sensor, and
-> > communicates over SPI Half-Duplex.
-> >=20
-> > Two variants are supported, adis16607-2 and adis16607-3, differing
-> > only in gyroscope full-scale range (=C2=B1450=C2=B0/s and =C2=B12000=C2=
-=B0/s
-> > respectively).
-> >=20
-> > The binding exposes optional properties for:
-> >   - An external clock for sync mode (falling back to the internal 8 kHz
-> >     clock when absent)
-> >   - A hardware reset GPIO (active low)
-> >=20
-> > Signed-off-by: Radu Sabau <radu.sabau@analog.com>
->=20
-> Why did you drop Rob's tag?
+Hi Fernando,
 
-Explanation in cover letter is confusing. There is no difference between
-v4 and v5. There is some description change betweeb v3 and v5. So was
-the description change something forcing to re-review?
+On Tue, Nov 03, 2026 at 10:49:58AM +0000, Fernando Rimoli wrote:
+> Hi Sakari,
+> 
+> On Mon, Nov 02, 2026 at 02:08:40PM +0200, Sakari Ailus wrote:
+> > I don't think grabbing a control is a bug as such; it's normal that if
+> > exposure is set to auto, you can't access the manual exposure controls.
+> 
+> For that case the framework itself uses inactive rather than grabbed:
+> v4l2_ctrl_auto_cluster() sets V4L2_CTRL_FLAG_INACTIVE on the manual
+> controls while the cluster is in auto, and vd55g1 already uses it for
+> its exposure cluster. The AE lock and bias are the mirror image,
+> auto-only controls in manual mode, so this patch makes them follow the
+> same rule.
+> 
+> That also matches the flag descriptions in vidioc-queryctrl.rst: grabbed
+> is "temporarily unchangeable, for example because another application
+> took over control of the respective resource", inactive is "not
+> applicable to the current configuration".
+> 
+> vd56g3 has the same two __v4l2_ctrl_grab() calls. If this goes in, I can
+> send the same change for it.
 
-Radu, please carefully read submitting patches.
+Right, indeed that sounds reasonable. The drivers that grab controls today
+do it for the duration of streaming so the use case is a little bit
+different.
 
-Best regards,
-Krzysztof
+-- 
+Regards,
 
+Sakari Ailus
