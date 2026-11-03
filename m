@@ -1,78 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793737799;
-	b=RLwhPv8o7w/KH7EwWF7zjBhUr/+mWPNSyi55dR8dOg7SoIrMkHhhxYlIxV2gg2ky8Tsl
-	 Qpc+w2PiU5GMhmcfl0KeQfuD9mA1H2sDZlMUXYhJKseC3E2x7Oz0Rm+CBQnnliiZg2/fr
-	 DQOKh8/pQH/30N5OAOYi95Tq8cKi5JTDPcQBmrBynMvmO/dJtJTotM1XVTvN7O+H0NIzj
-	 LsKL3SMr/H/Xlt1h9+u/CSMm4XxCsvMhyCQqs1qJjLNSZVvCiTMuEWDsSREz5eikXonaY
-	 0L+mpZkFKJEuG6bF7Em9900RNZqMgMd3ykRStxTEvAwH0Uf5whqzktOXI2fc81YfjtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737799;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KzAzJwf4FOBHlJwjUBwevYc6S6EZCFURslleh0SnJ+E=;
-	b=hBtCEACBKQ9+8QN2seKz90nt/cUICSCMPKVouTrXF6atahvvvsjBjuMYBqzongtfnh0N
-	 cQ+n2uxwQFJCbNrj9v9MMoudExll86xhIKXtGgGG3v+w0nUvjIPsyCr1Jj7NJCAyyMC9g
-	 jWGsjEirdu54E7ytNp10TWTUry5npU0z8giCtfrHKb9QUsfavG0Bit7Ba+4wxzZhN1ovt
-	 2gxKRn5Heyq1oHlGbKaLyEe6ErBmvdGbG3BpAtNZfHlyVKqKFx+ZHM6GE+1AhNSwmi+A0
-	 INwz3ACSaPvubd+QswT9CT4tonATqgYqG4go6uhNs1uv+Ed7gua4Z1uwrGjCTpddEtA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IFlsyWJM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546B4606A31B;
-	Tue,  3 Nov 2026 20:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IFlsyWJM
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793737798;
-	b=CpIe3XHt4EV8zfF+uGSxXIDW1nEF94IDagL6MGvFdHqOaaqEVMRcfVdbTpI+icqQFQaG
-	 +KdRIZcZeefBHNmKrwA1/drb1ii87kEs5otUMhAAK5c66XaL8USIyQFHJqskNRB30rwea
-	 WwhVAacjDrvRpebVlTNM6FsrJTLRdp39UWfAI+QknV1RVvT2917PpIO0sU6NMDj/n7rRv
-	 lHBrzUFpoiTqi6FdsWWQeBX6rCFnndJRKtBkswbMYbVdYVX1d/JL5dBJv2z1t+zujVpDx
-	 y/ziyA9OWwt5Od8Aw93Um0c3CbNwBjGGA360oB8vb9fhOBLTlf4z3FXOTKIrzynGglQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793737798;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KzAzJwf4FOBHlJwjUBwevYc6S6EZCFURslleh0SnJ+E=;
-	b=dqirJe2hTYE3cv2GZ7ad4jjw3F6BoK4ePfr0bieH6Bh4raaX/4FwW4jdai5MNW4qxRnN
-	 PhWhcpJLfTpQ5zkbMHM7CqZGDuHJC28mH/U4YP5yedletrvfNFXe9tsMoScrUWLnrpkJd
-	 PPvZUMAOJdNz3dK67jXeWHCA0MUW7bdE+dS732b9DA3v4EYaiHW0DiTSoEryPUUbAKeeN
-	 fkClWObsXYoIqUCyUdOptHmdm+CigHrWW1MPCX8BB1upNfzR5Bg6Q3Ufasijn7R5xw2gO
-	 DJj69nGva732VXWy4VpBVvIwxutjPZGQbTopZ+gURvPzWhCEG3asDwPytBT4rvoGpyg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793737850;
+	b=otx/DrfXtFpnKd3hd6Fyl4TVHDeM7ZufTXEqhXTHWhgxWh/0+T2u9++m8VDX2I15fZXC
+	 9q8EqZmGZS3JcEv2vzV7I2rcE0d3lWOM4HJd6d2U857XCVG+P8LXDj8pzCkLMSfTkKu28
+	 JSd3HNSekeJgiKCUKPpkGUGBZotk6eC9c+nJo2/JkOpPEEztZ0K/8lpv2wC2UODQ/WN2i
+	 prOJa0720zok5/zG2CKmEt0yheyiM3Jk0c2Xu3uiO9UNUBZAz2Ijb91MfyyrCE8vv8d1y
+	 xQFs7MUhDWCotD/9NE9ZflVRHrlJ/Tbx5YLN4fU+fcKBlJqLDfvsptflx8asLqVqL6g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737850;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GOCfVQ1sa5WzcdZ/Tr3HQNmgJQJXir1JU7H6wk/nXHY=;
+	b=guIKsBVMEAjPK/5SAJuoVDK2+rSELgkDEzZCfpzWzq3Hh10wBF1Treg7PJLy/BUNz68p
+	 u6nprE1nqHeejFcIffzNzxKIjmReuz92ay+Icqc+zDw8LLqNE0nvhGpDaOvgLAqPp+bYv
+	 iSJ/qyVGq7bjDko3ajqGs/QQsRc0gPglUOBFjiDQsInMeLUR2v+9ePOKB9J8B/7uDT4Cl
+	 WK7RB+iFUnf+CA1idM3vGR06WII9oOPe+9gziJxgGiOyDc53jHU4t59CIvhgcdP8pvtoR
+	 XujkD0bQsszVuTc1vBWFW71NcrxEXlB8kFdArXcZ6Hd+xG1DYotFDymwITjbyuk6wig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="aL5Q//cL";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5D67F1F000C1;
-	Tue,  3 Nov 2026 20:29:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793737798;
-	bh=KzAzJwf4FOBHlJwjUBwevYc6S6EZCFURslleh0SnJ+E=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=IFlsyWJMyUFbzxLJ5neXheCx1IFNvnS+gGAi8/Ny6htCngUnPr3Ry/6AC+pxPpiYR
-	 lqA0wEJBLulog7hZRVknbQpFlNKMx+6QBQ3awbqUqXamu5kpUGGX7ZzfQcUBADaoFq
-	 Ew33/M4wEK/XSRmVm4jano9D07p1iOFHHFYDDleBBgOBnHbnGFHLLA8EqoEcQsAze5
-	 F9PhBR5g/07quePaTpR6+jsf/v/sIrBeu72jGZsSqKKBCdXeBf6ulYCLagIV6cbVft
-	 1pLk3Isv9cndac1I8pDT6tf86YeHXPQrqEoPEq1/5CQCkULnxqZ95S7/OVXd+APV3R
-	 Nj5zcGSPZ5Qzw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E1EBD46B01;
-	Tue,  3 Nov 2026 20:29:57 +0000 (UTC)
-From: Peter Lamberg via B4 Relay <devnull+kernel.pelam.fi@kernel.org>
-Date: Tue, 03 Nov 2026 22:29:43 +0200
-Subject: [PATCH] btrfs: keep drop_progress when resuming snapshot deletion
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B2F606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0B2F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aL5Q//cL
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so29535345e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:30:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793737848; x=1794342648; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GOCfVQ1sa5WzcdZ/Tr3HQNmgJQJXir1JU7H6wk/nXHY=;
+        b=aL5Q//cLEuNpA634+unzLV+p9v8p+a7Em0DbXEgeZ0BLFIFGIyCSbF3Nqsauxl/uRJ
+         Z0E3nWzxoIHGm4saKx1SkugDmfWNjfERJjzc2mGvK9o1fR4A8I8ep0/y9wUCzO/xTXct
+         2AghvsWQ4UHnlt3GzSn5N/oSbJ7iixOUtMD6yjOTo0yErvx90MDFLpR6N9zITulkJLxm
+         +L4fZy5hfzCvmjy56S+mKCyD8soisxcTerJ+ev5vhxjOqbr0ghbI+i+51cieCni1Ldaf
+         JfLaNVjPToruZYOsf1EPv4IX2reBP4O7yCIBI3538/FyjRca1MqZjJBeSzXl8HL2nDuu
+         a9bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793737848; x=1794342648;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GOCfVQ1sa5WzcdZ/Tr3HQNmgJQJXir1JU7H6wk/nXHY=;
+        b=E3NqtoMc/sXPV+dF73bp+fwYXqB577KKsYJGZiXdw7QemTMjCiioK9WmV1hue2JT6X
+         mxIN2sMbWahTMzZ+Sfjbaeb1pJWCk56OLfperU87XHJ+uieCCnIl8gsAV96/6MFgebLE
+         zBOMFm+hL1NEY7No1kvFqo6YzVPmaV3d1k6qkVcFpP1AuFL3FghpAzBUoL3UMBEQYYOB
+         g+CAcofZyoKqry1Dk5ZCccz8UcUh/y/SfkrwQmOJ6kSsIlYEj050JWvlZOm16eVcs9xt
+         HMWwBbJfvkGo+J0zXmH+inEuU+FbFFiAKv+32vDxi6Cjbb4ziS6XSIYOdqwP7yQwt78o
+         sNcQ==
+X-Forwarded-Encrypted: i=1; AKwUvByr0rBJukb7FwnQCPT5vzEYlxZ8TgrUdVy1LjIiPN/Q9dEHt5oC4y+I3+3zEZFIY4Y0Bi6hAXhe4kOdK5k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KnU6l9DjKALCpre/Vbm30t8HqCC5ePI5MW7ZL5zkXYlKismTB
+	IA31/V4Oz21H/QIVSJ9X4nNWIogHrTuPFRg7hQY5DDfxB+5FjodOBP2O
+X-Gm-Gg: AYBFou3HRo8yY1PR8ZUzVp7DbUDt7Kip3QIBmlHKRuuE0a9MnGgJ5RVfpPJl7FI1Ae/
+	5L/3iNP1pnhS+psnt836TvuUjsRwHeRILBx9TR/N3u6F04bSKLtjWoZUBamKNtVZlcKt5KZR77j
+	zAA/vrrXWfMu8oUR3Vais1YMrub8Zi3Ca3AURi/94iZiTxy/LI/YuCTHS3jpkxaWJ9+ea3z10GY
+	ZLrRHE1ZZjbVLY1ZcXRuBZ6xnG0o5Dab/rhfz+gAAaZgIFnvcAxBTWJ0hxyrn+imiHAM2uVSRBz
+	aEzusF776uwgrWTI+gGqgFYJoxVASX7XJH3VFUD++msyD2tzr6ZOvV0n4QX4O1IA/2nnVu7NNE0
+	9GB26ivtsWaDkLpBltirV5jNZnJVQqPSGiptb3gSxPUU9YX77mrv3K181ihM4dLdmcu1M0iQ4Uh
+	XPNW/RbvsTrb6ofL60GQ7n4DskGLgvR0hDQ/5VYe9C4kdYXubkVcGgL/NPiJygYkLI1Y5m+PcOU
+	B+oSPOTCeaI0ZYBRwKG/AUTlYGpkDJQ6dZAnQYgzt2QfXtQgOY0fl1+xtD+KrY1VgBY6+Od5ggG
+	phgfDEb+oBrX9VibtWPxVaU0ENf5WyytdS5KBU+FPNhM9GkfulRptWVyNSiRX9wC1PDD5w72TgE
+	iTmdtY1SfiWThvRX8Zte5GZDxesdpAtjjzw==
+X-Received: by 2002:a05:600c:46d1:b0:4ab:cc03:7f60 with SMTP id 5b1f17b1804b1-4ac18993780mr323378835e9.18.1793737848028;
+        Tue, 03 Nov 2026 12:30:48 -0800 (PST)
+Received: from Ansuel-XPS24.localdomain (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4b2a879fb29sm75110245e9.4.2026.11.03.12.30.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 12:30:47 -0800 (PST)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] an8855: add MFD driver
+Date: Tue,  3 Nov 2026 21:30:30 +0100
+Message-ID: <20261103203034.12869-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,121 +100,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-drop-progress-v1-1-16e345565109@pelam.fi>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDVpSxBXEQtlMBbazCAScXfF8
- i3+v0CQCQXq5ALGg4T8GmHSBPq5WydUNESD1bYwRmdqYB9UYD8xiqhurFxpcquz0kFsAuNI5/d
- r2t+yuwX77Z3AfT8ePSggcQAAAA==
-X-Change-ID: 20261103-drop-progress-af8b7142037b
-To: linux-btrfs@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, josef@toxicpanda.com, dsterba@suse.com, 
- fdmanana@suse.com, mason@kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793737797; l=3991;
- i=kernel@pelam.fi; s=20261103; h=from:subject:message-id;
- bh=+0hMPVJNrK3nqWmVIXPLZTc0fOhJ6F352/cjiqMYRHc=;
- b=vFBm9fFlMCurRCtUXizufaul/ytO7E0YikFCAQNrIGucv93R4TOKbJryHovwmYukTt2LeuomY
- Y9MaFlBnphwBEsdsV3o1mTkHerUmzCTlrppVB+Xtq3BlYl0moU0CLHr
-X-Developer-Key: i=kernel@pelam.fi; a=ed25519;
- pk=qpD/xh/xwDGEMdfQk/5prChHF0mXHXDTrs35FxiJgrk=
-X-Endpoint-Received: by B4 Relay for kernel@pelam.fi/20261103 with
- auth_id=1398
-X-Original-From: Peter Lamberg <kernel@pelam.fi>
-Reply-To: kernel@pelam.fi
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Peter Lamberg <kernel@pelam.fi>
+This micro series is the AN8855 MFD driver that can go
+parallel to the DSA driver.
 
-When btrfs_drop_snapshot() resumes a partially dropped subvolume, it
-copies the saved resume key from the root item into wc->update_progress
-only. wc is kzalloc'ed, so wc->drop_progress and wc->drop_level stay
-zero. The main loop writes both back into the root item on every
-iteration, and wc->drop_progress is only updated once this run drops a
-reference itself (DROP_REFERENCE stage).
+Changes v2:
+- Rebase on top of linux-next
+- Drop switch part from DT patch
 
-If the child at the resume slot is shared and the walk is still in
-UPDATE_BACKREF when a checkpoint happens (an unmount or commit before
-the first drop), the root item gets drop_progress (0 0 0) and
-drop_level 0 while the root item still exists. The next mount then
-restarts the drop from the left edge of the tree. Children that the
-earlier run already finished now have refs == 1, held by the surviving
-snapshot only, so the restarted walk treats them as exclusively owned
-and tries to free the dropped tree's reference again:
+Christian Marangi (2):
+  dt-bindings: mfd: Document support for Airoha AN8855 Switch SoC
+  mfd: an8855: Add support for Airoha AN8855 Switch
 
-  unable to find ref byte nr ... parent 0 root N owner L offset 0
-  BTRFS: error ... in __btrfs_free_extent: errno=-117 Filesystem corrupted
+ .../bindings/mfd/airoha,an8855.yaml           | 134 ++++
+ drivers/mfd/Kconfig                           |  14 +
+ drivers/mfd/Makefile                          |   1 +
+ drivers/mfd/airoha-an8855.c                   | 579 ++++++++++++++++++
+ 4 files changed, 728 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
+ create mode 100644 drivers/mfd/airoha-an8855.c
 
-and the transaction aborts.
-
-Before the commit below, the root item's drop_progress was left alone
-while in UPDATE_BACKREF. Restore that behaviour by seeding
-wc->drop_progress and wc->drop_level from the root item on resume, so a
-checkpoint before the first drop rewrites the same resume point instead
-of zeroing it.
-
-Fixes: aea6f028d01d ("btrfs: save drop_progress if we drop refs at all")
-Cc: stable@vger.kernel.org # 5.1+
-Assisted-by: LLM
-Signed-off-by: Peter Lamberg <kernel@pelam.fi>
----
-Test notes (not for the commit log):
-
-Reproducer: subvolume S1 with a level-3 tree, read-only snapshot S2,
-delete S1, unmount after the first root child is dropped, mount and
-unmount right away, then let the drop finish. fstests test sent
-separately (btrfs/355).
-
-Reproducers and logs: https://pelam.fi/btrfs-drop-progress/
-
-Tested on Ubuntu 26.10, kernel 7.3.0-9-generic (v7.3-rc6 based), with
-btrfs.ko rebuilt from the matching Ubuntu source, 3 runs per module of
-the same sequence on a loop image with dm-delay plus btrfs check
---readonly:
-
-  module              drop key zeroed  abort  btrfs check  snapshot S2
-  stock               3/3              3/3    errors 3/3   EIO 3/3
-  built, unpatched    3/3              3/3    errors 3/3   EIO 3/3
-  built, patched      0/3              0/3    clean 3/3    intact 3/3
-
-Unpatched and patched were built from the same tree with the same
-toolchain. With the patch the drop key kept the resume point over 20
-mount/unmount cycles and the following mount finished the drop.
-
-fstests -g quick (btrfs): 765 of 766 pass with and without the patch;
-generic/574 (fs-verity, 1K block size) fails in both runs, unrelated
-to this change.
-
-btrfs/355 (no dm-delay, checks the drop key after each resume): fails
-3/3 on stock and 3/3 unpatched, passes 3/3 with the patch, ~15 s per
-run; same result with the devices on tmpfs.
-
-The patch applies to v7.0.14 through v7.4-rc1; v7.4-rc1 still has the
-unpatched resume code. Upstream tags were built (v7.3.1, W=1 clean on
-extent-tree.o) but not run.
----
-
----
- fs/btrfs/extent-tree.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
-index 9b0a5c6b96f3..41a8b25c6e0f 100644
---- a/fs/btrfs/extent-tree.c
-+++ b/fs/btrfs/extent-tree.c
-@@ -6333,9 +6333,12 @@ int btrfs_drop_snapshot(struct btrfs_root *root, bool update_ref, bool for_reloc
- 		btrfs_disk_key_to_cpu(&key, &root_item->drop_progress);
- 		memcpy(&wc->update_progress, &key,
- 		       sizeof(wc->update_progress));
-+		/* keep the resume point until this run drops something itself */
-+		memcpy(&wc->drop_progress, &key, sizeof(wc->drop_progress));
- 
- 		level = btrfs_root_drop_level(root_item);
- 		BUG_ON(level == 0);
-+		wc->drop_level = level;
- 		path->lowest_level = level;
- 		ret = btrfs_search_slot(NULL, root, &key, path, 0, 0);
- 		path->lowest_level = 0;
-
-
-
+-- 
+2.55.0
 
