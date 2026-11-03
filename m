@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.6
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.30
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793671558;
-	b=LwvgXHwqZS4OrV7XnJ3KBFDKNt0P4kdF+rWOzB9AdER8Zqqw9V4UxD2B1ZTCzGnSEqj2
-	 IpLIEMu5JNYuvh+q3Ur36tNz6ISnXknoMzDCOGdLKlZD0AADphWUUS+t2dl3hj3D71a5m
-	 c1pnErBAceowKb09iWm4kCIPFP10HYKqEPQuziTI7zAEyNaKawDOhCi7Q0s1vJJeNpM3j
-	 1wwSiz5lQX4K9Gis1+9DIW5S74K2JXrbdT3IbATj4WpHNKMv36fOf1gKkT4WQLOJc9vyu
-	 o2YbiZGr/noz8iuTMrXvznHwEaImn70iXueQ5cF1mh3/FlEyZWboXuCOIDtcuUGsxUQ==
+	t=1793671579;
+	b=fxH/Fu+tJ3iMokyjG32Am/0CX9vZLvN9GHVvWeLkx2KJ6+1qTmy9ktj/Su21fcHJoXGe
+	 fZ2MemgYLaz4bf8pxXAc536bfO23Z1CFJZgwebBHt2e6ga+JX/yME0IVSHgTb465hwm1W
+	 PYuNi49it4D/byiz7v8F8SfduQeNmoOJ88nITyuJ3EiDHF4OY1rkReUm03JfVjbYYTl4a
+	 es654YhkdxAWjJtakO739kKsn+SzXqKcbSu6R+S/JnSXGshDPc1RxDHProAu3YEueeN3C
+	 BEuwfr2u6CP2CUif3GwNmWQI6RHvmn0UnGhglvB6dCC7b50fCATh1OfllpCvNisG6zg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793671558;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793671579;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -24,54 +24,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WwlXh3LktFHI7zSBsD/SZac3qhtr52wShddo+pQGDSs=;
-	b=iiI6ujry+pbPXRQeOhM5+OwEWPYnm1AqplMVN5w1GBycgeOl+3PU2firOClnJhxbYDH5
-	 2rM3wmw44MqDyYRAkTsz5gcvBc8jN+8xjtYwMkBvj4Ufh0NAD0YUiJErYc6hGo9lWlAGB
-	 jtSBVARFIkMkJEackAWI3BbdV4Q4WJla5vrbf1f/umg9dO6PPNrWIXG5A7m12ZEJRkYYC
-	 Dp9gToeJsooNd+vpn9ASVyax/FnK9m87Gqe8GjhlApaJZ+dKWccWpT90o+JMLGwQtyWKF
-	 l08de588NOtPI3JiUYfy+0TsD8q+2VxI1eMQjJ4jjDYdSc09R6PKihI1obRDm5jgKVw==
+	bh=gP9R7rQ0HkQ0AZ5IOdZB5ipr6/sCzqK29BoiZqpmp1A=;
+	b=khZgP8gICLnONbvr7gC8mryj4O1pxpg5sYsJqXhf1IMt7U6dx3tGTsbb48h1BkfR0D7i
+	 Tx24HIDkbDg7/J6hVg22zbllnML2f89F8kw3QMmgt32ruHFE3C+qRvCja94HjDIUTzkzR
+	 4jeaPbrekchNIrrNQkf/MOiGvBEtue3mqMvODClCNpcCkQGgmFOGVRs3VpRK0GSr30iBv
+	 tvI/pemYuqeiinHtpBjhlD8HqqlxcOxbrFCIfUAz1wVX+od77k/SE/6A/f/OMx1mJj1S5
+	 jDXHDPLspXRFfEaJ8Bnr0CYyCg4L3w6bglX036XipVd8ZuNE0v4A6k4x8HDgWMQLSgA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.nxp.com;
 	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JaaFRmwb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.6
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013006.outbound.protection.outlook.com [52.101.72.6])
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=wXnw8FEJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.30
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013030.outbound.protection.outlook.com [52.101.72.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484DA606A33A;
-	Tue,  3 Nov 2026 02:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 484DA606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B206606D802;
+	Tue,  3 Nov 2026 02:06:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B206606D802
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JaaFRmwb
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=wXnw8FEJ
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KnO626ai7GZXjUXRoaG3n7YOdAJoRynQwQZHHWr4u/gZQuYh4sHh5hIFEidIKxMncMtagwi6XG/WV1ueQgjsOSDEAKZwB6F3DJwBUGZORkXCSGl7JYWvE9NQTTS2NmirABKz1lCiQ4+mNc/idZ/1QxUyXaPr5RQ3lK2PGSp5IcS+hlbfNv7zCdD2IHwfZfH3Bh36bU36q2RrUcaAmDh0yej1Iuqwuy0OhE5MZohSdejMpJKjuilfLsCfKQiZYynWQY/q7gL+hwJBOet4BhS4BPpjvgTDybo17l9Ck6Fq8e7DDAqi1gMwa7v8ocZChD3KEXuc2O6w5DJS/RaokYEQrQ==
+ b=LHXBntdsxwDLgf4XoR61jaeweSRHivFXHQ0GY1GjrMZveZRQn1AKUQYPN+OO6CfpSA+XuvQGq97wIdnQud4BINMe5vntcBYpktXXFMU4jHqclcdHVkzJDC+vDRHjE0/c6fJGbxc51V/RIOS5/nQF6lXJj36TnBmVh9P5ujUq9s78qkozcsPCMjqg3hcEbt9hRREPKPqygFAHF+0lpMv2wZD9jj6yi3lbTVV0bdSEdy9aWLRPFXmR00YhJMJxx8zuxNEyLKtLeX9y0s64vAHThccKhuH5bPTIToaPttm5Mg6bSMCCh1Samz5KE9oU4EB9nCJBz9ITfedix239eDReGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WwlXh3LktFHI7zSBsD/SZac3qhtr52wShddo+pQGDSs=;
- b=U4cuakCgOP2xZkCcHR/e/H7+Ge/dLd3UZDZLlkBARqUgZM5DSAEdsbP60mN518AQAwf1DhBndLMo9avY4n8EmSWoar+/fCa5MNkBpei38iiHedXPpdKGpiZGt6D9KXCQw5ZdGPT8i0kiWZIDxFcxQxao23PiWTcUuMWJHL5NGOYCw5/RkO+bURUMUJblSj5r1/A3kEtunkSeebsU11i+RiebL4NuQY9gMrWso1HMPhdUeQ6G4UwuX9F1ijNJbhfh/mwI50B4k7/4jzc1YSqLRUw1umsxKaI1bQ4Wdg7xTPzmn/rZlIU0Bh0qxkvTZR7mM/gMtt0/+svvChM1Y5e1iw==
+ bh=gP9R7rQ0HkQ0AZ5IOdZB5ipr6/sCzqK29BoiZqpmp1A=;
+ b=YCf3tFK/U4gpVHyOpijnCq52RjAw4C7cLhYno1n+mAuqpg0NyPDQEbh+AI5Gn80EoEoaeG/RC4uV4mZWIdfNF+8IPfubPG/bgUumrc9sVBvgyLLL2vMYOZHW1KobTJM3cr5T53RvSg0qNAQ9h9DjodCg9JBeK7ULX6p/vSx4LBcvVE6tTBzJeF1Mjd7tGeM2Gd1jnZtSsX+sIQioj/8naOKp0+oB7dcTV/iP+3Mc0schgrMv32Ca3dcz1z/XtIcKig4cm9xN29PNz4AgmlqJka0/MxswO+rzHRb85XuMPKfCeIpoAfVy0Fd2Uo8Tz+D/TclZ+T0iV2o+Gxsz/3EvIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WwlXh3LktFHI7zSBsD/SZac3qhtr52wShddo+pQGDSs=;
- b=JaaFRmwbRE2tx0T+rUeeDxtFm63ZJ3kXT7Oc+5jZTE6Ko9/1+zybSzS461uwwlNKEQxOVcT083tn1+0biSQgTzMOGVzwSmtGkHT1rx5mv8bFbLPj3q80OPi1+s5aPk0pqiJWyHZJu1WVbuLI3uqpUE0PCU+rdbCU76ODBM5h1sa/OeLoE7P2bTwFg2LWYeANKl329p03ujvxAuAqd6BTzMf7nI30070bSwZ82DLJIXmNhzUYSIzO5hReT88zvJhbnBcwrpS843pN7psamoCfVZTdrl84/d6YoZQqehPtXgacaOEnYE09sZGtIhBES6qSAp/XzUT4JU7fHHX1kVfm1Q==
+ bh=gP9R7rQ0HkQ0AZ5IOdZB5ipr6/sCzqK29BoiZqpmp1A=;
+ b=wXnw8FEJpkg7yVVcvZ1sYAziFa2rS7yD0r2BD57AwuuVszES4cy6D8E0dDdTxKXmi15Ag2hCG1Ar+IMZ6oMkx7/W5qMEi26UWxA+oTHZoTkG4W/571coX0DWyy4Pk7HrhXdPYmcvTP1uhufWiYbgQyB3GQHASV/xyqWYTzUHxx8FCM8Fpr02GD2HAL8x4JagFudC+4jf6TepP4odIuvQ148PQo3MA8YHWCYj4MIAVCPc54RYEiF6dOb/eMNAfiaSK1Je3jVCgX5tecx+63NV2hX/0G8nN7rSaAZEXEP50H9ElVVx4T96jxqcVGoupVqV0ecESrtS8GE2lOYKIlp9IA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
  by AM7PR04MB7094.eurprd04.prod.outlook.com (2603:10a6:20b:11f::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 02:05:55 +0000
+ 2026 02:06:15 +0000
 Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
  ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
  ([fe80::a9a5:cf83:dbe8:1f74%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 02:05:55 +0000
+ 02:06:15 +0000
 From: wei.fang@oss.nxp.com
 To: xiaoning.wang@nxp.com,
 	andrew@lunn.ch,
@@ -90,16 +90,16 @@ Cc: wei.fang@nxp.com,
 	linux-kernel@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v6 net-next 1/9] ptp: netc: use ioread64_lo_hi/iowrite64_lo_hi for 64-bit register access
-Date: Tue,  3 Nov 2026 10:10:16 +0800
-Message-Id: <20261103021024.3121936-2-wei.fang@oss.nxp.com>
+Subject: [PATCH v6 net-next 4/9] net: dsa: netc: tie setup resources and reset to DSA setup/teardown
+Date: Tue,  3 Nov 2026 10:10:19 +0800
+Message-Id: <20261103021024.3121936-5-wei.fang@oss.nxp.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261103021024.3121936-1-wei.fang@oss.nxp.com>
 References: <20261103021024.3121936-1-wei.fang@oss.nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: MA5P287CA0162.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1ba::17) To VE1PR04MB7216.eurprd04.prod.outlook.com
+X-ClientProxiedBy: SI2PR01CA0002.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::21) To VE1PR04MB7216.eurprd04.prod.outlook.com
  (2603:10a6:800:1b0::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -112,200 +112,476 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|AM7PR04MB7094:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6d010c8-f80b-4d8f-fc75-08df394efe93
+X-MS-Office365-Filtering-Correlation-Id: 758e4094-898c-4931-3570-08df394f0aa8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|19092799006|921020|261021123027099003|11063799006|56012099006|261009223027099003|261028144727099003|261026140227099003|261022075727099003|261026121527099003|261021121427099003|261022105027099003|10067099003|18002099003|22082099003|261102123227099003;
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|19092799006|921020|261021123027099003|11063799006|56012099006|261009223027099003|261028144727099003|261026140227099003|261022075727099003|261026121527099003|261021121427099003|261022105027099003|261022113327099003|10067099003|18002099003|22082099003|261102123227099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	HEFR6NHDGh5bq71Nj55jodOZWs0VzVucL1zmBiASWlbGgJ5xAAXZ8Me2eSR/mJAIWtXTClGLHrNztWFp0NwbaFhDbJ3S53D8oEThGmSnB/WKgkErocLfyrKvjJPeBuV/FRdK3EIiqTWtvP4iL+xpE7+GYHLiKUozWi3lNc/oq8Hqu5+qDDJTaob0c72QJMUZ1eFCSgbQvWBS9tFysDUY/tog/FGIhrKV9MQ9h5m8s7GP/PKIEbrw6zO1canp7A+uiS/h6hI8WHLXS3Rb4brC8BSc5ixJS0ei31sfsuLNmjBJdJim8K9Ktiy+AMBf0EiT/4svdYnu7MzuhgB29hNvTZiH3uiVQF7KN1pYqQ5L/zB02Q6IdslYEkPzJQWvK/545bA0sIF+JdQVA/HWymfnDe9Gi1VHh3Y8NRbxPvZ/i/iUCMjnDo/MV1DR+e8bK9eG2sNORw4UkcWvcLeNGpRnzJP3P2CPrj71FI87RvEKRxaWk9TCYBRqdkzSIydvQTYznncUHJTRGc0Kdi4NN5fVyJKMBt9imrEI3aCxA7Xy/ZHZQ5oy76NMhhKzJaSckDcRffPNnBMtp8BoesAtZ6HslC+mjaWl6SMl8aO6zCOTjKEin2GQGVd+eO5IMoGfk5p3hpO2qskkL9Nj7EVe5F6enFKfReRojNAELR8eIBXBncYs3ap/EzJCp4wAc7pn78CTmko499tKaTf0XOqjB5PRXg==
+	y+/5XGzBeqSyvJjbydU1l6hTZX868QTpcA0z3+DvbKv46o2cnC+QDNcd47U9xlhps6PH3qZPz8h8HKmaVOb9svcvxJSW9OXBA+iMipJL5OlcxN0qFohzM/u2K62VGlNcVnQ7/tNbuYIJKqNMuMAzYe7li98+OgqV9UDx/9Nvj1SIkzwGw0XMhVyL+sqUxHzH31sCEfeNdWKT44NIBBwzZf8NwZvs77Gw35ezoFt2jA2gqqUvGl/BDOOvX9rBnPPOC0XHnM+XKlbL8mwnzHYQRq8wTXsZXVajPzfH6/r0GjIQkqGcMTgblad1yRj6nbp2Qf6X93ymtYdu4dcnR8Qa1h0eF9k/LbfCSQp/M2spsJxLeX3odnI/Sdjrbj54e69PEG6ltsjstKgImoMAQFvJymsOdocfx91G6pW9RI9F/LHaenW+kFbwu6VfFvWmplCLHSoDPFHZVBjPPw4ZfY1L3FxIOaRvMq9XyVoWOFdmP3dByI1qfpMvPcO76ov65cIA9NsFwmtnktYx9edXI+PE43hZaGVaF5qfiDKFunbYs7VSMrtlGP49dVS1b66eIe1Ab72aJ+UfU9vyzEVDfHa+kvFuRZvCn4leunhNhFI1jpsgcFyesJe2GCu4HniRv+HD/zeR1P45R2LIgq0Lts7FYVYILmtkvhLPwISv8PbcNO6VzCOrRf3a79mLqblMgiTTEwc1+wpGXzqhcJb94/BSFA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(19092799006)(921020)(261021123027099003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261026140227099003)(261022075727099003)(261026121527099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(261102123227099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(19092799006)(921020)(261021123027099003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261026140227099003)(261022075727099003)(261026121527099003)(261021121427099003)(261022105027099003)(261022113327099003)(10067099003)(18002099003)(22082099003)(261102123227099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3vgpxSKzEMmxYmQYCOxoSrRbHyNko+8pnfiw7kCZGJNfrJFq4uMRoBO0nVCa?=
- =?us-ascii?Q?o4gO9S6s9S5czSN/zf6aRam92lpmbzPMzr3oT/y89+3SL7+MwE8bC4pd3NeB?=
- =?us-ascii?Q?dOXyapnqcNR88VYuudkr1SUFmB2grezP6I+e9yPudoPsY4Pwy66rpSQsf88k?=
- =?us-ascii?Q?fp51/mcNQ6eLDNXv9OFYHIjw/AlSRSLTdZwHDOSn6LJ9OvjwfaFcikseRtSd?=
- =?us-ascii?Q?DBcC+3y3OCjtg01yxUBaTQLUng0hJum/oGytNUlXIl9ASqr9JWCOLPdxX3fn?=
- =?us-ascii?Q?IRBA2lwwjfVgaxpi5z9q4yT8Kc3fU5Tqe5m3U6alp0BO+NamMkSA6ZgatLqB?=
- =?us-ascii?Q?GPMsbzjqYYEGH6SNB4o7W3XwdnohOe1AEOLE0ZmYlTVOcwRI8XONQLb3iNwP?=
- =?us-ascii?Q?lMjaPFiL5FQCcP/ZtbcT7psgFa8waq5/NNKfjb++v/voTsR70Cdi9jHXuNbC?=
- =?us-ascii?Q?mhxPG/HI3m3HQ7CgzqnXSPJTBhN7GTOmx7hk/Aku3rT16e0nYMJSOQUoJzjO?=
- =?us-ascii?Q?pR4E026SRLoNfHsANQyhpWVGJ7TAziG5nWydd9jD8mWWAF4wMR/wR3SX4wbH?=
- =?us-ascii?Q?M4eweGoHSCgByrDWLQLcw124EFclX2XSDb1EbwgCbZ0Iv8df37cLhDqxrGAM?=
- =?us-ascii?Q?d60K+VrVnRWNYcHISSsHO3W0ZDXabcCS7NDT3p+TCH28s0DzbKdEbib6WRRS?=
- =?us-ascii?Q?33+/hMUqS+XW0GAkc32HC4MRIGxOLYQ6ThgiyjATmcINENxJ7GeKz7W7OgwF?=
- =?us-ascii?Q?2n9sdxytkAfzx1OF+/5PI1EFNkIysbI+kGAuziVavUP5DgdcMM4ZtFUCw2ZB?=
- =?us-ascii?Q?pNynxi59h5hA30WQV2fw+Qv9Rx9Jha5RRaOuOBV8+dU0DQJ7DxhFfdtq0EkV?=
- =?us-ascii?Q?EQVKv2C4Lwxr0v2VmtRQOwX0By2mNyrvc0fvW8GiMk1XX6h4snjVF/6HtYbJ?=
- =?us-ascii?Q?OretOt2c0WtfJk1zoHQ04v/FOAiTjE5hAb6SmfqXeqUXzqAlFLSpodWGwquf?=
- =?us-ascii?Q?/ZaBdsMlru8027CE0jkuGDAipyA5qw6Sq4c2SMrclSJXqaR7cJjLR8qFMtgT?=
- =?us-ascii?Q?596txP5+i6J0HYB4MwoQmi/NFc7PE3Xk1gBX0zgxQ8AF6jngyXlnQvCvVLl4?=
- =?us-ascii?Q?WD7XqZQ7I7isSasCYwVbOoPuyjwe+4ZPetxEpqWEO88O5TrngsptyeCFhXWl?=
- =?us-ascii?Q?ZSb/KedOizwjO4aR3WtpKGL3P8Y/aFBmHzm0M/Md0/pJVqhQ8rv8zBUiljPA?=
- =?us-ascii?Q?DUaH46LkOA93hN9fIqWlEuQWz7b8jdebxVd/DyptgUHIWSXnBovyNQ4xjH8I?=
- =?us-ascii?Q?CwPqtcEMVBYxu28/83AgzLRmH1B450UsCzumO86s7lwXIJCZ5WWWfEX1DBxo?=
- =?us-ascii?Q?uux7W72YCCMmi7x8Q/CEmwX74r/kiVAid0ZgnXhsXd7qCXt2YuQUklh6I6kF?=
- =?us-ascii?Q?yZBgLxKiy3xbgya7yHjD6lHv0QeSiBmFObm6hX/ossGnCO3c7cUv73Cqr6au?=
- =?us-ascii?Q?aqkOY0emGHI1a7VFyLbYkM2H0RTWyZUvau1ssoDEEELWqrRDjfGBy6xX/O1c?=
- =?us-ascii?Q?YsIC1dRQhS8LutG1h+D/4RpFhYgWyPLX0rlr1i9h5rNo35o3NpfRLd0fRhzy?=
- =?us-ascii?Q?IEmfPOdqzF/xgjkpLxQdnvU54LldOH4gqhbKoljhNKYcHwNRKfZ+e14pMKt0?=
- =?us-ascii?Q?nbxiQL58mR9dkzhgcXl9wpFtnl2nzho3UJs0r58XECccTcWhg0EDj84YbIde?=
- =?us-ascii?Q?ppCDo3eRh4RVbOFCmt9mbgLgwFxF7VFfgqNVSLz2eDpHjVARwZdy?=
+	=?us-ascii?Q?x9gmrNXqDJdyuu9eMVoeEZMy8emf6MiSvrZmdFn4g0AnKJaPd/3U0+w3IyJV?=
+ =?us-ascii?Q?EHyt3ozWPQrb8FSVnIAtk2IH5655LibwUflkT+nd6PuVnx1/hflBOhcQ1H5/?=
+ =?us-ascii?Q?ue/QvSf0F+7H4baN2xw1SDrht+w89b+n2kipcvFwkyTKO7b4bHHd5AWtn/oK?=
+ =?us-ascii?Q?Tl104ERyjr9RbdDjWoUKB8GxODK7QEsui84jIAVHASSrdAyqcSAaQvax/Mqt?=
+ =?us-ascii?Q?TDWzkqzB7u0z9C8ddIyt1wHWNupvZ+oAfrGJjQdMvo4Xe0b5zYpzEoGRHgAG?=
+ =?us-ascii?Q?2CBZNkiAPwP1QSplQCG4d7QwThJGhmtnzy+oZoX2NKXh7RtZKCGLHUahEjf1?=
+ =?us-ascii?Q?AcVYDB2jgYjSj9fTpa82wGfBZW9lUcQ+Ato1R1aJZDQ4sp8xk1Rv8OuISgQF?=
+ =?us-ascii?Q?JIc5xYgn56caxOkXS6aYeHr96kv2+Zoynz7yqc7Yjz69+kgBDrVRwXFaGNgZ?=
+ =?us-ascii?Q?32Ri21R2tf2O68L+CY6o5Zc//qCqA9HtLPqcAko0hdcTIxqmNJqR6RQYgyTc?=
+ =?us-ascii?Q?bDWGPwRa7ySa90TdJ9mOuiUxV1vAySCnv93k9c0sTwkUqyr4fynQrq0d5GBH?=
+ =?us-ascii?Q?8F9jDakZXnSipa4YZMhcp+kB0nJ5gU6z5DlmNXG+GTNucQJeT+fNy4lqdVw9?=
+ =?us-ascii?Q?TTtc2po+3eBbRHKMsb4Vhz3AriuTnErMWIZvwtC/WWLCY+afv/mdlmAQ3mBJ?=
+ =?us-ascii?Q?uOjZlJOsitRQCpIs4cJ09VZ8CQyP8fxAbZhVtrVDsNvh8IknnFnC2BrU6/DB?=
+ =?us-ascii?Q?KfooT6FBtELKRri7ickvy/Y5SQ0Kc4mxm3S+eSZ6p/DRzYI1hKM0gSAq/nIa?=
+ =?us-ascii?Q?aFibKCPuOFMAVBZ2DW4ATztCcBTamV2o8OUotjH2dXimvwfyaHi49tV80YY3?=
+ =?us-ascii?Q?91DK0F98hRZlhg/PxyooP5oF4QNZKU6j90n7DBiSK26xO73hq//Sz5h6MUfz?=
+ =?us-ascii?Q?PWEJG/H2iFJI+3HUw8R2WjxUv9cmdUJKZUnEGoOAnDaY7qnTApKJaa66DpRA?=
+ =?us-ascii?Q?JzJx83XMS/EjuiWEHz6F2g+1R9/A1CSU/sgnLjnZbPKSk2itrZVlyAm0HZPl?=
+ =?us-ascii?Q?LTK1fJddaMQm/v457ZiEKoEowo4j27GG/Y6jOlLnjTLftx8zS3FoCrjA4Kkq?=
+ =?us-ascii?Q?VFsN4Cq0hdkbIhQTJLsDEHW9yv6dD1CYPiiw8/98uUu0MRt0V0mO2gviPqOp?=
+ =?us-ascii?Q?gX2juh1Iks4xPYEsrjN8C+M+cgQdUG5xI9FkdOp1q73dWjoNVPet/I6Gd7/f?=
+ =?us-ascii?Q?f1jRF53T3L+EAWVfSooGAY+Tz0ivoFKQCxZPOcr9W0nE2FbDgmm744tvIKnl?=
+ =?us-ascii?Q?u9iirSvR0OQIKNPK5Ot7RA/GmzpkwQl/pv0Oj5dtWy/fprJuAN9ZkYF8kGzE?=
+ =?us-ascii?Q?X+ZWh0pcW7m5iOtSkdthwNTCxG18w2WHJDtn2XHgE3O6rl9lP6A7kJjo/C0f?=
+ =?us-ascii?Q?x6a1kQjFzX4hzzP7nB5H79jQteVvwT6Wun/19IYiDq2FYxYBCbzbzfcQWW6g?=
+ =?us-ascii?Q?zP3kkDp5PL9pQsK3wMau+jFXWlWiKx7/0Kl6CaYOWcP3+UINCxNHFWJl+27s?=
+ =?us-ascii?Q?GXDkuazyluoCvqC052FGgFoqtfiKpGvilhszSAaPWDzcSI5lZHMdo/piT2sh?=
+ =?us-ascii?Q?3vSZHr08psM7sqOHXnEQj5fpG4H/4TymPPIj2hiAXL6kcg123E9V/Xh82KpX?=
+ =?us-ascii?Q?JQaAnBqAhQ0t6lp56tKTeybH6zKOz/bdc/bBXaJI66BULKke+XWwAV0t1LzE?=
+ =?us-ascii?Q?KfGqje/hlNK+sjcS8q6elk52EgkemtYt63VhBa0nKCc7ptIaTkQA?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6d010c8-f80b-4d8f-fc75-08df394efe93
+X-MS-Exchange-CrossTenant-Network-Message-Id: 758e4094-898c-4931-3570-08df394f0aa8
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 02:05:55.4463
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 02:06:15.5931
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /6dXmmnjUMXleSZ9Kz9iZnh4U+sZfVe4nkX/gZRcE2o/7x40TjTcxiFbneuhHXCpzl5e8UA9Vx48EePGco1+M28wLSIDtZh6OEYpHQgT0VGs5YZ3+p7a/TIZoPd9D44g
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qve8Izy4a1FG5x3AOqsWbsoQ7DFBT/lAvl1WN2bcJDqd33muC5WCcjcuENe+pgjU7WWibkSq1ikoNkWyNq97DgB2wnYk3dmqfG+7SzT7Na5+h4rX3PTv3d6C7KBCpH7n
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7094
 
 From: Wei Fang <wei.fang@nxp.com>
 
-Replace the open-coded 64-bit register read/write sequences with
-ioread64_lo_hi() and iowrite64_lo_hi() helpers. Introduce two new macros
-netc_timer_rd64() and netc_timer_wr64() that wrap these helpers and use
-them throughout the driver. This reduces boilerplate and makes the intent
-of each operation clearer.
+The NETC switch reached a known hardware state via a one-time PCIe
+FLR in probe(), and used devm_ allocations in netc_setup() for its
+ports, EMDIO buses, reference clocks, command BD rings and buffer
+pool table. Both are tied to the PCI device lifetime, not to the
+DSA netc_setup()/netc_teardown() lifetime.
 
-The high-half register defines (NETC_TMR_*_H) are kept to document the
-register map; they are not used directly since netc_timer_rd/wr64()
-address the 64-bit register pair via the low-half offset, relying on the
-hardware layout where H is always at L + 4.
+In a multi-switch DSA tree, unbinding any switch tears down the whole
+tree, so netc_teardown() runs on every NETC switch in it. When a switch
+is bound again and completes the tree, dsa_register_switch() sets up
+the whole tree, so netc_setup() also runs on the switches that stayed
+bound. Thus netc_teardown() and netc_setup() can run again without a
+PCI re-probe of the NETC switch. Two problems then appear:
+
+- No fresh FLR occurs, so the hardware tables keep their stale
+  entries while netc_setup() builds empty software state. Hardware
+  and software drift out of sync.
+
+- The devm_ resources are not released by netc_teardown(), so each
+  re-setup leaks memory and re-registers the same EMDIO bus, which
+  fails.
+
+Add netc_switch_reset() and call it at the start of netc_setup() so
+every setup begins from a clean hardware state. The probe path already
+performs a FLR in netc_switch_pci_init(), so the first setup that runs
+synchronously from probe() skips the reset via the in_probe token. Any
+later setup is driven by a sibling switch completing the tree, under
+dsa2_mutex, and resets the switch with pcie_flr(). Save and restore the
+config space around the FLR, and hold pci_cfg_access_lock() so that
+user space config access and other PCI resets cannot run concurrently.
+Do not take the device lock, because an unbinding NETC switch holds it
+while waiting for dsa2_mutex in dsa_unregister_switch().
+
+Convert the setup-path devm_ allocations to explicit alloc and free,
+and release them in netc_teardown() and on the error paths, so their
+lifetime matches the DSA setup and teardown.
+
+The NETC switch does not support multi-switch yet, so there is no
+functional problem today. This only reworks the driver so that
+multi-switch can be added later without hitting these issues.
 
 Signed-off-by: Wei Fang <wei.fang@nxp.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
 ---
- drivers/ptp/ptp_netc.c | 72 ++++++++++++------------------------------
- 1 file changed, 21 insertions(+), 51 deletions(-)
+ drivers/net/dsa/netc/netc_main.c   | 182 +++++++++++++++++++++++------
+ drivers/net/dsa/netc/netc_switch.h |   1 +
+ 2 files changed, 149 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/ptp/ptp_netc.c b/drivers/ptp/ptp_netc.c
-index 19ca99d80e95..376b3b0d1a38 100644
---- a/drivers/ptp/ptp_netc.c
-+++ b/drivers/ptp/ptp_netc.c
-@@ -127,6 +127,17 @@ struct netc_timer {
+diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
+index 77077352c1a5..ec0b5a731b28 100644
+--- a/drivers/net/dsa/netc/netc_main.c
++++ b/drivers/net/dsa/netc/netc_main.c
+@@ -135,7 +135,7 @@ static int netc_port_get_info_from_dt(struct netc_port *np,
+ 				      struct device *dev)
+ {
+ 	if (of_find_property(node, "clock-names", NULL)) {
+-		np->ref_clk = devm_get_clk_from_child(dev, node, "ref");
++		np->ref_clk = of_clk_get_by_name(node, "ref");
+ 		if (IS_ERR(np->ref_clk)) {
+ 			dev_err(dev, "Port %d cannot get reference clock\n",
+ 				np->dp->index);
+@@ -146,6 +146,24 @@ static int netc_port_get_info_from_dt(struct netc_port *np,
+ 	return 0;
+ }
  
- #define netc_timer_rd(p, o)		netc_read((p)->base + (o))
- #define netc_timer_wr(p, o, v)		netc_write((p)->base + (o), v)
++static void netc_port_free_emdio_bus(struct netc_port *np)
++{
++	struct device *dev = np->switch_priv->dev;
++	struct enetc_mdio_priv *mdio_priv;
++	struct enetc_hw *hw;
 +
-+/* The 64-bit timer registers consist of a low (L) and high (H) register pair.
-+ * Hardware requires a strict access order: for writes, TMR_xxx_L must be
-+ * written first, which latches the value into a shadow register; the write
-+ * to TMR_xxx_H then atomically transfers both shadow registers into the live
-+ * counter. For reads, TMR_xxx_L must be read first to capture a coherent
-+ * snapshot. iowrite64_lo_hi() and ioread64_lo_hi() enforce this L-before-H
-+ * ordering.
-+ */
-+#define netc_timer_rd64(p, o)		ioread64_lo_hi((p)->base + (o))
-+#define netc_timer_wr64(p, o, v)	iowrite64_lo_hi(v, (p)->base + (o))
- #define ptp_to_netc_timer(ptp)		container_of((ptp), struct netc_timer, caps)
- 
- static const char *const timer_clk_src[] = {
-@@ -136,66 +147,28 @@ static const char *const timer_clk_src[] = {
- 
- static void netc_timer_cnt_write(struct netc_timer *priv, u64 ns)
++	if (!np->emdio)
++		return;
++
++	mdio_priv = np->emdio->priv;
++	hw = mdio_priv->hw;
++
++	mdiobus_unregister(np->emdio);
++	mdiobus_free(np->emdio);
++	devm_kfree(dev, hw);
++	np->emdio = NULL;
++}
++
+ static int netc_port_create_emdio_bus(struct netc_port *np,
+ 				      struct device_node *node)
  {
--	u32 tmr_cnt_h = upper_32_bits(ns);
--	u32 tmr_cnt_l = lower_32_bits(ns);
--
--	/* Writes to the TMR_CNT_L register copies the written value
--	 * into the shadow TMR_CNT_L register. Writes to the TMR_CNT_H
--	 * register copies the values written into the shadow TMR_CNT_H
--	 * register. Contents of the shadow registers are copied into
--	 * the TMR_CNT_L and TMR_CNT_H registers following a write into
--	 * the TMR_CNT_H register. So the user must writes to TMR_CNT_L
--	 * register first. Other H/L registers should have the same
--	 * behavior.
--	 */
--	netc_timer_wr(priv, NETC_TMR_CNT_L, tmr_cnt_l);
--	netc_timer_wr(priv, NETC_TMR_CNT_H, tmr_cnt_h);
-+	netc_timer_wr64(priv, NETC_TMR_CNT_L, ns);
+@@ -161,9 +179,11 @@ static int netc_port_create_emdio_bus(struct netc_port *np,
+ 		return dev_err_probe(dev, PTR_ERR(hw),
+ 				     "Failed to allocate enetc_hw\n");
+ 
+-	bus = devm_mdiobus_alloc_size(dev, sizeof(*mdio_priv));
+-	if (!bus)
+-		return -ENOMEM;
++	bus = mdiobus_alloc_size(sizeof(*mdio_priv));
++	if (!bus) {
++		err = -ENOMEM;
++		goto free_enetc_hw;
++	}
+ 
+ 	bus->name = "NXP NETC switch external MDIO Bus";
+ 	bus->read = enetc_mdio_read_c22;
+@@ -177,14 +197,22 @@ static int netc_port_create_emdio_bus(struct netc_port *np,
+ 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-p%d-emdio",
+ 		 dev_name(dev), np->dp->index);
+ 
+-	err = devm_of_mdiobus_register(dev, bus, node);
+-	if (err)
+-		return dev_err_probe(dev, err,
+-				     "Cannot register EMDIO bus\n");
++	err = of_mdiobus_register(bus, node);
++	if (err) {
++		dev_err_probe(dev, err, "Cannot register EMDIO bus\n");
++		goto free_mdiobus;
++	}
+ 
+ 	np->emdio = bus;
+ 
+ 	return 0;
++
++free_mdiobus:
++	mdiobus_free(bus);
++free_enetc_hw:
++	devm_kfree(dev, hw);
++
++	return err;
  }
  
- static u64 netc_timer_offset_read(struct netc_timer *priv)
- {
--	u32 tmr_off_l, tmr_off_h;
--	u64 offset;
--
--	tmr_off_l = netc_timer_rd(priv, NETC_TMR_OFF_L);
--	tmr_off_h = netc_timer_rd(priv, NETC_TMR_OFF_H);
--	offset = (((u64)tmr_off_h) << 32) | tmr_off_l;
--
--	return offset;
-+	return netc_timer_rd64(priv, NETC_TMR_OFF_L);
+ static int netc_port_create_mdio_bus(struct netc_port *np,
+@@ -238,6 +266,33 @@ static void netc_get_switch_capabilities(struct netc_switch *priv)
+ 	priv->num_bp = FIELD_GET(BPCAPR_NUM_BP, val);
  }
  
- static void netc_timer_offset_write(struct netc_timer *priv, u64 offset)
++static void netc_free_all_ports(struct netc_switch *priv)
++{
++	if (!priv->ports)
++		return;
++
++	for (int i = 0; i < priv->info->num_ports; i++) {
++		struct netc_port *np = priv->ports[i];
++
++		if (!np)
++			continue;
++
++		netc_port_free_emdio_bus(np);
++
++		if (!IS_ERR_OR_NULL(np->ref_clk)) {
++			clk_put(np->ref_clk);
++			np->ref_clk = NULL;
++		}
++
++		kfree(np);
++		priv->ports[i] = NULL;
++	}
++
++	kfree(priv->ports);
++	priv->ports = NULL;
++	priv->port_bitmap = 0;
++}
++
+ static int netc_init_all_ports(struct netc_switch *priv)
  {
--	u32 tmr_off_h = upper_32_bits(offset);
--	u32 tmr_off_l = lower_32_bits(offset);
--
--	netc_timer_wr(priv, NETC_TMR_OFF_L, tmr_off_l);
--	netc_timer_wr(priv, NETC_TMR_OFF_H, tmr_off_h);
-+	netc_timer_wr64(priv, NETC_TMR_OFF_L, offset);
+ 	struct device *dev = priv->dev;
+@@ -246,9 +301,7 @@ static int netc_init_all_ports(struct netc_switch *priv)
+ 	int ett_offset = 0;
+ 	int err;
+ 
+-	priv->ports = devm_kcalloc(dev, priv->info->num_ports,
+-				   sizeof(struct netc_port *),
+-				   GFP_KERNEL);
++	priv->ports = kzalloc_objs(*priv->ports, priv->info->num_ports);
+ 	if (!priv->ports)
+ 		return -ENOMEM;
+ 
+@@ -260,9 +313,11 @@ static int netc_init_all_ports(struct netc_switch *priv)
+ 	 * difficult for us to cover.
+ 	 */
+ 	for (int i = 0; i < priv->info->num_ports; i++) {
+-		np = devm_kzalloc(dev, sizeof(*np), GFP_KERNEL);
+-		if (!np)
+-			return -ENOMEM;
++		np = kzalloc_obj(*np);
++		if (!np) {
++			err = -ENOMEM;
++			goto free_all_ports;
++		}
+ 
+ 		np->switch_priv = priv;
+ 		np->iobase = priv->regs.port + PORT_IOBASE(i);
+@@ -278,18 +333,23 @@ static int netc_init_all_ports(struct netc_switch *priv)
+ 
+ 		err = netc_port_get_info_from_dt(np, dp->dn, dev);
+ 		if (err)
+-			return err;
++			goto free_all_ports;
+ 
+ 		if (dsa_port_is_user(dp)) {
+ 			err = netc_port_create_mdio_bus(np, dp->dn);
+ 			if (err) {
+ 				dev_err(dev, "Failed to create MDIO bus\n");
+-				return err;
++				goto free_all_ports;
+ 			}
+ 		}
+ 	}
+ 
+ 	return 0;
++
++free_all_ports:
++	netc_free_all_ports(priv);
++
++	return err;
  }
  
- static u64 netc_timer_cur_time_read(struct netc_timer *priv)
- {
--	u32 time_h, time_l;
--	u64 ns;
--
--	/* The user should read NETC_TMR_CUR_TIME_L first to
--	 * get correct current time.
--	 */
--	time_l = netc_timer_rd(priv, NETC_TMR_CUR_TIME_L);
--	time_h = netc_timer_rd(priv, NETC_TMR_CUR_TIME_H);
--	ns = (u64)time_h << 32 | time_l;
--
--	return ns;
-+	return netc_timer_rd64(priv, NETC_TMR_CUR_TIME_L);
+ static void netc_init_ntmp_tbl_versions(struct netc_switch *priv)
+@@ -308,9 +368,7 @@ static int netc_init_all_cbdrs(struct netc_switch *priv)
+ 
+ 	ntmp->cbdr_num = NETC_CBDR_NUM;
+ 	ntmp->dev = priv->dev;
+-	ntmp->ring = devm_kcalloc(ntmp->dev, ntmp->cbdr_num,
+-				  sizeof(struct netc_cbdr),
+-				  GFP_KERNEL);
++	ntmp->ring = kzalloc_objs(*ntmp->ring, ntmp->cbdr_num);
+ 	if (!ntmp->ring)
+ 		return -ENOMEM;
+ 
+@@ -336,6 +394,9 @@ static int netc_init_all_cbdrs(struct netc_switch *priv)
+ 	for (i--; i >= 0; i--)
+ 		ntmp_free_cbdr(&ntmp->ring[i]);
+ 
++	kfree(ntmp->ring);
++	ntmp->ring = NULL;
++
+ 	return err;
  }
  
- static void netc_timer_alarm_write(struct netc_timer *priv,
- 				   u64 alarm, int index)
- {
--	u32 alarm_h = upper_32_bits(alarm);
--	u32 alarm_l = lower_32_bits(alarm);
--
--	netc_timer_wr(priv, NETC_TMR_ALARM_L(index), alarm_l);
--	netc_timer_wr(priv, NETC_TMR_ALARM_H(index), alarm_h);
-+	netc_timer_wr64(priv, NETC_TMR_ALARM_L(index), alarm);
+@@ -345,6 +406,9 @@ static void netc_remove_all_cbdrs(struct netc_switch *priv)
+ 
+ 	for (int i = 0; i < NETC_CBDR_NUM; i++)
+ 		ntmp_free_cbdr(&ntmp->ring[i]);
++
++	kfree(ntmp->ring);
++	ntmp->ring = NULL;
  }
  
- static u32 netc_timer_get_integral_period(struct netc_timer *priv)
-@@ -500,22 +473,19 @@ static void netc_timer_handle_etts_event(struct netc_timer *priv, int index,
- 					 bool update_event)
- {
- 	struct ptp_clock_event event;
--	u32 etts_l = 0, etts_h = 0;
-+	u64 etts = 0;
- 
--	while (netc_timer_rd(priv, NETC_TMR_STAT) & TMR_STAT_ETS_VLD(index)) {
--		etts_l = netc_timer_rd(priv, NETC_TMR_ETTS_L(index));
--		etts_h = netc_timer_rd(priv, NETC_TMR_ETTS_H(index));
--	}
-+	while (netc_timer_rd(priv, NETC_TMR_STAT) & TMR_STAT_ETS_VLD(index))
-+		etts = netc_timer_rd64(priv, NETC_TMR_ETTS_L(index));
- 
- 	/* Invalid time stamp */
--	if (!etts_l && !etts_h)
-+	if (!etts)
- 		return;
- 
- 	if (update_event) {
- 		event.type = PTP_CLOCK_EXTTS;
- 		event.index = index;
--		event.timestamp = (u64)etts_h << 32;
--		event.timestamp |= etts_l;
-+		event.timestamp = etts;
- 		ptp_clock_event(priv->clock, &event);
+ static u32 netc_num_available_ports(struct netc_switch *priv)
+@@ -842,31 +906,71 @@ static void netc_ipv_to_buffer_pool_mapping(struct netc_switch *priv)
  	}
  }
+ 
++static void netc_switch_free_bpt_list(struct netc_switch *priv)
++{
++	kfree(priv->bpt_list);
++	priv->bpt_list = NULL;
++}
++
+ static int netc_switch_bpt_default_config(struct netc_switch *priv)
+ {
++	int err;
++
+ 	if (priv->num_bp < priv->info->num_ports)
+ 		return -EINVAL;
+ 
+-	priv->bpt_list = devm_kcalloc(priv->dev, priv->num_bp,
+-				      sizeof(struct bpt_cfge_data),
+-				      GFP_KERNEL);
++	priv->bpt_list = kzalloc_objs(*priv->bpt_list, priv->num_bp);
+ 	if (!priv->bpt_list)
+ 		return -ENOMEM;
+ 
+ 	/* Initialize the maximum threshold of each buffer pool entry */
+ 	for (int i = 0; i < priv->num_bp; i++) {
+ 		struct bpt_cfge_data *cfge = &priv->bpt_list[i];
+-		int err;
+ 
+ 		cfge->max_thresh = cpu_to_le16(NETC_BP_THRESH);
+ 		err = ntmp_bpt_update_entry(&priv->ntmp, i, cfge);
+ 		if (err)
+-			return err;
++			goto free_bpt_list;
+ 	}
+ 
+ 	netc_ipv_to_buffer_pool_mapping(priv);
+ 
+ 	return 0;
++
++free_bpt_list:
++	netc_switch_free_bpt_list(priv);
++
++	return err;
++}
++
++static int netc_switch_reset(struct netc_switch *priv)
++{
++	struct pci_dev *pdev = priv->pdev;
++	int err;
++
++	if (priv->in_probe) {
++		priv->in_probe = false;
++		return 0;
++	}
++
++	/* Block user space config access and other PCI resets, which take
++	 * pci_cfg_access_lock() via pci_dev_lock(), during the FLR.
++	 */
++	pci_cfg_access_lock(pdev);
++	err = pci_save_state(pdev);
++	if (err)
++		goto unlock_cfg_access;
++
++	err = pcie_flr(pdev);
++	if (err)
++		dev_err(priv->dev, "FLR failed: %pe\n", ERR_PTR(err));
++
++	pci_restore_state(pdev);
++
++unlock_cfg_access:
++	pci_cfg_access_unlock(pdev);
++
++	return err;
+ }
+ 
+ static int netc_setup(struct dsa_switch *ds)
+@@ -875,6 +979,10 @@ static int netc_setup(struct dsa_switch *ds)
+ 	struct dsa_port *dp;
+ 	int err;
+ 
++	err = netc_switch_reset(priv);
++	if (err)
++		return err;
++
+ 	err = netc_init_switch_id(priv);
+ 	if (err)
+ 		return err;
+@@ -887,7 +995,7 @@ static int netc_setup(struct dsa_switch *ds)
+ 
+ 	err = netc_init_ntmp_user(priv);
+ 	if (err)
+-		return err;
++		goto free_all_ports;
+ 
+ 	INIT_HLIST_HEAD(&priv->fdb_list);
+ 	mutex_init(&priv->fdbt_lock);
+@@ -910,22 +1018,25 @@ static int netc_setup(struct dsa_switch *ds)
+ 
+ 	err = netc_add_standalone_vlan_entry(priv);
+ 	if (err)
+-		goto free_lock_and_ntmp_user;
++		goto free_bpt_list;
+ 
+ 	err = netc_add_standalone_fdb_bcast_entry(priv);
+ 	if (err)
+-		goto free_lock_and_ntmp_user;
++		goto free_bpt_list;
+ 
+ 	return 0;
+ 
++free_bpt_list:
++	netc_switch_free_bpt_list(priv);
+ free_lock_and_ntmp_user:
+-	/* No need to clear the hardware state, netc_setup() is only called
+-	 * when the driver is bound, and FLR will be performed to reset the
+-	 * hardware state.
++	/* No need to clear the hardware state. netc_setup() resets the
++	 * hardware via FLR, so the next setup starts from a clean state.
+ 	 */
+ 	mutex_destroy(&priv->fdbt_lock);
+ 	mutex_destroy(&priv->vft_lock);
+ 	netc_free_ntmp_user(priv);
++free_all_ports:
++	netc_free_all_ports(priv);
+ 
+ 	return err;
+ }
+@@ -945,10 +1056,10 @@ static void netc_free_host_flood_rules(struct netc_switch *priv)
+ 	dsa_switch_for_each_user_port(dp, priv->ds) {
+ 		struct netc_port *np = priv->ports[dp->index];
+ 
+-		/* No need to clear the hardware IPFT entry. Because PCIe
+-		 * FLR will be performed when the switch is re-registered,
+-		 * it will reset hardware state. So only need to free the
+-		 * memory to avoid memory leak.
++		/* No need to clear the hardware IPFT entry. netc_setup()
++		 * resets the hardware via FLR, so the next setup starts
++		 * from a clean state. Only free the memory here to avoid
++		 * a leak.
+ 		 */
+ 		kfree(np->host_flood);
+ 		np->host_flood = NULL;
+@@ -963,6 +1074,8 @@ static void netc_teardown(struct dsa_switch *ds)
+ 	netc_destroy_all_lists(priv);
+ 	netc_free_host_flood_rules(priv);
+ 	netc_free_ntmp_user(priv);
++	netc_switch_free_bpt_list(priv);
++	netc_free_all_ports(priv);
+ }
+ 
+ static bool netc_port_is_emdio_consumer(struct device_node *node)
+@@ -1077,6 +1190,7 @@ static int netc_switch_pci_init(struct pci_dev *pdev)
+ 
+ 	priv->pdev = pdev;
+ 	priv->dev = dev;
++	priv->in_probe = true;
+ 
+ 	regs = &priv->regs;
+ 	regs->base = base;
+diff --git a/drivers/net/dsa/netc/netc_switch.h b/drivers/net/dsa/netc/netc_switch.h
+index 305f2a92e2f9..4a8c5f9cde38 100644
+--- a/drivers/net/dsa/netc/netc_switch.h
++++ b/drivers/net/dsa/netc/netc_switch.h
+@@ -118,6 +118,7 @@ struct netc_switch {
+ 	struct device *dev;
+ 	struct dsa_switch *ds;
+ 	u16 revision;
++	bool in_probe;
+ 
+ 	const struct netc_switch_info *info;
+ 	struct netc_switch_regs regs;
 -- 
 2.34.1
 
