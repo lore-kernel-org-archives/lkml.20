@@ -1,59 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710537;
-	b=vydB7FDUkWre7PRDgslGSHc4kBT/2+MGKEPrmuP0NyuUBrvrIZwho0Pi+TLyiTL9LB3h
-	 C22EtcRkV5aqGowpBD7xWWFGDSzA33naK+YE5WaSDvI5IT93sXBBQSnRZBnLTM/ZZBWJa
-	 vDB0V/gf8Ct6/Gcw/wwekLpL2KgUvXABmqgzBD9kpT52kA7C70pGfeOI7L8dE88W/j+u3
-	 KQah96ezeMjWNtU0rjyzR40B/n0WoMFzD21RpmcUzya35VIO5quOg9/sI+l1Rey8Ujeet
-	 Pqafmf9GA2ERmfD6EAFq0PMwUZHDpVAM80pIHzTI+GC2Rlikoz9mvCgnp5KfnAfeFlQ==
+	t=1793710587;
+	b=SY5AOAuIExApyoh+yw2FugcgBm4SH8XPnyItRxKwTNkh5Kh63chyask1pyDWgqWqeEwL
+	 9H+8IXHNlk5te14BF6/iPdK65ly7eFoondDq871JyooXEofZ98YVMvtjhCMKV7w2MKo8B
+	 LnkaNbBpnIqUx2wHhlhM47GDkBkE8webze+xfinaAHkLpAD5hMSlGz9EyOoak3Pp8oeU7
+	 sNr/jJUjl/8FV+4BNFAeLoaDN2eEow6Ficugf6j3cIsap9kLPeXjRFYyf5gihpFMSYguP
+	 7Ztc9yETnQvSJTyEh+uS2ywIvTyRf8Ef7+csQlrSNwslw97/h+yyUEbWNwxsKRXzNHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710537;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=44sQKkh8ZCNN9HhAnW328Mo4zI/my71RquicLXgmPs0=;
-	b=dCL+RxhivBYh9yQiydgqwG3RQNFQQ1PQ8qUUFCKkk2j59Zpq6ZN7szyvbqeYfAPnfFnt
-	 MRQdsT+qtdbY6Cr42KtTE+9GjuaFYF876upw1z4FJ+8f2HgJbUeYHvkmYNvOda8Cm12pU
-	 D5uJ25s+w4QusRgyMmV1kTaYjsHCu/JCclSTWAIUYmcFyyZSLm9kGq8EiOb5Hdn+0IB4j
-	 MSzJxFJ/BevVWdWYLjXFkCgzhD5UZkIQyEgnUDI5d9f/mlSWUkKlgkYfYqvsiaGpaSM/T
-	 moyPfjhMYV510Gx2q4XfFahQ65fTB/rlghtxdWYKAkgbpcJZTb/tetAe9fSkXWb/r8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710587;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=PswOOpyV0BhQ1v11Jg/71XBVX0JA5DoZtlcqYAPpNGk=;
+	b=14s1XYvRjoukV0M8i9Z/AJRKB9VmoJsLn6NRbXBCeQFBhhECyZqaL7B/WfJqLDpj1yhe
+	 mzmmhjHOcxkvLq7WG71x7A2lmAC3w9hJ2e6+Q+SpI+BsTRWGduXJTlnWjA+qc7XXubguu
+	 rPak36rHk+zJcDpM3OvJ/qnatAEsy2X3dWup1OlY09SaryQqKiA+stBxI+rTKCnTP3kaW
+	 6QZ3zayiVN+JQYGc9DyfgSgGVYi9HV7zMy0w9krUibk5GsxHlbGxrTrS0kkzmx/Fne526
+	 3RjOmom25m2M3E0qOZFuzUJVyvvptPaOlGJfJqswJaxBFMTikvMt5yibm3jfBksZjZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KWcOugTQ;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D7ED4606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:55:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7ED4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCxF3RxC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35EE606A336
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:56:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KWcOugTQ
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A94C61595;
-	Tue,  3 Nov 2026 04:55:32 -0800 (PST)
-Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 39A5F3F628;
-	Tue,  3 Nov 2026 04:55:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793710535; bh=FqopgaouZvkZO6sfW6cY0KxqGQEHnXLG2/V0ntSLV+E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KWcOugTQIf03uX1hwv1jxqrIelZdCwUAU4EZu9xmHLyA4xyikQEjhcDUZBLVYcvNK
-	 NlYpNK4l4BzrUi5T7j1kNlTliRjGExW08buGFEggBRd5ls0KGLqMOQ/WDRU/tnbUXG
-	 pzll+V3sHFhtjx2oRMZ35EE5FzPXnZ+n8vTlHqKg=
-Date: Tue, 3 Nov 2026 13:55:23 +0100
-From: Beata Michalska <beata.michalska@arm.com>
-To: Xuewen Yan <xuewen.yan94@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, Vladimir.Murzin@arm.com,
-	catalin.marinas@arm.com, will@kernel.org, suzuki.poulose@arm.com,
-	James.Morse@arm.com, seanwang1@lenovo.com,
-	linux-kernel@vger.kernel.org, Xuewen Yan <xuewen.yan@unisoc.com>
-Subject: Re: [PATCH v4 0/2] arm64: errata: Share broken AMU constant-counter
- handling
-Message-ID: <aunZu2vEPjsFPutU@arm.com>
-References: <20261001090050.3849551-1-beata.michalska@arm.com>
- <CAB8ipk-3pec4PCteA8+moHveHobE4FZgHbc4WnpKkJRyt=Vwgg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCxF3RxC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D691F00A17
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:56:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793710586;
+	bh=PswOOpyV0BhQ1v11Jg/71XBVX0JA5DoZtlcqYAPpNGk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VCxF3RxC6IiSvXjCENa5T/qPN2tytJofNgtcwVTMKw4mpKuEHm8eHgH9Y9dqaJ2Sb
+	 XBo41WdgJR02I5T+eK9lthtdI7ATqNsXDX8vNSsGjoZOQPbzTIOVkka6lbpQ2V7E27
+	 ohm+a6/tLNydy4DQwUVZErXlPzZWUZQBVsZ+ytV7KSUb4yWllBLISccfRI0Io+WWaV
+	 Jelah77ZtVh1o2BRc/ivqFaatactusmlrIasmEesc+7g3Tdmi+CgWFh6yWArupsHo5
+	 z8nVV3v+wZa5bDaOEK8CFPDnqs1buTqmVjTcubhzG00+2tb0DX34URfTvh2XQ3iRMJ
+	 V9JPhYDKvkpQQ==
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6ddef424972so2980673eaf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:56:26 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBysD/2WT/FiZdgbf98tFo/54Z7U0hn6CLHttzUYkFRQyajV5qIgc7snDou0ZExAAb1A/KjeYF/vWRSz+6E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xaoK83URwJrby3thbgBrfIj8a76oNIpShjWtfxTY75eaEnShS
+	MkLVR5mNbulFuH+DLcnpQ9olP2aeqbrY8RrBf86br2uQ3wQTLFxTLImbqCQR3DRyACOLSftND5T
+	AUa5S/bzSanj6nhEFGpIsixQ45TSRyqA=
+X-Received: by 2002:a05:6808:c126:b0:54c:7dc0:649a with SMTP id
+ 5614622812f47-5640de2e6fcmr8293306b6e.32.1793710585723; Tue, 03 Nov 2026
+ 04:56:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,55 +59,327 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAB8ipk-3pec4PCteA8+moHveHobE4FZgHbc4WnpKkJRyt=Vwgg@mail.gmail.com>
+References: <34f32e63b803f9f7faf0b0a5754219e48a986136.1793616950.git.x-professor@outlook.com>
+ <3dd45a687afdd0213ee82685c52777e5b0855e20.1793704772.git.x-professor@outlook.com>
+In-Reply-To: <3dd45a687afdd0213ee82685c52777e5b0855e20.1793704772.git.x-professor@outlook.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 3 Nov 2026 13:56:14 +0100
+X-Gmail-Original-Message-ID: <CAL4WiioMFz5hLvHdQPLkm1wwPCsBCOTiityzdY4D3V3VLfZ4Jw@mail.gmail.com>
+X-Gm-Features: AclHuK-ToAnaoXM-VCmz0_wDzMsVQpjY9hU-ynLspcXZkq_MRAtxGOufgttpNTI
+Message-ID: <CAL4WiioMFz5hLvHdQPLkm1wwPCsBCOTiityzdY4D3V3VLfZ4Jw@mail.gmail.com>
+Subject: Re: [PATCH net v2] tcp: free saved_syn after an RCU grace period
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Daniel Borkmann <daniel@iogearbox.net>, 
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 02:40:00PM +0800, Xuewen Yan wrote:
-Hi,
-> Hi Beata,
-> 
-> Sorry for the late reply.
-> 
-> On Thu, Oct 1, 2026 at 5:00 PM Beata Michalska <beata.michalska@arm.com> wrote:
-> >
-> > This series factors out the existing Cortex-A510 erratum 2457168 AMU constant
-> > counter workaround into a generic broken AMU constant-counter capability,
-> > then wires Cortex-A725 erratum 3821522 into the same handling.
-> >
-> 
-> Has this patch only been applied to the A510 and A725 so far? As far
-> as I know, no chip has received a fix for this issue yet, including
-> the C1-Pro...
-> 
-Will send an update shortly.
+Le mar. 3 nov. 2026 =C3=A0 12:19, Yingjie Wang <x-professor@outlook.com> a =
+=C3=A9crit :
+>
+> tcp_reqsk_record_syn() allocates saved_syn separately from its request
+> socket. bpf_sock_ops_get_syn() can load that pointer while processing a
+> retransmitted SYN under RCU.
+>
+> There are two ownership transfers which can let another CPU reclaim the
+> allocation while such a reader is still using it.
+>
+> First, tcp_move_syn() transfers req->saved_syn to a newly created child
+> socket. The child can be closed and tcp_saved_syn_free() can reclaim the
+> allocation before a reader of the old request finishes.
+>
+> Second, inet_reqsk_clone() shallow-copies request_sock during request
+> migration. The migrated clone becomes the owner after reqsk_migrate_reset=
+()
+> clears the old request's pointer, but a reader which already loaded the
+> pointer from the old request can still be using it when the clone is
+> released.
+>
+> Mark the request and full-socket saved_syn pointers as RCU protected. Use
+> rcu_dereference() in the BPF readers, rcu_assign_pointer() when publishin=
+g
+> the saved SYN to the child socket, and RCU_INIT_POINTER() at initializati=
+on
+> and clearing sites. Embed an rcu_head in struct saved_syn and defer
+> reclamation in both release paths. Clear a live full-socket pointer befor=
+e
+> scheduling reclamation, so a new RCU reader cannot acquire it after the
+> grace period starts.
+>
+> This follows commit e3f33b0a1d89 ("ipv4: free inet_opt and ireq_opt
+> after an RCU grace period"), which fixed the same ownership-transfer
+> pattern for IPv4 options.
+>
+> The issue was confirmed with KASAN on v7.3-16007-g36aad21d50d1 using
+> temporary kernel instrumentation to widen the reader and request-migratio=
+n
+> window. KASAN reported a slab-use-after-free read in
+> bpf_sock_ops_get_syn(), with the allocation freed by __reqsk_free() from
+> reqsk_timer_handler(). The same explicit migration test completed without
+> a report with deferred reclamation. A patched kernel without the delay
+> instrumentation also completed a successful migration and seven saved-SYN
+> reads without a KASAN report.
+>
+> Fixes: 0813a841566f ("bpf: tcp: Allow bpf prog to write and parse TCP hea=
+der option")
+> Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmi=
+tting SYN+ACKs.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  include/linux/tcp.h             | 16 +++++++++++-----
+>  include/net/request_sock.h      |  4 +++-
+>  net/core/filter.c               | 16 +++++++++++-----
+>  net/ipv4/inet_connection_sock.c |  6 +++---
+>  net/ipv4/tcp.c                  | 14 +++++++++-----
+>  net/ipv4/tcp_input.c            |  2 +-
+>  6 files changed, 38 insertions(+), 20 deletions(-)
+>
+> diff --git a/include/linux/tcp.h b/include/linux/tcp.h
+> index d18f7bc1e5d0..5ba4d81e431a 100644
+> --- a/include/linux/tcp.h
+> +++ b/include/linux/tcp.h
+> @@ -536,7 +536,7 @@ struct tcp_sock {
+>          * socket. Used to retransmit SYNACKs etc.
+>          */
+>         struct request_sock __rcu *fastopen_rsk;
+> -       struct saved_syn *saved_syn;
+> +       struct saved_syn __rcu *saved_syn;
 
----
-BR
-Beata
-> Thanks！
-> > ---
-> > v4:
-> > - use midr range instead of multi cap list
-> > - reword comment to be more generic
-> >
-> > v3:
-> > - splitted the commit and droped changes for cpucap_is_possible
-> > ---
-> >
-> > Beata Michalska (2):
-> >   arm64: errata: Factor out broken AMU const counter cap
-> >   arm64: errata: Add Cortex-A725 erratum 3821522 workaround
-> >
-> >  Documentation/arch/arm64/silicon-errata.rst |  2 ++
-> >  arch/arm64/Kconfig                          | 30 +++++++++++++++++++++
-> >  arch/arm64/kernel/cpu_errata.c              | 24 ++++++++++++-----
-> >  arch/arm64/kernel/cpufeature.c              |  2 +-
-> >  arch/arm64/kernel/topology.c                | 16 ++++++-----
-> >  arch/arm64/tools/cpucaps                    |  2 +-
-> >  6 files changed, 61 insertions(+), 15 deletions(-)
-> >
-> > --
-> > 2.43.0
-> >
+Full sockets do not need RCU protection for tp->saved_syn : all the
+accesses (do_tcp_getsockopt(), sol_tcp_sockopt(), bpf_sock_ops_get_syn()
+on a full socket, tcp_saved_syn_free()) are done with the socket lock
+held. Only the lifetime of the object matters, because a request socket
+reader might still use it.
+
+I would only add __rcu to req->saved_syn, and keep tp->saved_syn
+a plain pointer. This would avoid the net/ipv4/tcp.c changes.
+
+
+>  };
+>
+>  enum tsq_enum {
+> @@ -618,14 +618,20 @@ static inline void fastopen_queue_tune(struct sock =
+*sk, int backlog)
+>  static inline void tcp_move_syn(struct tcp_sock *tp,
+>                                 struct request_sock *req)
+>  {
+> -       tp->saved_syn =3D req->saved_syn;
+> -       req->saved_syn =3D NULL;
+> +       struct saved_syn *saved_syn;
+> +
+> +       saved_syn =3D rcu_dereference(req->saved_syn);
+> +       rcu_assign_pointer(tp->saved_syn, saved_syn);
+
+The content was already published via the request socket, and the
+child is still bh-locked at this point : rcu_assign_pointer() is not
+needed.
+
+       RCU_INIT_PONTER(tp->saved_syn, unrcu_pointer(req->saved_syn));
+
+> +       RCU_INIT_POINTER(req->saved_syn, NULL);
+>  }
+>
+>  static inline void tcp_saved_syn_free(struct tcp_sock *tp)
+>  {
+> -       kfree(tp->saved_syn);
+> -       tp->saved_syn =3D NULL;
+> +       struct saved_syn *saved_syn;
+> +
+> +       saved_syn =3D rcu_dereference_protected(tp->saved_syn, 1);
+> +       RCU_INIT_POINTER(tp->saved_syn, NULL);
+> +       kfree_rcu(saved_syn, rcu);
+>  }
+>
+>  static inline u32 tcp_saved_syn_len(const struct saved_syn *saved_syn)
+> diff --git a/include/net/request_sock.h b/include/net/request_sock.h
+> index 5a9c826a7092..ddc134f1d15d 100644
+> --- a/include/net/request_sock.h
+> +++ b/include/net/request_sock.h
+> @@ -16,6 +16,7 @@
+>  #include <linux/types.h>
+>  #include <linux/bug.h>
+>  #include <linux/refcount.h>
+> +#include <linux/rcupdate.h>
+>
+>  #include <net/sock.h>
+>  #include <net/rstreason.h>
+> @@ -39,6 +40,7 @@ struct request_sock_ops {
+>  };
+>
+>  struct saved_syn {
+> +       struct rcu_head rcu;
+>         u32 mac_hdrlen;
+>         u32 network_hdrlen;
+>         u32 tcp_hdrlen;
+> @@ -68,7 +70,7 @@ struct request_sock {
+>         struct timer_list               rsk_timer;
+>         const struct request_sock_ops   *rsk_ops;
+>         struct sock                     *sk;
+> -       struct saved_syn                *saved_syn;
+> +       struct saved_syn __rcu          *saved_syn;
+>         u32                             secid;
+>         u32                             peer_secid;
+>         u32                             timeout;
+> diff --git a/net/core/filter.c b/net/core/filter.c
+> index 09c60a58c82a..38a4b48e1fb0 100644
+> --- a/net/core/filter.c
+> +++ b/net/core/filter.c
+> @@ -5714,12 +5714,18 @@ static int sol_tcp_sockopt(struct sock *sk, int o=
+ptname,
+>
+>         if (getopt) {
+>                 if (optname =3D=3D TCP_SAVED_SYN) {
+> +                       struct saved_syn *saved_syn;
+>                         struct tcp_sock *tp =3D tcp_sk(sk);
+>
+> -                       if (!tp->saved_syn ||
+> -                           *optlen > tcp_saved_syn_len(tp->saved_syn))
+> +                       rcu_read_lock();
+
+This rcu_read_lock() seems redundant. I would use
+rcu_dereference_protected(tp->saved_syn, lockdep_sock_is_held(sk))
+
+> +                       saved_syn =3D rcu_dereference(tp->saved_syn);
+> +                       if (!saved_syn ||
+> +                           *optlen > tcp_saved_syn_len(saved_syn)) {
+> +                               rcu_read_unlock();
+>                                 return -EINVAL;
+> -                       memcpy(optval, tp->saved_syn->data, *optlen);
+> +                       }
+> +                       memcpy(optval, saved_syn->data, *optlen);
+> +                       rcu_read_unlock();
+>                         /* It cannot free tp->saved_syn here because it
+>                          * does not know if the user space still needs it=
+.
+>                          */
+> @@ -6125,9 +6131,9 @@ static int bpf_sock_ops_get_syn(struct bpf_sock_ops=
+_kern *bpf_sock,
+>                          * not be available.  It has to resort to
+>                          * saved_syn (if it is saved).
+>                          */
+> -                       saved_syn =3D inet_reqsk(sk)->saved_syn;
+> +                       saved_syn =3D rcu_dereference(inet_reqsk(sk)->sav=
+ed_syn);
+>                 else
+> -                       saved_syn =3D tcp_sk(sk)->saved_syn;
+> +                       saved_syn =3D rcu_dereference(tcp_sk(sk)->saved_s=
+yn);
+>
+>                 if (!saved_syn)
+>                         return -ENOENT;
+> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_s=
+ock.c
+> index 93b306d91b6d..1d54057a86ef 100644
+> --- a/net/ipv4/inet_connection_sock.c
+> +++ b/net/ipv4/inet_connection_sock.c
+> @@ -869,7 +869,7 @@ reqsk_alloc_noprof(const struct request_sock_ops *ops=
+, struct sock *sk_listener,
+>         req_to_sk(req)->sk_prot =3D sk_listener->sk_prot;
+>         sk_node_init(&req_to_sk(req)->sk_node);
+>         sk_tx_queue_clear(req_to_sk(req));
+> -       req->saved_syn =3D NULL;
+> +       RCU_INIT_POINTER(req->saved_syn, NULL);
+>         req->syncookie =3D 0;
+>         req->num_timeout =3D 0;
+>         req->num_retrans =3D 0;
+> @@ -908,7 +908,7 @@ void __reqsk_free(struct request_sock *req)
+>         req->rsk_ops->destructor(req);
+>         if (req->rsk_listener)
+>                 sock_put(req->rsk_listener);
+> -       kfree(req->saved_syn);
+> +       kfree_rcu(rcu_dereference_protected(req->saved_syn, 1), rcu);
+
+Or kfree_rcu(unrcu_pointer(req->saved_syn), rcu)
+
+>         kmem_cache_free(req->rsk_ops->slab, req);
+>  }
+>
+> @@ -979,7 +979,7 @@ static void reqsk_queue_migrated(struct request_sock_=
+queue *queue,
+>
+>  static void reqsk_migrate_reset(struct request_sock *req)
+>  {
+> -       req->saved_syn =3D NULL;
+> +       RCU_INIT_POINTER(req->saved_syn, NULL);
+>  #if IS_ENABLED(CONFIG_IPV6)
+>         inet_rsk(req)->ipv6_opt =3D NULL;
+>         inet_rsk(req)->pktopts =3D NULL;
+> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+> index b9de7c302ba8..7e8f7c9d5f53 100644
+> --- a/net/ipv4/tcp.c
+> +++ b/net/ipv4/tcp.c
+> @@ -4722,13 +4722,17 @@ int do_tcp_getsockopt(struct sock *sk, int level,
+>                 val =3D tp->save_syn;
+>                 break;
+>         case TCP_SAVED_SYN: {
+> +               struct saved_syn *saved_syn;
+> +
+>                 if (copy_from_sockptr(&len, optlen, sizeof(int)))
+>                         return -EFAULT;
+>
+>                 sockopt_lock_sock(sk);
+> -               if (tp->saved_syn) {
+> -                       if (len < tcp_saved_syn_len(tp->saved_syn)) {
+> -                               len =3D tcp_saved_syn_len(tp->saved_syn);
+> +               saved_syn =3D rcu_dereference_protected(tp->saved_syn,
+> +                                                     lockdep_sock_is_hel=
+d(sk));
+> +               if (saved_syn) {
+> +                       if (len < tcp_saved_syn_len(saved_syn)) {
+> +                               len =3D tcp_saved_syn_len(saved_syn);
+>                                 if (copy_to_sockptr(optlen, &len, sizeof(=
+int))) {
+>                                         sockopt_release_sock(sk);
+>                                         return -EFAULT;
+> @@ -4736,12 +4740,12 @@ int do_tcp_getsockopt(struct sock *sk, int level,
+>                                 sockopt_release_sock(sk);
+>                                 return -EINVAL;
+>                         }
+> -                       len =3D tcp_saved_syn_len(tp->saved_syn);
+> +                       len =3D tcp_saved_syn_len(saved_syn);
+>                         if (copy_to_sockptr(optlen, &len, sizeof(int))) {
+>                                 sockopt_release_sock(sk);
+>                                 return -EFAULT;
+>                         }
+> -                       if (copy_to_sockptr(optval, tp->saved_syn->data, =
+len)) {
+> +                       if (copy_to_sockptr(optval, saved_syn->data, len)=
+) {
+>                                 sockopt_release_sock(sk);
+>                                 return -EFAULT;
+>                         }
+> diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+> index ebd2c12e42d5..5151bb16a8b9 100644
+> --- a/net/ipv4/tcp_input.c
+> +++ b/net/ipv4/tcp_input.c
+> @@ -7638,7 +7638,7 @@ static void tcp_reqsk_record_syn(const struct sock =
+*sk,
+>                         saved_syn->network_hdrlen =3D skb_network_header_=
+len(skb);
+>                         saved_syn->tcp_hdrlen =3D tcp_hdrlen(skb);
+>                         memcpy(saved_syn->data, base, len);
+> -                       req->saved_syn =3D saved_syn;
+> +                       RCU_INIT_POINTER(req->saved_syn, saved_syn);
+>                 }
+>         }
+>  }
+>
+
+Also, for the next version:
+
+- Please start a new thread, do not reply to the previous version.
+- Add a changelog after the "---" line, with a link to the previous
+  version on lore.
+- Please answer the question asked by netdev-bot : how was this issue
+  discovered ? The changelog says how it was confirmed, not how it was
+  found.
+
+Thanks.
+
+pw-bot: cr
