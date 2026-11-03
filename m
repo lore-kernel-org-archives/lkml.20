@@ -1,89 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742025;
-	b=qthB11kRAWXUQ4MPQXhMcbtwVXLa04KjwYb+F2NTJcHhrPqFTF4vbl9CcS9lU00dIa1a
-	 teeFwz8f1Mh5xd+NF1xWOKUbpjxiXFhudybyrMJhex7E/tJzzIxNAt1SyDR5WT7u+RJnL
-	 38PYt4oKFeTujmU5sJECRCiQMAMkvncNRDNgkct8M1mOZkFiaJc4LmuotVtZKJe6pPdu8
-	 ocK+VyOGDKUwBP3SKSdZnUjZvYiRmEfs/6RmoV4yzfGaethQNL8yKKBTLU/HZPCzse/Al
-	 Sd2RDhE1gKW3amYsvhjp+yHORbLRYsomP7e63ogxhqlkMdBNG0PcdkvQ0kgu4lQsIrA==
+	t=1793742072;
+	b=wiEqxLpZQc5xtATOmRpo+R0emKkw0DtX6F0CXaGAH1yDWE+ZmBgZbwbWhFhcRECDeePK
+	 Yf5gXlJ0nQhv7wIwKBJbBVTPbdl0Y3aPZQVmuRVBUTutN0Ocka5JYQC4f4BMGqNATw0bc
+	 boqkIvqIG5/3qAjoXlvigoxGBHK6k15aO2YAAioJsTdqUg44LsiNK3CnpUUY8W5YDAQxT
+	 u7GApLoPvBgiDriSmcBdIVDgXN2w+SlcFbxwsHEMtNzlog31aCon+S0P49Kus8RI0SYDU
+	 H3gEysFipQgjUh8njyf00G5ItKf8O8OXvCSQ+46rTZr58O+c9V3TWQadELfTmrbwMpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742025;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=mOkByMgIh23Ng8hqFybijqEgXApYqjm77yLCSksIVRY=;
-	b=umL/4Y09Su3S450qQapjghvWyJXfq5VtLxqR0kVJcPmnQQUMWMBngIDuVWmgx4btoUyq
-	 0RUZy8dLiLvsAGK7kTA5qlV1zUf3MMYqSfjup/95Da2Yw/XF6CVQmtz/NkRR5EsZLb0uF
-	 bvejAmNcQD+4YwVqbfw1J5/90OA6HgZt99EwUmAEfkZFTyq66Z8WqnjLZt9o4oJ05+Efj
-	 lk68H8kb+JeVaz5MtrgWcYThw4nR30rsj4l40+D32k3G1eox5iOgF4kdETyL46jvDeMMc
-	 Ok3lDntDfh9Txbows+b0zUhY8BNvIAA1mfAY4rUyoEW9GqrWr7gtn2GlQ3LRnIJ4AXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742072;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=mWF4Em/s+/j7aCjLGWQL65SgDN+9hBOaJk8SJTBvAJo=;
+	b=eOGRTG00b2yzP7vbAgSu0/HrmJKTFPGrD2a3gkuiwSC16n2rdj9wIoIo0N4dgA95ZfcP
+	 rIJEMCJ3BVhJkbSCzZE3hqeRFfiPIQ5lpnVFyi1S9+0BscP8I/kA6tXMI/sqlUIu3apc7
+	 5bWfDxouPRPhKl1iUW4AruxfHbFcucPqUvjGFEJy+d2tFInT4njNCgcMAihGDnRCsJRin
+	 GS/ceGWmYb1GDHMZOrFiX07L0mnQcwarlh6Ylfxx/+YON6a/d4Ho+Et6IZrnNgFoBJN2S
+	 M69SbWci++GGNwtlZiUsXui+ZVeJ0PlEn7T06fFiIuzIu7OsTAUTQC0N939tGpYFLVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sFLvV7bA;
-	arc=none smtp.remote-ip=209.85.160.50
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f3UbJzwY;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i3aOJONr;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E3E606EEA9
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:40:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4E3E606EEA9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FB1606D81F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:41:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62FB1606D81F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sFLvV7bA
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-48ed0b68895so77680fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:40:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f3UbJzwY;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i3aOJONr
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3LKor6415160
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 21:41:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=mWF4Em/s+/j
+	7aCjLGWQL65SgDN+9hBOaJk8SJTBvAJo=; b=f3UbJzwYsZb59Z5cK8xXeu3TMXJ
+	7qaeeZGm0cuCdqGGn6Spdu6UEw0IiqLMZ6n1lQkXit13pIEol/9A6dyawmJMmzN6
+	bd7aayDEYF31v5AvAfKHRXfq33qR8coZ8HSClQVR7mZkXseXdiI3Vpr2I7EdDz32
+	RMWPdNbHFO7jqmJQkCTmG83D/rMiJ+BBRmyc/IiG26iK6MakxWmfW4iGDoadVumV
+	fwn9RWVCXJkJgVEw54vKaTRyLco6eImGqzRbDHmjreCCU9qttw+4atEZCPsp2KO6
+	ruNF0YUAFhHM3oQpMnrmpSkdHifvTi02DTDLKGxj8XEyDSeaMhE6Hkp4cPg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqkgp96tg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:41:11 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3662e7a9299so18056037eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:41:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793742016; x=1794346816; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1793742070; x=1794346870; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mOkByMgIh23Ng8hqFybijqEgXApYqjm77yLCSksIVRY=;
-        b=sFLvV7bAzag1vYgLE7r3IClkNio+bXOGyLaCZZ81DIBvXxYfwXfCkclh8gWnL5R7jP
-         9BjpSaSI8/+84hfPSLqOFQJd8NtyELFUk23sz+5qwY1ACqlEwVvhQHt6o1zIg2jF7+/K
-         MpanQmWTU0lwAl2dT3/26MuELDNzs2XHGn8hT+yfPdQ0B5YMiILqA9nnjUh2+IGhtJyc
-         mcaHevY+CjZnH0cpgMyIH+564zqEqdHK7aRprIgzBt46uKB3Ls+mK1gBsyxhtSbWnvJh
-         YK7+PGuj3B9J9Dopd4a0McOhHzOEbKhmGXjp3OTMy10ZT22kVsaIR7lZ1+MJTPtSK97v
-         ub2w==
+        bh=mWF4Em/s+/j7aCjLGWQL65SgDN+9hBOaJk8SJTBvAJo=;
+        b=i3aOJONrhWI9HBJfDx1fX+eh6SO4lDhqQ+U0KDkip6m8ZaZSs73RCLNS5h9A34rMad
+         sEFpzrgVZm61HJNgX8SuEnuZOJO7kAtrKXPD85liXhHOTsoopVqQoA5/Mp8QYtg6M4xu
+         et/yFlLq4vys7BPMjRgqiBVqM0gc2xyrZN0/RiaVZR/anCMmg1l1vQOtDOpg93iU3ydJ
+         3wwOKMCN3knKxqMRnJps5epgM3jLi2YZRLHi6Du8yXLgx7LHzu45dZ/Q76zohhAZKUV0
+         2ZtVeQg8M9bNvR9/s9LXN2IsEJfvKP64i8hWAwbiaw0YOnBcS9aORALlvOLfBX4h+QA5
+         l37Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793742016; x=1794346816;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mOkByMgIh23Ng8hqFybijqEgXApYqjm77yLCSksIVRY=;
-        b=MQDeI2lx9gr6E0xN+wings/0uCbEGW9gxw67ENCFBYGb2W/TrbhkJR4iTuNZqiQ4Bd
-         va102a6uPp/aIIbamVwVnWVNdXogFyOZ8lnKSoD6LxmCE9alNovyBOLr8m+Y9VelJLnm
-         e89YHM2mkiqELC03Jbdn+x5BRPZ7dRJ0LfY2pZ/T6rQ1jebIBCDwWJpmcyQrh18xQxJi
-         81TzaHTeqGliszDQZOsoBV+ZoGHfH2kOMSVne8MswnAdLNajuoVKeCbJ1+OuWB2QSzoI
-         nKuO/Ee8jjxocq0GkWEPdwmj0vNUzF6SQW7coy6FP42BPSecKEGkDJz7HGupHlASDBS9
-         38xQ==
-X-Gm-Message-State: APuU4Z+rPVkg/nJ+H2T2+xTkkNpB3pahomaVZWdcnbf8dlnnGyqIsndP
-	N72vMNgasMsGFK3VR1G58F6RrDUDCA1v3lD/mc5ndGQiuPndtv5ETdxK
-X-Gm-Gg: AYBFou0eL64QFeQ4SLBLPVWRZWCF9xjGjoUWp0MzXvsWmnGO/5T0ZAXaYDNiS3133WT
-	xte5YM0F93hgRQBm3MhZUE9XO54boXOl9KGsBHCgJCums9FURnLOqhvoJfsHhGQel/PnfrZLv1e
-	nh/JnYKWPk3JywUR9o1BWwN390Fw4VXVkjfD1sWXkzagsAq+GmN0gPKIJmLdhgAgkE8PWBUsIR5
-	L/rQIh1YiXmRcWbEB+tOuS6Sv9IIfDu8tTDuRjQVZ0Cz60HxMd2vpocCK1PXDdDv3RFdTHqKJrB
-	PesgGC3I515qL2gWfkHkdoK7ZZjzwoEgWCSyRBozTHWb2A5WzljH0rfDwodjijPAu7WEia22UWy
-	s3b8+5we0xNMTzqrmBgBBZj3J+3szS7Ow7NF65/C1fTj0f6GYNgMtT2xFugfgJqGpwsyJe1sthb
-	uSwrSK1Iq2iTcM0Vec3oaKRYZrT8mhfEKzjfrXiYyuTrL3KreXixjImBrFrGkNBwzZTyNm8foOy
-	EjsXDNBHAUFcUhvuDMHKqQ6j/ta4b9tAlJSBmwYIE6/icMOjDPxxSomRAgdZQH8t+PlGLMDKbTJ
-	lzwe27j4ykSRgECTRWuAyQU0Z0hx/KCBBzk9PbOcDdATHrbO0EPThufgdaGhFi/boxH6NTansh5
-	r/A7YwJGAj8rUJuwJdpeliTqWaesbo+X/DLXaNqkLcdW15Q6Z6havTkAxkH5f5sPCBG6oZAJDjB
-	pUJucAFZbpstU4P2dToMPCQBNPdOpf4V+19+M2gpN4N6wELobgI20j
-X-Received: by 2002:a05:6808:151f:b0:53a:e153:e8e6 with SMTP id 5614622812f47-5640de7d903mr9983750b6e.59.1793742015715;
-        Tue, 03 Nov 2026 13:40:15 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9f9115csm27060b6e.11.2026.11.03.13.40.14
+        d=1e100.net; s=20260707; t=1793742070; x=1794346870;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mWF4Em/s+/j7aCjLGWQL65SgDN+9hBOaJk8SJTBvAJo=;
+        b=hyBBX60RyBeBraKyad54gF7+RNtNaEEpb4zyIz/r6J2EGb5hT7dJhFsZEAoa2bq9a4
+         k7gHmXUX/2Ya9TbpVIKB9ps6jtnbZsPILIUvHckvIOHwbgyAOGdof016OrwypJBxs97K
+         IVrghdX0DOHu8N9d7hQV4HgLlRMWr6+FoSqaYHW+J9mKKfSzcB7lxtgdNp4m0WXCoDx+
+         9nZBTe6Q9Z0jGuHxJzzegi5f7MIguz2qmOmaCsaDPel2AFRuaobaM3PcfhpJ2s5zRXSa
+         GsUAKDD5CXCb/PBQ/TrHGMUNX5DGIu8uQgtcTBnZ4l4BgQGbE0XTfspvw/XbYpbjklNE
+         XO/w==
+X-Forwarded-Encrypted: i=1; AKwUvByXgNcwjCwd2OBDw91LT3EuEXzJOKt9VTb2IMQBT/GgeLcCDqkwlePaEgal7Y8fRA59tZHiRGR33KFnM/E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ftM5L5SqK/5eymDoVeuTRzp9HY5KN9C2UxvKzbDwcnZOnTxW9
+	WqgKnLAe7ULrsUyckuDwdcb8x0tZk+lNV81ZYl68ycx1TIajHb7QWyGS/uJKRuNu9Mlj7HDBvcb
+	TR8s0OR06C8VWZlfZabTPu+tRvCfz5FQRXjZGPrwM4ZQJUwC8liKI38y3xyioKSpOdQg=
+X-Gm-Gg: AYBFou2/JAUqk02iohOzfM2MWtP4XMII0pe6D7HaYrRPIW61lZ34chhEI4MEqwLJNtP
+	MejRmtF9TrLXdaUpNc/X172hn1AEBTFKso7I6bX8JyCBdcBCDK/v19cK1s+oXSkxitD2CBGEDzP
+	mlFykRZ1GQWjQqrDW6+IuKL6GWevBcmimpm+gEZwQ66XVl0u4hD029NuzD3JbmdJTAIcsvFQuGX
+	uAAlaZxHHZ8GHZO5O7vBhhmvWrTf3v5FrChgaHe+JjekOYzlzICvT8NFZEhqOUwepphdVW8t0Yb
+	WEbZ/BlVJ3JlwPCeB7+AOiGrP1uIGiINjzM1V3mRlvFydNQXtxDN7dm9W+IAXD6UPKSLkoX0XSw
+	eKs1P/4hWILaWOuhNbiLhcVi8ujXDJFM41ZgDxYIFz5hnzAjzmbYGpn5qTnWVuRG3SHYbavmOPQ
+	KUiOQOHFjKAYikFmcvOn0+rj5y2m0=
+X-Received: by 2002:a05:701b:4188:10b0:166:b307:5855 with SMTP id a92af1059eb24-1ac4f91fceemr22434984c88.0.1793742070226;
+        Tue, 03 Nov 2026 13:41:10 -0800 (PST)
+X-Received: by 2002:a05:701b:4188:10b0:166:b307:5855 with SMTP id a92af1059eb24-1ac4f91fceemr22434945c88.0.1793742069598;
+        Tue, 03 Nov 2026 13:41:09 -0800 (PST)
+Received: from hu-aarunnan-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c272sm1537440c88.8.2026.11.03.13.41.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:40:15 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 03 Nov 2026 14:40:03 -0700
-Subject: [PATCH v7 10/12] serial: 8250_dw: discover Allwinner A523 FIFO
- depths through FCC
+        Tue, 03 Nov 2026 13:41:09 -0800 (PST)
+From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        gjorgji.rosikopulos@oss.qualcomm.com,
+        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+        jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/5] phy: qcom-mipi-csi2: Make OPP table optional
+Date: Tue,  3 Nov 2026 13:41:03 -0800
+Message-Id: <20261103214105.3605181-4-anusha.nandi@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
+References: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,111 +125,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-submit-h616-uart-fifo-v1-v7-10-c9e248d685c1@gmail.com>
-References: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
-In-Reply-To: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4NiBTYWx0ZWRfX8r4jk7Jmzp5O
+ QSqNJssmgBODumz8GOR0Y+jwRZPzwgc9XPI/pIoK+1lbLXn1xV8QMZd8/NnOC0fAiOr1YIyMOpo
+ sAEdTLzqEaPw4kT0RrifjOdMzed/77GBAPt6UoFljVjy2rGNuY4yV5l5Mmwci6GB4728jGT5zeq
+ EZXwctxv8nIC3/jONutYLVtE+1uWjmsD0b2vzJURlh24Vafu8v3GkPnKAHt/zLtqTqKmrhy1Ufx
+ bXOUoj9rPRUbcLB32kxXa+T2yeytodXrqz5l+v3H2T30YAYrbTGStuzds/sC9YNqcuqV9aQQ1iV
+ H1Uc8MPd3l5KWhsD4i3JMFLCw1Rf2FAcZzfzjGiv/JsqJ2OR84GXefsvk70RpsGA1Ok6gBhgICl
+ 89TQFFjKaQXaUmitsBJ0bvJRt7r/lUlQtzKcBNoW52gLngRKvJYXadclLCc2mZenYkURL1PfxsU
+ M3Oz5ZgdfB5DwVUa+aw==
+X-Proofpoint-GUID: T3Dc1Ww3JXDhDgCYjV2T9BOcEfmdv_Px
+X-Authority-Analysis: v=2.4 cv=Yoya1IYX c=1 sm=1 tr=0 ts=6aea54f7 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=xhLwaI6HiHkcQTGlYsAA:9 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4NiBTYWx0ZWRfX29T6YXpKSG0N
+ a5yCpHhezsjRZMq2VGRJlbe/A76/3Xj2ugxn8laWsn7f7OMy6T27y+Vq7RFGEfJN7rxsUouKB1x
+ KWn6ZrnDv9P7fhMegwFHAGq0/ZkHC2c=
+X-Proofpoint-ORIG-GUID: T3Dc1Ww3JXDhDgCYjV2T9BOcEfmdv_Px
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_05,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ phishscore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030086
 
-The A523 UART integration, also used by A527 and T527, has 64-byte FIFOs
-on UART0 and 128-byte FIFOs on UART1 through UART7. Each controller reports
-its TX/RX FIFO depth in bits 31:8 of the FIFO Clock Control register at
-offset 0xf0. The field holds a byte count, not a logarithmic encoding.
+Not every SoC the generic MIPI CSI2 PHY driver supports needs an OPP
+table: a CSIPHY with only a single, unscaled power-domain has no
+performance state to vote on, so running its "core" clock through
+the OPP framework buys nothing over a plain clk_set_rate(). Skip
+devm_pm_opp_set_clkname()/devm_pm_opp_of_add_table() in probe() and
+the OPP/performance-state handling in
+phy_qcom_mipi_csi2_set_clock_rates() when soc_cfg->opp_clk_name is
+unset, falling back to clk_round_rate()/clk_set_rate() on the timer
+clock only.
 
-Read this field in the sunxi setup callback when platform data does not
-provide a fixed FIFO size. A fixed size takes precedence, so H616 retains
-its 256-byte configuration without accessing FCC. The probe has already
-enabled the clocks and deasserted reset before invoking the callback.
-Leave the FIFO clock-control bits untouched.
+x1e80100 still sets opp_clk_name, so this is a no-op for it.
 
-Use the shared DesignWare trigger setup to validate the depth and build
-the FIFO-relative threshold table. Invalid depths fail probe before
-registration instead of producing zero or truncated thresholds. The 8250
-core derives the transmit load from the discovered depth.
-
-Select this setup for the A523 compatible. Like H616, this integration
-has Allwinner-specific debug-divisor and RS485 registers overlapping the
-generic DesignWare feature probes. Use the common sunxi PIO setup,
-BUSY-safe integer divisor programming and software RS485 handling. Keep
-the APB clock gate enabled during termios updates with SKIP_SET_RATE.
-
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
+Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
 ---
- drivers/tty/serial/8250/8250_dw.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ .../phy/qualcomm/phy-qcom-mipi-csi2-core.c    | 72 ++++++++++---------
+ 1 file changed, 39 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index 0e7367ba872e..cdd3a62dfa7e 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -44,6 +44,10 @@
- #define RZN1_UART_xDMACR_8_WORD_BURST	(2 << 1)
- #define RZN1_UART_xDMACR_BLK_SZ(x)	((x) << 3)
+diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+index 3de25728ed28..181813caf282 100644
+--- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
++++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+@@ -32,40 +32,43 @@ phy_qcom_mipi_csi2_set_clock_rates(struct mipi_csi2phy_device *csi2phy,
+ 	unsigned long opp_rate = link_freq / 4;
+ 	struct dev_pm_opp *opp;
+ 	long timer_rate;
+-	int i, pstate;
++	int i = 0, pstate;
+ 	int ret;
  
-+/* Allwinner FIFO Clock Control register */
-+#define SUNXI_UART_FCC			0xf0
-+#define SUNXI_UART_FCC_FIFO_DEPTH		GENMASK(31, 8)
-+
- /* Quirks */
- #define DW_UART_QUIRK_OCTEON		BIT(0)
- #define DW_UART_QUIRK_ARMADA_38X	BIT(1)
-@@ -63,6 +67,7 @@
- struct dw8250_platform_data {
- 	u8 usr_reg;
- 	u32 cpr_value;
-+	/* Fixed FIFO depth; zero selects discovery during setup */
- 	unsigned int fifo_size;
- 	unsigned int quirks;
- 	int (*setup)(struct uart_port *p);
-@@ -666,7 +671,13 @@ static int dw8250_sunxi_setup(struct uart_port *p)
+-	opp = dev_pm_opp_find_freq_ceil(dev, &opp_rate);
+-	if (IS_ERR(opp)) {
+-		dev_err(csi2phy->dev, "Couldn't find ceiling for %lld Hz\n",
+-			link_freq);
+-		return PTR_ERR(opp);
+-	}
++	if (csi2phy->soc_cfg->opp_clk_name) {
++		opp = dev_pm_opp_find_freq_ceil(dev, &opp_rate);
++		if (IS_ERR(opp)) {
++			dev_err(csi2phy->dev, "Couldn't find ceiling for %lld Hz\n",
++				link_freq);
++			return PTR_ERR(opp);
++		}
  
- 	p->type = PORT_16550A;
- 	p->flags |= UPF_FIXED_TYPE;
--	p->fifosize = data->pdata->fifo_size;
-+	if (data->pdata->fifo_size) {
-+		p->fifosize = data->pdata->fifo_size;
-+	} else {
-+		u32 fcc = dw8250_readl_ext(p, SUNXI_UART_FCC);
-+
-+		p->fifosize = FIELD_GET(SUNXI_UART_FCC_FIFO_DEPTH, fcc);
+-	pstate = 0;
+-	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
+-		unsigned int perf;
++		pstate = 0;
++		for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
++			unsigned int perf;
+ 
+-		if (!csi2phy->soc_cfg->genpds[i].scaled)
+-			continue;
++			if (!csi2phy->soc_cfg->genpds[i].scaled)
++				continue;
+ 
+-		perf = dev_pm_opp_get_required_pstate(opp, pstate);
+-		pstate += 1;
++			perf = dev_pm_opp_get_required_pstate(opp, pstate);
++			pstate += 1;
+ 
+-		ret = dev_pm_genpd_set_performance_state(csi2phy->pd_list->pd_devs[i], perf);
+-		if (ret) {
+-			dev_err(csi2phy->dev, "Couldn't set perf state %u\n",
+-				perf);
+-			dev_pm_opp_put(opp);
+-			goto unset_pstate;
++			ret = dev_pm_genpd_set_performance_state(csi2phy->pd_list->pd_devs[i],
++								 perf);
++			if (ret) {
++				dev_err(csi2phy->dev, "Couldn't set perf state %u\n",
++					perf);
++				dev_pm_opp_put(opp);
++				goto unset_pstate;
++			}
+ 		}
+-	}
+-	dev_pm_opp_put(opp);
++		dev_pm_opp_put(opp);
+ 
+-	ret = dev_pm_opp_set_rate(dev, opp_rate);
+-	if (ret) {
+-		dev_err(csi2phy->dev, "dev_pm_opp_set_rate() fail\n");
+-		goto unset_opp_rate;
++		ret = dev_pm_opp_set_rate(dev, opp_rate);
++		if (ret) {
++			dev_err(csi2phy->dev, "dev_pm_opp_set_rate() fail\n");
++			goto unset_opp_rate;
++		}
+ 	}
+ 
+ 	timer_rate = clk_round_rate(csi2phy->timer_clk, link_freq / 4);
+@@ -83,7 +86,8 @@ phy_qcom_mipi_csi2_set_clock_rates(struct mipi_csi2phy_device *csi2phy,
+ 	return 0;
+ 
+ unset_opp_rate:
+-	dev_pm_opp_set_rate(dev, 0);
++	if (csi2phy->soc_cfg->opp_clk_name)
++		dev_pm_opp_set_rate(dev, 0);
+ 
+ unset_pstate:
+ 	while (i--) {
+@@ -405,13 +409,15 @@ static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
+ 	if (!csi2phy->timer_clk)
+ 		return dev_err_probe(dev, -ENODEV, "no timer clock\n");
+ 
+-	ret = devm_pm_opp_set_clkname(dev, csi2phy->soc_cfg->opp_clk_name);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "Failed to set opp clkname\n");
++	if (csi2phy->soc_cfg->opp_clk_name) {
++		ret = devm_pm_opp_set_clkname(dev, csi2phy->soc_cfg->opp_clk_name);
++		if (ret)
++			return dev_err_probe(dev, ret, "Failed to set opp clkname\n");
+ 
+-	ret = devm_pm_opp_of_add_table(dev);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "invalid OPP table in device tree\n");
++		ret = devm_pm_opp_of_add_table(dev);
++		if (ret)
++			return dev_err_probe(dev, ret, "invalid OPP table in device tree\n");
 +	}
- 	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
  
- 	ret = dw8250_setup_rxtrig(p);
-@@ -912,6 +923,12 @@ static const struct dw8250_platform_data dw8250_h616_data = {
- 	.setup = dw8250_sunxi_setup,
- };
- 
-+static const struct dw8250_platform_data dw8250_a523_data = {
-+	.usr_reg = DW_UART_USR,
-+	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
-+	.setup = dw8250_sunxi_setup,
-+};
-+
- static const struct dw8250_platform_data dw8250_octeon_3860_data = {
- 	.usr_reg = OCTEON_UART_USR,
- 	.quirks = DW_UART_QUIRK_OCTEON,
-@@ -964,6 +981,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
- static const struct of_device_id dw8250_of_match[] = {
- 	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
- 	{ .compatible = "allwinner,sun50i-h616-uart", .data = &dw8250_h616_data },
-+	{ .compatible = "allwinner,sun55i-a523-uart", .data = &dw8250_a523_data },
- 	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
- 	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
- 	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
-
+ 	num_supplies = csi2phy->soc_cfg->num_supplies;
+ 	csi2phy->supplies = devm_kzalloc(dev, sizeof(*csi2phy->supplies) * num_supplies,
 -- 
-2.53.0
+2.34.1
 
