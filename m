@@ -1,82 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680695;
-	b=wOdzK+/TpQ0b6jBuqBRaMHHE/f5xH0c8Fzp49MjZzNOvkgJwhHJPH9UnNFSFSxkSMAzw
-	 m2RHXxppmyOIMpI2uMQIpWfOL1/vi4Iu1Mizc+W742qw6tXwjwf6CuTYla/R9Fjq9TbkE
-	 RX9fRPpkM3Z+RXzDM3UcEyb4NksxRnMIubugof5nv28boxr4ePFFk4RRmFU6CE8Fr31xz
-	 JbWxjSb5VpOxI/Wrm564yzv9+orzW6x+baM5jIOCz4FyqisjKD/b5p87O2MvijlnPIY9g
-	 ewVm4TEL/SLTjybuLU97sQWCy1MiDrSoi4CEgyQbeCq4F7JKAAScbxlERFUJKHB9/qA==
+	t=1793680700;
+	b=CSa9dpk+OVFcMUkkYU7uLtxEsXgVwf83ljRk1rj1lC0L81VR6oRUKmzLoKB/c0GTB9Dj
+	 NOCU8GJhsEkZCxbHG7Sm+ig89cpswcfV7g0n3k2kCAB1tbwzAsoQutPZUCFmzYcazSJiw
+	 XVQFUkpd7NIbEx5kigCpgW99Sw869KOWgQ8LMBWqjSvbcvFuwyJKYMvJCx8NYUvrh6WB4
+	 jXjtof6V6pPBITvwtbyXdObeM2yrQTo4XRJ3CbV2sC0p9UsrBUXCL7PoxluBjkCdQ5/N5
+	 66AQp1J+Q6d9zD3+O40vFFOYp8wm+XJZeiFiFrgOveVfq5NMUQt58QFevRW/LqTeu/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680695;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793680700;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=zgiOgJde8AO2Ant4XAq57iC2YxxS16EtAa2Unl+I3/g=;
-	b=33lBoNyc++UXjsrwtl/dubKJ+0yKXsXbpzxOleoTK+SAk1ihmmXs7wagRc5I1L3MJjDV
-	 z76UVKD+vkAz6t/Pom7UZ7HUDOmBY+DZEuuSQ5NLTDqCarjMDeJWQeVb4rnbZqBQemLXp
-	 jubApqA9qDZbUwHsB6rsHt4PwiPbRNlzz/KlwLVvY3mXQbpwyJ+1Ah+/Uvc2xfbo8tUzx
-	 7jxuDlHH6R/4fIWUXKAOTvgRbF4EwrE4fOmnZFIWqKwyYlDc/I6Ycj2QDz4kdJv1774PW
-	 QiQtU8HagQ27r44K38LTaRhwI0bwLyuwLjJh0TVvFzbVabyuAA6K9/5DTIhbNdLMLDQ==
+	bh=wOgLDWMrbGue3Y3ijnkKX9LYoTRtoFaZwaUPNmihNOI=;
+	b=htE7asiZF//PUwGEq8paJ5kxyrJkO3pii4RlGWc9NlgEYaIwsdBAcyAN+9qMqWFDQgqn
+	 RL26AZ0eMlWMBF3pOTR/vPvCZ8BnqL+NdBJ6qMgiNAoF+z5+Z4vBNBlzTq9Z/29rilZfR
+	 Drgv5iGfNxcbht8oafa+OLE9HVBFvrmJG3DLZEdEpnlLTukSsy9onQShbJ++MEwn7Ycj4
+	 0Dd2NLuALc/9Y7nOLsbPJVFCVE9fLWrMwUBSJj1HHlvifqG4fIUNnPDxqGVF/rbiPvVk3
+	 XkX1OQenTtgzx9CKGfTi+mh65UxuJwgKEnMXTTZU9rkoYVW6StoMcpxebqwmue5PRAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=RoNQqV9j;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XElVPPXI;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFCF606A330
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:38:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FFCF606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B04606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:38:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8B04606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=RoNQqV9j
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso2295729a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:38:15 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XElVPPXI
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd8ca57ef64so123471a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:38:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793680694; x=1794285494; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793680699; x=1794285499; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zgiOgJde8AO2Ant4XAq57iC2YxxS16EtAa2Unl+I3/g=;
-        b=RoNQqV9jBrmKq8aPFdUcTGbhVq76VWe87Mk0rL8irAkCHESNHOA4Uxwferz7yyQfJh
-         SJWMN3tlTNiv8tPOeYP9r1CMapa9/kJJVIQpyaVj8d/rM5Joxn/TAlRqQpNSj5fXICvl
-         EDvslT7pOQqwACyXNaamHO6m6jd1OzMy6DMpk=
+        bh=wOgLDWMrbGue3Y3ijnkKX9LYoTRtoFaZwaUPNmihNOI=;
+        b=XElVPPXIpP6fosW6+7K3jVrmtXYfBRPTpzAlgEI6/7G5HJ+9KEJPQ3UoWAaex8SJ47
+         n5pY1ZRXvWc8XMYoR0maYVkdsXoSj0uwAHnNUnJyH3KKaMRiAFJdNbx6yD/d+aqssFad
+         NSUa4WrlOGyXMenr619P4qq1AQplaGBT6NfEY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793680694; x=1794285494;
+        d=1e100.net; s=20260707; t=1793680699; x=1794285499;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zgiOgJde8AO2Ant4XAq57iC2YxxS16EtAa2Unl+I3/g=;
-        b=Dr/sk6KdpxLngylIF0z1fNx2xAZFHQaIaUKYyIzZqvWOlxxdex4xyiQMDoXISGbrxy
-         03BXzqk5W+8essQca3FGoxUTv73JYw01QRO12VvYMaZe4Pk3Rp1xdSKewgxOZ06/Mh1M
-         8gZkn6sQYWzzYyT54SsETeiYgShfNtM31v7w+M30X1ZQgPGmxqb5O3avLrvHvv+wvcvh
-         i8/l6kanszGrzbEKGlOWhTtb7NYBloYjPVo/Cu0CysCHqw9s7eBYYbApBQdwof1ARg9R
-         5q4EoM51jjy0sF33d+aYfZwYoqjr28qA9gPpakYndVu/K2XZv/CXtVhdjPE+6+H7FU8W
-         UwIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwFJWS5N9VJHTJW6i4Sj1zT80VbMhN9+MynavCZ/cf6RJEbnn8BiPIPvveasR5k+v84c+mJeNfUfyMaFaY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9+qs0klI6x+aA5A+au1gyv0WrSqspiXv84Z50CGOV952hYn2Ap
-	C3wiJlAVgRQQgYgaIbg0OqXl1iXdhLywjJ24QIVsv6dFNdQkbAYyXBCrFPgrP0REQg/MqH9ETej
-	V0io=
-X-Gm-Gg: AYBFou1eeeLPeaOm8giWnxlfgngyoNACrjMvIqmiD0Hh2M2ErwBmqwxm9fKmtfnmhH4
-	iLslC8sE5hzJcsexeaGAhQwqeXiN97VCFEfTagQmlhscuiE3QK1S4Ztk5txE2KIkUzNwguvI4Jz
-	gDr0PYtXi1GNdrToNrklhLhqT39ftyxJzhRC/mSBIzPQKtTV+zKh43mf5G1EQlYUjRlEAxfwcaJ
-	hMijZSksDryLqvXbwqrq6amXTI+KLXtb2I7G/kTF4wxZRw1FzbeqWCqoatAerfNNEWzYClej+tH
-	auBdRHu3KoteU63Af/rjQks3gkJy0SkfkNMi4IXU7BA9JHgggzNVR+FVmlA2IQfkkedpKRtul29
-	KcfSRYlFOikTj+Zw4FSFxVu70RD4pHTxnR4PGK+NQ0QQAnrCZIZsnnn7EqNy9ayct5lVp4DqZvQ
-	Y5AA2c9djlojXXYLwj4dOoeoOqOdsG3OaiF1I9qMv7JD0hPOBIhReEZE22S+wXuKT79HyIWSoFu
-	ViFNyy61bNLnaR2Bd/Uw/d3VEgIlvjUg3Tt5DKjaJszQnrnUxglVxGOvFQGhOEC6IFGYsQNpCHs
-	DLVQcFq0I0HHaZ8tOt7z+xkPabtlCOQKOM8srNK8Mfh9iz6ieoRpKFJ43lrsgTdD2/13JfZgnWM
-	jrQZ79yNOWzag
-X-Received: by 2002:a17:90b:4b10:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3ae89724b06mr9920661a91.10.1793680694591;
-        Mon, 02 Nov 2026 20:38:14 -0800 (PST)
+        bh=wOgLDWMrbGue3Y3ijnkKX9LYoTRtoFaZwaUPNmihNOI=;
+        b=OkffaU6f6Ja05O5qh954A4QZYlkGOkRIL9d9LHlKIMviHKRv/deVhytnyCepzE96Os
+         yoAu+lVvW3SQk/IWMrzwEtUxq3l/gCKkaYBbhYmWzqNGPPxKxp9/OzCH4z8H3sn0eAF7
+         G3OFBk8JhHx6okGLhjARYbuSfuU03bghkFGdofa38oKJ8VOKuRBjfMdWfZkpacU1sYJR
+         Q5ggSlUYxFBTiF0tO6yBasWQGfCjfAcyH1Fr8npaF6V6mAv2VS/bajJKe9NjYqYTw6he
+         OOp4Lajxxp7wkPclY8hCpeEilJHljRvpALFMCUxAXtTfOWJ5cMJQdG6FqG7PhxL4VDiv
+         t8vw==
+X-Forwarded-Encrypted: i=1; AKwUvBzS9pW+gm8EaaBl+UxwtMcDga4BKRRBSLM7T7k0Tk91blHAo0prtykzcjwbxgFQOC86HS5vbWr34NZJJmY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VYHqw2AYZw+HLaxwnSTYUB1KiN0qRzg9kRQ0cy71WkOWDwqtQ
+	2eRttRFQJop/4MiUbawFuM/Nqu16kKh8dMXIMNVeNSTRxFGnSOADPtyeOG8OBR63PQ==
+X-Gm-Gg: AYBFou2okaZaIWSP9+lf8eNrs3l6BeslcAgz/9GE0lZFBVzMVWNq/vgLbbCphfuHrCd
+	pvAhpPSpBn6J1qHDj+tZrnVZBfJCg1PhW/0Eh7diH5GBtMcjOs8QDbZeo8CUIbIcnVhjUfkvVWM
+	TGkPcU4Yj/4J4rD9/lQ/rw2f+pKjXC7KHikBr8dERY3RFPp42cNJu8b9N9i7McxgdofuD+BVU7W
+	0gM/AKNIkUCosng9DQTo/xklbvu4ve8Qc/dLIBfamOxD+7++owYqEPYd8Ia+Cj4uVxDAjcxfEx5
+	gI0ymdtWvWXMzBlj4UcVvpBxVJMtjXErpn78Zdl+CPMeESy8Un+qN329ZNNZeJ3M6Wet3broLz4
+	Bp4ZKML4/qQwHSaonQ5sg9M8RF6R1PjSzv/0OkLEOl3rnYrusFtautFCfeu7/5ASlw2N8ZbB5Zd
+	MFoA2jj0XmMKRlxAKapcfDBaXJTMM0ubi3acionYNRzZxD7evoXmW6G5OguLw5Ui/r2zTynUaFA
+	N8dY/TagoMTtOmPx0/sMKJupZCsHiRL/eds2QwHFMfWx0AmZqoPD4AYnSF2LHTLqiNqJ2ZLja4Y
+	P2SpX68Sp8HQvupk5UbHDxMegQaaAr5qStwsSQPq6KA2fCvaX6LFmNo/XzNtNrb0Dmvqys++boQ
+	2hL61Xy46eulCK9TaoqO5AYWHtUOqd1b3cw==
+X-Received: by 2002:a17:90b:280c:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3ae8972a6d2mr6631601a91.18.1793680698982;
+        Mon, 02 Nov 2026 20:38:18 -0800 (PST)
 Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:dea6:6326:4502:bb8b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c71c253sm2072761a91.16.2026.11.02.20.38.10
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c71c253sm2072761a91.16.2026.11.02.20.38.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 20:38:14 -0800 (PST)
+        Mon, 02 Nov 2026 20:38:18 -0800 (PST)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Mark Brown <broonie@kernel.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
@@ -95,9 +94,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable+noautosel@kernel.org
-Subject: [PATCH v7 7/8] arm64: dts: mediatek: mt8173-elm-hana: Unmark trackpad supply as always-on
-Date: Tue,  3 Nov 2026 12:37:31 +0800
-Message-ID: <20261103043734.2179858-8-wenst@chromium.org>
+Subject: [PATCH v7 8/8] arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics trackpad's supply
+Date: Tue,  3 Nov 2026 12:37:32 +0800
+Message-ID: <20261103043734.2179858-9-wenst@chromium.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <20261103043734.2179858-1-wenst@chromium.org>
 References: <20261103043734.2179858-1-wenst@chromium.org>
@@ -112,62 +111,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Up until now, the MT8173 elm/hana device tree has set the dedicated
-regulator supplying the trackpad as always-on, simply because the Elan
-driver was missing proper delays. As a result the delay for the
-Synaptics trackpad was also omitted, as it was not strictly required
-under such a model and delayed the availability of the trackpad to the
-user.
+The Synaptics trackpad, like the Elan trackpad option, is fed from the
+system 3.3V power rail. Add it to the trackpad device node.
 
-The Elan driver recently gained proper delays after power up, with
-opportunistic skipping of the delay when the regulator was originally
-on. The I2C HID driver gained similar opportunistic delay skipping.
-So has the I2C OF component prober library.
+Also add the correct post-power-on delay, even though in practice it is
+not required. The Synaptics trackpad requires 100ms after power-on (or
+deasserting the reset, whichever comes later) to fully initialize. The
+power is always on and the reset pin is not routed out, so the
+implementation could try skipping the delay.
 
-Now fix the device tree to have the regulator not be always on, and
-let the I2C HID device have the correct post-power-on delay time.
-
-Cc: <stable+noautosel@kernel.org> # needs matching driver changes
+Cc: <stable+noautosel@kernel.org> # Without driver changes only lengthens probe time
+Fixes: 925ebc0cd55c ("arm64: dts: mt8192-asurada-spherion: Add Synaptics trackpad support")
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
-Changes since v5:
-- Added noautosel tag
+I think this shouldn't be backported, as backporting it without the
+driver enhancements just delays the trackpad probing with no real
+gains.
 ---
- arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi | 8 +-------
- arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi      | 1 -
- 2 files changed, 1 insertion(+), 8 deletions(-)
+ arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi
-index 1004eb8ea52c..b9e311fcd9a0 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi
-@@ -62,13 +62,7 @@ trackpad2: trackpad@2c {
- 		pinctrl-0 = <&trackpad_irq>;
- 		reg = <0x2c>;
- 		hid-descr-addr = <0x0020>;
--		/*
--		 * The trackpad needs a post-power-on delay of 100ms,
--		 * but at time of writing, the power supply for it on
--		 * this board is always on. The delay is therefore not
--		 * added to avoid impacting the readiness of the
--		 * trackpad.
--		 */
-+		post-power-on-delay-ms = <100>;
- 		vdd-supply = <&mt6397_vgp6_reg>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
+index 68caf4c58cfe..8adbfc307fca 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
++++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
+@@ -94,6 +94,8 @@ trackpad@2c {
+ 		hid-descr-addr = <0x20>;
+ 		interrupts-extended = <&pio 15 IRQ_TYPE_LEVEL_LOW>;
  		wakeup-source;
++		vdd-supply = <&pp3300_u>;
++		post-power-on-delay-ms = <100>;
  		status = "fail-needs-probe";
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-index 777da2129e77..2c6ec714e117 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-@@ -1098,7 +1098,6 @@ mt6397_vgp6_reg: ldo_vgp6 {
- 				regulator-min-microvolt = <3300000>;
- 				regulator-max-microvolt = <3300000>;
- 				regulator-enable-ramp-delay = <218>;
--				regulator-always-on;
- 			};
- 
- 			mt6397_vibr_reg: ldo_vibr {
+ 	};
+ };
 -- 
 2.56.0.385.gac671c819a-goog
 
