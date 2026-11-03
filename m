@@ -1,94 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699641;
-	b=Rmd/HHnu7LjSdb70EJEUYIkwwQ3JDx3HKdMdD6uVBK0FzSUj83TmhbVOsJ/aav3Xsi7B
-	 py0BBkpImo92WNPke96al+MygbhlpYfP1Fsb3l4TOrd4xIuGm4uiDbspCxjZjSHDYgGbC
-	 aanugxfdWAzslEKDlCpqv99tCIZVUELSQFiKmVWi8L1m3SktlmAb2wUME/9Li9dlIvwIZ
-	 U32pvek1TU2mWnb5j8Vbwg5T/XcPBUO8y83fOpnxA5v6hjQwLuZa1JtIRJJDw5WQaYFrv
-	 6Es4fjgBipAiyz7RPt5J/yyZqgXYDl/WpJNhXk599ZbwG/k294OvFpm9VmhRjBNz97Q==
+	t=1793699649;
+	b=iOLp5ycoa2O4N+3RnVL+kY13bMy1+qJiok175COiNVpNPJrgfgk5LlESjLouzYp5J5bm
+	 e1nK4ZxtljsrRVr1qW65EJMxDpu5DdXZfQAjYDTtM+v/HqV6AbXtOVsJLAfdAfxXw8nsB
+	 hMkdOz04QDdHAByQD+MK74fKcoQVeRmRgajbHAoCzYcXG8HX9g6UhU4Eke7ezF6EbhEmT
+	 tIYjmu7hiswd3DKm08B8ykFjy1n4ofE5kTRcDjb4uxPqy2hJWZrpPw7D1XGCMcDf+4Qag
+	 zunD5SBtAqnsPy1ovT3Qsn7E3/8fItOHQZGh5whNX0+EvDkwZSjrh0j6knNIKrG0Zkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699641;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699649;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=UM0Bfw5qWLCibuKINiRXLguaJCuUziBZJgJ0xQf9uV4=;
-	b=fTp0BZJHjvZP5EfGRYcfu/gUfuPCbBTLEXgGPJkiQj20QHYNI31+9kBxENiIsSC5Jk26
-	 i/M/1XbhxYU/QB8/4ouGvBXEsHb0ZyuyNv1JQ/xMTtJfxebf7R1oF74oIj9fho/9ysmDz
-	 zj47GYw1JVQ6fQUSdTAI7p8sSnCATV2iv+/Y+EA/4sNg02UXisEqNFSwn7AcOceI43i98
-	 RR/X3uJM7/AyoU3iJHs8OLSEsMsx2t+3AeEBBHS+5CoUy4bwtMBIBU3DK8xY2915rPvu1
-	 VRZGG8B5FBi99pfYvnefx+wrb0j2MGb3NW4oN8PFX6HJwX6MXNdX1Bl4iBwP/KEnxLQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=Wy4OVqINXkwCakS/yGHU8W8MCAAF/D/083jT8dDHKck=;
+	b=3CmqVSb13QNnSPwLUHwYRylSysrvYD+jlSbfj12G4tqqRxZ+BKqDs2zam8Wbn+NfEnik
+	 gqZtgcPCdLuIBccz43+2JqqkQ7AepUEk2PB2wSDglwHf+knmHVSbvNPRIHn0OSYCXFLwZ
+	 HRGdp55g5Mzvw3sWTvosLn8zcS5PXH3ZyRWhRTqVP94MSKsPE2n7cqku81mUeSLNU0Ni3
+	 sbDYYCm7CXUdbBD6rwUloUHDy1iaH/kxZj9E+zZ2ne/53hDxB+E5fI6+SbMtK+LTNiYui
+	 IS4nvlWpQCNFza9zUGMwN35c5dSKjszZDinH82K+TfjKYAlW7UTK4Z+WW7MoFJMegkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TVKimARu;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KMlQObsf;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AA4606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:54:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86AA4606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FC06082BF1
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:54:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1FC06082BF1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TVKimARu
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b042c0759so2075102f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:54:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KMlQObsf
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso26153175e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:54:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793699639; x=1794304439; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793699647; x=1794304447; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UM0Bfw5qWLCibuKINiRXLguaJCuUziBZJgJ0xQf9uV4=;
-        b=TVKimARu1D1Qdeq8B1f1CqmcI5JTnkuYeA4DFQQFHQPM47oZTLs5Z+NA6c+wO6AFGg
-         jvifZfjJDS+sSTe6x+zhJv06cvRejmIuxXFIwR0yUwQDZsmvEVGAk0Pd7r8uQZdgsBbH
-         dJJuCgDJG0CrZAdvYdeKkwf+fczYyw9U20vGp9sr64jzNwejRpaM0PkY9GXly6WlwLq+
-         R3+XQ2uO4UnBzDkinSlIDB4D+VQGI+GCHmDax7QJWhIpblQlOkb0ck7UQmotM8Wid5k5
-         k+HdhqxXXSfszQzLlS5TQtQqwgT1u4EECVBFnU0nwnDPDGjUWQMsMyKq5O6pDSLZFn7H
-         SLYA==
+        bh=Wy4OVqINXkwCakS/yGHU8W8MCAAF/D/083jT8dDHKck=;
+        b=KMlQObsfiwkd1ZbJuxRjv4Hwvrsqf/d2jrRY+Q+/lqyK9wVP04+j6xmzJipO2Jb/uF
+         tzGzoDT13jAbLYsUi7QiwzzbSwTNQPqvPnP87zURnCMvH08cWDEVvYoiqeTF/T7Yb7vH
+         odAZSvBz8Vc8p+oeeQdi+zMUlakYiOZ9Fjx2sEmlC+d3oZmn8Tb84Oxaewv7vHTbGXvY
+         jgVz4pDG8ihctxTZ8oZ9rKokj1IOD+7wkA2Twm+p9UnrJcVxvsV8DtIfc/FFQq/lg8e8
+         UEUexhAKw9YMMojDJg4TI+yFjTyd1HFuK6ok3mk+EI82DpGIovMHk5dCkSyo/95qcwK2
+         SyDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793699639; x=1794304439;
+        d=1e100.net; s=20260707; t=1793699647; x=1794304447;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UM0Bfw5qWLCibuKINiRXLguaJCuUziBZJgJ0xQf9uV4=;
-        b=NHwB4jHC1lPgXWhi6YYfDp0C8Q+BwuDlWHlTACHR06CGc7YIrRt5wnnV4Id5xbVXQw
-         lwGXHNpcyhxFxEMZ4irWcmgPalUE/pZin0lK6qfNNGav1KpL9InkP2Bw0/q2QfzptZgL
-         gyu+s0TjKjMdD+VyI8RLbRVpEQq0Oc1uUWqwtUDD+H6WTWtSOfxWLgUKazmIz5yRH5QG
-         GNkxxSsJ3uRr2+ztDlKFt+ZhJnyARIIqH5q3uG0+rPx8etMZ6ubWrJTUdKc+IUHfni09
-         A5gSig1t2pBGRYtz53XMey2Mv3h2llaPJktEivtFusZ4OYpGJm/wjALSxNJv3HJ9Drlw
-         C+2Q==
-X-Gm-Message-State: APuU4Z+TADsYkgQiVc9W5f9UmXsFIbKR7nIaK7F/a6B6Uw9xjc3QM2a6
-	sRKD45EOn+IEGIQpnUm1OfHXLLcT1/FCu6Z9/B4c/La6at7pOaPGyjUmO13k059L6TfTH9q5q7V
-	5oxN56gA=
-X-Gm-Gg: AYBFou3aIU4NHb8/sny3VbQU8ChYG/wuhLnludi8Dr8jS2nX1ljqgszjI7ChQLwrKpQ
-	ZvRRekxjQTyohjne+t9pbdUMpm6cgjTEFjcD1m0wfTfYtDFk8jfYbZ18uJmLOeJrEZIMwS7d4oz
-	ta0paU73l9Q+/lkwjULkg7JsDYkzZkWvTw1sA63DLBtTwe9bwjjjxf0uU41kPlmwB5fORVPVRIa
-	vpio33CbjYWU9tsOtoL992f7ZKXvAa8ub8NxLR5CsFW/gWPjJTKWwCn8+5SN6FP8COKZJPY8+lz
-	cGqP+kFylEa6DDAkN3hOTToGQzUNiKtYO6Q/IZLoOwS34tD3F66q07fZ3lRnDLt3DUYU71V2V66
-	S0kFHUSJLqdkbt/D+TG6dmeJTMq01oVrNSQY89DkvaRSwSEDlsIKVplD91L6UP0ItL0WXdPWNlj
-	Vzk1viAXDUfDAorvFgHq0Z6V1O1hu6DA2XnQYdXAXXL0kc/lyX4hTf2iqSRnCb6NS/l9tGJifbc
-	1dbhu4Uqtax6a332LF7P8DsaF6zwlOzaCfa0IBi83AizxJOa7kpv6W+/Ux1Jzd2+JSWaXvfDWwF
-	lqIXW1RA4Zcf5HMx95MIsDzns93kUYae/yYf8jcWoCTusk/LEtLc3Fn7DlHNAPQC9/gSDPo=
-X-Received: by 2002:a05:6000:2211:b0:48e:62a9:1a65 with SMTP id ffacd0b85a97d-48e6e5161admr23618701f8f.49.1793699638798;
-        Tue, 03 Nov 2026 01:53:58 -0800 (PST)
+        bh=Wy4OVqINXkwCakS/yGHU8W8MCAAF/D/083jT8dDHKck=;
+        b=NrnIEk7Zv/uPmBq+y6Ml3T9AThErWwZBkptTRpaxuHqj0QlGYURziGbFkVshdjvxdL
+         k0vX2wHBq6rItxjBy6yLp0jkeZ5MFXNXlOgpDCeg8T3wifHbFUuQ/Gd5vy5CJrrG8hyX
+         JrSTbiz73U9P29WQU34CzkxF10qrxM8VJYQUaD6rLBDcUPegdbme75HECBBy59Ak1Nvl
+         oWedHe2WbPxEWmJEp90hTgVANhSxwI6dfn9dMwkGj/94HvBjJuSae1GSO/2Bd2mwtWw3
+         3AHuSYc8K9Ho6nQFUpIiQloB5nneYHIHsi7PHpeaQTZTJL6dkA+b2NV6rEyct4MVuth+
+         XBrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzyZgddFnU1+fbIFVtUKQxTk1Pno5PCx6E3izojg/Zg+XwPIBAxizVbBq82blGokVC6KKnGV0NHfL67ty4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xO5EuYVDbIeo/jIQQS4WfdpoLp9oKIpVT4yPX+WRVFAthw9yB
+	wFIyHOM1nBMfMzlYEFyKOYtYB2yWHgKqtloV/FE5t6OqjJAr+BeoFchhUWszBGCQliM=
+X-Gm-Gg: AYBFou1EolmhlQIKvfCNO83zb+wlAjVswwF8QLXuzULczjAZqPsl5/597BqL8vV5WVs
+	bRjlGGKT8Bd90gBGFGhBC/LtKRizhrJXQ8ABrejnC/kv9Hz72aXF3lGNHj3boTVwCsz6rgO7UXt
+	AZ/cmI2DH9rxUazKeeLW5uK4jJnrRh0BDQ9C1fIZEFZ2l7omyux10WJo6S+5pNE6xGwFRRx1nlU
+	fLvKvX+dl9TsrE4BLlASs/lqrU/vpgVAJ1864f4W0yAgBq/viuXNUUP5z4m34dBsuDrsEZBAPI3
+	20HDF12FT8smgVnx6VhV6B/bbPRu/H+oniJw7qykFExBjgLRsatu/Mozc2rHt9u4zDgctCqVYnG
+	PugNCp3HDQT5RyOTxGJ0sfalZHLcmDlzjNR4OVgnvVK599JNgEsNHri5MKW1ocOjjTOhZtODSLT
+	0CjeZnXn5CzvWvavp3ROQVT9oWdMkgNLkX/tE3Q2zpE5YTm6TZIKMKcUbo1xc3cl8KyAakW9r+H
+	OK5ewA1dg2hipXT64FA4Aa+SFKWuQwhF98WoPSmlm0FMDF7NtjfnH19JjXs0jEC1LQpPWixqOyP
+	q9DXWpaZZtpmQ02MRiSd5N0snqr7Z3QLxmJLKRLc0pcJMJzTlg==
+X-Received: by 2002:a05:600c:8b64:b0:4a2:84c:52f3 with SMTP id 5b1f17b1804b1-4ac16fa21dcmr308685225e9.6.1793699646995;
+        Tue, 03 Nov 2026 01:54:06 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a4csm24029915f8f.23.2026.11.03.01.53.58
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aaa4b85fsm43219155e9.10.2026.11.03.01.54.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 01:53:58 -0800 (PST)
+        Tue, 03 Nov 2026 01:54:06 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: linux-amlogic@lists.infradead.org, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org
-In-Reply-To: <20261101232011.1172410-1-martin.blumenstingl@googlemail.com>
-References: <20261101232011.1172410-1-martin.blumenstingl@googlemail.com>
-Subject: Re: [PATCH] arm: dts: meson8m2: add dwmac 3.70a compatible
-Message-Id: <179369963832.2329937.7183164129825631720.b4-ty@b4>
-Date: Tue, 03 Nov 2026 10:53:58 +0100
+To: Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261016-add-thermal-t7-vim4-v7-0-6eede5450fd4@aliel.fr>
+References: <20261016-add-thermal-t7-vim4-v7-0-6eede5450fd4@aliel.fr>
+Subject: Re: [PATCH v7 0/4] arm64: amlogic: T7 thermal support
+Message-Id: <179369964613.2330120.9766633798877372121.b4-ty@b4>
+Date: Tue, 03 Nov 2026 10:54:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,20 +108,30 @@ X-Mailer: b4 0.15.2
 
 Hi,
 
-On Mon, 02 Nov 2026 00:20:11 +0100, Martin Blumenstingl wrote:
-> The Meson8m2 DWMAC reports User ID 0x10 and Synopsys ID 0x37,
-> identifying it as a Synopsys DWMAC 3.70a core.
+On Fri, 16 Oct 2026 19:16:06 +0200, Ronald Claveau wrote:
+> This series adds thermal monitoring support for the Amlogic T7 SoC,
+> used on the Khadas VIM4 board.
 > 
-> Add the "snps,dwmac-3.70a" compatible to match meson8b.dtsi.
+> The T7 exposes six thermal sensors (a53, a73, gpu, nna, vpu, hevc),
+> each accessible through the secure monitor firmware interface rather
+> than a directly mapped eFuse register as on older SoCs.
+> 
+> [...]
 
-Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.5/arm-dt)
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.5/arm64-dt)
 
-[1/1] arm: dts: meson8m2: add dwmac 3.70a compatible
-      https://git.kernel.org/amlogic/c/88da0c14921c8def2775d5238ecaa5934e603da0
+[1/4] arm64: dts: amlogic: t7: Add cooling cells to all CPUs
+      https://git.kernel.org/amlogic/c/79279ee341b99634f3c106e5970e13d073e8b064
+[2/4] arm64: dts: amlogic: t7: Add thermal sensor nodes
+      https://git.kernel.org/amlogic/c/c3644a9b59fa49ef88bd312dcdf47cc6e155dbeb
+[3/4] arm64: dts: amlogic: t7: Add thermal zones
+      https://git.kernel.org/amlogic/c/e41608d8792d8de0369a0e90f7e0d2b45db27541
+[4/4] arm64: dts: amlogic: t7: khadas-vim4: Add fan cooling to thermal zones
+      https://git.kernel.org/amlogic/c/e90086cb0f608c55e0b2d17e8db8207e789fdaf5
 
 These changes has been applied on the intermediate git tree [1].
 
-The v7.5/arm-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+The v7.5/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
 for inclusion in their intermediate git branches in order to be sent to Linus during
 the next merge window, or sooner if it's a set of fixes.
 
