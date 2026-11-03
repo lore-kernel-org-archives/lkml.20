@@ -1,55 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703175;
-	b=YTJ8MNVzTUcPhegh3MA+cSgAtKTMArhcfXieZDQO3x0M3DS43E9WZ/104opAbPR1+aye
-	 pXdHfNUeqCVYe4AAUEOh2qRr9PjkfabcMA3+8ge5VoBUMVZw4wjE5jkNDtRAOgLFlt5On
-	 CH/Czc3TxB9BY6aFDq6xCGw7LcniCoEcWWmNwR25LWa5WvMbp7Mu3rikyHGx85uGg7aoo
-	 6P6PRtBuZTwyi6oQ+/N9QZsj8X59CCIo6cpmPgIRTykT2zZSODNnzSPnaG5yOg1xneuNE
-	 6z7kWaQN6ctLVqsm0ALWA3Pn76xj63Nk3OFvNWwKMwqVKg2NgkCjUSo/JKKyV+HfGOQ==
+	t=1793703215;
+	b=Vx12XHuFGFdPGbR1Ras1uLPySPL3If+tumP/qcK0grDhQ0NE6pE7ZuTRJBTS+DyL2EKW
+	 7YMR4Wzjw0sI4HTlP+1809VevQLdIiPPvkSODQgy7//R3NGoWfJptxQiSexUR2eesrqrK
+	 ULKRKRLGdfg2jrLp1iDZzaTLzqZacchuMGkn5tgx0bWjsFZFydZprQKaWhXXWkGPuOsYK
+	 QEUGCYS57oB1+hjfUOPrUam/0gYBfAXtqd/Bu+ifVl3EXVYf84JDpPNVtxZdlGuVbO/0x
+	 Kml6JKtr1TArxXzGyqAbuiXdhihUEHscbcG58oo5rPeL7SNN2RhWLiiugUUnraZcePQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703175;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=8jldkdgXypUZGK7ZAxt+IOr1VbrZ6ao856mae2SJmPk=;
-	b=Kf4ORr7GUJcYIkAUjLAZfMy1RdsbjPG4n3I4NoS8v5EXbNUMDrnqylamL9nN4yidzvE2
-	 wJEm4WyvBLWXrpOcpv7lDjjWm+wGVdpFhH5KZBUcmDKX2U2uDq5hn8QiN9E5WMVjTjtCC
-	 VZlnJeGOPuI/x98EM5izY+pLQmlfLM4nO95ygWXJnMt6Fj8SIKXwSkcQO0p6u5bxuN5Sp
-	 Fi9lE5DyPgDD5Y6VVV/eWcCxw7ldvT68XuhViD5RZ2gDuK495hacPlx/2PIjtOmwA5JeH
-	 wZSROOnSxQmUphmW+6fA1p5kS/x3J7rIHK5k25vCvAQuaJONNtGVD0/8F0eR0K8UznQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703215;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=yZULAJenn5FpHFmW4iJ5T1lRKnAas/th6WVGZ4q3kuk=;
+	b=RGIM4uqQi3k0Jed89lOkPVx+htlybbgNEQ2AWdLlRJ64WUs9QnIwG2+v/IFgLRf/l7wu
+	 +Y3l9Nik7sOqOLzXXOMOZa84KZnZqpdyY4xbvYFAJPke2vASbK9SQOoPENnDghoATolPF
+	 BOp8Rpp4wMra5VZom01di3yWQOCLLK1JIbONu/cfCZ+WdYBSEP/JOHQ5+w/XFiFEV8Mf8
+	 Ql/fs2VZ6FD7uTL06pPkawOZHK3l0YfBK2PF+yqK3Of/4LHRQZ0PV8Hf32G41pQUB0HaT
+	 XpWiRoCXrtaKhFNXcrUoBA/0dKTPPx5ly6pGW9UyWJLiKSf382FDvc1tyQwqL+Vr3lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b="JrI/Tnsa";
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1EC606BA56;
-	Tue,  3 Nov 2026 10:52:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE1EC606BA56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJllg3d6Cz8Xrrc;
-	Tue, 03 Nov 2026 18:52:47 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl1.zte.com.cn with SMTP id 6A3AqXd9086930;
-	Tue, 3 Nov 2026 18:52:33 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Tue, 3 Nov 2026 18:52:36 +0800 (CST)
-X-Zmail-TransId: 2afc6ae9bcf4b91-a92ff
-X-Mailer: Zmail v1.0
-Message-ID: <20261103185236493epBX4ZduRODf5qr1glAyz@zte.com.cn>
-In-Reply-To: <20261103185229490gmhePBF5_11x_thf4X-Rw@zte.com.cn>
-References: 20261103185229490gmhePBF5_11x_thf4X-Rw@zte.com.cn
-Date: Tue, 3 Nov 2026 18:52:36 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE059606BFB7;
+	Tue,  3 Nov 2026 10:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE059606BFB7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=JrI/Tnsa
+Received: from francesco-nb.corp.toradex.com (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id 4A7991F9E7;
+	Tue,  3 Nov 2026 11:53:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1793703211;
+	bh=yZULAJenn5FpHFmW4iJ5T1lRKnAas/th6WVGZ4q3kuk=; h=From:To:Subject;
+	b=JrI/Tnsa0kSXWpKhwtP3yZXkHs8CvwVT15jM+DkFLfbHf0Zc0trrLBgE7ncGtxlhI
+	 587POREeU2MVGpUlWuN4qMBFYQvZWl2oC2f5WtZ38SmKcJ5S07F4V0OldOmDhVYlsp
+	 ecXD6nYfUXr2s9pAmNNwR3wry4M1O8tcH3OImosm9a+50tM8njMia776EhcCG1aVVd
+	 1iWIhGv5rBIFGQZN1yQvx4ZLwIm5V7+zArjdqKEGFDT4w6LCc984wZ8v6Sm1wWTvfX
+	 Sdf2kHKBR0hnlPCLeSD1mgNtHqN4PxLedWeianJDHbexeviuvwLJ3WzpTuYh0zSJZe
+	 HemnP2pmBvW/A==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2] arm64: dts: freescale: imx95-aquila: Keep DP_PWR always enabled
+Date: Tue,  3 Nov 2026 11:53:14 +0100
+Message-ID: <20261103105323.2394012-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,70 +69,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <martin.petersen@oracle.com>, <alim.akhtar@samsung.com>,
-        <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>
-Cc: <james.bottomley@hansenpartnership.com>, <peter.griffin@linaro.org>,
-        <beanhuo@micron.com>, <stanleyjhu@google.com>,
-        <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDIvMl0gc2NzaTogdWZzOiBleHlub3M6IHVzZSBCSVQoKSBmb3IgdGhlIG5leHVzIHR5cGUgdGFnIG1hc2s=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A3AqXd9086930
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Tue, 03 Nov 2026 18:52:47 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE9BCFF.001/4jJllg3d6Cz8Xrrc
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-exynos_ufs_specify_nexus_t_xfer_req() and
-exynos_ufs_specify_nexus_t_tm_req() set and clear the task tag bit with
-'(1 << tag)'.  tag is an int in the range 0..nutrs-1 supplied by the UFS
-core, and controllers can have 32 unified task tags, so tag == 31 shifts a
-32-bit int into its sign bit, which is undefined behaviour and trips
-UBSAN's shift-out-of-bounds check.
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Commit 01aad16c2257 ("scsi: ufs: exynos: Fix programming of
-HCI_UTRL_NEXUS_TYPE") fixed the same pattern in exynos_ufs_post_link()
-with BIT() and noted that the UTMRL access should be changed as well; the
-four remaining mask computations were missed.  Use BIT(tag) there too.
+DP_PWR on the DisplayPort connector powers active DP cables and
+adapters, which do not work without it. Keep it always enabled, and mark
+it boot-on so that the firmware, e.g. U-Boot, enables it at boot,
+whether or not a display driver is available.
 
-Fixes: 55f4b1f73631 ("scsi: ufs: ufs-exynos: Add UFS host support for Exynos SoCs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-diff --git a/drivers/ufs/host/ufs-exynos.c b/drivers/ufs/host/ufs-exynos.c
-index 3bcbc9ebbb28..ee47958253bb 100644
---- a/drivers/ufs/host/ufs-exynos.c
-+++ b/drivers/ufs/host/ufs-exynos.c
-@@ -997,9 +997,9 @@ static void exynos_ufs_specify_nexus_t_xfer_req(struct ufs_hba *hba,
- 	type =  hci_readl(ufs, HCI_UTRL_NEXUS_TYPE);
- 
- 	if (is_scsi_cmd)
--		hci_writel(ufs, type | (1 << tag), HCI_UTRL_NEXUS_TYPE);
-+		hci_writel(ufs, type | BIT(tag), HCI_UTRL_NEXUS_TYPE);
- 	else
--		hci_writel(ufs, type & ~(1 << tag), HCI_UTRL_NEXUS_TYPE);
-+		hci_writel(ufs, type & ~BIT(tag), HCI_UTRL_NEXUS_TYPE);
- }
- 
- static void exynos_ufs_specify_nexus_t_tm_req(struct ufs_hba *hba,
-@@ -1013,13 +1013,13 @@ static void exynos_ufs_specify_nexus_t_tm_req(struct ufs_hba *hba,
- 	switch (func) {
- 	case UFS_ABORT_TASK:
- 	case UFS_QUERY_TASK:
--		hci_writel(ufs, type | (1 << tag), HCI_UTMRL_NEXUS_TYPE);
-+		hci_writel(ufs, type | BIT(tag), HCI_UTMRL_NEXUS_TYPE);
- 		break;
- 	case UFS_ABORT_TASK_SET:
- 	case UFS_CLEAR_TASK_SET:
- 	case UFS_LOGICAL_RESET:
- 	case UFS_QUERY_TASK_SET:
--		hci_writel(ufs, type & ~(1 << tag), HCI_UTMRL_NEXUS_TYPE);
-+		hci_writel(ufs, type & ~BIT(tag), HCI_UTMRL_NEXUS_TYPE);
- 		break;
- 	}
- }
+Francesco Dolcini (2):
+  arm64: dts: freescale: imx95-aquila-dev: Keep DP_PWR always enabled
+  arm64: dts: freescale: imx95-aquila-clover: Keep DP_PWR always enabled
+
+ arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts | 2 ++
+ arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts    | 2 ++
+ 2 files changed, 4 insertions(+)
+
+-- 
+2.47.3
+
