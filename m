@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793667010;
-	b=iLW9byZcVlDwMrOtyT5v19yxe/of6hdMf10SK98vQb5nbLi8pNKHlip9LeAulJ0rHrGg
-	 LjzX38vDry7lKeB4QbCH/WAbsua3WpdPuK32Wh0Xv+OGR0V9wkLK7jjvQQTXeSZsAWSS4
-	 iozJTRKw8fT6E8oKOwXffs5kbSPUlteWG0H22oaYc9y26hVITIwmd9j54Hj/A8RLKyl+d
-	 NW3hDbgpKGDkDSFP86wx/OyU52ksxUltlDRLWeLVScVsZgYhMCIfV5lx6i93q5Lw6Qd7s
-	 +83x4aF3vKNzXMM5VD3RJoRzIvJDFj9C5tDRO6x9gyNwgHL4v0WshJDGa9tRP11jrHw==
+	t=1793667008;
+	b=GIVIx5hDuiQwZvESYqLW+LBKc3Qn8MLCSR3W0sEQl7E6EQGgILfnutHZDOApuVkQhwr9
+	 pXlYuONBXg035D5IhVrD+qGONHo9v95XBsoOV1uu+n1Qo7SxEZ+1APNv6oX2FV8773lSG
+	 yV0e8kdG8NQODE3/6jz7RAqqjlNZIqFmbWvLUFvwehC4V0MYzaYIJz6HdZZIsY10cnRi5
+	 vvG+XKs90WwqixxeY4yMW/uYAvaMok/ZgM1qDgiRLlri2TETIxjt3unX2n52q1uwMJXTd
+	 bvqmJ6xefAfi6kJsNl2ETdywV7kNE3BdlYPCnR7C5k8Z7Xk6BqqY/gEtc8kQUMxgqtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667010;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667008;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=sQM8DOk+zZLZYMqSaPiKyghSQOh+EEtZ/OBexp3ZNJ4=;
-	b=eabdBVdP/U4JGTyFUF9V4Ub5rMuhrlAC009Gu2S7wjPop9BkoDpv/Pt+jJOj0tGL/xJb
-	 umF91dpYpSMK0JgPbPPzSJF8KEMGToqOho5e1c82U2YFYH/1tgncQ+6FXClwjdJeGYepK
-	 R6KFYOwLgg2BnN9iH52dx/ZkD+GeENRUkV6j1UwMOcVHszO1uh1g5iBdVMHJZ666hvKIo
-	 R4WmMmeWhI68QKM9RM5t8qap2TXvHf0buMdD8rbm2ggbFWpdQa571JfwDmUOOy4P3xvHC
-	 g9VWQZwAmKwVM5rJcd+rj1KU2WogsIteA6IU5vEKpIKHndFL08+y1opIOBbC/G4AeuA==
+	bh=eBRs5G89h5Rrtmr9y8DK6nRgz/nS5TcDOrUBQMk99ws=;
+	b=YykriV+VCAeaTp5lk035LN+CRGYMrU9Fv135Vj4JuSyQ4VknkrehhDSjYNM9N5NLezWl
+	 i5BdSDY33gN9jCQx5kA/TC8MqZTPt+pYl/axfUO1znrFFjmE87UqAvYcsTFofcZM1xlk9
+	 vU+0avEV8xTuwUODyPw4JhMCdDARxlliiZHsJma6PE0NH11POKEnDwri03i0GCmYzmsZt
+	 HfM8cwm/+gD0egdBS/7EQIE0P5dlZRcheQUKQCPHZDd9UecRG/gKO+OPq83YI4fPV/Ccq
+	 JLgxhV3KkuKrsOCTOzJEujMul1R/+ftInIdsjhm3GwhGflpTr/U9P5Sd5Sq0B3vDZeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JxTdKS3T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCQ2xNTB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BB5606A329;
-	Tue,  3 Nov 2026 00:50:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E766606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JxTdKS3T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B801F000C1;
-	Tue,  3 Nov 2026 00:50:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCQ2xNTB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE281F000C1;
+	Tue,  3 Nov 2026 00:50:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793667009;
-	bh=sQM8DOk+zZLZYMqSaPiKyghSQOh+EEtZ/OBexp3ZNJ4=;
+	s=k20260515; t=1793667008;
+	bh=eBRs5G89h5Rrtmr9y8DK6nRgz/nS5TcDOrUBQMk99ws=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=JxTdKS3T/D0H8YXeBF7xqpYwd0KtU7EE0AJG6yUYf1hvBq1FPdyBLpNi5/yG/AGoq
-	 EEmvDZCGxw8gboYd6u9cV5qNB/chUcuAa1BY1NY4bNZtrRfzPw00V+CpLRS9qxwl4f
-	 3dXD9XllocKghwTvf2WZsigIL9Z/FZUsjxiMN1Jqy68WXCkqsS7Th8vMeMkbdr4uH+
-	 bbpLMcmXRPKZAgFHOfWzMhjxOSYs9aeq3ZGRpI8loc+Yfut8lZzn+rZI+TCWMGsRbE
-	 n28NeLOmkRHTwYmgwYBiYiaT78es2aeePX8rIbZfkaiBbdVJA8q3yJkQrEp9x4RVIV
-	 LcCeYdKunvWrA==
+	b=TCQ2xNTB3/VYbcrWaJ/Dd98YcjLIHe+Xx5g55nWDr2tEHFJbAvcpZ181egHhdKsVe
+	 cm0vwg4+qaxmKeSzjms97mFKnp7qS0PLnUYUpoFenA3ZxyYJAWWu/p5mTZkNGSEIk9
+	 m0AzfySfEvqPX4ftqls8uIl56vegNYUZ33diMyAqMBdYAEbbDGrzDdAGvwsWHkxq+L
+	 1LX7xKd4UZISqZC644/gcEmMTtaYGohJdbn54ppC394b5HOQSx5KSEY16RJjyDn51e
+	 c9k8uqbIuBnrxJ4ii4yCr3epVWafeUcqdF3cokSEK2TfPI4uqdzvK3FmNfetDpfo9r
+	 PCNlo8mWzJhYA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D44B380821F;
-	Tue,  3 Nov 2026 00:50:09 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 03069380821F;
+	Tue,  3 Nov 2026 00:50:08 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,40 +54,37 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH v2 1/2] f2fs: fix use-after-free of quota file
- names on failed remount
+Subject: Re: [f2fs-dev] [PATCH] f2fs: update inode ctime on exchange rename
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <179366700804.755181.9413256107192916599.git-patchwork-notify@kernel.org>
-Date: Tue, 03 Nov 2026 00:50:08 +0000
-References: <20261102023647.1084979-1-zhanxusheng1024@gmail.com>
-In-Reply-To: <20261102023647.1084979-1-zhanxusheng1024@gmail.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, sandeen@redhat.com,
- zhanxusheng@xiaomi.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, lihongbo22@huawei.com,
- syzbot+e818dd42ada3b583bed1@syzkaller.appspotmail.com
+ <179366700663.755181.16969065523229248918.git-patchwork-notify@kernel.org>
+Date: Tue, 03 Nov 2026 00:50:06 +0000
+References: <20261102004742.55105-1-dennylin0707@gmail.com>
+In-Reply-To: <20261102004742.55105-1-dennylin0707@gmail.com>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net
 
 Hello:
 
-This series was applied to jaegeuk/f2fs.git (dev)
+This patch was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Mon,  2 Nov 2026 10:36:46 +0800 you wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+On Mon,  2 Nov 2026 00:47:41 +0000 you wrote:
+> When two regular files are exchanged with renameat2(RENAME_EXCHANGE),
+> their ctimes remain unchanged. f2fs_cross_rename() applies its explicit
+> ctime updates and dirty marking to old_dir and new_dir, which have
+> already been updated by f2fs_set_link().
 > 
-> f2fs_show_options() prints the journalled quota file names without any
-> lock that excludes remount, and a failed remount frees the current names
-> before restoring the old ones.  Reading /proc/mounts at that moment is a
-> use-after-free.
+> Update old_inode and new_inode instead, matching the ordinary rename
+> path. Keep the existing parent link-count handling, which dirties the
+> parents through f2fs_i_links_write().
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev,v2,1/2] f2fs: fix use-after-free of quota file names on failed remount
-    https://git.kernel.org/jaegeuk/f2fs/c/441baab7f06a
-  - [f2fs-dev,v2,2/2] f2fs: free the quota file name that remount drops
-    https://git.kernel.org/jaegeuk/f2fs/c/f0d620265cbe
+  - [f2fs-dev] f2fs: update inode ctime on exchange rename
+    https://git.kernel.org/jaegeuk/f2fs/c/f842dd9251dd
 
 You are awesome, thank you!
 -- 
