@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699581;
-	b=lX/+9zC7Er1kB9BHB3Lt3JB/adFr/dJVB5alqZI9UJQVD2wFRWih3P14kDlgFQWo62R+
-	 HDeHFxZQbQPRdiR/V/ks5Eqmah5xHGSUmqaZty1EfYSMdbZbNLFkzOyeP6wfv/5kHfIzK
-	 mBwl/VUH5eDGwde9TkbxUomBsqQeVeQUHtusIIQn0avAXdT+HjmQIbsNuuI5RSNNdG1pe
-	 giCHNDdHrTV6aQmBo5g1xejMAf4FhyzcgvHlBjxfY+IAwVenuXLlA8IrxFgCS3u9L+Enx
-	 E/Bj/tN97kkLj8yAq1dgiI16QlZmMo5WYVLSisA+VgNb0WrsQamYFjpqI82SZ/jh22A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699581;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=My0Z66KYNuRTAK3B795dnm8lK2ZMXMW4aavFw/8R0xM=;
-	b=eOQZ5KRLjDlZU8MVeV4lpdPq7W/zdekm9NES2bMIHNTechzyRsY6cE9Qaf5sTaZi8Uc0
-	 /j5KrMTsZNyZ/DzBEgVpOPXjwzGoplXAFXmnjgjJ9wgjhwy2n326pY7moODYXrk948xlT
-	 mIfdNBDd4wxYyBoLnR2GD2+bQWd5ckVir5+4eYSpmy1Cfcozpnmg1goXeTwaONwAla73Y
-	 Ntsoj8gObdod/NO9mPctmi1ElfatASheHxTY4QPD9pZkVGn7PqsObY5DZOhB3uLdadUJU
-	 rRabUIPoPceYwS0y60OQdZFFDS2qXPKvbDU/VkUQ0nH0ePA4JIQfbZPXHX+aCkY0QhQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtqS1jy+;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793699587;
+	b=oFGbJ16F5G2jzQAf7zriX3oNQuk90NFHqVZVHu9NBNwp0Y7EVlcwsmHjPeV7N5BnpwiR
+	 T9qb2E8A9pgXp6oimMPChAiXCk3dBzXNYIq4QxufuuD7dg+AAGi/+jQ+PYsviROQR8OBh
+	 JW4LT/YmQCYCbU6ScWncWhpG0tgAoS7WcKjOAuhCljr7KSwF0EqjUYT6nok2MkkGbGjHC
+	 wnMYsRcHB+fllErAUM11fhw8WLPgqZvAzNwvd11TIkecPPUDH+4LuK0nxoAx1GTE883xL
+	 RLMTDMcX+AaChs0/gL2nXj1kF9qP4HeYXzMRGpsO0v8Jc+0uqX6CQ9xHg65s454857Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699587;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=FpuQRSe26poIQS4tvUq80P6B8OW0P07tubX87zAYZVs=;
+	b=qS8afb5or+RRrU5b4t94tA2JijgkVbIsWsxSBdrD/5tCXdlMX8KVPzLFGHEcm/9rYUPa
+	 8AlF+dVawnBibmZxEN8sFc/jd5gtouZacYcTryTOkuOq3/GYjML+u1yt6cYj6xYrp55HW
+	 Hul2hfQ5N5KO8eUknNBA9Rc60MrIFpSBr4jgrxVAONiZsITBz4jUtZxrI0JuZqUu0heCQ
+	 6TeVQW4WQoofJ5r8Pr66Rq8nWQmxzAq7dJ60SHRR0MvINvRKOfEeRBNEYcpi7Lglc+QeX
+	 w81KVkRkRzedSdydCkT48ux3sjjNqYf3YWDdA7RIuvTfxsNFEp6xE9vgZOtARyjms/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJ6hk963;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EA16082BED;
-	Tue,  3 Nov 2026 09:53:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B21C606D823;
+	Tue,  3 Nov 2026 09:53:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtqS1jy+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A851F00A1B;
-	Tue,  3 Nov 2026 09:53:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJ6hk963
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793699586;
+	b=b6cZ49s+DyWI3oJYQDHSpomOx8xM6mXPcCT3AqxltRWKgrGd2Y901X0H0uahkly5J+FJ
+	 AAD4nEjV5FftJztqkyDVmdCBy7Y4ER+kzitpACuWSzNB+po/B77esazTeGdjCGB5fCKQI
+	 mG7Mohb+BsBAqJqVWhFGzLCYtuFfnAE4mLUJGbiNxg0dRQ3tYWTatAdaciPZTZ9VSnpfd
+	 KsJ6rWmymerMyBupzjrXIdrI03jn3xuxrbCylcWYsa3r3mANtr2StVJ58HRrGaNqjgVv1
+	 yL/io/3ooG5so4syLZnsgRpsTmxAxAJpP7oYfzY3nSxTNtC1aFrDb4kBIT9+MasvSsg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793699586;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=FpuQRSe26poIQS4tvUq80P6B8OW0P07tubX87zAYZVs=;
+	b=bU2JiEaCNGz8JcsjeqRFEQuwfD9S656fmKrbR5WdT7jyklw7eFmEZyhw1sz6/n9pUmSj
+	 wUX+i356zudffFeeHJVrWgFzhfNu9sn7JwE+fxNGYpBOfprEwKQ2YJffVw9urxOSY2UUG
+	 cGo+WoKKUQ1rGPOEfWlL/eQ6ytUK20UDh96LSVVwILmI9JYPX3yYyd5OEQs0xH33N51w+
+	 NjzZ3HCAp5oMdegZUSYoj3FcKXjRHy5EeKE0v+LFrfGXXsHjcKykVf55vqWSGW9HnxSup
+	 hh2BJExVPL6R9Re2jxYKfGSuh9SX8pg2m7MIs6im3cfaKN61vnZJw7ofOh8+t0dVMgg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 725101F000C1;
+	Tue,  3 Nov 2026 09:53:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793699581;
-	bh=My0Z66KYNuRTAK3B795dnm8lK2ZMXMW4aavFw/8R0xM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ZtqS1jy+YkNh/dusWp74kZOjGgEJPbo09JcPUd7JZiNBgXFL68rxZb76qlpeP5PHY
-	 +sY/GPIG7+iuKTV6cDE42VArd0HnhotreVjoORDNIsiUzEMMzHfIoK6mh6kNSmysM7
-	 NzksDfTukp22zaCX39Ff260mkElMwMg3Adh2F2Zdo9+c6/PjXjFGk/K/SpB3HDJGKy
-	 lLvAVHAdQEFm0Iuo3Kqgkv0/iTxWUqzXZYlQt+XxrZlkqzDsIA6mcyO6m04yF3rXoM
-	 zY5eVeJWjFJL0eWS29GEfgqGQPFBt2tpHBM+W7hm4QMrfUASOjbNbeWQkmYDFbKLDd
-	 OPbZSIZ67pdrg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bart Van Assche <bvanassche@acm.org>, 
- Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org, 
- target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261025013748.3755639-1-yhlee@isslab.korea.ac.kr>
-References: <20261025013748.3755639-1-yhlee@isslab.korea.ac.kr>
-Subject: Re: [PATCH v5 0/3] RDMA/srpt: fix the descriptor table checks and
- the context counters
-Message-Id: <179369957811.1712752.1012285000662293438.b4-ty@kernel.org>
-Date: Tue, 03 Nov 2026 04:52:58 -0500
+	s=k20260515; t=1793699586;
+	bh=FpuQRSe26poIQS4tvUq80P6B8OW0P07tubX87zAYZVs=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=RJ6hk963A+ZOmNcVqWuWe3vzTJ+652sfHTAsjGVXYyfPm31jzbJMgozL1cJCE5DR+
+	 adNhvCx7nvC9chCivTc8+yPiKqTiPDGP1cXoDPCSv2K47RYK0LKZWt1gDxZ5yURVyY
+	 3Fyk0PH9AeR4mav3IZ1MWz+RBEFmlbTJs0vbQ66Mx9gIxWCz4M1fSieOYQ/H3jyjUW
+	 dMMlojhmxmpy5e2cCRVS7REAnimQY15EeW4cjp59SeFFoPOLk0xh1ZYSsOUPJC3NVB
+	 AV5VXqERkmZf0pH1X3IKXO9kgR161NgaB8R2HuQu7LdkRAHLlLIaE0L97Ha1Wqsc85
+	 Ex3pmH0mM7+0w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 027F146866;
+	Tue,  3 Nov 2026 09:53:06 +0000 (UTC)
+From: =?utf-8?q?Jo=C3=A3o_Silva_via_B4_Relay?= <devnull+jgc3silva.gmail.com@kernel.org>
+Date: Tue, 03 Nov 2026 09:52:56 +0000
+Subject: [PATCH nf] netfilter: flowtable: do not clear the offload bit
+ twice
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,33 +84,96 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Message-Id: <20261103-flowtable-offload-bit-v1-1-20f5952c00a1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqDMBAAvyJ77kJWUYpfKT0k7q5dkEQSaQuSv
+ xu8zRxmTiiSTQrM3QlZvlYsxSb06GD5+LgKGjeH3vUTkRtQt/Q7fNgEkzb2jMEOVBqDMvHwFIb
+ W7lnU/vf3BVHhXesFPBZVSmsAAAA=
+X-Change-ID: 20261103-flowtable-offload-bit-f15bfd1d38ed
+To: Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Sven Auhagen <sven.auhagen@voleatech.de>, 
+ Oz Shlomo <ozsh@nvidia.com>
+Cc: netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Jo=C3=A3o_Silva?= <jgc3silva@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2100;
+ i=jgc3silva@gmail.com; h=from:subject:message-id;
+ bh=Dqh+hiNjtTLDhc1tQ1I4cJIXp18+vbRya6xJ6r5BvN4=;
+ b=owEBbQKS/ZANAwAKAfy6ZkDxTpFsAcsmYgBq6a8B/LyRbqX7acF1fsF5gvc8q49GwOjhfgNpz
+ fi9/9p/9NmJAjMEAAEKAB0WIQROyCimFhnPgEUkNBX8umZA8U6RbAUCaumvAQAKCRD8umZA8U6R
+ bDQjEADIUBI6EVVK5bTcxUq4pZ4jJqoTbvOqdomL/NYoYddHaBmpG+kdqfsyoGnhYDrpGVfgble
+ ifEIjjOzp3LfrpgOJR4ItmuUuku6LAVExR1kAHIkJMM4+4brdDI7Qdoij9RdUOUoJaeaU4qIhDe
+ U4bx4aUtt3J+vI0yLqpTJUkR5lIbKLYZQMS0V9r08kUFkrb2W3Y1vLpTjcXc8M4XGv2Rzc/s9J2
+ 0ZX30hPIKk3NJK0JZc+5G9LUNfJjoDJYftkkx9s1PjUN/HO1gfDvOgDf/8Rmc3WJfY+YUaxJTbB
+ erJ2IbEiWtHRbl5vjFA4hVa/KHcvQcijOM0GsaPOJhI6TTso0X6FOpwjCUFhmVZNkCKYqCgUoRw
+ QUjgkb+OhdeTQeS2vPxGJxCSXSTszJ6UBFwG6cjSlbSpCHczYldr4ByclcV6H/5/0K/EBDAJtXV
+ RKDkb7PGmgC33igdk4BeQxSNdLghRL41MlhsadJ/Lo8uOKHS77lqIWQOwcZlkTKvqOcOwxg8k4U
+ 5U6x2JziJVH/4MMpDOtZaxiFj7IX7TNg3/X7gSUmvAk4KBA3H5AXd1RzfVaZ9sSfrpc+cSZznzW
+ yQYvqTB3Q0pHUn+/JyBq80uBFqaCqUEuJppyL4THxLx8N6krbQnpDtpHotWw3Gk2H5STK+t+5JB
+ vpIjiuTmuiawWwg==
+X-Developer-Key: i=jgc3silva@gmail.com; a=openpgp;
+ fpr=4EC828A61619CF8045243415FCBA6640F14E916C
+X-Endpoint-Received: by B4 Relay for jgc3silva@gmail.com/default with
+ auth_id=1392
+X-Original-From: =?utf-8?q?Jo=C3=A3o_Silva?= <jgc3silva@gmail.com>
+Reply-To: jgc3silva@gmail.com
+Content-Transfer-Encoding: 8bit
 
+From: João Silva <jgc3silva@gmail.com>
 
-On Sun, 25 Oct 2026 10:37:45 +0900, Yehyeong Lee wrote:
-> The first two patches bound initiator supplied descriptor data, and the
-> third widens the counters that hold what the first one admits.
-> 
-> A 510 entry table fits in the default 8276 byte IU when the additional CDB
-> is empty, so the bound accepts it and the counters then have to hold it.
-> With only the bound, a conforming command carrying 256 or more descriptors
-> still wraps n_rw_ctx and leaks every context it allocated. With only the
-> wider counters, a command that sets ADDITIONAL CDB LENGTH to its maximum
-> still walks a descriptor table that runs past the receive buffer.
-> 
-> [...]
+An expired hardware flow remains in the flowtable until its asynchronous
+hardware deletion completes. Teardown clears IPS_OFFLOAD_BIT, so a packet
+can create a replacement flow referencing the same conntrack entry while
+the old flow is still waiting for deletion.
 
-Applied, thanks!
+The next GC pass calls flow_offload_teardown() on the expired old flow
+again, clearing the replacement's offload bit. More packets can then
+create additional flows for the same conntrack entry. A pending hardware
+work item can also delay deletion and expose the same repeated teardown.
 
-[1/3] RDMA/srpt: bound the indirect descriptor table to the IU
-      https://git.kernel.org/rdma/rdma/c/d5e2467b86d496
-[2/3] RDMA/srpt: reject zero-length buffer descriptors
-      https://git.kernel.org/rdma/rdma/c/f38458ac4ff689
-[3/3] RDMA/srpt: widen the indirect RDMA context counters
-      https://git.kernel.org/rdma/rdma/c/f9258be57e3e19
+Commit d2d31ea8cd80 ("netfilter: conntrack: fix erronous removal of
+offload bit") closed this window for software flows by unlinking them in
+the same GC pass and made the conntrack state fixup one-shot, but
+hardware flows stay linked until NF_FLOW_HW_DEAD is set.
+
+Make clearing IPS_OFFLOAD_BIT part of the existing one-time teardown
+transition, alongside the conntrack state fixup. Subsequent teardown calls
+must not alter the offload state now owned by a replacement flow.
+
+Fixes: e5eaac2beb54 ("netfilter: flowtable: fix TCP flow teardown")
+Signed-off-by: João Silva <jgc3silva@gmail.com>
+---
+ net/netfilter/nf_flow_table_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
+index 0d72dc8ae47a..709b55b74cc7 100644
+--- a/net/netfilter/nf_flow_table_core.c
++++ b/net/netfilter/nf_flow_table_core.c
+@@ -398,9 +398,11 @@ static void flow_offload_del(struct nf_flowtable *flow_table,
+ 
+ void flow_offload_teardown(struct flow_offload *flow)
+ {
++	if (test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
++		return;
++
+ 	clear_bit(IPS_OFFLOAD_BIT, &flow->ct->status);
+-	if (!test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
+-		flow_offload_fixup_ct(flow);
++	flow_offload_fixup_ct(flow);
+ }
+ EXPORT_SYMBOL_GPL(flow_offload_teardown);
+ 
+
+---
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+change-id: 20261103-flowtable-offload-bit-f15bfd1d38ed
 
 Best regards,
 -- 
-Leon Romanovsky <leon@kernel.org>
+João Silva <jgc3silva@gmail.com>
+
 
