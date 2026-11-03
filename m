@@ -1,72 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706218;
-	b=lU6gDL22fZIu5A5hfevWuUb4eQOVxtT1qvPUlj78KvOPNoDJawbTrGSIcp63PGbqErQJ
-	 DK1AQRqI7o4vseTAyBS9bxM+5NU5kYEewXh/MvKSC+bd3UxAyvBS7S/TxMNL6tyF7bCCL
-	 kT4AK1RzN+XViHCiEjqMeBQmS5sqzNCYnoD3acMRuBH96fyygnY6qGJ75R4HLvab8hwv1
-	 OjIyNYosw+W+iFgLHI0z2JAyS3fgCVDLfM+pFqB5zOd+S/gf+yedEMAxleSSl05jPbRAk
-	 mow1QHpd/nEGMuF4t11iy+gpgFfGKVYSElO/fvcSyGRGuy9HnORULp6EtItX27VlVpw==
+	t=1793706221;
+	b=gzXCAifuj+sV9jnBSQ7jvJXnXStQw/XaSkBah7af6W1eSQ6fD7p1IigdHGup6ELMwyWg
+	 ESYmcXP4gCoG1KOWzS3gLzNeRihw5Gv3Eb4yBqkYRQdv+5kIG92HlWrE4hqtRnc5YSc2G
+	 kD4hWCJ/kE1Cyl2P9DItba+cE5kC5zQ8Rm9iE2PX3JuOPrWt0x1ZF6YTu7LHdvbkG9gxr
+	 9nybjzovwP90xDS+WGBEHozVJD9TaMS6jASBCj8Ui47ru1EPGXd1H5mRabvVp30fyjB0s
+	 MACm//WUAUw9uJF+213l34hKWUmUzoddwwjSeNGPX9WvabIid6qakhvB7FW1JRGCVsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706218;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=ke2iiy+5bPFA2Qh7Wbg/X9FR3jHVJljstab3aXxJ3pk=;
-	b=nb7+owhc5OYmNCS8XWqoagERKxiKB/xsnR4X0C4AQQ0oygJdqctlJqldSp0HQDN7gMtc
-	 rDzNE4Tz80f6CwxU9eV468LZylaLpRy+JZJtDYqo2HGHpG/n6qy7wz7wa8fO5muBr4Vup
-	 fLzWlhgTQDpQiAjgo5a8y68dFi5tKs0OxiIpeawvkSv70nyv8y8LqLvEkQMks83KCG2LL
-	 yIC9V+BuoFdAAF3OdT9DYNuvGYuW+TRhOLH1lPff8Cmy0WIhLrxAhOvUqCIC8T6Dl81xw
-	 SpucWLqe80VFVrPclqncUuZlWjnkzy3SxFMPpH+HluYyccNDBHN7BrSJOGqcx64Cpiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706221;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZKSEP3+/PcST9o58HFuWpOsPhP57g1jdoiPcpSylqH0=;
+	b=1yuNv+vxSvc7wVFWbNWG45/v1HkXTa1sFbMpkgOjcmVzeXjUn3X6ile05LYvqfjgEBLy
+	 XNlT/hTymH9PlgK9wWIh97az3Pvo+s8Lf9NNuk/6gKkiUExdl74KhETcYNb87/rDSQ5Ya
+	 HG50bpJSU3V5UwLVNEUzOnq1b/t+SAawqEg116udKVVrCJu43kSNYwYSPGtnYuZGYsmQ7
+	 EPde8peIxS2QiciSnIwMrUXsTgZ4SGNvE9jYaLpbf5VOUoSh2SaUGcmEOeqlN7hCHGSbf
+	 Db2A/ajf4Nki1nueOJ5u3KgfiBiQo8f+k4qBw+q+Qc86XyloPd9hDqqvFh+B5hHdq+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JjYBD9rD;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZfp1Nvg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E05606A33E;
-	Tue,  3 Nov 2026 11:43:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E05606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952F26083608;
+	Tue,  3 Nov 2026 11:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JjYBD9rD
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C93C71A1427;
-	Tue,  3 Nov 2026 11:43:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9BD936046C;
-	Tue,  3 Nov 2026 11:43:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57C35103291E2;
-	Tue,  3 Nov 2026 12:43:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793706209; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ke2iiy+5bPFA2Qh7Wbg/X9FR3jHVJljstab3aXxJ3pk=;
-	b=JjYBD9rD0vsN/BIRrCSyjvM0/rLF7ga7LoE78CJtvmkvkA3NI9ACU6hCK9+SA+iGlzm2rz
-	uUGYJfvkH5Hd+zYkXRqJU2SmYGldH8R8uq49DCw/022mPwZKa2aMnZiU/qgMx95QMjMmOL
-	47emcUh+0g8jJFFw7wFTMQu2Wz+j46egu1+W01OR8oSRf08if6LL3Yigrgv4hqZtoA6WuG
-	PO7czrEGk5nmRibJMIvFudAIwYMDiVyge3qTAE6lLQd75nGpzV03JAzpDZ7K/fwlJIIomd
-	s5MRy6aa3zOjxWePs4OmSm1Rdi60bdsFLg5gk0MGxyrtU4AaAunTtjeBuzy8Tg==
-Date: Tue, 3 Nov 2026 12:43:23 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Angel J <iamanaws@httpd.dev>, linux-pci@vger.kernel.org,
- bhelgaas@google.com, robh@kernel.org, lizhi.hou@amd.com,
- andrea.porta@suse.com, florian.fainelli@broadcom.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, linux-rpi-kernel@lists.infradead.org
-Subject: Re: [PATCH v3] PCI: of_property: Omit bus properties without a
- subordinate bus
-Message-ID: <20261103124323.0f8b1071@bootlin.com>
-In-Reply-To: <20260918202045.GA1191948@bhelgaas>
-References: <20260918195540.GA1187209@bhelgaas>
-	<20260918202045.GA1191948@bhelgaas>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZfp1Nvg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40C671F000C1;
+	Tue,  3 Nov 2026 11:43:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793706221;
+	bh=ZKSEP3+/PcST9o58HFuWpOsPhP57g1jdoiPcpSylqH0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RZfp1NvgntwSxvPaNI+cFq/sI2rMD1VCnCQTTpZmIPiSbkJm3yj/HWbv8TQGPIePI
+	 btnGiLXOvb4gGwItG+UDHZFugtQA2CJeFHbXO99tXq7XX3X52el8BK4TqtBLRkR0hq
+	 i3UH1xdjsy7U2M+d379DSIKrNzSccQ/uSPm46YZnuFXJ5Lg1n3xCYarV69oT4KeHZi
+	 Y/fL7RLvkvuwP7DCBRVjzaZJCDWfNeteLWepasM2sAoJSz1GQHvOftLYfNFnVtQfqI
+	 QdX+On8gH4yf5FL/jt7Wf1005lU1NoFeO7d3dbvhWMvHJDyR6YvcgnAc7qTJUrHbwZ
+	 pEgmCcYDLj5kA==
+Date: Tue, 3 Nov 2026 11:43:35 +0000
+From: Simon Horman <horms@kernel.org>
+To: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, lkmlabelt@gmail.com,
+	parri.andrea@gmail.com, linux-hyperv@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Wei Liu <liuwe@microsoft.com>
+Subject: Re: [PATCH net v2] hv_netvsc: Stop PPI parsing on invalid metadata
+Message-ID: <20261103114335.GI865646@horms.kernel.org>
+References: <20261030093459.4004663-1-ernis@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,54 +60,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030093459.4004663-1-ernis@linux.microsoft.com>
 
-Hi Bjorn,
-
-On Fri, 18 Sep 2026 15:20:45 -0500
-Bjorn Helgaas <helgaas@kernel.org> wrote:
-
-> On Fri, Sep 18, 2026 at 02:55:40PM -0500, Bjorn Helgaas wrote:
-> > Author: Angel J <iamanaws@httpd.dev>
-> > 
-> > PCI: of_property: Omit bus properties without a subordinate bus
-> > 
-> > A bridge (a device with a Type 1 header) may not have a secondary bus
-> > allocated (pdev->subordinate), e.g., if there are no available bus numbers
-> > or the bridge secondary/subordinate bus numbers are not writable.
-> > 
-> > The dynamic OF helpers of_pci_prop_bus_range() and of_pci_prop_intr_map()
-> > dereference pdev->subordinate without checking it.  When
-> > CONFIG_PCI_DYNAMIC_OF_NODES is enabled, this can cause a NULL pointer
-> > dereference and early boot hang.
-> > 
-> > Generate 'bus-range' and 'interrupt-map' properties only when a subordinate
-> > bus exists.  Keep the node and its remaining properties for bridges without
-> > one.
-> > 
-> > The problem was latent since 407d1a51921e ("PCI: Create device tree node
-> > for bridge"), but wasn't reachable until 1f340724419e ("PCI: of: Create
-> > device tree PCI host bridge node"), which appeared in v6.15.  Before
-> > 1f340724419e, of_pci_make_dev_node() returned early because the parent OF
-> > node was missing.
-> > 
-> > Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
-> > Signed-off-by: Angel J <iamanaws@httpd.dev>
-> > [bhelgaas: move pdev->subordinate test to callees, commit log]
-> > Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-> > Cc: stable@vger.kernel.org	# v6.6+
-> > Link: https://patch.msgid.link/20260912043106.10715-1-iamanaws@httpd.dev  
+On Fri, Oct 30, 2026 at 02:34:59AM -0700, Erni Sri Satya Vennela wrote:
+> rndis_get_ppi() uses continue when a per-packet information entry has an
+> invalid size or offset, or cannot hold the requested metadata. However,
+> the remaining length and entry pointer are only updated at the bottom
+> of the loop. Each error path therefore retries the same invalid entry
+> indefinitely, repeatedly logging the error and preventing receive
+> processing from completing.
 > 
-> I put this on pci/for-linus, planning to be in v7.3, but I would love
-> to have testing reports to make sure it still works as the v2 does.
+> Return NULL on these validation failures instead of continuing. This
+> terminates the lookup when malformed metadata is encountered while
+> preserving the existing behavior for valid entries.
+> 
+> The issue was reported through an internal bug-tracking system and
+> confirmed by manual code inspection. The pre-fix hang has not been
+> reproduced locally.
+> 
+> Fixes: 44144185951a ("hv_netvsc: Add validation for untrusted Hyper-V values")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+> Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+> Reviewed-by: Wei Liu <liuwe@microsoft.com>
+> ---
+> Changes in v2:
+> * Add Cc: stable@vger.kernel.org
+> * Clarify how the issue was reported and confirmed in commit message.
 
-I know it's too late to add a tag but well, just to mention my test somewhere:
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-It works for the LAN966x use case. Tested with v7.4-rc1.
-
-Tested-by: Herve Codina <herve.codina@bootlin.com>
-
-Best regards,
-Hervé
