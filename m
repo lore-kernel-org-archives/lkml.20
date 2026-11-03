@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.70
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.35
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793687662;
-	b=z9NaVGbQw2RqX3NwOCWSfI3rq13fNrM1hSE6Yb9SrkghqsdGp1hGVVYI3ld+rUFCBl1e
-	 y1eYFgQo/RU+2UpMGgC8Mva9QwQM55hgoXZ8umMpC12QSeu2TMamMHEJGL5UPLLV9x402
-	 /PWhlZnoExpuNmBnLBMW1Y6BmC8gCZ0686mlALR8Ekvw+d7Hm9R5bSjTr/dJSl0f/ZZ4B
-	 Lp1tXVme1fOxFECM+ivbbRRJsEKZfHYybo5RjQIfRpkmvADW4esjvSAzEtR6pSuYtZFRb
-	 NcyGurQNfqQshNbzrXQbGWw8ckGvy0qAwnggcAO0FEU54wMCfc5GxEbsms84yoxg0TQ==
+	t=1793687693;
+	b=5IJaeJnJbwvfzvY1MKP/G9KkLgiTKz9ghN0w6TWjE0b3lLOOdXjTVcNpY3r6yPNXzZGm
+	 SZ5/ADUI1S6C8o0CGbk4OynMGXPUMXPmBfAAOSyc5Py9MbeFl0Kw30P6WTh2/wvaZOLzq
+	 e3DC+f0OOQ8S3VpgUShozwFBZUukTLJ0eJ+Pr8c7E1eZvBQBGb2vJrHdeK7boiNLeki4U
+	 rXD/8K81I7WGoBuX01YuWHd95hEpYyv0Xxl9JdcG5rjyKPgtjkWLLe4DnKqvG3aRZZYV9
+	 1nd7GV9yeA6kwCqcAH8XA8btTIH8P/L/hXqyAhh1euJTeM1irBAc023LXznEWWwFh5Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687662;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687693;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=q9WT78x1YkiedwXkVrU2HXeaX2R8w0dBRyEKN5ob4Ow=;
-	b=Y0hnWcQ1Nl6Gn7SRVtA9U84C1G+aWpzJlg+5cAopAVjcA/AJuW9TXtX+fZg1tqbBxKSY
-	 IkK78wKLTIGt+CZD457RSMrK8J793tZjqAKtmnymfhPern21E5T4VP+KPMMBBcCUHxk6t
-	 ljOB3wP+Qmuw7QJKhmpQ/hsL5NcWAZO9DhyPJaA1svtidxF7inDKg2LVf8toVFrdBylTn
-	 oEGJyjL4pURY5B9wInjrqYhoneByVIhC5HdiLtUPDcsDU3EBwim4fdWboG/7PHHwhI9Xv
-	 FSEGCKO5Ac73oRL5K2MApXylGHBGXbdstA0JqXCTqizYx6FGNcBR+Iy3xW27WC6Cxjg==
+	bh=zuy7iE4mqn2QMmnQJ0ptREtP6KQtxo9H0vF5QikUpuU=;
+	b=d0d26dl1bJ+MY58usmxaDjx8qRoia2oJ9y8IrINQ/S3BvVhzHVUrlU9In8NbtIUX19Hx
+	 De56N1Z8rzr/6z9XPWRcErXm/cK/ic5uVpeKUmD8OFAsvzFRQEfITLd5WscdI2l/cYuQh
+	 8FKeSLzYDiRTjAwVTI4PDrfzbbyxV42UPH8F/W4hjTNentYgrrY5A1MfepiW/PWLL9mJD
+	 ZPDevDA30xgVGMOPn59AkRQY9Tx3tRejqBrmUfoSX9/MgpVXT6bx7Nck3QkQDs56YlSt3
+	 3OvtmTKVvNMSbxY3ebLjS2up82Nxqe/8ETbxP0Rkk8ERU3LDwkmymI3JRWDfNAXe7JA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=olZ4YE5V;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.70
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011070.outbound.protection.outlook.com [52.101.57.70])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cXXAYNow;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.35
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011035.outbound.protection.outlook.com [40.93.194.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AB7606A324;
-	Tue,  3 Nov 2026 06:34:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34AB7606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E93A606A324;
+	Tue,  3 Nov 2026 06:34:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E93A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=olZ4YE5V
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cXXAYNow
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FC39dFrhDeIMaO+Ch9HBgnoloXzPYXueFQSOhpQQrT/d9XASQ8Ib2qwOQ0doOIUhI0S1OGjLFs61ifX1QIV0TEcv//zi7lG0SA1nwjv5VTw7+PCpxC1qb2Zv8msPAPzWiJDzyc1Zbg/5t0TVin4psQNUO8fuxBBe9Hot4qxjVRnZp1igIWjYdx4d+tA/bn231Ry5DJDrm7gtAl+CDve1U8YXpdKnukNzc/vLL0h1MlRA92S382huOPOcJPDD4Cmx20Vj5aYHGESETG7UCh1cfGIVn8/VfdzFRG6jf9ce9Yr3DqGg2VGxnHt5n9wvlYXifLEgZNUNai3sLKRNUxJ3IQ==
+ b=p0o4x8jFDKszzGn5SbMzgyuqNRTqeYroj0gXdgPDL1lP+1HqtNxP3Pt2GfRlRfNB4cJ4jO7UQns2T5I2FCiwtJ1yFBHN3CWlXSqN6RtUMMacofK3PREMYUB7nx1msHqzz0dhPX4L3z/SyKNTsJYhYCYo+cEkN6QF21BeeWzD3jTUUwWSgLYqDrXbwDVL8A885tN2fXHNPe0WVsZh2wofi9sQliG/bKkfvNBLrZr/JevTEIGAMpK7XIiuIVr8IB3p1t2UIu14louyknilfi3EiiWuMvlq9uIid+LDiZ67Zjo7EkmSoTgSxGjiBn4rqcLUD+gcpr+d7n+++l2xR7rv/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q9WT78x1YkiedwXkVrU2HXeaX2R8w0dBRyEKN5ob4Ow=;
- b=CQqBxxFxkqQrIXhtj6gaCm5Q3VRdHJgcpvDXrYy1HYVpK0rmFNkMAKscrC6P88oCsBc36fcOzC+mlSAA8CYUZ0WfHw9JDcvxM8zNjK5zf/0mxr/nL3BtG9nveyJQr0kY/IKAlM1OXprU7gB6dOBTty8eROuf8NiOmHxVOPgHbMALHga7KD7OWeTPt7gJrIY1hkBxXsPyTuCH1honG1fpMj7Xzb6hakxJdV3m6s7XaQOSTEGw2r2adU7r8PWBLbl3M/JRjGQ7USroHqR1vGulbrJHwHQmsLpOxGR4xPix8jMdoYdrBcjFazZAAZbCDxZHwm3TA1qWYA8gCcSy/QAXUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=zuy7iE4mqn2QMmnQJ0ptREtP6KQtxo9H0vF5QikUpuU=;
+ b=wNkTN4QWspPHclsQDw3oPa0UrW/h5bMEzyaOIDjfowMGJGZEcTYVTN0iYVj1N9mNuMLTbkpbXhGEmVjpICUJna10Y1yX7sdtv8I7/MTAWhbh/WdNNFqd+eJcCDnExUnNYQeSYPbKzh1bnUDeFTXmS96qYDotCGOIQVQFSV82x0ScrQOcUwFiCsh9wiFD4zju9fejEIk2Kq/Nbj0diRN7+4+EsQhF6JzHlC5VwVLmIuOet0cVXRp+1TNx0SYMed2gMIchjXCmJiJnzmz/bdtc0M+Ftgj8h9bGhcm5uNr93OFaWh47AD/QT6WLj6nN/ArX3Az2n2nitVE/sDt4J1Vo6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q9WT78x1YkiedwXkVrU2HXeaX2R8w0dBRyEKN5ob4Ow=;
- b=olZ4YE5VTukIebwnhVUs63jPTaNoWQMnu5WN/nkXUAAVglyBbA64I8KBDn1sARjQ3KdeNhz5xWRwAKlTLkHdPpFSlxM4ypZA7LPiMmkzvMz18lWkKlyyPwrdjLVkHRh+TQSNeXktXjtvOLNuKVZNl+4KMbLpwYC5hlr0skw5AgsYKU/SCvUosI4npXD7jPZTwBKj4gz57FEzOGm3tZadlXBWxrfGpXn5FXuyI5bKpAGZmY9Kj0Q0oh/bObudzjXmBBydH7aevmIq6F00E/m2L5f+eV3TZXGtiPdYWuI3lMOdQYRevpZQlHb15Lf82lm4XISCszWjjaMOqwwqKeouWQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
- by CY5PR12MB6551.namprd12.prod.outlook.com (2603:10b6:930:41::9) with
+ bh=zuy7iE4mqn2QMmnQJ0ptREtP6KQtxo9H0vF5QikUpuU=;
+ b=cXXAYNowsusSgeCper1uKYD5suJ2HiSt6AsusEnyRy9axb+8sHaDT1YgJed4nicvptj7M+DT6UqAYSG85YnzS6MSG19OEDZ73peVB9+hVIhTr3i+Ejr874KU3ClbiYA8fZy/0q8+7hStr6APAAfozD6GoZ1o5rHWfd8KeliBz0g=
+Received: from BLAP220CA0019.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::24)
+ by MN0PR12MB6032.namprd12.prod.outlook.com (2603:10b6:208:3cc::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 06:34:18 +0000
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 06:34:18 +0000
-From: Richard Cheng <icheng@nvidia.com>
-To: dave@stgolabs.net,
-	jic23@kernel.org,
-	dave.jiang@intel.com,
-	alison.schofield@intel.com,
-	vishal.l.verma@intel.com
-Cc: iweiny@kernel.org,
-	ming.li@zohomail.com,
-	icheng@nvidia.com,
-	linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kaihengf@nvidia.com,
-	kobak@nvidia.com,
-	newtonl@nvidia.com,
-	kristinc@nvidia.com
-Subject: [PATCH v2] cxl/port: Fix endpoint RAS error unmasking
-Date: Tue,  3 Nov 2026 14:34:09 +0800
-Message-ID: <20261103063409.18275-1-icheng@nvidia.com>
-X-Mailer: git-send-email 2.50.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: JH0PR01CA0062.apcprd01.prod.exchangelabs.com
- (2603:1096:990:57::6) To MW2PR12MB2380.namprd12.prod.outlook.com
- (2603:10b6:907:4::32)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 06:34:47 +0000
+Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
+ (2603:10b6:208:32c:cafe::3) by BLAP220CA0019.outlook.office365.com
+ (2603:10b6:208:32c::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.11 via Frontend Transport; Tue, 3
+ Nov 2026 06:34:47 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.0 via Frontend Transport; Tue, 3 Nov 2026 06:34:47 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 00:34:46 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 00:34:46 -0600
+Received: from [10.136.40.220] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 3 Nov 2026 00:34:43 -0600
+Message-ID: <01f62170-f626-4252-81ad-d225442f1969@amd.com>
+Date: Tue, 3 Nov 2026 12:04:42 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,173 +105,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/5] selftests/resctrl: Add support for MBM and MBA
+ tests on AMD
+To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
+	<babu.moger@amd.com>, <shuah@kernel.org>
+CC: <Dave.Martin@arm.com>, <james.morse@arm.com>, <peternewman@google.com>,
+	<eranian@google.com>, <tan.shaopeng@fujitsu.com>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<x86@kernel.org>
+References: <20261022132517.46805-1-swapnil.sapkal@amd.com>
+ <20261022132517.46805-4-swapnil.sapkal@amd.com>
+ <c57f0d76-8fa7-443c-8ba4-2a18eb0ba7fc@intel.com>
+Content-Language: en-GB
+From: Swapnil Sapkal <swapnil.sapkal@amd.com>
+In-Reply-To: <c57f0d76-8fa7-443c-8ba4-2a18eb0ba7fc@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|CY5PR12MB6551:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0e43abf-6f7b-47d9-3ee2-08df39747bd9
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|MN0PR12MB6032:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d6f2227-4a5c-4352-b9b6-08df39748e34
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|11063799006|56012099006|261009223027099003|261028144727099003|261021121427099003|261102123227099003|261022105027099003|261021123027099003|261022075727099003|261026140227099003|10067099003|18002099003;
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|23010399003|1800799024|6133799003|10067099003|18002099003|261102123227099003|22082099003|3023799007|56012099006|4143699003|261026121527099003|11063799006|261022075727099003|261022105027099003|261021121427099003|261009223027099003|261028144727099003|261026140227099003;
 X-Microsoft-Antispam-Message-Info:
-	+6P8kPl+kQEp6eWh2MPHY3V2RtkamBBbOE7udm6DC711TskTLb8o3U+HuuA3JqJ6PGRjftG3c/srS4MlM4VWQz/JZS7UnCEu3rNaB2fZ4Th2uvd3ATsBwgvKluzCq49e9b4PKjrpYcyy3WtmByEngCGoiYLTlP8nF/gZ0AVgaItBirqBWeYUpBd4exIC5tuib9bR509Bj4nG37vWPPkl0YrTEY0XWxN7pwCIvMvInuV7uxqpUkTwMmO/yQU7evf46NppKrcxWJJhM/vXA1JWLFX0ZROqsZvSLbD770mOs3FTNlOouJ+LxgxheIk9zrv6dq7wAl8bxpJMnYOdyjmyH2aMZvs8mDspVis8mpc4rYK5NK4jrXcPPcRE6F5y81baIL6jf+CArhabv5y7SOX34NYR+7mMSDCsRRox37/b/wZ/jLyS7zH09Or1uq1Ej2KhTeMhLPtGAkK0IKRy60/r8Rp+VZ37EQEqqyJzRVuuFTbPHwNUuWa6libX03yfpDO+my6BxrxoO2LGdGKVwvHV7d75+/DoNIU6Bgl3oXhN9NDssyVBRiaAa9ndkYIuwfXgNdmeIkqry1slR8ru7YJgNakXOKWmeRdk5XJd+RxqufxqkyPP1mCcINiqs05ig/RjLXS5RAN6V4aDNymkE2r2tvK8F7daapA3554hYSdiedw=
+	ZfOlvml9QCPQWM6t4EhD3p8BsaXjOWcPC7rYP5x4ri/O2cp7Ry7TrhZPuGjYizxy5aqgLjdht9j6/slEQjqNyQ+3VvX1BbITExL869Sjt03iV/F/QoV9CGRN4nmYSD5aBBtm8lS/WAWlUSq4mG2D5GZC0uYTVgSqxRZU7OssPBUuxtLfPyJCZeAg1Z9RZEfWuQonYg8nA1aivGYqd8vy7nMz9UtT6Xcxhmi3K+hgQNx4FYsFLzRNigKSwDQfKouuwrOAOBsmuAY6QHAhywW8mXULBS1KclQBc3c9UKO0MgSHQnqq0m28vDnNx7XblehScjdIfKUtsSwWISuMU2eztxX9MD0/iY8YEiamUFzV250d3edzfZ7/MC2FmE6rACSNZUQ/n0/dJXVOunDv/f8oVWt4jvTIzdZ1lAtVKK4+4iMh+Rat/FJx63ku3HHV8JSA1eqVRH2vzurlOVnOEohAr3kPguTzzEq/gvazk0U7DgogqLPY5Dy126VkO0VS2caOhr1kn/2Png/Daig5VVTLmARmx29eeO/JJJHX0iCOdquQrme9FXXiznxaGXxDkSItbYuf7SwY7mCSmVQFAFFaTouUoxr/cWuHuXSYK3/deHqu37eHAJ0AGJO/v53ryY0UCngx8YJH7o35KnIbWcFm5E+g6Lbl2UmY0Tzh1cYu6ShfRB2FbW4e+qRMdle0dhe9/KhisBUkS5zi50wxoViAcA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261102123227099003)(261022105027099003)(261021123027099003)(261022075727099003)(261026140227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(18002099003)(261102123227099003)(22082099003)(3023799007)(56012099006)(4143699003)(261026121527099003)(11063799006)(261022075727099003)(261022105027099003)(261021121427099003)(261009223027099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?F5NEWp3NE7fU72qDDHFcSUUdsilCT6eb5WiXOkZn6ukS6g4lA2PTd+4RuPc6?=
- =?us-ascii?Q?FHA3OSCQyB/qAA3QjU8cqxFUenJQJRdR32Lm0GRJMxBRhK3dmEFLsAjEvSfW?=
- =?us-ascii?Q?tCmPmZKiSx+OZOHrfdNyAO4cAibKjjGKuJZK2/tzj3zOSySSKObqWbw8xAPD?=
- =?us-ascii?Q?9AA1PWDFCF04nL8ucvizX92XBJC2hQYq92L6jMSkBKeZVQM0R5TMFJ0AWp05?=
- =?us-ascii?Q?uMlPFF5pHMq8HgWorTSF1fpdz9GotgMY91tbO73JDuBmtkzDABy0mjLvaju/?=
- =?us-ascii?Q?OwlYQtFSN3bvxlMa7WYfBFHeLtk956bbXPd6Q24vetEeXwGdFmhsCPW0yjKP?=
- =?us-ascii?Q?UaUYad8EYkLhKCPhTsjRZapy7FBaaB8+3+yR44vHz88O0yrPAO1wELNZX2MA?=
- =?us-ascii?Q?VRjtWyEx3KiivKd8dlkFHRUN3a2ti0MkeVNAupKcHAiuMMjdbKcEllgt05pZ?=
- =?us-ascii?Q?UzYuUlJCkS9hNOxvNddG3f84dSPzWbJeRCRAZi+zT09ptCnnJd1JaPX+BbKZ?=
- =?us-ascii?Q?tsjsj7QKSh0EOIrMsL4BBwtEIkXPL2OTUtf+fBaoiUy+BlfN0X+PPwuJW9Z/?=
- =?us-ascii?Q?FzdtTwnHSVoerwRJ/nnAOcK2j1hsGjvUQbRdIug2sH3gYPDqRr0KzMPV5lBP?=
- =?us-ascii?Q?NTCdI/p886PDHDh5rdPnUwdK6EGNV6C+5VzjqCwn8LQjqQ0aciYUKlU0KCOl?=
- =?us-ascii?Q?uSVr53vVNnLCwvA1hOuh1unZqY1LTFJdxj+PyPdcTZV0WedfqMlGOfAVaRU1?=
- =?us-ascii?Q?AKtgK8z1VHPzAFV7zR/WN0byu9v5RLe3vHhoFLhDKSF4gnwLVLOl1HEKwswh?=
- =?us-ascii?Q?5/SJH8CE/KUfJLA21UYjYWBZ4yUvqXUqbzLKp07hmX/VjoSJtyd1U1DBG4C1?=
- =?us-ascii?Q?Ny6zNlC1d/QW1gFYj+gpQnVscnDxhO9yDCq3w2IOWG0kPkUeth3611Y0hrmj?=
- =?us-ascii?Q?GN8VpkNzVQXmtxK+EaE/hi91u2NVCqgSNomVWBoeqx7V0hlLZrjMBQXsrj89?=
- =?us-ascii?Q?go+GNmV37WUoC9bkC2TSctQgZNq5ipUdtEGU8WMkfnft17FBzQ7MiGzqd+87?=
- =?us-ascii?Q?4ktwNK0cMtdMWqSSMgxNVeAN6iIXlM1zcc3uj+JdzMR6ShiVGVipGUiouKpv?=
- =?us-ascii?Q?8PrVAc8mnEKByspFUFAxjPDCMz9Oh4cQ8Ew4nNWWOqlpOALAfaLidSesE91P?=
- =?us-ascii?Q?xnBD9jPIrXIBzlSyGJCUK3HgpC1OsKhUbn+6MY1Wlo+QdzqTOjsVXUkwrHvb?=
- =?us-ascii?Q?X2Cm+tCSTmXtpajhRwxvgwMj8iI63FlofCDXhJJt3vylqS41OE4JL6+B5srm?=
- =?us-ascii?Q?oqotY6x6xc6ZKE9gxjwENiKtR+0+jeM2PpfUQIjFLGIIgKlFbMNFgpI57itw?=
- =?us-ascii?Q?tTSQR0HsIU3wzkPwOIZaVxa+2acx2tvKJ/qULW6YnH8Gw6Fr1P0EpifqI409?=
- =?us-ascii?Q?qVQBBiFdK/yQcam7AqQ+5UG3bScR5IdntFEIKq2VuuTY1LcKkmxcPiTNIjy9?=
- =?us-ascii?Q?kpsmSSv3gC1xNF4aO1FS2HIEe/c0XFRWrDo9f172igSQKX/feNtB8rPR817u?=
- =?us-ascii?Q?4ne02OjAftEPirXr0tjjb718k9NQnpDQ7wZlDVFIYtOJbh7zpMtoahmNwjf6?=
- =?us-ascii?Q?xFnHJn/cGtz69p3ZIWHiSSMFmuJdQol6ko8cr0cER08B5G4KFUb3fkYqZMpp?=
- =?us-ascii?Q?v3n839AzTWygvI21ACMt1Ebr2tzQveWRER8i2cwM1kXEe3s9?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0e43abf-6f7b-47d9-3ee2-08df39747bd9
-X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB2380.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:34:18.2583
+	sfu7YG4JAvpdPR9iuakchx5vrp1xU4DQTQlEL7UWDIEAxzufkYx8oEALzwt8dJbZ+2ArI+7D+RZ1E8o/A+R1/E1+Alr1XRzXVoeNQDAZTevKaMP8sseGF+e1A2Jd42BziY5+qUozoR0N/iTnfJ+SvzgF4dW49HPtt8+zMYOWRu9K0z6ev6qIBTw/ZmIwT4HT1OU6+EXzLH8GIUfPdMDoLAmKAX+o1P/ZtsyjyaN2suMRls2gAPA6DVjJ9ItWmLK70kPvJ6bK1oztoOsD4wAIlO3+73LnQeoqPQxlpv/AXqLGxf9OVpt46Vzy27PCcY6DhEkW5S+KFZaJOq1mNBvyYFPnF+Xqdi+0xU6Y9VyXRgDB89yUCgzGz6+pfd7Gzgi9W3uDJTfpqtdJE12RfYOq8MZ43suCKqCHwVZnOudAAYa4GR7rUZcWHrbQK9kyJSIj
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:34:47.4268
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IfNzA7Vf5+WTxoNj9K/cHIGRSsX6AnYwVGNCqANySLTd0jLW3Te7R3Y2l8Ka3jo8Az0/yH5c3i4WgQ2EZXPUBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6551
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d6f2227-4a5c-4352-b9b6-08df39748e34
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B36E.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6032
 
-Moving endpoint RAS handling from cxl_pci to cxl_port left
-cxl_ras_unmask() checking whether port->uport_dev is a PCI device.
-Endpoint ports always use a cxl_memdev as uport_dev, so this check
-returns early and leaves the CXL RAS error masks unchanged.
+Hi Reinette,
 
-Resolve the PCI device directly through the memdev's parent. Rename
-helper to cxl_endpoint_ras_unmask() and its param to endpoint to make
-its endpoint-only scope explicit.
+On 29-10-2026 00:11, Reinette Chatre wrote:
+> Hi Swapnil,
+> 
+> 
+>> diff --git a/tools/testing/selftests/resctrl/resctrl_val.c b/tools/testing/selftests/resctrl/resctrl_val.c
+>> index fdbbe2155cea..38cf58c41be1 100644
+>> --- a/tools/testing/selftests/resctrl/resctrl_val.c
+>> +++ b/tools/testing/selftests/resctrl/resctrl_val.c
+> 
+> 
+>> @@ -233,6 +277,7 @@ static int read_from_mc_dir(char *mc_dir)
+>>    */
+>>   static int enumerate_mcs(void)
+>>   {
+>> +	int (*read_mc_dir)(char *mc_dir);
+> 
+> Could this be named read_from_mc_dir to avoid the unnecessary churn?
+> 
 
-Fixes: dab7162d0ae7 ("cxl/port: Move endpoint component register management to cxl_port")
-Signed-off-by: Richard Cheng <icheng@nvidia.com>
----
-Changelog:
+Sure, will update.
 
-v1 -> v2:
-- Clarify that endpoint ports always use a cxl_memdev as uport_dev, so
-  the PCI device check always skips endpoint RAS unmasking
-- Simplify the PCI device lookup to use the memdev's parent directly
-- Rename cxl_ras_unmask() to cxl_endpoint_ras_unmask() and its param to
-  endpoint to make the endpoint-only scope explicitly
-- Rephrase commit messages.
+>>   	char mc_dir[512], *temp;
+>>   	struct dirent *ep;
+>>   	char *sysfs_name;
+>> @@ -241,6 +286,10 @@ static int enumerate_mcs(void)
+>>   
+>>   	if (get_vendor() == ARCH_INTEL) {
+>>   		sysfs_name = UNCORE_IMC;
+>> +		read_mc_dir = read_from_intel_mc_dir;
+>> +	} else if (get_vendor() == ARCH_AMD) {
+>> +		sysfs_name = AMD_UMC;
+>> +		read_mc_dir = read_from_amd_mc_dir;
+>>   	} else {
+>>   		ksft_print_msg("Unsupported vendor\n");
+>>   		return -1;
+> 
+> ...
+> 
+>    		}
+>> @@ -335,15 +387,40 @@ static void perf_close_mc_read_mem_bw(void)
+>>   static int perf_open_mc_read_mem_bw(int cpu_no)
+>>   {
+>>   	struct mc_counter_config *mc_counter;
+>> -	int ret;
+>> +	int ret, opened = 0;
+>>   
+>>   	list_for_each_entry(mc_counter, &mc_counters_list, entry)
+>>   		mc_counter->fd = -1;
+>>   
+>>   	list_for_each_entry(mc_counter, &mc_counters_list, entry) {
+>>   		ret = open_perf_read_event(cpu_no, mc_counter);
+>> -		if (ret)
+>> -			goto close_fds;
+>> +		if (!ret) {
+>> +			opened++;
+>> +			continue;
+>> +		}
+>> +
+>> +		/*
+>> +		 * On AMD each memory controller (UMC) has its own PMU that is
+>> +		 * tied to a specific NUMA node, unlike Intel where opening an
+>> +		 * iMC event on the benchmark CPU always resolves to the local
+>> +		 * memory controllers. A UMC PMU can only be opened from a CPU
+>> +		 * that belongs to the same node and returns -ENODEV otherwise.
+>> +		 * The benchmark runs on a single CPU, so skip the UMCs that
+>> +		 * belong to remote nodes and measure only the memory
+>> +		 * controllers local to the benchmark. This matches what
+>> +		 * mbm_local_bytes accounts for on the resctrl side.
+>> +		 */
+>> +		if (ret == -ENODEV && get_vendor() == ARCH_AMD)
+>> +			continue;
+>> +
+>> +		ksft_print_msg("Error opening memory bandwidth performance counter: %s\n",
+>> +			       strerror(-ret));
+>> +		goto close_fds;
+>> +	}
+>> +
+>> +	if (!opened) {
+>> +		ksft_print_msg("Could not open any memory controller counters\n");
+>> +		goto close_fds;
+>>   	}
+> 
+> As the comment above highlights, the test runs on a single CPU. It is thus not
+> possible for the test to change which MC it needs to obtain data from.
+> perf_open_mc_read_mem_bw() is called several times during the test run and
+> repeated attempts at accessing MC that are known to fail is unnecessary.
+> Considering that -ENODEV can be relied on to indicate that the MC is not
+> valid for the test run, could it instead be used to drop that MC from
+> mc_counters_list? This will avoid the subsequent unnecessary attempts at
+> accessing these MC and also simplify the users that walk mc_counters_list
+> during the test run since they can continue to rely on all MC being valid
+> without needing to keep checking if the fd is valid.
+> 
 
-Reproducer is a QEMU Type-3 guest
+This is good approach which reduces the number of times we are iterating 
+full mc_counters_list. Thanks for the suggestion.
 
-1. Ensure no CXL region is active and PCIe AER is enabled.
-2. Restore the emulated RAS registers to their reset masks.
-3. Reprobe cxl_pci and read the masks again.
+> I suggest switching the list_for_each_entry() to list_for_each_entry_safe()
+> and drop the MC's from the list on ENODEV. This also eliminates the need for the
+> "opened" tracking that can be replaced with a list_empty(&mc_counters_list).
+> 
 
-```
-BDF=$(basename "$(dirname "$(readlink -f /sys/bus/cxl/devices/mem0)")")
-BAR0=$(awk 'NR == 1 { print $1 }' /sys/bus/pci/devices/$BDF/resource)
-UNC_MASK=$(printf '0x%x' $((BAR0 + 0x1084)))
-COR_MASK=$(printf '0x%x' $((BAR0 + 0x1090)))
+I will update accordingly.
 
-busybox devmem "$UNC_MASK" 32 0x1cfff
-busybox devmem "$COR_MASK" 32 0x7f
+>>   
+>>   	return 0;
+>> @@ -363,14 +440,20 @@ static void do_mc_read_mem_bw_test(void)
+>>   {
+>>   	struct mc_counter_config *mc_counter;
+>>   
+>> -	list_for_each_entry(mc_counter, &mc_counters_list, entry)
+>> +	list_for_each_entry(mc_counter, &mc_counters_list, entry) {
+>> +		if (mc_counter->fd == -1)
+>> +			continue;
+>>   		read_mem_bw_ioctl_perf_event_ioc_reset_enable(mc_counter);
+>> +	}
+>>   
+>>   	sleep(1);
+>>   
+>>   	/* Stop counters after a second to get results. */
+>> -	list_for_each_entry(mc_counter, &mc_counters_list, entry)
+>> +	list_for_each_entry(mc_counter, &mc_counters_list, entry) {
+>> +		if (mc_counter->fd == -1)
+>> +			continue;
+>>   		read_mem_bw_ioctl_perf_event_ioc_disable(mc_counter);
+>> +	}
+>>   }
+>>   
+>>   /*
+>> @@ -395,6 +478,10 @@ static int get_read_mem_bw_mc(float *bw_mc)
+>>   	list_for_each_entry(r, &mc_counters_list, entry) {
+>>   		struct membw_read_format measurement;
+>>   
+>> +		/* Skip memory controllers that were not opened (remote node). */
+>> +		if (r->fd == -1)
+>> +			continue;
+>> +
+>>   		if (read(r->fd, &measurement, sizeof(measurement)) == -1) {
+>>   			ksft_perror("Couldn't get read bandwidth through MC");
+>>   			return -1;
+> 
+> With unusable MC dropped from mc_counters_list all the above fd checks are
+> unnecessary.
+> 
 
-echo "$BDF" > /sys/bus/pci/drivers/cxl_pci/unbind
-echo "$BDF" > /sys/bus/pci/drivers/cxl_pci/bind
-udevadm settle
+Ack.
 
-busybox devmem "$UNC_MASK" 32
-busybox devmem "$COR_MASK" 32
-```
-
-Before the fix, the masks remain 0x1cfff and 0x7f. After the fix,
-both masks read as zero.
-
-Best regards,
-Richard Cheng.
----
- drivers/cxl/port.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/cxl/port.c b/drivers/cxl/port.c
-index c12fd0b89883..7b4726c7276d 100644
---- a/drivers/cxl/port.c
-+++ b/drivers/cxl/port.c
-@@ -72,19 +72,21 @@ static int cxl_switch_port_probe(struct cxl_port *port)
- 	return 0;
- }
- 
--static int cxl_ras_unmask(struct cxl_port *port)
-+static int cxl_endpoint_ras_unmask(struct cxl_port *endpoint)
- {
-+	struct cxl_memdev *cxlmd = to_cxl_memdev(endpoint->uport_dev);
-+	struct device *parent = cxlmd->dev.parent;
- 	struct pci_dev *pdev;
- 	void __iomem *addr;
- 	u32 orig_val, val, mask;
- 	u16 cap;
- 	int rc;
- 
--	if (!dev_is_pci(port->uport_dev))
-+	if (!dev_is_pci(parent))
- 		return 0;
--	pdev = to_pci_dev(port->uport_dev);
-+	pdev = to_pci_dev(parent);
- 
--	if (!port->regs.ras) {
-+	if (!endpoint->regs.ras) {
- 		pci_dbg(pdev, "No RAS registers.\n");
- 		return 0;
- 	}
-@@ -98,7 +100,7 @@ static int cxl_ras_unmask(struct cxl_port *port)
- 		return rc;
- 
- 	if (cap & PCI_EXP_DEVCTL_URRE) {
--		addr = port->regs.ras + CXL_RAS_UNCORRECTABLE_MASK_OFFSET;
-+		addr = endpoint->regs.ras + CXL_RAS_UNCORRECTABLE_MASK_OFFSET;
- 		orig_val = readl(addr);
- 
- 		mask = CXL_RAS_UNCORRECTABLE_MASK_MASK |
-@@ -110,7 +112,7 @@ static int cxl_ras_unmask(struct cxl_port *port)
- 	}
- 
- 	if (cap & PCI_EXP_DEVCTL_CERE) {
--		addr = port->regs.ras + CXL_RAS_CORRECTABLE_MASK_OFFSET;
-+		addr = endpoint->regs.ras + CXL_RAS_CORRECTABLE_MASK_OFFSET;
- 		orig_val = readl(addr);
- 		val = orig_val & ~CXL_RAS_CORRECTABLE_MASK_MASK;
- 		writel(val, addr);
-@@ -152,7 +154,7 @@ static int cxl_endpoint_port_probe(struct cxl_port *port)
- 		devm_cxl_dport_rch_ras_setup(dport);
- 
- 	devm_cxl_port_ras_setup(port);
--	if (cxl_ras_unmask(port))
-+	if (cxl_endpoint_ras_unmask(port))
- 		dev_dbg(&port->dev, "failed to unmask RAS interrupts\n");
- 
- 	/*
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
--- 
-2.43.0
-
+> Reinette
+--
+Thanks and Regards,
+Swapnil
