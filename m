@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694013;
-	b=t04UcOJnbSzfKkAa32MKmSqXsXo03p/oxwOBcCaMRXbvb00UffNIaVgdvLvmM2bOaFaX
-	 lmv+bfaDPbsC1L1Ds6JqlA5FfY+ldTz9S1YFrBWISrBKiGvseb8M61Zt6W2lsPb61ibdH
-	 wRmy4XBNVveM6LxrVhEcoozaIh5fH0E7ltA13oU7j1pAEbaSMSYDihhSleH0mmVBVUnbt
-	 q18Pu5EV2h7hM046eWPec4R9Nx/TZQNOrpuEm5zNlXpxAWniEY0m7peX38hj56y20jI1R
-	 ud5t1j7M6TAfr6F5r58BZS3xglQN3Qc5WxaQ5jG8O8rBF0QTgnvCdoIoO3Mkfw6dgFw==
+	t=1793694060;
+	b=y5mcxPZkUxPn3utHox93eVCJ2xsABPzRWm7heD6ioGmo/uUqEFQMPwYn7xBGZQNCe83Y
+	 jGjoeoUXb0knUkKMSD9Y/sCH3jbZlddLv9s4VYz2hDb5dmul6OCpu/nkndCvujzh4Syxx
+	 P21tCCFICPz8FhucFVxGbmng6Pm7R7md5syWfAm70TwqgJ986/oZsUdnIp5wrHi6uDH1v
+	 l3PZjcDlZylm4dYk/nWZIFz7AGM/1KvDMwn69hSgg49i7D/ZZ+LJuo+EOz/2+wro5Bk/L
+	 uPDCWnH8YKBrgNk393kjbFsWkngayHLghJjVrKjCSbikPAn60jxDcjo+LLVA872nkqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694013;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=U9dKT/OeHASCfZZbWZRBlpvUNTqDgXCTk6is90HdXaQ=;
-	b=kGDQMHxkUWdckgKxxS3JajdHDhpsrH1rvaN37zlAeTTgLBdEcI2gW9+h/RZqYa4qKb75
-	 YMFgoeItBJCbhtsWh+Aj+UjhqgC9BvnmnZDNhr4iBV1EKvaitkz9ieAC2FI43PKZUM7fl
-	 q/dMbRGcAMmG9/jZxI2puJT9RSiqlzf+rm72jlXNAkLiaO0tDX/XiOe3w6QeI6HSwrjLt
-	 G90nM0nSRiOSHSPgPMta9ZC5/Fb5JEWfJhZ1+csdYs3HUYYY5eLEoDCHJade5ZHwQ/0rd
-	 0Xc5EymkjU+P1W9o093CA37gdfu1kjkjGTsdkdPu6wDEQmWVmFgkVMYTkKecEJ6jaCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694060;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Aa6+g5OWSxH4lWPH9eU9u8zxr2I/nnHbobAbPenwIPY=;
+	b=wQQyVQUhXpYTowuG1XvpLLakrcVDfSLVXTgDkKWpmacYHFcPtdzwpqTY7eOzFKKOWwIU
+	 z7VAvpYMg5hMF75UxdGliKl/ttpKlQy7HCHequqvTQsCikmOKdJPNAN/BSAyI+P+Vl5Ji
+	 4YtEJ6Q4lg2k4Ls7/QlIRiiJ/pBDhhg0b7R67/0ClDme9gfQoZ+B7eiQkJ8VzNZxradVy
+	 LAtkgTxcK3He1DDbYWbWlB/MJiMVWQta2w26Ef/AgRHGLD3qJREeiLpDLxyKggxWfwNgD
+	 G2/193at6K5N7HqYCNDbDhI77qq6ysjpZqhZkmSu+SrolTpryaYoAcf7DSDhp41OjSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=web.de;
-	spf=pass smtp.mailfrom=web.de;
-	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=T9XmblQ8;
-	arc=none smtp.remote-ip=212.227.17.11
-Received: from mout.web.de (mout.web.de [212.227.17.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GunfXMZn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DC6606A329;
-	Tue,  3 Nov 2026 08:20:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7DC6606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32728606A324;
+	Tue,  3 Nov 2026 08:21:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=T9XmblQ8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1793693994; x=1794298794; i=markus.elfring@web.de;
-	bh=U9dKT/OeHASCfZZbWZRBlpvUNTqDgXCTk6is90HdXaQ=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=T9XmblQ8e2iDl6nrc43IX1jWvgY1aNsB3CnvxtLFK7jo9jYH6FnP8r5iPx/D57My
-	 ZFbkMYfKJsBN2rHtq9JE2RvAlFVvrf95ZySQPhQvh4sU06dmNG+1FIDY046F/aROq
-	 VUoWZpUGASlckytpmP3XBhFOHIAFKd5EpdSC41YP966ONDznLnNaoh03Vrz5CmLHs
-	 6TE+4CzsclbtWEvht6KIEQiH2FzlUh4mF2CZVluDTfXDwiYFOCdDDJmYYap9yVL9n
-	 Kpp+D8XvYe99AFC1WCpwUSoLSNdm6/6VUUfj3EzCnk6yWo/ogRLJYu0OwCC+uicTR
-	 Vi4lYluzeLbgh6gU4A==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mq184-1wkzVL2Lxa-00cgyl; Tue, 03
- Nov 2026 09:19:53 +0100
-Message-ID: <7c1d70fc-ea04-4338-b1d8-f2ad12123cf6@web.de>
-Date: Tue, 3 Nov 2026 09:19:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GunfXMZn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28A201F000C1;
+	Tue,  3 Nov 2026 08:20:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793694059;
+	bh=Aa6+g5OWSxH4lWPH9eU9u8zxr2I/nnHbobAbPenwIPY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GunfXMZnebgMC9X7jf24JtJ2f6M1jRiXKUpWHGXBqe/dPCq1w3StQqPcjsVlWbS+r
+	 Xw9Q4bbKKgyIiytFoPHW7Y6uJ36claf1kTOUPUdZnPTEjy1vVyeUlxcuxptVGNkC9I
+	 LUKr2SpfTWiUgBwZqozX+oyUbOQN5dwSEBMJ37ps2HISYE+Kx1Y+VGY3TQzt3ssawG
+	 tFPxXHSEoJZK4/u3kmMhSbfAPZCkXSr9Xi+CFM/5oHycbYd3hnuFyM7DYcI7HsWhs4
+	 jLhs2tbBr/6r5mrLlq1JNmHdh8FicZU7FlIcyBbSa+AkCY7uNBYP9Q5LNtSbMP0Di5
+	 Ub/hR33zgx63A==
+Subject: Re: [PATCH] net: wwan: iosm: fix potential skb leak in MUX DL decode
+From: netdev-bot+sashiko@kernel.org
+To: fangxy@xiaopeng.com
+Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, johannes@sipsolutions.net,
+ m.chetan.kumar@intel.com, zhugl3@xiaopeng.com
+Date: Tue, 03 Nov 2026 08:20:58 +0000
+Message-ID: <179369405864.488856.5590338519083448566@kernel.org>
+In-Reply-To: <20261102081920.50288-1-fangxy@xiaopeng.com>
+References: <20261102081920.50288-1-fangxy@xiaopeng.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,146 +64,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] hfsplus: free failed b-tree nodes in hfs_bnode_put()
-To: Song jeonghak <thdwjdgkr123@gmail.com>, linux-fsdevel@vger.kernel.org,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Viacheslav Dubeyko <slava@dubeyko.com>, Yangtao Li <frank.li@vivo.com>
-Cc: syzbot+98547b0428b6a6a3467c@syzkaller.appspotmail.com,
- LKML <linux-kernel@vger.kernel.org>, Edward Adam Davis <eadavis@qq.com>,
- Shardul Bankar <shardul.b@mpiricsoftware.com>
-References: <20261103022522.21918-1-thdwjdgkr123@gmail.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20261103022522.21918-1-thdwjdgkr123@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:mBxjVR6xP5TjdzeiyaFLd0UPb/G8926l+mM4B6Z3XdrNgdjyGrs
- qIRoGCSBrexoRdzuAdV4gymHH7EXQoV2u81iiL0qGTuvMz2WapXbz8RT8L2R4J+8tnTTM4I
- mRpN8jhuceW5S3SaF1qJAA8r6awr4U753exQnvoMR5iKDe33Nt/+teoiMPJm5EnQAjZpXLE
- r7s5t+FVJ1MhHqrEojtqw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:H/9z1z86Vls=;OSi7kVCBFWGjUZ67NifhBPVmk3L
- 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
- ymwh7gNJlYwL1IBnzO0DSZ9jDtiCeU1yJcGQ==
 
-=E2=80=A6
-> +++ b/fs/hfsplus/bnode.c
-> @@ -702,6 +702,14 @@ void hfs_bnode_put(struct hfs_bnode *node)
->  			hfs_bnode_free(node);
->  			return;
->  		}
-> +
-> +		if (test_bit(HFS_BNODE_ERROR, &node->flags)) {
-> +			hfs_bnode_unhash(node);
-> +			spin_unlock(&tree->hash_lock);
-> +			hfs_bnode_free(node);
-> +			return;
-> +		}
-> +
->  		spin_unlock(&tree->hash_lock);
->  	}
->  }
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Would you dare to use an additional label in such a function implementatio=
-n?
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/coding-style.rst?h=3Dv7.4-rc1#n526
-https://elixir.bootlin.com/linux/v7.3/source/fs/hfs/bnode.c#L513-L542
+Critical: 0 · High: 0 (1) · Medium: 1 (2) · Low: 0
 
-Regards,
-Markus
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The commit message claims to fix a 'potential skb leak' in
+  ipc_mux_dl_decode()…
+
+Pre-existing issues:
+- [High] ipc_mux_dl_acb_decode()
+  (drivers/net/wwan/iosm/iosm_ipc_mux_codec.c:518-545) follows a chain…
+- [Medium] ipc_mux_dl_decode() reads a 4-byte signature at line 702
+  without checking skb->len >= 4.
+- [Medium] On the MUX (IPC_CTYPE_WWAN) downlink path, the CPU parses the
+  receive buffer and hands skb_clone()s of it to the network stack while…
+
+--
+
+net: wwan: iosm: fix potential skb leak in MUX DL decode
+
+This patch adds an ipc_pcie_kfree_skb() call to the early return in
+ipc_mux_dl_decode() that is taken when skb->data is NULL. The intent is to
+release both the DMA mapping and the skb. It carries a Fixes: tag for
+commit 3670970dd8c6.
+
+> diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> index 0bbd41263cc2f..61700688eac96 100644
+> --- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> +++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> @@ -693,8 +693,10 @@ void ipc_mux_dl_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
+>  {
+>  	u32 signature;
+>  
+> -	if (!skb->data)
+> +	if (!skb->data) {
+> +		ipc_pcie_kfree_skb(ipc_mux->pcie, skb);
+>  		return;
+> +	}
+
+[Severity: Medium]
+Can skb->data actually be NULL here? The commit message says:
+
+  However, the early return when skb->data is NULL
+  bypasses the skb cleanup.
+
+The only caller is ipc_imem_dl_skb_process(), which already returns early
+when skb is NULL.
+
+DL ring skbs come only from
+ipc_protocol_dl_td_prepare()->ipc_pcie_alloc_skb()->
+ipc_pcie_alloc_local_skb()->__netdev_alloc_skb(). When the allocation
+succeeds, skb->data points at the head buffer. When it fails, NULL is
+returned and caught before anything is put on the ring:
+
+drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c:ipc_protocol_dl_td_prepare() {
+    ...
+	skb = ipc_pcie_alloc_skb(ipc_protocol->pcie, pipe->buf_size, GFP_ATOMIC,
+				 &mapping, DMA_FROM_DEVICE,
+				 IPC_MEM_DL_ETH_OFFSET);
+	if (!skb)
+		return false;
+    ...
+}
+
+ipc_pcie_alloc_skb() also passes skb->data to ipc_pcie_addr_map() and
+frees the skb if the mapping fails. Nothing between there and the decoder
+(skb_reserve(), skb_put()) can set skb->data to NULL.
+
+If that is right, the new ipc_pcie_kfree_skb() call is dead code and no
+reachable leak gets fixed. Should this be described as hardening and sent
+without the Fixes: tag? Or should the impossible check simply be removed,
+so stable does not pick it up as a leak fix?
+
+Separately, ipc_imem_dl_skb_process() has two branches that drop the skb
+without freeing it: the IPC_CTYPE_WWAN case when if_id is not
+IPC_MEM_MUX_IP_CH_IF_ID, and the default case. Both also look unreachable
+with the current single WWAN channel (if_id 0).
+
+>  
+>  	/* Decode the MUX header type. */
+>  	signature = le32_to_cpup((__le32 *)skb->data);
+
+[Severity: Medium]
+This is a pre-existing issue, not one introduced by this patch. Is
+skb->len checked anywhere before the signature and the headers after it
+are parsed?
+
+skb->len comes from the device-written p_td->scs in
+ipc_protocol_dl_td_process(). It is only bounded by pipe->buf_size, so it
+can be 0.
+
+None of the decoders compare skb->len with their header sizes:
+ipc_mux_dl_cmd_decode() (struct mux_lite_cmdh), ipc_mux_dl_adgh_decode()
+(struct mux_adgh) and ipc_mux_dl_acb_decode(). ipc_mux_dl_fcth_decode()
+gets only skb->data, so it cannot check the length at all. With a short
+transfer, these decoders read stale or uninitialized bytes that lie inside
+the buf_size allocation but beyond the received data.
+
+In ipc_mux_dl_adgh_decode(), the u32 subtraction can underflow when the
+device-supplied length is smaller than packet_offset:
+
+	adgh_len = le16_to_cpu(adgh->length);
+
+	/* Pass the packet to the netif layer */
+	rc = ipc_mux_net_receive(ipc_mux, if_id, wwan, packet_offset,
+				 adgh->service_class, skb,
+				 adgh_len - packet_offset);
+
+ipc_mux_net_receive() ignores a failed skb_pull(), and skb_trim() with a
+huge length does nothing. A wrongly framed clone then reaches
+ipc_wwan_receive().
+
+[Severity: High]
+This is also a pre-existing issue that this patch did not introduce.
+ipc_mux_dl_decode() dispatches IOSM_AGGR_MUX_SIG_ACBH blocks to
+ipc_mux_dl_acb_decode(), which walks the command chain using indices
+written by the modem:
+
+drivers/net/wwan/iosm/iosm_ipc_mux_codec.c:ipc_mux_dl_acb_decode() {
+    ...
+	next_cmd_index = le32_to_cpu(acbh->first_cmd_index);
+	next_cmd_index = array_index_nospec(next_cmd_index,
+					    sizeof(struct mux_cmdh));
+
+	while (next_cmd_index != 0) {
+		cmdh = (struct mux_cmdh *)&block[next_cmd_index];
+		next_cmd_index = le32_to_cpu(cmdh->next_cmd_index);
+    ...
+}
+
+Only the first index is clamped. Is each later next_cmd_index used as an
+offset into skb->data without any check against skb->len? That would let
+the device make the kernel read struct mux_cmdh fields up to 4 GiB past
+skb->data, which page-faults in the DL tasklet path.
+
+The loop also has no forward-progress check, unlike the adth loop in
+mux_dl_adb_decode(). A command whose next_cmd_index points back to itself
+(for example first_cmd_index = 16 with the u32 at offset 24 also set to
+16) looks like it would spin forever. On each pass it could call
+ipc_mux_dl_acb_send_cmds() again.
+
+The out-of-bounds write through link_status_resp.response in
+ipc_mux_dl_acbcmd_decode() does not look reachable.
+ipc_mux_dl_cmds_decode_process() returns -EINVAL for
+IOSM_AGGR_MUX_CMD_LINK_STATUS_REPORT_RESP, so the concern is limited to
+the out-of-bounds read and the endless loop.
+
+[Severity: Medium]
+This is another pre-existing issue that this patch did not introduce. Is
+the CPU reading this DMA_FROM_DEVICE buffer while it is still mapped?
+
+In ipc_imem_dl_skb_process(), only the CTRL case unmaps before using the
+buffer:
+
+	case IPC_CTYPE_CTRL:
+		...
+		ipc_pcie_addr_unmap(ipc_imem->pcie, IPC_CB(skb)->len,
+				    IPC_CB(skb)->mapping,
+				    IPC_CB(skb)->direction);
+	...
+	case IPC_CTYPE_WWAN:
+		if (pipe->channel->if_id == IPC_MEM_MUX_IP_CH_IF_ID)
+			ipc_mux_dl_decode(ipc_imem->mux, skb);
+
+On the WWAN path, ipc_mux_dl_decode() reads the signature and runs the
+ADB/ADGH/FCTH/ACB/CMD decoders. ipc_mux_net_receive() then hands
+skb_clone()s to ipc_wwan_receive(). The unmap only happens in the final
+ipc_pcie_kfree_skb() call. There is no dma_sync_single_for_cpu() anywhere
+in drivers/net/wwan/iosm/.
+
+With SWIOTLB bouncing, or on platforms without cache-coherent DMA, the
+decoder and the network stack would see stale data. The unmap would then
+copy the device data into a buffer that clones already in the stack may
+still be reading. The dead-code exit added by this patch follows the same
+late-unmap pattern.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102081920.50288-1-fangxy%40xiaopeng.com
