@@ -1,49 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702000;
-	b=0mELSdMH/V6+8R9tLuBZ/q45VJjTddnMl7N0u0CHPdpR2B4SPSKpR05ni9DpCYYOAas9
-	 IsYUgoBHtPXxxypc4nMTksvM0q2qLOtW/rHpK/H874Rhpjy8c+VZqjWiwoyEmLZIBASs5
-	 BtwEHiksS0nRCUzZbFF2afdPf9kXGiXJohdEZ48zlomr0W/04Juh8EVSgdWHUAdJ6yI2b
-	 VTtc5ci0lpJEylHwNXzqzxMf9nbHIvXnQanfxjqWca6vICaaNNeZvYj9OXOOpmi41o9HB
-	 2yhizMbAkP4i8MLisNtQsVh5UjkOESe9KFkjRryP4PACqjX7dZaeU813+fTcBloSM7g==
+	t=1793701999;
+	b=t0UX8xUR+zZAxGuLeD2illS0d9LHaNPotybSGVnru2yAZBYkOYqdI/5g61+bjNPpvGQW
+	 /frnTlYr9uBLf+iAD5pi6b+dALgaiqCAcr9laA2teWmCaBjX/gmMBAkIRxO6cHLAlkZfB
+	 j+ENk2s4Kv45kRKOPyyoxXfOm3CyItpe06e/QZx41xv8ufWlhAAisyidVucrXqBatkKUn
+	 nG95OcIp4ZxDM15acgVesrmqqQirwvKyzocNAXCrpHsIh03wXhL3x699Y9cadjwiV6oUy
+	 TgQlNjmUSOk/w5p2dyV0wr1KsaaR9JViuTdMdd/7zzT+1oFzwkdjjzGCHbCBRtaIPXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702000;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:From:To:Cc:
-	 References:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=wBNc4avhNN0n0Gv7VSN9193egWKEyPpWG737SB8hd3o=;
-	b=pZBb44fGUL7q/YM/0ubYWeoywEnEya2oSsLEUsE/PXA1gcMDbTiPhR+d7L8qyRvkXfrP
-	 NIM1NnVz0e47W7wPykDXiUOs7/G4qySlgZb1PbGOC9WYub6Ebs1QffP4olh2sHo199iNw
-	 bK/tdxZrlDHhfq+U5IjuyRl4Qn61m2Io8I+Jnu7SEBNLnXPFAT75U/24E85RB2pW/02aK
-	 xU2LcdeMS0FvdB5tTWSfjpxgMbNhF6IsVFzEUyhJAThKZoVwHE2TbhiSM7/0awh7wgWPB
-	 H6djVK6+Yimpp30ThaLKuYitItUaLKBvi01PZHP+wYK8DwgBxrypmn5O/O0QvS7+Tyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701999;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	b=QmEYnbFw4Cs0Okt5D7l+AhfQ5kp2c9jylc3sB+pU3mSbJbctCfOviyYCnonmnHmGgZtr
+	 nZMTux/TWGt503rn5Yulfn8tXw0mtUmt0fdyOmHl2WUysbMY0ZNPkQjUSHekPTj2PsL6X
+	 Omr77EMzkf6Mbk7swa7M+vFl1ZU+Znr0XPelmnWq3PMjKge4+YQu6cbBsqDC+VI+bvtOm
+	 I3YXppujaIKO3L+D3hTuAlT0whF+pCvv3yQPaMcP3L+fpk9J5gkf3mNAJopqL7PX/SGpX
+	 OLJQdv6A49qQ+3ciB76ivNPR32v5Cp8i/U/E+j9Cj13LKN58z8BMkskpzAtOsEKn80g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DC37WiHz;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29C916070A94
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:33:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C916070A94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KmtnTh6u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620DF6070A8B;
+	Tue,  3 Nov 2026 10:33:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DC37WiHz
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4671216A3;
-	Tue,  3 Nov 2026 02:33:16 -0800 (PST)
-Received: from [10.57.66.79] (unknown [10.57.66.79])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5C3DF3F628;
-	Tue,  3 Nov 2026 02:33:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793701999; bh=Y8BZ8HPRzZJYJfTFa6tYxvyqBuREExmvZcd5oIjel6k=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=DC37WiHz0kXrRHtIVvhB0UhiCM9YQp0mNZIgwg3r4GbdAFccnTEmr3SDxKkIbumS/
-	 h3+p4TE2Lgvc0G7H9YgWOpm5c4Qjo9pDa3QsU8smaqigGgZO1QI/LDFr3FNrckjlj8
-	 wn3bkoRjM+ypCHuvwQTKvleMu6ws+SWX3hdFir44=
-Message-ID: <b191c40e-8e2b-4c1a-8604-d75cb47bd194@arm.com>
-Date: Tue, 3 Nov 2026 10:33:15 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KmtnTh6u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5987F1F00A1A;
+	Tue,  3 Nov 2026 10:33:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793701998;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KmtnTh6uZ4sZQM+eSITPzn16gnhLwhGpNcIRtKoELyi3p7uvXXKsGs4ozE8ZvEI0d
+	 l/MhWzM4gDjV53s14djbpRk0itNXgWChrPyf+jYR0isCBI3HnpgDcKQCGWofQu5Mwf
+	 pMYi4M5++4o0inqUQDB6Rc4+jDgYhOzHJjEPKQOPe30FoqaVjbBGPgXoB9y8ADX3f2
+	 buLJ3dvyVdbJF3PQQtrrpaYohi+kRgMEcC13mbPxrLmBSn7DhJDiGb5g1Ifwy8zbos
+	 KnJIdHb40KzoBMnoKQet7kZC6+IQ05z1+9/3zIR4zhXFK2Aiebu6IoZ5ZXKk3et3Za
+	 SJTh0TsuMIGEg==
+From: netdev-bot+sinfo@kernel.org
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Ido Schimmel <idosch@nvidia.com>, Petr Machata <petrm@nvidia.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mlxsw: spectrum_ptp: release parsing depth on MTPPPC
+ write failure
+Date: Tue, 03 Nov 2026 10:33:17 +0000
+Message-ID: <179370199786.488859.780851343951106497@kernel.org>
+In-Reply-To: <20261103102851.1340480-1-vulab@iscas.ac.cn>
+References: <20261103102851.1340480-1-vulab@iscas.ac.cn>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,153 +65,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] KVM: arm64: Move stage-2 teardown into kvm_vm_s2_ops
-Content-Language: en-GB
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>
-Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>,
- Steffen Eiden <seiden@linux.ibm.com>, Zenghui Yu <yuzenghui@huawei.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Raghavendra Rao Ananta <rananta@google.com>, Fuad Tabba <tabba@google.com>
-References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
- <20261103084742.1302597-4-fuad.tabba@linux.dev>
- <29e7d214-b7b0-403a-a40f-dbc5b6951e22@arm.com>
-In-Reply-To: <29e7d214-b7b0-403a-a40f-dbc5b6951e22@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 03/11/2026 09:37, Suzuki K Poulose wrote:
-> Hi Fuad
-> 
-> On 03/11/2026 08:47, Fuad Tabba wrote:
->> Replace kvm_stage2_destroy()'s is_protected_kvm_enabled() and
->> KVM_PGT_FN() dispatch with a vm_stage2_destroy hook in kvm_vm_s2_ops,
->> like the other stage-2 operations. Both pKVM flavors share
->> pkvm_stage2_destroy(). Like kvm_vm_stage2_destroy(), it takes the range
->> from kvm_phys_size().
->>
->> No functional change intended.
-> 
-> Someone beat you on this (well almost) ;-)
-> 
-> https://lore.kernel.org/all/4304d0c7-2220-4add-9c71-e6dc6b4fbc11@arm.com
-> 
-> 
->>
->> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
->> ---
->>   arch/arm64/include/asm/kvm_host.h |  2 ++
->>   arch/arm64/kvm/mmu.c              | 24 +++++++++++++-----------
->>   2 files changed, 15 insertions(+), 11 deletions(-)
->>
->> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/ 
->> asm/kvm_host.h
->> index 97332ffcb1300..b36779bafae9b 100644
->> --- a/arch/arm64/include/asm/kvm_host.h
->> +++ b/arch/arm64/include/asm/kvm_host.h
->> @@ -233,6 +233,7 @@ struct kvm_vcpu_ops {
->>   struct kvm_gfn_range;
->>   struct kvm_s2_fault_desc;
->> +struct kvm_pgtable;
->>   struct kvm_vm_s2_ops {
->>       bool (*vm_age_gfn)(struct kvm *kvm, struct kvm_gfn_range *range);
->> @@ -243,6 +244,7 @@ struct kvm_vm_s2_ops {
->>       void (*vm_stage2_unmap_range)(struct kvm_s2_mmu *mmu,
->>                         phys_addr_t start, u64 size,
->>                         bool may_block);
->> +    void (*vm_stage2_destroy)(struct kvm_pgtable *pgt);
->>       int (*vm_mem_abort)(const struct kvm_s2_fault_desc *s2fd);
->>   };
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index 10b425a0141be..9df3c80a5acd1 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -1029,17 +1029,16 @@ static void stage2_destroy_range(struct 
->> kvm_pgtable *pgt, phys_addr_t addr,
->>       } while (addr = next, addr != end);
->>   }
->> -static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
->> +static void kvm_vm_stage2_destroy(struct kvm_pgtable *pgt)
->>   {
->> -    unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
->> +    stage2_destroy_range(pgt, 0, kvm_phys_size(pgt->mmu));
+Hi!
 
-Also, now that stage2_destroy_range is only called for normal KVM,
-could we fold that in here ?
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Cheers
-Suzuki
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
->> +    kvm_pgtable_stage2_destroy_pgd(pgt);
->> +}
->> -    /* pKVM walks its mapping tree, not the IPA space, and 
->> reschedules per mapping */
->> -    if (is_protected_kvm_enabled())
->> -        pkvm_pgtable_stage2_destroy_range(pgt, 0, BIT(ia_bits));
->> -    else
->> -        stage2_destroy_range(pgt, 0, BIT(ia_bits));
->> -
->> -    KVM_PGT_FN(kvm_pgtable_stage2_destroy_pgd)(pgt);
->> +static void pkvm_stage2_destroy(struct kvm_pgtable *pgt)
->> +{
->> +    pkvm_pgtable_stage2_destroy_range(pgt, 0, kvm_phys_size(pgt->mmu));
->> +    pkvm_pgtable_stage2_destroy_pgd(pgt);
->>   }
->>   /**
->> @@ -1126,7 +1125,7 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct 
->> kvm_s2_mmu *mmu, unsigned long t
->>       return 0;
->>   out_destroy_pgtable:
->> -    kvm_stage2_destroy(pgt);
->> +    kvm->arch.vm_s2_ops->vm_stage2_destroy(pgt);
-> 
-> minor nit: should we retain the kvm_stage2_destroy() to dispatch the 
-> callback ?
-> 
-> Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> 
-> Cheers
-> Suzuki
-> 
-> 
->>       mmu->pgt = NULL;
->>   out_free_pgtable:
->>       kfree(pgt);
->> @@ -1246,7 +1245,7 @@ void kvm_free_stage2_pgd(struct kvm_s2_mmu *mmu)
->>       write_unlock(&kvm->mmu_lock);
->>       if (pgt) {
->> -        kvm_stage2_destroy(pgt);
->> +        kvm->arch.vm_s2_ops->vm_stage2_destroy(pgt);
->>           kfree(pgt);
->>       }
->> @@ -3152,6 +3151,7 @@ static const struct kvm_vm_s2_ops 
->> protected_pkvm_vm_s2_ops = {
->>       .vm_age_gfn            = no_age_gfn,
->>       .vm_test_age_gfn        = no_age_gfn,
->>       .vm_stage2_unmap_range        = no_stage2_unmap_range,
->> +    .vm_stage2_destroy        = pkvm_stage2_destroy,
->>       .vm_mem_abort            = protected_pkvm_mem_abort,
->>   };
->> @@ -3161,6 +3161,7 @@ static const struct kvm_vm_s2_ops pkvm_vm_s2_ops 
->> = {
->>       .vm_age_gfn            = pkvm_age_gfn,
->>       .vm_test_age_gfn        = pkvm_test_age_gfn,
->>       .vm_stage2_unmap_range        = pkvm_stage2_unmap_range,
->> +    .vm_stage2_destroy        = pkvm_stage2_destroy,
->>       .vm_mem_abort            = kvm_vm_mem_abort,
->>   };
->> @@ -3170,6 +3171,7 @@ static const struct kvm_vm_s2_ops 
->> kvm_default_vm_s2_ops = {
->>       .vm_age_gfn            = kvm_vm_age_gfn,
->>       .vm_test_age_gfn        = kvm_vm_test_age_gfn,
->>       .vm_stage2_unmap_range        = kvm_vm_stage2_unmap_range,
->> +    .vm_stage2_destroy        = kvm_vm_stage2_destroy,
->>       .vm_mem_abort            = kvm_vm_mem_abort,
->>   };
-> 
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
