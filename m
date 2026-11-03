@@ -1,50 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694765;
-	b=na6oW+/6XipIrqHSl/45W4arRUK7HpSVi8ALYq8sw15ZzSe9CfSUvvYNB7BE7lg1wVOk
-	 Ne2FtAWKiSnP7wPlrOcDScZe7oEvZ8LjJGFpERDJ26vJMyEpyA9jEccbVgJCfmXcoFxTg
-	 RpClrfIMFkRwPDXxw+9Zvygdw+67GtK2TV87IVJa5+iD8IcQ+crd20j6kDdZZJVrFJcLg
-	 SqNYtrsjNeUrW340AnYN30v6xSVyvFVqm1UlsK20vVzpIhKMElPQY/Y90pR2Jp9vDNIyg
-	 XsiiC0+sv+eQHWjUplqRwa0CRtzyMRNOzMUPagVb5Mj7/XTiG1lyP0v9n2OdCYANQ5g==
+	t=1793694770;
+	b=tvzXRl0SqHT/CR5uzG6nBInc9i+BmJpTjrg45YcbgnJSAVtWd4MG2ZctNWije/EKT33E
+	 RvmklAk6Qt42xwkOHUSZq/RRCybO7Unnod2aXFbYKiZcFGCE3/7iZn0pH+0SXDMqHH/dh
+	 Ke+z4+350xeIuxH2kzyDtvYgD+jpLWg+1KP4o527zwSS4VXe2AODUIma0hycMdM4oVQrq
+	 c/5FU8neWTE5lSyKd/DkUYhlBgVuuiyeBXWwD+3mGwnTnXssSrJ7j9D1P6nnqiBOAPDLE
+	 8EsevOch+1GBxB8hHEZGZmyZ0UWSFpyX1SyDzgIrSpGKVJtxCTddBdEYQogQwEVsBOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694765;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=K09UXt1IJ/4Cor9+NZsyvuf9j/o9nZ1JNa0XlXYp/uI=;
-	b=sgJR+UItiRREl7674SzNuA9c2DbB44p77Q0kEY/jO4WYhAcz/1Ptryzdyh6FKynS/7pU
-	 3KYoKBRy+w1n9PsfQINcnuGadmYwslOPFLeYt7yy0f+6P1tXFDdV5oq9H2gKUkGq3itAT
-	 x07Al690VjLasjpxDc4mRL4JIzytE0n9JVtWJvf9evhSnaZecXBj084kgaUNGbdgOIZNW
-	 dHlQ3c03RscSl7hGwrv/w80AX/LieMYg0U3VAzD0SRUzFZKeAahHAlLxhSpsKDiA3NoMg
-	 uyjBzv/cXbpU4iT2bv4IgZg4DDXN1eqz8aN99nNddyRdP1HP4YPIwGb2h3GCWkvBRTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694770;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=l4U/3KUqu/qVdhfefKvegkeTdRkvD6adQTd3BjiKpMs=;
+	b=k82jBnetd+0/23Wouj3xse07IqB9B5ygdV886d2b3KLaHhU/RB6NnzAqcLlFK7Y0J4y5
+	 m6sdblS0jyNgunQgGccZLVw051heOH7apDy9qliP6PeA+jvXyxjBpmKuxidOKIaC5Q9Gv
+	 35X7F7UPi4mu4gSxTBv7R4d50Uzna959KjO3gJCdWmpzSRj07NLcyoFrVRCQA9KvUpTd0
+	 +dnxvOZD7bmt8Wew9Mj3ZpQhghoE4Hd+WCD30G0cLxmVStPytGxiJNxOFzfQ5JXW5JiMa
+	 XMdOm1Jq0XpG8THKDZMLuRpYA9GtE5pRyTi0HaSHg/dy0Kx/A/WibQ+geuajQXsLkFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RVmQn6k2;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62670606EE8E;
-	Tue,  3 Nov 2026 08:32:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62670606EE8E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAnN5gpnOlqCHs6AA--.47806S2;
-	Tue, 03 Nov 2026 16:32:41 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: nas.chung@chipsnmedia.com,
-	jackson.lee@chipsnmedia.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFF0606EEB2
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:32:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAFF0606EEB2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RVmQn6k2
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2eb18f4da15so13474495ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:32:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793694769; x=1794299569; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l4U/3KUqu/qVdhfefKvegkeTdRkvD6adQTd3BjiKpMs=;
+        b=RVmQn6k2Be56GRnv3kgo6y8yO4XYArI54aRhbRp3FlxGLJ//+tmPQREsSGk1U4FV0n
+         2IWXAo5HckUek9BxECowcEiDZQ7kY/tx62aWhsCXzyQ36Xh1kx8YumvbK8bCoxF9MxMW
+         gGC0YiQullx9OttnZ6QCXMC9NFPdMzh7TRcy9jMVviYLp8bAeKviPBCf2DknqDUJeImk
+         7AbvUpE7aLfIJg9hvR4Xay9OXOP+xzu8Q9E6/DK+K2QrEHUXgSRbEDlxz1PLrWxZ63jh
+         9jNfZMQAUJ3dCmC1Rsuk2+7kPCtFNsSJIP2nNO3kvZCJfYBsTMYS5+aoAudnzoMfQJD7
+         JD+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793694769; x=1794299569;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l4U/3KUqu/qVdhfefKvegkeTdRkvD6adQTd3BjiKpMs=;
+        b=nnjChyNzMIlfpSe0OvE/q6AO0kObKc1MzOUEZdaRwaFVQY/2UuzH6ulnooXyuIK+TI
+         OTBByUphabfSCptN/hyn8A+vC68AlA5IFuG+F8XPn4MvD/sLvsiG/BOUpw8ZV4D1nwNa
+         9+EBD9bDvW4cBiyysiU9XA7tt9akLdMzK2ZhK9c9fp0BAARSO9lBtETyQk+OLBQnAWN1
+         0Ab6esmymdOBd9cCE2WiUUFYlLwmkJjqFSS6FAuscg3+GL3l1H9omwukWEh2ZVqiRE/x
+         l8L5enJ2nLWG+40nMd5MomGSLNhnVAo2eH7Dd62fL/XcdEclu4cmzxiaFtSLDrzmquWJ
+         3srw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBI8mzwbC4lYEJw8OkhGOMvk8up+bEPVnFOyAu+E4qbQYXEzK60c0JcylERq7sVG3JF/N1TbAktZxs88Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z90aVoCYydhoMi1/wEq/WYpVzeU65me/i6k9We1Lg696ptJXkfK
+	aT5qZQC/8UKnpiNNpr115FWuomWWb4j1EI4LAJfh/rkBtKc5XSuKa3ZcRAtSH/Bn
+X-Gm-Gg: AYBFou0aoHm08E4bHtyeIQZQ8BklAfmcTSS6SpYzMeD1WdWsVb24ajTGtqdMcP5ZNf6
+	tXfQN8kiPZgvm/rfrVR2LGw95YgBi6VoY0TpVYHCueO164prkVJ/ixt0xh4SYvOK479CuDKKM6x
+	NgfL4cGyMoqZKgRdXrO49cXSBEGTyVbVpY29pd3CkaJOOW35lIscuu9EmmsurmNppW/381WZorY
+	m9s8hKBHpRGFptaZT33SsuRVoyN3reGDnKzZWW3NI8FC40O33+ZfwI9iGKkFgdeuL21NANpLZN7
+	4PRPhzsjnhGgv55x24W6c6UU1AGBRbfNboOYXdkd5cipSfSB6BHJfjv6eB/K0Oi1fKM01WFy6KF
+	R/CcKcTaCLlvNMtIDrzjS+FLbNVcwzBFtmF/Efy1EB/F0U93P7Aosg6wezS0p4q94c3sZtPQAsY
+	NpuU3iZfzL66O2UDv9n696ZpAMDg7oXls8kgWo4+qDVZDL1yrEHoQn5tlQj3BA7XDB1B3OAEDCi
+	5htMEb2de4XKXHtBxirHJTxM5egkfazFcBlDmAln2q2hI6UvoJ81BqEuBsB9mrcTEoptFJBs+ft
+	hTc1Wy6K2uDkQ1wEfMzHChF1gALUQ/X3+M/NdIJa0JeADVJp
+X-Received: by 2002:a17:903:46ce:b0:2e9:723a:cf37 with SMTP id d9443c01a7336-2eb364e0725mr114991555ad.50.1793694769016;
+        Tue, 03 Nov 2026 00:32:49 -0800 (PST)
+Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392a5f48sm37036785ad.64.2026.11.03.00.32.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 00:32:48 -0800 (PST)
+From: Li Ximo <lixicaicai@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Michal Simek <michal.simek@amd.com>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: chips-media: wave5: Release m2m devices if video registration fails
-Date: Tue,  3 Nov 2026 08:32:50 +0000
-Message-Id: <20261103083250.1174880-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	Wang Haoran <haoranwangsec@gmail.com>,
+	Li Ximo <lixicaicai@gmail.com>
+Subject: [PATCH v2] dmaengine: xilinx: Fix wild pointer dereference on empty segment list
+Date: Tue,  3 Nov 2026 16:32:39 +0800
+Message-Id: <20261103083239.2033556-1-lixicaicai@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,78 +100,87 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAnN5gpnOlqCHs6AA--.47806S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KryrCFyxZr13Xr1DZr43KFg_yoW8KFy5pr
-	yIga97Ary5Kr4qqw4UJa18Cas5Jw1SvFW8ur4xZa4Ik395Xr4jvrWjqa45GFyDJrZ2yas0
-	vr4jq3y8Cr47ZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
-	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUMGQ
-	DUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpWfX+KAAAsh
 
-The encoder and decoder registration helpers allocate a v4l2_m2m_dev
-before registering their video device. When video_register_device()
-fails, both helpers return without releasing the m2m device. The probe
-error path only unregisters codecs that were successfully registered,
-so it does not call the failing codec's unregister helper either.
+From: Wang Haoran <haoranwangsec@gmail.com>
 
-Release the m2m device before returning the registration error and clear
-its pointer. This balances v4l2_m2m_init() for both codecs without
-unregistering a video device whose registration failed.
+list_first_entry() does not return NULL on an empty list; it returns the
+result of container_of() on the list head, i.e. a wild pointer. In the
+Xilinx DMA driver, the prep functions xilinx_dma_prep_peripheral_dma_vec(),
+xilinx_dma_prep_slave_sg() and xilinx_mcdma_prep_slave_sg() can build zero
+segments while still returning a descriptor, and both they and
+xilinx_dma_get_metadata_ptr() then take list_first_entry() of the empty
+segment list, yielding a wild pointer that is dereferenced for
+desc->async_tx.phys or the metadata app words.
 
-Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Guard the three prep functions against an empty segment list by going
+through the existing error path (which frees the descriptor and returns
+NULL), and make xilinx_dma_get_metadata_ptr() return ERR_PTR(-ENODATA)
+in that case without touching the length outputs, matching the ERR_PTR()
+convention that dmaengine_desc_get_metadata_ptr() and its callers (e.g.
+axienet) check with IS_ERR().
+
+This issue was found by static analysis.
+
+Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+Reported-by: Li Ximo <lixicaicai@gmail.com>
+Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
 ---
- drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c | 5 ++++-
- drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c | 5 ++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+v1: https://lore.kernel.org/r/20261023065806.3175584-1-lixicaicai@gmail.com
+v2: xilinx_dma_get_metadata_ptr() now returns ERR_PTR(-ENODATA) instead
+of NULL and no longer modifies *max_len/*payload_len on failure, per
+Frank Li's review; the prep function guards are unchanged.
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-index 86bc36ee17fd..929ad9cfb674 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-@@ -2051,8 +2051,11 @@ int wave5_vpu_dec_register_device(struct vpu_device *dev)
- 	vdev_dec->lock = &dev->dev_lock;
+ drivers/dma/xilinx/xilinx_dma.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/dma/xilinx/xilinx_dma.c b/drivers/dma/xilinx/xilinx_dma.c
+index cffe7c6fa..8b9e3a13e 100644
+--- a/drivers/dma/xilinx/xilinx_dma.c
++++ b/drivers/dma/xilinx/xilinx_dma.c
+@@ -649,9 +649,12 @@ static void *xilinx_dma_get_metadata_ptr(struct dma_async_tx_descriptor *tx,
+ 	struct xilinx_dma_tx_descriptor *desc = to_dma_tx_descriptor(tx);
+ 	struct xilinx_axidma_tx_segment *seg;
  
- 	ret = video_register_device(vdev_dec, VFL_TYPE_VIDEO, -1);
--	if (ret)
-+	if (ret) {
-+		v4l2_m2m_release(dev->v4l2_m2m_dec_dev);
-+		dev->v4l2_m2m_dec_dev = NULL;
- 		return ret;
-+	}
++	seg = list_first_entry_or_null(&desc->segments,
++				       struct xilinx_axidma_tx_segment, node);
++	if (!seg)
++		return ERR_PTR(-ENODATA);
++
+ 	*max_len = *payload_len = sizeof(u32) * XILINX_DMA_NUM_APP_WORDS;
+-	seg = list_first_entry(&desc->segments,
+-			       struct xilinx_axidma_tx_segment, node);
+ 	return seg->hw.app;
+ }
  
- 	video_set_drvdata(vdev_dec, dev);
+@@ -2305,6 +2308,9 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_peripheral_dma_vec(
+ 		}
+ 	}
  
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-index f9fcdf4c224b..6577028201ae 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-@@ -1854,8 +1854,11 @@ int wave5_vpu_enc_register_device(struct vpu_device *dev)
- 	vdev_enc->lock = &dev->dev_lock;
++	if (list_empty(&desc->segments))
++		goto error;
++
+ 	head = list_first_entry(&desc->segments, struct xilinx_axidma_tx_segment, node);
+ 	desc->async_tx.phys = head->phys;
  
- 	ret = video_register_device(vdev_enc, VFL_TYPE_VIDEO, -1);
--	if (ret)
-+	if (ret) {
-+		v4l2_m2m_release(dev->v4l2_m2m_enc_dev);
-+		dev->v4l2_m2m_enc_dev = NULL;
- 		return ret;
-+	}
+@@ -2406,6 +2412,9 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_slave_sg(
+ 		}
+ 	}
  
- 	video_set_drvdata(vdev_enc, dev);
++	if (list_empty(&desc->segments))
++		goto error;
++
+ 	segment = list_first_entry(&desc->segments,
+ 				   struct xilinx_axidma_tx_segment, node);
+ 	desc->async_tx.phys = segment->phys;
+@@ -2613,6 +2622,9 @@ xilinx_mcdma_prep_slave_sg(struct dma_chan *dchan, struct scatterlist *sgl,
+ 		}
+ 	}
  
++	if (list_empty(&desc->segments))
++		goto error;
++
+ 	segment = list_first_entry(&desc->segments,
+ 				   struct xilinx_aximcdma_tx_segment, node);
+ 	desc->async_tx.phys = segment->phys;
 -- 
-2.34.1
-
+2.30.2
