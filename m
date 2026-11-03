@@ -1,60 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700680;
-	b=IdkC00w0TdCqfoxiJpl2flF0HvH5wENFOWBfLcvCn+uyO9rdE8SCyR6+Ej0JJcNKOI79
-	 3JrusrwE8PhlRS6tKkMiZnpd0vvBjeDwXHWPOFLaV4/bLoUOUdOmpOplxAboU0HkJQviO
-	 BNILlLJj/4UZ+8sdKLaZK8xp6uTICEaHZIbCzCji8zwRHNvcQprFjt5Hy7xUtCQgzpFEp
-	 vS7VJx+N+8t5NXVGtug/oV0oQuMK9sjj1ewgitbP0Is9ZjifjXEAm5P73HF6o7A/oW3vv
-	 hVL7J/nn3sUbcyVIu/zONU8c5kFxetfRThYhB+ZK0HcPm+543GC/oATez5fQXDQLaRA==
+	t=1793700734;
+	b=JajE56ExrGAIIq2J9gPcGuTvNoIGO4Och63VAd8cCb+qVII0nLRm44vrJBGKbj/nlhVD
+	 3ttrFujROpWHU2lq4e9+IRDOT/AAyYQVX4ZGro2ReL6KJX52XU4iyvXop/mxJ/xdDd/eG
+	 KEoHXzdsH0ODCk1uO9RTocTQHZQ2h2m06G/d+8kRQeHJM2ClroWqg+O9bs2KuBSpPDsU8
+	 bdgxGFt1QqG5Q8qQ4SfXGK6nS16TUi7nZRlOAAF0olnXOie43a8r6RmzYAaWwL0emAnHh
+	 LWJwHYCRiVpbJ1jDSwgQw1P/VyXL1D2A4YGp89ma4aL3x24aI+QTIK12CvK4YpCY6wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700680;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=oEeAOkIMhm2brVx+57mg0HvmlruExTUNaN3KGm7ZRmQ=;
-	b=BH1oujcBicPZR5NqqWTqvYGJ8cMfMyRPJMOc8SJQ7hGjgZNigCtMdhRuXjam8uz5L3Nd
-	 Msu6nwXxn06+6ruuQFSZ+hhjYNEABtpuuOqj+fCpcrbB9s83dXrhWAc5lkopzhno5d76K
-	 09frG50FqqFg0HhnyrGCRU6hHINGbk/nzKPJIX9sfAQoFeL6nSWWYHRwZDEvEPTLKnrrn
-	 2SINHygOSGj8xOpppv/dHwQhKAcLyHelABcMb/dpDXUz8+N0Izxto1NmoF9vgoj6GEveS
-	 TdmfLCK0ryRqG3XseY/h88BdJ0SF7oXHJEcwG9f7Lu6Cl4xz7fz7HEukvC6s0TX2amA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700734;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FfNOitLIXBWU/EzJpPhxbyv+UkEWJ2JnXPpF+ZYiRo4=;
+	b=1wctI9JTOC83+cReaOegwRPFJ9vbMG+YNwgwuHlhO5TKNBY3ssXEkhb6ejQLpDy3jYMc
+	 +bUXnJ7rmpdy85N8KHzSpatbgf8g4v4RsvY02B4dajhq9EzEJ41VuzkpiVpZeW/NKmq0c
+	 ZTYG6c3v4Ifm+/1FIggH4EwEgSFZ0+BytNDOkwbph42opCm7ISwi0lExWFSZaKgOFjWsT
+	 cHjc+E0dhUvW6ztWcUIH9gY7Tm+h9ii8qdS3jFoPUsJKyNd0TO1Bn7b3QTe0fYtKh3bKP
+	 P2X3343uhEwr5IZUEOCe1xbsRsb/qIOW3T0FmtMW+HyF/jCykiPwLSB54Ysdp4nfzsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=W+HKkBv6;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C2gakbdt;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65443606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:11:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65443606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FA8606A803
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:12:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83FA8606A803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=W+HKkBv6
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261103101116euoutp014f10021cbfe2ae229578bf507dc5785f~kgUMbu0c92803328033euoutp017
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:11:16 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261103101116euoutp014f10021cbfe2ae229578bf507dc5785f~kgUMbu0c92803328033euoutp017
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793700676;
-	bh=oEeAOkIMhm2brVx+57mg0HvmlruExTUNaN3KGm7ZRmQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=W+HKkBv6baZB/MFF4sW9EQIXMaH/WWcE0xLv30OQ1O3EWG5zu0LlDPyhpUo1rXQWO
-	 wP3pGtKk8BL5a/qRQQdn56Eash1rX+aexjjU29CJDaiMoDlrErCvRkS0FO/wcf9yAm
-	 I8vBGYoJwHVdGf4B7c7QwwC3yrse8D6SWUm4ERx8=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103101116eucas1p1eadfbb1f322f96673fff2419c4cc5dac~kgUMEKwti2453024530eucas1p1v;
-	Tue,  3 Nov 2026 10:11:16 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103101114eusmtip1ab1d1332cf288f23ef33eca39d491c32~kgUKcvhCg3212232122eusmtip1W;
-	Tue,  3 Nov 2026 10:11:14 +0000 (GMT)
-Message-ID: <373ea0e8-d0c4-4071-9546-8c4df5d09393@samsung.com>
-Date: Tue, 3 Nov 2026 11:11:13 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C2gakbdt
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e987b4a710so2797905ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:12:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793700734; x=1794305534; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FfNOitLIXBWU/EzJpPhxbyv+UkEWJ2JnXPpF+ZYiRo4=;
+        b=C2gakbdthO2ch0hfbmtxSmZ0Hirj4mIMqIv1yfvxzNQBGgoazOeSxau91fX9x0ovmU
+         +TzPJSce3FNeiA5crKSeebOsG1PXz/49YYd6buyHWeuMAhlg5UEjYWETsQfFrWu6K93n
+         KOPM8W7gDbYxfrC3jy3SAdq2AgQrrgFOGqLivpbr2cO6eWQF576MXVSlFnj/nV+lDkoW
+         Nsa842j3LaYzltc50hJbAUB6k6+YdxOj45/GPiLX0OOeDk/n7DGMi8E3J8MdWEn4QRZw
+         nliHY5Di3ljO25IUg1cW4QosN2WocV4Bq+kgpzUxQmB94ZXar0d4dvrflAl/eSe8Avab
+         WdvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793700734; x=1794305534;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FfNOitLIXBWU/EzJpPhxbyv+UkEWJ2JnXPpF+ZYiRo4=;
+        b=fIjvYIYGiftL9kbvyAHw/JWctLN9qUmUWZPA1fdhvx3W7spK/6ttII6z/FLm1j1wYd
+         hQPnQh41Ddy8TWPRt1/PKS7zBLP7ht7ee3LtI31sLClROPWuqZ0KogFRBXsHrKZa0dzu
+         jd/Nnc2kzlRkOXSicQmBRJfVD51k1opmNeO3bxQzjo0vNe5j7ebs9Uj4hIl/30qslYdC
+         3H3zbYVAPjijOPsfya5D6rLmXYh8v2E6RLNzJ7qMIVC6kTdcsRs5Q4kES95nishxX8sE
+         YtnP50tDMdIlbR45WOtrr0Jqpns0R4t1gXOlKmc2RzAzmc1H3aCJ5PbS5IAARlCXj0/l
+         eMwg==
+X-Forwarded-Encrypted: i=1; AKwUvBwZguIsd8fHCb69lZZEumkSKSk08kTbIZNjk++Ck+P1kO5bYGfwZaTsGHWJumNvsZCPLlgZoL33/RGsAk8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7rmCq1yydRuA3Ya7TXqyJLamxw6FsayeVe6rZYfG9mutiGunm
+	SvSLNEuNBnGShOTmtXx3ViTe/G2i68t1wc9OLny2NuXlmfmHm2qbZIDy
+X-Gm-Gg: AYBFou3fi/YjpU/PFQJkC3K3kKCSMh8UNF76LDOvwKUqtOOPoeeFy3BbkfpuDDpsCxL
+	o1Wn30Z2DI4T4ix9OWJFLOIvTc6ee4jIbyVTiqDQ3fycJozeH/qoe/1ff5gPLmTPsNMx6CoUHX5
+	bVmBjYCfXW++PeNjGgBWVoKzrftNAvoXOW5KPAAvOrcyBHqxGJSyuNyCHjfD+pbGd453VbD0e55
+	d7VuyNSBaubvoiSy+lS6lclj/ys60t/R1AfEcF9iHBLzX7myPbS5Z4iL0Fr34G+KQejcf9W/lDX
+	fHvBCUwaXhgkIH94KjviFUCcaPNqoYT9PB1pQ4L2E4ha6XVAaPnpSIl2FWP2eLGYbhtnuy0jDBk
+	hwDEM75JAEYpj3ELZSxgUt4uByCUw0wtwv1Z5X24ZVEGs+dvhpKubjmL1mOevpxcDCCeFcjtfbi
+	1FFxHwnlNkaV2+P2CKfy4bKmxOBxjYZnVo+WfAwS3FwwfL9Nf9cz2SoxMZ3RyVBTmESgdlseGHX
+	J3ori9wpn1/ebjUJv6643BVQNCVKcJvvYWgJ6F+I6f2XKwW7nSDSH1R1xq+neIadn3y42xoJAun
+	N8WHsfDS5yBMCXGOBObqX/EhSEf17IZdbVizaUArrrTL35A/zkAchtLEuRM=
+X-Received: by 2002:a17:90b:1cc5:b0:3ae:3d82:5d88 with SMTP id 98e67ed59e1d1-3ae8917bf84mr7426716a91.0.1793700733700;
+        Tue, 03 Nov 2026 02:12:13 -0800 (PST)
+Received: from localhost.localdomain ([106.101.10.14])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aebc89475asm4934624a91.0.2026.11.03.02.12.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 02:12:12 -0800 (PST)
+From: Seungbum Ju <seungbum.ju@gmail.com>
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Seungbum Ju <seungbum.ju@gmail.com>
+Subject: [PATCH] f2fs: wait for node writeback on the first fsync after a checkpoint
+Date: Tue,  3 Nov 2026 19:12:08 +0900
+Message-ID: <20261103101208.4550-1-seungbum.ju@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,141 +97,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 2/7] dma-mapping: Let a device declare that it
- reaches private memory
-To: Nicolin Chen <nicolinc@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>,
-	joro@8bytes.org, Will Deacon <will@kernel.org>, Robin Murphy
-	<robin.murphy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>,
-	rafael@kernel.org, Danilo Krummrich <dakr@kernel.org>, Johan Hovold
-	<johan@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Pranjal Shrivastava <praan@google.com>,
-	Mostafa Saleh <smostafa@google.com>, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, driver-core@lists.linux.dev, Sonang Patel
-	<sonangp@nvidia.com>, Ankit Agrawal <ankita@nvidia.com>,
-	shameerali.kolothum.thodi@huawei.com
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <0697a7ab3e4c4b7703428644444fd13f8dbfccd9.1793676742.git.nicolinc@nvidia.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261103101116eucas1p1eadfbb1f322f96673fff2419c4cc5dac
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261103035021eucas1p17d005335232f75ad6f3b711b7c4b88d5
-X-EPHeader: CA
-X-CMS-RootMailID: 20261103035021eucas1p17d005335232f75ad6f3b711b7c4b88d5
-References: <cover.1793676742.git.nicolinc@nvidia.com>
-	<CGME20261103035021eucas1p17d005335232f75ad6f3b711b7c4b88d5@eucas1p1.samsung.com>
-	<0697a7ab3e4c4b7703428644444fd13f8dbfccd9.1793676742.git.nicolinc@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On 03.11.2026 04:49, Nicolin Chen wrote:
-> DMA devices in a confidential guest can access only shared memory, or both
-> private and shared memory. Some method outside the DMA API will confirm the
-> device is able to access private memory through DMA.
->
-> Add DEV_FLAG_DMA_CC_PRIVATE and dma_set_cc_private(dev, bool).
->
-> The flag must be stable while any DMA mapping exists.
->
-> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+f2fs_add_fsync_node_entry() numbers each fsync'd warm node page with
+sbi->fsync_seg_id++, and f2fs_reset_fsync_node_info() sets the counter back
+to 0 at every checkpoint. The first node page fsync'd after a checkpoint
+therefore gets seq_id 0, which f2fs_do_sync_file() passes to
+f2fs_wait_on_node_pages_writeback(). That function treats 0 as "nothing to
+wait for":
 
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+    while (seq_id && cur_seq_id < seq_id) {
 
+so the fsync issues its cache flush without waiting for its own node page.
+If the flush completes before the node write, the inode's fsync-marked
+node block (needed by roll-forward recovery) is not covered by the flush,
+and a power loss can lose data that fsync reported as durable. In our
+traces the first fsync after a checkpoint returned before its node write
+completed in many trials.
 
-> ---
->  include/linux/device.h      |  4 ++++
->  include/linux/dma-mapping.h |  4 ++++
->  kernel/dma/mapping.c        | 21 +++++++++++++++++++++
->  3 files changed, 29 insertions(+)
->
-> diff --git a/include/linux/device.h b/include/linux/device.h
-> index 429e39f647cf9..01d7877d0b571 100644
-> --- a/include/linux/device.h
-> +++ b/include/linux/device.h
-> @@ -604,6 +604,8 @@ struct device_physical_location {
->   *		ancestor device.
->   * @DEV_FLAG_OFFLINE_DISABLED: If set, the device is permanently online.
->   * @DEV_FLAG_OFFLINE: Set after successful invocation of bus type's .offline().
-> + * @DEV_FLAG_DMA_CC_PRIVATE: The device is able to access private (encrypted)
-> + *		memory, no shared memory bouncing is required from the DMA API.
->   * @DEV_FLAG_COUNT: Number of defined struct_device_flags.
->   */
->  enum struct_device_flags {
-> @@ -617,6 +619,7 @@ enum struct_device_flags {
->  	DEV_FLAG_OF_NODE_REUSED = 7,
->  	DEV_FLAG_OFFLINE_DISABLED = 8,
->  	DEV_FLAG_OFFLINE = 9,
-> +	DEV_FLAG_DMA_CC_PRIVATE = 10,
->  
->  	DEV_FLAG_COUNT
->  };
-> @@ -834,6 +837,7 @@ __create_dev_flag_accessors(dma_coherent, DEV_FLAG_DMA_COHERENT);
->  __create_dev_flag_accessors(of_node_reused, DEV_FLAG_OF_NODE_REUSED);
->  __create_dev_flag_accessors(offline_disabled, DEV_FLAG_OFFLINE_DISABLED);
->  __create_dev_flag_accessors(offline, DEV_FLAG_OFFLINE);
-> +__create_dev_flag_accessors(dma_cc_private, DEV_FLAG_DMA_CC_PRIVATE);
->  
->  #undef __create_dev_flag_accessors
->  
-> diff --git a/include/linux/dma-mapping.h b/include/linux/dma-mapping.h
-> index efde0e5a58dc2..3cc38db4a7490 100644
-> --- a/include/linux/dma-mapping.h
-> +++ b/include/linux/dma-mapping.h
-> @@ -218,6 +218,7 @@ void *dma_vmap_noncontiguous(struct device *dev, size_t size,
->  void dma_vunmap_noncontiguous(struct device *dev, void *vaddr);
->  int dma_mmap_noncontiguous(struct device *dev, struct vm_area_struct *vma,
->  		size_t size, struct sg_table *sgt);
-> +void dma_set_cc_private(struct device *dev, bool private);
->  #else /* CONFIG_HAS_DMA */
->  static inline dma_addr_t dma_map_page_attrs(struct device *dev,
->  		struct page *page, size_t offset, size_t size,
-> @@ -357,6 +358,9 @@ static inline int dma_mmap_noncontiguous(struct device *dev,
->  {
->  	return -EINVAL;
->  }
-> +static inline void dma_set_cc_private(struct device *dev, bool private)
-> +{
-> +}
->  #endif /* CONFIG_HAS_DMA */
->  
->  #ifdef CONFIG_IOMMU_DMA
-> diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
-> index 82e701648d604..ded585b39fb92 100644
-> --- a/kernel/dma/mapping.c
-> +++ b/kernel/dma/mapping.c
-> @@ -501,6 +501,27 @@ static void dma_setup_need_sync(struct device *dev)
->  static inline void dma_setup_need_sync(struct device *dev) { }
->  #endif /* !CONFIG_DMA_NEED_SYNC */
->  
-> +/**
-> + * dma_set_cc_private - Set whether @dev can DMA to private memory
-> + * @dev: device whose confidential-computing DMA access is being updated
-> + * @private: whether the device can DMA to private memory
-> + *
-> + * Called when a device is known to be able to DMA to private memory.
-> + * For architected CPU integrated devices their kernel drivers will
-> + * self-accept using a driver specific validation. Other devices will
-> + * have a userspace managed process.
-> + *
-> + * DMA mapping must not be active when this flag is changed. For CPU
-> + * integrated devices the driver should self accept early during probe
-> + * after validation. Other devices have this flag set automatically
-> + * before probing.
-> + */
-> +void dma_set_cc_private(struct device *dev, bool private)
-> +{
-> +	dev_assign_dma_cc_private(dev, private);
-> +}
-> +EXPORT_SYMBOL_GPL(dma_set_cc_private);
-> +
->  /*
->   * The whole dma_get_sgtable() idea is fundamentally unsafe - it seems
->   * that the intention is to allow exporting memory allocated via the
+Start the numbering at 1, so that 0 keeps meaning "no node page written".
 
-Best regards
+Testing (kernel 7.0.0-42, f2fs built as a module from the same source,
+QEMU/KVM, block-layer FLUSH/FUA model with dm-log-writes replay):
+- block traces, append+fsync after sync: FLUSH issued before the node
+  write completed in 29/30 first fsyncs unpatched, 0/30 patched; never
+  for later fsyncs;
+- crash-state replay (28 cells x 3 recordings per module): SQLite
+  WAL/TRUNCATE/PERSIST, LevelDB, RocksDB, LMDB and an append log lose
+  acknowledged commits or become unopenable in 24 cells unpatched, and
+  are clean in all of them patched.
+
+The same code is present in Android GKI android12-5.10 through
+android15-6.6 and in the f2fs dev tree as of 2026-11-02.
+
+Fixes: 50fa53eccf9f ("f2fs: fix to avoid broken of dnode block list")
+Cc: stable@vger.kernel.org
+Signed-off-by: Seungbum Ju <seungbum.ju@gmail.com>
+---
+ fs/f2fs/node.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 1234567..89abcdef 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -361,7 +361,7 @@ static unsigned int f2fs_add_fsync_node_entry(struct f2fs_sb_info *sbi,
+ 	spin_lock_irqsave(&sbi->fsync_node_lock, flags);
+ 	list_add_tail(&fn->list, &sbi->fsync_node_list);
+-	fn->seq_id = sbi->fsync_seg_id++;
++	fn->seq_id = ++sbi->fsync_seg_id;
+ 	seq_id = fn->seq_id;
+ 	sbi->fsync_node_num++;
+ 	spin_unlock_irqrestore(&sbi->fsync_node_lock, flags);
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+2.45.0
