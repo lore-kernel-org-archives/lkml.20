@@ -1,111 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705790;
-	b=dhnuvGDELxJ58uzxeF4cV+CFvUs4Foxv7sMFs9EiJimfg4DEtlPv+XKPrP2Tqsn2750l
-	 Fd/emppEgK3RSNdiGZzG4V9P79rX9n39vs4/g239kxmwjnCr/MDj5L0C1kwgRdYbf15ri
-	 bZENy1kFq+owFtXyCkp1DBVmtsylAJQv0S6ShX24IHGkTs2GHebXsqdyh7V1iiNV0mRTH
-	 KxvcPleoB8qwY38oTg1aYZqxTFBry55plId8aYurclUG3HON8L9dPA+FAJlnihwS8x8cF
-	 MMV80uXk7xVxMEHa1ychTg09l8oX1x2oc+QohaOTa2G/Fj1Rvfgut9sWoGfpGFY029w==
+	t=1793705770;
+	b=EPuBG5i14pCkQ1edAB3WH+n0Kpcid/4WsnroVr2b8B1qK1dcJGzbbWm03r3b5lMNf3ZG
+	 pqeIF647JGTq50eJDPlU0STBKJzH7ZfsR92+TUbJBdp9iQaxGorkIFEAbGYLrouUKuDWT
+	 iX4C8GMSeFoArr6NS/BFWhFjq1uz6xphv3mwjeNqzxvGsfvD9McdecXDb4d4n57oV0dHj
+	 oj5OIZiwt6dXFAonqfH0dSo/uMZ0CJ8K+10/50zlYEMj3sFsr43IuZuUKmn5TM0cHh8lI
+	 1DikHGCNBdjNXD5+e+XpguBopT4OHXH0aIGsJoQ4nLFtK6gDS1iOcw+G9YJHcb832ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705790;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=rZ/601LWddKHMRgUDrwkuLM8pPkuLsinigUnQn8yf+E=;
-	b=SgeVw8XHj8uJ4lBZbn/kH6Aia9diasMt8b1/boPxakjb1MSm2d+Xt2aWODTFOdqggMcf
-	 IrIY+rqDu7RxAdnQZVvzjUZJMMZXwFerEVjA/rMJGOO4WIuB9Tink8+ygjmMEU1teN868
-	 C866n8Gl+jjXCm1sd2bZyhNcUMWqBLuTeK1FJb1jXy8lUPt0EdtjHwEBoT3bXn8pu8Chz
-	 USIRuRQOD8UdBS/V8qC9vi9RxV57xmAtBZu/etbJS9SIpB59/y9pSyh2hJ4Js4defuPjT
-	 3UEGJFCRvxK9zBNprrKqLrqJcxCb+9toEu1nZ6gwagvRSMUNfumalKMgQy9xJ6WJ2kQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705770;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=bpBURpBXm/MMTzlPB/GAVzURYs7DsIf8ymLFXLYmJWs=;
+	b=aaQcIzUIeitwI8dndrkCkD/C2cSha0uyjmlQDx1G0TM7PQOkxYM3vibeXbQFxIrgCiSM
+	 362WKYEvJ6wba4Q6t8MEYYRvcqs09Mm6fc3z/in/JVK5SzkKg+nP9/c6vZVdnI5is6zNc
+	 AZPHxTs0e+K9ybnwW5TuS/A2Y10u2UPrTvcEj/Z2K2bDEX9dwbUZC4bvEslVgQiC1y4OS
+	 5+lPiI/sunFapn+xwKlS/Z2pcxGU0kCd3FVYqWnQgO7/P+bnPuCqcwED5sMGggU0PH89j
+	 Z5pCSHwkwKYqsySM4KbpGmVZZK0jOBOvObPjFkW+Hyj0K+igNTv+mS2Cggwn/jS+8hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KHMplylt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LX8BspfE;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y0qABuNN;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9786082BFC
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:36:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E9786082BFC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40ABF606D835;
+	Tue,  3 Nov 2026 11:36:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40ABF606D835
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KHMplylt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LX8BspfE
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3AAMeU2554833
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 11:36:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rZ/601LWddKHMRgUDrwkuLM8pPkuLsinigUnQn8yf+E=; b=KHMplylt4qd2nDjQ
-	XOXksdjHd5gcy0dypge2wbhnRkW9tI3lPh0gz7q+5BxoJ6tsve5QpTfz/9vsD9JG
-	JDjcL9M94cWFthloiMLCzyUisqxd222ClNjt4LfOmQuEQ24YnQxR+Cij0js1F3Ll
-	57pZ9QMOeZ0m9FIsuNPCE27TIF3+YypbCGnpwMVDLxrDIY2h3dPJzm2F1HDKSJx6
-	/5GdyroFIOruTALi6gyGIMbJY7tDfz1qivYe0/WCo/g9ow/8OrbRSnACMVJLbnEq
-	b1jJQyIYHCfidwrbh478gFQY0Tc5gbDmjiciQqFvu0ZWsQ66lVYl0h7PFZlXpBkN
-	sWWHJA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq2acjx8r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:36:29 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ea6b66e53so75476485a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:36:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793705788; x=1794310588; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rZ/601LWddKHMRgUDrwkuLM8pPkuLsinigUnQn8yf+E=;
-        b=LX8BspfEjstCwuPIloY5vTF70jOiDKYaW8jew3uDui9uZ8Y5ac2LSgkiVEyQsPpWoF
-         hPY78adtTfe+u+9dGTOSBlwzyGxqPEn0U5nD5L+gSiMQGCkYq0FshxAbMdLd+lb354aK
-         iGRO4tDDoEY3t3f9PFC51cUKcGo5hxN8OjbebB/YzyqhhHNUng5zwhuVXzWZsJjiftAS
-         gba0TLNlwb5poybpVXO6nVca0kfCuzwFAEellCo4TqzE372lhSlR+IE7UkQqaX8qSI1m
-         DkSkq9msv6jJB7eLm6bwWzfbV0fx9/Ool9ZJ/p+VC6F5zrgwhJm8mV8KPZ66JEKKk3oY
-         9Z+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793705788; x=1794310588;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rZ/601LWddKHMRgUDrwkuLM8pPkuLsinigUnQn8yf+E=;
-        b=Ao3st2qLHG81hclSUeIX8mT9uM2A2TLtccOfWVPp2T8a4EipsUb48KrKn2KZZi5wK+
-         xVHfWqcmi+g23HCp1WezyBYpo1WE1ZHqq4oHv5oefBXX6ghcNA6Khn2f4hEhKOiIquB3
-         OJPf+7ccY9TudmhMYwsi/22wAB15VETemSVMYxqwjIc+rbxKbRcTxOa9LRMA56uFD424
-         Agu2g0j+x/4rsvIOKKVdDx/ilxXTL0Fw8CKc6u5slp8VjRj31yVuTXVEO9ij5pCJvJ0l
-         OVB0U6K2xYgUfMUifDi5bkCVRI7A0r9b/VvA1wIl/puusk6e/p85aqNtArbFyznMV2va
-         PY5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxjD+ZTHipwLywdUtQRAn7KK7suWwmkG/ctwPK3dcCb5sBzEAmbyI/Uo0NYloJaF4ZC4BGIYnuorEzGGJ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tYo/ZT8MeUMerPZw0QsfhwcI0nqCgVZ5XhMm/QAD+ppdnoEtP
-	Lo9zUPmxismTrzr/CbZk/GAZyHtTXeRRd93FELS7AeyLRioYXiYOWX0Ud5Gzt89NPn2sawuXDwa
-	J33W6om7u42KUixuXXpBrkjBuoGEwFAjT6LRoFdwcGIzA9CRkfRiMxS7RPs//LdOV/GA=
-X-Gm-Gg: AYBFou1f5VZfSbg1uU/TLkkP2sL5rVbsFv5eDiR51mkF6r0QJQko1eTa2EtBqgWwvwm
-	IEoxcMBpJC7e3Nt+xhJDHrQ4GsTLa/HqZc4IxqtsLhq8Alr3fKd4yElTz6EEN0qQOafpt7u57fM
-	GO/wbwXRWt+anKFo+YUZGF29CAZ5LKwlocH2MiKZh7WelQQ2BUKCpK48JAPRM3JJrraX727dR5n
-	Yi6qbnwdfie35rSNXA3cK81Nx1est47Rihf64Xa3Tzh5nuKs5Zuujflzf9OHi9yX+XGDnYNb3g5
-	LcmM9L2qTITxXBugoXTx/lJTSsknq0MsJN4O9EZj5Bc1YY5XLqJ2NIeGf2oLcGN3Fbu6FDkFZbw
-	cspULo6mpKcxOUd59dy+AXmUvS3JfU6fKDW7phE0FW37YGlzoqt6Y3FQB1/8HM4kqKvYLvw==
-X-Received: by 2002:a05:620a:4d0e:b0:939:8148:1e3d with SMTP id af79cd13be357-944215b76dbmr2400377385a.2.1793705788435;
-        Tue, 03 Nov 2026 03:36:28 -0800 (PST)
-X-Received: by 2002:a05:620a:4d0e:b0:939:8148:1e3d with SMTP id af79cd13be357-944215b76dbmr2400373085a.2.1793705787957;
-        Tue, 03 Nov 2026 03:36:27 -0800 (PST)
-Received: from [192.168.226.81] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cebf44eb1sm77475666b.59.2026.11.03.03.36.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 03:36:26 -0800 (PST)
-Message-ID: <a7070853-1e44-4102-8593-857ddb4cfcb8@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 12:36:24 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y0qABuNN
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6064A243E;
+	Tue,  3 Nov 2026 12:33:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793705625;
+	bh=ujEBSZQxL+jUQzjM8s4pNuw/G+D4yaw4qDjeFkGdZ5U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Y0qABuNNa/OdDZu30jGBdZT5YqELt5e2uWDdzAZo3SNPC8ACntrnpmYljQjMul/WW
+	 iFVQyJeP9Bd7f2ISK6e2C0yJ6VE96UJYMXhqFQVZW7LODkVxY59QGSeRFJuflZqUmp
+	 ARsAO25i/TiZCqbHzjVyI7sEf/BT7Ghan+HhIfG0=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Date: Tue, 03 Nov 2026 13:34:25 +0200
+Subject: [PATCH v5 05/15] drm/tidss: Remove the unused vp_bus_type feat
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,62 +55,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] drm/msm/gem: Disallow nr_bos for VM_BIND contexts
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20261102172001.508440-1-robin.clark@oss.qualcomm.com>
- <20261102172001.508440-3-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261102172001.508440-3-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=T4gZ3PKQ c=1 sm=1 tr=0 ts=6ae9c73d cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=Mlro_P0Azzi2O7fenn4A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA0NiBTYWx0ZWRfX8SL7NzcaFNHC
- P3O6oycopfmvlw97rMZ7jNgsS+fmj5zOyspEHT7gQYMiepO2LMkHJLnbpjTjZAyr3/QpQXWu9z4
- bO2JW1Lg0Z0M1dfA6cK+lVo1+857xssBnk+2J2CoI3IJQgxPaxtQZXXRfud1NywyXglmX9dDNUT
- tEPbaGxFWvryet3VyO9/agsoOEAEdq82F7qeu8f8PANuioI7stNfmyWahPI4vxFcpd4Rcqa4wBF
- oSqQhiUtXw9wtdg96aRA+0ITgTDbiO9IYCnETw+LT/ayUWwVVbeCk/uGILSKOBrSt4wp6xyb5dQ
- 7Na/QPEukL8QVgXJhn5YCPEJjBd8m0hbGPioOvTEbLhsSkhsa0un+MJkPbx6RCirP8mOIDGUzA+
- Hcr2CW39hYWl+34TOM9zgZmqxqdeWRBYLNYYxOlFcBmOb0vdfcbrvm+78U0W+IxLdz50esCGPyA
- Ab8Fp4ovIRCxQlN4PAg==
-X-Proofpoint-GUID: 2lJmZFzeJ_k_U1LA3M-KoBokdG8v_2Eh
-X-Proofpoint-ORIG-GUID: 2lJmZFzeJ_k_U1LA3M-KoBokdG8v_2Eh
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA0NiBTYWx0ZWRfX9zhlatljjKZB
- BjCpv1ydrbeZM5hixEAF2rt/JFmIQrjGIFY/Xy+kRMVMh+UCEq16cZaEpK7cGYnacdc1ZlFzUAJ
- egnLxcJKWjDpcptpxjEGqz+oUxmVFFk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_02,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 spamscore=0 adultscore=0 malwarescore=0
- clxscore=1015 phishscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030046
+Message-Id: <20261103-beagley-ai-display-v5-5-f1c8d0e52bb4@ideasonboard.com>
+References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
+In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, 
+ Devarsh Thakkar <devarsht@ti.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3488;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=ujEBSZQxL+jUQzjM8s4pNuw/G+D4yaw4qDjeFkGdZ5U=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccXbGpRddZtjQEcmqyrI3N8nGzVz3S4J4SR9
+ ym28x4CHWCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHFwAKCRD6PaqMvJYe
+ 9TvzD/9Bym7yo1JAvV1Blee0fp2xAWIO/TWvW06EWr8MVstN9mAPDIDI818ufr/snzsi9duKSHA
+ woiRfK6myIgNHODLHllv9UF0Yzx4Rog3ehrj6umzTFzMHZ/1yi4Zd2A1oPwi65pE1NKERk3jPSi
+ TfJxbkMwlurGfERPgLU2JNmoq4qvI3An6zDIdH1mVyA9u/S+Zso9ancdAY+4I/aur8MM27lECSl
+ mW8imOKFK6CwmitqISKeRdSJzeBap5WFC0+Pd3eYFF2ucOx2t8xPolkll39UT0CVh59Jy43Czq2
+ XvXNGGkWshd4ySkV/hUQ/21iZa2ORGoHYPtzBfe/3goZ+RniWCKmg4DUhyGiaTB8TZsAHK+BrCH
+ T9Y3cPXHhaZolrK77OTdUiv/ZK51XxMEb0Yrou9d5/Q+xOMGY2UNokdq/iS1RMaap+BKC6rVc6Y
+ Ha7YFnYqRYp4Zt6gpvB2CScoZM/wN7rFEbSmBC299+fAabHwxxiUsACOkuD7D7USxJy4b7qRKzp
+ kXtwdrQmhzNzXAEJ4vNcnYRoNo3p71Vw6b3CBqn5QBjheSA8hbjxnbp2+GqvA/BHktVEIT8l0C+
+ UC+QDkAcehmWXYZsFtFQpPnXqQ8g9HFnKBhmicCJYEvaF592ZORrsTThfRoi5n/jn8d6ophcaTa
+ HFoPodLo9c/cmsQ==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-On 11/2/26 6:19 PM, Rob Clark wrote:
-> If using VM_BIND, it is invalid to attach BOs to a GEM_SUBMIT ioctl.
-> Only the VM_BIND ioctl should be used for binding objects.
-> 
-> Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+Nothing reads the 'vp_bus_type' feat any more, and can be removed.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+ drivers/gpu/drm/tidss/tidss_dispc.c | 9 ---------
+ drivers/gpu/drm/tidss/tidss_dispc.h | 9 ---------
+ 2 files changed, 18 deletions(-)
 
-Konrad
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+index 8c537280faf5..028cf78df3fe 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.c
++++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+@@ -90,7 +90,6 @@ const struct dispc_features dispc_k2g_feats = {
+ 	.vp_name = { "vp1" },
+ 	.ovr_name = { "ovr1" },
+ 	.vpclk_name =  { "vp1" },
+-	.vp_bus_type = { DISPC_VP_DPI },
+ 
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+@@ -167,7 +166,6 @@ const struct dispc_features dispc_am65x_feats = {
+ 	.vp_name = { "vp1", "vp2" },
+ 	.ovr_name = { "ovr1", "ovr2" },
+ 	.vpclk_name =  { "vp1", "vp2" },
+-	.vp_bus_type = { DISPC_VP_OLDI_AM65X, DISPC_VP_DPI },
+ 
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+@@ -262,9 +260,6 @@ const struct dispc_features dispc_j721e_feats = {
+ 	.vp_name = { "vp1", "vp2", "vp3", "vp4" },
+ 	.ovr_name = { "ovr1", "ovr2", "ovr3", "ovr4" },
+ 	.vpclk_name = { "vp1", "vp2", "vp3", "vp4" },
+-	/* Currently hard coded VP routing (see dispc_initial_config()) */
+-	.vp_bus_type =	{ DISPC_VP_INTERNAL, DISPC_VP_DPI,
+-			  DISPC_VP_INTERNAL, DISPC_VP_DPI, },
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+ 			.gamma_size = 1024,
+@@ -328,7 +323,6 @@ const struct dispc_features dispc_am625_feats = {
+ 	.vp_name = { "vp1", "vp2" },
+ 	.ovr_name = { "ovr1", "ovr2" },
+ 	.vpclk_name =  { "vp1", "vp2" },
+-	.vp_bus_type = { DISPC_VP_INTERNAL, DISPC_VP_DPI },
+ 
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+@@ -384,8 +378,6 @@ const struct dispc_features dispc_am62a7_feats = {
+ 	.vp_name = { "vp1", "vp2" },
+ 	.ovr_name = { "ovr1", "ovr2" },
+ 	.vpclk_name =  { "vp1", "vp2" },
+-	/* VP1 of the DSS in AM62A7 SoC is tied off internally */
+-	.vp_bus_type = { DISPC_VP_TIED_OFF, DISPC_VP_DPI },
+ 
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+@@ -422,7 +414,6 @@ const struct dispc_features dispc_am62l_feats = {
+ 	.vp_name = { "vp1" },
+ 	.ovr_name = { "ovr1" },
+ 	.vpclk_name =  { "vp1" },
+-	.vp_bus_type = { DISPC_VP_DPI },
+ 
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
+index 3dff391d3fec..ebaf559d56e5 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.h
++++ b/drivers/gpu/drm/tidss/tidss_dispc.h
+@@ -59,14 +59,6 @@ struct dispc_errata {
+ 	bool i2000; /* DSS Does Not Support YUV Pixel Data Formats */
+ };
+ 
+-enum dispc_vp_bus_type {
+-	DISPC_VP_DPI,		/* DPI output */
+-	DISPC_VP_OLDI_AM65X,	/* OLDI (LVDS) output for AM65x DSS */
+-	DISPC_VP_INTERNAL,	/* SoC internal routing */
+-	DISPC_VP_TIED_OFF,	/* Tied off / Unavailable */
+-	DISPC_VP_MAX_BUS_TYPE,
+-};
+-
+ enum dispc_dss_subrevision {
+ 	DISPC_K2G,
+ 	DISPC_AM625,
+@@ -87,7 +79,6 @@ struct dispc_features {
+ 	const char *vp_name[TIDSS_MAX_PORTS]; /* Should match dt reg names */
+ 	const char *ovr_name[TIDSS_MAX_PORTS]; /* Should match dt reg names */
+ 	const char *vpclk_name[TIDSS_MAX_PORTS]; /* Should match dt clk names */
+-	const enum dispc_vp_bus_type vp_bus_type[TIDSS_MAX_PORTS];
+ 	struct tidss_vp_feat vp_feat;
+ 	u32 num_vids;
+ 	struct dispc_vid_info vid_info[TIDSS_MAX_PLANES];
+
+-- 
+2.43.0
+
