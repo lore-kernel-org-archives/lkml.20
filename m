@@ -1,99 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695502;
-	b=qI8LjHcCusE/Cl3qENObnAJYaOCqcqW0ZA3WJJ0dZeJvg6oKn1QhrcB6ia3Upxf+3LVr
-	 50/a8JcYx6ISZmKZChKDW3XPPm3MjcOd0w6hNNi8CDRoCPLPTzW8sbd+QahEZR2ZRWhPf
-	 CdGFpFx+a16KJmSiPShZdW+TiS+/worb4NDj6RGoM3IqY4uI6cq0OpUQmDM1GM1oAcD8B
-	 v+fHfhMY1UdJ9+MK+G2/grEXIXC6iFozddEPn5Cnvy3BiVJl0Ll9awoK5E+Td/jiqdgcq
-	 UDydO2yuObGKCSJTkTg2WSD/xxO5i5jVtxuGeVDZX1y27wygth1ke18yuUJNz0CUpvg==
+	t=1793695539;
+	b=s4NNX8VzFgIIRvP3AysnCmu+GBHeUOEwTRdvVw4+Yy24MVuq3N/6m53J1blNggHRyE8a
+	 cVHMBhFtWtfU1VINfUUmxFYTQVpCmhlFuHtXSWnSLSaGTLDp5sSPFZ+AjkBujyb4ochVM
+	 xKzsRANbYHLFNO5S51iK5pV0HwrZZXcnsaxI8VjBc8Y8+FYD8jO7NbV9SljBi/9IUrv98
+	 06sVTye5INK2I6tfGwq9wHu3yVkZzdB9+TxnP9s5dDC43Q5pX+NrbI51Ks9O0/dx/VC2d
+	 4d7lPtBlbAdNIh5YQ/k0QWZ3eng7Mi02PEvuinZRQRUtKd2QQ/SiE10Ed7Gu4njoKEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695502;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=+jpPh4m+peQuQ9WA8cXHA/qOhK6T9NmnutAIkA0W11I=;
-	b=lpZE7KY+if4MmV7yR8DNPu2fGFNdEzNxSsFLWEkB0fRHz5MYM9sfd0WhOLzISyaJBn0R
-	 1Yp5l4Fo/WgQEFYQQbyz7ej23V0SIiMb8ZL6jwRpbWbBaG/Xuu0YVbZoxfK+zKHie+1Iv
-	 1tZL9sU//EICzM/W3H3twJSFB+fWKZjonS8rs0UvWsIYaEc7E8tMbovDsLLFp8sEFsWC3
-	 AdYACQuvMcFUSqPLkdmOfo+Q+KaoBo31xRHc4HzwiGBpSI9dJvcm5bfs9ekMqsGD6RkyA
-	 bbVojPia7qOIDZqqPc7De1ynSYi29GiOeXbFT2TUZJR8QvG/SlkQoIVKpTKfLumXliw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695539;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HTgGh75AKF7JtZw7sCDB/mISauV2EyQCWjbc+0T+Gms=;
+	b=jJts6FhafLC+OBw1Zeas/1+GLMzXo024wwYOazVeQmOOiubJY5uSRjBEQWA8dsmXtr2i
+	 kDTkhCHbgi9MlnmYphQfTwp1rf2+es24z5uU/fqPg4Rx2/oZ/ISUeffhuev/Fua15ALRo
+	 gsHFqwfwsl8MG7OdmIyDb1dNfmS7Xn09BKUn0BMb0UR2RAellgEkDWAz40SaYGWy8bkY1
+	 uvtTwIxF9m4ACcQlVRl8J53HaOElJXeTtS4YoLL3lEGRYWq7UJoDzj5zSvay/pUhYCbwO
+	 GAqdRsQKGrwnyUuh/XrKqy7ISesHHUmSPCtR145zeG1hc1b9VEI+E3bnQsghNrrIRig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ETXBEAF9;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C1P+xjqX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E92D606B6F2
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:45:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E92D606B6F2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A751606A326;
+	Tue,  3 Nov 2026 08:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ETXBEAF9
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so40397585e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:45:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793695500; x=1794300300; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+jpPh4m+peQuQ9WA8cXHA/qOhK6T9NmnutAIkA0W11I=;
-        b=ETXBEAF9FTHf76WhBpbzKpamTtfjH1SrqQqtwsoAg3cqiERUsPmm1sqC64mpizPeB6
-         xQ9MVMR3eomgZY1DP1BdziRIx0GmRIrWEBY3dgNGQDtG59kbUdeXCmB/CRKUO4kdFl8n
-         5te4XYowJJF8KB/1yV0vW3QIkoOkSSg3BzELqkAgP3VIX2NRSdND2TCh6muRhG5WhI6k
-         1+8kYWbUBnCfQjIDLwb9L+mRiyjq1F6iZ+cKpYirpmFjn7MST1jkz8YggwYoLAUvUEXk
-         9OTnrQhSsWaI2v5E+jDd0YVV/CfShrYC6a41I8/6lO+gMTP80JkxfITWreiKZXh4zc+K
-         KfCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793695500; x=1794300300;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+jpPh4m+peQuQ9WA8cXHA/qOhK6T9NmnutAIkA0W11I=;
-        b=xDhsyAHLF91Os/R0dtBtb/DeOlHf/VjQ6BnBXOPKld61/+sFTBE+W4FnwvDqEWufYS
-         GdgQcUD+gVo7LLfvO5m1iyzq6KaPs8cwd67gTzjGMr7+9zOBiKLonYZXE2X2zwGBCY74
-         vhTT/EQSFwVudezEtS5YoEaONEo8fa5HbqK3PdQCO3EOWYMtTxOIDYYBlTe1Pf0B3bW5
-         4BPNWqOnI31wFAaZ56GVqv+AplhopKcPqPRxs8rK9kHr8J+V+HP6oKrplyCteeTQwr80
-         0VhrPe8z6kYwSJLmbQRye0wtqHFLwK8baiP981YrScCMSZI96LdzJnEXMdZhlzbOElGw
-         Hk3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxjWalaOLmyaq2FV2BVRsFTxyWGwwofnrHVcN1Q/CDSBoQt7rOzBBDSL7QLwft+mkcPXaHHZCVR3xlPPKE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96bemq3xNI5Qx8sG9TlWw/SlW7KvOGwAg6CRZE9nUK3ARyq21/
-	1BMepIIRyRU3rXTyQ/AMhglrf2oz297Cke0+AeNmjWRJ5wdf9477puMj
-X-Gm-Gg: AYBFou1FrHgsvpD2xjtbBhVsFBBgChF6O013b/LE7RDJWx8NRWmv9lu4KLW9aCjdmj2
-	AfnCdwPsx4iWytfQAD1X4UtgEiO/Qtoky9a8h2ZyekyEcHkkvsdQ3f4v3uGHuvvj1NOFFDJvZjQ
-	EA5WBUVs8kLOzfYrRjc/74EHpw4DkTux0AkAPkOuzakBcZrQldQTX72RFyv5YULiV3yBFIf5ytI
-	FPeWc5CoTRe3HczTn4RpOb77zNwqSq/5OzGgfVe/W2lXVaZZfiV11x/g/iRNwGXXdx5Jx4J45cF
-	8+AOBK3lOwxva4H62xrngmsImb6guVHi7WFSqJyfDu+ofl4/Ul0YNn9Kif3Ak/CR+ZCmQPh/we1
-	0BxHae5yEWLtIH8Saq6/edhLZ3qiolcg+1iCSJpaRUvHitF0GVavlVQaWlbXCm8Mt45Jc9uo255
-	NQ4+ta7zKyccvXWbq6Ctgu3vjlQnEDzL9eCXNqdpA3Ue9lh+jivesy6pUqwjsUpUsHBDw90/357
-	X/fzGDK00+85GR2CZx55gam/wDX5jV3RZnW4eFdJ2q+hE1M6hTLs+Nr6o34g3ctYNxEz6nGTGZc
-	kSvE9EOCxDi/4e2UYRbGBhoXdBXfsCtQMyJV9ynBbKuUlbd+MyqfqKgrYPPpjGqqsD6+HaK7sQ5
-	pRDs85YsMDLfY/hAq1b7tgsi4A9YQjN0l99zycKZm3CgBdfwSV84b1pQsxavE/kwOI+A=
-X-Received: by 2002:a05:600c:3554:b0:4a1:e7ce:107b with SMTP id 5b1f17b1804b1-4ac150b20eamr297842715e9.2.1793695499792;
-        Tue, 03 Nov 2026 00:44:59 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78c10sm23373364f8f.25.2026.11.03.00.44.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:44:59 -0800 (PST)
-Date: Tue, 3 Nov 2026 11:44:55 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Alex Elder <elder@ieee.org>
-Cc: Maritu Hone <marehone12@gmail.com>, Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Bryan O'Donoghue <bod@kernel.org>, greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	outreachy@lists.linux.dev
-Subject: Re: [PATCH] staging: greybus: uart: fix heap buffer overflow in
- gb_tty->buffer
-Message-ID: <aumfB5MLWIQuTYY3@stanley.mountain>
-References: <20261102195332.19860-1-marehone12@gmail.com>
- <f3848ac6-a105-4581-8f17-fc9d3f748b74@ieee.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C1P+xjqX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569511F000C1;
+	Tue,  3 Nov 2026 08:45:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793695539;
+	bh=HTgGh75AKF7JtZw7sCDB/mISauV2EyQCWjbc+0T+Gms=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C1P+xjqXf/TXroGZhiYgYA0PrR6zo+kHIQkXIH4MJ9CRJ9tQyDRQC1xHaxX8NFpub
+	 vYu2U7a4xQFnToTkslUPRO2TaaA36eDdyfkYuwLOAMD3GtSxwIY3TpsG+j1NpzweDg
+	 t+8dn+tEAT80zamJNPIQ6Wk0TVVxB+hDgkf3VYDyJIz897kEkMjZK1uhSTlZYnVAhb
+	 6zqw2u6NYc8zdZ8xIJIHuhMf5OeWcwWPzngaemYDl+vS2F3WW9M/M0LubRBHngAELS
+	 WJXeyi/y0DmHjCLe8SPg1HmUXXFTKDQgTd9vkMhFw2jHKfy/huwPappK5UtknXyypP
+	 rzqNjMsl3FMLA==
+Date: Tue, 3 Nov 2026 08:45:22 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Hugh Dickins <hughd@google.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Byungchul Park <byungchul@sk.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Dave Chinner <david@fromorbit.com>, David Rientjes <rientjes@google.com>, 
+	Dennis Zhou <dennis@kernel.org>, Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, 
+	Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>, 
+	Matthew Brost <matthew.brost@intel.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Nick Piggin <npiggin@gmail.com>, 
+	Nico Pache <nico.pache@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>, 
+	Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Will Deacon <will@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Manfred Spraul <manfred@colorfullife.com>, 
+	Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org
+Subject: Re: [PATCH 2/7] MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
+Message-ID: <aume40GKpYIoqEkN@gremlin>
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+ <20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
+ <b04d8d01-b42d-d948-b7b8-c360f8ec6002@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,104 +87,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f3848ac6-a105-4581-8f17-fc9d3f748b74@ieee.org>
+In-Reply-To: <b04d8d01-b42d-d948-b7b8-c360f8ec6002@google.com>
 
-On Mon, Nov 02, 2026 at 03:33:58PM -0600, Alex Elder wrote:
-> On 11/2/26 1:53 PM, Maritu Hone wrote:
-> > gb_tty->buffer is allocated once in gb_uart_probe() and reused for
-> > every outgoing chunk as the backing store for a
-> > struct gb_uart_send_data_request:
-> > 
-> > 	struct gb_uart_send_data_request {
-> > 		__le16	size;
-> > 		__u8	data[];
-> > 	} __packed;
-> > 
-> > In gb_uart_tx_write_work():
-> > 
-> > 	request = gb_tty->buffer;
-> > 	...
-> > 	send_size = gb_tty->buffer_payload_max;
-> > 	if (send_size > gb_tty->credits)
-> > 		send_size = gb_tty->credits;
-> > 	send_size = kfifo_out_peek(&gb_tty->write_fifo,
-> > 				   &request->data[0], send_size);
-> > 
-> > request->data starts 2 bytes (sizeof(request->size)) into
-> > gb_tty->buffer, and up to buffer_payload_max bytes are written there
-> > whenever enough data is queued and credits allow it. That needs
-> > buffer_payload_max + sizeof(struct gb_uart_send_data_request) bytes
-> > of backing storage, i.e. max_payload bytes.
-> > 
-> > gb_tty->buffer is allocated with only buffer_payload_max bytes:
-> > 
-> > 	gb_tty->buffer_payload_max = max_payload -
-> > 			sizeof(struct gb_uart_send_data_request);
-> > 	gb_tty->buffer = kzalloc(gb_tty->buffer_payload_max, GFP_KERNEL);
-> > 
-> > so a full-size write overruns the allocation by exactly
-> > sizeof(struct gb_uart_send_data_request) (2) bytes, corrupting
-> > whatever follows it on the heap.
-> > 
-> > Allocate max_payload bytes instead, which is exactly
-> > sizeof(struct gb_uart_send_data_request) + buffer_payload_max, so the
-> > buffer is large enough for the header and the full data payload it is
-> > used to hold.
-> > 
-> > Fixes: dd1c64ede97f ("greybus: uart: kmalloc for send_data once only")
-> > Signed-off-by: Maritu Hone <marehone12@gmail.com>
-> 
-> I think I understand what you're saying, but it took a bit
-> for me to follow it.  I try explaining it in my own words;
-> please make sure it aligns with what you mean.  I think it's
-> also helpful to explain how this issue was found (by a tool,
-> or by inspection, or through examining the corruption that
-> was produced as a result of this).
-> 
-> 
-> The UART Greybus driver allocates a single buffer to be used
-> for all send_data operations on a connection.  It allocates it
-> in gb_uart_connection_init(), with a size allocated to be as
-> big as possible for the connection, but the size used is wrong.
+On Tue, Nov 03, 2026 at 12:27:22AM -0800, Hugh Dickins wrote:
+> Okay: but do keep in mind that tmpfs is a filesystem, and often the
+> FS folks make small adjustments to it, which usually go unconflictingly
+> through Christian Brauner's tree. That generally works well, so please
+> let's keep on working in that way (just once I remember holding off
+> intended MM changes to shmem.c for a release, while FS were busy there).
 
-gb_uart_connection_init() was renamed to gb_uart_probe() ten
-and a half years ago...  :P
+One thing that's useful is keeping certain files in multiple sections at
+once - we do this already for some mm/fs boundary stuff and it works well.
 
-> 
-> The error is in gb_uart_connection_init(), where the buffer
-> size is computed and the buffer is allocated.  There, the size
-> of the buffer is computed to be the maximum size of the data
-> portion of a gb_uart_send_data_request structure (*without*
-> the size field).
-> 
-> The problem occurs in gb_uart_tx_write_work(), where the buffer
-> is cast to be a gb_uart_send_data_request structure.  That means
-> the buffer contains a *full* gb_uart_send_data_request structure,
-> not just that structure's data portion.
-> 
-> You're saying that the buffer size calculated in gb_uart_probe()
-> should be max_payload (the maximum operation message payload
-> size), not the calculated buffer_payload_max value.
+That way you can make sure the right people are cc'd on it but not restrict
+fs's ability to do what they need also.
 
-Wow..  Heh...  I have read both the original message and your
-message and I still have no idea which function contains the
-actual memcpy() overflow.  :P
-
-There are two sizes:
-1.  The size of the whole struct from
-    gb_operation_get_payload_size_max(connection).
-2.  The size of the variable length array stored in
-    gb_tty->buffer_payload_max.
-
-I have reviewed gb_uart_tx_write_work() and it uses
-send_size (which is the size of the variable length array)
-consistently and correctly so far as I can see.
-
-I didn't follow through each function to see if there was a math
-error somewhere else.  I'm not going to do that because either
-way the commit message needs to be more clear where the actual
-corruption occurs.
-
-regards,
-dan carpenter
-
+--
+Cheers, Lorenzo
