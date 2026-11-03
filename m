@@ -1,53 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732840;
-	b=qp0ecpRmuFAILot6/iGjdEzpdxrV3vaBKKkIWMBx1s9/y8T0vKJR5hxyp4S1z+mboxOy
-	 HUJMegbMjL+R8J28sSVjmO2QnrjU95+eYJJsCQBD/52mfXfXP0BpDjY4Dq4FXMfmSXXEO
-	 AO1RUbI8v7o4fVd6d+9FEBtYa2J4Wbu77b9lhtC48PNqQZq8BtH/AYrBrzFVkGdvI6h+5
-	 +2+eeqbM0Ln6fJA4TvkmojDqator+rgpE8aneBkU7RxrOgTUaYRCNUniMbjIeCXJjuSEY
-	 R2Fo+eQ4nnlxrm7yHxSYg7VJh2M51jHpSp5Nlmq5LL/n++MtcbPZ0xNq+8b7rTO9bbw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732840;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=YKxG32AxsufUd7YchK7727X8TY3T1MC6mpG7My++UTg=;
-	b=Nkumtrs4y0ClaxaDbSc9UydUSDuYLr/m1LShrhkdeNerTX9NNZuOwpnS6NUg3UXln/VZ
-	 q/5d50XTk0FhwE0pb9WFIkaz3JnAsUYSTSKmg+Iqj9EVWiissa+I1xgGznL2sjNSwz+WN
-	 mGrGk/hMRKwjfSK68MBCq9IB305p/f+LppjdVFyoZIPyjrI8UnbkR1tvecy0Zwio17+n7
-	 LBvWchtLyFDrTsohdnZu2aTSLrSRRYMDFJLBBdpUNI2F7Xc2D3PfyD6LltDsDWGKiU41M
-	 JHSOsV0D/R7lt+/7zsNwtxO1FdZLZBV5nr5LZ0/SRDnJHfMpmXa7eQT9seyei+Mkkjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.199
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793732835;
+	b=LuAT5XdrFM32xEm8Vf+EYzdD3d3eK+mylnlVqju/rlyAwtb3tqY/8jhklT/7NgYonL4K
+	 H+jVHJYfnfMshhKF6xoBy4hjc/UHrwyjCarrWNEuv69jo6ady01EBg1imSEy87WjxW3d8
+	 D+M01kX7oD7Wa5Y72Fi/GJPcrpFwluvEBqYHksoYETCCHP2+SIQAwJzXHfb0hYRtAGZjQ
+	 pc2pzecXMe22gdupDNsxwBYKszZGzz0ZkRQR7T3V3Ni6cdlRALbCCXCQxJLa6md5hyxyw
+	 moODE6tFEMzVjGNp47X7Yx7vTRWQIgfDoXZDPwxk/g7r8HfQC3A2tgwSk19wbwG8xDA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732835;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=0+u/BWUffFdCK5nAB/ga6GWLedobIPyeWluDDSR1ayw=;
+	b=peFBgQop/RmJREWbm9WWpZDphXv/n9JHNAG5SK2pUKqkHLLz2hJN7gDeT9eWKIcR5FsC
+	 W91JU7KEexH1UWax+/5hCLNgNOop5REqS1j0A8fBaqA2X1neDfeDgunsB/gsYTK1aJutk
+	 h3vS8cahUsD4KIdkuzvsJm5CQqajO6D5RMqVHKyIsAV3j4JYs/kgymeJ8iRbEIqEGdJhl
+	 uJCLZtx675mvsIb+dWZm8zVBt0Lm1bewFOoo5a7ZeX7h+ayyr42mM5X5ao2Cbq3ryB4OY
+	 mOIP8GbPJVeabdqY7KVERINyenHzQVA1PF0D+n8GJk537Qaak1Mgjx5cBO42KE3fWAg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cFPmZ9oB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.199
+Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69078606A326;
-	Tue,  3 Nov 2026 19:07:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69078606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJykF5hzRz8Xrr9;
-	Wed, 04 Nov 2026 03:07:17 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6A3J73md084144;
-	Wed, 4 Nov 2026 03:07:03 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 4 Nov 2026 03:07:07 +0800 (CST)
-X-Zmail-TransId: 2afc6aea30db9b5-d1efc
-X-Mailer: Zmail v1.0
-Message-ID: <20261104030707567QiZNPqBVEESVbvpNukFkY@zte.com.cn>
-Date: Wed, 4 Nov 2026 03:07:07 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C192A606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:07:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C192A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cFPmZ9oB
+Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so2512614b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:07:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793732834; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UqF7KqTD//DY0qTP/uo11q1q1n07tubWCG1M24CjTkuaaBzAQazWBy1CkMyAfjNSDr
+         OPOKe2S3t0Dvg/8/7HblfzxVpqJa05LCryob0yYWhYV32fWjmPsa3WF/bXYYwroQ67cx
+         1f7/A29DICbitpuimUMuivyiUGzx4HfyeBro14PHFn9oF7cGbFvjtAthjeoiOQiWQJQg
+         RQBlzqbE/XuWFfhDyoszb7AmkaKzcN7mpPIoYt6BbbZrtkdEEDuzJzqdOqwrPl5FeGYm
+         lU0SmUM0P9mWzpCJQ2m03dcdb9f8ZhIB/LrLCGHTmHMVK20Yh0AczuzH+m65B5cKnJHS
+         1vxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0+u/BWUffFdCK5nAB/ga6GWLedobIPyeWluDDSR1ayw=;
+        fh=uKt9tRbxHUbxoOXAaX1I+uMyxNnBRcfwmG3lOKjTO28=;
+        b=HirKyaXQA1PJH8qJgksSwHeyPXeBzk7snO4PlnzgYbzYG3wK31Zg/oePK/jmN5m3PW
+         OA0g4waiMvXBxsDewv5esnyevqOfEK1ciIaOc8nhdMUp+heFZslNc82FA+/Ch3PaLHwy
+         Xwa9Te3XqXHLcbHJgWLUtJxCPsH+LcYo0277gSQjXI6qOhbzE5becwhsqUnufJMvuy2J
+         dw98ueg4sroxEqXAXLtxraO6Y/qeN8pLzPPxFfpmyDDcIOfYRp4eKwyrSNAQNgeFRMv4
+         qmJdPmUh2ODsPzy41Z30JexMDfTQi3BCjJZDEXSj+XGZUC0GilmEk+vp8LZGA5mqSdFc
+         vnIA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793732834; x=1794337634; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0+u/BWUffFdCK5nAB/ga6GWLedobIPyeWluDDSR1ayw=;
+        b=cFPmZ9oBtx6sPRiaoSpMhTsu/UgMBSoUg22SmPUWKZtTiPqs6CrMsI/VE/th70956B
+         MVR8J6qRtAb/eVlxAs/9TsKwx2vnJ0sn66lNOYbIGzCABHlV9KKjng1KBw+OVpYu/3kx
+         40eO71sWgNJSamIiN9eY5SbzLnTaU4WxNvhggS1NPAD2r0+anEsUsOi1dPiOpMJ/QqbH
+         Sdb3LxWrv/zmiWA6L7yfVza5hciJIhXQIHdZqNVu9TCMKknagCQf8HD9A/04gnoO1O9T
+         BgRYpijIJydDETK6pBBNJrJD5R1TOX8EvtdDdCewmhiLmn6ktMfYAo+LuB5MJHfGzc6L
+         7R3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793732834; x=1794337634;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0+u/BWUffFdCK5nAB/ga6GWLedobIPyeWluDDSR1ayw=;
+        b=KiyNlKvYNo0jX7JiIeTH5xHZspnxIvcRUPpsKU1LPMm8/m1qF5WBzvbgCmyKdTj4mH
+         3gksCXswrMnjHItGHYLi07CjwzC+R4NgE1f5EZUKBYxLJtgNhd489Q9PetQuiOX28L1n
+         nqx3Vwjg0vMaQQl3CEcoualskAaquC8FLTebcxJXfM9kLGRmb4LovZVUlfggn4V6Qau9
+         tHK97P18+Dsul4vA4SWnMQL1oRojuyU4wcrVimueFZ1s3oSIMw6kQIlt5AlHiX+XZPg1
+         qBa7769uOldY1d1xwp3fOhQWQFUeSrkWPOAZu+iyE4tt8wbdCp4e8PzfCzORgmkqsgsC
+         yVNg==
+X-Forwarded-Encrypted: i=1; AKwUvBzDojZbq0w4A/rbQrUknVOp0dpxCh13iJ3VxiEB7tM3K0PJZQuhZNuv8QWnkCMtMLIg+EwZVAjvFVQQvyI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9K3UQAT/Oz8/Z1hRgS1AqjC0pwf219wTC31PConM0lmDH7+eRu
+	Ww9qDajaMP6ARa++EnI9Lqzj8h4nWHk3n10PQ01/VqJqjSwuTL7GjCx6vREF1e/M20bkUZBTaMC
+	jMgwiBjYlS2ezp+ad8EcAAzv6EGy9H5Q=
+X-Gm-Gg: AYBFou11xDT/7ACHxiqIWuG00U0rQQgNB8QdMrpxlh5kMLER6BJdhV6B2pwB4VujdIx
+	bH3JG7za1VkmmXkGR2EpTMqG1f0ekKtr6ys2F48oWnwoDPOSFJXwpbwjx3UeOanfub3EHLvLUPq
+	D71ZXR3SXUQOQlP9mIWwcUsj+aL9kBgbISsGv+XNIpj1acPlDl3YLuskEh3uT5jptdMouG0tT5b
+	eAiETPob9ipPa1BBHyuJSfuxk3HIvplBgHKw5bDImL1u592e3yPHbvPjLzrl2sKA7X4QB5llFeB
+	BVk3Lzi3bfL2fHsXiI7Sqlmdr6RIeITOeCIGqguuRfLDbBPBTR6wnokiTMFOSnV6sxOmqThs2a/
+	4Ei+2agynu3m+KGcQpNAU/vjJuGGWMhs4ZnJucG+bQwmuYDacylQrg0e1ELpkUnbuvbIh/irkPE
+	GYsMX0Wk2NzR0wLw==
+X-Received: by 2002:a05:6808:17a3:b0:55c:928:69d7 with SMTP id
+ 5614622812f47-5640e0a4dd6mr8734775b6e.67.1793732833765; Tue, 03 Nov 2026
+ 11:07:13 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,57 +103,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDAvMl0gbnZtZXQ6IHBjaS1lcGY6IGZpeCBhIGNvbmZpZ2ZzIG92ZXJmbG93IGFuZCBhIGZhaWxlZC1yZWFkIGhhbmc=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A3J73md084144
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 03:07:17 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEA30E5.000/4jJykF5hzRz8Xrr9
+MIME-Version: 1.0
+References: <20261103072234.55611-1-dennylin0707@gmail.com> <aunPPm1d3G6yVCLC@thinkstation>
+In-Reply-To: <aunPPm1d3G6yVCLC@thinkstation>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Tue, 3 Nov 2026 11:07:02 -0800
+X-Gm-Features: AclHuK_s_h176gaiDao9usKlX4K0x8D5lo_mqJC-t5QWJ8dGUnHlKYyTf7Wz6B8
+Message-ID: <CAGEkeHcANE5wkbQHkOZ0E0NsJJ-_JaD45yidU8XJatw56tqaGQ@mail.gmail.com>
+Subject: Re: [PATCH] buffer: avoid extending i_size after failed writes
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
+	willy@infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-This series fixes two independent bugs in the NVMe PCI endpoint function
-target driver.
+> Do you want to give it a try instead? Or want me to submit a proper patch?
 
-Patch 1 fixes a heap overflow in the subsysnqn configfs attribute.  The
-store callback passed the length of the configfs write buffer to
-strscpy() as the destination size; an NQN longer than NVMF_NQN_SIZE
-therefore wrote past subsysnqn into the following fields of the
-nvmet_pci_epf object.
+Thanks for the suggestion. I'll try your approach in
+generic_perform_write() and send a patch after testing.
 
-Patch 2 fixes a hang on failed read commands.  queue_response() completed
-a command with a non-zero status directly, without waking
-exec_iod_work(), which is waiting for the transfer of a DMA_TO_DEVICE
-command.  The completion queue work could then free the iod while the
-work item was still waiting on iod->done.  The work item now waits based
-only on the data direction and length, and completes the command after
-the wait even when it failed.  This is a follow-up to the recent fix for
-the use-after-free in the same function (c9e9bb757971), which moved the
-wait decision earlier but left the failed-command case from
-746d0ac5a07d in place.
-
-The two patches are independent, have no inter-patch dependencies and can
-be applied in any order or as a subset.  Both carry Fixes: and
-Cc: stable.
-
-Testing: both apply to next-20261030, pass checkpatch.pl --strict with
-0 errors/0 warnings/0 checks, and drivers/nvme/target/pci-epf.c builds
-with CONFIG_NVME_TARGET_PCI_EPF=m and W=1 without new warnings.
-
-Patch 1 was also reproduced and re-tested in QEMU (7.3.0-next-20261030,
-configfs pci_ep framework, no endpoint controller needed): writing a
-230-byte value through the subsysnqn attribute stored it and clobbered
-mdts_kb (512 -> 4276545) before the fix, and is rejected with -EINVAL
-after it.  Patch 2 was not runtime-tested: this setup has no PCI
-endpoint controller.
-
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+Thanks,
+Hungyu
