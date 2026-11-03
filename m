@@ -1,93 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700734;
-	b=JajE56ExrGAIIq2J9gPcGuTvNoIGO4Och63VAd8cCb+qVII0nLRm44vrJBGKbj/nlhVD
-	 3ttrFujROpWHU2lq4e9+IRDOT/AAyYQVX4ZGro2ReL6KJX52XU4iyvXop/mxJ/xdDd/eG
-	 KEoHXzdsH0ODCk1uO9RTocTQHZQ2h2m06G/d+8kRQeHJM2ClroWqg+O9bs2KuBSpPDsU8
-	 bdgxGFt1QqG5Q8qQ4SfXGK6nS16TUi7nZRlOAAF0olnXOie43a8r6RmzYAaWwL0emAnHh
-	 LWJwHYCRiVpbJ1jDSwgQw1P/VyXL1D2A4YGp89ma4aL3x24aI+QTIK12CvK4YpCY6wA==
+	t=1793700761;
+	b=GkG7lq0EJy1cfpdq2JhOA9Za4+Gc7NWbJ4FOzdQcRnzjHFedw2kpMFVFp8GbgQKntWzJ
+	 rUqCmLFLGX26VBqje0GfbDEOZ7WRssajD1Lek1ZjCXJ2hk1yxWV5kqtbOmQodPnifP330
+	 3ntUR+tra5fsf3hxMOOJEl44rzJoxZA0I7B+ND4gBaJiYAo9pjgm/wXmxyahH2XwIZlyd
+	 PNDU8DT6qDCOGS5tmHMyNuVqwftOnLQXvUC5efpDdQBaqIjn88Zv3IJD1VJG6URpefvcK
+	 +CZ6/NLBpa06WvBBvB+tt1el8vAWf7thVwDLg9Ehp3KT+fhItzMlAcMm/m/FrrP6kMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700734;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FfNOitLIXBWU/EzJpPhxbyv+UkEWJ2JnXPpF+ZYiRo4=;
-	b=1wctI9JTOC83+cReaOegwRPFJ9vbMG+YNwgwuHlhO5TKNBY3ssXEkhb6ejQLpDy3jYMc
-	 +bUXnJ7rmpdy85N8KHzSpatbgf8g4v4RsvY02B4dajhq9EzEJ41VuzkpiVpZeW/NKmq0c
-	 ZTYG6c3v4Ifm+/1FIggH4EwEgSFZ0+BytNDOkwbph42opCm7ISwi0lExWFSZaKgOFjWsT
-	 cHjc+E0dhUvW6ztWcUIH9gY7Tm+h9ii8qdS3jFoPUsJKyNd0TO1Bn7b3QTe0fYtKh3bKP
-	 P2X3343uhEwr5IZUEOCe1xbsRsb/qIOW3T0FmtMW+HyF/jCykiPwLSB54Ysdp4nfzsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700761;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=rmU0lOMI73VyRNzdBu44GHmLmeTwCCxZpA5Js0VgXVc=;
+	b=VgPJn9NYkrjqt1uc4t263h1aqucYGQIGWdlTJ65WeGD6hZPa46I6IdrgNSg2Z+xo4H6W
+	 OES83Dgh9RINm+28RajA6XXAwQVjmFYrrAbzfjn2LnNZWKvit+7YEpgu52nEPc25xnglL
+	 rJY8y/+sJbHmWRUjlm0TFjDfZZx6dTbDuXTcmbUqIjZqQ7TygmMBc4u3tCNL6B/3g+EYW
+	 nBJPvzueDoZudTS/utznksFqw2ktCBIPvc/BD+ciHYEL+G6QZ+VAPZkxprzOmwdqHFVvC
+	 y9+GMDYg4eV45uo0aCoZEwLbdqAgabKSF7ZINck84VT/t8HqRwHHvEul3cmkm9ew7hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C2gakbdt;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VkGdETdc;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FA8606A803
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:12:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83FA8606A803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C36606C546;
+	Tue,  3 Nov 2026 10:12:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19C36606C546
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C2gakbdt
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e987b4a710so2797905ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:12:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793700734; x=1794305534; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FfNOitLIXBWU/EzJpPhxbyv+UkEWJ2JnXPpF+ZYiRo4=;
-        b=C2gakbdthO2ch0hfbmtxSmZ0Hirj4mIMqIv1yfvxzNQBGgoazOeSxau91fX9x0ovmU
-         +TzPJSce3FNeiA5crKSeebOsG1PXz/49YYd6buyHWeuMAhlg5UEjYWETsQfFrWu6K93n
-         KOPM8W7gDbYxfrC3jy3SAdq2AgQrrgFOGqLivpbr2cO6eWQF576MXVSlFnj/nV+lDkoW
-         Nsa842j3LaYzltc50hJbAUB6k6+YdxOj45/GPiLX0OOeDk/n7DGMi8E3J8MdWEn4QRZw
-         nliHY5Di3ljO25IUg1cW4QosN2WocV4Bq+kgpzUxQmB94ZXar0d4dvrflAl/eSe8Avab
-         WdvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793700734; x=1794305534;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FfNOitLIXBWU/EzJpPhxbyv+UkEWJ2JnXPpF+ZYiRo4=;
-        b=fIjvYIYGiftL9kbvyAHw/JWctLN9qUmUWZPA1fdhvx3W7spK/6ttII6z/FLm1j1wYd
-         hQPnQh41Ddy8TWPRt1/PKS7zBLP7ht7ee3LtI31sLClROPWuqZ0KogFRBXsHrKZa0dzu
-         jd/Nnc2kzlRkOXSicQmBRJfVD51k1opmNeO3bxQzjo0vNe5j7ebs9Uj4hIl/30qslYdC
-         3H3zbYVAPjijOPsfya5D6rLmXYh8v2E6RLNzJ7qMIVC6kTdcsRs5Q4kES95nishxX8sE
-         YtnP50tDMdIlbR45WOtrr0Jqpns0R4t1gXOlKmc2RzAzmc1H3aCJ5PbS5IAARlCXj0/l
-         eMwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZguIsd8fHCb69lZZEumkSKSk08kTbIZNjk++Ck+P1kO5bYGfwZaTsGHWJumNvsZCPLlgZoL33/RGsAk8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7rmCq1yydRuA3Ya7TXqyJLamxw6FsayeVe6rZYfG9mutiGunm
-	SvSLNEuNBnGShOTmtXx3ViTe/G2i68t1wc9OLny2NuXlmfmHm2qbZIDy
-X-Gm-Gg: AYBFou3fi/YjpU/PFQJkC3K3kKCSMh8UNF76LDOvwKUqtOOPoeeFy3BbkfpuDDpsCxL
-	o1Wn30Z2DI4T4ix9OWJFLOIvTc6ee4jIbyVTiqDQ3fycJozeH/qoe/1ff5gPLmTPsNMx6CoUHX5
-	bVmBjYCfXW++PeNjGgBWVoKzrftNAvoXOW5KPAAvOrcyBHqxGJSyuNyCHjfD+pbGd453VbD0e55
-	d7VuyNSBaubvoiSy+lS6lclj/ys60t/R1AfEcF9iHBLzX7myPbS5Z4iL0Fr34G+KQejcf9W/lDX
-	fHvBCUwaXhgkIH94KjviFUCcaPNqoYT9PB1pQ4L2E4ha6XVAaPnpSIl2FWP2eLGYbhtnuy0jDBk
-	hwDEM75JAEYpj3ELZSxgUt4uByCUw0wtwv1Z5X24ZVEGs+dvhpKubjmL1mOevpxcDCCeFcjtfbi
-	1FFxHwnlNkaV2+P2CKfy4bKmxOBxjYZnVo+WfAwS3FwwfL9Nf9cz2SoxMZ3RyVBTmESgdlseGHX
-	J3ori9wpn1/ebjUJv6643BVQNCVKcJvvYWgJ6F+I6f2XKwW7nSDSH1R1xq+neIadn3y42xoJAun
-	N8WHsfDS5yBMCXGOBObqX/EhSEf17IZdbVizaUArrrTL35A/zkAchtLEuRM=
-X-Received: by 2002:a17:90b:1cc5:b0:3ae:3d82:5d88 with SMTP id 98e67ed59e1d1-3ae8917bf84mr7426716a91.0.1793700733700;
-        Tue, 03 Nov 2026 02:12:13 -0800 (PST)
-Received: from localhost.localdomain ([106.101.10.14])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aebc89475asm4934624a91.0.2026.11.03.02.12.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 02:12:12 -0800 (PST)
-From: Seungbum Ju <seungbum.ju@gmail.com>
-To: Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Seungbum Ju <seungbum.ju@gmail.com>
-Subject: [PATCH] f2fs: wait for node writeback on the first fsync after a checkpoint
-Date: Tue,  3 Nov 2026 19:12:08 +0900
-Message-ID: <20261103101208.4550-1-seungbum.ju@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VkGdETdc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793700759;
+	bh=DGyuH1RLL2NLAi4E9FC+VwwNK0cWsuaQH1J59ikPRVg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=VkGdETdckJt4qpdcHprsdCiU5V0T1sNFT0X4WAMQz21ca/6fPT+DFefRGwoJrV8yg
+	 xjgM/MBwy46LdqK4wwoJizqRQdeb0LbFz4Av+7rfDAt72JLbfGo51lyX69tXUtKnFh
+	 WbJnKD7RwZUBebclY1Xu8YrJ/tKmJW6f/UqTyvkTucLqD004Y39p92bvf1lvCiiLwo
+	 opcJqTmy0/oiA8iXX4tgyHR3m1DFHPlyacY/o5Ovp1lJkZAWsXyLQxC4DvIlkOZpRq
+	 DD5WPlme74dEj96isZEEkUIXGgFuktyrrWngnEn9w1xflThqx/Tla3Zm6zkKpPH6CZ
+	 koKR0PsMiU9oA==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 94FFF17E0A80;
+	Tue, 03 Nov 2026 11:12:38 +0100 (CET)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Date: Tue, 03 Nov 2026 11:12:08 +0100
+Subject: [PATCH net-next v4 03/10] dt-bindings: net: mediatek-dwmac: add
+ support for MT8189 SoC
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,57 +63,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-dwmac-mediatek-mt8189-v4-3-c86c14fc50f4@collabora.com>
+References: <20261103-dwmac-mediatek-mt8189-v4-0-c86c14fc50f4@collabora.com>
+In-Reply-To: <20261103-dwmac-mediatek-mt8189-v4-0-c86c14fc50f4@collabora.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Biao Huang <biao.huang@mediatek.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793700755; l=3237;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=DGyuH1RLL2NLAi4E9FC+VwwNK0cWsuaQH1J59ikPRVg=;
+ b=dSvGCwOf4kMy9Oa/yUSl/XCo+k8Y/LmjUBZjvxw0skoIVWEHfnllD2sfNBjRX8LZI4/qpP8e7
+ 4lynl0cl/RYAQ4qzd71Lq6d7y93AeXUrT6KZuSa77YX6ur5Yi9ogP1e
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-f2fs_add_fsync_node_entry() numbers each fsync'd warm node page with
-sbi->fsync_seg_id++, and f2fs_reset_fsync_node_info() sets the counter back
-to 0 at every checkpoint. The first node page fsync'd after a checkpoint
-therefore gets seq_id 0, which f2fs_do_sync_file() passes to
-f2fs_wait_on_node_pages_writeback(). That function treats 0 as "nothing to
-wait for":
+Add new compatible string and clock definitions for the Ethernet MAC
+IP found in MT8189 SoC.
 
-    while (seq_id && cur_seq_id < seq_id) {
+Regarding the required clocks, the MT8189 datasheets list in the
+paragraph related to this IP clocks the mac main and ptp reference
+clocks as the ones to turn on.
 
-so the fsync issues its cache flush without waiting for its own node page.
-If the flush completes before the node write, the inode's fsync-marked
-node block (needed by roll-forward recovery) is not covered by the flush,
-and a power loss can lose data that fsync reported as durable. In our
-traces the first fsync after a checkpoint returned before its node write
-completed in many trials.
+No specific peripheral clock for Ethernet MAC is described in the SoC
+clock list.  But at the same time, the Ethernet MAC block diagram,
+present in the datasheets, shows this IP is interconnected to the rest
+of SoC with AXI and APB interfaces (and in MT8188 datasheet too).
+There is no APB related clock, that is specific to the IP in MT8189,
+contrary to MT8188 or MT8195 that have one. But since it is on an APB
+bus (likely shared between multiple IPs), then there is a bus clock for
+peripheral access. Describing the IP having it makes sense, same thing
+for AXI too, so the clock lists for this compatible are reflecting
+that.
 
-Start the numbering at 1, so that 0 keeps meaning "no node page written".
+Also, don't allow mediatek,rmii-clk-from-mac property for MT8189
+compatible.
 
-Testing (kernel 7.0.0-42, f2fs built as a module from the same source,
-QEMU/KVM, block-layer FLUSH/FUA model with dm-log-writes replay):
-- block traces, append+fsync after sync: FLUSH issued before the node
-  write completed in 29/30 first fsyncs unpatched, 0/30 patched; never
-  for later fsyncs;
-- crash-state replay (28 cells x 3 recordings per module): SQLite
-  WAL/TRUNCATE/PERSIST, LevelDB, RocksDB, LMDB and an append log lose
-  acknowledged commits or become unopenable in 24 cells unpatched, and
-  are clean in all of them patched.
-
-The same code is present in Android GKI android12-5.10 through
-android15-6.6 and in the f2fs dev tree as of 2026-11-02.
-
-Fixes: 50fa53eccf9f ("f2fs: fix to avoid broken of dnode block list")
-Cc: stable@vger.kernel.org
-Signed-off-by: Seungbum Ju <seungbum.ju@gmail.com>
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 ---
- fs/f2fs/node.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../devicetree/bindings/net/mediatek-dwmac.yaml    | 42 +++++++++++++++++++---
+ 1 file changed, 37 insertions(+), 5 deletions(-)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 1234567..89abcdef 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -361,7 +361,7 @@ static unsigned int f2fs_add_fsync_node_entry(struct f2fs_sb_info *sbi,
- 	spin_lock_irqsave(&sbi->fsync_node_lock, flags);
- 	list_add_tail(&fn->list, &sbi->fsync_node_list);
--	fn->seq_id = sbi->fsync_seg_id++;
-+	fn->seq_id = ++sbi->fsync_seg_id;
- 	seq_id = fn->seq_id;
- 	sbi->fsync_node_num++;
- 	spin_unlock_irqrestore(&sbi->fsync_node_lock, flags);
+diff --git a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+index 956240616638..0fc2eed06646 100644
+--- a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+@@ -20,13 +20,11 @@ select:
+         enum:
+           - mediatek,mt2712-gmac
+           - mediatek,mt8188-gmac
++          - mediatek,mt8189-gmac
+           - mediatek,mt8195-gmac
+   required:
+     - compatible
+ 
+-allOf:
+-  - $ref: snps,dwmac.yaml#
+-
+ properties:
+   compatible:
+     oneOf:
+@@ -36,6 +34,7 @@ properties:
+           - const: snps,dwmac-4.20a
+       - items:
+           - enum:
++              - mediatek,mt8189-gmac
+               - mediatek,mt8195-gmac
+           - const: snps,dwmac-5.10a
+       - items:
+@@ -45,7 +44,7 @@ properties:
+           - const: snps,dwmac-5.10a
+ 
+   clocks:
+-    minItems: 5
++    minItems: 4
+     items:
+       - description: AXI clock
+       - description: APB clock
+@@ -55,7 +54,7 @@ properties:
+       - description: MAC clock gate
+ 
+   clock-names:
+-    minItems: 5
++    minItems: 4
+     items:
+       - const: axi
+       - const: apb
+@@ -153,6 +152,39 @@ required:
+   - phy-mode
+   - mediatek,pericfg
+ 
++allOf:
++  - $ref: snps,dwmac.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - mediatek,mt2712-gmac
++              - mediatek,mt8188-gmac
++              - mediatek,mt8195-gmac
++    then:
++      properties:
++        clocks:
++          minItems: 5
++
++        clock-names:
++          minItems: 5
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - mediatek,mt8189-gmac
++    then:
++      properties:
++        clocks:
++          maxItems: 4
++        clock-names:
++          maxItems: 4
++
++        mediatek,rmii-clk-from-mac: false
++
+ unevaluatedProperties: false
+ 
+ examples:
+
 -- 
-2.45.0
+2.56.0
+
